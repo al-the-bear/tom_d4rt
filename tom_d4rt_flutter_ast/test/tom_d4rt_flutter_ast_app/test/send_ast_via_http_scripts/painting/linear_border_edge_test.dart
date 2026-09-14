@@ -122,7 +122,11 @@ dynamic build(BuildContext context) {
         top: 0.0,
         child: Column(
           children: [
-            Container(width: 2.0, height: 22.0, color: tealDeep),
+            Container(
+              width: 2.0,
+              height: 22.0,
+              color: tealDeep,
+            ),
             Text(
               spec['label'] as String,
               style: TextStyle(
@@ -709,7 +713,10 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: sageMid.withValues(alpha: 0.6), width: 1.2),
+        border: Border.all(
+          color: sageMid.withValues(alpha: 0.6),
+          width: 1.2,
+        ),
         boxShadow: [
           BoxShadow(
             color: sageMid.withValues(alpha: 0.30),
@@ -863,11 +870,17 @@ dynamic build(BuildContext context) {
             OutlinedButton.icon(
               onPressed: () {},
               icon: Icon(Icons.bolt, color: cream),
-              label: Text('Outlined', style: TextStyle(color: cream)),
+              label: Text(
+                'Outlined',
+                style: TextStyle(color: cream),
+              ),
               style: OutlinedButton.styleFrom(
                 shape: outlinedButtonShape,
                 side: BorderSide(color: cream, width: 2.0),
-                padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 18.0,
+                  vertical: 12.0,
+                ),
               ),
             ),
             FilledButton.tonal(
@@ -877,7 +890,10 @@ dynamic build(BuildContext context) {
                 shape: filledButtonShape,
                 backgroundColor: cream,
                 foregroundColor: tealDeep,
-                padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 12.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 22.0,
+                  vertical: 12.0,
+                ),
               ),
             ),
             FilledButton(
@@ -892,7 +908,10 @@ dynamic build(BuildContext context) {
                 ),
                 backgroundColor: sageSoft,
                 foregroundColor: tealDeep,
-                padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 12.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 22.0,
+                  vertical: 12.0,
+                ),
               ),
             ),
           ],
@@ -926,7 +945,12 @@ dynamic build(BuildContext context) {
       'rrb': 'no',
       'crb': 'no',
     },
-    {'feature': 'Rounded corners', 'lbe': 'no', 'rrb': 'yes', 'crb': 'smooth'},
+    {
+      'feature': 'Rounded corners',
+      'lbe': 'no',
+      'rrb': 'yes',
+      'crb': 'smooth',
+    },
     {
       'feature': 'Best for',
       'lbe': 'tabs / accents',
@@ -1092,7 +1116,12 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          child: Column(children: [comparisonHeader, ...comparisonDataRows]),
+          child: Column(
+            children: [
+              comparisonHeader,
+              ...comparisonDataRows,
+            ],
+          ),
         ),
         SizedBox(height: 14.0),
         Row(
@@ -1228,7 +1257,11 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(f['icon'] as IconData, color: Color(0xFFB35900), size: 26.0),
+          Icon(
+            f['icon'] as IconData,
+            color: Color(0xFFB35900),
+            size: 26.0,
+          ),
           SizedBox(width: 10.0),
           Expanded(
             child: Column(
@@ -1260,7 +1293,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFFFF8F0), Color(0xFFFFEAD2).withValues(alpha: 0.7)],
+        colors: [
+          Color(0xFFFFF8F0),
+          Color(0xFFFFEAD2).withValues(alpha: 0.7),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1339,7 +1375,10 @@ dynamic build(BuildContext context) {
           Icon(Icons.check_circle, color: tealMid, size: 18.0),
           SizedBox(width: 8.0),
           Expanded(
-            child: Text(p, style: TextStyle(fontSize: 12.5, color: cream)),
+            child: Text(
+              p,
+              style: TextStyle(fontSize: 12.5, color: cream),
+            ),
           ),
         ],
       ),

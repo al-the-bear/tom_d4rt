@@ -68,9 +68,8 @@ dynamic build(BuildContext context) {
   Map<String, dynamic> heroMap = <String, dynamic>{};
   String heroError = '';
   try {
-    final TooltipSemanticsEvent hero = TooltipSemanticsEvent(
-      'Save the current document',
-    );
+    final TooltipSemanticsEvent hero =
+        TooltipSemanticsEvent('Save the current document');
     heroType = hero.type;
     heroMessage = hero.message;
     heroRuntime = hero.runtimeType.toString();
@@ -101,9 +100,8 @@ dynamic build(BuildContext context) {
   String mediumType = '-';
   String mediumMessage = '-';
   try {
-    final TooltipSemanticsEvent e = TooltipSemanticsEvent(
-      'Open the velvet drawer',
-    );
+    final TooltipSemanticsEvent e =
+        TooltipSemanticsEvent('Open the velvet drawer');
     mediumType = e.type;
     mediumMessage = e.message;
   } catch (e) {
@@ -126,9 +124,8 @@ dynamic build(BuildContext context) {
   String emojiType = '-';
   String emojiMessage = '-';
   try {
-    final TooltipSemanticsEvent e = TooltipSemanticsEvent(
-      'Bookmark this passage',
-    );
+    final TooltipSemanticsEvent e =
+        TooltipSemanticsEvent('Bookmark this passage');
     emojiType = e.type;
     emojiMessage = e.message;
   } catch (e) {
@@ -296,7 +293,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 18),
         Text('TooltipSemanticsEvent', style: headerStyle),
         SizedBox(height: 6),
-        Text('Whispered hints for the screen reader', style: subHeaderStyle),
+        Text(
+          'Whispered hints for the screen reader',
+          style: subHeaderStyle,
+        ),
         SizedBox(height: 16),
         Container(
           width: double.infinity,
@@ -492,7 +492,11 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(width: 6, height: 22, color: saffron),
+            Container(
+              width: 6,
+              height: 22,
+              color: saffron,
+            ),
             SizedBox(width: 10),
             Text('API surface', style: sectionTitleStyle),
           ],
@@ -640,7 +644,11 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(width: 6, height: 22, color: plum),
+            Container(
+              width: 6,
+              height: 22,
+              color: plum,
+            ),
             SizedBox(width: 10),
             Text('Related semantics events', style: sectionTitleStyle),
           ],
@@ -824,7 +832,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Container(width: 6, height: 22, color: mauveMid),
             SizedBox(width: 10),
-            Text('iOS VoiceOver vs Android TalkBack', style: sectionTitleStyle),
+            Text('iOS VoiceOver vs Android TalkBack',
+                style: sectionTitleStyle),
           ],
         ),
         SizedBox(height: 10),
@@ -971,7 +980,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Container(width: 6, height: 22, color: mauveDeep),
             SizedBox(width: 10),
-            Text('Semantics tree — emission diagram', style: sectionTitleStyle),
+            Text('Semantics tree — emission diagram',
+                style: sectionTitleStyle),
           ],
         ),
         SizedBox(height: 6),
@@ -1224,7 +1234,10 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 Icon(Icons.warning_amber_rounded, color: plum, size: 16),
                 SizedBox(width: 6),
-                Text('Pitfall ${i + 1} — ${p[0]}', style: bodyEmphStyle),
+                Text(
+                  'Pitfall ${i + 1} — ${p[0]}',
+                  style: bodyEmphStyle,
+                ),
               ],
             ),
             SizedBox(height: 6),
@@ -1352,7 +1365,10 @@ dynamic build(BuildContext context) {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(width: 150, child: Text(g[0], style: glossaryTermStyle)),
+            SizedBox(
+              width: 150,
+              child: Text(g[0], style: glossaryTermStyle),
+            ),
             SizedBox(width: 10),
             Expanded(child: Text(g[1], style: glossaryDefStyle)),
           ],
@@ -1488,7 +1504,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Container(width: 6, height: 22, color: saffron),
             SizedBox(width: 10),
-            Text('Palette swatches — Tooltip Mauve', style: sectionTitleStyle),
+            Text('Palette swatches — Tooltip Mauve',
+                style: sectionTitleStyle),
           ],
         ),
         SizedBox(height: 6),
@@ -1498,7 +1515,9 @@ dynamic build(BuildContext context) {
           style: bodyStyle,
         ),
         SizedBox(height: 14),
-        Wrap(children: swatchTiles),
+        Wrap(
+          children: swatchTiles,
+        ),
       ],
     ),
   );
@@ -1627,7 +1646,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Container(width: 6, height: 22, color: mauveDeep),
             SizedBox(width: 10),
-            Text('tooltip vs label vs hint vs value', style: sectionTitleStyle),
+            Text('tooltip vs label vs hint vs value',
+                style: sectionTitleStyle),
           ],
         ),
         SizedBox(height: 6),
@@ -1674,14 +1694,12 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             SizedBox(
               width: 200,
-              child: Text(
-                hintLabels[i],
-                style: TextStyle(
-                  color: slate,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(hintLabels[i],
+                  style: TextStyle(
+                    color: slate,
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  )),
             ),
             Expanded(
               child: ClipRRect(
@@ -1728,7 +1746,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Container(width: 6, height: 22, color: saffron),
             SizedBox(width: 10),
-            Text('Tooltip-message length budget', style: sectionTitleStyle),
+            Text('Tooltip-message length budget',
+                style: sectionTitleStyle),
           ],
         ),
         SizedBox(height: 6),
@@ -1808,7 +1827,10 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: cream.withValues(alpha: 0.4)),
               ),
-              child: Text('message = "$heroMessage"', style: chipStyle),
+              child: Text(
+                'message = "$heroMessage"',
+                style: chipStyle,
+              ),
             ),
           ],
         ),

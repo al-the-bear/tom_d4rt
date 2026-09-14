@@ -8,13 +8,7 @@ import 'package:flutter/material.dart';
 // ============================================================================
 // HELPER: COLORED CHIP CARD
 // ============================================================================
-Widget _chip(
-  String label,
-  Color bg, {
-  Color fg = Colors.white,
-  double w = 220.0,
-  double h = 56.0,
-}) {
+Widget _chip(String label, Color bg, {Color fg = Colors.white, double w = 220.0, double h = 56.0}) {
   return Container(
     width: w,
     height: h,
@@ -22,11 +16,7 @@ Widget _chip(
       color: bg,
       borderRadius: BorderRadius.circular(8.0),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          blurRadius: 4.0,
-          offset: Offset(0.0, 2.0),
-        ),
+        BoxShadow(color: Colors.black26, blurRadius: 4.0, offset: Offset(0.0, 2.0)),
       ],
     ),
     alignment: Alignment.center,
@@ -53,11 +43,7 @@ Widget _heroHeader() {
       ),
       borderRadius: BorderRadius.circular(16.0),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black54,
-          blurRadius: 12.0,
-          offset: Offset(0.0, 6.0),
-        ),
+        BoxShadow(color: Colors.black54, blurRadius: 12.0, offset: Offset(0.0, 6.0)),
       ],
     ),
     child: Column(
@@ -75,11 +61,7 @@ Widget _heroHeader() {
         SizedBox(height: 8.0),
         Text(
           'A deep visual tour of position-driven motion',
-          style: TextStyle(
-            color: Color(0xFFE1BEE7),
-            fontSize: 14.0,
-            fontStyle: FontStyle.italic,
-          ),
+          style: TextStyle(color: Color(0xFFE1BEE7), fontSize: 14.0, fontStyle: FontStyle.italic),
         ),
         SizedBox(height: 16.0),
         Text(
@@ -103,11 +85,7 @@ Widget _sectionBanner(int n, String title, List<Color> gradient) {
     margin: EdgeInsets.fromLTRB(12.0, 24.0, 12.0, 8.0),
     padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 18.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: gradient,
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-      ),
+      gradient: LinearGradient(colors: gradient, begin: Alignment.centerLeft, end: Alignment.centerRight),
       borderRadius: BorderRadius.circular(10.0),
     ),
     child: Row(
@@ -122,23 +100,14 @@ Widget _sectionBanner(int n, String title, List<Color> gradient) {
           alignment: Alignment.center,
           child: Text(
             n.toString(),
-            style: TextStyle(
-              color: gradient.first,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: gradient.first, fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(width: 14.0),
         Expanded(
           child: Text(
             title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 17.0,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.0,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold, letterSpacing: 1.0),
           ),
         ),
       ],
@@ -174,11 +143,7 @@ Widget _frameLabel(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 11.0,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: Colors.white, fontSize: 11.0, fontWeight: FontWeight.bold),
     ),
   );
 }
@@ -227,12 +192,7 @@ Widget _timelineFrame(Offset offset, String label, Color color) {
 // ============================================================================
 // HELPER: RECIPE CARD
 // ============================================================================
-Widget _recipeCard(
-  String title,
-  String description,
-  Color accent,
-  Widget preview,
-) {
+Widget _recipeCard(String title, String description, Color accent, Widget preview) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     decoration: BoxDecoration(
@@ -254,22 +214,14 @@ Widget _recipeCard(
           ),
           child: Text(
             title,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
           ),
         ),
         Padding(
           padding: EdgeInsets.all(10.0),
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.black87,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
           ),
         ),
         Padding(
@@ -292,22 +244,9 @@ Widget _comparisonRow(String label, String a, String b, Color c) {
     ),
     child: Row(
       children: [
-        SizedBox(
-          width: 140.0,
-          child: Text(
-            label,
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12.0),
-          ),
-        ),
-        Expanded(
-          child: Text(a, style: TextStyle(fontSize: 12.0, color: c)),
-        ),
-        Expanded(
-          child: Text(
-            b,
-            style: TextStyle(fontSize: 12.0, color: Colors.black87),
-          ),
-        ),
+        SizedBox(width: 140.0, child: Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12.0))),
+        Expanded(child: Text(a, style: TextStyle(fontSize: 12.0, color: c))),
+        Expanded(child: Text(b, style: TextStyle(fontSize: 12.0, color: Colors.black87))),
       ],
     ),
   );
@@ -328,19 +267,9 @@ Widget _glossary(String term, String definition, Color color) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          term,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 13.0,
-            color: color,
-          ),
-        ),
+        Text(term, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0, color: color)),
         SizedBox(height: 3.0),
-        Text(
-          definition,
-          style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
-        ),
+        Text(definition, style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4)),
       ],
     ),
   );
@@ -357,14 +286,7 @@ Widget _arrowRow() {
       children: [
         Icon(Icons.arrow_forward, size: 16.0, color: Colors.black45),
         SizedBox(width: 6.0),
-        Text(
-          'time advances',
-          style: TextStyle(
-            fontSize: 11.0,
-            color: Colors.black45,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text('time advances', style: TextStyle(fontSize: 11.0, color: Colors.black45, fontStyle: FontStyle.italic)),
         SizedBox(width: 6.0),
         Icon(Icons.arrow_forward, size: 16.0, color: Colors.black45),
       ],
@@ -379,10 +301,7 @@ dynamic build(BuildContext context) {
   // SECTION 1: ORIGIN AND THE OFFSET COORDINATE SYSTEM
   // ==========================================================================
   // Palette: indigo / blue
-  final s1Banner = _sectionBanner(1, 'ORIGIN AND OFFSET SEMANTICS', [
-    Color(0xFF1A237E),
-    Color(0xFF3949AB),
-  ]);
+  final s1Banner = _sectionBanner(1, 'ORIGIN AND OFFSET SEMANTICS', [Color(0xFF1A237E), Color(0xFF3949AB)]);
 
   final s1Origin = SlideTransition(
     position: AlwaysStoppedAnimation<Offset>(Offset(0.0, 0.0)),
@@ -410,13 +329,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Horizontal offsets — fractions of child width',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1A237E),
-          ),
-        ),
+        Text('Horizontal offsets — fractions of child width',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1A237E))),
         SizedBox(height: 8.0),
         Text(
           'Offsets are NOT pixels. SlideTransition multiplies the Offset by the '
@@ -442,10 +356,7 @@ dynamic build(BuildContext context) {
   // SECTION 2: VERTICAL OFFSETS
   // ==========================================================================
   // Palette: pink / rose
-  final s2Banner = _sectionBanner(2, 'VERTICAL DRIFT — Y AXIS', [
-    Color(0xFF880E4F),
-    Color(0xFFC2185B),
-  ]);
+  final s2Banner = _sectionBanner(2, 'VERTICAL DRIFT — Y AXIS', [Color(0xFF880E4F), Color(0xFFC2185B)]);
 
   final s2Up = SlideTransition(
     position: AlwaysStoppedAnimation<Offset>(Offset(0.0, -1.0)),
@@ -473,13 +384,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Vertical offsets — fractions of child height',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF880E4F),
-          ),
-        ),
+        Text('Vertical offsets — fractions of child height',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF880E4F))),
         SizedBox(height: 8.0),
         Text(
           'Negative Y rises (Flutter coordinates put +Y downward). '
@@ -505,10 +411,7 @@ dynamic build(BuildContext context) {
   // SECTION 3: DIAGONAL OFFSETS
   // ==========================================================================
   // Palette: amber / orange
-  final s3Banner = _sectionBanner(3, 'DIAGONAL VECTORS', [
-    Color(0xFFE65100),
-    Color(0xFFFFA000),
-  ]);
+  final s3Banner = _sectionBanner(3, 'DIAGONAL VECTORS', [Color(0xFFE65100), Color(0xFFFFA000)]);
 
   final s3NW = SlideTransition(
     position: AlwaysStoppedAnimation<Offset>(Offset(-0.5, -0.5)),
@@ -536,13 +439,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Diagonals — two axes combined into a vector',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFE65100),
-          ),
-        ),
+        Text('Diagonals — two axes combined into a vector',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFE65100))),
         SizedBox(height: 8.0),
         Text(
           'Each Offset is a 2D vector. The slide is a single straight-line motion '
@@ -550,21 +448,9 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
         ),
         SizedBox(height: 12.0),
-        Row(
-          children: [
-            Expanded(child: s3NW),
-            SizedBox(width: 8.0),
-            Expanded(child: s3NE),
-          ],
-        ),
+        Row(children: [Expanded(child: s3NW), SizedBox(width: 8.0), Expanded(child: s3NE)]),
         SizedBox(height: 6.0),
-        Row(
-          children: [
-            Expanded(child: s3SW),
-            SizedBox(width: 8.0),
-            Expanded(child: s3SE),
-          ],
-        ),
+        Row(children: [Expanded(child: s3SW), SizedBox(width: 8.0), Expanded(child: s3SE)]),
         SizedBox(height: 6.0),
         s3Steep,
       ],
@@ -575,10 +461,7 @@ dynamic build(BuildContext context) {
   // SECTION 4: TIMELINE — LEFT-TO-RIGHT SLIDE (LINEAR, 5 FRAMES)
   // ==========================================================================
   // Palette: teal / cyan
-  final s4Banner = _sectionBanner(4, 'TIMELINE — LINEAR SLIDE-IN FROM LEFT', [
-    Color(0xFF004D40),
-    Color(0xFF00897B),
-  ]);
+  final s4Banner = _sectionBanner(4, 'TIMELINE — LINEAR SLIDE-IN FROM LEFT', [Color(0xFF004D40), Color(0xFF00897B)]);
 
   final s4Timeline = Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -596,13 +479,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Linear interpolation — equal spacing between frames',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF004D40),
-          ),
-        ),
+        Text('Linear interpolation — equal spacing between frames',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF004D40))),
         SizedBox(height: 8.0),
         Text(
           'A linear Tween<Offset>(begin: Offset(-1,0), end: Offset(0,0)) sampled at '
@@ -621,10 +499,7 @@ dynamic build(BuildContext context) {
   // SECTION 5: TIMELINE — EASE-OUT CURVE (SLOWS NEAR THE END)
   // ==========================================================================
   // Palette: deep purple
-  final s5Banner = _sectionBanner(5, 'CURVED INTERPOLATION — EASE-OUT', [
-    Color(0xFF311B92),
-    Color(0xFF673AB7),
-  ]);
+  final s5Banner = _sectionBanner(5, 'CURVED INTERPOLATION — EASE-OUT', [Color(0xFF311B92), Color(0xFF673AB7)]);
 
   // Curves.easeOut samples (precomputed): t=0 -> 0.0, 0.25 -> 0.41, 0.5 -> 0.72,
   // 0.75 -> 0.91, 1.0 -> 1.0 (approximate; visual purposes only).
@@ -644,13 +519,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Curves.easeOut — rapid start, decelerating finish',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF311B92),
-          ),
-        ),
+        Text('Curves.easeOut — rapid start, decelerating finish',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF311B92))),
         SizedBox(height: 8.0),
         Text(
           'Ease-out covers most ground early then settles into its destination. '
@@ -670,10 +540,7 @@ dynamic build(BuildContext context) {
   // SECTION 6: TIMELINE — EASE-IN CURVE (ACCELERATES NEAR THE END)
   // ==========================================================================
   // Palette: red / coral
-  final s6Banner = _sectionBanner(6, 'CURVED INTERPOLATION — EASE-IN', [
-    Color(0xFFB71C1C),
-    Color(0xFFE53935),
-  ]);
+  final s6Banner = _sectionBanner(6, 'CURVED INTERPOLATION — EASE-IN', [Color(0xFFB71C1C), Color(0xFFE53935)]);
 
   // Curves.easeIn samples (precomputed approx): t=0 -> 0.0, 0.25 -> 0.09,
   // 0.5 -> 0.31, 0.75 -> 0.62, 1.0 -> 1.0
@@ -693,13 +560,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Curves.easeIn — gentle start, accelerating finish',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFB71C1C),
-          ),
-        ),
+        Text('Curves.easeIn — gentle start, accelerating finish',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFB71C1C))),
         SizedBox(height: 8.0),
         Text(
           'Ease-in barely moves at first, then accelerates into its destination. '
@@ -717,10 +579,7 @@ dynamic build(BuildContext context) {
   // SECTION 7: TIMELINE — VERTICAL DROP (TOP-DOWN, EASE-OUT)
   // ==========================================================================
   // Palette: green
-  final s7Banner = _sectionBanner(7, 'VERTICAL TIMELINE — DROP DOWN', [
-    Color(0xFF1B5E20),
-    Color(0xFF43A047),
-  ]);
+  final s7Banner = _sectionBanner(7, 'VERTICAL TIMELINE — DROP DOWN', [Color(0xFF1B5E20), Color(0xFF43A047)]);
 
   final s7Timeline = Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -738,13 +597,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Top-of-screen drop with deceleration',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1B5E20),
-          ),
-        ),
+        Text('Top-of-screen drop with deceleration',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1B5E20))),
         SizedBox(height: 8.0),
         Text(
           'Banners and snackbar-style notifications often drop from above. '
@@ -763,10 +617,7 @@ dynamic build(BuildContext context) {
   // SECTION 8: TIMELINE — BOTTOM SHEET RISE
   // ==========================================================================
   // Palette: brown / sepia
-  final s8Banner = _sectionBanner(8, 'BOTTOM SHEET RISE', [
-    Color(0xFF3E2723),
-    Color(0xFF6D4C41),
-  ]);
+  final s8Banner = _sectionBanner(8, 'BOTTOM SHEET RISE', [Color(0xFF3E2723), Color(0xFF6D4C41)]);
 
   final s8Timeline = Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -784,13 +635,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Modal bottom sheet — rises from below',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF3E2723),
-          ),
-        ),
+        Text('Modal bottom sheet — rises from below',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF3E2723))),
         SizedBox(height: 8.0),
         Text(
           'Modals usually enter from offscreen-bottom. Tween<Offset>(begin: '
@@ -808,10 +654,7 @@ dynamic build(BuildContext context) {
   // SECTION 9: TEXT DIRECTION — LTR vs RTL
   // ==========================================================================
   // Palette: blue grey
-  final s9Banner = _sectionBanner(9, 'TEXT DIRECTION EFFECTS', [
-    Color(0xFF263238),
-    Color(0xFF546E7A),
-  ]);
+  final s9Banner = _sectionBanner(9, 'TEXT DIRECTION EFFECTS', [Color(0xFF263238), Color(0xFF546E7A)]);
 
   final s9Ltr = SlideTransition(
     position: AlwaysStoppedAnimation<Offset>(Offset(0.5, 0.0)),
@@ -839,13 +682,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'TextDirection mirrors the X axis under RTL',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF263238),
-          ),
-        ),
+        Text('TextDirection mirrors the X axis under RTL',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF263238))),
         SizedBox(height: 8.0),
         Text(
           'When textDirection is RTL, the X component of the Offset is negated '
@@ -870,11 +708,7 @@ dynamic build(BuildContext context) {
           ),
           child: Text(
             'Rule: Effective Offset.dx = (textDirection == RTL) ? -dx : dx',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12.0,
-              color: Color(0xFF263238),
-            ),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: Color(0xFF263238)),
           ),
         ),
       ],
@@ -884,10 +718,7 @@ dynamic build(BuildContext context) {
   // ==========================================================================
   // SECTION 10: COMPARISON — LTR vs RTL FOR THE SAME OFFSET
   // ==========================================================================
-  final s10Banner = _sectionBanner(10, 'LTR vs RTL — SIDE-BY-SIDE COMPARISON', [
-    Color(0xFF01579B),
-    Color(0xFF0288D1),
-  ]);
+  final s10Banner = _sectionBanner(10, 'LTR vs RTL — SIDE-BY-SIDE COMPARISON', [Color(0xFF01579B), Color(0xFF0288D1)]);
 
   final s10Card = _card(
     Color(0xFFE1F5FE),
@@ -898,72 +729,21 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: Color(0xFF01579B),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(6.0),
-              topRight: Radius.circular(6.0),
-            ),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0), topRight: Radius.circular(6.0)),
           ),
           child: Row(
             children: [
-              SizedBox(
-                width: 140.0,
-                child: Text(
-                  'Offset.dx',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'LTR effect',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'RTL effect',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                  ),
-                ),
-              ),
+              SizedBox(width: 140.0, child: Text('Offset.dx', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0))),
+              Expanded(child: Text('LTR effect', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0))),
+              Expanded(child: Text('RTL effect', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0))),
             ],
           ),
         ),
-        _comparisonRow(
-          '1.0',
-          'one width right',
-          'one width LEFT',
-          Color(0xFF0288D1),
-        ),
-        _comparisonRow(
-          '0.5',
-          'half width right',
-          'half width LEFT',
-          Color(0xFF0288D1),
-        ),
+        _comparisonRow('1.0', 'one width right', 'one width LEFT', Color(0xFF0288D1)),
+        _comparisonRow('0.5', 'half width right', 'half width LEFT', Color(0xFF0288D1)),
         _comparisonRow('0.0', 'no motion', 'no motion', Color(0xFF0288D1)),
-        _comparisonRow(
-          '-0.5',
-          'half width left',
-          'half width RIGHT',
-          Color(0xFF0288D1),
-        ),
-        _comparisonRow(
-          '-1.0',
-          'one width left',
-          'one width RIGHT',
-          Color(0xFF0288D1),
-        ),
+        _comparisonRow('-0.5', 'half width left', 'half width RIGHT', Color(0xFF0288D1)),
+        _comparisonRow('-1.0', 'one width left', 'one width RIGHT', Color(0xFF0288D1)),
       ],
     ),
   );
@@ -971,10 +751,7 @@ dynamic build(BuildContext context) {
   // ==========================================================================
   // SECTION 11: transformHitTests — TRUE vs FALSE
   // ==========================================================================
-  final s11Banner = _sectionBanner(11, 'transformHitTests — POINTER LOCATION', [
-    Color(0xFF1B5E20),
-    Color(0xFF388E3C),
-  ]);
+  final s11Banner = _sectionBanner(11, 'transformHitTests — POINTER LOCATION', [Color(0xFF1B5E20), Color(0xFF388E3C)]);
 
   final s11True = SlideTransition(
     position: AlwaysStoppedAnimation<Offset>(Offset(0.4, 0.0)),
@@ -992,13 +769,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Where do taps register after the slide?',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1B5E20),
-          ),
-        ),
+        Text('Where do taps register after the slide?',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1B5E20))),
         SizedBox(height: 8.0),
         Text(
           'transformHitTests controls whether hit testing follows the visual '
@@ -1021,11 +793,7 @@ dynamic build(BuildContext context) {
           child: Text(
             'Tip: leave transformHitTests true unless you have a specific reason '
             'to decouple pointer geometry from visual geometry.',
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Color(0xFF1B5E20),
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF1B5E20), height: 1.4),
           ),
         ),
       ],
@@ -1035,10 +803,7 @@ dynamic build(BuildContext context) {
   // ==========================================================================
   // SECTION 12: NESTED SLIDETRANSITION — COMPOSING OFFSETS
   // ==========================================================================
-  final s12Banner = _sectionBanner(12, 'NESTED COMPOSITIONS', [
-    Color(0xFF4A148C),
-    Color(0xFF7B1FA2),
-  ]);
+  final s12Banner = _sectionBanner(12, 'NESTED COMPOSITIONS', [Color(0xFF4A148C), Color(0xFF7B1FA2)]);
 
   // Outer slides right 0.3, inner slides down 0.3 — child moves diagonally.
   final s12Composed = SlideTransition(
@@ -1065,10 +830,7 @@ dynamic build(BuildContext context) {
       position: AlwaysStoppedAnimation<Offset>(Offset(0.0, 0.1)),
       child: SlideTransition(
         position: AlwaysStoppedAnimation<Offset>(Offset(0.1, 0.1)),
-        child: _chip(
-          'Triple-nest (0.1,0)→(0,0.1)→(0.1,0.1)',
-          Color(0xFF9C27B0),
-        ),
+        child: _chip('Triple-nest (0.1,0)→(0,0.1)→(0.1,0.1)', Color(0xFF9C27B0)),
       ),
     ),
   );
@@ -1078,13 +840,8 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Composing offsets through nested SlideTransitions',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF4A148C),
-          ),
-        ),
+        Text('Composing offsets through nested SlideTransitions',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF4A148C))),
         SizedBox(height: 8.0),
         Text(
           'Each enclosing SlideTransition multiplies its Offset by ITS OWN size '
@@ -1105,15 +862,12 @@ dynamic build(BuildContext context) {
   // ==========================================================================
   // SECTION 13: REAL-WORLD RECIPES
   // ==========================================================================
-  final s13Banner = _sectionBanner(13, 'REAL-WORLD RECIPES', [
-    Color(0xFF006064),
-    Color(0xFF00ACC1),
-  ]);
+  final s13Banner = _sectionBanner(13, 'REAL-WORLD RECIPES', [Color(0xFF006064), Color(0xFF00ACC1)]);
 
   final recipeDrawer = _recipeCard(
     'Drawer entrance from the left',
     'Begin Offset(-1.0, 0.0), end Offset.zero. Use Curves.fastOutSlowIn for material '
-        'spec. Combine with a FadeTransition for polish.',
+    'spec. Combine with a FadeTransition for polish.',
     Color(0xFF00838F),
     Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -1128,7 +882,7 @@ dynamic build(BuildContext context) {
   final recipeSnackbar = _recipeCard(
     'Snackbar enter from the bottom',
     'Begin Offset(0, 1.0), end Offset.zero. Linear or easeOut. Pair with a '
-        'short hold then reverse for natural dismissal.',
+    'short hold then reverse for natural dismissal.',
     Color(0xFF00897B),
     Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -1143,7 +897,7 @@ dynamic build(BuildContext context) {
   final recipeBanner = _recipeCard(
     'Hint banner descending from the top',
     'Begin Offset(0, -1.0), end Offset.zero. Pair with a soft drop shadow to '
-        'sell the "from above" perception.',
+    'sell the "from above" perception.',
     Color(0xFF5D4037),
     Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -1158,8 +912,8 @@ dynamic build(BuildContext context) {
   final recipeCarousel = _recipeCard(
     'Carousel slide — next item enters from the right',
     'Two simultaneous SlideTransitions: outgoing item from Offset.zero → '
-        'Offset(-1,0), incoming item from Offset(1,0) → Offset.zero. Use the same '
-        'curve for both for visual coherence.',
+    'Offset(-1,0), incoming item from Offset(1,0) → Offset.zero. Use the same '
+    'curve for both for visual coherence.',
     Color(0xFF6A1B9A),
     Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -1174,7 +928,7 @@ dynamic build(BuildContext context) {
   final recipeDismiss = _recipeCard(
     'Card swipe-dismiss to the right',
     'Begin Offset.zero, end Offset(1.5, 0.0) — overshoot the viewport so the '
-        'card visibly leaves. easeIn for a definitive exit.',
+    'card visibly leaves. easeIn for a definitive exit.',
     Color(0xFFD84315),
     Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -1189,8 +943,8 @@ dynamic build(BuildContext context) {
   final recipeRtlDrawer = _recipeCard(
     'Drawer entrance — RTL locale',
     'Same Offset(-1.0, 0.0) source; textDirection: TextDirection.rtl flips the '
-        'horizontal axis so the drawer enters from the visual right without changing '
-        'your Offset.',
+    'horizontal axis so the drawer enters from the visual right without changing '
+    'your Offset.',
     Color(0xFF1565C0),
     SlideTransition(
       position: AlwaysStoppedAnimation<Offset>(Offset(-1.0, 0.0)),
@@ -1202,10 +956,7 @@ dynamic build(BuildContext context) {
   // ==========================================================================
   // SECTION 14: COMPARISON TABLE — SLIDETRANSITION vs ALTERNATIVES
   // ==========================================================================
-  final s14Banner = _sectionBanner(14, 'COMPARING SLIDETRANSITION TO COUSINS', [
-    Color(0xFF263238),
-    Color(0xFF455A64),
-  ]);
+  final s14Banner = _sectionBanner(14, 'COMPARING SLIDETRANSITION TO COUSINS', [Color(0xFF263238), Color(0xFF455A64)]);
 
   final s14Card = _card(
     Color(0xFFF5F5F5),
@@ -1216,83 +967,22 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: Color(0xFF263238),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(6.0),
-              topRight: Radius.circular(6.0),
-            ),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0), topRight: Radius.circular(6.0)),
           ),
           child: Row(
             children: [
-              SizedBox(
-                width: 140.0,
-                child: Text(
-                  'Widget',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'Driver',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'Best for',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                  ),
-                ),
-              ),
+              SizedBox(width: 140.0, child: Text('Widget', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0))),
+              Expanded(child: Text('Driver', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0))),
+              Expanded(child: Text('Best for', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0))),
             ],
           ),
         ),
-        _comparisonRow(
-          'SlideTransition',
-          'Animation<Offset>',
-          'translation in child-fractions',
-          Color(0xFF455A64),
-        ),
-        _comparisonRow(
-          'FractionalTranslation',
-          'Offset (static)',
-          'no animation — just shift',
-          Color(0xFF455A64),
-        ),
-        _comparisonRow(
-          'Transform.translate',
-          'Offset (pixels)',
-          'absolute pixel offsets',
-          Color(0xFF455A64),
-        ),
-        _comparisonRow(
-          'PositionedTransition',
-          'Animation<RelRect>',
-          'inside Stack, full rect',
-          Color(0xFF455A64),
-        ),
-        _comparisonRow(
-          'AnimatedSlide',
-          'Offset target',
-          'implicit, simpler API',
-          Color(0xFF455A64),
-        ),
-        _comparisonRow(
-          'AlignTransition',
-          'Animation<AlignGeo>',
-          'alignment-anchored motion',
-          Color(0xFF455A64),
-        ),
+        _comparisonRow('SlideTransition', 'Animation<Offset>', 'translation in child-fractions', Color(0xFF455A64)),
+        _comparisonRow('FractionalTranslation', 'Offset (static)', 'no animation — just shift', Color(0xFF455A64)),
+        _comparisonRow('Transform.translate', 'Offset (pixels)', 'absolute pixel offsets', Color(0xFF455A64)),
+        _comparisonRow('PositionedTransition', 'Animation<RelRect>', 'inside Stack, full rect', Color(0xFF455A64)),
+        _comparisonRow('AnimatedSlide', 'Offset target', 'implicit, simpler API', Color(0xFF455A64)),
+        _comparisonRow('AlignTransition', 'Animation<AlignGeo>', 'alignment-anchored motion', Color(0xFF455A64)),
       ],
     ),
   );
@@ -1300,10 +990,7 @@ dynamic build(BuildContext context) {
   // ==========================================================================
   // SECTION 15: GLOSSARY
   // ==========================================================================
-  final s15Banner = _sectionBanner(15, 'GLOSSARY', [
-    Color(0xFF37474F),
-    Color(0xFF607D8B),
-  ]);
+  final s15Banner = _sectionBanner(15, 'GLOSSARY', [Color(0xFF37474F), Color(0xFF607D8B)]);
 
   final s15Card = _card(
     Color(0xFFFAFAFA),
@@ -1313,53 +1000,53 @@ dynamic build(BuildContext context) {
         _glossary(
           'Offset',
           'A 2D vector (dx, dy). In SlideTransition, dx and dy are fractions of '
-              'the child\'s width and height respectively.',
+          'the child\'s width and height respectively.',
           Color(0xFF1A237E),
         ),
         _glossary(
           'Animation<Offset>',
           'Any object with a .value of type Offset and listenable status. '
-              'AlwaysStoppedAnimation, Tween.animate(), and CurvedAnimation chains '
-              'all satisfy this interface.',
+          'AlwaysStoppedAnimation, Tween.animate(), and CurvedAnimation chains '
+          'all satisfy this interface.',
           Color(0xFF311B92),
         ),
         _glossary(
           'AlwaysStoppedAnimation<Offset>',
           'A constant-valued Animation<Offset> with status = dismissed. Perfect '
-              'for static visual snapshots inside a flipbook.',
+          'for static visual snapshots inside a flipbook.',
           Color(0xFF4A148C),
         ),
         _glossary(
           'Tween<Offset>',
           'A lerp between two Offsets. Calling .animate(curvedAnimation) '
-              'produces an Animation<Offset> that smoothly interpolates begin → end.',
+          'produces an Animation<Offset> that smoothly interpolates begin → end.',
           Color(0xFF880E4F),
         ),
         _glossary(
           'TextDirection',
           'ltr or rtl. RTL negates the Offset\'s dx before applying. Vertical '
-              'motion is never affected by TextDirection.',
+          'motion is never affected by TextDirection.',
           Color(0xFFB71C1C),
         ),
         _glossary(
           'transformHitTests',
           'Whether pointer events follow the visual translation. Default true. '
-              'Set false for overlays that should remain tappable in their pre-slide '
-              'bounds.',
+          'Set false for overlays that should remain tappable in their pre-slide '
+          'bounds.',
           Color(0xFFE65100),
         ),
         _glossary(
           'Curves',
           'Functions mapping a linear t∈[0,1] to a non-linear t\'∈[0,1]. '
-              'easeIn lingers then accelerates; easeOut accelerates then settles; '
-              'linear is uniform.',
+          'easeIn lingers then accelerates; easeOut accelerates then settles; '
+          'linear is uniform.',
           Color(0xFF1B5E20),
         ),
         _glossary(
           'Frame',
           'A single rendered visual at a fixed point in time. This flipbook '
-              'composes frames using AlwaysStoppedAnimation so no controller is '
-              'required.',
+          'composes frames using AlwaysStoppedAnimation so no controller is '
+          'required.',
           Color(0xFF263238),
         ),
       ],
@@ -1369,49 +1056,21 @@ dynamic build(BuildContext context) {
   // ==========================================================================
   // SECTION 16: KEY POINTS SUMMARY
   // ==========================================================================
-  final s16Banner = _sectionBanner(16, 'KEY POINTS', [
-    Color(0xFF004D40),
-    Color(0xFF00695C),
-  ]);
+  final s16Banner = _sectionBanner(16, 'KEY POINTS', [Color(0xFF004D40), Color(0xFF00695C)]);
 
   final s16Card = _card(
     Color(0xFFE0F2F1),
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Six things to remember',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF004D40),
-            fontSize: 14.0,
-          ),
-        ),
+        Text('Six things to remember', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF004D40), fontSize: 14.0)),
         SizedBox(height: 8.0),
-        Text(
-          '1. Offsets are fractions of the child\'s own size, not pixels.',
-          style: TextStyle(fontSize: 12.5, height: 1.6),
-        ),
-        Text(
-          '2. Offset(1.0, 0.0) = one full child-width right; (0,1) = one full height down.',
-          style: TextStyle(fontSize: 12.5, height: 1.6),
-        ),
-        Text(
-          '3. textDirection: TextDirection.rtl negates the horizontal axis only.',
-          style: TextStyle(fontSize: 12.5, height: 1.6),
-        ),
-        Text(
-          '4. transformHitTests defaults to true — pointer events follow the slide.',
-          style: TextStyle(fontSize: 12.5, height: 1.6),
-        ),
-        Text(
-          '5. Choose curves intentionally: easeOut for entrances, easeIn for exits.',
-          style: TextStyle(fontSize: 12.5, height: 1.6),
-        ),
-        Text(
-          '6. Nesting SlideTransitions composes offsets without manual math.',
-          style: TextStyle(fontSize: 12.5, height: 1.6),
-        ),
+        Text('1. Offsets are fractions of the child\'s own size, not pixels.', style: TextStyle(fontSize: 12.5, height: 1.6)),
+        Text('2. Offset(1.0, 0.0) = one full child-width right; (0,1) = one full height down.', style: TextStyle(fontSize: 12.5, height: 1.6)),
+        Text('3. textDirection: TextDirection.rtl negates the horizontal axis only.', style: TextStyle(fontSize: 12.5, height: 1.6)),
+        Text('4. transformHitTests defaults to true — pointer events follow the slide.', style: TextStyle(fontSize: 12.5, height: 1.6)),
+        Text('5. Choose curves intentionally: easeOut for entrances, easeIn for exits.', style: TextStyle(fontSize: 12.5, height: 1.6)),
+        Text('6. Nesting SlideTransitions composes offsets without manual math.', style: TextStyle(fontSize: 12.5, height: 1.6)),
       ],
     ),
   );
@@ -1435,12 +1094,7 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'EPILOGUE',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2.0,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold, letterSpacing: 2.0),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -1455,11 +1109,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'Master the Offset, and the rest is choreography.',
-          style: TextStyle(
-            color: Color(0xFFE1BEE7),
-            fontSize: 13.0,
-            fontStyle: FontStyle.italic,
-          ),
+          style: TextStyle(color: Color(0xFFE1BEE7), fontSize: 13.0, fontStyle: FontStyle.italic),
         ),
       ],
     ),
@@ -1483,30 +1133,18 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _heroHeader(),
-            s1Banner,
-            s1Card,
-            s2Banner,
-            s2Card,
-            s3Banner,
-            s3Card,
-            s4Banner,
-            s4Card,
-            s5Banner,
-            s5Card,
-            s6Banner,
-            s6Card,
-            s7Banner,
-            s7Card,
-            s8Banner,
-            s8Card,
-            s9Banner,
-            s9Card,
-            s10Banner,
-            s10Card,
-            s11Banner,
-            s11Card,
-            s12Banner,
-            s12Card,
+            s1Banner, s1Card,
+            s2Banner, s2Card,
+            s3Banner, s3Card,
+            s4Banner, s4Card,
+            s5Banner, s5Card,
+            s6Banner, s6Card,
+            s7Banner, s7Card,
+            s8Banner, s8Card,
+            s9Banner, s9Card,
+            s10Banner, s10Card,
+            s11Banner, s11Card,
+            s12Banner, s12Card,
             s13Banner,
             recipeDrawer,
             recipeSnackbar,
@@ -1514,12 +1152,9 @@ dynamic build(BuildContext context) {
             recipeCarousel,
             recipeDismiss,
             recipeRtlDrawer,
-            s14Banner,
-            s14Card,
-            s15Banner,
-            s15Card,
-            s16Banner,
-            s16Card,
+            s14Banner, s14Card,
+            s15Banner, s15Card,
+            s16Banner, s16Card,
             epilogue,
             SizedBox(height: 32.0),
           ],

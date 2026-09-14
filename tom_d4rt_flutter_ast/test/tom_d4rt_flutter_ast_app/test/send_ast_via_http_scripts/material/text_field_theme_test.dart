@@ -287,10 +287,7 @@ Widget _buildAnatomyDiagram() {
         _diagramRow('labelText', 'Floating tag, sits in the border when empty'),
         _diagramRow('hintText', 'Placeholder inside the field, fades on focus'),
         _diagramRow('helperText', 'Subtle line under the field, advisory copy'),
-        _diagramRow(
-          'errorText',
-          'Replaces helperText, painted in error colour',
-        ),
+        _diagramRow('errorText', 'Replaces helperText, painted in error colour'),
         _diagramRow('prefix / prefixIcon', 'Leading widget inside the border'),
         _diagramRow('suffix / suffixIcon', 'Trailing widget inside the border'),
         _diagramRow('counterText', 'Right-aligned counter under the field'),
@@ -361,32 +358,18 @@ Widget _buildSection2BorderFamily() {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: _borderSample('OutlineInputBorder', _outlineField()),
-                ),
+                Expanded(child: _borderSample('OutlineInputBorder', _outlineField())),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _borderSample(
-                    'OutlineInputBorder (rounded)',
-                    _outlineRoundedField(),
-                  ),
-                ),
+                Expanded(child: _borderSample('OutlineInputBorder (rounded)', _outlineRoundedField())),
               ],
             ),
             const SizedBox(height: 16),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: _borderSample(
-                    'UnderlineInputBorder',
-                    _underlineField(),
-                  ),
-                ),
+                Expanded(child: _borderSample('UnderlineInputBorder', _underlineField())),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _borderSample('InputBorder.none', _borderlessField()),
-                ),
+                Expanded(child: _borderSample('InputBorder.none', _borderlessField())),
               ],
             ),
           ],
@@ -430,7 +413,9 @@ Widget _outlineRoundedField() {
   return TextField(
     decoration: InputDecoration(
       labelText: 'Email',
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
     ),
   );
 }
@@ -452,7 +437,10 @@ Widget _borderlessField() {
       borderRadius: BorderRadius.circular(6),
     ),
     child: const TextField(
-      decoration: InputDecoration(labelText: 'Email', border: InputBorder.none),
+      decoration: InputDecoration(
+        labelText: 'Email',
+        border: InputBorder.none,
+      ),
     ),
   );
 }
@@ -577,29 +565,11 @@ Widget _buildSection4FloatingLabel() {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: _floatingSample(
-                    'never',
-                    FloatingLabelBehavior.never,
-                    null,
-                  ),
-                ),
+                Expanded(child: _floatingSample('never', FloatingLabelBehavior.never, null)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _floatingSample(
-                    'auto',
-                    FloatingLabelBehavior.auto,
-                    null,
-                  ),
-                ),
+                Expanded(child: _floatingSample('auto', FloatingLabelBehavior.auto, null)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _floatingSample(
-                    'always',
-                    FloatingLabelBehavior.always,
-                    null,
-                  ),
-                ),
+                Expanded(child: _floatingSample('always', FloatingLabelBehavior.always, null)),
               ],
             ),
             const SizedBox(height: 20),
@@ -611,29 +581,11 @@ Widget _buildSection4FloatingLabel() {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: _floatingSample(
-                    'never',
-                    FloatingLabelBehavior.never,
-                    'Ada Lovelace',
-                  ),
-                ),
+                Expanded(child: _floatingSample('never', FloatingLabelBehavior.never, 'Ada Lovelace')),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _floatingSample(
-                    'auto',
-                    FloatingLabelBehavior.auto,
-                    'Ada Lovelace',
-                  ),
-                ),
+                Expanded(child: _floatingSample('auto', FloatingLabelBehavior.auto, 'Ada Lovelace')),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _floatingSample(
-                    'always',
-                    FloatingLabelBehavior.always,
-                    'Ada Lovelace',
-                  ),
-                ),
+                Expanded(child: _floatingSample('always', FloatingLabelBehavior.always, 'Ada Lovelace')),
               ],
             ),
           ],
@@ -679,11 +631,7 @@ Widget _buildSection4FloatingLabel() {
   );
 }
 
-Widget _floatingSample(
-  String name,
-  FloatingLabelBehavior behavior,
-  String? prefill,
-) {
+Widget _floatingSample(String name, FloatingLabelBehavior behavior, String? prefill) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -765,8 +713,7 @@ Widget _buildSection5ErrorStates() {
             const TextField(
               decoration: InputDecoration(
                 labelText: 'Confirm password',
-                errorText:
-                    'This is a longer multi-line error message that '
+                errorText: 'This is a longer multi-line error message that '
                     'will wrap to demonstrate errorMaxLines and how the field '
                     'expands its baseline to accommodate it.',
                 errorMaxLines: 3,
@@ -838,10 +785,7 @@ Widget _buildSection6DenseVsComfortable() {
               'contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4)',
               const InputDecoration(
                 labelText: 'Ultra dense',
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -1004,8 +948,7 @@ Widget _buildSection8HelperCounter() {
             const TextField(
               decoration: InputDecoration(
                 labelText: 'Wrapped helper',
-                helperText:
-                    'This helper text spans more than one line to '
+                helperText: 'This helper text spans more than one line to '
                     'demonstrate helperMaxLines. Provide enough room for the '
                     'guidance you actually need to give.',
                 helperMaxLines: 3,
@@ -1103,21 +1046,12 @@ Widget _buildSection9GlobalTheme() {
             const SizedBox(height: 8),
             _recipeRow('filled', 'true'),
             _recipeRow('fillColor', 'Color(0xFFEDE7F6)'),
-            _recipeRow(
-              'contentPadding',
-              'EdgeInsets.symmetric(horizontal: 14, vertical: 14)',
-            ),
+            _recipeRow('contentPadding', 'EdgeInsets.symmetric(horizontal: 14, vertical: 14)'),
             _recipeRow('labelStyle', 'TextStyle(color: Colors.black54)'),
-            _recipeRow(
-              'floatingLabelStyle',
-              'TextStyle(color: Color(0xFF512DA8), fontWeight: bold)',
-            ),
+            _recipeRow('floatingLabelStyle', 'TextStyle(color: Color(0xFF512DA8), fontWeight: bold)'),
             _recipeRow('border (rest)', 'OutlineInputBorder(radius: 12)'),
             _recipeRow('enabledBorder', 'OutlineInputBorder(B7B0D8) radius 12'),
-            _recipeRow(
-              'focusedBorder',
-              'OutlineInputBorder(512DA8, w2) radius 12',
-            ),
+            _recipeRow('focusedBorder', 'OutlineInputBorder(512DA8, w2) radius 12'),
           ],
         ),
       ),

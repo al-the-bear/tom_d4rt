@@ -17,8 +17,7 @@ class _TooltipWindowControllerDemo extends StatefulWidget {
       _TooltipWindowControllerDemoState();
 }
 
-class _TooltipWindowControllerDemoState
-    extends State<_TooltipWindowControllerDemo>
+class _TooltipWindowControllerDemoState extends State<_TooltipWindowControllerDemo>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
@@ -209,19 +208,11 @@ class _OrchestrationLabTabState extends State<_OrchestrationLabTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Queue policy',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
+                const Text('Queue policy', style: TextStyle(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 SegmentedButton<_QueuePolicy>(
                   segments: _QueuePolicy.values
-                      .map(
-                        (p) => ButtonSegment<_QueuePolicy>(
-                          value: p,
-                          label: Text(p.label),
-                        ),
-                      )
+                      .map((p) => ButtonSegment<_QueuePolicy>(value: p, label: Text(p.label)))
                       .toList(),
                   selected: {_policy},
                   onSelectionChanged: (selection) {
@@ -235,18 +226,15 @@ class _OrchestrationLabTabState extends State<_OrchestrationLabTab> {
                   runSpacing: 8,
                   children: [
                     FilledButton(
-                      onPressed: () =>
-                          _show('hover hint', const Color(0xFF1565C0)),
+                      onPressed: () => _show('hover hint', const Color(0xFF1565C0)),
                       child: const Text('Show Hover Hint'),
                     ),
                     FilledButton.tonal(
-                      onPressed: () =>
-                          _show('keyboard shortcut', const Color(0xFF2E7D32)),
+                      onPressed: () => _show('keyboard shortcut', const Color(0xFF2E7D32)),
                       child: const Text('Show Shortcut Tip'),
                     ),
                     FilledButton.tonal(
-                      onPressed: () =>
-                          _show('validation message', const Color(0xFFD84315)),
+                      onPressed: () => _show('validation message', const Color(0xFFD84315)),
                       child: const Text('Show Validation Tip'),
                     ),
                     OutlinedButton(
@@ -267,14 +255,14 @@ class _OrchestrationLabTabState extends State<_OrchestrationLabTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Window State Dashboard',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
+                const Text('Window State Dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 SizedBox(
                   height: 220,
-                  child: _ControllerDashboard(active: _active, queue: _queue),
+                  child: _ControllerDashboard(
+                    active: _active,
+                    queue: _queue,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text('Active: ${_active?.source ?? 'none'}'),
@@ -291,10 +279,7 @@ class _OrchestrationLabTabState extends State<_OrchestrationLabTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Controller Event Stream',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
+                const Text('Controller Event Stream', style: TextStyle(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 for (final event in _events)
                   Padding(
@@ -367,10 +352,7 @@ class _CoordinationPatternsTab extends StatelessWidget {
                   children: [
                     Text(
                       pattern.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: pattern.color,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w700, color: pattern.color),
                     ),
                     const SizedBox(height: 8),
                     for (final line in pattern.bullets)
@@ -403,10 +385,7 @@ class _InfoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
-            ),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
             const SizedBox(height: 8),
             Text(body),
           ],
@@ -438,10 +417,7 @@ class _ActionCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.w700, color: color),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
               const SizedBox(height: 8),
               for (final line in bullets)
                 Padding(
@@ -476,7 +452,11 @@ class _ControllerDashboard extends StatelessWidget {
             width: 220,
           ),
         ),
-        Positioned(right: 12, top: 16, child: _QueueTile(queue: queue)),
+        Positioned(
+          right: 12,
+          top: 16,
+          child: _QueueTile(queue: queue),
+        ),
       ],
     );
   }
@@ -509,13 +489,7 @@ class _WindowTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Text(
             request?.source ?? fallback,
@@ -581,11 +555,7 @@ class _TooltipRequest {
 }
 
 class _Pattern {
-  const _Pattern({
-    required this.name,
-    required this.bullets,
-    required this.color,
-  });
+  const _Pattern({required this.name, required this.bullets, required this.color});
 
   final String name;
   final List<String> bullets;

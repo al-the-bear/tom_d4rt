@@ -556,7 +556,9 @@ dynamic build(BuildContext context) {
                   height: 50,
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [coral, deepOrange400]),
+                      gradient: LinearGradient(
+                        colors: [coral, deepOrange400],
+                      ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
@@ -1057,36 +1059,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  Red 900   ${red900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  Red 800   ${red800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
-  print(
-    '  │  Coral     ${coral.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  Salmon    ${salmon.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  DOrange4  ${deepOrange400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Pink 300  ${pink300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  Red 200   ${red200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  Red 100   ${red100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  Blush     ${warmBlush.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  Pink 50   ${pink50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
+  print('  │  Red 900   ${red900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  Red 800   ${red800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print('  │  Coral     ${coral.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  Salmon    ${salmon.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  DOrange4  ${deepOrange400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Pink 300  ${pink300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  Red 200   ${red200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  Red 100   ${red100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  Blush     ${warmBlush.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  Pink 50   ${pink50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 
@@ -1098,7 +1080,10 @@ dynamic build(BuildContext context) {
   return demo;
 }
 
-Widget _buildPositionedCard({required String label, required Color color}) {
+Widget _buildPositionedCard({
+  required String label,
+  required Color color,
+}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
     decoration: BoxDecoration(
@@ -1124,7 +1109,10 @@ Widget _buildPositionedCard({required String label, required Color color}) {
   );
 }
 
-Widget _buildFlexCard({required String label, required Color color}) {
+Widget _buildFlexCard({
+  required String label,
+  required Color color,
+}) {
   return Container(
     margin: const EdgeInsets.all(4),
     decoration: BoxDecoration(
@@ -1180,7 +1168,10 @@ class _DemoLayoutDelegate extends MultiChildLayoutDelegate {
     const padding = 12.0;
 
     // Layout header at top-left
-    final headerSize = layoutChild('header', BoxConstraints.loose(size));
+    final headerSize = layoutChild(
+      'header',
+      BoxConstraints.loose(size),
+    );
     positionChild('header', const Offset(padding, padding));
 
     // Layout body below header
@@ -1189,10 +1180,16 @@ class _DemoLayoutDelegate extends MultiChildLayoutDelegate {
       maxHeight: size.height - headerSize.height - padding * 3,
     );
     layoutChild('body', bodyConstraints);
-    positionChild('body', Offset(padding, headerSize.height + padding * 2));
+    positionChild(
+      'body',
+      Offset(padding, headerSize.height + padding * 2),
+    );
 
     // Layout badge at top-right
-    final badgeSize = layoutChild('badge', BoxConstraints.loose(size));
+    final badgeSize = layoutChild(
+      'badge',
+      BoxConstraints.loose(size),
+    );
     positionChild(
       'badge',
       Offset(size.width - badgeSize.width - padding, padding),

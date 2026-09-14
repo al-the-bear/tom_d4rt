@@ -38,32 +38,32 @@ dynamic build(BuildContext context) {
   // than a single sheet. The palette is referenced inside the section header
   // and inside the section body to make boundaries visually obvious.
   // ---------------------------------------------------------------------------
-  const heroBg = Color(0xFFEDE7F6); // section 1 - violet 50
-  const heroAccent = Color(0xFF5E35B1); // section 1 - violet 600
+  const heroBg = Color(0xFFEDE7F6);          // section 1 - violet 50
+  const heroAccent = Color(0xFF5E35B1);      // section 1 - violet 600
 
-  const defaultBg = Color(0xFFE3F2FD); // section 2 - blue 50
-  const defaultAccent = Color(0xFF1565C0); // section 2 - blue 800
+  const defaultBg = Color(0xFFE3F2FD);       // section 2 - blue 50
+  const defaultAccent = Color(0xFF1565C0);   // section 2 - blue 800
 
-  const sweepBg = Color(0xFFE0F2F1); // section 3 - teal 50
-  const sweepAccent = Color(0xFF00695C); // section 3 - teal 800
+  const sweepBg = Color(0xFFE0F2F1);         // section 3 - teal 50
+  const sweepAccent = Color(0xFF00695C);     // section 3 - teal 800
 
-  const themeBg = Color(0xFFFFF3E0); // section 4 - orange 50
-  const themeAccent = Color(0xFFE65100); // section 4 - orange 900
+  const themeBg = Color(0xFFFFF3E0);         // section 4 - orange 50
+  const themeAccent = Color(0xFFE65100);     // section 4 - orange 900
 
-  const disabledBg = Color(0xFFECEFF1); // section 5 - blue grey 50
-  const disabledAccent = Color(0xFF455A64); // section 5 - blue grey 700
+  const disabledBg = Color(0xFFECEFF1);      // section 5 - blue grey 50
+  const disabledAccent = Color(0xFF455A64);  // section 5 - blue grey 700
 
-  const symmetryBg = Color(0xFFF3E5F5); // section 6 - purple 50
-  const symmetryAccent = Color(0xFF6A1B9A); // section 6 - purple 800
+  const symmetryBg = Color(0xFFF3E5F5);      // section 6 - purple 50
+  const symmetryAccent = Color(0xFF6A1B9A);  // section 6 - purple 800
 
-  const iconBg = Color(0xFFE8F5E9); // section 7 - green 50
-  const iconAccent = Color(0xFF2E7D32); // section 7 - green 800
+  const iconBg = Color(0xFFE8F5E9);          // section 7 - green 50
+  const iconAccent = Color(0xFF2E7D32);      // section 7 - green 800
 
-  const recipeBg = Color(0xFFFCE4EC); // section 8 - pink 50
-  const recipeAccent = Color(0xFFAD1457); // section 8 - pink 800
+  const recipeBg = Color(0xFFFCE4EC);        // section 8 - pink 50
+  const recipeAccent = Color(0xFFAD1457);    // section 8 - pink 800
 
-  const refBg = Color(0xFFFFF8E1); // section 9 - amber 50
-  const refAccent = Color(0xFFFF8F00); // section 9 - amber 800
+  const refBg = Color(0xFFFFF8E1);           // section 9 - amber 50
+  const refAccent = Color(0xFFFF8F00);       // section 9 - amber 800
 
   // ---------------------------------------------------------------------------
   // SECTION 1: HERO CARD
@@ -164,22 +164,14 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
               ),
               SizedBox(height: 6),
-              Text(
-                '- Default icon: Icons.menu (right-aligned).',
-                style: TextStyle(fontSize: 13),
-              ),
-              Text(
-                '- Themable via EndDrawerButtonTheme.',
-                style: TextStyle(fontSize: 13),
-              ),
-              Text(
-                '- Falls back to Scaffold.maybeOf when onPressed is null.',
-                style: TextStyle(fontSize: 13),
-              ),
-              Text(
-                '- onPressed override replaces the default action.',
-                style: TextStyle(fontSize: 13),
-              ),
+              Text('- Default icon: Icons.menu (right-aligned).',
+                  style: TextStyle(fontSize: 13)),
+              Text('- Themable via EndDrawerButtonTheme.',
+                  style: TextStyle(fontSize: 13)),
+              Text('- Falls back to Scaffold.maybeOf when onPressed is null.',
+                  style: TextStyle(fontSize: 13)),
+              Text('- onPressed override replaces the default action.',
+                  style: TextStyle(fontSize: 13)),
             ],
           ),
         ),
@@ -235,7 +227,9 @@ dynamic build(BuildContext context) {
                 backgroundColor: defaultAccent,
                 foregroundColor: Colors.white,
                 title: const Text('Default'),
-                actions: const [EndDrawerButton()],
+                actions: const [
+                  EndDrawerButton(),
+                ],
               ),
               endDrawer: SizedBox(
                 width: 240,
@@ -247,7 +241,10 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(color: defaultAccent),
                         child: const Text(
                           'Default end drawer',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                       const ListTile(
@@ -323,7 +320,9 @@ dynamic build(BuildContext context) {
           backgroundColor: cellAccent,
           foregroundColor: Colors.white,
           title: Text(label, style: const TextStyle(fontSize: 15)),
-          actions: [EndDrawerButton(style: style)],
+          actions: [
+            EndDrawerButton(style: style),
+          ],
         ),
         endDrawer: SizedBox(
           width: 220,
@@ -335,7 +334,10 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(color: cellAccent),
                   child: Text(
                     label,
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
                 ListTile(leading: Icon(drawerIcon), title: const Text('A')),
@@ -347,7 +349,10 @@ dynamic build(BuildContext context) {
         ),
         body: Padding(
           padding: const EdgeInsets.all(12),
-          child: Text('Variant: $label', style: const TextStyle(fontSize: 12)),
+          child: Text(
+            'Variant: $label',
+            style: const TextStyle(fontSize: 12),
+          ),
         ),
       ),
     );
@@ -363,7 +368,8 @@ dynamic build(BuildContext context) {
   );
 
   final styleB = ButtonStyle(
-    backgroundColor: WidgetStatePropertyAll(Colors.tealAccent.shade100),
+    backgroundColor:
+        WidgetStatePropertyAll(Colors.tealAccent.shade100),
     foregroundColor: const WidgetStatePropertyAll(Colors.black),
     padding: const WidgetStatePropertyAll(EdgeInsets.all(12)),
     shape: WidgetStatePropertyAll(
@@ -518,7 +524,9 @@ dynamic build(BuildContext context) {
             backgroundColor: accent,
             foregroundColor: Colors.white,
             title: Text(title),
-            actions: const [EndDrawerButton()],
+            actions: const [
+              EndDrawerButton(),
+            ],
           ),
           endDrawer: SizedBox(
             width: 220,
@@ -530,7 +538,10 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(color: accent),
                     child: Text(
                       title,
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                   const ListTile(title: Text('Item alpha')),
@@ -567,7 +578,7 @@ dynamic build(BuildContext context) {
                 Text(
                   showThemeBadge
                       ? 'The trailing button inherits its style from the '
-                            'ancestor IconButtonTheme.'
+                          'ancestor IconButtonTheme.'
                       : 'No theme - default Material 3 appearance.',
                   style: const TextStyle(fontSize: 12, height: 1.4),
                 ),
@@ -673,7 +684,9 @@ dynamic build(BuildContext context) {
             backgroundColor: disabledAccent,
             foregroundColor: Colors.white,
             title: Text(title),
-            actions: [EndDrawerButton(onPressed: onPressed)],
+            actions: [
+              EndDrawerButton(onPressed: onPressed),
+            ],
           ),
           endDrawer: SizedBox(
             width: 200,
@@ -744,8 +757,7 @@ dynamic build(BuildContext context) {
               child: disabledMiniScaffold(
                 title: 'Disabled',
                 onPressed: null,
-                body:
-                    'onPressed: null - the button is greyed and ignores '
+                body: 'onPressed: null - the button is greyed and ignores '
                     'taps. The end drawer remains accessible via swipe gesture.',
               ),
             ),
@@ -1119,7 +1131,10 @@ dynamic build(BuildContext context) {
                 foregroundColor: Colors.white,
                 title: const Text('Messages'),
                 actions: [
-                  IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {},
+                  ),
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
@@ -1345,21 +1360,12 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(height: 8),
               refRow('key', 'Key?', 'Standard widget key.'),
-              refRow(
-                'color',
-                'Color?',
-                'Foreground colour shorthand passed through to the IconButton.',
-              ),
-              refRow(
-                'onPressed',
-                'VoidCallback?',
-                'Override the press handler. Default opens Scaffold.endDrawer. Pass null to disable.',
-              ),
-              refRow(
-                'style',
-                'ButtonStyle?',
-                'Per-instance override of background, foreground, padding, shape, etc.',
-              ),
+              refRow('color', 'Color?',
+                  'Foreground colour shorthand passed through to the IconButton.'),
+              refRow('onPressed', 'VoidCallback?',
+                  'Override the press handler. Default opens Scaffold.endDrawer. Pass null to disable.'),
+              refRow('style', 'ButtonStyle?',
+                  'Per-instance override of background, foreground, padding, shape, etc.'),
             ],
           ),
         ),
@@ -1383,12 +1389,9 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 8),
-              refRow(
-                'style',
-                'ButtonStyle?',
-                'Default ButtonStyle for descendant IconButton widgets, '
-                    'including EndDrawerButton.',
-              ),
+              refRow('style', 'ButtonStyle?',
+                  'Default ButtonStyle for descendant IconButton widgets, '
+                      'including EndDrawerButton.'),
               const SizedBox(height: 8),
               const Text(
                 'Provided to a sub-tree via IconButtonTheme(data: ...) or via '

@@ -81,19 +81,18 @@ class _DemoRouteTransitionRecord extends RouteTransitionRecord {
     required this.label,
     required bool waitingEntering,
     required bool waitingExiting,
-  }) : _waitingEntering = waitingEntering,
-       _waitingExiting = waitingExiting,
-       _route = PageRouteBuilder<void>(
-         settings: RouteSettings(name: label),
-         pageBuilder:
-             (
-               BuildContext context,
-               Animation<double> animation,
-               Animation<double> secondaryAnimation,
-             ) {
-               return const SizedBox.shrink();
-             },
-       );
+  })  : _waitingEntering = waitingEntering,
+        _waitingExiting = waitingExiting,
+        _route = PageRouteBuilder<void>(
+          settings: RouteSettings(name: label),
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return const SizedBox.shrink();
+          },
+        );
 
   /// A short, human-readable name. Mirrors `route.settings.name`.
   final String label;
@@ -222,17 +221,16 @@ class _DemoRouteTransitionRecord extends RouteTransitionRecord {
 /// polymorphism — a `List<RouteTransitionRecord>` can hold both subclasses.
 class _LoggingRouteTransitionRecord extends RouteTransitionRecord {
   _LoggingRouteTransitionRecord(this._name)
-    : _route = PageRouteBuilder<void>(
-        settings: RouteSettings(name: _name),
-        pageBuilder:
-            (
-              BuildContext context,
-              Animation<double> animation,
-              Animation<double> secondaryAnimation,
-            ) {
-              return const SizedBox.shrink();
-            },
-      );
+      : _route = PageRouteBuilder<void>(
+          settings: RouteSettings(name: _name),
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return const SizedBox.shrink();
+          },
+        );
 
   final String _name;
   final PageRouteBuilder<void> _route;
@@ -524,7 +522,10 @@ class _RouteTransitionStagingDemoState
     setState(() {
       for (var i = 0; i < _concreteRecords.length; i++) {
         final isEntering = i.isEven;
-        _concreteRecords[i].resetTo(entering: isEntering, exiting: !isEntering);
+        _concreteRecords[i].resetTo(
+          entering: isEntering,
+          exiting: !isEntering,
+        );
       }
       _focusedIndex = 0;
       _turns = 0;
@@ -549,7 +550,8 @@ class _RouteTransitionStagingDemoState
 
   Color _platformAccent(BuildContext context) {
     final TargetPlatform platform = Theme.of(context).platform;
-    if (platform == TargetPlatform.iOS || platform == TargetPlatform.macOS) {
+    if (platform == TargetPlatform.iOS ||
+        platform == TargetPlatform.macOS) {
       return _kPlum;
     }
     if (platform == TargetPlatform.android ||
@@ -706,10 +708,8 @@ class _RouteTransitionStagingDemoState
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: _kSunset.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(10),
@@ -725,10 +725,8 @@ class _RouteTransitionStagingDemoState
               ),
               const SizedBox(height: 8),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.85),
                   borderRadius: BorderRadius.circular(10),
@@ -852,7 +850,8 @@ class _RouteTransitionStagingDemoState
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _kPlum.withValues(alpha: 0.4)),
             ),
-            child: const Icon(Icons.route_rounded, color: _kPlum, size: 16),
+            child: const Icon(Icons.route_rounded,
+                color: _kPlum, size: 16),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -897,10 +896,10 @@ class _RouteTransitionStagingDemoState
 
   Widget _buildRuntimeFacts(List<RouteTransitionRecord> all) {
     // Verify polymorphic behaviour right here.
-    final int demoCount = all.whereType<_DemoRouteTransitionRecord>().length;
-    final int loggingCount = all
-        .whereType<_LoggingRouteTransitionRecord>()
-        .length;
+    final int demoCount =
+        all.whereType<_DemoRouteTransitionRecord>().length;
+    final int loggingCount =
+        all.whereType<_LoggingRouteTransitionRecord>().length;
     final int total = all.length;
     return Container(
       padding: const EdgeInsets.all(12),
@@ -911,7 +910,8 @@ class _RouteTransitionStagingDemoState
       ),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.fact_check_outlined, color: _kIndigoDark, size: 18),
+          const Icon(Icons.fact_check_outlined,
+              color: _kIndigoDark, size: 18),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -1021,11 +1021,8 @@ class _RouteTransitionStagingDemoState
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Icon(
-            Icons.center_focus_strong_rounded,
-            size: 14,
-            color: _kMintDeep,
-          ),
+          const Icon(Icons.center_focus_strong_rounded,
+              size: 14, color: _kMintDeep),
           const SizedBox(width: 6),
           Text(
             'focus: ${focused.label}',
@@ -1045,9 +1042,8 @@ class _RouteTransitionStagingDemoState
     final Color border = active ? stage.glow : _kBorder;
     final Color icon = active ? Colors.white : stage.glow;
     final Color text = active ? Colors.white : _kInk;
-    final Color subtitle = active
-        ? Colors.white.withValues(alpha: 0.85)
-        : _kInkMuted;
+    final Color subtitle =
+        active ? Colors.white.withValues(alpha: 0.85) : _kInkMuted;
     return Container(
       width: 132,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
@@ -1091,7 +1087,11 @@ class _RouteTransitionStagingDemoState
           const SizedBox(height: 4),
           Text(
             stage.description,
-            style: TextStyle(color: subtitle, fontSize: 10, height: 1.3),
+            style: TextStyle(
+              color: subtitle,
+              fontSize: 10,
+              height: 1.3,
+            ),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -1148,12 +1148,17 @@ class _RouteTransitionStagingDemoState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.info_outline_rounded, size: 18, color: _kIndigoDark),
+          const Icon(Icons.info_outline_rounded,
+              size: 18, color: _kIndigoDark),
           const SizedBox(width: 10),
           Expanded(
             child: RichText(
               text: TextSpan(
-                style: const TextStyle(color: _kInk, fontSize: 13, height: 1.4),
+                style: const TextStyle(
+                  color: _kInk,
+                  fontSize: 13,
+                  height: 1.4,
+                ),
                 children: <InlineSpan>[
                   TextSpan(
                     text: '$label — ',
@@ -1245,7 +1250,10 @@ class _RouteTransitionStagingDemoState
                   runSpacing: 12,
                   children: <Widget>[
                     for (final Widget card in cards)
-                      SizedBox(width: (c.maxWidth - 12) / 2, child: card),
+                      SizedBox(
+                        width: (c.maxWidth - 12) / 2,
+                        child: card,
+                      ),
                   ],
                 );
               },
@@ -1291,11 +1299,8 @@ class _RouteTransitionStagingDemoState
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: _kBorder),
                 ),
-                child: const Icon(
-                  Icons.route_rounded,
-                  color: _kIndigoDark,
-                  size: 18,
-                ),
+                child: const Icon(Icons.route_rounded,
+                    color: _kIndigoDark, size: 18),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1313,7 +1318,10 @@ class _RouteTransitionStagingDemoState
                     const SizedBox(height: 2),
                     Text(
                       'stage: ${record.stage}',
-                      style: const TextStyle(color: _kInkMuted, fontSize: 11),
+                      style: const TextStyle(
+                        color: _kInkMuted,
+                        fontSize: 11,
+                      ),
                     ),
                   ],
                 ),
@@ -1503,7 +1511,8 @@ class _RouteTransitionStagingDemoState
           children: <Widget>[
             Row(
               children: const <Widget>[
-                Icon(Icons.account_tree_rounded, color: _kMintDeep, size: 22),
+                Icon(Icons.account_tree_rounded,
+                    color: _kMintDeep, size: 22),
                 SizedBox(width: 8),
                 Text(
                   'TransitionDelegate sequence',
@@ -1575,11 +1584,8 @@ class _RouteTransitionStagingDemoState
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Icon(
-                    Icons.lightbulb_outline_rounded,
-                    color: _kSunsetDeep,
-                    size: 18,
-                  ),
+                  const Icon(Icons.lightbulb_outline_rounded,
+                      color: _kSunsetDeep, size: 18),
                   const SizedBox(width: 10),
                   Expanded(
                     child: RichText(
@@ -1671,7 +1677,11 @@ class _RouteTransitionStagingDemoState
   Widget _diagramArrow() {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 6),
-      child: Icon(Icons.arrow_forward_rounded, color: _kInkMuted, size: 22),
+      child: Icon(
+        Icons.arrow_forward_rounded,
+        color: _kInkMuted,
+        size: 22,
+      ),
     );
   }
 
@@ -1976,11 +1986,8 @@ class _RouteTransitionStagingDemoState
           children: <Widget>[
             Row(
               children: <Widget>[
-                const Icon(
-                  Icons.history_rounded,
-                  color: _kSunsetDeep,
-                  size: 22,
-                ),
+                const Icon(Icons.history_rounded,
+                    color: _kSunsetDeep, size: 22),
                 const SizedBox(width: 8),
                 const Text(
                   'Call log (focused)',
@@ -2313,7 +2320,9 @@ class _RouteTransitionStagingDemoState
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: alt ? _kIndigoSoft.withValues(alpha: 0.35) : Colors.white,
-        border: const Border(bottom: BorderSide(color: _kBorder)),
+        border: const Border(
+          bottom: BorderSide(color: _kBorder),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2334,7 +2343,11 @@ class _RouteTransitionStagingDemoState
             flex: 3,
             child: Text(
               cells[1],
-              style: const TextStyle(color: _kInk, fontSize: 12, height: 1.4),
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
           Expanded(
@@ -2352,7 +2365,11 @@ class _RouteTransitionStagingDemoState
             flex: 3,
             child: Text(
               cells[3],
-              style: const TextStyle(color: _kInk, fontSize: 11, height: 1.4),
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 11,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -2482,7 +2499,11 @@ class MyDelegate extends TransitionDelegate<void> {
               'markForPush / markForAdd, and every exiting record needs '
               'exactly one of markForComplete / markForRemove / markForPop '
               'before TransitionDelegate.resolve returns.',
-              style: TextStyle(color: _kInk, fontSize: 12, height: 1.4),
+              style: TextStyle(
+                color: _kInk,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
         ],

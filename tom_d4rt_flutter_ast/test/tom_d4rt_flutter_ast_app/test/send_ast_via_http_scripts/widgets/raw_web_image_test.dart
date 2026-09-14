@@ -141,9 +141,14 @@ dynamic build(BuildContext context) {
       width: 250.0,
       margin: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: isHighlighted ? color.withValues(alpha: 0.08) : Colors.white,
+        color: isHighlighted
+            ? color.withValues(alpha: 0.08)
+            : Colors.white,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: color, width: isHighlighted ? 2.0 : 1.0),
+        border: Border.all(
+          color: color,
+          width: isHighlighted ? 2.0 : 1.0,
+        ),
         boxShadow: isHighlighted
             ? [
                 BoxShadow(
@@ -382,7 +387,10 @@ dynamic build(BuildContext context) {
                 height: 100.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF42A5F5), Color(0xFF1565C0)],
+                    colors: [
+                      Color(0xFF42A5F5),
+                      Color(0xFF1565C0),
+                    ],
                   ),
                 ),
                 child: Center(
@@ -400,7 +408,10 @@ dynamic build(BuildContext context) {
             child: Text(
               description,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 9.0,
+                color: Colors.grey.shade600,
+              ),
             ),
           ),
         ],
@@ -523,11 +534,18 @@ dynamic build(BuildContext context) {
             child: Center(child: preview),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 10.0, left: 8.0, right: 8.0),
+            padding: EdgeInsets.only(
+              bottom: 10.0,
+              left: 8.0,
+              right: 8.0,
+            ),
             child: Text(
               description,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Colors.grey.shade600,
+              ),
             ),
           ),
         ],
@@ -616,12 +634,19 @@ dynamic build(BuildContext context) {
                 height: 50.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF42A5F5), Color(0xFF1565C0)],
+                    colors: [
+                      Color(0xFF42A5F5),
+                      Color(0xFF1565C0),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(6.0),
                 ),
                 child: Center(
-                  child: Icon(Icons.landscape, color: Colors.white, size: 24.0),
+                  child: Icon(
+                    Icons.landscape,
+                    color: Colors.white,
+                    size: 24.0,
+                  ),
                 ),
               ),
               'Image decoded and displayed.',
@@ -719,7 +744,10 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 3.0),
                 Text(
                   purpose,
-                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
               ],
             ),
@@ -742,7 +770,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.accessibility_new, color: Color(0xFF2E7D32), size: 24.0),
+            Icon(Icons.accessibility_new,
+                color: Color(0xFF2E7D32), size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Web Accessibility Features',
@@ -878,7 +907,10 @@ dynamic build(BuildContext context) {
                 flex: 3,
                 child: Text(
                   'Feature',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                  ),
                 ),
               ),
               Expanded(
@@ -1044,7 +1076,8 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.web, color: Color(0xFF0D47A1), size: 28.0),
+                    Icon(Icons.web,
+                        color: Color(0xFF0D47A1), size: 28.0),
                     SizedBox(height: 4.0),
                     Text(
                       'Web',
@@ -1068,11 +1101,8 @@ dynamic build(BuildContext context) {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Icon(
-                Icons.compare_arrows,
-                color: Colors.grey.shade400,
-                size: 24.0,
-              ),
+              child: Icon(Icons.compare_arrows,
+                  color: Colors.grey.shade400, size: 24.0),
             ),
             Expanded(
               child: Container(
@@ -1086,11 +1116,8 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.phone_android,
-                      color: Color(0xFF795548),
-                      size: 28.0,
-                    ),
+                    Icon(Icons.phone_android,
+                        color: Color(0xFF795548), size: 28.0),
                     SizedBox(height: 4.0),
                     Text(
                       'Native',
@@ -1188,7 +1215,10 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 2.0),
                 Text(
                   detail,
-                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
               ],
             ),
@@ -1202,7 +1232,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Color(0xFFFFF8E1), Color(0xFFFFECB3)]),
+      gradient: LinearGradient(
+        colors: [Color(0xFFFFF8E1), Color(0xFFFFECB3)],
+      ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: Color(0xFFF57C00)),
     ),
@@ -1346,7 +1378,11 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0D47A1), Color(0xFF1565C0), Color(0xFF1976D2)],
+              colors: [
+                Color(0xFF0D47A1),
+                Color(0xFF1565C0),
+                Color(0xFF1976D2),
+              ],
             ),
           ),
           child: Column(
@@ -1473,7 +1509,10 @@ Widget _buildWebImageBullet(String text, Color color) {
         ),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(text, style: TextStyle(fontSize: 12.0, color: color)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12.0, color: color),
+          ),
         ),
       ],
     ),

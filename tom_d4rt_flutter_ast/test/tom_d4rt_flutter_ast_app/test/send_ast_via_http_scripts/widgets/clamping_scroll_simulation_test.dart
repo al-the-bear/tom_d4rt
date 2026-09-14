@@ -20,8 +20,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.android,
       'title': 'Android-Style Scroll Deceleration',
-      'body':
-          'ClampingScrollSimulation models the fling deceleration '
+      'body': 'ClampingScrollSimulation models the fling deceleration '
           'used by Android\'s OverScroller class. When the user lifts '
           'their finger while scrolling, this simulation computes a '
           'smooth deceleration curve that brings the content to a '
@@ -32,8 +31,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.block,
       'title': 'Hard Stop at Boundaries',
-      'body':
-          'Unlike BouncingScrollSimulation (iOS), clamping never '
+      'body': 'Unlike BouncingScrollSimulation (iOS), clamping never '
           'lets the position go past min/max. The position is '
           'mathematically clamped: if the simulation curve would '
           'exceed the boundary, it is truncated right at the edge. '
@@ -43,8 +41,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.show_chart,
       'title': 'The Friction Curve',
-      'body':
-          'The deceleration is NOT a simple exponential decay. '
+      'body': 'The deceleration is NOT a simple exponential decay. '
           'Flutter\'s implementation mirrors Android\'s spline-based '
           'fling curve, which decelerates non-linearly: fast at first, '
           'then gradually slower. The total distance and duration '
@@ -55,8 +52,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.construction,
       'title': 'Constructor Parameters',
-      'body':
-          'The constructor takes:\n'
+      'body': 'The constructor takes:\n'
           '• position — current scroll offset (pixels)\n'
           '• velocity — fling velocity (pixels/sec)\n'
           '• friction — drag coefficient (default ~0.015)\n'
@@ -115,9 +111,18 @@ dynamic build(BuildContext context) {
   print('=== Section 3: Position Over Time ===');
 
   // Detailed time-series for three representative simulations
-  final simSlow = ClampingScrollSimulation(position: 0.0, velocity: 800.0);
-  final simMed = ClampingScrollSimulation(position: 0.0, velocity: 2000.0);
-  final simFast = ClampingScrollSimulation(position: 0.0, velocity: 5000.0);
+  final simSlow = ClampingScrollSimulation(
+    position: 0.0,
+    velocity: 800.0,
+  );
+  final simMed = ClampingScrollSimulation(
+    position: 0.0,
+    velocity: 2000.0,
+  );
+  final simFast = ClampingScrollSimulation(
+    position: 0.0,
+    velocity: 5000.0,
+  );
 
   final timePoints = [0.0, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0];
   final timeRows = <Map<String, String>>[];
@@ -145,8 +150,7 @@ dynamic build(BuildContext context) {
       'title': 'Non-Linear Deceleration',
       'icon': Icons.trending_down,
       'color': Colors.green[600]!,
-      'body':
-          'The velocity does not decay at a constant rate. '
+      'body': 'The velocity does not decay at a constant rate. '
           'Early frames lose velocity quickly (high deceleration), '
           'while later frames barely change (low deceleration). '
           'This produces the distinctive Android "ease-out" feel '
@@ -156,8 +160,7 @@ dynamic build(BuildContext context) {
       'title': 'Android OverScroller Heritage',
       'icon': Icons.history,
       'color': Colors.teal[600]!,
-      'body':
-          'Flutter\'s curve closely mirrors Android\'s native '
+      'body': 'Flutter\'s curve closely mirrors Android\'s native '
           'OverScroller.fling() which uses a spline interpolation '
           'table. The total duration is computed from initial '
           'velocity using: duration = log(0.35 * |velocity| / '
@@ -167,8 +170,7 @@ dynamic build(BuildContext context) {
       'title': 'Friction Factor',
       'icon': Icons.speed,
       'color': Colors.green[700]!,
-      'body':
-          'The friction parameter (default ~0.015) controls how '
+      'body': 'The friction parameter (default ~0.015) controls how '
           'quickly the simulation decelerates. Lower friction means '
           'longer coasting; higher friction means quicker stops. '
           'The default value was tuned to match the feel of physical '
@@ -178,8 +180,7 @@ dynamic build(BuildContext context) {
       'title': 'Duration Is Pre-Computed',
       'icon': Icons.timer,
       'color': Colors.teal[700]!,
-      'body':
-          'Unlike BouncingScrollSimulation, which can run '
+      'body': 'Unlike BouncingScrollSimulation, which can run '
           'indefinitely (oscillating springs), ClampingScroll'
           'Simulation has a finite duration computed at construction. '
           'After that time, isDone() returns true and the scroll '
@@ -200,8 +201,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.swap_vert,
       'scenario': 'pos=500, vel=1500, range=[0, 2000]',
       'color': Colors.green[500]!,
-      'description':
-          'The fling starts well within bounds and the '
+      'description': 'The fling starts well within bounds and the '
           'velocity is not enough to reach either edge. The '
           'simulation runs its full deceleration curve. No '
           'clamping occurs.',
@@ -211,8 +211,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.vertical_align_bottom,
       'scenario': 'pos=1800, vel=2000, range=[0, 2000]',
       'color': Colors.orange[600]!,
-      'description':
-          'The fling would carry the position past 2000. '
+      'description': 'The fling would carry the position past 2000. '
           'ClampingScrollSimulation detects this and terminates '
           'the simulation exactly at 2000. The remaining velocity '
           'is absorbed — no bounce, no overshoot.',
@@ -222,8 +221,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.vertical_align_top,
       'scenario': 'pos=200, vel=-3000, range=[0, 2000]',
       'color': Colors.red[500]!,
-      'description':
-          'A fast upward fling would go past 0. The '
+      'description': 'A fast upward fling would go past 0. The '
           'simulation clamps at 0 and stops. The overscroll event '
           'is communicated to the glow indicator system separately.',
     },
@@ -232,8 +230,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.pan_tool,
       'scenario': 'pos=0, vel=0, range=[0, 2000]',
       'color': Colors.grey[600]!,
-      'description':
-          'If the position is already at the edge with no '
+      'description': 'If the position is already at the edge with no '
           'velocity, the simulation is immediately done. isDone(0) '
           'returns true. No visual motion occurs.',
     },
@@ -251,8 +248,7 @@ dynamic build(BuildContext context) {
       'title': 'Why a Glow Instead of Bounce?',
       'icon': Icons.lightbulb,
       'color': Colors.amber[700]!,
-      'body':
-          'Since clamping prevents the content from moving past '
+      'body': 'Since clamping prevents the content from moving past '
           'edges, the user needs another visual signal that they\'ve '
           'reached the end. Android\'s answer: a glowing arc painted '
           'at the list edge (GlowingOverscrollIndicator). Flutter '
@@ -262,8 +258,7 @@ dynamic build(BuildContext context) {
       'title': 'OverscrollNotification',
       'icon': Icons.notifications_active,
       'color': Colors.orange[600]!,
-      'body':
-          'When ClampingScrollSimulation hits a boundary, the '
+      'body': 'When ClampingScrollSimulation hits a boundary, the '
           'remaining velocity is reported via OverscrollNotification. '
           'GlowingOverscrollIndicator listens for this notification '
           'and calculates the glow intensity from the overscroll '
@@ -273,8 +268,7 @@ dynamic build(BuildContext context) {
       'title': 'StretchingOverscrollIndicator',
       'icon': Icons.open_with,
       'color': Colors.teal[600]!,
-      'body':
-          'From Android 12 (S), the stretch overscroll replaces '
+      'body': 'From Android 12 (S), the stretch overscroll replaces '
           'the glow. Flutter provides StretchingOverscrollIndicator '
           'for this. It works with the same notification mechanism '
           'but applies a horizontal/vertical stretch transform.',
@@ -283,8 +277,7 @@ dynamic build(BuildContext context) {
       'title': 'Disabling the Indicator',
       'icon': Icons.do_not_disturb,
       'color': Colors.red[400]!,
-      'body':
-          'Wrap your scrollable in NotificationListener<Overscroll'
+      'body': 'Wrap your scrollable in NotificationListener<Overscroll'
           'Notification> and return true to suppress the glow:\n\n'
           'NotificationListener<OverscrollNotification>(\n'
           '  onNotification: (_) => true, // absorb\n'
@@ -303,62 +296,50 @@ dynamic build(BuildContext context) {
   final internalComparison = <Map<String, String>>[
     {
       'aspect': 'Math Model',
-      'clamping':
-          'Spline-based curve modeled after '
+      'clamping': 'Spline-based curve modeled after '
           'Android OverScroller. Duration and '
           'distance pre-computed from velocity.',
-      'bouncing':
-          'FrictionSimulation (exponential '
+      'bouncing': 'FrictionSimulation (exponential '
           'decay) + SpringSimulation at '
           'boundaries. Duration emergent.',
     },
     {
       'aspect': 'Duration',
-      'clamping':
-          'Finite and known at construction. '
+      'clamping': 'Finite and known at construction. '
           'Typically 0.3–2.5 seconds for '
           'normal fling velocities.',
-      'bouncing':
-          'Theoretically infinite (spring '
+      'bouncing': 'Theoretically infinite (spring '
           'oscillation), practically ended '
           'by tolerance threshold.',
     },
     {
       'aspect': 'Position Range',
-      'clamping':
-          'Always within [position, boundary]. '
+      'clamping': 'Always within [position, boundary]. '
           'Never exceeds the scroll extent.',
-      'bouncing':
-          'Can exceed scroll extent. Springs '
+      'bouncing': 'Can exceed scroll extent. Springs '
           'back, but momentarily overshoots.',
     },
     {
       'aspect': 'Velocity at End',
-      'clamping':
-          'Approaches zero asymptotically or '
+      'clamping': 'Approaches zero asymptotically or '
           'hits boundary with remaining '
           'velocity (overscroll notification).',
-      'bouncing':
-          'Zero when friction stops. Non-zero '
+      'bouncing': 'Zero when friction stops. Non-zero '
           'at boundary → spring takes over.',
     },
     {
       'aspect': 'Customization',
-      'clamping':
-          'Friction parameter only. Hard to '
+      'clamping': 'Friction parameter only. Hard to '
           'customize the curve shape further.',
-      'bouncing':
-          'SpringDescription (mass, stiffness, '
+      'bouncing': 'SpringDescription (mass, stiffness, '
           'damping) + drag coefficient. Very '
           'tunable.',
     },
     {
       'aspect': 'User Feedback',
-      'clamping':
-          'Glow/stretch indicator painted '
+      'clamping': 'Glow/stretch indicator painted '
           'above the list content.',
-      'bouncing':
-          'Content itself overshoots, revealing '
+      'bouncing': 'Content itself overshoots, revealing '
           'empty space or background.',
     },
   ];
@@ -375,8 +356,7 @@ dynamic build(BuildContext context) {
       'title': 'Default Android Behaviour',
       'icon': Icons.android,
       'color': Colors.green[600]!,
-      'body':
-          'On Android, ScrollConfiguration injects Clamping'
+      'body': 'On Android, ScrollConfiguration injects Clamping'
           'ScrollPhysics by default. Every ListView, GridView, '
           'CustomScrollView automatically uses ClampingScroll'
           'Simulation for flings. No explicit setup needed.',
@@ -385,8 +365,7 @@ dynamic build(BuildContext context) {
       'title': 'Force Clamping on iOS',
       'icon': Icons.phonelink,
       'color': Colors.teal[600]!,
-      'body':
-          'To use Android-style scrolling on all platforms:\n'
+      'body': 'To use Android-style scrolling on all platforms:\n'
           'ListView(\n'
           '  physics: ClampingScrollPhysics(),\n'
           '  ...\n'
@@ -398,8 +377,7 @@ dynamic build(BuildContext context) {
       'title': 'PageView Scrolling',
       'icon': Icons.view_carousel,
       'color': Colors.indigo[500]!,
-      'body':
-          'PageView uses PageScrollPhysics, which creates its '
+      'body': 'PageView uses PageScrollPhysics, which creates its '
           'own simulation to snap to pages. However, the deceleration '
           'model is similar to clamping: the simulation calculates '
           'which page to stop at and drives toward it.',
@@ -408,8 +386,7 @@ dynamic build(BuildContext context) {
       'title': 'Custom Friction',
       'icon': Icons.tune,
       'color': Colors.deepPurple[500]!,
-      'body':
-          'Subclass ClampingScrollPhysics and override '
+      'body': 'Subclass ClampingScrollPhysics and override '
           'createBallisticSimulation to pass a custom friction:\n'
           'ClampingScrollSimulation(\n'
           '  position: pos, velocity: vel,\n'
@@ -420,8 +397,7 @@ dynamic build(BuildContext context) {
       'title': 'Infinite Scroll Lists',
       'icon': Icons.all_inclusive,
       'color': Colors.blue[600]!,
-      'body':
-          'Infinite lists (loading more items on scroll) pair '
+      'body': 'Infinite lists (loading more items on scroll) pair '
           'well with clamping physics. The hard stop at the bottom '
           'triggers the load-more callback, and the glow indicator '
           'signals to the user that data is being fetched.',
@@ -439,8 +415,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Clamping Doesn\'t Mean No Overscroll',
-      'body':
-          'The simulation itself doesn\'t overscroll, but the '
+      'body': 'The simulation itself doesn\'t overscroll, but the '
           'user can still drag past the edge (held drag). The '
           'clamping only applies to the ballistic phase after '
           'release. During drag, BouncingScrollPhysics-style '
@@ -450,8 +425,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Velocity Sent to Glow',
-      'body':
-          'When the simulation hits a boundary, the remaining '
+      'body': 'When the simulation hits a boundary, the remaining '
           'velocity is consumed by the glow indicator. A faster '
           'fling into the edge produces a brighter, larger glow. '
           'This velocity is NOT available for continued scrolling.',
@@ -460,8 +434,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'isDone() Timing',
-      'body':
-          'ClampingScrollSimulation\'s isDone() returns true when '
+      'body': 'ClampingScrollSimulation\'s isDone() returns true when '
           'either the velocity drops below tolerance OR the position '
           'reaches the boundary. Check isDone() at each tick to know '
           'when to transition to idle.',
@@ -470,8 +443,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Friction on Different Devices',
-      'body':
-          'The default friction factor produces a scroll feel '
+      'body': 'The default friction factor produces a scroll feel '
           'tuned for typical phone DPIs. On tablets or desktop, the '
           'same friction may feel different because the physical '
           'pixel distance is larger. Consider per-platform friction.',
@@ -480,8 +452,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Combining Physics',
-      'body':
-          'ClampingScrollPhysics can be parented with '
+      'body': 'ClampingScrollPhysics can be parented with '
           'AlwaysScrollableScrollPhysics to allow bouncing beyond '
           'edges while still using clamping deceleration. The parent '
           'physics controls the "can I scroll?" decision.',
@@ -490,8 +461,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Testing Deceleration',
-      'body':
-          'Create ClampingScrollSimulation with known velocity '
+      'body': 'Create ClampingScrollSimulation with known velocity '
           'and sample x() at increments. The position should increase '
           'monotonically and converge. Good for regression tests '
           'on scroll behaviour.',
@@ -565,63 +535,50 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _heading('1', 'Concept — Android Scroll Deceleration'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: card['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: card['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          card['icon'] as IconData,
-                          color: card['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(card['icon'] as IconData,
+                            color: card['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            card['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(card['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      card['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(card['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -633,37 +590,30 @@ dynamic build(BuildContext context) {
             'initial velocities. Higher velocity = more distance '
             'traveled before stopping. The relationship is non-linear.',
             style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[600],
-              height: 1.5,
-            ),
+                fontSize: 13, color: Colors.grey[600], height: 1.5),
           ),
           SizedBox(height: 12),
-          ...velocityData.map(
-            (vd) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: (vd['color'] as Color).withOpacity(0.4),
+          ...velocityData.map((vd) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: (vd['color'] as Color).withOpacity(0.4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
                         Container(
                           width: 12,
                           height: 12,
@@ -673,37 +623,30 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8),
-                        Text(
-                          vd['label'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
+                        Text(vd['label'] as String,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 13)),
                         Spacer(),
                         Text(
                           'v=${(vd['velocity'] as double).toStringAsFixed(0)} → '
                           '${vd['distance']}px',
                           style: TextStyle(
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                            color: Colors.grey[600],
-                          ),
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: Colors.grey[600]),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    // Distance bar
-                    _buildDistanceBar(
-                      positions: vd['positions'] as List<double>,
-                      color: vd['color'] as Color,
-                      maxDistance: 8000.0,
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      // Distance bar
+                      _buildDistanceBar(
+                        positions: vd['positions'] as List<double>,
+                        color: vd['color'] as Color,
+                        maxDistance: 8000.0,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -715,10 +658,7 @@ dynamic build(BuildContext context) {
             'increases monotonically (never overshoots). Velocity '
             'decreases to zero.',
             style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[600],
-              height: 1.5,
-            ),
+                fontSize: 13, color: Colors.grey[600], height: 1.5),
           ),
           SizedBox(height: 12),
           Container(
@@ -728,56 +668,49 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.green[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      _cell('Time', bold: true, white: true, flex: 1),
-                      _cell('Slow\npos', bold: true, white: true, flex: 1),
-                      _cell('Med\npos', bold: true, white: true, flex: 1),
-                      _cell('Fast\npos', bold: true, white: true, flex: 1),
-                      _cell('Slow\nvel', bold: true, white: true, flex: 1),
-                      _cell('Med\nvel', bold: true, white: true, flex: 1),
-                      _cell('Fast\nvel', bold: true, white: true, flex: 1),
-                    ],
+            child: Column(children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                decoration: BoxDecoration(
+                  color: Colors.green[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
                 ),
-                ...timeRows.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final row = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      children: [
-                        _cell(row['time']!, flex: 1),
-                        _cell(row['slow']!, flex: 1),
-                        _cell(row['med']!, flex: 1),
-                        _cell(row['fast']!, flex: 1),
-                        _cell(row['velSlow']!, flex: 1),
-                        _cell(row['velMed']!, flex: 1),
-                        _cell(row['velFast']!, flex: 1),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                child: Row(children: [
+                  _cell('Time', bold: true, white: true, flex: 1),
+                  _cell('Slow\npos', bold: true, white: true, flex: 1),
+                  _cell('Med\npos', bold: true, white: true, flex: 1),
+                  _cell('Fast\npos', bold: true, white: true, flex: 1),
+                  _cell('Slow\nvel', bold: true, white: true, flex: 1),
+                  _cell('Med\nvel', bold: true, white: true, flex: 1),
+                  _cell('Fast\nvel', bold: true, white: true, flex: 1),
+                ]),
+              ),
+              ...timeRows.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final row = entry.value;
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
+                  child: Row(children: [
+                    _cell(row['time']!, flex: 1),
+                    _cell(row['slow']!, flex: 1),
+                    _cell(row['med']!, flex: 1),
+                    _cell(row['fast']!, flex: 1),
+                    _cell(row['velSlow']!, flex: 1),
+                    _cell(row['velMed']!, flex: 1),
+                    _cell(row['velFast']!, flex: 1),
+                  ]),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 8),
@@ -791,10 +724,9 @@ dynamic build(BuildContext context) {
             child: Text(
               'Slow: v=800 px/s  •  Medium: v=2000 px/s  •  Fast: v=5000 px/s',
               style: TextStyle(
-                fontSize: 12,
-                color: Colors.green[900],
-                fontWeight: FontWeight.w500,
-              ),
+                  fontSize: 12,
+                  color: Colors.green[900],
+                  fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
           ),
@@ -804,213 +736,174 @@ dynamic build(BuildContext context) {
           // ── Section 4: Deceleration Curve ──
           _heading('4', 'The Deceleration Curve'),
           SizedBox(height: 12),
-          ...curveFeatures.map(
-            (cf) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
+          ...curveFeatures.map((cf) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 42,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          color: (cf['color'] as Color).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(cf['icon'] as IconData,
+                            color: cf['color'] as Color, size: 22),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(cf['title'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14)),
+                            SizedBox(height: 6),
+                            Text(cf['body'] as String,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                    height: 1.4)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 42,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        color: (cf['color'] as Color).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Icon(
-                        cf['icon'] as IconData,
-                        color: cf['color'] as Color,
-                        size: 22,
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            cf['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            cf['body'] as String,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: Boundary Clamping ──
           _heading('5', 'Boundary Clamping Behaviour'),
           SizedBox(height: 12),
-          ...clampScenarios.map(
-            (cs) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: cs['color'] as Color, width: 4),
+          ...clampScenarios.map((cs) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: cs['color'] as Color, width: 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          cs['icon'] as IconData,
-                          color: cs['color'] as Color,
-                          size: 20,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(cs['icon'] as IconData,
+                            color: cs['color'] as Color, size: 20),
                         SizedBox(width: 8),
-                        Text(
-                          cs['title'] as String,
+                        Text(cs['title'] as String,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.grey[900])),
+                      ]),
+                      SizedBox(height: 6),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(cs['scenario'] as String,
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: Colors.grey[800])),
+                      ),
+                      SizedBox(height: 8),
+                      Text(cs['description'] as String,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.grey[900],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        cs['scenario'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      cs['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 6: Glow Indicator ──
           _heading('6', 'Glow Indicator Integration'),
           SizedBox(height: 12),
-          ...glowDetails.map(
-            (gd) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
+          ...glowDetails.map((gd) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: (gd['color'] as Color).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(gd['icon'] as IconData,
+                            color: gd['color'] as Color, size: 22),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(gd['title'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14)),
+                            SizedBox(height: 6),
+                            Text(gd['body'] as String,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                    height: 1.4)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: (gd['color'] as Color).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Icon(
-                        gd['icon'] as IconData,
-                        color: gd['color'] as Color,
-                        size: 22,
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            gd['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            gd['body'] as String,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1024,49 +917,44 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.green[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
+            child: Column(children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: Colors.green[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
+                ),
+                child: Row(children: [
+                  _cell('Aspect', bold: true, white: true, flex: 2),
+                  _cell('Clamping', bold: true, white: true, flex: 3),
+                  _cell('Bouncing', bold: true, white: true, flex: 3),
+                ]),
+              ),
+              ...internalComparison.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final row = entry.value;
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _cell('Aspect', bold: true, white: true, flex: 2),
-                      _cell('Clamping', bold: true, white: true, flex: 3),
-                      _cell('Bouncing', bold: true, white: true, flex: 3),
+                      _cell(row['aspect']!, bold: true, flex: 2),
+                      _cell(row['clamping']!, flex: 3),
+                      _cell(row['bouncing']!, flex: 3),
                     ],
                   ),
-                ),
-                ...internalComparison.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final row = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _cell(row['aspect']!, bold: true, flex: 2),
-                        _cell(row['clamping']!, flex: 3),
-                        _cell(row['bouncing']!, flex: 3),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -1074,62 +962,48 @@ dynamic build(BuildContext context) {
           // ── Section 8: Real-World Patterns ──
           _heading('8', 'Real-World Patterns'),
           SizedBox(height: 12),
-          ...patterns.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...patterns.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          p['icon'] as IconData,
-                          color: p['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(p['icon'] as IconData,
+                            color: p['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            p['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(p['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      p['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(p['body'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1161,41 +1035,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1236,26 +1098,20 @@ Widget _heading(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1264,12 +1120,8 @@ Widget _heading(String number, String title) {
 // ──────────────────────────────────────────────────────────
 // Helper: Table cell
 // ──────────────────────────────────────────────────────────
-Widget _cell(
-  String text, {
-  bool bold = false,
-  bool white = false,
-  int flex = 1,
-}) {
+Widget _cell(String text,
+    {bool bold = false, bool white = false, int flex = 1}) {
   return Expanded(
     flex: flex,
     child: Text(
@@ -1306,7 +1158,9 @@ Widget _buildDistanceBar({
           : 0.0,
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [color.withOpacity(0.7), color]),
+          gradient: LinearGradient(
+            colors: [color.withOpacity(0.7), color],
+          ),
           borderRadius: BorderRadius.circular(10),
         ),
       ),

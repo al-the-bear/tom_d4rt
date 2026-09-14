@@ -32,7 +32,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(24.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [violetDeep, violetMid, violetSoft],
+        colors: [
+          violetDeep,
+          violetMid,
+          violetSoft,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -61,7 +65,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Icon(Icons.touch_app, color: Colors.white, size: 36.0),
+              child: Icon(
+                Icons.touch_app,
+                color: Colors.white,
+                size: 36.0,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -165,19 +173,21 @@ dynamic build(BuildContext context) {
   final anatomyPills = <Widget>[];
   for (int i = 0; i < anatomySteps.length; i++) {
     final step = anatomySteps[i];
-    anatomyPills.add(
-      _buildAnatomyPill(
-        step['icon'] as IconData,
-        step['label'] as String,
-        step['detail'] as String,
-        step['color'] as Color,
-      ),
-    );
+    anatomyPills.add(_buildAnatomyPill(
+      step['icon'] as IconData,
+      step['label'] as String,
+      step['detail'] as String,
+      step['color'] as Color,
+    ));
     if (i < anatomySteps.length - 1) {
       anatomyPills.add(
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 6.0),
-          child: Icon(Icons.arrow_forward, color: violetMid, size: 22.0),
+          child: Icon(
+            Icons.arrow_forward,
+            color: violetMid,
+            size: 22.0,
+          ),
         ),
       );
     }
@@ -188,7 +198,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.white, violetPale.withValues(alpha: 0.4)],
+        colors: [
+          Colors.white,
+          violetPale.withValues(alpha: 0.4),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -225,7 +238,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 16.0),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(mainAxisSize: MainAxisSize.min, children: anatomyPills),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: anatomyPills,
+          ),
         ),
         SizedBox(height: 14.0),
         Container(
@@ -244,7 +260,11 @@ dynamic build(BuildContext context) {
             'is added. If the pointer moves before the timer fires the '
             'gesture is rejected; if the timer completes while the finger '
             'is still down, the recognizer claims the arena.',
-            style: TextStyle(fontSize: 11.5, color: slate, height: 1.4),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: slate,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -297,7 +317,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [violetPale.withValues(alpha: 0.5), Colors.white],
+        colors: [
+          violetPale.withValues(alpha: 0.5),
+          Colors.white,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -332,7 +355,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 14.0),
-        Wrap(spacing: 12.0, runSpacing: 12.0, children: paramChips),
+        Wrap(
+          spacing: 12.0,
+          runSpacing: 12.0,
+          children: paramChips,
+        ),
       ],
     ),
   );
@@ -447,7 +474,10 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 step['note'] as String,
-                style: TextStyle(fontSize: 11.5, color: slate),
+                style: TextStyle(
+                  fontSize: 11.5,
+                  color: slate,
+                ),
               ),
             ),
           ],
@@ -461,7 +491,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.white, violetPale.withValues(alpha: 0.3)],
+        colors: [
+          Colors.white,
+          violetPale.withValues(alpha: 0.3),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -487,7 +520,9 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        Column(children: timelineRows),
+        Column(
+          children: timelineRows,
+        ),
       ],
     ),
   );
@@ -545,7 +580,8 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: c.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(5.0),
@@ -566,7 +602,8 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(width: 8.0),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: c,
                     borderRadius: BorderRadius.circular(4.0),
@@ -602,7 +639,10 @@ dynamic build(BuildContext context) {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [c.withValues(alpha: 0.6), c],
+                      colors: [
+                        c.withValues(alpha: 0.6),
+                        c,
+                      ],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
@@ -628,7 +668,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [violetPale.withValues(alpha: 0.4), Colors.white],
+        colors: [
+          violetPale.withValues(alpha: 0.4),
+          Colors.white,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -715,7 +758,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.white, violetPale.withValues(alpha: 0.35)],
+        colors: [
+          Colors.white,
+          violetPale.withValues(alpha: 0.35),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -756,32 +802,28 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.reorder,
       'title': 'Rearrangeable Lists',
-      'note':
-          'ReorderableListView and ReorderableSliverList rely on a '
+      'note': 'ReorderableListView and ReorderableSliverList rely on a '
           '500ms delay before lifting the dragged item.',
       'color': violetDeep,
     },
     {
       'icon': Icons.pan_tool,
       'title': 'Drag-to-Pick',
-      'note':
-          'Press a card to "pick it up" and place it elsewhere on the '
+      'note': 'Press a card to "pick it up" and place it elsewhere on the '
           'canvas (kanban boards, photo trays).',
       'color': teal,
     },
     {
       'icon': Icons.grid_on,
       'title': 'Password Pattern Grids',
-      'note':
-          'Wait briefly to confirm the user wants to start a pattern '
+      'note': 'Wait briefly to confirm the user wants to start a pattern '
           'rather than tap a single dot.',
       'color': amber,
     },
     {
       'icon': Icons.edit,
       'title': 'Edit-Mode Handles',
-      'note':
-          'Long-press to enter edit mode, then drag handles to '
+      'note': 'Long-press to enter edit mode, then drag handles to '
           'rearrange or resize widgets.',
       'color': violetSoft,
     },
@@ -789,14 +831,12 @@ dynamic build(BuildContext context) {
 
   final useCaseCards = <Widget>[];
   for (final uc in useCases) {
-    useCaseCards.add(
-      _buildUseCaseCard(
-        uc['icon'] as IconData,
-        uc['title'] as String,
-        uc['note'] as String,
-        uc['color'] as Color,
-      ),
-    );
+    useCaseCards.add(_buildUseCaseCard(
+      uc['icon'] as IconData,
+      uc['title'] as String,
+      uc['note'] as String,
+      uc['color'] as Color,
+    ));
   }
 
   final useCaseSection = Container(
@@ -804,7 +844,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [violetPale.withValues(alpha: 0.5), Colors.white],
+        colors: [
+          violetPale.withValues(alpha: 0.5),
+          Colors.white,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -830,7 +873,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        Wrap(spacing: 12.0, runSpacing: 12.0, children: useCaseCards),
+        Wrap(
+          spacing: 12.0,
+          runSpacing: 12.0,
+          children: useCaseCards,
+        ),
       ],
     ),
   );
@@ -841,7 +888,8 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 8: RawGestureDetector Snippet ===');
 
-  final codeText = '''RawGestureDetector(
+  final codeText =
+      '''RawGestureDetector(
   gestures: <Type, GestureRecognizerFactory>{
     DelayedMultiDragGestureRecognizer:
         GestureRecognizerFactoryWithHandlers<
@@ -865,7 +913,10 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1A1A2E), Color(0xFF16213E)],
+        colors: [
+          Color(0xFF1A1A2E),
+          Color(0xFF16213E),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -958,11 +1009,7 @@ dynamic build(BuildContext context) {
     {'icon': Icons.send, 'title': 'Sent', 'subtitle': 'last today 09:14'},
     {'icon': Icons.drafts, 'title': 'Drafts', 'subtitle': '2 drafts'},
     {'icon': Icons.archive, 'title': 'Archive', 'subtitle': '146 items'},
-    {
-      'icon': Icons.delete_outline,
-      'title': 'Trash',
-      'subtitle': 'auto-purge 30d',
-    },
+    {'icon': Icons.delete_outline, 'title': 'Trash', 'subtitle': 'auto-purge 30d'},
   ];
 
   final mockRows = <Widget>[];
@@ -980,7 +1027,10 @@ dynamic build(BuildContext context) {
                     violetSoft.withValues(alpha: 0.25),
                     violetDeep.withValues(alpha: 0.25),
                   ]
-                : [Colors.white, Colors.grey.shade100],
+                : [
+                    Colors.white,
+                    Colors.grey.shade100,
+                  ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1041,22 +1091,31 @@ dynamic build(BuildContext context) {
                     item['subtitle'] as String,
                     style: TextStyle(
                       fontSize: 11.0,
-                      color: highlighted ? violetMid : Colors.grey.shade600,
+                      color: highlighted
+                          ? violetMid
+                          : Colors.grey.shade600,
                     ),
                   ),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
               decoration: BoxDecoration(
-                color: highlighted ? violetDeep : Colors.grey.shade400,
+                color: highlighted
+                    ? violetDeep
+                    : Colors.grey.shade400,
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.touch_app, size: 11.0, color: Colors.white),
+                  Icon(
+                    Icons.touch_app,
+                    size: 11.0,
+                    color: Colors.white,
+                  ),
                   SizedBox(width: 3.0),
                   Text(
                     'press 500ms',
@@ -1080,7 +1139,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.white, violetPale.withValues(alpha: 0.3)],
+        colors: [
+          Colors.white,
+          violetPale.withValues(alpha: 0.3),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1131,32 +1193,28 @@ dynamic build(BuildContext context) {
   final footguns = <Map<String, dynamic>>[
     {
       'title': 'Too-short delay',
-      'note':
-          'Tap recognisers may still be active — every quick touch '
+      'note': 'Tap recognisers may still be active — every quick touch '
           'risks accidentally starting a drag.',
       'color': crimson,
       'icon': Icons.flash_on,
     },
     {
       'title': 'Too-long delay',
-      'note':
-          'Users get frustrated waiting. Visual feedback is essential '
+      'note': 'Users get frustrated waiting. Visual feedback is essential '
           'when delay > 700 ms.',
       'color': Color(0xFFD84315),
       'icon': Icons.hourglass_full,
     },
     {
       'title': 'Multi-touch interference',
-      'note':
-          'A second finger arriving before the timer fires can cancel '
+      'note': 'A second finger arriving before the timer fires can cancel '
           'the gesture in some arenas.',
       'color': Color(0xFF6A1B9A),
       'icon': Icons.touch_app,
     },
     {
       'title': 'supportedDevices misuse',
-      'note':
-          'Restricting to PointerDeviceKind.touch silently excludes '
+      'note': 'Restricting to PointerDeviceKind.touch silently excludes '
           'desktop trackpads and styluses.',
       'color': Color(0xFF1565C0),
       'icon': Icons.mouse,
@@ -1165,14 +1223,12 @@ dynamic build(BuildContext context) {
 
   final footgunCards = <Widget>[];
   for (final fg in footguns) {
-    footgunCards.add(
-      _buildFootgunCard(
-        fg['title'] as String,
-        fg['note'] as String,
-        fg['color'] as Color,
-        fg['icon'] as IconData,
-      ),
-    );
+    footgunCards.add(_buildFootgunCard(
+      fg['title'] as String,
+      fg['note'] as String,
+      fg['color'] as Color,
+      fg['icon'] as IconData,
+    ));
   }
 
   final footgunSection = Container(
@@ -1180,7 +1236,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFFFEBEE), Color(0xFFFFF3E0)],
+        colors: [
+          Color(0xFFFFEBEE),
+          Color(0xFFFFF3E0),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1212,7 +1271,11 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        Wrap(spacing: 12.0, runSpacing: 12.0, children: footgunCards),
+        Wrap(
+          spacing: 12.0,
+          runSpacing: 12.0,
+          children: footgunCards,
+        ),
       ],
     ),
   );
@@ -1261,7 +1324,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [violetDeep, violetMid],
+        colors: [
+          violetDeep,
+          violetMid,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1317,7 +1383,11 @@ dynamic build(BuildContext context) {
             'reorderable lists, edit handles, and any "press to grab" '
             'pattern. Tune the delay carefully and surface visual feedback '
             'so the user knows the gesture is being processed.',
-            style: TextStyle(fontSize: 12.0, color: Colors.white, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.white,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -1407,7 +1477,10 @@ Widget _buildAnatomyPill(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.3)],
+        colors: [
+          color.withValues(alpha: 0.15),
+          color.withValues(alpha: 0.3),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1470,7 +1543,10 @@ Widget _buildParamChip(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
+        colors: [
+          color.withValues(alpha: 0.08),
+          color.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1554,8 +1630,14 @@ Widget _buildComparisonRow(
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: isHighlighted
-            ? [color.withValues(alpha: 0.18), color.withValues(alpha: 0.32)]
-            : [Colors.white, Colors.grey.shade100],
+            ? [
+                color.withValues(alpha: 0.18),
+                color.withValues(alpha: 0.32),
+              ]
+            : [
+                Colors.white,
+                Colors.grey.shade100,
+              ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1622,7 +1704,11 @@ Widget _buildMiniBadge(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(fontFamily: 'monospace', fontSize: 10.0, color: color),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 10.0,
+        color: color,
+      ),
     ),
   );
 }
@@ -1638,7 +1724,10 @@ Widget _buildUseCaseCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.22)],
+        colors: [
+          color.withValues(alpha: 0.1),
+          color.withValues(alpha: 0.22),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1681,7 +1770,11 @@ Widget _buildUseCaseCard(
         SizedBox(height: 8.0),
         Text(
           note,
-          style: TextStyle(fontSize: 11.5, color: Colors.black87, height: 1.35),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: Colors.black87,
+            height: 1.35,
+          ),
         ),
       ],
     ),
@@ -1731,7 +1824,11 @@ Widget _buildFootgunCard(
         SizedBox(height: 8.0),
         Text(
           note,
-          style: TextStyle(fontSize: 11.5, color: Colors.black87, height: 1.35),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: Colors.black87,
+            height: 1.35,
+          ),
         ),
       ],
     ),
@@ -1755,7 +1852,11 @@ Widget _buildDecisionRow(
           flex: 5,
           child: Text(
             question,
-            style: TextStyle(fontSize: 11.5, color: Colors.white, height: 1.35),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.white,
+              height: 1.35,
+            ),
           ),
         ),
         SizedBox(width: 6.0),

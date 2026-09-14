@@ -469,7 +469,10 @@ dynamic build(BuildContext context) {
           'Rating',
           style: TextStyle(fontWeight: FontWeight.bold, color: goldDeep),
         ),
-        Text('4.9 / 5.0', style: TextStyle(fontSize: 11.0, color: amberDeep)),
+        Text(
+          '4.9 / 5.0',
+          style: TextStyle(fontSize: 11.0, color: amberDeep),
+        ),
       ],
     ),
   );
@@ -523,7 +526,10 @@ dynamic build(BuildContext context) {
           'Champion',
           style: TextStyle(fontWeight: FontWeight.bold, color: orangeDeep),
         ),
-        Text('Award', style: TextStyle(fontSize: 11.0, color: amberDeep)),
+        Text(
+          'Award',
+          style: TextStyle(fontSize: 11.0, color: amberDeep),
+        ),
       ],
     ),
   );
@@ -620,7 +626,10 @@ dynamic build(BuildContext context) {
           'Avatar',
           style: TextStyle(fontWeight: FontWeight.bold, color: orangeDeep),
         ),
-        Text('hexagon', style: TextStyle(fontSize: 11.0, color: amberDeep)),
+        Text(
+          'hexagon',
+          style: TextStyle(fontSize: 11.0, color: amberDeep),
+        ),
       ],
     ),
   );
@@ -682,15 +691,13 @@ dynamic build(BuildContext context) {
   ];
   final List<Widget> footgunCards = <Widget>[];
   for (final fg in footguns) {
-    footgunCards.add(
-      _footgunCard(
-        label: fg['icon']!,
-        title: fg['title']!,
-        detail: fg['detail']!,
-        accent: orangeDeep,
-        bg: creamLight,
-      ),
-    );
+    footgunCards.add(_footgunCard(
+      label: fg['icon']!,
+      title: fg['title']!,
+      detail: fg['detail']!,
+      accent: orangeDeep,
+      bg: creamLight,
+    ));
   }
   print('Created ${footgunCards.length} footgun cards');
 

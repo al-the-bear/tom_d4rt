@@ -12,7 +12,10 @@ dynamic build(BuildContext context) {
   // ==========================================================================
 
   final dossierEntries = <Map<String, String>>[
-    {'field': 'Library', 'value': 'package:flutter/foundation.dart'},
+    {
+      'field': 'Library',
+      'value': 'package:flutter/foundation.dart',
+    },
     {
       'field': 'Type',
       'value': 'class RepetitiveStackFrameFilter extends StackFilter',
@@ -34,7 +37,8 @@ dynamic build(BuildContext context) {
     },
     {
       'field': 'Required - replacement',
-      'value': 'Text inserted in place of each fully matched repetition block.',
+      'value':
+          'Text inserted in place of each fully matched repetition block.',
     },
     {
       'field': 'Method - filter()',
@@ -236,11 +240,7 @@ dynamic build(BuildContext context) {
   final sampleAAfter = _collapse(
     sampleAFrames,
     pattern: <_FrameSpec>[
-      _FrameSpec(
-        package: 'flutter',
-        cls: 'WidgetsBinding',
-        method: 'drawFrame',
-      ),
+      _FrameSpec(package: 'flutter', cls: 'WidgetsBinding', method: 'drawFrame'),
     ],
     replacement: drawFrameFilter.replacement,
   );
@@ -327,7 +327,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Plain marker',
       'example': '... collapsed ...',
-      'use': 'Quick triage; minimal noise, no count info.',
+      'use':
+          'Quick triage; minimal noise, no count info.',
     },
     {
       'name': 'Named loop',
@@ -347,7 +348,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Multilingual hint',
       'example': '... (repeated pattern omitted) ...',
-      'use': 'User-facing crash dialogs where developer slang is undesirable.',
+      'use':
+          'User-facing crash dialogs where developer slang is undesirable.',
     },
     {
       'name': 'Domain-specific',
@@ -807,7 +809,10 @@ class _Header extends StatelessWidget {
                 ),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
               ],
             ),
@@ -834,7 +839,10 @@ class _DossierTable extends StatelessWidget {
           for (int i = 0; i < rows.length; i++)
             Container(
               color: i.isEven ? Colors.indigo.shade50 : Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 8,
+              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -962,10 +970,17 @@ class _SampleTriptych extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 6),
             for (int i = 0; i < frames.length; i++)
-              _FrameLine(index: i, spec: frames[i], emphasized: false),
+              _FrameLine(
+                index: i,
+                spec: frames[i],
+                emphasized: false,
+              ),
           ],
         ),
       ),
@@ -992,7 +1007,10 @@ class _BeforeAfter extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 4),
           Text(
             'replacementString = "$replacement"',
@@ -1126,7 +1144,10 @@ class _FrameLine extends StatelessWidget {
           Expanded(
             child: Text(
               spec.toString(),
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+              ),
             ),
           ),
         ],
@@ -1150,7 +1171,10 @@ class _PatternMatchingTable extends StatelessWidget {
         children: <Widget>[
           Container(
             color: Colors.teal.shade100,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 8,
+            ),
             child: Row(
               children: const <Widget>[
                 SizedBox(
@@ -1186,13 +1210,19 @@ class _PatternMatchingTable extends StatelessWidget {
           for (int i = 0; i < rows.length; i++)
             Container(
               color: i.isEven ? Colors.teal.shade50 : Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 8,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      SizedBox(width: 140, child: Text(rows[i]['kind']!)),
+                      SizedBox(
+                        width: 140,
+                        child: Text(rows[i]['kind']!),
+                      ),
                       Expanded(
                         child: Text(
                           rows[i]['pattern']!,
@@ -1202,14 +1232,23 @@ class _PatternMatchingTable extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: 80, child: Text(rows[i]['minLength']!)),
-                      SizedBox(width: 110, child: Text(rows[i]['matchesIn']!)),
+                      SizedBox(
+                        width: 80,
+                        child: Text(rows[i]['minLength']!),
+                      ),
+                      SizedBox(
+                        width: 110,
+                        child: Text(rows[i]['matchesIn']!),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 4),
                   Text(
                     rows[i]['gain']!,
-                    style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
                 ],
               ),
@@ -1262,7 +1301,10 @@ class _ReplacementStrategiesList extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(row['use']!, style: const TextStyle(fontSize: 12)),
+                Text(
+                  row['use']!,
+                  style: const TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),
@@ -1375,7 +1417,10 @@ class _RecipeGrid extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Text(row['body']!, style: const TextStyle(fontSize: 12)),
+                  Text(
+                    row['body']!,
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ],
               ),
             ),
@@ -1400,7 +1445,10 @@ class _ComparisonTable extends StatelessWidget {
         children: <Widget>[
           Container(
             color: Colors.brown.shade100,
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 6,
+            ),
             child: Row(
               children: const <Widget>[
                 SizedBox(
@@ -1441,7 +1489,10 @@ class _ComparisonTable extends StatelessWidget {
           for (int i = 0; i < rows.length; i++)
             Container(
               color: i.isEven ? Colors.brown.shade50 : Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
+              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -1452,7 +1503,10 @@ class _ComparisonTable extends StatelessWidget {
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),
-                  SizedBox(width: 60, child: Text(rows[i]['frames']!)),
+                  SizedBox(
+                    width: 60,
+                    child: Text(rows[i]['frames']!),
+                  ),
                   Expanded(
                     child: Text(
                       rows[i]['readable']!,
@@ -1535,7 +1589,10 @@ class _ClosingNotes extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
-          Text('Cheat-sheet', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Cheat-sheet',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 6),
           Text(
             '- Construct: RepetitiveStackFrameFilter(frames: [...], replacementString: "...")',

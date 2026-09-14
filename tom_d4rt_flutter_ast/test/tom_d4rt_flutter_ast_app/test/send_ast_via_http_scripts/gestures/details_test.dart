@@ -115,11 +115,11 @@ final LongPressStartDetails _sampleLongPressStart = LongPressStartDetails(
 
 final LongPressMoveUpdateDetails _sampleLongPressMove =
     LongPressMoveUpdateDetails(
-      globalPosition: _kGlobalC + const Offset(20.0, -10.0),
-      localPosition: _kLocalC + const Offset(20.0, -10.0),
-      offsetFromOrigin: const Offset(20.0, -10.0),
-      localOffsetFromOrigin: const Offset(20.0, -10.0),
-    );
+  globalPosition: _kGlobalC + const Offset(20.0, -10.0),
+  localPosition: _kLocalC + const Offset(20.0, -10.0),
+  offsetFromOrigin: const Offset(20.0, -10.0),
+  localOffsetFromOrigin: const Offset(20.0, -10.0),
+);
 
 final LongPressEndDetails _sampleLongPressEnd = LongPressEndDetails(
   globalPosition: _kGlobalC + const Offset(20.0, -10.0),
@@ -210,7 +210,11 @@ Widget _buildHeaderBanner(ColorScheme scheme) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[scheme.primary, scheme.secondary, scheme.tertiary],
+        colors: <Color>[
+          scheme.primary,
+          scheme.secondary,
+          scheme.tertiary,
+        ],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: <BoxShadow>[
@@ -232,7 +236,8 @@ Widget _buildHeaderBanner(ColorScheme scheme) {
                 color: scheme.onPrimary.withValues(alpha: 0.18),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.touch_app, size: 40.0, color: scheme.onPrimary),
+              child: Icon(Icons.touch_app,
+                  size: 40.0, color: scheme.onPrimary),
             ),
             const SizedBox(width: 16.0),
             Expanded(
@@ -266,7 +271,8 @@ Widget _buildHeaderBanner(ColorScheme scheme) {
         ),
         const SizedBox(height: 18.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: scheme.onPrimary.withValues(alpha: 0.14),
             borderRadius: BorderRadius.circular(8.0),
@@ -274,7 +280,8 @@ Widget _buildHeaderBanner(ColorScheme scheme) {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Icon(Icons.info_outline, size: 14.0, color: scheme.onPrimary),
+              Icon(Icons.info_outline,
+                  size: 14.0, color: scheme.onPrimary),
               const SizedBox(width: 6.0),
               Text(
                 'Every Details object carries positions in BOTH global and '
@@ -294,48 +301,18 @@ Widget _buildHeaderBanner(ColorScheme scheme) {
 
 Widget _buildTaxonomyStrip(ColorScheme scheme) {
   final List<_TaxonomyEntry> entries = <_TaxonomyEntry>[
-    _TaxonomyEntry(
-      'Tap',
-      Icons.touch_app,
-      scheme.primaryContainer,
-      scheme.onPrimaryContainer,
-      '3 types',
-    ),
-    _TaxonomyEntry(
-      'Drag',
-      Icons.swipe,
-      scheme.secondaryContainer,
-      scheme.onSecondaryContainer,
-      '3 types',
-    ),
-    _TaxonomyEntry(
-      'Scale',
-      Icons.zoom_out_map,
-      scheme.tertiaryContainer,
-      scheme.onTertiaryContainer,
-      '3 types',
-    ),
-    _TaxonomyEntry(
-      'LongPress',
-      Icons.timer,
-      scheme.primaryContainer,
-      scheme.onPrimaryContainer,
-      '3 types',
-    ),
-    _TaxonomyEntry(
-      'Force',
-      Icons.compress,
-      scheme.errorContainer,
-      scheme.onErrorContainer,
-      '1 type',
-    ),
-    _TaxonomyEntry(
-      'Hover',
-      Icons.mouse,
-      scheme.secondaryContainer,
-      scheme.onSecondaryContainer,
-      'pointer',
-    ),
+    _TaxonomyEntry('Tap', Icons.touch_app, scheme.primaryContainer,
+        scheme.onPrimaryContainer, '3 types'),
+    _TaxonomyEntry('Drag', Icons.swipe, scheme.secondaryContainer,
+        scheme.onSecondaryContainer, '3 types'),
+    _TaxonomyEntry('Scale', Icons.zoom_out_map, scheme.tertiaryContainer,
+        scheme.onTertiaryContainer, '3 types'),
+    _TaxonomyEntry('LongPress', Icons.timer, scheme.primaryContainer,
+        scheme.onPrimaryContainer, '3 types'),
+    _TaxonomyEntry('Force', Icons.compress, scheme.errorContainer,
+        scheme.onErrorContainer, '1 type'),
+    _TaxonomyEntry('Hover', Icons.mouse, scheme.secondaryContainer,
+        scheme.onSecondaryContainer, 'pointer'),
   ];
   return Wrap(
     spacing: 10.0,
@@ -357,18 +334,14 @@ Widget _buildTaxonomyStrip(ColorScheme scheme) {
                 Text(
                   e.label,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: e.fg,
-                    fontSize: 13.0,
-                  ),
+                      fontWeight: FontWeight.bold,
+                      color: e.fg,
+                      fontSize: 13.0),
                 ),
-                Text(
-                  e.subtitle,
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    color: e.fg.withValues(alpha: 0.75),
-                  ),
-                ),
+                Text(e.subtitle,
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        color: e.fg.withValues(alpha: 0.75))),
               ],
             ),
           ),
@@ -396,21 +369,14 @@ Widget _buildSection2TapFamily(ColorScheme scheme) {
   print('TapDownDetails.localPosition  = ${_sampleTapDown.localPosition}');
   print('TapDownDetails.kind           = ${_sampleTapDown.kind}');
   print('TapUpDetails.kind             = ${_sampleTapUp.kind}');
-  print(
-    'TapDragDownDetails.consecutiveTapCount '
-    '= ${_sampleTapDragDown.consecutiveTapCount}',
-  );
+  print('TapDragDownDetails.consecutiveTapCount '
+      '= ${_sampleTapDragDown.consecutiveTapCount}');
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionTitle(
-        scheme,
-        '2',
-        'Tap details family',
-        'Down, Up, and TapDragDown',
-        Icons.touch_app,
-      ),
+      _sectionTitle(scheme, '2', 'Tap details family',
+          'Down, Up, and TapDragDown', Icons.touch_app),
       const SizedBox(height: 14.0),
       Wrap(
         spacing: 16.0,
@@ -426,14 +392,8 @@ Widget _buildSection2TapFamily(ColorScheme scheme) {
             subtitle: 'onTapDown',
             icon: Icons.south,
             rows: <_FieldRow>[
-              _FieldRow(
-                'globalPosition',
-                _sampleTapDown.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleTapDown.localPosition.toString(),
-              ),
+              _FieldRow('globalPosition', _sampleTapDown.globalPosition.toString()),
+              _FieldRow('localPosition', _sampleTapDown.localPosition.toString()),
               _FieldRow('kind', _sampleTapDown.kind.toString()),
             ],
             diagram: _pointStage(
@@ -453,10 +413,7 @@ Widget _buildSection2TapFamily(ColorScheme scheme) {
             subtitle: 'onTapUp',
             icon: Icons.north,
             rows: <_FieldRow>[
-              _FieldRow(
-                'globalPosition',
-                _sampleTapUp.globalPosition.toString(),
-              ),
+              _FieldRow('globalPosition', _sampleTapUp.globalPosition.toString()),
               _FieldRow('localPosition', _sampleTapUp.localPosition.toString()),
               _FieldRow('kind', _sampleTapUp.kind.toString()),
             ],
@@ -477,19 +434,13 @@ Widget _buildSection2TapFamily(ColorScheme scheme) {
             subtitle: 'onTapDown (drag combo)',
             icon: Icons.repeat,
             rows: <_FieldRow>[
+              _FieldRow('globalPosition',
+                  _sampleTapDragDown.globalPosition.toString()),
               _FieldRow(
-                'globalPosition',
-                _sampleTapDragDown.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleTapDragDown.localPosition.toString(),
-              ),
+                  'localPosition', _sampleTapDragDown.localPosition.toString()),
               _FieldRow('kind', _sampleTapDragDown.kind.toString()),
-              _FieldRow(
-                'consecutiveTapCount',
-                _sampleTapDragDown.consecutiveTapCount.toString(),
-              ),
+              _FieldRow('consecutiveTapCount',
+                  _sampleTapDragDown.consecutiveTapCount.toString()),
             ],
             diagram: _pointStage(
               scheme: scheme,
@@ -517,23 +468,16 @@ Widget _buildSection2TapFamily(ColorScheme scheme) {
 
 Widget _buildSection3DragFamily(ColorScheme scheme) {
   print('=== Section 3: Drag details family ===');
-  print(
-    'DragStartDetails.globalPosition  = '
-    '${_sampleDragStart.globalPosition}',
-  );
+  print('DragStartDetails.globalPosition  = '
+      '${_sampleDragStart.globalPosition}');
   print('DragUpdateDetails.delta          = ${_sampleDragUpdate.delta}');
   print('DragEndDetails.velocity          = ${_sampleDragEnd.velocity}');
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionTitle(
-        scheme,
-        '3',
-        'Drag details family',
-        'Start, Update (delta), End (velocity)',
-        Icons.swipe,
-      ),
+      _sectionTitle(scheme, '3', 'Drag details family',
+          'Start, Update (delta), End (velocity)', Icons.swipe),
       const SizedBox(height: 14.0),
       Wrap(
         spacing: 16.0,
@@ -549,18 +493,12 @@ Widget _buildSection3DragFamily(ColorScheme scheme) {
             subtitle: 'onPanStart / onHorizontalDragStart',
             icon: Icons.first_page,
             rows: <_FieldRow>[
+              _FieldRow('globalPosition',
+                  _sampleDragStart.globalPosition.toString()),
               _FieldRow(
-                'globalPosition',
-                _sampleDragStart.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleDragStart.localPosition.toString(),
-              ),
-              _FieldRow(
-                'sourceTimeStamp',
-                _sampleDragStart.sourceTimeStamp.toString(),
-              ),
+                  'localPosition', _sampleDragStart.localPosition.toString()),
+              _FieldRow('sourceTimeStamp',
+                  _sampleDragStart.sourceTimeStamp.toString()),
               _FieldRow('kind', _sampleDragStart.kind.toString()),
             ],
             diagram: _pointStage(
@@ -580,23 +518,15 @@ Widget _buildSection3DragFamily(ColorScheme scheme) {
             subtitle: 'onPanUpdate',
             icon: Icons.linear_scale,
             rows: <_FieldRow>[
+              _FieldRow('globalPosition',
+                  _sampleDragUpdate.globalPosition.toString()),
               _FieldRow(
-                'globalPosition',
-                _sampleDragUpdate.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleDragUpdate.localPosition.toString(),
-              ),
+                  'localPosition', _sampleDragUpdate.localPosition.toString()),
               _FieldRow('delta', _sampleDragUpdate.delta.toString()),
-              _FieldRow(
-                'primaryDelta',
-                _sampleDragUpdate.primaryDelta?.toString() ?? 'null',
-              ),
-              _FieldRow(
-                'sourceTimeStamp',
-                _sampleDragUpdate.sourceTimeStamp.toString(),
-              ),
+              _FieldRow('primaryDelta',
+                  _sampleDragUpdate.primaryDelta?.toString() ?? 'null'),
+              _FieldRow('sourceTimeStamp',
+                  _sampleDragUpdate.sourceTimeStamp.toString()),
             ],
             diagram: _vectorStage(
               scheme: scheme,
@@ -617,29 +547,20 @@ Widget _buildSection3DragFamily(ColorScheme scheme) {
             subtitle: 'onPanEnd',
             icon: Icons.last_page,
             rows: <_FieldRow>[
+              _FieldRow('velocity',
+                  '${_sampleDragEnd.velocity.pixelsPerSecond.dx.toStringAsFixed(0)},'
+                  '${_sampleDragEnd.velocity.pixelsPerSecond.dy.toStringAsFixed(0)} px/s'),
+              _FieldRow('primaryVelocity',
+                  _sampleDragEnd.primaryVelocity?.toString() ?? 'null'),
+              _FieldRow('globalPosition',
+                  _sampleDragEnd.globalPosition.toString()),
               _FieldRow(
-                'velocity',
-                '${_sampleDragEnd.velocity.pixelsPerSecond.dx.toStringAsFixed(0)},'
-                    '${_sampleDragEnd.velocity.pixelsPerSecond.dy.toStringAsFixed(0)} px/s',
-              ),
-              _FieldRow(
-                'primaryVelocity',
-                _sampleDragEnd.primaryVelocity?.toString() ?? 'null',
-              ),
-              _FieldRow(
-                'globalPosition',
-                _sampleDragEnd.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleDragEnd.localPosition.toString(),
-              ),
+                  'localPosition', _sampleDragEnd.localPosition.toString()),
             ],
             diagram: _vectorStage(
               scheme: scheme,
               from: _sampleDragEnd.localPosition,
-              to:
-                  _sampleDragEnd.localPosition +
+              to: _sampleDragEnd.localPosition +
                   _sampleDragEnd.velocity.pixelsPerSecond / 6.0,
               accent: scheme.tertiary,
               caption: 'fling',
@@ -671,13 +592,8 @@ Widget _buildSection4ScaleFamily(ColorScheme scheme) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionTitle(
-        scheme,
-        '4',
-        'Scale details family',
-        'pinch, zoom, rotate (multi-touch)',
-        Icons.zoom_out_map,
-      ),
+      _sectionTitle(scheme, '4', 'Scale details family',
+          'pinch, zoom, rotate (multi-touch)', Icons.zoom_out_map),
       const SizedBox(height: 14.0),
       Wrap(
         spacing: 16.0,
@@ -693,15 +609,12 @@ Widget _buildSection4ScaleFamily(ColorScheme scheme) {
             subtitle: 'onScaleStart',
             icon: Icons.center_focus_weak,
             rows: <_FieldRow>[
-              _FieldRow('focalPoint', _sampleScaleStart.focalPoint.toString()),
-              _FieldRow(
-                'localFocalPoint',
-                _sampleScaleStart.localFocalPoint.toString(),
-              ),
-              _FieldRow(
-                'pointerCount',
-                _sampleScaleStart.pointerCount.toString(),
-              ),
+              _FieldRow('focalPoint',
+                  _sampleScaleStart.focalPoint.toString()),
+              _FieldRow('localFocalPoint',
+                  _sampleScaleStart.localFocalPoint.toString()),
+              _FieldRow('pointerCount',
+                  _sampleScaleStart.pointerCount.toString()),
             ],
             diagram: _focalStage(
               scheme: scheme,
@@ -720,24 +633,18 @@ Widget _buildSection4ScaleFamily(ColorScheme scheme) {
             subtitle: 'onScaleUpdate',
             icon: Icons.zoom_in,
             rows: <_FieldRow>[
-              _FieldRow('focalPoint', _sampleScaleUpdate.focalPoint.toString()),
-              _FieldRow('scale', _sampleScaleUpdate.scale.toStringAsFixed(2)),
               _FieldRow(
-                'horizontalScale',
-                _sampleScaleUpdate.horizontalScale.toStringAsFixed(2),
-              ),
-              _FieldRow(
-                'verticalScale',
-                _sampleScaleUpdate.verticalScale.toStringAsFixed(2),
-              ),
-              _FieldRow(
-                'rotation (rad)',
-                _sampleScaleUpdate.rotation.toStringAsFixed(2),
-              ),
-              _FieldRow(
-                'pointerCount',
-                _sampleScaleUpdate.pointerCount.toString(),
-              ),
+                  'focalPoint', _sampleScaleUpdate.focalPoint.toString()),
+              _FieldRow('scale',
+                  _sampleScaleUpdate.scale.toStringAsFixed(2)),
+              _FieldRow('horizontalScale',
+                  _sampleScaleUpdate.horizontalScale.toStringAsFixed(2)),
+              _FieldRow('verticalScale',
+                  _sampleScaleUpdate.verticalScale.toStringAsFixed(2)),
+              _FieldRow('rotation (rad)',
+                  _sampleScaleUpdate.rotation.toStringAsFixed(2)),
+              _FieldRow('pointerCount',
+                  _sampleScaleUpdate.pointerCount.toString()),
             ],
             diagram: _scaleRotateStage(
               scheme: scheme,
@@ -757,18 +664,13 @@ Widget _buildSection4ScaleFamily(ColorScheme scheme) {
             icon: Icons.zoom_out,
             rows: <_FieldRow>[
               _FieldRow(
-                'velocity',
-                '${_sampleScaleEnd.velocity.pixelsPerSecond.dx.toStringAsFixed(0)},'
-                    '${_sampleScaleEnd.velocity.pixelsPerSecond.dy.toStringAsFixed(0)} px/s',
-              ),
+                  'velocity',
+                  '${_sampleScaleEnd.velocity.pixelsPerSecond.dx.toStringAsFixed(0)},'
+                  '${_sampleScaleEnd.velocity.pixelsPerSecond.dy.toStringAsFixed(0)} px/s'),
+              _FieldRow('scaleVelocity',
+                  _sampleScaleEnd.scaleVelocity.toStringAsFixed(2)),
               _FieldRow(
-                'scaleVelocity',
-                _sampleScaleEnd.scaleVelocity.toStringAsFixed(2),
-              ),
-              _FieldRow(
-                'pointerCount',
-                _sampleScaleEnd.pointerCount.toString(),
-              ),
+                  'pointerCount', _sampleScaleEnd.pointerCount.toString()),
             ],
             diagram: _focalStage(
               scheme: scheme,
@@ -790,30 +692,19 @@ Widget _buildSection4ScaleFamily(ColorScheme scheme) {
 
 Widget _buildSection5LongPressAndForce(ColorScheme scheme) {
   print('=== Section 5: Long-press + force-press details ===');
-  print(
-    'LongPressStartDetails.globalPosition '
-    '= ${_sampleLongPressStart.globalPosition}',
-  );
-  print(
-    'LongPressMoveUpdateDetails.offsetFromOrigin '
-    '= ${_sampleLongPressMove.offsetFromOrigin}',
-  );
-  print(
-    'LongPressEndDetails.velocity = '
-    '${_sampleLongPressEnd.velocity}',
-  );
+  print('LongPressStartDetails.globalPosition '
+      '= ${_sampleLongPressStart.globalPosition}');
+  print('LongPressMoveUpdateDetails.offsetFromOrigin '
+      '= ${_sampleLongPressMove.offsetFromOrigin}');
+  print('LongPressEndDetails.velocity = '
+      '${_sampleLongPressEnd.velocity}');
   print('ForcePressDetails.pressure = ${_sampleForcePress.pressure}');
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionTitle(
-        scheme,
-        '5',
-        'LongPress and ForcePress',
-        'time- and pressure-sensitive details',
-        Icons.timer,
-      ),
+      _sectionTitle(scheme, '5', 'LongPress and ForcePress',
+          'time- and pressure-sensitive details', Icons.timer),
       const SizedBox(height: 14.0),
       Wrap(
         spacing: 16.0,
@@ -829,14 +720,10 @@ Widget _buildSection5LongPressAndForce(ColorScheme scheme) {
             subtitle: 'onLongPressStart',
             icon: Icons.timer,
             rows: <_FieldRow>[
-              _FieldRow(
-                'globalPosition',
-                _sampleLongPressStart.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleLongPressStart.localPosition.toString(),
-              ),
+              _FieldRow('globalPosition',
+                  _sampleLongPressStart.globalPosition.toString()),
+              _FieldRow('localPosition',
+                  _sampleLongPressStart.localPosition.toString()),
             ],
             diagram: _pointStage(
               scheme: scheme,
@@ -855,22 +742,14 @@ Widget _buildSection5LongPressAndForce(ColorScheme scheme) {
             subtitle: 'onLongPressMoveUpdate',
             icon: Icons.open_with,
             rows: <_FieldRow>[
-              _FieldRow(
-                'globalPosition',
-                _sampleLongPressMove.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleLongPressMove.localPosition.toString(),
-              ),
-              _FieldRow(
-                'offsetFromOrigin',
-                _sampleLongPressMove.offsetFromOrigin.toString(),
-              ),
-              _FieldRow(
-                'localOffsetFromOrigin',
-                _sampleLongPressMove.localOffsetFromOrigin.toString(),
-              ),
+              _FieldRow('globalPosition',
+                  _sampleLongPressMove.globalPosition.toString()),
+              _FieldRow('localPosition',
+                  _sampleLongPressMove.localPosition.toString()),
+              _FieldRow('offsetFromOrigin',
+                  _sampleLongPressMove.offsetFromOrigin.toString()),
+              _FieldRow('localOffsetFromOrigin',
+                  _sampleLongPressMove.localOffsetFromOrigin.toString()),
             ],
             diagram: _vectorStage(
               scheme: scheme,
@@ -889,19 +768,13 @@ Widget _buildSection5LongPressAndForce(ColorScheme scheme) {
             subtitle: 'onLongPressEnd',
             icon: Icons.timer_off,
             rows: <_FieldRow>[
-              _FieldRow(
-                'globalPosition',
-                _sampleLongPressEnd.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleLongPressEnd.localPosition.toString(),
-              ),
-              _FieldRow(
-                'velocity',
-                '${_sampleLongPressEnd.velocity.pixelsPerSecond.dx.toStringAsFixed(0)},'
-                    '${_sampleLongPressEnd.velocity.pixelsPerSecond.dy.toStringAsFixed(0)} px/s',
-              ),
+              _FieldRow('globalPosition',
+                  _sampleLongPressEnd.globalPosition.toString()),
+              _FieldRow('localPosition',
+                  _sampleLongPressEnd.localPosition.toString()),
+              _FieldRow('velocity',
+                  '${_sampleLongPressEnd.velocity.pixelsPerSecond.dx.toStringAsFixed(0)},'
+                  '${_sampleLongPressEnd.velocity.pixelsPerSecond.dy.toStringAsFixed(0)} px/s'),
             ],
             diagram: _pointStage(
               scheme: scheme,
@@ -920,18 +793,12 @@ Widget _buildSection5LongPressAndForce(ColorScheme scheme) {
             subtitle: 'onForcePressStart / Peak / End / Update',
             icon: Icons.compress,
             rows: <_FieldRow>[
-              _FieldRow(
-                'globalPosition',
-                _sampleForcePress.globalPosition.toString(),
-              ),
-              _FieldRow(
-                'localPosition',
-                _sampleForcePress.localPosition.toString(),
-              ),
-              _FieldRow(
-                'pressure (0.0..1.0)',
-                _sampleForcePress.pressure.toStringAsFixed(2),
-              ),
+              _FieldRow('globalPosition',
+                  _sampleForcePress.globalPosition.toString()),
+              _FieldRow('localPosition',
+                  _sampleForcePress.localPosition.toString()),
+              _FieldRow('pressure (0.0..1.0)',
+                  _sampleForcePress.pressure.toStringAsFixed(2)),
             ],
             diagram: _pressureStage(
               scheme: scheme,
@@ -958,13 +825,8 @@ Widget _buildSection6HoverFamily(ColorScheme scheme) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionTitle(
-        scheme,
-        '6',
-        'Hover and Pointer events',
-        'MouseRegion sees these, not GestureDetector',
-        Icons.mouse,
-      ),
+      _sectionTitle(scheme, '6', 'Hover and Pointer events',
+          'MouseRegion sees these, not GestureDetector', Icons.mouse),
       const SizedBox(height: 14.0),
       Wrap(
         spacing: 16.0,
@@ -981,7 +843,8 @@ Widget _buildSection6HoverFamily(ColorScheme scheme) {
             icon: Icons.login,
             rows: <_FieldRow>[
               _FieldRow('position', _sampleEnter.position.toString()),
-              _FieldRow('localPosition', _sampleEnter.localPosition.toString()),
+              _FieldRow('localPosition',
+                  _sampleEnter.localPosition.toString()),
               _FieldRow('kind', _sampleEnter.kind.toString()),
             ],
             diagram: _pointStage(
@@ -1002,7 +865,8 @@ Widget _buildSection6HoverFamily(ColorScheme scheme) {
             icon: Icons.adjust,
             rows: <_FieldRow>[
               _FieldRow('position', _sampleHover.position.toString()),
-              _FieldRow('localPosition', _sampleHover.localPosition.toString()),
+              _FieldRow('localPosition',
+                  _sampleHover.localPosition.toString()),
               _FieldRow('delta', _sampleHover.delta.toString()),
               _FieldRow('kind', _sampleHover.kind.toString()),
             ],
@@ -1054,96 +918,54 @@ Widget _buildSection6HoverFamily(ColorScheme scheme) {
 Widget _buildSection7CallbackMappingTable(ColorScheme scheme) {
   print('=== Section 7: GestureDetector callback mapping table ===');
   final List<_MappingRow> rows = <_MappingRow>[
-    _MappingRow('onTapDown', 'TapDownDetails', 'finger or pointer pressed'),
+    _MappingRow(
+        'onTapDown', 'TapDownDetails', 'finger or pointer pressed'),
     _MappingRow('onTapUp', 'TapUpDetails', 'finger or pointer released'),
-    _MappingRow('onSecondaryTapDown', 'TapDownDetails', 'right-button press'),
+    _MappingRow(
+        'onSecondaryTapDown', 'TapDownDetails', 'right-button press'),
     _MappingRow('onPanStart', 'DragStartDetails', 'free-direction drag begin'),
-    _MappingRow('onPanUpdate', 'DragUpdateDetails', 'incremental drag motion'),
+    _MappingRow(
+        'onPanUpdate', 'DragUpdateDetails', 'incremental drag motion'),
     _MappingRow('onPanEnd', 'DragEndDetails', 'drag ended with velocity'),
+    _MappingRow('onHorizontalDragStart', 'DragStartDetails',
+        'horizontal-only drag begin'),
+    _MappingRow('onHorizontalDragUpdate', 'DragUpdateDetails',
+        'has primaryDelta (dx)'),
+    _MappingRow('onHorizontalDragEnd', 'DragEndDetails',
+        'has primaryVelocity (dx)'),
     _MappingRow(
-      'onHorizontalDragStart',
-      'DragStartDetails',
-      'horizontal-only drag begin',
-    ),
+        'onVerticalDragStart', 'DragStartDetails', 'vertical-only begin'),
+    _MappingRow('onVerticalDragUpdate', 'DragUpdateDetails',
+        'has primaryDelta (dy)'),
+    _MappingRow('onVerticalDragEnd', 'DragEndDetails',
+        'has primaryVelocity (dy)'),
+    _MappingRow('onScaleStart', 'ScaleStartDetails',
+        'multi-pointer focal anchored'),
+    _MappingRow('onScaleUpdate', 'ScaleUpdateDetails',
+        'scale + rotation + focalPoint'),
     _MappingRow(
-      'onHorizontalDragUpdate',
-      'DragUpdateDetails',
-      'has primaryDelta (dx)',
-    ),
+        'onScaleEnd', 'ScaleEndDetails', 'inertia for scale + pan'),
+    _MappingRow('onLongPressStart', 'LongPressStartDetails',
+        'after threshold timer fires'),
+    _MappingRow('onLongPressMoveUpdate', 'LongPressMoveUpdateDetails',
+        'finger moves while pressed'),
+    _MappingRow('onLongPressEnd', 'LongPressEndDetails',
+        'release after long press'),
+    _MappingRow('onForcePressStart', 'ForcePressDetails',
+        'pressure crosses startPressure'),
+    _MappingRow('onForcePressPeak', 'ForcePressDetails',
+        'pressure crosses peakPressure'),
+    _MappingRow('onForcePressUpdate', 'ForcePressDetails',
+        'pressure continues to change'),
     _MappingRow(
-      'onHorizontalDragEnd',
-      'DragEndDetails',
-      'has primaryVelocity (dx)',
-    ),
-    _MappingRow(
-      'onVerticalDragStart',
-      'DragStartDetails',
-      'vertical-only begin',
-    ),
-    _MappingRow(
-      'onVerticalDragUpdate',
-      'DragUpdateDetails',
-      'has primaryDelta (dy)',
-    ),
-    _MappingRow(
-      'onVerticalDragEnd',
-      'DragEndDetails',
-      'has primaryVelocity (dy)',
-    ),
-    _MappingRow(
-      'onScaleStart',
-      'ScaleStartDetails',
-      'multi-pointer focal anchored',
-    ),
-    _MappingRow(
-      'onScaleUpdate',
-      'ScaleUpdateDetails',
-      'scale + rotation + focalPoint',
-    ),
-    _MappingRow('onScaleEnd', 'ScaleEndDetails', 'inertia for scale + pan'),
-    _MappingRow(
-      'onLongPressStart',
-      'LongPressStartDetails',
-      'after threshold timer fires',
-    ),
-    _MappingRow(
-      'onLongPressMoveUpdate',
-      'LongPressMoveUpdateDetails',
-      'finger moves while pressed',
-    ),
-    _MappingRow(
-      'onLongPressEnd',
-      'LongPressEndDetails',
-      'release after long press',
-    ),
-    _MappingRow(
-      'onForcePressStart',
-      'ForcePressDetails',
-      'pressure crosses startPressure',
-    ),
-    _MappingRow(
-      'onForcePressPeak',
-      'ForcePressDetails',
-      'pressure crosses peakPressure',
-    ),
-    _MappingRow(
-      'onForcePressUpdate',
-      'ForcePressDetails',
-      'pressure continues to change',
-    ),
-    _MappingRow('onForcePressEnd', 'ForcePressDetails', 'pressure released'),
+        'onForcePressEnd', 'ForcePressDetails', 'pressure released'),
   ];
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionTitle(
-        scheme,
-        '7',
-        'Callback -> Details mapping',
-        'which callback gets which type',
-        Icons.table_chart,
-      ),
+      _sectionTitle(scheme, '7', 'Callback -> Details mapping',
+          'which callback gets which type', Icons.table_chart),
       const SizedBox(height: 14.0),
       Container(
         decoration: BoxDecoration(
@@ -1155,9 +977,7 @@ Widget _buildSection7CallbackMappingTable(ColorScheme scheme) {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 10.0,
-              ),
+                  horizontal: 14.0, vertical: 10.0),
               decoration: BoxDecoration(
                 color: scheme.primary,
                 borderRadius: const BorderRadius.only(
@@ -1169,36 +989,27 @@ Widget _buildSection7CallbackMappingTable(ColorScheme scheme) {
                 children: <Widget>[
                   Expanded(
                     flex: 3,
-                    child: Text(
-                      'Callback',
-                      style: TextStyle(
-                        color: scheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.5,
-                      ),
-                    ),
+                    child: Text('Callback',
+                        style: TextStyle(
+                            color: scheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.5)),
                   ),
                   Expanded(
                     flex: 3,
-                    child: Text(
-                      'Details type',
-                      style: TextStyle(
-                        color: scheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.5,
-                      ),
-                    ),
+                    child: Text('Details type',
+                        style: TextStyle(
+                            color: scheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.5)),
                   ),
                   Expanded(
                     flex: 4,
-                    child: Text(
-                      'What happened',
-                      style: TextStyle(
-                        color: scheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.5,
-                      ),
-                    ),
+                    child: Text('What happened',
+                        style: TextStyle(
+                            color: scheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.5)),
                   ),
                 ],
               ),
@@ -1206,9 +1017,7 @@ Widget _buildSection7CallbackMappingTable(ColorScheme scheme) {
             for (int i = 0; i < rows.length; i++)
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 14.0,
-                  vertical: 8.0,
-                ),
+                    horizontal: 14.0, vertical: 8.0),
                 color: i.isEven
                     ? scheme.surface
                     : scheme.surfaceContainerHighest,
@@ -1282,7 +1091,7 @@ Widget _comparisonTable(ColorScheme scheme) {
       'yes',
       '-',
       '-',
-      'offsetFromOrigin',
+      'offsetFromOrigin'
     ],
     <String>['ForcePressDetails', 'yes', 'yes', '-', '-', 'pressure'],
   ];
@@ -1296,14 +1105,11 @@ Widget _comparisonTable(ColorScheme scheme) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Field-coverage comparison',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: scheme.onSurface,
-            fontSize: 13.0,
-          ),
-        ),
+        Text('Field-coverage comparison',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: scheme.onSurface,
+                fontSize: 13.0)),
         const SizedBox(height: 8.0),
         for (int r = 0; r < grid.length; r++)
           Padding(
@@ -1318,14 +1124,13 @@ Widget _comparisonTable(ColorScheme scheme) {
                       style: TextStyle(
                         fontFamily: 'monospace',
                         fontSize: 11.0,
-                        fontWeight: r == 0
-                            ? FontWeight.bold
-                            : FontWeight.normal,
+                        fontWeight:
+                            r == 0 ? FontWeight.bold : FontWeight.normal,
                         color: r == 0
                             ? scheme.primary
                             : (grid[r][c] == 'yes'
-                                  ? scheme.tertiary
-                                  : scheme.onSurface),
+                                ? scheme.tertiary
+                                : scheme.onSurface),
                       ),
                     ),
                   ),
@@ -1395,70 +1200,39 @@ Widget _buildSection8RecipesAndGlossary(ColorScheme scheme) {
   ];
 
   final List<_GlossaryItem> glossary = <_GlossaryItem>[
+    _GlossaryItem('globalPosition',
+        'Offset relative to the screen origin (top-left of the device).'),
+    _GlossaryItem('localPosition',
+        'Offset relative to the receiving render object origin.'),
+    _GlossaryItem('delta',
+        'For DragUpdateDetails: incremental movement since last update.'),
+    _GlossaryItem('primaryDelta / primaryVelocity',
+        'The dx or dy component for axis-locked drags; null for pan.'),
+    _GlossaryItem('Velocity',
+        'A wrapper around pixelsPerSecond Offset and a clamp method.'),
     _GlossaryItem(
-      'globalPosition',
-      'Offset relative to the screen origin (top-left of the device).',
-    ),
-    _GlossaryItem(
-      'localPosition',
-      'Offset relative to the receiving render object origin.',
-    ),
-    _GlossaryItem(
-      'delta',
-      'For DragUpdateDetails: incremental movement since last update.',
-    ),
-    _GlossaryItem(
-      'primaryDelta / primaryVelocity',
-      'The dx or dy component for axis-locked drags; null for pan.',
-    ),
-    _GlossaryItem(
-      'Velocity',
-      'A wrapper around pixelsPerSecond Offset and a clamp method.',
-    ),
-    _GlossaryItem(
-      'focalPoint',
-      'Geometric center of all active pointers in a scale.',
-    ),
-    _GlossaryItem(
-      'scale / horizontalScale / verticalScale',
-      'Cumulative pinch ratios since the gesture started.',
-    ),
-    _GlossaryItem(
-      'rotation',
-      'Angle change in radians around the focal point.',
-    ),
-    _GlossaryItem(
-      'offsetFromOrigin',
-      'Movement vector since the long-press started.',
-    ),
-    _GlossaryItem(
-      'pressure',
-      'Normalized force from 0.0 to 1.0 on supported hardware.',
-    ),
-    _GlossaryItem(
-      'PointerDeviceKind',
-      'touch, mouse, stylus, invertedStylus, trackpad, unknown.',
-    ),
-    _GlossaryItem(
-      'sourceTimeStamp',
-      'Origin event timestamp - useful for synchronizing animations.',
-    ),
-    _GlossaryItem(
-      'consecutiveTapCount',
-      'On TapDragDownDetails: 1 = single, 2 = double, 3 = triple ...',
-    ),
+        'focalPoint', 'Geometric center of all active pointers in a scale.'),
+    _GlossaryItem('scale / horizontalScale / verticalScale',
+        'Cumulative pinch ratios since the gesture started.'),
+    _GlossaryItem('rotation',
+        'Angle change in radians around the focal point.'),
+    _GlossaryItem('offsetFromOrigin',
+        'Movement vector since the long-press started.'),
+    _GlossaryItem('pressure',
+        'Normalized force from 0.0 to 1.0 on supported hardware.'),
+    _GlossaryItem('PointerDeviceKind',
+        'touch, mouse, stylus, invertedStylus, trackpad, unknown.'),
+    _GlossaryItem('sourceTimeStamp',
+        'Origin event timestamp - useful for synchronizing animations.'),
+    _GlossaryItem('consecutiveTapCount',
+        'On TapDragDownDetails: 1 = single, 2 = double, 3 = triple ...'),
   ];
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionTitle(
-        scheme,
-        '8',
-        'Recipes and glossary',
-        'common patterns + vocabulary',
-        Icons.menu_book,
-      ),
+      _sectionTitle(scheme, '8', 'Recipes and glossary',
+          'common patterns + vocabulary', Icons.menu_book),
       const SizedBox(height: 14.0),
       // Recipes
       Container(
@@ -1472,16 +1246,14 @@ Widget _buildSection8RecipesAndGlossary(ColorScheme scheme) {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.restaurant_menu, size: 18.0, color: scheme.primary),
+                Icon(Icons.restaurant_menu,
+                    size: 18.0, color: scheme.primary),
                 const SizedBox(width: 6.0),
-                Text(
-                  'Recipe cookbook',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
-                    color: scheme.onSurface,
-                  ),
-                ),
+                Text('Recipe cookbook',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0,
+                        color: scheme.onSurface)),
               ],
             ),
             const SizedBox(height: 12.0),
@@ -1491,14 +1263,11 @@ Widget _buildSection8RecipesAndGlossary(ColorScheme scheme) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      r.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: scheme.primary,
-                        fontSize: 13.0,
-                      ),
-                    ),
+                    Text(r.title,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: scheme.primary,
+                            fontSize: 13.0)),
                     const SizedBox(height: 4.0),
                     Container(
                       width: double.infinity,
@@ -1537,16 +1306,14 @@ Widget _buildSection8RecipesAndGlossary(ColorScheme scheme) {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.book, size: 18.0, color: scheme.onTertiaryContainer),
+                Icon(Icons.book,
+                    size: 18.0, color: scheme.onTertiaryContainer),
                 const SizedBox(width: 6.0),
-                Text(
-                  'Glossary',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
-                    color: scheme.onTertiaryContainer,
-                  ),
-                ),
+                Text('Glossary',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0,
+                        color: scheme.onTertiaryContainer)),
               ],
             ),
             const SizedBox(height: 10.0),
@@ -1606,7 +1373,8 @@ Widget _buildFooter(ColorScheme scheme) {
     ),
     child: Row(
       children: <Widget>[
-        Icon(Icons.check_circle, color: scheme.onPrimary, size: 22.0),
+        Icon(Icons.check_circle,
+            color: scheme.onPrimary, size: 22.0),
         const SizedBox(width: 10.0),
         Expanded(
           child: Text(
@@ -1635,13 +1403,8 @@ class _FieldRow {
   final String value;
 }
 
-Widget _sectionTitle(
-  ColorScheme scheme,
-  String number,
-  String title,
-  String subtitle,
-  IconData icon,
-) {
+Widget _sectionTitle(ColorScheme scheme, String number, String title,
+    String subtitle, IconData icon) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -1685,7 +1448,10 @@ Widget _sectionTitle(
             ),
             Text(
               subtitle,
-              style: TextStyle(fontSize: 12.0, color: scheme.onSurfaceVariant),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: scheme.onSurfaceVariant,
+              ),
             ),
           ],
         ),
@@ -1747,22 +1513,18 @@ Widget _detailsCard({
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.bold,
-                        color: onContainer,
-                        fontSize: 13.5,
-                      ),
-                    ),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        color: onContainer.withValues(alpha: 0.75),
-                      ),
-                    ),
+                    Text(title,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.bold,
+                          color: onContainer,
+                          fontSize: 13.5,
+                        )),
+                    Text(subtitle,
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: onContainer.withValues(alpha: 0.75),
+                        )),
                   ],
                 ),
               ),
@@ -1895,7 +1657,8 @@ Widget _pointStage({
           left: 6.0,
           bottom: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(4.0),
@@ -1930,11 +1693,10 @@ Widget _vectorStage({
         Positioned.fill(
           child: CustomPaint(
             painter: _ArrowPainter(
-              from: Offset(
-                from.dx.clamp(0.0, 200.0),
-                from.dy.clamp(0.0, 200.0),
-              ),
-              to: Offset(to.dx.clamp(0.0, 200.0), to.dy.clamp(0.0, 200.0)),
+              from: Offset(from.dx.clamp(0.0, 200.0),
+                  from.dy.clamp(0.0, 200.0)),
+              to: Offset(
+                  to.dx.clamp(0.0, 200.0), to.dy.clamp(0.0, 200.0)),
               color: accent,
             ),
           ),
@@ -1943,7 +1705,8 @@ Widget _vectorStage({
           left: 6.0,
           bottom: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(4.0),
@@ -1994,7 +1757,8 @@ Widget _focalStage({
           child: Container(
             width: 10.0,
             height: 10.0,
-            decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+            decoration:
+                BoxDecoration(color: accent, shape: BoxShape.circle),
           ),
         ),
         Positioned(
@@ -2003,7 +1767,8 @@ Widget _focalStage({
           child: Container(
             width: 10.0,
             height: 10.0,
-            decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+            decoration:
+                BoxDecoration(color: accent, shape: BoxShape.circle),
           ),
         ),
         Positioned(
@@ -2022,7 +1787,8 @@ Widget _focalStage({
           left: 6.0,
           bottom: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(4.0),
@@ -2069,7 +1835,8 @@ Widget _scaleRotateStage({
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Center(
-                    child: Icon(Icons.crop_square, color: accent, size: 24.0),
+                    child: Icon(Icons.crop_square,
+                        color: accent, size: 24.0),
                   ),
                 ),
               ),
@@ -2092,7 +1859,8 @@ Widget _scaleRotateStage({
           left: 6.0,
           bottom: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(4.0),
@@ -2126,15 +1894,18 @@ Widget _pressureStage({
         Positioned.fill(child: _gridOverlay(scheme)),
         for (int i = 0; i < 4; i++)
           Positioned(
-            left: local.dx.clamp(0.0, 200.0) - (10.0 + i * 8.0 * pressure),
-            top: local.dy.clamp(0.0, 200.0) - (10.0 + i * 8.0 * pressure),
+            left:
+                local.dx.clamp(0.0, 200.0) - (10.0 + i * 8.0 * pressure),
+            top: local.dy.clamp(0.0, 200.0) -
+                (10.0 + i * 8.0 * pressure),
             child: Container(
               width: 20.0 + i * 16.0 * pressure,
               height: 20.0 + i * 16.0 * pressure,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: accent.withValues(alpha: 0.55 - i * 0.12),
+                  color:
+                      accent.withValues(alpha: 0.55 - i * 0.12),
                   width: 1.5,
                 ),
               ),
@@ -2146,14 +1917,18 @@ Widget _pressureStage({
           child: Container(
             width: 12.0,
             height: 12.0,
-            decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: accent,
+              shape: BoxShape.circle,
+            ),
           ),
         ),
         Positioned(
           left: 6.0,
           bottom: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(4.0),
@@ -2225,9 +2000,7 @@ Widget _staticGestureDetectorPreview({
           onTap: () {},
           child: Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 6.0,
-            ),
+                horizontal: 10.0, vertical: 6.0),
             decoration: BoxDecoration(
               color: accent,
               borderRadius: BorderRadius.circular(6.0),
@@ -2274,7 +2047,8 @@ class _GridPainter extends CustomPainter {
 }
 
 class _ArrowPainter extends CustomPainter {
-  _ArrowPainter({required this.from, required this.to, required this.color});
+  _ArrowPainter(
+      {required this.from, required this.to, required this.color});
   final Offset from;
   final Offset to;
   final Color color;

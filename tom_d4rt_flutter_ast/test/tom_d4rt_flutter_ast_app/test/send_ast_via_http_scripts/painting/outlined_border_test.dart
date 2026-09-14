@@ -187,8 +187,16 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _anatomyLabel('color', 'BorderSide.color', indigoCore),
-                  _anatomyLabel('width', '6.0 logical px', amberDark),
-                  _anatomyLabel('style', 'BorderStyle.solid', tealCore),
+                  _anatomyLabel(
+                    'width',
+                    '6.0 logical px',
+                    amberDark,
+                  ),
+                  _anatomyLabel(
+                    'style',
+                    'BorderStyle.solid',
+                    tealCore,
+                  ),
                   _anatomyLabel(
                     'strokeAlign',
                     'inside / center / outside',
@@ -311,7 +319,10 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: tealLight, width: 1.5),
     ),
-    child: Wrap(alignment: WrapAlignment.start, children: galleryCards),
+    child: Wrap(
+      alignment: WrapAlignment.start,
+      children: galleryCards,
+    ),
   );
   print('Created shape gallery wrap');
 
@@ -447,10 +458,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          indigoLight.withValues(alpha: 0.3),
-          amberLight.withValues(alpha: 0.3),
-        ],
+        colors: [indigoLight.withValues(alpha: 0.3), amberLight.withValues(alpha: 0.3)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -697,7 +705,10 @@ dynamic build(BuildContext context) {
             _mockTile(
               'Pill chip',
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 14.0,
+                  vertical: 8.0,
+                ),
                 decoration: ShapeDecoration(
                   color: tealLight.withValues(alpha: 0.3),
                   shape: pillShape,
@@ -779,7 +790,10 @@ dynamic build(BuildContext context) {
             _mockTile(
               'Badge',
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: ShapeDecoration(
                   color: indigoDark,
                   shape: badgeShape,
@@ -1059,7 +1073,11 @@ Widget _chip(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: color),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.0,
+        color: color,
+      ),
     ),
   );
 }
@@ -1118,7 +1136,10 @@ Widget _anatomyLabel(String name, String value, Color color) {
                 ),
                 TextSpan(
                   text: value,
-                  style: TextStyle(fontSize: 12.0, color: Colors.black87),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.black87,
+                  ),
                 ),
               ],
             ),
@@ -1212,7 +1233,10 @@ Widget _widthCard(
         Container(
           width: 90.0,
           height: 60.0,
-          decoration: ShapeDecoration(color: Colors.white, shape: shape),
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: shape,
+          ),
         ),
         SizedBox(height: 8.0),
         Text(
@@ -1311,7 +1335,10 @@ Widget _strokeAlignCard(
         Container(
           width: 100.0,
           height: 70.0,
-          decoration: ShapeDecoration(color: Colors.white, shape: shape),
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: shape,
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -1435,7 +1462,11 @@ Widget _mockTile(String label, Widget child, Color accent) {
     ),
     child: Column(
       children: [
-        SizedBox(width: 140.0, height: 80.0, child: Center(child: child)),
+        SizedBox(
+          width: 140.0,
+          height: 80.0,
+          child: Center(child: child),
+        ),
         SizedBox(height: 6.0),
         Text(
           label,

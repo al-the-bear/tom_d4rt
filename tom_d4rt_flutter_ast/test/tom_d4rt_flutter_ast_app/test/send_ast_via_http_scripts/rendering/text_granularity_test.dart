@@ -50,7 +50,11 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF512DA8), Color(0xFFAD1457)],
+        colors: [
+          Color(0xFF1A237E),
+          Color(0xFF512DA8),
+          Color(0xFFAD1457),
+        ],
         stops: [0.0, 0.55, 1.0],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -107,7 +111,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'Selection & extension reach in Flutter editing intents',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white70),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white70,
+                    ),
                   ),
                 ],
               ),
@@ -382,7 +389,10 @@ dynamic build(BuildContext context) {
                       ),
                       Text(
                         'index: ${value.index}',
-                        style: TextStyle(fontSize: 11.0, color: color.shade700),
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: color.shade700,
+                        ),
                       ),
                     ],
                   ),
@@ -421,11 +431,8 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.lightbulb_outline,
-                    size: 16.0,
-                    color: color.shade700,
-                  ),
+                  Icon(Icons.lightbulb_outline,
+                      size: 16.0, color: color.shade700),
                   const SizedBox(width: 6.0),
                   Expanded(
                     child: Text(
@@ -538,11 +545,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.menu_book,
-              color: Colors.deepPurple.shade700,
-              size: 24.0,
-            ),
+            Icon(Icons.menu_book,
+                color: Colors.deepPurple.shade700, size: 24.0),
             const SizedBox(width: 8.0),
             Text(
               'Recipes',
@@ -559,16 +563,16 @@ dynamic build(BuildContext context) {
           '1. Custom keymap intents',
           'Map a key combination to a granularity-aware extend intent.',
           'Shortcuts(\n'
-              '  shortcuts: <ShortcutActivator, Intent>{\n'
-              '    SingleActivator(LogicalKeyboardKey.arrowRight,\n'
-              '        shift: true, control: true):\n'
-              '      ExtendSelectionByCharacterIntent(\n'
-              '        forward: true,\n'
-              '        granularity: TextGranularity.word,\n'
-              '      ),\n'
-              '  },\n'
-              '  child: Actions(actions: ..., child: editor),\n'
-              ')',
+          '  shortcuts: <ShortcutActivator, Intent>{\n'
+          '    SingleActivator(LogicalKeyboardKey.arrowRight,\n'
+          '        shift: true, control: true):\n'
+          '      ExtendSelectionByCharacterIntent(\n'
+          '        forward: true,\n'
+          '        granularity: TextGranularity.word,\n'
+          '      ),\n'
+          '  },\n'
+          '  child: Actions(actions: ..., child: editor),\n'
+          ')',
           Colors.indigo,
           Icons.keyboard_alt,
         ),
@@ -577,13 +581,13 @@ dynamic build(BuildContext context) {
           '2. Drag-to-select word-by-word',
           'Forward a drag gesture as a granular selection update.',
           'void onDragUpdate(DragUpdateDetails d) {\n'
-              '  selectionDelegate.handleSelectionEdgeUpdate(\n'
-              '    SelectionEdgeUpdateEvent.forEnd(\n'
-              '      globalPosition: d.globalPosition,\n'
-              '      granularity: TextGranularity.word,\n'
-              '    ),\n'
-              '  );\n'
-              '}',
+          '  selectionDelegate.handleSelectionEdgeUpdate(\n'
+          '    SelectionEdgeUpdateEvent.forEnd(\n'
+          '      globalPosition: d.globalPosition,\n'
+          '      granularity: TextGranularity.word,\n'
+          '    ),\n'
+          '  );\n'
+          '}',
           Colors.deepPurple,
           Icons.touch_app,
         ),
@@ -592,21 +596,21 @@ dynamic build(BuildContext context) {
           '3. Document-wide select-all',
           'Synthesize a select-all by extending both ends to document.',
           'void selectAll(SelectionContainerDelegate d) {\n'
-              '  d.handleGranularlyExtendSelection(\n'
-              '    GranularlyExtendSelectionEvent(\n'
-              '      forward: false,\n'
-              '      isEnd: false,\n'
-              '      granularity: TextGranularity.document,\n'
-              '    ),\n'
-              '  );\n'
-              '  d.handleGranularlyExtendSelection(\n'
-              '    GranularlyExtendSelectionEvent(\n'
-              '      forward: true,\n'
-              '      isEnd: true,\n'
-              '      granularity: TextGranularity.document,\n'
-              '    ),\n'
-              '  );\n'
-              '}',
+          '  d.handleGranularlyExtendSelection(\n'
+          '    GranularlyExtendSelectionEvent(\n'
+          '      forward: false,\n'
+          '      isEnd: false,\n'
+          '      granularity: TextGranularity.document,\n'
+          '    ),\n'
+          '  );\n'
+          '  d.handleGranularlyExtendSelection(\n'
+          '    GranularlyExtendSelectionEvent(\n'
+          '      forward: true,\n'
+          '      isEnd: true,\n'
+          '      granularity: TextGranularity.document,\n'
+          '    ),\n'
+          '  );\n'
+          '}',
           Colors.purple,
           Icons.select_all,
         ),
@@ -643,7 +647,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.devices, color: Colors.blueGrey.shade800, size: 24.0),
+            Icon(Icons.devices,
+                color: Colors.blueGrey.shade800, size: 24.0),
             const SizedBox(width: 8.0),
             Text(
               'Platform shortcut mapping',
@@ -751,7 +756,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber, color: Colors.red.shade700, size: 24.0),
+            Icon(Icons.warning_amber,
+                color: Colors.red.shade700, size: 24.0),
             const SizedBox(width: 8.0),
             Text(
               'Pitfalls and gotchas',
@@ -767,35 +773,35 @@ dynamic build(BuildContext context) {
         _buildPitfallTile(
           'Line vs paragraph in soft-wrapped text',
           'TextGranularity.line walks visual lines after layout, so a long '
-              'paragraph can have many lines. Paragraph granularity ignores '
-              'soft-wraps and stops only at hard newlines (\\n). Designers who '
-              'expect "End" to jump to the paragraph end will be surprised.',
+          'paragraph can have many lines. Paragraph granularity ignores '
+          'soft-wraps and stops only at hard newlines (\\n). Designers who '
+          'expect "End" to jump to the paragraph end will be surprised.',
           Colors.red,
           Icons.wrap_text,
         ),
         _buildPitfallTile(
           'Document granularity in multi-controller editors',
           'When several SelectionContainers compose a screen (e.g. a chat '
-              'log of bubbles), TextGranularity.document means "this container", '
-              'not "the whole screen". Wrap with a parent SelectionRegistrar '
-              'if you want a single document boundary.',
+          'log of bubbles), TextGranularity.document means "this container", '
+          'not "the whole screen". Wrap with a parent SelectionRegistrar '
+          'if you want a single document boundary.',
           Colors.deepOrange,
           Icons.layers,
         ),
         _buildPitfallTile(
           'Locale-dependent word boundaries',
           'Word granularity defers to the platform word breaker. Languages '
-              'without spaces (Japanese, Thai) produce very different jumps from '
-              'English. Test with the locales you actually support before '
-              'binding double-click-drag selection.',
+          'without spaces (Japanese, Thai) produce very different jumps from '
+          'English. Test with the locales you actually support before '
+          'binding double-click-drag selection.',
           Colors.orange,
           Icons.language,
         ),
         _buildPitfallTile(
           'Index 0 is character, not "none"',
           'TextGranularity has no zero-meaning. Treating index 0 as '
-              '"no granularity" is a bug; pick a sentinel via TextGranularity? '
-              'and check for null instead.',
+          '"no granularity" is a bug; pick a sentinel via TextGranularity? '
+          'and check for null instead.',
           Colors.pink,
           Icons.tag,
         ),
@@ -1236,7 +1242,11 @@ Widget _buildRecipeCard(
         const SizedBox(height: 10.0),
         Text(
           description,
-          style: TextStyle(fontSize: 12.5, color: color.shade900, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.5,
+            color: color.shade900,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 10.0),
         Container(

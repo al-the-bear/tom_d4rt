@@ -38,39 +38,17 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
   double _animValue = 0.0;
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0B132B),
-      const Color(0xFF1C2541),
-      const Color(0xFF5BC0BE),
-    ],
-    <Color>[
-      const Color(0xFF3F1D38),
-      const Color(0xFF7B2D5E),
-      const Color(0xFFF25F5C),
-    ],
-    <Color>[
-      const Color(0xFF0A4D3C),
-      const Color(0xFF116149),
-      const Color(0xFF42D392),
-    ],
+    <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
+    <Color>[const Color(0xFF3F1D38), const Color(0xFF7B2D5E), const Color(0xFFF25F5C)],
+    <Color>[const Color(0xFF0A4D3C), const Color(0xFF116149), const Color(0xFF42D392)],
   ];
 
   final List<_KeyPreset> _presets = const <_KeyPreset>[
     _KeyPreset(label: 'A Key', physical: 0x04, logical: 0x61, character: 'a'),
     _KeyPreset(label: 'Enter', physical: 0x28, logical: 0x0D, character: '\n'),
     _KeyPreset(label: 'Space', physical: 0x2C, logical: 0x20, character: ' '),
-    _KeyPreset(
-      label: 'Arrow Left',
-      physical: 0x50,
-      logical: 0x100000304,
-      character: '',
-    ),
-    _KeyPreset(
-      label: 'Gamepad A',
-      physical: 0x130,
-      logical: 0x100002000,
-      character: '',
-    ),
+    _KeyPreset(label: 'Arrow Left', physical: 0x50, logical: 0x100000304, character: ''),
+    _KeyPreset(label: 'Gamepad A', physical: 0x130, logical: 0x100002000, character: ''),
   ];
 
   @override
@@ -170,28 +148,12 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
 
     final ui.KeyData base = _currentKeyData();
     probe('KeyData object is constructible', base.runtimeType == ui.KeyData);
-    probe(
-      'timeStamp stores milliseconds',
-      base.timeStamp == Duration(milliseconds: _timeMs.round()),
-    );
+    probe('timeStamp stores milliseconds', base.timeStamp == Duration(milliseconds: _timeMs.round()));
     probe('type stores selected enum', base.type == _type);
-    probe(
-      'physical code stores selected value',
-      base.physical == _physical.round(),
-    );
-    probe(
-      'logical code stores selected value',
-      base.logical == _logical.round(),
-    );
-    probe(
-      'character can be null or single text',
-      (_character.isEmpty && base.character == null) ||
-          base.character == _character,
-    );
-    probe(
-      'synthesized flag stores selected value',
-      base.synthesized == _synthesized,
-    );
+    probe('physical code stores selected value', base.physical == _physical.round());
+    probe('logical code stores selected value', base.logical == _logical.round());
+    probe('character can be null or single text', (_character.isEmpty && base.character == null) || base.character == _character);
+    probe('synthesized flag stores selected value', base.synthesized == _synthesized);
     probe('deviceType stores selected device', base.deviceType == _deviceType);
 
     final ui.KeyData defaultDevice = ui.KeyData(
@@ -202,10 +164,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       character: null,
       synthesized: false,
     );
-    probe(
-      'deviceType default is keyboard',
-      defaultDevice.deviceType == ui.KeyEventDeviceType.keyboard,
-    );
+    probe('deviceType default is keyboard', defaultDevice.deviceType == ui.KeyEventDeviceType.keyboard);
 
     final ui.KeyData gamepad = ui.KeyData(
       timeStamp: const Duration(milliseconds: 1),
@@ -216,14 +175,8 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       synthesized: true,
       deviceType: ui.KeyEventDeviceType.gamepad,
     );
-    probe(
-      'custom deviceType gamepad is preserved',
-      gamepad.deviceType == ui.KeyEventDeviceType.gamepad,
-    );
-    probe(
-      'summary format can be generated',
-      '${_passed.length + _failed.length} checks'.endsWith('checks'),
-    );
+    probe('custom deviceType gamepad is preserved', gamepad.deviceType == ui.KeyEventDeviceType.gamepad);
+    probe('summary format can be generated', '${_passed.length + _failed.length} checks'.endsWith('checks'));
 
     setState(() {});
   }
@@ -237,24 +190,14 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
         gradient: LinearGradient(colors: c),
         borderRadius: BorderRadius.circular(18),
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: c[1].withAlpha(96),
-            blurRadius: 18,
-            offset: const Offset(0, 8),
-          ),
+          BoxShadow(color: c[1].withAlpha(96), blurRadius: 18, offset: const Offset(0, 8)),
         ],
       ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'KeyData Input Observatory',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text('KeyData Input Observatory',
+              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800)),
           SizedBox(height: 8),
           Text(
             'KeyData captures a single hardware/software key event snapshot in dart:ui. '
@@ -291,10 +234,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-                ),
+                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.3)),
               ],
@@ -320,10 +260,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
           children: <Widget>[
             Icon(icon, color: color),
             const SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(color: color, fontWeight: FontWeight.w700),
-            ),
+            Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             Text(text, style: const TextStyle(fontSize: 12)),
           ],
@@ -337,30 +274,14 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          _pill(
-            'Data carrier',
-            'Represents one key event sample.',
-            Icons.data_object,
-            const Color(0xFF1D4ED8),
-          ),
-          _pill(
-            'Interpreter bridge',
-            'Used to validate engine-event transfer.',
-            Icons.route,
-            const Color(0xFF0F766E),
-          ),
-          _pill(
-            'Cross-device',
-            'Differentiates keyboard and gamepad sources.',
-            Icons.sports_esports,
-            const Color(0xFF7C3AED),
-          ),
-          _pill(
-            'Input analysis',
-            'Supports debugging key code interpretation.',
-            Icons.psychology,
-            const Color(0xFFB45309),
-          ),
+          _pill('Data carrier', 'Represents one key event sample.', Icons.data_object,
+              const Color(0xFF1D4ED8)),
+          _pill('Interpreter bridge', 'Used to validate engine-event transfer.', Icons.route,
+              const Color(0xFF0F766E)),
+          _pill('Cross-device', 'Differentiates keyboard and gamepad sources.', Icons.sports_esports,
+              const Color(0xFF7C3AED)),
+          _pill('Input analysis', 'Supports debugging key code interpretation.', Icons.psychology,
+              const Color(0xFFB45309)),
         ],
       ),
     );
@@ -378,10 +299,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'KeyData constructor lab',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('KeyData constructor lab', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -432,9 +350,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
                   onChanged: (ui.KeyEventDeviceType? value) {
                     if (value != null) {
                       setState(() => _deviceType = value);
-                      _emitEvent(
-                        'Device type switched to ${_deviceText(value)}.',
-                      );
+                      _emitEvent('Device type switched to ${_deviceText(value)}.');
                     }
                   },
                   items: const <DropdownMenuItem<ui.KeyEventDeviceType>>[
@@ -478,15 +394,16 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
           ),
           Row(
             children: <Widget>[
-              const SizedBox(width: 90, child: Text('character:')),
+              const SizedBox(
+                width: 90,
+                child: Text('character:'),
+              ),
               Expanded(
                 child: TextField(
                   controller: TextEditingController(text: _character),
                   onChanged: (String value) {
                     setState(() {
-                      _character = value.length > 1
-                          ? value.substring(0, 1)
-                          : value;
+                      _character = value.length > 1 ? value.substring(0, 1) : value;
                     });
                   },
                   decoration: const InputDecoration(
@@ -506,8 +423,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
               FilterChip(
                 label: const Text('synthesized'),
                 selected: _synthesized,
-                onSelected: (bool value) =>
-                    setState(() => _synthesized = value),
+                onSelected: (bool value) => setState(() => _synthesized = value),
               ),
               FilterChip(
                 label: const Text('show hex codes'),
@@ -590,10 +506,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Current KeyData snapshot',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Current KeyData snapshot', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -654,10 +567,8 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Physical vs logical interpretation',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Physical vs logical interpretation',
+              style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Table(
             columnWidths: const <int, TableColumnWidth>{
@@ -669,30 +580,14 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
             border: TableBorder.all(color: const Color(0xFFE2E8F0)),
             children: <TableRow>[
               _tableHeaderRow(),
-              _mappingRow(
-                'Hardware position',
-                _formatCode(_physical.round()),
-                'Keyboard matrix location',
-                'Physical stays stable across layouts',
-              ),
-              _mappingRow(
-                'Semantic meaning',
-                _formatCode(_logical.round()),
-                'Character intent',
-                'Logical can differ by active layout',
-              ),
-              _mappingRow(
-                'Character payload',
-                _character.isEmpty ? 'null' : _character,
-                'Text production',
-                'Optional for non-text control keys',
-              ),
-              _mappingRow(
-                'Synthetic origin',
-                _synthesized ? 'true' : 'false',
-                'Generated event',
-                'Used for framework-synthesized transitions',
-              ),
+              _mappingRow('Hardware position', _formatCode(_physical.round()), 'Keyboard matrix location',
+                  'Physical stays stable across layouts'),
+              _mappingRow('Semantic meaning', _formatCode(_logical.round()), 'Character intent',
+                  'Logical can differ by active layout'),
+              _mappingRow('Character payload', _character.isEmpty ? 'null' : _character, 'Text production',
+                  'Optional for non-text control keys'),
+              _mappingRow('Synthetic origin', _synthesized ? 'true' : 'false', 'Generated event',
+                  'Used for framework-synthesized transitions'),
             ],
           ),
         ],
@@ -705,22 +600,10 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
     return const TableRow(
       decoration: BoxDecoration(color: Color(0xFFF1F5F9)),
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(8),
-          child: Text('Aspect', style: h),
-        ),
-        Padding(
-          padding: EdgeInsets.all(8),
-          child: Text('Current', style: h),
-        ),
-        Padding(
-          padding: EdgeInsets.all(8),
-          child: Text('Meaning', style: h),
-        ),
-        Padding(
-          padding: EdgeInsets.all(8),
-          child: Text('Guidance', style: h),
-        ),
+        Padding(padding: EdgeInsets.all(8), child: Text('Aspect', style: h)),
+        Padding(padding: EdgeInsets.all(8), child: Text('Current', style: h)),
+        Padding(padding: EdgeInsets.all(8), child: Text('Meaning', style: h)),
+        Padding(padding: EdgeInsets.all(8), child: Text('Guidance', style: h)),
       ],
     );
   }
@@ -728,22 +611,10 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
   TableRow _mappingRow(String a, String b, String c, String d) {
     return TableRow(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(a, style: const TextStyle(fontSize: 12)),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(b, style: const TextStyle(fontSize: 12)),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(c, style: const TextStyle(fontSize: 12)),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(d, style: const TextStyle(fontSize: 12)),
-        ),
+        Padding(padding: const EdgeInsets.all(8), child: Text(a, style: const TextStyle(fontSize: 12))),
+        Padding(padding: const EdgeInsets.all(8), child: Text(b, style: const TextStyle(fontSize: 12))),
+        Padding(padding: const EdgeInsets.all(8), child: Text(c, style: const TextStyle(fontSize: 12))),
+        Padding(padding: const EdgeInsets.all(8), child: Text(d, style: const TextStyle(fontSize: 12))),
       ],
     );
   }
@@ -754,23 +625,23 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
         title: 'Keyboard',
         icon: Icons.keyboard,
         selected: _deviceType == ui.KeyEventDeviceType.keyboard,
-        body:
-            'Best for text/navigation flows. Physical keys map to a keyboard matrix.',
+        body: 'Best for text/navigation flows. Physical keys map to a keyboard matrix.',
         colors: const <Color>[Color(0xFF2563EB), Color(0xFF60A5FA)],
       ),
       _DeviceCardData(
         title: 'Gamepad',
         icon: Icons.sports_esports,
         selected: _deviceType == ui.KeyEventDeviceType.gamepad,
-        body:
-            'Useful for console-style inputs where buttons map to semantic actions.',
+        body: 'Useful for console-style inputs where buttons map to semantic actions.',
         colors: const <Color>[Color(0xFF7C3AED), Color(0xFFA78BFA)],
       ),
     ];
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(children: cards.map(_deviceCard).toList()),
+      child: Row(
+        children: cards.map(_deviceCard).toList(),
+      ),
     );
   }
 
@@ -782,15 +653,9 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: d.colors),
           borderRadius: BorderRadius.circular(10),
-          border: d.selected
-              ? Border.all(color: Colors.white, width: 2.3)
-              : null,
+          border: d.selected ? Border.all(color: Colors.white, width: 2.3) : null,
           boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: d.colors[0].withAlpha(100),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
+            BoxShadow(color: d.colors[0].withAlpha(100), blurRadius: 10, offset: const Offset(0, 4)),
           ],
         ),
         child: Column(
@@ -798,19 +663,10 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
           children: <Widget>[
             Icon(d.icon, color: Colors.white),
             const SizedBox(height: 8),
-            Text(
-              d.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
-              ),
-            ),
+            Text(d.title,
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15)),
             const SizedBox(height: 6),
-            Text(
-              d.body,
-              style: const TextStyle(color: Colors.white, fontSize: 12.1),
-            ),
+            Text(d.body, style: const TextStyle(color: Colors.white, fontSize: 12.1)),
             const SizedBox(height: 8),
             Text(
               d.selected ? 'Active profile' : 'Inactive profile',
@@ -834,10 +690,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Event timeline',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Event timeline', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           SizedBox(
             height: 208,
@@ -845,10 +698,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
                 ? const Center(
                     child: Text(
                       'No events yet. Use "Append Event" to create a visual stream.',
-                      style: TextStyle(
-                        fontSize: 12.2,
-                        color: Color(0xFF64748B),
-                      ),
+                      style: TextStyle(fontSize: 12.2, color: Color(0xFF64748B)),
                     ),
                   )
                 : ListView.builder(
@@ -858,8 +708,8 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
                       final Color color = d.type == ui.KeyEventType.down
                           ? const Color(0xFF16A34A)
                           : d.type == ui.KeyEventType.up
-                          ? const Color(0xFFEA580C)
-                          : const Color(0xFF2563EB);
+                              ? const Color(0xFFEA580C)
+                              : const Color(0xFF2563EB);
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         padding: const EdgeInsets.all(9),
@@ -874,16 +724,10 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
                               width: 24,
                               height: 24,
                               alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: color,
-                                shape: BoxShape.circle,
-                              ),
+                              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
                               child: Text(
                                 '${index + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                ),
+                                style: const TextStyle(color: Colors.white, fontSize: 11),
                               ),
                             ),
                             const SizedBox(width: 8),
@@ -938,10 +782,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Runtime probe dashboard',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
           const SizedBox(height: 8),
@@ -964,10 +805,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Operational notes',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Operational notes', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Container(
             height: 180,
@@ -981,14 +819,8 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
               itemCount: _notes.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    _notes[index],
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Text(_notes[index], style: const TextStyle(fontSize: 12)),
                 );
               },
             ),
@@ -1198,8 +1030,7 @@ class _KeyDataPainter extends CustomPainter {
 
     final TextPainter info = TextPainter(
       text: TextSpan(
-        text:
-            'Type ${data.type.toString().split('.').last}  |  phys $phys  |  log $log  |  '
+        text: 'Type ${data.type.toString().split('.').last}  |  phys $phys  |  log $log  |  '
             'char ${data.character ?? 'null'}  |  ${data.deviceType.toString().split('.').last}',
         style: const TextStyle(fontSize: 12.2, color: Color(0xFF0F172A)),
       ),

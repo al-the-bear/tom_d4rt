@@ -71,7 +71,10 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 6.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 6.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.22),
             borderRadius: BorderRadius.circular(20.0),
@@ -374,7 +377,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Icon(Icons.bolt, size: 18.0, color: Colors.deepOrange.shade700),
+              Icon(
+                Icons.bolt,
+                size: 18.0,
+                color: Colors.deepOrange.shade700,
+              ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -844,7 +851,10 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Colors.pink.shade700, Colors.deepOrange.shade500],
+        colors: <Color>[
+          Colors.pink.shade700,
+          Colors.deepOrange.shade500,
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: <BoxShadow>[
@@ -973,7 +983,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.only(top: 6.0, bottom: 12.0),
     child: Center(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12.0,
+          vertical: 6.0,
+        ),
         decoration: BoxDecoration(
           color: Colors.pink.shade50,
           borderRadius: BorderRadius.circular(20.0),
@@ -1060,7 +1073,10 @@ Widget buildSectionLabel(String text) {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: <Color>[Colors.pink.shade600, Colors.deepOrange.shade400],
+              colors: <Color>[
+                Colors.pink.shade600,
+                Colors.deepOrange.shade400,
+              ],
             ),
             borderRadius: BorderRadius.circular(3.0),
           ),
@@ -1161,7 +1177,10 @@ Widget buildPhaseRow(
           width: 30.0,
           height: 30.0,
           alignment: Alignment.center,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color,
+          ),
           child: Text(
             '$index',
             style: const TextStyle(
@@ -1279,7 +1298,10 @@ Widget buildCallbackCard(
         ),
         const SizedBox(height: 8.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 6.0,
+          ),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(6.0),
@@ -1456,7 +1478,10 @@ Widget buildRealWorldCard(
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Colors.white, color.withValues(alpha: 0.06)],
+        colors: <Color>[
+          Colors.white,
+          color.withValues(alpha: 0.06),
+        ],
       ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: color.withValues(alpha: 0.35), width: 1.2),
@@ -1590,7 +1615,12 @@ Widget buildComparisonCard(
   );
 }
 
-Widget buildCaveatCard(String title, String body, IconData icon, Color color) {
+Widget buildCaveatCard(
+  String title,
+  String body,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6.0),
     padding: const EdgeInsets.all(12.0),
@@ -1821,7 +1851,12 @@ class DirectionTestPainter extends CustomPainter {
     );
   }
 
-  void drawDashedLine(Canvas canvas, Offset start, Offset end, Paint paint) {
+  void drawDashedLine(
+    Canvas canvas,
+    Offset start,
+    Offset end,
+    Paint paint,
+  ) {
     const double dashLength = 5.0;
     const double gapLength = 4.0;
     final double dx = end.dx - start.dx;

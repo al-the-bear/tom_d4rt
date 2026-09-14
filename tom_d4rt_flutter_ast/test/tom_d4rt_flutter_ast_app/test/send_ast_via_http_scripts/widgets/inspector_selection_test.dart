@@ -54,27 +54,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: turquoise, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -91,14 +85,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: malachite),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: deepTeal.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: deepTeal.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -126,18 +117,14 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             decoration: BoxDecoration(
               color: paleAqua,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(7),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(7)),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: deepTeal,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: deepTeal)),
           ),
           Padding(padding: const EdgeInsets.all(12), child: content),
         ],
@@ -153,10 +140,9 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(
-        label,
-        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
-      ),
+      child: Text(label,
+          style:
+              TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
     );
   }
 
@@ -168,17 +154,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: deepTeal,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: deepTeal)),
           ),
           Expanded(
-            child: Text(value, style: TextStyle(fontSize: 12, color: jade)),
+            child: Text(value,
+                style: TextStyle(fontSize: 12, color: jade)),
           ),
         ],
       ),
@@ -197,17 +181,13 @@ dynamic build(BuildContext context) {
               color: color,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: deepTeal.withValues(alpha: 0.15),
-                width: 1,
-              ),
+                  color: deepTeal.withValues(alpha: 0.15), width: 1),
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            name,
-            style: TextStyle(fontSize: 9, color: deepTeal),
-            textAlign: TextAlign.center,
-          ),
+          Text(name,
+              style: TextStyle(fontSize: 9, color: deepTeal),
+              textAlign: TextAlign.center),
         ],
       ),
     );
@@ -223,14 +203,9 @@ dynamic build(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(label, style: TextStyle(fontSize: 11, color: deepTeal)),
-              Text(
-                '${(fraction * 100).toStringAsFixed(0)}%',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
-              ),
+              Text('${(fraction * 100).toStringAsFixed(0)}%',
+                  style: TextStyle(
+                      fontSize: 11, fontWeight: FontWeight.w700, color: color)),
             ],
           ),
           const SizedBox(height: 3),
@@ -257,19 +232,16 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget selectionBox(
-    String widgetName,
-    double width,
-    double height,
-    bool selected,
-    Color borderColor,
-  ) {
+  Widget selectionBox(String widgetName, double width, double height,
+      bool selected, Color borderColor) {
     return Container(
       width: width,
       height: height,
       margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: selected ? borderColor.withValues(alpha: 0.1) : Colors.white,
+        color: selected
+            ? borderColor.withValues(alpha: 0.1)
+            : Colors.white,
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
           color: selected ? borderColor : malachite,
@@ -278,10 +250,9 @@ dynamic build(BuildContext context) {
         boxShadow: selected
             ? [
                 BoxShadow(
-                  color: borderColor.withValues(alpha: 0.25),
-                  blurRadius: 8,
-                  spreadRadius: 1,
-                ),
+                    color: borderColor.withValues(alpha: 0.25),
+                    blurRadius: 8,
+                    spreadRadius: 1)
               ]
             : [],
       ),
@@ -295,15 +266,13 @@ dynamic build(BuildContext context) {
               color: selected ? borderColor : ocean.withValues(alpha: 0.4),
             ),
             const SizedBox(height: 2),
-            Text(
-              widgetName,
-              style: TextStyle(
-                fontSize: 9,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.normal,
-                color: selected ? borderColor : ocean,
-              ),
-              textAlign: TextAlign.center,
-            ),
+            Text(widgetName,
+                style: TextStyle(
+                    fontSize: 9,
+                    fontWeight:
+                        selected ? FontWeight.w700 : FontWeight.normal,
+                    color: selected ? borderColor : ocean),
+                textAlign: TextAlign.center),
           ],
         ),
       ),
@@ -311,13 +280,7 @@ dynamic build(BuildContext context) {
   }
 
   Widget boundingRect(
-    String label,
-    double top,
-    double left,
-    double w,
-    double h,
-    Color color,
-  ) {
+      String label, double top, double left, double w, double h, Color color) {
     return Stack(
       children: [
         Container(
@@ -351,7 +314,8 @@ dynamic build(BuildContext context) {
         Positioned(
           bottom: 4,
           right: 8,
-          child: Text(label, style: TextStyle(fontSize: 9, color: deepTeal)),
+          child: Text(label,
+              style: TextStyle(fontSize: 9, color: deepTeal)),
         ),
       ],
     );
@@ -365,38 +329,35 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('01', 'Overview & Purpose'),
       noteBox(
-        'InspectorSelection is the model that tracks which widget or '
-        'render object a developer has selected in the Flutter widget '
-        'inspector. It stores the current RenderObject reference, its '
-        'bounding rectangle in global coordinates, and the transform '
-        'matrix needed to paint the selection overlay.',
-      ),
+          'InspectorSelection is the model that tracks which widget or '
+          'render object a developer has selected in the Flutter widget '
+          'inspector. It stores the current RenderObject reference, its '
+          'bounding rectangle in global coordinates, and the transform '
+          'matrix needed to paint the selection overlay.'),
       infoCard(
-        'Core Identity',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Type', 'Mutable selection model'),
-            dataRow('Package', 'flutter/widgets (widgetInspector)'),
-            dataRow('Purpose', 'Track selected render object'),
-            dataRow('Consumers', 'InspectorOverlay, DevTools'),
-            dataRow('State', 'Single selected object at a time'),
-          ],
-        ),
-      ),
+          'Core Identity',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Type', 'Mutable selection model'),
+              dataRow('Package', 'flutter/widgets (widgetInspector)'),
+              dataRow('Purpose', 'Track selected render object'),
+              dataRow('Consumers', 'InspectorOverlay, DevTools'),
+              dataRow('State', 'Single selected object at a time'),
+            ],
+          )),
       infoCard(
-        'Key Responsibilities',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Store selection', 'Current RenderObject reference'),
-            dataRow('Bounding box', 'Global-space rectangle'),
-            dataRow('Transform', 'Matrix4 for overlay painting'),
-            dataRow('Candidates', 'Hit test result chain'),
-            dataRow('Notify', 'Update overlay when changed'),
-          ],
-        ),
-      ),
+          'Key Responsibilities',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Store selection', 'Current RenderObject reference'),
+              dataRow('Bounding box', 'Global-space rectangle'),
+              dataRow('Transform', 'Matrix4 for overlay painting'),
+              dataRow('Candidates', 'Hit test result chain'),
+              dataRow('Notify', 'Update overlay when changed'),
+            ],
+          )),
     ],
   );
 
@@ -408,43 +369,40 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('02', 'Selection Model'),
       noteBox(
-        'InspectorSelection holds a mutable reference that changes each '
-        'time the developer taps a different widget or navigates the '
-        'tree in DevTools.',
-      ),
+          'InspectorSelection holds a mutable reference that changes each '
+          'time the developer taps a different widget or navigates the '
+          'tree in DevTools.'),
       infoCard(
-        'Model Fields',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('current', 'RenderObject? — selected render obj'),
-            dataRow('currentElement', 'Element? — selected element'),
-            dataRow('candidates', 'List<RenderObject> — hit chain'),
-            dataRow('index', 'int — index in candidates list'),
-            dataRow('active', 'bool — selection is valid'),
-          ],
-        ),
-      ),
+          'Model Fields',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('current', 'RenderObject? — selected render obj'),
+              dataRow('currentElement', 'Element? — selected element'),
+              dataRow('candidates', 'List<RenderObject> — hit chain'),
+              dataRow('index', 'int — index in candidates list'),
+              dataRow('active', 'bool — selection is valid'),
+            ],
+          )),
       infoCard(
-        'Selection Visualization',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                selectionBox('Scaffold', 60, 60, false, teal),
-                selectionBox('Column', 60, 60, false, teal),
-                selectionBox('Padding', 60, 60, true, teal),
-                selectionBox('Text', 60, 60, false, teal),
-              ],
-            ),
-            const SizedBox(height: 8),
-            dataRow('Selected', 'Padding — highlighted with border'),
-            dataRow('Others', 'Standard appearance, selectable'),
-          ],
-        ),
-      ),
+          'Selection Visualization',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  selectionBox('Scaffold', 60, 60, false, teal),
+                  selectionBox('Column', 60, 60, false, teal),
+                  selectionBox('Padding', 60, 60, true, teal),
+                  selectionBox('Text', 60, 60, false, teal),
+                ],
+              ),
+              const SizedBox(height: 8),
+              dataRow('Selected', 'Padding — highlighted with border'),
+              dataRow('Others', 'Standard appearance, selectable'),
+            ],
+          )),
     ],
   );
 
@@ -456,44 +414,41 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('03', 'Current vs Candidates'),
       noteBox(
-        'When a tap occurs, the hit test returns a chain of RenderObjects '
-        'from the deepest to the root. The candidates list holds all of '
-        'them, and the developer can cycle through to choose which one.',
-      ),
+          'When a tap occurs, the hit test returns a chain of RenderObjects '
+          'from the deepest to the root. The candidates list holds all of '
+          'them, and the developer can cycle through to choose which one.'),
       infoCard(
-        'Candidate Chain',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                selectionBox('RenderParagraph', 80, 50, true, cyan),
-                Icon(Icons.arrow_back, size: 14, color: teal),
-                selectionBox('RenderPadding', 80, 50, false, teal),
-                Icon(Icons.arrow_back, size: 14, color: teal),
-                selectionBox('RenderFlex', 80, 50, false, teal),
-              ],
-            ),
-            const SizedBox(height: 8),
-            dataRow('Index 0 (deepest)', 'RenderParagraph — current'),
-            dataRow('Index 1', 'RenderPadding'),
-            dataRow('Index 2', 'RenderFlex'),
-            dataRow('Cycling', 'Arrow keys or DevTools up/down'),
-          ],
-        ),
-      ),
+          'Candidate Chain',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  selectionBox('RenderParagraph', 80, 50, true, cyan),
+                  Icon(Icons.arrow_back, size: 14, color: teal),
+                  selectionBox('RenderPadding', 80, 50, false, teal),
+                  Icon(Icons.arrow_back, size: 14, color: teal),
+                  selectionBox('RenderFlex', 80, 50, false, teal),
+                ],
+              ),
+              const SizedBox(height: 8),
+              dataRow('Index 0 (deepest)', 'RenderParagraph — current'),
+              dataRow('Index 1', 'RenderPadding'),
+              dataRow('Index 2', 'RenderFlex'),
+              dataRow('Cycling', 'Arrow keys or DevTools up/down'),
+            ],
+          )),
       infoCard(
-        'Index Navigation',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Move deeper', 'index-- (towards leaf)'),
-            dataRow('Move shallower', 'index++ (towards root)'),
-            dataRow('Bounds check', 'Clamped to 0..candidates.length-1'),
-            dataRow('Auto-select', 'First candidate selected by default'),
-          ],
-        ),
-      ),
+          'Index Navigation',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Move deeper', 'index-- (towards leaf)'),
+              dataRow('Move shallower', 'index++ (towards root)'),
+              dataRow('Bounds check', 'Clamped to 0..candidates.length-1'),
+              dataRow('Auto-select', 'First candidate selected by default'),
+            ],
+          )),
     ],
   );
 
@@ -505,122 +460,99 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('04', 'Hit Testing for Selection'),
       noteBox(
-        'The inspector overlay intercepts taps and performs a hit test '
-        'against the render tree to find which objects are under the '
-        'tap position.',
-      ),
+          'The inspector overlay intercepts taps and performs a hit test '
+          'against the render tree to find which objects are under the '
+          'tap position.'),
       infoCard(
-        'Hit Test Flow',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('1. Tap at (x, y)', 'User taps on inspector overlay'),
-            dataRow('2. hitTest()', 'Render tree traversal'),
-            dataRow('3. Collect results', 'All render objects hit'),
-            dataRow('4. Filter', 'Remove invisible/zero-size objects'),
-            dataRow('5. Set candidates', 'Store in selection model'),
-            dataRow('6. Select deepest', 'Auto-select index 0'),
-          ],
-        ),
-      ),
+          'Hit Test Flow',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('1. Tap at (x, y)', 'User taps on inspector overlay'),
+              dataRow('2. hitTest()', 'Render tree traversal'),
+              dataRow('3. Collect results', 'All render objects hit'),
+              dataRow('4. Filter', 'Remove invisible/zero-size objects'),
+              dataRow('5. Set candidates', 'Store in selection model'),
+              dataRow('6. Select deepest', 'Auto-select index 0'),
+            ],
+          )),
       infoCard(
-        'Hit Test Visualization',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              height: 100,
-              decoration: BoxDecoration(
-                color: seafoam,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: malachite),
+          'Hit Test Visualization',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: seafoam,
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: malachite),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 10, left: 10,
+                      child: Container(
+                        width: 180, height: 80,
+                        decoration: BoxDecoration(
+                          color: teal.withValues(alpha: 0.08),
+                          border: Border.all(color: teal.withValues(alpha: 0.3)),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(3),
+                            child: Text('RenderFlex', style: TextStyle(fontSize: 8, color: teal)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 30, left: 30,
+                      child: Container(
+                        width: 100, height: 50,
+                        decoration: BoxDecoration(
+                          color: cyan.withValues(alpha: 0.12),
+                          border: Border.all(color: cyan.withValues(alpha: 0.5)),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(3),
+                            child: Text('RenderPadding', style: TextStyle(fontSize: 8, color: cyan)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 45, left: 50,
+                      child: Container(
+                        width: 50, height: 25,
+                        decoration: BoxDecoration(
+                          color: turquoise.withValues(alpha: 0.2),
+                          border: Border.all(color: turquoise, width: 2),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                        child: Center(
+                          child: Text('Text', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w700, color: turquoise)),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 50, left: 65,
+                      child: Icon(Icons.my_location, size: 12, color: lagoon),
+                    ),
+                  ],
+                ),
               ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 10,
-                    left: 10,
-                    child: Container(
-                      width: 180,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: teal.withValues(alpha: 0.08),
-                        border: Border.all(color: teal.withValues(alpha: 0.3)),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(3),
-                          child: Text(
-                            'RenderFlex',
-                            style: TextStyle(fontSize: 8, color: teal),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 30,
-                    left: 30,
-                    child: Container(
-                      width: 100,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: cyan.withValues(alpha: 0.12),
-                        border: Border.all(color: cyan.withValues(alpha: 0.5)),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(3),
-                          child: Text(
-                            'RenderPadding',
-                            style: TextStyle(fontSize: 8, color: cyan),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 45,
-                    left: 50,
-                    child: Container(
-                      width: 50,
-                      height: 25,
-                      decoration: BoxDecoration(
-                        color: turquoise.withValues(alpha: 0.2),
-                        border: Border.all(color: turquoise, width: 2),
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Text',
-                          style: TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.w700,
-                            color: turquoise,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 50,
-                    left: 65,
-                    child: Icon(Icons.my_location, size: 12, color: lagoon),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 6),
-            dataRow('Tap point', 'Blue crosshair on Text'),
-            dataRow('Hit results', 'Text → Padding → Flex'),
-          ],
-        ),
-      ),
+              const SizedBox(height: 6),
+              dataRow('Tap point', 'Blue crosshair on Text'),
+              dataRow('Hit results', 'Text → Padding → Flex'),
+            ],
+          )),
     ],
   );
 
@@ -632,33 +564,30 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('05', 'Bounding Box & Bounds'),
       noteBox(
-        'InspectorSelection computes the bounding rectangle of the '
-        'selected render object in global coordinates, used to paint '
-        'the selection highlight overlay.',
-      ),
+          'InspectorSelection computes the bounding rectangle of the '
+          'selected render object in global coordinates, used to paint '
+          'the selection highlight overlay.'),
       infoCard(
-        'Bounding Box Properties',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Rect', 'Left, top, width, height'),
-            dataRow('Global coords', 'Relative to screen origin'),
-            dataRow('Transform', 'Matrix4 from local to global'),
-            dataRow('Padding', 'Optional padding around selection'),
-          ],
-        ),
-      ),
+          'Bounding Box Properties',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Rect', 'Left, top, width, height'),
+              dataRow('Global coords', 'Relative to screen origin'),
+              dataRow('Transform', 'Matrix4 from local to global'),
+              dataRow('Padding', 'Optional padding around selection'),
+            ],
+          )),
       infoCard(
-        'Bounding Box Examples',
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            boundingRect('Small widget', 30, 60, 60, 40, teal),
-            const SizedBox(width: 8),
-            boundingRect('Full-width', 10, 10, 180, 30, cyan),
-          ],
-        ),
-      ),
+          'Bounding Box Examples',
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              boundingRect('Small widget', 30, 60, 60, 40, teal),
+              const SizedBox(width: 8),
+              boundingRect('Full-width', 10, 10, 180, 30, cyan),
+            ],
+          )),
     ],
   );
 
@@ -670,100 +599,85 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('06', 'Selection Highlight Painting'),
       noteBox(
-        'The inspector overlay uses the selection\'s bounding box and '
-        'transform to paint a colored rectangle around the selected '
-        'widget, with dimension labels.',
-      ),
+          'The inspector overlay uses the selection\'s bounding box and '
+          'transform to paint a colored rectangle around the selected '
+          'widget, with dimension labels.'),
       infoCard(
-        'Highlight Components',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Blue border', 'Selection rectangle outline'),
-            dataRow('Size label', 'Width x Height displayed'),
-            dataRow('Description', 'Widget type name shown'),
-            dataRow('Margin lines', 'Optional margin visualization'),
-            dataRow('Padding fill', 'Semi-transparent padding area'),
-          ],
-        ),
-      ),
-      infoCard(
-        'Highlight Mockup',
-        Container(
-          width: double.infinity,
-          height: 130,
-          decoration: BoxDecoration(
-            color: seafoam,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Stack(
+          'Highlight Components',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Container(
-                  width: 160,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: cyan.withValues(alpha: 0.08),
-                    border: Border.all(color: cyan, width: 2),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: -14,
-                        left: 0,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 4,
-                            vertical: 1,
-                          ),
-                          color: cyan,
-                          child: const Text(
-                            'Padding',
-                            style: TextStyle(fontSize: 9, color: Colors.white),
+              dataRow('Blue border', 'Selection rectangle outline'),
+              dataRow('Size label', 'Width x Height displayed'),
+              dataRow('Description', 'Widget type name shown'),
+              dataRow('Margin lines', 'Optional margin visualization'),
+              dataRow('Padding fill', 'Semi-transparent padding area'),
+            ],
+          )),
+      infoCard(
+          'Highlight Mockup',
+          Container(
+            width: double.infinity,
+            height: 130,
+            decoration: BoxDecoration(
+              color: seafoam,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Stack(
+              children: [
+                Center(
+                  child: Container(
+                    width: 160,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: cyan.withValues(alpha: 0.08),
+                      border: Border.all(color: cyan, width: 2),
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: -14,
+                          left: 0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                            color: cyan,
+                            child: const Text('Padding',
+                                style: TextStyle(fontSize: 9, color: Colors.white)),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: -14,
-                        right: 0,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 4,
-                            vertical: 1,
-                          ),
-                          color: cyan,
-                          child: const Text(
-                            '160.0 × 80.0',
-                            style: TextStyle(fontSize: 9, color: Colors.white),
+                        Positioned(
+                          bottom: -14,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                            color: cyan,
+                            child: const Text('160.0 × 80.0',
+                                style: TextStyle(fontSize: 9, color: Colors.white)),
                           ),
                         ),
-                      ),
-                      Center(
-                        child: Container(
-                          width: 120,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: turquoise.withValues(alpha: 0.5),
-                              style: BorderStyle.solid,
+                        Center(
+                          child: Container(
+                            width: 120,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: turquoise.withValues(alpha: 0.5),
+                                  style: BorderStyle.solid),
+                            ),
+                            child: Center(
+                              child: Text('Content',
+                                  style: TextStyle(
+                                      fontSize: 10, color: deepTeal)),
                             ),
                           ),
-                          child: Center(
-                            child: Text(
-                              'Content',
-                              style: TextStyle(fontSize: 10, color: deepTeal),
-                            ),
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
+              ],
+            ),
+          )),
     ],
   );
 
@@ -775,35 +689,32 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('07', 'Transform Matrix'),
       noteBox(
-        'The selection stores a Matrix4 transform that maps from the '
-        'render object\'s local coordinate space to the global screen '
-        'coordinates, accounting for all ancestor transforms.',
-      ),
+          'The selection stores a Matrix4 transform that maps from the '
+          'render object\'s local coordinate space to the global screen '
+          'coordinates, accounting for all ancestor transforms.'),
       infoCard(
-        'Transform Composition',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('getTransformTo(null)', 'From local to global'),
-            dataRow('Translation', 'Position offset from parent'),
-            dataRow('Rotation', 'If Transform widget used'),
-            dataRow('Scale', 'If scaled by ancestor'),
-            dataRow('Composition', 'Multiply up the tree'),
-          ],
-        ),
-      ),
+          'Transform Composition',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('getTransformTo(null)', 'From local to global'),
+              dataRow('Translation', 'Position offset from parent'),
+              dataRow('Rotation', 'If Transform widget used'),
+              dataRow('Scale', 'If scaled by ancestor'),
+              dataRow('Composition', 'Multiply up the tree'),
+            ],
+          )),
       infoCard(
-        'Transform Use Cases',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Overlay painting', 'Position highlight correctly'),
-            dataRow('Rotated widgets', 'Selection follows rotation'),
-            dataRow('Scaled content', 'Bounds scale proportionally'),
-            dataRow('Scrolled content', 'Accounts for scroll offset'),
-          ],
-        ),
-      ),
+          'Transform Use Cases',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Overlay painting', 'Position highlight correctly'),
+              dataRow('Rotated widgets', 'Selection follows rotation'),
+              dataRow('Scaled content', 'Bounds scale proportionally'),
+              dataRow('Scrolled content', 'Accounts for scroll offset'),
+            ],
+          )),
     ],
   );
 
@@ -815,34 +726,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('08', 'Selection Events'),
       noteBox(
-        'Changes to the selection trigger updates in both the overlay '
-        'rendering and the DevTools panel display.',
-      ),
+          'Changes to the selection trigger updates in both the overlay '
+          'rendering and the DevTools panel display.'),
       infoCard(
-        'Event Flow',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Selection changed', 'New render object assigned'),
-            dataRow('Overlay repaint', 'Paint new highlight rect'),
-            dataRow('DevTools notify', 'Send updated selection info'),
-            dataRow('Properties update', 'New diagnostics displayed'),
-            dataRow('Tree focus', 'Tree view scrolls to node'),
-          ],
-        ),
-      ),
+          'Event Flow',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Selection changed', 'New render object assigned'),
+              dataRow('Overlay repaint', 'Paint new highlight rect'),
+              dataRow('DevTools notify', 'Send updated selection info'),
+              dataRow('Properties update', 'New diagnostics displayed'),
+              dataRow('Tree focus', 'Tree view scrolls to node'),
+            ],
+          )),
       infoCard(
-        'Notification Mechanism',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('WidgetInspectorService', 'Manages selection state'),
-            dataRow('selectionChangedCallback', 'Called on change'),
-            dataRow('Service extension', 'Notifies DevTools client'),
-            dataRow('Overlay.markNeedsPaint', 'Triggers visual update'),
-          ],
-        ),
-      ),
+          'Notification Mechanism',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('WidgetInspectorService', 'Manages selection state'),
+              dataRow('selectionChangedCallback', 'Called on change'),
+              dataRow('Service extension', 'Notifies DevTools client'),
+              dataRow('Overlay.markNeedsPaint', 'Triggers visual update'),
+            ],
+          )),
     ],
   );
 
@@ -854,34 +762,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('09', 'Overlay Integration'),
       noteBox(
-        'InspectorSelection is consumed by the InspectorOverlay which '
-        'paints the selection visualization on top of the application.',
-      ),
+          'InspectorSelection is consumed by the InspectorOverlay which '
+          'paints the selection visualization on top of the application.'),
       infoCard(
-        'Overlay Layers',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('App layer', 'Normal rendering'),
-            dataRow('Overlay layer', 'Selection highlight + labels'),
-            dataRow('Toolbar layer', 'Inspector buttons'),
-            dataRow('Z-order', 'Selection between app & toolbar'),
-          ],
-        ),
-      ),
+          'Overlay Layers',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('App layer', 'Normal rendering'),
+              dataRow('Overlay layer', 'Selection highlight + labels'),
+              dataRow('Toolbar layer', 'Inspector buttons'),
+              dataRow('Z-order', 'Selection between app & toolbar'),
+            ],
+          )),
       infoCard(
-        'Paint Pipeline',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('1. Read selection', 'Get current RenderObject'),
-            dataRow('2. Get bounds', 'selection.currentElement.renderObject'),
-            dataRow('3. Get transform', 'getTransformTo(null)'),
-            dataRow('4. Apply transform', 'Canvas transform with matrix'),
-            dataRow('5. Paint rect', 'Blue outline + size label'),
-          ],
-        ),
-      ),
+          'Paint Pipeline',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('1. Read selection', 'Get current RenderObject'),
+              dataRow('2. Get bounds', 'selection.currentElement.renderObject'),
+              dataRow('3. Get transform', 'getTransformTo(null)'),
+              dataRow('4. Apply transform', 'Canvas transform with matrix'),
+              dataRow('5. Paint rect', 'Blue outline + size label'),
+            ],
+          )),
     ],
   );
 
@@ -893,34 +798,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('10', 'Programmatic Selection'),
       noteBox(
-        'Selection can also be driven programmatically from DevTools, '
-        'not just from tap interactions in the overlay.',
-      ),
+          'Selection can also be driven programmatically from DevTools, '
+          'not just from tap interactions in the overlay.'),
       infoCard(
-        'Programmatic Selection Methods',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('setSelection()', 'Set from DevTools tree click'),
-            dataRow('selectByElement', 'Select by Element reference'),
-            dataRow('selectByObject', 'Select by RenderObject ref'),
-            dataRow('clear()', 'Remove current selection'),
-          ],
-        ),
-      ),
+          'Programmatic Selection Methods',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('setSelection()', 'Set from DevTools tree click'),
+              dataRow('selectByElement', 'Select by Element reference'),
+              dataRow('selectByObject', 'Select by RenderObject ref'),
+              dataRow('clear()', 'Remove current selection'),
+            ],
+          )),
       infoCard(
-        'DevTools Workflow',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Tree view click', 'User clicks node in DevTools'),
-            dataRow('ID lookup', 'Find object by inspector ref ID'),
-            dataRow('Set selection', 'Programmatic selection update'),
-            dataRow('Overlay update', 'Highlight appears on device'),
-            dataRow('Properties', 'Panel shows diagnostics'),
-          ],
-        ),
-      ),
+          'DevTools Workflow',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Tree view click', 'User clicks node in DevTools'),
+              dataRow('ID lookup', 'Find object by inspector ref ID'),
+              dataRow('Set selection', 'Programmatic selection update'),
+              dataRow('Overlay update', 'Highlight appears on device'),
+              dataRow('Properties', 'Panel shows diagnostics'),
+            ],
+          )),
     ],
   );
 
@@ -932,42 +834,39 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('11', 'Selection Clearing'),
       noteBox(
-        'The selection can be cleared when the inspector is dismissed, '
-        'when the selected widget unmounts, or explicitly by the user.',
-      ),
+          'The selection can be cleared when the inspector is dismissed, '
+          'when the selected widget unmounts, or explicitly by the user.'),
       infoCard(
-        'Clear Triggers',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Inspector closed', 'Overlay dismissed'),
-            dataRow('Widget unmounts', 'Element removed from tree'),
-            dataRow('App navigation', 'Route change removes widget'),
-            dataRow('Explicit clear', 'User presses escape/deselect'),
-            dataRow('Hot reload', 'Widget tree rebuilt'),
-          ],
-        ),
-      ),
+          'Clear Triggers',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Inspector closed', 'Overlay dismissed'),
+              dataRow('Widget unmounts', 'Element removed from tree'),
+              dataRow('App navigation', 'Route change removes widget'),
+              dataRow('Explicit clear', 'User presses escape/deselect'),
+              dataRow('Hot reload', 'Widget tree rebuilt'),
+            ],
+          )),
       infoCard(
-        'Cleared State',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                selectionBox('Scaffold', 60, 60, false, teal),
-                selectionBox('Column', 60, 60, false, teal),
-                selectionBox('Padding', 60, 60, false, teal),
-                selectionBox('Text', 60, 60, false, teal),
-              ],
-            ),
-            const SizedBox(height: 8),
-            dataRow('State', 'No selection — all items neutral'),
-            dataRow('Overlay', 'No highlight painted'),
-          ],
-        ),
-      ),
+          'Cleared State',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  selectionBox('Scaffold', 60, 60, false, teal),
+                  selectionBox('Column', 60, 60, false, teal),
+                  selectionBox('Padding', 60, 60, false, teal),
+                  selectionBox('Text', 60, 60, false, teal),
+                ],
+              ),
+              const SizedBox(height: 8),
+              dataRow('State', 'No selection — all items neutral'),
+              dataRow('Overlay', 'No highlight painted'),
+            ],
+          )),
     ],
   );
 
@@ -979,42 +878,39 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('12', 'Multi-candidate Cycling'),
       noteBox(
-        'When multiple render objects overlap at a tap point, the '
-        'developer can cycle through them to select the desired one.',
-      ),
+          'When multiple render objects overlap at a tap point, the '
+          'developer can cycle through them to select the desired one.'),
       infoCard(
-        'Cycling Behavior',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Initial', 'Deepest (most specific) selected'),
-            dataRow('Up arrow', 'Select parent render object'),
-            dataRow('Down arrow', 'Select child render object'),
-            dataRow('Wrapping', 'Stops at boundaries'),
-          ],
-        ),
-      ),
+          'Cycling Behavior',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Initial', 'Deepest (most specific) selected'),
+              dataRow('Up arrow', 'Select parent render object'),
+              dataRow('Down arrow', 'Select child render object'),
+              dataRow('Wrapping', 'Stops at boundaries'),
+            ],
+          )),
       infoCard(
-        'Cycling Visualization',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                selectionBox('Leaf', 70, 50, true, lagoon),
-                Icon(Icons.swap_horiz, size: 18, color: teal),
-                selectionBox('Middle', 70, 50, false, teal),
-                Icon(Icons.swap_horiz, size: 18, color: teal),
-                selectionBox('Root', 70, 50, false, teal),
-              ],
-            ),
-            const SizedBox(height: 6),
-            dataRow('Step 1', 'Leaf selected (deepest hit)'),
-            dataRow('Step 2→', 'Middle selected'),
-            dataRow('Step 3→', 'Root selected'),
-          ],
-        ),
-      ),
+          'Cycling Visualization',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  selectionBox('Leaf', 70, 50, true, lagoon),
+                  Icon(Icons.swap_horiz, size: 18, color: teal),
+                  selectionBox('Middle', 70, 50, false, teal),
+                  Icon(Icons.swap_horiz, size: 18, color: teal),
+                  selectionBox('Root', 70, 50, false, teal),
+                ],
+              ),
+              const SizedBox(height: 6),
+              dataRow('Step 1', 'Leaf selected (deepest hit)'),
+              dataRow('Step 2→', 'Middle selected'),
+              dataRow('Step 3→', 'Root selected'),
+            ],
+          )),
     ],
   );
 
@@ -1026,35 +922,32 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('13', 'Edge Cases'),
       noteBox(
-        'Several edge cases can make selection tricky — zero-size '
-        'widgets, off-screen content, and transformed elements.',
-      ),
+          'Several edge cases can make selection tricky — zero-size '
+          'widgets, off-screen content, and transformed elements.'),
       infoCard(
-        'Tricky Selections',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Zero-size widget', 'SizedBox.shrink — no visible area'),
-            dataRow('Overflow widget', 'Rendered outside parent bounds'),
-            dataRow('Opacity 0', 'Invisible but still hit-testable'),
-            dataRow('Rotated 180°', 'Transform affects bounding box'),
-            dataRow('Off-screen', 'Scrolled out — no paint bounds'),
-          ],
-        ),
-      ),
+          'Tricky Selections',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Zero-size widget', 'SizedBox.shrink — no visible area'),
+              dataRow('Overflow widget', 'Rendered outside parent bounds'),
+              dataRow('Opacity 0', 'Invisible but still hit-testable'),
+              dataRow('Rotated 180°', 'Transform affects bounding box'),
+              dataRow('Off-screen', 'Scrolled out — no paint bounds'),
+            ],
+          )),
       infoCard(
-        'Handling Strategies',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Zero-size', 'Show marker dot at position'),
-            dataRow('Overflow', 'Clip highlight to visible area'),
-            dataRow('Opacity 0', 'Still highlightable'),
-            dataRow('Rotate', 'Use transformed bounds'),
-            dataRow('Off-screen', 'Scroll into view first'),
-          ],
-        ),
-      ),
+          'Handling Strategies',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Zero-size', 'Show marker dot at position'),
+              dataRow('Overflow', 'Clip highlight to visible area'),
+              dataRow('Opacity 0', 'Still highlightable'),
+              dataRow('Rotate', 'Use transformed bounds'),
+              dataRow('Off-screen', 'Scroll into view first'),
+            ],
+          )),
     ],
   );
 
@@ -1066,34 +959,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('14', 'Debugging Selection Issues'),
       noteBox(
-        'When selection doesn\'t work as expected, these techniques '
-        'help diagnose the problem.',
-      ),
+          'When selection doesn\'t work as expected, these techniques '
+          'help diagnose the problem.'),
       infoCard(
-        'Debug Techniques',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Print selection.current', 'Check what\'s selected'),
-            dataRow('Print candidates.length', 'How many hit results'),
-            dataRow('Print bounds', 'Is bounding box reasonable'),
-            dataRow('Print transform', 'Check matrix values'),
-            dataRow('debugDumpRenderTree', 'Full render tree dump'),
-          ],
-        ),
-      ),
+          'Debug Techniques',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Print selection.current', 'Check what\'s selected'),
+              dataRow('Print candidates.length', 'How many hit results'),
+              dataRow('Print bounds', 'Is bounding box reasonable'),
+              dataRow('Print transform', 'Check matrix values'),
+              dataRow('debugDumpRenderTree', 'Full render tree dump'),
+            ],
+          )),
       infoCard(
-        'Common Problems',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('No selection', 'Hit test returns empty'),
-            dataRow('Wrong widget', 'GestureDetector in front'),
-            dataRow('Highlight offset', 'Transform not applied'),
-            dataRow('Stale selection', 'Widget rebuilt, ref outdated'),
-          ],
-        ),
-      ),
+          'Common Problems',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('No selection', 'Hit test returns empty'),
+              dataRow('Wrong widget', 'GestureDetector in front'),
+              dataRow('Highlight offset', 'Transform not applied'),
+              dataRow('Stale selection', 'Widget rebuilt, ref outdated'),
+            ],
+          )),
     ],
   );
 
@@ -1105,22 +995,20 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('15', 'Performance Considerations'),
       noteBox(
-        'Inspector selection is debug-only but should still be performant '
-        'to avoid degrading the developer experience.',
-      ),
+          'Inspector selection is debug-only but should still be performant '
+          'to avoid degrading the developer experience.'),
       infoCard(
-        'Performance Factors',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Hit test cost', 'O(depth) per tap'),
-            dataRow('Transform', 'Cached per frame'),
-            dataRow('Overlay paint', 'Single rect, minimal cost'),
-            dataRow('Candidate list', 'Typically 5-15 entries'),
-            dataRow('Memory', 'Single RenderObject reference'),
-          ],
-        ),
-      ),
+          'Performance Factors',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Hit test cost', 'O(depth) per tap'),
+              dataRow('Transform', 'Cached per frame'),
+              dataRow('Overlay paint', 'Single rect, minimal cost'),
+              dataRow('Candidate list', 'Typically 5-15 entries'),
+              dataRow('Memory', 'Single RenderObject reference'),
+            ],
+          )),
     ],
   );
 
@@ -1133,57 +1021,54 @@ dynamic build(BuildContext context) {
       sectionBanner('16', 'Visual Dashboard'),
       noteBox('Complete overview of the InspectorSelection deep demo.'),
       infoCard(
-        'Demo Color Palette',
-        Wrap(
-          children: [
-            colorSwatch('Teal', teal),
-            colorSwatch('Cyan', cyan),
-            colorSwatch('Deep Teal', deepTeal),
-            colorSwatch('Pale Aqua', paleAqua),
-            colorSwatch('Turquoise', turquoise),
-            colorSwatch('Seafoam', seafoam),
-            colorSwatch('Ocean', ocean),
-            colorSwatch('Lagoon', lagoon),
-            colorSwatch('Malachite', malachite),
-            colorSwatch('Jade', jade),
-          ],
-        ),
-      ),
+          'Demo Color Palette',
+          Wrap(
+            children: [
+              colorSwatch('Teal', teal),
+              colorSwatch('Cyan', cyan),
+              colorSwatch('Deep Teal', deepTeal),
+              colorSwatch('Pale Aqua', paleAqua),
+              colorSwatch('Turquoise', turquoise),
+              colorSwatch('Seafoam', seafoam),
+              colorSwatch('Ocean', ocean),
+              colorSwatch('Lagoon', lagoon),
+              colorSwatch('Malachite', malachite),
+              colorSwatch('Jade', jade),
+            ],
+          )),
       infoCard(
-        'Section Coverage',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            progressBar('Overview', 1.0, teal),
-            progressBar('Selection Model', 1.0, cyan),
-            progressBar('Current vs Candidates', 1.0, ocean),
-            progressBar('Hit Testing', 1.0, jade),
-            progressBar('Bounding Box', 1.0, teal),
-            progressBar('Highlight Painting', 1.0, cyan),
-            progressBar('Transform Matrix', 1.0, ocean),
-            progressBar('Selection Events', 1.0, jade),
-            progressBar('Overlay Integration', 1.0, teal),
-            progressBar('Programmatic Selection', 1.0, cyan),
-            progressBar('Selection Clearing', 1.0, ocean),
-            progressBar('Multi-candidate Cycling', 1.0, jade),
-            progressBar('Edge Cases', 1.0, teal),
-            progressBar('Debugging', 1.0, cyan),
-            progressBar('Performance', 1.0, ocean),
-            progressBar('Dashboard', 1.0, jade),
-          ],
-        ),
-      ),
+          'Section Coverage',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              progressBar('Overview', 1.0, teal),
+              progressBar('Selection Model', 1.0, cyan),
+              progressBar('Current vs Candidates', 1.0, ocean),
+              progressBar('Hit Testing', 1.0, jade),
+              progressBar('Bounding Box', 1.0, teal),
+              progressBar('Highlight Painting', 1.0, cyan),
+              progressBar('Transform Matrix', 1.0, ocean),
+              progressBar('Selection Events', 1.0, jade),
+              progressBar('Overlay Integration', 1.0, teal),
+              progressBar('Programmatic Selection', 1.0, cyan),
+              progressBar('Selection Clearing', 1.0, ocean),
+              progressBar('Multi-candidate Cycling', 1.0, jade),
+              progressBar('Edge Cases', 1.0, teal),
+              progressBar('Debugging', 1.0, cyan),
+              progressBar('Performance', 1.0, ocean),
+              progressBar('Dashboard', 1.0, jade),
+            ],
+          )),
       infoCard(
-        'Statistics',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Total sections', '16'),
-            dataRow('Theme', 'Teal / Cyan'),
-            dataRow('Palette colors', '10'),
-          ],
-        ),
-      ),
+          'Statistics',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Total sections', '16'),
+              dataRow('Theme', 'Teal / Cyan'),
+              dataRow('Palette colors', '10'),
+            ],
+          )),
       Wrap(
         spacing: 6,
         runSpacing: 4,

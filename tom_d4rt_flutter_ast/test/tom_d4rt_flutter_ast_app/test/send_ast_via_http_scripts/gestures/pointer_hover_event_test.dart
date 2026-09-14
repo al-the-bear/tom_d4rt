@@ -108,7 +108,11 @@ dynamic build(BuildContext context) {
                   width: 2.0,
                 ),
               ),
-              child: const Icon(Icons.mouse, size: 36.0, color: Colors.white),
+              child: const Icon(
+                Icons.mouse,
+                size: 36.0,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(width: 16.0),
             const Expanded(
@@ -147,7 +151,11 @@ dynamic build(BuildContext context) {
           ),
           child: const Text(
             'Pointer moved while NOT pressed (mouse / stylus only).',
-            style: TextStyle(color: Colors.white, fontSize: 14.0, height: 1.4),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.0,
+              height: 1.4,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -279,7 +287,10 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             const Text(
               'Conceptual cursor trail',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -313,81 +324,77 @@ dynamic build(BuildContext context) {
                 Positioned(
                   left: 24.0,
                   top: 30.0,
-                  child: buildPathDot(
-                    1,
-                    Colors.cyan,
-                    Icons.fiber_manual_record,
-                  ),
+                  child: buildPathDot(1, Colors.cyan, Icons.fiber_manual_record),
                 ),
-                Positioned(left: 50.0, top: 22.0, child: buildPathArrow(0.0)),
+                Positioned(
+                  left: 50.0,
+                  top: 22.0,
+                  child: buildPathArrow(0.0),
+                ),
                 Positioned(
                   left: 76.0,
                   top: 30.0,
-                  child: buildPathDot(
-                    2,
-                    Colors.cyan,
-                    Icons.fiber_manual_record,
-                  ),
+                  child: buildPathDot(2, Colors.cyan, Icons.fiber_manual_record),
                 ),
-                Positioned(left: 102.0, top: 38.0, child: buildPathArrow(0.4)),
+                Positioned(
+                  left: 102.0,
+                  top: 38.0,
+                  child: buildPathArrow(0.4),
+                ),
                 Positioned(
                   left: 128.0,
                   top: 56.0,
-                  child: buildPathDot(
-                    3,
-                    Colors.cyan,
-                    Icons.fiber_manual_record,
-                  ),
+                  child: buildPathDot(3, Colors.cyan, Icons.fiber_manual_record),
                 ),
-                Positioned(left: 138.0, top: 80.0, child: buildPathArrow(1.2)),
+                Positioned(
+                  left: 138.0,
+                  top: 80.0,
+                  child: buildPathArrow(1.2),
+                ),
                 Positioned(
                   left: 144.0,
                   top: 110.0,
-                  child: buildPathDot(
-                    4,
-                    Colors.lightBlue,
-                    Icons.fiber_manual_record,
-                  ),
+                  child: buildPathDot(4, Colors.lightBlue, Icons.fiber_manual_record),
                 ),
-                Positioned(left: 168.0, top: 118.0, child: buildPathArrow(0.0)),
+                Positioned(
+                  left: 168.0,
+                  top: 118.0,
+                  child: buildPathArrow(0.0),
+                ),
                 Positioned(
                   left: 196.0,
                   top: 110.0,
-                  child: buildPathDot(
-                    5,
-                    Colors.lightBlue,
-                    Icons.fiber_manual_record,
-                  ),
+                  child: buildPathDot(5, Colors.lightBlue, Icons.fiber_manual_record),
                 ),
-                Positioned(left: 220.0, top: 120.0, child: buildPathArrow(0.5)),
+                Positioned(
+                  left: 220.0,
+                  top: 120.0,
+                  child: buildPathArrow(0.5),
+                ),
                 Positioned(
                   left: 240.0,
                   top: 144.0,
-                  child: buildPathDot(
-                    6,
-                    Colors.lightBlue,
-                    Icons.fiber_manual_record,
-                  ),
+                  child: buildPathDot(6, Colors.lightBlue, Icons.fiber_manual_record),
                 ),
-                Positioned(left: 234.0, top: 168.0, child: buildPathArrow(1.7)),
+                Positioned(
+                  left: 234.0,
+                  top: 168.0,
+                  child: buildPathArrow(1.7),
+                ),
                 Positioned(
                   left: 220.0,
                   top: 184.0,
-                  child: buildPathDot(
-                    7,
-                    Colors.blue,
-                    Icons.fiber_manual_record,
-                  ),
+                  child: buildPathDot(7, Colors.blue, Icons.fiber_manual_record),
                 ),
-                Positioned(left: 200.0, top: 188.0, child: buildPathArrow(3.1)),
+                Positioned(
+                  left: 200.0,
+                  top: 188.0,
+                  child: buildPathArrow(3.1),
+                ),
                 Positioned(
                   left: 168.0,
                   top: 184.0,
-                  child: buildPathDot(
-                    8,
-                    Colors.blue,
-                    Icons.fiber_manual_record,
-                  ),
+                  child: buildPathDot(8, Colors.blue, Icons.fiber_manual_record),
                 ),
                 const Positioned(
                   left: 12.0,
@@ -450,181 +457,219 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             const Text(
               'Field reference (grouped)',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
         const SizedBox(height: 14.0),
-        buildFieldGroup('Identity', Colors.cyan, Icons.fingerprint, [
-          buildFieldCard(
-            name: 'pointer',
-            type: 'int',
-            value: '1',
-            note: 'Sequence number assigned to this pointer.',
-          ),
-          buildFieldCard(
-            name: 'device',
-            type: 'int',
-            value: '0',
-            note: 'Hardware ID of the input device.',
-          ),
-          buildFieldCard(
-            name: 'kind',
-            type: 'PointerDeviceKind',
-            value: 'mouse',
-            note: 'Mouse / stylus / unknown. Touch never hovers.',
-          ),
-          buildFieldCard(
-            name: 'embedderId',
-            type: 'int',
-            value: '0',
-            note: 'Opaque ID assigned by the platform embedder.',
-          ),
-        ]),
+        buildFieldGroup(
+          'Identity',
+          Colors.cyan,
+          Icons.fingerprint,
+          [
+            buildFieldCard(
+              name: 'pointer',
+              type: 'int',
+              value: '1',
+              note: 'Sequence number assigned to this pointer.',
+            ),
+            buildFieldCard(
+              name: 'device',
+              type: 'int',
+              value: '0',
+              note: 'Hardware ID of the input device.',
+            ),
+            buildFieldCard(
+              name: 'kind',
+              type: 'PointerDeviceKind',
+              value: 'mouse',
+              note: 'Mouse / stylus / unknown. Touch never hovers.',
+            ),
+            buildFieldCard(
+              name: 'embedderId',
+              type: 'int',
+              value: '0',
+              note: 'Opaque ID assigned by the platform embedder.',
+            ),
+          ],
+        ),
         const SizedBox(height: 14.0),
-        buildFieldGroup('Position', Colors.lightBlue, Icons.place, [
-          buildFieldCard(
-            name: 'position',
-            type: 'Offset',
-            value: '(150.0, 96.0)',
-            note: 'Logical pixels in the global coordinate space.',
-          ),
-          buildFieldCard(
-            name: 'localPosition',
-            type: 'Offset',
-            value: '(150.0, 96.0)',
-            note: 'Position relative to the receiving render object.',
-          ),
-        ]),
+        buildFieldGroup(
+          'Position',
+          Colors.lightBlue,
+          Icons.place,
+          [
+            buildFieldCard(
+              name: 'position',
+              type: 'Offset',
+              value: '(150.0, 96.0)',
+              note: 'Logical pixels in the global coordinate space.',
+            ),
+            buildFieldCard(
+              name: 'localPosition',
+              type: 'Offset',
+              value: '(150.0, 96.0)',
+              note: 'Position relative to the receiving render object.',
+            ),
+          ],
+        ),
         const SizedBox(height: 14.0),
-        buildFieldGroup('Motion', Colors.blue, Icons.swap_horiz, [
-          buildFieldCard(
-            name: 'delta',
-            type: 'Offset',
-            value: '(5.0, 3.0)',
-            note: 'Change in global position since the previous hover.',
-          ),
-          buildFieldCard(
-            name: 'localDelta',
-            type: 'Offset',
-            value: '(5.0, 3.0)',
-            note: 'Same delta, mapped through local transform.',
-          ),
-        ]),
+        buildFieldGroup(
+          'Motion',
+          Colors.blue,
+          Icons.swap_horiz,
+          [
+            buildFieldCard(
+              name: 'delta',
+              type: 'Offset',
+              value: '(5.0, 3.0)',
+              note: 'Change in global position since the previous hover.',
+            ),
+            buildFieldCard(
+              name: 'localDelta',
+              type: 'Offset',
+              value: '(5.0, 3.0)',
+              note: 'Same delta, mapped through local transform.',
+            ),
+          ],
+        ),
         const SizedBox(height: 14.0),
-        buildFieldGroup('Pressure', Colors.indigo, Icons.compress, [
-          buildFieldCard(
-            name: 'pressureMin',
-            type: 'double',
-            value: '1.0',
-            note: 'Minimum reportable pressure (mouse: typically 1.0).',
-          ),
-          buildFieldCard(
-            name: 'pressureMax',
-            type: 'double',
-            value: '1.0',
-            note: 'Maximum reportable pressure.',
-          ),
-          buildFieldCard(
-            name: 'pressure',
-            type: 'double',
-            value: '0.0 (forced)',
-            note: 'Always 0.0 for hover; the pointer is not pressed.',
-          ),
-        ]),
+        buildFieldGroup(
+          'Pressure',
+          Colors.indigo,
+          Icons.compress,
+          [
+            buildFieldCard(
+              name: 'pressureMin',
+              type: 'double',
+              value: '1.0',
+              note: 'Minimum reportable pressure (mouse: typically 1.0).',
+            ),
+            buildFieldCard(
+              name: 'pressureMax',
+              type: 'double',
+              value: '1.0',
+              note: 'Maximum reportable pressure.',
+            ),
+            buildFieldCard(
+              name: 'pressure',
+              type: 'double',
+              value: '0.0 (forced)',
+              note: 'Always 0.0 for hover; the pointer is not pressed.',
+            ),
+          ],
+        ),
         const SizedBox(height: 14.0),
-        buildFieldGroup('Geometry', Colors.teal, Icons.square_foot, [
-          buildFieldCard(
-            name: 'size',
-            type: 'double',
-            value: '0.0',
-            note: 'Normalised contact patch size [0..1].',
-          ),
-          buildFieldCard(
-            name: 'radiusMajor',
-            type: 'double',
-            value: '0.0',
-            note: 'Major axis of the contact ellipse.',
-          ),
-          buildFieldCard(
-            name: 'radiusMinor',
-            type: 'double',
-            value: '0.0',
-            note: 'Minor axis of the contact ellipse.',
-          ),
-          buildFieldCard(
-            name: 'radiusMin',
-            type: 'double',
-            value: '0.0',
-            note: 'Lowest reportable radius for this device.',
-          ),
-          buildFieldCard(
-            name: 'radiusMax',
-            type: 'double',
-            value: '0.0',
-            note: 'Highest reportable radius for this device.',
-          ),
-          buildFieldCard(
-            name: 'orientation',
-            type: 'double',
-            value: '0.0',
-            note: 'Orientation of the major axis, radians.',
-          ),
-          buildFieldCard(
-            name: 'tilt',
-            type: 'double',
-            value: '0.0',
-            note: 'Stylus tilt angle from perpendicular (radians).',
-          ),
-        ]),
+        buildFieldGroup(
+          'Geometry',
+          Colors.teal,
+          Icons.square_foot,
+          [
+            buildFieldCard(
+              name: 'size',
+              type: 'double',
+              value: '0.0',
+              note: 'Normalised contact patch size [0..1].',
+            ),
+            buildFieldCard(
+              name: 'radiusMajor',
+              type: 'double',
+              value: '0.0',
+              note: 'Major axis of the contact ellipse.',
+            ),
+            buildFieldCard(
+              name: 'radiusMinor',
+              type: 'double',
+              value: '0.0',
+              note: 'Minor axis of the contact ellipse.',
+            ),
+            buildFieldCard(
+              name: 'radiusMin',
+              type: 'double',
+              value: '0.0',
+              note: 'Lowest reportable radius for this device.',
+            ),
+            buildFieldCard(
+              name: 'radiusMax',
+              type: 'double',
+              value: '0.0',
+              note: 'Highest reportable radius for this device.',
+            ),
+            buildFieldCard(
+              name: 'orientation',
+              type: 'double',
+              value: '0.0',
+              note: 'Orientation of the major axis, radians.',
+            ),
+            buildFieldCard(
+              name: 'tilt',
+              type: 'double',
+              value: '0.0',
+              note: 'Stylus tilt angle from perpendicular (radians).',
+            ),
+          ],
+        ),
         const SizedBox(height: 14.0),
-        buildFieldGroup('Distance', Colors.deepPurple, Icons.height, [
-          buildFieldCard(
-            name: 'distance',
-            type: 'double',
-            value: '0.0',
-            note: 'Stylus distance above the surface (mouse: 0).',
-          ),
-          buildFieldCard(
-            name: 'distanceMax',
-            type: 'double',
-            value: '0.0',
-            note: 'Maximum sensed hover distance.',
-          ),
-        ]),
+        buildFieldGroup(
+          'Distance',
+          Colors.deepPurple,
+          Icons.height,
+          [
+            buildFieldCard(
+              name: 'distance',
+              type: 'double',
+              value: '0.0',
+              note: 'Stylus distance above the surface (mouse: 0).',
+            ),
+            buildFieldCard(
+              name: 'distanceMax',
+              type: 'double',
+              value: '0.0',
+              note: 'Maximum sensed hover distance.',
+            ),
+          ],
+        ),
         const SizedBox(height: 14.0),
-        buildFieldGroup('State', Colors.blueGrey, Icons.flag, [
-          buildFieldCard(
-            name: 'buttons',
-            type: 'int',
-            value: '0',
-            note: 'Bitfield: 0 because nothing is pressed during hover.',
-          ),
-          buildFieldCard(
-            name: 'obscured',
-            type: 'bool',
-            value: 'false',
-            note: 'Whether another window obscures the pointer.',
-          ),
-          buildFieldCard(
-            name: 'synthesized',
-            type: 'bool',
-            value: 'false',
-            note: 'True if Flutter generated this event itself.',
-          ),
-          buildFieldCard(
-            name: 'down',
-            type: 'bool',
-            value: 'false (forced)',
-            note: 'PointerHoverEvent always has down == false.',
-          ),
-          buildFieldCard(
-            name: 'timeStamp',
-            type: 'Duration',
-            value: '1234 ms',
-            note: 'Embedder timestamp for ordering.',
-          ),
-        ]),
+        buildFieldGroup(
+          'State',
+          Colors.blueGrey,
+          Icons.flag,
+          [
+            buildFieldCard(
+              name: 'buttons',
+              type: 'int',
+              value: '0',
+              note: 'Bitfield: 0 because nothing is pressed during hover.',
+            ),
+            buildFieldCard(
+              name: 'obscured',
+              type: 'bool',
+              value: 'false',
+              note: 'Whether another window obscures the pointer.',
+            ),
+            buildFieldCard(
+              name: 'synthesized',
+              type: 'bool',
+              value: 'false',
+              note: 'True if Flutter generated this event itself.',
+            ),
+            buildFieldCard(
+              name: 'down',
+              type: 'bool',
+              value: 'false (forced)',
+              note: 'PointerHoverEvent always has down == false.',
+            ),
+            buildFieldCard(
+              name: 'timeStamp',
+              type: 'Duration',
+              value: '1234 ms',
+              note: 'Embedder timestamp for ordering.',
+            ),
+          ],
+        ),
       ],
     ),
   );
@@ -648,7 +693,10 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             const Text(
               'delta vs localDelta',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -737,7 +785,10 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             const Text(
               'PointerHoverEvent vs PointerMoveEvent',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -848,7 +899,10 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             const Text(
               'MouseRegion integration',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -941,7 +995,10 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             const Text(
               'Cursor changes follow hover',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -1048,7 +1105,10 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             const Text(
               'Construction sample',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -1074,21 +1134,30 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         const Text(
           'Live readout from eventMouse',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14.0,
+          ),
         ),
         const SizedBox(height: 8.0),
         buildReadoutGrid(eventMouse, 'mouse'),
         const SizedBox(height: 12.0),
         const Text(
           'Live readout from eventStylus',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14.0,
+          ),
         ),
         const SizedBox(height: 8.0),
         buildReadoutGrid(eventStylus, 'stylus'),
         const SizedBox(height: 12.0),
         const Text(
           'Live readout from eventSynth',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14.0,
+          ),
         ),
         const SizedBox(height: 8.0),
         buildReadoutGrid(eventSynth, 'synthesized'),
@@ -1115,7 +1184,10 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             const Text(
               'Real-world usage patterns',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -1196,11 +1268,18 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber, color: Colors.amber.shade800, size: 22.0),
+            Icon(
+              Icons.warning_amber,
+              color: Colors.amber.shade800,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             const Text(
               'Caveats',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -1271,10 +1350,18 @@ dynamic build(BuildContext context) {
         buildTakeaway(
           'PointerHoverEvent fires while a non-pressed pointer moves.',
         ),
-        buildTakeaway('down is always false and pressure is always 0.0.'),
-        buildTakeaway('Mouse and stylus emit hover; touch never does.'),
-        buildTakeaway('MouseRegion.onHover is the canonical entry point.'),
-        buildTakeaway('Do not confuse with PointerMoveEvent (down == true).'),
+        buildTakeaway(
+          'down is always false and pressure is always 0.0.',
+        ),
+        buildTakeaway(
+          'Mouse and stylus emit hover; touch never does.',
+        ),
+        buildTakeaway(
+          'MouseRegion.onHover is the canonical entry point.',
+        ),
+        buildTakeaway(
+          'Do not confuse with PointerMoveEvent (down == true).',
+        ),
         buildTakeaway(
           'Use localPosition for hit-testing inside transformed widgets.',
         ),
@@ -1385,7 +1472,10 @@ Widget buildLifecycleRow(
         ),
       ),
       Expanded(
-        child: Text(desc, style: const TextStyle(fontSize: 12.0, height: 1.4)),
+        child: Text(
+          desc,
+          style: const TextStyle(fontSize: 12.0, height: 1.4),
+        ),
       ),
     ],
   );
@@ -1400,7 +1490,10 @@ Widget buildPathDot(int index, MaterialColor color, IconData icon) {
       shape: BoxShape.circle,
       border: Border.all(color: color.shade600, width: 1.5),
       boxShadow: [
-        BoxShadow(color: color.withValues(alpha: 0.35), blurRadius: 6.0),
+        BoxShadow(
+          color: color.withValues(alpha: 0.35),
+          blurRadius: 6.0,
+        ),
       ],
     ),
     child: Center(
@@ -1419,7 +1512,11 @@ Widget buildPathDot(int index, MaterialColor color, IconData icon) {
 Widget buildPathArrow(double rotation) {
   return Transform.rotate(
     angle: rotation,
-    child: Icon(Icons.arrow_forward, size: 16.0, color: Colors.cyan.shade700),
+    child: Icon(
+      Icons.arrow_forward,
+      size: 16.0,
+      color: Colors.cyan.shade700,
+    ),
   );
 }
 
@@ -1438,7 +1535,10 @@ Widget buildLegendDot(MaterialColor color, String label) {
       const SizedBox(width: 6.0),
       Text(
         label,
-        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
+        style: TextStyle(
+          fontSize: 12.0,
+          color: Colors.grey.shade800,
+        ),
       ),
     ],
   );
@@ -1475,7 +1575,11 @@ Widget buildFieldGroup(
           ],
         ),
         const SizedBox(height: 8.0),
-        Wrap(spacing: 8.0, runSpacing: 8.0, children: cards),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: cards,
+        ),
       ],
     ),
   );
@@ -1907,7 +2011,10 @@ Widget buildUsageCard({
   );
 }
 
-Widget buildCaveat({required String title, required String body}) {
+Widget buildCaveat({
+  required String title,
+  required String body,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     child: Row(

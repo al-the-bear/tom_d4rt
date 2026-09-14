@@ -282,7 +282,11 @@ class HeaderBanner extends StatelessWidget {
       padding: const EdgeInsets.all(28.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[cs.primary, cs.secondary, cs.tertiary],
+          colors: <Color>[
+            cs.primary,
+            cs.secondary,
+            cs.tertiary,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1220,7 +1224,10 @@ class GlossaryPanel extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 2.0),
-                    Text(e['def']!, style: const TextStyle(fontSize: 11.0)),
+                    Text(
+                      e['def']!,
+                      style: const TextStyle(fontSize: 11.0),
+                    ),
                   ],
                 ),
               ),
@@ -1321,7 +1328,12 @@ class FooterSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final List<List<dynamic>> items = <List<dynamic>>[
-      <dynamic>[Icons.layers, 'normal', 'Default drop shadow look', cs.primary],
+      <dynamic>[
+        Icons.layers,
+        'normal',
+        'Default drop shadow look',
+        cs.primary,
+      ],
       <dynamic>[
         Icons.lens,
         'solid',
@@ -1334,14 +1346,22 @@ class FooterSummary extends StatelessWidget {
         'Halo only, source erased',
         cs.tertiary,
       ],
-      <dynamic>[Icons.adjust, 'inner', 'Halo painted inside source', cs.error],
+      <dynamic>[
+        Icons.adjust,
+        'inner',
+        'Halo painted inside source',
+        cs.error,
+      ],
     ];
     return Container(
       margin: const EdgeInsets.all(8.0),
       padding: const EdgeInsets.all(18.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[cs.primaryContainer, cs.tertiaryContainer],
+          colors: <Color>[
+            cs.primaryContainer,
+            cs.tertiaryContainer,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1407,7 +1427,10 @@ class FooterSummary extends StatelessWidget {
             'Combine blurStyle with blurRadius, spreadRadius and offset to '
             'cover the entire shadow design space without ever leaving '
             'BoxShadow.',
-            style: TextStyle(fontSize: 11.0, color: cs.onPrimaryContainer),
+            style: TextStyle(
+              fontSize: 11.0,
+              color: cs.onPrimaryContainer,
+            ),
           ),
         ],
       ),

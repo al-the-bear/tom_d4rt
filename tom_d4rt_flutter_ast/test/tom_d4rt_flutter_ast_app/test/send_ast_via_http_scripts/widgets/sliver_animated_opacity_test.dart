@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.opacity,
       'title': 'What Is SliverAnimatedOpacity?',
-      'body':
-          'SliverAnimatedOpacity is the sliver version of '
+      'body': 'SliverAnimatedOpacity is the sliver version of '
           'AnimatedOpacity. It wraps a child sliver and automatically '
           'animates transitions between opacity values. When you change '
           'the opacity property, it smoothly interpolates over the '
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Sliver Context',
-      'body':
-          'Unlike AnimatedOpacity (a box widget), SliverAnimatedOpacity '
+      'body': 'Unlike AnimatedOpacity (a box widget), SliverAnimatedOpacity '
           'works inside CustomScrollView alongside other slivers. It takes '
           'a sliver child — typically SliverList, SliverGrid, etc. — and '
           'fades the entire sliver section.',
@@ -36,8 +34,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Implicit Animation',
-      'body':
-          'Like other "Animated" widgets, SliverAnimatedOpacity is an '
+      'body': 'Like other "Animated" widgets, SliverAnimatedOpacity is an '
           'implicit animation: you declaratively set the target opacity and '
           'duration, and the framework handles the interpolation. No '
           'AnimationController needed.',
@@ -45,8 +42,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility_off,
       'title': 'alwaysIncludeSemantics',
-      'body':
-          'When opacity is 0, the child is still part of the widget tree '
+      'body': 'When opacity is 0, the child is still part of the widget tree '
           'but invisible. Set alwaysIncludeSemantics to true if screen readers '
           'should still announce the hidden content (accessibility).',
     },
@@ -63,7 +59,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.deepOrange.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.deepOrange.withValues(alpha: 0.12)),
+          border: Border.all(
+            color: Colors.deepOrange.withValues(alpha: 0.12),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +143,10 @@ dynamic build(BuildContext context) {
                 'A sliver that implicitly animates its child sliver\'s '
                 'opacity smoothly over a configured duration.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 13.5, color: Colors.grey[600]),
+                style: TextStyle(
+                  fontSize: 13.5,
+                  color: Colors.grey[600],
+                ),
               ),
             ],
           ),
@@ -172,48 +173,42 @@ dynamic build(BuildContext context) {
       'name': 'opacity',
       'type': 'double',
       'required': 'Yes',
-      'desc':
-          'The target opacity (0.0 = invisible, 1.0 = fully visible). '
+      'desc': 'The target opacity (0.0 = invisible, 1.0 = fully visible). '
           'When this value changes, the widget animates to the new value.',
     },
     {
       'name': 'duration',
       'type': 'Duration',
       'required': 'Yes',
-      'desc':
-          'How long the opacity transition takes. Typical values '
+      'desc': 'How long the opacity transition takes. Typical values '
           'range from 200ms to 500ms.',
     },
     {
       'name': 'curve',
       'type': 'Curve',
       'required': 'No',
-      'desc':
-          'The easing curve for the animation. Defaults to '
+      'desc': 'The easing curve for the animation. Defaults to '
           'Curves.linear. Use Curves.easeInOut for a softer feel.',
     },
     {
       'name': 'onEnd',
       'type': 'VoidCallback?',
       'required': 'No',
-      'desc':
-          'Called when the animation completes. Useful for chaining '
+      'desc': 'Called when the animation completes. Useful for chaining '
           'actions or cleanup after the fade finishes.',
     },
     {
       'name': 'alwaysIncludeSemantics',
       'type': 'bool',
       'required': 'No',
-      'desc':
-          'When true, the child\'s semantics are included even when '
+      'desc': 'When true, the child\'s semantics are included even when '
           'opacity is 0. Default is false.',
     },
     {
       'name': 'sliver',
       'type': 'Widget',
       'required': 'Yes',
-      'desc':
-          'The child sliver to fade. Must be a sliver widget '
+      'desc': 'The child sliver to fade. Must be a sliver widget '
           '(SliverList, SliverGrid, SliverToBoxAdapter, etc.).',
     },
   ];
@@ -228,7 +223,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(color: Colors.deepOrange.withValues(alpha: 0.15)),
+          border: Border.all(
+            color: Colors.deepOrange.withValues(alpha: 0.15),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -430,21 +427,21 @@ dynamic build(BuildContext context) {
         _buildSAOInfoRow(
           'opacity: 0.0',
           'Invisible. Child is still in the tree (takes space, '
-              'receives events unless wrapped in IgnorePointer).',
+          'receives events unless wrapped in IgnorePointer).',
           Colors.red,
           Icons.visibility_off,
         ),
         _buildSAOInfoRow(
           'opacity: 0.5',
           'Semi-transparent. Child is drawn at 50% alpha. Useful for '
-              'disabled or loading states.',
+          'disabled or loading states.',
           Colors.orange,
           Icons.tonality,
         ),
         _buildSAOInfoRow(
           'opacity: 1.0',
           'Fully visible. No visual difference from a non-wrapped child. '
-              'No compositing layer is added when opacity is exactly 1.0.',
+          'No compositing layer is added when opacity is exactly 1.0.',
           Colors.green,
           Icons.visibility,
         ),
@@ -466,11 +463,7 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
-                Icons.tips_and_updates,
-                color: Colors.amber,
-                size: 20.0,
-              ),
+              const Icon(Icons.tips_and_updates, color: Colors.amber, size: 20.0),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Column(
@@ -584,7 +577,10 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     curve['desc'] as String,
-                    style: TextStyle(fontSize: 10.0, color: Colors.grey[500]),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey[500],
+                    ),
                   ),
                 ],
               ),
@@ -601,7 +597,9 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: v),
                       borderRadius: BorderRadius.circular(3.0),
-                      border: Border.all(color: color.withValues(alpha: 0.25)),
+                      border: Border.all(
+                        color: color.withValues(alpha: 0.25),
+                      ),
                     ),
                     child: Center(
                       child: Text(
@@ -730,16 +728,14 @@ dynamic build(BuildContext context) {
     {
       'name': 'SliverFadeTransition',
       'type': 'Sliver wrapper',
-      'when':
-          'Fading a sliver with explicit AnimationController (more control).',
+      'when': 'Fading a sliver with explicit AnimationController (more control).',
       'color': Colors.purple,
       'icon': Icons.animation,
     },
     {
       'name': 'SliverVisibility',
       'type': 'Sliver wrapper',
-      'when':
-          'Toggling visibility on/off without animation. Removes from layout.',
+      'when': 'Toggling visibility on/off without animation. Removes from layout.',
       'color': Colors.green,
       'icon': Icons.visibility,
     },
@@ -856,8 +852,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Progressive Disclosure',
-      'desc':
-          'Fade in additional sliver content as the user progresses '
+      'desc': 'Fade in additional sliver content as the user progresses '
           'through a workflow. Step 1 content fades out, step 2 fades in.',
       'icon': Icons.expand,
       'color': Colors.blue,
@@ -865,8 +860,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Loading Skeleton',
-      'desc':
-          'Show a skeleton sliver at full opacity, then cross-fade '
+      'desc': 'Show a skeleton sliver at full opacity, then cross-fade '
           'to the real data sliver once loaded.',
       'icon': Icons.hourglass_empty,
       'color': Colors.orange,
@@ -874,8 +868,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Search Results Filter',
-      'desc':
-          'Fade entire result sections in/out as filters are applied. '
+      'desc': 'Fade entire result sections in/out as filters are applied. '
           'E.g., a "Recent" sliver fades out when search is active.',
       'icon': Icons.search,
       'color': Colors.green,
@@ -883,8 +876,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-Section Reveal',
-      'desc':
-          'Animate multiple sliver sections one by one with staggered '
+      'desc': 'Animate multiple sliver sections one by one with staggered '
           'delays for a cascading fade-in effect on page load.',
       'icon': Icons.view_agenda,
       'color': Colors.purple,
@@ -977,39 +969,33 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.opacity,
-      'text':
-          'SliverAnimatedOpacity wraps a child sliver and smoothly '
+      'text': 'SliverAnimatedOpacity wraps a child sliver and smoothly '
           'animates its opacity when the value changes.',
     },
     {
       'icon': Icons.animation,
-      'text':
-          'It is an implicit animation — set the target opacity and '
+      'text': 'It is an implicit animation — set the target opacity and '
           'duration, no AnimationController needed.',
     },
     {
       'icon': Icons.show_chart,
-      'text':
-          'Use the curve parameter to control the easing. '
+      'text': 'Use the curve parameter to control the easing. '
           'easeInOut provides a natural feel for most transitions.',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'The child must be a sliver widget. Wrap non-sliver content '
+      'text': 'The child must be a sliver widget. Wrap non-sliver content '
           'in SliverToBoxAdapter if needed.',
     },
     {
       'icon': Icons.speed,
-      'text':
-          'At opacity 0 or 1, no compositing layer is created. '
+      'text': 'At opacity 0 or 1, no compositing layer is created. '
           'Intermediate values create a layer — avoid animating too '
           'many slivers simultaneously.',
     },
     {
       'icon': Icons.compare,
-      'text':
-          'Use SliverFadeTransition instead when you need explicit '
+      'text': 'Use SliverFadeTransition instead when you need explicit '
           'animation control (reverse, repeat, custom triggers).',
     },
   ];
@@ -1245,11 +1231,7 @@ Widget _buildSAOFamilyTree() {
     {'label': 'ImplicitlyAnimatedWidget', 'indent': 0, 'color': Colors.grey},
     {'label': '├─ AnimatedOpacity (box)', 'indent': 1, 'color': Colors.blue},
     {'label': '├─ AnimatedContainer', 'indent': 1, 'color': Colors.grey},
-    {
-      'label': '└─ SliverAnimatedOpacity ★',
-      'indent': 1,
-      'color': Colors.deepOrange,
-    },
+    {'label': '└─ SliverAnimatedOpacity ★', 'indent': 1, 'color': Colors.deepOrange},
     {'label': '', 'indent': 0, 'color': Colors.grey},
     {'label': 'Related explicit versions:', 'indent': 0, 'color': Colors.grey},
     {'label': '├─ FadeTransition (box)', 'indent': 1, 'color': Colors.purple},
@@ -1321,7 +1303,10 @@ Widget _buildSAOTransitionDiagram() {
             const SizedBox(width: 4.0),
             Text(
               'Duration: 400ms  •  Curve: easeInOut',
-              style: TextStyle(fontSize: 10.5, color: Colors.grey[500]),
+              style: TextStyle(
+                fontSize: 10.5,
+                color: Colors.grey[500],
+              ),
             ),
           ],
         ),
@@ -1395,14 +1380,11 @@ Widget _buildSAODecisionTree() {
                       Expanded(
                         child: Column(
                           children: [
-                            Text(
-                              'NO',
-                              style: TextStyle(
-                                fontSize: 9.0,
-                                color: Colors.green[600],
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            Text('NO',
+                                style: TextStyle(
+                                    fontSize: 9.0,
+                                    color: Colors.green[600],
+                                    fontWeight: FontWeight.w700)),
                             _buildSAODecisionNode(
                               'SliverAnimated\nOpacity',
                               Colors.deepOrange,
@@ -1414,14 +1396,11 @@ Widget _buildSAODecisionTree() {
                       Expanded(
                         child: Column(
                           children: [
-                            Text(
-                              'YES',
-                              style: TextStyle(
-                                fontSize: 9.0,
-                                color: Colors.orange[600],
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            Text('YES',
+                                style: TextStyle(
+                                    fontSize: 9.0,
+                                    color: Colors.orange[600],
+                                    fontWeight: FontWeight.w700)),
                             _buildSAODecisionNode(
                               'SliverFade\nTransition',
                               Colors.purple,
@@ -1462,11 +1441,8 @@ Widget _buildSAODecisionTree() {
   );
 }
 
-Widget _buildSAODecisionNode(
-  String label,
-  Color color, {
-  required bool isQuestion,
-}) {
+Widget _buildSAODecisionNode(String label, Color color,
+    {required bool isQuestion}) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 3.0),
     padding: const EdgeInsets.all(6.0),
@@ -1625,7 +1601,10 @@ Widget _buildSAOUseCaseState(String label, List<double> opacities) {
         );
       }),
       const SizedBox(height: 2.0),
-      Text(label, style: TextStyle(fontSize: 7.0, color: Colors.grey[500])),
+      Text(
+        label,
+        style: TextStyle(fontSize: 7.0, color: Colors.grey[500]),
+      ),
     ],
   );
 }
@@ -1837,9 +1816,8 @@ class _SAOLiveDemoState extends State<_SAOLiveDemo> {
                           style: TextStyle(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w600,
-                            color: isSelected
-                                ? Colors.white
-                                : Colors.deepOrange,
+                            color:
+                                isSelected ? Colors.white : Colors.deepOrange,
                           ),
                         ),
                       ),
@@ -1881,9 +1859,8 @@ class _SAOLiveDemoState extends State<_SAOLiveDemo> {
                           style: TextStyle(
                             fontSize: 9.0,
                             fontWeight: FontWeight.w600,
-                            color: isSelected
-                                ? Colors.white
-                                : Colors.deepOrange,
+                            color:
+                                isSelected ? Colors.white : Colors.deepOrange,
                           ),
                         ),
                       ),
@@ -1983,46 +1960,51 @@ class _SAOLiveDemoState extends State<_SAOLiveDemo> {
                   });
                 },
                 sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    final colors = [
-                      Colors.red,
-                      Colors.blue,
-                      Colors.green,
-                      Colors.orange,
-                      Colors.purple,
-                      Colors.teal,
-                    ];
-                    final color = colors[index % colors.length];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 3.0,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14.0,
-                        vertical: 12.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: color.withValues(alpha: 0.2)),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.opacity, size: 18.0, color: color),
-                          const SizedBox(width: 10.0),
-                          Text(
-                            'Animated Item ${index + 1}',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w600,
-                              color: color,
-                            ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final colors = [
+                        Colors.red,
+                        Colors.blue,
+                        Colors.green,
+                        Colors.orange,
+                        Colors.purple,
+                        Colors.teal,
+                      ];
+                      final color = colors[index % colors.length];
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 3.0,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14.0,
+                          vertical: 12.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: color.withValues(alpha: 0.08),
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(
+                            color: color.withValues(alpha: 0.2),
                           ),
-                        ],
-                      ),
-                    );
-                  }, childCount: 6),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.opacity, size: 18.0, color: color),
+                            const SizedBox(width: 10.0),
+                            Text(
+                              'Animated Item ${index + 1}',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w600,
+                                color: color,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    childCount: 6,
+                  ),
                 ),
               ),
 

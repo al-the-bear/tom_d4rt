@@ -252,7 +252,10 @@ class _WspaDeskBackdrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const IgnorePointer(
-      child: CustomPaint(painter: _WspaDeskPainter(), child: SizedBox.expand()),
+      child: CustomPaint(
+        painter: _WspaDeskPainter(),
+        child: SizedBox.expand(),
+      ),
     );
   }
 }
@@ -288,24 +291,12 @@ class _WspaDeskPainter extends CustomPainter {
     }
 
     // Three subtle ink-pad smudges in red / blue / green at corners.
-    _drawSmudge(
-      canvas,
-      Offset(size.width * 0.08, size.height * 0.15),
-      _kInkRed.withValues(alpha: 0.05),
-      120,
-    );
-    _drawSmudge(
-      canvas,
-      Offset(size.width * 0.92, size.height * 0.25),
-      _kInkBlue.withValues(alpha: 0.05),
-      140,
-    );
-    _drawSmudge(
-      canvas,
-      Offset(size.width * 0.5, size.height * 0.88),
-      _kInkGreen.withValues(alpha: 0.05),
-      160,
-    );
+    _drawSmudge(canvas, Offset(size.width * 0.08, size.height * 0.15),
+        _kInkRed.withValues(alpha: 0.05), 120);
+    _drawSmudge(canvas, Offset(size.width * 0.92, size.height * 0.25),
+        _kInkBlue.withValues(alpha: 0.05), 140);
+    _drawSmudge(canvas, Offset(size.width * 0.5, size.height * 0.88),
+        _kInkGreen.withValues(alpha: 0.05), 160);
   }
 
   void _drawSmudge(Canvas canvas, Offset center, Color color, double radius) {
@@ -340,7 +331,9 @@ class _WspaPageHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 22, 20, 18),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: _kPaperEdge, width: 1.2)),
+        border: Border(
+          bottom: BorderSide(color: _kPaperEdge, width: 1.2),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -412,7 +405,9 @@ class _WspaSectionHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Expanded(child: Container(height: 1, color: _kPaperEdge)),
+          Expanded(
+            child: Container(height: 1, color: _kPaperEdge),
+          ),
         ],
       ),
     );
@@ -438,7 +433,11 @@ class _WspaPaperCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: _kPaperEdge, width: 1),
         boxShadow: const <BoxShadow>[
-          BoxShadow(color: _kShadow, offset: Offset(0, 2), blurRadius: 6),
+          BoxShadow(
+            color: _kShadow,
+            offset: Offset(0, 2),
+            blurRadius: 6,
+          ),
         ],
       ),
       child: child,
@@ -488,7 +487,11 @@ class _WspaInfoRow extends StatelessWidget {
   final String label;
   final String value;
   final Color? accent;
-  const _WspaInfoRow({required this.label, required this.value, this.accent});
+  const _WspaInfoRow({
+    required this.label,
+    required this.value,
+    this.accent,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -609,24 +612,22 @@ class _WspaDossierGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext ctx, BoxConstraints c) {
-        final bool wide = c.maxWidth > 820;
-        final int cols = wide ? 3 : (c.maxWidth > 540 ? 2 : 1);
-        final List<_WspaDossierEntry> entries = _dossierEntries;
-        return Wrap(
-          spacing: 14,
-          runSpacing: 14,
-          children: <Widget>[
-            for (final _WspaDossierEntry e in entries)
-              SizedBox(
-                width: (c.maxWidth - (cols - 1) * 14) / cols,
-                child: _WspaDossierCard(entry: e),
-              ),
-          ],
-        );
-      },
-    );
+    return LayoutBuilder(builder: (BuildContext ctx, BoxConstraints c) {
+      final bool wide = c.maxWidth > 820;
+      final int cols = wide ? 3 : (c.maxWidth > 540 ? 2 : 1);
+      final List<_WspaDossierEntry> entries = _dossierEntries;
+      return Wrap(
+        spacing: 14,
+        runSpacing: 14,
+        children: <Widget>[
+          for (final _WspaDossierEntry e in entries)
+            SizedBox(
+              width: (c.maxWidth - (cols - 1) * 14) / cols,
+              child: _WspaDossierCard(entry: e),
+            ),
+        ],
+      );
+    });
   }
 }
 
@@ -814,8 +815,7 @@ class _WspaSdkLocationCard extends StatelessWidget {
         children: <Widget>[
           _WspaInfoRow(
             label: 'Library',
-            value:
-                'package:flutter/widgets.dart (re-exported by material.dart)',
+            value: 'package:flutter/widgets.dart (re-exported by material.dart)',
           ),
           _WspaInfoRow(
             label: 'Source',
@@ -823,14 +823,16 @@ class _WspaSdkLocationCard extends StatelessWidget {
           ),
           _WspaInfoRow(
             label: 'Declaration',
-            value:
-                'class WidgetStatePropertyAll<T> implements WidgetStateProperty<T>',
+            value: 'class WidgetStatePropertyAll<T> implements WidgetStateProperty<T>',
           ),
           _WspaInfoRow(
             label: 'Constructor',
             value: 'const WidgetStatePropertyAll(this.value)',
           ),
-          _WspaInfoRow(label: 'Field', value: 'final T value;'),
+          _WspaInfoRow(
+            label: 'Field',
+            value: 'final T value;',
+          ),
           _WspaInfoRow(
             label: 'resolve(states)',
             value: '=> value;   // never touches the states set',
@@ -937,8 +939,7 @@ class _WspaAnatomyDeclarationCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           _WspaCodeBlock(
-            code:
-                '// package:flutter/src/widgets/widget_state.dart\n'
+            code: '// package:flutter/src/widgets/widget_state.dart\n'
                 'class WidgetStatePropertyAll<T> implements WidgetStateProperty<T> {\n'
                 '  const WidgetStatePropertyAll(this.value);\n'
                 '\n'
@@ -1028,8 +1029,7 @@ class _WspaAnatomyCtorCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           _WspaCodeBlock(
-            code:
-                'const WidgetStatePropertyAll<Color>(Color(0xFFB2292E))\n'
+            code: 'const WidgetStatePropertyAll<Color>(Color(0xFFB2292E))\n'
                 '// fully const-evaluable — lives in the const pool',
           ),
           SizedBox(height: 10),
@@ -1077,8 +1077,7 @@ class _WspaAnatomyResolveCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           _WspaCodeBlock(
-            code:
-                '@override\n'
+            code: '@override\n'
                 'T resolve(Set<WidgetState> states) => value;',
             accent: _kInkRed,
           ),
@@ -1112,8 +1111,7 @@ class _WspaAnatomyButtonStyleCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           _WspaCodeBlock(
-            code:
-                'FilledButton(\n'
+            code: 'FilledButton(\n'
                 '  style: ButtonStyle(\n'
                 '    backgroundColor: WidgetStatePropertyAll(Colors.teal),\n'
                 '    foregroundColor: WidgetStatePropertyAll(Colors.white),\n'
@@ -1194,6 +1192,7 @@ class _WspaShowcaseTabState extends State<_WspaShowcaseTab>
     setState(() => _pressed.remove(i));
   }
 
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -1212,31 +1211,27 @@ class _WspaShowcaseTabState extends State<_WspaShowcaseTab>
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: LayoutBuilder(
-            builder: (BuildContext ctx, BoxConstraints c) {
-              final bool wide = c.maxWidth > 760;
-              if (wide) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 7,
-                      child: _buildGrid(c.maxWidth * 7 / 10 - 14),
-                    ),
-                    const SizedBox(width: 14),
-                    Expanded(flex: 3, child: _buildLivePanel()),
-                  ],
-                );
-              }
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              builder: (BuildContext ctx, BoxConstraints c) {
+            final bool wide = c.maxWidth > 760;
+            if (wide) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _buildGrid(c.maxWidth),
-                  const SizedBox(height: 14),
-                  _buildLivePanel(),
+                  Expanded(flex: 7, child: _buildGrid(c.maxWidth * 7 / 10 - 14)),
+                  const SizedBox(width: 14),
+                  Expanded(flex: 3, child: _buildLivePanel()),
                 ],
               );
-            },
-          ),
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                _buildGrid(c.maxWidth),
+                const SizedBox(height: 14),
+                _buildLivePanel(),
+              ],
+            );
+          }),
         ),
       ],
     );
@@ -1355,8 +1350,7 @@ class _WspaShowcaseTabState extends State<_WspaShowcaseTab>
           ),
           const SizedBox(height: 6),
           const _WspaCodeBlock(
-            code:
-                'backgroundColor:\n'
+            code: 'backgroundColor:\n'
                 '  WidgetStatePropertyAll(paper)\n'
                 'border:\n'
                 '  WidgetStatePropertyAll(edge)\n'
@@ -1397,22 +1391,20 @@ class _WspaStampCard extends StatelessWidget {
     // Every visual below is wrapped in WidgetStatePropertyAll. We resolve
     // them with an arbitrary (and differing!) state set to prove they are
     // identical regardless.
-    const WidgetStateProperty<Color> paperProp = WidgetStatePropertyAll<Color>(
-      _kPaper,
-    );
-    const WidgetStateProperty<Color> edgeProp = WidgetStatePropertyAll<Color>(
-      _kPaperEdge,
-    );
+    const WidgetStateProperty<Color> paperProp =
+        WidgetStatePropertyAll<Color>(_kPaper);
+    const WidgetStateProperty<Color> edgeProp =
+        WidgetStatePropertyAll<Color>(_kPaperEdge);
     const WidgetStateProperty<TextStyle> stampProp =
         WidgetStatePropertyAll<TextStyle>(
-          TextStyle(
-            fontFamily: 'monospace',
-            fontWeight: FontWeight.w900,
-            fontSize: 12,
-            color: _kInkRed,
-            letterSpacing: 1.2,
-          ),
-        );
+      TextStyle(
+        fontFamily: 'monospace',
+        fontWeight: FontWeight.w900,
+        fontSize: 12,
+        color: _kInkRed,
+        letterSpacing: 1.2,
+      ),
+    );
 
     final Set<WidgetState> provoked = <WidgetState>{
       if (hovered) WidgetState.hovered,
@@ -1440,7 +1432,11 @@ class _WspaStampCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: edge, width: 1),
             boxShadow: const <BoxShadow>[
-              BoxShadow(color: _kShadow, offset: Offset(0, 2), blurRadius: 4),
+              BoxShadow(
+                color: _kShadow,
+                offset: Offset(0, 2),
+                blurRadius: 4,
+              ),
             ],
           ),
           child: Stack(
@@ -1461,7 +1457,9 @@ class _WspaStampCard extends StatelessWidget {
                       ),
                       const Spacer(),
                       _WspaTag(
-                        text: hovered ? 'HOVER' : (pressed ? 'PRESS' : 'IDLE'),
+                        text: hovered
+                            ? 'HOVER'
+                            : (pressed ? 'PRESS' : 'IDLE'),
                         color: hovered
                             ? _kInkBlue
                             : (pressed ? _kInkRed : _kTextMuted),
@@ -1482,7 +1480,10 @@ class _WspaStampCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     'Signed by $signer',
-                    style: const TextStyle(fontSize: 11, color: _kTextMuted),
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: _kTextMuted,
+                    ),
                   ),
                   const Spacer(),
                   Row(
@@ -1501,7 +1502,10 @@ class _WspaStampCard extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 2),
-                          Text('APPROVED', style: stamp),
+                          Text(
+                            'APPROVED',
+                            style: stamp,
+                          ),
                         ],
                       ),
                       _WspaMiniSeal(progress: active ? stampProgress : null),
@@ -1634,45 +1638,48 @@ class _WspaVsFromMapTabState extends State<_WspaVsFromMapTab> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: LayoutBuilder(
-            builder: (BuildContext ctx, BoxConstraints c) {
-              final bool wide = c.maxWidth > 620;
-              final Widget left = _buildButtonCard(
-                title: 'WidgetStatePropertyAll(Colors.teal)',
-                subtitle: 'Rubber-stamp: always Colors.teal.',
-                accent: _kInkRed,
-                reactive: false,
-                hover: _leftHover,
-                press: _leftPress,
-                onHover: (bool h) => setState(() => _leftHover = h),
-                onPress: (bool p) => setState(() => _leftPress = p),
+              builder: (BuildContext ctx, BoxConstraints c) {
+            final bool wide = c.maxWidth > 620;
+            final Widget left = _buildButtonCard(
+              title: 'WidgetStatePropertyAll(Colors.teal)',
+              subtitle: 'Rubber-stamp: always Colors.teal.',
+              accent: _kInkRed,
+              reactive: false,
+              hover: _leftHover,
+              press: _leftPress,
+              onHover: (bool h) => setState(() => _leftHover = h),
+              onPress: (bool p) => setState(() => _leftPress = p),
+            );
+            final Widget right = _buildButtonCard(
+              title: 'WidgetStateColor.fromMap({...})',
+              subtitle:
+                  'Reactive: hovered → orange, pressed → brown, default → teal.',
+              accent: _kInkGreen,
+              reactive: true,
+              hover: _rightHover,
+              press: _rightPress,
+              onHover: (bool h) => setState(() => _rightHover = h),
+              onPress: (bool p) => setState(() => _rightPress = p),
+            );
+            if (wide) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(child: left),
+                  const SizedBox(width: 14),
+                  Expanded(child: right),
+                ],
               );
-              final Widget right = _buildButtonCard(
-                title: 'WidgetStateColor.fromMap({...})',
-                subtitle:
-                    'Reactive: hovered → orange, pressed → brown, default → teal.',
-                accent: _kInkGreen,
-                reactive: true,
-                hover: _rightHover,
-                press: _rightPress,
-                onHover: (bool h) => setState(() => _rightHover = h),
-                onPress: (bool p) => setState(() => _rightPress = p),
-              );
-              if (wide) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(child: left),
-                    const SizedBox(width: 14),
-                    Expanded(child: right),
-                  ],
-                );
-              }
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[left, const SizedBox(height: 14), right],
-              );
-            },
-          ),
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                left,
+                const SizedBox(height: 14),
+                right,
+              ],
+            );
+          }),
         ),
         const SizedBox(height: 18),
         const _WspaSectionHeader(
@@ -1815,32 +1822,27 @@ class _WspaNarrationCard extends StatelessWidget {
         children: <Widget>[
           _WspaNarrationBullet(
             icon: Icons.looks_one,
-            text:
-                'Both accept the same ButtonStyle.backgroundColor slot type '
+            text: 'Both accept the same ButtonStyle.backgroundColor slot type '
                 '(WidgetStateProperty<Color>).',
           ),
           _WspaNarrationBullet(
             icon: Icons.looks_two,
-            text:
-                'The left one hands back the same teal from resolve() no matter '
+            text: 'The left one hands back the same teal from resolve() no matter '
                 'what states the framework passes in.',
           ),
           _WspaNarrationBullet(
             icon: Icons.looks_3,
-            text:
-                'The right one inspects the state set and picks orange for hover, '
+            text: 'The right one inspects the state set and picks orange for hover, '
                 'brown for press, teal otherwise.',
           ),
           _WspaNarrationBullet(
             icon: Icons.looks_4,
-            text:
-                'Choose All when the value is genuinely constant; choose fromMap '
+            text: 'Choose All when the value is genuinely constant; choose fromMap '
                 'or resolveWith when state matters.',
           ),
           _WspaNarrationBullet(
             icon: Icons.looks_5,
-            text:
-                'Mixing them in a single ButtonStyle is fine — different slots can '
+            text: 'Mixing them in a single ButtonStyle is fine — different slots can '
                 'have different WidgetStateProperty strategies.',
           ),
         ],
@@ -1913,28 +1915,42 @@ class _WspaTypedGalleryGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (BuildContext ctx, BoxConstraints c) {
-        final bool wide = c.maxWidth > 820;
-        final int cols = wide ? 3 : (c.maxWidth > 540 ? 2 : 1);
-        final double spacing = 14;
-        final double cardWidth = (c.maxWidth - (cols - 1) * spacing) / cols;
-        return Wrap(
-          spacing: spacing,
-          runSpacing: spacing,
-          children: <Widget>[
-            SizedBox(width: cardWidth, child: const _WspaTypeCardColor()),
-            SizedBox(width: cardWidth, child: const _WspaTypeCardTextStyle()),
-            SizedBox(width: cardWidth, child: const _WspaTypeCardEdgeInsets()),
-            SizedBox(width: cardWidth, child: const _WspaTypeCardDouble()),
-            SizedBox(
-              width: cardWidth,
-              child: const _WspaTypeCardOutlinedBorder(),
-            ),
-            SizedBox(width: cardWidth, child: const _WspaTypeCardBorderSide()),
-          ],
-        );
-      },
-    );
+        builder: (BuildContext ctx, BoxConstraints c) {
+      final bool wide = c.maxWidth > 820;
+      final int cols = wide ? 3 : (c.maxWidth > 540 ? 2 : 1);
+      final double spacing = 14;
+      final double cardWidth = (c.maxWidth - (cols - 1) * spacing) / cols;
+      return Wrap(
+        spacing: spacing,
+        runSpacing: spacing,
+        children: <Widget>[
+          SizedBox(
+            width: cardWidth,
+            child: const _WspaTypeCardColor(),
+          ),
+          SizedBox(
+            width: cardWidth,
+            child: const _WspaTypeCardTextStyle(),
+          ),
+          SizedBox(
+            width: cardWidth,
+            child: const _WspaTypeCardEdgeInsets(),
+          ),
+          SizedBox(
+            width: cardWidth,
+            child: const _WspaTypeCardDouble(),
+          ),
+          SizedBox(
+            width: cardWidth,
+            child: const _WspaTypeCardOutlinedBorder(),
+          ),
+          SizedBox(
+            width: cardWidth,
+            child: const _WspaTypeCardBorderSide(),
+          ),
+        ],
+      );
+    });
   }
 }
 
@@ -2004,9 +2020,8 @@ class _WspaTypeCardColor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const WidgetStateProperty<Color> prop = WidgetStatePropertyAll<Color>(
-      _kInkRed,
-    );
+    const WidgetStateProperty<Color> prop =
+        WidgetStatePropertyAll<Color>(_kInkRed);
     final Color color = prop.resolve(const <WidgetState>{});
     return _WspaTypeCardShell(
       title: 'WidgetStatePropertyAll<Color>',
@@ -2019,7 +2034,11 @@ class _WspaTypeCardColor extends StatelessWidget {
           color: color,
           shape: BoxShape.circle,
           boxShadow: const <BoxShadow>[
-            BoxShadow(color: _kShadow, offset: Offset(0, 2), blurRadius: 4),
+            BoxShadow(
+              color: _kShadow,
+              offset: Offset(0, 2),
+              blurRadius: 4,
+            ),
           ],
         ),
         alignment: Alignment.center,
@@ -2043,19 +2062,18 @@ class _WspaTypeCardTextStyle extends StatelessWidget {
   Widget build(BuildContext context) {
     const WidgetStateProperty<TextStyle> prop =
         WidgetStatePropertyAll<TextStyle>(
-          TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w900,
-            color: _kInkBlue,
-            letterSpacing: 1.8,
-            fontStyle: FontStyle.italic,
-          ),
-        );
+      TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w900,
+        color: _kInkBlue,
+        letterSpacing: 1.8,
+        fontStyle: FontStyle.italic,
+      ),
+    );
     final TextStyle style = prop.resolve(const <WidgetState>{});
     return _WspaTypeCardShell(
       title: 'WidgetStatePropertyAll<TextStyle>',
-      code:
-          'WidgetStatePropertyAll<TextStyle>(\n'
+      code: 'WidgetStatePropertyAll<TextStyle>(\n'
           '  TextStyle(fontSize: 20, color: blue),\n'
           ')',
       accent: _kInkBlue,
@@ -2071,13 +2089,12 @@ class _WspaTypeCardEdgeInsets extends StatelessWidget {
   Widget build(BuildContext context) {
     const WidgetStateProperty<EdgeInsets> prop =
         WidgetStatePropertyAll<EdgeInsets>(
-          EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-        );
+      EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+    );
     final EdgeInsets pad = prop.resolve(const <WidgetState>{});
     return _WspaTypeCardShell(
       title: 'WidgetStatePropertyAll<EdgeInsets>',
-      code:
-          'WidgetStatePropertyAll<EdgeInsets>(\n'
+      code: 'WidgetStatePropertyAll<EdgeInsets>(\n'
           '  EdgeInsets.symmetric(h:22,v:10),\n'
           ')',
       accent: _kInkGreen,
@@ -2105,14 +2122,12 @@ class _WspaTypeCardDouble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const WidgetStateProperty<double> prop = WidgetStatePropertyAll<double>(
-      6.0,
-    );
+    const WidgetStateProperty<double> prop =
+        WidgetStatePropertyAll<double>(6.0);
     final double elev = prop.resolve(const <WidgetState>{});
     return _WspaTypeCardShell(
       title: 'WidgetStatePropertyAll<double>',
-      code:
-          'WidgetStatePropertyAll<double>(6.0)\n'
+      code: 'WidgetStatePropertyAll<double>(6.0)\n'
           '// elevation always 6.0',
       accent: _kBrassDark,
       visual: Material(
@@ -2144,15 +2159,14 @@ class _WspaTypeCardOutlinedBorder extends StatelessWidget {
   Widget build(BuildContext context) {
     const WidgetStateProperty<OutlinedBorder> prop =
         WidgetStatePropertyAll<OutlinedBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(14)),
-          ),
-        );
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(14)),
+      ),
+    );
     final OutlinedBorder shape = prop.resolve(const <WidgetState>{});
     return _WspaTypeCardShell(
       title: 'WidgetStatePropertyAll<OutlinedBorder>',
-      code:
-          'WidgetStatePropertyAll<OutlinedBorder>(\n'
+      code: 'WidgetStatePropertyAll<OutlinedBorder>(\n'
           '  RoundedRectangleBorder(r:14),\n'
           ')',
       accent: _kSeal,
@@ -2163,7 +2177,11 @@ class _WspaTypeCardOutlinedBorder extends StatelessWidget {
           color: _kSeal,
           shape: shape,
           shadows: const <BoxShadow>[
-            BoxShadow(color: _kShadow, offset: Offset(0, 2), blurRadius: 4),
+            BoxShadow(
+              color: _kShadow,
+              offset: Offset(0, 2),
+              blurRadius: 4,
+            ),
           ],
         ),
         alignment: Alignment.center,
@@ -2187,13 +2205,12 @@ class _WspaTypeCardBorderSide extends StatelessWidget {
   Widget build(BuildContext context) {
     const WidgetStateProperty<BorderSide> prop =
         WidgetStatePropertyAll<BorderSide>(
-          BorderSide(color: _kInkRed, width: 3, style: BorderStyle.solid),
-        );
+      BorderSide(color: _kInkRed, width: 3, style: BorderStyle.solid),
+    );
     final BorderSide side = prop.resolve(const <WidgetState>{});
     return _WspaTypeCardShell(
       title: 'WidgetStatePropertyAll<BorderSide>',
-      code:
-          'WidgetStatePropertyAll<BorderSide>(\n'
+      code: 'WidgetStatePropertyAll<BorderSide>(\n'
           '  BorderSide(color: red, width: 3),\n'
           ')',
       accent: _kInkRed,
@@ -2314,32 +2331,29 @@ class _WspaButtonGalleryTabState extends State<_WspaButtonGalleryTab>
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: LayoutBuilder(
-            builder: (BuildContext ctx, BoxConstraints c) {
-              final int cols = c.maxWidth > 700
-                  ? 4
-                  : (c.maxWidth > 480 ? 2 : 1);
-              final double spacing = 12;
-              final double cardWidth =
-                  (c.maxWidth - (cols - 1) * spacing) / cols;
-              return Wrap(
-                spacing: spacing,
-                runSpacing: spacing,
-                children: <Widget>[
-                  for (int i = 0; i < specs.length; i++)
-                    SizedBox(
-                      width: cardWidth,
-                      child: _WspaButtonGalleryCard(
-                        spec: specs[i],
-                        index: i,
-                        isHovered: _hoverButton == i,
-                        indicator: _indicatorCtrl,
-                        onHover: (bool h) => _onHoverButton(i, h),
-                      ),
+              builder: (BuildContext ctx, BoxConstraints c) {
+            final int cols = c.maxWidth > 700 ? 4 : (c.maxWidth > 480 ? 2 : 1);
+            final double spacing = 12;
+            final double cardWidth =
+                (c.maxWidth - (cols - 1) * spacing) / cols;
+            return Wrap(
+              spacing: spacing,
+              runSpacing: spacing,
+              children: <Widget>[
+                for (int i = 0; i < specs.length; i++)
+                  SizedBox(
+                    width: cardWidth,
+                    child: _WspaButtonGalleryCard(
+                      spec: specs[i],
+                      index: i,
+                      isHovered: _hoverButton == i,
+                      indicator: _indicatorCtrl,
+                      onHover: (bool h) => _onHoverButton(i, h),
                     ),
-                ],
-              );
-            },
-          ),
+                  ),
+              ],
+            );
+          }),
         ),
         const SizedBox(height: 18),
         const _WspaSectionHeader(
@@ -2526,7 +2540,8 @@ class _WspaButtonGalleryCard extends StatelessWidget {
                         width: 44 + v * 100,
                         height: 4,
                         decoration: BoxDecoration(
-                          color: spec.color.withValues(alpha: 0.35 + v * 0.55),
+                          color: spec.color
+                              .withValues(alpha: 0.35 + v * 0.55),
                           borderRadius: BorderRadius.circular(2),
                         ),
                       );
@@ -2617,14 +2632,15 @@ class _WspaMixedStylingTabState extends State<_WspaMixedStylingTab> {
     };
 
     final WidgetStateProperty<Color> bg =
-        WidgetStateProperty.resolveWith<Color>((Set<WidgetState> s) {
-          if (s.contains(WidgetState.pressed)) return _kInkRed;
-          if (s.contains(WidgetState.hovered)) return _kInkBlue;
-          return _kInkGreen;
-        });
-    const WidgetStateProperty<Color> fg = WidgetStatePropertyAll<Color>(
-      Colors.white,
+        WidgetStateProperty.resolveWith<Color>(
+      (Set<WidgetState> s) {
+        if (s.contains(WidgetState.pressed)) return _kInkRed;
+        if (s.contains(WidgetState.hovered)) return _kInkBlue;
+        return _kInkGreen;
+      },
     );
+    const WidgetStateProperty<Color> fg =
+        WidgetStatePropertyAll<Color>(Colors.white);
 
     final Color resolvedBg = bg.resolve(states);
     final Color resolvedFg = fg.resolve(states);
@@ -2687,7 +2703,9 @@ class _WspaMixedStylingTabState extends State<_WspaMixedStylingTab> {
                           ],
                         ),
                         child: Text(
-                          _hover ? (_press ? 'PRESSED' : 'HOVERED') : 'IDLE',
+                          _hover
+                              ? (_press ? 'PRESSED' : 'HOVERED')
+                              : 'IDLE',
                           style: TextStyle(
                             color: resolvedFg,
                             fontWeight: FontWeight.w800,
@@ -2701,8 +2719,7 @@ class _WspaMixedStylingTabState extends State<_WspaMixedStylingTab> {
                 ),
                 const SizedBox(height: 14),
                 const _WspaCodeBlock(
-                  code:
-                      'ButtonStyle(\n'
+                  code: 'ButtonStyle(\n'
                       '  backgroundColor: WidgetStateProperty.resolveWith(\n'
                       '    (states) {\n'
                       '      if (states.contains(WidgetState.pressed)) return red;\n'
@@ -2781,32 +2798,35 @@ class _WspaWhenNotToUseTabState extends State<_WspaWhenNotToUseTab> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: LayoutBuilder(
-            builder: (BuildContext ctx, BoxConstraints c) {
-              final bool wide = c.maxWidth > 620;
-              final Widget before = _WspaBrokenCard(
-                hover: _beforeHover,
-                onHover: (bool h) => setState(() => _beforeHover = h),
+              builder: (BuildContext ctx, BoxConstraints c) {
+            final bool wide = c.maxWidth > 620;
+            final Widget before = _WspaBrokenCard(
+              hover: _beforeHover,
+              onHover: (bool h) => setState(() => _beforeHover = h),
+            );
+            final Widget after = _WspaFixedCard(
+              hover: _afterHover,
+              onHover: (bool h) => setState(() => _afterHover = h),
+            );
+            if (wide) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(child: before),
+                  const SizedBox(width: 14),
+                  Expanded(child: after),
+                ],
               );
-              final Widget after = _WspaFixedCard(
-                hover: _afterHover,
-                onHover: (bool h) => setState(() => _afterHover = h),
-              );
-              if (wide) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(child: before),
-                    const SizedBox(width: 14),
-                    Expanded(child: after),
-                  ],
-                );
-              }
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[before, const SizedBox(height: 14), after],
-              );
-            },
-          ),
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                before,
+                const SizedBox(height: 14),
+                after,
+              ],
+            );
+          }),
         ),
         const SizedBox(height: 22),
       ],
@@ -2822,9 +2842,8 @@ class _WspaBrokenCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Developer *wanted* hover feedback, but used PropertyAll. Bug.
-    const WidgetStateProperty<Color> bg = WidgetStatePropertyAll<Color>(
-      _kInkBlue,
-    );
+    const WidgetStateProperty<Color> bg =
+        WidgetStatePropertyAll<Color>(_kInkBlue);
     final Set<WidgetState> states = <WidgetState>{
       if (hover) WidgetState.hovered,
     };
@@ -2877,8 +2896,7 @@ class _WspaBrokenCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           const _WspaCodeBlock(
-            code:
-                'backgroundColor:\n'
+            code: 'backgroundColor:\n'
                 '  WidgetStatePropertyAll(blue) // wrong choice',
             accent: _kSeal,
           ),
@@ -2897,9 +2915,9 @@ class _WspaFixedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final WidgetStateProperty<Color> bg =
         WidgetStateProperty.resolveWith<Color>(
-          (Set<WidgetState> s) =>
-              s.contains(WidgetState.hovered) ? _kInkBlueSoft : _kInkBlue,
-        );
+      (Set<WidgetState> s) =>
+          s.contains(WidgetState.hovered) ? _kInkBlueSoft : _kInkBlue,
+    );
     final Set<WidgetState> states = <WidgetState>{
       if (hover) WidgetState.hovered,
     };
@@ -2953,8 +2971,7 @@ class _WspaFixedCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           const _WspaCodeBlock(
-            code:
-                'backgroundColor:\n'
+            code: 'backgroundColor:\n'
                 '  WidgetStateProperty.resolveWith(\n'
                 '    (s) => s.contains(hovered) ? soft : base,\n'
                 '  )',
@@ -2988,8 +3005,7 @@ class _WspaRecipesTab extends StatelessWidget {
         title: 'Stable padding',
         summary:
             'Hit-target padding is usually fixed. No reason to recompute on hover.',
-        code:
-            'padding: WidgetStatePropertyAll(\n'
+        code: 'padding: WidgetStatePropertyAll(\n'
             '  EdgeInsets.symmetric(horizontal: 20, vertical: 12),\n'
             ')',
         icon: Icons.space_bar,
@@ -2999,8 +3015,7 @@ class _WspaRecipesTab extends StatelessWidget {
         title: 'Always-rounded shape',
         summary:
             'Brand guideline: every button corners are 12. One stamp for all.',
-        code:
-            'shape: WidgetStatePropertyAll(\n'
+        code: 'shape: WidgetStatePropertyAll(\n'
             '  RoundedRectangleBorder(\n'
             '    borderRadius: BorderRadius.circular(12),\n'
             '  ),\n'
@@ -3012,8 +3027,7 @@ class _WspaRecipesTab extends StatelessWidget {
         title: 'Forced uppercase textStyle',
         summary:
             'A TextStyle with letterSpacing and weight wrapped so all buttons read the same.',
-        code:
-            'textStyle: WidgetStatePropertyAll(\n'
+        code: 'textStyle: WidgetStatePropertyAll(\n'
             '  TextStyle(\n'
             '    fontWeight: FontWeight.w900,\n'
             '    letterSpacing: 1.2,\n'
@@ -3067,24 +3081,23 @@ class _WspaRecipesTab extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: LayoutBuilder(
-            builder: (BuildContext ctx, BoxConstraints c) {
-              final int cols = c.maxWidth > 760 ? 2 : 1;
-              final double spacing = 12;
-              final double cardWidth =
-                  (c.maxWidth - (cols - 1) * spacing) / cols;
-              return Wrap(
-                spacing: spacing,
-                runSpacing: spacing,
-                children: <Widget>[
-                  for (final _WspaRecipe r in recipes)
-                    SizedBox(
-                      width: cardWidth,
-                      child: _WspaRecipeCard(recipe: r),
-                    ),
-                ],
-              );
-            },
-          ),
+              builder: (BuildContext ctx, BoxConstraints c) {
+            final int cols = c.maxWidth > 760 ? 2 : 1;
+            final double spacing = 12;
+            final double cardWidth =
+                (c.maxWidth - (cols - 1) * spacing) / cols;
+            return Wrap(
+              spacing: spacing,
+              runSpacing: spacing,
+              children: <Widget>[
+                for (final _WspaRecipe r in recipes)
+                  SizedBox(
+                    width: cardWidth,
+                    child: _WspaRecipeCard(recipe: r),
+                  ),
+              ],
+            );
+          }),
         ),
         const SizedBox(height: 22),
       ],
@@ -3179,13 +3192,19 @@ class _WspaComparisonTab extends StatelessWidget {
           accent: _kOakDark,
         ),
         SizedBox(height: 14),
-        _WspaSectionHeader(text: 'Side-by-side', icon: Icons.table_chart),
+        _WspaSectionHeader(
+          text: 'Side-by-side',
+          icon: Icons.table_chart,
+        ),
         Padding(
           padding: EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: _WspaComparisonTable(),
         ),
         SizedBox(height: 18),
-        _WspaSectionHeader(text: 'Takeaway', icon: Icons.flag_outlined),
+        _WspaSectionHeader(
+          text: 'Takeaway',
+          icon: Icons.flag_outlined,
+        ),
         Padding(
           padding: EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: _WspaComparisonTakeaway(),
@@ -3237,7 +3256,8 @@ class _WspaComparisonTable extends StatelessWidget {
         children: <Widget>[
           Container(
             color: _kOakDark,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             child: Row(
               children: const <Widget>[
                 Expanded(
@@ -3311,7 +3331,8 @@ class _WspaComparisonTable extends StatelessWidget {
                   bottom: BorderSide(color: _kPaperEdge, width: 0.6),
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -3457,7 +3478,10 @@ class _WspaGlossaryTab extends StatelessWidget {
           accent: _kOakDark,
         ),
         const SizedBox(height: 14),
-        const _WspaSectionHeader(text: 'Terms', icon: Icons.menu_book),
+        const _WspaSectionHeader(
+          text: 'Terms',
+          icon: Icons.menu_book,
+        ),
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: _WspaPaperCard(
@@ -3473,7 +3497,10 @@ class _WspaGlossaryTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 18),
-        const _WspaSectionHeader(text: 'Epilogue', icon: Icons.auto_stories),
+        const _WspaSectionHeader(
+          text: 'Epilogue',
+          icon: Icons.auto_stories,
+        ),
         const Padding(
           padding: EdgeInsets.fromLTRB(20, 4, 20, 0),
           child: _WspaEpilogueCard(),

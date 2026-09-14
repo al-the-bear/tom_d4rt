@@ -246,7 +246,10 @@ Widget _arrow(String label, Color color, {bool reverse = false}) {
           ),
         ),
         SizedBox(height: 2.0),
-        Text(label, style: TextStyle(fontSize: 10.0, color: color)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 10.0, color: color),
+        ),
       ],
     ),
   );
@@ -429,7 +432,10 @@ dynamic build(BuildContext context) {
   // ===========================================================================
   final ecBattery = EventChannel('com.example/battery.level');
   final ecLocation = EventChannel('com.example/location.stream');
-  final ecAccel = EventChannel('com.example/sensors.accel', JSONMethodCodec());
+  final ecAccel = EventChannel(
+    'com.example/sensors.accel',
+    JSONMethodCodec(),
+  );
   final ecConnectivity = EventChannel('com.example/connectivity');
 
   final eventSnapshots = <Map<String, String>>[
@@ -602,7 +608,11 @@ Widget _buildHero() {
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: [
-        BoxShadow(color: _kCardShadow, blurRadius: 18.0, offset: Offset(0, 6)),
+        BoxShadow(
+          color: _kCardShadow,
+          blurRadius: 18.0,
+          offset: Offset(0, 6),
+        ),
       ],
     ),
     child: Column(
@@ -635,7 +645,11 @@ Widget _buildHero() {
         SizedBox(height: 18.0),
         Row(
           children: [
-            Icon(Icons.travel_explore, color: Color(0xFFFFFFFF), size: 18.0),
+            Icon(
+              Icons.travel_explore,
+              color: Color(0xFFFFFFFF),
+              size: 18.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'MethodChannel  -  EventChannel  -  BasicMessageChannel',
@@ -692,7 +706,11 @@ Widget _buildOverview() {
                 color: Color(0xFF1976D2),
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Icon(Icons.public, color: Color(0xFFFFFFFF), size: 18.0),
+              child: Icon(
+                Icons.public,
+                color: Color(0xFFFFFFFF),
+                size: 18.0,
+              ),
             ),
             SizedBox(width: 10.0),
             Text(
@@ -823,23 +841,14 @@ Widget _buildMethodChannelSection(
             ),
             SizedBox(height: 6.0),
             _kvRow('default.name', def.name, _kPalMethod[3]),
-            _kvRow(
-              'default.codec',
-              def.codec.runtimeType.toString(),
-              _kPalMethod[3],
-            ),
+            _kvRow('default.codec', def.codec.runtimeType.toString(),
+                _kPalMethod[3]),
             _kvRow('json.name', json.name, _kPalMethod[3]),
-            _kvRow(
-              'json.codec',
-              json.codec.runtimeType.toString(),
-              _kPalMethod[3],
-            ),
+            _kvRow('json.codec', json.codec.runtimeType.toString(),
+                _kPalMethod[3]),
             _kvRow('standard.name', standard.name, _kPalMethod[3]),
-            _kvRow(
-              'standard.codec',
-              standard.codec.runtimeType.toString(),
-              _kPalMethod[3],
-            ),
+            _kvRow('standard.codec',
+                standard.codec.runtimeType.toString(), _kPalMethod[3]),
           ],
         ),
       ),
@@ -866,7 +875,8 @@ Widget _buildMethodChannelSection(
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: _kPalMethod[2],
                   borderRadius: BorderRadius.circular(6.0),
@@ -992,11 +1002,14 @@ Widget _buildEventChannelSection(List<Map<String, String>> snapshots) {
               Color(0xFFFFFFFF),
             ),
             for (int i = 0; i < snapshots.length; i++)
-              _tableRow([
-                snapshots[i]['channel']!,
-                snapshots[i]['codec']!,
-                snapshots[i]['tick']!,
-              ], bg: i.isEven ? Color(0xFFFFFFFF) : Color(0xFFFFF8E1)),
+              _tableRow(
+                [
+                  snapshots[i]['channel']!,
+                  snapshots[i]['codec']!,
+                  snapshots[i]['tick']!,
+                ],
+                bg: i.isEven ? Color(0xFFFFFFFF) : Color(0xFFFFF8E1),
+              ),
           ],
         ),
       ),
@@ -1134,7 +1147,7 @@ Widget _buildBasicMessageSection(
             child: _miniCallout(
               'Use it for',
               'Continuous push of small typed payloads, '
-                  'progress reports, log forwarding, ping/pong handshakes.',
+              'progress reports, log forwarding, ping/pong handshakes.',
               _kPalBasic,
             ),
           ),
@@ -1143,7 +1156,7 @@ Widget _buildBasicMessageSection(
             child: _miniCallout(
               'Skip it when',
               'You need named methods (use MethodChannel) '
-                  'or a stream subscription (use EventChannel).',
+              'or a stream subscription (use EventChannel).',
               _kPalBasic,
             ),
           ),
@@ -1227,12 +1240,9 @@ Widget _codecFamilyTree() {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _diagramBox(
-              'MessageCodec<T>\n(interface)',
-              _kPalCodec[0],
-              _kPalCodec[2],
-              width: 170,
-            ),
+            _diagramBox('MessageCodec<T>\n(interface)', _kPalCodec[0],
+                _kPalCodec[2],
+                width: 170),
           ],
         ),
         SizedBox(height: 10.0),
@@ -1438,7 +1448,9 @@ Widget _buildSystemChannelsSection(List<Map<String, String>> cards) {
       Wrap(
         spacing: 10.0,
         runSpacing: 10.0,
-        children: [for (final c in cards) _systemChannelCard(c)],
+        children: [
+          for (final c in cards) _systemChannelCard(c),
+        ],
       ),
       SizedBox(height: 14.0),
       _calloutNote(
@@ -1481,7 +1493,11 @@ Widget _systemChannelCard(Map<String, String> data) {
           ],
         ),
         SizedBox(height: 6.0),
-        _chip(data['codec'] ?? '', _kPalSystem[0], _kPalSystem[3]),
+        _chip(
+          data['codec'] ?? '',
+          _kPalSystem[0],
+          _kPalSystem[3],
+        ),
         SizedBox(height: 8.0),
         Text(
           data['role'] ?? '',
@@ -1658,7 +1674,8 @@ Widget _buildRecipeSection() {
       ),
       _recipeCard(
         title: 'Name a channel',
-        description: 'Use reverse-DNS + a logical sub-path. Keep names stable.',
+        description:
+            'Use reverse-DNS + a logical sub-path. Keep names stable.',
         steps: [
           'com.acme.app/feature',
           'com.acme.app/feature.subfeature',
@@ -1825,11 +1842,23 @@ Widget _buildEpilogue() {
         SizedBox(height: 14.0),
         Row(
           children: [
-            _chip('visual', Color(0x33FFFFFF), Color(0xFFFFFFFF)),
+            _chip(
+              'visual',
+              Color(0x33FFFFFF),
+              Color(0xFFFFFFFF),
+            ),
             SizedBox(width: 6.0),
-            _chip('no-async', Color(0x33FFFFFF), Color(0xFFFFFFFF)),
+            _chip(
+              'no-async',
+              Color(0x33FFFFFF),
+              Color(0xFFFFFFFF),
+            ),
             SizedBox(width: 6.0),
-            _chip('analyzer-clean', Color(0x33FFFFFF), Color(0xFFFFFFFF)),
+            _chip(
+              'analyzer-clean',
+              Color(0x33FFFFFF),
+              Color(0xFFFFFFFF),
+            ),
           ],
         ),
         SizedBox(height: 14.0),

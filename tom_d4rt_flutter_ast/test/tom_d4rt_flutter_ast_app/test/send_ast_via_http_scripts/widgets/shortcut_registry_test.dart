@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.hub,
       'title': 'Central Shortcut Manager',
-      'body':
-          'ShortcutRegistry is a ChangeNotifier that acts as the '
+      'body': 'ShortcutRegistry is a ChangeNotifier that acts as the '
           'central registry for keyboard shortcuts. Multiple widgets can '
           'register their shortcuts independently and the registry merges '
           'them into one consolidated map.',
@@ -26,8 +25,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.badge,
       'title': 'Entry-Based Ownership',
-      'body':
-          'Each call to addAll() returns a ShortcutRegistryEntry, '
+      'body': 'Each call to addAll() returns a ShortcutRegistryEntry, '
           'a handle that grants the caller ownership of those shortcuts. '
           'This entry can be used to replace or dispose the shortcuts '
           'independently of other entries.',
@@ -35,16 +33,14 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.notification_important,
       'title': 'Deferred Notifications',
-      'body':
-          'Notifications are deferred to the next frame via '
+      'body': 'Notifications are deferred to the next frame via '
           'SchedulerBinding.addPostFrameCallback. This batches multiple '
           'changes into one notification, avoiding redundant rebuilds.',
     },
     {
       'icon': Icons.search,
       'title': 'Context Lookup',
-      'body':
-          'ShortcutRegistry.of(context) and maybeOf(context) find the '
+      'body': 'ShortcutRegistry.of(context) and maybeOf(context) find the '
           'nearest registry via _ShortcutRegistrarScope. The registry is '
           'owned by ShortcutRegistrar, usually from MaterialApp.',
     },
@@ -66,11 +62,7 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              p['icon'] as IconData,
-              color: Colors.deepPurple.shade700,
-              size: 26.0,
-            ),
+            Icon(p['icon'] as IconData, color: Colors.deepPurple.shade700, size: 26.0),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -78,20 +70,13 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     p['title'] as String,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.deepPurple.shade700,
-                    ),
+                    style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700,
+                        color: Colors.deepPurple.shade700),
                   ),
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: Colors.grey.shade800,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
                   ),
                 ],
               ),
@@ -110,47 +95,39 @@ dynamic build(BuildContext context) {
   final apiMethods = <Map<String, dynamic>>[
     {
       'name': 'addAll()',
-      'signature':
-          'ShortcutRegistryEntry addAll(\n'
+      'signature': 'ShortcutRegistryEntry addAll(\n'
           '  Map<ShortcutActivator, Intent>\n'
           '    value,\n'
           ')',
-      'desc':
-          'Registers a set of shortcuts and returns an entry handle. '
+      'desc': 'Registers a set of shortcuts and returns an entry handle. '
           'Each entry is tracked independently. Triggers a deferred '
           'notification.',
       'color': Colors.green,
     },
     {
       'name': 'shortcuts (getter)',
-      'signature':
-          'Map<ShortcutActivator, Intent>\n'
+      'signature': 'Map<ShortcutActivator, Intent>\n'
           '  get shortcuts',
-      'desc':
-          'Returns the merged map of ALL registered shortcuts from '
+      'desc': 'Returns the merged map of ALL registered shortcuts from '
           'ALL entries. The merge order matches registration order — '
           'later entries override earlier ones with the same activator.',
       'color': Colors.blue,
     },
     {
       'name': 'of(context)',
-      'signature':
-          'static ShortcutRegistry of(\n'
+      'signature': 'static ShortcutRegistry of(\n'
           '  BuildContext context,\n'
           ')',
-      'desc':
-          'Finds the nearest ShortcutRegistry via InheritedWidget. '
+      'desc': 'Finds the nearest ShortcutRegistry via InheritedWidget. '
           'Throws if none is found. Use in initState or build.',
       'color': Colors.purple,
     },
     {
       'name': 'maybeOf(context)',
-      'signature':
-          'static ShortcutRegistry? maybeOf(\n'
+      'signature': 'static ShortcutRegistry? maybeOf(\n'
           '  BuildContext context,\n'
           ')',
-      'desc':
-          'Like of() but returns null instead of throwing. Use when '
+      'desc': 'Like of() but returns null instead of throwing. Use when '
           'registry presence is optional.',
       'color': Colors.orange,
     },
@@ -173,19 +150,11 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(9.0),
-                ),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
               ),
-              child: Text(
-                m['name'] as String,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
-              ),
+              child: Text(m['name'] as String,
+                  style: TextStyle(fontSize: 12.0, fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700, color: color)),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -200,24 +169,13 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6.0),
                       border: Border.all(color: Colors.grey.shade200),
                     ),
-                    child: Text(
-                      m['signature'] as String,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
+                    child: Text(m['signature'] as String,
+                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                            color: Colors.grey.shade700)),
                   ),
                   const SizedBox(height: 6.0),
-                  Text(
-                    m['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade600,
-                      height: 1.3,
-                    ),
-                  ),
+                  Text(m['desc'] as String,
+                      style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600, height: 1.3)),
                 ],
               ),
             ),
@@ -235,21 +193,18 @@ dynamic build(BuildContext context) {
   final entryMethods = <Map<String, dynamic>>[
     {
       'name': 'replaceAll()',
-      'signature':
-          'void replaceAll(\n'
+      'signature': 'void replaceAll(\n'
           '  Map<ShortcutActivator, Intent>\n'
           '    value,\n'
           ')',
-      'desc':
-          'Replaces all shortcuts in this entry. The registry updates '
+      'desc': 'Replaces all shortcuts in this entry. The registry updates '
           'its merged map and notifies. Other entries are not affected.',
       'color': Colors.blue,
     },
     {
       'name': 'dispose()',
       'signature': 'void dispose()',
-      'desc':
-          'Removes this entry from the registry. The registry removes '
+      'desc': 'Removes this entry from the registry. The registry removes '
           'these shortcuts from its merged map and notifies. Must be called '
           'to prevent memory leaks.',
       'color': Colors.red,
@@ -273,19 +228,11 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(9.0),
-                ),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
               ),
-              child: Text(
-                m['name'] as String,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
-              ),
+              child: Text(m['name'] as String,
+                  style: TextStyle(fontSize: 12.0, fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700, color: color)),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -300,24 +247,13 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6.0),
                       border: Border.all(color: Colors.grey.shade200),
                     ),
-                    child: Text(
-                      m['signature'] as String,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
+                    child: Text(m['signature'] as String,
+                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                            color: Colors.grey.shade700)),
                   ),
                   const SizedBox(height: 6.0),
-                  Text(
-                    m['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade600,
-                      height: 1.3,
-                    ),
-                  ),
+                  Text(m['desc'] as String,
+                      style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600, height: 1.3)),
                 ],
               ),
             ),
@@ -349,32 +285,28 @@ dynamic build(BuildContext context) {
   final batchSteps = <Map<String, dynamic>>[
     {
       'step': '1. addAll() called',
-      'desc':
-          'Shortcuts are stored in the entry. The registry schedules '
+      'desc': 'Shortcuts are stored in the entry. The registry schedules '
           'a post-frame callback if one is not already pending.',
       'color': Colors.green,
       'icon': Icons.add_circle,
     },
     {
       'step': '2. replaceAll() called',
-      'desc':
-          'Entry shortcuts are replaced. If a notification is already '
+      'desc': 'Entry shortcuts are replaced. If a notification is already '
           'scheduled, no new callback is added.',
       'color': Colors.blue,
       'icon': Icons.swap_horiz,
     },
     {
       'step': '3. dispose() called',
-      'desc':
-          'Entry is removed from the registry. If a notification is '
+      'desc': 'Entry is removed from the registry. If a notification is '
           'already scheduled, no new callback is added.',
       'color': Colors.red,
       'icon': Icons.delete,
     },
     {
       'step': '4. Post-frame callback fires',
-      'desc':
-          'The merged shortcut map is recalculated and notifyListeners() '
+      'desc': 'The merged shortcut map is recalculated and notifyListeners() '
           'is called. All three changes above result in ONE notification.',
       'color': Colors.purple,
       'icon': Icons.notification_important,
@@ -423,23 +355,11 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      s['step'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w700,
-                        color: color,
-                      ),
-                    ),
+                    Text(s['step'] as String,
+                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: color)),
                     const SizedBox(height: 3.0),
-                    Text(
-                      s['desc'] as String,
-                      style: TextStyle(
-                        fontSize: 10.5,
-                        color: Colors.grey.shade600,
-                        height: 1.3,
-                      ),
-                    ),
+                    Text(s['desc'] as String,
+                        style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600, height: 1.3)),
                   ],
                 ),
               ),
@@ -460,8 +380,7 @@ dynamic build(BuildContext context) {
       'title': 'Duplicate Activators',
       'icon': Icons.warning_amber,
       'color': Colors.orange,
-      'desc':
-          'If two entries register the same activator, the LATER entry '
+      'desc': 'If two entries register the same activator, the LATER entry '
           'wins in the merged map. A debug assertion warns about this in '
           'debug mode. In release mode, the later entry silently overrides.',
     },
@@ -469,8 +388,7 @@ dynamic build(BuildContext context) {
       'title': 'Dispose After Registry Dispose',
       'icon': Icons.error_outline,
       'color': Colors.red,
-      'desc':
-          'If the ShortcutRegistrar is disposed before its entries, '
+      'desc': 'If the ShortcutRegistrar is disposed before its entries, '
           'entry.dispose() may fail. Always dispose entries in your '
           'widget dispose() method, before the parent tree is torn down.',
     },
@@ -478,16 +396,14 @@ dynamic build(BuildContext context) {
       'title': 'Empty Entry',
       'icon': Icons.check_circle,
       'color': Colors.green,
-      'desc':
-          'addAll({}) creates a valid entry with no shortcuts. This is '
+      'desc': 'addAll({}) creates a valid entry with no shortcuts. This is '
           'useful as a placeholder that you later populate via replaceAll().',
     },
     {
       'title': 'Hot Reload',
       'icon': Icons.refresh,
       'color': Colors.blue,
-      'desc':
-          'Shortcuts registered in initState survive hot reload. '
+      'desc': 'Shortcuts registered in initState survive hot reload. '
           'Only a hot restart or full rebuild re-runs initState. If you '
           'move shortcuts to build(), duplicates will accumulate.',
     },
@@ -514,23 +430,11 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    ec['title'] as String,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                    ),
-                  ),
+                  Text(ec['title'] as String,
+                      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color)),
                   const SizedBox(height: 3.0),
-                  Text(
-                    ec['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: Colors.grey.shade700,
-                      height: 1.35,
-                    ),
-                  ),
+                  Text(ec['desc'] as String,
+                      style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700, height: 1.35)),
                 ],
               ),
             ),
@@ -546,30 +450,12 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {
-      'icon': Icons.hub,
-      'text': 'ShortcutRegistry is a ChangeNotifier managing shortcut entries',
-    },
-    {
-      'icon': Icons.badge,
-      'text': 'addAll() returns ShortcutRegistryEntry for ownership tracking',
-    },
-    {
-      'icon': Icons.merge_type,
-      'text': 'All entries are merged into one consolidated shortcut map',
-    },
-    {
-      'icon': Icons.swap_horiz,
-      'text': 'Entries support replaceAll() and dispose() independently',
-    },
-    {
-      'icon': Icons.notification_important,
-      'text': 'Notifications are batched to the next frame',
-    },
-    {
-      'icon': Icons.search,
-      'text': 'Access via ShortcutRegistry.of(context) or maybeOf(context)',
-    },
+    {'icon': Icons.hub, 'text': 'ShortcutRegistry is a ChangeNotifier managing shortcut entries'},
+    {'icon': Icons.badge, 'text': 'addAll() returns ShortcutRegistryEntry for ownership tracking'},
+    {'icon': Icons.merge_type, 'text': 'All entries are merged into one consolidated shortcut map'},
+    {'icon': Icons.swap_horiz, 'text': 'Entries support replaceAll() and dispose() independently'},
+    {'icon': Icons.notification_important, 'text': 'Notifications are batched to the next frame'},
+    {'icon': Icons.search, 'text': 'Access via ShortcutRegistry.of(context) or maybeOf(context)'},
   ];
 
   final summaryItems = <Widget>[];
@@ -580,21 +466,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              sp['icon'] as IconData,
-              size: 16.0,
-              color: Colors.deepPurple.shade700,
-            ),
+            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.deepPurple.shade700),
             const SizedBox(width: 8.0),
             Expanded(
-              child: Text(
-                sp['text'] as String,
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: Colors.grey.shade800,
-                  height: 1.3,
-                ),
-              ),
+              child: Text(sp['text'] as String,
+                  style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3)),
             ),
           ],
         ),
@@ -640,12 +516,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRGBullet(
-                  'ShortcutRegistry',
-                  'A ChangeNotifier that manages dynamic keyboard shortcut '
-                      'registration with entry-based ownership and deferred '
-                      'notifications.',
-                ),
+                _buildSRGBullet('ShortcutRegistry',
+                    'A ChangeNotifier that manages dynamic keyboard shortcut '
+                    'registration with entry-based ownership and deferred '
+                    'notifications.'),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -657,10 +531,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRGBullet(
-                  'API Reference',
-                  'Core methods for interacting with ShortcutRegistry.',
-                ),
+                _buildSRGBullet('API Reference',
+                    'Core methods for interacting with ShortcutRegistry.'),
                 const SizedBox(height: 14.0),
                 ...apiCards,
               ],
@@ -672,11 +544,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRGBullet(
-                  'ShortcutRegistryEntry',
-                  'The ownership handle returned by addAll(). Provides '
-                      'replaceAll() and dispose() for lifecycle management.',
-                ),
+                _buildSRGBullet('ShortcutRegistryEntry',
+                    'The ownership handle returned by addAll(). Provides '
+                    'replaceAll() and dispose() for lifecycle management.'),
                 const SizedBox(height: 14.0),
                 ...entryCards,
                 const SizedBox(height: 10.0),
@@ -693,20 +563,13 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.warning_amber,
-                            size: 14.0,
-                            color: Colors.amber.shade800,
-                          ),
+                          Icon(Icons.warning_amber, size: 14.0,
+                              color: Colors.amber.shade800),
                           const SizedBox(width: 6.0),
-                          Text(
-                            'Lifecycle Rule',
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.amber.shade800,
-                            ),
-                          ),
+                          Text('Lifecycle Rule',
+                              style: TextStyle(fontSize: 11.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.amber.shade800)),
                         ],
                       ),
                       const SizedBox(height: 4.0),
@@ -714,11 +577,8 @@ dynamic build(BuildContext context) {
                         'Always pair addAll() with entry.dispose() in your '
                         'widget lifecycle. Register in initState/didChangeDependencies, '
                         'dispose in dispose(). Never call addAll() in build().',
-                        style: TextStyle(
-                          fontSize: 10.5,
-                          color: Colors.grey.shade700,
-                          height: 1.35,
-                        ),
+                        style: TextStyle(fontSize: 10.5, color: Colors.grey.shade700,
+                            height: 1.35),
                       ),
                     ],
                   ),
@@ -732,10 +592,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRGBullet(
-                  'Merge Visualization',
-                  'See how multiple entries merge into one shortcut map.',
-                ),
+                _buildSRGBullet('Merge Visualization',
+                    'See how multiple entries merge into one shortcut map.'),
                 const SizedBox(height: 14.0),
                 mergeDemo,
               ],
@@ -747,11 +605,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRGBullet(
-                  'Interactive Registry',
-                  'Add, replace, and dispose shortcut entries. Observe '
-                      'the merged map and notification behavior.',
-                ),
+                _buildSRGBullet('Interactive Registry',
+                    'Add, replace, and dispose shortcut entries. Observe '
+                    'the merged map and notification behavior.'),
                 const SizedBox(height: 14.0),
                 liveDemo,
               ],
@@ -763,11 +619,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRGBullet(
-                  'Notification Batching',
-                  'How ShortcutRegistry batches multiple changes into '
-                      'one notification per frame.',
-                ),
+                _buildSRGBullet('Notification Batching',
+                    'How ShortcutRegistry batches multiple changes into '
+                    'one notification per frame.'),
                 const SizedBox(height: 14.0),
                 ...batchCards,
                 const SizedBox(height: 10.0),
@@ -782,14 +636,9 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Implementation Detail',
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.purple.shade700,
-                        ),
-                      ),
+                      Text('Implementation Detail',
+                          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
+                              color: Colors.purple.shade700)),
                       const SizedBox(height: 4.0),
                       Text(
                         'void _notifyListenersNextFrame() {\n'
@@ -802,11 +651,8 @@ dynamic build(BuildContext context) {
                         '    });\n'
                         '  }\n'
                         '}',
-                        style: TextStyle(
-                          fontSize: 9.5,
-                          fontFamily: 'monospace',
-                          color: Colors.grey.shade700,
-                        ),
+                        style: TextStyle(fontSize: 9.5, fontFamily: 'monospace',
+                            color: Colors.grey.shade700),
                       ),
                     ],
                   ),
@@ -820,10 +666,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRGBullet(
-                  'Edge Cases & Pitfalls',
-                  'Important scenarios to be aware of.',
-                ),
+                _buildSRGBullet('Edge Cases & Pitfalls',
+                    'Important scenarios to be aware of.'),
                 const SizedBox(height: 14.0),
                 ...edgeCards,
               ],
@@ -847,9 +691,7 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: Colors.deepPurple.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.2)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -874,31 +716,16 @@ Widget _buildSRGBullet(String title, String body) {
     decoration: BoxDecoration(
       color: Colors.deepPurple.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: Colors.deepPurple.shade700, width: 3.0),
-      ),
+      border: Border(left: BorderSide(color: Colors.deepPurple.shade700, width: 3.0)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.deepPurple.shade700,
-          ),
-        ),
+        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700,
+            color: Colors.deepPurple.shade700)),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(
-            body,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.grey.shade700,
-              height: 1.4,
-            ),
-          ),
+          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
         ],
       ],
     ),
@@ -918,11 +745,7 @@ class _SRGMergeDemoState extends State<_SRGMergeDemo> {
     {
       'name': 'Entry A (Editor)',
       'color': Colors.blue,
-      'shortcuts': {
-        'Ctrl+S': 'SaveIntent',
-        'Ctrl+Z': 'UndoIntent',
-        'Ctrl+C': 'CopyIntent',
-      },
+      'shortcuts': {'Ctrl+S': 'SaveIntent', 'Ctrl+Z': 'UndoIntent', 'Ctrl+C': 'CopyIntent'},
       'active': true,
     },
     {
@@ -966,15 +789,11 @@ class _SRGMergeDemoState extends State<_SRGMergeDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Entry Merge Simulator',
-            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
-          ),
+          const Text('Entry Merge Simulator',
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700)),
           const SizedBox(height: 6.0),
-          Text(
-            'Toggle entries to see how the merged map changes.',
-            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
-          ),
+          Text('Toggle entries to see how the merged map changes.',
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
           const SizedBox(height: 14.0),
           // Individual entries
           ...List.generate(_entries.length, (i) {
@@ -988,25 +807,16 @@ class _SRGMergeDemoState extends State<_SRGMergeDemo> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(
-                  color: active
-                      ? color.withValues(alpha: 0.3)
-                      : Colors.grey.shade200,
+                  color: active ? color.withValues(alpha: 0.3) : Colors.grey.shade200,
                 ),
               ),
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 6.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                     decoration: BoxDecoration(
-                      color: active
-                          ? color.withValues(alpha: 0.06)
-                          : Colors.grey.shade50,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(7.0),
-                      ),
+                      color: active ? color.withValues(alpha: 0.06) : Colors.grey.shade50,
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(7.0)),
                     ),
                     child: Row(
                       children: [
@@ -1020,14 +830,9 @@ class _SRGMergeDemoState extends State<_SRGMergeDemo> {
                         ),
                         const SizedBox(width: 6.0),
                         Expanded(
-                          child: Text(
-                            entry['name'] as String,
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.w700,
-                              color: active ? color : Colors.grey,
-                            ),
-                          ),
+                          child: Text(entry['name'] as String,
+                              style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                                  color: active ? color : Colors.grey)),
                         ),
                         GestureDetector(
                           onTap: () => setState(() {
@@ -1047,15 +852,12 @@ class _SRGMergeDemoState extends State<_SRGMergeDemo> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: shortcuts.entries.map((e) {
-                          final isOverridden =
-                              merged.containsKey(e.key) &&
+                          final isOverridden = merged.containsKey(e.key) &&
                               merged[e.key]!.value != color;
                           return Container(
                             margin: const EdgeInsets.only(bottom: 4.0),
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 4.0,
-                            ),
+                                horizontal: 8.0, vertical: 4.0),
                             decoration: BoxDecoration(
                               color: isOverridden
                                   ? Colors.red.withValues(alpha: 0.06)
@@ -1064,47 +866,26 @@ class _SRGMergeDemoState extends State<_SRGMergeDemo> {
                             ),
                             child: Row(
                               children: [
-                                Text(
-                                  e.key,
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    fontFamily: 'monospace',
-                                    fontWeight: FontWeight.w700,
+                                Text(e.key, style: TextStyle(fontSize: 10.0,
+                                    fontFamily: 'monospace', fontWeight: FontWeight.w700,
                                     color: Colors.grey.shade700,
                                     decoration: isOverridden
                                         ? TextDecoration.lineThrough
-                                        : null,
-                                  ),
-                                ),
+                                        : null)),
                                 const SizedBox(width: 6.0),
-                                Icon(
-                                  Icons.arrow_forward,
-                                  size: 8.0,
-                                  color: Colors.grey.shade400,
-                                ),
+                                Icon(Icons.arrow_forward, size: 8.0,
+                                    color: Colors.grey.shade400),
                                 const SizedBox(width: 6.0),
                                 Expanded(
-                                  child: Text(
-                                    e.value,
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      fontFamily: 'monospace',
-                                      color: color,
+                                  child: Text(e.value, style: TextStyle(fontSize: 10.0,
+                                      fontFamily: 'monospace', color: color,
                                       decoration: isOverridden
                                           ? TextDecoration.lineThrough
-                                          : null,
-                                    ),
-                                  ),
+                                          : null)),
                                 ),
                                 if (isOverridden)
-                                  Text(
-                                    'overridden',
-                                    style: TextStyle(
-                                      fontSize: 8.0,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.red,
-                                    ),
-                                  ),
+                                  Text('overridden', style: TextStyle(fontSize: 8.0,
+                                      fontWeight: FontWeight.w700, color: Colors.red)),
                               ],
                             ),
                           );
@@ -1130,40 +911,23 @@ class _SRGMergeDemoState extends State<_SRGMergeDemo> {
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.merge_type,
-                      size: 16.0,
-                      color: Colors.deepPurple.shade700,
-                    ),
+                    Icon(Icons.merge_type, size: 16.0, color: Colors.deepPurple.shade700),
                     const SizedBox(width: 6.0),
-                    Text(
-                      'Merged Map (${merged.length} entries)',
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.deepPurple.shade700,
-                      ),
-                    ),
+                    Text('Merged Map (${merged.length} entries)',
+                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                            color: Colors.deepPurple.shade700)),
                   ],
                 ),
                 const SizedBox(height: 8.0),
                 if (merged.isEmpty)
-                  Text(
-                    '{ /* empty */ }',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontFamily: 'monospace',
-                      color: Colors.grey.shade500,
-                    ),
-                  )
+                  Text('{ /* empty */ }',
+                      style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                          color: Colors.grey.shade500))
                 else
                   ...merged.entries.map((e) {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 4.0),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 4.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                       decoration: BoxDecoration(
                         color: e.value.value.withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(4.0),
@@ -1174,35 +938,18 @@ class _SRGMergeDemoState extends State<_SRGMergeDemo> {
                             width: 8.0,
                             height: 8.0,
                             decoration: BoxDecoration(
-                              color: e.value.value,
-                              shape: BoxShape.circle,
-                            ),
+                                color: e.value.value, shape: BoxShape.circle),
                           ),
                           const SizedBox(width: 6.0),
-                          Text(
-                            e.key,
-                            style: TextStyle(
-                              fontSize: 10.0,
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.w700,
-                              color: Colors.grey.shade700,
-                            ),
-                          ),
+                          Text(e.key, style: TextStyle(fontSize: 10.0,
+                              fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                              color: Colors.grey.shade700)),
                           const SizedBox(width: 6.0),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 8.0,
-                            color: Colors.grey.shade400,
-                          ),
+                          Icon(Icons.arrow_forward, size: 8.0,
+                              color: Colors.grey.shade400),
                           const SizedBox(width: 6.0),
-                          Text(
-                            e.value.key,
-                            style: TextStyle(
-                              fontSize: 10.0,
-                              fontFamily: 'monospace',
-                              color: e.value.value,
-                            ),
-                          ),
+                          Text(e.value.key, style: TextStyle(fontSize: 10.0,
+                              fontFamily: 'monospace', color: e.value.value)),
                         ],
                       ),
                     );
@@ -1262,11 +1009,8 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
         'shortcuts': {s1['key']!: s1['intent']!, s2['key']!: s2['intent']!},
       });
       _notificationCount++;
-      _log.insert(
-        0,
-        'addAll() -> Entry #$id: '
-        '${s1['key']}, ${s2['key']}',
-      );
+      _log.insert(0, 'addAll() -> Entry #$id: '
+          '${s1['key']}, ${s2['key']}');
       if (_log.length > 8) _log.removeLast();
     });
   }
@@ -1313,28 +1057,18 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
         children: [
           Row(
             children: [
-              const Text(
-                'Registry Simulator',
-                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
-              ),
+              const Text('Registry Simulator',
+                  style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700)),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 3.0,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                 decoration: BoxDecoration(
                   color: Colors.deepPurple.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: Text(
-                  'Notifications: $_notificationCount',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.deepPurple.shade700,
-                  ),
-                ),
+                child: Text('Notifications: $_notificationCount',
+                    style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w700,
+                        color: Colors.deepPurple.shade700)),
               ),
             ],
           ),
@@ -1345,10 +1079,7 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
               GestureDetector(
                 onTap: _addEntry,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 6.0,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6.0),
@@ -1359,15 +1090,9 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
                     children: [
                       Icon(Icons.add, size: 14.0, color: Colors.green.shade700),
                       const SizedBox(width: 4.0),
-                      Text(
-                        'addAll()',
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w700,
-                          color: Colors.green.shade700,
-                        ),
-                      ),
+                      Text('addAll()', style: TextStyle(fontSize: 10.0,
+                          fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                          color: Colors.green.shade700)),
                     ],
                   ),
                 ),
@@ -1384,10 +1109,7 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
                     });
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 6.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                     decoration: BoxDecoration(
                       color: Colors.red.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6.0),
@@ -1396,20 +1118,10 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.delete_sweep,
-                          size: 14.0,
-                          color: Colors.red.shade700,
-                        ),
+                        Icon(Icons.delete_sweep, size: 14.0, color: Colors.red.shade700),
                         const SizedBox(width: 4.0),
-                        Text(
-                          'Clear All',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.red.shade700,
-                          ),
-                        ),
+                        Text('Clear All', style: TextStyle(fontSize: 10.0,
+                            fontWeight: FontWeight.w600, color: Colors.red.shade700)),
                       ],
                     ),
                   ),
@@ -1430,10 +1142,8 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
                 children: [
                   Icon(Icons.inbox, size: 28.0, color: Colors.grey),
                   SizedBox(height: 4.0),
-                  Text(
-                    'No entries registered',
-                    style: TextStyle(fontSize: 11.0, color: Colors.grey),
-                  ),
+                  Text('No entries registered', style: TextStyle(fontSize: 11.0,
+                      color: Colors.grey)),
                 ],
               ),
             )
@@ -1447,22 +1157,14 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
                 decoration: BoxDecoration(
                   color: Colors.deepPurple.withValues(alpha: 0.03),
                   borderRadius: BorderRadius.circular(6.0),
-                  border: Border.all(
-                    color: Colors.deepPurple.withValues(alpha: 0.15),
-                  ),
+                  border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.15)),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '#${entry['id']}',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700,
-                        color: Colors.deepPurple.shade700,
-                      ),
-                    ),
+                    Text('#${entry['id']}', style: TextStyle(fontSize: 9.0,
+                        fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                        color: Colors.deepPurple.shade700)),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Wrap(
@@ -1471,21 +1173,14 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
                         children: shortcuts.entries.map((e) {
                           return Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 6.0,
-                              vertical: 2.0,
-                            ),
+                                horizontal: 6.0, vertical: 2.0),
                             decoration: BoxDecoration(
                               color: Colors.deepPurple.withValues(alpha: 0.08),
                               borderRadius: BorderRadius.circular(3.0),
                             ),
-                            child: Text(
-                              '${e.key} -> ${e.value}',
-                              style: TextStyle(
-                                fontSize: 8.5,
-                                fontFamily: 'monospace',
-                                color: Colors.deepPurple.shade700,
-                              ),
-                            ),
+                            child: Text('${e.key} -> ${e.value}',
+                                style: TextStyle(fontSize: 8.5, fontFamily: 'monospace',
+                                    color: Colors.deepPurple.shade700)),
                           );
                         }).toList(),
                       ),
@@ -1494,20 +1189,14 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
                       onTap: () => _replaceEntry(i),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Icon(
-                          Icons.swap_horiz,
-                          size: 16.0,
-                          color: Colors.blue.shade400,
-                        ),
+                        child: Icon(Icons.swap_horiz, size: 16.0,
+                            color: Colors.blue.shade400),
                       ),
                     ),
                     GestureDetector(
                       onTap: () => _disposeEntry(i),
-                      child: Icon(
-                        Icons.close,
-                        size: 16.0,
-                        color: Colors.red.shade300,
-                      ),
+                      child: Icon(Icons.close, size: 16.0,
+                          color: Colors.red.shade300),
                     ),
                   ],
                 ),
@@ -1526,25 +1215,16 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'registry.shortcuts (${merged.length})',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                    color: Colors.deepPurple.shade700,
-                  ),
-                ),
+                Text('registry.shortcuts (${merged.length})',
+                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                        fontWeight: FontWeight.w700, color: Colors.deepPurple.shade700)),
                 const SizedBox(height: 4.0),
                 Text(
                   merged.isEmpty
                       ? '{ }'
                       : '{ ${merged.entries.map((e) => '${e.key}: ${e.value}').join(', ')} }',
-                  style: TextStyle(
-                    fontSize: 9.5,
-                    fontFamily: 'monospace',
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 9.5, fontFamily: 'monospace',
+                      color: Colors.grey.shade700),
                 ),
               ],
             ),
@@ -1563,35 +1243,15 @@ class _SRGLiveDemoState extends State<_SRGLiveDemo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Event Log:',
-                    style: TextStyle(
-                      fontSize: 9.0,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.green.shade300,
-                    ),
-                  ),
+                  Text('Event Log:', style: TextStyle(fontSize: 9.0,
+                      fontWeight: FontWeight.w700, color: Colors.green.shade300)),
                   const SizedBox(height: 4.0),
                   if (_log.isEmpty)
-                    Text(
-                      '(no events)',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        color: Colors.grey.shade600,
-                      ),
-                    )
+                    Text('(no events)', style: TextStyle(fontSize: 9.0,
+                        color: Colors.grey.shade600))
                   else
-                    ..._log.map(
-                      (l) => Text(
-                        l,
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          fontFamily: 'monospace',
-                          color: Colors.green.shade200,
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
+                    ..._log.map((l) => Text(l, style: TextStyle(fontSize: 9.0,
+                        fontFamily: 'monospace', color: Colors.green.shade200, height: 1.4))),
                 ],
               ),
             ),

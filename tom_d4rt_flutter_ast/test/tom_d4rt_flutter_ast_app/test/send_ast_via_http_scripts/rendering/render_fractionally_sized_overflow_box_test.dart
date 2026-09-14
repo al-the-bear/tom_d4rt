@@ -453,7 +453,10 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
+          border: Border.all(
+            color: color.withValues(alpha: 0.5),
+            width: 1.5,
+          ),
         ),
         child: Column(
           children: [
@@ -573,11 +576,7 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.warning_amber,
-                  color: Colors.red.shade700,
-                  size: 22.0,
-                ),
+                Icon(Icons.warning_amber, color: Colors.red.shade700, size: 22.0),
                 SizedBox(width: 8.0),
                 Text(
                   'overflow w:$w h:$h',
@@ -607,10 +606,7 @@ dynamic build(BuildContext context) {
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.red.shade400,
-                          Colors.deepOrange.shade700,
-                        ],
+                        colors: [Colors.red.shade400, Colors.deepOrange.shade700],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -743,7 +739,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 4.0),
             Text(
               entry['desc'] as String,
-              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.grey.shade700,
+              ),
             ),
             SizedBox(height: 10.0),
             Container(
@@ -1179,7 +1178,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.summarize, color: Colors.indigo.shade700, size: 26.0),
+            Icon(
+              Icons.summarize,
+              color: Colors.indigo.shade700,
+              size: 26.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Key Takeaways — FractionallySizedBox',
@@ -1271,7 +1274,11 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  Icon(Icons.aspect_ratio, size: 56.0, color: Colors.white),
+                  Icon(
+                    Icons.aspect_ratio,
+                    size: 56.0,
+                    color: Colors.white,
+                  ),
                   SizedBox(height: 10.0),
                   Text(
                     'FractionallySizedBox Deep Demo',
@@ -1284,7 +1291,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 6.0),
                   Text(
                     'Proportional sizing • alignment • overflow • null factors',
-                    style: TextStyle(fontSize: 13.0, color: Colors.white70),
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      color: Colors.white70,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -1304,7 +1314,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'Width scales as a fraction of available width; height passes through.',
-              style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade700),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.blueGrey.shade700,
+              ),
             ),
             SizedBox(height: 8.0),
             ...widthFactorWidgets,
@@ -1323,7 +1336,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'Height scales as a fraction of available height; width passes through.',
-              style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade700),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.blueGrey.shade700,
+              ),
             ),
             SizedBox(height: 8.0),
             Wrap(
@@ -1345,10 +1361,16 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'Independent control over both axes for fully proportional child sizing.',
-              style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade700),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.blueGrey.shade700,
+              ),
             ),
             SizedBox(height: 8.0),
-            Wrap(alignment: WrapAlignment.center, children: combinedWidgets),
+            Wrap(
+              alignment: WrapAlignment.center,
+              children: combinedWidgets,
+            ),
             combinedCode,
             SizedBox(height: 24.0),
 
@@ -1364,10 +1386,16 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'When the child is smaller than the parent, alignment chooses its anchor.',
-              style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade700),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.blueGrey.shade700,
+              ),
             ),
             SizedBox(height: 8.0),
-            Wrap(alignment: WrapAlignment.center, children: alignmentWidgets),
+            Wrap(
+              alignment: WrapAlignment.center,
+              children: alignmentWidgets,
+            ),
             alignmentCode,
             SizedBox(height: 24.0),
 
@@ -1383,7 +1411,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'Factors greater than 1.0 deliberately size the child larger than the parent.',
-              style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade700),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.blueGrey.shade700,
+              ),
             ),
             SizedBox(height: 8.0),
             ...overflowWidgets,
@@ -1402,7 +1433,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'A null factor lets the child size itself on that axis.',
-              style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade700),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.blueGrey.shade700,
+              ),
             ),
             SizedBox(height: 8.0),
             ...nullWidgets,
@@ -1421,7 +1455,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'Progress cards, photo grid alignment, 2/3 + 1/3 split, modal panel.',
-              style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade700),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.blueGrey.shade700,
+              ),
             ),
             SizedBox(height: 12.0),
             Container(
@@ -1436,7 +1473,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.show_chart, color: Colors.blue.shade700),
+                      Icon(
+                        Icons.show_chart,
+                        color: Colors.blue.shade700,
+                      ),
                       SizedBox(width: 8.0),
                       Text(
                         '7.1 Progress cards (fractional width)',
@@ -1465,7 +1505,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.grid_view, color: Colors.deepOrange.shade700),
+                      Icon(
+                        Icons.grid_view,
+                        color: Colors.deepOrange.shade700,
+                      ),
                       SizedBox(width: 8.0),
                       Text(
                         '7.2 Photo grid (alignment anchors)',
@@ -1477,7 +1520,10 @@ dynamic build(BuildContext context) {
                     ],
                   ),
                   SizedBox(height: 8.0),
-                  Wrap(alignment: WrapAlignment.center, children: photoTiles),
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    children: photoTiles,
+                  ),
                 ],
               ),
             ),
@@ -1494,7 +1540,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.view_column, color: Colors.green.shade700),
+                      Icon(
+                        Icons.view_column,
+                        color: Colors.green.shade700,
+                      ),
                       SizedBox(width: 8.0),
                       Text(
                         '7.3 2/3 + 1/3 split layout',
@@ -1522,7 +1571,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.web_asset, color: Colors.indigo.shade700),
+                      Icon(
+                        Icons.web_asset,
+                        color: Colors.indigo.shade700,
+                      ),
                       SizedBox(width: 8.0),
                       Text(
                         '7.4 Modal panel — 80% width',
@@ -1580,7 +1632,10 @@ Widget _buildSummaryItem(
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.75),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: color.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: color.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
     ),
     child: Row(
       children: [
@@ -1599,11 +1654,17 @@ Widget _buildSummaryItem(
             children: [
               Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.bold, color: color),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
               ),
               Text(
                 desc,
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ],
           ),

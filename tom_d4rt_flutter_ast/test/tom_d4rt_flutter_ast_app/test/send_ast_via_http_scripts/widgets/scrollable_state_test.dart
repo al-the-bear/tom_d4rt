@@ -21,20 +21,19 @@ import 'package:flutter/material.dart';
 /// 8. Key concepts and integration points
 
 // ─── palette ───────────────────────────────────────────────
-const _kPurple = Color(0xFF673AB7);
+const _kPurple      = Color(0xFF673AB7);
 const _kPurpleLight = Color(0xFFD1C4E9);
-const _kPurpleDark = Color(0xFF311B92);
-const _kLime = Color(0xFF8BC34A);
-const _kLimeLight = Color(0xFFF0F4C3);
-const _kLimeDark = Color(0xFF33691E);
-const _kSurface = Color(0xFFF5F5FA);
-const _kDivider = Color(0xFFE0E0E0);
-const _kTextDark = Color(0xFF212121);
-const _kTextMuted = Color(0xFF757575);
+const _kPurpleDark  = Color(0xFF311B92);
+const _kLime        = Color(0xFF8BC34A);
+const _kLimeLight   = Color(0xFFF0F4C3);
+const _kLimeDark    = Color(0xFF33691E);
+const _kSurface     = Color(0xFFF5F5FA);
+const _kDivider     = Color(0xFFE0E0E0);
+const _kTextDark    = Color(0xFF212121);
+const _kTextMuted   = Color(0xFF757575);
 
 // ─── 1. Overview ───────────────────────────────────────────
-const _kOverview =
-    'ScrollableState is the State for a Scrollable widget — the '
+const _kOverview = 'ScrollableState is the State for a Scrollable widget — the '
     'invisible engine that makes scrolling work in Flutter. Every ListView, '
     'GridView, and CustomScrollView ultimately contains a Scrollable (found via '
     'Scrollable.of(context)). ScrollableState manages a ScrollPosition, listens '
@@ -50,46 +49,25 @@ class _ContextMember {
 }
 
 const _kContextMembers = <_ContextMember>[
-  _ContextMember(
-    'axisDirection',
-    'AxisDirection',
-    'The direction in which the view scrolls (down, up, left, right). '
-        'Combined with growth direction to determine content flow.',
-  ),
-  _ContextMember(
-    'notificationContext',
-    'BuildContext?',
-    'The context for dispatching ScrollNotification objects up the tree. '
-        'Used by NotificationListener<ScrollNotification>.',
-  ),
-  _ContextMember(
-    'storageContext',
-    'BuildContext',
-    'The context used for saving and restoring scroll position. '
-        'PageStorage uses this to persist scroll offset.',
-  ),
-  _ContextMember(
-    'vsync',
-    'TickerProvider',
-    'Provides the ticker for smooth scroll animations (ballistic, driven). '
-        'ScrollableState mixes in TickerProviderStateMixin for this.',
-  ),
-  _ContextMember(
-    'setIgnorePointer',
-    'void → (bool)',
-    'Called to toggle the IgnorePointer widget that overlays the scrollable '
-        'during a ballistic animation, preventing accidental taps.',
-  ),
-  _ContextMember(
-    'setSemanticsActions',
-    'void → (Set<SemanticsAction>)',
-    'Updates accessibility semantics for scroll (scrollUp, scrollDown, etc.).',
-  ),
-  _ContextMember(
-    'saveOffset',
-    'void → (double)',
-    'Persists the current scroll offset to PageStorage for later restoration.',
-  ),
+  _ContextMember('axisDirection', 'AxisDirection',
+      'The direction in which the view scrolls (down, up, left, right). '
+      'Combined with growth direction to determine content flow.'),
+  _ContextMember('notificationContext', 'BuildContext?',
+      'The context for dispatching ScrollNotification objects up the tree. '
+      'Used by NotificationListener<ScrollNotification>.'),
+  _ContextMember('storageContext', 'BuildContext',
+      'The context used for saving and restoring scroll position. '
+      'PageStorage uses this to persist scroll offset.'),
+  _ContextMember('vsync', 'TickerProvider',
+      'Provides the ticker for smooth scroll animations (ballistic, driven). '
+      'ScrollableState mixes in TickerProviderStateMixin for this.'),
+  _ContextMember('setIgnorePointer', 'void → (bool)',
+      'Called to toggle the IgnorePointer widget that overlays the scrollable '
+      'during a ballistic animation, preventing accidental taps.'),
+  _ContextMember('setSemanticsActions', 'void → (Set<SemanticsAction>)',
+      'Updates accessibility semantics for scroll (scrollUp, scrollDown, etc.).'),
+  _ContextMember('saveOffset', 'void → (double)',
+      'Persists the current scroll offset to PageStorage for later restoration.'),
 ];
 
 // ─── 3. Position management ────────────────────────────────
@@ -118,31 +96,21 @@ class _PhysicsInfo {
 }
 
 const _kPhysics = <_PhysicsInfo>[
-  _PhysicsInfo(
-    'ClampingScrollPhysics',
-    'Stops at edge; overscroll clamped to 0. Familiar rigid feel.',
-    'Android',
-  ),
-  _PhysicsInfo(
-    'BouncingScrollPhysics',
-    'Allows elastic overscroll past edges with spring-back. Rubbery feel.',
-    'iOS',
-  ),
-  _PhysicsInfo(
-    'AlwaysScrollableScrollPhysics',
-    'Wraps another physics; ensures scrollable even when content fits.',
-    'Cross-platform',
-  ),
-  _PhysicsInfo(
-    'NeverScrollableScrollPhysics',
-    'Disables user scrolling entirely. Content can only be scrolled programmatically.',
-    'Cross-platform',
-  ),
-  _PhysicsInfo(
-    'PageScrollPhysics',
-    'Snaps to page boundaries. Used by PageView.',
-    'Cross-platform',
-  ),
+  _PhysicsInfo('ClampingScrollPhysics',
+      'Stops at edge; overscroll clamped to 0. Familiar rigid feel.',
+      'Android'),
+  _PhysicsInfo('BouncingScrollPhysics',
+      'Allows elastic overscroll past edges with spring-back. Rubbery feel.',
+      'iOS'),
+  _PhysicsInfo('AlwaysScrollableScrollPhysics',
+      'Wraps another physics; ensures scrollable even when content fits.',
+      'Cross-platform'),
+  _PhysicsInfo('NeverScrollableScrollPhysics',
+      'Disables user scrolling entirely. Content can only be scrolled programmatically.',
+      'Cross-platform'),
+  _PhysicsInfo('PageScrollPhysics',
+      'Snaps to page boundaries. Used by PageView.',
+      'Cross-platform'),
 ];
 
 // ─── 7. Gesture coordination ───────────────────────────────
@@ -196,15 +164,9 @@ Widget _sectionHeader(String title, IconData icon) {
         Icon(icon, color: Colors.white, size: 22),
         SizedBox(width: 12),
         Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.4,
-            ),
-          ),
+          child: Text(title,
+              style: TextStyle(color: Colors.white, fontSize: 16,
+                  fontWeight: FontWeight.w700, letterSpacing: 0.4)),
         ),
       ],
     ),
@@ -219,40 +181,22 @@ Widget _card({required Widget child}) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.04),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
-      ],
+      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 6, offset: Offset(0, 2))],
     ),
     child: child,
   );
 }
 
 Widget _label(String text) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontSize: 11,
-      color: _kTextMuted,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.6,
-    ),
-  );
+  return Text(text,
+      style: TextStyle(fontSize: 11, color: _kTextMuted,
+          fontWeight: FontWeight.w600, letterSpacing: 0.6));
 }
 
 Widget _mono(String text, {Color? color}) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontFamily: 'monospace',
-      fontSize: 12.5,
-      color: color ?? _kTextDark,
-      height: 1.45,
-    ),
-  );
+  return Text(text,
+      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5,
+          color: color ?? _kTextDark, height: 1.45));
 }
 
 Widget _bullet(String text) {
@@ -261,19 +205,11 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 7),
-          width: 5,
-          height: 5,
-          decoration: BoxDecoration(color: _kPurple, shape: BoxShape.circle),
-        ),
+        Container(margin: EdgeInsets.only(top: 7), width: 5, height: 5,
+            decoration: BoxDecoration(color: _kPurple, shape: BoxShape.circle)),
         SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-          ),
-        ),
+        Expanded(child: Text(text,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
       ],
     ),
   );
@@ -290,10 +226,7 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: _kPurple,
-        brightness: Brightness.light,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: _kPurple, brightness: Brightness.light),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: _DemoScaffold(),
@@ -326,18 +259,9 @@ class _DemoScaffoldState extends State<_DemoScaffold> {
         selectedItemColor: _kPurpleDark,
         onTap: (i) => setState(() => _tabIndex = i),
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school_outlined),
-            label: 'Theory',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.monitor_heart_outlined),
-            label: 'Monitor',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.gamepad_outlined),
-            label: 'Control',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.school_outlined), label: 'Theory'),
+          BottomNavigationBarItem(icon: Icon(Icons.monitor_heart_outlined), label: 'Monitor'),
+          BottomNavigationBarItem(icon: Icon(Icons.gamepad_outlined), label: 'Control'),
         ],
       ),
     );
@@ -356,12 +280,8 @@ class _TheoryPage extends StatelessWidget {
         // ── Section 1 ──
         _sectionHeader('1 · What Is ScrollableState?', Icons.info_outline),
         SizedBox(height: 8),
-        _card(
-          child: Text(
-            _kOverview,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-          ),
-        ),
+        _card(child: Text(_kOverview,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,13 +294,9 @@ class _TheoryPage extends StatelessWidget {
               _mono('       └─ Viewport (lays out slivers)'),
               _mono('            └─ SliverList / SliverGrid ...'),
               SizedBox(height: 8),
-              _bullet(
-                'Scrollable.of(context) returns the nearest ScrollableState.',
-              ),
+              _bullet('Scrollable.of(context) returns the nearest ScrollableState.'),
               _bullet('ScrollableState mixes in TickerProviderStateMixin.'),
-              _bullet(
-                'It implements ScrollContext for position communication.',
-              ),
+              _bullet('It implements ScrollContext for position communication.'),
             ],
           ),
         ),
@@ -388,10 +304,7 @@ class _TheoryPage extends StatelessWidget {
         SizedBox(height: 12),
 
         // ── Section 2 ──
-        _sectionHeader(
-          '2 · ScrollContext Interface',
-          Icons.description_outlined,
-        ),
+        _sectionHeader('2 · ScrollContext Interface', Icons.description_outlined),
         SizedBox(height: 8),
         _card(
           child: Text(
@@ -402,94 +315,60 @@ class _TheoryPage extends StatelessWidget {
             style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
           ),
         ),
-        ..._kContextMembers.map(
-          (m) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: _kPurpleLight,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        m.name,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 11.5,
-                          color: _kPurpleDark,
-                        ),
-                      ),
+        ..._kContextMembers.map((m) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: _kPurpleLight,
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    SizedBox(width: 8),
-                    Text(
-                      m.type,
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 11,
-                        color: _kLimeDark,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 6),
-                Text(
-                  m.description,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
+                    child: Text(m.name,
+                        style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                            fontSize: 11.5, color: _kPurpleDark)),
                   ),
-                ),
-              ],
-            ),
+                  SizedBox(width: 8),
+                  Text(m.type,
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 11,
+                          color: _kLimeDark, fontWeight: FontWeight.w600)),
+                ],
+              ),
+              SizedBox(height: 6),
+              Text(m.description,
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+            ],
           ),
-        ),
+        )),
 
         SizedBox(height: 12),
 
         // ── Section 3 ──
         _sectionHeader('3 · ScrollPosition Management', Icons.swap_vert),
         SizedBox(height: 8),
-        ..._kPositionSteps.entries.map(
-          (e) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _kLimeLight,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    e.key,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                      color: _kLimeDark,
-                    ),
-                  ),
+        ..._kPositionSteps.entries.map((e) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _kLimeLight,
+                  borderRadius: BorderRadius.circular(6),
                 ),
-                SizedBox(height: 6),
-                Text(
-                  e.value,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
-                  ),
-                ),
-              ],
-            ),
+                child: Text(e.key,
+                    style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                        fontSize: 12, color: _kLimeDark)),
+              ),
+              SizedBox(height: 6),
+              Text(e.value,
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+            ],
           ),
-        ),
+        )),
 
         SizedBox(height: 12),
 
@@ -512,43 +391,18 @@ class _TheoryPage extends StatelessWidget {
                 border: TableBorder.all(color: _kDivider, width: 0.5),
                 children: [
                   TableRow(
-                    decoration: BoxDecoration(
-                      color: _kPurpleLight.withOpacity(0.5),
-                    ),
-                    children: ['Class', 'Behavior', 'Platform']
-                        .map(
-                          (h) => Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Text(
-                              h,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 10.5,
-                                color: _kPurpleDark,
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
+                    decoration: BoxDecoration(color: _kPurpleLight.withOpacity(0.5)),
+                    children: ['Class', 'Behavior', 'Platform'].map((h) => Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(h, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.5, color: _kPurpleDark)),
+                    )).toList(),
                   ),
-                  ..._kPhysics.map(
-                    (p) => TableRow(
-                      children: [p.name, p.behavior, p.platform]
-                          .map(
-                            (c) => Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Text(
-                                c,
-                                style: TextStyle(
-                                  fontSize: 10.5,
-                                  color: _kTextDark,
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
+                  ..._kPhysics.map((p) => TableRow(
+                    children: [p.name, p.behavior, p.platform].map((c) => Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(c, style: TextStyle(fontSize: 10.5, color: _kTextDark)),
+                    )).toList(),
+                  )),
                 ],
               ),
             ],
@@ -558,78 +412,47 @@ class _TheoryPage extends StatelessWidget {
         SizedBox(height: 12),
 
         // ── Section 7 ──
-        _sectionHeader(
-          '7 · Drag & Hold Gesture Coordination',
-          Icons.touch_app_outlined,
-        ),
+        _sectionHeader('7 · Drag & Hold Gesture Coordination', Icons.touch_app_outlined),
         SizedBox(height: 8),
-        ..._kGestureSteps.entries.map(
-          (e) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _kPurpleLight,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    e.key,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                      color: _kPurpleDark,
-                    ),
-                  ),
+        ..._kGestureSteps.entries.map((e) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _kPurpleLight,
+                  borderRadius: BorderRadius.circular(6),
                 ),
-                SizedBox(height: 6),
-                Text(
-                  e.value,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
-                  ),
-                ),
-              ],
-            ),
+                child: Text(e.key,
+                    style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                        fontSize: 12, color: _kPurpleDark)),
+              ),
+              SizedBox(height: 6),
+              Text(e.value,
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+            ],
           ),
-        ),
+        )),
 
         SizedBox(height: 12),
 
         // ── Section 8 ──
         _sectionHeader('8 · Integration Points', Icons.hub_outlined),
         SizedBox(height: 8),
-        ..._kIntegrationPoints.entries.map(
-          (e) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  e.key,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
-                    color: _kLimeDark,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  e.value,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
-                  ),
-                ),
-              ],
-            ),
+        ..._kIntegrationPoints.entries.map((e) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(e.key,
+                  style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                      fontSize: 13, color: _kLimeDark)),
+              SizedBox(height: 4),
+              Text(e.value,
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+            ],
           ),
-        ),
+        )),
       ],
     );
   }
@@ -666,9 +489,7 @@ class _MonitorPageState extends State<_MonitorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final scrollFraction = _maxExtent > 0
-        ? (_pixels / _maxExtent).clamp(0.0, 1.0)
-        : 0.0;
+    final scrollFraction = _maxExtent > 0 ? (_pixels / _maxExtent).clamp(0.0, 1.0) : 0.0;
 
     return Column(
       children: [
@@ -679,15 +500,9 @@ class _MonitorPageState extends State<_MonitorPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'SCROLL METRICS MONITOR',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6,
-                ),
-              ),
+              Text('SCROLL METRICS MONITOR',
+                  style: TextStyle(color: Colors.white70, fontSize: 11,
+                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
               SizedBox(height: 8),
               Row(
                 children: [
@@ -755,31 +570,20 @@ class _MonitorPageState extends State<_MonitorPage> {
                   child: Row(
                     children: [
                       Container(
-                        width: 28,
-                        height: 28,
+                        width: 28, height: 28,
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.7),
                           shape: BoxShape.circle,
                         ),
                         alignment: Alignment.center,
-                        child: Text(
-                          '${index + 1}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 12,
-                            color: _kTextDark,
-                          ),
-                        ),
+                        child: Text('${index + 1}',
+                            style: TextStyle(fontWeight: FontWeight.w800,
+                                fontSize: 12, color: _kTextDark)),
                       ),
                       SizedBox(width: 12),
-                      Text(
-                        'List item ${index + 1}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: _kTextDark,
-                        ),
-                      ),
+                      Text('List item ${index + 1}',
+                          style: TextStyle(fontWeight: FontWeight.w600,
+                              fontSize: 14, color: _kTextDark)),
                     ],
                   ),
                 );
@@ -802,23 +606,12 @@ class _MonitorPageState extends State<_MonitorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              label,
-              style: TextStyle(
-                color: Colors.white54,
-                fontSize: 9,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Text(
-              value,
-              style: TextStyle(
-                color: _kLime,
-                fontFamily: 'monospace',
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(label,
+                style: TextStyle(color: Colors.white54, fontSize: 9,
+                    fontWeight: FontWeight.w600)),
+            Text(value,
+                style: TextStyle(color: _kLime, fontFamily: 'monospace',
+                    fontSize: 12, fontWeight: FontWeight.w700)),
           ],
         ),
       ),
@@ -847,10 +640,7 @@ class _ControlPageState extends State<_ControlPage> {
   void _onScroll() {
     // We only log occasionally to avoid flooding
     final px = _controller.position.pixels;
-    if (_log.isEmpty ||
-        (px - double.tryParse(_log.last.split('→ ').last.replaceAll('px', ''))!)
-                .abs() >
-            50) {
+    if (_log.isEmpty || (px - double.tryParse(_log.last.split('→ ').last.replaceAll('px', ''))!).abs() > 50) {
       setState(() {
         _log.add('scroll → ${px.toStringAsFixed(0)}px');
         if (_log.length > 20) _log.removeAt(0);
@@ -871,11 +661,9 @@ class _ControlPageState extends State<_ControlPage> {
   }
 
   void _animate(double offset) {
-    _controller.animateTo(
-      offset,
-      duration: Duration(milliseconds: 800),
-      curve: Curves.easeInOutCubic,
-    );
+    _controller.animateTo(offset,
+        duration: Duration(milliseconds: 800),
+        curve: Curves.easeInOutCubic);
     setState(() => _log.add('animateTo(${offset.toInt()})'));
     print('[Control] animateTo(${offset.toInt()})');
   }
@@ -891,19 +679,12 @@ class _ControlPageState extends State<_ControlPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'PROGRAMMATIC SCROLL CONTROL',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6,
-                ),
-              ),
+              Text('PROGRAMMATIC SCROLL CONTROL',
+                  style: TextStyle(color: Colors.white70, fontSize: 11,
+                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
               SizedBox(height: 8),
               Wrap(
-                spacing: 8,
-                runSpacing: 6,
+                spacing: 8, runSpacing: 6,
                 children: [
                   _controlButton('Jump 0', () => _jump(0)),
                   _controlButton('Jump 500', () => _jump(500)),
@@ -927,19 +708,9 @@ class _ControlPageState extends State<_ControlPage> {
                 ),
                 child: ListView(
                   reverse: true,
-                  children: _log.reversed
-                      .map(
-                        (l) => Text(
-                          l,
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 10,
-                            color: _kLime,
-                            height: 1.4,
-                          ),
-                        ),
-                      )
-                      .toList(),
+                  children: _log.reversed.map((l) => Text(l,
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 10,
+                          color: _kLime, height: 1.4))).toList(),
                 ),
               ),
             ],
@@ -960,42 +731,27 @@ class _ControlPageState extends State<_ControlPage> {
                   color: isTarget ? _kLime.withOpacity(0.3) : Colors.white,
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
-                    color: isTarget ? _kLimeDark : _kDivider,
-                    width: isTarget ? 2 : 1,
-                  ),
+                      color: isTarget ? _kLimeDark : _kDivider,
+                      width: isTarget ? 2 : 1),
                 ),
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 14),
                 child: Row(
                   children: [
-                    Text(
-                      '#${index + 1}',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: isTarget ? _kLimeDark : _kTextMuted,
-                      ),
-                    ),
+                    Text('#${index + 1}',
+                        style: TextStyle(fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700, fontSize: 12,
+                            color: isTarget ? _kLimeDark : _kTextMuted)),
                     if (isTarget) ...[
                       SizedBox(width: 8),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: _kLimeDark,
                           borderRadius: BorderRadius.circular(3),
                         ),
-                        child: Text(
-                          'TARGET',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
+                        child: Text('TARGET',
+                            style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
                       ),
                     ],
                   ],
@@ -1017,14 +773,8 @@ class _ControlPageState extends State<_ControlPage> {
         onTap: onTap,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          child: Text(
-            label,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700)),
         ),
       ),
     );

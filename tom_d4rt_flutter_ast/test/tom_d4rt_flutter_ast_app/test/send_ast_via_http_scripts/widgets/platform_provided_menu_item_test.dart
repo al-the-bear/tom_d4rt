@@ -433,85 +433,25 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 10),
           ...[
-            {
-              'type': 'about',
-              'desc': 'Show About dialog',
-              'icon': Icons.info_outline,
-              'cat': 'App',
-            },
-            {
-              'type': 'quit',
-              'desc': 'Quit application (Cmd+Q)',
-              'icon': Icons.exit_to_app,
-              'cat': 'App',
-            },
-            {
-              'type': 'servicesSubmenu',
-              'desc': 'macOS Services submenu',
-              'icon': Icons.miscellaneous_services,
-              'cat': 'App',
-            },
-            {
-              'type': 'hide',
-              'desc': 'Hide current app (Cmd+H)',
-              'icon': Icons.visibility_off,
-              'cat': 'App',
-            },
-            {
-              'type': 'hideOtherApplications',
-              'desc': 'Hide all other apps',
-              'icon': Icons.layers_clear,
-              'cat': 'App',
-            },
-            {
-              'type': 'showAllApplications',
-              'desc': 'Show all apps again',
-              'icon': Icons.layers,
-              'cat': 'App',
-            },
-            {
-              'type': 'startSpeaking',
-              'desc': 'Begin text-to-speech',
-              'icon': Icons.record_voice_over,
-              'cat': 'Edit',
-            },
-            {
-              'type': 'stopSpeaking',
-              'desc': 'Stop text-to-speech',
-              'icon': Icons.voice_over_off,
-              'cat': 'Edit',
-            },
-            {
-              'type': 'toggleFullScreen',
-              'desc': 'Toggle full-screen mode',
-              'icon': Icons.fullscreen,
-              'cat': 'Window',
-            },
-            {
-              'type': 'minimizeWindow',
-              'desc': 'Minimize to dock (Cmd+M)',
-              'icon': Icons.minimize,
-              'cat': 'Window',
-            },
-            {
-              'type': 'zoomWindow',
-              'desc': 'Zoom / maximize window',
-              'icon': Icons.zoom_out_map,
-              'cat': 'Window',
-            },
-            {
-              'type': 'arrangeWindowsInFront',
-              'desc': 'Bring all to front',
-              'icon': Icons.flip_to_front,
-              'cat': 'Window',
-            },
+            {'type': 'about', 'desc': 'Show About dialog', 'icon': Icons.info_outline, 'cat': 'App'},
+            {'type': 'quit', 'desc': 'Quit application (Cmd+Q)', 'icon': Icons.exit_to_app, 'cat': 'App'},
+            {'type': 'servicesSubmenu', 'desc': 'macOS Services submenu', 'icon': Icons.miscellaneous_services, 'cat': 'App'},
+            {'type': 'hide', 'desc': 'Hide current app (Cmd+H)', 'icon': Icons.visibility_off, 'cat': 'App'},
+            {'type': 'hideOtherApplications', 'desc': 'Hide all other apps', 'icon': Icons.layers_clear, 'cat': 'App'},
+            {'type': 'showAllApplications', 'desc': 'Show all apps again', 'icon': Icons.layers, 'cat': 'App'},
+            {'type': 'startSpeaking', 'desc': 'Begin text-to-speech', 'icon': Icons.record_voice_over, 'cat': 'Edit'},
+            {'type': 'stopSpeaking', 'desc': 'Stop text-to-speech', 'icon': Icons.voice_over_off, 'cat': 'Edit'},
+            {'type': 'toggleFullScreen', 'desc': 'Toggle full-screen mode', 'icon': Icons.fullscreen, 'cat': 'Window'},
+            {'type': 'minimizeWindow', 'desc': 'Minimize to dock (Cmd+M)', 'icon': Icons.minimize, 'cat': 'Window'},
+            {'type': 'zoomWindow', 'desc': 'Zoom / maximize window', 'icon': Icons.zoom_out_map, 'cat': 'Window'},
+            {'type': 'arrangeWindowsInFront', 'desc': 'Bring all to front', 'icon': Icons.flip_to_front, 'cat': 'Window'},
           ].map((item) {
             final cat = item['cat'] as String;
             final catColor = cat == 'App'
                 ? green800
                 : cat == 'Edit'
-                ? Color(0xFF558B2F)
-                : lightGreen900;
+                    ? Color(0xFF558B2F)
+                    : lightGreen900;
             return Container(
               width: double.infinity,
               margin: const EdgeInsets.only(bottom: 6),
@@ -562,10 +502,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: catColor.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4),
@@ -762,7 +699,11 @@ dynamic build(BuildContext context) {
                   'Call PlatformProvidedMenuItem.hasMenu(type) before '
                   'including platform items. Returns true only on macOS. '
                   'This ensures your menus degrade gracefully on all platforms.',
-                  style: TextStyle(color: green800, fontSize: 12, height: 1.4),
+                  style: TextStyle(
+                    color: green800,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -801,36 +742,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  Green 900   ${green900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  LtGreen 900 ${lightGreen900.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
-  print(
-    '  │  Green 800   ${green800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  Green 700   ${green700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  Green 500   ${green500.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Green 400   ${green400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  Green 200   ${green200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  Green 100   ${green100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  Green 50    ${green50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  LtGreen 50  ${lightGreen50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
+  print('  │  Green 900   ${green900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  LtGreen 900 ${lightGreen900.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print('  │  Green 800   ${green800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  Green 700   ${green700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  Green 500   ${green500.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Green 400   ${green400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  Green 200   ${green200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  Green 100   ${green100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  Green 50    ${green50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  LtGreen 50  ${lightGreen50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 
@@ -859,7 +780,10 @@ Widget _buildPlatformItem({
           Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           )
         else
           const SizedBox(width: 6),

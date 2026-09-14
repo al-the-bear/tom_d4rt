@@ -87,7 +87,11 @@ dynamic build(BuildContext context) {
             'in the focus traversal order. This is the core action '
             'behind the Shift+Tab keyboard shortcut provided by '
             'every Flutter application through WidgetsApp.',
-            style: TextStyle(fontSize: 14.0, color: azure100, height: 1.5),
+            style: TextStyle(
+              fontSize: 14.0,
+              color: azure100,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -102,10 +106,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: azure50,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(
-          color: sapphire600.withValues(alpha: 0.3),
-          width: 1.5,
-        ),
+        border: Border.all(color: sapphire600.withValues(alpha: 0.3), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,11 +191,7 @@ dynamic build(BuildContext context) {
     final step = chainSteps[i];
     final isFirst = i == 0;
     final isLast = i == chainSteps.length - 1;
-    final progressColor = Color.lerp(
-      sapphire900,
-      azure400,
-      i / (chainSteps.length - 1),
-    )!;
+    final progressColor = Color.lerp(sapphire900, azure400, i / (chainSteps.length - 1))!;
 
     chainWidgets.add(
       Container(
@@ -229,7 +226,8 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(width: 12.0),
             // Arrow connector
-            if (!isFirst) SizedBox.shrink(),
+            if (!isFirst)
+              SizedBox.shrink(),
             // Step content
             Expanded(
               child: Container(
@@ -256,7 +254,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 4.0),
                     Text(
                       step['detail']!,
-                      style: TextStyle(fontSize: 11.5, color: sapphire700),
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        color: sapphire700,
+                      ),
                     ),
                   ],
                 ),
@@ -343,35 +344,14 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 90.0,
-            child: Text(
-              'Keys',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-              ),
-            ),
+            child: Text('Keys', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0)),
           ),
           SizedBox(
             width: 120.0,
-            child: Text(
-              'Intent',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-              ),
-            ),
+            child: Text('Intent', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0)),
           ),
           Expanded(
-            child: Text(
-              'Action',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12.0,
-              ),
-            ),
+            child: Text('Action', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.0)),
           ),
         ],
       ),
@@ -409,9 +389,7 @@ dynamic build(BuildContext context) {
                   style: TextStyle(
                     fontSize: 11.0,
                     fontFamily: 'monospace',
-                    fontWeight: isHighlighted
-                        ? FontWeight.bold
-                        : FontWeight.normal,
+                    fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
                     color: isHighlighted ? Colors.white : Colors.grey.shade800,
                   ),
                 ),
@@ -425,9 +403,7 @@ dynamic build(BuildContext context) {
                   fontSize: 10.5,
                   fontFamily: 'monospace',
                   color: isHighlighted ? sapphire900 : Colors.grey.shade700,
-                  fontWeight: isHighlighted
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ),
@@ -518,11 +494,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 4.0),
           Text(
             'Calls: $method',
-            style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade600),
           ),
           SizedBox(height: 4.0),
           Container(
@@ -540,11 +512,7 @@ dynamic build(BuildContext context) {
           Text(
             description,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 10.5,
-              color: Colors.grey.shade600,
-              height: 1.3,
-            ),
+            style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600, height: 1.3),
           ),
           SizedBox(height: 8.0),
           Row(
@@ -639,11 +607,7 @@ dynamic build(BuildContext context) {
   final traversalNodes = <Widget>[];
 
   for (var i = 0; i < focusNodeLabels.length; i++) {
-    final nodeColor = Color.lerp(
-      azure400,
-      sapphire900,
-      i / (focusNodeLabels.length - 1),
-    )!;
+    final nodeColor = Color.lerp(azure400, sapphire900, i / (focusNodeLabels.length - 1))!;
 
     traversalNodes.add(
       Container(
@@ -672,10 +636,7 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    nodeColor.withValues(alpha: 0.15),
-                    nodeColor.withValues(alpha: 0.05),
-                  ],
+                  colors: [nodeColor.withValues(alpha: 0.15), nodeColor.withValues(alpha: 0.05)],
                 ),
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(color: nodeColor, width: 1.5),
@@ -801,8 +762,7 @@ dynamic build(BuildContext context) {
     {
       'returns': 'false',
       'meaning': 'Traversal reached the beginning',
-      'scenario':
-          'No previous focusable widget; engine must pass focus to platform UI',
+      'scenario': 'No previous focusable widget; engine must pass focus to platform UI',
       'color': Colors.orange,
       'icon': Icons.warning_amber_rounded,
     },
@@ -837,20 +797,12 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         'Returns: ',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade600,
-                        ),
+                        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 6.0,
-                          vertical: 2.0,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                         decoration: BoxDecoration(
-                          color: (scenario['color'] as Color).withValues(
-                            alpha: 0.15,
-                          ),
+                          color: (scenario['color'] as Color).withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Text(
@@ -877,10 +829,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 2.0),
                   Text(
                     scenario['scenario'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -891,9 +840,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  print(
-    'Created invoke() details with ${returnScenarios.length} return scenarios',
-  );
+  print('Created invoke() details with ${returnScenarios.length} return scenarios');
 
   // ============================================================
   // SECTION 7: toKeyEventResult Conversion
@@ -1071,9 +1018,7 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
-          color: isDefault
-              ? azure400.withValues(alpha: 0.12)
-              : Colors.grey.shade50,
+          color: isDefault ? azure400.withValues(alpha: 0.12) : Colors.grey.shade50,
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
             color: isDefault ? sapphire600 : Colors.grey.shade300,
@@ -1098,10 +1043,7 @@ dynamic build(BuildContext context) {
                 ),
                 if (isDefault)
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 3.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                     decoration: BoxDecoration(
                       color: sapphire600,
                       borderRadius: BorderRadius.circular(6.0),
@@ -1125,19 +1067,12 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Row(
               children: [
-                Icon(
-                  Icons.lightbulb_outline,
-                  size: 14.0,
-                  color: Colors.amber.shade700,
-                ),
+                Icon(Icons.lightbulb_outline, size: 14.0, color: Colors.amber.shade700),
                 SizedBox(width: 4.0),
                 Expanded(
                   child: Text(
                     policy['useCase']!,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
                   ),
                 ),
               ],
@@ -1206,34 +1141,13 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 80.0,
-            child: Text(
-              'Aspect',
-              style: TextStyle(
-                color: azure200,
-                fontWeight: FontWeight.bold,
-                fontSize: 11.0,
-              ),
-            ),
+            child: Text('Aspect', style: TextStyle(color: azure200, fontWeight: FontWeight.bold, fontSize: 11.0)),
           ),
           Expanded(
-            child: Text(
-              'PreviousFocusAction',
-              style: TextStyle(
-                color: azure100,
-                fontWeight: FontWeight.bold,
-                fontSize: 11.0,
-              ),
-            ),
+            child: Text('PreviousFocusAction', style: TextStyle(color: azure100, fontWeight: FontWeight.bold, fontSize: 11.0)),
           ),
           Expanded(
-            child: Text(
-              'RequestFocusAction',
-              style: TextStyle(
-                color: azure100,
-                fontWeight: FontWeight.bold,
-                fontSize: 11.0,
-              ),
-            ),
+            child: Text('RequestFocusAction', style: TextStyle(color: azure100, fontWeight: FontWeight.bold, fontSize: 11.0)),
           ),
         ],
       ),
@@ -1249,7 +1163,10 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: i.isEven ? azure50 : Colors.white,
           border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
+            bottom: BorderSide(
+              color: Colors.grey.shade200,
+              width: 0.5,
+            ),
           ),
         ),
         child: Row(
@@ -1368,19 +1285,10 @@ dynamic build(BuildContext context) {
 
     overrideCards.add(
       Container(
-        margin: EdgeInsets.only(
-          left: 12.0 + depth,
-          right: 12.0,
-          top: 4.0,
-          bottom: 4.0,
-        ),
+        margin: EdgeInsets.only(left: 12.0 + depth, right: 12.0, top: 4.0, bottom: 4.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: Color.lerp(
-            sapphire900,
-            azure50,
-            i / 2.0,
-          )!.withValues(alpha: 0.12),
+          color: Color.lerp(sapphire900, azure50, i / 2.0)!.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
             color: Color.lerp(sapphire700, azure400, i / 2.0)!,
@@ -1435,8 +1343,7 @@ dynamic build(BuildContext context) {
     {
       'platform': 'Web',
       'tabBehavior': 'Tab/Shift+Tab with browser integration',
-      'focusEscape':
-          'At boundary, focus moves to browser address bar or other page elements',
+      'focusEscape': 'At boundary, focus moves to browser address bar or other page elements',
       'icon': 'language',
     },
     {
@@ -1459,18 +1366,12 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              cardGradient.withValues(alpha: 0.12),
-              cardGradient.withValues(alpha: 0.04),
-            ],
+            colors: [cardGradient.withValues(alpha: 0.12), cardGradient.withValues(alpha: 0.04)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: cardGradient.withValues(alpha: 0.4),
-            width: 1.5,
-          ),
+          border: Border.all(color: cardGradient.withValues(alpha: 0.4), width: 1.5),
         ),
         child: Column(
           children: [
@@ -1684,11 +1585,7 @@ dynamic build(BuildContext context) {
             'Flutter. It ensures that users who rely on keyboard navigation '
             '(due to motor impairments or preference) can move backward '
             'through all interactive elements in a deterministic order.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white70,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white70, height: 1.5),
           ),
         ],
       ),
@@ -1698,26 +1595,22 @@ dynamic build(BuildContext context) {
   final accessibilityPoints = <Map<String, String>>[
     {
       'title': 'WCAG 2.1.1 Keyboard',
-      'detail':
-          'All functionality must be operable through keyboard. '
+      'detail': 'All functionality must be operable through keyboard. '
           'PreviousFocusAction provides the backward direction.',
     },
     {
       'title': 'Focus Visible (2.4.7)',
-      'detail':
-          'When PreviousFocusAction moves focus, the target gets '
+      'detail': 'When PreviousFocusAction moves focus, the target gets '
           'a visible focus indicator (ring or highlight).',
     },
     {
       'title': 'Focus Order (2.4.3)',
-      'detail':
-          'The traversal order must be meaningful. PreviousFocusAction '
+      'detail': 'The traversal order must be meaningful. PreviousFocusAction '
           'reverses the same order NextFocusAction follows.',
     },
     {
       'title': 'Screen Readers',
-      'detail':
-          'Shift+Tab moves to previous element. Screen readers announce '
+      'detail': 'Shift+Tab moves to previous element. Screen readers announce '
           'the newly focused widget label and role.',
     },
   ];
@@ -1730,7 +1623,10 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.deepPurple.shade50,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.deepPurple.shade200, width: 1.0),
+          border: Border.all(
+            color: Colors.deepPurple.shade200,
+            width: 1.0,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1864,7 +1760,10 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 member['binding'] as String,
-                style: TextStyle(fontSize: 9.5, fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 9.5,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
             SizedBox(height: 4.0),
@@ -1898,7 +1797,10 @@ dynamic build(BuildContext context) {
       'key': 'Purpose',
       'value': 'Move keyboard focus to the previous focusable node',
     },
-    {'key': 'Default Binding', 'value': 'Shift+Tab in WidgetsApp'},
+    {
+      'key': 'Default Binding',
+      'value': 'Shift+Tab in WidgetsApp',
+    },
     {
       'key': 'invoke()',
       'value': 'Returns bool; calls primaryFocus!.previousFocus()',
@@ -1915,7 +1817,10 @@ dynamic build(BuildContext context) {
       'key': 'Override',
       'value': 'Wrap subtree in Actions to provide custom handler',
     },
-    {'key': 'Counterpart', 'value': 'NextFocusAction for forward traversal'},
+    {
+      'key': 'Counterpart',
+      'value': 'NextFocusAction for forward traversal',
+    },
   ];
 
   final summaryRows = <Widget>[];
@@ -2025,7 +1930,9 @@ dynamic build(BuildContext context) {
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
-                    child: Column(children: bindingRows),
+                    child: Column(
+                      children: bindingRows,
+                    ),
                   ),
                 ],
               ),

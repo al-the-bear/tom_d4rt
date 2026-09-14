@@ -59,14 +59,14 @@ final ValueNotifier<Set<WidgetState>> _wstLiveStates =
     ValueNotifier<Set<WidgetState>>(<WidgetState>{});
 final ValueNotifier<Set<WidgetState>> _wstAlgebraA =
     ValueNotifier<Set<WidgetState>>(<WidgetState>{
-      WidgetState.hovered,
-      WidgetState.focused,
-    });
+  WidgetState.hovered,
+  WidgetState.focused,
+});
 final ValueNotifier<Set<WidgetState>> _wstAlgebraB =
     ValueNotifier<Set<WidgetState>>(<WidgetState>{
-      WidgetState.focused,
-      WidgetState.selected,
-    });
+  WidgetState.focused,
+  WidgetState.selected,
+});
 final ValueNotifier<int> _wstExpressionIndex = ValueNotifier<int>(0);
 
 void _wstToggle(ValueNotifier<Set<WidgetState>> n, WidgetState s) {
@@ -236,12 +236,10 @@ class _WstHome extends StatelessWidget {
             child: _WstTabBar(),
           ),
         ),
-        body: Stack(
-          children: const <Widget>[
-            Positioned.fill(child: _WstBackdrop()),
-            Positioned.fill(child: _WstBody()),
-          ],
-        ),
+        body: Stack(children: const <Widget>[
+          Positioned.fill(child: _WstBackdrop()),
+          Positioned.fill(child: _WstBody()),
+        ]),
       ),
     );
   }
@@ -251,24 +249,18 @@ class _WstTitle extends StatelessWidget {
   const _WstTitle();
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const <Widget>[
-        Icon(
-          Icons.settings_remote_outlined,
-          color: _WstPalette.brassLabel,
-          size: 28,
+    return Row(children: const <Widget>[
+      Icon(Icons.settings_remote_outlined, color: _WstPalette.brassLabel, size: 28),
+      SizedBox(width: 12),
+      Text(
+        'WidgetState · Mission-Control Annunciator',
+        style: TextStyle(
+          color: _WstPalette.engraveIvory,
+          fontWeight: FontWeight.w800,
+          letterSpacing: 1.1,
         ),
-        SizedBox(width: 12),
-        Text(
-          'WidgetState · Mission-Control Annunciator',
-          style: TextStyle(
-            color: _WstPalette.engraveIvory,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 1.1,
-          ),
-        ),
-      ],
-    );
+      ),
+    ]);
   }
 }
 
@@ -305,20 +297,18 @@ class _WstBody extends StatelessWidget {
   const _WstBody();
   @override
   Widget build(BuildContext context) {
-    return const TabBarView(
-      children: <Widget>[
-        _WstDossierTab(),
-        _WstAnatomyTab(),
-        _WstAnnunciatorTab(),
-        _WstSetAlgebraTab(),
-        _WstCompositionTab(),
-        _WstResolversTab(),
-        _WstCatalogTab(),
-        _WstRecipesTab(),
-        _WstComparisonTab(),
-        _WstGlossaryTab(),
-      ],
-    );
+    return const TabBarView(children: <Widget>[
+      _WstDossierTab(),
+      _WstAnatomyTab(),
+      _WstAnnunciatorTab(),
+      _WstSetAlgebraTab(),
+      _WstCompositionTab(),
+      _WstResolversTab(),
+      _WstCatalogTab(),
+      _WstRecipesTab(),
+      _WstComparisonTab(),
+      _WstGlossaryTab(),
+    ]);
   }
 }
 
@@ -380,11 +370,7 @@ class _WstPanelBackdropPainter extends CustomPainter {
     for (final double s in seams) {
       final double y = size.height * s;
       canvas.drawLine(Offset(0, y), Offset(size.width, y), seamDark);
-      canvas.drawLine(
-        Offset(0, y + 1.4),
-        Offset(size.width, y + 1.4),
-        seamLight,
-      );
+      canvas.drawLine(Offset(0, y + 1.4), Offset(size.width, y + 1.4), seamLight);
     }
 
     // Rivet grid in the margins.
@@ -398,8 +384,7 @@ class _WstPanelBackdropPainter extends CustomPainter {
     const double step = 72;
     for (double x = margin; x < size.width; x += step) {
       for (double y = margin; y < size.height; y += step) {
-        final bool onMargin =
-            x < margin * 2 ||
+        final bool onMargin = x < margin * 2 ||
             x > size.width - margin * 2 ||
             y < margin * 2 ||
             y > size.height - margin * 2;
@@ -475,11 +460,7 @@ class _WstPlaque extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(6),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Color(0x55000000),
-            blurRadius: 5,
-            offset: Offset(0, 2),
-          ),
+          BoxShadow(color: Color(0x55000000), blurRadius: 5, offset: Offset(0, 2)),
         ],
       ),
       child: Column(
@@ -552,31 +533,25 @@ class _WstStateChip extends StatelessWidget {
             ? c.withValues(alpha: 0.18)
             : _WstPalette.panelSeam.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: active ? c : _WstPalette.rivet, width: 1.2),
+        border: Border.all(
+          color: active ? c : _WstPalette.rivet,
+          width: 1.2,
+        ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Icon(
-            _wstStateIcon(state),
-            color: active ? c : _WstPalette.engraveIvoryDim,
-            size: 14,
+      child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        Icon(_wstStateIcon(state), color: active ? c : _WstPalette.engraveIvoryDim, size: 14),
+        const SizedBox(width: 6),
+        Text(
+          _wstStateName(state),
+          style: TextStyle(
+            fontFamily: 'monospace',
+            color: active ? _WstPalette.engraveIvory : _WstPalette.engraveIvoryDim,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
           ),
-          const SizedBox(width: 6),
-          Text(
-            _wstStateName(state),
-            style: TextStyle(
-              fontFamily: 'monospace',
-              color: active
-                  ? _WstPalette.engraveIvory
-                  : _WstPalette.engraveIvoryDim,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.5,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
@@ -597,24 +572,21 @@ class _WstCodeBlock extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          if (caption != null) ...<Widget>[
-            Text(
-              caption!,
-              style: const TextStyle(
-                color: _WstPalette.brassLabelBright,
-                fontSize: 11,
-                letterSpacing: 1.4,
-                fontWeight: FontWeight.w700,
-              ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        if (caption != null) ...<Widget>[
+          Text(
+            caption!,
+            style: const TextStyle(
+              color: _WstPalette.brassLabelBright,
+              fontSize: 11,
+              letterSpacing: 1.4,
+              fontWeight: FontWeight.w700,
             ),
-            const SizedBox(height: 8),
-          ],
-          for (final _WstCodeLine line in lines) line,
+          ),
+          const SizedBox(height: 8),
         ],
-      ),
+        for (final _WstCodeLine line in lines) line,
+      ]),
     );
   }
 }
@@ -642,31 +614,25 @@ class _WstCodeLine extends StatelessWidget {
 }
 
 TextSpan _kw(String s) => TextSpan(
-  text: s,
-  style: const TextStyle(
-    color: _WstPalette.codeKeyword,
-    fontWeight: FontWeight.w700,
-  ),
-);
+      text: s,
+      style: const TextStyle(color: _WstPalette.codeKeyword, fontWeight: FontWeight.w700),
+    );
 TextSpan _ty(String s) => TextSpan(
-  text: s,
-  style: const TextStyle(color: _WstPalette.codeType),
-);
+      text: s,
+      style: const TextStyle(color: _WstPalette.codeType),
+    );
 TextSpan _str(String s) => TextSpan(
-  text: s,
-  style: const TextStyle(color: _WstPalette.codeString),
-);
+      text: s,
+      style: const TextStyle(color: _WstPalette.codeString),
+    );
 TextSpan _cm(String s) => TextSpan(
-  text: s,
-  style: const TextStyle(
-    color: _WstPalette.codeComment,
-    fontStyle: FontStyle.italic,
-  ),
-);
+      text: s,
+      style: const TextStyle(color: _WstPalette.codeComment, fontStyle: FontStyle.italic),
+    );
 TextSpan _pt(String s) => TextSpan(
-  text: s,
-  style: const TextStyle(color: _WstPalette.codePunct),
-);
+      text: s,
+      style: const TextStyle(color: _WstPalette.codePunct),
+    );
 TextSpan _tx(String s) => TextSpan(text: s);
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -680,23 +646,21 @@ class _WstDossierTab extends StatelessWidget {
     return _WstSection(
       title: 'DOSSIER · CASE FILE WIDGETSTATE',
       subtitle: 'field handbook - six briefings before the console flight',
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints bc) {
-          final bool wide = bc.maxWidth > 880;
-          final int cols = wide ? 3 : (bc.maxWidth > 520 ? 2 : 1);
-          return Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: <Widget>[
-              for (final _WstDossierCardData d in _wstDossierCards)
-                SizedBox(
-                  width: (bc.maxWidth - (cols - 1) * 16) / cols,
-                  child: _WstDossierCard(data: d),
-                ),
-            ],
-          );
-        },
-      ),
+      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints bc) {
+        final bool wide = bc.maxWidth > 880;
+        final int cols = wide ? 3 : (bc.maxWidth > 520 ? 2 : 1);
+        return Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          children: <Widget>[
+            for (final _WstDossierCardData d in _wstDossierCards)
+              SizedBox(
+                width: (bc.maxWidth - (cols - 1) * 16) / cols,
+                child: _WstDossierCard(data: d),
+              ),
+          ],
+        );
+      }),
     );
   }
 }
@@ -722,8 +686,7 @@ const List<_WstDossierCardData> _wstDossierCards = <_WstDossierCardData>[
     title: 'What is WidgetState?',
     icon: Icons.help_outline,
     accent: _WstPalette.lampAmber,
-    body:
-        'WidgetState is the eight-valued Dart enum exported from '
+    body: 'WidgetState is the eight-valued Dart enum exported from '
         'package:flutter/widgets.dart and re-exported by package:flutter/'
         'material.dart. It replaced MaterialState in Flutter 3.19 and is now '
         'the canonical vocabulary for interactive state across every '
@@ -735,8 +698,7 @@ const List<_WstDossierCardData> _wstDossierCards = <_WstDossierCardData>[
     title: 'The eight values',
     icon: Icons.format_list_numbered,
     accent: _WstPalette.lampTeal,
-    body:
-        'The enum declares, in order: hovered, focused, pressed, dragged, '
+    body: 'The enum declares, in order: hovered, focused, pressed, dragged, '
         'selected, scrolledUnder, disabled, error. Each is emitted by some '
         'subset of widgets. They are not mutually exclusive - a Checkbox can '
         'simultaneously be hovered, focused and pressed while also being '
@@ -747,8 +709,7 @@ const List<_WstDossierCardData> _wstDossierCards = <_WstDossierCardData>[
     title: 'Doubles as a constraint',
     icon: Icons.verified_outlined,
     accent: _WstPalette.lampGreen,
-    body:
-        'WidgetState implements WidgetStatesConstraint, so any one value '
+    body: 'WidgetState implements WidgetStatesConstraint, so any one value '
         'can be used directly as a Map key in a WidgetStateMap, or as a '
         'predicate in WidgetStateProperty.fromMap. The constraint returns '
         'true when the value is contained in the supplied Set<WidgetState>.',
@@ -758,8 +719,7 @@ const List<_WstDossierCardData> _wstDossierCards = <_WstDossierCardData>[
     title: 'Logical operators & | ~',
     icon: Icons.memory,
     accent: _WstPalette.lampCrimson,
-    body:
-        'Because WidgetState implements WidgetStatesConstraint, the & '
+    body: 'Because WidgetState implements WidgetStatesConstraint, the & '
         '(AND), | (OR) and ~ (NOT) operators return composable constraints. '
         'hovered & ~disabled means "hovered and not disabled"; pressed | '
         'focused means "pressed or focused". Constraints can be nested '
@@ -770,8 +730,7 @@ const List<_WstDossierCardData> _wstDossierCards = <_WstDossierCardData>[
     title: 'WidgetState.any catch-all',
     icon: Icons.all_inclusive,
     accent: _WstPalette.lampBlue,
-    body:
-        'WidgetStatesConstraint.any - re-exported as WidgetState.any in '
+    body: 'WidgetStatesConstraint.any - re-exported as WidgetState.any in '
         'practice - is the sentinel constraint whose isSatisfiedBy method '
         'always returns true. It is the idiomatic default clause at the '
         'bottom of a WidgetStateMap, the fallback branch when no other key '
@@ -782,8 +741,7 @@ const List<_WstDossierCardData> _wstDossierCards = <_WstDossierCardData>[
     title: 'Material emitters',
     icon: Icons.widgets_outlined,
     accent: _WstPalette.lampViolet,
-    body:
-        'ElevatedButton, FilledButton, TextButton, OutlinedButton emit '
+    body: 'ElevatedButton, FilledButton, TextButton, OutlinedButton emit '
         'hovered/focused/pressed/disabled. Checkbox and Switch add selected. '
         'Sliders emit dragged. Chips may emit selected and disabled. '
         'NestedScrollView and SliverAppBar emit scrolledUnder. Form fields '
@@ -803,31 +761,29 @@ class _WstDossierCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: data.accent.withValues(alpha: 0.20),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: data.accent, width: 1.2),
-                ),
-                child: Icon(data.icon, color: data.accent, size: 20),
+          Row(children: <Widget>[
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: data.accent.withValues(alpha: 0.20),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: data.accent, width: 1.2),
               ),
-              const SizedBox(width: 12),
-              Text(
-                '§ ${data.index}',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  color: data.accent,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.2,
-                ),
+              child: Icon(data.icon, color: data.accent, size: 20),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              '§ ${data.index}',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: data.accent,
+                fontSize: 13,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.2,
               ),
-            ],
-          ),
+            ),
+          ]),
           const SizedBox(height: 12),
           Text(
             data.title,
@@ -842,12 +798,10 @@ class _WstDossierCard extends StatelessWidget {
           Container(
             height: 1,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  data.accent.withValues(alpha: 0.8),
-                  data.accent.withValues(alpha: 0.1),
-                ],
-              ),
+              gradient: LinearGradient(colors: <Color>[
+                data.accent.withValues(alpha: 0.8),
+                data.accent.withValues(alpha: 0.1),
+              ]),
             ),
           ),
           const SizedBox(height: 10),
@@ -875,8 +829,7 @@ class _WstAnatomyTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return _WstSection(
       title: 'ANATOMY · ENUM SIGNATURE',
-      subtitle:
-          'eight values, one contract, ratified by WidgetStatesConstraint',
+      subtitle: 'eight values, one contract, ratified by WidgetStatesConstraint',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -886,9 +839,7 @@ class _WstAnatomyTab extends StatelessWidget {
               caption: 'package:flutter/src/widgets/widget_state.dart',
               lines: <_WstCodeLine>[
                 _WstCodeLine(<InlineSpan>[
-                  _cm(
-                    '// The eight orthogonal interactive states Material widgets emit.',
-                  ),
+                  _cm('// The eight orthogonal interactive states Material widgets emit.'),
                 ]),
                 _WstCodeLine(<InlineSpan>[
                   _kw('enum '),
@@ -907,7 +858,9 @@ class _WstAnatomyTab extends StatelessWidget {
                 _WstCodeLine(<InlineSpan>[_tx('  disabled'), _pt(',')]),
                 _WstCodeLine(<InlineSpan>[_tx('  error'), _pt(';')]),
                 _WstCodeLine(<InlineSpan>[_tx('')]),
-                _WstCodeLine(<InlineSpan>[_pt('  @override')]),
+                _WstCodeLine(<InlineSpan>[
+                  _pt('  @override'),
+                ]),
                 _WstCodeLine(<InlineSpan>[
                   _tx('  '),
                   _ty('bool'),
@@ -956,78 +909,24 @@ class _WstAnatomyTable extends StatelessWidget {
   Widget build(BuildContext context) {
     const List<List<String>> rows = <List<String>>[
       <String>['#', 'VALUE', 'MEANING', 'TYPICAL EMITTER', 'CATALOG CONSUMER'],
-      <String>[
-        '0',
-        'hovered',
-        'pointer is over the hit-region',
-        'InkWell, Button, Chip',
-        'ButtonStyle.backgroundColor',
-      ],
-      <String>[
-        '1',
-        'focused',
-        'widget owns the primary focus',
-        'Focusable, TextField',
-        'ButtonStyle.overlayColor',
-      ],
-      <String>[
-        '2',
-        'pressed',
-        'primary pointer button is down',
-        'InkWell, Button',
-        'InkWell splash, overlayColor',
-      ],
-      <String>[
-        '3',
-        'dragged',
-        'an active drag gesture is in flight',
-        'Slider, DraggableScrollbar',
-        'SliderThemeData.thumbColor',
-      ],
-      <String>[
-        '4',
-        'selected',
-        'toggleable widget is in the on state',
-        'Checkbox, Radio, Switch, Chip',
-        'CheckboxTheme.fillColor',
-      ],
-      <String>[
-        '5',
-        'scrolledUnder',
-        'scrollable content has scrolled under',
-        'NestedScrollView, SliverAppBar',
-        'AppBarTheme.backgroundColor',
-      ],
-      <String>[
-        '6',
-        'disabled',
-        'onPressed / onChanged is null',
-        'Every interactive widget',
-        'ButtonStyle.foregroundColor',
-      ],
-      <String>[
-        '7',
-        'error',
-        'current input is in an error condition',
-        'FormField, TextField',
-        'InputDecorationTheme.borderColor',
-      ],
+      <String>['0', 'hovered', 'pointer is over the hit-region', 'InkWell, Button, Chip', 'ButtonStyle.backgroundColor'],
+      <String>['1', 'focused', 'widget owns the primary focus', 'Focusable, TextField', 'ButtonStyle.overlayColor'],
+      <String>['2', 'pressed', 'primary pointer button is down', 'InkWell, Button', 'InkWell splash, overlayColor'],
+      <String>['3', 'dragged', 'an active drag gesture is in flight', 'Slider, DraggableScrollbar', 'SliderThemeData.thumbColor'],
+      <String>['4', 'selected', 'toggleable widget is in the on state', 'Checkbox, Radio, Switch, Chip', 'CheckboxTheme.fillColor'],
+      <String>['5', 'scrolledUnder', 'scrollable content has scrolled under', 'NestedScrollView, SliverAppBar', 'AppBarTheme.backgroundColor'],
+      <String>['6', 'disabled', 'onPressed / onChanged is null', 'Every interactive widget', 'ButtonStyle.foregroundColor'],
+      <String>['7', 'error', 'current input is in an error condition', 'FormField, TextField', 'InputDecorationTheme.borderColor'],
     ];
-    return Column(
-      children: <Widget>[
-        for (int i = 0; i < rows.length; i++)
-          _WstAnatomyRow(row: rows[i], header: i == 0, zebra: i.isOdd),
-      ],
-    );
+    return Column(children: <Widget>[
+      for (int i = 0; i < rows.length; i++)
+        _WstAnatomyRow(row: rows[i], header: i == 0, zebra: i.isOdd),
+    ]);
   }
 }
 
 class _WstAnatomyRow extends StatelessWidget {
-  const _WstAnatomyRow({
-    required this.row,
-    required this.header,
-    required this.zebra,
-  });
+  const _WstAnatomyRow({required this.row, required this.header, required this.zebra});
   final List<String> row;
   final bool header;
   final bool zebra;
@@ -1036,9 +935,7 @@ class _WstAnatomyRow extends StatelessWidget {
     final Color bg = header
         ? _WstPalette.panelBlack
         : (zebra ? _WstPalette.panelSteel : _WstPalette.panelSteelLight);
-    final Color fg = header
-        ? _WstPalette.brassLabelBright
-        : _WstPalette.engraveIvory;
+    final Color fg = header ? _WstPalette.brassLabelBright : _WstPalette.engraveIvory;
     final TextStyle style = TextStyle(
       fontFamily: 'monospace',
       color: header ? fg : _WstPalette.engraveIvoryDim,
@@ -1050,33 +947,15 @@ class _WstAnatomyRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
         color: bg,
-        border: Border(
-          bottom: BorderSide(
-            color: _WstPalette.panelSeam.withValues(alpha: 0.8),
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: _WstPalette.panelSeam.withValues(alpha: 0.8))),
       ),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 24,
-            child: Text(row[0], style: style.copyWith(color: fg)),
-          ),
-          SizedBox(
-            width: 120,
-            child: Text(
-              row[1],
-              style: style.copyWith(
-                color: fg,
-                fontWeight: header ? FontWeight.w800 : FontWeight.w700,
-              ),
-            ),
-          ),
-          Expanded(flex: 3, child: Text(row[2], style: style)),
-          Expanded(flex: 2, child: Text(row[3], style: style)),
-          Expanded(flex: 2, child: Text(row[4], style: style)),
-        ],
-      ),
+      child: Row(children: <Widget>[
+        SizedBox(width: 24, child: Text(row[0], style: style.copyWith(color: fg))),
+        SizedBox(width: 120, child: Text(row[1], style: style.copyWith(color: fg, fontWeight: header ? FontWeight.w800 : FontWeight.w700))),
+        Expanded(flex: 3, child: Text(row[2], style: style)),
+        Expanded(flex: 2, child: Text(row[3], style: style)),
+        Expanded(flex: 2, child: Text(row[4], style: style)),
+      ]),
     );
   }
 }
@@ -1119,41 +998,39 @@ class _WstAnnunciatorTabState extends State<_WstAnnunciatorTab>
       child: ValueListenableBuilder<Set<WidgetState>>(
         valueListenable: _wstLiveStates,
         builder: (BuildContext context, Set<WidgetState> states, Widget? _) {
-          return LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints bc) {
-              final bool wide = bc.maxWidth > 880;
-              final Widget grid = _WstLampGrid(states: states, pulse: _pulse);
-              final Widget rail = _WstSideRail(states: states);
-              final Widget readouts = _WstReadouts(states: states);
-              if (wide) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(flex: 3, child: grid),
-                        const SizedBox(width: 16),
-                        SizedBox(width: 280, child: rail),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    readouts,
-                  ],
-                );
-              }
+          return LayoutBuilder(builder: (BuildContext context, BoxConstraints bc) {
+            final bool wide = bc.maxWidth > 880;
+            final Widget grid = _WstLampGrid(states: states, pulse: _pulse);
+            final Widget rail = _WstSideRail(states: states);
+            final Widget readouts = _WstReadouts(states: states);
+            if (wide) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  grid,
-                  const SizedBox(height: 16),
-                  rail,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(flex: 3, child: grid),
+                      const SizedBox(width: 16),
+                      SizedBox(width: 280, child: rail),
+                    ],
+                  ),
                   const SizedBox(height: 16),
                   readouts,
                 ],
               );
-            },
-          );
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                grid,
+                const SizedBox(height: 16),
+                rail,
+                const SizedBox(height: 16),
+                readouts,
+              ],
+            );
+          });
         },
       ),
     );
@@ -1172,49 +1049,39 @@ class _WstLampGrid extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              const Icon(
-                Icons.light_mode_outlined,
-                color: _WstPalette.lampAmber,
-                size: 16,
+          Row(children: <Widget>[
+            const Icon(Icons.light_mode_outlined, color: _WstPalette.lampAmber, size: 16),
+            const SizedBox(width: 8),
+            Text(
+              'ANNUNCIATOR PANEL · 4 × 2',
+              style: TextStyle(
+                color: _WstPalette.brassLabelBright,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.8,
               ),
-              const SizedBox(width: 8),
-              Text(
-                'ANNUNCIATOR PANEL · 4 × 2',
-                style: TextStyle(
-                  color: _WstPalette.brassLabelBright,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.8,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ]),
           const SizedBox(height: 12),
-          LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints bc) {
-              final int cols = bc.maxWidth > 560
-                  ? 4
-                  : (bc.maxWidth > 320 ? 2 : 1);
-              final double w = (bc.maxWidth - (cols - 1) * 12) / cols;
-              return Wrap(
-                spacing: 12,
-                runSpacing: 12,
-                children: <Widget>[
-                  for (final WidgetState s in _wstAllStates)
-                    SizedBox(
-                      width: w,
-                      child: _WstLampCard(
-                        state: s,
-                        lit: states.contains(s),
-                        pulse: pulse,
-                      ),
+          LayoutBuilder(builder: (BuildContext context, BoxConstraints bc) {
+            final int cols = bc.maxWidth > 560 ? 4 : (bc.maxWidth > 320 ? 2 : 1);
+            final double w = (bc.maxWidth - (cols - 1) * 12) / cols;
+            return Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: <Widget>[
+                for (final WidgetState s in _wstAllStates)
+                  SizedBox(
+                    width: w,
+                    child: _WstLampCard(
+                      state: s,
+                      lit: states.contains(s),
+                      pulse: pulse,
                     ),
-                ],
-              );
-            },
-          ),
+                  ),
+              ],
+            );
+          }),
         ],
       ),
     );
@@ -1242,7 +1109,10 @@ class _WstLampCard extends StatelessWidget {
           colors: <Color>[_WstPalette.panelSteelLight, _WstPalette.panelSteel],
         ),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: lit ? c : _WstPalette.rivet, width: 1.5),
+        border: Border.all(
+          color: lit ? c : _WstPalette.rivet,
+          width: 1.5,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1261,30 +1131,22 @@ class _WstLampCard extends StatelessWidget {
             },
           ),
           const SizedBox(height: 10),
-          Row(
-            children: <Widget>[
-              Icon(
-                _wstStateIcon(state),
-                color: lit ? c : _WstPalette.engraveIvoryDim,
-                size: 16,
-              ),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  _wstStateName(state),
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    color: lit
-                        ? _WstPalette.engraveIvory
-                        : _WstPalette.engraveIvoryDim,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 0.6,
-                  ),
+          Row(children: <Widget>[
+            Icon(_wstStateIcon(state), color: lit ? c : _WstPalette.engraveIvoryDim, size: 16),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                _wstStateName(state),
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  color: lit ? _WstPalette.engraveIvory : _WstPalette.engraveIvoryDim,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
                 ),
               ),
-            ],
-          ),
+            ),
+          ]),
           const SizedBox(height: 4),
           Text(
             lit ? 'LIT' : 'DARK',
@@ -1303,11 +1165,7 @@ class _WstLampCard extends StatelessWidget {
 }
 
 class _WstLampGlowPainter extends CustomPainter {
-  _WstLampGlowPainter({
-    required this.color,
-    required this.lit,
-    required this.phase,
-  });
+  _WstLampGlowPainter({required this.color, required this.lit, required this.phase});
   final Color color;
   final bool lit;
   final double phase;
@@ -1349,20 +1207,15 @@ class _WstLampGlowPainter extends CustomPainter {
     // Glow halo (only lit).
     if (lit) {
       final Paint halo = Paint()
-        ..shader =
-            RadialGradient(
-              colors: <Color>[
-                color.withValues(alpha: 0.55 + 0.25 * phase),
-                color.withValues(alpha: 0.10),
-                Colors.transparent,
-              ],
-              stops: const <double>[0.0, 0.55, 1.0],
-            ).createShader(
-              Rect.fromCircle(
-                center: c,
-                radius: bulbRadius * (1.8 + 0.3 * phase),
-              ),
-            );
+        ..shader = RadialGradient(
+          colors: <Color>[
+            color.withValues(alpha: 0.55 + 0.25 * phase),
+            color.withValues(alpha: 0.10),
+            Colors.transparent,
+          ],
+          stops: const <double>[0.0, 0.55, 1.0],
+        ).createShader(
+            Rect.fromCircle(center: c, radius: bulbRadius * (1.8 + 0.3 * phase)));
       canvas.drawCircle(c, bulbRadius * (1.8 + 0.3 * phase), halo);
     }
     // Specular highlight.
@@ -1401,25 +1254,19 @@ class _WstSideRail extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Row(
-              children: <Widget>[
-                const Icon(
-                  Icons.toggle_on_outlined,
-                  color: _WstPalette.lampTeal,
-                  size: 16,
+            child: Row(children: <Widget>[
+              const Icon(Icons.toggle_on_outlined, color: _WstPalette.lampTeal, size: 16),
+              const SizedBox(width: 8),
+              Text(
+                'STATE TOGGLES',
+                style: TextStyle(
+                  color: _WstPalette.brassLabelBright,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1.8,
                 ),
-                const SizedBox(width: 8),
-                Text(
-                  'STATE TOGGLES',
-                  style: TextStyle(
-                    color: _WstPalette.brassLabelBright,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.8,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ]),
           ),
           const SizedBox(height: 4),
           for (final WidgetState s in _wstAllStates)
@@ -1427,22 +1274,20 @@ class _WstSideRail extends StatelessWidget {
           const SizedBox(height: 6),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              children: <Widget>[
-                _WstMiniButton(
-                  label: 'CLEAR',
-                  icon: Icons.clear_all,
-                  onTap: () => _wstLiveStates.value = <WidgetState>{},
-                ),
-                const SizedBox(width: 8),
-                _WstMiniButton(
-                  label: 'ALL',
-                  icon: Icons.select_all,
-                  onTap: () =>
-                      _wstLiveStates.value = <WidgetState>{..._wstAllStates},
-                ),
-              ],
-            ),
+            child: Row(children: <Widget>[
+              _WstMiniButton(
+                label: 'CLEAR',
+                icon: Icons.clear_all,
+                onTap: () => _wstLiveStates.value = <WidgetState>{},
+              ),
+              const SizedBox(width: 8),
+              _WstMiniButton(
+                label: 'ALL',
+                icon: Icons.select_all,
+                onTap: () =>
+                    _wstLiveStates.value = <WidgetState>{..._wstAllStates},
+              ),
+            ]),
           ),
         ],
       ),
@@ -1462,27 +1307,19 @@ class _WstRailRow extends StatelessWidget {
       child: SwitchListTile(
         dense: true,
         contentPadding: const EdgeInsets.symmetric(horizontal: 6),
-        title: Row(
-          children: <Widget>[
-            Icon(
-              _wstStateIcon(state),
-              size: 16,
-              color: lit ? c : _WstPalette.engraveIvoryDim,
+        title: Row(children: <Widget>[
+          Icon(_wstStateIcon(state), size: 16, color: lit ? c : _WstPalette.engraveIvoryDim),
+          const SizedBox(width: 8),
+          Text(
+            _wstStateName(state),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: lit ? _WstPalette.engraveIvory : _WstPalette.engraveIvoryDim,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
             ),
-            const SizedBox(width: 8),
-            Text(
-              _wstStateName(state),
-              style: TextStyle(
-                fontFamily: 'monospace',
-                color: lit
-                    ? _WstPalette.engraveIvory
-                    : _WstPalette.engraveIvoryDim,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ]),
         value: lit,
         activeThumbColor: c,
         activeTrackColor: c.withValues(alpha: 0.35),
@@ -1493,11 +1330,7 @@ class _WstRailRow extends StatelessWidget {
 }
 
 class _WstMiniButton extends StatelessWidget {
-  const _WstMiniButton({
-    required this.label,
-    required this.icon,
-    required this.onTap,
-  });
+  const _WstMiniButton({required this.label, required this.icon, required this.onTap});
   final String label;
   final IconData icon;
   final VoidCallback onTap;
@@ -1510,29 +1343,24 @@ class _WstMiniButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           decoration: BoxDecoration(
-            border: Border.all(
-              color: _WstPalette.brassLabel.withValues(alpha: 0.6),
-            ),
+            border: Border.all(color: _WstPalette.brassLabel.withValues(alpha: 0.6)),
             borderRadius: BorderRadius.circular(6),
             color: _WstPalette.panelBlack.withValues(alpha: 0.5),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(icon, size: 14, color: _WstPalette.brassLabelBright),
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  color: _WstPalette.brassLabelBright,
-                  fontSize: 11,
-                  letterSpacing: 1.4,
-                  fontWeight: FontWeight.w800,
-                ),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            Icon(icon, size: 14, color: _WstPalette.brassLabelBright),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: _WstPalette.brassLabelBright,
+                fontSize: 11,
+                letterSpacing: 1.4,
+                fontWeight: FontWeight.w800,
               ),
-            ],
-          ),
+            ),
+          ]),
         ),
       ),
     );
@@ -1545,28 +1373,26 @@ class _WstReadouts extends StatelessWidget {
 
   static final Map<WidgetStatesConstraint, Color> _resolverMap =
       <WidgetStatesConstraint, Color>{
-        WidgetState.error: _WstPalette.lampCrimson,
-        WidgetState.disabled: _WstPalette.rivetGlint,
-        WidgetState.pressed: _WstPalette.lampAmberDeep,
-        WidgetState.hovered: _WstPalette.lampAmber,
-        WidgetState.focused: _WstPalette.lampTeal,
-        WidgetState.selected: _WstPalette.lampGreen,
-        WidgetState.dragged: _WstPalette.lampViolet,
-        WidgetState.scrolledUnder: _WstPalette.lampBlue,
-        WidgetState.any: _WstPalette.engraveIvoryDim,
-      };
+    WidgetState.error: _WstPalette.lampCrimson,
+    WidgetState.disabled: _WstPalette.rivetGlint,
+    WidgetState.pressed: _WstPalette.lampAmberDeep,
+    WidgetState.hovered: _WstPalette.lampAmber,
+    WidgetState.focused: _WstPalette.lampTeal,
+    WidgetState.selected: _WstPalette.lampGreen,
+    WidgetState.dragged: _WstPalette.lampViolet,
+    WidgetState.scrolledUnder: _WstPalette.lampBlue,
+    WidgetState.any: _WstPalette.engraveIvoryDim,
+  };
 
   Color _resolveColor(Set<WidgetState> s) {
-    for (final MapEntry<WidgetStatesConstraint, Color> e
-        in _resolverMap.entries) {
+    for (final MapEntry<WidgetStatesConstraint, Color> e in _resolverMap.entries) {
       if (e.key.isSatisfiedBy(s)) return e.value;
     }
     return _WstPalette.engraveIvoryDim;
   }
 
   String _matchedKeyLabel(Set<WidgetState> s) {
-    for (final MapEntry<WidgetStatesConstraint, Color> e
-        in _resolverMap.entries) {
+    for (final MapEntry<WidgetStatesConstraint, Color> e in _resolverMap.entries) {
       if (e.key.isSatisfiedBy(s)) {
         final WidgetStatesConstraint k = e.key;
         if (k is WidgetState) return _wstStateName(k);
@@ -1603,24 +1429,22 @@ class _WstReadouts extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           // Pill row.
-          Wrap(
-            children: <Widget>[
-              for (final WidgetState s in _wstAllStates)
-                if (states.contains(s)) _WstStateChip(state: s, active: true),
-              if (states.isEmpty)
-                Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Text(
-                    '(empty Set<WidgetState>)',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      color: _WstPalette.engraveIvoryDim,
-                      fontStyle: FontStyle.italic,
-                    ),
+          Wrap(children: <Widget>[
+            for (final WidgetState s in _wstAllStates)
+              if (states.contains(s)) _WstStateChip(state: s, active: true),
+            if (states.isEmpty)
+              Padding(
+                padding: const EdgeInsets.all(6),
+                child: Text(
+                  '(empty Set<WidgetState>)',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    color: _WstPalette.engraveIvoryDim,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
-            ],
-          ),
+              ),
+          ]),
           const SizedBox(height: 8),
           _WstReadoutLine(
             label: 'Set<WidgetState>',
@@ -1629,9 +1453,7 @@ class _WstReadouts extends StatelessWidget {
           _WstReadoutLine(
             label: 'hovered & ~disabled',
             value: composite ? 'true' : 'false',
-            highlight: composite
-                ? _WstPalette.lampGreen
-                : _WstPalette.lampCrimson,
+            highlight: composite ? _WstPalette.lampGreen : _WstPalette.lampCrimson,
           ),
           _WstReadoutLine(
             label: 'WidgetStateMap match',
@@ -1639,38 +1461,36 @@ class _WstReadouts extends StatelessWidget {
             highlight: _WstPalette.lampAmber,
           ),
           const SizedBox(height: 10),
-          Row(
-            children: <Widget>[
-              Text(
-                'resolver -> ',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  color: _WstPalette.engraveIvoryDim,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
+          Row(children: <Widget>[
+            Text(
+              'resolver -> ',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: _WstPalette.engraveIvoryDim,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
-              Container(
-                width: 40,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: resolved,
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: _WstPalette.brassLabel, width: 1),
-                ),
+            ),
+            Container(
+              width: 40,
+              height: 24,
+              decoration: BoxDecoration(
+                color: resolved,
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: _WstPalette.brassLabel, width: 1),
               ),
-              const SizedBox(width: 10),
-              Text(
-                '#${resolved.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  color: _WstPalette.engraveIvory,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              '#${resolved.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: _WstPalette.engraveIvory,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
-            ],
-          ),
+            ),
+          ]),
         ],
       ),
     );
@@ -1690,34 +1510,31 @@ class _WstReadoutLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: 200,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                color: _WstPalette.brassLabel,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        SizedBox(
+          width: 200,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: _WstPalette.brassLabel,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
             ),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                color: highlight ?? _WstPalette.engraveIvory,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: highlight ?? _WstPalette.engraveIvory,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
             ),
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
@@ -1784,48 +1601,41 @@ class _WstSetBuilder extends StatelessWidget {
     return _WstPanel(
       accent: accent,
       padding: const EdgeInsets.all(14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(Icons.circle, size: 10, color: accent),
-              const SizedBox(width: 8),
-              Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  color: accent,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.8,
-                ),
-              ),
-              const SizedBox(width: 14),
-              Text(
-                _wstSetRepr(set),
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  color: _WstPalette.engraveIvory,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Row(children: <Widget>[
+          Icon(Icons.circle, size: 10, color: accent),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: accent,
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.8,
+            ),
           ),
-          const SizedBox(height: 10),
-          Wrap(
-            children: <Widget>[
-              for (final WidgetState s in _wstAllStates)
-                InkWell(
-                  borderRadius: BorderRadius.circular(20),
-                  onTap: () => onToggle(s),
-                  child: _WstStateChip(state: s, active: set.contains(s)),
-                ),
-            ],
+          const SizedBox(width: 14),
+          Text(
+            _wstSetRepr(set),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: _WstPalette.engraveIvory,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ],
-      ),
+        ]),
+        const SizedBox(height: 10),
+        Wrap(children: <Widget>[
+          for (final WidgetState s in _wstAllStates)
+            InkWell(
+              borderRadius: BorderRadius.circular(20),
+              onTap: () => onToggle(s),
+              child: _WstStateChip(state: s, active: set.contains(s)),
+            ),
+        ]),
+      ]),
     );
   }
 }
@@ -1848,16 +1658,12 @@ class _WstAlgebraCards extends StatelessWidget {
       _WstAlgebraEntry(
         op: 'A.add(error)',
         chips: <WidgetState>{...a, WidgetState.error},
-        diff: a.contains(WidgetState.error)
-            ? <WidgetState>{}
-            : <WidgetState>{WidgetState.error},
+        diff: a.contains(WidgetState.error) ? <WidgetState>{} : <WidgetState>{WidgetState.error},
       ),
       _WstAlgebraEntry(
         op: 'A.remove(hovered)',
         chips: <WidgetState>{...a}..remove(WidgetState.hovered),
-        diff: a.contains(WidgetState.hovered)
-            ? <WidgetState>{WidgetState.hovered}
-            : <WidgetState>{},
+        diff: a.contains(WidgetState.hovered) ? <WidgetState>{WidgetState.hovered} : <WidgetState>{},
         removed: true,
       ),
       _WstAlgebraEntry(
@@ -1919,89 +1725,72 @@ class _WstAlgebraCard extends StatelessWidget {
     return _WstPanel(
       accent: _WstPalette.brassLabel,
       padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: _WstPalette.codeBg,
-                  border: Border.all(color: _WstPalette.brassLabel),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                alignment: Alignment.center,
-                child: Icon(
-                  _opIcon(entry.op),
-                  color: _WstPalette.brassLabelBright,
-                  size: 16,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  entry.op,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    color: _WstPalette.engraveIvory,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              if (entry.boolean)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color:
-                        (entry.boolValue
-                                ? _WstPalette.lampGreen
-                                : _WstPalette.lampCrimson)
-                            .withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                      color: entry.boolValue
-                          ? _WstPalette.lampGreen
-                          : _WstPalette.lampCrimson,
-                    ),
-                  ),
-                  child: Text(
-                    entry.result ?? (entry.boolValue ? 'true' : 'false'),
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      color: entry.boolValue
-                          ? _WstPalette.lampGreen
-                          : _WstPalette.lampCrimson,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          if (!entry.boolean) ...<Widget>[
-            const SizedBox(height: 10),
-            Wrap(
-              children: <Widget>[
-                for (final WidgetState s in _wstAllStates)
-                  if (entry.chips.contains(s))
-                    _WstAlgebraChip(
-                      state: s,
-                      highlight: entry.diff.contains(s) && !entry.removed,
-                    ),
-                for (final WidgetState s in _wstAllStates)
-                  if (entry.removed && entry.diff.contains(s))
-                    _WstAlgebraChip(state: s, highlight: true, strikeout: true),
-              ],
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Row(children: <Widget>[
+          Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: _WstPalette.codeBg,
+              border: Border.all(color: _WstPalette.brassLabel),
+              borderRadius: BorderRadius.circular(6),
             ),
-          ],
+            alignment: Alignment.center,
+            child: Icon(
+              _opIcon(entry.op),
+              color: _WstPalette.brassLabelBright,
+              size: 16,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              entry.op,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: _WstPalette.engraveIvory,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          if (entry.boolean)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: (entry.boolValue ? _WstPalette.lampGreen : _WstPalette.lampCrimson)
+                    .withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(
+                  color: entry.boolValue ? _WstPalette.lampGreen : _WstPalette.lampCrimson,
+                ),
+              ),
+              child: Text(
+                entry.result ?? (entry.boolValue ? 'true' : 'false'),
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  color: entry.boolValue ? _WstPalette.lampGreen : _WstPalette.lampCrimson,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+        ]),
+        if (!entry.boolean) ...<Widget>[
+          const SizedBox(height: 10),
+          Wrap(children: <Widget>[
+            for (final WidgetState s in _wstAllStates)
+              if (entry.chips.contains(s))
+                _WstAlgebraChip(
+                  state: s,
+                  highlight: entry.diff.contains(s) && !entry.removed,
+                ),
+            for (final WidgetState s in _wstAllStates)
+              if (entry.removed && entry.diff.contains(s))
+                _WstAlgebraChip(state: s, highlight: true, strikeout: true),
+          ]),
         ],
-      ),
+      ]),
     );
   }
 
@@ -2041,26 +1830,21 @@ class _WstAlgebraChip extends StatelessWidget {
           width: highlight ? 1.8 : 1.0,
         ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Icon(_wstStateIcon(state), color: c, size: 14),
-          const SizedBox(width: 6),
-          Text(
-            _wstStateName(state),
-            style: TextStyle(
-              fontFamily: 'monospace',
-              color: _WstPalette.engraveIvory,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              decoration: strikeout
-                  ? TextDecoration.lineThrough
-                  : TextDecoration.none,
-              decorationColor: _WstPalette.lampCrimson,
-            ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        Icon(_wstStateIcon(state), color: c, size: 14),
+        const SizedBox(width: 6),
+        Text(
+          _wstStateName(state),
+          style: TextStyle(
+            fontFamily: 'monospace',
+            color: _WstPalette.engraveIvory,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            decoration: strikeout ? TextDecoration.lineThrough : TextDecoration.none,
+            decorationColor: _WstPalette.lampCrimson,
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
@@ -2121,8 +1905,7 @@ class _WstCompositionTabState extends State<_WstCompositionTab>
     ),
     _WstExpression(
       label: '(hovered | focused) & ~disabled',
-      build: () =>
-          (WidgetState.hovered | WidgetState.focused) & ~WidgetState.disabled,
+      build: () => (WidgetState.hovered | WidgetState.focused) & ~WidgetState.disabled,
       tree: _WstGateNode.and(
         left: _WstGateNode.or(
           left: _WstGateNode.input(WidgetState.hovered),
@@ -2133,8 +1916,7 @@ class _WstCompositionTabState extends State<_WstCompositionTab>
     ),
     _WstExpression(
       label: 'pressed & selected & ~error',
-      build: () =>
-          WidgetState.pressed & WidgetState.selected & ~WidgetState.error,
+      build: () => WidgetState.pressed & WidgetState.selected & ~WidgetState.error,
       tree: _WstGateNode.and(
         left: _WstGateNode.and(
           left: _WstGateNode.input(WidgetState.pressed),
@@ -2149,165 +1931,127 @@ class _WstCompositionTabState extends State<_WstCompositionTab>
   Widget build(BuildContext context) {
     return _WstSection(
       title: 'COMPOSITION · BOOLEAN GATES',
-      subtitle:
-          '& / | / ~ form a full constraint algebra painted as gate trees',
+      subtitle: '& / | / ~ form a full constraint algebra painted as gate trees',
       child: ValueListenableBuilder<int>(
         valueListenable: _wstExpressionIndex,
         builder: (BuildContext context, int idx, Widget? _) {
           return ValueListenableBuilder<Set<WidgetState>>(
             valueListenable: _wstLiveStates,
-            builder:
-                (BuildContext context, Set<WidgetState> states, Widget? _) {
-                  final _WstExpression expr =
-                      _expressions[idx % _expressions.length];
-                  final bool satisfied = expr.build().isSatisfiedBy(states);
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      _WstPanel(
-                        accent: _WstPalette.lampTeal,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'SELECT EXPRESSION',
-                              style: TextStyle(
-                                color: _WstPalette.brassLabelBright,
-                                fontSize: 11,
-                                letterSpacing: 1.8,
-                                fontWeight: FontWeight.w800,
-                              ),
+            builder: (BuildContext context, Set<WidgetState> states, Widget? _) {
+              final _WstExpression expr = _expressions[idx % _expressions.length];
+              final bool satisfied = expr.build().isSatisfiedBy(states);
+              return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+                _WstPanel(
+                  accent: _WstPalette.lampTeal,
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                    Text(
+                      'SELECT EXPRESSION',
+                      style: TextStyle(
+                        color: _WstPalette.brassLabelBright,
+                        fontSize: 11,
+                        letterSpacing: 1.8,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
+                      for (int i = 0; i < _expressions.length; i++)
+                        ChoiceChip(
+                          label: Text(
+                            _expressions[i].label,
+                            style: const TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
                             ),
-                            const SizedBox(height: 8),
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: <Widget>[
-                                for (int i = 0; i < _expressions.length; i++)
-                                  ChoiceChip(
-                                    label: Text(
-                                      _expressions[i].label,
-                                      style: const TextStyle(
-                                        fontFamily: 'monospace',
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    selected: i == idx,
-                                    selectedColor: _WstPalette.lampTeal
-                                        .withValues(alpha: 0.3),
-                                    backgroundColor: _WstPalette.panelBlack,
-                                    side: BorderSide(
-                                      color: i == idx
-                                          ? _WstPalette.lampTeal
-                                          : _WstPalette.rivet,
-                                    ),
-                                    labelStyle: TextStyle(
-                                      color: i == idx
-                                          ? _WstPalette.lampTeal
-                                          : _WstPalette.engraveIvoryDim,
-                                    ),
-                                    onSelected: (bool _) =>
-                                        _wstExpressionIndex.value = i,
-                                  ),
-                              ],
-                            ),
-                          ],
+                          ),
+                          selected: i == idx,
+                          selectedColor: _WstPalette.lampTeal.withValues(alpha: 0.3),
+                          backgroundColor: _WstPalette.panelBlack,
+                          side: BorderSide(
+                            color: i == idx ? _WstPalette.lampTeal : _WstPalette.rivet,
+                          ),
+                          labelStyle: TextStyle(
+                            color: i == idx ? _WstPalette.lampTeal : _WstPalette.engraveIvoryDim,
+                          ),
+                          onSelected: (bool _) => _wstExpressionIndex.value = i,
+                        ),
+                    ]),
+                  ]),
+                ),
+                const SizedBox(height: 14),
+                _WstPanel(
+                  accent: satisfied ? _WstPalette.lampGreen : _WstPalette.lampCrimson,
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                    Row(children: <Widget>[
+                      Text(
+                        'GATE DIAGRAM',
+                        style: TextStyle(
+                          color: _WstPalette.brassLabelBright,
+                          fontSize: 11,
+                          letterSpacing: 1.8,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
-                      const SizedBox(height: 14),
-                      _WstPanel(
-                        accent: satisfied
-                            ? _WstPalette.lampGreen
-                            : _WstPalette.lampCrimson,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'GATE DIAGRAM',
-                                  style: TextStyle(
-                                    color: _WstPalette.brassLabelBright,
-                                    fontSize: 11,
-                                    letterSpacing: 1.8,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color:
-                                        (satisfied
-                                                ? _WstPalette.lampGreen
-                                                : _WstPalette.lampCrimson)
-                                            .withValues(alpha: 0.22),
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(
-                                      color: satisfied
-                                          ? _WstPalette.lampGreen
-                                          : _WstPalette.lampCrimson,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    satisfied ? 'OUTPUT = 1' : 'OUTPUT = 0',
-                                    style: TextStyle(
-                                      fontFamily: 'monospace',
-                                      color: satisfied
-                                          ? _WstPalette.lampGreen
-                                          : _WstPalette.lampCrimson,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 12),
-                            AnimatedBuilder(
-                              animation: _glow,
-                              builder: (BuildContext context, Widget? _) {
-                                return SizedBox(
-                                  height: 260,
-                                  child: CustomPaint(
-                                    painter: _WstGateTreePainter(
-                                      tree: expr.tree,
-                                      states: states,
-                                      phase: _glow.value,
-                                    ),
-                                    child: Container(),
-                                  ),
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 10),
-                            _WstCodeBlock(
-                              lines: <_WstCodeLine>[
-                                _WstCodeLine(<InlineSpan>[
-                                  _kw('final '),
-                                  _ty('WidgetStatesConstraint'),
-                                  _tx(' c = '),
-                                  _tx(expr.label),
-                                  _pt(';'),
-                                ]),
-                                _WstCodeLine(<InlineSpan>[
-                                  _kw('final '),
-                                  _ty('bool'),
-                                  _tx(' result = c.isSatisfiedBy(states); '),
-                                  _cm('// ${satisfied ? 'true' : 'false'}'),
-                                ]),
-                              ],
-                            ),
-                          ],
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: (satisfied ? _WstPalette.lampGreen : _WstPalette.lampCrimson)
+                              .withValues(alpha: 0.22),
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            color: satisfied ? _WstPalette.lampGreen : _WstPalette.lampCrimson,
+                          ),
+                        ),
+                        child: Text(
+                          satisfied ? 'OUTPUT = 1' : 'OUTPUT = 0',
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            color: satisfied ? _WstPalette.lampGreen : _WstPalette.lampCrimson,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ),
-                    ],
-                  );
-                },
+                    ]),
+                    const SizedBox(height: 12),
+                    AnimatedBuilder(
+                      animation: _glow,
+                      builder: (BuildContext context, Widget? _) {
+                        return SizedBox(
+                          height: 260,
+                          child: CustomPaint(
+                            painter: _WstGateTreePainter(
+                              tree: expr.tree,
+                              states: states,
+                              phase: _glow.value,
+                            ),
+                            child: Container(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    _WstCodeBlock(lines: <_WstCodeLine>[
+                      _WstCodeLine(<InlineSpan>[
+                        _kw('final '),
+                        _ty('WidgetStatesConstraint'),
+                        _tx(' c = '),
+                        _tx(expr.label),
+                        _pt(';'),
+                      ]),
+                      _WstCodeLine(<InlineSpan>[
+                        _kw('final '),
+                        _ty('bool'),
+                        _tx(' result = c.isSatisfiedBy(states); '),
+                        _cm('// ${satisfied ? 'true' : 'false'}'),
+                      ]),
+                    ]),
+                  ]),
+                ),
+              ]);
+            },
           );
         },
       ),
@@ -2316,11 +2060,7 @@ class _WstCompositionTabState extends State<_WstCompositionTab>
 }
 
 class _WstExpression {
-  _WstExpression({
-    required this.label,
-    required this.build,
-    required this.tree,
-  });
+  _WstExpression({required this.label, required this.build, required this.tree});
   final String label;
   final WidgetStatesConstraint Function() build;
   final _WstGateNode tree;
@@ -2340,14 +2080,10 @@ class _WstGateNode {
       _WstGateNode._(kind: _WstGateKind.input, state: s);
   factory _WstGateNode.not(_WstGateNode child) =>
       _WstGateNode._(kind: _WstGateKind.notGate, child: child);
-  factory _WstGateNode.and({
-    required _WstGateNode left,
-    required _WstGateNode right,
-  }) => _WstGateNode._(kind: _WstGateKind.andGate, left: left, right: right);
-  factory _WstGateNode.or({
-    required _WstGateNode left,
-    required _WstGateNode right,
-  }) => _WstGateNode._(kind: _WstGateKind.orGate, left: left, right: right);
+  factory _WstGateNode.and({required _WstGateNode left, required _WstGateNode right}) =>
+      _WstGateNode._(kind: _WstGateKind.andGate, left: left, right: right);
+  factory _WstGateNode.or({required _WstGateNode left, required _WstGateNode right}) =>
+      _WstGateNode._(kind: _WstGateKind.orGate, left: left, right: right);
   final _WstGateKind kind;
   final WidgetState? state;
   final _WstGateNode? left;
@@ -2369,11 +2105,7 @@ class _WstGateNode {
 }
 
 class _WstGateTreePainter extends CustomPainter {
-  _WstGateTreePainter({
-    required this.tree,
-    required this.states,
-    required this.phase,
-  });
+  _WstGateTreePainter({required this.tree, required this.states, required this.phase});
   final _WstGateNode tree;
   final Set<WidgetState> states;
   final double phase;
@@ -2409,8 +2141,7 @@ class _WstGateTreePainter extends CustomPainter {
       Offset(size.width - 18, rootPos.dy),
       outWire,
     );
-    final Paint outTerm = Paint()
-      ..color = rootLit ? _WstPalette.lampGreen : _WstPalette.lampCrimson;
+    final Paint outTerm = Paint()..color = rootLit ? _WstPalette.lampGreen : _WstPalette.lampCrimson;
     canvas.drawCircle(Offset(size.width - 18, rootPos.dy), 7, outTerm);
   }
 
@@ -2455,22 +2186,14 @@ class _WstGateTreePainter extends CustomPainter {
     }
   }
 
-  void _drawWires(
-    Canvas canvas,
-    _WstGateNode n,
-    Map<_WstGateNode, Offset> pos,
-  ) {
+  void _drawWires(Canvas canvas, _WstGateNode n, Map<_WstGateNode, Offset> pos) {
     switch (n.kind) {
       case _WstGateKind.input:
         return;
       case _WstGateKind.notGate:
         _drawWires(canvas, n.child!, pos);
-        _wire(
-          canvas,
-          pos[n.child!]!.translate(28, 0),
-          pos[n]!.translate(-22, 0),
-          n.child!.evaluate(states),
-        );
+        _wire(canvas, pos[n.child!]!.translate(28, 0), pos[n]!.translate(-22, 0),
+            n.child!.evaluate(states));
         break;
       case _WstGateKind.andGate:
       case _WstGateKind.orGate:
@@ -2478,18 +2201,8 @@ class _WstGateTreePainter extends CustomPainter {
         _drawWires(canvas, n.right!, pos);
         final Offset myIn1 = pos[n]!.translate(-30, -14);
         final Offset myIn2 = pos[n]!.translate(-30, 14);
-        _wire(
-          canvas,
-          pos[n.left!]!.translate(28, 0),
-          myIn1,
-          n.left!.evaluate(states),
-        );
-        _wire(
-          canvas,
-          pos[n.right!]!.translate(28, 0),
-          myIn2,
-          n.right!.evaluate(states),
-        );
+        _wire(canvas, pos[n.left!]!.translate(28, 0), myIn1, n.left!.evaluate(states));
+        _wire(canvas, pos[n.right!]!.translate(28, 0), myIn2, n.right!.evaluate(states));
         break;
     }
   }
@@ -2559,9 +2272,7 @@ class _WstGateTreePainter extends CustomPainter {
   void _drawNotGate(Canvas canvas, Offset p, bool lit) {
     final Paint body = Paint()
       ..style = PaintingStyle.fill
-      ..color = lit
-          ? _WstPalette.lampCrimson.withValues(alpha: 0.2)
-          : _WstPalette.panelSteelLight;
+      ..color = lit ? _WstPalette.lampCrimson.withValues(alpha: 0.2) : _WstPalette.panelSteelLight;
     final Paint stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.6
@@ -2574,20 +2285,13 @@ class _WstGateTreePainter extends CustomPainter {
     canvas.drawPath(tri, body);
     canvas.drawPath(tri, stroke);
     canvas.drawCircle(p.translate(20, 0), 4, stroke);
-    _label(
-      canvas,
-      p.translate(-8, -4),
-      'NOT',
-      lit ? _WstPalette.lampCrimson : _WstPalette.engraveIvoryDim,
-    );
+    _label(canvas, p.translate(-8, -4), 'NOT', lit ? _WstPalette.lampCrimson : _WstPalette.engraveIvoryDim);
   }
 
   void _drawAndGate(Canvas canvas, Offset p, bool lit) {
     final Rect body = Rect.fromCenter(center: p, width: 52, height: 42);
     final Paint fill = Paint()
-      ..color = lit
-          ? _WstPalette.lampGreen.withValues(alpha: 0.18)
-          : _WstPalette.panelSteelLight;
+      ..color = lit ? _WstPalette.lampGreen.withValues(alpha: 0.18) : _WstPalette.panelSteelLight;
     final Paint stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.6
@@ -2604,20 +2308,13 @@ class _WstGateTreePainter extends CustomPainter {
       ..close();
     canvas.drawPath(path, fill);
     canvas.drawPath(path, stroke);
-    _label(
-      canvas,
-      p.translate(-14, -4),
-      'AND',
-      lit ? _WstPalette.lampGreen : _WstPalette.engraveIvoryDim,
-    );
+    _label(canvas, p.translate(-14, -4), 'AND', lit ? _WstPalette.lampGreen : _WstPalette.engraveIvoryDim);
   }
 
   void _drawOrGate(Canvas canvas, Offset p, bool lit) {
     final Rect body = Rect.fromCenter(center: p, width: 58, height: 42);
     final Paint fill = Paint()
-      ..color = lit
-          ? _WstPalette.lampAmber.withValues(alpha: 0.18)
-          : _WstPalette.panelSteelLight;
+      ..color = lit ? _WstPalette.lampAmber.withValues(alpha: 0.18) : _WstPalette.panelSteelLight;
     final Paint stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.6
@@ -2630,12 +2327,7 @@ class _WstGateTreePainter extends CustomPainter {
       ..close();
     canvas.drawPath(path, fill);
     canvas.drawPath(path, stroke);
-    _label(
-      canvas,
-      p.translate(-10, -4),
-      'OR',
-      lit ? _WstPalette.lampAmber : _WstPalette.engraveIvoryDim,
-    );
+    _label(canvas, p.translate(-10, -4), 'OR', lit ? _WstPalette.lampAmber : _WstPalette.engraveIvoryDim);
   }
 
   void _label(Canvas canvas, Offset p, String text, Color color) {
@@ -2671,26 +2363,26 @@ class _WstResolversTab extends StatelessWidget {
 
   static final WidgetStateProperty<Color> _resolveWith =
       WidgetStateProperty.resolveWith<Color>((Set<WidgetState> s) {
-        if (s.contains(WidgetState.error)) return _WstPalette.lampCrimson;
-        if (s.contains(WidgetState.disabled)) return _WstPalette.rivetGlint;
-        if (s.contains(WidgetState.pressed)) return _WstPalette.lampAmberDeep;
-        if (s.contains(WidgetState.hovered)) return _WstPalette.lampAmber;
-        if (s.contains(WidgetState.focused)) return _WstPalette.lampTeal;
-        if (s.contains(WidgetState.selected)) return _WstPalette.lampGreen;
-        if (s.contains(WidgetState.dragged)) return _WstPalette.lampViolet;
-        if (s.contains(WidgetState.scrolledUnder)) return _WstPalette.lampBlue;
-        return _WstPalette.engraveIvoryDim;
-      });
+    if (s.contains(WidgetState.error)) return _WstPalette.lampCrimson;
+    if (s.contains(WidgetState.disabled)) return _WstPalette.rivetGlint;
+    if (s.contains(WidgetState.pressed)) return _WstPalette.lampAmberDeep;
+    if (s.contains(WidgetState.hovered)) return _WstPalette.lampAmber;
+    if (s.contains(WidgetState.focused)) return _WstPalette.lampTeal;
+    if (s.contains(WidgetState.selected)) return _WstPalette.lampGreen;
+    if (s.contains(WidgetState.dragged)) return _WstPalette.lampViolet;
+    if (s.contains(WidgetState.scrolledUnder)) return _WstPalette.lampBlue;
+    return _WstPalette.engraveIvoryDim;
+  });
 
   static final WidgetStateColor _stateColor =
       WidgetStateColor.fromMap(<WidgetStatesConstraint, Color>{
-        WidgetState.error: _WstPalette.lampCrimson,
-        WidgetState.disabled: _WstPalette.rivetGlint,
-        WidgetState.pressed: _WstPalette.lampCrimsonDeep,
-        WidgetState.hovered | WidgetState.focused: _WstPalette.lampAmber,
-        WidgetState.selected: _WstPalette.lampGreen,
-        WidgetState.any: _WstPalette.engraveIvoryDim,
-      });
+    WidgetState.error: _WstPalette.lampCrimson,
+    WidgetState.disabled: _WstPalette.rivetGlint,
+    WidgetState.pressed: _WstPalette.lampCrimsonDeep,
+    WidgetState.hovered | WidgetState.focused: _WstPalette.lampAmber,
+    WidgetState.selected: _WstPalette.lampGreen,
+    WidgetState.any: _WstPalette.engraveIvoryDim,
+  });
 
   static const WidgetStatePropertyAll<Color> _all =
       WidgetStatePropertyAll<Color>(_WstPalette.brassLabel);
@@ -2702,8 +2394,7 @@ class _WstResolversTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return _WstSection(
       title: 'RESOLVERS · PROPERTY TYPES',
-      subtitle:
-          'four constructors that produce a color from the live state set',
+      subtitle: 'four constructors that produce a color from the live state set',
       child: ValueListenableBuilder<Set<WidgetState>>(
         valueListenable: _wstLiveStates,
         builder: (BuildContext context, Set<WidgetState> s, Widget? _) {
@@ -2711,112 +2402,109 @@ class _WstResolversTab extends StatelessWidget {
           final Color b = _stateColor.resolve(s);
           final Color c = _all.resolve(s);
           final Color d = _legacy.resolve(s);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _WstResolverCard(
-                title: 'WidgetStateProperty.resolveWith<Color>',
-                caption: 'imperative - walk the set in priority order',
-                color: a,
-                codeLines: <_WstCodeLine>[
-                  _WstCodeLine(<InlineSpan>[
-                    _ty('WidgetStateProperty'),
-                    _pt('.resolveWith<'),
-                    _ty('Color'),
-                    _pt('>(('),
-                    _ty('Set'),
-                    _pt('<'),
-                    _ty('WidgetState'),
-                    _pt('> s) {'),
-                  ]),
-                  _WstCodeLine(<InlineSpan>[
-                    _tx('  '),
-                    _kw('if '),
-                    _pt('(s.contains('),
-                    _ty('WidgetState'),
-                    _pt('.error)) '),
-                    _kw('return '),
-                    _ty('Color'),
-                    _pt('('),
-                    _str('0xFFE03A2C'),
-                    _pt(');'),
-                  ]),
-                  _WstCodeLine(<InlineSpan>[
-                    _tx('  '),
-                    _cm('// ... more priority branches ...'),
-                  ]),
-                  _WstCodeLine(<InlineSpan>[_pt('});')]),
-                ],
-              ),
-              const SizedBox(height: 12),
-              _WstResolverCard(
-                title: 'WidgetStateColor.fromMap',
-                caption: 'declarative - first satisfied constraint wins',
-                color: b,
-                codeLines: <_WstCodeLine>[
-                  _WstCodeLine(<InlineSpan>[
-                    _ty('WidgetStateColor'),
-                    _pt('.fromMap(<'),
-                    _ty('WidgetStatesConstraint'),
-                    _pt(', '),
-                    _ty('Color'),
-                    _pt('>{'),
-                  ]),
-                  _WstCodeLine(<InlineSpan>[
-                    _tx('  '),
-                    _ty('WidgetState'),
-                    _pt('.error: '),
-                    _ty('Color'),
-                    _pt('('),
-                    _str('0xFFE03A2C'),
-                    _pt('),'),
-                  ]),
-                  _WstCodeLine(<InlineSpan>[
-                    _tx('  '),
-                    _ty('WidgetState'),
-                    _pt('.hovered | '),
-                    _ty('WidgetState'),
-                    _pt('.focused: amber,'),
-                  ]),
-                  _WstCodeLine(<InlineSpan>[
-                    _tx('  '),
-                    _ty('WidgetStatesConstraint'),
-                    _pt('.any: grey,'),
-                  ]),
-                  _WstCodeLine(<InlineSpan>[_pt('});')]),
-                ],
-              ),
-              const SizedBox(height: 12),
-              _WstResolverCard(
-                title: 'WidgetStatePropertyAll<Color>',
-                caption: 'constant - same value for every state set',
-                color: c,
-                codeLines: <_WstCodeLine>[
-                  _WstCodeLine(<InlineSpan>[
-                    _kw('const '),
-                    _ty('WidgetStatePropertyAll'),
-                    _pt('<'),
-                    _ty('Color'),
-                    _pt('>(brass);'),
-                  ]),
-                ],
-              ),
-              const SizedBox(height: 12),
-              _WstResolverCard(
-                title: 'WidgetStateProperty.all<Color>',
-                caption: 'legacy factory - wraps a constant value at runtime',
-                color: d,
-                codeLines: <_WstCodeLine>[
-                  _WstCodeLine(<InlineSpan>[
-                    _ty('WidgetStateProperty'),
-                    _pt('.all<'),
-                    _ty('Color'),
-                    _pt('>(teal);'),
-                  ]),
-                ],
-              ),
-            ],
-          );
+          return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+            _WstResolverCard(
+              title: 'WidgetStateProperty.resolveWith<Color>',
+              caption: 'imperative - walk the set in priority order',
+              color: a,
+              codeLines: <_WstCodeLine>[
+                _WstCodeLine(<InlineSpan>[
+                  _ty('WidgetStateProperty'),
+                  _pt('.resolveWith<'),
+                  _ty('Color'),
+                  _pt('>(('),
+                  _ty('Set'),
+                  _pt('<'),
+                  _ty('WidgetState'),
+                  _pt('> s) {'),
+                ]),
+                _WstCodeLine(<InlineSpan>[
+                  _tx('  '),
+                  _kw('if '),
+                  _pt('(s.contains('),
+                  _ty('WidgetState'),
+                  _pt('.error)) '),
+                  _kw('return '),
+                  _ty('Color'),
+                  _pt('('),
+                  _str('0xFFE03A2C'),
+                  _pt(');'),
+                ]),
+                _WstCodeLine(<InlineSpan>[
+                  _tx('  '),
+                  _cm('// ... more priority branches ...'),
+                ]),
+                _WstCodeLine(<InlineSpan>[_pt('});')]),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _WstResolverCard(
+              title: 'WidgetStateColor.fromMap',
+              caption: 'declarative - first satisfied constraint wins',
+              color: b,
+              codeLines: <_WstCodeLine>[
+                _WstCodeLine(<InlineSpan>[
+                  _ty('WidgetStateColor'),
+                  _pt('.fromMap(<'),
+                  _ty('WidgetStatesConstraint'),
+                  _pt(', '),
+                  _ty('Color'),
+                  _pt('>{'),
+                ]),
+                _WstCodeLine(<InlineSpan>[
+                  _tx('  '),
+                  _ty('WidgetState'),
+                  _pt('.error: '),
+                  _ty('Color'),
+                  _pt('('),
+                  _str('0xFFE03A2C'),
+                  _pt('),'),
+                ]),
+                _WstCodeLine(<InlineSpan>[
+                  _tx('  '),
+                  _ty('WidgetState'),
+                  _pt('.hovered | '),
+                  _ty('WidgetState'),
+                  _pt('.focused: amber,'),
+                ]),
+                _WstCodeLine(<InlineSpan>[
+                  _tx('  '),
+                  _ty('WidgetStatesConstraint'),
+                  _pt('.any: grey,'),
+                ]),
+                _WstCodeLine(<InlineSpan>[_pt('});')]),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _WstResolverCard(
+              title: 'WidgetStatePropertyAll<Color>',
+              caption: 'constant - same value for every state set',
+              color: c,
+              codeLines: <_WstCodeLine>[
+                _WstCodeLine(<InlineSpan>[
+                  _kw('const '),
+                  _ty('WidgetStatePropertyAll'),
+                  _pt('<'),
+                  _ty('Color'),
+                  _pt('>(brass);'),
+                ]),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _WstResolverCard(
+              title: 'WidgetStateProperty.all<Color>',
+              caption: 'legacy factory - wraps a constant value at runtime',
+              color: d,
+              codeLines: <_WstCodeLine>[
+                _WstCodeLine(<InlineSpan>[
+                  _ty('WidgetStateProperty'),
+                  _pt('.all<'),
+                  _ty('Color'),
+                  _pt('>(teal);'),
+                ]),
+              ],
+            ),
+          ]);
         },
       ),
     );
@@ -2838,67 +2526,62 @@ class _WstResolverCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _WstPanel(
       accent: color,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _WstPalette.brassLabel, width: 1.4),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: color.withValues(alpha: 0.6),
-                      blurRadius: 10,
-                    ),
-                  ],
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Row(children: <Widget>[
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: _WstPalette.brassLabel, width: 1.4),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: color.withValues(alpha: 0.6),
+                  blurRadius: 10,
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontFamily: 'monospace',
-                        color: _WstPalette.engraveIvory,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      caption,
-                      style: const TextStyle(
-                        color: _WstPalette.engraveIvoryDim,
-                        fontSize: 12,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                '#${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  color: _WstPalette.brassLabelBright,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 10),
-          _WstCodeBlock(lines: codeLines),
-        ],
-      ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    color: _WstPalette.engraveIvory,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  caption,
+                  style: const TextStyle(
+                    color: _WstPalette.engraveIvoryDim,
+                    fontSize: 12,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            '#${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              color: _WstPalette.brassLabelBright,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ]),
+        const SizedBox(height: 10),
+        _WstCodeBlock(lines: codeLines),
+      ]),
     );
   }
 }
@@ -2933,185 +2616,145 @@ class _WstCatalogTabState extends State<_WstCatalogTab> {
     return _WstSection(
       title: 'CATALOG · MATERIAL CONSUMERS',
       subtitle: 'eight flagship widgets and the WidgetState values they emit',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          _WstCatalogCard(
-            title: 'ElevatedButton',
-            emitted: const <WidgetState>[
-              WidgetState.hovered,
-              WidgetState.focused,
-              WidgetState.pressed,
-              WidgetState.disabled,
-            ],
-            child: Row(
-              children: <Widget>[
-                ElevatedButton(onPressed: () {}, child: const Text('press')),
-                const SizedBox(width: 10),
-                const ElevatedButton(onPressed: null, child: Text('disabled')),
-              ],
-            ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+        _WstCatalogCard(
+          title: 'ElevatedButton',
+          emitted: const <WidgetState>[
+            WidgetState.hovered,
+            WidgetState.focused,
+            WidgetState.pressed,
+            WidgetState.disabled,
+          ],
+          child: Row(children: <Widget>[
+            ElevatedButton(onPressed: () {}, child: const Text('press')),
+            const SizedBox(width: 10),
+            const ElevatedButton(onPressed: null, child: Text('disabled')),
+          ]),
+        ),
+        const SizedBox(height: 12),
+        _WstCatalogCard(
+          title: 'FilledButton · OutlinedButton · TextButton',
+          emitted: const <WidgetState>[
+            WidgetState.hovered,
+            WidgetState.focused,
+            WidgetState.pressed,
+            WidgetState.disabled,
+          ],
+          child: Wrap(spacing: 10, runSpacing: 10, children: <Widget>[
+            FilledButton(onPressed: () {}, child: const Text('filled')),
+            OutlinedButton(onPressed: () {}, child: const Text('outlined')),
+            TextButton(onPressed: () {}, child: const Text('text')),
+          ]),
+        ),
+        const SizedBox(height: 12),
+        _WstCatalogCard(
+          title: 'Checkbox',
+          emitted: const <WidgetState>[
+            WidgetState.hovered,
+            WidgetState.focused,
+            WidgetState.pressed,
+            WidgetState.selected,
+            WidgetState.disabled,
+            WidgetState.error,
+          ],
+          child: Row(children: <Widget>[
+            Checkbox(value: _checkbox, onChanged: (bool? v) => setState(() => _checkbox = v ?? false)),
+            Checkbox(value: true, isError: true, onChanged: (bool? v) {}),
+            const Checkbox(value: false, onChanged: null),
+          ]),
+        ),
+        const SizedBox(height: 12),
+        _WstCatalogCard(
+          title: 'Switch',
+          emitted: const <WidgetState>[
+            WidgetState.hovered,
+            WidgetState.focused,
+            WidgetState.pressed,
+            WidgetState.selected,
+            WidgetState.disabled,
+          ],
+          child: Row(children: <Widget>[
+            Switch(value: _switch, onChanged: (bool v) => setState(() => _switch = v)),
+            const SizedBox(width: 10),
+            const Switch(value: false, onChanged: null),
+          ]),
+        ),
+        const SizedBox(height: 12),
+        _WstCatalogCard(
+          title: 'Radio<int>',
+          emitted: const <WidgetState>[
+            WidgetState.hovered,
+            WidgetState.focused,
+            WidgetState.pressed,
+            WidgetState.selected,
+            WidgetState.disabled,
+          ],
+          child: RadioGroup<int>(
+            groupValue: _radio,
+            onChanged: (int? v) => setState(() => _radio = v ?? 0),
+            child: Row(children: const <Widget>[
+              Radio<int>(value: 0),
+              Radio<int>(value: 1),
+              Radio<int>(value: 2),
+            ]),
           ),
-          const SizedBox(height: 12),
-          _WstCatalogCard(
-            title: 'FilledButton · OutlinedButton · TextButton',
-            emitted: const <WidgetState>[
-              WidgetState.hovered,
-              WidgetState.focused,
-              WidgetState.pressed,
-              WidgetState.disabled,
-            ],
-            child: Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: <Widget>[
-                FilledButton(onPressed: () {}, child: const Text('filled')),
-                OutlinedButton(onPressed: () {}, child: const Text('outlined')),
-                TextButton(onPressed: () {}, child: const Text('text')),
-              ],
-            ),
+        ),
+        const SizedBox(height: 12),
+        _WstCatalogCard(
+          title: 'FilterChip · ChoiceChip',
+          emitted: const <WidgetState>[
+            WidgetState.hovered,
+            WidgetState.focused,
+            WidgetState.pressed,
+            WidgetState.selected,
+            WidgetState.disabled,
+          ],
+          child: Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
+            FilterChip(label: const Text('A'), selected: _checkbox, onSelected: (bool v) => setState(() => _checkbox = v)),
+            ChoiceChip(label: const Text('B'), selected: !_checkbox, onSelected: (bool _) => setState(() => _checkbox = !_checkbox)),
+            const Chip(label: Text('static')),
+          ]),
+        ),
+        const SizedBox(height: 12),
+        _WstCatalogCard(
+          title: 'Slider',
+          emitted: const <WidgetState>[
+            WidgetState.hovered,
+            WidgetState.focused,
+            WidgetState.dragged,
+            WidgetState.disabled,
+          ],
+          child: Slider(
+            value: _slider,
+            onChanged: (double v) => setState(() => _slider = v),
           ),
-          const SizedBox(height: 12),
-          _WstCatalogCard(
-            title: 'Checkbox',
-            emitted: const <WidgetState>[
-              WidgetState.hovered,
-              WidgetState.focused,
-              WidgetState.pressed,
-              WidgetState.selected,
-              WidgetState.disabled,
-              WidgetState.error,
-            ],
-            child: Row(
-              children: <Widget>[
-                Checkbox(
-                  value: _checkbox,
-                  onChanged: (bool? v) =>
-                      setState(() => _checkbox = v ?? false),
-                ),
-                Checkbox(value: true, isError: true, onChanged: (bool? v) {}),
-                const Checkbox(value: false, onChanged: null),
-              ],
+        ),
+        const SizedBox(height: 12),
+        _WstCatalogCard(
+          title: 'TextField',
+          emitted: const <WidgetState>[
+            WidgetState.hovered,
+            WidgetState.focused,
+            WidgetState.disabled,
+            WidgetState.error,
+          ],
+          child: Column(children: <Widget>[
+            TextField(
+              controller: _text,
+              decoration: const InputDecoration(labelText: 'normal', border: OutlineInputBorder()),
             ),
-          ),
-          const SizedBox(height: 12),
-          _WstCatalogCard(
-            title: 'Switch',
-            emitted: const <WidgetState>[
-              WidgetState.hovered,
-              WidgetState.focused,
-              WidgetState.pressed,
-              WidgetState.selected,
-              WidgetState.disabled,
-            ],
-            child: Row(
-              children: <Widget>[
-                Switch(
-                  value: _switch,
-                  onChanged: (bool v) => setState(() => _switch = v),
-                ),
-                const SizedBox(width: 10),
-                const Switch(value: false, onChanged: null),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          _WstCatalogCard(
-            title: 'Radio<int>',
-            emitted: const <WidgetState>[
-              WidgetState.hovered,
-              WidgetState.focused,
-              WidgetState.pressed,
-              WidgetState.selected,
-              WidgetState.disabled,
-            ],
-            child: RadioGroup<int>(
-              groupValue: _radio,
-              onChanged: (int? v) => setState(() => _radio = v ?? 0),
-              child: Row(
-                children: const <Widget>[
-                  Radio<int>(value: 0),
-                  Radio<int>(value: 1),
-                  Radio<int>(value: 2),
-                ],
+            const SizedBox(height: 8),
+            TextField(
+              controller: _err,
+              decoration: const InputDecoration(
+                labelText: 'error state',
+                border: OutlineInputBorder(),
+                errorText: 'required',
               ),
             ),
-          ),
-          const SizedBox(height: 12),
-          _WstCatalogCard(
-            title: 'FilterChip · ChoiceChip',
-            emitted: const <WidgetState>[
-              WidgetState.hovered,
-              WidgetState.focused,
-              WidgetState.pressed,
-              WidgetState.selected,
-              WidgetState.disabled,
-            ],
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: <Widget>[
-                FilterChip(
-                  label: const Text('A'),
-                  selected: _checkbox,
-                  onSelected: (bool v) => setState(() => _checkbox = v),
-                ),
-                ChoiceChip(
-                  label: const Text('B'),
-                  selected: !_checkbox,
-                  onSelected: (bool _) =>
-                      setState(() => _checkbox = !_checkbox),
-                ),
-                const Chip(label: Text('static')),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          _WstCatalogCard(
-            title: 'Slider',
-            emitted: const <WidgetState>[
-              WidgetState.hovered,
-              WidgetState.focused,
-              WidgetState.dragged,
-              WidgetState.disabled,
-            ],
-            child: Slider(
-              value: _slider,
-              onChanged: (double v) => setState(() => _slider = v),
-            ),
-          ),
-          const SizedBox(height: 12),
-          _WstCatalogCard(
-            title: 'TextField',
-            emitted: const <WidgetState>[
-              WidgetState.hovered,
-              WidgetState.focused,
-              WidgetState.disabled,
-              WidgetState.error,
-            ],
-            child: Column(
-              children: <Widget>[
-                TextField(
-                  controller: _text,
-                  decoration: const InputDecoration(
-                    labelText: 'normal',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                TextField(
-                  controller: _err,
-                  decoration: const InputDecoration(
-                    labelText: 'error state',
-                    border: OutlineInputBorder(),
-                    errorText: 'required',
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+          ]),
+        ),
+      ]),
     );
   }
 }
@@ -3129,37 +2772,31 @@ class _WstCatalogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _WstPanel(
       accent: _WstPalette.lampTeal,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              color: _WstPalette.engraveIvory,
-              fontSize: 14,
-              fontWeight: FontWeight.w800,
-            ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Text(
+          title,
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            color: _WstPalette.engraveIvory,
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
           ),
-          const SizedBox(height: 6),
-          Wrap(
-            children: <Widget>[
-              for (final WidgetState s in emitted)
-                _WstStateChip(state: s, active: true),
-            ],
+        ),
+        const SizedBox(height: 6),
+        Wrap(children: <Widget>[
+          for (final WidgetState s in emitted) _WstStateChip(state: s, active: true),
+        ]),
+        const SizedBox(height: 10),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: _WstPalette.panelBlack.withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: _WstPalette.rivet),
           ),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: _WstPalette.panelBlack.withValues(alpha: 0.4),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _WstPalette.rivet),
-            ),
-            child: child,
-          ),
-        ],
-      ),
+          child: child,
+        ),
+      ]),
     );
   }
 }
@@ -3175,238 +2812,106 @@ class _WstRecipesTab extends StatelessWidget {
     return _WstSection(
       title: 'RECIPES · COMMON PATTERNS',
       subtitle: 'seven idioms that appear across production Flutter code',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          _WstRecipeCard(
-            title: 'Conditional color by state',
-            body:
-                'The canonical recipe - a WidgetStateProperty picks a color '
-                'based on the most interesting state in the set.',
-            accent: _WstPalette.lampAmber,
-            code: <_WstCodeLine>[
-              _WstCodeLine(<InlineSpan>[
-                _kw('final '),
-                _ty('ButtonStyle'),
-                _tx(' style = '),
-                _ty('ButtonStyle'),
-                _pt('('),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  backgroundColor: '),
-                _ty('WidgetStateProperty'),
-                _pt('.resolveWith(('),
-                _ty('Set'),
-                _pt('<'),
-                _ty('WidgetState'),
-                _pt('> s) {'),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('    '),
-                _kw('if '),
-                _pt('(s.contains('),
-                _ty('WidgetState'),
-                _pt('.pressed)) '),
-                _kw('return '),
-                _tx('amberDeep;'),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('    '),
-                _kw('if '),
-                _pt('(s.contains('),
-                _ty('WidgetState'),
-                _pt('.hovered)) '),
-                _kw('return '),
-                _tx('amber;'),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('    '),
-                _kw('return '),
-                _tx('base;'),
-              ]),
-              _WstCodeLine(<InlineSpan>[_pt('  }),')]),
-              _WstCodeLine(<InlineSpan>[_pt(');')]),
-            ],
-            preview: const _WstRecipePreviewColor(),
-          ),
-          const SizedBox(height: 12),
-          _WstRecipeCard(
-            title: 'Disabled greyscale',
-            body:
-                'Drop chroma entirely when disabled is in the set - an '
-                'accessibility-forward pattern used by Material ink.',
-            accent: _WstPalette.rivetGlint,
-            code: <_WstCodeLine>[
-              _WstCodeLine(<InlineSpan>[
-                _ty('WidgetStateProperty'),
-                _pt('.resolveWith(('),
-                _ty('Set'),
-                _pt('<'),
-                _ty('WidgetState'),
-                _pt('> s) {'),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  '),
-                _kw('if '),
-                _pt('(s.contains('),
-                _ty('WidgetState'),
-                _pt('.disabled)) '),
-                _kw('return '),
-                _ty('Colors'),
-                _pt('.grey;'),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  '),
-                _kw('return '),
-                _tx('brand;'),
-              ]),
-              _WstCodeLine(<InlineSpan>[_pt('});')]),
-            ],
-            preview: const _WstRecipePreviewDisabled(),
-          ),
-          const SizedBox(height: 12),
-          _WstRecipeCard(
-            title: 'Error shake-highlight',
-            body:
-                'When error toggles on, paint a warning ring that other '
-                'states never reach - error always wins priority.',
-            accent: _WstPalette.lampCrimson,
-            code: <_WstCodeLine>[
-              _WstCodeLine(<InlineSpan>[
-                _kw('final '),
-                _ty('Color'),
-                _tx(' border = s.contains('),
-                _ty('WidgetState'),
-                _pt('.error)'),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('    ? '),
-                _ty('Colors'),
-                _pt('.red : '),
-                _ty('Colors'),
-                _pt('.transparent;'),
-              ]),
-            ],
-            preview: const _WstRecipePreviewError(),
-          ),
-          const SizedBox(height: 12),
-          _WstRecipeCard(
-            title: 'Pressed scale-down',
-            body:
-                'Tactile recipe: scale 0.97 while pressed is in the set. '
-                'Triggers haptic affordance without a custom gesture.',
-            accent: _WstPalette.lampViolet,
-            code: <_WstCodeLine>[
-              _WstCodeLine(<InlineSpan>[_ty('AnimatedScale'), _pt('(')]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  scale: s.contains('),
-                _ty('WidgetState'),
-                _pt('.pressed) ? '),
-                _str('0.97'),
-                _pt(' : '),
-                _str('1.0'),
-                _pt(','),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  duration: '),
-                _ty('Duration'),
-                _pt('(milliseconds: '),
-                _str('120'),
-                _pt('),'),
-              ]),
-              _WstCodeLine(<InlineSpan>[_pt(');')]),
-            ],
-            preview: const _WstRecipePreviewScale(),
-          ),
-          const SizedBox(height: 12),
-          _WstRecipeCard(
-            title: 'Hover halo',
-            body:
-                'Paint a soft amber halo around the child while hovered is '
-                'present - simulates an aura without a tooltip.',
-            accent: _WstPalette.lampAmberDeep,
-            code: <_WstCodeLine>[
-              _WstCodeLine(<InlineSpan>[_ty('AnimatedContainer'), _pt('(')]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  decoration: '),
-                _ty('BoxDecoration'),
-                _pt('(boxShadow: <'),
-                _ty('BoxShadow'),
-                _pt('>['),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('    '),
-                _kw('if '),
-                _pt('(s.contains('),
-                _ty('WidgetState'),
-                _pt('.hovered))'),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('      '),
-                _ty('BoxShadow'),
-                _pt('(color: amber, blurRadius: '),
-                _str('16'),
-                _pt('),'),
-              ]),
-              _WstCodeLine(<InlineSpan>[_tx('  ]),')]),
-              _WstCodeLine(<InlineSpan>[_pt(');')]),
-            ],
-            preview: const _WstRecipePreviewHalo(),
-          ),
-          const SizedBox(height: 12),
-          _WstRecipeCard(
-            title: 'Selected check-mark reveal',
-            body:
-                'Toggles a subtle check-mark only while selected is live. '
-                'Keeps chrome minimal in the off state.',
-            accent: _WstPalette.lampGreen,
-            code: <_WstCodeLine>[
-              _WstCodeLine(<InlineSpan>[_ty('AnimatedOpacity'), _pt('(')]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  opacity: s.contains('),
-                _ty('WidgetState'),
-                _pt('.selected) ? '),
-                _str('1'),
-                _pt(' : '),
-                _str('0'),
-                _pt(','),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  duration: '),
-                _ty('Duration'),
-                _pt('(milliseconds: '),
-                _str('180'),
-                _pt('),'),
-              ]),
-              _WstCodeLine(<InlineSpan>[
-                _tx('  child: '),
-                _ty('Icon'),
-                _pt('('),
-                _ty('Icons'),
-                _pt('.check),'),
-              ]),
-              _WstCodeLine(<InlineSpan>[_pt(');')]),
-            ],
-            preview: const _WstRecipePreviewCheck(),
-          ),
-          const SizedBox(height: 12),
-          _WstRecipeCard(
-            title: 'Dragged cursor cue',
-            body:
-                'Swap the mouse cursor while dragged is in the set so the '
-                'gesture has affordance across the whole widget tree.',
-            accent: _WstPalette.lampViolet,
-            code: <_WstCodeLine>[
-              _WstCodeLine(<InlineSpan>[
-                _ty('WidgetStateMouseCursor'),
-                _pt('.clickable; '),
-                _cm('// resolves grab while dragged'),
-              ]),
-            ],
-            preview: const _WstRecipePreviewCursor(),
-          ),
-        ],
-      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+        _WstRecipeCard(
+          title: 'Conditional color by state',
+          body: 'The canonical recipe - a WidgetStateProperty picks a color '
+              'based on the most interesting state in the set.',
+          accent: _WstPalette.lampAmber,
+          code: <_WstCodeLine>[
+            _WstCodeLine(<InlineSpan>[_kw('final '), _ty('ButtonStyle'), _tx(' style = '), _ty('ButtonStyle'), _pt('(')]),
+            _WstCodeLine(<InlineSpan>[_tx('  backgroundColor: '), _ty('WidgetStateProperty'), _pt('.resolveWith(('), _ty('Set'), _pt('<'), _ty('WidgetState'), _pt('> s) {')]),
+            _WstCodeLine(<InlineSpan>[_tx('    '), _kw('if '), _pt('(s.contains('), _ty('WidgetState'), _pt('.pressed)) '), _kw('return '), _tx('amberDeep;')]),
+            _WstCodeLine(<InlineSpan>[_tx('    '), _kw('if '), _pt('(s.contains('), _ty('WidgetState'), _pt('.hovered)) '), _kw('return '), _tx('amber;')]),
+            _WstCodeLine(<InlineSpan>[_tx('    '), _kw('return '), _tx('base;')]),
+            _WstCodeLine(<InlineSpan>[_pt('  }),')]),
+            _WstCodeLine(<InlineSpan>[_pt(');')]),
+          ],
+          preview: const _WstRecipePreviewColor(),
+        ),
+        const SizedBox(height: 12),
+        _WstRecipeCard(
+          title: 'Disabled greyscale',
+          body: 'Drop chroma entirely when disabled is in the set - an '
+              'accessibility-forward pattern used by Material ink.',
+          accent: _WstPalette.rivetGlint,
+          code: <_WstCodeLine>[
+            _WstCodeLine(<InlineSpan>[_ty('WidgetStateProperty'), _pt('.resolveWith(('), _ty('Set'), _pt('<'), _ty('WidgetState'), _pt('> s) {')]),
+            _WstCodeLine(<InlineSpan>[_tx('  '), _kw('if '), _pt('(s.contains('), _ty('WidgetState'), _pt('.disabled)) '), _kw('return '), _ty('Colors'), _pt('.grey;')]),
+            _WstCodeLine(<InlineSpan>[_tx('  '), _kw('return '), _tx('brand;')]),
+            _WstCodeLine(<InlineSpan>[_pt('});')]),
+          ],
+          preview: const _WstRecipePreviewDisabled(),
+        ),
+        const SizedBox(height: 12),
+        _WstRecipeCard(
+          title: 'Error shake-highlight',
+          body: 'When error toggles on, paint a warning ring that other '
+              'states never reach - error always wins priority.',
+          accent: _WstPalette.lampCrimson,
+          code: <_WstCodeLine>[
+            _WstCodeLine(<InlineSpan>[_kw('final '), _ty('Color'), _tx(' border = s.contains('), _ty('WidgetState'), _pt('.error)')]),
+            _WstCodeLine(<InlineSpan>[_tx('    ? '), _ty('Colors'), _pt('.red : '), _ty('Colors'), _pt('.transparent;')]),
+          ],
+          preview: const _WstRecipePreviewError(),
+        ),
+        const SizedBox(height: 12),
+        _WstRecipeCard(
+          title: 'Pressed scale-down',
+          body: 'Tactile recipe: scale 0.97 while pressed is in the set. '
+              'Triggers haptic affordance without a custom gesture.',
+          accent: _WstPalette.lampViolet,
+          code: <_WstCodeLine>[
+            _WstCodeLine(<InlineSpan>[_ty('AnimatedScale'), _pt('(')]),
+            _WstCodeLine(<InlineSpan>[_tx('  scale: s.contains('), _ty('WidgetState'), _pt('.pressed) ? '), _str('0.97'), _pt(' : '), _str('1.0'), _pt(',')]),
+            _WstCodeLine(<InlineSpan>[_tx('  duration: '), _ty('Duration'), _pt('(milliseconds: '), _str('120'), _pt('),')]),
+            _WstCodeLine(<InlineSpan>[_pt(');')]),
+          ],
+          preview: const _WstRecipePreviewScale(),
+        ),
+        const SizedBox(height: 12),
+        _WstRecipeCard(
+          title: 'Hover halo',
+          body: 'Paint a soft amber halo around the child while hovered is '
+              'present - simulates an aura without a tooltip.',
+          accent: _WstPalette.lampAmberDeep,
+          code: <_WstCodeLine>[
+            _WstCodeLine(<InlineSpan>[_ty('AnimatedContainer'), _pt('(')]),
+            _WstCodeLine(<InlineSpan>[_tx('  decoration: '), _ty('BoxDecoration'), _pt('(boxShadow: <'), _ty('BoxShadow'), _pt('>[')]),
+            _WstCodeLine(<InlineSpan>[_tx('    '), _kw('if '), _pt('(s.contains('), _ty('WidgetState'), _pt('.hovered))')]),
+            _WstCodeLine(<InlineSpan>[_tx('      '), _ty('BoxShadow'), _pt('(color: amber, blurRadius: '), _str('16'), _pt('),')]),
+            _WstCodeLine(<InlineSpan>[_tx('  ]),')]),
+            _WstCodeLine(<InlineSpan>[_pt(');')]),
+          ],
+          preview: const _WstRecipePreviewHalo(),
+        ),
+        const SizedBox(height: 12),
+        _WstRecipeCard(
+          title: 'Selected check-mark reveal',
+          body: 'Toggles a subtle check-mark only while selected is live. '
+              'Keeps chrome minimal in the off state.',
+          accent: _WstPalette.lampGreen,
+          code: <_WstCodeLine>[
+            _WstCodeLine(<InlineSpan>[_ty('AnimatedOpacity'), _pt('(')]),
+            _WstCodeLine(<InlineSpan>[_tx('  opacity: s.contains('), _ty('WidgetState'), _pt('.selected) ? '), _str('1'), _pt(' : '), _str('0'), _pt(',')]),
+            _WstCodeLine(<InlineSpan>[_tx('  duration: '), _ty('Duration'), _pt('(milliseconds: '), _str('180'), _pt('),')]),
+            _WstCodeLine(<InlineSpan>[_tx('  child: '), _ty('Icon'), _pt('('), _ty('Icons'), _pt('.check),')]),
+            _WstCodeLine(<InlineSpan>[_pt(');')]),
+          ],
+          preview: const _WstRecipePreviewCheck(),
+        ),
+        const SizedBox(height: 12),
+        _WstRecipeCard(
+          title: 'Dragged cursor cue',
+          body: 'Swap the mouse cursor while dragged is in the set so the '
+              'gesture has affordance across the whole widget tree.',
+          accent: _WstPalette.lampViolet,
+          code: <_WstCodeLine>[
+            _WstCodeLine(<InlineSpan>[_ty('WidgetStateMouseCursor'), _pt('.clickable; '), _cm('// resolves grab while dragged')]),
+          ],
+          preview: const _WstRecipePreviewCursor(),
+        ),
+      ]),
     );
   }
 }
@@ -3428,64 +2933,52 @@ class _WstRecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _WstPanel(
       accent: accent,
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints bc) {
-          final bool wide = bc.maxWidth > 640;
-          final Widget meta = Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: accent,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                        color: _WstPalette.engraveIvory,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Text(
-                body,
+      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints bc) {
+        final bool wide = bc.maxWidth > 640;
+        final Widget meta = Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          Row(children: <Widget>[
+            Container(
+              width: 8,
+              height: 8,
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                title,
                 style: const TextStyle(
-                  color: _WstPalette.engraveIvoryDim,
-                  fontSize: 12,
-                  height: 1.5,
+                  color: _WstPalette.engraveIvory,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-              const SizedBox(height: 10),
-              _WstCodeBlock(lines: code),
-            ],
-          );
-          if (wide) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(flex: 3, child: meta),
-                const SizedBox(width: 14),
-                SizedBox(width: 170, child: preview),
-              ],
-            );
-          }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[meta, const SizedBox(height: 10), preview],
-          );
-        },
-      ),
+            ),
+          ]),
+          const SizedBox(height: 6),
+          Text(
+            body,
+            style: const TextStyle(
+              color: _WstPalette.engraveIvoryDim,
+              fontSize: 12,
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 10),
+          _WstCodeBlock(lines: code),
+        ]);
+        if (wide) {
+          return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+            Expanded(flex: 3, child: meta),
+            const SizedBox(width: 14),
+            SizedBox(width: 170, child: preview),
+          ]);
+        }
+        return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+          meta,
+          const SizedBox(height: 10),
+          preview,
+        ]);
+      }),
     );
   }
 }
@@ -3521,10 +3014,7 @@ class _WstRecipePreviewDisabled extends StatelessWidget {
         final Color c = s.contains(WidgetState.disabled)
             ? _WstPalette.rivetGlint
             : _WstPalette.lampAmber;
-        return _WstPreviewBox(
-          color: c,
-          label: s.contains(WidgetState.disabled) ? 'disabled' : 'enabled',
-        );
+        return _WstPreviewBox(color: c, label: s.contains(WidgetState.disabled) ? 'disabled' : 'enabled');
       },
     );
   }
@@ -3548,11 +3038,7 @@ class _WstRecipePreviewError extends StatelessWidget {
               width: err ? 3 : 1,
             ),
             boxShadow: <BoxShadow>[
-              if (err)
-                BoxShadow(
-                  color: _WstPalette.lampCrimson.withValues(alpha: 0.5),
-                  blurRadius: 16,
-                ),
+              if (err) BoxShadow(color: _WstPalette.lampCrimson.withValues(alpha: 0.5), blurRadius: 16),
             ],
           ),
           alignment: Alignment.center,
@@ -3590,9 +3076,7 @@ class _WstRecipePreviewScale extends StatelessWidget {
                 width: 110,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: pressed
-                      ? _WstPalette.lampCrimson
-                      : _WstPalette.lampViolet,
+                  color: pressed ? _WstPalette.lampCrimson : _WstPalette.lampViolet,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 alignment: Alignment.center,
@@ -3632,24 +3116,15 @@ class _WstRecipePreviewHalo extends StatelessWidget {
               color: _WstPalette.panelSteelLight,
               borderRadius: BorderRadius.circular(10),
               boxShadow: <BoxShadow>[
-                if (hov)
-                  BoxShadow(
-                    color: _WstPalette.lampAmber.withValues(alpha: 0.75),
-                    blurRadius: 22,
-                    spreadRadius: 2,
-                  ),
+                if (hov) BoxShadow(color: _WstPalette.lampAmber.withValues(alpha: 0.75), blurRadius: 22, spreadRadius: 2),
               ],
-              border: Border.all(
-                color: hov ? _WstPalette.lampAmber : _WstPalette.rivet,
-              ),
+              border: Border.all(color: hov ? _WstPalette.lampAmber : _WstPalette.rivet),
             ),
             alignment: Alignment.center,
             child: Text(
               hov ? 'HOVERED' : 'idle',
               style: TextStyle(
-                color: hov
-                    ? _WstPalette.lampAmber
-                    : _WstPalette.engraveIvoryDim,
+                color: hov ? _WstPalette.lampAmber : _WstPalette.engraveIvoryDim,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -3671,40 +3146,31 @@ class _WstRecipePreviewCheck extends StatelessWidget {
         return Container(
           height: 90,
           alignment: Alignment.center,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: sel
-                      ? _WstPalette.lampGreen.withValues(alpha: 0.22)
-                      : _WstPalette.panelSteelLight,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: sel ? _WstPalette.lampGreen : _WstPalette.rivet,
-                  ),
-                ),
-                child: AnimatedOpacity(
-                  opacity: sel ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 220),
-                  child: const Icon(Icons.check, color: _WstPalette.lampGreen),
-                ),
+          child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: sel ? _WstPalette.lampGreen.withValues(alpha: 0.22) : _WstPalette.panelSteelLight,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: sel ? _WstPalette.lampGreen : _WstPalette.rivet),
               ),
-              const SizedBox(width: 10),
-              Text(
-                sel ? 'SELECTED' : 'unselected',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  color: sel
-                      ? _WstPalette.lampGreen
-                      : _WstPalette.engraveIvoryDim,
-                  fontWeight: FontWeight.w700,
-                ),
+              child: AnimatedOpacity(
+                opacity: sel ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 220),
+                child: const Icon(Icons.check, color: _WstPalette.lampGreen),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              sel ? 'SELECTED' : 'unselected',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: sel ? _WstPalette.lampGreen : _WstPalette.engraveIvoryDim,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ]),
         );
       },
     );
@@ -3724,33 +3190,21 @@ class _WstRecipePreviewCursor extends StatelessWidget {
           decoration: BoxDecoration(
             color: _WstPalette.panelBlack,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: drag ? _WstPalette.lampViolet : _WstPalette.rivet,
-            ),
+            border: Border.all(color: drag ? _WstPalette.lampViolet : _WstPalette.rivet),
           ),
           alignment: Alignment.center,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(
-                drag ? Icons.open_with : Icons.mouse_outlined,
-                color: drag
-                    ? _WstPalette.lampViolet
-                    : _WstPalette.engraveIvoryDim,
+          child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Icon(drag ? Icons.open_with : Icons.mouse_outlined, color: drag ? _WstPalette.lampViolet : _WstPalette.engraveIvoryDim),
+            const SizedBox(width: 8),
+            Text(
+              drag ? 'grab' : 'default',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: drag ? _WstPalette.lampViolet : _WstPalette.engraveIvoryDim,
+                fontWeight: FontWeight.w700,
               ),
-              const SizedBox(width: 8),
-              Text(
-                drag ? 'grab' : 'default',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  color: drag
-                      ? _WstPalette.lampViolet
-                      : _WstPalette.engraveIvoryDim,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ]),
         );
       },
     );
@@ -3796,11 +3250,9 @@ class _WstComparisonTab extends StatelessWidget {
       _WstComparisonRow(
         name: 'WidgetState',
         typeRepr: 'enum WidgetState',
-        strengths:
-            'Typed · composable via & | ~ · resolver-ready · '
+        strengths: 'Typed · composable via & | ~ · resolver-ready · '
             'canonical across Material',
-        weaknesses:
-            'Requires Flutter 3.19+, a small set (8 values) '
+        weaknesses: 'Requires Flutter 3.19+, a small set (8 values) '
             'closed by design',
         verdict: 'RECOMMENDED',
         verdictColor: _WstPalette.lampGreen,
@@ -3809,8 +3261,7 @@ class _WstComparisonTab extends StatelessWidget {
         name: 'MaterialState (deprecated)',
         typeRepr: 'enum MaterialState',
         strengths: 'Shipped in Flutter since 1.9 · widely documented',
-        weaknesses:
-            'Soft-deprecated in 3.19 · typedef alias to WidgetState · '
+        weaknesses: 'Soft-deprecated in 3.19 · typedef alias to WidgetState · '
             'expected to be removed in a future stable',
         verdict: 'LEGACY',
         verdictColor: _WstPalette.lampAmber,
@@ -3819,8 +3270,7 @@ class _WstComparisonTab extends StatelessWidget {
         name: 'bool-gated ad-hoc',
         typeRepr: 'bool hover, focus, pressed;',
         strengths: 'Trivially simple for a single widget · no imports',
-        weaknesses:
-            'No composition · no shared vocabulary · explodes on '
+        weaknesses: 'No composition · no shared vocabulary · explodes on '
             'state count · theming integration is impossible',
         verdict: 'AVOID',
         verdictColor: _WstPalette.lampCrimson,
@@ -3829,8 +3279,7 @@ class _WstComparisonTab extends StatelessWidget {
         name: 'Set<String> sentinels',
         typeRepr: "Set<String> = {'hover', 'disabled'};",
         strengths: 'Extensible at runtime · no compile-time enum edits',
-        weaknesses:
-            'No static checking · typos are silent · no resolver '
+        weaknesses: 'No static checking · typos are silent · no resolver '
             'protocol · does not implement WidgetStatesConstraint',
         verdict: 'ANTI-PATTERN',
         verdictColor: _WstPalette.lampMagenta,
@@ -3839,14 +3288,12 @@ class _WstComparisonTab extends StatelessWidget {
     return _WstSection(
       title: 'COMPARISON · STATE MODELS',
       subtitle: 'why WidgetState won the interactive-state design space',
-      child: Column(
-        children: <Widget>[
-          for (final _WstComparisonRow r in rows) ...<Widget>[
-            _WstComparisonCard(row: r),
-            const SizedBox(height: 12),
-          ],
+      child: Column(children: <Widget>[
+        for (final _WstComparisonRow r in rows) ...<Widget>[
+          _WstComparisonCard(row: r),
+          const SizedBox(height: 12),
         ],
-      ),
+      ]),
     );
   }
 }
@@ -3875,66 +3322,46 @@ class _WstComparisonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _WstPanel(
       accent: row.verdictColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  row.name,
-                  style: const TextStyle(
-                    color: _WstPalette.engraveIvory,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Row(children: <Widget>[
+          Expanded(
+            child: Text(
+              row.name,
+              style: const TextStyle(
+                color: _WstPalette.engraveIvory,
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: row.verdictColor.withValues(alpha: 0.22),
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: row.verdictColor),
-                ),
-                child: Text(
-                  row.verdict,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    color: row.verdictColor,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.4,
-                    fontSize: 11,
-                  ),
-                ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: row.verdictColor.withValues(alpha: 0.22),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: row.verdictColor),
+            ),
+            child: Text(
+              row.verdict,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: row.verdictColor,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.4,
+                fontSize: 11,
               ),
-            ],
+            ),
           ),
-          const SizedBox(height: 6),
-          _WstCodeBlock(
-            lines: <_WstCodeLine>[
-              _WstCodeLine(<InlineSpan>[_tx(row.typeRepr)]),
-            ],
-          ),
-          const SizedBox(height: 10),
-          _WstComparisonBullet(
-            icon: Icons.check_circle_outline,
-            color: _WstPalette.lampGreen,
-            label: 'Strengths',
-            body: row.strengths,
-          ),
-          const SizedBox(height: 6),
-          _WstComparisonBullet(
-            icon: Icons.report_problem_outlined,
-            color: _WstPalette.lampCrimson,
-            label: 'Weaknesses',
-            body: row.weaknesses,
-          ),
-        ],
-      ),
+        ]),
+        const SizedBox(height: 6),
+        _WstCodeBlock(lines: <_WstCodeLine>[
+          _WstCodeLine(<InlineSpan>[_tx(row.typeRepr)]),
+        ]),
+        const SizedBox(height: 10),
+        _WstComparisonBullet(icon: Icons.check_circle_outline, color: _WstPalette.lampGreen, label: 'Strengths', body: row.strengths),
+        const SizedBox(height: 6),
+        _WstComparisonBullet(icon: Icons.report_problem_outlined, color: _WstPalette.lampCrimson, label: 'Weaknesses', body: row.weaknesses),
+      ]),
     );
   }
 }
@@ -3952,36 +3379,33 @@ class _WstComparisonBullet extends StatelessWidget {
   final String body;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Icon(icon, color: color, size: 16),
-        const SizedBox(width: 8),
-        SizedBox(
-          width: 88,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              color: color,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.4,
-            ),
+    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      Icon(icon, color: color, size: 16),
+      const SizedBox(width: 8),
+      SizedBox(
+        width: 88,
+        child: Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'monospace',
+            color: color,
+            fontSize: 12,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 1.4,
           ),
         ),
-        Expanded(
-          child: Text(
-            body,
-            style: const TextStyle(
-              color: _WstPalette.engraveIvoryDim,
-              fontSize: 12,
-              height: 1.5,
-            ),
+      ),
+      Expanded(
+        child: Text(
+          body,
+          style: const TextStyle(
+            color: _WstPalette.engraveIvoryDim,
+            fontSize: 12,
+            height: 1.5,
           ),
         ),
-      ],
-    );
+      ),
+    ]);
   }
 }
 
@@ -3997,8 +3421,7 @@ class _WstGlossaryTab extends StatelessWidget {
       _WstGlossaryEntry(
         term: 'WidgetState',
         pronunciation: '/ˈwɪdʒɪt steɪt/',
-        body:
-            'The eight-valued enum in package:flutter/widgets.dart - the '
+        body: 'The eight-valued enum in package:flutter/widgets.dart - the '
             'canonical vocabulary for interactive state across the Material '
             'catalog. Implements WidgetStatesConstraint so any value is also '
             'a constraint.',
@@ -4006,88 +3429,77 @@ class _WstGlossaryTab extends StatelessWidget {
       _WstGlossaryEntry(
         term: 'WidgetStatesConstraint',
         pronunciation: '/kənˈstreɪnt/',
-        body:
-            'Abstract interface describing any predicate over a '
+        body: 'Abstract interface describing any predicate over a '
             'Set<WidgetState>. Exposes isSatisfiedBy(Set<WidgetState>) -> '
             'bool, plus & | ~ operators that return new constraint objects.',
       ),
       _WstGlossaryEntry(
         term: 'WidgetStateProperty<T>',
         pronunciation: '/ˈprɒpəti/',
-        body:
-            'A single-method protocol: T resolve(Set<WidgetState>). Every '
+        body: 'A single-method protocol: T resolve(Set<WidgetState>). Every '
             'Material widget accepts these instead of plain T to support '
             'state-sensitive theming.',
       ),
       _WstGlossaryEntry(
         term: 'WidgetStateMap<T>',
         pronunciation: '/mæp/',
-        body:
-            'Typedef for Map<WidgetStatesConstraint, T>. Passed to '
+        body: 'Typedef for Map<WidgetStatesConstraint, T>. Passed to '
             'WidgetStateProperty.fromMap to construct a declarative '
             'state-driven property - first satisfied key wins.',
       ),
       _WstGlossaryEntry(
         term: 'WidgetStateMapper<T>',
         pronunciation: '/ˈmæpə/',
-        body:
-            'The engine that walks a WidgetStateMap top-to-bottom, '
+        body: 'The engine that walks a WidgetStateMap top-to-bottom, '
             'applying each constraint to the current state set. Underpins '
             'WidgetStateProperty.fromMap and WidgetStateColor.fromMap.',
       ),
       _WstGlossaryEntry(
         term: 'WidgetStateColor',
         pronunciation: '/ˈkʌlə/',
-        body:
-            'Abstract subclass of Color that also implements '
+        body: 'Abstract subclass of Color that also implements '
             'WidgetStateProperty<Color>. Allows an API field typed Color to '
             'accept a live resolver without loosening the signature.',
       ),
       _WstGlossaryEntry(
         term: 'resolve()',
         pronunciation: '/rɪˈzɒlv/',
-        body:
-            'The protocol method T WidgetStateProperty<T>.resolve('
+        body: 'The protocol method T WidgetStateProperty<T>.resolve('
             'Set<WidgetState>). Invoked by Material widgets once per '
             'interactive frame to compute the current visual value.',
       ),
       _WstGlossaryEntry(
         term: '& | ~ operators',
         pronunciation: '/ˈɒpəreɪtəz/',
-        body:
-            'Operators on WidgetStatesConstraint. & is logical AND; | is '
+        body: 'Operators on WidgetStatesConstraint. & is logical AND; | is '
             'logical OR; ~ is logical NOT. Returned objects are themselves '
             'constraints and can be nested arbitrarily.',
       ),
       _WstGlossaryEntry(
         term: 'WidgetState.any',
         pronunciation: '/ˈɛni/',
-        body:
-            'Sentinel WidgetStatesConstraint whose isSatisfiedBy always '
+        body: 'Sentinel WidgetStatesConstraint whose isSatisfiedBy always '
             'returns true. Idiomatic catch-all at the bottom of a '
             'WidgetStateMap or a resolver.',
       ),
       _WstGlossaryEntry(
         term: 'MaterialState (deprecated)',
         pronunciation: '/məˈtɪərɪəl/',
-        body:
-            'The Flutter 1.9+ predecessor of WidgetState. As of Flutter '
+        body: 'The Flutter 1.9+ predecessor of WidgetState. As of Flutter '
             '3.19 MaterialState is a deprecated typedef that aliases '
             'WidgetState. New code should prefer WidgetState directly.',
       ),
       _WstGlossaryEntry(
         term: 'Set<WidgetState>',
         pronunciation: '/sɛt/',
-        body:
-            'The frame-local snapshot passed into every resolver. A '
+        body: 'The frame-local snapshot passed into every resolver. A '
             'widget accumulates its current states and passes the set down '
             'to WidgetStateProperty.resolve on every build.',
       ),
       _WstGlossaryEntry(
         term: 'WidgetStatePropertyAll<T>',
         pronunciation: '/ɔːl/',
-        body:
-            'Const constructor for a resolver that returns the same T for '
+        body: 'Const constructor for a resolver that returns the same T for '
             'every possible Set<WidgetState>. Preferred over the legacy '
             'WidgetStateProperty.all factory.',
       ),
@@ -4095,14 +3507,12 @@ class _WstGlossaryTab extends StatelessWidget {
     return _WstSection(
       title: 'GLOSSARY · LEXICON',
       subtitle: 'twelve terms you need before the flight deck debrief',
-      child: Column(
-        children: <Widget>[
-          for (final _WstGlossaryEntry e in entries) ...<Widget>[
-            _WstGlossaryCard(entry: e),
-            const SizedBox(height: 10),
-          ],
+      child: Column(children: <Widget>[
+        for (final _WstGlossaryEntry e in entries) ...<Widget>[
+          _WstGlossaryCard(entry: e),
+          const SizedBox(height: 10),
         ],
-      ),
+      ]),
     );
   }
 }
@@ -4126,53 +3536,49 @@ class _WstGlossaryCard extends StatelessWidget {
     return _WstPanel(
       accent: _WstPalette.brassLabel,
       padding: const EdgeInsets.all(14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                entry.term,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  color: _WstPalette.engraveIvory,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                entry.pronunciation,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  color: _WstPalette.brassLabelBright,
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Container(
-            height: 1,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[_WstPalette.brassLabel, Colors.transparent],
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Row(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
           Text(
-            entry.body,
+            entry.term,
             style: const TextStyle(
-              color: _WstPalette.engraveIvoryDim,
-              fontSize: 13,
-              height: 1.5,
+              fontFamily: 'monospace',
+              color: _WstPalette.engraveIvory,
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
             ),
           ),
-        ],
-      ),
+          const SizedBox(width: 10),
+          Text(
+            entry.pronunciation,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              color: _WstPalette.brassLabelBright,
+              fontSize: 12,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ]),
+        const SizedBox(height: 8),
+        Container(
+          height: 1,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: <Color>[
+              _WstPalette.brassLabel,
+              Colors.transparent,
+            ]),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          entry.body,
+          style: const TextStyle(
+            color: _WstPalette.engraveIvoryDim,
+            fontSize: 13,
+            height: 1.5,
+          ),
+        ),
+      ]),
     );
   }
 }
+

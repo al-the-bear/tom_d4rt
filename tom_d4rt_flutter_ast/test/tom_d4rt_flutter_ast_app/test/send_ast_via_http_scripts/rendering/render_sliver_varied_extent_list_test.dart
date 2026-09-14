@@ -84,14 +84,8 @@ Widget _veSectionTitle(String title, IconData icon) {
 Widget _veBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
-    ),
+    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
+    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -117,23 +111,9 @@ Widget _veInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _veTextDark,
-                ),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _veTextDark)),
               SizedBox(height: 4),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _veTextMedium,
-                  height: 1.4,
-                ),
-              ),
+              Text(body, style: TextStyle(fontSize: 12, color: _veTextMedium, height: 1.4)),
             ],
           ),
         ),
@@ -148,19 +128,8 @@ Widget _veInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _veCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: _veSurfaceDark,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 11,
-        fontFamily: 'monospace',
-        color: color ?? _veAccent,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    decoration: BoxDecoration(color: _veSurfaceDark, borderRadius: BorderRadius.circular(4)),
+    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _veAccent, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -198,14 +167,7 @@ Widget _veSection1Overview() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Extent comparison',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _veTextDark,
-              ),
-            ),
+            Text('Extent comparison', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _veTextDark)),
             SizedBox(height: 8),
             Row(
               children: [
@@ -214,23 +176,13 @@ Widget _veSection1Overview() {
                     children: [
                       _veBadge('FixedExtent', _veBlue, _veOnPrimary),
                       SizedBox(height: 6),
-                      ...List.generate(
-                        4,
-                        (_) => Container(
-                          height: 24,
-                          width: double.infinity,
-                          margin: EdgeInsets.only(bottom: 2),
-                          decoration: BoxDecoration(
-                            color: _veBlue.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            'same height',
-                            style: TextStyle(fontSize: 8, color: _veBlue),
-                          ),
-                        ),
-                      ),
+                      ...List.generate(4, (_) => Container(
+                        height: 24, width: double.infinity,
+                        margin: EdgeInsets.only(bottom: 2),
+                        decoration: BoxDecoration(color: _veBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(3)),
+                        alignment: Alignment.center,
+                        child: Text('same height', style: TextStyle(fontSize: 8, color: _veBlue)),
+                      )),
                     ],
                   ),
                 ),
@@ -240,22 +192,13 @@ Widget _veSection1Overview() {
                     children: [
                       _veBadge('VariedExtent', _vePrimary, _veOnPrimary),
                       SizedBox(height: 6),
-                      ...[20.0, 32.0, 16.0, 28.0].map(
-                        (h) => Container(
-                          height: h,
-                          width: double.infinity,
-                          margin: EdgeInsets.only(bottom: 2),
-                          decoration: BoxDecoration(
-                            color: _vePrimary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            '${h.toInt()}px',
-                            style: TextStyle(fontSize: 8, color: _vePrimary),
-                          ),
-                        ),
-                      ),
+                      ...[20.0, 32.0, 16.0, 28.0].map((h) => Container(
+                        height: h, width: double.infinity,
+                        margin: EdgeInsets.only(bottom: 2),
+                        decoration: BoxDecoration(color: _vePrimary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(3)),
+                        alignment: Alignment.center,
+                        child: Text('${h.toInt()}px', style: TextStyle(fontSize: 8, color: _vePrimary)),
+                      )),
                     ],
                   ),
                 ),
@@ -312,10 +255,7 @@ Widget _veSection2Builder() {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _veCode(
-                          '// Return height for item at index i',
-                          color: _veGrey,
-                        ),
+                        _veCode('// Return height for item at index i', color: _veGrey),
                         _veCode('return itemHeights[i];'),
                       ],
                     ),
@@ -335,8 +275,8 @@ Widget _veSection2Builder() {
               ),
               child: Text(
                 'The callback receives SliverLayoutDimensions which includes '
-                'crossAxisExtent, viewportMainAxisExtent, and precedingScrollExtent — '
-                'useful for sizing items based on available space.',
+                    'crossAxisExtent, viewportMainAxisExtent, and precedingScrollExtent — '
+                    'useful for sizing items based on available space.',
                 style: TextStyle(fontSize: 10, color: _veTextMedium),
               ),
             ),
@@ -352,37 +292,12 @@ Widget _veSection2Builder() {
 // ---------------------------------------------------------------------------
 Widget _veSection3Layout() {
   final steps = <Map<String, dynamic>>[
-    {
-      'label': 'Receive sliver constraints',
-      'detail': 'scrollOffset, remainingPaintExtent, crossAxisExtent',
-      'color': _veBlue,
-    },
-    {
-      'label': 'Compute cumulative offsets',
-      'detail': 'Sum up item extents from 0..N to find positions',
-      'color': _vePrimary,
-    },
-    {
-      'label': 'Find first visible index',
-      'detail': 'Binary search: which item\'s offset >= scrollOffset',
-      'color': _veTeal,
-    },
-    {
-      'label': 'Build visible items only',
-      'detail': 'Create widgets from firstVisible to lastVisible',
-      'color': _veOrange,
-    },
-    {
-      'label': 'Position children',
-      'detail': 'Each child at its cumulative offset minus scrollOffset',
-      'color': _vePurple,
-    },
-    {
-      'label': 'Report SliverGeometry',
-      'detail':
-          'scrollExtent = total of all extents, paintExtent = visible portion',
-      'color': _veAccent,
-    },
+    {'label': 'Receive sliver constraints', 'detail': 'scrollOffset, remainingPaintExtent, crossAxisExtent', 'color': _veBlue},
+    {'label': 'Compute cumulative offsets', 'detail': 'Sum up item extents from 0..N to find positions', 'color': _vePrimary},
+    {'label': 'Find first visible index', 'detail': 'Binary search: which item\'s offset >= scrollOffset', 'color': _veTeal},
+    {'label': 'Build visible items only', 'detail': 'Create widgets from firstVisible to lastVisible', 'color': _veOrange},
+    {'label': 'Position children', 'detail': 'Each child at its cumulative offset minus scrollOffset', 'color': _vePurple},
+    {'label': 'Report SliverGeometry', 'detail': 'scrollExtent = total of all extents, paintExtent = visible portion', 'color': _veAccent},
   ];
 
   return Column(
@@ -414,46 +329,23 @@ Widget _veSection3Layout() {
               decoration: BoxDecoration(
                 color: (s['color'] as Color).withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(6),
-                border: Border(
-                  left: BorderSide(color: s['color'] as Color, width: 3),
-                ),
+                border: Border(left: BorderSide(color: s['color'] as Color, width: 3)),
               ),
               child: Row(
                 children: [
                   Container(
-                    width: 22,
-                    height: 22,
-                    decoration: BoxDecoration(
-                      color: s['color'] as Color,
-                      shape: BoxShape.circle,
-                    ),
+                    width: 22, height: 22,
+                    decoration: BoxDecoration(color: s['color'] as Color, shape: BoxShape.circle),
                     alignment: Alignment.center,
-                    child: Text(
-                      '${i + 1}',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: _veOnPrimary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text('${i + 1}', style: TextStyle(fontSize: 10, color: _veOnPrimary, fontWeight: FontWeight.w700)),
                   ),
                   SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          s['label'] as String,
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: s['color'] as Color,
-                          ),
-                        ),
-                        Text(
-                          s['detail'] as String,
-                          style: TextStyle(fontSize: 10, color: _veTextMedium),
-                        ),
+                        Text(s['label'] as String, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: s['color'] as Color)),
+                        Text(s['detail'] as String, style: TextStyle(fontSize: 10, color: _veTextMedium)),
                       ],
                     ),
                   ),
@@ -502,99 +394,32 @@ Widget _veSection4ScrollMapping() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Cumulative offset table',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _veTextDark,
-              ),
-            ),
+            Text('Cumulative offset table', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _veTextDark)),
             SizedBox(height: 8),
             Container(
               padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
               color: _veSurface,
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 40,
-                    child: Text(
-                      'Index',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _veTextDark,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 50,
-                    child: Text(
-                      'Extent',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _veTextDark,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Offset',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _veTextDark,
-                      ),
-                    ),
-                  ),
+                  SizedBox(width: 40, child: Text('Index', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _veTextDark))),
+                  SizedBox(width: 50, child: Text('Extent', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _veTextDark))),
+                  Expanded(child: Text('Offset', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _veTextDark))),
                 ],
               ),
             ),
-            ...items.map(
-              (item) => Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: _veDivider.withValues(alpha: 0.3),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 40,
-                      child: Text(
-                        '${item['index']}',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: _vePrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 50,
-                      child: Text(
-                        '${(item['extent'] as double).toInt()}px',
-                        style: TextStyle(fontSize: 10, color: _veTextMedium),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '${(item['offset'] as double).toInt()}px',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: _veAccent,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+            ...items.map((item) => Container(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: _veDivider.withValues(alpha: 0.3))),
               ),
-            ),
+              child: Row(
+                children: [
+                  SizedBox(width: 40, child: Text('${item['index']}', style: TextStyle(fontSize: 10, color: _vePrimary, fontWeight: FontWeight.w600))),
+                  SizedBox(width: 50, child: Text('${(item['extent'] as double).toInt()}px', style: TextStyle(fontSize: 10, color: _veTextMedium))),
+                  Expanded(child: Text('${(item['offset'] as double).toInt()}px', style: TextStyle(fontSize: 10, color: _veAccent, fontWeight: FontWeight.w600))),
+                ],
+              ),
+            )),
             SizedBox(height: 8),
             Container(
               padding: EdgeInsets.all(8),
@@ -605,7 +430,7 @@ Widget _veSection4ScrollMapping() {
               ),
               child: Text(
                 'Example: scroll offset = 150 → binary search → item 2 '
-                '(offset 100, extent 80, so 150 is within item 2).',
+                    '(offset 100, extent 80, so 150 is within item 2).',
                 style: TextStyle(fontSize: 10, color: _veTextMedium),
               ),
             ),
@@ -647,126 +472,33 @@ Widget _veSection5Performance() {
               color: _veSurface,
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 80,
-                    child: Text(
-                      'Operation',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _veTextDark,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'SliverList',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _veRed,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'VariedExtent',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _vePrimary,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'FixedExtent',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _veBlue,
-                      ),
-                    ),
-                  ),
+                  SizedBox(width: 80, child: Text('Operation', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _veTextDark))),
+                  Expanded(child: Text('SliverList', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _veRed))),
+                  Expanded(child: Text('VariedExtent', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _vePrimary))),
+                  Expanded(child: Text('FixedExtent', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _veBlue))),
                 ],
               ),
             ),
             ...[
-              {
-                'op': 'Find first visible',
-                'list': 'O(n) build',
-                'varied': 'O(log n)',
-                'fixed': 'O(1)',
-              },
-              {
-                'op': 'Jump to index',
-                'list': 'O(n) build',
-                'varied': 'O(n) sum',
-                'fixed': 'O(1) multiply',
-              },
-              {
-                'op': 'Total extent',
-                'list': 'Estimated',
-                'varied': 'O(n) sum',
-                'fixed': 'O(1) multiply',
-              },
-              {
-                'op': 'Scrollbar',
-                'list': 'Approximate',
-                'varied': 'Accurate',
-                'fixed': 'Accurate',
-              },
-              {
-                'op': 'Item flexibility',
-                'list': 'Any size',
-                'varied': 'Known sizes',
-                'fixed': 'All same size',
-              },
-            ].map(
-              (r) => Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: _veDivider.withValues(alpha: 0.3),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: Text(
-                        r['op']!,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: _veTextDark,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['list']!,
-                        style: TextStyle(fontSize: 10, color: _veRed),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['varied']!,
-                        style: TextStyle(fontSize: 10, color: _vePrimary),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['fixed']!,
-                        style: TextStyle(fontSize: 10, color: _veBlue),
-                      ),
-                    ),
-                  ],
-                ),
+              {'op': 'Find first visible', 'list': 'O(n) build', 'varied': 'O(log n)', 'fixed': 'O(1)'},
+              {'op': 'Jump to index', 'list': 'O(n) build', 'varied': 'O(n) sum', 'fixed': 'O(1) multiply'},
+              {'op': 'Total extent', 'list': 'Estimated', 'varied': 'O(n) sum', 'fixed': 'O(1) multiply'},
+              {'op': 'Scrollbar', 'list': 'Approximate', 'varied': 'Accurate', 'fixed': 'Accurate'},
+              {'op': 'Item flexibility', 'list': 'Any size', 'varied': 'Known sizes', 'fixed': 'All same size'},
+            ].map((r) => Container(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: _veDivider.withValues(alpha: 0.3))),
               ),
-            ),
+              child: Row(
+                children: [
+                  SizedBox(width: 80, child: Text(r['op']!, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _veTextDark))),
+                  Expanded(child: Text(r['list']!, style: TextStyle(fontSize: 10, color: _veRed))),
+                  Expanded(child: Text(r['varied']!, style: TextStyle(fontSize: 10, color: _vePrimary))),
+                  Expanded(child: Text(r['fixed']!, style: TextStyle(fontSize: 10, color: _veBlue))),
+                ],
+              ),
+            )),
           ],
         ),
       ),
@@ -779,73 +511,18 @@ Widget _veSection5Performance() {
 // ---------------------------------------------------------------------------
 Widget _veSection6Demo() {
   final itemData = <Map<String, dynamic>>[
-    {
-      'height': 80.0,
-      'label': 'Hero Card',
-      'icon': Icons.star,
-      'color': _vePrimary,
-    },
-    {
-      'height': 50.0,
-      'label': 'Compact Item',
-      'icon': Icons.short_text,
-      'color': _veBlue,
-    },
-    {
-      'height': 100.0,
-      'label': 'Feature Highlight',
-      'icon': Icons.lightbulb,
-      'color': _veOrange,
-    },
+    {'height': 80.0, 'label': 'Hero Card', 'icon': Icons.star, 'color': _vePrimary},
+    {'height': 50.0, 'label': 'Compact Item', 'icon': Icons.short_text, 'color': _veBlue},
+    {'height': 100.0, 'label': 'Feature Highlight', 'icon': Icons.lightbulb, 'color': _veOrange},
     {'height': 40.0, 'label': 'Tag Bar', 'icon': Icons.label, 'color': _veTeal},
-    {
-      'height': 70.0,
-      'label': 'Description',
-      'icon': Icons.description,
-      'color': _vePurple,
-    },
-    {
-      'height': 55.0,
-      'label': 'Action Row',
-      'icon': Icons.touch_app,
-      'color': _veAccent,
-    },
-    {
-      'height': 90.0,
-      'label': 'Image Preview',
-      'icon': Icons.image,
-      'color': _veAmber,
-    },
-    {
-      'height': 45.0,
-      'label': 'Meta Info',
-      'icon': Icons.info,
-      'color': _veIndigo,
-    },
-    {
-      'height': 65.0,
-      'label': 'Comments',
-      'icon': Icons.chat,
-      'color': _veBrown,
-    },
-    {
-      'height': 55.0,
-      'label': 'Related Items',
-      'icon': Icons.link,
-      'color': _veRed,
-    },
-    {
-      'height': 75.0,
-      'label': 'Statistics',
-      'icon': Icons.bar_chart,
-      'color': _vePrimary,
-    },
-    {
-      'height': 50.0,
-      'label': 'Footer Note',
-      'icon': Icons.note,
-      'color': _veGrey,
-    },
+    {'height': 70.0, 'label': 'Description', 'icon': Icons.description, 'color': _vePurple},
+    {'height': 55.0, 'label': 'Action Row', 'icon': Icons.touch_app, 'color': _veAccent},
+    {'height': 90.0, 'label': 'Image Preview', 'icon': Icons.image, 'color': _veAmber},
+    {'height': 45.0, 'label': 'Meta Info', 'icon': Icons.info, 'color': _veIndigo},
+    {'height': 65.0, 'label': 'Comments', 'icon': Icons.chat, 'color': _veBrown},
+    {'height': 55.0, 'label': 'Related Items', 'icon': Icons.link, 'color': _veRed},
+    {'height': 75.0, 'label': 'Statistics', 'icon': Icons.bar_chart, 'color': _vePrimary},
+    {'height': 50.0, 'label': 'Footer Note', 'icon': Icons.note, 'color': _veGrey},
   ];
 
   return Column(
@@ -874,20 +551,9 @@ Widget _veSection6Demo() {
               padding: EdgeInsets.only(left: 4, bottom: 4),
               child: Row(
                 children: [
-                  Text(
-                    'SliverVariedExtentList',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: _veTextDark,
-                    ),
-                  ),
+                  Text('SliverVariedExtentList', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _veTextDark)),
                   SizedBox(width: 6),
-                  _veBadge(
-                    '12 items, varied heights',
-                    _vePrimary,
-                    _veOnPrimary,
-                  ),
+                  _veBadge('12 items, varied heights', _vePrimary, _veOnPrimary),
                 ],
               ),
             ),
@@ -898,73 +564,44 @@ Widget _veSection6Demo() {
                 child: CustomScrollView(
                   slivers: [
                     SliverVariedExtentList(
-                      delegate: SliverChildBuilderDelegate((ctx, i) {
-                        if (i >= itemData.length) return null;
-                        final item = itemData[i];
-                        return Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 4,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: (item['color'] as Color).withValues(
-                              alpha: 0.08,
+                      delegate: SliverChildBuilderDelegate(
+                        (ctx, i) {
+                          if (i >= itemData.length) return null;
+                          final item = itemData[i];
+                          return Container(
+                            margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: (item['color'] as Color).withValues(alpha: 0.08),
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: (item['color'] as Color).withValues(alpha: 0.3)),
                             ),
-                            borderRadius: BorderRadius.circular(6),
-                            border: Border.all(
-                              color: (item['color'] as Color).withValues(
-                                alpha: 0.3,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 40,
-                                alignment: Alignment.center,
-                                child: Icon(
-                                  item['icon'] as IconData,
-                                  size: 20,
-                                  color: item['color'] as Color,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 40,
+                                  alignment: Alignment.center,
+                                  child: Icon(item['icon'] as IconData, size: 20, color: item['color'] as Color),
                                 ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item['label'] as String,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 12,
-                                        color: item['color'] as Color,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Height: ${(item['height'] as double).toInt()}px · Index: $i',
-                                      style: TextStyle(
-                                        fontSize: 9,
-                                        color: _veTextMedium,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 8),
-                                child: _veBadge(
-                                  '${(item['height'] as double).toInt()}px',
-                                  (item['color'] as Color).withValues(
-                                    alpha: 0.2,
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(item['label'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: item['color'] as Color)),
+                                      Text('Height: ${(item['height'] as double).toInt()}px · Index: $i', style: TextStyle(fontSize: 9, color: _veTextMedium)),
+                                    ],
                                   ),
-                                  item['color'] as Color,
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }, childCount: itemData.length),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: _veBadge('${(item['height'] as double).toInt()}px', (item['color'] as Color).withValues(alpha: 0.2), item['color'] as Color),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        childCount: itemData.length,
+                      ),
                       itemExtentBuilder: (i, _) {
                         if (i >= itemData.length) return null;
                         return itemData[i]['height'] as double;
@@ -986,40 +623,11 @@ Widget _veSection6Demo() {
 // ---------------------------------------------------------------------------
 Widget _veSection7UseCases() {
   final cases = <Map<String, dynamic>>[
-    {
-      'title': 'Chat / messaging',
-      'desc':
-          'Messages vary in length — pre-compute heights from text measurement',
-      'icon': Icons.chat,
-      'color': _vePrimary,
-    },
-    {
-      'title': 'Social feed',
-      'desc':
-          'Feed cards with images have different heights based on content type',
-      'icon': Icons.dynamic_feed,
-      'color': _veBlue,
-    },
-    {
-      'title': 'Product catalog',
-      'desc':
-          'Products with different description lengths need variable card heights',
-      'icon': Icons.shopping_bag,
-      'color': _veOrange,
-    },
-    {
-      'title': 'Mixed-type content',
-      'desc':
-          'Headers (60px), regular items (48px), and spacers (24px) in one list',
-      'icon': Icons.view_stream,
-      'color': _veTeal,
-    },
-    {
-      'title': 'Calendar timeline',
-      'desc': 'Events with varying durations mapped to pixel heights',
-      'icon': Icons.calendar_today,
-      'color': _vePurple,
-    },
+    {'title': 'Chat / messaging', 'desc': 'Messages vary in length — pre-compute heights from text measurement', 'icon': Icons.chat, 'color': _vePrimary},
+    {'title': 'Social feed', 'desc': 'Feed cards with images have different heights based on content type', 'icon': Icons.dynamic_feed, 'color': _veBlue},
+    {'title': 'Product catalog', 'desc': 'Products with different description lengths need variable card heights', 'icon': Icons.shopping_bag, 'color': _veOrange},
+    {'title': 'Mixed-type content', 'desc': 'Headers (60px), regular items (48px), and spacers (24px) in one list', 'icon': Icons.view_stream, 'color': _veTeal},
+    {'title': 'Calendar timeline', 'desc': 'Events with varying durations mapped to pixel heights', 'icon': Icons.calendar_today, 'color': _vePurple},
   ];
 
   return Column(
@@ -1034,46 +642,32 @@ Widget _veSection7UseCases() {
             'with the flexibility of SliverList.',
         Icons.tips_and_updates,
       ),
-      ...cases.map(
-        (c) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: c['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(c['icon'] as IconData, size: 18, color: c['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      c['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _veTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      c['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _veTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...cases.map((c) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: c['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(c['icon'] as IconData, size: 18, color: c['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(c['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _veTextDark)),
+                  SizedBox(height: 2),
+                  Text(c['desc'] as String, style: TextStyle(fontSize: 11, color: _veTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
     ],
   );
 }
@@ -1083,48 +677,13 @@ Widget _veSection7UseCases() {
 // ---------------------------------------------------------------------------
 Widget _veSection8Comparison() {
   final rows = <Map<String, String>>[
-    {
-      'aspect': 'Class',
-      'fixed': 'SliverFixedExtentList',
-      'varied': 'SliverVariedExtentList',
-      'sliver': 'SliverList',
-    },
-    {
-      'aspect': 'Extent source',
-      'fixed': 'itemExtent (double)',
-      'varied': 'itemExtentBuilder',
-      'sliver': 'Child layout',
-    },
-    {
-      'aspect': 'All same size?',
-      'fixed': 'Yes (required)',
-      'varied': 'No (each unique)',
-      'sliver': 'No',
-    },
-    {
-      'aspect': 'Pre-known sizes?',
-      'fixed': 'Yes',
-      'varied': 'Yes',
-      'sliver': 'No',
-    },
-    {
-      'aspect': 'Jump to index',
-      'fixed': 'O(1)',
-      'varied': 'O(n) sum',
-      'sliver': 'O(n) build',
-    },
-    {
-      'aspect': 'Scrollbar',
-      'fixed': 'Exact',
-      'varied': 'Exact',
-      'sliver': 'Estimated',
-    },
-    {
-      'aspect': 'Best for',
-      'fixed': 'Uniform lists',
-      'varied': 'Heterogeneous known',
-      'sliver': 'Unknown sizes',
-    },
+    {'aspect': 'Class', 'fixed': 'SliverFixedExtentList', 'varied': 'SliverVariedExtentList', 'sliver': 'SliverList'},
+    {'aspect': 'Extent source', 'fixed': 'itemExtent (double)', 'varied': 'itemExtentBuilder', 'sliver': 'Child layout'},
+    {'aspect': 'All same size?', 'fixed': 'Yes (required)', 'varied': 'No (each unique)', 'sliver': 'No'},
+    {'aspect': 'Pre-known sizes?', 'fixed': 'Yes', 'varied': 'Yes', 'sliver': 'No'},
+    {'aspect': 'Jump to index', 'fixed': 'O(1)', 'varied': 'O(n) sum', 'sliver': 'O(n) build'},
+    {'aspect': 'Scrollbar', 'fixed': 'Exact', 'varied': 'Exact', 'sliver': 'Estimated'},
+    {'aspect': 'Best for', 'fixed': 'Uniform lists', 'varied': 'Heterogeneous known', 'sliver': 'Unknown sizes'},
   ];
 
   return Column(
@@ -1153,95 +712,25 @@ Widget _veSection8Comparison() {
               color: _veSurface,
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      'Aspect',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                        color: _veTextDark,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'FixedExtent',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                        color: _veBlue,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'VariedExtent',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                        color: _vePrimary,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'SliverList',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                        color: _veOrange,
-                      ),
-                    ),
-                  ),
+                  SizedBox(width: 70, child: Text('Aspect', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _veTextDark))),
+                  Expanded(child: Text('FixedExtent', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _veBlue))),
+                  Expanded(child: Text('VariedExtent', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _vePrimary))),
+                  Expanded(child: Text('SliverList', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _veOrange))),
                 ],
               ),
             ),
-            ...rows.map(
-              (r) => Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: _veDivider.withValues(alpha: 0.3),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 70,
-                      child: Text(
-                        r['aspect']!,
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600,
-                          color: _veTextDark,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['fixed']!,
-                        style: TextStyle(fontSize: 9, color: _veBlue),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['varied']!,
-                        style: TextStyle(fontSize: 9, color: _vePrimary),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['sliver']!,
-                        style: TextStyle(fontSize: 9, color: _veOrange),
-                      ),
-                    ),
-                  ],
-                ),
+            ...rows.map((r) => Container(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+              decoration: BoxDecoration(border: Border(bottom: BorderSide(color: _veDivider.withValues(alpha: 0.3)))),
+              child: Row(
+                children: [
+                  SizedBox(width: 70, child: Text(r['aspect']!, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: _veTextDark))),
+                  Expanded(child: Text(r['fixed']!, style: TextStyle(fontSize: 9, color: _veBlue))),
+                  Expanded(child: Text(r['varied']!, style: TextStyle(fontSize: 9, color: _vePrimary))),
+                  Expanded(child: Text(r['sliver']!, style: TextStyle(fontSize: 9, color: _veOrange))),
+                ],
               ),
-            ),
+            )),
           ],
         ),
       ),
@@ -1254,31 +743,11 @@ Widget _veSection8Comparison() {
 // ---------------------------------------------------------------------------
 Widget _veSection9Practices() {
   final tips = <Map<String, dynamic>>[
-    {
-      'text':
-          'Pre-compute extents from data — avoid complex calculations in the builder callback',
-      'color': _vePrimary,
-    },
-    {
-      'text':
-          'Cache cumulative offsets if you need scrollTo(index) — avoid O(n) on every jump',
-      'color': _veTeal,
-    },
-    {
-      'text':
-          'Use FixedExtentList when all items truly have the same size — simpler and faster',
-      'color': _veBlue,
-    },
-    {
-      'text':
-          'Return null from the builder at the correct count to signal end of list',
-      'color': _veOrange,
-    },
-    {
-      'text':
-          'Consider VariedExtentList when scrollbar accuracy matters and items differ in size',
-      'color': _vePurple,
-    },
+    {'text': 'Pre-compute extents from data — avoid complex calculations in the builder callback', 'color': _vePrimary},
+    {'text': 'Cache cumulative offsets if you need scrollTo(index) — avoid O(n) on every jump', 'color': _veTeal},
+    {'text': 'Use FixedExtentList when all items truly have the same size — simpler and faster', 'color': _veBlue},
+    {'text': 'Return null from the builder at the correct count to signal end of list', 'color': _veOrange},
+    {'text': 'Consider VariedExtentList when scrollbar accuracy matters and items differ in size', 'color': _vePurple},
   ];
 
   return Column(
@@ -1292,45 +761,29 @@ Widget _veSection9Practices() {
             'itemExtentBuilder is fast and deterministic.',
         Icons.tips_and_updates,
       ),
-      ...tips.asMap().entries.map(
-        (e) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: e.value['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.check_circle,
-                size: 16,
-                color: e.value['color'] as Color,
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  e.value['text'] as String,
-                  style: TextStyle(fontSize: 11, color: _veTextMedium),
-                ),
-              ),
-            ],
-          ),
+      ...tips.asMap().entries.map((e) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: e.value['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(Icons.check_circle, size: 16, color: e.value['color'] as Color),
+            SizedBox(width: 8),
+            Expanded(child: Text(e.value['text'] as String, style: TextStyle(fontSize: 11, color: _veTextMedium))),
+          ],
+        ),
+      )),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _vePrimary.withValues(alpha: 0.08),
-              _veAccent.withValues(alpha: 0.08),
-            ],
+            colors: [_vePrimary.withValues(alpha: 0.08), _veAccent.withValues(alpha: 0.08)],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _vePrimary.withValues(alpha: 0.2)),
@@ -1341,11 +794,7 @@ Widget _veSection9Practices() {
             SizedBox(height: 8),
             Text(
               'RenderSliverVariedExtentList',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: _veTextDark,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _veTextDark),
             ),
             SizedBox(height: 4),
             Text(
@@ -1405,10 +854,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Sliver lists where each item has a different extent',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _veOnPrimary.withValues(alpha: 0.85),
-                ),
+                style: TextStyle(fontSize: 12, color: _veOnPrimary.withValues(alpha: 0.85)),
               ),
             ],
           ),

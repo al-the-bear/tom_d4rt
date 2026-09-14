@@ -55,11 +55,25 @@ const _palettes = <_Palette>[
   ),
 ];
 
-enum _Stage { snapshot, breakpoints, sliverDeck, relay, theater, verification }
+enum _Stage {
+  snapshot,
+  breakpoints,
+  sliverDeck,
+  relay,
+  theater,
+  verification,
+}
 
-enum _DensityMode { relaxed, balanced, compact }
+enum _DensityMode {
+  relaxed,
+  balanced,
+  compact,
+}
 
-enum _RelayMode { stable, pulsing }
+enum _RelayMode {
+  stable,
+  pulsing,
+}
 
 class _ShellProfile {
   final String label;
@@ -191,11 +205,8 @@ class _AbstractLayoutBuilderStudioState
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.space_dashboard_rounded,
-                color: Colors.white,
-                size: 28,
-              ),
+              const Icon(Icons.space_dashboard_rounded,
+                  color: Colors.white, size: 28),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -208,10 +219,8 @@ class _AbstractLayoutBuilderStudioState
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -296,9 +305,7 @@ class _AbstractLayoutBuilderStudioState
                   shape: BoxShape.circle,
                   color: _palettes[i].primary,
                   border: Border.all(
-                    color: _paletteIndex == i
-                        ? Colors.white
-                        : Colors.transparent,
+                    color: _paletteIndex == i ? Colors.white : Colors.transparent,
                     width: 2,
                   ),
                 ),
@@ -395,10 +402,8 @@ class _AbstractLayoutBuilderStudioState
                       onChanged: (v) =>
                           setState(() => _snapshotGuides = v ?? true),
                     ),
-                    Text(
-                      'show guides',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show guides',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _snapshotBadge,
@@ -406,18 +411,12 @@ class _AbstractLayoutBuilderStudioState
                       onChanged: (v) =>
                           setState(() => _snapshotBadge = v ?? true),
                     ),
-                    Text(
-                      'show decision badge',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show decision badge',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const Spacer(),
                     _chip('w', _snapshotWidth.toStringAsFixed(0), _p.primary),
                     const SizedBox(width: 6),
-                    _chip(
-                      'h',
-                      _snapshotHeight.toStringAsFixed(0),
-                      _p.secondary,
-                    ),
+                    _chip('h', _snapshotHeight.toStringAsFixed(0), _p.secondary),
                   ],
                 ),
               ],
@@ -439,8 +438,7 @@ class _AbstractLayoutBuilderStudioState
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: _p.muted.withValues(alpha: 0.24),
-                        ),
+                            color: _p.muted.withValues(alpha: 0.24)),
                       ),
                       child: LayoutBuilder(
                         builder: (context, constraints) {
@@ -480,8 +478,7 @@ class _AbstractLayoutBuilderStudioState
         children: [
           _decisionHeadline('Single Column', Icons.view_agenda_rounded),
           const SizedBox(height: 8),
-          for (var i = 0; i < cards; i++)
-            Expanded(child: _snapTile(i, decision)),
+          for (var i = 0; i < cards; i++) Expanded(child: _snapTile(i, decision)),
         ],
       );
     } else if (decision == 'dual') {
@@ -559,11 +556,7 @@ class _AbstractLayoutBuilderStudioState
             children: [
               _chip('maxW', width.toStringAsFixed(0), _p.primary),
               const SizedBox(width: 6),
-              _chip(
-                'maxH',
-                constraints.maxHeight.toStringAsFixed(0),
-                _p.secondary,
-              ),
+              _chip('maxH', constraints.maxHeight.toStringAsFixed(0), _p.secondary),
               const SizedBox(width: 6),
               _chip('density', _snapshotDensity.name, _p.accent),
               const Spacer(),
@@ -706,10 +699,8 @@ class _AbstractLayoutBuilderStudioState
                       onChanged: (v) =>
                           setState(() => _breakpointRail = v ?? true),
                     ),
-                    Text(
-                      'show breakpoint rail',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show breakpoint rail',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _breakpointLabel,
@@ -717,10 +708,8 @@ class _AbstractLayoutBuilderStudioState
                       onChanged: (v) =>
                           setState(() => _breakpointLabel = v ?? true),
                     ),
-                    Text(
-                      'show zone label',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show zone label',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                   ],
                 ),
               ],
@@ -739,7 +728,8 @@ class _AbstractLayoutBuilderStudioState
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: _p.muted.withValues(alpha: 0.24)),
+                    border: Border.all(
+                        color: _p.muted.withValues(alpha: 0.24)),
                   ),
                   child: LayoutBuilder(
                     builder: (context, constraints) {
@@ -747,8 +737,8 @@ class _AbstractLayoutBuilderStudioState
                       final zone = w < 500
                           ? 'narrow'
                           : w < 900
-                          ? 'medium'
-                          : 'wide';
+                              ? 'medium'
+                              : 'wide';
                       return Stack(
                         children: [
                           Positioned.fill(
@@ -816,7 +806,10 @@ class _AbstractLayoutBuilderStudioState
         Expanded(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(12, 12, 6, 12),
-            child: _aside(title: 'Nav', detail: 'Persistent nav in wide mode.'),
+            child: _aside(
+              title: 'Nav',
+              detail: 'Persistent nav in wide mode.',
+            ),
           ),
         ),
         Expanded(
@@ -894,18 +887,9 @@ class _AbstractLayoutBuilderStudioState
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            'narrow < 500',
-            style: TextStyle(color: _p.muted, fontSize: 10.5),
-          ),
-          Text(
-            'medium 500-899',
-            style: TextStyle(color: _p.muted, fontSize: 10.5),
-          ),
-          Text(
-            'wide >= 900',
-            style: TextStyle(color: _p.muted, fontSize: 10.5),
-          ),
+          Text('narrow < 500', style: TextStyle(color: _p.muted, fontSize: 10.5)),
+          Text('medium 500-899', style: TextStyle(color: _p.muted, fontSize: 10.5)),
+          Text('wide >= 900', style: TextStyle(color: _p.muted, fontSize: 10.5)),
           const SizedBox(height: 4),
           Text(
             'now: ${width.toStringAsFixed(0)}',
@@ -976,24 +960,18 @@ class _AbstractLayoutBuilderStudioState
                     Checkbox(
                       value: _sliverOverlay,
                       activeColor: _p.primary,
-                      onChanged: (v) =>
-                          setState(() => _sliverOverlay = v ?? true),
+                      onChanged: (v) => setState(() => _sliverOverlay = v ?? true),
                     ),
-                    Text(
-                      'show mode labels',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show mode labels',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _sliverPinned,
                       activeColor: _p.secondary,
-                      onChanged: (v) =>
-                          setState(() => _sliverPinned = v ?? true),
+                      onChanged: (v) => setState(() => _sliverPinned = v ?? true),
                     ),
-                    Text(
-                      'pinned app bar',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('pinned app bar',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                   ],
                 ),
               ],
@@ -1012,7 +990,8 @@ class _AbstractLayoutBuilderStudioState
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: _p.muted.withValues(alpha: 0.24)),
+                    border: Border.all(
+                        color: _p.muted.withValues(alpha: 0.24)),
                   ),
                   child: CustomScrollView(
                     physics: const BouncingScrollPhysics(),
@@ -1022,10 +1001,8 @@ class _AbstractLayoutBuilderStudioState
                         expandedHeight: _sliverHeaderHeight,
                         backgroundColor: _p.primary,
                         flexibleSpace: FlexibleSpaceBar(
-                          title: const Text(
-                            'Sliver Deck',
-                            style: TextStyle(fontSize: 13),
-                          ),
+                          title: const Text('Sliver Deck',
+                              style: TextStyle(fontSize: 13)),
                           background: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -1038,8 +1015,7 @@ class _AbstractLayoutBuilderStudioState
                       SliverToBoxAdapter(
                         child: _banner(
                           icon: Icons.splitscreen_rounded,
-                          text:
-                              'SliverLayoutBuilder branches by cross-axis extent',
+                          text: 'SliverLayoutBuilder branches by cross-axis extent',
                         ),
                       ),
                       SliverLayoutBuilder(
@@ -1062,11 +1038,11 @@ class _AbstractLayoutBuilderStudioState
                               ),
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 8,
-                                    crossAxisSpacing: 8,
-                                    childAspectRatio: 2.2,
-                                  ),
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 8,
+                                crossAxisSpacing: 8,
+                                childAspectRatio: 2.2,
+                              ),
                             );
                           }
                           return SliverGrid(
@@ -1077,11 +1053,11 @@ class _AbstractLayoutBuilderStudioState
                             ),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 8,
-                                  childAspectRatio: 2.3,
-                                ),
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
+                              childAspectRatio: 2.3,
+                            ),
                           );
                         },
                       ),
@@ -1235,10 +1211,8 @@ class _AbstractLayoutBuilderStudioState
                       activeColor: _p.primary,
                       onChanged: (v) => setState(() => _relayNotes = v ?? true),
                     ),
-                    Text(
-                      'show relay notes',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show relay notes',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                   ],
                 ),
               ],
@@ -1257,7 +1231,8 @@ class _AbstractLayoutBuilderStudioState
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: _p.muted.withValues(alpha: 0.24)),
+                    border: Border.all(
+                        color: _p.muted.withValues(alpha: 0.24)),
                   ),
                   child: LayoutBuilder(
                     builder: (context, outer) {
@@ -1267,26 +1242,16 @@ class _AbstractLayoutBuilderStudioState
                           children: [
                             Row(
                               children: [
-                                _chip(
-                                  'outerW',
-                                  outer.maxWidth.toStringAsFixed(0),
-                                  _p.primary,
-                                ),
+                                _chip('outerW', outer.maxWidth.toStringAsFixed(0), _p.primary),
                                 const SizedBox(width: 6),
-                                _chip(
-                                  'outerH',
-                                  outer.maxHeight.toStringAsFixed(0),
-                                  _p.secondary,
-                                ),
+                                _chip('outerH', outer.maxHeight.toStringAsFixed(0), _p.secondary),
                               ],
                             ),
                             const SizedBox(height: 8),
                             Expanded(
                               child: LayoutBuilder(
                                 builder: (context, mid) {
-                                  final scale = _relayMode == _RelayMode.pulsing
-                                      ? 0.82
-                                      : 0.92;
+                                  final scale = _relayMode == _RelayMode.pulsing ? 0.82 : 0.92;
                                   return Center(
                                     child: SizedBox(
                                       width: mid.maxWidth * scale,
@@ -1318,9 +1283,7 @@ class _AbstractLayoutBuilderStudioState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _bullet(
-                    'Each nested builder receives transformed constraints.',
-                  ),
+                  _bullet('Each nested builder receives transformed constraints.'),
                   _bullet('Branch labels help debug transitions quickly.'),
                   _bullet('Keep relay layers small and purpose-specific.'),
                 ],
@@ -1386,8 +1349,7 @@ class _AbstractLayoutBuilderStudioState
           Expanded(
             child: Column(
               children: [
-                for (var i = 0; i < 4; i++)
-                  Expanded(child: _relayTile(i, decision)),
+                for (var i = 0; i < 4; i++) Expanded(child: _relayTile(i, decision)),
               ],
             ),
           ),
@@ -1395,8 +1357,7 @@ class _AbstractLayoutBuilderStudioState
           Expanded(
             child: Column(
               children: [
-                for (var i = 4; i < 8; i++)
-                  Expanded(child: _relayTile(i, decision)),
+                for (var i = 4; i < 8; i++) Expanded(child: _relayTile(i, decision)),
               ],
             ),
           ),
@@ -1466,13 +1427,10 @@ class _AbstractLayoutBuilderStudioState
                     Checkbox(
                       value: _theaterTrio,
                       activeColor: _p.primary,
-                      onChanged: (v) =>
-                          setState(() => _theaterTrio = v ?? true),
+                      onChanged: (v) => setState(() => _theaterTrio = v ?? true),
                     ),
-                    Text(
-                      'show preset trio',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show preset trio',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                   ],
                 ),
                 _sliderRow(
@@ -1500,13 +1458,10 @@ class _AbstractLayoutBuilderStudioState
                     Checkbox(
                       value: _theaterMetrics,
                       activeColor: _p.secondary,
-                      onChanged: (v) =>
-                          setState(() => _theaterMetrics = v ?? true),
+                      onChanged: (v) => setState(() => _theaterMetrics = v ?? true),
                     ),
-                    Text(
-                      'show metrics',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show metrics',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                   ],
                 ),
               ],
@@ -1517,7 +1472,9 @@ class _AbstractLayoutBuilderStudioState
             Wrap(
               spacing: 12,
               runSpacing: 12,
-              children: [for (final shell in _shellProfiles) _shellCard(shell)],
+              children: [
+                for (final shell in _shellProfiles) _shellCard(shell),
+              ],
             )
           else
             _shellCard(
@@ -1606,13 +1563,11 @@ class _AbstractLayoutBuilderStudioState
                 ),
                 _matrixRow(
                   keyText: 'Primary benefit',
-                  value:
-                      'Deterministic adaptive structure based on real available space.',
+                  value: 'Deterministic adaptive structure based on real available space.',
                 ),
                 _matrixRow(
                   keyText: 'Best practice',
-                  value:
-                      'Keep breakpoints explicit and branch behavior coherent.',
+                  value: 'Keep breakpoints explicit and branch behavior coherent.',
                 ),
               ],
             ),
@@ -1638,7 +1593,8 @@ class _AbstractLayoutBuilderStudioState
                 _doDont(
                   good: true,
                   title: 'Expose metrics while developing',
-                  detail: 'Constraint chips and labels speed up debugging.',
+                  detail:
+                      'Constraint chips and labels speed up debugging.',
                 ),
                 _doDont(
                   good: false,
@@ -1680,24 +1636,12 @@ class _AbstractLayoutBuilderStudioState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check(
-                  'Snapshot stage demonstrates direct BoxConstraints decisions.',
-                ),
-                _check(
-                  'Breakpoint stage demonstrates width-band structure switching.',
-                ),
-                _check(
-                  'Sliver stage demonstrates SliverLayoutBuilder branching.',
-                ),
-                _check(
-                  'Relay stage demonstrates nested constraint propagation.',
-                ),
-                _check(
-                  'Theater stage validates behavior across shell profiles.',
-                ),
-                _check(
-                  'Compendium includes matrix, do and dont, FAQ, and checklist.',
-                ),
+                _check('Snapshot stage demonstrates direct BoxConstraints decisions.'),
+                _check('Breakpoint stage demonstrates width-band structure switching.'),
+                _check('Sliver stage demonstrates SliverLayoutBuilder branching.'),
+                _check('Relay stage demonstrates nested constraint propagation.'),
+                _check('Theater stage validates behavior across shell profiles.'),
+                _check('Compendium includes matrix, do and dont, FAQ, and checklist.'),
               ],
             ),
           ),
@@ -1732,7 +1676,11 @@ class _AbstractLayoutBuilderStudioState
           const SizedBox(height: 6),
           Text(
             detail,
-            style: TextStyle(color: _p.muted, fontSize: 11.2, height: 1.32),
+            style: TextStyle(
+              color: _p.muted,
+              fontSize: 11.2,
+              height: 1.32,
+            ),
           ),
         ],
       ),
@@ -1871,7 +1819,8 @@ class _AbstractLayoutBuilderStudioState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(good ? Icons.check_circle : Icons.cancel, color: tone, size: 18),
+          Icon(good ? Icons.check_circle : Icons.cancel,
+              color: tone, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1886,7 +1835,10 @@ class _AbstractLayoutBuilderStudioState
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.3)),
+                Text(
+                  detail,
+                  style: TextStyle(color: _p.muted, fontSize: 11.3),
+                ),
               ],
             ),
           ),
@@ -1931,10 +1883,14 @@ class _AbstractLayoutBuilderStudioState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
+          const Icon(Icons.check_circle,
+              color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12)),
+            child: Text(
+              text,
+              style: TextStyle(color: _p.ink, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -2050,7 +2006,10 @@ class _AbstractLayoutBuilderStudioState
             ),
           ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.4)),
+          Text(
+            subtitle,
+            style: TextStyle(color: _p.muted, fontSize: 11.4),
+          ),
           const SizedBox(height: 10),
           child,
         ],

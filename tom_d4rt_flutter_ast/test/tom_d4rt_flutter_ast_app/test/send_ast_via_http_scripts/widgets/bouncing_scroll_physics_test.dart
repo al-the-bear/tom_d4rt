@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swipe_vertical,
       'title': 'Scroll Physics in Flutter',
-      'body':
-          'Scroll physics control HOW scrolling behaves — not '
+      'body': 'Scroll physics control HOW scrolling behaves — not '
           'what scrolls, but the feel of the scroll. They determine '
           'what happens when you scroll past the edge, how fast '
           'flick-scrolling decelerates, and whether rubber-banding '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.sports_basketball,
       'title': 'The Bounce Effect',
-      'body':
-          'BouncingScrollPhysics creates an iOS-style overscroll: '
+      'body': 'BouncingScrollPhysics creates an iOS-style overscroll: '
           'when you scroll past the content boundary, the list '
           'stretches elastically then bounces back. This provides '
           'a visual signal that you\'ve reached the edge and feels '
@@ -40,8 +38,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'Bounce vs Clamp',
-      'body':
-          'The two main physics types: BouncingScrollPhysics '
+      'body': 'The two main physics types: BouncingScrollPhysics '
           '(bounce/rubber-band past edges — iOS default) and '
           'ClampingScrollPhysics (hard stop at edges with glow '
           'overscroll indicator — Android default). Choosing between '
@@ -51,8 +48,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_iphone,
       'title': 'Platform Defaults',
-      'body':
-          'By default, Flutter uses BouncingScrollPhysics on iOS '
+      'body': 'By default, Flutter uses BouncingScrollPhysics on iOS '
           'and macOS, and ClampingScrollPhysics on Android. This is '
           'handled by ScrollConfiguration, which picks the right '
           'physics automatically. You override this per-widget by '
@@ -70,16 +66,15 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
+        border: Border.all(
+          color: (card['accent'] as Color).withOpacity(0.3),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            card['icon'] as IconData,
-            color: card['accent'] as Color,
-            size: 32,
-          ),
+          Icon(card['icon'] as IconData,
+              color: card['accent'] as Color, size: 32),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -115,8 +110,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'BouncingScrollPhysics({parent})',
       'type': 'Constructor',
-      'desc':
-          'Creates bouncing scroll physics. The optional parent '
+      'desc': 'Creates bouncing scroll physics. The optional parent '
           'parameter allows chaining with another ScrollPhysics (e.g., '
           'AlwaysScrollableScrollPhysics as parent to ensure bounce '
           'even when content fits).',
@@ -125,16 +119,14 @@ dynamic build(BuildContext context) {
     {
       'name': 'applyTo(ScrollPhysics? ancestor)',
       'type': 'BouncingScrollPhysics',
-      'desc':
-          'Creates a copy of this physics combined with an ancestor '
+      'desc': 'Creates a copy of this physics combined with an ancestor '
           'physics. Used by the framework to compose physics chains.',
       'icon': Icons.copy,
     },
     {
       'name': 'applyPhysicsToUserOffset(pos, offset)',
       'type': 'double',
-      'desc':
-          'Applies the rubber-band effect to user drag offsets. '
+      'desc': 'Applies the rubber-band effect to user drag offsets. '
           'When overscrolled, the drag offset is dampened (moves less '
           'per pixel dragged), creating the elastic feel.',
       'icon': Icons.drag_handle,
@@ -142,8 +134,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'applyBoundaryConditions(pos, value)',
       'type': 'double',
-      'desc':
-          'Returns 0.0, allowing all scroll values (including '
+      'desc': 'Returns 0.0, allowing all scroll values (including '
           'overscroll). Unlike ClampingScrollPhysics which returns '
           'the excess to clamp, bouncing allows overshooting.',
       'icon': Icons.border_all,
@@ -151,8 +142,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'createBallisticSimulation(pos, velocity)',
       'type': 'Simulation?',
-      'desc':
-          'Creates a spring simulation to bounce back when the '
+      'desc': 'Creates a spring simulation to bounce back when the '
           'user releases while overscrolled. Also creates deceleration '
           'simulation for fling gestures within bounds.',
       'icon': Icons.play_arrow,
@@ -160,8 +150,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'minFlingVelocity',
       'type': 'double',
-      'desc':
-          'The minimum velocity needed to trigger a fling scroll. '
+      'desc': 'The minimum velocity needed to trigger a fling scroll. '
           'BouncingScrollPhysics uses a very small threshold, making '
           'it responsive to light flicks.',
       'icon': Icons.speed,
@@ -169,8 +158,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'frictionFactor(overscrollFraction)',
       'type': 'double',
-      'desc':
-          'Returns the friction factor for the given overscroll '
+      'desc': 'Returns the friction factor for the given overscroll '
           'amount. As overscroll increases, friction increases, making '
           'it progressively harder to overscroll further.',
       'icon': Icons.show_chart,
@@ -191,7 +179,8 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(m['icon'] as IconData, color: Colors.deepOrange[600], size: 20),
+          Icon(m['icon'] as IconData,
+              color: Colors.deepOrange[600], size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -212,9 +201,7 @@ dynamic build(BuildContext context) {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 1,
-                      ),
+                          horizontal: 6, vertical: 1),
                       decoration: BoxDecoration(
                         color: Colors.deepOrange.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(4),
@@ -283,15 +270,12 @@ dynamic build(BuildContext context) {
               ];
               return Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
+                    horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: colors[index % 3],
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.deepOrange.withOpacity(0.1),
-                    ),
+                        color: Colors.deepOrange.withOpacity(0.1)),
                   ),
                 ),
                 child: Row(
@@ -316,7 +300,10 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 12),
                     Text(
                       'Bouncing item ${index + 1}',
-                      style: TextStyle(fontSize: 14, color: Colors.grey[800]),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[800],
+                      ),
                     ),
                   ],
                 ),
@@ -382,9 +369,7 @@ dynamic build(BuildContext context) {
                 itemBuilder: (context, index) {
                   return Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 8,
-                    ),
+                        horizontal: 10, vertical: 8),
                     decoration: BoxDecoration(
                       color: index.isEven
                           ? accent.withOpacity(0.04)
@@ -392,7 +377,8 @@ dynamic build(BuildContext context) {
                     ),
                     child: Text(
                       'Item ${index + 1}',
-                      style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                      style: TextStyle(
+                          fontSize: 12, color: Colors.grey[700]),
                     ),
                   );
                 },
@@ -462,38 +448,26 @@ dynamic build(BuildContext context) {
     child: Row(
       children: const [
         SizedBox(
-          width: 90,
-          child: Text(
-            'Aspect',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 11,
-            ),
-          ),
-        ),
+            width: 90,
+            child: Text('Aspect',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11))),
         Expanded(
-          child: Text(
-            'Bouncing',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 11,
-            ),
-          ),
-        ),
+            child: Text('Bouncing',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11))),
         Expanded(
-          child: Text(
-            'Clamping',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 11,
-            ),
-          ),
-        ),
+            child: Text('Clamping',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11))),
       ],
     ),
   );
@@ -510,24 +484,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 90,
-            child: Text(
-              row['aspect']!,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
-            ),
+            child: Text(row['aspect']!,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600, fontSize: 11)),
           ),
           Expanded(
-            child: Text(
-              row['bouncing']!,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 11, color: Colors.deepOrange[700]),
-            ),
+            child: Text(row['bouncing']!,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 11, color: Colors.deepOrange[700])),
           ),
           Expanded(
-            child: Text(
-              row['clamping']!,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 11, color: Colors.blueGrey[600]),
-            ),
+            child: Text(row['clamping']!,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 11, color: Colors.blueGrey[600])),
           ),
         ],
       ),
@@ -545,8 +515,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.phone_iphone,
       'physics': 'BouncingScrollPhysics',
       'color': Colors.deepOrange[600]!,
-      'desc':
-          'iOS uses bounce by default. Users expect the elastic '
+      'desc': 'iOS uses bounce by default. Users expect the elastic '
           'rubber-band effect. Not using bounce on iOS feels foreign.',
     },
     {
@@ -554,8 +523,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.laptop_mac,
       'physics': 'BouncingScrollPhysics',
       'color': Colors.orange[700]!,
-      'desc':
-          'macOS also uses bounce, consistent with its scroll '
+      'desc': 'macOS also uses bounce, consistent with its scroll '
           'behavior in native apps (Safari, Finder, etc.).',
     },
     {
@@ -563,8 +531,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.phone_android,
       'physics': 'ClampingScrollPhysics',
       'color': Colors.blueGrey[600]!,
-      'desc':
-          'Android uses clamping with a glow overscroll indicator. '
+      'desc': 'Android uses clamping with a glow overscroll indicator. '
           'Some Android apps (e.g., Telegram) use bounce instead '
           'for a more fluid feel — it\'s a design choice.',
     },
@@ -573,8 +540,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.web,
       'physics': 'ClampingScrollPhysics',
       'color': Colors.grey[700]!,
-      'desc':
-          'Web defaults to clamping. Bounce can feel odd with '
+      'desc': 'Web defaults to clamping. Bounce can feel odd with '
           'mouse wheel scrolling but works well with touch input.',
     },
     {
@@ -582,8 +548,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.desktop_windows,
       'physics': 'ClampingScrollPhysics',
       'color': Colors.blueGrey[500]!,
-      'desc':
-          'Desktop platforms default to clamping. Mouse and '
+      'desc': 'Desktop platforms default to clamping. Mouse and '
           'touchpad scrolling typically expect rigid bounds.',
     },
   ];
@@ -595,12 +560,15 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (p['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border(left: BorderSide(color: p['color'] as Color, width: 4)),
+        border: Border(
+          left: BorderSide(color: p['color'] as Color, width: 4),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(p['icon'] as IconData, color: p['color'] as Color, size: 24),
+          Icon(p['icon'] as IconData,
+              color: p['color'] as Color, size: 24),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -619,9 +587,7 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: (p['color'] as Color).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(4),
@@ -659,8 +625,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'BouncingScrollPhysics (standalone)',
       'code': 'physics: const BouncingScrollPhysics()',
-      'desc':
-          'Basic usage. Provides bounce but if content doesn\'t '
+      'desc': 'Basic usage. Provides bounce but if content doesn\'t '
           'exceed viewport, scrolling is disabled (no bounce on empty '
           'lists or short content).',
       'icon': Icons.sports_basketball,
@@ -668,12 +633,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Always Scrollable + Bouncing',
-      'code':
-          'physics: const BouncingScrollPhysics(\n'
+      'code': 'physics: const BouncingScrollPhysics(\n'
           '  parent: AlwaysScrollableScrollPhysics(),\n'
           ')',
-      'desc':
-          'Chaining with AlwaysScrollableScrollPhysics ensures '
+      'desc': 'Chaining with AlwaysScrollableScrollPhysics ensures '
           'bounce works even when content fits in the viewport. '
           'This is the most common combination for pull-to-refresh.',
       'icon': Icons.refresh,
@@ -681,12 +644,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Never Scrollable + Bouncing',
-      'code':
-          'physics: const BouncingScrollPhysics(\n'
+      'code': 'physics: const BouncingScrollPhysics(\n'
           '  parent: NeverScrollableScrollPhysics(),\n'
           ')',
-      'desc':
-          'Disables scrolling entirely. The bouncing physics is '
+      'desc': 'Disables scrolling entirely. The bouncing physics is '
           'there but NeverScrollable prevents any scroll input. '
           'Useful for programmatic-only scrolling with bounce feel.',
       'icon': Icons.block,
@@ -694,12 +655,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Chaining',
-      'code':
-          'physics: const BouncingScrollPhysics(\n'
+      'code': 'physics: const BouncingScrollPhysics(\n'
           '  parent: PageScrollPhysics(),\n'
           ')',
-      'desc':
-          'Advanced: combine bouncing with page snap physics. '
+      'desc': 'Advanced: combine bouncing with page snap physics. '
           'Pages snap to boundaries but bounce at the very start '
           'and end of the page list.',
       'icon': Icons.auto_stories,
@@ -714,18 +673,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (ch['color'] as Color).withOpacity(0.05),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (ch['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (ch['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                ch['icon'] as IconData,
-                color: ch['color'] as Color,
-                size: 22,
-              ),
+              Icon(ch['icon'] as IconData,
+                  color: ch['color'] as Color, size: 22),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -775,29 +732,25 @@ dynamic build(BuildContext context) {
   final compatibleWidgets = <Map<String, dynamic>>[
     {
       'widget': 'ListView',
-      'desc':
-          'Vertical or horizontal list. Most common use case for '
+      'desc': 'Vertical or horizontal list. Most common use case for '
           'BouncingScrollPhysics.',
       'icon': Icons.view_list,
     },
     {
       'widget': 'GridView',
-      'desc':
-          'Grid layout with scrollable content. Bounce works on '
+      'desc': 'Grid layout with scrollable content. Bounce works on '
           'the scroll direction.',
       'icon': Icons.grid_view,
     },
     {
       'widget': 'SingleChildScrollView',
-      'desc':
-          'Wraps a single child in a scrollable area. Good for '
+      'desc': 'Wraps a single child in a scrollable area. Good for '
           'forms or long content.',
       'icon': Icons.vertical_align_center,
     },
     {
       'widget': 'CustomScrollView',
-      'desc':
-          'Slivers-based scrollable. Combine with SliverAppBar '
+      'desc': 'Slivers-based scrollable. Combine with SliverAppBar '
           'for collapsing headers with bounce.',
       'icon': Icons.view_day,
     },
@@ -808,22 +761,19 @@ dynamic build(BuildContext context) {
     },
     {
       'widget': 'NestedScrollView',
-      'desc':
-          'Nested scrolling areas. Outer and inner can each have '
+      'desc': 'Nested scrolling areas. Outer and inner can each have '
           'different physics.',
       'icon': Icons.layers,
     },
     {
       'widget': 'ReorderableListView',
-      'desc':
-          'Drag-to-reorder list. Bounce physics affects normal '
+      'desc': 'Drag-to-reorder list. Bounce physics affects normal '
           'scrolling between reorder operations.',
       'icon': Icons.swap_vert,
     },
     {
       'widget': 'TabBarView',
-      'desc':
-          'Horizontal page swiping for tabs. Bounce at first '
+      'desc': 'Horizontal page swiping for tabs. Bounce at first '
           'and last tab.',
       'icon': Icons.tab,
     },
@@ -839,18 +789,16 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.deepOrange.withOpacity(0.04),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.deepOrange.withOpacity(0.15)),
+          border: Border.all(
+              color: Colors.deepOrange.withOpacity(0.15)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(
-                  w['icon'] as IconData,
-                  color: Colors.deepOrange[600],
-                  size: 18,
-                ),
+                Icon(w['icon'] as IconData,
+                    color: Colors.deepOrange[600], size: 18),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -868,11 +816,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 4),
             Text(
               w['desc'] as String,
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.grey[700],
-                height: 1.3,
-              ),
+              style: TextStyle(fontSize: 10, color: Colors.grey[700], height: 1.3),
             ),
           ],
         ),
@@ -889,8 +833,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Pull-to-refresh with bounce',
-      'detail':
-          'RefreshIndicator + BouncingScrollPhysics(parent: '
+      'detail': 'RefreshIndicator + BouncingScrollPhysics(parent: '
           'AlwaysScrollableScrollPhysics()) gives a natural pull-to-'
           'refresh. The bounce makes the pull gesture feel connected.',
       'icon': Icons.check_circle,
@@ -899,8 +842,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Consistent cross-platform bounce',
-      'detail':
-          'To enforce iOS-style bounce on Android, explicitly set '
+      'detail': 'To enforce iOS-style bounce on Android, explicitly set '
           'physics: const BouncingScrollPhysics() on your scrollable '
           'widgets. This overrides the platform default.',
       'icon': Icons.check_circle,
@@ -909,8 +851,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Always scrollable for empty states',
-      'detail':
-          'If your list might be empty, chain with '
+      'detail': 'If your list might be empty, chain with '
           'AlwaysScrollableScrollPhysics so users can still pull-to-'
           'refresh to load content.',
       'icon': Icons.check_circle,
@@ -919,8 +860,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'SliverAppBar + bounce for collapsible headers',
-      'detail':
-          'BouncingScrollPhysics with CustomScrollView and '
+      'detail': 'BouncingScrollPhysics with CustomScrollView and '
           'SliverAppBar creates a beautiful stretching effect when '
           'overscrolling at the top — the app bar stretches.',
       'icon': Icons.check_circle,
@@ -929,8 +869,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Bounce on non-scrollable content',
-      'detail':
-          'Without AlwaysScrollableScrollPhysics parent, if content '
+      'detail': 'Without AlwaysScrollableScrollPhysics parent, if content '
           'fits in the viewport, bounce doesn\'t work — the list is '
           'not scrollable. This is a very common surprise.',
       'icon': Icons.warning_amber,
@@ -939,8 +878,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Bounce may confuse mouse wheel users',
-      'detail':
-          'On desktop, mouse wheel scrolling with bounce can feel '
+      'detail': 'On desktop, mouse wheel scrolling with bounce can feel '
           'strange. Consider using ClampingScrollPhysics on desktop and '
           'bounce only on touch platforms.',
       'icon': Icons.error_outline,
@@ -949,8 +887,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Performance with heavy list items',
-      'detail':
-          'Bounce causes overscroll + return animation, rebuilding '
+      'detail': 'Bounce causes overscroll + return animation, rebuilding '
           'visible items. If list items are expensive to build, the bounce-'
           'back animation can stutter. Use const widgets and caching.',
       'icon': Icons.warning_amber,
@@ -972,7 +909,8 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(tip['icon'] as IconData, color: tip['color'] as Color, size: 20),
+          Icon(tip['icon'] as IconData,
+              color: tip['color'] as Color, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -982,9 +920,7 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: (tip['color'] as Color).withOpacity(0.15),
                         borderRadius: BorderRadius.circular(4),
@@ -1030,36 +966,12 @@ dynamic build(BuildContext context) {
   print('=== Section 9: Summary Dashboard ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {
-      'label': 'API members',
-      'value': '${apiMembers.length}',
-      'icon': Icons.code,
-    },
-    {
-      'label': 'Platform defaults',
-      'value': '${platformData.length}',
-      'icon': Icons.devices,
-    },
-    {
-      'label': 'Chain patterns',
-      'value': '${chainExamples.length}',
-      'icon': Icons.link,
-    },
-    {
-      'label': 'Compatible widgets',
-      'value': '${compatibleWidgets.length}',
-      'icon': Icons.widgets,
-    },
-    {
-      'label': 'Comparison rows',
-      'value': '${compData.length}',
-      'icon': Icons.compare,
-    },
-    {
-      'label': 'Tips & pitfalls',
-      'value': '${tips.length}',
-      'icon': Icons.lightbulb,
-    },
+    {'label': 'API members', 'value': '${apiMembers.length}', 'icon': Icons.code},
+    {'label': 'Platform defaults', 'value': '${platformData.length}', 'icon': Icons.devices},
+    {'label': 'Chain patterns', 'value': '${chainExamples.length}', 'icon': Icons.link},
+    {'label': 'Compatible widgets', 'value': '${compatibleWidgets.length}', 'icon': Icons.widgets},
+    {'label': 'Comparison rows', 'value': '${compData.length}', 'icon': Icons.compare},
+    {'label': 'Tips & pitfalls', 'value': '${tips.length}', 'icon': Icons.lightbulb},
   ];
 
   final summaryGrid = Wrap(
@@ -1079,15 +991,13 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.deepOrange.withOpacity(0.3)),
+          border:
+              Border.all(color: Colors.deepOrange.withOpacity(0.3)),
         ),
         child: Column(
           children: [
-            Icon(
-              item['icon'] as IconData,
-              color: Colors.deepOrange[700],
-              size: 24,
-            ),
+            Icon(item['icon'] as IconData,
+                color: Colors.deepOrange[700], size: 24),
             const SizedBox(height: 6),
             Text(
               item['value'] as String,
@@ -1182,7 +1092,10 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.deepOrange[800]!, Colors.deepOrange[400]!],
+                colors: [
+                  Colors.deepOrange[800]!,
+                  Colors.deepOrange[400]!,
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -1191,11 +1104,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  Icons.sports_basketball,
-                  color: Colors.white,
-                  size: 40,
-                ),
+                const Icon(Icons.sports_basketball,
+                    color: Colors.white, size: 40),
                 const SizedBox(height: 10),
                 const Text(
                   'BouncingScrollPhysics',
@@ -1240,10 +1150,16 @@ dynamic build(BuildContext context) {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.deepOrange.withOpacity(0.2)),
+              border: Border.all(
+                  color: Colors.deepOrange.withOpacity(0.2)),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Column(children: [compTableHeader, ...compTableRows]),
+            child: Column(
+              children: [
+                compTableHeader,
+                ...compTableRows,
+              ],
+            ),
           ),
 
           // Section 5
@@ -1259,7 +1175,8 @@ dynamic build(BuildContext context) {
           compatGrid,
 
           // Section 8
-          bspSectionHeader('8', 'Patterns & Pitfalls', Icons.lightbulb_outline),
+          bspSectionHeader(
+              '8', 'Patterns & Pitfalls', Icons.lightbulb_outline),
           ...tipWidgets,
 
           // Section 9

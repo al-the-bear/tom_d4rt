@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.data_object,
       'title': 'What is TickerModeData?',
-      'body':
-          'TickerModeData is the InheritedWidget companion to '
+      'body': 'TickerModeData is the InheritedWidget companion to '
           'TickerMode. While TickerMode wraps subtrees with an '
           'enabled/disabled flag, TickerModeData is the inherited '
           'mechanism that delivers that state to descendants.',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.share,
       'title': 'InheritedWidget Pattern',
-      'body':
-          'TickerModeData uses the InheritedWidget pattern so any '
+      'body': 'TickerModeData uses the InheritedWidget pattern so any '
           'widget in the subtree can read the ticker-active state '
           'without explicit parameter passing. Widgets call '
           'TickerMode.of(context) which finds TickerModeData.',
@@ -37,8 +35,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Animation Control',
-      'body':
-          'When TickerModeData reports inactive, AnimationController '
+      'body': 'When TickerModeData reports inactive, AnimationController '
           'and other Ticker consumers stop driving animations. This '
           'saves CPU cycles for offscreen or backgrounded content '
           'without rebuilding the widget tree.',
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'Subtree Scope',
-      'body':
-          'TickerModeData is scoped to the subtree where TickerMode '
+      'body': 'TickerModeData is scoped to the subtree where TickerMode '
           'is placed. Multiple TickerMode widgets can nest, each '
           'overriding the state for its own subtree. Children see '
           'the nearest ancestor\'s value.',
@@ -127,39 +123,34 @@ dynamic build(BuildContext context) {
     {
       'name': 'enabled',
       'type': 'bool',
-      'desc':
-          'Whether tickers in the subtree should be active. When '
+      'desc': 'Whether tickers in the subtree should be active. When '
           'true, AnimationControllers drive animations normally. '
           'When false, tickers are silently muted.',
     },
     {
       'name': 'TickerMode.of(context)',
       'type': 'bool',
-      'desc':
-          'Static method that looks up the nearest TickerModeData '
+      'desc': 'Static method that looks up the nearest TickerModeData '
           'ancestor and returns its enabled value. Returns true if '
           'no TickerMode ancestor exists (default active).',
     },
     {
       'name': 'TickerMode.getNotifier(context)',
       'type': 'ValueNotifier<bool>',
-      'desc':
-          'Returns a ValueNotifier that allows widgets to listen '
+      'desc': 'Returns a ValueNotifier that allows widgets to listen '
           'for ticker-mode changes without rebuilding. Useful for '
           'custom Ticker implementations.',
     },
     {
       'name': 'updateShouldNotify',
       'type': 'bool Function(TickerModeData)',
-      'desc':
-          'InheritedWidget method that returns true when the enabled '
+      'desc': 'InheritedWidget method that returns true when the enabled '
           'flag changes, triggering dependent widget rebuilds.',
     },
     {
       'name': 'child',
       'type': 'Widget',
-      'desc':
-          'The subtree that this TickerModeData covers. All '
+      'desc': 'The subtree that this TickerModeData covers. All '
           'descendants will receive the ticker state via '
           'InheritedWidget dependency.',
     },
@@ -248,8 +239,7 @@ dynamic build(BuildContext context) {
   final inheritedMechanics = <Map<String, dynamic>>[
     {
       'title': 'Widget Tree Propagation',
-      'desc':
-          'TickerModeData sits in the element tree as an '
+      'desc': 'TickerModeData sits in the element tree as an '
           'InheritedElement. When a descendant calls '
           'TickerMode.of(context), the framework walks up the tree '
           'to find it and registers a dependency.',
@@ -258,8 +248,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dependency Registration',
-      'desc':
-          'Calling TickerMode.of(context) registers the calling '
+      'desc': 'Calling TickerMode.of(context) registers the calling '
           'widget as a dependent. When TickerModeData changes and '
           'updateShouldNotify returns true, all dependents rebuild.',
       'icon': Icons.link,
@@ -267,8 +256,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Efficient Updates',
-      'desc':
-          'Only widgets that actually called TickerMode.of(context) '
+      'desc': 'Only widgets that actually called TickerMode.of(context) '
           'rebuild when the ticker state changes. Widgets that don\'t '
           'use ticker state are unaffected, even in the same subtree.',
       'icon': Icons.flash_on,
@@ -276,8 +264,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Nesting Behavior',
-      'desc':
-          'If multiple TickerMode widgets are nested, children find '
+      'desc': 'If multiple TickerMode widgets are nested, children find '
           'the closest ancestor. An inner TickerMode(enabled: true) '
           'can re-enable tickers within an outer disabled zone.',
       'icon': Icons.layers,
@@ -285,8 +272,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Default Value',
-      'desc':
-          'When no TickerMode ancestor exists, TickerMode.of(context) '
+      'desc': 'When no TickerMode ancestor exists, TickerMode.of(context) '
           'returns true (tickers active by default). This ensures '
           'animations work without explicit TickerMode wrapping.',
       'icon': Icons.check_circle,
@@ -360,8 +346,7 @@ dynamic build(BuildContext context) {
   final consumers = <Map<String, dynamic>>[
     {
       'name': 'AnimationController',
-      'desc':
-          'The primary consumer. When ticker mode is disabled, '
+      'desc': 'The primary consumer. When ticker mode is disabled, '
           'AnimationController\'s internal Ticker silently stops. '
           'Pending animations freeze at their current value. '
           'Re-enabling resumes from where they paused.',
@@ -370,8 +355,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'TickerProviderStateMixin',
-      'desc':
-          'The mixin that creates Tickers for State objects. It '
+      'desc': 'The mixin that creates Tickers for State objects. It '
           'automatically subscribes to TickerModeData and mutes '
           'its Tickers when the mode is disabled.',
       'icon': Icons.settings,
@@ -379,8 +363,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'SingleTickerProviderStateMixin',
-      'desc':
-          'Same as TickerProviderStateMixin but limited to a single '
+      'desc': 'Same as TickerProviderStateMixin but limited to a single '
           'Ticker. Slightly more efficient when a State only needs '
           'one AnimationController.',
       'icon': Icons.looks_one,
@@ -388,8 +371,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Custom Tickers',
-      'desc':
-          'Custom widgets that create their own Tickers should call '
+      'desc': 'Custom widgets that create their own Tickers should call '
           'TickerMode.of(context) or use getNotifier() to respect '
           'ticker mode. Ignoring it wastes CPU on hidden animations.',
       'icon': Icons.build,
@@ -397,8 +379,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Implicit Animations',
-      'desc':
-          'AnimatedContainer, AnimatedOpacity, and other implicit '
+      'desc': 'AnimatedContainer, AnimatedOpacity, and other implicit '
           'animation widgets use AnimationController internally. '
           'They automatically honor TickerModeData via their mixins.',
       'icon': Icons.auto_awesome_motion,
@@ -472,8 +453,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'case': 'Offscreen Tabs',
-      'desc':
-          'When a TabBarView shows tab A, tabs B and C are offscreen. '
+      'desc': 'When a TabBarView shows tab A, tabs B and C are offscreen. '
           'Wrapping them with TickerMode(enabled: false) stops their '
           'animations, saving CPU without disposing the tab state.',
       'icon': Icons.tab,
@@ -481,8 +461,7 @@ dynamic build(BuildContext context) {
     },
     {
       'case': 'App Lifecycle',
-      'desc':
-          'When the app moves to background (AppLifecycleState.paused), '
+      'desc': 'When the app moves to background (AppLifecycleState.paused), '
           'disabling TickerMode at the root stops all animations. '
           'Re-enable when the app resumes.',
       'icon': Icons.mobile_off,
@@ -490,8 +469,7 @@ dynamic build(BuildContext context) {
     },
     {
       'case': 'Modal Overlays',
-      'desc':
-          'When a full-screen modal covers the main content, muting '
+      'desc': 'When a full-screen modal covers the main content, muting '
           'background tickers avoids wasting GPU cycles on invisible '
           'animations under the overlay.',
       'icon': Icons.layers,
@@ -499,8 +477,7 @@ dynamic build(BuildContext context) {
     },
     {
       'case': 'Lazy ListView',
-      'desc':
-          'Items scrolled far off screen may have animated indicators '
+      'desc': 'Items scrolled far off screen may have animated indicators '
           'or progress bars. TickerMode can mute them until they are '
           'near the viewport again.',
       'icon': Icons.list,
@@ -508,8 +485,7 @@ dynamic build(BuildContext context) {
     },
     {
       'case': 'Power Saving',
-      'desc':
-          'On low-battery or power-saving mode, an app can disable '
+      'desc': 'On low-battery or power-saving mode, an app can disable '
           'decorative animations globally by toggling a root-level '
           'TickerMode, reducing frame rate demand.',
       'icon': Icons.battery_saver,
@@ -585,8 +561,7 @@ dynamic build(BuildContext context) {
       'from': 'TickerMode (StatefulWidget)',
       'to': 'TickerModeData (InheritedWidget)',
       'relationship': 'Creates and updates',
-      'desc':
-          'TickerMode builds a TickerModeData in its build method, '
+      'desc': 'TickerMode builds a TickerModeData in its build method, '
           'passing the enabled flag. The State object rebuilds '
           'TickerModeData when enabled changes.',
       'color': Colors.cyan,
@@ -595,8 +570,7 @@ dynamic build(BuildContext context) {
       'from': 'TickerModeData',
       'to': 'TickerMode.of(context)',
       'relationship': 'Looked up by',
-      'desc':
-          'The static of() method calls '
+      'desc': 'The static of() method calls '
           'context.dependOnInheritedWidgetOfExactType<TickerModeData>() '
           'to find the nearest ancestor and read its enabled flag.',
       'color': Colors.blue,
@@ -605,8 +579,7 @@ dynamic build(BuildContext context) {
       'from': 'TickerProviderStateMixin',
       'to': 'TickerMode.of(context)',
       'relationship': 'Subscribes to',
-      'desc':
-          'The mixin calls TickerMode.of(context) during didChangeDependencies '
+      'desc': 'The mixin calls TickerMode.of(context) during didChangeDependencies '
           'and mutes/unmutes all Tickers it created. This is automatic.',
       'color': Colors.green,
     },
@@ -614,8 +587,7 @@ dynamic build(BuildContext context) {
       'from': 'AnimationController',
       'to': 'TickerProviderStateMixin',
       'relationship': 'Gets Ticker from',
-      'desc':
-          'AnimationController(vsync: this) obtains a Ticker from '
+      'desc': 'AnimationController(vsync: this) obtains a Ticker from '
           'the mixin. The mixin controls that Ticker based on '
           'TickerModeData state.',
       'color': Colors.deepOrange,
@@ -725,8 +697,7 @@ dynamic build(BuildContext context) {
   final practices = <Map<String, dynamic>>[
     {
       'practice': 'Always use vsync: this',
-      'desc':
-          'When creating AnimationControllers in State objects, '
+      'desc': 'When creating AnimationControllers in State objects, '
           'use TickerProviderStateMixin and pass vsync: this. This '
           'ensures automatic ticker mode integration.',
       'good': true,
@@ -734,8 +705,7 @@ dynamic build(BuildContext context) {
     },
     {
       'practice': 'Don\'t ignore ticker mode in custom Tickers',
-      'desc':
-          'If building custom animation drivers, check '
+      'desc': 'If building custom animation drivers, check '
           'TickerMode.of(context) and respect the result. Ignoring '
           'it wastes CPU and battery.',
       'good': false,
@@ -743,16 +713,14 @@ dynamic build(BuildContext context) {
     },
     {
       'practice': 'Wrap offscreen content with TickerMode',
-      'desc':
-          'For PageView or TabBarView children, wrap offscreen pages '
+      'desc': 'For PageView or TabBarView children, wrap offscreen pages '
           'with TickerMode(enabled: false) to stop their animations.',
       'good': true,
       'color': Colors.green,
     },
     {
       'practice': 'Use getNotifier for non-widget consumers',
-      'desc':
-          'For RenderObjects or other non-widget code that needs '
+      'desc': 'For RenderObjects or other non-widget code that needs '
           'ticker mode state, use TickerMode.getNotifier(context) '
           'to listen without widget dependency.',
       'good': true,
@@ -760,8 +728,7 @@ dynamic build(BuildContext context) {
     },
     {
       'practice': 'Don\'t frequently toggle TickerMode',
-      'desc':
-          'Each toggle triggers rebuilds of all dependent widgets. '
+      'desc': 'Each toggle triggers rebuilds of all dependent widgets. '
           'Toggle based on meaningful state changes (tab switch, '
           'background), not on every frame.',
       'good': false,
@@ -838,38 +805,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.data_object,
-      'text':
-          'TickerModeData is the InheritedWidget that delivers '
+      'text': 'TickerModeData is the InheritedWidget that delivers '
           'ticker-active state from TickerMode to the subtree.',
     },
     {
       'icon': Icons.search,
-      'text':
-          'Widgets call TickerMode.of(context) which finds the '
+      'text': 'Widgets call TickerMode.of(context) which finds the '
           'nearest TickerModeData ancestor in the element tree.',
     },
     {
       'icon': Icons.animation,
-      'text':
-          'AnimationController, TickerProviderStateMixin, and '
+      'text': 'AnimationController, TickerProviderStateMixin, and '
           'implicit animations all consume TickerModeData.',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'Nested TickerMode widgets create layered scopes. Each '
+      'text': 'Nested TickerMode widgets create layered scopes. Each '
           'subtree sees its nearest ancestor\'s state.',
     },
     {
       'icon': Icons.battery_saver,
-      'text':
-          'Primary benefit: power saving by stopping invisible '
+      'text': 'Primary benefit: power saving by stopping invisible '
           'animations on offscreen tabs, backgrounded apps.',
     },
     {
       'icon': Icons.check_circle,
-      'text':
-          'Default is true (active). Only widgets using '
+      'text': 'Default is true (active). Only widgets using '
           'TickerMode.of() rebuild when the state changes.',
     },
   ];
@@ -896,7 +857,11 @@ dynamic build(BuildContext context) {
                 color: Colors.cyan.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(sp['icon'] as IconData, color: Colors.cyan, size: 20),
+              child: Icon(
+                sp['icon'] as IconData,
+                color: Colors.cyan,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(

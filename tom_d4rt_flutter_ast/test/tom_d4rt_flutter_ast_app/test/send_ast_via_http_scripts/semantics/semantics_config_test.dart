@@ -37,22 +37,14 @@ dynamic build(BuildContext context) {
   // Helper builders
   // ──────────────────────────────────────────────────────────
 
-  Widget sectionHeader(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color color,
-  ) {
+  Widget sectionHeader(String title, String subtitle, IconData icon, Color color) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: 28.0, bottom: 12.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            color.withValues(alpha: 0.15),
-            color.withValues(alpha: 0.05),
-          ],
+          colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.05)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -67,22 +59,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: color,
-                  ),
-                ),
+                Text(title, style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: color)),
                 SizedBox(height: 3.0),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: color.withValues(alpha: 0.7),
-                  ),
-                ),
+                Text(subtitle, style: TextStyle(fontSize: 12.0, color: color.withValues(alpha: 0.7))),
               ],
             ),
           ),
@@ -101,10 +80,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 12.0, height: 1.5, color: color),
-      ),
+      child: Text(text, style: TextStyle(fontSize: 12.0, height: 1.5, color: color)),
     );
   }
 
@@ -120,22 +96,14 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.all(4.0),
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: currentValue
-            ? color.withValues(alpha: 0.12)
-            : Colors.grey.withValues(alpha: 0.06),
+        color: currentValue ? color.withValues(alpha: 0.12) : Colors.grey.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           color: currentValue ? color : Colors.grey.withValues(alpha: 0.3),
           width: currentValue ? 2.0 : 1.0,
         ),
         boxShadow: currentValue
-            ? [
-                BoxShadow(
-                  color: color.withValues(alpha: 0.2),
-                  blurRadius: 6.0,
-                  offset: Offset(0.0, 2.0),
-                ),
-              ]
+            ? [BoxShadow(color: color.withValues(alpha: 0.2), blurRadius: 6.0, offset: Offset(0.0, 2.0))]
             : [],
       ),
       child: Column(
@@ -158,9 +126,7 @@ dynamic build(BuildContext context) {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                 decoration: BoxDecoration(
-                  color: currentValue
-                      ? cSuccess.withValues(alpha: 0.15)
-                      : cDisabled.withValues(alpha: 0.15),
+                  color: currentValue ? cSuccess.withValues(alpha: 0.15) : cDisabled.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
                 child: Text(
@@ -175,14 +141,7 @@ dynamic build(BuildContext context) {
             ],
           ),
           SizedBox(height: 4.0),
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.grey.shade700,
-              height: 1.3,
-            ),
-          ),
+          Text(description, style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700, height: 1.3)),
           SizedBox(height: 3.0),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 1.5),
@@ -190,10 +149,7 @@ dynamic build(BuildContext context) {
               color: cPrimary.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(3.0),
             ),
-            child: Text(
-              category,
-              style: TextStyle(fontSize: 8.0, color: cPrimary),
-            ),
+            child: Text(category, style: TextStyle(fontSize: 8.0, color: cPrimary)),
           ),
         ],
       ),
@@ -232,16 +188,13 @@ dynamic build(BuildContext context) {
   configOn.isEnabled = true;
   configOn.isFocusable = true;
   configOn.isSelected = true;
-  print(
-    'After setting isButton=true, isEnabled=true, isFocusable=true, isSelected=true',
-  );
+  print('After setting isButton=true, isEnabled=true, isFocusable=true, isSelected=true');
 
   // Interactive category: traits affecting user interaction
   final interactiveTraits = <Widget>[
     traitCard(
       name: 'isButton',
-      description:
-          'Marks the node as a button. Assistive tech announces "button" after the label.',
+      description: 'Marks the node as a button. Assistive tech announces "button" after the label.',
       icon: Icons.smart_button,
       color: cSecondary,
       currentValue: configOn.isButton,
@@ -249,8 +202,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isLink',
-      description:
-          'Marks the node as a hyperlink. Screen readers announce "link" for navigation elements.',
+      description: 'Marks the node as a hyperlink. Screen readers announce "link" for navigation elements.',
       icon: Icons.link,
       color: cSecondary,
       currentValue: configTraits.isLink,
@@ -258,8 +210,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isTextField',
-      description:
-          'Marks as text input. Enables keyboard entry actions on assistive services.',
+      description: 'Marks as text input. Enables keyboard entry actions on assistive services.',
       icon: Icons.text_fields,
       color: cSecondary,
       currentValue: configTraits.isTextField,
@@ -267,8 +218,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isSlider',
-      description:
-          'Indicates an adjustable slider control. Enables increase/decrease gestures.',
+      description: 'Indicates an adjustable slider control. Enables increase/decrease gestures.',
       icon: Icons.tune,
       color: cSecondary,
       currentValue: configTraits.isSlider,
@@ -280,8 +230,7 @@ dynamic build(BuildContext context) {
   final stateTraits = <Widget>[
     traitCard(
       name: 'isEnabled',
-      description:
-          'Whether the control is active. Disabled controls still appear but are non-interactive.',
+      description: 'Whether the control is active. Disabled controls still appear but are non-interactive.',
       icon: Icons.toggle_on,
       color: cAccent,
       currentValue: configOn.isEnabled == true,
@@ -289,8 +238,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isSelected',
-      description:
-          'Current selection state. Used by tabs, chips, list items in selection mode.',
+      description: 'Current selection state. Used by tabs, chips, list items in selection mode.',
       icon: Icons.check_box,
       color: cAccent,
       currentValue: configOn.isSelected,
@@ -298,8 +246,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isChecked',
-      description:
-          'Checkbox/Toggle tri-state. Null = mixed, true = checked, false = unchecked.',
+      description: 'Checkbox/Toggle tri-state. Null = mixed, true = checked, false = unchecked.',
       icon: Icons.check_circle_outline,
       color: cAccent,
       currentValue: configTraits.isChecked == true,
@@ -307,8 +254,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isToggled',
-      description:
-          'On/off toggle state. Similar to isChecked but for switches.',
+      description: 'On/off toggle state. Similar to isChecked but for switches.',
       icon: Icons.toggle_off_outlined,
       color: cAccent,
       currentValue: configTraits.isToggled == true,
@@ -316,8 +262,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isFocusable',
-      description:
-          'Whether the node can receive focus. Focus-able nodes are traversed by screen readers.',
+      description: 'Whether the node can receive focus. Focus-able nodes are traversed by screen readers.',
       icon: Icons.center_focus_strong,
       color: cAccent,
       currentValue: configOn.isFocusable,
@@ -325,8 +270,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isFocused',
-      description:
-          'Whether the node currently has focus. Only one node should be focused at a time.',
+      description: 'Whether the node currently has focus. Only one node should be focused at a time.',
       icon: Icons.gps_fixed,
       color: cAccent,
       currentValue: configTraits.isFocused == true,
@@ -334,8 +278,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isReadOnly',
-      description:
-          'Text field that cannot be edited. Content is readable but not modifiable.',
+      description: 'Text field that cannot be edited. Content is readable but not modifiable.',
       icon: Icons.lock_outline,
       color: cAccent,
       currentValue: configTraits.isReadOnly,
@@ -347,8 +290,7 @@ dynamic build(BuildContext context) {
   final structuralTraits = <Widget>[
     traitCard(
       name: 'isHeader',
-      description:
-          'Marks a heading element. Screen readers allow quick navigation between headers.',
+      description: 'Marks a heading element. Screen readers allow quick navigation between headers.',
       icon: Icons.title,
       color: cPrimary,
       currentValue: configTraits.isHeader,
@@ -356,8 +298,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isImage',
-      description:
-          'Marks image content. The label serves as alternative text for the image.',
+      description: 'Marks image content. The label serves as alternative text for the image.',
       icon: Icons.image,
       color: cPrimary,
       currentValue: configTraits.isImage,
@@ -365,8 +306,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isHidden',
-      description:
-          'Hides node from accessibility tree. Use sparingly; content becomes invisible.',
+      description: 'Hides node from accessibility tree. Use sparingly; content becomes invisible.',
       icon: Icons.visibility_off,
       color: cPrimary,
       currentValue: configTraits.isHidden,
@@ -374,8 +314,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isObscured',
-      description:
-          'Content is obscured (password fields). Prevents reading of sensitive text.',
+      description: 'Content is obscured (password fields). Prevents reading of sensitive text.',
       icon: Icons.password,
       color: cPrimary,
       currentValue: configTraits.isObscured,
@@ -383,8 +322,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'isMultiline',
-      description:
-          'Multi-line text area. Affects how screen readers announce line breaks.',
+      description: 'Multi-line text area. Affects how screen readers announce line breaks.',
       icon: Icons.notes,
       color: cPrimary,
       currentValue: configTraits.isMultiline,
@@ -392,8 +330,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'liveRegion',
-      description:
-          'Announces changes automatically. For toast notifications, countdowns, progress.',
+      description: 'Announces changes automatically. For toast notifications, countdowns, progress.',
       icon: Icons.campaign,
       color: cPrimary,
       currentValue: configTraits.liveRegion,
@@ -401,8 +338,7 @@ dynamic build(BuildContext context) {
     ),
     traitCard(
       name: 'hasImplicitScrolling',
-      description:
-          'Node is implicitly scrollable. Assistive tech adds scroll gestures to the node.',
+      description: 'Node is implicitly scrollable. Assistive tech adds scroll gestures to the node.',
       icon: Icons.swap_vert,
       color: cPrimary,
       currentValue: configTraits.hasImplicitScrolling,
@@ -436,14 +372,7 @@ dynamic build(BuildContext context) {
           color: cSecondary.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(6.0),
         ),
-        child: Text(
-          'Interactive Traits',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w600,
-            color: cSecondary,
-          ),
-        ),
+        child: Text('Interactive Traits', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: cSecondary)),
       ),
       Wrap(
         children: interactiveTraits.map((card) {
@@ -462,14 +391,7 @@ dynamic build(BuildContext context) {
           color: cAccent.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(6.0),
         ),
-        child: Text(
-          'State Traits',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w600,
-            color: cAccent,
-          ),
-        ),
+        child: Text('State Traits', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: cAccent)),
       ),
       Wrap(
         children: stateTraits.map((card) {
@@ -488,14 +410,7 @@ dynamic build(BuildContext context) {
           color: cPrimary.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(6.0),
         ),
-        child: Text(
-          'Structural Traits',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w600,
-            color: cPrimary,
-          ),
-        ),
+        child: Text('Structural Traits', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: cPrimary)),
       ),
       Wrap(
         children: structuralTraits.map((card) {
@@ -511,10 +426,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              cSuccess.withValues(alpha: 0.1),
-              cSuccess.withValues(alpha: 0.03),
-            ],
+            colors: [cSuccess.withValues(alpha: 0.1), cSuccess.withValues(alpha: 0.03)],
           ),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: cSuccess.withValues(alpha: 0.3)),
@@ -526,35 +438,20 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.check_circle, size: 18.0, color: cSuccess),
                 SizedBox(width: 8.0),
-                Text(
-                  'Active Config Snapshot',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.bold,
-                    color: cSuccess,
-                  ),
-                ),
+                Text('Active Config Snapshot', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: cSuccess)),
               ],
             ),
             SizedBox(height: 8.0),
             Text(
               'isButton: ${configOn.isButton}  |  isEnabled: ${configOn.isEnabled}  |  '
               'isFocusable: ${configOn.isFocusable}  |  isSelected: ${configOn.isSelected}',
-              style: TextStyle(
-                fontSize: 11.0,
-                fontFamily: 'monospace',
-                color: Colors.grey.shade800,
-              ),
+              style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade800),
             ),
             SizedBox(height: 4.0),
             Text(
               'This configuration tells assistive services: "I am a focusable, '
               'enabled, selected button."',
-              style: TextStyle(
-                fontSize: 11.0,
-                fontStyle: FontStyle.italic,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic, color: Colors.grey.shade700),
             ),
           ],
         ),
@@ -587,21 +484,17 @@ dynamic build(BuildContext context) {
   // Attributed strings demonstration
   final attrLabel = AttributedString(
     'Spell: NASA means National Aeronautics',
-    attributes: [SpellOutStringAttribute(range: TextRange(start: 7, end: 11))],
+    attributes: [
+      SpellOutStringAttribute(range: TextRange(start: 7, end: 11)),
+    ],
   );
   print('AttributedString created with SpellOut range 7-11');
 
   final attrLabelLocale = AttributedString(
     'Bonjour from Paris, Hello from London',
     attributes: [
-      LocaleStringAttribute(
-        range: TextRange(start: 0, end: 18),
-        locale: Locale('fr', 'FR'),
-      ),
-      LocaleStringAttribute(
-        range: TextRange(start: 20, end: 37),
-        locale: Locale('en', 'GB'),
-      ),
+      LocaleStringAttribute(range: TextRange(start: 0, end: 18), locale: Locale('fr', 'FR')),
+      LocaleStringAttribute(range: TextRange(start: 20, end: 37), locale: Locale('en', 'GB')),
     ],
   );
   print('AttributedString with locale attributes: fr-FR (0-18), en-GB (20-37)');
@@ -611,13 +504,7 @@ dynamic build(BuildContext context) {
   configAttr.attributedLabel = attrLabel;
   print('Attributed label set on config: ${configAttr.attributedLabel.string}');
 
-  Widget labelAxisCard(
-    String axis,
-    String value,
-    IconData icon,
-    Color color,
-    String explanation,
-  ) {
+  Widget labelAxisCard(String axis, String value, IconData icon, Color color, String explanation) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 4.0),
@@ -626,9 +513,7 @@ dynamic build(BuildContext context) {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: color.withValues(alpha: 0.3)),
-        boxShadow: [
-          BoxShadow(color: Colors.grey.withValues(alpha: 0.1), blurRadius: 4.0),
-        ],
+        boxShadow: [BoxShadow(color: Colors.grey.withValues(alpha: 0.1), blurRadius: 4.0)],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -646,14 +531,7 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  axis,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
-                    color: color,
-                  ),
-                ),
+                Text(axis, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: color)),
                 SizedBox(height: 2.0),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -661,24 +539,10 @@ dynamic build(BuildContext context) {
                     color: color.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: Text(
-                    '"$value"',
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontFamily: 'monospace',
-                      color: color,
-                    ),
-                  ),
+                  child: Text('"$value"', style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: color)),
                 ),
                 SizedBox(height: 4.0),
-                Text(
-                  explanation,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600,
-                    height: 1.3,
-                  ),
-                ),
+                Text(explanation, style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600, height: 1.3)),
               ],
             ),
           ),
@@ -688,10 +552,7 @@ dynamic build(BuildContext context) {
   }
 
   // Character grid showing span ranges for attributed strings
-  Widget attributeSpanVisualizer(
-    String text,
-    List<Map<String, dynamic>> spans,
-  ) {
+  Widget attributeSpanVisualizer(String text, List<Map<String, dynamic>> spans) {
     final charWidgets = <Widget>[];
     for (var i = 0; i < text.length; i++) {
       Color bgColor = Colors.grey.withValues(alpha: 0.05);
@@ -711,19 +572,11 @@ dynamic build(BuildContext context) {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: bgColor,
-            border: Border.all(
-              color: Colors.grey.withValues(alpha: 0.2),
-              width: 0.5,
-            ),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.2), width: 0.5),
           ),
           child: Text(
             text[i],
-            style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: textColor,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: textColor, fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -748,48 +601,18 @@ dynamic build(BuildContext context) {
         color: cSecondary,
       ),
 
-      labelAxisCard(
-        'label',
-        configLabels.label,
-        Icons.label,
-        cPrimary,
-        'The main identity. Screen readers announce this first. "Submit Order".',
-      ),
-      labelAxisCard(
-        'hint',
-        configLabels.hint,
-        Icons.info_outline,
-        cAccent,
-        'Action instruction. VoiceOver says this after the label. "Double-tap to submit your order".',
-      ),
-      labelAxisCard(
-        'value',
-        configLabels.value,
-        Icons.data_object,
-        cSecondary,
-        'Current state value. For sliders, counters, dropdowns. "3 items, \$42.99".',
-      ),
-      labelAxisCard(
-        'increasedValue',
-        configLabels.increasedValue,
-        Icons.arrow_upward,
-        cSuccess,
-        'What value becomes after increase gesture. "4 items, \$56.99".',
-      ),
-      labelAxisCard(
-        'decreasedValue',
-        configLabels.decreasedValue,
-        Icons.arrow_downward,
-        cError,
-        'What value becomes after decrease gesture. "2 items, \$28.99".',
-      ),
-      labelAxisCard(
-        'tooltip',
-        configLabels.tooltip,
-        Icons.chat_bubble_outline,
-        Colors.blueGrey,
-        'Additional context shown on hover/long-focus. "Order submission button".',
-      ),
+      labelAxisCard('label', configLabels.label, Icons.label, cPrimary,
+          'The main identity. Screen readers announce this first. "Submit Order".'),
+      labelAxisCard('hint', configLabels.hint, Icons.info_outline, cAccent,
+          'Action instruction. VoiceOver says this after the label. "Double-tap to submit your order".'),
+      labelAxisCard('value', configLabels.value, Icons.data_object, cSecondary,
+          'Current state value. For sliders, counters, dropdowns. "3 items, \$42.99".'),
+      labelAxisCard('increasedValue', configLabels.increasedValue, Icons.arrow_upward, cSuccess,
+          'What value becomes after increase gesture. "4 items, \$56.99".'),
+      labelAxisCard('decreasedValue', configLabels.decreasedValue, Icons.arrow_downward, cError,
+          'What value becomes after decrease gesture. "2 items, \$28.99".'),
+      labelAxisCard('tooltip', configLabels.tooltip, Icons.chat_bubble_outline, Colors.blueGrey,
+          'Additional context shown on hover/long-focus. "Order submission button".'),
 
       SizedBox(height: 16.0),
 
@@ -805,36 +628,25 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'SpellOut Attribute Span',
-              style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.bold,
-                color: cPrimary,
-              ),
-            ),
+            Text('SpellOut Attribute Span', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: cPrimary)),
             SizedBox(height: 4.0),
             Text(
               'Range 7–11 is spelled out letter by letter (N-A-S-A)',
               style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
             ),
             SizedBox(height: 8.0),
-            attributeSpanVisualizer('Spell: NASA means National Aeronautics', [
-              {'start': 7, 'end': 11, 'color': cSecondary},
-            ]),
+            attributeSpanVisualizer(
+              'Spell: NASA means National Aeronautics',
+              [
+                {'start': 7, 'end': 11, 'color': cSecondary},
+              ],
+            ),
             SizedBox(height: 6.0),
             Row(
               children: [
-                Container(
-                  width: 14.0,
-                  height: 14.0,
-                  color: cSecondary.withValues(alpha: 0.2),
-                ),
+                Container(width: 14.0, height: 14.0, color: cSecondary.withValues(alpha: 0.2)),
                 SizedBox(width: 6.0),
-                Text(
-                  'SpellOut range',
-                  style: TextStyle(fontSize: 10.0, color: cSecondary),
-                ),
+                Text('SpellOut range', style: TextStyle(fontSize: 10.0, color: cSecondary)),
               ],
             ),
           ],
@@ -854,43 +666,28 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Locale Attribute Spans',
-              style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.bold,
-                color: cAccent,
-              ),
-            ),
+            Text('Locale Attribute Spans', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: cAccent)),
             SizedBox(height: 4.0),
             Text(
               'Different ranges read in different languages by TTS engine',
               style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
             ),
             SizedBox(height: 8.0),
-            attributeSpanVisualizer('Bonjour from Paris, Hello from London', [
-              {'start': 0, 'end': 18, 'color': Colors.blue},
-              {'start': 20, 'end': 37, 'color': cError},
-            ]),
+            attributeSpanVisualizer(
+              'Bonjour from Paris, Hello from London',
+              [
+                {'start': 0, 'end': 18, 'color': Colors.blue},
+                {'start': 20, 'end': 37, 'color': cError},
+              ],
+            ),
             SizedBox(height: 6.0),
             Row(
               children: [
-                Container(
-                  width: 14.0,
-                  height: 14.0,
-                  color: Colors.blue.withValues(alpha: 0.2),
-                ),
+                Container(width: 14.0, height: 14.0, color: Colors.blue.withValues(alpha: 0.2)),
                 SizedBox(width: 4.0),
-                Text(
-                  'fr-FR',
-                  style: TextStyle(fontSize: 10.0, color: Colors.blue),
-                ),
+                Text('fr-FR', style: TextStyle(fontSize: 10.0, color: Colors.blue)),
                 SizedBox(width: 12.0),
-                Container(
-                  width: 14.0,
-                  height: 14.0,
-                  color: cError.withValues(alpha: 0.2),
-                ),
+                Container(width: 14.0, height: 14.0, color: cError.withValues(alpha: 0.2)),
                 SizedBox(width: 4.0),
                 Text('en-GB', style: TextStyle(fontSize: 10.0, color: cError)),
               ],
@@ -911,11 +708,7 @@ dynamic build(BuildContext context) {
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.format_textdirection_l_to_r,
-              size: 18.0,
-              color: Colors.grey.shade600,
-            ),
+            Icon(Icons.format_textdirection_l_to_r, size: 18.0, color: Colors.grey.shade600),
             SizedBox(width: 8.0),
             Text(
               'textDirection: ${configLabels.textDirection} — controls reading order for all labels',
@@ -990,9 +783,7 @@ dynamic build(BuildContext context) {
   configActions.onDecrease!();
   configActions.onCopy!();
   configActions.onDismiss!();
-  print(
-    'After firing: tap=$tapCount, longPress=$longPressCount, increase=$increaseCount, decrease=$decreaseCount, copy=$copyCount, dismiss=$dismissCount',
-  );
+  print('After firing: tap=$tapCount, longPress=$longPressCount, increase=$increaseCount, decrease=$decreaseCount, copy=$copyCount, dismiss=$dismissCount');
 
   // Custom actions
   final customAction1 = CustomSemanticsAction(label: 'Archive');
@@ -1001,31 +792,19 @@ dynamic build(BuildContext context) {
     customAction1: () => print('  Custom action: Archive'),
     customAction2: () => print('  Custom action: Star'),
   };
-  print(
-    'Custom actions registered: ${configActions.customSemanticsActions.length}',
-  );
+  print('Custom actions registered: ${configActions.customSemanticsActions.length}');
 
   // Build action tile visual
-  Widget actionTile(
-    String name,
-    IconData icon,
-    Color color,
-    String gesture,
-    bool isRegistered,
-  ) {
+  Widget actionTile(String name, IconData icon, Color color, String gesture, bool isRegistered) {
     return Container(
       width: 110.0,
       margin: EdgeInsets.all(3.0),
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: isRegistered
-            ? color.withValues(alpha: 0.1)
-            : Colors.grey.withValues(alpha: 0.04),
+        color: isRegistered ? color.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: isRegistered
-              ? color.withValues(alpha: 0.5)
-              : Colors.grey.withValues(alpha: 0.2),
+          color: isRegistered ? color.withValues(alpha: 0.5) : Colors.grey.withValues(alpha: 0.2),
           width: isRegistered ? 1.5 : 1.0,
         ),
       ),
@@ -1035,19 +814,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 4.0),
           Text(
             name,
-            style: TextStyle(
-              fontSize: 10.0,
-              fontWeight: FontWeight.bold,
-              color: isRegistered ? color : cDisabled,
-            ),
+            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: isRegistered ? color : cDisabled),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 2.0),
-          Text(
-            gesture,
-            style: TextStyle(fontSize: 8.0, color: Colors.grey.shade500),
-            textAlign: TextAlign.center,
-          ),
+          Text(gesture, style: TextStyle(fontSize: 8.0, color: Colors.grey.shade500), textAlign: TextAlign.center),
           SizedBox(height: 3.0),
           Container(
             width: 8.0,
@@ -1088,38 +859,13 @@ dynamic build(BuildContext context) {
           color: Colors.deepOrange.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: Text(
-          'Primary Actions',
-          style: TextStyle(
-            fontSize: 11.0,
-            fontWeight: FontWeight.w600,
-            color: Colors.deepOrange,
-          ),
-        ),
+        child: Text('Primary Actions', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: Colors.deepOrange)),
       ),
       Wrap(
         children: [
-          actionTile(
-            'onTap',
-            Icons.touch_app,
-            Colors.deepOrange,
-            'Double-tap',
-            true,
-          ),
-          actionTile(
-            'onLongPress',
-            Icons.pan_tool,
-            Colors.deepOrange,
-            'Double-tap & hold',
-            true,
-          ),
-          actionTile(
-            'onDismiss',
-            Icons.close,
-            Colors.deepOrange,
-            'Swipe dismiss',
-            true,
-          ),
+          actionTile('onTap', Icons.touch_app, Colors.deepOrange, 'Double-tap', true),
+          actionTile('onLongPress', Icons.pan_tool, Colors.deepOrange, 'Double-tap & hold', true),
+          actionTile('onDismiss', Icons.close, Colors.deepOrange, 'Swipe dismiss', true),
         ],
       ),
 
@@ -1133,45 +879,14 @@ dynamic build(BuildContext context) {
           color: Colors.blue.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: Text(
-          'Scroll Actions',
-          style: TextStyle(
-            fontSize: 11.0,
-            fontWeight: FontWeight.w600,
-            color: Colors.blue,
-          ),
-        ),
+        child: Text('Scroll Actions', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: Colors.blue)),
       ),
       Wrap(
         children: [
-          actionTile(
-            'onScrollUp',
-            Icons.arrow_upward,
-            Colors.blue,
-            '3-finger swipe up',
-            true,
-          ),
-          actionTile(
-            'onScrollDown',
-            Icons.arrow_downward,
-            Colors.blue,
-            '3-finger swipe down',
-            true,
-          ),
-          actionTile(
-            'onScrollLeft',
-            Icons.arrow_back,
-            Colors.blue,
-            '3-finger swipe left',
-            true,
-          ),
-          actionTile(
-            'onScrollRight',
-            Icons.arrow_forward,
-            Colors.blue,
-            '3-finger swipe right',
-            true,
-          ),
+          actionTile('onScrollUp', Icons.arrow_upward, Colors.blue, '3-finger swipe up', true),
+          actionTile('onScrollDown', Icons.arrow_downward, Colors.blue, '3-finger swipe down', true),
+          actionTile('onScrollLeft', Icons.arrow_back, Colors.blue, '3-finger swipe left', true),
+          actionTile('onScrollRight', Icons.arrow_forward, Colors.blue, '3-finger swipe right', true),
         ],
       ),
 
@@ -1185,31 +900,12 @@ dynamic build(BuildContext context) {
           color: cSuccess.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: Text(
-          'Adjustment Actions',
-          style: TextStyle(
-            fontSize: 11.0,
-            fontWeight: FontWeight.w600,
-            color: cSuccess,
-          ),
-        ),
+        child: Text('Adjustment Actions', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: cSuccess)),
       ),
       Wrap(
         children: [
-          actionTile(
-            'onIncrease',
-            Icons.add_circle,
-            cSuccess,
-            'Swipe up',
-            true,
-          ),
-          actionTile(
-            'onDecrease',
-            Icons.remove_circle,
-            cSuccess,
-            'Swipe down',
-            true,
-          ),
+          actionTile('onIncrease', Icons.add_circle, cSuccess, 'Swipe up', true),
+          actionTile('onDecrease', Icons.remove_circle, cSuccess, 'Swipe down', true),
         ],
       ),
 
@@ -1223,14 +919,7 @@ dynamic build(BuildContext context) {
           color: cPrimary.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: Text(
-          'Text & Clipboard Actions',
-          style: TextStyle(
-            fontSize: 11.0,
-            fontWeight: FontWeight.w600,
-            color: cPrimary,
-          ),
-        ),
+        child: Text('Text & Clipboard Actions', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: cPrimary)),
       ),
       Wrap(
         children: [
@@ -1238,27 +927,9 @@ dynamic build(BuildContext context) {
           actionTile('onCut', Icons.cut, cPrimary, 'Rotor: cut', false),
           actionTile('onPaste', Icons.paste, cPrimary, 'Rotor: paste', false),
           actionTile('onSetText', Icons.edit, cPrimary, 'Voice input', false),
-          actionTile(
-            'onSetSelection',
-            Icons.select_all,
-            cPrimary,
-            'Cursor move',
-            false,
-          ),
-          actionTile(
-            'onMoveCursor\nFwd',
-            Icons.keyboard_arrow_right,
-            cPrimary,
-            'Cursor forward',
-            false,
-          ),
-          actionTile(
-            'onMoveCursor\nBack',
-            Icons.keyboard_arrow_left,
-            cPrimary,
-            'Cursor backward',
-            false,
-          ),
+          actionTile('onSetSelection', Icons.select_all, cPrimary, 'Cursor move', false),
+          actionTile('onMoveCursor\nFwd', Icons.keyboard_arrow_right, cPrimary, 'Cursor forward', false),
+          actionTile('onMoveCursor\nBack', Icons.keyboard_arrow_left, cPrimary, 'Cursor backward', false),
         ],
       ),
 
@@ -1272,24 +943,11 @@ dynamic build(BuildContext context) {
           color: cSecondary.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: Text(
-          'Custom Actions',
-          style: TextStyle(
-            fontSize: 11.0,
-            fontWeight: FontWeight.w600,
-            color: cSecondary,
-          ),
-        ),
+        child: Text('Custom Actions', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: cSecondary)),
       ),
       Wrap(
         children: [
-          actionTile(
-            'Archive',
-            Icons.archive,
-            cSecondary,
-            'Custom rotor',
-            true,
-          ),
+          actionTile('Archive', Icons.archive, cSecondary, 'Custom rotor', true),
           actionTile('Star', Icons.star, cSecondary, 'Custom rotor', true),
         ],
       ),
@@ -1308,23 +966,12 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Handler Fire Results',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
-                color: cSuccess,
-              ),
-            ),
+            Text('Handler Fire Results', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cSuccess)),
             SizedBox(height: 6.0),
             Text(
               'onTap: $tapCount  |  onLongPress: $longPressCount  |  onIncrease: $increaseCount  |  '
               'onDecrease: $decreaseCount  |  onCopy: $copyCount  |  onDismiss: $dismissCount',
-              style: TextStyle(
-                fontSize: 10.0,
-                fontFamily: 'monospace',
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade700),
             ),
           ],
         ),
@@ -1349,17 +996,9 @@ dynamic build(BuildContext context) {
   final configMerging = SemanticsConfiguration();
   configMerging.isSemanticBoundary = true;
   configMerging.isMergingSemanticsOfDescendants = true;
-  print(
-    'isMergingSemanticsOfDescendants: ${configMerging.isMergingSemanticsOfDescendants}',
-  );
+  print('isMergingSemanticsOfDescendants: ${configMerging.isMergingSemanticsOfDescendants}');
 
-  Widget treeNodeVisual(
-    String label,
-    Color color,
-    List<Widget> children, {
-    bool isBoundary = false,
-    bool isMerge = false,
-  }) {
+  Widget treeNodeVisual(String label, Color color, List<Widget> children, {bool isBoundary = false, bool isMerge = false}) {
     return Container(
       margin: EdgeInsets.all(4.0),
       padding: EdgeInsets.all(8.0),
@@ -1381,14 +1020,7 @@ dynamic build(BuildContext context) {
               if (isMerge) Icon(Icons.merge, size: 14.0, color: color),
               SizedBox(width: 4.0),
               Flexible(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.bold,
-                    color: color,
-                  ),
-                ),
+                child: Text(label, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color)),
               ),
             ],
           ),
@@ -1396,10 +1028,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 4.0),
             Padding(
               padding: EdgeInsets.only(left: 12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: children,
-              ),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: children),
             ),
           ],
         ],
@@ -1438,10 +1067,7 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Scenario A: Default — No Boundaries',
-              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
-            ),
+            Text('Scenario A: Default — No Boundaries', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
             SizedBox(height: 4.0),
             Text(
               'All labels merge upward into the nearest ancestor boundary. '
@@ -1463,11 +1089,7 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 'Result: One semantics node → "star, Favorite, (12)"',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  fontFamily: 'monospace',
-                  color: Colors.amber.shade900,
-                ),
+                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.amber.shade900),
               ),
             ),
           ],
@@ -1487,14 +1109,7 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Scenario B: isSemanticBoundary = true',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue,
-              ),
-            ),
+            Text('Scenario B: isSemanticBoundary = true', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.blue)),
             SizedBox(height: 4.0),
             Text(
               'Forces a NEW semantics node. Children are separate from parent. '
@@ -1503,19 +1118,9 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(height: 8.0),
             treeNodeVisual('ListTile', Colors.blue, [
-              treeNodeVisual(
-                'Icon: mail [BOUNDARY]',
-                Colors.blue,
-                [],
-                isBoundary: true,
-              ),
+              treeNodeVisual('Icon: mail [BOUNDARY]', Colors.blue, [], isBoundary: true),
               treeNodeVisual('Column', Colors.blue, [
-                treeNodeVisual(
-                  'Text: "Inbox" [BOUNDARY]',
-                  Colors.blue,
-                  [],
-                  isBoundary: true,
-                ),
+                treeNodeVisual('Text: "Inbox" [BOUNDARY]', Colors.blue, [], isBoundary: true),
                 treeNodeVisual('Text: "32 new"', Colors.blue, []),
               ]),
             ]),
@@ -1528,11 +1133,7 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 'Result: 3 nodes → [mail icon] [Inbox] [32 new, …]',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  fontFamily: 'monospace',
-                  color: Colors.blue.shade900,
-                ),
+                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.blue.shade900),
               ),
             ),
           ],
@@ -1552,14 +1153,7 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Scenario C: isMergingSemanticsOfDescendants = true',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
-                color: cPrimary,
-              ),
-            ),
+            Text('Scenario C: isMergingSemanticsOfDescendants = true', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cPrimary)),
             SizedBox(height: 4.0),
             Text(
               'All descendant labels fuse into this node. The subtree collapses '
@@ -1569,16 +1163,8 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             treeNodeVisual('ElevatedButton [MERGING]', cPrimary, [
               treeNodeVisual('Row', cPrimary.withValues(alpha: 0.5), [
-                treeNodeVisual(
-                  'Icon: send',
-                  cPrimary.withValues(alpha: 0.5),
-                  [],
-                ),
-                treeNodeVisual(
-                  'Text: "Send Message"',
-                  cPrimary.withValues(alpha: 0.5),
-                  [],
-                ),
+                treeNodeVisual('Icon: send', cPrimary.withValues(alpha: 0.5), []),
+                treeNodeVisual('Text: "Send Message"', cPrimary.withValues(alpha: 0.5), []),
               ]),
             ], isMerge: true),
             SizedBox(height: 4.0),
@@ -1590,11 +1176,7 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 'Result: 1 node → "send, Send Message" (button)',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  fontFamily: 'monospace',
-                  color: cPrimary,
-                ),
+                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: cPrimary),
               ),
             ),
           ],
@@ -1614,14 +1196,7 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Scenario D: explicitChildNodes = true',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
-                color: cAccent,
-              ),
-            ),
+            Text('Scenario D: explicitChildNodes = true', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cAccent)),
             SizedBox(height: 4.0),
             Text(
               'Children get their own separate nodes even without explicit boundaries. '
@@ -1643,11 +1218,7 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 'Result: 4 nodes → [ListView] [Apple] [Banana] [Cherry]',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  fontFamily: 'monospace',
-                  color: cAccent,
-                ),
+                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: cAccent),
               ),
             ),
           ],
@@ -1665,24 +1236,13 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Config Readback',
-              style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.indigo,
-              ),
-            ),
+            Text('Config Readback', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: Colors.indigo)),
             SizedBox(height: 4.0),
             Text(
               'configBoundary.isSemanticBoundary: ${configBoundary.isSemanticBoundary}\n'
               'configExplicit.explicitChildNodes: ${configExplicit.explicitChildNodes}\n'
               'configMerging.isMergingSemanticsOfDescendants: ${configMerging.isMergingSemanticsOfDescendants}',
-              style: TextStyle(
-                fontSize: 10.0,
-                fontFamily: 'monospace',
-                color: Colors.indigo.shade700,
-              ),
+              style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.indigo.shade700),
             ),
           ],
         ),
@@ -1701,9 +1261,7 @@ dynamic build(BuildContext context) {
   configA.isButton = true;
   configA.isEnabled = true;
   configA.hint = 'Double-tap to play';
-  print(
-    'Config A: label="${configA.label}", isButton=${configA.isButton}, isEnabled=${configA.isEnabled}',
-  );
+  print('Config A: label="${configA.label}", isButton=${configA.isButton}, isEnabled=${configA.isEnabled}');
 
   final configB = SemanticsConfiguration();
   configB.value = 'Track 3 of 12';
@@ -1718,21 +1276,14 @@ dynamic build(BuildContext context) {
 
   // Absorb B into copy of A
   copyOfA.absorb(configB);
-  print(
-    'After absorb(B): label="${copyOfA.label}", value="${copyOfA.value}", isSelected=${copyOfA.isSelected}',
-  );
+  print('After absorb(B): label="${copyOfA.label}", value="${copyOfA.value}", isSelected=${copyOfA.isSelected}');
 
   // isCompatibleWith check
   final configC = SemanticsConfiguration();
   final isCompat = configC.isCompatibleWith(configA);
   print('Empty config compatible with A: $isCompat');
 
-  Widget configCard(
-    String title,
-    Map<String, String> props,
-    Color color, {
-    String annotation = '',
-  }) {
+  Widget configCard(String title, Map<String, String> props, Color color, {String annotation = ''}) {
     return Container(
       margin: EdgeInsets.all(4.0),
       padding: EdgeInsets.all(12.0),
@@ -1744,24 +1295,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          Text(title, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: color)),
           if (annotation.isNotEmpty) ...[
             SizedBox(height: 2.0),
-            Text(
-              annotation,
-              style: TextStyle(
-                fontSize: 9.0,
-                fontStyle: FontStyle.italic,
-                color: color.withValues(alpha: 0.7),
-              ),
-            ),
+            Text(annotation, style: TextStyle(fontSize: 9.0, fontStyle: FontStyle.italic, color: color.withValues(alpha: 0.7))),
           ],
           SizedBox(height: 8.0),
           ...props.entries.map((e) {
@@ -1771,25 +1308,10 @@ dynamic build(BuildContext context) {
                 children: [
                   SizedBox(
                     width: 100.0,
-                    child: Text(
-                      e.key,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
+                    child: Text(e.key, style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade600)),
                   ),
                   Expanded(
-                    child: Text(
-                      e.value,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.bold,
-                        color: color,
-                      ),
-                    ),
+                    child: Text(e.value, style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', fontWeight: FontWeight.bold, color: color)),
                   ),
                 ],
               ),
@@ -1853,14 +1375,7 @@ dynamic build(BuildContext context) {
         alignment: Alignment.center,
         child: Column(
           children: [
-            Text(
-              'copy() + absorb(B)',
-              style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
-              ),
-            ),
+            Text('copy() + absorb(B)', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: Colors.deepPurple)),
             Icon(Icons.arrow_downward, size: 28.0, color: Colors.deepPurple),
           ],
         ),
@@ -1880,8 +1395,7 @@ dynamic build(BuildContext context) {
           'dec. value': '"${copyOfA.decreasedValue}"',
         },
         Colors.deepPurple,
-        annotation:
-            'Labels concatenate, boolean flags OR together, values from B fill in',
+        annotation: 'Labels concatenate, boolean flags OR together, values from B fill in',
       ),
 
       SizedBox(height: 12.0),
@@ -1893,9 +1407,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: (isCompat ? cSuccess : cError).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: (isCompat ? cSuccess : cError).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (isCompat ? cSuccess : cError).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -1909,28 +1421,16 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'isCompatibleWith()',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text('isCompatibleWith()', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
                   Text(
                     'Empty config ↔ Config A: ${isCompat ? "Compatible" : "Incompatible"}',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
                   ),
                   SizedBox(height: 2.0),
                   Text(
                     'Two configs are compatible if absorb would not produce conflicting '
                     'boolean flag states (e.g., both setting isButton to different values).',
-                    style: TextStyle(
-                      fontSize: 9.0,
-                      color: Colors.grey.shade500,
-                    ),
+                    style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500),
                   ),
                 ],
               ),
@@ -1976,11 +1476,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: color.withValues(alpha: 0.3)),
         boxShadow: [
-          BoxShadow(
-            color: color.withValues(alpha: 0.08),
-            blurRadius: 8.0,
-            offset: Offset(0.0, 3.0),
-          ),
+          BoxShadow(color: color.withValues(alpha: 0.08), blurRadius: 8.0, offset: Offset(0.0, 3.0)),
         ],
       ),
       child: Column(
@@ -2001,21 +1497,8 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      patternName,
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.bold,
-                        color: color,
-                      ),
-                    ),
-                    Text(
-                      description,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
+                    Text(patternName, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: color)),
+                    Text(description, style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
                   ],
                 ),
               ),
@@ -2036,12 +1519,7 @@ dynamic build(BuildContext context) {
             ),
             child: Text(
               configCode,
-              style: TextStyle(
-                fontSize: 9.5,
-                fontFamily: 'monospace',
-                color: Colors.grey.shade800,
-                height: 1.4,
-              ),
+              style: TextStyle(fontSize: 9.5, fontFamily: 'monospace', color: Colors.grey.shade800, height: 1.4),
             ),
           ),
         ],
@@ -2063,11 +1541,7 @@ dynamic build(BuildContext context) {
         ),
         borderRadius: BorderRadius.circular(30.0),
         boxShadow: [
-          BoxShadow(
-            color: cSecondary.withValues(alpha: 0.3),
-            blurRadius: 8.0,
-            offset: Offset(0.0, 4.0),
-          ),
+          BoxShadow(color: cSecondary.withValues(alpha: 0.3), blurRadius: 8.0, offset: Offset(0.0, 4.0)),
         ],
       ),
       child: Row(
@@ -2075,14 +1549,7 @@ dynamic build(BuildContext context) {
         children: [
           Icon(Icons.add_shopping_cart, color: Colors.white, size: 20.0),
           SizedBox(width: 8.0),
-          Text(
-            'Add to Cart',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
-          ),
+          Text('Add to Cart', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0)),
         ],
       ),
     ),
@@ -2108,14 +1575,7 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.volume_up, color: cAccent, size: 20.0),
               SizedBox(width: 8.0),
-              Text(
-                'Volume',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: cAccent,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              Text('Volume', style: TextStyle(fontSize: 12.0, color: cAccent, fontWeight: FontWeight.w600)),
             ],
           ),
           SizedBox(height: 8.0),
@@ -2142,14 +1602,7 @@ dynamic build(BuildContext context) {
             ],
           ),
           SizedBox(height: 4.0),
-          Text(
-            '70%',
-            style: TextStyle(
-              fontSize: 11.0,
-              fontWeight: FontWeight.bold,
-              color: cAccent,
-            ),
-          ),
+          Text('70%', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cAccent)),
         ],
       ),
     ),
@@ -2204,14 +1657,7 @@ dynamic build(BuildContext context) {
                 color: Colors.black.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(4.0),
               ),
-              child: Text(
-                'ALT',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 9.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text('ALT', style: TextStyle(color: Colors.white, fontSize: 9.0, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -2247,14 +1693,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Downloading file.zip',
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  '73% complete — auto-announced by TalkBack',
-                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
-                ),
+                Text('Downloading file.zip', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
+                Text('73% complete — auto-announced by TalkBack', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
               ],
             ),
           ),
@@ -2264,14 +1704,7 @@ dynamic build(BuildContext context) {
               color: Colors.amber.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: Text(
-              'LIVE',
-              style: TextStyle(
-                fontSize: 9.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.amber.shade800,
-              ),
-            ),
+            child: Text('LIVE', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.amber.shade800)),
           ),
         ],
       ),
@@ -2298,11 +1731,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               'sk-proj-abc123...a8f2',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontFamily: 'monospace',
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 12.0, fontFamily: 'monospace', color: Colors.grey.shade700),
             ),
           ),
           Container(
@@ -2311,14 +1740,7 @@ dynamic build(BuildContext context) {
               color: cDisabled.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text(
-              'READ-ONLY',
-              style: TextStyle(
-                fontSize: 8.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade600,
-              ),
-            ),
+            child: Text('READ-ONLY', style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, color: Colors.grey.shade600)),
           ),
         ],
       ),
@@ -2343,14 +1765,7 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.settings, size: 18.0, color: cPrimary),
               SizedBox(width: 8.0),
-              Text(
-                'Account Settings',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  color: cPrimary,
-                ),
-              ),
+              Text('Account Settings', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: cPrimary)),
               Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
@@ -2358,14 +1773,7 @@ dynamic build(BuildContext context) {
                   color: cPrimary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(
-                  'H1',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    fontWeight: FontWeight.bold,
-                    color: cPrimary,
-                  ),
-                ),
+                child: Text('H1', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: cPrimary)),
               ),
             ],
           ),
@@ -2375,17 +1783,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.only(left: 20.0, top: 4.0),
         padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         decoration: BoxDecoration(
-          border: Border(
-            left: BorderSide(
-              color: cPrimary.withValues(alpha: 0.3),
-              width: 2.0,
-            ),
-          ),
+          border: Border(left: BorderSide(color: cPrimary.withValues(alpha: 0.3), width: 2.0)),
         ),
-        child: Text(
-          'Profile  ·  Security  ·  Notifications',
-          style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
-        ),
+        child: Text('Profile  ·  Security  ·  Notifications', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
       ),
       SizedBox(height: 6.0),
       Semantics(
@@ -2402,14 +1802,7 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.payment, size: 18.0, color: cAccent),
               SizedBox(width: 8.0),
-              Text(
-                'Billing',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  color: cAccent,
-                ),
-              ),
+              Text('Billing', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: cAccent)),
               Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
@@ -2417,14 +1810,7 @@ dynamic build(BuildContext context) {
                   color: cAccent.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(
-                  'H1',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    fontWeight: FontWeight.bold,
-                    color: cAccent,
-                  ),
-                ),
+                child: Text('H1', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: cAccent)),
               ),
             ],
           ),
@@ -2434,14 +1820,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.only(left: 20.0, top: 4.0),
         padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         decoration: BoxDecoration(
-          border: Border(
-            left: BorderSide(color: cAccent.withValues(alpha: 0.3), width: 2.0),
-          ),
+          border: Border(left: BorderSide(color: cAccent.withValues(alpha: 0.3), width: 2.0)),
         ),
-        child: Text(
-          'Plans  ·  Invoices  ·  Payment Methods',
-          style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
-        ),
+        child: Text('Plans  ·  Invoices  ·  Payment Methods', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
       ),
     ],
   );
@@ -2467,8 +1848,7 @@ dynamic build(BuildContext context) {
         patternName: 'Custom Semantic Button',
         description: 'Button with label + hint for action description',
         visual: pattern1Visual,
-        configCode:
-            'config.isButton = true;\nconfig.isEnabled = true;\nconfig.label = "Add to Cart";\nconfig.hint = "Double-tap to add item to shopping cart";',
+        configCode: 'config.isButton = true;\nconfig.isEnabled = true;\nconfig.label = "Add to Cart";\nconfig.hint = "Double-tap to add item to shopping cart";',
         icon: Icons.smart_button,
         color: cSecondary,
       ),
@@ -2477,19 +1857,16 @@ dynamic build(BuildContext context) {
         patternName: 'Slider with Semantic Values',
         description: 'Adjustable control announcing current/next values',
         visual: pattern2Visual,
-        configCode:
-            'config.isSlider = true;\nconfig.value = "Volume: 70%";\nconfig.increasedValue = "Volume: 80%";\nconfig.decreasedValue = "Volume: 60%";',
+        configCode: 'config.isSlider = true;\nconfig.value = "Volume: 70%";\nconfig.increasedValue = "Volume: 80%";\nconfig.decreasedValue = "Volume: 60%";',
         icon: Icons.tune,
         color: cAccent,
       ),
 
       patternCard(
         patternName: 'Image with Alt Text',
-        description:
-            'Decorative/informational image described for screen readers',
+        description: 'Decorative/informational image described for screen readers',
         visual: pattern3Visual,
-        configCode:
-            'config.isImage = true;\nconfig.label = "Sunset over mountain range\\nwith orange and purple sky";',
+        configCode: 'config.isImage = true;\nconfig.label = "Sunset over mountain range\\nwith orange and purple sky";',
         icon: Icons.image,
         color: Colors.deepOrange,
       ),
@@ -2498,30 +1875,25 @@ dynamic build(BuildContext context) {
         patternName: 'Live Region Announcement',
         description: 'Auto-announced progress for dynamic status updates',
         visual: pattern4Visual,
-        configCode:
-            'config.liveRegion = true;\nconfig.label = "Download 73% complete";\n// TalkBack auto-reads on change',
+        configCode: 'config.liveRegion = true;\nconfig.label = "Download 73% complete";\n// TalkBack auto-reads on change',
         icon: Icons.campaign,
         color: Colors.blue,
       ),
 
       patternCard(
         patternName: 'Read-Only Text Field',
-        description:
-            'Non-editable text that screen readers identify as a field',
+        description: 'Non-editable text that screen readers identify as a field',
         visual: pattern5Visual,
-        configCode:
-            'config.isTextField = true;\nconfig.isReadOnly = true;\nconfig.value = "sk-proj-abc123...a8f2";\nconfig.label = "API Key (read-only)";',
+        configCode: 'config.isTextField = true;\nconfig.isReadOnly = true;\nconfig.value = "sk-proj-abc123...a8f2";\nconfig.label = "API Key (read-only)";',
         icon: Icons.lock_outline,
         color: Colors.grey,
       ),
 
       patternCard(
         patternName: 'Section Headers for Quick Nav',
-        description:
-            'Heading-level semantics for screen reader rotor navigation',
+        description: 'Heading-level semantics for screen reader rotor navigation',
         visual: pattern6Visual,
-        configCode:
-            'config.isHeader = true;\nconfig.label = "Account Settings";\n// VoiceOver heading rotor skips between these',
+        configCode: 'config.isHeader = true;\nconfig.label = "Account Settings";\n// VoiceOver heading rotor skips between these',
         icon: Icons.title,
         color: cPrimary,
       ),
@@ -2569,10 +1941,7 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    cPrimary.withValues(alpha: 0.1),
-                    cSecondary.withValues(alpha: 0.06),
-                  ],
+                  colors: [cPrimary.withValues(alpha: 0.1), cSecondary.withValues(alpha: 0.06)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -2589,11 +1958,7 @@ dynamic build(BuildContext context) {
                       Expanded(
                         child: Text(
                           'SemanticsConfiguration',
-                          style: TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold,
-                            color: cPrimary,
-                          ),
+                          style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: cPrimary),
                         ),
                       ),
                     ],
@@ -2604,33 +1969,17 @@ dynamic build(BuildContext context) {
                     'object calls describeSemanticsConfiguration(), it fills in this '
                     'object — labels, traits, actions, merging rules. Platform '
                     'services read it to present the UI to users with disabilities.',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      height: 1.5,
-                      color: Colors.grey.shade800,
-                    ),
+                    style: TextStyle(fontSize: 13.0, height: 1.5, color: Colors.grey.shade800),
                   ),
                   SizedBox(height: 8.0),
                   Wrap(
                     spacing: 6.0,
                     runSpacing: 4.0,
                     children: [
-                      Chip(
-                        label: Text('semantics.dart'),
-                        backgroundColor: cPrimary.withValues(alpha: 0.08),
-                      ),
-                      Chip(
-                        label: Text('Accessibility'),
-                        backgroundColor: cSecondary.withValues(alpha: 0.08),
-                      ),
-                      Chip(
-                        label: Text('RenderObject'),
-                        backgroundColor: cAccent.withValues(alpha: 0.08),
-                      ),
-                      Chip(
-                        label: Text('TalkBack / VoiceOver'),
-                        backgroundColor: Colors.blue.withValues(alpha: 0.08),
-                      ),
+                      Chip(label: Text('semantics.dart'), backgroundColor: cPrimary.withValues(alpha: 0.08)),
+                      Chip(label: Text('Accessibility'), backgroundColor: cSecondary.withValues(alpha: 0.08)),
+                      Chip(label: Text('RenderObject'), backgroundColor: cAccent.withValues(alpha: 0.08)),
+                      Chip(label: Text('TalkBack / VoiceOver'), backgroundColor: Colors.blue.withValues(alpha: 0.08)),
                     ],
                   ),
                 ],
@@ -2656,21 +2005,11 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  Text(
-                    'End of SemanticsConfiguration Deep Demo',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
+                  Text('End of SemanticsConfiguration Deep Demo', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey.shade600)),
                   SizedBox(height: 4.0),
                   Text(
                     '6 scenes · 18 trait flags · 16 action types · 4 tree strategies · 6 practical patterns',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.grey.shade500,
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500),
                     textAlign: TextAlign.center,
                   ),
                 ],

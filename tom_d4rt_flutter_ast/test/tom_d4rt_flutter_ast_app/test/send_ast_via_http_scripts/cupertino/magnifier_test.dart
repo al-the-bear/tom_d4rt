@@ -18,31 +18,29 @@ dynamic build(BuildContext context) {
       child: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 24, 20, 60),
-          child: Column(
-            children: const <Widget>[
-              _HeroHeader(),
-              SizedBox(height: 28),
-              _AnatomySection(),
-              SizedBox(height: 28),
-              _StaticGallerySection(),
-              SizedBox(height: 28),
-              _ControllerStateSection(),
-              SizedBox(height: 28),
-              _MagnifierInfoSection(),
-              SizedBox(height: 28),
-              _DecorationSection(),
-              SizedBox(height: 28),
-              _ComparisonSection(),
-              SizedBox(height: 28),
-              _CodeBlockSection(),
-              SizedBox(height: 28),
-              _PitfallsSection(),
-              SizedBox(height: 28),
-              _TheorySection(),
-              SizedBox(height: 28),
-              _FooterStamp(),
-            ],
-          ),
+          child: Column(children: const <Widget>[
+            _HeroHeader(),
+            SizedBox(height: 28),
+            _AnatomySection(),
+            SizedBox(height: 28),
+            _StaticGallerySection(),
+            SizedBox(height: 28),
+            _ControllerStateSection(),
+            SizedBox(height: 28),
+            _MagnifierInfoSection(),
+            SizedBox(height: 28),
+            _DecorationSection(),
+            SizedBox(height: 28),
+            _ComparisonSection(),
+            SizedBox(height: 28),
+            _CodeBlockSection(),
+            SizedBox(height: 28),
+            _PitfallsSection(),
+            SizedBox(height: 28),
+            _TheorySection(),
+            SizedBox(height: 28),
+            _FooterStamp(),
+          ]),
         ),
       ),
     ),
@@ -215,59 +213,51 @@ class _HeroHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF).withValues(alpha: 0.16),
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(
-                    color: const Color(0xFFFFFFFF).withValues(alpha: 0.36),
-                    width: 1.0,
-                  ),
-                ),
-                child: const Text(
-                  'flutter/cupertino.dart',
-                  style: TextStyle(
-                    fontFamily: 'Menlo',
-                    color: Color(0xFFE7EAF6),
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 0.5,
-                  ),
+          Row(children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFFFFF).withValues(alpha: 0.16),
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(
+                  color: const Color(0xFFFFFFFF).withValues(alpha: 0.36),
+                  width: 1.0,
                 ),
               ),
-              const SizedBox(width: 10.0),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF).withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(
-                    color: const Color(0xFFFFFFFF).withValues(alpha: 0.30),
-                    width: 1.0,
-                  ),
-                ),
-                child: const Text(
-                  'D4RT - deep visual',
-                  style: TextStyle(
-                    fontFamily: 'CupertinoSystemText',
-                    color: Color(0xFFE0E5F4),
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.4,
-                  ),
+              child: const Text(
+                'flutter/cupertino.dart',
+                style: TextStyle(
+                  fontFamily: 'Menlo',
+                  color: Color(0xFFE7EAF6),
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.5,
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(width: 10.0),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFFFFF).withValues(alpha: 0.10),
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(
+                  color: const Color(0xFFFFFFFF).withValues(alpha: 0.30),
+                  width: 1.0,
+                ),
+              ),
+              child: const Text(
+                'D4RT - deep visual',
+                style: TextStyle(
+                  fontFamily: 'CupertinoSystemText',
+                  color: Color(0xFFE0E5F4),
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.4,
+                ),
+              ),
+            ),
+          ]),
           const SizedBox(height: 18.0),
           const Text(
             'The iOS Text Magnifier',
@@ -308,19 +298,15 @@ class _HeroHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 18.0),
-          Wrap(
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: const <Widget>[
-              _HeroChip(label: 'CupertinoTextMagnifier'),
-              _HeroChip(label: 'TextMagnifier'),
-              _HeroChip(label: 'CupertinoMagnifier'),
-              _HeroChip(label: 'MagnifierController'),
-              _HeroChip(label: 'MagnifierDecoration'),
-              _HeroChip(label: 'RawMagnifier'),
-              _HeroChip(label: 'Overlay layer'),
-            ],
-          ),
+          Wrap(spacing: 8.0, runSpacing: 8.0, children: const <Widget>[
+            _HeroChip(label: 'CupertinoTextMagnifier'),
+            _HeroChip(label: 'TextMagnifier'),
+            _HeroChip(label: 'CupertinoMagnifier'),
+            _HeroChip(label: 'MagnifierController'),
+            _HeroChip(label: 'MagnifierDecoration'),
+            _HeroChip(label: 'RawMagnifier'),
+            _HeroChip(label: 'Overlay layer'),
+          ]),
         ],
       ),
     );
@@ -416,48 +402,41 @@ class _AnatomySection extends StatelessWidget {
   const _AnatomySection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '01',
-          title: 'Anatomy of the Loupe',
-          subtitle:
-              'Circular clip, magnified content, ring shadow, focal offset',
-          gradient: <Color>[Color(0xFF1B3D8F), Color(0xFF3B5CB8)],
-          icon: CupertinoIcons.search_circle_fill,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SubTitle('Anatomy diagram'),
-              const SizedBox(height: 6),
-              const Text(
-                'The CupertinoTextMagnifier draws a circular window above the '
-                'finger position. Content beneath is sampled, scaled by '
-                'magnificationScale, and rendered inside a clipped ring with a '
-                'soft outer shadow.',
-                style: _kSans,
-              ),
-              const SizedBox(height: 14),
-              Container(
-                height: 320,
-                decoration: BoxDecoration(
-                  color: _kSurfaceAlt,
-                  borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(color: _kBorder, width: 1.0),
-                ),
-                child: const _AnatomyPainterBox(),
-              ),
-              const SizedBox(height: 14),
-              const _AnatomyLegend(),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '01',
+        title: 'Anatomy of the Loupe',
+        subtitle: 'Circular clip, magnified content, ring shadow, focal offset',
+        gradient: <Color>[Color(0xFF1B3D8F), Color(0xFF3B5CB8)],
+        icon: CupertinoIcons.search_circle_fill,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          const _SubTitle('Anatomy diagram'),
+          const SizedBox(height: 6),
+          const Text(
+            'The CupertinoTextMagnifier draws a circular window above the '
+            'finger position. Content beneath is sampled, scaled by '
+            'magnificationScale, and rendered inside a clipped ring with a '
+            'soft outer shadow.',
+            style: _kSans,
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 14),
+          Container(
+            height: 320,
+            decoration: BoxDecoration(
+              color: _kSurfaceAlt,
+              borderRadius: BorderRadius.circular(14.0),
+              border: Border.all(color: _kBorder, width: 1.0),
+            ),
+            child: const _AnatomyPainterBox(),
+          ),
+          const SizedBox(height: 14),
+          const _AnatomyLegend(),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -489,28 +468,13 @@ class _AnatomyPainter extends CustomPainter {
       Rect.fromLTRB(20.0, stripTop, size.width - 20.0, stripBottom),
       stripBg,
     );
-    _drawTextRow(
-      canvas,
-      30.0,
-      (stripTop + stripBottom) / 2 - 6.0,
-      size.width - 60.0,
-      12.0,
-      const Color(0xFF8089A6),
-    );
-    _drawTextRow(
-      canvas,
-      30.0,
-      (stripTop + stripBottom) / 2 + 6.0,
-      size.width - 90.0,
-      8.0,
-      const Color(0xFFB5BCD0),
-    );
+    _drawTextRow(canvas, 30.0, (stripTop + stripBottom) / 2 - 6.0,
+        size.width - 60.0, 12.0, const Color(0xFF8089A6));
+    _drawTextRow(canvas, 30.0, (stripTop + stripBottom) / 2 + 6.0,
+        size.width - 90.0, 8.0, const Color(0xFFB5BCD0));
 
     // Focal point marker (the finger position) -------------------------------
-    final Offset focal = Offset(
-      size.width * 0.50,
-      (stripTop + stripBottom) / 2,
-    );
+    final Offset focal = Offset(size.width * 0.50, (stripTop + stripBottom) / 2);
     final Paint focalPaint = Paint()..color = _kAccentPink;
     canvas.drawCircle(focal, 4.0, focalPaint);
 
@@ -542,22 +506,10 @@ class _AnatomyPainter extends CustomPainter {
     canvas.drawRect(Offset.zero & size, glassBg);
 
     // Magnified text rows - scaled-up version of the row beneath focal
-    _drawTextRow(
-      canvas,
-      center.dx - radius - 4.0,
-      center.dy - 6.0,
-      radius * 2.0 + 8.0,
-      18.0,
-      const Color(0xFF31405F),
-    );
-    _drawTextRow(
-      canvas,
-      center.dx - radius - 4.0,
-      center.dy + 12.0,
-      radius * 2.0 + 8.0,
-      12.0,
-      const Color(0xFF6F7995),
-    );
+    _drawTextRow(canvas, center.dx - radius - 4.0, center.dy - 6.0,
+        radius * 2.0 + 8.0, 18.0, const Color(0xFF31405F));
+    _drawTextRow(canvas, center.dx - radius - 4.0, center.dy + 12.0,
+        radius * 2.0 + 8.0, 12.0, const Color(0xFF6F7995));
 
     // Tinted dome highlight
     final Paint dome = Paint()
@@ -584,33 +536,18 @@ class _AnatomyPainter extends CustomPainter {
     final Paint vector = Paint()
       ..color = _kAccentPink.withValues(alpha: 0.45)
       ..strokeWidth = 1.2;
-    canvas.drawLine(Offset(center.dx, center.dy + radius + 2.0), focal, vector);
+    canvas.drawLine(
+        Offset(center.dx, center.dy + radius + 2.0), focal, vector);
 
     // Callouts ---------------------------------------------------------------
-    _drawCallout(
-      canvas,
-      const Offset(20, 22),
-      'size: Size(77.5, 37.5)\nthe loupe rect',
-      _kAccent,
-    );
-    _drawCallout(
-      canvas,
-      Offset(size.width - 220, 22),
-      'magnificationScale: 1.25',
-      _kAccentDeep,
-    );
-    _drawCallout(
-      canvas,
-      const Offset(20, 230),
-      'clipBehavior: Clip.hardEdge\n(circular clipPath)',
-      _kAccentMint,
-    );
-    _drawCallout(
-      canvas,
-      Offset(size.width - 220, 230),
-      'borderRadius: full circle\n(size.shortestSide / 2)',
-      _kAccentAmber,
-    );
+    _drawCallout(canvas, const Offset(20, 22),
+        'size: Size(77.5, 37.5)\nthe loupe rect', _kAccent);
+    _drawCallout(canvas, Offset(size.width - 220, 22),
+        'magnificationScale: 1.25', _kAccentDeep);
+    _drawCallout(canvas, const Offset(20, 230),
+        'clipBehavior: Clip.hardEdge\n(circular clipPath)', _kAccentMint);
+    _drawCallout(canvas, Offset(size.width - 220, 230),
+        'borderRadius: full circle\n(size.shortestSide / 2)', _kAccentAmber);
 
     // Focal offset arrow -----------------------------------------------------
     final Paint offsetLine = Paint()
@@ -621,22 +558,12 @@ class _AnatomyPainter extends CustomPainter {
       ..moveTo(center.dx + radius + 10.0, center.dy)
       ..lineTo(center.dx + radius + 10.0, focal.dy);
     canvas.drawPath(dashed, offsetLine);
-    _drawLabel(
-      canvas,
-      Offset(center.dx + radius + 14.0, center.dy + 40.0),
-      'additionalFocalPointOffset',
-      _kAccentPink,
-    );
+    _drawLabel(canvas, Offset(center.dx + radius + 14.0, center.dy + 40.0),
+        'additionalFocalPointOffset', _kAccentPink);
   }
 
-  void _drawTextRow(
-    Canvas canvas,
-    double x,
-    double y,
-    double w,
-    double h,
-    Color c,
-  ) {
+  void _drawTextRow(Canvas canvas, double x, double y, double w, double h,
+      Color c) {
     final Paint p = Paint()..color = c.withValues(alpha: 0.75);
     final RRect r = RRect.fromRectAndRadius(
       Rect.fromLTWH(x, y - h / 2, w, h),
@@ -646,29 +573,27 @@ class _AnatomyPainter extends CustomPainter {
   }
 
   void _drawCallout(Canvas canvas, Offset at, String text, Color color) {
-    final ui.ParagraphBuilder pb =
-        ui.ParagraphBuilder(
-            ui.ParagraphStyle(
-              fontFamily: 'Menlo',
-              fontSize: 10.0,
-              height: 1.3,
-              textAlign: TextAlign.left,
-            ),
-          )
-          ..pushStyle(ui.TextStyle(color: color, fontWeight: FontWeight.w700))
-          ..addText(text);
+    final ui.ParagraphBuilder pb = ui.ParagraphBuilder(ui.ParagraphStyle(
+      fontFamily: 'Menlo',
+      fontSize: 10.0,
+      height: 1.3,
+      textAlign: TextAlign.left,
+    ))
+      ..pushStyle(ui.TextStyle(color: color, fontWeight: FontWeight.w700))
+      ..addText(text);
     final ui.Paragraph p = pb.build()
       ..layout(const ui.ParagraphConstraints(width: 200.0));
     canvas.drawParagraph(p, at);
   }
 
   void _drawLabel(Canvas canvas, Offset at, String text, Color color) {
-    final ui.ParagraphBuilder pb =
-        ui.ParagraphBuilder(
-            ui.ParagraphStyle(fontFamily: 'Menlo', fontSize: 9.5, height: 1.2),
-          )
-          ..pushStyle(ui.TextStyle(color: color, fontWeight: FontWeight.w700))
-          ..addText(text);
+    final ui.ParagraphBuilder pb = ui.ParagraphBuilder(ui.ParagraphStyle(
+      fontFamily: 'Menlo',
+      fontSize: 9.5,
+      height: 1.2,
+    ))
+      ..pushStyle(ui.TextStyle(color: color, fontWeight: FontWeight.w700))
+      ..addText(text);
     final ui.Paragraph p = pb.build()
       ..layout(const ui.ParagraphConstraints(width: 220.0));
     canvas.drawParagraph(p, at);
@@ -682,17 +607,13 @@ class _AnatomyLegend extends StatelessWidget {
   const _AnatomyLegend();
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 12,
-      runSpacing: 8,
-      children: const <Widget>[
-        _LegendDot(label: 'size', color: _kAccent),
-        _LegendDot(label: 'magnificationScale', color: _kAccentDeep),
-        _LegendDot(label: 'borderRadius', color: _kAccentAmber),
-        _LegendDot(label: 'clipBehavior', color: _kAccentMint),
-        _LegendDot(label: 'additionalFocalPointOffset', color: _kAccentPink),
-      ],
-    );
+    return Wrap(spacing: 12, runSpacing: 8, children: const <Widget>[
+      _LegendDot(label: 'size', color: _kAccent),
+      _LegendDot(label: 'magnificationScale', color: _kAccentDeep),
+      _LegendDot(label: 'borderRadius', color: _kAccentAmber),
+      _LegendDot(label: 'clipBehavior', color: _kAccentMint),
+      _LegendDot(label: 'additionalFocalPointOffset', color: _kAccentPink),
+    ]);
   }
 }
 
@@ -702,18 +623,15 @@ class _LegendDot extends StatelessWidget {
   const _LegendDot({required this.label, required this.color});
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(
-          width: 10,
-          height: 10,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        ),
-        const SizedBox(width: 6),
-        Text(label, style: _kMono),
-      ],
-    );
+    return Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
+      const SizedBox(width: 6),
+      Text(label, style: _kMono),
+    ]);
   }
 }
 
@@ -725,38 +643,32 @@ class _StaticGallerySection extends StatelessWidget {
   const _StaticGallerySection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '02',
-          title: 'Static Gallery',
-          subtitle: 'Hand-drawn loupes over six different text contexts',
-          gradient: <Color>[Color(0xFF1FA7A0), Color(0xFF44B07A)],
-          icon: CupertinoIcons.photo_on_rectangle,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SubTitle('Gallery snapshots'),
-              const SizedBox(height: 6),
-              const Text(
-                'Because the live CupertinoTextMagnifier is driven by a '
-                'MagnifierController off the gesture stream, this gallery '
-                'approximates the rendered output with a CustomPainter. Each '
-                'tile shows a different underlying text context with the loupe '
-                'hovering above a chosen focal point.',
-                style: _kSans,
-              ),
-              const SizedBox(height: 14),
-              const _GalleryGrid(),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '02',
+        title: 'Static Gallery',
+        subtitle: 'Hand-drawn loupes over six different text contexts',
+        gradient: <Color>[Color(0xFF1FA7A0), Color(0xFF44B07A)],
+        icon: CupertinoIcons.photo_on_rectangle,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          const _SubTitle('Gallery snapshots'),
+          const SizedBox(height: 6),
+          const Text(
+            'Because the live CupertinoTextMagnifier is driven by a '
+            'MagnifierController off the gesture stream, this gallery '
+            'approximates the rendered output with a CustomPainter. Each '
+            'tile shows a different underlying text context with the loupe '
+            'hovering above a chosen focal point.',
+            style: _kSans,
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 14),
+          const _GalleryGrid(),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -764,45 +676,31 @@ class _GalleryGrid extends StatelessWidget {
   const _GalleryGrid();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: _GalleryTile(
-                label: 'Long sentence',
-                variant: _GalleryVariant.longSentence,
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: _GalleryTile(
-                label: 'Code mono',
-                variant: _GalleryVariant.code,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: _GalleryTile(
-                label: 'RTL Arabic',
-                variant: _GalleryVariant.rtl,
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: _GalleryTile(
-                label: 'Multi-line',
-                variant: _GalleryVariant.multiline,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+    return Column(children: const <Widget>[
+      Row(children: <Widget>[
+        Expanded(child: _GalleryTile(
+          label: 'Long sentence',
+          variant: _GalleryVariant.longSentence,
+        )),
+        SizedBox(width: 10),
+        Expanded(child: _GalleryTile(
+          label: 'Code mono',
+          variant: _GalleryVariant.code,
+        )),
+      ]),
+      SizedBox(height: 10),
+      Row(children: <Widget>[
+        Expanded(child: _GalleryTile(
+          label: 'RTL Arabic',
+          variant: _GalleryVariant.rtl,
+        )),
+        SizedBox(width: 10),
+        Expanded(child: _GalleryTile(
+          label: 'Multi-line',
+          variant: _GalleryVariant.multiline,
+        )),
+      ]),
+    ]);
   }
 }
 
@@ -821,44 +719,41 @@ class _GalleryTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: _kBorder, width: 1.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12.0),
-              topRight: Radius.circular(12.0),
-            ),
-            child: SizedBox(
-              height: 150.0,
-              child: CustomPaint(
-                painter: _GalleryPainter(variant: variant),
-                child: const SizedBox.expand(),
-              ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+        ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(12.0),
+            topRight: Radius.circular(12.0),
+          ),
+          child: SizedBox(
+            height: 150.0,
+            child: CustomPaint(
+              painter: _GalleryPainter(variant: variant),
+              child: const SizedBox.expand(),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-            decoration: const BoxDecoration(
-              color: _kSurface,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12.0),
-                bottomRight: Radius.circular(12.0),
-              ),
-            ),
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontFamily: 'CupertinoSystemText',
-                color: _kInk,
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.1,
-              ),
+        ),
+        Container(
+          padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+          decoration: const BoxDecoration(
+            color: _kSurface,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(12.0),
+              bottomRight: Radius.circular(12.0),
             ),
           ),
-        ],
-      ),
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontFamily: 'CupertinoSystemText',
+              color: _kInk,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.1,
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }
@@ -875,69 +770,33 @@ class _GalleryPainter extends CustomPainter {
     switch (variant) {
       case _GalleryVariant.longSentence:
         _drawSentenceBg(canvas, size);
-        _drawLoupe(
-          canvas,
-          size,
-          Offset(size.width * 0.55, size.height * 0.65),
-          32.0,
-          1.30,
-          _GalleryVariant.longSentence,
-        );
+        _drawLoupe(canvas, size, Offset(size.width * 0.55, size.height * 0.65),
+            32.0, 1.30, _GalleryVariant.longSentence);
         break;
       case _GalleryVariant.code:
         _drawCodeBg(canvas, size);
-        _drawLoupe(
-          canvas,
-          size,
-          Offset(size.width * 0.40, size.height * 0.62),
-          30.0,
-          1.40,
-          _GalleryVariant.code,
-        );
+        _drawLoupe(canvas, size, Offset(size.width * 0.40, size.height * 0.62),
+            30.0, 1.40, _GalleryVariant.code);
         break;
       case _GalleryVariant.rtl:
         _drawRtlBg(canvas, size);
-        _drawLoupe(
-          canvas,
-          size,
-          Offset(size.width * 0.62, size.height * 0.60),
-          32.0,
-          1.25,
-          _GalleryVariant.rtl,
-        );
+        _drawLoupe(canvas, size, Offset(size.width * 0.62, size.height * 0.60),
+            32.0, 1.25, _GalleryVariant.rtl);
         break;
       case _GalleryVariant.multiline:
         _drawMultilineBg(canvas, size);
-        _drawLoupe(
-          canvas,
-          size,
-          Offset(size.width * 0.45, size.height * 0.55),
-          30.0,
-          1.25,
-          _GalleryVariant.multiline,
-        );
+        _drawLoupe(canvas, size, Offset(size.width * 0.45, size.height * 0.55),
+            30.0, 1.25, _GalleryVariant.multiline);
         break;
       case _GalleryVariant.heading:
         _drawHeadingBg(canvas, size);
-        _drawLoupe(
-          canvas,
-          size,
-          Offset(size.width * 0.50, size.height * 0.60),
-          34.0,
-          1.20,
-          _GalleryVariant.heading,
-        );
+        _drawLoupe(canvas, size, Offset(size.width * 0.50, size.height * 0.60),
+            34.0, 1.20, _GalleryVariant.heading);
         break;
       case _GalleryVariant.numeric:
         _drawNumericBg(canvas, size);
-        _drawLoupe(
-          canvas,
-          size,
-          Offset(size.width * 0.50, size.height * 0.60),
-          30.0,
-          1.50,
-          _GalleryVariant.numeric,
-        );
+        _drawLoupe(canvas, size, Offset(size.width * 0.50, size.height * 0.60),
+            30.0, 1.50, _GalleryVariant.numeric);
         break;
     }
   }
@@ -976,7 +835,10 @@ class _GalleryPainter extends CustomPainter {
     for (int i = 0; i < 4; i++) {
       final double y = size.height * (0.40 + i * 0.13);
       final double w = size.width - 20 - i * 16.0;
-      canvas.drawRect(Rect.fromLTWH(size.width - 10 - w, y, w, 6.0), p1);
+      canvas.drawRect(
+        Rect.fromLTWH(size.width - 10 - w, y, w, 6.0),
+        p1,
+      );
     }
   }
 
@@ -991,15 +853,9 @@ class _GalleryPainter extends CustomPainter {
 
   void _drawHeadingBg(Canvas canvas, Size size) {
     final Paint big = Paint()..color = const Color(0xFF0E1530);
-    canvas.drawRect(
-      Rect.fromLTWH(10, size.height * 0.50, size.width - 20, 18.0),
-      big,
-    );
+    canvas.drawRect(Rect.fromLTWH(10, size.height * 0.50, size.width - 20, 18.0), big);
     final Paint small = Paint()..color = const Color(0xFF8089A6);
-    canvas.drawRect(
-      Rect.fromLTWH(10, size.height * 0.80, size.width - 60, 5.0),
-      small,
-    );
+    canvas.drawRect(Rect.fromLTWH(10, size.height * 0.80, size.width - 60, 5.0), small);
   }
 
   void _drawNumericBg(Canvas canvas, Size size) {
@@ -1011,9 +867,7 @@ class _GalleryPainter extends CustomPainter {
       for (int j = 0; j < rows[i].length; j++) {
         canvas.drawRRect(
           RRect.fromRectAndRadius(
-            Rect.fromLTWH(x, y, 16.0, 14.0),
-            const Radius.circular(3.0),
-          ),
+              Rect.fromLTWH(x, y, 16.0, 14.0), const Radius.circular(3.0)),
           p,
         );
         x += 22.0;
@@ -1024,21 +878,13 @@ class _GalleryPainter extends CustomPainter {
   void _row(Canvas canvas, double x, double y, double w, double h, Paint p) {
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(x, y, w, h),
-        const Radius.circular(2.0),
-      ),
+          Rect.fromLTWH(x, y, w, h), const Radius.circular(2.0)),
       p,
     );
   }
 
-  void _drawLoupe(
-    Canvas canvas,
-    Size size,
-    Offset focal,
-    double radius,
-    double scale,
-    _GalleryVariant v,
-  ) {
+  void _drawLoupe(Canvas canvas, Size size, Offset focal, double radius,
+      double scale, _GalleryVariant v) {
     final Offset center = Offset(focal.dx, focal.dy - radius - 36.0);
     // Shadow
     final Paint shadow = Paint()
@@ -1122,51 +968,45 @@ class _ControllerStateSection extends StatelessWidget {
   const _ControllerStateSection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '03',
-          title: 'MagnifierController State Machine',
-          subtitle: 'hidden -> showing -> visible -> hiding -> hidden',
-          gradient: <Color>[Color(0xFFE03A8E), Color(0xFFAA0B5C)],
-          icon: CupertinoIcons.flowchart,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SubTitle('Lifecycle'),
-              const SizedBox(height: 6),
-              const Text(
-                'A MagnifierController owns the overlay entry that hosts the '
-                'magnifier widget. show() inserts the entry and triggers the '
-                'enter animation. update() pumps a new MagnifierInfo (geometry + '
-                'focal point). hide() drives the exit animation; when complete '
-                'the controller removes the entry.',
-                style: _kSans,
-              ),
-              const SizedBox(height: 14),
-              Container(
-                height: 260,
-                decoration: BoxDecoration(
-                  color: _kSurfaceAlt,
-                  borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(color: _kBorder, width: 1.0),
-                ),
-                child: CustomPaint(
-                  painter: _StateMachinePainter(),
-                  child: const SizedBox.expand(),
-                ),
-              ),
-              const SizedBox(height: 14),
-              const _StateLegend(),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '03',
+        title: 'MagnifierController State Machine',
+        subtitle: 'hidden -> showing -> visible -> hiding -> hidden',
+        gradient: <Color>[Color(0xFFE03A8E), Color(0xFFAA0B5C)],
+        icon: CupertinoIcons.flowchart,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          const _SubTitle('Lifecycle'),
+          const SizedBox(height: 6),
+          const Text(
+            'A MagnifierController owns the overlay entry that hosts the '
+            'magnifier widget. show() inserts the entry and triggers the '
+            'enter animation. update() pumps a new MagnifierInfo (geometry + '
+            'focal point). hide() drives the exit animation; when complete '
+            'the controller removes the entry.',
+            style: _kSans,
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 14),
+          Container(
+            height: 260,
+            decoration: BoxDecoration(
+              color: _kSurfaceAlt,
+              borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(color: _kBorder, width: 1.0),
+            ),
+            child: CustomPaint(
+              painter: _StateMachinePainter(),
+              child: const SizedBox.expand(),
+            ),
+          ),
+          const SizedBox(height: 14),
+          const _StateLegend(),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -1175,51 +1015,34 @@ class _StateMachinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final List<_StateNode> nodes = <_StateNode>[
       _StateNode(
-        label: 'hidden',
-        color: const Color(0xFF8089A6),
-        pos: Offset(size.width * 0.10, size.height * 0.55),
-      ),
+          label: 'hidden',
+          color: const Color(0xFF8089A6),
+          pos: Offset(size.width * 0.10, size.height * 0.55)),
       _StateNode(
-        label: 'showing',
-        color: _kAccent,
-        pos: Offset(size.width * 0.30, size.height * 0.20),
-      ),
+          label: 'showing',
+          color: _kAccent,
+          pos: Offset(size.width * 0.30, size.height * 0.20)),
       _StateNode(
-        label: 'visible',
-        color: _kAccentMint,
-        pos: Offset(size.width * 0.52, size.height * 0.55),
-      ),
+          label: 'visible',
+          color: _kAccentMint,
+          pos: Offset(size.width * 0.52, size.height * 0.55)),
       _StateNode(
-        label: 'hiding',
-        color: _kAccentAmber,
-        pos: Offset(size.width * 0.74, size.height * 0.20),
-      ),
+          label: 'hiding',
+          color: _kAccentAmber,
+          pos: Offset(size.width * 0.74, size.height * 0.20)),
       _StateNode(
-        label: 'hidden',
-        color: const Color(0xFF8089A6),
-        pos: Offset(size.width * 0.92, size.height * 0.55),
-      ),
+          label: 'hidden',
+          color: const Color(0xFF8089A6),
+          pos: Offset(size.width * 0.92, size.height * 0.55)),
     ];
 
     // Edges
     _edge(canvas, nodes[0].pos, nodes[1].pos, 'show()', _kAccent);
     _edge(canvas, nodes[1].pos, nodes[2].pos, 'enter end', _kAccentMint);
-    _edge(
-      canvas,
-      nodes[2].pos,
-      nodes[2].pos + const Offset(0, -34),
-      'update()',
-      _kAccent,
-      selfLoop: true,
-    );
+    _edge(canvas, nodes[2].pos, nodes[2].pos + const Offset(0, -34), 'update()',
+        _kAccent, selfLoop: true);
     _edge(canvas, nodes[2].pos, nodes[3].pos, 'hide()', _kAccentAmber);
-    _edge(
-      canvas,
-      nodes[3].pos,
-      nodes[4].pos,
-      'exit end',
-      const Color(0xFF8089A6),
-    );
+    _edge(canvas, nodes[3].pos, nodes[4].pos, 'exit end', const Color(0xFF8089A6));
 
     // Nodes
     for (final _StateNode n in nodes) {
@@ -1240,35 +1063,22 @@ class _StateMachinePainter extends CustomPainter {
       ..color = const Color(0xFFFFFFFF);
     canvas.drawCircle(n.pos, 30.0, ring);
 
-    final ui.ParagraphBuilder pb =
-        ui.ParagraphBuilder(
-            ui.ParagraphStyle(
-              fontFamily: 'Menlo',
-              fontSize: 11.0,
-              height: 1.2,
-              textAlign: TextAlign.center,
-            ),
-          )
-          ..pushStyle(
-            ui.TextStyle(
-              color: const Color(0xFFFFFFFF),
-              fontWeight: FontWeight.w800,
-            ),
-          )
-          ..addText(n.label);
+    final ui.ParagraphBuilder pb = ui.ParagraphBuilder(ui.ParagraphStyle(
+      fontFamily: 'Menlo',
+      fontSize: 11.0,
+      height: 1.2,
+      textAlign: TextAlign.center,
+    ))
+      ..pushStyle(ui.TextStyle(
+          color: const Color(0xFFFFFFFF), fontWeight: FontWeight.w800))
+      ..addText(n.label);
     final ui.Paragraph p = pb.build()
       ..layout(const ui.ParagraphConstraints(width: 70.0));
     canvas.drawParagraph(p, Offset(n.pos.dx - 35.0, n.pos.dy - 6.0));
   }
 
-  void _edge(
-    Canvas canvas,
-    Offset a,
-    Offset b,
-    String label,
-    Color color, {
-    bool selfLoop = false,
-  }) {
+  void _edge(Canvas canvas, Offset a, Offset b, String label, Color color,
+      {bool selfLoop = false}) {
     final Paint line = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
@@ -1276,21 +1086,11 @@ class _StateMachinePainter extends CustomPainter {
     if (selfLoop) {
       final Path loop = Path()
         ..moveTo(a.dx - 12.0, a.dy - 26.0)
-        ..cubicTo(
-          a.dx - 50.0,
-          a.dy - 80.0,
-          a.dx + 50.0,
-          a.dy - 80.0,
-          a.dx + 12.0,
-          a.dy - 26.0,
-        );
+        ..cubicTo(a.dx - 50.0, a.dy - 80.0, a.dx + 50.0, a.dy - 80.0,
+            a.dx + 12.0, a.dy - 26.0);
       canvas.drawPath(loop, line);
-      _arrow(
-        canvas,
-        Offset(a.dx + 12.0, a.dy - 26.0),
-        const Offset(0, 1),
-        color,
-      );
+      _arrow(canvas, Offset(a.dx + 12.0, a.dy - 26.0), const Offset(0, 1),
+          color);
       _label(canvas, Offset(a.dx - 30.0, a.dy - 76.0), label, color);
       return;
     }
@@ -1301,10 +1101,8 @@ class _StateMachinePainter extends CustomPainter {
     final Offset end = b - unit * 32.0;
     canvas.drawLine(start, end, line);
     _arrow(canvas, end, unit, color);
-    final Offset mid = Offset(
-      (start.dx + end.dx) / 2.0,
-      (start.dy + end.dy) / 2.0 - 8.0,
-    );
+    final Offset mid = Offset((start.dx + end.dx) / 2.0,
+        (start.dy + end.dy) / 2.0 - 8.0);
     _label(canvas, mid, label, color);
   }
 
@@ -1312,29 +1110,22 @@ class _StateMachinePainter extends CustomPainter {
     final double angle = math.atan2(unit.dy, unit.dx);
     final Path arr = Path()
       ..moveTo(tip.dx, tip.dy)
-      ..lineTo(
-        tip.dx - 8.0 * math.cos(angle - 0.5),
-        tip.dy - 8.0 * math.sin(angle - 0.5),
-      )
-      ..lineTo(
-        tip.dx - 8.0 * math.cos(angle + 0.5),
-        tip.dy - 8.0 * math.sin(angle + 0.5),
-      )
+      ..lineTo(tip.dx - 8.0 * math.cos(angle - 0.5),
+          tip.dy - 8.0 * math.sin(angle - 0.5))
+      ..lineTo(tip.dx - 8.0 * math.cos(angle + 0.5),
+          tip.dy - 8.0 * math.sin(angle + 0.5))
       ..close();
     canvas.drawPath(arr, Paint()..color = color);
   }
 
   void _label(Canvas canvas, Offset at, String text, Color color) {
-    final ui.ParagraphBuilder pb =
-        ui.ParagraphBuilder(
-            ui.ParagraphStyle(
-              fontFamily: 'Menlo',
-              fontSize: 10.0,
-              textAlign: TextAlign.center,
-            ),
-          )
-          ..pushStyle(ui.TextStyle(color: color, fontWeight: FontWeight.w700))
-          ..addText(text);
+    final ui.ParagraphBuilder pb = ui.ParagraphBuilder(ui.ParagraphStyle(
+      fontFamily: 'Menlo',
+      fontSize: 10.0,
+      textAlign: TextAlign.center,
+    ))
+      ..pushStyle(ui.TextStyle(color: color, fontWeight: FontWeight.w700))
+      ..addText(text);
     final ui.Paragraph p = pb.build()
       ..layout(const ui.ParagraphConstraints(width: 100.0));
     canvas.drawParagraph(p, Offset(at.dx - 50.0, at.dy));
@@ -1348,46 +1139,39 @@ class _StateNode {
   final String label;
   final Color color;
   final Offset pos;
-  const _StateNode({
-    required this.label,
-    required this.color,
-    required this.pos,
-  });
+  const _StateNode({required this.label, required this.color, required this.pos});
 }
 
 class _StateLegend extends StatelessWidget {
   const _StateLegend();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        _StateRow(
-          state: 'hidden',
-          body: 'No overlay entry. controller.overlayEntry is null. Initial.',
-        ),
-        SizedBox(height: 6),
-        _StateRow(
-          state: 'showing',
-          body: 'show() called. Overlay entry inserted; enter animation runs.',
-        ),
-        SizedBox(height: 6),
-        _StateRow(
-          state: 'visible',
-          body: 'Steady state. update(MagnifierInfo) on each gesture move.',
-        ),
-        SizedBox(height: 6),
-        _StateRow(
-          state: 'hiding',
-          body: 'hide(removeFromOverlay: true) requested; exit animation runs.',
-        ),
-        SizedBox(height: 6),
-        _StateRow(
-          state: 'hidden',
-          body: 'Final. Entry removed; controller can be reused.',
-        ),
-      ],
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: const <Widget>[
+      _StateRow(
+        state: 'hidden',
+        body: 'No overlay entry. controller.overlayEntry is null. Initial.',
+      ),
+      SizedBox(height: 6),
+      _StateRow(
+        state: 'showing',
+        body: 'show() called. Overlay entry inserted; enter animation runs.',
+      ),
+      SizedBox(height: 6),
+      _StateRow(
+        state: 'visible',
+        body: 'Steady state. update(MagnifierInfo) on each gesture move.',
+      ),
+      SizedBox(height: 6),
+      _StateRow(
+        state: 'hiding',
+        body: 'hide(removeFromOverlay: true) requested; exit animation runs.',
+      ),
+      SizedBox(height: 6),
+      _StateRow(
+        state: 'hidden',
+        body: 'Final. Entry removed; controller can be reused.',
+      ),
+    ]);
   }
 }
 
@@ -1397,31 +1181,28 @@ class _StateRow extends StatelessWidget {
   const _StateRow({required this.state, required this.body});
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: 84.0,
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-          decoration: BoxDecoration(
-            color: _kSurfaceAlt,
-            borderRadius: BorderRadius.circular(6.0),
-            border: Border.all(color: _kBorder, width: 1.0),
-          ),
-          child: Text(
-            state,
-            style: const TextStyle(
-              fontFamily: 'Menlo',
-              color: _kInk,
-              fontSize: 11.0,
-              fontWeight: FontWeight.w800,
-            ),
+    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      Container(
+        width: 84.0,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        decoration: BoxDecoration(
+          color: _kSurfaceAlt,
+          borderRadius: BorderRadius.circular(6.0),
+          border: Border.all(color: _kBorder, width: 1.0),
+        ),
+        child: Text(
+          state,
+          style: const TextStyle(
+            fontFamily: 'Menlo',
+            color: _kInk,
+            fontSize: 11.0,
+            fontWeight: FontWeight.w800,
           ),
         ),
-        const SizedBox(width: 10),
-        Expanded(child: Text(body, style: _kSans)),
-      ],
-    );
+      ),
+      const SizedBox(width: 10),
+      Expanded(child: Text(body, style: _kSans)),
+    ]);
   }
 }
 
@@ -1433,87 +1214,67 @@ class _MagnifierInfoSection extends StatelessWidget {
   const _MagnifierInfoSection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '04',
-          title: 'MagnifierInfo',
-          subtitle: 'The geometry payload pumped on every gesture tick',
-          gradient: <Color>[Color(0xFFE0A02D), Color(0xFFD2433A)],
-          icon: CupertinoIcons.cube_box,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SubTitle('MagnifierInfo fields'),
-              const SizedBox(height: 6),
-              const Text(
-                'MagnifierInfo lives in the widgets layer and bundles the four '
-                'rectangles + focal point that the magnifier needs each frame. '
-                'It is fed by SelectionOverlay -> MagnifierController.update().',
-                style: _kSans,
-              ),
-              const SizedBox(height: 12),
-              const _ParamTable(
-                rows: <_ParamRow>[
-                  _ParamRow(
-                    name: 'globalGesturePosition',
-                    type: 'Offset',
-                    desc: 'Pointer position in screen coordinates.',
-                  ),
-                  _ParamRow(
-                    name: 'caretRect',
-                    type: 'Rect',
-                    desc: 'Caret rectangle for the currently dragged handle.',
-                  ),
-                  _ParamRow(
-                    name: 'fieldBounds',
-                    type: 'Rect',
-                    desc: 'Editing field rectangle in global coordinates.',
-                  ),
-                  _ParamRow(
-                    name: 'currentLineBoundaries',
-                    type: 'Rect',
-                    desc: 'Current text line rect; used to clamp the focal Y.',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 14),
-              const _SubTitle('How update() flows'),
-              const SizedBox(height: 6),
-              const Text(
-                'TextSelectionGestureDetectorBuilder receives drag events from '
-                'the selection handle. Each drag calls SelectionOverlay.'
-                'showMagnifier / updateMagnifier, which in turn pushes a fresh '
-                'MagnifierInfo through the ValueNotifier and your MagnifierBuilder '
-                'rebuilds the loupe.',
-                style: _kSans,
-              ),
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
-                decoration: BoxDecoration(
-                  color: _kSurfaceAlt,
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: _kBorder, width: 1.0),
-                ),
-                child: const Text(
-                  'gesture.move\n'
-                  '  -> SelectionOverlay.updateMagnifier(MagnifierInfo)\n'
-                  '    -> ValueNotifier<MagnifierInfo>.value = info\n'
-                  '      -> ValueListenableBuilder rebuilds CupertinoTextMagnifier\n'
-                  '        -> position recomputed; clip + scale repaint',
-                  style: _kMono,
-                ),
-              ),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '04',
+        title: 'MagnifierInfo',
+        subtitle: 'The geometry payload pumped on every gesture tick',
+        gradient: <Color>[Color(0xFFE0A02D), Color(0xFFD2433A)],
+        icon: CupertinoIcons.cube_box,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          const _SubTitle('MagnifierInfo fields'),
+          const SizedBox(height: 6),
+          const Text(
+            'MagnifierInfo lives in the widgets layer and bundles the four '
+            'rectangles + focal point that the magnifier needs each frame. '
+            'It is fed by SelectionOverlay -> MagnifierController.update().',
+            style: _kSans,
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 12),
+          const _ParamTable(rows: <_ParamRow>[
+            _ParamRow(name: 'globalGesturePosition', type: 'Offset',
+                desc: 'Pointer position in screen coordinates.'),
+            _ParamRow(name: 'caretRect', type: 'Rect',
+                desc: 'Caret rectangle for the currently dragged handle.'),
+            _ParamRow(name: 'fieldBounds', type: 'Rect',
+                desc: 'Editing field rectangle in global coordinates.'),
+            _ParamRow(name: 'currentLineBoundaries', type: 'Rect',
+                desc: 'Current text line rect; used to clamp the focal Y.'),
+          ]),
+          const SizedBox(height: 14),
+          const _SubTitle('How update() flows'),
+          const SizedBox(height: 6),
+          const Text(
+            'TextSelectionGestureDetectorBuilder receives drag events from '
+            'the selection handle. Each drag calls SelectionOverlay.'
+            'showMagnifier / updateMagnifier, which in turn pushes a fresh '
+            'MagnifierInfo through the ValueNotifier and your MagnifierBuilder '
+            'rebuilds the loupe.',
+            style: _kSans,
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+            decoration: BoxDecoration(
+              color: _kSurfaceAlt,
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: _kBorder, width: 1.0),
+            ),
+            child: const Text(
+              'gesture.move\n'
+              '  -> SelectionOverlay.updateMagnifier(MagnifierInfo)\n'
+              '    -> ValueNotifier<MagnifierInfo>.value = info\n'
+              '      -> ValueListenableBuilder rebuilds CupertinoTextMagnifier\n'
+              '        -> position recomputed; clip + scale repaint',
+              style: _kMono,
+            ),
+          ),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -1534,61 +1295,48 @@ class _ParamTable extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: _kBorder, width: 1.0),
       ),
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-            decoration: BoxDecoration(
-              color: _kSurfaceAlt,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
-              ),
-              border: Border(bottom: BorderSide(color: _kBorder, width: 1.0)),
+      child: Column(children: <Widget>[
+        Container(
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+          decoration: BoxDecoration(
+            color: _kSurfaceAlt,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
             ),
-            child: Row(
-              children: const <Widget>[
-                SizedBox(
-                  width: 170.0,
-                  child: Text(
-                    'field',
-                    style: TextStyle(
-                      fontFamily: 'Menlo',
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w800,
-                      color: _kInkSoft,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 100.0,
-                  child: Text(
-                    'type',
-                    style: TextStyle(
-                      fontFamily: 'Menlo',
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w800,
-                      color: _kInkSoft,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    'description',
-                    style: TextStyle(
-                      fontFamily: 'Menlo',
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w800,
-                      color: _kInkSoft,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            border: Border(bottom: BorderSide(color: _kBorder, width: 1.0)),
           ),
-          ...rows.map((_ParamRow r) => _paramRowWidget(r, rows.last == r)),
-        ],
-      ),
+          child: Row(children: const <Widget>[
+            SizedBox(
+              width: 170.0,
+              child: Text('field',
+                  style: TextStyle(
+                      fontFamily: 'Menlo',
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w800,
+                      color: _kInkSoft)),
+            ),
+            SizedBox(
+              width: 100.0,
+              child: Text('type',
+                  style: TextStyle(
+                      fontFamily: 'Menlo',
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w800,
+                      color: _kInkSoft)),
+            ),
+            Expanded(
+              child: Text('description',
+                  style: TextStyle(
+                      fontFamily: 'Menlo',
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w800,
+                      color: _kInkSoft)),
+            ),
+          ]),
+        ),
+        ...rows.map((_ParamRow r) => _paramRowWidget(r, rows.last == r)),
+      ]),
     );
   }
 
@@ -1598,38 +1346,31 @@ class _ParamTable extends StatelessWidget {
       decoration: BoxDecoration(
         border: isLast
             ? null
-            : const Border(bottom: BorderSide(color: _kBorder, width: 1.0)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: 170.0,
-            child: Text(
-              r.name,
-              style: const TextStyle(
-                fontFamily: 'Menlo',
-                fontSize: 11.5,
-                fontWeight: FontWeight.w800,
-                color: _kInk,
+            : const Border(
+                bottom: BorderSide(color: _kBorder, width: 1.0),
               ),
-            ),
-          ),
-          SizedBox(
-            width: 100.0,
-            child: Text(
-              r.type,
-              style: const TextStyle(
-                fontFamily: 'Menlo',
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _kAccentDeep,
-              ),
-            ),
-          ),
-          Expanded(child: Text(r.desc, style: _kSans)),
-        ],
       ),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        SizedBox(
+          width: 170.0,
+          child: Text(r.name,
+              style: const TextStyle(
+                  fontFamily: 'Menlo',
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w800,
+                  color: _kInk)),
+        ),
+        SizedBox(
+          width: 100.0,
+          child: Text(r.type,
+              style: const TextStyle(
+                  fontFamily: 'Menlo',
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w700,
+                  color: _kAccentDeep)),
+        ),
+        Expanded(child: Text(r.desc, style: _kSans)),
+      ]),
     );
   }
 }
@@ -1642,58 +1383,47 @@ class _DecorationSection extends StatelessWidget {
   const _DecorationSection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '05',
-          title: 'MagnifierDecoration',
-          subtitle: 'shape, shadows and opacity of the loupe chrome',
-          gradient: <Color>[Color(0xFF44B07A), Color(0xFF1FA7A0)],
-          icon: CupertinoIcons.paintbrush_fill,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SubTitle('MagnifierDecoration fields'),
-              const SizedBox(height: 6),
-              const Text(
-                'MagnifierDecoration sits on RawMagnifier and controls how the '
-                'magnifier ring is drawn. CupertinoTextMagnifier wires it to the '
-                'iOS standard: a circle, soft outer shadow, opaque-edge ring.',
-                style: _kSans,
-              ),
-              const SizedBox(height: 12),
-              const _ParamTable(
-                rows: <_ParamRow>[
-                  _ParamRow(
-                    name: 'opacity',
-                    type: 'double',
-                    desc: 'Overall alpha multiplier; default 1.0.',
-                  ),
-                  _ParamRow(
-                    name: 'shadows',
-                    type: 'List<BoxShadow>',
-                    desc: 'Soft drop shadow around the lens ring.',
-                  ),
-                  _ParamRow(
-                    name: 'shape',
-                    type: 'ShapeBorder',
-                    desc: 'Outer geometry; iOS uses CircleBorder.',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const _SubTitle('Sample decorations'),
-              const SizedBox(height: 8),
-              const _DecorationSamples(),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '05',
+        title: 'MagnifierDecoration',
+        subtitle: 'shape, shadows and opacity of the loupe chrome',
+        gradient: <Color>[Color(0xFF44B07A), Color(0xFF1FA7A0)],
+        icon: CupertinoIcons.paintbrush_fill,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          const _SubTitle('MagnifierDecoration fields'),
+          const SizedBox(height: 6),
+          const Text(
+            'MagnifierDecoration sits on RawMagnifier and controls how the '
+            'magnifier ring is drawn. CupertinoTextMagnifier wires it to the '
+            'iOS standard: a circle, soft outer shadow, opaque-edge ring.',
+            style: _kSans,
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 12),
+          const _ParamTable(rows: <_ParamRow>[
+            _ParamRow(
+                name: 'opacity',
+                type: 'double',
+                desc: 'Overall alpha multiplier; default 1.0.'),
+            _ParamRow(
+                name: 'shadows',
+                type: 'List<BoxShadow>',
+                desc: 'Soft drop shadow around the lens ring.'),
+            _ParamRow(
+                name: 'shape',
+                type: 'ShapeBorder',
+                desc: 'Outer geometry; iOS uses CircleBorder.'),
+          ]),
+          const SizedBox(height: 16),
+          const _SubTitle('Sample decorations'),
+          const SizedBox(height: 8),
+          const _DecorationSamples(),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -1701,36 +1431,25 @@ class _DecorationSamples extends StatelessWidget {
   const _DecorationSamples();
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const <Widget>[
-        Expanded(
-          child: _DecorationSample(
-            name: 'Default iOS',
-            shadowAlpha: 0.25,
-            shadowBlur: 8.0,
-            ringColor: Color(0xFFFFFFFF),
-          ),
-        ),
-        SizedBox(width: 10),
-        Expanded(
-          child: _DecorationSample(
-            name: 'Heavy shadow',
-            shadowAlpha: 0.45,
-            shadowBlur: 16.0,
-            ringColor: Color(0xFFFFFFFF),
-          ),
-        ),
-        SizedBox(width: 10),
-        Expanded(
-          child: _DecorationSample(
-            name: 'Hairline tint',
-            shadowAlpha: 0.10,
-            shadowBlur: 4.0,
-            ringColor: Color(0xFFBEC9E7),
-          ),
-        ),
-      ],
-    );
+    return Row(children: const <Widget>[
+      Expanded(child: _DecorationSample(
+          name: 'Default iOS',
+          shadowAlpha: 0.25,
+          shadowBlur: 8.0,
+          ringColor: Color(0xFFFFFFFF))),
+      SizedBox(width: 10),
+      Expanded(child: _DecorationSample(
+          name: 'Heavy shadow',
+          shadowAlpha: 0.45,
+          shadowBlur: 16.0,
+          ringColor: Color(0xFFFFFFFF))),
+      SizedBox(width: 10),
+      Expanded(child: _DecorationSample(
+          name: 'Hairline tint',
+          shadowAlpha: 0.10,
+          shadowBlur: 4.0,
+          ringColor: Color(0xFFBEC9E7))),
+    ]);
   }
 }
 
@@ -1753,41 +1472,37 @@ class _DecorationSample extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: _kBorder, width: 1.0),
       ),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 120.0,
-            child: CustomPaint(
-              painter: _DecorationPainter(
-                shadowAlpha: shadowAlpha,
-                shadowBlur: shadowBlur,
-                ringColor: ringColor,
-              ),
-              child: const SizedBox.expand(),
+      child: Column(children: <Widget>[
+        SizedBox(
+          height: 120.0,
+          child: CustomPaint(
+            painter: _DecorationPainter(
+              shadowAlpha: shadowAlpha,
+              shadowBlur: shadowBlur,
+              ringColor: ringColor,
+            ),
+            child: const SizedBox.expand(),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+          decoration: const BoxDecoration(
+            color: _kSurface,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(12.0),
+              bottomRight: Radius.circular(12.0),
             ),
           ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-            decoration: const BoxDecoration(
-              color: _kSurface,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12.0),
-                bottomRight: Radius.circular(12.0),
-              ),
-            ),
-            child: Text(
-              name,
+          child: Text(name,
               style: const TextStyle(
                 fontFamily: 'CupertinoSystemText',
                 color: _kInk,
                 fontSize: 11.5,
                 fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ],
-      ),
+              )),
+        ),
+      ]),
     );
   }
 }
@@ -1825,7 +1540,8 @@ class _DecorationPainter extends CustomPainter {
     canvas.drawCircle(center, radius, inner);
     // Magnified content suggestion
     final Paint t = Paint()..color = const Color(0xFF31405F);
-    canvas.drawRect(Rect.fromLTWH(center.dx - 18, center.dy - 3, 36, 6), t);
+    canvas.drawRect(
+        Rect.fromLTWH(center.dx - 18, center.dy - 3, 36, 6), t);
   }
 
   @override
@@ -1843,74 +1559,56 @@ class _ComparisonSection extends StatelessWidget {
   const _ComparisonSection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '06',
-          title: 'Cupertino vs Material vs Raw',
-          subtitle: 'Three magnifiers side by side',
-          gradient: <Color>[Color(0xFF2D6CDF), Color(0xFF1B3D8F)],
-          icon: CupertinoIcons.rectangle_split_3x1,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SubTitle('Comparison row'),
-              const SizedBox(height: 6),
-              const Text(
-                'CupertinoTextMagnifier is the iOS-styled loupe used by the '
-                'Cupertino text-selection toolbar. TextMagnifier is the Material '
-                'equivalent: a rectangular pill. CupertinoMagnifier and '
-                'RawMagnifier are lower-level building blocks you can compose '
-                'into your own custom magnifier widget.',
-                style: _kSans,
-              ),
-              const SizedBox(height: 14),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  Expanded(
-                    child: _CompareTile(
-                      title: 'CupertinoTextMagnifier',
-                      shape: _CompareShape.circle,
-                      accent: _kAccent,
-                      notes:
-                          'Circular loupe, full ring, soft shadow.\n'
-                          'Used by CupertinoTextField selection.',
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: _CompareTile(
-                      title: 'TextMagnifier (material)',
-                      shape: _CompareShape.pill,
-                      accent: _kAccentPink,
-                      notes:
-                          'Rounded rectangle / pill shape.\n'
-                          'Used by Material TextField selection.',
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: _CompareTile(
-                      title: 'CupertinoMagnifier',
-                      shape: _CompareShape.bare,
-                      accent: _kAccentMint,
-                      notes:
-                          'Bare lens primitive. No animation policy;\n'
-                          'compose into your own controller.',
-                    ),
-                  ),
-                ],
-              ),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '06',
+        title: 'Cupertino vs Material vs Raw',
+        subtitle: 'Three magnifiers side by side',
+        gradient: <Color>[Color(0xFF2D6CDF), Color(0xFF1B3D8F)],
+        icon: CupertinoIcons.rectangle_split_3x1,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          const _SubTitle('Comparison row'),
+          const SizedBox(height: 6),
+          const Text(
+            'CupertinoTextMagnifier is the iOS-styled loupe used by the '
+            'Cupertino text-selection toolbar. TextMagnifier is the Material '
+            'equivalent: a rectangular pill. CupertinoMagnifier and '
+            'RawMagnifier are lower-level building blocks you can compose '
+            'into your own custom magnifier widget.',
+            style: _kSans,
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 14),
+          Row(crossAxisAlignment: CrossAxisAlignment.start, children: const <Widget>[
+            Expanded(child: _CompareTile(
+              title: 'CupertinoTextMagnifier',
+              shape: _CompareShape.circle,
+              accent: _kAccent,
+              notes: 'Circular loupe, full ring, soft shadow.\n'
+                  'Used by CupertinoTextField selection.',
+            )),
+            SizedBox(width: 10),
+            Expanded(child: _CompareTile(
+              title: 'TextMagnifier (material)',
+              shape: _CompareShape.pill,
+              accent: _kAccentPink,
+              notes: 'Rounded rectangle / pill shape.\n'
+                  'Used by Material TextField selection.',
+            )),
+            SizedBox(width: 10),
+            Expanded(child: _CompareTile(
+              title: 'CupertinoMagnifier',
+              shape: _CompareShape.bare,
+              accent: _kAccentMint,
+              notes: 'Bare lens primitive. No animation policy;\n'
+                  'compose into your own controller.',
+            )),
+          ]),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -1935,44 +1633,36 @@ class _CompareTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: _kBorder, width: 1.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            height: 110,
-            child: CustomPaint(
-              painter: _ComparePainter(shape: shape, accent: accent),
-              child: const SizedBox.expand(),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        SizedBox(
+          height: 110,
+          child: CustomPaint(
+            painter: _ComparePainter(shape: shape, accent: accent),
+            child: const SizedBox.expand(),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
+          decoration: const BoxDecoration(
+            color: _kSurface,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(12.0),
+              bottomRight: Radius.circular(12.0),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
-            decoration: const BoxDecoration(
-              color: _kSurface,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12.0),
-                bottomRight: Radius.circular(12.0),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontFamily: 'Menlo',
-                    color: accent,
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(notes, style: _kSans.copyWith(fontSize: 11.5)),
-              ],
-            ),
-          ),
-        ],
-      ),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+            Text(title,
+                style: TextStyle(
+                  fontFamily: 'Menlo',
+                  color: accent,
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w800,
+                )),
+            const SizedBox(height: 4),
+            Text(notes, style: _kSans.copyWith(fontSize: 11.5)),
+          ]),
+        ),
+      ]),
     );
   }
 }
@@ -1988,9 +1678,7 @@ class _ComparePainter extends CustomPainter {
     // Stripe of underlying text
     final Paint text = Paint()..color = const Color(0xFF31405F);
     canvas.drawRect(
-      Rect.fromLTWH(10, size.height - 18, size.width - 20, 6),
-      text,
-    );
+        Rect.fromLTWH(10, size.height - 18, size.width - 20, 6), text);
 
     final Offset center = Offset(size.width / 2.0, size.height * 0.40);
     final Paint shadow = Paint()
@@ -2014,9 +1702,8 @@ class _ComparePainter extends CustomPainter {
         canvas.drawCircle(center, 24.0, inner);
         // magnified text suggestion
         canvas.drawRect(
-          Rect.fromLTWH(center.dx - 14, center.dy - 2, 28, 5),
-          Paint()..color = const Color(0xFF31405F),
-        );
+            Rect.fromLTWH(center.dx - 14, center.dy - 2, 28, 5),
+            Paint()..color = const Color(0xFF31405F));
         break;
       case _CompareShape.pill:
         final RRect r = RRect.fromRectAndRadius(
@@ -2028,9 +1715,8 @@ class _ComparePainter extends CustomPainter {
         canvas.drawRRect(r, ring);
         canvas.drawRRect(r, inner);
         canvas.drawRect(
-          Rect.fromLTWH(center.dx - 28, center.dy - 2, 56, 5),
-          Paint()..color = const Color(0xFF31405F),
-        );
+            Rect.fromLTWH(center.dx - 28, center.dy - 2, 56, 5),
+            Paint()..color = const Color(0xFF31405F));
         break;
       case _CompareShape.bare:
         // Hexagonal-ish bare lens
@@ -2042,17 +1728,13 @@ class _ComparePainter extends CustomPainter {
         canvas.drawRRect(r, glass);
         canvas.drawRRect(r, inner);
         canvas.drawRect(
-          Rect.fromLTWH(center.dx - 24, center.dy - 2, 48, 5),
-          Paint()..color = const Color(0xFF31405F),
-        );
+            Rect.fromLTWH(center.dx - 24, center.dy - 2, 48, 5),
+            Paint()..color = const Color(0xFF31405F));
         break;
     }
     // Focal dot
-    canvas.drawCircle(
-      Offset(center.dx, size.height - 15.0),
-      3.0,
-      Paint()..color = _kAccentPink,
-    );
+    canvas.drawCircle(Offset(center.dx, size.height - 15.0), 3.0,
+        Paint()..color = _kAccentPink);
   }
 
   @override
@@ -2068,94 +1750,88 @@ class _CodeBlockSection extends StatelessWidget {
   const _CodeBlockSection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '07',
-          title: 'Idiomatic Usage',
-          subtitle: 'Three canonical code patterns',
-          gradient: <Color>[Color(0xFF31405F), Color(0xFF0E1530)],
-          icon: CupertinoIcons.chevron_left_slash_chevron_right,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const _SubTitle('Pattern A - Default Cupertino magnifier'),
-              const SizedBox(height: 6),
-              const _CodeBlock(
-                text:
-                    "// CupertinoTextField already wires CupertinoTextMagnifier.\n"
-                    "// Just enable it via TextMagnifierConfiguration.\n"
-                    "CupertinoTextField(\n"
-                    "  magnifierConfiguration: TextMagnifierConfiguration(\n"
-                    "    magnifierBuilder: (BuildContext context,\n"
-                    "        MagnifierController controller,\n"
-                    "        ValueNotifier<MagnifierInfo> info) {\n"
-                    "      return CupertinoTextMagnifier(\n"
-                    "        controller: controller,\n"
-                    "        magnifierInfo: info,\n"
-                    "      );\n"
-                    "    },\n"
-                    "  ),\n"
-                    ")",
-              ),
-              const SizedBox(height: 14),
-              const _SubTitle('Pattern B - Custom RawMagnifier'),
-              const SizedBox(height: 6),
-              const _CodeBlock(
-                text:
-                    "// Roll your own loupe geometry via RawMagnifier.\n"
-                    "RawMagnifier(\n"
-                    "  decoration: const MagnifierDecoration(\n"
-                    "    shape: CircleBorder(side: BorderSide.none),\n"
-                    "    shadows: <BoxShadow>[\n"
-                    "      BoxShadow(\n"
-                    "        color: Color(0x33000000),\n"
-                    "        blurRadius: 8.0,\n"
-                    "        offset: Offset(0, 4),\n"
-                    "      ),\n"
-                    "    ],\n"
-                    "  ),\n"
-                    "  magnificationScale: 1.3,\n"
-                    "  size: const Size(80, 80),\n"
-                    "  focalPointOffset: const Offset(0, 30),\n"
-                    ")",
-              ),
-              const SizedBox(height: 14),
-              const _SubTitle('Pattern C - MagnifierController lifecycle'),
-              const SizedBox(height: 6),
-              const _CodeBlock(
-                text:
-                    "// Mount / update / unmount the overlay entry.\n"
-                    "final MagnifierController controller = MagnifierController();\n"
-                    "\n"
-                    "// On gesture start:\n"
-                    "controller.show(\n"
-                    "  context: context,\n"
-                    "  below: null,\n"
-                    "  builder: (BuildContext ctx) => CupertinoTextMagnifier(\n"
-                    "    controller: controller,\n"
-                    "    magnifierInfo: infoNotifier,\n"
-                    "  ),\n"
-                    ");\n"
-                    "\n"
-                    "// On gesture move:\n"
-                    "infoNotifier.value = MagnifierInfo(...);\n"
-                    "\n"
-                    "// On gesture end:\n"
-                    "controller.hide(removeFromOverlay: true);\n"
-                    "\n"
-                    "// On dispose:\n"
-                    "controller.overlayEntry?.remove();",
-              ),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '07',
+        title: 'Idiomatic Usage',
+        subtitle: 'Three canonical code patterns',
+        gradient: <Color>[Color(0xFF31405F), Color(0xFF0E1530)],
+        icon: CupertinoIcons.chevron_left_slash_chevron_right,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          const _SubTitle('Pattern A - Default Cupertino magnifier'),
+          const SizedBox(height: 6),
+          const _CodeBlock(
+            text:
+                "// CupertinoTextField already wires CupertinoTextMagnifier.\n"
+                "// Just enable it via TextMagnifierConfiguration.\n"
+                "CupertinoTextField(\n"
+                "  magnifierConfiguration: TextMagnifierConfiguration(\n"
+                "    magnifierBuilder: (BuildContext context,\n"
+                "        MagnifierController controller,\n"
+                "        ValueNotifier<MagnifierInfo> info) {\n"
+                "      return CupertinoTextMagnifier(\n"
+                "        controller: controller,\n"
+                "        magnifierInfo: info,\n"
+                "      );\n"
+                "    },\n"
+                "  ),\n"
+                ")",
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 14),
+          const _SubTitle('Pattern B - Custom RawMagnifier'),
+          const SizedBox(height: 6),
+          const _CodeBlock(
+            text:
+                "// Roll your own loupe geometry via RawMagnifier.\n"
+                "RawMagnifier(\n"
+                "  decoration: const MagnifierDecoration(\n"
+                "    shape: CircleBorder(side: BorderSide.none),\n"
+                "    shadows: <BoxShadow>[\n"
+                "      BoxShadow(\n"
+                "        color: Color(0x33000000),\n"
+                "        blurRadius: 8.0,\n"
+                "        offset: Offset(0, 4),\n"
+                "      ),\n"
+                "    ],\n"
+                "  ),\n"
+                "  magnificationScale: 1.3,\n"
+                "  size: const Size(80, 80),\n"
+                "  focalPointOffset: const Offset(0, 30),\n"
+                ")",
+          ),
+          const SizedBox(height: 14),
+          const _SubTitle('Pattern C - MagnifierController lifecycle'),
+          const SizedBox(height: 6),
+          const _CodeBlock(
+            text:
+                "// Mount / update / unmount the overlay entry.\n"
+                "final MagnifierController controller = MagnifierController();\n"
+                "\n"
+                "// On gesture start:\n"
+                "controller.show(\n"
+                "  context: context,\n"
+                "  below: null,\n"
+                "  builder: (BuildContext ctx) => CupertinoTextMagnifier(\n"
+                "    controller: controller,\n"
+                "    magnifierInfo: infoNotifier,\n"
+                "  ),\n"
+                ");\n"
+                "\n"
+                "// On gesture move:\n"
+                "infoNotifier.value = MagnifierInfo(...);\n"
+                "\n"
+                "// On gesture end:\n"
+                "controller.hide(removeFromOverlay: true);\n"
+                "\n"
+                "// On dispose:\n"
+                "controller.overlayEntry?.remove();",
+          ),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -2194,75 +1870,64 @@ class _PitfallsSection extends StatelessWidget {
   const _PitfallsSection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '08',
-          title: 'Pitfalls',
-          subtitle: 'Five common mistakes when wiring magnifiers',
-          gradient: <Color>[Color(0xFFD2433A), Color(0xFFAA0B5C)],
-          icon: CupertinoIcons.exclamationmark_triangle_fill,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[
-              _Pitfall(
-                number: '1',
-                title: 'Offset.zero positioning forgotten',
-                body:
-                    'CupertinoTextMagnifier expects its position relative to '
-                    'the overlay coordinate system. Default placement assumes the '
-                    'parent Stack uses Offset.zero as its origin. If you wrap it '
-                    'in a Positioned with stale coordinates the loupe drifts.',
-              ),
-              SizedBox(height: 10),
-              _Pitfall(
-                number: '2',
-                title: 'Mismatched magnificationScale',
-                body:
-                    'A scale < 1.0 inverts the magnifier into a minifier and '
-                    'looks broken. The iOS default is ~1.25. Values above 2.0 '
-                    'produce visible pixel aliasing on text glyphs.',
-              ),
-              SizedBox(height: 10),
-              _Pitfall(
-                number: '3',
-                title: 'Dispose ordering',
-                body:
-                    'MagnifierController.dispose does not automatically remove '
-                    'the OverlayEntry. Always call controller.hide(removeFromOverlay: '
-                    'true) before disposing the controller, or you leak an orphan '
-                    'entry that paints over future routes.',
-              ),
-              SizedBox(height: 10),
-              _Pitfall(
-                number: '4',
-                title: 'RTL projection bug',
-                body:
-                    'When TextDirection.rtl is in play, the projected text '
-                    'inside the loupe must be drawn with the same directionality '
-                    'as the source field. Forgetting to honor textDirection on '
-                    'the inner Text widget produces mirror-flipped glyphs.',
-              ),
-              SizedBox(height: 10),
-              _Pitfall(
-                number: '5',
-                title: 'Overlay layer collisions',
-                body:
-                    'If your app uses a custom Overlay (not WidgetsApp.overlay) '
-                    'you must pass the right BuildContext to controller.show(). '
-                    'Passing the wrong context attaches the magnifier to a '
-                    'different overlay, causing it to clip or vanish on route '
-                    'transitions.',
-              ),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '08',
+        title: 'Pitfalls',
+        subtitle: 'Five common mistakes when wiring magnifiers',
+        gradient: <Color>[Color(0xFFD2433A), Color(0xFFAA0B5C)],
+        icon: CupertinoIcons.exclamationmark_triangle_fill,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const <Widget>[
+          _Pitfall(
+            number: '1',
+            title: 'Offset.zero positioning forgotten',
+            body: 'CupertinoTextMagnifier expects its position relative to '
+                'the overlay coordinate system. Default placement assumes the '
+                'parent Stack uses Offset.zero as its origin. If you wrap it '
+                'in a Positioned with stale coordinates the loupe drifts.',
           ),
-        ),
-      ],
-    );
+          SizedBox(height: 10),
+          _Pitfall(
+            number: '2',
+            title: 'Mismatched magnificationScale',
+            body: 'A scale < 1.0 inverts the magnifier into a minifier and '
+                'looks broken. The iOS default is ~1.25. Values above 2.0 '
+                'produce visible pixel aliasing on text glyphs.',
+          ),
+          SizedBox(height: 10),
+          _Pitfall(
+            number: '3',
+            title: 'Dispose ordering',
+            body: 'MagnifierController.dispose does not automatically remove '
+                'the OverlayEntry. Always call controller.hide(removeFromOverlay: '
+                'true) before disposing the controller, or you leak an orphan '
+                'entry that paints over future routes.',
+          ),
+          SizedBox(height: 10),
+          _Pitfall(
+            number: '4',
+            title: 'RTL projection bug',
+            body: 'When TextDirection.rtl is in play, the projected text '
+                'inside the loupe must be drawn with the same directionality '
+                'as the source field. Forgetting to honor textDirection on '
+                'the inner Text widget produces mirror-flipped glyphs.',
+          ),
+          SizedBox(height: 10),
+          _Pitfall(
+            number: '5',
+            title: 'Overlay layer collisions',
+            body: 'If your app uses a custom Overlay (not WidgetsApp.overlay) '
+                'you must pass the right BuildContext to controller.show(). '
+                'Passing the wrong context attaches the magnifier to a '
+                'different overlay, causing it to clip or vanish on route '
+                'transitions.',
+          ),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -2270,11 +1935,7 @@ class _Pitfall extends StatelessWidget {
   final String number;
   final String title;
   final String body;
-  const _Pitfall({
-    required this.number,
-    required this.title,
-    required this.body,
-  });
+  const _Pitfall({required this.number, required this.title, required this.body});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -2284,48 +1945,36 @@ class _Pitfall extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: const Color(0xFFF3CFCD), width: 1.0),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 28,
-            height: 28,
-            decoration: BoxDecoration(
-              color: _kAccentRed,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              number,
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Container(
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            color: _kAccentRed,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          alignment: Alignment.center,
+          child: Text(number,
               style: const TextStyle(
                 fontFamily: 'Menlo',
                 color: Color(0xFFFFFFFF),
                 fontSize: 13.0,
                 fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontFamily: 'CupertinoSystemText',
-                    color: _kInk,
-                    fontSize: 13.5,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(body, style: _kSans),
-              ],
-            ),
-          ),
-        ],
-      ),
+              )),
+        ),
+        const SizedBox(width: 12),
+        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+          Text(title,
+              style: const TextStyle(
+                fontFamily: 'CupertinoSystemText',
+                color: _kInk,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+              )),
+          const SizedBox(height: 4),
+          Text(body, style: _kSans),
+        ])),
+      ]),
     );
   }
 }
@@ -2338,56 +1987,47 @@ class _TheorySection extends StatelessWidget {
   const _TheorySection();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const _SectionHeader(
-          number: '09',
-          title: 'Theory',
-          subtitle: 'Why iOS chose a circle, accessibility considerations',
-          gradient: <Color>[Color(0xFF1FA7A0), Color(0xFF1B3D8F)],
-          icon: CupertinoIcons.lightbulb_fill,
-        ),
-        const SizedBox(height: 14),
-        _Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[
-              _TheoryCard(
-                title: 'Why a circular magnifier?',
-                body:
-                    'Apple chose a circle because (a) it has no preferred '
-                    'reading direction, working equally well for LTR and RTL; '
-                    '(b) the radial symmetry hides the discontinuity between the '
-                    'magnified strip and the underlying text; (c) it visually '
-                    'echoes the classic physical loupe and reinforces the '
-                    'metaphor that the user is "looking through glass".',
-              ),
-              SizedBox(height: 10),
-              _TheoryCard(
-                title: 'Why Material chose a rectangle',
-                body:
-                    'Material text magnifier is a horizontal pill. It mirrors '
-                    'the rectangular text-line itself and aligns to the text '
-                    'baseline, sacrificing the loupe metaphor in favor of a more '
-                    'utilitarian "second view of the same line".',
-              ),
-              SizedBox(height: 10),
-              _TheoryCard(
-                title: 'Accessibility',
-                body:
-                    'The magnifier is purely visual and is not announced by '
-                    'VoiceOver. Users with low vision can rely on it for text '
-                    'selection precision, but it must not become the only way to '
-                    'access selection - selection handles themselves are the '
-                    'semantically meaningful affordance. Avoid disabling the '
-                    'magnifier in custom toolbars.',
-              ),
-            ],
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const _SectionHeader(
+        number: '09',
+        title: 'Theory',
+        subtitle: 'Why iOS chose a circle, accessibility considerations',
+        gradient: <Color>[Color(0xFF1FA7A0), Color(0xFF1B3D8F)],
+        icon: CupertinoIcons.lightbulb_fill,
+      ),
+      const SizedBox(height: 14),
+      _Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const <Widget>[
+          _TheoryCard(
+            title: 'Why a circular magnifier?',
+            body: 'Apple chose a circle because (a) it has no preferred '
+                'reading direction, working equally well for LTR and RTL; '
+                '(b) the radial symmetry hides the discontinuity between the '
+                'magnified strip and the underlying text; (c) it visually '
+                'echoes the classic physical loupe and reinforces the '
+                'metaphor that the user is "looking through glass".',
           ),
-        ),
-      ],
-    );
+          SizedBox(height: 10),
+          _TheoryCard(
+            title: 'Why Material chose a rectangle',
+            body: 'Material text magnifier is a horizontal pill. It mirrors '
+                'the rectangular text-line itself and aligns to the text '
+                'baseline, sacrificing the loupe metaphor in favor of a more '
+                'utilitarian "second view of the same line".',
+          ),
+          SizedBox(height: 10),
+          _TheoryCard(
+            title: 'Accessibility',
+            body: 'The magnifier is purely visual and is not announced by '
+                'VoiceOver. Users with low vision can rely on it for text '
+                'selection precision, but it must not become the only way to '
+                'access selection - selection handles themselves are the '
+                'semantically meaningful affordance. Avoid disabling the '
+                'magnifier in custom toolbars.',
+          ),
+        ]),
+      ),
+    ]);
   }
 }
 
@@ -2404,22 +2044,17 @@ class _TheoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: _kBorder, width: 1.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Text(title,
             style: const TextStyle(
               fontFamily: 'CupertinoSystemText',
               color: _kAccentDeep,
               fontSize: 14.0,
               fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(body, style: _kSans),
-        ],
-      ),
+            )),
+        const SizedBox(height: 4),
+        Text(body, style: _kSans),
+      ]),
     );
   }
 }
@@ -2449,70 +2084,63 @@ class _FooterStamp extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'Magnifier API surface',
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        const Text(
+          'Magnifier API surface',
+          style: TextStyle(
+            fontFamily: 'CupertinoSystemText',
+            color: Color(0xFFFFFFFF),
+            fontSize: 18.0,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Everything you need to bridge gestures to a custom loupe and back.',
+          style: TextStyle(
+            fontFamily: 'CupertinoSystemText',
+            color: const Color(0xFFFFFFFF).withValues(alpha: 0.84),
+            fontSize: 12.5,
+            fontWeight: FontWeight.w500,
+            height: 1.35,
+          ),
+        ),
+        const SizedBox(height: 14),
+        Wrap(spacing: 8, runSpacing: 8, children: const <Widget>[
+          _FooterChip(text: 'CupertinoTextMagnifier'),
+          _FooterChip(text: 'CupertinoMagnifier'),
+          _FooterChip(text: 'TextMagnifier'),
+          _FooterChip(text: 'RawMagnifier'),
+          _FooterChip(text: 'MagnifierController'),
+          _FooterChip(text: 'MagnifierInfo'),
+          _FooterChip(text: 'MagnifierDecoration'),
+          _FooterChip(text: 'TextMagnifierConfiguration'),
+          _FooterChip(text: 'SelectionOverlay'),
+          _FooterChip(text: 'OverlayEntry'),
+        ]),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFFFFF).withValues(alpha: 0.10),
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+              color: const Color(0xFFFFFFFF).withValues(alpha: 0.22),
+              width: 1.0,
+            ),
+          ),
+          child: const Text(
+            'tom_d4rt_flutter_ast / cupertino / magnifier_test',
             style: TextStyle(
-              fontFamily: 'CupertinoSystemText',
-              color: Color(0xFFFFFFFF),
-              fontSize: 18.0,
-              fontWeight: FontWeight.w800,
+              fontFamily: 'Menlo',
+              color: Color(0xFFE7EAF6),
+              fontSize: 11.0,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.3,
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            'Everything you need to bridge gestures to a custom loupe and back.',
-            style: TextStyle(
-              fontFamily: 'CupertinoSystemText',
-              color: const Color(0xFFFFFFFF).withValues(alpha: 0.84),
-              fontSize: 12.5,
-              fontWeight: FontWeight.w500,
-              height: 1.35,
-            ),
-          ),
-          const SizedBox(height: 14),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: const <Widget>[
-              _FooterChip(text: 'CupertinoTextMagnifier'),
-              _FooterChip(text: 'CupertinoMagnifier'),
-              _FooterChip(text: 'TextMagnifier'),
-              _FooterChip(text: 'RawMagnifier'),
-              _FooterChip(text: 'MagnifierController'),
-              _FooterChip(text: 'MagnifierInfo'),
-              _FooterChip(text: 'MagnifierDecoration'),
-              _FooterChip(text: 'TextMagnifierConfiguration'),
-              _FooterChip(text: 'SelectionOverlay'),
-              _FooterChip(text: 'OverlayEntry'),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFFFFFFFF).withValues(alpha: 0.10),
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(
-                color: const Color(0xFFFFFFFF).withValues(alpha: 0.22),
-                width: 1.0,
-              ),
-            ),
-            child: const Text(
-              'tom_d4rt_flutter_ast / cupertino / magnifier_test',
-              style: TextStyle(
-                fontFamily: 'Menlo',
-                color: Color(0xFFE7EAF6),
-                fontSize: 11.0,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.3,
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
@@ -2532,15 +2160,13 @@ class _FooterChip extends StatelessWidget {
           width: 1.0,
         ),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontFamily: 'Menlo',
-          color: Color(0xFFFFFFFF),
-          fontSize: 11.0,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
+      child: Text(text,
+          style: const TextStyle(
+            fontFamily: 'Menlo',
+            color: Color(0xFFFFFFFF),
+            fontSize: 11.0,
+            fontWeight: FontWeight.w700,
+          )),
     );
   }
 }

@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.grid_on,
       'title': 'What is TableCell?',
-      'body':
-          'TableCell is a widget used as a child of TableRow. It '
+      'body': 'TableCell is a widget used as a child of TableRow. It '
           'provides per-cell vertical alignment control within a '
           'Table layout. Without TableCell, children use the default '
           'alignment from Table.defaultVerticalAlignment.',
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.table_chart,
       'title': 'Relationship to Table',
-      'body':
-          'Table contains TableRows, which contain children. Those '
+      'body': 'Table contains TableRows, which contain children. Those '
           'children can optionally be wrapped in TableCell to override '
           'the vertical alignment for that specific cell. The Table '
           'handles column widths; TableCell handles vertical position.',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.vertical_align_center,
       'title': 'Vertical Alignment',
-      'body':
-          'Each TableCell can specify a verticalAlignment from the '
+      'body': 'Each TableCell can specify a verticalAlignment from the '
           'TableCellVerticalAlignment enum: top, middle, bottom, '
           'baseline, fill, or intrinsicHeight. This overrides the '
           'Table\'s defaultVerticalAlignment for that cell alone.',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Why Not Just Container?',
-      'body':
-          'Container with Alignment works for simple positioning, '
+      'body': 'Container with Alignment works for simple positioning, '
           'but TableCell participates in the Table layout protocol. '
           'It communicates alignment to the Table\'s RenderObject, '
           'which coordinates row heights across all cells.',
@@ -129,16 +125,14 @@ dynamic build(BuildContext context) {
     {
       'name': 'verticalAlignment',
       'type': 'TableCellVerticalAlignment?',
-      'desc':
-          'The vertical alignment of this cell within its row. If '
+      'desc': 'The vertical alignment of this cell within its row. If '
           'null, the Table\'s defaultVerticalAlignment is used. When '
           'set, overrides the default for this cell only.',
     },
     {
       'name': 'child',
       'type': 'Widget',
-      'desc':
-          'The widget content of this cell. Can be any widget — '
+      'desc': 'The widget content of this cell. Can be any widget — '
           'Text, Container, Icon, or complex layouts. The Table '
           'constrains the child\'s width to the column width.',
     },
@@ -147,41 +141,35 @@ dynamic build(BuildContext context) {
   final alignEnumValues = <Map<String, String>>[
     {
       'value': 'top',
-      'desc':
-          'Align the cell\'s child at the top of the row. The child '
+      'desc': 'Align the cell\'s child at the top of the row. The child '
           'sits flush with the top edge, with empty space below if '
           'other cells in the row are taller.',
     },
     {
       'value': 'middle',
-      'desc':
-          'Center the child vertically in the row. Equal space above '
+      'desc': 'Center the child vertically in the row. Equal space above '
           'and below. This is the default for Table if not overridden.',
     },
     {
       'value': 'bottom',
-      'desc':
-          'Align at the bottom of the row. Empty space appears above '
+      'desc': 'Align at the bottom of the row. Empty space appears above '
           'the child. Useful for footer-like content in a row.',
     },
     {
       'value': 'baseline',
-      'desc':
-          'Align along the text baseline. Requires textBaseline to be '
+      'desc': 'Align along the text baseline. Requires textBaseline to be '
           'set on the Table. All baseline-aligned cells in a row share '
           'the same baseline, ensuring text alignment across columns.',
     },
     {
       'value': 'fill',
-      'desc':
-          'Stretch the child to fill the full row height. The child '
+      'desc': 'Stretch the child to fill the full row height. The child '
           'is forced to be as tall as the tallest cell in the row. '
           'Good for colored backgrounds or dividers.',
     },
     {
       'value': 'intrinsicHeight',
-      'desc':
-          'Size the child to its intrinsic height, then position at '
+      'desc': 'Size the child to its intrinsic height, then position at '
           'the top. The row height is the max intrinsic height of all '
           'children. More expensive than other modes.',
     },
@@ -365,7 +353,9 @@ dynamic build(BuildContext context) {
       cells.add(
         Container(
           padding: const EdgeInsets.all(10),
-          color: r.isEven ? Colors.cyan.withOpacity(0.03) : Colors.transparent,
+          color: r.isEven
+              ? Colors.cyan.withOpacity(0.03)
+              : Colors.transparent,
           child: Text(
             row[c],
             style: TextStyle(fontSize: 12, color: Colors.grey.shade800),
@@ -380,7 +370,9 @@ dynamic build(BuildContext context) {
             bottom: BorderSide(color: Colors.grey.withOpacity(0.15)),
           ),
         ),
-        child: Row(children: cells.map((c) => Expanded(child: c)).toList()),
+        child: Row(
+          children: cells.map((c) => Expanded(child: c)).toList(),
+        ),
       ),
     );
   }
@@ -451,32 +443,28 @@ dynamic build(BuildContext context) {
   final alignModes = <Map<String, dynamic>>[
     {
       'mode': 'top',
-      'desc':
-          'Child sits at the top. Space below when other cells '
+      'desc': 'Child sits at the top. Space below when other cells '
           'are taller. Natural reading position.',
       'position': Alignment.topCenter,
       'color': Colors.cyan,
     },
     {
       'mode': 'middle',
-      'desc':
-          'Child centered vertically. Equal space above and below. '
+      'desc': 'Child centered vertically. Equal space above and below. '
           'Default alignment in most Table configurations.',
       'position': Alignment.center,
       'color': Colors.blue,
     },
     {
       'mode': 'bottom',
-      'desc':
-          'Child at the bottom. Space above. Good for totals or '
+      'desc': 'Child at the bottom. Space above. Good for totals or '
           'footer content in a row.',
       'position': Alignment.bottomCenter,
       'color': Colors.green,
     },
     {
       'mode': 'fill',
-      'desc':
-          'Child stretched to row height. Background colors extend '
+      'desc': 'Child stretched to row height. Background colors extend '
           'fully. Child must handle being taller than intrinsic.',
       'position': Alignment.center,
       'color': Colors.orange,
@@ -584,12 +572,10 @@ dynamic build(BuildContext context) {
   final decoTopics = <Map<String, dynamic>>[
     {
       'title': 'Cell Background Color',
-      'desc':
-          'Wrap the TableCell child in a Container with a color. '
+      'desc': 'Wrap the TableCell child in a Container with a color. '
           'Use TableCellVerticalAlignment.fill so the color extends '
           'to the full row height, not just the content height.',
-      'code':
-          'TableCell(\n'
+      'code': 'TableCell(\n'
           '  verticalAlignment:\n'
           '    TableCellVerticalAlignment.fill,\n'
           '  child: Container(\n'
@@ -602,12 +588,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Cell with Border',
-      'desc':
-          'Table provides border property for the entire grid. For '
+      'desc': 'Table provides border property for the entire grid. For '
           'per-cell borders, wrap individual children in Container '
           'with BoxDecoration. Combine with Table.border for clean lines.',
-      'code':
-          'Table(\n'
+      'code': 'Table(\n'
           '  border: TableBorder.all(\n'
           '    color: Colors.grey.shade300,\n'
           '    width: 1,\n'
@@ -618,12 +602,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Alternating Row Colors',
-      'desc':
-          'Apply decoration to the TableRow, not individual cells. '
+      'desc': 'Apply decoration to the TableRow, not individual cells. '
           'TableRow.decoration controls the row-level background. '
           'This is more efficient than decorating each cell.',
-      'code':
-          'TableRow(\n'
+      'code': 'TableRow(\n'
           '  decoration: BoxDecoration(\n'
           '    color: isEven\n'
           '      ? Colors.grey.shade50\n'
@@ -635,12 +617,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Cell with Padding',
-      'desc':
-          'Table does not have cell padding. Wrap each cell\'s content '
+      'desc': 'Table does not have cell padding. Wrap each cell\'s content '
           'in Padding or a Container with padding. This is a common '
           'pattern for all Table implementations.',
-      'code':
-          'TableCell(\n'
+      'code': 'TableCell(\n'
           '  child: Padding(\n'
           '    padding: EdgeInsets.symmetric(\n'
           '      horizontal: 12,\n'
@@ -746,16 +726,14 @@ dynamic build(BuildContext context) {
   final widthModes = <Map<String, dynamic>>[
     {
       'name': 'IntrinsicColumnWidth',
-      'desc':
-          'Sizes columns to their widest child. Expensive because '
+      'desc': 'Sizes columns to their widest child. Expensive because '
           'it measures every row. Use for small tables only.',
       'icon': Icons.compress,
       'color': Colors.cyan,
     },
     {
       'name': 'FlexColumnWidth',
-      'desc':
-          'Distributes remaining space proportionally. Similar to '
+      'desc': 'Distributes remaining space proportionally. Similar to '
           'Flexible in a Row. FlexColumnWidth(2) gets twice the '
           'space of FlexColumnWidth(1).',
       'icon': Icons.open_in_full,
@@ -763,16 +741,14 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'FixedColumnWidth',
-      'desc':
-          'A fixed pixel width. Predictable but not responsive. '
+      'desc': 'A fixed pixel width. Predictable but not responsive. '
           'Content may overflow if text is larger than expected.',
       'icon': Icons.straighten,
       'color': Colors.green,
     },
     {
       'name': 'FractionColumnWidth',
-      'desc':
-          'Width as a fraction of the Table width. '
+      'desc': 'Width as a fraction of the Table width. '
           'FractionColumnWidth(0.3) takes 30% of the table. '
           'Useful for responsive proportional columns.',
       'icon': Icons.pie_chart,
@@ -780,8 +756,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'MaxColumnWidth / MinColumnWidth',
-      'desc':
-          'Composition of two width strategies with max or min. '
+      'desc': 'Composition of two width strategies with max or min. '
           'MaxColumnWidth(IntrinsicColumnWidth(), FixedColumnWidth(100)) '
           'ensures at least 100px wide.',
       'icon': Icons.compare_arrows,
@@ -854,40 +829,35 @@ dynamic build(BuildContext context) {
   final interactionTopics = <Map<String, dynamic>>[
     {
       'title': 'Tappable Cells',
-      'desc':
-          'Wrap cell content in GestureDetector or InkWell for tap '
+      'desc': 'Wrap cell content in GestureDetector or InkWell for tap '
           'handling. InkWell needs a Material ancestor — wrap in Material '
           'if the cell doesn\'t have one from the Table context.',
       'color': Colors.cyan,
     },
     {
       'title': 'Selectable Text in Cells',
-      'desc':
-          'Use SelectableText instead of Text for copyable cell '
+      'desc': 'Use SelectableText instead of Text for copyable cell '
           'content. Each cell can independently support text selection '
           'without affecting other cells in the row.',
       'color': Colors.blue,
     },
     {
       'title': 'Editable Cells',
-      'desc':
-          'Replace text with TextField or TextFormField for inline '
+      'desc': 'Replace text with TextField or TextFormField for inline '
           'editing. Use FocusNode to manage keyboard navigation '
           'between cells (Tab to advance, Shift+Tab to go back).',
       'color': Colors.green,
     },
     {
       'title': 'Checkbox / Switch Cells',
-      'desc':
-          'Add Checkbox or Switch widgets in cells for toggle columns. '
+      'desc': 'Add Checkbox or Switch widgets in cells for toggle columns. '
           'Align them with TableCellVerticalAlignment.middle for '
           'visual consistency with adjacent text cells.',
       'color': Colors.orange,
     },
     {
       'title': 'Cell Context Menu',
-      'desc':
-          'Use GestureDetector.onLongPress or right-click listener '
+      'desc': 'Use GestureDetector.onLongPress or right-click listener '
           'to show cell-specific context menus. Pass the cell\'s data '
           'to the menu handler for contextual actions.',
       'color': Colors.purple,
@@ -968,38 +938,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.grid_on,
-      'text':
-          'TableCell controls per-cell vertical alignment within '
+      'text': 'TableCell controls per-cell vertical alignment within '
           'a Table widget\'s row.',
     },
     {
       'icon': Icons.vertical_align_center,
-      'text':
-          'verticalAlignment overrides the Table default. Values: '
+      'text': 'verticalAlignment overrides the Table default. Values: '
           'top, middle, bottom, baseline, fill, intrinsicHeight.',
     },
     {
       'icon': Icons.palette,
-      'text':
-          'Use fill alignment with colored Containers for full-height '
+      'text': 'Use fill alignment with colored Containers for full-height '
           'cell backgrounds. Row decoration for alternating colors.',
     },
     {
       'icon': Icons.table_chart,
-      'text':
-          'Column widths are controlled by Table.columnWidths, not '
+      'text': 'Column widths are controlled by Table.columnWidths, not '
           'TableCell. Use Flex, Fixed, Fraction, or Intrinsic widths.',
     },
     {
       'icon': Icons.touch_app,
-      'text':
-          'Wrap cell children in GestureDetector/InkWell for tap, '
+      'text': 'Wrap cell children in GestureDetector/InkWell for tap, '
           'long-press, and context menu interactions.',
     },
     {
       'icon': Icons.compare_arrows,
-      'text':
-          'For large data sets, consider DataTable or PaginatedDataTable '
+      'text': 'For large data sets, consider DataTable or PaginatedDataTable '
           'instead of Table with manual TableCells.',
     },
   ];
@@ -1026,7 +990,11 @@ dynamic build(BuildContext context) {
                 color: Colors.cyan.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(sp['icon'] as IconData, color: Colors.cyan, size: 20),
+              child: Icon(
+                sp['icon'] as IconData,
+                color: Colors.cyan,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(

@@ -7,86 +7,78 @@ import 'package:flutter/material.dart';
 final ValueNotifier<RouteTransitionsBuilder> _selectedTransition =
     ValueNotifier<RouteTransitionsBuilder>(_fadeTransition);
 
-final ValueNotifier<Color> _barrierColor = ValueNotifier<Color>(Colors.black54);
+final ValueNotifier<Color> _barrierColor =
+    ValueNotifier<Color>(Colors.black54);
 
 final ValueNotifier<bool> _barrierDismissible = ValueNotifier<bool>(true);
 
-final ValueNotifier<Duration> _transitionDuration = ValueNotifier<Duration>(
-  const Duration(milliseconds: 300),
-);
+final ValueNotifier<Duration> _transitionDuration =
+    ValueNotifier<Duration>(const Duration(milliseconds: 300));
 
 final ValueNotifier<Offset?> _anchorPoint = ValueNotifier<Offset?>(null);
 
-final ValueNotifier<String> _activeTransitionLabel = ValueNotifier<String>(
-  'fade',
-);
+final ValueNotifier<String> _activeTransitionLabel =
+    ValueNotifier<String>('fade');
 
-final ValueNotifier<String> _activeBarrierLabel = ValueNotifier<String>(
-  'black54',
-);
+final ValueNotifier<String> _activeBarrierLabel =
+    ValueNotifier<String>('black54');
 
-final ValueNotifier<String> _activeDurationLabel = ValueNotifier<String>(
-  '300 ms',
-);
+final ValueNotifier<String> _activeDurationLabel =
+    ValueNotifier<String>('300 ms');
 
 // ---------------------------------------------------------------------------
 // Reusable transition builders
 // ---------------------------------------------------------------------------
 
-RouteTransitionsBuilder _fadeTransition =
-    (
-      BuildContext ctx,
-      Animation<double> anim,
-      Animation<double> secondaryAnim,
-      Widget child,
-    ) {
-      return FadeTransition(opacity: anim, child: child);
-    };
+RouteTransitionsBuilder _fadeTransition = (
+  BuildContext ctx,
+  Animation<double> anim,
+  Animation<double> secondaryAnim,
+  Widget child,
+) {
+  return FadeTransition(opacity: anim, child: child);
+};
 
-RouteTransitionsBuilder _scaleTransition =
-    (
-      BuildContext ctx,
-      Animation<double> anim,
-      Animation<double> secondaryAnim,
-      Widget child,
-    ) {
-      return ScaleTransition(
-        scale: CurvedAnimation(parent: anim, curve: Curves.easeOutBack),
-        child: child,
-      );
-    };
+RouteTransitionsBuilder _scaleTransition = (
+  BuildContext ctx,
+  Animation<double> anim,
+  Animation<double> secondaryAnim,
+  Widget child,
+) {
+  return ScaleTransition(
+    scale: CurvedAnimation(parent: anim, curve: Curves.easeOutBack),
+    child: child,
+  );
+};
 
-RouteTransitionsBuilder _slideUpTransition =
-    (
-      BuildContext ctx,
-      Animation<double> anim,
-      Animation<double> secondaryAnim,
-      Widget child,
-    ) {
-      return SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0, 1),
-          end: Offset.zero,
-        ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
-        child: child,
-      );
-    };
+RouteTransitionsBuilder _slideUpTransition = (
+  BuildContext ctx,
+  Animation<double> anim,
+  Animation<double> secondaryAnim,
+  Widget child,
+) {
+  return SlideTransition(
+    position: Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+    child: child,
+  );
+};
 
-RouteTransitionsBuilder _rotateTransition =
-    (
-      BuildContext ctx,
-      Animation<double> anim,
-      Animation<double> secondaryAnim,
-      Widget child,
-    ) {
-      return RotationTransition(
-        turns: Tween<double>(
-          begin: 0.85,
-          end: 1.0,
-        ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut)),
-        child: FadeTransition(opacity: anim, child: child),
-      );
-    };
+RouteTransitionsBuilder _rotateTransition = (
+  BuildContext ctx,
+  Animation<double> anim,
+  Animation<double> secondaryAnim,
+  Widget child,
+) {
+  return RotationTransition(
+    turns: Tween<double>(begin: 0.85, end: 1.0).animate(
+      CurvedAnimation(parent: anim, curve: Curves.easeOut),
+    ),
+    child: FadeTransition(opacity: anim, child: child),
+  );
+};
 
 // ---------------------------------------------------------------------------
 // Entry point
@@ -134,7 +126,9 @@ class _RawDialogRouteDemoHome extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
-            tabs: _tabLabels.map((label) => Tab(text: label)).toList(),
+            tabs: _tabLabels
+                .map((label) => Tab(text: label))
+                .toList(),
           ),
         ),
         body: const TabBarView(
@@ -183,11 +177,7 @@ class _SectionHeader extends StatelessWidget {
 }
 
 class _InfoCard extends StatelessWidget {
-  const _InfoCard({
-    required this.icon,
-    required this.title,
-    required this.body,
-  });
+  const _InfoCard({required this.icon, required this.title, required this.body});
   final IconData icon;
   final String title;
   final String body;
@@ -209,12 +199,9 @@ class _InfoCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text(title,
+                      style: theme.textTheme.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
                   Text(body, style: theme.textTheme.bodyMedium),
                 ],
@@ -240,7 +227,9 @@ class _CodeBlock extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: theme.colorScheme.outlineVariant),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant,
+        ),
       ),
       child: Text(
         code,
@@ -293,9 +282,8 @@ class _CustomDialogCard extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(24),
-                  ),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(24)),
                 ),
                 child: Column(
                   children: [
@@ -319,9 +307,8 @@ class _CustomDialogCard extends StatelessWidget {
                   children: [
                     Text(
                       subtitle,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: cs.onSurfaceVariant,
-                      ),
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: cs.onSurfaceVariant),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 24),
@@ -336,8 +323,7 @@ class _CustomDialogCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            onPressed: () =>
-                                Navigator.of(context).pop('cancel'),
+                            onPressed: () => Navigator.of(context).pop('cancel'),
                             child: const Text('Cancel'),
                           ),
                           const SizedBox(width: 8),
@@ -422,9 +408,7 @@ class _OverviewTab extends StatelessWidget {
               const SizedBox(height: 16),
               Chip(
                 avatar: Icon(Icons.foundation, size: 18, color: cs.primary),
-                label: const Text(
-                  'Foundation layer of showDialog & DialogRoute',
-                ),
+                label: const Text('Foundation layer of showDialog & DialogRoute'),
                 backgroundColor: cs.surface.withAlpha(200),
               ),
             ],
@@ -478,47 +462,15 @@ class _OverviewTab extends StatelessWidget {
 );'''),
         const SizedBox(height: 16),
         const _SectionHeader('Key properties at a glance'),
-        _PropertyRow(
-          'pageBuilder',
-          'WidgetBuilder',
-          'Required. Builds your dialog widget.',
-        ),
-        _PropertyRow(
-          'barrierDismissible',
-          'bool',
-          'Tap outside to close. Default true.',
-        ),
+        _PropertyRow('pageBuilder', 'WidgetBuilder', 'Required. Builds your dialog widget.'),
+        _PropertyRow('barrierDismissible', 'bool', 'Tap outside to close. Default true.'),
         _PropertyRow('barrierColor', 'Color?', 'Scrim tint behind dialog.'),
-        _PropertyRow(
-          'barrierLabel',
-          'String?',
-          'Accessibility label for barrier.',
-        ),
-        _PropertyRow(
-          'transitionDuration',
-          'Duration',
-          'Route open/close animation length.',
-        ),
-        _PropertyRow(
-          'transitionBuilder',
-          'RouteTransitionsBuilder?',
-          'Custom enter/exit animation.',
-        ),
-        _PropertyRow(
-          'settings',
-          'RouteSettings?',
-          'Name & arguments for the route.',
-        ),
-        _PropertyRow(
-          'anchorPoint',
-          'Offset?',
-          'Preferred screen anchor for sub-routes.',
-        ),
-        _PropertyRow(
-          'traversalEdgeBehavior',
-          'TraversalEdgeBehavior?',
-          'Focus wrap at dialog edges.',
-        ),
+        _PropertyRow('barrierLabel', 'String?', 'Accessibility label for barrier.'),
+        _PropertyRow('transitionDuration', 'Duration', 'Route open/close animation length.'),
+        _PropertyRow('transitionBuilder', 'RouteTransitionsBuilder?', 'Custom enter/exit animation.'),
+        _PropertyRow('settings', 'RouteSettings?', 'Name & arguments for the route.'),
+        _PropertyRow('anchorPoint', 'Offset?', 'Preferred screen anchor for sub-routes.'),
+        _PropertyRow('traversalEdgeBehavior', 'TraversalEdgeBehavior?', 'Focus wrap at dialog edges.'),
         const SizedBox(height: 24),
       ],
     );
@@ -547,33 +499,24 @@ class _PropertyRow extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: Text(
-              name,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
-                color: cs.primary,
-              ),
-            ),
+            child: Text(name,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'monospace',
+                    color: cs.primary)),
           ),
           Expanded(
             flex: 3,
-            child: Text(
-              type,
-              style: theme.textTheme.bodySmall?.copyWith(
-                fontFamily: 'monospace',
-                color: cs.secondary,
-              ),
-            ),
+            child: Text(type,
+                style: theme.textTheme.bodySmall?.copyWith(
+                    fontFamily: 'monospace',
+                    color: cs.secondary)),
           ),
           Expanded(
             flex: 5,
-            child: Text(
-              desc,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: cs.onSurfaceVariant,
-              ),
-            ),
+            child: Text(desc,
+                style: theme.textTheme.bodySmall
+                    ?.copyWith(color: cs.onSurfaceVariant)),
           ),
         ],
       ),
@@ -664,12 +607,9 @@ class _LivePushTab extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Text(
-                    'main.dart',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: cs.outline,
-                    ),
-                  ),
+                  Text('main.dart',
+                      style: theme.textTheme.labelSmall
+                          ?.copyWith(color: cs.outline)),
                 ],
               ),
               const SizedBox(height: 12),
@@ -699,11 +639,9 @@ class _LivePushTab extends StatelessWidget {
             icon: const Icon(Icons.open_in_new_rounded),
             label: const Text('Push RawDialogRoute'),
             style: FilledButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              textStyle: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
             ),
           ),
         ),
@@ -713,9 +651,7 @@ class _LivePushTab extends StatelessWidget {
         _BulletPoint('No DefaultTextStyle injection from showDialog.'),
         _BulletPoint('No barrierLabel default — you provide it.'),
         _BulletPoint('No elevation model — you own the visual hierarchy.'),
-        _BulletPoint(
-          'The barrier is still provided (barrierColor) — that IS part of PopupRoute.',
-        ),
+        _BulletPoint('The barrier is still provided (barrierColor) — that IS part of PopupRoute.'),
         const SizedBox(height: 20),
         const _InfoCard(
           icon: Icons.lightbulb_outline_rounded,
@@ -756,7 +692,9 @@ class _BulletPoint extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: Text(text, style: theme.textTheme.bodyMedium)),
+          Expanded(
+            child: Text(text, style: theme.textTheme.bodyMedium),
+          ),
         ],
       ),
     );
@@ -775,40 +713,33 @@ class _TransitionsTab extends StatelessWidget {
       label: 'fade',
       icon: Icons.opacity_rounded,
       builder: _fadeTransition,
-      description:
-          'FadeTransition — opacity 0→1. '
+      description: 'FadeTransition — opacity 0→1. '
           'The default if no transitionBuilder is supplied.',
     ),
     _TransitionOption(
       label: 'scale',
       icon: Icons.zoom_in_rounded,
       builder: _scaleTransition,
-      description:
-          'ScaleTransition with easeOutBack curve — '
+      description: 'ScaleTransition with easeOutBack curve — '
           'bouncy elastic entrance.',
     ),
     _TransitionOption(
       label: 'slide-up',
       icon: Icons.arrow_upward_rounded,
       builder: _slideUpTransition,
-      description:
-          'SlideTransition from bottom — common bottom-sheet feel '
+      description: 'SlideTransition from bottom — common bottom-sheet feel '
           'applied to a dialog overlay.',
     ),
     _TransitionOption(
       label: 'rotate',
       icon: Icons.rotate_right_rounded,
       builder: _rotateTransition,
-      description:
-          'RotationTransition 0.85→1.0 turns combined with fade. '
+      description: 'RotationTransition 0.85→1.0 turns combined with fade. '
           'Dramatic entrance for prominent dialogs.',
     ),
   ];
 
-  void _pushWithTransition(
-    BuildContext context,
-    RouteTransitionsBuilder builder,
-  ) {
+  void _pushWithTransition(BuildContext context, RouteTransitionsBuilder builder) {
     Navigator.of(context).push(
       RawDialogRoute<void>(
         pageBuilder: (ctx, anim, secondaryAnim) => const _CustomDialogCard(
@@ -872,13 +803,11 @@ class _TransitionsTab extends StatelessWidget {
                 const SizedBox(height: 16),
                 ..._options
                     .where((o) => o.label == activeLabel)
-                    .map(
-                      (o) => _InfoCard(
-                        icon: o.icon,
-                        title: o.label,
-                        body: o.description,
-                      ),
-                    ),
+                    .map((o) => _InfoCard(
+                          icon: o.icon,
+                          title: o.label,
+                          body: o.description,
+                        )),
               ],
             );
           },
@@ -893,10 +822,8 @@ class _TransitionsTab extends StatelessWidget {
                 icon: const Icon(Icons.play_arrow_rounded),
                 label: const Text('Push with selected transition'),
                 style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 28,
-                    vertical: 14,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
                 ),
               ),
             );
@@ -954,13 +881,14 @@ class _TransitionOption {
 class _BarrierColorTab extends StatelessWidget {
   const _BarrierColorTab();
 
+
   static List<_BarrierOption> _dynamicOptions(ColorScheme cs) => [
-    _BarrierOption(label: 'black54', color: Colors.black54),
-    _BarrierOption(label: 'black26', color: Colors.black26),
-    _BarrierOption(label: 'transparent', color: Colors.transparent),
-    _BarrierOption(label: 'primary', color: cs.primary.withAlpha(153)),
-    _BarrierOption(label: 'error', color: cs.error.withAlpha(120)),
-  ];
+        _BarrierOption(label: 'black54', color: Colors.black54),
+        _BarrierOption(label: 'black26', color: Colors.black26),
+        _BarrierOption(label: 'transparent', color: Colors.transparent),
+        _BarrierOption(label: 'primary', color: cs.primary.withAlpha(153)),
+        _BarrierOption(label: 'error', color: cs.error.withAlpha(120)),
+      ];
 
   void _pushWithBarrier(BuildContext context, Color color, String label) {
     Navigator.of(context).push(
@@ -1013,7 +941,9 @@ class _BarrierColorTab extends StatelessWidget {
                     width: 16,
                     height: 16,
                     decoration: BoxDecoration(
-                      color: opt.color == Colors.transparent ? null : opt.color,
+                      color: opt.color == Colors.transparent
+                          ? null
+                          : opt.color,
                       border: Border.all(color: cs.outline),
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -1082,9 +1012,7 @@ class _BarrierColorTab extends StatelessWidget {
                     label: Text('Push with "$label" barrier'),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 14,
-                      ),
+                          horizontal: 24, vertical: 14),
                     ),
                   ),
                 );
@@ -1095,20 +1023,15 @@ class _BarrierColorTab extends StatelessWidget {
         const SizedBox(height: 24),
         const _SectionHeader('Usage notes'),
         _BulletPoint(
-          'Colors.black54 is the standard Material dialog barrier — strong contrast.',
-        ),
+            'Colors.black54 is the standard Material dialog barrier — strong contrast.'),
         _BulletPoint(
-          'Colors.black26 is lighter; the background content is more visible.',
-        ),
+            'Colors.black26 is lighter; the background content is more visible.'),
         _BulletPoint(
-          'Colors.transparent removes the barrier visually but it is still tappable if barrierDismissible is true.',
-        ),
+            'Colors.transparent removes the barrier visually but it is still tappable if barrierDismissible is true.'),
         _BulletPoint(
-          'Theme colors (primary, error) enable branded barrier tints.',
-        ),
+            'Theme colors (primary, error) enable branded barrier tints.'),
         _BulletPoint(
-          'barrierLabel is the semantics label read by screen readers when the barrier is focused.',
-        ),
+            'barrierLabel is the semantics label read by screen readers when the barrier is focused.'),
         const SizedBox(height: 24),
       ],
     );
@@ -1135,10 +1058,10 @@ class _DismissibleTab extends StatelessWidget {
           title: dismissible ? 'Tap outside to close' : 'Locked dialog',
           subtitle: dismissible
               ? 'Tap the dark barrier around this dialog to dismiss it. '
-                    'barrierDismissible is true.'
+                  'barrierDismissible is true.'
               : 'This dialog cannot be dismissed by tapping the barrier. '
-                    'You MUST press the Close button. '
-                    'barrierDismissible is false.',
+                  'You MUST press the Close button. '
+                  'barrierDismissible is false.',
           showCloseButton: !dismissible,
         ),
         barrierColor: Colors.black54,
@@ -1175,7 +1098,8 @@ class _DismissibleTab extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('barrierDismissible:', style: theme.textTheme.labelLarge),
+                Text('barrierDismissible:',
+                    style: theme.textTheme.labelLarge),
                 const SizedBox(height: 12),
                 SegmentedButton<bool>(
                   segments: const [
@@ -1235,11 +1159,9 @@ class _DismissibleTab extends StatelessWidget {
                 Center(
                   child: FilledButton.icon(
                     onPressed: () => _pushDialog(ctx, isDismissible),
-                    icon: Icon(
-                      isDismissible
-                          ? Icons.open_in_new_rounded
-                          : Icons.lock_open_rounded,
-                    ),
+                    icon: Icon(isDismissible
+                        ? Icons.open_in_new_rounded
+                        : Icons.lock_open_rounded),
                     label: Text(
                       isDismissible
                           ? 'Push dismissible dialog'
@@ -1247,11 +1169,11 @@ class _DismissibleTab extends StatelessWidget {
                     ),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 28,
-                        vertical: 14,
-                      ),
-                      backgroundColor: isDismissible ? null : cs.error,
-                      foregroundColor: isDismissible ? null : cs.onError,
+                          horizontal: 28, vertical: 14),
+                      backgroundColor:
+                          isDismissible ? null : cs.error,
+                      foregroundColor:
+                          isDismissible ? null : cs.onError,
                     ),
                   ),
                 ),
@@ -1262,17 +1184,14 @@ class _DismissibleTab extends StatelessWidget {
         const SizedBox(height: 24),
         const _SectionHeader('UX guidance'),
         _BulletPoint(
-          'Always set barrierDismissible: false when data loss could occur '
-          '(e.g. an unsaved form). Provide a clear close button.',
-        ),
+            'Always set barrierDismissible: false when data loss could occur '
+            '(e.g. an unsaved form). Provide a clear close button.'),
         _BulletPoint(
-          'For informational or low-stakes dialogs, true is preferred — '
-          'less friction for the user.',
-        ),
+            'For informational or low-stakes dialogs, true is preferred — '
+            'less friction for the user.'),
         _BulletPoint(
-          'When false, ensure keyboard navigation can also reach the close button '
-          '(traversalEdgeBehavior helps here).',
-        ),
+            'When false, ensure keyboard navigation can also reach the close button '
+            '(traversalEdgeBehavior helps here).'),
         _CodeBlock('''RawDialogRoute<void>(
   pageBuilder: (ctx, anim, _) => MyDialog(
     // Must have its own close/cancel button
@@ -1303,7 +1222,8 @@ class _AnchorPointTab extends StatelessWidget {
     _AnchorOption(label: 'Bottom-right', point: Offset(9999, 9999)),
   ];
 
-  void _pushWithAnchor(BuildContext context, Offset? anchor, String label) {
+  void _pushWithAnchor(
+      BuildContext context, Offset? anchor, String label) {
     Navigator.of(context).push(
       RawDialogRoute<void>(
         pageBuilder: (ctx, anim, _) => _CustomDialogCard(
@@ -1358,20 +1278,16 @@ class _AnchorPointTab extends StatelessWidget {
                 child: Center(
                   child: Text(
                     'Screen (${size.width.toInt()} × ${size.height.toInt()})',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: cs.outline,
-                    ),
+                    style: theme.textTheme.labelSmall
+                        ?.copyWith(color: cs.outline),
                   ),
                 ),
               ),
-              ..._anchorOptions.where((o) => o.point != null).map<Widget>((
-                opt,
-              ) {
+              ..._anchorOptions.where((o) => o.point != null).map<Widget>((opt) {
                 final isTopLeft = opt.point!.dx == 0 && opt.point!.dy == 0;
                 final isTopRight = opt.point!.dx > 100 && opt.point!.dy == 0;
                 final isBottomLeft = opt.point!.dx == 0 && opt.point!.dy > 100;
-                final isBottomRight =
-                    opt.point!.dx > 100 && opt.point!.dy > 100;
+                final isBottomRight = opt.point!.dx > 100 && opt.point!.dy > 100;
 
                 AlignmentGeometry alignment;
                 if (isTopLeft) {
@@ -1391,7 +1307,8 @@ class _AnchorPointTab extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(12),
                     child: Chip(
-                      label: Text(opt.label, style: theme.textTheme.labelSmall),
+                      label: Text(opt.label,
+                          style: theme.textTheme.labelSmall),
                       backgroundColor: cs.primaryContainer,
                       side: BorderSide.none,
                     ),
@@ -1437,10 +1354,8 @@ class _AnchorPointTab extends StatelessWidget {
                 icon: const Icon(Icons.location_on_rounded),
                 label: Text('Push with anchor: $label'),
                 style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 14,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                 ),
               ),
             );
@@ -1535,9 +1450,8 @@ class _DurationTab extends StatelessWidget {
                       label: Text(opt.label),
                       selected: selected,
                       onSelected: (_) {
-                        _transitionDuration.value = Duration(
-                          milliseconds: opt.ms,
-                        );
+                        _transitionDuration.value =
+                            Duration(milliseconds: opt.ms);
                         _activeDurationLabel.value = opt.label;
                       },
                     );
@@ -1555,14 +1469,12 @@ class _DurationTab extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 72,
-                          child: Text(
-                            opt.label,
-                            style: theme.textTheme.labelMedium?.copyWith(
-                              fontWeight: isActive
-                                  ? FontWeight.w700
-                                  : FontWeight.normal,
-                            ),
-                          ),
+                          child: Text(opt.label,
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                fontWeight: isActive
+                                    ? FontWeight.w700
+                                    : FontWeight.normal,
+                              )),
                         ),
                         Expanded(
                           child: ClipRRect(
@@ -1570,20 +1482,15 @@ class _DurationTab extends StatelessWidget {
                             child: LinearProgressIndicator(
                               value: fraction,
                               minHeight: isActive ? 10 : 6,
-                              color: isActive
-                                  ? cs.primary
-                                  : cs.primaryContainer,
+                              color: isActive ? cs.primary : cs.primaryContainer,
                               backgroundColor: cs.surfaceContainerHighest,
                             ),
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          '${opt.ms}ms',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: cs.outline,
-                          ),
-                        ),
+                        Text('${opt.ms}ms',
+                            style: theme.textTheme.labelSmall
+                                ?.copyWith(color: cs.outline)),
                       ],
                     ),
                   );
@@ -1609,10 +1516,8 @@ class _DurationTab extends StatelessWidget {
                 icon: const Icon(Icons.play_circle_outline_rounded),
                 label: Text('Push with $label animation'),
                 style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 28,
-                    vertical: 14,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
                 ),
               ),
             );
@@ -1621,16 +1526,14 @@ class _DurationTab extends StatelessWidget {
         const SizedBox(height: 24),
         const _SectionHeader('Best practice'),
         _BulletPoint(
-          '150–200ms: Fast, snappy. Good for frequent, small dialogs.',
-        ),
-        _BulletPoint('300ms: Material Design recommendation for dialogs.'),
+            '150–200ms: Fast, snappy. Good for frequent, small dialogs.'),
         _BulletPoint(
-          '600ms+: Slow and dramatic. Use sparingly for onboarding or '
-          'first-run experiences.',
-        ),
+            '300ms: Material Design recommendation for dialogs.'),
         _BulletPoint(
-          '1200ms: Very slow. Only for deliberate, attention-grabbing moments.',
-        ),
+            '600ms+: Slow and dramatic. Use sparingly for onboarding or '
+            'first-run experiences.'),
+        _BulletPoint(
+            '1200ms: Very slow. Only for deliberate, attention-grabbing moments.'),
         const SizedBox(height: 24),
       ],
     );
@@ -1690,16 +1593,14 @@ class _DiagramTab extends StatelessWidget {
         _LayerRow(
           color: Colors.blue.shade100,
           label: 'Previous Route',
-          description:
-              'Your main page/screen. Stays mounted. '
+          description: 'Your main page/screen. Stays mounted. '
               'Input blocked by barrier.',
         ),
         const SizedBox(height: 8),
         _LayerRow(
           color: Colors.black54,
           label: 'Barrier Layer',
-          description:
-              'Full-screen scrim. Color from barrierColor. '
+          description: 'Full-screen scrim. Color from barrierColor. '
               'Tappable if barrierDismissible.',
           lightText: true,
         ),
@@ -1707,8 +1608,7 @@ class _DiagramTab extends StatelessWidget {
         _LayerRow(
           color: Colors.indigo.shade200,
           label: 'Dialog Widget',
-          description:
-              'Your pageBuilder output. Sized and positioned '
+          description: 'Your pageBuilder output. Sized and positioned '
               'by your own widget tree.',
         ),
         const SizedBox(height: 20),
@@ -1757,18 +1657,13 @@ class _LayerRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(
-                description,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
+              Text(label,
+                  style: theme.textTheme.labelLarge
+                      ?.copyWith(fontWeight: FontWeight.w700)),
+              Text(description,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  )),
             ],
           ),
         ),
@@ -1794,46 +1689,46 @@ class _RouteStackPainter extends CustomPainter {
       fontFamily: 'monospace',
       fontWeight: FontWeight.w600,
     );
-    final labelStyle = TextStyle(color: cs.outline, fontSize: 10);
+    final labelStyle = TextStyle(
+      color: cs.outline,
+      fontSize: 10,
+    );
 
     // Layer 1 — Previous Route (bottom)
     final layer1Rect = RRect.fromRectAndRadius(
       Rect.fromLTWH(16, size.height - 90, size.width - 32, 70),
       const Radius.circular(8),
     );
-    canvas.drawRRect(layer1Rect, Paint()..color = cs.primaryContainer);
-    _drawText(
-      canvas,
-      'Previous Route (e.g. Home)',
-      textStyle,
-      layer1Rect.outerRect,
+    canvas.drawRRect(
+      layer1Rect,
+      Paint()..color = cs.primaryContainer,
     );
+    _drawText(
+        canvas, 'Previous Route (e.g. Home)', textStyle, layer1Rect.outerRect);
 
     // Layer 2 — Barrier
     final layer2Rect = RRect.fromRectAndRadius(
       Rect.fromLTWH(32, size.height - 175, size.width - 64, 70),
       const Radius.circular(8),
     );
-    canvas.drawRRect(layer2Rect, Paint()..color = Colors.black54);
-    _drawText(
-      canvas,
-      'Barrier Layer  (barrierColor)',
-      lightTextStyle,
-      layer2Rect.outerRect,
+    canvas.drawRRect(
+      layer2Rect,
+      Paint()..color = Colors.black54,
     );
+    _drawText(
+        canvas, 'Barrier Layer  (barrierColor)', lightTextStyle, layer2Rect.outerRect);
 
     // Layer 3 — Dialog
     final layer3Rect = RRect.fromRectAndRadius(
       Rect.fromLTWH(64, size.height - 260, size.width - 128, 70),
       const Radius.circular(8),
     );
-    canvas.drawRRect(layer3Rect, Paint()..color = cs.secondaryContainer);
-    _drawText(
-      canvas,
-      'Dialog Widget  (pageBuilder)',
-      textStyle,
-      layer3Rect.outerRect,
+    canvas.drawRRect(
+      layer3Rect,
+      Paint()..color = cs.secondaryContainer,
     );
+    _drawText(
+        canvas, 'Dialog Widget  (pageBuilder)', textStyle, layer3Rect.outerRect);
 
     // Arrows
     final arrowPaint = Paint()
@@ -1876,7 +1771,11 @@ class _RouteStackPainter extends CustomPainter {
     _drawTextAt(
       canvas,
       'RawDialogRoute',
-      TextStyle(color: cs.tertiary, fontSize: 9, fontWeight: FontWeight.w700),
+      TextStyle(
+        color: cs.tertiary,
+        fontSize: 9,
+        fontWeight: FontWeight.w700,
+      ),
       Offset(bracketX - 60, (layer2Rect.top + layer3Rect.bottom) / 2 - 6),
       80,
     );
@@ -1897,12 +1796,7 @@ class _RouteStackPainter extends CustomPainter {
   }
 
   void _drawTextAt(
-    Canvas canvas,
-    String text,
-    TextStyle style,
-    Offset offset,
-    double maxWidth,
-  ) {
+      Canvas canvas, String text, TextStyle style, Offset offset, double maxWidth) {
     final tp = TextPainter(
       text: TextSpan(text: text, style: style),
       textDirection: TextDirection.ltr,
@@ -1951,10 +1845,7 @@ class _CompareTab extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: DataTable(
             headingRowColor: WidgetStateProperty.all(cs.primaryContainer),
-            border: TableBorder.all(
-              color: cs.outlineVariant,
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: TableBorder.all(color: cs.outlineVariant, borderRadius: BorderRadius.circular(8)),
             columns: const [
               DataColumn(label: Text('API')),
               DataColumn(label: Text('Extends')),
@@ -1963,46 +1854,11 @@ class _CompareTab extends StatelessWidget {
               DataColumn(label: Text('Typical use')),
             ],
             rows: [
-              _compareRow(
-                cs,
-                'RawDialogRoute',
-                'PopupRoute',
-                'None',
-                'black54',
-                'Custom dialogs; foundation layer',
-              ),
-              _compareRow(
-                cs,
-                'DialogRoute',
-                'RawDialogRoute',
-                'Dialog widget',
-                'black54',
-                'Fully custom content, Material chrome',
-              ),
-              _compareRow(
-                cs,
-                'showDialog()',
-                'DialogRoute',
-                'Dialog + Theme',
-                'black54',
-                'Standard Material dialogs',
-              ),
-              _compareRow(
-                cs,
-                'CupertinoDialogRoute',
-                'RawDialogRoute',
-                'None',
-                'black54',
-                'Cupertino-style dialogs',
-              ),
-              _compareRow(
-                cs,
-                'ModalBottomSheet',
-                'PopupRoute',
-                'Bottom sheet',
-                'black54',
-                'Slide-up panels',
-              ),
+              _compareRow(cs, 'RawDialogRoute', 'PopupRoute', 'None', 'black54', 'Custom dialogs; foundation layer'),
+              _compareRow(cs, 'DialogRoute', 'RawDialogRoute', 'Dialog widget', 'black54', 'Fully custom content, Material chrome'),
+              _compareRow(cs, 'showDialog()', 'DialogRoute', 'Dialog + Theme', 'black54', 'Standard Material dialogs'),
+              _compareRow(cs, 'CupertinoDialogRoute', 'RawDialogRoute', 'None', 'black54', 'Cupertino-style dialogs'),
+              _compareRow(cs, 'ModalBottomSheet', 'PopupRoute', 'Bottom sheet', 'black54', 'Slide-up panels'),
             ],
           ),
         ),
@@ -2010,8 +1866,7 @@ class _CompareTab extends StatelessWidget {
         const _SectionHeader('Decision guide'),
         _DecisionCard(
           label: 'Use showDialog()',
-          when:
-              'You want a standard Material AlertDialog or SimpleDialog with '
+          when: 'You want a standard Material AlertDialog or SimpleDialog with '
               'all defaults (theme, scrim, rounded rect, elevation).',
           icon: Icons.check_circle_outline,
           color: cs.primaryContainer,
@@ -2019,8 +1874,7 @@ class _CompareTab extends StatelessWidget {
         const SizedBox(height: 8),
         _DecisionCard(
           label: 'Use DialogRoute',
-          when:
-              'You want the Material Dialog wrapper but need to control routing '
+          when: 'You want the Material Dialog wrapper but need to control routing '
               'details (transition, settings, barrier) directly via push().',
           icon: Icons.tune_rounded,
           color: cs.secondaryContainer,
@@ -2028,8 +1882,7 @@ class _CompareTab extends StatelessWidget {
         const SizedBox(height: 8),
         _DecisionCard(
           label: 'Use RawDialogRoute',
-          when:
-              'You need complete control over the dialog appearance — '
+          when: 'You need complete control over the dialog appearance — '
               'no Material chrome — or you are building your own dialog primitive.',
           icon: Icons.build_rounded,
           color: cs.tertiaryContainer,
@@ -2037,8 +1890,7 @@ class _CompareTab extends StatelessWidget {
         const SizedBox(height: 8),
         _DecisionCard(
           label: 'Use CupertinoDialogRoute',
-          when:
-              'You are building a Cupertino-style dialog on iOS/macOS '
+          when: 'You are building a Cupertino-style dialog on iOS/macOS '
               'with the platform-native look.',
           icon: Icons.apple_rounded,
           color: cs.surfaceContainerHighest,
@@ -2056,17 +1908,14 @@ class _CompareTab extends StatelessWidget {
     String barrier,
     String use,
   ) {
-    return DataRow(
-      cells: [
-        DataCell(
-          Text(api, style: const TextStyle(fontWeight: FontWeight.w700)),
-        ),
-        DataCell(Text(ext)),
-        DataCell(Text(deco)),
-        DataCell(Text(barrier)),
-        DataCell(SizedBox(width: 160, child: Text(use))),
-      ],
-    );
+    return DataRow(cells: [
+      DataCell(Text(api,
+          style: const TextStyle(fontWeight: FontWeight.w700))),
+      DataCell(Text(ext)),
+      DataCell(Text(deco)),
+      DataCell(Text(barrier)),
+      DataCell(SizedBox(width: 160, child: Text(use))),
+    ]);
   }
 }
 
@@ -2100,12 +1949,9 @@ class _DecisionCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  label,
-                  style: theme.textTheme.labelLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                Text(label,
+                    style: theme.textTheme.labelLarge
+                        ?.copyWith(fontWeight: FontWeight.w800)),
                 const SizedBox(height: 4),
                 Text(when, style: theme.textTheme.bodySmall),
               ],
@@ -2145,7 +1991,8 @@ class _PitfallsTab extends StatelessWidget {
           fix:
               'Ensure the context is inside MaterialApp or Navigator. '
               'Use Builder(builder: (ctx) => ...) to get the right context if needed.',
-          code: '''// BAD: context above MaterialApp
+          code:
+              '''// BAD: context above MaterialApp
 Widget build(BuildContext context) {
   Navigator.of(context).push(...); // throws!
   return MaterialApp(...);
@@ -2174,7 +2021,8 @@ MaterialApp(
           fix:
               'Wrap your dialog content in Material (or Card, Container with BoxDecoration) '
               'to provide the visual surface.',
-          code: '''RawDialogRoute<void>(
+          code:
+              '''RawDialogRoute<void>(
   pageBuilder: (ctx, anim, _) => Center(
     child: Material(          // ← you must add this
       borderRadius: BorderRadius.circular(16),
@@ -2199,7 +2047,8 @@ MaterialApp(
           fix:
               'Set traversalEdgeBehavior to TraversalEdgeBehavior.closedLoop to '
               'trap focus inside the dialog.',
-          code: '''RawDialogRoute<void>(
+          code:
+              '''RawDialogRoute<void>(
   pageBuilder: ...,
   traversalEdgeBehavior:
       TraversalEdgeBehavior.closedLoop, // ← trap focus
@@ -2217,7 +2066,8 @@ MaterialApp(
           fix:
               'Subclass RawDialogRoute and override reverseTransitionDuration to '
               'provide a different exit duration.',
-          code: '''class MyDialogRoute<T> extends RawDialogRoute<T> {
+          code:
+              '''class MyDialogRoute<T> extends RawDialogRoute<T> {
   MyDialogRoute({required super.pageBuilder})
       : super(
           transitionDuration: Duration(milliseconds: 400),
@@ -2238,7 +2088,8 @@ MaterialApp(
               'Without barrierLabel, screen readers have no description for the '
               'dismiss gesture on the barrier. This hurts users of assistive technology.',
           fix: 'Always provide a meaningful barrierLabel string.',
-          code: '''RawDialogRoute<void>(
+          code:
+              '''RawDialogRoute<void>(
   pageBuilder: ...,
   barrierDismissible: true,
   barrierLabel: 'Dismiss confirmation dialog',  // ← always set this
@@ -2287,10 +2138,8 @@ class _PitfallCard extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: cs.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(6),
@@ -2307,26 +2156,21 @@ class _PitfallCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: theme.textTheme.titleSmall
+                        ?.copyWith(fontWeight: FontWeight.w700),
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: severityColor.withAlpha(40),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     severity,
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: severityColor,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: theme.textTheme.labelSmall
+                        ?.copyWith(color: severityColor, fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -2337,7 +2181,8 @@ class _PitfallCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.check_circle_outline, size: 16, color: cs.primary),
+                Icon(Icons.check_circle_outline,
+                    size: 16, color: cs.primary),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -2448,7 +2293,8 @@ class _ApiTab extends StatelessWidget {
           type: 'Duration',
           required: false,
           defaultVal: '200ms',
-          description: 'Length of push and pop animations.',
+          description:
+              'Length of push and pop animations.',
           cs: null,
         ),
         _ApiRow(
@@ -2502,7 +2348,8 @@ class _ApiTab extends StatelessWidget {
           type: 'bool',
           required: false,
           defaultVal: 'true',
-          description: 'Whether the route below keeps its state when covered.',
+          description:
+              'Whether the route below keeps its state when covered.',
           cs: null,
         ),
         _ApiRow(
@@ -2569,7 +2416,8 @@ Navigator.of(context).push(
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline_rounded, color: cs.onSecondaryContainer),
+              Icon(Icons.info_outline_rounded,
+                  color: cs.onSecondaryContainer),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -2640,58 +2488,44 @@ class _ApiRow extends StatelessWidget {
               ),
               if (required)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: colorScheme.errorContainer,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(
-                    'required',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onErrorContainer,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: Text('required',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: colorScheme.onErrorContainer,
+                        fontWeight: FontWeight.w700,
+                      )),
                 ),
             ],
           ),
           const SizedBox(height: 2),
           Row(
             children: [
-              Text(
-                type,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  fontFamily: 'monospace',
-                  color: colorScheme.secondary,
-                ),
-              ),
-              if (!required) ...[
-                Text(
-                  '  •  default: ',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: colorScheme.outline,
-                  ),
-                ),
-                Text(
-                  defaultVal,
+              Text(type,
                   style: theme.textTheme.bodySmall?.copyWith(
                     fontFamily: 'monospace',
-                    color: colorScheme.outline,
-                  ),
-                ),
+                    color: colorScheme.secondary,
+                  )),
+              if (!required) ...[
+                Text('  •  default: ',
+                    style: theme.textTheme.bodySmall
+                        ?.copyWith(color: colorScheme.outline)),
+                Text(defaultVal,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontFamily: 'monospace',
+                      color: colorScheme.outline,
+                    )),
               ],
             ],
           ),
           const SizedBox(height: 4),
-          Text(
-            description,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ),
+          Text(description,
+              style: theme.textTheme.bodySmall
+                  ?.copyWith(color: colorScheme.onSurfaceVariant)),
         ],
       ),
     );

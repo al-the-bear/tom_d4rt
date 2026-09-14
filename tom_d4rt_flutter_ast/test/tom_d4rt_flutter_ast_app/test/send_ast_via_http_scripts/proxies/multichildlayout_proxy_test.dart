@@ -145,7 +145,10 @@ class _DashboardLayoutDelegate extends MultiChildLayoutDelegate {
 // content; its right edge aligns with the content's right edge.
 
 class _ChatBubbleLayoutDelegate extends MultiChildLayoutDelegate {
-  _ChatBubbleLayoutDelegate({required this.gap, required this.alignRight});
+  _ChatBubbleLayoutDelegate({
+    required this.gap,
+    required this.alignRight,
+  });
 
   final double gap;
   final bool alignRight;
@@ -160,7 +163,8 @@ class _ChatBubbleLayoutDelegate extends MultiChildLayoutDelegate {
       );
     }
 
-    final double bubbleMaxWidth = size.width - avatarSize.width - gap - 8;
+    final double bubbleMaxWidth =
+        size.width - avatarSize.width - gap - 8;
 
     Size contentSize = Size.zero;
     if (hasChild(kIdContent)) {
@@ -189,7 +193,10 @@ class _ChatBubbleLayoutDelegate extends MultiChildLayoutDelegate {
     if (alignRight) {
       // Content sits at top-left of remaining space, avatar on the right.
       if (hasChild(kIdAvatar)) {
-        positionChild(kIdAvatar, Offset(size.width - avatarSize.width, 0));
+        positionChild(
+          kIdAvatar,
+          Offset(size.width - avatarSize.width, 0),
+        );
       }
       if (hasChild(kIdContent)) {
         positionChild(
@@ -287,11 +294,17 @@ class _PuzzleSolverLayoutDelegate extends MultiChildLayoutDelegate {
       if (!hasChild(id)) return;
       layoutChild(
         id,
-        BoxConstraints.tightFor(width: cellSize - 8, height: cellSize - 8),
+        BoxConstraints.tightFor(
+          width: cellSize - 8,
+          height: cellSize - 8,
+        ),
       );
       positionChild(
         id,
-        Offset(padding + col * cellSize + 4, padding + row * cellSize + 4),
+        Offset(
+          padding + col * cellSize + 4,
+          padding + row * cellSize + 4,
+        ),
       );
     }
 
@@ -329,7 +342,10 @@ class _PostcardLayoutDelegate extends MultiChildLayoutDelegate {
     if (hasChild(kIdImage)) {
       layoutChild(
         kIdImage,
-        BoxConstraints.tightFor(width: size.width, height: size.height * 0.62),
+        BoxConstraints.tightFor(
+          width: size.width,
+          height: size.height * 0.62,
+        ),
       );
       positionChild(kIdImage, Offset.zero);
     }
@@ -371,7 +387,8 @@ class _PostcardLayoutDelegate extends MultiChildLayoutDelegate {
 
   @override
   bool shouldRelayout(covariant _PostcardLayoutDelegate oldDelegate) {
-    return oldDelegate.stampSize != stampSize || oldDelegate.padding != padding;
+    return oldDelegate.stampSize != stampSize ||
+        oldDelegate.padding != padding;
   }
 }
 
@@ -397,7 +414,8 @@ class _ResponsiveSplitLayoutDelegate extends MultiChildLayoutDelegate {
   void performLayout(Size size) {
     final bool horizontal = size.width >= breakpoint;
     if (horizontal) {
-      final double leftW = (size.width - dividerThickness) * leftFraction;
+      final double leftW =
+          (size.width - dividerThickness) * leftFraction;
       final double rightW = size.width - dividerThickness - leftW;
 
       if (hasChild(kIdLeftPane)) {
@@ -410,7 +428,10 @@ class _ResponsiveSplitLayoutDelegate extends MultiChildLayoutDelegate {
       if (hasChild(kIdDivider)) {
         layoutChild(
           kIdDivider,
-          BoxConstraints.tightFor(width: dividerThickness, height: size.height),
+          BoxConstraints.tightFor(
+            width: dividerThickness,
+            height: size.height,
+          ),
         );
         positionChild(kIdDivider, Offset(leftW, 0));
       }
@@ -419,10 +440,14 @@ class _ResponsiveSplitLayoutDelegate extends MultiChildLayoutDelegate {
           kIdRightPane,
           BoxConstraints.tightFor(width: rightW, height: size.height),
         );
-        positionChild(kIdRightPane, Offset(leftW + dividerThickness, 0));
+        positionChild(
+          kIdRightPane,
+          Offset(leftW + dividerThickness, 0),
+        );
       }
     } else {
-      final double topH = (size.height - dividerThickness) * leftFraction;
+      final double topH =
+          (size.height - dividerThickness) * leftFraction;
       final double bottomH = size.height - dividerThickness - topH;
 
       if (hasChild(kIdLeftPane)) {
@@ -435,7 +460,10 @@ class _ResponsiveSplitLayoutDelegate extends MultiChildLayoutDelegate {
       if (hasChild(kIdDivider)) {
         layoutChild(
           kIdDivider,
-          BoxConstraints.tightFor(width: size.width, height: dividerThickness),
+          BoxConstraints.tightFor(
+            width: size.width,
+            height: dividerThickness,
+          ),
         );
         positionChild(kIdDivider, Offset(0, topH));
       }
@@ -444,7 +472,10 @@ class _ResponsiveSplitLayoutDelegate extends MultiChildLayoutDelegate {
           kIdRightPane,
           BoxConstraints.tightFor(width: size.width, height: bottomH),
         );
-        positionChild(kIdRightPane, Offset(0, topH + dividerThickness));
+        positionChild(
+          kIdRightPane,
+          Offset(0, topH + dividerThickness),
+        );
       }
     }
   }
@@ -546,10 +577,8 @@ class _BezelLayoutDelegate extends MultiChildLayoutDelegate {
 
   @override
   void performLayout(Size size) {
-    final BoxConstraints corner = BoxConstraints.tightFor(
-      width: cornerSize,
-      height: cornerSize,
-    );
+    final BoxConstraints corner =
+        BoxConstraints.tightFor(width: cornerSize, height: cornerSize);
 
     if (hasChild(kIdFrameTL)) {
       layoutChild(kIdFrameTL, corner);
@@ -557,7 +586,10 @@ class _BezelLayoutDelegate extends MultiChildLayoutDelegate {
     }
     if (hasChild(kIdFrameTR)) {
       layoutChild(kIdFrameTR, corner);
-      positionChild(kIdFrameTR, Offset(size.width - cornerSize - inset, inset));
+      positionChild(
+        kIdFrameTR,
+        Offset(size.width - cornerSize - inset, inset),
+      );
     }
     if (hasChild(kIdFrameBL)) {
       layoutChild(kIdFrameBL, corner);
@@ -586,13 +618,17 @@ class _BezelLayoutDelegate extends MultiChildLayoutDelegate {
           height: size.height - contentInset * 2,
         ),
       );
-      positionChild(kIdBezelContent, Offset(contentInset, contentInset));
+      positionChild(
+        kIdBezelContent,
+        Offset(contentInset, contentInset),
+      );
     }
   }
 
   @override
   bool shouldRelayout(covariant _BezelLayoutDelegate oldDelegate) {
-    return oldDelegate.cornerSize != cornerSize || oldDelegate.inset != inset;
+    return oldDelegate.cornerSize != cornerSize ||
+        oldDelegate.inset != inset;
   }
 }
 
@@ -613,7 +649,9 @@ Widget _section({
     child: Card(
       elevation: 2,
       color: background,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -652,7 +690,10 @@ Widget _bullet(String text, {Color color = const Color(0xFF334155)}) {
           child: Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
         ),
         Expanded(
@@ -869,7 +910,8 @@ dynamic build(BuildContext context) {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: const Color(0xFFCFFAFE),
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius:
+                                            BorderRadius.circular(12),
                                       ),
                                       padding: const EdgeInsets.all(12),
                                       child: const Text(
@@ -937,42 +979,42 @@ dynamic build(BuildContext context) {
                     height: 220,
                     child: CustomMultiChildLayout(
                       delegate: _PuzzleSolverLayoutDelegate(
-                        cellSize: 64,
-                        columns: 4,
-                        rows: 3,
-                        padding: 8,
-                      ),
-                      children: [
-                        LayoutId(
-                          id: kIdBoard,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFDE68A),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: const Color(0xFFB45309),
-                                width: 2,
-                              ),
+                      cellSize: 64,
+                      columns: 4,
+                      rows: 3,
+                      padding: 8,
+                    ),
+                    children: [
+                      LayoutId(
+                        id: kIdBoard,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFDE68A),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: const Color(0xFFB45309),
+                              width: 2,
                             ),
                           ),
                         ),
-                        LayoutId(
-                          id: kIdPiece1,
-                          child: _puzzlePiece('A', const Color(0xFFB45309)),
-                        ),
-                        LayoutId(
-                          id: kIdPiece2,
-                          child: _puzzlePiece('B', const Color(0xFFD97706)),
-                        ),
-                        LayoutId(
-                          id: kIdPiece3,
-                          child: _puzzlePiece('C', const Color(0xFFF59E0B)),
-                        ),
-                        LayoutId(
-                          id: kIdPiece4,
-                          child: _puzzlePiece('D', const Color(0xFF92400E)),
-                        ),
-                      ],
+                      ),
+                      LayoutId(
+                        id: kIdPiece1,
+                        child: _puzzlePiece('A', const Color(0xFFB45309)),
+                      ),
+                      LayoutId(
+                        id: kIdPiece2,
+                        child: _puzzlePiece('B', const Color(0xFFD97706)),
+                      ),
+                      LayoutId(
+                        id: kIdPiece3,
+                        child: _puzzlePiece('C', const Color(0xFFF59E0B)),
+                      ),
+                      LayoutId(
+                        id: kIdPiece4,
+                        child: _puzzlePiece('D', const Color(0xFF92400E)),
+                      ),
+                    ],
                     ),
                   ),
                 ),
@@ -1121,7 +1163,9 @@ dynamic build(BuildContext context) {
                       ),
                       LayoutId(
                         id: kIdDivider,
-                        child: const ColoredBox(color: Color(0xFF0369A1)),
+                        child: const ColoredBox(
+                          color: Color(0xFF0369A1),
+                        ),
                       ),
                       LayoutId(
                         id: kIdRightPane,
@@ -1471,8 +1515,7 @@ dynamic build(BuildContext context) {
               // -------------------------------------------------------------
               _section(
                 title: '13. Delegate Reference',
-                description:
-                    'Subclasses defined in this script and their '
+                description: 'Subclasses defined in this script and their '
                     'LayoutId slots.',
                 background: const Color(0xFFFAFAF9),
                 titleColor: const Color(0xFF1C1917),
@@ -1506,90 +1549,76 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('_DashboardLayoutDelegate'),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('header / sidebar / main / footer'),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('_ChatBubbleLayoutDelegate'),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('avatar / content / timestamp / tail'),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('_PuzzleSolverLayoutDelegate'),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('board / piece-1..4'),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('_PostcardLayoutDelegate'),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('image / stamp / address / postmark'),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('_ResponsiveSplitLayoutDelegate'),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('left / divider / right'),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('_NamedSlotCardLayoutDelegate'),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('card-title / body / meta / button'),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('_BezelLayoutDelegate'),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('frame-tl/tr/bl/br + bezel-content'),
-                        ),
-                      ],
-                    ),
+                    TableRow(children: [
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('_DashboardLayoutDelegate'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('header / sidebar / main / footer'),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('_ChatBubbleLayoutDelegate'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('avatar / content / timestamp / tail'),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('_PuzzleSolverLayoutDelegate'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('board / piece-1..4'),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('_PostcardLayoutDelegate'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('image / stamp / address / postmark'),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('_ResponsiveSplitLayoutDelegate'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('left / divider / right'),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('_NamedSlotCardLayoutDelegate'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('card-title / body / meta / button'),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('_BezelLayoutDelegate'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text('frame-tl/tr/bl/br + bezel-content'),
+                      ),
+                    ]),
                   ],
                 ),
               ),
@@ -1651,9 +1680,21 @@ class _CornerPainter extends CustomPainter {
     final double y0 = top ? 0 : size.height;
     final double xMid = size.width / 2;
     final double yMid = size.height / 2;
-    canvas.drawLine(Offset(x0, yMid), Offset(left ? xMid : xMid, yMid), paint);
-    canvas.drawLine(Offset(xMid, y0), Offset(xMid, yMid), paint);
-    canvas.drawLine(Offset(x0, yMid), Offset(xMid, yMid), paint);
+    canvas.drawLine(
+      Offset(x0, yMid),
+      Offset(left ? xMid : xMid, yMid),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(xMid, y0),
+      Offset(xMid, yMid),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(x0, yMid),
+      Offset(xMid, yMid),
+      paint,
+    );
   }
 
   @override

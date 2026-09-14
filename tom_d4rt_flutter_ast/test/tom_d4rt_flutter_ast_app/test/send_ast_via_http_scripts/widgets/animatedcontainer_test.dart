@@ -220,7 +220,11 @@ Widget _sectionBanner({
               const SizedBox(height: 4.0),
               Text(
                 subtitle,
-                style: TextStyle(color: soft, fontSize: 12.5, height: 1.4),
+                style: TextStyle(
+                  color: soft,
+                  fontSize: 12.5,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -240,7 +244,10 @@ Widget _bullet(String text, Color dotColor) {
           width: 8.0,
           height: 8.0,
           margin: const EdgeInsets.only(top: 6.0, right: 10.0),
-          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: dotColor,
+            shape: BoxShape.circle,
+          ),
         ),
         Expanded(
           child: Text(
@@ -442,7 +449,10 @@ Widget _glossaryEntry({
           ],
         ),
         const SizedBox(height: 6.0),
-        Text(meaning, style: const TextStyle(fontSize: 12.5, height: 1.45)),
+        Text(
+          meaning,
+          style: const TextStyle(fontSize: 12.5, height: 1.45),
+        ),
       ],
     ),
   );
@@ -672,22 +682,21 @@ dynamic build(BuildContext context) {
           'Animated* widget, but each one receives slightly different '
           'parameter values. Reading left-to-right is reading the morph '
           'forward in time; reading right-to-left is reading the reverse.',
-          style: TextStyle(fontSize: 13.0, height: 1.5, color: _overviewText),
+          style: TextStyle(
+            fontSize: 13.0,
+            height: 1.5,
+            color: _overviewText,
+          ),
         ),
         const SizedBox(height: 8.0),
-        _bullet(
-          'All Animated* widgets use `duration: Duration.zero`.',
-          _overviewBorder,
-        ),
-        _bullet(
-          'Rendered output equals the target value exactly.',
-          _overviewBorder,
-        ),
-        _bullet('No controllers, no tickers, no setState.', _overviewBorder),
-        _bullet(
-          'The row-of-snapshots is the storytelling device.',
-          _overviewBorder,
-        ),
+        _bullet('All Animated* widgets use `duration: Duration.zero`.',
+            _overviewBorder),
+        _bullet('Rendered output equals the target value exactly.',
+            _overviewBorder),
+        _bullet('No controllers, no tickers, no setState.',
+            _overviewBorder),
+        _bullet('The row-of-snapshots is the storytelling device.',
+            _overviewBorder),
       ],
     ),
   );
@@ -841,14 +850,12 @@ dynamic build(BuildContext context) {
         _bullet('duration is required — it sets the lerp window.', _s1Mid),
         _bullet('curve shapes the lerp; defaults to Curves.linear.', _s1Mid),
         _bullet(
-          'Setting duration: Duration.zero renders the target state instantly.',
-          _s1Mid,
-        ),
+            'Setting duration: Duration.zero renders the target state instantly.',
+            _s1Mid),
         _bullet(
-          'AnimatedContainer cannot animate gradient stops it doesn\'t '
-          'know about — for those, use a TweenAnimationBuilder.',
-          _s1Mid,
-        ),
+            'AnimatedContainer cannot animate gradient stops it doesn\'t '
+            'know about — for those, use a TweenAnimationBuilder.',
+            _s1Mid),
       ],
     ),
   );
@@ -948,10 +955,8 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 10.0),
-        _bullet(
-          'Color and decoration.color are mutually exclusive — pick one.',
-          _s2Mid,
-        ),
+        _bullet('Color and decoration.color are mutually exclusive — pick one.',
+            _s2Mid),
         _bullet('Alpha is part of the lerp; fade-via-color works.', _s2Mid),
         _bullet('Use HSLColor.lerp manually when hue paths matter.', _s2Mid),
       ],
@@ -1046,18 +1051,12 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 10.0),
-        _bullet(
-          'width / height are NOT lerped if either side is null.',
-          _s3Mid,
-        ),
-        _bullet(
-          'Constraints can produce the same effect with minimum sizes.',
-          _s3Mid,
-        ),
-        _bullet(
-          'Parent constraints clamp the result — beware overflow.',
-          _s3Mid,
-        ),
+        _bullet('width / height are NOT lerped if either side is null.',
+            _s3Mid),
+        _bullet('Constraints can produce the same effect with minimum sizes.',
+            _s3Mid),
+        _bullet('Parent constraints clamp the result — beware overflow.',
+            _s3Mid),
       ],
     ),
   );
@@ -1134,10 +1133,8 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 10.0),
         _bullet('EdgeInsets.lerp blends sides independently.', _s4Mid),
-        _bullet(
-          'Padding does not change container size unless child grows.',
-          _s4Mid,
-        ),
+        _bullet('Padding does not change container size unless child grows.',
+            _s4Mid),
         _bullet('LTR vs RTL padding uses EdgeInsetsDirectional.', _s4Mid),
       ],
     ),
@@ -1177,7 +1174,8 @@ dynamic build(BuildContext context) {
                         height: 70.0,
                         decoration: BoxDecoration(
                           color: _s5Mid,
-                          borderRadius: BorderRadius.circular(radiusStops[i]),
+                          borderRadius:
+                              BorderRadius.circular(radiusStops[i]),
                         ),
                       ),
                       const SizedBox(height: 6.0),
@@ -1245,10 +1243,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 10.0),
         _bullet('Each corner is its own Radius — full independence.', _s5Mid),
         _bullet('Use BorderRadiusDirectional for RTL-aware corners.', _s5Mid),
-        _bullet(
-          'Radius > half side rounds beyond — clipped by container.',
-          _s5Mid,
-        ),
+        _bullet('Radius > half side rounds beyond — clipped by container.',
+            _s5Mid),
       ],
     ),
   );
@@ -1323,13 +1319,13 @@ dynamic build(BuildContext context) {
               duration: Duration.zero,
               width: 72.0,
               height: 72.0,
-              decoration: BoxDecoration(color: _s6Mid, shape: BoxShape.circle),
-              alignment: Alignment.center,
-              child: const Icon(
-                Icons.brightness_1,
-                color: Colors.white,
-                size: 30.0,
+              decoration: BoxDecoration(
+                color: _s6Mid,
+                shape: BoxShape.circle,
               ),
+              alignment: Alignment.center,
+              child: const Icon(Icons.brightness_1,
+                  color: Colors.white, size: 30.0),
             ),
             AnimatedContainer(
               duration: Duration.zero,
@@ -1340,17 +1336,16 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(18.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.square_rounded,
-                color: Colors.white,
-                size: 30.0,
-              ),
+              child: const Icon(Icons.square_rounded,
+                  color: Colors.white, size: 30.0),
             ),
             AnimatedContainer(
               duration: Duration.zero,
               width: 72.0,
               height: 72.0,
-              decoration: BoxDecoration(color: _s6Mid),
+              decoration: BoxDecoration(
+                color: _s6Mid,
+              ),
               alignment: Alignment.center,
               child: const Icon(Icons.square, color: Colors.white, size: 30.0),
             ),
@@ -1358,15 +1353,10 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 10.0),
         _bullet('Border.lerp blends width and color sides.', _s6Mid),
-        _bullet(
-          'BoxShape.circle and BoxShape.rectangle morph at the edge.',
-          _s6Mid,
-        ),
-        _bullet(
-          'Need a custom path? Use a ShapeDecoration with a '
-          'MorphableShapeBorder.',
-          _s6Mid,
-        ),
+        _bullet('BoxShape.circle and BoxShape.rectangle morph at the edge.',
+            _s6Mid),
+        _bullet('Need a custom path? Use a ShapeDecoration with a '
+            'MorphableShapeBorder.', _s6Mid),
       ],
     ),
   );
@@ -1410,9 +1400,8 @@ dynamic build(BuildContext context) {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
-                      borderRadius: BorderRadius.circular(
-                        _lerpRadius(10.0, 22.0, i / 4.0),
-                      ),
+                      borderRadius:
+                          BorderRadius.circular(_lerpRadius(10.0, 22.0, i / 4.0)),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                           color: _s7Deep.withOpacity(0.2 + i * 0.1),
@@ -1451,17 +1440,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 10.0),
-        _bullet(
-          'Decoration.lerp returns null for incompatible decorations — '
-          'wrap with the same Decoration subclass on both sides.',
-          _s7Mid,
-        ),
+        _bullet('Decoration.lerp returns null for incompatible decorations — '
+            'wrap with the same Decoration subclass on both sides.', _s7Mid),
         _bullet('Gradient stops, colors and direction all lerp.', _s7Mid),
-        _bullet(
-          'BoxShadow list lerps element-wise; pad shorter lists '
-          'with transparent shadows.',
-          _s7Mid,
-        ),
+        _bullet('BoxShadow list lerps element-wise; pad shorter lists '
+            'with transparent shadows.', _s7Mid),
       ],
     ),
   );
@@ -1530,7 +1513,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 10.0),
         _bullet('AnimatedPadding takes just `padding` + `duration`.', _s8Mid),
         _bullet('Useful for hover/focus reveal effects on cards.', _s8Mid),
-        _bullet('No decoration — wrap with Container or DecoratedBox.', _s8Mid),
+        _bullet('No decoration — wrap with Container or DecoratedBox.',
+            _s8Mid),
       ],
     ),
   );
@@ -1700,31 +1684,11 @@ dynamic build(BuildContext context) {
   // ===================================================================
 
   final List<TextStyle> textStyleStops = <TextStyle>[
-    const TextStyle(
-      fontSize: 12.0,
-      color: _s11Deep,
-      fontWeight: FontWeight.w400,
-    ),
-    const TextStyle(
-      fontSize: 14.0,
-      color: _s11Mid,
-      fontWeight: FontWeight.w500,
-    ),
-    const TextStyle(
-      fontSize: 16.0,
-      color: _s11Mid,
-      fontWeight: FontWeight.w600,
-    ),
-    const TextStyle(
-      fontSize: 18.0,
-      color: _s11Deep,
-      fontWeight: FontWeight.w700,
-    ),
-    const TextStyle(
-      fontSize: 20.0,
-      color: _s11Deep,
-      fontWeight: FontWeight.w900,
-    ),
+    const TextStyle(fontSize: 12.0, color: _s11Deep, fontWeight: FontWeight.w400),
+    const TextStyle(fontSize: 14.0, color: _s11Mid, fontWeight: FontWeight.w500),
+    const TextStyle(fontSize: 16.0, color: _s11Mid, fontWeight: FontWeight.w600),
+    const TextStyle(fontSize: 18.0, color: _s11Deep, fontWeight: FontWeight.w700),
+    const TextStyle(fontSize: 20.0, color: _s11Deep, fontWeight: FontWeight.w900),
   ];
 
   final Widget section11Body = _sectionBody(
@@ -1759,10 +1723,8 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 10.0),
-        _bullet(
-          'Inherits and overrides DefaultTextStyle.of(context).',
-          _s11Mid,
-        ),
+        _bullet('Inherits and overrides DefaultTextStyle.of(context).',
+            _s11Mid),
         _bullet('fontWeight uses step interpolation, not float.', _s11Mid),
         _bullet('Pair with AnimatedTheme for site-wide changes.', _s11Mid),
       ],
@@ -1804,52 +1766,47 @@ dynamic build(BuildContext context) {
                   child: AnimatedTheme(
                     duration: Duration.zero,
                     data: themeStops[i],
-                    child: Builder(
-                      builder: (BuildContext innerCtx) {
-                        final Color primary = Theme.of(innerCtx).primaryColor;
-                        return Column(
-                          children: <Widget>[
-                            Container(
-                              width: 76.0,
-                              height: 76.0,
-                              decoration: BoxDecoration(
-                                color: primary,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              alignment: Alignment.center,
-                              child: const Icon(
-                                Icons.palette,
-                                color: Colors.white,
-                                size: 26.0,
-                              ),
+                    child: Builder(builder: (BuildContext innerCtx) {
+                      final Color primary =
+                          Theme.of(innerCtx).primaryColor;
+                      return Column(
+                        children: <Widget>[
+                          Container(
+                            width: 76.0,
+                            height: 76.0,
+                            decoration: BoxDecoration(
+                              color: primary,
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                            const SizedBox(height: 6.0),
-                            Text(
-                              'theme ${i + 1}',
-                              style: const TextStyle(
-                                fontSize: 10.5,
-                                fontFamily: 'monospace',
-                              ),
+                            alignment: Alignment.center,
+                            child: const Icon(
+                              Icons.palette,
+                              color: Colors.white,
+                              size: 26.0,
                             ),
-                          ],
-                        );
-                      },
-                    ),
+                          ),
+                          const SizedBox(height: 6.0),
+                          Text(
+                            'theme ${i + 1}',
+                            style: const TextStyle(
+                              fontSize: 10.5,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
                   ),
                 ),
             ],
           ),
         ),
         const SizedBox(height: 10.0),
-        _bullet(
-          'ThemeData.lerp blends color scheme, text theme, etc.',
-          _s12Mid,
-        ),
+        _bullet('ThemeData.lerp blends color scheme, text theme, etc.',
+            _s12Mid),
         _bullet('Useful for theme toggles, light/dark transitions.', _s12Mid),
-        _bullet(
-          'Heavier than AnimatedDefaultTextStyle — scope it tightly.',
-          _s12Mid,
-        ),
+        _bullet('Heavier than AnimatedDefaultTextStyle — scope it tightly.',
+            _s12Mid),
       ],
     ),
   );
@@ -1885,8 +1842,7 @@ dynamic build(BuildContext context) {
           icon: Icons.unfold_more,
           accent: _s1Deep,
           background: _s1Bg,
-          code:
-              'AnimatedContainer(\n'
+          code: 'AnimatedContainer(\n'
               '  duration: Duration(milliseconds: 250),\n'
               '  curve: Curves.easeInOut,\n'
               '  width: _expanded ? 320 : 160,\n'
@@ -1904,8 +1860,7 @@ dynamic build(BuildContext context) {
           icon: Icons.fiber_manual_record,
           accent: _s2Deep,
           background: _s2Bg,
-          code:
-              'AnimatedContainer(\n'
+          code: 'AnimatedContainer(\n'
               '  duration: Duration(milliseconds: 200),\n'
               '  width: 18, height: 18,\n'
               '  decoration: BoxDecoration(\n'
@@ -1920,8 +1875,7 @@ dynamic build(BuildContext context) {
           icon: Icons.add_circle_outline,
           accent: _s5Deep,
           background: _s5Bg,
-          code:
-              'AnimatedContainer(\n'
+          code: 'AnimatedContainer(\n'
               '  duration: Duration(milliseconds: 400),\n'
               '  width: _collapsed ? 56 : 180,\n'
               '  height: 56,\n'
@@ -1937,8 +1891,7 @@ dynamic build(BuildContext context) {
           icon: Icons.menu_open,
           accent: _s10Deep,
           background: _s10Bg,
-          code:
-              'Stack(\n'
+          code: 'Stack(\n'
               '  children: [\n'
               '    AnimatedPositioned(\n'
               '      duration: Duration(milliseconds: 300),\n'
@@ -1955,8 +1908,7 @@ dynamic build(BuildContext context) {
           icon: Icons.south,
           accent: _s9Deep,
           background: _s9Bg,
-          code:
-              'AnimatedAlign(\n'
+          code: 'AnimatedAlign(\n'
               '  duration: Duration(milliseconds: 250),\n'
               '  alignment: _ready ? Alignment.bottomCenter : Alignment.topCenter,\n'
               '  child: ConfirmRow(),\n'
@@ -1968,8 +1920,7 @@ dynamic build(BuildContext context) {
           icon: Icons.brightness_6,
           accent: _s12Deep,
           background: _s12Bg,
-          code:
-              'AnimatedTheme(\n'
+          code: 'AnimatedTheme(\n'
               '  duration: Duration(milliseconds: 350),\n'
               '  data: _dark ? darkTheme : lightTheme,\n'
               '  child: HomePage(),\n'
@@ -2130,76 +2081,66 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 10.0),
         _glossaryEntry(
           term: 'Implicit animation',
-          meaning:
-              'A widget that drives its own interpolation from old '
+          meaning: 'A widget that drives its own interpolation from old '
               'parameter values to new ones whenever it rebuilds — no '
               'controller required.',
           accent: _s1Deep,
         ),
         _glossaryEntry(
           term: 'Duration.zero',
-          meaning:
-              'A zero-length duration that makes Animated* widgets '
+          meaning: 'A zero-length duration that makes Animated* widgets '
               'render the target state instantly. Used here to storyboard '
               'morphs without real time elapsing.',
           accent: _s2Deep,
         ),
         _glossaryEntry(
           term: 'Curve',
-          meaning:
-              'A mapping from [0,1] to [0,1] that reshapes the lerp '
+          meaning: 'A mapping from [0,1] to [0,1] that reshapes the lerp '
               'rate. Curves.linear is the default; Curves.easeInOut is the '
               'usual artistic choice.',
           accent: _s3Deep,
         ),
         _glossaryEntry(
           term: 'EdgeInsetsGeometry',
-          meaning:
-              'The abstract base for EdgeInsets and '
+          meaning: 'The abstract base for EdgeInsets and '
               'EdgeInsetsDirectional. Both support .lerp.',
           accent: _s4Deep,
         ),
         _glossaryEntry(
           term: 'BoxDecoration',
-          meaning:
-              'Composite decoration carrying color, borderRadius, '
+          meaning: 'Composite decoration carrying color, borderRadius, '
               'border, gradient, image and boxShadow. Each leaf type knows '
               'how to lerp itself.',
           accent: _s5Deep,
         ),
         _glossaryEntry(
           term: 'AlignmentGeometry',
-          meaning:
-              'Anchor expressed as an (x, y) pair in [-1, 1]. '
+          meaning: 'Anchor expressed as an (x, y) pair in [-1, 1]. '
               'AnimatedAlign lerps these coordinates.',
           accent: _s6Deep,
         ),
         _glossaryEntry(
           term: 'Stack-positioning',
-          meaning:
-              'The (left, top, right, bottom, width, height) tuple '
+          meaning: 'The (left, top, right, bottom, width, height) tuple '
               'used by Positioned and AnimatedPositioned inside a Stack.',
           accent: _s7Deep,
         ),
         _glossaryEntry(
           term: 'ThemeData.lerp',
-          meaning:
-              'Blends colors, text theme, icon theme and component '
+          meaning: 'Blends colors, text theme, icon theme and component '
               'themes between two ThemeData instances.',
           accent: _s8Deep,
         ),
         _glossaryEntry(
           term: 'TweenAnimationBuilder',
-          meaning:
-              'Generic builder driving a Tween<T> from start to end '
+          meaning: 'Generic builder driving a Tween<T> from start to end '
               'over duration. Useful when a built-in Animated* widget '
               'does not cover your target type.',
           accent: _s9Deep,
         ),
         _glossaryEntry(
           term: 'onEnd callback',
-          meaning:
-              'Called when an Animated* widget finishes its '
+          meaning: 'Called when an Animated* widget finishes its '
               'interpolation. Useful for chaining steps.',
           accent: _s10Deep,
         ),
@@ -2243,7 +2184,11 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.flag, color: _epilogueDeep, size: 24.0),
+              child: const Icon(
+                Icons.flag,
+                color: _epilogueDeep,
+                size: 24.0,
+              ),
             ),
             const SizedBox(width: 12.0),
             const Expanded(
@@ -2265,7 +2210,11 @@ dynamic build(BuildContext context) {
           'is the right tool. When you only need one channel of change, '
           'reach for the single-purpose siblings — they are cheaper, '
           'clearer, and compose nicely with one another.',
-          style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.55),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 13.0,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 12.0),
         Container(
@@ -2337,7 +2286,8 @@ dynamic build(BuildContext context) {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -2356,8 +2306,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 2,
                 title: 'COLOR MORPH',
-                subtitle:
-                    'Storyboarding a smooth color ramp via six '
+                subtitle: 'Storyboarding a smooth color ramp via six '
                     'snapshot tiles.',
                 deep: _s2Deep,
                 mid: _s2Mid,
@@ -2367,8 +2316,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 3,
                 title: 'SIZE MORPH',
-                subtitle:
-                    'Width / height pairs walking a diagonal in '
+                subtitle: 'Width / height pairs walking a diagonal in '
                     '(w, h) space.',
                 deep: _s3Deep,
                 mid: _s3Mid,
@@ -2378,8 +2326,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 4,
                 title: 'PADDING MORPH',
-                subtitle:
-                    'Pushing the child inward without moving the '
+                subtitle: 'Pushing the child inward without moving the '
                     'outer box.',
                 deep: _s4Deep,
                 mid: _s4Mid,
@@ -2389,8 +2336,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 5,
                 title: 'BORDERRADIUS MORPH',
-                subtitle:
-                    'Square turning to circle — and every corner '
+                subtitle: 'Square turning to circle — and every corner '
                     'lerping by itself.',
                 deep: _s5Deep,
                 mid: _s5Mid,
@@ -2400,8 +2346,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 6,
                 title: 'SHAPE & BORDER MORPH',
-                subtitle:
-                    'Border width, color, and BoxShape — all in '
+                subtitle: 'Border width, color, and BoxShape — all in '
                     'one fluid morph.',
                 deep: _s6Deep,
                 mid: _s6Mid,
@@ -2411,8 +2356,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 7,
                 title: 'DECORATION COMPOSITION',
-                subtitle:
-                    'Gradients, shadows and radii moving together '
+                subtitle: 'Gradients, shadows and radii moving together '
                     'as one BoxDecoration.',
                 deep: _s7Deep,
                 mid: _s7Mid,
@@ -2441,8 +2385,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 10,
                 title: 'ANIMATEDPOSITIONED',
-                subtitle:
-                    'Lerp the (left, top, right, bottom) tuple in '
+                subtitle: 'Lerp the (left, top, right, bottom) tuple in '
                     'a Stack.',
                 deep: _s10Deep,
                 mid: _s10Mid,
@@ -2452,8 +2395,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 11,
                 title: 'ANIMATEDDEFAULTTEXTSTYLE',
-                subtitle:
-                    'Lerp the TextStyle inherited by descendant '
+                subtitle: 'Lerp the TextStyle inherited by descendant '
                     'Text widgets.',
                 deep: _s11Deep,
                 mid: _s11Mid,
@@ -2463,8 +2405,7 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 12,
                 title: 'ANIMATEDTHEME',
-                subtitle:
-                    'Lerp an entire ThemeData — colors, text, '
+                subtitle: 'Lerp an entire ThemeData — colors, text, '
                     'components in lockstep.',
                 deep: _s12Deep,
                 mid: _s12Mid,

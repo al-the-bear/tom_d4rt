@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.shield,
       'title': 'Screen Obscuring Widget',
-      'body':
-          'SensitiveContent wraps child widgets to declare their '
+      'body': 'SensitiveContent wraps child widgets to declare their '
           'content sensitivity. When a sensitive widget is present, '
           'the ENTIRE screen is obscured during media projection '
           '(screen sharing, screen recording) on Android API 35+.',
@@ -27,24 +26,21 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.auto_fix_high,
       'title': 'Three Sensitivity Levels',
-      'body':
-          'sensitive: always obscure. autoSensitive: platform decides. '
+      'body': 'sensitive: always obscure. autoSensitive: platform decides. '
           'notSensitive: never obscure. Multiple widgets with different '
           'levels coexist, and the highest priority wins.',
     },
     {
       'icon': Icons.widgets,
       'title': 'StatefulWidget Lifecycle',
-      'body':
-          'On initState, registers with SensitiveContentHost. On '
+      'body': 'On initState, registers with SensitiveContentHost. On '
           'dispose, unregisters. Uses FutureBuilder internally to wait '
           'for the async platform registration before showing the child.',
     },
     {
       'icon': Icons.warning_amber,
       'title': 'Known Limitations',
-      'body':
-          'During page transitions, a frame of sensitive content may '
+      'body': 'During page transitions, a frame of sensitive content may '
           'be projected before the screen is obscured. This is a known '
           'vulnerability under active development (Flutter #164820).',
     },
@@ -83,11 +79,7 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: Colors.grey.shade800,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
                   ),
                 ],
               ),
@@ -108,16 +100,14 @@ dynamic build(BuildContext context) {
       'name': 'sensitivity',
       'type': 'ContentSensitivity',
       'required': true,
-      'desc':
-          'The sensitivity level for this content. Determines whether '
+      'desc': 'The sensitivity level for this content. Determines whether '
           'the screen is obscured during projection.',
     },
     {
       'name': 'child',
       'type': 'Widget',
       'required': true,
-      'desc':
-          'The widget subtree that contains sensitive content. '
+      'desc': 'The widget subtree that contains sensitive content. '
           'Note: the ENTIRE screen is obscured, not just this child.',
     },
     {
@@ -143,10 +133,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 2.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
               decoration: BoxDecoration(
                 color: (p['required'] as bool)
                     ? Colors.red.withValues(alpha: 0.1)
@@ -158,9 +145,7 @@ dynamic build(BuildContext context) {
                 style: TextStyle(
                   fontSize: 9.0,
                   fontWeight: FontWeight.w700,
-                  color: (p['required'] as bool)
-                      ? Colors.red
-                      : Colors.grey.shade600,
+                  color: (p['required'] as bool) ? Colors.red : Colors.grey.shade600,
                 ),
               ),
             ),
@@ -171,34 +156,18 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        p['name'] as String,
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w700,
-                          color: Colors.red.shade700,
-                        ),
-                      ),
+                      Text(p['name'] as String,
+                          style: TextStyle(fontSize: 12.0, fontFamily: 'monospace',
+                              fontWeight: FontWeight.w700, color: Colors.red.shade700)),
                       const SizedBox(width: 6.0),
-                      Text(
-                        p['type'] as String,
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          fontFamily: 'monospace',
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
+                      Text(p['type'] as String,
+                          style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                              color: Colors.grey.shade500)),
                     ],
                   ),
                   const SizedBox(height: 3.0),
-                  Text(
-                    p['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
+                  Text(p['desc'] as String,
+                      style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
                 ],
               ),
             ),
@@ -225,8 +194,7 @@ dynamic build(BuildContext context) {
       'title': 'Whole Page Wrapping',
       'icon': Icons.fullscreen,
       'color': Colors.red,
-      'code':
-          'Scaffold(\n'
+      'code': 'Scaffold(\n'
           '  body: SensitiveContent(\n'
           '    sensitivity:\n'
           '      ContentSensitivity.sensitive,\n'
@@ -240,8 +208,7 @@ dynamic build(BuildContext context) {
       'title': 'Section-Level Wrapping',
       'icon': Icons.view_module,
       'color': Colors.orange,
-      'code':
-          'Column(\n'
+      'code': 'Column(\n'
           '  children: [\n'
           '    PublicHeader(),\n'
           '    SensitiveContent(\n'
@@ -259,8 +226,7 @@ dynamic build(BuildContext context) {
       'title': 'Route-Level Wrapping',
       'icon': Icons.route,
       'color': Colors.purple,
-      'code':
-          'MaterialPageRoute(\n'
+      'code': 'MaterialPageRoute(\n'
           '  builder: (context) =>\n'
           '    SensitiveContent(\n'
           '      sensitivity:\n'
@@ -275,8 +241,7 @@ dynamic build(BuildContext context) {
       'title': 'Dynamic Sensitivity',
       'icon': Icons.swap_vert,
       'color': Colors.teal,
-      'code':
-          'SensitiveContent(\n'
+      'code': 'SensitiveContent(\n'
           '  sensitivity: isViewing\n'
           '    ? ContentSensitivity.sensitive\n'
           '    : ContentSensitivity.notSensitive,\n'
@@ -304,22 +269,14 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(9.0),
-                ),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
               ),
               child: Row(
                 children: [
                   Icon(pat['icon'] as IconData, size: 18.0, color: color),
                   const SizedBox(width: 8.0),
-                  Text(
-                    pat['title'] as String,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                    ),
-                  ),
+                  Text(pat['title'] as String,
+                      style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: color)),
                 ],
               ),
             ),
@@ -336,14 +293,9 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6.0),
                       border: Border.all(color: Colors.grey.shade200),
                     ),
-                    child: Text(
-                      pat['code'] as String,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
+                    child: Text(pat['code'] as String,
+                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                            color: Colors.grey.shade700)),
                   ),
                   const SizedBox(height: 8.0),
                   Row(
@@ -353,20 +305,11 @@ dynamic build(BuildContext context) {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
-                              Icons.check_circle,
-                              size: 12.0,
-                              color: Colors.green,
-                            ),
+                            Icon(Icons.check_circle, size: 12.0, color: Colors.green),
                             const SizedBox(width: 4.0),
                             Expanded(
-                              child: Text(
-                                pat['pros'] as String,
-                                style: TextStyle(
-                                  fontSize: 10.5,
-                                  color: Colors.green.shade700,
-                                ),
-                              ),
+                              child: Text(pat['pros'] as String,
+                                  style: TextStyle(fontSize: 10.5, color: Colors.green.shade700)),
                             ),
                           ],
                         ),
@@ -376,20 +319,11 @@ dynamic build(BuildContext context) {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
-                              Icons.info_outline,
-                              size: 12.0,
-                              color: Colors.amber.shade700,
-                            ),
+                            Icon(Icons.info_outline, size: 12.0, color: Colors.amber.shade700),
                             const SizedBox(width: 4.0),
                             Expanded(
-                              child: Text(
-                                pat['cons'] as String,
-                                style: TextStyle(
-                                  fontSize: 10.5,
-                                  color: Colors.amber.shade800,
-                                ),
-                              ),
+                              child: Text(pat['cons'] as String,
+                                  style: TextStyle(fontSize: 10.5, color: Colors.amber.shade800)),
                             ),
                           ],
                         ),
@@ -426,8 +360,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': 'build()',
-      'code':
-          'FutureBuilder<void>(\n'
+      'code': 'FutureBuilder<void>(\n'
           '  future: registrationFuture,\n'
           '  builder: (context, snapshot) {\n'
           '    if (snapshot.connectionState\n'
@@ -436,28 +369,24 @@ dynamic build(BuildContext context) {
           '    return SizedBox.shrink();\n'
           '  },\n'
           ')',
-      'desc':
-          'Shows nothing (SizedBox.shrink) until platform registration completes. '
+      'desc': 'Shows nothing (SizedBox.shrink) until platform registration completes. '
           'Then renders the child widget.',
       'color': Colors.green,
     },
     {
       'step': 'didUpdateWidget()',
-      'code':
-          'if (newSensitivity != old) {\n'
+      'code': 'if (newSensitivity != old) {\n'
           '  register(newSensitivity);\n'
           '  unregister(oldSensitivity);\n'
           '}',
-      'desc':
-          'When sensitivity changes, re-registers with the new level '
+      'desc': 'When sensitivity changes, re-registers with the new level '
           'and unregisters the old one.',
       'color': Colors.orange,
     },
     {
       'step': 'dispose()',
       'code': 'SensitiveContentHost.unregister(\n  widget.sensitivity\n);',
-      'desc':
-          'Removes this widget from the host registry. If no widgets remain, '
+      'desc': 'Removes this widget from the host registry. If no widgets remain, '
           'the fallback sensitivity is restored.',
       'color': Colors.red,
     },
@@ -480,19 +409,11 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(9.0),
-                ),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
               ),
-              child: Text(
-                step['step'] as String,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
-              ),
+              child: Text(step['step'] as String,
+                  style: TextStyle(fontSize: 12.0, fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700, color: color)),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -506,24 +427,13 @@ dynamic build(BuildContext context) {
                       color: Colors.grey.shade50,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    child: Text(
-                      step['code'] as String,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
+                    child: Text(step['code'] as String,
+                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                            color: Colors.grey.shade700)),
                   ),
                   const SizedBox(height: 6.0),
-                  Text(
-                    step['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade600,
-                      height: 1.3,
-                    ),
-                  ),
+                  Text(step['desc'] as String,
+                      style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600, height: 1.3)),
                 ],
               ),
             ),
@@ -543,8 +453,7 @@ dynamic build(BuildContext context) {
       'title': 'Transition Frame Vulnerability',
       'icon': Icons.error_outline,
       'color': Colors.red,
-      'desc':
-          'When navigating to a page with SensitiveContent, one frame '
+      'desc': 'When navigating to a page with SensitiveContent, one frame '
           'of the new page may be projected before the platform updates. '
           'This can briefly expose sensitive content during screen sharing.',
     },
@@ -552,8 +461,7 @@ dynamic build(BuildContext context) {
       'title': 'Whole Screen Obscuring',
       'icon': Icons.fullscreen,
       'color': Colors.orange,
-      'desc':
-          'When sensitive, the ENTIRE screen is obscured, not just the '
+      'desc': 'When sensitive, the ENTIRE screen is obscured, not just the '
           'wrapped child. There is no per-widget obscuring — it is all '
           'or nothing.',
     },
@@ -561,16 +469,14 @@ dynamic build(BuildContext context) {
       'title': 'Android API 35+ Only',
       'icon': Icons.android,
       'color': Colors.teal,
-      'desc':
-          'On iOS, macOS, Windows, Linux, and older Android versions, '
+      'desc': 'On iOS, macOS, Windows, Linux, and older Android versions, '
           'this widget does nothing. It is a no-op that is forward-compatible.',
     },
     {
       'title': 'Async Registration',
       'icon': Icons.timer,
       'color': Colors.purple,
-      'desc':
-          'Platform communication is async. The child widget is not shown '
+      'desc': 'Platform communication is async. The child widget is not shown '
           'until registration completes (uses FutureBuilder internally). '
           'This may cause a brief blank frame.',
     },
@@ -578,8 +484,7 @@ dynamic build(BuildContext context) {
       'title': 'Not Production-Ready',
       'icon': Icons.construction,
       'color': Colors.grey,
-      'desc':
-          'The API is still under development. SensitiveContentHost is '
+      'desc': 'The API is still under development. SensitiveContentHost is '
           '@visibleForTesting. Breaking changes may occur. See Flutter '
           'issues #160050 and #164820.',
     },
@@ -606,23 +511,11 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    lim['title'] as String,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                    ),
-                  ),
+                  Text(lim['title'] as String,
+                      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color)),
                   const SizedBox(height: 3.0),
-                  Text(
-                    lim['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: Colors.grey.shade700,
-                      height: 1.35,
-                    ),
-                  ),
+                  Text(lim['desc'] as String,
+                      style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700, height: 1.35)),
                 ],
               ),
             ),
@@ -638,31 +531,12 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {
-      'icon': Icons.shield,
-      'text':
-          'SensitiveContent marks content for screen obscuring during projection',
-    },
-    {
-      'icon': Icons.widgets,
-      'text': 'StatefulWidget: registers on init, unregisters on dispose',
-    },
-    {
-      'icon': Icons.fullscreen,
-      'text': 'Entire screen is obscured, not just the wrapped child',
-    },
-    {
-      'icon': Icons.swap_vert,
-      'text': 'Sensitivity can change dynamically (re-registers automatically)',
-    },
-    {
-      'icon': Icons.timer,
-      'text': 'Child hidden until async platform registration completes',
-    },
-    {
-      'icon': Icons.android,
-      'text': 'Android API 35+ only; no-op on other platforms',
-    },
+    {'icon': Icons.shield, 'text': 'SensitiveContent marks content for screen obscuring during projection'},
+    {'icon': Icons.widgets, 'text': 'StatefulWidget: registers on init, unregisters on dispose'},
+    {'icon': Icons.fullscreen, 'text': 'Entire screen is obscured, not just the wrapped child'},
+    {'icon': Icons.swap_vert, 'text': 'Sensitivity can change dynamically (re-registers automatically)'},
+    {'icon': Icons.timer, 'text': 'Child hidden until async platform registration completes'},
+    {'icon': Icons.android, 'text': 'Android API 35+ only; no-op on other platforms'},
   ];
 
   final summaryItems = <Widget>[];
@@ -673,21 +547,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              sp['icon'] as IconData,
-              size: 16.0,
-              color: Colors.red.shade700,
-            ),
+            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.red.shade700),
             const SizedBox(width: 8.0),
             Expanded(
-              child: Text(
-                sp['text'] as String,
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: Colors.grey.shade800,
-                  height: 1.3,
-                ),
-              ),
+              child: Text(sp['text'] as String,
+                  style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3)),
             ),
           ],
         ),
@@ -733,11 +597,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'SensitiveContent',
-                  'Widget that declares content as sensitive for media '
-                      'projection protection on Android API 35+.',
-                ),
+                _buildSCBullet('SensitiveContent',
+                    'Widget that declares content as sensitive for media '
+                    'projection protection on Android API 35+.'),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -749,10 +611,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Constructor Parameters',
-                  'SensitiveContent has a minimal constructor.',
-                ),
+                _buildSCBullet('Constructor Parameters',
+                    'SensitiveContent has a minimal constructor.'),
                 const SizedBox(height: 14.0),
                 Container(
                   width: double.infinity,
@@ -769,11 +629,8 @@ dynamic build(BuildContext context) {
                     '  required this.sensitivity,\n'
                     '  required this.child,\n'
                     '})',
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      fontFamily: 'monospace',
-                      color: Colors.red.shade700,
-                    ),
+                    style: TextStyle(fontSize: 11.5, fontFamily: 'monospace',
+                        color: Colors.red.shade700),
                   ),
                 ),
                 ...paramCards,
@@ -786,10 +643,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Sensitivity Level Comparison',
-                  'Visual comparison of all three ContentSensitivity levels.',
-                ),
+                _buildSCBullet('Sensitivity Level Comparison',
+                    'Visual comparison of all three ContentSensitivity levels.'),
                 const SizedBox(height: 14.0),
                 comparisonDemo,
               ],
@@ -801,10 +656,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Wrapping Patterns',
-                  'Different strategies for applying SensitiveContent.',
-                ),
+                _buildSCBullet('Wrapping Patterns',
+                    'Different strategies for applying SensitiveContent.'),
                 const SizedBox(height: 14.0),
                 ...wrapCards,
               ],
@@ -816,11 +669,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Interactive Demo',
-                  'Toggle SensitiveContent wrapping on different content '
-                      'sections to see how the widget behaves.',
-                ),
+                _buildSCBullet('Interactive Demo',
+                    'Toggle SensitiveContent wrapping on different content '
+                    'sections to see how the widget behaves.'),
                 const SizedBox(height: 14.0),
                 liveDemo,
               ],
@@ -832,10 +683,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Internal Implementation',
-                  'How SensitiveContent manages its lifecycle.',
-                ),
+                _buildSCBullet('Internal Implementation',
+                    'How SensitiveContent manages its lifecycle.'),
                 const SizedBox(height: 14.0),
                 ...internalCards,
               ],
@@ -847,10 +696,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Known Limitations',
-                  'Current issues and constraints.',
-                ),
+                _buildSCBullet('Known Limitations',
+                    'Current issues and constraints.'),
                 const SizedBox(height: 14.0),
                 ...limitCards,
               ],
@@ -874,9 +721,7 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: Colors.red.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -906,24 +751,11 @@ Widget _buildSCBullet(String title, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.red.shade700,
-          ),
-        ),
+        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700,
+            color: Colors.red.shade700)),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(
-            body,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.grey.shade700,
-              height: 1.4,
-            ),
-          ),
+          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
         ],
       ],
     ),
@@ -946,10 +778,8 @@ class _SCComparisonDemo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Side-by-Side Comparison',
-            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
-          ),
+          const Text('Side-by-Side Comparison',
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700)),
           const SizedBox(height: 14.0),
           _buildLevel(
             name: 'ContentSensitivity.sensitive',
@@ -957,8 +787,7 @@ class _SCComparisonDemo extends StatelessWidget {
             color: Colors.red,
             projectionView: 'OBSCURED',
             projectionIcon: Icons.visibility_off,
-            description:
-                'Screen is blank/obscured during sharing. Users see '
+            description: 'Screen is blank/obscured during sharing. Users see '
                 'a placeholder instead of app content.',
             useFor: 'Passwords, financial data, PII, health records',
           ),
@@ -969,8 +798,7 @@ class _SCComparisonDemo extends StatelessWidget {
             color: Colors.orange,
             projectionView: 'PLATFORM DECIDES',
             projectionIcon: Icons.help_outline,
-            description:
-                'The platform (Android) decides whether to obscure. '
+            description: 'The platform (Android) decides whether to obscure. '
                 'This is the default on API 35+. May or may not hide content.',
             useFor: 'General app content, default behavior',
           ),
@@ -981,8 +809,7 @@ class _SCComparisonDemo extends StatelessWidget {
             color: Colors.green,
             projectionView: 'FULLY VISIBLE',
             projectionIcon: Icons.visibility,
-            description:
-                'Content is always visible during projection. '
+            description: 'Content is always visible during projection. '
                 'Overrides the platform default to ensure visibility.',
             useFor: 'Public info, marketing pages, help & onboarding',
           ),
@@ -1012,24 +839,16 @@ class _SCComparisonDemo extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.06),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9.0),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
             ),
             child: Row(
               children: [
                 Icon(icon, size: 18.0, color: color),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                    ),
-                  ),
+                  child: Text(name,
+                      style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
+                          fontWeight: FontWeight.w700, color: color)),
                 ),
               ],
             ),
@@ -1046,29 +865,17 @@ class _SCComparisonDemo extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.blue.withValues(alpha: 0.04),
                       borderRadius: BorderRadius.circular(6.0),
-                      border: Border.all(
-                        color: Colors.blue.withValues(alpha: 0.15),
-                      ),
+                      border: Border.all(color: Colors.blue.withValues(alpha: 0.15)),
                     ),
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.phone_android,
-                              size: 12.0,
-                              color: Colors.blue,
-                            ),
+                            Icon(Icons.phone_android, size: 12.0, color: Colors.blue),
                             const SizedBox(width: 4.0),
-                            Text(
-                              'On Device',
-                              style: TextStyle(
-                                fontSize: 9.0,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.blue,
-                              ),
-                            ),
+                            Text('On Device', style: TextStyle(fontSize: 9.0,
+                                fontWeight: FontWeight.w700, color: Colors.blue)),
                           ],
                         ),
                         const SizedBox(height: 6.0),
@@ -1083,18 +890,9 @@ class _SCComparisonDemo extends StatelessWidget {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
-                                  Icons.article,
-                                  size: 16.0,
-                                  color: Colors.grey.shade400,
-                                ),
-                                Text(
-                                  'Content',
-                                  style: TextStyle(
-                                    fontSize: 8.0,
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
+                                Icon(Icons.article, size: 16.0, color: Colors.grey.shade400),
+                                Text('Content', style: TextStyle(fontSize: 8.0,
+                                    color: Colors.grey.shade500)),
                               ],
                             ),
                           ),
@@ -1120,14 +918,8 @@ class _SCComparisonDemo extends StatelessWidget {
                           children: [
                             Icon(Icons.screen_share, size: 12.0, color: color),
                             const SizedBox(width: 4.0),
-                            Text(
-                              'Projected',
-                              style: TextStyle(
-                                fontSize: 9.0,
-                                fontWeight: FontWeight.w700,
-                                color: color,
-                              ),
-                            ),
+                            Text('Projected', style: TextStyle(fontSize: 9.0,
+                                fontWeight: FontWeight.w700, color: color)),
                           ],
                         ),
                         const SizedBox(height: 6.0),
@@ -1137,34 +929,24 @@ class _SCComparisonDemo extends StatelessWidget {
                             color: color == Colors.red
                                 ? Colors.grey.shade800
                                 : color == Colors.orange
-                                ? Colors.orange.withValues(alpha: 0.1)
-                                : Colors.white,
+                                    ? Colors.orange.withValues(alpha: 0.1)
+                                    : Colors.white,
                             borderRadius: BorderRadius.circular(4.0),
-                            border: Border.all(
-                              color: color.withValues(alpha: 0.3),
-                            ),
+                            border: Border.all(color: color.withValues(alpha: 0.3)),
                           ),
                           child: Center(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
-                                  projectionIcon,
-                                  size: 16.0,
-                                  color: color == Colors.red
-                                      ? Colors.white
-                                      : color,
-                                ),
-                                Text(
-                                  projectionView,
-                                  style: TextStyle(
-                                    fontSize: 7.0,
+                                Icon(projectionIcon, size: 16.0,
+                                    color: color == Colors.red
+                                        ? Colors.white
+                                        : color),
+                                Text(projectionView, style: TextStyle(fontSize: 7.0,
                                     fontWeight: FontWeight.w700,
                                     color: color == Colors.red
                                         ? Colors.white
-                                        : color,
-                                  ),
-                                ),
+                                        : color)),
                               ],
                             ),
                           ),
@@ -1181,33 +963,18 @@ class _SCComparisonDemo extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  description,
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    color: Colors.grey.shade600,
-                    height: 1.3,
-                  ),
-                ),
+                Text(description,
+                    style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600, height: 1.3)),
                 const SizedBox(height: 4.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.lightbulb_outline,
-                      size: 12.0,
-                      color: Colors.grey.shade400,
-                    ),
+                    Icon(Icons.lightbulb_outline, size: 12.0, color: Colors.grey.shade400),
                     const SizedBox(width: 4.0),
                     Expanded(
-                      child: Text(
-                        'Use for: $useFor',
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
+                      child: Text('Use for: $useFor',
+                          style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
+                              color: Colors.grey.shade500)),
                     ),
                   ],
                 ),
@@ -1248,16 +1015,11 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
         children: [
           Row(
             children: [
-              const Text(
-                'Multi-Section Sensitivity Demo',
-                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
-              ),
+              const Text('Multi-Section Sensitivity Demo',
+                  style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700)),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 4.0,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: _simulateSharing
                       ? Colors.red.withValues(alpha: 0.1)
@@ -1270,19 +1032,13 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.screen_share,
-                      size: 12.0,
-                      color: _simulateSharing ? Colors.red : Colors.grey,
-                    ),
+                    Icon(Icons.screen_share, size: 12.0,
+                        color: _simulateSharing ? Colors.red : Colors.grey),
                     const SizedBox(width: 4.0),
                     Text(
                       _simulateSharing ? 'SHARING' : 'Not sharing',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        fontWeight: FontWeight.w700,
-                        color: _simulateSharing ? Colors.red : Colors.grey,
-                      ),
+                      style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w700,
+                          color: _simulateSharing ? Colors.red : Colors.grey),
                     ),
                   ],
                 ),
@@ -1292,10 +1048,7 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
           const SizedBox(height: 6.0),
           Row(
             children: [
-              const Text(
-                'Simulate screen sharing: ',
-                style: TextStyle(fontSize: 11.0),
-              ),
+              const Text('Simulate screen sharing: ', style: TextStyle(fontSize: 11.0)),
               Switch(
                 value: _simulateSharing,
                 activeColor: Colors.red,
@@ -1372,20 +1125,11 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.info_outline,
-                      size: 14.0,
-                      color: Colors.amber.shade800,
-                    ),
+                    Icon(Icons.info_outline, size: 14.0, color: Colors.amber.shade800),
                     const SizedBox(width: 6.0),
-                    Text(
-                      'Active Registrations:',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.amber.shade800,
-                      ),
-                    ),
+                    Text('Active Registrations:',
+                        style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
+                            color: Colors.amber.shade800)),
                   ],
                 ),
                 const SizedBox(height: 4.0),
@@ -1393,25 +1137,13 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
                   'sensitive: ${_wrapBanking ? 1 : 0}  |  '
                   'autoSensitive: ${_wrapProfile ? 1 : 0}  |  '
                   'notSensitive: ${_wrapPublic ? 1 : 0}',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    color: Colors.amber.shade900,
-                  ),
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                      color: Colors.amber.shade900),
                 ),
                 Text(
-                  'Effective: ${_wrapBanking
-                      ? "sensitive (screen obscured)"
-                      : _wrapProfile
-                      ? "autoSensitive (platform decides)"
-                      : _wrapPublic
-                      ? "notSensitive (visible)"
-                      : "fallback/default"}',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.amber.shade900,
-                  ),
+                  'Effective: ${_wrapBanking ? "sensitive (screen obscured)" : _wrapProfile ? "autoSensitive (platform decides)" : _wrapPublic ? "notSensitive (visible)" : "fallback/default"}',
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
+                      color: Colors.amber.shade900),
                 ),
               ],
             ),
@@ -1430,9 +1162,7 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
     required ValueChanged<bool> onToggle,
     required Widget content,
   }) {
-    final showAsObscured =
-        _simulateSharing &&
-        isWrapped &&
+    final showAsObscured = _simulateSharing && isWrapped &&
         sensitivity == ContentSensitivity.sensitive;
 
     Widget sectionContent = Container(
@@ -1441,9 +1171,7 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
       decoration: BoxDecoration(
         color: showAsObscured ? Colors.grey.shade800 : Colors.grey.shade50,
         borderRadius: BorderRadius.circular(6.0),
-        border: Border.all(
-          color: showAsObscured ? Colors.grey.shade600 : Colors.grey.shade200,
-        ),
+        border: Border.all(color: showAsObscured ? Colors.grey.shade600 : Colors.grey.shade200),
       ),
       child: showAsObscured
           ? Center(
@@ -1451,10 +1179,8 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
                 children: [
                   Icon(Icons.visibility_off, size: 24.0, color: Colors.white54),
                   const SizedBox(height: 4.0),
-                  Text(
-                    'Content obscured during sharing',
-                    style: TextStyle(fontSize: 10.0, color: Colors.white54),
-                  ),
+                  Text('Content obscured during sharing',
+                      style: TextStyle(fontSize: 10.0, color: Colors.white54)),
                 ],
               ),
             )
@@ -1472,45 +1198,29 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: isWrapped
-              ? color.withValues(alpha: 0.4)
-              : Colors.grey.shade200,
+          color: isWrapped ? color.withValues(alpha: 0.4) : Colors.grey.shade200,
           width: isWrapped ? 2.0 : 1.0,
         ),
       ),
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 6.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
             decoration: BoxDecoration(
-              color: isWrapped
-                  ? color.withValues(alpha: 0.06)
-                  : Colors.grey.shade50,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(7.0),
-              ),
+              color: isWrapped ? color.withValues(alpha: 0.06) : Colors.grey.shade50,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(7.0)),
             ),
             child: Row(
               children: [
                 Icon(icon, size: 16.0, color: color),
                 const SizedBox(width: 6.0),
                 Expanded(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                    ),
-                  ),
+                  child: Text(title,
+                      style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                          color: color)),
                 ),
-                Text(
-                  '${sensitivity.name}: ',
-                  style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500),
-                ),
+                Text('${sensitivity.name}: ',
+                    style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500)),
                 SizedBox(
                   height: 24.0,
                   child: Switch(
@@ -1522,7 +1232,10 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.all(8.0), child: sectionContent),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: sectionContent,
+          ),
         ],
       ),
     );
@@ -1535,23 +1248,13 @@ class _SCLiveDemoState extends State<_SCLiveDemo> {
         children: [
           SizedBox(
             width: 70.0,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey.shade700,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade700)),
           ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 11.0,
-              fontFamily: 'monospace',
-              color: Colors.grey.shade600,
-            ),
-          ),
+          Text(value,
+              style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
+                  color: Colors.grey.shade600)),
         ],
       ),
     );

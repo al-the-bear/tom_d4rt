@@ -80,14 +80,8 @@ Widget _baSectionTitle(String title, IconData icon) {
 Widget _baBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
-    ),
+    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
+    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -113,23 +107,9 @@ Widget _baInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _baTextDark,
-                ),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _baTextDark)),
               SizedBox(height: 4),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _baTextMedium,
-                  height: 1.4,
-                ),
-              ),
+              Text(body, style: TextStyle(fontSize: 12, color: _baTextMedium, height: 1.4)),
             ],
           ),
         ),
@@ -144,19 +124,8 @@ Widget _baInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _baCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: _baSurfaceDark,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 11,
-        fontFamily: 'monospace',
-        color: color ?? _baPrimary,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    decoration: BoxDecoration(color: _baSurfaceDark, borderRadius: BorderRadius.circular(4)),
+    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _baPrimary, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -167,10 +136,7 @@ Widget _baSection1Overview() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _baSectionTitle(
-        '1 · RenderSliverMultiBoxAdaptor Overview',
-        Icons.view_list,
-      ),
+      _baSectionTitle('1 · RenderSliverMultiBoxAdaptor Overview', Icons.view_list),
       _baInfoCard(
         'What is RenderSliverMultiBoxAdaptor?',
         'An abstract base class for sliver render objects that manage '
@@ -228,11 +194,7 @@ Widget _baSection1Overview() {
             SizedBox(height: 8),
             Text(
               'All share the same child management infrastructure',
-              style: TextStyle(
-                fontSize: 10,
-                color: _baTextMedium,
-                fontStyle: FontStyle.italic,
-              ),
+              style: TextStyle(fontSize: 10, color: _baTextMedium, fontStyle: FontStyle.italic),
             ),
           ],
         ),
@@ -270,35 +232,25 @@ Widget _baSection2LazyManagement() {
           children: [
             // Total list indicator
             Positioned(
-              left: 10,
-              top: 10,
-              right: 10,
+              left: 10, top: 10, right: 10,
               child: Container(
                 height: 160,
                 decoration: BoxDecoration(
                   color: _baGrey.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                    color: _baGrey.withValues(alpha: 0.2),
-                    style: BorderStyle.solid,
-                  ),
+                  border: Border.all(color: _baGrey.withValues(alpha: 0.2), style: BorderStyle.solid),
                 ),
                 child: Column(
                   children: [
                     SizedBox(height: 4),
-                    Text(
-                      '10,000 items (logical)',
-                      style: TextStyle(fontSize: 9, color: _baGrey),
-                    ),
+                    Text('10,000 items (logical)', style: TextStyle(fontSize: 9, color: _baGrey)),
                   ],
                 ),
               ),
             ),
             // Off-screen before (not created)
             Positioned(
-              left: 20,
-              top: 25,
-              right: 20,
+              left: 20, top: 25, right: 20,
               child: Container(
                 height: 25,
                 decoration: BoxDecoration(
@@ -306,17 +258,12 @@ Widget _baSection2LazyManagement() {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'items 0–95  ·  not created',
-                  style: TextStyle(fontSize: 9, color: _baGrey),
-                ),
+                child: Text('items 0–95  ·  not created', style: TextStyle(fontSize: 9, color: _baGrey)),
               ),
             ),
             // Cached before
             Positioned(
-              left: 20,
-              top: 53,
-              right: 20,
+              left: 20, top: 53, right: 20,
               child: Container(
                 height: 20,
                 decoration: BoxDecoration(
@@ -325,17 +272,12 @@ Widget _baSection2LazyManagement() {
                   border: Border.all(color: _baAmber.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  '96–99  ·  cached (cacheExtent)',
-                  style: TextStyle(fontSize: 9, color: _baAmber),
-                ),
+                child: Text('96–99  ·  cached (cacheExtent)', style: TextStyle(fontSize: 9, color: _baAmber)),
               ),
             ),
             // Visible
             Positioned(
-              left: 20,
-              top: 76,
-              right: 20,
+              left: 20, top: 76, right: 20,
               child: Container(
                 height: 40,
                 decoration: BoxDecoration(
@@ -348,23 +290,14 @@ Widget _baSection2LazyManagement() {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.visibility, size: 14, color: _baGreen),
-                    Text(
-                      '100–109  ·  visible',
-                      style: TextStyle(
-                        fontSize: 9,
-                        color: _baGreen,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('100–109  ·  visible', style: TextStyle(fontSize: 9, color: _baGreen, fontWeight: FontWeight.w700)),
                   ],
                 ),
               ),
             ),
             // Cached after
             Positioned(
-              left: 20,
-              top: 119,
-              right: 20,
+              left: 20, top: 119, right: 20,
               child: Container(
                 height: 20,
                 decoration: BoxDecoration(
@@ -373,17 +306,12 @@ Widget _baSection2LazyManagement() {
                   border: Border.all(color: _baAmber.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  '110–113  ·  cached (cacheExtent)',
-                  style: TextStyle(fontSize: 9, color: _baAmber),
-                ),
+                child: Text('110–113  ·  cached (cacheExtent)', style: TextStyle(fontSize: 9, color: _baAmber)),
               ),
             ),
             // Off-screen after
             Positioned(
-              left: 20,
-              top: 142,
-              right: 20,
+              left: 20, top: 142, right: 20,
               child: Container(
                 height: 25,
                 decoration: BoxDecoration(
@@ -391,10 +319,7 @@ Widget _baSection2LazyManagement() {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  '114–9999  ·  not created',
-                  style: TextStyle(fontSize: 9, color: _baGrey),
-                ),
+                child: Text('114–9999  ·  not created', style: TextStyle(fontSize: 9, color: _baGrey)),
               ),
             ),
           ],
@@ -439,22 +364,13 @@ Widget _baSection3KeepAlive() {
                     decoration: BoxDecoration(
                       color: _baGreen.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _baGreen.withValues(alpha: 0.2),
-                      ),
+                      border: Border.all(color: _baGreen.withValues(alpha: 0.2)),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.delete_outline, size: 22, color: _baGreen),
                         SizedBox(height: 4),
-                        Text(
-                          'Normal child',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: _baGreen,
-                          ),
-                        ),
+                        Text('Normal child', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _baGreen)),
                         SizedBox(height: 4),
                         Text(
                           'Disposed when scrolled out of cache region',
@@ -472,22 +388,13 @@ Widget _baSection3KeepAlive() {
                     decoration: BoxDecoration(
                       color: _baPrimary.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _baPrimary.withValues(alpha: 0.2),
-                      ),
+                      border: Border.all(color: _baPrimary.withValues(alpha: 0.2)),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.favorite, size: 22, color: _baPrimary),
                         SizedBox(height: 4),
-                        Text(
-                          'KeepAlive child',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: _baPrimary,
-                          ),
-                        ),
+                        Text('KeepAlive child', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _baPrimary)),
                         SizedBox(height: 4),
                         Text(
                           'Retained in memory, kept alive until wantKeepAlive = false',
@@ -549,45 +456,14 @@ Widget _baSection4GarbageCollection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Garbage collection flow',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _baTextDark,
-              ),
-            ),
+            Text('Garbage collection flow', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _baTextDark)),
             SizedBox(height: 8),
-            _baGCStep(
-              '1. Layout determines visible range',
-              _baPrimary,
-              Icons.straighten,
-            ),
-            _baGCStep(
-              '2. Identify children outside visible + cache',
-              _baOrange,
-              Icons.search,
-            ),
-            _baGCStep(
-              '3. Check KeepAlive flag on each',
-              _baBlue,
-              Icons.favorite_border,
-            ),
-            _baGCStep(
-              '4. Call childManager.removeChild() for non-kept',
-              _baRed,
-              Icons.delete,
-            ),
-            _baGCStep(
-              '5. Move kept children to _keepAliveBucket',
-              _baGreen,
-              Icons.bookmark,
-            ),
-            _baGCStep(
-              '6. Remaining children form new visible set',
-              _baTeal,
-              Icons.check_circle,
-            ),
+            _baGCStep('1. Layout determines visible range', _baPrimary, Icons.straighten),
+            _baGCStep('2. Identify children outside visible + cache', _baOrange, Icons.search),
+            _baGCStep('3. Check KeepAlive flag on each', _baBlue, Icons.favorite_border),
+            _baGCStep('4. Call childManager.removeChild() for non-kept', _baRed, Icons.delete),
+            _baGCStep('5. Move kept children to _keepAliveBucket', _baGreen, Icons.bookmark),
+            _baGCStep('6. Remaining children form new visible set', _baTeal, Icons.check_circle),
           ],
         ),
       ),
@@ -602,12 +478,7 @@ Widget _baGCStep(String text, Color color, IconData icon) {
       children: [
         Icon(icon, size: 16, color: color),
         SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 11, color: _baTextMedium),
-          ),
-        ),
+        Expanded(child: Text(text, style: TextStyle(fontSize: 11, color: _baTextMedium))),
       ],
     ),
   );
@@ -618,30 +489,12 @@ Widget _baGCStep(String text, Color color, IconData icon) {
 // ---------------------------------------------------------------------------
 Widget _baSection5ChildManager() {
   final methods = <Map<String, String>>[
-    {
-      'method': 'createChild',
-      'desc': 'Creates a new child widget at given index',
-    },
-    {
-      'method': 'removeChild',
-      'desc': 'Removes a child that is no longer needed',
-    },
-    {
-      'method': 'estimateMaxScrollOffset',
-      'desc': 'Estimates total scroll extent from item count',
-    },
-    {
-      'method': 'childCount',
-      'desc': 'Returns total number of children (if known)',
-    },
-    {
-      'method': 'didAdoptChild',
-      'desc': 'Called when a child is adopted into the child list',
-    },
-    {
-      'method': 'setDidUnderflow',
-      'desc': 'Notifies delegate that layout ran out of children',
-    },
+    {'method': 'createChild', 'desc': 'Creates a new child widget at given index'},
+    {'method': 'removeChild', 'desc': 'Removes a child that is no longer needed'},
+    {'method': 'estimateMaxScrollOffset', 'desc': 'Estimates total scroll extent from item count'},
+    {'method': 'childCount', 'desc': 'Returns total number of children (if known)'},
+    {'method': 'didAdoptChild', 'desc': 'Called when a child is adopted into the child list'},
+    {'method': 'setDidUnderflow', 'desc': 'Notifies delegate that layout ran out of children'},
   ];
 
   return Column(
@@ -667,32 +520,21 @@ Widget _baSection5ChildManager() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Child manager methods',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _baTextDark,
-              ),
-            ),
+            Text('Child manager methods', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _baTextDark)),
             Divider(color: _baDivider, height: 12),
-            ...methods.map(
-              (m) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 3),
-                child: Row(
-                  children: [
-                    SizedBox(width: 180, child: _baCode(m['method']!)),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        m['desc']!,
-                        style: TextStyle(fontSize: 10, color: _baTextMedium),
-                      ),
-                    ),
-                  ],
-                ),
+            ...methods.map((m) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 3),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 180,
+                    child: _baCode(m['method']!),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: Text(m['desc']!, style: TextStyle(fontSize: 10, color: _baTextMedium))),
+                ],
               ),
-            ),
+            )),
           ],
         ),
       ),
@@ -730,10 +572,7 @@ Widget _baSection6IndexOf() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _baSectionTitle(
-        '6 · indexOf & Child Ordering',
-        Icons.format_list_numbered,
-      ),
+      _baSectionTitle('6 · indexOf & Child Ordering', Icons.format_list_numbered),
       _baInfoCard(
         'Linked list of children',
         'Children are stored in a doubly-linked list via ContainerParentDataMixin. '
@@ -752,14 +591,7 @@ Widget _baSection6IndexOf() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Child linked list (visible range)',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: _baTextDark,
-              ),
-            ),
+            Text('Child linked list (visible range)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _baTextDark)),
             SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -782,26 +614,12 @@ Widget _baSection6IndexOf() {
                 Row(
                   children: [
                     Icon(Icons.first_page, size: 14, color: _baPrimary),
-                    Text(
-                      ' firstChild',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: _baPrimary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    Text(' firstChild', style: TextStyle(fontSize: 10, color: _baPrimary, fontWeight: FontWeight.w600)),
                   ],
                 ),
                 Row(
                   children: [
-                    Text(
-                      'lastChild ',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: _baIndigo,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    Text('lastChild ', style: TextStyle(fontSize: 10, color: _baIndigo, fontWeight: FontWeight.w600)),
                     Icon(Icons.last_page, size: 14, color: _baIndigo),
                   ],
                 ),
@@ -831,10 +649,7 @@ Widget _baChildNode(String label, Color color, bool isEdge) {
       borderRadius: BorderRadius.circular(4),
       border: Border.all(color: color, width: isEdge ? 2 : 1),
     ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.w700),
-    ),
+    child: Text(label, style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.w700)),
   );
 }
 
@@ -879,14 +694,7 @@ Widget _baSection7PaintHitTest() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Paint vs hit test order',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _baTextDark,
-              ),
-            ),
+            Text('Paint vs hit test order', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _baTextDark)),
             SizedBox(height: 8),
             Row(
               children: [
@@ -896,28 +704,15 @@ Widget _baSection7PaintHitTest() {
                     decoration: BoxDecoration(
                       color: _baPrimary.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _baPrimary.withValues(alpha: 0.2),
-                      ),
+                      border: Border.all(color: _baPrimary.withValues(alpha: 0.2)),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.brush, size: 18, color: _baPrimary),
                         SizedBox(height: 4),
-                        Text(
-                          'Paint',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: _baPrimary,
-                          ),
-                        ),
+                        Text('Paint', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _baPrimary)),
                         SizedBox(height: 4),
-                        Text(
-                          'first → last\n(low index → high)',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 10, color: _baTextMedium),
-                        ),
+                        Text('first → last\n(low index → high)', textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: _baTextMedium)),
                       ],
                     ),
                   ),
@@ -935,20 +730,9 @@ Widget _baSection7PaintHitTest() {
                       children: [
                         Icon(Icons.touch_app, size: 18, color: _baBlue),
                         SizedBox(height: 4),
-                        Text(
-                          'Hit test',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: _baBlue,
-                          ),
-                        ),
+                        Text('Hit test', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _baBlue)),
                         SizedBox(height: 4),
-                        Text(
-                          'last → first\n(high index → low)',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 10, color: _baTextMedium),
-                        ),
+                        Text('last → first\n(high index → low)', textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: _baTextMedium)),
                       ],
                     ),
                   ),
@@ -989,14 +773,7 @@ Widget _baSection8Demo() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'SliverList — 50 items, lazily managed',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: _baTextDark,
-              ),
-            ),
+            Text('SliverList — 50 items, lazily managed', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _baTextDark)),
             SizedBox(height: 6),
             SizedBox(
               height: 240,
@@ -1011,29 +788,13 @@ Widget _baSection8Demo() {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       alignment: Alignment.center,
-                      child: Text(
-                        'Header — above the lazy list',
-                        style: TextStyle(
-                          color: _baOnPrimary,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                        ),
-                      ),
+                      child: Text('Header — above the lazy list', style: TextStyle(color: _baOnPrimary, fontWeight: FontWeight.w700, fontSize: 12)),
                     ),
                   ),
                   SliverList.builder(
                     itemCount: 50,
                     itemBuilder: (ctx, i) {
-                      final colors = [
-                        _baPrimary,
-                        _baBlue,
-                        _baTeal,
-                        _baOrange,
-                        _baIndigo,
-                        _baPurple,
-                        _baPink,
-                        _baAmber,
-                      ];
+                      final colors = [_baPrimary, _baBlue, _baTeal, _baOrange, _baIndigo, _baPurple, _baPink, _baAmber];
                       final c = colors[i % colors.length];
                       return Container(
                         height: 44,
@@ -1046,8 +807,7 @@ Widget _baSection8Demo() {
                         child: Row(
                           children: [
                             Container(
-                              width: 36,
-                              height: 44,
+                              width: 36, height: 44,
                               decoration: BoxDecoration(
                                 color: c.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.only(
@@ -1056,14 +816,7 @@ Widget _baSection8Demo() {
                                 ),
                               ),
                               alignment: Alignment.center,
-                              child: Text(
-                                '${i}',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: c,
-                                ),
-                              ),
+                              child: Text('${i}', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: c)),
                             ),
                             SizedBox(width: 8),
                             Expanded(
@@ -1071,21 +824,8 @@ Widget _baSection8Demo() {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'List item ${i}',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600,
-                                      color: _baTextDark,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Created lazily by RenderSliverMultiBoxAdaptor',
-                                    style: TextStyle(
-                                      fontSize: 9,
-                                      color: _baGrey,
-                                    ),
-                                  ),
+                                  Text('List item ${i}', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _baTextDark)),
+                                  Text('Created lazily by RenderSliverMultiBoxAdaptor', style: TextStyle(fontSize: 9, color: _baGrey)),
                                 ],
                               ),
                             ),
@@ -1110,42 +850,12 @@ Widget _baSection8Demo() {
 // ---------------------------------------------------------------------------
 Widget _baSection9BestPractices() {
   final practices = <Map<String, dynamic>>[
-    {
-      'title': 'Use builder constructors',
-      'desc': 'SliverList.builder / SliverGrid.builder for lazy creation',
-      'icon': Icons.build,
-      'color': _baPrimary,
-    },
-    {
-      'title': 'Avoid addAutomaticKeepAlives unless needed',
-      'desc': 'KeepAlive increases memory — only use for stateful items',
-      'icon': Icons.memory,
-      'color': _baRed,
-    },
-    {
-      'title': 'Set appropriate cacheExtent',
-      'desc': 'Balance between smooth scrolling and memory usage',
-      'icon': Icons.cached,
-      'color': _baBlue,
-    },
-    {
-      'title': 'Use itemExtent or prototypeItem',
-      'desc': 'Fixed-extent lists skip child intrinsic size calculation',
-      'icon': Icons.straighten,
-      'color': _baOrange,
-    },
-    {
-      'title': 'Profile long lists',
-      'desc': 'Use DevTools timeline to verify lazy creation is working',
-      'icon': Icons.analytics,
-      'color': _baTeal,
-    },
-    {
-      'title': 'Keys for stateful children',
-      'desc': 'Use ValueKey or ObjectKey when children are reordered',
-      'icon': Icons.vpn_key,
-      'color': _baIndigo,
-    },
+    {'title': 'Use builder constructors', 'desc': 'SliverList.builder / SliverGrid.builder for lazy creation', 'icon': Icons.build, 'color': _baPrimary},
+    {'title': 'Avoid addAutomaticKeepAlives unless needed', 'desc': 'KeepAlive increases memory — only use for stateful items', 'icon': Icons.memory, 'color': _baRed},
+    {'title': 'Set appropriate cacheExtent', 'desc': 'Balance between smooth scrolling and memory usage', 'icon': Icons.cached, 'color': _baBlue},
+    {'title': 'Use itemExtent or prototypeItem', 'desc': 'Fixed-extent lists skip child intrinsic size calculation', 'icon': Icons.straighten, 'color': _baOrange},
+    {'title': 'Profile long lists', 'desc': 'Use DevTools timeline to verify lazy creation is working', 'icon': Icons.analytics, 'color': _baTeal},
+    {'title': 'Keys for stateful children', 'desc': 'Use ValueKey or ObjectKey when children are reordered', 'icon': Icons.vpn_key, 'color': _baIndigo},
   ];
 
   return Column(
@@ -1160,55 +870,38 @@ Widget _baSection9BestPractices() {
             'build performant, memory-efficient scroll views.',
         Icons.tips_and_updates,
       ),
-      ...practices.map(
-        (p) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: p['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      p['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _baTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      p['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _baTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...practices.map((p) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(p['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _baTextDark)),
+                  SizedBox(height: 2),
+                  Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _baTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _baPrimary.withValues(alpha: 0.08),
-              _baPrimaryLight.withValues(alpha: 0.08),
-            ],
+            colors: [_baPrimary.withValues(alpha: 0.08), _baPrimaryLight.withValues(alpha: 0.08)],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _baPrimary.withValues(alpha: 0.2)),
@@ -1219,11 +912,7 @@ Widget _baSection9BestPractices() {
             SizedBox(height: 8),
             Text(
               'RenderSliverMultiBoxAdaptor',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: _baTextDark,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _baTextDark),
             ),
             SizedBox(height: 4),
             Text(
@@ -1284,10 +973,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Lazy child management for slivers with multiple box children',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _baOnPrimary.withValues(alpha: 0.85),
-                ),
+                style: TextStyle(fontSize: 12, color: _baOnPrimary.withValues(alpha: 0.85)),
               ),
             ],
           ),

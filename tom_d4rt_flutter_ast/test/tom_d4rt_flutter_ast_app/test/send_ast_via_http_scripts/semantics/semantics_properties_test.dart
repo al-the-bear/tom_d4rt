@@ -23,20 +23,38 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   final dossier = <Map<String, String>>[
-    {'field': 'Class', 'value': 'SemanticsProperties'},
-    {'field': 'Library', 'value': 'package:flutter/semantics.dart'},
-    {'field': 'Role', 'value': 'Data carrier for accessibility annotations'},
+    {
+      'field': 'Class',
+      'value': 'SemanticsProperties',
+    },
+    {
+      'field': 'Library',
+      'value': 'package:flutter/semantics.dart',
+    },
+    {
+      'field': 'Role',
+      'value': 'Data carrier for accessibility annotations',
+    },
     {
       'field': 'Used by',
       'value': 'Semantics widget, MergeSemantics, custom render objects',
     },
-    {'field': 'Reads to', 'value': 'SemanticsNode in the SemanticsTree'},
+    {
+      'field': 'Reads to',
+      'value': 'SemanticsNode in the SemanticsTree',
+    },
     {
       'field': 'Consumers',
       'value': 'TalkBack, VoiceOver, NVDA, Switch Control',
     },
-    {'field': 'Mutability', 'value': 'Immutable value object (const-friendly)'},
-    {'field': 'Construction', 'value': 'All fields named and optional'},
+    {
+      'field': 'Mutability',
+      'value': 'Immutable value object (const-friendly)',
+    },
+    {
+      'field': 'Construction',
+      'value': 'All fields named and optional',
+    },
     {
       'field': 'Pair with',
       'value': 'SemanticsTag, OrdinalSortKey, SemanticsHintOverrides',
@@ -62,47 +80,125 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   final flagTable = <Map<String, String>>[
-    {'flag': 'enabled', 'meaning': 'Whether the control accepts input'},
+    {
+      'flag': 'enabled',
+      'meaning': 'Whether the control accepts input',
+    },
     {
       'flag': 'checked',
       'meaning': 'Tri-state for checkboxes / toggle controls',
     },
-    {'flag': 'mixed', 'meaning': 'Indeterminate checkbox state'},
-    {'flag': 'selected', 'meaning': 'Highlighted member of a selection set'},
-    {'flag': 'toggled', 'meaning': 'Switch-style toggle on/off'},
-    {'flag': 'button', 'meaning': 'Marks the node as a pressable button'},
-    {'flag': 'link', 'meaning': 'Marks the node as a hyperlink'},
-    {'flag': 'header', 'meaning': 'Heading level node for navigation'},
-    {'flag': 'textField', 'meaning': 'Editable text input'},
-    {'flag': 'readOnly', 'meaning': 'Editable but currently locked'},
-    {'flag': 'focusable', 'meaning': 'Node may receive accessibility focus'},
-    {'flag': 'focused', 'meaning': 'Node currently has accessibility focus'},
+    {
+      'flag': 'mixed',
+      'meaning': 'Indeterminate checkbox state',
+    },
+    {
+      'flag': 'selected',
+      'meaning': 'Highlighted member of a selection set',
+    },
+    {
+      'flag': 'toggled',
+      'meaning': 'Switch-style toggle on/off',
+    },
+    {
+      'flag': 'button',
+      'meaning': 'Marks the node as a pressable button',
+    },
+    {
+      'flag': 'link',
+      'meaning': 'Marks the node as a hyperlink',
+    },
+    {
+      'flag': 'header',
+      'meaning': 'Heading level node for navigation',
+    },
+    {
+      'flag': 'textField',
+      'meaning': 'Editable text input',
+    },
+    {
+      'flag': 'readOnly',
+      'meaning': 'Editable but currently locked',
+    },
+    {
+      'flag': 'focusable',
+      'meaning': 'Node may receive accessibility focus',
+    },
+    {
+      'flag': 'focused',
+      'meaning': 'Node currently has accessibility focus',
+    },
     {
       'flag': 'inMutuallyExclusiveGroup',
       'meaning': 'Member of radio-style group',
     },
-    {'flag': 'obscured', 'meaning': 'Hidden text (e.g., password field)'},
-    {'flag': 'multiline', 'meaning': 'Multi-line text content'},
-    {'flag': 'scopesRoute', 'meaning': 'Boundary of a Route'},
-    {'flag': 'namesRoute', 'meaning': 'Provides the name for a Route'},
+    {
+      'flag': 'obscured',
+      'meaning': 'Hidden text (e.g., password field)',
+    },
+    {
+      'flag': 'multiline',
+      'meaning': 'Multi-line text content',
+    },
+    {
+      'flag': 'scopesRoute',
+      'meaning': 'Boundary of a Route',
+    },
+    {
+      'flag': 'namesRoute',
+      'meaning': 'Provides the name for a Route',
+    },
     {
       'flag': 'hidden',
       'meaning': 'Drop the node from a11y tree but keep painting',
     },
-    {'flag': 'image', 'meaning': 'Node represents an image'},
-    {'flag': 'liveRegion', 'meaning': 'Announce content changes automatically'},
-    {'flag': 'slider', 'meaning': 'Node is a slider-shaped control'},
-    {'flag': 'keyboardKey', 'meaning': 'On-screen keyboard key'},
-    {'flag': 'expanded', 'meaning': 'Disclosure currently expanded'},
+    {
+      'flag': 'image',
+      'meaning': 'Node represents an image',
+    },
+    {
+      'flag': 'liveRegion',
+      'meaning': 'Announce content changes automatically',
+    },
+    {
+      'flag': 'slider',
+      'meaning': 'Node is a slider-shaped control',
+    },
+    {
+      'flag': 'keyboardKey',
+      'meaning': 'On-screen keyboard key',
+    },
+    {
+      'flag': 'expanded',
+      'meaning': 'Disclosure currently expanded',
+    },
   ];
 
   final stringTable = <Map<String, String>>[
-    {'field': 'label', 'meaning': 'Short descriptive name announced first'},
-    {'field': 'value', 'meaning': 'Current value (e.g., slider position)'},
-    {'field': 'hint', 'meaning': 'Action hint shown after label/value'},
-    {'field': 'increasedValue', 'meaning': 'Value after onIncrease executes'},
-    {'field': 'decreasedValue', 'meaning': 'Value after onDecrease executes'},
-    {'field': 'tooltip', 'meaning': 'Tooltip-style helper text'},
+    {
+      'field': 'label',
+      'meaning': 'Short descriptive name announced first',
+    },
+    {
+      'field': 'value',
+      'meaning': 'Current value (e.g., slider position)',
+    },
+    {
+      'field': 'hint',
+      'meaning': 'Action hint shown after label/value',
+    },
+    {
+      'field': 'increasedValue',
+      'meaning': 'Value after onIncrease executes',
+    },
+    {
+      'field': 'decreasedValue',
+      'meaning': 'Value after onDecrease executes',
+    },
+    {
+      'field': 'tooltip',
+      'meaning': 'Tooltip-style helper text',
+    },
     {
       'field': 'attributedLabel',
       'meaning': 'Label with locale/spell-out spans',
@@ -111,7 +207,10 @@ dynamic build(BuildContext context) {
       'field': 'attributedValue',
       'meaning': 'Value with locale/spell-out spans',
     },
-    {'field': 'attributedHint', 'meaning': 'Hint with locale/spell-out spans'},
+    {
+      'field': 'attributedHint',
+      'meaning': 'Hint with locale/spell-out spans',
+    },
     {
       'field': 'attributedIncreasedValue',
       'meaning': 'Increased value with attributes',
@@ -120,21 +219,57 @@ dynamic build(BuildContext context) {
       'field': 'attributedDecreasedValue',
       'meaning': 'Decreased value with attributes',
     },
-    {'field': 'textDirection', 'meaning': 'Reading direction for the strings'},
+    {
+      'field': 'textDirection',
+      'meaning': 'Reading direction for the strings',
+    },
   ];
 
   final actionTable = <Map<String, String>>[
-    {'action': 'onTap', 'meaning': 'Single tap activation'},
-    {'action': 'onLongPress', 'meaning': 'Long press (context menu)'},
-    {'action': 'onScrollLeft', 'meaning': 'Pan / fling left'},
-    {'action': 'onScrollRight', 'meaning': 'Pan / fling right'},
-    {'action': 'onScrollUp', 'meaning': 'Pan / fling up'},
-    {'action': 'onScrollDown', 'meaning': 'Pan / fling down'},
-    {'action': 'onIncrease', 'meaning': 'Step value up'},
-    {'action': 'onDecrease', 'meaning': 'Step value down'},
-    {'action': 'onCopy', 'meaning': 'Copy selected content'},
-    {'action': 'onCut', 'meaning': 'Cut selected content'},
-    {'action': 'onPaste', 'meaning': 'Paste clipboard content'},
+    {
+      'action': 'onTap',
+      'meaning': 'Single tap activation',
+    },
+    {
+      'action': 'onLongPress',
+      'meaning': 'Long press (context menu)',
+    },
+    {
+      'action': 'onScrollLeft',
+      'meaning': 'Pan / fling left',
+    },
+    {
+      'action': 'onScrollRight',
+      'meaning': 'Pan / fling right',
+    },
+    {
+      'action': 'onScrollUp',
+      'meaning': 'Pan / fling up',
+    },
+    {
+      'action': 'onScrollDown',
+      'meaning': 'Pan / fling down',
+    },
+    {
+      'action': 'onIncrease',
+      'meaning': 'Step value up',
+    },
+    {
+      'action': 'onDecrease',
+      'meaning': 'Step value down',
+    },
+    {
+      'action': 'onCopy',
+      'meaning': 'Copy selected content',
+    },
+    {
+      'action': 'onCut',
+      'meaning': 'Cut selected content',
+    },
+    {
+      'action': 'onPaste',
+      'meaning': 'Paste clipboard content',
+    },
     {
       'action': 'onMoveCursorForwardByCharacter',
       'meaning': 'Step caret right one character',
@@ -143,11 +278,26 @@ dynamic build(BuildContext context) {
       'action': 'onMoveCursorBackwardByCharacter',
       'meaning': 'Step caret left one character',
     },
-    {'action': 'onSetText', 'meaning': 'Replace the entire text content'},
-    {'action': 'onSetSelection', 'meaning': 'Set selection range'},
-    {'action': 'onDidGainAccessibilityFocus', 'meaning': 'A11y focus arrived'},
-    {'action': 'onDidLoseAccessibilityFocus', 'meaning': 'A11y focus left'},
-    {'action': 'onDismiss', 'meaning': 'Dismiss the node (snackbar / dialog)'},
+    {
+      'action': 'onSetText',
+      'meaning': 'Replace the entire text content',
+    },
+    {
+      'action': 'onSetSelection',
+      'meaning': 'Set selection range',
+    },
+    {
+      'action': 'onDidGainAccessibilityFocus',
+      'meaning': 'A11y focus arrived',
+    },
+    {
+      'action': 'onDidLoseAccessibilityFocus',
+      'meaning': 'A11y focus left',
+    },
+    {
+      'action': 'onDismiss',
+      'meaning': 'Dismiss the node (snackbar / dialog)',
+    },
   ];
 
   print('Flag rows: ${flagTable.length}');
@@ -235,7 +385,10 @@ dynamic build(BuildContext context) {
     readOnly: true,
   );
 
-  final galleryImage = SemanticsProperties(label: 'Profile photo', image: true);
+  final galleryImage = SemanticsProperties(
+    label: 'Profile photo',
+    image: true,
+  );
 
   final galleryLiveRegion = SemanticsProperties(
     label: 'Live score',
@@ -273,11 +426,8 @@ dynamic build(BuildContext context) {
     _GalleryEntry('Link', galleryLink, Color(0xFF7B1FA2)),
     _GalleryEntry('Header', galleryHeader, Color(0xFF455A64)),
     _GalleryEntry('Checkbox (checked)', galleryCheckedBox, Color(0xFF388E3C)),
-    _GalleryEntry(
-      'Checkbox (unchecked)',
-      galleryUncheckedBox,
-      Color(0xFF8D6E63),
-    ),
+    _GalleryEntry('Checkbox (unchecked)', galleryUncheckedBox,
+        Color(0xFF8D6E63)),
     _GalleryEntry('Switch (on)', galleryToggleOn, Color(0xFF00897B)),
     _GalleryEntry('Switch (off)', galleryToggleOff, Color(0xFF607D8B)),
     _GalleryEntry('Selected tab', gallerySelected, Color(0xFFD81B60)),
@@ -365,16 +515,10 @@ dynamic build(BuildContext context) {
   final actionConfigurations = <_ActionEntry>[
     _ActionEntry('Tap only', tapAction, ['onTap']),
     _ActionEntry('Tap + long press', longPressAction, ['onTap', 'onLongPress']),
-    _ActionEntry('Scrollable', scrollableAction, [
-      'onScrollUp',
-      'onScrollDown',
-      'onScrollLeft',
-      'onScrollRight',
-    ]),
-    _ActionEntry('Adjustable slider', adjustableAction, [
-      'onIncrease',
-      'onDecrease',
-    ]),
+    _ActionEntry('Scrollable', scrollableAction,
+        ['onScrollUp', 'onScrollDown', 'onScrollLeft', 'onScrollRight']),
+    _ActionEntry(
+        'Adjustable slider', adjustableAction, ['onIncrease', 'onDecrease']),
     _ActionEntry('Clipboard', clipboardAction, ['onCopy', 'onCut', 'onPaste']),
     _ActionEntry('Caret + text', caretAction, [
       'onMoveCursorForwardByCharacter',
@@ -382,10 +526,8 @@ dynamic build(BuildContext context) {
       'onSetSelection',
       'onSetText',
     ]),
-    _ActionEntry('Focus', focusAction, [
-      'onDidGainAccessibilityFocus',
-      'onDidLoseAccessibilityFocus',
-    ]),
+    _ActionEntry('Focus', focusAction,
+        ['onDidGainAccessibilityFocus', 'onDidLoseAccessibilityFocus']),
     _ActionEntry('Dismissable', dismissAction, ['onDismiss']),
   ];
 
@@ -498,7 +640,9 @@ dynamic build(BuildContext context) {
         child: _badge('Merged group', Color(0xFF6A1B9A)),
       ),
     ),
-    ExcludeSemantics(child: _badge('Excluded decoration', Color(0xFF9E9E9E))),
+    ExcludeSemantics(
+      child: _badge('Excluded decoration', Color(0xFF9E9E9E)),
+    ),
   ];
 
   print('Live semantics samples: ${liveSemanticsExamples.length}');
@@ -672,11 +816,13 @@ dynamic build(BuildContext context) {
     },
     {
       'term': 'SpellOutStringAttribute',
-      'definition': 'Forces a range to be pronounced letter by letter.',
+      'definition':
+          'Forces a range to be pronounced letter by letter.',
     },
     {
       'term': 'OrdinalSortKey',
-      'definition': 'Controls traversal order of sibling semantics nodes.',
+      'definition':
+          'Controls traversal order of sibling semantics nodes.',
     },
     {
       'term': 'SemanticsTag',
@@ -735,7 +881,10 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
           ),
         ],
@@ -948,19 +1097,17 @@ dynamic build(BuildContext context) {
   Widget tableHeader(List<String> cols, List<int> flex) {
     final cells = <Widget>[];
     for (var i = 0; i < cols.length; i++) {
-      cells.add(
-        Expanded(
-          flex: flex[i],
-          child: Text(
-            cols[i],
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontSize: 12,
-            ),
+      cells.add(Expanded(
+        flex: flex[i],
+        child: Text(
+          cols[i],
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontSize: 12,
           ),
         ),
-      );
+      ));
     }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -972,15 +1119,13 @@ dynamic build(BuildContext context) {
   Widget tableRow(List<String> cols, List<int> flex, Color zebra) {
     final cells = <Widget>[];
     for (var i = 0; i < cols.length; i++) {
-      cells.add(
-        Expanded(
-          flex: flex[i],
-          child: Text(
-            cols[i],
-            style: TextStyle(fontSize: 12, color: Color(0xFF212121)),
-          ),
+      cells.add(Expanded(
+        flex: flex[i],
+        child: Text(
+          cols[i],
+          style: TextStyle(fontSize: 12, color: Color(0xFF212121)),
         ),
-      );
+      ));
     }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -996,13 +1141,11 @@ dynamic build(BuildContext context) {
   }) {
     final widgets = <Widget>[tableHeader(headers, flex)];
     for (var i = 0; i < rows.length; i++) {
-      widgets.add(
-        tableRow(
-          rows[i],
-          flex,
-          i.isEven ? Color(0xFFF5F5F5) : Color(0xFFFFFFFF),
-        ),
-      );
+      widgets.add(tableRow(
+        rows[i],
+        flex,
+        i.isEven ? Color(0xFFF5F5F5) : Color(0xFFFFFFFF),
+      ));
     }
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -1021,41 +1164,38 @@ dynamic build(BuildContext context) {
   // SECTION 11: FINAL COMPOSITION
   // ===========================================================================
 
-  final dossierRows = <List<String>>[
-    for (final r in dossier) [r['field']!, r['value']!],
-  ];
+  final dossierRows =
+      <List<String>>[for (final r in dossier) [r['field']!, r['value']!]];
 
-  final flagRows = <List<String>>[
-    for (final r in flagTable) [r['flag']!, r['meaning']!],
-  ];
+  final flagRows =
+      <List<String>>[for (final r in flagTable) [r['flag']!, r['meaning']!]];
 
-  final stringRows = <List<String>>[
-    for (final r in stringTable) [r['field']!, r['meaning']!],
-  ];
+  final stringRows =
+      <List<String>>[for (final r in stringTable) [r['field']!, r['meaning']!]];
 
   final actionRows = <List<String>>[
-    for (final r in actionTable) [r['action']!, r['meaning']!],
+    for (final r in actionTable) [r['action']!, r['meaning']!]
   ];
 
   final attributedRowsTable = <List<String>>[
-    for (final r in attributedRows) [r['role']!, r['text']!, r['spans']!],
+    for (final r in attributedRows) [r['role']!, r['text']!, r['spans']!]
   ];
 
   final sliderRowsTable = <List<String>>[
-    for (final r in sliderRows) [r['value']!, r['increased']!, r['decreased']!],
+    for (final r in sliderRows) [r['value']!, r['increased']!, r['decreased']!]
   ];
 
   final recipeRows = <List<String>>[
-    for (final r in recipes) [r['title']!, r['code']!, r['when']!],
+    for (final r in recipes) [r['title']!, r['code']!, r['when']!]
   ];
 
   final comparisonRows = <List<String>>[
     for (final r in comparison)
-      [r['widget']!, r['merges']!, r['visible']!, r['use_case']!],
+      [r['widget']!, r['merges']!, r['visible']!, r['use_case']!]
   ];
 
   final glossaryRows = <List<String>>[
-    for (final r in glossary) [r['term']!, r['definition']!],
+    for (final r in glossary) [r['term']!, r['definition']!]
   ];
 
   final children = <Widget>[
@@ -1078,7 +1218,10 @@ dynamic build(BuildContext context) {
           SizedBox(height: 6),
           Text(
             'package:flutter/semantics.dart — data carrier for accessibility annotations',
-            style: TextStyle(color: Color(0xFFC5CAE9), fontSize: 13),
+            style: TextStyle(
+              color: Color(0xFFC5CAE9),
+              fontSize: 13,
+            ),
           ),
         ],
       ),
@@ -1136,29 +1279,24 @@ dynamic build(BuildContext context) {
 
     // Section 5
     sectionTitle('5', 'AttributedString Variants'),
-    infoCard('Spans summary', <Widget>[
-      kvRow('attributedLabel', attributedLabel.string),
-      kvRow(
-        '  span 1 (locale en_US)',
-        '[${localeAttribute.range.start}..${localeAttribute.range.end})',
-      ),
-      kvRow(
-        '  span 2 (spellOut)',
-        '[${spellOutAttribute.range.start}..${spellOutAttribute.range.end})',
-      ),
-      SizedBox(height: 6),
-      kvRow('attributedValue', attributedValueGerman.string),
-      kvRow(
-        '  span 1 (locale de_DE)',
-        '[${germanLocale.range.start}..${germanLocale.range.end})',
-      ),
-      SizedBox(height: 6),
-      kvRow('attributedHint', attributedHint.string),
-      kvRow(
-        '  span 1 (spellOut)',
-        '[${hintSpellOut.range.start}..${hintSpellOut.range.end})',
-      ),
-    ]),
+    infoCard(
+      'Spans summary',
+      <Widget>[
+        kvRow('attributedLabel', attributedLabel.string),
+        kvRow('  span 1 (locale en_US)',
+            '[${localeAttribute.range.start}..${localeAttribute.range.end})'),
+        kvRow('  span 2 (spellOut)',
+            '[${spellOutAttribute.range.start}..${spellOutAttribute.range.end})'),
+        SizedBox(height: 6),
+        kvRow('attributedValue', attributedValueGerman.string),
+        kvRow('  span 1 (locale de_DE)',
+            '[${germanLocale.range.start}..${germanLocale.range.end})'),
+        SizedBox(height: 6),
+        kvRow('attributedHint', attributedHint.string),
+        kvRow('  span 1 (spellOut)',
+            '[${hintSpellOut.range.start}..${hintSpellOut.range.end})'),
+      ],
+    ),
     builtTable(
       headers: <String>['Role', 'Text', 'Spans'],
       flex: <int>[2, 5, 1],
@@ -1169,7 +1307,11 @@ dynamic build(BuildContext context) {
     sectionTitle('6', 'Live Semantics Widget Usage'),
     Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Wrap(spacing: 8, runSpacing: 8, children: liveSemanticsExamples),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: liveSemanticsExamples,
+      ),
     ),
 
     // Section 7
@@ -1236,9 +1378,7 @@ dynamic build(BuildContext context) {
             child: Text(
               'SemanticsProperties demo header',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1A237E),
-              ),
+                  fontWeight: FontWeight.bold, color: Color(0xFF1A237E)),
             ),
           ),
           SizedBox(height: 8),

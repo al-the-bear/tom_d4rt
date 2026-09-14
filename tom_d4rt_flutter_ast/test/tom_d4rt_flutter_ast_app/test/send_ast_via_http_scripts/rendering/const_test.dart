@@ -77,14 +77,8 @@ Widget _ctSectionTitle(String title, IconData icon) {
 Widget _ctBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
-    ),
+    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
+    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -110,23 +104,9 @@ Widget _ctInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _ctTextDark,
-                ),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _ctTextDark)),
               SizedBox(height: 4),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _ctTextMedium,
-                  height: 1.4,
-                ),
-              ),
+              Text(body, style: TextStyle(fontSize: 12, color: _ctTextMedium, height: 1.4)),
             ],
           ),
         ),
@@ -141,18 +121,10 @@ Widget _ctInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _ctCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: _ctSurfaceDark,
-      borderRadius: BorderRadius.circular(4),
-    ),
+    decoration: BoxDecoration(color: _ctSurfaceDark, borderRadius: BorderRadius.circular(4)),
     child: Text(
       text,
-      style: TextStyle(
-        fontSize: 11,
-        fontFamily: 'monospace',
-        color: color ?? _ctPrimary,
-        fontWeight: FontWeight.w600,
-      ),
+      style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _ctPrimary, fontWeight: FontWeight.w600),
     ),
   );
 }
@@ -193,14 +165,7 @@ Widget _ctCompareRow(String constSide, String nonConstSide, {String? note}) {
         if (note != null) ...[
           SizedBox(width: 8),
           Expanded(
-            child: Text(
-              note,
-              style: TextStyle(
-                fontSize: 10,
-                color: _ctGrey,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
+            child: Text(note, style: TextStyle(fontSize: 10, color: _ctGrey, fontStyle: FontStyle.italic)),
           ),
         ],
       ],
@@ -255,11 +220,7 @@ Widget _ctSection1WhatConst() {
             SizedBox(height: 8),
             Text(
               'Const widgets are canonicalised → identical check succeeds → no rebuild needed',
-              style: TextStyle(
-                fontSize: 11,
-                color: _ctTextMedium,
-                fontStyle: FontStyle.italic,
-              ),
+              style: TextStyle(fontSize: 11, color: _ctTextMedium, fontStyle: FontStyle.italic),
             ),
           ],
         ),
@@ -273,56 +234,21 @@ Widget _ctSection1WhatConst() {
 // ---------------------------------------------------------------------------
 Widget _ctSection2Constructors() {
   final types = <Map<String, String>>[
-    {
-      'type': 'EdgeInsets',
-      'example': 'EdgeInsets.all(8.0)',
-      'desc': 'Padding/margin offsets',
-    },
-    {
-      'type': 'Alignment',
-      'example': 'Alignment.center',
-      'desc': 'Fractional positioning',
-    },
-    {
-      'type': 'BoxConstraints',
-      'example': 'BoxConstraints.tightFor(w: 100)',
-      'desc': 'Size constraints',
-    },
-    {
-      'type': 'Offset',
-      'example': 'Offset(0.0, 0.0)',
-      'desc': '2D displacement vector',
-    },
-    {
-      'type': 'Size',
-      'example': 'Size(200.0, 100.0)',
-      'desc': 'Width × height pair',
-    },
-    {
-      'type': 'Rect',
-      'example': 'Rect.fromLTWH(0, 0, 100, 50)',
-      'desc': 'Axis-aligned rectangle',
-    },
-    {
-      'type': 'Color',
-      'example': 'Color(0xFF00BCD4)',
-      'desc': 'ARGB colour value',
-    },
-    {
-      'type': 'TextStyle',
-      'example': 'TextStyle(fontSize: 14)',
-      'desc': 'Text rendering parameters',
-    },
+    {'type': 'EdgeInsets', 'example': 'EdgeInsets.all(8.0)', 'desc': 'Padding/margin offsets'},
+    {'type': 'Alignment', 'example': 'Alignment.center', 'desc': 'Fractional positioning'},
+    {'type': 'BoxConstraints', 'example': 'BoxConstraints.tightFor(w: 100)', 'desc': 'Size constraints'},
+    {'type': 'Offset', 'example': 'Offset(0.0, 0.0)', 'desc': '2D displacement vector'},
+    {'type': 'Size', 'example': 'Size(200.0, 100.0)', 'desc': 'Width × height pair'},
+    {'type': 'Rect', 'example': 'Rect.fromLTWH(0, 0, 100, 50)', 'desc': 'Axis-aligned rectangle'},
+    {'type': 'Color', 'example': 'Color(0xFF00BCD4)', 'desc': 'ARGB colour value'},
+    {'type': 'TextStyle', 'example': 'TextStyle(fontSize: 14)', 'desc': 'Text rendering parameters'},
   ];
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _ctSectionTitle(
-        '2 · Const Constructors for Rendering Types',
-        Icons.construction,
-      ),
+      _ctSectionTitle('2 · Const Constructors for Rendering Types', Icons.construction),
       _ctInfoCard(
         'Const-constructable types',
         'Many core rendering types have const constructors, meaning instances '
@@ -340,32 +266,23 @@ Widget _ctSection2Constructors() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Key const-constructable rendering types',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _ctTextDark,
-              ),
-            ),
+            Text('Key const-constructable rendering types', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
             Divider(color: _ctDivider, height: 12),
-            ...types.map(
-              (t) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 3),
-                child: Row(
-                  children: [
-                    SizedBox(width: 110, child: _ctCode(t['type']!)),
-                    SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        t['desc']!,
-                        style: TextStyle(fontSize: 11, color: _ctTextMedium),
-                      ),
-                    ),
-                  ],
-                ),
+            ...types.map((t) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 3),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 110,
+                    child: _ctCode(t['type']!),
+                  ),
+                  SizedBox(width: 6),
+                  Expanded(
+                    child: Text(t['desc']!, style: TextStyle(fontSize: 11, color: _ctTextMedium)),
+                  ),
+                ],
               ),
-            ),
+            )),
           ],
         ),
       ),
@@ -381,14 +298,7 @@ Widget _ctSection2Constructors() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Live const instances',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _ctTextDark,
-              ),
-            ),
+            Text('Live const instances', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
             SizedBox(height: 8),
             // Demonstrate actual const EdgeInsets
             Container(
@@ -467,9 +377,7 @@ Widget _ctSection3Identity() {
                     decoration: BoxDecoration(
                       color: _ctGreen.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _ctGreen.withValues(alpha: 0.3),
-                      ),
+                      border: Border.all(color: _ctGreen.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       children: [
@@ -484,11 +392,7 @@ Widget _ctSection3Identity() {
                             SizedBox(width: 4),
                             Text(
                               'identical: $constIdentical',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: _ctGreen,
-                              ),
+                              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _ctGreen),
                             ),
                           ],
                         ),
@@ -518,11 +422,7 @@ Widget _ctSection3Identity() {
                             SizedBox(width: 4),
                             Text(
                               'identical: $nonConstIdentical',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: _ctRed,
-                              ),
+                              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _ctRed),
                             ),
                           ],
                         ),
@@ -535,11 +435,7 @@ Widget _ctSection3Identity() {
             SizedBox(height: 8),
             Text(
               'Same arguments, same type — but only const produces identical objects',
-              style: TextStyle(
-                fontSize: 11,
-                color: _ctTextMedium,
-                fontStyle: FontStyle.italic,
-              ),
+              style: TextStyle(fontSize: 11, color: _ctTextMedium, fontStyle: FontStyle.italic),
             ),
           ],
         ),
@@ -558,21 +454,11 @@ Widget _ctSection3Identity() {
               ),
               child: Column(
                 children: [
-                  Text(
-                    'const',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: _ctGreen,
-                    ),
-                  ),
+                  Text('const', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _ctGreen)),
                   SizedBox(height: 4),
                   constWidgetA,
                   SizedBox(height: 2),
-                  Text(
-                    'One canonical instance',
-                    style: TextStyle(fontSize: 9, color: _ctGrey),
-                  ),
+                  Text('One canonical instance', style: TextStyle(fontSize: 9, color: _ctGrey)),
                 ],
               ),
             ),
@@ -588,21 +474,11 @@ Widget _ctSection3Identity() {
               ),
               child: Column(
                 children: [
-                  Text(
-                    'non-const',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: _ctOrange,
-                    ),
-                  ),
+                  Text('non-const', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _ctOrange)),
                   SizedBox(height: 4),
                   nonConstWidgetA,
                   SizedBox(height: 2),
-                  Text(
-                    'Separate heap objects',
-                    style: TextStyle(fontSize: 9, color: _ctGrey),
-                  ),
+                  Text('Separate heap objects', style: TextStyle(fontSize: 9, color: _ctGrey)),
                 ],
               ),
             ),
@@ -621,10 +497,7 @@ Widget _ctSection4Propagation() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _ctSectionTitle(
-        '4 · Const Propagation in Widget Trees',
-        Icons.account_tree,
-      ),
+      _ctSectionTitle('4 · Const Propagation in Widget Trees', Icons.account_tree),
       _ctInfoCard(
         'Subtree is frozen',
         'When a widget is marked const, its entire constructor argument tree '
@@ -643,14 +516,7 @@ Widget _ctSection4Propagation() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Const subtree visualisation',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _ctTextDark,
-              ),
-            ),
+            Text('Const subtree visualisation', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
             SizedBox(height: 10),
             // Level 0: outer container
             _ctTreeLevel(0, 'const Padding', _ctGreen, true),
@@ -659,14 +525,7 @@ Widget _ctSection4Propagation() {
             _ctTreeLevel(2, 'const Text("Hello")', _ctGreen, true),
             SizedBox(height: 12),
             // Non-const tree for comparison
-            Text(
-              'Non-const subtree (breaks propagation)',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 11,
-                color: _ctOrange,
-              ),
-            ),
+            Text('Non-const subtree (breaks propagation)', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 11, color: _ctOrange)),
             SizedBox(height: 6),
             _ctTreeLevel(0, 'Padding', _ctOrange, false),
             _ctTreeLevel(1, 'EdgeInsets.all(value)', _ctRed, false),
@@ -691,14 +550,7 @@ Widget _ctSection4Propagation() {
               children: [
                 Icon(Icons.check_circle, size: 14, color: _ctGreen),
                 SizedBox(width: 4),
-                Text(
-                  'Live const subtree',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: _ctGreen,
-                  ),
-                ),
+                Text('Live const subtree', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _ctGreen)),
               ],
             ),
             SizedBox(height: 6),
@@ -738,15 +590,7 @@ Widget _ctTreeLevel(int depth, String label, Color color, bool isConst) {
               color: color.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 10,
-                fontFamily: 'monospace',
-                color: color,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(label, style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: color, fontWeight: FontWeight.w600)),
           ),
         ),
       ],
@@ -759,41 +603,11 @@ Widget _ctTreeLevel(int depth, String label, Color color, bool isConst) {
 // ---------------------------------------------------------------------------
 Widget _ctSection5Performance() {
   final benefits = <Map<String, dynamic>>[
-    {
-      'label': 'Rebuild skip',
-      'desc': 'identical() on widget → skip updateChild()',
-      'saving': 'High',
-      'icon': Icons.replay,
-      'color': _ctGreen,
-    },
-    {
-      'label': 'No GC pressure',
-      'desc': 'Single canonical instance, no allocation on rebuild',
-      'saving': 'Medium',
-      'icon': Icons.delete_sweep,
-      'color': _ctBlue,
-    },
-    {
-      'label': 'Faster comparison',
-      'desc': 'identical() is O(1) pointer comparison',
-      'saving': 'High',
-      'icon': Icons.bolt,
-      'color': _ctAmber,
-    },
-    {
-      'label': 'Tree pruning',
-      'desc': 'Entire const subtrees are pruned from rebuild',
-      'saving': 'High',
-      'icon': Icons.content_cut,
-      'color': _ctPurple,
-    },
-    {
-      'label': 'Compile-time eval',
-      'desc': 'No runtime constructor call needed',
-      'saving': 'Low',
-      'icon': Icons.build,
-      'color': _ctOrange,
-    },
+    {'label': 'Rebuild skip', 'desc': 'identical() on widget → skip updateChild()', 'saving': 'High', 'icon': Icons.replay, 'color': _ctGreen},
+    {'label': 'No GC pressure', 'desc': 'Single canonical instance, no allocation on rebuild', 'saving': 'Medium', 'icon': Icons.delete_sweep, 'color': _ctBlue},
+    {'label': 'Faster comparison', 'desc': 'identical() is O(1) pointer comparison', 'saving': 'High', 'icon': Icons.bolt, 'color': _ctAmber},
+    {'label': 'Tree pruning', 'desc': 'Entire const subtrees are pruned from rebuild', 'saving': 'High', 'icon': Icons.content_cut, 'color': _ctPurple},
+    {'label': 'Compile-time eval', 'desc': 'No runtime constructor call needed', 'saving': 'Low', 'icon': Icons.build, 'color': _ctOrange},
   ];
 
   return Column(
@@ -809,55 +623,37 @@ Widget _ctSection5Performance() {
             'equality — no deep comparison needed.',
         Icons.timer,
       ),
-      ...benefits.map(
-        (b) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: b['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(b['icon'] as IconData, size: 18, color: b['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          b['label'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                            color: _ctTextDark,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        _ctBadge(
-                          'Saving: ${b['saving']}',
-                          (b['color'] as Color).withValues(alpha: 0.15),
-                          b['color'] as Color,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      b['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _ctTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...benefits.map((b) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: b['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(b['icon'] as IconData, size: 18, color: b['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(b['label'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
+                      SizedBox(width: 8),
+                      _ctBadge('Saving: ${b['saving']}', (b['color'] as Color).withValues(alpha: 0.15), b['color'] as Color),
+                    ],
+                  ),
+                  SizedBox(height: 2),
+                  Text(b['desc'] as String, style: TextStyle(fontSize: 11, color: _ctTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
     ],
   );
 }
@@ -870,10 +666,7 @@ Widget _ctSection6CommonValues() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _ctSectionTitle(
-        '6 · Common Const Values in Rendering',
-        Icons.inventory_2,
-      ),
+      _ctSectionTitle('6 · Common Const Values in Rendering', Icons.inventory_2),
       _ctInfoCard(
         'Pre-defined constants',
         'Flutter defines many frequently-used values as static const fields. '
@@ -892,48 +685,19 @@ Widget _ctSection6CommonValues() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'EdgeInsets constants',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _ctTextDark,
-              ),
-            ),
+            Text('EdgeInsets constants', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
             SizedBox(height: 6),
             _ctConstValueRow('EdgeInsets.zero', 'All sides 0.0', _ctPrimary),
-            _ctConstValueRow(
-              'EdgeInsets.all(8.0)',
-              'Uniform 8px padding',
-              _ctAccent,
-            ),
-            _ctConstValueRow(
-              'EdgeInsets.symmetric(h: 16)',
-              'Horizontal only',
-              _ctBlue,
-            ),
+            _ctConstValueRow('EdgeInsets.all(8.0)', 'Uniform 8px padding', _ctAccent),
+            _ctConstValueRow('EdgeInsets.symmetric(h: 16)', 'Horizontal only', _ctBlue),
             SizedBox(height: 12),
-            Text(
-              'Alignment constants',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _ctTextDark,
-              ),
-            ),
+            Text('Alignment constants', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
             SizedBox(height: 6),
             _ctConstValueRow('Alignment.topLeft', '(-1.0, -1.0)', _ctPrimary),
             _ctConstValueRow('Alignment.center', '(0.0, 0.0)', _ctAccent),
             _ctConstValueRow('Alignment.bottomRight', '(1.0, 1.0)', _ctBlue),
             SizedBox(height: 12),
-            Text(
-              'Geometry constants',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _ctTextDark,
-              ),
-            ),
+            Text('Geometry constants', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
             SizedBox(height: 6),
             _ctConstValueRow('Offset.zero', '(0.0, 0.0)', _ctPrimary),
             _ctConstValueRow('Size.zero', '(0.0, 0.0)', _ctAccent),
@@ -1000,23 +764,11 @@ Widget _ctConstValueRow(String name, String desc, Color color) {
     padding: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        Container(
-          width: 4,
-          height: 16,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(2),
-          ),
-        ),
+        Container(width: 4, height: 16, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2))),
         SizedBox(width: 8),
         SizedBox(width: 180, child: _ctCode(name, color: color)),
         SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: _ctTextMedium),
-          ),
-        ),
+        Expanded(child: Text(desc, style: TextStyle(fontSize: 10, color: _ctTextMedium))),
       ],
     ),
   );
@@ -1049,14 +801,7 @@ Widget _ctSection7Decoration() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Const decoration gallery',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _ctTextDark,
-              ),
-            ),
+            Text('Const decoration gallery', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
             SizedBox(height: 10),
             Row(
               children: [
@@ -1068,10 +813,7 @@ Widget _ctSection7Decoration() {
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'const color + radius',
-                      style: TextStyle(fontSize: 10, color: Colors.white),
-                    ),
+                    child: Text('const color + radius', style: TextStyle(fontSize: 10, color: Colors.white)),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -1079,16 +821,11 @@ Widget _ctSection7Decoration() {
                   child: Container(
                     height: 60,
                     decoration: const BoxDecoration(
-                      border: Border.fromBorderSide(
-                        BorderSide(color: Color(0xFF00BCD4), width: 2),
-                      ),
+                      border: Border.fromBorderSide(BorderSide(color: Color(0xFF00BCD4), width: 2)),
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'const border',
-                      style: TextStyle(fontSize: 10, color: _ctPrimary),
-                    ),
+                    child: Text('const border', style: TextStyle(fontSize: 10, color: _ctPrimary)),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -1100,10 +837,7 @@ Widget _ctSection7Decoration() {
                       shape: BoxShape.circle,
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'circle',
-                      style: TextStyle(fontSize: 10, color: _ctPrimary),
-                    ),
+                    child: Text('circle', style: TextStyle(fontSize: 10, color: _ctPrimary)),
                   ),
                 ),
               ],
@@ -1115,14 +849,13 @@ Widget _ctSection7Decoration() {
                   child: Container(
                     height: 60,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [_ctPrimary, _ctAccent]),
+                      gradient: LinearGradient(
+                        colors: [_ctPrimary, _ctAccent],
+                      ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'gradient (non-const)',
-                      style: TextStyle(fontSize: 10, color: Colors.white),
-                    ),
+                    child: Text('gradient (non-const)', style: TextStyle(fontSize: 10, color: Colors.white)),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -1141,10 +874,7 @@ Widget _ctSection7Decoration() {
                       ],
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'shadow',
-                      style: TextStyle(fontSize: 10, color: _ctPrimary),
-                    ),
+                    child: Text('shadow', style: TextStyle(fontSize: 10, color: _ctPrimary)),
                   ),
                 ),
               ],
@@ -1161,42 +891,12 @@ Widget _ctSection7Decoration() {
 // ---------------------------------------------------------------------------
 Widget _ctSection8Limitations() {
   final limitations = <Map<String, dynamic>>[
-    {
-      'title': 'Runtime values',
-      'desc': 'Variables, function results, or state that changes at runtime',
-      'icon': Icons.play_arrow,
-      'color': _ctRed,
-    },
-    {
-      'title': 'Theme references',
-      'desc': 'Theme.of(context) returns runtime data, cannot be const',
-      'icon': Icons.color_lens,
-      'color': _ctOrange,
-    },
-    {
-      'title': 'MediaQuery',
-      'desc': 'Screen dimensions and orientation are runtime-only',
-      'icon': Icons.phone_android,
-      'color': _ctAmber,
-    },
-    {
-      'title': 'Callbacks',
-      'desc': 'Functions/closures are not compile-time constants',
-      'icon': Icons.touch_app,
-      'color': _ctPurple,
-    },
-    {
-      'title': 'DateTime.now()',
-      'desc': 'Time-dependent values cannot be determined at compile time',
-      'icon': Icons.access_time,
-      'color': _ctBlue,
-    },
-    {
-      'title': 'Collections with spreads',
-      'desc': 'Spread operators (...) break const in collections',
-      'icon': Icons.list,
-      'color': _ctGrey,
-    },
+    {'title': 'Runtime values', 'desc': 'Variables, function results, or state that changes at runtime', 'icon': Icons.play_arrow, 'color': _ctRed},
+    {'title': 'Theme references', 'desc': 'Theme.of(context) returns runtime data, cannot be const', 'icon': Icons.color_lens, 'color': _ctOrange},
+    {'title': 'MediaQuery', 'desc': 'Screen dimensions and orientation are runtime-only', 'icon': Icons.phone_android, 'color': _ctAmber},
+    {'title': 'Callbacks', 'desc': 'Functions/closures are not compile-time constants', 'icon': Icons.touch_app, 'color': _ctPurple},
+    {'title': 'DateTime.now()', 'desc': 'Time-dependent values cannot be determined at compile time', 'icon': Icons.access_time, 'color': _ctBlue},
+    {'title': 'Collections with spreads', 'desc': 'Spread operators (...) break const in collections', 'icon': Icons.list, 'color': _ctGrey},
   ];
 
   return Column(
@@ -1212,62 +912,36 @@ Widget _ctSection8Limitations() {
         Icons.warning_amber,
         accent: _ctOrange,
       ),
-      ...limitations.map(
-        (l) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: l['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(l['icon'] as IconData, size: 18, color: l['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _ctTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      l['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _ctTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...limitations.map((l) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: l['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(l['icon'] as IconData, size: 18, color: l['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
+                  SizedBox(height: 2),
+                  Text(l['desc'] as String, style: TextStyle(fontSize: 11, color: _ctTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
       SizedBox(height: 8),
       // Visual: const vs non-const comparison
-      _ctCompareRow(
-        'const Text("Hello")',
-        'Text(variable)',
-        note: 'String literal vs variable',
-      ),
-      _ctCompareRow(
-        'const EdgeInsets.all(8)',
-        'EdgeInsets.all(val)',
-        note: 'Literal vs param',
-      ),
-      _ctCompareRow(
-        'const Color(0xFF006064)',
-        'Theme.of(ctx).primary',
-        note: 'Literal vs theme',
-      ),
+      _ctCompareRow('const Text("Hello")', 'Text(variable)', note: 'String literal vs variable'),
+      _ctCompareRow('const EdgeInsets.all(8)', 'EdgeInsets.all(val)', note: 'Literal vs param'),
+      _ctCompareRow('const Color(0xFF006064)', 'Theme.of(ctx).primary', note: 'Literal vs theme'),
     ],
   );
 }
@@ -1277,39 +951,11 @@ Widget _ctSection8Limitations() {
 // ---------------------------------------------------------------------------
 Widget _ctSection9BestPractices() {
   final practices = <Map<String, dynamic>>[
-    {
-      'title': 'Mark static subtrees const',
-      'desc':
-          'Any widget subtree that doesn\'t depend on state should be const',
-      'icon': Icons.check_circle,
-      'color': _ctGreen,
-    },
-    {
-      'title': 'Use const constructors',
-      'desc':
-          'Add const constructors to your custom widget classes when possible',
-      'icon': Icons.construction,
-      'color': _ctPrimary,
-    },
-    {
-      'title': 'Pre-defined constants',
-      'desc': 'Prefer EdgeInsets.zero over EdgeInsets.all(0.0)',
-      'icon': Icons.bookmark,
-      'color': _ctBlue,
-    },
-    {
-      'title': 'Extract const widgets',
-      'desc': 'Move const subtrees into named const variables for reuse',
-      'icon': Icons.move_up,
-      'color': _ctPurple,
-    },
-    {
-      'title': 'Lint rules',
-      'desc':
-          'Enable prefer_const_constructors and prefer_const_literals_to_create_immutables',
-      'icon': Icons.rule,
-      'color': _ctOrange,
-    },
+    {'title': 'Mark static subtrees const', 'desc': 'Any widget subtree that doesn\'t depend on state should be const', 'icon': Icons.check_circle, 'color': _ctGreen},
+    {'title': 'Use const constructors', 'desc': 'Add const constructors to your custom widget classes when possible', 'icon': Icons.construction, 'color': _ctPrimary},
+    {'title': 'Pre-defined constants', 'desc': 'Prefer EdgeInsets.zero over EdgeInsets.all(0.0)', 'icon': Icons.bookmark, 'color': _ctBlue},
+    {'title': 'Extract const widgets', 'desc': 'Move const subtrees into named const variables for reuse', 'icon': Icons.move_up, 'color': _ctPurple},
+    {'title': 'Lint rules', 'desc': 'Enable prefer_const_constructors and prefer_const_literals_to_create_immutables', 'icon': Icons.rule, 'color': _ctOrange},
   ];
 
   return Column(
@@ -1324,55 +970,38 @@ Widget _ctSection9BestPractices() {
             'like Text, Icon, and SizedBox which appear many times.',
         Icons.lightbulb,
       ),
-      ...practices.map(
-        (p) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: p['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      p['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _ctTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      p['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _ctTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...practices.map((p) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(p['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _ctTextDark)),
+                  SizedBox(height: 2),
+                  Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _ctTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _ctPrimary.withValues(alpha: 0.08),
-              _ctAccent.withValues(alpha: 0.08),
-            ],
+            colors: [_ctPrimary.withValues(alpha: 0.08), _ctAccent.withValues(alpha: 0.08)],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _ctPrimary.withValues(alpha: 0.2)),
@@ -1383,11 +1012,7 @@ Widget _ctSection9BestPractices() {
             SizedBox(height: 8),
             Text(
               'const in Flutter Rendering',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: _ctTextDark,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _ctTextDark),
             ),
             SizedBox(height: 4),
             Text(
@@ -1448,10 +1073,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Compile-time constants — the key to efficient widget rebuilds',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _ctOnPrimary.withValues(alpha: 0.85),
-                ),
+                style: TextStyle(fontSize: 12, color: _ctOnPrimary.withValues(alpha: 0.85)),
               ),
             ],
           ),

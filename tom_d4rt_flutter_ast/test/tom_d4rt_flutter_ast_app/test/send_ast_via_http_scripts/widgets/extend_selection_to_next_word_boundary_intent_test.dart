@@ -28,7 +28,9 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.only(top: 24, bottom: 12),
       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [wbPine, wbForest]),
+        gradient: const LinearGradient(
+          colors: [wbPine, wbForest],
+        ),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -89,7 +91,11 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 14, color: wbBlack, height: 1.55),
+        style: const TextStyle(
+          fontSize: 14,
+          color: wbBlack,
+          height: 1.55,
+        ),
       ),
     );
   }
@@ -181,7 +187,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 14, color: wbBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 14,
+                color: wbBlack,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -219,7 +229,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 14, color: wbBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 14,
+                color: wbBlack,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -254,7 +268,11 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             Text(
               body,
-              style: const TextStyle(fontSize: 13, color: wbBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 13,
+                color: wbBlack,
+                height: 1.5,
+              ),
             ),
           ],
         ),
@@ -402,7 +420,11 @@ dynamic build(BuildContext context) {
                 'spans complete words. This is the most frequently '
                 'used mid-granularity selection intent — finer than '
                 'line-level, coarser than character-level.',
-                style: TextStyle(fontSize: 14, color: wbDew, height: 1.6),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: wbDew,
+                  height: 1.6,
+                ),
               ),
             ],
           ),
@@ -460,36 +482,32 @@ dynamic build(BuildContext context) {
 
         wbSubHeader('Common Word Boundary Rules'),
 
-        wbRow(
-          'Whitespace \u2192 letter',
+        wbRow('Whitespace \u2192 letter',
           'Boundary between space and next word start: '
-              '"hello |world"',
+          '"hello |world"',
         ),
-        wbRow(
-          'Letter \u2192 whitespace',
+        wbRow('Letter \u2192 whitespace',
           'Boundary between word end and space: '
-              '"hello| world"',
+          '"hello| world"',
         ),
-        wbRow(
-          'Letter \u2192 punctuation',
+        wbRow('Letter \u2192 punctuation',
           'Boundary at punctuation: "hello|, world" '
-              '(platform-dependent)',
+          '(platform-dependent)',
         ),
-        wbRow(
-          'Punctuation \u2192 letter',
+        wbRow('Punctuation \u2192 letter',
           'Boundary after punctuation: "hello, |world"',
         ),
-        wbRow(
-          'CamelCase',
+        wbRow('CamelCase',
           'Some platforms break at case changes: '
-              '"camel|Case" (IDE-specific, not default)',
+          '"camel|Case" (IDE-specific, not default)',
         ),
-        wbRow(
-          'Underscore',
+        wbRow('Underscore',
           'Usually treated as part of a word in code: '
-              '"my_variable" = one word',
+          '"my_variable" = one word',
         ),
-        wbRow('Hyphen', 'Usually a boundary: "well|-known" = two words'),
+        wbRow('Hyphen',
+          'Usually a boundary: "well|-known" = two words',
+        ),
 
         wbSubHeader('Platform-Specific Differences'),
 
@@ -528,28 +546,28 @@ dynamic build(BuildContext context) {
         wbDiagram(
           'Initial — cursor at offset 4:',
           '"The |quick brown fox jumps over the lazy dog."\n'
-              '      ^ cursor (offset 4)',
+          '      ^ cursor (offset 4)',
         ),
 
         wbDiagram(
           'After 1st Extend forward (Shift+Ctrl+Right):',
           '"The [quick] brown fox jumps over the lazy dog."\n'
-              '      ^base ^extent\n'
-              '  base=4, extent=9  (selected "quick")',
+          '      ^base ^extent\n'
+          '  base=4, extent=9  (selected "quick")',
         ),
 
         wbDiagram(
           'After 2nd Extend forward:',
           '"The [quick brown] fox jumps over the lazy dog."\n'
-              '      ^base      ^extent\n'
-              '  base=4, extent=15  (selected "quick brown")',
+          '      ^base      ^extent\n'
+          '  base=4, extent=15  (selected "quick brown")',
         ),
 
         wbDiagram(
           'After 3rd Extend forward:',
           '"The [quick brown fox] jumps over the lazy dog."\n'
-              '      ^base          ^extent\n'
-              '  base=4, extent=19  (selected "quick brown fox")',
+          '      ^base          ^extent\n'
+          '  base=4, extent=19  (selected "quick brown fox")',
         ),
 
         wbCard(
@@ -584,28 +602,28 @@ dynamic build(BuildContext context) {
         wbDiagram(
           'Initial — cursor at offset 30:',
           '"The quick brown fox jumps over| the lazy dog."\n'
-              '                               ^ cursor (offset 30)',
+          '                               ^ cursor (offset 30)',
         ),
 
         wbDiagram(
           'After 1st Extend backward (Shift+Ctrl+Left):',
           '"The quick brown fox jumps [over] the lazy dog."\n'
-              '                           ^extent ^base\n'
-              '  base=30, extent=25  (selected "over")',
+          '                           ^extent ^base\n'
+          '  base=30, extent=25  (selected "over")',
         ),
 
         wbDiagram(
           'After 2nd Extend backward:',
           '"The quick brown fox [jumps over] the lazy dog."\n'
-              '                     ^extent     ^base\n'
-              '  base=30, extent=19  (selected "jumps over")',
+          '                     ^extent     ^base\n'
+          '  base=30, extent=19  (selected "jumps over")',
         ),
 
         wbDiagram(
           'After 3rd Extend backward:',
           '"The quick brown [fox jumps over] the lazy dog."\n'
-              '                 ^extent         ^base\n'
-              '  base=30, extent=15  (selected "fox jumps over")',
+          '                 ^extent         ^base\n'
+          '  base=30, extent=15  (selected "fox jumps over")',
         ),
 
         wbCard(
@@ -650,24 +668,24 @@ dynamic build(BuildContext context) {
         wbDiagram(
           'Existing selection — "quick brown fox" selected:',
           '"The [quick brown fox] jumps over..."\n'
-              '      ^base          ^extent\n'
-              '  base=4, extent=19',
+          '      ^base          ^extent\n'
+          '  base=4, extent=19',
         ),
 
         wbDiagram(
           'After Extend backward (extent moves left):',
           '"The [quick brown] fox jumps over..."\n'
-              '      ^base      ^extent\n'
-              '  base=4, extent=15\n'
-              '  Selection SHRANK — "fox" was deselected.',
+          '      ^base      ^extent\n'
+          '  base=4, extent=15\n'
+          '  Selection SHRANK — "fox" was deselected.',
         ),
 
         wbDiagram(
           'After another Extend backward:',
           '"The [quick] brown fox jumps over..."\n'
-              '      ^base ^extent\n'
-              '  base=4, extent=9\n'
-              '  Shrank again — only "quick" selected.',
+          '      ^base ^extent\n'
+          '  base=4, extent=9\n'
+          '  Shrank again — only "quick" selected.',
         ),
 
         wbCard(
@@ -683,21 +701,15 @@ dynamic build(BuildContext context) {
         // =====================================================================
         wbHeader('6. Keyboard Shortcuts'),
 
-        wbRow(
-          'Windows / Linux',
-          'Shift+Ctrl+Right = forward: true\n'
-              'Shift+Ctrl+Left = forward: false',
+        wbRow('Windows / Linux', 'Shift+Ctrl+Right = forward: true\n'
+          'Shift+Ctrl+Left = forward: false',
         ),
-        wbRow(
-          'macOS',
-          'Shift+Option+Right = forward: true\n'
-              'Shift+Option+Left = forward: false',
+        wbRow('macOS', 'Shift+Option+Right = forward: true\n'
+          'Shift+Option+Left = forward: false',
         ),
         wbRow('Web', 'Follows host OS conventions'),
-        wbRow(
-          'iOS',
-          'No direct keyboard shortcut; gesture-based '
-              'word selection via double-tap-drag.',
+        wbRow('iOS', 'No direct keyboard shortcut; gesture-based '
+          'word selection via double-tap-drag.',
         ),
         wbRow('Android', 'Shift+Ctrl+Arrow on external keyboard'),
 
@@ -715,39 +727,32 @@ dynamic build(BuildContext context) {
         // =====================================================================
         wbHeader('7. Dispatch Pipeline'),
 
-        wbStep(
-          1,
+        wbStep(1,
           'Key event: Shift+Ctrl+Right detected by the keyboard '
           'listener within the FocusScope hierarchy.',
         ),
-        wbStep(
-          2,
+        wbStep(2,
           'Shortcuts widget maps the key combo to '
           'ExtendSelectionToNextWordBoundaryIntent(forward: true).',
         ),
-        wbStep(
-          3,
+        wbStep(3,
           'Actions widget walks up to find the registered action. '
           'EditableText provides the word-boundary action.',
         ),
-        wbStep(
-          4,
+        wbStep(4,
           'The action reads the current TextSelection and queries '
           'the TextPainter for the next word boundary offset.',
         ),
-        wbStep(
-          5,
+        wbStep(5,
           'TextPainter.getWordBoundary(TextPosition) returns a '
           'TextRange identifying the word at the current position. '
           'The action uses the appropriate end of this range.',
         ),
-        wbStep(
-          6,
+        wbStep(6,
           'A new TextSelection is created with the same base and '
           'the new extent at the word boundary.',
         ),
-        wbStep(
-          7,
+        wbStep(7,
           'TextEditingValue is updated, selection highlight repaints, '
           'and the viewport scrolls to keep the extent visible.',
         ),
@@ -849,14 +854,14 @@ dynamic build(BuildContext context) {
         wbDiagram(
           'Before — two words selected:',
           '"The [quick brown] fox jumps"\n'
-              '      ^base      ^extent\n'
-              '  base=4, extent=15',
+          '      ^base      ^extent\n'
+          '  base=4, extent=15',
         ),
         wbDiagram(
           'After Extend forward:',
           '"The [quick brown fox] jumps"\n'
-              '      ^base          ^extent\n'
-              '  base=4, extent=19  (grew by one word)',
+          '      ^base          ^extent\n'
+          '  base=4, extent=19  (grew by one word)',
         ),
 
         wbSubHeader('Scenario B — Backward with Forward Selection'),
@@ -864,13 +869,13 @@ dynamic build(BuildContext context) {
         wbDiagram(
           'Before:',
           '"The [quick brown] fox jumps"\n'
-              '      ^base      ^extent',
+          '      ^base      ^extent',
         ),
         wbDiagram(
           'After Extend backward:',
           '"The [quick] brown fox jumps"\n'
-              '      ^base ^extent\n'
-              '  Selection shrank — "brown" deselected.',
+          '      ^base ^extent\n'
+          '  Selection shrank — "brown" deselected.',
         ),
 
         wbSubHeader('Scenario C — Extent Crosses Base'),
@@ -878,14 +883,14 @@ dynamic build(BuildContext context) {
         wbDiagram(
           'Before — one word selected:',
           '"The [quick] brown fox jumps"\n'
-              '      ^base ^extent\n'
-              '  base=4, extent=9',
+          '      ^base ^extent\n'
+          '  base=4, extent=9',
         ),
         wbDiagram(
           'After two Extend backward invocations:',
           '"[The ]quick brown fox jumps"\n'
-              ' ^extent ^base\n'
-              '  base=4, extent=0  (extent crossed base!)',
+          ' ^extent ^base\n'
+          '  base=4, extent=0  (extent crossed base!)',
         ),
 
         wbCard(
@@ -901,26 +906,23 @@ dynamic build(BuildContext context) {
         // =====================================================================
         wbHeader('10. Selection Intent Family — Word Position'),
 
-        wbRow(
-          'Character',
+        wbRow('Character',
           'ExtendSelectionByCharacterIntent — finest granularity',
         ),
-        wbRow(
-          'Word',
+        wbRow('Word',
           'ExtendSelectionToNextWordBoundaryIntent \u2190 this demo',
         ),
-        wbRow(
-          'Word or Caret',
+        wbRow('Word or Caret',
           'ExtendSelectionToNextWordBoundaryOrCaretLocationIntent — '
-              'composite with caret awareness',
+          'composite with caret awareness',
         ),
-        wbRow('Line', 'ExtendSelectionToLineBreakIntent — line-level'),
-        wbRow(
-          'Paragraph',
+        wbRow('Line',
+          'ExtendSelectionToLineBreakIntent — line-level',
+        ),
+        wbRow('Paragraph',
           'ExtendSelectionToNextParagraphBoundaryIntent — para-level',
         ),
-        wbRow(
-          'Document',
+        wbRow('Document',
           'ExtendSelectionToDocumentBoundaryIntent — doc-level',
         ),
 
@@ -1176,7 +1178,10 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [wbForest.withValues(alpha: 0.12), wbDew],
+              colors: [
+                wbForest.withValues(alpha: 0.12),
+                wbDew,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

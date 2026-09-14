@@ -198,7 +198,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               'a=${a.toStringAsFixed(2)}  b=${b.toStringAsFixed(2)}',
-              style: TextStyle(fontSize: 10.0, color: Colors.blueGrey.shade800),
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Colors.blueGrey.shade800,
+              ),
             ),
           ],
         ),
@@ -306,10 +309,8 @@ dynamic build(BuildContext context) {
   final parentB = AlwaysStoppedAnimation<double>(0.80);
 
   final proxyEmpty = ProxyAnimation();
-  print(
-    'ProxyAnimation() empty: value=${proxyEmpty.value}, '
-    'status=${proxyEmpty.status}',
-  );
+  print('ProxyAnimation() empty: value=${proxyEmpty.value}, '
+      'status=${proxyEmpty.status}');
 
   final proxyToA = ProxyAnimation(parentA);
   print('ProxyAnimation -> parentA(0.25): value=${proxyToA.value}');
@@ -366,7 +367,10 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: color.withValues(alpha: 0.4), width: 1.5),
+          border: Border.all(
+            color: color.withValues(alpha: 0.4),
+            width: 1.5,
+          ),
         ),
         child: Column(
           children: [
@@ -406,7 +410,10 @@ dynamic build(BuildContext context) {
               ],
             ),
             SizedBox(height: 10.0),
-            _horizontalValueBar(s['value'] as double, color),
+            _horizontalValueBar(
+              s['value'] as double,
+              color,
+            ),
             SizedBox(height: 6.0),
             Text(
               'value = ${(s['value'] as double).toStringAsFixed(3)}',
@@ -420,7 +427,10 @@ dynamic build(BuildContext context) {
             Text(
               s['note'] as String,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Colors.grey.shade700,
+              ),
             ),
           ],
         ),
@@ -461,15 +471,12 @@ dynamic build(BuildContext context) {
     final firstVal = s['first'] as double;
     final nextVal = s['next'] as double?;
     final trainFirst = AlwaysStoppedAnimation<double>(firstVal);
-    final trainNext = nextVal == null
-        ? null
-        : AlwaysStoppedAnimation<double>(nextVal);
+    final trainNext =
+        nextVal == null ? null : AlwaysStoppedAnimation<double>(nextVal);
     final hop = TrainHoppingAnimation(trainFirst, trainNext);
     final result = hop.value;
-    print(
-      'TrainHoppingAnimation(first=$firstVal, next=$nextVal) = '
-      '${result.toStringAsFixed(3)}',
-    );
+    print('TrainHoppingAnimation(first=$firstVal, next=$nextVal) = '
+        '${result.toStringAsFixed(3)}');
 
     trainWidgets.add(
       Container(
@@ -502,7 +509,12 @@ dynamic build(BuildContext context) {
               ],
             ),
             SizedBox(height: 10.0),
-            _trackRow('first', firstVal, Colors.deepPurple, icon: Icons.train),
+            _trackRow(
+              'first',
+              firstVal,
+              Colors.deepPurple,
+              icon: Icons.train,
+            ),
             SizedBox(height: 6.0),
             _trackRow(
               'next',
@@ -546,7 +558,11 @@ dynamic build(BuildContext context) {
       color: Colors.grey.shade900,
       borderRadius: BorderRadius.circular(12.0),
       boxShadow: [
-        BoxShadow(color: Colors.black26, blurRadius: 8.0, offset: Offset(0, 4)),
+        BoxShadow(
+          color: Colors.black26,
+          blurRadius: 8.0,
+          offset: Offset(0, 4),
+        ),
       ],
     ),
     child: Column(
@@ -569,8 +585,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 14.0),
         _codeBlock(
           title: 'Define a custom CompoundAnimation',
-          code:
-              '// Subclass CompoundAnimation<double> and combine\n'
+          code: '// Subclass CompoundAnimation<double> and combine\n'
               '// the two parent animations however you like.\n'
               'class WeightedBlend extends CompoundAnimation<double> {\n'
               '  WeightedBlend(this.weight, Animation<double> a,\n'
@@ -586,8 +601,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         _codeBlock(
           title: 'AnimationMin / AnimationMax',
-          code:
-              '// Built-in subclasses provided by Flutter.\n'
+          code: '// Built-in subclasses provided by Flutter.\n'
               'final a = AlwaysStoppedAnimation<double>(0.30);\n'
               'final b = AlwaysStoppedAnimation<double>(0.70);\n'
               '\n'
@@ -598,8 +612,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         _codeBlock(
           title: 'AnimationMean — public CompoundAnimation',
-          code:
-              '// AnimationMean exposes named left/right parameters.\n'
+          code: '// AnimationMean exposes named left/right parameters.\n'
               'final blend = AnimationMean(\n'
               '  left:  AlwaysStoppedAnimation<double>(0.20),\n'
               '  right: AlwaysStoppedAnimation<double>(0.80),\n'
@@ -610,8 +623,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         _codeBlock(
           title: 'ProxyAnimation — redirectable parent',
-          code:
-              '// ProxyAnimation lets you swap the parent at runtime.\n'
+          code: '// ProxyAnimation lets you swap the parent at runtime.\n'
               'final proxy = ProxyAnimation(parentA);\n'
               'print(proxy.value);  // mirrors parentA\n'
               'proxy.parent = parentB;\n'
@@ -621,8 +633,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         _codeBlock(
           title: 'TrainHoppingAnimation — hop on overtake',
-          code:
-              '// Tracks `first` until `next` overtakes; then hops.\n'
+          code: '// Tracks `first` until `next` overtakes; then hops.\n'
               'final hop = TrainHoppingAnimation(\n'
               '  AlwaysStoppedAnimation<double>(0.30),\n'
               '  AlwaysStoppedAnimation<double>(0.60),\n'
@@ -828,7 +839,9 @@ Widget _sectionTitle(String text) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
     decoration: BoxDecoration(
-      border: Border(left: BorderSide(color: Colors.indigo, width: 5.0)),
+      border: Border(
+        left: BorderSide(color: Colors.indigo, width: 5.0),
+      ),
     ),
     child: Text(
       text,
@@ -911,7 +924,10 @@ Widget _verticalBar(String label, double value, Color color) {
             height: 70.0 * value,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [color.withValues(alpha: 0.6), color],
+                colors: [
+                  color.withValues(alpha: 0.6),
+                  color,
+                ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -949,7 +965,10 @@ Widget _compoundResultCard({
     decoration: BoxDecoration(
       color: accent.withValues(alpha: 0.05),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: accent.withValues(alpha: 0.4), width: 1.5),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.4),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),

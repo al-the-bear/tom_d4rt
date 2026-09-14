@@ -351,11 +351,7 @@ dynamic build(BuildContext context) {
     {'uri': '/', 'type': 'initial', 'source': 'App start'},
     {'uri': '/home', 'type': 'navigate', 'source': 'User tap'},
     {'uri': '/products', 'type': 'navigate', 'source': 'User tap'},
-    {
-      'uri': '/products?sort=price',
-      'type': 'neglect',
-      'source': 'Filter change',
-    },
+    {'uri': '/products?sort=price', 'type': 'neglect', 'source': 'Filter change'},
     {'uri': '/products/42', 'type': 'navigate', 'source': 'User tap'},
     {'uri': '/products/42#reviews', 'type': 'neglect', 'source': 'Tab switch'},
     {'uri': '/checkout', 'type': 'navigate', 'source': 'User tap'},
@@ -505,8 +501,7 @@ dynamic build(BuildContext context) {
           ...routeHistory.asMap().entries.map((entry) {
             final idx = entry.key;
             final route = entry.value;
-            final isNavigate =
-                route['type'] == 'navigate' || route['type'] == 'initial';
+            final isNavigate = route['type'] == 'navigate' || route['type'] == 'initial';
             final typeColor = isNavigate ? purple700 : Color(0xFFE65100);
             return Container(
               width: double.infinity,
@@ -539,7 +534,11 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         if (idx < routeHistory.length - 1)
-                          Container(width: 2, height: 20, color: purple100),
+                          Container(
+                            width: 2,
+                            height: 20,
+                            color: purple100,
+                          ),
                       ],
                     ),
                   ),
@@ -705,7 +704,10 @@ dynamic build(BuildContext context) {
                         ),
                         Text(
                           'Browser: ${item["browser"]}',
-                          style: TextStyle(color: purple400, fontSize: 11),
+                          style: TextStyle(
+                            color: purple400,
+                            fontSize: 11,
+                          ),
                         ),
                       ],
                     ),
@@ -739,36 +741,12 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 ...[
-                  {
-                    'platform': 'Web',
-                    'icon': Icons.language,
-                    'detail': 'Full URL + history sync',
-                  },
-                  {
-                    'platform': 'Android',
-                    'icon': Icons.phone_android,
-                    'detail': 'Deep links + back button',
-                  },
-                  {
-                    'platform': 'iOS',
-                    'icon': Icons.phone_iphone,
-                    'detail': 'Universal Links + deep links',
-                  },
-                  {
-                    'platform': 'macOS',
-                    'icon': Icons.laptop_mac,
-                    'detail': 'Limited — no visible URL',
-                  },
-                  {
-                    'platform': 'Windows',
-                    'icon': Icons.desktop_windows,
-                    'detail': 'Limited — no visible URL',
-                  },
-                  {
-                    'platform': 'Linux',
-                    'icon': Icons.computer,
-                    'detail': 'Limited — no visible URL',
-                  },
+                  {'platform': 'Web', 'icon': Icons.language, 'detail': 'Full URL + history sync'},
+                  {'platform': 'Android', 'icon': Icons.phone_android, 'detail': 'Deep links + back button'},
+                  {'platform': 'iOS', 'icon': Icons.phone_iphone, 'detail': 'Universal Links + deep links'},
+                  {'platform': 'macOS', 'icon': Icons.laptop_mac, 'detail': 'Limited — no visible URL'},
+                  {'platform': 'Windows', 'icon': Icons.desktop_windows, 'detail': 'Limited — no visible URL'},
+                  {'platform': 'Linux', 'icon': Icons.computer, 'detail': 'Limited — no visible URL'},
                 ].map((p) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 4),
@@ -790,7 +768,10 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: Text(
                             p['detail'] as String,
-                            style: TextStyle(color: purple800, fontSize: 12),
+                            style: TextStyle(
+                              color: purple800,
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                       ],
@@ -835,36 +816,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  Purple 900 ${purple900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  Purple 800 ${purple800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
-  print(
-    '  │  Purple 700 ${purple700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  Purple 500 ${purple500.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  Purple 400 ${purple400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Purple 200 ${purple200.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  Purple 100 ${purple100.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  Pink 100   ${pink100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  Purple 50  ${purple50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  Pink 50    ${pink50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
+  print('  │  Purple 900 ${purple900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  Purple 800 ${purple800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print('  │  Purple 700 ${purple700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  Purple 500 ${purple500.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  Purple 400 ${purple400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Purple 200 ${purple200.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  Purple 100 ${purple100.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  Pink 100   ${pink100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  Purple 50  ${purple50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  Pink 50    ${pink50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

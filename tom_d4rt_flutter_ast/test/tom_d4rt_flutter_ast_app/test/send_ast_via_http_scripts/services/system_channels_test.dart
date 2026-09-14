@@ -344,12 +344,7 @@ dynamic build(BuildContext context) {
                   subtitle: 'fire-and-forget messages',
                   accent: kPaletteOrange,
                   icon: Icons.forum,
-                  members: const [
-                    'lifecycle',
-                    'system',
-                    'accessibility',
-                    'keyEvent',
-                  ],
+                  members: const ['lifecycle', 'system', 'accessibility', 'keyEvent'],
                 ),
               ),
               const SizedBox(width: 10),
@@ -450,8 +445,7 @@ dynamic build(BuildContext context) {
               description:
                   'Receives system-level events. The most common payload is '
                   '{ "type": "memoryPressure" } when the OS is under stress.',
-              purpose:
-                  'WidgetsBindingObserver.didHaveMemoryPressure listens here.',
+              purpose: 'WidgetsBindingObserver.didHaveMemoryPressure listens here.',
             ),
           ),
           const SizedBox(height: 12),
@@ -467,8 +461,7 @@ dynamic build(BuildContext context) {
               description:
                   'Pushes screen-reader announcements and tooltip events from '
                   'Dart to the platform accessibility services.',
-              purpose:
-                  'Used by SemanticsService.announce and tooltip handling.',
+              purpose: 'Used by SemanticsService.announce and tooltip handling.',
             ),
           ),
           const SizedBox(height: 12),
@@ -996,7 +989,11 @@ dynamic build(BuildContext context) {
           // ---------------------------------------------------------------
           // SECTION 10 — Caveats and platform availability
           // ---------------------------------------------------------------
-          _sectionTitle(ordinal: '09', title: 'Caveats', accent: kPaletteAmber),
+          _sectionTitle(
+            ordinal: '09',
+            title: 'Caveats',
+            accent: kPaletteAmber,
+          ),
           _caveatsPanel(),
           const SizedBox(height: 28),
 
@@ -1017,7 +1014,9 @@ dynamic build(BuildContext context) {
                 colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)],
               ),
               borderRadius: const BorderRadius.all(Radius.circular(14)),
-              border: Border.all(color: kPaletteIndigo.withValues(alpha: 0.3)),
+              border: Border.all(
+                color: kPaletteIndigo.withValues(alpha: 0.3),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1216,9 +1215,17 @@ Widget _flowDiagram() {
       children: [
         _flowNode(label: 'Dart side', icon: Icons.code, color: kPaletteIndigo),
         _flowArrow(),
-        _flowNode(label: 'Channel', icon: Icons.cable, color: kPaletteTeal),
+        _flowNode(
+          label: 'Channel',
+          icon: Icons.cable,
+          color: kPaletteTeal,
+        ),
         _flowArrow(),
-        _flowNode(label: 'Engine', icon: Icons.memory, color: kPaletteAmber),
+        _flowNode(
+          label: 'Engine',
+          icon: Icons.memory,
+          color: kPaletteAmber,
+        ),
         _flowArrow(),
         _flowNode(
           label: 'Host\nPlatform',
@@ -1440,7 +1447,10 @@ Widget _channelCard({required _ChannelInfo info}) {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: info.accent,
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -1581,7 +1591,9 @@ Widget _platformMethodRow({
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.05),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
-        border: Border(left: BorderSide(color: color, width: 4)),
+        border: Border(
+          left: BorderSide(color: color, width: 4),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1601,7 +1613,10 @@ Widget _platformMethodRow({
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.15),
                   borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -1706,7 +1721,10 @@ Widget _codecTable({required List<_CodecRow> rows}) {
         ),
         for (final r in rows)
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 14,
+            ),
             decoration: BoxDecoration(
               color: r.accent.withValues(alpha: 0.04),
               border: const Border(
@@ -2046,7 +2064,11 @@ Widget _caveatsPanel() {
           child: const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.warning_amber, color: kPaletteOrange, size: 18),
+              Icon(
+                Icons.warning_amber,
+                color: kPaletteOrange,
+                size: 18,
+              ),
               SizedBox(width: 8),
               Expanded(
                 child: Text(

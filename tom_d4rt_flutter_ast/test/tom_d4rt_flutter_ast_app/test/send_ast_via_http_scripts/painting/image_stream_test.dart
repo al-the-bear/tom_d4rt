@@ -195,7 +195,11 @@ dynamic build(BuildContext context) {
             'ImageStream is the public face. ImageStreamCompleter is the engine '
             'behind the curtain. Multiple listeners can attach to one stream and '
             'all will receive the same ImageInfo when the image is ready.',
-            style: TextStyle(fontSize: 12.0, color: blueDeep, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: blueDeep,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -254,11 +258,7 @@ dynamic build(BuildContext context) {
               amberAccent,
             ),
             _statChip('hashCode', '${stream.hashCode}', emeraldAccent),
-            _statChip(
-              'key.runtimeType',
-              '${stream.key.runtimeType}',
-              pinkAccent,
-            ),
+            _statChip('key.runtimeType', '${stream.key.runtimeType}', pinkAccent),
             _statChip('listeners', 'empty', violetMid),
           ],
         ),
@@ -352,7 +352,10 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        for (final card in listenerFields) ...[card, SizedBox(height: 10.0)],
+        for (final card in listenerFields) ...[
+          card,
+          SizedBox(height: 10.0),
+        ],
       ],
     ),
   );
@@ -409,7 +412,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [c.withValues(alpha: 0.12), c.withValues(alpha: 0.28)],
+            colors: [
+              c.withValues(alpha: 0.12),
+              c.withValues(alpha: 0.28),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -936,32 +942,28 @@ dynamic build(BuildContext context) {
   final footguns = [
     {
       'title': 'Forgetting removeListener in dispose',
-      'desc':
-          'The completer keeps a strong reference to your listener, which '
+      'desc': 'The completer keeps a strong reference to your listener, which '
           'may capture State. Result: leaked widget tree until the cache evicts.',
       'icon': Icons.memory,
       'color': pinkAccent,
     },
     {
       'title': 'Setting completer twice',
-      'desc':
-          'ImageStream.setCompleter is meant to be called once. Calling it '
+      'desc': 'ImageStream.setCompleter is meant to be called once. Calling it '
           'again throws — the stream has already wired up its buffered listeners.',
       'icon': Icons.link_off,
       'color': amberAccent,
     },
     {
       'title': 'Long-lived providers leak streams',
-      'desc':
-          'Holding a custom ImageProvider as a static can pin streams in '
+      'desc': 'Holding a custom ImageProvider as a static can pin streams in '
           'imageCache forever. Prefer letting Flutter manage cache lifetime.',
       'icon': Icons.warning_amber_rounded,
       'color': Colors.orange.shade700,
     },
     {
       'title': 'Misreading synchronousCall',
-      'desc':
-          'When the image was already in cache, onImage fires before '
+      'desc': 'When the image was already in cache, onImage fires before '
           'addListener returns. If you setState there, you may setState during '
           'build — guard the call.',
       'icon': Icons.flash_on,
@@ -969,16 +971,14 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Different listener instance',
-      'desc':
-          'ImageStreamListener uses == on its callbacks. Anonymous closures '
+      'desc': 'ImageStreamListener uses == on its callbacks. Anonymous closures '
           'are not equal across rebuilds — store the listener on State.',
       'icon': Icons.compare_arrows,
       'color': cyanAccent,
     },
     {
       'title': 'Null expectedTotalBytes',
-      'desc':
-          'Servers without Content-Length send chunks with null total. '
+      'desc': 'Servers without Content-Length send chunks with null total. '
           'Render an indeterminate spinner instead of a 0% bar.',
       'icon': Icons.help_outline,
       'color': indigoMid,
@@ -994,7 +994,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [c.withValues(alpha: 0.08), c.withValues(alpha: 0.18)],
+            colors: [
+              c.withValues(alpha: 0.08),
+              c.withValues(alpha: 0.18),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1147,7 +1150,11 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 bullet,
-                style: TextStyle(fontSize: 12.5, color: blueDeep, height: 1.4),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: blueDeep,
+                  height: 1.4,
+                ),
               ),
             ),
           ],
@@ -1301,13 +1308,21 @@ Widget _pill(String text, Color color) {
   );
 }
 
-Widget _pipeNode(String title, String subtitle, IconData icon, Color color) {
+Widget _pipeNode(
+  String title,
+  String subtitle,
+  IconData icon,
+  Color color,
+) {
   return Container(
     width: 110.0,
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.3)],
+        colors: [
+          color.withValues(alpha: 0.15),
+          color.withValues(alpha: 0.3),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1373,7 +1388,10 @@ Widget _statChip(String label, String value, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.8), color.withValues(alpha: 0.95)],
+        colors: [
+          color.withValues(alpha: 0.8),
+          color.withValues(alpha: 0.95),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1589,7 +1607,10 @@ Widget _flowStep(
           alignment: Alignment.center,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [color.withValues(alpha: 0.7), color],
+              colors: [
+                color.withValues(alpha: 0.7),
+                color,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1662,12 +1683,17 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.05)],
+        colors: [
+          color.withValues(alpha: 0.15),
+          color.withValues(alpha: 0.05),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
     ),
     child: Row(
       children: [

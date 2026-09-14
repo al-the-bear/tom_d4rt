@@ -32,24 +32,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -66,7 +57,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 13, color: darkEmber)),
+      child: Text(text,
+          style: TextStyle(fontSize: 13, color: darkEmber)),
     );
   }
 
@@ -78,20 +70,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 13, color: darkEmber),
-            ),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: darkEmber)),
           ),
         ],
       ),
@@ -111,14 +98,8 @@ dynamic build(BuildContext context) {
   }
 
   // Helper to simulate a phone screen shape
-  Widget phoneMockup(
-    String label,
-    double w,
-    double h,
-    Orientation orient,
-    Color border,
-    Color headerBg,
-  ) {
+  Widget phoneMockup(String label, double w, double h, Orientation orient,
+      Color border, Color headerBg) {
     final isPortrait = orient == Orientation.portrait;
     return Container(
       width: w + 12,
@@ -129,10 +110,9 @@ dynamic build(BuildContext context) {
         border: Border.all(color: border, width: 2),
         boxShadow: [
           BoxShadow(
-            color: border.withValues(alpha: 0.15),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
+              color: border.withValues(alpha: 0.15),
+              blurRadius: 8,
+              offset: const Offset(0, 2)),
         ],
       ),
       child: Column(
@@ -143,19 +123,15 @@ dynamic build(BuildContext context) {
             height: 14,
             decoration: BoxDecoration(
               color: headerBg,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(8),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(8)),
             ),
             child: Center(
-              child: Text(
-                label,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 8,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(label,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 8,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           // Screen area
@@ -167,29 +143,21 @@ dynamic build(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  isPortrait
-                      ? Icons.stay_primary_portrait
-                      : Icons.stay_primary_landscape,
+                  isPortrait ? Icons.stay_primary_portrait : Icons.stay_primary_landscape,
                   size: isPortrait ? 28 : 22,
                   color: border,
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  '${w.toInt()} \u00d7 ${h.toInt()}',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: border,
-                  ),
-                ),
-                Text(
-                  isPortrait ? 'PORTRAIT' : 'LANDSCAPE',
-                  style: TextStyle(
-                    fontSize: 8,
-                    fontWeight: FontWeight.bold,
-                    color: border.withValues(alpha: 0.7),
-                  ),
-                ),
+                Text('${w.toInt()} \u00d7 ${h.toInt()}',
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: border)),
+                Text(isPortrait ? 'PORTRAIT' : 'LANDSCAPE',
+                    style: TextStyle(
+                        fontSize: 8,
+                        fontWeight: FontWeight.bold,
+                        color: border.withValues(alpha: 0.7))),
               ],
             ),
           ),
@@ -257,51 +225,41 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.screen_rotation, size: 28, color: lightTerracotta),
+                  Icon(Icons.screen_rotation, size: 28,
+                      color: lightTerracotta),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      'Orientation',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Orientation',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'A two-value enum that describes whether a surface '
-                'is taller than wide (portrait) or wider than tall '
-                '(landscape). Used by MediaQuery, OrientationBuilder, '
-                'and responsive layout patterns throughout Flutter.',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 13,
-                ),
-              ),
+              Text('A two-value enum that describes whether a surface '
+                  'is taller than wide (portrait) or wider than tall '
+                  '(landscape). Used by MediaQuery, OrientationBuilder, '
+                  'and responsive layout patterns throughout Flutter.',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 13)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  pill('Orientation.portrait', coral, Colors.white),
-                  pill('Orientation.landscape', terracotta, Colors.white),
-                  pill('MediaQuery', lightTerracotta, darkEmber),
-                  pill('OrientationBuilder', paleCoral, darkEmber),
-                ],
-              ),
+              Wrap(children: [
+                pill('Orientation.portrait', coral, Colors.white),
+                pill('Orientation.landscape', terracotta, Colors.white),
+                pill('MediaQuery', lightTerracotta, darkEmber),
+                pill('OrientationBuilder', paleCoral, darkEmber),
+              ]),
             ],
           ),
         ),
 
         // ── 2. The enum definition ───────────────────────────────────
-        sectionHeader(
-          '1 \u00b7 The Orientation Enum',
-          'Two simple values with deep implications',
-          deepCoral,
-          Colors.white,
-        ),
+        sectionHeader('1 \u00b7 The Orientation Enum',
+            'Two simple values with deep implications',
+            deepCoral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -322,31 +280,25 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.stay_primary_portrait, size: 32, color: coral),
+                      Icon(Icons.stay_primary_portrait,
+                          size: 32, color: coral),
                       const SizedBox(height: 6),
-                      Text(
-                        'portrait',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: coral,
-                        ),
-                      ),
+                      Text('portrait',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: coral)),
                       const SizedBox(height: 4),
-                      Text(
-                        'Taller than wide',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 11, color: darkEmber),
-                      ),
+                      Text('Taller than wide',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 11, color: darkEmber)),
                       const SizedBox(height: 2),
-                      Text(
-                        'height > width',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          color: coral,
-                        ),
-                      ),
+                      Text('height > width',
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: coral)),
                     ],
                   ),
                 ),
@@ -363,35 +315,25 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.stay_primary_landscape,
-                        size: 32,
-                        color: terracotta,
-                      ),
+                      Icon(Icons.stay_primary_landscape,
+                          size: 32, color: terracotta),
                       const SizedBox(height: 6),
-                      Text(
-                        'landscape',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: terracotta,
-                        ),
-                      ),
+                      Text('landscape',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: terracotta)),
                       const SizedBox(height: 4),
-                      Text(
-                        'Wider than tall',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 11, color: darkEmber),
-                      ),
+                      Text('Wider than tall',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 11, color: darkEmber)),
                       const SizedBox(height: 2),
-                      Text(
-                        'width > height',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          color: terracotta,
-                        ),
-                      ),
+                      Text('width > height',
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: terracotta)),
                     ],
                   ),
                 ),
@@ -402,12 +344,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. How MediaQuery derives it ─────────────────────────────
-        sectionHeader(
-          '2 \u00b7 How MediaQuery Derives Orientation',
-          'Width versus height comparison',
-          coral,
-          Colors.white,
-        ),
+        sectionHeader('2 \u00b7 How MediaQuery Derives Orientation',
+            'Width versus height comparison',
+            coral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -427,17 +366,15 @@ dynamic build(BuildContext context) {
                   border: Border.all(color: coral.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'Orientation get orientation {\n'
-                  '  return size.width > size.height\n'
-                  '    ? Orientation.landscape\n'
-                  '    : Orientation.portrait;\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'monospace',
-                    color: deepCoral,
-                  ),
-                ),
+                    'Orientation get orientation {\n'
+                    '  return size.width > size.height\n'
+                    '    ? Orientation.landscape\n'
+                    '    : Orientation.portrait;\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: deepCoral)),
               ),
               const SizedBox(height: 10),
               infoBox(
@@ -464,29 +401,19 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Current Device',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: accentTeal,
-                          ),
-                        ),
-                        fieldRow(
-                          'Screen size',
-                          '${mq.size.width.toStringAsFixed(0)} \u00d7 ${mq.size.height.toStringAsFixed(0)}',
-                          accentTeal,
-                        ),
-                        fieldRow(
-                          'Orientation',
-                          mq.orientation.toString(),
-                          accentTeal,
-                        ),
-                        fieldRow(
-                          'Pixel ratio',
-                          mq.devicePixelRatio.toStringAsFixed(1),
-                          accentTeal,
-                        ),
+                        Text('Current Device',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: accentTeal)),
+                        fieldRow('Screen size',
+                            '${mq.size.width.toStringAsFixed(0)} \u00d7 ${mq.size.height.toStringAsFixed(0)}',
+                            accentTeal),
+                        fieldRow('Orientation',
+                            mq.orientation.toString(), accentTeal),
+                        fieldRow('Pixel ratio',
+                            mq.devicePixelRatio.toStringAsFixed(1),
+                            accentTeal),
                       ],
                     ),
                   );
@@ -498,12 +425,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Visual: portrait vs landscape ─────────────────────────
-        sectionHeader(
-          '3 \u00b7 Visual: Portrait vs Landscape',
-          'Side-by-side device mockups',
-          terracotta,
-          Colors.white,
-        ),
+        sectionHeader('3 \u00b7 Visual: Portrait vs Landscape',
+            'Side-by-side device mockups',
+            terracotta, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -515,22 +439,10 @@ dynamic build(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              phoneMockup(
-                'Portrait',
-                70,
-                120,
-                Orientation.portrait,
-                coral,
-                deepCoral,
-              ),
-              phoneMockup(
-                'Landscape',
-                120,
-                70,
-                Orientation.landscape,
-                terracotta,
-                terracotta,
-              ),
+              phoneMockup('Portrait', 70, 120, Orientation.portrait,
+                  coral, deepCoral),
+              phoneMockup('Landscape', 120, 70, Orientation.landscape,
+                  terracotta, terracotta),
             ],
           ),
         ),
@@ -544,12 +456,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. OrientationBuilder ────────────────────────────────────
-        sectionHeader(
-          '4 \u00b7 OrientationBuilder Widget',
-          'Rebuilds its child when orientation changes',
-          deepCoral,
-          Colors.white,
-        ),
+        sectionHeader('4 \u00b7 OrientationBuilder Widget',
+            'Rebuilds its child when orientation changes',
+            deepCoral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -566,23 +475,22 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepCoral.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: deepCoral.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: deepCoral.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'OrientationBuilder(\n'
-                  '  builder: (context, orientation) {\n'
-                  '    if (orientation == Orientation.portrait) {\n'
-                  '      return singleColumnLayout();\n'
-                  '    }\n'
-                  '    return twoColumnLayout();\n'
-                  '  },\n'
-                  ')',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepCoral,
-                  ),
-                ),
+                    'OrientationBuilder(\n'
+                    '  builder: (context, orientation) {\n'
+                    '    if (orientation == Orientation.portrait) {\n'
+                    '      return singleColumnLayout();\n'
+                    '    }\n'
+                    '    return twoColumnLayout();\n'
+                    '  },\n'
+                    ')',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepCoral)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -599,12 +507,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Live demo: constrained OrientationBuilder ─────────────
-        sectionHeader(
-          '5 \u00b7 Live Demo: Constrained Orientation',
-          'Same screen, different orientation per constraint box',
-          coral,
-          Colors.white,
-        ),
+        sectionHeader('5 \u00b7 Live Demo: Constrained Orientation',
+            'Same screen, different orientation per constraint box',
+            coral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -620,9 +525,7 @@ dynamic build(BuildContext context) {
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
-                    maxWidth: 300,
-                    maxHeight: 80,
-                  ),
+                      maxWidth: 300, maxHeight: 80),
                   child: OrientationBuilder(
                     builder: (ctx, orient) {
                       return Container(
@@ -636,20 +539,14 @@ dynamic build(BuildContext context) {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.stay_primary_landscape,
-                              size: 20,
-                              color: terracotta,
-                            ),
+                            Icon(Icons.stay_primary_landscape,
+                                size: 20, color: terracotta),
                             const SizedBox(width: 8),
-                            Text(
-                              '300\u00d780 \u2192 $orient',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: terracotta,
-                              ),
-                            ),
+                            Text('300\u00d780 \u2192 $orient',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: terracotta)),
                           ],
                         ),
                       );
@@ -662,9 +559,7 @@ dynamic build(BuildContext context) {
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
-                    maxWidth: 120,
-                    maxHeight: 100,
-                  ),
+                      maxWidth: 120, maxHeight: 100),
                   child: OrientationBuilder(
                     builder: (ctx, orient) {
                       return Container(
@@ -678,19 +573,13 @@ dynamic build(BuildContext context) {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.stay_primary_portrait,
-                              size: 20,
-                              color: coral,
-                            ),
-                            Text(
-                              '120\u00d7100 \u2192 $orient',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: coral,
-                              ),
-                            ),
+                            Icon(Icons.stay_primary_portrait,
+                                size: 20, color: coral),
+                            Text('120\u00d7100 \u2192 $orient',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: coral)),
                           ],
                         ),
                       );
@@ -703,9 +592,7 @@ dynamic build(BuildContext context) {
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
-                    maxWidth: 100,
-                    maxHeight: 100,
-                  ),
+                      maxWidth: 100, maxHeight: 100),
                   child: OrientationBuilder(
                     builder: (ctx, orient) {
                       return Container(
@@ -719,23 +606,16 @@ dynamic build(BuildContext context) {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.crop_square,
-                              size: 20,
-                              color: accentNavy,
-                            ),
-                            Text(
-                              '100\u00d7100 \u2192 $orient',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: accentNavy,
-                              ),
-                            ),
-                            Text(
-                              '(square = portrait)',
-                              style: TextStyle(fontSize: 9, color: accentNavy),
-                            ),
+                            Icon(Icons.crop_square,
+                                size: 20, color: accentNavy),
+                            Text('100\u00d7100 \u2192 $orient',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: accentNavy)),
+                            Text('(square = portrait)',
+                                style: TextStyle(
+                                    fontSize: 9, color: accentNavy)),
                           ],
                         ),
                       );
@@ -757,12 +637,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Orientation-based grid columns ────────────────────────
-        sectionHeader(
-          '6 \u00b7 Responsive Grid Columns',
-          'Changing column count based on Orientation',
-          terracotta,
-          Colors.white,
-        ),
+        sectionHeader('6 \u00b7 Responsive Grid Columns',
+            'Changing column count based on Orientation',
+            terracotta, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -786,20 +663,14 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.stay_primary_portrait,
-                          size: 14,
-                          color: coral,
-                        ),
+                        Icon(Icons.stay_primary_portrait,
+                            size: 14, color: coral),
                         const SizedBox(width: 4),
-                        Text(
-                          'Portrait \u2192 2 columns',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                            color: coral,
-                          ),
-                        ),
+                        Text('Portrait \u2192 2 columns',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                                color: coral)),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -818,13 +689,11 @@ dynamic build(BuildContext context) {
                               color: coral.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(6),
                               border: Border.all(
-                                color: coral.withValues(alpha: 0.4),
-                              ),
+                                  color: coral.withValues(alpha: 0.4)),
                             ),
-                            child: Text(
-                              'Item $i',
-                              style: TextStyle(fontSize: 10, color: deepCoral),
-                            ),
+                            child: Text('Item $i',
+                                style: TextStyle(
+                                    fontSize: 10, color: deepCoral)),
                           ),
                       ],
                     ),
@@ -844,20 +713,14 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.stay_primary_landscape,
-                          size: 14,
-                          color: terracotta,
-                        ),
+                        Icon(Icons.stay_primary_landscape,
+                            size: 14, color: terracotta),
                         const SizedBox(width: 4),
-                        Text(
-                          'Landscape \u2192 4 columns',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                            color: terracotta,
-                          ),
-                        ),
+                        Text('Landscape \u2192 4 columns',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                                color: terracotta)),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -876,13 +739,11 @@ dynamic build(BuildContext context) {
                               color: terracotta.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(6),
                               border: Border.all(
-                                color: terracotta.withValues(alpha: 0.4),
-                              ),
+                                  color: terracotta.withValues(alpha: 0.4)),
                             ),
-                            child: Text(
-                              'Item $i',
-                              style: TextStyle(fontSize: 10, color: darkEmber),
-                            ),
+                            child: Text('Item $i',
+                                style: TextStyle(
+                                    fontSize: 10, color: darkEmber)),
                           ),
                       ],
                     ),
@@ -902,12 +763,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Layout orientation ─────────────────────────────────
-        sectionHeader(
-          '7 \u00b7 Layout vs Device Orientation',
-          'Orientation is about constraints, not sensors',
-          deepCoral,
-          Colors.white,
-        ),
+        sectionHeader('7 \u00b7 Layout vs Device Orientation',
+            'Orientation is about constraints, not sensors',
+            deepCoral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -929,40 +787,30 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Icon(
-                            Icons.screen_rotation,
-                            size: 22,
-                            color: deepCoral,
-                          ),
+                          Icon(Icons.screen_rotation,
+                              size: 22, color: deepCoral),
                           const SizedBox(height: 4),
-                          Text(
-                            'Device Orientation',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: deepCoral,
-                            ),
-                          ),
+                          Text('Device Orientation',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: deepCoral)),
                           const SizedBox(height: 4),
-                          Text(
-                            'Sensor-based\nAccelerometer\nDeviceOrientation',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: darkEmber),
-                          ),
+                          Text('Sensor-based\nAccelerometer\nDeviceOrientation',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 10, color: darkEmber)),
                         ],
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      '\u2260',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: softCoral,
-                      ),
-                    ),
+                    child: Text('\u2260',
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: softCoral)),
                   ),
                   Expanded(
                     child: Container(
@@ -974,22 +822,19 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Icon(Icons.aspect_ratio, size: 22, color: accentTeal),
+                          Icon(Icons.aspect_ratio,
+                              size: 22, color: accentTeal),
                           const SizedBox(height: 4),
-                          Text(
-                            'Layout Orientation',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: accentTeal,
-                            ),
-                          ),
+                          Text('Layout Orientation',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: accentTeal)),
                           const SizedBox(height: 4),
-                          Text(
-                            'Size comparison\nWidth vs Height\nOrientation enum',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: darkEmber),
-                          ),
+                          Text('Size comparison\nWidth vs Height\nOrientation enum',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 10, color: darkEmber)),
                         ],
                       ),
                     ),
@@ -1011,12 +856,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Live demo: orientation-aware layout ───────────────────
-        sectionHeader(
-          '8 \u00b7 Live Demo: Adaptive Layout',
-          'Column in portrait, Row in landscape',
-          coral,
-          Colors.white,
-        ),
+        sectionHeader('8 \u00b7 Live Demo: Adaptive Layout',
+            'Column in portrait, Row in landscape',
+            coral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1046,14 +888,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(item.$2, size: 18, color: item.$3),
                         const SizedBox(width: 6),
-                        Text(
-                          item.$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: item.$3,
-                          ),
-                        ),
+                        Text(item.$1,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: item.$3)),
                       ],
                     ),
                   ),
@@ -1069,23 +908,20 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
-                      'Current: $orient \u2192 '
-                      '${orient == Orientation.portrait ? "Column layout" : "Row layout"}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: accentNavy,
-                      ),
-                    ),
+                        'Current: $orient \u2192 '
+                        '${orient == Orientation.portrait ? "Column layout" : "Row layout"}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: accentNavy)),
                   ),
                   const SizedBox(height: 8),
                   orient == Orientation.portrait
                       ? Column(children: cards)
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: cards,
-                        ),
+                          children: cards),
                 ],
               );
             },
@@ -1094,12 +930,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Orientation in scrolling ─────────────────────────────
-        sectionHeader(
-          '9 \u00b7 Orientation and Scrollable Widgets',
-          'How scrollable views adapt',
-          terracotta,
-          Colors.white,
-        ),
+        sectionHeader('9 \u00b7 Orientation and Scrollable Widgets',
+            'How scrollable views adapt',
+            terracotta, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1110,34 +943,18 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final scenario in [
-                (
-                  'PageView',
-                  'Adapts page size to available dimensions. '
-                      'Portrait: tall pages; Landscape: wide pages.',
-                  Icons.pages,
-                  coral,
-                ),
-                (
-                  'ListView',
-                  'Item count stays the same, but visible count '
-                      'differs. Landscape shows fewer tall items.',
-                  Icons.list,
-                  terracotta,
-                ),
-                (
-                  'GridView',
-                  'crossAxisCount can change. Portrait: fewer '
-                      'columns; Landscape: more columns.',
-                  Icons.grid_view,
-                  deepCoral,
-                ),
-                (
-                  'Scrollbar',
-                  'Internally checks orientation to decide '
-                      'scrollbar placement and size.',
-                  Icons.swap_horiz,
-                  accentTeal,
-                ),
+                ('PageView', 'Adapts page size to available dimensions. '
+                    'Portrait: tall pages; Landscape: wide pages.',
+                    Icons.pages, coral),
+                ('ListView', 'Item count stays the same, but visible count '
+                    'differs. Landscape shows fewer tall items.',
+                    Icons.list, terracotta),
+                ('GridView', 'crossAxisCount can change. Portrait: fewer '
+                    'columns; Landscape: more columns.',
+                    Icons.grid_view, deepCoral),
+                ('Scrollbar', 'Internally checks orientation to decide '
+                    'scrollbar placement and size.',
+                    Icons.swap_horiz, accentTeal),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1146,8 +963,7 @@ dynamic build(BuildContext context) {
                     color: scenario.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: scenario.$4, width: 3),
-                    ),
+                        left: BorderSide(color: scenario.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1158,18 +974,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              scenario.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: scenario.$4,
-                              ),
-                            ),
-                            Text(
-                              scenario.$2,
-                              style: TextStyle(fontSize: 11, color: darkEmber),
-                            ),
+                            Text(scenario.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: scenario.$4)),
+                            Text(scenario.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkEmber)),
                           ],
                         ),
                       ),
@@ -1182,12 +994,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Live demo: orientation-aware spacing ─────────────────
-        sectionHeader(
-          '10 \u00b7 Live Demo: Orientation-Aware Spacing',
-          'Adjusting padding and gaps by orientation',
-          deepCoral,
-          Colors.white,
-        ),
+        sectionHeader('10 \u00b7 Live Demo: Orientation-Aware Spacing',
+            'Adjusting padding and gaps by orientation',
+            deepCoral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1213,14 +1022,12 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
-                      '$orient: padding=${padding.toInt()}, spacing=${spacing.toInt()}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: deepCoral,
-                      ),
-                    ),
+                        '$orient: padding=${padding.toInt()}, spacing=${spacing.toInt()}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: deepCoral)),
                   ),
                   SizedBox(height: spacing),
                   Padding(
@@ -1237,23 +1044,17 @@ dynamic build(BuildContext context) {
                                 gradient: LinearGradient(
                                   colors: [
                                     [coral, terracotta, deepCoral][i],
-                                    [
-                                      coral,
-                                      terracotta,
-                                      deepCoral,
-                                    ][i].withValues(alpha: 0.6),
+                                    [coral, terracotta, deepCoral][i]
+                                        .withValues(alpha: 0.6),
                                   ],
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Text(
-                                'Block ${i + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: Text('Block ${i + 1}',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                         ],
@@ -1268,12 +1069,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Enum comparison ──────────────────────────────────────
-        sectionHeader(
-          '11 \u00b7 Using Orientation in Switch/If',
-          'Pattern matching on both values',
-          coral,
-          Colors.white,
-        ),
+        sectionHeader('11 \u00b7 Using Orientation in Switch/If',
+            'Pattern matching on both values',
+            coral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1292,24 +1090,22 @@ dynamic build(BuildContext context) {
                   border: Border.all(color: coral.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  '// Switch expression (Dart 3+)\n'
-                  'final columns = switch (orientation) {\n'
-                  '  Orientation.portrait  => 2,\n'
-                  '  Orientation.landscape => 4,\n'
-                  '};\n'
-                  '\n'
-                  '// If-else\n'
-                  'if (orientation == Orientation.portrait) {\n'
-                  '  return singleColumn();\n'
-                  '} else {\n'
-                  '  return doubleColumn();\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepCoral,
-                  ),
-                ),
+                    '// Switch expression (Dart 3+)\n'
+                    'final columns = switch (orientation) {\n'
+                    '  Orientation.portrait  => 2,\n'
+                    '  Orientation.landscape => 4,\n'
+                    '};\n'
+                    '\n'
+                    '// If-else\n'
+                    'if (orientation == Orientation.portrait) {\n'
+                    '  return singleColumn();\n'
+                    '} else {\n'
+                    '  return doubleColumn();\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepCoral)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -1325,12 +1121,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Live demo: tablet mockup ─────────────────────────────
-        sectionHeader(
-          '12 \u00b7 Live Demo: Device Sizes and Orientation',
-          'How different screen sizes produce different orientations',
-          terracotta,
-          Colors.white,
-        ),
+        sectionHeader('12 \u00b7 Live Demo: Device Sizes and Orientation',
+            'How different screen sizes produce different orientations',
+            terracotta, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1351,15 +1144,12 @@ dynamic build(BuildContext context) {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                      horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: device.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: device.$4, width: 3),
-                    ),
+                        left: BorderSide(color: device.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -1378,39 +1168,32 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(device.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                    color: device.$4)),
                             Text(
-                              device.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                color: device.$4,
-                              ),
-                            ),
-                            Text(
-                              '${device.$2.toInt()}\u00d7${device.$3.toInt()} \u2192 '
-                              '${device.$2 > device.$3 ? "landscape" : "portrait"}',
-                              style: TextStyle(fontSize: 10, color: darkEmber),
-                            ),
+                                '${device.$2.toInt()}\u00d7${device.$3.toInt()} \u2192 '
+                                '${device.$2 > device.$3 ? "landscape" : "portrait"}',
+                                style: TextStyle(
+                                    fontSize: 10, color: darkEmber)),
                           ],
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
+                            horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
                           color: device.$4,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          device.$2 > device.$3 ? 'L' : 'P',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                            device.$2 > device.$3 ? 'L' : 'P',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
@@ -1421,12 +1204,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Performance and gotchas ──────────────────────────────
-        sectionHeader(
-          '13 \u00b7 Performance and Gotchas',
-          'What to watch out for',
-          deepCoral,
-          Colors.white,
-        ),
+        sectionHeader('13 \u00b7 Performance and Gotchas',
+            'What to watch out for', deepCoral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1437,36 +1216,23 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final item in [
-                (
-                  'OrientationBuilder rebuilds',
-                  'Only rebuilds when orientation changes. If the size '
-                      'changes but orientation stays the same, no rebuild.',
-                  Icons.refresh,
-                  coral,
-                ),
-                (
-                  'MediaQuery dependency',
-                  'MediaQuery.of(context).orientation registers a '
-                      'dependency on the full MediaQuery. Use '
-                      'MediaQuery.orientationOf(context) for narrower scope.',
-                  Icons.link,
-                  terracotta,
-                ),
-                (
-                  'Split-screen edge case',
-                  'On tablets in split-screen, orientation may flip as '
-                      'the user adjusts the divider even though the device '
-                      'has not physically rotated.',
-                  Icons.splitscreen,
-                  deepCoral,
-                ),
-                (
-                  'No animation',
-                  'Orientation changes are discrete, not '
-                      'animated. Use AnimatedSwitcher to smooth transitions.',
-                  Icons.animation,
-                  accentTeal,
-                ),
+                ('OrientationBuilder rebuilds',
+                    'Only rebuilds when orientation changes. If the size '
+                    'changes but orientation stays the same, no rebuild.',
+                    Icons.refresh, coral),
+                ('MediaQuery dependency',
+                    'MediaQuery.of(context).orientation registers a '
+                    'dependency on the full MediaQuery. Use '
+                    'MediaQuery.orientationOf(context) for narrower scope.',
+                    Icons.link, terracotta),
+                ('Split-screen edge case',
+                    'On tablets in split-screen, orientation may flip as '
+                    'the user adjusts the divider even though the device '
+                    'has not physically rotated.',
+                    Icons.splitscreen, deepCoral),
+                ('No animation', 'Orientation changes are discrete, not '
+                    'animated. Use AnimatedSwitcher to smooth transitions.',
+                    Icons.animation, accentTeal),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1474,7 +1240,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: item.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: item.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: item.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1485,18 +1252,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              item.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: item.$4,
-                              ),
-                            ),
-                            Text(
-                              item.$2,
-                              style: TextStyle(fontSize: 11, color: darkEmber),
-                            ),
+                            Text(item.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: item.$4)),
+                            Text(item.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkEmber)),
                           ],
                         ),
                       ),
@@ -1509,12 +1272,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Common responsive patterns ───────────────────────────
-        sectionHeader(
-          '14 \u00b7 Common Responsive Patterns',
-          'Real-world orientation usage',
-          coral,
-          Colors.white,
-        ),
+        sectionHeader('14 \u00b7 Common Responsive Patterns',
+            'Real-world orientation usage',
+            coral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1535,14 +1295,11 @@ dynamic build(BuildContext context) {
                   for (final h in ['Pattern', 'Portrait', 'Landscape'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        h,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
                     ),
                 ],
               ),
@@ -1557,28 +1314,23 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: row.$4,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: row.$4)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(fontSize: 10, color: darkEmber),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 10, color: darkEmber)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(fontSize: 10, color: darkEmber),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(
+                              fontSize: 10, color: darkEmber)),
                     ),
                   ],
                 ),
@@ -1588,12 +1340,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionHeader(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepCoral,
-          Colors.white,
-        ),
+        sectionHeader('15 \u00b7 Summary',
+            'Key takeaways', deepCoral, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1625,22 +1373,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: lightTerracotta,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: lightTerracotta,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                          ),
-                        ),
+                        child: Text(point,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

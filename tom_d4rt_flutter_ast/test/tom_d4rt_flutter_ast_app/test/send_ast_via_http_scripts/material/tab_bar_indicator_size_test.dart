@@ -103,7 +103,11 @@ dynamic build(BuildContext context) {
           child: Text(
             'Controls how wide the selection underline of a TabBar is drawn:\n'
             'tab => full tab-cell width    label => only the label/text width',
-            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.4),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.white,
+              height: 1.4,
+            ),
           ),
         ),
         SizedBox(height: 12.0),
@@ -133,10 +137,8 @@ dynamic build(BuildContext context) {
     print('TabBarIndicatorSize.${v.name} index=${v.index}');
   }
   print('values.length=${TabBarIndicatorSize.values.length}');
-  print(
-    'first=${TabBarIndicatorSize.values.first} '
-    'last=${TabBarIndicatorSize.values.last}',
-  );
+  print('first=${TabBarIndicatorSize.values.first} '
+      'last=${TabBarIndicatorSize.values.last}');
 
   final anatomy = Container(
     margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -179,7 +181,10 @@ dynamic build(BuildContext context) {
         _codeLine('  label,  // index 1', Colors.amber.shade200),
         _codeLine('}', Colors.pink.shade200),
         SizedBox(height: 12.0),
-        Container(height: 1.0, color: Colors.white12),
+        Container(
+          height: 1.0,
+          color: Colors.white12,
+        ),
         SizedBox(height: 12.0),
         Text(
           'Runtime view',
@@ -192,17 +197,17 @@ dynamic build(BuildContext context) {
         SizedBox(height: 6.0),
         _codeLine(
           'TabBarIndicatorSize.values.length == '
-          '${TabBarIndicatorSize.values.length}',
+              '${TabBarIndicatorSize.values.length}',
           Colors.white70,
         ),
         _codeLine(
           'TabBarIndicatorSize.values.first.name == '
-          '"${TabBarIndicatorSize.values.first.name}"',
+              '"${TabBarIndicatorSize.values.first.name}"',
           Colors.white70,
         ),
         _codeLine(
           'TabBarIndicatorSize.values.last.name  == '
-          '"${TabBarIndicatorSize.values.last.name}"',
+              '"${TabBarIndicatorSize.values.last.name}"',
           Colors.white70,
         ),
       ],
@@ -308,10 +313,8 @@ dynamic build(BuildContext context) {
     final labels = (config['labels'] as List).cast<String>();
     final selected = config['selected'] as int;
     final seed = config['seed'] as MaterialColor;
-    print(
-      'gallery row: tabs=${labels.length} selected=$selected '
-      'label="${labels[selected]}"',
-    );
+    print('gallery row: tabs=${labels.length} selected=$selected '
+        'label="${labels[selected]}"');
 
     galleryRows.add(
       Container(
@@ -510,11 +513,17 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        _matrixRow(['Aspect', 'tab', 'label'], isHeader: true),
-        _matrixRow(['Indicator width', 'cell width', 'label/text width']),
+        _matrixRow(
+          ['Aspect', 'tab', 'label'],
+          isHeader: true,
+        ),
+        _matrixRow(
+            ['Indicator width', 'cell width', 'label/text width']),
         _matrixRow(['Includes padding', 'yes', 'no']),
-        _matrixRow(['Default in TabBar', 'yes (M2)', 'M3 visual default']),
-        _matrixRow(['Best for', 'wide spaced tabs', 'typographic emphasis']),
+        _matrixRow(
+            ['Default in TabBar', 'yes (M2)', 'M3 visual default']),
+        _matrixRow(
+            ['Best for', 'wide spaced tabs', 'typographic emphasis']),
         _matrixRow(['Scrollable tabs', 'works', 'works']),
         _matrixRow(['Custom indicator', 'works', 'works (uses label rect)']),
         _matrixRow(['Hit target', 'unchanged', 'unchanged']),
@@ -688,8 +697,7 @@ dynamic build(BuildContext context) {
   // when this script is rendered as plain text in a log.
   print('=== Section 9: ASCII footer ===');
 
-  const ascii =
-      ''
+  const ascii = ''
       '+---------------------------------------------------------+\n'
       '|             TabBarIndicatorSize  -  cheat sheet         |\n'
       '+---------------------------------------------------------+\n'
@@ -936,7 +944,10 @@ Widget _enumValueCard({
                   ),
                   Text(
                     subtitle,
-                    style: TextStyle(fontSize: 11.0, color: seed.shade700),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: seed.shade700,
+                    ),
                   ),
                 ],
               ),
@@ -975,13 +986,15 @@ Widget _enumValueCard({
               Container(
                 width: cellWidth,
                 padding: EdgeInsets.symmetric(
-                  horizontal: (cellWidth - indicatorWidth) / 2.0,
-                  vertical: 6.0,
-                ),
+                    horizontal: (cellWidth - indicatorWidth) / 2.0,
+                    vertical: 6.0),
                 decoration: BoxDecoration(
                   color: seed.shade50,
                   borderRadius: BorderRadius.circular(6.0),
-                  border: Border.all(color: seed.shade200, width: 1.0),
+                  border: Border.all(
+                    color: seed.shade200,
+                    width: 1.0,
+                  ),
                 ),
                 child: indicatorBuilder(seed.shade700),
               ),
@@ -1012,13 +1025,15 @@ Widget _mockTabBar({
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
               alignment: Alignment.center,
               child: Text(
                 labels[i],
                 style: TextStyle(
                   fontSize: 13.0,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  fontWeight:
+                      isSelected ? FontWeight.bold : FontWeight.normal,
                   color: color,
                 ),
               ),
@@ -1041,8 +1056,8 @@ Widget _mockTabBar({
                     )
                   : Container(
                       margin: EdgeInsets.symmetric(
-                        horizontal: _approxLabelInset(labels[i]),
-                      ),
+                          horizontal:
+                              _approxLabelInset(labels[i])),
                       height: 3.0,
                       decoration: BoxDecoration(
                         color: seed.shade700,
@@ -1112,7 +1127,10 @@ Widget _boundDiagram({
         width: cellWidth + 4.0,
         padding: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade400, width: 1.0),
+          border: Border.all(
+            color: Colors.grey.shade400,
+            width: 1.0,
+          ),
           borderRadius: BorderRadius.circular(6.0),
         ),
         child: Stack(
@@ -1124,7 +1142,10 @@ Widget _boundDiagram({
               height: 56.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.grey.shade100, Colors.grey.shade50],
+                  colors: [
+                    Colors.grey.shade100,
+                    Colors.grey.shade50,
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -1137,7 +1158,10 @@ Widget _boundDiagram({
                   decoration: BoxDecoration(
                     color: seed.shade100,
                     borderRadius: BorderRadius.circular(3.0),
-                    border: Border.all(color: seed.shade300, width: 1.0),
+                    border: Border.all(
+                      color: seed.shade300,
+                      width: 1.0,
+                    ),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -1206,7 +1230,8 @@ Widget _matrixRow(List<String> cells, {bool isHeader = false}) {
             style: TextStyle(
               fontSize: 12.0,
               fontWeight: isHeader ? FontWeight.bold : FontWeight.w500,
-              color: isHeader ? Colors.indigo.shade900 : Colors.grey.shade800,
+              color:
+                  isHeader ? Colors.indigo.shade900 : Colors.grey.shade800,
             ),
           ),
         ),
@@ -1218,7 +1243,8 @@ Widget _matrixRow(List<String> cells, {bool isHeader = false}) {
               fontSize: 11.5,
               fontFamily: 'monospace',
               fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-              color: isHeader ? Colors.indigo.shade900 : Colors.indigo.shade700,
+              color:
+                  isHeader ? Colors.indigo.shade900 : Colors.indigo.shade700,
             ),
           ),
         ),
@@ -1230,7 +1256,8 @@ Widget _matrixRow(List<String> cells, {bool isHeader = false}) {
               fontSize: 11.5,
               fontFamily: 'monospace',
               fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-              color: isHeader ? Colors.indigo.shade900 : Colors.teal.shade700,
+              color:
+                  isHeader ? Colors.indigo.shade900 : Colors.teal.shade700,
             ),
           ),
         ),
@@ -1247,7 +1274,10 @@ Widget _recipeBlock(String title, String code, Color titleColor) {
     decoration: BoxDecoration(
       color: Colors.black.withValues(alpha: 0.35),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(color: titleColor.withValues(alpha: 0.45), width: 1.0),
+      border: Border.all(
+        color: titleColor.withValues(alpha: 0.45),
+        width: 1.0,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,

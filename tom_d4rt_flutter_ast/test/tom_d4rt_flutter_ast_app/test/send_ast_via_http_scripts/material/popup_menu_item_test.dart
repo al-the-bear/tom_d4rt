@@ -50,7 +50,11 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildMenuItemCard(String title, String description, Widget child) {
+Widget buildMenuItemCard(
+  String title,
+  String description,
+  Widget child,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(12),
@@ -80,7 +84,10 @@ Widget buildMenuItemCard(String title, String description, Widget child) {
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey.shade600,
+          ),
         ),
         SizedBox(height: 10),
         child,
@@ -130,7 +137,10 @@ Widget buildPopupMenuItemBasicsSection() {
                   color: Colors.blue,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text('Open Menu', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'Open Menu',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             SizedBox(width: 16),
@@ -206,10 +216,7 @@ Widget buildValuePropertySection() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildInfoCard('Property', 'value of type T?'),
-      buildInfoCard(
-        'Description',
-        'The value that will be returned when this item is selected',
-      ),
+      buildInfoCard('Description', 'The value that will be returned when this item is selected'),
       buildInfoCard('Required', 'No, but recommended for identification'),
       SizedBox(height: 8),
       buildMenuItemCard(
@@ -273,9 +280,18 @@ Widget buildValuePropertySection() {
           },
           itemBuilder: (context) {
             return [
-              PopupMenuItem<int>(value: 1, child: Text('Priority 1 - High')),
-              PopupMenuItem<int>(value: 2, child: Text('Priority 2 - Medium')),
-              PopupMenuItem<int>(value: 3, child: Text('Priority 3 - Low')),
+              PopupMenuItem<int>(
+                value: 1,
+                child: Text('Priority 1 - High'),
+              ),
+              PopupMenuItem<int>(
+                value: 2,
+                child: Text('Priority 2 - Medium'),
+              ),
+              PopupMenuItem<int>(
+                value: 3,
+                child: Text('Priority 3 - Low'),
+              ),
             ];
           },
           child: Container(
@@ -284,10 +300,7 @@ Widget buildValuePropertySection() {
               color: Colors.teal,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Integer Values',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Integer Values', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -305,7 +318,9 @@ Widget buildValuePropertySection() {
                 value: 'action1',
                 child: Text('Action with value'),
               ),
-              PopupMenuItem<String>(child: Text('Action without value (null)')),
+              PopupMenuItem<String>(
+                child: Text('Action without value (null)'),
+              ),
             ];
           },
           child: Container(
@@ -314,10 +329,7 @@ Widget buildValuePropertySection() {
               color: Colors.orange,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Null Value Demo',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Null Value Demo', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -331,14 +343,8 @@ Widget buildChildCustomizationSection() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildInfoCard('Property', 'child of type Widget'),
-      buildInfoCard(
-        'Description',
-        'The widget to display as the menu item content',
-      ),
-      buildInfoCard(
-        'Common Patterns',
-        'Text, Row with Icon and Text, ListTile',
-      ),
+      buildInfoCard('Description', 'The widget to display as the menu item content'),
+      buildInfoCard('Common Patterns', 'Text, Row with Icon and Text, ListTile'),
       SizedBox(height: 8),
       buildMenuItemCard(
         'Text Only Items',
@@ -349,9 +355,18 @@ Widget buildChildCustomizationSection() {
           },
           itemBuilder: (context) {
             return [
-              PopupMenuItem<String>(value: 'new', child: Text('New')),
-              PopupMenuItem<String>(value: 'open', child: Text('Open')),
-              PopupMenuItem<String>(value: 'save', child: Text('Save')),
+              PopupMenuItem<String>(
+                value: 'new',
+                child: Text('New'),
+              ),
+              PopupMenuItem<String>(
+                value: 'open',
+                child: Text('Open'),
+              ),
+              PopupMenuItem<String>(
+                value: 'save',
+                child: Text('Save'),
+              ),
             ];
           },
           child: Container(
@@ -443,14 +458,8 @@ Widget buildChildCustomizationSection() {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Premium',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Unlock all features',
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
+                        Text('Premium', style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('Unlock all features', style: TextStyle(fontSize: 12, color: Colors.grey)),
                       ],
                     ),
                   ],
@@ -473,14 +482,8 @@ Widget buildChildCustomizationSection() {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Basic',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Free forever',
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
+                        Text('Basic', style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('Free forever', style: TextStyle(fontSize: 12, color: Colors.grey)),
                       ],
                     ),
                   ],
@@ -529,10 +532,7 @@ Widget buildEnabledStateSection() {
                     SizedBox(width: 12),
                     Text('Cut'),
                     Spacer(),
-                    Text(
-                      'Ctrl+X',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
+                    Text('Ctrl+X', style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -545,10 +545,7 @@ Widget buildEnabledStateSection() {
                     SizedBox(width: 12),
                     Text('Copy'),
                     Spacer(),
-                    Text(
-                      'Ctrl+C',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
+                    Text('Ctrl+C', style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -561,10 +558,7 @@ Widget buildEnabledStateSection() {
                     SizedBox(width: 12),
                     Text('Paste (Disabled)'),
                     Spacer(),
-                    Text(
-                      'Ctrl+V',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
+                    Text('Ctrl+V', style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -576,10 +570,7 @@ Widget buildEnabledStateSection() {
               color: Colors.red.shade600,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Enabled States',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Enabled States', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -651,10 +642,7 @@ Widget buildHeightPropertySection() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildInfoCard('Property', 'height of type double'),
-      buildInfoCard(
-        'Default',
-        'kMinInteractiveDimension (48.0 logical pixels)',
-      ),
+      buildInfoCard('Default', 'kMinInteractiveDimension (48.0 logical pixels)'),
       buildInfoCard('Usage', 'Customize vertical size of menu items'),
       SizedBox(height: 8),
       buildMenuItemCard(
@@ -682,10 +670,7 @@ Widget buildHeightPropertySection() {
               color: Colors.indigo,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Default Height',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Default Height', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -721,10 +706,7 @@ Widget buildHeightPropertySection() {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Large Height (72)'),
-                        Text(
-                          'With subtitle',
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
+                        Text('With subtitle', style: TextStyle(fontSize: 12, color: Colors.grey)),
                       ],
                     ),
                   ],
@@ -738,10 +720,7 @@ Widget buildHeightPropertySection() {
               color: Colors.cyan.shade700,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Custom Heights',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Custom Heights', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -799,10 +778,7 @@ Widget buildOnTapCallbackSection() {
       buildInfoCard('Property', 'onTap of type VoidCallback?'),
       buildInfoCard('Description', 'Called when the menu item is tapped'),
       buildInfoCard('Timing', 'Called before onSelected on PopupMenuButton'),
-      buildInfoCard(
-        'Use Case',
-        'Side effects like analytics, logging, navigation',
-      ),
+      buildInfoCard('Use Case', 'Side effects like analytics, logging, navigation'),
       SizedBox(height: 8),
       buildMenuItemCard(
         'onTap with Logging',
@@ -909,10 +885,7 @@ Widget buildOnTapCallbackSection() {
           children: [
             Text(
               'Callback Order:',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blue.shade900,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue.shade900),
             ),
             SizedBox(height: 8),
             Text('1. onTap is called on the PopupMenuItem'),
@@ -931,10 +904,7 @@ Widget buildMouseCursorSection() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildInfoCard('Property', 'mouseCursor of type MouseCursor?'),
-      buildInfoCard(
-        'Description',
-        'The cursor to show when hovering over the item',
-      ),
+      buildInfoCard('Description', 'The cursor to show when hovering over the item'),
       buildInfoCard('Default', 'SystemMouseCursors.click when enabled'),
       SizedBox(height: 8),
       buildMenuItemCard(
@@ -962,10 +932,7 @@ Widget buildMouseCursorSection() {
               color: Colors.blueGrey,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Default Cursor',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Default Cursor', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -1053,10 +1020,7 @@ Widget buildMouseCursorSection() {
               color: Colors.deepOrange,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Custom Cursors',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Custom Cursors', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -1090,10 +1054,7 @@ Widget buildMouseCursorSection() {
               color: Colors.grey.shade700,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Enabled vs Disabled',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Enabled vs Disabled', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -1107,10 +1068,7 @@ Widget buildPaddingSection() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildInfoCard('Property', 'padding of type EdgeInsets?'),
-      buildInfoCard(
-        'Description',
-        'The internal padding around the child widget',
-      ),
+      buildInfoCard('Description', 'The internal padding around the child widget'),
       buildInfoCard('Default', 'EdgeInsets.symmetric(horizontal: 16.0)'),
       SizedBox(height: 8),
       buildMenuItemCard(
@@ -1138,10 +1096,7 @@ Widget buildPaddingSection() {
               color: Colors.lightBlue,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Default Padding',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Default Padding', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -1183,10 +1138,7 @@ Widget buildPaddingSection() {
               color: Colors.lightGreen,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              'Custom Padding',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text('Custom Padding', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -1263,10 +1215,7 @@ Widget buildTextStyleSection() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildInfoCard('Property', 'textStyle of type TextStyle?'),
-      buildInfoCard(
-        'Description',
-        'The text style for the default text content',
-      ),
+      buildInfoCard('Description', 'The text style for the default text content'),
       buildInfoCard('Applies To', 'DefaultTextStyle wrapper around child'),
       buildInfoCard('Inheritance', 'Inherits from PopupMenuTheme if not set'),
       SizedBox(height: 8),
@@ -1487,11 +1436,7 @@ Widget buildCombinedDemosSection() {
                         Text('Premium Plan'),
                         Text(
                           'All features unlocked',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.grey,
-                          ),
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: Colors.grey),
                         ),
                       ],
                     ),
@@ -1526,11 +1471,7 @@ Widget buildCombinedDemosSection() {
                         Text('Standard Plan'),
                         Text(
                           'Most popular choice',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.grey,
-                          ),
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: Colors.grey),
                         ),
                       ],
                     ),
@@ -1563,10 +1504,7 @@ Widget buildCombinedDemosSection() {
                         Text('Free Plan'),
                         Text(
                           'Currently unavailable',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                          ),
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
                         ),
                       ],
                     ),
@@ -1588,10 +1526,7 @@ Widget buildCombinedDemosSection() {
               children: [
                 Icon(Icons.menu, color: Colors.white),
                 SizedBox(width: 8),
-                Text(
-                  'Full Feature Menu',
-                  style: TextStyle(color: Colors.white),
-                ),
+                Text('Full Feature Menu', style: TextStyle(color: Colors.white)),
               ],
             ),
           ),
@@ -1619,10 +1554,7 @@ Widget buildCombinedDemosSection() {
                     Icon(Icons.undo, size: 20, color: Colors.grey.shade700),
                     SizedBox(width: 16),
                     Expanded(child: Text('Undo')),
-                    Text(
-                      'Ctrl+Z',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
+                    Text('Ctrl+Z', style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -1638,10 +1570,7 @@ Widget buildCombinedDemosSection() {
                     Icon(Icons.redo, size: 20, color: Colors.grey.shade700),
                     SizedBox(width: 16),
                     Expanded(child: Text('Redo')),
-                    Text(
-                      'Ctrl+Y',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
+                    Text('Ctrl+Y', style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -1655,17 +1584,10 @@ Widget buildCombinedDemosSection() {
                 },
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.select_all,
-                      size: 20,
-                      color: Colors.grey.shade700,
-                    ),
+                    Icon(Icons.select_all, size: 20, color: Colors.grey.shade700),
                     SizedBox(width: 16),
                     Expanded(child: Text('Select All')),
-                    Text(
-                      'Ctrl+A',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
+                    Text('Ctrl+A', style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -1687,10 +1609,13 @@ Widget buildCombinedDemosSection() {
 
 dynamic build(BuildContext context) {
   print('Building PopupMenuItem deep demo');
-
+  
   Widget result = MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
+    theme: ThemeData(
+      primarySwatch: Colors.indigo,
+      useMaterial3: true,
+    ),
     home: Scaffold(
       appBar: AppBar(
         title: Text('PopupMenuItem Deep Demo'),
@@ -1704,41 +1629,41 @@ dynamic build(BuildContext context) {
           children: [
             buildSectionHeader('1. PopupMenuItem Basics'),
             buildPopupMenuItemBasicsSection(),
-
+            
             buildSectionHeader('2. Value Property'),
             buildValuePropertySection(),
-
+            
             buildSectionHeader('3. Child Customization'),
             buildChildCustomizationSection(),
-
+            
             buildSectionHeader('4. Enabled State'),
             buildEnabledStateSection(),
-
+            
             buildSectionHeader('5. Height Property'),
             buildHeightPropertySection(),
-
+            
             buildSectionHeader('6. onTap Callback'),
             buildOnTapCallbackSection(),
-
+            
             buildSectionHeader('7. Mouse Cursor'),
             buildMouseCursorSection(),
-
+            
             buildSectionHeader('8. Padding'),
             buildPaddingSection(),
-
+            
             buildSectionHeader('9. Text Style'),
             buildTextStyleSection(),
-
+            
             buildSectionHeader('10. Combined Demos'),
             buildCombinedDemosSection(),
-
+            
             SizedBox(height: 32),
           ],
         ),
       ),
     ),
   );
-
+  
   print('PopupMenuItem deep demo completed');
   return result;
 }

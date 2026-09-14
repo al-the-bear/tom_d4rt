@@ -221,50 +221,43 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 16.0),
         _anatomyRow(
-          'where',
-          'position / localPosition',
+          'where', 'position / localPosition',
           mouseEnter.position.toString(),
           Colors.indigo,
           Icons.place,
         ),
         _anatomyRow(
-          'how it moved',
-          'delta / localDelta',
+          'how it moved', 'delta / localDelta',
           mouseEnter.delta.toString(),
           Colors.green,
           Icons.timeline,
         ),
         _anatomyRow(
-          'who',
-          'kind + device + pointer',
+          'who', 'kind + device + pointer',
           '${mouseEnter.kind.name} #${mouseEnter.device}/${mouseEnter.pointer}',
           Colors.orange,
           Icons.devices,
         ),
         _anatomyRow(
-          'when',
-          'timeStamp',
+          'when', 'timeStamp',
           '${mouseEnter.timeStamp.inMilliseconds}ms',
           Colors.teal,
           Icons.access_time,
         ),
         _anatomyRow(
-          'buttons',
-          'buttons (bitmask)',
+          'buttons', 'buttons (bitmask)',
           '0x${mouseEnter.buttons.toRadixString(16)}',
           Colors.red,
           Icons.toggle_on,
         ),
         _anatomyRow(
-          'down?',
-          'down (bool)',
+          'down?', 'down (bool)',
           mouseEnter.down.toString(),
           Colors.purple,
           Icons.touch_app,
         ),
         _anatomyRow(
-          'synthesized?',
-          'synthesized (bool)',
+          'synthesized?', 'synthesized (bool)',
           mouseEnter.synthesized.toString(),
           Colors.brown,
           Icons.auto_awesome,
@@ -698,42 +691,42 @@ dynamic build(BuildContext context) {
         _pitfallTile(
           'pressure is always 0.0',
           'The constructor super-calls with pressure: 0.0. Use a different '
-              'event type if you need pressure.',
+          'event type if you need pressure.',
           Icons.compress,
           Colors.red,
         ),
         _pitfallTile(
           'kind cannot be PointerDeviceKind.trackpad',
           'An assert forbids trackpad — trackpad uses dedicated PointerPanZoom '
-              'events instead.',
+          'events instead.',
           Icons.swipe,
           Colors.deepOrange,
         ),
         _pitfallTile(
           'down is always false',
           'Enter events fire whether or not a button is pressed; down stays '
-              'false until a real PointerDownEvent.',
+          'false until a real PointerDownEvent.',
           Icons.touch_app,
           Colors.orange,
         ),
         _pitfallTile(
           'synthesized may be true',
           'Enter events created by MouseTracker for view/widget bookkeeping '
-              'have synthesized = true.',
+          'have synthesized = true.',
           Icons.auto_awesome,
           Colors.amber.shade800,
         ),
         _pitfallTile(
           'localPosition needs a transform',
           'Without a transform, localPosition == position. Inside a transformed '
-              'subtree, prefer localPosition / localDelta.',
+          'subtree, prefer localPosition / localDelta.',
           Icons.transform,
           Colors.purple,
         ),
         _pitfallTile(
           'No buttons on touch hover',
           'Touch and stylus hover usually report buttons == 0; do not gate '
-              'enter behavior on the button bitmask alone.',
+          'enter behavior on the button bitmask alone.',
           Icons.toggle_off,
           Colors.brown,
         ),
@@ -1195,7 +1188,10 @@ Widget _fieldCard(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
+        colors: [
+          color.withValues(alpha: 0.08),
+          color.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1336,10 +1332,7 @@ Widget _scenarioCard(
                   _eventChip('pos=${event.position}', color),
                   _eventChip('delta=${event.delta}', color),
                   _eventChip('device=${event.device}', color),
-                  _eventChip(
-                    'buttons=0x${event.buttons.toRadixString(16)}',
-                    color,
-                  ),
+                  _eventChip('buttons=0x${event.buttons.toRadixString(16)}', color),
                   _eventChip('synth=${event.synthesized}', color),
                 ],
               ),
@@ -1392,7 +1385,12 @@ Widget _codeBlock(String code, Color textColor) {
   );
 }
 
-Widget _pitfallTile(String title, String body, IconData icon, Color color) {
+Widget _pitfallTile(
+  String title,
+  String body,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4.0),
     padding: EdgeInsets.all(10.0),
@@ -1529,12 +1527,7 @@ Widget _refCell(String text, double width, {bool mono = false}) {
 List<Widget> _refRows() {
   final rows = <List<String>>[
     ['position', 'Offset', 'Offset.zero', 'Global pointer location.'],
-    [
-      'localPosition',
-      'Offset',
-      '== position',
-      'Receiver-local; needs transform.',
-    ],
+    ['localPosition', 'Offset', '== position', 'Receiver-local; needs transform.'],
     ['delta', 'Offset', 'Offset.zero', 'Movement since prior hover/move.'],
     ['localDelta', 'Offset', '== delta', 'delta in local space.'],
     ['kind', 'PointerDeviceKind', 'touch', 'mouse / touch / stylus / ...'],

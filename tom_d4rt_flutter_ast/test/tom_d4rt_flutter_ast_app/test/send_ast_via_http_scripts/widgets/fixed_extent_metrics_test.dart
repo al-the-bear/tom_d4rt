@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.straighten,
       'title': 'Scroll Metrics + Item Index',
-      'body':
-          'FixedExtentMetrics extends FixedScrollMetrics to add '
+      'body': 'FixedExtentMetrics extends FixedScrollMetrics to add '
           'an itemIndex property. It tells you which item is '
           'currently centered in a FixedExtentScrollView — '
           'typically a ListWheelScrollView or CupertinoPicker. '
@@ -31,8 +30,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_carousel,
       'title': 'Used by ListWheelScrollView',
-      'body':
-          'When a ListWheelScrollView reports its scroll '
+      'body': 'When a ListWheelScrollView reports its scroll '
           'position, it sends FixedExtentMetrics as part of '
           'ScrollNotification. This lets listeners know both the '
           'pixel offset AND which item is selected, without '
@@ -42,8 +40,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.pin_drop,
       'title': 'Snap-to-Item Awareness',
-      'body':
-          'Because items have a fixed extent (height), the '
+      'body': 'Because items have a fixed extent (height), the '
           'scroll knows exactly which item index the viewport is '
           '"snapped" to. Even during scrolling, itemIndex reports '
           'the nearest whole item. This is critical for wheel-style '
@@ -53,8 +50,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.developer_board,
       'title': 'Immutable Snapshot',
-      'body':
-          'Like all ScrollMetrics, a FixedExtentMetrics '
+      'body': 'Like all ScrollMetrics, a FixedExtentMetrics '
           'instance is an immutable snapshot of the scroll state '
           'at a point in time. You receive it in notifications and '
           'can safely store or compare it — it won\'t change. '
@@ -77,8 +73,7 @@ dynamic build(BuildContext context) {
       'color': Colors.grey[600]!,
       'icon': Icons.waves,
       'isSubject': false,
-      'description':
-          'Base mixin defining minScrollExtent, '
+      'description': 'Base mixin defining minScrollExtent, '
           'maxScrollExtent, pixels, viewportDimension, etc. '
           'All scroll metrics implement this.',
     },
@@ -88,8 +83,7 @@ dynamic build(BuildContext context) {
       'color': Colors.orange[600]!,
       'icon': Icons.photo_size_select_small,
       'isSubject': false,
-      'description':
-          'Immutable implementation of ScrollMetrics. '
+      'description': 'Immutable implementation of ScrollMetrics. '
           'Holds a frozen snapshot of scroll state. Used as a '
           'base for FixedExtentMetrics and in '
           'ScrollNotification.metrics.',
@@ -100,8 +94,7 @@ dynamic build(BuildContext context) {
       'color': Colors.deepOrange[700]!,
       'icon': Icons.straighten,
       'isSubject': true,
-      'description':
-          'Extends FixedScrollMetrics to add itemIndex '
+      'description': 'Extends FixedScrollMetrics to add itemIndex '
           '— the index of the item currently centered in the '
           'viewport. THIS IS THE DEMO SUBJECT.',
     },
@@ -111,8 +104,7 @@ dynamic build(BuildContext context) {
       'color': Colors.grey[500]!,
       'icon': Icons.gps_fixed,
       'isSubject': false,
-      'description':
-          'Mutable scroll position (implements '
+      'description': 'Mutable scroll position (implements '
           'ScrollMetrics). FixedExtentScrollController.selectedItem '
           'is derived from the position, not from metrics directly.',
     },
@@ -122,8 +114,7 @@ dynamic build(BuildContext context) {
       'color': Colors.orange[700]!,
       'icon': Icons.tune,
       'isSubject': false,
-      'description':
-          'Controller for fixed-extent scroll views. '
+      'description': 'Controller for fixed-extent scroll views. '
           'Has initialItem, selectedItem, animateToItem(), '
           'jumpToItem(). Creates FixedExtentMetrics internally.',
     },
@@ -142,8 +133,7 @@ dynamic build(BuildContext context) {
       'type': 'int',
       'icon': Icons.tag,
       'color': Colors.deepOrange[700]!,
-      'description':
-          'The index of the item currently closest to the '
+      'description': 'The index of the item currently closest to the '
           'center of the viewport. This is the primary addition '
           'that FixedExtentMetrics provides over FixedScrollMetrics. '
           'Calculated as (pixels / itemExtent).round().',
@@ -154,8 +144,7 @@ dynamic build(BuildContext context) {
       'type': 'double',
       'icon': Icons.swap_vert,
       'color': Colors.orange[600]!,
-      'description':
-          'The current scroll offset in pixels. Inherited '
+      'description': 'The current scroll offset in pixels. Inherited '
           'from ScrollMetrics. In a ListWheelScrollView, '
           'pixels = itemIndex * itemExtent when snapped. During '
           'scrolling it can be anywhere between items.',
@@ -166,8 +155,7 @@ dynamic build(BuildContext context) {
       'type': 'double',
       'icon': Icons.vertical_align_top,
       'color': Colors.orange[500]!,
-      'description':
-          'The minimum scroll offset (typically 0.0). '
+      'description': 'The minimum scroll offset (typically 0.0). '
           'Inherited from ScrollMetrics. Going below this means '
           'overscroll at the top of the list.',
       'unique': false,
@@ -177,8 +165,7 @@ dynamic build(BuildContext context) {
       'type': 'double',
       'icon': Icons.vertical_align_bottom,
       'color': Colors.orange[500]!,
-      'description':
-          'Maximum scroll offset: (itemCount - 1) * '
+      'description': 'Maximum scroll offset: (itemCount - 1) * '
           'itemExtent. Inherited from ScrollMetrics. Going above '
           'this means overscroll at the bottom.',
       'unique': false,
@@ -188,8 +175,7 @@ dynamic build(BuildContext context) {
       'type': 'double',
       'icon': Icons.aspect_ratio,
       'color': Colors.deepOrange[500]!,
-      'description':
-          'The visible height of the scroll viewport. '
+      'description': 'The visible height of the scroll viewport. '
           'Inherited from ScrollMetrics. A taller viewport shows '
           'more items above and below the selected one.',
       'unique': false,
@@ -199,8 +185,7 @@ dynamic build(BuildContext context) {
       'type': 'AxisDirection',
       'icon': Icons.compass_calibration,
       'color': Colors.orange[600]!,
-      'description':
-          'Scroll direction axis. Typically '
+      'description': 'Scroll direction axis. Typically '
           'AxisDirection.down for vertical wheel pickers. '
           'Inherited from ScrollMetrics.',
       'unique': false,
@@ -210,8 +195,7 @@ dynamic build(BuildContext context) {
       'type': 'double',
       'icon': Icons.hd,
       'color': Colors.orange[500]!,
-      'description':
-          'The number of logical pixels per physical '
+      'description': 'The number of logical pixels per physical '
           'pixel. Inherited from ScrollMetrics. Used for precise '
           'rendering calculations.',
       'unique': false,
@@ -238,10 +222,8 @@ dynamic build(BuildContext context) {
       'roundedIndex': roundedIndex,
       'isSnapped': offset % itemExtent == 0,
     });
-    print(
-      '  offset=$offset → raw=${rawIndex.toStringAsFixed(2)} '
-      '→ index=$roundedIndex',
-    );
+    print('  offset=$offset → raw=${rawIndex.toStringAsFixed(2)} '
+        '→ index=$roundedIndex');
   }
 
   // ============================================================
@@ -255,8 +237,7 @@ dynamic build(BuildContext context) {
       'label': 'User scrolls',
       'icon': Icons.touch_app,
       'color': Colors.deepOrange[600]!,
-      'detail':
-          'User flicks or drags the ListWheelScrollView. '
+      'detail': 'User flicks or drags the ListWheelScrollView. '
           'The gesture is received by the scroll physics.',
     },
     {
@@ -264,8 +245,7 @@ dynamic build(BuildContext context) {
       'label': 'Position updates',
       'icon': Icons.gps_fixed,
       'color': Colors.orange[600]!,
-      'detail':
-          'The underlying _FixedExtentScrollPosition updates '
+      'detail': 'The underlying _FixedExtentScrollPosition updates '
           'its pixels value based on the gesture delta.',
     },
     {
@@ -273,8 +253,7 @@ dynamic build(BuildContext context) {
       'label': 'Metrics created',
       'icon': Icons.straighten,
       'color': Colors.deepOrange[700]!,
-      'detail':
-          'The position creates a FixedExtentMetrics snapshot '
+      'detail': 'The position creates a FixedExtentMetrics snapshot '
           'with the current itemIndex calculated from pixels / '
           'itemExtent. This is the key step.',
     },
@@ -283,8 +262,7 @@ dynamic build(BuildContext context) {
       'label': 'Notification sent',
       'icon': Icons.notifications_active,
       'color': Colors.orange[700]!,
-      'detail':
-          'A ScrollNotification (UserScrollNotification, '
+      'detail': 'A ScrollNotification (UserScrollNotification, '
           'ScrollUpdateNotification, etc.) is dispatched up the '
           'widget tree with the FixedExtentMetrics attached.',
     },
@@ -293,8 +271,7 @@ dynamic build(BuildContext context) {
       'label': 'Listener receives',
       'icon': Icons.hearing,
       'color': Colors.deepOrange[500]!,
-      'detail':
-          'NotificationListener<ScrollNotification> catches '
+      'detail': 'NotificationListener<ScrollNotification> catches '
           'it. Cast notification.metrics to FixedExtentMetrics '
           'to read the itemIndex.',
     },
@@ -303,8 +280,7 @@ dynamic build(BuildContext context) {
       'label': 'Snap settles',
       'icon': Icons.check_circle,
       'color': Colors.orange[500]!,
-      'detail':
-          'FixedExtentScrollPhysics makes the scroll snap to '
+      'detail': 'FixedExtentScrollPhysics makes the scroll snap to '
           'the nearest item. Final notification has '
           'itemIndex == selectedItem on the controller.',
     },
@@ -323,7 +299,11 @@ dynamic build(BuildContext context) {
       'fixed': 'FixedExtentMetrics',
       'regular': 'FixedScrollMetrics',
     },
-    {'aspect': 'itemIndex property', 'fixed': 'Yes ✓', 'regular': 'No ✗'},
+    {
+      'aspect': 'itemIndex property',
+      'fixed': 'Yes ✓',
+      'regular': 'No ✗',
+    },
     {
       'aspect': 'Used by',
       'fixed': 'ListWheelScrollView',
@@ -363,13 +343,11 @@ dynamic build(BuildContext context) {
       'name': 'Reading itemIndex from Notification',
       'icon': Icons.notifications,
       'color': Colors.deepOrange[700]!,
-      'description':
-          'In a NotificationListener<ScrollNotification>, '
+      'description': 'In a NotificationListener<ScrollNotification>, '
           'check if notification.metrics is FixedExtentMetrics. '
           'If so, cast it and read .itemIndex to know what item '
           'is selected without maintaining separate state.',
-      'code':
-          'final metrics = notification.metrics;\n'
+      'code': 'final metrics = notification.metrics;\n'
           'if (metrics is FixedExtentMetrics) {\n'
           '  final index = metrics.itemIndex;\n'
           '}',
@@ -378,13 +356,11 @@ dynamic build(BuildContext context) {
       'name': 'CupertinoPicker Integration',
       'icon': Icons.av_timer,
       'color': Colors.orange[600]!,
-      'description':
-          'CupertinoPicker wraps ListWheelScrollView '
+      'description': 'CupertinoPicker wraps ListWheelScrollView '
           'internally. Its onSelectedItemChanged callback gives you '
           'the index directly, but if you use NotificationListener '
           'instead, you receive FixedExtentMetrics.',
-      'code':
-          'CupertinoPicker(\n'
+      'code': 'CupertinoPicker(\n'
           '  itemExtent: 40,\n'
           '  onSelectedItemChanged: (index) { },\n'
           '  children: items,\n'
@@ -394,13 +370,11 @@ dynamic build(BuildContext context) {
       'name': 'Custom Wheel with Visual Feedback',
       'icon': Icons.tune,
       'color': Colors.deepOrange[600]!,
-      'description':
-          'Build a custom ListWheelScrollView that '
+      'description': 'Build a custom ListWheelScrollView that '
           'highlights the selected item differently. Use '
           'NotificationListener to get FixedExtentMetrics.itemIndex '
           'and rebuild decorations around the selected child.',
-      'code':
-          'ListWheelScrollView.useDelegate(\n'
+      'code': 'ListWheelScrollView.useDelegate(\n'
           '  itemExtent: 50,\n'
           '  controller: fixedExtentController,\n'
           '  childDelegate: delegate,\n'
@@ -410,13 +384,11 @@ dynamic build(BuildContext context) {
       'name': 'Multi-Wheel Picker (Date/Time)',
       'icon': Icons.calendar_today,
       'color': Colors.orange[700]!,
-      'description':
-          'Date/time pickers use multiple ListWheelScrollViews '
+      'description': 'Date/time pickers use multiple ListWheelScrollViews '
           'side by side — each emitting FixedExtentMetrics. '
           'Coordinating them: when hours wheel changes, validate '
           'and potentially adjust minutes wheel.',
-      'code':
-          'Row(children: [\n'
+      'code': 'Row(children: [\n'
           '  hourWheel, // emits FixedExtentMetrics\n'
           '  minuteWheel, // emits FixedExtentMetrics\n'
           '])',
@@ -435,8 +407,7 @@ dynamic build(BuildContext context) {
       'name': 'iOS-Style Picker',
       'icon': Icons.phone_iphone,
       'color': Colors.deepOrange[700]!,
-      'description':
-          'Cupertino date/time picker uses '
+      'description': 'Cupertino date/time picker uses '
           'ListWheelScrollView. Each drum (hour, minute, AM/PM) '
           'independently reports FixedExtentMetrics. The parent '
           'reads itemIndex from each to compose the full DateTime.',
@@ -445,8 +416,7 @@ dynamic build(BuildContext context) {
       'name': 'Number Spinner',
       'icon': Icons.add_circle_outline,
       'color': Colors.orange[600]!,
-      'description':
-          'A compact number selector that scrolls through '
+      'description': 'A compact number selector that scrolls through '
           'values 0–99. itemIndex directly maps to the numeric '
           'value. When snapped, the parent reads '
           'FixedExtentMetrics.itemIndex as the selected number.',
@@ -455,8 +425,7 @@ dynamic build(BuildContext context) {
       'name': 'Slot Machine Animation',
       'icon': Icons.casino,
       'color': Colors.deepOrange[600]!,
-      'description':
-          'Three ListWheelScrollViews side by side '
+      'description': 'Three ListWheelScrollViews side by side '
           'spinning to show random results. animateToItem() is '
           'called with different durations for a staggered stop. '
           'FixedExtentMetrics tells when each reel has settled.',
@@ -465,8 +434,7 @@ dynamic build(BuildContext context) {
       'name': 'Musical Scale Selector',
       'icon': Icons.music_note,
       'color': Colors.orange[700]!,
-      'description':
-          'A wheel displaying musical notes (C, D, E...). '
+      'description': 'A wheel displaying musical notes (C, D, E...). '
           'As the user scrolls, FixedExtentMetrics.itemIndex '
           'maps to a note. The app plays the note when itemIndex '
           'changes — audio feedback driven by scroll metrics.',
@@ -475,8 +443,7 @@ dynamic build(BuildContext context) {
       'name': 'Font Size Chooser',
       'icon': Icons.format_size,
       'color': Colors.deepOrange[500]!,
-      'description':
-          'A wheel of font sizes (8, 10, 12, 14...). '
+      'description': 'A wheel of font sizes (8, 10, 12, 14...). '
           'itemIndex maps to a size array. Preview text updates '
           'live as the wheel spins. The fixed item extent ensures '
           'uniform wheel spacing for every font size option.',
@@ -494,8 +461,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Always Check Type Before Casting',
-      'body':
-          'Not every ScrollNotification carries '
+      'body': 'Not every ScrollNotification carries '
           'FixedExtentMetrics. A PageView emits regular '
           'FixedScrollMetrics. Always use "is FixedExtentMetrics" '
           'before casting to avoid runtime errors.',
@@ -504,8 +470,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'itemIndex Can Be Negative During Overscroll',
-      'body':
-          'When the user over-scrolls past the first item, '
+      'body': 'When the user over-scrolls past the first item, '
           'pixels goes negative and itemIndex can be negative. '
           'Similarly, over-scrolling past the last item gives '
           'an index > itemCount - 1. Always clamp.',
@@ -514,8 +479,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Use Controller.selectedItem for Final Value',
-      'body':
-          'During scrolling, itemIndex changes rapidly. For '
+      'body': 'During scrolling, itemIndex changes rapidly. For '
           'the final confirmed value, read the controller\'s '
           'selectedItem property after scrolling has settled '
           '(e.g., in onSelectedItemChanged callback or after '
@@ -525,8 +489,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Only Works with Fixed Item Extents',
-      'body':
-          'FixedExtentMetrics assumes all items have the same '
+      'body': 'FixedExtentMetrics assumes all items have the same '
           'height (itemExtent). If you need variable heights, '
           'you cannot use ListWheelScrollView or '
           'FixedExtentMetrics — use a regular ListView instead.',
@@ -535,8 +498,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Combine with FixedExtentScrollPhysics',
-      'body':
-          'FixedExtentScrollPhysics ensures the scroll always '
+      'body': 'FixedExtentScrollPhysics ensures the scroll always '
           'snaps to an item boundary. Without it, the scroll can '
           'stop between items and itemIndex would be the nearest '
           'round — but the visual wouldn\'t match.',
@@ -545,8 +507,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'itemIndex == (pixels / itemExtent).round()',
-      'body':
-          'The formula is straightforward. If you know the '
+      'body': 'The formula is straightforward. If you know the '
           'itemExtent you can verify itemIndex manually. This is '
           'also useful when working with raw pixel offsets from '
           'scroll controllers.',
@@ -620,205 +581,169 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _extHead('1', 'What is FixedExtentMetrics?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: card['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: card['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          card['icon'] as IconData,
-                          color: card['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(card['icon'] as IconData,
+                            color: card['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            card['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(card['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      card['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(card['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Hierarchy ──
           _extHead('2', 'Class Hierarchy'),
           SizedBox(height: 12),
-          ...hierarchy.map(
-            (h) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Padding(
-                padding: EdgeInsets.only(left: (h['depth'] as int) * 20.0),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: h['isSubject'] == true
-                        ? Colors.orange[50]
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      left: BorderSide(color: h['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 2,
-                        offset: Offset(0, 1),
+          ...hierarchy.map((h) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Padding(
+                  padding:
+                      EdgeInsets.only(left: (h['depth'] as int) * 20.0),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: h['isSubject'] == true
+                          ? Colors.orange[50]
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border(
+                        left: BorderSide(
+                            color: h['color'] as Color, width: 4),
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            h['icon'] as IconData,
-                            color: h['color'] as Color,
-                            size: 18,
-                          ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 2,
+                            offset: Offset(0, 1))
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          Icon(h['icon'] as IconData,
+                              color: h['color'] as Color, size: 18),
                           SizedBox(width: 8),
                           Expanded(
-                            child: Text(
-                              h['name'] as String,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                fontFamily: 'monospace',
-                                color: h['color'] as Color,
-                              ),
-                            ),
+                            child: Text(h['name'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                    fontFamily: 'monospace',
+                                    color: h['color'] as Color)),
                           ),
                           if (h['isSubject'] == true)
-                            _extBadge('THIS DEMO', Colors.deepOrange[800]!),
-                        ],
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        h['description'] as String,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[700],
-                          height: 1.3,
-                        ),
-                      ),
-                    ],
+                            _extBadge(
+                                'THIS DEMO', Colors.deepOrange[800]!),
+                        ]),
+                        SizedBox(height: 4),
+                        Text(h['description'] as String,
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[700],
+                                height: 1.3)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 3: Properties ──
           _extHead('3', 'Properties'),
           SizedBox(height: 12),
-          ...properties.map(
-            (prop) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: prop['unique'] == true
-                      ? Colors.orange[50]
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: prop['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
+          ...properties.map((prop) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: prop['unique'] == true
+                        ? Colors.orange[50]
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: prop['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          prop['icon'] as IconData,
-                          color: prop['color'] as Color,
-                          size: 16,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(prop['icon'] as IconData,
+                            color: prop['color'] as Color, size: 16),
                         SizedBox(width: 6),
                         Expanded(
-                          child: Text(
-                            prop['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'monospace',
-                              fontSize: 12,
-                              color: prop['color'] as Color,
-                            ),
-                          ),
+                          child: Text(prop['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'monospace',
+                                  fontSize: 12,
+                                  color: prop['color'] as Color)),
                         ),
-                        _extBadge(prop['type'] as String, Colors.grey[500]!),
+                        _extBadge(
+                            prop['type'] as String, Colors.grey[500]!),
                         if (prop['unique'] == true) ...[
                           SizedBox(width: 4),
                           _extBadge('UNIQUE', Colors.deepOrange[700]!),
                         ],
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      prop['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 4),
+                      Text(prop['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -829,10 +754,9 @@ dynamic build(BuildContext context) {
             'itemExtent = ${itemExtent.toInt()} px — '
             'index = (offset / $itemExtent).round()',
             style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-              fontFamily: 'monospace',
-            ),
+                fontSize: 12,
+                color: Colors.grey[600],
+                fontFamily: 'monospace'),
           ),
           SizedBox(height: 12),
           Container(
@@ -842,129 +766,99 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.deepOrange[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Offset (px)',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Raw Index',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          'itemIndex',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          'Snap?',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ],
+            child: Column(children: [
+              Container(
+                padding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
                 ),
-                ...indexCalculations.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final calc = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    color: calc['isSnapped'] == true
-                        ? Colors.orange[50]
-                        : (idx.isEven ? Colors.grey[50] : Colors.white),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            (calc['offset'] as double).toInt().toString(),
-                            style: TextStyle(
+                child: Row(children: [
+                  Expanded(
+                      flex: 2,
+                      child: Text('Offset (px)',
+                          style: TextStyle(
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            (calc['rawIndex'] as double).toStringAsFixed(2),
+                              fontSize: 11))),
+                  Expanded(
+                      flex: 2,
+                      child: Text('Raw Index',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11))),
+                  Expanded(
+                      flex: 2,
+                      child: Text('itemIndex',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11))),
+                  Expanded(
+                      flex: 1,
+                      child: Text('Snap?',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11))),
+                ]),
+              ),
+              ...indexCalculations.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final calc = entry.value;
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 8, horizontal: 12),
+                  color: calc['isSnapped'] == true
+                      ? Colors.orange[50]
+                      : (idx.isEven ? Colors.grey[50] : Colors.white),
+                  child: Row(children: [
+                    Expanded(
+                        flex: 2,
+                        child: Text(
+                            (calc['offset'] as double)
+                                .toInt()
+                                .toString(),
                             style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12))),
+                    Expanded(
+                        flex: 2,
+                        child: Text(
+                            (calc['rawIndex'] as double)
+                                .toStringAsFixed(2),
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[600]))),
+                    Expanded(
+                        flex: 2,
+                        child: Text(
                             (calc['roundedIndex'] as int).toString(),
                             style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange[700],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Text(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.deepOrange[700]))),
+                    Expanded(
+                        flex: 1,
+                        child: Text(
                             calc['isSnapped'] == true ? '✓' : '',
                             style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.green[600],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                                fontSize: 12,
+                                color: Colors.green[600]))),
+                  ]),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -972,86 +866,71 @@ dynamic build(BuildContext context) {
           // ── Section 5: Notification Flow ──
           _extHead('5', 'Scroll Notification Flow'),
           SizedBox(height: 12),
-          ...notifFlow.map(
-            (nf) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: nf['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
+          ...notifFlow.map((nf) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: nf['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: nf['color'] as Color,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${nf['step']}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: nf['color'] as Color,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text('${nf['step']}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12)),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                nf['icon'] as IconData,
-                                color: nf['color'] as Color,
-                                size: 16,
-                              ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(children: [
+                              Icon(nf['icon'] as IconData,
+                                  color: nf['color'] as Color,
+                                  size: 16),
                               SizedBox(width: 6),
-                              Text(
-                                nf['label'] as String,
+                              Text(nf['label'] as String,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13)),
+                            ]),
+                            SizedBox(height: 4),
+                            Text(nf['detail'] as String,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            nf['detail'] as String,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                    height: 1.3)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1065,108 +944,81 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.orange[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
+            child: Column(children: [
+              Container(
+                padding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                decoration: BoxDecoration(
+                  color: Colors.orange[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
+                ),
+                child: Row(children: [
+                  Expanded(
+                      flex: 2,
+                      child: Text('Aspect',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                  Expanded(
+                      flex: 3,
+                      child: Text('FixedExtentMetrics',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                  Expanded(
+                      flex: 3,
+                      child: Text('Regular ScrollMetrics',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                ]),
+              ),
+              ...comparison.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final row = entry.value;
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 6, horizontal: 10),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Aspect',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 2,
+                          child: Text(row['aspect'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10))),
                       Expanded(
-                        flex: 3,
-                        child: Text(
-                          'FixedExtentMetrics',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 3,
+                          child: Text(row['fixed'] as String,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.deepOrange[700],
+                                  height: 1.3))),
                       Expanded(
-                        flex: 3,
-                        child: Text(
-                          'Regular ScrollMetrics',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 3,
+                          child: Text(row['regular'] as String,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey[600],
+                                  height: 1.3))),
                     ],
                   ),
-                ),
-                ...comparison.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final row = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            row['aspect'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Text(
-                            row['fixed'] as String,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.deepOrange[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Text(
-                            row['regular'] as String,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[600],
-                              height: 1.3,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -1174,142 +1026,113 @@ dynamic build(BuildContext context) {
           // ── Section 7: Usage Patterns ──
           _extHead('7', 'Practical Usage Patterns'),
           SizedBox(height: 12),
-          ...usagePatterns.map(
-            (up) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: up['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...usagePatterns.map((up) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: up['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          up['icon'] as IconData,
-                          color: up['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(up['icon'] as IconData,
+                            color: up['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            up['name'] as String,
+                          child: Text(up['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                        ),
+                      ]),
+                      SizedBox(height: 8),
+                      Text(up['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(up['code'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      up['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: Colors.deepOrange[800],
+                                height: 1.4)),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        up['code'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: Colors.deepOrange[800],
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 8: Scenarios ──
           _extHead('8', 'Real-World Scenarios'),
           SizedBox(height: 12),
-          ...scenarios.map(
-            (s) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: s['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...scenarios.map((s) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: s['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          s['icon'] as IconData,
-                          color: s['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(s['icon'] as IconData,
+                            color: s['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            s['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(s['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      s['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(s['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1341,41 +1164,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1416,26 +1227,20 @@ Widget _extHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1451,13 +1256,10 @@ Widget _extBadge(String text, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 9,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 9,
+            fontWeight: FontWeight.bold)),
   );
 }

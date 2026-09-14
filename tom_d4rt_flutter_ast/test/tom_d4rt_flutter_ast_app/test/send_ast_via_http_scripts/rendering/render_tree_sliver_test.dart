@@ -65,84 +65,17 @@ class _TsNode {
 }
 
 const List<_TsNode> _tsSampleTree = [
-  _TsNode(
-    label: 'lib/',
-    icon: Icons.folder,
-    depth: 0,
-    expanded: true,
-    hasChildren: true,
-    accentColor: _tsPrimary,
-  ),
-  _TsNode(
-    label: 'src/',
-    icon: Icons.folder_open,
-    depth: 1,
-    expanded: true,
-    hasChildren: true,
-    accentColor: _tsPrimaryLight,
-  ),
-  _TsNode(
-    label: 'models/',
-    icon: Icons.folder,
-    depth: 2,
-    expanded: false,
-    hasChildren: true,
-    accentColor: _tsBlue,
-  ),
-  _TsNode(
-    label: 'widgets/',
-    icon: Icons.folder_open,
-    depth: 2,
-    expanded: true,
-    hasChildren: true,
-    accentColor: _tsPurple,
-  ),
-  _TsNode(
-    label: 'tree_node.dart',
-    icon: Icons.insert_drive_file,
-    depth: 3,
-    accentColor: _tsPurple,
-  ),
-  _TsNode(
-    label: 'tree_view.dart',
-    icon: Icons.insert_drive_file,
-    depth: 3,
-    accentColor: _tsPurple,
-  ),
-  _TsNode(
-    label: 'utils/',
-    icon: Icons.folder,
-    depth: 2,
-    expanded: false,
-    hasChildren: true,
-    accentColor: _tsOrange,
-  ),
-  _TsNode(
-    label: 'app.dart',
-    icon: Icons.insert_drive_file,
-    depth: 1,
-    accentColor: _tsPrimaryLight,
-  ),
-  _TsNode(
-    label: 'test/',
-    icon: Icons.folder,
-    depth: 0,
-    expanded: false,
-    hasChildren: true,
-    accentColor: _tsAmber,
-  ),
-  _TsNode(
-    label: 'pubspec.yaml',
-    icon: Icons.settings,
-    depth: 0,
-    accentColor: _tsGrey,
-  ),
-  _TsNode(
-    label: 'README.md',
-    icon: Icons.description,
-    depth: 0,
-    accentColor: _tsGrey,
-  ),
+  _TsNode(label: 'lib/', icon: Icons.folder, depth: 0, expanded: true, hasChildren: true, accentColor: _tsPrimary),
+  _TsNode(label: 'src/', icon: Icons.folder_open, depth: 1, expanded: true, hasChildren: true, accentColor: _tsPrimaryLight),
+  _TsNode(label: 'models/', icon: Icons.folder, depth: 2, expanded: false, hasChildren: true, accentColor: _tsBlue),
+  _TsNode(label: 'widgets/', icon: Icons.folder_open, depth: 2, expanded: true, hasChildren: true, accentColor: _tsPurple),
+  _TsNode(label: 'tree_node.dart', icon: Icons.insert_drive_file, depth: 3, accentColor: _tsPurple),
+  _TsNode(label: 'tree_view.dart', icon: Icons.insert_drive_file, depth: 3, accentColor: _tsPurple),
+  _TsNode(label: 'utils/', icon: Icons.folder, depth: 2, expanded: false, hasChildren: true, accentColor: _tsOrange),
+  _TsNode(label: 'app.dart', icon: Icons.insert_drive_file, depth: 1, accentColor: _tsPrimaryLight),
+  _TsNode(label: 'test/', icon: Icons.folder, depth: 0, expanded: false, hasChildren: true, accentColor: _tsAmber),
+  _TsNode(label: 'pubspec.yaml', icon: Icons.settings, depth: 0, accentColor: _tsGrey),
+  _TsNode(label: 'README.md', icon: Icons.description, depth: 0, accentColor: _tsGrey),
 ];
 
 // ---------------------------------------------------------------------------
@@ -178,14 +111,8 @@ Widget _tsSectionTitle(String title, IconData icon) {
 Widget _tsBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
-    ),
+    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
+    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -211,23 +138,9 @@ Widget _tsInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _tsTextDark,
-                ),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _tsTextDark)),
               SizedBox(height: 4),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _tsTextMedium,
-                  height: 1.4,
-                ),
-              ),
+              Text(body, style: TextStyle(fontSize: 12, color: _tsTextMedium, height: 1.4)),
             ],
           ),
         ),
@@ -252,15 +165,12 @@ Widget _tsNodeRow(_TsNode node) {
       children: [
         SizedBox(width: node.depth * 20.0),
         // Depth guides
-        ...List.generate(
-          node.depth,
-          (i) => Container(
-            width: 1,
-            height: 20,
-            margin: EdgeInsets.only(right: 19),
-            color: _tsDivider.withValues(alpha: 0.5),
-          ),
-        ),
+        ...List.generate(node.depth, (i) => Container(
+          width: 1,
+          height: 20,
+          margin: EdgeInsets.only(right: 19),
+          color: _tsDivider.withValues(alpha: 0.5),
+        )),
         if (node.hasChildren)
           Icon(
             node.expanded ? Icons.expand_more : Icons.chevron_right,
@@ -283,11 +193,7 @@ Widget _tsNodeRow(_TsNode node) {
           ),
         ),
         if (node.hasChildren)
-          _tsBadge(
-            node.expanded ? 'open' : 'closed',
-            color.withValues(alpha: 0.15),
-            color,
-          ),
+          _tsBadge(node.expanded ? 'open' : 'closed', color.withValues(alpha: 0.15), color),
       ],
     ),
   );
@@ -299,19 +205,8 @@ Widget _tsNodeRow(_TsNode node) {
 Widget _tsCode(String text) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: _tsSurfaceDark,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 11,
-        fontFamily: 'monospace',
-        color: _tsPrimary,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    decoration: BoxDecoration(color: _tsSurfaceDark, borderRadius: BorderRadius.circular(4)),
+    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _tsPrimary, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -322,10 +217,7 @@ Widget _tsSection1Overview() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _tsSectionTitle(
-        '1 · RenderTreeSliver Overview',
-        Icons.account_tree_outlined,
-      ),
+      _tsSectionTitle('1 · RenderTreeSliver Overview', Icons.account_tree_outlined),
       _tsInfoCard(
         'What is RenderTreeSliver?',
         'The render object that lays out tree-structured content lazily within '
@@ -365,11 +257,7 @@ Widget _tsSection1Overview() {
             SizedBox(height: 8),
             Text(
               'Widget creates render object, which participates in sliver protocol',
-              style: TextStyle(
-                fontSize: 11,
-                color: _tsTextMedium,
-                fontStyle: FontStyle.italic,
-              ),
+              style: TextStyle(fontSize: 11, color: _tsTextMedium, fontStyle: FontStyle.italic),
             ),
           ],
         ),
@@ -409,14 +297,7 @@ Widget _tsSection2Structure() {
               children: [
                 Icon(Icons.account_tree, size: 16, color: _tsPrimary),
                 SizedBox(width: 6),
-                Text(
-                  'Sample file tree',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
-                    color: _tsTextDark,
-                  ),
-                ),
+                Text('Sample file tree', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _tsTextDark)),
               ],
             ),
             Divider(color: _tsDivider, height: 8),
@@ -436,10 +317,7 @@ Widget _tsSection3Indentation() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _tsSectionTitle(
-        '3 · Indentation & Depth Layout',
-        Icons.format_indent_increase,
-      ),
+      _tsSectionTitle('3 · Indentation & Depth Layout', Icons.format_indent_increase),
       _tsInfoCard(
         'Depth-based indentation',
         'RenderTreeSliver indents each node\'s child render box by '
@@ -457,14 +335,7 @@ Widget _tsSection3Indentation() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Indentation visualisation',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tsTextDark,
-              ),
-            ),
+            Text('Indentation visualisation', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tsTextDark)),
             SizedBox(height: 10),
             _tsIndentRow(0, 'Root node', _tsPrimary),
             _tsIndentRow(1, 'Child (depth 1)', _tsPrimaryLight),
@@ -479,11 +350,7 @@ Widget _tsSection3Indentation() {
                 Expanded(
                   child: Text(
                     'indent = depth × indentation (default 10.0px per level)',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: _tsTextMedium,
-                      fontStyle: FontStyle.italic,
-                    ),
+                    style: TextStyle(fontSize: 10, color: _tsTextMedium, fontStyle: FontStyle.italic),
                   ),
                 ),
               ],
@@ -525,14 +392,7 @@ Widget _tsIndentRow(int depth, String label, Color color) {
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: color.withValues(alpha: 0.3)),
           ),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              color: color,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(label, style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600)),
         ),
       ],
     ),
@@ -564,14 +424,7 @@ Widget _tsSection4ExpandCollapse() {
         ),
         child: Column(
           children: [
-            Text(
-              'Expand/collapse cycle',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tsTextDark,
-              ),
-            ),
+            Text('Expand/collapse cycle', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tsTextDark)),
             SizedBox(height: 10),
             Row(
               children: [
@@ -581,26 +434,14 @@ Widget _tsSection4ExpandCollapse() {
                     decoration: BoxDecoration(
                       color: _tsSurface,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _tsPrimary.withValues(alpha: 0.2),
-                      ),
+                      border: Border.all(color: _tsPrimary.withValues(alpha: 0.2)),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.chevron_right, size: 24, color: _tsPrimary),
                         SizedBox(height: 4),
-                        Text(
-                          'Collapsed',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: _tsTextDark,
-                          ),
-                        ),
-                        Text(
-                          'Children hidden',
-                          style: TextStyle(fontSize: 10, color: _tsTextMedium),
-                        ),
+                        Text('Collapsed', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _tsTextDark)),
+                        Text('Children hidden', style: TextStyle(fontSize: 10, color: _tsTextMedium)),
                       ],
                     ),
                   ),
@@ -610,10 +451,7 @@ Widget _tsSection4ExpandCollapse() {
                   child: Column(
                     children: [
                       Icon(Icons.arrow_forward, size: 16, color: _tsAccent),
-                      Text(
-                        'tap',
-                        style: TextStyle(fontSize: 9, color: _tsGrey),
-                      ),
+                      Text('tap', style: TextStyle(fontSize: 9, color: _tsGrey)),
                       Icon(Icons.arrow_back, size: 16, color: _tsAccent),
                     ],
                   ),
@@ -624,26 +462,14 @@ Widget _tsSection4ExpandCollapse() {
                     decoration: BoxDecoration(
                       color: _tsSurface,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _tsAccentDark.withValues(alpha: 0.2),
-                      ),
+                      border: Border.all(color: _tsAccentDark.withValues(alpha: 0.2)),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.expand_more, size: 24, color: _tsAccentDark),
                         SizedBox(height: 4),
-                        Text(
-                          'Expanded',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: _tsTextDark,
-                          ),
-                        ),
-                        Text(
-                          'Children visible',
-                          style: TextStyle(fontSize: 10, color: _tsTextMedium),
-                        ),
+                        Text('Expanded', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _tsTextDark)),
+                        Text('Children visible', style: TextStyle(fontSize: 10, color: _tsTextMedium)),
                       ],
                     ),
                   ),
@@ -694,10 +520,7 @@ Widget _tsSection5LazyLayout() {
           children: [
             // Viewport area
             Positioned(
-              left: 20,
-              top: 50,
-              right: 20,
-              bottom: 50,
+              left: 20, top: 50, right: 20, bottom: 50,
               child: Container(
                 decoration: BoxDecoration(
                   color: _tsAccent.withValues(alpha: 0.08),
@@ -710,23 +533,14 @@ Widget _tsSection5LazyLayout() {
                   children: [
                     Icon(Icons.visibility, size: 20, color: _tsAccent),
                     SizedBox(height: 4),
-                    Text(
-                      'Visible nodes (laid out)',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: _tsTextDark,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    Text('Visible nodes (laid out)', style: TextStyle(fontSize: 11, color: _tsTextDark, fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
             ),
             // Above viewport (cache)
             Positioned(
-              left: 20,
-              top: 10,
-              right: 20,
+              left: 20, top: 10, right: 20,
               child: Container(
                 height: 35,
                 decoration: BoxDecoration(
@@ -735,42 +549,30 @@ Widget _tsSection5LazyLayout() {
                   border: Border.all(color: _tsGrey.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'Cache (ready to display)',
-                  style: TextStyle(fontSize: 10, color: _tsGrey),
-                ),
+                child: Text('Cache (ready to display)', style: TextStyle(fontSize: 10, color: _tsGrey)),
               ),
             ),
             // Below viewport (cache)
             Positioned(
-              left: 20,
-              bottom: 10,
-              right: 20,
+              left: 20, bottom: 10, right: 20,
               child: Container(
                 height: 35,
                 decoration: BoxDecoration(
                   color: _tsGrey.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(6),
-                  ),
+                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(6)),
                   border: Border.all(color: _tsGrey.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'Cache (ready to display)',
-                  style: TextStyle(fontSize: 10, color: _tsGrey),
-                ),
+                child: Text('Cache (ready to display)', style: TextStyle(fontSize: 10, color: _tsGrey)),
               ),
             ),
             // Labels
             Positioned(
-              right: 8,
-              top: 10,
+              right: 8, top: 10,
               child: _tsBadge('off-screen', _tsGrey, _tsOnPrimary),
             ),
             Positioned(
-              right: 8,
-              bottom: 10,
+              right: 8, bottom: 10,
               child: _tsBadge('off-screen', _tsGrey, _tsOnPrimary),
             ),
           ],
@@ -789,10 +591,7 @@ Widget _tsSection6DataModel() {
     {'field': 'children', 'desc': 'List<TreeSliverNode<T>> child nodes'},
     {'field': 'isExpanded', 'desc': 'Whether children are currently visible'},
     {'field': 'depth', 'desc': 'Computed depth in the tree hierarchy'},
-    {
-      'field': 'parent',
-      'desc': 'Reference to the parent node (null for roots)',
-    },
+    {'field': 'parent', 'desc': 'Reference to the parent node (null for roots)'},
   ];
 
   return Column(
@@ -817,48 +616,23 @@ Widget _tsSection6DataModel() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Node properties',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tsTextDark,
-              ),
-            ),
+            Text('Node properties', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tsTextDark)),
             Divider(color: _tsDivider, height: 12),
-            ...fields.map(
-              (f) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 3),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 100,
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: _tsSurfaceDark,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        f['field']!,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          color: _tsPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        f['desc']!,
-                        style: TextStyle(fontSize: 11, color: _tsTextMedium),
-                      ),
-                    ),
-                  ],
-                ),
+            ...fields.map((f) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 3),
+              child: Row(
+                children: [
+                  Container(
+                    width: 100,
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(color: _tsSurfaceDark, borderRadius: BorderRadius.circular(4)),
+                    child: Text(f['field']!, style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: _tsPrimary, fontWeight: FontWeight.w600)),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: Text(f['desc']!, style: TextStyle(fontSize: 11, color: _tsTextMedium))),
+                ],
               ),
-            ),
+            )),
           ],
         ),
       ),
@@ -883,10 +657,7 @@ Widget _tsSection7Builder() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _tsSectionTitle(
-        '7 · treeNodeBuilder & Customisation',
-        Icons.build_circle,
-      ),
+      _tsSectionTitle('7 · treeNodeBuilder & Customisation', Icons.build_circle),
       _tsInfoCard(
         'Custom node widget',
         'TreeSliver.treeNodeBuilder lets you provide a custom Widget for each '
@@ -905,14 +676,7 @@ Widget _tsSection7Builder() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Builder signature',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tsTextDark,
-              ),
-            ),
+            Text('Builder signature', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tsTextDark)),
             SizedBox(height: 8),
             _tsCode('Widget treeNodeBuilder('),
             Padding(
@@ -955,36 +719,11 @@ Widget _tsSection7Builder() {
 // ---------------------------------------------------------------------------
 Widget _tsSection8Accessibility() {
   final semantics = <Map<String, dynamic>>[
-    {
-      'label': 'Semantic tree role',
-      'desc': 'Each node has "treeItem" role',
-      'icon': Icons.accessibility_new,
-      'color': _tsPrimary,
-    },
-    {
-      'label': 'Expand/collapse action',
-      'desc': 'Semantic action for toggling nodes',
-      'icon': Icons.unfold_more,
-      'color': _tsAccentDark,
-    },
-    {
-      'label': 'Level announcement',
-      'desc': 'Depth level communicated to screen readers',
-      'icon': Icons.format_indent_increase,
-      'color': _tsBlue,
-    },
-    {
-      'label': 'Expanded state',
-      'desc': 'SemanticsFlag.isExpanded for open nodes',
-      'icon': Icons.check_circle,
-      'color': _tsAmber,
-    },
-    {
-      'label': 'Child count',
-      'desc': 'Number of children communicated',
-      'icon': Icons.format_list_numbered,
-      'color': _tsPurple,
-    },
+    {'label': 'Semantic tree role', 'desc': 'Each node has "treeItem" role', 'icon': Icons.accessibility_new, 'color': _tsPrimary},
+    {'label': 'Expand/collapse action', 'desc': 'Semantic action for toggling nodes', 'icon': Icons.unfold_more, 'color': _tsAccentDark},
+    {'label': 'Level announcement', 'desc': 'Depth level communicated to screen readers', 'icon': Icons.format_indent_increase, 'color': _tsBlue},
+    {'label': 'Expanded state', 'desc': 'SemanticsFlag.isExpanded for open nodes', 'icon': Icons.check_circle, 'color': _tsAmber},
+    {'label': 'Child count', 'desc': 'Number of children communicated', 'icon': Icons.format_list_numbered, 'color': _tsPurple},
   ];
 
   return Column(
@@ -999,45 +738,31 @@ Widget _tsSection8Accessibility() {
             'Users can expand/collapse nodes via accessibility actions.',
         Icons.record_voice_over,
       ),
-      ...semantics.map(
-        (s) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: s['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(s['icon'] as IconData, size: 18, color: s['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      s['label'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _tsTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      s['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _tsTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...semantics.map((s) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: s['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(s['icon'] as IconData, size: 18, color: s['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(s['label'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tsTextDark)),
+                  SizedBox(height: 2),
+                  Text(s['desc'] as String, style: TextStyle(fontSize: 11, color: _tsTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
     ],
   );
 }
@@ -1047,36 +772,11 @@ Widget _tsSection8Accessibility() {
 // ---------------------------------------------------------------------------
 Widget _tsSection9UseCases() {
   final useCases = <Map<String, dynamic>>[
-    {
-      'title': 'File explorer',
-      'desc': 'Browsing directory hierarchies',
-      'icon': Icons.folder_copy,
-      'color': _tsPrimary,
-    },
-    {
-      'title': 'Settings tree',
-      'desc': 'Nested preference categories',
-      'icon': Icons.settings,
-      'color': _tsBlue,
-    },
-    {
-      'title': 'Organisation chart',
-      'desc': 'Employee reporting structure',
-      'icon': Icons.groups,
-      'color': _tsPurple,
-    },
-    {
-      'title': 'Category browser',
-      'desc': 'Product or content taxonomy',
-      'icon': Icons.category,
-      'color': _tsOrange,
-    },
-    {
-      'title': 'JSON/XML viewer',
-      'desc': 'Structured data exploration',
-      'icon': Icons.data_object,
-      'color': _tsAmber,
-    },
+    {'title': 'File explorer', 'desc': 'Browsing directory hierarchies', 'icon': Icons.folder_copy, 'color': _tsPrimary},
+    {'title': 'Settings tree', 'desc': 'Nested preference categories', 'icon': Icons.settings, 'color': _tsBlue},
+    {'title': 'Organisation chart', 'desc': 'Employee reporting structure', 'icon': Icons.groups, 'color': _tsPurple},
+    {'title': 'Category browser', 'desc': 'Product or content taxonomy', 'icon': Icons.category, 'color': _tsOrange},
+    {'title': 'JSON/XML viewer', 'desc': 'Structured data exploration', 'icon': Icons.data_object, 'color': _tsAmber},
   ];
 
   return Column(
@@ -1092,55 +792,38 @@ Widget _tsSection9UseCases() {
             'CustomScrollView.',
         Icons.widgets,
       ),
-      ...useCases.map(
-        (u) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: u['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(u['icon'] as IconData, size: 20, color: u['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      u['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _tsTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      u['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _tsTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...useCases.map((u) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: u['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(u['icon'] as IconData, size: 20, color: u['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(u['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tsTextDark)),
+                  SizedBox(height: 2),
+                  Text(u['desc'] as String, style: TextStyle(fontSize: 11, color: _tsTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _tsPrimary.withValues(alpha: 0.08),
-              _tsAccent.withValues(alpha: 0.08),
-            ],
+            colors: [_tsPrimary.withValues(alpha: 0.08), _tsAccent.withValues(alpha: 0.08)],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _tsPrimary.withValues(alpha: 0.2)),
@@ -1151,11 +834,7 @@ Widget _tsSection9UseCases() {
             SizedBox(height: 8),
             Text(
               'RenderTreeSliver',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: _tsTextDark,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _tsTextDark),
             ),
             SizedBox(height: 4),
             Text(
@@ -1216,10 +895,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Lazy tree layout sliver — hierarchical data with expand/collapse',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _tsOnPrimary.withValues(alpha: 0.85),
-                ),
+                style: TextStyle(fontSize: 12, color: _tsOnPrimary.withValues(alpha: 0.85)),
               ),
             ],
           ),

@@ -156,26 +156,11 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _anatomyNode(
-              'Decoration',
-              Icons.layers,
-              slate700,
-              'BoxDecoration\nShapeDecoration\nFlutterLogoDecoration',
-            ),
+            _anatomyNode('Decoration', Icons.layers, slate700, 'BoxDecoration\nShapeDecoration\nFlutterLogoDecoration'),
             _arrow(plum500),
-            _anatomyNode(
-              'createBoxPainter',
-              Icons.build,
-              plum700,
-              '([VoidCallback?\nonChanged])',
-            ),
+            _anatomyNode('createBoxPainter', Icons.build, plum700, '([VoidCallback?\nonChanged])'),
             _arrow(plum500),
-            _anatomyNode(
-              'BoxPainter',
-              Icons.brush,
-              plum900,
-              'paint(canvas,\noffset,\nconfig)',
-            ),
+            _anatomyNode('BoxPainter', Icons.brush, plum900, 'paint(canvas,\noffset,\nconfig)'),
           ],
         ),
         SizedBox(height: 18.0),
@@ -220,7 +205,11 @@ dynamic build(BuildContext context) {
           'When a decoration depends on async data (an image not yet loaded), '
           'the painter calls onChanged() once that data arrives so the host '
           'render object can mark itself dirty and repaint.',
-          style: TextStyle(color: plum100, fontSize: 13.0, height: 1.45),
+          style: TextStyle(
+            color: plum100,
+            fontSize: 13.0,
+            height: 1.45,
+          ),
         ),
         SizedBox(height: 16.0),
         // Visual diagram for onChanged image-decoration flow
@@ -319,7 +308,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [slate800, stepColor.withValues(alpha: 0.18)],
+            colors: [
+              slate800,
+              stepColor.withValues(alpha: 0.18),
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -457,7 +449,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [slate800, fc.withValues(alpha: 0.22)],
+            colors: [
+              slate800,
+              fc.withValues(alpha: 0.22),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -508,7 +503,11 @@ dynamic build(BuildContext context) {
             SizedBox(height: 10.0),
             Text(
               field['desc'] as String,
-              style: TextStyle(color: plum100, fontSize: 11.5, height: 1.35),
+              style: TextStyle(
+                color: plum100,
+                fontSize: 11.5,
+                height: 1.35,
+              ),
             ),
           ],
         ),
@@ -589,7 +588,9 @@ dynamic build(BuildContext context) {
       colors: [amber400, plum500, slate900],
       stops: [0.0, 0.6, 1.0],
     ),
-    shape: StadiumBorder(side: BorderSide(color: plum300, width: 2.0)),
+    shape: StadiumBorder(
+      side: BorderSide(color: plum300, width: 2.0),
+    ),
     shadows: [
       BoxShadow(
         color: plum500.withValues(alpha: 0.5),
@@ -674,7 +675,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8.0),
       ),
       alignment: Alignment.center,
-      child: Container(width: 120.0, height: 60.0, decoration: logoDeco),
+      child: Container(
+        width: 120.0,
+        height: 60.0,
+        decoration: logoDeco,
+      ),
     ),
     teal400,
     slate800,
@@ -866,8 +871,7 @@ dynamic build(BuildContext context) {
   final List<Map<String, dynamic>> footguns = [
     {
       'title': 'Painter is NOT thread-safe',
-      'detail':
-          'Never share one BoxPainter instance across isolates or '
+      'detail': 'Never share one BoxPainter instance across isolates or '
           'render trees. Caches inside the painter assume single-threaded '
           'access.',
       'icon': Icons.warning_amber_rounded,
@@ -875,8 +879,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Forgetting onChanged on image decorations',
-      'detail':
-          'Image-backed decorations resolve asynchronously. Without '
+      'detail': 'Image-backed decorations resolve asynchronously. Without '
           'an onChanged callback, the decoration paints once with no image '
           'and never repaints when the image arrives.',
       'icon': Icons.image_not_supported,
@@ -884,8 +887,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Skipping dispose()',
-      'detail':
-          'BoxPainters may hold ImageStream listeners. Dropping a '
+      'detail': 'BoxPainters may hold ImageStream listeners. Dropping a '
           'painter without dispose() leaks listeners and prevents image '
           'cache eviction.',
       'icon': Icons.delete_forever,
@@ -902,7 +904,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [slate800, fc.withValues(alpha: 0.2)],
+            colors: [
+              slate800,
+              fc.withValues(alpha: 0.2),
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -988,10 +993,7 @@ dynamic build(BuildContext context) {
     ['Created by', 'Decoration.createBoxPainter([onChanged])'],
     ['Key method', 'paint(Canvas, Offset, ImageConfiguration)'],
     ['Lifecycle', 'create -> paint* -> dispose'],
-    [
-      'Implementations',
-      '_BoxDecorationPainter, _ShapeDecorationPainter,\nFlutterLogoDecoration',
-    ],
+    ['Implementations', '_BoxDecorationPainter, _ShapeDecorationPainter,\nFlutterLogoDecoration'],
     ['onChanged', 'fires when async image data resolves'],
     ['Thread-safety', 'single-threaded; never share'],
   ];
@@ -1235,7 +1237,11 @@ Widget _captionRow(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(fontFamily: 'monospace', fontSize: 11.5, color: color),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: color,
+      ),
     ),
   );
 }
@@ -1273,12 +1279,7 @@ Widget _flowDash(Color color) {
   );
 }
 
-Widget _codeBlock(
-  String code,
-  Color textColor,
-  Color bgColor,
-  Color borderColor,
-) {
+Widget _codeBlock(String code, Color textColor, Color bgColor, Color borderColor) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(14.0),

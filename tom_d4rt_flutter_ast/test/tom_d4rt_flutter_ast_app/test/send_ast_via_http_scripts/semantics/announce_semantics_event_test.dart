@@ -38,7 +38,11 @@ dynamic build(BuildContext context) {
   String heroStatus = 'pending';
   String heroError = '';
   try {
-    final probe = AnnounceSemanticsEvent(heroMessage, TextDirection.ltr, 0);
+    final probe = AnnounceSemanticsEvent(
+      heroMessage,
+      TextDirection.ltr,
+      0,
+    );
     heroType = '${probe.type}';
     heroRuntime = '${probe.runtimeType}';
     heroStatus = 'constructed';
@@ -686,9 +690,7 @@ dynamic build(BuildContext context) {
               Text(
                 'status: $heroStatus',
                 style: TextStyle(
-                  color: heroStatus == 'constructed'
-                      ? saffronGlow
-                      : crimsonAlert,
+                  color: heroStatus == 'constructed' ? saffronGlow : crimsonAlert,
                   fontSize: 12,
                   fontFamily: 'monospace',
                   fontWeight: FontWeight.bold,
@@ -716,36 +718,98 @@ dynamic build(BuildContext context) {
   // API surface table widget.
   // ---------------------------------------------------------------------------
   final List<Widget> apiTableRows = <Widget>[];
-  apiTableRows.add(
-    Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+  apiTableRows.add(Container(
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    decoration: BoxDecoration(
+      color: brassDeep,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(8),
+        topRight: Radius.circular(8),
+      ),
+    ),
+    child: Row(
+      children: [
+        SizedBox(
+          width: 110,
+          child: Text(
+            'Field',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 110,
+          child: Text(
+            'Type',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 90,
+          child: Text(
+            'Default',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            'Role',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ));
+  for (int i = 0; i < apiRows.length; i++) {
+    final List<String> row = apiRows[i];
+    final Color zebra = i.isEven ? paperCream : paperWarm;
+    apiTableRows.add(Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
       decoration: BoxDecoration(
-        color: brassDeep,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
+        color: zebra,
+        border: Border(
+          left: BorderSide(color: brassMid, width: 1),
+          right: BorderSide(color: brassMid, width: 1),
+          bottom: BorderSide(color: dividerTone, width: 0.6),
         ),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: 110,
             child: Text(
-              'Field',
+              row[0],
               style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
+                color: indigoNight,
+                fontFamily: 'monospace',
                 fontSize: 12,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
           SizedBox(
             width: 110,
             child: Text(
-              'Type',
+              row[1],
               style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
+                color: brassDeep,
+                fontFamily: 'monospace',
                 fontSize: 12,
               ),
             ),
@@ -753,102 +817,34 @@ dynamic build(BuildContext context) {
           SizedBox(
             width: 90,
             child: Text(
-              'Default',
+              row[2],
               style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
+                color: slateSoft,
+                fontFamily: 'monospace',
+                fontSize: 11.5,
               ),
             ),
           ),
           Expanded(
             child: Text(
-              'Role',
-              style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
+              row[3],
+              style: TextStyle(color: slateText, fontSize: 12),
             ),
           ),
         ],
       ),
-    ),
-  );
-  for (int i = 0; i < apiRows.length; i++) {
-    final List<String> row = apiRows[i];
-    final Color zebra = i.isEven ? paperCream : paperWarm;
-    apiTableRows.add(
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
-        decoration: BoxDecoration(
-          color: zebra,
-          border: Border(
-            left: BorderSide(color: brassMid, width: 1),
-            right: BorderSide(color: brassMid, width: 1),
-            bottom: BorderSide(color: dividerTone, width: 0.6),
-          ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 110,
-              child: Text(
-                row[0],
-                style: TextStyle(
-                  color: indigoNight,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 110,
-              child: Text(
-                row[1],
-                style: TextStyle(
-                  color: brassDeep,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 90,
-              child: Text(
-                row[2],
-                style: TextStyle(
-                  color: slateSoft,
-                  fontFamily: 'monospace',
-                  fontSize: 11.5,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                row[3],
-                style: TextStyle(color: slateText, fontSize: 12),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    ));
   }
-  apiTableRows.add(
-    Container(
-      height: 6,
-      decoration: BoxDecoration(
-        color: brassDeep,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(8),
-          bottomRight: Radius.circular(8),
-        ),
+  apiTableRows.add(Container(
+    height: 6,
+    decoration: BoxDecoration(
+      color: brassDeep,
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(8),
+        bottomRight: Radius.circular(8),
       ),
     ),
-  );
+  ));
 
   // ---------------------------------------------------------------------------
   // Related events catalog cards.
@@ -857,74 +853,72 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < relatedEvents.length; i++) {
     final List<String> row = relatedEvents[i];
     final bool isSelf = row[0] == 'AnnounceSemanticsEvent';
-    relatedCards.add(
-      Container(
-        margin: EdgeInsets.only(bottom: 9),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isSelf ? saffronSoft : paperCream,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: isSelf ? brassDeep : brassMid,
-            width: isSelf ? 2 : 1,
-          ),
+    relatedCards.add(Container(
+      margin: EdgeInsets.only(bottom: 9),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isSelf ? saffronSoft : paperCream,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isSelf ? brassDeep : brassMid,
+          width: isSelf ? 2 : 1,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    row[0],
-                    style: TextStyle(
-                      color: indigoNight,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: brassDeep,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    "type='${row[1]}'",
-                    style: TextStyle(
-                      color: saffronGlow,
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 6),
-            Text(
-              row[2],
-              style: TextStyle(color: slateText, fontSize: 12.5, height: 1.4),
-            ),
-            if (isSelf)
-              Padding(
-                padding: EdgeInsets.only(top: 6),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
                 child: Text(
-                  '<-- this demo focuses on this event',
+                  row[0],
                   style: TextStyle(
-                    color: brassDeep,
-                    fontSize: 11,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w600,
+                    color: indigoNight,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontFamily: 'monospace',
                   ),
                 ),
               ),
-          ],
-        ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: brassDeep,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  "type='${row[1]}'",
+                  style: TextStyle(
+                    color: saffronGlow,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 6),
+          Text(
+            row[2],
+            style: TextStyle(color: slateText, fontSize: 12.5, height: 1.4),
+          ),
+          if (isSelf)
+            Padding(
+              padding: EdgeInsets.only(top: 6),
+              child: Text(
+                '<-- this demo focuses on this event',
+                style: TextStyle(
+                  color: brassDeep,
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+        ],
       ),
-    );
+    ));
   }
 
   // ---------------------------------------------------------------------------
@@ -938,7 +932,11 @@ dynamic build(BuildContext context) {
     String tryStatus = 'pending';
     String tryError = '';
     try {
-      final probe = AnnounceSemanticsEvent(row[2], TextDirection.ltr, 0);
+      final probe = AnnounceSemanticsEvent(
+        row[2],
+        TextDirection.ltr,
+        0,
+      );
       tryStatus = 'ok type=${probe.type}';
     } catch (e) {
       tryStatus = 'fallback';
@@ -947,224 +945,217 @@ dynamic build(BuildContext context) {
     if (tryError.isNotEmpty) {
       print('Style ${row[0]} fallback: $tryError');
     }
-    messageCards.add(
-      Container(
-        margin: EdgeInsets.only(bottom: 10),
-        padding: EdgeInsets.all(12),
-        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
-        // Original combined `borderRadius: 8` with a non-uniform `Border`
-        // (left: base/5 vs top/right/bottom: dividerTone/0.7 — different
-        // colors and widths). Flutter asserts uniform-colors-or-no-radius.
-        // The messageCards loop renders one tile per styleRows entry. Drop
-        // borderRadius; the heavy-left accent bar look survives via the
-        // wider, saturated left BorderSide alone.
-        decoration: BoxDecoration(
-          color: paperCream,
-          border: Border(
-            left: BorderSide(color: base, width: 5),
-            top: BorderSide(color: dividerTone, width: 0.7),
-            right: BorderSide(color: dividerTone, width: 0.7),
-            bottom: BorderSide(color: dividerTone, width: 0.7),
-          ),
+    messageCards.add(Container(
+      margin: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.all(12),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+      // Original combined `borderRadius: 8` with a non-uniform `Border`
+      // (left: base/5 vs top/right/bottom: dividerTone/0.7 — different
+      // colors and widths). Flutter asserts uniform-colors-or-no-radius.
+      // The messageCards loop renders one tile per styleRows entry. Drop
+      // borderRadius; the heavy-left accent bar look survives via the
+      // wider, saturated left BorderSide alone.
+      decoration: BoxDecoration(
+        color: paperCream,
+        border: Border(
+          left: BorderSide(color: base, width: 5),
+          top: BorderSide(color: dividerTone, width: 0.7),
+          right: BorderSide(color: dividerTone, width: 0.7),
+          bottom: BorderSide(color: dividerTone, width: 0.7),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: base,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  row[0].toUpperCase(),
+                  style: TextStyle(
+                    color: paperCream,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.3,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                decoration: BoxDecoration(
+                  color: base.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: base, width: 0.6),
+                ),
+                child: Text(
+                  row[1],
+                  style: TextStyle(
+                    color: base,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Spacer(),
+              Text(
+                tryStatus,
+                style: TextStyle(
+                  color: slateSoft,
+                  fontSize: 10.5,
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: paperWarm,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: base,
-                    borderRadius: BorderRadius.circular(4),
+                    color: indigoNight,
+                    borderRadius: BorderRadius.circular(3),
                   ),
                   child: Text(
-                    row[0].toUpperCase(),
+                    'speak',
                     style: TextStyle(
-                      color: paperCream,
-                      fontSize: 11,
+                      color: saffronGlow,
+                      fontSize: 9.5,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 1.3,
                     ),
                   ),
                 ),
                 SizedBox(width: 8),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: base.withValues(alpha: 0.18),
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: base, width: 0.6),
-                  ),
+                Expanded(
                   child: Text(
-                    row[1],
+                    '"${row[2]}"',
                     style: TextStyle(
-                      color: base,
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w600,
+                      color: indigoNight,
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ),
-                ),
-                Spacer(),
-                Text(
-                  tryStatus,
-                  style: TextStyle(
-                    color: slateSoft,
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 8),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: paperWarm,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: indigoNight,
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                    child: Text(
-                      'speak',
-                      style: TextStyle(
-                        color: saffronGlow,
-                        fontSize: 9.5,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      '"${row[2]}"',
-                      style: TextStyle(
-                        color: indigoNight,
-                        fontSize: 13,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              row[3],
-              style: TextStyle(color: slateText, fontSize: 12, height: 1.45),
-            ),
-          ],
-        ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            row[3],
+            style: TextStyle(color: slateText, fontSize: 12, height: 1.45),
+          ),
+        ],
       ),
-    );
+    ));
   }
 
   // ---------------------------------------------------------------------------
   // Reader matrix table.
   // ---------------------------------------------------------------------------
   final List<Widget> readerRows = <Widget>[];
-  readerRows.add(
-    Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      color: indigoNight,
+  readerRows.add(Container(
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    color: indigoNight,
+    child: Row(
+      children: [
+        SizedBox(
+          width: 160,
+          child: Text(
+            'Reader',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 90,
+          child: Text(
+            'Mode',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            'Behavior',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ));
+  for (int i = 0; i < readerMatrix.length; i++) {
+    final List<String> row = readerMatrix[i];
+    final Color zebra = i.isEven ? paperCream : paperWarm;
+    final bool assertive = row[1] == 'assertive';
+    readerRows.add(Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+      color: zebra,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: 160,
             child: Text(
-              'Reader',
+              row[0],
               style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
+                color: indigoNight,
                 fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
           SizedBox(
             width: 90,
             child: Text(
-              'Mode',
+              row[1],
               style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
+                color: assertive ? crimsonAlert : forestOk,
                 fontSize: 12,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
           Expanded(
             child: Text(
-              'Behavior',
-              style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
+              row[2],
+              style: TextStyle(color: slateText, fontSize: 12, height: 1.4),
             ),
           ),
         ],
       ),
-    ),
-  );
-  for (int i = 0; i < readerMatrix.length; i++) {
-    final List<String> row = readerMatrix[i];
-    final Color zebra = i.isEven ? paperCream : paperWarm;
-    final bool assertive = row[1] == 'assertive';
-    readerRows.add(
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
-        color: zebra,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 160,
-              child: Text(
-                row[0],
-                style: TextStyle(
-                  color: indigoNight,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 90,
-              child: Text(
-                row[1],
-                style: TextStyle(
-                  color: assertive ? crimsonAlert : forestOk,
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                row[2],
-                style: TextStyle(color: slateText, fontSize: 12, height: 1.4),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    ));
   }
 
   // ---------------------------------------------------------------------------
   // ASCII flow showing platform channel dispatch path.
   // ---------------------------------------------------------------------------
-  final String asciiFlow =
-      ''
+  final String asciiFlow = ''
       '  Dart side                                Platform side\n'
       '  +-------------------+                    +-------------------+\n'
       '  | App calls         |                    | Android TalkBack  |\n'
@@ -1249,105 +1240,103 @@ dynamic build(BuildContext context) {
     final List<String> row = scenarios[i];
     final bool assertive = row[3] == 'assertive';
     final Color accent = assertive ? crimsonAlert : forestOk;
-    scenarioPanels.add(
-      Container(
-        margin: EdgeInsets.only(bottom: 10),
-        decoration: BoxDecoration(
-          color: paperCream,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: brassMid, width: 1),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [brassDeep, brassMid],
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(7),
-                  topRight: Radius.circular(7),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 26,
-                    height: 26,
-                    decoration: BoxDecoration(
-                      color: saffronGlow,
-                      shape: BoxShape.circle,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${i + 1}',
-                      style: TextStyle(
-                        color: indigoNight,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      row[0],
-                      style: TextStyle(
-                        color: paperCream,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: accent,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      row[3],
-                      style: TextStyle(
-                        color: paperCream,
-                        fontSize: 10,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(12, 10, 12, 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  keyValue('Trigger', row[1]),
-                  keyValue('Spoken', '"${row[2]}"'),
-                  keyValue('Mode', row[3]),
-                  Padding(
-                    padding: EdgeInsets.only(top: 6),
-                    child: Text(
-                      row[4],
-                      style: TextStyle(
-                        color: slateText,
-                        fontSize: 12,
-                        height: 1.45,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+    scenarioPanels.add(Container(
+      margin: EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: paperCream,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: brassMid, width: 1),
       ),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [brassDeep, brassMid],
+              ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(7),
+                topRight: Radius.circular(7),
+              ),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 26,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    color: saffronGlow,
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    '${i + 1}',
+                    style: TextStyle(
+                      color: indigoNight,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    row[0],
+                    style: TextStyle(
+                      color: paperCream,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: accent,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    row[3],
+                    style: TextStyle(
+                      color: paperCream,
+                      fontSize: 10,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(12, 10, 12, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                keyValue('Trigger', row[1]),
+                keyValue('Spoken', '"${row[2]}"'),
+                keyValue('Mode', row[3]),
+                Padding(
+                  padding: EdgeInsets.only(top: 6),
+                  child: Text(
+                    row[4],
+                    style: TextStyle(
+                      color: slateText,
+                      fontSize: 12,
+                      height: 1.45,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // ---------------------------------------------------------------------------
@@ -1356,69 +1345,67 @@ dynamic build(BuildContext context) {
   final List<Widget> pitfallTiles = <Widget>[];
   for (int i = 0; i < pitfalls.length; i++) {
     final List<String> row = pitfalls[i];
-    pitfallTiles.add(
-      Container(
-        margin: EdgeInsets.only(bottom: 8),
-        padding: EdgeInsets.all(11),
-        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
-        // Original combined `borderRadius: 7` with `Border(left: crimsonAlert/4)` —
-        // top/right/bottom default to BorderSide.none → non-uniform. Flutter
-        // asserts uniform-colors-or-no-radius. The pitfallTiles loop produces
-        // one tile per pitfalls entry. Drop borderRadius; the heavy-left accent
-        // bar look survives via the colored left BorderSide alone.
-        decoration: BoxDecoration(
-          color: i.isEven ? paperCream : paperWarm,
-          border: Border(left: BorderSide(color: crimsonAlert, width: 4)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                color: crimsonAlert,
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                '!',
-                style: TextStyle(
-                  color: paperCream,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    row[0],
-                    style: TextStyle(
-                      color: indigoNight,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 3),
-                  Text(
-                    row[1],
-                    style: TextStyle(
-                      color: slateText,
-                      fontSize: 12,
-                      height: 1.4,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+    pitfallTiles.add(Container(
+      margin: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.all(11),
+      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+      // Original combined `borderRadius: 7` with `Border(left: crimsonAlert/4)` —
+      // top/right/bottom default to BorderSide.none → non-uniform. Flutter
+      // asserts uniform-colors-or-no-radius. The pitfallTiles loop produces
+      // one tile per pitfalls entry. Drop borderRadius; the heavy-left accent
+      // bar look survives via the colored left BorderSide alone.
+      decoration: BoxDecoration(
+        color: i.isEven ? paperCream : paperWarm,
+        border: Border(left: BorderSide(color: crimsonAlert, width: 4)),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 22,
+            height: 22,
+            decoration: BoxDecoration(
+              color: crimsonAlert,
+              shape: BoxShape.circle,
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              '!',
+              style: TextStyle(
+                color: paperCream,
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+              ),
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  row[0],
+                  style: TextStyle(
+                    color: indigoNight,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 3),
+                Text(
+                  row[1],
+                  style: TextStyle(
+                    color: slateText,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // ---------------------------------------------------------------------------
@@ -1427,40 +1414,38 @@ dynamic build(BuildContext context) {
   final List<Widget> glossaryTiles = <Widget>[];
   for (int i = 0; i < glossary.length; i++) {
     final List<String> row = glossary[i];
-    glossaryTiles.add(
-      Container(
-        margin: EdgeInsets.only(bottom: 7),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: paperCream,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: dividerTone, width: 0.8),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 160,
-              child: Text(
-                row[0],
-                style: TextStyle(
-                  color: brassDeep,
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'monospace',
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                row[1],
-                style: TextStyle(color: slateText, fontSize: 12, height: 1.4),
-              ),
-            ),
-          ],
-        ),
+    glossaryTiles.add(Container(
+      margin: EdgeInsets.only(bottom: 7),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: paperCream,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: dividerTone, width: 0.8),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 160,
+            child: Text(
+              row[0],
+              style: TextStyle(
+                color: brassDeep,
+                fontSize: 12.5,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'monospace',
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              row[1],
+              style: TextStyle(color: slateText, fontSize: 12, height: 1.4),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // ---------------------------------------------------------------------------
@@ -1473,167 +1458,163 @@ dynamic build(BuildContext context) {
     final Color color = row[1] as Color;
     final String hex = row[2] as String;
     final String role = row[3] as String;
-    swatchTiles.add(
-      Container(
-        width: 230,
-        margin: EdgeInsets.only(right: 10, bottom: 10),
-        decoration: BoxDecoration(
-          color: paperCream,
-          borderRadius: BorderRadius.circular(7),
-          border: Border.all(color: brassMid, width: 1),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 60,
-              height: 60,
-              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
-              // Original combined `BorderRadius.only(topLeft, bottomLeft)` with
-              // `Border(right: brassMid/1)` — the other three sides default to
-              // BorderSide.none → non-uniform. Flutter asserts uniform-colors-
-              // or-no-radius. Drop borderRadius; the swatch divider strip retains
-              // its right separator via the colored BorderSide alone (the corners
-              // of this inner color block were never visually critical anyway —
-              // the outer container at line 1450 still provides the rounded
-              // pill shape).
-              decoration: BoxDecoration(
-                color: color,
-                border: Border(right: BorderSide(color: brassMid, width: 1)),
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 6),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        color: indigoNight,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      hex,
-                      style: TextStyle(
-                        color: brassDeep,
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      role,
-                      style: TextStyle(
-                        color: slateSoft,
-                        fontSize: 10.5,
-                        fontStyle: FontStyle.italic,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+    swatchTiles.add(Container(
+      width: 230,
+      margin: EdgeInsets.only(right: 10, bottom: 10),
+      decoration: BoxDecoration(
+        color: paperCream,
+        borderRadius: BorderRadius.circular(7),
+        border: Border.all(color: brassMid, width: 1),
       ),
-    );
+      child: Row(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #82, P5(a)):
+            // Original combined `BorderRadius.only(topLeft, bottomLeft)` with
+            // `Border(right: brassMid/1)` — the other three sides default to
+            // BorderSide.none → non-uniform. Flutter asserts uniform-colors-
+            // or-no-radius. Drop borderRadius; the swatch divider strip retains
+            // its right separator via the colored BorderSide alone (the corners
+            // of this inner color block were never visually critical anyway —
+            // the outer container at line 1450 still provides the rounded
+            // pill shape).
+            decoration: BoxDecoration(
+              color: color,
+              border: Border(
+                right: BorderSide(color: brassMid, width: 1),
+              ),
+            ),
+          ),
+          SizedBox(width: 8),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 6),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      color: indigoNight,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    hex,
+                    style: TextStyle(
+                      color: brassDeep,
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    role,
+                    style: TextStyle(
+                      color: slateSoft,
+                      fontSize: 10.5,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // ---------------------------------------------------------------------------
   // Comparison table vs SemanticsService.announce.
   // ---------------------------------------------------------------------------
   final List<Widget> comparisonRows = <Widget>[];
-  comparisonRows.add(
-    Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      color: brassDeep,
+  comparisonRows.add(Container(
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    color: brassDeep,
+    child: Row(
+      children: [
+        SizedBox(
+          width: 110,
+          child: Text(
+            'Aspect',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            'AnnounceSemanticsEvent',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            'SemanticsService.announce',
+            style: TextStyle(
+              color: saffronGlow,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ));
+  for (int i = 0; i < comparison.length; i++) {
+    final List<String> row = comparison[i];
+    final Color zebra = i.isEven ? paperCream : paperWarm;
+    comparisonRows.add(Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+      color: zebra,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: 110,
             child: Text(
-              'Aspect',
+              row[0],
               style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
+                color: indigoNight,
                 fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Text(
+                row[1],
+                style: TextStyle(
+                  color: slateText,
+                  fontSize: 11.5,
+                  height: 1.4,
+                ),
               ),
             ),
           ),
           Expanded(
             child: Text(
-              'AnnounceSemanticsEvent',
-              style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              'SemanticsService.announce',
-              style: TextStyle(
-                color: saffronGlow,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
+              row[2],
+              style: TextStyle(color: slateText, fontSize: 11.5, height: 1.4),
             ),
           ),
         ],
       ),
-    ),
-  );
-  for (int i = 0; i < comparison.length; i++) {
-    final List<String> row = comparison[i];
-    final Color zebra = i.isEven ? paperCream : paperWarm;
-    comparisonRows.add(
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
-        color: zebra,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 110,
-              child: Text(
-                row[0],
-                style: TextStyle(
-                  color: indigoNight,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(right: 10),
-                child: Text(
-                  row[1],
-                  style: TextStyle(
-                    color: slateText,
-                    fontSize: 11.5,
-                    height: 1.4,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                row[2],
-                style: TextStyle(color: slateText, fontSize: 11.5, height: 1.4),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    ));
   }
 
   // ---------------------------------------------------------------------------
@@ -1642,72 +1623,70 @@ dynamic build(BuildContext context) {
   final List<Widget> decisionTiles = <Widget>[];
   for (int i = 0; i < decisionRows.length; i++) {
     final List<String> row = decisionRows[i];
-    decisionTiles.add(
-      Container(
-        margin: EdgeInsets.only(bottom: 9),
-        padding: EdgeInsets.all(11),
-        decoration: BoxDecoration(
-          color: paperCream,
-          borderRadius: BorderRadius.circular(7),
-          border: Border.all(color: brassMid, width: 1),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 26,
-              height: 26,
-              decoration: BoxDecoration(
-                color: indigoNight,
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                'Q${i + 1}',
-                style: TextStyle(
-                  color: saffronGlow,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11,
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    row[0],
-                    style: TextStyle(
-                      color: indigoNight,
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: saffronSoft,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: brassMid, width: 0.7),
-                    ),
-                    child: Text(
-                      row[1],
-                      style: TextStyle(
-                        color: slateText,
-                        fontSize: 12,
-                        height: 1.35,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+    decisionTiles.add(Container(
+      margin: EdgeInsets.only(bottom: 9),
+      padding: EdgeInsets.all(11),
+      decoration: BoxDecoration(
+        color: paperCream,
+        borderRadius: BorderRadius.circular(7),
+        border: Border.all(color: brassMid, width: 1),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 26,
+            height: 26,
+            decoration: BoxDecoration(
+              color: indigoNight,
+              shape: BoxShape.circle,
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              'Q${i + 1}',
+              style: TextStyle(
+                color: saffronGlow,
+                fontWeight: FontWeight.bold,
+                fontSize: 11,
+              ),
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  row[0],
+                  style: TextStyle(
+                    color: indigoNight,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: saffronSoft,
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: brassMid, width: 0.7),
+                  ),
+                  child: Text(
+                    row[1],
+                    style: TextStyle(
+                      color: slateText,
+                      fontSize: 12,
+                      height: 1.35,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // ---------------------------------------------------------------------------
@@ -1821,15 +1800,18 @@ dynamic build(BuildContext context) {
   final List<Widget> playgroundCards = <Widget>[];
   for (int i = 0; i < playgroundCases.length; i++) {
     final List<String> row = playgroundCases[i];
-    final TextDirection dir = row[2] == 'rtl'
-        ? TextDirection.rtl
-        : TextDirection.ltr;
+    final TextDirection dir =
+        row[2] == 'rtl' ? TextDirection.rtl : TextDirection.ltr;
     final int viewId = int.tryParse(row[3]) ?? 0;
     String status = 'pending';
     String evType = '';
     String evRuntime = '';
     try {
-      final ev = AnnounceSemanticsEvent(row[1], dir, viewId);
+      final ev = AnnounceSemanticsEvent(
+        row[1],
+        dir,
+        viewId,
+      );
       status = 'constructed';
       evType = '${ev.type}';
       evRuntime = '${ev.runtimeType}';
@@ -1840,60 +1822,61 @@ dynamic build(BuildContext context) {
       print('Playground ${row[0]} fallback: $e');
     }
     final bool ok = status == 'constructed';
-    playgroundCards.add(
-      Container(
-        margin: EdgeInsets.only(bottom: 10),
-        padding: EdgeInsets.all(11),
-        decoration: BoxDecoration(
-          color: paperCream,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: ok ? forestOk : crimsonAlert, width: 1),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: ok ? forestOk : crimsonAlert,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    status.toUpperCase(),
-                    style: TextStyle(
-                      color: paperCream,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    row[0],
-                    style: TextStyle(
-                      color: indigoNight,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            keyValue('message', '"${row[1]}"'),
-            keyValue('textDirection', 'TextDirection.${row[2]}'),
-            keyValue('viewId', row[3]),
-            keyValue('mode', row[4]),
-            keyValue('type', evType),
-            keyValue('runtimeType', evRuntime),
-          ],
+    playgroundCards.add(Container(
+      margin: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.all(11),
+      decoration: BoxDecoration(
+        color: paperCream,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: ok ? forestOk : crimsonAlert,
+          width: 1,
         ),
       ),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                decoration: BoxDecoration(
+                  color: ok ? forestOk : crimsonAlert,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  status.toUpperCase(),
+                  style: TextStyle(
+                    color: paperCream,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  row[0],
+                  style: TextStyle(
+                    color: indigoNight,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          keyValue('message', '"${row[1]}"'),
+          keyValue('textDirection', 'TextDirection.${row[2]}'),
+          keyValue('viewId', row[3]),
+          keyValue('mode', row[4]),
+          keyValue('type', evType),
+          keyValue('runtimeType', evRuntime),
+        ],
+      ),
+    ));
   }
 
   // ---------------------------------------------------------------------------
@@ -1926,7 +1909,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 6),
         Text(
           'Hand-authored visual tour for the d4rt flutter AST runner. Single dynamic build(), no state, no async, index-based loops, withValues only.',
-          style: TextStyle(color: paperCream, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: paperCream,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         SizedBox(height: 10),
         Opacity(

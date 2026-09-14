@@ -105,10 +105,7 @@ class _HeroHeaderSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20),
@@ -128,10 +125,7 @@ class _HeroHeaderSection extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.amber.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(20),
@@ -191,7 +185,9 @@ class _HeroHeaderSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.18),
+              ),
             ),
             child: Text(
               'AbstractNode is intentionally minimal. It does not paint, lay out, '
@@ -353,7 +349,10 @@ class _SectionShell extends StatelessWidget {
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.all(24), child: child),
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: child,
+          ),
         ],
       ),
     );
@@ -589,7 +588,10 @@ class _TreeNodeBox extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 6),
               Expanded(
@@ -1102,11 +1104,8 @@ class _LifecycleStateMachineSection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Icon(
-                  Icons.warning_amber_rounded,
-                  color: Color(0xFFF57F17),
-                  size: 20,
-                ),
+                const Icon(Icons.warning_amber_rounded,
+                    color: Color(0xFFF57F17), size: 20),
                 const SizedBox(width: 10),
                 const Expanded(
                   child: Text(
@@ -1162,7 +1161,10 @@ class _StateBox extends StatelessWidget {
           Container(
             width: 40,
             height: 40,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
             child: const Icon(Icons.adjust, color: Colors.white, size: 22),
           ),
           const SizedBox(height: 12),
@@ -1236,7 +1238,10 @@ class _TransitionArrow extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
-                      colors: <Color>[color.withValues(alpha: 0.3), color],
+                      colors: <Color>[
+                        color.withValues(alpha: 0.3),
+                        color,
+                      ],
                     ),
                   ),
                 ),
@@ -1255,7 +1260,10 @@ class _TransitionArrow extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
-                      colors: <Color>[color, color.withValues(alpha: 0.3)],
+                      colors: <Color>[
+                        color,
+                        color.withValues(alpha: 0.3),
+                      ],
                     ),
                   ),
                 ),
@@ -1370,7 +1378,8 @@ class _OwnerConceptSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(14),
                     boxShadow: <BoxShadow>[
                       BoxShadow(
-                        color: const Color(0xFF006064).withValues(alpha: 0.35),
+                        color: const Color(0xFF006064)
+                            .withValues(alpha: 0.35),
                         blurRadius: 16,
                         offset: const Offset(0, 8),
                       ),
@@ -1392,17 +1401,17 @@ class _OwnerConceptSection extends StatelessWidget {
                       Text(
                         'owner reference for all attached descendants',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white70, fontSize: 11),
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 11,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Icon(
-                  Icons.arrow_downward,
-                  color: Color(0xFF006064),
-                  size: 28,
-                ),
+                const Icon(Icons.arrow_downward,
+                    color: Color(0xFF006064), size: 28),
                 const SizedBox(height: 16),
                 Wrap(
                   alignment: WrapAlignment.center,
@@ -1447,9 +1456,8 @@ class _OwnerChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color base = owned
-        ? const Color(0xFF00838F)
-        : const Color(0xFFB0BEC5);
+    final Color base =
+        owned ? const Color(0xFF00838F) : const Color(0xFFB0BEC5);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -1460,7 +1468,11 @@ class _OwnerChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(owned ? Icons.link : Icons.link_off, size: 14, color: base),
+          Icon(
+            owned ? Icons.link : Icons.link_off,
+            size: 14,
+            color: base,
+          ),
           const SizedBox(width: 6),
           Text(
             label,
@@ -1472,7 +1484,8 @@ class _OwnerChip extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: base.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(4),
@@ -1512,7 +1525,8 @@ class _SubclassTableSection extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
@@ -1529,21 +1543,19 @@ class _SubclassTableSection extends StatelessWidget {
               ),
               child: Row(
                 children: const <Widget>[
-                  Expanded(flex: 2, child: _TableHeaderCell(label: 'Subclass')),
                   Expanded(
-                    flex: 2,
-                    child: _TableHeaderCell(label: 'Owner Type'),
-                  ),
+                      flex: 2,
+                      child: _TableHeaderCell(label: 'Subclass')),
                   Expanded(
-                    flex: 3,
-                    child: _TableHeaderCell(
-                      label: 'Adds On Top Of AbstractNode',
-                    ),
-                  ),
+                      flex: 2,
+                      child: _TableHeaderCell(label: 'Owner Type')),
                   Expanded(
-                    flex: 2,
-                    child: _TableHeaderCell(label: 'Tree Direction'),
-                  ),
+                      flex: 3,
+                      child: _TableHeaderCell(
+                          label: 'Adds On Top Of AbstractNode')),
+                  Expanded(
+                      flex: 2,
+                      child: _TableHeaderCell(label: 'Tree Direction')),
                 ],
               ),
             ),
@@ -1642,7 +1654,9 @@ class _SubclassRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
         color: even ? const Color(0xFFFCE4EC) : Colors.white,
-        border: const Border(top: BorderSide(color: Color(0xFFF8BBD0))),
+        border: const Border(
+          top: BorderSide(color: Color(0xFFF8BBD0)),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1931,9 +1945,7 @@ class _DepthChainPanel extends StatelessWidget {
                   SizedBox(width: 12.0 * i),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
+                        horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: i == highlightIndex
                           ? color
@@ -1977,8 +1989,10 @@ class _PitfallsSection extends StatelessWidget {
           _PitfallCard(
             severity: 'critical',
             title: 'Forgetting to call adoptChild()',
-            wrong: 'this._parent = child;',
-            right: 'adoptChild(child); // adoptChild sets parent and redepths.',
+            wrong:
+                'this._parent = child;',
+            right:
+                'adoptChild(child); // adoptChild sets parent and redepths.',
             explanation:
                 'Manually assigning _parent skips the depth recomputation and '
                 'the attach/detach propagation. The tree will appear connected '
@@ -1987,8 +2001,10 @@ class _PitfallsSection extends StatelessWidget {
           _PitfallCard(
             severity: 'critical',
             title: 'Mismatched detach() / attach()',
-            wrong: 'this.detach(); // child is still attached',
-            right: 'for (final c in children) c.detach();\nsuper.detach();',
+            wrong:
+                'this.detach(); // child is still attached',
+            right:
+                'for (final c in children) c.detach();\nsuper.detach();',
             explanation:
                 'Forgetting to detach children first leaves dangling owner '
                 'references on the children. Listeners they registered with '
@@ -1997,8 +2013,10 @@ class _PitfallsSection extends StatelessWidget {
           _PitfallCard(
             severity: 'high',
             title: 'redepthChild ordering',
-            wrong: 'child._depth = this.depth + 1; // bypasses redepthChildren',
-            right: 'redepthChild(child); // bumps depth + recurses',
+            wrong:
+                'child._depth = this.depth + 1; // bypasses redepthChildren',
+            right:
+                'redepthChild(child); // bumps depth + recurses',
             explanation:
                 'Directly setting depth on the child but not recursing means '
                 'grandchildren keep their stale depth. Traversal algorithms '
@@ -2007,8 +2025,10 @@ class _PitfallsSection extends StatelessWidget {
           _PitfallCard(
             severity: 'high',
             title: 'Calling attach() twice',
-            wrong: 'child.attach(owner); child.attach(otherOwner);',
-            right: 'if (!child.attached) child.attach(owner);',
+            wrong:
+                'child.attach(owner); child.attach(otherOwner);',
+            right:
+                'if (!child.attached) child.attach(owner);',
             explanation:
                 'attach() asserts that the node was previously detached. The '
                 'assertion is your safety net — but in release mode the second '
@@ -2018,8 +2038,10 @@ class _PitfallsSection extends StatelessWidget {
           _PitfallCard(
             severity: 'medium',
             title: 'Dropping a child without detaching first',
-            wrong: 'this._children.remove(child); child._parent = null;',
-            right: 'dropChild(child); // handles detach + parent clear.',
+            wrong:
+                'this._children.remove(child); child._parent = null;',
+            right:
+                'dropChild(child); // handles detach + parent clear.',
             explanation:
                 'The internal _children list is not part of AbstractNode; '
                 'each subclass owns it. But always funnel removals through '
@@ -2028,8 +2050,10 @@ class _PitfallsSection extends StatelessWidget {
           _PitfallCard(
             severity: 'medium',
             title: 'Caching depth across reparenting',
-            wrong: 'final int cached = node.depth; // before reparent',
-            right: 'use node.depth fresh after every adoptChild()',
+            wrong:
+                'final int cached = node.depth; // before reparent',
+            right:
+                'use node.depth fresh after every adoptChild()',
             explanation:
                 'Subclasses sometimes pre-compute traversal orders. Any cache '
                 'keyed by depth must be invalidated whenever an ancestor in '
@@ -2093,7 +2117,8 @@ class _PitfallCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: sev,
                   borderRadius: BorderRadius.circular(4),
@@ -2295,11 +2320,8 @@ class _ApiTimelineSection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
-                Icon(
-                  Icons.lightbulb_outline,
-                  color: Color(0xFF2E7D32),
-                  size: 22,
-                ),
+                Icon(Icons.lightbulb_outline,
+                    color: Color(0xFF2E7D32), size: 22),
                 SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -2344,7 +2366,8 @@ class _TimelineEntry extends StatelessWidget {
         children: <Widget>[
           Container(
             width: 80,
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
             decoration: BoxDecoration(
               color: const Color(0xFF455A64),
               borderRadius: BorderRadius.circular(6),
@@ -2418,7 +2441,8 @@ class _FooterSection extends StatelessWidget {
         children: <Widget>[
           Row(
             children: const <Widget>[
-              Icon(Icons.account_tree_outlined, color: Colors.white, size: 26),
+              Icon(Icons.account_tree_outlined,
+                  color: Colors.white, size: 26),
               SizedBox(width: 10),
               Text(
                 'AbstractNode — Reference Card',
@@ -2443,7 +2467,10 @@ class _FooterSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Container(height: 1, color: Colors.white.withValues(alpha: 0.15)),
+          Container(
+            height: 1,
+            color: Colors.white.withValues(alpha: 0.15),
+          ),
           const SizedBox(height: 14),
           Text(
             'This deep demo is a fully-static visual reference. It performs no '
@@ -2473,11 +2500,14 @@ class _FooterStat extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.25)),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.25),
+            ),
           ),
           child: Text(
             value,

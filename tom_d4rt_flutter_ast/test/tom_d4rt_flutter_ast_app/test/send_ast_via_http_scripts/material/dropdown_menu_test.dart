@@ -83,11 +83,7 @@ Widget _gap() => const SizedBox(height: 40);
 // ----------------------------------------------------------------------------
 // Shared chrome - section card.
 // ----------------------------------------------------------------------------
-Widget _card({
-  required String tag,
-  required String title,
-  required Widget child,
-}) {
+Widget _card({required String tag, required String title, required Widget child}) {
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
@@ -167,11 +163,7 @@ Widget _bullet(String head, String body) {
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: const TextStyle(
-                color: _kInkSoft,
-                fontSize: 14,
-                height: 1.45,
-              ),
+              style: const TextStyle(color: _kInkSoft, fontSize: 14, height: 1.45),
               children: [
                 TextSpan(
                   text: '$head — ',
@@ -198,7 +190,11 @@ Widget _caption(String text) {
     padding: const EdgeInsets.only(bottom: 12),
     child: Text(
       text,
-      style: const TextStyle(color: _kInkSoft, fontSize: 14, height: 1.5),
+      style: const TextStyle(
+        color: _kInkSoft,
+        fontSize: 14,
+        height: 1.5,
+      ),
     ),
   );
 }
@@ -266,11 +262,8 @@ Widget _sectionHero() {
               ),
             ),
             const SizedBox(width: 12),
-            const Icon(
-              Icons.arrow_drop_down_circle_outlined,
-              color: _kCopperSoft,
-              size: 22,
-            ),
+            const Icon(Icons.arrow_drop_down_circle_outlined,
+                color: _kCopperSoft, size: 22),
           ],
         ),
         const SizedBox(height: 18),
@@ -301,7 +294,11 @@ Widget _sectionHero() {
             'menu is searchable, has a real input affordance, and uses the '
             'Material 3 menu surface. This visual reference walks every '
             'major property, from width modes to leading icons.',
-            style: TextStyle(color: Colors.white70, fontSize: 14, height: 1.55),
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 14,
+              height: 1.55,
+            ),
           ),
         ),
         const SizedBox(height: 22),
@@ -356,51 +353,34 @@ Widget _sectionConcept() {
           'of menu entries, and supports keyboard typing to filter results.',
         ),
         _subhead('CORE PROPERTIES'),
-        _bullet(
-          'dropdownMenuEntries',
-          'required list of DropdownMenuEntry<T> describing each option.',
-        ),
-        _bullet(
-          'initialSelection',
-          'optional value pre-selected when the widget first renders.',
-        ),
-        _bullet('onSelected', 'callback fired when the user picks an entry.'),
-        _bullet(
-          'label / hintText',
-          'label widget shown above the field; hintText shown inside when '
-              'empty.',
-        ),
-        _bullet(
-          'leadingIcon / trailingIcon',
-          'icons placed at the start / end of the text field.',
-        ),
-        _bullet(
-          'selectedTrailingIcon',
-          'optional trailing icon swapped in when the menu is open.',
-        ),
-        _bullet(
-          'enableFilter / enableSearch',
-          'filter narrows visible entries; search jumps the highlight as '
-              'the user types.',
-        ),
-        _bullet(
-          'width / expandedInsets',
-          'fixed width, or insets to expand to the available width.',
-        ),
-        _bullet('menuHeight', 'maximum height of the popup before scrolling.'),
-        _bullet(
-          'inputDecorationTheme',
-          'shape the text field surface — outlined, filled, custom border.',
-        ),
-        _bullet(
-          'menuStyle',
-          'MenuStyle for the popup container (elevation, shape, colour).',
-        ),
-        _bullet('textStyle', 'TextStyle used for the field text and entries.'),
-        _bullet(
-          'enabled',
-          'whether the dropdown can be opened or selected from.',
-        ),
+        _bullet('dropdownMenuEntries',
+            'required list of DropdownMenuEntry<T> describing each option.'),
+        _bullet('initialSelection',
+            'optional value pre-selected when the widget first renders.'),
+        _bullet('onSelected',
+            'callback fired when the user picks an entry.'),
+        _bullet('label / hintText',
+            'label widget shown above the field; hintText shown inside when '
+            'empty.'),
+        _bullet('leadingIcon / trailingIcon',
+            'icons placed at the start / end of the text field.'),
+        _bullet('selectedTrailingIcon',
+            'optional trailing icon swapped in when the menu is open.'),
+        _bullet('enableFilter / enableSearch',
+            'filter narrows visible entries; search jumps the highlight as '
+            'the user types.'),
+        _bullet('width / expandedInsets',
+            'fixed width, or insets to expand to the available width.'),
+        _bullet('menuHeight',
+            'maximum height of the popup before scrolling.'),
+        _bullet('inputDecorationTheme',
+            'shape the text field surface — outlined, filled, custom border.'),
+        _bullet('menuStyle',
+            'MenuStyle for the popup container (elevation, shape, colour).'),
+        _bullet('textStyle',
+            'TextStyle used for the field text and entries.'),
+        _bullet('enabled',
+            'whether the dropdown can be opened or selected from.'),
         const SizedBox(height: 10),
         _subhead('MENTAL MODEL'),
         _caption(
@@ -432,35 +412,22 @@ Widget _sectionAnatomy() {
         _anatomyDiagram(),
         const SizedBox(height: 18),
         _subhead('PARTS LIST'),
-        _bullet(
-          '1 · Label',
-          'lives above the field, comes from `label:` parameter.',
-        ),
-        _bullet(
-          '2 · Leading icon',
-          'shown inside the field on the start side.',
-        ),
-        _bullet(
-          '3 · Text input',
-          'reads the label of the selected entry or hintText.',
-        ),
-        _bullet('4 · Trailing icon', 'usually a chevron; swaps when open.'),
-        _bullet(
-          '5 · Popup surface',
-          'M3 menu container, elevation 3 by default.',
-        ),
-        _bullet(
-          '6 · Entry leading icon',
-          'optional icon at the start of each entry row.',
-        ),
-        _bullet(
-          '7 · Entry label',
-          'the visible text — `label:` or `labelWidget:`.',
-        ),
-        _bullet(
-          '8 · Entry trailing icon',
-          'often used for shortcuts or selection ticks.',
-        ),
+        _bullet('1 · Label',
+            'lives above the field, comes from `label:` parameter.'),
+        _bullet('2 · Leading icon',
+            'shown inside the field on the start side.'),
+        _bullet('3 · Text input',
+            'reads the label of the selected entry or hintText.'),
+        _bullet('4 · Trailing icon',
+            'usually a chevron; swaps when open.'),
+        _bullet('5 · Popup surface',
+            'M3 menu container, elevation 3 by default.'),
+        _bullet('6 · Entry leading icon',
+            'optional icon at the start of each entry row.'),
+        _bullet('7 · Entry label',
+            'the visible text — `label:` or `labelWidget:`.'),
+        _bullet('8 · Entry trailing icon',
+            'often used for shortcuts or selection ticks.'),
       ],
     ),
   );
@@ -483,14 +450,11 @@ Widget _anatomyDiagram() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Country',
-                style: TextStyle(
-                  color: _kInkSoft,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              const Text('Country',
+                  style: TextStyle(
+                      color: _kInkSoft,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600)),
               const SizedBox(height: 4),
               _anatomyField(),
               const SizedBox(height: 6),
@@ -533,14 +497,9 @@ Widget _anatomyField() {
       children: const [
         Icon(Icons.public, color: _kTealDeep, size: 20),
         SizedBox(width: 10),
-        Text(
-          'Germany',
-          style: TextStyle(
-            color: _kInk,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Text('Germany',
+            style: TextStyle(
+                color: _kInk, fontSize: 15, fontWeight: FontWeight.w500)),
         Spacer(),
         Icon(Icons.arrow_drop_down, color: _kInkSoft),
       ],
@@ -556,10 +515,7 @@ Widget _anatomyPopup() {
       border: Border.all(color: _kRule),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x14000000),
-          blurRadius: 8,
-          offset: Offset(0, 3),
-        ),
+            color: Color(0x14000000), blurRadius: 8, offset: Offset(0, 3)),
       ],
     ),
     padding: const EdgeInsets.symmetric(vertical: 6),
@@ -586,25 +542,19 @@ Widget _anatomyLeg(String num, String text) {
           width: 22,
           height: 22,
           alignment: Alignment.center,
-          decoration: const BoxDecoration(
-            color: _kCopper,
-            shape: BoxShape.circle,
-          ),
-          child: Text(
-            num,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          decoration:
+              const BoxDecoration(color: _kCopper, shape: BoxShape.circle),
+          child: Text(num,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(color: _kInk, fontSize: 13, height: 1.4),
-          ),
+          child: Text(text,
+              style:
+                  const TextStyle(color: _kInk, fontSize: 13, height: 1.4)),
         ),
       ],
     ),
@@ -614,23 +564,20 @@ Widget _anatomyLeg(String num, String text) {
 // ============================================================================
 // FAKE ENTRY — visual stand-in for a popped-up menu row.
 // ============================================================================
-Widget _fakeEntry(
-  String label,
-  IconData icon, {
-  bool selected = false,
-  bool disabled = false,
-  bool hover = false,
-  IconData? trailing,
-  Color? accent,
-}) {
+Widget _fakeEntry(String label, IconData icon,
+    {bool selected = false,
+    bool disabled = false,
+    bool hover = false,
+    IconData? trailing,
+    Color? accent}) {
   final Color fg = disabled
       ? _kDisabled
       : (selected ? (accent ?? _kTealDeep) : _kInk);
   final Color bg = disabled
       ? Colors.transparent
       : (selected
-            ? (accent ?? _kTeal).withValues(alpha: 0.12)
-            : (hover ? _kPaperAlt : Colors.transparent));
+          ? (accent ?? _kTeal).withValues(alpha: 0.12)
+          : (hover ? _kPaperAlt : Colors.transparent));
   return Container(
     width: double.infinity,
     color: bg,
@@ -643,10 +590,9 @@ Widget _fakeEntry(
           child: Text(
             label,
             style: TextStyle(
-              color: fg,
-              fontSize: 14,
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-            ),
+                color: fg,
+                fontSize: 14,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w500),
           ),
         ),
         if (trailing != null) Icon(trailing, color: fg, size: 16),
@@ -711,29 +657,20 @@ Widget _sectionEntryProperties() {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _bullet('value', 'the T value returned via onSelected.'),
-                  _bullet(
-                    'label',
-                    'short string label displayed in the closed field.',
-                  ),
-                  _bullet(
-                    'labelWidget',
-                    'optional widget shown in the popup row instead of a '
-                        'plain Text(label).',
-                  ),
-                  _bullet(
-                    'leadingIcon',
-                    'icon shown on the start side of the popup row.',
-                  ),
-                  _bullet(
-                    'trailingIcon',
-                    'icon shown on the end side — great for keyboard '
-                        'shortcuts.',
-                  ),
-                  _bullet('enabled', 'whether the entry can be picked.'),
-                  _bullet(
-                    'style',
-                    'a ButtonStyle for the row — colours, padding, shape.',
-                  ),
+                  _bullet('label',
+                      'short string label displayed in the closed field.'),
+                  _bullet('labelWidget',
+                      'optional widget shown in the popup row instead of a '
+                      'plain Text(label).'),
+                  _bullet('leadingIcon',
+                      'icon shown on the start side of the popup row.'),
+                  _bullet('trailingIcon',
+                      'icon shown on the end side — great for keyboard '
+                      'shortcuts.'),
+                  _bullet('enabled',
+                      'whether the entry can be picked.'),
+                  _bullet('style',
+                      'a ButtonStyle for the row — colours, padding, shape.'),
                 ],
               ),
             ),
@@ -791,12 +728,12 @@ Widget _sectionWidthModes() {
         _subhead('INTRINSIC (NO WIDTH)'),
         intrinsic,
         const SizedBox(height: 8),
-        _bullet('width:', 'forces an exact pixel width regardless of content.'),
-        _bullet(
-          'expandedInsets:',
-          'fills the parent constraints minus the given EdgeInsets.',
-        ),
-        _bullet('neither:', 'sized to the longest entry label.'),
+        _bullet('width:',
+            'forces an exact pixel width regardless of content.'),
+        _bullet('expandedInsets:',
+            'fills the parent constraints minus the given EdgeInsets.'),
+        _bullet('neither:',
+            'sized to the longest entry label.'),
       ],
     ),
   );
@@ -929,20 +866,17 @@ List<DropdownMenuEntry<String>> _fruitEntries({required bool withLeading}) {
   }
   return const <DropdownMenuEntry<String>>[
     DropdownMenuEntry<String>(
-      value: 'apple',
-      label: 'Apple',
-      leadingIcon: Icon(Icons.apple),
-    ),
+        value: 'apple',
+        label: 'Apple',
+        leadingIcon: Icon(Icons.apple)),
     DropdownMenuEntry<String>(
-      value: 'banana',
-      label: 'Banana',
-      leadingIcon: Icon(Icons.cookie_outlined),
-    ),
+        value: 'banana',
+        label: 'Banana',
+        leadingIcon: Icon(Icons.cookie_outlined)),
     DropdownMenuEntry<String>(
-      value: 'cherry',
-      label: 'Cherry',
-      leadingIcon: Icon(Icons.spa),
-    ),
+        value: 'cherry',
+        label: 'Cherry',
+        leadingIcon: Icon(Icons.spa)),
   ];
 }
 
@@ -1093,37 +1027,29 @@ Widget _sectionFakePopup() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: _fakePopupSurface('Default rows', [
-                _fakeEntry('Default', Icons.circle_outlined),
-                _fakeEntry('Default', Icons.circle_outlined),
-                _fakeEntry('Default', Icons.circle_outlined),
-              ]),
-            ),
+            Expanded(child: _fakePopupSurface('Default rows', [
+              _fakeEntry('Default', Icons.circle_outlined),
+              _fakeEntry('Default', Icons.circle_outlined),
+              _fakeEntry('Default', Icons.circle_outlined),
+            ])),
             const SizedBox(width: 14),
-            Expanded(
-              child: _fakePopupSurface('Hover row', [
-                _fakeEntry('Default', Icons.circle_outlined),
-                _fakeEntry('Hover', Icons.circle_outlined, hover: true),
-                _fakeEntry('Default', Icons.circle_outlined),
-              ]),
-            ),
+            Expanded(child: _fakePopupSurface('Hover row', [
+              _fakeEntry('Default', Icons.circle_outlined),
+              _fakeEntry('Hover',   Icons.circle_outlined, hover: true),
+              _fakeEntry('Default', Icons.circle_outlined),
+            ])),
             const SizedBox(width: 14),
-            Expanded(
-              child: _fakePopupSurface('Selected', [
-                _fakeEntry('Default', Icons.circle_outlined),
-                _fakeEntry('Selected', Icons.check_circle, selected: true),
-                _fakeEntry('Default', Icons.circle_outlined),
-              ]),
-            ),
+            Expanded(child: _fakePopupSurface('Selected', [
+              _fakeEntry('Default',  Icons.circle_outlined),
+              _fakeEntry('Selected', Icons.check_circle, selected: true),
+              _fakeEntry('Default',  Icons.circle_outlined),
+            ])),
             const SizedBox(width: 14),
-            Expanded(
-              child: _fakePopupSurface('Disabled', [
-                _fakeEntry('Default', Icons.circle_outlined),
-                _fakeEntry('Disabled', Icons.block, disabled: true),
-                _fakeEntry('Default', Icons.circle_outlined),
-              ]),
-            ),
+            Expanded(child: _fakePopupSurface('Disabled', [
+              _fakeEntry('Default',  Icons.circle_outlined),
+              _fakeEntry('Disabled', Icons.block, disabled: true),
+              _fakeEntry('Default',  Icons.circle_outlined),
+            ])),
           ],
         ),
         const SizedBox(height: 16),
@@ -1131,7 +1057,7 @@ Widget _sectionFakePopup() {
         _fakePopupSurface('Edit menu', [
           _fakeEntry('Undo', Icons.undo, trailing: Icons.keyboard),
           _fakeEntry('Redo', Icons.redo, trailing: Icons.keyboard),
-          _fakeEntry('Cut', Icons.content_cut, trailing: Icons.keyboard),
+          _fakeEntry('Cut',  Icons.content_cut, trailing: Icons.keyboard),
           _fakeEntry('Copy', Icons.content_copy, trailing: Icons.keyboard),
           _fakeEntry('Paste', Icons.content_paste, trailing: Icons.keyboard),
         ]),
@@ -1144,14 +1070,9 @@ Widget _fakePopupSurface(String caption, List<Widget> rows) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        caption,
-        style: const TextStyle(
-          color: _kInkSoft,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      Text(caption,
+          style: const TextStyle(
+              color: _kInkSoft, fontSize: 12, fontWeight: FontWeight.w600)),
       const SizedBox(height: 6),
       Container(
         decoration: BoxDecoration(
@@ -1160,10 +1081,9 @@ Widget _fakePopupSurface(String caption, List<Widget> rows) {
           border: Border.all(color: _kRule),
           boxShadow: const [
             BoxShadow(
-              color: Color(0x14000000),
-              blurRadius: 10,
-              offset: Offset(0, 4),
-            ),
+                color: Color(0x14000000),
+                blurRadius: 10,
+                offset: Offset(0, 4)),
           ],
         ),
         padding: const EdgeInsets.symmetric(vertical: 6),
@@ -1283,25 +1203,21 @@ Widget _sectionRealWorldCatalog() {
     width: 280,
     dropdownMenuEntries: const <DropdownMenuEntry<String>>[
       DropdownMenuEntry<String>(
-        value: 'light',
-        label: 'Light',
-        leadingIcon: Icon(Icons.light_mode),
-      ),
+          value: 'light',
+          label: 'Light',
+          leadingIcon: Icon(Icons.light_mode)),
       DropdownMenuEntry<String>(
-        value: 'dark',
-        label: 'Dark',
-        leadingIcon: Icon(Icons.dark_mode),
-      ),
+          value: 'dark',
+          label: 'Dark',
+          leadingIcon: Icon(Icons.dark_mode)),
       DropdownMenuEntry<String>(
-        value: 'system',
-        label: 'System',
-        leadingIcon: Icon(Icons.settings_brightness),
-      ),
+          value: 'system',
+          label: 'System',
+          leadingIcon: Icon(Icons.settings_brightness)),
       DropdownMenuEntry<String>(
-        value: 'highContrast',
-        label: 'High contrast',
-        leadingIcon: Icon(Icons.contrast),
-      ),
+          value: 'highContrast',
+          label: 'High contrast',
+          leadingIcon: Icon(Icons.contrast)),
     ],
   );
 
@@ -1346,41 +1262,17 @@ Widget _sectionRealWorldCatalog() {
 // ============================================================================
 Widget _sectionComparisonTable() {
   final List<List<String>> rows = const [
-    [
-      'Property',
-      'DropdownMenu',
-      'DropdownButton',
-      'PopupMenuButton',
-      'Autocomplete',
-    ],
-    ['Material version', '3', '2', '2/3', '3'],
-    ['Looks like', 'Text field', 'Inline button', 'Icon/avatar', 'Text field'],
-    ['Type-to-filter', 'Yes', 'No', 'No', 'Yes'],
-    ['Static popup', 'No', 'Yes', 'Yes', 'No'],
-    ['Form-friendly', 'Yes', 'No', 'No', 'Yes'],
-    ['Result via', 'onSelected', 'onChanged', 'onSelected', 'onSelected'],
-    [
-      'Genericity',
-      'DropdownMenu<T>',
-      'DropdownButton<T>',
-      'PopupMenuButton<T>',
-      'Autocomplete<T>',
-    ],
-    [
-      'Entry type',
-      'DropdownMenuEntry<T>',
-      'DropdownMenuItem<T>',
-      'PopupMenuEntry<T>',
-      'plain T',
-    ],
-    ['Search of options', 'Built-in', 'No', 'No', 'Built-in'],
-    [
-      'Best for',
-      'Pickers + form',
-      'Quick toggle',
-      'Context actions',
-      'Free-text matches',
-    ],
+    ['Property',           'DropdownMenu',   'DropdownButton', 'PopupMenuButton', 'Autocomplete'],
+    ['Material version',   '3',              '2',              '2/3',             '3'],
+    ['Looks like',         'Text field',     'Inline button',  'Icon/avatar',     'Text field'],
+    ['Type-to-filter',     'Yes',            'No',             'No',              'Yes'],
+    ['Static popup',       'No',             'Yes',            'Yes',             'No'],
+    ['Form-friendly',      'Yes',            'No',             'No',              'Yes'],
+    ['Result via',         'onSelected',     'onChanged',      'onSelected',      'onSelected'],
+    ['Genericity',         'DropdownMenu<T>','DropdownButton<T>','PopupMenuButton<T>','Autocomplete<T>'],
+    ['Entry type',         'DropdownMenuEntry<T>', 'DropdownMenuItem<T>', 'PopupMenuEntry<T>', 'plain T'],
+    ['Search of options',  'Built-in',       'No',             'No',              'Built-in'],
+    ['Best for',           'Pickers + form', 'Quick toggle',   'Context actions', 'Free-text matches'],
   ];
 
   return _card(
@@ -1407,11 +1299,11 @@ Widget _sectionComparisonTable() {
               final List<String> row = rows[i];
               final bool head = i == 0;
               return Container(
-                color: head ? _kInk : (i.isEven ? Colors.white : _kPaper),
+                color: head
+                    ? _kInk
+                    : (i.isEven ? Colors.white : _kPaper),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
+                    horizontal: 12, vertical: 10),
                 child: Row(
                   children: List<Widget>.generate(row.length, (int c) {
                     return Expanded(
@@ -1421,9 +1313,8 @@ Widget _sectionComparisonTable() {
                         style: TextStyle(
                           color: head ? Colors.white : _kInk,
                           fontSize: head ? 12 : 13,
-                          fontWeight: head || c == 0
-                              ? FontWeight.w700
-                              : FontWeight.w500,
+                          fontWeight:
+                              head || c == 0 ? FontWeight.w700 : FontWeight.w500,
                           letterSpacing: head ? 0.6 : 0,
                         ),
                       ),
@@ -1444,40 +1335,31 @@ Widget _sectionComparisonTable() {
 // ============================================================================
 Widget _sectionGlossary() {
   final List<List<String>> terms = const [
-    [
-      'Anchor',
+    ['Anchor',
       'The widget the popup is positioned relative to. The DropdownMenu '
-          'text field is its own anchor.',
-    ],
-    [
-      'DropdownMenuEntry',
-      'A data record describing one option: value, label, icons, style.',
-    ],
-    [
-      'Filter',
-      'Reduces visible entries to those matching what the user types.',
-    ],
-    ['Helper text', 'Caption shown below the field, like in a TextField.'],
-    ['Hint', 'In-field placeholder shown when no entry is selected.'],
-    [
-      'Initial selection',
-      'The value pre-applied when the widget first builds.',
-    ],
-    ['Leading icon', 'Icon at the start of either the field or an entry row.'],
-    [
-      'Menu surface',
-      'The popup container — elevated, rounded, themed via MenuStyle.',
-    ],
-    [
-      'MenuStyle',
-      'A ButtonStyle-shaped object that styles the popup container.',
-    ],
-    [
-      'onSelected',
-      'Callback receiving the picked T when the user confirms a choice.',
-    ],
-    ['Popup', 'The list of menu entries that opens below or above the field.'],
-    ['Trailing icon', 'Icon at the end of the field — typically the chevron.'],
+      'text field is its own anchor.'],
+    ['DropdownMenuEntry',
+      'A data record describing one option: value, label, icons, style.'],
+    ['Filter',
+      'Reduces visible entries to those matching what the user types.'],
+    ['Helper text',
+      'Caption shown below the field, like in a TextField.'],
+    ['Hint',
+      'In-field placeholder shown when no entry is selected.'],
+    ['Initial selection',
+      'The value pre-applied when the widget first builds.'],
+    ['Leading icon',
+      'Icon at the start of either the field or an entry row.'],
+    ['Menu surface',
+      'The popup container — elevated, rounded, themed via MenuStyle.'],
+    ['MenuStyle',
+      'A ButtonStyle-shaped object that styles the popup container.'],
+    ['onSelected',
+      'Callback receiving the picked T when the user confirms a choice.'],
+    ['Popup',
+      'The list of menu entries that opens below or above the field.'],
+    ['Trailing icon',
+      'Icon at the end of the field — typically the chevron.'],
   ];
 
   return _card(
@@ -1501,25 +1383,17 @@ Widget _sectionGlossary() {
             children: [
               SizedBox(
                 width: 150,
-                child: Text(
-                  entry[0],
-                  style: const TextStyle(
-                    color: _kTealDeep,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: Text(entry[0],
+                    style: const TextStyle(
+                        color: _kTealDeep,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700)),
               ),
               const SizedBox(width: 14),
               Expanded(
-                child: Text(
-                  entry[1],
-                  style: const TextStyle(
-                    color: _kInkSoft,
-                    fontSize: 13,
-                    height: 1.5,
-                  ),
-                ),
+                child: Text(entry[1],
+                    style: const TextStyle(
+                        color: _kInkSoft, fontSize: 13, height: 1.5)),
               ),
             ],
           ),
@@ -1553,22 +1427,20 @@ Widget _sectionEpilogue() {
           child: const Text(
             'EPILOGUE',
             style: TextStyle(
-              color: _kCopperSoft,
-              fontSize: 11,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.2,
-            ),
+                color: _kCopperSoft,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.2),
           ),
         ),
         const SizedBox(height: 12),
         const Text(
           'You now know everything visible about DropdownMenu.',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            height: 1.2,
-          ),
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+              height: 1.2),
         ),
         const SizedBox(height: 10),
         const Text(
@@ -1577,7 +1449,8 @@ Widget _sectionEpilogue() {
           'Both are subtle — a 200 ms scale and fade for the popup, and a '
           'live narrowing of entries as you type. Try them in any sample '
           'app and the rest of this widget will already feel familiar.',
-          style: TextStyle(color: Colors.white70, fontSize: 14, height: 1.55),
+          style: TextStyle(
+              color: Colors.white70, fontSize: 14, height: 1.55),
         ),
         const SizedBox(height: 18),
         Row(
@@ -1586,20 +1459,15 @@ Widget _sectionEpilogue() {
               width: 8,
               height: 8,
               decoration: const BoxDecoration(
-                color: _kCopper,
-                shape: BoxShape.circle,
-              ),
+                  color: _kCopper, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8),
-            const Text(
-              'fin.',
-              style: TextStyle(
-                color: _kCopperSoft,
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 2,
-              ),
-            ),
+            const Text('fin.',
+                style: TextStyle(
+                    color: _kCopperSoft,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 2)),
           ],
         ),
       ],

@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.accessibility_new,
       'title': 'Semantics in Slivers',
-      'body':
-          'Semantics are accessibility annotations that describe UI '
+      'body': 'Semantics are accessibility annotations that describe UI '
           'elements to screen readers like TalkBack (Android) and VoiceOver '
           '(iOS). When building scrollable UIs with slivers, proper semantic '
           'annotations ensure the content is navigable and understandable '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'The Semantics Tree',
-      'body':
-          'Flutter maintains a separate semantics tree alongside the '
+      'body': 'Flutter maintains a separate semantics tree alongside the '
           'widget tree and render tree. Each Semantics widget creates a node '
           'in this tree. Screen readers traverse the semantics tree, not the '
           'widget tree, so the semantics annotations determine what the user '
@@ -40,8 +38,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_list,
       'title': 'Slivers and Accessibility',
-      'body':
-          'CustomScrollView and its slivers automatically generate some '
+      'body': 'CustomScrollView and its slivers automatically generate some '
           'semantic information. SliverList items are announced as individual '
           'elements. But you may need to add custom labels, merge semantics '
           'of complex list items, or exclude decorative slivers.',
@@ -50,8 +47,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.build,
       'title': 'Key Semantic Widgets',
-      'body':
-          'Semantics — adds a semantic node with label, hint, value, '
+      'body': 'Semantics — adds a semantic node with label, hint, value, '
           'and actions. MergeSemantics — merges children into a single node. '
           'ExcludeSemantics — hides children from the tree. '
           'IndexedSemantics — provides ordering information for lists.',
@@ -130,45 +126,39 @@ dynamic build(BuildContext context) {
     {
       'param': 'label',
       'type': 'String?',
-      'desc':
-          'A textual description of the widget. This is what the screen '
+      'desc': 'A textual description of the widget. This is what the screen '
           'reader announces. For a button it might be "Submit", for an image '
           'it might describe the content.',
     },
     {
       'param': 'hint',
       'type': 'String?',
-      'desc':
-          'A brief description of the result of performing an action. '
+      'desc': 'A brief description of the result of performing an action. '
           'For example "Double tap to open settings" or "Swipe to delete".',
     },
     {
       'param': 'value',
       'type': 'String?',
-      'desc':
-          'The current value of the widget, like "50%" for a slider '
+      'desc': 'The current value of the widget, like "50%" for a slider '
           'or "On" for a switch.',
     },
     {
       'param': 'container',
       'type': 'bool',
-      'desc':
-          'Whether this node introduces a new scope. A container node '
+      'desc': 'Whether this node introduces a new scope. A container node '
           'groups its children. Screen readers may announce "In: [label]" '
           'when entering a container.',
     },
     {
       'param': 'explicitChildNodes',
       'type': 'bool',
-      'desc':
-          'If true, forces the child semantics to be explicit nodes '
+      'desc': 'If true, forces the child semantics to be explicit nodes '
           'rather than merged. Used when each child needs its own focus.',
     },
     {
       'param': 'sortKey',
       'type': 'SemanticsSortKey?',
-      'desc':
-          'Controls the traversal order. OrdinalSortKey(1.0) comes '
+      'desc': 'Controls the traversal order. OrdinalSortKey(1.0) comes '
           'before OrdinalSortKey(2.0). Without sort keys, traversal '
           'follows visual layout order.',
     },
@@ -255,21 +245,13 @@ dynamic build(BuildContext context) {
   print('=== Section 3: Basic ===');
 
   final basicContacts = <Map<String, dynamic>>[
-    {
-      'name': 'Alice Johnson',
-      'email': 'alice@example.com',
-      'icon': Icons.person,
-    },
+    {'name': 'Alice Johnson', 'email': 'alice@example.com', 'icon': Icons.person},
     {'name': 'Bob Martinez', 'email': 'bob@example.com', 'icon': Icons.person},
     {'name': 'Carol Chen', 'email': 'carol@example.com', 'icon': Icons.person},
     {'name': 'David Kim', 'email': 'david@example.com', 'icon': Icons.person},
     {'name': 'Emma Wilson', 'email': 'emma@example.com', 'icon': Icons.person},
     {'name': 'Frank Lopez', 'email': 'frank@example.com', 'icon': Icons.person},
-    {
-      'name': 'Grace Taylor',
-      'email': 'grace@example.com',
-      'icon': Icons.person,
-    },
+    {'name': 'Grace Taylor', 'email': 'grace@example.com', 'icon': Icons.person},
     {'name': 'Henry Davis', 'email': 'henry@example.com', 'icon': Icons.person},
   ];
 
@@ -283,33 +265,36 @@ dynamic build(BuildContext context) {
           pinned: true,
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-            final contact = basicContacts[index];
-            // MergeSemantics combines the avatar, name, and email into
-            // a single semantic focus node, so the screen reader announces
-            // them all together as one item.
-            return MergeSemantics(
-              child: Semantics(
-                label: '${contact['name']}, ${contact['email']}',
-                hint: 'Double tap to call',
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.brown.shade200,
-                    child: Text(
-                      (contact['name'] as String)[0],
-                      style: TextStyle(
-                        color: Colors.brown.shade800,
-                        fontWeight: FontWeight.bold,
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext ctx, int index) {
+              final contact = basicContacts[index];
+              // MergeSemantics combines the avatar, name, and email into
+              // a single semantic focus node, so the screen reader announces
+              // them all together as one item.
+              return MergeSemantics(
+                child: Semantics(
+                  label: '${contact['name']}, ${contact['email']}',
+                  hint: 'Double tap to call',
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.brown.shade200,
+                      child: Text(
+                        (contact['name'] as String)[0],
+                        style: TextStyle(
+                          color: Colors.brown.shade800,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
+                    title: Text(contact['name'] as String),
+                    subtitle: Text(contact['email'] as String),
+                    trailing: const Icon(Icons.phone, size: 18),
                   ),
-                  title: Text(contact['name'] as String),
-                  subtitle: Text(contact['email'] as String),
-                  trailing: const Icon(Icons.phone, size: 18),
                 ),
-              ),
-            );
-          }, childCount: basicContacts.length),
+              );
+            },
+            childCount: basicContacts.length,
+          ),
         ),
       ],
     ),
@@ -323,8 +308,7 @@ dynamic build(BuildContext context) {
   final labelStrategies = <Map<String, dynamic>>[
     {
       'name': 'Descriptive Label',
-      'desc':
-          'Provide a full text label that describes what the element is. '
+      'desc': 'Provide a full text label that describes what the element is. '
           'Example: "Profile picture of Alice Johnson". Essential for '
           'images and icons that have no text content.',
       'icon': Icons.label,
@@ -333,8 +317,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Action Hint',
-      'desc':
-          'Tell the user what will happen when they interact. Example: '
+      'desc': 'Tell the user what will happen when they interact. Example: '
           '"Double tap to open contact details, swipe left to delete".',
       'icon': Icons.touch_app,
       'color': Colors.blue,
@@ -342,8 +325,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Value Announcement',
-      'desc':
-          'For widgets with state, announce the current value. Example: '
+      'desc': 'For widgets with state, announce the current value. Example: '
           'A rating widget says "4 out of 5 stars".',
       'icon': Icons.format_list_numbered,
       'color': Colors.orange,
@@ -351,8 +333,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'MergeSemantics',
-      'desc':
-          'Combine multiple child elements into one semantic node. '
+      'desc': 'Combine multiple child elements into one semantic node. '
           'Without merge, a screen reader might focus on the icon, text, '
           'and subtitle separately — confusing the user.',
       'icon': Icons.call_merge,
@@ -361,8 +342,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'ExcludeSemantics',
-      'desc':
-          'Remove decorative elements from the semantics tree. Icons '
+      'desc': 'Remove decorative elements from the semantics tree. Icons '
           'next to labeled text, dividers, and background decorations do '
           'not need to be announced by the screen reader.',
       'icon': Icons.visibility_off,
@@ -460,8 +440,7 @@ dynamic build(BuildContext context) {
   final containerExplanation = <Map<String, dynamic>>[
     {
       'title': 'Container = true',
-      'body':
-          'Creates a semantic boundary. The node groups its children. '
+      'body': 'Creates a semantic boundary. The node groups its children. '
           'Screen readers may announce entry/exit of the container. '
           'Use for logical groups like a card with multiple parts.',
       'visual': 'Scrollable list section',
@@ -470,8 +449,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Container = false (default)',
-      'body':
-          'The semantic node sits alongside siblings in a flat list. '
+      'body': 'The semantic node sits alongside siblings in a flat list. '
           'No grouping boundary. Children appear as peers to the screen '
           'reader rather than nested under a parent.',
       'visual': 'Individual items',
@@ -480,8 +458,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'explicitChildNodes = true',
-      'body':
-          'Forces children to be separate semantic nodes even when '
+      'body': 'Forces children to be separate semantic nodes even when '
           'they would normally be merged. Each child gets its own focus. '
           'Useful when each element needs independent interaction.',
       'visual': 'Each button focusable',
@@ -569,8 +546,7 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Scrollable Region Announcement',
-      'body':
-          'CustomScrollView automatically creates a "scrollable" '
+      'body': 'CustomScrollView automatically creates a "scrollable" '
           'semantic node. Screen readers announce "Scrollable area" and '
           'users can scroll with gestures. No extra code needed.',
       'icon': Icons.swap_vert,
@@ -578,8 +554,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'List Item Counting',
-      'body':
-          'When using SliverChildBuilderDelegate, Flutter automatically '
+      'body': 'When using SliverChildBuilderDelegate, Flutter automatically '
           'assigns IndexedSemantics so screen readers say "item 1 of 10", '
           '"item 2 of 10", etc. This gives users context of their position.',
       'icon': Icons.format_list_numbered,
@@ -587,8 +562,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Actions',
-      'body':
-          'Add custom semantic actions for swipe actions, delete, '
+      'body': 'Add custom semantic actions for swipe actions, delete, '
           'and other gestures. These show up in the screen reader action '
           'menu. Example: CustomSemanticsAction(label: "Archive").',
       'icon': Icons.touch_app,
@@ -596,8 +570,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Live Regions',
-      'body':
-          'When slivers load new content dynamically, use Semantics '
+      'body': 'When slivers load new content dynamically, use Semantics '
           'with liveRegion: true so screen readers announce the changes '
           'without the user needing to navigate to the new content.',
       'icon': Icons.campaign,
@@ -605,8 +578,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Heading Levels',
-      'body':
-          'Mark section headers in sliver lists as heading: true in '
+      'body': 'Mark section headers in sliver lists as heading: true in '
           'Semantics. Screen readers let users jump between headings, '
           'making long lists faster to navigate.',
       'icon': Icons.title,
@@ -614,8 +586,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Hidden Decorative Elements',
-      'body':
-          'Decorative dividers, background images, and spacer slivers '
+      'body': 'Decorative dividers, background images, and spacer slivers '
           'should be wrapped in ExcludeSemantics so they do not clutter '
           'the screen reader navigation.',
       'icon': Icons.visibility_off,
@@ -701,15 +672,13 @@ dynamic build(BuildContext context) {
     {
       'focus': 'Alice Johnson, alice@example.com',
       'type': 'Button',
-      'announcement':
-          'Alice Johnson, alice@example.com. Double tap to call. Item 1 of 8.',
+      'announcement': 'Alice Johnson, alice@example.com. Double tap to call. Item 1 of 8.',
       'color': Colors.green,
     },
     {
       'focus': 'Bob Martinez, bob@example.com',
       'type': 'Button',
-      'announcement':
-          'Bob Martinez, bob@example.com. Double tap to call. Item 2 of 8.',
+      'announcement': 'Bob Martinez, bob@example.com. Double tap to call. Item 2 of 8.',
       'color': Colors.green,
     },
     {
@@ -721,8 +690,7 @@ dynamic build(BuildContext context) {
     {
       'focus': 'Carol Chen, carol@example.com',
       'type': 'Button',
-      'announcement':
-          'Carol Chen, carol@example.com. Double tap to call. Item 3 of 8.',
+      'announcement': 'Carol Chen, carol@example.com. Double tap to call. Item 3 of 8.',
       'color': Colors.green,
     },
   ];
@@ -780,9 +748,8 @@ dynamic build(BuildContext context) {
                         node['focus'] as String,
                         style: TextStyle(
                           fontSize: 13,
-                          fontWeight: isExcluded
-                              ? FontWeight.normal
-                              : FontWeight.w600,
+                          fontWeight:
+                              isExcluded ? FontWeight.normal : FontWeight.w600,
                           color: isExcluded ? Colors.grey : nColor,
                           decoration: isExcluded
                               ? TextDecoration.lineThrough
@@ -836,38 +803,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.accessibility_new,
-      'text':
-          'Add Semantics widgets to sliver list items to provide '
+      'text': 'Add Semantics widgets to sliver list items to provide '
           'meaningful labels, hints, and values for screen readers.',
     },
     {
       'icon': Icons.call_merge,
-      'text':
-          'Use MergeSemantics to combine complex list items (icon + '
+      'text': 'Use MergeSemantics to combine complex list items (icon + '
           'title + subtitle) into a single screen reader focus node.',
     },
     {
       'icon': Icons.visibility_off,
-      'text':
-          'Use ExcludeSemantics for decorative elements like dividers, '
+      'text': 'Use ExcludeSemantics for decorative elements like dividers, '
           'spacers, and background images that add no information.',
     },
     {
       'icon': Icons.format_list_numbered,
-      'text':
-          'SliverList automatically provides IndexedSemantics so screen '
+      'text': 'SliverList automatically provides IndexedSemantics so screen '
           'readers can announce "item N of M".',
     },
     {
       'icon': Icons.title,
-      'text':
-          'Mark section headers with heading: true in Semantics for '
+      'text': 'Mark section headers with heading: true in Semantics for '
           'efficient navigation with screen readers.',
     },
     {
       'icon': Icons.account_tree,
-      'text':
-          'Use container: true to create semantic boundaries for '
+      'text': 'Use container: true to create semantic boundaries for '
           'logical groups, explicitChildNodes for independent focus.',
     },
   ];

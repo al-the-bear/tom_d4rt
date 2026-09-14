@@ -129,11 +129,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Row(
                 children: [
-                  Icon(
-                    Icons.play_circle_outline,
-                    color: Colors.greenAccent,
-                    size: 18.0,
-                  ),
+                  Icon(Icons.play_circle_outline, color: Colors.greenAccent, size: 18.0),
                   SizedBox(width: 6.0),
                   Text(
                     'PrioritizedAction',
@@ -237,21 +233,14 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 3.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                     decoration: BoxDecoration(
                       color: Colors.amber.shade200,
                       borderRadius: BorderRadius.circular(6.0),
                     ),
                     child: Text(
                       'PART 1',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.amber.shade900,
-                      ),
+                      style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.amber.shade900),
                     ),
                   ),
                   SizedBox(width: 8.0),
@@ -298,20 +287,12 @@ dynamic build(BuildContext context) {
         Center(
           child: Column(
             children: [
-              Icon(
-                Icons.arrow_downward,
-                color: Colors.grey.shade400,
-                size: 20.0,
-              ),
+              Icon(Icons.arrow_downward, color: Colors.grey.shade400, size: 20.0),
               Text(
                 'Invoking PrioritizedAction with PrioritizedIntents',
                 style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500),
               ),
-              Icon(
-                Icons.arrow_downward,
-                color: Colors.grey.shade400,
-                size: 20.0,
-              ),
+              Icon(Icons.arrow_downward, color: Colors.grey.shade400, size: 20.0),
             ],
           ),
         ),
@@ -330,21 +311,14 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 3.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                     decoration: BoxDecoration(
                       color: Colors.deepOrange.shade200,
                       borderRadius: BorderRadius.circular(6.0),
                     ),
                     child: Text(
                       'PART 2',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepOrange.shade900,
-                      ),
+                      style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.deepOrange.shade900),
                     ),
                   ),
                   SizedBox(width: 8.0),
@@ -465,15 +439,15 @@ dynamic build(BuildContext context) {
             color: selected
                 ? color.shade100
                 : enabled
-                ? Colors.grey.shade100
-                : Colors.grey.shade50,
+                    ? Colors.grey.shade100
+                    : Colors.grey.shade50,
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
               color: selected
                   ? color.shade400
                   : enabled
-                  ? Colors.grey.shade300
-                  : Colors.grey.shade200,
+                      ? Colors.grey.shade300
+                      : Colors.grey.shade200,
               width: selected ? 2.0 : 1.0,
             ),
           ),
@@ -503,14 +477,14 @@ dynamic build(BuildContext context) {
                 selected
                     ? Icons.play_circle_filled
                     : enabled
-                    ? Icons.radio_button_unchecked
-                    : Icons.cancel_outlined,
+                        ? Icons.radio_button_unchecked
+                        : Icons.cancel_outlined,
                 size: 12.0,
                 color: selected
                     ? color.shade600
                     : enabled
-                    ? Colors.grey.shade400
-                    : Colors.red.shade300,
+                        ? Colors.grey.shade400
+                        : Colors.red.shade300,
               ),
             ],
           ),
@@ -633,7 +607,7 @@ dynamic build(BuildContext context) {
           '1',
           'Shortcuts Widget',
           'Maps key combinations → Intent types\n'
-              'e.g. Ctrl+Z → PrioritizedIntents([UndoText, UndoCanvas])',
+          'e.g. Ctrl+Z → PrioritizedIntents([UndoText, UndoCanvas])',
           Icons.keyboard,
           Colors.blue,
         ),
@@ -642,7 +616,7 @@ dynamic build(BuildContext context) {
           '2',
           'Actions Widget',
           'Maps PrioritizedIntents → PrioritizedAction\n'
-              'The Actions widget dispatches to PrioritizedAction',
+          'The Actions widget dispatches to PrioritizedAction',
           Icons.play_circle,
           Colors.green,
         ),
@@ -651,8 +625,8 @@ dynamic build(BuildContext context) {
           '3',
           'PrioritizedAction.invoke()',
           'Iterates intent.orderedIntents:\n'
-              '  #1 UndoText → Actions.find → enabled? → RUN\n'
-              '  #2 UndoCanvas → Actions.find → enabled? → RUN',
+          '  #1 UndoText → Actions.find → enabled? → RUN\n'
+          '  #2 UndoCanvas → Actions.find → enabled? → RUN',
           Icons.sort,
           Colors.deepOrange,
         ),
@@ -661,7 +635,7 @@ dynamic build(BuildContext context) {
           '4',
           'Selected Action Executes',
           'The first enabled action runs.\n'
-              'Remaining intents are never checked.',
+          'Remaining intents are never checked.',
           Icons.done_all,
           Colors.purple,
         ),
@@ -679,8 +653,7 @@ dynamic build(BuildContext context) {
   final useCases = [
     {
       'title': 'Multi-Editor Undo',
-      'scenario':
-          'Ctrl+Z shortcut maps to PrioritizedIntents with text undo, '
+      'scenario': 'Ctrl+Z shortcut maps to PrioritizedIntents with text undo, '
           'canvas undo, and global undo intents. The active editor determines '
           'which intent\'s action is enabled.',
       'intents': ['UndoTextIntent', 'UndoCanvasIntent', 'UndoGlobalIntent'],
@@ -689,8 +662,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Contextual Delete',
-      'scenario':
-          'Delete key triggers PrioritizedIntents checking list deletion '
+      'scenario': 'Delete key triggers PrioritizedIntents checking list deletion '
           'first, then text deletion as a fallback, depending on which '
           'widget has focus.',
       'intents': ['DeleteListItemIntent', 'DeleteTextIntent'],
@@ -699,21 +671,15 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Escape Key Chain',
-      'scenario':
-          'Escape triggers PrioritizedIntents to close a modal first, '
+      'scenario': 'Escape triggers PrioritizedIntents to close a modal first, '
           'deselect items second, or unfocus the search bar as a last resort.',
-      'intents': [
-        'CloseModalIntent',
-        'DeselectAllIntent',
-        'UnfocusSearchIntent',
-      ],
+      'intents': ['CloseModalIntent', 'DeselectAllIntent', 'UnfocusSearchIntent'],
       'icon': Icons.close,
       'color': Colors.purple,
     },
     {
       'title': 'Save Cascade',
-      'scenario':
-          'Ctrl+S triggers PrioritizedIntents with an active-editor save '
+      'scenario': 'Ctrl+S triggers PrioritizedIntents with an active-editor save '
           'intent first, then a workspace-wide auto-save as fallback.',
       'intents': ['SaveActiveEditorIntent', 'AutoSaveAllIntent'],
       'icon': Icons.save,
@@ -721,8 +687,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Copy with Priorities',
-      'scenario':
-          'Ctrl+C tries to copy selected table cells first, then '
+      'scenario': 'Ctrl+C tries to copy selected table cells first, then '
           'selected text, then a row reference as a last resort.',
       'intents': ['CopyCellsIntent', 'CopyTextIntent', 'CopyRowRefIntent'],
       'icon': Icons.content_copy,
@@ -779,11 +744,7 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               alignment: Alignment.center,
-              child: Icon(
-                uc['icon'] as IconData,
-                color: color.shade600,
-                size: 22.0,
-              ),
+              child: Icon(uc['icon'] as IconData, color: color.shade600, size: 22.0),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -801,10 +762,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     uc['scenario'] as String,
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
                   ),
                   SizedBox(height: 6.0),
                   Wrap(children: intentChips),
@@ -879,7 +837,7 @@ dynamic build(BuildContext context) {
           'Constructor',
           'PrioritizedAction()',
           'No parameters. PrioritizedAction is stateless. All configuration '
-              'comes from the PrioritizedIntents passed to invoke/isEnabled.',
+          'comes from the PrioritizedIntents passed to invoke/isEnabled.',
           Colors.deepOrange,
         ),
         SizedBox(height: 10.0),
@@ -887,8 +845,8 @@ dynamic build(BuildContext context) {
           'isEnabled(intent)',
           'bool',
           'Returns true if ANY intent in intent.orderedIntents has an '
-              'enabled Action mapped in the widget tree. Iterates and returns '
-              'true at the first enabled one.',
+          'enabled Action mapped in the widget tree. Iterates and returns '
+          'true at the first enabled one.',
           Colors.green,
         ),
         SizedBox(height: 10.0),
@@ -896,8 +854,8 @@ dynamic build(BuildContext context) {
           'invoke(intent)',
           'Object?',
           'Iterates intent.orderedIntents. For each, calls '
-              'Actions.maybeFind to look up the Action, checks isEnabled, '
-              'and invokes the first enabled one.',
+          'Actions.maybeFind to look up the Action, checks isEnabled, '
+          'and invokes the first enabled one.',
           Colors.blue,
         ),
         SizedBox(height: 14.0),
@@ -925,7 +883,7 @@ dynamic build(BuildContext context) {
                 'orderedIntents',
                 'List<Intent>',
                 'The priority-ordered list of intents. First = highest '
-                    'priority. Each intent maps to an Action in the widget tree.',
+                'priority. Each intent maps to an Action in the widget tree.',
                 Colors.orange,
               ),
             ],
@@ -974,7 +932,9 @@ dynamic build(BuildContext context) {
   // registered for PrioritizedIntents
 
   final treeSection = Actions(
-    actions: <Type, Action<Intent>>{PrioritizedIntents: PrioritizedAction()},
+    actions: <Type, Action<Intent>>{
+      PrioritizedIntents: PrioritizedAction(),
+    },
     child: Container(
       margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       padding: EdgeInsets.all(16.0),
@@ -1003,26 +963,11 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 14.0),
           // Widget tree visualization
-          _buildTreeNode(
-            'Shortcuts',
-            'Key combo → PrioritizedIntents',
-            Colors.blue,
-            0,
-          ),
+          _buildTreeNode('Shortcuts', 'Key combo → PrioritizedIntents', Colors.blue, 0),
           _buildTreeConnector(),
-          _buildTreeNode(
-            'Actions',
-            'PrioritizedIntents → PrioritizedAction()',
-            Colors.green,
-            0,
-          ),
+          _buildTreeNode('Actions', 'PrioritizedIntents → PrioritizedAction()', Colors.green, 0),
           _buildTreeConnector(),
-          _buildTreeNode(
-            'PrioritizedAction',
-            'Iterates orderedIntents',
-            Colors.orange,
-            1,
-          ),
+          _buildTreeNode('PrioritizedAction', 'Iterates orderedIntents', Colors.orange, 1),
           _buildTreeConnector(),
           Row(
             children: [
@@ -1030,12 +975,7 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Column(
                   children: [
-                    _buildTreeNode(
-                      '#1 IntentA',
-                      'Highest priority',
-                      Colors.red,
-                      2,
-                    ),
+                    _buildTreeNode('#1 IntentA', 'Highest priority', Colors.red, 2),
                     SizedBox(height: 4.0),
                     _buildTreeNode('#2 IntentB', 'Fallback', Colors.purple, 2),
                     SizedBox(height: 4.0),
@@ -1057,11 +997,7 @@ dynamic build(BuildContext context) {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.lightbulb_outline,
-                  color: Colors.amber.shade700,
-                  size: 18.0,
-                ),
+                Icon(Icons.lightbulb_outline, color: Colors.amber.shade700, size: 18.0),
                 SizedBox(width: 8.0),
                 Expanded(
                   child: Text(
@@ -1069,10 +1005,7 @@ dynamic build(BuildContext context) {
                     'PrioritizedIntents. Individual intents (IntentA, B, C) '
                     'must have their OWN actions registered elsewhere in '
                     'the widget tree for lookup to succeed.',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.amber.shade900,
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: Colors.amber.shade900),
                   ),
                 ),
               ],
@@ -1144,10 +1077,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(width: 8.0),
-            Text(
-              'vs',
-              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
-            ),
+            Text('vs', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500)),
             SizedBox(width: 8.0),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
@@ -1382,12 +1312,7 @@ Widget _buildApiProperty(
   );
 }
 
-Widget _buildTreeNode(
-  String name,
-  String desc,
-  MaterialColor color,
-  int depth,
-) {
+Widget _buildTreeNode(String name, String desc, MaterialColor color, int depth) {
   return Container(
     margin: EdgeInsets.only(left: depth * 20.0),
     padding: EdgeInsets.all(8.0),
@@ -1470,10 +1395,7 @@ Widget _buildComparisonRow(String aspect, String prioritized, String single) {
                 ),
                 child: Text(
                   prioritized,
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.deepOrange.shade700,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: Colors.deepOrange.shade700),
                 ),
               ),
             ),

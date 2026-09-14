@@ -62,7 +62,10 @@ dynamic build(BuildContext context) {
               Text(
                 'RadioListTile combines a ListTile with a Radio widget for '
                 'creating single-selection option lists.',
-                style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 16.0),
               Container(
@@ -83,24 +86,12 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(height: 8.0),
-                    _buildPropertyItem(
-                      'value',
-                      'The value this tile represents',
-                    ),
-                    _buildPropertyItem(
-                      'groupValue',
-                      'Currently selected value in group',
-                    ),
-                    _buildPropertyItem(
-                      'onChanged',
-                      'Called when selection changes',
-                    ),
+                    _buildPropertyItem('value', 'The value this tile represents'),
+                    _buildPropertyItem('groupValue', 'Currently selected value in group'),
+                    _buildPropertyItem('onChanged', 'Called when selection changes'),
                     _buildPropertyItem('title', 'Primary text widget'),
                     _buildPropertyItem('subtitle', 'Secondary text widget'),
-                    _buildPropertyItem(
-                      'secondary',
-                      'Leading or trailing widget',
-                    ),
+                    _buildPropertyItem('secondary', 'Leading or trailing widget'),
                   ],
                 ),
               ),
@@ -119,30 +110,10 @@ dynamic build(BuildContext context) {
 
   // Payment method selection
   final paymentMethods = [
-    {
-      'value': 0,
-      'title': 'Credit Card',
-      'subtitle': '•••• 4242',
-      'icon': Icons.credit_card,
-    },
-    {
-      'value': 1,
-      'title': 'PayPal',
-      'subtitle': 'user@email.com',
-      'icon': Icons.payment,
-    },
-    {
-      'value': 2,
-      'title': 'Bank Transfer',
-      'subtitle': 'Account ending 1234',
-      'icon': Icons.account_balance,
-    },
-    {
-      'value': 3,
-      'title': 'Apple Pay',
-      'subtitle': 'Quick checkout',
-      'icon': Icons.apple,
-    },
+    {'value': 0, 'title': 'Credit Card', 'subtitle': '•••• 4242', 'icon': Icons.credit_card},
+    {'value': 1, 'title': 'PayPal', 'subtitle': 'user@email.com', 'icon': Icons.payment},
+    {'value': 2, 'title': 'Bank Transfer', 'subtitle': 'Account ending 1234', 'icon': Icons.account_balance},
+    {'value': 3, 'title': 'Apple Pay', 'subtitle': 'Quick checkout', 'icon': Icons.apple},
   ];
 
   final paymentTiles = <Widget>[];
@@ -152,25 +123,21 @@ dynamic build(BuildContext context) {
       Material(
         type: MaterialType.transparency,
         child: RadioListTile<int>(
-          value: method['value'] as int,
-          groupValue: 0,
-          onChanged: (value) {},
-          title: Text(method['title'] as String),
-          subtitle: Text(method['subtitle'] as String),
-          secondary: Container(
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Colors.green.shade50,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              method['icon'] as IconData,
-              color: Colors.green,
-              size: 24.0,
-            ),
+        value: method['value'] as int,
+        groupValue: 0,
+        onChanged: (value) {},
+        title: Text(method['title'] as String),
+        subtitle: Text(method['subtitle'] as String),
+        secondary: Container(
+          padding: EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            color: Colors.green.shade50,
+            shape: BoxShape.circle,
           ),
-          activeColor: Colors.green,
+          child: Icon(method['icon'] as IconData, color: Colors.green, size: 24.0),
         ),
+        activeColor: Colors.green,
+      ),
       ),
     );
     if (method != paymentMethods.last) {
@@ -226,7 +193,10 @@ dynamic build(BuildContext context) {
                 ),
                 child: Text(
                   'Select one',
-                  style: TextStyle(fontSize: 11.0, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
@@ -241,27 +211,9 @@ dynamic build(BuildContext context) {
 
   // Shipping speed selection
   final shippingOptions = [
-    {
-      'value': 0,
-      'title': 'Standard',
-      'subtitle': '5-7 business days',
-      'price': 'FREE',
-      'color': Colors.grey,
-    },
-    {
-      'value': 1,
-      'title': 'Express',
-      'subtitle': '2-3 business days',
-      'price': '\$9.99',
-      'color': Colors.orange,
-    },
-    {
-      'value': 2,
-      'title': 'Overnight',
-      'subtitle': 'Next business day',
-      'price': '\$24.99',
-      'color': Colors.red,
-    },
+    {'value': 0, 'title': 'Standard', 'subtitle': '5-7 business days', 'price': 'FREE', 'color': Colors.grey},
+    {'value': 1, 'title': 'Express', 'subtitle': '2-3 business days', 'price': '\$9.99', 'color': Colors.orange},
+    {'value': 2, 'title': 'Overnight', 'subtitle': 'Next business day', 'price': '\$24.99', 'color': Colors.red},
   ];
 
   final shippingTiles = <Widget>[];
@@ -271,36 +223,36 @@ dynamic build(BuildContext context) {
       Material(
         type: MaterialType.transparency,
         child: RadioListTile<int>(
-          value: option['value'] as int,
-          groupValue: 1,
-          onChanged: (value) {},
-          title: Row(
-            children: [
-              Text(
-                option['title'] as String,
-                style: TextStyle(fontWeight: FontWeight.w500),
+        value: option['value'] as int,
+        groupValue: 1,
+        onChanged: (value) {},
+        title: Row(
+          children: [
+            Text(
+              option['title'] as String,
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            Spacer(),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+              decoration: BoxDecoration(
+                color: (option['color'] as Color).withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(12.0),
               ),
-              Spacer(),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  color: (option['color'] as Color).withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Text(
-                  option['price'] as String,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: option['color'] as Color,
-                    fontSize: 13.0,
-                  ),
+              child: Text(
+                option['price'] as String,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: option['color'] as Color,
+                  fontSize: 13.0,
                 ),
               ),
-            ],
-          ),
-          subtitle: Text(option['subtitle'] as String),
-          activeColor: Colors.orange,
+            ),
+          ],
         ),
+        subtitle: Text(option['subtitle'] as String),
+        activeColor: Colors.orange,
+      ),
       ),
     );
   }
@@ -361,21 +313,9 @@ dynamic build(BuildContext context) {
 
   final affinityExamples = <Widget>[];
   final affinities = [
-    {
-      'affinity': ListTileControlAffinity.leading,
-      'label': 'Leading',
-      'color': Colors.blue,
-    },
-    {
-      'affinity': ListTileControlAffinity.trailing,
-      'label': 'Trailing',
-      'color': Colors.purple,
-    },
-    {
-      'affinity': ListTileControlAffinity.platform,
-      'label': 'Platform',
-      'color': Colors.teal,
-    },
+    {'affinity': ListTileControlAffinity.leading, 'label': 'Leading', 'color': Colors.blue},
+    {'affinity': ListTileControlAffinity.trailing, 'label': 'Trailing', 'color': Colors.purple},
+    {'affinity': ListTileControlAffinity.platform, 'label': 'Platform', 'color': Colors.teal},
   ];
 
   for (final config in affinities) {
@@ -429,26 +369,26 @@ dynamic build(BuildContext context) {
             Material(
               type: MaterialType.transparency,
               child: RadioListTile<int>(
-                value: 0,
-                groupValue: 0,
-                onChanged: (v) {},
-                title: Text('Option A'),
-                controlAffinity: affinity,
-                activeColor: color,
-                dense: true,
-              ),
+              value: 0,
+              groupValue: 0,
+              onChanged: (v) {},
+              title: Text('Option A'),
+              controlAffinity: affinity,
+              activeColor: color,
+              dense: true,
+            ),
             ),
             Material(
               type: MaterialType.transparency,
               child: RadioListTile<int>(
-                value: 1,
-                groupValue: 0,
-                onChanged: (v) {},
-                title: Text('Option B'),
-                controlAffinity: affinity,
-                activeColor: color,
-                dense: true,
-              ),
+              value: 1,
+              groupValue: 0,
+              onChanged: (v) {},
+              title: Text('Option B'),
+              controlAffinity: affinity,
+              activeColor: color,
+              dense: true,
+            ),
             ),
           ],
         ),
@@ -614,7 +554,10 @@ dynamic build(BuildContext context) {
         Text(
           'When toggleable is true, tapping the selected radio will unselect it, '
           'resulting in a null groupValue. Useful for optional selections.',
-          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.grey.shade700,
+          ),
         ),
         SizedBox(height: 16.0),
         Container(
@@ -625,28 +568,28 @@ dynamic build(BuildContext context) {
           child: Material(
             type: MaterialType.transparency,
             child: Column(
-              children: [
-                RadioListTile<int>(
-                  value: 0,
-                  groupValue: 0,
-                  onChanged: (v) {},
-                  title: Text('toggleable: false (default)'),
-                  subtitle: Text('Cannot unselect by tapping'),
-                  toggleable: false,
-                  activeColor: Colors.deepPurple,
-                ),
-                Divider(height: 1.0),
-                RadioListTile<int>(
-                  value: 1,
-                  groupValue: 1,
-                  onChanged: (v) {},
-                  title: Text('toggleable: true'),
-                  subtitle: Text('Can unselect by tapping again'),
-                  toggleable: true,
-                  activeColor: Colors.deepPurple,
-                ),
-              ],
-            ),
+            children: [
+              RadioListTile<int>(
+                value: 0,
+                groupValue: 0,
+                onChanged: (v) {},
+                title: Text('toggleable: false (default)'),
+                subtitle: Text('Cannot unselect by tapping'),
+                toggleable: false,
+                activeColor: Colors.deepPurple,
+              ),
+              Divider(height: 1.0),
+              RadioListTile<int>(
+                value: 1,
+                groupValue: 1,
+                onChanged: (v) {},
+                title: Text('toggleable: true'),
+                subtitle: Text('Can unselect by tapping again'),
+                toggleable: true,
+                activeColor: Colors.deepPurple,
+              ),
+            ],
+          ),
           ),
         ),
         SizedBox(height: 16.0),
@@ -685,31 +628,11 @@ dynamic build(BuildContext context) {
   final fillColorExamples = <Widget>[];
   final fillConfigs = [
     {'label': 'Default', 'fillColor': null, 'bgColor': Colors.grey.shade100},
-    {
-      'label': 'Blue Fill',
-      'fillColor': Colors.blue,
-      'bgColor': Colors.blue.shade50,
-    },
-    {
-      'label': 'Green Fill',
-      'fillColor': Colors.green,
-      'bgColor': Colors.green.shade50,
-    },
-    {
-      'label': 'Red Fill',
-      'fillColor': Colors.red,
-      'bgColor': Colors.red.shade50,
-    },
-    {
-      'label': 'Orange Fill',
-      'fillColor': Colors.orange,
-      'bgColor': Colors.orange.shade50,
-    },
-    {
-      'label': 'Purple Fill',
-      'fillColor': Colors.purple,
-      'bgColor': Colors.purple.shade50,
-    },
+    {'label': 'Blue Fill', 'fillColor': Colors.blue, 'bgColor': Colors.blue.shade50},
+    {'label': 'Green Fill', 'fillColor': Colors.green, 'bgColor': Colors.green.shade50},
+    {'label': 'Red Fill', 'fillColor': Colors.red, 'bgColor': Colors.red.shade50},
+    {'label': 'Orange Fill', 'fillColor': Colors.orange, 'bgColor': Colors.orange.shade50},
+    {'label': 'Purple Fill', 'fillColor': Colors.purple, 'bgColor': Colors.purple.shade50},
   ];
 
   for (final config in fillConfigs) {
@@ -725,16 +648,16 @@ dynamic build(BuildContext context) {
         child: Material(
           type: MaterialType.transparency,
           child: RadioListTile<int>(
-            value: 0,
-            groupValue: 0,
-            onChanged: (v) {},
-            title: Text(
-              config['label'] as String,
-              style: TextStyle(fontSize: 13.0),
-            ),
-            activeColor: config['fillColor'] as Color?,
-            dense: true,
+          value: 0,
+          groupValue: 0,
+          onChanged: (v) {},
+          title: Text(
+            config['label'] as String,
+            style: TextStyle(fontSize: 13.0),
           ),
+          activeColor: config['fillColor'] as Color?,
+          dense: true,
+        ),
         ),
       ),
     );
@@ -762,141 +685,144 @@ dynamic build(BuildContext context) {
     child: Material(
       type: MaterialType.transparency,
       child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(20.0),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.teal.shade400, Colors.teal.shade600],
-              ),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(16.0),
-              ),
+      children: [
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(20.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.teal.shade400, Colors.teal.shade600],
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.poll, color: Colors.white, size: 28.0),
-                    SizedBox(width: 12.0),
-                    Text(
-                      'Customer Survey',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.poll, color: Colors.white, size: 28.0),
+                  SizedBox(width: 12.0),
+                  Text(
+                    'Customer Survey',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                  ],
-                ),
-                SizedBox(height: 4.0),
-                Text(
-                  'Help us improve your experience',
-                  style: TextStyle(color: Colors.white70, fontSize: 13.0),
-                ),
-              ],
-            ),
-          ),
-          // Question 1
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(16.0),
-            color: Colors.grey.shade50,
-            child: Text(
-              'How satisfied are you with our service?',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade800,
+                  ),
+                ],
               ),
-            ),
-          ),
-          RadioListTile<int>(
-            value: 5,
-            groupValue: 4,
-            onChanged: (v) {},
-            title: Text('Very Satisfied'),
-            secondary: Text('😄', style: TextStyle(fontSize: 24.0)),
-            activeColor: Colors.teal,
-          ),
-          RadioListTile<int>(
-            value: 4,
-            groupValue: 4,
-            onChanged: (v) {},
-            title: Text('Satisfied'),
-            secondary: Text('🙂', style: TextStyle(fontSize: 24.0)),
-            activeColor: Colors.teal,
-          ),
-          RadioListTile<int>(
-            value: 3,
-            groupValue: 4,
-            onChanged: (v) {},
-            title: Text('Neutral'),
-            secondary: Text('😐', style: TextStyle(fontSize: 24.0)),
-            activeColor: Colors.teal,
-          ),
-          RadioListTile<int>(
-            value: 2,
-            groupValue: 4,
-            onChanged: (v) {},
-            title: Text('Dissatisfied'),
-            secondary: Text('🙁', style: TextStyle(fontSize: 24.0)),
-            activeColor: Colors.teal,
-          ),
-          RadioListTile<int>(
-            value: 1,
-            groupValue: 4,
-            onChanged: (v) {},
-            title: Text('Very Dissatisfied'),
-            secondary: Text('😞', style: TextStyle(fontSize: 24.0)),
-            activeColor: Colors.teal,
-          ),
-          // Question 2
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(16.0),
-            color: Colors.grey.shade50,
-            child: Text(
-              'How likely are you to recommend us?',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade800,
+              SizedBox(height: 4.0),
+              Text(
+                'Help us improve your experience',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 13.0,
+                ),
               ),
+            ],
+          ),
+        ),
+        // Question 1
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(16.0),
+          color: Colors.grey.shade50,
+          child: Text(
+            'How satisfied are you with our service?',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade800,
             ),
           ),
-          RadioListTile<int>(
-            value: 10,
-            groupValue: 8,
-            onChanged: (v) {},
-            title: Text('Very Likely (9-10)'),
-            activeColor: Colors.green,
+        ),
+        RadioListTile<int>(
+          value: 5,
+          groupValue: 4,
+          onChanged: (v) {},
+          title: Text('Very Satisfied'),
+          secondary: Text('😄', style: TextStyle(fontSize: 24.0)),
+          activeColor: Colors.teal,
+        ),
+        RadioListTile<int>(
+          value: 4,
+          groupValue: 4,
+          onChanged: (v) {},
+          title: Text('Satisfied'),
+          secondary: Text('🙂', style: TextStyle(fontSize: 24.0)),
+          activeColor: Colors.teal,
+        ),
+        RadioListTile<int>(
+          value: 3,
+          groupValue: 4,
+          onChanged: (v) {},
+          title: Text('Neutral'),
+          secondary: Text('😐', style: TextStyle(fontSize: 24.0)),
+          activeColor: Colors.teal,
+        ),
+        RadioListTile<int>(
+          value: 2,
+          groupValue: 4,
+          onChanged: (v) {},
+          title: Text('Dissatisfied'),
+          secondary: Text('🙁', style: TextStyle(fontSize: 24.0)),
+          activeColor: Colors.teal,
+        ),
+        RadioListTile<int>(
+          value: 1,
+          groupValue: 4,
+          onChanged: (v) {},
+          title: Text('Very Dissatisfied'),
+          secondary: Text('😞', style: TextStyle(fontSize: 24.0)),
+          activeColor: Colors.teal,
+        ),
+        // Question 2
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(16.0),
+          color: Colors.grey.shade50,
+          child: Text(
+            'How likely are you to recommend us?',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade800,
+            ),
           ),
-          RadioListTile<int>(
-            value: 8,
-            groupValue: 8,
-            onChanged: (v) {},
-            title: Text('Likely (7-8)'),
-            activeColor: Colors.green,
-          ),
-          RadioListTile<int>(
-            value: 5,
-            groupValue: 8,
-            onChanged: (v) {},
-            title: Text('Neutral (5-6)'),
-            activeColor: Colors.orange,
-          ),
-          RadioListTile<int>(
-            value: 2,
-            groupValue: 8,
-            onChanged: (v) {},
-            title: Text('Unlikely (0-4)'),
-            activeColor: Colors.red,
-          ),
-          SizedBox(height: 16.0),
-        ],
-      ),
+        ),
+        RadioListTile<int>(
+          value: 10,
+          groupValue: 8,
+          onChanged: (v) {},
+          title: Text('Very Likely (9-10)'),
+          activeColor: Colors.green,
+        ),
+        RadioListTile<int>(
+          value: 8,
+          groupValue: 8,
+          onChanged: (v) {},
+          title: Text('Likely (7-8)'),
+          activeColor: Colors.green,
+        ),
+        RadioListTile<int>(
+          value: 5,
+          groupValue: 8,
+          onChanged: (v) {},
+          title: Text('Neutral (5-6)'),
+          activeColor: Colors.orange,
+        ),
+        RadioListTile<int>(
+          value: 2,
+          groupValue: 8,
+          onChanged: (v) {},
+          title: Text('Unlikely (0-4)'),
+          activeColor: Colors.red,
+        ),
+        SizedBox(height: 16.0),
+      ],
+    ),
     ),
   );
   print('Created survey form');
@@ -1082,16 +1008,8 @@ dynamic build(BuildContext context) {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  Icon(
-                    Icons.radio_button_off,
-                    size: 64.0,
-                    color: Colors.white24,
-                  ),
-                  Icon(
-                    Icons.radio_button_checked,
-                    size: 48.0,
-                    color: Colors.white,
-                  ),
+                  Icon(Icons.radio_button_off, size: 64.0, color: Colors.white24),
+                  Icon(Icons.radio_button_checked, size: 48.0, color: Colors.white),
                 ],
               ),
               SizedBox(height: 16.0),
@@ -1107,7 +1025,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Single-selection lists with rich content',
-                style: TextStyle(fontSize: 14.0, color: Colors.white70),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.white70,
+                ),
               ),
             ],
           ),
@@ -1127,7 +1048,10 @@ dynamic build(BuildContext context) {
         // Section 3: Control Affinity
         SizedBox(height: 24.0),
         _buildSectionHeader('Section 3: Control Affinity', Icons.swap_horiz),
-        Wrap(alignment: WrapAlignment.center, children: affinityExamples),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: affinityExamples,
+        ),
 
         // Section 4: Customization
         SizedBox(height: 24.0),
@@ -1209,7 +1133,10 @@ Widget _buildPropertyItem(String name, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+            ),
           ),
         ),
       ],
@@ -1250,12 +1177,18 @@ Widget _buildCustomizationCard({
             children: [
               Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.bold, color: color),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
               ),
               SizedBox(height: 2.0),
               Text(
                 description,
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
             ],
           ),

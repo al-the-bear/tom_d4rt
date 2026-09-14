@@ -211,10 +211,10 @@ dynamic build(BuildContext context) {
 
   const PointerScrollInertiaCancelEvent inertiaCancelEvent =
       PointerScrollInertiaCancelEvent(
-        timeStamp: Duration(milliseconds: 1300),
-        device: 1,
-        position: Offset(120, 80),
-      );
+    timeStamp: Duration(milliseconds: 1300),
+    device: 1,
+    position: Offset(120, 80),
+  );
 
   const PointerScaleEvent scaleEvent = PointerScaleEvent(
     timeStamp: Duration(milliseconds: 1400),
@@ -244,11 +244,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 32),
           _buildRoutingPanel(),
           const SizedBox(height: 32),
-          _buildConstructionSummary(
-            scrollEvent,
-            inertiaCancelEvent,
-            scaleEvent,
-          ),
+          _buildConstructionSummary(scrollEvent, inertiaCancelEvent, scaleEvent),
           const SizedBox(height: 32),
           _buildComparisonPanel(),
           const SizedBox(height: 32),
@@ -317,13 +313,12 @@ Widget _buildHero() {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: palette.accent.withValues(alpha: 0.95),
-                    borderRadius: const BorderRadius.all(Radius.circular(999)),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(999)),
                   ),
                   child: const Text(
                     'flutter/gestures.dart',
@@ -337,13 +332,12 @@ Widget _buildHero() {
                 ),
                 const SizedBox(width: 12),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.18),
-                    borderRadius: const BorderRadius.all(Radius.circular(999)),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(999)),
                   ),
                   child: const Text(
                     'abstract base class',
@@ -837,8 +831,7 @@ Widget _buildScrollDeepDive(PointerScrollEvent event) {
           palette: palette,
           icon: Icons.bolt,
           title: 'Live event sample',
-          body:
-              'event.position = ${event.position}\n'
+          body: 'event.position = ${event.position}\n'
               'event.scrollDelta = ${event.scrollDelta}\n'
               'event.kind = ${event.kind}\n'
               'event.timeStamp = ${event.timeStamp}',
@@ -1008,10 +1001,26 @@ class _GridPainter extends CustomPainter {
     const double tick = 6.0;
     canvas.drawLine(const Offset(0, 0), const Offset(tick, 0), p);
     canvas.drawLine(const Offset(0, 0), const Offset(0, tick), p);
-    canvas.drawLine(Offset(size.width, 0), Offset(size.width - tick, 0), p);
-    canvas.drawLine(Offset(size.width, 0), Offset(size.width, tick), p);
-    canvas.drawLine(Offset(0, size.height), Offset(tick, size.height), p);
-    canvas.drawLine(Offset(0, size.height), Offset(0, size.height - tick), p);
+    canvas.drawLine(
+      Offset(size.width, 0),
+      Offset(size.width - tick, 0),
+      p,
+    );
+    canvas.drawLine(
+      Offset(size.width, 0),
+      Offset(size.width, tick),
+      p,
+    );
+    canvas.drawLine(
+      Offset(0, size.height),
+      Offset(tick, size.height),
+      p,
+    );
+    canvas.drawLine(
+      Offset(0, size.height),
+      Offset(0, size.height - tick),
+      p,
+    );
     canvas.drawLine(
       Offset(size.width, size.height),
       Offset(size.width - tick, size.height),
@@ -1091,8 +1100,7 @@ Widget _buildInertiaCancelDeepDive(PointerScrollInertiaCancelEvent event) {
           palette: palette,
           icon: Icons.bolt,
           title: 'Live event sample',
-          body:
-              'event.position = ${event.position}\n'
+          body: 'event.position = ${event.position}\n'
               'event.timeStamp = ${event.timeStamp}\n'
               'event.runtimeType = ${event.runtimeType}',
         ),
@@ -1138,7 +1146,11 @@ Widget _inertiaTimeline() {
           'Each pill represents a distinct phase. The last two — finger touch '
           'and the resulting cancel event — are the contract between the OS '
           'and Flutter for halting programmatic inertia.',
-          style: TextStyle(fontSize: 12, height: 1.4, color: Color(0xFF455A64)),
+          style: TextStyle(
+            fontSize: 12,
+            height: 1.4,
+            color: Color(0xFF455A64),
+          ),
         ),
       ],
     ),
@@ -1189,11 +1201,7 @@ Widget _buildScaleDeepDive(PointerScaleEvent event) {
   const _Palette palette = _scalePalette;
   const List<_ScalePanelSpec> panels = <_ScalePanelSpec>[
     _ScalePanelSpec(factor: 0.5, label: 'pinch in', tone: Color(0xFF1976D2)),
-    _ScalePanelSpec(
-      factor: 0.8,
-      label: 'small zoom-out',
-      tone: Color(0xFF0288D1),
-    ),
+    _ScalePanelSpec(factor: 0.8, label: 'small zoom-out', tone: Color(0xFF0288D1)),
     _ScalePanelSpec(factor: 1.0, label: 'identity', tone: Color(0xFF455A64)),
     _ScalePanelSpec(factor: 1.25, label: 'zoom-in', tone: Color(0xFF388E3C)),
     _ScalePanelSpec(factor: 1.6, label: 'pinch out', tone: Color(0xFFD32F2F)),
@@ -1241,8 +1249,7 @@ Widget _buildScaleDeepDive(PointerScaleEvent event) {
           palette: palette,
           icon: Icons.bolt,
           title: 'Live event sample',
-          body:
-              'event.position = ${event.position}\n'
+          body: 'event.position = ${event.position}\n'
               'event.scale = ${event.scale}\n'
               'event.kind = ${event.kind}\n'
               'event.timeStamp = ${event.timeStamp}',
@@ -1964,7 +1971,10 @@ Widget _buildFooter() {
                 child: Text(
                   'See PointerSignalResolver and Listener.onPointerSignal '
                   'for the consumer-side API.',
-                  style: TextStyle(fontSize: 12, color: Color(0xFF263238)),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF263238),
+                  ),
                 ),
               ),
             ],

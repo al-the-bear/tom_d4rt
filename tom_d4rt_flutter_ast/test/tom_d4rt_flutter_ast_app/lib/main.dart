@@ -180,7 +180,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// port without requiring a host reboot.
   static final int _serverPort =
       int.tryParse(Platform.environment['TOM_D4RT_AST_TEST_PORT'] ?? '') ??
-      4247;
+          4247;
 
   /// Dart VM Service URI (set asynchronously on startup; null in release mode
   /// or when the VM service is disabled).
@@ -233,17 +233,13 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // Use [_log] (debugPrint + in-app log) so the off-frame move is visible
       // in the normal console and the in-app log panel — `developer.log` is
       // swallowed by plain `flutter run`.
-      _log(
-        '[warmup] FlutterD4rt.warmup() completed off-frame in '
-        '${sw.elapsedMilliseconds}ms.',
-      );
+      _log('[warmup] FlutterD4rt.warmup() completed off-frame in '
+          '${sw.elapsedMilliseconds}ms.');
       // When the compile-time init profiler is on, dump the per-phase
       // breakdown so a profiling session sees the warmup cost split out.
       // Dead-code-eliminated when ProfilingMetrics.enabled is false.
       if (ProfilingMetrics.enabled) {
-        _log(
-          '[profile] ${ProfilingMetrics.report(title: "D4rt warmup profile")}',
-        );
+        _log('[profile] ${ProfilingMetrics.report(title: "D4rt warmup profile")}');
       }
     });
   }
@@ -314,8 +310,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           'ws',
         ],
       );
-      final devToolsUri =
-          'https://devtools.flutter.dev/?uri='
+      final devToolsUri = 'https://devtools.flutter.dev/?uri='
           '${Uri.encodeQueryComponent(wsUri.toString())}';
       if (!mounted) return;
       setState(() {
@@ -343,8 +338,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     // assertions that fire during InheritedElement deactivation when the D4rt
     // widget tree is replaced between scripts; they are non-fatal.
     const silencedPatterns = [
-      '_dependents.isEmpty', // InheritedElement.debugDeactivated() assertion
-      '_dependent.isEmpty', // variant spelling seen in some Flutter builds
+      '_dependents.isEmpty',   // InheritedElement.debugDeactivated() assertion
+      '_dependent.isEmpty',    // variant spelling seen in some Flutter builds
     ];
     final isSilenced = silencedPatterns.any((p) => message.contains(p));
 
@@ -525,7 +520,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // framework-error log (good — that signal is what the
         // suppression previously hid).
       ];
-      isIgnored = ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
+      isIgnored =
+          ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
 
       if (!isIgnored) {
         _frameworkErrors.add(message);
@@ -551,10 +547,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _lastError = null;
             _widgetGeneration++;
           });
-          _traceCleanup(
-            'silenced-restart',
-            'internal restart applied (generation=$_widgetGeneration)',
-          );
+          _traceCleanup('silenced-restart',
+              'internal restart applied (generation=$_widgetGeneration)');
         }
       });
     } else if (!isIgnored) {
@@ -575,10 +569,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // complete: ignored patterns now neither surface as framework
       // errors NOR as stderr noise. Real (non-ignored) framework errors
       // still get the original red-screen treatment for visibility.
-      _traceCleanup(
-        'forwarded',
-        'forwarding to original FlutterError handler (would show red screen)',
-      );
+      _traceCleanup('forwarded',
+          'forwarding to original FlutterError handler (would show red screen)');
       _originalFlutterErrorHandler?.call(details);
     }
   }
@@ -670,7 +662,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   ///
   /// Empirically 200 ms ≈ 12 frames at 60 fps which is well past the usual
   /// 1–3 frame settling window.
-  static const Duration _postMutationPumpDuration = Duration(milliseconds: 200);
+  static const Duration _postMutationPumpDuration =
+      Duration(milliseconds: 200);
 
   /// Schedules frames and waits for [duration] so the engine has a chance to
   /// run post-frame work between mutations of the widget tree. The wait is
@@ -723,9 +716,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     sw.stop();
     final fileLabel = _currentTestFile ?? '<none>';
     final widgetLabel = widgetType ?? '<no-widget>';
-    final errorTail = error == null
-        ? ''
-        : ' error="${error.split('\n').first}"';
+    final errorTail = error == null ? '' : ' error="${error.split('\n').first}"';
     debugPrint(
       '[D4rtApp][build-metric] file="$fileLabel" widgetType="$widgetLabel" '
       'bodyMs=$_bodyMs parseMs=$_parseMs setStateMs=$_setStateMs '
@@ -895,7 +886,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _pendingBundle = null;
             _buildCompleter = null;
             _capturedOutput = [];
-            _widgetGeneration++; // force fresh element subtree on next build
+            _widgetGeneration++;   // force fresh element subtree on next build
           });
           // §U28 / TODO #14 — Evict script-declared entries from the
           // interpreter's global environment so the next /build starts
@@ -960,10 +951,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           Timer(const Duration(seconds: 2), () {
             if (clearResponded) return;
             clearResponded = true;
-            _traceCleanup(
-              'clear-timeout',
-              'pump did NOT complete within 2s, responding via timeout',
-            );
+            _traceCleanup('clear-timeout',
+                'pump did NOT complete within 2s, responding via timeout');
             if (mounted) {
               _respond(request, 200, {'status': 'cleared (timeout)'});
             }
@@ -1047,7 +1036,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         ? Uri.decodeComponent(filenameParam)
         : null;
     final suiteParam = request.uri.queryParameters['suite'];
-    final suite = suiteParam != null ? Uri.decodeComponent(suiteParam) : null;
+    final suite = suiteParam != null
+        ? Uri.decodeComponent(suiteParam)
+        : null;
     // Per-request build budget override. Defaults to 45 s — the uniform
     // AST-app build timeout (fixed harness budget, see quest memory
     // "Flutter corpus test rules"), nested below the 65 s per-test flutter
@@ -1056,9 +1047,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     // test runner's `httpBuildTimeout` parameter, which threads through
     // as `&buildBudgetMs=N`. Capped at 120 s to prevent runaway scripts
     // from holding the test app indefinitely.
-    final budgetParamMs = int.tryParse(
-      request.uri.queryParameters['buildBudgetMs'] ?? '',
-    );
+    final budgetParamMs =
+        int.tryParse(request.uri.queryParameters['buildBudgetMs'] ?? '');
     final buildBudget = budgetParamMs != null
         ? Duration(milliseconds: budgetParamMs.clamp(1000, 120000))
         : const Duration(seconds: 45);
@@ -1179,9 +1169,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       };
       // Init-path profiler snapshot (compile-time gated). `null` when the
       // profiler is off so the harness can omit the profiling block.
-      responseJson['_initProfile'] = ProfilingMetrics.enabled
-          ? ProfilingMetrics.snapshot()
-          : null;
+      responseJson['_initProfile'] =
+          ProfilingMetrics.enabled ? ProfilingMetrics.snapshot() : null;
       _respond(request, result.success ? 200 : 400, responseJson);
     } on FormatException catch (e) {
       _capturingFrameworkErrors = false;
@@ -1405,7 +1394,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     try {
       final json = jsonDecode(body) as Map<String, dynamic>;
       final actionsJson = json['actions'] as List<dynamic>? ?? [];
-
+      
       final actions = actionsJson
           .map((a) => InteractionAction.fromJson(a as Map<String, dynamic>))
           .toList();
@@ -1416,9 +1405,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       }
 
       _addLogEntry('Executing ${actions.length} interaction(s)');
-
+      
       final result = await _interactionController.execute(actions);
-
+      
       _addLogEntry(
         result.success
             ? 'Interactions completed successfully'
@@ -2341,8 +2330,13 @@ class _ProfilerUriRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(width: 64, child: Text('$label:', style: labelStyle)),
-          Expanded(child: SelectableText(uri, style: uriStyle, maxLines: 1)),
+          SizedBox(
+            width: 64,
+            child: Text('$label:', style: labelStyle),
+          ),
+          Expanded(
+            child: SelectableText(uri, style: uriStyle, maxLines: 1),
+          ),
           Tooltip(
             message: 'Copy $label URI',
             child: InkWell(

@@ -150,8 +150,7 @@ class _DiamondThumbShape extends SliderComponentShape {
     );
     final Color fill = colorTween.evaluate(enableAnimation) ?? Colors.blueGrey;
 
-    final double radius =
-        enabledRadius * enableAnimation.value +
+    final double radius = enabledRadius * enableAnimation.value +
         disabledRadius * (1.0 - enableAnimation.value);
 
     final Path diamond = Path()
@@ -229,10 +228,7 @@ class _SquareChevronThumbShape extends SliderComponentShape {
       ..color = Colors.black.withOpacity(0.20)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        square.shift(const Offset(0, 2)),
-        const Radius.circular(3),
-      ),
+      RRect.fromRectAndRadius(square.shift(const Offset(0, 2)), const Radius.circular(3)),
       shadow,
     );
 
@@ -262,7 +258,12 @@ class _SquareChevronThumbShape extends SliderComponentShape {
 // Helper widgets used by every section.  Centralising them keeps the section
 // code focused on the specific thumb-shape configuration under test.
 // -----------------------------------------------------------------------------
-Widget _sectionHeader(String number, String title, Color bg, Color ink) {
+Widget _sectionHeader(
+  String number,
+  String title,
+  Color bg,
+  Color ink,
+) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.only(top: 24, bottom: 8),
@@ -396,11 +397,9 @@ Widget _rangeReadout(String label, RangeValues v, Color ink) {
 // =============================================================================
 dynamic build(BuildContext context) {
   print('=== Slider Thumb Family Deep Demo ===');
-  print(
-    'Thirteen sections demonstrating SliderComponentShape, '
-    'RoundSliderThumbShape, RoundRangeSliderThumbShape, '
-    'HandleThumbShape, the Thumb enum, and supporting shapes.',
-  );
+  print('Thirteen sections demonstrating SliderComponentShape, '
+      'RoundSliderThumbShape, RoundRangeSliderThumbShape, '
+      'HandleThumbShape, the Thumb enum, and supporting shapes.');
 
   // ===========================================================================
   // SECTION 1 — HERO CARD
@@ -440,7 +439,11 @@ dynamic build(BuildContext context) {
                 color: _heroAccent,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(Icons.tune, color: Colors.white, size: 20),
+              child: const Icon(
+                Icons.tune,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 12),
             const Text(
@@ -811,7 +814,10 @@ dynamic build(BuildContext context) {
             overlayColor: _disabledEnabled.withOpacity(0.15),
             trackHeight: 6,
           ),
-          child: const Slider(value: 0.55, onChanged: null),
+          child: const Slider(
+            value: 0.55,
+            onChanged: null,
+          ),
         ),
       ],
     ),
@@ -1197,7 +1203,8 @@ dynamic build(BuildContext context) {
                     ),
                     trackShape: const RoundedRectSliderTrackShape(),
                     activeTrackColor: _trackRoundedAccent,
-                    inactiveTrackColor: _trackRoundedAccent.withOpacity(0.25),
+                    inactiveTrackColor:
+                        _trackRoundedAccent.withOpacity(0.25),
                     thumbColor: _trackRoundedAccent,
                     overlayColor: _trackRoundedAccent.withOpacity(0.18),
                     trackHeight: 8,
@@ -1418,9 +1425,8 @@ dynamic build(BuildContext context) {
                     thumbShape: const RoundSliderThumbShape(
                       enabledThumbRadius: 10,
                     ),
-                    overlayShape: const RoundSliderOverlayShape(
-                      overlayRadius: 24,
-                    ),
+                    overlayShape:
+                        const RoundSliderOverlayShape(overlayRadius: 24),
                     activeTrackColor: _overlayAccent,
                     inactiveTrackColor: _overlayAccent.withOpacity(0.25),
                     thumbColor: _overlayAccent,
@@ -1453,9 +1459,8 @@ dynamic build(BuildContext context) {
                     thumbShape: const RoundSliderThumbShape(
                       enabledThumbRadius: 10,
                     ),
-                    overlayShape: const RoundSliderOverlayShape(
-                      overlayRadius: 36,
-                    ),
+                    overlayShape:
+                        const RoundSliderOverlayShape(overlayRadius: 36),
                     activeTrackColor: _overlayAccent,
                     inactiveTrackColor: _overlayAccent.withOpacity(0.25),
                     thumbColor: _overlayAccent,
@@ -1643,14 +1648,16 @@ dynamic build(BuildContext context) {
                           enabledThumbRadius: 12,
                         ),
                         activeTrackColor: _collisionAccent,
-                        inactiveTrackColor: _collisionAccent.withOpacity(0.25),
+                        inactiveTrackColor:
+                            _collisionAccent.withOpacity(0.25),
                         thumbColor: _collisionAccent,
                         overlayColor: _collisionAccent.withOpacity(0.18),
                         trackHeight: 6,
                       ),
                       child: RangeSlider(
                         values: r,
-                        onChanged: (RangeValues v) => setLocal(() => r = v),
+                        onChanged: (RangeValues v) =>
+                            setLocal(() => r = v),
                       ),
                     ),
                     _rangeReadout('WIDE', r, _collisionInk),
@@ -1682,14 +1689,16 @@ dynamic build(BuildContext context) {
                           enabledThumbRadius: 12,
                         ),
                         activeTrackColor: _collisionAccent,
-                        inactiveTrackColor: _collisionAccent.withOpacity(0.25),
+                        inactiveTrackColor:
+                            _collisionAccent.withOpacity(0.25),
                         thumbColor: _collisionAccent,
                         overlayColor: _collisionAccent.withOpacity(0.18),
                         trackHeight: 6,
                       ),
                       child: RangeSlider(
                         values: r,
-                        onChanged: (RangeValues v) => setLocal(() => r = v),
+                        onChanged: (RangeValues v) =>
+                            setLocal(() => r = v),
                       ),
                     ),
                     _rangeReadout('TIGHT', r, _collisionInk),

@@ -120,7 +120,10 @@ Widget _swatchCard({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.2),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.35),
+        width: 1.2,
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.18),
@@ -190,7 +193,10 @@ Widget _propertyPill(String label, String value, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: color.withValues(alpha: 0.55), width: 1.0),
+      border: Border.all(
+        color: color.withValues(alpha: 0.55),
+        width: 1.0,
+      ),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -198,7 +204,10 @@ Widget _propertyPill(String label, String value, Color color) {
         Container(
           width: 8.0,
           height: 8.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 6.0),
         Text(
@@ -238,12 +247,18 @@ Widget _footgunCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
+        colors: [
+          color.withValues(alpha: 0.08),
+          color.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: color.withValues(alpha: 0.5), width: 1.2),
+      border: Border.all(
+        color: color.withValues(alpha: 0.5),
+        width: 1.2,
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.15),
@@ -289,7 +304,10 @@ Widget _footgunCard(
               ),
               SizedBox(height: 6.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.6),
                   borderRadius: BorderRadius.circular(6.0),
@@ -424,7 +442,11 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(Icons.gradient, size: 40.0, color: Colors.white),
+              child: Icon(
+                Icons.gradient,
+                size: 40.0,
+                color: Colors.white,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -511,7 +533,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         Text(
           'Every Gradient subclass shares this skeleton.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade600,
+          ),
         ),
         SizedBox(height: 14.0),
         Container(
@@ -645,7 +670,13 @@ dynamic build(BuildContext context) {
       code: '5 prismatic stops',
       accent: prismBlue,
       gradient: LinearGradient(
-        colors: [prismPink, prismOrange, prismAmber, prismTeal, prismViolet],
+        colors: [
+          prismPink,
+          prismOrange,
+          prismAmber,
+          prismTeal,
+          prismViolet,
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1009,7 +1040,11 @@ dynamic build(BuildContext context) {
     height: 56.0,
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [prismViolet, prismMagenta, prismPink],
+        colors: [
+          prismViolet,
+          prismMagenta,
+          prismPink,
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1163,7 +1198,9 @@ dynamic build(BuildContext context) {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(8.0),
+                ),
               ),
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(top: 6.0),
@@ -1184,7 +1221,9 @@ dynamic build(BuildContext context) {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(8.0),
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: prismOrange.withValues(alpha: 0.4),
@@ -1212,7 +1251,9 @@ dynamic build(BuildContext context) {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(8.0),
+                ),
               ),
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(top: 6.0),

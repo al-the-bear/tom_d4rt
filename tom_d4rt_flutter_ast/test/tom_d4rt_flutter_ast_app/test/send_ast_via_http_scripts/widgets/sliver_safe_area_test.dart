@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_iphone,
       'title': 'What Is SliverSafeArea?',
-      'body':
-          'SliverSafeArea is the sliver version of SafeArea. It inserts '
+      'body': 'SliverSafeArea is the sliver version of SafeArea. It inserts '
           'safe-area padding around its sliver child so content is not '
           'hidden behind device hardware features like the notch, status '
           'bar, home indicator, or rounded screen corners.',
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_in_ar,
       'title': 'Why a Sliver Version?',
-      'body':
-          'Regular SafeArea wraps box widgets. But inside a '
+      'body': 'Regular SafeArea wraps box widgets. But inside a '
           'CustomScrollView, you work with slivers. SliverSafeArea lets '
           'you apply safe-area insets directly to a sliver without wrapping '
           'the entire CustomScrollView in a SafeArea (which would add '
@@ -40,8 +38,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.padding,
       'title': 'How It Works',
-      'body':
-          'SliverSafeArea reads the MediaQuery safe-area insets and '
+      'body': 'SliverSafeArea reads the MediaQuery safe-area insets and '
           'converts them into SliverPadding around its child sliver. '
           'Each edge (top, bottom, left, right) can be individually '
           'toggled. This is functionally equivalent to wrapping a sliver '
@@ -51,8 +48,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.devices,
       'title': 'When To Use',
-      'body':
-          'Use SliverSafeArea when you have a CustomScrollView and '
+      'body': 'Use SliverSafeArea when you have a CustomScrollView and '
           'want the last sliver to clear the bottom safe area (home '
           'indicator), or the first sliver to clear the top safe area '
           '(status bar / notch), without affecting the entire scroll view.',
@@ -131,23 +127,20 @@ dynamic build(BuildContext context) {
     {
       'param': 'sliver',
       'type': 'Widget',
-      'desc':
-          'Required. The sliver child to which safe-area padding will '
+      'desc': 'Required. The sliver child to which safe-area padding will '
           'be applied. Must be a sliver widget (e.g. SliverList, SliverGrid, '
           'SliverToBoxAdapter).',
     },
     {
       'param': 'left',
       'type': 'bool',
-      'desc':
-          'Whether to apply left safe-area padding. Defaults to true. '
+      'desc': 'Whether to apply left safe-area padding. Defaults to true. '
           'On phones held in landscape, this is the side with the notch.',
     },
     {
       'param': 'top',
       'type': 'bool',
-      'desc':
-          'Whether to apply top safe-area padding. Defaults to true. '
+      'desc': 'Whether to apply top safe-area padding. Defaults to true. '
           'Avoids the status bar and display notch in portrait mode.',
     },
     {
@@ -158,15 +151,13 @@ dynamic build(BuildContext context) {
     {
       'param': 'bottom',
       'type': 'bool',
-      'desc':
-          'Whether to apply bottom safe-area padding. Defaults to true. '
+      'desc': 'Whether to apply bottom safe-area padding. Defaults to true. '
           'Avoids the home indicator on modern iPhones and similar devices.',
     },
     {
       'param': 'minimum',
       'type': 'EdgeInsets',
-      'desc':
-          'The minimum padding to apply even if the device has smaller '
+      'desc': 'The minimum padding to apply even if the device has smaller '
           'or no safe-area insets. If a safe-area inset is smaller than '
           'the minimum, the minimum wins. Defaults to EdgeInsets.zero.',
     },
@@ -264,42 +255,45 @@ dynamic build(BuildContext context) {
         SliverSafeArea(
           top: false, // AppBar already handles top
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-              final names = [
-                'Alice Johnson',
-                'Bob Martinez',
-                'Carol Chen',
-                'David Kim',
-                'Emma Wilson',
-                'Frank Lopez',
-                'Grace Taylor',
-                'Henry Davis',
-                'Iris Brown',
-                'Jack Thomas',
-              ];
-              final depts = [
-                'Engineering',
-                'Design',
-                'Marketing',
-                'Sales',
-                'HR',
-              ];
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.blueGrey.shade200,
-                  child: Text(
-                    names[index % names.length][0],
-                    style: TextStyle(
-                      color: Colors.blueGrey.shade800,
-                      fontWeight: FontWeight.bold,
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext ctx, int index) {
+                final names = [
+                  'Alice Johnson',
+                  'Bob Martinez',
+                  'Carol Chen',
+                  'David Kim',
+                  'Emma Wilson',
+                  'Frank Lopez',
+                  'Grace Taylor',
+                  'Henry Davis',
+                  'Iris Brown',
+                  'Jack Thomas',
+                ];
+                final depts = [
+                  'Engineering',
+                  'Design',
+                  'Marketing',
+                  'Sales',
+                  'HR',
+                ];
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.blueGrey.shade200,
+                    child: Text(
+                      names[index % names.length][0],
+                      style: TextStyle(
+                        color: Colors.blueGrey.shade800,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                title: Text(names[index % names.length]),
-                subtitle: Text(depts[index % depts.length]),
-                trailing: const Icon(Icons.phone, size: 18),
-              );
-            }, childCount: 20),
+                  title: Text(names[index % names.length]),
+                  subtitle: Text(depts[index % depts.length]),
+                  trailing: const Icon(Icons.phone, size: 18),
+                );
+              },
+              childCount: 20,
+            ),
           ),
         ),
       ],
@@ -318,8 +312,7 @@ dynamic build(BuildContext context) {
       'bottom': true,
       'left': true,
       'right': true,
-      'desc':
-          'Padding on all sides. The safest option but may add '
+      'desc': 'Padding on all sides. The safest option but may add '
           'unnecessary padding on edges already handled.',
       'color': Colors.blueGrey,
     },
@@ -329,8 +322,7 @@ dynamic build(BuildContext context) {
       'bottom': true,
       'left': false,
       'right': false,
-      'desc':
-          'Only the last sliver needs bottom padding to clear the '
+      'desc': 'Only the last sliver needs bottom padding to clear the '
           'home indicator. Top/sides handled by other widgets.',
       'color': Colors.green,
     },
@@ -340,8 +332,7 @@ dynamic build(BuildContext context) {
       'bottom': false,
       'left': false,
       'right': false,
-      'desc':
-          'First sliver in a headerless CustomScrollView. Clears '
+      'desc': 'First sliver in a headerless CustomScrollView. Clears '
           'the status bar / notch area.',
       'color': Colors.orange,
     },
@@ -351,8 +342,7 @@ dynamic build(BuildContext context) {
       'bottom': false,
       'left': true,
       'right': true,
-      'desc':
-          'Landscape mode: the notch can be on the left or right. '
+      'desc': 'Landscape mode: the notch can be on the left or right. '
           'Horizontal padding avoids it without adding vertical space.',
       'color': Colors.purple,
     },
@@ -498,16 +488,14 @@ dynamic build(BuildContext context) {
     {
       'title': 'No Minimum (default)',
       'minimum': 'EdgeInsets.zero',
-      'desc':
-          'Only device safe-area insets are applied. On devices without '
+      'desc': 'Only device safe-area insets are applied. On devices without '
           'a notch or home indicator, no padding is added at all.',
       'color': Colors.grey,
     },
     {
       'title': 'Minimum 16px all sides',
       'minimum': 'EdgeInsets.all(16)',
-      'desc':
-          'Ensures at least 16px padding on every edge, even on devices '
+      'desc': 'Ensures at least 16px padding on every edge, even on devices '
           'without safe-area insets. If the safe-area inset is larger, '
           'the safe-area value wins.',
       'color': Colors.blue,
@@ -515,8 +503,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Minimum bottom only',
       'minimum': 'EdgeInsets.only(bottom: 24)',
-      'desc':
-          'Guarantees 24px bottom padding for the last item to breathe, '
+      'desc': 'Guarantees 24px bottom padding for the last item to breathe, '
           'even on devices without a home indicator.',
       'color': Colors.green,
     },
@@ -647,7 +634,9 @@ dynamic build(BuildContext context) {
                             ),
                             decoration: BoxDecoration(
                               border: Border(
-                                bottom: BorderSide(color: Colors.grey.shade200),
+                                bottom: BorderSide(
+                                  color: Colors.grey.shade200,
+                                ),
                               ),
                             ),
                             child: Row(
@@ -726,8 +715,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Last Sliver Bottom Padding',
-      'body':
-          'The most common use: wrap the last sliver in your '
+      'body': 'The most common use: wrap the last sliver in your '
           'CustomScrollView with SliverSafeArea(top: false) so the last '
           'items are not hidden behind the home indicator.',
       'icon': Icons.vertical_align_bottom,
@@ -735,8 +723,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Headerless Scroll View',
-      'body':
-          'When your CustomScrollView has no SliverAppBar, the first '
+      'body': 'When your CustomScrollView has no SliverAppBar, the first '
           'sliver content would start behind the status bar. Wrap it in '
           'SliverSafeArea(bottom: false) to push it below the status bar.',
       'icon': Icons.vertical_align_top,
@@ -744,8 +731,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Landscape Mode',
-      'body':
-          'In landscape, the notch can be on the left or right side. '
+      'body': 'In landscape, the notch can be on the left or right side. '
           'SliverSafeArea with left/right: true adds the correct horizontal '
           'padding so content does not overlap the notch.',
       'icon': Icons.screen_rotation,
@@ -753,8 +739,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Foldable Devices',
-      'body':
-          'Foldable phones may have unusual safe-area shapes when '
+      'body': 'Foldable phones may have unusual safe-area shapes when '
           'partially folded. SliverSafeArea reads the MediaQuery insets '
           'which the platform updates for foldable form factors.',
       'icon': Icons.devices_fold,
@@ -762,8 +747,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Camera Cutouts',
-      'body':
-          'Some Android devices have punch-hole cameras in the display. '
+      'body': 'Some Android devices have punch-hole cameras in the display. '
           'The safe-area insets account for these cutouts, and '
           'SliverSafeArea applies the padding correctly.',
       'icon': Icons.camera_alt,
@@ -771,8 +755,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Rounded Corners',
-      'body':
-          'Modern phones have rounded screen corners. The safe-area '
+      'body': 'Modern phones have rounded screen corners. The safe-area '
           'insets on some devices include the rounded corner area to '
           'prevent content from being clipped.',
       'icon': Icons.rounded_corner,
@@ -844,38 +827,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.phone_iphone,
-      'text':
-          'SliverSafeArea is the sliver version of SafeArea. It adds '
+      'text': 'SliverSafeArea is the sliver version of SafeArea. It adds '
           'safe-area padding to a sliver child inside a CustomScrollView.',
     },
     {
       'icon': Icons.toggle_on,
-      'text':
-          'Each edge (top, bottom, left, right) can be individually '
+      'text': 'Each edge (top, bottom, left, right) can be individually '
           'enabled or disabled, defaulting to all true.',
     },
     {
       'icon': Icons.padding,
-      'text':
-          'The minimum parameter sets a floor for the padding — '
+      'text': 'The minimum parameter sets a floor for the padding — '
           'padding is max(safeAreaInset, minimum) per edge.',
     },
     {
       'icon': Icons.vertical_align_bottom,
-      'text':
-          'Most common use: wrapping the last sliver with '
+      'text': 'Most common use: wrapping the last sliver with '
           'SliverSafeArea(top: false) to clear the home indicator.',
     },
     {
       'icon': Icons.devices,
-      'text':
-          'Handles notches, camera cutouts, rounded corners, home '
+      'text': 'Handles notches, camera cutouts, rounded corners, home '
           'indicators, and foldable device form factors automatically.',
     },
     {
       'icon': Icons.compare,
-      'text':
-          'Functionally equivalent to SliverPadding with the '
+      'text': 'Functionally equivalent to SliverPadding with the '
           'MediaQuery safe-area insets, but more convenient.',
     },
   ];

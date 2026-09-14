@@ -77,61 +77,28 @@ dynamic build(BuildContext context) {
   //    semantic role annotations.
   // --------------------------------------------------------------------------
   final List<List<String>> apiRows = <List<String>>[
-    <String>[
-      'headerSliverBuilder',
-      'NestedScrollViewHeaderSliversBuilder',
-      'returns slivers for the OUTER scroll view; receives bool innerScrolled',
-    ],
-    <String>[
-      'body',
-      'Widget',
-      'inner scrollable; usually TabBarView or a single ListView/GridView',
-    ],
-    <String>[
-      'controller',
-      'ScrollController?',
-      'controls the OUTER scroll; null lets PrimaryScrollController take over',
-    ],
-    <String>[
-      'scrollDirection',
-      'Axis',
-      'almost always vertical; horizontal nests are unusual',
-    ],
-    <String>[
-      'reverse',
-      'bool',
-      'reverses scroll origin for the OUTER; rare for atrium-style screens',
-    ],
-    <String>[
-      'physics',
-      'ScrollPhysics?',
-      'governs the OUTER scroll; inner usually inherits clamping behavior',
-    ],
-    <String>[
-      'floatHeaderSlivers',
-      'bool',
-      'when true the outer slivers float back into view immediately on scroll-up',
-    ],
-    <String>[
-      'clipBehavior',
-      'Clip',
-      'clips during overscroll; antiAlias is rare; hardEdge is the default',
-    ],
-    <String>[
-      'restorationId',
-      'String?',
-      'restores scroll positions across reassembly; opt-in',
-    ],
-    <String>[
-      'scrollBehavior',
-      'ScrollBehavior?',
-      'overrides default ScrollBehavior; affects scrollbars, glow, drag devices',
-    ],
-    <String>[
-      'dragStartBehavior',
-      'DragStartBehavior',
-      'down vs start — affects haptics and tracking precision',
-    ],
+    <String>['headerSliverBuilder', 'NestedScrollViewHeaderSliversBuilder',
+      'returns slivers for the OUTER scroll view; receives bool innerScrolled'],
+    <String>['body', 'Widget',
+      'inner scrollable; usually TabBarView or a single ListView/GridView'],
+    <String>['controller', 'ScrollController?',
+      'controls the OUTER scroll; null lets PrimaryScrollController take over'],
+    <String>['scrollDirection', 'Axis',
+      'almost always vertical; horizontal nests are unusual'],
+    <String>['reverse', 'bool',
+      'reverses scroll origin for the OUTER; rare for atrium-style screens'],
+    <String>['physics', 'ScrollPhysics?',
+      'governs the OUTER scroll; inner usually inherits clamping behavior'],
+    <String>['floatHeaderSlivers', 'bool',
+      'when true the outer slivers float back into view immediately on scroll-up'],
+    <String>['clipBehavior', 'Clip',
+      'clips during overscroll; antiAlias is rare; hardEdge is the default'],
+    <String>['restorationId', 'String?',
+      'restores scroll positions across reassembly; opt-in'],
+    <String>['scrollBehavior', 'ScrollBehavior?',
+      'overrides default ScrollBehavior; affects scrollbars, glow, drag devices'],
+    <String>['dragStartBehavior', 'DragStartBehavior',
+      'down vs start — affects haptics and tracking precision'],
   ];
 
   // --------------------------------------------------------------------------
@@ -139,72 +106,48 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   final List<List<String>> behaviorMatrix = <List<String>>[
     <String>['', 'pinned: false', 'pinned: true'],
-    <String>[
-      'floatHeaderSlivers: false',
+    <String>['floatHeaderSlivers: false',
       'header scrolls away; inner fully visible',
-      'header collapsed bar stays; inner takes remainder',
-    ],
-    <String>[
-      'floatHeaderSlivers: true',
+      'header collapsed bar stays; inner takes remainder'],
+    <String>['floatHeaderSlivers: true',
       'any scroll-up reveals header from off-screen',
-      'collapsed bar always visible; expanded floats in',
-    ],
+      'collapsed bar always visible; expanded floats in'],
   ];
 
   // --------------------------------------------------------------------------
   // 5. Glossary terms paired to definitions.
   // --------------------------------------------------------------------------
   final List<List<String>> glossaryRows = <List<String>>[
-    <String>[
-      'Outer scroll view',
+    <String>['Outer scroll view',
       'The CustomScrollView that NestedScrollView builds internally to host'
-          ' the slivers returned by headerSliverBuilder.',
-    ],
-    <String>[
-      'Inner scrollable',
+      ' the slivers returned by headerSliverBuilder.'],
+    <String>['Inner scrollable',
       'The scrollable inside the body slot. May be a TabBarView whose pages'
-          ' are themselves scrollable.',
-    ],
-    <String>[
-      'headerSliverBuilder',
+      ' are themselves scrollable.'],
+    <String>['headerSliverBuilder',
       'Pure builder that returns a list of slivers. It is rebuilt on demand;'
-          ' the bool innerScrolled is true once the inner is scrolled past zero.',
-    ],
-    <String>[
-      'floatHeaderSlivers',
+      ' the bool innerScrolled is true once the inner is scrolled past zero.'],
+    <String>['floatHeaderSlivers',
       'When true, dragging the inner upward immediately drags the outer'
-          ' header back into view rather than waiting for the inner to bottom.',
-    ],
-    <String>[
-      'SliverAppBar.large',
+      ' header back into view rather than waiting for the inner to bottom.'],
+    <String>['SliverAppBar.large',
       'A 152-pixel collapsed bar with a 24-pt headline that floats over a'
-          ' larger expanded title region.',
-    ],
-    <String>[
-      'Coordination',
+      ' larger expanded title region.'],
+    <String>['Coordination',
       'NestedScrollView arranges so the OUTER scrolls first until exhausted,'
-          ' then forwards drag deltas to the INNER. Reverse order on scroll-up.',
-    ],
-    <String>[
-      '_NestedScrollPosition',
+      ' then forwards drag deltas to the INNER. Reverse order on scroll-up.'],
+    <String>['_NestedScrollPosition',
       'Private subclass of ScrollPosition used to coordinate the two views.'
-          ' Exposed only via NestedScrollView state.',
-    ],
-    <String>[
-      'Linked controllers',
+      ' Exposed only via NestedScrollView state.'],
+    <String>['Linked controllers',
       'The outer and inner share a "linkage" — the inner is a primary scroll'
-          ' controller scope so its tabs each receive an independent position.',
-    ],
-    <String>[
-      'SliverOverlapAbsorber',
+      ' controller scope so its tabs each receive an independent position.'],
+    <String>['SliverOverlapAbsorber',
       'When using SliverPersistentHeader/TabBar, wrap headers with this to'
-          ' avoid the inner CustomScrollView being shoved upward by overlap.',
-    ],
-    <String>[
-      'SliverOverlapInjector',
+      ' avoid the inner CustomScrollView being shoved upward by overlap.'],
+    <String>['SliverOverlapInjector',
       'Companion to absorber; injected at the top of inner CustomScrollView'
-          ' so its slivers receive correct overlap padding.',
-    ],
+      ' so its slivers receive correct overlap padding.'],
   ];
 
   // --------------------------------------------------------------------------
@@ -403,8 +346,7 @@ dynamic build(BuildContext context) {
     // its child from layout. Construction success is proven by the print
     // above; rendering of a real NestedScrollView is documented in Note J
     // (below) as not safe in every test harness.
-    final Widget _kept = bridgedSample;
-    bridgedAttempt = SizedBox.shrink();
+    final Widget _kept = bridgedSample;    bridgedAttempt = SizedBox.shrink();
   } catch (e) {
     print('Bridged NestedScrollView refused: $e');
     bridgedAttempt = SizedBox.shrink();
@@ -414,7 +356,11 @@ dynamic build(BuildContext context) {
   try {
     final Widget floatSample = NestedScrollView(
       headerSliverBuilder: (BuildContext ctx, bool innerScrolled) => <Widget>[
-        SliverAppBar(title: Text('Float-on-up'), floating: true, snap: true),
+        SliverAppBar(
+          title: Text('Float-on-up'),
+          floating: true,
+          snap: true,
+        ),
       ],
       floatHeaderSlivers: true,
       body: ListView(
@@ -428,8 +374,7 @@ dynamic build(BuildContext context) {
     // See note above: do not host in the visible tree (Offstage does not
     // insulate from layout, and the inner viewport produces infinite-height
     // constraints).
-    final Widget _kept = floatSample;
-    bridgedFloatAttempt = SizedBox.shrink();
+    final Widget _kept = floatSample;    bridgedFloatAttempt = SizedBox.shrink();
   } catch (e) {
     print('Bridged float sample refused: $e');
     bridgedFloatAttempt = SizedBox.shrink();
@@ -465,8 +410,7 @@ dynamic build(BuildContext context) {
     );
     print('NestedScrollView tab-style sample constructed');
     // See note above: do not host in the visible tree.
-    final Widget _kept = tabSample;
-    bridgedTabAttempt = SizedBox.shrink();
+    final Widget _kept = tabSample;    bridgedTabAttempt = SizedBox.shrink();
   } catch (e) {
     print('Bridged tab sample refused: $e');
     bridgedTabAttempt = SizedBox.shrink();
@@ -575,38 +519,32 @@ dynamic build(BuildContext context) {
               ),
             ),
             alignment: Alignment.center,
-            child: Text(
-              'Manuscripts',
-              style: TextStyle(
-                color: paletteVellum,
-                fontWeight: FontWeight.w700,
-                fontSize: 13,
-              ),
-            ),
+            child: Text('Manuscripts',
+                style: TextStyle(
+                  color: paletteVellum,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                )),
           ),
         ),
         Expanded(
           child: Container(
             alignment: Alignment.center,
-            child: Text(
-              'Folios',
-              style: TextStyle(
-                color: paletteParchment.withValues(alpha: 0.8),
-                fontSize: 13,
-              ),
-            ),
+            child: Text('Folios',
+                style: TextStyle(
+                  color: paletteParchment.withValues(alpha: 0.8),
+                  fontSize: 13,
+                )),
           ),
         ),
         Expanded(
           child: Container(
             alignment: Alignment.center,
-            child: Text(
-              'Marginalia',
-              style: TextStyle(
-                color: paletteParchment.withValues(alpha: 0.8),
-                fontSize: 13,
-              ),
-            ),
+            child: Text('Marginalia',
+                style: TextStyle(
+                  color: paletteParchment.withValues(alpha: 0.8),
+                  fontSize: 13,
+                )),
           ),
         ),
       ],
@@ -642,17 +580,17 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.all(Radius.circular(6)),
             ),
             alignment: Alignment.center,
-            child: Text(
-              '${i + 1}',
-              style: TextStyle(
-                color: paletteVellum,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            child: Text('${i + 1}',
+                style: TextStyle(
+                  color: paletteVellum,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                )),
           ),
           SizedBox(width: 12),
-          Expanded(child: Text(heroEntries[i], style: bodyStyle)),
+          Expanded(
+            child: Text(heroEntries[i], style: bodyStyle),
+          ),
           Icon(Icons.chevron_right, color: paletteRosewood, size: 18),
         ],
       ),
@@ -675,20 +613,21 @@ dynamic build(BuildContext context) {
         heroLargeTitle,
         heroTabStrip,
         Container(height: 6, color: paletteBrass.withValues(alpha: 0.6)),
-        Column(mainAxisSize: MainAxisSize.min, children: heroBodyRows),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: heroBodyRows,
+        ),
         Container(
           height: 36,
           color: paletteEbony,
           padding: EdgeInsets.symmetric(horizontal: 16),
           alignment: Alignment.centerLeft,
-          child: Text(
-            'floor — bottom of inner scroll',
-            style: TextStyle(
-              color: paletteAmberwood,
-              fontSize: 11,
-              letterSpacing: 0.6,
-            ),
-          ),
+          child: Text('floor — bottom of inner scroll',
+              style: TextStyle(
+                color: paletteAmberwood,
+                fontSize: 11,
+                letterSpacing: 0.6,
+              )),
         ),
       ],
     ),
@@ -714,14 +653,12 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(label, style: headlineStyle),
           SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              color: paletteAmberwood,
-              fontSize: 13,
-              letterSpacing: 0.4,
-            ),
-          ),
+          Text(subtitle,
+              style: TextStyle(
+                color: paletteAmberwood,
+                fontSize: 13,
+                letterSpacing: 0.4,
+              )),
         ],
       ),
     );
@@ -763,23 +700,19 @@ dynamic build(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: paletteEbony,
-                  ),
-                ),
+                Text(name,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: paletteEbony,
+                    )),
                 SizedBox(height: 2),
-                Text(
-                  hex,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: paletteRosewood,
-                  ),
-                ),
+                Text(hex,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      color: paletteRosewood,
+                    )),
               ],
             ),
           ),
@@ -792,7 +725,10 @@ dynamic build(BuildContext context) {
   final Widget swatchSection = Container(
     color: paletteVellum,
     padding: EdgeInsets.all(8),
-    child: Wrap(alignment: WrapAlignment.start, children: swatchTiles),
+    child: Wrap(
+      alignment: WrapAlignment.start,
+      children: swatchTiles,
+    ),
   );
 
   // --------------------------------------------------------------------------
@@ -844,14 +780,12 @@ dynamic build(BuildContext context) {
             ),
             Expanded(
               flex: 3,
-              child: Text(
-                cells[1],
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  color: paletteRosewood,
-                ),
-              ),
+              child: Text(cells[1],
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    color: paletteRosewood,
+                  )),
             ),
             Expanded(flex: 5, child: Text(cells[2], style: tableCellStyle)),
             Expanded(flex: 4, child: Text(cells[3], style: tableCellStyle)),
@@ -867,7 +801,10 @@ dynamic build(BuildContext context) {
       border: Border.all(color: paletteBrass, width: 1.5),
     ),
     clipBehavior: Clip.antiAlias,
-    child: Column(mainAxisSize: MainAxisSize.min, children: paletteTableRows),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: paletteTableRows,
+    ),
   );
 
   // --------------------------------------------------------------------------
@@ -882,10 +819,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Expanded(flex: 4, child: Text('Property', style: tableHeaderStyle)),
           Expanded(flex: 4, child: Text('Type', style: tableHeaderStyle)),
-          Expanded(
-            flex: 8,
-            child: Text('Description', style: tableHeaderStyle),
-          ),
+          Expanded(flex: 8, child: Text('Description', style: tableHeaderStyle)),
         ],
       ),
     ),
@@ -902,26 +836,22 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Expanded(
               flex: 4,
-              child: Text(
-                cells[0],
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12.5,
-                  color: paletteCinnabar,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text(cells[0],
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12.5,
+                    color: paletteCinnabar,
+                    fontWeight: FontWeight.w700,
+                  )),
             ),
             Expanded(
               flex: 4,
-              child: Text(
-                cells[1],
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  color: paletteOliveLeaf,
-                ),
-              ),
+              child: Text(cells[1],
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    color: paletteOliveLeaf,
+                  )),
             ),
             Expanded(flex: 8, child: Text(cells[2], style: tableCellStyle)),
           ],
@@ -936,7 +866,10 @@ dynamic build(BuildContext context) {
       border: Border.all(color: paletteBrass, width: 1.5),
     ),
     clipBehavior: Clip.antiAlias,
-    child: Column(mainAxisSize: MainAxisSize.min, children: apiTableRows),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: apiTableRows,
+    ),
   );
 
   // --------------------------------------------------------------------------
@@ -989,9 +922,10 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    matrixGrid.add(
-      Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: cells),
-    );
+    matrixGrid.add(Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: cells,
+    ));
   }
   final Widget behaviorMatrixWidget = Container(
     margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -1000,7 +934,10 @@ dynamic build(BuildContext context) {
       border: Border.all(color: paletteBrass, width: 1.5),
     ),
     clipBehavior: Clip.antiAlias,
-    child: Column(mainAxisSize: MainAxisSize.min, children: matrixGrid),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: matrixGrid,
+    ),
   );
 
   // --------------------------------------------------------------------------
@@ -1063,15 +1000,13 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             SizedBox(
               width: 180,
-              child: Text(
-                g[0],
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  color: paletteCinnabar,
-                  fontFamily: 'monospace',
-                  fontSize: 12.5,
-                ),
-              ),
+              child: Text(g[0],
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: paletteCinnabar,
+                    fontFamily: 'monospace',
+                    fontSize: 12.5,
+                  )),
             ),
             SizedBox(width: 8),
             Expanded(child: Text(g[1], style: tableCellStyle)),
@@ -1087,7 +1022,10 @@ dynamic build(BuildContext context) {
       border: Border.all(color: paletteBrass, width: 1.5),
     ),
     clipBehavior: Clip.antiAlias,
-    child: Column(mainAxisSize: MainAxisSize.min, children: glossaryWidgets),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: glossaryWidgets,
+    ),
   );
 
   // --------------------------------------------------------------------------
@@ -1115,15 +1053,13 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    comparisonWidgets.add(
-      Container(
-        color: band,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: cells,
-        ),
+    comparisonWidgets.add(Container(
+      color: band,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: cells,
       ),
-    );
+    ));
   }
   final Widget comparisonTable = Container(
     margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -1132,7 +1068,10 @@ dynamic build(BuildContext context) {
       border: Border.all(color: paletteBrass, width: 1.5),
     ),
     clipBehavior: Clip.antiAlias,
-    child: Column(mainAxisSize: MainAxisSize.min, children: comparisonWidgets),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: comparisonWidgets,
+    ),
   );
 
   // --------------------------------------------------------------------------
@@ -1186,17 +1125,16 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Icon(Icons.warning_amber_rounded, color: paletteVelvet, size: 18),
+            Icon(Icons.warning_amber_rounded,
+                color: paletteVelvet, size: 18),
             SizedBox(width: 10),
             Expanded(
-              child: Text(
-                caveats[i],
-                style: TextStyle(
-                  fontSize: 13,
-                  height: 1.4,
-                  color: paletteEbony,
-                ),
-              ),
+              child: Text(caveats[i],
+                  style: TextStyle(
+                    fontSize: 13,
+                    height: 1.4,
+                    color: paletteEbony,
+                  )),
             ),
           ],
         ),
@@ -1251,14 +1189,12 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           SizedBox(
             width: 32,
-            child: Text(
-              '${i + 1}',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                color: paletteAmberwood.withValues(alpha: 0.7),
-              ),
-            ),
+            child: Text('${i + 1}',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: paletteAmberwood.withValues(alpha: 0.7),
+                )),
           ),
           Expanded(child: Text(pseudoCodeLines[i], style: monoOnDarkStyle)),
         ],
@@ -1294,15 +1230,13 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(
-          'Mahogany Atrium · NestedScrollView Study',
-          style: TextStyle(
-            color: paletteAmberwood,
-            fontSize: 16,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 0.5,
-          ),
-        ),
+        Text('Mahogany Atrium · NestedScrollView Study',
+            style: TextStyle(
+              color: paletteAmberwood,
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.5,
+            )),
         SizedBox(height: 6),
         Text(
           'Hand-authored visual demo. The header sliver above; the inner'
@@ -1332,14 +1266,12 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(
-          'Bridged probe results',
-          style: TextStyle(
-            color: paletteEbony,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        Text('Bridged probe results',
+            style: TextStyle(
+              color: paletteEbony,
+              fontWeight: FontWeight.w800,
+              fontSize: 14,
+            )),
         SizedBox(height: 6),
         Text(
           'Three bridged NestedScrollView shapes were attempted in try/catch:'
@@ -1363,115 +1295,78 @@ dynamic build(BuildContext context) {
   //     build returns a Scaffold and we want plain vertical scrolling.
   // --------------------------------------------------------------------------
   final List<Widget> documentChildren = <Widget>[];
-  documentChildren.add(
-    makeSectionHeader(
-      'Mahogany Atrium',
-      'A NestedScrollView visual study',
-      paletteMahogany,
-    ),
-  );
+  documentChildren.add(makeSectionHeader(
+      'Mahogany Atrium', 'A NestedScrollView visual study', paletteMahogany));
   documentChildren.add(heroCard);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '01 · Palette',
       'Twelve hues forming the Mahogany Atrium reading-room theme.',
-      paletteRosewood,
-    ),
-  );
+      paletteRosewood));
   documentChildren.add(swatchSection);
   documentChildren.add(paletteTable);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '02 · API Surface',
       'NestedScrollView constructor parameters with semantic notes.',
-      paletteCinnabar,
-    ),
-  );
+      paletteCinnabar));
   documentChildren.add(apiTable);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '03 · Anatomy',
       'headerSliverBuilder vs body — how the two halves stack.',
-      paletteEbony,
-    ),
-  );
+      paletteEbony));
   documentChildren.add(anatomyDiagram);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '04 · Behavior Matrix',
       'floatHeaderSlivers × pinned — what scroll-up actually does.',
-      paletteRosewood,
-    ),
-  );
+      paletteRosewood));
   documentChildren.add(behaviorMatrixWidget);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '05 · Coordination Prose',
       'How OUTER and INNER positions hand each other deltas.',
-      paletteMahogany,
-    ),
-  );
+      paletteMahogany));
   documentChildren.add(proseSection);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '06 · Decision Flowchart',
       'When to reach for NestedScrollView vs alternatives.',
-      paletteCinnabar,
-    ),
-  );
+      paletteCinnabar));
   documentChildren.add(flowchartDiagram);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '07 · Glossary',
       'Key vocabulary for the nested-scroll choreography.',
-      paletteEbony,
-    ),
-  );
+      paletteEbony));
   documentChildren.add(glossarySection);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '08 · Caveats',
       'Pitfalls that look correct but are not.',
-      paletteVelvet,
-    ),
-  );
-  documentChildren.add(
-    Column(mainAxisSize: MainAxisSize.min, children: caveatWidgets),
-  );
+      paletteVelvet));
+  documentChildren.add(Column(
+    mainAxisSize: MainAxisSize.min,
+    children: caveatWidgets,
+  ));
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '09 · Reference Code',
       'Pseudo-source for an Atrium-style screen.',
-      paletteRosewood,
-    ),
-  );
+      paletteRosewood));
   documentChildren.add(pseudoCodeBlock);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '10 · Comparison',
       'NestedScrollView vs CustomScrollView vs Single+Sliver.',
-      paletteMahogany,
-    ),
-  );
+      paletteMahogany));
   documentChildren.add(comparisonTable);
 
-  documentChildren.add(
-    makeSectionHeader(
+  documentChildren.add(makeSectionHeader(
       '11 · Bridged Probe',
       'Try/catch around bridged NestedScrollView shapes.',
-      paletteVerdigris,
-    ),
-  );
+      paletteVerdigris));
   documentChildren.add(probeSection);
 
   documentChildren.add(footer);

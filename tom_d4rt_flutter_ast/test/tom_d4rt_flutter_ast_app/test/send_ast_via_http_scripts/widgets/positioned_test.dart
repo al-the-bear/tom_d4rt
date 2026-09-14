@@ -53,7 +53,10 @@ Widget _dot(Color color, {double size = 6.0}) {
   return Container(
     width: size,
     height: size,
-    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+    decoration: BoxDecoration(
+      color: color,
+      shape: BoxShape.circle,
+    ),
   );
 }
 
@@ -88,7 +91,10 @@ Widget _canvas({
             color: background,
             border: Border.all(color: border, width: 1.0),
           ),
-          child: Stack(clipBehavior: Clip.hardEdge, children: children),
+          child: Stack(
+            clipBehavior: Clip.hardEdge,
+            children: children,
+          ),
         ),
       ],
     ),
@@ -155,7 +161,9 @@ Widget _gridOverlay({int step = 10}) {
   return Positioned.fill(
     child: IgnorePointer(
       ignoring: true,
-      child: CustomPaint(painter: _GridPainter(step: step)),
+      child: CustomPaint(
+        painter: _GridPainter(step: step),
+      ),
     ),
   );
 }
@@ -223,11 +231,7 @@ Widget _paragraph(String text) {
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
     child: Text(
       text,
-      style: const TextStyle(
-        fontSize: 11.5,
-        color: Color(0xFF333333),
-        height: 1.35,
-      ),
+      style: const TextStyle(fontSize: 11.5, color: Color(0xFF333333), height: 1.35),
     ),
   );
 }
@@ -274,7 +278,10 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           const Text(
             'Widget: Positioned',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 4.0),
           const Text(
@@ -283,29 +290,17 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 10.5, fontFamily: 'monospace'),
           ),
           const Divider(height: 16.0),
-          const Text(
-            'Constructors:',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          _bullet(
-            'Positioned({left, top, right, bottom, width, height, child})',
-          ),
-          _bullet(
-            'Positioned.fill({left = 0, top = 0, right = 0, bottom = 0, child})',
-          ),
-          _bullet(
-            'Positioned.directional({textDirection, start, end, top, bottom, width, height, child})',
-          ),
+          const Text('Constructors:',
+              style: TextStyle(fontWeight: FontWeight.w600)),
+          _bullet('Positioned({left, top, right, bottom, width, height, child})'),
+          _bullet('Positioned.fill({left = 0, top = 0, right = 0, bottom = 0, child})'),
+          _bullet('Positioned.directional({textDirection, start, end, top, bottom, width, height, child})'),
           _bullet('Positioned.fromRect({rect, child})'),
           _bullet('Positioned.fromRelativeRect({rect, child})'),
-          _bullet(
-            'PositionedDirectional({start, end, top, bottom, width, height, child}) — Stateless wrapper',
-          ),
+          _bullet('PositionedDirectional({start, end, top, bottom, width, height, child}) — Stateless wrapper'),
           const Divider(height: 16.0),
-          const Text(
-            'Constraints rule:',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
+          const Text('Constraints rule:',
+              style: TextStyle(fontWeight: FontWeight.w600)),
           _paragraph(
             'At most TWO of (left, right, width) and at most TWO of '
             '(top, bottom, height) may be non-null at the same time. '
@@ -491,12 +486,7 @@ dynamic build(BuildContext context) {
       Positioned(
         left: 20.0,
         top: 20.0,
-        child: _tile(
-          w: 80.0,
-          h: 60.0,
-          color: Colors.red,
-          caption: 'A (bottom)',
-        ),
+        child: _tile(w: 80.0, h: 60.0, color: Colors.red, caption: 'A (bottom)'),
       ),
       Positioned(
         left: 60.0,
@@ -618,11 +608,7 @@ dynamic build(BuildContext context) {
           ),
         ),
       ),
-      Positioned(
-        left: 4.0,
-        bottom: 4.0,
-        child: _label('label peeks over border'),
-      ),
+      Positioned(left: 4.0, bottom: 4.0, child: _label('label peeks over border')),
     ],
   );
 
@@ -677,7 +663,9 @@ dynamic build(BuildContext context) {
     width: 260.0,
     height: 120.0,
     children: <Widget>[
-      Positioned.fill(child: Container(color: const Color(0xFFE3F2FD))),
+      Positioned.fill(
+        child: Container(color: const Color(0xFFE3F2FD)),
+      ),
       Positioned(
         left: 0.0,
         right: 0.0,
@@ -692,7 +680,11 @@ dynamic build(BuildContext context) {
           ),
         ),
       ),
-      Positioned(left: 4.0, top: 32.0, child: _label('Banner: L:0 R:0 T:0')),
+      Positioned(
+        left: 4.0,
+        top: 32.0,
+        child: _label('Banner: L:0 R:0 T:0'),
+      ),
     ],
   );
 
@@ -704,8 +696,12 @@ dynamic build(BuildContext context) {
     width: 240.0,
     height: 160.0,
     children: <Widget>[
-      Positioned.fill(child: Container(color: const Color(0xFFCFD8DC))),
-      Positioned.fill(child: Container(color: const Color(0x88000000))),
+      Positioned.fill(
+        child: Container(color: const Color(0xFFCFD8DC)),
+      ),
+      Positioned.fill(
+        child: Container(color: const Color(0x88000000)),
+      ),
       Positioned(
         left: 30.0,
         right: 30.0,
@@ -734,7 +730,9 @@ dynamic build(BuildContext context) {
     width: 180.0,
     height: 140.0,
     children: <Widget>[
-      Positioned.fill(child: Container(color: const Color(0xFFF1F8E9))),
+      Positioned.fill(
+        child: Container(color: const Color(0xFFF1F8E9)),
+      ),
       Positioned(
         left: -20.0,
         top: 14.0,
@@ -746,10 +744,7 @@ dynamic build(BuildContext context) {
             alignment: Alignment.center,
             child: const Text(
               'NEW',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
             ),
           ),
         ),
@@ -769,7 +764,11 @@ dynamic build(BuildContext context) {
       Positioned(
         left: 80.0,
         top: 90.0,
-        child: Container(width: 30.0, height: 30.0, color: Colors.deepOrange),
+        child: Container(
+          width: 30.0,
+          height: 30.0,
+          color: Colors.deepOrange,
+        ),
       ),
       Positioned(
         left: 40.0,
@@ -794,11 +793,7 @@ dynamic build(BuildContext context) {
           child: Container(width: 12.0, height: 10.0, color: Colors.black87),
         ),
       ),
-      Positioned(
-        right: 4.0,
-        bottom: 4.0,
-        child: _label('tooltip + triangle arrow'),
-      ),
+      Positioned(right: 4.0, bottom: 4.0, child: _label('tooltip + triangle arrow')),
     ],
   );
 
@@ -835,11 +830,7 @@ dynamic build(BuildContext context) {
           ),
         ),
       ),
-      Positioned(
-        left: 4.0,
-        bottom: 4.0,
-        child: _label('Positioned.fill(insets)'),
-      ),
+      Positioned(left: 4.0, bottom: 4.0, child: _label('Positioned.fill(insets)')),
     ],
   );
 
@@ -856,12 +847,7 @@ dynamic build(BuildContext context) {
         textDirection: TextDirection.ltr,
         start: 20.0,
         top: 20.0,
-        child: _tile(
-          w: 60.0,
-          h: 30.0,
-          color: Colors.deepPurple,
-          caption: 'START',
-        ),
+        child: _tile(w: 60.0, h: 30.0, color: Colors.deepPurple, caption: 'START'),
       ),
       Positioned.directional(
         textDirection: TextDirection.ltr,
@@ -869,11 +855,7 @@ dynamic build(BuildContext context) {
         bottom: 10.0,
         child: _tile(w: 60.0, h: 20.0, color: Colors.teal, caption: 'END'),
       ),
-      Positioned(
-        left: 4.0,
-        top: 4.0,
-        child: _label('LTR: start≡left, end≡right'),
-      ),
+      Positioned(left: 4.0, top: 4.0, child: _label('LTR: start≡left, end≡right')),
     ],
   );
 
@@ -887,12 +869,7 @@ dynamic build(BuildContext context) {
         textDirection: TextDirection.rtl,
         start: 20.0,
         top: 20.0,
-        child: _tile(
-          w: 60.0,
-          h: 30.0,
-          color: Colors.deepPurple,
-          caption: 'START',
-        ),
+        child: _tile(w: 60.0, h: 30.0, color: Colors.deepPurple, caption: 'START'),
       ),
       Positioned.directional(
         textDirection: TextDirection.rtl,
@@ -900,11 +877,7 @@ dynamic build(BuildContext context) {
         bottom: 10.0,
         child: _tile(w: 60.0, h: 20.0, color: Colors.teal, caption: 'END'),
       ),
-      Positioned(
-        left: 4.0,
-        top: 4.0,
-        child: _label('RTL: start≡right, end≡left'),
-      ),
+      Positioned(left: 4.0, top: 4.0, child: _label('RTL: start≡right, end≡left')),
     ],
   );
 
@@ -925,22 +898,12 @@ dynamic build(BuildContext context) {
               PositionedDirectional(
                 start: 12.0,
                 top: 12.0,
-                child: _tile(
-                  w: 50.0,
-                  h: 30.0,
-                  color: Colors.red,
-                  caption: 'PD-S',
-                ),
+                child: _tile(w: 50.0, h: 30.0, color: Colors.red, caption: 'PD-S'),
               ),
               PositionedDirectional(
                 end: 12.0,
                 bottom: 12.0,
-                child: _tile(
-                  w: 50.0,
-                  h: 30.0,
-                  color: Colors.green,
-                  caption: 'PD-E',
-                ),
+                child: _tile(w: 50.0, h: 30.0, color: Colors.green, caption: 'PD-E'),
               ),
             ],
           ),
@@ -964,32 +927,18 @@ dynamic build(BuildContext context) {
               PositionedDirectional(
                 start: 12.0,
                 top: 12.0,
-                child: _tile(
-                  w: 50.0,
-                  h: 30.0,
-                  color: Colors.red,
-                  caption: 'PD-S',
-                ),
+                child: _tile(w: 50.0, h: 30.0, color: Colors.red, caption: 'PD-S'),
               ),
               PositionedDirectional(
                 end: 12.0,
                 bottom: 12.0,
-                child: _tile(
-                  w: 50.0,
-                  h: 30.0,
-                  color: Colors.green,
-                  caption: 'PD-E',
-                ),
+                child: _tile(w: 50.0, h: 30.0, color: Colors.green, caption: 'PD-E'),
               ),
             ],
           ),
         ),
       ),
-      Positioned(
-        left: 4.0,
-        bottom: 4.0,
-        child: _label('Ambient RTL — start flips'),
-      ),
+      Positioned(left: 4.0, bottom: 4.0, child: _label('Ambient RTL — start flips')),
     ],
   );
 
@@ -1069,10 +1018,7 @@ dynamic build(BuildContext context) {
         child: Container(
           color: Colors.cyan.shade300,
           alignment: Alignment.center,
-          child: const Text(
-            'RelativeRect inset 15',
-            style: TextStyle(fontSize: 10.0),
-          ),
+          child: const Text('RelativeRect inset 15', style: TextStyle(fontSize: 10.0)),
         ),
       ),
       Positioned(left: 4.0, top: 4.0, child: _label('LTRB:15,15,15,15')),
@@ -1118,11 +1064,7 @@ dynamic build(BuildContext context) {
         alignment: Alignment.bottomRight,
         child: _tile(w: 30.0, h: 20.0, color: Colors.blue, caption: 'BR'),
       ),
-      Positioned(
-        left: 4.0,
-        top: 4.0,
-        child: _label('Align: anchored fractions'),
-      ),
+      Positioned(left: 4.0, top: 4.0, child: _label('Align: anchored fractions')),
     ],
   );
 
@@ -1170,9 +1112,7 @@ dynamic build(BuildContext context) {
         Container(
           width: 280.0,
           height: 140.0,
-          decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFF999999)),
-          ),
+          decoration: BoxDecoration(border: Border.all(color: const Color(0xFF999999))),
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: <Widget>[
@@ -1183,12 +1123,7 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 10.0,
                 top: 10.0,
-                child: _tile(
-                  w: 60.0,
-                  h: 20.0,
-                  color: Colors.indigo,
-                  caption: 'pinned',
-                ),
+                child: _tile(w: 60.0, h: 20.0, color: Colors.indigo, caption: 'pinned'),
               ),
             ],
           ),
@@ -1213,11 +1148,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           const Text(
             'Pitfall — Over-constrained Positioned',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.red,
-              fontSize: 13.0,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, fontSize: 13.0),
           ),
           const SizedBox(height: 6.0),
           _paragraph(
@@ -1264,11 +1195,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           const Text(
             'Pitfall — Positioned must be a Stack child',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.deepOrange,
-              fontSize: 13.0,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.deepOrange, fontSize: 13.0),
           ),
           const SizedBox(height: 6.0),
           _paragraph(
@@ -1323,11 +1250,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           const Text(
             'Pitfall — Stack needs bounded constraints when using Positioned with two opposite sides',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.purple,
-              fontSize: 13.0,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.purple, fontSize: 13.0),
           ),
           const SizedBox(height: 6.0),
           _paragraph(
@@ -1373,7 +1296,11 @@ dynamic build(BuildContext context) {
 
   final Widget sweepRow = Row(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[_frozenSweep(0.0), _frozenSweep(0.5), _frozenSweep(1.0)],
+    children: <Widget>[
+      _frozenSweep(0.0),
+      _frozenSweep(0.5),
+      _frozenSweep(1.0),
+    ],
   );
 
   // -------------------------------------------------------------------------
@@ -1449,11 +1376,8 @@ dynamic build(BuildContext context) {
           child: _tile(
             w: cellW,
             h: cellH,
-            color: Color.lerp(
-              Colors.lightBlue,
-              Colors.deepPurple,
-              (r * cols + c) / (rows * cols - 1),
-            )!,
+            color: Color.lerp(Colors.lightBlue, Colors.deepPurple,
+                (r * cols + c) / (rows * cols - 1))!,
             caption: '$r,$c',
           ),
         ),
@@ -1516,11 +1440,7 @@ dynamic build(BuildContext context) {
         width: 20.0,
         child: Container(color: Colors.redAccent),
       ),
-      Positioned(
-        left: 4.0,
-        top: 4.0,
-        child: _label('two Positioned bars overlap'),
-      ),
+      Positioned(left: 4.0, top: 4.0, child: _label('two Positioned bars overlap')),
     ],
   );
 
@@ -1588,7 +1508,9 @@ dynamic build(BuildContext context) {
     width: 240.0,
     height: 160.0,
     children: <Widget>[
-      Positioned.fill(child: Container(color: const Color(0xFFE8F5E9))),
+      Positioned.fill(
+        child: Container(color: const Color(0xFFE8F5E9)),
+      ),
       Positioned(
         left: 0.0,
         right: 0.0,
@@ -1656,11 +1578,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           alignment: Alignment.center,
-          child: const Icon(
-            Icons.chevron_right,
-            color: Colors.white,
-            size: 14.0,
-          ),
+          child: const Icon(Icons.chevron_right, color: Colors.white, size: 14.0),
         ),
       ),
       Positioned(right: 4.0, top: 4.0, child: _label('drawer bar + handle')),
@@ -1695,18 +1613,10 @@ dynamic build(BuildContext context) {
         top: 60.0,
         child: ClipPath(
           clipper: _TriangleClipper(),
-          child: Container(
-            width: 18.0,
-            height: 14.0,
-            color: Colors.amber.shade200,
-          ),
+          child: Container(width: 18.0, height: 14.0, color: Colors.amber.shade200),
         ),
       ),
-      Positioned(
-        left: 4.0,
-        bottom: 4.0,
-        child: _label('bubble + clipped triangle'),
-      ),
+      Positioned(left: 4.0, bottom: 4.0, child: _label('bubble + clipped triangle')),
     ],
   );
 
@@ -1749,11 +1659,7 @@ dynamic build(BuildContext context) {
           ),
         ),
       ),
-      Positioned(
-        left: 4.0,
-        top: 4.0,
-        child: _label('two stacked Positioned bars'),
-      ),
+      Positioned(left: 4.0, top: 4.0, child: _label('two stacked Positioned bars')),
     ],
   );
 
@@ -1814,10 +1720,7 @@ dynamic build(BuildContext context) {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                Colors.blueGrey.shade100,
-                Colors.blueGrey.shade500,
-              ],
+              colors: <Color>[Colors.blueGrey.shade100, Colors.blueGrey.shade500],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1947,36 +1850,16 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
           ),
           const SizedBox(height: 6.0),
-          _bullet(
-            'Stack — A widget that positions its children relative to its own edges.',
-          ),
-          _bullet(
-            'Positioned — A ParentDataWidget that controls where a child sits inside a Stack.',
-          ),
-          _bullet(
-            'Positioned.fill — Convenience for stretching a child across the entire Stack (defaults left/top/right/bottom to 0).',
-          ),
-          _bullet(
-            'Positioned.directional — Like Positioned but with start/end instead of left/right; requires an explicit textDirection.',
-          ),
-          _bullet(
-            'PositionedDirectional — Like Positioned.directional but reads textDirection from the ambient Directionality. It is a StatelessWidget wrapper that resolves to Positioned.directional internally.',
-          ),
-          _bullet(
-            'Positioned.fromRect — Build a Positioned from an absolute Rect (x, y, w, h).',
-          ),
-          _bullet(
-            'Positioned.fromRelativeRect — Build a Positioned from a RelativeRect (insets from each side).',
-          ),
-          _bullet(
-            'StackParentData — The parent data attached by Positioned; describes the child\'s rectangle relative to the Stack.',
-          ),
-          _bullet(
-            'RelativeRect — A rectangle described by its insets from a containing rectangle\'s sides.',
-          ),
-          _bullet(
-            'TextDirection — Used by directional helpers to decide which physical side (left or right) maps to logical start/end.',
-          ),
+          _bullet('Stack — A widget that positions its children relative to its own edges.'),
+          _bullet('Positioned — A ParentDataWidget that controls where a child sits inside a Stack.'),
+          _bullet('Positioned.fill — Convenience for stretching a child across the entire Stack (defaults left/top/right/bottom to 0).'),
+          _bullet('Positioned.directional — Like Positioned but with start/end instead of left/right; requires an explicit textDirection.'),
+          _bullet('PositionedDirectional — Like Positioned.directional but reads textDirection from the ambient Directionality. It is a StatelessWidget wrapper that resolves to Positioned.directional internally.'),
+          _bullet('Positioned.fromRect — Build a Positioned from an absolute Rect (x, y, w, h).'),
+          _bullet('Positioned.fromRelativeRect — Build a Positioned from a RelativeRect (insets from each side).'),
+          _bullet('StackParentData — The parent data attached by Positioned; describes the child\'s rectangle relative to the Stack.'),
+          _bullet('RelativeRect — A rectangle described by its insets from a containing rectangle\'s sides.'),
+          _bullet('TextDirection — Used by directional helpers to decide which physical side (left or right) maps to logical start/end.'),
         ],
       ),
     ),
@@ -1998,30 +1881,14 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
           ),
           const SizedBox(height: 6.0),
-          _bullet(
-            'Need pixel-perfect placement of one child relative to a Stack? Use Positioned.',
-          ),
-          _bullet(
-            'Need the child to fill the entire Stack (typical for backgrounds)? Use Positioned.fill.',
-          ),
-          _bullet(
-            'Need an inset background that still fills? Use Positioned.fill(left:, top:, right:, bottom:) — Positioned.fill accepts insets too.',
-          ),
-          _bullet(
-            'Have a logical "start" or "end" instead of left/right (RTL-aware)? Use PositionedDirectional or Positioned.directional.',
-          ),
-          _bullet(
-            'Already have a Rect in hand (e.g. computed by a hit-test or animation)? Use Positioned.fromRect.',
-          ),
-          _bullet(
-            'Working with RelativeRect (e.g. for PositionedTransition or RelativeRectTween)? Use Positioned.fromRelativeRect.',
-          ),
-          _bullet(
-            'Want children placed at a corner with NO offset math? Use Align inside Stack instead.',
-          ),
-          _bullet(
-            'Want the same constraint shorthand for every non-Positioned child? Use Stack(alignment: …).',
-          ),
+          _bullet('Need pixel-perfect placement of one child relative to a Stack? Use Positioned.'),
+          _bullet('Need the child to fill the entire Stack (typical for backgrounds)? Use Positioned.fill.'),
+          _bullet('Need an inset background that still fills? Use Positioned.fill(left:, top:, right:, bottom:) — Positioned.fill accepts insets too.'),
+          _bullet('Have a logical "start" or "end" instead of left/right (RTL-aware)? Use PositionedDirectional or Positioned.directional.'),
+          _bullet('Already have a Rect in hand (e.g. computed by a hit-test or animation)? Use Positioned.fromRect.'),
+          _bullet('Working with RelativeRect (e.g. for PositionedTransition or RelativeRectTween)? Use Positioned.fromRelativeRect.'),
+          _bullet('Want children placed at a corner with NO offset math? Use Align inside Stack instead.'),
+          _bullet('Want the same constraint shorthand for every non-Positioned child? Use Stack(alignment: …).'),
           const SizedBox(height: 8.0),
           const Text(
             'Mental model: Positioned writes coordinates into the StackParentData of its child. A RenderStack reads those coordinates and lays the child out at the requested rectangle, ignoring the Stack\'s own alignment.',
@@ -2038,9 +1905,7 @@ dynamic build(BuildContext context) {
   print('Positioned demo: dossier built');
   print('Positioned demo: anatomy grid built (11 canvases)');
   print('Positioned demo: 8 recipes built');
-  print(
-    'Positioned demo: directional/PositionedDirectional built (4 canvases)',
-  );
+  print('Positioned demo: directional/PositionedDirectional built (4 canvases)');
   print('Positioned demo: fromRect/fromRelativeRect built (5 canvases)');
   print('Positioned demo: comparison vs Align/Stack alignment built');
   print('Positioned demo: pitfalls and glossary built');
@@ -2117,43 +1982,37 @@ dynamic build(BuildContext context) {
               '10. Positioned.directional — explicit textDirection',
               'start/end mean left/right under LTR, and right/left under RTL.',
             ),
-            Wrap(children: <Widget>[directionalLtr, directionalRtl]),
+            Wrap(
+              children: <Widget>[directionalLtr, directionalRtl],
+            ),
             _section(
               '11. PositionedDirectional — read ambient Directionality',
               'No need to pass textDirection — uses the closest Directionality.',
             ),
             Wrap(
-              children: <Widget>[
-                positionedDirectionalLtr,
-                positionedDirectionalRtl,
-              ],
+              children: <Widget>[positionedDirectionalLtr, positionedDirectionalRtl],
             ),
             _section(
               '12. Positioned.fromRect',
               'Build a Positioned from an absolute Rect.',
             ),
             Wrap(
-              children: <Widget>[
-                fromRectDemo,
-                fromRectShiftedDemo,
-                fromRectMultiDemo,
-              ],
+              children: <Widget>[fromRectDemo, fromRectShiftedDemo, fromRectMultiDemo],
             ),
             _section(
               '13. Positioned.fromRelativeRect',
               'Build a Positioned from a RelativeRect of insets.',
             ),
             Wrap(
-              children: <Widget>[
-                fromRelativeRectDemo,
-                fromRelativeRectAsymmetricDemo,
-              ],
+              children: <Widget>[fromRelativeRectDemo, fromRelativeRectAsymmetricDemo],
             ),
             _section(
               '14. Compare — Positioned vs Align',
               'Align places by fraction; Positioned places by pixels.',
             ),
-            Wrap(children: <Widget>[compareAlign, comparePositioned]),
+            Wrap(
+              children: <Widget>[compareAlign, comparePositioned],
+            ),
             _section(
               '15. Stack.alignment vs Positioned',
               'Stack.alignment governs only non-Positioned children.',
@@ -2244,9 +2103,15 @@ dynamic build(BuildContext context) {
               'A vertical column of mini FABs pinned to the bottom-right.',
             ),
             floatingMenu,
-            _section('33. Glossary', 'Terms used throughout this demo.'),
+            _section(
+              '33. Glossary',
+              'Terms used throughout this demo.',
+            ),
             glossary,
-            _section('34. Recap', 'When to use which Positioned constructor.'),
+            _section(
+              '34. Recap',
+              'When to use which Positioned constructor.',
+            ),
             recap,
           ],
         ),

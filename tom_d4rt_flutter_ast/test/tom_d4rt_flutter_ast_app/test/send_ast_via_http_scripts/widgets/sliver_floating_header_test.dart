@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.vertical_align_top,
       'title': 'What Is SliverFloatingHeader?',
-      'body':
-          'SliverFloatingHeader is a sliver widget that wraps a single '
+      'body': 'SliverFloatingHeader is a sliver widget that wraps a single '
           'child and makes it behave like a floating header inside a '
           'CustomScrollView. The child scrolls out of view normally when '
           'the user scrolls down, but it immediately reappears (floats '
@@ -31,8 +30,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Floating vs Persistent vs Pinned',
-      'body':
-          'A pinned header (SliverAppBar pinned:true) stays visible '
+      'body': 'A pinned header (SliverAppBar pinned:true) stays visible '
           'always. A persistent header (SliverPersistentHeader) remains '
           'visible but can shrink/grow. A floating header (this widget) '
           'disappears on forward scroll and reappears on backward scroll, '
@@ -42,8 +40,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Scroll Direction Sensitivity',
-      'body':
-          'The floating behavior is driven by scroll direction changes. '
+      'body': 'The floating behavior is driven by scroll direction changes. '
           'When the user reverses direction, the header animates back into '
           'view from the edge where it disappeared. This creates a smooth, '
           'responsive feel. The threshold is very low — even a tiny reverse '
@@ -53,8 +50,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'Common Use Cases',
-      'body':
-          'Navigation bars that hide on scroll down and reappear on '
+      'body': 'Navigation bars that hide on scroll down and reappear on '
           'scroll up (YouTube, Chrome mobile). Search bars in list views. '
           'Filter toolbars in e-commerce apps. Date separators in chat '
           'apps that float back when reviewing older messages.',
@@ -132,8 +128,7 @@ dynamic build(BuildContext context) {
       'type': 'Widget',
       'required': true,
       'default': '',
-      'desc':
-          'The header widget to display. This can be any widget: a '
+      'desc': 'The header widget to display. This can be any widget: a '
           'Container, an AppBar, a Row of controls, a search field, etc. '
           'It will scroll away on down-scroll and float back on up-scroll.',
     },
@@ -142,8 +137,7 @@ dynamic build(BuildContext context) {
       'type': 'Key?',
       'required': false,
       'default': 'null',
-      'desc':
-          'An optional key for the widget. Useful for controlling '
+      'desc': 'An optional key for the widget. Useful for controlling '
           'identity during rebuilds in lists or conditional layouts.',
     },
   ];
@@ -299,7 +293,10 @@ dynamic build(BuildContext context) {
       SliverFloatingHeader(
         child: Container(
           color: Colors.indigo,
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+            vertical: 14.0,
+          ),
           child: const Row(
             children: [
               Icon(Icons.menu, color: Colors.white, size: 22.0),
@@ -321,69 +318,75 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((context, index) {
-          final colors = [
-            Colors.blue.shade50,
-            Colors.indigo.shade50,
-            Colors.purple.shade50,
-            Colors.teal.shade50,
-            Colors.cyan.shade50,
-            Colors.green.shade50,
-          ];
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: colors[index % colors.length],
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 40.0,
-                  height: 40.0,
-                  decoration: BoxDecoration(
-                    color: Colors.indigo.withValues(alpha: 0.15),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${index + 1}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo,
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            final colors = [
+              Colors.blue.shade50,
+              Colors.indigo.shade50,
+              Colors.purple.shade50,
+              Colors.teal.shade50,
+              Colors.cyan.shade50,
+              Colors.green.shade50,
+            ];
+            return Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 4.0,
+              ),
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: colors[index % colors.length],
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40.0,
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                      color: Colors.indigo.withValues(alpha: 0.15),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${index + 1}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.indigo,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 14.0),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'List item ${index + 1}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
+                  const SizedBox(width: 14.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'List item ${index + 1}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.0,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4.0),
-                      Text(
-                        'Scroll down to hide the header, then scroll up '
-                        'to see it float back into view.',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade600,
+                        const SizedBox(height: 4.0),
+                        Text(
+                          'Scroll down to hide the header, then scroll up '
+                          'to see it float back into view.',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        }, childCount: 30),
+                ],
+              ),
+            );
+          },
+          childCount: 30,
+        ),
       ),
     ],
   );
@@ -511,108 +514,99 @@ dynamic build(BuildContext context) {
             crossAxisSpacing: 10.0,
             childAspectRatio: 0.85,
           ),
-          delegate: SliverChildBuilderDelegate((context, index) {
-            final productNames = [
-              'Wireless Earbuds',
-              'Laptop Stand',
-              'USB Hub',
-              'Desk Lamp',
-              'Webcam HD',
-              'Keyboard',
-              'Mouse Pad',
-              'Monitor Arm',
-              'Cable Organizer',
-              'Phone Mount',
-              'Headphones',
-              'Charger',
-              'Stylus Pen',
-              'Screen Protector',
-              'Tablet Case',
-              'Power Bank',
-            ];
-            final productIcons = [
-              Icons.headphones,
-              Icons.laptop,
-              Icons.usb,
-              Icons.lightbulb_outline,
-              Icons.videocam,
-              Icons.keyboard,
-              Icons.crop_landscape,
-              Icons.desktop_windows,
-              Icons.cable,
-              Icons.phone_android,
-              Icons.headset,
-              Icons.battery_charging_full,
-              Icons.edit,
-              Icons.screen_lock_portrait,
-              Icons.tablet,
-              Icons.power,
-            ];
-            final prices = [
-              29.99,
-              49.99,
-              24.99,
-              39.99,
-              59.99,
-              79.99,
-              14.99,
-              89.99,
-              9.99,
-              19.99,
-              149.99,
-              29.99,
-              34.99,
-              12.99,
-              29.99,
-              44.99,
-            ];
-            final gradients = [
-              [Colors.blue.shade100, Colors.blue.shade50],
-              [Colors.green.shade100, Colors.green.shade50],
-              [Colors.orange.shade100, Colors.orange.shade50],
-              [Colors.purple.shade100, Colors.purple.shade50],
-            ];
-            final grad = gradients[index % gradients.length];
-            return Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: grad,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final productNames = [
+                'Wireless Earbuds',
+                'Laptop Stand',
+                'USB Hub',
+                'Desk Lamp',
+                'Webcam HD',
+                'Keyboard',
+                'Mouse Pad',
+                'Monitor Arm',
+                'Cable Organizer',
+                'Phone Mount',
+                'Headphones',
+                'Charger',
+                'Stylus Pen',
+                'Screen Protector',
+                'Tablet Case',
+                'Power Bank',
+              ];
+              final productIcons = [
+                Icons.headphones,
+                Icons.laptop,
+                Icons.usb,
+                Icons.lightbulb_outline,
+                Icons.videocam,
+                Icons.keyboard,
+                Icons.crop_landscape,
+                Icons.desktop_windows,
+                Icons.cable,
+                Icons.phone_android,
+                Icons.headset,
+                Icons.battery_charging_full,
+                Icons.edit,
+                Icons.screen_lock_portrait,
+                Icons.tablet,
+                Icons.power,
+              ];
+              final prices = [
+                29.99, 49.99, 24.99, 39.99, 59.99, 79.99, 14.99, 89.99,
+                9.99, 19.99, 149.99, 29.99, 34.99, 12.99, 29.99, 44.99,
+              ];
+              final gradients = [
+                [Colors.blue.shade100, Colors.blue.shade50],
+                [Colors.green.shade100, Colors.green.shade50],
+                [Colors.orange.shade100, Colors.orange.shade50],
+                [Colors.purple.shade100, Colors.purple.shade50],
+              ];
+              final grad = gradients[index % gradients.length];
+              return Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: grad,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: grad[0].withValues(alpha: 0.5),
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: grad[0].withValues(alpha: 0.5)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    productIcons[index % productIcons.length],
-                    size: 36.0,
-                    color: Colors.grey.shade700,
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    productNames[index % productNames.length],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      productIcons[index % productIcons.length],
+                      size: 36.0,
+                      color: Colors.grey.shade700,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 6.0),
-                  Text(
-                    '\$${prices[index % prices.length].toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple.shade700,
+                    const SizedBox(height: 8.0),
+                    Text(
+                      productNames[index % productNames.length],
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13.0,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 16),
+                    const SizedBox(height: 6.0),
+                    Text(
+                      '\$${prices[index % prices.length].toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple.shade700,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            childCount: 16,
+          ),
         ),
       ),
     ],
@@ -692,11 +686,7 @@ dynamic build(BuildContext context) {
     slivers: [
       // Floating header 1: Favorites
       SliverFloatingHeader(
-        child: buildSectionHeader(
-          'Favorites',
-          Icons.star,
-          Colors.amber.shade700,
-        ),
+        child: buildSectionHeader('Favorites', Icons.star, Colors.amber.shade700),
       ),
       SliverList(
         delegate: SliverChildListDelegate([
@@ -937,8 +927,7 @@ dynamic build(BuildContext context) {
         },
         {
           'action': 'floating: true',
-          'result':
-              'Reappears on any upward scroll (like SliverFloatingHeader)',
+          'result': 'Reappears on any upward scroll (like SliverFloatingHeader)',
         },
         {
           'action': 'snap: true + floating: true',
@@ -960,7 +949,10 @@ dynamic build(BuildContext context) {
       SliverFloatingHeader(
         child: Container(
           color: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+            vertical: 8.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -986,7 +978,11 @@ dynamic build(BuildContext context) {
           ),
         ),
       ),
-      SliverList(delegate: SliverChildListDelegate(_buildChatMessages())),
+      SliverList(
+        delegate: SliverChildListDelegate(
+          _buildChatMessages(),
+        ),
+      ),
     ],
   );
   print('Built chat date header pattern');
@@ -996,7 +992,10 @@ dynamic build(BuildContext context) {
     slivers: [
       SliverFloatingHeader(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+            vertical: 8.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.grey.shade900,
             boxShadow: [
@@ -1071,74 +1070,86 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((context, index) {
-          final trackNames = [
-            'Blue Horizon',
-            'Cascading Chords',
-            'Velvet Night',
-            'Gentle Storm',
-            'Piano Reverie',
-            'Bass Walkdown',
-            'Cymbal Whisper',
-            'Horn Section Rise',
-            'Quiet Improv',
-            'Finale Crescendo',
-            'Encore: Dawn',
-            'Hidden Track',
-          ];
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
-            decoration: BoxDecoration(
-              color: index == 0
-                  ? Colors.deepPurple.withValues(alpha: 0.1)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(6.0),
-            ),
-            child: ListTile(
-              dense: true,
-              leading: Container(
-                width: 32.0,
-                height: 32.0,
-                decoration: BoxDecoration(
-                  color: index == 0 ? Colors.deepPurple : Colors.grey.shade300,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: index == 0
-                      ? const Icon(
-                          Icons.equalizer,
-                          color: Colors.white,
-                          size: 16.0,
-                        )
-                      : Text(
-                          '${index + 1}',
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.grey.shade600,
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            final trackNames = [
+              'Blue Horizon',
+              'Cascading Chords',
+              'Velvet Night',
+              'Gentle Storm',
+              'Piano Reverie',
+              'Bass Walkdown',
+              'Cymbal Whisper',
+              'Horn Section Rise',
+              'Quiet Improv',
+              'Finale Crescendo',
+              'Encore: Dawn',
+              'Hidden Track',
+            ];
+            return Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 2.0,
+              ),
+              decoration: BoxDecoration(
+                color: index == 0
+                    ? Colors.deepPurple.withValues(alpha: 0.1)
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(6.0),
+              ),
+              child: ListTile(
+                dense: true,
+                leading: Container(
+                  width: 32.0,
+                  height: 32.0,
+                  decoration: BoxDecoration(
+                    color: index == 0
+                        ? Colors.deepPurple
+                        : Colors.grey.shade300,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: index == 0
+                        ? const Icon(
+                            Icons.equalizer,
+                            color: Colors.white,
+                            size: 16.0,
+                          )
+                        : Text(
+                            '${index + 1}',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.grey.shade600,
+                            ),
                           ),
-                        ),
+                  ),
+                ),
+                title: Text(
+                  trackNames[index % trackNames.length],
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight:
+                        index == 0 ? FontWeight.bold : FontWeight.normal,
+                    color: index == 0 ? Colors.deepPurple : null,
+                  ),
+                ),
+                subtitle: Text(
+                  '${3 + index % 3}:${(15 + index * 7) % 60}${(15 + index * 7) % 60 < 10 ? '0' : ''}',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.more_horiz,
+                  color: Colors.grey.shade400,
+                  size: 20.0,
                 ),
               ),
-              title: Text(
-                trackNames[index % trackNames.length],
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: index == 0 ? FontWeight.bold : FontWeight.normal,
-                  color: index == 0 ? Colors.deepPurple : null,
-                ),
-              ),
-              subtitle: Text(
-                '${3 + index % 3}:${(15 + index * 7) % 60}${(15 + index * 7) % 60 < 10 ? '0' : ''}',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
-              ),
-              trailing: Icon(
-                Icons.more_horiz,
-                color: Colors.grey.shade400,
-                size: 20.0,
-              ),
-            ),
-          );
-        }, childCount: 12),
+            );
+          },
+          childCount: 12,
+        ),
       ),
     ],
   );
@@ -1150,7 +1161,10 @@ dynamic build(BuildContext context) {
       SliverFloatingHeader(
         child: Container(
           color: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 8.0,
+          ),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -1176,65 +1190,69 @@ dynamic build(BuildContext context) {
             crossAxisSpacing: 8.0,
             childAspectRatio: 1.3,
           ),
-          delegate: SliverChildBuilderDelegate((context, index) {
-            final itemColors = [
-              Colors.teal.shade50,
-              Colors.blue.shade50,
-              Colors.green.shade50,
-              Colors.orange.shade50,
-              Colors.purple.shade50,
-              Colors.red.shade50,
-            ];
-            final itemIcons = [
-              Icons.laptop,
-              Icons.book,
-              Icons.checkroom,
-              Icons.home,
-              Icons.sports_soccer,
-              Icons.toys,
-              Icons.headphones,
-              Icons.watch,
-              Icons.camera,
-              Icons.phone_android,
-            ];
-            return Container(
-              decoration: BoxDecoration(
-                color: itemColors[index % itemColors.length],
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: itemColors[index % itemColors.length].withValues(
-                    alpha: 0.5,
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final itemColors = [
+                Colors.teal.shade50,
+                Colors.blue.shade50,
+                Colors.green.shade50,
+                Colors.orange.shade50,
+                Colors.purple.shade50,
+                Colors.red.shade50,
+              ];
+              final itemIcons = [
+                Icons.laptop,
+                Icons.book,
+                Icons.checkroom,
+                Icons.home,
+                Icons.sports_soccer,
+                Icons.toys,
+                Icons.headphones,
+                Icons.watch,
+                Icons.camera,
+                Icons.phone_android,
+              ];
+              return Container(
+                decoration: BoxDecoration(
+                  color: itemColors[index % itemColors.length],
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    color:
+                        itemColors[index % itemColors.length].withValues(
+                          alpha: 0.5,
+                        ),
                   ),
                 ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    itemIcons[index % itemIcons.length],
-                    size: 28.0,
-                    color: Colors.grey.shade700,
-                  ),
-                  const SizedBox(height: 6.0),
-                  Text(
-                    'Product ${index + 1}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      itemIcons[index % itemIcons.length],
+                      size: 28.0,
+                      color: Colors.grey.shade700,
                     ),
-                  ),
-                  Text(
-                    '\$${(9.99 + index * 5.5).toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.teal.shade700,
-                      fontWeight: FontWeight.bold,
+                    const SizedBox(height: 6.0),
+                    Text(
+                      'Product ${index + 1}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 20),
+                    Text(
+                      '\$${(9.99 + index * 5.5).toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.teal.shade700,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            childCount: 20,
+          ),
         ),
       ),
     ],
@@ -1434,7 +1452,10 @@ dynamic build(BuildContext context) {
                 Text(
                   'SliverFloatingHeader has a minimal API — just the '
                   'child widget. The floating behavior is built-in.',
-                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
                 const SizedBox(height: 16.0),
                 ...paramCards,
@@ -1466,7 +1487,10 @@ dynamic build(BuildContext context) {
                 Text(
                   'How SliverFloatingHeader compares to other header '
                   'widgets in terms of scroll behavior:',
-                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
                 const SizedBox(height: 16.0),
                 ...behaviorCards,
@@ -1494,7 +1518,11 @@ dynamic build(BuildContext context) {
                 ),
                 Expanded(
                   child: TabBarView(
-                    children: [chatPattern, musicPattern, filterPattern],
+                    children: [
+                      chatPattern,
+                      musicPattern,
+                      filterPattern,
+                    ],
                   ),
                 ),
               ],
@@ -1551,78 +1579,18 @@ dynamic build(BuildContext context) {
 // ============================================================
 List<Widget> _buildChatMessages() {
   final messages = <Map<String, dynamic>>[
-    {
-      'sender': 'Alice',
-      'text': 'Hey, have you tried the floating header?',
-      'isMe': false,
-      'time': '9:01 AM',
-    },
-    {
-      'sender': 'You',
-      'text': 'Yes! It works great in CustomScrollView.',
-      'isMe': true,
-      'time': '9:02 AM',
-    },
-    {
-      'sender': 'Alice',
-      'text': 'Does it reappear instantly on reverse scroll?',
-      'isMe': false,
-      'time': '9:03 AM',
-    },
-    {
-      'sender': 'You',
-      'text': 'Exactly — even the tiniest upward gesture brings it back.',
-      'isMe': true,
-      'time': '9:04 AM',
-    },
-    {
-      'sender': 'Alice',
-      'text': 'What about performance with large lists?',
-      'isMe': false,
-      'time': '9:06 AM',
-    },
-    {
-      'sender': 'You',
-      'text': 'Perfectly fine — it is just one sliver in the viewport.',
-      'isMe': true,
-      'time': '9:07 AM',
-    },
-    {
-      'sender': 'Alice',
-      'text': 'Can you have multiple?',
-      'isMe': false,
-      'time': '9:10 AM',
-    },
-    {
-      'sender': 'You',
-      'text': 'Yep, each SliverFloatingHeader floats independently.',
-      'isMe': true,
-      'time': '9:11 AM',
-    },
-    {
-      'sender': 'Alice',
-      'text': 'That is super useful for section headers!',
-      'isMe': false,
-      'time': '9:12 AM',
-    },
-    {
-      'sender': 'You',
-      'text': 'Agreed. Simpler than SliverAppBar for basic cases.',
-      'isMe': true,
-      'time': '9:13 AM',
-    },
-    {
-      'sender': 'Alice',
-      'text': 'Thanks for the demo!',
-      'isMe': false,
-      'time': '9:15 AM',
-    },
-    {
-      'sender': 'You',
-      'text': 'Anytime. Check out the other tabs too.',
-      'isMe': true,
-      'time': '9:16 AM',
-    },
+    {'sender': 'Alice', 'text': 'Hey, have you tried the floating header?', 'isMe': false, 'time': '9:01 AM'},
+    {'sender': 'You', 'text': 'Yes! It works great in CustomScrollView.', 'isMe': true, 'time': '9:02 AM'},
+    {'sender': 'Alice', 'text': 'Does it reappear instantly on reverse scroll?', 'isMe': false, 'time': '9:03 AM'},
+    {'sender': 'You', 'text': 'Exactly — even the tiniest upward gesture brings it back.', 'isMe': true, 'time': '9:04 AM'},
+    {'sender': 'Alice', 'text': 'What about performance with large lists?', 'isMe': false, 'time': '9:06 AM'},
+    {'sender': 'You', 'text': 'Perfectly fine — it is just one sliver in the viewport.', 'isMe': true, 'time': '9:07 AM'},
+    {'sender': 'Alice', 'text': 'Can you have multiple?', 'isMe': false, 'time': '9:10 AM'},
+    {'sender': 'You', 'text': 'Yep, each SliverFloatingHeader floats independently.', 'isMe': true, 'time': '9:11 AM'},
+    {'sender': 'Alice', 'text': 'That is super useful for section headers!', 'isMe': false, 'time': '9:12 AM'},
+    {'sender': 'You', 'text': 'Agreed. Simpler than SliverAppBar for basic cases.', 'isMe': true, 'time': '9:13 AM'},
+    {'sender': 'Alice', 'text': 'Thanks for the demo!', 'isMe': false, 'time': '9:15 AM'},
+    {'sender': 'You', 'text': 'Anytime. Check out the other tabs too.', 'isMe': true, 'time': '9:16 AM'},
   ];
 
   return messages.map((m) {
@@ -1635,9 +1603,8 @@ List<Widget> _buildChatMessages() {
         3.0,
       ),
       child: Row(
-        mainAxisAlignment: isMe
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
+        mainAxisAlignment:
+            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!isMe)
             CircleAvatar(
@@ -1656,7 +1623,9 @@ List<Widget> _buildChatMessages() {
                 vertical: 8.0,
               ),
               decoration: BoxDecoration(
-                color: isMe ? Colors.indigo.shade100 : Colors.grey.shade200,
+                color: isMe
+                    ? Colors.indigo.shade100
+                    : Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(14.0),
               ),
               child: Column(
@@ -1694,7 +1663,9 @@ Widget _buildFilterChip(String label, bool selected, Color color) {
     decoration: BoxDecoration(
       color: selected ? color : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: selected ? color : Colors.grey.shade300),
+      border: Border.all(
+        color: selected ? color : Colors.grey.shade300,
+      ),
     ),
     child: Text(
       label,
@@ -1730,7 +1701,10 @@ Widget _buildRefRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+            ),
           ),
         ),
       ],

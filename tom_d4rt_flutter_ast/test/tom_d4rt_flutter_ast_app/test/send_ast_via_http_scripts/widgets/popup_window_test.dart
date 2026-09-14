@@ -344,9 +344,7 @@ dynamic build(BuildContext context) {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: color, width: 2),
-        boxShadow: [
-          BoxShadow(color: color.withValues(alpha: 0.15), blurRadius: 6),
-        ],
+        boxShadow: [BoxShadow(color: color.withValues(alpha: 0.15), blurRadius: 6)],
       ),
       child: Row(
         children: [
@@ -384,7 +382,10 @@ dynamic build(BuildContext context) {
                     fontFamily: 'monospace',
                   ),
                 ),
-                Text(role, style: TextStyle(color: color, fontSize: 11)),
+                Text(
+                  role,
+                  style: TextStyle(color: color, fontSize: 11),
+                ),
               ],
             ),
           ),
@@ -444,18 +445,9 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 12),
                 ...[
-                  {
-                    'name': 'ListenableBuilder',
-                    'desc': 'Rebuilds on controller changes',
-                  },
-                  {
-                    'name': 'WindowScope',
-                    'desc': 'Propagates controller via InheritedWidget',
-                  },
-                  {
-                    'name': 'View',
-                    'desc': 'Renders child into controller.rootView',
-                  },
+                  {'name': 'ListenableBuilder', 'desc': 'Rebuilds on controller changes'},
+                  {'name': 'WindowScope', 'desc': 'Propagates controller via InheritedWidget'},
+                  {'name': 'View', 'desc': 'Renders child into controller.rootView'},
                 ].asMap().entries.map((entry) {
                   final i = entry.key;
                   final item = entry.value;
@@ -550,11 +542,7 @@ dynamic build(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.account_tree_outlined,
-                      color: orange900,
-                      size: 18,
-                    ),
+                    Icon(Icons.account_tree_outlined, color: orange900, size: 18),
                     const SizedBox(width: 6),
                     Text(
                       'Multiple Render Trees',
@@ -580,11 +568,7 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.desktop_windows,
-                              color: amber800,
-                              size: 24,
-                            ),
+                            Icon(Icons.desktop_windows, color: amber800, size: 24),
                             const SizedBox(height: 4),
                             Text(
                               'Main Window',
@@ -596,11 +580,7 @@ dynamic build(BuildContext context) {
                             ),
                             Text(
                               'RenderView #1\nRenderObject tree\nApp content',
-                              style: TextStyle(
-                                color: brown800,
-                                fontSize: 10,
-                                height: 1.3,
-                              ),
+                              style: TextStyle(color: brown800, fontSize: 10, height: 1.3),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -618,11 +598,7 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.picture_in_picture,
-                              color: amber400,
-                              size: 24,
-                            ),
+                            Icon(Icons.picture_in_picture, color: amber400, size: 24),
                             const SizedBox(height: 4),
                             Text(
                               'Popup Window',
@@ -634,11 +610,7 @@ dynamic build(BuildContext context) {
                             ),
                             Text(
                               'RenderView #2\nRenderObject tree\nPopup content',
-                              style: TextStyle(
-                                color: brown800,
-                                fontSize: 10,
-                                height: 1.3,
-                              ),
+                              style: TextStyle(color: brown800, fontSize: 10, height: 1.3),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -658,11 +630,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     'Shared: WidgetsBinding, event loop, scheduler\nSeparate: layout, paint, composite per render tree',
-                    style: TextStyle(
-                      color: brown800,
-                      fontSize: 11,
-                      height: 1.3,
-                    ),
+                    style: TextStyle(color: brown800, fontSize: 11, height: 1.3),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -694,26 +662,10 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 ...[
-                  {
-                    'aspect': 'Controller type',
-                    'popup': 'PopupWindowCtl',
-                    'regular': 'RegularWindowCtl',
-                  },
-                  {
-                    'aspect': 'Build pattern',
-                    'popup': 'Identical',
-                    'regular': 'Identical',
-                  },
-                  {
-                    'aspect': 'Title bar',
-                    'popup': 'None',
-                    'regular': 'Platform title bar',
-                  },
-                  {
-                    'aspect': 'Position',
-                    'popup': 'Anchored to parent',
-                    'regular': 'Independent',
-                  },
+                  {'aspect': 'Controller type', 'popup': 'PopupWindowCtl', 'regular': 'RegularWindowCtl'},
+                  {'aspect': 'Build pattern', 'popup': 'Identical', 'regular': 'Identical'},
+                  {'aspect': 'Title bar', 'popup': 'None', 'regular': 'Platform title bar'},
+                  {'aspect': 'Position', 'popup': 'Anchored to parent', 'regular': 'Independent'},
                   {'aspect': 'Minimize/Full', 'popup': 'No', 'regular': 'Yes'},
                 ].map((row) {
                   return Padding(
@@ -733,10 +685,7 @@ dynamic build(BuildContext context) {
                         ),
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               color: amber50,
                               borderRadius: BorderRadius.circular(4),
@@ -750,20 +699,14 @@ dynamic build(BuildContext context) {
                         const SizedBox(width: 4),
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               color: Color(0xFFE3F2FD),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
                               row['regular']!,
-                              style: TextStyle(
-                                color: Color(0xFF1565C0),
-                                fontSize: 11,
-                              ),
+                              style: TextStyle(color: Color(0xFF1565C0), fontSize: 11),
                             ),
                           ),
                         ),
@@ -860,36 +803,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  Orange 900  ${orange900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  Amber 900   ${amber900.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Amber 800   ${amber800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  Amber 700   ${amber700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  Amber 400   ${amber400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  Amber 200   ${amber200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  Amber 100   ${amber100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  Amber 50    ${amber50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  Yellow 50   ${yellow50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
-  print(
-    '  │  Brown 800   ${brown800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
+  print('  │  Orange 900  ${orange900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  Amber 900   ${amber900.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Amber 800   ${amber800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  Amber 700   ${amber700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  Amber 400   ${amber400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  Amber 200   ${amber200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  Amber 100   ${amber100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  Amber 50    ${amber50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  Yellow 50   ${yellow50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
+  print('  │  Brown 800   ${brown800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

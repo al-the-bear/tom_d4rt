@@ -229,7 +229,11 @@ Widget _bodyParagraph(String text, {double topGap = 8}) {
     padding: EdgeInsets.only(top: topGap),
     child: Text(
       text,
-      style: TextStyle(color: _kTextSecondary, fontSize: 14, height: 1.6),
+      style: TextStyle(
+        color: _kTextSecondary,
+        fontSize: 14,
+        height: 1.6,
+      ),
     ),
   );
 }
@@ -320,7 +324,11 @@ Widget _heroCard() {
           'lifetime of its overlay child, and an OverlayPortalController '
           'flips it on or off the way a Visibility widget would — except the '
           'painted result lands above every other route content.',
-          style: TextStyle(color: _kTextSecondary, fontSize: 15.5, height: 1.7),
+          style: TextStyle(
+            color: _kTextSecondary,
+            fontSize: 15.5,
+            height: 1.7,
+          ),
         ),
         SizedBox(height: 22),
         Container(
@@ -534,7 +542,9 @@ Widget _anatomyDiagram() {
         ),
         // Connector line drawing.
         Positioned.fill(
-          child: CustomPaint(painter: _AnatomyConnectorPainter()),
+          child: CustomPaint(
+            painter: _AnatomyConnectorPainter(),
+          ),
         ),
         // Connector caption.
         Positioned(
@@ -578,7 +588,11 @@ class _AnatomyConnectorPainter extends CustomPainter {
     final double endX = size.width - 270;
     final double endY = 110;
     path.moveTo(startX, startY);
-    path.cubicTo(startX + 80, startY - 20, endX - 60, endY + 60, endX, endY);
+    path.cubicTo(
+      startX + 80, startY - 20,
+      endX - 60, endY + 60,
+      endX, endY,
+    );
     canvas.drawPath(path, p);
     // Arrow head at end
     final Paint head = Paint()..color = _kAccentPink;
@@ -672,7 +686,9 @@ Widget _tooltipScene() {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [_kAccentViolet, _kAccentPink]),
+              gradient: LinearGradient(
+                colors: [_kAccentViolet, _kAccentPink],
+              ),
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -700,7 +716,11 @@ Widget _tooltipScene() {
           ),
         ),
         // Floating tooltip bubble.
-        Positioned(left: 38, bottom: 110, child: _TooltipBubble()),
+        Positioned(
+          left: 38,
+          bottom: 110,
+          child: _TooltipBubble(),
+        ),
       ],
     ),
   );
@@ -835,7 +855,8 @@ Widget _dropdownScene() {
                 color: _kAccentAmber,
               ),
               Spacer(),
-              Icon(Icons.keyboard_arrow_down, size: 18, color: _kTextMuted),
+              Icon(Icons.keyboard_arrow_down,
+                  size: 18, color: _kTextMuted),
             ],
           ),
         ),
@@ -858,28 +879,16 @@ Widget _dropdownScene() {
             children: [
               _dropdownItem('OverlayPortal', 'widget', _kAccentViolet, true),
               _dropdownDivider(),
-              _dropdownItem(
-                'OverlayPortalController',
-                'class',
-                _kAccentCyan,
-                false,
-              ),
+              _dropdownItem('OverlayPortalController', 'class', _kAccentCyan,
+                  false),
               _dropdownDivider(),
               _dropdownItem('OverlayEntry', 'class', _kAccentPink, false),
               _dropdownDivider(),
               _dropdownItem(
-                'Overlay.of(context)',
-                'static method',
-                _kAccentLime,
-                false,
-              ),
+                  'Overlay.of(context)', 'static method', _kAccentLime, false),
               _dropdownDivider(),
               _dropdownItem(
-                'showDialog(...)',
-                'function',
-                _kAccentAmber,
-                false,
-              ),
+                  'showDialog(...)', 'function', _kAccentAmber, false),
             ],
           ),
         ),
@@ -897,11 +906,18 @@ Widget _dropdownScene() {
   );
 }
 
-Widget _dropdownItem(String name, String kind, Color accent, bool selected) {
+Widget _dropdownItem(
+  String name,
+  String kind,
+  Color accent,
+  bool selected,
+) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
     decoration: BoxDecoration(
-      color: selected ? accent.withValues(alpha: 0.15) : Colors.transparent,
+      color: selected
+          ? accent.withValues(alpha: 0.15)
+          : Colors.transparent,
     ),
     child: Row(
       children: [
@@ -979,10 +995,8 @@ Widget _floatingPanelScene() {
               SizedBox(height: 10),
               _chatBubble('Yes — analyzer-clean, 1200ish lines.', true),
               SizedBox(height: 10),
-              _chatBubble(
-                'Nice. The reaction picker will be the big one.',
-                false,
-              ),
+              _chatBubble('Nice. The reaction picker will be the big one.',
+                  false),
             ],
           ),
         ),
@@ -1038,7 +1052,10 @@ Widget _floatingPanelScene() {
                   ],
                 ),
                 SizedBox(height: 12),
-                Container(height: 1, color: _kBorderSoft),
+                Container(
+                  height: 1,
+                  color: _kBorderSoft,
+                ),
                 SizedBox(height: 10),
                 Wrap(
                   spacing: 6,
@@ -1073,8 +1090,10 @@ Widget _chatBubble(String text, bool fromMe) {
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
-          bottomLeft: fromMe ? Radius.circular(12) : Radius.circular(2),
-          bottomRight: fromMe ? Radius.circular(2) : Radius.circular(12),
+          bottomLeft:
+              fromMe ? Radius.circular(12) : Radius.circular(2),
+          bottomRight:
+              fromMe ? Radius.circular(2) : Radius.circular(12),
         ),
       ),
       child: Text(
@@ -1114,7 +1133,11 @@ Widget _categoryChip(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        color: color,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -1216,17 +1239,14 @@ Widget _comparisonHeaderRow() {
       children: [
         Expanded(flex: 3, child: _comparisonHeaderCell('Aspect', _kTextMuted)),
         Expanded(
-          flex: 3,
-          child: _comparisonHeaderCell('OverlayPortal', _kAccentViolet),
-        ),
+            flex: 3,
+            child: _comparisonHeaderCell('OverlayPortal', _kAccentViolet)),
         Expanded(
-          flex: 3,
-          child: _comparisonHeaderCell('Overlay.insert', _kAccentCyan),
-        ),
+            flex: 3,
+            child: _comparisonHeaderCell('Overlay.insert', _kAccentCyan)),
         Expanded(
-          flex: 3,
-          child: _comparisonHeaderCell('showDialog', _kAccentPink),
-        ),
+            flex: 3,
+            child: _comparisonHeaderCell('showDialog', _kAccentPink)),
       ],
     ),
   );
@@ -1257,7 +1277,8 @@ Widget _comparisonRow({
       border: isLast
           ? null
           : Border(
-              bottom: BorderSide(color: _kBorderSoft.withValues(alpha: 0.6)),
+              bottom:
+                  BorderSide(color: _kBorderSoft.withValues(alpha: 0.6)),
             ),
     ),
     child: Row(
@@ -1278,21 +1299,33 @@ Widget _comparisonRow({
           flex: 3,
           child: Text(
             portal,
-            style: TextStyle(color: _kTextPrimary, fontSize: 13, height: 1.5),
+            style: TextStyle(
+              color: _kTextPrimary,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
         Expanded(
           flex: 3,
           child: Text(
             insert,
-            style: TextStyle(color: _kTextPrimary, fontSize: 13, height: 1.5),
+            style: TextStyle(
+              color: _kTextPrimary,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
         Expanded(
           flex: 3,
           child: Text(
             dialog,
-            style: TextStyle(color: _kTextPrimary, fontSize: 13, height: 1.5),
+            style: TextStyle(
+              color: _kTextPrimary,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -1333,7 +1366,8 @@ Widget _controllerLifecycleCard() {
           ),
           child: Row(
             children: [
-              Icon(Icons.science_outlined, size: 16, color: _kAccentViolet),
+              Icon(Icons.science_outlined,
+                  size: 16, color: _kAccentViolet),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1431,51 +1465,38 @@ Widget _lifecycleHeader() {
     child: Row(
       children: [
         SizedBox(
-          width: 50,
-          child: Text(
-            '#',
-            style: TextStyle(
-              color: _kTextMuted,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
+            width: 50,
+            child: Text('#',
+                style: TextStyle(
+                    color: _kTextMuted,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800))),
         Expanded(
           flex: 3,
-          child: Text(
-            'state',
-            style: TextStyle(
-              color: _kTextMuted,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.1,
-            ),
-          ),
+          child: Text('state',
+              style: TextStyle(
+                  color: _kTextMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1.1)),
         ),
         SizedBox(
           width: 110,
-          child: Text(
-            'isShowing',
-            style: TextStyle(
-              color: _kTextMuted,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.1,
-            ),
-          ),
+          child: Text('isShowing',
+              style: TextStyle(
+                  color: _kTextMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1.1)),
         ),
         Expanded(
           flex: 5,
-          child: Text(
-            'notes',
-            style: TextStyle(
-              color: _kTextMuted,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.1,
-            ),
-          ),
+          child: Text('notes',
+              style: TextStyle(
+                  color: _kTextMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1.1)),
         ),
       ],
     ),
@@ -1496,7 +1517,8 @@ Widget _lifecycleRow({
       border: isLast
           ? null
           : Border(
-              bottom: BorderSide(color: _kBorderSoft.withValues(alpha: 0.6)),
+              bottom:
+                  BorderSide(color: _kBorderSoft.withValues(alpha: 0.6)),
             ),
     ),
     child: Row(
@@ -1549,7 +1571,11 @@ Widget _lifecycleRow({
           flex: 5,
           child: Text(
             notes,
-            style: TextStyle(color: _kTextSecondary, fontSize: 13, height: 1.5),
+            style: TextStyle(
+              color: _kTextSecondary,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -1861,7 +1887,10 @@ Widget _footerCard() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [_kSurface, _kSurfaceRaised],
+        colors: [
+          _kSurface,
+          _kSurfaceRaised,
+        ],
       ),
       borderRadius: BorderRadius.circular(20),
       border: Border.all(color: _kBorderSoft),

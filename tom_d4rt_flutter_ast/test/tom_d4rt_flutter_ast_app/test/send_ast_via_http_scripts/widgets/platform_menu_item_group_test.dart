@@ -126,17 +126,20 @@ dynamic build(BuildContext context) {
       PlatformMenu(
         label: 'File',
         menus: <PlatformMenuItem>[
-          PlatformMenuItem(label: 'New', onSelected: () => print('New')),
-          PlatformMenuItem(label: 'Open', onSelected: () => print('Open')),
+          PlatformMenuItem(
+            label: 'New',
+            onSelected: () => print('New'),
+          ),
+          PlatformMenuItem(
+            label: 'Open',
+            onSelected: () => print('Open'),
+          ),
           // GROUP: Save operations
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
               PlatformMenuItem(
                 label: 'Save',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyS,
-                  control: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true),
                 onSelected: () => print('Save'),
               ),
               PlatformMenuItem(
@@ -149,15 +152,16 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          PlatformMenuItem(label: 'Close', onSelected: () => print('Close')),
+          PlatformMenuItem(
+            label: 'Close',
+            onSelected: () => print('Close'),
+          ),
         ],
       ),
     ],
     child: Center(child: Text('Basic grouping demo')),
   );
-  print(
-    'Constructed basic grouping menu: ${basicGroupMenu.menus.length} top-level menus',
-  );
+  print('Constructed basic grouping menu: ${basicGroupMenu.menus.length} top-level menus');
 
   // Visual: Before and After comparison
   final basicGroupVisual = Container(
@@ -173,11 +177,7 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 2: Basic Grouping',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.purple.shade800,
-          ),
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.purple.shade800),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -193,21 +193,14 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                     decoration: BoxDecoration(
                       color: Colors.red.shade100,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Text(
                       'Without Group',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red.shade800,
-                      ),
+                      style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.red.shade800),
                     ),
                   ),
                   SizedBox(height: 6.0),
@@ -215,9 +208,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(6.0),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 4.0),
-                      ],
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4.0)],
                     ),
                     child: Column(
                       children: [
@@ -245,21 +236,14 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                     decoration: BoxDecoration(
                       color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Text(
                       'With Group',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green.shade800,
-                      ),
+                      style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.green.shade800),
                     ),
                   ),
                   SizedBox(height: 6.0),
@@ -267,9 +251,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(6.0),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 4.0),
-                      ],
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4.0)],
                     ),
                     child: Column(
                       children: [
@@ -295,10 +277,7 @@ dynamic build(BuildContext context) {
                   Text(
                     'Related Save items are\nvisually grouped together',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 9.0,
-                      color: Colors.green.shade600,
-                    ),
+                    style: TextStyle(fontSize: 9.0, color: Colors.green.shade600),
                   ),
                 ],
               ),
@@ -354,19 +333,12 @@ dynamic build(BuildContext context) {
             members: <PlatformMenuItem>[
               PlatformMenuItem(
                 label: 'Undo',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyZ,
-                  control: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyZ, control: true),
                 onSelected: () => print('Undo'),
               ),
               PlatformMenuItem(
                 label: 'Redo',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyZ,
-                  control: true,
-                  shift: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true),
                 onSelected: () => print('Redo'),
               ),
             ],
@@ -376,26 +348,17 @@ dynamic build(BuildContext context) {
             members: <PlatformMenuItem>[
               PlatformMenuItem(
                 label: 'Cut',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyX,
-                  control: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyX, control: true),
                 onSelected: () => print('Cut'),
               ),
               PlatformMenuItem(
                 label: 'Copy',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyC,
-                  control: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyC, control: true),
                 onSelected: () => print('Copy'),
               ),
               PlatformMenuItem(
                 label: 'Paste',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyV,
-                  control: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyV, control: true),
                 onSelected: () => print('Paste'),
               ),
             ],
@@ -405,10 +368,7 @@ dynamic build(BuildContext context) {
             members: <PlatformMenuItem>[
               PlatformMenuItem(
                 label: 'Select All',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyA,
-                  control: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyA, control: true),
                 onSelected: () => print('Select All'),
               ),
               PlatformMenuItem(
@@ -422,18 +382,12 @@ dynamic build(BuildContext context) {
             members: <PlatformMenuItem>[
               PlatformMenuItem(
                 label: 'Find...',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyF,
-                  control: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyF, control: true),
                 onSelected: () => print('Find'),
               ),
               PlatformMenuItem(
                 label: 'Replace...',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyH,
-                  control: true,
-                ),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyH, control: true),
                 onSelected: () => print('Replace'),
               ),
             ],
@@ -443,32 +397,14 @@ dynamic build(BuildContext context) {
     ],
     child: Center(child: Text('Multi-group demo')),
   );
-  print(
-    'Constructed multi-group Edit menu: ${multiGroupMenu.menus.length} top-level menus',
-  );
+  print('Constructed multi-group Edit menu: ${multiGroupMenu.menus.length} top-level menus');
 
   // Visual display of multiple groups
   final groupColorMap = [
-    {
-      'label': 'History',
-      'color': Colors.blue,
-      'items': ['Undo    Ctrl+Z', 'Redo    Ctrl+Shift+Z'],
-    },
-    {
-      'label': 'Clipboard',
-      'color': Colors.orange,
-      'items': ['Cut      Ctrl+X', 'Copy    Ctrl+C', 'Paste   Ctrl+V'],
-    },
-    {
-      'label': 'Selection',
-      'color': Colors.green,
-      'items': ['Select All   Ctrl+A', 'Select None'],
-    },
-    {
-      'label': 'Search',
-      'color': Colors.purple,
-      'items': ['Find...       Ctrl+F', 'Replace...  Ctrl+H'],
-    },
+    {'label': 'History', 'color': Colors.blue, 'items': ['Undo    Ctrl+Z', 'Redo    Ctrl+Shift+Z']},
+    {'label': 'Clipboard', 'color': Colors.orange, 'items': ['Cut      Ctrl+X', 'Copy    Ctrl+C', 'Paste   Ctrl+V']},
+    {'label': 'Selection', 'color': Colors.green, 'items': ['Select All   Ctrl+A', 'Select None']},
+    {'label': 'Search', 'color': Colors.purple, 'items': ['Find...       Ctrl+F', 'Replace...  Ctrl+H']},
   ];
 
   final groupSections = <Widget>[];
@@ -490,21 +426,10 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
               child: Text(
                 group['label'] as String,
-                style: TextStyle(
-                  fontSize: 8.0,
-                  fontWeight: FontWeight.bold,
-                  color: color.shade400,
-                ),
+                style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, color: color.shade400),
               ),
             ),
-            ...items.map(
-              (item) => _buildMenuItem(
-                item.split('  ')[0].trim(),
-                item.contains('  ') ? item.split('  ').last.trim() : '',
-                false,
-                true,
-              ),
-            ),
+            ...items.map((item) => _buildMenuItem(item.split('  ')[0].trim(), item.contains('  ') ? item.split('  ').last.trim() : '', false, true)),
           ],
         ),
       ),
@@ -524,11 +449,7 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 3: Multiple Groups in One Menu',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.purple.shade800,
-          ),
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.purple.shade800),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -547,7 +468,9 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(6.0),
                 boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8.0)],
               ),
-              child: Column(children: groupSections),
+              child: Column(
+                children: groupSections,
+              ),
             ),
             SizedBox(width: 16.0),
             // Legend
@@ -557,11 +480,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Group Legend',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.grey.shade700),
                   ),
                   SizedBox(height: 8.0),
                   _buildGroupLegendRow('History', Colors.blue, '2 items'),
@@ -580,11 +499,7 @@ dynamic build(BuildContext context) {
                     ),
                     child: Text(
                       'Adjacent groups\nshare one separator\nline (no doubles).',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        color: Colors.amber.shade800,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(fontSize: 9.0, color: Colors.amber.shade800, height: 1.4),
                     ),
                   ),
                 ],
@@ -632,9 +547,7 @@ dynamic build(BuildContext context) {
     ],
     child: Center(child: Text('Single-item group demo')),
   );
-  print(
-    'Constructed single-item group demo: ${singleGroupMenu.menus.length} menus',
-  );
+  print('Constructed single-item group demo: ${singleGroupMenu.menus.length} menus');
 
   final singleGroupVisual = Container(
     width: double.infinity,
@@ -649,11 +562,7 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 4: Single-Item Groups',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.orange.shade800,
-          ),
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.orange.shade800),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -698,23 +607,11 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildAnnotation(
-                    'Regular items',
-                    'No separators between them',
-                    Colors.grey,
-                  ),
+                  _buildAnnotation('Regular items', 'No separators between them', Colors.grey),
                   SizedBox(height: 8.0),
-                  _buildAnnotation(
-                    'Export (single group)',
-                    'Isolated from neighbors by separators',
-                    Colors.orange,
-                  ),
+                  _buildAnnotation('Export (single group)', 'Isolated from neighbors by separators', Colors.orange),
                   SizedBox(height: 8.0),
-                  _buildAnnotation(
-                    'Quit (single group)',
-                    'Visually separated for safety — destructive actions are often isolated',
-                    Colors.red,
-                  ),
+                  _buildAnnotation('Quit (single group)', 'Visually separated for safety — destructive actions are often isolated', Colors.red),
                   SizedBox(height: 12.0),
                   Container(
                     padding: EdgeInsets.all(8.0),
@@ -728,11 +625,7 @@ dynamic build(BuildContext context) {
                       'groups to visually\n'
                       'separate important or\n'
                       'destructive actions.',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        color: Colors.orange.shade800,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(fontSize: 9.0, color: Colors.orange.shade800, height: 1.4),
                     ),
                   ),
                 ],
@@ -795,9 +688,7 @@ dynamic build(BuildContext context) {
     ],
     child: Center(child: Text('Nested group demo')),
   );
-  print(
-    'Constructed nested group menu: ${nestedGroupMenu.menus.length} top-level menus',
-  );
+  print('Constructed nested group menu: ${nestedGroupMenu.menus.length} top-level menus');
 
   // Visual: nested submenu structure with groups highlighted
   final nestedGroupVisual = Container(
@@ -813,11 +704,7 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 5: Groups in Nested Submenus',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.purple.shade800,
-          ),
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.purple.shade800),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -839,35 +726,19 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 7.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: Text(
-                            'Text Style',
-                            style: TextStyle(fontSize: 11.0),
-                          ),
-                        ),
+                        Expanded(child: Text('Text Style', style: TextStyle(fontSize: 11.0))),
                         Icon(Icons.arrow_right, size: 14.0, color: Colors.grey),
                       ],
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 7.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: Text(
-                            'Alignment',
-                            style: TextStyle(fontSize: 11.0),
-                          ),
-                        ),
+                        Expanded(child: Text('Alignment', style: TextStyle(fontSize: 11.0))),
                         Icon(Icons.arrow_right, size: 14.0, color: Colors.grey),
                       ],
                     ),
@@ -940,97 +811,38 @@ dynamic build(BuildContext context) {
         menus: <PlatformMenuItem>[
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
-              PlatformMenuItem(
-                label: 'New File',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyN,
-                  control: true,
-                ),
-                onSelected: () {},
-              ),
-              PlatformMenuItem(
-                label: 'New Window',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyN,
-                  control: true,
-                  shift: true,
-                ),
-                onSelected: () {},
-              ),
+              PlatformMenuItem(label: 'New File', shortcut: const SingleActivator(LogicalKeyboardKey.keyN, control: true), onSelected: () {}),
+              PlatformMenuItem(label: 'New Window', shortcut: const SingleActivator(LogicalKeyboardKey.keyN, control: true, shift: true), onSelected: () {}),
             ],
           ),
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
-              PlatformMenuItem(
-                label: 'Open File...',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyO,
-                  control: true,
-                ),
-                onSelected: () {},
-              ),
+              PlatformMenuItem(label: 'Open File...', shortcut: const SingleActivator(LogicalKeyboardKey.keyO, control: true), onSelected: () {}),
               PlatformMenuItem(label: 'Open Folder...', onSelected: () {}),
-              PlatformMenu(
-                label: 'Open Recent',
-                menus: <PlatformMenuItem>[
-                  PlatformMenuItem(label: 'project_a/', onSelected: () {}),
-                  PlatformMenuItem(label: 'project_b/', onSelected: () {}),
-                  PlatformMenuItemGroup(
-                    members: <PlatformMenuItem>[
-                      PlatformMenuItem(
-                        label: 'Clear Recent',
-                        onSelected: () {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              PlatformMenu(label: 'Open Recent', menus: <PlatformMenuItem>[
+                PlatformMenuItem(label: 'project_a/', onSelected: () {}),
+                PlatformMenuItem(label: 'project_b/', onSelected: () {}),
+                PlatformMenuItemGroup(members: <PlatformMenuItem>[
+                  PlatformMenuItem(label: 'Clear Recent', onSelected: () {}),
+                ]),
+              ]),
             ],
           ),
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
-              PlatformMenuItem(
-                label: 'Save',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyS,
-                  control: true,
-                ),
-                onSelected: () {},
-              ),
-              PlatformMenuItem(
-                label: 'Save As...',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyS,
-                  control: true,
-                  shift: true,
-                ),
-                onSelected: () {},
-              ),
+              PlatformMenuItem(label: 'Save', shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true), onSelected: () {}),
+              PlatformMenuItem(label: 'Save As...', shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true, shift: true), onSelected: () {}),
               PlatformMenuItem(label: 'Save All', onSelected: () {}),
             ],
           ),
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
-              PlatformMenuItem(
-                label: 'Preferences...',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.comma,
-                  control: true,
-                ),
-                onSelected: () {},
-              ),
+              PlatformMenuItem(label: 'Preferences...', shortcut: const SingleActivator(LogicalKeyboardKey.comma, control: true), onSelected: () {}),
             ],
           ),
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
-              PlatformMenuItem(
-                label: 'Exit',
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyQ,
-                  control: true,
-                ),
-                onSelected: () {},
-              ),
+              PlatformMenuItem(label: 'Exit', shortcut: const SingleActivator(LogicalKeyboardKey.keyQ, control: true), onSelected: () {}),
             ],
           ),
         ],
@@ -1055,11 +867,7 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 6: IDE File Menu (Real-World)',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -1082,31 +890,16 @@ dynamic build(BuildContext context) {
                   color: Color(0xFF505050),
                   borderRadius: BorderRadius.circular(3.0),
                 ),
-                child: Text(
-                  'File',
-                  style: TextStyle(fontSize: 11.0, color: Colors.white),
-                ),
+                child: Text('File', style: TextStyle(fontSize: 11.0, color: Colors.white)),
               ),
               SizedBox(width: 8.0),
-              Text(
-                'Edit',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade400),
-              ),
+              Text('Edit', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade400)),
               SizedBox(width: 8.0),
-              Text(
-                'View',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade400),
-              ),
+              Text('View', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade400)),
               SizedBox(width: 8.0),
-              Text(
-                'Run',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade400),
-              ),
+              Text('Run', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade400)),
               Spacer(),
-              Text(
-                'CodeEdit',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
-              ),
+              Text('CodeEdit', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500)),
             ],
           ),
         ),
@@ -1118,50 +911,28 @@ dynamic build(BuildContext context) {
               width: 220.0,
               decoration: BoxDecoration(
                 color: Color(0xFF252526),
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(6.0),
-                ),
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(6.0)),
                 boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 8.0)],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // Group: Create
-                  _buildDarkMenuItem(
-                    'New File',
-                    'Ctrl+N',
-                    Icons.insert_drive_file,
-                  ),
-                  _buildDarkMenuItem(
-                    'New Window',
-                    'Ctrl+Shift+N',
-                    Icons.open_in_new,
-                  ),
+                  _buildDarkMenuItem('New File', 'Ctrl+N', Icons.insert_drive_file),
+                  _buildDarkMenuItem('New Window', 'Ctrl+Shift+N', Icons.open_in_new),
                   _buildDarkSeparator(),
                   // Group: Open
-                  _buildDarkMenuItem(
-                    'Open File...',
-                    'Ctrl+O',
-                    Icons.folder_open,
-                  ),
+                  _buildDarkMenuItem('Open File...', 'Ctrl+O', Icons.folder_open),
                   _buildDarkMenuItem('Open Folder...', '', Icons.folder),
                   _buildDarkMenuSubmenuItem('Open Recent', Icons.history),
                   _buildDarkSeparator(),
                   // Group: Save
                   _buildDarkMenuItem('Save', 'Ctrl+S', Icons.save),
-                  _buildDarkMenuItem(
-                    'Save As...',
-                    'Ctrl+Shift+S',
-                    Icons.save_as,
-                  ),
+                  _buildDarkMenuItem('Save As...', 'Ctrl+Shift+S', Icons.save_as),
                   _buildDarkMenuItem('Save All', '', Icons.save_alt),
                   _buildDarkSeparator(),
                   // Group: Settings
-                  _buildDarkMenuItem(
-                    'Preferences...',
-                    'Ctrl+,',
-                    Icons.settings,
-                  ),
+                  _buildDarkMenuItem('Preferences...', 'Ctrl+,', Icons.settings),
                   _buildDarkSeparator(),
                   // Group: Exit
                   _buildDarkMenuItem('Exit', 'Ctrl+Q', Icons.exit_to_app),
@@ -1258,11 +1029,7 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               alignment: Alignment.center,
-              child: Icon(
-                p['icon'] as IconData,
-                color: color.shade700,
-                size: 20.0,
-              ),
+              child: Icon(p['icon'] as IconData, color: color.shade700, size: 20.0),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1271,20 +1038,12 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     p['name'] as String,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
-                      color: color.shade800,
-                    ),
+                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: color.shade800),
                   ),
                   SizedBox(height: 2.0),
                   Text(
                     p['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 9.0,
-                      color: Colors.grey.shade700,
-                      height: 1.3,
-                    ),
+                    style: TextStyle(fontSize: 9.0, color: Colors.grey.shade700, height: 1.3),
                   ),
                 ],
               ),
@@ -1298,11 +1057,7 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 p['example'] as String,
-                style: TextStyle(
-                  fontSize: 8.0,
-                  fontFamily: 'monospace',
-                  color: color.shade700,
-                ),
+                style: TextStyle(fontSize: 8.0, fontFamily: 'monospace', color: color.shade700),
               ),
             ),
           ],
@@ -1324,11 +1079,7 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 7: Grouping Patterns',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.purple.shade800,
-          ),
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.purple.shade800),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -1341,9 +1092,7 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  print(
-    'Created grouping patterns display with ${patternCards.length} patterns',
-  );
+  print('Created grouping patterns display with ${patternCards.length} patterns');
 
   // ============================================================
   // FINAL ASSEMBLY
@@ -1373,11 +1122,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'PlatformMenuItemGroup',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1390,11 +1135,7 @@ dynamic build(BuildContext context) {
                 'separator lines above and below the group,\n'
                 'creating visual structure in native OS menus.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.white60,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.white60, height: 1.4),
               ),
             ],
           ),
@@ -1417,11 +1158,7 @@ dynamic build(BuildContext context) {
         Center(
           child: Text(
             'PlatformMenuItemGroup Deep Demo — 7 sections',
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.grey.shade500,
-              fontStyle: FontStyle.italic,
-            ),
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500, fontStyle: FontStyle.italic),
           ),
         ),
         SizedBox(height: 16.0),
@@ -1434,12 +1171,7 @@ dynamic build(BuildContext context) {
 // Helper Functions
 // ========================================================================
 
-Widget _buildMenuItem(
-  String label,
-  String shortcut,
-  bool disabled,
-  bool highlighted,
-) {
+Widget _buildMenuItem(String label, String shortcut, bool disabled, bool highlighted) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 7.0),
     child: Row(
@@ -1456,11 +1188,7 @@ Widget _buildMenuItem(
         if (shortcut.isNotEmpty)
           Text(
             shortcut,
-            style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Colors.grey.shade500,
-            ),
+            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade500),
           ),
       ],
     ),
@@ -1488,14 +1216,7 @@ Widget _buildGroupLegendRow(String label, MaterialColor color, String count) {
         ),
       ),
       SizedBox(width: 6.0),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: color.shade700,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: color.shade700, fontWeight: FontWeight.w600)),
       Spacer(),
       Text(count, style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500)),
     ],
@@ -1511,11 +1232,7 @@ Widget _buildGroupChip(String label, MaterialColor color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 9.0,
-        fontWeight: FontWeight.bold,
-        color: color.shade700,
-      ),
+      style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: color.shade700),
     ),
   );
 }
@@ -1538,14 +1255,7 @@ Widget _buildAnnotation(String title, String desc, MaterialColor color) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 10.0,
-                fontWeight: FontWeight.bold,
-                color: color.shade800,
-              ),
-            ),
+            Text(title, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color.shade800)),
             Text(desc, style: TextStyle(fontSize: 9.0, color: color.shade600)),
           ],
         ),
@@ -1562,20 +1272,10 @@ Widget _buildDarkMenuItem(String label, String shortcut, IconData icon) {
         Icon(icon, size: 14.0, color: Colors.grey.shade400),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            label,
-            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade300),
-          ),
+          child: Text(label, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade300)),
         ),
         if (shortcut.isNotEmpty)
-          Text(
-            shortcut,
-            style: TextStyle(
-              fontSize: 9.0,
-              fontFamily: 'monospace',
-              color: Colors.grey.shade600,
-            ),
-          ),
+          Text(shortcut, style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Colors.grey.shade600)),
       ],
     ),
   );
@@ -1589,10 +1289,7 @@ Widget _buildDarkMenuSubmenuItem(String label, IconData icon) {
         Icon(icon, size: 14.0, color: Colors.grey.shade400),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            label,
-            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade300),
-          ),
+          child: Text(label, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade300)),
         ),
         Icon(Icons.arrow_right, size: 14.0, color: Colors.grey.shade500),
       ],
@@ -1630,11 +1327,7 @@ Widget _buildGroupBracket(String label, MaterialColor color, int itemCount) {
           children: [
             Text(
               label,
-              style: TextStyle(
-                fontSize: 9.0,
-                fontWeight: FontWeight.bold,
-                color: color.shade200,
-              ),
+              style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: color.shade200),
             ),
             Text(
               '$itemCount items',

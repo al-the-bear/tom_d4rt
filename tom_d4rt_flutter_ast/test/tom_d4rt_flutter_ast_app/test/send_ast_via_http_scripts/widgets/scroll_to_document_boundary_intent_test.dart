@@ -193,7 +193,11 @@ class _DocumentBoundaryJumperPageState
     setState(() {
       _history.insert(
         0,
-        _IntentRecord(forward: forward, source: source, at: DateTime.now()),
+        _IntentRecord(
+          forward: forward,
+          source: source,
+          at: DateTime.now(),
+        ),
       );
       if (_history.length > _historyLimit) {
         _history.removeRange(_historyLimit, _history.length);
@@ -593,7 +597,11 @@ class _ParchmentTexturePainter extends CustomPainter {
       ..color = kInk.withValues(alpha: 0.06)
       ..strokeWidth = 1;
     for (double y = 10; y < size.height; y += 12) {
-      canvas.drawLine(Offset(10, y), Offset(size.width - 10, y), paint);
+      canvas.drawLine(
+        Offset(10, y),
+        Offset(size.width - 10, y),
+        paint,
+      );
     }
     final dotPaint = Paint()..color = kSealRed.withValues(alpha: 0.3);
     canvas.drawCircle(Offset(size.width * 0.25, size.height / 2), 3, dotPaint);
@@ -702,16 +710,16 @@ class _DocumentScroller extends StatelessWidget {
 
   static final Map<ShortcutActivator, Intent> _shortcuts =
       <ShortcutActivator, Intent>{
-        const SingleActivator(LogicalKeyboardKey.home, control: true):
-            const ScrollToDocumentBoundaryIntent(forward: false),
-        const SingleActivator(LogicalKeyboardKey.end, control: true):
-            const ScrollToDocumentBoundaryIntent(forward: true),
-        // On macOS, platform default is Cmd+Up / Cmd+Down — show both.
-        const SingleActivator(LogicalKeyboardKey.arrowUp, meta: true):
-            const ScrollToDocumentBoundaryIntent(forward: false),
-        const SingleActivator(LogicalKeyboardKey.arrowDown, meta: true):
-            const ScrollToDocumentBoundaryIntent(forward: true),
-      };
+    const SingleActivator(LogicalKeyboardKey.home, control: true):
+        const ScrollToDocumentBoundaryIntent(forward: false),
+    const SingleActivator(LogicalKeyboardKey.end, control: true):
+        const ScrollToDocumentBoundaryIntent(forward: true),
+    // On macOS, platform default is Cmd+Up / Cmd+Down — show both.
+    const SingleActivator(LogicalKeyboardKey.arrowUp, meta: true):
+        const ScrollToDocumentBoundaryIntent(forward: false),
+    const SingleActivator(LogicalKeyboardKey.arrowDown, meta: true):
+        const ScrollToDocumentBoundaryIntent(forward: true),
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -920,12 +928,12 @@ class _StatusDot extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: active
-            ? color.withValues(alpha: 0.2)
-            : kInk.withValues(alpha: 0.05),
+        color:
+            active ? color.withValues(alpha: 0.2) : kInk.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(999),
         border: Border.all(
-          color: active ? color : kInk.withValues(alpha: 0.2),
+          color:
+              active ? color : kInk.withValues(alpha: 0.2),
           width: 1,
         ),
       ),
@@ -978,7 +986,9 @@ class _DocumentBlock extends StatelessWidget {
             ? kSoft.withValues(alpha: 0.55)
             : kParchment.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: kInk.withValues(alpha: isEven ? 0.12 : 0.05)),
+        border: Border.all(
+          color: kInk.withValues(alpha: isEven ? 0.12 : 0.05),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1185,7 +1195,10 @@ class _IntentChip extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
             ],
           ),
@@ -1395,7 +1408,8 @@ class _IntentAnatomyCard extends StatelessWidget {
           _AnatomyRow(
             label: 'paired Action',
             type: 'ScrollToDocumentBoundaryAction',
-            desc: 'Animates the PrimaryScrollController to the requested edge.',
+            desc:
+                'Animates the PrimaryScrollController to the requested edge.',
             color: kLeafGreen,
           ),
           const SizedBox(height: 10),
@@ -1513,9 +1527,8 @@ class _ComparisonTable extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: kInk.withValues(alpha: 0.06),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(14),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
             child: Row(
               children: const [
@@ -1625,7 +1638,8 @@ class _ComparisonRow extends StatelessWidget {
                       fontFamily: 'monospace',
                       fontSize: 12,
                       color: kInk,
-                      fontWeight: highlight ? FontWeight.w700 : FontWeight.w500,
+                      fontWeight:
+                          highlight ? FontWeight.w700 : FontWeight.w500,
                     ),
                   ),
                 ),
@@ -1949,8 +1963,7 @@ class _UseCasesStrip extends StatelessWidget {
       _UseCaseTile(
         icon: Icons.menu_book,
         title: 'Document readers',
-        body:
-            'Ebooks, PDFs, markdown viewers — rewind to cover or jump to the back matter.',
+        body: 'Ebooks, PDFs, markdown viewers — rewind to cover or jump to the back matter.',
         color: kSealRed,
       ),
       _UseCaseTile(
@@ -1968,8 +1981,7 @@ class _UseCasesStrip extends StatelessWidget {
       _UseCaseTile(
         icon: Icons.settings,
         title: 'Long settings pages',
-        body:
-            'Snap between the overview at the top and the danger zone at the bottom.',
+        body: 'Snap between the overview at the top and the danger zone at the bottom.',
         color: kDim,
       ),
     ];
@@ -2074,10 +2086,8 @@ class _FooterSummaryCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: kLeafGreen,
                   borderRadius: BorderRadius.circular(999),

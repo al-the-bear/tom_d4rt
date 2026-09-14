@@ -30,10 +30,7 @@ Widget _baSection(String title, List<Widget> children) {
       border: Border.all(color: _baLightAmber, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x1AFF6F00),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x1AFF6F00), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -45,14 +42,11 @@ Widget _baSection(String title, List<Widget> children) {
             color: _baAmber,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _baWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _baWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -64,24 +58,19 @@ Widget _baSection(String title, List<Widget> children) {
 Widget _baLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _baDarkAmber,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _baDarkAmber,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _baBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _baGray, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(color: _baGray, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -95,15 +84,12 @@ Widget _baCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _baLightAmber.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _baDarkAmber,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _baDarkAmber,
+            height: 1.45)),
   );
 }
 
@@ -115,10 +101,9 @@ Widget _baChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -151,10 +136,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'ButtonActivateIntent',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: const Text('ButtonActivateIntent',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -183,48 +166,27 @@ dynamic build(BuildContext context) {
                       color: _baWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.touch_app_rounded,
-                      color: _baWhite,
-                      size: 32,
-                    ),
+                    child: const Icon(Icons.touch_app_rounded,
+                        color: _baWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'ButtonActivateIntent',
-                    style: TextStyle(
-                      color: _baWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('ButtonActivateIntent',
+                      style: TextStyle(
+                          color: _baWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
-                  Text(
-                    'Keyboard-driven button activation via Intent system',
-                    style: TextStyle(
-                      color: _baWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text('Keyboard-driven button activation via Intent system',
+                      style: TextStyle(
+                          color: _baWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _baChip(
-                        'Intent',
-                        _baWhite.withValues(alpha: 0.25),
-                        _baWhite,
-                      ),
-                      _baChip(
-                        'Enter / Space',
-                        _baWhite.withValues(alpha: 0.25),
-                        _baWhite,
-                      ),
-                      _baChip(
-                        'Activation',
-                        _baWhite.withValues(alpha: 0.25),
-                        _baWhite,
-                      ),
+                      _baChip('Intent', _baWhite.withValues(alpha: 0.25), _baWhite),
+                      _baChip('Enter / Space', _baWhite.withValues(alpha: 0.25), _baWhite),
+                      _baChip('Activation', _baWhite.withValues(alpha: 0.25), _baWhite),
                     ],
                   ),
                 ],
@@ -449,30 +411,12 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _baSummaryRow(
-                      Icons.touch_app,
-                      'Triggers button\'s onPressed via keyboard',
-                    ),
-                    _baSummaryRow(
-                      Icons.keyboard,
-                      'Bound to Enter and Space by default',
-                    ),
-                    _baSummaryRow(
-                      Icons.widgets,
-                      'All Material/Cupertino buttons respond',
-                    ),
-                    _baSummaryRow(
-                      Icons.block,
-                      'Disabled buttons ignore the intent',
-                    ),
-                    _baSummaryRow(
-                      Icons.tune,
-                      'Can be overridden with custom Actions',
-                    ),
-                    _baSummaryRow(
-                      Icons.accessible,
-                      'WCAG-compliant keyboard interaction',
-                    ),
+                    _baSummaryRow(Icons.touch_app, 'Triggers button\'s onPressed via keyboard'),
+                    _baSummaryRow(Icons.keyboard, 'Bound to Enter and Space by default'),
+                    _baSummaryRow(Icons.widgets, 'All Material/Cupertino buttons respond'),
+                    _baSummaryRow(Icons.block, 'Disabled buttons ignore the intent'),
+                    _baSummaryRow(Icons.tune, 'Can be overridden with custom Actions'),
+                    _baSummaryRow(Icons.accessible, 'WCAG-compliant keyboard interaction'),
                   ],
                 ),
               ),
@@ -515,7 +459,8 @@ List<Widget> _buildActivationChain() {
       decoration: BoxDecoration(
         color: (l['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (l['color'] as Color).withValues(alpha: 0.3)),
+        border: Border.all(
+            color: (l['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -526,25 +471,22 @@ List<Widget> _buildActivationChain() {
               color: l['color'] as Color,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(l['icon'] as IconData, color: _baWhite, size: 18),
+            child:
+                Icon(l['icon'] as IconData, color: _baWhite, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l['title'] as String,
-                  style: TextStyle(
-                    color: l['color'] as Color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
-                Text(
-                  l['detail'] as String,
-                  style: const TextStyle(color: _baGray, fontSize: 11),
-                ),
+                Text(l['title'] as String,
+                    style: TextStyle(
+                        color: l['color'] as Color,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12)),
+                Text(l['detail'] as String,
+                    style: const TextStyle(
+                        color: _baGray, fontSize: 11)),
               ],
             ),
           ),
@@ -559,29 +501,13 @@ List<Widget> _buildActivationChain() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildButtonTypeGrid() {
   final buttons = <Map<String, dynamic>>[
-    {
-      'name': 'ElevatedButton',
-      'icon': Icons.arrow_upward,
-      'color': _baAccentBlue,
-    },
+    {'name': 'ElevatedButton', 'icon': Icons.arrow_upward, 'color': _baAccentBlue},
     {'name': 'TextButton', 'icon': Icons.text_fields, 'color': _baAccentGreen},
-    {
-      'name': 'OutlinedButton',
-      'icon': Icons.crop_square,
-      'color': _baAccentPurple,
-    },
+    {'name': 'OutlinedButton', 'icon': Icons.crop_square, 'color': _baAccentPurple},
     {'name': 'IconButton', 'icon': Icons.star, 'color': _baAmber},
     {'name': 'FloatingActionButton', 'icon': Icons.add, 'color': _baDarkAmber},
-    {
-      'name': 'PopupMenuButton',
-      'icon': Icons.more_vert,
-      'color': _baAccentTeal,
-    },
-    {
-      'name': 'DropdownButton',
-      'icon': Icons.arrow_drop_down,
-      'color': _baAccentBlue,
-    },
+    {'name': 'PopupMenuButton', 'icon': Icons.more_vert, 'color': _baAccentTeal},
+    {'name': 'DropdownButton', 'icon': Icons.arrow_drop_down, 'color': _baAccentBlue},
     {'name': 'CupertinoButton', 'icon': Icons.apple, 'color': _baGray},
   ];
   return Wrap(
@@ -595,8 +521,7 @@ Widget _buildButtonTypeGrid() {
           color: (b['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: (b['color'] as Color).withValues(alpha: 0.3),
-          ),
+              color: (b['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -607,18 +532,16 @@ Widget _buildButtonTypeGrid() {
                 color: b['color'] as Color,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Icon(b['icon'] as IconData, color: _baWhite, size: 14),
+              child:
+                  Icon(b['icon'] as IconData, color: _baWhite, size: 14),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                b['name'] as String,
-                style: TextStyle(
-                  color: b['color'] as Color,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text(b['name'] as String,
+                  style: TextStyle(
+                      color: b['color'] as Color,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700)),
             ),
           ],
         ),
@@ -654,20 +577,18 @@ Widget _buildKeyComparisonTable() {
           color: isHeader
               ? _baAmber
               : entry.key.isEven
-              ? _baCream
-              : _baWhite,
+                  ? _baCream
+                  : _baWhite,
           child: Row(
             children: row.asMap().entries.map((col) {
               return Expanded(
                 flex: col.key == 0 ? 2 : 3,
-                child: Text(
-                  col.value,
-                  style: TextStyle(
-                    color: isHeader ? _baWhite : _baGray,
-                    fontSize: 10.5,
-                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-                  ),
-                ),
+                child: Text(col.value,
+                    style: TextStyle(
+                        color: isHeader ? _baWhite : _baGray,
+                        fontSize: 10.5,
+                        fontWeight:
+                            isHeader ? FontWeight.w700 : FontWeight.w400)),
               );
             }).toList(),
           ),
@@ -682,41 +603,11 @@ Widget _buildKeyComparisonTable() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildFocusActivationFlow() {
   final steps = <Map<String, dynamic>>[
-    {
-      'step': '1',
-      'title': 'User presses Tab',
-      'desc': 'Focus moves to button',
-      'icon': Icons.tab,
-      'color': _baAccentBlue,
-    },
-    {
-      'step': '2',
-      'title': 'Focus ring appears',
-      'desc': 'Visual indicator shown',
-      'icon': Icons.radio_button_checked,
-      'color': _baAccentTeal,
-    },
-    {
-      'step': '3',
-      'title': 'User presses Enter',
-      'desc': 'Shortcut dispatches intent',
-      'icon': Icons.keyboard_return,
-      'color': _baAmber,
-    },
-    {
-      'step': '4',
-      'title': 'Action runs',
-      'desc': 'onPressed callback fires',
-      'icon': Icons.bolt,
-      'color': _baAccentGreen,
-    },
-    {
-      'step': '5',
-      'title': 'Visual feedback',
-      'desc': 'Splash/highlight shown',
-      'icon': Icons.animation,
-      'color': _baAccentPurple,
-    },
+    {'step': '1', 'title': 'User presses Tab', 'desc': 'Focus moves to button', 'icon': Icons.tab, 'color': _baAccentBlue},
+    {'step': '2', 'title': 'Focus ring appears', 'desc': 'Visual indicator shown', 'icon': Icons.radio_button_checked, 'color': _baAccentTeal},
+    {'step': '3', 'title': 'User presses Enter', 'desc': 'Shortcut dispatches intent', 'icon': Icons.keyboard_return, 'color': _baAmber},
+    {'step': '4', 'title': 'Action runs', 'desc': 'onPressed callback fires', 'icon': Icons.bolt, 'color': _baAccentGreen},
+    {'step': '5', 'title': 'Visual feedback', 'desc': 'Splash/highlight shown', 'icon': Icons.animation, 'color': _baAccentPurple},
   ];
 
   return Container(
@@ -735,8 +626,7 @@ Widget _buildFocusActivationFlow() {
             color: (s['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (s['color'] as Color).withValues(alpha: 0.3),
-            ),
+                color: (s['color'] as Color).withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
@@ -747,25 +637,22 @@ Widget _buildFocusActivationFlow() {
                   color: s['color'] as Color,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(s['icon'] as IconData, color: _baWhite, size: 14),
+                child: Icon(s['icon'] as IconData,
+                    color: _baWhite, size: 14),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Step ${s['step']}: ${s['title']}',
-                      style: TextStyle(
-                        color: s['color'] as Color,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 11.5,
-                      ),
-                    ),
-                    Text(
-                      s['desc'] as String,
-                      style: const TextStyle(color: _baGray, fontSize: 10),
-                    ),
+                    Text('Step ${s['step']}: ${s['title']}',
+                        style: TextStyle(
+                            color: s['color'] as Color,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 11.5)),
+                    Text(s['desc'] as String,
+                        style: const TextStyle(
+                            color: _baGray, fontSize: 10)),
                   ],
                 ),
               ),
@@ -782,30 +669,10 @@ Widget _buildFocusActivationFlow() {
 // ─────────────────────────────────────────────────────────────
 List<Widget> _buildPlatformActivationCards() {
   final platforms = <Map<String, dynamic>>[
-    {
-      'platform': 'macOS',
-      'keys': 'Space (primary), Enter',
-      'note': 'macOS natively uses Space for buttons',
-      'icon': Icons.desktop_mac,
-    },
-    {
-      'platform': 'Windows',
-      'keys': 'Enter (primary), Space',
-      'note': 'Enter is default in Win32 dialogs',
-      'icon': Icons.desktop_windows,
-    },
-    {
-      'platform': 'Linux',
-      'keys': 'Enter, Space',
-      'note': 'Both equally standard',
-      'icon': Icons.computer,
-    },
-    {
-      'platform': 'Web',
-      'keys': 'Enter, Space',
-      'note': 'Space also scrolls if not handled',
-      'icon': Icons.language,
-    },
+    {'platform': 'macOS', 'keys': 'Space (primary), Enter', 'note': 'macOS natively uses Space for buttons', 'icon': Icons.desktop_mac},
+    {'platform': 'Windows', 'keys': 'Enter (primary), Space', 'note': 'Enter is default in Win32 dialogs', 'icon': Icons.desktop_windows},
+    {'platform': 'Linux', 'keys': 'Enter, Space', 'note': 'Both equally standard', 'icon': Icons.computer},
+    {'platform': 'Web', 'keys': 'Enter, Space', 'note': 'Space also scrolls if not handled', 'icon': Icons.language},
   ];
   return platforms.map((p) {
     return Container(
@@ -824,29 +691,20 @@ List<Widget> _buildPlatformActivationCards() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  p['platform'] as String,
-                  style: const TextStyle(
-                    color: _baDarkAmber,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Text(
-                  p['keys'] as String,
-                  style: const TextStyle(
-                    color: _baGray,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                  ),
-                ),
-                Text(
-                  p['note'] as String,
-                  style: TextStyle(
-                    color: _baGray.withValues(alpha: 0.7),
-                    fontSize: 9.5,
-                  ),
-                ),
+                Text(p['platform'] as String,
+                    style: const TextStyle(
+                        color: _baDarkAmber,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
+                Text(p['keys'] as String,
+                    style: const TextStyle(
+                        color: _baGray,
+                        fontSize: 10,
+                        fontFamily: 'monospace')),
+                Text(p['note'] as String,
+                    style: TextStyle(
+                        color: _baGray.withValues(alpha: 0.7),
+                        fontSize: 9.5)),
               ],
             ),
           ),
@@ -879,40 +737,32 @@ Widget _buildDisabledStateVisual() {
             ),
             child: Column(
               children: [
-                const Icon(Icons.check_circle, color: _baAccentGreen, size: 24),
+                const Icon(Icons.check_circle,
+                    color: _baAccentGreen, size: 24),
                 const SizedBox(height: 6),
-                const Text(
-                  'Enabled',
-                  style: TextStyle(
-                    color: _baAccentGreen,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Enabled',
+                    style: TextStyle(
+                        color: _baAccentGreen,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 Container(
                   margin: const EdgeInsets.only(top: 6),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+                      horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     color: _baAccentGreen,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(
-                      color: _baWhite,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: const Text('Submit',
+                      style: TextStyle(
+                          color: _baWhite,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600)),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Enter → onPressed fires',
-                  style: TextStyle(color: _baAccentGreen, fontSize: 9),
-                ),
+                const Text('Enter → onPressed fires',
+                    style: TextStyle(
+                        color: _baAccentGreen, fontSize: 9)),
               ],
             ),
           ),
@@ -928,46 +778,32 @@ Widget _buildDisabledStateVisual() {
             ),
             child: Column(
               children: [
-                Icon(
-                  Icons.block,
-                  color: _baGray.withValues(alpha: 0.5),
-                  size: 24,
-                ),
+                Icon(Icons.block,
+                    color: _baGray.withValues(alpha: 0.5), size: 24),
                 const SizedBox(height: 6),
-                Text(
-                  'Disabled',
-                  style: TextStyle(
-                    color: _baGray.withValues(alpha: 0.5),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Disabled',
+                    style: TextStyle(
+                        color: _baGray.withValues(alpha: 0.5),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 Container(
                   margin: const EdgeInsets.only(top: 6),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+                      horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     color: const Color(0x1A000000),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(
-                      color: _baGray.withValues(alpha: 0.4),
-                      fontSize: 11,
-                    ),
-                  ),
+                  child: Text('Submit',
+                      style: TextStyle(
+                          color: _baGray.withValues(alpha: 0.4),
+                          fontSize: 11)),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  'Enter → nothing happens',
-                  style: TextStyle(
-                    color: _baGray.withValues(alpha: 0.5),
-                    fontSize: 9,
-                  ),
-                ),
+                Text('Enter → nothing happens',
+                    style: TextStyle(
+                        color: _baGray.withValues(alpha: 0.5),
+                        fontSize: 9)),
               ],
             ),
           ),
@@ -982,30 +818,10 @@ Widget _buildDisabledStateVisual() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildCustomOverrideDemo() {
   final overrides = <Map<String, dynamic>>[
-    {
-      'name': 'Logging',
-      'desc': 'Log every keyboard activation',
-      'icon': Icons.notes,
-      'color': _baAccentBlue,
-    },
-    {
-      'name': 'Confirmation',
-      'desc': 'Show dialog before action',
-      'icon': Icons.help,
-      'color': _baAccentPurple,
-    },
-    {
-      'name': 'Animation',
-      'desc': 'Play custom press animation',
-      'icon': Icons.animation,
-      'color': _baAccentGreen,
-    },
-    {
-      'name': 'Throttle',
-      'desc': 'Prevent rapid re-activation',
-      'icon': Icons.timer,
-      'color': _baAmber,
-    },
+    {'name': 'Logging', 'desc': 'Log every keyboard activation', 'icon': Icons.notes, 'color': _baAccentBlue},
+    {'name': 'Confirmation', 'desc': 'Show dialog before action', 'icon': Icons.help, 'color': _baAccentPurple},
+    {'name': 'Animation', 'desc': 'Play custom press animation', 'icon': Icons.animation, 'color': _baAccentGreen},
+    {'name': 'Throttle', 'desc': 'Prevent rapid re-activation', 'icon': Icons.timer, 'color': _baAmber},
   ];
   return Wrap(
     spacing: 8,
@@ -1018,30 +834,22 @@ Widget _buildCustomOverrideDemo() {
           color: (o['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: (o['color'] as Color).withValues(alpha: 0.3),
-          ),
+              color: (o['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(o['icon'] as IconData, size: 20, color: o['color'] as Color),
+            Icon(o['icon'] as IconData,
+                size: 20, color: o['color'] as Color),
             const SizedBox(height: 6),
-            Text(
-              o['name'] as String,
-              style: TextStyle(
-                color: o['color'] as Color,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text(
-              o['desc'] as String,
-              style: const TextStyle(
-                color: _baGray,
-                fontSize: 9.5,
-                height: 1.3,
-              ),
-            ),
+            Text(o['name'] as String,
+                style: TextStyle(
+                    color: o['color'] as Color,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700)),
+            Text(o['desc'] as String,
+                style: const TextStyle(
+                    color: _baGray, fontSize: 9.5, height: 1.3)),
           ],
         ),
       );
@@ -1081,15 +889,13 @@ Widget _buildSimulatedButtonRow() {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 10,
-                      ),
+                          horizontal: 12, vertical: 10),
                       decoration: BoxDecoration(
                         color: isDisabled
                             ? const Color(0x1A000000)
                             : isActivating
-                            ? (b['color'] as Color).withValues(alpha: 0.2)
-                            : b['color'] as Color,
+                                ? (b['color'] as Color).withValues(alpha: 0.2)
+                                : b['color'] as Color,
                         borderRadius: BorderRadius.circular(8),
                         border: isFocused
                             ? Border.all(color: _baAccentBlue, width: 2.5)
@@ -1097,41 +903,34 @@ Widget _buildSimulatedButtonRow() {
                         boxShadow: isActivating
                             ? [
                                 BoxShadow(
-                                  color: (b['color'] as Color).withValues(
-                                    alpha: 0.4,
-                                  ),
+                                  color: (b['color'] as Color)
+                                      .withValues(alpha: 0.4),
                                   blurRadius: 8,
                                   spreadRadius: 1,
                                 ),
                               ]
                             : null,
                       ),
-                      child: Text(
-                        b['label'] as String,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: isDisabled
-                              ? const Color(0x66000000)
-                              : isActivating
-                              ? b['color'] as Color
-                              : _baWhite,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      child: Text(b['label'] as String,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: isDisabled
+                                  ? const Color(0x66000000)
+                                  : isActivating
+                                      ? b['color'] as Color
+                                      : _baWhite,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600)),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      b['state'] as String,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: isFocused ? _baAmber : _baGray,
-                        fontSize: 8.5,
-                        fontWeight: isFocused
-                            ? FontWeight.w700
-                            : FontWeight.w400,
-                      ),
-                    ),
+                    Text(b['state'] as String,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: isFocused ? _baAmber : _baGray,
+                            fontSize: 8.5,
+                            fontWeight: isFocused
+                                ? FontWeight.w700
+                                : FontWeight.w400)),
                   ],
                 ),
               ),
@@ -1173,24 +972,21 @@ Widget _baKeyHint(String key, String label) {
           border: Border.all(color: _baLightAmber),
           boxShadow: const [
             BoxShadow(
-              color: Color(0x0FFF6F00),
-              blurRadius: 2,
-              offset: Offset(0, 1),
-            ),
+                color: Color(0x0FFF6F00),
+                blurRadius: 2,
+                offset: Offset(0, 1)),
           ],
         ),
-        child: Text(
-          key,
-          style: const TextStyle(
-            color: _baDarkAmber,
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-            fontFamily: 'monospace',
-          ),
-        ),
+        child: Text(key,
+            style: const TextStyle(
+                color: _baDarkAmber,
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'monospace')),
       ),
       const SizedBox(width: 4),
-      Text(label, style: const TextStyle(color: _baGray, fontSize: 9.5)),
+      Text(label,
+          style: const TextStyle(color: _baGray, fontSize: 9.5)),
     ],
   );
 }
@@ -1217,14 +1013,11 @@ Widget _buildFormSubmissionDemo() {
             children: [
               Icon(Icons.login, color: _baAmber, size: 18),
               SizedBox(width: 8),
-              Text(
-                'Login Form — Keyboard Flow',
-                style: TextStyle(
-                  color: _baDarkAmber,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('Login Form — Keyboard Flow',
+                  style: TextStyle(
+                      color: _baDarkAmber,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700)),
             ],
           ),
         ),
@@ -1235,49 +1028,38 @@ Widget _buildFormSubmissionDemo() {
           decoration: BoxDecoration(
             color: _baAmber.withValues(alpha: 0.06),
             border: Border(
-              bottom: BorderSide(color: _baLightAmber.withValues(alpha: 0.3)),
-            ),
+                bottom: BorderSide(
+                    color: _baLightAmber.withValues(alpha: 0.3))),
           ),
           child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
-                ),
+                    horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
                   color: _baAmber,
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(color: _baAccentBlue, width: 2),
                 ),
-                child: const Text(
-                  'Sign In',
-                  style: TextStyle(
-                    color: _baWhite,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: const Text('Sign In',
+                    style: TextStyle(
+                        color: _baWhite,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
               ),
               const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '← Focus here (Tab×2)',
-                    style: TextStyle(
-                      color: _baAccentBlue,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    'Enter → ButtonActivateIntent → onPressed',
-                    style: TextStyle(
-                      color: _baGray.withValues(alpha: 0.7),
-                      fontSize: 9,
-                    ),
-                  ),
+                  const Text('← Focus here (Tab×2)',
+                      style: TextStyle(
+                          color: _baAccentBlue,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700)),
+                  Text('Enter → ButtonActivateIntent → onPressed',
+                      style: TextStyle(
+                          color: _baGray.withValues(alpha: 0.7),
+                          fontSize: 9)),
                 ],
               ),
             ],
@@ -1290,14 +1072,12 @@ Widget _buildFormSubmissionDemo() {
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
           child: const Text(
-            'Tab → Tab → Tab → Enter = complete login without mouse',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: _baAmber,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+              'Tab → Tab → Tab → Enter = complete login without mouse',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: _baAmber,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       ],
     ),
@@ -1309,40 +1089,34 @@ Widget _buildFormField(String label, String value, bool focused, bool filled) {
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     decoration: BoxDecoration(
       border: Border(
-        bottom: BorderSide(color: _baLightAmber.withValues(alpha: 0.3)),
-      ),
+          bottom:
+              BorderSide(color: _baLightAmber.withValues(alpha: 0.3))),
     ),
     child: Row(
       children: [
         SizedBox(
           width: 70,
-          child: Text(
-            label,
-            style: const TextStyle(
-              color: _baGray,
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(label,
+              style: const TextStyle(
+                  color: _baGray,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600)),
         ),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: _baCream,
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
-                color: focused ? _baAccentBlue : _baLightAmber,
-              ),
+                  color: focused ? _baAccentBlue : _baLightAmber),
             ),
-            child: Text(
-              value,
-              style: TextStyle(
-                color: _baDarkAmber.withValues(alpha: 0.7),
-                fontSize: 12,
-                fontFamily: 'monospace',
-              ),
-            ),
+            child: Text(value,
+                style: TextStyle(
+                    color: _baDarkAmber.withValues(alpha: 0.7),
+                    fontSize: 12,
+                    fontFamily: 'monospace')),
           ),
         ),
       ],
@@ -1355,11 +1129,7 @@ Widget _buildFormField(String label, String value, bool focused, bool filled) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildAccessibilityGrid() {
   final items = <Map<String, dynamic>>[
-    {
-      'req': 'Keyboard operable',
-      'check': true,
-      'detail': 'Enter/Space activates',
-    },
+    {'req': 'Keyboard operable', 'check': true, 'detail': 'Enter/Space activates'},
     {'req': 'Focus visible', 'check': true, 'detail': 'Focus ring shown'},
     {'req': 'Role announced', 'check': true, 'detail': 'Semantics: button'},
     {'req': 'State communicated', 'check': true, 'detail': 'Enabled/disabled'},
@@ -1380,29 +1150,25 @@ Widget _buildAccessibilityGrid() {
           decoration: BoxDecoration(
             color: _baWhite,
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: _baAccentGreen.withValues(alpha: 0.3)),
+            border: Border.all(
+                color: _baAccentGreen.withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
-              const Icon(Icons.check_circle, size: 16, color: _baAccentGreen),
+              const Icon(Icons.check_circle,
+                  size: 16, color: _baAccentGreen),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  item['req'] as String,
-                  style: const TextStyle(
-                    color: _baDarkAmber,
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text(item['req'] as String,
+                    style: const TextStyle(
+                        color: _baDarkAmber,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600)),
               ),
-              Text(
-                item['detail'] as String,
-                style: TextStyle(
-                  color: _baGray.withValues(alpha: 0.7),
-                  fontSize: 10,
-                ),
-              ),
+              Text(item['detail'] as String,
+                  style: TextStyle(
+                      color: _baGray.withValues(alpha: 0.7),
+                      fontSize: 10)),
             ],
           ),
         );
@@ -1422,13 +1188,10 @@ Widget _baSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _baWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _baWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _baWhite.withValues(alpha: 0.95),
+                  fontSize: 12.5)),
         ),
       ],
     ),

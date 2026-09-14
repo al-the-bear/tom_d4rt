@@ -75,8 +75,7 @@ const List<_AdjustmentPreset> _presets = <_AdjustmentPreset>[
   _AdjustmentPreset(
     name: 'Max survival',
     mask: _all,
-    explanation:
-        'Enable all strategies to avoid clipping in constrained views.',
+    explanation: 'Enable all strategies to avoid clipping in constrained views.',
   ),
 ];
 
@@ -210,9 +209,7 @@ Widget _buildFlagLegend() {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: info.color.withValues(alpha: 0.5),
-                        ),
+                        border: Border.all(color: info.color.withValues(alpha: 0.5)),
                         color: info.color.withValues(alpha: 0.1),
                       ),
                       child: Padding(
@@ -222,9 +219,8 @@ Widget _buildFlagLegend() {
                           children: <Widget>[
                             Text(
                               '${info.title} (0x${info.flag.toRadixString(16)})',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                              ),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w700),
                             ),
                             const SizedBox(height: 4),
                             Text(info.behavior),
@@ -373,62 +369,55 @@ Widget _buildSimulationControls({
         third: popupWidth,
         fourth: popupHeight,
         fifth: showSimulationGrid,
-        builder:
-            (
-              BuildContext context,
-              double x,
-              double y,
-              double width,
-              double height,
-              bool grid,
-            ) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    'Simulation Controls',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-                  ),
-                  const SizedBox(height: 8),
-                  SwitchListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Show viewport grid'),
-                    value: grid,
-                    onChanged: (bool next) => showSimulationGrid.value = next,
-                  ),
-                  const SizedBox(height: 6),
-                  Text('Popup X: ${x.toStringAsFixed(0)}'),
-                  Slider(
-                    min: 0,
-                    max: 340,
-                    value: x,
-                    onChanged: (double v) => popupX.value = v,
-                  ),
-                  Text('Popup Y: ${y.toStringAsFixed(0)}'),
-                  Slider(
-                    min: 0,
-                    max: 240,
-                    value: y,
-                    onChanged: (double v) => popupY.value = v,
-                  ),
-                  Text('Popup Width: ${width.toStringAsFixed(0)}'),
-                  Slider(
-                    min: 80,
-                    max: 280,
-                    value: width,
-                    onChanged: (double v) => popupWidth.value = v,
-                  ),
-                  Text('Popup Height: ${height.toStringAsFixed(0)}'),
-                  Slider(
-                    min: 60,
-                    max: 190,
-                    value: height,
-                    onChanged: (double v) => popupHeight.value = v,
-                  ),
-                ],
-              );
-            },
+        builder: (BuildContext context, double x, double y, double width,
+            double height, bool grid) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Simulation Controls',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+              ),
+              const SizedBox(height: 8),
+              SwitchListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Show viewport grid'),
+                value: grid,
+                onChanged: (bool next) => showSimulationGrid.value = next,
+              ),
+              const SizedBox(height: 6),
+              Text('Popup X: ${x.toStringAsFixed(0)}'),
+              Slider(
+                min: 0,
+                max: 340,
+                value: x,
+                onChanged: (double v) => popupX.value = v,
+              ),
+              Text('Popup Y: ${y.toStringAsFixed(0)}'),
+              Slider(
+                min: 0,
+                max: 240,
+                value: y,
+                onChanged: (double v) => popupY.value = v,
+              ),
+              Text('Popup Width: ${width.toStringAsFixed(0)}'),
+              Slider(
+                min: 80,
+                max: 280,
+                value: width,
+                onChanged: (double v) => popupWidth.value = v,
+              ),
+              Text('Popup Height: ${height.toStringAsFixed(0)}'),
+              Slider(
+                min: 60,
+                max: 190,
+                value: height,
+                onChanged: (double v) => popupHeight.value = v,
+              ),
+            ],
+          );
+        },
       ),
     ),
   );
@@ -452,63 +441,50 @@ Widget _buildSimulationCanvas({
         fourth: popupWidth,
         fifth: popupHeight,
         sixth: showSimulationGrid,
-        builder:
-            (
-              BuildContext context,
-              int mask,
-              double x,
-              double y,
-              double width,
-              double height,
-              bool grid,
-            ) {
-              const Rect viewport = Rect.fromLTWH(0, 0, 360, 260);
-              final Rect original = Rect.fromLTWH(x, y, width, height);
-              final _AdjustmentResult result = _simulateAdjustment(
-                viewport: viewport,
-                popup: original,
-                mask: mask,
-              );
+        builder: (BuildContext context, int mask, double x, double y,
+            double width, double height, bool grid) {
+          const Rect viewport = Rect.fromLTWH(0, 0, 360, 260);
+          final Rect original = Rect.fromLTWH(x, y, width, height);
+          final _AdjustmentResult result =
+              _simulateAdjustment(viewport: viewport, popup: original, mask: mask);
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    'Adjustment Simulation Canvas',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Adjustment Simulation Canvas',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+              ),
+              const SizedBox(height: 10),
+              AspectRatio(
+                aspectRatio: 360 / 260,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: const Color(0xFFD0DFE5)),
                   ),
-                  const SizedBox(height: 10),
-                  AspectRatio(
-                    aspectRatio: 360 / 260,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: const Color(0xFFD0DFE5)),
-                      ),
-                      child: CustomPaint(
-                        painter: _AdjustmentPainter(
-                          viewport: viewport,
-                          original: original,
-                          adjusted: result.adjusted,
-                          showGrid: grid,
-                        ),
-                        child: const SizedBox.expand(),
-                      ),
+                  child: CustomPaint(
+                    painter: _AdjustmentPainter(
+                      viewport: viewport,
+                      original: original,
+                      adjusted: result.adjusted,
+                      showGrid: grid,
                     ),
+                    child: const SizedBox.expand(),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Resolution pipeline: ${result.steps.join(' -> ')}',
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 4),
-                  Text('Final rect: ${_rectString(result.adjusted)}'),
-                  Text(
-                    'Overflow after adjustment: ${_overflowScore(viewport, result.adjusted).toStringAsFixed(1)}px',
-                  ),
-                ],
-              );
-            },
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Resolution pipeline: ${result.steps.join(' -> ')}',
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 4),
+              Text('Final rect: ${_rectString(result.adjusted)}'),
+              Text('Overflow after adjustment: ${_overflowScore(viewport, result.adjusted).toStringAsFixed(1)}px'),
+            ],
+          );
+        },
       ),
     ),
   );
@@ -610,7 +586,12 @@ _AdjustmentResult _simulateAdjustment({
   return _AdjustmentResult(adjusted: current, steps: steps);
 }
 
-double _clampDelta(double min, double max, double boundMin, double boundMax) {
+double _clampDelta(
+  double min,
+  double max,
+  double boundMin,
+  double boundMax,
+) {
   if (min < boundMin) {
     return boundMin - min;
   }
@@ -685,9 +666,8 @@ Widget _buildPriorityNarrative() {
                                 children: <Widget>[
                                   Text(
                                     order[i].title,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style:
+                                        const TextStyle(fontWeight: FontWeight.w700),
                                   ),
                                   const SizedBox(height: 2),
                                   Text(order[i].detail),
@@ -844,8 +824,12 @@ class _AdjustmentPainter extends CustomPainter {
     final double sx = size.width / viewport.width;
     final double sy = size.height / viewport.height;
 
-    Rect map(Rect r) =>
-        Rect.fromLTWH(r.left * sx, r.top * sy, r.width * sx, r.height * sy);
+    Rect map(Rect r) => Rect.fromLTWH(
+          r.left * sx,
+          r.top * sy,
+          r.width * sx,
+          r.height * sy,
+        );
 
     if (showGrid) {
       final Paint grid = Paint()
@@ -1059,10 +1043,9 @@ class ValueListenableBuilder5<A, B, C, D, E> extends StatelessWidget {
                   builder: (BuildContext context, D d, Widget? finalChild) {
                     return ValueListenableBuilder<E>(
                       valueListenable: fifth,
-                      builder:
-                          (BuildContext context, E e, Widget? terminalChild) {
-                            return builder(context, a, b, c, d, e);
-                          },
+                      builder: (BuildContext context, E e, Widget? terminalChild) {
+                        return builder(context, a, b, c, d, e);
+                      },
                     );
                   },
                 );
@@ -1094,7 +1077,7 @@ class ValueListenableBuilder6<A, B, C, D, E, F> extends StatelessWidget {
   final ValueNotifier<E> fifth;
   final ValueNotifier<F> sixth;
   final Widget Function(BuildContext context, A a, B b, C c, D d, E e, F f)
-  builder;
+      builder;
 
   @override
   Widget build(BuildContext context) {
@@ -1112,20 +1095,14 @@ class ValueListenableBuilder6<A, B, C, D, E, F> extends StatelessWidget {
                   builder: (BuildContext context, D d, Widget? finalChild) {
                     return ValueListenableBuilder<E>(
                       valueListenable: fifth,
-                      builder:
-                          (BuildContext context, E e, Widget? terminalChild) {
-                            return ValueListenableBuilder<F>(
-                              valueListenable: sixth,
-                              builder:
-                                  (
-                                    BuildContext context,
-                                    F f,
-                                    Widget? lastChild,
-                                  ) {
-                                    return builder(context, a, b, c, d, e, f);
-                                  },
-                            );
+                      builder: (BuildContext context, E e, Widget? terminalChild) {
+                        return ValueListenableBuilder<F>(
+                          valueListenable: sixth,
+                          builder: (BuildContext context, F f, Widget? lastChild) {
+                            return builder(context, a, b, c, d, e, f);
                           },
+                        );
+                      },
                     );
                   },
                 );

@@ -57,9 +57,7 @@ Widget buildSnackBarAreaDisplay(
   EdgeInsets margin,
 ) {
   print('Building SnackBar area display: $label');
-  String behaviorText = behavior == SnackBarBehavior.fixed
-      ? 'fixed'
-      : 'floating';
+  String behaviorText = behavior == SnackBarBehavior.fixed ? 'fixed' : 'floating';
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -230,12 +228,7 @@ Widget buildMaterialBannerAreaDisplay(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(
-                  16,
-                  16,
-                  16,
-                  forceActionsBelow ? 8 : 16,
-                ),
+                padding: EdgeInsets.fromLTRB(16, 16, 16, forceActionsBelow ? 8 : 16),
                 child: Row(
                   children: [
                     Icon(Icons.info_outline, color: Colors.indigo.shade700),
@@ -258,7 +251,10 @@ Widget buildMaterialBannerAreaDisplay(
                     children: actions,
                   ),
                 ),
-              Container(height: 1, color: Colors.grey.shade300),
+              Container(
+                height: 1,
+                color: Colors.grey.shade300,
+              ),
             ],
           ),
         ),
@@ -399,10 +395,7 @@ Widget buildShowSnackBarBehaviorCard(
                   SizedBox(width: 4),
                   Text(
                     'Close: $showCloseIcon',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.green.shade700,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.green.shade700),
                   ),
                 ],
               ),
@@ -425,13 +418,8 @@ Widget buildShowSnackBarBehaviorCard(
                   ),
                   SizedBox(width: 4),
                   Text(
-                    behavior == SnackBarBehavior.floating
-                        ? 'Floating'
-                        : 'Fixed',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.amber.shade700,
-                    ),
+                    behavior == SnackBarBehavior.floating ? 'Floating' : 'Fixed',
+                    style: TextStyle(fontSize: 11, color: Colors.amber.shade700),
                   ),
                 ],
               ),
@@ -610,7 +598,9 @@ Widget buildClearSnackBarsVisualization() {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.grey.shade300),
                     ),
-                    child: Stack(children: stackItems),
+                    child: Stack(
+                      children: stackItems,
+                    ),
                   ),
                 ],
               ),
@@ -711,8 +701,8 @@ Widget buildShowMaterialBannerBehaviorCard(
   String alignmentText = alignment == OverflowBarAlignment.start
       ? 'start'
       : alignment == OverflowBarAlignment.center
-      ? 'center'
-      : 'end';
+          ? 'center'
+          : 'end';
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -775,14 +765,19 @@ Widget buildShowMaterialBannerBehaviorCard(
                   mainAxisAlignment: alignment == OverflowBarAlignment.start
                       ? MainAxisAlignment.start
                       : alignment == OverflowBarAlignment.center
-                      ? MainAxisAlignment.center
-                      : MainAxisAlignment.end,
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.end,
                   children: [
-                    TextButton(onPressed: () {}, child: Text('DISMISS')),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text('DISMISS'),
+                    ),
                     SizedBox(width: 8),
                     TextButton(
                       onPressed: () {},
-                      style: TextButton.styleFrom(foregroundColor: Colors.blue),
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                      ),
                       child: Text('UPDATE'),
                     ),
                   ],
@@ -805,18 +800,11 @@ Widget buildShowMaterialBannerBehaviorCard(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.layers,
-                    size: 12,
-                    color: Colors.deepOrange.shade700,
-                  ),
+                  Icon(Icons.layers, size: 12, color: Colors.deepOrange.shade700),
                   SizedBox(width: 4),
                   Text(
                     'Elevation: $elevation',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.deepOrange.shade700,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.deepOrange.shade700),
                   ),
                 ],
               ),
@@ -830,11 +818,7 @@ Widget buildShowMaterialBannerBehaviorCard(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.format_align_left,
-                    size: 12,
-                    color: Colors.cyan.shade700,
-                  ),
+                  Icon(Icons.format_align_left, size: 12, color: Colors.cyan.shade700),
                   SizedBox(width: 4),
                   Text(
                     'Align: $alignmentText',
@@ -850,11 +834,7 @@ Widget buildShowMaterialBannerBehaviorCard(
   );
 }
 
-Widget buildMessengerStateMethodCard(
-  String methodName,
-  String description,
-  IconData icon,
-) {
+Widget buildMessengerStateMethodCard(String methodName, String description, IconData icon) {
   print('Building messenger state method card: $methodName');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -915,7 +895,10 @@ Widget buildClosedReasonCard(String reason, String description, Color color) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 12),
         Expanded(
@@ -1229,7 +1212,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 4),
                     Text(
                       'State for ScaffoldMessenger widget - manages SnackBars and MaterialBanners',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
                     ),
                   ],
                 ),

@@ -51,27 +51,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: coral, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -88,14 +82,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: peach.withValues(alpha: 0.5)),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: darkCoral.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: darkCoral.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -111,21 +102,16 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: darkCoral,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: darkCoral,
+                  fontFamily: 'monospace')),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              detail,
-              style: TextStyle(fontSize: 12, color: deepCoral),
-            ),
+            child: Text(detail,
+                style: TextStyle(fontSize: 12, color: deepCoral)),
           ),
         ],
       ),
@@ -161,16 +147,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: darkCoral,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: darkCoral)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -181,19 +167,18 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? coral.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(bottom: BorderSide(color: peach.withValues(alpha: 0.4))),
+        border: Border(
+          bottom: BorderSide(color: peach.withValues(alpha: 0.4)),
+        ),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? darkCoral : deepCoral,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? darkCoral : deepCoral)),
           );
         }).toList(),
       ),
@@ -210,23 +195,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? darkCoral : deepCoral,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.east, size: 12, color: salmon),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.east, size: 12, color: salmon),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -265,14 +245,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.web, size: 24, color: deepCoral),
                     const SizedBox(height: 6),
-                    Text(
-                      'Browser Default',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: deepCoral,
-                      ),
-                    ),
+                    Text('Browser Default',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: deepCoral)),
                     const SizedBox(height: 6),
                     _bcMenuItem('Back', Icons.arrow_back, deepCoral),
                     _bcMenuItem('Forward', Icons.arrow_forward, deepCoral),
@@ -296,14 +273,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.widgets, size: 24, color: coral),
                     const SizedBox(height: 6),
-                    Text(
-                      'Custom Flutter',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: coral,
-                      ),
-                    ),
+                    Text('Custom Flutter',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: coral)),
                     const SizedBox(height: 6),
                     _bcMenuItem('Edit', Icons.edit, coral),
                     _bcMenuItem('Share', Icons.share, coral),
@@ -338,16 +312,8 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             bcRow(['Method', 'Effect', 'Returns'], isHeader: true),
-            bcRow([
-              'disableContextMenu()',
-              'Suppresses browser menu',
-              'Future<void>',
-            ]),
-            bcRow([
-              'enableContextMenu()',
-              'Restores browser menu',
-              'Future<void>',
-            ]),
+            bcRow(['disableContextMenu()', 'Suppresses browser menu', 'Future<void>']),
+            bcRow(['enableContextMenu()', 'Restores browser menu', 'Future<void>']),
             bcRow(['enabled (getter)', 'Current state', 'bool']),
           ],
         ),
@@ -364,41 +330,25 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '// Disable browser context menu:',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: sienna,
-                ),
-              ),
-              Text(
-                'BrowserContextMenu.disableContextMenu();',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: darkCoral,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text('// Disable browser context menu:',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: sienna)),
+              Text('BrowserContextMenu.disableContextMenu();',
+                  style: TextStyle(
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      color: darkCoral,
+                      fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              Text(
-                '// Re-enable later:',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: sienna,
-                ),
-              ),
-              Text(
-                'BrowserContextMenu.enableContextMenu();',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: darkCoral,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text('// Re-enable later:',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: sienna)),
+              Text('BrowserContextMenu.enableContextMenu();',
+                  style: TextStyle(
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      color: darkCoral,
+                      fontWeight: FontWeight.bold)),
             ],
           ),
         ),
@@ -562,32 +512,16 @@ dynamic build(BuildContext context) {
               ),
               child: Stack(
                 children: [
-                  Positioned(
-                    left: 20,
-                    top: 20,
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: coral.withValues(alpha: 0.3),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 60,
-                    top: 30,
-                    child: Container(
-                      width: 60,
-                      height: 30,
-                      color: salmon.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  Positioned(
-                    right: 20,
-                    bottom: 10,
-                    child: Icon(Icons.mouse, size: 16, color: deepCoral),
-                  ),
+                  Positioned(left: 20, top: 20,
+                    child: Container(width: 40, height: 40,
+                        decoration: BoxDecoration(
+                          color: coral.withValues(alpha: 0.3),
+                          borderRadius: BorderRadius.circular(20)))),
+                  Positioned(left: 60, top: 30,
+                    child: Container(width: 60, height: 30,
+                        color: salmon.withValues(alpha: 0.3))),
+                  Positioned(right: 20, bottom: 10,
+                    child: Icon(Icons.mouse, size: 16, color: deepCoral)),
                 ],
               ),
             ),
@@ -612,22 +546,10 @@ dynamic build(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _bcCustomItem('Color Picker', Icons.palette, coral),
-                        _bcCustomItem(
-                          'Send to Back',
-                          Icons.flip_to_back,
-                          deepCoral,
-                        ),
-                        _bcCustomItem(
-                          'Bring to Front',
-                          Icons.flip_to_front,
-                          deepCoral,
-                        ),
+                        _bcCustomItem('Send to Back', Icons.flip_to_back, deepCoral),
+                        _bcCustomItem('Bring to Front', Icons.flip_to_front, deepCoral),
                         _bcCustomItem('Group', Icons.group_work, sienna),
-                        _bcCustomItem(
-                          'Delete Shape',
-                          Icons.delete_outline,
-                          blush,
-                        ),
+                        _bcCustomItem('Delete Shape', Icons.delete_outline, blush),
                       ],
                     ),
                   ),
@@ -670,20 +592,13 @@ dynamic build(BuildContext context) {
               height: 80,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    coral.withValues(alpha: 0.1),
-                    salmon.withValues(alpha: 0.1),
-                  ],
+                  colors: [coral.withValues(alpha: 0.1), salmon.withValues(alpha: 0.1)],
                 ),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: peach),
               ),
               child: Center(
-                child: Icon(
-                  Icons.photo_library,
-                  size: 36,
-                  color: coral.withValues(alpha: 0.5),
-                ),
+                child: Icon(Icons.photo_library, size: 36, color: coral.withValues(alpha: 0.5)),
               ),
             ),
             const SizedBox(height: 6),
@@ -699,10 +614,8 @@ dynamic build(BuildContext context) {
               ],
             ),
             const SizedBox(height: 6),
-            Text(
-              'Browser "Save Image As" disabled → protects content',
-              style: TextStyle(fontSize: 10, color: darkCoral),
-            ),
+            Text('Browser "Save Image As" disabled → protects content',
+                style: TextStyle(fontSize: 10, color: darkCoral)),
           ],
         ),
       ),
@@ -726,13 +639,8 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bcFlow([
-              'Disable browser menu',
-              'Listen right-click',
-              'Show ContextMenu',
-              'Handle action',
-              'Dismiss',
-            ]),
+            bcFlow(['Disable browser menu', 'Listen right-click',
+                'Show ContextMenu', 'Handle action', 'Dismiss']),
             const SizedBox(height: 12),
             bcRow(['Component', 'Role', 'Layer'], isHeader: true),
             bcRow(['BrowserContextMenu', 'Suppress native menu', 'Platform']),
@@ -762,22 +670,14 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bcCode(
-              'GestureDetector.onSecondaryTapDown',
-              'Simplest approach — fires on right-click with position',
-            ),
-            bcCode(
-              'GestureDetector.onSecondaryTapUp',
-              'Same but fires on release, with position',
-            ),
-            bcCode(
-              'Listener.onPointerDown',
-              'Low-level — check event.buttons for secondary button',
-            ),
-            bcCode(
-              'ContextMenuRegion',
-              'Higher-level wrapper for complete context menu flow',
-            ),
+            bcCode('GestureDetector.onSecondaryTapDown',
+                'Simplest approach — fires on right-click with position'),
+            bcCode('GestureDetector.onSecondaryTapUp',
+                'Same but fires on release, with position'),
+            bcCode('Listener.onPointerDown',
+                'Low-level — check event.buttons for secondary button'),
+            bcCode('ContextMenuRegion',
+                'Higher-level wrapper for complete context menu flow'),
           ],
         ),
       ),
@@ -786,36 +686,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bcEventStep(
-              1,
-              'Right-click detected',
-              'Browser event fires',
-              coral,
-            ),
-            _bcEventStep(
-              2,
-              'Browser menu suppressed',
-              'preventDefault() called',
-              deepCoral,
-            ),
-            _bcEventStep(
-              3,
-              'Flutter event fires',
-              'onSecondaryTapDown(details)',
-              salmon,
-            ),
-            _bcEventStep(
-              4,
-              'Position captured',
-              'details.globalPosition',
-              sienna,
-            ),
-            _bcEventStep(
-              5,
-              'Custom menu shown',
-              'ContextMenuController.show()',
-              darkCoral,
-            ),
+            _bcEventStep(1, 'Right-click detected', 'Browser event fires', coral),
+            _bcEventStep(2, 'Browser menu suppressed', 'preventDefault() called', deepCoral),
+            _bcEventStep(3, 'Flutter event fires', 'onSecondaryTapDown(details)', salmon),
+            _bcEventStep(4, 'Position captured', 'details.globalPosition', sienna),
+            _bcEventStep(5, 'Custom menu shown', 'ContextMenuController.show()', darkCoral),
           ],
         ),
       ),
@@ -867,36 +742,16 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bcA11yItem(
-              'Copy/Paste',
-              'Must provide in custom menu',
-              Icons.copy,
-              true,
-            ),
-            _bcA11yItem(
-              'Select All',
-              'Common keyboard shortcut still works',
-              Icons.select_all,
-              true,
-            ),
-            _bcA11yItem(
-              'Spell Check',
-              'Browser spell check may be lost',
-              Icons.spellcheck,
-              false,
-            ),
-            _bcA11yItem(
-              'Translate',
-              'Browser translate feature lost',
-              Icons.translate,
-              false,
-            ),
-            _bcA11yItem(
-              'Inspect',
-              'Devs can use F12 instead',
-              Icons.code,
-              true,
-            ),
+            _bcA11yItem('Copy/Paste',
+                'Must provide in custom menu', Icons.copy, true),
+            _bcA11yItem('Select All',
+                'Common keyboard shortcut still works', Icons.select_all, true),
+            _bcA11yItem('Spell Check',
+                'Browser spell check may be lost', Icons.spellcheck, false),
+            _bcA11yItem('Translate',
+                'Browser translate feature lost', Icons.translate, false),
+            _bcA11yItem('Inspect',
+                'Devs can use F12 instead', Icons.code, true),
           ],
         ),
       ),
@@ -941,21 +796,14 @@ dynamic build(BuildContext context) {
                           ),
                           child: Column(
                             children: [
-                              Text(
-                                'Normal Area',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xFF2E7D32),
-                                ),
-                              ),
-                              Text(
-                                'Browser menu OK',
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  color: const Color(0xFF388E3C),
-                                ),
-                              ),
+                              Text('Normal Area',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xFF2E7D32))),
+                              Text('Browser menu OK',
+                                  style: TextStyle(fontSize: 9,
+                                      color: const Color(0xFF388E3C))),
                             ],
                           ),
                         ),
@@ -970,21 +818,14 @@ dynamic build(BuildContext context) {
                           ),
                           child: Column(
                             children: [
-                              Text(
-                                'Editor Area',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xFFC62828),
-                                ),
-                              ),
-                              Text(
-                                'Custom menu',
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  color: const Color(0xFFD32F2F),
-                                ),
-                              ),
+                              Text('Editor Area',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xFFC62828))),
+                              Text('Custom menu',
+                                  style: TextStyle(fontSize: 9,
+                                      color: const Color(0xFFD32F2F))),
                             ],
                           ),
                         ),
@@ -992,10 +833,8 @@ dynamic build(BuildContext context) {
                     ],
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    'FocusNode.addListener → toggle browser menu on focus change',
-                    style: TextStyle(fontSize: 10, color: darkCoral),
-                  ),
+                  Text('FocusNode.addListener → toggle browser menu on focus change',
+                      style: TextStyle(fontSize: 10, color: darkCoral)),
                 ],
               ),
             ),
@@ -1024,17 +863,9 @@ dynamic build(BuildContext context) {
           children: [
             bcRow(['Widget', 'Browser Menu', 'Custom Menu'], isHeader: true),
             bcRow(['SelectionArea', 'Auto-disabled', 'Built-in Flutter']),
-            bcRow([
-              'SelectableText',
-              'Needs manual disable',
-              'Via contextMenuBuilder',
-            ]),
+            bcRow(['SelectableText', 'Needs manual disable', 'Via contextMenuBuilder']),
             bcRow(['TextField', 'Auto-managed', 'Built-in edit menu']),
-            bcRow([
-              'Plain Text widget',
-              'Browser default',
-              'Need manual setup',
-            ]),
+            bcRow(['Plain Text widget', 'Browser default', 'Need manual setup']),
           ],
         ),
       ),
@@ -1181,14 +1012,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'BrowserContextMenu — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('BrowserContextMenu — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From disabling the browser menu through rich text editors, '
@@ -1219,22 +1047,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -1253,7 +1069,8 @@ Widget _bcMenuItem(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 13, color: color),
         const SizedBox(width: 6),
-        Text(label, style: TextStyle(fontSize: 11, color: color)),
+        Text(label,
+            style: TextStyle(fontSize: 11, color: color)),
       ],
     ),
   );
@@ -1266,7 +1083,8 @@ Widget _bcCustomItem(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 15, color: color),
         const SizedBox(width: 8),
-        Text(label, style: TextStyle(fontSize: 12, color: color)),
+        Text(label,
+            style: TextStyle(fontSize: 12, color: color)),
       ],
     ),
   );
@@ -1276,27 +1094,25 @@ Widget _bcPlatformBadge(String name, bool active, Color color) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 8),
     decoration: BoxDecoration(
-      color: active ? color.withValues(alpha: 0.1) : const Color(0xFFF5F5F5),
+      color: active
+          ? color.withValues(alpha: 0.1)
+          : const Color(0xFFF5F5F5),
       borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: active ? color : const Color(0xFFE0E0E0)),
+      border: Border.all(
+        color: active ? color : const Color(0xFFE0E0E0),
+      ),
     ),
     child: Column(
       children: [
-        Text(
-          name,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
-            color: active ? color : const Color(0xFF9E9E9E),
-          ),
-        ),
-        Text(
-          active ? 'Active' : 'No-op',
-          style: TextStyle(
-            fontSize: 8,
-            color: active ? color : const Color(0xFFBDBDBD),
-          ),
-        ),
+        Text(name,
+            style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: active ? color : const Color(0xFF9E9E9E))),
+        Text(active ? 'Active' : 'No-op',
+            style: TextStyle(
+                fontSize: 8,
+                color: active ? color : const Color(0xFFBDBDBD))),
       ],
     ),
   );
@@ -1315,7 +1131,8 @@ Widget _bcActionChip(String label, IconData icon, Color color) {
         children: [
           Icon(icon, size: 16, color: color),
           const SizedBox(height: 2),
-          Text(label, style: TextStyle(fontSize: 8, color: color)),
+          Text(label,
+              style: TextStyle(fontSize: 8, color: color)),
         ],
       ),
     ),
@@ -1336,14 +1153,11 @@ Widget _bcEventStep(int num, String title, String desc, Color color) {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 8),
@@ -1351,18 +1165,14 @@ Widget _bcEventStep(int num, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: Color(0xFF8B3A2A)),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(
+                      fontSize: 10, color: Color(0xFF8B3A2A))),
             ],
           ),
         ),
@@ -1376,38 +1186,28 @@ Widget _bcA11yItem(String feature, String note, IconData icon, bool ok) {
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
       children: [
-        Icon(
-          icon,
-          size: 16,
-          color: ok ? const Color(0xFF4CAF50) : const Color(0xFFE53935),
-        ),
+        Icon(icon, size: 16,
+            color: ok ? const Color(0xFF4CAF50) : const Color(0xFFE53935)),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                feature,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF8B3A2A),
-                ),
-              ),
-              Text(
-                note,
-                style: const TextStyle(fontSize: 10, color: Color(0xFFCD5B45)),
-              ),
+              Text(feature,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xFF8B3A2A))),
+              Text(note,
+                  style: const TextStyle(
+                      fontSize: 10, color: Color(0xFFCD5B45))),
             ],
           ),
         ),
-        Text(
-          ok ? '✓' : '⚠',
-          style: TextStyle(
-            fontSize: 14,
-            color: ok ? const Color(0xFF4CAF50) : const Color(0xFFE53935),
-          ),
-        ),
+        Text(ok ? '✓' : '⚠',
+            style: TextStyle(
+                fontSize: 14,
+                color: ok ? const Color(0xFF4CAF50) : const Color(0xFFE53935))),
       ],
     ),
   );
@@ -1425,18 +1225,13 @@ Widget _bcSecurityRow(String item, bool blocked, String note) {
         ),
         const SizedBox(width: 6),
         Expanded(
-          child: Text(
-            item,
-            style: const TextStyle(fontSize: 11, color: Color(0xFF8B3A2A)),
-          ),
+          child: Text(item,
+              style: const TextStyle(fontSize: 11, color: Color(0xFF8B3A2A))),
         ),
-        Text(
-          note,
-          style: TextStyle(
-            fontSize: 10,
-            color: blocked ? const Color(0xFF2E7D32) : const Color(0xFFC62828),
-          ),
-        ),
+        Text(note,
+            style: TextStyle(
+                fontSize: 10,
+                color: blocked ? const Color(0xFF2E7D32) : const Color(0xFFC62828))),
       ],
     ),
   );

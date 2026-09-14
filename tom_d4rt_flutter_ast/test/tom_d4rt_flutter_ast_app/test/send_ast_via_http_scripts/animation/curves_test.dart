@@ -428,7 +428,11 @@ const CurveFamily bounceFamily = CurveFamily(
       'same motion in reverse; `bounceInOut` chains both. Use bounce '
       'sparingly: it is a strong character moment that loses meaning '
       'when applied to every transition.',
-  entries: <CurveEntry>[curveBounceIn, curveBounceOut, curveBounceInOut],
+  entries: <CurveEntry>[
+    curveBounceIn,
+    curveBounceOut,
+    curveBounceInOut,
+  ],
 );
 
 const CurveFamily elasticFamily = CurveFamily(
@@ -440,7 +444,11 @@ const CurveFamily elasticFamily = CurveFamily(
       '[0, 1] range, so a tween that drives a position will overshoot '
       'visually. Always check that the property being animated tolerates '
       'the overshoot.',
-  entries: <CurveEntry>[curveElasticIn, curveElasticOut, curveElasticInOut],
+  entries: <CurveEntry>[
+    curveElasticIn,
+    curveElasticOut,
+    curveElasticInOut,
+  ],
 );
 
 const CurveFamily specialFamily = CurveFamily(
@@ -552,15 +560,16 @@ class CurvePlotPainter extends CustomPainter {
     // start and end dots
     final Paint dot = Paint()..color = color;
     canvas.drawCircle(
-      Offset(0, (1.0 - ((curve.transform(0.0) - yMin) / ySpan)) * size.height),
+      Offset(0,
+          (1.0 - ((curve.transform(0.0) - yMin) / ySpan)) * size.height),
       2.5,
       dot,
     );
     canvas.drawCircle(
       Offset(
-        size.width,
-        (1.0 - ((curve.transform(1.0) - yMin) / ySpan)) * size.height,
-      ),
+          size.width,
+          (1.0 - ((curve.transform(1.0) - yMin) / ySpan)) *
+              size.height),
       2.5,
       dot,
     );
@@ -812,7 +821,10 @@ class FamilyTile extends StatelessWidget {
           SizedBox(
             height: 90,
             child: CustomPaint(
-              painter: CurvePlotPainter(curve: entry.curve, color: entry.color),
+              painter: CurvePlotPainter(
+                curve: entry.curve,
+                color: entry.color,
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -897,7 +909,11 @@ class Paragraph extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: paragraphSpacing / 2),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 14, color: inkColor, height: 1.55),
+        style: const TextStyle(
+          fontSize: 14,
+          color: inkColor,
+          height: 1.55,
+        ),
       ),
     );
   }
@@ -967,7 +983,10 @@ class HeroPlot extends StatelessWidget {
           const SizedBox(height: 4),
           const Text(
             'A visual deep tour of Flutter\'s built-in easing catalog',
-            style: TextStyle(fontSize: 16, color: mutedInkColor),
+            style: TextStyle(
+              fontSize: 16,
+              color: mutedInkColor,
+            ),
           ),
           const SizedBox(height: 20),
           AspectRatio(
@@ -1023,12 +1042,12 @@ class CatalogGrid extends StatelessWidget {
         final int columns = c.maxWidth >= 1100
             ? 6
             : c.maxWidth >= 900
-            ? 5
-            : c.maxWidth >= 700
-            ? 4
-            : c.maxWidth >= 500
-            ? 3
-            : 2;
+                ? 5
+                : c.maxWidth >= 700
+                    ? 4
+                    : c.maxWidth >= 500
+                        ? 3
+                        : 2;
         final double tileWidth =
             (c.maxWidth - (tileSpacing * (columns - 1))) / columns;
         return Wrap(
@@ -1083,7 +1102,8 @@ class NumericTable extends StatelessWidget {
         children: <Widget>[
           Container(
             color: inkColor,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+            padding:
+                const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
             child: Row(
               children: <Widget>[
                 const SizedBox(
@@ -1116,8 +1136,11 @@ class NumericTable extends StatelessWidget {
           ),
           for (int row = 0; row < tableCurves.length; row++)
             Container(
-              color: row.isEven ? cardColor : paperColor.withValues(alpha: 0.6),
-              padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
+              color: row.isEven
+                  ? cardColor
+                  : paperColor.withValues(alpha: 0.6),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
               child: Row(
                 children: <Widget>[
                   SizedBox(
@@ -1237,7 +1260,10 @@ class ComparisonOverlay extends StatelessWidget {
                   const SizedBox(width: 4),
                   Text(
                     '— ${e.description}',
-                    style: const TextStyle(fontSize: 12, color: mutedInkColor),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: mutedInkColor,
+                    ),
                   ),
                 ],
               ),
@@ -1432,7 +1458,11 @@ class CubicRecipePanel extends StatelessWidget {
             '`Cubic` curve. The four control parameters are the x and y '
             'coordinates of the two interior control points of a cubic '
             'Bezier from (0, 0) to (1, 1).',
-            style: TextStyle(fontSize: 13, color: mutedInkColor, height: 1.4),
+            style: TextStyle(
+              fontSize: 13,
+              color: mutedInkColor,
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 14),
           Wrap(
@@ -1539,7 +1569,11 @@ class Pitfall extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             body,
-            style: const TextStyle(fontSize: 13, color: inkColor, height: 1.5),
+            style: const TextStyle(
+              fontSize: 13,
+              color: inkColor,
+              height: 1.5,
+            ),
           ),
         ],
       ),

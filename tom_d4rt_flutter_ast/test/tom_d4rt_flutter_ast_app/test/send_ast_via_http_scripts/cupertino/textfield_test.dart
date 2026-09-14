@@ -22,9 +22,7 @@ dynamic build(BuildContext context) {
   final decoratedShadowCtrl = TextEditingController(text: 'Shadowed entry');
 
   // Section 3 — Borderless variants
-  final borderlessLightCtrl = TextEditingController(
-    text: 'Borderless on light',
-  );
+  final borderlessLightCtrl = TextEditingController(text: 'Borderless on light');
   final borderlessTintCtrl = TextEditingController(text: 'Borderless on tint');
   final borderlessDarkCtrl = TextEditingController(text: 'Borderless on dark');
 
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
 
   // Section 6 — Multi-line prose
   final multiLineCtrl = TextEditingController(
-    text:
-        'CupertinoTextField with maxLines: null grows vertically as the\n'
+    text: 'CupertinoTextField with maxLines: null grows vertically as the\n'
         'user types. This is the canonical comment box pattern on iOS\n'
         'where rows wrap and the field expands until the keyboard pushes\n'
         'the layout. Try editing this prose to watch it reflow live.',
@@ -221,14 +218,11 @@ dynamic build(BuildContext context) {
         'classic rectangular border, a fully-rounded pill, and a subtle '
         'drop shadow on a white surface.',
     children: [
-      Text(
-        'Rectangular border',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-          color: palette[1].heading,
-        ),
-      ),
+      Text('Rectangular border',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: palette[1].heading)),
       SizedBox(height: 6),
       CupertinoTextField(
         controller: decoratedRectCtrl,
@@ -241,14 +235,11 @@ dynamic build(BuildContext context) {
         ),
       ),
       SizedBox(height: 14),
-      Text(
-        'Pill shape',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-          color: palette[1].heading,
-        ),
-      ),
+      Text('Pill shape',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: palette[1].heading)),
       SizedBox(height: 6),
       CupertinoTextField(
         controller: decoratedPillCtrl,
@@ -261,14 +252,11 @@ dynamic build(BuildContext context) {
         ),
       ),
       SizedBox(height: 14),
-      Text(
-        'Box shadow',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-          color: palette[1].heading,
-        ),
-      ),
+      Text('Box shadow',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: palette[1].heading)),
       SizedBox(height: 6),
       Container(
         decoration: BoxDecoration(
@@ -358,14 +346,11 @@ dynamic build(BuildContext context) {
         'combines an @ prefix with a check-mark suffix for a styled email '
         'field.',
     children: [
-      Text(
-        'Search prefix',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-          color: palette[3].heading,
-        ),
-      ),
+      Text('Search prefix',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: palette[3].heading)),
       SizedBox(height: 6),
       CupertinoTextField(
         controller: searchPrefixCtrl,
@@ -386,14 +371,11 @@ dynamic build(BuildContext context) {
         ),
       ),
       SizedBox(height: 12),
-      Text(
-        'Clear suffix',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-          color: palette[3].heading,
-        ),
-      ),
+      Text('Clear suffix',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: palette[3].heading)),
       SizedBox(height: 6),
       CupertinoTextField(
         controller: clearSuffixCtrl,
@@ -414,14 +396,11 @@ dynamic build(BuildContext context) {
         ),
       ),
       SizedBox(height: 12),
-      Text(
-        'Prefix + suffix',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-          color: palette[3].heading,
-        ),
-      ),
+      Text('Prefix + suffix',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: palette[3].heading)),
       SizedBox(height: 6),
       CupertinoTextField(
         controller: bothFixCtrl,
@@ -429,7 +408,11 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         prefix: Padding(
           padding: EdgeInsets.only(left: 8, right: 4),
-          child: Icon(CupertinoIcons.at, size: 18, color: palette[3].barTint),
+          child: Icon(
+            CupertinoIcons.at,
+            size: 18,
+            color: palette[3].barTint,
+          ),
         ),
         suffix: Padding(
           padding: EdgeInsets.only(left: 4, right: 8),
@@ -477,11 +460,19 @@ dynamic build(BuildContext context) {
         keyboardType: TextInputType.visiblePassword,
         prefix: Padding(
           padding: EdgeInsets.only(left: 8, right: 4),
-          child: Icon(CupertinoIcons.lock, size: 18, color: palette[4].barTint),
+          child: Icon(
+            CupertinoIcons.lock,
+            size: 18,
+            color: palette[4].barTint,
+          ),
         ),
         suffix: Padding(
           padding: EdgeInsets.only(left: 4, right: 8),
-          child: Icon(CupertinoIcons.eye, size: 18, color: palette[4].barTint),
+          child: Icon(
+            CupertinoIcons.eye,
+            size: 18,
+            color: palette[4].barTint,
+          ),
         ),
         decoration: BoxDecoration(
           color: CupertinoColors.white,
@@ -556,21 +547,20 @@ dynamic build(BuildContext context) {
         'first field allows only digits; the second is a US-style phone '
         'mask that rejects non-digits and caps length at 10 raw digits.',
     children: [
-      Text(
-        'Digits only',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-          color: palette[6].heading,
-        ),
-      ),
+      Text('Digits only',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: palette[6].heading)),
       SizedBox(height: 6),
       CupertinoTextField(
         controller: digitsOnlyCtrl,
         placeholder: '0123456789',
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         keyboardType: TextInputType.number,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
         decoration: BoxDecoration(
           color: CupertinoColors.white,
           border: Border.all(color: Color(0xFFE0CC85)),
@@ -578,14 +568,11 @@ dynamic build(BuildContext context) {
         ),
       ),
       SizedBox(height: 12),
-      Text(
-        'Phone mask (max 10 digits)',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 13,
-          color: palette[6].heading,
-        ),
-      ),
+      Text('Phone mask (max 10 digits)',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: palette[6].heading)),
       SizedBox(height: 6),
       CupertinoTextField(
         controller: phoneMaskCtrl,
@@ -658,7 +645,10 @@ dynamic build(BuildContext context) {
       SizedBox(height: 8),
       _CounterCaption(controller: maxLengthCtrl, max: 32, palette: palette[7]),
       SizedBox(height: 6),
-      _bulletRow('• Caps text at maxLength = 32 characters.', palette[7]),
+      _bulletRow(
+        '• Caps text at maxLength = 32 characters.',
+        palette[7],
+      ),
       _bulletRow(
         '• Counter is rendered by the harness, not the widget.',
         palette[7],
@@ -689,7 +679,10 @@ dynamic build(BuildContext context) {
           fontWeight: FontWeight.w500,
           fontSize: 14,
         ),
-        style: TextStyle(fontSize: 14, color: palette[8].heading),
+        style: TextStyle(
+          fontSize: 14,
+          color: palette[8].heading,
+        ),
         clearButtonMode: OverlayVisibilityMode.editing,
         decoration: BoxDecoration(
           color: CupertinoColors.white,
@@ -775,7 +768,10 @@ dynamic build(BuildContext context) {
           primaryColor: Color(0xFF8AB4F8),
           textTheme: CupertinoTextThemeData(
             primaryColor: Color(0xFF8AB4F8),
-            textStyle: TextStyle(color: Color(0xFFE8EAED), fontSize: 14),
+            textStyle: TextStyle(
+              color: Color(0xFFE8EAED),
+              fontSize: 14,
+            ),
           ),
         ),
         child: Container(
@@ -804,7 +800,10 @@ dynamic build(BuildContext context) {
                   color: Color(0xFF9AA0A6),
                   fontStyle: FontStyle.italic,
                 ),
-                style: TextStyle(color: Color(0xFFE8EAED), fontSize: 14),
+                style: TextStyle(
+                  color: Color(0xFFE8EAED),
+                  fontSize: 14,
+                ),
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 decoration: BoxDecoration(
                   color: Color(0xFF1C1C26),
@@ -860,7 +859,8 @@ dynamic build(BuildContext context) {
                   controller: disabledCtrl,
                   enabled: false,
                   placeholder: 'disabled',
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
                     color: Color(0xFFE6E6E6),
                     border: Border.all(color: Color(0xFFC0C0C0)),
@@ -868,8 +868,14 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 6),
-                _bulletRow('• Cannot focus or edit.', palette[11]),
-                _bulletRow('• Chrome rendered in disabled style.', palette[11]),
+                _bulletRow(
+                  '• Cannot focus or edit.',
+                  palette[11],
+                ),
+                _bulletRow(
+                  '• Chrome rendered in disabled style.',
+                  palette[11],
+                ),
               ],
             ),
           ),
@@ -891,7 +897,8 @@ dynamic build(BuildContext context) {
                   controller: readOnlyCtrl,
                   readOnly: true,
                   placeholder: 'read only',
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
                     color: CupertinoColors.white,
                     border: Border.all(color: Color(0xFF9E9E9E)),
@@ -899,8 +906,14 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 6),
-                _bulletRow('• Focusable, selectable, copyable.', palette[11]),
-                _bulletRow('• Keyboard cannot mutate text.', palette[11]),
+                _bulletRow(
+                  '• Focusable, selectable, copyable.',
+                  palette[11],
+                ),
+                _bulletRow(
+                  '• Keyboard cannot mutate text.',
+                  palette[11],
+                ),
               ],
             ),
           ),
@@ -1123,7 +1136,11 @@ Widget _bulletRow(String text, _SectionPalette palette) {
     padding: EdgeInsets.only(top: 4),
     child: Text(
       text,
-      style: TextStyle(fontSize: 12, color: palette.body, height: 1.3),
+      style: TextStyle(
+        fontSize: 12,
+        color: palette.body,
+        height: 1.3,
+      ),
     ),
   );
 }
@@ -1164,7 +1181,10 @@ Widget _borderlessRow({
               color: invert ? Color(0xFF9AA0A6) : Color(0xFF9E9E9E),
               fontStyle: FontStyle.italic,
             ),
-            style: TextStyle(fontSize: 14, color: fg),
+            style: TextStyle(
+              fontSize: 14,
+              color: fg,
+            ),
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
             cursorColor: invert ? Color(0xFF8AB4F8) : palette.barTint,
           ),
@@ -1267,8 +1287,8 @@ class _CounterCaptionState extends State<_CounterCaption> {
     final color = danger
         ? Color(0xFFD93025)
         : warn
-        ? Color(0xFFB07A00)
-        : widget.palette.heading;
+            ? Color(0xFFB07A00)
+            : widget.palette.heading;
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -1335,7 +1355,11 @@ Widget _heroBanner() {
           'password masking, multi-line composers, input formatters, '
           'maxLength counters, themed subtrees and disabled / read-only '
           'states.',
-          style: TextStyle(color: Color(0xFFEFEFEF), fontSize: 13, height: 1.4),
+          style: TextStyle(
+            color: Color(0xFFEFEFEF),
+            fontSize: 13,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -1359,7 +1383,10 @@ Widget _footer() {
           'All fields above are real CupertinoTextField widgets backed by '
           'live TextEditingControllers — interact with them to see the '
           'captions update.',
-          style: TextStyle(fontSize: 11, color: Color(0xFF8E8E93)),
+          style: TextStyle(
+            fontSize: 11,
+            color: Color(0xFF8E8E93),
+          ),
           textAlign: TextAlign.center,
         ),
       ],

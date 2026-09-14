@@ -51,27 +51,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: skyAzure, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -88,14 +82,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: skyAzure),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: midnight.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: midnight.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -128,16 +119,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: midnight,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: midnight)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -155,14 +146,11 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? midnight : deepCobalt,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? midnight : deepCobalt)),
           );
         }).toList(),
       ),
@@ -179,23 +167,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? midnight : deepCobalt,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.east, size: 12, color: cobalt),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.east, size: 12, color: cobalt),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -223,13 +206,8 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            keFlow([
-              'Platform Event',
-              'KeyEventManager',
-              'HardwareKeyboard',
-              'Focus Tree',
-              'Shortcuts',
-            ]),
+            keFlow(['Platform Event', 'KeyEventManager', 'HardwareKeyboard',
+                'Focus Tree', 'Shortcuts']),
             const SizedBox(height: 10),
             _keRoleRow('Receives', 'Raw platform key messages', cobalt),
             _keRoleRow('Translates', 'To Flutter KeyEvent objects', azure),
@@ -265,24 +243,9 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.only(left: 20),
               child: Column(
                 children: [
-                  _keEventBox(
-                    'KeyDownEvent',
-                    'Key first pressed',
-                    Icons.arrow_downward,
-                    azure,
-                  ),
-                  _keEventBox(
-                    'KeyUpEvent',
-                    'Key released',
-                    Icons.arrow_upward,
-                    sapphire,
-                  ),
-                  _keEventBox(
-                    'KeyRepeatEvent',
-                    'Auto-repeat tick',
-                    Icons.repeat,
-                    royalBlue,
-                  ),
+                  _keEventBox('KeyDownEvent', 'Key first pressed', Icons.arrow_downward, azure),
+                  _keEventBox('KeyUpEvent', 'Key released', Icons.arrow_upward, sapphire),
+                  _keEventBox('KeyRepeatEvent', 'Auto-repeat tick', Icons.repeat, royalBlue),
                 ],
               ),
             ),
@@ -316,42 +279,12 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              _kePipelineStep(
-                1,
-                'Platform message received',
-                'MethodChannel callback',
-                midnight,
-              ),
-              _kePipelineStep(
-                2,
-                'Translate to KeyEvent',
-                'Platform-specific helper',
-                deepCobalt,
-              ),
-              _kePipelineStep(
-                3,
-                'Update pressed-keys set',
-                'HardwareKeyboard.pressedKeys',
-                cobalt,
-              ),
-              _kePipelineStep(
-                4,
-                'Fire global handlers',
-                'HardwareKeyboard.addHandler',
-                azure,
-              ),
-              _kePipelineStep(
-                5,
-                'Walk focus tree upward',
-                'FocusNode.onKeyEvent chain',
-                sapphire,
-              ),
-              _kePipelineStep(
-                6,
-                'Return handled/unhandled',
-                'KeyEventResult',
-                royalBlue,
-              ),
+              _kePipelineStep(1, 'Platform message received', 'MethodChannel callback', midnight),
+              _kePipelineStep(2, 'Translate to KeyEvent', 'Platform-specific helper', deepCobalt),
+              _kePipelineStep(3, 'Update pressed-keys set', 'HardwareKeyboard.pressedKeys', cobalt),
+              _kePipelineStep(4, 'Fire global handlers', 'HardwareKeyboard.addHandler', azure),
+              _kePipelineStep(5, 'Walk focus tree upward', 'FocusNode.onKeyEvent chain', sapphire),
+              _kePipelineStep(6, 'Return handled/unhandled', 'KeyEventResult', royalBlue),
             ],
           ),
         ),
@@ -385,12 +318,7 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _keFocusNode('FocusScope (root)', 'Last chance', midnight, 4),
-              _keFocusNode(
-                'FocusScope (page)',
-                'Shortcuts here',
-                deepCobalt,
-                3,
-              ),
+              _keFocusNode('FocusScope (page)', 'Shortcuts here', deepCobalt, 3),
               _keFocusNode('Focus (list tile)', 'Navigation', cobalt, 2),
               _keFocusNode('Focus (text field)', 'Primary focus ★', azure, 1),
               const SizedBox(height: 8),
@@ -399,14 +327,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.arrow_upward, size: 16, color: cobalt),
                   const SizedBox(width: 4),
-                  Text(
-                    'Events bubble upward',
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: cobalt,
-                    ),
-                  ),
+                  Text('Events bubble upward',
+                      style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: cobalt)),
                 ],
               ),
             ],
@@ -462,26 +387,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _keSynthItem(
-              'Window loses focus with keys held',
-              'Synthesize KeyUpEvent for all',
-              cobalt,
-            ),
-            _keSynthItem(
-              'Modifier state disagrees',
-              'Synthesize missing down/up',
-              azure,
-            ),
-            _keSynthItem(
-              'Platform sends down for tracked key',
-              'Synthesize up first',
-              sapphire,
-            ),
-            _keSynthItem(
-              'Lock key toggled while unfocused',
-              'Sync on next event',
-              royalBlue,
-            ),
+            _keSynthItem('Window loses focus with keys held', 'Synthesize KeyUpEvent for all', cobalt),
+            _keSynthItem('Modifier state disagrees', 'Synthesize missing down/up', azure),
+            _keSynthItem('Platform sends down for tracked key', 'Synthesize up first', sapphire),
+            _keSynthItem('Lock key toggled while unfocused', 'Sync on next event', royalBlue),
           ],
         ),
       ),
@@ -505,27 +414,9 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _keHandlerRow(
-              1,
-              'Global handlers',
-              'HardwareKeyboard.addHandler',
-              'First',
-              midnight,
-            ),
-            _keHandlerRow(
-              2,
-              'Focus tree walk',
-              'FocusNode.onKeyEvent',
-              'If not handled',
-              deepCobalt,
-            ),
-            _keHandlerRow(
-              3,
-              'Default handling',
-              'Unhandled event',
-              'Last resort',
-              cobalt,
-            ),
+            _keHandlerRow(1, 'Global handlers', 'HardwareKeyboard.addHandler', 'First', midnight),
+            _keHandlerRow(2, 'Focus tree walk', 'FocusNode.onKeyEvent', 'If not handled', deepCobalt),
+            _keHandlerRow(3, 'Default handling', 'Unhandled event', 'Last resort', cobalt),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -565,19 +456,14 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _keResultBox(
-              'KeyEventResult.handled',
-              'Event consumed, stop bubbling',
-              const Color(0xFF2E7D32),
-            ),
+            _keResultBox('KeyEventResult.handled', 'Event consumed, stop bubbling',
+                const Color(0xFF2E7D32)),
             const SizedBox(height: 4),
-            _keResultBox('KeyEventResult.ignored', 'Pass to next node', cobalt),
+            _keResultBox('KeyEventResult.ignored', 'Pass to next node',
+                cobalt),
             const SizedBox(height: 4),
-            _keResultBox(
-              'KeyEventResult.skipRemainingHandlers',
-              'Handled + skip sibling handlers',
-              const Color(0xFFFF6F00),
-            ),
+            _keResultBox('KeyEventResult.skipRemainingHandlers',
+                'Handled + skip sibling handlers', const Color(0xFFFF6F00)),
           ],
         ),
       ),
@@ -602,13 +488,8 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            keFlow([
-              'KeyEvent',
-              'Focus → Shortcuts',
-              'Match activator',
-              'Invoke Intent',
-              'Execute Action',
-            ]),
+            keFlow(['KeyEvent', 'Focus → Shortcuts',
+                'Match activator', 'Invoke Intent', 'Execute Action']),
             const SizedBox(height: 10),
             keRow(['Component', 'Role', 'Example'], isHeader: true),
             keRow(['SingleActivator', 'Key combination', 'Ctrl+C']),
@@ -638,11 +519,7 @@ dynamic build(BuildContext context) {
         'Old vs New',
         Column(
           children: [
-            keRow([
-              'Aspect',
-              'Old (RawKeyboard)',
-              'New (KeyEvent)',
-            ], isHeader: true),
+            keRow(['Aspect', 'Old (RawKeyboard)', 'New (KeyEvent)'], isHeader: true),
             keRow(['Event class', 'RawKeyEvent', 'KeyEvent']),
             keRow(['Dispatcher', 'RawKeyboard', 'KeyEventManager']),
             keRow(['State', 'keysPressed (logical)', 'pressedKeys (physical)']),
@@ -703,17 +580,9 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             keRow(['Lock Key', 'Toggle', 'Query Method'], isHeader: true),
-            keRow([
-              'CapsLock',
-              'On/Off',
-              'lockModesEnabled.contains(capsLock)',
-            ]),
+            keRow(['CapsLock', 'On/Off', 'lockModesEnabled.contains(capsLock)']),
             keRow(['NumLock', 'On/Off', 'lockModesEnabled.contains(numLock)']),
-            keRow([
-              'ScrollLock',
-              'On/Off',
-              'lockModesEnabled.contains(scrollLock)',
-            ]),
+            keRow(['ScrollLock', 'On/Off', 'lockModesEnabled.contains(scrollLock)']),
           ],
         ),
       ),
@@ -738,12 +607,8 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            keFlow([
-              'Key pressed',
-              'Manager dispatch',
-              'Focus handlers',
-              'TextInput fallback',
-            ]),
+            keFlow(['Key pressed', 'Manager dispatch',
+                'Focus handlers', 'TextInput fallback']),
             const SizedBox(height: 10),
             keRow(['Event', 'Who handles?', 'Result'], isHeader: true),
             keRow(['Ctrl+C', 'Shortcut widget', 'Copy, don\'t insert "c"']),
@@ -869,14 +734,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'KeyEventManager — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('KeyEventManager — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From platform translation through state tracking, focus '
@@ -908,22 +770,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -951,20 +801,13 @@ Widget _keRoleRow(String label, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 80,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -985,21 +828,16 @@ Widget _keEventBox(String name, String desc, IconData icon, Color color) {
       children: [
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
-        Text(
-          name,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'monospace',
-            color: color,
-          ),
-        ),
+        Text(name,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'monospace',
+                color: color)),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
         ),
       ],
     ),
@@ -1019,34 +857,22 @@ Widget _kePipelineStep(int num, String action, String detail, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 2,
-          child: Text(
-            action,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          child: Text(action,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
         ),
         Expanded(
           flex: 3,
-          child: Text(
-            detail,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
-          ),
+          child: Text(detail,
+              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
         ),
       ],
     ),
@@ -1066,19 +892,12 @@ Widget _keFocusNode(String label, String note, Color color, int depth) {
       ),
       child: Row(
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
           const Spacer(),
-          Text(
-            note,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6)),
-          ),
+          Text(note,
+              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6))),
         ],
       ),
     ),
@@ -1097,21 +916,11 @@ Widget _keSynthItem(String scenario, String action, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                scenario,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                action,
-                style: TextStyle(
-                  fontSize: 9,
-                  color: color.withValues(alpha: 0.7),
-                ),
-              ),
+              Text(scenario,
+                  style: TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+              Text(action,
+                  style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
             ],
           ),
         ),
@@ -1120,13 +929,7 @@ Widget _keSynthItem(String scenario, String action, Color color) {
   );
 }
 
-Widget _keHandlerRow(
-  int order,
-  String name,
-  String api,
-  String when,
-  Color color,
-) {
+Widget _keHandlerRow(int order, String name, String api, String when, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1139,42 +942,28 @@ Widget _keHandlerRow(
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: Text(
-              '$order',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$order',
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 2,
-          child: Text(
-            name,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(name,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
           flex: 3,
-          child: Text(
-            api,
-            style: TextStyle(
-              fontSize: 9,
-              fontFamily: 'monospace',
-              color: color.withValues(alpha: 0.7),
-            ),
-          ),
+          child: Text(api,
+              style: TextStyle(
+                  fontSize: 9, fontFamily: 'monospace', color: color.withValues(alpha: 0.7))),
         ),
         SizedBox(
           width: 60,
-          child: Text(when, style: TextStyle(fontSize: 9, color: color)),
+          child: Text(when,
+              style: TextStyle(fontSize: 9, color: color)),
         ),
       ],
     ),
@@ -1194,22 +983,17 @@ Widget _keResultBox(String name, String desc, Color color) {
       children: [
         Expanded(
           flex: 2,
-          child: Text(
-            name,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'monospace',
-              color: color,
-            ),
-          ),
+          child: Text(name,
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                  color: color)),
         ),
         Expanded(
           flex: 3,
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),

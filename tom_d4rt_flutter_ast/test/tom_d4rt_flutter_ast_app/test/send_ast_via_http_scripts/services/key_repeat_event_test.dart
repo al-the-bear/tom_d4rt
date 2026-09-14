@@ -13,9 +13,18 @@ dynamic build(BuildContext context) {
   // ==========================================================================
 
   final dossierFacts = <Map<String, String>>[
-    {'label': 'Class', 'value': 'KeyRepeatEvent'},
-    {'label': 'Library', 'value': 'package:flutter/services.dart'},
-    {'label': 'Extends', 'value': 'KeyEvent'},
+    {
+      'label': 'Class',
+      'value': 'KeyRepeatEvent',
+    },
+    {
+      'label': 'Library',
+      'value': 'package:flutter/services.dart',
+    },
+    {
+      'label': 'Extends',
+      'value': 'KeyEvent',
+    },
     {
       'label': 'Origin',
       'value': 'Synthesized by the OS while a key is held down',
@@ -24,7 +33,10 @@ dynamic build(BuildContext context) {
       'label': 'Cadence',
       'value': 'After an initial delay, repeats at a system interval',
     },
-    {'label': 'Siblings', 'value': 'KeyDownEvent, KeyUpEvent'},
+    {
+      'label': 'Siblings',
+      'value': 'KeyDownEvent, KeyUpEvent',
+    },
     {
       'label': 'Delivered by',
       'value': 'HardwareKeyboard / KeyboardListener / Focus',
@@ -295,7 +307,11 @@ dynamic build(BuildContext context) {
   // KeyEventDeviceType is described statically because the enum is not always
   // re-exported from package:flutter/services.dart in every Flutter version.
   final deviceTypeRows = <Map<String, dynamic>>[
-    {'name': 'keyboard', 'index': 0, 'hint': 'A traditional keyboard device.'},
+    {
+      'name': 'keyboard',
+      'index': 0,
+      'hint': 'A traditional keyboard device.',
+    },
     {
       'name': 'directionalPad',
       'index': 1,
@@ -444,7 +460,10 @@ dynamic build(BuildContext context) {
       'term': 'KeyRepeatEvent',
       'def': 'Fires while a key is held, after the initial delay.',
     },
-    {'term': 'KeyUpEvent', 'def': 'Fires when a key is released.'},
+    {
+      'term': 'KeyUpEvent',
+      'def': 'Fires when a key is released.',
+    },
     {
       'term': 'PhysicalKeyboardKey',
       'def': 'Identifies the location of a key on the hardware.',
@@ -1593,3 +1612,4 @@ dynamic build(BuildContext context) {
     ),
   );
 }
+

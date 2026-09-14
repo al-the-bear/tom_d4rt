@@ -149,7 +149,11 @@ dynamic build(BuildContext context) {
             'not manage arena membership directly — they call resolve(),\n'
             'startTrackingPointer(), and stopTrackingPointer() and let the\n'
             'arena coordinate competing recognisers.',
-            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.5),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.white,
+              height: 1.5,
+            ),
           ),
         ),
         SizedBox(height: 12.0),
@@ -313,7 +317,7 @@ dynamic build(BuildContext context) {
       'name': 'addAllowedPointer(event)',
       'desc':
           'Called by the framework when a PointerDownEvent matches this '
-          'recognizer’s filters (kind, button, debugOwner).',
+              'recognizer’s filters (kind, button, debugOwner).',
       'color': Colors.blue,
       'icon': Icons.input,
     },
@@ -322,7 +326,7 @@ dynamic build(BuildContext context) {
       'name': 'startTrackingPointer(p)',
       'desc':
           'The recognizer registers a route with GestureBinding.pointerRouter '
-          'and joins the gesture arena for that pointer.',
+              'and joins the gesture arena for that pointer.',
       'color': Colors.cyan,
       'icon': Icons.route,
     },
@@ -331,7 +335,7 @@ dynamic build(BuildContext context) {
       'name': 'handleEvent(event)',
       'desc':
           'Stream of PointerMoveEvent / PointerUpEvent / PointerCancelEvent '
-          'is delivered. Subclasses inspect them and decide.',
+              'is delivered. Subclasses inspect them and decide.',
       'color': Colors.teal,
       'icon': Icons.input,
     },
@@ -340,7 +344,7 @@ dynamic build(BuildContext context) {
       'name': 'resolve(GestureDisposition)',
       'desc':
           'Either accepted (we won) or rejected (someone else won, or we '
-          'gave up). Triggers acceptGesture/rejectGesture callbacks.',
+              'gave up). Triggers acceptGesture/rejectGesture callbacks.',
       'color': Colors.amber.shade800,
       'icon': Icons.gavel,
     },
@@ -349,7 +353,7 @@ dynamic build(BuildContext context) {
       'name': 'stopTrackingPointer(p)',
       'desc':
           'Removes the pointer route. When the last tracked pointer is gone '
-          'the recognizer transitions to its terminal state.',
+              'the recognizer transitions to its terminal state.',
       'color': Colors.deepOrange,
       'icon': Icons.stop_circle,
     },
@@ -358,7 +362,7 @@ dynamic build(BuildContext context) {
       'name': 'didStopTrackingLastPointer(p)',
       'desc':
           'The hook subclasses override to fire onTap, onLongPress, '
-          'onDragEnd, etc. and reset internal state.',
+              'onDragEnd, etc. and reset internal state.',
       'color': Colors.purple,
       'icon': Icons.flag,
     },
@@ -367,7 +371,7 @@ dynamic build(BuildContext context) {
       'name': 'dispose()',
       'desc':
           'Releases the recognizer and cancels any outstanding pointer '
-          'tracking. Always call dispose() from the owning state.',
+              'tracking. Always call dispose() from the owning state.',
       'color': Colors.red,
       'icon': Icons.delete_forever,
     },
@@ -556,7 +560,7 @@ dynamic build(BuildContext context) {
       'fires': 'onStart, onUpdate, onEnd',
       'note':
           'Tracks one focal-point sequence even when several pointers are '
-          'down — the focal point is the "single sequence".',
+              'down — the focal point is the "single sequence".',
       'icon': Icons.zoom_out_map,
       'color': Colors.blue,
     },
@@ -572,7 +576,7 @@ dynamic build(BuildContext context) {
       'fires': '— (immediately accepts every pointer)',
       'note':
           'Used to claim the arena and prevent ancestors from competing. '
-          'A canonical "always wins" implementation.',
+              'A canonical "always wins" implementation.',
       'icon': Icons.flash_on,
       'color': Colors.teal,
     },
@@ -756,7 +760,10 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 16.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 10.0,
+                ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -776,7 +783,11 @@ dynamic build(BuildContext context) {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.sports_kabaddi, color: Colors.white, size: 22.0),
+                    Icon(
+                      Icons.sports_kabaddi,
+                      color: Colors.white,
+                      size: 22.0,
+                    ),
                     SizedBox(width: 8.0),
                     Text(
                       'GestureArenaManager',
@@ -797,7 +808,10 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 8.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 14.0,
+                  vertical: 8.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.green.shade400,
                   borderRadius: BorderRadius.circular(12.0),
@@ -812,7 +826,11 @@ dynamic build(BuildContext context) {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.emoji_events, color: Colors.white, size: 18.0),
+                    Icon(
+                      Icons.emoji_events,
+                      color: Colors.white,
+                      size: 18.0,
+                    ),
                     SizedBox(width: 6.0),
                     Text(
                       'winner.acceptGesture(pointer)',
@@ -852,25 +870,25 @@ dynamic build(BuildContext context) {
               _arenaRule(
                 Colors.green,
                 'A recogniser calls resolve(GestureDisposition.accepted) when '
-                'it is sure the gesture is its own.',
+                    'it is sure the gesture is its own.',
               ),
               SizedBox(height: 6.0),
               _arenaRule(
                 Colors.red,
                 'It calls resolve(rejected) when it knows the gesture is not '
-                'its own (e.g. user moved beyond the slop tolerance).',
+                    'its own (e.g. user moved beyond the slop tolerance).',
               ),
               SizedBox(height: 6.0),
               _arenaRule(
                 Colors.blueGrey,
                 'If only one recogniser remains in the arena when the pointer '
-                'is released, it wins by default ("sweep").',
+                    'is released, it wins by default ("sweep").',
               ),
               SizedBox(height: 6.0),
               _arenaRule(
                 Colors.deepPurple,
                 'GestureArenaTeam can group several recognisers so they '
-                'collectively yield to a captain decision.',
+                    'collectively yield to a captain decision.',
               ),
             ],
           ),
@@ -1020,7 +1038,10 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.cyan.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Colors.cyan.shade700, width: 1.0),
+            border: Border.all(
+              color: Colors.cyan.shade700,
+              width: 1.0,
+            ),
           ),
           child: Text(
             'Always implement debugDescription, override didStopTrackingLastPointer\n'
@@ -1084,23 +1105,23 @@ dynamic build(BuildContext context) {
             gestures: <Type, GestureRecognizerFactory>{
               TapGestureRecognizer:
                   GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-                    () => TapGestureRecognizer(),
-                    (TapGestureRecognizer instance) {
-                      instance.onTap = () {
-                        print('RawGestureDetector: tap fired');
-                      };
-                    },
-                  ),
+                () => TapGestureRecognizer(),
+                (TapGestureRecognizer instance) {
+                  instance.onTap = () {
+                    print('RawGestureDetector: tap fired');
+                  };
+                },
+              ),
               LongPressGestureRecognizer:
                   GestureRecognizerFactoryWithHandlers<
-                    LongPressGestureRecognizer
-                  >(() => LongPressGestureRecognizer(), (
-                    LongPressGestureRecognizer instance,
-                  ) {
-                    instance.onLongPress = () {
-                      print('RawGestureDetector: long-press fired');
-                    };
-                  }),
+                      LongPressGestureRecognizer>(
+                () => LongPressGestureRecognizer(),
+                (LongPressGestureRecognizer instance) {
+                  instance.onLongPress = () {
+                    print('RawGestureDetector: long-press fired');
+                  };
+                },
+              ),
             },
             child: Container(
               width: 260.0,
@@ -1182,7 +1203,7 @@ dynamic build(BuildContext context) {
       'title': 'Forgetting dispose()',
       'detail':
           'A recogniser owns route subscriptions in PointerRouter. Leaking '
-          'one keeps the State alive after the widget is gone.',
+              'one keeps the State alive after the widget is gone.',
       'icon': Icons.warning_amber,
       'color': Colors.red,
     },
@@ -1190,7 +1211,7 @@ dynamic build(BuildContext context) {
       'title': 'Calling resolve() after dispose()',
       'detail':
           'resolve() during a teardown can target a freed arena entry. Only '
-          'resolve while the recogniser still tracks at least one pointer.',
+              'resolve while the recogniser still tracks at least one pointer.',
       'icon': Icons.dangerous,
       'color': Colors.red.shade700,
     },
@@ -1198,8 +1219,8 @@ dynamic build(BuildContext context) {
       'title': 'Treating multi-touch as one sequence',
       'detail':
           'Need per-finger state? Use MultiTapGestureRecognizer or '
-          'ImmediateMultiDragGestureRecognizer instead — they extend a '
-          'different branch and track each pointer independently.',
+              'ImmediateMultiDragGestureRecognizer instead — they extend a '
+              'different branch and track each pointer independently.',
       'icon': Icons.fingerprint,
       'color': Colors.deepOrange,
     },
@@ -1207,8 +1228,8 @@ dynamic build(BuildContext context) {
       'title': 'Ignoring the arena',
       'detail':
           'Always go through resolve()/startTrackingPointer(). Bypassing '
-          'them by manually firing callbacks short-circuits the arena and '
-          'corrupts other gestures in the same hit region.',
+              'them by manually firing callbacks short-circuits the arena and '
+              'corrupts other gestures in the same hit region.',
       'icon': Icons.block,
       'color': Colors.purple,
     },
@@ -1216,8 +1237,8 @@ dynamic build(BuildContext context) {
       'title': 'Acceptance on PointerDown',
       'detail':
           'Calling resolve(accepted) immediately turns the recogniser into '
-          'an EagerGestureRecognizer-style arena bully. Usually you want '
-          'to delay acceptance until you have evidence (slop, timer).',
+              'an EagerGestureRecognizer-style arena bully. Usually you want '
+              'to delay acceptance until you have evidence (slop, timer).',
       'icon': Icons.flash_on,
       'color': Colors.amber.shade800,
     },
@@ -1225,8 +1246,8 @@ dynamic build(BuildContext context) {
       'title': 'Forgetting didStopTrackingLastPointer',
       'detail':
           'Subclasses must reset internal state in didStopTrackingLastPointer '
-          '(or override it directly), otherwise the second sequence will '
-          'inherit stale offsets and timers.',
+              '(or override it directly), otherwise the second sequence will '
+              'inherit stale offsets and timers.',
       'icon': Icons.refresh,
       'color': Colors.indigo,
     },
@@ -1257,9 +1278,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.08),
                       border: Border.all(
-                        color: color.withValues(alpha: 0.3),
-                        width: 1.0,
-                      ),
+                          color: color.withValues(alpha: 0.3), width: 1.0),
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1545,12 +1564,18 @@ Widget _hierarchyNode({
         gradient: LinearGradient(
           colors: highlighted
               ? [color, color.withValues(alpha: 0.6)]
-              : [color.withValues(alpha: 0.18), color.withValues(alpha: 0.05)],
+              : [
+                  color.withValues(alpha: 0.18),
+                  color.withValues(alpha: 0.05),
+                ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: color, width: highlighted ? 2.0 : 1.0),
+        border: Border.all(
+          color: color,
+          width: highlighted ? 2.0 : 1.0,
+        ),
         boxShadow: highlighted
             ? [
                 BoxShadow(
@@ -1563,7 +1588,11 @@ Widget _hierarchyNode({
       ),
       child: Row(
         children: [
-          Icon(icon, color: highlighted ? Colors.white : color, size: 20.0),
+          Icon(
+            icon,
+            color: highlighted ? Colors.white : color,
+            size: 20.0,
+          ),
           SizedBox(width: 10.0),
           Expanded(
             child: Column(
@@ -1583,7 +1612,9 @@ Widget _hierarchyNode({
                   subtitle,
                   style: TextStyle(
                     fontSize: 11.0,
-                    color: highlighted ? Colors.white70 : Colors.grey.shade700,
+                    color: highlighted
+                        ? Colors.white70
+                        : Colors.grey.shade700,
                   ),
                 ),
               ],
@@ -1598,7 +1629,11 @@ Widget _hierarchyNode({
 Widget _hierarchyConnector({required int depth}) {
   return Padding(
     padding: EdgeInsets.only(left: depth * 18.0 + 18.0),
-    child: Container(width: 2.0, height: 12.0, color: Colors.indigo.shade200),
+    child: Container(
+      width: 2.0,
+      height: 12.0,
+      color: Colors.indigo.shade200,
+    ),
   );
 }
 
@@ -1661,35 +1696,24 @@ Widget _arenaRule(Color dotColor, String text) {
 }
 
 // Tiny syntax-highlight token helpers for the recipe block.
-TextSpan _kw(String s) => TextSpan(
-  text: s,
-  style: TextStyle(color: Color(0xFFFF7AB6)),
-);
-TextSpan _ty(String s) => TextSpan(
-  text: s,
-  style: TextStyle(color: Color(0xFF7AD0FF)),
-);
-TextSpan _id(String s) => TextSpan(
-  text: s,
-  style: TextStyle(color: Color(0xFFFFE08A)),
-);
-TextSpan _fn(String s) => TextSpan(
-  text: s,
-  style: TextStyle(color: Color(0xFF9CDCFE)),
-);
+TextSpan _kw(String s) =>
+    TextSpan(text: s, style: TextStyle(color: Color(0xFFFF7AB6)));
+TextSpan _ty(String s) =>
+    TextSpan(text: s, style: TextStyle(color: Color(0xFF7AD0FF)));
+TextSpan _id(String s) =>
+    TextSpan(text: s, style: TextStyle(color: Color(0xFFFFE08A)));
+TextSpan _fn(String s) =>
+    TextSpan(text: s, style: TextStyle(color: Color(0xFF9CDCFE)));
 TextSpan _co(String s) => TextSpan(
-  text: s,
-  style: TextStyle(color: Color(0xFF8AE6A1), fontStyle: FontStyle.italic),
-);
-TextSpan _st(String s) => TextSpan(
-  text: s,
-  style: TextStyle(color: Color(0xFFFFB199)),
-);
-TextSpan _an(String s) => TextSpan(
-  text: s,
-  style: TextStyle(color: Color(0xFFCBA6F7)),
-);
-TextSpan _pl(String s) => TextSpan(
-  text: s,
-  style: TextStyle(color: Colors.white),
-);
+      text: s,
+      style: TextStyle(
+        color: Color(0xFF8AE6A1),
+        fontStyle: FontStyle.italic,
+      ),
+    );
+TextSpan _st(String s) =>
+    TextSpan(text: s, style: TextStyle(color: Color(0xFFFFB199)));
+TextSpan _an(String s) =>
+    TextSpan(text: s, style: TextStyle(color: Color(0xFFCBA6F7)));
+TextSpan _pl(String s) =>
+    TextSpan(text: s, style: TextStyle(color: Colors.white));

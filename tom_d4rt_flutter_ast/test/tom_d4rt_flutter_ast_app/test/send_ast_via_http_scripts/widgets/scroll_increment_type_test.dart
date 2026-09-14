@@ -114,21 +114,12 @@ class CalcProfile {
 }
 
 const List<CalcProfile> kProfiles = <CalcProfile>[
-  CalcProfile(
-    'compact',
-    compactCalculator,
-    'Tight 24 px lines and half-viewport pages.',
-  ),
-  CalcProfile(
-    'standard',
-    defaultCalculator,
-    'Flutter defaults: 50 px lines and 80% viewport pages.',
-  ),
-  CalcProfile(
-    'spacious',
-    spaciousCalculator,
-    'Generous 96 px lines and full-viewport pages.',
-  ),
+  CalcProfile('compact', compactCalculator,
+      'Tight 24 px lines and half-viewport pages.'),
+  CalcProfile('standard', defaultCalculator,
+      'Flutter defaults: 50 px lines and 80% viewport pages.'),
+  CalcProfile('spacious', spaciousCalculator,
+      'Generous 96 px lines and full-viewport pages.'),
 ];
 
 // ---------------------------------------------------------------------------
@@ -246,8 +237,7 @@ class _HeroHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
-    final isDesktop =
-        platform == TargetPlatform.macOS ||
+    final isDesktop = platform == TargetPlatform.macOS ||
         platform == TargetPlatform.linux ||
         platform == TargetPlatform.windows;
     return Container(
@@ -429,10 +419,8 @@ class _LiveScrollersSectionState extends State<_LiveScrollersSection> {
     if (!c.hasClients) return 0;
     final details = ScrollIncrementDetails(type: type, metrics: c.position);
     final amount = defaultCalculator(details);
-    final target = (c.offset + dir * amount).clamp(
-      0.0,
-      c.position.maxScrollExtent,
-    );
+    final target =
+        (c.offset + dir * amount).clamp(0.0, c.position.maxScrollExtent);
     final delta = (target - c.offset).abs();
     c.animateTo(
       target,
@@ -446,9 +434,7 @@ class _LiveScrollersSectionState extends State<_LiveScrollersSection> {
       _lastDelta = delta;
       _lastSide = side;
     });
-    print(
-      '[live] side=$side type=${type.name} delta=${delta.toStringAsFixed(1)}',
-    );
+    print('[live] side=$side type=${type.name} delta=${delta.toStringAsFixed(1)}');
     return delta;
   }
 
@@ -495,7 +481,11 @@ class _LiveScrollersSectionState extends State<_LiveScrollersSection> {
             ],
           ),
           const SizedBox(height: 14),
-          _LastJumpBanner(type: _lastType, delta: _lastDelta, side: _lastSide),
+          _LastJumpBanner(
+            type: _lastType,
+            delta: _lastDelta,
+            side: _lastSide,
+          ),
         ],
       ),
     );
@@ -587,7 +577,9 @@ class _ScrollerCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: i.isEven ? kCream : Colors.white,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: accent.withValues(alpha: 0.18)),
+                    border: Border.all(
+                      color: accent.withValues(alpha: 0.18),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -779,15 +771,11 @@ class _CalculatorLabState extends State<_CalculatorLab> {
 
   void _fire(ScrollIncrementType type, double dir) {
     if (!_labCtrl.hasClients) return;
-    final details = ScrollIncrementDetails(
-      type: type,
-      metrics: _labCtrl.position,
-    );
+    final details =
+        ScrollIncrementDetails(type: type, metrics: _labCtrl.position);
     final amount = _profile.calc(details);
-    final target = (_labCtrl.offset + dir * amount).clamp(
-      0.0,
-      _labCtrl.position.maxScrollExtent,
-    );
+    final target = (_labCtrl.offset + dir * amount)
+        .clamp(0.0, _labCtrl.position.maxScrollExtent);
     final delta = (target - _labCtrl.offset).abs();
     _labCtrl.animateTo(
       target,
@@ -796,8 +784,7 @@ class _CalculatorLabState extends State<_CalculatorLab> {
     );
     setState(() {
       _focused = type;
-      _log =
-          '${_profile.name}(${tagFor(type)}) → '
+      _log = '${_profile.name}(${tagFor(type)}) → '
           '${amount.toStringAsFixed(1)} px (delta ${delta.toStringAsFixed(1)})';
     });
   }
@@ -849,9 +836,13 @@ class _CalculatorLabState extends State<_CalculatorLab> {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: isHeader ? kLemon.withValues(alpha: 0.5) : kCream,
+                    color: isHeader
+                        ? kLemon.withValues(alpha: 0.5)
+                        : kCream,
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: kCobalt.withValues(alpha: 0.12)),
+                    border: Border.all(
+                      color: kCobalt.withValues(alpha: 0.12),
+                    ),
                   ),
                   child: Text(
                     isHeader
@@ -963,7 +954,9 @@ class _ProfileChip extends StatelessWidget {
             Text(
               profile.description,
               style: TextStyle(
-                color: selected ? Colors.white.withValues(alpha: 0.85) : kMuted,
+                color: selected
+                    ? Colors.white.withValues(alpha: 0.85)
+                    : kMuted,
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),
@@ -1005,7 +998,8 @@ class _PreviewMatrix extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.calculate_outlined, color: kCobalt, size: 18),
+              const Icon(Icons.calculate_outlined,
+                  color: kCobalt, size: 18),
               const SizedBox(width: 8),
               Text(
                 '${profile.name}(details) preview · viewport=600',
@@ -1019,7 +1013,8 @@ class _PreviewMatrix extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          for (final t in ScrollIncrementType.values) _previewRow(t, metrics),
+          for (final t in ScrollIncrementType.values)
+            _previewRow(t, metrics),
         ],
       ),
     );
@@ -1036,7 +1031,10 @@ class _PreviewMatrix extends StatelessWidget {
         children: [
           Container(
             width: 130,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 4,
+            ),
             decoration: BoxDecoration(
               color: color.withValues(alpha: isFocused ? 0.25 : 0.1),
               borderRadius: BorderRadius.circular(6),
@@ -1172,10 +1170,9 @@ class _ProfileBars extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           for (final t in ScrollIncrementType.values)
-            _bar(
-              t,
-              profile.calc(ScrollIncrementDetails(type: t, metrics: metrics)),
-            ),
+            _bar(t, profile.calc(
+              ScrollIncrementDetails(type: t, metrics: metrics),
+            )),
         ],
       ),
     );
@@ -1217,9 +1214,10 @@ class _ProfileBars extends StatelessWidget {
                       height: 16,
                       width: c.maxWidth * ratio,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [color, color.withValues(alpha: 0.55)],
-                        ),
+                        gradient: LinearGradient(colors: [
+                          color,
+                          color.withValues(alpha: 0.55),
+                        ]),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
@@ -1258,31 +1256,16 @@ class _KeyMappingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rows = <_MapRow>[
-      const _MapRow(
-        'ArrowUp / ArrowDown',
-        ScrollIncrementType.line,
-        'Default vertical line increment.',
-      ),
-      const _MapRow(
-        'ArrowLeft / ArrowRight',
-        ScrollIncrementType.line,
-        'Horizontal line increment for horizontal scrollables.',
-      ),
-      const _MapRow(
-        'PageUp / PageDown',
-        ScrollIncrementType.page,
-        'Full viewport jump — fast vertical navigation.',
-      ),
-      const _MapRow(
-        'Space (web reading)',
-        ScrollIncrementType.page,
-        'Page-style scroll when the focused widget ignores Space.',
-      ),
-      const _MapRow(
-        'Home / End',
-        null,
-        'Jumps to extremes — not carried by ScrollIncrementType.',
-      ),
+      const _MapRow('ArrowUp / ArrowDown', ScrollIncrementType.line,
+          'Default vertical line increment.'),
+      const _MapRow('ArrowLeft / ArrowRight', ScrollIncrementType.line,
+          'Horizontal line increment for horizontal scrollables.'),
+      const _MapRow('PageUp / PageDown', ScrollIncrementType.page,
+          'Full viewport jump — fast vertical navigation.'),
+      const _MapRow('Space (web reading)', ScrollIncrementType.page,
+          'Page-style scroll when the focused widget ignores Space.'),
+      const _MapRow('Home / End', null,
+          'Jumps to extremes — not carried by ScrollIncrementType.'),
     ];
     return _SectionShell(
       title: '§4  Key → enum mapping',
@@ -1303,32 +1286,26 @@ class _KeyMappingSection extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 200,
-                  child: Text(
-                    'Key(s)',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: kCobalt,
-                    ),
-                  ),
+                  child: Text('Key(s)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: kCobalt,
+                      )),
                 ),
                 SizedBox(
                   width: 110,
-                  child: Text(
-                    'Enum value',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: kCobalt,
-                    ),
-                  ),
+                  child: Text('Enum value',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: kCobalt,
+                      )),
                 ),
                 Expanded(
-                  child: Text(
-                    'Note',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: kCobalt,
-                    ),
-                  ),
+                  child: Text('Note',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: kCobalt,
+                      )),
                 ),
               ],
             ),
@@ -1375,7 +1352,10 @@ class _MapRow extends StatelessWidget {
           SizedBox(
             width: 110,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 3,
+              ),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(6),
@@ -1397,7 +1377,11 @@ class _MapRow extends StatelessWidget {
           Expanded(
             child: Text(
               note,
-              style: const TextStyle(color: kMuted, fontSize: 13, height: 1.4),
+              style: const TextStyle(
+                color: kMuted,
+                fontSize: 13,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -1463,7 +1447,10 @@ class _ValueCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 4,
+            ),
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(6),
@@ -1499,19 +1486,29 @@ class _ValueCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          Text(switch (type) {
-            ScrollIncrementType.line =>
-              'Precise, one-step nudges for reading list rows, grid cells, '
-                  'form fields — anywhere the user wants fine control over '
-                  'position.',
-            ScrollIncrementType.page =>
-              'Broad leaps through long content — documents, logs, '
-                  'timelines. Matches desktop-OS expectations of '
-                  '"page down".',
-          }, style: const TextStyle(color: kInk, fontSize: 13.5, height: 1.5)),
+          Text(
+            switch (type) {
+              ScrollIncrementType.line =>
+                'Precise, one-step nudges for reading list rows, grid cells, '
+                    'form fields — anywhere the user wants fine control over '
+                    'position.',
+              ScrollIncrementType.page =>
+                'Broad leaps through long content — documents, logs, '
+                    'timelines. Matches desktop-OS expectations of '
+                    '"page down".'
+            },
+            style: const TextStyle(
+              color: kInk,
+              fontSize: 13.5,
+              height: 1.5,
+            ),
+          ),
           const SizedBox(height: 14),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 6,
+            ),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
@@ -1617,11 +1614,8 @@ class _SelectChip extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              iconForType(type),
-              color: selected ? Colors.white : color,
-              size: 18,
-            ),
+            Icon(iconForType(type),
+                color: selected ? Colors.white : color, size: 18),
             const SizedBox(width: 8),
             Text(
               tagFor(type),
@@ -1682,7 +1676,10 @@ class _CompareRow extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 3,
+            ),
             decoration: BoxDecoration(
               color: equal ? color : kMuted.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(6),
@@ -1745,7 +1742,8 @@ class _SwitchTutorial extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14),
-          for (final t in ScrollIncrementType.values) _ArmRow(type: t),
+          for (final t in ScrollIncrementType.values)
+            _ArmRow(type: t),
         ],
       ),
     );
@@ -1788,7 +1786,10 @@ class _ArmRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 4,
+            ),
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(6),
@@ -1947,7 +1948,11 @@ class _TeachingTile extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             body,
-            style: const TextStyle(color: kInk, fontSize: 13, height: 1.5),
+            style: const TextStyle(
+              color: kInk,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -2039,7 +2044,10 @@ class _UseCaseTile extends StatelessWidget {
               Icon(icon, color: color, size: 22),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(6),
@@ -2068,7 +2076,11 @@ class _UseCaseTile extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             body,
-            style: const TextStyle(color: kInk, fontSize: 12.5, height: 1.4),
+            style: const TextStyle(
+              color: kInk,
+              fontSize: 12.5,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -2139,16 +2151,21 @@ class _FooterSummary extends StatelessWidget {
                       'and to assistive-tech single-step commands.',
                 ScrollIncrementType.page =>
                   'Viewport-sized leaps (~80%). Bound to PageUp/PageDown and '
-                      'to Space in web reading contexts.',
+                      'to Space in web reading contexts.'
               },
             ),
           const SizedBox(height: 14),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 10,
+            ),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.15),
+              ),
             ),
             child: const Row(
               children: [
@@ -2194,11 +2211,17 @@ class _FooterBullet extends StatelessWidget {
             margin: const EdgeInsets.only(top: 4),
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 2,
+            ),
             margin: const EdgeInsets.only(right: 8, top: 1),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.25),

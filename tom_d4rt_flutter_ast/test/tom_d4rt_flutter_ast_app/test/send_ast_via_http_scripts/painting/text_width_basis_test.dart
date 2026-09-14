@@ -45,20 +45,15 @@ Widget wbInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 130.0,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF2D5240),
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF2D5240))),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 12.0, color: Color(0xFF4A7A5E)),
-          ),
+          child: Text(value,
+              style: TextStyle(fontSize: 12.0, color: Color(0xFF4A7A5E))),
         ),
       ],
     ),
@@ -68,7 +63,11 @@ Widget wbInfoRow(String label, String value) {
 Widget wbWidthVisualizer(String label, TextWidthBasis basis, Color accent) {
   // Shows a multi-line text block with a background that illustrates the
   // width that would be computed under the given basis.
-  final sampleLines = ['Short', 'A medium length line', 'Tiny'];
+  final sampleLines = [
+    'Short',
+    'A medium length line',
+    'Tiny',
+  ];
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 10.0),
@@ -85,11 +84,9 @@ Widget wbWidthVisualizer(String label, TextWidthBasis basis, Color accent) {
           children: [
             wbChip(label, accent),
             Expanded(
-              child: Text(
-                'index: ${basis.index}',
-                textAlign: TextAlign.right,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF999999)),
-              ),
+              child: Text('index: ${basis.index}',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF999999))),
             ),
           ],
         ),
@@ -106,12 +103,8 @@ Widget wbWidthVisualizer(String label, TextWidthBasis basis, Color accent) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: sampleLines
-                .map(
-                  (line) => Text(
-                    line,
-                    style: TextStyle(fontSize: 12.0, color: Color(0xFF4A7A5E)),
-                  ),
-                )
+                .map((line) => Text(line,
+                    style: TextStyle(fontSize: 12.0, color: Color(0xFF4A7A5E))))
                 .toList(),
           ),
         ),
@@ -121,10 +114,9 @@ Widget wbWidthVisualizer(String label, TextWidthBasis basis, Color accent) {
               ? 'Width stretches to fill parent container'
               : 'Width shrinks to longest line of content',
           style: TextStyle(
-            fontSize: 10.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF3B6B4F),
-          ),
+              fontSize: 10.0,
+              fontStyle: FontStyle.italic,
+              color: Color(0xFF3B6B4F)),
         ),
       ],
     ),
@@ -158,30 +150,23 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.format_textdirection_l_to_r,
-              color: Colors.white,
-              size: 28.0,
-            ),
+            Icon(Icons.format_textdirection_l_to_r, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text(
-                'TextWidthBasis',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              child: Text('TextWidthBasis',
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
             ),
           ],
         ),
         SizedBox(height: 8.0),
         Text(
-          'Determines how the width of rendered text is calculated '
-          '— by parent constraint or by content',
-          style: TextStyle(fontSize: 13.0, color: Color(0xFFC5E0CF)),
-        ),
+            'Determines how the width of rendered text is calculated '
+            '— by parent constraint or by content',
+            style: TextStyle(fontSize: 13.0, color: Color(0xFFC5E0CF))),
         SizedBox(height: 6.0),
         Row(
           children: [
@@ -210,10 +195,7 @@ dynamic build(BuildContext context) {
       children: [
         wbWidthVisualizer('parent', TextWidthBasis.parent, Color(0xFF3B6B4F)),
         wbWidthVisualizer(
-          'longestLine',
-          TextWidthBasis.longestLine,
-          Color(0xFF5A9A6E),
-        ),
+            'longestLine', TextWidthBasis.longestLine, Color(0xFF5A9A6E)),
       ],
     ),
   );
@@ -239,21 +221,16 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(
-                color: Color(0xFF3B6B4F).withValues(alpha: 0.3),
-              ),
+              border: Border.all(color: Color(0xFF3B6B4F).withValues(alpha: 0.3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'parent',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF3B6B4F),
-                  ),
-                ),
+                Text('parent',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF3B6B4F))),
                 SizedBox(height: 6.0),
                 Container(
                   width: double.infinity,
@@ -263,20 +240,16 @@ dynamic build(BuildContext context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Hello', style: TextStyle(fontSize: 11.0)),
-                      Text(
-                        'World of Flutter!',
-                        style: TextStyle(fontSize: 11.0),
-                      ),
+                      Text('World of Flutter!',
+                          style: TextStyle(fontSize: 11.0)),
                       Text('Hi', style: TextStyle(fontSize: 11.0)),
                     ],
                   ),
                 ),
                 SizedBox(height: 4.0),
-                Text(
-                  '← full width →',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF3B6B4F)),
-                ),
+                Text('← full width →',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF3B6B4F))),
               ],
             ),
           ),
@@ -288,21 +261,16 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(
-                color: Color(0xFF5A9A6E).withValues(alpha: 0.3),
-              ),
+              border: Border.all(color: Color(0xFF5A9A6E).withValues(alpha: 0.3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'longestLine',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF5A9A6E),
-                  ),
-                ),
+                Text('longestLine',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF5A9A6E))),
                 SizedBox(height: 6.0),
                 Container(
                   padding: EdgeInsets.all(6.0),
@@ -311,19 +279,15 @@ dynamic build(BuildContext context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Hello', style: TextStyle(fontSize: 11.0)),
-                      Text(
-                        'World of Flutter!',
-                        style: TextStyle(fontSize: 11.0),
-                      ),
+                      Text('World of Flutter!',
+                          style: TextStyle(fontSize: 11.0)),
                       Text('Hi', style: TextStyle(fontSize: 11.0)),
                     ],
                   ),
                 ),
                 SizedBox(height: 4.0),
-                Text(
-                  '← tight →',
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF5A9A6E)),
-                ),
+                Text('← tight →',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A9A6E))),
               ],
             ),
           ),
@@ -348,39 +312,22 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Width Calculation Process',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF2D5240),
-          ),
-        ),
+        Text('Width Calculation Process',
+            style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2D5240))),
         SizedBox(height: 10.0),
-        _wbStepCard(
-          '1',
-          'TextPainter.layout(maxWidth)',
-          'Text is laid out with a maximum width constraint',
-          Color(0xFF3B6B4F),
-        ),
-        _wbStepCard(
-          '2',
-          'Lines are wrapped at maxWidth',
-          'Each line gets its actual rendered width',
-          Color(0xFF4A7A5E),
-        ),
-        _wbStepCard(
-          '3a',
-          'parent → width = maxWidth',
-          'The text box takes the full parent width even if text is shorter',
-          Color(0xFF3B6B4F),
-        ),
-        _wbStepCard(
-          '3b',
-          'longestLine → width = max(lineWidths)',
-          'The text box shrinks to the widest actual text line',
-          Color(0xFF5A9A6E),
-        ),
+        _wbStepCard('1', 'TextPainter.layout(maxWidth)',
+            'Text is laid out with a maximum width constraint', Color(0xFF3B6B4F)),
+        _wbStepCard('2', 'Lines are wrapped at maxWidth',
+            'Each line gets its actual rendered width', Color(0xFF4A7A5E)),
+        _wbStepCard('3a', 'parent → width = maxWidth',
+            'The text box takes the full parent width even if text is shorter',
+            Color(0xFF3B6B4F)),
+        _wbStepCard('3b', 'longestLine → width = max(lineWidths)',
+            'The text box shrinks to the widest actual text line',
+            Color(0xFF5A9A6E)),
       ],
     ),
   );
@@ -400,14 +347,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Text Widget Property',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF2D5240),
-          ),
-        ),
+        Text('Text Widget Property',
+            style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2D5240))),
         SizedBox(height: 8.0),
         wbInfoRow('Property:', 'Text.textWidthBasis'),
         wbInfoRow('Type:', 'TextWidthBasis?'),
@@ -429,10 +373,9 @@ dynamic build(BuildContext context) {
             '  textAlign: TextAlign.center,\n'
             ')',
             style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF2D5240),
-            ),
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                color: Color(0xFF2D5240)),
           ),
         ),
       ],
@@ -485,20 +428,14 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(
-                    a['icon'] as IconData,
-                    color: Color(0xFF3B6B4F),
-                    size: 18.0,
-                  ),
+                  Icon(a['icon'] as IconData,
+                      color: Color(0xFF3B6B4F), size: 18.0),
                   SizedBox(width: 6.0),
-                  Text(
-                    'TextAlign.${a['align']}',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF2D5240),
-                    ),
-                  ),
+                  Text('TextAlign.${a['align']}',
+                      style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF2D5240))),
                 ],
               ),
               SizedBox(height: 6.0),
@@ -510,16 +447,13 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: Color(0xFF3B6B4F).withValues(alpha: 0.08),
                         border: Border.all(
-                          color: Color(0xFF3B6B4F).withValues(alpha: 0.2),
-                        ),
+                            color: Color(0xFF3B6B4F).withValues(alpha: 0.2)),
                       ),
                       child: Text(
                         'Short\nMedium line\nHi',
                         textAlign: a['textAlign'] as TextAlign,
                         style: TextStyle(
-                          fontSize: 10.0,
-                          color: Color(0xFF4A7A5E),
-                        ),
+                            fontSize: 10.0, color: Color(0xFF4A7A5E)),
                       ),
                     ),
                   ),
@@ -529,16 +463,13 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Color(0xFF5A9A6E).withValues(alpha: 0.08),
                       border: Border.all(
-                        color: Color(0xFF5A9A6E).withValues(alpha: 0.2),
-                      ),
+                          color: Color(0xFF5A9A6E).withValues(alpha: 0.2)),
                     ),
                     child: Text(
                       'Short\nMedium line\nHi',
                       textAlign: a['textAlign'] as TextAlign,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Color(0xFF4A7A5E),
-                      ),
+                      style:
+                          TextStyle(fontSize: 10.0, color: Color(0xFF4A7A5E)),
                     ),
                   ),
                 ],
@@ -547,16 +478,13 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      'parent (full width)',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 9.0, color: Color(0xFF3B6B4F)),
-                    ),
-                  ),
-                  Text(
-                    'longestLine',
-                    style: TextStyle(fontSize: 9.0, color: Color(0xFF5A9A6E)),
-                  ),
+                      child: Text('parent (full width)',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 9.0, color: Color(0xFF3B6B4F)))),
+                  Text('longestLine',
+                      style: TextStyle(
+                          fontSize: 9.0, color: Color(0xFF5A9A6E))),
                 ],
               ),
             ],
@@ -632,38 +560,31 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Color(0xFFC0DCC8).withValues(alpha: 0.5)),
+            border:
+                Border.all(color: Color(0xFFC0DCC8).withValues(alpha: 0.5)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(
-                    s['icon'] as IconData,
-                    color: s['color'] as Color,
-                    size: 16.0,
-                  ),
+                  Icon(s['icon'] as IconData,
+                      color: s['color'] as Color, size: 16.0),
                   SizedBox(width: 4.0),
                   Expanded(
-                    child: Text(
-                      s['title'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF2D5240),
-                      ),
-                    ),
-                  ),
+                      child: Text(s['title'] as String,
+                          style: TextStyle(
+                              fontSize: 11.0,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF2D5240)))),
                 ],
               ),
               SizedBox(height: 4.0),
               wbChip(s['best'] as String, s['color'] as Color),
               SizedBox(height: 4.0),
-              Text(
-                s['why'] as String,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF4A7A5E)),
-              ),
+              Text(s['why'] as String,
+                  style: TextStyle(
+                      fontSize: 10.0, color: Color(0xFF4A7A5E))),
             ],
           ),
         );
@@ -687,14 +608,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'TextPainter Configuration',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF2D5240),
-          ),
-        ),
+        Text('TextPainter Configuration',
+            style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2D5240))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -724,19 +642,16 @@ dynamic build(BuildContext context) {
                   '// painter.width = longestLine width\n'
                   '// not 300 (the maxWidth)',
                   style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    color: Color(0xFF2D5240),
-                  ),
+                      fontSize: 10.0,
+                      fontFamily: 'monospace',
+                      color: Color(0xFF2D5240)),
                 ),
               ),
               SizedBox(height: 8.0),
               wbInfoRow('Property:', 'textWidthBasis'),
               wbInfoRow('Affects:', 'width, size, computeLineMetrics'),
               wbInfoRow(
-                'Key insight:',
-                'Only matters when text is narrower than maxWidth',
-              ),
+                  'Key insight:', 'Only matters when text is narrower than maxWidth'),
             ],
           ),
         ),
@@ -764,14 +679,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Dart 3 Switch Expression',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF2D5240),
-          ),
-        ),
+        Text('Dart 3 Switch Expression',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2D5240))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -788,10 +700,9 @@ dynamic build(BuildContext context) {
             '    => "Content-tight width",\n'
             '};',
             style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF2D5240),
-            ),
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                color: Color(0xFF2D5240)),
           ),
         ),
         SizedBox(height: 8.0),
@@ -805,10 +716,9 @@ dynamic build(BuildContext context) {
             child: Row(
               children: [
                 Icon(Icons.arrow_right, color: Color(0xFF3B6B4F), size: 16.0),
-                Text(
-                  '${v.name} → $desc',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF4A7A5E)),
-                ),
+                Text('${v.name} → $desc',
+                    style:
+                        TextStyle(fontSize: 11.0, color: Color(0xFF4A7A5E))),
               ],
             ),
           );
@@ -833,40 +743,22 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'When Does It Matter?',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF2D5240),
-          ),
-        ),
+        Text('When Does It Matter?',
+            style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2D5240))),
         SizedBox(height: 10.0),
-        _wbMattersRow(
-          Icons.check_circle,
-          Color(0xFF5A9A6E),
-          'Multi-line text where lines have different lengths',
-        ),
-        _wbMattersRow(
-          Icons.check_circle,
-          Color(0xFF5A9A6E),
-          'When center-aligning short text in a wide container',
-        ),
-        _wbMattersRow(
-          Icons.check_circle,
-          Color(0xFF5A9A6E),
-          'Tooltips and popups that should shrink-wrap',
-        ),
-        _wbMattersRow(
-          Icons.cancel,
-          Color(0xFFCC7766),
-          'Single-line text that fills the parent — no difference',
-        ),
-        _wbMattersRow(
-          Icons.cancel,
-          Color(0xFFCC7766),
-          'Text that wraps to fill the entire width — no difference',
-        ),
+        _wbMattersRow(Icons.check_circle, Color(0xFF5A9A6E),
+            'Multi-line text where lines have different lengths'),
+        _wbMattersRow(Icons.check_circle, Color(0xFF5A9A6E),
+            'When center-aligning short text in a wide container'),
+        _wbMattersRow(Icons.check_circle, Color(0xFF5A9A6E),
+            'Tooltips and popups that should shrink-wrap'),
+        _wbMattersRow(Icons.cancel, Color(0xFFCC7766),
+            'Single-line text that fills the parent — no difference'),
+        _wbMattersRow(Icons.cancel, Color(0xFFCC7766),
+            'Text that wraps to fill the entire width — no difference'),
       ],
     ),
   );
@@ -887,14 +779,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Combining with IntrinsicWidth',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF2D5240),
-          ),
-        ),
+        Text('Combining with IntrinsicWidth',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2D5240))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -915,10 +804,9 @@ dynamic build(BuildContext context) {
             '  ),\n'
             ')',
             style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF2D5240),
-            ),
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                color: Color(0xFF2D5240)),
           ),
         ),
         SizedBox(height: 8.0),
@@ -941,12 +829,8 @@ dynamic build(BuildContext context) {
 
   // ── Section 12: Equality & Hashing ───────────────────────────
   print('\n[12] Equality & Hashing');
-  print(
-    '  parent == parent: ${TextWidthBasis.parent == TextWidthBasis.parent}',
-  );
-  print(
-    '  parent == longestLine: ${TextWidthBasis.parent == TextWidthBasis.longestLine}',
-  );
+  print('  parent == parent: ${TextWidthBasis.parent == TextWidthBasis.parent}');
+  print('  parent == longestLine: ${TextWidthBasis.parent == TextWidthBasis.longestLine}');
   print('  hashCode parent: ${TextWidthBasis.parent.hashCode}');
   print('  hashCode longestLine: ${TextWidthBasis.longestLine.hashCode}');
 
@@ -960,19 +844,15 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        wbInfoRow('parent == parent:',
+            '${TextWidthBasis.parent == TextWidthBasis.parent}'),
         wbInfoRow(
-          'parent == parent:',
-          '${TextWidthBasis.parent == TextWidthBasis.parent}',
-        ),
-        wbInfoRow(
-          'parent == longestLine:',
-          '${TextWidthBasis.parent == TextWidthBasis.longestLine}',
-        ),
+            'parent == longestLine:',
+            '${TextWidthBasis.parent == TextWidthBasis.longestLine}'),
         wbInfoRow('hashCode parent:', '${TextWidthBasis.parent.hashCode}'),
         wbInfoRow(
-          'hashCode longestLine:',
-          '${TextWidthBasis.longestLine.hashCode}',
-        ),
+            'hashCode longestLine:',
+            '${TextWidthBasis.longestLine.hashCode}'),
         SizedBox(height: 6.0),
         Divider(color: Color(0xFFC0DCC8)),
         SizedBox(height: 4.0),
@@ -993,8 +873,7 @@ dynamic build(BuildContext context) {
   final wbPatterns = <Map<String, String>>[
     {
       'title': 'Centered Caption Under Image',
-      'code':
-          'Column(\n'
+      'code': 'Column(\n'
           '  children: [\n'
           '    Image.asset("photo.jpg"),\n'
           '    Text(\n'
@@ -1008,8 +887,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Full-Width Paragraph',
-      'code':
-          'Text(\n'
+      'code': 'Text(\n'
           '  paragraph,\n'
           '  textWidthBasis:\n'
           '    TextWidthBasis.parent,\n'
@@ -1018,8 +896,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Compact Tooltip',
-      'code':
-          'Container(\n'
+      'code': 'Container(\n'
           '  decoration: tooltipDecor,\n'
           '  child: Text(\n'
           '    tipText,\n'
@@ -1050,14 +927,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                p['title']!,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF3B6B4F),
-                ),
-              ),
+              Text(p['title']!,
+                  style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF3B6B4F))),
               SizedBox(height: 6.0),
               Container(
                 width: double.infinity,
@@ -1066,14 +940,11 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFEAF5ED),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(
-                  p['code']!,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    color: Color(0xFF2D5240),
-                  ),
-                ),
+                child: Text(p['code']!,
+                    style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF2D5240))),
               ),
             ],
           ),
@@ -1088,7 +959,11 @@ dynamic build(BuildContext context) {
 
   final barData = <Map<String, dynamic>>[
     {'label': 'Line 1: "Hi"', 'parentPct': 1.0, 'contentPct': 0.15},
-    {'label': 'Line 2: "Hello World"', 'parentPct': 1.0, 'contentPct': 0.55},
+    {
+      'label': 'Line 2: "Hello World"',
+      'parentPct': 1.0,
+      'contentPct': 0.55
+    },
     {'label': 'Line 3: "OK"', 'parentPct': 1.0, 'contentPct': 0.12},
   ];
 
@@ -1102,77 +977,66 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Width Visualization per Line',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF2D5240),
-          ),
-        ),
+        Text('Width Visualization per Line',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2D5240))),
         SizedBox(height: 10.0),
-        ...barData.map(
-          (b) => Padding(
-            padding: EdgeInsets.only(bottom: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  b['label'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF4A7A5E)),
-                ),
-                SizedBox(height: 4.0),
-                SizedBox(
-                  height: 14.0,
-                  child: FractionallySizedBox(
-                    alignment: Alignment.centerLeft,
-                    widthFactor: b['parentPct'] as double,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF3B6B4F).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(2.0),
+        ...barData.map((b) => Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(b['label'] as String,
+                      style: TextStyle(
+                          fontSize: 10.0, color: Color(0xFF4A7A5E))),
+                  SizedBox(height: 4.0),
+                  SizedBox(
+                    height: 14.0,
+                    child: FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: b['parentPct'] as double,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFF3B6B4F).withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(2.0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 2.0),
-                SizedBox(
-                  height: 14.0,
-                  child: FractionallySizedBox(
-                    alignment: Alignment.centerLeft,
-                    widthFactor: b['contentPct'] as double,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF5A9A6E),
-                        borderRadius: BorderRadius.circular(2.0),
+                  SizedBox(height: 2.0),
+                  SizedBox(
+                    height: 14.0,
+                    child: FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: b['contentPct'] as double,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFF5A9A6E),
+                          borderRadius: BorderRadius.circular(2.0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                ],
+              ),
+            )),
         SizedBox(height: 4.0),
         Row(
           children: [
             Container(
-              width: 12.0,
-              height: 12.0,
-              color: Color(0xFF3B6B4F).withValues(alpha: 0.2),
-            ),
+                width: 12.0,
+                height: 12.0,
+                color: Color(0xFF3B6B4F).withValues(alpha: 0.2)),
             SizedBox(width: 4.0),
-            Text(
-              'parent width',
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF3B6B4F)),
-            ),
+            Text('parent width',
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF3B6B4F))),
             SizedBox(width: 12.0),
             Container(width: 12.0, height: 12.0, color: Color(0xFF5A9A6E)),
             SizedBox(width: 4.0),
-            Text(
-              'line content width',
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF5A9A6E)),
-            ),
+            Text('line content width',
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF5A9A6E))),
           ],
         ),
       ],
@@ -1204,14 +1068,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Framework Integration',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF2D5240),
-                ),
-              ),
+              Text('Framework Integration',
+                  style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF2D5240))),
               SizedBox(height: 6.0),
               wbInfoRow('Text widget:', 'Passes to RenderParagraph'),
               wbInfoRow('RenderParagraph:', 'Pass to TextPainter'),
@@ -1243,50 +1104,41 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text(
-          'TextWidthBasis Dashboard',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        Text('TextWidthBasis Dashboard',
+            style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Text(
-                  '${TextWidthBasis.values.length}',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFC5E0CF),
-                  ),
-                ),
-                Text(
-                  'Modes',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFA0C8AD)),
-                ),
+                Text('${TextWidthBasis.values.length}',
+                    style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFC5E0CF))),
+                Text('Modes',
+                    style:
+                        TextStyle(fontSize: 11.0, color: Color(0xFFA0C8AD))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.aspect_ratio, color: Color(0xFFC5E0CF), size: 28.0),
-                Text(
-                  'Default: parent',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFA0C8AD)),
-                ),
+                Text('Default: parent',
+                    style:
+                        TextStyle(fontSize: 11.0, color: Color(0xFFA0C8AD))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.compress, color: Color(0xFFC5E0CF), size: 28.0),
-                Text(
-                  'Tight: longestLine',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFA0C8AD)),
-                ),
+                Text('Tight: longestLine',
+                    style:
+                        TextStyle(fontSize: 11.0, color: Color(0xFFA0C8AD))),
               ],
             ),
           ],
@@ -1365,7 +1217,8 @@ dynamic build(BuildContext context) {
 }
 
 // ── Top-level helpers ───────────────────────────────────────────
-Widget _wbStepCard(String step, String title, String desc, Color accent) {
+Widget _wbStepCard(
+    String step, String title, String desc, Color accent) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 8.0),
@@ -1382,34 +1235,30 @@ Widget _wbStepCard(String step, String title, String desc, Color accent) {
           width: 24.0,
           height: 24.0,
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
-          child: Text(
-            step,
-            style: TextStyle(
-              fontSize: 11.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+          decoration: BoxDecoration(
+            color: accent,
+            shape: BoxShape.circle,
           ),
+          child: Text(step,
+              style: TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
         ),
         SizedBox(width: 8.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF2D5240),
-                ),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF2D5240))),
               SizedBox(height: 2.0),
-              Text(
-                desc,
-                style: TextStyle(fontSize: 11.0, color: Color(0xFF4A7A5E)),
-              ),
+              Text(desc,
+                  style: TextStyle(
+                      fontSize: 11.0, color: Color(0xFF4A7A5E))),
             ],
           ),
         ),
@@ -1427,10 +1276,8 @@ Widget _wbMattersRow(IconData icon, Color color, String text) {
         Icon(icon, color: color, size: 18.0),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 11.0, color: Color(0xFF4A7A5E)),
-          ),
+          child: Text(text,
+              style: TextStyle(fontSize: 11.0, color: Color(0xFF4A7A5E))),
         ),
       ],
     ),

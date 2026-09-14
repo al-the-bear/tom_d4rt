@@ -25,11 +25,9 @@ dynamic build(BuildContext context) {
   final AlwaysStoppedAnimation<double> tapReveal =
       const AlwaysStoppedAnimation<double>(0.5);
   const Duration instant = Duration.zero;
-  print(
-    'Static motion configured: heroPulse=${heroPulse.value}, '
-    'manualReveal=${manualReveal.value}, longPressReveal=${longPressReveal.value}, '
-    'tapReveal=${tapReveal.value}, instantDuration=$instant',
-  );
+  print('Static motion configured: heroPulse=${heroPulse.value}, '
+      'manualReveal=${manualReveal.value}, longPressReveal=${longPressReveal.value}, '
+      'tapReveal=${tapReveal.value}, instantDuration=$instant');
 
   // ============================================================
   // SECTION 1: Hero header
@@ -249,8 +247,8 @@ dynamic build(BuildContext context) {
       'reveal': manualReveal.value,
       'description':
           'No pointer event will reveal the tooltip. The application code must '
-          'invoke TooltipState.ensureTooltipVisible(). Useful for guided '
-          'tours, onboarding overlays, or accessibility-driven hints.',
+              'invoke TooltipState.ensureTooltipVisible(). Useful for guided '
+              'tours, onboarding overlays, or accessibility-driven hints.',
       'gesture': 'show() · ensureTooltipVisible()',
     },
     <String, Object>{
@@ -262,8 +260,8 @@ dynamic build(BuildContext context) {
       'reveal': longPressReveal.value,
       'description':
           'The historical default: the tooltip appears after the long-press '
-          'duration elapses. Mobile-friendly because it does not steal '
-          'taps from the underlying interactive widget.',
+              'duration elapses. Mobile-friendly because it does not steal '
+              'taps from the underlying interactive widget.',
       'gesture': 'press · hold · reveal',
     },
     <String, Object>{
@@ -275,8 +273,8 @@ dynamic build(BuildContext context) {
       'reveal': tapReveal.value,
       'description':
           'A single tap reveals the tooltip. Use sparingly: the gesture is '
-          'shared with most buttons, so prefer this for read-only chips, '
-          'badges, or info icons that have no other tap action.',
+              'shared with most buttons, so prefer this for read-only chips, '
+              'badges, or info icons that have no other tap action.',
       'gesture': 'tap · reveal · auto-dismiss',
     },
   ];
@@ -654,7 +652,10 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[Colors.indigo.shade100, Colors.indigo.shade50],
+              colors: <Color>[
+                Colors.indigo.shade100,
+                Colors.indigo.shade50,
+              ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -744,11 +745,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.restaurant_menu,
-              color: Colors.green.shade800,
-              size: 22.0,
-            ),
+            Icon(Icons.restaurant_menu,
+                color: Colors.green.shade800, size: 22.0),
             const SizedBox(width: 8.0),
             Text(
               'Recipes Gallery',
@@ -782,8 +780,7 @@ dynamic build(BuildContext context) {
           title: 'Destructive icon button (longPress)',
           mode: TooltipTriggerMode.longPress,
           accent: Colors.deepOrange.shade700,
-          code:
-              'IconButton(\n'
+          code: 'IconButton(\n'
               '  tooltip: \'Delete\',  // implies longPress on touch\n'
               '  icon: const Icon(Icons.delete_outline),\n'
               '  onPressed: confirmDelete,\n'
@@ -803,8 +800,7 @@ dynamic build(BuildContext context) {
           title: 'Glossary chip (tap)',
           mode: TooltipTriggerMode.tap,
           accent: Colors.teal.shade700,
-          code:
-              'Tooltip(\n'
+          code: 'Tooltip(\n'
               '  message: \'A managed pointer to a stream of values.\',\n'
               '  triggerMode: TooltipTriggerMode.tap,\n'
               '  showDuration: const Duration(seconds: 4),\n'
@@ -831,8 +827,8 @@ dynamic build(BuildContext context) {
       'title': 'tap mode swallows clicks',
       'body':
           'Selecting TooltipTriggerMode.tap on an interactive widget hides the '
-          'widget\'s real onTap behind the tooltip. Reserve tap for badges, '
-          'chips, and decorative info icons that have no other action.',
+              'widget\'s real onTap behind the tooltip. Reserve tap for badges, '
+              'chips, and decorative info icons that have no other action.',
     },
     <String, Object>{
       'icon': Icons.warning_amber_outlined,
@@ -840,8 +836,8 @@ dynamic build(BuildContext context) {
       'title': 'manual without a key is silent',
       'body':
           'TooltipTriggerMode.manual requires a GlobalKey<TooltipState> (or '
-          'another reference) so your code can call '
-          'ensureTooltipVisible(). Without it the tooltip will never show.',
+              'another reference) so your code can call '
+              'ensureTooltipVisible(). Without it the tooltip will never show.',
     },
     <String, Object>{
       'icon': Icons.accessibility_new,
@@ -849,8 +845,8 @@ dynamic build(BuildContext context) {
       'title': 'Accessibility still uses message',
       'body':
           'Screen readers announce Tooltip.message regardless of trigger mode, '
-          'so even manual tooltips contribute to semantics. Keep messages '
-          'short, descriptive, and non-redundant with adjacent labels.',
+              'so even manual tooltips contribute to semantics. Keep messages '
+              'short, descriptive, and non-redundant with adjacent labels.',
     },
     <String, Object>{
       'icon': Icons.timer_outlined,
@@ -858,8 +854,8 @@ dynamic build(BuildContext context) {
       'title': 'showDuration vs waitDuration',
       'body':
           'TooltipTriggerMode only chooses the input gesture. Reveal timing is '
-          'controlled separately by Tooltip.waitDuration (delay before '
-          'show) and Tooltip.showDuration (how long it stays visible).',
+              'controlled separately by Tooltip.waitDuration (delay before '
+              'show) and Tooltip.showDuration (how long it stays visible).',
     },
     <String, Object>{
       'icon': Icons.devices_other,
@@ -867,8 +863,8 @@ dynamic build(BuildContext context) {
       'title': 'Hover is independent',
       'body':
           'Mouse-hover always reveals the tooltip after waitDuration, '
-          'regardless of triggerMode. Plan desktop UX with hover in mind '
-          'when choosing manual or tap on touch-first surfaces.',
+              'regardless of triggerMode. Plan desktop UX with hover in mind '
+              'when choosing manual or tap on touch-first surfaces.',
     },
   ];
 
@@ -896,7 +892,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.report_outlined, color: Colors.red.shade700, size: 22.0),
+            Icon(Icons.report_outlined,
+                color: Colors.red.shade700, size: 22.0),
             const SizedBox(width: 8.0),
             Text(
               'Pitfalls & Recommendations',
@@ -926,8 +923,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 9: ASCII footer ===');
 
-  const String asciiBanner =
-      '+------------------------------------------+\n'
+  const String asciiBanner = '+------------------------------------------+\n'
       '|   T O O L T I P   T R I G G E R   M O D E |\n'
       '+------------------------------------------+\n'
       '|   manual    -> show()/ensureTooltipVisible|\n'
@@ -1021,9 +1017,7 @@ dynamic build(BuildContext context) {
               recipesGallery,
               const SizedBox(height: 24.0),
               _sectionTitle(
-                '7. Pitfalls & recommendations',
-                Icons.report_outlined,
-              ),
+                  '7. Pitfalls & recommendations', Icons.report_outlined),
               pitfallsSection,
               const SizedBox(height: 24.0),
               _sectionTitle('8. ASCII footer', Icons.terminal),
@@ -1152,7 +1146,10 @@ Widget _buildRevealBar(double reveal, Color accent) {
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[accent.withValues(alpha: 0.6), accent],
+                colors: <Color>[
+                  accent.withValues(alpha: 0.6),
+                  accent,
+                ],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -1316,13 +1313,19 @@ Widget _buildPreviewTile({
               ),
               child: Text(
                 tooltipText,
-                style: const TextStyle(color: Colors.white, fontSize: 11.5),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 11.5,
+                ),
               ),
             ),
           ),
           const SizedBox(height: 10.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
+            ),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(20.0),
@@ -1423,7 +1426,9 @@ Widget _buildPitfallTile({
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.8),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -158,11 +158,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.view_week_rounded,
-                color: Colors.white,
-                size: 27,
-              ),
+              const Icon(Icons.view_week_rounded,
+                  color: Colors.white, size: 27),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -175,10 +172,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(999),
@@ -263,9 +258,7 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                   shape: BoxShape.circle,
                   color: _palettes[i].primary,
                   border: Border.all(
-                    color: _paletteIndex == i
-                        ? Colors.white
-                        : Colors.transparent,
+                    color: _paletteIndex == i ? Colors.white : Colors.transparent,
                     width: 2,
                   ),
                 ),
@@ -392,8 +385,7 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                   slivers: [
                     SliverToBoxAdapter(
                       child: _laneBanner(
-                        'Dashboard lanes orchestrated by SliverCrossAxisGroup',
-                      ),
+                          'Dashboard lanes orchestrated by SliverCrossAxisGroup'),
                     ),
                     SliverCrossAxisGroup(
                       slivers: [
@@ -559,9 +551,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: _p.muted.withValues(alpha: 0.25),
-                        ),
+                        border:
+                            Border.all(color: _p.muted.withValues(alpha: 0.25)),
                       ),
                       child: CustomScrollView(
                         slivers: [
@@ -592,9 +583,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                                       title: 'Item ${index + 1}',
                                       subtitle:
                                           'Fixed lane max ${_mixerCenterMax.toStringAsFixed(0)}',
-                                      color: _p.secondary.withValues(
-                                        alpha: 0.13,
-                                      ),
+                                      color:
+                                          _p.secondary.withValues(alpha: 0.13),
                                     ),
                                   ),
                                 )
@@ -607,9 +597,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                                       lane: 'Center',
                                       title: 'Item ${index + 1}',
                                       subtitle: 'Flex lane $_mixerCenterFlex',
-                                      color: _p.secondary.withValues(
-                                        alpha: 0.13,
-                                      ),
+                                      color:
+                                          _p.secondary.withValues(alpha: 0.13),
                                     ),
                                   ),
                                 ),
@@ -645,17 +634,13 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _bullet(
-                          'Flex mode: all lanes divide available cross axis by flex ratio.',
-                        ),
+                            'Flex mode: all lanes divide available cross axis by flex ratio.'),
                         _bullet(
-                          'Fixed center mode: center lane consumes up to maxExtent first.',
-                        ),
+                            'Fixed center mode: center lane consumes up to maxExtent first.'),
                         _bullet(
-                          'Remaining cross axis is split between side flex lanes.',
-                        ),
+                            'Remaining cross axis is split between side flex lanes.'),
                         _bullet(
-                          'Useful for fixed reading lanes with adaptive side tooling.',
-                        ),
+                            'Useful for fixed reading lanes with adaptive side tooling.'),
                         const SizedBox(height: 8),
                         Container(
                           width: double.infinity,
@@ -664,8 +649,7 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: _p.muted.withValues(alpha: 0.2),
-                            ),
+                                color: _p.muted.withValues(alpha: 0.2)),
                           ),
                           child: Text(
                             _mixerUseFixedCenter
@@ -738,7 +722,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                     _toggleChip(
                       label: 'Right lane fixed-width rail',
                       value: _mixedUseFixedRail,
-                      onChanged: (v) => setState(() => _mixedUseFixedRail = v),
+                      onChanged: (v) =>
+                          setState(() => _mixedUseFixedRail = v),
                     ),
                   ],
                 ),
@@ -763,8 +748,7 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                     if (_mixedUseHeader)
                       SliverToBoxAdapter(
                         child: _laneBanner(
-                          'Hybrid lane internals: list + grid + adapter',
-                        ),
+                            'Hybrid lane internals: list + grid + adapter'),
                       ),
                     SliverCrossAxisGroup(
                       slivers: [
@@ -793,21 +777,19 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                                   sliver: SliverGrid(
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          mainAxisExtent: 72,
-                                          crossAxisSpacing: 8,
-                                          mainAxisSpacing: 8,
-                                        ),
+                                      crossAxisCount: 2,
+                                      mainAxisExtent: 72,
+                                      crossAxisSpacing: 8,
+                                      mainAxisSpacing: 8,
+                                    ),
                                     delegate: SliverChildBuilderDelegate(
                                       (context, index) => Container(
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                          color: _p.secondary.withValues(
-                                            alpha: 0.14,
-                                          ),
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
+                                          color: _p.secondary
+                                              .withValues(alpha: 0.14),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                         child: Text(
                                           'Grid ${index + 1}',
@@ -932,8 +914,7 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                     Checkbox(
                       value: _geoCenterLong,
                       activeColor: _p.secondary,
-                      onChanged: (v) =>
-                          setState(() => _geoCenterLong = v ?? true),
+                      onChanged: (v) => setState(() => _geoCenterLong = v ?? true),
                     ),
                     Text(
                       'Center lane is longest',
@@ -1031,15 +1012,12 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                         right: 10,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
+                              horizontal: 10, vertical: 6),
                           decoration: BoxDecoration(
                             color: _p.secondary.withValues(alpha: 0.17),
                             borderRadius: BorderRadius.circular(999),
                             border: Border.all(
-                              color: _p.secondary.withValues(alpha: 0.4),
-                            ),
+                                color: _p.secondary.withValues(alpha: 0.4)),
                           ),
                           child: Text(
                             'Longest lane: ${_geoCenterLong ? 'Center' : 'Right'}',
@@ -1060,21 +1038,14 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
           const SizedBox(height: 12),
           _card(
             title: 'Geometry Notes',
-            subtitle:
-                'Operational intuition for grouped sliver scroll behavior.',
+            subtitle: 'Operational intuition for grouped sliver scroll behavior.',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Group scroll extent tracks the longest child lane.'),
-                _bullet(
-                  'Shorter lanes can visually "end" earlier inside viewport.',
-                ),
-                _bullet(
-                  'Cross-axis extent equals overall group cross-axis size.',
-                ),
-                _bullet(
-                  'Use fillers/placeholders if lane termination feels abrupt.',
-                ),
+                _bullet('Shorter lanes can visually "end" earlier inside viewport.'),
+                _bullet('Cross-axis extent equals overall group cross-axis size.'),
+                _bullet('Use fillers/placeholders if lane termination feels abrupt.'),
               ],
             ),
           ),
@@ -1118,8 +1089,7 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                   max: 3,
                   divisions: 2,
                   color: _p.primary,
-                  onChanged: (v) =>
-                      setState(() => _patternLeftFlex = v.round()),
+                  onChanged: (v) => setState(() => _patternLeftFlex = v.round()),
                 ),
                 _sliderRow(
                   label: 'Center flex',
@@ -1151,19 +1121,27 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
             children: [
               _patternCard(
                 title: 'Editorial + Side Notes',
-                subtitle:
-                    'Center article lane with left nav and right references.',
-                child: _patternViewport(mode: 0, height: 300),
+                subtitle: 'Center article lane with left nav and right references.',
+                child: _patternViewport(
+                  mode: 0,
+                  height: 300,
+                ),
               ),
               _patternCard(
                 title: 'Workflow Board',
                 subtitle: 'Task lanes represented as grouped sliver columns.',
-                child: _patternViewport(mode: 1, height: 300),
+                child: _patternViewport(
+                  mode: 1,
+                  height: 300,
+                ),
               ),
               _patternCard(
                 title: 'Analytics Cockpit',
                 subtitle: 'Metrics rail + detailed center + event feed.',
-                child: _patternViewport(mode: 2, height: 300),
+                child: _patternViewport(
+                  mode: 2,
+                  height: 300,
+                ),
               ),
             ],
           ),
@@ -1174,15 +1152,9 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Use grouped lanes when each column needs sliver behavior.',
-                ),
-                _bullet(
-                  'For static columns, regular Row/Expanded may be sufficient.',
-                ),
-                _bullet(
-                  'Combine with constrained lanes for readability-centric centers.',
-                ),
+                _bullet('Use grouped lanes when each column needs sliver behavior.'),
+                _bullet('For static columns, regular Row/Expanded may be sufficient.'),
+                _bullet('Combine with constrained lanes for readability-centric centers.'),
               ],
             ),
           ),
@@ -1346,8 +1318,7 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
               children: [
                 _doDontRow(
                   good: true,
-                  title:
-                      'Use grouped slivers for lane-specific scroll composition',
+                  title: 'Use grouped slivers for lane-specific scroll composition',
                   detail:
                       'Ideal when each lane needs independent sliver capabilities.',
                 ),
@@ -1380,26 +1351,22 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
               children: [
                 _qa(
                   q: 'Can lanes contain SliverGrid and SliverList together?',
-                  a:
-                      'Yes. Use SliverMainAxisGroup in a lane to combine multiple '
+                  a: 'Yes. Use SliverMainAxisGroup in a lane to combine multiple '
                       'sliver types sequentially.',
                 ),
                 _qa(
                   q: 'How do I make one lane fixed width?',
-                  a:
-                      'Wrap that lane with SliverConstrainedCrossAxis and give '
+                  a: 'Wrap that lane with SliverConstrainedCrossAxis and give '
                       'it a maxExtent; keep other lanes flexed.',
                 ),
                 _qa(
                   q: 'Why does scrolling continue after one lane looks finished?',
-                  a:
-                      'Group geometry follows the longest lane scroll extent, so '
+                  a: 'Group geometry follows the longest lane scroll extent, so '
                       'shorter lanes may appear to end early.',
                 ),
                 _qa(
                   q: 'Is this only for large screens?',
-                  a:
-                      'Mostly valuable there, but can also support compact '
+                  a: 'Mostly valuable there, but can also support compact '
                       'two-lane patterns on medium viewports.',
                 ),
               ],
@@ -1413,16 +1380,10 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _check('Baseline multi-lane dashboard scenario implemented.'),
-                _check(
-                  'Interactive flex mixer with fixed/flex center variations.',
-                ),
+                _check('Interactive flex mixer with fixed/flex center variations.'),
                 _check('Heterogeneous sliver internals demonstrated per lane.'),
-                _check(
-                  'Longest-lane geometry behavior visualized and explained.',
-                ),
-                _check(
-                  'Pattern gallery includes three practical layout families.',
-                ),
+                _check('Longest-lane geometry behavior visualized and explained.'),
+                _check('Pattern gallery includes three practical layout families.'),
                 _check('Guide includes matrix, do/don\'t, FAQ, and checklist.'),
               ],
             ),
@@ -1482,7 +1443,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.72),
                   borderRadius: BorderRadius.circular(999),
@@ -1511,7 +1473,11 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
           const SizedBox(height: 3),
           Text(
             subtitle,
-            style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.25),
+            style: TextStyle(
+              color: _p.muted,
+              fontSize: 10.8,
+              height: 1.25,
+            ),
           ),
         ],
       ),
@@ -1528,7 +1494,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
       ),
       child: Row(
         children: [
-          Icon(Icons.dashboard_customize_rounded, color: _p.primary, size: 16),
+          Icon(Icons.dashboard_customize_rounded,
+              color: _p.primary, size: 16),
           const SizedBox(width: 8),
           Text(
             text,
@@ -1688,11 +1655,8 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            good ? Icons.check_circle : Icons.cancel,
-            color: color,
-            size: 18,
-          ),
+          Icon(good ? Icons.check_circle : Icons.cancel,
+              color: color, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1707,7 +1671,10 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.3)),
+                Text(
+                  detail,
+                  style: TextStyle(color: _p.muted, fontSize: 11.3),
+                ),
               ],
             ),
           ),
@@ -1755,7 +1722,10 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12)),
+            child: Text(
+              text,
+              style: TextStyle(color: _p.ink, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -1844,7 +1814,10 @@ class _CrossAxisGroupLabState extends State<_CrossAxisGroupLab> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.5)),
+          Text(
+            subtitle,
+            style: TextStyle(color: _p.muted, fontSize: 11.5),
+          ),
           const SizedBox(height: 10),
           child,
         ],

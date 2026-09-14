@@ -22,9 +22,7 @@ const Color _kInkMuted = Color(0xFF546E7A); // blue-grey — secondary text
 // ---------------------------------------------------------------------------
 dynamic build(BuildContext context) {
   debugPrint('=== RestorableRouteFuture Deep Demo — Travel Booking Wizard ===');
-  debugPrint(
-    'Mounting MaterialApp with restorationScopeId "travel_booking_app".',
-  );
+  debugPrint('Mounting MaterialApp with restorationScopeId "travel_booking_app".');
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'RestorableRouteFuture — Travel Booking Wizard',
@@ -80,7 +78,10 @@ ThemeData _buildTheme() {
         fontWeight: FontWeight.w700,
         letterSpacing: 0.4,
       ),
-      titleMedium: TextStyle(color: _kDeepIndigo, fontWeight: FontWeight.w600),
+      titleMedium: TextStyle(
+        color: _kDeepIndigo,
+        fontWeight: FontWeight.w600,
+      ),
       bodyMedium: TextStyle(color: _kInkIndigo),
       bodySmall: TextStyle(color: _kInkMuted),
     ),
@@ -89,7 +90,9 @@ ThemeData _buildTheme() {
         backgroundColor: _kInkIndigo,
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+        ),
       ),
     ),
   );
@@ -277,7 +280,10 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
           builder: (BuildContext ctx, BoxConstraints constraints) {
             final bool wide = constraints.maxWidth > 900;
             return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 24,
+              ),
               children: <Widget>[
                 _buildTicketHero(),
                 const SizedBox(height: 24),
@@ -337,7 +343,11 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
                 _buildTicketLowerHalf(),
               ],
             ),
-            Positioned(top: 18, right: 18, child: _buildTicketStatusBadge()),
+            Positioned(
+              top: 18,
+              right: 18,
+              child: _buildTicketStatusBadge(),
+            ),
           ],
         ),
       ),
@@ -359,7 +369,11 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.flight_takeoff, color: _kSoftGold, size: 32),
+              const Icon(
+                Icons.flight_takeoff,
+                color: _kSoftGold,
+                size: 32,
+              ),
               const SizedBox(width: 12),
               Text(
                 'Tom Airways — Boarding Pass Draft',
@@ -420,7 +434,9 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
         color: Colors.white.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Colors.white.withValues(alpha: filled ? 0.55 : 0.20),
+          color: Colors.white.withValues(
+            alpha: filled ? 0.55 : 0.20,
+          ),
           width: 1,
         ),
       ),
@@ -454,7 +470,8 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
                         ? Colors.white
                         : Colors.white.withValues(alpha: 0.55),
                     fontSize: filled ? 18 : 13,
-                    fontWeight: filled ? FontWeight.w700 : FontWeight.w400,
+                    fontWeight:
+                        filled ? FontWeight.w700 : FontWeight.w400,
                     fontStyle: filled ? FontStyle.normal : FontStyle.italic,
                   ),
                 ),
@@ -468,7 +485,11 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
                 color: _kGold,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.check, size: 14, color: _kInkIndigo),
+              child: const Icon(
+                Icons.check,
+                size: 14,
+                color: _kInkIndigo,
+              ),
             ),
         ],
       ),
@@ -484,8 +505,14 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Positioned(left: -10, child: _buildPerforationHole()),
-          Positioned(right: -10, child: _buildPerforationHole()),
+          Positioned(
+            left: -10,
+            child: _buildPerforationHole(),
+          ),
+          Positioned(
+            right: -10,
+            child: _buildPerforationHole(),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List<Widget>.generate(28, (int i) {
@@ -529,10 +556,7 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               _buildStubSlot('GATE', 'B-12'),
-              _buildStubSlot(
-                'SEAT',
-                cabin == '—' ? '—' : cabin[0].toUpperCase(),
-              ),
+              _buildStubSlot('SEAT', cabin == '—' ? '—' : cabin[0].toUpperCase()),
               _buildStubSlot('BOARDING', '19:40'),
               _buildStubSlot('PAX', pax),
             ],
@@ -557,7 +581,10 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
                     Text(
                       'Draft route TOM → ${destination.toUpperCase()} '
                       '• state survives app death',
-                      style: const TextStyle(color: _kInkMuted, fontSize: 12),
+                      style: const TextStyle(
+                        color: _kInkMuted,
+                        fontSize: 12,
+                      ),
                     ),
                   ],
                 ),
@@ -642,8 +669,7 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
           ? 3
           : (_chosenClass.value?.length ?? 0),
     );
-    final String p =
-        _chosenPassengers.value?.toString().padLeft(2, '0') ?? '00';
+    final String p = _chosenPassengers.value?.toString().padLeft(2, '0') ?? '00';
     final String padD = d.padRight(3, '-');
     final String padC = c.padRight(3, '-');
     return 'TOM-${padD.toUpperCase()}-${padC.toUpperCase()}-$p';
@@ -729,7 +755,11 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
                     color: _kGold,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.check, size: 14, color: _kInkIndigo),
+                  child: const Icon(
+                    Icons.check,
+                    size: 14,
+                    color: _kInkIndigo,
+                  ),
                 ),
               ),
           ],
@@ -761,7 +791,9 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
     ];
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+      ),
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 22),
@@ -856,7 +888,9 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
-        side: BorderSide(color: _kInkIndigo.withValues(alpha: 0.18)),
+        side: BorderSide(
+          color: _kInkIndigo.withValues(alpha: 0.18),
+        ),
       ),
       color: Colors.white,
       child: Padding(
@@ -866,7 +900,11 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
           children: <Widget>[
             Row(
               children: <Widget>[
-                const Icon(Icons.history, color: _kDeepSky, size: 20),
+                const Icon(
+                  Icons.history,
+                  color: _kDeepSky,
+                  size: 20,
+                ),
                 const SizedBox(width: 8),
                 const Text(
                   'Decision log',
@@ -999,7 +1037,10 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
                   const SizedBox(height: 2),
                   Text(
                     _formatWhen(entry.when),
-                    style: const TextStyle(color: _kInkMuted, fontSize: 11),
+                    style: const TextStyle(
+                      color: _kInkMuted,
+                      fontSize: 11,
+                    ),
                   ),
                 ],
               ),
@@ -1046,7 +1087,10 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
           children: <Widget>[
             Row(
               children: <Widget>[
-                const Icon(Icons.school, color: _kDeepIndigo),
+                const Icon(
+                  Icons.school,
+                  color: _kDeepIndigo,
+                ),
                 const SizedBox(width: 8),
                 const Text(
                   'Why RestorableRouteFuture?',
@@ -1104,7 +1148,9 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
               decoration: BoxDecoration(
                 color: _kDeepSky.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _kDeepSky.withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: _kDeepSky.withValues(alpha: 0.3),
+                ),
               ),
               child: const Row(
                 children: <Widget>[
@@ -1136,12 +1182,19 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 6, right: 8),
-            child: Icon(Icons.circle, size: 6, color: _kDeepSky),
+            child: Icon(
+              Icons.circle,
+              size: 6,
+              color: _kDeepSky,
+            ),
           ),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: _kInkIndigo, height: 1.35),
+              style: const TextStyle(
+                color: _kInkIndigo,
+                height: 1.35,
+              ),
             ),
           ),
         ],
@@ -1213,7 +1266,9 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: _allResolved ? _kInkIndigo : _kInkIndigo.withValues(alpha: 0.08),
+        color: _allResolved
+            ? _kInkIndigo
+            : _kInkIndigo.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(
@@ -1228,7 +1283,7 @@ class _TravelBookingDemoState extends State<TravelBookingDemo>
             child: Text(
               _allResolved
                   ? 'Booking draft complete. Confirmation code: '
-                        '${_buildConfirmationCode()}'
+                      '${_buildConfirmationCode()}'
                   : 'Complete all three pickers to confirm your booking.',
               style: TextStyle(
                 color: _allResolved ? Colors.white : _kInkIndigo,
@@ -1371,7 +1426,8 @@ class DestinationPickerPage extends StatelessWidget {
                   builder: (BuildContext ctx, BoxConstraints constraints) {
                     final int crossAxis = constraints.maxWidth > 700 ? 3 : 2;
                     return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: crossAxis,
                         mainAxisSpacing: 14,
                         crossAxisSpacing: 14,
@@ -1416,7 +1472,10 @@ class _CityCard {
 }
 
 class _DestinationTile extends StatelessWidget {
-  const _DestinationTile({required this.city, required this.onTap});
+  const _DestinationTile({
+    required this.city,
+    required this.onTap,
+  });
   final _CityCard city;
   final VoidCallback onTap;
 
@@ -1692,7 +1751,9 @@ class _PassengerCountPageState extends State<PassengerCountPage> {
           width: 72,
           height: 72,
           decoration: BoxDecoration(
-            color: enabled ? _kInkIndigo : _kInkIndigo.withValues(alpha: 0.15),
+            color: enabled
+                ? _kInkIndigo
+                : _kInkIndigo.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(32),
             boxShadow: enabled
                 ? <BoxShadow>[
@@ -1829,7 +1890,10 @@ class _CabinOption {
 }
 
 class _CabinCard extends StatelessWidget {
-  const _CabinCard({required this.cabin, required this.onSelect});
+  const _CabinCard({
+    required this.cabin,
+    required this.onSelect,
+  });
   final _CabinOption cabin;
   final VoidCallback onSelect;
 
@@ -1864,7 +1928,11 @@ class _CabinCard extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: Icon(cabin.icon, color: Colors.white, size: 54),
+              child: Icon(
+                cabin.icon,
+                color: Colors.white,
+                size: 54,
+              ),
             ),
             Expanded(
               child: Padding(
@@ -1937,7 +2005,11 @@ class _UnknownRoutePage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Icon(Icons.error_outline, color: _kInkIndigo, size: 48),
+              const Icon(
+                Icons.error_outline,
+                color: _kInkIndigo,
+                size: 48,
+              ),
               const SizedBox(height: 12),
               const Text(
                 'This route is not registered in onGenerateRoute.',

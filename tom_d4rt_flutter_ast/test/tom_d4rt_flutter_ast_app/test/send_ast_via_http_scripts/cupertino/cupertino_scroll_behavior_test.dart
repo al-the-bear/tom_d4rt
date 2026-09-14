@@ -182,10 +182,7 @@ class _HeroHeaderSection extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -221,26 +218,11 @@ class _HeroHeaderSection extends StatelessWidget {
             spacing: 10,
             runSpacing: 10,
             children: const <Widget>[
-              _ConceptBadge(
-                label: 'BouncingScrollPhysics',
-                icon: CupertinoIcons.waveform_path,
-              ),
-              _ConceptBadge(
-                label: 'CupertinoScrollbar',
-                icon: CupertinoIcons.line_horizontal_3_decrease,
-              ),
-              _ConceptBadge(
-                label: 'No Glow Overscroll',
-                icon: CupertinoIcons.nosign,
-              ),
-              _ConceptBadge(
-                label: 'Multitouch Drag',
-                icon: CupertinoIcons.hand_draw,
-              ),
-              _ConceptBadge(
-                label: 'ScrollConfiguration',
-                icon: CupertinoIcons.tree,
-              ),
+              _ConceptBadge(label: 'BouncingScrollPhysics', icon: CupertinoIcons.waveform_path),
+              _ConceptBadge(label: 'CupertinoScrollbar', icon: CupertinoIcons.line_horizontal_3_decrease),
+              _ConceptBadge(label: 'No Glow Overscroll', icon: CupertinoIcons.nosign),
+              _ConceptBadge(label: 'Multitouch Drag', icon: CupertinoIcons.hand_draw),
+              _ConceptBadge(label: 'ScrollConfiguration', icon: CupertinoIcons.tree),
             ],
           ),
         ],
@@ -305,7 +287,10 @@ class _ClassAnatomySection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[Color(0xFF1F2A44), Color(0xFF0E1422)],
+          colors: <Color>[
+            Color(0xFF1F2A44),
+            Color(0xFF0E1422),
+          ],
         ),
         border: Border.all(color: const Color(0xFF2D3A5A), width: 1),
       ),
@@ -384,11 +369,7 @@ class _ClassAnatomySection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
-                Icon(
-                  CupertinoIcons.info_circle_fill,
-                  color: Color(0xFF7CC0FF),
-                  size: 18,
-                ),
+                Icon(CupertinoIcons.info_circle_fill, color: Color(0xFF7CC0FF), size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -480,11 +461,7 @@ class _AnatomyLeaf extends StatelessWidget {
   final String title;
   final String sub;
   final Color color;
-  const _AnatomyLeaf({
-    required this.title,
-    required this.sub,
-    required this.color,
-  });
+  const _AnatomyLeaf({required this.title, required this.sub, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -590,8 +567,7 @@ class _MethodShowcaseSection extends StatelessWidget {
           _SectionTitleLine(
             number: '03',
             title: 'Method showcase',
-            subtitle:
-                'Each card shows signature, default behavior, and return type',
+            subtitle: 'Each card shows signature, default behavior, and return type',
             accent: Color(0xFF1F8AA8),
             textColor: Color(0xFF0E2230),
           ),
@@ -633,8 +609,7 @@ class _MethodShowcaseSection extends StatelessWidget {
           SizedBox(height: 12),
           _MethodCard(
             name: 'velocityTrackerBuilder',
-            signature:
-                'GestureVelocityTrackerBuilder velocityTrackerBuilder(BuildContext)',
+            signature: 'GestureVelocityTrackerBuilder velocityTrackerBuilder(BuildContext)',
             description:
                 'Picks the velocity tracker used to translate touch input into scroll '
                 'fling velocity. For Cupertino this is an IOSScrollViewFlingVelocityTracker '
@@ -728,10 +703,7 @@ class _MethodCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: returnColor.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(999),
@@ -815,8 +787,7 @@ class _PhysicsComparisonSection extends StatelessWidget {
           const _SectionTitleLine(
             number: '04',
             title: 'Physics comparison',
-            subtitle:
-                'Three scroll physics, side-by-side, with ball-position snapshots',
+            subtitle: 'Three scroll physics, side-by-side, with ball-position snapshots',
             accent: Color(0xFFB23A1C),
             textColor: Color(0xFF3A1404),
           ),
@@ -853,18 +824,12 @@ class _PhysicsComparisonSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.55),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: const Color(0xFFB23A1C).withValues(alpha: 0.35),
-              ),
+              border: Border.all(color: const Color(0xFFB23A1C).withValues(alpha: 0.35)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
-                Icon(
-                  CupertinoIcons.exclamationmark_bubble,
-                  color: Color(0xFFB23A1C),
-                  size: 18,
-                ),
+                Icon(CupertinoIcons.exclamationmark_bubble, color: Color(0xFFB23A1C), size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -926,11 +891,7 @@ class _PhysicsRow extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 alignment: Alignment.center,
-                child: const Icon(
-                  CupertinoIcons.arrow_down_circle,
-                  size: 16,
-                  color: Colors.white,
-                ),
+                child: const Icon(CupertinoIcons.arrow_down_circle, size: 16, color: Colors.white),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1067,8 +1028,7 @@ class _ScrollbarPreviewSection extends StatelessWidget {
               Expanded(
                 child: _ScrollbarTrackPreview(
                   state: 'Idle',
-                  description:
-                      'Faded thumb, visible only after scroll activity',
+                  description: 'Faded thumb, visible only after scroll activity',
                   thumbColor: Color(0x66FFFFFF),
                   thumbHeight: 60,
                   thumbWidth: 3,
@@ -1078,8 +1038,7 @@ class _ScrollbarPreviewSection extends StatelessWidget {
               Expanded(
                 child: _ScrollbarTrackPreview(
                   state: 'Hovered',
-                  description:
-                      'Thumb widens slightly for desktop pointer affordance',
+                  description: 'Thumb widens slightly for desktop pointer affordance',
                   thumbColor: Color(0xAAFFFFFF),
                   thumbHeight: 70,
                   thumbWidth: 5,
@@ -1110,11 +1069,7 @@ class _ScrollbarPreviewSection extends StatelessWidget {
               children: const <Widget>[
                 Row(
                   children: <Widget>[
-                    Icon(
-                      CupertinoIcons.paintbrush,
-                      color: Color(0xFFE5E7EC),
-                      size: 16,
-                    ),
+                    Icon(CupertinoIcons.paintbrush, color: Color(0xFFE5E7EC), size: 16),
                     SizedBox(width: 8),
                     Text(
                       'CupertinoScrollbar defaults',
@@ -1127,17 +1082,11 @@ class _ScrollbarPreviewSection extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                _DefaultRow(
-                  label: 'thumbVisibility',
-                  value: 'false (auto-fade)',
-                ),
+                _DefaultRow(label: 'thumbVisibility', value: 'false (auto-fade)'),
                 _DefaultRow(label: 'thickness', value: '3.0 (resting)'),
                 _DefaultRow(label: 'thicknessWhileDragging', value: '8.0'),
                 _DefaultRow(label: 'radius', value: 'Radius.circular(1.5)'),
-                _DefaultRow(
-                  label: 'radiusWhileDragging',
-                  value: 'Radius.circular(4.0)',
-                ),
+                _DefaultRow(label: 'radiusWhileDragging', value: 'Radius.circular(4.0)'),
                 _DefaultRow(label: 'mainAxisMargin', value: '3.0'),
               ],
             ),
@@ -1320,7 +1269,10 @@ class _PropagationTreeSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Color(0xFF0F4D40), Color(0xFF2DAA8A)],
+          colors: <Color>[
+            Color(0xFF0F4D40),
+            Color(0xFF2DAA8A),
+          ],
           stops: <double>[0.0, 1.0],
         ),
       ),
@@ -1341,16 +1293,14 @@ class _PropagationTreeSection extends StatelessWidget {
             label: 'CupertinoApp',
             badge: 'root',
             badgeColor: Color(0xFF0E2D26),
-            description:
-                'Installs CupertinoScrollBehavior in ScrollConfiguration',
+            description: 'Installs CupertinoScrollBehavior in ScrollConfiguration',
           ),
           const _TreeNode(
             depth: 1,
             label: 'ScrollConfiguration',
             badge: 'behavior: CupertinoScrollBehavior',
             badgeColor: Color(0xFF166053),
-            description:
-                'InheritedWidget that exposes the behavior to descendants',
+            description: 'InheritedWidget that exposes the behavior to descendants',
           ),
           const _TreeNode(
             depth: 2,
@@ -1364,16 +1314,14 @@ class _PropagationTreeSection extends StatelessWidget {
             label: 'CustomScrollView',
             badge: 'inherits physics',
             badgeColor: Color(0xFF258870),
-            description:
-                'getScrollPhysics(context) returns BouncingScrollPhysics',
+            description: 'getScrollPhysics(context) returns BouncingScrollPhysics',
           ),
           const _TreeNode(
             depth: 4,
             label: 'SliverFillRemaining',
             badge: 'child',
             badgeColor: Color(0xFF2DAA8A),
-            description:
-                'Inherits bouncing physics and the Cupertino scrollbar',
+            description: 'Inherits bouncing physics and the Cupertino scrollbar',
             isLast: true,
           ),
           const SizedBox(height: 18),
@@ -1387,11 +1335,7 @@ class _PropagationTreeSection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
-                Icon(
-                  CupertinoIcons.lightbulb,
-                  color: Color(0xFFB8FBE3),
-                  size: 18,
-                ),
+                Icon(CupertinoIcons.lightbulb, color: Color(0xFFB8FBE3), size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -1474,10 +1418,7 @@ class _TreeNode extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
                           color: badgeColor,
                           borderRadius: BorderRadius.circular(999),
@@ -1722,8 +1663,7 @@ class _PitfallsSection extends StatelessWidget {
           _CalloutCard(
             severity: _CalloutSeverity.danger,
             title: 'Glow overscroll won\'t go away',
-            body:
-                'Wrapping a ListView in CupertinoApp does NOT remove the Material glow '
+            body: 'Wrapping a ListView in CupertinoApp does NOT remove the Material glow '
                 'if a MaterialApp ancestor is still in the tree (e.g. in tests). Use '
                 'ScrollConfiguration explicitly when nesting both apps.',
           ),
@@ -1731,8 +1671,7 @@ class _PitfallsSection extends StatelessWidget {
           _CalloutCard(
             severity: _CalloutSeverity.warning,
             title: 'Physics surprise on Android',
-            body:
-                'CupertinoScrollBehavior returns BouncingScrollPhysics on EVERY platform. '
+            body: 'CupertinoScrollBehavior returns BouncingScrollPhysics on EVERY platform. '
                 'If your QA team tests on Android they may report unexpected overscroll. '
                 'Either accept it or override getScrollPhysics in a subclass.',
           ),
@@ -1740,8 +1679,7 @@ class _PitfallsSection extends StatelessWidget {
           _CalloutCard(
             severity: _CalloutSeverity.warning,
             title: 'CupertinoScrollbar duplication',
-            body:
-                'Manually wrapping with CupertinoScrollbar inside CupertinoApp can cause '
+            body: 'Manually wrapping with CupertinoScrollbar inside CupertinoApp can cause '
                 'two scrollbars to appear. The behavior already adds one; manual wrapping '
                 'should only happen for advanced customization.',
           ),
@@ -1749,8 +1687,7 @@ class _PitfallsSection extends StatelessWidget {
           _CalloutCard(
             severity: _CalloutSeverity.success,
             title: 'copyWith is your friend',
-            body:
-                'You almost never need to subclass. Use copyWith(scrollbars: false, '
+            body: 'You almost never need to subclass. Use copyWith(scrollbars: false, '
                 'overscroll: false, dragDevices: {...}) to toggle individual behaviors '
                 'without losing the iOS feel.',
           ),
@@ -1758,8 +1695,7 @@ class _PitfallsSection extends StatelessWidget {
           _CalloutCard(
             severity: _CalloutSeverity.info,
             title: 'Test with bouncing physics in mind',
-            body:
-                'When writing widget tests, scroll offsets can overshoot the actual '
+            body: 'When writing widget tests, scroll offsets can overshoot the actual '
                 'content length because of bouncing. Use pumpAndSettle and avoid asserting '
                 'exact pixel positions during bounce-back.',
           ),
@@ -1870,10 +1806,7 @@ class _CalloutCard extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
                         color: _accentColor,
                         borderRadius: BorderRadius.circular(999),
@@ -1947,8 +1880,7 @@ class _MigrationCheatSheetSection extends StatelessWidget {
           _MigrationRow(
             material: 'ScrollBehavior',
             cupertino: 'CupertinoScrollBehavior',
-            note:
-                'Use directly via MaterialApp.scrollBehavior or ScrollConfiguration',
+            note: 'Use directly via MaterialApp.scrollBehavior or ScrollConfiguration',
           ),
           _MigrationRow(
             material: 'ClampingScrollPhysics',
@@ -1972,8 +1904,7 @@ class _MigrationCheatSheetSection extends StatelessWidget {
           ),
           _MigrationRow(
             material: 'RawScrollbar',
-            cupertino:
-                'CupertinoScrollbar (still uses RawScrollbar internally)',
+            cupertino: 'CupertinoScrollbar (still uses RawScrollbar internally)',
             note: 'Cupertino is a styled subclass of RawScrollbar',
           ),
           _MigrationRow(
@@ -2019,10 +1950,7 @@ class _MigrationRow extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color(0xFFECEAFB),
                     borderRadius: BorderRadius.circular(8),
@@ -2041,18 +1969,12 @@ class _MigrationRow extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(
-                  CupertinoIcons.arrow_right_circle_fill,
-                  color: Color(0xFF7A4DB8),
-                  size: 18,
-                ),
+                child: Icon(CupertinoIcons.arrow_right_circle_fill,
+                    color: Color(0xFF7A4DB8), size: 18),
               ),
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFDE9F2),
                     borderRadius: BorderRadius.circular(8),
@@ -2151,9 +2073,7 @@ class _FooterReferenceSection extends StatelessWidget {
                     _FooterColumnTitle(label: 'Methods'),
                     _FooterListItem(text: 'getScrollPhysics(context)'),
                     _FooterListItem(text: 'buildScrollbar(c, child, details)'),
-                    _FooterListItem(
-                      text: 'buildOverscrollIndicator(c, child, d)',
-                    ),
+                    _FooterListItem(text: 'buildOverscrollIndicator(c, child, d)'),
                     _FooterListItem(text: 'velocityTrackerBuilder(context)'),
                     _FooterListItem(text: 'copyWith(...)'),
                     _FooterListItem(text: 'shouldNotify(other)'),

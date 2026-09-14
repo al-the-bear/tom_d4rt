@@ -57,7 +57,11 @@ List<_SpringSample> _sampleSpring(
 
 // Same idea for FrictionSimulation / GravitySimulation --- accept any
 // Simulation and probe it.
-List<_SpringSample> _sampleAny(Simulation sim, double duration, int count) {
+List<_SpringSample> _sampleAny(
+  Simulation sim,
+  double duration,
+  int count,
+) {
   final List<_SpringSample> out = <_SpringSample>[];
   for (int i = 0; i < count; i++) {
     final double t = duration * (i / (count - 1));
@@ -167,10 +171,7 @@ class _CurvePainter extends CustomPainter {
       double steps = dist / (dashWidth + dashGap);
       for (double s = 0.0; s < steps; s += 1.0) {
         final double t0 = s / steps;
-        final double t1 = math.min(
-          1.0,
-          (s + dashWidth / (dashWidth + dashGap)) / steps,
-        );
+        final double t1 = math.min(1.0, (s + dashWidth / (dashWidth + dashGap)) / steps);
         canvas.drawLine(
           Offset(a.dx + dx * t0, a.dy + dy * t0),
           Offset(a.dx + dx * t1, a.dy + dy * t1),
@@ -303,10 +304,8 @@ class _ThumbnailPainter extends CustomPainter {
     Offset map(double t, double y) {
       final double nx = (t - tMin) / (tMax - tMin);
       final double ny = (y - yMin) / (yMax - yMin);
-      return Offset(
-        4.0 + nx * (size.width - 8.0),
-        size.height - 4.0 - ny * (size.height - 8.0),
-      );
+      return Offset(4.0 + nx * (size.width - 8.0),
+          size.height - 4.0 - ny * (size.height - 8.0));
     }
 
     // Target dashed line
@@ -379,7 +378,10 @@ class _SpringCoilPainter extends CustomPainter {
 
     // Left mount
     final Paint mountPaint = Paint()..color = mountColor;
-    canvas.drawRect(Rect.fromLTWH(0.0, midY - 22.0, 6.0, 44.0), mountPaint);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, midY - 22.0, 6.0, 44.0),
+      mountPaint,
+    );
 
     // Right mount
     canvas.drawRect(
@@ -422,10 +424,8 @@ class _SpringCoilPainter extends CustomPainter {
       width: 28.0,
       height: 28.0,
     );
-    final RRect massRRect = RRect.fromRectAndRadius(
-      massRect,
-      const Radius.circular(5.0),
-    );
+    final RRect massRRect =
+        RRect.fromRectAndRadius(massRect, const Radius.circular(5.0));
     canvas.drawRRect(massRRect, massPaint);
     canvas.drawRRect(massRRect, massBorder);
   }
@@ -591,7 +591,10 @@ Widget _legendDot(Color color, String label) {
           shape: BoxShape.circle,
           border: Border.all(color: Colors.white, width: 1.5),
           boxShadow: <BoxShadow>[
-            BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 4.0),
+            BoxShadow(
+              color: color.withValues(alpha: 0.4),
+              blurRadius: 4.0,
+            ),
           ],
         ),
       ),
@@ -757,10 +760,8 @@ dynamic build(BuildContext context) {
     stiffness: 100.0,
     damping: 10.0,
   );
-  print(
-    'Hero spring: mass=${heroSpring.mass}, '
-    'stiffness=${heroSpring.stiffness}, damping=${heroSpring.damping}',
-  );
+  print('Hero spring: mass=${heroSpring.mass}, '
+      'stiffness=${heroSpring.stiffness}, damping=${heroSpring.damping}');
 
   final SpringDescription critical = SpringDescription.withDampingRatio(
     mass: 1.0,
@@ -783,32 +784,25 @@ dynamic build(BuildContext context) {
   print('Over-damped (ratio=1.8): ${over.damping}');
 
   // Spring simulations: from x=0 to x=1, no initial velocity.
-  final SpringSimulation heroSim = SpringSimulation(heroSpring, 0.0, 1.0, 0.0);
-  final SpringSimulation criticalSim = SpringSimulation(
-    critical,
-    0.0,
-    1.0,
-    0.0,
-  );
-  final SpringSimulation underSim = SpringSimulation(under, 0.0, 1.0, 0.0);
+  final SpringSimulation heroSim =
+      SpringSimulation(heroSpring, 0.0, 1.0, 0.0);
+  final SpringSimulation criticalSim =
+      SpringSimulation(critical, 0.0, 1.0, 0.0);
+  final SpringSimulation underSim =
+      SpringSimulation(under, 0.0, 1.0, 0.0);
   final SpringSimulation overSim = SpringSimulation(over, 0.0, 1.0, 0.0);
 
   final List<_SpringSample> heroSamples = _sampleSpring(heroSim, 3.0, 220);
-  final List<_SpringSample> criticalSamples = _sampleSpring(
-    criticalSim,
-    3.0,
-    220,
-  );
+  final List<_SpringSample> criticalSamples =
+      _sampleSpring(criticalSim, 3.0, 220);
   final List<_SpringSample> underSamples = _sampleSpring(underSim, 3.0, 220);
   final List<_SpringSample> overSamples = _sampleSpring(overSim, 3.0, 220);
 
   for (int i = 0; i < 6; i++) {
     final double t = i * 0.5;
-    print(
-      'hero t=${t.toStringAsFixed(2)} -> '
-      'x=${heroSim.x(t).toStringAsFixed(4)} '
-      'dx=${heroSim.dx(t).toStringAsFixed(4)}',
-    );
+    print('hero t=${t.toStringAsFixed(2)} -> '
+        'x=${heroSim.x(t).toStringAsFixed(4)} '
+        'dx=${heroSim.dx(t).toStringAsFixed(4)}');
   }
 
   // --------------------------------------------------------------
@@ -894,7 +888,9 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.07),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.18),
+            ),
           ),
           child: const Text(
             'A SpringDescription bundles the three numbers that fully define '
@@ -904,7 +900,11 @@ dynamic build(BuildContext context) {
             'Feed one into a SpringSimulation (or its scroll-aware sibling '
             'ScrollSpringSimulation) and Flutter\u2019s physics package will '
             'play back the resulting motion at any time t.',
-            style: TextStyle(color: Colors.white, fontSize: 13.5, height: 1.5),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13.5,
+              height: 1.5,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -1002,21 +1002,22 @@ dynamic build(BuildContext context) {
             ),
             _statTile(
               '\u03C9\u2099 = \u221A(k/m)',
-              math
-                  .sqrt(heroSpring.stiffness / heroSpring.mass)
+              math.sqrt(heroSpring.stiffness / heroSpring.mass)
                   .toStringAsFixed(3),
               Colors.green.shade700,
             ),
             _statTile(
               'c_crit = 2\u221A(km)',
-              (2.0 * math.sqrt(heroSpring.mass * heroSpring.stiffness))
+              (2.0 *
+                      math.sqrt(heroSpring.mass * heroSpring.stiffness))
                   .toStringAsFixed(3),
               Colors.deepPurple.shade700,
             ),
             _statTile(
               '\u03B6 = c / c_crit',
               (heroSpring.damping /
-                      (2.0 * math.sqrt(heroSpring.mass * heroSpring.stiffness)))
+                      (2.0 *
+                          math.sqrt(heroSpring.mass * heroSpring.stiffness)))
                   .toStringAsFixed(3),
               Colors.red.shade700,
             ),
@@ -1133,10 +1134,7 @@ dynamic build(BuildContext context) {
           runSpacing: 8.0,
           children: <Widget>[
             _legendDot(const Color(0xFFEC4899), 'under-damped (oscillates)'),
-            _legendDot(
-              const Color(0xFF22C55E),
-              'critical (fastest no-overshoot)',
-            ),
+            _legendDot(const Color(0xFF22C55E), 'critical (fastest no-overshoot)'),
             _legendDot(const Color(0xFF3B82F6), 'over-damped (slow approach)'),
             _legendDot(const Color(0xFFEF4444), 'rest position'),
           ],
@@ -1150,13 +1148,7 @@ dynamic build(BuildContext context) {
   // and damping ratio.  Each cell shows a thumbnail curve.
   // --------------------------------------------------------------
   print('=== Section 4: Stiffness matrix ===');
-  final List<double> stiffnessValues = <double>[
-    10.0,
-    50.0,
-    100.0,
-    200.0,
-    500.0,
-  ];
+  final List<double> stiffnessValues = <double>[10.0, 50.0, 100.0, 200.0, 500.0];
   final List<Color> stiffnessColors = <Color>[
     const Color(0xFFFCA5A5),
     const Color(0xFFFB923C),
@@ -1180,11 +1172,9 @@ dynamic build(BuildContext context) {
       if (s.x < yMin) yMin = s.x;
       if (s.x > yMax) yMax = s.x;
     }
-    print(
-      'stiffness k=$k -> '
-      '\u03C9\u2099=${math.sqrt(k).toStringAsFixed(3)} '
-      'c=${desc.damping.toStringAsFixed(3)}',
-    );
+    print('stiffness k=$k -> '
+        '\u03C9\u2099=${math.sqrt(k).toStringAsFixed(3)} '
+        'c=${desc.damping.toStringAsFixed(3)}');
     stiffnessTiles.add(
       Container(
         width: 175.0,
@@ -1286,7 +1276,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12.0),
-        Wrap(spacing: 10.0, runSpacing: 10.0, children: stiffnessTiles),
+        Wrap(
+          spacing: 10.0,
+          runSpacing: 10.0,
+          children: stiffnessTiles,
+        ),
       ],
     ),
   );
@@ -1318,11 +1312,9 @@ dynamic build(BuildContext context) {
       if (s.x < yMin) yMin = s.x;
       if (s.x > yMax) yMax = s.x;
     }
-    print(
-      'mass m=$m -> '
-      '\u03C9\u2099=${math.sqrt(100.0 / m).toStringAsFixed(3)} '
-      'c=${desc.damping.toStringAsFixed(3)}',
-    );
+    print('mass m=$m -> '
+        '\u03C9\u2099=${math.sqrt(100.0 / m).toStringAsFixed(3)} '
+        'c=${desc.damping.toStringAsFixed(3)}');
     massTiles.add(
       Container(
         width: 200.0,
@@ -1409,7 +1401,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12.0),
-        Wrap(spacing: 10.0, runSpacing: 10.0, children: massTiles),
+        Wrap(
+          spacing: 10.0,
+          runSpacing: 10.0,
+          children: massTiles,
+        ),
       ],
     ),
   );
@@ -1446,13 +1442,11 @@ dynamic build(BuildContext context) {
       if (s.x > yMax) yMax = s.x + 0.05;
     }
 
-    ratioTraces.add(
-      _Trace(
-        label: '\u03B6 = ${r.toStringAsFixed(1)}',
-        color: ratioColors[i],
-        samples: samples,
-      ),
-    );
+    ratioTraces.add(_Trace(
+      label: '\u03B6 = ${r.toStringAsFixed(1)}',
+      color: ratioColors[i],
+      samples: samples,
+    ));
 
     ratioTiles.add(
       Container(
@@ -1578,7 +1572,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 10.0),
-        Wrap(spacing: 10.0, runSpacing: 10.0, children: ratioTiles),
+        Wrap(
+          spacing: 10.0,
+          runSpacing: 10.0,
+          children: ratioTiles,
+        ),
       ],
     ),
   );
@@ -1614,42 +1612,32 @@ dynamic build(BuildContext context) {
     -800.0,
   );
 
-  final SpringSimulation bouncySim = SpringSimulation(
-    bouncyRecipe,
-    0.0,
-    1.0,
-    0.0,
-  );
-  final SpringSimulation gentleSim = SpringSimulation(
-    gentleRecipe,
-    0.0,
-    1.0,
-    0.0,
-  );
-  final SpringSimulation snappySim = SpringSimulation(
-    snappyRecipe,
-    0.0,
-    1.0,
-    0.0,
-  );
+  final SpringSimulation bouncySim =
+      SpringSimulation(bouncyRecipe, 0.0, 1.0, 0.0);
+  final SpringSimulation gentleSim =
+      SpringSimulation(gentleRecipe, 0.0, 1.0, 0.0);
+  final SpringSimulation snappySim =
+      SpringSimulation(snappyRecipe, 0.0, 1.0, 0.0);
   final SpringSimulation slowSim = SpringSimulation(slowRecipe, 0.0, 1.0, 0.0);
 
-  final List<_SpringSample> bouncySamples = _sampleSpring(bouncySim, 2.5, 200);
-  final List<_SpringSample> gentleSamples = _sampleSpring(gentleSim, 2.5, 200);
-  final List<_SpringSample> snappySamples = _sampleSpring(snappySim, 2.5, 200);
+  final List<_SpringSample> bouncySamples =
+      _sampleSpring(bouncySim, 2.5, 200);
+  final List<_SpringSample> gentleSamples =
+      _sampleSpring(gentleSim, 2.5, 200);
+  final List<_SpringSample> snappySamples =
+      _sampleSpring(snappySim, 2.5, 200);
   final List<_SpringSample> slowSamples = _sampleSpring(slowSim, 2.5, 200);
-  final List<_SpringSample> scrollSamples = _sampleAny(scrollRecipe, 2.5, 200);
+  final List<_SpringSample> scrollSamples =
+      _sampleAny(scrollRecipe, 2.5, 200);
 
   print('bouncy: c=${bouncyRecipe.damping.toStringAsFixed(3)}');
   print('gentle: c=${gentleRecipe.damping.toStringAsFixed(3)}');
   print('snappy: c=${snappyRecipe.damping.toStringAsFixed(3)}');
   print('slow:   c=${slowRecipe.damping.toStringAsFixed(3)}');
-  print(
-    'scroll overscroll first samples: '
-    'x(0)=${scrollRecipe.x(0.0).toStringAsFixed(3)} '
-    'x(0.1)=${scrollRecipe.x(0.1).toStringAsFixed(3)} '
-    'x(0.5)=${scrollRecipe.x(0.5).toStringAsFixed(3)}',
-  );
+  print('scroll overscroll first samples: '
+      'x(0)=${scrollRecipe.x(0.0).toStringAsFixed(3)} '
+      'x(0.1)=${scrollRecipe.x(0.1).toStringAsFixed(3)} '
+      'x(0.5)=${scrollRecipe.x(0.5).toStringAsFixed(3)}');
 
   final List<_Trace> recipeTraces = <_Trace>[
     _Trace(
@@ -1667,7 +1655,11 @@ dynamic build(BuildContext context) {
       color: const Color(0xFFA855F7),
       samples: snappySamples,
     ),
-    _Trace(label: 'slow', color: const Color(0xFF0EA5E9), samples: slowSamples),
+    _Trace(
+      label: 'slow',
+      color: const Color(0xFF0EA5E9),
+      samples: slowSamples,
+    ),
   ];
 
   double recipeYMin = -0.2;
@@ -1907,36 +1899,35 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------
   // SECTION 8: Comparison vs FrictionSimulation and GravitySimulation
   // --------------------------------------------------------------
-  print(
-    '=== Section 8: Comparison with FrictionSimulation / GravitySimulation ===',
-  );
-  final FrictionSimulation frictionSim = FrictionSimulation(0.135, 0.0, 4.0);
-  final GravitySimulation gravitySim = GravitySimulation(2.0, 0.0, 5.0, 0.0);
+  print('=== Section 8: Comparison with FrictionSimulation / GravitySimulation ===');
+  final FrictionSimulation frictionSim =
+      FrictionSimulation(0.135, 0.0, 4.0);
+  final GravitySimulation gravitySim =
+      GravitySimulation(2.0, 0.0, 5.0, 0.0);
   final SpringSimulation compareSpring = SpringSimulation(
-    SpringDescription.withDampingRatio(mass: 1.0, stiffness: 18.0, ratio: 0.55),
+    SpringDescription.withDampingRatio(
+      mass: 1.0,
+      stiffness: 18.0,
+      ratio: 0.55,
+    ),
     0.0,
     1.0,
     0.0,
   );
 
-  final List<_SpringSample> frictionSamples = _sampleAny(frictionSim, 4.0, 200);
-  final List<_SpringSample> gravitySamples = _sampleAny(gravitySim, 2.0, 200);
-  final List<_SpringSample> compareSpringSamples = _sampleSpring(
-    compareSpring,
-    4.0,
-    200,
-  );
+  final List<_SpringSample> frictionSamples =
+      _sampleAny(frictionSim, 4.0, 200);
+  final List<_SpringSample> gravitySamples =
+      _sampleAny(gravitySim, 2.0, 200);
+  final List<_SpringSample> compareSpringSamples =
+      _sampleSpring(compareSpring, 4.0, 200);
 
-  print(
-    'friction: x(0)=${frictionSim.x(0.0).toStringAsFixed(3)} '
-    'x(2)=${frictionSim.x(2.0).toStringAsFixed(3)} '
-    'x(4)=${frictionSim.x(4.0).toStringAsFixed(3)}',
-  );
-  print(
-    'gravity:  x(0)=${gravitySim.x(0.0).toStringAsFixed(3)} '
-    'x(1)=${gravitySim.x(1.0).toStringAsFixed(3)} '
-    'x(2)=${gravitySim.x(2.0).toStringAsFixed(3)}',
-  );
+  print('friction: x(0)=${frictionSim.x(0.0).toStringAsFixed(3)} '
+      'x(2)=${frictionSim.x(2.0).toStringAsFixed(3)} '
+      'x(4)=${frictionSim.x(4.0).toStringAsFixed(3)}');
+  print('gravity:  x(0)=${gravitySim.x(0.0).toStringAsFixed(3)} '
+      'x(1)=${gravitySim.x(1.0).toStringAsFixed(3)} '
+      'x(2)=${gravitySim.x(2.0).toStringAsFixed(3)}');
 
   // Re-scale gravity samples to fit the same plot
   final List<_SpringSample> gravityScaled = <_SpringSample>[];
@@ -2326,8 +2317,7 @@ dynamic build(BuildContext context) {
         _glossaryEntry(
           'under-damped',
           '\u03B6 < 1.  Oscillates with an exponentially decaying envelope.',
-          const Color(0xFFF59E0B),
-        ),
+          const Color(0xFFF59E0B)),
         _glossaryEntry(
           'critically damped',
           '\u03B6 = 1.  Fastest possible non-oscillatory return to rest.',

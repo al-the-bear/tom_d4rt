@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.anchor,
       'title': 'What is ViewAnchor?',
-      'body':
-          'ViewAnchor is a widget that attaches a secondary View to '
+      'body': 'ViewAnchor is a widget that attaches a secondary View to '
           'a position in the primary widget tree. The anchored view '
           'renders at the same location as its anchor but in a '
           'separate rendering pipeline — ideal for overlays.',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Multi-View Architecture',
-      'body':
-          'Flutter supports rendering multiple views from a single '
+      'body': 'Flutter supports rendering multiple views from a single '
           'widget tree. ViewAnchor creates an entry point for a '
           'secondary view that is anchored to, but independent of, '
           'the primary rendering surface.',
@@ -37,8 +35,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.picture_in_picture,
       'title': 'Overlay-Like Behavior',
-      'body':
-          'Unlike Overlay which composites within the same view, '
+      'body': 'Unlike Overlay which composites within the same view, '
           'ViewAnchor creates a genuinely separate view. This means '
           'the anchored content can draw without being clipped by '
           'the primary view\u0027s boundaries.',
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.update,
       'title': 'Lifecycle Tie-In',
-      'body':
-          'The secondary view is created when ViewAnchor mounts '
+      'body': 'The secondary view is created when ViewAnchor mounts '
           'and disposed when it unmounts. Its position updates '
           'automatically as the anchor widget moves in the primary '
           'view\u0027s layout.',
@@ -127,32 +123,28 @@ dynamic build(BuildContext context) {
     {
       'name': 'view',
       'type': 'Widget',
-      'desc':
-          'The widget tree that forms the content of the secondary '
+      'desc': 'The widget tree that forms the content of the secondary '
           'view. This tree is rendered in a separate view anchored '
           'to the position of this widget in the primary tree.',
     },
     {
       'name': 'child',
       'type': 'Widget',
-      'desc':
-          'The primary-view child widget. This renders in the normal '
+      'desc': 'The primary-view child widget. This renders in the normal '
           'widget tree. The secondary view is anchored at the same '
           'position as this child in the layout.',
     },
     {
       'name': 'View',
       'type': 'Widget (related)',
-      'desc':
-          'The fundamental single-view widget. ViewAnchor creates a '
+      'desc': 'The fundamental single-view widget. ViewAnchor creates a '
           'View internally to host the secondary content. View wraps '
           'a FlutterView and establishes a rendering pipeline.',
     },
     {
       'name': 'ViewCollection',
       'type': 'Widget (related)',
-      'desc':
-          'A widget that manages multiple Views. ViewAnchor can be '
+      'desc': 'A widget that manages multiple Views. ViewAnchor can be '
           'thought of as a convenient way to add a view to a '
           'ViewCollection anchored at a specific widget.',
     },
@@ -241,8 +233,7 @@ dynamic build(BuildContext context) {
   final anchoringSteps = <Map<String, dynamic>>[
     {
       'step': '1. Mount ViewAnchor',
-      'desc':
-          'When ViewAnchor is inserted into the widget tree, it '
+      'desc': 'When ViewAnchor is inserted into the widget tree, it '
           'creates a secondary FlutterView associated with the '
           'current rendering context.',
       'icon': Icons.add_circle,
@@ -250,8 +241,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Layout Primary Child',
-      'desc':
-          'The primary child is laid out in the normal widget tree. '
+      'desc': 'The primary child is laid out in the normal widget tree. '
           'Its position and size are computed as part of the standard '
           'layout pass.',
       'icon': Icons.straighten,
@@ -259,8 +249,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Position Secondary View',
-      'desc':
-          'The engine positions the secondary view\u0027s origin at '
+      'desc': 'The engine positions the secondary view\u0027s origin at '
           'the top-left of the primary child\u0027s layout rectangle. '
           'The secondary view follows the anchor automatically.',
       'icon': Icons.gps_fixed,
@@ -268,8 +257,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Render Independently',
-      'desc':
-          'The secondary view runs its own rendering pipeline. '
+      'desc': 'The secondary view runs its own rendering pipeline. '
           'It has its own build, layout, and paint phases. It can '
           'extend beyond the primary child\u0027s bounds.',
       'icon': Icons.brush,
@@ -277,8 +265,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Scroll/Move Updates',
-      'desc':
-          'When the primary child scrolls or repositions, the '
+      'desc': 'When the primary child scrolls or repositions, the '
           'secondary view\u0027s anchor point updates accordingly. '
           'The overlay content stays attached to its anchor.',
       'icon': Icons.sync,
@@ -286,8 +273,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '6. Unmount Cleanup',
-      'desc':
-          'When ViewAnchor unmounts, the secondary view is '
+      'desc': 'When ViewAnchor unmounts, the secondary view is '
           'destroyed and its rendering resources released. No '
           'manual cleanup is needed.',
       'icon': Icons.delete_sweep,
@@ -375,8 +361,7 @@ dynamic build(BuildContext context) {
   final overlayScenarios = <Map<String, dynamic>>[
     {
       'title': 'Tooltip Floating',
-      'desc':
-          'A tooltip that extends beyond the parent widget\u0027s clip '
+      'desc': 'A tooltip that extends beyond the parent widget\u0027s clip '
           'boundary. Traditional overlays are clipped by ancestor '
           'ClipRect or ClipRRect. A ViewAnchor-based tooltip renders '
           'in a separate view, avoiding any clipping.',
@@ -385,8 +370,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dropdown Menu',
-      'desc':
-          'A dropdown that appears below a trigger button. Because '
+      'desc': 'A dropdown that appears below a trigger button. Because '
           'the dropdown is in a separate view, it can extend below '
           'the trigger\u0027s container or scroll boundaries without '
           'being cut off.',
@@ -395,8 +379,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Context Menu',
-      'desc':
-          'A right-click/long-press context menu anchored to the '
+      'desc': 'A right-click/long-press context menu anchored to the '
           'interaction point. The menu floats in a secondary view '
           'and is positioned relative to the touch/click location.',
       'color': Colors.green,
@@ -404,8 +387,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Popover Panel',
-      'desc':
-          'A rich content panel anchored to a specific widget. '
+      'desc': 'A rich content panel anchored to a specific widget. '
           'Contains forms, images, or interactive content. The panel '
           'is a separate view so it does not affect the primary '
           'layout or receive clipping from ancestors.',
@@ -482,13 +464,11 @@ dynamic build(BuildContext context) {
   final multiViewTopics = <Map<String, dynamic>>[
     {
       'title': 'Single View (Traditional)',
-      'desc':
-          'Traditional Flutter apps render everything into one '
+      'desc': 'Traditional Flutter apps render everything into one '
           'FlutterView. Overlays, menus, and tooltips are all part '
           'of the same rendering pipeline and are subject to the '
           'same clipping and compositing rules.',
-      'diagram':
-          'App \u2192 [Single FlutterView]\n'
+      'diagram': 'App \u2192 [Single FlutterView]\n'
           '  \u251C\u2500 Scaffold\n'
           '  \u251C\u2500 Overlay\n'
           '  \u2514\u2500 Tooltips\n'
@@ -498,13 +478,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-View (ViewAnchor)',
-      'desc':
-          'With ViewAnchor, floating UI gets its own rendering '
+      'desc': 'With ViewAnchor, floating UI gets its own rendering '
           'surface. The primary view contains the app content. Each '
           'ViewAnchor adds a secondary view that can draw '
           'independently, with its own compositing layer.',
-      'diagram':
-          'App \u2192 [Primary View]\n'
+      'diagram': 'App \u2192 [Primary View]\n'
           '  \u251C\u2500 Scaffold (primary)\n'
           '  \u251C\u2500 ViewAnchor1 \u2192 [Secondary View 1]\n'
           '  \u2514\u2500 ViewAnchor2 \u2192 [Secondary View 2]\n'
@@ -514,13 +492,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Embedding Use Case',
-      'desc':
-          'When Flutter is embedded in a native app (add-to-app), '
+      'desc': 'When Flutter is embedded in a native app (add-to-app), '
           'ViewAnchor allows floating UI that extends beyond the '
           'Flutter container. The secondary view can draw over '
           'native content outside the Flutter embed.',
-      'diagram':
-          'Native App\n'
+      'diagram': 'Native App\n'
           '  \u251C\u2500 Native Header\n'
           '  \u251C\u2500 Flutter Embed \u2192 [Primary View]\n'
           '  \u2502   \u2514\u2500 ViewAnchor \u2192 [Secondary View]\n'
@@ -599,16 +575,14 @@ dynamic build(BuildContext context) {
   final positionTopics = <Map<String, dynamic>>[
     {
       'title': 'Anchor Origin',
-      'desc':
-          'The secondary view\u0027s origin is at the top-left corner '
+      'desc': 'The secondary view\u0027s origin is at the top-left corner '
           'of the primary child\u0027s render box. All positioning in '
           'the secondary view is relative to this anchor point.',
       'color': Colors.pink,
     },
     {
       'title': 'Offset Within View',
-      'desc':
-          'Content in the secondary view can use Positioned or '
+      'desc': 'Content in the secondary view can use Positioned or '
           'Align to place itself relative to the anchor origin. '
           'Negative offsets position content above or to the left '
           'of the anchor.',
@@ -616,24 +590,21 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Size Independence',
-      'desc':
-          'The secondary view can be larger or smaller than the '
+      'desc': 'The secondary view can be larger or smaller than the '
           'anchor child. It is not constrained by the anchor\u0027s '
           'size. A small button can anchor a large popover.',
       'color': Colors.green,
     },
     {
       'title': 'Scroll Tracking',
-      'desc':
-          'As the anchor child scrolls, the secondary view follows. '
+      'desc': 'As the anchor child scrolls, the secondary view follows. '
           'The engine updates the view\u0027s position each frame '
           'to match the anchor\u0027s current screen coordinates.',
       'color': Colors.orange,
     },
     {
       'title': 'Screen Boundaries',
-      'desc':
-          'The secondary view can extend beyond the screen edges. '
+      'desc': 'The secondary view can extend beyond the screen edges. '
           'The app is responsible for clamping or repositioning '
           'content to keep it visible, similar to how tooltips '
           'flip direction near screen edges.',
@@ -715,8 +686,7 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'ViewAnchor + Overlay',
-      'desc':
-          'Wrap an Overlay entry in ViewAnchor for floating content '
+      'desc': 'Wrap an Overlay entry in ViewAnchor for floating content '
           'that escapes clipping. The overlay manages show/hide '
           'logic; ViewAnchor handles rendering surface.',
       'icon': Icons.layers,
@@ -724,8 +694,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'ViewAnchor + CompositedTransformTarget',
-      'desc':
-          'Pair ViewAnchor with CompositedTransformTarget/Follower '
+      'desc': 'Pair ViewAnchor with CompositedTransformTarget/Follower '
           'for precise offset tracking between primary and secondary '
           'view content.',
       'icon': Icons.link,
@@ -733,8 +702,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Conditional ViewAnchor',
-      'desc':
-          'Wrap ViewAnchor in a conditional (if isOpen) to create '
+      'desc': 'Wrap ViewAnchor in a conditional (if isOpen) to create '
           'and destroy the secondary view on demand. The view is '
           'only allocated while needed.',
       'icon': Icons.toggle_on,
@@ -742,8 +710,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'ViewAnchor + Portal',
-      'desc':
-          'Use ViewAnchor as a "portal" to render widget subtrees '
+      'desc': 'Use ViewAnchor as a "portal" to render widget subtrees '
           'in a different rendering context. Children in the portal '
           'can access inherited widgets from the anchor location.',
       'icon': Icons.open_in_new,
@@ -751,8 +718,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Nested ViewAnchors',
-      'desc':
-          'ViewAnchors can nest: a secondary view can contain another '
+      'desc': 'ViewAnchors can nest: a secondary view can contain another '
           'ViewAnchor, creating a chain of anchored views. Each is '
           'anchored to its parent\u0027s position in the chain.',
       'icon': Icons.account_tree,
@@ -784,7 +750,11 @@ dynamic build(BuildContext context) {
                   color: pColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(p['icon'] as IconData, color: pColor, size: 22),
+                child: Icon(
+                  p['icon'] as IconData,
+                  color: pColor,
+                  size: 22,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -826,38 +796,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.anchor,
-      'text':
-          'ViewAnchor attaches a secondary View rendering surface '
+      'text': 'ViewAnchor attaches a secondary View rendering surface '
           'to a position in the primary widget tree.',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'The secondary view renders independently, escaping '
+      'text': 'The secondary view renders independently, escaping '
           'clipping and compositing constraints of the primary view.',
     },
     {
       'icon': Icons.gps_fixed,
-      'text':
-          'The anchor point tracks the primary child\u0027s position '
+      'text': 'The anchor point tracks the primary child\u0027s position '
           'automatically as it scrolls or repositions.',
     },
     {
       'icon': Icons.picture_in_picture,
-      'text':
-          'Ideal for tooltips, dropdowns, context menus, and '
+      'text': 'Ideal for tooltips, dropdowns, context menus, and '
           'popovers that must not be clipped by ancestors.',
     },
     {
       'icon': Icons.update,
-      'text':
-          'Created on mount, destroyed on unmount. No manual '
+      'text': 'Created on mount, destroyed on unmount. No manual '
           'lifecycle management needed by the developer.',
     },
     {
       'icon': Icons.view_in_ar,
-      'text':
-          'Part of Flutter\u0027s multi-view architecture alongside '
+      'text': 'Part of Flutter\u0027s multi-view architecture alongside '
           'View, ViewCollection, and the rendering pipeline.',
     },
   ];

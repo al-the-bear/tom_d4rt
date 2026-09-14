@@ -7,8 +7,7 @@ const List<_ThemePreset> _themePresets = <_ThemePreset>[
   _ThemePreset(
     id: 'harbor',
     name: 'Harbor Lab',
-    description:
-        'Oceanic profile for studying size interpolation and motion rhythm.',
+    description: 'Oceanic profile for studying size interpolation and motion rhythm.',
     seed: Color(0xFF0F766E),
     brightness: Brightness.light,
   ),
@@ -44,14 +43,12 @@ const List<_ScenarioPreset> _scenarios = <_ScenarioPreset>[
   _ScenarioPreset(
     id: 'constraints',
     title: 'Constraint Lab',
-    subtitle:
-        'Loose/tight/ratio pressure boards to observe transition behavior.',
+    subtitle: 'Loose/tight/ratio pressure boards to observe transition behavior.',
   ),
   _ScenarioPreset(
     id: 'axes',
     title: 'Axis Emphasis',
-    subtitle:
-        'Width-dominant vs height-dominant child changes for state insight.',
+    subtitle: 'Width-dominant vs height-dominant child changes for state insight.',
   ),
   _ScenarioPreset(
     id: 'reverse',
@@ -61,70 +58,24 @@ const List<_ScenarioPreset> _scenarios = <_ScenarioPreset>[
   _ScenarioPreset(
     id: 'ops',
     title: 'Ops Console',
-    subtitle:
-        'Counters, diagnostics, and timeline for repeatable verification.',
+    subtitle: 'Counters, diagnostics, and timeline for repeatable verification.',
   ),
 ];
 
 const List<_DurationPreset> _durationPresets = <_DurationPreset>[
-  _DurationPreset(
-    label: 'Snappy',
-    forwardMs: 280,
-    reverseMs: 180,
-    note: 'Quick transitions for reactive UIs.',
-  ),
-  _DurationPreset(
-    label: 'Balanced',
-    forwardMs: 640,
-    reverseMs: 360,
-    note: 'General-purpose, easy to follow.',
-  ),
-  _DurationPreset(
-    label: 'Expressive',
-    forwardMs: 1200,
-    reverseMs: 820,
-    note: 'Long transitions for demos and tutorials.',
-  ),
-  _DurationPreset(
-    label: 'Slow Return',
-    forwardMs: 750,
-    reverseMs: 1450,
-    note: 'Highlights asymmetric reverse behavior.',
-  ),
-  _DurationPreset(
-    label: 'Fast Return',
-    forwardMs: 1050,
-    reverseMs: 280,
-    note: 'Shows rapid convergence after expansion.',
-  ),
+  _DurationPreset(label: 'Snappy', forwardMs: 280, reverseMs: 180, note: 'Quick transitions for reactive UIs.'),
+  _DurationPreset(label: 'Balanced', forwardMs: 640, reverseMs: 360, note: 'General-purpose, easy to follow.'),
+  _DurationPreset(label: 'Expressive', forwardMs: 1200, reverseMs: 820, note: 'Long transitions for demos and tutorials.'),
+  _DurationPreset(label: 'Slow Return', forwardMs: 750, reverseMs: 1450, note: 'Highlights asymmetric reverse behavior.'),
+  _DurationPreset(label: 'Fast Return', forwardMs: 1050, reverseMs: 280, note: 'Shows rapid convergence after expansion.'),
 ];
 
 const List<_CurvePreset> _curvePresets = <_CurvePreset>[
-  _CurvePreset(
-    label: 'Linear',
-    curve: Curves.linear,
-    note: 'Constant interpolation rate.',
-  ),
-  _CurvePreset(
-    label: 'EaseInOut',
-    curve: Curves.easeInOut,
-    note: 'Balanced ease on both ends.',
-  ),
-  _CurvePreset(
-    label: 'FastOutSlowIn',
-    curve: Curves.fastOutSlowIn,
-    note: 'Material default feeling.',
-  ),
-  _CurvePreset(
-    label: 'EaseOutCubic',
-    curve: Curves.easeOutCubic,
-    note: 'Quick start with gentle settle.',
-  ),
-  _CurvePreset(
-    label: 'Decelerate',
-    curve: Curves.decelerate,
-    note: 'Useful for content reveal growth.',
-  ),
+  _CurvePreset(label: 'Linear', curve: Curves.linear, note: 'Constant interpolation rate.'),
+  _CurvePreset(label: 'EaseInOut', curve: Curves.easeInOut, note: 'Balanced ease on both ends.'),
+  _CurvePreset(label: 'FastOutSlowIn', curve: Curves.fastOutSlowIn, note: 'Material default feeling.'),
+  _CurvePreset(label: 'EaseOutCubic', curve: Curves.easeOutCubic, note: 'Quick start with gentle settle.'),
+  _CurvePreset(label: 'Decelerate', curve: Curves.decelerate, note: 'Useful for content reveal growth.'),
 ];
 
 const List<String> _intro = <String>[
@@ -154,24 +105,27 @@ const List<_FaqItem> _faq = <_FaqItem>[
         'It is the internal render-layer state progression used while AnimatedSize interpolates between old and new child sizes.',
   ),
   _FaqItem(
-    question:
-        'Why demonstrate with AnimatedSize instead of direct render construction?',
+    question: 'Why demonstrate with AnimatedSize instead of direct render construction?',
     answer:
         'AnimatedSize is the stable public API that activates the same render behavior safely in app-level code.',
   ),
   _FaqItem(
     question: 'What should teams inspect first when a transition looks wrong?',
-    answer:
-        'Check parent constraints, duration asymmetry, and whether child size changes are abrupt or phased.',
+    answer: 'Check parent constraints, duration asymmetry, and whether child size changes are abrupt or phased.',
   ),
   _FaqItem(
     question: 'How does reverseDuration help?',
-    answer:
-        'It lets collapse or rollback timing differ from expansion, improving interaction feel and predictability.',
+    answer: 'It lets collapse or rollback timing differ from expansion, improving interaction feel and predictability.',
   ),
 ];
 
-enum _MorphMode { compact, card, panel, banner, stack }
+enum _MorphMode {
+  compact,
+  card,
+  panel,
+  banner,
+  stack,
+}
 
 class _ThemePreset {
   const _ThemePreset({
@@ -190,11 +144,7 @@ class _ThemePreset {
 }
 
 class _ScenarioPreset {
-  const _ScenarioPreset({
-    required this.id,
-    required this.title,
-    required this.subtitle,
-  });
+  const _ScenarioPreset({required this.id, required this.title, required this.subtitle});
 
   final String id;
   final String title;
@@ -202,12 +152,7 @@ class _ScenarioPreset {
 }
 
 class _DurationPreset {
-  const _DurationPreset({
-    required this.label,
-    required this.forwardMs,
-    required this.reverseMs,
-    required this.note,
-  });
+  const _DurationPreset({required this.label, required this.forwardMs, required this.reverseMs, required this.note});
 
   final String label;
   final int forwardMs;
@@ -216,11 +161,7 @@ class _DurationPreset {
 }
 
 class _CurvePreset {
-  const _CurvePreset({
-    required this.label,
-    required this.curve,
-    required this.note,
-  });
+  const _CurvePreset({required this.label, required this.curve, required this.note});
 
   final String label;
   final Curve curve;
@@ -235,12 +176,7 @@ class _FaqItem {
 }
 
 class _MetricItem {
-  const _MetricItem({
-    required this.label,
-    required this.value,
-    required this.note,
-    required this.icon,
-  });
+  const _MetricItem({required this.label, required this.value, required this.note, required this.icon});
 
   final String label;
   final String value;
@@ -249,11 +185,7 @@ class _MetricItem {
 }
 
 class _TimelineItem {
-  const _TimelineItem({
-    required this.time,
-    required this.title,
-    required this.message,
-  });
+  const _TimelineItem({required this.time, required this.title, required this.message});
 
   final DateTime time;
   final String title;
@@ -268,12 +200,10 @@ class _RenderAnimatedSizeStateObservatory extends StatefulWidget {
   const _RenderAnimatedSizeStateObservatory();
 
   @override
-  State<_RenderAnimatedSizeStateObservatory> createState() =>
-      _RenderAnimatedSizeStateObservatoryState();
+  State<_RenderAnimatedSizeStateObservatory> createState() => _RenderAnimatedSizeStateObservatoryState();
 }
 
-class _RenderAnimatedSizeStateObservatoryState
-    extends State<_RenderAnimatedSizeStateObservatory>
+class _RenderAnimatedSizeStateObservatoryState extends State<_RenderAnimatedSizeStateObservatory>
     with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
 
@@ -352,10 +282,7 @@ class _RenderAnimatedSizeStateObservatoryState
     });
     if (!silent) {
       _presetApplyCount += 1;
-      _addTimeline(
-        'Duration Preset',
-        '${preset.label} applied (${preset.forwardMs}/${preset.reverseMs} ms).',
-      );
+      _addTimeline('Duration Preset', '${preset.label} applied (${preset.forwardMs}/${preset.reverseMs} ms).');
     }
   }
 
@@ -410,10 +337,7 @@ class _RenderAnimatedSizeStateObservatoryState
 
     if (_phaseLabel != nextPhase) {
       _setPhase(nextPhase);
-      _addTimeline(
-        'Phase',
-        'Phase changed to $nextPhase (${size.width.toStringAsFixed(1)} x ${size.height.toStringAsFixed(1)}).',
-      );
+      _addTimeline('Phase', 'Phase changed to $nextPhase (${size.width.toStringAsFixed(1)} x ${size.height.toStringAsFixed(1)}).');
     }
   }
 
@@ -457,8 +381,7 @@ class _RenderAnimatedSizeStateObservatoryState
       ),
       _MetricItem(
         label: 'Mode Size',
-        value:
-            '${modeSize.width.toStringAsFixed(0)} x ${modeSize.height.toStringAsFixed(0)}',
+        value: '${modeSize.width.toStringAsFixed(0)} x ${modeSize.height.toStringAsFixed(0)}',
         note: 'Target child footprint for current mode.',
         icon: Icons.aspect_ratio,
       ),
@@ -546,27 +469,16 @@ class _RenderAnimatedSizeStateObservatoryState
   @override
   Widget build(BuildContext context) {
     final _ThemePreset theme = _themePresets[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(
-      seedColor: theme.seed,
-      brightness: theme.brightness,
-    );
+    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
 
     return Theme(
-      data: ThemeData(
-        useMaterial3: true,
-        colorScheme: scheme,
-        brightness: theme.brightness,
-      ),
+      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                scheme.surface,
-                scheme.surfaceContainerLowest,
-                scheme.surfaceContainerLow,
-              ],
+              colors: <Color>[scheme.surface, scheme.surfaceContainerLowest, scheme.surfaceContainerLow],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -630,27 +542,17 @@ class _RenderAnimatedSizeStateObservatoryState
                 Icon(Icons.stacked_line_chart, color: scheme.primary, size: 24),
                 Text(
                   'RenderAnimatedSizeState Observatory',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 26,
-                  ),
+                  style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 26),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.primaryContainer,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
                     _scenarios[_scenarioIndex].title,
-                    style: TextStyle(
-                      color: scheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -675,21 +577,12 @@ class _RenderAnimatedSizeStateObservatoryState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Theme Profiles',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
+            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_themePresets.length, (
-                int index,
-              ) {
+              children: List<Widget>.generate(_themePresets.length, (int index) {
                 final _ThemePreset preset = _themePresets[index];
                 return ChoiceChip(
                   selected: index == _themeIndex,
@@ -704,19 +597,9 @@ class _RenderAnimatedSizeStateObservatoryState
               }),
             ),
             const SizedBox(height: 10),
-            Text(
-              _themePresets[_themeIndex].description,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_themePresets[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 14),
-            Text(
-              'Scenario Lanes',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
+            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
@@ -736,10 +619,7 @@ class _RenderAnimatedSizeStateObservatoryState
               }),
             ),
             const SizedBox(height: 8),
-            Text(
-              _scenarios[_scenarioIndex].subtitle,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_scenarios[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
       ),
@@ -785,14 +665,7 @@ class _RenderAnimatedSizeStateObservatoryState
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'State Theater',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
+                Text('State Theater', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
                 const Spacer(),
                 OutlinedButton.icon(
                   onPressed: () {
@@ -800,10 +673,7 @@ class _RenderAnimatedSizeStateObservatoryState
                       _mode = _MorphMode.card;
                       _phaseLabel = 'stable';
                     });
-                    _addTimeline(
-                      'Theater',
-                      'Primary stage returned to card mode.',
-                    );
+                    _addTimeline('Theater', 'Primary stage returned to card mode.');
                   },
                   icon: const Icon(Icons.refresh),
                   label: const Text('Normalize'),
@@ -831,11 +701,7 @@ class _RenderAnimatedSizeStateObservatoryState
                     if (_showGrid)
                       Positioned.fill(
                         child: CustomPaint(
-                          painter: _GridPainter(
-                            color: scheme.outlineVariant.withValues(
-                              alpha: 0.24,
-                            ),
-                          ),
+                          painter: _GridPainter(color: scheme.outlineVariant.withValues(alpha: 0.24)),
                         ),
                       ),
                     if (_showOverlay)
@@ -844,9 +710,7 @@ class _RenderAnimatedSizeStateObservatoryState
                           decoration: BoxDecoration(
                             gradient: RadialGradient(
                               colors: <Color>[
-                                scheme.primary.withValues(
-                                  alpha: _overlayOpacity,
-                                ),
+                                scheme.primary.withValues(alpha: _overlayOpacity),
                                 scheme.surface.withValues(alpha: 0),
                               ],
                               radius: 1.12,
@@ -876,29 +740,17 @@ class _RenderAnimatedSizeStateObservatoryState
                     Positioned(
                       top: 10,
                       left: 10,
-                      child: _chip(
-                        scheme,
-                        'phase $_phaseLabel',
-                        Icons.flag_circle,
-                      ),
+                      child: _chip(scheme, 'phase $_phaseLabel', Icons.flag_circle),
                     ),
                     Positioned(
                       top: 10,
                       right: 10,
-                      child: _chip(
-                        scheme,
-                        _curvePresets[_curveIndex].label,
-                        Icons.show_chart,
-                      ),
+                      child: _chip(scheme, _curvePresets[_curveIndex].label, Icons.show_chart),
                     ),
                     Positioned(
                       bottom: 10,
                       right: 10,
-                      child: _chip(
-                        scheme,
-                        '${_duration.inMilliseconds}/${_reverseDuration.inMilliseconds}ms',
-                        Icons.timer_outlined,
-                      ),
+                      child: _chip(scheme, '${_duration.inMilliseconds}/${_reverseDuration.inMilliseconds}ms', Icons.timer_outlined),
                     ),
                   ],
                 ),
@@ -908,7 +760,7 @@ class _RenderAnimatedSizeStateObservatoryState
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _MorphMode.values.map((_MorphMode mode) {
+              children: _MorphMode.values.map(( _MorphMode mode) {
                 return ChoiceChip(
                   selected: mode == _mode,
                   label: Text(mode.name),
@@ -936,14 +788,7 @@ class _RenderAnimatedSizeStateObservatoryState
           children: <Widget>[
             Icon(icon, size: 14, color: scheme.primary),
             const SizedBox(width: 6),
-            Text(
-              text,
-              style: TextStyle(
-                color: scheme.onSurfaceVariant,
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-              ),
-            ),
+            Text(text, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w600, fontSize: 12)),
           ],
         ),
       ),
@@ -952,9 +797,7 @@ class _RenderAnimatedSizeStateObservatoryState
 
   Widget _primaryMorphTile(ColorScheme scheme, _MorphMode mode) {
     final Size size = _modeSize(mode);
-    final double wobble = _pulseAccent
-        ? (math.sin(DateTime.now().millisecond / 999 * math.pi * 2) * 0.04)
-        : 0;
+    final double wobble = _pulseAccent ? (math.sin(DateTime.now().millisecond / 999 * math.pi * 2) * 0.04) : 0;
 
     return Transform.scale(
       scale: _tileScale + wobble,
@@ -971,11 +814,7 @@ class _RenderAnimatedSizeStateObservatoryState
           ),
           border: Border.all(color: scheme.primary.withValues(alpha: 0.7)),
           boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: scheme.primary.withValues(alpha: 0.22),
-              blurRadius: 14,
-              offset: const Offset(0, 7),
-            ),
+            BoxShadow(color: scheme.primary.withValues(alpha: 0.22), blurRadius: 14, offset: const Offset(0, 7)),
           ],
         ),
         child: Padding(
@@ -983,22 +822,13 @@ class _RenderAnimatedSizeStateObservatoryState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'mode ${mode.name}',
-                style: TextStyle(
-                  color: scheme.onPrimaryContainer,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('mode ${mode.name}', style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
               const Spacer(),
               Text(
                 '${(_alwaysFixedWidth ? 180 : size.width).toStringAsFixed(0)} x ${(_alwaysFixedHeight ? 108 : size.height).toStringAsFixed(0)}',
                 style: TextStyle(color: scheme.onPrimaryContainer),
               ),
-              Text(
-                'phase $_phaseLabel',
-                style: TextStyle(color: scheme.onPrimaryContainer),
-              ),
+              Text('phase $_phaseLabel', style: TextStyle(color: scheme.onPrimaryContainer)),
             ],
           ),
         ),
@@ -1015,14 +845,7 @@ class _RenderAnimatedSizeStateObservatoryState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'Control Console',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Control Console', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             Text(
               'Tune duration, curves, constraints, stage geometry, and fixed-axis behavior.',
@@ -1039,10 +862,7 @@ class _RenderAnimatedSizeStateObservatoryState
               onChanged: (double value) => setState(() => _tightness = value),
               onChangeEnd: (double value) {
                 _constraintSwitchCount += 1;
-                _addTimeline(
-                  'Constraints',
-                  'Tightness set to ${value.toStringAsFixed(2)}.',
-                );
+                _addTimeline('Constraints', 'Tightness set to ${value.toStringAsFixed(2)}.');
               },
             ),
             _slider(
@@ -1053,10 +873,7 @@ class _RenderAnimatedSizeStateObservatoryState
               max: 640,
               divisions: 76,
               onChanged: (double value) => setState(() => _stageWidth = value),
-              onChangeEnd: (double value) => _addTimeline(
-                'Stage',
-                'Width set to ${value.toStringAsFixed(0)}.',
-              ),
+              onChangeEnd: (double value) => _addTimeline('Stage', 'Width set to ${value.toStringAsFixed(0)}.'),
             ),
             _slider(
               scheme: scheme,
@@ -1066,10 +883,7 @@ class _RenderAnimatedSizeStateObservatoryState
               max: 420,
               divisions: 50,
               onChanged: (double value) => setState(() => _stageHeight = value),
-              onChangeEnd: (double value) => _addTimeline(
-                'Stage',
-                'Height set to ${value.toStringAsFixed(0)}.',
-              ),
+              onChangeEnd: (double value) => _addTimeline('Stage', 'Height set to ${value.toStringAsFixed(0)}.'),
             ),
             _slider(
               scheme: scheme,
@@ -1079,10 +893,7 @@ class _RenderAnimatedSizeStateObservatoryState
               max: 1.8,
               divisions: 52,
               onChanged: (double value) => setState(() => _tileScale = value),
-              onChangeEnd: (double value) => _addTimeline(
-                'Tile',
-                'Scale set to ${value.toStringAsFixed(2)}.',
-              ),
+              onChangeEnd: (double value) => _addTimeline('Tile', 'Scale set to ${value.toStringAsFixed(2)}.'),
             ),
             _slider(
               scheme: scheme,
@@ -1091,12 +902,8 @@ class _RenderAnimatedSizeStateObservatoryState
               min: 0,
               max: 0.6,
               divisions: 30,
-              onChanged: (double value) =>
-                  setState(() => _overlayOpacity = value),
-              onChangeEnd: (double value) => _addTimeline(
-                'Overlay',
-                'Opacity set to ${value.toStringAsFixed(2)}.',
-              ),
+              onChanged: (double value) => setState(() => _overlayOpacity = value),
+              onChangeEnd: (double value) => _addTimeline('Overlay', 'Opacity set to ${value.toStringAsFixed(2)}.'),
             ),
             _slider(
               scheme: scheme,
@@ -1105,28 +912,16 @@ class _RenderAnimatedSizeStateObservatoryState
               min: 0,
               max: 38,
               divisions: 38,
-              onChanged: (double value) =>
-                  setState(() => _cornerRadius = value),
-              onChangeEnd: (double value) => _addTimeline(
-                'Stage',
-                'Corner radius set to ${value.toStringAsFixed(0)}.',
-              ),
+              onChanged: (double value) => setState(() => _cornerRadius = value),
+              onChangeEnd: (double value) => _addTimeline('Stage', 'Corner radius set to ${value.toStringAsFixed(0)}.'),
             ),
             const Divider(height: 24),
-            Text(
-              'Duration Presets',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Duration Presets', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_durationPresets.length, (
-                int index,
-              ) {
+              children: List<Widget>.generate(_durationPresets.length, (int index) {
                 final _DurationPreset preset = _durationPresets[index];
                 return ChoiceChip(
                   selected: index == _durationPresetIndex,
@@ -1141,25 +936,14 @@ class _RenderAnimatedSizeStateObservatoryState
               }),
             ),
             const SizedBox(height: 8),
-            Text(
-              _durationPresets[_durationPresetIndex].note,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_durationPresets[_durationPresetIndex].note, style: TextStyle(color: scheme.onSurfaceVariant)),
             const Divider(height: 24),
-            Text(
-              'Curve Profiles',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Curve Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_curvePresets.length, (
-                int index,
-              ) {
+              children: List<Widget>.generate(_curvePresets.length, (int index) {
                 final _CurvePreset preset = _curvePresets[index];
                 return ChoiceChip(
                   selected: index == _curveIndex,
@@ -1179,81 +963,61 @@ class _RenderAnimatedSizeStateObservatoryState
               contentPadding: EdgeInsets.zero,
               value: _alwaysFixedWidth,
               title: const Text('Fix width to 180'),
-              subtitle: const Text(
-                'Locks width to demonstrate height-only transitions.',
-              ),
+              subtitle: const Text('Locks width to demonstrate height-only transitions.'),
               onChanged: (bool? value) {
                 setState(() {
                   _alwaysFixedWidth = value ?? false;
                 });
-                _addTimeline(
-                  'Axis Lock',
-                  _alwaysFixedWidth
-                      ? 'Width lock enabled.'
-                      : 'Width lock disabled.',
-                );
+                _addTimeline('Axis Lock', _alwaysFixedWidth ? 'Width lock enabled.' : 'Width lock disabled.');
               },
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _alwaysFixedHeight,
               title: const Text('Fix height to 108'),
-              subtitle: const Text(
-                'Locks height to demonstrate width-only transitions.',
-              ),
+              subtitle: const Text('Locks height to demonstrate width-only transitions.'),
               onChanged: (bool? value) {
                 setState(() {
                   _alwaysFixedHeight = value ?? false;
                 });
-                _addTimeline(
-                  'Axis Lock',
-                  _alwaysFixedHeight
-                      ? 'Height lock enabled.'
-                      : 'Height lock disabled.',
-                );
+                _addTimeline('Axis Lock', _alwaysFixedHeight ? 'Height lock enabled.' : 'Height lock disabled.');
               },
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _pulseAccent,
               title: const Text('Pulse accent'),
-              onChanged: (bool? value) =>
-                  setState(() => _pulseAccent = value ?? true),
+              onChanged: (bool? value) => setState(() => _pulseAccent = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showGrid,
               title: const Text('Show background grid'),
-              onChanged: (bool? value) =>
-                  setState(() => _showGrid = value ?? true),
+              onChanged: (bool? value) => setState(() => _showGrid = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showOverlay,
               title: const Text('Show radial overlay'),
-              onChanged: (bool? value) =>
-                  setState(() => _showOverlay = value ?? true),
+              onChanged: (bool? value) => setState(() => _showOverlay = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showDiagnostics,
               title: const Text('Show diagnostics panel'),
-              onChanged: (bool? value) =>
-                  setState(() => _showDiagnostics = value ?? true),
+              onChanged: (bool? value) => setState(() => _showDiagnostics = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showGuide,
               title: const Text('Show guide board'),
-              onChanged: (bool? value) =>
-                  setState(() => _showGuide = value ?? true),
+              onChanged: (bool? value) => setState(() => _showGuide = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showTimeline,
               title: const Text('Show timeline board'),
-              onChanged: (bool? value) =>
-                  setState(() => _showTimeline = value ?? true),
+              onChanged: (bool? value) => setState(() => _showTimeline = value ?? true),
             ),
           ],
         ),
@@ -1276,23 +1040,11 @@ class _RenderAnimatedSizeStateObservatoryState
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(
-              child: Text(label, style: TextStyle(color: scheme.onSurface)),
-            ),
-            Text(
-              value.toStringAsFixed(2),
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
+            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
-        Slider(
-          value: value,
-          min: min,
-          max: max,
-          divisions: divisions,
-          onChanged: onChanged,
-          onChangeEnd: onChangeEnd,
-        ),
+        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
       ],
     );
   }
@@ -1302,32 +1054,17 @@ class _RenderAnimatedSizeStateObservatoryState
       _ConstraintCard(
         title: 'Loose Envelope',
         note: 'Lets child expand naturally before settling.',
-        constraints: const BoxConstraints(
-          minWidth: 100,
-          maxWidth: 340,
-          minHeight: 80,
-          maxHeight: 240,
-        ),
+        constraints: const BoxConstraints(minWidth: 100, maxWidth: 340, minHeight: 80, maxHeight: 240),
       ),
       _ConstraintCard(
         title: 'Tight Corridor',
         note: 'Narrow width with strong vertical pressure.',
-        constraints: const BoxConstraints(
-          minWidth: 210,
-          maxWidth: 230,
-          minHeight: 90,
-          maxHeight: 220,
-        ),
+        constraints: const BoxConstraints(minWidth: 210, maxWidth: 230, minHeight: 90, maxHeight: 220),
       ),
       _ConstraintCard(
         title: 'Wide Shelf',
         note: 'Roomy horizontal area with shallow height range.',
-        constraints: const BoxConstraints(
-          minWidth: 250,
-          maxWidth: 390,
-          minHeight: 70,
-          maxHeight: 130,
-        ),
+        constraints: const BoxConstraints(minWidth: 250, maxWidth: 390, minHeight: 70, maxHeight: 130),
       ),
     ];
 
@@ -1339,14 +1076,7 @@ class _RenderAnimatedSizeStateObservatoryState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Constraint Lab',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Constraint Lab', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             Text(
               'Three boards highlight how different parent constraints affect AnimatedSize transitions.',
@@ -1357,7 +1087,7 @@ class _RenderAnimatedSizeStateObservatoryState
               builder: (BuildContext context, BoxConstraints constraints) {
                 if (constraints.maxWidth < 980) {
                   return Column(
-                    children: cards.map((_ConstraintCard card) {
+                    children: cards.map(( _ConstraintCard card) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: _constraintCardWidget(scheme, card),
@@ -1367,7 +1097,7 @@ class _RenderAnimatedSizeStateObservatoryState
                 }
 
                 return Row(
-                  children: cards.map((_ConstraintCard card) {
+                  children: cards.map(( _ConstraintCard card) {
                     return Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10),
@@ -1396,18 +1126,9 @@ class _RenderAnimatedSizeStateObservatoryState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              card.title,
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(card.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 6),
-            Text(
-              card.note,
-              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
-            ),
+            Text(card.note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
             const SizedBox(height: 10),
             Container(
               height: 160,
@@ -1448,14 +1169,7 @@ class _RenderAnimatedSizeStateObservatoryState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Axis Emphasis Board',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Axis Emphasis Board', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             Text(
               'Compare width-focused and height-focused transitions to reason about state changes.',
@@ -1473,10 +1187,7 @@ class _RenderAnimatedSizeStateObservatoryState
                     setState(() {
                       _axisWideMode = _nextMode(_axisWideMode);
                     });
-                    _addTimeline(
-                      'Axis Lane',
-                      'Width dominant lane switched to ${_axisWideMode.name}.',
-                    );
+                    _addTimeline('Axis Lane', 'Width dominant lane switched to ${_axisWideMode.name}.');
                   },
                 );
                 final Widget tall = _axisLane(
@@ -1487,25 +1198,14 @@ class _RenderAnimatedSizeStateObservatoryState
                     setState(() {
                       _axisTallMode = _nextMode(_axisTallMode);
                     });
-                    _addTimeline(
-                      'Axis Lane',
-                      'Height dominant lane switched to ${_axisTallMode.name}.',
-                    );
+                    _addTimeline('Axis Lane', 'Height dominant lane switched to ${_axisTallMode.name}.');
                   },
                 );
 
                 if (narrow) {
-                  return Column(
-                    children: <Widget>[wide, const SizedBox(height: 10), tall],
-                  );
+                  return Column(children: <Widget>[wide, const SizedBox(height: 10), tall]);
                 }
-                return Row(
-                  children: <Widget>[
-                    Expanded(child: wide),
-                    const SizedBox(width: 10),
-                    Expanded(child: tall),
-                  ],
-                );
+                return Row(children: <Widget>[Expanded(child: wide), const SizedBox(width: 10), Expanded(child: tall)]);
               },
             ),
           ],
@@ -1519,12 +1219,7 @@ class _RenderAnimatedSizeStateObservatoryState
     return _MorphMode.values[(index + 1) % _MorphMode.values.length];
   }
 
-  Widget _axisLane({
-    required ColorScheme scheme,
-    required String title,
-    required _MorphMode mode,
-    required VoidCallback onCycle,
-  }) {
+  Widget _axisLane({required ColorScheme scheme, required String title, required _MorphMode mode, required VoidCallback onCycle}) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -1538,13 +1233,7 @@ class _RenderAnimatedSizeStateObservatoryState
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                 const Spacer(),
                 TextButton(onPressed: onCycle, child: const Text('Cycle')),
               ],
@@ -1583,14 +1272,7 @@ class _RenderAnimatedSizeStateObservatoryState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Reverse Timing Board',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Reverse Timing Board', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             Text(
               'Observe asymmetric forward/reverse durations using paired expand and collapse actions.',
@@ -1603,10 +1285,7 @@ class _RenderAnimatedSizeStateObservatoryState
                   child: ElevatedButton.icon(
                     onPressed: () {
                       _switchMode(_MorphMode.panel);
-                      _addTimeline(
-                        'Reverse Board',
-                        'Expanded to panel for forward timing observation.',
-                      );
+                      _addTimeline('Reverse Board', 'Expanded to panel for forward timing observation.');
                     },
                     icon: const Icon(Icons.open_in_full),
                     label: const Text('Expand'),
@@ -1617,10 +1296,7 @@ class _RenderAnimatedSizeStateObservatoryState
                   child: ElevatedButton.icon(
                     onPressed: () {
                       _switchMode(_MorphMode.compact);
-                      _addTimeline(
-                        'Reverse Board',
-                        'Collapsed to compact for reverse timing observation.',
-                      );
+                      _addTimeline('Reverse Board', 'Collapsed to compact for reverse timing observation.');
                     },
                     icon: const Icon(Icons.close_fullscreen),
                     label: const Text('Collapse'),
@@ -1640,13 +1316,8 @@ class _RenderAnimatedSizeStateObservatoryState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Forward ${_duration.inMilliseconds} ms  |  Reverse ${_reverseDuration.inMilliseconds} ms',
-                      style: TextStyle(
-                        color: scheme.onSurface,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('Forward ${_duration.inMilliseconds} ms  |  Reverse ${_reverseDuration.inMilliseconds} ms',
+                        style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 6),
                     Text(
                       'Use duration presets to test how return-path timing changes the perceived RenderAnimatedSizeState lifecycle.',
@@ -1673,24 +1344,17 @@ class _RenderAnimatedSizeStateObservatoryState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Metrics & Diagnostics',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Metrics & Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                    ? 3
-                    : constraints.maxWidth > 560
-                    ? 2
-                    : 1;
+                        ? 3
+                        : constraints.maxWidth > 560
+                            ? 2
+                            : 1;
 
                 return GridView.builder(
                   shrinkWrap: true,
@@ -1717,20 +1381,10 @@ class _RenderAnimatedSizeStateObservatoryState
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(
-                                  item.icon,
-                                  color: scheme.primary,
-                                  size: 18,
-                                ),
+                                Icon(item.icon, color: scheme.primary, size: 18),
                                 const SizedBox(width: 8),
                                 Expanded(
-                                  child: Text(
-                                    item.label,
-                                    style: TextStyle(
-                                      color: scheme.onSurfaceVariant,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                  child: Text(item.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700)),
                                 ),
                               ],
                             ),
@@ -1739,21 +1393,14 @@ class _RenderAnimatedSizeStateObservatoryState
                               item.value,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: scheme.onSurface,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15,
-                              ),
+                              style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               item.note,
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: scheme.onSurfaceVariant,
-                                fontSize: 12,
-                              ),
+                              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
                             ),
                           ],
                         ),
@@ -1788,40 +1435,16 @@ class _RenderAnimatedSizeStateObservatoryState
               children: <Widget>[
                 Icon(Icons.terminal, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text(
-                  'Diagnostics Snapshot',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Diagnostics Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'phase = $_phaseLabel',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'mode = ${_mode.name}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'curve = ${_curvePresets[_curveIndex].label}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'duration = ${_duration.inMilliseconds}ms / reverse ${_reverseDuration.inMilliseconds}ms',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'constraints = ${c.minWidth.toStringAsFixed(0)}..${c.maxWidth.toStringAsFixed(0)} x ${c.minHeight.toStringAsFixed(0)}..${c.maxHeight.toStringAsFixed(0)}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'fixedWidth = $_alwaysFixedWidth, fixedHeight = $_alwaysFixedHeight',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('phase = $_phaseLabel', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('mode = ${_mode.name}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('curve = ${_curvePresets[_curveIndex].label}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('duration = ${_duration.inMilliseconds}ms / reverse ${_reverseDuration.inMilliseconds}ms', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('constraints = ${c.minWidth.toStringAsFixed(0)}..${c.maxWidth.toStringAsFixed(0)} x ${c.minHeight.toStringAsFixed(0)}..${c.maxHeight.toStringAsFixed(0)}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('fixedWidth = $_alwaysFixedWidth, fixedHeight = $_alwaysFixedHeight', style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
       ),
@@ -1837,14 +1460,7 @@ class _RenderAnimatedSizeStateObservatoryState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Guide',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Guide', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             ..._intro.map((String entry) {
               return Padding(
@@ -1857,24 +1473,13 @@ class _RenderAnimatedSizeStateObservatoryState
                       child: Icon(Icons.circle, color: scheme.primary, size: 8),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        entry,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
-                    ),
+                    Expanded(child: Text(entry, style: TextStyle(color: scheme.onSurfaceVariant))),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            Text(
-              'Best Practices',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Best Practices', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             ..._bestPractices.map((String entry) {
               return Padding(
@@ -1884,33 +1489,18 @@ class _RenderAnimatedSizeStateObservatoryState
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 3),
-                      child: Icon(
-                        Icons.check_circle_outline,
-                        color: scheme.secondary,
-                        size: 14,
-                      ),
+                      child: Icon(Icons.check_circle_outline, color: scheme.secondary, size: 14),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        entry,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
-                    ),
+                    Expanded(child: Text(entry, style: TextStyle(color: scheme.onSurfaceVariant))),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            Text(
-              'FAQ',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
-            ..._faq.map((_FaqItem item) {
+            ..._faq.map(( _FaqItem item) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: DecoratedBox(
@@ -1924,18 +1514,9 @@ class _RenderAnimatedSizeStateObservatoryState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          item.question,
-                          style: TextStyle(
-                            color: scheme.onSurface,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        Text(item.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                         const SizedBox(height: 6),
-                        Text(
-                          item.answer,
-                          style: TextStyle(color: scheme.onSurfaceVariant),
-                        ),
+                        Text(item.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
                       ],
                     ),
                   ),
@@ -1959,14 +1540,7 @@ class _RenderAnimatedSizeStateObservatoryState
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'Timeline',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
+                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
                 const Spacer(),
                 TextButton.icon(
                   onPressed: () {
@@ -1980,10 +1554,7 @@ class _RenderAnimatedSizeStateObservatoryState
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Chronological log of transition state observations and control changes.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Chronological log of transition state observations and control changes.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 12),
             if (_timeline.isEmpty)
               DecoratedBox(
@@ -1994,15 +1565,12 @@ class _RenderAnimatedSizeStateObservatoryState
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(14),
-                  child: Text(
-                    'Timeline is empty. Trigger transitions to populate events.',
-                    style: TextStyle(color: scheme.onSurfaceVariant),
-                  ),
+                  child: Text('Timeline is empty. Trigger transitions to populate events.', style: TextStyle(color: scheme.onSurfaceVariant)),
                 ),
               )
             else
               Column(
-                children: _timeline.map((_TimelineItem item) {
+                children: _timeline.map(( _TimelineItem item) {
                   final String stamp =
                       '${item.time.hour.toString().padLeft(2, '0')}:${item.time.minute.toString().padLeft(2, '0')}:${item.time.second.toString().padLeft(2, '0')}';
                   return Container(
@@ -2015,22 +1583,10 @@ class _RenderAnimatedSizeStateObservatoryState
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(
-                          stamp.substring(stamp.length - 2),
-                          style: TextStyle(color: scheme.onPrimaryContainer),
-                        ),
+                        child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
                       ),
-                      title: Text(
-                        item.title,
-                        style: TextStyle(
-                          color: scheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      subtitle: Text(
-                        '$stamp  |  ${item.message}',
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
+                      title: Text(item.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      subtitle: Text('$stamp  |  ${item.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
                     ),
                   );
                 }).toList(),
@@ -2043,11 +1599,7 @@ class _RenderAnimatedSizeStateObservatoryState
 }
 
 class _ConstraintCard {
-  const _ConstraintCard({
-    required this.title,
-    required this.note,
-    required this.constraints,
-  });
+  const _ConstraintCard({required this.title, required this.note, required this.constraints});
 
   final String title;
   final String note;
@@ -2077,16 +1629,8 @@ class _GridPainter extends CustomPainter {
     final Paint centerPaint = Paint()
       ..color = color.withValues(alpha: 0.82)
       ..strokeWidth = 1.8;
-    canvas.drawLine(
-      Offset(size.width / 2, 0),
-      Offset(size.width / 2, size.height),
-      centerPaint,
-    );
-    canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      centerPaint,
-    );
+    canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), centerPaint);
+    canvas.drawLine(Offset(0, size.height / 2), Offset(size.width, size.height / 2), centerPaint);
   }
 
   @override
@@ -2106,10 +1650,7 @@ class _MeasureBox extends SingleChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(
-    BuildContext context,
-    covariant _RenderMeasureBox renderObject,
-  ) {
+  void updateRenderObject(BuildContext context, covariant _RenderMeasureBox renderObject) {
     renderObject.onLayout = onLayout;
   }
 }

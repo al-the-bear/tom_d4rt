@@ -95,12 +95,7 @@ const EdgeInsets _kCardPadding = EdgeInsets.all(18.0);
 // ---------------------------------------------------------------------------
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(
-      top: 28.0,
-      bottom: 12.0,
-      left: 18.0,
-      right: 18.0,
-    ),
+    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -141,10 +136,7 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(
-    horizontal: 18.0,
-    vertical: 6.0,
-  ),
+  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
 }) {
   return Container(
     margin: margin,
@@ -191,11 +183,7 @@ Widget _cardTitle(
   );
 }
 
-Widget _pill(
-  String label, {
-  Color colour = _kAccent,
-  Color textColour = _kAccent,
-}) {
+Widget _pill(String label, {Color colour = _kAccent, Color textColour = _kAccent}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 4.0),
     decoration: BoxDecoration(
@@ -356,21 +344,14 @@ class _HierarchyPainter extends CustomPainter {
       width: 180.0,
       height: 44.0,
     );
-    final RRect rootR = RRect.fromRectAndRadius(
-      root,
-      const Radius.circular(10.0),
-    );
+    final RRect rootR = RRect.fromRectAndRadius(root, const Radius.circular(10.0));
     canvas.drawRRect(rootR, nodeFillRoot);
     canvas.drawRRect(rootR, nodeStroke);
     _drawLabel(canvas, 'KeyEvent', root.center, bold: true);
 
     // Three leaves along the bottom row.
     final double leafY = h - 32.0;
-    final List<String> leaves = <String>[
-      'KeyDownEvent',
-      'KeyUpEvent',
-      'KeyRepeatEvent',
-    ];
+    final List<String> leaves = <String>['KeyDownEvent', 'KeyUpEvent', 'KeyRepeatEvent'];
     final List<Offset> leafCentres = <Offset>[
       Offset(w * 0.18, leafY),
       Offset(w * 0.50, leafY),
@@ -395,12 +376,7 @@ class _HierarchyPainter extends CustomPainter {
     }
   }
 
-  void _drawLabel(
-    Canvas canvas,
-    String text,
-    Offset centre, {
-    bool bold = false,
-  }) {
+  void _drawLabel(Canvas canvas, String text, Offset centre, {bool bold = false}) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
@@ -495,24 +471,9 @@ class _FocusFlowPainter extends CustomPainter {
     }
 
     // Branch labels alongside the last edge.
-    _drawSideLabel(
-      canvas,
-      'handled',
-      Offset(w * 0.78, rects[3].center.dy - 30.0),
-      handled,
-    );
-    _drawSideLabel(
-      canvas,
-      'ignored',
-      Offset(w * 0.78, rects[3].center.dy),
-      ignored,
-    );
-    _drawSideLabel(
-      canvas,
-      'skipRemainingHandlers',
-      Offset(w * 0.78, rects[3].center.dy + 30.0),
-      skip,
-    );
+    _drawSideLabel(canvas, 'handled', Offset(w * 0.78, rects[3].center.dy - 30.0), handled);
+    _drawSideLabel(canvas, 'ignored', Offset(w * 0.78, rects[3].center.dy), ignored);
+    _drawSideLabel(canvas, 'skipRemainingHandlers', Offset(w * 0.78, rects[3].center.dy + 30.0), skip);
   }
 
   void _drawLabel(Canvas canvas, String text, Offset centre) {
@@ -618,11 +579,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(
-              Icons.keyboard_alt_outlined,
-              color: Color(0xFFFFFFFF),
-              size: 32.0,
-            ),
+            Icon(Icons.keyboard_alt_outlined, color: Color(0xFFFFFFFF), size: 32.0),
             SizedBox(width: 12.0),
             Text(
               'Flutter Keyboard',
@@ -710,16 +667,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              Icons.account_tree_outlined,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(Icons.account_tree_outlined, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'KeyEvent hierarchy',
-              subtitle:
-                  'Abstract KeyEvent + three concrete subtypes used everywhere in Flutter\'s key dispatch',
+              subtitle: 'Abstract KeyEvent + three concrete subtypes used everywhere in Flutter\'s key dispatch',
             ),
           ],
         ),
@@ -742,21 +694,9 @@ dynamic build(BuildContext context) {
           runSpacing: 8.0,
           children: <Widget>[
             _pill('KeyEvent', colour: _kAccent),
-            _pill(
-              'KeyDownEvent',
-              colour: _kAccentGreen,
-              textColour: _kAccentGreen,
-            ),
-            _pill(
-              'KeyUpEvent',
-              colour: _kAccentOrange,
-              textColour: _kAccentOrange,
-            ),
-            _pill(
-              'KeyRepeatEvent',
-              colour: _kAccentIndigo,
-              textColour: _kAccentIndigo,
-            ),
+            _pill('KeyDownEvent', colour: _kAccentGreen, textColour: _kAccentGreen),
+            _pill('KeyUpEvent', colour: _kAccentOrange, textColour: _kAccentOrange),
+            _pill('KeyRepeatEvent', colour: _kAccentIndigo, textColour: _kAccentIndigo),
           ],
         ),
         const SizedBox(height: 10.0),
@@ -834,90 +774,13 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: const <Widget>[
-          Expanded(
-            flex: 4,
-            child: Text(
-              'label',
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Text(
-              'physicalKey',
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Text(
-              'logicalKey',
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              'char',
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              'time',
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              'synth',
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Text(
-              'runtimeType',
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ),
+          Expanded(flex: 4, child: Text('label', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: _kInk, letterSpacing: 0.4))),
+          Expanded(flex: 5, child: Text('physicalKey', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: _kInk, letterSpacing: 0.4))),
+          Expanded(flex: 5, child: Text('logicalKey', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: _kInk, letterSpacing: 0.4))),
+          Expanded(flex: 3, child: Text('char', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: _kInk, letterSpacing: 0.4))),
+          Expanded(flex: 3, child: Text('time', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: _kInk, letterSpacing: 0.4))),
+          Expanded(flex: 3, child: Text('synth', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: _kInk, letterSpacing: 0.4))),
+          Expanded(flex: 4, child: Text('runtimeType', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: _kInk, letterSpacing: 0.4))),
         ],
       ),
     );
@@ -931,83 +794,13 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: <Widget>[
-          Expanded(
-            flex: 4,
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontSize: 11.5,
-                color: _kInk,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Text(
-              e.physicalKey.debugName ?? '?',
-              style: const TextStyle(
-                fontSize: 11.0,
-                fontFamily: 'monospace',
-                color: _kInkSecondary,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Text(
-              e.logicalKey.debugName ?? '?',
-              style: const TextStyle(
-                fontSize: 11.0,
-                fontFamily: 'monospace',
-                color: _kInkSecondary,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              e.character ?? '-',
-              style: const TextStyle(
-                fontSize: 11.0,
-                fontFamily: 'monospace',
-                color: _kAccent,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              '${e.timeStamp.inMilliseconds}ms',
-              style: const TextStyle(
-                fontSize: 11.0,
-                fontFamily: 'monospace',
-                color: _kInkTertiary,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              e.synthesized ? 'true' : 'false',
-              style: const TextStyle(
-                fontSize: 11.0,
-                fontFamily: 'monospace',
-                color: _kInkTertiary,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Text(
-              e.runtimeType.toString(),
-              style: const TextStyle(
-                fontSize: 10.5,
-                fontFamily: 'monospace',
-                color: _kAccentIndigo,
-              ),
-            ),
-          ),
+          Expanded(flex: 4, child: Text(label, style: const TextStyle(fontSize: 11.5, color: _kInk, fontWeight: FontWeight.w600))),
+          Expanded(flex: 5, child: Text(e.physicalKey.debugName ?? '?', style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kInkSecondary))),
+          Expanded(flex: 5, child: Text(e.logicalKey.debugName ?? '?', style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kInkSecondary))),
+          Expanded(flex: 3, child: Text(e.character ?? '-', style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kAccent))),
+          Expanded(flex: 3, child: Text('${e.timeStamp.inMilliseconds}ms', style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kInkTertiary))),
+          Expanded(flex: 3, child: Text(e.synthesized ? 'true' : 'false', style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kInkTertiary))),
+          Expanded(flex: 4, child: Text(e.runtimeType.toString(), style: const TextStyle(fontSize: 10.5, fontFamily: 'monospace', color: _kAccentIndigo))),
         ],
       ),
     );
@@ -1022,16 +815,11 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Row(
             children: <Widget>[
-              const Icon(
-                Icons.table_rows_outlined,
-                color: _kAccent,
-                size: 20.0,
-              ),
+              const Icon(Icons.table_rows_outlined, color: _kAccent, size: 20.0),
               const SizedBox(width: 6.0),
               _cardTitle(
                 'KeyEvent payload table',
-                subtitle:
-                    'Six concrete event instances, each constructed literally and rendered field-by-field',
+                subtitle: 'Six concrete event instances, each constructed literally and rendered field-by-field',
               ),
             ],
           ),
@@ -1131,14 +919,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(width: 8.0),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w700,
-                  color: _kInk,
-                ),
-              ),
+              Text(title, style: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: _kInk)),
               const SizedBox(width: 8.0),
               Text('(${keys.length})', style: _kCaptionStyle),
             ],
@@ -1169,8 +950,7 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'LogicalKeyboardKey gallery',
-              subtitle:
-                  '30+ layout-aware keys grouped by category - letters, digits, function, navigation, modifiers, special',
+              subtitle: '30+ layout-aware keys grouped by category - letters, digits, function, navigation, modifiers, special',
             ),
           ],
         ),
@@ -1281,8 +1061,7 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'PhysicalKeyboardKey - USB HID gallery',
-              subtitle:
-                  '24 physical key slots showing debugName + decimal + hex USB HID usage codes',
+              subtitle: '24 physical key slots showing debugName + decimal + hex USB HID usage codes',
             ),
           ],
         ),
@@ -1306,19 +1085,9 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // SECTION 6 - RAWKEYBOARD VS HARDWAREKEYBOARD COMPARISON TABLE
   // -------------------------------------------------------------------------
-  Widget _compRow(
-    String topic,
-    String hardware,
-    String raw, {
-    bool header = false,
-  }) {
+  Widget _compRow(String topic, String hardware, String raw, {bool header = false}) {
     final TextStyle style = header
-        ? const TextStyle(
-            fontSize: 12.0,
-            fontWeight: FontWeight.w700,
-            color: _kInk,
-            letterSpacing: 0.4,
-          )
+        ? const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: _kInk, letterSpacing: 0.4)
         : const TextStyle(fontSize: 12.0, color: _kInk, height: 1.45);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
@@ -1350,8 +1119,7 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 6.0),
               _cardTitle(
                 'HardwareKeyboard vs RawKeyboard',
-                subtitle:
-                    'Modern singleton vs the legacy listener API - and the KeyEventManager that bridges them',
+                subtitle: 'Modern singleton vs the legacy listener API - and the KeyEventManager that bridges them',
               ),
             ],
           ),
@@ -1363,67 +1131,18 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: <Widget>[
-              _compRow(
-                'Topic',
-                'HardwareKeyboard',
-                'RawKeyboard',
-                header: true,
-              ),
-              _compRow(
-                'Status',
-                'Recommended since Flutter 3.4',
-                'Deprecated, scheduled for removal',
-              ),
-              _compRow(
-                'Event type',
-                'KeyEvent (KeyDownEvent, KeyUpEvent, KeyRepeatEvent)',
-                'RawKeyEvent (RawKeyDownEvent, RawKeyUpEvent)',
-              ),
-              _compRow(
-                'Listener model',
-                'addHandler returns bool to consume',
-                'addListener void-returning, no consumption signal',
-              ),
-              _compRow(
-                'Singleton',
-                'HardwareKeyboard.instance',
-                'RawKeyboard.instance',
-              ),
-              _compRow(
-                'Regularization',
-                'Yes - synthesized events fill gaps',
-                'No - native events passed through verbatim',
-              ),
-              _compRow(
-                'Focus integration',
-                'Focus(onKeyEvent: ...) preferred',
-                'RawKeyboardListener widget (also deprecated)',
-              ),
-              _compRow(
-                'Repeat events',
-                'Yes, separate KeyRepeatEvent class',
-                'RawKeyDownEvent fires repeatedly',
-              ),
-              _compRow(
-                'Lock modes',
-                'lockModesEnabled Set<KeyboardLockMode>',
-                'modifiersPressed bitmask via ModifierKey',
-              ),
-              _compRow(
-                'Bridge',
-                'KeyEventManager.keyMessageHandler',
-                'Same KeyEventManager translates to RawKeyEvent',
-              ),
-              _compRow(
-                'Platforms',
-                'All - mobile, web, desktop, embedded',
-                'All - but missing newer keys on some platforms',
-              ),
-              _compRow(
-                'Synthesized flag',
-                'KeyEvent.synthesized',
-                'Not exposed',
-              ),
+              _compRow('Topic', 'HardwareKeyboard', 'RawKeyboard', header: true),
+              _compRow('Status', 'Recommended since Flutter 3.4', 'Deprecated, scheduled for removal'),
+              _compRow('Event type', 'KeyEvent (KeyDownEvent, KeyUpEvent, KeyRepeatEvent)', 'RawKeyEvent (RawKeyDownEvent, RawKeyUpEvent)'),
+              _compRow('Listener model', 'addHandler returns bool to consume', 'addListener void-returning, no consumption signal'),
+              _compRow('Singleton', 'HardwareKeyboard.instance', 'RawKeyboard.instance'),
+              _compRow('Regularization', 'Yes - synthesized events fill gaps', 'No - native events passed through verbatim'),
+              _compRow('Focus integration', 'Focus(onKeyEvent: ...) preferred', 'RawKeyboardListener widget (also deprecated)'),
+              _compRow('Repeat events', 'Yes, separate KeyRepeatEvent class', 'RawKeyDownEvent fires repeatedly'),
+              _compRow('Lock modes', 'lockModesEnabled Set<KeyboardLockMode>', 'modifiersPressed bitmask via ModifierKey'),
+              _compRow('Bridge', 'KeyEventManager.keyMessageHandler', 'Same KeyEventManager translates to RawKeyEvent'),
+              _compRow('Platforms', 'All - mobile, web, desktop, embedded', 'All - but missing newer keys on some platforms'),
+              _compRow('Synthesized flag', 'KeyEvent.synthesized', 'Not exposed'),
             ],
           ),
         ),
@@ -1476,7 +1195,10 @@ dynamic build(BuildContext context) {
             width: 12.0,
             height: 12.0,
             margin: const EdgeInsets.only(top: 4.0),
-            decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: colour,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 10.0),
           Expanded(
@@ -1512,8 +1234,7 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'KeyEventResult enum',
-              subtitle:
-                  'Three answers a Focus.onKeyEvent handler can give back to the dispatch machinery',
+              subtitle: 'Three answers a Focus.onKeyEvent handler can give back to the dispatch machinery',
             ),
           ],
         ),
@@ -1672,8 +1393,7 @@ void main() {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Idiomatic usage - code snippets',
-              subtitle:
-                  'Six dark macOS-window code cards showing the keyboard API in action',
+              subtitle: 'Six dark macOS-window code cards showing the keyboard API in action',
             ),
           ],
         ),
@@ -1701,12 +1421,7 @@ void main() {
     live = const <KeyboardLockMode>{};
   }
 
-  Widget _lockCard(
-    KeyboardLockMode mode,
-    String description,
-    IconData icon,
-    Color colour,
-  ) {
+  Widget _lockCard(KeyboardLockMode mode, String description, IconData icon, Color colour) {
     final bool engaged = live.contains(mode);
     return Container(
       margin: const EdgeInsets.all(6.0),
@@ -1741,14 +1456,10 @@ void main() {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
-              color: engaged
-                  ? _kAccentGreen.withOpacity(0.18)
-                  : _kInkTertiary.withOpacity(0.12),
+              color: engaged ? _kAccentGreen.withOpacity(0.18) : _kInkTertiary.withOpacity(0.12),
               borderRadius: BorderRadius.circular(6.0),
               border: Border.all(
-                color: (engaged ? _kAccentGreen : _kInkTertiary).withOpacity(
-                  0.4,
-                ),
+                color: (engaged ? _kAccentGreen : _kInkTertiary).withOpacity(0.4),
               ),
             ),
             child: Text(
@@ -1790,8 +1501,7 @@ void main() {
             const SizedBox(width: 6.0),
             _cardTitle(
               'KeyboardLockMode',
-              subtitle:
-                  'numLock / capsLock / scrollLock - read via HardwareKeyboard.instance.lockModesEnabled',
+              subtitle: 'numLock / capsLock / scrollLock - read via HardwareKeyboard.instance.lockModesEnabled',
             ),
           ],
         ),
@@ -1879,16 +1589,11 @@ void main() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              Icons.warning_amber_outlined,
-              color: _kAccentOrange,
-              size: 20.0,
-            ),
+            const Icon(Icons.warning_amber_outlined, color: _kAccentOrange, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'Pitfalls',
-              subtitle:
-                  'Six mistakes that bite developers wiring up keyboard handling',
+              subtitle: 'Six mistakes that bite developers wiring up keyboard handling',
             ),
           ],
         ),
@@ -1897,49 +1602,49 @@ void main() {
           Icons.history_toggle_off,
           'RawKeyboard / RawKeyEvent are deprecated',
           'Anything starting with `Raw` (RawKeyboard, RawKeyEvent, RawKeyDownEvent, '
-              'RawKeyboardListener) is scheduled for removal. New code should use '
-              'HardwareKeyboard, KeyEvent, KeyDownEvent and Focus(onKeyEvent:) instead.',
+          'RawKeyboardListener) is scheduled for removal. New code should use '
+          'HardwareKeyboard, KeyEvent, KeyDownEvent and Focus(onKeyEvent:) instead.',
           _kAccentRed,
         ),
         _pitfall(
           Icons.font_download_outlined,
           'character vs logicalKey - they are not interchangeable',
           'logicalKey is a LogicalKeyboardKey identifier (== to LogicalKeyboardKey.keyA on AZERTY too). '
-              'character is the Unicode string the key would have produced ("a", "A", "@"). For shortcuts '
-              'use logicalKey; for displaying text-input echoes use character.',
+          'character is the Unicode string the key would have produced ("a", "A", "@"). For shortcuts '
+          'use logicalKey; for displaying text-input echoes use character.',
           _kAccentOrange,
         ),
         _pitfall(
           Icons.web_asset,
           'Synthesized events on web and after focus loss',
           'When the app gains focus while a modifier was already held, Flutter emits a synthesized '
-              'KeyDownEvent (event.synthesized == true) so the press/release pairing stays balanced. '
-              'Make sure your handler treats synthesized events the same as real ones.',
+          'KeyDownEvent (event.synthesized == true) so the press/release pairing stays balanced. '
+          'Make sure your handler treats synthesized events the same as real ones.',
           _kAccentIndigo,
         ),
         _pitfall(
           Icons.keyboard_capslock,
           'Shift on logicalKey is not the same as on physicalKey',
           'PhysicalKeyboardKey.shiftLeft identifies the leftmost shift hardware. '
-              'LogicalKeyboardKey.shift is the abstract modifier. SingleActivator(... , shift: true) '
-              'matches either left or right shift; comparing logicalKey == shiftLeft does not.',
+          'LogicalKeyboardKey.shift is the abstract modifier. SingleActivator(... , shift: true) '
+          'matches either left or right shift; comparing logicalKey == shiftLeft does not.',
           _kAccentGreen,
         ),
         _pitfall(
           Icons.delete_outline,
           'Forgetting to dispose Focus / FocusNode leaks listeners',
           'A Focus that subscribes to onKeyEvent indirectly holds platform resources. '
-              'If the surrounding widget owns the FocusNode it must call node.dispose() in its '
-              'State.dispose, otherwise the node stays registered with FocusManager forever.',
+          'If the surrounding widget owns the FocusNode it must call node.dispose() in its '
+          'State.dispose, otherwise the node stays registered with FocusManager forever.',
           _kAccentTeal,
         ),
         _pitfall(
           Icons.schedule,
           'Key repeat rate is platform-dependent',
           'Some platforms emit KeyRepeatEvent at the OS-configured repeat rate; '
-              'others only emit a single KeyDownEvent and then a long pause before the next. '
-              'For games and editors that need consistent timing, drive your own timer from the '
-              'first KeyDownEvent and stop on KeyUpEvent.',
+          'others only emit a single KeyDownEvent and then a long pause before the next. '
+          'For games and editors that need consistent timing, drive your own timer from the '
+          'first KeyDownEvent and stop on KeyUpEvent.',
           _kAccentPink,
         ),
       ],
@@ -1983,10 +1688,7 @@ void main() {
             children: <Widget>[
               for (final String e in entries)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 9.0,
-                    vertical: 4.0,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: tint.withOpacity(0.18),
                     borderRadius: BorderRadius.circular(999.0),
@@ -2040,48 +1742,72 @@ void main() {
           style: TextStyle(fontSize: 12.0, color: _kInkOnDarkSecondary),
         ),
         const SizedBox(height: 12.0),
-        _cheatGroup('Hierarchy', const <String>[
-          'KeyEvent',
-          'KeyDownEvent',
-          'KeyUpEvent',
-          'KeyRepeatEvent',
-        ], const Color(0xFF7DD3FC)),
-        _cheatGroup('Top-level singletons', const <String>[
-          'HardwareKeyboard.instance',
-          'RawKeyboard.instance',
-          'KeyEventManager (internal)',
-          'ServicesBinding.keyboard',
-        ], _kAccentGreen),
-        _cheatGroup('Key identifiers', const <String>[
-          'LogicalKeyboardKey',
-          'PhysicalKeyboardKey',
-          'KeyboardKey (abstract base)',
-          '.keyId',
-          '.usbHidUsage',
-          '.debugName',
-          '.keyLabel',
-        ], _kAccentAmber),
-        _cheatGroup('Focus integration', const <String>[
-          'Focus(onKeyEvent:)',
-          'FocusNode',
-          'FocusManager',
-          'KeyEventResult.handled',
-          'KeyEventResult.ignored',
-          'KeyEventResult.skipRemainingHandlers',
-        ], _kAccentOrange),
-        _cheatGroup('Shortcuts / Intents', const <String>[
-          'Shortcuts(shortcuts:)',
-          'Actions(actions:)',
-          'SingleActivator(LogicalKeyboardKey, control:, shift:, alt:, meta:)',
-          'CharacterActivator',
-          'Intent / Action<Intent>',
-        ], _kAccentIndigo),
-        _cheatGroup('Lock modes', const <String>[
-          'KeyboardLockMode.numLock',
-          'KeyboardLockMode.capsLock',
-          'KeyboardLockMode.scrollLock',
-          'lockModesEnabled',
-        ], _kAccentPink),
+        _cheatGroup(
+          'Hierarchy',
+          const <String>[
+            'KeyEvent',
+            'KeyDownEvent',
+            'KeyUpEvent',
+            'KeyRepeatEvent',
+          ],
+          const Color(0xFF7DD3FC),
+        ),
+        _cheatGroup(
+          'Top-level singletons',
+          const <String>[
+            'HardwareKeyboard.instance',
+            'RawKeyboard.instance',
+            'KeyEventManager (internal)',
+            'ServicesBinding.keyboard',
+          ],
+          _kAccentGreen,
+        ),
+        _cheatGroup(
+          'Key identifiers',
+          const <String>[
+            'LogicalKeyboardKey',
+            'PhysicalKeyboardKey',
+            'KeyboardKey (abstract base)',
+            '.keyId',
+            '.usbHidUsage',
+            '.debugName',
+            '.keyLabel',
+          ],
+          _kAccentAmber,
+        ),
+        _cheatGroup(
+          'Focus integration',
+          const <String>[
+            'Focus(onKeyEvent:)',
+            'FocusNode',
+            'FocusManager',
+            'KeyEventResult.handled',
+            'KeyEventResult.ignored',
+            'KeyEventResult.skipRemainingHandlers',
+          ],
+          _kAccentOrange,
+        ),
+        _cheatGroup(
+          'Shortcuts / Intents',
+          const <String>[
+            'Shortcuts(shortcuts:)',
+            'Actions(actions:)',
+            'SingleActivator(LogicalKeyboardKey, control:, shift:, alt:, meta:)',
+            'CharacterActivator',
+            'Intent / Action<Intent>',
+          ],
+          _kAccentIndigo,
+        ),
+        _cheatGroup(
+          'Lock modes',
+          const <String>[
+            'KeyboardLockMode.numLock',
+            'KeyboardLockMode.capsLock',
+            'KeyboardLockMode.scrollLock',
+            'lockModesEnabled',
+          ],
+          _kAccentPink,
+        ),
         const SizedBox(height: 14.0),
         Container(
           padding: const EdgeInsets.all(12.0),
@@ -2118,42 +1844,18 @@ void main() {
   print('  building widget tree with 11 sections');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(
-      2,
-      'KeyEvent Hierarchy',
-      'KeyEvent / KeyDownEvent / KeyUpEvent / KeyRepeatEvent',
-    ),
+    _sectionHeader(2, 'KeyEvent Hierarchy', 'KeyEvent / KeyDownEvent / KeyUpEvent / KeyRepeatEvent'),
     hierarchyCard,
-    _sectionHeader(
-      3,
-      'KeyEvent Payload Table',
-      'Six concrete events constructed literally',
-    ),
+    _sectionHeader(3, 'KeyEvent Payload Table', 'Six concrete events constructed literally'),
     payloadTable,
-    _sectionHeader(
-      4,
-      'LogicalKeyboardKey Gallery',
-      '30+ keys grouped by category',
-    ),
+    _sectionHeader(4, 'LogicalKeyboardKey Gallery', '30+ keys grouped by category'),
     logicalGallery,
-    _sectionHeader(
-      5,
-      'PhysicalKeyboardKey Gallery',
-      '24 USB-HID-coded physical key slots',
-    ),
+    _sectionHeader(5, 'PhysicalKeyboardKey Gallery', '24 USB-HID-coded physical key slots'),
     physicalGallery,
     _sectionDivider(),
-    _sectionHeader(
-      6,
-      'RawKeyboard vs HardwareKeyboard',
-      'Modern singleton vs deprecated listener API',
-    ),
+    _sectionHeader(6, 'RawKeyboard vs HardwareKeyboard', 'Modern singleton vs deprecated listener API'),
     comparisonTable,
-    _sectionHeader(
-      7,
-      'KeyEventResult',
-      'handled / ignored / skipRemainingHandlers',
-    ),
+    _sectionHeader(7, 'KeyEventResult', 'handled / ignored / skipRemainingHandlers'),
     resultShowcase,
     _sectionHeader(8, 'Code Snippets', 'Six idiomatic usage cards'),
     codeBlocksSection,

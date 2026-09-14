@@ -45,9 +45,8 @@ import 'package:flutter/material.dart';
 final ValueNotifier<double> kPlaygroundSize = ValueNotifier<double>(48.0);
 
 /// Drives the colour-tint playground selection (tab 4).
-final ValueNotifier<Color> kPlaygroundColor = ValueNotifier<Color>(
-  const Color(0xFF6750A4),
-);
+final ValueNotifier<Color> kPlaygroundColor =
+    ValueNotifier<Color>(const Color(0xFF6750A4));
 
 /// Drives the label selection for the semantics chip row (tab 7).
 final ValueNotifier<int> kSemanticIndex = ValueNotifier<int>(0);
@@ -340,9 +339,15 @@ class _BannerInfoRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: Theme.of(context).textTheme.titleSmall),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
               const SizedBox(height: 4),
-              Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+              Text(
+                subtitle,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ],
           ),
         ),
@@ -474,12 +479,22 @@ class _ShowcaseCard extends StatelessWidget {
                 color: entry.color.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: ImageIcon(_glyphImage, size: 48, color: entry.color),
+              child: ImageIcon(
+                _glyphImage,
+                size: 48,
+                color: entry.color,
+              ),
             ),
             const SizedBox(height: 12),
-            Text(entry.title, style: Theme.of(context).textTheme.titleSmall),
+            Text(
+              entry.title,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
             const SizedBox(height: 2),
-            Text(entry.subtitle, style: Theme.of(context).textTheme.bodySmall),
+            Text(
+              entry.subtitle,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           ],
         ),
       ),
@@ -520,7 +535,8 @@ class _SizePlaygroundTab extends StatelessWidget {
               height: 180,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                color:
+                    Theme.of(context).colorScheme.surfaceContainerHigh,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: ValueListenableBuilder<double>(
@@ -635,13 +651,18 @@ class _TintPlaygroundTab extends StatelessWidget {
               height: 180,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                color:
+                    Theme.of(context).colorScheme.surfaceContainerHigh,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: ValueListenableBuilder<Color>(
                 valueListenable: kPlaygroundColor,
                 builder: (BuildContext context, Color color, Widget? _) {
-                  return ImageIcon(_glyphImage, size: 96, color: color);
+                  return ImageIcon(
+                    _glyphImage,
+                    size: 96,
+                    color: color,
+                  );
                 },
               ),
             ),
@@ -651,7 +672,8 @@ class _TintPlaygroundTab extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: _tintSwatches
-                .map((_TintSwatch swatch) => _TintChip(swatch: swatch))
+                .map((_TintSwatch swatch) =>
+                    _TintChip(swatch: swatch))
                 .toList(growable: false),
           ),
           const SizedBox(height: 24),
@@ -737,7 +759,11 @@ class _SrcComparisonCard extends StatelessWidget {
               valueListenable: kPlaygroundColor,
               builder: (BuildContext context, Color color, Widget? _) {
                 return Center(
-                  child: ImageIcon(provider, size: 56, color: color),
+                  child: ImageIcon(
+                    provider,
+                    size: 56,
+                    color: color,
+                  ),
                 );
               },
             ),
@@ -790,7 +816,10 @@ class _IconThemeInheritanceTab extends StatelessWidget {
                       'size: 40). ImageIcon has NO explicit overrides and '
                       'picks up both values.',
                   child: IconTheme(
-                    data: IconThemeData(color: scheme.primary, size: 40),
+                    data: IconThemeData(
+                      color: scheme.primary,
+                      size: 40,
+                    ),
                     child: ImageIcon(_glyphImage),
                   ),
                 ),
@@ -804,7 +833,10 @@ class _IconThemeInheritanceTab extends StatelessWidget {
                       'color: tertiary — explicit values win over the '
                       'ambient theme.',
                   child: IconTheme(
-                    data: IconThemeData(color: scheme.primary, size: 40),
+                    data: IconThemeData(
+                      color: scheme.primary,
+                      size: 40,
+                    ),
                     child: ImageIcon(
                       _glyphImage,
                       size: 64,
@@ -848,7 +880,10 @@ class _IconThemeInheritanceTab extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: IconTheme(
-                data: IconThemeData(color: scheme.secondary, size: 56),
+                data: IconThemeData(
+                  color: scheme.secondary,
+                  size: 56,
+                ),
                 child: ValueListenableBuilder<bool>(
                   valueListenable: kInheritExplicit,
                   builder: (BuildContext context, bool override, Widget? _) {
@@ -863,9 +898,9 @@ class _IconThemeInheritanceTab extends StatelessWidget {
                           child: Text(
                             override
                                 ? 'color overridden to error; size still '
-                                      'inherited (56 px).'
+                                    'inherited (56 px).'
                                 : 'both color and size inherited from the '
-                                      'IconTheme wrapper.',
+                                    'IconTheme wrapper.',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
@@ -909,13 +944,15 @@ class _InheritancePanel extends StatelessWidget {
               height: 96,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color:
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: child,
             ),
             const SizedBox(height: 8),
-            Text(description, style: Theme.of(context).textTheme.bodySmall),
+            Text(description,
+                style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
       ),
@@ -940,28 +977,22 @@ class _InheritanceRuleList extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Inheritance rules at a glance',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
+            Text('Inheritance rules at a glance',
+                style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 8),
-            ...rules.map(
-              (String r) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      Icons.check_circle_outline,
-                      size: 18,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(child: Text(r)),
-                  ],
-                ),
-              ),
-            ),
+            ...rules.map((String r) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Icon(Icons.check_circle_outline,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary),
+                      const SizedBox(width: 8),
+                      Expanded(child: Text(r)),
+                    ],
+                  ),
+                )),
           ],
         ),
       ),
@@ -1003,10 +1034,13 @@ class _NullProviderTab extends StatelessWidget {
               height: 120,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                color:
+                    Theme.of(context).colorScheme.surfaceContainerHigh,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.outlineVariant,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .outlineVariant,
                   style: BorderStyle.solid,
                 ),
               ),
@@ -1017,11 +1051,9 @@ class _NullProviderTab extends StatelessWidget {
                   const SizedBox(width: 8),
                   const Text('| null'),
                   const SizedBox(width: 16),
-                  ImageIcon(
-                    _glyphImage,
-                    size: 48,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                  ImageIcon(_glyphImage,
+                      size: 48,
+                      color: Theme.of(context).colorScheme.primary),
                   const SizedBox(width: 8),
                   const Text('| set'),
                 ],
@@ -1035,10 +1067,8 @@ class _NullProviderTab extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Reserved space layout test',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
+                  Text('Reserved space layout test',
+                      style: Theme.of(context).textTheme.titleSmall),
                   const SizedBox(height: 8),
                   Text(
                     'All three rows below lay out identically even though '
@@ -1085,7 +1115,9 @@ class _NullRow extends StatelessWidget {
           height: 56,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: Theme.of(context)
+                .colorScheme
+                .surfaceContainerHighest,
             borderRadius: BorderRadius.circular(10),
           ),
           child: ImageIcon(
@@ -1135,8 +1167,7 @@ class _SemanticsTab extends StatelessWidget {
               (int i) => Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    right: i == _semanticLabels.length - 1 ? 0 : 8,
-                  ),
+                      right: i == _semanticLabels.length - 1 ? 0 : 8),
                   child: _SemanticChip(index: i),
                 ),
               ),
@@ -1162,15 +1193,15 @@ class _SemanticsTab extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              'Current semanticLabel:',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
+                            Text('Current semanticLabel:',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall),
                             const SizedBox(height: 4),
-                            Text(
-                              '"${_semanticLabels[index]}"',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
+                            Text('"${_semanticLabels[index]}"',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall),
                           ],
                         ),
                       ),
@@ -1187,28 +1218,23 @@ class _SemanticsTab extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Accessibility checklist',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
+                  Text('Accessibility checklist',
+                      style: Theme.of(context).textTheme.titleSmall),
                   const SizedBox(height: 8),
                   _BulletPoint(
                     text: 'Omit semanticLabel for decorative glyphs.',
                   ),
                   _BulletPoint(
-                    text:
-                        'Provide a short, meaningful phrase for glyphs '
+                    text: 'Provide a short, meaningful phrase for glyphs '
                         'that convey information the surrounding text does '
                         'not already express.',
                   ),
                   _BulletPoint(
-                    text:
-                        'Never include the word "icon" or "image" — screen '
+                    text: 'Never include the word "icon" or "image" — screen '
                         'readers already announce the role.',
                   ),
                   _BulletPoint(
-                    text:
-                        'When the ImageIcon sits inside a Button or '
+                    text: 'When the ImageIcon sits inside a Button or '
                         'ListTile with a text label, prefer leaving its '
                         'semanticLabel null and letting the wrapper announce '
                         'the element.',
@@ -1339,10 +1365,8 @@ class _CompareIconTab extends StatelessWidget {
             },
           ),
           const SizedBox(height: 24),
-          Text(
-            'Feature comparison',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
+          Text('Feature comparison',
+              style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: 8),
           _FeatureTable(),
           const SizedBox(height: 24),
@@ -1352,20 +1376,17 @@ class _CompareIconTab extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           _BulletPoint(
-            text:
-                'Use Icon for Material glyphs and any other glyph that is '
+            text: 'Use Icon for Material glyphs and any other glyph that is '
                 'available in an IconData font. Smaller bundle, faster '
                 'boot, crisp at every size.',
           ),
           _BulletPoint(
-            text:
-                'Use ImageIcon for brand logos, custom artwork, seasonal '
+            text: 'Use ImageIcon for brand logos, custom artwork, seasonal '
                 'badges, platform-specific pictograms, or anything that '
                 'would otherwise need a custom icon font.',
           ),
           _BulletPoint(
-            text:
-                'If the glyph needs to be multi-colour, neither widget is '
+            text: 'If the glyph needs to be multi-colour, neither widget is '
                 'appropriate — fall back to Image.asset or SvgPicture so '
                 'BlendMode.srcIn does not wash out your colours.',
           ),
@@ -1395,7 +1416,8 @@ class _ComparePane extends StatelessWidget {
           height: 110,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceContainerHigh,
+            color:
+                Theme.of(context).colorScheme.surfaceContainerHigh,
             borderRadius: BorderRadius.circular(14),
           ),
           child: child,
@@ -1411,10 +1433,10 @@ class _ComparePane extends StatelessWidget {
 class _FeatureTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TextStyle header =
-        Theme.of(
-          context,
-        ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold) ??
+    final TextStyle header = Theme.of(context)
+            .textTheme
+            .titleSmall
+            ?.copyWith(fontWeight: FontWeight.bold) ??
         const TextStyle(fontWeight: FontWeight.bold);
     return Card(
       child: Padding(
@@ -1429,7 +1451,9 @@ class _FeatureTable extends StatelessWidget {
           children: <TableRow>[
             TableRow(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                color: Theme.of(context)
+                    .colorScheme
+                    .surfaceContainerHigh,
               ),
               children: <Widget>[
                 _HeaderCell('Aspect', header),
@@ -1437,36 +1461,19 @@ class _FeatureTable extends StatelessWidget {
                 _HeaderCell('ImageIcon', header),
               ],
             ),
-            _tableBodyRow(
-              'Source',
-              'IconData (font glyph)',
-              'ImageProvider (bitmap / vector rasterised)',
-            ),
-            _tableBodyRow(
-              'Sharpness',
-              'Vector-perfect at any size',
-              'Best when source ≥ final size',
-            ),
-            _tableBodyRow(
-              'Colour model',
-              'Single colour via color arg',
-              'Single colour via BlendMode.srcIn',
-            ),
-            _tableBodyRow(
-              'Bundle cost',
-              'Shared font; tiny per glyph',
-              'Per-asset PNG / vector',
-            ),
-            _tableBodyRow(
-              'IconTheme',
-              'Respects size + color',
-              'Respects size + color',
-            ),
-            _tableBodyRow(
-              'Text direction',
-              'Honours matchTextDirection on IconData',
-              'No directional mirroring',
-            ),
+            _tableBodyRow('Source', 'IconData (font glyph)',
+                'ImageProvider (bitmap / vector rasterised)'),
+            _tableBodyRow('Sharpness', 'Vector-perfect at any size',
+                'Best when source ≥ final size'),
+            _tableBodyRow('Colour model', 'Single colour via color arg',
+                'Single colour via BlendMode.srcIn'),
+            _tableBodyRow('Bundle cost', 'Shared font; tiny per glyph',
+                'Per-asset PNG / vector'),
+            _tableBodyRow('IconTheme', 'Respects size + color',
+                'Respects size + color'),
+            _tableBodyRow('Text direction',
+                'Honours matchTextDirection on IconData',
+                'No directional mirroring'),
           ],
         ),
       ),
@@ -1475,7 +1482,11 @@ class _FeatureTable extends StatelessWidget {
 
   TableRow _tableBodyRow(String a, String b, String c) {
     return TableRow(
-      children: <Widget>[_BodyCell(a), _BodyCell(b), _BodyCell(c)],
+      children: <Widget>[
+        _BodyCell(a),
+        _BodyCell(b),
+        _BodyCell(c),
+      ],
     );
   }
 }
@@ -1523,7 +1534,8 @@ class _ApiCheatSheetTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text('Use cases', style: Theme.of(context).textTheme.titleMedium),
+          Text('Use cases',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           GridView.count(
             shrinkWrap: true,
@@ -1536,60 +1548,54 @@ class _ApiCheatSheetTab extends StatelessWidget {
               _UseCaseCard(
                 icon: Icons.business,
                 title: 'Brand logos',
-                body:
-                    'Use ImageIcon whenever your company logo needs to '
+                body: 'Use ImageIcon whenever your company logo needs to '
                     'pick up a tint — headers, tab bars, and empty states.',
               ),
               _UseCaseCard(
                 icon: Icons.brush,
                 title: 'Custom artwork',
-                body:
-                    'Designers ship you a PNG pictogram that is not in '
+                body: 'Designers ship you a PNG pictogram that is not in '
                     'the Material font — ImageIcon renders it with the same '
                     'ergonomics as Icon.',
               ),
               _UseCaseCard(
                 icon: Icons.code,
                 title: 'SVG fallback',
-                body:
-                    'When shipping a rasterised SVG through a package '
+                body: 'When shipping a rasterised SVG through a package '
                     'like flutter_svg_icon, the returned ImageProvider '
                     'drops straight into ImageIcon.',
               ),
               _UseCaseCard(
                 icon: Icons.flag,
                 title: 'Animated flags',
-                body:
-                    'Frame-based flag animations can be swapped in with '
+                body: 'Frame-based flag animations can be swapped in with '
                     'a changing ImageProvider while the ambient IconTheme '
                     'keeps tint and size stable.',
               ),
               _UseCaseCard(
                 icon: Icons.emoji_emotions,
                 title: 'Sticker sets',
-                body:
-                    'Messaging apps often ship themed sticker sets; '
+                body: 'Messaging apps often ship themed sticker sets; '
                     'ImageIcon gives them hover tints and consistent sizing '
                     'on toolbars.',
               ),
               _UseCaseCard(
                 icon: Icons.devices,
                 title: 'Platform-specific icons',
-                body:
-                    'Shipping a PNG set per platform is simpler than '
+                body: 'Shipping a PNG set per platform is simpler than '
                     'building per-platform icon fonts. ImageIcon is the '
                     'cheapest way to consume them.',
               ),
             ],
           ),
           const SizedBox(height: 24),
-          Text('Pitfalls', style: Theme.of(context).textTheme.titleMedium),
+          Text('Pitfalls',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           _PitfallTile(
             icon: Icons.invert_colors,
             title: 'Non-monochrome sources lose their colour',
-            body:
-                'BlendMode.srcIn discards the source RGB. A multi-colour '
+            body: 'BlendMode.srcIn discards the source RGB. A multi-colour '
                 'PNG will therefore be collapsed to a single tint. Use '
                 'Image.asset if you need the source colours preserved.',
           ),
@@ -1597,8 +1603,7 @@ class _ApiCheatSheetTab extends StatelessWidget {
           _PitfallTile(
             icon: Icons.memory,
             title: 'Oversized sources waste memory',
-            body:
-                'If your PNG is 1024x1024 but rendered at 24 px, the '
+            body: 'If your PNG is 1024x1024 but rendered at 24 px, the '
                 'full bitmap is still decoded into memory. Ship assets at '
                 'the largest size you actually render — or use '
                 'ResizeImage.',
@@ -1607,17 +1612,14 @@ class _ApiCheatSheetTab extends StatelessWidget {
           _PitfallTile(
             icon: Icons.accessibility_new,
             title: 'Missing semantics',
-            body:
-                'ImageIcon without a semanticLabel and without a '
+            body: 'ImageIcon without a semanticLabel and without a '
                 'wrapping Semantics / Button will be announced as a '
                 'generic image by screen readers. Either supply a label '
                 'or wrap it in something that does.',
           ),
           const SizedBox(height: 24),
-          Text(
-            'API cheat sheet',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('API cheat sheet',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           Card(
             child: Padding(
@@ -1664,15 +1666,12 @@ class _ApiCheatSheetTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          Text(
-            'Minimal snippets',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Minimal snippets',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           _CodeCard(
             title: 'Plain ImageIcon',
-            code:
-                "ImageIcon(\n"
+            code: "ImageIcon(\n"
                 "  AssetImage('assets/brand_logo.png'),\n"
                 "  size: 24,\n"
                 ")",
@@ -1680,8 +1679,7 @@ class _ApiCheatSheetTab extends StatelessWidget {
           const SizedBox(height: 12),
           _CodeCard(
             title: 'Tint via IconTheme',
-            code:
-                "IconTheme(\n"
+            code: "IconTheme(\n"
                 "  data: IconThemeData(\n"
                 "    color: Colors.indigo, size: 40,\n"
                 "  ),\n"
@@ -1712,10 +1710,10 @@ class _ApiCheatSheetTab extends StatelessWidget {
   }
 
   TableRow _apiHeaderRow(BuildContext context) {
-    final TextStyle header =
-        Theme.of(
-          context,
-        ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold) ??
+    final TextStyle header = Theme.of(context)
+            .textTheme
+            .titleSmall
+            ?.copyWith(fontWeight: FontWeight.bold) ??
         const TextStyle(fontWeight: FontWeight.bold);
     return TableRow(
       decoration: BoxDecoration(
@@ -1731,7 +1729,11 @@ class _ApiCheatSheetTab extends StatelessWidget {
 
   TableRow _apiBodyRow(String a, String b, String c) {
     return TableRow(
-      children: <Widget>[_BodyCell(a), _BodyCell(b), _BodyCell(c)],
+      children: <Widget>[
+        _BodyCell(a),
+        _BodyCell(b),
+        _BodyCell(c),
+      ],
     );
   }
 }
@@ -1762,27 +1764,31 @@ class _UseCaseCard extends StatelessWidget {
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primaryContainer,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primaryContainer,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(
-                    icon,
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
+                  child: Icon(icon,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onPrimaryContainer),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleSmall,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  child: Text(title,
+                      style:
+                          Theme.of(context).textTheme.titleSmall,
+                      overflow: TextOverflow.ellipsis),
                 ),
               ],
             ),
             const SizedBox(height: 8),
             Expanded(
-              child: Text(body, style: Theme.of(context).textTheme.bodySmall),
+              child: Text(
+                body,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ),
             const SizedBox(height: 6),
             Align(
@@ -1824,22 +1830,28 @@ class _PitfallTile extends StatelessWidget {
               height: 44,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.errorContainer,
+                color: Theme.of(context)
+                    .colorScheme
+                    .errorContainer,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                icon,
-                color: Theme.of(context).colorScheme.onErrorContainer,
-              ),
+              child: Icon(icon,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onErrorContainer),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(title, style: Theme.of(context).textTheme.titleSmall),
+                  Text(title,
+                      style:
+                          Theme.of(context).textTheme.titleSmall),
                   const SizedBox(height: 4),
-                  Text(body, style: Theme.of(context).textTheme.bodySmall),
+                  Text(body,
+                      style:
+                          Theme.of(context).textTheme.bodySmall),
                 ],
               ),
             ),
@@ -1870,12 +1882,17 @@ class _CodeCard extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color: Theme.of(context)
+                    .colorScheme
+                    .surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
                 code,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 13,
+                ),
               ),
             ),
           ],

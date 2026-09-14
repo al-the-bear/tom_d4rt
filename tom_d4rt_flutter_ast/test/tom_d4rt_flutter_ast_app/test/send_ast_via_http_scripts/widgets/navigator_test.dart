@@ -281,9 +281,8 @@ dynamic build(BuildContext context) {
                 ElevatedButton(
                   onPressed: () async {
                     debugPrint('imperative: maybePop');
-                    final bool didPop = await Navigator.of(
-                      ctx,
-                    ).maybePop<void>();
+                    final bool didPop =
+                        await Navigator.of(ctx).maybePop<void>();
                     debugPrint('maybePop returned $didPop');
                   },
                   child: const Text('maybePop'),
@@ -320,54 +319,55 @@ dynamic build(BuildContext context) {
 
   final Map<String, WidgetBuilder> namedRoutes = <String, WidgetBuilder>{
     '/home': (BuildContext c) => _coloredPage(
-      label: '/home',
-      color: Colors.lightBlue.shade200,
-      actions: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            debugPrint('named: push /details');
-            Navigator.of(c).pushNamed('/details');
-          },
-          child: const Text('Go /details'),
+          label: '/home',
+          color: Colors.lightBlue.shade200,
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                debugPrint('named: push /details');
+                Navigator.of(c).pushNamed('/details');
+              },
+              child: const Text('Go /details'),
+            ),
+            const SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: () {
+                debugPrint('named: push /settings');
+                Navigator.of(c).pushNamed('/settings');
+              },
+              child: const Text('Go /settings'),
+            ),
+          ],
         ),
-        const SizedBox(height: 8.0),
-        ElevatedButton(
-          onPressed: () {
-            debugPrint('named: push /settings');
-            Navigator.of(c).pushNamed('/settings');
-          },
-          child: const Text('Go /settings'),
-        ),
-      ],
-    ),
     '/details': (BuildContext c) => _coloredPage(
-      label: '/details',
-      color: Colors.orange.shade200,
-      actions: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            debugPrint('named: pop');
-            Navigator.of(c).pop();
-          },
-          child: const Text('Pop'),
+          label: '/details',
+          color: Colors.orange.shade200,
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                debugPrint('named: pop');
+                Navigator.of(c).pop();
+              },
+              child: const Text('Pop'),
+            ),
+          ],
         ),
-      ],
-    ),
     '/settings': (BuildContext c) => _coloredPage(
-      label: '/settings',
-      color: Colors.pink.shade200,
-      actions: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            debugPrint('named: pushNamedAndRemoveUntil /home');
-            Navigator.of(
-              c,
-            ).pushNamedAndRemoveUntil('/home', (Route<dynamic> r) => false);
-          },
-          child: const Text('Home (clear)'),
+          label: '/settings',
+          color: Colors.pink.shade200,
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                debugPrint('named: pushNamedAndRemoveUntil /home');
+                Navigator.of(c).pushNamedAndRemoveUntil(
+                  '/home',
+                  (Route<dynamic> r) => false,
+                );
+              },
+              child: const Text('Home (clear)'),
+            ),
+          ],
         ),
-      ],
-    ),
   };
 
   final Widget namedPhone = _miniPhone(
@@ -670,7 +670,10 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 6.0),
               Text(
                 title,
-                style: TextStyle(fontWeight: FontWeight.w700, color: color),
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
               ),
             ],
           ),
@@ -684,7 +687,10 @@ dynamic build(BuildContext context) {
             child: Center(
               child: Text(
                 descriptor,
-                style: TextStyle(color: color, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
@@ -989,7 +995,9 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         observerPhone,
         const SizedBox(width: 16.0),
-        Expanded(child: Wrap(children: observerChips)),
+        Expanded(
+          child: Wrap(children: observerChips),
+        ),
       ],
     ),
   );
@@ -1127,7 +1135,11 @@ dynamic build(BuildContext context) {
     accent: Colors.pink,
     body: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[modalPhone, const SizedBox(width: 16.0), modalPreview],
+      children: <Widget>[
+        modalPhone,
+        const SizedBox(width: 16.0),
+        modalPreview,
+      ],
     ),
   );
 
@@ -1233,21 +1245,30 @@ dynamic build(BuildContext context) {
   debugPrint('=== Section 13: Cheat-sheet ===');
 
   final List<List<String>> cheatRows = <List<String>>[
-    <String>['push', 'add route on top, returns Future<T?>'],
-    <String>['pop', 'remove topmost; deliver result to the awaiter'],
-    <String>['pushReplacement', 'pop top, push new on top — atomic'],
-    <String>[
-      'pushAndRemoveUntil',
-      'push new, then pop until predicate is true',
-    ],
-    <String>['pushNamed', 'lookup builder in routes table by name'],
-    <String>['pushNamedAndRemoveUntil', 'named variant of pushAndRemoveUntil'],
-    <String>['popUntil', 'pop repeatedly while predicate is false'],
-    <String>['maybePop', 'pop if possible; safe at root'],
-    <String>['canPop', 'true if stack has more than one route'],
-    <String>['removeRoute', 'remove a specific route, anywhere in the stack'],
-    <String>['replaceRouteBelow', 'replace the route below an anchor'],
-    <String>['restorablePush', 'push using a restorable route builder'],
+    <String>['push',
+        'add route on top, returns Future<T?>'],
+    <String>['pop',
+        'remove topmost; deliver result to the awaiter'],
+    <String>['pushReplacement',
+        'pop top, push new on top — atomic'],
+    <String>['pushAndRemoveUntil',
+        'push new, then pop until predicate is true'],
+    <String>['pushNamed',
+        'lookup builder in routes table by name'],
+    <String>['pushNamedAndRemoveUntil',
+        'named variant of pushAndRemoveUntil'],
+    <String>['popUntil',
+        'pop repeatedly while predicate is false'],
+    <String>['maybePop',
+        'pop if possible; safe at root'],
+    <String>['canPop',
+        'true if stack has more than one route'],
+    <String>['removeRoute',
+        'remove a specific route, anywhere in the stack'],
+    <String>['replaceRouteBelow',
+        'replace the route below an anchor'],
+    <String>['restorablePush',
+        'push using a restorable route builder'],
   ];
 
   final List<TableRow> cheatTableRows = <TableRow>[];
@@ -1257,7 +1278,10 @@ dynamic build(BuildContext context) {
       children: const <Widget>[
         Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text('method', style: TextStyle(fontWeight: FontWeight.w800)),
+          child: Text(
+            'method',
+            style: TextStyle(fontWeight: FontWeight.w800),
+          ),
         ),
         Padding(
           padding: EdgeInsets.all(8.0),
@@ -1469,7 +1493,11 @@ Widget _miniPhone({
                     padding: EdgeInsets.only(right: 10.0),
                     child: Row(
                       children: <Widget>[
-                        Icon(Icons.wifi, color: Colors.white, size: 11.0),
+                        Icon(
+                          Icons.wifi,
+                          color: Colors.white,
+                          size: 11.0,
+                        ),
                         SizedBox(width: 4.0),
                         Icon(
                           Icons.battery_full,
@@ -1482,9 +1510,7 @@ Widget _miniPhone({
                 ],
               ),
             ),
-            Expanded(
-              child: ColoredBox(color: Colors.white, child: body),
-            ),
+            Expanded(child: ColoredBox(color: Colors.white, child: body)),
           ],
         ),
       ),
@@ -1506,7 +1532,10 @@ Widget _coloredPage({
         Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w800),
+          style: const TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w800,
+          ),
         ),
         const SizedBox(height: 8.0),
         const Divider(),
@@ -1535,7 +1564,10 @@ Widget _stackPreview(List<String> names) {
         ),
         child: Row(
           children: <Widget>[
-            Icon(top ? Icons.arrow_right : Icons.layers_outlined, size: 14.0),
+            Icon(
+              top ? Icons.arrow_right : Icons.layers_outlined,
+              size: 14.0,
+            ),
             const SizedBox(width: 6.0),
             Text(
               names[i],
@@ -1562,7 +1594,10 @@ Widget _stackPreview(List<String> names) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      const Text('Stack', style: TextStyle(fontWeight: FontWeight.w700)),
+      const Text(
+        'Stack',
+        style: TextStyle(fontWeight: FontWeight.w700),
+      ),
       const SizedBox(height: 6.0),
       ...tiles,
     ],

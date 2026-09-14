@@ -87,7 +87,11 @@ dynamic build(BuildContext context) {
             'keyboard focus to the previous focusable widget. It carries '
             'no data — its very presence IS the message. The simplest '
             'possible Intent: const PreviousFocusIntent().',
-            style: TextStyle(fontSize: 14.0, color: peach100, height: 1.5),
+            style: TextStyle(
+              fontSize: 14.0,
+              color: peach100,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -112,11 +116,7 @@ dynamic build(BuildContext context) {
               SizedBox(width: 8.0),
               Text(
                 'Complete Source Code',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: peach300,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: TextStyle(fontSize: 13.0, color: peach300, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -243,9 +243,7 @@ dynamic build(BuildContext context) {
                 boxShadow: isIntent
                     ? [
                         BoxShadow(
-                          color: (layer['color'] as Color).withValues(
-                            alpha: 0.2,
-                          ),
+                          color: (layer['color'] as Color).withValues(alpha: 0.2),
                           blurRadius: 8.0,
                           offset: Offset(0, 4),
                         ),
@@ -277,18 +275,13 @@ dynamic build(BuildContext context) {
                           style: TextStyle(
                             fontSize: 12.0,
                             fontFamily: 'monospace',
-                            color: (layer['color'] as Color).withValues(
-                              alpha: 0.8,
-                            ),
+                            color: (layer['color'] as Color).withValues(alpha: 0.8),
                           ),
                         ),
                         SizedBox(height: 4.0),
                         Text(
                           layer['detail'] as String,
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
                         ),
                       ],
                     ),
@@ -379,11 +372,7 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Icon(
-              intent['icon'] as IconData,
-              size: 28.0,
-              color: intent['color'] as Color,
-            ),
+            Icon(intent['icon'] as IconData, size: 28.0, color: intent['color'] as Color),
             SizedBox(height: 8.0),
             Text(
               intent['name'] as String,
@@ -434,26 +423,22 @@ dynamic build(BuildContext context) {
   final constBenefits = <Map<String, String>>[
     {
       'benefit': 'Compile-time Constant',
-      'detail':
-          'PreviousFocusIntent can be created at compile time. '
+      'detail': 'PreviousFocusIntent can be created at compile time. '
           'No heap allocation at runtime when used as const.',
     },
     {
       'benefit': 'Canonical Instance',
-      'detail':
-          'const PreviousFocusIntent() always returns the same '
+      'detail': 'const PreviousFocusIntent() always returns the same '
           'instance. Two const constructions are identical(). ',
     },
     {
       'benefit': 'Shortcut Map Keys',
-      'detail':
-          'Used as values in the WidgetsApp shortcut map. '
+      'detail': 'Used as values in the WidgetsApp shortcut map. '
           'Const intents avoid creating new objects per key press.',
     },
     {
       'benefit': 'Zero Parameters',
-      'detail':
-          'Unlike DirectionalFocusIntent(direction) or '
+      'detail': 'Unlike DirectionalFocusIntent(direction) or '
           'RequestFocusIntent(node), this intent carries no data. '
           'The type alone conveys all meaning.',
     },
@@ -463,11 +448,7 @@ dynamic build(BuildContext context) {
 
   for (var i = 0; i < constBenefits.length; i++) {
     final benefit = constBenefits[i];
-    final tileColor = Color.lerp(
-      coral700,
-      peach400,
-      i / (constBenefits.length - 1),
-    )!;
+    final tileColor = Color.lerp(coral700, peach400, i / (constBenefits.length - 1))!;
 
     constCards.add(
       Container(
@@ -476,10 +457,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: tileColor.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: tileColor.withValues(alpha: 0.35),
-            width: 1.5,
-          ),
+          border: Border.all(color: tileColor.withValues(alpha: 0.35), width: 1.5),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -494,11 +472,7 @@ dynamic build(BuildContext context) {
               child: Center(
                 child: Text(
                   '${i + 1}',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
               ),
             ),
@@ -518,11 +492,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     benefit['detail']!,
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: coral800,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(fontSize: 11.5, color: coral800, height: 1.4),
                   ),
                 ],
               ),
@@ -593,21 +563,11 @@ dynamic build(BuildContext context) {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '• ',
-                    style: TextStyle(
-                      color: cardColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text('• ', style: TextStyle(color: cardColor, fontWeight: FontWeight.bold)),
                   Expanded(
                     child: Text(
                       r,
-                      style: TextStyle(
-                        fontSize: 10.5,
-                        color: Colors.grey.shade800,
-                        height: 1.3,
-                      ),
+                      style: TextStyle(fontSize: 10.5, color: Colors.grey.shade800, height: 1.3),
                     ),
                   ),
                 ],
@@ -699,11 +659,7 @@ dynamic build(BuildContext context) {
 
   for (var i = 0; i < pipelineSteps.length; i++) {
     final step = pipelineSteps[i];
-    final stageColor = Color.lerp(
-      coral800,
-      peach400,
-      i / (pipelineSteps.length - 1),
-    )!;
+    final stageColor = Color.lerp(coral800, peach400, i / (pipelineSteps.length - 1))!;
 
     pipelineWidgets.add(
       Container(
@@ -713,11 +669,7 @@ dynamic build(BuildContext context) {
             if (i > 0)
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 2.0),
-                child: Icon(
-                  Icons.arrow_downward,
-                  size: 18.0,
-                  color: stageColor.withValues(alpha: 0.5),
-                ),
+                child: Icon(Icons.arrow_downward, size: 18.0, color: stageColor.withValues(alpha: 0.5)),
               ),
             Container(
               padding: EdgeInsets.all(12.0),
@@ -738,11 +690,7 @@ dynamic build(BuildContext context) {
                     child: Center(
                       child: Text(
                         '${i + 1}',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                        ),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15.0),
                       ),
                     ),
                   ),
@@ -768,47 +716,29 @@ dynamic build(BuildContext context) {
                         Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 6.0,
-                                vertical: 2.0,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade200,
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                               child: Text(
                                 step['input']!,
-                                style: TextStyle(
-                                  fontSize: 9.5,
-                                  fontFamily: 'monospace',
-                                  color: Colors.grey.shade700,
-                                ),
+                                style: TextStyle(fontSize: 9.5, fontFamily: 'monospace', color: Colors.grey.shade700),
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 6.0),
-                              child: Icon(
-                                Icons.arrow_right_alt,
-                                size: 16.0,
-                                color: stageColor,
-                              ),
+                              child: Icon(Icons.arrow_right_alt, size: 16.0, color: stageColor),
                             ),
                             Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 6.0,
-                                vertical: 2.0,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                               decoration: BoxDecoration(
                                 color: stageColor.withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                               child: Text(
                                 step['output']!,
-                                style: TextStyle(
-                                  fontSize: 9.5,
-                                  fontFamily: 'monospace',
-                                  color: stageColor,
-                                ),
+                                style: TextStyle(fontSize: 9.5, fontFamily: 'monospace', color: stageColor),
                               ),
                             ),
                           ],
@@ -835,23 +765,14 @@ dynamic build(BuildContext context) {
   final paramComparison = <Map<String, dynamic>>[
     {
       'category': 'Parameter-Free',
-      'examples': [
-        'PreviousFocusIntent',
-        'NextFocusIntent',
-        'DismissIntent',
-        'ActivateIntent',
-      ],
+      'examples': ['PreviousFocusIntent', 'NextFocusIntent', 'DismissIntent', 'ActivateIntent'],
       'description': 'Type alone is the message. No runtime data carried.',
       'analogy': 'Like a flag signal — the signal IS the message.',
       'color': coral600,
     },
     {
       'category': 'Parameter-Bearing',
-      'examples': [
-        'RequestFocusIntent(node)',
-        'DirectionalFocusIntent(dir)',
-        'ScrollIntent(direction, type)',
-      ],
+      'examples': ['RequestFocusIntent(node)', 'DirectionalFocusIntent(dir)', 'ScrollIntent(direction, type)'],
       'description': 'Carries data the action needs to execute properly.',
       'analogy': 'Like a message with an address — says what AND where.',
       'color': Colors.indigo,
@@ -899,14 +820,10 @@ dynamic build(BuildContext context) {
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
-                    color: (comparison['color'] as Color).withValues(
-                      alpha: 0.1,
-                    ),
+                    color: (comparison['color'] as Color).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6.0),
                     border: Border.all(
-                      color: (comparison['color'] as Color).withValues(
-                        alpha: 0.3,
-                      ),
+                      color: (comparison['color'] as Color).withValues(alpha: 0.3),
                     ),
                   ),
                   child: Text(
@@ -923,20 +840,12 @@ dynamic build(BuildContext context) {
             SizedBox(height: 10.0),
             Text(
               comparison['description'] as String,
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.grey.shade800,
-                height: 1.4,
-              ),
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800, height: 1.4),
             ),
             SizedBox(height: 6.0),
             Row(
               children: [
-                Icon(
-                  Icons.lightbulb_outline,
-                  size: 14.0,
-                  color: Colors.amber.shade700,
-                ),
+                Icon(Icons.lightbulb_outline, size: 14.0, color: Colors.amber.shade700),
                 SizedBox(width: 6.0),
                 Expanded(
                   child: Text(
@@ -1010,20 +919,17 @@ dynamic build(BuildContext context) {
   final recipeSteps = <Map<String, String>>[
     {
       'step': 'Define Intent',
-      'code':
-          'class SaveDocumentIntent extends Intent {\n  const SaveDocumentIntent();\n}',
+      'code': 'class SaveDocumentIntent extends Intent {\n  const SaveDocumentIntent();\n}',
       'note': 'Follow the PreviousFocusIntent pattern — const, lightweight',
     },
     {
       'step': 'Create Action',
-      'code':
-          'class SaveDocumentAction extends Action<SaveDocumentIntent> {\n  void invoke(SaveDocumentIntent intent) { /* save logic */ }\n}',
+      'code': 'class SaveDocumentAction extends Action<SaveDocumentIntent> {\n  void invoke(SaveDocumentIntent intent) { /* save logic */ }\n}',
       'note': 'The action carries the real implementation',
     },
     {
       'step': 'Register & Bind',
-      'code':
-          'Actions(\n  actions: {SaveDocumentIntent: SaveDocumentAction()},\n  child: Shortcuts(\n    shortcuts: {SingleActivator(LogicalKeyboardKey.keyS, control: true): SaveDocumentIntent()},\n    child: ...\n  ),\n)',
+      'code': 'Actions(\n  actions: {SaveDocumentIntent: SaveDocumentAction()},\n  child: Shortcuts(\n    shortcuts: {SingleActivator(LogicalKeyboardKey.keyS, control: true): SaveDocumentIntent()},\n    child: ...\n  ),\n)',
       'note': 'Connect intent to shortcut and action in the widget tree',
     },
   ];
@@ -1223,9 +1129,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  print(
-    'Created dispatch visualization with ${invokeVariants.length} variants',
-  );
+  print('Created dispatch visualization with ${invokeVariants.length} variants');
 
   // ============================================================
   // SECTION 10: WidgetsApp Shortcut Map
@@ -1233,30 +1137,12 @@ dynamic build(BuildContext context) {
   print('=== Section 10: WidgetsApp Shortcut Map ===');
 
   final shortcutEntries = <Map<String, String>>[
-    {
-      'activator': 'SingleActivator(LogicalKeyboardKey.tab)',
-      'intent': 'NextFocusIntent()',
-    },
-    {
-      'activator': 'SingleActivator(LogicalKeyboardKey.tab, shift: true)',
-      'intent': 'PreviousFocusIntent()',
-    },
-    {
-      'activator': 'SingleActivator(LogicalKeyboardKey.arrowUp)',
-      'intent': 'DirectionalFocusIntent(up)',
-    },
-    {
-      'activator': 'SingleActivator(LogicalKeyboardKey.arrowDown)',
-      'intent': 'DirectionalFocusIntent(down)',
-    },
-    {
-      'activator': 'SingleActivator(LogicalKeyboardKey.arrowLeft)',
-      'intent': 'DirectionalFocusIntent(left)',
-    },
-    {
-      'activator': 'SingleActivator(LogicalKeyboardKey.arrowRight)',
-      'intent': 'DirectionalFocusIntent(right)',
-    },
+    {'activator': 'SingleActivator(LogicalKeyboardKey.tab)', 'intent': 'NextFocusIntent()'},
+    {'activator': 'SingleActivator(LogicalKeyboardKey.tab, shift: true)', 'intent': 'PreviousFocusIntent()'},
+    {'activator': 'SingleActivator(LogicalKeyboardKey.arrowUp)', 'intent': 'DirectionalFocusIntent(up)'},
+    {'activator': 'SingleActivator(LogicalKeyboardKey.arrowDown)', 'intent': 'DirectionalFocusIntent(down)'},
+    {'activator': 'SingleActivator(LogicalKeyboardKey.arrowLeft)', 'intent': 'DirectionalFocusIntent(left)'},
+    {'activator': 'SingleActivator(LogicalKeyboardKey.arrowRight)', 'intent': 'DirectionalFocusIntent(right)'},
   ];
 
   final shortcutRows = <Widget>[];
@@ -1275,25 +1161,11 @@ dynamic build(BuildContext context) {
         children: [
           Expanded(
             flex: 3,
-            child: Text(
-              'ShortcutActivator',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 11.0,
-              ),
-            ),
+            child: Text('ShortcutActivator', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11.0)),
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              'Intent',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 11.0,
-              ),
-            ),
+            child: Text('Intent', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11.0)),
           ),
         ],
       ),
@@ -1325,9 +1197,7 @@ dynamic build(BuildContext context) {
                   fontSize: 9.5,
                   fontFamily: 'monospace',
                   color: isHighlighted ? coral900 : Colors.grey.shade700,
-                  fontWeight: isHighlighted
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ),
@@ -1339,9 +1209,7 @@ dynamic build(BuildContext context) {
                   fontSize: 10.0,
                   fontFamily: 'monospace',
                   color: isHighlighted ? coral800 : Colors.grey.shade600,
-                  fontWeight: isHighlighted
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ),
@@ -1351,9 +1219,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  print(
-    'Created shortcut map visualization with ${shortcutEntries.length} entries',
-  );
+  print('Created shortcut map visualization with ${shortcutEntries.length} entries');
 
   // ============================================================
   // SECTION 11: Intent Identity and Type Matching
@@ -1406,7 +1272,10 @@ dynamic build(BuildContext context) {
 
   // Show the type matching flow
   final matchSteps = <Map<String, String>>[
-    {'step': 'Intent received', 'detail': 'const PreviousFocusIntent()'},
+    {
+      'step': 'Intent received',
+      'detail': 'const PreviousFocusIntent()',
+    },
     {
       'step': 'Type extracted',
       'detail': 'intent.runtimeType → PreviousFocusIntent',
@@ -1415,7 +1284,10 @@ dynamic build(BuildContext context) {
       'step': 'Action lookup',
       'detail': 'actionMap[PreviousFocusIntent] → PreviousFocusAction',
     },
-    {'step': 'Action invoked', 'detail': 'action.invoke(intent) → bool'},
+    {
+      'step': 'Action invoked',
+      'detail': 'action.invoke(intent) → bool',
+    },
   ];
 
   for (var i = 0; i < matchSteps.length; i++) {
@@ -1427,7 +1299,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: peach100.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(left: BorderSide(color: coral600, width: 3.0)),
+          border: Border(
+            left: BorderSide(color: coral600, width: 3.0),
+          ),
         ),
         child: Row(
           children: [
@@ -1441,11 +1315,7 @@ dynamic build(BuildContext context) {
               child: Center(
                 child: Text(
                   '${i + 1}',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 11.0, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -1456,19 +1326,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     step['step']!,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w600,
-                      color: coral900,
-                    ),
+                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: coral900),
                   ),
                   Text(
                     step['detail']!,
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontFamily: 'monospace',
-                      color: coral700,
-                    ),
+                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: coral700),
                   ),
                 ],
               ),
@@ -1532,7 +1394,10 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        border: Border.all(color: color, width: trapsTraversal ? 3.0 : 1.5),
+        border: Border.all(
+          color: color,
+          width: trapsTraversal ? 3.0 : 1.5,
+        ),
         borderRadius: BorderRadius.circular(10.0),
         color: color.withValues(alpha: 0.04),
       ),
@@ -1549,11 +1414,7 @@ dynamic build(BuildContext context) {
                 ),
                 child: Text(
                   label,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
               if (trapsTraversal) ...[
@@ -1562,11 +1423,7 @@ dynamic build(BuildContext context) {
                 SizedBox(width: 2.0),
                 Text(
                   'Traps traversal',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: color,
-                    fontStyle: FontStyle.italic,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: color, fontStyle: FontStyle.italic),
                 ),
               ],
             ],
@@ -1606,9 +1463,7 @@ dynamic build(BuildContext context) {
             child: Wrap(
               spacing: 6.0,
               runSpacing: 6.0,
-              children: ['OK Button', 'Cancel Button', 'Input Field'].map((
-                node,
-              ) {
+              children: ['OK Button', 'Cancel Button', 'Input Field'].map((node) {
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
                   decoration: BoxDecoration(
@@ -1666,11 +1521,7 @@ dynamic build(BuildContext context) {
 
   for (var i = 0; i < formFields.length; i++) {
     final field = formFields[i];
-    final fieldColor = Color.lerp(
-      coral700,
-      peach400,
-      i / (formFields.length - 1),
-    )!;
+    final fieldColor = Color.lerp(coral700, peach400, i / (formFields.length - 1))!;
 
     formWidgets.add(
       Container(
@@ -1679,10 +1530,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: fieldColor.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: fieldColor.withValues(alpha: 0.4),
-            width: 1.5,
-          ),
+          border: Border.all(color: fieldColor.withValues(alpha: 0.4), width: 1.5),
         ),
         child: Row(
           children: [
@@ -1696,11 +1544,7 @@ dynamic build(BuildContext context) {
               child: Center(
                 child: Text(
                   '${field['position']}',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13.0,
-                  ),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13.0),
                 ),
               ),
             ),
@@ -1720,11 +1564,7 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.arrow_upward,
-                    size: 14.0,
-                    color: fieldColor.withValues(alpha: 0.6),
-                  ),
+                  Icon(Icons.arrow_upward, size: 14.0, color: fieldColor.withValues(alpha: 0.6)),
                   Text(
                     ' Shift+Tab',
                     style: TextStyle(
@@ -1790,26 +1630,22 @@ dynamic build(BuildContext context) {
   final debugTips = <Map<String, String>>[
     {
       'tip': 'Check Actions.maybeFind',
-      'detail':
-          'Actions.maybeFind<PreviousFocusIntent>(context) '
+      'detail': 'Actions.maybeFind<PreviousFocusIntent>(context) '
           'returns null if no action is registered for this intent in the scope.',
     },
     {
       'tip': 'Inspect Focus Tree',
-      'detail':
-          'Use debugDumpFocusTree() to see the complete focus hierarchy '
+      'detail': 'Use debugDumpFocusTree() to see the complete focus hierarchy '
           'and verify that nodes are in the expected order.',
     },
     {
       'tip': 'Verify FocusTraversalGroup',
-      'detail':
-          'Ensure widgets are inside a FocusTraversalGroup. Without one, '
+      'detail': 'Ensure widgets are inside a FocusTraversalGroup. Without one, '
           'traversal uses the nearest enclosing scope (usually root).',
     },
     {
       'tip': 'Check canRequestFocus',
-      'detail':
-          'FocusNode.canRequestFocus must be true. Disabled widgets '
+      'detail': 'FocusNode.canRequestFocus must be true. Disabled widgets '
           'are skipped by the traversal policy.',
     },
   ];
@@ -1843,11 +1679,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     tip['detail']!,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: coral700,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(fontSize: 11.0, color: coral700, height: 1.4),
                   ),
                 ],
               ),
@@ -1867,25 +1699,13 @@ dynamic build(BuildContext context) {
 
   final summaryEntries = <Map<String, String>>[
     {'key': 'Class', 'value': 'PreviousFocusIntent extends Intent'},
-    {
-      'key': 'Constructor',
-      'value': 'const PreviousFocusIntent() — zero parameters',
-    },
+    {'key': 'Constructor', 'value': 'const PreviousFocusIntent() — zero parameters'},
     {'key': 'Source', 'value': 'Three lines of code. The simplest Intent.'},
     {'key': 'Purpose', 'value': 'Declares desire to move focus backward'},
     {'key': 'Triggered by', 'value': 'Shift+Tab (default) or Actions.invoke()'},
-    {
-      'key': 'Handled by',
-      'value': 'PreviousFocusAction (default in WidgetsApp)',
-    },
-    {
-      'key': 'Type matching',
-      'value': 'Actions widget matches intent.runtimeType to registered Action',
-    },
-    {
-      'key': 'Pattern',
-      'value': 'Intent/Action separation of concerns — WHAT vs HOW',
-    },
+    {'key': 'Handled by', 'value': 'PreviousFocusAction (default in WidgetsApp)'},
+    {'key': 'Type matching', 'value': 'Actions widget matches intent.runtimeType to registered Action'},
+    {'key': 'Pattern', 'value': 'Intent/Action separation of concerns — WHAT vs HOW'},
   ];
 
   final summaryRows = <Widget>[];
@@ -1957,11 +1777,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Built-in Focus Intent Family',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: coral900,
-                    ),
+                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: coral900),
                   ),
                   SizedBox(height: 12.0),
                   Wrap(
@@ -1984,11 +1800,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text(
                       'Const Constructor Significance',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: coral900,
-                      ),
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: coral900),
                     ),
                   ),
                   SizedBox(height: 8.0),
@@ -2007,11 +1819,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text(
                       'Intent vs Action: Separation of Concerns',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: coral900,
-                      ),
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: coral900),
                     ),
                   ),
                   ...separationCards,
@@ -2032,11 +1840,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Shortcuts → Actions Pipeline',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: coral900,
-                    ),
+                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: coral900),
                   ),
                   SizedBox(height: 12.0),
                   ...pipelineWidgets,
@@ -2061,11 +1865,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'WidgetsApp Default Shortcut Map',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: coral900,
-                    ),
+                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: coral900),
                   ),
                   SizedBox(height: 8.0),
                   ClipRRect(
@@ -2092,11 +1892,7 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text(
                       'Real-World: Form Navigation',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: coral900,
-                      ),
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: coral900),
                     ),
                   ),
                   ...formWidgets,

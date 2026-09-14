@@ -240,7 +240,11 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            SizedBox(height: 180.0, width: 260.0, child: v['widget'] as Widget),
+            SizedBox(
+              height: 180.0,
+              width: 260.0,
+              child: v['widget'] as Widget,
+            ),
             SizedBox(height: 8.0),
           ],
         ),
@@ -552,7 +556,11 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: [
-                  Icon(v['icon'] as IconData, color: Colors.white, size: 20.0),
+                  Icon(
+                    v['icon'] as IconData,
+                    color: Colors.white,
+                    size: 20.0,
+                  ),
                   SizedBox(width: 10.0),
                   Expanded(
                     child: Column(
@@ -579,7 +587,11 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            SizedBox(height: 200.0, width: 320.0, child: v['widget'] as Widget),
+            SizedBox(
+              height: 200.0,
+              width: 320.0,
+              child: v['widget'] as Widget,
+            ),
           ],
         ),
       ),
@@ -765,7 +777,11 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            SizedBox(height: 200.0, width: 320.0, child: v['widget'] as Widget),
+            SizedBox(
+              height: 200.0,
+              width: 320.0,
+              child: v['widget'] as Widget,
+            ),
             SizedBox(height: 6.0),
           ],
         ),
@@ -821,11 +837,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(14.0),
           child: Row(
             children: [
-              Icon(
-                Icons.attach_money,
-                color: Colors.green.shade800,
-                size: 28.0,
-              ),
+              Icon(Icons.attach_money, color: Colors.green.shade800, size: 28.0),
               SizedBox(width: 8.0),
               Text(
                 'Tip Calculator',
@@ -1286,7 +1298,12 @@ dynamic build(BuildContext context) {
       'time / date / dateAndTime / monthYear',
       'Birthdays, schedules',
     ],
-    ['CupertinoTimerPicker', 'Duration', 'hm / ms / hms', 'Timers, durations'],
+    [
+      'CupertinoTimerPicker',
+      'Duration',
+      'hm / ms / hms',
+      'Timers, durations',
+    ],
   ];
 
   final colWidths = <double>[170.0, 110.0, 220.0, 170.0];
@@ -1297,7 +1314,11 @@ dynamic build(BuildContext context) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
       boxShadow: [
-        BoxShadow(color: Colors.black12, blurRadius: 6.0, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 6.0,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: ClipRRect(
@@ -1433,7 +1454,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.view_carousel, size: 56.0, color: Colors.white),
+                    Icon(
+                      Icons.view_carousel,
+                      size: 56.0,
+                      color: Colors.white,
+                    ),
                     SizedBox(height: 8.0),
                     Text(
                       'Cupertino Pickers Deep Demo',
@@ -1445,7 +1470,10 @@ dynamic build(BuildContext context) {
                     ),
                     Text(
                       'Wheel pickers, date / time pickers, timer pickers',
-                      style: TextStyle(fontSize: 13.0, color: Colors.white70),
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        color: Colors.white70,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -1456,7 +1484,10 @@ dynamic build(BuildContext context) {
               // Section 1
               Text(
                 '1. CupertinoPicker Variants',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1475,7 +1506,10 @@ dynamic build(BuildContext context) {
               // Section 2
               Text(
                 '2. CupertinoPicker.builder + FixedExtentScrollController',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1490,7 +1524,10 @@ dynamic build(BuildContext context) {
               // Section 3
               Text(
                 '3. CupertinoDatePicker Modes',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1499,13 +1536,19 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 12.0),
-              Wrap(alignment: WrapAlignment.center, children: datePickerCards),
+              Wrap(
+                alignment: WrapAlignment.center,
+                children: datePickerCards,
+              ),
               SizedBox(height: 32.0),
 
               // Section 4
               Text(
                 '4. CupertinoTimerPicker Modes',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1515,13 +1558,19 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 12.0),
-              Wrap(alignment: WrapAlignment.center, children: timerPickerCards),
+              Wrap(
+                alignment: WrapAlignment.center,
+                children: timerPickerCards,
+              ),
               SizedBox(height: 32.0),
 
               // Section 5
               Text(
                 '5. Real-World Panels',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1530,13 +1579,19 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 12.0),
-              Wrap(alignment: WrapAlignment.center, children: realWorldPanels),
+              Wrap(
+                alignment: WrapAlignment.center,
+                children: realWorldPanels,
+              ),
               SizedBox(height: 32.0),
 
               // Section 6
               Text(
                 '6. Code Examples',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1550,7 +1605,10 @@ dynamic build(BuildContext context) {
               // Section 7
               Text(
                 '7. Comparison + Summary',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1612,7 +1670,10 @@ Widget _buildSummaryItem(
               ),
               Text(
                 desc,
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ],
           ),

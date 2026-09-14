@@ -43,7 +43,10 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[Colors.indigo.shade50, Colors.blue.shade50],
+          colors: <Color>[
+            Colors.indigo.shade50,
+            Colors.blue.shade50,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -59,11 +62,8 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: <Widget>[
-          Icon(
-            Icons.pause_circle_filled,
-            size: 48.0,
-            color: Colors.indigo.shade600,
-          ),
+          Icon(Icons.pause_circle_filled,
+              size: 48.0, color: Colors.indigo.shade600),
           const SizedBox(height: 12.0),
           Text(
             'Frozen Animation',
@@ -95,7 +95,10 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[Colors.teal.shade50, Colors.cyan.shade50],
+          colors: <Color>[
+            Colors.teal.shade50,
+            Colors.cyan.shade50,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -143,7 +146,10 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[Colors.orange.shade50, Colors.amber.shade50],
+          colors: <Color>[
+            Colors.orange.shade50,
+            Colors.amber.shade50,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -159,11 +165,8 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: <Widget>[
-          Icon(
-            Icons.no_encryption_gmailerrorred,
-            size: 48.0,
-            color: Colors.orange.shade700,
-          ),
+          Icon(Icons.no_encryption_gmailerrorred,
+              size: 48.0, color: Colors.orange.shade700),
           const SizedBox(height: 12.0),
           Text(
             'No Ticker Required',
@@ -195,7 +198,10 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[Colors.pink.shade50, Colors.purple.shade50],
+          colors: <Color>[
+            Colors.pink.shade50,
+            Colors.purple.shade50,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -241,9 +247,7 @@ dynamic build(BuildContext context) {
   // ------------------------------------------------------------------
   // SECTION 2 - The five canonical frozen values
   // ------------------------------------------------------------------
-  print(
-    '=== Section 2: Canonical frozen values 0.0 / 0.25 / 0.5 / 0.75 / 1.0 ===',
-  );
+  print('=== Section 2: Canonical frozen values 0.0 / 0.25 / 0.5 / 0.75 / 1.0 ===');
 
   final canonicalValues = <double>[0.00, 0.25, 0.50, 0.75, 1.00];
   final canonicalLabels = <String>[
@@ -284,7 +288,10 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: color.withValues(alpha: 0.5), width: 1.6),
+        border: Border.all(
+          color: color.withValues(alpha: 0.5),
+          width: 1.6,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: color.withValues(alpha: 0.15),
@@ -296,7 +303,8 @@ dynamic build(BuildContext context) {
       child: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(6.0),
@@ -319,7 +327,10 @@ dynamic build(BuildContext context) {
               height: 60.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[color.withValues(alpha: 0.6), color],
+                  colors: <Color>[
+                    color.withValues(alpha: 0.6),
+                    color,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -337,7 +348,8 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12.0),
           // Numeric value label
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: const Color(0xFFFFFFFF),
               borderRadius: BorderRadius.circular(4.0),
@@ -378,10 +390,8 @@ dynamic build(BuildContext context) {
   final fadeTween = Tween<double>(begin: 0.0, end: 1.0);
   final scaleTween = Tween<double>(begin: 0.5, end: 1.5);
   final colorTween = ColorTween(begin: Colors.red, end: Colors.blue);
-  final offsetTween = Tween<Offset>(
-    begin: const Offset(-1.0, 0.0),
-    end: const Offset(1.0, 0.0),
-  );
+  final offsetTween =
+      Tween<Offset>(begin: const Offset(-1.0, 0.0), end: const Offset(1.0, 0.0));
 
   final tweenRatios = <double>[0.0, 0.2, 0.4, 0.6, 0.8, 1.0];
 
@@ -390,9 +400,7 @@ dynamic build(BuildContext context) {
     final double scale = scaleTween.transform(t);
     final Color? c = colorTween.transform(t);
     final Offset o = offsetTween.transform(t);
-    print(
-      '  t=${t.toStringAsFixed(2)} fade=$fade scale=$scale color=$c offset=$o',
-    );
+    print('  t=${t.toStringAsFixed(2)} fade=$fade scale=$scale color=$c offset=$o');
   }
 
   final tweenTiles = List<Widget>.generate(tweenRatios.length, (int i) {
@@ -426,7 +434,8 @@ dynamic build(BuildContext context) {
       child: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: Colors.indigo.shade100,
               borderRadius: BorderRadius.circular(4.0),
@@ -466,15 +475,18 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10.0),
           Text(
             'fade=${fade.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
           Text(
             'scale=${scale.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
           Text(
             'dx=${offsetAt.dx.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -492,19 +504,14 @@ dynamic build(BuildContext context) {
   final colorAnim = AlwaysStoppedAnimation<Color>(Colors.deepPurple);
   final offsetAnim = AlwaysStoppedAnimation<Offset>(const Offset(0.3, -0.2));
   final sizeAnim = AlwaysStoppedAnimation<Size>(const Size(120.0, 80.0));
-  final alignmentAnim = AlwaysStoppedAnimation<AlignmentGeometry>(
-    Alignment.topRight,
-  );
+  final alignmentAnim =
+      AlwaysStoppedAnimation<AlignmentGeometry>(Alignment.topRight);
   final boolAnim = AlwaysStoppedAnimation<bool>(true);
   final rectAnim = AlwaysStoppedAnimation<Rect>(
-    const Rect.fromLTWH(10.0, 20.0, 100.0, 50.0),
-  );
-  final radiusAnim = AlwaysStoppedAnimation<Radius>(
-    const Radius.circular(16.0),
-  );
+      const Rect.fromLTWH(10.0, 20.0, 100.0, 50.0));
+  final radiusAnim = AlwaysStoppedAnimation<Radius>(const Radius.circular(16.0));
   final borderRadiusAnim = AlwaysStoppedAnimation<BorderRadius>(
-    BorderRadius.circular(8.0),
-  );
+      BorderRadius.circular(8.0));
   final textStyleAnim = AlwaysStoppedAnimation<TextStyle>(
     const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
   );
@@ -543,8 +550,7 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'type': 'Color',
-      'display':
-          '#${(colorAnim.value.toARGB32()).toRadixString(16).padLeft(8, '0').toUpperCase()}',
+      'display': '#${(colorAnim.value.toARGB32()).toRadixString(16).padLeft(8, '0').toUpperCase()}',
       'icon': Icons.palette,
       'color': Colors.deepPurple,
     },
@@ -622,7 +628,8 @@ dynamic build(BuildContext context) {
           Icon(icon, color: color, size: 30.0),
           const SizedBox(height: 8.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(4.0),
@@ -672,7 +679,10 @@ dynamic build(BuildContext context) {
               height: 70.0,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: <Color>[Color(0xFF1976D2), Color(0xFF42A5F5)],
+                  colors: <Color>[
+                    Color(0xFF1976D2),
+                    Color(0xFF42A5F5),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -692,7 +702,8 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Text(
             'opacity=${op.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -715,7 +726,10 @@ dynamic build(BuildContext context) {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: <Color>[Color(0xFFE91E63), Color(0xFFFF80AB)],
+                    colors: <Color>[
+                      Color(0xFFE91E63),
+                      Color(0xFFFF80AB),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -734,11 +748,13 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Text(
             'turns=${turns.toStringAsFixed(3)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
           Text(
             '${(turns * 360.0).toStringAsFixed(0)}°',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -782,7 +798,8 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 4.0),
           Text(
             'scale=${s.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -822,7 +839,10 @@ dynamic build(BuildContext context) {
                   height: 40.0,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: <Color>[Color(0xFF9C27B0), Color(0xFFCE93D8)],
+                      colors: <Color>[
+                        Color(0xFF9C27B0),
+                        Color(0xFFCE93D8),
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -834,7 +854,8 @@ dynamic build(BuildContext context) {
           ),
           Text(
             '(${offset.dx.toStringAsFixed(2)}, ${offset.dy.toStringAsFixed(2)})',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 9.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 9.0),
           ),
         ],
       ),
@@ -852,9 +873,7 @@ dynamic build(BuildContext context) {
         color: Colors.amber.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: Colors.amber.withValues(alpha: 0.4),
-          width: 1.0,
-        ),
+            color: Colors.amber.withValues(alpha: 0.4), width: 1.0),
       ),
       child: Column(
         children: <Widget>[
@@ -881,7 +900,8 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 4.0),
           Text(
             'sizeFactor=${f.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -934,7 +954,8 @@ dynamic build(BuildContext context) {
           ),
           Text(
             label,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -965,9 +986,7 @@ dynamic build(BuildContext context) {
     begin: decorationStart,
     end: decorationEnd,
   );
-  final decoratedTiles = List<Widget>.generate(decoratedTValues.length, (
-    int i,
-  ) {
+  final decoratedTiles = List<Widget>.generate(decoratedTValues.length, (int i) {
     final double t = decoratedTValues[i];
     return Container(
       margin: const EdgeInsets.all(6.0),
@@ -986,7 +1005,8 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Text(
             't=${t.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -1033,7 +1053,8 @@ dynamic build(BuildContext context) {
           ),
           Text(
             't=${t.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -1068,13 +1089,16 @@ dynamic build(BuildContext context) {
       child: Column(
         children: <Widget>[
           DefaultTextStyleTransition(
-            style: textStyleTween.animate(AlwaysStoppedAnimation<double>(t)),
+            style: textStyleTween.animate(
+              AlwaysStoppedAnimation<double>(t),
+            ),
             child: const Text('Frozen Text'),
           ),
           const SizedBox(height: 6.0),
           Text(
             't=${t.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 9.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 9.0),
           ),
         ],
       ),
@@ -1107,7 +1131,9 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 RelativePositionedTransition(
                   size: const Size(130.0, 120.0),
-                  rect: rectTween2.animate(AlwaysStoppedAnimation<double>(t)),
+                  rect: rectTween2.animate(
+                    AlwaysStoppedAnimation<double>(t),
+                  ),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.lime.shade700,
@@ -1120,7 +1146,8 @@ dynamic build(BuildContext context) {
           ),
           Text(
             't=${t.toStringAsFixed(2)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+            style: const TextStyle(
+                fontFamily: 'monospace', fontSize: 10.0),
           ),
         ],
       ),
@@ -1152,8 +1179,12 @@ dynamic build(BuildContext context) {
                   width: 60.0,
                   height: 60.0,
                   decoration: BoxDecoration(
-                    color:
-                        Color.lerp(Colors.red, Colors.blue, t) ?? Colors.grey,
+                    color: Color.lerp(
+                          Colors.red,
+                          Colors.blue,
+                          t,
+                        ) ??
+                        Colors.grey,
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: <BoxShadow>[
                       BoxShadow(
@@ -1175,7 +1206,8 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 6.0),
               Text(
                 'driver=${t.toStringAsFixed(1)}',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 10.0),
+                style: const TextStyle(
+                    fontFamily: 'monospace', fontSize: 10.0),
               ),
             ],
           );
@@ -1233,7 +1265,9 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: i.isEven ? const Color(0xFFFAFAFA) : const Color(0xFFEFEFEF),
+        color: i.isEven
+            ? const Color(0xFFFAFAFA)
+            : const Color(0xFFEFEFEF),
         borderRadius: BorderRadius.circular(6.0),
         border: Border.all(color: Colors.grey.shade300, width: 1.0),
       ),
@@ -1254,9 +1288,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+                  horizontal: 8.0, vertical: 4.0),
               margin: const EdgeInsets.only(right: 6.0),
               decoration: BoxDecoration(
                 color: Colors.indigo.withValues(alpha: 0.08),
@@ -1264,23 +1296,27 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 r['frozen'] as String,
-                style: TextStyle(fontSize: 11.0, color: Colors.indigo.shade900),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.indigo.shade900,
+                ),
               ),
             ),
           ),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+                  horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: Colors.orange.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(
                 r['ticking'] as String,
-                style: TextStyle(fontSize: 11.0, color: Colors.orange.shade900),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.orange.shade900,
+                ),
               ),
             ),
           ),
@@ -1448,7 +1484,10 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: color.withValues(alpha: 0.5), width: 1.4),
+        border: Border.all(
+          color: color.withValues(alpha: 0.5),
+          width: 1.4,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: color.withValues(alpha: 0.15),
@@ -1466,7 +1505,11 @@ dynamic build(BuildContext context) {
               color: color.withValues(alpha: 0.18),
               shape: BoxShape.circle,
             ),
-            child: Icon(entry['icon'] as IconData, color: color, size: 22.0),
+            child: Icon(
+              entry['icon'] as IconData,
+              color: color,
+              size: 22.0,
+            ),
           ),
           const SizedBox(width: 10.0),
           Expanded(
@@ -1517,10 +1560,8 @@ dynamic build(BuildContext context) {
 
   proofAnim.addListener(valueListener);
   proofAnim.addStatusListener(statusListenerCb);
-  print(
-    '  After addListener+addStatusListener:'
-    ' value=$valueListenerCalls status=$statusListenerCalls',
-  );
+  print('  After addListener+addStatusListener:'
+      ' value=$valueListenerCalls status=$statusListenerCalls');
 
   // Querying the value/status does not trigger listeners.
   final double snapshot = proofAnim.value;
@@ -1529,16 +1570,17 @@ dynamic build(BuildContext context) {
 
   proofAnim.removeListener(valueListener);
   proofAnim.removeStatusListener(statusListenerCb);
-  print(
-    '  After remove*: value=$valueListenerCalls status=$statusListenerCalls',
-  );
+  print('  After remove*: value=$valueListenerCalls status=$statusListenerCalls');
 
   final proofWidget = Container(
     margin: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
     padding: const EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Colors.green.shade50, Colors.lightGreen.shade50],
+        colors: <Color>[
+          Colors.green.shade50,
+          Colors.lightGreen.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1575,19 +1617,23 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 'value listener calls: $valueListenerCalls',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                style: const TextStyle(
+                    fontFamily: 'monospace', fontSize: 12.0),
               ),
               Text(
                 'status listener calls: $statusListenerCalls',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                style: const TextStyle(
+                    fontFamily: 'monospace', fontSize: 12.0),
               ),
               Text(
                 'value snapshot: ${snapshot.toStringAsFixed(2)}',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                style: const TextStyle(
+                    fontFamily: 'monospace', fontSize: 12.0),
               ),
               Text(
                 'status snapshot: ${statusSnapshot.name}',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                style: const TextStyle(
+                    fontFamily: 'monospace', fontSize: 12.0),
               ),
             ],
           ),
@@ -1627,7 +1673,10 @@ dynamic build(BuildContext context) {
                 height: 50.0,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: <Color>[Color(0xFFFF7043), Color(0xFFFFAB91)],
+                    colors: <Color>[
+                      Color(0xFFFF7043),
+                      Color(0xFFFFAB91),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1652,7 +1701,10 @@ dynamic build(BuildContext context) {
       );
     });
 
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: cells);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: cells,
+    );
   });
 
   // ------------------------------------------------------------------
@@ -1677,7 +1729,9 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 8.0),
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
       decoration: BoxDecoration(
-        color: i.isEven ? const Color(0xFFFAFAFA) : const Color(0xFFEFEFEF),
+        color: i.isEven
+            ? const Color(0xFFFAFAFA)
+            : const Color(0xFFEFEFEF),
         borderRadius: BorderRadius.circular(6.0),
         border: Border.all(color: Colors.grey.shade300, width: 1.0),
       ),
@@ -1698,7 +1752,10 @@ dynamic build(BuildContext context) {
             flex: 3,
             child: Text(
               a.runtimeType.toString(),
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+              ),
             ),
           ),
           Expanded(
@@ -1736,14 +1793,10 @@ dynamic build(BuildContext context) {
   final completeAnim = kAlwaysCompleteAnimation;
   final dismissedAnim = kAlwaysDismissedAnimation;
 
-  print(
-    '  kAlwaysCompleteAnimation value=${completeAnim.value}'
-    ' status=${completeAnim.status.name}',
-  );
-  print(
-    '  kAlwaysDismissedAnimation value=${dismissedAnim.value}'
-    ' status=${dismissedAnim.status.name}',
-  );
+  print('  kAlwaysCompleteAnimation value=${completeAnim.value}'
+      ' status=${completeAnim.status.name}');
+  print('  kAlwaysDismissedAnimation value=${dismissedAnim.value}'
+      ' status=${dismissedAnim.status.name}');
 
   final siblingsRow = Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1772,7 +1825,10 @@ dynamic build(BuildContext context) {
             Text(
               'value=${completeAnim.value}\nstatus=${completeAnim.status.name}',
               textAlign: TextAlign.center,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+              ),
             ),
           ],
         ),
@@ -1801,7 +1857,10 @@ dynamic build(BuildContext context) {
             Text(
               'value=${dismissedAnim.value}\nstatus=${dismissedAnim.status.name}',
               textAlign: TextAlign.center,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+              ),
             ),
           ],
         ),
@@ -1895,7 +1954,10 @@ dynamic build(BuildContext context) {
             'supply a constant value to any widget that expects an animation.',
           ),
           const SizedBox(height: 12.0),
-          Wrap(alignment: WrapAlignment.center, children: conceptCards),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: conceptCards,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 2
@@ -1906,7 +1968,10 @@ dynamic build(BuildContext context) {
             'The status column proves all of them are AnimationStatus.forward.',
           ),
           const SizedBox(height: 12.0),
-          Wrap(alignment: WrapAlignment.center, children: canonicalTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: canonicalTiles,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 3
@@ -1918,7 +1983,10 @@ dynamic build(BuildContext context) {
             'freezes the tween at that exact frame.',
           ),
           const SizedBox(height: 12.0),
-          Wrap(alignment: WrapAlignment.center, children: tweenTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: tweenTiles,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 4
@@ -1929,7 +1997,10 @@ dynamic build(BuildContext context) {
             'twelve specialisations, from primitives to compound types.',
           ),
           const SizedBox(height: 12.0),
-          Wrap(alignment: WrapAlignment.center, children: genericTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: genericTiles,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 5 - Transition gallery
@@ -1944,52 +2015,82 @@ dynamic build(BuildContext context) {
 
           _subSectionTitle('5a. FadeTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: fadeTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: fadeTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5b. RotationTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: rotationTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: rotationTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5c. ScaleTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: scaleTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: scaleTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5d. SlideTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: slideTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: slideTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5e. SizeTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: sizeTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: sizeTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5f. AlignTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: alignTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: alignTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5g. DecoratedBoxTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: decoratedTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: decoratedTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5h. PositionedTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: positionedTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: positionedTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5i. DefaultTextStyleTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: textStyleTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: textStyleTiles,
+          ),
           const SizedBox(height: 20.0),
 
           _subSectionTitle('5j. RelativePositionedTransition'),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: relativeTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: relativeTiles,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 6 - AnimatedBuilder
@@ -2000,7 +2101,10 @@ dynamic build(BuildContext context) {
             'AlwaysStoppedAnimation it is built exactly once and never again.',
           ),
           const SizedBox(height: 12.0),
-          Wrap(alignment: WrapAlignment.center, children: builderTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: builderTiles,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 7 - Contract
@@ -2032,9 +2136,7 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 6.0,
-                        ),
+                            horizontal: 8.0, vertical: 6.0),
                         margin: const EdgeInsets.only(right: 6.0),
                         decoration: BoxDecoration(
                           color: Colors.indigo.withValues(alpha: 0.18),
@@ -2053,9 +2155,7 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 6.0,
-                        ),
+                            horizontal: 8.0, vertical: 6.0),
                         decoration: BoxDecoration(
                           color: Colors.orange.withValues(alpha: 0.18),
                           borderRadius: BorderRadius.circular(4.0),
@@ -2091,7 +2191,10 @@ dynamic build(BuildContext context) {
           // Section 9 - Summary tiles
           _sectionTitle('9. Key takeaways'),
           const SizedBox(height: 12.0),
-          Wrap(alignment: WrapAlignment.center, children: summaryTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: summaryTiles,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 10 - Proof
@@ -2113,7 +2216,9 @@ dynamic build(BuildContext context) {
             'cell is driven by two AlwaysStoppedAnimation instances.',
           ),
           const SizedBox(height: 10.0),
-          Column(children: mosaicRows),
+          Column(
+            children: mosaicRows,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 12 - Identity table
@@ -2125,7 +2230,9 @@ dynamic build(BuildContext context) {
             'how status is always forward, regardless of the value.',
           ),
           const SizedBox(height: 8.0),
-          Column(children: identityRows),
+          Column(
+            children: identityRows,
+          ),
           const SizedBox(height: 28.0),
 
           // Section 13 - Constant siblings

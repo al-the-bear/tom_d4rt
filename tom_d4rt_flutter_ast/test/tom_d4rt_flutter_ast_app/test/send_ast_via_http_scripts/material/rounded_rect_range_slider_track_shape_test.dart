@@ -331,9 +331,7 @@ Widget buildActiveInactiveColors() {
                 rangeTrackShape: RoundedRectRangeSliderTrackShape(),
                 activeTrackColor: activeColors[c].shade600,
                 inactiveTrackColor: inactiveColors[c].shade200,
-                rangeThumbShape: RoundRangeSliderThumbShape(
-                  enabledThumbRadius: 10,
-                ),
+                rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 10),
                 overlayColor: activeColors[c].withAlpha(35),
                 trackHeight: 6.0,
               ),
@@ -342,10 +340,7 @@ Widget buildActiveInactiveColors() {
                 min: 0,
                 max: 100,
                 divisions: 20,
-                labels: RangeLabels(
-                  '${startVals[c].toInt()}',
-                  '${endVals[c].toInt()}',
-                ),
+                labels: RangeLabels('${startVals[c].toInt()}', '${endVals[c].toInt()}'),
                 onChanged: (RangeValues vals) {},
               ),
             ),
@@ -355,10 +350,7 @@ Widget buildActiveInactiveColors() {
               children: [
                 Text(
                   'Active: shade600',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: activeColors[c].shade600,
-                  ),
+                  style: TextStyle(fontSize: 10, color: activeColors[c].shade600),
                 ),
                 Text(
                   '${startVals[c].toInt()} - ${endVals[c].toInt()}',
@@ -370,10 +362,7 @@ Widget buildActiveInactiveColors() {
                 ),
                 Text(
                   'Inactive: shade200',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: inactiveColors[c].shade400,
-                  ),
+                  style: TextStyle(fontSize: 10, color: inactiveColors[c].shade400),
                 ),
               ],
             ),
@@ -492,10 +481,7 @@ Widget buildSliderThemeConfiguration() {
                       SizedBox(height: 2),
                       Text(
                         'Track: ${configTrackHeights[i].toInt()}px | Thumb: ${configThumbRadii[i].toInt()}px',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.grey.shade500,
-                        ),
+                        style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
                       ),
                     ],
                   ),
@@ -528,10 +514,7 @@ Widget buildSliderThemeConfiguration() {
                 min: 0,
                 max: 100,
                 divisions: 20,
-                labels: RangeLabels(
-                  '${startRanges[i].toInt()}',
-                  '${endRanges[i].toInt()}',
-                ),
+                labels: RangeLabels('${startRanges[i].toInt()}', '${endRanges[i].toInt()}'),
                 onChanged: (RangeValues vals) {},
               ),
             ),
@@ -543,10 +526,7 @@ Widget buildSliderThemeConfiguration() {
                   children: [
                     Text(
                       'Track Height',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey.shade500,
-                      ),
+                      style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
                     ),
                     Text(
                       '${configTrackHeights[i].toInt()} px',
@@ -562,10 +542,7 @@ Widget buildSliderThemeConfiguration() {
                   children: [
                     Text(
                       'Thumb Radius',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey.shade500,
-                      ),
+                      style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
                     ),
                     Text(
                       '${configThumbRadii[i].toInt()} px',
@@ -581,10 +558,7 @@ Widget buildSliderThemeConfiguration() {
                   children: [
                     Text(
                       'Overlay Radius',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey.shade500,
-                      ),
+                      style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
                     ),
                     Text(
                       '${configOverlayRadii[i].toInt()} px',
@@ -818,9 +792,7 @@ Widget buildTrackShapeComparison() {
                 rangeTrackShape: RoundedRectRangeSliderTrackShape(),
                 activeTrackColor: Colors.indigo.shade500,
                 inactiveTrackColor: Colors.indigo.shade100,
-                rangeThumbShape: RoundRangeSliderThumbShape(
-                  enabledThumbRadius: 8,
-                ),
+                rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 8),
                 trackHeight: 6.0,
               ),
               child: RangeSlider(
@@ -835,10 +807,7 @@ Widget buildTrackShapeComparison() {
               children: [
                 Text(
                   'Rectangular:',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.deepOrange.shade600,
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.deepOrange.shade600),
                 ),
               ],
             ),
@@ -847,9 +816,7 @@ Widget buildTrackShapeComparison() {
                 rangeTrackShape: RectangularRangeSliderTrackShape(),
                 activeTrackColor: Colors.deepOrange.shade500,
                 inactiveTrackColor: Colors.deepOrange.shade100,
-                rangeThumbShape: RoundRangeSliderThumbShape(
-                  enabledThumbRadius: 8,
-                ),
+                rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 8),
                 trackHeight: 6.0,
               ),
               child: RangeSlider(
@@ -999,9 +966,7 @@ Widget buildRangeSliderGallery() {
                 rangeTrackShape: RoundedRectRangeSliderTrackShape(),
                 activeTrackColor: galleryColors[g].shade500,
                 inactiveTrackColor: galleryColors[g].shade200,
-                rangeThumbShape: RoundRangeSliderThumbShape(
-                  enabledThumbRadius: 9,
-                ),
+                rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 9),
                 overlayColor: galleryColors[g].withAlpha(30),
                 trackHeight: 5.0,
               ),
@@ -1018,17 +983,11 @@ Widget buildRangeSliderGallery() {
               children: [
                 Text(
                   '${galleryMins[g].toInt()}${galleryUnits[g]}',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: galleryColors[g].shade400,
-                  ),
+                  style: TextStyle(fontSize: 10, color: galleryColors[g].shade400),
                 ),
                 Text(
                   '${galleryMaxs[g].toInt()}${galleryUnits[g]}',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: galleryColors[g].shade400,
-                  ),
+                  style: TextStyle(fontSize: 10, color: galleryColors[g].shade400),
                 ),
               ],
             ),
@@ -1190,10 +1149,7 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.white.withAlpha(30),
                         borderRadius: BorderRadius.circular(16),
@@ -1205,10 +1161,7 @@ dynamic build(BuildContext context) {
                     ),
                     SizedBox(width: 8),
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.white.withAlpha(30),
                         borderRadius: BorderRadius.circular(16),

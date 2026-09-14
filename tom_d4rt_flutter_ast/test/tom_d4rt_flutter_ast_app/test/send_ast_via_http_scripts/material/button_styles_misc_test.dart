@@ -79,7 +79,11 @@ Widget _buildExplanation(String text) {
     padding: const EdgeInsets.fromLTRB(20, 14, 20, 6),
     child: Text(
       text,
-      style: TextStyle(fontSize: 13, height: 1.45, color: Colors.grey.shade800),
+      style: TextStyle(
+        fontSize: 13,
+        height: 1.45,
+        color: Colors.grey.shade800,
+      ),
     ),
   );
 }
@@ -152,7 +156,10 @@ Widget _buildSectionCard({required List<Widget> children}) {
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [...children, const SizedBox(height: 16)],
+      children: [
+        ...children,
+        const SizedBox(height: 16),
+      ],
     ),
   );
 }
@@ -608,7 +615,9 @@ Widget _buildPaddingShowcase() {
           children: [
             ElevatedButton(
               onPressed: () {},
-              style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(8)),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(8),
+              ),
               child: const Text('all 8'),
             ),
             ElevatedButton(
@@ -790,7 +799,10 @@ Widget _buildSideAndBorderShowcase() {
             OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Colors.green.shade700, width: 2),
+                side: BorderSide(
+                  color: Colors.green.shade700,
+                  width: 2,
+                ),
                 shape: const StadiumBorder(),
               ),
               child: const Text('green stadium'),
@@ -798,7 +810,10 @@ Widget _buildSideAndBorderShowcase() {
             OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Colors.deepOrange.shade400, width: 2),
+                side: BorderSide(
+                  color: Colors.deepOrange.shade400,
+                  width: 2,
+                ),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(4)),
                 ),
@@ -822,15 +837,27 @@ Widget _buildSideAndBorderShowcase() {
               style: ButtonStyle(
                 side: WidgetStateProperty.resolveWith<BorderSide?>((states) {
                   if (states.contains(WidgetState.disabled)) {
-                    return const BorderSide(color: Colors.grey, width: 1);
+                    return const BorderSide(
+                      color: Colors.grey,
+                      width: 1,
+                    );
                   }
                   if (states.contains(WidgetState.pressed)) {
-                    return const BorderSide(color: Colors.deepPurple, width: 4);
+                    return const BorderSide(
+                      color: Colors.deepPurple,
+                      width: 4,
+                    );
                   }
                   if (states.contains(WidgetState.hovered)) {
-                    return const BorderSide(color: Colors.deepPurple, width: 3);
+                    return const BorderSide(
+                      color: Colors.deepPurple,
+                      width: 3,
+                    );
                   }
-                  return const BorderSide(color: Colors.deepPurple, width: 2);
+                  return const BorderSide(
+                    color: Colors.deepPurple,
+                    width: 2,
+                  );
                 }),
               ),
               child: const Text('stateful side'),
@@ -1264,101 +1291,94 @@ Widget _buildMouseCursorShowcase() {
           children: [
             ElevatedButton(
               onPressed: () {},
-              style:
-                  ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                    foregroundColor: Colors.white,
-                  ).copyWith(
-                    mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
-                      SystemMouseCursors.click,
-                    ),
-                  ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple,
+                foregroundColor: Colors.white,
+              ).copyWith(
+                mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
+                  SystemMouseCursors.click,
+                ),
+              ),
               child: const Text('click'),
             ),
             ElevatedButton(
               onPressed: () {},
-              style:
-                  ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple.shade300,
-                    foregroundColor: Colors.white,
-                  ).copyWith(
-                    mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
-                      SystemMouseCursors.basic,
-                    ),
-                  ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple.shade300,
+                foregroundColor: Colors.white,
+              ).copyWith(
+                mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
+                  SystemMouseCursors.basic,
+                ),
+              ),
               child: const Text('basic'),
             ),
             ElevatedButton(
               onPressed: () {},
-              style:
-                  ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple.shade400,
-                    foregroundColor: Colors.white,
-                  ).copyWith(
-                    mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
-                      SystemMouseCursors.help,
-                    ),
-                  ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple.shade400,
+                foregroundColor: Colors.white,
+              ).copyWith(
+                mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
+                  SystemMouseCursors.help,
+                ),
+              ),
               child: const Text('help'),
             ),
             ElevatedButton(
               onPressed: () {},
-              style:
-                  ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple.shade500,
-                    foregroundColor: Colors.white,
-                  ).copyWith(
-                    mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
-                      SystemMouseCursors.move,
-                    ),
-                  ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple.shade500,
+                foregroundColor: Colors.white,
+              ).copyWith(
+                mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
+                  SystemMouseCursors.move,
+                ),
+              ),
               child: const Text('move'),
             ),
             ElevatedButton(
               onPressed: () {},
-              style:
-                  ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple.shade600,
-                    foregroundColor: Colors.white,
-                  ).copyWith(
-                    mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
-                      SystemMouseCursors.grab,
-                    ),
-                  ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple.shade600,
+                foregroundColor: Colors.white,
+              ).copyWith(
+                mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
+                  SystemMouseCursors.grab,
+                ),
+              ),
               child: const Text('grab'),
             ),
             ElevatedButton(
               onPressed: () {},
-              style:
-                  ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple.shade700,
-                    foregroundColor: Colors.white,
-                  ).copyWith(
-                    mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
-                      SystemMouseCursors.text,
-                    ),
-                  ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple.shade700,
+                foregroundColor: Colors.white,
+              ).copyWith(
+                mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
+                  SystemMouseCursors.text,
+                ),
+              ),
               child: const Text('text'),
             ),
             ElevatedButton(
               onPressed: () {},
-              style:
-                  ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple.shade800,
-                    foregroundColor: Colors.white,
-                  ).copyWith(
-                    mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>((
-                      states,
-                    ) {
-                      if (states.contains(WidgetState.disabled)) {
-                        return SystemMouseCursors.forbidden;
-                      }
-                      if (states.contains(WidgetState.hovered)) {
-                        return SystemMouseCursors.click;
-                      }
-                      return SystemMouseCursors.basic;
-                    }),
-                  ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple.shade800,
+                foregroundColor: Colors.white,
+              ).copyWith(
+                mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>((
+                  states,
+                ) {
+                  if (states.contains(WidgetState.disabled)) {
+                    return SystemMouseCursors.forbidden;
+                  }
+                  if (states.contains(WidgetState.hovered)) {
+                    return SystemMouseCursors.click;
+                  }
+                  return SystemMouseCursors.basic;
+                }),
+              ),
               child: const Text('resolved cursor'),
             ),
           ],
@@ -1441,7 +1461,10 @@ Widget _buildVisualDensitySection() {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                visualDensity: const VisualDensity(horizontal: 2, vertical: 2),
+                visualDensity: const VisualDensity(
+                  horizontal: 2,
+                  vertical: 2,
+                ),
               ),
               child: const Text('roomy (2/2)'),
             ),

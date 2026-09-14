@@ -164,7 +164,11 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              child: Icon(Icons.gesture, size: 56.0, color: Colors.white),
+              child: Icon(
+                Icons.gesture,
+                size: 56.0,
+                color: Colors.white,
+              ),
             ),
             SizedBox(width: 20.0),
             Expanded(
@@ -199,18 +203,20 @@ dynamic build(BuildContext context) {
           'A three-state machine that orchestrates how every gesture '
           'recognizer participates in the pointer arena: ready to listen, '
           'possibly winning, or defunct after rejection.',
-          style: TextStyle(color: Colors.white, fontSize: 15.0, height: 1.5),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15.0,
+            height: 1.5,
+          ),
         ),
         SizedBox(height: 16.0),
         Wrap(
           spacing: 10.0,
           runSpacing: 10.0,
           children: <Widget>[
-            for (final value in GestureRecognizerState.values) _heroChip(value),
-            _heroChip(
-              null,
-              label: 'arity: ${GestureRecognizerState.values.length}',
-            ),
+            for (final value in GestureRecognizerState.values)
+              _heroChip(value),
+            _heroChip(null, label: 'arity: ${GestureRecognizerState.values.length}'),
             _heroChip(null, label: 'enum'),
             _heroChip(null, label: 'gestures'),
           ],
@@ -227,7 +233,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Color(0xFFFAFAFA), Color(0xFFE3F2FD)],
+        colors: <Color>[
+          Color(0xFFFAFAFA),
+          Color(0xFFE3F2FD),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -244,20 +253,12 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionHeading(
-          'Anatomy',
-          Icons.auto_awesome_motion,
-          Color(0xFF1565C0),
-        ),
+        _sectionHeading('Anatomy', Icons.auto_awesome_motion, Color(0xFF1565C0)),
         SizedBox(height: 16.0),
         Text(
           'Each recognizer holds a single GestureRecognizerState that drives '
           'whether pointer events are evaluated, escalated, or ignored.',
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Color(0xFF263238),
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 14.0, color: Color(0xFF263238), height: 1.45),
         ),
         SizedBox(height: 18.0),
         Container(
@@ -451,24 +452,12 @@ dynamic build(BuildContext context) {
   // SECTION 10: Static analysis values used (always-stopped animations)
   // ============================================================
   final staticAnimations = <Widget>[
-    _gaugeFor(
-      'ready',
-      0.0,
-      readyDescriptor.primary,
-      const AlwaysStoppedAnimation<double>(0.0),
-    ),
-    _gaugeFor(
-      'possible',
-      0.5,
-      possibleDescriptor.primary,
-      const AlwaysStoppedAnimation<double>(0.5),
-    ),
-    _gaugeFor(
-      'defunct',
-      1.0,
-      defunctDescriptor.primary,
-      const AlwaysStoppedAnimation<double>(1.0),
-    ),
+    _gaugeFor('ready', 0.0, readyDescriptor.primary,
+        const AlwaysStoppedAnimation<double>(0.0)),
+    _gaugeFor('possible', 0.5, possibleDescriptor.primary,
+        const AlwaysStoppedAnimation<double>(0.5)),
+    _gaugeFor('defunct', 1.0, defunctDescriptor.primary,
+        const AlwaysStoppedAnimation<double>(1.0)),
   ];
 
   final gaugeRow = Container(
@@ -555,7 +544,11 @@ dynamic build(BuildContext context) {
               Color(0xFF004D40),
             ),
             comparisonTable,
-            _sectionTitle('Quick Reference', Icons.flash_on, Color(0xFFE65100)),
+            _sectionTitle(
+              'Quick Reference',
+              Icons.flash_on,
+              Color(0xFFE65100),
+            ),
             quickReference,
             asciiFooter,
             SizedBox(height: 36.0),
@@ -665,7 +658,10 @@ Widget _anatomyNode(_StateDescriptor descriptor) {
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[descriptor.accent, descriptor.secondary],
+        colors: <Color>[
+          descriptor.accent,
+          descriptor.secondary,
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -762,7 +758,10 @@ Widget _sectionTitle(String label, IconData icon, Color color) {
           height: 28.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[color, color.withValues(alpha: 0.4)],
+              colors: <Color>[
+                color,
+                color.withValues(alpha: 0.4),
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -870,7 +869,11 @@ Widget _buildStateCard(_StateDescriptor d) {
             padding: EdgeInsets.all(20.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[d.primary, d.secondary, d.accent],
+                colors: <Color>[
+                  d.primary,
+                  d.secondary,
+                  d.accent,
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -1113,7 +1116,10 @@ Widget _buildRecipeCard(_Recipe recipe) {
             SizedBox(width: 10.0),
             Expanded(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 8.0,
+                ),
                 decoration: BoxDecoration(
                   color: recipe.color.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8.0),
@@ -1232,11 +1238,16 @@ Widget _buildLifecycleTimeline() {
           height: 32.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[color.withValues(alpha: 0.65), color],
+              colors: <Color>[
+                color.withValues(alpha: 0.65),
+                color,
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
-            border: Border(right: BorderSide(color: Colors.white, width: 1.5)),
+            border: Border(
+              right: BorderSide(color: Colors.white, width: 1.5),
+            ),
           ),
           alignment: Alignment.center,
           child: Text(
@@ -1267,7 +1278,11 @@ Widget _buildLifecycleTimeline() {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(width: 2.0, height: 14.0, color: Color(0xFF455A64)),
+            Container(
+              width: 2.0,
+              height: 14.0,
+              color: Color(0xFF455A64),
+            ),
             SizedBox(height: 4.0),
             Text(
               label,
@@ -1362,7 +1377,10 @@ Widget _gaugeFor(
         height: 110.0,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[Colors.white, Color(0xFFECEFF1)],
+            colors: <Color>[
+              Colors.white,
+              Color(0xFFECEFF1),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -1384,7 +1402,10 @@ Widget _gaugeFor(
             height: 90.0 * animation.value,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[color.withValues(alpha: 0.5), color],
+                colors: <Color>[
+                  color.withValues(alpha: 0.5),
+                  color,
+                ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -1475,12 +1496,8 @@ Widget _buildPitfallCard(_Pitfall pitfall) {
 }
 
 Widget _buildComparisonTable(List<_StateDescriptor> descriptors) {
-  Widget cell(
-    String text, {
-    bool header = false,
-    Color? color,
-    double width = 100.0,
-  }) {
+  Widget cell(String text,
+      {bool header = false, Color? color, double width = 100.0}) {
     return Container(
       width: width,
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
@@ -1488,7 +1505,10 @@ Widget _buildComparisonTable(List<_StateDescriptor> descriptors) {
       decoration: header
           ? BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[Color(0xFF263238), Color(0xFF37474F)],
+                colors: <Color>[
+                  Color(0xFF263238),
+                  Color(0xFF37474F),
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -1590,7 +1610,10 @@ Widget _buildComparisonTable(List<_StateDescriptor> descriptors) {
         scrollDirection: Axis.horizontal,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[headerRow, ...dataRows],
+          children: <Widget>[
+            headerRow,
+            ...dataRows,
+          ],
         ),
       ),
     ),
@@ -1607,7 +1630,10 @@ Widget _buildQuickReference(List<_StateDescriptor> descriptors) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[d.primary, d.secondary],
+            colors: <Color>[
+              d.primary,
+              d.secondary,
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1677,7 +1703,10 @@ Widget _buildQuickReference(List<_StateDescriptor> descriptors) {
         ),
       ],
     ),
-    child: Wrap(alignment: WrapAlignment.center, children: tiles),
+    child: Wrap(
+      alignment: WrapAlignment.center,
+      children: tiles,
+    ),
   );
 }
 

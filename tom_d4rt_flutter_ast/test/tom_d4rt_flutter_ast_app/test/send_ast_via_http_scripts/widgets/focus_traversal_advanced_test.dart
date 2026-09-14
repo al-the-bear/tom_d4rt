@@ -100,10 +100,11 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               color: border,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(14),
-                bottomLeft: Radius.circular(14),
-              ),
+              borderRadius:
+                  BorderRadius.only(
+                    topLeft: Radius.circular(14),
+                    bottomLeft: Radius.circular(14),
+                  ),
             ),
             child: Text(
               left,
@@ -504,12 +505,8 @@ dynamic build(BuildContext context) {
             pill('ORDER', 'NumericFocusOrder', cSignal, cFoam),
             pill('ORDER', 'LexicalFocusOrder', cMoss, cFoam),
             pill('DIRS', 'TraversalDirection', cBrassDeep, cFoam),
-            pill(
-              'MIXIN',
-              'DirectionalFocusTraversalPolicyMixin',
-              cTealDeep,
-              cFoam,
-            ),
+            pill('MIXIN', 'DirectionalFocusTraversalPolicyMixin', cTealDeep,
+                cFoam),
             pill('KEYS', 'RawKeyboardListener', cSignalDeep, cFoam),
           ],
         ),
@@ -615,18 +612,12 @@ dynamic build(BuildContext context) {
         ),
       ),
       gap(10),
-      bullet(
-        'policy — selects ordering algorithm; defaults to '
-        'ReadingOrderTraversalPolicy when none is given.',
-      ),
-      bullet(
-        'descendantsAreFocusable — when false, every Focus inside '
-        'the subtree refuses focus, including via traversal.',
-      ),
-      bullet(
-        'descendantsAreTraversable — when false, the subtree is '
-        'reachable via direct requestFocus() but skipped by Tab.',
-      ),
+      bullet('policy — selects ordering algorithm; defaults to '
+          'ReadingOrderTraversalPolicy when none is given.'),
+      bullet('descendantsAreFocusable — when false, every Focus inside '
+          'the subtree refuses focus, including via traversal.'),
+      bullet('descendantsAreTraversable — when false, the subtree is '
+          'reachable via direct requestFocus() but skipped by Tab.'),
       bullet('child — typical Flutter child slot; Form/Column/Grid/etc.'),
     ],
   );
@@ -838,66 +829,47 @@ dynamic build(BuildContext context) {
             FocusTraversalOrder(
               order: LexicalFocusOrder('grape'),
               child: focusableCell(
-                label: 'grape',
-                orderIndex: 6,
-                accent: cMoss,
-              ),
+                  label: 'grape', orderIndex: 6, accent: cMoss),
             ),
             FocusTraversalOrder(
               order: LexicalFocusOrder('apple'),
               child: focusableCell(
-                label: 'apple',
-                orderIndex: 1,
-                accent: cMoss,
-              ),
+                  label: 'apple', orderIndex: 1, accent: cMoss),
             ),
             FocusTraversalOrder(
               order: LexicalFocusOrder('cherry'),
               child: focusableCell(
-                label: 'cherry',
-                orderIndex: 3,
-                accent: cMoss,
-              ),
+                  label: 'cherry', orderIndex: 3, accent: cMoss),
             ),
             FocusTraversalOrder(
               order: LexicalFocusOrder('banana'),
               child: focusableCell(
-                label: 'banana',
-                orderIndex: 2,
-                accent: cMoss,
-              ),
+                  label: 'banana', orderIndex: 2, accent: cMoss),
             ),
             FocusTraversalOrder(
               order: LexicalFocusOrder('iris'),
-              child: focusableCell(label: 'iris', orderIndex: 8, accent: cMoss),
+              child: focusableCell(
+                  label: 'iris', orderIndex: 8, accent: cMoss),
             ),
             FocusTraversalOrder(
               order: LexicalFocusOrder('elder'),
               child: focusableCell(
-                label: 'elder',
-                orderIndex: 5,
-                accent: cMoss,
-              ),
+                  label: 'elder', orderIndex: 5, accent: cMoss),
             ),
             FocusTraversalOrder(
               order: LexicalFocusOrder('hazel'),
               child: focusableCell(
-                label: 'hazel',
-                orderIndex: 7,
-                accent: cMoss,
-              ),
+                  label: 'hazel', orderIndex: 7, accent: cMoss),
             ),
             FocusTraversalOrder(
               order: LexicalFocusOrder('date'),
-              child: focusableCell(label: 'date', orderIndex: 4, accent: cMoss),
+              child: focusableCell(
+                  label: 'date', orderIndex: 4, accent: cMoss),
             ),
             FocusTraversalOrder(
               order: LexicalFocusOrder('juniper'),
               child: focusableCell(
-                label: 'juniper',
-                orderIndex: 9,
-                accent: cMoss,
-              ),
+                  label: 'juniper', orderIndex: 9, accent: cMoss),
             ),
           ]),
         ),
@@ -938,7 +910,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               rule,
-              style: TextStyle(color: cInk, fontSize: 12, height: 1.5),
+              style: TextStyle(
+                color: cInk,
+                fontSize: 12,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -959,31 +935,31 @@ dynamic build(BuildContext context) {
       comparisonRow(
         'WidgetOrder',
         'Tree order. Stable, fast, ignores geometry. The right choice when '
-            'your column reads top-to-bottom in code order.',
+        'your column reads top-to-bottom in code order.',
         cBrass,
       ),
       comparisonRow(
         'ReadingOrder',
         'Visual rectangle order. Top-then-leading. Adapts to RTL. Default '
-            'policy for FocusTraversalGroup.',
+        'policy for FocusTraversalGroup.',
         cTeal,
       ),
       comparisonRow(
         'Ordered + Numeric',
         'Explicit doubles. Best for dynamic layouts where you want to '
-            'inject items at fractional positions (1.5 between 1 and 2).',
+        'inject items at fractional positions (1.5 between 1 and 2).',
         cSignal,
       ),
       comparisonRow(
         'Ordered + Lexical',
         'Strings via compareTo. Use sortable keys, e.g. zero-padded '
-            'numbers or hierarchical names ("section.subsection.field").',
+        'numbers or hierarchical names ("section.subsection.field").',
         cMoss,
       ),
       comparisonRow(
         'Directional (mixin)',
         'Adds findFirstFocusInDirection used by all policies for arrow '
-            'keys. Always present on every traversal policy.',
+        'keys. Always present on every traversal policy.',
         cTealDeep,
       ),
     ],
@@ -1012,7 +988,10 @@ dynamic build(BuildContext context) {
               fontFamily: 'monospace',
             ),
           ),
-          Text(label, style: TextStyle(color: cInkFade, fontSize: 10)),
+          Text(
+            label,
+            style: TextStyle(color: cInkFade, fontSize: 10),
+          ),
         ],
       ),
     );
@@ -1128,11 +1107,8 @@ dynamic build(BuildContext context) {
       lexRow('"alpha"', '< "beta"  (a < b)', cMoss),
       lexRow('"Beta"', '< "alpha" (capital B = 0x42 < a = 0x61)', cMoss),
       lexRow('"item-2"', '> "item-10" (because "-" then "2" > "1")', cMoss),
-      lexRow(
-        '"item-02"',
-        '< "item-10" (zero-padded fixes mixed numeric)',
-        cMoss,
-      ),
+      lexRow('"item-02"', '< "item-10" (zero-padded fixes mixed numeric)',
+          cMoss),
       gap(6),
       bullet(
         'Lower-case everything before passing to LexicalFocusOrder if '
@@ -1207,7 +1183,10 @@ dynamic build(BuildContext context) {
                     ),
                     Text(
                       key,
-                      style: TextStyle(color: cInkFade, fontSize: 10.5),
+                      style: TextStyle(
+                        color: cInkFade,
+                        fontSize: 10.5,
+                      ),
                     ),
                   ],
                 ),
@@ -1386,13 +1365,8 @@ dynamic build(BuildContext context) {
   // ─────────────────────────────────────────────────────────────────────
   // 12. Tab vs Shift-Tab vs arrow-key matrix.
   // ─────────────────────────────────────────────────────────────────────
-  TableRow keyRow(
-    String key,
-    String forward,
-    String reverse, {
-    Color color = cInk,
-    bool head = false,
-  }) {
+  TableRow keyRow(String key, String forward, String reverse,
+      {Color color = cInk, bool head = false}) {
     final TextStyle style = TextStyle(
       color: head ? cBrass : color,
       fontSize: 12,
@@ -1401,7 +1375,9 @@ dynamic build(BuildContext context) {
       height: 1.4,
     );
     return TableRow(
-      decoration: BoxDecoration(color: head ? cNavy : cFoam),
+      decoration: BoxDecoration(
+        color: head ? cNavy : cFoam,
+      ),
       children: [
         Padding(
           padding: EdgeInsets.all(8),
@@ -1674,7 +1650,11 @@ dynamic build(BuildContext context) {
                 gap(3),
                 Text(
                   desc,
-                  style: TextStyle(color: cInk, fontSize: 11.5, height: 1.45),
+                  style: TextStyle(
+                    color: cInk,
+                    fontSize: 11.5,
+                    height: 1.45,
+                  ),
                 ),
               ],
             ),
@@ -1703,35 +1683,35 @@ dynamic build(BuildContext context) {
         2,
         'attach',
         'attach(BuildContext) is called by Focus.didChangeDependencies. '
-            'The node is now reachable through FocusManager.instance.',
+        'The node is now reachable through FocusManager.instance.',
         cTeal,
       ),
       lifecycleStep(
         3,
         'request',
         'requestFocus() — moves primary focus, runs ChangeNotifier '
-            'callbacks, schedules a re-paint.',
+        'callbacks, schedules a re-paint.',
         cSignal,
       ),
       lifecycleStep(
         4,
         'traverse',
         'Tab / arrow keys ask the policy for nextFocus / inDirection. '
-            'The chosen node receives requestFocus().',
+        'The chosen node receives requestFocus().',
         cMoss,
       ),
       lifecycleStep(
         5,
         'unfocus',
         'unfocus(disposition: ...) clears the node — UnfocusDisposition '
-            'controls scope handling.',
+        'controls scope handling.',
         cTealDeep,
       ),
       lifecycleStep(
         6,
         'dispose',
         'dispose() detaches from the manager. Required when you own the '
-            'node — Focus() owns its own node and cleans up automatically.',
+        'node — Focus() owns its own node and cleans up automatically.',
         cSignalDeep,
       ),
     ],
@@ -1776,55 +1756,55 @@ dynamic build(BuildContext context) {
       pitfallCard(
         'Forgetting that ReadingOrder is the default',
         'A bare FocusTraversalGroup uses ReadingOrderTraversalPolicy. If '
-            'your tab order looks "off" first inspect that — sometimes the '
-            'fix is to switch explicitly to WidgetOrderTraversalPolicy.',
+        'your tab order looks "off" first inspect that — sometimes the '
+        'fix is to switch explicitly to WidgetOrderTraversalPolicy.',
         cBrass,
       ),
       pitfallCard(
         'Mixing Numeric and Lexical orders in one group',
         'OrderedTraversalPolicy is fine with multiple FocusOrder types — '
-            'but compareTo throws if it cannot find a doCompare overload. '
-            'Stick to one FocusOrder subclass per group.',
+        'but compareTo throws if it cannot find a doCompare overload. '
+        'Stick to one FocusOrder subclass per group.',
         cSignal,
       ),
       pitfallCard(
         'Lexical "10" sorting before "2"',
         'String.compareTo is code-unit based. Zero-pad your numeric '
-            'segments or compose them deliberately ("00010" vs "00002").',
+        'segments or compose them deliberately ("00010" vs "00002").',
         cMoss,
       ),
       pitfallCard(
         'Forgetting descendantsAreTraversable',
         'A panel hidden offscreen is still traversable unless you set '
-            'descendantsAreTraversable: false. Combining with ExcludeFocus is '
-            'the cleanest way to skip a whole subtree without unmounting it.',
+        'descendantsAreTraversable: false. Combining with ExcludeFocus is '
+        'the cleanest way to skip a whole subtree without unmounting it.',
         cTeal,
       ),
       pitfallCard(
         'Disposing a FocusNode owned by Focus()',
         'If you wrap a Focus(child: ...) without supplying a focusNode, '
-            'the widget owns the node. Calling dispose on it from outside '
-            'crashes when the framework disposes it again.',
+        'the widget owns the node. Calling dispose on it from outside '
+        'crashes when the framework disposes it again.',
         cSignalDeep,
       ),
       pitfallCard(
         'Arrow keys "do nothing"',
         'Arrow-key traversal needs at least one focusable in that '
-            'direction. Inside a single-row Row(), Up/Down do nothing — '
-            'which is correct, but easy to misread as a bug.',
+        'direction. Inside a single-row Row(), Up/Down do nothing — '
+        'which is correct, but easy to misread as a bug.',
         cTealDeep,
       ),
       pitfallCard(
         'Using NumericFocusOrder with NaN',
         'NumericFocusOrder(double.nan).compareTo(any) is undefined and '
-            'will likely surface as inconsistent traversal. Validate doubles.',
+        'will likely surface as inconsistent traversal. Validate doubles.',
         cBrassDeep,
       ),
       pitfallCard(
         'Re-creating policy objects every build',
         'OK in practice — the cost is negligible — but if you carry state '
-            'in a custom policy keep the instance stable via a const or via a '
-            'StatefulWidget field.',
+        'in a custom policy keep the instance stable via a const or via a '
+        'StatefulWidget field.',
         cBrass,
       ),
     ],
@@ -1878,49 +1858,49 @@ dynamic build(BuildContext context) {
       a11yCard(
         'Match focus order to reading order',
         'Screen-reader users navigate forms by Tab. If the visual order '
-            'does not match the underlying logical order, swap to '
-            'ReadingOrderTraversalPolicy or supply explicit FocusTraversalOrder '
-            'annotations.',
+        'does not match the underlying logical order, swap to '
+        'ReadingOrderTraversalPolicy or supply explicit FocusTraversalOrder '
+        'annotations.',
         Icons.menu_book_outlined,
         cTeal,
       ),
       a11yCard(
         'Visible focus indicators',
         'A traversal policy is only useful if the user can see where '
-            'focus landed. Use FocusableActionDetector or explicit '
-            'BoxDecoration changes on hasFocus to draw a visible ring.',
+        'focus landed. Use FocusableActionDetector or explicit '
+        'BoxDecoration changes on hasFocus to draw a visible ring.',
         Icons.visibility_outlined,
         cBrass,
       ),
       a11yCard(
         'Skip-to-content links',
         'Top-of-page "Skip to main content" links are real focusables '
-            'with NumericFocusOrder(-1). They are first in tab order and '
-            'usually only visible while focused.',
+        'with NumericFocusOrder(-1). They are first in tab order and '
+        'usually only visible while focused.',
         Icons.fast_forward_outlined,
         cMoss,
       ),
       a11yCard(
         'Modal dialogs trap focus',
         'When a Dialog opens, wrap it in a FocusTraversalGroup so Tab '
-            'cycles within the dialog. Use Navigator.popUntil or '
-            'FocusScope.of(context).requestFocus to restore focus on close.',
+        'cycles within the dialog. Use Navigator.popUntil or '
+        'FocusScope.of(context).requestFocus to restore focus on close.',
         Icons.lock_outlined,
         cSignal,
       ),
       a11yCard(
         'RTL adapts ReadingOrder',
         'ReadingOrderTraversalPolicy uses Directionality.of(context). '
-            'Wrap a panel in Directionality(textDirection: TextDirection.rtl) '
-            'to test arabic / hebrew layouts.',
+        'Wrap a panel in Directionality(textDirection: TextDirection.rtl) '
+        'to test arabic / hebrew layouts.',
         Icons.swap_horiz,
         cTealDeep,
       ),
       a11yCard(
         'Arrow keys for grids',
         'A 2D grid (data tables, calendar, chess board) deserves arrow '
-            'navigation in addition to Tab. The directional mixin already '
-            'handles it — your job is to make the cells focusable.',
+        'navigation in addition to Tab. The directional mixin already '
+        'handles it — your job is to make the cells focusable.',
         Icons.grid_view,
         cBrassDeep,
       ),
@@ -2024,7 +2004,7 @@ dynamic build(BuildContext context) {
                 '02',
                 'Policy snapshots — four real grids',
                 'Each grid is wrapped in a FocusTraversalGroup with a '
-                    'different policy.',
+                'different policy.',
               ),
               snapshotWidgetOrder,
               snapshotReadingOrder,
@@ -2109,3 +2089,4 @@ dynamic build(BuildContext context) {
     ),
   );
 }
+

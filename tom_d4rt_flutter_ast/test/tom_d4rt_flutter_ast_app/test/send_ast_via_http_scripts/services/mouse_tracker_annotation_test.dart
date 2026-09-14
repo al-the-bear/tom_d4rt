@@ -27,9 +27,7 @@ import 'package:flutter/services.dart';
 dynamic build(BuildContext context) {
   print('MouseTrackerAnnotation Deep Demo executing');
   print('Theme: Lighthouse Keeper\'s Optic — annotation is the logbook entry,');
-  print(
-    'MouseRegion is the brass observation window, pointer events are ships.',
-  );
+  print('MouseRegion is the brass observation window, pointer events are ships.');
 
   // ============================================================
   // Brass + sea palette used across the demo.
@@ -59,10 +57,8 @@ dynamic build(BuildContext context) {
   );
   print('probe annotation runtimeType: ${probeAnnotation.runtimeType}');
   print('probe annotation cursor: ${probeAnnotation.cursor}');
-  print(
-    'probe annotation validForMouseTracker: '
-    '${probeAnnotation.validForMouseTracker}',
-  );
+  print('probe annotation validForMouseTracker: '
+      '${probeAnnotation.validForMouseTracker}');
   print('probe annotation has onEnter: ${probeAnnotation.onEnter != null}');
   print('probe annotation has onExit: ${probeAnnotation.onExit != null}');
 
@@ -223,30 +219,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _logLine(
-                '00:00.000',
-                'PointerEnterEvent',
-                'pos (40,80)',
-                Colors.lightGreenAccent,
-              ),
-              _logLine(
-                '00:00.016',
-                'PointerHoverEvent',
-                'pos (52,80)',
-                beamHalo,
-              ),
-              _logLine(
-                '00:00.033',
-                'PointerHoverEvent',
-                'pos (64,80)',
-                beamHalo,
-              ),
-              _logLine(
-                '00:00.060',
-                'PointerExitEvent',
-                'pos (180,80)',
-                Colors.orangeAccent,
-              ),
+              _logLine('00:00.000', 'PointerEnterEvent', 'pos (40,80)',
+                  Colors.lightGreenAccent),
+              _logLine('00:00.016', 'PointerHoverEvent', 'pos (52,80)',
+                  beamHalo),
+              _logLine('00:00.033', 'PointerHoverEvent', 'pos (64,80)',
+                  beamHalo),
+              _logLine('00:00.060', 'PointerExitEvent', 'pos (180,80)',
+                  Colors.orangeAccent),
             ],
           ),
         ),
@@ -741,7 +721,11 @@ dynamic build(BuildContext context) {
             'tracker sweeps the layer tree on every frame; if the pointer '
             'enters any region, onEnter fires; if it leaves, onExit fires; '
             'while inside, onHover ticks per pointer event.',
-            style: TextStyle(fontSize: 12.0, color: lacquer, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: lacquer,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -763,10 +747,8 @@ dynamic build(BuildContext context) {
     },
     cursor: SystemMouseCursors.click,
   );
-  print(
-    'livingAnnotation.validForMouseTracker = '
-    '${livingAnnotation.validForMouseTracker}',
-  );
+  print('livingAnnotation.validForMouseTracker = '
+      '${livingAnnotation.validForMouseTracker}');
 
   final validityPanel = Container(
     margin: EdgeInsets.all(16.0),
@@ -852,7 +834,10 @@ dynamic build(BuildContext context) {
   print('textable runtimeType: ${stateCursorTextable.runtimeType}');
 
   final hoveredSet = <WidgetState>{WidgetState.hovered};
-  final pressedSet = <WidgetState>{WidgetState.hovered, WidgetState.pressed};
+  final pressedSet = <WidgetState>{
+    WidgetState.hovered,
+    WidgetState.pressed,
+  };
   final disabledSet = <WidgetState>{WidgetState.disabled};
   final emptySet = <WidgetState>{};
 
@@ -1226,10 +1211,8 @@ Widget _anatomyRow(
                   ),
                   SizedBox(width: 8.0),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 2.0,
-                    ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                     decoration: BoxDecoration(
                       color: accent.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(4.0),

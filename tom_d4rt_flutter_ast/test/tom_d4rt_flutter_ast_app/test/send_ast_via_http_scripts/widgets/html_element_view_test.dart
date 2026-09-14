@@ -34,16 +34,14 @@ class _HtmlElementViewLabPage extends StatefulWidget {
   const _HtmlElementViewLabPage();
 
   @override
-  State<_HtmlElementViewLabPage> createState() =>
-      _HtmlElementViewLabPageState();
+  State<_HtmlElementViewLabPage> createState() => _HtmlElementViewLabPageState();
 }
 
 class _HtmlElementViewLabPageState extends State<_HtmlElementViewLabPage> {
   bool _compact = false;
   bool _showGrid = true;
   bool _rtl = false;
-  PlatformViewHitTestBehavior _defaultBehavior =
-      PlatformViewHitTestBehavior.opaque;
+  PlatformViewHitTestBehavior _defaultBehavior = PlatformViewHitTestBehavior.opaque;
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +65,8 @@ class _HtmlElementViewLabPageState extends State<_HtmlElementViewLabPage> {
               const Text('HtmlElementView Deep Demo'),
               const SizedBox(height: 2),
               Text(
-                kIsWeb
-                    ? 'Runtime: Flutter Web (live platform view)'
-                    : 'Runtime: non-web (visual simulation mode)',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
+                kIsWeb ? 'Runtime: Flutter Web (live platform view)' : 'Runtime: non-web (visual simulation mode)',
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -91,8 +84,7 @@ class _HtmlElementViewLabPageState extends State<_HtmlElementViewLabPage> {
                 onCompactChanged: (value) => setState(() => _compact = value),
                 onShowGridChanged: (value) => setState(() => _showGrid = value),
                 onRtlChanged: (value) => setState(() => _rtl = value),
-                onBehaviorChanged: (value) =>
-                    setState(() => _defaultBehavior = value),
+                onBehaviorChanged: (value) => setState(() => _defaultBehavior = value),
               ),
               const SizedBox(height: 12),
               const _SceneCard(
@@ -212,11 +204,7 @@ class _ControlDeck extends StatelessWidget {
           children: [
             const Text(
               'Html Embed Control Deck',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 27,
-              ),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 27),
             ),
             const SizedBox(height: 6),
             Text(
@@ -234,13 +222,7 @@ class _ControlDeck extends StatelessWidget {
                     dense: true,
                     value: compact,
                     onChanged: onCompactChanged,
-                    title: const Text(
-                      'Compact layout',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    title: const Text('Compact layout', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
                 ),
                 Expanded(
@@ -249,13 +231,7 @@ class _ControlDeck extends StatelessWidget {
                     dense: true,
                     value: showGrid,
                     onChanged: onShowGridChanged,
-                    title: const Text(
-                      'Guide grid',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    title: const Text('Guide grid', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
                 ),
                 Expanded(
@@ -264,13 +240,7 @@ class _ControlDeck extends StatelessWidget {
                     dense: true,
                     value: rtl,
                     onChanged: onRtlChanged,
-                    title: const Text(
-                      'RTL',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    title: const Text('RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
                 ),
               ],
@@ -306,10 +276,7 @@ class _BehaviorField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Default Hit Test Behavior',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
-        ),
+        const Text('Default Hit Test Behavior', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
         const SizedBox(height: 6),
         DecoratedBox(
           decoration: BoxDecoration(
@@ -328,10 +295,7 @@ class _BehaviorField extends StatelessWidget {
                   .map(
                     (entry) => DropdownMenuItem<PlatformViewHitTestBehavior>(
                       value: entry,
-                      child: Text(
-                        entry.name,
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                      child: Text(entry.name, style: const TextStyle(color: Colors.white)),
                     ),
                   )
                   .toList(),
@@ -363,14 +327,7 @@ class _DeckTag extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        child: Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
       ),
     );
   }
@@ -417,32 +374,16 @@ class _SceneCard extends StatelessWidget {
                   radius: 14,
                   backgroundColor: accent,
                   foregroundColor: Colors.white,
-                  child: Text(
-                    '$index',
-                    style: const TextStyle(fontWeight: FontWeight.w800),
-                  ),
+                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: accent,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
+                      Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 18)),
                       const SizedBox(height: 3),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(
-                          height: 1.38,
-                          color: Color(0xFF2E3D49),
-                        ),
-                      ),
+                      Text(subtitle, style: const TextStyle(height: 1.38, color: Color(0xFF2E3D49))),
                     ],
                   ),
                 ),
@@ -465,10 +406,7 @@ class _ConceptScene extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Core points',
-          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-        ),
+        const Text('Core points', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
         const SizedBox(height: 8),
         const Text(
           'HtmlElementView is Flutter Web specific at runtime, but its API is available in Flutter widgets. fromTagName creates a DOM element directly and triggers onElementCreated before attachment. hitTestBehavior and isVisible tune interaction and rendering trade-offs.',
@@ -486,26 +424,11 @@ class _ConceptScene extends StatelessWidget {
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Bullet(
-                text:
-                    'HtmlElementView(viewType: ...) requires a registered platform view factory on web.',
-              ),
-              _Bullet(
-                text:
-                    'fromTagName is simpler for direct element creation and styling callbacks.',
-              ),
-              _Bullet(
-                text:
-                    'onElementCreated runs before DOM attach; use it for attributes/styles setup.',
-              ),
-              _Bullet(
-                text:
-                    'isVisible false can avoid unnecessary overlays for non-painting interceptors.',
-              ),
-              _Bullet(
-                text:
-                    'Iframes may swallow pointer events due to browser behavior.',
-              ),
+              _Bullet(text: 'HtmlElementView(viewType: ...) requires a registered platform view factory on web.'),
+              _Bullet(text: 'fromTagName is simpler for direct element creation and styling callbacks.'),
+              _Bullet(text: 'onElementCreated runs before DOM attach; use it for attributes/styles setup.'),
+              _Bullet(text: 'isVisible false can avoid unnecessary overlays for non-painting interceptors.'),
+              _Bullet(text: 'Iframes may swallow pointer events due to browser behavior.'),
             ],
           ),
         ),
@@ -551,13 +474,7 @@ class _FromTagNamePlaygroundState extends State<_FromTagNamePlayground> {
           spacing: 8,
           runSpacing: 8,
           children: [
-            ...const <String>[
-              'div',
-              'section',
-              'article',
-              'aside',
-              'button',
-            ].map(
+            ...const <String>['div', 'section', 'article', 'aside', 'button'].map(
               (entry) => ChoiceChip(
                 selected: _tag == entry,
                 label: Text(entry),
@@ -616,10 +533,7 @@ class _FromTagNamePlaygroundState extends State<_FromTagNamePlayground> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Live embed panel',
-                          style: TextStyle(fontWeight: FontWeight.w800),
-                        ),
+                        const Text('Live embed panel', style: TextStyle(fontWeight: FontWeight.w800)),
                         const SizedBox(height: 8),
                         Expanded(
                           child: ClipRRect(
@@ -627,26 +541,17 @@ class _FromTagNamePlaygroundState extends State<_FromTagNamePlayground> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: const Color(0xFFF8FBFF),
-                                border: Border.all(
-                                  color: const Color(0xFFD7E2ED),
-                                ),
+                                border: Border.all(color: const Color(0xFFD7E2ED)),
                               ),
                               child: _buildHtmlOrMock(
-                                key: ValueKey<String>(
-                                  '$_tag-$_isVisible-${_behavior.name}-$_revision',
-                                ),
+                                key: ValueKey<String>('$_tag-$_isVisible-${_behavior.name}-$_revision'),
                                 tag: _tag,
                                 isVisible: _isVisible,
                                 behavior: _behavior,
                                 label: 'Playground',
                                 onElementCreated: (element) {
-                                  _styleElement(
-                                    element,
-                                    label: 'Playground $_tag',
-                                  );
-                                  _logEvent(
-                                    'onElementCreated tag=$_tag type=${element.runtimeType}',
-                                  );
+                                  _styleElement(element, label: 'Playground $_tag');
+                                  _logEvent('onElementCreated tag=$_tag type=${element.runtimeType}');
                                 },
                               ),
                             ),
@@ -658,9 +563,7 @@ class _FromTagNamePlaygroundState extends State<_FromTagNamePlayground> {
                 ),
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: _EventLog(title: 'fromTagName log', events: _log),
-              ),
+              Expanded(child: _EventLog(title: 'fromTagName log', events: _log)),
             ],
           ),
         ),
@@ -753,15 +656,11 @@ class _ElementCreatedSceneState extends State<_ElementCreatedScene> {
                           borderRadius: BorderRadius.circular(10),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                color: const Color(0xFFD6E2ED),
-                              ),
+                              border: Border.all(color: const Color(0xFFD6E2ED)),
                               color: Colors.white,
                             ),
                             child: _buildHtmlOrMock(
-                              key: ValueKey<String>(
-                                'el-$index-$_revision-$_decorate-$_isVisible',
-                              ),
+                              key: ValueKey<String>('el-$index-$_revision-$_decorate-$_isVisible'),
                               tag: tag,
                               isVisible: _isVisible,
                               behavior: config.behavior,
@@ -770,9 +669,7 @@ class _ElementCreatedSceneState extends State<_ElementCreatedScene> {
                                 if (_decorate) {
                                   _styleElement(element, label: title);
                                 }
-                                _push(
-                                  '$title created type=${element.runtimeType} decorated=$_decorate',
-                                );
+                                _push('$title created type=${element.runtimeType} decorated=$_decorate');
                               },
                             ),
                           ),
@@ -783,12 +680,7 @@ class _ElementCreatedSceneState extends State<_ElementCreatedScene> {
                 ),
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: _EventLog(
-                  title: 'onElementCreated log',
-                  events: _events,
-                ),
-              ),
+              Expanded(child: _EventLog(title: 'onElementCreated log', events: _events)),
             ],
           ),
         ),
@@ -856,10 +748,7 @@ class _HitTestOverlaySceneState extends State<_HitTestOverlayScene> {
           ],
         ),
         const SizedBox(height: 8),
-        Text(
-          'Flutter taps: $_flutterTapCount',
-          style: const TextStyle(fontWeight: FontWeight.w700),
-        ),
+        Text('Flutter taps: $_flutterTapCount', style: const TextStyle(fontWeight: FontWeight.w700)),
         const SizedBox(height: 10),
         SizedBox(
           height: h,
@@ -893,10 +782,7 @@ class _HitTestOverlaySceneState extends State<_HitTestOverlayScene> {
                             child: DecoratedBox(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: const Color(0xFFB8CDE0),
-                                  width: 1.2,
-                                ),
+                                border: Border.all(color: const Color(0xFFB8CDE0), width: 1.2),
                               ),
                               child: _buildHtmlOrMock(
                                 tag: 'div',
@@ -915,10 +801,7 @@ class _HitTestOverlaySceneState extends State<_HitTestOverlayScene> {
                           left: 18,
                           bottom: 16,
                           child: FilledButton(
-                            style: FilledButton.styleFrom(
-                              backgroundColor: _cRose,
-                              foregroundColor: Colors.white,
-                            ),
+                            style: FilledButton.styleFrom(backgroundColor: _cRose, foregroundColor: Colors.white),
                             onPressed: () {
                               setState(() => _flutterTapCount += 1);
                               _push('Flutter button tap');
@@ -930,10 +813,7 @@ class _HitTestOverlaySceneState extends State<_HitTestOverlayScene> {
                           right: 18,
                           bottom: 16,
                           child: FilledButton(
-                            style: FilledButton.styleFrom(
-                              backgroundColor: _cNavy,
-                              foregroundColor: Colors.white,
-                            ),
+                            style: FilledButton.styleFrom(backgroundColor: _cNavy, foregroundColor: Colors.white),
                             onPressed: () {
                               setState(() => _flutterTapCount += 1);
                               _push('Flutter button tap B');
@@ -947,9 +827,7 @@ class _HitTestOverlaySceneState extends State<_HitTestOverlayScene> {
                 ),
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: _EventLog(title: 'Hit test log', events: _events),
-              ),
+              Expanded(child: _EventLog(title: 'Hit test log', events: _events)),
             ],
           ),
         ),
@@ -964,8 +842,7 @@ class _VisibilityStrategyScene extends StatefulWidget {
   final _DemoConfig config;
 
   @override
-  State<_VisibilityStrategyScene> createState() =>
-      _VisibilityStrategySceneState();
+  State<_VisibilityStrategyScene> createState() => _VisibilityStrategySceneState();
 }
 
 class _VisibilityStrategySceneState extends State<_VisibilityStrategyScene> {
@@ -1021,8 +898,7 @@ class _VisibilityStrategySceneState extends State<_VisibilityStrategyScene> {
                   showGrid: config.showGrid,
                   child: _lane(
                     title: 'Visible lane (isVisible: true)',
-                    subtitle:
-                        'Use for elements that actually paint pixels (maps, chart DOM, rich embeds).',
+                    subtitle: 'Use for elements that actually paint pixels (maps, chart DOM, rich embeds).',
                     cards: _visibleCards,
                     enabled: _showVisibleLane,
                     isVisible: true,
@@ -1037,8 +913,7 @@ class _VisibilityStrategySceneState extends State<_VisibilityStrategyScene> {
                   showGrid: config.showGrid,
                   child: _lane(
                     title: 'Invisible lane (isVisible: false)',
-                    subtitle:
-                        'Use for non-painting platform overlays like interceptors or structural hooks.',
+                    subtitle: 'Use for non-painting platform overlays like interceptors or structural hooks.',
                     cards: _invisibleCards,
                     enabled: _showInvisibleLane,
                     isVisible: false,
@@ -1048,12 +923,7 @@ class _VisibilityStrategySceneState extends State<_VisibilityStrategyScene> {
                 ),
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: _EventLog(
-                  title: 'Visibility strategy log',
-                  events: _events,
-                ),
-              ),
+              Expanded(child: _EventLog(title: 'Visibility strategy log', events: _events)),
             ],
           ),
         ),
@@ -1077,14 +947,7 @@ class _VisibilityStrategySceneState extends State<_VisibilityStrategyScene> {
         children: [
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 2),
-          Text(
-            subtitle,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF566979),
-              height: 1.3,
-            ),
-          ),
+          Text(subtitle, style: const TextStyle(fontSize: 12, color: Color(0xFF566979), height: 1.3)),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.separated(
@@ -1102,18 +965,9 @@ class _VisibilityStrategySceneState extends State<_VisibilityStrategyScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        card.title,
-                        style: const TextStyle(fontWeight: FontWeight.w800),
-                      ),
+                      Text(card.title, style: const TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 2),
-                      Text(
-                        card.note,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF4F6272),
-                        ),
-                      ),
+                      Text(card.note, style: const TextStyle(fontSize: 12, color: Color(0xFF4F6272))),
                       const SizedBox(height: 6),
                       SizedBox(
                         height: 74,
@@ -1127,9 +981,7 @@ class _VisibilityStrategySceneState extends State<_VisibilityStrategyScene> {
                                   label: card.title,
                                   onElementCreated: (element) {
                                     _styleElement(element, label: card.title);
-                                    onEvent(
-                                      'created ${card.title} isVisible=$isVisible',
-                                    );
+                                    onEvent('created ${card.title} isVisible=$isVisible');
                                   },
                                 ),
                               )
@@ -1137,15 +989,10 @@ class _VisibilityStrategySceneState extends State<_VisibilityStrategyScene> {
                                 decoration: BoxDecoration(
                                   color: const Color(0xFFE8EEF4),
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    color: const Color(0xFFD1DCE7),
-                                  ),
+                                  border: Border.all(color: const Color(0xFFD1DCE7)),
                                 ),
                                 alignment: Alignment.center,
-                                child: const Text(
-                                  'Lane disabled',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                ),
+                                child: const Text('Lane disabled', style: TextStyle(fontWeight: FontWeight.w700)),
                               ),
                       ),
                     ],
@@ -1166,8 +1013,7 @@ class _PracticalWorkspaceScene extends StatefulWidget {
   final _DemoConfig config;
 
   @override
-  State<_PracticalWorkspaceScene> createState() =>
-      _PracticalWorkspaceSceneState();
+  State<_PracticalWorkspaceScene> createState() => _PracticalWorkspaceSceneState();
 }
 
 class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
@@ -1222,17 +1068,9 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                       decoration: BoxDecoration(
                         color: section.color.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: section.color.withValues(alpha: 0.35),
-                        ),
+                        border: Border.all(color: section.color.withValues(alpha: 0.35)),
                       ),
-                      child: Text(
-                        section.description,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          height: 1.34,
-                        ),
-                      ),
+                      child: Text(section.description, style: const TextStyle(fontWeight: FontWeight.w700, height: 1.34)),
                     ),
                     const SizedBox(height: 8),
                     Wrap(
@@ -1242,14 +1080,12 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                         FilterChip(
                           selected: _renderSlots,
                           label: const Text('Render HTML slots'),
-                          onSelected: (value) =>
-                              setState(() => _renderSlots = value),
+                          onSelected: (value) => setState(() => _renderSlots = value),
                         ),
                         FilterChip(
                           selected: _pointerPassThrough,
                           label: const Text('Pointer pass-through mode'),
-                          onSelected: (value) =>
-                              setState(() => _pointerPassThrough = value),
+                          onSelected: (value) => setState(() => _pointerPassThrough = value),
                         ),
                         _ActionButton(
                           label: 'Clear log',
@@ -1265,8 +1101,7 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                           Expanded(
                             child: ListView.separated(
                               itemCount: section.entries.length,
-                              separatorBuilder: (_, _) =>
-                                  const SizedBox(height: 8),
+                              separatorBuilder: (_, _) => const SizedBox(height: 8),
                               itemBuilder: (context, index) {
                                 final entry = section.entries[index];
                                 return Container(
@@ -1274,41 +1109,20 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      color: const Color(0xFFD9E4EE),
-                                    ),
+                                    border: Border.all(color: const Color(0xFFD9E4EE)),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(
-                                            entry.icon,
-                                            size: 18,
-                                            color: section.color,
-                                          ),
+                                          Icon(entry.icon, size: 18, color: section.color),
                                           const SizedBox(width: 6),
-                                          Expanded(
-                                            child: Text(
-                                              entry.title,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w800,
-                                              ),
-                                            ),
-                                          ),
+                                          Expanded(child: Text(entry.title, style: const TextStyle(fontWeight: FontWeight.w800))),
                                         ],
                                       ),
                                       const SizedBox(height: 4),
-                                      Text(
-                                        entry.note,
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xFF4E6272),
-                                          height: 1.3,
-                                        ),
-                                      ),
+                                      Text(entry.note, style: const TextStyle(fontSize: 12, color: Color(0xFF4E6272), height: 1.3)),
                                     ],
                                   ),
                                 );
@@ -1321,67 +1135,46 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: const Color(0xFFD6E2ED),
-                                ),
+                                border: Border.all(color: const Color(0xFFD6E2ED)),
                               ),
                               padding: const EdgeInsets.all(8),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    'Preview board',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
+                                  const Text('Preview board', style: TextStyle(fontWeight: FontWeight.w800)),
                                   const SizedBox(height: 6),
                                   Expanded(
                                     child: GridView.builder(
                                       itemCount: section.entries.length,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 8,
-                                            mainAxisSpacing: 8,
-                                            childAspectRatio: 1.02,
-                                          ),
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 8,
+                                        mainAxisSpacing: 8,
+                                        childAspectRatio: 1.02,
+                                      ),
                                       itemBuilder: (context, index) {
                                         final entry = section.entries[index];
                                         return ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
+                                          borderRadius: BorderRadius.circular(10),
                                           child: DecoratedBox(
                                             decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: const Color(0xFFD7E2ED),
-                                              ),
+                                              border: Border.all(color: const Color(0xFFD7E2ED)),
                                               color: const Color(0xFFF7FAFE),
                                             ),
                                             child: _renderSlots
                                                 ? IgnorePointer(
-                                                    ignoring:
-                                                        _pointerPassThrough,
+                                                    ignoring: _pointerPassThrough,
                                                     child: _buildHtmlOrMock(
                                                       tag: entry.tag,
                                                       isVisible: entry.visible,
-                                                      behavior:
-                                                          _pointerPassThrough
-                                                          ? PlatformViewHitTestBehavior
-                                                                .transparent
+                                                      behavior: _pointerPassThrough
+                                                          ? PlatformViewHitTestBehavior.transparent
                                                           : config.behavior,
                                                       label: entry.title,
                                                       onElementCreated: (element) {
-                                                        _styleElement(
-                                                          element,
-                                                          label: entry.title,
-                                                        );
-                                                        _push(
-                                                          'created ${entry.title} tag=${entry.tag} visible=${entry.visible}',
-                                                        );
+                                                        _styleElement(element, label: entry.title);
+                                                        _push('created ${entry.title} tag=${entry.tag} visible=${entry.visible}');
                                                       },
                                                     ),
                                                   )
@@ -1389,13 +1182,7 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                                                     alignment: Alignment.center,
                                                     child: const Text(
                                                       'Slot disabled',
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Color(
-                                                          0xFF4E6272,
-                                                        ),
-                                                      ),
+                                                      style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF4E6272)),
                                                     ),
                                                   ),
                                           ),
@@ -1416,9 +1203,7 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
             ),
           ),
           const SizedBox(width: 10),
-          Expanded(
-            child: _EventLog(title: 'Workspace log', events: _events),
-          ),
+          Expanded(child: _EventLog(title: 'Workspace log', events: _events)),
         ],
       ),
     );
@@ -1464,210 +1249,66 @@ class _LaneCard {
 }
 
 const List<_LaneCard> _visibleCards = <_LaneCard>[
-  _LaneCard(
-    title: 'Map embed',
-    note: 'Visible HTML map tile surface.',
-    tag: 'section',
-  ),
-  _LaneCard(
-    title: 'Chart canvas',
-    note: 'Visible chart DOM host area.',
-    tag: 'article',
-  ),
-  _LaneCard(
-    title: 'Media card',
-    note: 'Visible media content shell.',
-    tag: 'div',
-  ),
-  _LaneCard(
-    title: 'Partner widget',
-    note: 'Visible external integration slot.',
-    tag: 'aside',
-  ),
-  _LaneCard(
-    title: 'Preview tile',
-    note: 'Visible preview renderer.',
-    tag: 'section',
-  ),
+  _LaneCard(title: 'Map embed', note: 'Visible HTML map tile surface.', tag: 'section'),
+  _LaneCard(title: 'Chart canvas', note: 'Visible chart DOM host area.', tag: 'article'),
+  _LaneCard(title: 'Media card', note: 'Visible media content shell.', tag: 'div'),
+  _LaneCard(title: 'Partner widget', note: 'Visible external integration slot.', tag: 'aside'),
+  _LaneCard(title: 'Preview tile', note: 'Visible preview renderer.', tag: 'section'),
   _LaneCard(title: 'Status board', note: 'Visible metrics board.', tag: 'div'),
 ];
 
 const List<_LaneCard> _invisibleCards = <_LaneCard>[
-  _LaneCard(
-    title: 'Pointer interceptor',
-    note: 'No pixels, event routing aid.',
-    tag: 'div',
-  ),
-  _LaneCard(
-    title: 'Link bridge',
-    note: 'Structural anchor without paint.',
-    tag: 'span',
-  ),
-  _LaneCard(
-    title: 'Gesture shim',
-    note: 'Support layer for gesture integration.',
-    tag: 'div',
-  ),
-  _LaneCard(
-    title: 'Focus trap host',
-    note: 'Accessibility and focus utility shell.',
-    tag: 'section',
-  ),
-  _LaneCard(
-    title: 'Overlay sentinel',
-    note: 'Coordinates overlay bookkeeping.',
-    tag: 'article',
-  ),
-  _LaneCard(
-    title: 'Event channel slot',
-    note: 'Message bridge point without visuals.',
-    tag: 'div',
-  ),
+  _LaneCard(title: 'Pointer interceptor', note: 'No pixels, event routing aid.', tag: 'div'),
+  _LaneCard(title: 'Link bridge', note: 'Structural anchor without paint.', tag: 'span'),
+  _LaneCard(title: 'Gesture shim', note: 'Support layer for gesture integration.', tag: 'div'),
+  _LaneCard(title: 'Focus trap host', note: 'Accessibility and focus utility shell.', tag: 'section'),
+  _LaneCard(title: 'Overlay sentinel', note: 'Coordinates overlay bookkeeping.', tag: 'article'),
+  _LaneCard(title: 'Event channel slot', note: 'Message bridge point without visuals.', tag: 'div'),
 ];
 
 const List<_WorkspaceSection> _workspaceSections = <_WorkspaceSection>[
   _WorkspaceSection(
     title: 'Marketing Studio',
-    description:
-        'Compose campaign widgets where some slots render branded HTML and others serve invisible interaction bridges.',
+    description: 'Compose campaign widgets where some slots render branded HTML and others serve invisible interaction bridges.',
     color: _cNavy,
     entries: <_WorkspaceEntry>[
-      _WorkspaceEntry(
-        title: 'Hero Banner',
-        note: 'Rendered HTML banner surface.',
-        icon: Icons.image,
-        tag: 'section',
-        visible: true,
-      ),
-      _WorkspaceEntry(
-        title: 'CTA Layer',
-        note: 'Interactive bridge around CTA area.',
-        icon: Icons.touch_app,
-        tag: 'div',
-        visible: false,
-      ),
-      _WorkspaceEntry(
-        title: 'Media Slot',
-        note: 'Video or media host slot.',
-        icon: Icons.movie,
-        tag: 'article',
-        visible: true,
-      ),
-      _WorkspaceEntry(
-        title: 'Anchor Layer',
-        note: 'Non-painting link shim.',
-        icon: Icons.link,
-        tag: 'span',
-        visible: false,
-      ),
+      _WorkspaceEntry(title: 'Hero Banner', note: 'Rendered HTML banner surface.', icon: Icons.image, tag: 'section', visible: true),
+      _WorkspaceEntry(title: 'CTA Layer', note: 'Interactive bridge around CTA area.', icon: Icons.touch_app, tag: 'div', visible: false),
+      _WorkspaceEntry(title: 'Media Slot', note: 'Video or media host slot.', icon: Icons.movie, tag: 'article', visible: true),
+      _WorkspaceEntry(title: 'Anchor Layer', note: 'Non-painting link shim.', icon: Icons.link, tag: 'span', visible: false),
     ],
   ),
   _WorkspaceSection(
     title: 'Operations Board',
-    description:
-        'Balance visible telemetry embeds with invisible coordination layers for robust routing and overlay efficiency.',
+    description: 'Balance visible telemetry embeds with invisible coordination layers for robust routing and overlay efficiency.',
     color: _cTeal,
     entries: <_WorkspaceEntry>[
-      _WorkspaceEntry(
-        title: 'Metrics Pane',
-        note: 'Rendered HTML metrics block.',
-        icon: Icons.query_stats,
-        tag: 'section',
-        visible: true,
-      ),
-      _WorkspaceEntry(
-        title: 'Drag Proxy',
-        note: 'Invisible drag interaction shim.',
-        icon: Icons.drag_indicator,
-        tag: 'div',
-        visible: false,
-      ),
-      _WorkspaceEntry(
-        title: 'Alert Feed',
-        note: 'Rendered event feed shell.',
-        icon: Icons.notifications_active,
-        tag: 'article',
-        visible: true,
-      ),
-      _WorkspaceEntry(
-        title: 'Focus Utility',
-        note: 'Invisible keyboard focus helper.',
-        icon: Icons.keyboard,
-        tag: 'div',
-        visible: false,
-      ),
+      _WorkspaceEntry(title: 'Metrics Pane', note: 'Rendered HTML metrics block.', icon: Icons.query_stats, tag: 'section', visible: true),
+      _WorkspaceEntry(title: 'Drag Proxy', note: 'Invisible drag interaction shim.', icon: Icons.drag_indicator, tag: 'div', visible: false),
+      _WorkspaceEntry(title: 'Alert Feed', note: 'Rendered event feed shell.', icon: Icons.notifications_active, tag: 'article', visible: true),
+      _WorkspaceEntry(title: 'Focus Utility', note: 'Invisible keyboard focus helper.', icon: Icons.keyboard, tag: 'div', visible: false),
     ],
   ),
   _WorkspaceSection(
     title: 'Partner Integrations',
-    description:
-        'Demonstrates mixed third-party widgets where explicit visibility control can prevent unnecessary overlay pressure.',
+    description: 'Demonstrates mixed third-party widgets where explicit visibility control can prevent unnecessary overlay pressure.',
     color: _cOlive,
     entries: <_WorkspaceEntry>[
-      _WorkspaceEntry(
-        title: 'Partner Card',
-        note: 'Rendered third-party card slot.',
-        icon: Icons.handshake,
-        tag: 'section',
-        visible: true,
-      ),
-      _WorkspaceEntry(
-        title: 'Adapter Bridge',
-        note: 'Invisible adapter interface shell.',
-        icon: Icons.settings_ethernet,
-        tag: 'div',
-        visible: false,
-      ),
-      _WorkspaceEntry(
-        title: 'Geo Widget',
-        note: 'Rendered location element host.',
-        icon: Icons.map,
-        tag: 'article',
-        visible: true,
-      ),
-      _WorkspaceEntry(
-        title: 'Event Relay',
-        note: 'Invisible relay node for events.',
-        icon: Icons.swap_horiz,
-        tag: 'div',
-        visible: false,
-      ),
+      _WorkspaceEntry(title: 'Partner Card', note: 'Rendered third-party card slot.', icon: Icons.handshake, tag: 'section', visible: true),
+      _WorkspaceEntry(title: 'Adapter Bridge', note: 'Invisible adapter interface shell.', icon: Icons.settings_ethernet, tag: 'div', visible: false),
+      _WorkspaceEntry(title: 'Geo Widget', note: 'Rendered location element host.', icon: Icons.map, tag: 'article', visible: true),
+      _WorkspaceEntry(title: 'Event Relay', note: 'Invisible relay node for events.', icon: Icons.swap_horiz, tag: 'div', visible: false),
     ],
   ),
   _WorkspaceSection(
     title: 'Design Review',
-    description:
-        'Prototype board that compares rendered visuals and invisible helper slots while preserving Flutter-first layout controls.',
+    description: 'Prototype board that compares rendered visuals and invisible helper slots while preserving Flutter-first layout controls.',
     color: _cRose,
     entries: <_WorkspaceEntry>[
-      _WorkspaceEntry(
-        title: 'Prototype Panel',
-        note: 'Rendered visual surface.',
-        icon: Icons.palette,
-        tag: 'section',
-        visible: true,
-      ),
-      _WorkspaceEntry(
-        title: 'Hover Shim',
-        note: 'Invisible hover capture assist.',
-        icon: Icons.ads_click,
-        tag: 'div',
-        visible: false,
-      ),
-      _WorkspaceEntry(
-        title: 'Demo Block',
-        note: 'Rendered sample panel.',
-        icon: Icons.slideshow,
-        tag: 'article',
-        visible: true,
-      ),
-      _WorkspaceEntry(
-        title: 'Telemetry Hook',
-        note: 'Invisible instrumentation host.',
-        icon: Icons.track_changes,
-        tag: 'div',
-        visible: false,
-      ),
+      _WorkspaceEntry(title: 'Prototype Panel', note: 'Rendered visual surface.', icon: Icons.palette, tag: 'section', visible: true),
+      _WorkspaceEntry(title: 'Hover Shim', note: 'Invisible hover capture assist.', icon: Icons.ads_click, tag: 'div', visible: false),
+      _WorkspaceEntry(title: 'Demo Block', note: 'Rendered sample panel.', icon: Icons.slideshow, tag: 'article', visible: true),
+      _WorkspaceEntry(title: 'Telemetry Hook', note: 'Invisible instrumentation host.', icon: Icons.track_changes, tag: 'div', visible: false),
     ],
   ),
 ];
@@ -1681,13 +1322,7 @@ Widget _buildHtmlOrMock({
   required ValueChanged<Object> onElementCreated,
 }) {
   if (!kIsWeb) {
-    return _NonWebHtmlMock(
-      key: key,
-      tag: tag,
-      isVisible: isVisible,
-      behavior: behavior,
-      label: label,
-    );
+    return _NonWebHtmlMock(key: key, tag: tag, isVisible: isVisible, behavior: behavior, label: label);
   }
 
   return HtmlElementView.fromTagName(
@@ -1714,8 +1349,7 @@ void _styleElement(Object element, {required String label}) {
     e.setAttribute('data-label', label);
   } catch (_) {}
   try {
-    e.style.background =
-        'linear-gradient(135deg, rgba(66,116,156,0.16), rgba(207,141,159,0.18))';
+    e.style.background = 'linear-gradient(135deg, rgba(66,116,156,0.16), rgba(207,141,159,0.18))';
     e.style.border = '1px solid rgba(118,146,170,0.52)';
     e.style.borderRadius = '10px';
     e.style.padding = '8px';
@@ -1778,32 +1412,13 @@ class _NonWebHtmlMock extends StatelessWidget {
               children: [
                 const Icon(Icons.web, size: 20, color: Color(0xFF43627B)),
                 const SizedBox(height: 4),
-                Text(
-                  label,
-                  style: const TextStyle(fontWeight: FontWeight.w800),
-                ),
+                Text(label, style: const TextStyle(fontWeight: FontWeight.w800)),
                 const SizedBox(height: 4),
-                Text(
-                  'Mock HtmlElementView<$tag>',
-                  style: const TextStyle(fontSize: 12),
-                ),
+                Text('Mock HtmlElementView<$tag>', style: const TextStyle(fontSize: 12)),
                 const SizedBox(height: 2),
-                Text(
-                  'isVisible=$isVisible | behavior=${behavior.name}',
-                  style: const TextStyle(
-                    fontSize: 11,
-                    color: Color(0xFF536779),
-                  ),
-                ),
+                Text('isVisible=$isVisible | behavior=${behavior.name}', style: const TextStyle(fontSize: 11, color: Color(0xFF536779))),
                 const SizedBox(height: 4),
-                const Text(
-                  'Non-web runtime simulation',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF405A70),
-                  ),
-                ),
+                const Text('Non-web runtime simulation', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF405A70))),
               ],
             ),
           ),
@@ -1860,11 +1475,7 @@ class _GridPainter extends CustomPainter {
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({
-    required this.label,
-    required this.color,
-    required this.onPressed,
-  });
+  const _ActionButton({required this.label, required this.color, required this.onPressed});
 
   final String label;
   final Color color;
@@ -1873,10 +1484,7 @@ class _ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FilledButton(
-      style: FilledButton.styleFrom(
-        backgroundColor: color,
-        foregroundColor: Colors.white,
-      ),
+      style: FilledButton.styleFrom(backgroundColor: color, foregroundColor: Colors.white),
       onPressed: onPressed,
       child: Text(label),
     );
@@ -1929,18 +1537,12 @@ class _EventLog extends StatelessWidget {
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
           if (events.isEmpty)
-            const Text(
-              'No events captured yet.',
-              style: TextStyle(color: Color(0xFF5D7082)),
-            )
+            const Text('No events captured yet.', style: TextStyle(color: Color(0xFF5D7082)))
           else
             ...events.map(
               (entry) => Padding(
                 padding: const EdgeInsets.only(bottom: 3),
-                child: Text(
-                  entry,
-                  style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
-                ),
+                child: Text(entry, style: const TextStyle(fontSize: 12, fontFamily: 'monospace')),
               ),
             ),
         ],
@@ -1949,10 +1551,7 @@ class _EventLog extends StatelessWidget {
   }
 }
 
-BoxDecoration _panelBox({
-  Color color = const Color(0xFFF2F7FC),
-  Color border = const Color(0xFFD6E2EE),
-}) {
+BoxDecoration _panelBox({Color color = const Color(0xFFF2F7FC), Color border = const Color(0xFFD6E2EE)}) {
   return BoxDecoration(
     color: color,
     borderRadius: BorderRadius.circular(10),
@@ -1976,11 +1575,7 @@ class _RecapCard extends StatelessWidget {
         children: [
           Text(
             'Recap: HtmlElementView',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18),
           ),
           SizedBox(height: 8),
           Text(

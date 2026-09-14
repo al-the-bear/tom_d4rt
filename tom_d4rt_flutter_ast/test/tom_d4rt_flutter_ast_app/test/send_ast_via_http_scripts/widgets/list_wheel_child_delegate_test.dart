@@ -15,7 +15,8 @@ dynamic build(BuildContext context) {
   const honeyAmber = Color(0xFFE67E22);
 
   // ── Helpers ────────────────────────────────────────────────────────
-  Widget sectionBanner(String title, String subtitle, Color bg, Color fg) {
+  Widget sectionBanner(
+      String title, String subtitle, Color bg, Color fg) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 20, bottom: 8),
@@ -31,24 +32,17 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -77,17 +71,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 185,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(value, style: TextStyle(fontSize: 13, color: deepPlum)),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: deepPlum)),
           ),
         ],
       ),
@@ -106,13 +98,8 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget apiCard(
-    String methodName,
-    String returnType,
-    String description,
-    Color cardBg,
-    Color accent,
-  ) {
+  Widget apiCard(String methodName, String returnType, String description,
+      Color cardBg, Color accent) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -127,27 +114,20 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Text(
-                methodName,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: accent,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text(methodName,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: accent,
+                      fontFamily: 'monospace')),
               const SizedBox(width: 8),
-              Text(
-                '→ $returnType',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: accent.withValues(alpha: 0.7),
-                ),
-              ),
+              Text('→ $returnType',
+                  style: TextStyle(fontSize: 11, color: accent.withValues(alpha: 0.7))),
             ],
           ),
           const SizedBox(height: 4),
-          Text(description, style: TextStyle(fontSize: 12, color: deepPlum)),
+          Text(description,
+              style: TextStyle(fontSize: 12, color: deepPlum)),
         ],
       ),
     );
@@ -169,9 +149,7 @@ dynamic build(BuildContext context) {
   print('\n--- What is ListWheelChildDelegate ---');
   print('Abstract base class for supplying children to ListWheelViewport');
   print('Cannot be instantiated directly');
-  print(
-    'Defines the contract: build, estimatedChildCount, trueIndexOf, shouldRebuild',
-  );
+  print('Defines the contract: build, estimatedChildCount, trueIndexOf, shouldRebuild');
 
   // Section 2 — three concrete implementations
   print('\n--- Three concrete implementations ---');
@@ -220,11 +198,7 @@ dynamic build(BuildContext context) {
 
   // Section 7 — polymorphism
   print('\n--- Polymorphic usage ---');
-  final List<ListWheelChildDelegate> delegates = [
-    listDel,
-    builderDel,
-    loopingDel,
-  ];
+  final List<ListWheelChildDelegate> delegates = [listDel, builderDel, loopingDel];
   for (final d in delegates) {
     print('  ${d.runtimeType}: estimated=${d.estimatedChildCount}');
   }
@@ -240,9 +214,7 @@ dynamic build(BuildContext context) {
   // Section 9 — use with ListWheelScrollView
   print('\n--- Integration with ListWheelScrollView ---');
   print('ListWheelScrollView(children: [...]) uses ListWheelChildListDelegate');
-  print(
-    'ListWheelScrollView.useDelegate(childDelegate: ...) takes any delegate',
-  );
+  print('ListWheelScrollView.useDelegate(childDelegate: ...) takes any delegate');
 
   // Section 10 — looping details
   print('\n--- Looping delegate details ---');
@@ -295,42 +267,30 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'ListWheelChildDelegate',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              const Text('ListWheelChildDelegate',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)),
               const SizedBox(height: 6),
-              Text(
-                'Abstract base for supplying children to cylindrical wheel viewports',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 14,
-                ),
-              ),
+              Text('Abstract base for supplying children to cylindrical wheel viewports',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9), fontSize: 14)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  tag('Abstract', orchidPurple, Colors.white),
-                  tag('ListWheelScrollView', wisteriaSoft, deepPlum),
-                  tag('Child Management', lavenderBloom, deepPlum),
-                  tag('3 Implementations', lilacMist, deepPlum),
-                ],
-              ),
+              Wrap(children: [
+                tag('Abstract', orchidPurple, Colors.white),
+                tag('ListWheelScrollView', wisteriaSoft, deepPlum),
+                tag('Child Management', lavenderBloom, deepPlum),
+                tag('3 Implementations', lilacMist, deepPlum),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner(
-          '1 · What Is ListWheelChildDelegate',
-          'Abstract contract for wheel child management',
-          deepPlum,
-          Colors.white,
-        ),
+        sectionBanner('1 · What Is ListWheelChildDelegate',
+            'Abstract contract for wheel child management',
+            deepPlum, Colors.white),
         noteBox(
           'ListWheelChildDelegate is the abstract base class that defines '
           'how children are supplied to ListWheelViewport (the render object '
@@ -344,26 +304,19 @@ dynamic build(BuildContext context) {
         ),
         dataRow('Type', 'abstract class', richMulberry),
         dataRow('Package', 'package:flutter/widgets.dart', orchidPurple),
-        dataRow(
-          'Used by',
-          'ListWheelViewport, ListWheelScrollView',
-          wisteriaSoft,
-        ),
+        dataRow('Used by', 'ListWheelViewport, ListWheelScrollView', wisteriaSoft),
         const SizedBox(height: 14),
 
         // ── 3. API contract ──────────────────────────────────────────
-        sectionBanner(
-          '2 · API Contract — Four Core Methods',
-          'Every implementation must satisfy these',
-          richMulberry,
-          Colors.white,
-        ),
+        sectionBanner('2 · API Contract — Four Core Methods',
+            'Every implementation must satisfy these',
+            richMulberry, Colors.white),
         apiCard(
           'build(context, index)',
           'Widget?',
           'Returns the child widget at the given index, or null if no '
-              'child exists at that index. Called by ListWheelElement as '
-              'items scroll into the visible region.',
+          'child exists at that index. Called by ListWheelElement as '
+          'items scroll into the visible region.',
           paleFrost,
           deepPlum,
         ),
@@ -371,7 +324,7 @@ dynamic build(BuildContext context) {
           'estimatedChildCount',
           'int?',
           'Returns the estimated total number of children, or null for '
-              'infinite/unknown. Used by the viewport to calculate scroll extent.',
+          'infinite/unknown. Used by the viewport to calculate scroll extent.',
           creamWhite,
           richMulberry,
         ),
@@ -379,8 +332,8 @@ dynamic build(BuildContext context) {
           'trueIndexOf(index)',
           'int',
           'Maps a wheel index to the true child index. Identity for '
-              'non-looping delegates. For looping delegates, wraps around '
-              'the source list length.',
+          'non-looping delegates. For looping delegates, wraps around '
+          'the source list length.',
           paleFrost,
           orchidPurple,
         ),
@@ -388,20 +341,17 @@ dynamic build(BuildContext context) {
           'shouldRebuild(oldDelegate)',
           'bool',
           'Returns true if the children should be rebuilt when the '
-              'delegate changes. List delegates compare references; '
-              'builder delegates always return true.',
+          'delegate changes. List delegates compare references; '
+          'builder delegates always return true.',
           creamWhite,
           wisteriaSoft,
         ),
         const SizedBox(height: 14),
 
         // ── 4. Three implementations ─────────────────────────────────
-        sectionBanner(
-          '3 · Three Concrete Implementations',
-          'Each serves a different use case',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('3 · Three Concrete Implementations',
+            'Each serves a different use case',
+            orchidPurple, Colors.white),
         // List delegate
         Container(
           width: double.infinity,
@@ -415,32 +365,21 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Icon(Icons.list, size: 18, color: deepPlum),
-                  const SizedBox(width: 8),
-                  Text(
-                    'ListWheelChildListDelegate',
+              Row(children: [
+                Icon(Icons.list, size: 18, color: deepPlum),
+                const SizedBox(width: 8),
+                Text('ListWheelChildListDelegate',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: deepPlum,
-                    ),
-                  ),
-                ],
-              ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: deepPlum)),
+              ]),
               const SizedBox(height: 6),
-              Text(
-                'Holds all children in a pre-built list. Best for small '
-                'fixed datasets where all items are known upfront.',
-                style: TextStyle(fontSize: 12, color: deepPlum),
-              ),
+              Text('Holds all children in a pre-built list. Best for small '
+                  'fixed datasets where all items are known upfront.',
+                  style: TextStyle(fontSize: 12, color: deepPlum)),
               const SizedBox(height: 6),
-              dataRow(
-                'estimatedChildCount',
-                '${listDel.estimatedChildCount}',
-                richMulberry,
-              ),
+              dataRow('estimatedChildCount', '${listDel.estimatedChildCount}', richMulberry),
               dataRow('Pattern', 'Eager, finite', orchidPurple),
             ],
           ),
@@ -458,32 +397,21 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Icon(Icons.build, size: 18, color: richMulberry),
-                  const SizedBox(width: 8),
-                  Text(
-                    'ListWheelChildBuilderDelegate',
+              Row(children: [
+                Icon(Icons.build, size: 18, color: richMulberry),
+                const SizedBox(width: 8),
+                Text('ListWheelChildBuilderDelegate',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: richMulberry,
-                    ),
-                  ),
-                ],
-              ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: richMulberry)),
+              ]),
               const SizedBox(height: 6),
-              Text(
-                'Lazily builds children via callback. Best for large or '
-                'dynamic datasets. Can also be unbounded (infinite).',
-                style: TextStyle(fontSize: 12, color: deepPlum),
-              ),
+              Text('Lazily builds children via callback. Best for large or '
+                  'dynamic datasets. Can also be unbounded (infinite).',
+                  style: TextStyle(fontSize: 12, color: deepPlum)),
               const SizedBox(height: 6),
-              dataRow(
-                'estimatedChildCount',
-                '${builderDel.estimatedChildCount}',
-                richMulberry,
-              ),
+              dataRow('estimatedChildCount', '${builderDel.estimatedChildCount}', richMulberry),
               dataRow('Pattern', 'Lazy, bounded or unbounded', orchidPurple),
             ],
           ),
@@ -501,32 +429,21 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Icon(Icons.loop, size: 18, color: wisteriaSoft),
-                  const SizedBox(width: 8),
-                  Text(
-                    'ListWheelChildLoopingListDelegate',
+              Row(children: [
+                Icon(Icons.loop, size: 18, color: wisteriaSoft),
+                const SizedBox(width: 8),
+                Text('ListWheelChildLoopingListDelegate',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: wisteriaSoft,
-                    ),
-                  ),
-                ],
-              ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: wisteriaSoft)),
+              ]),
               const SizedBox(height: 6),
-              Text(
-                'Wraps a finite list into an infinite loop. The wheel '
-                'repeats items cyclically. Great for circular selectors.',
-                style: TextStyle(fontSize: 12, color: deepPlum),
-              ),
+              Text('Wraps a finite list into an infinite loop. The wheel '
+                  'repeats items cyclically. Great for circular selectors.',
+                  style: TextStyle(fontSize: 12, color: deepPlum)),
               const SizedBox(height: 6),
-              dataRow(
-                'estimatedChildCount',
-                '${loopingDel.estimatedChildCount}',
-                richMulberry,
-              ),
+              dataRow('estimatedChildCount', '${loopingDel.estimatedChildCount}', richMulberry),
               dataRow('Pattern', 'Infinite, cyclic', orchidPurple),
             ],
           ),
@@ -534,12 +451,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. estimatedChildCount comparison ────────────────────────
-        sectionBanner(
-          '4 · estimatedChildCount Across Implementations',
-          'How each delegate reports its size',
-          wisteriaSoft,
-          Colors.white,
-        ),
+        sectionBanner('4 · estimatedChildCount Across Implementations',
+            'How each delegate reports its size',
+            wisteriaSoft, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -559,101 +473,56 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'Delegate',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('Delegate',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'Count',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('Count',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'Meaning',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('Meaning',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                 ],
               ),
               TableRow(
                 children: [
                   delegateComparisonCell('ListDelegate', creamWhite, deepPlum),
-                  delegateComparisonCell(
-                    '${listDel.estimatedChildCount}',
-                    creamWhite,
-                    deepPlum,
-                  ),
+                  delegateComparisonCell('${listDel.estimatedChildCount}', creamWhite, deepPlum),
                   delegateComparisonCell('Exact count', creamWhite, deepPlum),
                 ],
               ),
               TableRow(
                 children: [
-                  delegateComparisonCell(
-                    'BuilderDelegate',
-                    paleFrost,
-                    deepPlum,
-                  ),
-                  delegateComparisonCell(
-                    '${builderDel.estimatedChildCount}',
-                    paleFrost,
-                    deepPlum,
-                  ),
+                  delegateComparisonCell('BuilderDelegate', paleFrost, deepPlum),
+                  delegateComparisonCell('${builderDel.estimatedChildCount}', paleFrost, deepPlum),
                   delegateComparisonCell('Via childCount', paleFrost, deepPlum),
                 ],
               ),
               TableRow(
                 children: [
-                  delegateComparisonCell(
-                    'LoopingDelegate',
-                    creamWhite,
-                    deepPlum,
-                  ),
-                  delegateComparisonCell(
-                    '${loopingDel.estimatedChildCount}',
-                    creamWhite,
-                    deepPlum,
-                  ),
-                  delegateComparisonCell(
-                    'null = infinite',
-                    creamWhite,
-                    deepPlum,
-                  ),
+                  delegateComparisonCell('LoopingDelegate', creamWhite, deepPlum),
+                  delegateComparisonCell('${loopingDel.estimatedChildCount}', creamWhite, deepPlum),
+                  delegateComparisonCell('null = infinite', creamWhite, deepPlum),
                 ],
               ),
               TableRow(
                 children: [
-                  delegateComparisonCell(
-                    'Builder (no count)',
-                    paleFrost,
-                    deepPlum,
-                  ),
-                  delegateComparisonCell(
-                    '${unbounded.estimatedChildCount}',
-                    paleFrost,
-                    deepPlum,
-                  ),
-                  delegateComparisonCell(
-                    'null = unbounded',
-                    paleFrost,
-                    deepPlum,
-                  ),
+                  delegateComparisonCell('Builder (no count)', paleFrost, deepPlum),
+                  delegateComparisonCell('${unbounded.estimatedChildCount}', paleFrost, deepPlum),
+                  delegateComparisonCell('null = unbounded', paleFrost, deepPlum),
                 ],
               ),
             ],
@@ -662,12 +531,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. trueIndexOf deep dive ─────────────────────────────────
-        sectionBanner(
-          '5 · trueIndexOf — Index Mapping',
-          'How each delegate maps wheel indices to child indices',
-          deepPlum,
-          Colors.white,
-        ),
+        sectionBanner('5 · trueIndexOf — Index Mapping',
+            'How each delegate maps wheel indices to child indices',
+            deepPlum, Colors.white),
         noteBox(
           'trueIndexOf(index) converts the raw wheel index into the true '
           'child position. For List and Builder delegates, it is the identity '
@@ -689,47 +555,35 @@ dynamic build(BuildContext context) {
                 children: [
                   SizedBox(
                     width: 80,
-                    child: Text(
-                      'Wheel idx',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: deepPlum,
-                      ),
-                    ),
+                    child: Text('Wheel idx',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: deepPlum)),
                   ),
                   SizedBox(
                     width: 80,
-                    child: Text(
-                      'List',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: richMulberry,
-                      ),
-                    ),
+                    child: Text('List',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: richMulberry)),
                   ),
                   SizedBox(
                     width: 80,
-                    child: Text(
-                      'Builder',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: orchidPurple,
-                      ),
-                    ),
+                    child: Text('Builder',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: orchidPurple)),
                   ),
                   SizedBox(
                     width: 80,
-                    child: Text(
-                      'Looping',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: wisteriaSoft,
-                      ),
-                    ),
+                    child: Text('Looping',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: wisteriaSoft)),
                   ),
                 ],
               ),
@@ -741,37 +595,28 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 80,
-                        child: Text(
-                          '$idx',
-                          style: TextStyle(fontSize: 12, color: deepPlum),
-                        ),
+                        child: Text('$idx',
+                            style: TextStyle(fontSize: 12, color: deepPlum)),
                       ),
                       SizedBox(
                         width: 80,
-                        child: Text(
-                          '${listDel.trueIndexOf(idx)}',
-                          style: TextStyle(fontSize: 12, color: richMulberry),
-                        ),
+                        child: Text('${listDel.trueIndexOf(idx)}',
+                            style: TextStyle(fontSize: 12, color: richMulberry)),
                       ),
                       SizedBox(
                         width: 80,
-                        child: Text(
-                          '${builderDel.trueIndexOf(idx)}',
-                          style: TextStyle(fontSize: 12, color: orchidPurple),
-                        ),
+                        child: Text('${builderDel.trueIndexOf(idx)}',
+                            style: TextStyle(fontSize: 12, color: orchidPurple)),
                       ),
                       SizedBox(
                         width: 80,
-                        child: Text(
-                          '${loopingDel.trueIndexOf(idx)}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: wisteriaSoft,
-                            fontWeight: loopingDel.trueIndexOf(idx) != idx
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                          ),
-                        ),
+                        child: Text('${loopingDel.trueIndexOf(idx)}',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: wisteriaSoft,
+                                fontWeight: loopingDel.trueIndexOf(idx) != idx
+                                    ? FontWeight.bold
+                                    : FontWeight.normal)),
                       ),
                     ],
                   ),
@@ -782,12 +627,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. shouldRebuild comparison ──────────────────────────────
-        sectionBanner(
-          '6 · shouldRebuild Behavior',
-          'When the framework re-requests children',
-          richMulberry,
-          Colors.white,
-        ),
+        sectionBanner('6 · shouldRebuild Behavior',
+            'When the framework re-requests children', richMulberry, Colors.white),
         noteBox(
           'shouldRebuild is called when the delegate is replaced (e.g., '
           'during a rebuild). If it returns true, all children are rebuilt. '
@@ -798,20 +639,12 @@ dynamic build(BuildContext context) {
           lilacMist,
         ),
         dataRow('ListDelegate', '${listDel.shouldRebuild(listDel2)}', deepPlum),
-        dataRow(
-          'BuilderDelegate',
-          '${builderDel.shouldRebuild(builderDel)}',
-          richMulberry,
-        ),
+        dataRow('BuilderDelegate', '${builderDel.shouldRebuild(builderDel)}', richMulberry),
         const SizedBox(height: 14),
 
         // ── 8. Polymorphic usage ─────────────────────────────────────
-        sectionBanner(
-          '7 · Polymorphic Usage',
-          'Using delegates through the base type',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('7 · Polymorphic Usage',
+            'Using delegates through the base type', orchidPurple, Colors.white),
         noteBox(
           'Code can accept ListWheelChildDelegate as a parameter type and '
           'work with any concrete implementation. This is useful for '
@@ -830,14 +663,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'All delegates used polymorphically:',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: deepPlum,
-                ),
-              ),
+              Text('All delegates used polymorphically:',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: deepPlum)),
               const SizedBox(height: 8),
               for (final d in delegates)
                 Padding(
@@ -848,17 +678,16 @@ dynamic build(BuildContext context) {
                         d is ListWheelChildLoopingListDelegate
                             ? Icons.loop
                             : d is ListWheelChildBuilderDelegate
-                            ? Icons.build
-                            : Icons.list,
+                                ? Icons.build
+                                : Icons.list,
                         size: 16,
                         color: orchidPurple,
                       ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          '${d.runtimeType}: estimated=${d.estimatedChildCount}',
-                          style: TextStyle(fontSize: 12, color: deepPlum),
-                        ),
+                            '${d.runtimeType}: estimated=${d.estimatedChildCount}',
+                            style: TextStyle(fontSize: 12, color: deepPlum)),
                       ),
                     ],
                   ),
@@ -869,12 +698,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Live wheels — side by side ────────────────────────────
-        sectionBanner(
-          '8 · Live Wheel Comparison',
-          'Same data, different delegate types',
-          deepPlum,
-          Colors.white,
-        ),
+        sectionBanner('8 · Live Wheel Comparison',
+            'Same data, different delegate types',
+            deepPlum, Colors.white),
         // List delegate wheel
         Container(
           margin: const EdgeInsets.symmetric(vertical: 4),
@@ -886,14 +712,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ListDelegate (5 items)',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: deepPlum,
-                ),
-              ),
+              Text('ListDelegate (5 items)',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: deepPlum)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 140,
@@ -902,31 +725,19 @@ dynamic build(BuildContext context) {
                   diameterRatio: 1.8,
                   physics: const FixedExtentScrollPhysics(),
                   children: [
-                    for (final item in [
-                      'Alpha',
-                      'Beta',
-                      'Gamma',
-                      'Delta',
-                      'Epsilon',
-                    ])
+                    for (final item in ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon'])
                       Container(
                         alignment: Alignment.center,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
-                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                         decoration: BoxDecoration(
                           color: lilacMist,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: Text(
-                          item,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: deepPlum,
-                          ),
-                        ),
+                        child: Text(item,
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: deepPlum)),
                       ),
                   ],
                 ),
@@ -945,14 +756,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'BuilderDelegate (8 items, lazy)',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: richMulberry,
-                ),
-              ),
+              Text('BuilderDelegate (8 items, lazy)',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: richMulberry)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 140,
@@ -963,36 +771,21 @@ dynamic build(BuildContext context) {
                   childDelegate: ListWheelChildBuilderDelegate(
                     builder: (ctx, i) {
                       if (i < 0 || i >= 8) return null;
-                      final names = [
-                        'Sun',
-                        'Mon',
-                        'Tue',
-                        'Wed',
-                        'Thu',
-                        'Fri',
-                        'Sat',
-                        'Rest',
-                      ];
+                      final names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Rest'];
                       return Container(
                         alignment: Alignment.center,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
-                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                         decoration: BoxDecoration(
                           color: i < 5
                               ? lavenderBloom.withValues(alpha: 0.5)
                               : wisteriaSoft.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: Text(
-                          names[i],
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: deepPlum,
-                          ),
-                        ),
+                        child: Text(names[i],
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: deepPlum)),
                       );
                     },
                     childCount: 8,
@@ -1013,14 +806,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'LoopingDelegate (3 items, infinite)',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: wisteriaSoft,
-                ),
-              ),
+              Text('LoopingDelegate (3 items, infinite)',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: wisteriaSoft)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 140,
@@ -1033,22 +823,16 @@ dynamic build(BuildContext context) {
                       for (final item in ['Rock', 'Paper', 'Scissors'])
                         Container(
                           alignment: Alignment.center,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 2,
-                          ),
+                          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
                             color: orchidPurple.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: Text(
-                            item,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: deepPlum,
-                            ),
-                          ),
+                          child: Text(item,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: deepPlum)),
                         ),
                     ],
                   ),
@@ -1060,12 +844,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Inheritance hierarchy ────────────────────────────────
-        sectionBanner(
-          '9 · Inheritance Hierarchy',
-          'Class relationships',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('9 · Inheritance Hierarchy',
+            'Class relationships', orchidPurple, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1085,17 +865,14 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    line,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      fontWeight: line.contains('★')
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: line.contains('★') ? deepPlum : richMulberry,
-                    ),
-                  ),
+                  child: Text(line,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: line.contains('★')
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: line.contains('★') ? deepPlum : richMulberry)),
                 ),
             ],
           ),
@@ -1103,12 +880,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Integration flow ─────────────────────────────────────
-        sectionBanner(
-          '10 · Integration Flow',
-          'How the delegate connects to the scroll view pipeline',
-          deepPlum,
-          Colors.white,
-        ),
+        sectionBanner('10 · Integration Flow',
+            'How the delegate connects to the scroll view pipeline',
+            deepPlum, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1137,10 +911,8 @@ dynamic build(BuildContext context) {
                       Icon(Icons.arrow_forward, size: 14, color: orchidPurple),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(
-                          step,
-                          style: TextStyle(fontSize: 12, color: deepPlum),
-                        ),
+                        child: Text(step,
+                            style: TextStyle(fontSize: 12, color: deepPlum)),
                       ),
                     ],
                   ),
@@ -1151,12 +923,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Decision guide ───────────────────────────────────────
-        sectionBanner(
-          '11 · Which Delegate Should I Use?',
-          'Decision guide for choosing the right implementation',
-          richMulberry,
-          Colors.white,
-        ),
+        sectionBanner('11 · Which Delegate Should I Use?',
+            'Decision guide for choosing the right implementation',
+            richMulberry, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1168,26 +937,10 @@ dynamic build(BuildContext context) {
             children: [
               for (final entry in [
                 ('< 20 fixed items', 'ListWheelChildListDelegate', Icons.list),
-                (
-                  'Many items / lazy',
-                  'ListWheelChildBuilderDelegate',
-                  Icons.build,
-                ),
-                (
-                  'Infinite / circular',
-                  'ListWheelChildLoopingListDelegate',
-                  Icons.loop,
-                ),
-                (
-                  'Dynamic server data',
-                  'ListWheelChildBuilderDelegate',
-                  Icons.cloud,
-                ),
-                (
-                  'Clock hours (1-12)',
-                  'ListWheelChildLoopingListDelegate',
-                  Icons.access_time,
-                ),
+                ('Many items / lazy', 'ListWheelChildBuilderDelegate', Icons.build),
+                ('Infinite / circular', 'ListWheelChildLoopingListDelegate', Icons.loop),
+                ('Dynamic server data', 'ListWheelChildBuilderDelegate', Icons.cloud),
+                ('Clock hours (1-12)', 'ListWheelChildLoopingListDelegate', Icons.access_time),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
@@ -1197,24 +950,18 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 10),
                       SizedBox(
                         width: 140,
-                        child: Text(
-                          entry.$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: deepPlum,
-                          ),
-                        ),
+                        child: Text(entry.$1,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: deepPlum)),
                       ),
                       Expanded(
-                        child: Text(
-                          entry.$2,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: richMulberry,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text(entry.$2,
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: richMulberry,
+                                fontFamily: 'monospace')),
                       ),
                     ],
                   ),
@@ -1225,12 +972,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Delegate lifecycle ───────────────────────────────────
-        sectionBanner(
-          '12 · Delegate Lifecycle',
-          'When delegate methods are called',
-          wisteriaSoft,
-          Colors.white,
-        ),
+        sectionBanner('12 · Delegate Lifecycle',
+            'When delegate methods are called',
+            wisteriaSoft, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1243,14 +987,8 @@ dynamic build(BuildContext context) {
             children: [
               for (final phase in [
                 ('Mount', 'build() called for initial visible indices'),
-                (
-                  'Scroll',
-                  'build() called for new visible indices, old recycled',
-                ),
-                (
-                  'Update',
-                  'shouldRebuild() checked; if true, children rebuilt',
-                ),
+                ('Scroll', 'build() called for new visible indices, old recycled'),
+                ('Update', 'shouldRebuild() checked; if true, children rebuilt'),
                 ('Unmount', 'All children disposed'),
               ])
                 Padding(
@@ -1261,29 +999,22 @@ dynamic build(BuildContext context) {
                       Container(
                         width: 70,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: deepPlum,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(
-                          phase.$1,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
+                        child: Text(phase.$1,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: Text(
-                          phase.$2,
-                          style: TextStyle(fontSize: 12, color: deepPlum),
-                        ),
+                        child: Text(phase.$2,
+                            style: TextStyle(fontSize: 12, color: deepPlum)),
                       ),
                     ],
                   ),
@@ -1294,12 +1025,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Bounded vs unbounded ─────────────────────────────────
-        sectionBanner(
-          '13 · Bounded vs Unbounded',
-          'Finite lists vs infinite scroll',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('13 · Bounded vs Unbounded',
+            'Finite lists vs infinite scroll',
+            orchidPurple, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1321,29 +1049,20 @@ dynamic build(BuildContext context) {
                             color: deepPlum,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: Text(
-                            'BOUNDED',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
+                          child: Text('BOUNDED',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12)),
                         ),
                         const SizedBox(height: 6),
-                        Text(
-                          'estimatedChildCount != null',
-                          style: TextStyle(fontSize: 11, color: deepPlum),
-                        ),
-                        Text(
-                          'Scroll has start/end',
-                          style: TextStyle(fontSize: 11, color: richMulberry),
-                        ),
-                        Text(
-                          'build returns null at edges',
-                          style: TextStyle(fontSize: 11, color: orchidPurple),
-                        ),
+                        Text('estimatedChildCount != null',
+                            style: TextStyle(fontSize: 11, color: deepPlum)),
+                        Text('Scroll has start/end',
+                            style: TextStyle(fontSize: 11, color: richMulberry)),
+                        Text('build returns null at edges',
+                            style: TextStyle(fontSize: 11, color: orchidPurple)),
                       ],
                     ),
                   ),
@@ -1358,29 +1077,20 @@ dynamic build(BuildContext context) {
                             color: honeyAmber,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: Text(
-                            'UNBOUNDED',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
+                          child: Text('UNBOUNDED',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12)),
                         ),
                         const SizedBox(height: 6),
-                        Text(
-                          'estimatedChildCount == null',
-                          style: TextStyle(fontSize: 11, color: deepPlum),
-                        ),
-                        Text(
-                          'Scroll in both directions',
-                          style: TextStyle(fontSize: 11, color: richMulberry),
-                        ),
-                        Text(
-                          'build never returns null',
-                          style: TextStyle(fontSize: 11, color: orchidPurple),
-                        ),
+                        Text('estimatedChildCount == null',
+                            style: TextStyle(fontSize: 11, color: deepPlum)),
+                        Text('Scroll in both directions',
+                            style: TextStyle(fontSize: 11, color: richMulberry)),
+                        Text('build never returns null',
+                            style: TextStyle(fontSize: 11, color: orchidPurple)),
                       ],
                     ),
                   ),
@@ -1392,12 +1102,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Real-world selector ──────────────────────────────────
-        sectionBanner(
-          '14 · Real-World: Planet Selector',
-          'Using ListDelegate for a small fixed set',
-          deepPlum,
-          Colors.white,
-        ),
+        sectionBanner('14 · Real-World: Planet Selector',
+            'Using ListDelegate for a small fixed set',
+            deepPlum, Colors.white),
         Container(
           height: 170,
           decoration: BoxDecoration(
@@ -1422,24 +1129,18 @@ dynamic build(BuildContext context) {
               ])
                 Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 2,
-                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [lilacMist, lavenderBloom.withValues(alpha: 0.4)],
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
-                    '${planet.$1}  ${planet.$2}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: deepPlum,
-                    ),
-                  ),
+                  child: Text('${planet.$1}  ${planet.$2}',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: deepPlum)),
                 ),
             ],
           ),
@@ -1447,7 +1148,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary dashboard ────────────────────────────────────
-        sectionBanner('15 · Summary', 'Key takeaways', deepPlum, Colors.white),
+        sectionBanner('15 · Summary',
+            'Key takeaways', deepPlum, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1477,19 +1179,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: honeyAmber,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: honeyAmber,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
+                        child: Text(point,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

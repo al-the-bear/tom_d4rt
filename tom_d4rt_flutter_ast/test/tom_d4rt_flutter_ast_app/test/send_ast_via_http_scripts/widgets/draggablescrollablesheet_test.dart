@@ -728,42 +728,29 @@ Widget _snapRulerSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              _snapRow(
-                '0.15',
-                'collapsed peek',
-                'Shows just a header strip. Useful for quick previews.',
-              ),
+              _snapRow('0.15', 'collapsed peek',
+                  'Shows just a header strip. Useful for quick previews.'),
               const SizedBox(height: 10),
-              _snapRow(
-                '0.30',
-                'compact list',
-                'A handful of items visible. Common default for map sheets.',
-              ),
+              _snapRow('0.30', 'compact list',
+                  'A handful of items visible. Common default for map sheets.'),
               const SizedBox(height: 10),
-              _snapRow(
-                '0.50',
-                'half-screen',
-                'The classic "modal half-sheet" stop. Lots of room for content.',
-              ),
+              _snapRow('0.50', 'half-screen',
+                  'The classic "modal half-sheet" stop. Lots of room for content.'),
               const SizedBox(height: 10),
-              _snapRow(
-                '0.70',
-                'mostly open',
-                'Headline content + scrollable body, app underneath still hinted.',
-              ),
+              _snapRow('0.70', 'mostly open',
+                  'Headline content + scrollable body, app underneath still hinted.'),
               const SizedBox(height: 10),
-              _snapRow(
-                '0.95',
-                'almost full',
-                'Leaves a sliver visible so the user knows they can swipe down.',
-              ),
+              _snapRow('0.95', 'almost full',
+                  'Leaves a sliver visible so the user knows they can swipe down.'),
               const SizedBox(height: 18),
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: _kAmberSoft,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: _kAmber.withValues(alpha: 0.40)),
+                  border: Border.all(
+                    color: _kAmber.withValues(alpha: 0.40),
+                  ),
                 ),
                 child: const Text(
                   'snapSizes must be sorted ascending and lie within '
@@ -842,7 +829,9 @@ Widget _snapRulerWidget({required List<double> stops}) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: _kAmber.withValues(alpha: 0.50)),
+                    border: Border.all(
+                      color: _kAmber.withValues(alpha: 0.50),
+                    ),
                   ),
                   child: Text(
                     s.toStringAsFixed(2),
@@ -905,7 +894,11 @@ Widget _snapRow(String fraction, String name, String description) {
               const SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(color: _kInkSoft, fontSize: 12, height: 1.4),
+                style: TextStyle(
+                  color: _kInkSoft,
+                  fontSize: 12,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -959,7 +952,10 @@ Widget _expandCard(bool expand) {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: expand ? _kViolet : _kSlate,
                 borderRadius: BorderRadius.circular(6),
@@ -1025,7 +1021,9 @@ Widget _expandCard(bool expand) {
                   decoration: BoxDecoration(
                     color: expand ? _kVioletSoft : _kSlateSoft,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: expand ? _kViolet : _kSlate),
+                    border: Border.all(
+                      color: expand ? _kViolet : _kSlate,
+                    ),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -1046,15 +1044,19 @@ Widget _expandCard(bool expand) {
         Text(
           expand
               ? 'Use expand:true when the sheet lives at the bottom of '
-                    'a Stack that fills the screen. The sheet then has the '
-                    'full screen height to expand into; minChildSize and '
-                    'maxChildSize are interpreted as fractions of that '
-                    'screen height.'
+                  'a Stack that fills the screen. The sheet then has the '
+                  'full screen height to expand into; minChildSize and '
+                  'maxChildSize are interpreted as fractions of that '
+                  'screen height.'
               : 'Use expand:false when you want the sheet to be just as '
-                    'tall as its content — for example, inside a popup, '
-                    'a side panel, or anywhere it must coexist with other '
-                    'siblings without taking over their space.',
-          style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.55),
+                  'tall as its content — for example, inside a popup, '
+                  'a side panel, or anywhere it must coexist with other '
+                  'siblings without taking over their space.',
+          style: TextStyle(
+            color: _kInk,
+            fontSize: 12.5,
+            height: 1.55,
+          ),
         ),
       ],
     ),
@@ -1229,7 +1231,10 @@ Widget _threadStep(String n, String title, String body, Color accent) {
           width: 24,
           height: 24,
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: accent,
+            shape: BoxShape.circle,
+          ),
           child: Text(
             n,
             style: const TextStyle(
@@ -1395,7 +1400,10 @@ Widget _durationCard({
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 4,
+          ),
           decoration: BoxDecoration(
             color: accent.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(6),
@@ -1423,7 +1431,11 @@ Widget _durationCard({
         const SizedBox(height: 6),
         Text(
           description,
-          style: TextStyle(color: _kInkSoft, fontSize: 12, height: 1.5),
+          style: TextStyle(
+            color: _kInkSoft,
+            fontSize: 12,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -1632,13 +1644,20 @@ Widget _comparisonCard({
                 margin: const EdgeInsets.only(top: 6),
                 width: 6,
                 height: 6,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   b,
-                  style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.5),
+                  style: TextStyle(
+                    color: _kInk,
+                    fontSize: 12.5,
+                    height: 1.5,
+                  ),
                 ),
               ),
             ],
@@ -1751,7 +1770,11 @@ Widget _liveSheetSection() {
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: <Color>[_kPaperCool, _kPaper, _kPaperWarm],
+                      colors: <Color>[
+                        _kPaperCool,
+                        _kPaper,
+                        _kPaperWarm,
+                      ],
                     ),
                   ),
                   alignment: Alignment.topCenter,
@@ -1787,7 +1810,8 @@ Widget _liveSheetSection() {
                 maxChildSize: 0.95,
                 snap: true,
                 snapSizes: const <double>[0.30, 0.55, 0.95],
-                snapAnimationDuration: const Duration(milliseconds: 220),
+                snapAnimationDuration:
+                    const Duration(milliseconds: 220),
                 builder: (BuildContext ctx, ScrollController inner) {
                   return Container(
                     decoration: const BoxDecoration(
@@ -1830,7 +1854,8 @@ Widget _liveSheetSection() {
                           ),
                         ),
                         const SizedBox(height: 14),
-                        for (int i = 0; i < 8; i++) _liveListTile(i, _kViolet),
+                        for (int i = 0; i < 8; i++)
+                          _liveListTile(i, _kViolet),
                       ],
                     ),
                   );
@@ -2086,7 +2111,9 @@ Widget _pitfallCard({
                 decoration: BoxDecoration(
                   color: _kRoseSoft,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _kRose.withValues(alpha: 0.30)),
+                  border: Border.all(
+                    color: _kRose.withValues(alpha: 0.30),
+                  ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -2222,7 +2249,10 @@ Widget _lifeStep({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 4,
+          ),
           decoration: BoxDecoration(
             color: accent,
             borderRadius: BorderRadius.circular(6),
@@ -2253,7 +2283,11 @@ Widget _lifeStep({
               const SizedBox(height: 4),
               Text(
                 body,
-                style: TextStyle(color: _kInkSoft, fontSize: 12, height: 1.55),
+                style: TextStyle(
+                  color: _kInkSoft,
+                  fontSize: 12,
+                  height: 1.55,
+                ),
               ),
             ],
           ),
@@ -2410,7 +2444,10 @@ Widget _sectionShell({
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
               decoration: BoxDecoration(
                 color: accentSoft,
                 borderRadius: BorderRadius.circular(999),
@@ -2430,7 +2467,10 @@ Widget _sectionShell({
             Container(
               width: 6,
               height: 6,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
           ],
         ),
@@ -2448,7 +2488,11 @@ Widget _sectionShell({
         const SizedBox(height: 8),
         Text(
           subtitle,
-          style: TextStyle(color: _kInkSoft, fontSize: 14, height: 1.55),
+          style: TextStyle(
+            color: _kInkSoft,
+            fontSize: 14,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 22),
         child,
@@ -2525,7 +2569,11 @@ Widget _argCard(
         const SizedBox(height: 8),
         Text(
           description,
-          style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.5),
+          style: TextStyle(
+            color: _kInk,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -2553,7 +2601,10 @@ Widget _calloutCard({
           width: 28,
           height: 28,
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
           child: Text(
             icon,
             style: const TextStyle(
@@ -2579,7 +2630,11 @@ Widget _calloutCard({
               const SizedBox(height: 4),
               Text(
                 body,
-                style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.55),
+                style: TextStyle(
+                  color: _kInk,
+                  fontSize: 12.5,
+                  height: 1.55,
+                ),
               ),
             ],
           ),
@@ -2616,7 +2671,11 @@ Widget _noteCard({
         const SizedBox(height: 6),
         Text(
           body,
-          style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.55),
+          style: TextStyle(
+            color: _kInk,
+            fontSize: 12.5,
+            height: 1.55,
+          ),
         ),
       ],
     ),

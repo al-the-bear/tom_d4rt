@@ -283,7 +283,10 @@ Widget _heroBadge(String text) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 1),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.45),
+        width: 1,
+      ),
     ),
     child: Text(
       text,
@@ -366,7 +369,11 @@ Widget _narrative(String text, Color accent) {
     ),
     child: Text(
       text,
-      style: const TextStyle(color: _kInk, fontSize: 13, height: 1.55),
+      style: const TextStyle(
+        color: _kInk,
+        fontSize: 13,
+        height: 1.55,
+      ),
     ),
   );
 }
@@ -448,7 +455,11 @@ Widget _stripedCell(
     child: Text(
       text,
       textAlign: align,
-      style: TextStyle(color: color, fontSize: 13.5, fontWeight: weight),
+      style: TextStyle(
+        color: color,
+        fontSize: 13.5,
+        fontWeight: weight,
+      ),
     ),
   );
 }
@@ -554,15 +565,24 @@ Widget _section01SimpleTable() {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text('Cell A2', style: TextStyle(color: _kInkSoft)),
+                    child: Text(
+                      'Cell A2',
+                      style: TextStyle(color: _kInkSoft),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text('Cell B2', style: TextStyle(color: _kInkSoft)),
+                    child: Text(
+                      'Cell B2',
+                      style: TextStyle(color: _kInkSoft),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text('Cell C2', style: TextStyle(color: _kInkSoft)),
+                    child: Text(
+                      'Cell C2',
+                      style: TextStyle(color: _kInkSoft),
+                    ),
                   ),
                 ],
               ),
@@ -570,15 +590,24 @@ Widget _section01SimpleTable() {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text('Cell A3', style: TextStyle(color: _kInkSoft)),
+                    child: Text(
+                      'Cell A3',
+                      style: TextStyle(color: _kInkSoft),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text('Cell B3', style: TextStyle(color: _kInkSoft)),
+                    child: Text(
+                      'Cell B3',
+                      style: TextStyle(color: _kInkSoft),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text('Cell C3', style: TextStyle(color: _kInkSoft)),
+                    child: Text(
+                      'Cell C3',
+                      style: TextStyle(color: _kInkSoft),
+                    ),
                   ),
                 ],
               ),
@@ -650,18 +679,14 @@ Widget _section02FixedColumnWidth() {
               TableRow(
                 decoration: const BoxDecoration(color: _kIndigoSoft),
                 children: <Widget>[
-                  _cellText(
-                    '#',
-                    align: TextAlign.center,
-                    weight: FontWeight.w800,
-                    color: _kIndigo,
-                  ),
-                  _cellText('CODE', weight: FontWeight.w800, color: _kIndigo),
-                  _cellText(
-                    'DESCRIPTION',
-                    weight: FontWeight.w800,
-                    color: _kIndigo,
-                  ),
+                  _cellText('#',
+                      align: TextAlign.center,
+                      weight: FontWeight.w800,
+                      color: _kIndigo),
+                  _cellText('CODE',
+                      weight: FontWeight.w800, color: _kIndigo),
+                  _cellText('DESCRIPTION',
+                      weight: FontWeight.w800, color: _kIndigo),
                 ],
               ),
               TableRow(
@@ -749,24 +774,18 @@ Widget _section03FlexColumnWidth() {
               TableRow(
                 decoration: const BoxDecoration(color: _kPlumSoft),
                 children: <Widget>[
-                  _cellText(
-                    'FLEX 1',
-                    weight: FontWeight.w800,
-                    color: _kPlum,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    'FLEX 2',
-                    weight: FontWeight.w800,
-                    color: _kPlum,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    'FLEX 3',
-                    weight: FontWeight.w800,
-                    color: _kPlum,
-                    align: TextAlign.center,
-                  ),
+                  _cellText('FLEX 1',
+                      weight: FontWeight.w800,
+                      color: _kPlum,
+                      align: TextAlign.center),
+                  _cellText('FLEX 2',
+                      weight: FontWeight.w800,
+                      color: _kPlum,
+                      align: TextAlign.center),
+                  _cellText('FLEX 3',
+                      weight: FontWeight.w800,
+                      color: _kPlum,
+                      align: TextAlign.center),
                 ],
               ),
               TableRow(
@@ -853,13 +872,12 @@ Widget _section04IntrinsicColumnWidth() {
               TableRow(
                 decoration: const BoxDecoration(color: _kTealSoft),
                 children: <Widget>[
-                  _cellText('Key', weight: FontWeight.w800, color: _kTeal),
-                  _cellText('Type', weight: FontWeight.w800, color: _kTeal),
-                  _cellText(
-                    'Description',
-                    weight: FontWeight.w800,
-                    color: _kTeal,
-                  ),
+                  _cellText('Key',
+                      weight: FontWeight.w800, color: _kTeal),
+                  _cellText('Type',
+                      weight: FontWeight.w800, color: _kTeal),
+                  _cellText('Description',
+                      weight: FontWeight.w800, color: _kTeal),
                 ],
               ),
               TableRow(
@@ -946,35 +964,28 @@ Widget _section05FractionColumnWidth() {
               TableRow(
                 decoration: const BoxDecoration(color: _kAmberSoft),
                 children: <Widget>[
-                  _cellText(
-                    '25%',
-                    weight: FontWeight.w800,
-                    color: _kAmber,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    '50%',
-                    weight: FontWeight.w800,
-                    color: _kAmber,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    '25%',
-                    weight: FontWeight.w800,
-                    color: _kAmber,
-                    align: TextAlign.center,
-                  ),
+                  _cellText('25%',
+                      weight: FontWeight.w800,
+                      color: _kAmber,
+                      align: TextAlign.center),
+                  _cellText('50%',
+                      weight: FontWeight.w800,
+                      color: _kAmber,
+                      align: TextAlign.center),
+                  _cellText('25%',
+                      weight: FontWeight.w800,
+                      color: _kAmber,
+                      align: TextAlign.center),
                 ],
               ),
               TableRow(
                 children: <Widget>[
-                  _cellText('Left', align: TextAlign.center, color: _kInkSoft),
-                  _cellText(
-                    'Centre — twice as wide',
-                    align: TextAlign.center,
-                    color: _kInkSoft,
-                  ),
-                  _cellText('Right', align: TextAlign.center, color: _kInkSoft),
+                  _cellText('Left',
+                      align: TextAlign.center, color: _kInkSoft),
+                  _cellText('Centre — twice as wide',
+                      align: TextAlign.center, color: _kInkSoft),
+                  _cellText('Right',
+                      align: TextAlign.center, color: _kInkSoft),
                 ],
               ),
               TableRow(
@@ -1006,24 +1017,18 @@ Widget _section05FractionColumnWidth() {
               TableRow(
                 decoration: const BoxDecoration(color: _kAmberSoft),
                 children: <Widget>[
-                  _cellText(
-                    '33%',
-                    weight: FontWeight.w800,
-                    color: _kAmber,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    '34%',
-                    weight: FontWeight.w800,
-                    color: _kAmber,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    '33%',
-                    weight: FontWeight.w800,
-                    color: _kAmber,
-                    align: TextAlign.center,
-                  ),
+                  _cellText('33%',
+                      weight: FontWeight.w800,
+                      color: _kAmber,
+                      align: TextAlign.center),
+                  _cellText('34%',
+                      weight: FontWeight.w800,
+                      color: _kAmber,
+                      align: TextAlign.center),
+                  _cellText('33%',
+                      weight: FontWeight.w800,
+                      color: _kAmber,
+                      align: TextAlign.center),
                 ],
               ),
               TableRow(
@@ -1075,25 +1080,26 @@ Widget _section06MinMaxColumnWidth() {
           child: Table(
             border: TableBorder.all(color: _kBorderSoft, width: 1),
             columnWidths: const <int, TableColumnWidth>{
-              0: MinColumnWidth(IntrinsicColumnWidth(), FixedColumnWidth(120)),
-              1: MaxColumnWidth(IntrinsicColumnWidth(), FixedColumnWidth(160)),
+              0: MinColumnWidth(
+                IntrinsicColumnWidth(),
+                FixedColumnWidth(120),
+              ),
+              1: MaxColumnWidth(
+                IntrinsicColumnWidth(),
+                FixedColumnWidth(160),
+              ),
               2: FlexColumnWidth(),
             },
             children: <TableRow>[
               TableRow(
                 decoration: const BoxDecoration(color: _kRoseSoft),
                 children: <Widget>[
-                  _cellText(
-                    'Min ≥ 120',
-                    weight: FontWeight.w800,
-                    color: _kRose,
-                  ),
-                  _cellText(
-                    'Max ≤ 160',
-                    weight: FontWeight.w800,
-                    color: _kRose,
-                  ),
-                  _cellText('Flex', weight: FontWeight.w800, color: _kRose),
+                  _cellText('Min ≥ 120',
+                      weight: FontWeight.w800, color: _kRose),
+                  _cellText('Max ≤ 160',
+                      weight: FontWeight.w800, color: _kRose),
+                  _cellText('Flex',
+                      weight: FontWeight.w800, color: _kRose),
                 ],
               ),
               TableRow(
@@ -1183,21 +1189,12 @@ Widget _section07TableBorderVariants() {
             children: <TableRow>[
               TableRow(
                 children: <Widget>[
-                  _cellText(
-                    'A',
-                    align: TextAlign.center,
-                    weight: FontWeight.w700,
-                  ),
-                  _cellText(
-                    'B',
-                    align: TextAlign.center,
-                    weight: FontWeight.w700,
-                  ),
-                  _cellText(
-                    'C',
-                    align: TextAlign.center,
-                    weight: FontWeight.w700,
-                  ),
+                  _cellText('A',
+                      align: TextAlign.center, weight: FontWeight.w700),
+                  _cellText('B',
+                      align: TextAlign.center, weight: FontWeight.w700),
+                  _cellText('C',
+                      align: TextAlign.center, weight: FontWeight.w700),
                 ],
               ),
               TableRow(
@@ -1234,31 +1231,22 @@ Widget _section07TableBorderVariants() {
                 width: 0.8,
                 style: BorderStyle.solid,
               ),
-              outside: const BorderSide(color: _kAccentDeep, width: 2.0),
+              outside: const BorderSide(
+                color: _kAccentDeep,
+                width: 2.0,
+              ),
             ),
             children: <TableRow>[
               TableRow(
                 children: <Widget>[
-                  _cellText(
-                    'North',
-                    weight: FontWeight.w700,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    'South',
-                    weight: FontWeight.w700,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    'East',
-                    weight: FontWeight.w700,
-                    align: TextAlign.center,
-                  ),
-                  _cellText(
-                    'West',
-                    weight: FontWeight.w700,
-                    align: TextAlign.center,
-                  ),
+                  _cellText('North',
+                      weight: FontWeight.w700, align: TextAlign.center),
+                  _cellText('South',
+                      weight: FontWeight.w700, align: TextAlign.center),
+                  _cellText('East',
+                      weight: FontWeight.w700, align: TextAlign.center),
+                  _cellText('West',
+                      weight: FontWeight.w700, align: TextAlign.center),
                 ],
               ),
               TableRow(
@@ -1306,7 +1294,8 @@ Widget _section07TableBorderVariants() {
               TableRow(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
                     child: Text(
                       'Item',
                       style: TextStyle(
@@ -1317,7 +1306,8 @@ Widget _section07TableBorderVariants() {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
                     child: Text(
                       'Qty',
                       textAlign: TextAlign.right,
@@ -1329,7 +1319,8 @@ Widget _section07TableBorderVariants() {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
                     child: Text(
                       'Total',
                       textAlign: TextAlign.right,
@@ -1345,72 +1336,70 @@ Widget _section07TableBorderVariants() {
               TableRow(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
                     child: Text('Service fee', style: TextStyle(color: _kInk)),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Text(
-                      '1',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: _kInk),
-                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
+                    child: Text('1',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: _kInk)),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Text(
-                      r'$49.00',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: _kInk),
-                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
+                    child: Text(r'$49.00',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: _kInk)),
                   ),
                 ],
               ),
               TableRow(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
                     child: Text('Setup', style: TextStyle(color: _kInk)),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Text(
-                      '2',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: _kInk),
-                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
+                    child: Text('2',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: _kInk)),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Text(
-                      r'$80.00',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: _kInk),
-                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
+                    child: Text(r'$80.00',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: _kInk)),
                   ),
                 ],
               ),
               TableRow(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Text('Monthly plan', style: TextStyle(color: _kInk)),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
+                    child: Text('Monthly plan',
+                        style: TextStyle(color: _kInk)),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Text(
-                      '3',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: _kInk),
-                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
+                    child: Text('3',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: _kInk)),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Text(
-                      r'$117.00',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: _kInk),
-                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 10),
+                    child: Text(r'$117.00',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: _kInk)),
                   ),
                 ],
               ),
@@ -1464,30 +1453,22 @@ Widget _section08VerticalAlignments() {
               TableRow(
                 decoration: const BoxDecoration(color: _kSlateSoft),
                 children: <Widget>[
-                  _cellText(
-                    'top',
-                    align: TextAlign.center,
-                    weight: FontWeight.w800,
-                    color: _kSlate,
-                  ),
-                  _cellText(
-                    'middle',
-                    align: TextAlign.center,
-                    weight: FontWeight.w800,
-                    color: _kSlate,
-                  ),
-                  _cellText(
-                    'bottom',
-                    align: TextAlign.center,
-                    weight: FontWeight.w800,
-                    color: _kSlate,
-                  ),
-                  _cellText(
-                    'Tall reference',
-                    align: TextAlign.center,
-                    weight: FontWeight.w800,
-                    color: _kSlate,
-                  ),
+                  _cellText('top',
+                      align: TextAlign.center,
+                      weight: FontWeight.w800,
+                      color: _kSlate),
+                  _cellText('middle',
+                      align: TextAlign.center,
+                      weight: FontWeight.w800,
+                      color: _kSlate),
+                  _cellText('bottom',
+                      align: TextAlign.center,
+                      weight: FontWeight.w800,
+                      color: _kSlate),
+                  _cellText('Tall reference',
+                      align: TextAlign.center,
+                      weight: FontWeight.w800,
+                      color: _kSlate),
                 ],
               ),
               const TableRow(
@@ -1496,42 +1477,30 @@ Widget _section08VerticalAlignments() {
                     verticalAlignment: TableCellVerticalAlignment.top,
                     child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: Text(
-                        'TOP',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: _kSlate,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text('TOP',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: _kSlate, fontWeight: FontWeight.w700)),
                     ),
                   ),
                   TableCell(
                     verticalAlignment: TableCellVerticalAlignment.middle,
                     child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: Text(
-                        'MIDDLE',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: _kSlate,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text('MIDDLE',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: _kSlate, fontWeight: FontWeight.w700)),
                     ),
                   ),
                   TableCell(
                     verticalAlignment: TableCellVerticalAlignment.bottom,
                     child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: Text(
-                        'BOTTOM',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: _kSlate,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text('BOTTOM',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: _kSlate, fontWeight: FontWeight.w700)),
                     ),
                   ),
                   Padding(
@@ -1622,9 +1591,7 @@ Widget _section08VerticalAlignments() {
                         'intrinsicHeight',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: _kSlate,
-                          fontWeight: FontWeight.w700,
-                        ),
+                            color: _kSlate, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
@@ -1713,31 +1680,24 @@ Widget _section09TextBaselineAndDefault() {
               TableRow(
                 decoration: const BoxDecoration(color: _kTealSoft),
                 children: <Widget>[
-                  _cellText('Section', weight: FontWeight.w800, color: _kTeal),
-                  _cellText(
-                    'Default (middle)',
-                    weight: FontWeight.w800,
-                    color: _kTeal,
-                  ),
-                  _cellText(
-                    'Baseline aligned',
-                    weight: FontWeight.w800,
-                    color: _kTeal,
-                  ),
+                  _cellText('Section',
+                      weight: FontWeight.w800, color: _kTeal),
+                  _cellText('Default (middle)',
+                      weight: FontWeight.w800, color: _kTeal),
+                  _cellText('Baseline aligned',
+                      weight: FontWeight.w800, color: _kTeal),
                 ],
               ),
               const TableRow(
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(12),
-                    child: Text(
-                      'Headline',
-                      style: TextStyle(
-                        color: _kInk,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                    child: Text('Headline',
+                        style: TextStyle(
+                          color: _kInk,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                        )),
                   ),
                   Padding(
                     padding: EdgeInsets.all(12),
@@ -1747,7 +1707,8 @@ Widget _section09TextBaselineAndDefault() {
                     ),
                   ),
                   TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.baseline,
+                    verticalAlignment:
+                        TableCellVerticalAlignment.baseline,
                     child: Padding(
                       padding: EdgeInsets.all(12),
                       child: Text(
@@ -1762,14 +1723,12 @@ Widget _section09TextBaselineAndDefault() {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(12),
-                    child: Text(
-                      'Subhead',
-                      style: TextStyle(
-                        color: _kInk,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text('Subhead',
+                        style: TextStyle(
+                          color: _kInk,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                        )),
                   ),
                   Padding(
                     padding: EdgeInsets.all(12),
@@ -1779,7 +1738,8 @@ Widget _section09TextBaselineAndDefault() {
                     ),
                   ),
                   TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.baseline,
+                    verticalAlignment:
+                        TableCellVerticalAlignment.baseline,
                     child: Padding(
                       padding: EdgeInsets.all(12),
                       child: Text(
@@ -1794,14 +1754,12 @@ Widget _section09TextBaselineAndDefault() {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(12),
-                    child: Text(
-                      'Body',
-                      style: TextStyle(
-                        color: _kInk,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    child: Text('Body',
+                        style: TextStyle(
+                          color: _kInk,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        )),
                   ),
                   Padding(
                     padding: EdgeInsets.all(12),
@@ -1811,7 +1769,8 @@ Widget _section09TextBaselineAndDefault() {
                     ),
                   ),
                   TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.baseline,
+                    verticalAlignment:
+                        TableCellVerticalAlignment.baseline,
                     child: Padding(
                       padding: EdgeInsets.all(12),
                       child: Text(
@@ -1935,21 +1894,15 @@ List<TableRow> _stripedDataRows(List<List<String>> rows) {
     final bool odd = (i % 2) == 1;
     return TableRow(
       children: <Widget>[
-        _stripedCell(
-          row[0],
-          odd: odd,
-          align: TextAlign.center,
-          color: _kInkMuted,
-        ),
+        _stripedCell(row[0],
+            odd: odd, align: TextAlign.center, color: _kInkMuted),
         _stripedCell(row[1], odd: odd, weight: FontWeight.w700),
         _stripedCell(row[2], odd: odd, color: _kInkSoft),
-        _stripedCell(
-          row[3],
-          odd: odd,
-          align: TextAlign.center,
-          weight: FontWeight.w700,
-          color: _kAccent,
-        ),
+        _stripedCell(row[3],
+            odd: odd,
+            align: TextAlign.center,
+            weight: FontWeight.w700,
+            color: _kAccent),
       ],
     );
   });
@@ -2021,7 +1974,10 @@ Widget _section11PricingMatrix() {
                 padding: EdgeInsets.all(14),
                 child: Text(
                   'Monthly price',
-                  style: TextStyle(color: _kInk, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: _kInk,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               _planPrice(r'$9', _kIndigo),
@@ -2032,32 +1988,27 @@ Widget _section11PricingMatrix() {
           _pricingFeatureRow('Users included', '3', '25', 'Unlimited'),
           _pricingFeatureRow('Storage', '5 GB', '100 GB', '2 TB'),
           _pricingFeatureRow(
-            'Custom domain',
-            _featureNo,
-            _featureYes,
-            _featureYes,
-          ),
+              'Custom domain', _featureNo, _featureYes, _featureYes),
+          _pricingFeatureRow('Email support', _featureYes,
+              _featureYesPlus('priority'), _featureYesPlus('24/7')),
+          _pricingFeatureRow('SLA',
+              _featureNo, _featureNo, _featureYesPlus('99.99%')),
           _pricingFeatureRow(
-            'Email support',
-            _featureYes,
-            _featureYesPlus('priority'),
-            _featureYesPlus('24/7'),
-          ),
-          _pricingFeatureRow(
-            'SLA',
-            _featureNo,
-            _featureNo,
-            _featureYesPlus('99.99%'),
-          ),
-          _pricingFeatureRow('Audit log', _featureNo, _featureYes, _featureYes),
+              'Audit log', _featureNo, _featureYes, _featureYes),
           _pricingFeatureRow('SAML SSO', _featureNo, _featureNo, _featureYes),
-          _pricingFeatureRow('API requests / day', '10k', '500k', '10M+'),
+          _pricingFeatureRow(
+              'API requests / day', '10k', '500k', '10M+'),
           TableRow(
-            decoration: BoxDecoration(color: _kPlumSoft.withValues(alpha: 0.4)),
+            decoration: BoxDecoration(
+              color: _kPlumSoft.withValues(alpha: 0.4),
+            ),
             children: <Widget>[
               const Padding(
                 padding: EdgeInsets.all(14),
-                child: Text('', style: TextStyle(color: _kInk)),
+                child: Text(
+                  '',
+                  style: TextStyle(color: _kInk),
+                ),
               ),
               _planCta('Try', _kIndigo),
               _planCta('Choose', _kAccent),
@@ -2131,7 +2082,10 @@ Widget _planPrice(String value, Color color) {
         ),
         const Text(
           '/ month',
-          style: TextStyle(color: _kInkMuted, fontSize: 11),
+          style: TextStyle(
+            color: _kInkMuted,
+            fontSize: 11,
+          ),
         ),
       ],
     ),
@@ -2234,7 +2188,11 @@ Widget _featureCell(String value, Color color) {
     child: Text(
       value,
       textAlign: TextAlign.center,
-      style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 13),
+      style: TextStyle(
+        color: color,
+        fontWeight: FontWeight.w700,
+        fontSize: 13,
+      ),
     ),
   );
 }
@@ -2287,20 +2245,24 @@ Widget _section12FeatureComparison() {
               _comparisonHeader('Borealis 4', Icons.flight, _kPlum),
             ],
           ),
-          _comparisonRow('Cold start', winner: 1, a: '420 ms', b: '180 ms'),
-          _comparisonRow('Memory footprint', winner: 1, a: '88 MB', b: '54 MB'),
-          _comparisonRow('Throughput (req/s)', winner: 1, a: '12 k', b: '18 k'),
-          _comparisonRow('Build time', winner: 0, a: '24 s', b: '38 s'),
-          _comparisonRow('Plugins available', winner: 0, a: '142', b: '67'),
-          _comparisonRow('Hot reload', winner: 1, a: '0.8 s', b: '0.3 s'),
-          _comparisonRow('Documentation pages', winner: 0, a: '912', b: '480'),
-          _comparisonRow(
-            'Community size',
-            winner: 0,
-            a: '54 k devs',
-            b: '12 k devs',
-          ),
-          _comparisonRow('Monthly price', winner: 1, a: r'$29', b: r'$19'),
+          _comparisonRow('Cold start',
+              winner: 1, a: '420 ms', b: '180 ms'),
+          _comparisonRow('Memory footprint',
+              winner: 1, a: '88 MB', b: '54 MB'),
+          _comparisonRow('Throughput (req/s)',
+              winner: 1, a: '12 k', b: '18 k'),
+          _comparisonRow('Build time',
+              winner: 0, a: '24 s', b: '38 s'),
+          _comparisonRow('Plugins available',
+              winner: 0, a: '142', b: '67'),
+          _comparisonRow('Hot reload',
+              winner: 1, a: '0.8 s', b: '0.3 s'),
+          _comparisonRow('Documentation pages',
+              winner: 0, a: '912', b: '480'),
+          _comparisonRow('Community size',
+              winner: 0, a: '54 k devs', b: '12 k devs'),
+          _comparisonRow('Monthly price',
+              winner: 1, a: r'$29', b: r'$19'),
         ],
       ),
     ),
@@ -2340,7 +2302,10 @@ TableRow _comparisonRow(
         padding: const EdgeInsets.all(12),
         child: Text(
           criterion,
-          style: const TextStyle(color: _kInk, fontWeight: FontWeight.w600),
+          style: const TextStyle(
+            color: _kInk,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       _comparisonValue(a, isWinner: winner == 0, color: _kAccent),
@@ -2349,11 +2314,8 @@ TableRow _comparisonRow(
   );
 }
 
-Widget _comparisonValue(
-  String value, {
-  required bool isWinner,
-  required Color color,
-}) {
+Widget _comparisonValue(String value,
+    {required bool isWinner, required Color color}) {
   return Padding(
     padding: const EdgeInsets.all(12),
     child: Container(
@@ -2407,7 +2369,9 @@ Widget _section13ScheduleGrid() {
           color: _kBorder.withValues(alpha: 0.7),
           width: 0.8,
         ),
-        columnWidths: const <int, TableColumnWidth>{0: FixedColumnWidth(60)},
+        columnWidths: const <int, TableColumnWidth>{
+          0: FixedColumnWidth(60),
+        },
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         children: <TableRow>[
           TableRow(
@@ -2449,7 +2413,13 @@ Widget _section13ScheduleGrid() {
             null,
             _Slot('Demo', _kRose),
           ]),
-          _scheduleRow('12:00', <_Slot?>[null, null, null, null, null]),
+          _scheduleRow('12:00', <_Slot?>[
+            null,
+            null,
+            null,
+            null,
+            null,
+          ]),
           _scheduleRow('13:00', <_Slot?>[
             _Slot('1:1 Lead', _kSlate),
             _Slot('Workshop', _kTeal),
@@ -2532,11 +2502,14 @@ TableRow _scheduleRow(String time, List<_Slot?> slots) {
         return Padding(
           padding: const EdgeInsets.all(6),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
             decoration: BoxDecoration(
               color: s.color.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(6),
-              border: Border(left: BorderSide(color: s.color, width: 3)),
+              border: Border(
+                left: BorderSide(color: s.color, width: 3),
+              ),
             ),
             child: Text(
               s.title,
@@ -2604,50 +2577,48 @@ Widget _section14FinancialSummary() {
               _finHeader('YOY', align: TextAlign.right),
             ],
           ),
-          _finRow(
-            'Revenue',
-            <String>[r'$124,580', r'$140,205', r'$165,902', r'$192,318'],
-            '+34%',
-            delta: 1,
-          ),
-          _finRow(
-            'Cost of services',
-            <String>[r'$48,200', r'$55,640', r'$58,910', r'$66,402'],
-            '+27%',
-            delta: -1,
-          ),
-          _finRow(
-            'Gross profit',
-            <String>[r'$76,380', r'$84,565', r'$106,992', r'$125,916'],
-            '+39%',
-            delta: 1,
-            bold: true,
-          ),
-          _finRow(
-            'Marketing',
-            <String>[r'$12,100', r'$15,820', r'$18,401', r'$22,330'],
-            '+45%',
-            delta: -1,
-          ),
-          _finRow(
-            'R&D',
-            <String>[r'$22,500', r'$23,800', r'$24,140', r'$25,005'],
-            '+10%',
-            delta: -1,
-          ),
-          _finRow(
-            'Operating profit',
-            <String>[r'$41,780', r'$44,945', r'$64,451', r'$78,581'],
-            '+58%',
-            delta: 1,
-            bold: true,
-          ),
-          _finRow(
-            'Taxes',
-            <String>[r'$10,445', r'$11,236', r'$16,112', r'$19,645'],
-            '+58%',
-            delta: -1,
-          ),
+          _finRow('Revenue', <String>[
+            r'$124,580',
+            r'$140,205',
+            r'$165,902',
+            r'$192,318',
+          ], '+34%', delta: 1),
+          _finRow('Cost of services', <String>[
+            r'$48,200',
+            r'$55,640',
+            r'$58,910',
+            r'$66,402',
+          ], '+27%', delta: -1),
+          _finRow('Gross profit', <String>[
+            r'$76,380',
+            r'$84,565',
+            r'$106,992',
+            r'$125,916',
+          ], '+39%', delta: 1, bold: true),
+          _finRow('Marketing', <String>[
+            r'$12,100',
+            r'$15,820',
+            r'$18,401',
+            r'$22,330',
+          ], '+45%', delta: -1),
+          _finRow('R&D', <String>[
+            r'$22,500',
+            r'$23,800',
+            r'$24,140',
+            r'$25,005',
+          ], '+10%', delta: -1),
+          _finRow('Operating profit', <String>[
+            r'$41,780',
+            r'$44,945',
+            r'$64,451',
+            r'$78,581',
+          ], '+58%', delta: 1, bold: true),
+          _finRow('Taxes', <String>[
+            r'$10,445',
+            r'$11,236',
+            r'$16,112',
+            r'$19,645',
+          ], '+58%', delta: -1),
           TableRow(
             decoration: BoxDecoration(
               color: _kAccentDeep.withValues(alpha: 0.10),
@@ -2672,9 +2643,7 @@ Widget _section14FinancialSummary() {
                 padding: const EdgeInsets.all(12),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
+                      horizontal: 8, vertical: 4),
                   alignment: Alignment.centerRight,
                   child: const Text(
                     '+88%',
@@ -2711,13 +2680,8 @@ Widget _finHeader(String text, {TextAlign align = TextAlign.left}) {
   );
 }
 
-TableRow _finRow(
-  String label,
-  List<String> values,
-  String yoy, {
-  required int delta,
-  bool bold = false,
-}) {
+TableRow _finRow(String label, List<String> values, String yoy,
+    {required int delta, bool bold = false}) {
   return TableRow(
     children: <Widget>[
       Padding(
@@ -2800,75 +2764,34 @@ Widget _section15SettingsKeyValue() {
         },
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         children: <TableRow>[
-          _settingsRow(
-            'Theme',
-            'Light · auto-switch at sundown',
-            Icons.brightness_6,
-            _kAccent,
-          ),
+          _settingsRow('Theme', 'Light · auto-switch at sundown', Icons.brightness_6, _kAccent),
           _settingsRow('Accent colour', 'Sage green', Icons.palette, _kPlum),
           _settingsRow('Font', 'System default', Icons.font_download, _kIndigo),
-          _settingsRow(
-            'Time zone',
-            'Europe/Berlin (UTC+1)',
-            Icons.public,
-            _kTeal,
-          ),
-          _settingsRow(
-            'Language',
-            'English (United Kingdom)',
-            Icons.translate,
-            _kAmber,
-          ),
-          _settingsRow(
-            'Notifications',
-            'Email + push (work hours)',
-            Icons.notifications_active,
-            _kRose,
-          ),
-          _settingsRow(
-            'Two-factor auth',
-            'Enabled · TOTP',
-            Icons.shield,
-            _kSuccess,
-          ),
-          _settingsRow(
-            'Backup',
-            'Daily · last 02:14 today',
-            Icons.cloud_done,
-            _kAccent,
-          ),
-          _settingsRow(
-            'Storage',
-            '14.6 GB of 100 GB used',
-            Icons.sd_storage,
-            _kIndigo,
-          ),
-          _settingsRow(
-            'Account tier',
-            'Pro · renews 31 March',
-            Icons.workspace_premium,
-            _kPlum,
-          ),
-          _settingsRow(
-            'Privacy',
-            'Strict · cross-site blocked',
-            Icons.privacy_tip,
-            _kAccentDeep,
-          ),
-          _settingsRow(
-            'Telemetry',
-            'Anonymous usage only',
-            Icons.analytics,
-            _kSlate,
-          ),
+          _settingsRow('Time zone', 'Europe/Berlin (UTC+1)', Icons.public, _kTeal),
+          _settingsRow('Language', 'English (United Kingdom)',
+              Icons.translate, _kAmber),
+          _settingsRow('Notifications', 'Email + push (work hours)',
+              Icons.notifications_active, _kRose),
+          _settingsRow('Two-factor auth', 'Enabled · TOTP',
+              Icons.shield, _kSuccess),
+          _settingsRow('Backup', 'Daily · last 02:14 today',
+              Icons.cloud_done, _kAccent),
+          _settingsRow('Storage', '14.6 GB of 100 GB used',
+              Icons.sd_storage, _kIndigo),
+          _settingsRow('Account tier', 'Pro · renews 31 March',
+              Icons.workspace_premium, _kPlum),
+          _settingsRow('Privacy', 'Strict · cross-site blocked',
+              Icons.privacy_tip, _kAccentDeep),
+          _settingsRow('Telemetry', 'Anonymous usage only',
+              Icons.analytics, _kSlate),
         ],
       ),
     ),
   );
 }
 
-TableRow _settingsRow(String key, String value, IconData icon, Color color) {
+TableRow _settingsRow(
+    String key, String value, IconData icon, Color color) {
   return TableRow(
     children: <Widget>[
       Padding(
@@ -2908,10 +2831,17 @@ TableRow _settingsRow(String key, String value, IconData icon, Color color) {
             Expanded(
               child: Text(
                 value,
-                style: const TextStyle(color: _kInkSoft, fontSize: 13),
+                style: const TextStyle(
+                  color: _kInkSoft,
+                  fontSize: 13,
+                ),
               ),
             ),
-            const Icon(Icons.chevron_right, color: _kInkMuted, size: 18),
+            const Icon(
+              Icons.chevron_right,
+              color: _kInkMuted,
+              size: 18,
+            ),
           ],
         ),
       ),
@@ -2988,16 +2918,17 @@ Widget _section16TableInCardWithIconsAndActions() {
                         SizedBox(height: 2),
                         Text(
                           'Connections to external services',
-                          style: TextStyle(color: _kInkSoft, fontSize: 12),
+                          style: TextStyle(
+                            color: _kInkSoft,
+                            fontSize: 12,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 5,
-                    ),
+                        horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       color: _kAccent,
                       borderRadius: BorderRadius.circular(20),
@@ -3097,11 +3028,17 @@ Widget _section16TableInCardWithIconsAndActions() {
               padding: const EdgeInsets.all(14),
               decoration: const BoxDecoration(
                 color: _kSurfaceDeep,
-                border: Border(top: BorderSide(color: _kBorderSoft, width: 1)),
+                border: Border(
+                  top: BorderSide(color: _kBorderSoft, width: 1),
+                ),
               ),
               child: Row(
                 children: <Widget>[
-                  const Icon(Icons.info_outline, color: _kInkSoft, size: 16),
+                  const Icon(
+                    Icons.info_outline,
+                    color: _kInkSoft,
+                    size: 16,
+                  ),
                   const SizedBox(width: 8),
                   const Expanded(
                     child: Text(
@@ -3116,9 +3053,7 @@ Widget _section16TableInCardWithIconsAndActions() {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
+                        horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: _kAccent,
                       borderRadius: BorderRadius.circular(8),
@@ -3182,7 +3117,10 @@ TableRow _integrationRow({
             const SizedBox(height: 2),
             Text(
               detail,
-              style: const TextStyle(color: _kInkSoft, fontSize: 12),
+              style: const TextStyle(
+                color: _kInkSoft,
+                fontSize: 12,
+              ),
             ),
           ],
         ),

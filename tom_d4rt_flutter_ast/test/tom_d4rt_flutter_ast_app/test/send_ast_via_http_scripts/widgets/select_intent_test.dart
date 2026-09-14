@@ -219,7 +219,9 @@ class _SelectIntentDemoPageState extends State<_SelectIntentDemoPage> {
   }
 
   List<int> _highlightedIndices() {
-    return <int>[for (int i = _rangeStart; i <= _rangeEnd; i++) i];
+    return <int>[
+      for (int i = _rangeStart; i <= _rangeEnd; i++) i,
+    ];
   }
 
   void _handleSelectIntent() {
@@ -286,7 +288,10 @@ class _SelectIntentDemoPageState extends State<_SelectIntentDemoPage> {
         elevation: 0,
         title: const Text(
           'SelectIntent — Intent Family Tree',
-          style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.2),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.2,
+          ),
         ),
         actions: const <Widget>[
           Padding(
@@ -442,7 +447,10 @@ class _SectionHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(subtitle, style: _bodyStyle(size: 13, color: _kSlateSoft)),
+              Text(
+                subtitle,
+                style: _bodyStyle(size: 13, color: _kSlateSoft),
+              ),
             ],
           ),
         ),
@@ -467,8 +475,14 @@ class _FamilyTreeHero extends StatelessWidget {
   final String highlighted;
 
   static const List<_TreeNode> _children = <_TreeNode>[
-    _TreeNode(label: 'SelectIntent', subtitle: 'generic • no payload'),
-    _TreeNode(label: 'SelectAllTextIntent', subtitle: 'scoped to text fields'),
+    _TreeNode(
+      label: 'SelectIntent',
+      subtitle: 'generic • no payload',
+    ),
+    _TreeNode(
+      label: 'SelectAllTextIntent',
+      subtitle: 'scoped to text fields',
+    ),
     _TreeNode(
       label: 'ExpandSelectionToLineBreakIntent',
       subtitle: 'caret movement',
@@ -548,14 +562,20 @@ class _FamilyTreeHero extends StatelessWidget {
 }
 
 class _TreeNode {
-  const _TreeNode({required this.label, required this.subtitle});
+  const _TreeNode({
+    required this.label,
+    required this.subtitle,
+  });
 
   final String label;
   final String subtitle;
 }
 
 class _FamilyTreePainter extends CustomPainter {
-  _FamilyTreePainter({required this.highlighted, required this.children});
+  _FamilyTreePainter({
+    required this.highlighted,
+    required this.children,
+  });
 
   final String highlighted;
   final List<_TreeNode> children;
@@ -639,9 +659,8 @@ class _FamilyTreePainter extends CustomPainter {
     final Color bg = isSubject ? _kEmerald : Colors.white;
     final Color border = isSubject ? _kEmeraldDark : _kDivider;
     final Color labelColor = isSubject ? _kCream : _kSlate;
-    final Color subtitleColor = isSubject
-        ? _kEmeraldFaint
-        : _kSlateSoft.withValues(alpha: 0.9);
+    final Color subtitleColor =
+        isSubject ? _kEmeraldFaint : _kSlateSoft.withValues(alpha: 0.9);
 
     final shadowPaint = Paint()
       ..color = _kSlate.withValues(alpha: isSubject ? 0.18 : 0.08)
@@ -726,11 +745,24 @@ class _FamilyTreePainter extends CustomPainter {
     Rect childRect,
     _TreeNode node,
   ) {
-    final start = Offset(rootRect.left + rootRect.width / 2, rootRect.bottom);
-    final end = Offset(childRect.left + childRect.width / 2, childRect.top);
+    final start = Offset(
+      rootRect.left + rootRect.width / 2,
+      rootRect.bottom,
+    );
+    final end = Offset(
+      childRect.left + childRect.width / 2,
+      childRect.top,
+    );
     final path = Path()
       ..moveTo(start.dx, start.dy)
-      ..cubicTo(start.dx, start.dy + 60, end.dx, end.dy - 60, end.dx, end.dy);
+      ..cubicTo(
+        start.dx,
+        start.dy + 60,
+        end.dx,
+        end.dy - 60,
+        end.dx,
+        end.dy,
+      );
 
     final isSubject = node.label == highlighted;
     final paint = Paint()
@@ -846,8 +878,7 @@ class _LiveDemoPane extends StatelessWidget {
                 rangeEnd: rangeEnd,
                 onRangeChanged: onRangeChanged,
                 onFireSelectIntent: () {
-                  final bool fired =
-                      Actions.maybeInvoke<SelectIntent>(
+                  final bool fired = Actions.maybeInvoke<SelectIntent>(
                         context,
                         const SelectIntent(),
                       ) !=
@@ -1038,7 +1069,11 @@ class _WordChip extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               word,
-              style: _bodyStyle(size: 12, weight: weight, color: textColor),
+              style: _bodyStyle(
+                size: 12,
+                weight: weight,
+                color: textColor,
+              ),
             ),
           ],
         ),
@@ -1095,7 +1130,10 @@ class _RangePickerPanel extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: _kEmeraldFaint.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(999),
@@ -1144,15 +1182,25 @@ class _RangePickerPanel extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              _GhostButton(label: 'SelectAllText', onPressed: onFireSelectAll),
+              _GhostButton(
+                label: 'SelectAllText',
+                onPressed: onFireSelectAll,
+              ),
             ],
           ),
           const SizedBox(height: 8),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton.icon(
-              icon: const Icon(Icons.clear_rounded, size: 16, color: _kCream),
-              label: Text('clear', style: _bodyStyle(size: 12, color: _kCream)),
+              icon: const Icon(
+                Icons.clear_rounded,
+                size: 16,
+                color: _kCream,
+              ),
+              label: Text(
+                'clear',
+                style: _bodyStyle(size: 12, color: _kCream),
+              ),
               onPressed: onClear,
             ),
           ),
@@ -1162,11 +1210,16 @@ class _RangePickerPanel extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: _kEmeraldFaint.withValues(alpha: 0.2)),
+              border: Border.all(
+                color: _kEmeraldFaint.withValues(alpha: 0.2),
+              ),
             ),
             child: Text(
               'Actions.maybeInvoke<SelectIntent>(context, const SelectIntent())',
-              style: _monoStyle(size: 11, color: _kEmeraldFaint),
+              style: _monoStyle(
+                size: 11,
+                color: _kEmeraldFaint,
+              ),
             ),
           ),
         ],
@@ -1246,8 +1299,13 @@ class _EmeraldButton extends StatelessWidget {
         backgroundColor: _kEmerald,
         foregroundColor: _kCream,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 12,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
       onPressed: onPressed,
     );
@@ -1266,8 +1324,13 @@ class _GhostButton extends StatelessWidget {
         foregroundColor: _kAmber,
         side: BorderSide(color: _kAmber.withValues(alpha: 0.7)),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 12,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
       onPressed: onPressed,
       child: Text(label),
@@ -1314,9 +1377,17 @@ class _SelectionSnapshotCard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              _DeltaPill(label: 'added', count: added, color: _kEmerald),
+              _DeltaPill(
+                label: 'added',
+                count: added,
+                color: _kEmerald,
+              ),
               const SizedBox(width: 8),
-              _DeltaPill(label: 'removed', count: removed, color: _kAmber),
+              _DeltaPill(
+                label: 'removed',
+                count: removed,
+                color: _kAmber,
+              ),
               const SizedBox(width: 8),
               _DeltaPill(
                 label: 'unchanged',
@@ -1552,8 +1623,7 @@ class _IntentFlowDiagram extends StatelessWidget {
         body:
             'Something raises a SelectIntent: a keyboard shortcut, a menu '
             'tap, or a direct call to Actions.maybeInvoke<SelectIntent>.',
-        codeSnippet:
-            'Actions.maybeInvoke<SelectIntent>(context, '
+        codeSnippet: 'Actions.maybeInvoke<SelectIntent>(context, '
             'const SelectIntent());',
       ),
       _FlowStep(
@@ -1572,8 +1642,7 @@ class _IntentFlowDiagram extends StatelessWidget {
             'The first Actions widget with a SelectIntent entry wins. If '
             'nothing matches, maybeInvoke returns null and the parent is '
             'free to retry with a different intent type.',
-        codeSnippet:
-            'actions: <Type, Action<Intent>>{ SelectIntent: '
+        codeSnippet: 'actions: <Type, Action<Intent>>{ SelectIntent: '
             '_CallbackSelectIntentAction(...) }',
       ),
       _FlowStep(
@@ -1584,7 +1653,8 @@ class _IntentFlowDiagram extends StatelessWidget {
             'what "selection" means locally. In this demo, it highlights '
             'the slider-picked word range; in a text field it would '
             'manipulate TextSelection.',
-        codeSnippet: 'Object? invoke(SelectIntent intent) => onInvoke(intent);',
+        codeSnippet:
+            'Object? invoke(SelectIntent intent) => onInvoke(intent);',
       ),
       _FlowStep(
         index: 5,
@@ -1594,7 +1664,8 @@ class _IntentFlowDiagram extends StatelessWidget {
             'caught inside the scope of an EditableText. It is not a '
             'general-purpose "select" — it always means "everything in '
             'this text field".',
-        codeSnippet: 'SelectAllTextIntent(SelectionChangedCause.keyboard)',
+        codeSnippet:
+            'SelectAllTextIntent(SelectionChangedCause.keyboard)',
       ),
     ];
 
@@ -1692,7 +1763,10 @@ class _FlowStepRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(step.body, style: _bodyStyle(size: 13, color: _kSlateSoft)),
+              Text(
+                step.body,
+                style: _bodyStyle(size: 13, color: _kSlateSoft),
+              ),
               const SizedBox(height: 8),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -1733,8 +1807,7 @@ class _DecisionTableCard extends StatelessWidget {
           'above the widget; semantics stay local.',
     ),
     _DecisionRow(
-      situation:
-          'You\'re inside an EditableText (or similar text widget) '
+      situation: 'You\'re inside an EditableText (or similar text widget) '
           'and want to select every character.',
       recommended: 'SelectAllTextIntent',
       reason:
@@ -1863,7 +1936,10 @@ class _DecisionTableRow extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 color: _kEmeraldFaint,
@@ -1947,7 +2023,9 @@ class _GotchasPanel extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           childAspectRatio: columns == 2 ? 3.1 : 4.8,
-          children: <Widget>[for (final g in _gotchas) _GotchaCard(gotcha: g)],
+          children: <Widget>[
+            for (final g in _gotchas) _GotchaCard(gotcha: g),
+          ],
         );
       },
     );
@@ -1955,7 +2033,11 @@ class _GotchasPanel extends StatelessWidget {
 }
 
 class _Gotcha {
-  const _Gotcha({required this.icon, required this.title, required this.body});
+  const _Gotcha({
+    required this.icon,
+    required this.title,
+    required this.body,
+  });
 
   final IconData icon;
   final String title;
@@ -2117,21 +2199,32 @@ class _EventLogRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: col.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: col.withValues(alpha: 0.4),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(stamp, style: _monoStyle(size: 11, color: _kEmeraldFaint)),
+          Text(
+            stamp,
+            style: _monoStyle(size: 11, color: _kEmeraldFaint),
+          ),
           const SizedBox(width: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6,
+              vertical: 1.5,
+            ),
             decoration: BoxDecoration(
               color: col.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(6),
               border: Border.all(color: col.withValues(alpha: 0.6)),
             ),
-            child: Text(event.label, style: _monoStyle(size: 10.5, color: col)),
+            child: Text(
+              event.label,
+              style: _monoStyle(size: 10.5, color: col),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -2218,7 +2311,10 @@ class _FooterBand extends StatelessWidget {
                   '(SelectAllTextIntent, ExtendSelectionByCharacterIntent, '
                   'ExpandSelectionToLineBreakIntent) together with the '
                   'SelectionChangedCause enum.',
-                  style: _bodyStyle(size: 12.5, color: _kEmeraldFaint),
+                  style: _bodyStyle(
+                    size: 12.5,
+                    color: _kEmeraldFaint,
+                  ),
                 ),
               ],
             ),

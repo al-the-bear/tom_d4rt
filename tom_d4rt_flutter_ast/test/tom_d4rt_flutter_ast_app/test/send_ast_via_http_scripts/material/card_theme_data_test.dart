@@ -61,25 +61,20 @@ Widget buildCardDemo({
   required CardThemeData themeData,
   Widget? cardContent,
 }) {
-  Widget content =
-      cardContent ??
-      Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Card Title',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(height: 4),
-            Text(
-              'This is sample content inside the card to show how the theme applies.',
-              style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-            ),
-          ],
+  Widget content = cardContent ?? Padding(
+    padding: EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Card Title', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+        SizedBox(height: 4),
+        Text(
+          'This is sample content inside the card to show how the theme applies.',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
         ),
-      );
+      ],
+    ),
+  );
 
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -126,19 +121,9 @@ Widget buildPropertyChip(String label, String value) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          label,
-          style: TextStyle(fontSize: 10, color: Colors.cyan.shade400),
-        ),
+        Text(label, style: TextStyle(fontSize: 10, color: Colors.cyan.shade400)),
         SizedBox(width: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: Colors.cyan.shade700,
-          ),
-        ),
+        Text(value, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.cyan.shade700)),
       ],
     ),
   );
@@ -156,15 +141,9 @@ Widget buildComparisonCard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Sample Card',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
+        Text('Sample Card', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
         SizedBox(height: 4),
-        Text(
-          'Content inside card',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
+        Text('Content inside card', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
       ],
     ),
   );
@@ -177,14 +156,7 @@ Widget buildComparisonCard({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                leftTitle,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.cyan.shade700,
-                ),
-              ),
+              Text(leftTitle, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.cyan.shade700)),
               SizedBox(height: 4),
               CardTheme(
                 data: leftTheme,
@@ -198,14 +170,7 @@ Widget buildComparisonCard({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                rightTitle,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.orange.shade700,
-                ),
-              ),
+              Text(rightTitle, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.orange.shade700)),
               SizedBox(height: 4),
               CardTheme(
                 data: rightTheme,
@@ -233,11 +198,7 @@ Widget buildColorSwatch(String label, Color color) {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: Colors.grey.shade300),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 2,
-                offset: Offset(0, 1),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, 1)),
             ],
           ),
         ),
@@ -250,9 +211,7 @@ Widget buildColorSwatch(String label, Color color) {
 
 dynamic build(BuildContext context) {
   debugPrint('=== CardThemeData Deep Demo ===');
-  debugPrint(
-    'Demonstrating Card themes: elevation, color, shape, margin configurations',
-  );
+  debugPrint('Demonstrating Card themes: elevation, color, shape, margin configurations');
 
   return SingleChildScrollView(
     child: Column(
@@ -360,19 +319,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Dark Card',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
+                Text('Dark Card', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                 SizedBox(height: 4),
-                Text(
-                  'Content with light text on dark background.',
-                  style: TextStyle(fontSize: 13, color: Colors.grey.shade400),
-                ),
+                Text('Content with light text on dark background.', style: TextStyle(fontSize: 13, color: Colors.grey.shade400)),
               ],
             ),
           ),
@@ -386,20 +335,13 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
             ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Card Color Palette',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-              ),
+              Text('Card Color Palette', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
               SizedBox(height: 12),
               Wrap(
                 children: [
@@ -430,27 +372,21 @@ dynamic build(BuildContext context) {
           title: 'Small Radius (4)',
           description: 'Slightly rounded corners',
           themeData: CardThemeData(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           ),
         ),
         buildCardDemo(
           title: 'Medium Radius (12)',
           description: 'Standard rounded corners',
           themeData: CardThemeData(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
         buildCardDemo(
           title: 'Large Radius (24)',
           description: 'Very rounded corners',
           themeData: CardThemeData(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
           ),
         ),
         buildCardDemo(
@@ -467,15 +403,16 @@ dynamic build(BuildContext context) {
         buildCardDemo(
           title: 'Stadium Shape',
           description: 'StadiumBorder applied to card',
-          themeData: CardThemeData(shape: StadiumBorder(), elevation: 2),
+          themeData: CardThemeData(
+            shape: StadiumBorder(),
+            elevation: 2,
+          ),
         ),
         buildCardDemo(
           title: 'Beveled Rectangle',
           description: 'BeveledRectangleBorder for angled corners',
           themeData: CardThemeData(
-            shape: BeveledRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
 
@@ -523,34 +460,22 @@ dynamic build(BuildContext context) {
         buildCardDemo(
           title: 'Blue Shadow',
           description: 'Colored blue shadow for branding',
-          themeData: CardThemeData(
-            elevation: 8,
-            shadowColor: Colors.blue.shade300,
-          ),
+          themeData: CardThemeData(elevation: 8, shadowColor: Colors.blue.shade300),
         ),
         buildCardDemo(
           title: 'Red Shadow',
           description: 'Alert-style red shadow',
-          themeData: CardThemeData(
-            elevation: 8,
-            shadowColor: Colors.red.shade300,
-          ),
+          themeData: CardThemeData(elevation: 8, shadowColor: Colors.red.shade300),
         ),
         buildCardDemo(
           title: 'Green Shadow',
           description: 'Success-style green shadow',
-          themeData: CardThemeData(
-            elevation: 8,
-            shadowColor: Colors.green.shade300,
-          ),
+          themeData: CardThemeData(elevation: 8, shadowColor: Colors.green.shade300),
         ),
         buildCardDemo(
           title: 'No Shadow (transparent)',
           description: 'Elevation with transparent shadow',
-          themeData: CardThemeData(
-            elevation: 8,
-            shadowColor: Colors.transparent,
-          ),
+          themeData: CardThemeData(elevation: 8, shadowColor: Colors.transparent),
         ),
 
         // Section 6: Side-by-Side Comparisons
@@ -570,15 +495,16 @@ dynamic build(BuildContext context) {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           ),
           rightTheme: CardThemeData(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
           ),
         ),
         buildComparisonCard(
           leftTitle: 'Filled',
           rightTitle: 'Outlined',
-          leftTheme: CardThemeData(color: Colors.blue.shade50, elevation: 2),
+          leftTheme: CardThemeData(
+            color: Colors.blue.shade50,
+            elevation: 2,
+          ),
           rightTheme: CardThemeData(
             elevation: 0,
             shape: RoundedRectangleBorder(
@@ -590,18 +516,14 @@ dynamic build(BuildContext context) {
 
         // Section 7: Combined Themes
         buildSectionTitle('7. Combined Theme Configurations'),
-        buildDescription(
-          'Multiple properties combined for real-world card styles',
-        ),
+        buildDescription('Multiple properties combined for real-world card styles'),
 
         buildCardDemo(
           title: 'Modern Card Style',
           description: 'Rounded, subtle elevation, clean look',
           themeData: CardThemeData(
             elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             color: Colors.white,
             margin: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
           ),
@@ -623,14 +545,8 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Modern Design',
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        'Clean and minimal',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
+                      Text('Modern Design', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Clean and minimal', style: TextStyle(fontSize: 12, color: Colors.grey)),
                     ],
                   ),
                 ),
@@ -667,14 +583,8 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Outlined Style',
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        'Flat with border',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
+                      Text('Outlined Style', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Flat with border', style: TextStyle(fontSize: 12, color: Colors.grey)),
                     ],
                   ),
                 ),
@@ -687,9 +597,7 @@ dynamic build(BuildContext context) {
           description: 'High elevation with colored background',
           themeData: CardThemeData(
             elevation: 12,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             color: Colors.deepPurple.shade50,
             shadowColor: Colors.deepPurple.shade200,
             margin: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
@@ -712,14 +620,8 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Colorful Card',
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        'Elevated with color',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
+                      Text('Colorful Card', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Elevated with color', style: TextStyle(fontSize: 12, color: Colors.grey)),
                     ],
                   ),
                 ),
@@ -753,18 +655,12 @@ dynamic build(BuildContext context) {
                   children: [
                     Text(
                       'Global Theme Card',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(height: 4),
                     Text(
                       'This card inherits from ThemeData.cardTheme',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey.shade600,
-                      ),
+                      style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
                     ),
                   ],
                 ),
@@ -784,11 +680,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
             ],
           ),
           child: Wrap(

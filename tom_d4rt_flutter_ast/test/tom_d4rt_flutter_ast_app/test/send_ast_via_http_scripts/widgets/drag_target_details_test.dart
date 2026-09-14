@@ -124,7 +124,11 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
     'box': 0.0,
     'fragile': 0.0,
   };
-  final Map<String, int> parcelLaneCount = {'mail': 0, 'box': 0, 'fragile': 0};
+  final Map<String, int> parcelLaneCount = {
+    'mail': 0,
+    'box': 0,
+    'fragile': 0,
+  };
   final Map<String, Offset?> parcelLaneOffset = {
     'mail': null,
     'box': null,
@@ -155,10 +159,8 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
 
   // ---- Section 11 — rank reorder slots --------------------------------------
   final List<int?> rankSlots = <int?>[null, null, null, null, null];
-  final List<GlobalKey> rankKeys = List<GlobalKey>.generate(
-    5,
-    (_) => GlobalKey(),
-  );
+  final List<GlobalKey> rankKeys =
+      List<GlobalKey>.generate(5, (_) => GlobalKey());
   String rankNote = 'Drop a number onto the row; the closest slot wins.';
 
   // ---- Cross-cutting event log ----------------------------------------------
@@ -265,9 +267,9 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                 Text(
                   '1 — Anatomy of DragTargetDetails<T>',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: scheme.onPrimaryContainer,
-                    fontWeight: FontWeight.w700,
-                  ),
+                        color: scheme.onPrimaryContainer,
+                        fontWeight: FontWeight.w700,
+                      ),
                 ),
               ],
             ),
@@ -290,8 +292,16 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
               children: [
                 _statChip('Drops', '$totalDrops', Colors.green),
                 _statChip('Rejections', '$totalRejects', Colors.red),
-                _statChip('Last zone', lastZone ?? '—', Colors.blueGrey),
-                _statChip('Last data', lastDataDesc ?? '—', Colors.deepOrange),
+                _statChip(
+                  'Last zone',
+                  lastZone ?? '—',
+                  Colors.blueGrey,
+                ),
+                _statChip(
+                  'Last data',
+                  lastDataDesc ?? '—',
+                  Colors.deepOrange,
+                ),
                 _statChip(
                   'Last offset',
                   lastOffset == null ? '—' : fmtOffset(lastOffset!),
@@ -311,17 +321,17 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
   }
 
   Widget _statChip(String k, String v, Color c) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-    decoration: BoxDecoration(
-      color: c.withOpacity(0.15),
-      border: Border.all(color: c, width: 1),
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: Text(
-      '$k: $v',
-      style: TextStyle(color: c, fontWeight: FontWeight.w600),
-    ),
-  );
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: c.withOpacity(0.15),
+          border: Border.all(color: c, width: 1),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          '$k: $v',
+          style: TextStyle(color: c, fontWeight: FontWeight.w600),
+        ),
+      );
 
   // ===========================================================================
   // SECTION 2 — Simple Draggable<int> + DragTarget<int>
@@ -476,9 +486,13 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                 child: _basketTarget('fruits', fruits, Colors.redAccent),
               ),
               const SizedBox(width: 8),
-              Expanded(child: _basketTarget('veggies', veggies, Colors.green)),
+              Expanded(
+                child: _basketTarget('veggies', veggies, Colors.green),
+              ),
               const SizedBox(width: 8),
-              Expanded(child: _basketTarget('grains', grains, Colors.brown)),
+              Expanded(
+                child: _basketTarget('grains', grains, Colors.brown),
+              ),
             ],
           ),
         ],
@@ -528,8 +542,8 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
             color: hovering
                 ? color.withOpacity(0.20)
                 : rejecting
-                ? Colors.red.withOpacity(0.15)
-                : color.withOpacity(0.05),
+                    ? Colors.red.withOpacity(0.15)
+                    : color.withOpacity(0.05),
             border: Border.all(
               color: rejecting ? Colors.red : color,
               width: hovering || rejecting ? 3 : 1,
@@ -542,7 +556,10 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
               Text(
                 name.toUpperCase(),
                 textAlign: TextAlign.center,
-                style: TextStyle(color: color, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
@@ -650,8 +667,13 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
           height: 130,
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: hovering ? color.withOpacity(0.20) : color.withOpacity(0.06),
-            border: Border.all(color: color, width: hovering ? 3 : 1),
+            color: hovering
+                ? color.withOpacity(0.20)
+                : color.withOpacity(0.06),
+            border: Border.all(
+              color: color,
+              width: hovering ? 3 : 1,
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -660,7 +682,10 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
               Text(
                 kind.toUpperCase(),
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, color: color),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
@@ -774,14 +799,14 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                         color: hoverWouldAccept
                             ? Colors.green.withOpacity(0.10)
                             : (hoverGlobal != null
-                                  ? Colors.red.withOpacity(0.10)
-                                  : Colors.grey.withOpacity(0.05)),
+                                ? Colors.red.withOpacity(0.10)
+                                : Colors.grey.withOpacity(0.05)),
                         border: Border.all(
                           color: hoverWouldAccept
                               ? Colors.green
                               : (hoverGlobal != null
-                                    ? Colors.red
-                                    : Colors.grey),
+                                  ? Colors.red
+                                  : Colors.grey),
                           width: 2,
                         ),
                         borderRadius: BorderRadius.circular(10),
@@ -791,8 +816,8 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                         hoverGlobal == null
                             ? 'Hover an int chip here\n(only ≥ 20 is accepted)'
                             : hoverWouldAccept
-                            ? 'Release to accept'
-                            : 'Will reject',
+                                ? 'Release to accept'
+                                : 'Will reject',
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
@@ -938,8 +963,7 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
       onAcceptWithDetails: (details) {
         setState(() {
           visualLog.add(
-            '✓ accepted ${details.data} at $label ${fmtOffset(details.offset)}',
-          );
+              '✓ accepted ${details.data} at $label ${fmtOffset(details.offset)}');
           _record(
             zone: label,
             outcome: 'accept',
@@ -959,8 +983,8 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
             color: hovering
                 ? color.withOpacity(0.25)
                 : rejecting
-                ? Colors.red.withOpacity(0.20)
-                : color.withOpacity(0.05),
+                    ? Colors.red.withOpacity(0.20)
+                    : color.withOpacity(0.05),
             border: Border.all(
               color: rejecting ? Colors.red : color,
               width: hovering || rejecting ? 3 : 1,
@@ -969,7 +993,10 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
           ),
           child: Text(
             label,
-            style: TextStyle(fontWeight: FontWeight.w800, color: color),
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
           ),
         );
       },
@@ -992,7 +1019,8 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              for (final c in ['•A', '•B', '•C', '•D', '•E', '•F'])
+              for (final c
+                  in ['•A', '•B', '•C', '•D', '•E', '•F'])
                 Draggable<String>(
                   data: c,
                   feedback: _StrChip(label: c, dragging: true),
@@ -1139,23 +1167,23 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
   }
 
   TableRow _row(String k, String v) => TableRow(
-    children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-        child: Text(
-          k,
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
-            fontFamily: 'monospace',
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+            child: Text(
+              k,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-        child: Text(v, style: const TextStyle(fontFamily: 'monospace')),
-      ),
-    ],
-  );
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+            child: Text(v, style: const TextStyle(fontFamily: 'monospace')),
+          ),
+        ],
+      );
 
   // ===========================================================================
   // SECTION 9 — Trash can recipe
@@ -1199,7 +1227,10 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                 child: DragTarget<String>(
                   onAcceptWithDetails: (details) {
                     setState(() {
-                      trashed.add((item: details.data, offset: details.offset));
+                      trashed.add((
+                        item: details.data,
+                        offset: details.offset,
+                      ));
                       _record(
                         zone: 'trash',
                         outcome: 'accept',
@@ -1283,8 +1314,7 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                                     onPressed: () {
                                       setState(() {
                                         trashed.removeWhere(
-                                          (e) => e.item == t.item,
-                                        );
+                                            (e) => e.item == t.item);
                                       });
                                     },
                                     child: const Text('restore'),
@@ -1381,10 +1411,8 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                               ),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.teal,
-                                  width: 1,
-                                ),
+                                border:
+                                    Border.all(color: Colors.teal, width: 1),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
@@ -1572,21 +1600,18 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
         children: [
           const _Pitfall(
             title: 'Forgetting <T>',
-            body:
-                'DragTarget<int>() with Draggable<num>() will not match. '
+            body: 'DragTarget<int>() with Draggable<num>() will not match. '
                 'Both generics must agree, otherwise onWillAcceptWithDetails '
                 'is never even called.',
           ),
           const _Pitfall(
             title: 'Confusing global vs local offset',
-            body:
-                'details.offset is *global*. To draw inside the target you '
+            body: 'details.offset is *global*. To draw inside the target you '
                 'must convert via RenderBox.globalToLocal(details.offset).',
           ),
           const _Pitfall(
             title: 'Mutating the data field',
-            body:
-                'DragTargetDetails is immutable. Treat details.data as '
+            body: 'DragTargetDetails is immutable. Treat details.data as '
                 'read-only; clone it before modifying.',
           ),
           const _Pitfall(
@@ -1603,92 +1628,62 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
                 1: FlexColumnWidth(),
               },
               children: const [
-                TableRow(
-                  children: [
-                    Padding(
+                TableRow(children: [
+                  Padding(
+                    padding: EdgeInsets.all(6),
+                    child: Text('field/cb',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(6),
+                    child: Text('purpose',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                ]),
+                TableRow(children: [
+                  Padding(padding: EdgeInsets.all(6), child: Text('data')),
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text('payload of type T from Draggable<T>.data')),
+                ]),
+                TableRow(children: [
+                  Padding(padding: EdgeInsets.all(6), child: Text('offset')),
+                  Padding(
                       padding: EdgeInsets.all(6),
                       child: Text(
-                        'field/cb',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
+                          'global Offset of the pointer at the event time')),
+                ]),
+                TableRow(children: [
+                  Padding(
+                      padding: EdgeInsets.all(6),
+                      child: Text('onWillAcceptWithDetails')),
+                  Padding(
                       padding: EdgeInsets.all(6),
                       child: Text(
-                        'purpose',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(padding: EdgeInsets.all(6), child: Text('data')),
-                    Padding(
+                          'predicate decides whether the target highlights')),
+                ]),
+                TableRow(children: [
+                  Padding(
                       padding: EdgeInsets.all(6),
-                      child: Text('payload of type T from Draggable<T>.data'),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(padding: EdgeInsets.all(6), child: Text('offset')),
-                    Padding(
+                      child: Text('onAcceptWithDetails')),
+                  Padding(
                       padding: EdgeInsets.all(6),
                       child: Text(
-                        'global Offset of the pointer at the event time',
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(6),
-                      child: Text('onWillAcceptWithDetails'),
-                    ),
-                    Padding(
+                          'fires on a successful drop with the full details')),
+                ]),
+                TableRow(children: [
+                  Padding(padding: EdgeInsets.all(6), child: Text('onMove')),
+                  Padding(
                       padding: EdgeInsets.all(6),
                       child: Text(
-                        'predicate decides whether the target highlights',
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(
+                          'streams DragTargetDetails as the pointer moves')),
+                ]),
+                TableRow(children: [
+                  Padding(padding: EdgeInsets.all(6), child: Text('onLeave')),
+                  Padding(
                       padding: EdgeInsets.all(6),
-                      child: Text('onAcceptWithDetails'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(6),
-                      child: Text(
-                        'fires on a successful drop with the full details',
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(padding: EdgeInsets.all(6), child: Text('onMove')),
-                    Padding(
-                      padding: EdgeInsets.all(6),
-                      child: Text(
-                        'streams DragTargetDetails as the pointer moves',
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(padding: EdgeInsets.all(6), child: Text('onLeave')),
-                    Padding(
-                      padding: EdgeInsets.all(6),
-                      child: Text('fires when a candidate exits the target'),
-                    ),
-                  ],
-                ),
+                      child: Text('fires when a candidate exits the target')),
+                ]),
               ],
             ),
           ),
@@ -1751,9 +1746,12 @@ class _DragDetailsHomeState extends State<_DragDetailsHome> {
   // ===========================================================================
   Widget _buildPlatformFooter(BuildContext context, TargetPlatform platform) {
     final tip = switch (platform) {
-      TargetPlatform.android || TargetPlatform.iOS =>
+      TargetPlatform.android ||
+      TargetPlatform.iOS =>
         'On touch platforms, prefer LongPressDraggable so taps still work.',
-      TargetPlatform.macOS || TargetPlatform.linux || TargetPlatform.windows =>
+      TargetPlatform.macOS ||
+      TargetPlatform.linux ||
+      TargetPlatform.windows =>
         'On desktop, regular Draggable feels native because of the cursor.',
       TargetPlatform.fuchsia => 'Fuchsia: behaves like a desktop platform.',
     };
@@ -1802,9 +1800,9 @@ class _SectionCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
             ),
             const SizedBox(height: 4),
             Text(
@@ -1998,7 +1996,10 @@ class _Pitfall extends StatelessWidget {
             children: [
               const Icon(Icons.warning_amber, color: Colors.amber, size: 18),
               const SizedBox(width: 6),
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
+              Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.w800),
+              ),
             ],
           ),
           const SizedBox(height: 4),

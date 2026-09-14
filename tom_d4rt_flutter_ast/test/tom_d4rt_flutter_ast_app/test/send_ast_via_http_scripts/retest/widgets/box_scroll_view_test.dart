@@ -15,7 +15,11 @@ enum _DemoStage {
   compendium,
 }
 
-enum _CanvasPattern { wave, grid, rings }
+enum _CanvasPattern {
+  wave,
+  grid,
+  rings,
+}
 
 class _Palette {
   final String name;
@@ -136,9 +140,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
 
   _Palette get _p => _palettes[_paletteIndex];
 
-  ScrollPhysics get _physics => _bouncingPhysics
-      ? const BouncingScrollPhysics()
-      : const ClampingScrollPhysics();
+  ScrollPhysics get _physics => _bouncingPhysics ? const BouncingScrollPhysics() : const ClampingScrollPhysics();
 
   static const _stageTitles = <String>[
     '1 Fundamentals Studio',
@@ -156,12 +158,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
   }
 
   void _log(String lane, String message, Color tone) {
-    final event = _LogEvent(
-      at: DateTime.now(),
-      lane: lane,
-      message: message,
-      tone: tone,
-    );
+    final event = _LogEvent(at: DateTime.now(), lane: lane, message: message, tone: tone);
     setState(() {
       _events.insert(0, event);
       if (_events.length > 120) {
@@ -197,7 +194,10 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                 children: <Widget>[
                   Expanded(child: _stageBody()),
                   if (_showTimeline)
-                    SizedBox(width: 360, child: _timelinePanel()),
+                    SizedBox(
+                      width: 360,
+                      child: _timelinePanel(),
+                    ),
                 ],
               ),
             ),
@@ -224,11 +224,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(
-                Icons.view_stream_outlined,
-                color: Colors.white,
-                size: 27,
-              ),
+              const Icon(Icons.view_stream_outlined, color: Colors.white, size: 27),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -241,10 +237,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -286,24 +279,10 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text(
-            'Stage',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Stage', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           for (var i = 0; i < _stageTitles.length; i++) _stageChip(i),
           const SizedBox(width: 10),
-          Text(
-            'Palette',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
           _toggleChip('timeline', _showTimeline, (v) => _showTimeline = v),
@@ -338,11 +317,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
     return GestureDetector(
       onTap: () {
         setState(() => _paletteIndex = index);
-        _log(
-          'palette',
-          'palette changed to ${_palettes[index].name}',
-          _palettes[index].accentA,
-        );
+        _log('palette', 'palette changed to ${_palettes[index].name}', _palettes[index].accentA);
       },
       child: Container(
         width: 21,
@@ -351,9 +326,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
           border: Border.all(
-            color: _paletteIndex == index
-                ? _palettes[index].accentC
-                : Colors.transparent,
+            color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent,
             width: 2,
           ),
         ),
@@ -361,22 +334,14 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
     );
   }
 
-  Widget _toggleChip(
-    String label,
-    bool value,
-    void Function(bool value) assign,
-  ) {
+  Widget _toggleChip(String label, bool value, void Function(bool value) assign) {
     return FilterChip(
       selected: value,
       selectedColor: _p.accentA.withValues(alpha: 0.19),
       backgroundColor: Colors.white,
       checkmarkColor: _p.accentA,
       label: Text(label),
-      labelStyle: TextStyle(
-        color: _p.ink,
-        fontWeight: FontWeight.w700,
-        fontSize: 11,
-      ),
+      labelStyle: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11),
       onSelected: (selected) => setState(() => assign(selected)),
     );
   }
@@ -435,19 +400,9 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(
-                color: _p.ink,
-                fontWeight: FontWeight.w800,
-                fontSize: 12.8,
-              ),
-            ),
+            Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.8)),
             const SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33),
-            ),
+            Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33)),
             const SizedBox(height: 10),
             child,
           ],
@@ -484,10 +439,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                   color: _p.accentA,
                   onChanged: (v) {
                     setState(() => _fundamentalCount = v.round());
-                    _recordControl(
-                      'fundamentals',
-                      'item count -> ${v.round()}',
-                    );
+                    _recordControl('fundamentals', 'item count -> ${v.round()}');
                   },
                 ),
                 _slider(
@@ -499,10 +451,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                   color: _p.accentB,
                   onChanged: (v) {
                     setState(() => _itemExtent = v);
-                    _recordControl(
-                      'fundamentals',
-                      'item extent -> ${v.toStringAsFixed(1)}',
-                    );
+                    _recordControl('fundamentals', 'item extent -> ${v.toStringAsFixed(1)}');
                   },
                 ),
                 _slider(
@@ -524,8 +473,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
               Expanded(
                 child: _panel(
                   title: 'Custom BoxScrollView Preview',
-                  subtitle:
-                      'Subclass: _PaletteStripBoxScrollView with SliverFixedExtentList layout.',
+                  subtitle: 'Subclass: _PaletteStripBoxScrollView with SliverFixedExtentList layout.',
                   tint: _p.accentA.withValues(alpha: 0.04),
                   child: _deviceShell(
                     title: 'Custom list model',
@@ -543,57 +491,33 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                           return GestureDetector(
                             onTap: () {
                               setState(() => _fundamentalIndex = index);
-                              _recordTap(
-                                'fundamentals',
-                                index,
-                                'row ${index + 1}',
-                              );
+                              _recordTap('fundamentals', index, 'row ${index + 1}');
                             },
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 8),
                               decoration: BoxDecoration(
-                                color: tone.withValues(
-                                  alpha: selected ? 0.16 : 0.1,
-                                ),
+                                color: tone.withValues(alpha: selected ? 0.16 : 0.1),
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: tone.withValues(alpha: 0.28),
-                                ),
+                                border: Border.all(color: tone.withValues(alpha: 0.28)),
                               ),
                               child: Row(
                                 children: <Widget>[
                                   const SizedBox(width: 10),
                                   CircleAvatar(
                                     radius: 13,
-                                    backgroundColor: tone.withValues(
-                                      alpha: 0.3,
-                                    ),
-                                    child: Text(
-                                      '${index + 1}',
-                                      style: TextStyle(
-                                        color: _p.ink,
-                                        fontSize: 10,
-                                      ),
-                                    ),
+                                    backgroundColor: tone.withValues(alpha: 0.3),
+                                    child: Text('${index + 1}', style: TextStyle(color: _p.ink, fontSize: 10)),
                                   ),
                                   const SizedBox(width: 10),
                                   Expanded(
                                     child: Text(
                                       'BoxScroll row ${index + 1}',
-                                      style: TextStyle(
-                                        color: _p.ink,
-                                        fontSize: 12.2,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                      style: TextStyle(color: _p.ink, fontSize: 12.2, fontWeight: FontWeight.w700),
                                     ),
                                   ),
                                   Text(
                                     'extent ${_itemExtent.toStringAsFixed(0)}',
-                                    style: TextStyle(
-                                      color: _p.muted,
-                                      fontSize: 9.8,
-                                      fontFamily: 'monospace',
-                                    ),
+                                    style: TextStyle(color: _p.muted, fontSize: 9.8, fontFamily: 'monospace'),
                                   ),
                                   const SizedBox(width: 8),
                                 ],
@@ -616,18 +540,10 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet(
-                          'BoxScrollView maps one layout model to one sliver list in buildSlivers.',
-                        ),
-                        _bullet(
-                          'Subclasses implement buildChildLayout for list/grid style layouts.',
-                        ),
-                        _bullet(
-                          'padding is handled by BoxScrollView and wrapped into SliverPadding.',
-                        ),
-                        _bullet(
-                          'ScrollView-level properties like physics and reverse are inherited.',
-                        ),
+                        _bullet('BoxScrollView maps one layout model to one sliver list in buildSlivers.'),
+                        _bullet('Subclasses implement buildChildLayout for list/grid style layouts.'),
+                        _bullet('padding is handled by BoxScrollView and wrapped into SliverPadding.'),
+                        _bullet('ScrollView-level properties like physics and reverse are inherited.'),
                       ],
                     ),
                   ),
@@ -683,10 +599,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                   color: _p.accentB,
                   onChanged: (v) {
                     setState(() => _crossAxisCount = v.round());
-                    _recordControl(
-                      'gallery',
-                      'cross axis count -> ${v.round()}',
-                    );
+                    _recordControl('gallery', 'cross axis count -> ${v.round()}');
                   },
                 ),
                 _slider(
@@ -698,10 +611,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                   color: _p.accentC,
                   onChanged: (v) {
                     setState(() => _tileExtent = v);
-                    _recordControl(
-                      'gallery',
-                      'tile extent -> ${v.toStringAsFixed(1)}',
-                    );
+                    _recordControl('gallery', 'tile extent -> ${v.toStringAsFixed(1)}');
                   },
                 ),
               ],
@@ -723,40 +633,26 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                       height: _surfaceHeight,
                       child: _PaletteListBoxScrollView(
                         itemCount: _fundamentalCount,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: _paddingValue,
-                          vertical: 12,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: _paddingValue, vertical: 12),
                         physics: _physics,
                         itemBuilder: (context, index) {
                           final selected = index == _galleryListIndex;
                           return GestureDetector(
                             onTap: () {
                               setState(() => _galleryListIndex = index);
-                              _recordTap(
-                                'gallery-linear',
-                                index,
-                                'line ${index + 1}',
-                              );
+                              _recordTap('gallery-linear', index, 'line ${index + 1}');
                             },
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 8),
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: (selected ? _p.accentA : _p.accentB)
-                                    .withValues(alpha: 0.12),
+                                color: (selected ? _p.accentA : _p.accentB).withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: _p.muted.withValues(alpha: 0.24),
-                                ),
+                                border: Border.all(color: _p.muted.withValues(alpha: 0.24)),
                               ),
                               child: Text(
                                 'Linear tile ${index + 1}',
-                                style: TextStyle(
-                                  color: _p.ink,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 11.8,
-                                ),
+                                style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.8),
                               ),
                             ),
                           );
@@ -789,28 +685,18 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                           return GestureDetector(
                             onTap: () {
                               setState(() => _galleryGridIndex = index);
-                              _recordTap(
-                                'gallery-grid',
-                                index,
-                                'tile ${index + 1}',
-                              );
+                              _recordTap('gallery-grid', index, 'tile ${index + 1}');
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 color: tone.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: tone.withValues(alpha: 0.28),
-                                ),
+                                border: Border.all(color: tone.withValues(alpha: 0.28)),
                               ),
                               child: Center(
                                 child: Text(
                                   '${index + 1}',
-                                  style: TextStyle(
-                                    color: _p.ink,
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 17,
-                                  ),
+                                  style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 17),
                                 ),
                               ),
                             ),
@@ -829,9 +715,9 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
   }
 
   Widget _paddingLensStage() {
-    final simulatedMedia = MediaQueryData.fromView(
-      View.of(context),
-    ).copyWith(padding: const EdgeInsets.fromLTRB(18, 26, 14, 18));
+    final simulatedMedia = MediaQueryData.fromView(View.of(context)).copyWith(
+      padding: const EdgeInsets.fromLTRB(18, 26, 14, 18),
+    );
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -847,8 +733,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Padding Controls',
-            subtitle:
-                'Switch explicit padding and compare with automatic MediaQuery padding behavior.',
+            subtitle: 'Switch explicit padding and compare with automatic MediaQuery padding behavior.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -866,10 +751,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                   color: _p.accentA,
                   onChanged: (v) {
                     setState(() => _paddingValue = v);
-                    _recordControl(
-                      'padding-lens',
-                      'padding value -> ${v.toStringAsFixed(1)}',
-                    );
+                    _recordControl('padding-lens', 'padding value -> ${v.toStringAsFixed(1)}');
                   },
                 ),
               ],
@@ -882,8 +764,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
               Expanded(
                 child: _panel(
                   title: 'Auto MediaQuery Padding',
-                  subtitle:
-                      'padding=null allows BoxScrollView to consume main-axis safe padding.',
+                  subtitle: 'padding=null allows BoxScrollView to consume main-axis safe padding.',
                   tint: _p.accentA.withValues(alpha: 0.04),
                   child: MediaQuery(
                     data: simulatedMedia,
@@ -910,8 +791,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
               Expanded(
                 child: _panel(
                   title: 'Explicit Padding',
-                  subtitle:
-                      'padding=EdgeInsets overrides default auto main-axis behavior.',
+                  subtitle: 'padding=EdgeInsets overrides default auto main-axis behavior.',
                   tint: _p.accentB.withValues(alpha: 0.04),
                   child: MediaQuery(
                     data: simulatedMedia,
@@ -953,14 +833,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 11.8,
-            ),
-          ),
+          Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.8)),
           const SizedBox(height: 3),
           Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 10.2)),
         ],
@@ -986,8 +859,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Axis Controls',
-            subtitle:
-                'Switch direction and behavior flags in a custom BoxScrollView subclass.',
+            subtitle: 'Switch direction and behavior flags in a custom BoxScrollView subclass.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -1019,8 +891,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Axis Preview Surface',
-            subtitle:
-                'Tap cards to track flow under different axis and reverse settings.',
+            subtitle: 'Tap cards to track flow under different axis and reverse settings.',
             tint: _p.accentC.withValues(alpha: 0.05),
             child: SizedBox(
               height: 470,
@@ -1039,26 +910,19 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                     itemExtent: itemExtent,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () =>
-                            _recordTap('axis-lab', index, 'card ${index + 1}'),
+                        onTap: () => _recordTap('axis-lab', index, 'card ${index + 1}'),
                         child: Container(
                           width: _horizontalAxis ? 150 : null,
                           margin: const EdgeInsets.only(bottom: 8, right: 8),
                           decoration: BoxDecoration(
                             color: _p.accentA.withValues(alpha: 0.14),
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: _p.accentA.withValues(alpha: 0.3),
-                            ),
+                            border: Border.all(color: _p.accentA.withValues(alpha: 0.3)),
                           ),
                           child: Center(
                             child: Text(
                               'Card ${index + 1}',
-                              style: TextStyle(
-                                color: _p.ink,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 12,
-                              ),
+                              style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
                             ),
                           ),
                         ),
@@ -1140,18 +1004,10 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _bullet(
-                    'Subclass BoxScrollView when one child layout model is sufficient.',
-                  ),
-                  _bullet(
-                    'Use CustomScrollView when combining multiple sliver families.',
-                  ),
-                  _bullet(
-                    'Expose high-level parameters while preserving ScrollView behavior options.',
-                  ),
-                  _bullet(
-                    'Keep buildChildLayout focused on sliver model composition only.',
-                  ),
+                  _bullet('Subclass BoxScrollView when one child layout model is sufficient.'),
+                  _bullet('Use CustomScrollView when combining multiple sliver families.'),
+                  _bullet('Expose high-level parameters while preserving ScrollView behavior options.'),
+                  _bullet('Keep buildChildLayout focused on sliver model composition only.'),
                 ],
               ),
             ),
@@ -1179,14 +1035,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w800,
-              fontSize: 12.2,
-            ),
-          ),
+          Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.2)),
           const SizedBox(height: 6),
           _codeLine('runtimeType', runtimeType),
           _codeLine('is BoxScrollView', '$isBox'),
@@ -1214,9 +1063,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
               ),
             ),
           ),
-          Expanded(
-            child: Text(value, style: TextStyle(color: _p.ink, fontSize: 10.8)),
-          ),
+          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 10.8))),
         ],
       ),
     );
@@ -1235,30 +1082,12 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
             subtitle: 'Concept and API coverage summary.',
             child: Column(
               children: <Widget>[
-                _matrix(
-                  'Core role',
-                  'Abstract ScrollView with a single child layout model.',
-                ),
-                _matrix(
-                  'Subclass contract',
-                  'Implement buildChildLayout(BuildContext) and return one sliver model widget.',
-                ),
-                _matrix(
-                  'Padding behavior',
-                  'padding null can consume MediaQuery main-axis safe padding; explicit padding uses SliverPadding.',
-                ),
-                _matrix(
-                  'Inherited controls',
-                  'scrollDirection, reverse, physics, shrinkWrap, and more are inherited from ScrollView.',
-                ),
-                _matrix(
-                  'Typical subclasses',
-                  'ListView, GridView, and app-specific one-model scroll views.',
-                ),
-                _matrix(
-                  'When not enough',
-                  'Use CustomScrollView for multi-model sliver composition.',
-                ),
+                _matrix('Core role', 'Abstract ScrollView with a single child layout model.'),
+                _matrix('Subclass contract', 'Implement buildChildLayout(BuildContext) and return one sliver model widget.'),
+                _matrix('Padding behavior', 'padding null can consume MediaQuery main-axis safe padding; explicit padding uses SliverPadding.'),
+                _matrix('Inherited controls', 'scrollDirection, reverse, physics, shrinkWrap, and more are inherited from ScrollView.'),
+                _matrix('Typical subclasses', 'ListView, GridView, and app-specific one-model scroll views.'),
+                _matrix('When not enough', 'Use CustomScrollView for multi-model sliver composition.'),
               ],
             ),
           ),
@@ -1271,28 +1100,22 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                 _doDont(
                   good: true,
                   title: 'Do keep buildChildLayout focused on one sliver model',
-                  detail:
-                      'This preserves BoxScrollView intent and reduces complexity.',
+                  detail: 'This preserves BoxScrollView intent and reduces complexity.',
                 ),
                 _doDont(
                   good: true,
-                  title:
-                      'Do expose key ScrollView options in subclass constructors',
-                  detail:
-                      'Forward common parameters like reverse, physics, and padding.',
+                  title: 'Do expose key ScrollView options in subclass constructors',
+                  detail: 'Forward common parameters like reverse, physics, and padding.',
                 ),
                 _doDont(
                   good: false,
-                  title:
-                      'Dont stack unrelated sliver families in one BoxScrollView subclass',
-                  detail:
-                      'Use CustomScrollView when composition exceeds one layout model.',
+                  title: 'Dont stack unrelated sliver families in one BoxScrollView subclass',
+                  detail: 'Use CustomScrollView when composition exceeds one layout model.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont ignore padding semantics with MediaQuery',
-                  detail:
-                      'Understand auto padding behavior when padding is null.',
+                  detail: 'Understand auto padding behavior when padding is null.',
                 ),
               ],
             ),
@@ -1329,21 +1152,11 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _check(
-                  'Fundamentals stage demonstrates a manual BoxScrollView subclass using SliverFixedExtentList.',
-                ),
-                _check(
-                  'Layout gallery demonstrates distinct child layout models via different subclasses.',
-                ),
-                _check(
-                  'Padding lens visualizes automatic and explicit padding semantics.',
-                ),
-                _check(
-                  'Axis lab demonstrates reverse, direction, shrinkWrap, and physics behavior controls.',
-                ),
-                _check(
-                  'Inheritance deck confirms built-in and custom types as BoxScrollView derivatives.',
-                ),
+                _check('Fundamentals stage demonstrates a manual BoxScrollView subclass using SliverFixedExtentList.'),
+                _check('Layout gallery demonstrates distinct child layout models via different subclasses.'),
+                _check('Padding lens visualizes automatic and explicit padding semantics.'),
+                _check('Axis lab demonstrates reverse, direction, shrinkWrap, and physics behavior controls.'),
+                _check('Inheritance deck confirms built-in and custom types as BoxScrollView derivatives.'),
               ],
             ),
           ),
@@ -1391,12 +1204,8 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: _p.canvas,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(18),
-              ),
-              border: Border(
-                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
+              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
             ),
             child: Row(
               children: <Widget>[
@@ -1404,11 +1213,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                 const Spacer(),
                 Text(
                   selectedLabel,
-                  style: TextStyle(
-                    color: _p.muted,
-                    fontSize: 10.3,
-                    fontFamily: 'monospace',
-                  ),
+                  style: TextStyle(color: _p.muted, fontSize: 10.3, fontFamily: 'monospace'),
                 ),
               ],
             ),
@@ -1439,17 +1244,12 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            _p.accentA.withValues(alpha: 0.24),
-            _p.accentB.withValues(alpha: 0.24),
-          ],
+          colors: <Color>[_p.accentA.withValues(alpha: 0.24), _p.accentB.withValues(alpha: 0.24)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      child: CustomPaint(
-        painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2)),
-      ),
+      child: CustomPaint(painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2))),
     );
   }
 
@@ -1457,17 +1257,12 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            _p.accentB.withValues(alpha: 0.24),
-            _p.accentC.withValues(alpha: 0.24),
-          ],
+          colors: <Color>[_p.accentB.withValues(alpha: 0.24), _p.accentC.withValues(alpha: 0.24)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
       ),
-      child: CustomPaint(
-        painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22)),
-      ),
+      child: CustomPaint(painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22))),
     );
   }
 
@@ -1475,31 +1270,16 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            _p.accentC.withValues(alpha: 0.24),
-            _p.accentA.withValues(alpha: 0.24),
-          ],
+          colors: <Color>[_p.accentC.withValues(alpha: 0.24), _p.accentA.withValues(alpha: 0.24)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
       ),
       child: Stack(
         children: <Widget>[
-          Positioned(
-            left: 24,
-            top: 24,
-            child: _ring(88, Colors.white.withValues(alpha: 0.16)),
-          ),
-          Positioned(
-            right: 30,
-            top: 40,
-            child: _ring(68, Colors.white.withValues(alpha: 0.15)),
-          ),
-          Positioned(
-            left: 110,
-            bottom: 28,
-            child: _ring(110, Colors.white.withValues(alpha: 0.13)),
-          ),
+          Positioned(left: 24, top: 24, child: _ring(88, Colors.white.withValues(alpha: 0.16))),
+          Positioned(right: 30, top: 40, child: _ring(68, Colors.white.withValues(alpha: 0.15))),
+          Positioned(left: 110, bottom: 28, child: _ring(110, Colors.white.withValues(alpha: 0.13))),
         ],
       ),
     );
@@ -1529,10 +1309,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
       children: <Widget>[
         SizedBox(
           width: 168,
-          child: Text(
-            '$label: ${value.toStringAsFixed(1)}',
-            style: TextStyle(color: _p.ink, fontSize: 12),
-          ),
+          child: Text('$label: ${value.toStringAsFixed(1)}', style: TextStyle(color: _p.ink, fontSize: 12)),
         ),
         Expanded(
           child: Slider(
@@ -1563,14 +1340,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
         children: <Widget>[
           SizedBox(
             width: 90,
-            child: Text(
-              label,
-              style: TextStyle(
-                color: _p.ink,
-                fontSize: 11.3,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            child: Text(label, style: TextStyle(color: _p.ink, fontSize: 11.3, fontWeight: FontWeight.w700)),
           ),
           Expanded(
             child: Slider(
@@ -1613,11 +1383,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
       ),
       child: Text(
         '$label: $value',
-        style: TextStyle(
-          color: _p.ink,
-          fontSize: 10.2,
-          fontWeight: FontWeight.w700,
-        ),
+        style: TextStyle(color: _p.ink, fontSize: 10.2, fontWeight: FontWeight.w700),
       ),
     );
   }
@@ -1630,9 +1396,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
         children: <Widget>[
           Icon(Icons.chevron_right, size: 16, color: _p.accentA),
           const SizedBox(width: 4),
-          Expanded(
-            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1)),
-          ),
+          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1))),
         ],
       ),
     );
@@ -1662,22 +1426,13 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
               ),
             ),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33),
-            ),
-          ),
+          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33))),
         ],
       ),
     );
   }
 
-  Widget _doDont({
-    required bool good,
-    required String title,
-    required String detail,
-  }) {
+  Widget _doDont({required bool good, required String title, required String detail}) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1696,23 +1451,9 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: _p.ink,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
+                Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
                 const SizedBox(height: 4),
-                Text(
-                  detail,
-                  style: TextStyle(
-                    color: _p.muted,
-                    fontSize: 11.1,
-                    height: 1.32,
-                  ),
-                ),
+                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.32)),
               ],
             ),
           ),
@@ -1733,19 +1474,9 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Q: $q',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 11.9,
-            ),
-          ),
+          Text('Q: $q', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.9)),
           const SizedBox(height: 4),
-          Text(
-            'A: $a',
-            style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33),
-          ),
+          Text('A: $a', style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33)),
         ],
       ),
     );
@@ -1759,9 +1490,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 17),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3)),
-          ),
+          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3))),
         ],
       ),
     );
@@ -1771,9 +1500,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
     return Container(
       decoration: BoxDecoration(
         color: _p.card,
-        border: Border(
-          left: BorderSide(color: _p.muted.withValues(alpha: 0.25)),
-        ),
+        border: Border(left: BorderSide(color: _p.muted.withValues(alpha: 0.25))),
       ),
       child: Column(
         children: <Widget>[
@@ -1782,21 +1509,12 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
             padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
             decoration: BoxDecoration(
               color: _p.accentA.withValues(alpha: 0.08),
-              border: Border(
-                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
-              ),
+              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Scroll Timeline',
-                  style: TextStyle(
-                    color: _p.ink,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 13.2,
-                  ),
-                ),
+                Text('Scroll Timeline', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.2)),
                 const SizedBox(height: 4),
                 Text(
                   'Logs for BoxScrollView control changes and item interactions.',
@@ -1827,9 +1545,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                   decoration: BoxDecoration(
                     color: event.tone.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: event.tone.withValues(alpha: 0.26),
-                    ),
+                    border: Border.all(color: event.tone.withValues(alpha: 0.26)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1858,14 +1574,7 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        event.message,
-                        style: TextStyle(
-                          color: _p.ink,
-                          fontSize: 11.1,
-                          height: 1.31,
-                        ),
-                      ),
+                      Text(event.message, style: TextStyle(color: _p.ink, fontSize: 11.1, height: 1.31)),
                     ],
                   ),
                 );
@@ -1891,19 +1600,9 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
       color: _p.shell.withValues(alpha: 0.07),
       child: Row(
         children: <Widget>[
-          Text(
-            _stageTitles[_stage.index],
-            style: TextStyle(
-              color: _p.muted,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(_stageTitles[_stage.index], style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700)),
           const Spacer(),
-          Text(
-            'Palette: ${_p.name}',
-            style: TextStyle(color: _p.muted, fontSize: 11.1),
-          ),
+          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11.1)),
         ],
       ),
     );
@@ -1924,7 +1623,10 @@ class _PaletteListBoxScrollView extends BoxScrollView {
   @override
   Widget buildChildLayout(BuildContext context) {
     return SliverList(
-      delegate: SliverChildBuilderDelegate(itemBuilder, childCount: itemCount),
+      delegate: SliverChildBuilderDelegate(
+        itemBuilder,
+        childCount: itemCount,
+      ),
     );
   }
 }
@@ -1947,7 +1649,10 @@ class _PaletteGridBoxScrollView extends BoxScrollView {
   @override
   Widget buildChildLayout(BuildContext context) {
     return SliverGrid(
-      delegate: SliverChildBuilderDelegate(itemBuilder, childCount: itemCount),
+      delegate: SliverChildBuilderDelegate(
+        itemBuilder,
+        childCount: itemCount,
+      ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         mainAxisExtent: tileExtent,
@@ -1978,7 +1683,10 @@ class _PaletteStripBoxScrollView extends BoxScrollView {
   Widget buildChildLayout(BuildContext context) {
     return SliverFixedExtentList(
       itemExtent: itemExtent,
-      delegate: SliverChildBuilderDelegate(itemBuilder, childCount: itemCount),
+      delegate: SliverChildBuilderDelegate(
+        itemBuilder,
+        childCount: itemCount,
+      ),
     );
   }
 }

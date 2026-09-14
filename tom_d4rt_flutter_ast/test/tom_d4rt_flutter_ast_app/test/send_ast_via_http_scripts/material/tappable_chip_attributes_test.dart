@@ -95,7 +95,10 @@ class _MatrixRow {
 }
 
 class _TapHeatPainter extends CustomPainter {
-  _TapHeatPainter({required this.tapCounts, required this.primary});
+  _TapHeatPainter({
+    required this.tapCounts,
+    required this.primary,
+  });
 
   final Map<String, int> tapCounts;
   final Color primary;
@@ -119,9 +122,7 @@ class _TapHeatPainter extends CustomPainter {
       'dense',
     ];
 
-    final int maxCount = tapCounts.values.isEmpty
-        ? 1
-        : tapCounts.values.reduce(math.max);
+    final int maxCount = tapCounts.values.isEmpty ? 1 : tapCounts.values.reduce(math.max);
     final double cellWidth = (size.width - 24) / 4;
     final double cellHeight = (size.height - 30) / 2;
 
@@ -182,8 +183,7 @@ class _TapHeatPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _TapHeatPainter oldDelegate) {
-    return oldDelegate.primary != primary ||
-        oldDelegate.tapCounts.toString() != tapCounts.toString();
+    return oldDelegate.primary != primary || oldDelegate.tapCounts.toString() != tapCounts.toString();
   }
 }
 
@@ -297,20 +297,17 @@ dynamic build(BuildContext context) {
     const _MatrixRow(
       topic: 'onPressed != null',
       effect: 'Chip becomes interactive with tactile feedback.',
-      guidance:
-          'Use for immediate actions where single-tap execution is expected.',
+      guidance: 'Use for immediate actions where single-tap execution is expected.',
     ),
     const _MatrixRow(
       topic: 'onPressed == null',
       effect: 'Chip is visually and semantically disabled.',
-      guidance:
-          'Reserve for unavailable states and explain why with helper text.',
+      guidance: 'Reserve for unavailable states and explain why with helper text.',
     ),
     const _MatrixRow(
       topic: 'Higher pressElevation',
       effect: 'Pressed state appears stronger and more prominent.',
-      guidance:
-          'Apply in contexts where action confirmation should feel explicit.',
+      guidance: 'Apply in contexts where action confirmation should feel explicit.',
     ),
     const _MatrixRow(
       topic: 'Tooltip enabled',
@@ -324,8 +321,7 @@ dynamic build(BuildContext context) {
     ),
     const _MatrixRow(
       topic: 'Mixed chip families',
-      effect:
-          'Different behaviors can coexist with shared interaction language.',
+      effect: 'Different behaviors can coexist with shared interaction language.',
       guidance: 'Unify colors and elevation values to maintain consistent UX.',
     ),
   ];
@@ -387,10 +383,7 @@ dynamic build(BuildContext context) {
   }
 
   void addEvent(String title, String detail, Color color) {
-    timeline.insert(
-      0,
-      _TimelineEvent(title: title, detail: detail, color: color),
-    );
+    timeline.insert(0, _TimelineEvent(title: title, detail: detail, color: color));
     if (timeline.length > 40) {
       timeline.removeLast();
     }
@@ -436,18 +429,14 @@ dynamic build(BuildContext context) {
   }
 
   Color activeFill() {
-    return highContrast
-        ? primary.withValues(alpha: 0.3)
-        : primary.withValues(alpha: 0.18);
+    return highContrast ? primary.withValues(alpha: 0.3) : primary.withValues(alpha: 0.18);
   }
 
   TextStyle chipTextStyle() {
     return TextStyle(
       fontSize: (12 * labelScale).clamp(10, 18),
       fontWeight: denseMode ? FontWeight.w600 : FontWeight.w700,
-      color: highContrast
-          ? primary.withValues(alpha: 1)
-          : primary.withValues(alpha: 0.95),
+      color: highContrast ? primary.withValues(alpha: 1) : primary.withValues(alpha: 0.95),
     );
   }
 
@@ -483,17 +472,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 title,
-                style: TextStyle(
-                  color: primary,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 18,
-                ),
+                style: TextStyle(color: primary, fontWeight: FontWeight.w800, fontSize: 18),
               ),
               const SizedBox(height: 2),
-              Text(
-                subtitle,
-                style: TextStyle(color: Colors.blueGrey.shade700, height: 1.3),
-              ),
+              Text(subtitle, style: TextStyle(color: Colors.blueGrey.shade700, height: 1.3)),
             ],
           ),
         ),
@@ -538,19 +520,12 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 metric.label,
-                style: TextStyle(
-                  color: metric.color,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: metric.color, fontWeight: FontWeight.w700, fontSize: 12),
               ),
               const SizedBox(height: 4),
               Text(
                 metric.value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
               ),
             ],
           ),
@@ -582,15 +557,9 @@ dynamic build(BuildContext context) {
           Row(
             children: <Widget>[
               Expanded(
-                child: Text(
-                  label,
-                  style: TextStyle(color: color, fontWeight: FontWeight.w700),
-                ),
+                child: Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
               ),
-              Text(
-                valueLabel,
-                style: TextStyle(color: color, fontWeight: FontWeight.w800),
-              ),
+              Text(valueLabel, style: TextStyle(color: color, fontWeight: FontWeight.w800)),
             ],
           ),
           SliderTheme(
@@ -614,10 +583,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget presetCard(
-    _ChipPreset preset,
-    void Function(void Function()) setState,
-  ) {
+  Widget presetCard(_ChipPreset preset, void Function(void Function()) setState) {
     return Container(
       width: 320,
       margin: const EdgeInsets.only(right: 12, bottom: 12),
@@ -636,11 +602,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             preset.title,
-            style: TextStyle(
-              color: preset.primary,
-              fontWeight: FontWeight.w800,
-              fontSize: 16,
-            ),
+            style: TextStyle(color: preset.primary, fontWeight: FontWeight.w800, fontSize: 16),
           ),
           const SizedBox(height: 2),
           Text(
@@ -650,11 +612,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           Text(
             preset.note,
-            style: TextStyle(
-              color: Colors.blueGrey.shade700,
-              fontSize: 12,
-              height: 1.34,
-            ),
+            style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12, height: 1.34),
           ),
           const SizedBox(height: 10),
           Wrap(
@@ -694,17 +652,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  List<Widget> buildRawChipSet(
-    void Function(void Function()) setState, {
-    required bool compact,
-  }) {
+  List<Widget> buildRawChipSet(void Function(void Function()) setState, {required bool compact}) {
     final List<Widget> chips = <Widget>[];
     final int count = chipCount.clamp(4, 14);
     for (int i = 0; i < count; i++) {
       final bool enabled = chipActionsEnabled || (i % 3 != 0);
-      final String label = showLongLabels
-          ? 'Raw action chip ${i + 1}'
-          : 'Raw ${i + 1}';
+      final String label = showLongLabels ? 'Raw action chip ${i + 1}' : 'Raw ${i + 1}';
       final Widget chip = RawChip(
         label: Text(label, style: chipTextStyle()),
         tooltip: enableTooltips ? 'RawChip $i action' : null,
@@ -719,9 +672,7 @@ dynamic build(BuildContext context) {
             : null,
         pressElevation: pressElevation,
         backgroundColor: secondary.withValues(alpha: compact ? 0.18 : 0.14),
-        side: BorderSide(
-          color: primary.withValues(alpha: enabled ? 0.3 : 0.14),
-        ),
+        side: BorderSide(color: primary.withValues(alpha: enabled ? 0.3 : 0.14)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius.clamp(6, 28)),
         ),
@@ -749,11 +700,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(
-              color: panelColor,
-              fontWeight: FontWeight.w800,
-              fontSize: 16,
-            ),
+            style: TextStyle(color: panelColor, fontWeight: FontWeight.w800, fontSize: 16),
           ),
           const SizedBox(height: 2),
           Text(subtitle, style: TextStyle(color: Colors.blueGrey.shade700)),
@@ -764,10 +711,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget selectableBoard(
-    void Function(void Function()) setState, {
-    required bool compact,
-  }) {
+  Widget selectableBoard(void Function(void Function()) setState, {required bool compact}) {
     return chipPanel(
       title: compact ? 'Dense Selection Board' : 'Selection Matrix Board',
       subtitle: compact
@@ -790,10 +734,7 @@ dynamic build(BuildContext context) {
               wrapTooltip(
                 message: 'input-chip-toggle',
                 child: InputChip(
-                  label: Text(
-                    showLongLabels ? 'Input Assignee' : 'Input',
-                    style: chipTextStyle(),
-                  ),
+                  label: Text(showLongLabels ? 'Input Assignee' : 'Input', style: chipTextStyle()),
                   selected: inputSelected,
                   tooltip: enableTooltips ? 'Toggle input chip' : null,
                   pressElevation: pressElevation,
@@ -821,10 +762,7 @@ dynamic build(BuildContext context) {
               wrapTooltip(
                 message: 'choice-chip-0',
                 child: ChoiceChip(
-                  label: Text(
-                    showLongLabels ? 'Choice: Planning' : 'Plan',
-                    style: chipTextStyle(),
-                  ),
+                  label: Text(showLongLabels ? 'Choice: Planning' : 'Plan', style: chipTextStyle()),
                   selected: choiceIndex == 0,
                   tooltip: enableTooltips ? 'Choose planning' : null,
                   pressElevation: pressElevation,
@@ -835,11 +773,7 @@ dynamic build(BuildContext context) {
                             choiceIndex = 0;
                             bumpTap('choice');
                           });
-                          addEvent(
-                            'ChoiceChip',
-                            'Selected planning mode',
-                            primary,
-                          );
+                          addEvent('ChoiceChip', 'Selected planning mode', primary);
                         }
                       : null,
                   selectedColor: activeFill(),
@@ -848,10 +782,7 @@ dynamic build(BuildContext context) {
               wrapTooltip(
                 message: 'choice-chip-1',
                 child: ChoiceChip(
-                  label: Text(
-                    showLongLabels ? 'Choice: Execution' : 'Exec',
-                    style: chipTextStyle(),
-                  ),
+                  label: Text(showLongLabels ? 'Choice: Execution' : 'Exec', style: chipTextStyle()),
                   selected: choiceIndex == 1,
                   tooltip: enableTooltips ? 'Choose execution' : null,
                   pressElevation: pressElevation,
@@ -862,11 +793,7 @@ dynamic build(BuildContext context) {
                             choiceIndex = 1;
                             bumpTap('choice');
                           });
-                          addEvent(
-                            'ChoiceChip',
-                            'Selected execution mode',
-                            primary,
-                          );
+                          addEvent('ChoiceChip', 'Selected execution mode', primary);
                         }
                       : null,
                   selectedColor: activeFill(),
@@ -875,10 +802,7 @@ dynamic build(BuildContext context) {
               wrapTooltip(
                 message: 'choice-chip-2',
                 child: ChoiceChip(
-                  label: Text(
-                    showLongLabels ? 'Choice: Review' : 'Review',
-                    style: chipTextStyle(),
-                  ),
+                  label: Text(showLongLabels ? 'Choice: Review' : 'Review', style: chipTextStyle()),
                   selected: choiceIndex == 2,
                   tooltip: enableTooltips ? 'Choose review' : null,
                   pressElevation: pressElevation,
@@ -889,11 +813,7 @@ dynamic build(BuildContext context) {
                             choiceIndex = 2;
                             bumpTap('choice');
                           });
-                          addEvent(
-                            'ChoiceChip',
-                            'Selected review mode',
-                            primary,
-                          );
+                          addEvent('ChoiceChip', 'Selected review mode', primary);
                         }
                       : null,
                   selectedColor: activeFill(),
@@ -909,10 +829,7 @@ dynamic build(BuildContext context) {
               wrapTooltip(
                 message: 'filter-chip-a',
                 child: FilterChip(
-                  label: Text(
-                    showLongLabels ? 'Filter: Active Issues' : 'Active',
-                    style: chipTextStyle(),
-                  ),
+                  label: Text(showLongLabels ? 'Filter: Active Issues' : 'Active', style: chipTextStyle()),
                   selected: filterA,
                   tooltip: enableTooltips ? 'Toggle active filter' : null,
                   pressElevation: pressElevation,
@@ -922,11 +839,7 @@ dynamic build(BuildContext context) {
                             filterA = value;
                             bumpTap('filter');
                           });
-                          addEvent(
-                            'FilterChip',
-                            'Active filter set to $value',
-                            primary,
-                          );
+                          addEvent('FilterChip', 'Active filter set to $value', primary);
                         }
                       : null,
                   selectedColor: activeFill(),
@@ -935,10 +848,7 @@ dynamic build(BuildContext context) {
               wrapTooltip(
                 message: 'filter-chip-b',
                 child: FilterChip(
-                  label: Text(
-                    showLongLabels ? 'Filter: Blocked Tasks' : 'Blocked',
-                    style: chipTextStyle(),
-                  ),
+                  label: Text(showLongLabels ? 'Filter: Blocked Tasks' : 'Blocked', style: chipTextStyle()),
                   selected: filterB,
                   tooltip: enableTooltips ? 'Toggle blocked filter' : null,
                   pressElevation: pressElevation,
@@ -948,11 +858,7 @@ dynamic build(BuildContext context) {
                             filterB = value;
                             bumpTap('filter');
                           });
-                          addEvent(
-                            'FilterChip',
-                            'Blocked filter set to $value',
-                            primary,
-                          );
+                          addEvent('FilterChip', 'Blocked filter set to $value', primary);
                         }
                       : null,
                   selectedColor: activeFill(),
@@ -961,10 +867,7 @@ dynamic build(BuildContext context) {
               wrapTooltip(
                 message: 'filter-chip-c',
                 child: FilterChip(
-                  label: Text(
-                    showLongLabels ? 'Filter: Waiting Review' : 'Review',
-                    style: chipTextStyle(),
-                  ),
+                  label: Text(showLongLabels ? 'Filter: Waiting Review' : 'Review', style: chipTextStyle()),
                   selected: filterC,
                   tooltip: enableTooltips ? 'Toggle review filter' : null,
                   pressElevation: pressElevation,
@@ -974,11 +877,7 @@ dynamic build(BuildContext context) {
                             filterC = value;
                             bumpTap('filter');
                           });
-                          addEvent(
-                            'FilterChip',
-                            'Review filter set to $value',
-                            primary,
-                          );
+                          addEvent('FilterChip', 'Review filter set to $value', primary);
                         }
                       : null,
                   selectedColor: activeFill(),
@@ -987,10 +886,7 @@ dynamic build(BuildContext context) {
               wrapTooltip(
                 message: 'filter-chip-d',
                 child: FilterChip(
-                  label: Text(
-                    showLongLabels ? 'Filter: Archived Tags' : 'Archived',
-                    style: chipTextStyle(),
-                  ),
+                  label: Text(showLongLabels ? 'Filter: Archived Tags' : 'Archived', style: chipTextStyle()),
                   selected: filterD,
                   tooltip: enableTooltips ? 'Toggle archived filter' : null,
                   pressElevation: pressElevation,
@@ -1000,11 +896,7 @@ dynamic build(BuildContext context) {
                             filterD = value;
                             bumpTap('filter');
                           });
-                          addEvent(
-                            'FilterChip',
-                            'Archived filter set to $value',
-                            primary,
-                          );
+                          addEvent('FilterChip', 'Archived filter set to $value', primary);
                         }
                       : null,
                   selectedColor: activeFill(),
@@ -1017,17 +909,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget commandBoard(
-    void Function(void Function()) setState, {
-    required bool compact,
-  }) {
+  Widget commandBoard(void Function(void Function()) setState, {required bool compact}) {
     final List<Widget> actionChips = <Widget>[];
     final int count = chipCount.clamp(5, 12);
     for (int i = 0; i < count; i++) {
       final bool enabled = chipActionsEnabled || (i % 4 != 0);
-      final String label = showLongLabels
-          ? 'Action Command ${i + 1}'
-          : 'Cmd ${i + 1}';
+      final String label = showLongLabels ? 'Action Command ${i + 1}' : 'Cmd ${i + 1}';
       actionChips.add(
         wrapTooltip(
           message: 'action-chip-$i',
@@ -1045,9 +932,7 @@ dynamic build(BuildContext context) {
                   }
                 : null,
             backgroundColor: secondary.withValues(alpha: compact ? 0.18 : 0.14),
-            side: BorderSide(
-              color: primary.withValues(alpha: enabled ? 0.3 : 0.12),
-            ),
+            side: BorderSide(color: primary.withValues(alpha: enabled ? 0.3 : 0.12)),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius.clamp(6, 28)),
             ),
@@ -1104,20 +989,14 @@ dynamic build(BuildContext context) {
             message: 'tooltip-enabled-sample',
             child: RawChip(
               label: Text('Tooltip sample', style: chipTextStyle()),
-              tooltip: enableTooltips
-                  ? 'Shows extra contextual explanation'
-                  : null,
+              tooltip: enableTooltips ? 'Shows extra contextual explanation' : null,
               onPressed: chipActionsEnabled
                   ? () {
                       setState(() {
                         bumpTap('tooltip');
                       });
                       addLog('Tooltip sample chip tapped.');
-                      addEvent(
-                        'Tooltip sample',
-                        'Tooltip chip activated',
-                        const Color(0xFF455A64),
-                      );
+                      addEvent('Tooltip sample', 'Tooltip chip activated', const Color(0xFF455A64));
                     }
                   : null,
               pressElevation: pressElevation,
@@ -1134,11 +1013,7 @@ dynamic build(BuildContext context) {
                       setState(() {
                         bumpTap('dense');
                       });
-                      addEvent(
-                        'Dense sample',
-                        'Dense chip activated',
-                        const Color(0xFF455A64),
-                      );
+                      addEvent('Dense sample', 'Dense chip activated', const Color(0xFF455A64));
                     }
                   : null,
               pressElevation: pressElevation,
@@ -1151,9 +1026,7 @@ dynamic build(BuildContext context) {
               child: FilterChip(
                 label: Text('Disabled Filter', style: chipTextStyle()),
                 selected: false,
-                tooltip: enableTooltips
-                    ? 'Filter unavailable in this mode'
-                    : null,
+                tooltip: enableTooltips ? 'Filter unavailable in this mode' : null,
                 onSelected: null,
                 pressElevation: pressElevation,
               ),
@@ -1185,22 +1058,9 @@ dynamic build(BuildContext context) {
     final List<Widget> rows = <Widget>[
       Row(
         children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: cell('Topic', header: true, tint: const Color(0xFFF0F6FF)),
-          ),
-          Expanded(
-            flex: 3,
-            child: cell('Effect', header: true, tint: const Color(0xFFF0F6FF)),
-          ),
-          Expanded(
-            flex: 3,
-            child: cell(
-              'Guidance',
-              header: true,
-              tint: const Color(0xFFF0F6FF),
-            ),
-          ),
+          Expanded(flex: 2, child: cell('Topic', header: true, tint: const Color(0xFFF0F6FF))),
+          Expanded(flex: 3, child: cell('Effect', header: true, tint: const Color(0xFFF0F6FF))),
+          Expanded(flex: 3, child: cell('Guidance', header: true, tint: const Color(0xFFF0F6FF))),
         ],
       ),
     ];
@@ -1209,14 +1069,7 @@ dynamic build(BuildContext context) {
       rows.add(
         Row(
           children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: cell(
-                row.topic,
-                tint: const Color(0xFFFBFDFF),
-                header: true,
-              ),
-            ),
+            Expanded(flex: 2, child: cell(row.topic, tint: const Color(0xFFFBFDFF), header: true)),
             Expanded(flex: 3, child: cell(row.effect)),
             Expanded(flex: 3, child: cell(row.guidance)),
           ],
@@ -1238,66 +1091,49 @@ dynamic build(BuildContext context) {
         ),
         child: Text(
           'Timeline empty. Tap chips, load presets, and toggle settings to capture interaction flow.',
-          style: TextStyle(
-            color: Colors.blueGrey.shade700,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
         ),
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: timeline.map((event) {
-          return Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: event.color.withValues(alpha: 0.08),
-              border: Border.all(color: event.color.withValues(alpha: 0.3)),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: 10,
-                  height: 10,
-                  margin: const EdgeInsets.only(top: 5),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: event.color,
-                  ),
+    return SingleChildScrollView(child: Column(
+      children: timeline.map((event) {
+        return Container(
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: event.color.withValues(alpha: 0.08),
+            border: Border.all(color: event.color.withValues(alpha: 0.3)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: 10,
+                height: 10,
+                margin: const EdgeInsets.only(top: 5),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: event.color),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      event.title,
+                      style: TextStyle(color: event.color, fontWeight: FontWeight.w800),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(event.detail, style: TextStyle(color: Colors.blueGrey.shade800, height: 1.3)),
+                  ],
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        event.title,
-                        style: TextStyle(
-                          color: event.color,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        event.detail,
-                        style: TextStyle(
-                          color: Colors.blueGrey.shade800,
-                          height: 1.3,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        }).toList(),
-      ),
-    );
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    ));
   }
 
   Widget snapshotPanel() {
@@ -1311,57 +1147,40 @@ dynamic build(BuildContext context) {
         ),
         child: Text(
           'No snapshots captured yet. Use Capture Snapshot to store current chip interaction state.',
-          style: TextStyle(
-            color: Colors.blueGrey.shade700,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
         ),
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: snapshots.map((snapshot) {
-          return Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: snapshot.color.withValues(alpha: 0.08),
-              border: Border.all(color: snapshot.color.withValues(alpha: 0.3)),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Snapshot #${snapshot.id} | choice ${snapshot.choiceIndex} | filters ${snapshot.filterCount}',
-                  style: TextStyle(
-                    color: snapshot.color,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  'pressElevation ${f(snapshot.pressElevation)}',
-                  style: TextStyle(
-                    color: Colors.blueGrey.shade700,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  snapshot.note,
-                  style: TextStyle(
-                    color: Colors.blueGrey.shade700,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          );
-        }).toList(),
-      ),
-    );
+    return SingleChildScrollView(child: Column(
+      children: snapshots.map((snapshot) {
+        return Container(
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: snapshot.color.withValues(alpha: 0.08),
+            border: Border.all(color: snapshot.color.withValues(alpha: 0.3)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Snapshot #${snapshot.id} | choice ${snapshot.choiceIndex} | filters ${snapshot.filterCount}',
+                style: TextStyle(color: snapshot.color, fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                'pressElevation ${f(snapshot.pressElevation)}',
+                style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 2),
+              Text(snapshot.note, style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12)),
+            ],
+          ),
+        );
+      }).toList(),
+    ));
   }
 
   Widget consolePanel() {
@@ -1376,10 +1195,7 @@ dynamic build(BuildContext context) {
           ? const Center(
               child: Text(
                 'No logs yet. Trigger chip actions and selection changes to populate diagnostics.',
-                style: TextStyle(
-                  color: Color(0xFFB7C9EA),
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(color: Color(0xFFB7C9EA), fontWeight: FontWeight.w600),
               ),
             )
           : ListView.builder(
@@ -1405,61 +1221,17 @@ dynamic build(BuildContext context) {
     builder: (BuildContext context, void Function(void Function()) setState) {
       final List<_MetricCard> metrics = <_MetricCard>[
         _MetricCard(label: 'Tap events', value: '$tapEvents', color: primary),
-        _MetricCard(
-          label: 'Choice index',
-          value: '$choiceIndex',
-          color: const Color(0xFF6A1B9A),
-        ),
-        _MetricCard(
-          label: 'Filters on',
-          value: '${selectedFilterCount()}',
-          color: const Color(0xFF2E7D32),
-        ),
-        _MetricCard(
-          label: 'Press elev.',
-          value: f(pressElevation),
-          color: const Color(0xFF00838F),
-        ),
-        _MetricCard(
-          label: 'Chip count',
-          value: '$chipCount',
-          color: const Color(0xFFE65100),
-        ),
-        _MetricCard(
-          label: 'Label scale',
-          value: f(labelScale),
-          color: const Color(0xFF455A64),
-        ),
-        _MetricCard(
-          label: 'Radius',
-          value: f(borderRadius),
-          color: const Color(0xFF283593),
-        ),
-        _MetricCard(
-          label: 'Shadow mix',
-          value: f(selectedShadow),
-          color: const Color(0xFFAD1457),
-        ),
-        _MetricCard(
-          label: 'Preset loads',
-          value: '$presetLoads',
-          color: const Color(0xFF5D4037),
-        ),
-        _MetricCard(
-          label: 'Style changes',
-          value: '$styleChanges',
-          color: const Color(0xFF1565C0),
-        ),
-        _MetricCard(
-          label: 'Tooltips',
-          value: enableTooltips ? 'on' : 'off',
-          color: const Color(0xFF827717),
-        ),
-        _MetricCard(
-          label: 'Dense',
-          value: denseMode ? 'yes' : 'no',
-          color: const Color(0xFF37474F),
-        ),
+        _MetricCard(label: 'Choice index', value: '$choiceIndex', color: const Color(0xFF6A1B9A)),
+        _MetricCard(label: 'Filters on', value: '${selectedFilterCount()}', color: const Color(0xFF2E7D32)),
+        _MetricCard(label: 'Press elev.', value: f(pressElevation), color: const Color(0xFF00838F)),
+        _MetricCard(label: 'Chip count', value: '$chipCount', color: const Color(0xFFE65100)),
+        _MetricCard(label: 'Label scale', value: f(labelScale), color: const Color(0xFF455A64)),
+        _MetricCard(label: 'Radius', value: f(borderRadius), color: const Color(0xFF283593)),
+        _MetricCard(label: 'Shadow mix', value: f(selectedShadow), color: const Color(0xFFAD1457)),
+        _MetricCard(label: 'Preset loads', value: '$presetLoads', color: const Color(0xFF5D4037)),
+        _MetricCard(label: 'Style changes', value: '$styleChanges', color: const Color(0xFF1565C0)),
+        _MetricCard(label: 'Tooltips', value: enableTooltips ? 'on' : 'off', color: const Color(0xFF827717)),
+        _MetricCard(label: 'Dense', value: denseMode ? 'yes' : 'no', color: const Color(0xFF37474F)),
       ];
 
       return Container(
@@ -1507,10 +1279,7 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 4),
                             Text(
                               'Chip Interaction Lab demonstrating tap behavior, press elevation, tooltip usage, and disabled/active semantics across chip families that implement TappableChipAttributes.',
-                              style: TextStyle(
-                                color: Colors.blueGrey.shade700,
-                                height: 1.34,
-                              ),
+                              style: TextStyle(color: Colors.blueGrey.shade700, height: 1.34),
                             ),
                           ],
                         ),
@@ -1539,11 +1308,7 @@ dynamic build(BuildContext context) {
               Icons.auto_graph,
             ),
             const SizedBox(height: 10),
-            Wrap(
-              children: presets
-                  .map((preset) => presetCard(preset, setState))
-                  .toList(),
-            ),
+            Wrap(children: presets.map((preset) => presetCard(preset, setState)).toList()),
             const SizedBox(height: 18),
             sectionTitle(
               'Interaction Controls',
@@ -1575,9 +1340,7 @@ dynamic build(BuildContext context) {
                               pressElevation = value;
                               styleChanges += 1;
                             });
-                            addLog(
-                              'Press elevation set to ${f(pressElevation)}.',
-                            );
+                            addLog('Press elevation set to ${f(pressElevation)}.');
                           },
                           color: primary,
                         ),
@@ -1638,9 +1401,7 @@ dynamic build(BuildContext context) {
                               selectedShadow = value;
                               styleChanges += 1;
                             });
-                            addLog(
-                              'Selected shadow mix set to ${f(selectedShadow)}.',
-                            );
+                            addLog('Selected shadow mix set to ${f(selectedShadow)}.');
                           },
                           color: const Color(0xFF00838F),
                         ),
@@ -1698,11 +1459,7 @@ dynamic build(BuildContext context) {
                                   setState(() {
                                     chipActionsEnabled = !chipActionsEnabled;
                                   });
-                                  addLog(
-                                    chipActionsEnabled
-                                        ? 'Chip actions enabled.'
-                                        : 'Chip actions disabled.',
-                                  );
+                                  addLog(chipActionsEnabled ? 'Chip actions enabled.' : 'Chip actions disabled.');
                                 },
                                 child: const Text('Toggle Actions'),
                               ),
@@ -1726,46 +1483,36 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: chipActionsEnabled,
-                            title: const Text('Chip actions enabled'),
-                            subtitle: const Text(
-                              'Enable/disable primary tap callbacks.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                chipActionsEnabled = value;
-                                styleChanges += 1;
-                              });
-                              addLog(
-                                value
-                                    ? 'Primary callbacks enabled.'
-                                    : 'Primary callbacks disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: chipActionsEnabled,
+                          title: const Text('Chip actions enabled'),
+                          subtitle: const Text('Enable/disable primary tap callbacks.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              chipActionsEnabled = value;
+                              styleChanges += 1;
+                            });
+                            addLog(value ? 'Primary callbacks enabled.' : 'Primary callbacks disabled.');
+                          },
+                        ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: enableTooltips,
-                            title: const Text('Enable tooltips'),
-                            subtitle: const Text('Show chip tooltip hints.'),
-                            onChanged: (bool value) {
-                              setState(() {
-                                enableTooltips = value;
-                                styleChanges += 1;
-                              });
-                              addLog(
-                                value
-                                    ? 'Tooltips enabled.'
-                                    : 'Tooltips disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: enableTooltips,
+                          title: const Text('Enable tooltips'),
+                          subtitle: const Text('Show chip tooltip hints.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              enableTooltips = value;
+                              styleChanges += 1;
+                            });
+                            addLog(value ? 'Tooltips enabled.' : 'Tooltips disabled.');
+                          },
+                        ),
                         ),
                       ),
                     ],
@@ -1776,48 +1523,36 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: denseMode,
-                            title: const Text('Dense mode'),
-                            subtitle: const Text(
-                              'Compact chip spacing and labels.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                denseMode = value;
-                                styleChanges += 1;
-                              });
-                              addLog(
-                                value
-                                    ? 'Dense mode enabled.'
-                                    : 'Dense mode disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: denseMode,
+                          title: const Text('Dense mode'),
+                          subtitle: const Text('Compact chip spacing and labels.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              denseMode = value;
+                              styleChanges += 1;
+                            });
+                            addLog(value ? 'Dense mode enabled.' : 'Dense mode disabled.');
+                          },
+                        ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: highContrast,
-                            title: const Text('High contrast'),
-                            subtitle: const Text(
-                              'Boost active chip readability.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                highContrast = value;
-                                styleChanges += 1;
-                              });
-                              addLog(
-                                value
-                                    ? 'High contrast enabled.'
-                                    : 'High contrast disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: highContrast,
+                          title: const Text('High contrast'),
+                          subtitle: const Text('Boost active chip readability.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              highContrast = value;
+                              styleChanges += 1;
+                            });
+                            addLog(value ? 'High contrast enabled.' : 'High contrast disabled.');
+                          },
+                        ),
                         ),
                       ),
                     ],
@@ -1828,47 +1563,35 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: showDisabledSamples,
-                            title: const Text('Show disabled samples'),
-                            subtitle: const Text(
-                              'Include extra disabled chip variants.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                showDisabledSamples = value;
-                              });
-                              addLog(
-                                value
-                                    ? 'Disabled samples shown.'
-                                    : 'Disabled samples hidden.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: showDisabledSamples,
+                          title: const Text('Show disabled samples'),
+                          subtitle: const Text('Include extra disabled chip variants.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              showDisabledSamples = value;
+                            });
+                            addLog(value ? 'Disabled samples shown.' : 'Disabled samples hidden.');
+                          },
+                        ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: showLongLabels,
-                            title: const Text('Long labels'),
-                            subtitle: const Text(
-                              'Use descriptive chip labels.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                showLongLabels = value;
-                                styleChanges += 1;
-                              });
-                              addLog(
-                                value
-                                    ? 'Long labels enabled.'
-                                    : 'Long labels disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: showLongLabels,
+                          title: const Text('Long labels'),
+                          subtitle: const Text('Use descriptive chip labels.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              showLongLabels = value;
+                              styleChanges += 1;
+                            });
+                            addLog(value ? 'Long labels enabled.' : 'Long labels disabled.');
+                          },
+                        ),
                         ),
                       ),
                     ],
@@ -1879,46 +1602,34 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: showThirdBoard,
-                            title: const Text('Show third board'),
-                            subtitle: const Text(
-                              'Enable compact command board.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                showThirdBoard = value;
-                              });
-                              addLog(
-                                value
-                                    ? 'Third board shown.'
-                                    : 'Third board hidden.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: showThirdBoard,
+                          title: const Text('Show third board'),
+                          subtitle: const Text('Enable compact command board.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              showThirdBoard = value;
+                            });
+                            addLog(value ? 'Third board shown.' : 'Third board hidden.');
+                          },
+                        ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: showHeatmap,
-                            title: const Text('Show tap heatmap'),
-                            subtitle: const Text(
-                              'Render interaction intensity map.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                showHeatmap = value;
-                              });
-                              addLog(
-                                value
-                                    ? 'Tap heatmap shown.'
-                                    : 'Tap heatmap hidden.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: showHeatmap,
+                          title: const Text('Show tap heatmap'),
+                          subtitle: const Text('Render interaction intensity map.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              showHeatmap = value;
+                            });
+                            addLog(value ? 'Tap heatmap shown.' : 'Tap heatmap hidden.');
+                          },
+                        ),
                         ),
                       ),
                     ],
@@ -1959,7 +1670,10 @@ dynamic build(BuildContext context) {
                   border: Border.all(color: const Color(0xFFD4E0F2)),
                 ),
                 child: CustomPaint(
-                  painter: _TapHeatPainter(tapCounts: tapMap, primary: primary),
+                  painter: _TapHeatPainter(
+                    tapCounts: tapMap,
+                    primary: primary,
+                  ),
                   child: const SizedBox.expand(),
                 ),
               ),
@@ -2032,9 +1746,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: guide.color.withValues(alpha: 0.28),
-                    ),
+                    border: Border.all(color: guide.color.withValues(alpha: 0.28)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -2046,10 +1758,7 @@ dynamic build(BuildContext context) {
                           Expanded(
                             child: Text(
                               guide.title,
-                              style: TextStyle(
-                                color: guide.color,
-                                fontWeight: FontWeight.w800,
-                              ),
+                              style: TextStyle(color: guide.color, fontWeight: FontWeight.w800),
                             ),
                           ),
                         ],
@@ -2057,11 +1766,7 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 6),
                       Text(
                         guide.body,
-                        style: TextStyle(
-                          color: Colors.blueGrey.shade800,
-                          height: 1.32,
-                          fontSize: 13,
-                        ),
+                        style: TextStyle(color: Colors.blueGrey.shade800, height: 1.32, fontSize: 13),
                       ),
                     ],
                   ),
@@ -2136,10 +1841,7 @@ dynamic build(BuildContext context) {
               '${startedAt.hour.toString().padLeft(2, '0')}:'
               '${startedAt.minute.toString().padLeft(2, '0')}:'
               '${startedAt.second.toString().padLeft(2, '0')}.',
-              style: TextStyle(
-                color: Colors.blueGrey.shade600,
-                fontStyle: FontStyle.italic,
-              ),
+              style: TextStyle(color: Colors.blueGrey.shade600, fontStyle: FontStyle.italic),
             ),
           ],
         ),

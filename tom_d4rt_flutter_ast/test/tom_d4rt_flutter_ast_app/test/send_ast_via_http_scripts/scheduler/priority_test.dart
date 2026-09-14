@@ -67,43 +67,40 @@ import 'package:flutter/scheduler.dart';
 // ----------------------------------------------------------------------------
 // Tide Cobalt palette (12 colors).
 // ----------------------------------------------------------------------------
-const Color cobaltAbyss = Color(0xFF06122A); // deepest background
-const Color cobaltMidnight = Color(0xFF0B1E3F); // surface base
-const Color cobaltDeep = Color(0xFF132C5C); // card surface
-const Color cobaltTide = Color(0xFF1E4488); // primary accent
-const Color cobaltCrest = Color(0xFF2D63B8); // secondary accent
-const Color cobaltSpray = Color(0xFF5A8FE0); // hover/highlight
-const Color cobaltFoam = Color(0xFFB6D2F5); // soft highlight
-const Color cobaltShell = Color(0xFFE6EEF9); // text-on-dark
-const Color cobaltAmber = Color(0xFFE2A23B); // warning / animation
-const Color cobaltCoral = Color(0xFFE26B5A); // error / touch
-const Color cobaltKelp = Color(0xFF3E8C6E); // success / idle
-const Color cobaltSlate = Color(0xFF6C7A95); // muted text
-const Color cobaltPearl = Color(0xFFF5F8FC); // pure surface highlight
-const Color cobaltInk = Color(0xFF03070F); // outline / hairline
+const Color cobaltAbyss      = Color(0xFF06122A); // deepest background
+const Color cobaltMidnight   = Color(0xFF0B1E3F); // surface base
+const Color cobaltDeep       = Color(0xFF132C5C); // card surface
+const Color cobaltTide       = Color(0xFF1E4488); // primary accent
+const Color cobaltCrest      = Color(0xFF2D63B8); // secondary accent
+const Color cobaltSpray      = Color(0xFF5A8FE0); // hover/highlight
+const Color cobaltFoam       = Color(0xFFB6D2F5); // soft highlight
+const Color cobaltShell      = Color(0xFFE6EEF9); // text-on-dark
+const Color cobaltAmber      = Color(0xFFE2A23B); // warning / animation
+const Color cobaltCoral      = Color(0xFFE26B5A); // error / touch
+const Color cobaltKelp       = Color(0xFF3E8C6E); // success / idle
+const Color cobaltSlate      = Color(0xFF6C7A95); // muted text
+const Color cobaltPearl      = Color(0xFFF5F8FC); // pure surface highlight
+const Color cobaltInk        = Color(0xFF03070F); // outline / hairline
 
 // ----------------------------------------------------------------------------
 // Typography helpers
 // ----------------------------------------------------------------------------
 TextStyle _title(double size, Color color) => TextStyle(
-  fontSize: size,
-  fontWeight: FontWeight.w700,
-  color: color,
-  letterSpacing: 0.4,
-);
+      fontSize: size,
+      fontWeight: FontWeight.w700,
+      color: color,
+      letterSpacing: 0.4,
+    );
 
-TextStyle _body(
-  Color color, {
-  double size = 13,
-  FontWeight w = FontWeight.w400,
-}) => TextStyle(fontSize: size, color: color, fontWeight: w, height: 1.45);
+TextStyle _body(Color color, {double size = 13, FontWeight w = FontWeight.w400}) =>
+    TextStyle(fontSize: size, color: color, fontWeight: w, height: 1.45);
 
 TextStyle _mono(Color color, {double size = 12}) => TextStyle(
-  fontFamily: 'monospace',
-  fontSize: size,
-  color: color,
-  height: 1.4,
-);
+      fontFamily: 'monospace',
+      fontSize: size,
+      color: color,
+      height: 1.4,
+    );
 
 dynamic build(BuildContext context) {
   print('================================================================');
@@ -114,23 +111,23 @@ dynamic build(BuildContext context) {
   // ------------------------------------------------------------------
   // Construct priority values
   // ------------------------------------------------------------------
-  final Priority pIdle = Priority.idle;
+  final Priority pIdle      = Priority.idle;
   final Priority pAnimation = Priority.animation;
-  final Priority pTouch = Priority.touch;
+  final Priority pTouch     = Priority.touch;
 
   // Offsets above idle - background tasks of varied urgency.
-  final Priority pIdlePlus10 = Priority.idle + 10;
+  final Priority pIdlePlus10  = Priority.idle + 10;
   final Priority pIdlePlus100 = Priority.idle + 100;
   final Priority pIdlePlus500 = Priority.idle + 500;
 
   // Offsets near animation - frame-coupled tweaks.
-  final Priority pAnimMinus1 = Priority.animation + (-1);
-  final Priority pAnimPlus5 = Priority.animation + 5;
-  final Priority pAnimPlus50 = Priority.animation + 50;
+  final Priority pAnimMinus1   = Priority.animation + (-1);
+  final Priority pAnimPlus5    = Priority.animation + 5;
+  final Priority pAnimPlus50   = Priority.animation + 50;
 
   // Offsets near touch - latency-sensitive variants.
   final Priority pTouchMinus10 = Priority.touch + (-10);
-  final Priority pTouchPlus1 = Priority.touch + 1;
+  final Priority pTouchPlus1   = Priority.touch + 1;
 
   print('  idle         = ${pIdle.value}');
   print('  idle+10      = ${pIdlePlus10.value}');
@@ -164,20 +161,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'PRIORITY  ::  Tide Cobalt edition',
-          style: _title(22, cobaltShell),
-        ),
+        Text('PRIORITY  ::  Tide Cobalt edition',
+            style: _title(22, cobaltShell)),
         const SizedBox(height: 6),
-        Text(
-          'Opaque integer wrapper for SchedulerBinding.scheduleTask',
-          style: _body(cobaltFoam, size: 13),
-        ),
+        Text('Opaque integer wrapper for SchedulerBinding.scheduleTask',
+            style: _body(cobaltFoam, size: 13)),
         const SizedBox(height: 6),
-        Text(
-          'Three named anchors :: idle - animation - touch',
-          style: _body(cobaltSpray, size: 12, w: FontWeight.w500),
-        ),
+        Text('Three named anchors :: idle - animation - touch',
+            style: _body(cobaltSpray, size: 12, w: FontWeight.w500)),
         const SizedBox(height: 14),
         Wrap(
           spacing: 6,
@@ -241,10 +232,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Property anatomy :: idle / animation / touch',
-          style: _title(16, cobaltShell),
-        ),
+        Text('Property anatomy :: idle / animation / touch',
+            style: _title(16, cobaltShell)),
         const SizedBox(height: 12),
         _priorityCard(
           name: 'Priority.idle',
@@ -298,15 +287,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Construction gallery :: 11 priorities',
-          style: _title(16, cobaltShell),
-        ),
+        Text('Construction gallery :: 11 priorities',
+            style: _title(16, cobaltShell)),
         const SizedBox(height: 4),
-        Text(
-          'Each card constructs a Priority and reads .value back as Text.',
-          style: _body(cobaltSlate, size: 12),
-        ),
+        Text('Each card constructs a Priority and reads .value back as Text.',
+            style: _body(cobaltSlate, size: 12)),
         const SizedBox(height: 12),
         Wrap(
           spacing: 10,
@@ -316,27 +301,11 @@ dynamic build(BuildContext context) {
             _galleryCard('Priority.idle + 10', pIdlePlus10.value, cobaltKelp),
             _galleryCard('Priority.idle + 100', pIdlePlus100.value, cobaltKelp),
             _galleryCard('Priority.idle + 500', pIdlePlus500.value, cobaltKelp),
-            _galleryCard(
-              'Priority.animation - 1',
-              pAnimMinus1.value,
-              cobaltAmber,
-            ),
+            _galleryCard('Priority.animation - 1', pAnimMinus1.value, cobaltAmber),
             _galleryCard('Priority.animation', pAnimation.value, cobaltAmber),
-            _galleryCard(
-              'Priority.animation + 5',
-              pAnimPlus5.value,
-              cobaltAmber,
-            ),
-            _galleryCard(
-              'Priority.animation + 50',
-              pAnimPlus50.value,
-              cobaltAmber,
-            ),
-            _galleryCard(
-              'Priority.touch - 10',
-              pTouchMinus10.value,
-              cobaltCoral,
-            ),
+            _galleryCard('Priority.animation + 5', pAnimPlus5.value, cobaltAmber),
+            _galleryCard('Priority.animation + 50', pAnimPlus50.value, cobaltAmber),
+            _galleryCard('Priority.touch - 10', pTouchMinus10.value, cobaltCoral),
             _galleryCard('Priority.touch', pTouch.value, cobaltCoral),
             _galleryCard('Priority.touch + 1', pTouchPlus1.value, cobaltCoral),
           ],
@@ -351,7 +320,7 @@ dynamic build(BuildContext context) {
   print('Building section 5 - priority bar chart');
   // Normalize bar widths against touch (highest).
   final int maxV = pTouch.value;
-  final double idleW = (pIdle.value / maxV) * 320.0;
+  final double idleW = (pIdle.value      / maxV) * 320.0;
   final double animW = (pAnimation.value / maxV) * 320.0;
   final double touchW = 320.0;
   // Defensive: idleW is 0 when value is 0, render a tiny stub so it remains
@@ -363,26 +332,20 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Bar chart :: relative .value of each anchor',
-          style: _title(16, cobaltShell),
-        ),
+        Text('Bar chart :: relative .value of each anchor',
+            style: _title(16, cobaltShell)),
         const SizedBox(height: 4),
-        Text(
-          'Width proportional to .value, scaled against touch.',
-          style: _body(cobaltSlate, size: 12),
-        ),
+        Text('Width proportional to .value, scaled against touch.',
+            style: _body(cobaltSlate, size: 12)),
         const SizedBox(height: 12),
-        _barRow('idle', pIdle.value, idleVisualW, cobaltKelp),
+        _barRow('idle',      pIdle.value,      idleVisualW, cobaltKelp),
         const SizedBox(height: 8),
         _barRow('animation', pAnimation.value, animW, cobaltAmber),
         const SizedBox(height: 8),
-        _barRow('touch', pTouch.value, touchW, cobaltCoral),
+        _barRow('touch',     pTouch.value,     touchW, cobaltCoral),
         const SizedBox(height: 12),
-        Text(
-          'idle has .value 0 so the bar is rendered as a 4px stub.',
-          style: _body(cobaltSlate, size: 11),
-        ),
+        Text('idle has .value 0 so the bar is rendered as a 4px stub.',
+            style: _body(cobaltSlate, size: 11)),
       ],
     ),
   );
@@ -392,8 +355,7 @@ dynamic build(BuildContext context) {
   // ==================================================================
   print('Building section 6 - SchedulerBinding prose');
   final Widget section6 = _proseCard(
-    title:
-        'SchedulerBinding :: scheduleTask, handleEventLoopCallback, ordering',
+    title: 'SchedulerBinding :: scheduleTask, handleEventLoopCallback, ordering',
     paragraphs: const [
       'SchedulerBinding.scheduleTask<T>(callback, priority) returns a Future<T> '
           'that completes once the framework has chosen to run callback in a '
@@ -425,79 +387,22 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Comparison table :: typical priority choices',
-          style: _title(16, cobaltShell),
-        ),
+        Text('Comparison table :: typical priority choices',
+            style: _title(16, cobaltShell)),
         const SizedBox(height: 12),
         _tableHeader(),
-        _tableRow('Priority.idle', pIdle.value, 'analytics flush', cobaltKelp),
-        _tableRow(
-          'Priority.idle + 10',
-          pIdlePlus10.value,
-          'low-pri prefetch',
-          cobaltKelp,
-        ),
-        _tableRow(
-          'Priority.idle + 100',
-          pIdlePlus100.value,
-          'lazy log rotate',
-          cobaltKelp,
-        ),
-        _tableRow(
-          'Priority.idle + 500',
-          pIdlePlus500.value,
-          'lazy thumb decode',
-          cobaltKelp,
-        ),
-        _tableRow(
-          'Priority.animation - 1',
-          pAnimMinus1.value,
-          'frame trailer',
-          cobaltAmber,
-        ),
-        _tableRow(
-          'Priority.animation',
-          pAnimation.value,
-          'image stream complete',
-          cobaltAmber,
-        ),
-        _tableRow(
-          'Priority.animation + 5',
-          pAnimPlus5.value,
-          'physics tick',
-          cobaltAmber,
-        ),
-        _tableRow(
-          'Priority.animation + 50',
-          pAnimPlus50.value,
-          'critical layout pre-pass',
-          cobaltAmber,
-        ),
-        _tableRow(
-          'Priority.touch - 10',
-          pTouchMinus10.value,
-          'gesture cleanup',
-          cobaltCoral,
-        ),
-        _tableRow(
-          'Priority.touch',
-          pTouch.value,
-          'hit-test follow-up',
-          cobaltCoral,
-        ),
-        _tableRow(
-          'Priority.touch + 1',
-          pTouchPlus1.value,
-          'haptic trigger',
-          cobaltCoral,
-        ),
-        _tableRow(
-          'Priority.idle + 9999',
-          (Priority.idle + 9999).value,
-          'almost-animation idle',
-          cobaltSlate,
-        ),
+        _tableRow('Priority.idle',          pIdle.value,        'analytics flush', cobaltKelp),
+        _tableRow('Priority.idle + 10',     pIdlePlus10.value,  'low-pri prefetch', cobaltKelp),
+        _tableRow('Priority.idle + 100',    pIdlePlus100.value, 'lazy log rotate', cobaltKelp),
+        _tableRow('Priority.idle + 500',    pIdlePlus500.value, 'lazy thumb decode', cobaltKelp),
+        _tableRow('Priority.animation - 1', pAnimMinus1.value,  'frame trailer', cobaltAmber),
+        _tableRow('Priority.animation',     pAnimation.value,   'image stream complete', cobaltAmber),
+        _tableRow('Priority.animation + 5', pAnimPlus5.value,   'physics tick', cobaltAmber),
+        _tableRow('Priority.animation + 50',pAnimPlus50.value,  'critical layout pre-pass', cobaltAmber),
+        _tableRow('Priority.touch - 10',    pTouchMinus10.value,'gesture cleanup', cobaltCoral),
+        _tableRow('Priority.touch',         pTouch.value,       'hit-test follow-up', cobaltCoral),
+        _tableRow('Priority.touch + 1',     pTouchPlus1.value,  'haptic trigger', cobaltCoral),
+        _tableRow('Priority.idle + 9999',   (Priority.idle + 9999).value, 'almost-animation idle', cobaltSlate),
       ],
     ),
   );
@@ -512,15 +417,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Frame budget :: 16.6 ms split across phases',
-          style: _title(16, cobaltShell),
-        ),
+        Text('Frame budget :: 16.6 ms split across phases',
+            style: _title(16, cobaltShell)),
         const SizedBox(height: 4),
-        Text(
-          'Idle work runs in whatever slack remains after rasterization.',
-          style: _body(cobaltSlate, size: 12),
-        ),
+        Text('Idle work runs in whatever slack remains after rasterization.',
+            style: _body(cobaltSlate, size: 12)),
         const SizedBox(height: 12),
         Container(
           height: 36,
@@ -531,13 +432,13 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              _frameSlice('vsync', 1.0, cobaltSpray),
-              _frameSlice('build', 3.0, cobaltCrest),
-              _frameSlice('layout', 2.5, cobaltTide),
-              _frameSlice('paint', 2.0, cobaltDeep),
-              _frameSlice('raster', 3.5, cobaltMidnight),
-              _frameSlice('present', 0.6, cobaltAmber),
-              _frameSlice('idle', 4.0, cobaltKelp),
+              _frameSlice('vsync',    1.0,  cobaltSpray),
+              _frameSlice('build',    3.0,  cobaltCrest),
+              _frameSlice('layout',   2.5,  cobaltTide),
+              _frameSlice('paint',    2.0,  cobaltDeep),
+              _frameSlice('raster',   3.5,  cobaltMidnight),
+              _frameSlice('present',  0.6,  cobaltAmber),
+              _frameSlice('idle',     4.0,  cobaltKelp),
             ],
           ),
         ),
@@ -546,28 +447,22 @@ dynamic build(BuildContext context) {
           spacing: 10,
           runSpacing: 6,
           children: [
-            _legend('vsync 1.0 ms', cobaltSpray),
-            _legend('build 3.0 ms', cobaltCrest),
-            _legend('layout 2.5 ms', cobaltTide),
-            _legend('paint 2.0 ms', cobaltDeep),
-            _legend('raster 3.5 ms', cobaltMidnight),
+            _legend('vsync 1.0 ms',   cobaltSpray),
+            _legend('build 3.0 ms',   cobaltCrest),
+            _legend('layout 2.5 ms',  cobaltTide),
+            _legend('paint 2.0 ms',   cobaltDeep),
+            _legend('raster 3.5 ms',  cobaltMidnight),
             _legend('present 0.6 ms', cobaltAmber),
-            _legend('idle 4.0 ms', cobaltKelp),
+            _legend('idle 4.0 ms',    cobaltKelp),
           ],
         ),
         const SizedBox(height: 8),
-        Text(
-          'Tasks at Priority.idle compete for that final ~4 ms slice.',
-          style: _body(cobaltFoam, size: 12),
-        ),
-        Text(
-          'Tasks at Priority.animation can join build/paint piggy-back work.',
-          style: _body(cobaltFoam, size: 12),
-        ),
-        Text(
-          'Tasks at Priority.touch should fit in microseconds, not millis.',
-          style: _body(cobaltFoam, size: 12),
-        ),
+        Text('Tasks at Priority.idle compete for that final ~4 ms slice.',
+            style: _body(cobaltFoam, size: 12)),
+        Text('Tasks at Priority.animation can join build/paint piggy-back work.',
+            style: _body(cobaltFoam, size: 12)),
+        Text('Tasks at Priority.touch should fit in microseconds, not millis.',
+            style: _body(cobaltFoam, size: 12)),
       ],
     ),
   );
@@ -582,7 +477,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('DO / AVOID :: 8 rules of thumb', style: _title(16, cobaltShell)),
+        Text('DO / AVOID :: 8 rules of thumb',
+            style: _title(16, cobaltShell)),
         const SizedBox(height: 12),
         _doRow('DO anchor every Priority on idle, animation, or touch.'),
         _doRow('DO use small operator+ offsets (under 100) for siblings.'),
@@ -606,42 +502,33 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Recipes :: 5 idiomatic uses', style: _title(16, cobaltShell)),
+        Text('Recipes :: 5 idiomatic uses',
+            style: _title(16, cobaltShell)),
         const SizedBox(height: 12),
-        _codeCard(
-          'Recipe 1 :: schedule an idle prefetch',
+        _codeCard('Recipe 1 :: schedule an idle prefetch',
           'SchedulerBinding.instance.scheduleTask(\n'
-              '  () => prefetchTile(tileId),\n'
-              '  Priority.idle,\n'
-              ');',
-        ),
-        _codeCard(
-          'Recipe 2 :: animation-coupled image decode',
+          '  () => prefetchTile(tileId),\n'
+          '  Priority.idle,\n'
+          ');'),
+        _codeCard('Recipe 2 :: animation-coupled image decode',
           'SchedulerBinding.instance.scheduleTask(\n'
-              '  () => decodeImage(bytes),\n'
-              '  Priority.animation,\n'
-              ');',
-        ),
-        _codeCard(
-          'Recipe 3 :: relative offset for sibling ordering',
+          '  () => decodeImage(bytes),\n'
+          '  Priority.animation,\n'
+          ');'),
+        _codeCard('Recipe 3 :: relative offset for sibling ordering',
           'final p = Priority.animation + 5;\n'
-              'SchedulerBinding.instance.scheduleTask(work, p);',
-        ),
-        _codeCard(
-          'Recipe 4 :: touch follow-up',
+          'SchedulerBinding.instance.scheduleTask(work, p);'),
+        _codeCard('Recipe 4 :: touch follow-up',
           'SchedulerBinding.instance.scheduleTask(\n'
-              '  () => triggerHaptic(),\n'
-              '  Priority.touch,\n'
-              ');',
-        ),
-        _codeCard(
-          'Recipe 5 :: lazy log rotation',
+          '  () => triggerHaptic(),\n'
+          '  Priority.touch,\n'
+          ');'),
+        _codeCard('Recipe 5 :: lazy log rotation',
           'final p = Priority.idle + 100;\n'
-              'SchedulerBinding.instance.scheduleTask(\n'
-              '  () => rotateLogs(),\n'
-              '  p,\n'
-              ');',
-        ),
+          'SchedulerBinding.instance.scheduleTask(\n'
+          '  () => rotateLogs(),\n'
+          '  p,\n'
+          ');'),
       ],
     ),
   );
@@ -656,55 +543,23 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Glossary :: 14 terms', style: _title(16, cobaltShell)),
+        Text('Glossary :: 14 terms',
+            style: _title(16, cobaltShell)),
         const SizedBox(height: 12),
-        _glossRow(
-          'Priority',
-          'Opaque integer wrapper used to order scheduled tasks.',
-        ),
-        _glossRow('Priority.idle', 'Background anchor with .value 0.'),
-        _glossRow(
-          'Priority.animation',
-          'Frame-coupled anchor sitting between idle and touch.',
-        ),
-        _glossRow(
-          'Priority.touch',
-          'Highest named anchor, for input echo work.',
-        ),
-        _glossRow(
-          'kMaxOffset',
-          'Upper bound (10000) on legal operator+ offsets.',
-        ),
-        _glossRow('operator+', 'Returns a new Priority offset by an integer.'),
-        _glossRow('value', 'Integer used by the binding for sort comparison.'),
-        _glossRow(
-          'SchedulerBinding',
-          'The framework binding that runs scheduled tasks.',
-        ),
-        _glossRow(
-          'scheduleTask',
-          'API to enqueue a callback at a chosen priority.',
-        ),
-        _glossRow(
-          'handleEventLoopCallback',
-          'Drains the priority queue between frames.',
-        ),
-        _glossRow(
-          'frame budget',
-          'Time the engine has per vsync (~16.6ms at 60Hz).',
-        ),
-        _glossRow(
-          'vsync',
-          'Display refresh signal that drives frame production.',
-        ),
-        _glossRow(
-          'rasterization',
-          'Turning paint commands into pixels for display.',
-        ),
-        _glossRow(
-          'hit-test',
-          'Walk of the render tree to find pointer targets.',
-        ),
+        _glossRow('Priority',        'Opaque integer wrapper used to order scheduled tasks.'),
+        _glossRow('Priority.idle',   'Background anchor with .value 0.'),
+        _glossRow('Priority.animation','Frame-coupled anchor sitting between idle and touch.'),
+        _glossRow('Priority.touch',  'Highest named anchor, for input echo work.'),
+        _glossRow('kMaxOffset',      'Upper bound (10000) on legal operator+ offsets.'),
+        _glossRow('operator+',       'Returns a new Priority offset by an integer.'),
+        _glossRow('value',           'Integer used by the binding for sort comparison.'),
+        _glossRow('SchedulerBinding','The framework binding that runs scheduled tasks.'),
+        _glossRow('scheduleTask',    'API to enqueue a callback at a chosen priority.'),
+        _glossRow('handleEventLoopCallback','Drains the priority queue between frames.'),
+        _glossRow('frame budget',    'Time the engine has per vsync (~16.6ms at 60Hz).'),
+        _glossRow('vsync',           'Display refresh signal that drives frame production.'),
+        _glossRow('rasterization',   'Turning paint commands into pixels for display.'),
+        _glossRow('hit-test',        'Walk of the render tree to find pointer targets.'),
       ],
     ),
   );
@@ -727,30 +582,21 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Recap', style: _title(18, cobaltShell)),
+        Text('Recap',
+            style: _title(18, cobaltShell)),
         const SizedBox(height: 8),
-        Text(
-          'Priority is opaque. Use idle / animation / touch as anchors.',
-          style: _body(cobaltFoam, size: 13),
-        ),
-        Text(
-          'Use small operator+ offsets only. Stay under kMaxOffset.',
-          style: _body(cobaltFoam, size: 13),
-        ),
-        Text(
-          'Touch tasks must be tiny. Idle tasks may be larger.',
-          style: _body(cobaltFoam, size: 13),
-        ),
-        Text(
-          'SchedulerBinding.scheduleTask(callback, priority) is the API.',
-          style: _body(cobaltFoam, size: 13),
-        ),
+        Text('Priority is opaque. Use idle / animation / touch as anchors.',
+            style: _body(cobaltFoam, size: 13)),
+        Text('Use small operator+ offsets only. Stay under kMaxOffset.',
+            style: _body(cobaltFoam, size: 13)),
+        Text('Touch tasks must be tiny. Idle tasks may be larger.',
+            style: _body(cobaltFoam, size: 13)),
+        Text('SchedulerBinding.scheduleTask(callback, priority) is the API.',
+            style: _body(cobaltFoam, size: 13)),
         const SizedBox(height: 10),
-        Text(
-          'idle=${pIdle.value} animation=${pAnimation.value} '
-          'touch=${pTouch.value} kMaxOffset=${Priority.kMaxOffset}',
-          style: _mono(cobaltSpray),
-        ),
+        Text('idle=${pIdle.value} animation=${pAnimation.value} '
+             'touch=${pTouch.value} kMaxOffset=${Priority.kMaxOffset}',
+            style: _mono(cobaltSpray)),
       ],
     ),
   );
@@ -801,17 +647,17 @@ dynamic build(BuildContext context) {
 // ============================================================================
 
 BoxDecoration _surfaceDecoration() => BoxDecoration(
-  color: cobaltMidnight,
-  borderRadius: BorderRadius.circular(12),
-  border: Border.all(color: cobaltDeep),
-  boxShadow: [
-    BoxShadow(
-      color: cobaltInk.withValues(alpha: 0.6),
-      blurRadius: 6,
-      offset: const Offset(0, 2),
-    ),
-  ],
-);
+      color: cobaltMidnight,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: cobaltDeep),
+      boxShadow: [
+        BoxShadow(
+          color: cobaltInk.withValues(alpha: 0.6),
+          blurRadius: 6,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    );
 
 Widget _swatch(String name, Color c) {
   return Container(
@@ -836,11 +682,8 @@ Widget _swatch(String name, Color c) {
         ),
         const SizedBox(width: 6),
         Flexible(
-          child: Text(
-            name,
-            style: _body(cobaltShell, size: 10),
-            overflow: TextOverflow.ellipsis,
-          ),
+          child: Text(name, style: _body(cobaltShell, size: 10),
+              overflow: TextOverflow.ellipsis),
         ),
       ],
     ),
@@ -872,12 +715,10 @@ Widget _priorityCard({
 }) {
   final List<Widget> bullets = <Widget>[];
   for (int i = 0; i < examples.length; i++) {
-    bullets.add(
-      Padding(
-        padding: const EdgeInsets.only(left: 12, top: 2),
-        child: Text('- ' + examples[i], style: _body(cobaltShell, size: 12)),
-      ),
-    );
+    bullets.add(Padding(
+      padding: const EdgeInsets.only(left: 12, top: 2),
+      child: Text('- ' + examples[i], style: _body(cobaltShell, size: 12)),
+    ));
   }
   return Container(
     padding: const EdgeInsets.all(12),
@@ -894,7 +735,10 @@ Widget _priorityCard({
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 8),
             Text(name, style: _title(14, cobaltShell)),
@@ -905,10 +749,8 @@ Widget _priorityCard({
                 color: accent.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                '.value = ' + value.toString(),
-                style: _mono(cobaltShell, size: 11),
-              ),
+              child: Text('.value = ' + value.toString(),
+                  style: _mono(cobaltShell, size: 11)),
             ),
           ],
         ),
@@ -946,7 +788,8 @@ Widget _galleryCard(String label, int v, Color accent) {
             const SizedBox(width: 6),
             Text('.value', style: _body(cobaltSlate, size: 11)),
             const SizedBox(width: 6),
-            Text(v.toString(), style: _title(15, cobaltShell)),
+            Text(v.toString(),
+                style: _title(15, cobaltShell)),
           ],
         ),
       ],
@@ -959,10 +802,7 @@ Widget _barRow(String name, int value, double width, Color color) {
     children: [
       SizedBox(
         width: 90,
-        child: Text(
-          name,
-          style: _body(cobaltShell, size: 12, w: FontWeight.w600),
-        ),
+        child: Text(name, style: _body(cobaltShell, size: 12, w: FontWeight.w600)),
       ),
       Container(
         width: width,
@@ -990,23 +830,17 @@ Widget _tableHeader() {
       children: [
         SizedBox(
           width: 220,
-          child: Text(
-            'Priority expression',
-            style: _body(cobaltSpray, size: 12, w: FontWeight.w700),
-          ),
+          child: Text('Priority expression',
+              style: _body(cobaltSpray, size: 12, w: FontWeight.w700)),
         ),
         SizedBox(
           width: 70,
-          child: Text(
-            '.value',
-            style: _body(cobaltSpray, size: 12, w: FontWeight.w700),
-          ),
+          child: Text('.value',
+              style: _body(cobaltSpray, size: 12, w: FontWeight.w700)),
         ),
         Expanded(
-          child: Text(
-            'Use case',
-            style: _body(cobaltSpray, size: 12, w: FontWeight.w700),
-          ),
+          child: Text('Use case',
+              style: _body(cobaltSpray, size: 12, w: FontWeight.w700)),
         ),
       ],
     ),
@@ -1028,18 +862,13 @@ Widget _tableRow(String expr, int v, String useCase, Color accent) {
               Container(
                 width: 6,
                 height: 6,
-                decoration: BoxDecoration(
-                  color: accent,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
               ),
               const SizedBox(width: 6),
               Flexible(
-                child: Text(
-                  expr,
-                  style: _mono(cobaltShell, size: 11),
-                  overflow: TextOverflow.ellipsis,
-                ),
+                child: Text(expr,
+                    style: _mono(cobaltShell, size: 11),
+                    overflow: TextOverflow.ellipsis),
               ),
             ],
           ),
@@ -1048,7 +877,9 @@ Widget _tableRow(String expr, int v, String useCase, Color accent) {
           width: 70,
           child: Text(v.toString(), style: _mono(cobaltFoam, size: 11)),
         ),
-        Expanded(child: Text(useCase, style: _body(cobaltShell, size: 11))),
+        Expanded(
+          child: Text(useCase, style: _body(cobaltShell, size: 11)),
+        ),
       ],
     ),
   );
@@ -1066,11 +897,9 @@ Widget _frameSlice(String label, double ms, Color color) {
         border: Border(right: BorderSide(color: cobaltInk, width: 0.5)),
       ),
       alignment: Alignment.center,
-      child: Text(
-        label,
-        style: _mono(cobaltShell, size: 9),
-        overflow: TextOverflow.clip,
-      ),
+      child: Text(label,
+          style: _mono(cobaltShell, size: 9),
+          overflow: TextOverflow.clip),
     ),
   );
 }
@@ -1106,10 +935,7 @@ Widget _doRow(String text) {
             color: cobaltKelp,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            'DO',
-            style: _body(cobaltShell, size: 10, w: FontWeight.w800),
-          ),
+          child: Text('DO', style: _body(cobaltShell, size: 10, w: FontWeight.w800)),
         ),
         const SizedBox(width: 8),
         Expanded(child: Text(text, style: _body(cobaltShell, size: 12))),
@@ -1130,10 +956,7 @@ Widget _avoidRow(String text) {
             color: cobaltCoral,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            'AVOID',
-            style: _body(cobaltShell, size: 10, w: FontWeight.w800),
-          ),
+          child: Text('AVOID', style: _body(cobaltShell, size: 10, w: FontWeight.w800)),
         ),
         const SizedBox(width: 8),
         Expanded(child: Text(text, style: _body(cobaltShell, size: 12))),
@@ -1172,12 +995,12 @@ Widget _glossRow(String term, String def) {
       children: [
         SizedBox(
           width: 170,
-          child: Text(
-            term,
-            style: _body(cobaltSpray, size: 12, w: FontWeight.w700),
-          ),
+          child: Text(term,
+              style: _body(cobaltSpray, size: 12, w: FontWeight.w700)),
         ),
-        Expanded(child: Text(def, style: _body(cobaltShell, size: 12))),
+        Expanded(
+          child: Text(def, style: _body(cobaltShell, size: 12)),
+        ),
       ],
     ),
   );
@@ -1629,21 +1452,21 @@ Widget _glossRow(String term, String def) {
 // APPENDIX G :: Quick-reference cheat sheet
 // ============================================================================
 //
-//   Anchor                .value   Use when
+//   Anchor                .value   Use when                                   
 //   ---------------------------------------------------------------------------
-//   Priority.idle           0      Background, fill-the-gap maintenance
-//   Priority.animation  100000     Frame-coupled visible state
-//   Priority.touch      200000     Pointer-derived, latency-sensitive
+//   Priority.idle           0      Background, fill-the-gap maintenance       
+//   Priority.animation  100000     Frame-coupled visible state                
+//   Priority.touch      200000     Pointer-derived, latency-sensitive         
 //
-//   Operator                       Returns
+//   Operator                       Returns                                    
 //   ---------------------------------------------------------------------------
-//   Priority + int                 New Priority offset by int
-//   .value                         int used by binding for sort
-//   .toString()                    Debug string
+//   Priority + int                 New Priority offset by int                 
+//   .value                         int used by binding for sort              
+//   .toString()                    Debug string                              
 //
-//   Constants                      Meaning
+//   Constants                      Meaning                                    
 //   ---------------------------------------------------------------------------
-//   Priority.kMaxOffset = 10000    Soft upper bound on legal offsets
+//   Priority.kMaxOffset = 10000    Soft upper bound on legal offsets          
 //
 // ============================================================================
 // APPENDIX H :: Final reflection

@@ -423,10 +423,7 @@ class _ClassCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 8.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: accent.withOpacity(0.85),
               borderRadius: const BorderRadius.only(
@@ -691,7 +688,11 @@ class _OffsetArrowSpecimen extends StatelessWidget {
             child: Transform.rotate(
               angle: -0.4,
               alignment: Alignment.bottomLeft,
-              child: Container(width: 140.0, height: 2.5, color: Colors.indigo),
+              child: Container(
+                width: 140.0,
+                height: 2.5,
+                color: Colors.indigo,
+              ),
             ),
           ),
           const Positioned(
@@ -857,10 +858,8 @@ class _RadiusSpecimen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4.0),
-            const Text(
-              'circular',
-              style: TextStyle(fontSize: 10.0, fontFamily: 'monospace'),
-            ),
+            const Text('circular',
+                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace')),
           ],
         ),
         Column(
@@ -877,10 +876,8 @@ class _RadiusSpecimen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4.0),
-            const Text(
-              'elliptical',
-              style: TextStyle(fontSize: 10.0, fontFamily: 'monospace'),
-            ),
+            const Text('elliptical',
+                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace')),
           ],
         ),
       ],
@@ -1127,14 +1124,12 @@ class _ChannelBar extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4.0),
-        Text(
-          label,
-          style: TextStyle(
-            color: color,
-            fontFamily: 'monospace',
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+              color: color,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+            )),
       ],
     );
   }
@@ -1384,12 +1379,9 @@ class _CurvePathPainter extends CustomPainter {
     final Path p = Path()
       ..moveTo(10.0, size.height - 10.0)
       ..cubicTo(
-        size.width * 0.3,
-        10.0,
-        size.width * 0.7,
-        size.height - 10.0,
-        size.width - 10.0,
-        10.0,
+        size.width * 0.3, 10.0,
+        size.width * 0.7, size.height - 10.0,
+        size.width - 10.0, 10.0,
       );
     final Paint paint = Paint()
       ..color = Colors.blue.shade700
@@ -1586,28 +1578,19 @@ class _BlobPainter extends CustomPainter {
     final Path p = Path()
       ..moveTo(size.width * 0.2, size.height * 0.5)
       ..cubicTo(
-        size.width * 0.1,
-        size.height * 0.1,
-        size.width * 0.6,
-        size.height * 0.0,
-        size.width * 0.8,
-        size.height * 0.3,
+        size.width * 0.1, size.height * 0.1,
+        size.width * 0.6, size.height * 0.0,
+        size.width * 0.8, size.height * 0.3,
       )
       ..cubicTo(
-        size.width * 1.0,
-        size.height * 0.6,
-        size.width * 0.7,
-        size.height * 1.0,
-        size.width * 0.4,
-        size.height * 0.9,
+        size.width * 1.0, size.height * 0.6,
+        size.width * 0.7, size.height * 1.0,
+        size.width * 0.4, size.height * 0.9,
       )
       ..cubicTo(
-        size.width * 0.05,
-        size.height * 0.85,
-        size.width * 0.0,
-        size.height * 0.6,
-        size.width * 0.2,
-        size.height * 0.5,
+        size.width * 0.05, size.height * 0.85,
+        size.width * 0.0, size.height * 0.6,
+        size.width * 0.2, size.height * 0.5,
       )
       ..close();
     final Paint fill = Paint()..color = Colors.teal.shade400;
@@ -1816,7 +1799,8 @@ class _PointModeCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: Colors.green.shade100,
               borderRadius: BorderRadius.circular(6.0),
@@ -1868,7 +1852,8 @@ class _VertexModeCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: Colors.teal.shade100,
               borderRadius: BorderRadius.circular(6.0),
@@ -2178,7 +2163,8 @@ Widget _buildSection6Pipeline() {
             ),
             _ClassCard(
               name: 'ImmutableBuffer',
-              signature: 'await ImmutableBuffer.fromUint8List(bytes)',
+              signature:
+                  'await ImmutableBuffer.fromUint8List(bytes)',
               accent: const Color(0xFF00838F),
               summary:
                   'A platform-managed read-only byte buffer. Holds encoded '
@@ -2237,11 +2223,8 @@ class _PipelineStep {
   final String label;
   final String note;
   final IconData icon;
-  const _PipelineStep({
-    required this.label,
-    required this.note,
-    required this.icon,
-  });
+  const _PipelineStep(
+      {required this.label, required this.note, required this.icon});
 }
 
 class _PipelineRow extends StatelessWidget {
@@ -2259,12 +2242,10 @@ class _PipelineRow extends StatelessWidget {
     for (int i = 0; i < steps.length; i++) {
       tiles.add(_pipelineTile(steps[i]));
       if (i != steps.length - 1) {
-        tiles.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: Icon(Icons.arrow_forward, color: accent, size: 18.0),
-          ),
-        );
+        tiles.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: Icon(Icons.arrow_forward, color: accent, size: 18.0),
+        ));
       }
     }
     return Container(
@@ -2416,7 +2397,10 @@ class _ImageBoxSpecimen extends StatelessWidget {
       height: 90.0,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[Colors.purple.shade300, Colors.indigo.shade400],
+          colors: <Color>[
+            Colors.purple.shade300,
+            Colors.indigo.shade400,
+          ],
         ),
         borderRadius: BorderRadius.circular(6.0),
         border: Border.all(color: Colors.purple.shade900, width: 2.0),
@@ -2472,18 +2456,9 @@ class _DescriptorSpecimen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 4.0),
-          Text(
-            'width:  1024',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
-          ),
-          Text(
-            'height: 768',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
-          ),
-          Text(
-            'bpp:    4',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
-          ),
+          Text('width:  1024', style: TextStyle(fontFamily: 'monospace', fontSize: 11.0)),
+          Text('height: 768',  style: TextStyle(fontFamily: 'monospace', fontSize: 11.0)),
+          Text('bpp:    4',    style: TextStyle(fontFamily: 'monospace', fontSize: 11.0)),
         ],
       ),
     );
@@ -2549,7 +2524,10 @@ Widget _buildSection7FontsAndBoundary() {
               summary:
                   'Tiny enum from dart:ui. Selects upright vs italic glyphs '
                   'when the font carries an italic axis or face.',
-              members: const <String>['FontStyle.normal', 'FontStyle.italic'],
+              members: const <String>[
+                'FontStyle.normal',
+                'FontStyle.italic',
+              ],
               specimen: const _FontStyleSpecimen(),
             ),
             _ClassCard(
@@ -2672,22 +2650,14 @@ class _FontWeightSpecimen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const <Widget>[
-        Text(
-          'Aa w100',
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w100),
-        ),
-        Text(
-          'Aa w400',
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400),
-        ),
-        Text(
-          'Aa w700',
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
-        ),
-        Text(
-          'Aa w900',
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w900),
-        ),
+        Text('Aa w100',
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w100)),
+        Text('Aa w400',
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400)),
+        Text('Aa w700',
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700)),
+        Text('Aa w900',
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w900)),
       ],
     );
   }
@@ -2731,9 +2701,7 @@ class _BoundaryColumn extends StatelessWidget {
                   Container(
                     width: 90.0,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0,
-                      vertical: 1.0,
-                    ),
+                        horizontal: 4.0, vertical: 1.0),
                     decoration: BoxDecoration(
                       color: accent.withOpacity(0.12),
                       borderRadius: BorderRadius.circular(4.0),
@@ -2792,78 +2760,22 @@ class _DecisionTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<List<String>> rows = <List<String>>[
-      <String>[
-        'Represent a 2D position',
-        'Offset',
-        'positions and deltas in local coords',
-      ],
-      <String>[
-        'Represent a width/height pair',
-        'Size',
-        'logical dimensions of a layout box',
-      ],
-      <String>[
-        'Represent an axis-aligned rect',
-        'Rect',
-        'painting bounds, hit-test rects',
-      ],
-      <String>[
-        'Round the corners of a rect',
-        'RRect + Radius',
-        'use Radius.circular for uniform',
-      ],
-      <String>[
-        'Express transparency only',
-        'Color.withOpacity',
-        'NOT a separate alpha type',
-      ],
-      <String>[
-        'Pick a M3 semantic color',
-        'ColorScheme.primary etc.',
-        'theme-aware swatch',
-      ],
+      <String>['Represent a 2D position', 'Offset', 'positions and deltas in local coords'],
+      <String>['Represent a width/height pair', 'Size', 'logical dimensions of a layout box'],
+      <String>['Represent an axis-aligned rect', 'Rect', 'painting bounds, hit-test rects'],
+      <String>['Round the corners of a rect', 'RRect + Radius', 'use Radius.circular for uniform'],
+      <String>['Express transparency only', 'Color.withOpacity', 'NOT a separate alpha type'],
+      <String>['Pick a M3 semantic color', 'ColorScheme.primary etc.', 'theme-aware swatch'],
       <String>['Build a custom shape', 'Path', 'lineTo, cubicTo, addOval, ...'],
-      <String>[
-        'Combine two shapes',
-        'Path.combine + PathOperation',
-        'union, intersect, difference, xor',
-      ],
-      <String>[
-        'Draw a swarm of dots',
-        'drawPoints + PointMode.points',
-        'fast batched scatter',
-      ],
-      <String>[
-        'Draw connected segments',
-        'drawPoints + PointMode.polygon',
-        'single polyline',
-      ],
-      <String>[
-        'Draw a colored mesh',
-        'Vertices + drawVertices',
-        'triangleStrip is usually best',
-      ],
+      <String>['Combine two shapes', 'Path.combine + PathOperation', 'union, intersect, difference, xor'],
+      <String>['Draw a swarm of dots', 'drawPoints + PointMode.points', 'fast batched scatter'],
+      <String>['Draw connected segments', 'drawPoints + PointMode.polygon', 'single polyline'],
+      <String>['Draw a colored mesh', 'Vertices + drawVertices', 'triangleStrip is usually best'],
       <String>['Snapshot a Canvas', 'PictureRecorder -> Picture', 'replayable'],
-      <String>[
-        'Render to GPU',
-        'SceneBuilder -> Scene',
-        'window.render(scene)',
-      ],
-      <String>[
-        'Decode an image asset',
-        'ImmutableBuffer -> Descriptor -> Codec',
-        'returns FrameInfo',
-      ],
-      <String>[
-        'Iterate animated GIF frames',
-        'codec.getNextFrame()',
-        'check frame.duration',
-      ],
-      <String>[
-        'Set bold + italic on a glyph',
-        'FontWeight + FontStyle',
-        'set on TextStyle',
-      ],
+      <String>['Render to GPU', 'SceneBuilder -> Scene', 'window.render(scene)'],
+      <String>['Decode an image asset', 'ImmutableBuffer -> Descriptor -> Codec', 'returns FrameInfo'],
+      <String>['Iterate animated GIF frames', 'codec.getNextFrame()', 'check frame.duration'],
+      <String>['Set bold + italic on a glyph', 'FontWeight + FontStyle', 'set on TextStyle'],
     ];
     return Container(
       padding: const EdgeInsets.all(14.0),
@@ -2900,9 +2812,7 @@ class _DecisionTable extends StatelessWidget {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 6.0,
-                  ),
+                      horizontal: 8.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: Colors.blueGrey.shade800,
                     borderRadius: const BorderRadius.only(
@@ -2954,11 +2864,11 @@ class _DecisionTable extends StatelessWidget {
                 for (int i = 0; i < rows.length; i++)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 6.0,
-                    ),
+                        horizontal: 8.0, vertical: 6.0),
                     decoration: BoxDecoration(
-                      color: i.isEven ? Colors.white : Colors.blueGrey.shade50,
+                      color: i.isEven
+                          ? Colors.white
+                          : Colors.blueGrey.shade50,
                     ),
                     child: Row(
                       children: <Widget>[
@@ -2986,9 +2896,7 @@ class _DecisionTable extends StatelessWidget {
                           child: Text(
                             rows[i][2],
                             style: const TextStyle(
-                              fontSize: 11.0,
-                              color: Colors.black54,
-                            ),
+                                fontSize: 11.0, color: Colors.black54),
                           ),
                         ),
                       ],
@@ -3289,9 +3197,7 @@ class _Glossary extends StatelessWidget {
                   Container(
                     width: 130.0,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 2.0,
-                    ),
+                        horizontal: 6.0, vertical: 2.0),
                     decoration: BoxDecoration(
                       color: Colors.blueGrey.shade800,
                       borderRadius: BorderRadius.circular(4.0),

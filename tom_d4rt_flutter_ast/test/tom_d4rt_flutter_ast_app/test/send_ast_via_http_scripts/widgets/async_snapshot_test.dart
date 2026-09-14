@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.camera_alt,
       'title': 'Snapshot of Async State',
-      'body':
-          'AsyncSnapshot<T> is an immutable snapshot of the latest '
+      'body': 'AsyncSnapshot<T> is an immutable snapshot of the latest '
           'state of an asynchronous computation. It captures three '
           'things: the connectionState (waiting, active, done), '
           'any data received, and any error that occurred.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.sync,
       'title': 'ConnectionState',
-      'body':
-          'ConnectionState tracks the lifecycle: none (not connected), '
+      'body': 'ConnectionState tracks the lifecycle: none (not connected), '
           'waiting (connected, no data yet), active (stream has '
           'emitted at least one event), done (Future completed or '
           'Stream closed). Each state needs different UI handling.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.build,
       'title': 'Used by Builders',
-      'body':
-          'You rarely create AsyncSnapshot yourself. FutureBuilder '
+      'body': 'You rarely create AsyncSnapshot yourself. FutureBuilder '
           'and StreamBuilder create snapshots automatically and pass '
           'them to your builder function. The snapshot tells you '
           'what to render at each moment.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lock,
       'title': 'Immutable & Type-Safe',
-      'body':
-          'Each snapshot is immutable — a new one is created for '
+      'body': 'Each snapshot is immutable — a new one is created for '
           'each state change. The generic type T ensures data '
           'access is type-safe. Use hasData / hasError to guard '
           'access to data / error fields.',
@@ -128,8 +124,7 @@ dynamic build(BuildContext context) {
   final connectionStates = <Map<String, dynamic>>[
     {
       'state': 'none',
-      'desc':
-          'Not connected to any asynchronous computation. '
+      'desc': 'Not connected to any asynchronous computation. '
           'snapshot.data and snapshot.error are both null.',
       'icon': Icons.circle_outlined,
       'color': Colors.grey,
@@ -138,8 +133,7 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'waiting',
-      'desc':
-          'Connected but no data/error yet. The Future is '
+      'desc': 'Connected but no data/error yet. The Future is '
           'pending or the Stream has not emitted.',
       'icon': Icons.hourglass_top,
       'color': Colors.amber,
@@ -148,8 +142,7 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'active',
-      'desc':
-          'The Stream has emitted at least one event. Not '
+      'desc': 'The Stream has emitted at least one event. Not '
           'applicable to Futures (they skip to done).',
       'icon': Icons.flash_on,
       'color': Colors.blue,
@@ -158,8 +151,7 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'done',
-      'desc':
-          'The Future has completed or the Stream has closed. '
+      'desc': 'The Future has completed or the Stream has closed. '
           'snapshot.data or snapshot.error holds the final result.',
       'icon': Icons.check_circle,
       'color': Colors.green,
@@ -231,8 +223,7 @@ dynamic build(BuildContext context) {
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
+                          horizontal: 6, vertical: 2,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.blue.withOpacity(0.08),
@@ -240,17 +231,13 @@ dynamic build(BuildContext context) {
                         ),
                         child: Text(
                           'Future: ${cs['futureNote']}',
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: Colors.blue.shade700,
-                          ),
+                          style: TextStyle(fontSize: 9, color: Colors.blue.shade700),
                         ),
                       ),
                       const SizedBox(width: 6),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
+                          horizontal: 6, vertical: 2,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.green.withOpacity(0.08),
@@ -258,10 +245,7 @@ dynamic build(BuildContext context) {
                         ),
                         child: Text(
                           'Stream: ${cs['streamNote']}',
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: Colors.green.shade700,
-                          ),
+                          style: TextStyle(fontSize: 9, color: Colors.green.shade700),
                         ),
                       ),
                     ],
@@ -278,11 +262,7 @@ dynamic build(BuildContext context) {
       stateCards.add(
         Padding(
           padding: const EdgeInsets.only(left: 24),
-          child: Icon(
-            Icons.arrow_downward,
-            size: 16,
-            color: Colors.grey.shade400,
-          ),
+          child: Icon(Icons.arrow_downward, size: 16, color: Colors.grey.shade400),
         ),
       );
     }
@@ -364,8 +344,7 @@ dynamic build(BuildContext context) {
     {
       'prop': 'requireData',
       'type': 'T',
-      'desc':
-          'Returns data or throws if null. For when you are certain data exists.',
+      'desc': 'Returns data or throws if null. For when you are certain data exists.',
       'color': Colors.indigo,
     },
   ];
@@ -494,11 +473,7 @@ dynamic build(BuildContext context) {
         Text(
           'FutureBuilder creates AsyncSnapshot<T> snapshots as '
           'the Future progresses through waiting → done:',
-          style: TextStyle(
-            fontSize: 12,
-            height: 1.4,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 12, height: 1.4, color: Colors.grey.shade700),
         ),
         const SizedBox(height: 14),
         Container(
@@ -584,11 +559,7 @@ dynamic build(BuildContext context) {
         Text(
           'StreamBuilder creates snapshots for each event. '
           'Unlike FutureBuilder, it goes through the active state:',
-          style: TextStyle(
-            fontSize: 12,
-            height: 1.4,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 12, height: 1.4, color: Colors.grey.shade700),
         ),
         const SizedBox(height: 14),
         Container(
@@ -731,10 +702,7 @@ dynamic build(BuildContext context) {
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.circular(8),
@@ -821,7 +789,10 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 12),
                   Text(
                     'Loading profile...',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade500,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -850,16 +821,14 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'API Response Loading',
-      'desc':
-          'Show skeleton/shimmer while waiting, hydrate UI when '
+      'desc': 'Show skeleton/shimmer while waiting, hydrate UI when '
           'data arrives, show retry button on error.',
       'icon': Icons.cloud_download,
       'color': Colors.blue,
     },
     {
       'title': 'Real-time Chat Messages',
-      'desc':
-          'StreamBuilder with AsyncSnapshot for live message '
+      'desc': 'StreamBuilder with AsyncSnapshot for live message '
           'feed. Active state shows latest messages, done means '
           'the chat room was closed.',
       'icon': Icons.chat,
@@ -867,32 +836,28 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'File Upload Progress',
-      'desc':
-          'Stream emitting upload percentage. Active snapshot '
+      'desc': 'Stream emitting upload percentage. Active snapshot '
           'shows progress bar. Done snapshot shows success/failure.',
       'icon': Icons.upload_file,
       'color': Colors.orange,
     },
     {
       'title': 'Database Query Cache',
-      'desc':
-          'Use initialData parameter to show cached data while '
+      'desc': 'Use initialData parameter to show cached data while '
           'fresh data loads. Snapshot.data is always available.',
       'icon': Icons.storage,
       'color': Colors.purple,
     },
     {
       'title': 'Authentication State',
-      'desc':
-          'StreamBuilder on auth state stream. Snapshot drives '
+      'desc': 'StreamBuilder on auth state stream. Snapshot drives '
           'routing: no user → login, has user → home screen.',
       'icon': Icons.lock_open,
       'color': Colors.red,
     },
     {
       'title': 'WebSocket Connection',
-      'desc':
-          'Stream from WebSocket channel. Active=connected and '
+      'desc': 'Stream from WebSocket channel. Active=connected and '
           'receiving. Done=disconnected. Error=connection failed.',
       'icon': Icons.wifi,
       'color': Colors.teal,
@@ -999,24 +964,21 @@ dynamic build(BuildContext context) {
       'title': 'Creating Future in build()',
       'bad': 'FutureBuilder(future: fetchData(), ...)',
       'good': 'Store future as field: _future = fetchData();',
-      'why':
-          'Creating a new Future in build() causes infinite rebuilds '
+      'why': 'Creating a new Future in build() causes infinite rebuilds '
           'because each build creates a new Future reference.',
     },
     {
       'title': 'Ignoring error state',
       'bad': 'if (snapshot.hasData) { ... } else { loading... }',
       'good': 'Check hasError BEFORE hasData',
-      'why':
-          'A snapshot can be done with an error. Without checking, '
+      'why': 'A snapshot can be done with an error. Without checking, '
           'you show an infinite loading spinner on failure.',
     },
     {
       'title': 'Using .data without guard',
       'bad': 'Text(snapshot.data!.toString())',
       'good': 'if (snapshot.hasData) Text(snapshot.data!...)',
-      'why':
-          'Accessing .data without hasData guard throws when data '
+      'why': 'Accessing .data without hasData guard throws when data '
           'is null (waiting/error states).',
     },
   ];
@@ -1054,22 +1016,16 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: Colors.red.shade50,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
-                    'BAD',
-                    style: TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  ),
+                  child: const Text('BAD',
+                      style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red)),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -1089,22 +1045,16 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: Colors.green.shade50,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
-                    'GOOD',
-                    style: TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                  ),
+                  child: const Text('GOOD',
+                      style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green)),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -1172,22 +1122,10 @@ dynamic build(BuildContext context) {
   print('=== Section 10: Summary ===');
 
   final summaryStats = [
-    {
-      'label': 'States',
-      'value': '${connectionStates.length}',
-      'color': Colors.blue,
-    },
-    {
-      'label': 'Properties',
-      'value': '${props.length}',
-      'color': Colors.deepOrange,
-    },
+    {'label': 'States', 'value': '${connectionStates.length}', 'color': Colors.blue},
+    {'label': 'Properties', 'value': '${props.length}', 'color': Colors.deepOrange},
     {'label': 'Patterns', 'value': '${patterns.length}', 'color': Colors.teal},
-    {
-      'label': 'Anti-Patterns',
-      'value': '${antiPatterns.length}',
-      'color': Colors.red,
-    },
+    {'label': 'Anti-Patterns', 'value': '${antiPatterns.length}', 'color': Colors.red},
   ];
 
   final statTiles = <Widget>[];
@@ -1274,11 +1212,7 @@ dynamic build(BuildContext context) {
             color: Colors.deepOrange.shade50,
             child: Column(
               children: [
-                Icon(
-                  Icons.camera_alt,
-                  size: 48,
-                  color: Colors.deepOrange.shade700,
-                ),
+                Icon(Icons.camera_alt, size: 48, color: Colors.deepOrange.shade700),
                 const SizedBox(height: 10),
                 Text(
                   'AsyncSnapshot<T>',
@@ -1385,12 +1319,8 @@ Widget _asyncStateBox(String label, Color color, IconData icon) {
   );
 }
 
-Widget _decisionNode(
-  String text,
-  Color color,
-  IconData icon, {
-  bool isQuestion = false,
-}) {
+Widget _decisionNode(String text, Color color, IconData icon,
+    {bool isQuestion = false}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -1500,8 +1430,7 @@ Widget _buildProfileCard(Map<String, dynamic> user) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
+                        horizontal: 8, vertical: 3,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.green.shade50,
@@ -1519,8 +1448,7 @@ Widget _buildProfileCard(Map<String, dynamic> user) {
                     const SizedBox(width: 6),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
+                        horizontal: 8, vertical: 3,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.blue.shade50,

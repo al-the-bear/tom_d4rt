@@ -118,7 +118,10 @@ Widget _configCard({
               Container(
                 width: 10,
                 height: 10,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -303,13 +306,22 @@ dynamic build(BuildContext context) {
 
   print('\n[SECTION 1] Dossier');
   final dossierFacts = <Map<String, String>>[
-    {'fact': 'package', 'value': 'package:flutter/services.dart'},
-    {'fact': 'kind', 'value': 'immutable data class'},
+    {
+      'fact': 'package',
+      'value': 'package:flutter/services.dart',
+    },
+    {
+      'fact': 'kind',
+      'value': 'immutable data class',
+    },
     {
       'fact': 'role',
       'value': 'Bundles all metadata required to participate in OS autofill',
     },
-    {'fact': 'consumer', 'value': 'TextInputClient.autofillConfiguration'},
+    {
+      'fact': 'consumer',
+      'value': 'TextInputClient.autofillConfiguration',
+    },
     {
       'fact': 'wire format',
       'value': 'serialised to a Map and sent across the platform channel',
@@ -333,7 +345,9 @@ dynamic build(BuildContext context) {
 
   final dossierWidget = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: dossierFacts.map((f) => _kv(f['fact']!, f['value']!)).toList(),
+    children: dossierFacts
+        .map((f) => _kv(f['fact']!, f['value']!))
+        .toList(),
   );
 
   // ==========================================================================
@@ -368,7 +382,8 @@ dynamic build(BuildContext context) {
       'name': 'hintText',
       'type': 'String?',
       'required': 'no',
-      'desc': 'Optional placeholder string the OS may show in its autofill UI',
+      'desc':
+          'Optional placeholder string the OS may show in its autofill UI',
     },
   ];
 
@@ -381,7 +396,12 @@ dynamic build(BuildContext context) {
         bg: const Color(0xFFE8EAF6),
       ),
       ...anatomyParams.map(
-        (p) => _tableRow([p['name']!, p['type']!, p['required']!, p['desc']!]),
+        (p) => _tableRow([
+          p['name']!,
+          p['type']!,
+          p['required']!,
+          p['desc']!,
+        ]),
       ),
     ],
   );
@@ -911,7 +931,12 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Icon(Icons.arrow_right, size: 18, color: Color(0xFF00838F)),
-              Expanded(child: Text(s, style: const TextStyle(fontSize: 12))),
+              Expanded(
+                child: Text(
+                  s,
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ),
             ],
           ),
         ),
@@ -1081,7 +1106,12 @@ dynamic build(BuildContext context) {
       "'${singleHint.currentEditingValue.text}'",
       "'${multiHint.currentEditingValue.text}'",
     ],
-    ['participates?', 'no (opt-out)', 'yes', 'yes (ranked)'],
+    [
+      'participates?',
+      'no (opt-out)',
+      'yes',
+      'yes (ranked)',
+    ],
   ];
 
   for (final row in comparisonRows) {
@@ -1245,96 +1275,96 @@ dynamic build(BuildContext context) {
   // RenderFlex.
   return SingleChildScrollView(
     child: Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'AutofillConfiguration — Deep Demo',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-              color: Color(0xFF1A237E),
-            ),
+    padding: const EdgeInsets.all(12),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          'AutofillConfiguration — Deep Demo',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            color: Color(0xFF1A237E),
           ),
-          const SizedBox(height: 4),
-          const Text(
-            'package:flutter/services.dart',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: Color(0xFF455A64),
-            ),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          'package:flutter/services.dart',
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: Color(0xFF455A64),
           ),
-          _sectionHeader(
-            '1',
-            'Dossier',
-            'What AutofillConfiguration is and where it sits in the autofill pipeline.',
-          ),
-          dossierWidget,
-          _sectionHeader(
-            '2',
-            'Anatomy',
-            'Constructor parameters, the disabled factory, and the framework message shape.',
-          ),
-          anatomyWidget,
-          _sectionHeader(
-            '3',
-            'AutofillHints catalog',
-            '${hintCatalog.length} semantic hint constants rendered as a chip grid.',
-          ),
-          hintCatalogWidget,
-          _sectionHeader(
-            '4',
-            'Realistic field gallery',
-            'Login, address, and payment forms with real TextFields inside AutofillGroups.',
-          ),
-          galleryWidget,
-          _sectionHeader(
-            '5',
-            'TextEditingValue exploration',
-            'Empty, plain, selection, collapsed, and composing variants.',
-          ),
-          tevWidget,
-          _sectionHeader(
-            '6',
-            'AutofillScope discussion',
-            'How a group of fields shares context for save / restore.',
-          ),
-          scopeWidget,
-          _sectionHeader(
-            '7',
-            'AutofillConfiguration.disabled',
-            'When and why to opt a field out of autofill.',
-          ),
-          disabledWidget,
-          _sectionHeader(
-            '8',
-            'Recipes',
-            'Copy-paste-ready snippets for common autofill setups.',
-          ),
-          recipeWidget,
-          _sectionHeader(
-            '9',
-            'Comparison',
-            'disabled vs single-hint vs multi-hint side by side.',
-          ),
-          comparisonWidget,
-          _sectionHeader(
-            '10',
-            'Glossary',
-            'Terms you will see across the autofill subsystem.',
-          ),
-          glossaryWidget,
-          _sectionHeader(
-            '11',
-            'Summary',
-            'Roll-up of everything built in this demo.',
-          ),
-          summaryWidget,
-        ],
-      ),
+        ),
+        _sectionHeader(
+          '1',
+          'Dossier',
+          'What AutofillConfiguration is and where it sits in the autofill pipeline.',
+        ),
+        dossierWidget,
+        _sectionHeader(
+          '2',
+          'Anatomy',
+          'Constructor parameters, the disabled factory, and the framework message shape.',
+        ),
+        anatomyWidget,
+        _sectionHeader(
+          '3',
+          'AutofillHints catalog',
+          '${hintCatalog.length} semantic hint constants rendered as a chip grid.',
+        ),
+        hintCatalogWidget,
+        _sectionHeader(
+          '4',
+          'Realistic field gallery',
+          'Login, address, and payment forms with real TextFields inside AutofillGroups.',
+        ),
+        galleryWidget,
+        _sectionHeader(
+          '5',
+          'TextEditingValue exploration',
+          'Empty, plain, selection, collapsed, and composing variants.',
+        ),
+        tevWidget,
+        _sectionHeader(
+          '6',
+          'AutofillScope discussion',
+          'How a group of fields shares context for save / restore.',
+        ),
+        scopeWidget,
+        _sectionHeader(
+          '7',
+          'AutofillConfiguration.disabled',
+          'When and why to opt a field out of autofill.',
+        ),
+        disabledWidget,
+        _sectionHeader(
+          '8',
+          'Recipes',
+          'Copy-paste-ready snippets for common autofill setups.',
+        ),
+        recipeWidget,
+        _sectionHeader(
+          '9',
+          'Comparison',
+          'disabled vs single-hint vs multi-hint side by side.',
+        ),
+        comparisonWidget,
+        _sectionHeader(
+          '10',
+          'Glossary',
+          'Terms you will see across the autofill subsystem.',
+        ),
+        glossaryWidget,
+        _sectionHeader(
+          '11',
+          'Summary',
+          'Roll-up of everything built in this demo.',
+        ),
+        summaryWidget,
+      ],
     ),
+  ),
   );
 }

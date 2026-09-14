@@ -213,7 +213,10 @@ class _PrivatePill extends StatelessWidget {
 }
 
 class _PrivateSectionHeader extends StatelessWidget {
-  const _PrivateSectionHeader({required this.eyebrow, required this.title});
+  const _PrivateSectionHeader({
+    required this.eyebrow,
+    required this.title,
+  });
 
   final String eyebrow;
   final String title;
@@ -242,11 +245,7 @@ class _PrivateSectionHeader extends StatelessWidget {
 }
 
 class _PrivateGlyph extends StatelessWidget {
-  const _PrivateGlyph({
-    required this.glyph,
-    required this.color,
-    this.size = 18.0,
-  });
+  const _PrivateGlyph({required this.glyph, required this.color, this.size = 18.0});
 
   final String glyph;
   final Color color;
@@ -287,7 +286,10 @@ class _PrivateHero extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [_PrivatePalette.panelHi, _PrivatePalette.panel],
+          colors: [
+            _PrivatePalette.panelHi,
+            _PrivatePalette.panel,
+          ],
         ),
         borderRadius: BorderRadius.circular(18.0),
         border: Border.all(color: _PrivatePalette.borderHi, width: 1.2),
@@ -469,7 +471,10 @@ class _PrivateObserverListLayout extends StatelessWidget {
                 color: _PrivatePalette.accentTeal,
               ),
               const SizedBox(width: 8.0),
-              _PrivatePill(label: 'LINEAR', color: _PrivatePalette.accentBlue),
+              _PrivatePill(
+                label: 'LINEAR',
+                color: _PrivatePalette.accentBlue,
+              ),
             ],
           ),
           const SizedBox(height: 12.0),
@@ -487,10 +492,7 @@ class _PrivateObserverListLayout extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 8.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: _PrivatePalette.codeBg,
               borderRadius: BorderRadius.circular(6.0),
@@ -568,10 +570,7 @@ class _PrivateHashedObserverListLayout extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 8.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: _PrivatePalette.codeBg,
               borderRadius: BorderRadius.circular(6.0),
@@ -787,35 +786,19 @@ class _PrivateComplexityHeader extends StatelessWidget {
           topLeft: Radius.circular(13.0),
           topRight: Radius.circular(13.0),
         ),
-        border: Border(bottom: BorderSide(color: _PrivatePalette.border)),
+        border: Border(
+          bottom: BorderSide(color: _PrivatePalette.border),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       child: Row(
         children: [
-          Expanded(
-            flex: 3,
-            child: Text('OPERATION', style: _PrivateType.tableHeader),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text('ObserverList', style: _PrivateType.tableHeader),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text('Hashed', style: _PrivateType.tableHeader),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text('List<T>', style: _PrivateType.tableHeader),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text('Set<T>', style: _PrivateType.tableHeader),
-          ),
-          Expanded(
-            flex: 5,
-            child: Text('NOTE', style: _PrivateType.tableHeader),
-          ),
+          Expanded(flex: 3, child: Text('OPERATION', style: _PrivateType.tableHeader)),
+          Expanded(flex: 2, child: Text('ObserverList', style: _PrivateType.tableHeader)),
+          Expanded(flex: 2, child: Text('Hashed', style: _PrivateType.tableHeader)),
+          Expanded(flex: 2, child: Text('List<T>', style: _PrivateType.tableHeader)),
+          Expanded(flex: 2, child: Text('Set<T>', style: _PrivateType.tableHeader)),
+          Expanded(flex: 5, child: Text('NOTE', style: _PrivateType.tableHeader)),
         ],
       ),
     );
@@ -872,22 +855,10 @@ class _PrivateComplexityRow extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: _PrivateBigOCell(value: obs, ok: obsOk),
-          ),
-          Expanded(
-            flex: 2,
-            child: _PrivateBigOCell(value: hashed, ok: hashedOk),
-          ),
-          Expanded(
-            flex: 2,
-            child: _PrivateBigOCell(value: list, ok: listOk),
-          ),
-          Expanded(
-            flex: 2,
-            child: _PrivateBigOCell(value: set, ok: setOk),
-          ),
+          Expanded(flex: 2, child: _PrivateBigOCell(value: obs, ok: obsOk)),
+          Expanded(flex: 2, child: _PrivateBigOCell(value: hashed, ok: hashedOk)),
+          Expanded(flex: 2, child: _PrivateBigOCell(value: list, ok: listOk)),
+          Expanded(flex: 2, child: _PrivateBigOCell(value: set, ok: setOk)),
           Expanded(flex: 5, child: Text(note, style: _PrivateType.small)),
         ],
       ),
@@ -1086,7 +1057,9 @@ class _PrivateConsole extends StatelessWidget {
                 topLeft: Radius.circular(9.0),
                 topRight: Radius.circular(9.0),
               ),
-              border: Border(bottom: BorderSide(color: _PrivatePalette.border)),
+              border: Border(
+                bottom: BorderSide(color: _PrivatePalette.border),
+              ),
             ),
             child: Row(
               children: [
@@ -1161,8 +1134,7 @@ class _PrivateDecisionSection extends StatelessWidget {
             children: [
               _PrivateDecisionStep(
                 index: 1,
-                question:
-                    'Is the collection a listener registry (i.e. you '
+                question: 'Is the collection a listener registry (i.e. you '
                     'iterate it on every event)?',
                 yes: 'Continue.',
                 no: 'Use a plain List<T> or Set<T>; ObserverList is overkill.',
@@ -1170,8 +1142,7 @@ class _PrivateDecisionSection extends StatelessWidget {
               const SizedBox(height: 14.0),
               _PrivateDecisionStep(
                 index: 2,
-                question:
-                    'Will the registry routinely hold > ~10 entries, '
+                question: 'Will the registry routinely hold > ~10 entries, '
                     'and do you call .contains() or .remove() inside hot paths?',
                 yes: 'Use HashedObserverList<T> — O(1) membership wins.',
                 no: 'Use ObserverList<T> — smaller footprint, fastest iteration.',
@@ -1179,11 +1150,9 @@ class _PrivateDecisionSection extends StatelessWidget {
               const SizedBox(height: 14.0),
               _PrivateDecisionStep(
                 index: 3,
-                question:
-                    'Do you need to *remove the same listener* during '
+                question: 'Do you need to *remove the same listener* during '
                     'iteration (e.g. one-shot listeners)?',
-                yes:
-                    'Either works; ObserverList is widely battle-tested for this.',
+                yes: 'Either works; ObserverList is widely battle-tested for this.',
                 no: 'Pick by the rule above.',
               ),
               const SizedBox(height: 18.0),
@@ -1300,7 +1269,10 @@ class _PrivateDecisionStep extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _PrivatePill(label: 'NO', color: _PrivatePalette.accentRed),
+                    _PrivatePill(
+                      label: 'NO',
+                      color: _PrivatePalette.accentRed,
+                    ),
                     const SizedBox(width: 8.0),
                     Expanded(child: Text(no, style: _PrivateType.small)),
                   ],
@@ -1453,7 +1425,9 @@ class _PrivateDiagramNode extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 14.0),
       decoration: BoxDecoration(
-        color: accent ? color.withValues(alpha: 0.15) : _PrivatePalette.panel,
+        color: accent
+            ? color.withValues(alpha: 0.15)
+            : _PrivatePalette.panel,
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           color: color.withValues(alpha: accent ? 0.7 : 0.5),
@@ -1506,7 +1480,11 @@ class _PrivateDiagramArrow extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4.0),
-          Container(width: 32.0, height: 1.6, color: _PrivatePalette.borderHi),
+          Container(
+            width: 32.0,
+            height: 1.6,
+            color: _PrivatePalette.borderHi,
+          ),
           Container(
             margin: const EdgeInsets.only(top: 0.0),
             child: Text(
@@ -1742,8 +1720,7 @@ class _PrivateRealisticPattern extends StatelessWidget {
                   _PrivateCodeLine(n: 2, text: ''),
                   _PrivateCodeLine(
                     n: 3,
-                    text:
-                        'typedef FrameTickListener = void Function(Duration t);',
+                    text: 'typedef FrameTickListener = void Function(Duration t);',
                   ),
                   _PrivateCodeLine(n: 4, text: ''),
                   _PrivateCodeLine(
@@ -1766,8 +1743,7 @@ class _PrivateRealisticPattern extends StatelessWidget {
                   ),
                   _PrivateCodeLine(
                     n: 10,
-                    text:
-                        '  void remove(FrameTickListener l) => _ls.remove(l);',
+                    text: '  void remove(FrameTickListener l) => _ls.remove(l);',
                   ),
                   _PrivateCodeLine(n: 11, text: ''),
                   _PrivateCodeLine(
@@ -1778,7 +1754,10 @@ class _PrivateRealisticPattern extends StatelessWidget {
                     n: 13,
                     text: '    final snap = _ls.toList(growable: false);',
                   ),
-                  _PrivateCodeLine(n: 14, text: '    for (final l in snap) {'),
+                  _PrivateCodeLine(
+                    n: 14,
+                    text: '    for (final l in snap) {',
+                  ),
                   _PrivateCodeLine(
                     n: 15,
                     text: '      if (_ls.contains(l)) l(t);',
@@ -1883,7 +1862,9 @@ class _PrivateCodeListing extends StatelessWidget {
                 topLeft: Radius.circular(9.0),
                 topRight: Radius.circular(9.0),
               ),
-              border: Border(bottom: BorderSide(color: _PrivatePalette.border)),
+              border: Border(
+                bottom: BorderSide(color: _PrivatePalette.border),
+              ),
             ),
             child: Row(
               children: [
@@ -2207,7 +2188,10 @@ class _PrivateFooter extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4.0),
-                Text('visual deep demo / r2 / 2026', style: _PrivateType.small),
+                Text(
+                  'visual deep demo / r2 / 2026',
+                  style: _PrivateType.small,
+                ),
                 const SizedBox(height: 12.0),
                 Text(
                   'Subject: ObserverList<T>, HashedObserverList<T> '

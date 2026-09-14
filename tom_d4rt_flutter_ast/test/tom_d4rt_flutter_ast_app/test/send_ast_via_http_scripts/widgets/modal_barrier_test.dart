@@ -7,7 +7,8 @@ final ValueNotifier<bool> _dismissibleOpen = ValueNotifier<bool>(false);
 final ValueNotifier<bool> _nonDismissibleOpen = ValueNotifier<bool>(false);
 final ValueNotifier<String> _nonDismissTapMsg = ValueNotifier<String>('');
 final ValueNotifier<bool> _animatedOpen = ValueNotifier<bool>(false);
-final ValueNotifier<List<String>> _dismissLog = ValueNotifier<List<String>>([]);
+final ValueNotifier<List<String>> _dismissLog =
+    ValueNotifier<List<String>>([]);
 
 // ---------------------------------------------------------------------------
 // Entry point required by d4rt sandbox harness.
@@ -48,7 +49,10 @@ class _ModalBarrierDemoShell extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ModalBarrier Explorer'),
-          bottom: const TabBar(isScrollable: true, tabs: _tabs),
+          bottom: const TabBar(
+            isScrollable: true,
+            tabs: _tabs,
+          ),
         ),
         body: const TabBarView(
           children: <Widget>[
@@ -115,7 +119,10 @@ class _HeroTab extends StatelessWidget {
           DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[cs.primaryContainer, cs.secondaryContainer],
+                colors: <Color>[
+                  cs.primaryContainer,
+                  cs.secondaryContainer,
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -135,15 +142,14 @@ class _HeroTab extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.shield_outlined,
-                        size: 40,
-                        color: cs.onPrimaryContainer,
-                      ),
+                      Icon(Icons.shield_outlined,
+                          size: 40, color: cs.onPrimaryContainer),
                       const SizedBox(width: 12),
                       Text(
                         'ModalBarrier',
-                        style: Theme.of(context).textTheme.headlineMedium!
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
                             .copyWith(
                               color: cs.onPrimaryContainer,
                               fontWeight: FontWeight.bold,
@@ -160,8 +166,8 @@ class _HeroTab extends StatelessWidget {
                     'pop the route (dismissible) or are silently swallowed '
                     '(non-dismissible).',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: cs.onPrimaryContainer,
-                    ),
+                          color: cs.onPrimaryContainer,
+                        ),
                   ),
                 ],
               ),
@@ -201,17 +207,14 @@ class _HeroTab extends StatelessWidget {
             elevation: 0,
             color: cs.surfaceContainerHighest,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
+                borderRadius: BorderRadius.circular(14)),
             child: Padding(
               padding: const EdgeInsets.all(18),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Constructor',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  Text('Constructor',
+                      style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 10),
                   SelectableText(
                     'ModalBarrier({\n'
@@ -223,9 +226,9 @@ class _HeroTab extends StatelessWidget {
                     '  VoidCallback? onDismiss,\n'
                     '})',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontFamily: 'monospace',
-                      color: cs.onSurfaceVariant,
-                    ),
+                          fontFamily: 'monospace',
+                          color: cs.onSurfaceVariant,
+                        ),
                   ),
                 ],
               ),
@@ -252,10 +255,8 @@ class _DismissibleTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
-            'Dismissible Barrier',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          Text('Dismissible Barrier',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           Text(
             'Tap the "Show Barrier" button to overlay a black-54 ModalBarrier. '
@@ -270,7 +271,7 @@ class _DismissibleTab extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: ValueListenableBuilder<bool>(
               valueListenable: _dismissibleOpen,
-              builder: (_, bool open, _) {
+              builder: (_, bool open,  _) {
                 return SizedBox(
                   height: 260,
                   child: Stack(
@@ -279,27 +280,26 @@ class _DismissibleTab extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: <Color>[cs.primary, cs.tertiary],
+                            colors: <Color>[
+                              cs.primary,
+                              cs.tertiary,
+                            ],
                           ),
                         ),
                         child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Icon(
-                                Icons.image_outlined,
-                                size: 56,
-                                color: cs.onPrimary.withAlpha(180),
-                              ),
+                              Icon(Icons.image_outlined,
+                                  size: 56,
+                                  color:
+                                      cs.onPrimary.withAlpha(180)),
                               const SizedBox(height: 8),
-                              Text(
-                                'Background Content',
-                                style: TextStyle(
-                                  color: cs.onPrimary,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              Text('Background Content',
+                                  style: TextStyle(
+                                      color: cs.onPrimary,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600)),
                             ],
                           ),
                         ),
@@ -311,9 +311,7 @@ class _DismissibleTab extends StatelessWidget {
                           dismissible: true,
                           onDismiss: () {
                             _dismissibleOpen.value = false;
-                            _appendLog(
-                              'Dismissible barrier tapped → dismissed',
-                            );
+                            _appendLog('Dismissible barrier tapped → dismissed');
                           },
                         ),
                       // Status badge
@@ -323,11 +321,11 @@ class _DismissibleTab extends StatelessWidget {
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 250),
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 4,
-                          ),
+                              horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
-                            color: open ? Colors.black87 : cs.primaryContainer,
+                            color: open
+                                ? Colors.black87
+                                : cs.primaryContainer,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
@@ -353,18 +351,13 @@ class _DismissibleTab extends StatelessWidget {
           // Control button
           ValueListenableBuilder<bool>(
             valueListenable: _dismissibleOpen,
-            builder: (_, bool open, _) {
+            builder: (_, bool open,  _) {
               return FilledButton.icon(
-                icon: Icon(
-                  open
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined,
-                ),
-                label: Text(
-                  open
-                      ? 'Barrier is ON — tap scrim to dismiss'
-                      : 'Show Barrier',
-                ),
+                icon: Icon(open
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined),
+                label: Text(open ? 'Barrier is ON — tap scrim to dismiss'
+                    : 'Show Barrier'),
                 onPressed: open ? null : () => _dismissibleOpen.value = true,
               );
             },
@@ -404,10 +397,8 @@ class _NonDismissibleTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
-            'Non-Dismissible Barrier',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          Text('Non-Dismissible Barrier',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           Text(
             'When dismissible: false the barrier absorbs pointer events but '
@@ -421,7 +412,7 @@ class _NonDismissibleTab extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: ValueListenableBuilder<bool>(
               valueListenable: _nonDismissibleOpen,
-              builder: (_, bool open, _) {
+              builder: (_, bool open,  _) {
                 return SizedBox(
                   height: 280,
                   child: Stack(
@@ -435,17 +426,14 @@ class _NonDismissibleTab extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Icon(
-                                Icons.lock_outline,
-                                size: 48,
-                                color: cs.primary,
-                              ),
+                              Icon(Icons.lock_outline,
+                                  size: 48, color: cs.primary),
                               const SizedBox(height: 8),
-                              Text(
-                                'Protected Content',
-                                style: Theme.of(context).textTheme.titleMedium!
-                                    .copyWith(color: cs.primary),
-                              ),
+                              Text('Protected Content',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(color: cs.primary)),
                             ],
                           ),
                         ),
@@ -470,7 +458,7 @@ class _NonDismissibleTab extends StatelessWidget {
                           child: Center(
                             child: ValueListenableBuilder<String>(
                               valueListenable: _nonDismissTapMsg,
-                              builder: (_, String msg, _) {
+                              builder: (_, String msg,  _) {
                                 return GestureDetector(
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
@@ -480,12 +468,11 @@ class _NonDismissibleTab extends StatelessWidget {
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 14,
-                                      vertical: 8,
-                                    ),
+                                        horizontal: 14, vertical: 8),
                                     decoration: BoxDecoration(
                                       color: Colors.white.withAlpha(220),
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius:
+                                          BorderRadius.circular(20),
                                     ),
                                     child: Text(
                                       msg.isEmpty
@@ -493,9 +480,8 @@ class _NonDismissibleTab extends StatelessWidget {
                                           : msg,
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
-                                        color: Colors.indigo,
-                                        fontSize: 13,
-                                      ),
+                                          color: Colors.indigo,
+                                          fontSize: 13),
                                     ),
                                   ),
                                 );
@@ -519,8 +505,7 @@ class _NonDismissibleTab extends StatelessWidget {
                               _nonDismissibleOpen.value = false;
                               _nonDismissTapMsg.value = '';
                               _appendLog(
-                                'Non-dismissible barrier closed via button',
-                              );
+                                  'Non-dismissible barrier closed via button');
                             },
                           ),
                         ),
@@ -534,14 +519,12 @@ class _NonDismissibleTab extends StatelessWidget {
 
           ValueListenableBuilder<bool>(
             valueListenable: _nonDismissibleOpen,
-            builder: (_, bool open, _) {
+            builder: (_, bool open,  _) {
               return FilledButton.icon(
                 icon: const Icon(Icons.shield),
-                label: Text(
-                  open
-                      ? 'Barrier active — only "Close" works'
-                      : 'Show Non-Dismissible Barrier',
-                ),
+                label: Text(open
+                    ? 'Barrier active — only "Close" works'
+                    : 'Show Non-Dismissible Barrier'),
                 onPressed: open
                     ? null
                     : () {
@@ -582,10 +565,8 @@ class _ColorShowcaseTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
-            'Color Showcase',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          Text('Color Showcase',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           Text(
             'Six barrier configurations. Each card shows the underlying '
@@ -604,7 +585,8 @@ class _ColorShowcaseTab extends StatelessWidget {
           _ColorCard(
             label: 'Colors.black26',
             barrierColor: Colors.black26,
-            description: 'Subtle dimming — common for side-drawer scrims.',
+            description:
+                'Subtle dimming — common for side-drawer scrims.',
           ),
           const SizedBox(height: 14),
           _ColorCard(
@@ -616,14 +598,16 @@ class _ColorShowcaseTab extends StatelessWidget {
           const SizedBox(height: 14),
           _ColorCard(
             label: 'Primary (alpha 160)',
-            barrierColor: Theme.of(context).colorScheme.primary.withAlpha(160),
+            barrierColor:
+                Theme.of(context).colorScheme.primary.withAlpha(160),
             description:
                 'Branded scrim — links visual dismiss to the app palette.',
           ),
           const SizedBox(height: 14),
           _ColorCard(
             label: 'Error (alpha 120)',
-            barrierColor: Theme.of(context).colorScheme.error.withAlpha(120),
+            barrierColor:
+                Theme.of(context).colorScheme.error.withAlpha(120),
             description:
                 'Danger-state overlay for destructive confirmation dialogs.',
           ),
@@ -652,7 +636,8 @@ class _ColorCard extends StatelessWidget {
     final ColorScheme cs = Theme.of(context).colorScheme;
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -670,45 +655,41 @@ class _ColorCard extends StatelessWidget {
                     ),
                   ),
                   child: Center(
-                    child: Text(
-                      'Content',
-                      style: TextStyle(
-                        color: cs.onPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Content',
+                        style: TextStyle(
+                            color: cs.onPrimary,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ),
                 // ModalBarrier — dismissible just to receive taps
-                ModalBarrier(color: barrierColor, dismissible: false),
+                ModalBarrier(
+                  color: barrierColor,
+                  dismissible: false,
+                ),
                 // Label
                 Positioned(
                   top: 8,
                   left: 8,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
+                        horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: Colors.black54,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
-                      label,
-                      style: const TextStyle(color: Colors.white, fontSize: 11),
-                    ),
+                    child: Text(label,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 11)),
                   ),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            child: Text(
-              description,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            child: Text(description,
+                style: Theme.of(context).textTheme.bodySmall),
           ),
         ],
       ),
@@ -723,7 +704,8 @@ class _GradientBarrierCard extends StatelessWidget {
     final ColorScheme cs = Theme.of(context).colorScheme;
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -740,13 +722,10 @@ class _GradientBarrierCard extends StatelessWidget {
                     ),
                   ),
                   child: Center(
-                    child: Text(
-                      'Content',
-                      style: TextStyle(
-                        color: cs.onPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Content',
+                        style: TextStyle(
+                            color: cs.onPrimary,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ),
                 // First barrier — bottom half dark
@@ -776,29 +755,26 @@ class _GradientBarrierCard extends StatelessWidget {
                   left: 8,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
+                        horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: Colors.black54,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
-                      'Pseudo-gradient (2 barriers)',
-                      style: TextStyle(color: Colors.white, fontSize: 11),
-                    ),
+                    child: const Text('Pseudo-gradient (2 barriers)',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 11)),
                   ),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             child: Text(
-              'Two ModalBarriers stacked at different heights simulate a '
-              'bottom-fade gradient — useful for carousel scrims.',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+                'Two ModalBarriers stacked at different heights simulate a '
+                'bottom-fade gradient — useful for carousel scrims.',
+                style: Theme.of(context).textTheme.bodySmall),
           ),
         ],
       ),
@@ -820,10 +796,8 @@ class _AnimatedTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
-            'Animated Barrier',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          Text('Animated Barrier',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           Text(
             'A TweenAnimationBuilder animates barrier opacity from 0 → 0.7. '
@@ -836,7 +810,7 @@ class _AnimatedTab extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: ValueListenableBuilder<bool>(
               valueListenable: _animatedOpen,
-              builder: (_, bool open, _) {
+              builder: (_, bool open,  _) {
                 return SizedBox(
                   height: 280,
                   child: Stack(
@@ -856,16 +830,16 @@ class _AnimatedTab extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Icon(
-                                Icons.star_outline,
-                                size: 60,
-                                color: cs.onPrimaryContainer,
-                              ),
+                              Icon(Icons.star_outline,
+                                  size: 60, color: cs.onPrimaryContainer),
                               const SizedBox(height: 8),
                               Text(
                                 'Animate me!',
-                                style: Theme.of(context).textTheme.titleLarge!
-                                    .copyWith(color: cs.onPrimaryContainer),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                        color: cs.onPrimaryContainer),
                               ),
                             ],
                           ),
@@ -873,17 +847,17 @@ class _AnimatedTab extends StatelessWidget {
                       ),
                       // Animated barrier using TweenAnimationBuilder
                       TweenAnimationBuilder<double>(
-                        tween: Tween<double>(begin: 0.0, end: open ? 0.7 : 0.0),
+                        tween: Tween<double>(
+                            begin: 0.0, end: open ? 0.7 : 0.0),
                         duration: const Duration(milliseconds: 600),
                         curve: Curves.easeInOut,
-                        builder: (_, double opacity, _) {
+                        builder: (_, double opacity,  _) {
                           if (opacity < 0.005) {
                             return const SizedBox.shrink();
                           }
                           return ModalBarrier(
                             color: Colors.black.withAlpha(
-                              (opacity * 255).round(),
-                            ),
+                                (opacity * 255).round()),
                             dismissible: true,
                             onDismiss: () {
                               _animatedOpen.value = false;
@@ -898,17 +872,13 @@ class _AnimatedTab extends StatelessWidget {
                         left: 12,
                         child: TweenAnimationBuilder<double>(
                           tween: Tween<double>(
-                            begin: 0.0,
-                            end: open ? 0.7 : 0.0,
-                          ),
+                              begin: 0.0, end: open ? 0.7 : 0.0),
                           duration: const Duration(milliseconds: 600),
                           curve: Curves.easeInOut,
-                          builder: (_, double v, _) {
+                          builder: (_, double v,  _) {
                             return Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
+                                  horizontal: 10, vertical: 4),
                               decoration: BoxDecoration(
                                 color: Colors.white.withAlpha(220),
                                 borderRadius: BorderRadius.circular(12),
@@ -916,9 +886,8 @@ class _AnimatedTab extends StatelessWidget {
                               child: Text(
                                 'opacity: ${v.toStringAsFixed(2)}',
                                 style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold),
                               ),
                             );
                           },
@@ -934,14 +903,15 @@ class _AnimatedTab extends StatelessWidget {
 
           ValueListenableBuilder<bool>(
             valueListenable: _animatedOpen,
-            builder: (_, bool open, _) {
+            builder: (_, bool open,  _) {
               return Row(
                 children: <Widget>[
                   Expanded(
                     child: FilledButton.icon(
                       icon: const Icon(Icons.play_arrow_outlined),
                       label: const Text('Fade IN'),
-                      onPressed: open ? null : () => _animatedOpen.value = true,
+                      onPressed:
+                          open ? null : () => _animatedOpen.value = true,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -949,9 +919,8 @@ class _AnimatedTab extends StatelessWidget {
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.stop_outlined),
                       label: const Text('Fade OUT'),
-                      onPressed: open
-                          ? () => _animatedOpen.value = false
-                          : null,
+                      onPressed:
+                          open ? () => _animatedOpen.value = false : null,
                     ),
                   ),
                 ],
@@ -991,10 +960,8 @@ class _A11yTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
-            'Accessibility',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          Text('Accessibility',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           Text(
             'ModalBarrier exposes two accessibility parameters: '
@@ -1008,8 +975,7 @@ class _A11yTab extends StatelessWidget {
             elevation: 0,
             color: cs.primaryContainer,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
+                borderRadius: BorderRadius.circular(14)),
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -1017,13 +983,14 @@ class _A11yTab extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Icon(Icons.label_outline, color: cs.onPrimaryContainer),
+                      Icon(Icons.label_outline,
+                          color: cs.onPrimaryContainer),
                       const SizedBox(width: 8),
-                      Text(
-                        'semanticsLabel',
-                        style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(color: cs.onPrimaryContainer),
-                      ),
+                      Text('semanticsLabel',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: cs.onPrimaryContainer)),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -1031,9 +998,10 @@ class _A11yTab extends StatelessWidget {
                     'A screen-reader label announced when focus enters the '
                     'barrier. Defaults to null. '
                     'Flutter\'s showDialog uses "Dismiss" in English locales.',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: cs.onPrimaryContainer,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: cs.onPrimaryContainer),
                   ),
                   const SizedBox(height: 12),
                   SelectableText(
@@ -1042,10 +1010,9 @@ class _A11yTab extends StatelessWidget {
                     '  dismissible: true,\n'
                     ')',
                     style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: cs.onPrimaryContainer,
-                    ),
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                        color: cs.onPrimaryContainer),
                   ),
                 ],
               ),
@@ -1058,8 +1025,7 @@ class _A11yTab extends StatelessWidget {
             elevation: 0,
             color: cs.secondaryContainer,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
+                borderRadius: BorderRadius.circular(14)),
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -1067,16 +1033,15 @@ class _A11yTab extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.accessibility_new_outlined,
-                        color: cs.onSecondaryContainer,
-                      ),
+                      Icon(Icons.accessibility_new_outlined,
+                          color: cs.onSecondaryContainer),
                       const SizedBox(width: 8),
-                      Text(
-                        'barrierSemanticsDismissible',
-                        style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(color: cs.onSecondaryContainer),
-                      ),
+                      Text('barrierSemanticsDismissible',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  color: cs.onSecondaryContainer)),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -1086,9 +1051,10 @@ class _A11yTab extends StatelessWidget {
                     'barrier. Set to false for non-dismissible overlays so '
                     'TalkBack/VoiceOver doesn\'t announce a dismiss action '
                     'that does nothing.',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: cs.onSecondaryContainer,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: cs.onSecondaryContainer),
                   ),
                 ],
               ),
@@ -1097,15 +1063,12 @@ class _A11yTab extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Live semantics preview
-          Text(
-            'Live Semantics Preview',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Live Semantics Preview',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 10),
           Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
+                borderRadius: BorderRadius.circular(14)),
             child: Padding(
               padding: const EdgeInsets.all(14),
               child: Semantics(
@@ -1166,35 +1129,31 @@ class _SemanticRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
             color: cs.primaryContainer,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            prop,
-            style: TextStyle(
-              fontSize: 11,
-              fontFamily: 'monospace',
-              color: cs.onPrimaryContainer,
-            ),
-          ),
+          child: Text(prop,
+              style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: cs.onPrimaryContainer)),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                value,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(value,
+                  style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold)),
               const SizedBox(height: 2),
-              Text(note, style: Theme.of(context).textTheme.bodySmall),
+              Text(note,
+                  style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
         ),
@@ -1216,10 +1175,8 @@ class _DiagramTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
-            'Route Stack Diagram',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          Text('Route Stack Diagram',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           Text(
             'Visualises how Navigator stacks a background route, '
@@ -1230,18 +1187,18 @@ class _DiagramTab extends StatelessWidget {
           Card(
             elevation: 3,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
+                borderRadius: BorderRadius.circular(16)),
             clipBehavior: Clip.antiAlias,
             child: SizedBox(
               height: 360,
               child: CustomPaint(
                 painter: _RouteStackPainter(
-                  primaryColor: Theme.of(context).colorScheme.primary,
-                  secondaryColor: Theme.of(context).colorScheme.secondary,
-                  surfaceColor: Theme.of(
-                    context,
-                  ).colorScheme.surfaceContainerHigh,
+                  primaryColor:
+                      Theme.of(context).colorScheme.primary,
+                  secondaryColor:
+                      Theme.of(context).colorScheme.secondary,
+                  surfaceColor:
+                      Theme.of(context).colorScheme.surfaceContainerHigh,
                 ),
               ),
             ),
@@ -1290,57 +1247,55 @@ class _RouteStackPainter extends CustomPainter {
     final Paint bgPaint = Paint()
       ..color = primaryColor.withAlpha(40)
       ..style = PaintingStyle.fill;
-    final Rect bgRect = Rect.fromLTWH(w * 0.05, h * 0.55, w * 0.9, h * 0.38);
+    final Rect bgRect =
+        Rect.fromLTWH(w * 0.05, h * 0.55, w * 0.9, h * 0.38);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(bgRect, const Radius.circular(10)),
-      bgPaint,
-    );
+        RRect.fromRectAndRadius(bgRect, const Radius.circular(10)),
+        bgPaint);
     final Paint bgBorder = Paint()
       ..color = primaryColor.withAlpha(120)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(bgRect, const Radius.circular(10)),
-      bgBorder,
-    );
+        RRect.fromRectAndRadius(bgRect, const Radius.circular(10)),
+        bgBorder);
     _drawLabel(canvas, 'Background Route', w * 0.5, h * 0.74, 13);
 
     // ── Layer 2: ModalBarrier ──────────────────────────────────────────
     final Paint mbPaint = Paint()
       ..color = Colors.black.withAlpha(50)
       ..style = PaintingStyle.fill;
-    final Rect mbRect = Rect.fromLTWH(w * 0.05, h * 0.35, w * 0.9, h * 0.3);
+    final Rect mbRect =
+        Rect.fromLTWH(w * 0.05, h * 0.35, w * 0.9, h * 0.3);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(mbRect, const Radius.circular(10)),
-      mbPaint,
-    );
+        RRect.fromRectAndRadius(mbRect, const Radius.circular(10)),
+        mbPaint);
     final Paint mbBorder = Paint()
       ..color = Colors.black54
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(mbRect, const Radius.circular(10)),
-      mbBorder,
-    );
-    _drawLabel(canvas, 'ModalBarrier  (color: black54)', w * 0.5, h * 0.5, 12);
+        RRect.fromRectAndRadius(mbRect, const Radius.circular(10)),
+        mbBorder);
+    _drawLabel(canvas, 'ModalBarrier  (color: black54)', w * 0.5, h * 0.5,
+        12);
 
     // ── Layer 3: Foreground dialog ─────────────────────────────────────
     final Paint dlgPaint = Paint()
       ..color = surfaceColor
       ..style = PaintingStyle.fill;
-    final Rect dlgRect = Rect.fromLTWH(w * 0.2, h * 0.04, w * 0.6, h * 0.28);
+    final Rect dlgRect =
+        Rect.fromLTWH(w * 0.2, h * 0.04, w * 0.6, h * 0.28);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(dlgRect, const Radius.circular(12)),
-      dlgPaint,
-    );
+        RRect.fromRectAndRadius(dlgRect, const Radius.circular(12)),
+        dlgPaint);
     final Paint dlgBorder = Paint()
       ..color = secondaryColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(dlgRect, const Radius.circular(12)),
-      dlgBorder,
-    );
+        RRect.fromRectAndRadius(dlgRect, const Radius.circular(12)),
+        dlgBorder);
     _drawLabel(canvas, 'Dialog / BottomSheet', w * 0.5, h * 0.18, 13);
 
     // ── Z-order arrows (right side) ────────────────────────────────────
@@ -1362,62 +1317,47 @@ class _RouteStackPainter extends CustomPainter {
       text: const TextSpan(
         text: '✕ pointer blocked',
         style: TextStyle(
-          color: Colors.redAccent,
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
-        ),
+            color: Colors.redAccent,
+            fontSize: 11,
+            fontWeight: FontWeight.bold),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    tp.paint(canvas, Offset(w * 0.5 - tp.width / 2, h * 0.62));
+    tp.paint(canvas,
+        Offset(w * 0.5 - tp.width / 2, h * 0.62));
   }
 
   void _drawLabel(
-    Canvas canvas,
-    String text,
-    double cx,
-    double cy,
-    double size,
-  ) {
+      Canvas canvas, String text, double cx, double cy, double size) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
         style: TextStyle(
-          color: Colors.black87,
-          fontSize: size,
-          fontWeight: FontWeight.w600,
-        ),
+            color: Colors.black87,
+            fontSize: size,
+            fontWeight: FontWeight.w600),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
     tp.paint(canvas, Offset(cx - tp.width / 2, cy - tp.height / 2));
   }
 
-  void _drawArrow(
-    Canvas canvas,
-    double x1,
-    double y1,
-    double x2,
-    double y2,
-    Paint paint,
-  ) {
+  void _drawArrow(Canvas canvas, double x1, double y1, double x2,
+      double y2, Paint paint) {
     canvas.drawLine(Offset(x1, y1), Offset(x2, y2), paint);
     // Arrowhead
     const double ah = 8;
     final double angle = (y2 < y1) ? -1.5708 : 1.5708;
     canvas.drawLine(
-      Offset(x2, y2),
-      Offset(x2 + ah * 0.7 * (y2 < y1 ? 1 : -1), y2 + ah * (y2 < y1 ? 1 : -1)),
-      paint,
-    );
+        Offset(x2, y2),
+        Offset(x2 + ah * 0.7 * (y2 < y1 ? 1 : -1),
+            y2 + ah * (y2 < y1 ? 1 : -1)),
+        paint);
     canvas.drawLine(
-      Offset(x2, y2),
-      Offset(
-        x2 - ah * 0.7 * (y2 < y1 ? 1 : -1),
-        y2 + ah * (y2 < y1 ? 1 : -1) * (angle < 0 ? 1 : -1),
-      ),
-      paint,
-    );
+        Offset(x2, y2),
+        Offset(x2 - ah * 0.7 * (y2 < y1 ? 1 : -1),
+            y2 + ah * (y2 < y1 ? 1 : -1) * (angle < 0 ? 1 : -1)),
+        paint);
   }
 
   @override
@@ -1479,7 +1419,8 @@ class _LogTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text('Dismiss Log', style: Theme.of(context).textTheme.headlineSmall),
+          Text('Dismiss Log',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           Text(
             'Each time any barrier in this demo fires onDismiss an entry '
@@ -1512,29 +1453,26 @@ class _LogTab extends StatelessWidget {
               elevation: 0,
               color: cs.surfaceContainerHighest,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
+                  borderRadius: BorderRadius.circular(14)),
               child: ValueListenableBuilder<List<String>>(
                 valueListenable: _dismissLog,
-                builder: (_, List<String> log, _) {
+                builder: (_, List<String> log,  _) {
                   if (log.isEmpty) {
                     return Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(
-                            Icons.receipt_long_outlined,
-                            size: 48,
-                            color: cs.onSurfaceVariant.withAlpha(120),
-                          ),
+                          Icon(Icons.receipt_long_outlined,
+                              size: 48,
+                              color: cs.onSurfaceVariant.withAlpha(120)),
                           const SizedBox(height: 8),
-                          Text(
-                            'No dismiss events yet.',
-                            style: Theme.of(context).textTheme.bodyMedium!
-                                .copyWith(
-                                  color: cs.onSurfaceVariant.withAlpha(160),
-                                ),
-                          ),
+                          Text('No dismiss events yet.',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                      color: cs.onSurfaceVariant
+                                          .withAlpha(160))),
                         ],
                       ),
                     );
@@ -1542,7 +1480,8 @@ class _LogTab extends StatelessWidget {
                   return ListView.separated(
                     padding: const EdgeInsets.all(12),
                     itemCount: log.length,
-                    separatorBuilder: (_, _) => const Divider(height: 1),
+                    separatorBuilder: (_,  _) =>
+                        const Divider(height: 1),
                     itemBuilder: (_, int i) {
                       final int index = log.length - 1 - i;
                       return ListTile(
@@ -1553,16 +1492,13 @@ class _LogTab extends StatelessWidget {
                           child: Text(
                             '${index + 1}',
                             style: TextStyle(
-                              fontSize: 10,
-                              color: cs.onPrimaryContainer,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 10,
+                                color: cs.onPrimaryContainer,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
-                        title: Text(
-                          log[index],
-                          style: const TextStyle(fontSize: 13),
-                        ),
+                        title: Text(log[index],
+                            style: const TextStyle(fontSize: 13)),
                       );
                     },
                   );
@@ -1589,7 +1525,8 @@ class _CompareTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text('Comparison', style: Theme.of(context).textTheme.headlineSmall),
+          Text('Comparison',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 8),
           Text(
             'ModalBarrier vs other hit-test blocking widgets.',
@@ -1627,7 +1564,13 @@ class _CompareTable extends StatelessWidget {
         'Yes (onDismiss)',
         'Dialog / Sheet scrim',
       ],
-      ['AbsorbPointer', 'Yes', 'No', 'No', 'Disable subtree interactions'],
+      [
+        'AbsorbPointer',
+        'Yes',
+        'No',
+        'No',
+        'Disable subtree interactions',
+      ],
       [
         'IgnorePointer',
         'Yes (pass-through)',
@@ -1642,20 +1585,28 @@ class _CompareTable extends StatelessWidget {
         'Callback',
         'Custom tap regions',
       ],
-      ['ColoredBox', 'No', 'Yes', 'No', 'Background fill only'],
+      [
+        'ColoredBox',
+        'No',
+        'Yes',
+        'No',
+        'Background fill only',
+      ],
     ];
 
     return Card(
       elevation: 0,
       color: cs.surfaceContainerLow,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       clipBehavior: Clip.antiAlias,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Table(
           defaultColumnWidth: const IntrinsicColumnWidth(),
           border: TableBorder(
-            horizontalInside: BorderSide(color: cs.outlineVariant, width: 0.5),
+            horizontalInside:
+                BorderSide(color: cs.outlineVariant, width: 0.5),
           ),
           children: rows.asMap().entries.map((MapEntry<int, List<String>> e) {
             final bool isHeader = e.key == 0;
@@ -1666,17 +1617,16 @@ class _CompareTable extends StatelessWidget {
               children: e.value.map((String cell) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 10,
-                  ),
+                      horizontal: 12, vertical: 10),
                   child: Text(
                     cell,
                     style: TextStyle(
                       fontSize: 12,
-                      fontWeight: isHeader
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: isHeader ? cs.onPrimaryContainer : cs.onSurface,
+                      fontWeight:
+                          isHeader ? FontWeight.bold : FontWeight.normal,
+                      color: isHeader
+                          ? cs.onPrimaryContainer
+                          : cs.onSurface,
                     ),
                   ),
                 );
@@ -1697,44 +1647,44 @@ class _UseCasesSection extends StatelessWidget {
         'icon': Icons.chat_bubble_outline,
         'title': 'Modal dialog',
         'body':
-            'showDialog inserts ModalBarrier with black54 and dismissible:true.',
+            'showDialog inserts ModalBarrier with black54 and dismissible:true.'
       },
       {
         'icon': Icons.arrow_upward_outlined,
         'title': 'Bottom sheet',
-        'body':
-            'showModalBottomSheet uses a barrier allowing tap-outside dismiss.',
+        'body': 'showModalBottomSheet uses a barrier allowing tap-outside dismiss.'
       },
       {
         'icon': Icons.calendar_today_outlined,
         'title': 'Date picker',
         'body':
-            'showDatePicker layers a barrier — tap outside to cancel the picker.',
+            'showDatePicker layers a barrier — tap outside to cancel the picker.'
       },
       {
         'icon': Icons.hourglass_empty_outlined,
         'title': 'Loading overlay',
         'body':
-            'Use dismissible:false to prevent interaction while a task runs.',
+            'Use dismissible:false to prevent interaction while a task runs.'
       },
       {
         'icon': Icons.menu_open_outlined,
         'title': 'Side drawer',
         'body':
-            'Drawer uses a semi-transparent barrier on the right of the drawer.',
+            'Drawer uses a semi-transparent barrier on the right of the drawer.'
       },
       {
         'icon': Icons.warning_amber_outlined,
         'title': 'Confirmation',
         'body':
-            'AlertDialog barrier prevents accidental interaction with the page.',
+            'AlertDialog barrier prevents accidental interaction with the page.'
       },
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Use Cases', style: Theme.of(context).textTheme.titleMedium),
+        Text('Use Cases',
+            style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 10),
         GridView.count(
           shrinkWrap: true,
@@ -1773,7 +1723,8 @@ class _UseCaseCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: cs.surfaceContainerHighest,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -1784,26 +1735,25 @@ class _UseCaseCard extends StatelessWidget {
                 Icon(icon, size: 18, color: cs.primary),
                 const SizedBox(width: 6),
                 Expanded(
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: cs.primary,
-                    ),
-                  ),
+                  child: Text(title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: cs.primary)),
                 ),
               ],
             ),
             const SizedBox(height: 4),
             Expanded(
-              child: Text(
-                body,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall!.copyWith(fontSize: 10),
-                maxLines: 4,
-                overflow: TextOverflow.ellipsis,
-              ),
+              child: Text(body,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 10),
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis),
             ),
           ],
         ),
@@ -1818,7 +1768,8 @@ class _PitfallsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Pitfalls', style: Theme.of(context).textTheme.titleMedium),
+        Text('Pitfalls',
+            style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 10),
         _PitfallTile(
           number: '1',
@@ -1866,35 +1817,27 @@ class _PitfallTile extends StatelessWidget {
     return Card(
       elevation: 0,
       color: cs.errorContainer,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: cs.error,
           radius: 14,
-          child: Text(
-            number,
+          child: Text(number,
+              style: TextStyle(
+                  color: cs.onError,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold)),
+        ),
+        title: Text(title,
             style: TextStyle(
-              color: cs.onError,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            color: cs.onErrorContainer,
-            fontWeight: FontWeight.bold,
-            fontSize: 13,
-          ),
-        ),
-        subtitle: Text(
-          body,
-          style: TextStyle(
-            color: cs.onErrorContainer.withAlpha(200),
-            fontSize: 12,
-          ),
-        ),
+                color: cs.onErrorContainer,
+                fontWeight: FontWeight.bold,
+                fontSize: 13)),
+        subtitle: Text(body,
+            style: TextStyle(
+                color: cs.onErrorContainer.withAlpha(200),
+                fontSize: 12)),
       ),
     );
   }
@@ -1930,24 +1873,19 @@ class _CheatSheetBottomSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              'API Cheat Sheet',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            Text('API Cheat Sheet',
+                style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 16),
             _ApiTable(),
             const SizedBox(height: 24),
-            Text(
-              'Inherited ModalRoute usage',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            Text('Inherited ModalRoute usage',
+                style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 10),
             Card(
               elevation: 0,
               color: cs.surfaceContainerHighest,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
+                  borderRadius: BorderRadius.circular(12)),
               child: Padding(
                 padding: const EdgeInsets.all(14),
                 child: SelectableText(
@@ -1971,7 +1909,8 @@ class _CheatSheetBottomSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            Text('Quick tips', style: Theme.of(context).textTheme.titleMedium),
+            Text('Quick tips',
+                style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 10),
             ...<String>[
               'Use AnimatedModalBarrier for route transitions; '
@@ -1990,17 +1929,13 @@ class _CheatSheetBottomSheet extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Icon(
-                      Icons.check_circle_outline,
-                      size: 16,
-                      color: cs.primary,
-                    ),
+                    Icon(Icons.check_circle_outline,
+                        size: 16, color: cs.primary),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(
-                        tip,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
+                      child: Text(tip,
+                          style:
+                              Theme.of(context).textTheme.bodySmall),
                     ),
                   ],
                 ),
@@ -2025,39 +1960,41 @@ class _ApiTable extends StatelessWidget {
         'dismissible',
         'bool',
         'true',
-        'If true, taps call Navigator.maybePop or onDismiss.',
+        'If true, taps call Navigator.maybePop or onDismiss.'
       ],
       [
         'semanticsLabel',
         'String?',
         'null',
-        'Screen reader label. "Dismiss" used by showDialog.',
+        'Screen reader label. "Dismiss" used by showDialog.'
       ],
       [
         'barrierSemanticsDismissible',
         'bool',
         'true',
-        'Whether the semantics node exposes a dismiss action.',
+        'Whether the semantics node exposes a dismiss action.'
       ],
       [
         'onDismiss',
         'VoidCallback?',
         'null',
-        'Called instead of maybePop when barrier is tapped.',
+        'Called instead of maybePop when barrier is tapped.'
       ],
     ];
 
     return Card(
       elevation: 0,
       color: cs.surfaceContainerLow,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       clipBehavior: Clip.antiAlias,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Table(
           defaultColumnWidth: const IntrinsicColumnWidth(),
           border: TableBorder(
-            horizontalInside: BorderSide(color: cs.outlineVariant, width: 0.5),
+            horizontalInside:
+                BorderSide(color: cs.outlineVariant, width: 0.5),
           ),
           children: rows.asMap().entries.map((MapEntry<int, List<String>> e) {
             final bool isHeader = e.key == 0;
@@ -2068,17 +2005,16 @@ class _ApiTable extends StatelessWidget {
               children: e.value.map((String cell) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 9,
-                  ),
+                      horizontal: 10, vertical: 9),
                   child: Text(
                     cell,
                     style: TextStyle(
                       fontSize: 11,
-                      fontWeight: isHeader
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: isHeader ? cs.onPrimaryContainer : cs.onSurface,
+                      fontWeight:
+                          isHeader ? FontWeight.bold : FontWeight.normal,
+                      color: isHeader
+                          ? cs.onPrimaryContainer
+                          : cs.onSurface,
                     ),
                   ),
                 );
@@ -2112,7 +2048,8 @@ class _FactTile extends StatelessWidget {
     return Card(
       elevation: 0,
       color: cs.surfaceContainerHighest,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Row(
@@ -2128,14 +2065,14 @@ class _FactTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text(title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 4),
-                  Text(body, style: Theme.of(context).textTheme.bodySmall),
+                  Text(body,
+                      style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
             ),
@@ -2163,7 +2100,8 @@ class _InfoCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: cs.tertiaryContainer,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(
@@ -2173,25 +2111,19 @@ class _InfoCard extends StatelessWidget {
               children: <Widget>[
                 Icon(icon, size: 18, color: cs.onTertiaryContainer),
                 const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: cs.onTertiaryContainer,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(title,
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: cs.onTertiaryContainer,
+                        fontWeight: FontWeight.bold)),
               ],
             ),
             const SizedBox(height: 8),
             ...lines.map((String l) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 3),
-                child: Text(
-                  l,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: cs.onTertiaryContainer,
-                  ),
-                ),
+                child: Text(l,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: cs.onTertiaryContainer)),
               );
             }),
           ],
@@ -2210,5 +2142,8 @@ void _appendLog(String message) {
       '${now.hour.toString().padLeft(2, '0')}:'
       '${now.minute.toString().padLeft(2, '0')}:'
       '${now.second.toString().padLeft(2, '0')}';
-  _dismissLog.value = <String>[..._dismissLog.value, '$ts — $message'];
+  _dismissLog.value = <String>[
+    ..._dismissLog.value,
+    '$ts — $message',
+  ];
 }

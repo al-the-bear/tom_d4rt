@@ -40,7 +40,11 @@ const Color kAccentViolet = Color(0xFF8B5CF6);
 
 LinearGradient warmGradient() {
   return LinearGradient(
-    colors: [Color(0xFFFF6B6B), Color(0xFFFFD166), Color(0xFFFF9A8B)],
+    colors: [
+      Color(0xFFFF6B6B),
+      Color(0xFFFFD166),
+      Color(0xFFFF9A8B),
+    ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -48,7 +52,11 @@ LinearGradient warmGradient() {
 
 LinearGradient coolGradient() {
   return LinearGradient(
-    colors: [Color(0xFF06B6D4), Color(0xFF3B82F6), Color(0xFF6366F1)],
+    colors: [
+      Color(0xFF06B6D4),
+      Color(0xFF3B82F6),
+      Color(0xFF6366F1),
+    ],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
@@ -56,7 +64,11 @@ LinearGradient coolGradient() {
 
 LinearGradient monochromeGradient() {
   return LinearGradient(
-    colors: [Color(0xFF111827), Color(0xFF6B7280), Color(0xFFE5E7EB)],
+    colors: [
+      Color(0xFF111827),
+      Color(0xFF6B7280),
+      Color(0xFFE5E7EB),
+    ],
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
   );
@@ -77,7 +89,10 @@ LinearGradient sunsetGradient() {
 
 LinearGradient forestGradient() {
   return LinearGradient(
-    colors: [Color(0xFF134E5E), Color(0xFF71B280)],
+    colors: [
+      Color(0xFF134E5E),
+      Color(0xFF71B280),
+    ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -129,12 +144,17 @@ Widget sectionHeader(
     padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [tint.withValues(alpha: 0.18), tint.withValues(alpha: 0.04)],
+        colors: [
+          tint.withValues(alpha: 0.18),
+          tint.withValues(alpha: 0.04),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(16.0),
-      border: Border(left: BorderSide(color: tint, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: tint, width: 4.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: tint.withValues(alpha: 0.18),
@@ -207,7 +227,10 @@ Widget sectionHeader(
                 ),
               ),
               SizedBox(height: 2.0),
-              Text(subtitle, style: TextStyle(fontSize: 13.0, color: kInkSoft)),
+              Text(
+                subtitle,
+                style: TextStyle(fontSize: 13.0, color: kInkSoft),
+              ),
             ],
           ),
         ),
@@ -240,7 +263,10 @@ Widget chipLabel(String text, Color tint, {IconData? icon}) {
       borderRadius: BorderRadius.circular(20.0),
       border: Border.all(color: tint.withValues(alpha: 0.45), width: 1.0),
     ),
-    child: Row(mainAxisSize: MainAxisSize.min, children: children),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: children,
+    ),
   );
 }
 
@@ -383,7 +409,11 @@ Widget radialFadeCard() {
         return RadialGradient(
           center: Alignment(0.0, -0.4),
           radius: 1.1,
-          colors: [Colors.white, Colors.white, Colors.transparent],
+          colors: [
+            Colors.white,
+            Colors.white,
+            Colors.transparent,
+          ],
           stops: [0.0, 0.55, 1.0],
         ).createShader(bounds);
       },
@@ -391,7 +421,11 @@ Widget radialFadeCard() {
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFFCE7F3), Color(0xFFFBCFE8), Color(0xFFF9A8D4)],
+            colors: [
+              Color(0xFFFCE7F3),
+              Color(0xFFFBCFE8),
+              Color(0xFFF9A8D4),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -475,7 +509,10 @@ Widget sweepHalo({double size = 180.0, IconData icon = Icons.bolt}) {
       },
       blendMode: BlendMode.srcATop,
       child: Container(
-        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
         child: Center(
           child: Icon(icon, size: size * 0.45, color: Colors.white),
         ),
@@ -750,7 +787,9 @@ Widget backdropTile(IconData icon, Color color) {
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Center(child: Icon(icon, color: Colors.white, size: 28.0)),
+        child: Center(
+          child: Icon(icon, color: Colors.white, size: 28.0),
+        ),
       ),
     ),
   );
@@ -803,7 +842,11 @@ Widget spotlightSection() {
               return RadialGradient(
                 center: Alignment(0.1, -0.1),
                 radius: 0.55,
-                colors: [Colors.white, Colors.white, Colors.transparent],
+                colors: [
+                  Colors.white,
+                  Colors.white,
+                  Colors.transparent,
+                ],
                 stops: [0.0, 0.65, 1.0],
               ).createShader(bounds);
             },
@@ -1023,7 +1066,10 @@ Widget pitfallsPanel() {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFFFF7ED), Color(0xFFFFEDD5)],
+        colors: [
+          Color(0xFFFFF7ED),
+          Color(0xFFFFEDD5),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1160,43 +1206,43 @@ Widget seeAlsoSection() {
         Icons.blur_on,
         'BackdropFilter',
         'Applies an ImageFilter (blur, color matrix) to whatever is painted '
-            'BEHIND the child. Different effect: it transforms existing pixels '
-            'rather than masking the child.',
+        'BEHIND the child. Different effect: it transforms existing pixels '
+        'rather than masking the child.',
         kAccentCool,
       ),
       seeAlsoTile(
         Icons.crop,
         'ClipPath',
         'Clips the child to an arbitrary Path. Use this when you want a hard '
-            'edge instead of a smooth gradient mask.',
+        'edge instead of a smooth gradient mask.',
         kAccentRose,
       ),
       seeAlsoTile(
         Icons.image,
         'Image (with shader)',
         'Use Paint().shader together with a CustomPainter for fine-grained '
-            'control. ShaderMask is the declarative shortcut for the common case.',
+        'control. ShaderMask is the declarative shortcut for the common case.',
         kAccentLime,
       ),
       seeAlsoTile(
         Icons.gradient,
         'Gradient.createShader',
         'The lower-level call ShaderMask delegates to. Always pass it the '
-            'rect from the shaderCallback for correctly-aligned gradients.',
+        'rect from the shaderCallback for correctly-aligned gradients.',
         kAccentViolet,
       ),
       seeAlsoTile(
         Icons.color_lens,
         'ColorFiltered',
         'Cheaper than ShaderMask when you just need a constant ColorFilter '
-            '(e.g. saturation, matrix). Avoids saveLayer in many cases.',
+        '(e.g. saturation, matrix). Avoids saveLayer in many cases.',
         kAccentWarm,
       ),
       seeAlsoTile(
         Icons.texture,
         'FragmentProgram',
         'Custom GLSL shaders via FragmentProgram.fromAsset. The resulting '
-            'FragmentShader can be returned directly from shaderCallback.',
+        'FragmentShader can be returned directly from shaderCallback.',
         kAccent,
       ),
     ],
@@ -1222,7 +1268,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 32.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF111827), Color(0xFF1F2937), Color(0xFF312E81)],
+        colors: [
+          Color(0xFF111827),
+          Color(0xFF1F2937),
+          Color(0xFF312E81),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

@@ -22,7 +22,9 @@ dynamic build(BuildContext context) {
   // Rectangle shape — the simplest form
   final basicRectangle = PhysicalShape(
     clipper: ShapeBorderClipper(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0.0),
+      ),
     ),
     elevation: 4.0,
     color: Colors.blue.shade50,
@@ -55,7 +57,9 @@ dynamic build(BuildContext context) {
 
   // Stadium (pill) shape
   final stadiumShape = PhysicalShape(
-    clipper: ShapeBorderClipper(shape: StadiumBorder()),
+    clipper: ShapeBorderClipper(
+      shape: StadiumBorder(),
+    ),
     elevation: 6.0,
     color: Colors.green.shade50,
     shadowColor: Colors.green.shade900,
@@ -93,7 +97,9 @@ dynamic build(BuildContext context) {
 
   // Circle shape
   final circleShape = PhysicalShape(
-    clipper: ShapeBorderClipper(shape: CircleBorder()),
+    clipper: ShapeBorderClipper(
+      shape: CircleBorder(),
+    ),
     elevation: 8.0,
     color: Colors.purple.shade50,
     shadowColor: Colors.purple.shade900,
@@ -104,11 +110,7 @@ dynamic build(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.circle_outlined,
-            color: Colors.purple.shade700,
-            size: 32.0,
-          ),
+          Icon(Icons.circle_outlined, color: Colors.purple.shade700, size: 32.0),
           SizedBox(height: 4.0),
           Text(
             'Circle',
@@ -169,7 +171,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [basicRectangle, stadiumShape, circleShape],
+          children: [
+            basicRectangle,
+            stadiumShape,
+            circleShape,
+          ],
         ),
         SizedBox(height: 16.0),
         Container(
@@ -243,7 +249,10 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   'dp',
-                  style: TextStyle(fontSize: 10.0, color: Colors.teal.shade600),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.teal.shade600,
+                  ),
                 ),
               ],
             ),
@@ -287,7 +296,10 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.0, color: Colors.teal.shade600),
         ),
         SizedBox(height: 16.0),
-        Wrap(alignment: WrapAlignment.center, children: elevationCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: elevationCards,
+        ),
       ],
     ),
   );
@@ -298,42 +310,12 @@ dynamic build(BuildContext context) {
   print('=== Section 3: Shadow Colors ===');
 
   final shadowColors = <Map<String, dynamic>>[
-    {
-      'name': 'Default\n(Black)',
-      'shadow': Colors.black,
-      'surface': Colors.white,
-      'accent': Colors.grey,
-    },
-    {
-      'name': 'Blue\nShadow',
-      'shadow': Colors.blue.shade900,
-      'surface': Colors.blue.shade50,
-      'accent': Colors.blue,
-    },
-    {
-      'name': 'Red\nShadow',
-      'shadow': Colors.red.shade900,
-      'surface': Colors.red.shade50,
-      'accent': Colors.red,
-    },
-    {
-      'name': 'Green\nShadow',
-      'shadow': Colors.green.shade900,
-      'surface': Colors.green.shade50,
-      'accent': Colors.green,
-    },
-    {
-      'name': 'Orange\nShadow',
-      'shadow': Colors.orange.shade900,
-      'surface': Colors.orange.shade50,
-      'accent': Colors.orange,
-    },
-    {
-      'name': 'Purple\nShadow',
-      'shadow': Colors.purple.shade900,
-      'surface': Colors.purple.shade50,
-      'accent': Colors.purple,
-    },
+    {'name': 'Default\n(Black)', 'shadow': Colors.black, 'surface': Colors.white, 'accent': Colors.grey},
+    {'name': 'Blue\nShadow', 'shadow': Colors.blue.shade900, 'surface': Colors.blue.shade50, 'accent': Colors.blue},
+    {'name': 'Red\nShadow', 'shadow': Colors.red.shade900, 'surface': Colors.red.shade50, 'accent': Colors.red},
+    {'name': 'Green\nShadow', 'shadow': Colors.green.shade900, 'surface': Colors.green.shade50, 'accent': Colors.green},
+    {'name': 'Orange\nShadow', 'shadow': Colors.orange.shade900, 'surface': Colors.orange.shade50, 'accent': Colors.orange},
+    {'name': 'Purple\nShadow', 'shadow': Colors.purple.shade900, 'surface': Colors.purple.shade50, 'accent': Colors.purple},
   ];
 
   final shadowCards = <Widget>[];
@@ -411,7 +393,10 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
         ),
         SizedBox(height: 16.0),
-        Wrap(alignment: WrapAlignment.center, children: shadowCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: shadowCards,
+        ),
       ],
     ),
   );
@@ -424,7 +409,9 @@ dynamic build(BuildContext context) {
   // Beveled rectangle
   final beveledShape = PhysicalShape(
     clipper: ShapeBorderClipper(
-      shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      shape: BeveledRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
     ),
     elevation: 6.0,
     color: Colors.amber.shade100,
@@ -436,11 +423,7 @@ dynamic build(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.diamond_outlined,
-            size: 32.0,
-            color: Colors.amber.shade800,
-          ),
+          Icon(Icons.diamond_outlined, size: 32.0, color: Colors.amber.shade800),
           SizedBox(height: 6.0),
           Text(
             'Beveled',
@@ -498,7 +481,10 @@ dynamic build(BuildContext context) {
   // Star shape using StarBorder
   final starLikeShape = PhysicalShape(
     clipper: ShapeBorderClipper(
-      shape: StarBorder(points: 6, innerRadiusRatio: 0.6),
+      shape: StarBorder(
+        points: 6,
+        innerRadiusRatio: 0.6,
+      ),
     ),
     elevation: 6.0,
     color: Colors.pink.shade100,
@@ -625,7 +611,9 @@ dynamic build(BuildContext context) {
   // User profile card
   final profileCard = PhysicalShape(
     clipper: ShapeBorderClipper(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
     ),
     elevation: 8.0,
     color: Colors.white,
@@ -663,7 +651,10 @@ dynamic build(BuildContext context) {
           SizedBox(height: 4.0),
           Text(
             'Flutter Developer',
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+            ),
           ),
           SizedBox(height: 12.0),
           Row(
@@ -681,7 +672,9 @@ dynamic build(BuildContext context) {
   // Notification badge
   final notificationBadge = PhysicalShape(
     clipper: ShapeBorderClipper(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
     ),
     elevation: 6.0,
     color: Colors.red.shade50,
@@ -718,7 +711,10 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   '3 unread notifications',
-                  style: TextStyle(fontSize: 11.0, color: Colors.red.shade500),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.red.shade500,
+                  ),
                 ),
               ],
             ),
@@ -879,11 +875,7 @@ dynamic build(BuildContext context) {
                 width: 70.0,
                 height: 70.0,
                 alignment: Alignment.center,
-                child: Icon(
-                  Icons.content_cut,
-                  color: color.shade700,
-                  size: 28.0,
-                ),
+                child: Icon(Icons.content_cut, color: color.shade700, size: 28.0),
               ),
             ),
             SizedBox(height: 6.0),
@@ -957,7 +949,9 @@ dynamic build(BuildContext context) {
   // a rich visual composition — like a floating dashboard panel.
   final dashboardPanel = PhysicalShape(
     clipper: ShapeBorderClipper(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
     ),
     elevation: 12.0,
     color: Color(0xFF1A237E),
@@ -985,24 +979,9 @@ dynamic build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildDashMetric(
-                'Revenue',
-                '\$24.5K',
-                Icons.trending_up,
-                Colors.greenAccent,
-              ),
-              _buildDashMetric(
-                'Users',
-                '1,847',
-                Icons.group,
-                Colors.cyanAccent,
-              ),
-              _buildDashMetric(
-                'Orders',
-                '392',
-                Icons.shopping_cart,
-                Colors.amberAccent,
-              ),
+              _buildDashMetric('Revenue', '\$24.5K', Icons.trending_up, Colors.greenAccent),
+              _buildDashMetric('Users', '1,847', Icons.group, Colors.cyanAccent),
+              _buildDashMetric('Orders', '392', Icons.shopping_cart, Colors.amberAccent),
             ],
           ),
           SizedBox(height: 20.0),
@@ -1157,10 +1136,7 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(height: 8.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 4.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: Colors.deepPurple.shade50,
                     borderRadius: BorderRadius.circular(6.0),
@@ -1181,7 +1157,10 @@ dynamic build(BuildContext context) {
               children: [
                 PhysicalShape(
                   clipper: ShapeBorderClipper(
-                    shape: StarBorder(points: 5, innerRadiusRatio: 0.5),
+                    shape: StarBorder(
+                      points: 5,
+                      innerRadiusRatio: 0.5,
+                    ),
                   ),
                   elevation: 6.0,
                   color: Colors.amber.shade100,
@@ -1203,10 +1182,7 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(height: 8.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 4.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: Colors.amber.shade50,
                     borderRadius: BorderRadius.circular(6.0),
@@ -1337,22 +1313,22 @@ Widget _buildStatPill(String label, String value, MaterialColor color) {
               color: color.shade800,
             ),
           ),
-          Text(label, style: TextStyle(fontSize: 9.0, color: color.shade500)),
+          Text(
+            label,
+            style: TextStyle(fontSize: 9.0, color: color.shade500),
+          ),
         ],
       ),
     ),
   );
 }
 
-Widget _buildDashMetric(
-  String label,
-  String value,
-  IconData icon,
-  Color color,
-) {
+Widget _buildDashMetric(String label, String value, IconData icon, Color color) {
   return PhysicalShape(
     clipper: ShapeBorderClipper(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
     ),
     elevation: 3.0,
     color: Color(0xFF303F9F),
@@ -1372,7 +1348,10 @@ Widget _buildDashMetric(
               color: Colors.white,
             ),
           ),
-          Text(label, style: TextStyle(fontSize: 9.0, color: Colors.white70)),
+          Text(
+            label,
+            style: TextStyle(fontSize: 9.0, color: Colors.white70),
+          ),
         ],
       ),
     ),
@@ -1393,7 +1372,13 @@ Widget _buildBar(String day, double fraction, Color color) {
         ),
       ),
       SizedBox(height: 4.0),
-      Text(day, style: TextStyle(fontSize: 9.0, color: Colors.white54)),
+      Text(
+        day,
+        style: TextStyle(
+          fontSize: 9.0,
+          color: Colors.white54,
+        ),
+      ),
     ],
   );
 }

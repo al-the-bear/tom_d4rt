@@ -37,11 +37,8 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Icon(
-            Icons.broadcast_on_personal,
-            size: 44.0,
-            color: Colors.indigo.shade700,
-          ),
+          Icon(Icons.broadcast_on_personal,
+              size: 44.0, color: Colors.indigo.shade700),
           SizedBox(height: 10.0),
           Text(
             'ChangeNotifier',
@@ -465,9 +462,7 @@ dynamic build(BuildContext context) {
               child: Center(
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 4.0,
-                  ),
+                      horizontal: 10.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.85),
                     borderRadius: BorderRadius.circular(6.0),
@@ -494,7 +489,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 6.0),
-        Wrap(alignment: WrapAlignment.center, children: colorSwatches),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: colorSwatches,
+        ),
       ],
     ),
   );
@@ -676,16 +674,12 @@ dynamic build(BuildContext context) {
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 3.0),
                   padding: EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 8.0,
-                  ),
+                      horizontal: 12.0, vertical: 8.0),
                   decoration: BoxDecoration(
                     color: Colors.deepOrange.shade50,
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: Colors.deepOrange.shade200,
-                      width: 1.0,
-                    ),
+                    border:
+                        Border.all(color: Colors.deepOrange.shade200, width: 1.0),
                   ),
                   child: Row(
                     children: [
@@ -737,9 +731,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 10.0),
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 10.0,
-                  ),
+                      horizontal: 12.0, vertical: 10.0),
                   decoration: BoxDecoration(
                     color: Colors.deepOrange.shade700,
                     borderRadius: BorderRadius.circular(8.0),
@@ -1108,9 +1100,7 @@ dynamic build(BuildContext context) {
                     children: [
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 6.0,
-                          vertical: 2.0,
-                        ),
+                            horizontal: 6.0, vertical: 2.0),
                         decoration: BoxDecoration(
                           color: Colors.green.shade100,
                           borderRadius: BorderRadius.circular(4.0),
@@ -1127,9 +1117,7 @@ dynamic build(BuildContext context) {
                       SizedBox(width: 6.0),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 6.0,
-                          vertical: 2.0,
-                        ),
+                            horizontal: 6.0, vertical: 2.0),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade100,
                           borderRadius: BorderRadius.circular(4.0),
@@ -1354,11 +1342,8 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(
-                Icons.broadcast_on_personal,
-                size: 56.0,
-                color: Colors.white,
-              ),
+              Icon(Icons.broadcast_on_personal,
+                  size: 56.0, color: Colors.white),
               SizedBox(height: 8.0),
               Text(
                 'ChangeNotifier & ValueNotifier',
@@ -1383,7 +1368,10 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(alignment: WrapAlignment.center, children: conceptCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: conceptCards,
+        ),
         SizedBox(height: 32.0),
 
         // Section 2: int counter

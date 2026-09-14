@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.video_library,
       'title': 'What is Texture?',
-      'body':
-          'Texture is a widget that displays pixel data produced by '
+      'body': 'Texture is a widget that displays pixel data produced by '
           'a native platform texture. The texture is registered with '
           'the Flutter engine via a unique integer ID. The widget '
           'simply renders whatever the native side writes.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.memory,
       'title': 'GPU-Backed Rendering',
-      'body':
-          'Textures bypass Dart-side pixel copying. The native '
+      'body': 'Textures bypass Dart-side pixel copying. The native '
           'platform writes directly to a GPU texture buffer, and '
           'Flutter composites it into the scene graph. This is '
           'essential for high-throughput data like video.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.devices,
       'title': 'Platform Channels',
-      'body':
-          'The native side creates a SurfaceTexture (Android) or '
+      'body': 'The native side creates a SurfaceTexture (Android) or '
           'CVPixelBuffer (iOS) and registers it with the Flutter '
           'engine. The engine returns a textureId that Dart passes '
           'to the Texture widget.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.play_circle_outline,
       'title': 'Common Use Cases',
-      'body':
-          'Video players, camera previews, AR overlays, native '
+      'body': 'Video players, camera previews, AR overlays, native '
           'map views, game engines, and any scenario where pixel '
           'data originates from platform-specific code.',
       'accent': Colors.orange,
@@ -127,32 +123,28 @@ dynamic build(BuildContext context) {
     {
       'name': 'textureId',
       'type': 'int',
-      'desc':
-          'The unique identifier for the platform texture registered '
+      'desc': 'The unique identifier for the platform texture registered '
           'with the Flutter engine. This ID is obtained from the '
           'platform channel when creating the texture.',
     },
     {
       'name': 'filterQuality',
       'type': 'FilterQuality',
-      'desc':
-          'Controls the sampling quality when the texture is scaled. '
+      'desc': 'Controls the sampling quality when the texture is scaled. '
           'FilterQuality.low for performance, .medium or .high for '
           'visual quality. Default is low.',
     },
     {
       'name': 'freeze',
       'type': 'bool',
-      'desc':
-          'When true, the texture stops updating from the native '
+      'desc': 'When true, the texture stops updating from the native '
           'source. Useful for pausing video or camera preview without '
           'releasing the texture. Default is false.',
     },
     {
       'name': 'key',
       'type': 'Key?',
-      'desc':
-          'Standard Flutter widget key for identity within the tree. '
+      'desc': 'Standard Flutter widget key for identity within the tree. '
           'Use a ValueKey with the textureId to help the framework '
           'track texture widgets correctly.',
     },
@@ -241,8 +233,7 @@ dynamic build(BuildContext context) {
   final platforms = <Map<String, dynamic>>[
     {
       'platform': 'Android',
-      'desc':
-          'Uses SurfaceTexture. The native code creates a Surface, '
+      'desc': 'Uses SurfaceTexture. The native code creates a Surface, '
           'renders video/camera frames to it, and registers it via '
           'TextureRegistry.createSurfaceTexture(). The engine '
           'composites the SurfaceTexture into Flutter\'s scene.',
@@ -258,8 +249,7 @@ dynamic build(BuildContext context) {
     },
     {
       'platform': 'iOS',
-      'desc':
-          'Uses CVPixelBuffer. The native code creates a pixel '
+      'desc': 'Uses CVPixelBuffer. The native code creates a pixel '
           'buffer, copies video/camera frames into it, and registers '
           'via TextureRegistry.register(). Metal or OpenGL textures '
           'can also be used.',
@@ -275,8 +265,7 @@ dynamic build(BuildContext context) {
     },
     {
       'platform': 'Web',
-      'desc':
-          'Uses HtmlElementView or CanvasElement. Web textures are '
+      'desc': 'Uses HtmlElementView or CanvasElement. Web textures are '
           'handled differently — typically via platform views rather '
           'than the Texture widget itself. Video uses HTML5 video.',
       'icon': Icons.web,
@@ -291,8 +280,7 @@ dynamic build(BuildContext context) {
     },
     {
       'platform': 'Desktop (Windows/macOS/Linux)',
-      'desc':
-          'Uses platform-specific GPU texture sharing. Each desktop '
+      'desc': 'Uses platform-specific GPU texture sharing. Each desktop '
           'platform has its own TextureRegistrar API for registering '
           'GPU buffers with the Flutter embedder.',
       'icon': Icons.desktop_windows,
@@ -417,8 +405,7 @@ dynamic build(BuildContext context) {
   final videoTopics = <Map<String, dynamic>>[
     {
       'title': 'VideoPlayerController',
-      'desc':
-          'The video_player package creates a platform texture for '
+      'desc': 'The video_player package creates a platform texture for '
           'video frames. Once initialized, the controller exposes a '
           'textureId that is passed to the Texture widget. The '
           'controller manages play, pause, seek, and buffering.',
@@ -427,8 +414,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Aspect Ratio',
-      'desc':
-          'Video textures have an intrinsic aspect ratio determined '
+      'desc': 'Video textures have an intrinsic aspect ratio determined '
           'by the source resolution. Use AspectRatio or FittedBox '
           'around the Texture widget to preserve the source ratio '
           'and prevent stretching.',
@@ -437,8 +423,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Buffering States',
-      'desc':
-          'Before the first frame arrives, the texture may be blank. '
+      'desc': 'Before the first frame arrives, the texture may be blank. '
           'Show a placeholder (loading spinner, poster image) until '
           'the controller reports isInitialized. Handle buffering '
           'events for network streams.',
@@ -447,8 +432,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Disposal',
-      'desc':
-          'Always dispose the VideoPlayerController when done. This '
+      'desc': 'Always dispose the VideoPlayerController when done. This '
           'releases the native texture and platform resources. '
           'Failure to dispose causes memory leaks and orphaned '
           'platform textures.',
@@ -575,11 +559,7 @@ dynamic build(BuildContext context) {
                 if (idx < videoFlowSteps.length - 1)
                   const Padding(
                     padding: EdgeInsets.only(left: 4),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      size: 12,
-                      color: Colors.deepPurple,
-                    ),
+                    child: Icon(Icons.arrow_forward, size: 12, color: Colors.deepPurple),
                   ),
               ],
             ),
@@ -597,8 +577,7 @@ dynamic build(BuildContext context) {
   final cameraTopics = <Map<String, dynamic>>[
     {
       'title': 'CameraController',
-      'desc':
-          'The camera package creates a texture for the live camera '
+      'desc': 'The camera package creates a texture for the live camera '
           'preview. CameraController.initialize() sets up the camera '
           'hardware and registers a texture with the engine.',
       'icon': Icons.camera_alt,
@@ -606,8 +585,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Resolution Presets',
-      'desc':
-          'Camera textures come in preset resolutions: low (352x288), '
+      'desc': 'Camera textures come in preset resolutions: low (352x288), '
           'medium (640x480), high (1280x720), veryHigh (1920x1080), '
           'ultraHigh (3840x2160), max (device maximum).',
       'icon': Icons.high_quality,
@@ -615,8 +593,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Rotation & Orientation',
-      'desc':
-          'Camera texture orientation may not match device orientation. '
+      'desc': 'Camera texture orientation may not match device orientation. '
           'Use CameraController.value.description.sensorOrientation '
           'and RotatedBox to correct the preview angle.',
       'icon': Icons.rotate_right,
@@ -624,8 +601,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Permissions',
-      'desc':
-          'Camera access requires runtime permissions. The app must '
+      'desc': 'Camera access requires runtime permissions. The app must '
           'request camera permission (and microphone if recording '
           'video) before initializing the controller.',
       'icon': Icons.security,
@@ -699,8 +675,7 @@ dynamic build(BuildContext context) {
   final perfTopics = <Map<String, dynamic>>[
     {
       'title': 'Zero-Copy Compositing',
-      'desc':
-          'The Texture widget avoids copying pixels from native to '
+      'desc': 'The Texture widget avoids copying pixels from native to '
           'Dart. The GPU texture is composited directly into the '
           'Flutter scene graph. This is critical for 60fps video.',
       'metric': 'Zero pixel copy overhead',
@@ -708,8 +683,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'FilterQuality Trade-off',
-      'desc':
-          'FilterQuality.low uses nearest-neighbor sampling (fastest). '
+      'desc': 'FilterQuality.low uses nearest-neighbor sampling (fastest). '
           'FilterQuality.high uses bilinear + mipmap (best quality). '
           'Choose based on whether the texture is scaled.',
       'metric': 'low: 0ms, high: ~1ms per frame',
@@ -717,8 +691,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Frame Rate Matching',
-      'desc':
-          'If the native source produces frames faster than the '
+      'desc': 'If the native source produces frames faster than the '
           'Flutter vsync rate, frames are dropped. If slower, the '
           'last frame is held. No explicit sync is needed.',
       'metric': 'Automatic vsync alignment',
@@ -726,8 +699,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Freeze for Pause',
-      'desc':
-          'Setting freeze=true stops the engine from requesting new '
+      'desc': 'Setting freeze=true stops the engine from requesting new '
           'frames from the native texture. More efficient than '
           'continuously compositing the same frame.',
       'metric': 'Eliminates idle compositing cost',
@@ -735,8 +707,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multiple Textures',
-      'desc':
-          'Each Texture widget has its own textureId and native '
+      'desc': 'Each Texture widget has its own textureId and native '
           'buffer. Running many textures simultaneously increases '
           'GPU memory usage. Profile with DevTools.',
       'metric': 'Memory scales with resolution x count',
@@ -815,8 +786,7 @@ dynamic build(BuildContext context) {
   final lifecycleSteps = <Map<String, dynamic>>[
     {
       'step': '1. Register Texture',
-      'desc':
-          'Native platform creates a texture buffer and registers '
+      'desc': 'Native platform creates a texture buffer and registers '
           'it with the Flutter engine. The engine returns a unique '
           'textureId for identification.',
       'icon': Icons.add_circle,
@@ -824,8 +794,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Pass ID to Dart',
-      'desc':
-          'The textureId is sent to the Dart side via a platform '
+      'desc': 'The textureId is sent to the Dart side via a platform '
           'channel. The Dart code stores it and uses it to construct '
           'the Texture widget.',
       'icon': Icons.swap_horiz,
@@ -833,8 +802,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Build Texture Widget',
-      'desc':
-          'The Texture widget with the given textureId is inserted '
+      'desc': 'The Texture widget with the given textureId is inserted '
           'into the widget tree. The engine maps it to the native '
           'texture buffer for compositing.',
       'icon': Icons.widgets,
@@ -842,8 +810,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Frame Updates',
-      'desc':
-          'The native side writes new frame data and marks it '
+      'desc': 'The native side writes new frame data and marks it '
           'available. The engine composites the latest frame during '
           'the next vsync cycle.',
       'icon': Icons.refresh,
@@ -851,8 +818,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Freeze (Optional)',
-      'desc':
-          'Set freeze=true to pause updates while keeping the '
+      'desc': 'Set freeze=true to pause updates while keeping the '
           'texture allocated. Useful for pausing video or background '
           'tab optimization.',
       'icon': Icons.pause,
@@ -860,8 +826,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '6. Dispose',
-      'desc':
-          'Unregister the texture from the engine and release the '
+      'desc': 'Unregister the texture from the engine and release the '
           'native buffer. The Texture widget should be removed from '
           'the tree before or at disposal time.',
       'icon': Icons.delete_outline,
@@ -888,7 +853,11 @@ dynamic build(BuildContext context) {
                     color: lsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(ls['icon'] as IconData, color: lsColor, size: 20),
+                  child: Icon(
+                    ls['icon'] as IconData,
+                    color: lsColor,
+                    size: 20,
+                  ),
                 ),
                 if (i < lifecycleSteps.length - 1)
                   Container(
@@ -945,38 +914,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.video_library,
-      'text':
-          'Texture displays external native pixel data using a GPU '
+      'text': 'Texture displays external native pixel data using a GPU '
           'texture registered with the Flutter engine.',
     },
     {
       'icon': Icons.memory,
-      'text':
-          'Zero-copy compositing avoids Dart-side pixel transfer, '
+      'text': 'Zero-copy compositing avoids Dart-side pixel transfer, '
           'enabling smooth 60fps video and camera rendering.',
     },
     {
       'icon': Icons.devices,
-      'text':
-          'Each platform (Android, iOS, Web, Desktop) has its own '
+      'text': 'Each platform (Android, iOS, Web, Desktop) has its own '
           'texture registration mechanism.',
     },
     {
       'icon': Icons.play_circle_outline,
-      'text':
-          'Common patterns: video_player package, camera package, '
+      'text': 'Common patterns: video_player package, camera package, '
           'AR overlays, and native map views.',
     },
     {
       'icon': Icons.speed,
-      'text':
-          'FilterQuality controls scaling quality. freeze=true pauses '
+      'text': 'FilterQuality controls scaling quality. freeze=true pauses '
           'updates efficiently.',
     },
     {
       'icon': Icons.delete_outline,
-      'text':
-          'Always dispose controllers and unregister textures to '
+      'text': 'Always dispose controllers and unregister textures to '
           'prevent GPU memory leaks.',
     },
   ];

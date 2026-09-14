@@ -50,24 +50,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -84,7 +75,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 13, color: darkWine)),
+      child: Text(text,
+          style: TextStyle(fontSize: 13, color: darkWine)),
     );
   }
 
@@ -96,17 +88,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(value, style: TextStyle(fontSize: 13, color: darkWine)),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: darkWine)),
           ),
         ],
       ),
@@ -181,47 +171,36 @@ dynamic build(BuildContext context) {
                   Icon(Icons.campaign, size: 28, color: lightMerlot),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      'Notification',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Notification',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'Abstract base class for child-to-parent event '
-                'communication — notifications bubble up the element tree '
-                'until caught by a NotificationListener',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 13,
-                ),
-              ),
+              Text('Abstract base class for child-to-parent event '
+                  'communication — notifications bubble up the element tree '
+                  'until caught by a NotificationListener',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 13)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  tag('abstract class', merlot, Colors.white),
-                  tag('dispatch()', softSangria, darkWine),
-                  tag('bubble up', lightMerlot, darkWine),
-                  tag('NotificationListener', paleSangria, darkWine),
-                ],
-              ),
+              Wrap(children: [
+                tag('abstract class', merlot, Colors.white),
+                tag('dispatch()', softSangria, darkWine),
+                tag('bubble up', lightMerlot, darkWine),
+                tag('NotificationListener', paleSangria, darkWine),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is Notification ──────────────────────────────────
-        sectionBanner(
-          '1 \u00b7 What Is Notification',
-          'The base class for Flutter\u0027s bubbling event pattern',
-          deepSangria,
-          Colors.white,
-        ),
+        sectionBanner('1 \u00b7 What Is Notification',
+            'The base class for Flutter\u0027s bubbling event pattern',
+            deepSangria, Colors.white),
         noteBox(
           'Notification is an abstract class with a const constructor. '
           'It provides a single key method: dispatch(BuildContext?). When '
@@ -242,12 +221,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. dispatch() mechanism ──────────────────────────────────
-        sectionBanner(
-          '2 \u00b7 The dispatch() Mechanism',
-          'How a notification travels up the tree',
-          sangria,
-          Colors.white,
-        ),
+        sectionBanner('2 \u00b7 The dispatch() Mechanism',
+            'How a notification travels up the tree',
+            sangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -258,91 +234,81 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              for (var i = 0; i < 5; i++) ...[
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: [
-                      merlot,
-                      sangria,
-                      deepSangria,
-                      accentTeal,
-                      accentIndigo,
-                    ][i].withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
+              for (var i = 0; i < 5; i++)
+                ...[
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
                       color: [
                         merlot,
                         sangria,
                         deepSangria,
                         accentTeal,
                         accentIndigo,
-                      ][i],
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 24,
-                        height: 24,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
+                      ][i]
+                          .withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
                           color: [
-                            merlot,
-                            sangria,
-                            deepSangria,
-                            accentTeal,
-                            accentIndigo,
-                          ][i],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          '${i + 1}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
+                        merlot,
+                        sangria,
+                        deepSangria,
+                        accentTeal,
+                        accentIndigo,
+                      ][i]),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 24,
+                          height: 24,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: [
+                              merlot,
+                              sangria,
+                              deepSangria,
+                              accentTeal,
+                              accentIndigo,
+                            ][i],
+                            borderRadius: BorderRadius.circular(12),
                           ),
+                          child: Text('${i + 1}',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold)),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          [
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text([
                             'MyNotification().dispatch(context)',
                             'context.dispatchNotification(this)',
                             '_NotificationNode walks up sparse chain',
                             'Each NotifiableElementMixin: onNotification()',
                             'Return true = stop, false = keep bubbling',
                           ][i],
-                          style: TextStyle(fontSize: 11, color: darkWine),
+                              style: TextStyle(
+                                  fontSize: 11, color: darkWine)),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (i < 4)
-                  Center(
-                    child: Icon(
-                      Icons.arrow_upward,
-                      size: 14,
-                      color: lightMerlot,
+                      ],
                     ),
                   ),
-              ],
+                  if (i < 4)
+                    Center(
+                      child: Icon(Icons.arrow_upward,
+                          size: 14, color: lightMerlot),
+                    ),
+                ],
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 4. Class definition ──────────────────────────────────────
-        sectionBanner(
-          '3 \u00b7 Class Definition',
-          'The SDK source code',
-          merlot,
-          Colors.white,
-        ),
+        sectionBanner('3 \u00b7 Class Definition',
+            'The SDK source code', merlot, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -356,26 +322,25 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: deepSangria.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: deepSangria.withValues(alpha: 0.3)),
+              border: Border.all(
+                  color: deepSangria.withValues(alpha: 0.3)),
             ),
             child: Text(
-              'abstract class Notification {\n'
-              '  const Notification();\n'
-              '\n'
-              '  void dispatch(BuildContext? target) {\n'
-              '    target?.dispatchNotification(this);\n'
-              '  }\n'
-              '\n'
-              '  @protected @mustCallSuper\n'
-              '  void debugFillDescription(\n'
-              '      List<String> description) {}\n'
-              '}',
-              style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: deepSangria,
-              ),
-            ),
+                'abstract class Notification {\n'
+                '  const Notification();\n'
+                '\n'
+                '  void dispatch(BuildContext? target) {\n'
+                '    target?.dispatchNotification(this);\n'
+                '  }\n'
+                '\n'
+                '  @protected @mustCallSuper\n'
+                '  void debugFillDescription(\n'
+                '      List<String> description) {}\n'
+                '}',
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepSangria)),
           ),
         ),
         noteBox(
@@ -389,12 +354,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Live demo: custom notification ────────────────────────
-        sectionBanner(
-          '4 \u00b7 Live Demo: Custom Notification',
-          'Creating and dispatching a custom notification',
-          deepSangria,
-          Colors.white,
-        ),
+        sectionBanner('4 \u00b7 Live Demo: Custom Notification',
+            'Creating and dispatching a custom notification',
+            deepSangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -422,50 +384,43 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.hearing, size: 16, color: accentTeal),
                       const SizedBox(width: 6),
-                      Text(
-                        'NotificationListener<CounterNotification>',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          color: accentTeal,
-                        ),
-                      ),
+                      Text('NotificationListener<CounterNotification>',
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: accentTeal)),
                     ],
                   ),
                 ),
                 const SizedBox(height: 8),
-                Builder(
-                  builder: (innerContext) {
-                    return Row(
-                      children: [
-                        for (var i = 1; i <= 3; i++)
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 3,
+                Builder(builder: (innerContext) {
+                  return Row(
+                    children: [
+                      for (var i = 1; i <= 3; i++)
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 3),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                CounterNotification(i)
+                                    .dispatch(innerContext);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: sangria,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 6),
                               ),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  CounterNotification(i).dispatch(innerContext);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: sangria,
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 6,
-                                  ),
-                                ),
-                                child: Text(
-                                  'Send $i',
-                                  style: const TextStyle(fontSize: 11),
-                                ),
-                              ),
+                              child: Text('Send $i',
+                                  style:
+                                      const TextStyle(fontSize: 11)),
                             ),
                           ),
-                      ],
-                    );
-                  },
-                ),
+                        ),
+                    ],
+                  );
+                }),
                 const SizedBox(height: 8),
                 noteBox(
                   'Each button dispatches a CounterNotification with a '
@@ -482,12 +437,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Built-in notification subclasses ──────────────────────
-        sectionBanner(
-          '5 \u00b7 Built-in Notification Subclasses',
-          'The notification types Flutter provides out of the box',
-          sangria,
-          Colors.white,
-        ),
+        sectionBanner('5 \u00b7 Built-in Notification Subclasses',
+            'The notification types Flutter provides out of the box',
+            sangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -498,53 +450,29 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final notif in [
-                (
-                  'ScrollNotification',
-                  'Abstract base for all scroll '
-                      'events. Subtypes: ScrollStart, ScrollUpdate, '
-                      'ScrollEnd, OverscrollNotification.',
-                  Icons.swap_vert,
-                  sangria,
-                ),
-                (
-                  'LayoutChangedNotification',
-                  'Dispatched when layout '
-                      'geometry changes. Base for SizeChangedLayout '
-                      'notification.',
-                  Icons.crop_square,
-                  merlot,
-                ),
-                (
-                  'KeepAliveNotification',
-                  'Dispatched by '
-                      'AutomaticKeepAliveClientMixin to tell lazy lists '
-                      'to keep a child alive when scrolled off-screen.',
-                  Icons.favorite,
-                  deepSangria,
-                ),
-                (
-                  'OverscrollIndicatorNotification',
-                  'Dispatched before '
-                      'the glow overscroll indicator is shown. Can be '
-                      'canceled by returning true.',
-                  Icons.blur_on,
-                  softSangria,
-                ),
-                (
-                  'NavigationNotification',
-                  'Dispatched by Navigator '
-                      'when navigation state changes. Can be used for '
-                      'analytics or breadcrumbs.',
-                  Icons.navigation,
-                  accentIndigo,
-                ),
-                (
-                  'DraggableScrollableNotification',
-                  'Dispatched by '
-                      'DraggableScrollableSheet when its extent changes.',
-                  Icons.drag_handle,
-                  accentTeal,
-                ),
+                ('ScrollNotification', 'Abstract base for all scroll '
+                    'events. Subtypes: ScrollStart, ScrollUpdate, '
+                    'ScrollEnd, OverscrollNotification.',
+                    Icons.swap_vert, sangria),
+                ('LayoutChangedNotification', 'Dispatched when layout '
+                    'geometry changes. Base for SizeChangedLayout '
+                    'notification.',
+                    Icons.crop_square, merlot),
+                ('KeepAliveNotification', 'Dispatched by '
+                    'AutomaticKeepAliveClientMixin to tell lazy lists '
+                    'to keep a child alive when scrolled off-screen.',
+                    Icons.favorite, deepSangria),
+                ('OverscrollIndicatorNotification', 'Dispatched before '
+                    'the glow overscroll indicator is shown. Can be '
+                    'canceled by returning true.',
+                    Icons.blur_on, softSangria),
+                ('NavigationNotification', 'Dispatched by Navigator '
+                    'when navigation state changes. Can be used for '
+                    'analytics or breadcrumbs.',
+                    Icons.navigation, accentIndigo),
+                ('DraggableScrollableNotification', 'Dispatched by '
+                    'DraggableScrollableSheet when its extent changes.',
+                    Icons.drag_handle, accentTeal),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -552,7 +480,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: notif.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: notif.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: notif.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -563,19 +492,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              notif.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: notif.$4,
-                              ),
-                            ),
-                            Text(
-                              notif.$2,
-                              style: TextStyle(fontSize: 11, color: darkWine),
-                            ),
+                            Text(notif.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'monospace',
+                                    color: notif.$4)),
+                            Text(notif.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkWine)),
                           ],
                         ),
                       ),
@@ -588,12 +513,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Live demo: ScrollNotification ─────────────────────────
-        sectionBanner(
-          '6 \u00b7 Live Demo: ScrollNotification',
-          'Catching scroll events as they bubble up',
-          merlot,
-          Colors.white,
-        ),
+        sectionBanner('6 \u00b7 Live Demo: ScrollNotification',
+            'Catching scroll events as they bubble up',
+            merlot, Colors.white),
         Container(
           width: double.infinity,
           height: 200,
@@ -618,33 +540,25 @@ dynamic build(BuildContext context) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
+                      horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
                     color: index.isEven
                         ? sangria.withValues(alpha: 0.06)
                         : merlot.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
                     border: Border(
-                      left: BorderSide(
-                        color: index.isEven ? sangria : merlot,
-                        width: 2,
-                      ),
-                    ),
+                        left: BorderSide(
+                            color: index.isEven ? sangria : merlot,
+                            width: 2)),
                   ),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.circle,
-                        size: 8,
-                        color: index.isEven ? sangria : merlot,
-                      ),
+                      Icon(Icons.circle, size: 8,
+                          color: index.isEven ? sangria : merlot),
                       const SizedBox(width: 8),
-                      Text(
-                        'Scrollable item $index',
-                        style: TextStyle(fontSize: 12, color: darkWine),
-                      ),
+                      Text('Scrollable item $index',
+                          style: TextStyle(
+                              fontSize: 12, color: darkWine)),
                     ],
                   ),
                 );
@@ -663,12 +577,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Return value semantics ────────────────────────────────
-        sectionBanner(
-          '7 \u00b7 Return Value Semantics',
-          'How true/false control the bubble',
-          deepSangria,
-          Colors.white,
-        ),
+        sectionBanner('7 \u00b7 Return Value Semantics',
+            'How true/false control the bubble',
+            deepSangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -689,23 +600,20 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.stop_circle, size: 28, color: accentTeal),
+                      Icon(Icons.stop_circle, size: 28,
+                          color: accentTeal),
                       const SizedBox(height: 4),
-                      Text(
-                        'return true',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          color: accentTeal,
-                        ),
-                      ),
+                      Text('return true',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                              color: accentTeal)),
                       const SizedBox(height: 4),
-                      Text(
-                        'Consumed.\nStop bubbling.\nAncestors\ndon\u0027t see it.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: darkWine),
-                      ),
+                      Text('Consumed.\nStop bubbling.\nAncestors\ndon\u0027t see it.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10, color: darkWine)),
                     ],
                   ),
                 ),
@@ -721,23 +629,20 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.arrow_upward, size: 28, color: sangria),
+                      Icon(Icons.arrow_upward, size: 28,
+                          color: sangria),
                       const SizedBox(height: 4),
-                      Text(
-                        'return false',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          color: sangria,
-                        ),
-                      ),
+                      Text('return false',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                              color: sangria)),
                       const SizedBox(height: 4),
-                      Text(
-                        'Not consumed.\nKeep bubbling.\nAncestors can\ncatch it.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: darkWine),
-                      ),
+                      Text('Not consumed.\nKeep bubbling.\nAncestors can\ncatch it.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10, color: darkWine)),
                     ],
                   ),
                 ),
@@ -748,12 +653,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Custom notification pattern ───────────────────────────
-        sectionBanner(
-          '8 \u00b7 Creating Custom Notifications',
-          'The three-step pattern for your own notifications',
-          sangria,
-          Colors.white,
-        ),
+        sectionBanner('8 \u00b7 Creating Custom Notifications',
+            'The three-step pattern for your own notifications',
+            sangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -764,31 +666,19 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                (
-                  '1. Define',
-                  'class MyNotification extends Notification {\n'
-                      '  final String data;\n'
-                      '  const MyNotification(this.data);\n'
-                      '}',
-                  sangria,
-                ),
-                (
-                  '2. Dispatch',
-                  'MyNotification("hello")\n'
-                      '    .dispatch(context);',
-                  merlot,
-                ),
-                (
-                  '3. Listen',
-                  'NotificationListener<MyNotification>(\n'
-                      '  onNotification: (n) {\n'
-                      '    print(n.data);\n'
-                      '    return true;\n'
-                      '  },\n'
-                      '  child: myChild,\n'
-                      ')',
-                  deepSangria,
-                ),
+                ('1. Define', 'class MyNotification extends Notification {\n'
+                    '  final String data;\n'
+                    '  const MyNotification(this.data);\n'
+                    '}', sangria),
+                ('2. Dispatch', 'MyNotification("hello")\n'
+                    '    .dispatch(context);', merlot),
+                ('3. Listen', 'NotificationListener<MyNotification>(\n'
+                    '  onNotification: (n) {\n'
+                    '    print(n.data);\n'
+                    '    return true;\n'
+                    '  },\n'
+                    '  child: myChild,\n'
+                    ')', deepSangria),
               ])
                 Container(
                   width: double.infinity,
@@ -797,28 +687,23 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: step.$3, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: step.$3, width: 3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        step.$1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: step.$3,
-                        ),
-                      ),
+                      Text(step.$1,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: step.$3)),
                       const SizedBox(height: 4),
-                      Text(
-                        step.$2,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: darkWine,
-                        ),
-                      ),
+                      Text(step.$2,
+                          style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: darkWine)),
                     ],
                   ),
                 ),
@@ -828,12 +713,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Live demo: status notifications ──────────────────────
-        sectionBanner(
-          '9 \u00b7 Live Demo: Status Notifications',
-          'Rich notification with data payload',
-          merlot,
-          Colors.white,
-        ),
+        sectionBanner('9 \u00b7 Live Demo: Status Notifications',
+            'Rich notification with data payload',
+            merlot, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -861,64 +743,54 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.hearing, size: 16, color: merlot),
                       const SizedBox(width: 6),
-                      Text(
-                        'Listener: StatusNotification',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          color: merlot,
-                        ),
-                      ),
+                      Text('Listener: StatusNotification',
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: merlot)),
                     ],
                   ),
                 ),
                 const SizedBox(height: 8),
-                Builder(
-                  builder: (innerCtx) {
-                    return Wrap(
-                      spacing: 6,
-                      runSpacing: 6,
-                      children: [
-                        for (final status in [
-                          ('Success', const Color(0xFF2E7D32)),
-                          ('Warning', const Color(0xFFF57F17)),
-                          ('Error', const Color(0xFFC62828)),
-                          ('Info', accentIndigo),
-                        ])
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              StatusNotification(
-                                status.$1,
-                                status.$2,
-                              ).dispatch(innerCtx);
-                            },
-                            icon: Icon(
+                Builder(builder: (innerCtx) {
+                  return Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      for (final status in [
+                        ('Success', const Color(0xFF2E7D32)),
+                        ('Warning', const Color(0xFFF57F17)),
+                        ('Error', const Color(0xFFC62828)),
+                        ('Info', accentIndigo),
+                      ])
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            StatusNotification(
+                                    status.$1, status.$2)
+                                .dispatch(innerCtx);
+                          },
+                          icon: Icon(
                               status.$1 == 'Success'
                                   ? Icons.check_circle
                                   : status.$1 == 'Warning'
-                                  ? Icons.warning
-                                  : status.$1 == 'Error'
-                                  ? Icons.error
-                                  : Icons.info,
-                              size: 14,
-                            ),
-                            label: Text(
-                              status.$1,
-                              style: const TextStyle(fontSize: 11),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: status.$2,
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 6,
-                              ),
-                            ),
+                                      ? Icons.warning
+                                      : status.$1 == 'Error'
+                                          ? Icons.error
+                                          : Icons.info,
+                              size: 14),
+                          label: Text(status.$1,
+                              style:
+                                  const TextStyle(fontSize: 11)),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: status.$2,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 6),
                           ),
-                      ],
-                    );
-                  },
-                ),
+                        ),
+                    ],
+                  );
+                }),
                 const SizedBox(height: 8),
                 noteBox(
                   'StatusNotification carries both a message and a color. '
@@ -935,12 +807,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Notification vs other patterns ───────────────────────
-        sectionBanner(
-          '10 \u00b7 Notification vs Other Patterns',
-          'When to use notifications instead of alternatives',
-          deepSangria,
-          Colors.white,
-        ),
+        sectionBanner('10 \u00b7 Notification vs Other Patterns',
+            'When to use notifications instead of alternatives',
+            deepSangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -961,75 +830,55 @@ dynamic build(BuildContext context) {
                   for (final h in ['Pattern', 'Direction', 'Best For'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        h,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
                     ),
                 ],
               ),
               for (final row in [
-                (
-                  'Notification',
-                  'Child \u2192 Parent',
-                  'Scroll events, layout changes, unnamed child signals',
-                ),
-                (
-                  'Callback',
-                  'Child \u2192 Parent',
-                  'Direct 1:1 communication (onTap, onChanged)',
-                ),
-                (
-                  'InheritedWidget',
-                  'Parent \u2192 Child',
-                  'Theme, Locale, MediaQuery — many descendants read',
-                ),
-                (
-                  'Stream',
-                  'Any \u2192 Any',
-                  'Async events, state management across tree',
-                ),
-                (
-                  'ValueNotifier',
-                  'Any \u2192 Any',
-                  'Simple observable value with listeners',
-                ),
+                ('Notification', 'Child \u2192 Parent',
+                    'Scroll events, layout changes, unnamed child signals'),
+                ('Callback', 'Child \u2192 Parent',
+                    'Direct 1:1 communication (onTap, onChanged)'),
+                ('InheritedWidget', 'Parent \u2192 Child',
+                    'Theme, Locale, MediaQuery — many descendants read'),
+                ('Stream', 'Any \u2192 Any',
+                    'Async events, state management across tree'),
+                ('ValueNotifier', 'Any \u2192 Any',
+                    'Simple observable value with listeners'),
               ])
                 TableRow(
                   decoration: row.$1 == 'Notification'
-                      ? BoxDecoration(color: sangria.withValues(alpha: 0.06))
+                      ? BoxDecoration(
+                          color: sangria.withValues(alpha: 0.06))
                       : null,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: row.$1 == 'Notification'
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: row.$1 == 'Notification' ? sangria : darkWine,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: row.$1 == 'Notification'
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: row.$1 == 'Notification'
+                                  ? sangria
+                                  : darkWine)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(fontSize: 10, color: darkWine),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 10, color: darkWine)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(fontSize: 10, color: darkWine),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(
+                              fontSize: 10, color: darkWine)),
                     ),
                   ],
                 ),
@@ -1039,12 +888,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Nested listeners ─────────────────────────────────────
-        sectionBanner(
-          '11 \u00b7 Live Demo: Nested Listeners',
-          'How multiple listeners interact with the same notification',
-          sangria,
-          Colors.white,
-        ),
+        sectionBanner('11 \u00b7 Live Demo: Nested Listeners',
+            'How multiple listeners interact with the same notification',
+            sangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1072,10 +918,9 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.hearing, size: 14, color: sangria),
                       const SizedBox(width: 6),
-                      Text(
-                        'Outer listener (returns true \u2192 stops)',
-                        style: TextStyle(fontSize: 10, color: darkWine),
-                      ),
+                      Text('Outer listener (returns true \u2192 stops)',
+                          style: TextStyle(
+                              fontSize: 10, color: darkWine)),
                     ],
                   ),
                 ),
@@ -1097,71 +942,63 @@ dynamic build(BuildContext context) {
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.hearing, size: 14, color: merlot),
+                            Icon(Icons.hearing, size: 14,
+                                color: merlot),
                             const SizedBox(width: 6),
                             Expanded(
                               child: Text(
-                                'Inner listener (returns true if priority >= 5)',
-                                style: TextStyle(fontSize: 10, color: darkWine),
-                              ),
+                                  'Inner listener (returns true if priority >= 5)',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: darkWine)),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 6),
-                      Builder(
-                        builder: (innerCtx) {
-                          return Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    PriorityNotification(
-                                      'Low',
-                                      2,
-                                    ).dispatch(innerCtx);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: accentTeal,
-                                    foregroundColor: Colors.white,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 6,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Priority 2\n(bubbles)',
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(fontSize: 10),
-                                  ),
+                      Builder(builder: (innerCtx) {
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  PriorityNotification('Low', 2)
+                                      .dispatch(innerCtx);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: accentTeal,
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 6),
                                 ),
-                              ),
-                              const SizedBox(width: 6),
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    PriorityNotification(
-                                      'High',
-                                      8,
-                                    ).dispatch(innerCtx);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: deepSangria,
-                                    foregroundColor: Colors.white,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 6,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Priority 8\n(consumed)',
+                                child: Text('Priority 2\n(bubbles)',
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(fontSize: 10),
-                                  ),
-                                ),
+                                    style: const TextStyle(
+                                        fontSize: 10)),
                               ),
-                            ],
-                          );
-                        },
-                      ),
+                            ),
+                            const SizedBox(width: 6),
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  PriorityNotification('High', 8)
+                                      .dispatch(innerCtx);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: deepSangria,
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 6),
+                                ),
+                                child: Text('Priority 8\n(consumed)',
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontSize: 10)),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -1180,12 +1017,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Notification hierarchy ───────────────────────────────
-        sectionBanner(
-          '12 \u00b7 Notification Hierarchy',
-          'Built-in notification class tree',
-          merlot,
-          Colors.white,
-        ),
+        sectionBanner('12 \u00b7 Notification Hierarchy',
+            'Built-in notification class tree',
+            merlot, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1212,17 +1046,15 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    level.$1,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      fontWeight: level.$1.startsWith('Notification')
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: level.$2,
-                    ),
-                  ),
+                  child: Text(level.$1,
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          fontWeight:
+                              level.$1.startsWith('Notification')
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                          color: level.$2)),
                 ),
             ],
           ),
@@ -1230,12 +1062,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. debugFillDescription ─────────────────────────────────
-        sectionBanner(
-          '13 \u00b7 debugFillDescription()',
-          'Adding debug output to custom notifications',
-          deepSangria,
-          Colors.white,
-        ),
+        sectionBanner('13 \u00b7 debugFillDescription()',
+            'Adding debug output to custom notifications',
+            deepSangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1252,27 +1081,26 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepSangria.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: deepSangria.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: deepSangria.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'class CounterNotification\n'
-                  '    extends Notification {\n'
-                  '  final int count;\n'
-                  '  const CounterNotification(this.count);\n'
-                  '\n'
-                  '  @override\n'
-                  '  void debugFillDescription(\n'
-                  '      List<String> description) {\n'
-                  '    super.debugFillDescription(description);\n'
-                  '    description.add("count: \$count");\n'
-                  '  }\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepSangria,
-                  ),
-                ),
+                    'class CounterNotification\n'
+                    '    extends Notification {\n'
+                    '  final int count;\n'
+                    '  const CounterNotification(this.count);\n'
+                    '\n'
+                    '  @override\n'
+                    '  void debugFillDescription(\n'
+                    '      List<String> description) {\n'
+                    '    super.debugFillDescription(description);\n'
+                    '    description.add("count: \$count");\n'
+                    '  }\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepSangria)),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -1289,12 +1117,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Type-safe listening ──────────────────────────────────
-        sectionBanner(
-          '14 \u00b7 Type-Safe Listening',
-          'Generic parameter controls which notifications are caught',
-          sangria,
-          Colors.white,
-        ),
+        sectionBanner('14 \u00b7 Type-Safe Listening',
+            'Generic parameter controls which notifications are caught',
+            sangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1305,34 +1130,22 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final example in [
-                (
-                  'NotificationListener<ScrollNotification>',
-                  'Catches ScrollStart, ScrollUpdate, ScrollEnd, '
-                      'Overscroll — all subclasses of ScrollNotification.',
-                  Icons.swap_vert,
-                  sangria,
-                ),
-                (
-                  'NotificationListener<ScrollEndNotification>',
-                  'Only catches scroll-end events. Start and update '
-                      'pass through uncaught.',
-                  Icons.last_page,
-                  merlot,
-                ),
-                (
-                  'NotificationListener<Notification>',
-                  'Catches every notification type. Broad but may '
-                      'receive too many events.',
-                  Icons.all_inclusive,
-                  deepSangria,
-                ),
-                (
-                  'NotificationListener<MyCustomNotification>',
-                  'Only catches your custom type. All built-in '
-                      'notifications pass through.',
-                  Icons.tune,
-                  accentTeal,
-                ),
+                ('NotificationListener<ScrollNotification>',
+                    'Catches ScrollStart, ScrollUpdate, ScrollEnd, '
+                    'Overscroll — all subclasses of ScrollNotification.',
+                    Icons.swap_vert, sangria),
+                ('NotificationListener<ScrollEndNotification>',
+                    'Only catches scroll-end events. Start and update '
+                    'pass through uncaught.',
+                    Icons.last_page, merlot),
+                ('NotificationListener<Notification>',
+                    'Catches every notification type. Broad but may '
+                    'receive too many events.',
+                    Icons.all_inclusive, deepSangria),
+                ('NotificationListener<MyCustomNotification>',
+                    'Only catches your custom type. All built-in '
+                    'notifications pass through.',
+                    Icons.tune, accentTeal),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1341,8 +1154,7 @@ dynamic build(BuildContext context) {
                     color: example.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: example.$4, width: 3),
-                    ),
+                        left: BorderSide(color: example.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1353,19 +1165,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              example.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: example.$4,
-                              ),
-                            ),
-                            Text(
-                              example.$2,
-                              style: TextStyle(fontSize: 11, color: darkWine),
-                            ),
+                            Text(example.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                    fontFamily: 'monospace',
+                                    color: example.$4)),
+                            Text(example.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkWine)),
                           ],
                         ),
                       ),
@@ -1378,12 +1186,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepSangria,
-          Colors.white,
-        ),
+        sectionBanner('15 \u00b7 Summary',
+            'Key takeaways', deepSangria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1415,19 +1219,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: lightMerlot,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: lightMerlot,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
+                        child: Text(point,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

@@ -44,7 +44,10 @@ dynamic build(BuildContext context) {
             SizedBox(width: 8.0),
             Text(
               'This bottom area uses PreferredSize',
-              style: TextStyle(fontSize: 13.0, color: Colors.white70),
+              style: TextStyle(
+                fontSize: 13.0,
+                color: Colors.white70,
+              ),
             ),
           ],
         ),
@@ -248,7 +251,9 @@ dynamic build(BuildContext context) {
           style: TextStyle(
             fontSize: 12.0,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-            color: isSelected ? Colors.deepPurple.shade700 : Colors.white,
+            color: isSelected
+                ? Colors.deepPurple.shade700
+                : Colors.white,
           ),
         ),
       ),
@@ -479,12 +484,7 @@ dynamic build(BuildContext context) {
             height: 44.0,
             child: Row(
               children: [
-                _buildBottomTab(
-                  'Overview',
-                  Icons.dashboard,
-                  true,
-                  Colors.white,
-                ),
+                _buildBottomTab('Overview', Icons.dashboard, true, Colors.white),
                 _buildBottomTab('Tasks', Icons.task_alt, false, Colors.white70),
                 _buildBottomTab('Files', Icons.folder, false, Colors.white70),
                 _buildBottomTab('Team', Icons.group, false, Colors.white70),
@@ -916,7 +916,13 @@ Widget _buildInfoChip(String label, IconData icon) {
     children: [
       Icon(icon, color: Colors.white60, size: 14.0),
       SizedBox(width: 4.0),
-      Text(label, style: TextStyle(fontSize: 10.0, color: Colors.white70)),
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 10.0,
+          color: Colors.white70,
+        ),
+      ),
     ],
   );
 }

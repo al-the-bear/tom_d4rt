@@ -32,7 +32,11 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
+        colors: [
+          Color(0xFF0F2027),
+          Color(0xFF203A43),
+          Color(0xFF2C5364),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -59,11 +63,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 12.0),
             const Icon(Icons.volume_up, size: 56.0, color: Colors.white),
             const SizedBox(width: 12.0),
-            Icon(
-              Icons.notifications_active,
-              size: 48.0,
-              color: Colors.amber.shade200,
-            ),
+            Icon(Icons.notifications_active,
+                size: 48.0, color: Colors.amber.shade200),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -87,14 +88,14 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 12.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 14.0, vertical: 6.0),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(
-              color: Colors.cyan.shade200.withValues(alpha: 0.5),
-              width: 1.0,
-            ),
+                color: Colors.cyan.shade200.withValues(alpha: 0.5),
+                width: 1.0),
           ),
           child: Text(
             'A tiny enum, a deep platform contract.',
@@ -137,7 +138,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.menu_book, size: 24.0, color: Colors.blueGrey.shade700),
+            Icon(Icons.menu_book,
+                size: 24.0, color: Colors.blueGrey.shade700),
             const SizedBox(width: 8.0),
             Text(
               'Concept Primer',
@@ -183,7 +185,8 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.lightbulb, color: Colors.amber.shade800, size: 20.0),
+              Icon(Icons.lightbulb,
+                  color: Colors.amber.shade800, size: 20.0),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -242,11 +245,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.phone_iphone,
-              size: 24.0,
-              color: Colors.deepPurple.shade700,
-            ),
+            Icon(Icons.phone_iphone,
+                size: 24.0, color: Colors.deepPurple.shade700),
             const SizedBox(width: 8.0),
             Text(
               'Mock device frames — what triggers each sound',
@@ -263,7 +263,10 @@ dynamic build(BuildContext context) {
           alignment: WrapAlignment.center,
           spacing: 16.0,
           runSpacing: 16.0,
-          children: [_buildClickDeviceMock(), _buildAlertDeviceMock()],
+          children: [
+            _buildClickDeviceMock(),
+            _buildAlertDeviceMock(),
+          ],
         ),
       ],
     ),
@@ -373,11 +376,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.compare_arrows,
-              size: 24.0,
-              color: Colors.orange.shade800,
-            ),
+            Icon(Icons.compare_arrows,
+                size: 24.0, color: Colors.orange.shade800),
             const SizedBox(width: 8.0),
             Text(
               'SystemSound vs HapticFeedback',
@@ -434,7 +434,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber, size: 24.0, color: Colors.red.shade700),
+            Icon(Icons.warning_amber,
+                size: 24.0, color: Colors.red.shade700),
             const SizedBox(width: 8.0),
             Text(
               'Pitfalls',
@@ -450,33 +451,33 @@ dynamic build(BuildContext context) {
         _pitfallItem(
           'Over-triggering',
           'Firing click on every keystroke or every list-scroll tick '
-              'is annoying. Budget click for *intentional* taps: buttons, '
-              'switches, segmented controls. Never per-pixel.',
+          'is annoying. Budget click for *intentional* taps: buttons, '
+          'switches, segmented controls. Never per-pixel.',
         ),
         _pitfallItem(
           'Silent mode is opaque',
           'You cannot read whether the user has the device on silent. '
-              'You also cannot force playback through silent. That is by '
-              'design — do not pile on a custom audio package to "fix" it.',
+          'You also cannot force playback through silent. That is by '
+          'design — do not pile on a custom audio package to "fix" it.',
         ),
         _pitfallItem(
           'Web no-ops',
           'On Flutter Web, SystemSound.play(...) is largely a no-op. '
-              'Browsers do not expose a uniform UI-sounds API. Treat any '
-              'web-side call as best-effort and never gate UX on it.',
+          'Browsers do not expose a uniform UI-sounds API. Treat any '
+          'web-side call as best-effort and never gate UX on it.',
         ),
         _pitfallItem(
           'Linux / Windows patchy',
           'Desktop embedders historically have partial coverage. Check '
-              'your target embedders before depending on SystemSound on '
-              'desktop. The enum still compiles; the playback may not.',
+          'your target embedders before depending on SystemSound on '
+          'desktop. The enum still compiles; the playback may not.',
         ),
         _pitfallItem(
           'Async without await',
           'SystemSound.play returns Future<void>. Awaiting blocks the '
-              'event loop unnecessarily — fire-and-forget is the norm. '
-              'But do NOT swallow exceptions if you wrap it in an async '
-              'helper; log them.',
+          'event loop unnecessarily — fire-and-forget is the norm. '
+          'But do NOT swallow exceptions if you wrap it in an async '
+          'helper; log them.',
         ),
       ],
     ),
@@ -562,12 +563,8 @@ dynamic build(BuildContext context) {
     ..writeln('+----------------------------------------------------------+')
     ..writeln('|  SystemSoundType — deep visual demo                      |')
     ..writeln('|                                                          |')
-    ..writeln(
-      '|  values   : ${SystemSoundType.values.length.toString().padRight(43)}|',
-    )
-    ..writeln(
-      '|  first    : ${SystemSoundType.values.first.name.padRight(43)}|',
-    )
+    ..writeln('|  values   : ${SystemSoundType.values.length.toString().padRight(43)}|')
+    ..writeln('|  first    : ${SystemSoundType.values.first.name.padRight(43)}|')
     ..writeln('|  last     : ${SystemSoundType.values.last.name.padRight(43)}|')
     ..writeln('|                                                          |')
     ..writeln('|  file:                                                   |')
@@ -599,11 +596,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.terminal,
-              size: 18.0,
-              color: Colors.greenAccent.shade100,
-            ),
+            Icon(Icons.terminal,
+                size: 18.0, color: Colors.greenAccent.shade100),
             const SizedBox(width: 8.0),
             Text(
               'Footer',
@@ -655,10 +649,8 @@ dynamic build(BuildContext context) {
         _sectionHeading('4. Recipes', Icons.menu_book_outlined),
         recipes,
         const SizedBox(height: 24.0),
-        _sectionHeading(
-          '5. SystemSound vs HapticFeedback',
-          Icons.compare_arrows,
-        ),
+        _sectionHeading('5. SystemSound vs HapticFeedback',
+            Icons.compare_arrows),
         comparison,
         const SizedBox(height: 24.0),
         _sectionHeading('6. Pitfalls', Icons.warning_amber),
@@ -765,7 +757,8 @@ Widget _buildValueCard(SystemSoundType value) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(18.0),
-      border: Border.all(color: meta.accent.withValues(alpha: 0.6), width: 2.0),
+      border: Border.all(
+          color: meta.accent.withValues(alpha: 0.6), width: 2.0),
       boxShadow: [
         BoxShadow(
           color: meta.accent.withValues(alpha: 0.25),
@@ -827,16 +820,12 @@ Widget _buildValueCard(SystemSoundType value) {
             ),
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 4.0,
-              ),
+                  horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: meta.accent.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(
-                  color: meta.accent.withValues(alpha: 0.4),
-                  width: 1.0,
-                ),
+                    color: meta.accent.withValues(alpha: 0.4), width: 1.0),
               ),
               child: Text(
                 'index ${value.index}',
@@ -880,7 +869,8 @@ Widget _buildValueCard(SystemSoundType value) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.arrow_right, size: 18.0, color: meta.accent),
+                      Icon(Icons.arrow_right,
+                          size: 18.0, color: meta.accent),
                       Expanded(
                         child: Text(
                           trigger,
@@ -908,12 +898,16 @@ Widget _buildValueCard(SystemSoundType value) {
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: meta.accent.withValues(alpha: 0.5)),
+              border:
+                  Border.all(color: meta.accent.withValues(alpha: 0.5)),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: CustomPaint(
-                painter: _WaveformPainter(kind: value, color: meta.accent),
+                painter: _WaveformPainter(
+                  kind: value,
+                  color: meta.accent,
+                ),
                 child: const SizedBox.expand(),
               ),
             ),
@@ -946,11 +940,8 @@ Widget _buildValueCard(SystemSoundType value) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.label_important,
-                size: 16.0,
-                color: Colors.cyan.shade200,
-              ),
+              Icon(Icons.label_important,
+                  size: 16.0, color: Colors.cyan.shade200),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1155,8 +1146,10 @@ _ValueMeta _metaFor(SystemSoundType value) {
           'A selection cursor moves between items via gesture.',
           'Any per-item motion that should feel "ratcheted".',
         ],
-        iOSNote: 'Plays the picker-wheel tick. Respects the silent switch.',
-        androidNote: 'May map to the same key-click as click; check device.',
+        iOSNote:
+            'Plays the picker-wheel tick. Respects the silent switch.',
+        androidNote:
+            'May map to the same key-click as click; check device.',
         webNote: 'No-op on Flutter Web in practice.',
         linuxNote: 'Embedder-dependent; usually a no-op.',
         windowsNote: 'Embedder-dependent; usually a no-op.',
@@ -1183,7 +1176,11 @@ class _WaveformPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final bg = Paint()
       ..shader = LinearGradient(
-        colors: [Colors.black, color.withValues(alpha: 0.08), Colors.black],
+        colors: [
+          Colors.black,
+          color.withValues(alpha: 0.08),
+          Colors.black,
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ).createShader(Offset.zero & size);
@@ -1230,7 +1227,8 @@ class _WaveformPainter extends CustomPainter {
       } else if (kind == SystemSoundType.alert) {
         // alert: longer, two-note ping with slower decay
         final envelope = math.exp(-t * 3.0);
-        final tone = math.sin(t * 22.0) * 0.6 + math.sin(t * 36.0 + 0.7) * 0.4;
+        final tone =
+            math.sin(t * 22.0) * 0.6 + math.sin(t * 36.0 + 0.7) * 0.4;
         amp = tone * envelope;
       } else {
         // tick (or future): repeated tiny transients
@@ -1253,8 +1251,8 @@ class _WaveformPainter extends CustomPainter {
         text: kind == SystemSoundType.click
             ? 'click ~ short transient, ~80ms'
             : kind == SystemSoundType.alert
-            ? 'alert ~ two-tone ping, ~600ms'
-            : '${kind.name} ~ ratcheted tick, ~120ms',
+                ? 'alert ~ two-tone ping, ~600ms'
+                : '${kind.name} ~ ratcheted tick, ~120ms',
         style: TextStyle(
           color: color.withValues(alpha: 0.9),
           fontSize: 10.0,
@@ -1315,17 +1313,11 @@ Widget _buildClickDeviceMock() {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.signal_cellular_4_bar,
-                    size: 12.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  Icon(Icons.signal_cellular_4_bar,
+                      size: 12.0, color: Colors.grey.shade700),
                   const SizedBox(width: 4.0),
-                  Icon(
-                    Icons.battery_full,
-                    size: 12.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  Icon(Icons.battery_full,
+                      size: 12.0, color: Colors.grey.shade700),
                 ],
               ),
             ],
@@ -1342,9 +1334,7 @@ Widget _buildClickDeviceMock() {
           const SizedBox(height: 12.0),
           Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 10.0,
-            ),
+                horizontal: 16.0, vertical: 10.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.teal.shade400, Colors.teal.shade700],
@@ -1438,17 +1428,11 @@ Widget _buildAlertDeviceMock() {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.signal_cellular_4_bar,
-                    size: 12.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  Icon(Icons.signal_cellular_4_bar,
+                      size: 12.0, color: Colors.grey.shade700),
                   const SizedBox(width: 4.0),
-                  Icon(
-                    Icons.battery_full,
-                    size: 12.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  Icon(Icons.battery_full,
+                      size: 12.0, color: Colors.grey.shade700),
                 ],
               ),
             ],
@@ -1476,11 +1460,8 @@ Widget _buildAlertDeviceMock() {
             ),
             child: Column(
               children: [
-                Icon(
-                  Icons.error,
-                  size: 28.0,
-                  color: Colors.deepOrange.shade700,
-                ),
+                Icon(Icons.error,
+                    size: 28.0, color: Colors.deepOrange.shade700),
                 const SizedBox(height: 6.0),
                 Text(
                   'Delete this account?',
@@ -1542,12 +1523,16 @@ Widget _buildRecipeCard({
     padding: const EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [accent.withValues(alpha: 0.08), Colors.white],
+        colors: [
+          accent.withValues(alpha: 0.08),
+          Colors.white,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: accent.withValues(alpha: 0.5), width: 1.5),
+      border: Border.all(
+          color: accent.withValues(alpha: 0.5), width: 1.5),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.20),
@@ -1610,7 +1595,10 @@ Widget _buildRecipeCard({
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(flex: 3, child: _buildCodeBlock(code, accent.shade100)),
+            Expanded(
+              flex: 3,
+              child: _buildCodeBlock(code, accent.shade100),
+            ),
             const SizedBox(width: 12.0),
             Expanded(flex: 2, child: mock),
           ],
@@ -1628,7 +1616,8 @@ Widget _buildRecipeCard({
             children: [
               Row(
                 children: [
-                  Icon(Icons.notes, size: 14.0, color: accent.shade700),
+                  Icon(Icons.notes,
+                      size: 14.0, color: accent.shade700),
                   const SizedBox(width: 6.0),
                   Text(
                     'NOTES',
@@ -1673,7 +1662,8 @@ Widget _buildButtonRecipeMock() {
     child: Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 18.0, vertical: 10.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.teal.shade400, Colors.teal.shade700],
@@ -1764,7 +1754,10 @@ Widget _buildA11yRecipeMock() {
         const SizedBox(height: 8.0),
         Text(
           'click on toggle change',
-          style: TextStyle(fontSize: 11.0, color: Colors.indigo.shade800),
+          style: TextStyle(
+            fontSize: 11.0,
+            color: Colors.indigo.shade800,
+          ),
         ),
       ],
     ),
@@ -1781,7 +1774,8 @@ Widget _buildErrorRecipeMock() {
     ),
     child: Column(
       children: [
-        Icon(Icons.error_outline, size: 28.0, color: Colors.red.shade700),
+        Icon(Icons.error_outline,
+            size: 28.0, color: Colors.red.shade700),
         const SizedBox(height: 6.0),
         Text(
           'Save failed',
@@ -1794,7 +1788,10 @@ Widget _buildErrorRecipeMock() {
         const SizedBox(height: 4.0),
         Text(
           'alert + heavyImpact',
-          style: TextStyle(fontSize: 11.0, color: Colors.red.shade800),
+          style: TextStyle(
+            fontSize: 11.0,
+            color: Colors.red.shade800,
+          ),
         ),
       ],
     ),
@@ -1810,11 +1807,7 @@ Widget _buildComparisonTable() {
     ['Channel', 'Audio (system speaker)', 'Vibration motor / Taptic'],
     ['Class', 'SystemSound', 'HapticFeedback'],
     ['Selector enum', 'SystemSoundType', 'no enum, distinct methods'],
-    [
-      'Variant count',
-      '2-3 (click, alert, [tick])',
-      '5+ (light/medium/heavy/...)',
-    ],
+    ['Variant count', '2-3 (click, alert, [tick])', '5+ (light/medium/heavy/...)'],
     ['User-controllable', 'Volume + silent switch', 'Vibrate setting'],
     ['Web support', 'Mostly no-op', 'Mostly no-op'],
     ['Best paired with', 'HapticFeedback', 'SystemSound'],
@@ -1834,31 +1827,30 @@ Widget _buildComparisonTable() {
             decoration: BoxDecoration(
               color: i == 0
                   ? Colors.orange.shade100
-                  : (i.isEven ? Colors.orange.shade50 : Colors.white),
+                  : (i.isEven
+                      ? Colors.orange.shade50
+                      : Colors.white),
               border: Border(
-                bottom: BorderSide(color: Colors.orange.shade200, width: 1.0),
+                bottom: BorderSide(
+                  color: Colors.orange.shade200,
+                  width: 1.0,
+                ),
               ),
             ),
             child: Row(
               children: [
-                _comparisonCell(
-                  rows[i][0],
-                  width: 130.0,
-                  bold: i == 0,
-                  textColor: Colors.orange.shade900,
-                ),
-                _comparisonCell(
-                  rows[i][1],
-                  width: 180.0,
-                  bold: i == 0,
-                  textColor: Colors.grey.shade900,
-                ),
-                _comparisonCell(
-                  rows[i][2],
-                  width: 220.0,
-                  bold: i == 0,
-                  textColor: Colors.grey.shade900,
-                ),
+                _comparisonCell(rows[i][0],
+                    width: 130.0,
+                    bold: i == 0,
+                    textColor: Colors.orange.shade900),
+                _comparisonCell(rows[i][1],
+                    width: 180.0,
+                    bold: i == 0,
+                    textColor: Colors.grey.shade900),
+                _comparisonCell(rows[i][2],
+                    width: 220.0,
+                    bold: i == 0,
+                    textColor: Colors.grey.shade900),
               ],
             ),
           ),
@@ -1900,7 +1892,8 @@ Widget _pitfallItem(String title, String body) {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 2.0, right: 10.0),
-          child: Icon(Icons.dangerous, size: 18.0, color: Colors.red.shade600),
+          child: Icon(Icons.dangerous,
+              size: 18.0, color: Colors.red.shade600),
         ),
         Expanded(
           child: Column(

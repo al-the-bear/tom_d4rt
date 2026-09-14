@@ -116,13 +116,7 @@ dynamic build(BuildContext context) {
   // currently selected category's thumb position.
   // ===========================================================================
   double priorityValue = 2.0;
-  const priorityLabels = <String>[
-    'Lowest',
-    'Low',
-    'Medium',
-    'High',
-    'Critical',
-  ];
+  const priorityLabels = <String>['Lowest', 'Low', 'Medium', 'High', 'Critical'];
 
   // ===========================================================================
   // SECTION 11 - REFERENCE CARD
@@ -137,18 +131,13 @@ dynamic build(BuildContext context) {
   // No live slider here; pure documentation surface.
   // ===========================================================================
 
-  print(
-    'Live sliders: hero, comparison(2), sweep(3), palette(3), divisions(3),',
-  );
+  print('Live sliders: hero, comparison(2), sweep(3), palette(3), divisions(3),');
   print('              disabled(1), thumbs(2), brightness, media(2), priority');
   print('Total live Slider widgets in demo: 19 (plus 1 disabled).');
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      useMaterial3: true,
-      colorSchemeSeed: const Color(0xFF3B5BDB),
-    ),
+    theme: ThemeData(useMaterial3: true, colorSchemeSeed: const Color(0xFF3B5BDB)),
     home: Scaffold(
       backgroundColor: const Color(0xFFF6F7FB),
       body: SafeArea(
@@ -225,11 +214,7 @@ dynamic build(BuildContext context) {
                       builder: (BuildContext _, StateSetter setHero) {
                         return SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
-                            trackGap: 6.0,
-                            thumbSize: const WidgetStatePropertyAll<Size?>(
-                              Size(4.0, 44.0),
-                            ),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: Colors.white,
                             inactiveTrackColor: Colors.white24,
@@ -254,20 +239,16 @@ dynamic build(BuildContext context) {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
-                          Text(
-                            '0.00',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 12,
-                            ),
-                          ),
-                          Text(
-                            '1.00',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 12,
-                            ),
-                          ),
+                          Text('0.00',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 12,
+                              )),
+                          Text('1.00',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 12,
+                              )),
                         ],
                       ),
                     ),
@@ -306,11 +287,7 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                const Icon(
-                                  Icons.history,
-                                  size: 18,
-                                  color: Colors.black54,
-                                ),
+                                const Icon(Icons.history, size: 18, color: Colors.black54),
                                 const SizedBox(width: 6),
                                 const Text(
                                   'Legacy: RoundedRectSliderTrackShape()',
@@ -361,11 +338,7 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                const Icon(
-                                  Icons.new_releases,
-                                  size: 18,
-                                  color: Color(0xFF3B5BDB),
-                                ),
+                                const Icon(Icons.new_releases, size: 18, color: Color(0xFF3B5BDB)),
                                 const SizedBox(width: 6),
                                 const Text(
                                   'M3: GappedSliderTrackShape()',
@@ -384,11 +357,7 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 6),
                             SliderTheme(
                               data: SliderThemeData(
-                                trackShape: const GappedSliderTrackShape(),
-                                trackGap: 6.0,
-                                thumbSize: const WidgetStatePropertyAll<Size?>(
-                                  Size(4.0, 44.0),
-                                ),
+                                trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                 trackHeight: 8,
                                 activeTrackColor: const Color(0xFF3B5BDB),
                                 inactiveTrackColor: const Color(0xFFC4CCE6),
@@ -442,20 +411,13 @@ dynamic build(BuildContext context) {
                           children: [
                             const SizedBox(
                               width: 90,
-                              child: Text(
-                                'trackHeight: 4',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
+                              child: Text('trackHeight: 4',
+                                  style: TextStyle(fontWeight: FontWeight.w500)),
                             ),
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
-                                  trackGap: 6.0,
-                                  thumbSize:
-                                      const WidgetStatePropertyAll<Size?>(
-                                        Size(4.0, 44.0),
-                                      ),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 4,
                                   activeTrackColor: const Color(0xFF1F8E5A),
                                   inactiveTrackColor: const Color(0xFFB7E4C7),
@@ -473,10 +435,8 @@ dynamic build(BuildContext context) {
                             ),
                             SizedBox(
                               width: 50,
-                              child: Text(
-                                sweepValueA.toStringAsFixed(2),
-                                style: const TextStyle(fontFamily: 'monospace'),
-                              ),
+                              child: Text(sweepValueA.toStringAsFixed(2),
+                                  style: const TextStyle(fontFamily: 'monospace')),
                             ),
                           ],
                         ),
@@ -485,20 +445,13 @@ dynamic build(BuildContext context) {
                           children: [
                             const SizedBox(
                               width: 90,
-                              child: Text(
-                                'trackHeight: 8',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
+                              child: Text('trackHeight: 8',
+                                  style: TextStyle(fontWeight: FontWeight.w500)),
                             ),
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
-                                  trackGap: 6.0,
-                                  thumbSize:
-                                      const WidgetStatePropertyAll<Size?>(
-                                        Size(4.0, 44.0),
-                                      ),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 8,
                                   activeTrackColor: const Color(0xFFB37FEB),
                                   inactiveTrackColor: const Color(0xFFE2D2F5),
@@ -516,10 +469,8 @@ dynamic build(BuildContext context) {
                             ),
                             SizedBox(
                               width: 50,
-                              child: Text(
-                                sweepValueB.toStringAsFixed(2),
-                                style: const TextStyle(fontFamily: 'monospace'),
-                              ),
+                              child: Text(sweepValueB.toStringAsFixed(2),
+                                  style: const TextStyle(fontFamily: 'monospace')),
                             ),
                           ],
                         ),
@@ -528,20 +479,13 @@ dynamic build(BuildContext context) {
                           children: [
                             const SizedBox(
                               width: 90,
-                              child: Text(
-                                'trackHeight: 16',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
+                              child: Text('trackHeight: 16',
+                                  style: TextStyle(fontWeight: FontWeight.w500)),
                             ),
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
-                                  trackGap: 6.0,
-                                  thumbSize:
-                                      const WidgetStatePropertyAll<Size?>(
-                                        Size(4.0, 44.0),
-                                      ),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 16,
                                   activeTrackColor: const Color(0xFFD9480F),
                                   inactiveTrackColor: const Color(0xFFFFD8A8),
@@ -559,10 +503,8 @@ dynamic build(BuildContext context) {
                             ),
                             SizedBox(
                               width: 50,
-                              child: Text(
-                                sweepValueC.toStringAsFixed(2),
-                                style: const TextStyle(fontFamily: 'monospace'),
-                              ),
+                              child: Text(sweepValueC.toStringAsFixed(2),
+                                  style: const TextStyle(fontFamily: 'monospace')),
                             ),
                           ],
                         ),
@@ -593,40 +535,26 @@ dynamic build(BuildContext context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 10,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                         decoration: BoxDecoration(
                           color: const Color(0xFFE3FAFC),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.water_drop,
-                              color: Color(0xFF0B7285),
-                            ),
+                            const Icon(Icons.water_drop, color: Color(0xFF0B7285)),
                             const SizedBox(width: 8),
                             const SizedBox(
                               width: 70,
-                              child: Text(
-                                'Ocean',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF0B7285),
-                                ),
-                              ),
+                              child: Text('Ocean',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF0B7285))),
                             ),
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
-                                  trackGap: 6.0,
-                                  thumbSize:
-                                      const WidgetStatePropertyAll<Size?>(
-                                        Size(4.0, 44.0),
-                                      ),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 8,
                                   activeTrackColor: const Color(0xFF0B7285),
                                   inactiveTrackColor: const Color(0xFF99E9F2),
@@ -659,40 +587,26 @@ dynamic build(BuildContext context) {
                       ),
                       const SizedBox(height: 10),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 10,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                         decoration: BoxDecoration(
                           color: const Color(0xFFFFF4E6),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.wb_sunny,
-                              color: Color(0xFFD9480F),
-                            ),
+                            const Icon(Icons.wb_sunny, color: Color(0xFFD9480F)),
                             const SizedBox(width: 8),
                             const SizedBox(
                               width: 70,
-                              child: Text(
-                                'Sunset',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFFD9480F),
-                                ),
-                              ),
+                              child: Text('Sunset',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFFD9480F))),
                             ),
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
-                                  trackGap: 6.0,
-                                  thumbSize:
-                                      const WidgetStatePropertyAll<Size?>(
-                                        Size(4.0, 44.0),
-                                      ),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 8,
                                   activeTrackColor: const Color(0xFFE8590C),
                                   inactiveTrackColor: const Color(0xFFFFD8A8),
@@ -725,10 +639,7 @@ dynamic build(BuildContext context) {
                       ),
                       const SizedBox(height: 10),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 10,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                         decoration: BoxDecoration(
                           color: const Color(0xFFEBFBEE),
                           borderRadius: BorderRadius.circular(10),
@@ -739,23 +650,15 @@ dynamic build(BuildContext context) {
                             const SizedBox(width: 8),
                             const SizedBox(
                               width: 70,
-                              child: Text(
-                                'Forest',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF2B8A3E),
-                                ),
-                              ),
+                              child: Text('Forest',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF2B8A3E))),
                             ),
                             Expanded(
                               child: SliderTheme(
                                 data: SliderThemeData(
-                                  trackShape: const GappedSliderTrackShape(),
-                                  trackGap: 6.0,
-                                  thumbSize:
-                                      const WidgetStatePropertyAll<Size?>(
-                                        Size(4.0, 44.0),
-                                      ),
+                                  trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                   trackHeight: 8,
                                   activeTrackColor: const Color(0xFF2B8A3E),
                                   inactiveTrackColor: const Color(0xFFB2F2BB),
@@ -823,19 +726,13 @@ dynamic build(BuildContext context) {
                         ),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
-                            trackGap: 6.0,
-                            thumbSize: const WidgetStatePropertyAll<Size?>(
-                              Size(4.0, 44.0),
-                            ),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: const Color(0xFFE03131),
                             inactiveTrackColor: const Color(0xFFFFC9C9),
                             thumbColor: const Color(0xFFC92A2A),
                             valueIndicatorColor: const Color(0xFFC92A2A),
-                            valueIndicatorTextStyle: const TextStyle(
-                              color: Colors.white,
-                            ),
+                            valueIndicatorTextStyle: const TextStyle(color: Colors.white),
                             activeTickMarkColor: Colors.white,
                             inactiveTickMarkColor: const Color(0xFFE03131),
                           ),
@@ -859,19 +756,13 @@ dynamic build(BuildContext context) {
                         ),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
-                            trackGap: 6.0,
-                            thumbSize: const WidgetStatePropertyAll<Size?>(
-                              Size(4.0, 44.0),
-                            ),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: const Color(0xFF1864AB),
                             inactiveTrackColor: const Color(0xFFA5D8FF),
                             thumbColor: const Color(0xFF1864AB),
                             valueIndicatorColor: const Color(0xFF1864AB),
-                            valueIndicatorTextStyle: const TextStyle(
-                              color: Colors.white,
-                            ),
+                            valueIndicatorTextStyle: const TextStyle(color: Colors.white),
                             activeTickMarkColor: Colors.white,
                             inactiveTickMarkColor: const Color(0xFF1864AB),
                           ),
@@ -895,19 +786,13 @@ dynamic build(BuildContext context) {
                         ),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
-                            trackGap: 6.0,
-                            thumbSize: const WidgetStatePropertyAll<Size?>(
-                              Size(4.0, 44.0),
-                            ),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: const Color(0xFF6741D9),
                             inactiveTrackColor: const Color(0xFFD0BFFF),
                             thumbColor: const Color(0xFF6741D9),
                             valueIndicatorColor: const Color(0xFF6741D9),
-                            valueIndicatorTextStyle: const TextStyle(
-                              color: Colors.white,
-                            ),
+                            valueIndicatorTextStyle: const TextStyle(color: Colors.white),
                             activeTickMarkColor: Colors.white,
                             inactiveTickMarkColor: const Color(0xFF6741D9),
                           ),
@@ -970,11 +855,7 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 8),
                     SliderTheme(
                       data: SliderThemeData(
-                        trackShape: const GappedSliderTrackShape(),
-                        trackGap: 6.0,
-                        thumbSize: const WidgetStatePropertyAll<Size?>(
-                          Size(4.0, 44.0),
-                        ),
+                        trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                         trackHeight: 8,
                         disabledActiveTrackColor: const Color(0xFFADB5BD),
                         disabledInactiveTrackColor: const Color(0xFFDEE2E6),
@@ -1029,11 +910,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 4),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
-                            trackGap: 6.0,
-                            thumbSize: const WidgetStatePropertyAll<Size?>(
-                              Size(4.0, 44.0),
-                            ),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             thumbShape: const RoundSliderThumbShape(
                               enabledThumbRadius: 12,
                             ),
@@ -1070,11 +947,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 4),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
-                            trackGap: 6.0,
-                            thumbSize: const WidgetStatePropertyAll<Size?>(
-                              Size(4.0, 44.0),
-                            ),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             thumbShape: const HandleThumbShape(),
                             trackHeight: 16,
                             activeTrackColor: const Color(0xFFAE3EC9),
@@ -1145,11 +1018,7 @@ dynamic build(BuildContext context) {
                       children: [
                         Row(
                           children: const [
-                            Icon(
-                              Icons.brightness_low,
-                              color: Colors.white70,
-                              size: 20,
-                            ),
+                            Icon(Icons.brightness_low, color: Colors.white70, size: 20),
                             SizedBox(width: 8),
                             Text(
                               'Brightness',
@@ -1160,21 +1029,13 @@ dynamic build(BuildContext context) {
                               ),
                             ),
                             Spacer(),
-                            Icon(
-                              Icons.brightness_high,
-                              color: Colors.white,
-                              size: 22,
-                            ),
+                            Icon(Icons.brightness_high, color: Colors.white, size: 22),
                           ],
                         ),
                         const SizedBox(height: 8),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
-                            trackGap: 6.0,
-                            thumbSize: const WidgetStatePropertyAll<Size?>(
-                              Size(4.0, 44.0),
-                            ),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 10,
                             activeTrackColor: const Color(0xFFFFE8CC),
                             inactiveTrackColor: const Color(0x55FFFFFF),
@@ -1193,13 +1054,8 @@ dynamic build(BuildContext context) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              '0%',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 12,
-                              ),
-                            ),
+                            const Text('0%',
+                                style: TextStyle(color: Colors.white70, fontSize: 12)),
                             Text(
                               '${(brightnessValue * 100).toStringAsFixed(0)}%',
                               style: const TextStyle(
@@ -1207,13 +1063,8 @@ dynamic build(BuildContext context) {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            const Text(
-                              '100%',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 12,
-                              ),
-                            ),
+                            const Text('100%',
+                                style: TextStyle(color: Colors.white70, fontSize: 12)),
                           ],
                         ),
                       ],
@@ -1267,11 +1118,7 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 6),
                             SliderTheme(
                               data: SliderThemeData(
-                                trackShape: const GappedSliderTrackShape(),
-                                trackGap: 6.0,
-                                thumbSize: const WidgetStatePropertyAll<Size?>(
-                                  Size(4.0, 44.0),
-                                ),
+                                trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                 trackHeight: 4,
                                 activeTrackColor: const Color(0xFF40C057),
                                 inactiveTrackColor: const Color(0xFF495057),
@@ -1295,20 +1142,16 @@ dynamic build(BuildContext context) {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  fmt(mediaSmall),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'monospace',
-                                  ),
-                                ),
-                                Text(
-                                  fmt(240),
-                                  style: const TextStyle(
-                                    color: Colors.white54,
-                                    fontFamily: 'monospace',
-                                  ),
-                                ),
+                                Text(fmt(mediaSmall),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'monospace',
+                                    )),
+                                Text(fmt(240),
+                                    style: const TextStyle(
+                                      color: Colors.white54,
+                                      fontFamily: 'monospace',
+                                    )),
                               ],
                             ),
                           ],
@@ -1334,11 +1177,7 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 6),
                             SliderTheme(
                               data: SliderThemeData(
-                                trackShape: const GappedSliderTrackShape(),
-                                trackGap: 6.0,
-                                thumbSize: const WidgetStatePropertyAll<Size?>(
-                                  Size(4.0, 44.0),
-                                ),
+                                trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                                 trackHeight: 10,
                                 activeTrackColor: const Color(0xFFFD7E14),
                                 inactiveTrackColor: const Color(0xFF495057),
@@ -1362,20 +1201,16 @@ dynamic build(BuildContext context) {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  fmt(mediaLarge),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'monospace',
-                                  ),
-                                ),
-                                Text(
-                                  fmt(240),
-                                  style: const TextStyle(
-                                    color: Colors.white54,
-                                    fontFamily: 'monospace',
-                                  ),
-                                ),
+                                Text(fmt(mediaLarge),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'monospace',
+                                    )),
+                                Text(fmt(240),
+                                    style: const TextStyle(
+                                      color: Colors.white54,
+                                      fontFamily: 'monospace',
+                                    )),
                               ],
                             ),
                           ],
@@ -1402,10 +1237,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               StatefulBuilder(
                 builder: (BuildContext _, StateSetter setPrio) {
-                  final int idx = priorityValue.round().clamp(
-                    0,
-                    priorityLabels.length - 1,
-                  );
+                  final int idx = priorityValue.round().clamp(0, priorityLabels.length - 1);
                   return Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
@@ -1440,20 +1272,14 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 4),
                         SliderTheme(
                           data: SliderThemeData(
-                            trackShape: const GappedSliderTrackShape(),
-                            trackGap: 6.0,
-                            thumbSize: const WidgetStatePropertyAll<Size?>(
-                              Size(4.0, 44.0),
-                            ),
+                            trackShape: const GappedSliderTrackShape(), trackGap: 6.0, thumbSize: const WidgetStatePropertyAll<Size?>(Size(4.0, 44.0)),
                             trackHeight: 8,
                             activeTrackColor: const Color(0xFFD6336C),
                             inactiveTrackColor: const Color(0xFFFFDEEB),
                             thumbColor: const Color(0xFFD6336C),
                             overlayColor: const Color(0x55D6336C),
                             valueIndicatorColor: const Color(0xFFD6336C),
-                            valueIndicatorTextStyle: const TextStyle(
-                              color: Colors.white,
-                            ),
+                            valueIndicatorTextStyle: const TextStyle(color: Colors.white),
                             activeTickMarkColor: Colors.white,
                             inactiveTickMarkColor: const Color(0xFFD6336C),
                           ),

@@ -52,8 +52,7 @@ class _DemoBody extends StatelessWidget {
           index: 1,
           icon: Icons.dashboard,
           title: 'Side-by-side button cards',
-          subtitle:
-              'Three identical buttons under different IgnorePointer treatments.',
+          subtitle: 'Three identical buttons under different IgnorePointer treatments.',
         ),
         SizedBox(height: 14),
         _ButtonCardsRow(),
@@ -62,8 +61,7 @@ class _DemoBody extends StatelessWidget {
           index: 2,
           icon: Icons.compare_arrows,
           title: 'IgnorePointer vs AbsorbPointer',
-          subtitle:
-              'IgnorePointer steps aside; AbsorbPointer catches and swallows.',
+          subtitle: 'IgnorePointer steps aside; AbsorbPointer catches and swallows.',
         ),
         SizedBox(height: 14),
         _CompareIgnoreAbsorb(),
@@ -72,8 +70,7 @@ class _DemoBody extends StatelessWidget {
           index: 3,
           icon: Icons.layers,
           title: 'Layered overlay scenario',
-          subtitle:
-              'A tinted overlay sits visually on top yet does not steal events.',
+          subtitle: 'A tinted overlay sits visually on top yet does not steal events.',
         ),
         SizedBox(height: 14),
         _LayeredOverlayDemo(),
@@ -82,8 +79,7 @@ class _DemoBody extends StatelessWidget {
           index: 4,
           icon: Icons.edit_note,
           title: 'Form disabled-state mock',
-          subtitle:
-              'Wrap a section in IgnorePointer + Opacity to imply "read only".',
+          subtitle: 'Wrap a section in IgnorePointer + Opacity to imply "read only".',
         ),
         SizedBox(height: 14),
         _FormDisabledMock(),
@@ -92,8 +88,7 @@ class _DemoBody extends StatelessWidget {
           index: 5,
           icon: Icons.accessibility_new,
           title: 'Semantics flag matrix',
-          subtitle:
-              'Legacy ignoringSemantics vs the modern Semantics-driven approach.',
+          subtitle: 'Legacy ignoringSemantics vs the modern Semantics-driven approach.',
         ),
         SizedBox(height: 14),
         _SemanticsMatrix(),
@@ -102,8 +97,7 @@ class _DemoBody extends StatelessWidget {
           index: 6,
           icon: Icons.account_tree,
           title: 'Hit-test flow diagram',
-          subtitle:
-              'How a tap travels when RenderIgnorePointer says "skip me".',
+          subtitle: 'How a tap travels when RenderIgnorePointer says "skip me".',
         ),
         SizedBox(height: 14),
         _HitTestFlow(),
@@ -112,8 +106,7 @@ class _DemoBody extends StatelessWidget {
           index: 7,
           icon: Icons.api,
           title: 'API parameter reference',
-          subtitle:
-              'ignoring, ignoringSemantics, child — every constructor argument explained.',
+          subtitle: 'ignoring, ignoringSemantics, child — every constructor argument explained.',
         ),
         SizedBox(height: 14),
         _ApiReferenceGrid(),
@@ -206,7 +199,11 @@ class _HeroHeader extends StatelessWidget {
             'Descendants still paint exactly as they would otherwise — only their '
             'pointer events are skipped, falling through to whichever sibling '
             'happens to live underneath at the same z-position.',
-            style: TextStyle(color: Colors.white, fontSize: 14.5, height: 1.45),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.5,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 18),
           Row(
@@ -264,11 +261,7 @@ class _HeroChip extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _HeroChip({
-    required this.icon,
-    required this.label,
-    required this.color,
-  });
+  const _HeroChip({required this.icon, required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -402,43 +395,41 @@ class _ButtonCardsRow extends StatelessWidget {
     // child, preserving the equal-height card visual.
     return IntrinsicHeight(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
-          Expanded(
-            child: _ButtonCard(
-              title: 'Plain button',
-              badgeLabel: 'hits child',
-              badgeColor: Color(0xFF16A34A),
-              icon: Icons.check_circle,
-              description:
-                  'No IgnorePointer at all. Tap reaches the button as usual.',
-              mode: _ButtonCardMode.plain,
-            ),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: const <Widget>[
+        Expanded(
+          child: _ButtonCard(
+            title: 'Plain button',
+            badgeLabel: 'hits child',
+            badgeColor: Color(0xFF16A34A),
+            icon: Icons.check_circle,
+            description: 'No IgnorePointer at all. Tap reaches the button as usual.',
+            mode: _ButtonCardMode.plain,
           ),
-          SizedBox(width: 14),
-          Expanded(
-            child: _ButtonCard(
-              title: 'IgnorePointer\nignoring: true',
-              badgeLabel: 'skips child',
-              badgeColor: Color(0xFFDC2626),
-              icon: Icons.block,
-              description: 'Wrapped subtree is invisible to hit-testing.',
-              mode: _ButtonCardMode.ignoring,
-            ),
+        ),
+        SizedBox(width: 14),
+        Expanded(
+          child: _ButtonCard(
+            title: 'IgnorePointer\nignoring: true',
+            badgeLabel: 'skips child',
+            badgeColor: Color(0xFFDC2626),
+            icon: Icons.block,
+            description: 'Wrapped subtree is invisible to hit-testing.',
+            mode: _ButtonCardMode.ignoring,
           ),
-          SizedBox(width: 14),
-          Expanded(
-            child: _ButtonCard(
-              title: 'IgnorePointer\nignoring: false',
-              badgeLabel: 'hits child',
-              badgeColor: Color(0xFF16A34A),
-              icon: Icons.check_circle_outline,
-              description:
-                  'Wrapped but disabled — pointer events fall through normally.',
-              mode: _ButtonCardMode.passthrough,
-            ),
+        ),
+        SizedBox(width: 14),
+        Expanded(
+          child: _ButtonCard(
+            title: 'IgnorePointer\nignoring: false',
+            badgeLabel: 'hits child',
+            badgeColor: Color(0xFF16A34A),
+            icon: Icons.check_circle_outline,
+            description: 'Wrapped but disabled — pointer events fall through normally.',
+            mode: _ButtonCardMode.passthrough,
           ),
-        ],
+        ),
+      ],
       ),
     );
   }
@@ -474,17 +465,25 @@ class _ButtonCard extends StatelessWidget {
         backgroundColor: const Color(0xFF1E40AF),
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
     );
 
     if (mode == _ButtonCardMode.ignoring) {
       button = Opacity(
         opacity: 0.55,
-        child: IgnorePointer(ignoring: true, child: button),
+        child: IgnorePointer(
+          ignoring: true,
+          child: button,
+        ),
       );
     } else if (mode == _ButtonCardMode.passthrough) {
-      button = IgnorePointer(ignoring: false, child: button);
+      button = IgnorePointer(
+        ignoring: false,
+        child: button,
+      );
     }
 
     return Container(
@@ -499,7 +498,9 @@ class _ButtonCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: faded ? const Color(0xFFFCA5A5) : const Color(0xFF86EFAC),
+          color: faded
+              ? const Color(0xFFFCA5A5)
+              : const Color(0xFF86EFAC),
           width: 1.4,
         ),
         boxShadow: const <BoxShadow>[
@@ -879,11 +880,8 @@ class _LayeredOverlayDemo extends StatelessWidget {
                             ),
                             child: Row(
                               children: const <Widget>[
-                                Icon(
-                                  Icons.music_note,
-                                  size: 18,
-                                  color: Color(0xFF0369A1),
-                                ),
+                                Icon(Icons.music_note,
+                                    size: 18, color: Color(0xFF0369A1)),
                                 SizedBox(width: 8),
                                 Text(
                                   'Track 03 — buttons remain hot',
@@ -917,9 +915,7 @@ class _LayeredOverlayDemo extends StatelessWidget {
                         child: Center(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 10,
-                            ),
+                                horizontal: 18, vertical: 10),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
@@ -934,11 +930,8 @@ class _LayeredOverlayDemo extends StatelessWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: const <Widget>[
-                                Icon(
-                                  Icons.auto_awesome,
-                                  size: 18,
-                                  color: Color(0xFF7C3AED),
-                                ),
+                                Icon(Icons.auto_awesome,
+                                    size: 18, color: Color(0xFF7C3AED)),
                                 SizedBox(width: 8),
                                 Text(
                                   'Decorative overlay (ignores pointer)',
@@ -1019,9 +1012,7 @@ class _FormDisabledMock extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                    horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     colors: <Color>[Color(0xFFE2E8F0), Color(0xFFCBD5E1)],
@@ -1031,11 +1022,8 @@ class _FormDisabledMock extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: const <Widget>[
-                    Icon(
-                      Icons.lock_outline,
-                      size: 14,
-                      color: Color(0xFF334155),
-                    ),
+                    Icon(Icons.lock_outline,
+                        size: 14, color: Color(0xFF334155)),
                     SizedBox(width: 6),
                     Text(
                       'Disabled section',
@@ -1086,21 +1074,21 @@ class _FormDisabledMock extends StatelessWidget {
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: Color(0xFFCBD5E1),
-                          ),
+                          borderSide:
+                              const BorderSide(color: Color(0xFFCBD5E1)),
                         ),
                         prefixIcon: const Icon(Icons.business, size: 18),
                       ),
                     ),
                     const SizedBox(height: 14),
-                    const _FormFieldLabel(icon: Icons.public, label: 'Region'),
+                    const _FormFieldLabel(
+                      icon: Icons.public,
+                      label: 'Region',
+                    ),
                     const SizedBox(height: 6),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 14,
-                      ),
+                          horizontal: 12, vertical: 14),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
@@ -1108,11 +1096,8 @@ class _FormDisabledMock extends StatelessWidget {
                       ),
                       child: Row(
                         children: const <Widget>[
-                          Icon(
-                            Icons.location_on,
-                            size: 18,
-                            color: Color(0xFF64748B),
-                          ),
+                          Icon(Icons.location_on, size: 18,
+                              color: Color(0xFF64748B)),
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
@@ -1120,7 +1105,8 @@ class _FormDisabledMock extends StatelessWidget {
                               style: TextStyle(fontSize: 13.5),
                             ),
                           ),
-                          Icon(Icons.arrow_drop_down, color: Color(0xFF64748B)),
+                          Icon(Icons.arrow_drop_down,
+                              color: Color(0xFF64748B)),
                         ],
                       ),
                     ),
@@ -1150,9 +1136,7 @@ class _FormDisabledMock extends StatelessWidget {
                           backgroundColor: const Color(0xFF2563EB),
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 14,
-                          ),
+                              horizontal: 18, vertical: 14),
                         ),
                       ),
                     ),
@@ -1283,7 +1267,8 @@ class _SemanticsMatrix extends StatelessWidget {
         children: <Widget>[
           Row(
             children: const <Widget>[
-              Icon(Icons.accessibility_new, size: 18, color: Color(0xFF0F766E)),
+              Icon(Icons.accessibility_new,
+                  size: 18, color: Color(0xFF0F766E)),
               SizedBox(width: 8),
               Text(
                 'Semantics matrix — what assistive tech sees',
@@ -1313,8 +1298,7 @@ class _SemanticsMatrix extends StatelessWidget {
               SizedBox(width: 12),
               Expanded(
                 child: _SemanticsCard(
-                  caption:
-                      'IgnorePointer(ignoring: true,\nignoringSemantics: false)',
+                  caption: 'IgnorePointer(ignoring: true,\nignoringSemantics: false)',
                   description:
                       'Legacy parameter (now deprecated): hit-test still skipped, '
                       'but semantics are preserved so a screen reader still announces them.',
@@ -1430,11 +1414,8 @@ class _BulletLine extends StatelessWidget {
       children: <Widget>[
         const Padding(
           padding: EdgeInsets.only(top: 5),
-          child: Icon(
-            Icons.fiber_manual_record,
-            size: 8,
-            color: Color(0xFF64748B),
-          ),
+          child: Icon(Icons.fiber_manual_record,
+              size: 8, color: Color(0xFF64748B)),
         ),
         const SizedBox(width: 6),
         Expanded(
@@ -1534,8 +1515,7 @@ class _HitTestFlow extends StatelessWidget {
           _FlowStep(
             number: '5',
             title: 'GestureRecognizer.acceptGesture',
-            detail:
-                'Whichever sibling wins the arena receives the tap callback.',
+            detail: 'Whichever sibling wins the arena receives the tap callback.',
             color: Color(0xFF0F766E),
             icon: Icons.check_circle,
           ),
@@ -1549,11 +1529,8 @@ class _HitTestFlow extends StatelessWidget {
             ),
             child: Row(
               children: const <Widget>[
-                Icon(
-                  Icons.tips_and_updates,
-                  color: Color(0xFF7C3AED),
-                  size: 18,
-                ),
+                Icon(Icons.tips_and_updates,
+                    color: Color(0xFF7C3AED), size: 18),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1718,8 +1695,7 @@ class _ApiReferenceGrid extends StatelessWidget {
           summary:
               'Legacy escape hatch to keep semantics visible while ignoring pointers. '
               'Prefer composing with the Semantics widget instead.',
-          example:
-              'IgnorePointer(ignoring: true, ignoringSemantics: false, ...)',
+          example: 'IgnorePointer(ignoring: true, ignoringSemantics: false, ...)',
           icon: Icons.history_edu,
           accent: Color(0xFFB45309),
         ),
@@ -1802,7 +1778,8 @@ class _ApiCard extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: const Color(0xFFEFF6FF),
                   borderRadius: BorderRadius.circular(6),
@@ -1821,9 +1798,7 @@ class _ApiCard extends StatelessWidget {
               if (required)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                      horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFEE2E2),
                     borderRadius: BorderRadius.circular(6),
@@ -1840,9 +1815,7 @@ class _ApiCard extends StatelessWidget {
               else
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                      horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F5F9),
                     borderRadius: BorderRadius.circular(6),
@@ -1876,7 +1849,8 @@ class _ApiCard extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(Icons.code, color: Color(0xFF38BDF8), size: 16),
+                const Icon(Icons.code,
+                    color: Color(0xFF38BDF8), size: 16),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -2203,31 +2177,29 @@ class _PitfallCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          ...rows.map<Widget>(
-            (_PitfallRow r) => Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 1),
-                    child: Icon(r.icon, color: color, size: 16),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      r.text,
-                      style: const TextStyle(
-                        fontSize: 12.5,
-                        color: Color(0xFF1E293B),
-                        height: 1.45,
+          ...rows.map<Widget>((_PitfallRow r) => Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 1),
+                      child: Icon(r.icon, color: color, size: 16),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        r.text,
+                        style: const TextStyle(
+                          fontSize: 12.5,
+                          color: Color(0xFF1E293B),
+                          height: 1.45,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );

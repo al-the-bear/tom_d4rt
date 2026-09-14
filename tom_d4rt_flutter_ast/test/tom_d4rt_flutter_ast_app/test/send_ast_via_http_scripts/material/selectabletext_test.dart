@@ -54,9 +54,7 @@ dynamic build(BuildContext context) {
   sections.add(_sectionGap());
   sections.add(_buildFooter());
 
-  print(
-    'SelectableText deep demo: sections assembled, count=${sections.length}',
-  );
+  print('SelectableText deep demo: sections assembled, count=${sections.length}');
 
   return Container(
     color: const Color(0xFFF6F7FB),
@@ -129,7 +127,11 @@ Widget _buildHeader() {
           'select the rendered glyph run and copy it to the clipboard. It '
           'paints a (faux) cursor, hosts selection handles, and emits a '
           'platform context menu on long-press / right-click.',
-          style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.45),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 13.0,
+            height: 1.45,
+          ),
         ),
       ],
     ),
@@ -204,9 +206,8 @@ Widget _buildSection1Anatomy() {
 // ---------------------------------------------------------------------------
 
 Widget _buildSection2Basic() {
-  final SelectableText basic = const SelectableText(
-    'Plain selectable text — drag across me to copy.',
-  );
+  final SelectableText basic =
+      const SelectableText('Plain selectable text — drag across me to copy.');
 
   final SelectableText sized = const SelectableText(
     'A larger basic SelectableText with no extra options.',
@@ -294,8 +295,7 @@ Widget _buildSection3Rich() {
           style: TextStyle(color: Colors.purple.shade600),
         ),
         const TextSpan(
-          text:
-              ' spans inside one SelectableText.rich is fine — selection '
+          text: ' spans inside one SelectableText.rich is fine — selection '
               'spans them as one continuous run.',
         ),
       ],
@@ -430,7 +430,11 @@ Widget _buildSection5TextAlign() {
         align: TextAlign.end,
         sample: sample,
       ),
-      _alignCard(label: 'center', align: TextAlign.center, sample: sample),
+      _alignCard(
+        label: 'center',
+        align: TextAlign.center,
+        sample: sample,
+      ),
       _alignCard(
         label: 'justify (stretches whitespace)',
         align: TextAlign.justify,
@@ -498,12 +502,18 @@ Widget _buildSection6CustomStyle() {
       _styleSample(
         label: 'Serif family',
         text: 'Serifs read well for body text, especially long passages.',
-        style: const TextStyle(fontSize: 14.0, fontFamily: 'serif'),
+        style: const TextStyle(
+          fontSize: 14.0,
+          fontFamily: 'serif',
+        ),
       ),
       _styleSample(
         label: 'Monospace family',
         text: '0123-AB-cd  iI lL 1!  // tabular figures, fixed advances.',
-        style: const TextStyle(fontSize: 14.0, fontFamily: 'monospace'),
+        style: const TextStyle(
+          fontSize: 14.0,
+          fontFamily: 'monospace',
+        ),
       ),
       _styleSample(
         label: 'Heavy weight, wide tracking',
@@ -769,9 +779,9 @@ Widget _scenarioChatBubble() {
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Colors.green.shade50,
-        borderRadius: BorderRadius.circular(
-          12.0,
-        ).copyWith(bottomLeft: const Radius.circular(2.0)),
+        borderRadius: BorderRadius.circular(12.0).copyWith(
+          bottomLeft: const Radius.circular(2.0),
+        ),
       ),
       child: const SelectableText(
         'Are you free to chat at 14:00? I have the staging numbers ready '
@@ -1191,7 +1201,10 @@ Widget _selectableOrPlaceholderNullable(String? value) {
   if (value == null) {
     return const Text(
       '—',
-      style: TextStyle(fontSize: 16.0, color: Color(0xFF9CA3AF)),
+      style: TextStyle(
+        fontSize: 16.0,
+        color: Color(0xFF9CA3AF),
+      ),
     );
   }
   if (value.isEmpty) {
@@ -1266,26 +1279,16 @@ Widget _buildFooter() {
           ),
         ),
         const SizedBox(height: 6.0),
-        _footerLine(
-          'Use SelectableText for any value a user might want to '
-          'paste — ids, addresses, code, license keys, error messages.',
-        ),
-        _footerLine(
-          'SelectableText.rich accepts an InlineSpan tree but '
-          'still produces a single contiguous selection range.',
-        ),
-        _footerLine(
-          'Overflow is controlled through TextStyle.overflow plus '
-          'a width constraint; maxLines clips the rendered line count.',
-        ),
-        _footerLine(
-          'Wrap in Theme(textSelectionTheme: ...) to scope cursor '
-          'and highlight colours per region.',
-        ),
-        _footerLine(
-          'Empty / null inputs need a fallback Text placeholder; '
-          'do the null check at the call site.',
-        ),
+        _footerLine('Use SelectableText for any value a user might want to '
+            'paste — ids, addresses, code, license keys, error messages.'),
+        _footerLine('SelectableText.rich accepts an InlineSpan tree but '
+            'still produces a single contiguous selection range.'),
+        _footerLine('Overflow is controlled through TextStyle.overflow plus '
+            'a width constraint; maxLines clips the rendered line count.'),
+        _footerLine('Wrap in Theme(textSelectionTheme: ...) to scope cursor '
+            'and highlight colours per region.'),
+        _footerLine('Empty / null inputs need a fallback Text placeholder; '
+            'do the null check at the call site.'),
       ],
     ),
   );
@@ -1379,7 +1382,10 @@ Widget _bulletLine({required String label, required String body}) {
       children: <Widget>[
         const Text(
           '• ',
-          style: TextStyle(fontSize: 13.0, color: Color(0xFF6B7280)),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Color(0xFF6B7280),
+          ),
         ),
         Expanded(
           child: RichText(

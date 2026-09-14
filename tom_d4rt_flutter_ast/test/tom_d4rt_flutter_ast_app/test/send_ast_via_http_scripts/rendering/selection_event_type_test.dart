@@ -199,7 +199,10 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 18.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(12.0),
@@ -350,7 +353,11 @@ dynamic build(BuildContext context) {
           '  letting the receiver dispatch on the enum without runtime casts.\n'
           '• The receiver returns a SelectionResult (none / next / previous /\n'
           '  end / pending) so the registrar can continue dispatching.',
-          style: TextStyle(color: Colors.white70, fontSize: 12.5, height: 1.5),
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -391,7 +398,10 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(14.0),
-          border: Border.all(color: color.withValues(alpha: 0.7), width: 1.5),
+          border: Border.all(
+            color: color.withValues(alpha: 0.7),
+            width: 1.5,
+          ),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.30),
@@ -516,9 +526,10 @@ dynamic build(BuildContext context) {
               ),
               child: FractionallySizedBox(
                 alignment: Alignment.centerLeft,
-                widthFactor: AlwaysStoppedAnimation<double>(
-                  (i + 1) / eventDescriptors.length,
-                ).value,
+                widthFactor:
+                    AlwaysStoppedAnimation<double>(
+                      (i + 1) / eventDescriptors.length,
+                    ).value,
                 child: Container(
                   decoration: BoxDecoration(
                     color: color,
@@ -561,7 +572,10 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
+        border: Border.all(
+          color: color.withValues(alpha: 0.5),
+          width: 1.0,
+        ),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.18),
@@ -912,7 +926,10 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 4.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6.0,
+              vertical: 2.0,
+            ),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.75),
               borderRadius: BorderRadius.circular(6.0),
@@ -1089,7 +1106,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.menu_book, color: Colors.blueGrey.shade800, size: 20.0),
+            Icon(
+              Icons.menu_book,
+              color: Colors.blueGrey.shade800,
+              size: 20.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'Recipes  ·  using SelectionRegistrar',
@@ -1105,45 +1126,45 @@ dynamic build(BuildContext context) {
         recipe(
           'Dispatch a Select All from a button',
           '// Inside a state with access to SelectionRegistrar reg.\n'
-              'reg.dispatchSelectionEvent(\n'
-              '  const SelectAllSelectionEvent(),\n'
-              ');\n'
-              '// .type == SelectionEventType.selectAll',
+          'reg.dispatchSelectionEvent(\n'
+          '  const SelectAllSelectionEvent(),\n'
+          ');\n'
+          '// .type == SelectionEventType.selectAll',
           Colors.deepPurple.shade200,
           Icons.select_all,
         ),
         recipe(
           'React to event type inside a custom Selectable',
           'SelectionResult dispatchSelectionEvent(SelectionEvent e) {\n'
-              '  switch (e.type) {\n'
-              '    case SelectionEventType.startEdgeUpdate:\n'
-              '    case SelectionEventType.endEdgeUpdate:\n'
-              '      return _handleEdge(e as SelectionEdgeUpdateEvent);\n'
-              '    case SelectionEventType.clear:\n'
-              '      return _handleClear();\n'
-              '    case SelectionEventType.selectAll:\n'
-              '      return _handleSelectAll();\n'
-              '    case SelectionEventType.selectWord:\n'
-              '    case SelectionEventType.selectParagraph:\n'
-              '      return _handleAt(e);\n'
-              '    case SelectionEventType.granularlyExtendSelection:\n'
-              '    case SelectionEventType.directionallyExtendSelection:\n'
-              '      return _handleExtend(e);\n'
-              '  }\n'
-              '}',
+          '  switch (e.type) {\n'
+          '    case SelectionEventType.startEdgeUpdate:\n'
+          '    case SelectionEventType.endEdgeUpdate:\n'
+          '      return _handleEdge(e as SelectionEdgeUpdateEvent);\n'
+          '    case SelectionEventType.clear:\n'
+          '      return _handleClear();\n'
+          '    case SelectionEventType.selectAll:\n'
+          '      return _handleSelectAll();\n'
+          '    case SelectionEventType.selectWord:\n'
+          '    case SelectionEventType.selectParagraph:\n'
+          '      return _handleAt(e);\n'
+          '    case SelectionEventType.granularlyExtendSelection:\n'
+          '    case SelectionEventType.directionallyExtendSelection:\n'
+          '      return _handleExtend(e);\n'
+          '  }\n'
+          '}',
           Colors.cyan.shade200,
           Icons.alt_route,
         ),
         recipe(
           'Filter / log a stream of events for debugging',
           'final ignore = <SelectionEventType>{\n'
-              '  SelectionEventType.startEdgeUpdate,\n'
-              '  SelectionEventType.endEdgeUpdate,\n'
-              '};\n'
-              'void onEvent(SelectionEvent e) {\n'
-              '  if (ignore.contains(e.type)) return;\n'
-              '  debugPrint(\'sel-event \${e.type.name}\');\n'
-              '}',
+          '  SelectionEventType.startEdgeUpdate,\n'
+          '  SelectionEventType.endEdgeUpdate,\n'
+          '};\n'
+          'void onEvent(SelectionEvent e) {\n'
+          '  if (ignore.contains(e.type)) return;\n'
+          '  debugPrint(\'sel-event \${e.type.name}\');\n'
+          '}',
           Colors.amber.shade200,
           Icons.bug_report,
         ),
@@ -1232,7 +1253,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.report_problem, color: Colors.red.shade700, size: 22.0),
+            Icon(
+              Icons.report_problem,
+              color: Colors.red.shade700,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'Pitfalls',
@@ -1321,13 +1346,7 @@ dynamic build(BuildContext context) {
     [SelectionEventType.selectWord, true, false, false, false],
     [SelectionEventType.selectParagraph, true, false, false, false],
     [SelectionEventType.granularlyExtendSelection, false, true, false, false],
-    [
-      SelectionEventType.directionallyExtendSelection,
-      false,
-      false,
-      true,
-      false,
-    ],
+    [SelectionEventType.directionallyExtendSelection, false, false, true, false],
   ];
 
   Widget headerCell(String label) {
@@ -1467,7 +1486,8 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 9: ASCII footer ===');
 
-  const asciiArt = r'''
+  const asciiArt =
+      r'''
 +-----------------------------------------------------------+
 |   SelectionRegistrar                                      |
 |     |                                                     |
@@ -1600,7 +1620,10 @@ dynamic build(BuildContext context) {
               Text(
                 'Every member of SelectionEventType, with its summary, long '
                 'description and the SelectionEvent subclass that carries it.',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               const SizedBox(height: 8.0),
               Wrap(alignment: WrapAlignment.center, children: perValueCards),

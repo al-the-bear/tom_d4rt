@@ -123,7 +123,10 @@ Widget _buildDot(double left, double top, Color color, double size) {
     child: Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
     ),
   );
 }
@@ -144,10 +147,16 @@ Widget _buildLabeledDot(
         Container(
           width: size,
           height: size,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(height: 2),
-        Text(label, style: TextStyle(fontSize: 9, color: color)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 9, color: color),
+        ),
       ],
     ),
   );
@@ -162,7 +171,10 @@ Widget _buildCanvasBox(double width, double height, List<Widget> children) {
       border: Border.all(color: Colors.grey.shade400),
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Stack(clipBehavior: Clip.none, children: children),
+    child: Stack(
+      clipBehavior: Clip.none,
+      children: children,
+    ),
   );
 }
 
@@ -189,9 +201,7 @@ Widget _buildBasicArcTween() {
   for (int i = 0; i < tValues.length; i++) {
     final double t = tValues[i];
     final Offset pt = arcTween.transform(t);
-    print(
-      '  t=$t -> (${pt.dx.toStringAsFixed(1)}, ${pt.dy.toStringAsFixed(1)})',
-    );
+    print('  t=$t -> (${pt.dx.toStringAsFixed(1)}, ${pt.dy.toStringAsFixed(1)})');
     dots.add(_buildLabeledDot(pt.dx, pt.dy, dotColors[i], 14, 't=$t'));
   }
 
@@ -331,7 +341,10 @@ Widget _buildArcDirections() {
     final Offset e = cfg['end'] as Offset;
     final Color c = cfg['color'] as Color;
 
-    final MaterialPointArcTween tween = MaterialPointArcTween(begin: b, end: e);
+    final MaterialPointArcTween tween = MaterialPointArcTween(
+      begin: b,
+      end: e,
+    );
 
     List<Widget> dots = [];
     for (int i = 0; i <= 20; i++) {
@@ -357,7 +370,11 @@ Widget _buildArcDirections() {
     );
   }
 
-  return Wrap(spacing: 12, runSpacing: 12, children: cards);
+  return Wrap(
+    spacing: 12,
+    runSpacing: 12,
+    children: cards,
+  );
 }
 
 // -- Section 4: Arc Center & Radius --
@@ -401,16 +418,19 @@ Widget _tweenInfoCard(String name, MaterialPointArcTween tw) {
   double? beginAngle = tw.beginAngle;
   double? endAngle = tw.endAngle;
 
-  String centerStr = center != null
-      ? '(${center.dx.toStringAsFixed(1)}, ${center.dy.toStringAsFixed(1)})'
-      : 'null';
+  String centerStr =
+      center != null
+          ? '(${center.dx.toStringAsFixed(1)}, ${center.dy.toStringAsFixed(1)})'
+          : 'null';
   String radiusStr = radius != null ? radius.toStringAsFixed(2) : 'null';
-  String beginAngleStr = beginAngle != null
-      ? '${beginAngle.toStringAsFixed(3)} rad (${(beginAngle * 180 / math.pi).toStringAsFixed(1)}deg)'
-      : 'null';
-  String endAngleStr = endAngle != null
-      ? '${endAngle.toStringAsFixed(3)} rad (${(endAngle * 180 / math.pi).toStringAsFixed(1)}deg)'
-      : 'null';
+  String beginAngleStr =
+      beginAngle != null
+          ? '${beginAngle.toStringAsFixed(3)} rad (${(beginAngle * 180 / math.pi).toStringAsFixed(1)}deg)'
+          : 'null';
+  String endAngleStr =
+      endAngle != null
+          ? '${endAngle.toStringAsFixed(3)} rad (${(endAngle * 180 / math.pi).toStringAsFixed(1)}deg)'
+          : 'null';
 
   print('  $name: center=$centerStr, radius=$radiusStr');
   print('    beginAngle=$beginAngleStr, endAngle=$endAngleStr');
@@ -462,7 +482,9 @@ Widget _propertyRow(String label, String value) {
             ),
           ),
         ),
-        Expanded(child: Text(value, style: TextStyle(fontSize: 13))),
+        Expanded(
+          child: Text(value, style: TextStyle(fontSize: 13)),
+        ),
       ],
     ),
   );
@@ -501,13 +523,7 @@ Widget _buildDottedArcTrail() {
   final Offset startPt = arcTween.transform(0);
   final Offset endPt = arcTween.transform(1);
   dots.add(
-    _buildLabeledDot(
-      startPt.dx,
-      startPt.dy,
-      Colors.green.shade800,
-      16,
-      'BEGIN',
-    ),
+    _buildLabeledDot(startPt.dx, startPt.dy, Colors.green.shade800, 16, 'BEGIN'),
   );
   dots.add(
     _buildLabeledDot(endPt.dx, endPt.dy, Colors.red.shade800, 16, 'END'),
@@ -558,29 +574,11 @@ Widget _buildShortVsLongArcs() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _arcVisualization(
-        'Short Arc (15px apart)',
-        shortArc,
-        180,
-        170,
-        Colors.teal,
-      ),
+      _arcVisualization('Short Arc (15px apart)', shortArc, 180, 170, Colors.teal),
       SizedBox(height: 16),
-      _arcVisualization(
-        'Medium Arc (130px apart)',
-        mediumArc,
-        180,
-        140,
-        Colors.indigo,
-      ),
+      _arcVisualization('Medium Arc (130px apart)', mediumArc, 180, 140, Colors.indigo),
       SizedBox(height: 16),
-      _arcVisualization(
-        'Long Arc (350px apart)',
-        longArc,
-        300,
-        230,
-        Colors.deepOrange,
-      ),
+      _arcVisualization('Long Arc (350px apart)', longArc, 300, 230, Colors.deepOrange),
       SizedBox(height: 8),
       buildInfoCard(
         'Observation',
@@ -616,7 +614,10 @@ Widget _arcVisualization(
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+      Text(
+        label,
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+      ),
       SizedBox(height: 4),
       _buildCanvasBox(w, h, dots),
       SizedBox(height: 4),
@@ -654,12 +655,14 @@ Widget _buildBeginEndAngles() {
     double? beginAngle = tw.beginAngle;
     double? endAngle = tw.endAngle;
 
-    String beginDeg = beginAngle != null
-        ? '${(beginAngle * 180 / math.pi).toStringAsFixed(1)}deg'
-        : 'N/A';
-    String endDeg = endAngle != null
-        ? '${(endAngle * 180 / math.pi).toStringAsFixed(1)}deg'
-        : 'N/A';
+    String beginDeg =
+        beginAngle != null
+            ? '${(beginAngle * 180 / math.pi).toStringAsFixed(1)}deg'
+            : 'N/A';
+    String endDeg =
+        endAngle != null
+            ? '${(endAngle * 180 / math.pi).toStringAsFixed(1)}deg'
+            : 'N/A';
 
     print('  $label: beginAngle=$beginDeg, endAngle=$endDeg');
 
@@ -670,8 +673,12 @@ Widget _buildBeginEndAngles() {
       final Offset pt = tw.transform(t);
       dots.add(_buildDot(pt.dx, pt.dy, Colors.deepPurple.shade300, 5));
     }
-    dots.add(_buildLabeledDot(b.dx, b.dy, Colors.green.shade700, 12, beginDeg));
-    dots.add(_buildLabeledDot(e.dx, e.dy, Colors.red.shade700, 12, endDeg));
+    dots.add(
+      _buildLabeledDot(b.dx, b.dy, Colors.green.shade700, 12, beginDeg),
+    );
+    dots.add(
+      _buildLabeledDot(e.dx, e.dy, Colors.red.shade700, 12, endDeg),
+    );
 
     // Show center if available
     Offset? center = tw.center;
@@ -909,7 +916,10 @@ Widget _buildMultipleConfigurations() {
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(color: c, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: c,
+                shape: BoxShape.circle,
+              ),
             ),
             SizedBox(width: 6),
             Text(lbl, style: TextStyle(fontSize: 12)),
@@ -951,16 +961,15 @@ Widget _buildSummary() {
   double? beginAngle = example.beginAngle;
   double? endAngle = example.endAngle;
 
-  String centerStr = center != null
-      ? '(${center.dx.toStringAsFixed(2)}, ${center.dy.toStringAsFixed(2)})'
-      : 'null';
+  String centerStr =
+      center != null
+          ? '(${center.dx.toStringAsFixed(2)}, ${center.dy.toStringAsFixed(2)})'
+          : 'null';
   String radiusStr = radius != null ? radius.toStringAsFixed(2) : 'null';
-  String beginAngleStr = beginAngle != null
-      ? '${beginAngle.toStringAsFixed(4)} rad'
-      : 'null';
-  String endAngleStr = endAngle != null
-      ? '${endAngle.toStringAsFixed(4)} rad'
-      : 'null';
+  String beginAngleStr =
+      beginAngle != null ? '${beginAngle.toStringAsFixed(4)} rad' : 'null';
+  String endAngleStr =
+      endAngle != null ? '${endAngle.toStringAsFixed(4)} rad' : 'null';
 
   print('  Summary tween: center=$centerStr, radius=$radiusStr');
   print('  beginAngle=$beginAngleStr, endAngle=$endAngleStr');
@@ -1025,7 +1034,9 @@ Widget _buildSummary() {
             SizedBox(height: 8),
             _bulletPoint('lerp(t) returns an Offset along the circular arc'),
             _bulletPoint('At t=0 returns begin, at t=1 returns end'),
-            _bulletPoint('The arc curves perpendicular to the begin-end line'),
+            _bulletPoint(
+              'The arc curves perpendicular to the begin-end line',
+            ),
             _bulletPoint('center and radius define the arc circle geometry'),
             _bulletPoint('beginAngle/endAngle are angles from the center'),
             _bulletPoint(

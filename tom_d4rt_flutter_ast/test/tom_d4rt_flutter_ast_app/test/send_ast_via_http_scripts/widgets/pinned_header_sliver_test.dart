@@ -51,42 +51,47 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 36.0,
-                    height: 36.0,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.indigo.shade100,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Text(
-                      '${index + 1}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo.shade700,
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey.shade200),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 36.0,
+                      height: 36.0,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.indigo.shade100,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Text(
+                        '${index + 1}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.indigo.shade700,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 12.0),
-                  Text(
-                    'Scroll item ${index + 1} — the header stays pinned',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Colors.grey.shade800,
+                    SizedBox(width: 12.0),
+                    Text(
+                      'Scroll item ${index + 1} — the header stays pinned',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        color: Colors.grey.shade800,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 30),
+                  ],
+                ),
+              );
+            },
+            childCount: 30,
+          ),
         ),
       ],
     ),
@@ -200,7 +205,10 @@ dynamic build(BuildContext context) {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Search items...',
-                      style: TextStyle(fontSize: 13.0, color: Colors.white70),
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        color: Colors.white70,
+                      ),
                     ),
                   ),
                 ),
@@ -211,47 +219,47 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            final colors = [
-              Colors.deepPurple,
-              Colors.purple,
-              Colors.indigo,
-              Colors.blue,
-              Colors.teal,
-            ];
-            final color = colors[index % colors.length];
-            return Container(
-              margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-              padding: EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                color: color.shade50,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 32.0,
-                    height: 32.0,
-                    decoration: BoxDecoration(
-                      color: color.shade200,
-                      shape: BoxShape.circle,
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final colors = [
+                Colors.deepPurple, Colors.purple, Colors.indigo,
+                Colors.blue, Colors.teal,
+              ];
+              final color = colors[index % colors.length];
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                padding: EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: color.shade50,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 32.0,
+                      height: 32.0,
+                      decoration: BoxDecoration(
+                        color: color.shade200,
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Icon(Icons.star, size: 16.0, color: color.shade700),
                     ),
-                    alignment: Alignment.center,
-                    child: Icon(Icons.star, size: 16.0, color: color.shade700),
-                  ),
-                  SizedBox(width: 12.0),
-                  Text(
-                    'Item ${index + 1}',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w500,
-                      color: color.shade800,
+                    SizedBox(width: 12.0),
+                    Text(
+                      'Item ${index + 1}',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w500,
+                        color: color.shade800,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 20),
+                  ],
+                ),
+              );
+            },
+            childCount: 20,
+          ),
         ),
       ],
     ),
@@ -303,34 +311,37 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            return Container(
-              color: Color(0xFF303030),
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-              child: Row(
-                children: [
-                  Icon(Icons.folder, color: Colors.amber.shade400, size: 20.0),
-                  SizedBox(width: 12.0),
-                  Expanded(
-                    child: Text(
-                      'Document ${index + 1}.pdf',
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        color: Colors.grey.shade300,
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return Container(
+                color: Color(0xFF303030),
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.folder, color: Colors.amber.shade400, size: 20.0),
+                    SizedBox(width: 12.0),
+                    Expanded(
+                      child: Text(
+                        'Document ${index + 1}.pdf',
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          color: Colors.grey.shade300,
+                        ),
                       ),
                     ),
-                  ),
-                  Text(
-                    '${(index * 127 + 42) % 999} KB',
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade600,
+                    Text(
+                      '${(index * 127 + 42) % 999} KB',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 20),
+                  ],
+                ),
+              );
+            },
+            childCount: 20,
+          ),
         ),
       ],
     ),
@@ -433,7 +444,10 @@ dynamic build(BuildContext context) {
                 Spacer(),
                 Text(
                   '48 items',
-                  style: TextStyle(fontSize: 11.0, color: Colors.teal.shade200),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.teal.shade200,
+                  ),
                 ),
               ],
             ),
@@ -443,40 +457,39 @@ dynamic build(BuildContext context) {
         SliverPadding(
           padding: EdgeInsets.all(12.0),
           sliver: SliverGrid(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              final gridColors = [
-                Colors.teal,
-                Colors.cyan,
-                Colors.blue,
-                Colors.indigo,
-                Colors.purple,
-                Colors.pink,
-              ];
-              final c = gridColors[index % gridColors.length];
-              return Container(
-                decoration: BoxDecoration(
-                  color: c.shade100,
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: c.shade300),
-                ),
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.image, color: c.shade600, size: 28.0),
-                    SizedBox(height: 4.0),
-                    Text(
-                      'Item ${index + 1}',
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w600,
-                        color: c.shade800,
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final gridColors = [
+                  Colors.teal, Colors.cyan, Colors.blue, Colors.indigo,
+                  Colors.purple, Colors.pink,
+                ];
+                final c = gridColors[index % gridColors.length];
+                return Container(
+                  decoration: BoxDecoration(
+                    color: c.shade100,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: c.shade300),
+                  ),
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.image, color: c.shade600, size: 28.0),
+                      SizedBox(height: 4.0),
+                      Text(
+                        'Item ${index + 1}',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          fontWeight: FontWeight.w600,
+                          color: c.shade800,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }, childCount: 6),
+                    ],
+                  ),
+                );
+              },
+              childCount: 6,
+            ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 8.0,
@@ -508,43 +521,48 @@ dynamic build(BuildContext context) {
         ),
         // List below second header
         SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.teal.shade100)),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 28.0,
-                    height: 28.0,
-                    decoration: BoxDecoration(
-                      color: Colors.teal.shade100,
-                      shape: BoxShape.circle,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${index + 1}',
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal.shade700,
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.teal.shade100),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 28.0,
+                      height: 28.0,
+                      decoration: BoxDecoration(
+                        color: Colors.teal.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${index + 1}',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal.shade700,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 12.0),
-                  Text(
-                    'List item ${index + 1}',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Colors.grey.shade800,
+                    SizedBox(width: 12.0),
+                    Text(
+                      'List item ${index + 1}',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        color: Colors.grey.shade800,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 30),
+                  ],
+                ),
+              );
+            },
+            childCount: 30,
+          ),
         ),
       ],
     ),
@@ -620,78 +638,84 @@ dynamic build(BuildContext context) {
                     ],
                   ),
                 ),
-                Container(height: 1.0, color: Colors.grey.shade300),
+                Container(
+                  height: 1.0,
+                  color: Colors.grey.shade300,
+                ),
               ],
             ),
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            final isStarred = index % 3 == 0;
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-              decoration: BoxDecoration(
-                color: isStarred ? Colors.amber.shade50 : Colors.white,
-                border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    isStarred ? Icons.star : Icons.star_border,
-                    color: isStarred
-                        ? Colors.amber.shade600
-                        : Colors.grey.shade400,
-                    size: 20.0,
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final isStarred = index % 3 == 0;
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                decoration: BoxDecoration(
+                  color: isStarred ? Colors.amber.shade50 : Colors.white,
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey.shade200),
                   ),
-                  SizedBox(width: 12.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Task ${index + 1}',
-                          style: TextStyle(
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade800,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      isStarred ? Icons.star : Icons.star_border,
+                      color: isStarred ? Colors.amber.shade600 : Colors.grey.shade400,
+                      size: 20.0,
+                    ),
+                    SizedBox(width: 12.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Task ${index + 1}',
+                            style: TextStyle(
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey.shade800,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Last modified ${index + 1} days ago',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.grey.shade500,
+                          Text(
+                            'Last modified ${index + 1} days ago',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.grey.shade500,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 3.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: index % 2 == 0
-                          ? Colors.green.shade100
-                          : Colors.orange.shade100,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Text(
-                      index % 2 == 0 ? 'Active' : 'Pending',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        fontWeight: FontWeight.bold,
-                        color: index % 2 == 0
-                            ? Colors.green.shade700
-                            : Colors.orange.shade700,
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 25),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 3.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: index % 2 == 0
+                            ? Colors.green.shade100
+                            : Colors.orange.shade100,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Text(
+                        index % 2 == 0 ? 'Active' : 'Pending',
+                        style: TextStyle(
+                          fontSize: 9.0,
+                          fontWeight: FontWeight.bold,
+                          color: index % 2 == 0
+                              ? Colors.green.shade700
+                              : Colors.orange.shade700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            childCount: 25,
+          ),
         ),
       ],
     ),
@@ -809,80 +833,63 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            final metrics = [
-              {
-                'label': 'Page Views',
-                'value': '${(index + 1) * 1247}',
-                'icon': Icons.visibility,
-                'color': Colors.blue,
-              },
-              {
-                'label': 'Conversions',
-                'value': '${(index + 1) * 89}',
-                'icon': Icons.trending_up,
-                'color': Colors.green,
-              },
-              {
-                'label': 'Bounce Rate',
-                'value': '${30 + index * 2}%',
-                'icon': Icons.trending_down,
-                'color': Colors.red,
-              },
-              {
-                'label': 'Sessions',
-                'value': '${(index + 1) * 456}',
-                'icon': Icons.people,
-                'color': Colors.purple,
-              },
-            ];
-            final metric = metrics[index % metrics.length];
-            final color = metric['color'] as MaterialColor;
-            return Container(
-              margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-              padding: EdgeInsets.all(14.0),
-              decoration: BoxDecoration(
-                color: color.shade50,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 36.0,
-                    height: 36.0,
-                    decoration: BoxDecoration(
-                      color: color.shade200,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    alignment: Alignment.center,
-                    child: Icon(
-                      metric['icon'] as IconData,
-                      size: 18.0,
-                      color: color.shade700,
-                    ),
-                  ),
-                  SizedBox(width: 12.0),
-                  Expanded(
-                    child: Text(
-                      metric['label'] as String,
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        color: Colors.grey.shade700,
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final metrics = [
+                {'label': 'Page Views', 'value': '${(index + 1) * 1247}', 'icon': Icons.visibility, 'color': Colors.blue},
+                {'label': 'Conversions', 'value': '${(index + 1) * 89}', 'icon': Icons.trending_up, 'color': Colors.green},
+                {'label': 'Bounce Rate', 'value': '${30 + index * 2}%', 'icon': Icons.trending_down, 'color': Colors.red},
+                {'label': 'Sessions', 'value': '${(index + 1) * 456}', 'icon': Icons.people, 'color': Colors.purple},
+              ];
+              final metric = metrics[index % metrics.length];
+              final color = metric['color'] as MaterialColor;
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                padding: EdgeInsets.all(14.0),
+                decoration: BoxDecoration(
+                  color: color.shade50,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 36.0,
+                      height: 36.0,
+                      decoration: BoxDecoration(
+                        color: color.shade200,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      alignment: Alignment.center,
+                      child: Icon(
+                        metric['icon'] as IconData,
+                        size: 18.0,
+                        color: color.shade700,
                       ),
                     ),
-                  ),
-                  Text(
-                    metric['value'] as String,
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                      color: color.shade800,
+                    SizedBox(width: 12.0),
+                    Expanded(
+                      child: Text(
+                        metric['label'] as String,
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 24),
+                    Text(
+                      metric['value'] as String,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                        color: color.shade800,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            childCount: 24,
+          ),
         ),
       ],
     ),

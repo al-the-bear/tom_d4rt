@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.vertical_align_top,
       'title': 'What Is SliverOverlapInjector?',
-      'body':
-          'SliverOverlapInjector is a sliver that reads overlap data '
+      'body': 'SliverOverlapInjector is a sliver that reads overlap data '
           'from a SliverOverlapAbsorberHandle and injects exactly that '
           'many pixels of empty space. It is invisible — no paint, no '
           'decoration — it only reserves layout space so that the first '
@@ -30,8 +29,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'Role in the Trio',
-      'body':
-          'The absorber measures and writes overlap to the handle. '
+      'body': 'The absorber measures and writes overlap to the handle. '
           'The injector reads the handle and compensates. Without the '
           'injector, the measured overlap value would go unused and '
           'content would still hide behind the header.',
@@ -40,8 +38,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.sync,
       'title': 'Dynamic Compensation',
-      'body':
-          'As the user scrolls and the header collapses, the absorber '
+      'body': 'As the user scrolls and the header collapses, the absorber '
           'updates the handle. The injector listens to the handle and '
           'resizes on every frame. When the header is fully expanded, '
           'the injector is at maximum size. When the header is fully '
@@ -51,8 +48,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.tab,
       'title': 'One Per Tab Body',
-      'body':
-          'In a tabbed NestedScrollView, every tab body gets its own '
+      'body': 'In a tabbed NestedScrollView, every tab body gets its own '
           'SliverOverlapInjector at the top of its CustomScrollView. '
           'All injectors share the same handle and thus all compensate '
           'equally, ensuring consistent scroll behavior across tabs.',
@@ -131,16 +127,14 @@ dynamic build(BuildContext context) {
     {
       'param': 'handle',
       'type': 'SliverOverlapAbsorberHandle',
-      'desc':
-          'Required. The same handle that the SliverOverlapAbsorber '
+      'desc': 'Required. The same handle that the SliverOverlapAbsorber '
           'writes to. Obtain it with '
           'NestedScrollView.sliverOverlapAbsorberHandleFor(context).',
     },
     {
       'param': 'key',
       'type': 'Key?',
-      'desc':
-          'Optional widget key. Rarely needed since there is typically '
+      'desc': 'Optional widget key. Rarely needed since there is typically '
           'only one injector per inner scroll view.',
     },
   ];
@@ -222,7 +216,10 @@ dynamic build(BuildContext context) {
 
   // Behavior table
   final behaviorItems = <Map<String, String>>[
-    {'prop': 'Paint', 'val': 'Nothing — the injector is invisible.'},
+    {
+      'prop': 'Paint',
+      'val': 'Nothing — the injector is invisible.',
+    },
     {
       'prop': 'Layout extent',
       'val': 'Equals handle.layoutExtent. Changes dynamically.',
@@ -231,7 +228,10 @@ dynamic build(BuildContext context) {
       'prop': 'Hit testing',
       'val': 'None — it does not intercept taps or gestures.',
     },
-    {'prop': 'Semantics', 'val': 'None — invisible to accessibility tools.'},
+    {
+      'prop': 'Semantics',
+      'val': 'None — invisible to accessibility tools.',
+    },
     {
       'prop': 'Rebuild trigger',
       'val': 'Listens to handle (ChangeNotifier) and marks for relayout.',
@@ -290,7 +290,10 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     item['val']!,
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
                 ),
               ],
@@ -323,7 +326,10 @@ dynamic build(BuildContext context) {
                 background: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.green.shade800, Colors.teal.shade600],
+                      colors: [
+                        Colors.green.shade800,
+                        Colors.teal.shade600,
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -367,70 +373,72 @@ dynamic build(BuildContext context) {
               ),
               // Content comes after the injector
               SliverList(
-                delegate: SliverChildBuilderDelegate((
-                  BuildContext childCtx,
-                  int index,
-                ) {
-                  final taskIcons = [
-                    Icons.check_circle,
-                    Icons.radio_button_unchecked,
-                    Icons.check_circle_outline,
-                    Icons.radio_button_unchecked,
-                    Icons.check_circle,
-                  ];
-                  final taskColors = [
-                    Colors.green,
-                    Colors.grey,
-                    Colors.green.shade300,
-                    Colors.grey,
-                    Colors.green,
-                  ];
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      color: Colors.green.shade50,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.green.withOpacity(0.15)),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          taskIcons[index % taskIcons.length],
-                          color: taskColors[index % taskColors.length],
-                          size: 24,
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext childCtx, int index) {
+                    final taskIcons = [
+                      Icons.check_circle,
+                      Icons.radio_button_unchecked,
+                      Icons.check_circle_outline,
+                      Icons.radio_button_unchecked,
+                      Icons.check_circle,
+                    ];
+                    final taskColors = [
+                      Colors.green,
+                      Colors.grey,
+                      Colors.green.shade300,
+                      Colors.grey,
+                      Colors.green,
+                    ];
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade50,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.green.withOpacity(0.15),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Task ${index + 1}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                'Injector ensures this starts below the '
-                                'pinned header — not behind it.',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
-                            ],
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            taskIcons[index % taskIcons.length],
+                            color: taskColors[index % taskColors.length],
+                            size: 24,
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }, childCount: 25),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Task ${index + 1}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Injector ensures this starts below the '
+                                  'pinned header — not behind it.',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  childCount: 25,
+                ),
               ),
             ],
           );
@@ -449,8 +457,7 @@ dynamic build(BuildContext context) {
     {
       'state': 'Fully Expanded',
       'overlap': '~150 px',
-      'desc':
-          'Header is at expandedHeight. The absorber reports full '
+      'desc': 'Header is at expandedHeight. The absorber reports full '
           'overlap. The injector reserves maximum space — content starts '
           'at the very bottom of the expanded header.',
       'color': Colors.green,
@@ -459,8 +466,7 @@ dynamic build(BuildContext context) {
     {
       'state': 'Partially Collapsed',
       'overlap': '~100 px',
-      'desc':
-          'User has scrolled partway. The FlexibleSpaceBar is '
+      'desc': 'User has scrolled partway. The FlexibleSpaceBar is '
           'shrinking. The absorber updates the handle with the current '
           'overlap. The injector resizes in real time.',
       'fraction': 0.65,
@@ -469,8 +475,7 @@ dynamic build(BuildContext context) {
     {
       'state': 'Fully Collapsed (Pinned)',
       'overlap': '~56 px',
-      'desc':
-          'The header has collapsed to its minimum (toolbar) height. '
+      'desc': 'The header has collapsed to its minimum (toolbar) height. '
           'The absorber reports just the pinned bar height. The injector '
           'shrinks to this minimum, maximizing content space.',
       'fraction': 0.35,
@@ -479,8 +484,7 @@ dynamic build(BuildContext context) {
     {
       'state': 'Scrolled Away (not pinned)',
       'overlap': '0 px',
-      'desc':
-          'If the header is not pinned, once it scrolls out of view '
+      'desc': 'If the header is not pinned, once it scrolls out of view '
           'the overlap becomes zero. The injector contributes no space '
           'at all — content starts at the very top.',
       'fraction': 0.0,
@@ -540,7 +544,10 @@ dynamic build(BuildContext context) {
                       child: fraction > 0.2
                           ? Text(
                               'INJ',
-                              style: TextStyle(fontSize: 8, color: stateColor),
+                              style: TextStyle(
+                                fontSize: 8,
+                                color: stateColor,
+                              ),
                             )
                           : null,
                     ),
@@ -707,63 +714,62 @@ dynamic build(BuildContext context) {
                 return CustomScrollView(
                   slivers: <Widget>[
                     SliverOverlapInjector(
-                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                        ctx,
-                      ),
+                      handle:
+                          NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
                     ),
                     SliverPadding(
                       padding: const EdgeInsets.all(10),
                       sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate((
-                          BuildContext childCtx,
-                          int index,
-                        ) {
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 6),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: tabColor.withOpacity(0.15),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: tabColor.withOpacity(0.05),
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext childCtx, int index) {
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: tabColor.withOpacity(0.15),
                                 ),
-                              ],
-                            ),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: tabColor.withOpacity(0.12),
-                                radius: 18,
-                                child: Icon(
-                                  tab['icon'] as IconData,
-                                  color: tabColor,
-                                  size: 18,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: tabColor.withOpacity(0.05),
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: tabColor.withOpacity(0.12),
+                                  radius: 18,
+                                  child: Icon(
+                                    tab['icon'] as IconData,
+                                    color: tabColor,
+                                    size: 18,
+                                  ),
+                                ),
+                                title: Text(
+                                  items[index],
+                                  style: const TextStyle(fontSize: 13),
+                                ),
+                                subtitle: Text(
+                                  '${tab['label']} — injector compensates '
+                                  'the overlapping header here too',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey.shade500,
+                                  ),
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 14,
+                                  color: Colors.grey.shade300,
                                 ),
                               ),
-                              title: Text(
-                                items[index],
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                              subtitle: Text(
-                                '${tab['label']} — injector compensates '
-                                'the overlapping header here too',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.grey.shade500,
-                                ),
-                              ),
-                              trailing: Icon(
-                                Icons.arrow_forward_ios,
-                                size: 14,
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                          );
-                        }, childCount: items.length),
+                            );
+                          },
+                          childCount: items.length,
+                        ),
                       ),
                     ),
                   ],
@@ -1062,8 +1068,7 @@ dynamic build(BuildContext context) {
   final practices = <Map<String, dynamic>>[
     {
       'title': 'Always Use Builder',
-      'body':
-          'The context passed to headerSliverBuilder is different from '
+      'body': 'The context passed to headerSliverBuilder is different from '
           'the one inside the body. Use a Builder widget to get the correct '
           'context that has access to the InheritedWidget providing the handle.',
       'icon': Icons.build,
@@ -1071,8 +1076,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Injector Must Be First Sliver',
-      'body':
-          'Place SliverOverlapInjector as the very first sliver in '
+      'body': 'Place SliverOverlapInjector as the very first sliver in '
           'the CustomScrollView. If other slivers come before it, content '
           'will still be pushed down but the injector space will be misaligned.',
       'icon': Icons.first_page,
@@ -1080,8 +1084,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Do Not Use SliverPadding Instead',
-      'body':
-          'You might be tempted to add a hardcoded SliverPadding at the '
+      'body': 'You might be tempted to add a hardcoded SliverPadding at the '
           'top instead. This breaks when the header height changes (e.g., '
           'expanding AppBar). The injector is dynamic — it adjusts frame by '
           'frame as the header collapses.',
@@ -1090,16 +1093,14 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'One Injector Per Inner ScrollView',
-      'body':
-          'Each CustomScrollView in the body should have exactly one '
+      'body': 'Each CustomScrollView in the body should have exactly one '
           'injector. In a TabBarView, that means one injector per tab body.',
       'icon': Icons.looks_one,
       'color': Colors.purple,
     },
     {
       'title': 'Do Not Wrap Injector in SliverPadding',
-      'body':
-          'Wrapping the injector in SliverPadding adds extra space on '
+      'body': 'Wrapping the injector in SliverPadding adds extra space on '
           'top of the injected space. Use SliverPadding around your content '
           'slivers instead, not around the injector itself.',
       'icon': Icons.warning,
@@ -1107,8 +1108,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'pinned: true Is The Main Use Case',
-      'body':
-          'The injector is most critical when the header is pinned. '
+      'body': 'The injector is most critical when the header is pinned. '
           'If the header scrolls away entirely (pinned: false), the overlap '
           'eventually becomes zero and the injector contributes no space.',
       'icon': Icons.push_pin,
@@ -1139,7 +1139,11 @@ dynamic build(BuildContext context) {
                 color: pColor.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(p['icon'] as IconData, color: pColor, size: 22),
+              child: Icon(
+                p['icon'] as IconData,
+                color: pColor,
+                size: 22,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -1180,38 +1184,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.vertical_align_top,
-      'text':
-          'SliverOverlapInjector reads overlap from the handle and '
+      'text': 'SliverOverlapInjector reads overlap from the handle and '
           'injects invisible space at the top of the inner scroll view.',
     },
     {
       'icon': Icons.straighten,
-      'text':
-          'It sizes itself to handle.layoutExtent pixels — dynamically '
+      'text': 'It sizes itself to handle.layoutExtent pixels — dynamically '
           'adjusting as the header expands or collapses.',
     },
     {
       'icon': Icons.visibility_off,
-      'text':
-          'The injector is invisible — no paint, no hit testing, no '
+      'text': 'The injector is invisible — no paint, no hit testing, no '
           'semantics. It only contributes layout space.',
     },
     {
       'icon': Icons.first_page,
-      'text':
-          'Must be the first sliver in the CustomScrollView inside '
+      'text': 'Must be the first sliver in the CustomScrollView inside '
           'the NestedScrollView body.',
     },
     {
       'icon': Icons.tab,
-      'text':
-          'In tabbed layouts, every tab body needs its own injector, '
+      'text': 'In tabbed layouts, every tab body needs its own injector, '
           'all sharing the same handle from the absorber.',
     },
     {
       'icon': Icons.sync,
-      'text':
-          'Completes the absorber-handle-injector trio that solves '
+      'text': 'Completes the absorber-handle-injector trio that solves '
           'the NestedScrollView overlap problem.',
     },
   ];

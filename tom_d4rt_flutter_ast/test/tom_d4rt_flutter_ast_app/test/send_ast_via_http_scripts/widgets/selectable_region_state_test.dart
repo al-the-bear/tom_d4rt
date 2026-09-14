@@ -150,9 +150,8 @@ class _SelectionLabScaffoldState extends State<_SelectionLabScaffold> {
   final GlobalKey<SelectableRegionState> _compareRightKey =
       GlobalKey<SelectableRegionState>();
 
-  final FocusNode _compareRightFocus = FocusNode(
-    debugLabel: 'compareRightRegion',
-  );
+  final FocusNode _compareRightFocus =
+      FocusNode(debugLabel: 'compareRightRegion');
 
   // Current selection echoed from the canvas region's onSelectionChanged.
   String _canvasSelection = '';
@@ -225,9 +224,7 @@ class _SelectionLabScaffoldState extends State<_SelectionLabScaffold> {
     }
     final BuildContext? inner = _canvasInnerContext;
     if (inner == null || !inner.mounted) {
-      debugPrint(
-        'SelectionLab: copy deferred — inner context not yet attached',
-      );
+      debugPrint('SelectionLab: copy deferred — inner context not yet attached');
       return;
     }
     debugPrint(
@@ -278,7 +275,10 @@ class _SelectionLabScaffoldState extends State<_SelectionLabScaffold> {
         elevation: 0,
         title: const Text(
           'SelectableRegionState — Selection Laboratory',
-          style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.4),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.4,
+          ),
         ),
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(4),
@@ -410,7 +410,9 @@ class _CaratHeroCardState extends State<_CaratHeroCard>
           animation: _blinkController,
           builder: (BuildContext context, Widget? child) {
             return CustomPaint(
-              painter: _CaratHeroPainter(blink: _blinkController.value),
+              painter: _CaratHeroPainter(
+                blink: _blinkController.value,
+              ),
               child: const Center(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -458,7 +460,8 @@ class _CaratHeroPainter extends CustomPainter {
     // Draw a soft starfield of little amber dots to suggest a "selection
     // universe" behind the carat.
     final math.Random rng = math.Random(1312);
-    final Paint dotPaint = Paint()..color = _amberSoft.withValues(alpha: 0.18);
+    final Paint dotPaint = Paint()
+      ..color = _amberSoft.withValues(alpha: 0.18);
     for (int i = 0; i < 40; i++) {
       final double dx = rng.nextDouble() * size.width;
       final double dy = rng.nextDouble() * size.height;
@@ -477,7 +480,8 @@ class _CaratHeroPainter extends CustomPainter {
       barY + barHeight / 2,
       const Radius.circular(10),
     );
-    final Paint barPaint = Paint()..color = _parchment.withValues(alpha: 0.18);
+    final Paint barPaint = Paint()
+      ..color = _parchment.withValues(alpha: 0.18);
     canvas.drawRRect(bar, barPaint);
 
     // Inner highlight strip to imitate selected background.
@@ -488,7 +492,8 @@ class _CaratHeroPainter extends CustomPainter {
       barY + barHeight / 2 - 4,
       const Radius.circular(7),
     );
-    final Paint innerPaint = Paint()..color = _amber.withValues(alpha: 0.28);
+    final Paint innerPaint = Paint()
+      ..color = _amber.withValues(alpha: 0.28);
     canvas.drawRRect(innerBar, innerPaint);
 
     // Blinking amber cursor at the right end of the bar.
@@ -535,7 +540,10 @@ class _CaratHeroPainter extends CustomPainter {
     )..layout(maxWidth: size.width - barPadding * 2);
     caption.paint(
       canvas,
-      Offset((size.width - caption.width) / 2, barY + barHeight / 2 + 14),
+      Offset(
+        (size.width - caption.width) / 2,
+        barY + barHeight / 2 + 14,
+      ),
     );
   }
 
@@ -591,8 +599,7 @@ class _SelectionCanvasCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionCard(
       title: 'Canvas — one SelectableRegion, many Selectables',
-      subtitle:
-          'Drag across headings, paragraphs, the list, or the code '
+      subtitle: 'Drag across headings, paragraphs, the list, or the code '
           'block. Selection is stitched across all descendants. Buttons below '
           'call into SelectableRegionState directly.',
       child: Column(
@@ -675,7 +682,11 @@ class _CanvasProse extends StatelessWidget {
         const SizedBox(height: 8),
         const Text(
           _paraOne,
-          style: TextStyle(fontSize: 15, height: 1.45, color: _inkDark),
+          style: TextStyle(
+            fontSize: 15,
+            height: 1.45,
+            color: _inkDark,
+          ),
         ),
         const SizedBox(height: 12),
         const Text(
@@ -689,7 +700,11 @@ class _CanvasProse extends StatelessWidget {
         const SizedBox(height: 6),
         const Text(
           _paraTwo,
-          style: TextStyle(fontSize: 15, height: 1.45, color: _inkDark),
+          style: TextStyle(
+            fontSize: 15,
+            height: 1.45,
+            color: _inkDark,
+          ),
         ),
         const SizedBox(height: 12),
         const Text(
@@ -703,7 +718,11 @@ class _CanvasProse extends StatelessWidget {
         const SizedBox(height: 6),
         const Text(
           _paraThree,
-          style: TextStyle(fontSize: 15, height: 1.45, color: _inkDark),
+          style: TextStyle(
+            fontSize: 15,
+            height: 1.45,
+            color: _inkDark,
+          ),
         ),
         const SizedBox(height: 12),
         const Text(
@@ -781,7 +800,11 @@ class _CanvasProse extends StatelessWidget {
                 border: Border.all(color: _indigo.withValues(alpha: 0.25)),
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.image_outlined, size: 42, color: _indigo),
+              child: const Icon(
+                Icons.image_outlined,
+                size: 42,
+                color: _indigo,
+              ),
             ),
             const SizedBox(width: 14),
             const Expanded(
@@ -789,7 +812,11 @@ class _CanvasProse extends StatelessWidget {
                 'Non-selectable placeholders (Containers, images) are '
                 'skipped gracefully by the registrar: the region only '
                 'attempts to select Selectable children it has discovered.',
-                style: TextStyle(fontSize: 14, height: 1.4, color: _inkDark),
+                style: TextStyle(
+                  fontSize: 14,
+                  height: 1.4,
+                  color: _inkDark,
+                ),
               ),
             ),
           ],
@@ -822,7 +849,8 @@ class _LiveBadge extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.notifications_active, size: 18, color: _indigo),
+          const Icon(Icons.notifications_active,
+              size: 18, color: _indigo),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -933,7 +961,11 @@ class _InspectorStatsColumn extends StatelessWidget {
       children: <Widget>[
         const Text(
           'Excerpt',
-          style: TextStyle(fontSize: 12, color: _inkMuted, letterSpacing: 1.2),
+          style: TextStyle(
+            fontSize: 12,
+            color: _inkMuted,
+            letterSpacing: 1.2,
+          ),
         ),
         const SizedBox(height: 4),
         Container(
@@ -957,7 +989,10 @@ class _InspectorStatsColumn extends StatelessWidget {
         _StatRow(label: 'Characters', value: liveSelection.length.toString()),
         _StatRow(label: 'Words', value: wordCount.toString()),
         _StatRow(label: 'Lines', value: lineCount.toString()),
-        _StatRow(label: 'Change events', value: liveChangeCount.toString()),
+        _StatRow(
+          label: 'Change events',
+          value: liveChangeCount.toString(),
+        ),
       ],
     );
   }
@@ -987,7 +1022,10 @@ class _StatRow extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(fontSize: 13, color: _inkMuted),
+              style: const TextStyle(
+                fontSize: 13,
+                color: _inkMuted,
+              ),
             ),
           ),
           Container(
@@ -1023,7 +1061,8 @@ class _SelectionRectOverlayPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Rect full = Offset.zero & size;
-    final Paint bg = Paint()..color = _parchmentDeep;
+    final Paint bg = Paint()
+      ..color = _parchmentDeep;
     canvas.drawRRect(
       RRect.fromRectAndRadius(full, const Radius.circular(10)),
       bg,
@@ -1036,7 +1075,10 @@ class _SelectionRectOverlayPainter extends CustomPainter {
       ..color = _indigo.withValues(alpha: 0.3);
     _drawDashedRRect(
       canvas,
-      RRect.fromRectAndRadius(full.deflate(4), const Radius.circular(8)),
+      RRect.fromRectAndRadius(
+        full.deflate(4),
+        const Radius.circular(8),
+      ),
       frame,
     );
 
@@ -1047,12 +1089,18 @@ class _SelectionRectOverlayPainter extends CustomPainter {
         fontStyle: FontStyle.italic,
       );
       final TextPainter tp = TextPainter(
-        text: const TextSpan(text: 'waiting for a selection…', style: style),
+        text: const TextSpan(
+          text: 'waiting for a selection…',
+          style: style,
+        ),
         textDirection: TextDirection.ltr,
       )..layout();
       tp.paint(
         canvas,
-        Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2),
+        Offset(
+          (size.width - tp.width) / 2,
+          (size.height - tp.height) / 2,
+        ),
       );
       return;
     }
@@ -1070,7 +1118,8 @@ class _SelectionRectOverlayPainter extends CustomPainter {
       by + boxHeight,
       const Radius.circular(8),
     );
-    final Paint boxPaint = Paint()..color = _amber.withValues(alpha: 0.35);
+    final Paint boxPaint = Paint()
+      ..color = _amber.withValues(alpha: 0.35);
     final Paint boxStroke = Paint()
       ..style = PaintingStyle.stroke
       ..color = _amber
@@ -1149,7 +1198,11 @@ class _SelectionRectOverlayPainter extends CustomPainter {
 
     // Draw the four corner arcs solid so the frame still looks continuous.
     final Path corners = Path()
-      ..addArc(Rect.fromLTWH(left, top, r * 2, r * 2), math.pi, math.pi / 2)
+      ..addArc(
+        Rect.fromLTWH(left, top, r * 2, r * 2),
+        math.pi,
+        math.pi / 2,
+      )
       ..addArc(
         Rect.fromLTWH(right - r * 2, top, r * 2, r * 2),
         -math.pi / 2,
@@ -1266,11 +1319,8 @@ class _ProgrammaticControlsCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Icon(
-                  Icons.content_paste_search,
-                  size: 20,
-                  color: _indigo,
-                ),
+                const Icon(Icons.content_paste_search,
+                    size: 20, color: _indigo),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -1415,7 +1465,10 @@ class _AutoHideDemo extends StatelessWidget {
               const Expanded(
                 child: Text(
                   'Keep right-hand region focused (retain selection)',
-                  style: TextStyle(fontSize: 13.5, color: _inkDark),
+                  style: TextStyle(
+                    fontSize: 13.5,
+                    color: _inkDark,
+                  ),
                 ),
               ),
               Switch(
@@ -1469,7 +1522,9 @@ class _AutoHideDemo extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: children
-                      .map<Widget>((Widget w) => w is Expanded ? w.child : w)
+                      .map<Widget>(
+                        (Widget w) => w is Expanded ? w.child : w,
+                      )
                       .toList(),
                 );
               }
@@ -1585,10 +1640,8 @@ class _CompareRegion extends StatelessWidget {
                 ),
                 onPressed: onSelectAll,
                 icon: const Icon(Icons.select_all, size: 16),
-                label: const Text(
-                  'selectAll()',
-                  style: TextStyle(fontSize: 12),
-                ),
+                label: const Text('selectAll()',
+                    style: TextStyle(fontSize: 12)),
               ),
               OutlinedButton.icon(
                 style: OutlinedButton.styleFrom(
@@ -1601,16 +1654,17 @@ class _CompareRegion extends StatelessWidget {
                 ),
                 onPressed: onClear,
                 icon: const Icon(Icons.clear, size: 16),
-                label: const Text(
-                  'clearSelection()',
-                  style: TextStyle(fontSize: 12),
-                ),
+                label: const Text('clearSelection()',
+                    style: TextStyle(fontSize: 12)),
               ),
             ],
           ),
           const SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 6,
+            ),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(6),
@@ -2113,7 +2167,11 @@ class _FooterSignature extends StatelessWidget {
             child: Text(
               'Selection Laboratory — hand-authored d4rt AST demo for '
               'SelectableRegionState.',
-              style: TextStyle(color: _parchment, fontSize: 13, height: 1.4),
+              style: TextStyle(
+                color: _parchment,
+                fontSize: 13,
+                height: 1.4,
+              ),
             ),
           ),
           const Icon(Icons.architecture, color: _amber, size: 20),

@@ -32,10 +32,7 @@ Widget _wlSection(String title, List<Widget> children) {
       border: Border.all(color: _wlLightPlum, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x154A148C),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x154A148C), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -47,14 +44,11 @@ Widget _wlSection(String title, List<Widget> children) {
             color: _wlPlum,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _wlWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _wlWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -66,24 +60,20 @@ Widget _wlSection(String title, List<Widget> children) {
 Widget _wlLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _wlDarkPlum,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _wlDarkPlum,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _wlBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _wlDarkText, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _wlDarkText, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -97,15 +87,12 @@ Widget _wlCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _wlLightPlum.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _wlDarkPlum,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _wlDarkPlum,
+            height: 1.45)),
   );
 }
 
@@ -117,10 +104,9 @@ Widget _wlChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -142,14 +128,9 @@ Widget _wlInfoBox(String text, Color color) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: color,
-        fontSize: 11.5,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: color, fontSize: 11.5, fontWeight: FontWeight.w500)),
   );
 }
 
@@ -174,10 +155,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'DialogWindowControllerLinux',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: const Text('DialogWindowControllerLinux',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -206,48 +185,28 @@ dynamic build(BuildContext context) {
                       color: _wlWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.desktop_windows,
-                      color: _wlWhite,
-                      size: 32,
-                    ),
+                    child: const Icon(Icons.desktop_windows,
+                        color: _wlWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'DialogWindowControllerLinux',
-                    style: TextStyle(
-                      color: _wlWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('DialogWindowControllerLinux',
+                      style: TextStyle(
+                          color: _wlWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
                   Text(
-                    'Linux-specific dialog window control via GTK/GDK',
-                    style: TextStyle(
-                      color: _wlWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                      'Linux-specific dialog window control via GTK/GDK',
+                      style: TextStyle(
+                          color: _wlWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _wlChip(
-                        'Linux',
-                        _wlWhite.withValues(alpha: 0.25),
-                        _wlWhite,
-                      ),
-                      _wlChip(
-                        'GTK',
-                        _wlWhite.withValues(alpha: 0.25),
-                        _wlWhite,
-                      ),
-                      _wlChip(
-                        'Dialogs',
-                        _wlWhite.withValues(alpha: 0.25),
-                        _wlWhite,
-                      ),
+                      _wlChip('Linux', _wlWhite.withValues(alpha: 0.25), _wlWhite),
+                      _wlChip('GTK', _wlWhite.withValues(alpha: 0.25), _wlWhite),
+                      _wlChip('Dialogs', _wlWhite.withValues(alpha: 0.25), _wlWhite),
                     ],
                   ),
                 ],
@@ -430,7 +389,9 @@ dynamic build(BuildContext context) {
             // Section 10: Cross-platform differences
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             _wlSection('10 · Cross-Platform Dialog Differences', [
-              _wlBody('Linux dialog behavior differs from macOS and Windows:'),
+              _wlBody(
+                'Linux dialog behavior differs from macOS and Windows:',
+              ),
               _buildPlatformComparison(),
             ]),
 
@@ -456,35 +417,19 @@ dynamic build(BuildContext context) {
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [_wlPlum, _wlMedPlum]),
+                  gradient: const LinearGradient(
+                    colors: [_wlPlum, _wlMedPlum],
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   children: [
-                    _wlSummaryRow(
-                      Icons.desktop_windows,
-                      'GTK-based native dialog windows',
-                    ),
-                    _wlSummaryRow(
-                      Icons.folder_open,
-                      'File open, save, and folder selection',
-                    ),
-                    _wlSummaryRow(
-                      Icons.message,
-                      'Alert, confirmation, and error dialogs',
-                    ),
-                    _wlSummaryRow(
-                      Icons.open_with,
-                      'Window positioning and sizing',
-                    ),
-                    _wlSummaryRow(
-                      Icons.layers,
-                      'Modal and modeless dialog support',
-                    ),
-                    _wlSummaryRow(
-                      Icons.devices,
-                      'Linux-specific — macOS/Windows use different controllers',
-                    ),
+                    _wlSummaryRow(Icons.desktop_windows, 'GTK-based native dialog windows'),
+                    _wlSummaryRow(Icons.folder_open, 'File open, save, and folder selection'),
+                    _wlSummaryRow(Icons.message, 'Alert, confirmation, and error dialogs'),
+                    _wlSummaryRow(Icons.open_with, 'Window positioning and sizing'),
+                    _wlSummaryRow(Icons.layers, 'Modal and modeless dialog support'),
+                    _wlSummaryRow(Icons.devices, 'Linux-specific — macOS/Windows use different controllers'),
                   ],
                 ),
               ),
@@ -501,36 +446,12 @@ dynamic build(BuildContext context) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildResponsibilitiesList() {
   final items = <Map<String, dynamic>>[
-    {
-      'icon': Icons.folder_open,
-      'text': 'File open/save dialog management',
-      'color': _wlAccentBlue,
-    },
-    {
-      'icon': Icons.message,
-      'text': 'Message dialog presentation',
-      'color': _wlAccentGreen,
-    },
-    {
-      'icon': Icons.open_with,
-      'text': 'Dialog window positioning',
-      'color': _wlAccentOrange,
-    },
-    {
-      'icon': Icons.layers,
-      'text': 'Modal stack handling',
-      'color': _wlAccentCyan,
-    },
-    {
-      'icon': Icons.cleaning_services,
-      'text': 'Resource cleanup on dismiss',
-      'color': _wlAccentRed,
-    },
-    {
-      'icon': Icons.input,
-      'text': 'Result passing back to Flutter',
-      'color': _wlAccentAmber,
-    },
+    {'icon': Icons.folder_open, 'text': 'File open/save dialog management', 'color': _wlAccentBlue},
+    {'icon': Icons.message, 'text': 'Message dialog presentation', 'color': _wlAccentGreen},
+    {'icon': Icons.open_with, 'text': 'Dialog window positioning', 'color': _wlAccentOrange},
+    {'icon': Icons.layers, 'text': 'Modal stack handling', 'color': _wlAccentCyan},
+    {'icon': Icons.cleaning_services, 'text': 'Resource cleanup on dismiss', 'color': _wlAccentRed},
+    {'icon': Icons.input, 'text': 'Result passing back to Flutter', 'color': _wlAccentAmber},
   ];
 
   return Column(
@@ -541,27 +462,18 @@ Widget _buildResponsibilitiesList() {
         decoration: BoxDecoration(
           color: (item['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: (item['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (item['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
-            Icon(
-              item['icon'] as IconData,
-              size: 16,
-              color: item['color'] as Color,
-            ),
+            Icon(item['icon'] as IconData, size: 16, color: item['color'] as Color),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                item['text'] as String,
-                style: TextStyle(
-                  color: item['color'] as Color,
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: Text(item['text'] as String,
+                  style: TextStyle(
+                      color: item['color'] as Color,
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w600)),
             ),
           ],
         ),
@@ -575,31 +487,11 @@ Widget _buildResponsibilitiesList() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildArchitectureStack() {
   final layers = <Map<String, dynamic>>[
-    {
-      'name': 'Flutter Framework',
-      'desc': 'showDialog(), FilePicker, etc.',
-      'color': _wlAccentBlue,
-    },
-    {
-      'name': 'Platform Channels',
-      'desc': 'MethodChannel for dialog methods',
-      'color': _wlAccentCyan,
-    },
-    {
-      'name': 'Linux Embedder (C++)',
-      'desc': 'fl_dialog_window_controller.cc',
-      'color': _wlMedPlum,
-    },
-    {
-      'name': 'GTK3 / GTK4',
-      'desc': 'GtkDialog, GtkFileChooser, GtkMessageDialog',
-      'color': _wlAccentGreen,
-    },
-    {
-      'name': 'GDK / X11 / Wayland',
-      'desc': 'Display server for window management',
-      'color': _wlAccentOrange,
-    },
+    {'name': 'Flutter Framework', 'desc': 'showDialog(), FilePicker, etc.', 'color': _wlAccentBlue},
+    {'name': 'Platform Channels', 'desc': 'MethodChannel for dialog methods', 'color': _wlAccentCyan},
+    {'name': 'Linux Embedder (C++)', 'desc': 'fl_dialog_window_controller.cc', 'color': _wlMedPlum},
+    {'name': 'GTK3 / GTK4', 'desc': 'GtkDialog, GtkFileChooser, GtkMessageDialog', 'color': _wlAccentGreen},
+    {'name': 'GDK / X11 / Wayland', 'desc': 'Display server for window management', 'color': _wlAccentOrange},
   ];
 
   return Column(
@@ -613,9 +505,7 @@ Widget _buildArchitectureStack() {
             decoration: BoxDecoration(
               color: (l['color'] as Color).withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: (l['color'] as Color).withValues(alpha: 0.4),
-              ),
+              border: Border.all(color: (l['color'] as Color).withValues(alpha: 0.4)),
             ),
             child: Row(
               children: [
@@ -627,14 +517,11 @@ Widget _buildArchitectureStack() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text(
-                      '${entry.key + 1}',
-                      style: const TextStyle(
-                        color: _wlWhite,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text('${entry.key + 1}',
+                        style: const TextStyle(
+                            color: _wlWhite,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700)),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -642,21 +529,14 @@ Widget _buildArchitectureStack() {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        l['name'] as String,
-                        style: TextStyle(
-                          color: l['color'] as Color,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        l['desc'] as String,
-                        style: const TextStyle(
-                          color: _wlDarkText,
-                          fontSize: 10,
-                        ),
-                      ),
+                      Text(l['name'] as String,
+                          style: TextStyle(
+                              color: l['color'] as Color,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700)),
+                      Text(l['desc'] as String,
+                          style: const TextStyle(
+                              color: _wlDarkText, fontSize: 10)),
                     ],
                   ),
                 ),
@@ -664,7 +544,11 @@ Widget _buildArchitectureStack() {
             ),
           ),
           if (entry.key < layers.length - 1)
-            Container(width: 2, height: 12, color: _wlLightPlum),
+            Container(
+              width: 2,
+              height: 12,
+              color: _wlLightPlum,
+            ),
         ],
       );
     }).toList(),
@@ -728,9 +612,7 @@ Widget _buildDialogTypes() {
         decoration: BoxDecoration(
           color: (t['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: (t['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (t['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -748,22 +630,16 @@ Widget _buildDialogTypes() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    t['type'] as String,
-                    style: TextStyle(
-                      color: t['color'] as Color,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    '${t['gtk']}  •  ${t['action']}',
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      color: _wlDarkText,
-                      fontSize: 9,
-                    ),
-                  ),
+                  Text(t['type'] as String,
+                      style: TextStyle(
+                          color: t['color'] as Color,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700)),
+                  Text('${t['gtk']}  •  ${t['action']}',
+                      style: const TextStyle(
+                          fontFamily: 'monospace',
+                          color: _wlDarkText,
+                          fontSize: 9)),
                 ],
               ),
             ),
@@ -779,41 +655,13 @@ Widget _buildDialogTypes() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildLifecycleFlow() {
   final steps = <Map<String, dynamic>>[
-    {
-      'phase': 'Create',
-      'desc': 'Instantiate dialog controller with config',
-      'color': _wlAccentBlue,
-    },
-    {
-      'phase': 'Configure',
-      'desc': 'Set title, filters, initial directory',
-      'color': _wlAccentCyan,
-    },
-    {
-      'phase': 'Set Parent',
-      'desc': 'Attach to parent GtkWindow as transient',
-      'color': _wlAccentGreen,
-    },
-    {
-      'phase': 'Show',
-      'desc': 'Present dialog and enter modal loop',
-      'color': _wlAccentOrange,
-    },
-    {
-      'phase': 'Wait',
-      'desc': 'Block or async-wait for user response',
-      'color': _wlAccentAmber,
-    },
-    {
-      'phase': 'Collect',
-      'desc': 'Gather dialog result (path, button, etc.)',
-      'color': _wlMedPlum,
-    },
-    {
-      'phase': 'Destroy',
-      'desc': 'Close and free GTK widget resources',
-      'color': _wlAccentRed,
-    },
+    {'phase': 'Create', 'desc': 'Instantiate dialog controller with config', 'color': _wlAccentBlue},
+    {'phase': 'Configure', 'desc': 'Set title, filters, initial directory', 'color': _wlAccentCyan},
+    {'phase': 'Set Parent', 'desc': 'Attach to parent GtkWindow as transient', 'color': _wlAccentGreen},
+    {'phase': 'Show', 'desc': 'Present dialog and enter modal loop', 'color': _wlAccentOrange},
+    {'phase': 'Wait', 'desc': 'Block or async-wait for user response', 'color': _wlAccentAmber},
+    {'phase': 'Collect', 'desc': 'Gather dialog result (path, button, etc.)', 'color': _wlMedPlum},
+    {'phase': 'Destroy', 'desc': 'Close and free GTK widget resources', 'color': _wlAccentRed},
   ];
 
   return Column(
@@ -833,63 +681,49 @@ Widget _buildLifecycleFlow() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text(
-                      '${entry.key + 1}',
-                      style: const TextStyle(
-                        color: _wlWhite,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text('${entry.key + 1}',
+                        style: const TextStyle(
+                            color: _wlWhite,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700)),
                   ),
                 ),
                 if (entry.key < steps.length - 1)
-                  Container(width: 2, height: 8, color: _wlLightPlum),
+                  Container(
+                    width: 2,
+                    height: 8,
+                    color: _wlLightPlum,
+                  ),
               ],
             ),
             const SizedBox(width: 10),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
                   color: (s['color'] as Color).withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                    color: (s['color'] as Color).withValues(alpha: 0.3),
-                  ),
+                  border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: s['color'] as Color,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
-                        s['phase'] as String,
-                        style: const TextStyle(
-                          color: _wlWhite,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text(s['phase'] as String,
+                          style: const TextStyle(
+                              color: _wlWhite,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w700)),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(
-                        s['desc'] as String,
-                        style: const TextStyle(
-                          color: _wlDarkText,
-                          fontSize: 10.5,
-                        ),
-                      ),
+                      child: Text(s['desc'] as String,
+                          style: const TextStyle(
+                              color: _wlDarkText, fontSize: 10.5)),
                     ),
                   ],
                 ),
@@ -907,41 +741,13 @@ Widget _buildLifecycleFlow() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildFilePickerFlow() {
   final steps = <Map<String, dynamic>>[
-    {
-      'icon': Icons.touch_app,
-      'label': 'User taps "Choose File"',
-      'color': _wlAccentBlue,
-    },
-    {
-      'icon': Icons.send,
-      'label': 'Flutter sends MethodChannel message',
-      'color': _wlAccentCyan,
-    },
-    {
-      'icon': Icons.settings,
-      'label': 'Controller creates GtkFileChooserDialog',
-      'color': _wlMedPlum,
-    },
-    {
-      'icon': Icons.filter_list,
-      'label': 'Applies file filters (*.dart, *.yaml)',
-      'color': _wlAccentGreen,
-    },
-    {
-      'icon': Icons.desktop_windows,
-      'label': 'Native dialog shown on screen',
-      'color': _wlAccentOrange,
-    },
-    {
-      'icon': Icons.check_circle,
-      'label': 'User selects file, dialog closes',
-      'color': _wlAccentAmber,
-    },
-    {
-      'icon': Icons.arrow_back,
-      'label': 'Path returned to Flutter via channel',
-      'color': _wlAccentRed,
-    },
+    {'icon': Icons.touch_app, 'label': 'User taps "Choose File"', 'color': _wlAccentBlue},
+    {'icon': Icons.send, 'label': 'Flutter sends MethodChannel message', 'color': _wlAccentCyan},
+    {'icon': Icons.settings, 'label': 'Controller creates GtkFileChooserDialog', 'color': _wlMedPlum},
+    {'icon': Icons.filter_list, 'label': 'Applies file filters (*.dart, *.yaml)', 'color': _wlAccentGreen},
+    {'icon': Icons.desktop_windows, 'label': 'Native dialog shown on screen', 'color': _wlAccentOrange},
+    {'icon': Icons.check_circle, 'label': 'User selects file, dialog closes', 'color': _wlAccentAmber},
+    {'icon': Icons.arrow_back, 'label': 'Path returned to Flutter via channel', 'color': _wlAccentRed},
   ];
 
   return Column(
@@ -953,9 +759,7 @@ Widget _buildFilePickerFlow() {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: (s['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -977,26 +781,20 @@ Widget _buildFilePickerFlow() {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Text(
-                  '${entry.key + 1}',
-                  style: const TextStyle(
-                    color: _wlPlum,
-                    fontSize: 9,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: Text('${entry.key + 1}',
+                    style: const TextStyle(
+                        color: _wlPlum,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700)),
               ),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                s['label'] as String,
-                style: TextStyle(
-                  color: s['color'] as Color,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: Text(s['label'] as String,
+                  style: TextStyle(
+                      color: s['color'] as Color,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600)),
             ),
           ],
         ),
@@ -1055,9 +853,7 @@ Widget _buildMessageDialogTypes() {
         decoration: BoxDecoration(
           color: (d['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: (d['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (d['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -1077,26 +873,20 @@ Widget _buildMessageDialogTypes() {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        d['type'] as String,
-                        style: TextStyle(
-                          color: d['color'] as Color,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      Text(d['type'] as String,
+                          style: TextStyle(
+                              color: d['color'] as Color,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700)),
                       const SizedBox(width: 8),
-                      _wlChip(
-                        d['buttons'] as String,
-                        (d['color'] as Color).withValues(alpha: 0.1),
-                        d['color'] as Color,
-                      ),
+                      _wlChip(d['buttons'] as String,
+                          (d['color'] as Color).withValues(alpha: 0.1),
+                          d['color'] as Color),
                     ],
                   ),
-                  Text(
-                    d['desc'] as String,
-                    style: const TextStyle(color: _wlDarkText, fontSize: 10),
-                  ),
+                  Text(d['desc'] as String,
+                      style: const TextStyle(
+                          color: _wlDarkText, fontSize: 10)),
                 ],
               ),
             ),
@@ -1136,14 +926,11 @@ Widget _buildPositioningDiagram() {
               const Positioned(
                 top: 4,
                 left: 8,
-                child: Text(
-                  'Screen 1920×1080',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 9,
-                    color: _wlMedPlum,
-                  ),
-                ),
+                child: Text('Screen 1920×1080',
+                    style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 9,
+                        color: _wlMedPlum)),
               ),
               // Parent window
               Positioned(
@@ -1164,14 +951,11 @@ Widget _buildPositioningDiagram() {
                         color: _wlAccentBlue,
                         child: const Row(
                           children: [
-                            Text(
-                              'Flutter App',
-                              style: TextStyle(
-                                color: _wlWhite,
-                                fontSize: 8,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                            Text('Flutter App',
+                                style: TextStyle(
+                                    color: _wlWhite,
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w600)),
                           ],
                         ),
                       ),
@@ -1192,26 +976,20 @@ Widget _buildPositioningDiagram() {
                               color: _wlMedPlum,
                               child: const Row(
                                 children: [
-                                  Text(
-                                    'Open File',
-                                    style: TextStyle(
-                                      color: _wlWhite,
-                                      fontSize: 7,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
+                                  Text('Open File',
+                                      style: TextStyle(
+                                          color: _wlWhite,
+                                          fontSize: 7,
+                                          fontWeight: FontWeight.w600)),
                                 ],
                               ),
                             ),
                             const Spacer(),
-                            const Text(
-                              'Dialog (modal)',
-                              style: TextStyle(
-                                color: _wlMedPlum,
-                                fontSize: 8,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                            const Text('Dialog (modal)',
+                                style: TextStyle(
+                                    color: _wlMedPlum,
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w600)),
                             const Spacer(),
                           ],
                         ),
@@ -1237,24 +1015,21 @@ Widget _buildModalityDiagram() {
     {
       'mode': 'Modal',
       'desc': 'Blocks interaction with parent window until dismissed',
-      'behavior':
-          'Parent receives no events • Dialog stays on top • '
+      'behavior': 'Parent receives no events • Dialog stays on top • '
           'Close dialog to interact with parent',
       'color': _wlAccentRed,
     },
     {
       'mode': 'Modeless',
       'desc': 'Independent window, parent remains interactive',
-      'behavior':
-          'Both windows receive events • Dialog can go behind parent • '
+      'behavior': 'Both windows receive events • Dialog can go behind parent • '
           'Parent can be focused',
       'color': _wlAccentGreen,
     },
     {
       'mode': 'System Modal',
       'desc': 'Blocks all application windows',
-      'behavior':
-          'All app windows frozen • Requires window manager support • '
+      'behavior': 'All app windows frozen • Requires window manager support • '
           'Used for critical errors',
       'color': _wlAccentAmber,
     },
@@ -1268,10 +1043,7 @@ Widget _buildModalityDiagram() {
         decoration: BoxDecoration(
           color: (m['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: (m['color'] as Color).withValues(alpha: 0.3),
-            width: 1.5,
-          ),
+          border: Border.all(color: (m['color'] as Color).withValues(alpha: 0.3), width: 1.5),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1279,41 +1051,31 @@ Widget _buildModalityDiagram() {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: m['color'] as Color,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(
-                    m['mode'] as String,
-                    style: const TextStyle(
-                      color: _wlWhite,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: Text(m['mode'] as String,
+                      style: const TextStyle(
+                          color: _wlWhite,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700)),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    m['desc'] as String,
-                    style: const TextStyle(color: _wlDarkText, fontSize: 10.5),
-                  ),
+                  child: Text(m['desc'] as String,
+                      style: const TextStyle(
+                          color: _wlDarkText, fontSize: 10.5)),
                 ),
               ],
             ),
             const SizedBox(height: 6),
-            Text(
-              m['behavior'] as String,
-              style: TextStyle(
-                color: (m['color'] as Color).withValues(alpha: 0.8),
-                fontSize: 10,
-                height: 1.4,
-              ),
-            ),
+            Text(m['behavior'] as String,
+                style: TextStyle(
+                    color: (m['color'] as Color).withValues(alpha: 0.8),
+                    fontSize: 10,
+                    height: 1.4)),
           ],
         ),
       );
@@ -1350,26 +1112,23 @@ Widget _buildPlatformComparison() {
           color: isHeader
               ? _wlPlum
               : entry.key.isEven
-              ? _wlLavender
-              : _wlWhite,
+                  ? _wlLavender
+                  : _wlWhite,
           child: Row(
             children: entry.value.asMap().entries.map((col) {
               final isLinuxCol = col.key == 1 && isLinuxRow;
               return Expanded(
-                child: Text(
-                  col.value,
-                  style: TextStyle(
-                    color: isHeader
-                        ? _wlWhite
-                        : isLinuxCol
-                        ? _wlMedPlum
-                        : _wlDarkText,
-                    fontSize: 10,
-                    fontWeight: isHeader || isLinuxCol
-                        ? FontWeight.w700
-                        : FontWeight.w400,
-                  ),
-                ),
+                child: Text(col.value,
+                    style: TextStyle(
+                        color: isHeader
+                            ? _wlWhite
+                            : isLinuxCol
+                                ? _wlMedPlum
+                                : _wlDarkText,
+                        fontSize: 10,
+                        fontWeight: isHeader || isLinuxCol
+                            ? FontWeight.w700
+                            : FontWeight.w400)),
               );
             }).toList(),
           ),
@@ -1391,8 +1150,7 @@ Widget _buildImportScenario() {
     },
     {
       'step': 'Controller creates file dialog',
-      'code':
-          'gtk_file_chooser_dialog_new(\n'
+      'code': 'gtk_file_chooser_dialog_new(\n'
           '  "Import CSV", parent,\n'
           '  GTK_FILE_CHOOSER_ACTION_OPEN,\n'
           '  "_Cancel", GTK_RESPONSE_CANCEL,\n'
@@ -1401,16 +1159,14 @@ Widget _buildImportScenario() {
     },
     {
       'step': 'Filter applied for CSV files',
-      'code':
-          'GtkFileFilter *filter = gtk_file_filter_new();\n'
+      'code': 'GtkFileFilter *filter = gtk_file_filter_new();\n'
           'gtk_file_filter_set_name(filter, "CSV files");\n'
           'gtk_file_filter_add_pattern(filter, "*.csv");',
       'color': _wlAccentGreen,
     },
     {
       'step': 'Dialog shown, user selects file',
-      'code':
-          'gint result = gtk_dialog_run(dialog);\n'
+      'code': 'gint result = gtk_dialog_run(dialog);\n'
           'if (result == GTK_RESPONSE_ACCEPT) {\n'
           '  char *filename = gtk_file_chooser_get_filename(chooser);\n'
           '  // Pass back to Flutter\n'
@@ -1419,15 +1175,13 @@ Widget _buildImportScenario() {
     },
     {
       'step': 'Path returned to Flutter layer',
-      'code':
-          'fl_method_response_new_success(\n'
+      'code': 'fl_method_response_new_success(\n'
           '  fl_value_new_string(filename))',
       'color': _wlAccentCyan,
     },
     {
       'step': 'Flutter processes the CSV file',
-      'code':
-          'final path = await channel.showOpenDialog(...);\n'
+      'code': 'final path = await channel.showOpenDialog(...);\n'
           'if (path != null) {\n'
           '  final data = File(path).readAsStringSync();\n'
           '  _parseCSV(data);\n'
@@ -1443,9 +1197,7 @@ Widget _buildImportScenario() {
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: (s['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
         ),
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -1463,26 +1215,20 @@ Widget _buildImportScenario() {
                       shape: BoxShape.circle,
                     ),
                     child: Center(
-                      child: Text(
-                        '${entry.key + 1}',
-                        style: const TextStyle(
-                          color: _wlWhite,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text('${entry.key + 1}',
+                          style: const TextStyle(
+                              color: _wlWhite,
+                              fontSize: 9,
+                              fontWeight: FontWeight.w700)),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      s['step'] as String,
-                      style: TextStyle(
-                        color: s['color'] as Color,
-                        fontSize: 11.5,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text(s['step'] as String,
+                        style: TextStyle(
+                            color: s['color'] as Color,
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w700)),
                   ),
                 ],
               ),
@@ -1491,15 +1237,12 @@ Widget _buildImportScenario() {
               width: double.infinity,
               padding: const EdgeInsets.all(8),
               color: _wlWhite,
-              child: Text(
-                s['code'] as String,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                  color: _wlDarkPlum,
-                  height: 1.3,
-                ),
-              ),
+              child: Text(s['code'] as String,
+                  style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 10,
+                      color: _wlDarkPlum,
+                      height: 1.3)),
             ),
           ],
         ),
@@ -1519,13 +1262,9 @@ Widget _wlSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _wlWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _wlWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _wlWhite.withValues(alpha: 0.95), fontSize: 12.5)),
         ),
       ],
     ),

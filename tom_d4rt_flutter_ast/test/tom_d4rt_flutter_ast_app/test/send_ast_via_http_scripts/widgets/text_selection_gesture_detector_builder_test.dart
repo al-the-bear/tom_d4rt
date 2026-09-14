@@ -46,12 +46,7 @@ Widget _privatechip(String label, Color bg, {Color fg = _kInk}) {
   );
 }
 
-Widget _privatesectionBanner(
-  String index,
-  String title,
-  String subtitle,
-  Color color,
-) {
+Widget _privatesectionBanner(String index, String title, String subtitle, Color color) {
   return Container(
     margin: const EdgeInsets.fromLTRB(0, 24, 0, 12),
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -130,12 +125,7 @@ Widget _privatecard({required Widget child, Color? bg, EdgeInsets? padding}) {
   );
 }
 
-Widget _privatemonoLine(
-  String text, {
-  Color color = _kInk,
-  double size = 12,
-  FontWeight weight = FontWeight.w500,
-}) {
+Widget _privatemonoLine(String text, {Color color = _kInk, double size = 12, FontWeight weight = FontWeight.w500}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 1.5),
     child: Text(
@@ -151,12 +141,7 @@ Widget _privatemonoLine(
   );
 }
 
-Widget _privatelabel(
-  String text, {
-  Color color = _kInk,
-  double size = 13,
-  FontWeight w = FontWeight.w800,
-}) {
+Widget _privatelabel(String text, {Color color = _kInk, double size = 13, FontWeight w = FontWeight.w800}) {
   return Text(
     text,
     style: TextStyle(fontSize: size, fontWeight: w, color: color),
@@ -166,7 +151,11 @@ Widget _privatelabel(
 Widget _privatebody(String text, {Color? color, double size = 12.5}) {
   return Text(
     text,
-    style: TextStyle(fontSize: size, color: color ?? _kInkSoft, height: 1.45),
+    style: TextStyle(
+      fontSize: size,
+      color: color ?? _kInkSoft,
+      height: 1.45,
+    ),
   );
 }
 
@@ -463,25 +452,11 @@ Widget _privateanatomy() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _privatemonoLine(
-                'class _MyBuilder extends',
-                color: _kAccent3,
-                weight: FontWeight.w800,
-              ),
-              _privatemonoLine(
-                '    TextSelectionGestureDetectorBuilder {',
-                color: _kAccent3,
-                weight: FontWeight.w800,
-              ),
-              _privatemonoLine(
-                '  _MyBuilder({required super.delegate});',
-                color: _kInk,
-              ),
+              _privatemonoLine('class _MyBuilder extends', color: _kAccent3, weight: FontWeight.w800),
+              _privatemonoLine('    TextSelectionGestureDetectorBuilder {', color: _kAccent3, weight: FontWeight.w800),
+              _privatemonoLine('  _MyBuilder({required super.delegate});', color: _kInk),
               _privatemonoLine('  @override'),
-              _privatemonoLine(
-                '  void onSingleTapUp(TapDragUpDetails d) {',
-                color: _kAccent2,
-              ),
+              _privatemonoLine('  void onSingleTapUp(TapDragUpDetails d) {', color: _kAccent2),
               _privatemonoLine('    super.onSingleTapUp(d);'),
               _privatemonoLine('    editableText.requestKeyboard();'),
               _privatemonoLine('  }'),
@@ -492,38 +467,14 @@ Widget _privateanatomy() {
         const SizedBox(height: 10),
         Row(
           children: [
-            Expanded(
-              child: _privatemonoLine(
-                'delegate          → context provider',
-                color: _kAccent2,
-                weight: FontWeight.w700,
-              ),
-            ),
-            Expanded(
-              child: _privatemonoLine(
-                'editableText      → live state',
-                color: _kAccent2,
-                weight: FontWeight.w700,
-              ),
-            ),
+            Expanded(child: _privatemonoLine('delegate          → context provider', color: _kAccent2, weight: FontWeight.w700)),
+            Expanded(child: _privatemonoLine('editableText      → live state', color: _kAccent2, weight: FontWeight.w700)),
           ],
         ),
         Row(
           children: [
-            Expanded(
-              child: _privatemonoLine(
-                'renderEditable    → layout/hit-test',
-                color: _kAccent2,
-                weight: FontWeight.w700,
-              ),
-            ),
-            Expanded(
-              child: _privatemonoLine(
-                'shouldShowToolbar → bool getter',
-                color: _kAccent2,
-                weight: FontWeight.w700,
-              ),
-            ),
+            Expanded(child: _privatemonoLine('renderEditable    → layout/hit-test', color: _kAccent2, weight: FontWeight.w700)),
+            Expanded(child: _privatemonoLine('shouldShowToolbar → bool getter', color: _kAccent2, weight: FontWeight.w700)),
           ],
         ),
       ],
@@ -541,13 +492,7 @@ class _PrivateOverride {
   final String describe;
   final Color tint;
   final IconData icon;
-  const _PrivateOverride(
-    this.name,
-    this.signature,
-    this.describe,
-    this.tint,
-    this.icon,
-  );
+  const _PrivateOverride(this.name, this.signature, this.describe, this.tint, this.icon);
 }
 
 const List<_PrivateOverride> _kOverrides = [
@@ -718,7 +663,11 @@ Widget _privateoverrideCard(_PrivateOverride o, int index) {
         const SizedBox(height: 8),
         Text(
           o.describe,
-          style: TextStyle(fontSize: 12, color: _kInkSoft, height: 1.4),
+          style: TextStyle(
+            fontSize: 12,
+            color: _kInkSoft,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -735,10 +684,7 @@ Widget _privateoverrideGallery() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _privatelabel(
-          'Method-override gallery — twelve hooks you can reach for',
-          size: 16,
-        ),
+        _privatelabel('Method-override gallery — twelve hooks you can reach for', size: 16),
         const SizedBox(height: 4),
         _privatebody(
           'These are the building blocks of any custom selection policy. '
@@ -746,7 +692,11 @@ Widget _privateoverrideGallery() {
           'and what calling super gives you for free.',
         ),
         const SizedBox(height: 12),
-        Wrap(spacing: 0, runSpacing: 0, children: cards),
+        Wrap(
+          spacing: 0,
+          runSpacing: 0,
+          children: cards,
+        ),
       ],
     ),
   );
@@ -801,21 +751,21 @@ Widget _privatedelegatePanel() {
           'editableTextKey',
           'GlobalKey<EditableTextState>',
           'Lets the builder reach into the running EditableText: cursor, '
-              'selection, hideToolbar, showAutocorrect, requestKeyboard.',
+          'selection, hideToolbar, showAutocorrect, requestKeyboard.',
           _kAccent2,
         ),
         _privatedelegateRow(
           'forcePressEnabled',
           'bool',
           'Gates onForcePressStart / onForcePressEnd. Set false on Android '
-              'and on platforms without pressure-sensitive input.',
+          'and on platforms without pressure-sensitive input.',
           _kAccent4,
         ),
         _privatedelegateRow(
           'selectionEnabled',
           'bool',
           'Master switch. When false, the builder collapses gestures to '
-              'caret-positioning only — long-press never selects words.',
+          'caret-positioning only — long-press never selects words.',
           _kAccent,
         ),
         const SizedBox(height: 8),
@@ -830,9 +780,7 @@ Widget _privatedelegatePanel() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _privatemonoLine('// Default delegate body', color: _kInkSoft),
-              _privatemonoLine(
-                'GlobalKey<EditableTextState> get editableTextKey;',
-              ),
+              _privatemonoLine('GlobalKey<EditableTextState> get editableTextKey;'),
               _privatemonoLine('bool get forcePressEnabled;'),
               _privatemonoLine('bool get selectionEnabled;'),
             ],
@@ -894,7 +842,11 @@ Widget _privatedelegateRow(String name, String type, String desc, Color color) {
               const SizedBox(height: 4),
               Text(
                 desc,
-                style: TextStyle(fontSize: 12, color: _kInkSoft, height: 1.4),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _kInkSoft,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -940,10 +892,7 @@ class _PrivateTimelinePainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(
-        canvas,
-        Offset(x - tp.width / 2, below ? y + 8 : y - tp.height - 8),
-      );
+      tp.paint(canvas, Offset(x - tp.width / 2, below ? y + 8 : y - tp.height - 8));
     }
 
     void event(double x, Color c, IconData _) {
@@ -999,10 +948,7 @@ Widget _privatetimeline() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _privatelabel(
-          'Gesture timeline — what fires, in order, on a typical session',
-          size: 16,
-        ),
+        _privatelabel('Gesture timeline — what fires, in order, on a typical session', size: 16),
         const SizedBox(height: 6),
         SizedBox(
           height: 130,
@@ -1104,11 +1050,7 @@ class _PrivateFramePainter extends CustomPainter {
       final tp = TextPainter(
         text: const TextSpan(
           text: 'Cut  Copy  Paste',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w700),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
@@ -1119,11 +1061,7 @@ class _PrivateFramePainter extends CustomPainter {
     if (magnifier) {
       final mx = cx;
       final my = ty - 38;
-      canvas.drawCircle(
-        Offset(mx, my),
-        16,
-        Paint()..color = const Color(0xFFFFFCF2),
-      );
+      canvas.drawCircle(Offset(mx, my), 16, Paint()..color = const Color(0xFFFFFCF2));
       canvas.drawCircle(
         Offset(mx, my),
         16,
@@ -1227,10 +1165,7 @@ Widget _privateframe({
                   const SizedBox(height: 6),
                   SizedBox(
                     height: 90,
-                    child: CustomPaint(
-                      painter: beforePainter,
-                      size: Size.infinite,
-                    ),
+                    child: CustomPaint(painter: beforePainter, size: Size.infinite),
                   ),
                   const SizedBox(height: 6),
                   _privatebody(before, size: 11.5),
@@ -1253,10 +1188,7 @@ Widget _privateframe({
                   const SizedBox(height: 6),
                   SizedBox(
                     height: 90,
-                    child: CustomPaint(
-                      painter: afterPainter,
-                      size: Size.infinite,
-                    ),
+                    child: CustomPaint(painter: afterPainter, size: Size.infinite),
                   ),
                   const SizedBox(height: 6),
                   _privatebody(after, size: 11.5),
@@ -1276,10 +1208,7 @@ Widget _privateframes() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _privatelabel(
-          'Six gestures — frozen frames (before / after)',
-          size: 16,
-        ),
+        _privatelabel('Six gestures — frozen frames (before / after)', size: 16),
         const SizedBox(height: 4),
         _privatebody(
           'Each pair shows the editable surface immediately before the touch '
@@ -1288,31 +1217,18 @@ Widget _privateframes() {
         const SizedBox(height: 12),
         _privateframe(
           title: 'Single tap up — caret positioning',
-          before:
-              'Caret rests at column 0. The user is about to tap between H and e.',
-          after:
-              'Caret jumps to column 1. Keyboard requested. Default super behaviour.',
-          beforePainter: _PrivateFramePainter(
-            label: 'caret @ 0',
-            caretIndex: 0,
-          ),
-          afterPainter: _PrivateFramePainter(
-            label: 'caret @ 1',
-            caretIndex: 1,
-            caretColor: _kAccent2,
-          ),
+          before: 'Caret rests at column 0. The user is about to tap between H and e.',
+          after: 'Caret jumps to column 1. Keyboard requested. Default super behaviour.',
+          beforePainter: _PrivateFramePainter(label: 'caret @ 0', caretIndex: 0),
+          afterPainter: _PrivateFramePainter(label: 'caret @ 1', caretIndex: 1, caretColor: _kAccent2),
           tint: _kAccent2,
           icon: Icons.adjust,
         ),
         _privateframe(
           title: 'Double tap down — word selection',
-          before:
-              'Caret is loose. The user double-taps within the word "World".',
+          before: 'Caret is loose. The user double-taps within the word "World".',
           after: 'The word "World" is selected. Toolbar offered to copy/cut.',
-          beforePainter: _PrivateFramePainter(
-            label: 'no selection',
-            caretIndex: 7,
-          ),
+          beforePainter: _PrivateFramePainter(label: 'no selection', caretIndex: 7),
           afterPainter: _PrivateFramePainter(
             label: 'word selected',
             caretIndex: 12,
@@ -1342,11 +1258,7 @@ Widget _privateframes() {
           title: 'Single long-tap end — toolbar',
           before: 'Magnifier still visible. Finger about to lift.',
           after: 'Magnifier dismissed. Toolbar appears at the selection.',
-          beforePainter: _PrivateFramePainter(
-            label: 'lifting',
-            caretIndex: 5,
-            magnifier: true,
-          ),
+          beforePainter: _PrivateFramePainter(label: 'lifting', caretIndex: 5, magnifier: true),
           afterPainter: _PrivateFramePainter(
             label: 'toolbar',
             caretIndex: 5,
@@ -1359,12 +1271,8 @@ Widget _privateframes() {
         _privateframe(
           title: 'Force press start (iOS) — pressure threshold',
           before: 'Light press: nothing fires.',
-          after:
-              'Pressure exceeds threshold: magnifier opens at the press point.',
-          beforePainter: _PrivateFramePainter(
-            label: 'soft press',
-            caretIndex: 9,
-          ),
+          after: 'Pressure exceeds threshold: magnifier opens at the press point.',
+          beforePainter: _PrivateFramePainter(label: 'soft press', caretIndex: 9),
           afterPainter: _PrivateFramePainter(
             label: 'force press',
             caretIndex: 9,
@@ -1378,10 +1286,7 @@ Widget _privateframes() {
           title: 'Drag selection update — mouse drag',
           before: 'Mouse pressed at column 0, no selection yet.',
           after: 'Selection extended to column 5 as the cursor drags.',
-          beforePainter: _PrivateFramePainter(
-            label: 'drag start',
-            caretIndex: 0,
-          ),
+          beforePainter: _PrivateFramePainter(label: 'drag start', caretIndex: 0),
           afterPainter: _PrivateFramePainter(
             label: 'drag updated',
             caretIndex: 5,
@@ -1401,14 +1306,7 @@ Widget _privateframes() {
 // SECTION 7 — PLATFORM TABLE
 // ============================================================================
 
-Widget _privateplatformRow(
-  String gesture,
-  String ios,
-  String android,
-  String macos,
-  String linux,
-  Color tint,
-) {
+Widget _privateplatformRow(String gesture, String ios, String android, String macos, String linux, Color tint) {
   return Container(
     decoration: BoxDecoration(
       color: tint.withValues(alpha: 0.08),
@@ -1445,7 +1343,11 @@ Widget _privateplatformCell(String text) {
     flex: 2,
     child: Text(
       text,
-      style: TextStyle(fontSize: 10.5, color: _kInkSoft, height: 1.35),
+      style: TextStyle(
+        fontSize: 10.5,
+        color: _kInkSoft,
+        height: 1.35,
+      ),
       textAlign: TextAlign.left,
     ),
   );
@@ -1457,10 +1359,7 @@ Widget _privateplatformTable() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _privatelabel(
-          'Platform comparison — what each gesture means by OS',
-          size: 16,
-        ),
+        _privatelabel('Platform comparison — what each gesture means by OS', size: 16),
         const SizedBox(height: 4),
         _privatebody(
           'Each platform routes raw input differently through the builder. '
@@ -1483,57 +1382,13 @@ Widget _privateplatformTable() {
                 flex: 3,
                 child: Text(
                   'gesture',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 11,
-                  ),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 11),
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'iOS',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Android',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'macOS',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Linux',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
+              Expanded(flex: 2, child: Text('iOS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 11))),
+              Expanded(flex: 2, child: Text('Android', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 11))),
+              Expanded(flex: 2, child: Text('macOS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 11))),
+              Expanded(flex: 2, child: Text('Linux', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 11))),
             ],
           ),
         ),
@@ -1620,135 +1475,57 @@ Widget _privatecodeListing() {
           ],
         ),
         const SizedBox(height: 12),
-        const _PrivateCodeLine(
-          '// A custom builder that auto-selects the word',
-          _kInkSoft,
-        ),
-        const _PrivateCodeLine(
-          '// on every single tap (instead of just placing the caret).',
-          _kInkSoft,
-        ),
+        const _PrivateCodeLine('// A custom builder that auto-selects the word', _kInkSoft),
+        const _PrivateCodeLine('// on every single tap (instead of just placing the caret).', _kInkSoft),
         SizedBox(height: 8),
-        const _PrivateCodeLine(
-          'class _PrivateMyGestureBuilder extends',
-          Color(0xFFFFB454),
-        ),
-        const _PrivateCodeLine(
-          '    TextSelectionGestureDetectorBuilder {',
-          Color(0xFFFFB454),
-        ),
+        const _PrivateCodeLine('class _PrivateMyGestureBuilder extends', Color(0xFFFFB454)),
+        const _PrivateCodeLine('    TextSelectionGestureDetectorBuilder {', Color(0xFFFFB454)),
         const _PrivateCodeLine('  _PrivateMyGestureBuilder({', Colors.white),
-        const _PrivateCodeLine(
-          '    required _PrivateState state,',
-          Colors.white,
-        ),
+        const _PrivateCodeLine('    required _PrivateState state,', Colors.white),
         const _PrivateCodeLine('  })  : _state = state,', Colors.white),
         const _PrivateCodeLine('        super(delegate: state);', Colors.white),
         SizedBox(height: 4),
-        const _PrivateCodeLine(
-          '  final _PrivateState _state;',
-          Color(0xFFC4F1D5),
-        ),
+        const _PrivateCodeLine('  final _PrivateState _state;', Color(0xFFC4F1D5)),
         SizedBox(height: 8),
         const _PrivateCodeLine('  @override', Color(0xFF93C5FD)),
-        const _PrivateCodeLine(
-          '  void onSingleTapUp(TapDragUpDetails details) {',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '    // 1. let the parent place the caret',
-          _kInkSoft,
-        ),
-        const _PrivateCodeLine(
-          '    super.onSingleTapUp(details);',
-          Colors.white,
-        ),
+        const _PrivateCodeLine('  void onSingleTapUp(TapDragUpDetails details) {', Colors.white),
+        const _PrivateCodeLine('    // 1. let the parent place the caret', _kInkSoft),
+        const _PrivateCodeLine('    super.onSingleTapUp(details);', Colors.white),
         SizedBox(height: 4),
-        const _PrivateCodeLine(
-          '    // 2. then auto-select the surrounding word',
-          _kInkSoft,
-        ),
-        const _PrivateCodeLine(
-          '    if (delegate.selectionEnabled) {',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '      renderEditable.selectWord(cause: SelectionChangedCause.tap);',
-          Colors.white,
-        ),
+        const _PrivateCodeLine('    // 2. then auto-select the surrounding word', _kInkSoft),
+        const _PrivateCodeLine('    if (delegate.selectionEnabled) {', Colors.white),
+        const _PrivateCodeLine('      renderEditable.selectWord(cause: SelectionChangedCause.tap);', Colors.white),
         const _PrivateCodeLine('    }', Colors.white),
         SizedBox(height: 4),
         const _PrivateCodeLine('    // 3. force the toolbar', _kInkSoft),
-        const _PrivateCodeLine(
-          '    if (shouldShowSelectionToolbar) {',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '      editableText.showToolbar();',
-          Colors.white,
-        ),
+        const _PrivateCodeLine('    if (shouldShowSelectionToolbar) {', Colors.white),
+        const _PrivateCodeLine('      editableText.showToolbar();', Colors.white),
         const _PrivateCodeLine('    }', Colors.white),
         const _PrivateCodeLine('  }', Colors.white),
         SizedBox(height: 8),
         const _PrivateCodeLine('  @override', Color(0xFF93C5FD)),
-        const _PrivateCodeLine(
-          '  void onDoubleTapDown(TapDragDownDetails details) {',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '    // already selected on single tap, so collapse here',
-          _kInkSoft,
-        ),
-        const _PrivateCodeLine(
-          '    renderEditable.handleTapDown(details: details);',
-          Colors.white,
-        ),
+        const _PrivateCodeLine('  void onDoubleTapDown(TapDragDownDetails details) {', Colors.white),
+        const _PrivateCodeLine('    // already selected on single tap, so collapse here', _kInkSoft),
+        const _PrivateCodeLine('    renderEditable.handleTapDown(details: details);', Colors.white),
         const _PrivateCodeLine('  }', Colors.white),
         SizedBox(height: 8),
         const _PrivateCodeLine('  @override', Color(0xFF93C5FD)),
-        const _PrivateCodeLine(
-          '  void onSingleLongTapStart(LongPressStartDetails details) {',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '    // disable the magnifier — show toolbar straight away',
-          _kInkSoft,
-        ),
-        const _PrivateCodeLine(
-          '    super.onSingleLongTapStart(details);',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '    editableText.hideMagnifier();',
-          Colors.white,
-        ),
+        const _PrivateCodeLine('  void onSingleLongTapStart(LongPressStartDetails details) {', Colors.white),
+        const _PrivateCodeLine('    // disable the magnifier — show toolbar straight away', _kInkSoft),
+        const _PrivateCodeLine('    super.onSingleLongTapStart(details);', Colors.white),
+        const _PrivateCodeLine('    editableText.hideMagnifier();', Colors.white),
         const _PrivateCodeLine('    editableText.showToolbar();', Colors.white),
         const _PrivateCodeLine('  }', Colors.white),
         SizedBox(height: 4),
         const _PrivateCodeLine('}', Color(0xFFFFB454)),
         SizedBox(height: 12),
         const _PrivateCodeLine('// Wire it into your widget tree:', _kInkSoft),
-        const _PrivateCodeLine(
-          'Widget build(BuildContext context) {',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '  return _builder.buildGestureDetector(',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '    behavior: HitTestBehavior.translucent,',
-          Colors.white,
-        ),
+        const _PrivateCodeLine('Widget build(BuildContext context) {', Colors.white),
+        const _PrivateCodeLine('  return _builder.buildGestureDetector(', Colors.white),
+        const _PrivateCodeLine('    behavior: HitTestBehavior.translucent,', Colors.white),
         const _PrivateCodeLine('    child: EditableText(', Colors.white),
-        const _PrivateCodeLine(
-          '      key: _state.editableTextKey,',
-          Colors.white,
-        ),
-        const _PrivateCodeLine(
-          '      controller: _state.controller,',
-          Colors.white,
-        ),
+        const _PrivateCodeLine('      key: _state.editableTextKey,', Colors.white),
+        const _PrivateCodeLine('      controller: _state.controller,', Colors.white),
         const _PrivateCodeLine('      // ...', _kInkSoft),
         const _PrivateCodeLine('    ),', Colors.white),
         const _PrivateCodeLine('  );', Colors.white),
@@ -1786,10 +1563,7 @@ class _PrivateCodeLine extends StatelessWidget {
 class _PrivateRelationPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawRect(
-      Offset.zero & size,
-      Paint()..color = const Color(0xFFFFFCF2),
-    );
+    canvas.drawRect(Offset.zero & size, Paint()..color = const Color(0xFFFFFCF2));
 
     void node(Rect r, Color color, String title, String sub) {
       canvas.drawRect(r, Paint()..color = color.withValues(alpha: 0.16));
@@ -1860,11 +1634,7 @@ class _PrivateRelationPainter extends CustomPainter {
           textDirection: TextDirection.ltr,
         )..layout();
         canvas.drawRect(
-          Rect.fromCenter(
-            center: mp,
-            width: tp.width + 8,
-            height: tp.height + 4,
-          ),
+          Rect.fromCenter(center: mp, width: tp.width + 8, height: tp.height + 4),
           Paint()..color = const Color(0xFFFFFCF2),
         );
         tp.paint(canvas, Offset(mp.dx - tp.width / 2, mp.dy - tp.height / 2));
@@ -1982,7 +1752,11 @@ Widget _privatepitfall(String title, String body, IconData icon, Color color) {
               const SizedBox(height: 4),
               Text(
                 body,
-                style: TextStyle(fontSize: 12, color: _kInkSoft, height: 1.45),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _kInkSoft,
+                  height: 1.45,
+                ),
               ),
             ],
           ),
@@ -2003,42 +1777,42 @@ Widget _privatepitfalls() {
         _privatepitfall(
           'Delegate must back the editableTextKey with a live state',
           'editableText is a getter that throws when editableTextKey.currentState is null. '
-              'Always assign the GlobalKey to the EditableText that lives inside the gesture detector.',
+          'Always assign the GlobalKey to the EditableText that lives inside the gesture detector.',
           Icons.warning_amber,
           _kAccent,
         ),
         _privatepitfall(
           'Some hooks fire only on certain platforms',
           'onForcePressStart and onForcePressEnd never fire on Android, web, '
-              'or desktop. Guard custom side-effects with delegate.forcePressEnabled.',
+          'or desktop. Guard custom side-effects with delegate.forcePressEnabled.',
           Icons.devices,
           _kAccent4,
         ),
         _privatepitfall(
           'shouldShowSelectionToolbar is a getter, not a setter',
           'Override the getter in your subclass; do not try to assign to it. '
-              'It cooperates with the EditableText’s last interaction cause.',
+          'It cooperates with the EditableText’s last interaction cause.',
           Icons.toggle_off,
           _kAccent2,
         ),
         _privatepitfall(
           'Never call setState from a handler if the field is in a stateless host',
           'These callbacks are routed through the framework’s gesture phase. '
-              'Use the EditableTextState’s methods directly — they already trigger rebuilds.',
+          'Use the EditableTextState’s methods directly — they already trigger rebuilds.',
           Icons.refresh,
           _kAccent3,
         ),
         _privatepitfall(
           'super calls matter',
           'Most defaults handle keyboard requests, magnifier, and toolbar. '
-              'Calling super first and then customising is almost always the right order.',
+          'Calling super first and then customising is almost always the right order.',
           Icons.layers,
           _kCursor,
         ),
         _privatepitfall(
           'Triple-tap is platform-defined, not a separate hook',
           'Triple-tap is detected inside the underlying detector and routed back '
-              'through onSingleTapUp with a different cause. Inspect the details.',
+          'through onSingleTapUp with a different cause. Inspect the details.',
           Icons.replay,
           _kAccent,
         ),

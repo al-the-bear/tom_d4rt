@@ -176,7 +176,11 @@ Widget buildHero() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[kTidepoolDeep, kTidepoolTeal, kTidepoolKelp],
+        colors: <Color>[
+          kTidepoolDeep,
+          kTidepoolTeal,
+          kTidepoolKelp,
+        ],
         stops: <double>[0.0, 0.55, 1.0],
       ),
       borderRadius: BorderRadius.circular(20.0),
@@ -208,7 +212,11 @@ Widget buildHero() {
                   ),
                 ],
               ),
-              child: const Icon(Icons.restore, color: Colors.white, size: 38.0),
+              child: const Icon(
+                Icons.restore,
+                color: Colors.white,
+                size: 38.0,
+              ),
             ),
             const SizedBox(width: 18.0),
             Expanded(
@@ -268,7 +276,9 @@ Widget buildHero() {
           decoration: BoxDecoration(
             color: kTidepoolFoam.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: kTidepoolSand.withValues(alpha: 0.30)),
+            border: Border.all(
+              color: kTidepoolSand.withValues(alpha: 0.30),
+            ),
           ),
           child: const Text(
             'Flutter\'s state restoration framework lets your widget tree '
@@ -381,7 +391,10 @@ Widget buildPitch() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: kTidepoolCoral,
             borderRadius: BorderRadius.circular(8.0),
@@ -405,39 +418,43 @@ Widget buildPitch() {
           'expects to find their cursor exactly where they left it. '
           'Without restoration, every input field, scroll position, and '
           'navigator route is gone.',
-          style: TextStyle(fontSize: 13.5, height: 1.55, color: kTidepoolInk),
+          style: TextStyle(
+            fontSize: 13.5,
+            height: 1.55,
+            color: kTidepoolInk,
+          ),
         ),
         const SizedBox(height: 16.0),
         pitchBullet(
           Icons.memory,
           'Process death is silent',
           'Unlike orientation changes, the process is killed without a '
-              'lifecycle warning. Only the OS-managed restoration bucket '
-              'survives.',
+          'lifecycle warning. Only the OS-managed restoration bucket '
+          'survives.',
           kTidepoolCoral,
         ),
         pitchBullet(
           Icons.account_tree,
           'Tree-shaped restoration data',
           'Each RestorationScope owns a bucket; child scopes own '
-              'sub-buckets. The shape mirrors your widget tree so each '
-              'state piece can find its slot.',
+          'sub-buckets. The shape mirrors your widget tree so each '
+          'state piece can find its slot.',
           kTidepoolTeal,
         ),
         pitchBullet(
           Icons.fingerprint,
           'Stable IDs are mandatory',
           'A scope or value must have a non-null restorationId for the '
-              'platform to know where to write its bytes. A null id quietly '
-              'disables restoration for that subtree.',
+          'platform to know where to write its bytes. A null id quietly '
+          'disables restoration for that subtree.',
           kTidepoolKelp,
         ),
         pitchBullet(
           Icons.shield_outlined,
           'Only primitives travel',
           'Buckets store StandardMessageCodec-compatible values: '
-              'numbers, strings, bools, lists, maps. Complex objects must '
-              'be serialized to and from these primitives.',
+          'numbers, strings, bools, lists, maps. Complex objects must '
+          'be serialized to and from these primitives.',
           kTidepoolDriftwood,
         ),
       ],
@@ -461,11 +478,17 @@ Widget treeNode(
         Container(
           width: 10.0,
           height: 10.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 8.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 8.0,
+          ),
           decoration: BoxDecoration(
             color: isLeaf ? Colors.white : color.withValues(alpha: 0.14),
             borderRadius: BorderRadius.circular(8.0),
@@ -556,7 +579,12 @@ Widget buildTreeSchematic() {
           0.0,
           isRoot: true,
         ),
-        treeNode('RestorationScope', 'home', kTidepoolTeal, 24.0),
+        treeNode(
+          'RestorationScope',
+          'home',
+          kTidepoolTeal,
+          24.0,
+        ),
         treeNode(
           'RestorableTextEditingController',
           'name',
@@ -578,7 +606,12 @@ Widget buildTreeSchematic() {
           48.0,
           isLeaf: true,
         ),
-        treeNode('RestorationScope', 'detail', kTidepoolTeal, 24.0),
+        treeNode(
+          'RestorationScope',
+          'detail',
+          kTidepoolTeal,
+          24.0,
+        ),
         treeNode(
           'RestorableEnum',
           'sort_mode',
@@ -593,7 +626,12 @@ Widget buildTreeSchematic() {
           48.0,
           isLeaf: true,
         ),
-        treeNode('RestorationScope', 'editor', kTidepoolTeal, 48.0),
+        treeNode(
+          'RestorationScope',
+          'editor',
+          kTidepoolTeal,
+          48.0,
+        ),
         treeNode(
           'RestorableString',
           'draft',
@@ -619,7 +657,11 @@ Widget buildTreeSchematic() {
             'Read this as a path: app/home/name, app/home/detail/editor/draft. '
             'Those exact strings are how the platform finds bytes after a '
             'cold relaunch.',
-            style: TextStyle(fontSize: 12.0, color: kTidepoolInk, height: 1.45),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: kTidepoolInk,
+              height: 1.45,
+            ),
           ),
         ),
       ],
@@ -683,7 +725,10 @@ Widget restorableCard({
         ),
         const SizedBox(height: 12.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 6.0,
+          ),
           width: double.infinity,
           decoration: BoxDecoration(
             color: kTidepoolMist,
@@ -811,8 +856,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableInt',
               initial: '0',
-              use:
-                  'Counters, indexes, page numbers — anything that maps '
+              use: 'Counters, indexes, page numbers — anything that maps '
                   'to a single int.',
               icon: Icons.looks_one,
               accent: kTidepoolTeal,
@@ -820,8 +864,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableDouble',
               initial: '0.0',
-              use:
-                  'Sliders, zoom factors, scroll offsets, animation '
+              use: 'Sliders, zoom factors, scroll offsets, animation '
                   'positions saved as a double.',
               icon: Icons.linear_scale,
               accent: kTidepoolCoral,
@@ -829,8 +872,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableString',
               initial: '""',
-              use:
-                  'Search queries, filter strings, draft titles, any '
+              use: 'Search queries, filter strings, draft titles, any '
                   'short non-controller text.',
               icon: Icons.text_fields,
               accent: kTidepoolKelp,
@@ -838,8 +880,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableBool',
               initial: 'false',
-              use:
-                  'Toggle switches, expansion flags, "do not show '
+              use: 'Toggle switches, expansion flags, "do not show '
                   'again" preferences.',
               icon: Icons.toggle_on,
               accent: kTidepoolDriftwood,
@@ -847,8 +888,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableNum<num>',
               initial: '0',
-              use:
-                  'Generic numeric storage where int/double dynamic — '
+              use: 'Generic numeric storage where int/double dynamic — '
                   'rarely needed directly.',
               icon: Icons.calculate,
               accent: kTidepoolStorm,
@@ -856,8 +896,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableNumN<num>',
               initial: 'null',
-              use:
-                  'Nullable numeric value. The trailing N marks "may '
+              use: 'Nullable numeric value. The trailing N marks "may '
                   'be null" — distinguishes from RestorableNum.',
               icon: Icons.do_not_disturb_alt,
               accent: kTidepoolAlgae,
@@ -865,8 +904,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableDateTime',
               initial: 'epoch',
-              use:
-                  'Timestamps, scheduled dates, last-modified anchors. '
+              use: 'Timestamps, scheduled dates, last-modified anchors. '
                   'Stored as int millis under the hood.',
               icon: Icons.calendar_today,
               accent: kTidepoolDeep,
@@ -874,8 +912,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableEnum<E>',
               initial: 'enum.values[0]',
-              use:
-                  'Persists an enum constant by name. Must declare the '
+              use: 'Persists an enum constant by name. Must declare the '
                   'full enum.values list to the constructor.',
               icon: Icons.list_alt,
               accent: kTidepoolCoral,
@@ -883,8 +920,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableTextEditingController',
               initial: '"" controller',
-              use:
-                  'Owns a TextEditingController and saves its text. '
+              use: 'Owns a TextEditingController and saves its text. '
                   'Use registerForRestoration in a stateful host.',
               icon: Icons.edit_note,
               accent: kTidepoolTeal,
@@ -892,8 +928,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableRouteFuture<T>',
               initial: 'route key',
-              use:
-                  'Survives a pushed route across restoration so the '
+              use: 'Survives a pushed route across restoration so the '
                   'caller can still receive the dialog result.',
               icon: Icons.alt_route,
               accent: kTidepoolKelp,
@@ -901,8 +936,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableIntN',
               initial: 'null',
-              use:
-                  'Nullable int. Useful when "no selection yet" must '
+              use: 'Nullable int. Useful when "no selection yet" must '
                   'survive restart.',
               icon: Icons.help_outline,
               accent: kTidepoolDriftwood,
@@ -910,8 +944,7 @@ Widget buildRestorableGallery() {
             restorableCard(
               type: 'RestorableDoubleN',
               initial: 'null',
-              use:
-                  'Nullable double. Same idea as IntN for floating '
+              use: 'Nullable double. Same idea as IntN for floating '
                   'point values.',
               icon: Icons.percent,
               accent: kTidepoolStorm,
@@ -924,7 +957,9 @@ Widget buildRestorableGallery() {
           decoration: BoxDecoration(
             color: kTidepoolMist,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: kTidepoolTeal.withValues(alpha: 0.30)),
+            border: Border.all(
+              color: kTidepoolTeal.withValues(alpha: 0.30),
+            ),
           ),
           child: Text(
             log,
@@ -982,7 +1017,10 @@ Widget timelineStep({
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: <Color>[color, color.withValues(alpha: 0.20)],
+                      colors: <Color>[
+                        color,
+                        color.withValues(alpha: 0.20),
+                      ],
                     ),
                   ),
                 ),
@@ -1095,8 +1133,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '01',
           title: 'App is running',
-          description:
-              'The widget tree is alive. Restorable* values are '
+          description: 'The widget tree is alive. Restorable* values are '
               'registered with their RestorationMixin host and tracked '
               'inside the relevant RestorationBucket.',
           icon: Icons.play_arrow,
@@ -1106,8 +1143,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '02',
           title: 'App goes to background',
-          description:
-              'User switches apps or the screen turns off. '
+          description: 'User switches apps or the screen turns off. '
               'Flutter signals the engine; the engine asks the platform '
               'channel for a serialization pass.',
           icon: Icons.pause,
@@ -1117,8 +1153,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '03',
           title: 'Bucket serialized',
-          description:
-              'Each Restorable value writes its current value '
+          description: 'Each Restorable value writes its current value '
               'into its slot. Buckets become a tree of maps that the '
               'StandardMessageCodec encodes to bytes.',
           icon: Icons.save,
@@ -1128,8 +1163,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '04',
           title: 'OS hands bytes to platform store',
-          description:
-              'On Android the bytes ride along with the '
+          description: 'On Android the bytes ride along with the '
               'Activity bundle; on iOS they are stored against the '
               'state-restoration archive identifier.',
           icon: Icons.storage,
@@ -1139,8 +1173,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '05',
           title: 'Process killed',
-          description:
-              'Memory is reclaimed. All Dart objects, all '
+          description: 'Memory is reclaimed. All Dart objects, all '
               'Flutter widgets, all Restorable values are gone. Only '
               'the serialized bucket survives in the platform layer.',
           icon: Icons.power_settings_new,
@@ -1150,8 +1183,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '06',
           title: 'User relaunches',
-          description:
-              'The OS rebuilds the activity, hands the saved '
+          description: 'The OS rebuilds the activity, hands the saved '
               'bytes back to Flutter as the initial restoration data, '
               'and the engine signals "have a bucket, please rebuild".',
           icon: Icons.refresh,
@@ -1161,8 +1193,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '07',
           title: 'RootRestorationScope claims it',
-          description:
-              'The RootRestorationScope at the top of the tree '
+          description: 'The RootRestorationScope at the top of the tree '
               'takes the deserialized bucket and exposes it via '
               'UnmanagedRestorationScope to its descendants.',
           icon: Icons.account_tree,
@@ -1172,8 +1203,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '08',
           title: 'Each RestorationScope finds its slot',
-          description:
-              'Children look up their restorationId inside the '
+          description: 'Children look up their restorationId inside the '
               'parent bucket. Missing ids mean "fresh state". Found ids '
               'feed values back into their Restorable* objects.',
           icon: Icons.search,
@@ -1183,8 +1213,7 @@ Widget buildLifecycle() {
         timelineStep(
           index: '09',
           title: 'State restored',
-          description:
-              'Every Restorable* delivers its prior value. '
+          description: 'Every Restorable* delivers its prior value. '
               'TextEditingControllers re-show their text, sliders snap '
               'back, expanded panels stay expanded. The user notices '
               'nothing.',
@@ -1290,33 +1319,25 @@ Widget buildMixinCodeCard() {
           ],
         ),
         const SizedBox(height: 14.0),
-        codeLine(
-          '// The classic RestorationMixin pattern.',
-          color: kTidepoolSand.withValues(alpha: 0.75),
-        ),
-        codeLine(
-          '// Shown as a string literal — this demo never',
-          color: kTidepoolSand.withValues(alpha: 0.75),
-        ),
-        codeLine(
-          '// subclasses State or mixes in RestorationMixin.',
-          color: kTidepoolSand.withValues(alpha: 0.75),
-        ),
+        codeLine('// The classic RestorationMixin pattern.',
+            color: kTidepoolSand.withValues(alpha: 0.75)),
+        codeLine('// Shown as a string literal — this demo never',
+            color: kTidepoolSand.withValues(alpha: 0.75)),
+        codeLine('// subclasses State or mixes in RestorationMixin.',
+            color: kTidepoolSand.withValues(alpha: 0.75)),
         const SizedBox(height: 6.0),
         codeLine('class _CounterPageState extends State<CounterPage>'),
         codeLine('    with RestorationMixin {'),
-        codeLine(
-          '  final RestorableInt _count = RestorableInt(0);',
-          color: kTidepoolFoam,
-        ),
-        codeLine('  final RestorableString _label =', color: kTidepoolFoam),
+        codeLine('  final RestorableInt _count = RestorableInt(0);',
+            color: kTidepoolFoam),
+        codeLine('  final RestorableString _label =',
+            color: kTidepoolFoam),
         codeLine('      RestorableString(\'\');', color: kTidepoolFoam),
         const SizedBox(height: 6.0),
-        codeLine('  @override', color: kTidepoolAlgae),
-        codeLine(
-          '  String get restorationId => \'counter_page\';',
-          color: kTidepoolFoam,
-        ),
+        codeLine('  @override',
+            color: kTidepoolAlgae),
+        codeLine('  String get restorationId => \'counter_page\';',
+            color: kTidepoolFoam),
         const SizedBox(height: 6.0),
         codeLine('  @override', color: kTidepoolAlgae),
         codeLine('  void restoreState('),
@@ -1374,7 +1395,10 @@ Widget bucketBlock(
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.10),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: color, width: isRoot ? 2.5 : 1.5),
+      border: Border.all(
+        color: color,
+        width: isRoot ? 2.5 : 1.5,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1548,7 +1572,10 @@ Widget compareCell(String text, {bool header = false, Color? bg}) {
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
     decoration: BoxDecoration(
       color: bg ?? (header ? kTidepoolDeep : Colors.white),
-      border: Border.all(color: kTidepoolMist, width: 1.0),
+      border: Border.all(
+        color: kTidepoolMist,
+        width: 1.0,
+      ),
     ),
     child: Text(
       text,
@@ -1619,60 +1646,75 @@ Widget buildComparisonTable() {
           borderRadius: BorderRadius.circular(10.0),
           child: Column(
             children: <Widget>[
-              row(<String>[
-                'Aspect',
-                'RestorableValue<T>',
-                'ValueNotifier<T>',
-                'ChangeNotifier',
-              ], header: true),
+              row(
+                <String>[
+                  'Aspect',
+                  'RestorableValue<T>',
+                  'ValueNotifier<T>',
+                  'ChangeNotifier',
+                ],
+                header: true,
+              ),
               row(<String>[
                 'Survives process death',
                 'Yes — registered with bucket',
                 'No — pure Dart object',
                 'No — pure Dart object',
               ]),
-              row(<String>[
-                'Has a value',
-                'Yes — typed T',
-                'Yes — typed T',
-                'No — bring your own',
-              ], bg: kTidepoolMist),
+              row(
+                <String>[
+                  'Has a value',
+                  'Yes — typed T',
+                  'Yes — typed T',
+                  'No — bring your own',
+                ],
+                bg: kTidepoolMist,
+              ),
               row(<String>[
                 'Notifies listeners',
                 'Yes (via Listenable)',
                 'Yes',
                 'Yes (manual notifyListeners)',
               ]),
-              row(<String>[
-                'Requires restorationId',
-                'Yes — at register time',
-                'No',
-                'No',
-              ], bg: kTidepoolMist),
+              row(
+                <String>[
+                  'Requires restorationId',
+                  'Yes — at register time',
+                  'No',
+                  'No',
+                ],
+                bg: kTidepoolMist,
+              ),
               row(<String>[
                 'Disposed by host',
                 'Yes — must call .dispose()',
                 'Yes',
                 'Yes',
               ]),
-              row(<String>[
-                'Serialization codec',
-                'StandardMessageCodec',
-                'n/a',
-                'n/a',
-              ], bg: kTidepoolMist),
+              row(
+                <String>[
+                  'Serialization codec',
+                  'StandardMessageCodec',
+                  'n/a',
+                  'n/a',
+                ],
+                bg: kTidepoolMist,
+              ),
               row(<String>[
                 'Initial value source',
                 'Constructor or restored bucket',
                 'Constructor only',
                 'Constructor only',
               ]),
-              row(<String>[
-                'Typical owner',
-                'RestorationMixin host',
-                'StatefulWidget',
-                'StatefulWidget',
-              ], bg: kTidepoolMist),
+              row(
+                <String>[
+                  'Typical owner',
+                  'RestorationMixin host',
+                  'StatefulWidget',
+                  'StatefulWidget',
+                ],
+                bg: kTidepoolMist,
+              ),
               row(<String>[
                 'Restoration scope',
                 'Tied to bucket lookup',
@@ -1753,44 +1795,44 @@ Widget buildReference() {
         referenceRow(
           'RestorationScope',
           'Inserts a named restoration bucket as a child of the surrounding '
-              'scope. Use restorationId to pick the slot inside the parent '
-              'bucket.',
+          'scope. Use restorationId to pick the slot inside the parent '
+          'bucket.',
           Icons.account_tree_outlined,
         ),
         referenceRow(
           'RootRestorationScope',
           'Top-of-tree variant that gathers the initial bucket from the '
-              'engine. Place it once near MaterialApp.',
+          'engine. Place it once near MaterialApp.',
           Icons.flag_outlined,
         ),
         referenceRow(
           'UnmanagedRestorationScope',
           'Inserts a bucket directly without claiming a slot. Useful when '
-              'the bucket is owned externally — for example by a route.',
+          'the bucket is owned externally — for example by a route.',
           Icons.layers_outlined,
         ),
         referenceRow(
           'RestorationBucket',
           'Container of (values, children). Buckets can be claimed, '
-              'renamed, and adopted. Buckets are not widgets.',
+          'renamed, and adopted. Buckets are not widgets.',
           Icons.inbox,
         ),
         referenceRow(
           'RestorationMixin',
           'State mixin that hosts Restorable* fields. Provides '
-              'restorationId, restoreState, and registerForRestoration.',
+          'restorationId, restoreState, and registerForRestoration.',
           Icons.extension_outlined,
         ),
         referenceRow(
           'RestorableValue<T>',
           'Abstract base for serializable, listenable, restorable values. '
-              'Demo runtime uses concrete subclasses only.',
+          'Demo runtime uses concrete subclasses only.',
           Icons.functions,
         ),
         referenceRow(
           'RestorableProperty<T>',
           'Even more abstract base used by the controller variants. Holds '
-              'a property without exposing it via .value.',
+          'a property without exposing it via .value.',
           Icons.settings_ethernet,
         ),
         referenceRow(
@@ -1816,13 +1858,13 @@ Widget buildReference() {
         referenceRow(
           'RestorableNum<T extends num>',
           'Numeric value parameterized by num subtype. Picks codec based '
-              'on actual runtime type.',
+          'on actual runtime type.',
           Icons.calculate,
         ),
         referenceRow(
           'RestorableNumN<T extends num?>',
           'Nullable numeric value. Convenient when "no number yet" is '
-              'meaningful state.',
+          'meaningful state.',
           Icons.do_not_disturb_alt,
         ),
         referenceRow(
@@ -1833,7 +1875,7 @@ Widget buildReference() {
         referenceRow(
           'RestorableStringN',
           'Nullable RestorableValue<String?>. Disambiguates "empty" from '
-              '"unset".',
+          '"unset".',
           Icons.text_format,
         ),
         referenceRow(
@@ -1854,7 +1896,7 @@ Widget buildReference() {
         referenceRow(
           'RestorableEnum<E extends Enum>',
           'Stores an enum constant by name; constructor needs the full '
-              'values list to look it back up.',
+          'values list to look it back up.',
           Icons.list_alt,
         ),
         referenceRow(
@@ -1865,26 +1907,26 @@ Widget buildReference() {
         referenceRow(
           'RestorableTextEditingController',
           'Wraps a TextEditingController and persists its text. Created '
-              'via RestorableTextEditingController(text: ...).',
+          'via RestorableTextEditingController(text: ...).',
           Icons.edit_note,
         ),
         referenceRow(
           'RestorableRouteFuture<T>',
           'Persists a pushed Navigator route across restoration so the '
-              'eventual result still reaches the caller.',
+          'eventual result still reaches the caller.',
           Icons.alt_route,
         ),
         referenceRow(
           'RestorableListenable<T>',
           'Internal helper for property-style restorables; rarely used '
-              'directly outside the framework.',
+          'directly outside the framework.',
           Icons.podcasts,
         ),
         referenceRow(
           'RestorationManager',
           'The bridge to the platform channel. Surfaces the root bucket '
-              'and reports updates back. Lives behind '
-              'WidgetsBinding.instance.restorationManager.',
+          'and reports updates back. Lives behind '
+          'WidgetsBinding.instance.restorationManager.',
           Icons.settings_input_component,
         ),
       ],
@@ -1975,8 +2017,7 @@ Widget buildEdgeCases() {
           children: <Widget>[
             edgeCard(
               title: 'Null restorationId disables it',
-              body:
-                  'A RestorationScope with a null restorationId becomes a '
+              body: 'A RestorationScope with a null restorationId becomes a '
                   'pass-through. Children that look for a bucket get '
                   'nothing back. Restoration silently turns off for that '
                   'subtree.',
@@ -1985,8 +2026,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Conflicting restorationIds',
-              body:
-                  'Two siblings sharing one id corrupt their shared slot. '
+              body: 'Two siblings sharing one id corrupt their shared slot. '
                   'Flutter asserts in debug; in release the second sibling '
                   'overwrites the first.',
               icon: Icons.warning_amber_rounded,
@@ -1994,8 +2034,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Renaming an id breaks history',
-              body:
-                  'Restoration data is keyed by id, so renaming after a '
+              body: 'Restoration data is keyed by id, so renaming after a '
                   'release means existing users come back to a fresh '
                   'state for that field. Treat ids as a public contract.',
               icon: Icons.history,
@@ -2003,8 +2042,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Forgetting to dispose',
-              body:
-                  'Restorable* objects own listeners. Always call '
+              body: 'Restorable* objects own listeners. Always call '
                   '.dispose() in your State.dispose() or you leak the '
                   'subscription back to the bucket.',
               icon: Icons.delete_outline,
@@ -2012,8 +2050,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'No RootRestorationScope',
-              body:
-                  'Without one near the top of the tree the framework '
+              body: 'Without one near the top of the tree the framework '
                   'never receives the initial bucket. Children built '
                   'without a root scope behave as if restoration is off.',
               icon: Icons.flag_outlined,
@@ -2021,8 +2058,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'restorationScopeId on MaterialApp',
-              body:
-                  'Setting MaterialApp.restorationScopeId is the easiest '
+              body: 'Setting MaterialApp.restorationScopeId is the easiest '
                   'way to install a RootRestorationScope; you do not '
                   'usually wire one by hand.',
               icon: Icons.app_settings_alt,
@@ -2030,8 +2066,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Big payloads are bad',
-              body:
-                  'Buckets are not designed for blobs. If you stash an '
+              body: 'Buckets are not designed for blobs. If you stash an '
                   'image or a long text into a Restorable*, expect slow '
                   'serialization and OS-imposed size caps.',
               icon: Icons.warning,
@@ -2039,8 +2074,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Async values',
-              body:
-                  'A RestorableValue resolves synchronously. If your '
+              body: 'A RestorableValue resolves synchronously. If your '
                   'real state is async, persist a small token and re-fetch '
                   'on relaunch using that token.',
               icon: Icons.hourglass_empty,
@@ -2048,8 +2082,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Hot reload vs restoration',
-              body:
-                  'Hot reload preserves Dart objects and never goes '
+              body: 'Hot reload preserves Dart objects and never goes '
                   'through the bucket. Test restoration by killing the '
                   'process, not by reloading.',
               icon: Icons.local_fire_department,
@@ -2057,8 +2090,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Restoration is opt-in',
-              body:
-                  'Even with all scopes wired, a Restorable* that is '
+              body: 'Even with all scopes wired, a Restorable* that is '
                   'never registered behaves as a plain notifier. Always '
                   'pair construction with registerForRestoration.',
               icon: Icons.toggle_off,
@@ -2066,8 +2098,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Nested scopes are namespaces',
-              body:
-                  'A RestorationScope inside another scope adds its '
+              body: 'A RestorationScope inside another scope adds its '
                   'restorationId as a path component. Same id at '
                   'different depths is fine.',
               icon: Icons.layers,
@@ -2075,8 +2106,7 @@ Widget buildEdgeCases() {
             ),
             edgeCard(
               title: 'Values must be codec-friendly',
-              body:
-                  'Maps, Lists, ints, doubles, bools, strings, '
+              body: 'Maps, Lists, ints, doubles, bools, strings, '
                   'Uint8List, ByteData. A custom class will throw at '
                   'serialization time.',
               icon: Icons.code,
@@ -2149,13 +2179,11 @@ Widget buildConstructionProbes() {
       restorationId: 'probe_scope',
       child: SizedBox.shrink(),
     );
-    rows.add(
-      probeRow(
-        'RestorationScope',
-        'constructed (id=probe_scope, runtimeType=${scope.runtimeType})',
-        true,
-      ),
-    );
+    rows.add(probeRow(
+      'RestorationScope',
+      'constructed (id=probe_scope, runtimeType=${scope.runtimeType})',
+      true,
+    ));
   } catch (e) {
     rows.add(probeRow('RestorationScope', 'threw: $e', false));
   }
@@ -2166,13 +2194,11 @@ Widget buildConstructionProbes() {
       restorationId: 'probe_root',
       child: SizedBox.shrink(),
     );
-    rows.add(
-      probeRow(
-        'RootRestorationScope',
-        'constructed (id=probe_root, runtimeType=${root.runtimeType})',
-        true,
-      ),
-    );
+    rows.add(probeRow(
+      'RootRestorationScope',
+      'constructed (id=probe_root, runtimeType=${root.runtimeType})',
+      true,
+    ));
   } catch (e) {
     rows.add(probeRow('RootRestorationScope', 'threw: $e', false));
   }
@@ -2182,17 +2208,16 @@ Widget buildConstructionProbes() {
   try {
     // Bucket can legitimately be null; we pass null to avoid touching the
     // RestorationManager from a top-level demo.
-    final UnmanagedRestorationScope unmanaged = const UnmanagedRestorationScope(
+    final UnmanagedRestorationScope unmanaged =
+        const UnmanagedRestorationScope(
       bucket: null,
       child: SizedBox.shrink(),
     );
-    rows.add(
-      probeRow(
-        'UnmanagedRestorationScope',
-        'constructed (bucket=null, runtimeType=${unmanaged.runtimeType})',
-        true,
-      ),
-    );
+    rows.add(probeRow(
+      'UnmanagedRestorationScope',
+      'constructed (bucket=null, runtimeType=${unmanaged.runtimeType})',
+      true,
+    ));
   } catch (e) {
     rows.add(probeRow('UnmanagedRestorationScope', 'threw: $e', false));
   }
@@ -2235,14 +2260,14 @@ Widget buildConstructionProbes() {
     rows.add(probeRow('RestorableNumN<num>', 'threw: $e', false));
   }
   try {
-    final RestorableDateTime v = RestorableDateTime(DateTime.utc(2026, 5, 5));
-    rows.add(
-      probeRow(
-        'RestorableDateTime',
-        'value=${v.value.toIso8601String()}',
-        true,
-      ),
+    final RestorableDateTime v = RestorableDateTime(
+      DateTime.utc(2026, 5, 5),
     );
+    rows.add(probeRow(
+      'RestorableDateTime',
+      'value=${v.value.toIso8601String()}',
+      true,
+    ));
   } catch (e) {
     rows.add(probeRow('RestorableDateTime', 'threw: $e', false));
   }
@@ -2250,13 +2275,11 @@ Widget buildConstructionProbes() {
   // RestorationManager — read-only sanity probe; do not touch buckets.
   try {
     final RestorationManager manager = RestorationManager();
-    rows.add(
-      probeRow(
-        'RestorationManager',
-        'constructed (runtimeType=${manager.runtimeType})',
-        true,
-      ),
-    );
+    rows.add(probeRow(
+      'RestorationManager',
+      'constructed (runtimeType=${manager.runtimeType})',
+      true,
+    ));
   } catch (e) {
     rows.add(probeRow('RestorationManager', 'threw: $e', false));
   }
@@ -2344,25 +2367,30 @@ Widget buildFooter() {
         _footerBullet(
           '01',
           'Identify boundaries with restorationId. A RestorationScope '
-              'is meaningless without one.',
+          'is meaningless without one.',
         ),
         _footerBullet(
           '02',
           'Use concrete Restorable* types. They already wire the codec, '
-              'the listener plumbing, and the value getter for you.',
+          'the listener plumbing, and the value getter for you.',
         ),
         _footerBullet(
           '03',
           'Treat ids as a versioned schema. Renames break existing '
-              'users. Add new ids next to old ones, do not replace them.',
+          'users. Add new ids next to old ones, do not replace them.',
         ),
         const SizedBox(height: 18.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: kTidepoolTeal.withValues(alpha: 0.40),
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: kTidepoolSand.withValues(alpha: 0.40)),
+            border: Border.all(
+              color: kTidepoolSand.withValues(alpha: 0.40),
+            ),
           ),
           child: const Text(
             'demo: restoration_scope_test.dart  -  palette: Tidepool',
@@ -2387,7 +2415,10 @@ Widget _footerBullet(String num, String text) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+            vertical: 4.0,
+          ),
           decoration: BoxDecoration(
             color: kTidepoolCoral,
             borderRadius: BorderRadius.circular(5.0),
@@ -2425,10 +2456,8 @@ dynamic build(BuildContext context) {
   // Pre-build sanity log (kept for parity with the existing harness style).
   print('RestorationScope deep demo executing');
   print('--- palette: Tidepool ---');
-  print(
-    'sections: hero, pitch, tree, gallery, lifecycle, code-card, '
-    'bucket, comparison, reference, edge-cases, probes, footer',
-  );
+  print('sections: hero, pitch, tree, gallery, lifecycle, code-card, '
+      'bucket, comparison, reference, edge-cases, probes, footer');
 
   // A risky bridged construction up front, wrapped so the demo never
   // fails to render even if something is missing in the bridge.
@@ -2447,7 +2476,10 @@ dynamic build(BuildContext context) {
     backgroundColor: kTidepoolMist,
     body: SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 24.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 18.0,
+          vertical: 24.0,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[

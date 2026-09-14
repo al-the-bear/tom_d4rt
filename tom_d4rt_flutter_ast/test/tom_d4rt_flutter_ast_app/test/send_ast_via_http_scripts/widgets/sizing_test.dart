@@ -64,9 +64,8 @@ dynamic build(BuildContext context) {
   final BoxConstraints anchorTight = BoxConstraints.tight(const Size(120, 80));
   final BoxConstraints anchorLoose = BoxConstraints.loose(const Size(240, 160));
   final BoxConstraints anchorExpand = const BoxConstraints.expand();
-  final BoxConstraints anchorTightForFinite = BoxConstraints.tightForFinite(
-    width: 200,
-  );
+  final BoxConstraints anchorTightForFinite =
+      BoxConstraints.tightForFinite(width: 200);
 
   print('--- Anchor constraints constructed ---');
   print('tight   = $anchorTight');
@@ -94,12 +93,8 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          _section0Anchors(
-            anchorTight,
-            anchorLoose,
-            anchorExpand,
-            anchorTightForFinite,
-          ),
+          _section0Anchors(anchorTight, anchorLoose, anchorExpand,
+              anchorTightForFinite),
           const SizedBox(height: 28),
           _section1Banner(),
           const SizedBox(height: 28),
@@ -492,13 +487,14 @@ Widget _anatomyNode(_Node n) {
 }
 
 Widget _anatomyArrow(String direction) {
-  final IconData icon = direction == 'down'
-      ? Icons.arrow_forward
-      : Icons.arrow_back;
+  final IconData icon =
+      direction == 'down' ? Icons.arrow_forward : Icons.arrow_back;
   final Color color = direction == 'down' ? _kInkBlue : _kAccentRust;
   return SizedBox(
     width: 28,
-    child: Center(child: Icon(icon, color: color, size: 22)),
+    child: Center(
+      child: Icon(icon, color: color, size: 22),
+    ),
   );
 }
 
@@ -520,14 +516,26 @@ Widget _section3ConstrainedBoxGallery() {
   print('=== Section 3: ConstrainedBox gallery ===');
 
   final List<_CGItem> items = <_CGItem>[
-    _CGItem('minWidth 60', const BoxConstraints(minWidth: 60), _kAccentRust),
-    _CGItem('minWidth 140', const BoxConstraints(minWidth: 140), _kAccentMoss),
+    _CGItem(
+      'minWidth 60',
+      const BoxConstraints(minWidth: 60),
+      _kAccentRust,
+    ),
+    _CGItem(
+      'minWidth 140',
+      const BoxConstraints(minWidth: 140),
+      _kAccentMoss,
+    ),
     _CGItem(
       'minHeight 60',
       const BoxConstraints(minHeight: 60),
       _kBlueprintCyan,
     ),
-    _CGItem('maxWidth 80', const BoxConstraints(maxWidth: 80), _kInkBlue),
+    _CGItem(
+      'maxWidth 80',
+      const BoxConstraints(maxWidth: 80),
+      _kInkBlue,
+    ),
     _CGItem(
       'tight 100x40',
       BoxConstraints.tight(const Size(100, 40)),
@@ -543,8 +551,7 @@ Widget _section3ConstrainedBoxGallery() {
   print('Building ${items.length} ConstrainedBox cards.');
   for (var i = 0; i < items.length; i++) {
     print(
-      '  card[$i] label=${items[i].label}  constraints=${items[i].constraints}',
-    );
+        '  card[$i] label=${items[i].label}  constraints=${items[i].constraints}');
   }
 
   final List<Widget> cards = <Widget>[];
@@ -555,7 +562,11 @@ Widget _section3ConstrainedBoxGallery() {
   return _platePanel(
     title: '3. ConstrainedBox gallery',
     subtitle: 'Same child, six different contracts.',
-    body: Wrap(spacing: 14, runSpacing: 14, children: cards),
+    body: Wrap(
+      spacing: 14,
+      runSpacing: 14,
+      children: cards,
+    ),
   );
 }
 
@@ -636,7 +647,10 @@ Widget _constrainedCard(_CGItem item, int index) {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: <Color>[item.color, item.color.withOpacity(0.55)],
+                    colors: <Color>[
+                      item.color,
+                      item.color.withOpacity(0.55),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                   boxShadow: <BoxShadow>[
@@ -740,10 +754,9 @@ Widget _section4IntrinsicComparison() {
                     _intrinsicCell('Short', 0, _kBlueprintCyan),
                     const SizedBox(width: 6),
                     _intrinsicCell(
-                      'Medium-ish content goes here for height',
-                      1,
-                      _kAccentMoss,
-                    ),
+                        'Medium-ish content goes here for height',
+                        1,
+                        _kAccentMoss),
                     const SizedBox(width: 6),
                     _intrinsicCell('Tiny', 2, _kAccentRust),
                   ],
@@ -884,7 +897,11 @@ Widget _section5FittedBoxGallery() {
   return _platePanel(
     title: '5. FittedBox -- every BoxFit',
     subtitle: 'Same 200x80 banner squeezed into a 130x90 slot.',
-    body: Wrap(spacing: 14, runSpacing: 14, children: cards),
+    body: Wrap(
+      spacing: 14,
+      runSpacing: 14,
+      children: cards,
+    ),
   );
 }
 
@@ -954,7 +971,11 @@ Widget _fittedSampleBanner(int idx) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[_kBlueprintCyan, _kInkBlue, _kBlueprintLight],
+        colors: <Color>[
+          _kBlueprintCyan,
+          _kInkBlue,
+          _kBlueprintLight,
+        ],
         stops: <double>[0.0, 0.5, 1.0],
       ),
       borderRadius: BorderRadius.circular(6),
@@ -1010,7 +1031,11 @@ Widget _section6AspectRatioGallery() {
   return _platePanel(
     title: '6. AspectRatio gallery',
     subtitle: 'Width is given; height is computed.',
-    body: Wrap(spacing: 14, runSpacing: 14, children: cells),
+    body: Wrap(
+      spacing: 14,
+      runSpacing: 14,
+      children: cells,
+    ),
   );
 }
 
@@ -1124,14 +1149,7 @@ Widget _section7FractionallySized() {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        rows[0],
-        rows[1],
-        rows[2],
-        rows[3],
-        rows[4],
-        rows[5],
-        rows[6],
-        rows[7],
+        rows[0], rows[1], rows[2], rows[3], rows[4], rows[5], rows[6], rows[7],
         const SizedBox(height: 6),
         Container(
           height: 140,
@@ -1211,7 +1229,10 @@ Widget _fractionRow(double f, int idx) {
         child: Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: <Color>[_kBlueprintCyan, _kInkBlue],
+              colors: <Color>[
+                _kBlueprintCyan,
+                _kInkBlue,
+              ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -1246,7 +1267,10 @@ Widget _bar(Color color, String label) {
       gradient: LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[color.withOpacity(0.95), color.withOpacity(0.6)],
+        colors: <Color>[
+          color.withOpacity(0.95),
+          color.withOpacity(0.6),
+        ],
       ),
       borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
       boxShadow: <BoxShadow>[
@@ -1399,7 +1423,10 @@ Widget _slotFrame({required Widget child, bool clip = true}) {
     child: child,
   );
   if (clip) {
-    return ClipRRect(borderRadius: BorderRadius.circular(6), child: framed);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(6),
+      child: framed,
+    );
   }
   return framed;
 }
@@ -1410,7 +1437,10 @@ Widget _slotChild(String label, Color color) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[color, color.withOpacity(0.55)],
+        colors: <Color>[
+          color,
+          color.withOpacity(0.55),
+        ],
       ),
       borderRadius: BorderRadius.circular(6),
       boxShadow: <BoxShadow>[
@@ -1445,47 +1475,28 @@ Widget _section9CheatSheet() {
   print('=== Section 9: Cheat sheet ===');
 
   final List<_CheatRow> rows = <_CheatRow>[
-    _CheatRow(
-      'BoxConstraints',
-      'The contract object passed parent -> child during layout.',
-    ),
-    _CheatRow(
-      'ConstrainedBox',
-      'Add or tighten constraints on a child without changing layout strategy.',
-    ),
-    _CheatRow(
-      'UnconstrainedBox',
-      'Drop the parent\'s constraints; let the child size itself.',
-    ),
-    _CheatRow(
-      'LimitedBox',
-      'Only constrain when parent is unbounded (e.g. inside a ListView).',
-    ),
-    _CheatRow(
-      'OverflowBox',
-      'Allow the child to exceed the parent\'s slot visually.',
-    ),
-    _CheatRow(
-      'SizedBox / SizedBox.fromSize',
-      'Tightly request a specific Size or width/height.',
-    ),
-    _CheatRow(
-      'IntrinsicWidth',
-      'Make Column children share the widest natural width (use sparingly).',
-    ),
-    _CheatRow(
-      'IntrinsicHeight',
-      'Make Row children share the tallest natural height (use sparingly).',
-    ),
-    _CheatRow(
-      'FittedBox',
-      'Scale a child to fit a slot using a BoxFit strategy.',
-    ),
-    _CheatRow('AspectRatio', 'Pick a Size that obeys width/height = ratio.'),
-    _CheatRow(
-      'FractionallySizedBox',
-      'Use a fraction of the parent\'s width/height.',
-    ),
+    _CheatRow('BoxConstraints',
+        'The contract object passed parent -> child during layout.'),
+    _CheatRow('ConstrainedBox',
+        'Add or tighten constraints on a child without changing layout strategy.'),
+    _CheatRow('UnconstrainedBox',
+        'Drop the parent\'s constraints; let the child size itself.'),
+    _CheatRow('LimitedBox',
+        'Only constrain when parent is unbounded (e.g. inside a ListView).'),
+    _CheatRow('OverflowBox',
+        'Allow the child to exceed the parent\'s slot visually.'),
+    _CheatRow('SizedBox / SizedBox.fromSize',
+        'Tightly request a specific Size or width/height.'),
+    _CheatRow('IntrinsicWidth',
+        'Make Column children share the widest natural width (use sparingly).'),
+    _CheatRow('IntrinsicHeight',
+        'Make Row children share the tallest natural height (use sparingly).'),
+    _CheatRow('FittedBox',
+        'Scale a child to fit a slot using a BoxFit strategy.'),
+    _CheatRow('AspectRatio',
+        'Pick a Size that obeys width/height = ratio.'),
+    _CheatRow('FractionallySizedBox',
+        'Use a fraction of the parent\'s width/height.'),
   ];
 
   print('Cheat sheet contains ${rows.length} entries.');
@@ -1524,7 +1535,10 @@ Widget _cheatEntry(_CheatRow row, int idx) {
       gradient: const LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: <Color>[_kPaperDeep, _kPaperCream],
+        colors: <Color>[
+          _kPaperDeep,
+          _kPaperCream,
+        ],
       ),
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _kInkBlue.withOpacity(0.4)),
@@ -1565,7 +1579,10 @@ Widget _cheatEntry(_CheatRow row, int idx) {
               const SizedBox(height: 2),
               Text(
                 row.description,
-                style: const TextStyle(color: _kPencilGraphite, fontSize: 11),
+                style: const TextStyle(
+                  color: _kPencilGraphite,
+                  fontSize: 11,
+                ),
               ),
             ],
           ),
@@ -1611,7 +1628,11 @@ Widget _platePanel({
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: <Color>[_kInkDeep, _kInkBlue, _kBlueprintCyan],
+              colors: <Color>[
+                _kInkDeep,
+                _kInkBlue,
+                _kBlueprintCyan,
+              ],
               stops: <double>[0.0, 0.6, 1.0],
             ),
             borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
@@ -1666,7 +1687,10 @@ Widget _platePanel({
           ),
         ),
         // Body.
-        Padding(padding: const EdgeInsets.all(14), child: body),
+        Padding(
+          padding: const EdgeInsets.all(14),
+          child: body,
+        ),
       ],
     ),
   );

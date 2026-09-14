@@ -165,12 +165,10 @@ dynamic build(BuildContext context) {
   final TargetPlatform platform = defaultTargetPlatform;
   final bool runningOnWeb = kIsWeb;
   final bool palettesProvided = ui.SystemColor.platformProvidesSystemColors;
-  final ui.SystemColorPalette? livePaletteLight = palettesProvided
-      ? ui.SystemColor.light
-      : null;
-  final ui.SystemColorPalette? livePaletteDark = palettesProvided
-      ? ui.SystemColor.dark
-      : null;
+  final ui.SystemColorPalette? livePaletteLight =
+      palettesProvided ? ui.SystemColor.light : null;
+  final ui.SystemColorPalette? livePaletteDark =
+      palettesProvided ? ui.SystemColor.dark : null;
 
   print(
     '[system_color_palette_test] platform=${platform.name} '
@@ -531,7 +529,10 @@ Widget _buildPageHeader() {
                   SizedBox(height: 4),
                   Text(
                     'Host-OS / browser system-colour palette',
-                    style: TextStyle(fontSize: 14, color: Color(0xFFD9E4FB)),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFFD9E4FB),
+                    ),
                   ),
                 ],
               ),
@@ -710,7 +711,10 @@ Widget _buildLivePaletteSection({
           runSpacing: 12,
           children: <Widget>[
             for (final _LivePaletteEntry e in entries)
-              SizedBox(width: 220, child: _liveSwatchCell(e)),
+              SizedBox(
+                width: 220,
+                child: _liveSwatchCell(e),
+              ),
           ],
         ),
         const SizedBox(height: 14),
@@ -868,7 +872,10 @@ Widget _buildW3cReferenceSection(List<_RefEntry> reference) {
       runSpacing: 12,
       children: <Widget>[
         for (final _RefEntry e in reference)
-          SizedBox(width: 230, child: _refSwatchCell(e)),
+          SizedBox(
+            width: 230,
+            child: _refSwatchCell(e),
+          ),
       ],
     ),
   );
@@ -1051,10 +1058,8 @@ Widget _buildLightVsDarkSection(List<_RefEntry> ref) {
                 ),
                 const SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   decoration: BoxDecoration(
                     color: field,
                     borderRadius: BorderRadius.circular(6),
@@ -1071,10 +1076,8 @@ Widget _buildLightVsDarkSection(List<_RefEntry> ref) {
                 ),
                 const SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   decoration: BoxDecoration(
                     color: highlight,
                     borderRadius: BorderRadius.circular(6),
@@ -1091,10 +1094,8 @@ Widget _buildLightVsDarkSection(List<_RefEntry> ref) {
                 ),
                 const SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   decoration: BoxDecoration(
                     color: buttonFace,
                     borderRadius: BorderRadius.circular(6),
@@ -1264,7 +1265,10 @@ Widget _buildUseCaseDemos(List<_RefEntry> ref) {
                   padding: const EdgeInsets.only(left: 16),
                   child: Text(
                     label,
-                    style: TextStyle(fontSize: 13, color: canvasText),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: canvasText,
+                    ),
                   ),
                 ),
               const SizedBox(width: 16),
@@ -1351,17 +1355,14 @@ Widget _buildUseCaseDemos(List<_RefEntry> ref) {
               const SizedBox(height: 8),
               for (final _LinkSpec spec in <_LinkSpec>[
                 const _LinkSpec(
-                  href:
-                      'https://api.flutter.dev/flutter/dart-ui/SystemColor-class.html',
+                  href: 'https://api.flutter.dev/flutter/dart-ui/SystemColor-class.html',
                   visited: false,
                   blurb: 'API reference for ui.SystemColor',
                 ),
                 const _LinkSpec(
-                  href:
-                      'https://api.flutter.dev/flutter/dart-ui/SystemColorPalette-class.html',
+                  href: 'https://api.flutter.dev/flutter/dart-ui/SystemColorPalette-class.html',
                   visited: true,
-                  blurb:
-                      'API reference for ui.SystemColorPalette (already read)',
+                  blurb: 'API reference for ui.SystemColorPalette (already read)',
                 ),
                 const _LinkSpec(
                   href: 'https://drafts.csswg.org/css-color/#css-system-colors',
@@ -1369,18 +1370,19 @@ Widget _buildUseCaseDemos(List<_RefEntry> ref) {
                   blurb: 'W3C CSS Color spec — system-color names',
                 ),
                 const _LinkSpec(
-                  href:
-                      'https://developer.mozilla.org/en-US/docs/Web/CSS/system-color',
+                  href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/system-color',
                   visited: true,
-                  blurb:
-                      'MDN reference for the CSS system-color value (visited)',
+                  blurb: 'MDN reference for the CSS system-color value (visited)',
                 ),
               ])
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: RichText(
                     text: TextSpan(
-                      style: const TextStyle(fontSize: 13, color: _kInk),
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: _kInk,
+                      ),
                       children: <InlineSpan>[
                         TextSpan(
                           text: spec.href,
@@ -1588,9 +1590,7 @@ Widget _buildApiAnatomySection(List<_ApiEntry> entries) {
           ),
           for (int i = 0; i < entries.length; i++)
             Container(
-              color: i.isEven
-                  ? const Color(0xFFFFFFFF)
-                  : const Color(0xFFF6F8FB),
+              color: i.isEven ? const Color(0xFFFFFFFF) : const Color(0xFFF6F8FB),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1766,7 +1766,11 @@ Widget _whyParagraph({required String headline, required String body}) {
         const SizedBox(height: 4),
         Text(
           body,
-          style: const TextStyle(fontSize: 13, height: 1.5, color: _kInk),
+          style: const TextStyle(
+            fontSize: 13,
+            height: 1.5,
+            color: _kInk,
+          ),
         ),
       ],
     ),
@@ -1785,7 +1789,7 @@ Widget _buildFooterCard({
   final String footerLine = palettesProvided
       ? 'Palette live — $liveSupportedCount supported entries on ${platform.name}.'
       : 'Palette inert on ${platform.name}; switch to a web build to '
-            'observe live OS values.';
+          'observe live OS values.';
 
   return Container(
     width: double.infinity,
@@ -1865,7 +1869,9 @@ Widget _sectionCard({
           padding: const EdgeInsets.fromLTRB(18, 16, 18, 14),
           decoration: BoxDecoration(
             color: accentBg,
-            border: Border(bottom: BorderSide(color: accentFg.withAlpha(80))),
+            border: Border(
+              bottom: BorderSide(color: accentFg.withAlpha(80)),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1917,7 +1923,10 @@ Widget _sectionCard({
             ],
           ),
         ),
-        Padding(padding: const EdgeInsets.all(18), child: body),
+        Padding(
+          padding: const EdgeInsets.all(18),
+          child: body,
+        ),
       ],
     ),
   );

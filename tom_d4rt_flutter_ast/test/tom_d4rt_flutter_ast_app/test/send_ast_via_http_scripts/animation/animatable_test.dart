@@ -129,7 +129,10 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.all(18.0), child: child),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: child,
+          ),
         ],
       ),
     );
@@ -622,9 +625,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'RectTween(begin: Rect.fromLTWH(...), end: Rect.fromLTWH(...))',
-        ),
+        codeLine('RectTween(begin: Rect.fromLTWH(...), end: Rect.fromLTWH(...))'),
         codeLine('AnimatedPositioned(left:, top:, width:, height:, duration:)'),
         const SizedBox(height: 14.0),
         Container(
@@ -794,7 +795,10 @@ dynamic build(BuildContext context) {
                   height: h,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: <Color>[color, color.withValues(alpha: 0.55)],
+                      colors: <Color>[
+                        color,
+                        color.withValues(alpha: 0.55),
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -875,9 +879,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'AlignmentTween(begin: Alignment.topLeft, end: Alignment.bottomRight)',
-        ),
+        codeLine('AlignmentTween(begin: Alignment.topLeft, end: Alignment.bottomRight)'),
         codeLine('AnimatedAlign(alignment: ..., duration: 1500ms)'),
         const SizedBox(height: 14.0),
         GridView.count(
@@ -957,10 +959,26 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   final List<Map<String, dynamic>> radiusSpecs = <Map<String, dynamic>>[
-    <String, dynamic>{'radius': 6.0, 'label': 'crisp', 'color': palIndigo},
-    <String, dynamic>{'radius': 18.0, 'label': 'soft', 'color': palAccent},
-    <String, dynamic>{'radius': 36.0, 'label': 'pill', 'color': palMagenta},
-    <String, dynamic>{'radius': 60.0, 'label': 'blob', 'color': palTeal},
+    <String, dynamic>{
+      'radius': 6.0,
+      'label': 'crisp',
+      'color': palIndigo,
+    },
+    <String, dynamic>{
+      'radius': 18.0,
+      'label': 'soft',
+      'color': palAccent,
+    },
+    <String, dynamic>{
+      'radius': 36.0,
+      'label': 'pill',
+      'color': palMagenta,
+    },
+    <String, dynamic>{
+      'radius': 60.0,
+      'label': 'blob',
+      'color': palTeal,
+    },
   ];
 
   final Widget section07 = sectionShell(
@@ -974,12 +992,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'BorderRadiusTween(begin: BorderRadius.circular(4), end: BorderRadius.circular(64))',
-        ),
-        codeLine(
-          'AnimatedContainer(decoration: BoxDecoration(borderRadius: ...))',
-        ),
+        codeLine('BorderRadiusTween(begin: BorderRadius.circular(4), end: BorderRadius.circular(64))'),
+        codeLine('AnimatedContainer(decoration: BoxDecoration(borderRadius: ...))'),
         const SizedBox(height: 14.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1047,9 +1061,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'DecorationTween(begin: BoxDecoration(...), end: BoxDecoration(...))',
-        ),
+        codeLine('DecorationTween(begin: BoxDecoration(...), end: BoxDecoration(...))'),
         codeLine('AnimatedContainer(decoration: target, duration: 2s)'),
         const SizedBox(height: 14.0),
         Row(
@@ -1077,7 +1089,11 @@ dynamic build(BuildContext context) {
                 border: Border.all(color: Colors.white, width: 3.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.spa, color: Colors.white, size: 48.0),
+              child: const Icon(
+                Icons.spa,
+                color: Colors.white,
+                size: 48.0,
+              ),
             ),
             AnimatedContainer(
               duration: const Duration(milliseconds: 2400),
@@ -1206,9 +1222,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'final CurveTween curve = CurveTween(curve: Curves.bounceOut);',
-        ),
+        codeLine('final CurveTween curve = CurveTween(curve: Curves.bounceOut);'),
         codeLine('Tween<double>(begin: 0, end: 1).chain(curve)'),
         const SizedBox(height: 14.0),
         Column(
@@ -1274,9 +1288,8 @@ dynamic build(BuildContext context) {
                                             color,
                                           ],
                                         ),
-                                        borderRadius: BorderRadius.circular(
-                                          9.0,
-                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(9.0),
                                       ),
                                     ),
                                   ),
@@ -1301,34 +1314,29 @@ dynamic build(BuildContext context) {
   // SECTION 10 - TweenSequence with multiple stops
   // ===========================================================================
 
-  final TweenSequence<double> bouncyHeight =
-      TweenSequence<double>(<TweenSequenceItem<double>>[
-        TweenSequenceItem<double>(
-          tween: Tween<double>(
-            begin: 20.0,
-            end: 120.0,
-          ).chain(CurveTween(curve: Curves.easeOutCubic)),
-          weight: 30.0,
-        ),
-        TweenSequenceItem<double>(
-          tween: ConstantTween<double>(120.0),
-          weight: 10.0,
-        ),
-        TweenSequenceItem<double>(
-          tween: Tween<double>(
-            begin: 120.0,
-            end: 60.0,
-          ).chain(CurveTween(curve: Curves.easeInOut)),
-          weight: 20.0,
-        ),
-        TweenSequenceItem<double>(
-          tween: Tween<double>(
-            begin: 60.0,
-            end: 160.0,
-          ).chain(CurveTween(curve: Curves.bounceOut)),
-          weight: 40.0,
-        ),
-      ]);
+  final TweenSequence<double> bouncyHeight = TweenSequence<double>(
+    <TweenSequenceItem<double>>[
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 20.0, end: 120.0)
+            .chain(CurveTween(curve: Curves.easeOutCubic)),
+        weight: 30.0,
+      ),
+      TweenSequenceItem<double>(
+        tween: ConstantTween<double>(120.0),
+        weight: 10.0,
+      ),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 120.0, end: 60.0)
+            .chain(CurveTween(curve: Curves.easeInOut)),
+        weight: 20.0,
+      ),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 60.0, end: 160.0)
+            .chain(CurveTween(curve: Curves.bounceOut)),
+        weight: 40.0,
+      ),
+    ],
+  );
 
   final Widget section10 = sectionShell(
     title: 'Section 10 — TweenSequence with multiple stops',
@@ -1341,12 +1349,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'TweenSequence<double>([TweenSequenceItem(tween: ..., weight: 30), ...])',
-        ),
-        codeLine(
-          'weights: 30, 10, 20, 40 — sum=100 (any positive numbers work)',
-        ),
+        codeLine('TweenSequence<double>([TweenSequenceItem(tween: ..., weight: 30), ...])'),
+        codeLine('weights: 30, 10, 20, 40 — sum=100 (any positive numbers work)'),
         const SizedBox(height: 16.0),
         SizedBox(
           height: 200.0,
@@ -1358,7 +1362,10 @@ dynamic build(BuildContext context) {
               return Stack(
                 alignment: Alignment.bottomCenter,
                 children: <Widget>[
-                  Container(height: 1.5, color: palRose.withValues(alpha: 0.3)),
+                  Container(
+                    height: 1.5,
+                    color: palRose.withValues(alpha: 0.3),
+                  ),
                   Container(
                     width: 110.0,
                     height: v,
@@ -1456,9 +1463,7 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         codeLine('final Animatable<double> rotator ='),
-        codeLine(
-          '  Tween<double>(begin: 0, end: 1).chain(CurveTween(curve: Curves.fastOutSlowIn));',
-        ),
+        codeLine('  Tween<double>(begin: 0, end: 1).chain(CurveTween(curve: Curves.fastOutSlowIn));'),
         const SizedBox(height: 14.0),
         Wrap(
           spacing: 14.0,
@@ -1689,15 +1694,17 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         codeLine('AnimatedSwitcher(transitionBuilder: (child, anim) => ...)'),
-        codeLine(
-          'FadeTransition, ScaleTransition, SlideTransition, RotationTransition',
-        ),
+        codeLine('FadeTransition, ScaleTransition, SlideTransition, RotationTransition'),
         const SizedBox(height: 14.0),
         Wrap(
           spacing: 14.0,
           runSpacing: 14.0,
           alignment: WrapAlignment.center,
-          children: <Widget>[switcherFade, switcherSlide, switcherRotate],
+          children: <Widget>[
+            switcherFade,
+            switcherSlide,
+            switcherRotate,
+          ],
         ),
       ],
     ),
@@ -1804,9 +1811,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'AnimatedCrossFade(firstChild:, secondChild:, crossFadeState:, duration:)',
-        ),
+        codeLine('AnimatedCrossFade(firstChild:, secondChild:, crossFadeState:, duration:)'),
         const SizedBox(height: 14.0),
         AnimatedCrossFade(
           firstChild: crossFadeFirst,
@@ -1986,12 +1991,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'EdgeInsetsTween(begin: EdgeInsets.zero, end: EdgeInsets.all(36))',
-        ),
-        codeLine(
-          'AnimatedPadding(padding:, duration:) + AnimatedOpacity(opacity:, duration:)',
-        ),
+        codeLine('EdgeInsetsTween(begin: EdgeInsets.zero, end: EdgeInsets.all(36))'),
+        codeLine('AnimatedPadding(padding:, duration:) + AnimatedOpacity(opacity:, duration:)'),
         const SizedBox(height: 14.0),
         Column(
           children: List<Widget>.generate(paddingDemos.length, (int i) {
@@ -2045,29 +2046,30 @@ dynamic build(BuildContext context) {
   // SECTION 16 - ConstantTween demonstration via TweenSequence holds
   // ===========================================================================
 
-  final TweenSequence<Color?> colorHold =
-      TweenSequence<Color?>(<TweenSequenceItem<Color?>>[
-        TweenSequenceItem<Color?>(
-          tween: ColorTween(begin: palCyan, end: palAccent),
-          weight: 25.0,
-        ),
-        TweenSequenceItem<Color?>(
-          tween: ConstantTween<Color?>(palAccent),
-          weight: 15.0,
-        ),
-        TweenSequenceItem<Color?>(
-          tween: ColorTween(begin: palAccent, end: palMagenta),
-          weight: 25.0,
-        ),
-        TweenSequenceItem<Color?>(
-          tween: ConstantTween<Color?>(palMagenta),
-          weight: 15.0,
-        ),
-        TweenSequenceItem<Color?>(
-          tween: ColorTween(begin: palMagenta, end: palOrange),
-          weight: 20.0,
-        ),
-      ]);
+  final TweenSequence<Color?> colorHold = TweenSequence<Color?>(
+    <TweenSequenceItem<Color?>>[
+      TweenSequenceItem<Color?>(
+        tween: ColorTween(begin: palCyan, end: palAccent),
+        weight: 25.0,
+      ),
+      TweenSequenceItem<Color?>(
+        tween: ConstantTween<Color?>(palAccent),
+        weight: 15.0,
+      ),
+      TweenSequenceItem<Color?>(
+        tween: ColorTween(begin: palAccent, end: palMagenta),
+        weight: 25.0,
+      ),
+      TweenSequenceItem<Color?>(
+        tween: ConstantTween<Color?>(palMagenta),
+        weight: 15.0,
+      ),
+      TweenSequenceItem<Color?>(
+        tween: ColorTween(begin: palMagenta, end: palOrange),
+        weight: 20.0,
+      ),
+    ],
+  );
 
   final Widget section16 = sectionShell(
     title: 'Section 16 — ConstantTween (hold values inside sequences)',
@@ -2080,9 +2082,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'ConstantTween<Color?>(palAccent)  // always returns palAccent',
-        ),
+        codeLine('ConstantTween<Color?>(palAccent)  // always returns palAccent'),
         codeLine('TweenSequence stitches lerps with holds for keyframe pauses'),
         const SizedBox(height: 14.0),
         SizedBox(
@@ -2107,11 +2107,7 @@ dynamic build(BuildContext context) {
                 ),
                 alignment: Alignment.center,
                 child: Text(
-                  shown
-                      .toARGB32()
-                      .toRadixString(16)
-                      .padLeft(8, '0')
-                      .toUpperCase(),
+                  shown.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase(),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -2143,20 +2139,14 @@ dynamic build(BuildContext context) {
   // SECTION 17 - Animatable<T> chain visualizer: arbitrary value mapping
   // ===========================================================================
 
-  final Animatable<double> rotationAnimatable = Tween<double>(
-    begin: -0.05,
-    end: 0.05,
-  ).chain(CurveTween(curve: Curves.easeInOutSine));
+  final Animatable<double> rotationAnimatable = Tween<double>(begin: -0.05, end: 0.05)
+      .chain(CurveTween(curve: Curves.easeInOutSine));
 
-  final Animatable<double> scaleAnimatable = Tween<double>(
-    begin: 0.85,
-    end: 1.0,
-  ).chain(CurveTween(curve: Curves.elasticOut));
+  final Animatable<double> scaleAnimatable = Tween<double>(begin: 0.85, end: 1.0)
+      .chain(CurveTween(curve: Curves.elasticOut));
 
-  final Animatable<double> hoverElevation = Tween<double>(
-    begin: 2.0,
-    end: 16.0,
-  ).chain(CurveTween(curve: Curves.easeOutCubic));
+  final Animatable<double> hoverElevation =
+      Tween<double>(begin: 2.0, end: 16.0).chain(CurveTween(curve: Curves.easeOutCubic));
 
   final Widget section17 = sectionShell(
     title: 'Section 17 — Animatable<T>.chain(CurveTween) composition',
@@ -2169,12 +2159,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        codeLine(
-          'Animatable<double> rotator = Tween(begin: -0.05, end: 0.05).chain(CurveTween(...));',
-        ),
-        codeLine(
-          'Animatable<double> scaler = Tween(begin: 0.85, end: 1.0).chain(CurveTween(elasticOut));',
-        ),
+        codeLine('Animatable<double> rotator = Tween(begin: -0.05, end: 0.05).chain(CurveTween(...));'),
+        codeLine('Animatable<double> scaler = Tween(begin: 0.85, end: 1.0).chain(CurveTween(elasticOut));'),
         const SizedBox(height: 14.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -2287,7 +2273,11 @@ dynamic build(BuildContext context) {
       'label': 'Engagement',
       'color': palAccent,
     },
-    <String, dynamic>{'progress': 0.62, 'label': 'Retention', 'color': palTeal},
+    <String, dynamic>{
+      'progress': 0.62,
+      'label': 'Retention',
+      'color': palTeal,
+    },
     <String, dynamic>{
       'progress': 0.93,
       'label': 'Uptime',
@@ -2323,7 +2313,10 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(14.0),
-            border: Border.all(color: color.withValues(alpha: 0.4), width: 1.2),
+            border: Border.all(
+              color: color.withValues(alpha: 0.4),
+              width: 1.2,
+            ),
           ),
           child: Column(
             children: <Widget>[
@@ -2344,8 +2337,10 @@ dynamic build(BuildContext context) {
                           child: CircularProgressIndicator(
                             value: v,
                             strokeWidth: 8.0,
-                            backgroundColor: color.withValues(alpha: 0.15),
-                            valueColor: AlwaysStoppedAnimation<Color>(color),
+                            backgroundColor:
+                                color.withValues(alpha: 0.15),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(color),
                           ),
                         ),
                         Text(
@@ -2645,17 +2640,16 @@ dynamic build(BuildContext context) {
         ),
         ...List<Widget>.generate(referenceRows.length, (int i) {
           final Map<String, String> row = referenceRows[i];
-          final Color bg = i.isEven
-              ? Colors.white
-              : palSurfaceAlt.withValues(alpha: 0.55);
+          final Color bg =
+              i.isEven ? Colors.white : palSurfaceAlt.withValues(alpha: 0.55);
           return Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 10.0,
-            ),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
             decoration: BoxDecoration(
               color: bg,
-              border: Border(bottom: BorderSide(color: palOutline, width: 0.6)),
+              border: Border(
+                bottom: BorderSide(color: palOutline, width: 0.6),
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2676,7 +2670,10 @@ dynamic build(BuildContext context) {
                   flex: 3,
                   child: Text(
                     row['lerps']!,
-                    style: const TextStyle(color: palInk, fontSize: 12.0),
+                    style: const TextStyle(
+                      color: palInk,
+                      fontSize: 12.0,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -2718,7 +2715,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.auto_awesome, color: Colors.white, size: 28.0),
+            const Icon(
+              Icons.auto_awesome,
+              color: Colors.white,
+              size: 28.0,
+            ),
             const SizedBox(width: 10.0),
             const Text(
               'End of demo',

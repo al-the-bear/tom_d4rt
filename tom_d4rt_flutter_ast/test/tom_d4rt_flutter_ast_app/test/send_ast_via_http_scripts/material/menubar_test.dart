@@ -99,7 +99,12 @@ dynamic build(BuildContext context) {
       'y': 0.0,
       'desc': 'Window menu in macOS-style header',
     },
-    {'name': 'centerLeft', 'x': 0.0, 'y': 0.5, 'desc': 'Side rail flyout'},
+    {
+      'name': 'centerLeft',
+      'x': 0.0,
+      'y': 0.5,
+      'desc': 'Side rail flyout',
+    },
     {
       'name': 'centerRight',
       'x': 1.0,
@@ -218,7 +223,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Anchor Flyout',
-      'snippet': 'MenuAnchor(controller: c, builder: (...) => IconButton(...))',
+      'snippet':
+          'MenuAnchor(controller: c, builder: (...) => IconButton(...))',
       'note': 'MenuController gives imperative open()/close() without UI.',
     },
     {
@@ -242,10 +248,8 @@ dynamic build(BuildContext context) {
         menuChildren: [
           MenuItemButton(
             leadingIcon: const Icon(Icons.note_add, size: 16.0),
-            shortcut: const SingleActivator(
-              LogicalKeyboardKey.keyN,
-              control: true,
-            ),
+            shortcut: const SingleActivator(LogicalKeyboardKey.keyN,
+                control: true),
             child: const MenuAcceleratorLabel('&New File'),
             onPressed: () {},
           ),
@@ -267,12 +271,12 @@ dynamic build(BuildContext context) {
           ),
           SubmenuButton(
             menuChildren: [
-              MenuItemButton(child: const Text('main.dart'), onPressed: () {}),
               MenuItemButton(
-                child: const Text('menubar_test.dart'),
-                onPressed: () {},
-              ),
-              MenuItemButton(child: const Text('README.md'), onPressed: () {}),
+                  child: const Text('main.dart'), onPressed: () {}),
+              MenuItemButton(
+                  child: const Text('menubar_test.dart'), onPressed: () {}),
+              MenuItemButton(
+                  child: const Text('README.md'), onPressed: () {}),
             ],
             child: const Text('Recent'),
           ),
@@ -288,47 +292,35 @@ dynamic build(BuildContext context) {
       SubmenuButton(
         menuChildren: [
           MenuItemButton(
-            child: const MenuAcceleratorLabel('&Undo'),
-            onPressed: () {},
-          ),
+              child: const MenuAcceleratorLabel('&Undo'), onPressed: () {}),
           MenuItemButton(
-            child: const MenuAcceleratorLabel('&Redo'),
-            onPressed: () {},
-          ),
+              child: const MenuAcceleratorLabel('&Redo'), onPressed: () {}),
           const Divider(),
           MenuItemButton(
-            child: const MenuAcceleratorLabel('&Cut'),
-            onPressed: () {},
-          ),
+              child: const MenuAcceleratorLabel('&Cut'), onPressed: () {}),
           MenuItemButton(
-            child: const MenuAcceleratorLabel('Cop&y'),
-            onPressed: () {},
-          ),
+              child: const MenuAcceleratorLabel('Cop&y'), onPressed: () {}),
           MenuItemButton(
-            child: const MenuAcceleratorLabel('&Paste'),
-            onPressed: () {},
-          ),
+              child: const MenuAcceleratorLabel('&Paste'), onPressed: () {}),
         ],
         child: const MenuAcceleratorLabel('&Edit'),
       ),
       SubmenuButton(
         menuChildren: [
           MenuItemButton(
-            child: const MenuAcceleratorLabel('&Zoom In'),
-            onPressed: () {},
-          ),
+              child: const MenuAcceleratorLabel('&Zoom In'),
+              onPressed: () {}),
           MenuItemButton(
-            child: const MenuAcceleratorLabel('Zoom &Out'),
-            onPressed: () {},
-          ),
+              child: const MenuAcceleratorLabel('Zoom &Out'),
+              onPressed: () {}),
           SubmenuButton(
             menuChildren: [
-              MenuItemButton(child: const Text('Light'), onPressed: () {}),
-              MenuItemButton(child: const Text('Dark'), onPressed: () {}),
               MenuItemButton(
-                child: const Text('High Contrast'),
-                onPressed: () {},
-              ),
+                  child: const Text('Light'), onPressed: () {}),
+              MenuItemButton(
+                  child: const Text('Dark'), onPressed: () {}),
+              MenuItemButton(
+                  child: const Text('High Contrast'), onPressed: () {}),
             ],
             child: const Text('Theme'),
           ),
@@ -337,16 +329,21 @@ dynamic build(BuildContext context) {
       ),
       SubmenuButton(
         menuChildren: [
-          MenuItemButton(child: const Text('Analyze'), onPressed: () {}),
-          MenuItemButton(child: const Text('Format'), onPressed: () {}),
-          MenuItemButton(child: const Text('Refactor'), onPressed: () {}),
+          MenuItemButton(
+              child: const Text('Analyze'), onPressed: () {}),
+          MenuItemButton(
+              child: const Text('Format'), onPressed: () {}),
+          MenuItemButton(
+              child: const Text('Refactor'), onPressed: () {}),
         ],
         child: const MenuAcceleratorLabel('&Tools'),
       ),
       SubmenuButton(
         menuChildren: [
-          MenuItemButton(child: const Text('About'), onPressed: () {}),
-          MenuItemButton(child: const Text('Documentation'), onPressed: () {}),
+          MenuItemButton(
+              child: const Text('About'), onPressed: () {}),
+          MenuItemButton(
+              child: const Text('Documentation'), onPressed: () {}),
         ],
         child: const MenuAcceleratorLabel('&Help'),
       ),
@@ -355,11 +352,11 @@ dynamic build(BuildContext context) {
 
   final styledMenuBar = MenuBar(
     style: MenuStyle(
-      backgroundColor: const WidgetStatePropertyAll<Color>(Color(0xFFE3F2FD)),
+      backgroundColor:
+          const WidgetStatePropertyAll<Color>(Color(0xFFE3F2FD)),
       elevation: const WidgetStatePropertyAll<double>(4.0),
       padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-      ),
+          EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0)),
     ),
     children: [
       SubmenuButton(
@@ -487,7 +484,10 @@ dynamic build(BuildContext context) {
               Center(
                 child: Text(
                   'Deep Demo • Desktop Menubar Showcase • Flutter Material',
-                  style: TextStyle(fontSize: 12.0, color: Color(0xFF78909C)),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Color(0xFF78909C),
+                  ),
                 ),
               ),
             ],
@@ -532,11 +532,8 @@ Widget _heroHeader() {
                 color: const Color(0x33FFFFFF),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: const Icon(
-                Icons.menu_open,
-                color: Color(0xFFFFFFFF),
-                size: 28.0,
-              ),
+              child: const Icon(Icons.menu_open,
+                  color: Color(0xFFFFFFFF), size: 28.0),
             ),
             const SizedBox(width: 14.0),
             const Expanded(
@@ -613,7 +610,8 @@ Widget _conceptOverview() {
       children: [
         Row(
           children: const [
-            Icon(Icons.lightbulb_outline, color: Color(0xFF283593), size: 22.0),
+            Icon(Icons.lightbulb_outline,
+                color: Color(0xFF283593), size: 22.0),
             SizedBox(width: 10.0),
             Text(
               'Mental Model',
@@ -659,7 +657,9 @@ Widget _overviewBullet(String text) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('• ', style: TextStyle(fontSize: 14.0)),
-        Expanded(child: Text(text, style: const TextStyle(fontSize: 13.0))),
+        Expanded(
+          child: Text(text, style: const TextStyle(fontSize: 13.0)),
+        ),
       ],
     ),
   );
@@ -713,9 +713,7 @@ Widget _section1MenubarInventory(
               for (final m in menubarTopLevel)
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 6.0,
-                  ),
+                      horizontal: 10.0, vertical: 6.0),
                   child: Row(
                     children: [
                       _acceleratorChar(m['mnemonic'] as String),
@@ -743,43 +741,27 @@ Widget _section1MenubarInventory(
                 children: const [
                   Expanded(
                     flex: 2,
-                    child: Text(
-                      'Entry',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Entry',
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold)),
                   ),
                   Expanded(
                     flex: 1,
-                    child: Text(
-                      'Mnemonic',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Mnemonic',
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold)),
                   ),
                   Expanded(
                     flex: 1,
-                    child: Text(
-                      'Items',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Items',
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold)),
                   ),
                   Expanded(
                     flex: 1,
-                    child: Text(
-                      'Nested',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Nested',
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -791,10 +773,8 @@ Widget _section1MenubarInventory(
                     children: [
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          m['label'] as String,
-                          style: const TextStyle(fontSize: 12.0),
-                        ),
+                        child: Text(m['label'] as String,
+                            style: const TextStyle(fontSize: 12.0)),
                       ),
                       Expanded(
                         flex: 1,
@@ -818,13 +798,9 @@ Widget _section1MenubarInventory(
                       ),
                       Expanded(
                         flex: 1,
-                        child: Text(
-                          '${m['items']}',
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text('${m['items']}',
+                            style: const TextStyle(
+                                fontSize: 12.0, fontFamily: 'monospace')),
                       ),
                       Expanded(
                         flex: 1,
@@ -854,20 +830,15 @@ Widget _section1MenubarInventory(
           ),
           child: Row(
             children: [
-              const Icon(
-                Icons.check_circle,
-                color: Color(0xFF1565C0),
-                size: 18.0,
-              ),
+              const Icon(Icons.check_circle,
+                  color: Color(0xFF1565C0), size: 18.0),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'Constructed: ${realBar.runtimeType} '
                   '(children: ${realBar.children.length})',
                   style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'monospace',
-                  ),
+                      fontSize: 12.0, fontFamily: 'monospace'),
                 ),
               ),
             ],
@@ -941,9 +912,7 @@ Widget _section2SubmenuAndItems(List<Map<String, dynamic>> fileMenuItems) {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 14.0,
-                    vertical: 8.0,
-                  ),
+                      horizontal: 14.0, vertical: 8.0),
                   decoration: BoxDecoration(
                     color: const Color(0xFF00897B),
                     borderRadius: BorderRadius.circular(6.0),
@@ -964,9 +933,7 @@ Widget _section2SubmenuAndItems(List<Map<String, dynamic>> fileMenuItems) {
                   decoration: BoxDecoration(
                     border: Border(
                       right: BorderSide(
-                        color: const Color(0xFF00897B),
-                        width: 2.0,
-                      ),
+                          color: const Color(0xFF00897B), width: 2.0),
                     ),
                   ),
                 ),
@@ -981,9 +948,7 @@ Widget _section2SubmenuAndItems(List<Map<String, dynamic>> fileMenuItems) {
                   color: const Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(
-                    color: const Color(0xFFB2DFDB),
-                    width: 1.0,
-                  ),
+                      color: const Color(0xFFB2DFDB), width: 1.0),
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0x22000000),
@@ -1033,11 +998,13 @@ Widget _menuItemRow(Map<String, dynamic> item) {
         const SizedBox(width: 10.0),
         Expanded(child: _acceleratorText(rawLabel, const Color(0xFF263238))),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 6.0, vertical: 2.0),
           decoration: BoxDecoration(
             color: const Color(0xFFE0F2F1),
             borderRadius: BorderRadius.circular(4.0),
-            border: Border.all(color: const Color(0xFF80CBC4), width: 1.0),
+            border: Border.all(
+                color: const Color(0xFF80CBC4), width: 1.0),
           ),
           child: Text(
             item['shortcut'] as String,
@@ -1060,25 +1027,21 @@ Widget _acceleratorText(String raw, Color color) {
     final ch = raw[i];
     if (ch == '&' && i + 1 < raw.length) {
       final next = raw[i + 1];
-      spans.add(
-        TextSpan(
-          text: next,
-          style: TextStyle(
-            color: color,
-            fontSize: 13.0,
-            decoration: TextDecoration.underline,
-            fontWeight: FontWeight.w600,
-          ),
+      spans.add(TextSpan(
+        text: next,
+        style: TextStyle(
+          color: color,
+          fontSize: 13.0,
+          decoration: TextDecoration.underline,
+          fontWeight: FontWeight.w600,
         ),
-      );
+      ));
       i += 2;
     } else {
-      spans.add(
-        TextSpan(
-          text: ch,
-          style: TextStyle(color: color, fontSize: 13.0),
-        ),
-      );
+      spans.add(TextSpan(
+        text: ch,
+        style: TextStyle(color: color, fontSize: 13.0),
+      ));
       i += 1;
     }
   }
@@ -1130,20 +1093,14 @@ Widget _section3NestedSubmenus(List<Map<String, dynamic>> recentFiles) {
                   color: const Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(
-                    color: const Color(0xFFC8E6C9),
-                    width: 1.0,
-                  ),
+                      color: const Color(0xFFC8E6C9), width: 1.0),
                 ),
                 child: Column(
                   children: [
                     _nestedRow('New', false, const Color(0xFF1B5E20)),
                     _nestedRow('Open', false, const Color(0xFF1B5E20)),
-                    _nestedRow(
-                      'Recent Files',
-                      true,
-                      const Color(0xFF1B5E20),
-                      highlight: true,
-                    ),
+                    _nestedRow('Recent Files', true,
+                        const Color(0xFF1B5E20), highlight: true),
                     _nestedRow('Save', false, const Color(0xFF1B5E20)),
                     _nestedRow('Exit', false, const Color(0xFF1B5E20)),
                   ],
@@ -1151,11 +1108,8 @@ Widget _section3NestedSubmenus(List<Map<String, dynamic>> recentFiles) {
               ),
             ),
             const SizedBox(width: 12.0),
-            const Icon(
-              Icons.arrow_forward,
-              color: Color(0xFF388E3C),
-              size: 22.0,
-            ),
+            const Icon(Icons.arrow_forward,
+                color: Color(0xFF388E3C), size: 22.0),
             const SizedBox(width: 12.0),
             // Nested submenu (recent files)
             Expanded(
@@ -1166,9 +1120,7 @@ Widget _section3NestedSubmenus(List<Map<String, dynamic>> recentFiles) {
                   color: const Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(
-                    color: const Color(0xFFA5D6A7),
-                    width: 1.0,
-                  ),
+                      color: const Color(0xFFA5D6A7), width: 1.0),
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0x22000000),
@@ -1182,16 +1134,11 @@ Widget _section3NestedSubmenus(List<Map<String, dynamic>> recentFiles) {
                     for (final r in recentFiles)
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 5.0,
-                        ),
+                            horizontal: 10.0, vertical: 5.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.insert_drive_file,
-                              size: 14.0,
-                              color: Color(0xFF388E3C),
-                            ),
+                            const Icon(Icons.insert_drive_file,
+                                size: 14.0, color: Color(0xFF388E3C)),
                             const SizedBox(width: 8.0),
                             Expanded(
                               child: Text(
@@ -1228,12 +1175,8 @@ Widget _section3NestedSubmenus(List<Map<String, dynamic>> recentFiles) {
   );
 }
 
-Widget _nestedRow(
-  String label,
-  bool hasChevron,
-  Color color, {
-  bool highlight = false,
-}) {
+Widget _nestedRow(String label, bool hasChevron, Color color,
+    {bool highlight = false}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     color: highlight ? const Color(0xFFC8E6C9) : null,
@@ -1305,33 +1248,21 @@ Widget _section4Accelerators() {
                 children: const [
                   Expanded(
                     flex: 2,
-                    child: Text(
-                      'Source',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Source',
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold)),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Text(
-                      'Rendered',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Rendered',
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold)),
                   ),
                   Expanded(
                     flex: 1,
-                    child: Text(
-                      'Mnemonic',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Mnemonic',
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -1354,9 +1285,7 @@ Widget _section4Accelerators() {
                       Expanded(
                         flex: 2,
                         child: _acceleratorText(
-                          s['label'] as String,
-                          const Color(0xFFE65100),
-                        ),
+                            s['label'] as String, const Color(0xFFE65100)),
                       ),
                       Expanded(
                         flex: 1,
@@ -1407,23 +1336,15 @@ Widget _section4Accelerators() {
               Row(
                 children: [
                   _flowNode('Alt+S', const Color(0xFFFFB300)),
-                  const Icon(
-                    Icons.arrow_forward,
-                    color: Color(0xFF8D6E63),
-                    size: 18.0,
-                  ),
+                  const Icon(Icons.arrow_forward,
+                      color: Color(0xFF8D6E63), size: 18.0),
                   _flowNode('MenuAcceleratorLabel', const Color(0xFFFF8F00)),
-                  const Icon(
-                    Icons.arrow_forward,
-                    color: Color(0xFF8D6E63),
-                    size: 18.0,
-                  ),
-                  _flowNode('CallbackBinding.of', const Color(0xFFEF6C00)),
-                  const Icon(
-                    Icons.arrow_forward,
-                    color: Color(0xFF8D6E63),
-                    size: 18.0,
-                  ),
+                  const Icon(Icons.arrow_forward,
+                      color: Color(0xFF8D6E63), size: 18.0),
+                  _flowNode(
+                      'CallbackBinding.of', const Color(0xFFEF6C00)),
+                  const Icon(Icons.arrow_forward,
+                      color: Color(0xFF8D6E63), size: 18.0),
                   _flowNode('onPressed()', const Color(0xFFE65100)),
                 ],
               ),
@@ -1505,7 +1426,9 @@ Widget _section5MenuStyle(
           mainAxisSpacing: 12.0,
           crossAxisSpacing: 12.0,
           childAspectRatio: 1.4,
-          children: [for (final v in variants) _styleVariantCard(v)],
+          children: [
+            for (final v in variants) _styleVariantCard(v),
+          ],
         ),
         const SizedBox(height: 14.0),
         Container(
@@ -1516,16 +1439,15 @@ Widget _section5MenuStyle(
           ),
           child: Row(
             children: [
-              const Icon(Icons.palette, color: Color(0xFF6A1B9A), size: 18.0),
+              const Icon(Icons.palette,
+                  color: Color(0xFF6A1B9A), size: 18.0),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'Constructed styled MenuBar: ${styledBar.runtimeType} '
                   'with elevation ${styledBar.style?.elevation?.resolve(<WidgetState>{}) ?? "default"}',
                   style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'monospace',
-                  ),
+                      fontSize: 12.0, fontFamily: 'monospace'),
                 ),
               ),
             ],
@@ -1546,7 +1468,8 @@ Widget _section5MenuStyle(
 Widget _styleVariantCard(Map<String, dynamic> v) {
   final background = v['background'] as Color;
   final isDark = background.computeLuminance() < 0.4;
-  final textColor = isDark ? const Color(0xFFFFFFFF) : const Color(0xFF263238);
+  final textColor =
+      isDark ? const Color(0xFFFFFFFF) : const Color(0xFF263238);
   return Container(
     padding: EdgeInsets.all(v['padding'] as double),
     decoration: BoxDecoration(
@@ -1652,9 +1575,7 @@ Widget _section6MenuAnchor(
                   color: const Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
-                    color: const Color(0xFFF8BBD9),
-                    width: 1.0,
-                  ),
+                      color: const Color(0xFFF8BBD9), width: 1.0),
                 ),
                 child: Stack(
                   children: [
@@ -1667,9 +1588,7 @@ Widget _section6MenuAnchor(
                         child: Container(
                           margin: const EdgeInsets.all(6.0),
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 6.0,
-                            vertical: 3.0,
-                          ),
+                              horizontal: 6.0, vertical: 3.0),
                           decoration: BoxDecoration(
                             color: const Color(0xFFEC407A),
                             borderRadius: BorderRadius.circular(4.0),
@@ -1703,9 +1622,7 @@ Widget _section6MenuAnchor(
                           Container(
                             width: 90.0,
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 6.0,
-                              vertical: 3.0,
-                            ),
+                                horizontal: 6.0, vertical: 3.0),
                             decoration: BoxDecoration(
                               color: const Color(0xFFF8BBD9),
                               borderRadius: BorderRadius.circular(4.0),
@@ -1806,19 +1723,13 @@ Widget _section7MenuController(bool openA, bool openB) {
         Row(
           children: [
             Expanded(
-              child: _controllerCard(
-                'controller A',
-                openA,
-                const Color(0xFF00ACC1),
-              ),
+              child: _controllerCard('controller A', openA,
+                  const Color(0xFF00ACC1)),
             ),
             const SizedBox(width: 12.0),
             Expanded(
-              child: _controllerCard(
-                'controller B',
-                openB,
-                const Color(0xFF00838F),
-              ),
+              child: _controllerCard('controller B', openB,
+                  const Color(0xFF00838F)),
             ),
           ],
         ),
@@ -1848,26 +1759,19 @@ Widget _section7MenuController(bool openA, bool openB) {
                     children: [
                       SizedBox(
                         width: 50.0,
-                        child: Text(
-                          s['t'] as String,
-                          style: const TextStyle(
-                            fontSize: 11.0,
-                            fontFamily: 'monospace',
-                            color: Color(0xFF006064),
-                          ),
-                        ),
+                        child: Text(s['t'] as String,
+                            style: const TextStyle(
+                                fontSize: 11.0,
+                                fontFamily: 'monospace',
+                                color: Color(0xFF006064))),
                       ),
                       Expanded(
-                        child: Text(
-                          s['event'] as String,
-                          style: const TextStyle(fontSize: 12.0),
-                        ),
+                        child: Text(s['event'] as String,
+                            style: const TextStyle(fontSize: 12.0)),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 2.0,
-                        ),
+                            horizontal: 8.0, vertical: 2.0),
                         decoration: BoxDecoration(
                           color: (s['isOpen'] as bool)
                               ? const Color(0xFF00ACC1)
@@ -1992,9 +1896,7 @@ Widget _section8Comparison(List<Map<String, dynamic>> rows) {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 8.0,
-                ),
+                    horizontal: 10.0, vertical: 8.0),
                 decoration: const BoxDecoration(
                   color: Color(0xFF455A64),
                   borderRadius: BorderRadius.only(
@@ -2006,47 +1908,35 @@ Widget _section8Comparison(List<Map<String, dynamic>> rows) {
                   children: const [
                     Expanded(
                       flex: 2,
-                      child: Text(
-                        'Widget',
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('Widget',
+                          style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold)),
                     ),
                     Expanded(
                       flex: 2,
-                      child: Text(
-                        'Role',
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('Role',
+                          style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold)),
                     ),
                     Expanded(
                       flex: 2,
-                      child: Text(
-                        'Children',
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('Children',
+                          style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold)),
                     ),
                     Expanded(
                       flex: 2,
-                      child: Text(
-                        'Opens',
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('Opens',
+                          style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -2054,9 +1944,7 @@ Widget _section8Comparison(List<Map<String, dynamic>> rows) {
               for (var i = 0; i < rows.length; i++)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 6.0,
-                  ),
+                      horizontal: 10.0, vertical: 6.0),
                   color: i.isEven
                       ? const Color(0xFFF5F5F5)
                       : const Color(0xFFFFFFFF),
@@ -2085,9 +1973,7 @@ Widget _section8Comparison(List<Map<String, dynamic>> rows) {
                         child: Text(
                           rows[i]['children'] as String,
                           style: const TextStyle(
-                            fontSize: 11.0,
-                            fontFamily: 'monospace',
-                          ),
+                              fontSize: 11.0, fontFamily: 'monospace'),
                         ),
                       ),
                       Expanded(
@@ -2167,9 +2053,7 @@ Widget _recipeCard(String title, String snippet, String note, Color accent) {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 2.0,
-              ),
+                  horizontal: 6.0, vertical: 2.0),
               decoration: BoxDecoration(
                 color: accent,
                 borderRadius: BorderRadius.circular(4.0),
@@ -2217,10 +2101,9 @@ Widget _recipeCard(String title, String snippet, String note, Color accent) {
         Text(
           note,
           style: const TextStyle(
-            fontSize: 11.0,
-            color: Color(0xFF455A64),
-            fontStyle: FontStyle.italic,
-          ),
+              fontSize: 11.0,
+              color: Color(0xFF455A64),
+              fontStyle: FontStyle.italic),
         ),
       ],
     ),
@@ -2282,10 +2165,9 @@ Widget _section10Glossary(List<Map<String, dynamic>> entries) {
                   Text(
                     e['def'] as String,
                     style: const TextStyle(
-                      color: Color(0xFFC5CAE9),
-                      fontSize: 12.0,
-                      height: 1.4,
-                    ),
+                        color: Color(0xFFC5CAE9),
+                        fontSize: 12.0,
+                        height: 1.4),
                   ),
                 ],
               ),
@@ -2324,30 +2206,18 @@ Widget _epilogue() {
           ),
         ),
         const SizedBox(height: 12.0),
-        _epilogueItem(
-          'MenuBar',
-          'Whenever you need a desktop-style horizontal menu strip.',
-        ),
-        _epilogueItem(
-          'SubmenuButton',
-          'For grouping related actions under a single top-level header.',
-        ),
-        _epilogueItem(
-          'MenuItemButton',
-          'For leaf actions; supports leadingIcon, shortcut and trailingIcon.',
-        ),
-        _epilogueItem(
-          'MenuAcceleratorLabel',
-          'Whenever a label needs Alt-letter mnemonic underlining.',
-        ),
-        _epilogueItem(
-          'MenuAnchor + MenuController',
-          'For custom triggers (icon, gesture, programmatic).',
-        ),
-        _epilogueItem(
-          'MenuStyle',
-          'To re-skin menu surfaces consistently across hover/pressed states.',
-        ),
+        _epilogueItem('MenuBar',
+            'Whenever you need a desktop-style horizontal menu strip.'),
+        _epilogueItem('SubmenuButton',
+            'For grouping related actions under a single top-level header.'),
+        _epilogueItem('MenuItemButton',
+            'For leaf actions; supports leadingIcon, shortcut and trailingIcon.'),
+        _epilogueItem('MenuAcceleratorLabel',
+            'Whenever a label needs Alt-letter mnemonic underlining.'),
+        _epilogueItem('MenuAnchor + MenuController',
+            'For custom triggers (icon, gesture, programmatic).'),
+        _epilogueItem('MenuStyle',
+            'To re-skin menu surfaces consistently across hover/pressed states.'),
         const SizedBox(height: 12.0),
         Container(
           width: double.infinity,

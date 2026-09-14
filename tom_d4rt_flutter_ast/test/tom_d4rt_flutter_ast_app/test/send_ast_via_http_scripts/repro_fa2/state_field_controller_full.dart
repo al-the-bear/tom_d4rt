@@ -100,16 +100,14 @@ class _OwnershipTreePainter extends CustomPainter {
       badge.layout(maxWidth: size.width);
       final double badgeW = badge.width + 14;
       final RRect badgeRect = RRect.fromRectAndRadius(
-        Rect.fromLTWH(size.width - 12 - badgeW, cy - 9, badgeW, 18),
+        Rect.fromLTWH(
+            size.width - 12 - badgeW, cy - 9, badgeW, 18),
         const Radius.circular(9),
       );
-      final Paint badgeFill = Paint()
-        ..color = accentColor.withValues(alpha: 0.14);
+      final Paint badgeFill = Paint()..color = accentColor.withValues(alpha: 0.14);
       canvas.drawRRect(badgeRect, badgeFill);
       badge.paint(
-        canvas,
-        Offset(size.width - 12 - badgeW + 7, cy - badge.height / 2),
-      );
+          canvas, Offset(size.width - 12 - badgeW + 7, cy - badge.height / 2));
 
       // Label on the left.
       final TextPainter label = TextPainter(
@@ -133,10 +131,7 @@ class _OwnershipTreePainter extends CustomPainter {
         final double startY = cy + 16;
         final double endY = cy + rowHeight - 16;
         canvas.drawLine(
-          Offset(size.width / 2, startY),
-          Offset(size.width / 2, endY),
-          edgePaint,
-        );
+            Offset(size.width / 2, startY), Offset(size.width / 2, endY), edgePaint);
         final Path arrow = Path()
           ..moveTo(size.width / 2 - 5, endY - 5)
           ..lineTo(size.width / 2, endY)
@@ -186,7 +181,8 @@ class _LifecycleRibbonPainter extends CustomPainter {
       ..strokeWidth = 4
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
-    canvas.drawLine(Offset(16, midY), Offset(size.width - 16, midY), barPaint);
+    canvas.drawLine(
+        Offset(16, midY), Offset(size.width - 16, midY), barPaint);
 
     final double stride = (size.width - 32) / (_phases.length - 1);
     final Paint dotPaint = Paint()..color = markerColor;
@@ -194,13 +190,12 @@ class _LifecycleRibbonPainter extends CustomPainter {
       final double cx = 16 + stride * i;
       canvas.drawCircle(Offset(cx, midY), 7, dotPaint);
       canvas.drawCircle(
-        Offset(cx, midY),
-        7,
-        Paint()
-          ..color = Colors.white
-          ..strokeWidth = 1.6
-          ..style = PaintingStyle.stroke,
-      );
+          Offset(cx, midY),
+          7,
+          Paint()
+            ..color = Colors.white
+            ..strokeWidth = 1.6
+            ..style = PaintingStyle.stroke);
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: _phases[i],
@@ -456,12 +451,8 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget infoCard(
-    String heading,
-    Widget content, {
-    List<Color>? headerGradient,
-    Color? bodyColor,
-  }) {
+  Widget infoCard(String heading, Widget content,
+      {List<Color>? headerGradient, Color? bodyColor}) {
     final List<Color> gradient = headerGradient ?? <Color>[indigoDeep, indigo];
     return Container(
       width: double.infinity,
@@ -495,9 +486,8 @@ dynamic build(BuildContext context) {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Text(
               heading,
@@ -561,7 +551,11 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         label,
-        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: fg),
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          color: fg,
+        ),
       ),
     );
   }
@@ -635,9 +629,8 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             decoration: BoxDecoration(
               color: a.withValues(alpha: 0.20),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Row(
               children: <Widget>[
@@ -722,17 +715,13 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             decoration: BoxDecoration(
               color: rose.withValues(alpha: 0.30),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Row(
               children: <Widget>[
-                const Icon(
-                  Icons.warning_amber_rounded,
-                  size: 16,
-                  color: Colors.white,
-                ),
+                const Icon(Icons.warning_amber_rounded,
+                    size: 16, color: Colors.white),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -806,9 +795,8 @@ dynamic build(BuildContext context) {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Row(
               children: <Widget>[
@@ -825,9 +813,7 @@ dynamic build(BuildContext context) {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                      horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.22),
                     borderRadius: BorderRadius.circular(10),
@@ -862,7 +848,10 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ),
-          Padding(padding: const EdgeInsets.all(14), child: child),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: child,
+          ),
         ],
       ),
     );
@@ -876,10 +865,11 @@ dynamic build(BuildContext context) {
   final Widget section1 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('01', 'Why a ScrollController Belongs in State', <Color>[
-        indigoDeep,
-        indigo,
-      ]),
+      sectionBanner(
+        '01',
+        'Why a ScrollController Belongs in State',
+        <Color>[indigoDeep, indigo],
+      ),
       proseBox(
         'A ScrollController is a long-lived listenable: it carries '
         '`ScrollPosition` objects that are attached when a scroll view '
@@ -980,20 +970,14 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             dataRow('identity', 'Same Dart object end-to-end'),
-            dataRow(
-              '==',
-              'Forwarded ref compares == to the State field at every level',
-            ),
+            dataRow('==',
+                'Forwarded ref compares == to the State field at every level'),
             dataRow('hashCode', 'Stable for the entire State lifetime'),
-            dataRow(
-              'mount/unmount',
-              'Controller survives unrelated child rebuilds',
-            ),
+            dataRow('mount/unmount',
+                'Controller survives unrelated child rebuilds'),
             dataRow('passing style', 'Constructor arg on const Stateless'),
-            dataRow(
-              'null safety',
-              'Required, non-nullable; never lazily-built',
-            ),
+            dataRow('null safety',
+                'Required, non-nullable; never lazily-built'),
           ],
         ),
         headerGradient: <Color>[indigo, teal],
@@ -1057,19 +1041,13 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             dataRow('createState', 'Return your State — no controller yet'),
-            dataRow(
-              'initState',
-              'Construct ScrollController (or use a field initialiser)',
-            ),
+            dataRow('initState',
+                'Construct ScrollController (or use a field initialiser)'),
             dataRow('build', 'Pass _ctl down; do NOT construct new one'),
-            dataRow(
-              'didUpdateWidget',
-              'Compare old/new widget; controller usually unchanged',
-            ),
-            dataRow(
-              'dispose',
-              'Call _ctl.dispose() exactly once before super.dispose()',
-            ),
+            dataRow('didUpdateWidget',
+                'Compare old/new widget; controller usually unchanged'),
+            dataRow('dispose',
+                'Call _ctl.dispose() exactly once before super.dispose()'),
             dataRow('reassemble', 'Optional: keep the controller'),
           ],
         ),
@@ -1086,10 +1064,11 @@ dynamic build(BuildContext context) {
   final Widget section4 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('04', 'Controller API — What the Surfaces Expose', <Color>[
-        indigo,
-        rose,
-      ]),
+      sectionBanner(
+        '04',
+        'Controller API — What the Surfaces Expose',
+        <Color>[indigo, rose],
+      ),
       proseBox(
         'Once attached to a scroll view, a ScrollController exposes a '
         'small but powerful API. `hasClients` tells you whether any '
@@ -1142,36 +1121,16 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 10),
             pillRow(<Widget>[
-              ribbonBadge(
-                'bool',
-                tealLight,
-                tealDeep,
-                icon: Icons.check_circle_outline,
-              ),
-              ribbonBadge(
-                'double',
-                indigoLight,
-                indigoDeep,
-                icon: Icons.numbers,
-              ),
-              ribbonBadge(
-                'Iterable<…>',
-                amberLight,
-                amberDeep,
-                icon: Icons.list_alt,
-              ),
-              ribbonBadge(
-                'ScrollPosition',
-                roseLight,
-                roseDeep,
-                icon: Icons.swap_vert,
-              ),
-              ribbonBadge(
-                'VoidCallback',
-                slateLight,
-                slateDeep,
-                icon: Icons.notifications_none,
-              ),
+              ribbonBadge('bool', tealLight, tealDeep,
+                  icon: Icons.check_circle_outline),
+              ribbonBadge('double', indigoLight, indigoDeep,
+                  icon: Icons.numbers),
+              ribbonBadge('Iterable<…>', amberLight, amberDeep,
+                  icon: Icons.list_alt),
+              ribbonBadge('ScrollPosition', roseLight, roseDeep,
+                  icon: Icons.swap_vert),
+              ribbonBadge('VoidCallback', slateLight, slateDeep,
+                  icon: Icons.notifications_none),
             ]),
           ],
         ),
@@ -1186,38 +1145,15 @@ dynamic build(BuildContext context) {
 
   // Static data for the gallery: short, deterministic, no time-based fields.
   final List<String> listItems = <String>[
-    'Inbox',
-    'Drafts',
-    'Sent',
-    'Snoozed',
-    'Important',
-    'Starred',
-    'Chats',
-    'Scheduled',
-    'All mail',
-    'Spam',
-    'Trash',
-    'Templates',
+    'Inbox', 'Drafts', 'Sent', 'Snoozed', 'Important', 'Starred',
+    'Chats', 'Scheduled', 'All mail', 'Spam', 'Trash', 'Templates',
   ];
   final List<String> gridTiles = <String>[
-    'Today',
-    'Tomorrow',
-    'Week',
-    'Month',
-    'Year',
-    'Custom',
-    'Tag A',
-    'Tag B',
-    'Tag C',
-    'Tag D',
-    'Tag E',
-    'Tag F',
+    'Today', 'Tomorrow', 'Week', 'Month', 'Year', 'Custom',
+    'Tag A', 'Tag B', 'Tag C', 'Tag D', 'Tag E', 'Tag F',
   ];
   final List<String> sliverHeaders = <String>[
-    'Pinned',
-    'Recent',
-    'Archive',
-    'Older',
+    'Pinned', 'Recent', 'Archive', 'Older',
   ];
 
   // The gallery itself must consume the controllers from the State. We
@@ -1271,13 +1207,9 @@ dynamic build(BuildContext context) {
                       itemBuilder: (BuildContext ctx2, int i) {
                         return Container(
                           margin: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
+                              horizontal: 8, vertical: 4),
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 10,
-                          ),
+                              horizontal: 12, vertical: 10),
                           decoration: BoxDecoration(
                             color: i.isEven ? Colors.white : indigoLight,
                             borderRadius: BorderRadius.circular(6),
@@ -1314,11 +1246,9 @@ dynamic build(BuildContext context) {
                                   ),
                                 ),
                               ),
-                              Icon(
-                                Icons.chevron_right,
-                                size: 16,
-                                color: slate.withValues(alpha: 0.6),
-                              ),
+                              Icon(Icons.chevron_right,
+                                  size: 16,
+                                  color: slate.withValues(alpha: 0.6)),
                             ],
                           ),
                         );
@@ -1425,9 +1355,8 @@ dynamic build(BuildContext context) {
                               borderRadius: BorderRadius.circular(8),
                               boxShadow: <BoxShadow>[
                                 BoxShadow(
-                                  color: (i.isEven ? amber : indigo).withValues(
-                                    alpha: 0.30,
-                                  ),
+                                  color: (i.isEven ? amber : indigo)
+                                      .withValues(alpha: 0.30),
                                   blurRadius: 4,
                                   offset: const Offset(0, 2),
                                 ),
@@ -1503,11 +1432,10 @@ dynamic build(BuildContext context) {
                               children: <Widget>[
                                 Container(
                                   width: double.infinity,
-                                  margin: const EdgeInsets.fromLTRB(8, 4, 8, 2),
+                                  margin: const EdgeInsets.fromLTRB(
+                                      8, 4, 8, 2),
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 6,
-                                  ),
+                                      horizontal: 10, vertical: 6),
                                   decoration: BoxDecoration(
                                     color: roseLight,
                                     borderRadius: BorderRadius.circular(4),
@@ -1526,13 +1454,9 @@ dynamic build(BuildContext context) {
                                   Container(
                                     width: double.infinity,
                                     margin: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 2,
-                                    ),
+                                        horizontal: 8, vertical: 2),
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 8,
-                                    ),
+                                        horizontal: 10, vertical: 8),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(4),
@@ -1584,9 +1508,7 @@ dynamic build(BuildContext context) {
                           Container(
                             margin: const EdgeInsets.only(bottom: 4),
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
-                            ),
+                                horizontal: 10, vertical: 8),
                             decoration: BoxDecoration(
                               color: slateDeep,
                               borderRadius: BorderRadius.circular(4),
@@ -1635,9 +1557,7 @@ dynamic build(BuildContext context) {
                           Container(
                             margin: const EdgeInsets.only(bottom: 4),
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
-                            ),
+                                horizontal: 10, vertical: 8),
                             decoration: BoxDecoration(
                               color: i.isEven ? Colors.white : tealLight,
                               borderRadius: BorderRadius.circular(4),
@@ -1645,7 +1565,10 @@ dynamic build(BuildContext context) {
                             ),
                             child: Text(
                               'Pitfall demo row ${i + 1}',
-                              style: TextStyle(fontSize: 12, color: slateDeep),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: slateDeep,
+                              ),
                             ),
                           ),
                       ],
@@ -1668,10 +1591,11 @@ dynamic build(BuildContext context) {
   final Widget section6 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('06', 'Static API Surface — As If Read Live', <Color>[
-        amber,
-        indigoDeep,
-      ]),
+      sectionBanner(
+        '06',
+        'Static API Surface — As If Read Live',
+        <Color>[amber, indigoDeep],
+      ),
       proseBox(
         'In a live app you would typically combine the controller with a '
         '`ListenableBuilder` (or `AnimatedBuilder`) to read `offset`, '
@@ -1687,42 +1611,24 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow(
-              'controller.hasClients',
-              'bool — guard required before .position',
-            ),
-            dataRow(
-              'controller.offset',
-              'double — equivalent to position.pixels',
-            ),
-            dataRow(
-              'controller.position.pixels',
-              'double — current scroll offset',
-            ),
-            dataRow(
-              'controller.position.minScrollExtent',
-              'double — usually 0.0',
-            ),
-            dataRow(
-              'controller.position.maxScrollExtent',
-              'double — viewport-dependent',
-            ),
-            dataRow(
-              'controller.position.atEdge',
-              'bool — pixels at min or max?',
-            ),
-            dataRow(
-              'controller.position.outOfRange',
-              'bool — overscrolled past extents?',
-            ),
-            dataRow(
-              'controller.position.userScrollDirection',
-              'ScrollDirection — last user gesture',
-            ),
-            dataRow(
-              'controller.position.isScrollingNotifier',
-              'ValueListenable<bool>',
-            ),
+            dataRow('controller.hasClients',
+                'bool — guard required before .position'),
+            dataRow('controller.offset',
+                'double — equivalent to position.pixels'),
+            dataRow('controller.position.pixels',
+                'double — current scroll offset'),
+            dataRow('controller.position.minScrollExtent',
+                'double — usually 0.0'),
+            dataRow('controller.position.maxScrollExtent',
+                'double — viewport-dependent'),
+            dataRow('controller.position.atEdge',
+                'bool — pixels at min or max?'),
+            dataRow('controller.position.outOfRange',
+                'bool — overscrolled past extents?'),
+            dataRow('controller.position.userScrollDirection',
+                'ScrollDirection — last user gesture'),
+            dataRow('controller.position.isScrollingNotifier',
+                'ValueListenable<bool>'),
           ],
         ),
         headerGradient: <Color>[amber, amberDeep],
@@ -1749,30 +1655,14 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 10),
             pillRow(<Widget>[
-              ribbonBadge(
-                'hasClients ✓',
-                tealLight,
-                tealDeep,
-                icon: Icons.verified,
-              ),
-              ribbonBadge(
-                'mounted ✓',
-                indigoLight,
-                indigoDeep,
-                icon: Icons.power_settings_new,
-              ),
-              ribbonBadge(
-                'positions.length == 1',
-                amberLight,
-                amberDeep,
-                icon: Icons.exposure_zero,
-              ),
-              ribbonBadge(
-                '!disposed',
-                roseLight,
-                roseDeep,
-                icon: Icons.do_not_disturb_on,
-              ),
+              ribbonBadge('hasClients ✓', tealLight, tealDeep,
+                  icon: Icons.verified),
+              ribbonBadge('mounted ✓', indigoLight, indigoDeep,
+                  icon: Icons.power_settings_new),
+              ribbonBadge('positions.length == 1', amberLight, amberDeep,
+                  icon: Icons.exposure_zero),
+              ribbonBadge('!disposed', roseLight, roseDeep,
+                  icon: Icons.do_not_disturb_on),
             ]),
           ],
         ),
@@ -1805,110 +1695,110 @@ dynamic build(BuildContext context) {
       antiPatternCard(
         'PITFALL 1 — Owning a controller from build()',
         '// BAD\n'
-            'Widget build(BuildContext context) {\n'
-            '  final ctl = ScrollController(); // new every rebuild!\n'
-            '  return ListView(controller: ctl, …);\n'
-            '}\n'
-            '// Effect: leak + listener pile-up + position never attaches\n'
-            '// twice the same way. Tests flicker. Profiler explodes.',
+        'Widget build(BuildContext context) {\n'
+        '  final ctl = ScrollController(); // new every rebuild!\n'
+        '  return ListView(controller: ctl, …);\n'
+        '}\n'
+        '// Effect: leak + listener pile-up + position never attaches\n'
+        '// twice the same way. Tests flicker. Profiler explodes.',
       ),
       codeSnippetCard(
         'good_1.dart — own it in State',
         '// GOOD\n'
-            'class _MyState extends State<_MyWidget> {\n'
-            '  final ScrollController _ctl = ScrollController();\n'
-            '\n'
-            '  @override\n'
-            '  void dispose() {\n'
-            '    _ctl.dispose();\n'
-            '    super.dispose();\n'
-            '  }\n'
-            '\n'
-            '  @override\n'
-            '  Widget build(BuildContext c) =>\n'
-            '      ListView(controller: _ctl, …);\n'
-            '}\n',
+        'class _MyState extends State<_MyWidget> {\n'
+        '  final ScrollController _ctl = ScrollController();\n'
+        '\n'
+        '  @override\n'
+        '  void dispose() {\n'
+        '    _ctl.dispose();\n'
+        '    super.dispose();\n'
+        '  }\n'
+        '\n'
+        '  @override\n'
+        '  Widget build(BuildContext c) =>\n'
+        '      ListView(controller: _ctl, …);\n'
+        '}\n',
         accent: teal,
       ),
       antiPatternCard(
         'PITFALL 2 — Sharing one controller across two mounted ListViews',
         '// BAD\n'
-            'ListView(controller: _ctl, …),\n'
-            'ListView(controller: _ctl, …), // boom: positions == 2\n'
-            '// Effect: controller.position throws — "ScrollController\n'
-            '// attached to multiple scroll views."',
+        'ListView(controller: _ctl, …),\n'
+        'ListView(controller: _ctl, …), // boom: positions == 2\n'
+        '// Effect: controller.position throws — "ScrollController\n'
+        '// attached to multiple scroll views."',
       ),
       codeSnippetCard(
         'good_2.dart — one controller per mounted surface',
         '// GOOD — one controller per scroll surface that needs one\n'
-            'final ScrollController _aCtl = ScrollController();\n'
-            'final ScrollController _bCtl = ScrollController();\n'
-            '\n'
-            'ListView(controller: _aCtl, …),\n'
-            'ListView(controller: _bCtl, …),\n',
+        'final ScrollController _aCtl = ScrollController();\n'
+        'final ScrollController _bCtl = ScrollController();\n'
+        '\n'
+        'ListView(controller: _aCtl, …),\n'
+        'ListView(controller: _bCtl, …),\n',
         accent: indigo,
       ),
       antiPatternCard(
         'PITFALL 3 — Reading position before clients attach',
         '// BAD\n'
-            '@override\n'
-            'void initState() {\n'
-            '  super.initState();\n'
-            '  _ctl = ScrollController();\n'
-            '  final px = _ctl.position.pixels; // throws — no clients yet\n'
-            '}',
+        '@override\n'
+        'void initState() {\n'
+        '  super.initState();\n'
+        '  _ctl = ScrollController();\n'
+        '  final px = _ctl.position.pixels; // throws — no clients yet\n'
+        '}',
       ),
       codeSnippetCard(
         'good_3.dart — guard with hasClients',
         '// GOOD\n'
-            'void readOffset() {\n'
-            '  if (!_ctl.hasClients) return; // attached?\n'
-            '  final double px = _ctl.position.pixels;\n'
-            '  // … use px safely\n'
-            '}\n',
+        'void readOffset() {\n'
+        '  if (!_ctl.hasClients) return; // attached?\n'
+        '  final double px = _ctl.position.pixels;\n'
+        '  // … use px safely\n'
+        '}\n',
         accent: amber,
       ),
       antiPatternCard(
         'PITFALL 4 — Disposing in didUpdateWidget instead of dispose',
         '// BAD\n'
-            '@override\n'
-            'void didUpdateWidget(_MyWidget old) {\n'
-            '  super.didUpdateWidget(old);\n'
-            '  _ctl.dispose(); // controller killed mid-life\n'
-            '  _ctl = ScrollController();\n'
-            '}\n'
-            '// Effect: any listener that survived now references a dead\n'
-            '// controller; .position calls throw "used after dispose".',
+        '@override\n'
+        'void didUpdateWidget(_MyWidget old) {\n'
+        '  super.didUpdateWidget(old);\n'
+        '  _ctl.dispose(); // controller killed mid-life\n'
+        '  _ctl = ScrollController();\n'
+        '}\n'
+        '// Effect: any listener that survived now references a dead\n'
+        '// controller; .position calls throw "used after dispose".',
       ),
       codeSnippetCard(
         'good_4.dart — only dispose in State.dispose',
         '// GOOD\n'
-            '@override\n'
-            'void dispose() {\n'
-            '  _ctl.dispose(); // exactly once, at the end\n'
-            '  super.dispose();\n'
-            '}\n',
+        '@override\n'
+        'void dispose() {\n'
+        '  _ctl.dispose(); // exactly once, at the end\n'
+        '  super.dispose();\n'
+        '}\n',
         accent: rose,
       ),
       antiPatternCard(
         'PITFALL 5 — Double-disposing a controller',
         '// BAD\n'
-            '@override\n'
-            'void dispose() {\n'
-            '  _ctl.dispose();\n'
-            '  _ctl.dispose(); // second call throws in debug\n'
-            '  super.dispose();\n'
-            '}',
+        '@override\n'
+        'void dispose() {\n'
+        '  _ctl.dispose();\n'
+        '  _ctl.dispose(); // second call throws in debug\n'
+        '  super.dispose();\n'
+        '}',
       ),
       codeSnippetCard(
         'good_5.dart — single, ordered dispose',
         '// GOOD\n'
-            '@override\n'
-            'void dispose() {\n'
-            '  _ctl.removeListener(_onScroll); // detach listeners first\n'
-            '  _ctl.dispose();                 // then dispose once\n'
-            '  super.dispose();                // last call\n'
-            '}\n',
+        '@override\n'
+        'void dispose() {\n'
+        '  _ctl.removeListener(_onScroll); // detach listeners first\n'
+        '  _ctl.dispose();                 // then dispose once\n'
+        '  super.dispose();                // last call\n'
+        '}\n',
         accent: tealDeep,
       ),
     ],
@@ -1939,45 +1829,45 @@ dynamic build(BuildContext context) {
       codeSnippetCard(
         'idiomatic_full.dart',
         'class Pager extends StatefulWidget {\n'
-            '  const Pager({super.key});\n'
-            '  @override\n'
-            '  State<Pager> createState() => _PagerState();\n'
-            '}\n'
-            '\n'
-            'class _PagerState extends State<Pager> {\n'
-            '  // OWNER: created once, lives as long as this State.\n'
-            '  final ScrollController _ctl = ScrollController();\n'
-            '\n'
-            '  @override\n'
-            '  void dispose() {\n'
-            '    _ctl.dispose();\n'
-            '    super.dispose();\n'
-            '  }\n'
-            '\n'
-            '  @override\n'
-            '  Widget build(BuildContext c) =>\n'
-            '      _OuterWrap(controller: _ctl);\n'
-            '}\n'
-            '\n'
-            'class _OuterWrap extends StatelessWidget {\n'
-            '  final ScrollController controller;\n'
-            '  const _OuterWrap({required this.controller});\n'
-            '  @override\n'
-            '  Widget build(BuildContext c) =>\n'
-            '      _InnerWrap(controller: controller);\n'
-            '}\n'
-            '\n'
-            'class _InnerWrap extends StatelessWidget {\n'
-            '  final ScrollController controller;\n'
-            '  const _InnerWrap({required this.controller});\n'
-            '  @override\n'
-            '  Widget build(BuildContext c) => ListView.builder(\n'
-            '    controller: controller,            // BINDS HERE\n'
-            '    itemCount: 50,\n'
-            '    itemBuilder: (BuildContext c, int i) =>\n'
-            '        ListTile(title: Text("item \$i")),\n'
-            '  );\n'
-            '}\n',
+        '  const Pager({super.key});\n'
+        '  @override\n'
+        '  State<Pager> createState() => _PagerState();\n'
+        '}\n'
+        '\n'
+        'class _PagerState extends State<Pager> {\n'
+        '  // OWNER: created once, lives as long as this State.\n'
+        '  final ScrollController _ctl = ScrollController();\n'
+        '\n'
+        '  @override\n'
+        '  void dispose() {\n'
+        '    _ctl.dispose();\n'
+        '    super.dispose();\n'
+        '  }\n'
+        '\n'
+        '  @override\n'
+        '  Widget build(BuildContext c) =>\n'
+        '      _OuterWrap(controller: _ctl);\n'
+        '}\n'
+        '\n'
+        'class _OuterWrap extends StatelessWidget {\n'
+        '  final ScrollController controller;\n'
+        '  const _OuterWrap({required this.controller});\n'
+        '  @override\n'
+        '  Widget build(BuildContext c) =>\n'
+        '      _InnerWrap(controller: controller);\n'
+        '}\n'
+        '\n'
+        'class _InnerWrap extends StatelessWidget {\n'
+        '  final ScrollController controller;\n'
+        '  const _InnerWrap({required this.controller});\n'
+        '  @override\n'
+        '  Widget build(BuildContext c) => ListView.builder(\n'
+        '    controller: controller,            // BINDS HERE\n'
+        '    itemCount: 50,\n'
+        '    itemBuilder: (BuildContext c, int i) =>\n'
+        '        ListTile(title: Text("item \$i")),\n'
+        '  );\n'
+        '}\n',
         accent: indigo,
       ),
       infoCard(
@@ -1986,10 +1876,8 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             dataRow('owner', '_PagerState — the only place dispose() lives'),
-            dataRow(
-              'forwarders',
-              '_OuterWrap, _InnerWrap — const, ref-only, no state',
-            ),
+            dataRow('forwarders',
+                '_OuterWrap, _InnerWrap — const, ref-only, no state'),
             dataRow('surface', 'ListView.builder — binds via controller:'),
             dataRow('identity', 'one ScrollController for the whole tree'),
             dataRow('rebuild safe', 'controller never recreated in build()'),
@@ -2040,48 +1928,36 @@ dynamic build(BuildContext context) {
             DataColumn(label: Text('wiring')),
           ],
           rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Read offset')),
-                DataCell(Text('yes')),
-                DataCell(Text('State field')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Programmatic scrollTo')),
-                DataCell(Text('yes')),
-                DataCell(Text('State field')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Sync two lists')),
-                DataCell(Text('yes (two)')),
-                DataCell(Text('Two State fields')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Pixel-driven UI')),
-                DataCell(Text('yes')),
-                DataCell(Text('State field + listener')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Just show content')),
-                DataCell(Text('no')),
-                DataCell(Text('Omit controller:')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('NestedScrollView')),
-                DataCell(Text('framework-owned')),
-                DataCell(Text('Use innerController')),
-              ],
-            ),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Read offset')),
+              DataCell(Text('yes')),
+              DataCell(Text('State field')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Programmatic scrollTo')),
+              DataCell(Text('yes')),
+              DataCell(Text('State field')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Sync two lists')),
+              DataCell(Text('yes (two)')),
+              DataCell(Text('Two State fields')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Pixel-driven UI')),
+              DataCell(Text('yes')),
+              DataCell(Text('State field + listener')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Just show content')),
+              DataCell(Text('no')),
+              DataCell(Text('Omit controller:')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('NestedScrollView')),
+              DataCell(Text('framework-owned')),
+              DataCell(Text('Use innerController')),
+            ]),
           ],
         ),
         headerGradient: <Color>[indigo, teal],
@@ -2105,10 +1981,11 @@ dynamic build(BuildContext context) {
   final Widget section10 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('10', 'Chain Depth — O(depth) Pass-Down Is Cheap', <Color>[
-        amberDeep,
-        teal,
-      ]),
+      sectionBanner(
+        '10',
+        'Chain Depth — O(depth) Pass-Down Is Cheap',
+        <Color>[amberDeep, teal],
+      ),
       proseBox(
         'Threading a controller through N StatelessWidgets costs you N '
         'constructor arguments and zero allocations of the controller '
@@ -2128,7 +2005,8 @@ dynamic build(BuildContext context) {
                 padding: const EdgeInsets.symmetric(vertical: 3),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.arrow_right, size: 14, color: amberDeep),
+                    Icon(Icons.arrow_right,
+                        size: 14, color: amberDeep),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
@@ -2144,10 +2022,8 @@ dynamic build(BuildContext context) {
                 ),
               ),
             const SizedBox(height: 8),
-            dataRow(
-              'math.max(1, depth)',
-              '${math.max(1, depthExamples.length)} (this demo)',
-            ),
+            dataRow('math.max(1, depth)',
+                '${math.max(1, depthExamples.length)} (this demo)'),
             dataRow('amortised cost', 'O(1) per rebuild after the first'),
           ],
         ),
@@ -2164,10 +2040,11 @@ dynamic build(BuildContext context) {
   final Widget section11 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('11', 'Glossary — Quick Reference', <Color>[
-        indigoDeep,
-        slate,
-      ]),
+      sectionBanner(
+        '11',
+        'Glossary — Quick Reference',
+        <Color>[indigoDeep, slate],
+      ),
       proseBox(
         'A glossary keyed off the types this file exercises. Treat each '
         'definition as the contract between Flutter\'s SDK and the '
@@ -2181,51 +2058,30 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow(
-              'StatefulWidget',
-              'Widget whose configuration produces a State object',
-            ),
-            dataRow(
-              'State<T>',
-              'Mutable, long-lived companion of a StatefulWidget',
-            ),
-            dataRow(
-              'ScrollController',
-              'Listenable owner of one or more ScrollPositions',
-            ),
-            dataRow(
-              'ScrollPosition',
-              'Per-viewport scrolling state attached to a controller',
-            ),
-            dataRow(
-              'StatelessWidget',
-              'Pure function of its inputs; no mutable state',
-            ),
-            dataRow('ListView', 'Linear scroll surface; accepts a controller'),
-            dataRow(
-              'SingleChildScrollView',
-              'Wrap-one-child scroll surface; accepts a controller',
-            ),
-            dataRow(
-              'GridView',
-              'Two-axis scroll surface; accepts a controller',
-            ),
-            dataRow(
-              'CustomScrollView',
-              'Sliver-based scroll surface; accepts a controller',
-            ),
-            dataRow(
-              'dispose()',
-              'State teardown; the one place to release controllers',
-            ),
-            dataRow(
-              'hasClients',
-              'Whether at least one ScrollPosition is attached',
-            ),
-            dataRow(
-              'Fa2',
-              'Repro family — State-owned controller, Stateless chain',
-            ),
+            dataRow('StatefulWidget',
+                'Widget whose configuration produces a State object'),
+            dataRow('State<T>',
+                'Mutable, long-lived companion of a StatefulWidget'),
+            dataRow('ScrollController',
+                'Listenable owner of one or more ScrollPositions'),
+            dataRow('ScrollPosition',
+                'Per-viewport scrolling state attached to a controller'),
+            dataRow('StatelessWidget',
+                'Pure function of its inputs; no mutable state'),
+            dataRow('ListView',
+                'Linear scroll surface; accepts a controller'),
+            dataRow('SingleChildScrollView',
+                'Wrap-one-child scroll surface; accepts a controller'),
+            dataRow('GridView',
+                'Two-axis scroll surface; accepts a controller'),
+            dataRow('CustomScrollView',
+                'Sliver-based scroll surface; accepts a controller'),
+            dataRow('dispose()',
+                'State teardown; the one place to release controllers'),
+            dataRow('hasClients',
+                'Whether at least one ScrollPosition is attached'),
+            dataRow('Fa2',
+                'Repro family — State-owned controller, Stateless chain'),
           ],
         ),
         headerGradient: <Color>[indigoDeep, indigo],

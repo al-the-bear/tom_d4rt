@@ -203,7 +203,10 @@ Widget _buildHeroHeader() {
                 children: <Widget>[
                   _heroChip('CHAPTER 14'),
                   const SizedBox(height: 12),
-                  const Text('Sliver Types Deep Dive', style: _kHeroTitleStyle),
+                  const Text(
+                    'Sliver Types Deep Dive',
+                    style: _kHeroTitleStyle,
+                  ),
                   const SizedBox(height: 8),
                   const Text(
                     'A guided tour of the sliver protocol and the principal '
@@ -314,7 +317,10 @@ Widget _heroMetric(String value, String label) {
           const SizedBox(height: 2),
           Text(
             label,
-            style: const TextStyle(fontSize: 11, color: Color(0xFFE0EBFF)),
+            style: const TextStyle(
+              fontSize: 11,
+              color: Color(0xFFE0EBFF),
+            ),
           ),
         ],
       ),
@@ -369,7 +375,9 @@ Widget _sectionPanel({
               ),
             ),
             const SizedBox(width: 12),
-            Expanded(child: Text(title, style: _kSectionTitleStyle)),
+            Expanded(
+              child: Text(title, style: _kSectionTitleStyle),
+            ),
           ],
         ),
         const SizedBox(height: 10),
@@ -428,9 +436,12 @@ Widget _demoFrame({required String caption, required Widget child}) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.play_circle_fill, size: 16, color: _kAccentColor),
+            const Icon(Icons.play_circle_fill,
+                size: 16, color: _kAccentColor),
             const SizedBox(width: 6),
-            Expanded(child: Text(caption, style: _kCaptionStyle)),
+            Expanded(
+              child: Text(caption, style: _kCaptionStyle),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -447,8 +458,7 @@ Widget _buildConceptSection() {
   return _sectionPanel(
     sectionNumber: '02',
     title: 'What is a sliver?',
-    lead:
-        'A sliver is a portion of a scrollable area. While ordinary widgets '
+    lead: 'A sliver is a portion of a scrollable area. While ordinary widgets '
         'measure themselves with BoxConstraints (width and height ranges), '
         'slivers measure themselves with SliverConstraints (scrollOffset, '
         'remainingPaintExtent, axisDirection and friends). A CustomScrollView '
@@ -469,8 +479,7 @@ Widget _buildConceptSection() {
         background: _kAccentLight,
         icon: Icons.lightbulb_outline,
         title: 'Rule of thumb',
-        body:
-            'If a child of CustomScrollView is a regular box widget, wrap it '
+        body: 'If a child of CustomScrollView is a regular box widget, wrap it '
             'in SliverToBoxAdapter. If a child already implements the sliver '
             'protocol, add it directly.',
       ),
@@ -508,7 +517,8 @@ Widget _conceptDiagram() {
                 const SizedBox(height: 4),
                 _diagramSliver('SliverGrid', const Color(0xFFFFA726)),
                 const SizedBox(height: 4),
-                _diagramSliver('SliverFillRemaining', const Color(0xFF8E24AA)),
+                _diagramSliver('SliverFillRemaining',
+                    const Color(0xFF8E24AA)),
               ],
             ),
           ),
@@ -557,10 +567,7 @@ Widget _conceptBullets() {
   final List<List<String>> rows = <List<String>>[
     <String>['scrollOffset', 'How far past this sliver the user has scrolled'],
     <String>['remainingPaintExtent', 'Pixels left of the viewport to paint'],
-    <String>[
-      'axisDirection',
-      'Direction of scroll growth (down/right/up/left)',
-    ],
+    <String>['axisDirection', 'Direction of scroll growth (down/right/up/left)'],
     <String>['crossAxisExtent', 'Width when scrolling vertically'],
     <String>['overlap', 'Pixels obscured by a previous pinned sliver'],
   ];
@@ -574,7 +581,8 @@ Widget _conceptBullets() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Key SliverConstraints fields', style: _kCalloutTitleStyle),
+        const Text('Key SliverConstraints fields',
+            style: _kCalloutTitleStyle),
         const SizedBox(height: 8),
         for (final List<String> row in rows) _conceptRow(row[0], row[1]),
       ],
@@ -628,15 +636,13 @@ Widget _buildToBoxAdapterSection() {
   return _sectionPanel(
     sectionNumber: '03',
     title: 'SliverToBoxAdapter',
-    lead:
-        'The simplest sliver. It takes a single box widget and exposes it '
+    lead: 'The simplest sliver. It takes a single box widget and exposes it '
         'to the sliver protocol with its natural intrinsic height. Use it '
         'whenever a header, footer, banner, or one-off widget needs to sit '
         'inside a CustomScrollView alongside other slivers.',
     children: <Widget>[
       _demoFrame(
-        caption:
-            'Below: three SliverToBoxAdapter widgets inside a '
+        caption: 'Below: three SliverToBoxAdapter widgets inside a '
             'CustomScrollView of finite height. Scroll inside the panel.',
         child: SizedBox(
           height: 240,
@@ -665,8 +671,7 @@ Widget _buildToBoxAdapterSection() {
         background: const Color(0xFFFFF4E5),
         icon: Icons.warning_amber_rounded,
         title: 'Performance note',
-        body:
-            'SliverToBoxAdapter builds its child eagerly. For long lists '
+        body: 'SliverToBoxAdapter builds its child eagerly. For long lists '
             'use SliverList or SliverFixedExtentList, which build children '
             'lazily as they enter the viewport.',
       ),
@@ -693,7 +698,8 @@ Widget _adapterTile(String label, Color color) {
             borderRadius: BorderRadius.circular(8),
           ),
           alignment: Alignment.center,
-          child: const Icon(Icons.crop_din, size: 18, color: Colors.white),
+          child: const Icon(Icons.crop_din,
+              size: 18, color: Colors.white),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -702,10 +708,8 @@ Widget _adapterTile(String label, Color color) {
             children: <Widget>[
               Text(label, style: _kCellTitleStyle),
               const SizedBox(height: 2),
-              const Text(
-                'SliverToBoxAdapter child',
-                style: _kCellSubtitleStyle,
-              ),
+              const Text('SliverToBoxAdapter child',
+                  style: _kCellSubtitleStyle),
             ],
           ),
         ),
@@ -721,27 +725,25 @@ Widget _buildSliverListSection() {
   return _sectionPanel(
     sectionNumber: '04',
     title: 'SliverList',
-    lead:
-        'SliverList builds variable-extent children lazily via a '
+    lead: 'SliverList builds variable-extent children lazily via a '
         'SliverChildBuilderDelegate. Each child is measured individually, so '
         'rows may have different heights. This is the default workhorse for '
         'most scrollable lists embedded in CustomScrollView.',
     children: <Widget>[
       _demoFrame(
-        caption:
-            'Below: ten variable-height rows produced by a builder '
+        caption: 'Below: ten variable-height rows produced by a builder '
             'callback. Notice every row has different padding.',
         child: SizedBox(
           height: 260,
           child: CustomScrollView(
             slivers: <Widget>[
               SliverList(
-                delegate: SliverChildBuilderDelegate((
-                  BuildContext context,
-                  int index,
-                ) {
-                  return _variableRow(index);
-                }, childCount: 12),
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return _variableRow(index);
+                  },
+                  childCount: 12,
+                ),
               ),
             ],
           ),
@@ -753,8 +755,7 @@ Widget _buildSliverListSection() {
         background: const Color(0xFFE7F4E8),
         icon: Icons.check_circle_outline,
         title: 'When to choose SliverList',
-        body:
-            'Rows of mixed heights, content-driven sizing, or expensive '
+        body: 'Rows of mixed heights, content-driven sizing, or expensive '
             'children that benefit from lazy construction.',
       ),
     ],
@@ -776,20 +777,7 @@ Widget _variableRow(int index) {
     'Bookmark',
     'Recent file',
   ];
-  final List<int> heights = <int>[
-    64,
-    84,
-    56,
-    92,
-    72,
-    80,
-    60,
-    100,
-    70,
-    88,
-    62,
-    96,
-  ];
+  final List<int> heights = <int>[64, 84, 56, 92, 72, 80, 60, 100, 70, 88, 62, 96];
   final int paletteIndex = index % titles.length;
   final String title = titles[paletteIndex];
   final int height = heights[paletteIndex];
@@ -818,14 +806,12 @@ Widget _variableRow(int index) {
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
-          child: Text(
-            '${index + 1}',
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: _kStrongText,
-            ),
-          ),
+          child: Text('${index + 1}',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _kStrongText,
+              )),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -850,14 +836,12 @@ Widget _buildFixedExtentListSection() {
   return _sectionPanel(
     sectionNumber: '05',
     title: 'SliverFixedExtentList',
-    lead:
-        'When every child has the same main-axis extent, SliverFixedExtentList '
+    lead: 'When every child has the same main-axis extent, SliverFixedExtentList '
         'skips the per-child layout pass and computes positions arithmetically. '
         'It is dramatically cheaper than SliverList for long uniform lists.',
     children: <Widget>[
       _demoFrame(
-        caption:
-            'Below: itemExtent = 60 px. Each row paints with the same '
+        caption: 'Below: itemExtent = 60 px. Each row paints with the same '
             'arithmetically-computed offset.',
         child: SizedBox(
           height: 240,
@@ -866,7 +850,8 @@ Widget _buildFixedExtentListSection() {
               SliverFixedExtentList(
                 itemExtent: 60,
                 delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) => _fixedExtentRow(index),
+                  (BuildContext context, int index) =>
+                      _fixedExtentRow(index),
                   childCount: 16,
                 ),
               ),
@@ -884,8 +869,7 @@ Widget _buildFixedExtentListSection() {
               background: _kAccentLight,
               icon: Icons.speed,
               title: 'Performance',
-              body:
-                  'Layout cost is O(1) per child instead of O(layout). '
+              body: 'Layout cost is O(1) per child instead of O(layout). '
                   'Prefer this sliver for telephone directories, settings '
                   'rows, or message previews.',
             ),
@@ -897,8 +881,7 @@ Widget _buildFixedExtentListSection() {
               background: const Color(0xFFFEEBEE),
               icon: Icons.report_gmailerrorred,
               title: 'Watch out',
-              body:
-                  'If a child exceeds itemExtent, content will be clipped. '
+              body: 'If a child exceeds itemExtent, content will be clipped. '
                   'Use SliverList instead when sizes vary.',
             ),
           ),
@@ -943,10 +926,8 @@ Widget _fixedExtentRow(int index) {
         ),
         const SizedBox(width: 12),
         Expanded(
-          child: Text(
-            'Fixed extent row #${index + 1}',
-            style: _kCellTitleStyle,
-          ),
+          child: Text('Fixed extent row #${index + 1}',
+              style: _kCellTitleStyle),
         ),
         const Icon(Icons.chevron_right, color: _kMutedText),
       ],
@@ -961,15 +942,13 @@ Widget _buildPrototypeExtentListSection() {
   return _sectionPanel(
     sectionNumber: '06',
     title: 'SliverPrototypeExtentList',
-    lead:
-        'A close relative of SliverFixedExtentList. Instead of providing a '
+    lead: 'A close relative of SliverFixedExtentList. Instead of providing a '
         'numeric itemExtent, you provide a prototype widget; the sliver '
         'measures its intrinsic height and uses that value as the extent for '
         'every child. Handy when the row size is data-driven.',
     children: <Widget>[
       _demoFrame(
-        caption:
-            'Below: prototype is a single ListTile-like row. All '
+        caption: 'Below: prototype is a single ListTile-like row. All '
             'children take the prototype\'s measured height.',
         child: SizedBox(
           height: 240,
@@ -978,7 +957,8 @@ Widget _buildPrototypeExtentListSection() {
               SliverPrototypeExtentList(
                 prototypeItem: _prototypeItem(),
                 delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) => _prototypeRow(index),
+                  (BuildContext context, int index) =>
+                      _prototypeRow(index),
                   childCount: 12,
                 ),
               ),
@@ -992,8 +972,7 @@ Widget _buildPrototypeExtentListSection() {
         background: _kAccentLight,
         icon: Icons.straighten,
         title: 'How it works',
-        body:
-            'The prototype is laid out once during the first frame; its '
+        body: 'The prototype is laid out once during the first frame; its '
             'measured extent is cached and applied to every child until the '
             'prototype changes.',
       ),
@@ -1032,14 +1011,10 @@ Widget _prototypeRow(int index) {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Prototype-extent row #${index + 1}',
-                style: _kCellTitleStyle,
-              ),
-              const Text(
-                'Height taken from prototypeItem',
-                style: _kCellSubtitleStyle,
-              ),
+              Text('Prototype-extent row #${index + 1}',
+                  style: _kCellTitleStyle),
+              const Text('Height taken from prototypeItem',
+                  style: _kCellSubtitleStyle),
             ],
           ),
         ),
@@ -1055,8 +1030,7 @@ Widget _buildSliverGridSection() {
   return _sectionPanel(
     sectionNumber: '07',
     title: 'SliverGrid',
-    lead:
-        'SliverGrid arranges children into a two-dimensional grid via a '
+    lead: 'SliverGrid arranges children into a two-dimensional grid via a '
         'SliverGridDelegate. The two most common delegates are '
         'SliverGridDelegateWithFixedCrossAxisCount (fixed column count) and '
         'SliverGridDelegateWithMaxCrossAxisExtent (responsive column count).',
@@ -1068,7 +1042,8 @@ Widget _buildSliverGridSection() {
           child: CustomScrollView(
             slivers: <Widget>[
               SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
@@ -1092,7 +1067,8 @@ Widget _buildSliverGridSection() {
           child: CustomScrollView(
             slivers: <Widget>[
               SliverGrid(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                gridDelegate:
+                    const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 120,
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
@@ -1137,14 +1113,12 @@ Widget _gridTile(int index, {required String label}) {
             borderRadius: BorderRadius.circular(4),
           ),
           alignment: Alignment.center,
-          child: Text(
-            '${index + 1}',
-            style: const TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
+          child: Text('${index + 1}',
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              )),
         ),
         const SizedBox(height: 4),
         Text(label, style: _kCellSubtitleStyle),
@@ -1160,8 +1134,7 @@ Widget _buildSliverPaddingSection() {
   return _sectionPanel(
     sectionNumber: '08',
     title: 'SliverPadding',
-    lead:
-        'SliverPadding wraps another sliver in EdgeInsets so the inner '
+    lead: 'SliverPadding wraps another sliver in EdgeInsets so the inner '
         'sliver gets pushed inward without breaking the sliver protocol. '
         'Use it instead of wrapping with Padding, which would coerce the '
         'inner sliver back into a box.',
@@ -1174,12 +1147,11 @@ Widget _buildSliverPaddingSection() {
             slivers: <Widget>[
               SliverPadding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
-                ),
+                    horizontal: 24, vertical: 12),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) => _paddingRow(index),
+                    (BuildContext context, int index) =>
+                        _paddingRow(index),
                     childCount: 8,
                   ),
                 ),
@@ -1194,8 +1166,7 @@ Widget _buildSliverPaddingSection() {
         background: _kAccentLight,
         icon: Icons.format_indent_increase,
         title: 'Tip',
-        body:
-            'EdgeInsets are interpreted in the sliver\'s cross-axis and '
+        body: 'EdgeInsets are interpreted in the sliver\'s cross-axis and '
             'main-axis directions, so swapping axisDirection automatically '
             'remaps left/right/top/bottom.',
       ),
@@ -1231,15 +1202,13 @@ Widget _buildSliverFillRemainingSection() {
   return _sectionPanel(
     sectionNumber: '09',
     title: 'SliverFillRemaining',
-    lead:
-        'SliverFillRemaining expands to fill whatever vertical space is '
+    lead: 'SliverFillRemaining expands to fill whatever vertical space is '
         'left in the viewport after preceding slivers have been laid out. '
         'It is most often used for empty states or trailing call-to-action '
         'screens that should occupy the rest of the page.',
     children: <Widget>[
       _demoFrame(
-        caption:
-            'Below: a small header sliver followed by SliverFillRemaining '
+        caption: 'Below: a small header sliver followed by SliverFillRemaining '
             'that paints a centred empty-state card.',
         child: SizedBox(
           height: 240,
@@ -1254,7 +1223,10 @@ Widget _buildSliverFillRemainingSection() {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: const Color(0xFF9FA8DA)),
                   ),
-                  child: const Text('Inbox is empty', style: _kCellTitleStyle),
+                  child: const Text(
+                    'Inbox is empty',
+                    style: _kCellTitleStyle,
+                  ),
                 ),
               ),
               SliverFillRemaining(
@@ -1272,12 +1244,11 @@ Widget _buildSliverFillRemainingSection() {
                     children: const <Widget>[
                       Icon(Icons.inbox, size: 36, color: _kWarningColor),
                       SizedBox(height: 8),
-                      Text('Nothing here yet', style: _kCalloutTitleStyle),
+                      Text('Nothing here yet',
+                          style: _kCalloutTitleStyle),
                       SizedBox(height: 4),
-                      Text(
-                        'Pull-to-refresh to check again.',
-                        style: _kCellSubtitleStyle,
-                      ),
+                      Text('Pull-to-refresh to check again.',
+                          style: _kCellSubtitleStyle),
                     ],
                   ),
                 ),
@@ -1292,8 +1263,7 @@ Widget _buildSliverFillRemainingSection() {
         background: const Color(0xFFE7F4E8),
         icon: Icons.fit_screen,
         title: 'hasScrollBody flag',
-        body:
-            'Pass hasScrollBody:false when the child does not itself scroll '
+        body: 'Pass hasScrollBody:false when the child does not itself scroll '
             '(typical for empty states). The default true is for embedding a '
             'nested scrollable.',
       ),
@@ -1308,16 +1278,14 @@ Widget _buildPseudoPersistentHeaderSection() {
   return _sectionPanel(
     sectionNumber: '10',
     title: 'Pseudo-persistent header pattern',
-    lead:
-        'SliverPersistentHeader takes a SliverPersistentHeaderDelegate, '
+    lead: 'SliverPersistentHeader takes a SliverPersistentHeaderDelegate, '
         'which is abstract and would force a subclass. To stay subclass-free '
         'and analyzer-clean, this demo illustrates the concept with a '
         'SliverToBoxAdapter that paints a fake "header" and shows how a real '
         'one would behave when pinned or floating.',
     children: <Widget>[
       _demoFrame(
-        caption:
-            'Below: a static visual stand-in for what a pinned '
+        caption: 'Below: a static visual stand-in for what a pinned '
             'persistent header looks like on screen.',
         child: SizedBox(
           height: 240,
@@ -1325,12 +1293,12 @@ Widget _buildPseudoPersistentHeaderSection() {
             slivers: <Widget>[
               SliverToBoxAdapter(child: _fakeHeader()),
               SliverList(
-                delegate: SliverChildBuilderDelegate((
-                  BuildContext context,
-                  int index,
-                ) {
-                  return _paddingRow(index);
-                }, childCount: 6),
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return _paddingRow(index);
+                  },
+                  childCount: 6,
+                ),
               ),
             ],
           ),
@@ -1342,8 +1310,7 @@ Widget _buildPseudoPersistentHeaderSection() {
         background: const Color(0xFFFFF4E5),
         icon: Icons.info_outline,
         title: 'Real persistent headers',
-        body:
-            'In production, override minExtent/maxExtent/build/shouldRebuild '
+        body: 'In production, override minExtent/maxExtent/build/shouldRebuild '
             'on a SliverPersistentHeaderDelegate. The pinned variant stays '
             'glued to the top; the floating variant returns when the user '
             'scrolls back.',
@@ -1391,8 +1358,7 @@ Widget _buildSliverAppBarSection() {
   return _sectionPanel(
     sectionNumber: '11',
     title: 'SliverAppBar',
-    lead:
-        'SliverAppBar is a concrete persistent header tailored for app bars. '
+    lead: 'SliverAppBar is a concrete persistent header tailored for app bars. '
         'It supports pinned, floating, snap, and expanded modes plus a '
         'FlexibleSpaceBar for a hero background that collapses on scroll.',
     children: <Widget>[
@@ -1410,10 +1376,8 @@ Widget _buildSliverAppBarSection() {
                 backgroundColor: _kAccentColor,
                 title: const Text('Pinned'),
                 flexibleSpace: FlexibleSpaceBar(
-                  title: const Text(
-                    'Pinned + expanded',
-                    style: TextStyle(fontSize: 13),
-                  ),
+                  title: const Text('Pinned + expanded',
+                      style: TextStyle(fontSize: 13)),
                   background: Container(
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -1438,8 +1402,7 @@ Widget _buildSliverAppBarSection() {
       ),
       const SizedBox(height: 12),
       _demoFrame(
-        caption:
-            'floating: true, snap: true. The bar returns when you '
+        caption: 'floating: true, snap: true. The bar returns when you '
             'reverse scroll direction.',
         child: SizedBox(
           height: 240,
@@ -1521,14 +1484,12 @@ Widget _appBarRow(int index, String tag) {
             borderRadius: BorderRadius.circular(6),
           ),
           alignment: Alignment.center,
-          child: Text(
-            '${index + 1}',
-            style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              color: _kAccentDeep,
-              fontSize: 12,
-            ),
-          ),
+          child: Text('${index + 1}',
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                color: _kAccentDeep,
+                fontSize: 12,
+              )),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -1537,10 +1498,8 @@ Widget _appBarRow(int index, String tag) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('$tag row ${index + 1}', style: _kCellTitleStyle),
-              const Text(
-                'Scroll to observe the app bar response',
-                style: _kCellSubtitleStyle,
-              ),
+              const Text('Scroll to observe the app bar response',
+                  style: _kCellSubtitleStyle),
             ],
           ),
         ),
@@ -1557,11 +1516,7 @@ Widget _buildComparisonTableSection() {
     <String>['SliverToBoxAdapter', 'Single box widget', 'Banners, footers'],
     <String>['SliverList', 'Variable-extent children', 'Mixed content lists'],
     <String>['SliverFixedExtentList', 'Uniform height', 'Long uniform lists'],
-    <String>[
-      'SliverPrototypeExtentList',
-      'Data-driven height',
-      'Prototype-based rows',
-    ],
+    <String>['SliverPrototypeExtentList', 'Data-driven height', 'Prototype-based rows'],
     <String>['SliverGrid', '2D grid', 'Galleries, dashboards'],
     <String>['SliverPadding', 'Wraps a sliver in insets', 'Inner margin'],
     <String>['SliverFillRemaining', 'Fills remaining viewport', 'Empty states'],
@@ -1572,8 +1527,7 @@ Widget _buildComparisonTableSection() {
   return _sectionPanel(
     sectionNumber: '12',
     title: 'Comparison table',
-    lead:
-        'A side-by-side reference of the sliver widgets covered in this '
+    lead: 'A side-by-side reference of the sliver widgets covered in this '
         'document, with their primary purpose and a typical use case.',
     children: <Widget>[
       Container(
@@ -1597,8 +1551,7 @@ Widget _buildComparisonTableSection() {
         background: _kAccentLight,
         icon: Icons.menu_book,
         title: 'Choosing a sliver',
-        body:
-            'Start from the most specific sliver that satisfies your needs '
+        body: 'Start from the most specific sliver that satisfies your needs '
             '— fixed extent if heights are uniform, prototype extent if they '
             'are data-driven, otherwise SliverList.',
       ),
@@ -1612,8 +1565,14 @@ Widget _tableHeader() {
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     child: Row(
       children: const <Widget>[
-        Expanded(flex: 3, child: Text('Sliver', style: _kTableHeaderStyle)),
-        Expanded(flex: 3, child: Text('Purpose', style: _kTableHeaderStyle)),
+        Expanded(
+          flex: 3,
+          child: Text('Sliver', style: _kTableHeaderStyle),
+        ),
+        Expanded(
+          flex: 3,
+          child: Text('Purpose', style: _kTableHeaderStyle),
+        ),
         Expanded(
           flex: 3,
           child: Text('Typical use', style: _kTableHeaderStyle),
@@ -1653,81 +1612,36 @@ Widget _tableRow(List<String> cells, {required bool even}) {
 // ============================================================================
 Widget _buildGlossarySection() {
   final List<List<String>> entries = <List<String>>[
-    <String>[
-      'Sliver',
-      'A piece of a scrollable area that obeys the sliver '
-          'protocol (SliverConstraints + SliverGeometry).',
-    ],
-    <String>[
-      'Viewport',
-      'The widget that hosts a list of slivers and '
-          'orchestrates their painting and hit-testing.',
-    ],
-    <String>[
-      'SliverConstraints',
-      'The constraints handed to a sliver during '
-          'layout — scrollOffset, remainingPaintExtent, axisDirection, etc.',
-    ],
-    <String>[
-      'SliverGeometry',
-      'A sliver\'s reply to layout: paintExtent, '
-          'scrollExtent, maxPaintExtent, layoutExtent, and visible.',
-    ],
-    <String>[
-      'scrollOffset',
-      'How many logical pixels of this sliver have '
-          'already been scrolled out of the viewport.',
-    ],
-    <String>[
-      'paintExtent',
-      'The number of pixels this sliver will paint '
-          'inside the viewport along the main axis.',
-    ],
-    <String>[
-      'layoutExtent',
-      'The portion of paintExtent that is visible '
-          '(unobscured by pinned siblings).',
-    ],
-    <String>[
-      'maxPaintExtent',
-      'The greatest paintExtent the sliver could '
-          'ever request; used to compute scroll metrics.',
-    ],
-    <String>[
-      'Delegate',
-      'A small object that supplies children to a sliver '
-          '(SliverChildBuilderDelegate, SliverChildListDelegate, etc.).',
-    ],
-    <String>[
-      'Builder delegate',
-      'A delegate that constructs children '
-          'lazily via an itemBuilder callback.',
-    ],
-    <String>[
-      'List delegate',
-      'A delegate that takes a finite list of '
-          'pre-built children, used for short lists.',
-    ],
-    <String>[
-      'itemExtent',
-      'The exact main-axis extent of every child in a '
-          'SliverFixedExtentList.',
-    ],
-    <String>[
-      'prototypeItem',
-      'A widget used by SliverPrototypeExtentList '
-          'to derive the per-child extent.',
-    ],
-    <String>[
-      'Pinned',
-      'A persistent header mode where the header remains '
-          'glued to the leading edge of the viewport.',
-    ],
-    <String>[
-      'Floating',
-      'A persistent header mode where the header '
-          'reappears as soon as the user reverses scroll direction.',
-    ],
+    <String>['Sliver', 'A piece of a scrollable area that obeys the sliver '
+        'protocol (SliverConstraints + SliverGeometry).'],
+    <String>['Viewport', 'The widget that hosts a list of slivers and '
+        'orchestrates their painting and hit-testing.'],
+    <String>['SliverConstraints', 'The constraints handed to a sliver during '
+        'layout — scrollOffset, remainingPaintExtent, axisDirection, etc.'],
+    <String>['SliverGeometry', 'A sliver\'s reply to layout: paintExtent, '
+        'scrollExtent, maxPaintExtent, layoutExtent, and visible.'],
+    <String>['scrollOffset', 'How many logical pixels of this sliver have '
+        'already been scrolled out of the viewport.'],
+    <String>['paintExtent', 'The number of pixels this sliver will paint '
+        'inside the viewport along the main axis.'],
+    <String>['layoutExtent', 'The portion of paintExtent that is visible '
+        '(unobscured by pinned siblings).'],
+    <String>['maxPaintExtent', 'The greatest paintExtent the sliver could '
+        'ever request; used to compute scroll metrics.'],
+    <String>['Delegate', 'A small object that supplies children to a sliver '
+        '(SliverChildBuilderDelegate, SliverChildListDelegate, etc.).'],
+    <String>['Builder delegate', 'A delegate that constructs children '
+        'lazily via an itemBuilder callback.'],
+    <String>['List delegate', 'A delegate that takes a finite list of '
+        'pre-built children, used for short lists.'],
+    <String>['itemExtent', 'The exact main-axis extent of every child in a '
+        'SliverFixedExtentList.'],
+    <String>['prototypeItem', 'A widget used by SliverPrototypeExtentList '
+        'to derive the per-child extent.'],
+    <String>['Pinned', 'A persistent header mode where the header remains '
+        'glued to the leading edge of the viewport.'],
+    <String>['Floating', 'A persistent header mode where the header '
+        'reappears as soon as the user reverses scroll direction.'],
   ];
   return _sectionPanel(
     sectionNumber: '13',
@@ -1744,11 +1658,7 @@ Widget _buildGlossarySection() {
         child: Column(
           children: <Widget>[
             for (int i = 0; i < entries.length; i++)
-              _glossaryRow(
-                entries[i][0],
-                entries[i][1],
-                divider: i < entries.length - 1,
-              ),
+              _glossaryRow(entries[i][0], entries[i][1], divider: i < entries.length - 1),
           ],
         ),
       ),
@@ -1765,7 +1675,10 @@ Widget _glossaryRow(String term, String def, {required bool divider}) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(width: 130, child: Text(term, style: _kGlossaryTermStyle)),
+            SizedBox(
+              width: 130,
+              child: Text(term, style: _kGlossaryTermStyle),
+            ),
             const SizedBox(width: 12),
             Expanded(child: Text(def, style: _kGlossaryDefStyle)),
           ],

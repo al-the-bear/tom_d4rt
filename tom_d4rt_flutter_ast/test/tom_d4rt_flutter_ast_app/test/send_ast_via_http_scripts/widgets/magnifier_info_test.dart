@@ -32,24 +32,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -66,7 +57,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 13, color: deepTopaz)),
+      child: Text(text,
+          style: TextStyle(fontSize: 13, color: deepTopaz)),
     );
   }
 
@@ -78,20 +70,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 13, color: deepTopaz),
-            ),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: deepTopaz)),
           ),
         ],
       ),
@@ -133,9 +120,7 @@ dynamic build(BuildContext context) {
   // Section 1
   print('\n--- What is MagnifierInfo ---');
   print('Data class with positioning geometry for magnifier');
-  print(
-    '4 properties: globalGesturePosition, caretRect, fieldBounds, currentLineBoundaries',
-  );
+  print('4 properties: globalGesturePosition, caretRect, fieldBounds, currentLineBoundaries');
 
   // Section 2
   print('\n--- Properties ---');
@@ -189,44 +174,33 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.zoom_in_map, size: 28, color: paleHoney),
                   const SizedBox(width: 10),
-                  const Text(
-                    'MagnifierInfo',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  const Text('MagnifierInfo',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'Positioning geometry for the text selection magnifier',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 14,
-                ),
-              ),
+              Text('Positioning geometry for the text selection magnifier',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 14)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  tag('Data Class', warmTopaz, Colors.white),
-                  tag('4 Properties', citrine, Colors.white),
-                  tag('Immutable', paleHoney, deepTopaz),
-                  tag('Value Equality', goldenYellow, deepTopaz),
-                ],
-              ),
+              Wrap(children: [
+                tag('Data Class', warmTopaz, Colors.white),
+                tag('4 Properties', citrine, Colors.white),
+                tag('Immutable', paleHoney, deepTopaz),
+                tag('Value Equality', goldenYellow, deepTopaz),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner(
-          '1 \u00b7 What Is MagnifierInfo',
-          'Geometry data for magnifier positioning',
-          deepTopaz,
-          Colors.white,
-        ),
+        sectionBanner('1 \u00b7 What Is MagnifierInfo',
+            'Geometry data for magnifier positioning',
+            deepTopaz, Colors.white),
         noteBox(
           'MagnifierInfo is an immutable data class that carries positioning '
           'geometry needed to render a text selection magnifier. It includes '
@@ -244,49 +218,30 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. The four properties ───────────────────────────────────
-        sectionBanner(
-          '2 \u00b7 The Four Properties',
-          'Each property describes a piece of positioning geometry',
-          burnishedAmber,
-          Colors.white,
-        ),
+        sectionBanner('2 \u00b7 The Four Properties',
+            'Each property describes a piece of positioning geometry',
+            burnishedAmber, Colors.white),
         for (final prop in [
-          (
-            'globalGesturePosition',
-            'Offset',
-            'User\'s finger/pointer position in global coordinates',
-            'Where the user is touching — the magnifier tracks this point',
-            info.globalGesturePosition.toString(),
-            Icons.touch_app,
-            citrine,
-          ),
-          (
-            'caretRect',
-            'Rect',
-            'Rectangle of the text cursor/caret',
-            'Thin rectangle at the insertion point — 2px wide, line-height tall',
-            info.caretRect.toString(),
-            Icons.text_fields,
-            warmTopaz,
-          ),
-          (
-            'fieldBounds',
-            'Rect',
-            'Bounds of the entire text field',
-            'The outer rectangle of the TextField — magnifier stays within these bounds',
-            info.fieldBounds.toString(),
-            Icons.crop_square,
-            burnishedAmber,
-          ),
-          (
-            'currentLineBoundaries',
-            'Rect',
-            'Bounds of the current text line',
-            'First to last character of the line — without field padding',
-            info.currentLineBoundaries.toString(),
-            Icons.format_align_left,
-            deepTopaz,
-          ),
+          ('globalGesturePosition', 'Offset',
+              'User\'s finger/pointer position in global coordinates',
+              'Where the user is touching — the magnifier tracks this point',
+              info.globalGesturePosition.toString(),
+              Icons.touch_app, citrine),
+          ('caretRect', 'Rect',
+              'Rectangle of the text cursor/caret',
+              'Thin rectangle at the insertion point — 2px wide, line-height tall',
+              info.caretRect.toString(),
+              Icons.text_fields, warmTopaz),
+          ('fieldBounds', 'Rect',
+              'Bounds of the entire text field',
+              'The outer rectangle of the TextField — magnifier stays within these bounds',
+              info.fieldBounds.toString(),
+              Icons.crop_square, burnishedAmber),
+          ('currentLineBoundaries', 'Rect',
+              'Bounds of the current text line',
+              'First to last character of the line — without field padding',
+              info.currentLineBoundaries.toString(),
+              Icons.format_align_left, deepTopaz),
         ])
           Container(
             width: double.infinity,
@@ -295,7 +250,8 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: creamWhite,
               borderRadius: BorderRadius.circular(10),
-              border: Border(left: BorderSide(color: prop.$7, width: 4)),
+              border: Border(
+                  left: BorderSide(color: prop.$7, width: 4)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -317,57 +273,40 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          Text(
-                            prop.$1,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: deepTopaz,
-                            ),
-                          ),
+                          Text(prop.$1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  fontFamily: 'monospace',
+                                  color: deepTopaz)),
                           const SizedBox(width: 6),
-                          tag(
-                            prop.$2,
-                            prop.$7.withValues(alpha: 0.12),
-                            prop.$7,
-                          ),
+                          tag(prop.$2, prop.$7.withValues(alpha: 0.12),
+                              prop.$7),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        prop.$3,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: richBrown,
-                        ),
-                      ),
-                      Text(
-                        prop.$4,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: deepTopaz.withValues(alpha: 0.7),
-                        ),
-                      ),
+                      Text(prop.$3,
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: richBrown)),
+                      Text(prop.$4,
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: deepTopaz.withValues(alpha: 0.7))),
                       const SizedBox(height: 4),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: prop.$7.withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(
-                          prop.$5,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: prop.$7,
-                          ),
-                        ),
+                        child: Text(prop.$5,
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                color: prop.$7)),
                       ),
                     ],
                   ),
@@ -378,12 +317,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Visual coordinate diagram ─────────────────────────────
-        sectionBanner(
-          '3 \u00b7 Coordinate Diagram',
-          'Visual layout of how the four rects relate to each other',
-          warmTopaz,
-          Colors.white,
-        ),
+        sectionBanner('3 \u00b7 Coordinate Diagram',
+            'Visual layout of how the four rects relate to each other',
+            warmTopaz, Colors.white),
         Container(
           width: double.infinity,
           height: 220,
@@ -411,14 +347,11 @@ dynamic build(BuildContext context) {
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: const EdgeInsets.all(4),
-                      child: Text(
-                        'fieldBounds',
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.bold,
-                          color: burnishedAmber,
-                        ),
-                      ),
+                      child: Text('fieldBounds',
+                          style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: burnishedAmber)),
                     ),
                   ),
                 ),
@@ -437,14 +370,11 @@ dynamic build(BuildContext context) {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 4),
-                    child: Text(
-                      'currentLineBoundaries',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                        color: deepTopaz,
-                      ),
-                    ),
+                    child: Text('currentLineBoundaries',
+                        style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            color: deepTopaz)),
                   ),
                 ),
               ),
@@ -471,14 +401,11 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 148,
                 top: 60,
-                child: Text(
-                  'caretRect',
-                  style: TextStyle(
-                    fontSize: 9,
-                    fontWeight: FontWeight.bold,
-                    color: warmTopaz,
-                  ),
-                ),
+                child: Text('caretRect',
+                    style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                        color: warmTopaz)),
               ),
               // globalGesturePosition — the finger
               Positioned(
@@ -499,45 +426,34 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 155,
                 top: 38,
-                child: Text(
-                  'gesture pos',
-                  style: TextStyle(
-                    fontSize: 9,
-                    fontWeight: FontWeight.bold,
-                    color: citrine,
-                  ),
-                ),
+                child: Text('gesture pos',
+                    style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                        color: citrine)),
               ),
               // Sample text lines
               Positioned(
                 left: 25,
                 top: 35,
-                child: Text(
-                  'The quick brown fox jumps',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: deepTopaz.withValues(alpha: 0.5),
-                  ),
-                ),
+                child: Text('The quick brown fox jumps',
+                    style: TextStyle(
+                        fontSize: 11,
+                        color: deepTopaz.withValues(alpha: 0.5))),
               ),
               Positioned(
                 left: 25,
                 top: 73,
-                child: Text(
-                  'over the lazy dog today',
-                  style: TextStyle(fontSize: 11, color: deepTopaz),
-                ),
+                child: Text('over the lazy dog today',
+                    style: TextStyle(fontSize: 11, color: deepTopaz)),
               ),
               Positioned(
                 left: 25,
                 top: 100,
-                child: Text(
-                  'and ran through the field',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: deepTopaz.withValues(alpha: 0.5),
-                  ),
-                ),
+                child: Text('and ran through the field',
+                    style: TextStyle(
+                        fontSize: 11,
+                        color: deepTopaz.withValues(alpha: 0.5))),
               ),
               // Legend
               Positioned(
@@ -546,25 +462,13 @@ dynamic build(BuildContext context) {
                 child: Row(
                   children: [
                     Container(width: 10, height: 3, color: burnishedAmber),
-                    Text(
-                      ' field  ',
-                      style: TextStyle(fontSize: 8, color: burnishedAmber),
-                    ),
+                    Text(' field  ', style: TextStyle(fontSize: 8, color: burnishedAmber)),
                     Container(width: 10, height: 3, color: deepTopaz),
-                    Text(
-                      ' line  ',
-                      style: TextStyle(fontSize: 8, color: deepTopaz),
-                    ),
+                    Text(' line  ', style: TextStyle(fontSize: 8, color: deepTopaz)),
                     Container(width: 3, height: 10, color: warmTopaz),
-                    Text(
-                      ' caret  ',
-                      style: TextStyle(fontSize: 8, color: warmTopaz),
-                    ),
+                    Text(' caret  ', style: TextStyle(fontSize: 8, color: warmTopaz)),
                     Icon(Icons.touch_app, size: 10, color: citrine),
-                    Text(
-                      ' gesture',
-                      style: TextStyle(fontSize: 8, color: citrine),
-                    ),
+                    Text(' gesture', style: TextStyle(fontSize: 8, color: citrine)),
                   ],
                 ),
               ),
@@ -574,12 +478,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. MagnifierInfo.empty ───────────────────────────────────
-        sectionBanner(
-          '4 \u00b7 MagnifierInfo.empty',
-          'The zero-valued constant',
-          citrine,
-          Colors.white,
-        ),
+        sectionBanner('4 \u00b7 MagnifierInfo.empty',
+            'The zero-valued constant',
+            citrine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -590,15 +491,12 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'static const MagnifierInfo.empty',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  fontFamily: 'monospace',
-                  color: citrine,
-                ),
-              ),
+              Text('static const MagnifierInfo.empty',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      fontFamily: 'monospace',
+                      color: citrine)),
               const SizedBox(height: 8),
               for (final field in [
                 ('globalGesturePosition', '${emptyInfo.globalGesturePosition}'),
@@ -612,24 +510,18 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 160,
-                        child: Text(
-                          field.$1,
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                            color: warmTopaz,
-                          ),
-                        ),
+                        child: Text(field.$1,
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: warmTopaz)),
                       ),
                       Expanded(
-                        child: Text(
-                          field.$2,
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                            color: deepTopaz,
-                          ),
-                        ),
+                        child: Text(field.$2,
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: deepTopaz)),
                       ),
                     ],
                   ),
@@ -648,12 +540,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Comparison of two instances ───────────────────────────
-        sectionBanner(
-          '5 \u00b7 Comparing Instances',
-          'Side-by-side view of two different MagnifierInfo objects',
-          burnishedAmber,
-          Colors.white,
-        ),
+        sectionBanner('5 \u00b7 Comparing Instances',
+            'Side-by-side view of two different MagnifierInfo objects',
+            burnishedAmber, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -674,69 +563,53 @@ dynamic build(BuildContext context) {
                   for (final h in ['Property', 'info A', 'info B'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        h,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
                     ),
                 ],
               ),
               for (final row in [
-                (
-                  'gesturePosition',
-                  '${info.globalGesturePosition}',
-                  '${altInfo.globalGesturePosition}',
-                ),
-                ('caretRect', 'LTWH(148, 310, 2, 20)', 'LTWH(245, 440, 2, 22)'),
-                (
-                  'fieldBounds',
-                  'LTWH(20, 280, 340, 80)',
-                  'LTWH(30, 400, 320, 100)',
-                ),
-                (
-                  'lineBoundaries',
-                  'LTWH(20, 310, 340, 20)',
-                  'LTWH(30, 440, 320, 22)',
-                ),
+                ('gesturePosition',
+                    '${info.globalGesturePosition}',
+                    '${altInfo.globalGesturePosition}'),
+                ('caretRect',
+                    'LTWH(148, 310, 2, 20)',
+                    'LTWH(245, 440, 2, 22)'),
+                ('fieldBounds',
+                    'LTWH(20, 280, 340, 80)',
+                    'LTWH(30, 400, 320, 100)'),
+                ('lineBoundaries',
+                    'LTWH(20, 310, 340, 20)',
+                    'LTWH(30, 440, 320, 22)'),
               ])
                 TableRow(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: warmTopaz,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: warmTopaz)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontFamily: 'monospace',
-                          color: citrine,
-                        ),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 9,
+                              fontFamily: 'monospace',
+                              color: citrine)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontFamily: 'monospace',
-                          color: tealContrast,
-                        ),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(
+                              fontSize: 9,
+                              fontFamily: 'monospace',
+                              color: tealContrast)),
                     ),
                   ],
                 ),
@@ -746,12 +619,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Equality and hashCode ─────────────────────────────────
-        sectionBanner(
-          '6 \u00b7 Value Equality',
-          'MagnifierInfo uses custom == based on all four properties',
-          deepTopaz,
-          Colors.white,
-        ),
+        sectionBanner('6 \u00b7 Value Equality',
+            'MagnifierInfo uses custom == based on all four properties',
+            deepTopaz, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -762,18 +632,11 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final test in [
-                (
-                  'info == infoCopy',
-                  info == infoCopy,
-                  'Same values, different objects',
-                ),
+                ('info == infoCopy', info == infoCopy, 'Same values, different objects'),
                 ('info == altInfo', info == altInfo, 'Different values'),
                 ('info == emptyInfo', info == emptyInfo, 'Real vs empty'),
-                (
-                  'emptyInfo == MagnifierInfo.empty',
-                  emptyInfo == MagnifierInfo.empty,
-                  'Same static constant',
-                ),
+                ('emptyInfo == MagnifierInfo.empty', emptyInfo == MagnifierInfo.empty,
+                    'Same static constant'),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
@@ -789,22 +652,16 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              test.$1,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                fontWeight: FontWeight.w600,
-                                color: deepTopaz,
-                              ),
-                            ),
-                            Text(
-                              '${test.$2} — ${test.$3}',
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: deepTopaz.withValues(alpha: 0.7),
-                              ),
-                            ),
+                            Text(test.$1,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'monospace',
+                                    fontWeight: FontWeight.w600,
+                                    color: deepTopaz)),
+                            Text('${test.$2} — ${test.$3}',
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: deepTopaz.withValues(alpha: 0.7))),
                           ],
                         ),
                       ),
@@ -822,14 +679,11 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'hashCode values:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: warmTopaz,
-                      ),
-                    ),
+                    Text('hashCode values:',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: warmTopaz)),
                     const SizedBox(height: 4),
                     for (final entry in [
                       ('info', info.hashCode),
@@ -843,22 +697,15 @@ dynamic build(BuildContext context) {
                           children: [
                             SizedBox(
                               width: 80,
-                              child: Text(
-                                entry.$1,
+                              child: Text(entry.$1,
+                                  style: TextStyle(
+                                      fontSize: 11, color: deepTopaz)),
+                            ),
+                            Text('${entry.$2}',
                                 style: TextStyle(
-                                  fontSize: 11,
-                                  color: deepTopaz,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              '${entry.$2}',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: citrine,
-                              ),
-                            ),
+                                    fontSize: 11,
+                                    fontFamily: 'monospace',
+                                    color: citrine)),
                           ],
                         ),
                       ),
@@ -871,12 +718,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Magnifier pipeline ────────────────────────────────────
-        sectionBanner(
-          '7 \u00b7 Magnifier Pipeline',
-          'How MagnifierInfo flows through the magnifier system',
-          warmTopaz,
-          Colors.white,
-        ),
+        sectionBanner('7 \u00b7 Magnifier Pipeline',
+            'How MagnifierInfo flows through the magnifier system',
+            warmTopaz, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -887,42 +731,18 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                (
-                  1,
-                  'User drags selection handle',
-                  'GestureDetector captures drag position',
-                  citrine,
-                ),
-                (
-                  2,
-                  'EditableText builds MagnifierInfo',
-                  'Creates info from gesture + caret + field geometry',
-                  warmTopaz,
-                ),
-                (
-                  3,
-                  'ValueNotifier<MagnifierInfo> updated',
-                  'Notifies listeners of new position data',
-                  burnishedAmber,
-                ),
-                (
-                  4,
-                  'Magnifier widget rebuilds',
-                  'ValueListenableBuilder reads updated info',
-                  richBrown,
-                ),
-                (
-                  5,
-                  'RawMagnifier repositions',
-                  'Positions the lens using globalGesturePosition',
-                  deepTopaz,
-                ),
-                (
-                  6,
-                  'Focal point clamped',
-                  'fieldBounds ensures magnifier stays within field area',
-                  tealContrast,
-                ),
+                (1, 'User drags selection handle', 'GestureDetector captures drag position',
+                    citrine),
+                (2, 'EditableText builds MagnifierInfo', 'Creates info from gesture + caret + field geometry',
+                    warmTopaz),
+                (3, 'ValueNotifier<MagnifierInfo> updated', 'Notifies listeners of new position data',
+                    burnishedAmber),
+                (4, 'Magnifier widget rebuilds', 'ValueListenableBuilder reads updated info',
+                    richBrown),
+                (5, 'RawMagnifier repositions', 'Positions the lens using globalGesturePosition',
+                    deepTopaz),
+                (6, 'Focal point clamped', 'fieldBounds ensures magnifier stays within field area',
+                    tealContrast),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -930,7 +750,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: step.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: step.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -942,32 +763,25 @@ dynamic build(BuildContext context) {
                           color: step.$4,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text(
-                          '${step.$1}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Text('${step.$1}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold)),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              step.$2,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: deepTopaz,
-                              ),
-                            ),
-                            Text(
-                              step.$3,
-                              style: TextStyle(fontSize: 11, color: richBrown),
-                            ),
+                            Text(step.$2,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: deepTopaz)),
+                            Text(step.$3,
+                                style: TextStyle(
+                                    fontSize: 11, color: richBrown)),
                           ],
                         ),
                       ),
@@ -980,12 +794,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Simulated text field with magnifier zone ──────────────
-        sectionBanner(
-          '8 \u00b7 Simulated Text Field Zones',
-          'Where each MagnifierInfo rect maps to',
-          citrine,
-          Colors.white,
-        ),
+        sectionBanner('8 \u00b7 Simulated Text Field Zones',
+            'Where each MagnifierInfo rect maps to',
+            citrine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1008,22 +819,16 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'fieldBounds',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: burnishedAmber,
-                      ),
-                    ),
+                    Text('fieldBounds',
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: burnishedAmber)),
                     const SizedBox(height: 6),
-                    Text(
-                      'First line of text in the field',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: deepTopaz.withValues(alpha: 0.5),
-                      ),
-                    ),
+                    Text('First line of text in the field',
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: deepTopaz.withValues(alpha: 0.5))),
                     const SizedBox(height: 2),
                     // currentLineBoundaries + caretRect
                     Container(
@@ -1035,34 +840,28 @@ dynamic build(BuildContext context) {
                       ),
                       child: Row(
                         children: [
-                          Text(
-                            'The cursor is ',
-                            style: TextStyle(fontSize: 12, color: deepTopaz),
+                          Text('The cursor is ',
+                              style: TextStyle(fontSize: 12, color: deepTopaz)),
+                          Container(
+                            width: 2,
+                            height: 16,
+                            color: warmTopaz,
                           ),
-                          Container(width: 2, height: 16, color: warmTopaz),
-                          Text(
-                            'here in the text',
-                            style: TextStyle(fontSize: 12, color: deepTopaz),
-                          ),
+                          Text('here in the text',
+                              style: TextStyle(fontSize: 12, color: deepTopaz)),
                         ],
                       ),
                     ),
-                    Text(
-                      '  \u2191 currentLineBoundaries',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                        color: deepTopaz,
-                      ),
-                    ),
+                    Text('  \u2191 currentLineBoundaries',
+                        style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            color: deepTopaz)),
                     const SizedBox(height: 2),
-                    Text(
-                      'Third line of text in the field',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: deepTopaz.withValues(alpha: 0.5),
-                      ),
-                    ),
+                    Text('Third line of text in the field',
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: deepTopaz.withValues(alpha: 0.5))),
                   ],
                 ),
               ),
@@ -1084,21 +883,17 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text(
-                              zone.$1,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'monospace',
-                                color: zone.$3,
-                              ),
-                            ),
-                            Text(
-                              zone.$2,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 9, color: deepTopaz),
-                            ),
+                            Text(zone.$1,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'monospace',
+                                    color: zone.$3)),
+                            Text(zone.$2,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 9, color: deepTopaz)),
                           ],
                         ),
                       ),
@@ -1111,12 +906,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. toString output ──────────────────────────────────────
-        sectionBanner(
-          '9 \u00b7 toString Representation',
-          'Debug output for each instance',
-          richBrown,
-          Colors.white,
-        ),
+        sectionBanner('9 \u00b7 toString Representation',
+            'Debug output for each instance',
+            richBrown, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1143,23 +935,17 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        entry.$1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: warmTopaz,
-                        ),
-                      ),
+                      Text(entry.$1,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: warmTopaz)),
                       const SizedBox(height: 2),
-                      Text(
-                        entry.$2,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          color: deepTopaz,
-                        ),
-                      ),
+                      Text(entry.$2,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: deepTopaz)),
                     ],
                   ),
                 ),
@@ -1169,12 +955,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Platform magnifier differences ───────────────────────
-        sectionBanner(
-          '10 \u00b7 Platform Usage of MagnifierInfo',
-          'How iOS and Android consume position data differently',
-          burnishedAmber,
-          Colors.white,
-        ),
+        sectionBanner('10 \u00b7 Platform Usage of MagnifierInfo',
+            'How iOS and Android consume position data differently',
+            burnishedAmber, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1192,73 +975,45 @@ dynamic build(BuildContext context) {
               TableRow(
                 decoration: BoxDecoration(color: deepTopaz),
                 children: [
-                  for (final h in [
-                    'Property',
-                    'iOS (Cupertino)',
-                    'Android (Material)',
-                  ])
+                  for (final h in ['Property', 'iOS (Cupertino)', 'Android (Material)'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        h,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
                     ),
                 ],
               ),
               for (final row in [
-                (
-                  'gesturePosition',
-                  'Positions loupe above finger',
-                  'Centers magnifier on gesture',
-                ),
-                (
-                  'caretRect',
-                  'Focal point for loupe lens',
-                  'Focal point for lens',
-                ),
-                (
-                  'fieldBounds',
-                  'Clamps vertical position',
-                  'Hides magnifier at boundaries',
-                ),
-                (
-                  'lineBoundaries',
-                  'Horizontal loupe bounds',
-                  'Horizontal lens bounds',
-                ),
+                ('gesturePosition', 'Positions loupe above finger', 'Centers magnifier on gesture'),
+                ('caretRect', 'Focal point for loupe lens', 'Focal point for lens'),
+                ('fieldBounds', 'Clamps vertical position', 'Hides magnifier at boundaries'),
+                ('lineBoundaries', 'Horizontal loupe bounds', 'Horizontal lens bounds'),
               ])
                 TableRow(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'monospace',
-                          color: warmTopaz,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'monospace',
+                              color: warmTopaz)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(fontSize: 10, color: citrine),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 10, color: citrine)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(fontSize: 10, color: tealContrast),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(
+                              fontSize: 10, color: tealContrast)),
                     ),
                   ],
                 ),
@@ -1268,12 +1023,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Constructor parameters ───────────────────────────────
-        sectionBanner(
-          '11 \u00b7 Constructor Parameters',
-          'All four required named parameters',
-          warmTopaz,
-          Colors.white,
-        ),
+        sectionBanner('11 \u00b7 Constructor Parameters',
+            'All four required named parameters',
+            warmTopaz, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1295,50 +1047,40 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: param.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: param.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 160,
-                        child: Text(
-                          param.$1,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                            color: param.$4,
-                          ),
-                        ),
+                        child: Text(param.$1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: param.$4)),
                       ),
                       SizedBox(
                         width: 50,
-                        child: Text(
-                          param.$2,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: richBrown,
-                          ),
-                        ),
+                        child: Text(param.$2,
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                color: richBrown)),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: roseContrast.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(
-                          param.$3,
-                          style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                            color: roseContrast,
-                          ),
-                        ),
+                        child: Text(param.$3,
+                            style: TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                                color: roseContrast)),
                       ),
                     ],
                   ),
@@ -1349,12 +1091,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Relationship diagram ─────────────────────────────────
-        sectionBanner(
-          '12 \u00b7 Relationship to Magnifier System',
-          'How MagnifierInfo connects to other magnifier classes',
-          deepTopaz,
-          Colors.white,
-        ),
+        sectionBanner('12 \u00b7 Relationship to Magnifier System',
+            'How MagnifierInfo connects to other magnifier classes',
+            deepTopaz, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1365,79 +1104,41 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final connection in [
-                (
-                  'EditableText',
-                  '\u2192',
-                  'Creates MagnifierInfo from text state',
-                  citrine,
-                ),
-                (
-                  'ValueNotifier',
-                  '\u2192',
-                  'Wraps MagnifierInfo for reactive updates',
-                  warmTopaz,
-                ),
-                (
-                  'MagnifierController',
-                  '\u2192',
-                  'Controls overlay based on info changes',
-                  burnishedAmber,
-                ),
-                (
-                  'RawMagnifier',
-                  '\u2192',
-                  'Positions itself using info geometry',
-                  richBrown,
-                ),
-                (
-                  'CupertinoMagnifier',
-                  '\u2192',
-                  'iOS-style loupe from info',
-                  deepTopaz,
-                ),
-                (
-                  'TextMagnifier',
-                  '\u2192',
-                  'Android-style lens from info',
-                  tealContrast,
-                ),
+                ('EditableText', '\u2192', 'Creates MagnifierInfo from text state', citrine),
+                ('ValueNotifier', '\u2192', 'Wraps MagnifierInfo for reactive updates', warmTopaz),
+                ('MagnifierController', '\u2192', 'Controls overlay based on info changes', burnishedAmber),
+                ('RawMagnifier', '\u2192', 'Positions itself using info geometry', richBrown),
+                ('CupertinoMagnifier', '\u2192', 'iOS-style loupe from info', deepTopaz),
+                ('TextMagnifier', '\u2192', 'Android-style lens from info', tealContrast),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
+                      horizontal: 10, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: connection.$4, width: 3),
-                    ),
+                        left: BorderSide(color: connection.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 120,
-                        child: Text(
-                          connection.$1,
+                        child: Text(connection.$1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                fontFamily: 'monospace',
+                                color: connection.$4)),
+                      ),
+                      Text(connection.$2,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            fontFamily: 'monospace',
-                            color: connection.$4,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        connection.$2,
-                        style: TextStyle(fontSize: 14, color: deepTopaz),
-                      ),
+                              fontSize: 14, color: deepTopaz)),
                       const SizedBox(width: 6),
                       Expanded(
-                        child: Text(
-                          connection.$3,
-                          style: TextStyle(fontSize: 11, color: richBrown),
-                        ),
+                        child: Text(connection.$3,
+                            style: TextStyle(
+                                fontSize: 11, color: richBrown)),
                       ),
                     ],
                   ),
@@ -1448,12 +1149,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Immutability note ────────────────────────────────────
-        sectionBanner(
-          '13 \u00b7 Immutability',
-          'MagnifierInfo is fully immutable',
-          citrine,
-          Colors.white,
-        ),
+        sectionBanner('13 \u00b7 Immutability',
+            'MagnifierInfo is fully immutable',
+            citrine, Colors.white),
         noteBox(
           'All four properties are final fields set in the const constructor. '
           'To update magnifier position, a NEW MagnifierInfo instance is '
@@ -1467,12 +1165,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Inheritance ──────────────────────────────────────────
-        sectionBanner(
-          '14 \u00b7 Class Hierarchy',
-          'Where MagnifierInfo sits',
-          deepTopaz,
-          Colors.white,
-        ),
+        sectionBanner('14 \u00b7 Class Hierarchy',
+            'Where MagnifierInfo sits', deepTopaz, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1489,43 +1183,30 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: EdgeInsets.only(
-                    left: level.$2 * 12.0,
-                    top: 4,
-                    bottom: 4,
-                  ),
-                  child: Text(
-                    level.$1,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'monospace',
-                      fontWeight: level.$2 == 1
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: level.$3,
-                    ),
-                  ),
+                      left: level.$2 * 12.0, top: 4, bottom: 4),
+                  child: Text(level.$1,
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: 'monospace',
+                          fontWeight: level.$2 == 1
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: level.$3)),
                 ),
               const SizedBox(height: 6),
-              Text(
-                'Plain Dart class — no mixins, no extends, no implements',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
-                  color: richBrown,
-                ),
-              ),
+              Text('Plain Dart class — no mixins, no extends, no implements',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontStyle: FontStyle.italic,
+                      color: richBrown)),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepTopaz,
-          Colors.white,
-        ),
+        sectionBanner('15 \u00b7 Summary',
+            'Key takeaways', deepTopaz, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1557,19 +1238,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: goldenYellow,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: goldenYellow,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
+                        child: Text(point,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

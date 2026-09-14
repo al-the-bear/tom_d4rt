@@ -87,7 +87,9 @@ class _WgmMuseumHome extends StatelessWidget {
       body: Stack(
         children: [
           const Positioned.fill(
-            child: CustomPaint(painter: _WgmCabinetBackdropPainter()),
+            child: CustomPaint(
+              painter: _WgmCabinetBackdropPainter(),
+            ),
           ),
           SafeArea(
             // Fa1 — C22 ListView replacement to avoid the
@@ -392,7 +394,11 @@ class _WgmCard extends StatelessWidget {
 }
 
 class _WgmLabelCard extends StatelessWidget {
-  const _WgmLabelCard({required this.title, required this.body, this.icon});
+  const _WgmLabelCard({
+    required this.title,
+    required this.body,
+    this.icon,
+  });
 
   final String title;
   final String body;
@@ -576,12 +582,8 @@ class _WgmCabinetBackdropPainter extends CustomPainter {
     _drawScroll(canvas, const Offset(110, 40), 52);
     _drawScroll(canvas, Offset(size.width - 110, 40), -52);
     _drawScroll(canvas, Offset(110, size.height - 40), 52, flipY: true);
-    _drawScroll(
-      canvas,
-      Offset(size.width - 110, size.height - 40),
-      -52,
-      flipY: true,
-    );
+    _drawScroll(canvas, Offset(size.width - 110, size.height - 40), -52,
+        flipY: true);
 
     // Velvet texture — subtle diagonal hatching
     final Paint hatch = Paint()
@@ -589,11 +591,7 @@ class _WgmCabinetBackdropPainter extends CustomPainter {
       ..strokeWidth = 0.6
       ..style = PaintingStyle.stroke;
     for (double i = -size.height; i < size.width; i += 18) {
-      canvas.drawLine(
-        Offset(i, 0),
-        Offset(i + size.height, size.height),
-        hatch,
-      );
+      canvas.drawLine(Offset(i, 0), Offset(i + size.height, size.height), hatch);
     }
   }
 
@@ -629,11 +627,8 @@ class _WgmCabinetBackdropPainter extends CustomPainter {
         c.dy + r * 0.3 * sign,
       );
     canvas.drawPath(p, gold);
-    canvas.drawCircle(
-      c.translate(r * 0.5, -r * 0.1 * sign),
-      3.0,
-      Paint()..color = _wgmBrassLight.withValues(alpha: 0.7),
-    );
+    canvas.drawCircle(c.translate(r * 0.5, -r * 0.1 * sign), 3.0,
+        Paint()..color = _wgmBrassLight.withValues(alpha: 0.7));
   }
 
   @override
@@ -652,56 +647,49 @@ class _WgmSection1Dossier extends StatelessWidget {
     const List<_WgmDossierEntry> entries = <_WgmDossierEntry>[
       _WgmDossierEntry(
         title: 'I. Abstract Root',
-        body:
-            'Widget is declared `abstract class Widget` and cannot be '
+        body: 'Widget is declared `abstract class Widget` and cannot be '
             'instantiated directly. It is the ultimate ancestor of every '
             'UI element in Flutter, from Text to Scaffold to MaterialApp.',
         icon: Icons.account_tree,
       ),
       _WgmDossierEntry(
         title: 'II. Immutable Configuration',
-        body:
-            'A Widget is not the on-screen UI — it is an immutable '
+        body: 'A Widget is not the on-screen UI — it is an immutable '
             'description of a configuration. The Element owns the mutable '
             'state, and the RenderObject owns the actual pixels.',
         icon: Icons.lock_outline,
       ),
       _WgmDossierEntry(
         title: 'III. Three-Tree Architecture',
-        body:
-            'Flutter maintains three parallel trees: Widgets (configurations), '
+        body: 'Flutter maintains three parallel trees: Widgets (configurations), '
             'Elements (inflated instances), and RenderObjects (layout/paint). '
             'Widgets are frequently discarded; Elements are reused aggressively.',
         icon: Icons.view_column,
       ),
       _WgmDossierEntry(
         title: 'IV. Rebuilds on Replacement',
-        body:
-            'When a parent returns a different Widget instance, the framework '
+        body: 'When a parent returns a different Widget instance, the framework '
             'compares runtimeType and key. If compatible, the existing Element is '
             'updated in place with the new Widget; otherwise it is inflated anew.',
         icon: Icons.refresh,
       ),
       _WgmDossierEntry(
         title: 'V. Identity via runtimeType + Key',
-        body:
-            'Widget.canUpdate returns true iff oldWidget.runtimeType == '
+        body: 'Widget.canUpdate returns true iff oldWidget.runtimeType == '
             'newWidget.runtimeType && oldWidget.key == newWidget.key. '
             'Keys let you stabilize identity across reshuffles.',
         icon: Icons.vpn_key,
       ),
       _WgmDossierEntry(
         title: 'VI. Five Major Subclass Families',
-        body:
-            'StatelessWidget, StatefulWidget, RenderObjectWidget, ProxyWidget, '
+        body: 'StatelessWidget, StatefulWidget, RenderObjectWidget, ProxyWidget, '
             'and the InheritedWidget / ParentDataWidget tribes that live inside '
             'ProxyWidget. Almost every Flutter type descends from one of these.',
         icon: Icons.family_restroom,
       ),
       _WgmDossierEntry(
         title: 'VII. Common Pitfalls',
-        body:
-            'Do not mutate fields on a built Widget — always replace. Provide '
+        body: 'Do not mutate fields on a built Widget — always replace. Provide '
             'keys for children in dynamic lists. Avoid expensive work in build(). '
             'Never call setState from build() or from an unmounted State.',
         icon: Icons.warning_amber,
@@ -722,19 +710,17 @@ class _WgmSection1Dossier extends StatelessWidget {
             final int columns = constraints.maxWidth > 900
                 ? 3
                 : constraints.maxWidth > 560
-                ? 2
-                : 1;
+                    ? 2
+                    : 1;
             return _WgmGrid(
               columns: columns,
               gap: 14,
               children: entries
-                  .map(
-                    (_WgmDossierEntry e) => _WgmLabelCard(
-                      title: e.title,
-                      body: e.body,
-                      icon: e.icon,
-                    ),
-                  )
+                  .map((_WgmDossierEntry e) => _WgmLabelCard(
+                        title: e.title,
+                        body: e.body,
+                        icon: e.icon,
+                      ))
                   .toList(growable: false),
             );
           },
@@ -780,14 +766,12 @@ class _WgmGrid extends StatelessWidget {
           rowChildren.add(const Expanded(child: SizedBox.shrink()));
         }
       }
-      rows.add(
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: rowChildren,
-          ),
+      rows.add(IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: rowChildren,
         ),
-      );
+      ));
       if (i + columns < children.length) {
         rows.add(SizedBox(height: gap));
       }
@@ -832,8 +816,7 @@ class _WgmSection2Anatomy extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const _WgmCodeBlock(
-                code:
-                    'abstract class Widget with DiagnosticableTreeMixin {\n'
+                code: 'abstract class Widget with DiagnosticableTreeMixin {\n'
                     '  const Widget({ this.key });\n'
                     '  final Key? key;\n'
                     '  @protected\n'
@@ -871,47 +854,41 @@ class _WgmSection2Anatomy extends StatelessWidget {
                       _WgmAnatomyRow(
                         member: 'key',
                         kind: 'final Key?',
-                        desc:
-                            'Identity marker used by canUpdate. Null by '
+                        desc: 'Identity marker used by canUpdate. Null by '
                             'default; provide one to stabilize identity.',
                       ),
                       _WgmAnatomyRow(
                         member: 'createElement()',
                         kind: 'Element Function()',
-                        desc:
-                            'Factory for the Element backing this Widget. '
+                        desc: 'Factory for the Element backing this Widget. '
                             'The only method every concrete subclass must '
                             'implement.',
                       ),
                       _WgmAnatomyRow(
                         member: 'canUpdate(old,new)',
                         kind: 'static bool',
-                        desc:
-                            'Decides whether an existing Element can be '
+                        desc: 'Decides whether an existing Element can be '
                             'reused for a new Widget. True iff same type '
                             'and same key.',
                       ),
                       _WgmAnatomyRow(
                         member: 'runtimeType',
                         kind: 'Type',
-                        desc:
-                            'Inherited from Object. Together with key '
+                        desc: 'Inherited from Object. Together with key '
                             'forms the identity pair the framework checks '
                             'every frame.',
                       ),
                       _WgmAnatomyRow(
                         member: 'toStringShallow()',
                         kind: 'String',
-                        desc:
-                            'Debug helper for the Widget Inspector. Shows '
+                        desc: 'Debug helper for the Widget Inspector. Shows '
                             'runtimeType plus optional key and joins '
                             'immediate diagnostic properties.',
                       ),
                       _WgmAnatomyRow(
                         member: 'debugFillProperties()',
                         kind: 'void',
-                        desc:
-                            'Override to surface properties in the devtools '
+                        desc: 'Override to surface properties in the devtools '
                             'inspector. Enables DiagnosticsNode tree.',
                       ),
                     ],
@@ -963,7 +940,10 @@ class _WgmAnatomyRow extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: _wgmBrassDark.withValues(alpha: 0.35),
                   borderRadius: BorderRadius.circular(4),
@@ -1010,8 +990,7 @@ class _WgmSection3ThreeTree extends StatelessWidget {
         const _WgmSectionHeader(
           index: 3,
           title: 'THE THREE TREES',
-          subtitle:
-              'Widget → Element → RenderObject, hand-drawn in three columns',
+          subtitle: 'Widget → Element → RenderObject, hand-drawn in three columns',
         ),
         const SizedBox(height: 16),
         _WgmCard(
@@ -1023,7 +1002,11 @@ class _WgmSection3ThreeTree extends StatelessWidget {
                 'A single Text(\'Hi\') produces three parallel nodes. The '
                 'Widget describes, the Element manages, the RenderObject '
                 'lays out and paints.',
-                style: TextStyle(color: _wgmIvory, fontSize: 13, height: 1.4),
+                style: TextStyle(
+                  color: _wgmIvory,
+                  fontSize: 13,
+                  height: 1.4,
+                ),
               ),
               const SizedBox(height: 14),
               AspectRatio(
@@ -1040,10 +1023,7 @@ class _WgmSection3ThreeTree extends StatelessWidget {
                   SizedBox(width: 14),
                   _WgmLegendSwatch(color: _wgmBrass, label: 'Element'),
                   SizedBox(width: 14),
-                  _WgmLegendSwatch(
-                    color: _wgmEmeraldBright,
-                    label: 'RenderObject',
-                  ),
+                  _WgmLegendSwatch(color: _wgmEmeraldBright, label: 'RenderObject'),
                 ],
               ),
             ],
@@ -1107,26 +1087,17 @@ class _WgmThreeTreePainter extends CustomPainter {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
-    final RRect rr = RRect.fromRectAndRadius(
-      Offset.zero & size,
-      const Radius.circular(8),
-    );
+    final RRect rr =
+        RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(8));
     canvas.drawRRect(rr, bg);
 
     // Column headers
     final double colW = size.width / 3;
-    final List<String> headers = <String>[
-      'Widget tree',
-      'Element tree',
-      'RenderObject tree',
-    ];
-    final List<Color> headerColors = <Color>[
-      _widgetColor,
-      _elementColor,
-      _renderColor,
-    ];
+    final List<String> headers = <String>['Widget tree', 'Element tree', 'RenderObject tree'];
+    final List<Color> headerColors = <Color>[_widgetColor, _elementColor, _renderColor];
     for (int i = 0; i < 3; i++) {
-      final Rect headerRect = Rect.fromLTWH(colW * i + 10, 12, colW - 20, 28);
+      final Rect headerRect =
+          Rect.fromLTWH(colW * i + 10, 12, colW - 20, 28);
       final Paint hp = Paint()..color = headerColors[i];
       canvas.drawRRect(
         RRect.fromRectAndRadius(headerRect, const Radius.circular(6)),
@@ -1144,7 +1115,8 @@ class _WgmThreeTreePainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: colW - 20);
-      tp.paint(canvas, Offset(colW * i + 10 + (colW - 20 - tp.width) / 2, 18));
+      tp.paint(canvas,
+          Offset(colW * i + 10 + (colW - 20 - tp.width) / 2, 18));
     }
 
     // Nodes — same vertical positions across columns
@@ -1318,16 +1290,15 @@ class _WgmSection4SubclassGallery extends StatelessWidget {
             final int columns = constraints.maxWidth > 1000
                 ? 5
                 : constraints.maxWidth > 700
-                ? 3
-                : constraints.maxWidth > 420
-                ? 2
-                : 1;
+                    ? 3
+                    : constraints.maxWidth > 420
+                        ? 2
+                        : 1;
             final List<Widget> pedestals = <Widget>[
               _WgmPedestal(
                 family: 'StatelessWidget',
                 scientific: 'Widgeta immutabilis',
-                caption:
-                    'Builds purely from constructor fields. '
+                caption: 'Builds purely from constructor fields. '
                     'Its build() is a function of its inputs. No internal state.',
                 accent: const Color(0xFF6AA9C4),
                 child: const _WgmGreetingCard(name: 'Dr. Hopper'),
@@ -1335,8 +1306,7 @@ class _WgmSection4SubclassGallery extends StatelessWidget {
               _WgmPedestal(
                 family: 'StatefulWidget',
                 scientific: 'Widgeta mutans',
-                caption:
-                    'Paired with a State<T> object that holds the '
+                caption: 'Paired with a State<T> object that holds the '
                     'mutable fields and calls setState() to trigger rebuilds.',
                 accent: _wgmBrass,
                 child: const _WgmCounterBadge(),
@@ -1344,8 +1314,7 @@ class _WgmSection4SubclassGallery extends StatelessWidget {
               _WgmPedestal(
                 family: 'RenderObjectWidget',
                 scientific: 'Widgeta picta',
-                caption:
-                    'A leaf or container that creates a RenderObject '
+                caption: 'A leaf or container that creates a RenderObject '
                     'directly — responsible for layout and paint.',
                 accent: _wgmEmeraldBright,
                 child: SizedBox(
@@ -1357,8 +1326,7 @@ class _WgmSection4SubclassGallery extends StatelessWidget {
               _WgmPedestal(
                 family: 'InheritedWidget',
                 scientific: 'Widgeta propagans',
-                caption:
-                    'Efficiently propagates data down the tree. '
+                caption: 'Efficiently propagates data down the tree. '
                     'Descendants that depend on it rebuild when it updates.',
                 accent: const Color(0xFFB98AC4),
                 child: const _WgmThemeInspector(),
@@ -1366,12 +1334,14 @@ class _WgmSection4SubclassGallery extends StatelessWidget {
               _WgmPedestal(
                 family: 'ProxyWidget',
                 scientific: 'Widgeta delegans',
-                caption:
-                    'Wraps a single child to contribute metadata. '
+                caption: 'Wraps a single child to contribute metadata. '
                     'IconTheme, DefaultTextStyle, and InheritedWidget all ride on it.',
                 accent: const Color(0xFFE09B7A),
                 child: IconTheme(
-                  data: const IconThemeData(color: _wgmIvory, size: 28),
+                  data: const IconThemeData(
+                    color: _wgmIvory,
+                    size: 28,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
@@ -1450,7 +1420,11 @@ class _WgmPedestal extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[_wgmBrassDark, _wgmBrass, _wgmBrassDark],
+                colors: <Color>[
+                  _wgmBrassDark,
+                  _wgmBrass,
+                  _wgmBrassDark,
+                ],
               ),
               borderRadius: BorderRadius.circular(4),
             ),
@@ -1574,10 +1548,7 @@ class _WgmCounterBadgeState extends State<_WgmCounterBadge> {
               foregroundColor: _wgmInk,
               padding: const EdgeInsets.symmetric(horizontal: 10),
               minimumSize: const Size(0, 24),
-              textStyle: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-              ),
+              textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
             ),
             child: const Text('setState'),
           ),
@@ -1625,12 +1596,9 @@ class _WgmThemeInspector extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _kvRow(
-          'primary',
-          '#${theme.primaryColor.r.toInt().toRadixString(16).padLeft(2, '0')}'
-              '${theme.primaryColor.g.toInt().toRadixString(16).padLeft(2, '0')}'
-              '${theme.primaryColor.b.toInt().toRadixString(16).padLeft(2, '0')}',
-        ),
+        _kvRow('primary', '#${theme.primaryColor.r.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${theme.primaryColor.g.toInt().toRadixString(16).padLeft(2, '0')}'
+            '${theme.primaryColor.b.toInt().toRadixString(16).padLeft(2, '0')}'),
         _kvRow('dpr', mq.devicePixelRatio.toStringAsFixed(2)),
         _kvRow('pxPerLP', '1.00'),
       ],
@@ -1847,14 +1815,18 @@ class _WgmReorderArrows extends StatelessWidget {
               : _wgmEmeraldDeep.withValues(alpha: 0.35),
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: enabled ? _wgmBrass : _wgmBrassDark.withValues(alpha: 0.4),
+            color: enabled
+                ? _wgmBrass
+                : _wgmBrassDark.withValues(alpha: 0.4),
             width: 1,
           ),
         ),
         child: Icon(
           icon,
           size: 16,
-          color: enabled ? _wgmBrassLight : _wgmIvoryDim.withValues(alpha: 0.4),
+          color: enabled
+              ? _wgmBrassLight
+              : _wgmIvoryDim.withValues(alpha: 0.4),
         ),
       ),
     );
@@ -1909,7 +1881,10 @@ class _WgmKeyedChildState extends State<_WgmKeyedChild> {
           InkWell(
             onTap: () => setState(() => _localCounter++),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: _wgmBrass,
                 borderRadius: BorderRadius.circular(4),
@@ -1950,10 +1925,7 @@ class _WgmSection6LifecycleState extends State<_WgmSection6Lifecycle>
   static const List<_WgmLifecycleStage> _stages = <_WgmLifecycleStage>[
     _WgmLifecycleStage('createState', 'factory on StatefulWidget'),
     _WgmLifecycleStage('initState', 'one-time setup, subscriptions'),
-    _WgmLifecycleStage(
-      'didChangeDependencies',
-      'after InheritedWidget changes',
-    ),
+    _WgmLifecycleStage('didChangeDependencies', 'after InheritedWidget changes'),
     _WgmLifecycleStage('build', 'return the Widget subtree'),
     _WgmLifecycleStage('didUpdateWidget', 'parent supplied a new Widget'),
     _WgmLifecycleStage('setState', 'schedules another build'),
@@ -2047,8 +2019,11 @@ class _WgmSection6LifecycleState extends State<_WgmSection6Lifecycle>
                 builder: (BuildContext context, Widget? child) {
                   final int active =
                       (_controller.value * _stages.length).floor() %
-                      _stages.length;
-                  return _WgmLifecycleLegend(stages: _stages, active: active);
+                          _stages.length;
+                  return _WgmLifecycleLegend(
+                    stages: _stages,
+                    active: active,
+                  );
                 },
               ),
             ],
@@ -2205,8 +2180,8 @@ class _WgmLifecyclePainter extends CustomPainter {
         ..color = i == activeStage
             ? _wgmBrass.withValues(alpha: 0.35)
             : (i.isEven
-                  ? _wgmEmerald.withValues(alpha: 0.12)
-                  : _wgmEmerald.withValues(alpha: 0.04));
+                ? _wgmEmerald.withValues(alpha: 0.12)
+                : _wgmEmerald.withValues(alpha: 0.04));
       canvas.drawPath(wedge, wedgeFill);
       canvas.drawPath(
         wedge,
@@ -2235,7 +2210,8 @@ class _WgmLifecyclePainter extends CustomPainter {
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       )..layout(maxWidth: 110);
-      tp.paint(canvas, labelPos.translate(-tp.width / 2, -tp.height / 2));
+      tp.paint(canvas,
+          labelPos.translate(-tp.width / 2, -tp.height / 2));
     }
 
     // Tick marks
@@ -2243,8 +2219,7 @@ class _WgmLifecyclePainter extends CustomPainter {
       final double a = -math.pi / 2 + (i / n) * math.pi * 2;
       final Offset p1 =
           center + Offset(math.cos(a) * radius, math.sin(a) * radius);
-      final Offset p2 =
-          center +
+      final Offset p2 = center +
           Offset(math.cos(a) * (radius + 10), math.sin(a) * (radius + 10));
       canvas.drawLine(
         p1,
@@ -2258,11 +2233,8 @@ class _WgmLifecyclePainter extends CustomPainter {
     // Sweeping hand
     final double handAngle = -math.pi / 2 + progress * math.pi * 2;
     final Offset handTip =
-        center +
-        Offset(
-          math.cos(handAngle) * radius * 0.92,
-          math.sin(handAngle) * radius * 0.92,
-        );
+        center + Offset(math.cos(handAngle) * radius * 0.92,
+            math.sin(handAngle) * radius * 0.92);
     canvas.drawLine(
       center,
       handTip,
@@ -2271,13 +2243,12 @@ class _WgmLifecyclePainter extends CustomPainter {
         ..strokeWidth = 3
         ..strokeCap = StrokeCap.round,
     );
-    canvas.drawCircle(
-      handTip,
-      5,
-      Paint()..color = _wgmRuby.withValues(alpha: 0.9),
-    );
-    canvas.drawCircle(center, 8, Paint()..color = _wgmBrassDark);
-    canvas.drawCircle(center, 5, Paint()..color = _wgmBrassLight);
+    canvas.drawCircle(handTip, 5,
+        Paint()..color = _wgmRuby.withValues(alpha: 0.9));
+    canvas.drawCircle(center, 8,
+        Paint()..color = _wgmBrassDark);
+    canvas.drawCircle(center, 5,
+        Paint()..color = _wgmBrassLight);
 
     // Center label
     final TextPainter title = TextPainter(
@@ -2294,7 +2265,8 @@ class _WgmLifecyclePainter extends CustomPainter {
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: 100);
-    title.paint(canvas, Offset(center.dx - title.width / 2, center.dy + 14));
+    title.paint(canvas,
+        Offset(center.dx - title.width / 2, center.dy + 14));
   }
 
   @override
@@ -2334,8 +2306,7 @@ class _WgmSection7CanUpdate extends StatelessWidget {
                   oldWidget: 'Text("A", key: ValueKey("x"))',
                   newWidget: 'Text("B", key: ValueKey("x"))',
                   canUpdate: true,
-                  effect:
-                      'Element is reused. '
+                  effect: 'Element is reused. '
                       'updateRenderObject() swaps the displayed string. '
                       'No Element destroyed, no State thrown away.',
                 ),
@@ -2346,8 +2317,7 @@ class _WgmSection7CanUpdate extends StatelessWidget {
                   oldWidget: 'Container(color: red)',
                   newWidget: 'Container(color: blue)',
                   canUpdate: true,
-                  effect:
-                      'Null keys compare equal under == . '
+                  effect: 'Null keys compare equal under == . '
                       'Same runtimeType means canUpdate returns true. '
                       'Element is reused, RenderObject repaints.',
                 ),
@@ -2358,8 +2328,7 @@ class _WgmSection7CanUpdate extends StatelessWidget {
                   oldWidget: 'Text("A")',
                   newWidget: 'Icon(Icons.ac_unit)',
                   canUpdate: false,
-                  effect:
-                      'Old Element is deactivated + disposed, '
+                  effect: 'Old Element is deactivated + disposed, '
                       'new Element is inflated. Any State<T> on the '
                       'old subtree is lost forever.',
                 ),
@@ -2402,7 +2371,10 @@ class _WgmCanUpdateCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: badgeColor,
                   borderRadius: BorderRadius.circular(4),
@@ -2434,7 +2406,10 @@ class _WgmCanUpdateCard extends StatelessWidget {
           _WgmCodeBlock(code: 'old: $oldWidget\nnew: $newWidget'),
           const SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 6,
+            ),
             decoration: BoxDecoration(
               color: canUpdate
                   ? _wgmEmerald.withValues(alpha: 0.35)
@@ -2491,7 +2466,8 @@ class _WgmSection8Composition extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
+                builder:
+                    (BuildContext context, BoxConstraints constraints) {
                   final int columns = constraints.maxWidth > 720 ? 3 : 1;
                   return _WgmGrid(
                     columns: columns,
@@ -2500,8 +2476,7 @@ class _WgmSection8Composition extends StatelessWidget {
                       _WgmVariantShowcase(
                         label: '(i) Raw composition',
                         note: 'Row/Column/Container inlined in parent build()',
-                        snippet:
-                            'Container(\n'
+                        snippet: 'Container(\n'
                             '  child: Row(children: [\n'
                             '    Icon(Icons.wb_sunny),\n'
                             '    Text("72°F"),\n'
@@ -2512,8 +2487,7 @@ class _WgmSection8Composition extends StatelessWidget {
                       _WgmVariantShowcase(
                         label: '(ii) Extracted StatelessWidget',
                         note: 'Named type, reusable, easier to test',
-                        snippet:
-                            'class _StatusCard extends\n'
+                        snippet: 'class _StatusCard extends\n'
                             '    StatelessWidget {\n'
                             '  final String temp;\n'
                             '  Widget build(ctx) => ... ;\n'
@@ -2523,8 +2497,7 @@ class _WgmSection8Composition extends StatelessWidget {
                       _WgmVariantShowcase(
                         label: '(iii) StatefulWidget w/ cached derivation',
                         note: 'Caches the formatted string in setState step',
-                        snippet:
-                            'class _StatusCardS extends\n'
+                        snippet: 'class _StatusCardS extends\n'
                             '    StatefulWidget {...}\n'
                             '// cached: _formatted = \\n'
                             '//   compute(widget.temp);',
@@ -2756,56 +2729,49 @@ class _WgmSection9Recipes extends StatelessWidget {
     const List<_WgmRecipe> recipes = <_WgmRecipe>[
       _WgmRecipe(
         title: '1. Stateless vs Stateful',
-        body:
-            'Default to StatelessWidget. Promote to StatefulWidget only '
+        body: 'Default to StatelessWidget. Promote to StatefulWidget only '
             'when the widget must hold mutable data across frames that '
             'cannot be lifted to the parent.',
         icon: Icons.tune,
       ),
       _WgmRecipe(
         title: '2. Extract an InheritedWidget',
-        body:
-            'When many descendants need the same data and you want '
+        body: 'When many descendants need the same data and you want '
             'O(1) lookup via Theme.of()-style APIs. Pair it with '
             'updateShouldNotify for fine-grained rebuilds.',
         icon: Icons.account_tree,
       ),
       _WgmRecipe(
         title: '3. GlobalKey across subtrees',
-        body:
-            'Use sparingly. GlobalKey lets you obtain a BuildContext or '
+        body: 'Use sparingly. GlobalKey lets you obtain a BuildContext or '
             'State from outside the subtree, e.g. Form.of(context) or '
             'moving a widget between parents.',
         icon: Icons.public,
       ),
       _WgmRecipe(
         title: '4. PageStorageKey',
-        body:
-            'Save scroll offsets across route pushes. Attach a '
+        body: 'Save scroll offsets across route pushes. Attach a '
             'PageStorageKey to Scrollables whose position you want to '
             'restore when the page re-enters the tree.',
         icon: Icons.save,
       ),
       _WgmRecipe(
         title: '5. ValueKey in long lists',
-        body:
-            'Give list items a stable identity so reorder/delete '
+        body: 'Give list items a stable identity so reorder/delete '
             'animations look right and stateful children keep their '
             'internal state when reshuffled.',
         icon: Icons.format_list_numbered,
       ),
       _WgmRecipe(
         title: '6. const constructors',
-        body:
-            'Prefer `const Widget(...)`. const widgets compare '
+        body: 'Prefer `const Widget(...)`. const widgets compare '
             'identically, so canUpdate is effectively free and rebuilds '
             'can be skipped deeper in the tree.',
         icon: Icons.flash_on,
       ),
       _WgmRecipe(
         title: '7. Keep build() pure & fast',
-        body:
-            'No I/O, no timers, no mutating external state. build() '
+        body: 'No I/O, no timers, no mutating external state. build() '
             'runs potentially many times per frame; expensive work '
             'belongs in initState, didChangeDependencies, or an async '
             'future resolved outside build().',
@@ -2826,19 +2792,17 @@ class _WgmSection9Recipes extends StatelessWidget {
             final int columns = constraints.maxWidth > 900
                 ? 3
                 : constraints.maxWidth > 560
-                ? 2
-                : 1;
+                    ? 2
+                    : 1;
             return _WgmGrid(
               columns: columns,
               gap: 14,
               children: recipes
-                  .map(
-                    (_WgmRecipe r) => _WgmLabelCard(
-                      title: r.title,
-                      body: r.body,
-                      icon: r.icon,
-                    ),
-                  )
+                  .map((_WgmRecipe r) => _WgmLabelCard(
+                        title: r.title,
+                        body: r.body,
+                        icon: r.icon,
+                      ))
                   .toList(growable: false),
             );
           },
@@ -2912,8 +2876,7 @@ class _WgmSection10Comparison extends StatelessWidget {
         const _WgmSectionHeader(
           index: 10,
           title: 'COMPARISON',
-          subtitle:
-              'Widget vs RenderObject, imperative UI, reactive view models',
+          subtitle: 'Widget vs RenderObject, imperative UI, reactive view models',
         ),
         const SizedBox(height: 16),
         _WgmCard(
@@ -2935,16 +2898,14 @@ class _WgmSection10Comparison extends StatelessWidget {
     );
   }
 
-  Widget _row(
-    List<String> cells, {
-    required bool isHeader,
-    required int index,
-  }) {
+  Widget _row(List<String> cells, {required bool isHeader, required int index}) {
     return Container(
       decoration: BoxDecoration(
         color: isHeader
             ? _wgmBrass.withValues(alpha: 0.28)
-            : (index.isEven ? _wgmVelvet : _wgmEmerald.withValues(alpha: 0.2)),
+            : (index.isEven
+                ? _wgmVelvet
+                : _wgmEmerald.withValues(alpha: 0.2)),
         border: Border(
           bottom: BorderSide(
             color: _wgmBrassDark.withValues(alpha: 0.5),
@@ -3001,100 +2962,53 @@ class _WgmSection11Glossary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<_WgmGlossEntry> entries = <_WgmGlossEntry>[
-      _WgmGlossEntry(
-        term: 'Widget',
-        def: 'Abstract base class; immutable description of a UI node.',
-      ),
-      _WgmGlossEntry(
-        term: 'Element',
-        def:
-            'Inflated instance of a Widget. Owns position in the tree '
-            'and wiring to the RenderObject.',
-      ),
-      _WgmGlossEntry(
-        term: 'RenderObject',
-        def:
-            'Performs layout, paint, hit-testing. Lives in the render '
-            'tree beneath Elements.',
-      ),
-      _WgmGlossEntry(
-        term: 'StatelessWidget',
-        def:
-            'Widget whose build() depends solely on its constructor '
-            'arguments and ambient InheritedWidgets.',
-      ),
-      _WgmGlossEntry(
-        term: 'StatefulWidget',
-        def:
-            'Widget paired with a State<T> object. The State survives '
-            'across rebuilds driven by the parent.',
-      ),
-      _WgmGlossEntry(
-        term: 'State',
-        def:
-            'Mutable object associated with a StatefulElement. Hosts '
-            'setState, lifecycle hooks, and local data.',
-      ),
-      _WgmGlossEntry(
-        term: 'RenderObjectWidget',
-        def:
-            'Widget that creates/updates a RenderObject directly, e.g. '
-            'RichText, CustomPaint, Opacity.',
-      ),
-      _WgmGlossEntry(
-        term: 'ProxyWidget',
-        def:
-            'Widget that delegates to a single child while contributing '
-            'ambient data or parent data — superclass of InheritedWidget.',
-      ),
-      _WgmGlossEntry(
-        term: 'InheritedWidget',
-        def:
-            'ProxyWidget that efficiently propagates immutable data '
-            'down the tree via an InheritedElement.',
-      ),
-      _WgmGlossEntry(
-        term: 'Key',
-        def:
-            'Identity marker on a Widget. Ensures the framework matches '
-            'Widgets to Elements across rebuilds in predictable ways.',
-      ),
-      _WgmGlossEntry(
-        term: 'ValueKey',
-        def:
-            'Key comparing wrapped value via == . Typical choice for '
-            'list items keyed by their data.',
-      ),
-      _WgmGlossEntry(
-        term: 'GlobalKey',
-        def:
-            'Unique across the whole app. Allows cross-subtree lookup '
-            'of Element, BuildContext, or State.',
-      ),
-      _WgmGlossEntry(
-        term: 'canUpdate',
-        def:
-            'static bool that returns true iff oldWidget and newWidget '
-            'share runtimeType and key. The reuse oracle.',
-      ),
-      _WgmGlossEntry(
-        term: 'runtimeType',
-        def:
-            'Dart type of the object. Combined with key to decide '
-            'whether an Element can be reused.',
-      ),
-      _WgmGlossEntry(
-        term: 'build()',
-        def:
-            'Function returning the subtree for the current frame. '
-            'Must be pure and fast.',
-      ),
-      _WgmGlossEntry(
-        term: 'BuildContext',
-        def:
-            'Handle to the current Element. Used to look up ancestors, '
-            'InheritedWidgets, and sizes.',
-      ),
+      _WgmGlossEntry(term: 'Widget',
+          def: 'Abstract base class; immutable description of a UI node.'),
+      _WgmGlossEntry(term: 'Element',
+          def: 'Inflated instance of a Widget. Owns position in the tree '
+              'and wiring to the RenderObject.'),
+      _WgmGlossEntry(term: 'RenderObject',
+          def: 'Performs layout, paint, hit-testing. Lives in the render '
+              'tree beneath Elements.'),
+      _WgmGlossEntry(term: 'StatelessWidget',
+          def: 'Widget whose build() depends solely on its constructor '
+              'arguments and ambient InheritedWidgets.'),
+      _WgmGlossEntry(term: 'StatefulWidget',
+          def: 'Widget paired with a State<T> object. The State survives '
+              'across rebuilds driven by the parent.'),
+      _WgmGlossEntry(term: 'State',
+          def: 'Mutable object associated with a StatefulElement. Hosts '
+              'setState, lifecycle hooks, and local data.'),
+      _WgmGlossEntry(term: 'RenderObjectWidget',
+          def: 'Widget that creates/updates a RenderObject directly, e.g. '
+              'RichText, CustomPaint, Opacity.'),
+      _WgmGlossEntry(term: 'ProxyWidget',
+          def: 'Widget that delegates to a single child while contributing '
+              'ambient data or parent data — superclass of InheritedWidget.'),
+      _WgmGlossEntry(term: 'InheritedWidget',
+          def: 'ProxyWidget that efficiently propagates immutable data '
+              'down the tree via an InheritedElement.'),
+      _WgmGlossEntry(term: 'Key',
+          def: 'Identity marker on a Widget. Ensures the framework matches '
+              'Widgets to Elements across rebuilds in predictable ways.'),
+      _WgmGlossEntry(term: 'ValueKey',
+          def: 'Key comparing wrapped value via == . Typical choice for '
+              'list items keyed by their data.'),
+      _WgmGlossEntry(term: 'GlobalKey',
+          def: 'Unique across the whole app. Allows cross-subtree lookup '
+              'of Element, BuildContext, or State.'),
+      _WgmGlossEntry(term: 'canUpdate',
+          def: 'static bool that returns true iff oldWidget and newWidget '
+              'share runtimeType and key. The reuse oracle.'),
+      _WgmGlossEntry(term: 'runtimeType',
+          def: 'Dart type of the object. Combined with key to decide '
+              'whether an Element can be reused.'),
+      _WgmGlossEntry(term: 'build()',
+          def: 'Function returning the subtree for the current frame. '
+              'Must be pure and fast.'),
+      _WgmGlossEntry(term: 'BuildContext',
+          def: 'Handle to the current Element. Used to look up ancestors, '
+              'InheritedWidgets, and sizes.'),
     ];
 
     return Column(
@@ -3110,7 +3024,9 @@ class _WgmSection11Glossary extends StatelessWidget {
           padding: const EdgeInsets.all(18),
           child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-              final int columns = constraints.maxWidth > 900 ? 2 : 1;
+              final int columns = constraints.maxWidth > 900
+                  ? 2
+                  : 1;
               return _WgmGrid(
                 columns: columns,
                 gap: 8,
@@ -3174,7 +3090,11 @@ class _WgmSection11Glossary extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             e.def,
-            style: const TextStyle(color: _wgmIvory, fontSize: 12, height: 1.4),
+            style: const TextStyle(
+              color: _wgmIvory,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),

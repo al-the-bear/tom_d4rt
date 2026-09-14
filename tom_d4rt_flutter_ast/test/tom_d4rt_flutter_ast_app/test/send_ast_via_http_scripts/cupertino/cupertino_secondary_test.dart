@@ -64,7 +64,11 @@ Widget _buildIntroCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Color(0xFF0A84FF), Color(0xFF5E5CE6), Color(0xFFAF52DE)],
+        colors: [
+          Color(0xFF0A84FF),
+          Color(0xFF5E5CE6),
+          Color(0xFFAF52DE),
+        ],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: const [
@@ -243,7 +247,10 @@ Widget _buildButtonVariants() {
                     child: const Text('Cancel'),
                   ),
                   const SizedBox(width: 8),
-                  CupertinoButton(onPressed: () {}, child: const Text('Edit')),
+                  CupertinoButton(
+                    onPressed: () {},
+                    child: const Text('Edit'),
+                  ),
                   const SizedBox(width: 8),
                   CupertinoButton(
                     onPressed: () {},
@@ -343,7 +350,8 @@ Widget _buildButtonVariants() {
                         SizedBox(width: 8),
                         Text(
                           'Share',
-                          style: TextStyle(color: CupertinoColors.systemPurple),
+                          style:
+                              TextStyle(color: CupertinoColors.systemPurple),
                         ),
                       ],
                     ),
@@ -374,7 +382,10 @@ Widget _buttonAnatomyCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Color(0xFFFAFCFF), Color(0xFFE8F1FF)],
+        colors: [
+          Color(0xFFFAFCFF),
+          Color(0xFFE8F1FF),
+        ],
       ),
       borderRadius: BorderRadius.circular(16),
       border: Border.all(color: const Color(0xFFB3D4FF)),
@@ -441,8 +452,7 @@ Widget _buttonAnatomyCard() {
         _slotRow(
           icon: CupertinoIcons.cursor_rays,
           label: 'onPressed / onLongPress',
-          description:
-              'Tap and long-press callbacks. Null disables the button.',
+          description: 'Tap and long-press callbacks. Null disables the button.',
         ),
       ],
     ),
@@ -785,7 +795,10 @@ Widget _buildSearchTextFieldSection() {
                   color: Color(0xFF7D2FBE),
                   size: 18,
                 ),
-                style: const TextStyle(color: Color(0xFF441A66), fontSize: 15),
+                style: const TextStyle(
+                  color: Color(0xFF441A66),
+                  fontSize: 15,
+                ),
                 onChanged: (v) {},
               ),
               const SizedBox(height: 14),
@@ -1077,7 +1090,10 @@ Widget _buildContextMenuSurrogate() {
 }
 
 Widget _menuDivider() {
-  return Container(height: 1, color: const Color(0xFFE5E5EA));
+  return Container(
+    height: 1,
+    color: const Color(0xFFE5E5EA),
+  );
 }
 
 // ============================================================================
@@ -1153,11 +1169,13 @@ Widget _buildActionSheetSurrogate() {
               const SizedBox(height: 10),
               _actionSheetCard(
                 title: 'Discard Draft?',
-                message:
-                    'Are you sure you want to permanently delete this '
+                message: 'Are you sure you want to permanently delete this '
                     'draft? This cannot be undone.',
                 items: const [
-                  _ActionItem(label: 'Discard Draft', isDestructive: true),
+                  _ActionItem(
+                    label: 'Discard Draft',
+                    isDestructive: true,
+                  ),
                 ],
                 cancelLabel: 'Keep Editing',
               ),
@@ -1293,7 +1311,11 @@ List<Widget> _actionRows(List<_ActionItem> items) {
         alignment: Alignment.center,
         child: Text(
           item.label,
-          style: TextStyle(color: color, fontSize: 17, fontWeight: weight),
+          style: TextStyle(
+            color: color,
+            fontSize: 17,
+            fontWeight: weight,
+          ),
         ),
       ),
     );
@@ -1349,12 +1371,16 @@ Widget _buildAlertDialogSurrogate() {
               Center(
                 child: _alertDialogCard(
                   title: 'Allow Photos Access?',
-                  content:
-                      'Photos lets you import images from your library '
+                  content: 'Photos lets you import images from your library '
                       'into this draft.',
                   actions: const [
-                    _DialogActionItem(label: "Don't Allow"),
-                    _DialogActionItem(label: 'Allow', isDefault: true),
+                    _DialogActionItem(
+                      label: "Don't Allow",
+                    ),
+                    _DialogActionItem(
+                      label: 'Allow',
+                      isDefault: true,
+                    ),
                   ],
                   layout: _DialogActionLayout.horizontal,
                 ),
@@ -1365,11 +1391,13 @@ Widget _buildAlertDialogSurrogate() {
               Center(
                 child: _alertDialogCard(
                   title: 'Software Update Available',
-                  content:
-                      'iOS 18.1.2 is ready to install. The update '
+                  content: 'iOS 18.1.2 is ready to install. The update '
                       'includes important security improvements.',
                   actions: const [
-                    _DialogActionItem(label: 'Install Now', isDefault: true),
+                    _DialogActionItem(
+                      label: 'Install Now',
+                      isDefault: true,
+                    ),
                     _DialogActionItem(label: 'Install Tonight'),
                     _DialogActionItem(label: 'Remind Me Later'),
                     _DialogActionItem(
@@ -1388,7 +1416,10 @@ Widget _buildAlertDialogSurrogate() {
                   title: 'Saved',
                   content: 'Your changes have been saved to iCloud.',
                   actions: const [
-                    _DialogActionItem(label: 'OK', isDefault: true),
+                    _DialogActionItem(
+                      label: 'OK',
+                      isDefault: true,
+                    ),
                   ],
                   layout: _DialogActionLayout.horizontal,
                 ),
@@ -1434,7 +1465,9 @@ Widget _alertDialogCard({
     borderRadius: BorderRadius.circular(14),
     child: Container(
       width: 270,
-      decoration: const BoxDecoration(color: Color(0xF2F7F7F8)),
+      decoration: const BoxDecoration(
+        color: Color(0xF2F7F7F8),
+      ),
       child: Column(
         children: [
           Padding(
@@ -1490,20 +1523,28 @@ Widget _horizontalActions(List<_DialogActionItem> actions) {
                   ? CupertinoColors.systemRed
                   : CupertinoColors.systemBlue,
               fontSize: 17,
-              fontWeight: actions[i].isDefault
-                  ? FontWeight.w700
-                  : FontWeight.w400,
+              fontWeight:
+                  actions[i].isDefault ? FontWeight.w700 : FontWeight.w400,
             ),
           ),
         ),
       ),
     );
     if (i < actions.length - 1) {
-      rows.add(Container(width: 1, height: 44, color: const Color(0xFFE5E5EA)));
+      rows.add(
+        Container(
+          width: 1,
+          height: 44,
+          color: const Color(0xFFE5E5EA),
+        ),
+      );
     }
   }
   return IntrinsicHeight(
-    child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: rows),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: rows,
+    ),
   );
 }
 
@@ -1522,9 +1563,8 @@ Widget _verticalActions(List<_DialogActionItem> actions) {
                 ? CupertinoColors.systemRed
                 : CupertinoColors.systemBlue,
             fontSize: 17,
-            fontWeight: actions[i].isDefault
-                ? FontWeight.w700
-                : FontWeight.w400,
+            fontWeight:
+                actions[i].isDefault ? FontWeight.w700 : FontWeight.w400,
           ),
         ),
       ),
@@ -1648,7 +1688,10 @@ Widget _buildSliverNavBarSection() {
                       gradient: const LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Color(0xFFEAF7FF), Color(0xFFD0EBFF)],
+                        colors: [
+                          Color(0xFFEAF7FF),
+                          Color(0xFFD0EBFF),
+                        ],
                       ),
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -1719,11 +1762,18 @@ Widget _buildSliverNavBarSection() {
   );
 }
 
-Widget _libraryRow(IconData icon, Color color, String label, String trailing) {
+Widget _libraryRow(
+  IconData icon,
+  Color color,
+  String label,
+  String trailing,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     decoration: const BoxDecoration(
-      border: Border(bottom: BorderSide(color: Color(0xFFE5E5EA), width: 0.5)),
+      border: Border(
+        bottom: BorderSide(color: Color(0xFFE5E5EA), width: 0.5),
+      ),
     ),
     child: Row(
       children: [
@@ -1757,7 +1807,10 @@ Widget _libraryRow(IconData icon, Color color, String label, String trailing) {
         ),
         Text(
           trailing,
-          style: const TextStyle(color: Color(0xFF8E8E93), fontSize: 14),
+          style: const TextStyle(
+            color: Color(0xFF8E8E93),
+            fontSize: 14,
+          ),
         ),
         const SizedBox(width: 6),
         const Icon(
@@ -1796,7 +1849,10 @@ Widget _buildPopupSurfaceSection() {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xFFE9E9EB), Color(0xFFFAFAFA)],
+              colors: [
+                Color(0xFFE9E9EB),
+                Color(0xFFFAFAFA),
+              ],
             ),
             borderRadius: BorderRadius.circular(16),
             boxShadow: const [
@@ -1861,7 +1917,10 @@ Widget _buildPopupSurfaceSection() {
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [Color(0xFF34C759), Color(0xFF30D158)],
+                          colors: [
+                            Color(0xFF34C759),
+                            Color(0xFF30D158),
+                          ],
                         ),
                       ),
                       padding: const EdgeInsets.all(18),
@@ -1929,7 +1988,10 @@ Widget _buildPopupSurfaceSection() {
                         child: Container(
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [Color(0xFFFFE5B4), Color(0xFFFFCC80)],
+                              colors: [
+                                Color(0xFFFFE5B4),
+                                Color(0xFFFFCC80),
+                              ],
                             ),
                           ),
                           alignment: Alignment.center,
@@ -2139,7 +2201,12 @@ Widget _buildUsageGuide() {
   );
 }
 
-Widget _guideRow(IconData icon, Color color, String title, String description) {
+Widget _guideRow(
+  IconData icon,
+  Color color,
+  String title,
+  String description,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6),
     child: Row(
@@ -2208,7 +2275,9 @@ Widget _sectionHeader({
           decoration: BoxDecoration(
             color: CupertinoColors.white.withOpacity(0.22),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: CupertinoColors.white.withOpacity(0.4)),
+            border: Border.all(
+              color: CupertinoColors.white.withOpacity(0.4),
+            ),
           ),
           child: Icon(icon, color: CupertinoColors.white, size: 24),
         ),
@@ -2330,7 +2399,11 @@ Widget _materialIconCompare() {
     children: [
       Icon(Icons.close, size: 16, color: Color(0xFF8E8E93)),
       SizedBox(width: 4),
-      Icon(CupertinoIcons.xmark, size: 14, color: Color(0xFF8E8E93)),
+      Icon(
+        CupertinoIcons.xmark,
+        size: 14,
+        color: Color(0xFF8E8E93),
+      ),
     ],
   );
 }

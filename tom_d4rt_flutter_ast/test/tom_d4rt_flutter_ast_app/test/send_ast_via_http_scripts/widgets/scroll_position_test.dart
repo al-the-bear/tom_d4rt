@@ -21,16 +21,16 @@ import 'package:flutter/material.dart';
 /// 8. ScrollPositionWithSingleContext internals
 
 // ─── palette ───────────────────────────────────────────────
-const _kGreen = Color(0xFF4CAF50);
-const _kGreenLight = Color(0xFFC8E6C9);
-const _kGreenDark = Color(0xFF2E7D32);
-const _kBrown = Color(0xFF795548);
-const _kBrownLight = Color(0xFFD7CCC8);
-const _kBrownDark = Color(0xFF4E342E);
-const _kSurface = Color(0xFFFCFCFA);
-const _kDivider = Color(0xFFE0E0E0);
-const _kTextDark = Color(0xFF212121);
-const _kTextMuted = Color(0xFF757575);
+const _kGreen       = Color(0xFF4CAF50);
+const _kGreenLight  = Color(0xFFC8E6C9);
+const _kGreenDark   = Color(0xFF2E7D32);
+const _kBrown       = Color(0xFF795548);
+const _kBrownLight  = Color(0xFFD7CCC8);
+const _kBrownDark   = Color(0xFF4E342E);
+const _kSurface     = Color(0xFFFCFCFA);
+const _kDivider     = Color(0xFFE0E0E0);
+const _kTextDark    = Color(0xFF212121);
+const _kTextMuted   = Color(0xFF757575);
 
 // ─── 1. Anatomy entries ────────────────────────────────────
 class _AnatomyEntry {
@@ -41,48 +41,27 @@ class _AnatomyEntry {
 }
 
 const _kAnatomyEntries = <_AnatomyEntry>[
-  _AnatomyEntry(
-    'pixels',
-    'double',
-    'The current scroll offset in logical pixels. Zero is the start; '
-        'increases as the user scrolls down (or right for horizontal).',
-  ),
-  _AnatomyEntry(
-    'minScrollExtent',
-    'double',
-    'The minimum value pixels can have. Usually 0.0 for standard lists. '
-        'Can be double.negativeInfinity for unbounded scrolling.',
-  ),
-  _AnatomyEntry(
-    'maxScrollExtent',
-    'double',
-    'The maximum value pixels can have. Equals total content height minus '
-        'viewport height. If content fits, equals 0.0.',
-  ),
-  _AnatomyEntry(
-    'viewportDimension',
-    'double',
-    'The extent of the viewport along the scroll axis. For vertical scrolling, '
-        'this is the visible height.',
-  ),
-  _AnatomyEntry(
-    'physics',
-    'ScrollPhysics',
-    'Determines how the position responds to user input — bouncing, clamping, '
-        'never-scrollable, or custom behavior.',
-  ),
-  _AnatomyEntry(
-    'context',
-    'ScrollContext',
-    'The Scrollable that owns this position. Provides vsync for animations '
-        'and the build context.',
-  ),
-  _AnatomyEntry(
-    'keepScrollOffset',
-    'bool',
-    'Whether to save and restore the scroll offset using PageStorage. '
-        'Defaults to true.',
-  ),
+  _AnatomyEntry('pixels', 'double',
+      'The current scroll offset in logical pixels. Zero is the start; '
+      'increases as the user scrolls down (or right for horizontal).'),
+  _AnatomyEntry('minScrollExtent', 'double',
+      'The minimum value pixels can have. Usually 0.0 for standard lists. '
+      'Can be double.negativeInfinity for unbounded scrolling.'),
+  _AnatomyEntry('maxScrollExtent', 'double',
+      'The maximum value pixels can have. Equals total content height minus '
+      'viewport height. If content fits, equals 0.0.'),
+  _AnatomyEntry('viewportDimension', 'double',
+      'The extent of the viewport along the scroll axis. For vertical scrolling, '
+      'this is the visible height.'),
+  _AnatomyEntry('physics', 'ScrollPhysics',
+      'Determines how the position responds to user input — bouncing, clamping, '
+      'never-scrollable, or custom behavior.'),
+  _AnatomyEntry('context', 'ScrollContext',
+      'The Scrollable that owns this position. Provides vsync for animations '
+      'and the build context.'),
+  _AnatomyEntry('keepScrollOffset', 'bool',
+      'Whether to save and restore the scroll offset using PageStorage. '
+      'Defaults to true.'),
 ];
 
 // ─── 2. ScrollMetrics ──────────────────────────────────────
@@ -111,35 +90,23 @@ class _ActivityInfo {
 }
 
 const _kActivities = <_ActivityInfo>[
-  _ActivityInfo(
-    'Idle',
-    'IdleScrollActivity',
-    'No movement. Installed after a fling or jump completes. '
-        'Applies a hold function to resist further implicit scrolling.',
-    Icons.pause_circle_outline,
-  ),
-  _ActivityInfo(
-    'Drag',
-    'DragScrollActivity',
-    'User is touching and moving. Updated frame-by-frame from '
-        'pointer delta. Converts pointer movement to pixel offset.',
-    Icons.touch_app,
-  ),
-  _ActivityInfo(
-    'Ballistic',
-    'BallisticScrollActivity',
-    'Post-fling deceleration. Uses a Simulation (typically '
-        'ClampingScrollSimulation or BouncingScrollSimulation) driven '
-        'by the AnimationController at screen refresh rate.',
-    Icons.speed,
-  ),
-  _ActivityInfo(
-    'Driven',
-    'DrivenScrollActivity',
-    'Programmatic animation via animateTo(). Uses an '
-        'AnimationController with a specified curve and duration.',
-    Icons.animation,
-  ),
+  _ActivityInfo('Idle', 'IdleScrollActivity',
+      'No movement. Installed after a fling or jump completes. '
+      'Applies a hold function to resist further implicit scrolling.',
+      Icons.pause_circle_outline),
+  _ActivityInfo('Drag', 'DragScrollActivity',
+      'User is touching and moving. Updated frame-by-frame from '
+      'pointer delta. Converts pointer movement to pixel offset.',
+      Icons.touch_app),
+  _ActivityInfo('Ballistic', 'BallisticScrollActivity',
+      'Post-fling deceleration. Uses a Simulation (typically '
+      'ClampingScrollSimulation or BouncingScrollSimulation) driven '
+      'by the AnimationController at screen refresh rate.',
+      Icons.speed),
+  _ActivityInfo('Driven', 'DrivenScrollActivity',
+      'Programmatic animation via animateTo(). Uses an '
+      'AnimationController with a specified curve and duration.',
+      Icons.animation),
 ];
 
 // ─── 5. Physics comparison ─────────────────────────────────
@@ -152,32 +119,12 @@ class _PhysicsRow {
 }
 
 const _kPhysicsRows = <_PhysicsRow>[
-  _PhysicsRow(
-    'ClampingScrollPhysics',
-    'Android',
-    'Stops at edge',
-    'Glow effect',
-  ),
-  _PhysicsRow(
-    'BouncingScrollPhysics',
-    'iOS',
-    'Bounces past edge',
-    'Rubber-band',
-  ),
+  _PhysicsRow('ClampingScrollPhysics', 'Android', 'Stops at edge', 'Glow effect'),
+  _PhysicsRow('BouncingScrollPhysics', 'iOS', 'Bounces past edge', 'Rubber-band'),
   _PhysicsRow('NeverScrollableScrollPhysics', 'Any', 'Disables scroll', 'None'),
-  _PhysicsRow(
-    'AlwaysScrollableScrollPhysics',
-    'Any',
-    'Always scrollable',
-    'Inherits parent',
-  ),
+  _PhysicsRow('AlwaysScrollableScrollPhysics', 'Any', 'Always scrollable', 'Inherits parent'),
   _PhysicsRow('PageScrollPhysics', 'Any', 'Snaps to page', 'Inherits parent'),
-  _PhysicsRow(
-    'RangeMaintainingScrollPhysics',
-    'Any',
-    'Corrects out-of-range',
-    'Clamps',
-  ),
+  _PhysicsRow('RangeMaintainingScrollPhysics', 'Any', 'Corrects out-of-range', 'Clamps'),
 ];
 
 // ─── helpers ───────────────────────────────────────────────
@@ -193,15 +140,8 @@ Widget _sectionHeader(String title, IconData icon) {
         Icon(icon, color: Colors.white, size: 22),
         SizedBox(width: 12),
         Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.4,
-            ),
-          ),
+          child: Text(title,
+              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700, letterSpacing: 0.4)),
         ),
       ],
     ),
@@ -217,11 +157,7 @@ Widget _card({required Widget child}) {
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.04),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: child,
@@ -229,27 +165,12 @@ Widget _card({required Widget child}) {
 }
 
 Widget _label(String text) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontSize: 11,
-      color: _kTextMuted,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.6,
-    ),
-  );
+  return Text(text, style: TextStyle(fontSize: 11, color: _kTextMuted, fontWeight: FontWeight.w600, letterSpacing: 0.6));
 }
 
 Widget _mono(String text, {Color? color}) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontFamily: 'monospace',
-      fontSize: 12.5,
-      color: color ?? _kTextDark,
-      height: 1.45,
-    ),
-  );
+  return Text(text,
+      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5, color: color ?? _kTextDark, height: 1.45));
 }
 
 Widget _bullet(String text) {
@@ -258,19 +179,10 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 7),
-          width: 5,
-          height: 5,
-          decoration: BoxDecoration(color: _kGreen, shape: BoxShape.circle),
-        ),
+        Container(margin: EdgeInsets.only(top: 7), width: 5, height: 5,
+            decoration: BoxDecoration(color: _kGreen, shape: BoxShape.circle)),
         SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-          ),
-        ),
+        Expanded(child: Text(text, style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
       ],
     ),
   );
@@ -286,10 +198,7 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: _kGreen,
-        brightness: Brightness.light,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: _kGreen, brightness: Brightness.light),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: Scaffold(
@@ -376,52 +285,33 @@ class _BodyState extends State<_Body> {
             ],
           ),
         ),
-        ..._kAnatomyEntries.map(
-          (e) => _card(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 100,
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _kGreenLight,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        e.property,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                          color: _kGreenDark,
-                        ),
-                      ),
-                      Text(
-                        e.type,
-                        style: TextStyle(fontSize: 10, color: _kTextMuted),
-                      ),
-                    ],
-                  ),
+        ..._kAnatomyEntries.map((e) => _card(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 100,
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _kGreenLight,
+                  borderRadius: BorderRadius.circular(6),
                 ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    e.description,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: _kTextDark,
-                      height: 1.35,
-                    ),
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(e.property,
+                        style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 12, color: _kGreenDark)),
+                    Text(e.type, style: TextStyle(fontSize: 10, color: _kTextMuted)),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(e.description, style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+              ),
+            ],
           ),
-        ),
+        )),
 
         SizedBox(height: 12),
 
@@ -442,33 +332,24 @@ class _BodyState extends State<_Body> {
             ],
           ),
         ),
-        ..._kMetricsFormulas.entries.map(
-          (e) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _kBrownLight,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    e.key,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                      color: _kBrownDark,
-                    ),
-                  ),
+        ..._kMetricsFormulas.entries.map((e) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _kBrownLight,
+                  borderRadius: BorderRadius.circular(6),
                 ),
-                SizedBox(height: 8),
-                _mono(e.value, color: _kGreenDark),
-              ],
-            ),
+                child: Text(e.key,
+                    style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 13, color: _kBrownDark)),
+              ),
+              SizedBox(height: 8),
+              _mono(e.value, color: _kGreenDark),
+            ],
           ),
-        ),
+        )),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -499,62 +380,40 @@ class _BodyState extends State<_Body> {
             ],
           ),
         ),
-        ..._kActivities.map(
-          (a) => _card(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: _kGreenLight,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(a.icon, color: _kGreenDark, size: 22),
+        ..._kActivities.map((a) => _card(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 44, height: 44,
+                decoration: BoxDecoration(
+                  color: _kGreenLight,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            a.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14,
-                              color: _kTextDark,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            a.cls,
-                            style: TextStyle(
-                              fontFamily: 'monospace',
-                              fontSize: 11,
-                              color: _kBrown,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        a.description,
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: _kTextDark,
-                          height: 1.35,
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Icon(a.icon, color: _kGreenDark, size: 22),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(a.name,
+                            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: _kTextDark)),
+                        SizedBox(width: 8),
+                        Text(a.cls,
+                            style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: _kBrown)),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Text(a.description, style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
+        )),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -601,25 +460,15 @@ class _BodyState extends State<_Body> {
             children: [
               _label('SCROLL DIRECTION'),
               SizedBox(height: 8),
-              _bullet(
-                'userScrollDirection — the direction the user is actively scrolling',
-              ),
-              _bullet(
-                'ScrollDirection.forward — content moving down (user scrolling up)',
-              ),
-              _bullet(
-                'ScrollDirection.reverse — content moving up (user scrolling down)',
-              ),
+              _bullet('userScrollDirection — the direction the user is actively scrolling'),
+              _bullet('ScrollDirection.forward — content moving down (user scrolling up)'),
+              _bullet('ScrollDirection.reverse — content moving up (user scrolling down)'),
               _bullet('ScrollDirection.idle — no active scroll input'),
               SizedBox(height: 6),
               Text(
                 'Note the counter-intuitive naming: "forward" means the content '
                 'is going toward the start, not toward the end.',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _kBrown,
-                  fontStyle: FontStyle.italic,
-                ),
+                style: TextStyle(fontSize: 12, color: _kBrown, fontStyle: FontStyle.italic),
               ),
             ],
           ),
@@ -661,15 +510,9 @@ class _BodyState extends State<_Body> {
               SizedBox(height: 8),
               _bullet('applyPhysicsToUserOffset — transforms raw drag delta'),
               _bullet('applyBoundaryConditions — enforces edge behavior'),
-              _bullet(
-                'createBallisticSimulation — creates the fling deceleration curve',
-              ),
-              _bullet(
-                'adjustPositionForNewDimensions — handles viewport resize',
-              ),
-              _bullet(
-                'toleranceFor — defines when a simulation is "close enough" to stop',
-              ),
+              _bullet('createBallisticSimulation — creates the fling deceleration curve'),
+              _bullet('adjustPositionForNewDimensions — handles viewport resize'),
+              _bullet('toleranceFor — defines when a simulation is "close enough" to stop'),
             ],
           ),
         ),
@@ -677,10 +520,7 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 6: Live monitor ──
-        _sectionHeader(
-          '6 · Live Scroll-Position Monitor',
-          Icons.monitor_heart_outlined,
-        ),
+        _sectionHeader('6 · Live Scroll-Position Monitor', Icons.monitor_heart_outlined),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -690,24 +530,10 @@ class _BodyState extends State<_Body> {
               SizedBox(height: 12),
               _buildMetricRow('pixels', _pixels.toStringAsFixed(1)),
               _buildMetricRow('maxScrollExtent', _maxExtent.toStringAsFixed(1)),
-              _buildMetricRow(
-                'viewportDimension',
-                _viewportDim.toStringAsFixed(1),
-              ),
-              _buildMetricRow(
-                'extentBefore',
-                (_pixels).clamp(0, double.infinity).toStringAsFixed(1),
-              ),
-              _buildMetricRow(
-                'extentAfter',
-                (_maxExtent - _pixels)
-                    .clamp(0, double.infinity)
-                    .toStringAsFixed(1),
-              ),
-              _buildMetricRow(
-                'atEdge',
-                (_pixels <= 0 || _pixels >= _maxExtent) ? 'true' : 'false',
-              ),
+              _buildMetricRow('viewportDimension', _viewportDim.toStringAsFixed(1)),
+              _buildMetricRow('extentBefore', (_pixels).clamp(0, double.infinity).toStringAsFixed(1)),
+              _buildMetricRow('extentAfter', (_maxExtent - _pixels).clamp(0, double.infinity).toStringAsFixed(1)),
+              _buildMetricRow('atEdge', (_pixels <= 0 || _pixels >= _maxExtent) ? 'true' : 'false'),
               SizedBox(height: 6),
               if (_maxExtent > 0)
                 _buildScrollBar(_pixels, _maxExtent, _viewportDim),
@@ -732,13 +558,8 @@ class _BodyState extends State<_Body> {
                 color: isEven ? _kGreenLight.withOpacity(0.3) : Colors.white,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 14),
-                child: Text(
-                  'Item $i',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: isEven ? _kGreenDark : _kBrownDark,
-                  ),
-                ),
+                child: Text('Item $i',
+                    style: TextStyle(fontSize: 13, color: isEven ? _kGreenDark : _kBrownDark)),
               );
             },
           ),
@@ -747,10 +568,7 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 16),
 
         // ── Section 7: Programmatic scroll ──
-        _sectionHeader(
-          '7 · Programmatic Scroll — jumpTo / animateTo',
-          Icons.open_with,
-        ),
+        _sectionHeader('7 · Programmatic Scroll — jumpTo / animateTo', Icons.open_with),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -759,26 +577,14 @@ class _BodyState extends State<_Body> {
               _label('jumpTo vs animateTo'),
               SizedBox(height: 8),
               _mono('position.jumpTo(200.0)'),
-              Text(
-                'Instantly sets pixels to 200. No animation, no notifications during the jump.',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: _kTextDark,
-                  height: 1.35,
-                ),
-              ),
+              Text('Instantly sets pixels to 200. No animation, no notifications during the jump.',
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
               SizedBox(height: 10),
               _mono('position.animateTo(200.0,'),
               _mono('    duration: Duration(ms: 300),'),
               _mono('    curve: Curves.easeOut)'),
-              Text(
-                'Creates a DrivenScrollActivity that smoothly interpolates to 200.',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: _kTextDark,
-                  height: 1.35,
-                ),
-              ),
+              Text('Creates a DrivenScrollActivity that smoothly interpolates to 200.',
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
             ],
           ),
         ),
@@ -793,10 +599,7 @@ class _BodyState extends State<_Body> {
                   },
                   icon: Icon(Icons.arrow_upward, size: 16),
                   label: Text('Jump to top'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _kGreenDark,
-                    foregroundColor: Colors.white,
-                  ),
+                  style: ElevatedButton.styleFrom(backgroundColor: _kGreenDark, foregroundColor: Colors.white),
                 ),
               ),
               SizedBox(width: 10),
@@ -812,10 +615,7 @@ class _BodyState extends State<_Body> {
                   },
                   icon: Icon(Icons.arrow_downward, size: 16),
                   label: Text('Animate to end'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _kBrownDark,
-                    foregroundColor: Colors.white,
-                  ),
+                  style: ElevatedButton.styleFrom(backgroundColor: _kBrownDark, foregroundColor: Colors.white),
                 ),
               ),
             ],
@@ -837,11 +637,7 @@ class _BodyState extends State<_Body> {
                 'Scrolls the minimum amount necessary to make the given RenderObject '
                 'visible within the viewport. The alignment parameter controls where '
                 'the object should appear: 0.0 = leading edge, 0.5 = center, 1.0 = trailing.',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: _kTextDark,
-                  height: 1.35,
-                ),
+                style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35),
               ),
             ],
           ),
@@ -850,10 +646,7 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 8: Internals ──
-        _sectionHeader(
-          '8 · ScrollPositionWithSingleContext Internals',
-          Icons.memory,
-        ),
+        _sectionHeader('8 · ScrollPositionWithSingleContext Internals', Icons.memory),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -874,36 +667,24 @@ class _BodyState extends State<_Body> {
             children: [
               _label('KEY OVERRIDES'),
               SizedBox(height: 8),
-              _buildInternalRow(
-                'applyUserOffset(delta)',
-                'Called by DragScrollActivity on each frame. Transforms delta through '
-                    'physics.applyPhysicsToUserOffset, then calls setPixels.',
-              ),
-              _buildInternalRow(
-                'applyNewDimensions()',
-                'Called when viewport layout changes. Involves correctPixels if out '
-                    'of range, notifies activity, fires ScrollMetricsNotification.',
-              ),
-              _buildInternalRow(
-                'setPixels(newPixels)',
-                'The central mutation method. Applies boundary conditions from physics, '
-                    'fires scroll notification, returns overscroll amount.',
-              ),
-              _buildInternalRow(
-                'goBallistic(velocity)',
-                'Asks physics for a BallisticSimulation and starts a '
-                    'BallisticScrollActivity with it. Called when user lifts finger.',
-              ),
-              _buildInternalRow(
-                'goIdle()',
-                'Transitions to IdleScrollActivity. Called when a ballistic simulation '
-                    'reaches tolerance or a driven animation completes.',
-              ),
-              _buildInternalRow(
-                'absorb(otherPosition)',
-                'Takes velocity and pixels from another ScrollPosition. Used when '
-                    'a Scrollable is replaced but wants to continue the scroll.',
-              ),
+              _buildInternalRow('applyUserOffset(delta)',
+                  'Called by DragScrollActivity on each frame. Transforms delta through '
+                  'physics.applyPhysicsToUserOffset, then calls setPixels.'),
+              _buildInternalRow('applyNewDimensions()',
+                  'Called when viewport layout changes. Involves correctPixels if out '
+                  'of range, notifies activity, fires ScrollMetricsNotification.'),
+              _buildInternalRow('setPixels(newPixels)',
+                  'The central mutation method. Applies boundary conditions from physics, '
+                  'fires scroll notification, returns overscroll amount.'),
+              _buildInternalRow('goBallistic(velocity)',
+                  'Asks physics for a BallisticSimulation and starts a '
+                  'BallisticScrollActivity with it. Called when user lifts finger.'),
+              _buildInternalRow('goIdle()',
+                  'Transitions to IdleScrollActivity. Called when a ballistic simulation '
+                  'reaches tolerance or a driven animation completes.'),
+              _buildInternalRow('absorb(otherPosition)',
+                  'Takes velocity and pixels from another ScrollPosition. Used when '
+                  'a Scrollable is replaced but wants to continue the scroll.'),
             ],
           ),
         ),
@@ -913,15 +694,9 @@ class _BodyState extends State<_Body> {
             children: [
               _label('NOTIFICATION FLOW'),
               SizedBox(height: 8),
-              _bullet(
-                'ScrollStartNotification — drag begins or animateTo starts',
-              ),
-              _bullet(
-                'ScrollUpdateNotification — pixels change (every frame during scroll)',
-              ),
-              _bullet(
-                'OverscrollNotification — physics reports overscroll amount',
-              ),
+              _bullet('ScrollStartNotification — drag begins or animateTo starts'),
+              _bullet('ScrollUpdateNotification — pixels change (every frame during scroll)'),
+              _bullet('OverscrollNotification — physics reports overscroll amount'),
               _bullet('ScrollEndNotification — activity becomes idle'),
               _bullet('UserScrollNotification — userScrollDirection changes'),
               SizedBox(height: 8),
@@ -929,11 +704,7 @@ class _BodyState extends State<_Body> {
                 'Notifications bubble up through the widget tree via '
                 'NotificationListener<ScrollNotification>. They carry the '
                 'ScrollMetrics snapshot at the time of the event.',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: _kTextDark,
-                  height: 1.35,
-                ),
+                style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35),
               ),
             ],
           ),
@@ -968,12 +739,7 @@ class _BodyState extends State<_Body> {
           children: [
             _buildExtentBlock('extentBefore', _kBrownLight, _kBrownDark, 1),
             SizedBox(width: 2),
-            _buildExtentBlock(
-              'extentInside\n(viewport)',
-              _kGreenLight,
-              _kGreenDark,
-              1.5,
-            ),
+            _buildExtentBlock('extentInside\n(viewport)', _kGreenLight, _kGreenDark, 1.5),
             SizedBox(width: 2),
             _buildExtentBlock('extentAfter', _kBrownLight, _kBrownDark, 1),
           ],
@@ -981,34 +747,12 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 6),
         Row(
           children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  '↑ minScrollExtent',
-                  style: TextStyle(fontSize: 10, color: _kTextMuted),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  'pixels →',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: _kGreenDark,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  'maxScrollExtent ↑',
-                  style: TextStyle(fontSize: 10, color: _kTextMuted),
-                ),
-              ),
-            ),
+            Expanded(child: Center(child: Text('↑ minScrollExtent',
+                style: TextStyle(fontSize: 10, color: _kTextMuted)))),
+            Expanded(child: Center(child: Text('pixels →',
+                style: TextStyle(fontSize: 10, color: _kGreenDark, fontWeight: FontWeight.w700)))),
+            Expanded(child: Center(child: Text('maxScrollExtent ↑',
+                style: TextStyle(fontSize: 10, color: _kTextMuted)))),
           ],
         ),
       ],
@@ -1026,15 +770,9 @@ class _BodyState extends State<_Body> {
           border: Border.all(color: fg.withOpacity(0.4)),
         ),
         alignment: Alignment.center,
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: fg,
-          ),
-        ),
+        child: Text(label,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: fg)),
       ),
     );
   }
@@ -1060,15 +798,9 @@ class _BodyState extends State<_Body> {
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(color: e.value.value.withOpacity(0.3)),
               ),
-              child: Text(
-                e.value.key,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: e.value.value,
-                ),
-              ),
+              child: Text(e.value.key,
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 12, fontWeight: FontWeight.w600,
+                      color: e.value.value)),
             ),
             if (e.key < steps.length - 1)
               Padding(
@@ -1095,37 +827,17 @@ class _BodyState extends State<_Body> {
       children: [
         TableRow(
           decoration: BoxDecoration(color: _kGreenLight.withOpacity(0.4)),
-          children: ['Physics', 'Platform', 'Behavior', 'Overscroll']
-              .map(
-                (h) => Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(
-                    h,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 10.5,
-                      color: _kGreenDark,
-                    ),
-                  ),
-                ),
-              )
-              .toList(),
+          children: ['Physics', 'Platform', 'Behavior', 'Overscroll'].map((h) => Padding(
+            padding: EdgeInsets.all(5),
+            child: Text(h, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.5, color: _kGreenDark)),
+          )).toList(),
         ),
-        ..._kPhysicsRows.map(
-          (r) => TableRow(
-            children: [r.name, r.platform, r.behavior, r.overscroll]
-                .map(
-                  (c) => Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Text(
-                      c,
-                      style: TextStyle(fontSize: 10.5, color: _kTextDark),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
+        ..._kPhysicsRows.map((r) => TableRow(
+          children: [r.name, r.platform, r.behavior, r.overscroll].map((c) => Padding(
+            padding: EdgeInsets.all(5),
+            child: Text(c, style: TextStyle(fontSize: 10.5, color: _kTextDark)),
+          )).toList(),
+        )),
       ],
     );
   }
@@ -1138,24 +850,9 @@ class _BodyState extends State<_Body> {
         children: [
           SizedBox(
             width: 130,
-            child: Text(
-              name,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                color: _kGreenDark,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: _kGreenDark, fontWeight: FontWeight.w600)),
           ),
-          Text(
-            value,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: _kBrownDark,
-            ),
-          ),
+          Text(value, style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: _kBrownDark)),
         ],
       ),
     );
@@ -1176,10 +873,7 @@ class _BodyState extends State<_Body> {
       child: LayoutBuilder(
         builder: (ctx, constraints) {
           final trackWidth = constraints.maxWidth;
-          final thumbWidth = (thumbFraction * trackWidth).clamp(
-            20.0,
-            trackWidth,
-          );
+          final thumbWidth = (thumbFraction * trackWidth).clamp(20.0, trackWidth);
           final maxOffset = trackWidth - thumbWidth;
           final offset = thumbPosition * maxOffset;
 
@@ -1213,10 +907,7 @@ class _BodyState extends State<_Body> {
         children: [
           _mono(method, color: _kGreenDark),
           SizedBox(height: 2),
-          Text(
-            desc,
-            style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35),
-          ),
+          Text(desc, style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
         ],
       ),
     );

@@ -89,7 +89,10 @@ class _HeaderBanner extends StatelessWidget {
       padding: const EdgeInsets.all(24.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primary, scheme.tertiary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.tertiary,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -373,7 +376,10 @@ class _AnatomyRow {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: color.withValues(alpha: 0.35), width: 1.0),
+        border: Border.all(
+          color: color.withValues(alpha: 0.35),
+          width: 1.0,
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -406,9 +412,7 @@ class _AnatomyRow {
                     const SizedBox(width: 8.0),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0,
-                        vertical: 1.0,
-                      ),
+                          horizontal: 6.0, vertical: 1.0),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.22),
                         borderRadius: BorderRadius.circular(4.0),
@@ -427,7 +431,10 @@ class _AnatomyRow {
                 const SizedBox(height: 2.0),
                 Text(
                   note,
-                  style: const TextStyle(fontSize: 12.0, color: Colors.black87),
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.black87,
+                  ),
                 ),
               ],
             ),
@@ -626,10 +633,8 @@ class _SectionTwoVariantGallery extends StatelessWidget {
         tile: const CheckboxListTile(
           value: true,
           onChanged: _noopBool,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 24.0,
-            vertical: 12.0,
-          ),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
           title: Text('Wide padding'),
         ),
       ),
@@ -668,9 +673,7 @@ class _SectionTwoVariantGallery extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 4.0,
-                          ),
+                              horizontal: 10.0, vertical: 4.0),
                           decoration: BoxDecoration(
                             color: scheme.primaryContainer,
                             borderRadius: BorderRadius.circular(999.0),
@@ -686,7 +689,8 @@ class _SectionTwoVariantGallery extends StatelessWidget {
                         ),
                         const SizedBox(height: 6.0),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
                           child: Text(
                             spec.description,
                             style: const TextStyle(
@@ -700,12 +704,12 @@ class _SectionTwoVariantGallery extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: scheme.surfaceContainerLowest,
                             borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(color: scheme.outlineVariant),
+                            border:
+                                Border.all(color: scheme.outlineVariant),
                           ),
                           child: Material(
-                            type: MaterialType.transparency,
-                            child: spec.tile,
-                          ),
+                              type: MaterialType.transparency,
+                              child: spec.tile),
                         ),
                       ],
                     ),
@@ -754,7 +758,8 @@ class _SectionThreeTristate extends StatelessWidget {
       _TristateStep(
         label: 'value: null',
         value: null,
-        narrative: 'Some children are selected; box shows the mixed indicator.',
+        narrative:
+            'Some children are selected; box shows the mixed indicator.',
         color: Colors.amber,
       ),
       _TristateStep(
@@ -791,7 +796,10 @@ class _SectionThreeTristate extends StatelessWidget {
                 if (i != steps.length - 1)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    child: Icon(Icons.arrow_downward, color: scheme.outline),
+                    child: Icon(
+                      Icons.arrow_downward,
+                      color: scheme.outline,
+                    ),
                   ),
               ],
             ],
@@ -861,16 +869,14 @@ class _SectionThreeTristate extends StatelessWidget {
             child: Material(
               type: MaterialType.transparency,
               child: CheckboxListTile(
-                value: step.value,
-                tristate: true,
-                onChanged: _noopBool,
-                title: Text(
-                  step.label,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
-                subtitle: Text(step.narrative),
-                activeColor: step.color,
-              ),
+              value: step.value,
+              tristate: true,
+              onChanged: _noopBool,
+              title: Text(step.label,
+                  style: const TextStyle(fontWeight: FontWeight.w600)),
+              subtitle: Text(step.narrative),
+              activeColor: step.color,
+            ),
             ),
           ),
         ],
@@ -909,17 +915,17 @@ class _SectionFourMaterialStateProperties extends StatelessWidget {
 
     final WidgetStateProperty<Color?> fill =
         WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
-          if (states.contains(WidgetState.disabled)) {
-            return Colors.grey.shade300;
-          }
-          if (states.contains(WidgetState.selected)) {
-            return scheme.primary;
-          }
-          if (states.contains(WidgetState.hovered)) {
-            return scheme.primary.withValues(alpha: 0.6);
-          }
-          return scheme.surfaceContainerHighest;
-        });
+      if (states.contains(WidgetState.disabled)) {
+        return Colors.grey.shade300;
+      }
+      if (states.contains(WidgetState.selected)) {
+        return scheme.primary;
+      }
+      if (states.contains(WidgetState.hovered)) {
+        return scheme.primary.withValues(alpha: 0.6);
+      }
+      return scheme.surfaceContainerHighest;
+    });
 
     final List<_FillScenario> scenarios = <_FillScenario>[
       _FillScenario(
@@ -983,12 +989,11 @@ class _SectionFourMaterialStateProperties extends StatelessWidget {
                             width: 22.0,
                             height: 22.0,
                             decoration: BoxDecoration(
-                              color: scenario.resolved ?? Colors.transparent,
+                              color:
+                                  scenario.resolved ?? Colors.transparent,
                               borderRadius: BorderRadius.circular(4.0),
                               border: Border.all(
-                                color: Colors.black54,
-                                width: 1.5,
-                              ),
+                                  color: Colors.black54, width: 1.5),
                             ),
                           ),
                           const SizedBox(width: 8.0),
@@ -1009,9 +1014,7 @@ class _SectionFourMaterialStateProperties extends StatelessWidget {
                       const SizedBox(height: 6.0),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: scheme.surfaceContainerLow,
                           borderRadius: BorderRadius.circular(6.0),
@@ -1044,9 +1047,8 @@ class _SectionFourMaterialStateProperties extends StatelessWidget {
                 onChanged: _noopBool,
                 selected: true,
                 title: const Text('Selected tile (resolves to primary)'),
-                subtitle: const Text(
-                  'fillColor uses the WidgetState.selected leg',
-                ),
+                subtitle:
+                    const Text('fillColor uses the WidgetState.selected leg'),
                 fillColor: fill,
                 checkColor: scheme.onPrimary,
               ),
@@ -1192,9 +1194,7 @@ class _SectionFiveSettingsPanel extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 4.0,
-                      ),
+                          horizontal: 10.0, vertical: 4.0),
                       decoration: BoxDecoration(
                         color: scheme.secondaryContainer,
                         borderRadius: BorderRadius.circular(999.0),
@@ -1392,7 +1392,10 @@ class _SectionSixComparison extends StatelessWidget {
                 const SizedBox(width: 10.0),
                 Text(
                   title,
-                  style: TextStyle(fontWeight: FontWeight.w700, color: accent),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: accent,
+                  ),
                 ),
               ],
             ),
@@ -1432,7 +1435,8 @@ class _SectionSevenRecipes extends StatelessWidget {
         _SectionTitle(
           number: 7,
           title: 'Recipes',
-          subtitle: 'Concrete compositions you can copy into a screen.',
+          subtitle:
+              'Concrete compositions you can copy into a screen.',
           icon: Icons.menu_book_outlined,
         ),
         const SizedBox(height: 12.0),
@@ -1490,17 +1494,17 @@ class _SectionSevenRecipes extends StatelessWidget {
             child: const Material(
               type: MaterialType.transparency,
               child: CheckboxListTile(
-                value: false,
-                onChanged: _noopBool,
-                controlAffinity: ListTileControlAffinity.trailing,
-                isThreeLine: true,
-                title: Text('I agree to the terms of service'),
-                subtitle: Text(
-                  'By checking this box you confirm that you have read and '
-                  'accept the conditions described in the linked document.',
-                ),
-                secondary: Icon(Icons.gavel_outlined),
+              value: false,
+              onChanged: _noopBool,
+              controlAffinity: ListTileControlAffinity.trailing,
+              isThreeLine: true,
+              title: Text('I agree to the terms of service'),
+              subtitle: Text(
+                'By checking this box you confirm that you have read and '
+                'accept the conditions described in the linked document.',
               ),
+              secondary: Icon(Icons.gavel_outlined),
+            ),
             ),
           ),
         ),
@@ -1812,7 +1816,7 @@ class _SectionEightGlossary extends StatelessWidget {
       <String>[
         'fillColor',
         'WidgetStateProperty<Color?>?',
-        'Per-state box fill resolver',
+        'Per-state box fill resolver'
       ],
       <String>['title', 'Widget?', 'Primary line (usually Text)'],
       <String>['subtitle', 'Widget?', 'Secondary line (usually Text)'],
@@ -1822,22 +1826,26 @@ class _SectionEightGlossary extends StatelessWidget {
       <String>[
         'controlAffinity',
         'ListTileControlAffinity',
-        'Which side hosts the box',
+        'Which side hosts the box'
       ],
       <String>['shape', 'ShapeBorder?', 'Outer tile shape'],
       <String>['tileColor', 'Color?', 'Background when not selected'],
       <String>[
         'selectedTileColor',
         'Color?',
-        'Background when selected = true',
+        'Background when selected = true'
       ],
       <String>[
         'contentPadding',
         'EdgeInsetsGeometry?',
-        'Padding around tile contents',
+        'Padding around tile contents'
       ],
       <String>['enabled', 'bool?', 'Disable the entire tile'],
-      <String>['autofocus', 'bool', 'Take focus on first build (advanced)'],
+      <String>[
+        'autofocus',
+        'bool',
+        'Take focus on first build (advanced)'
+      ],
     ];
 
     return Container(
@@ -1958,7 +1966,10 @@ class _FooterStrip extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primaryContainer, scheme.tertiaryContainer],
+          colors: <Color>[
+            scheme.primaryContainer,
+            scheme.tertiaryContainer,
+          ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),

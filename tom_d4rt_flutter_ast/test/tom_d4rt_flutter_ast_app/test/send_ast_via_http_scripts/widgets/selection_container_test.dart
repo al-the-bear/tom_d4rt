@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_in_ar,
       'title': 'Grouping Selectables',
-      'body':
-          'SelectionContainer groups one or more Selectable widgets '
+      'body': 'SelectionContainer groups one or more Selectable widgets '
           '(Text, RichText, etc.) and registers them with the nearest '
           'SelectionRegistrar ancestor. This is how SelectableRegion '
           'discovers which children participate in selection.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.block,
       'title': 'SelectionContainer.disabled',
-      'body':
-          'The .disabled() constructor creates a container that '
+      'body': 'The .disabled() constructor creates a container that '
           'prevents all descendants from participating in selection. '
           'Use this to exclude specific parts of a SelectableRegion '
           'subtree – for example, buttons, icons, or decorative elements.',
@@ -37,16 +35,14 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Transparent by Default',
-      'body':
-          'SelectionArea automatically wraps its child in a '
+      'body': 'SelectionArea automatically wraps its child in a '
           'SelectionContainer. When you use SelectionArea, you get '
           'a container for free. Explicit usage is for advanced cases.',
     },
     {
       'icon': Icons.account_tree,
       'title': 'Registrar Relationship',
-      'body':
-          'SelectionContainer uses SelectionRegistrarScope to find '
+      'body': 'SelectionContainer uses SelectionRegistrarScope to find '
           'the nearest SelectionRegistrar (provided by SelectableRegion). '
           'Each container registers/unregisters its delegate when it '
           'mounts/unmounts.',
@@ -86,11 +82,7 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: Colors.grey.shade800,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
                   ),
                 ],
               ),
@@ -124,11 +116,7 @@ dynamic build(BuildContext context) {
         Text(
           'Side by side: one with normal selection, one wrapped in '
           'SelectionContainer.disabled that blocks all selection.',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey.shade600,
-            height: 1.3,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
         ),
         const SizedBox(height: 14.0),
         SelectionArea(
@@ -142,20 +130,14 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: Colors.green.withValues(alpha: 0.3),
-                    ),
+                    border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.check_circle,
-                            color: Colors.green,
-                            size: 18.0,
-                          ),
+                          Icon(Icons.check_circle, color: Colors.green, size: 18.0),
                           const SizedBox(width: 6.0),
                           Text(
                             'SELECTABLE',
@@ -173,11 +155,7 @@ dynamic build(BuildContext context) {
                         'This text lives inside a normal SelectionContainer. '
                         'You can select it by clicking and dragging. The '
                         'selection highlight appears and you can copy it.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Colors.grey.shade800,
-                          height: 1.45,
-                        ),
+                        style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.45),
                       ),
                     ],
                   ),
@@ -192,9 +170,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Colors.red.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(
-                        color: Colors.red.withValues(alpha: 0.3),
-                      ),
+                      border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,11 +196,7 @@ dynamic build(BuildContext context) {
                           'No matter how you try, you cannot select it. The '
                           'selection gesture passes through as if it were a '
                           'non-text widget.',
-                          style: TextStyle(
-                            fontSize: 12.5,
-                            color: Colors.grey.shade800,
-                            height: 1.45,
-                          ),
+                          style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.45),
                         ),
                       ],
                     ),
@@ -261,11 +233,7 @@ dynamic build(BuildContext context) {
         Text(
           'A realistic use case: article body is selectable, but the header, '
           'metadata badges, and action buttons are not.',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey.shade600,
-            height: 1.3,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
         ),
         const SizedBox(height: 14.0),
         SelectionArea(
@@ -285,10 +253,7 @@ dynamic build(BuildContext context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: Colors.blue.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4.0),
@@ -315,18 +280,11 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 4.0),
                       Row(
                         children: [
-                          Icon(
-                            Icons.person,
-                            size: 14.0,
-                            color: Colors.grey.shade500,
-                          ),
+                          Icon(Icons.person, size: 14.0, color: Colors.grey.shade500),
                           SizedBox(width: 4.0),
                           Text(
                             'By Flutter Team  |  April 2026  |  5 min read',
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              color: Colors.grey.shade500,
-                            ),
+                            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
                           ),
                         ],
                       ),
@@ -340,11 +298,7 @@ dynamic build(BuildContext context) {
                   'SelectableRegion that manages the overall selection state. '
                   'Within this region, SelectionContainer instances group '
                   'selectable content together.',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Colors.black87,
-                    height: 1.55,
-                  ),
+                  style: TextStyle(fontSize: 13.0, color: Colors.black87, height: 1.55),
                 ),
                 const SizedBox(height: 10.0),
                 const Text(
@@ -352,11 +306,7 @@ dynamic build(BuildContext context) {
                   'like navigation buttons, category tags, or decorative '
                   'images, wrap them in SelectionContainer.disabled(). This '
                   'is much cleaner than trying to intercept gestures.',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Colors.black87,
-                    height: 1.55,
-                  ),
+                  style: TextStyle(fontSize: 13.0, color: Colors.black87, height: 1.55),
                 ),
                 const SizedBox(height: 10.0),
                 // Non-selectable code block
@@ -374,18 +324,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.code,
-                              size: 14.0,
-                              color: Colors.grey.shade500,
-                            ),
+                            Icon(Icons.code, size: 14.0, color: Colors.grey.shade500),
                             SizedBox(width: 4.0),
                             Text(
                               'Non-selectable code block',
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: Colors.grey.shade500,
-                              ),
+                              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500),
                             ),
                           ],
                         ),
@@ -410,11 +353,7 @@ dynamic build(BuildContext context) {
                   'The disabled container can be placed at any level in the '
                   'widget tree. All descendants are excluded from selection, '
                   'even if they are normally selectable widgets.',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Colors.black87,
-                    height: 1.55,
-                  ),
+                  style: TextStyle(fontSize: 13.0, color: Colors.black87, height: 1.55),
                 ),
                 // Non-selectable footer
                 SelectionContainer.disabled(
@@ -422,39 +361,15 @@ dynamic build(BuildContext context) {
                     padding: const EdgeInsets.only(top: 12.0),
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.favorite_border,
-                          size: 16.0,
-                          color: Colors.grey.shade500,
-                        ),
+                        Icon(Icons.favorite_border, size: 16.0, color: Colors.grey.shade500),
                         SizedBox(width: 4.0),
-                        Text(
-                          '42 likes',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
+                        Text('42 likes', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500)),
                         SizedBox(width: 16.0),
-                        Icon(
-                          Icons.comment_outlined,
-                          size: 16.0,
-                          color: Colors.grey.shade500,
-                        ),
+                        Icon(Icons.comment_outlined, size: 16.0, color: Colors.grey.shade500),
                         SizedBox(width: 4.0),
-                        Text(
-                          '7 comments',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
+                        Text('7 comments', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500)),
                         Spacer(),
-                        Icon(
-                          Icons.share,
-                          size: 16.0,
-                          color: Colors.grey.shade500,
-                        ),
+                        Icon(Icons.share, size: 16.0, color: Colors.grey.shade500),
                       ],
                     ),
                   ),
@@ -480,14 +395,12 @@ dynamic build(BuildContext context) {
         {
           'param': 'registrar',
           'type': 'SelectionRegistrar?',
-          'desc':
-              'Custom registrar. If null, uses the nearest ancestor registrar.',
+          'desc': 'Custom registrar. If null, uses the nearest ancestor registrar.',
         },
         {
           'param': 'delegate',
           'type': 'SelectionContainerDelegate',
-          'desc':
-              'Required. Handles selection events for the grouped children.',
+          'desc': 'Required. Handles selection events for the grouped children.',
         },
         {
           'param': 'child',
@@ -503,8 +416,7 @@ dynamic build(BuildContext context) {
         {
           'param': 'child',
           'type': 'Widget?',
-          'desc':
-              'Child subtree that will be excluded from selection entirely.',
+          'desc': 'Child subtree that will be excluded from selection entirely.',
         },
       ],
     },
@@ -526,15 +438,10 @@ dynamic build(BuildContext context) {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 10.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.1),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(9.0),
-                ),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
               ),
               child: Text(
                 ctor['name'] as String,
@@ -546,60 +453,45 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ),
-            ...params.map(
-              (p) => Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14.0,
-                  vertical: 8.0,
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey.shade100),
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 90.0,
-                      child: Text(
-                        p['param']!,
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w600,
-                          color: color,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            p['type']!,
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              fontFamily: 'monospace',
-                              color: Colors.teal.shade700,
-                            ),
-                          ),
-                          const SizedBox(height: 2.0),
-                          Text(
-                            p['desc']!,
-                            style: TextStyle(
-                              fontSize: 11.5,
-                              color: Colors.grey.shade700,
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+            ...params.map((p) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey.shade100)),
               ),
-            ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 90.0,
+                    child: Text(
+                      p['param']!,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.w600,
+                        color: color,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          p['type']!,
+                          style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.teal.shade700),
+                        ),
+                        const SizedBox(height: 2.0),
+                        Text(
+                          p['desc']!,
+                          style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700, height: 1.3),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )),
           ],
         ),
       ),
@@ -629,11 +521,7 @@ dynamic build(BuildContext context) {
         Text(
           'SelectionContainer.disabled can be nested inside enabled containers. '
           'The disabled flag only affects its subtree – siblings remain selectable.',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey.shade600,
-            height: 1.3,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
         ),
         const SizedBox(height: 14.0),
         SelectionArea(
@@ -645,32 +533,16 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.green.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                    color: Colors.green.withValues(alpha: 0.3),
-                  ),
+                  border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Container(
-                          width: 8.0,
-                          height: 8.0,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.green,
-                          ),
-                        ),
+                        Container(width: 8.0, height: 8.0, decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.green)),
                         const SizedBox(width: 6.0),
-                        Text(
-                          'Level 1 – Selectable',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.green.shade700,
-                          ),
-                        ),
+                        Text('Level 1 – Selectable', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.green.shade700)),
                       ],
                     ),
                     const SizedBox(height: 6.0),
@@ -686,32 +558,16 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: Colors.red.withValues(alpha: 0.05),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: Colors.red.withValues(alpha: 0.3),
-                          ),
+                          border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                Container(
-                                  width: 8.0,
-                                  height: 8.0,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.red,
-                                  ),
-                                ),
+                                Container(width: 8.0, height: 8.0, decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red)),
                                 const SizedBox(width: 6.0),
-                                Text(
-                                  'Level 2 – Disabled',
-                                  style: TextStyle(
-                                    fontSize: 11.0,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.red.shade700,
-                                  ),
-                                ),
+                                Text('Level 2 – Disabled', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.red.shade700)),
                               ],
                             ),
                             const SizedBox(height: 6.0),
@@ -749,21 +605,13 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.info_outline,
-                size: 16.0,
-                color: Colors.amber.shade800,
-              ),
+              Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'The disabled scope only affects its own subtree. '
                   'Sibling and parent containers are unaffected.',
-                  style: TextStyle(
-                    fontSize: 11.5,
-                    color: Colors.amber.shade900,
-                    height: 1.35,
-                  ),
+                  style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.35),
                 ),
               ),
             ],
@@ -844,11 +692,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(width: 8.0),
                 Text(
                   uc['title'] as String,
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w700,
-                    color: color,
-                  ),
+                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: color),
                 ),
               ],
             ),
@@ -860,10 +704,7 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     'Selectable: ${uc['selectable']}',
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: Colors.green.shade700,
-                    ),
+                    style: TextStyle(fontSize: 11.5, color: Colors.green.shade700),
                   ),
                 ),
               ],
@@ -876,10 +717,7 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     'Disabled: ${uc['disabled']}',
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: Colors.red.shade700,
-                    ),
+                    style: TextStyle(fontSize: 11.5, color: Colors.red.shade700),
                   ),
                 ),
               ],
@@ -899,32 +737,28 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'title': 'SelectableRegion Provides Registrar',
-      'desc':
-          'When SelectableRegion builds, it provides a SelectionRegistrar '
+      'desc': 'When SelectableRegion builds, it provides a SelectionRegistrar '
           'via SelectionRegistrarScope. This is the registration endpoint.',
       'color': Colors.blue,
     },
     {
       'step': '2',
       'title': 'Container Finds Registrar',
-      'desc':
-          'SelectionContainer looks up the registrar via '
+      'desc': 'SelectionContainer looks up the registrar via '
           'SelectionRegistrarScope.maybeOf(context) during initState/didChangeDependencies.',
       'color': Colors.purple,
     },
     {
       'step': '3',
       'title': 'Delegate Registered',
-      'desc':
-          'The container registers its SelectionContainerDelegate with the registrar. '
+      'desc': 'The container registers its SelectionContainerDelegate with the registrar. '
           'This lets SelectableRegion discover the container and its children.',
       'color': Colors.teal,
     },
     {
       'step': '4',
       'title': 'Selection Events Flow',
-      'desc':
-          'When the user selects, SelectableRegion dispatches selection events to '
+      'desc': 'When the user selects, SelectableRegion dispatches selection events to '
           'all registered delegates. Each delegate determines which of its children '
           'are inside the selection bounds.',
       'color': Colors.orange,
@@ -932,8 +766,7 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'title': 'Cleanup on Dispose',
-      'desc':
-          'When the container unmounts, it unregisters from the registrar. '
+      'desc': 'When the container unmounts, it unregisters from the registrar. '
           'This prevents stale references and selection artifacts.',
       'color': Colors.red,
     },
@@ -960,11 +793,7 @@ dynamic build(BuildContext context) {
               child: Center(
                 child: Text(
                   rs['step'] as String,
-                  style: const TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.white),
                 ),
               ),
             ),
@@ -973,22 +802,8 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    rs['title'] as String,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                    ),
-                  ),
-                  Text(
-                    rs['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey.shade600,
-                      height: 1.3,
-                    ),
-                  ),
+                  Text(rs['title'] as String, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color)),
+                  Text(rs['desc'] as String, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600, height: 1.3)),
                 ],
               ),
             ),
@@ -1004,34 +819,12 @@ dynamic build(BuildContext context) {
   print('=== Section 9: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {
-      'icon': Icons.view_in_ar,
-      'text':
-          'Groups Selectable children and registers them with SelectableRegion',
-    },
-    {
-      'icon': Icons.block,
-      'text': '.disabled() excludes a subtree from selection entirely',
-    },
-    {
-      'icon': Icons.layers,
-      'text':
-          'SelectionArea creates one automatically; explicit usage is for advanced cases',
-    },
-    {
-      'icon': Icons.account_tree,
-      'text': 'Uses SelectionRegistrar for discovery and lifecycle management',
-    },
-    {
-      'icon': Icons.article,
-      'text':
-          'Key tool for mixed-selectability layouts (articles, chat, tables)',
-    },
-    {
-      'icon': Icons.nest_cam_wired_stand,
-      'text':
-          'Disabled containers can be nested; the flag does not leak to siblings',
-    },
+    {'icon': Icons.view_in_ar, 'text': 'Groups Selectable children and registers them with SelectableRegion'},
+    {'icon': Icons.block, 'text': '.disabled() excludes a subtree from selection entirely'},
+    {'icon': Icons.layers, 'text': 'SelectionArea creates one automatically; explicit usage is for advanced cases'},
+    {'icon': Icons.account_tree, 'text': 'Uses SelectionRegistrar for discovery and lifecycle management'},
+    {'icon': Icons.article, 'text': 'Key tool for mixed-selectability layouts (articles, chat, tables)'},
+    {'icon': Icons.nest_cam_wired_stand, 'text': 'Disabled containers can be nested; the flag does not leak to siblings'},
   ];
 
   final summaryItems = <Widget>[];
@@ -1047,11 +840,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: Colors.grey.shade800,
-                  height: 1.3,
-                ),
+                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
               ),
             ),
           ],
@@ -1098,12 +887,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'What is SelectionContainer?',
-                  'A widget that groups selectable content and registers it '
-                      'with the nearest SelectableRegion. Its .disabled() '
-                      'constructor prevents all descendants from being selected.',
-                ),
+                _buildSCBullet('What is SelectionContainer?',
+                    'A widget that groups selectable content and registers it '
+                    'with the nearest SelectableRegion. Its .disabled() '
+                    'constructor prevents all descendants from being selected.'),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -1115,11 +902,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Side-by-Side Comparison',
-                  'Try selecting text in each panel to see the difference '
-                      'between enabled and disabled containers.',
-                ),
+                _buildSCBullet('Side-by-Side Comparison',
+                    'Try selecting text in each panel to see the difference '
+                    'between enabled and disabled containers.'),
                 const SizedBox(height: 14.0),
                 enabledDisabledDemo,
               ],
@@ -1131,11 +916,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Mixed Selectability',
-                  'A realistic article layout where body text is selectable '
-                      'but UI chrome (headers, badges, buttons) is not.',
-                ),
+                _buildSCBullet('Mixed Selectability',
+                    'A realistic article layout where body text is selectable '
+                    'but UI chrome (headers, badges, buttons) is not.'),
                 const SizedBox(height: 14.0),
                 mixedDemo,
               ],
@@ -1147,12 +930,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Constructor Reference',
-                  'SelectionContainer has two constructors: the default '
-                      'constructor for custom registrar/delegate usage, and '
-                      '.disabled() for excluding subtrees.',
-                ),
+                _buildSCBullet('Constructor Reference',
+                    'SelectionContainer has two constructors: the default '
+                    'constructor for custom registrar/delegate usage, and '
+                    '.disabled() for excluding subtrees.'),
                 const SizedBox(height: 14.0),
                 ...constructorWidgets,
               ],
@@ -1164,11 +945,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Nested Containers',
-                  'Disabled containers can be nested inside enabled ones. '
-                      'Only the disabled subtree is affected – siblings remain selectable.',
-                ),
+                _buildSCBullet('Nested Containers',
+                    'Disabled containers can be nested inside enabled ones. '
+                    'Only the disabled subtree is affected – siblings remain selectable.'),
                 const SizedBox(height: 14.0),
                 nestedDemo,
               ],
@@ -1180,11 +959,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Live Toggle Demo',
-                  'Toggle SelectionContainer.disabled on and off to see '
-                      'how it affects selectability in real time.',
-                ),
+                _buildSCBullet('Live Toggle Demo',
+                    'Toggle SelectionContainer.disabled on and off to see '
+                    'how it affects selectability in real time.'),
                 const SizedBox(height: 14.0),
                 toggleDemo,
               ],
@@ -1196,11 +973,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCBullet(
-                  'Common Use Cases',
-                  'Typical scenarios where mixing selectable and non-selectable '
-                      'content improves user experience.',
-                ),
+                _buildSCBullet('Common Use Cases',
+                    'Typical scenarios where mixing selectable and non-selectable '
+                    'content improves user experience.'),
                 const SizedBox(height: 14.0),
                 ...useCaseCards,
                 const SizedBox(height: 16.0),
@@ -1216,10 +991,7 @@ dynamic build(BuildContext context) {
                     children: [
                       const Text(
                         'Registrar Mechanism',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 10.0),
                       ...registrarWidgets,
@@ -1247,9 +1019,7 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: Colors.deepOrange.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: Colors.deepOrange.withValues(alpha: 0.2)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1279,24 +1049,10 @@ Widget _buildSCBullet(String title, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.deepOrange,
-          ),
-        ),
+        Text(title, style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: Colors.deepOrange)),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(
-            body,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.grey.shade700,
-              height: 1.4,
-            ),
-          ),
+          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
         ],
       ],
     ),
@@ -1336,11 +1092,7 @@ class _SelectionToggleDemoState extends State<_SelectionToggleDemo> {
           Text(
             'Use the switches to enable/disable selection for each section. '
             'Then try selecting text to see the effect.',
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.grey.shade600,
-              height: 1.3,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
           ),
           const SizedBox(height: 14.0),
           // Control panel
@@ -1352,21 +1104,9 @@ class _SelectionToggleDemoState extends State<_SelectionToggleDemo> {
             ),
             child: Column(
               children: [
-                _toggleRow(
-                  'Section 1: Introduction',
-                  _section1Disabled,
-                  (v) => setState(() => _section1Disabled = v),
-                ),
-                _toggleRow(
-                  'Section 2: Details',
-                  _section2Disabled,
-                  (v) => setState(() => _section2Disabled = v),
-                ),
-                _toggleRow(
-                  'Section 3: Conclusion',
-                  _section3Disabled,
-                  (v) => setState(() => _section3Disabled = v),
-                ),
+                _toggleRow('Section 1: Introduction', _section1Disabled, (v) => setState(() => _section1Disabled = v)),
+                _toggleRow('Section 2: Details', _section2Disabled, (v) => setState(() => _section2Disabled = v)),
+                _toggleRow('Section 3: Conclusion', _section3Disabled, (v) => setState(() => _section3Disabled = v)),
               ],
             ),
           ),
@@ -1378,8 +1118,8 @@ class _SelectionToggleDemoState extends State<_SelectionToggleDemo> {
                 _toggleableSection(
                   'Section 1: Introduction',
                   'SelectionContainer is one of the building blocks of the '
-                      'Flutter selection system. It bridges the gap between '
-                      'SelectableRegion and individual Selectable widgets.',
+                  'Flutter selection system. It bridges the gap between '
+                  'SelectableRegion and individual Selectable widgets.',
                   _section1Disabled,
                   Colors.blue,
                 ),
@@ -1387,9 +1127,9 @@ class _SelectionToggleDemoState extends State<_SelectionToggleDemo> {
                 _toggleableSection(
                   'Section 2: Details',
                   'The disabled constructor creates a special container that '
-                      'intercepts the SelectionRegistrar lookup. Instead of '
-                      'forwarding the registrar to children, it provides null, '
-                      'effectively hiding all descendants from the selection system.',
+                  'intercepts the SelectionRegistrar lookup. Instead of '
+                  'forwarding the registrar to children, it provides null, '
+                  'effectively hiding all descendants from the selection system.',
                   _section2Disabled,
                   Colors.purple,
                 ),
@@ -1397,8 +1137,8 @@ class _SelectionToggleDemoState extends State<_SelectionToggleDemo> {
                 _toggleableSection(
                   'Section 3: Conclusion',
                   'By combining enabled and disabled containers, you can '
-                      'create sophisticated selection experiences that only '
-                      'allow users to select meaningful content.',
+                  'create sophisticated selection experiences that only '
+                  'allow users to select meaningful content.',
                   _section3Disabled,
                   Colors.teal,
                 ),
@@ -1454,12 +1194,7 @@ class _SelectionToggleDemoState extends State<_SelectionToggleDemo> {
     );
   }
 
-  Widget _toggleableSection(
-    String title,
-    String body,
-    bool disabled,
-    Color color,
-  ) {
+  Widget _toggleableSection(String title, String body, bool disabled, Color color) {
     Widget content = Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(

@@ -21,11 +21,7 @@ class _ThemeZone {
 }
 
 class _Scenario {
-  const _Scenario({
-    required this.id,
-    required this.title,
-    required this.description,
-  });
+  const _Scenario({required this.id, required this.title, required this.description});
 
   final String id;
   final String title;
@@ -33,12 +29,7 @@ class _Scenario {
 }
 
 class _MetricCard {
-  const _MetricCard({
-    required this.title,
-    required this.value,
-    required this.icon,
-    required this.note,
-  });
+  const _MetricCard({required this.title, required this.value, required this.icon, required this.note});
 
   final String title;
   final String value;
@@ -50,8 +41,7 @@ const List<_ThemeZone> _zones = [
   _ThemeZone(
     id: 'console',
     name: 'Console Zone',
-    description:
-        'High-clarity controls for dense dashboards and operator workspaces.',
+    description: 'High-clarity controls for dense dashboards and operator workspaces.',
     seed: Color(0xFF0EA5E9),
     brightness: Brightness.dark,
     toggleTheme: ToggleButtonsThemeData(
@@ -75,8 +65,7 @@ const List<_ThemeZone> _zones = [
   _ThemeZone(
     id: 'editorial',
     name: 'Editorial Zone',
-    description:
-        'Softer controls intended for content and writing environments.',
+    description: 'Softer controls intended for content and writing environments.',
     seed: Color(0xFF047857),
     brightness: Brightness.light,
     toggleTheme: ToggleButtonsThemeData(
@@ -100,8 +89,7 @@ const List<_ThemeZone> _zones = [
   _ThemeZone(
     id: 'campaign',
     name: 'Campaign Zone',
-    description:
-        'Expressive rounded toggle sets for landing and marketing controls.',
+    description: 'Expressive rounded toggle sets for landing and marketing controls.',
     seed: Color(0xFFEA580C),
     brightness: Brightness.light,
     toggleTheme: ToggleButtonsThemeData(
@@ -125,8 +113,7 @@ const List<_ThemeZone> _zones = [
   _ThemeZone(
     id: 'night-lab',
     name: 'Night Lab',
-    description:
-        'Creative, high-contrast visual language for experimentation and prototypes.',
+    description: 'Creative, high-contrast visual language for experimentation and prototypes.',
     seed: Color(0xFF7C3AED),
     brightness: Brightness.dark,
     toggleTheme: ToggleButtonsThemeData(
@@ -153,14 +140,12 @@ const List<_Scenario> _scenarios = [
   _Scenario(
     id: 'tooling',
     title: 'Tooling Ribbon',
-    description:
-        'Theme scope around formatting and command actions in a top ribbon.',
+    description: 'Theme scope around formatting and command actions in a top ribbon.',
   ),
   _Scenario(
     id: 'facets',
     title: 'Facet Filters',
-    description:
-        'Per-panel theme zone for data filters with mixed density and disabled states.',
+    description: 'Per-panel theme zone for data filters with mixed density and disabled states.',
   ),
   _Scenario(
     id: 'settings',
@@ -170,8 +155,7 @@ const List<_Scenario> _scenarios = [
   _Scenario(
     id: 'mixed',
     title: 'Mixed Surface',
-    description:
-        'Multiple ToggleButtonsTheme wrappers nested in one page to show precedence.',
+    description: 'Multiple ToggleButtonsTheme wrappers nested in one page to show precedence.',
   ),
 ];
 
@@ -243,10 +227,7 @@ dynamic build(BuildContext context) {
       final zone = _zones[zoneIndex];
       final scenario = _scenarios[scenarioIndex];
 
-      final scheme = ColorScheme.fromSeed(
-        seedColor: zone.seed,
-        brightness: zone.brightness,
-      );
+      final scheme = ColorScheme.fromSeed(seedColor: zone.seed, brightness: zone.brightness);
       final rootTheme = ThemeData(
         useMaterial3: true,
         colorScheme: scheme,
@@ -302,9 +283,7 @@ dynamic build(BuildContext context) {
                         setState(() {
                           scenarioIndex = v;
                           tick += 1;
-                          record(
-                            'Scenario switched to ${_scenarios[v].title}.',
-                          );
+                          record('Scenario switched to ${_scenarios[v].title}.');
                         });
                       },
                       onBoardChanged: (v) {
@@ -353,9 +332,7 @@ dynamic build(BuildContext context) {
                         setState(() {
                           compactPanel = v;
                           tick += 1;
-                          record(
-                            'Compact panel ${v ? 'enabled' : 'disabled'}.',
-                          );
+                          record('Compact panel ${v ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onWidthFactorChanged: (v) {
@@ -379,17 +356,13 @@ dynamic build(BuildContext context) {
                           gradient: LinearGradient(
                             colors: [
                               pageTheme.colorScheme.surface,
-                              pageTheme.colorScheme.surfaceContainerHighest
-                                  .withAlpha(170),
+                              pageTheme.colorScheme.surfaceContainerHighest.withAlpha(170),
                               pageTheme.colorScheme.surface,
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          border: Border.all(
-                            color: pageTheme.colorScheme.outlineVariant
-                                .withAlpha(130),
-                          ),
+                          border: Border.all(color: pageTheme.colorScheme.outlineVariant.withAlpha(130)),
                         ),
                         child: _boardArea(
                           boardIndex: boardIndex,
@@ -488,11 +461,8 @@ ToggleButtonsThemeData _resolvedToggleTheme(
           maxHeight: constraints.maxHeight,
         );
 
-  final radius =
-      source.borderRadius?.resolve(TextDirection.ltr).topLeft.x ?? 10;
-  final adjustedRadius = BorderRadius.circular(
-    (radius + radiusDelta).clamp(3, 32).toDouble(),
-  );
+  final radius = source.borderRadius?.resolve(TextDirection.ltr).topLeft.x ?? 10;
+  final adjustedRadius = BorderRadius.circular((radius + radiusDelta).clamp(3, 32).toDouble());
 
   return source.copyWith(
     constraints: adjustedConstraints,
@@ -544,9 +514,7 @@ Widget _topBanner({
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(140),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(140)),
     ),
     child: Row(
       children: [
@@ -555,17 +523,13 @@ Widget _topBanner({
           height: 56,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(140),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(140)),
             color: theme.colorScheme.surface,
           ),
           child: CustomPaint(
             painter: _BannerGlyphPainter(
               base: zone.toggleTheme.fillColor ?? theme.colorScheme.primary,
-              accent:
-                  zone.toggleTheme.selectedBorderColor ??
-                  theme.colorScheme.secondary,
+              accent: zone.toggleTheme.selectedBorderColor ?? theme.colorScheme.secondary,
               seed: tick.toDouble(),
             ),
           ),
@@ -575,27 +539,14 @@ Widget _topBanner({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ToggleButtonsTheme Inherited Scope Lab',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text('ToggleButtonsTheme Inherited Scope Lab', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               SizedBox(height: 4),
               Text(
                 'Zone: ${zone.name}  |  Scenario: ${scenario.title}  |  Interactions: $interactions',
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(180),
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180), fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 4),
-              Text(
-                zone.description,
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(175),
-                ),
-              ),
+              Text(zone.description, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(175))),
             ],
           ),
         ),
@@ -644,105 +595,34 @@ Widget _controlRail({
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(130),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
     ),
     child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Theme Scope Controls',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text('Theme Scope Controls', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
           SizedBox(height: 4),
-          Text(
-            'Change inherited ToggleButtonsTheme scopes and inspect behavior per board.',
-          ),
+          Text('Change inherited ToggleButtonsTheme scopes and inspect behavior per board.'),
           SizedBox(height: 10),
-          _dropdownCard(
-            'Theme Zone',
-            zoneIndex,
-            _zones.map((e) => e.name).toList(),
-            onZoneChanged,
-          ),
-          _dropdownCard(
-            'Scenario',
-            scenarioIndex,
-            _scenarios.map((e) => e.title).toList(),
-            onScenarioChanged,
-          ),
-          _dropdownCard(
-            'Board',
-            boardIndex,
-            List.generate(5, _boardTitle),
-            onBoardChanged,
-          ),
-          _switchCard(
-            'Dense visual density',
-            'Compact spacing in page controls',
-            dense,
-            onDenseChanged,
-          ),
-          _switchCard(
-            'Show diagnostics',
-            'Reveal resolved values and source precedence',
-            showDiagnostics,
-            onDiagnosticsChanged,
-          ),
-          _switchCard(
-            'Show legend',
-            'Display zone/precedence legends in each board',
-            showLegend,
-            onLegendChanged,
-          ),
-          _switchCard(
-            'Show icon labels',
-            'Render icons + text in toggle buttons',
-            iconLabels,
-            onIconLabelsChanged,
-          ),
-          _switchCard(
-            'Disable alternating items',
-            'Disable odd indices in interactive groups',
-            disableAlternating,
-            onDisableAlternatingChanged,
-          ),
-          _switchCard(
-            'Compact panels',
-            'Use compact cards in scene board',
-            compactPanel,
-            onCompactPanelChanged,
-          ),
-          _sliderCard(
-            'Min-width scale',
-            widthFactor,
-            0.75,
-            1.55,
-            onWidthFactorChanged,
-          ),
-          _sliderCard(
-            'Radius delta',
-            radiusDelta,
-            -6,
-            12,
-            onRadiusDeltaChanged,
-          ),
+          _dropdownCard('Theme Zone', zoneIndex, _zones.map((e) => e.name).toList(), onZoneChanged),
+          _dropdownCard('Scenario', scenarioIndex, _scenarios.map((e) => e.title).toList(), onScenarioChanged),
+          _dropdownCard('Board', boardIndex, List.generate(5, _boardTitle), onBoardChanged),
+          _switchCard('Dense visual density', 'Compact spacing in page controls', dense, onDenseChanged),
+          _switchCard('Show diagnostics', 'Reveal resolved values and source precedence', showDiagnostics, onDiagnosticsChanged),
+          _switchCard('Show legend', 'Display zone/precedence legends in each board', showLegend, onLegendChanged),
+          _switchCard('Show icon labels', 'Render icons + text in toggle buttons', iconLabels, onIconLabelsChanged),
+          _switchCard('Disable alternating items', 'Disable odd indices in interactive groups', disableAlternating, onDisableAlternatingChanged),
+          _switchCard('Compact panels', 'Use compact cards in scene board', compactPanel, onCompactPanelChanged),
+          _sliderCard('Min-width scale', widthFactor, 0.75, 1.55, onWidthFactorChanged),
+          _sliderCard('Radius delta', radiusDelta, -6, 12, onRadiusDeltaChanged),
         ],
       ),
     ),
   );
 }
 
-Widget _dropdownCard(
-  String label,
-  int value,
-  List<String> options,
-  ValueChanged<int> onChanged,
-) {
+Widget _dropdownCard(String label, int value, List<String> options, ValueChanged<int> onChanged) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.fromLTRB(10, 8, 10, 10),
@@ -758,13 +638,9 @@ Widget _dropdownCard(
         SizedBox(height: 6),
         DropdownButtonFormField<int>(
           initialValue: value,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            isDense: true,
-          ),
+          decoration: InputDecoration(border: OutlineInputBorder(), isDense: true),
           items: [
-            for (var i = 0; i < options.length; i++)
-              DropdownMenuItem<int>(value: i, child: Text(options[i])),
+            for (var i = 0; i < options.length; i++) DropdownMenuItem<int>(value: i, child: Text(options[i])),
           ],
           onChanged: (v) {
             if (v != null) {
@@ -777,12 +653,7 @@ Widget _dropdownCard(
   );
 }
 
-Widget _switchCard(
-  String title,
-  String subtitle,
-  bool value,
-  ValueChanged<bool> onChanged,
-) {
+Widget _switchCard(String title, String subtitle, bool value, ValueChanged<bool> onChanged) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
@@ -796,28 +667,17 @@ Widget _switchCard(
       children: [
         Row(
           children: [
-            Expanded(
-              child: Text(title, style: TextStyle(fontWeight: FontWeight.w700)),
-            ),
+            Expanded(child: Text(title, style: TextStyle(fontWeight: FontWeight.w700))),
             Switch(value: value, onChanged: onChanged),
           ],
         ),
-        Text(
-          subtitle,
-          style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160)),
-        ),
+        Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160))),
       ],
     ),
   );
 }
 
-Widget _sliderCard(
-  String label,
-  double value,
-  double min,
-  double max,
-  ValueChanged<double> onChanged,
-) {
+Widget _sliderCard(String label, double value, double min, double max, ValueChanged<double> onChanged) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -829,10 +689,7 @@ Widget _sliderCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$label: ${value.toStringAsFixed(2)}',
-          style: TextStyle(fontWeight: FontWeight.w700),
-        ),
+        Text('$label: ${value.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.w700)),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ],
     ),
@@ -934,10 +791,7 @@ Widget _globalVsLocalBoard(
 ) {
   final localA = activeTheme.copyWith(
     fillColor: Color.lerp(activeTheme.fillColor, Colors.white, 0.15),
-    borderRadius: BorderRadius.circular(
-      (activeTheme.borderRadius?.resolve(TextDirection.ltr).topLeft.x ?? 12) +
-          3,
-    ),
+    borderRadius: BorderRadius.circular((activeTheme.borderRadius?.resolve(TextDirection.ltr).topLeft.x ?? 12) + 3),
   );
   final localB = activeTheme.copyWith(
     fillColor: Color.lerp(activeTheme.fillColor, Colors.black, 0.22),
@@ -949,25 +803,18 @@ Widget _globalVsLocalBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader(
-          theme,
-          'Global vs Local Theme Scope',
-          'Compare root ThemeData.toggleButtonsTheme with nested ToggleButtonsTheme wrappers.',
-          'scope',
-        ),
+        _sectionHeader(theme, 'Global vs Local Theme Scope', 'Compare root ThemeData.toggleButtonsTheme with nested ToggleButtonsTheme wrappers.', 'scope'),
         SizedBox(height: 10),
-        if (showLegend)
-          _legend(theme, [
-            'Root page theme provides baseline ToggleButtonsThemeData.',
-            'Local Zone A applies a mild override with larger radius.',
-            'Local Zone B applies stronger border and darker fill override.',
-          ]),
+        if (showLegend) _legend(theme, [
+          'Root page theme provides baseline ToggleButtonsThemeData.',
+          'Local Zone A applies a mild override with larger radius.',
+          'Local Zone B applies stronger border and darker fill override.',
+        ]),
         if (showLegend) SizedBox(height: 10),
         _scopeCard(
           theme,
           title: 'Root Scope (ThemeData only)',
-          subtitle:
-              'No local wrapper: ToggleButtonsTheme.of(context) resolves from ThemeData baseline.',
+          subtitle: 'No local wrapper: ToggleButtonsTheme.of(context) resolves from ThemeData baseline.',
           child: ToggleButtons(
             isSelected: toolbarSelection,
             onPressed: (i) {
@@ -988,8 +835,7 @@ Widget _globalVsLocalBoard(
           child: _scopeCard(
             theme,
             title: 'Local Zone A Wrapper',
-            subtitle:
-                'Wrapper overrides the nearest inherited theme for descendant buttons.',
+            subtitle: 'Wrapper overrides the nearest inherited theme for descendant buttons.',
             child: ToggleButtons(
               isSelected: facetSelection,
               onPressed: (i) {
@@ -1013,8 +859,7 @@ Widget _globalVsLocalBoard(
           child: _scopeCard(
             theme,
             title: 'Local Zone B Wrapper',
-            subtitle:
-                'Second local wrapper with different border/fill profile in same page.',
+            subtitle: 'Second local wrapper with different border/fill profile in same page.',
             child: ToggleButtons(
               isSelected: [true, false, true],
               onPressed: (_) {},
@@ -1078,27 +923,20 @@ Widget _nestedPrecedenceBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader(
-          theme,
-          'Nested Precedence Map',
-          'Visualize how closest ToggleButtonsTheme wrapper takes precedence.',
-          'nested',
-        ),
+        _sectionHeader(theme, 'Nested Precedence Map', 'Visualize how closest ToggleButtonsTheme wrapper takes precedence.', 'nested'),
         SizedBox(height: 10),
-        if (showLegend)
-          _legend(theme, [
-            'Outer wrapper colors baseline controls.',
-            'Middle wrapper overrides descendants inside its subtree.',
-            'Inner wrapper overrides both outer and middle for its own subtree.',
-          ]),
+        if (showLegend) _legend(theme, [
+          'Outer wrapper colors baseline controls.',
+          'Middle wrapper overrides descendants inside its subtree.',
+          'Inner wrapper overrides both outer and middle for its own subtree.',
+        ]),
         if (showLegend) SizedBox(height: 10),
         ToggleButtonsTheme(
           data: outer,
           child: _scopeCard(
             theme,
             title: 'Outer Scope',
-            subtitle:
-                'This zone inherits outer values unless a nested wrapper replaces them.',
+            subtitle: 'This zone inherits outer values unless a nested wrapper replaces them.',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -1117,8 +955,7 @@ Widget _nestedPrecedenceBoard(
                   child: _scopeCard(
                     theme,
                     title: 'Middle Scope',
-                    subtitle:
-                        'Middle wrapper now overrides outer for this subtree.',
+                    subtitle: 'Middle wrapper now overrides outer for this subtree.',
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -1127,16 +964,8 @@ Widget _nestedPrecedenceBoard(
                           onPressed: onRightTap,
                           children: [
                             _toggleLabel(iconLabels, Icons.timeline, 'Flow'),
-                            _toggleLabel(
-                              iconLabels,
-                              Icons.stacked_bar_chart,
-                              'Stack',
-                            ),
-                            _toggleLabel(
-                              iconLabels,
-                              Icons.scatter_plot,
-                              'Plot',
-                            ),
+                            _toggleLabel(iconLabels, Icons.stacked_bar_chart, 'Stack'),
+                            _toggleLabel(iconLabels, Icons.scatter_plot, 'Plot'),
                           ],
                         ),
                         SizedBox(height: 10),
@@ -1145,27 +974,14 @@ Widget _nestedPrecedenceBoard(
                           child: _scopeCard(
                             theme,
                             title: 'Inner Scope',
-                            subtitle:
-                                'Innermost wrapper wins for descendants here.',
+                            subtitle: 'Innermost wrapper wins for descendants here.',
                             child: ToggleButtons(
                               isSelected: [true, false, true],
                               onPressed: (_) {},
                               children: [
-                                _toggleLabel(
-                                  iconLabels,
-                                  Icons.radio_button_checked,
-                                  'Inner A',
-                                ),
-                                _toggleLabel(
-                                  iconLabels,
-                                  Icons.radio_button_checked,
-                                  'Inner B',
-                                ),
-                                _toggleLabel(
-                                  iconLabels,
-                                  Icons.radio_button_checked,
-                                  'Inner C',
-                                ),
+                                _toggleLabel(iconLabels, Icons.radio_button_checked, 'Inner A'),
+                                _toggleLabel(iconLabels, Icons.radio_button_checked, 'Inner B'),
+                                _toggleLabel(iconLabels, Icons.radio_button_checked, 'Inner C'),
                               ],
                             ),
                           ),
@@ -1213,12 +1029,7 @@ Widget _runtimeSwitchboardBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader(
-          theme,
-          'Runtime Switchboard',
-          'Interactively test ToggleButtonsTheme scope changes with live state groups.',
-          'runtime',
-        ),
+        _sectionHeader(theme, 'Runtime Switchboard', 'Interactively test ToggleButtonsTheme scope changes with live state groups.', 'runtime'),
         SizedBox(height: 10),
         _scopeCard(
           theme,
@@ -1227,10 +1038,7 @@ Widget _runtimeSwitchboardBoard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Active Zone: ${zone.name}',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              Text('Active Zone: ${zone.name}', style: TextStyle(fontWeight: FontWeight.w700)),
               SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -1260,11 +1068,7 @@ Widget _runtimeSwitchboardBoard(
               onSettingsATap(i);
             },
             children: [
-              _toggleLabel(
-                iconLabels,
-                Icons.tips_and_updates_outlined,
-                'Hints',
-              ),
+              _toggleLabel(iconLabels, Icons.tips_and_updates_outlined, 'Hints'),
               _toggleLabel(iconLabels, Icons.save_outlined, 'Autosave'),
               _toggleLabel(iconLabels, Icons.wrap_text, 'Wrap'),
               _toggleLabel(iconLabels, Icons.preview_outlined, 'Preview'),
@@ -1275,8 +1079,7 @@ Widget _runtimeSwitchboardBoard(
         _scopeCard(
           theme,
           title: 'Settings Group B',
-          subtitle:
-              'Second group to validate consistency under same inherited scope.',
+          subtitle: 'Second group to validate consistency under same inherited scope.',
           child: ToggleButtons(
             isSelected: settingsB,
             onPressed: (i) {
@@ -1295,8 +1098,7 @@ Widget _runtimeSwitchboardBoard(
         _scopeCard(
           theme,
           title: 'Disabled / Read-Only Behavior',
-          subtitle:
-              'A disabled toggle row for checking inherited disabled colors and borders.',
+          subtitle: 'A disabled toggle row for checking inherited disabled colors and borders.',
           child: ToggleButtons(
             isSelected: [false, true, false, true],
             onPressed: null,
@@ -1339,30 +1141,10 @@ Widget _realWorldScenesBoard(
   ValueChanged<int> onFacetTap,
 ) {
   final cards = [
-    _MetricCard(
-      title: 'Requests',
-      value: '17.2k',
-      icon: Icons.http,
-      note: 'throughput in the selected range',
-    ),
-    _MetricCard(
-      title: 'Latency',
-      value: '91ms',
-      icon: Icons.speed,
-      note: 'p95 from current panel filters',
-    ),
-    _MetricCard(
-      title: 'Error Rate',
-      value: '0.7%',
-      icon: Icons.error_outline,
-      note: 'service failures per hour',
-    ),
-    _MetricCard(
-      title: 'Utilization',
-      value: '72%',
-      icon: Icons.memory,
-      note: 'compute saturation trend',
-    ),
+    _MetricCard(title: 'Requests', value: '17.2k', icon: Icons.http, note: 'throughput in the selected range'),
+    _MetricCard(title: 'Latency', value: '91ms', icon: Icons.speed, note: 'p95 from current panel filters'),
+    _MetricCard(title: 'Error Rate', value: '0.7%', icon: Icons.error_outline, note: 'service failures per hour'),
+    _MetricCard(title: 'Utilization', value: '72%', icon: Icons.memory, note: 'compute saturation trend'),
   ];
 
   return SingleChildScrollView(
@@ -1370,12 +1152,7 @@ Widget _realWorldScenesBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader(
-          theme,
-          'Real-World Scene',
-          scenario.description,
-          'scene',
-        ),
+        _sectionHeader(theme, 'Real-World Scene', scenario.description, 'scene'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1383,9 +1160,7 @@ Widget _realWorldScenesBoard(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: theme.colorScheme.surfaceContainerHighest.withAlpha(120),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1403,11 +1178,7 @@ Widget _realWorldScenesBoard(
                     ),
                   ),
                   SizedBox(width: 10),
-                  FilledButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.refresh),
-                    label: Text('Refresh'),
-                  ),
+                  FilledButton.icon(onPressed: () {}, icon: Icon(Icons.refresh), label: Text('Refresh')),
                 ],
               ),
               SizedBox(height: 12),
@@ -1462,30 +1233,15 @@ Widget _realWorldScenesBoard(
                                 children: [
                                   Icon(c.icon),
                                   SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      c.title,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
+                                  Expanded(child: Text(c.title, style: TextStyle(fontWeight: FontWeight.w700))),
                                 ],
                               ),
                               SizedBox(height: 10),
-                              Text(
-                                c.value,
-                                style: theme.textTheme.headlineMedium?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
+                              Text(c.value, style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
                               SizedBox(height: 6),
                               Text(c.note),
                               SizedBox(height: 8),
-                              OutlinedButton(
-                                onPressed: () {},
-                                child: Text('Inspect'),
-                              ),
+                              OutlinedButton(onPressed: () {}, child: Text('Inspect')),
                             ],
                           ),
                         ),
@@ -1501,23 +1257,13 @@ Widget _realWorldScenesBoard(
   );
 }
 
-Widget _guideBoard(
-  ThemeData theme,
-  int interactions,
-  int tick,
-  List<String> timeline,
-) {
+Widget _guideBoard(ThemeData theme, int interactions, int tick, List<String> timeline) {
   return SingleChildScrollView(
     padding: EdgeInsets.fromLTRB(14, 12, 14, 14),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader(
-          theme,
-          'Guide + Timeline',
-          'How to use ToggleButtonsTheme and what to validate in real apps.',
-          'guide',
-        ),
+        _sectionHeader(theme, 'Guide + Timeline', 'How to use ToggleButtonsTheme and what to validate in real apps.', 'guide'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1525,17 +1271,12 @@ Widget _guideBoard(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: theme.colorScheme.tertiaryContainer.withAlpha(110),
-            border: Border.all(
-              color: theme.colorScheme.tertiary.withAlpha(120),
-            ),
+            border: Border.all(color: theme.colorScheme.tertiary.withAlpha(120)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Usage Guide',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('Usage Guide', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               for (final line in _guideLines) _bulletLine(theme, line),
             ],
@@ -1548,17 +1289,12 @@ Widget _guideBoard(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: theme.colorScheme.surfaceContainerHighest.withAlpha(124),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'FAQ',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('FAQ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               for (var i = 0; i < _faqQuestions.length; i++)
                 Padding(
@@ -1566,10 +1302,7 @@ Widget _guideBoard(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        _faqQuestions[i],
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
+                      Text(_faqQuestions[i], style: TextStyle(fontWeight: FontWeight.w700)),
                       SizedBox(height: 2),
                       Text(_faqAnswers[i]),
                     ],
@@ -1590,25 +1323,17 @@ Widget _guideBoard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Interaction Timeline',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('Interaction Timeline', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               Text('Total interactions: $interactions  |  Tick: $tick'),
               SizedBox(height: 8),
               if (timeline.isEmpty)
-                Text(
-                  'No events yet. Use boards and controls to generate timeline entries.',
-                )
+                Text('No events yet. Use boards and controls to generate timeline entries.')
               else
                 for (final item in timeline)
                   Padding(
                     padding: EdgeInsets.only(bottom: 4),
-                    child: Text(
-                      item,
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-                    ),
+                    child: Text(item, style: TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
                   ),
             ],
           ),
@@ -1630,19 +1355,14 @@ Widget _scopeCard(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
       color: theme.colorScheme.surface.withAlpha(195),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(130),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: TextStyle(fontWeight: FontWeight.w800)),
         SizedBox(height: 4),
-        Text(
-          subtitle,
-          style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180)),
-        ),
+        Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180))),
         SizedBox(height: 8),
         child,
       ],
@@ -1650,29 +1370,16 @@ Widget _scopeCard(
   );
 }
 
-Widget _sectionHeader(
-  ThemeData theme,
-  String title,
-  String subtitle,
-  String chip,
-) {
+Widget _sectionHeader(ThemeData theme, String title, String subtitle, String chip) {
   return Row(
     children: [
       Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 19),
-            ),
+            Text(title, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 19)),
             SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(
-                color: theme.colorScheme.onSurface.withAlpha(175),
-              ),
-            ),
+            Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(175))),
           ],
         ),
       ),
@@ -1682,10 +1389,7 @@ Widget _sectionHeader(
           color: theme.colorScheme.primaryContainer.withAlpha(170),
           borderRadius: BorderRadius.circular(999),
         ),
-        child: Text(
-          chip,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
-        ),
+        child: Text(chip, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
       ),
     ],
   );
@@ -1711,11 +1415,7 @@ Widget _legend(ThemeData theme, List<String> lines) {
   );
 }
 
-Widget _diagnosticCard(
-  ThemeData theme, {
-  required String title,
-  required List<String> lines,
-}) {
+Widget _diagnosticCard(ThemeData theme, {required String title, required List<String> lines}) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(12),
@@ -1727,18 +1427,12 @@ Widget _diagnosticCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         SizedBox(height: 8),
         for (final line in lines)
           Padding(
             padding: EdgeInsets.only(bottom: 4),
-            child: Text(
-              line,
-              style: TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-            ),
+            child: Text(line, style: TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
           ),
       ],
     ),
@@ -1756,7 +1450,11 @@ Widget _toggleLabel(bool iconLabels, IconData icon, String text) {
     padding: EdgeInsets.symmetric(horizontal: 8),
     child: Row(
       mainAxisSize: MainAxisSize.min,
-      children: [Icon(icon, size: 16), SizedBox(width: 5), Text(text)],
+      children: [
+        Icon(icon, size: 16),
+        SizedBox(width: 5),
+        Text(text),
+      ],
     ),
   );
 }
@@ -1771,10 +1469,7 @@ Widget _bulletLine(ThemeData theme, String text) {
           margin: EdgeInsets.only(top: 7, right: 8),
           width: 6,
           height: 6,
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primary,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: theme.colorScheme.primary, shape: BoxShape.circle),
         ),
         Expanded(child: Text(text)),
       ],
@@ -1790,11 +1485,7 @@ String _formatColor(Color? color) {
 }
 
 class _BannerGlyphPainter extends CustomPainter {
-  _BannerGlyphPainter({
-    required this.base,
-    required this.accent,
-    required this.seed,
-  });
+  _BannerGlyphPainter({required this.base, required this.accent, required this.seed});
 
   final Color base;
   final Color accent;
@@ -1809,10 +1500,7 @@ class _BannerGlyphPainter extends CustomPainter {
       final y = 8 + i * 7.8;
       paint.color = Color.lerp(base, accent, i / 5)?.withAlpha(220) ?? base;
       canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(8, y, width, 5),
-          Radius.circular(4),
-        ),
+        RRect.fromRectAndRadius(Rect.fromLTWH(8, y, width, 5), Radius.circular(4)),
         paint,
       );
     }
@@ -1820,8 +1508,6 @@ class _BannerGlyphPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _BannerGlyphPainter oldDelegate) {
-    return oldDelegate.base != base ||
-        oldDelegate.accent != accent ||
-        oldDelegate.seed != seed;
+    return oldDelegate.base != base || oldDelegate.accent != accent || oldDelegate.seed != seed;
   }
 }

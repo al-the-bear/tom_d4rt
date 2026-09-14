@@ -154,7 +154,10 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 2.0),
                 Text(
                   description,
-                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
               ],
             ),
@@ -257,7 +260,11 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 3: Immediate vs delayed ===');
 
-  Widget buildDiffRow(String aspect, String immediate, String delayed) {
+  Widget buildDiffRow(
+    String aspect,
+    String immediate,
+    String delayed,
+  ) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 3.0),
       child: Row(
@@ -287,9 +294,7 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Color(0xFFE3F2FD),
-                border: Border.all(
-                  color: Color(0xFF1565C0).withValues(alpha: 0.3),
-                ),
+                border: Border.all(color: Color(0xFF1565C0).withValues(alpha: 0.3)),
               ),
               child: Text(
                 immediate,
@@ -306,9 +311,7 @@ dynamic build(BuildContext context) {
                   topRight: Radius.circular(6.0),
                   bottomRight: Radius.circular(6.0),
                 ),
-                border: Border.all(
-                  color: Color(0xFF2E7D32).withValues(alpha: 0.3),
-                ),
+                border: Border.all(color: Color(0xFF2E7D32).withValues(alpha: 0.3)),
               ),
               child: Text(
                 delayed,
@@ -348,7 +351,10 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(8.0),
               child: Text(
                 'Aspect',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11.0,
+                ),
               ),
             ),
             Expanded(
@@ -393,15 +399,31 @@ dynamic build(BuildContext context) {
             ),
           ],
         ),
-        buildDiffRow('Gesture', 'Drag immediately', 'Long-press then drag'),
-        buildDiffRow('Recognizer', 'ImmediateMultiDrag', 'DelayedMultiDrag'),
-        buildDiffRow('Best for', 'Desktop / mouse', 'Touch / mobile'),
+        buildDiffRow(
+          'Gesture',
+          'Drag immediately',
+          'Long-press then drag',
+        ),
+        buildDiffRow(
+          'Recognizer',
+          'ImmediateMultiDrag',
+          'DelayedMultiDrag',
+        ),
+        buildDiffRow(
+          'Best for',
+          'Desktop / mouse',
+          'Touch / mobile',
+        ),
         buildDiffRow(
           'Scroll conflict',
           'Can conflict on touch',
           'Avoids conflicts',
         ),
-        buildDiffRow('Response time', '0ms — instant', '~500ms long-press'),
+        buildDiffRow(
+          'Response time',
+          '0ms — instant',
+          '~500ms long-press',
+        ),
         buildDiffRow(
           'Use case',
           'Drag handles, desktop lists',
@@ -483,7 +505,9 @@ dynamic build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
       decoration: BoxDecoration(
-        color: isDragging ? color.withValues(alpha: 0.08) : Colors.white,
+        color: isDragging
+            ? color.withValues(alpha: 0.08)
+            : Colors.white,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
           color: isDragging ? color : Colors.grey.shade200,
@@ -607,7 +631,11 @@ dynamic build(BuildContext context) {
   // 2. During drag (elevated item + placeholder)
   // 3. After drop (final position)
 
-  Widget buildDragState(String label, Color labelColor, List<Widget> items) {
+  Widget buildDragState(
+    String label,
+    Color labelColor,
+    List<Widget> items,
+  ) {
     return Container(
       width: 200.0,
       margin: EdgeInsets.all(6.0),
@@ -641,12 +669,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget buildMiniItem(
-    String label,
-    Color color, {
-    bool isPlaceholder = false,
-    bool isElevated = false,
-  }) {
+  Widget buildMiniItem(String label, Color color, {bool isPlaceholder = false, bool isElevated = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 3.0),
       height: 32.0,
@@ -654,15 +677,15 @@ dynamic build(BuildContext context) {
         color: isPlaceholder
             ? Colors.grey.shade200
             : isElevated
-            ? color.withValues(alpha: 0.2)
-            : color.withValues(alpha: 0.1),
+                ? color.withValues(alpha: 0.2)
+                : color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6.0),
         border: Border.all(
           color: isPlaceholder
               ? Colors.grey.shade400
               : isElevated
-              ? color
-              : color.withValues(alpha: 0.3),
+                  ? color
+                  : color.withValues(alpha: 0.3),
           width: isElevated ? 2.0 : 1.0,
         ),
         boxShadow: isElevated
@@ -715,27 +738,39 @@ dynamic build(BuildContext context) {
           alignment: WrapAlignment.center,
           children: [
             // Before
-            buildDragState('① Before', Color(0xFF9E9E9E), [
-              buildMiniItem('Apple', Color(0xFFF44336)),
-              buildMiniItem('Banana', Color(0xFFFFC107)),
-              buildMiniItem('Cherry', Color(0xFFE91E63)),
-              buildMiniItem('Date', Color(0xFF795548)),
-            ]),
+            buildDragState(
+              '① Before',
+              Color(0xFF9E9E9E),
+              [
+                buildMiniItem('Apple', Color(0xFFF44336)),
+                buildMiniItem('Banana', Color(0xFFFFC107)),
+                buildMiniItem('Cherry', Color(0xFFE91E63)),
+                buildMiniItem('Date', Color(0xFF795548)),
+              ],
+            ),
             // During — Banana is being dragged to after Cherry
-            buildDragState('② During', Color(0xFF2196F3), [
-              buildMiniItem('Apple', Color(0xFFF44336)),
-              buildMiniItem('', Colors.grey, isPlaceholder: true),
-              buildMiniItem('Cherry', Color(0xFFE91E63)),
-              buildMiniItem('Banana', Color(0xFFFFC107), isElevated: true),
-              buildMiniItem('Date', Color(0xFF795548)),
-            ]),
+            buildDragState(
+              '② During',
+              Color(0xFF2196F3),
+              [
+                buildMiniItem('Apple', Color(0xFFF44336)),
+                buildMiniItem('', Colors.grey, isPlaceholder: true),
+                buildMiniItem('Cherry', Color(0xFFE91E63)),
+                buildMiniItem('Banana', Color(0xFFFFC107), isElevated: true),
+                buildMiniItem('Date', Color(0xFF795548)),
+              ],
+            ),
             // After — new order
-            buildDragState('③ After', Color(0xFF4CAF50), [
-              buildMiniItem('Apple', Color(0xFFF44336)),
-              buildMiniItem('Cherry', Color(0xFFE91E63)),
-              buildMiniItem('Banana', Color(0xFFFFC107)),
-              buildMiniItem('Date', Color(0xFF795548)),
-            ]),
+            buildDragState(
+              '③ After',
+              Color(0xFF4CAF50),
+              [
+                buildMiniItem('Apple', Color(0xFFF44336)),
+                buildMiniItem('Cherry', Color(0xFFE91E63)),
+                buildMiniItem('Banana', Color(0xFFFFC107)),
+                buildMiniItem('Date', Color(0xFF795548)),
+              ],
+            ),
           ],
         ),
       ],
@@ -768,7 +803,11 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: [
-          Icon(Icons.drag_indicator, color: Colors.grey.shade400, size: 18.0),
+          Icon(
+            Icons.drag_indicator,
+            color: Colors.grey.shade400,
+            size: 18.0,
+          ),
           SizedBox(width: 8.0),
           Icon(
             visible ? Icons.visibility : Icons.visibility_off,
@@ -856,7 +895,14 @@ dynamic build(BuildContext context) {
           '100%',
           true,
         ),
-        buildLayerItem('Logo', Icons.star, Color(0xFFFFC107), 2, '75%', true),
+        buildLayerItem(
+          'Logo',
+          Icons.star,
+          Color(0xFFFFC107),
+          2,
+          '75%',
+          true,
+        ),
         buildLayerItem(
           'Shadow Overlay',
           Icons.gradient,
@@ -1020,7 +1066,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Color(0xFFF3E5F5), Color(0xFFE1BEE7)]),
+      gradient: LinearGradient(
+        colors: [Color(0xFFF3E5F5), Color(0xFFE1BEE7)],
+      ),
       borderRadius: BorderRadius.circular(12.0),
     ),
     child: Column(
@@ -1140,11 +1188,18 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Color(0xFFAD1457).withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Color(0xFFAD1457), width: 2.0),
+                  border: Border.all(
+                    color: Color(0xFFAD1457),
+                    width: 2.0,
+                  ),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.open_with, color: Color(0xFFAD1457), size: 20.0),
+                    Icon(
+                      Icons.open_with,
+                      color: Color(0xFFAD1457),
+                      size: 20.0,
+                    ),
                     SizedBox(width: 10.0),
                     Expanded(
                       child: Text(
@@ -1188,7 +1243,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Color(0xFF263238), Color(0xFF37474F)]),
+      gradient: LinearGradient(
+        colors: [Color(0xFF263238), Color(0xFF37474F)],
+      ),
       borderRadius: BorderRadius.circular(12.0),
     ),
     child: Column(
@@ -1351,7 +1408,11 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0D47A1), Color(0xFF1565C0), Color(0xFF1976D2)],
+              colors: [
+                Color(0xFF0D47A1),
+                Color(0xFF1565C0),
+                Color(0xFF1976D2),
+              ],
             ),
           ),
           child: Column(

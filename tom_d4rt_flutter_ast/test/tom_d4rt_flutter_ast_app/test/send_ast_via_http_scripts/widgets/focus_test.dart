@@ -158,7 +158,11 @@ dynamic build(BuildContext context) {
             'key events, and decides whether the user can "tab to" or '
             'programmatically focus that subtree. Every TextField you can '
             'type into is, at heart, a Focus.',
-            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.45),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.white,
+              height: 1.45,
+            ),
           ),
         ),
       ],
@@ -316,7 +320,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.bolt, color: Colors.green, size: 14.0),
+                        const Icon(
+                          Icons.bolt,
+                          color: Colors.green,
+                          size: 14.0,
+                        ),
                         const SizedBox(width: 6.0),
                         Text(
                           'onFocusChange(bool hasFocus)',
@@ -816,9 +824,9 @@ dynamic build(BuildContext context) {
   print('=== Section 6: descendantsAreFocusable ===');
 
   final List<_Sample> descKids = const <_Sample>[
-    _Sample('first', Colors.blue, Icons.text_fields, 'TextField'),
-    _Sample('second', Colors.purple, Icons.smart_button, 'Button'),
-    _Sample('third', Colors.teal, Icons.list_alt, 'ListTile'),
+    _Sample('first',  Colors.blue,    Icons.text_fields, 'TextField'),
+    _Sample('second', Colors.purple,  Icons.smart_button, 'Button'),
+    _Sample('third',  Colors.teal,    Icons.list_alt,    'ListTile'),
   ];
 
   final List<Widget> reachableKids = <Widget>[];
@@ -894,11 +902,7 @@ dynamic build(BuildContext context) {
               Focus(
                 descendantsAreFocusable: true,
                 debugLabel: 'demo.desc.true',
-                child: Wrap(
-                  spacing: 8.0,
-                  runSpacing: 8.0,
-                  children: reachableKids,
-                ),
+                child: Wrap(spacing: 8.0, runSpacing: 8.0, children: reachableKids),
               ),
             ],
           ),
@@ -934,11 +938,7 @@ dynamic build(BuildContext context) {
               Focus(
                 descendantsAreFocusable: false,
                 debugLabel: 'demo.desc.false',
-                child: Wrap(
-                  spacing: 8.0,
-                  runSpacing: 8.0,
-                  children: blockedKids,
-                ),
+                child: Wrap(spacing: 8.0, runSpacing: 8.0, children: blockedKids),
               ),
               const SizedBox(height: 6.0),
               Text(
@@ -962,19 +962,9 @@ dynamic build(BuildContext context) {
 
   final List<Map<String, Object>> skipChain = <Map<String, Object>>[
     {'label': 'Username', 'icon': Icons.person, 'skip': false, 'index': 1},
-    {
-      'label': 'Hidden helper',
-      'icon': Icons.help,
-      'skip': true,
-      'index': null as Object? ?? '—',
-    },
+    {'label': 'Hidden helper', 'icon': Icons.help, 'skip': true, 'index': null as Object? ?? '—'},
     {'label': 'Password', 'icon': Icons.lock, 'skip': false, 'index': 2},
-    {
-      'label': 'Decorative chip',
-      'icon': Icons.star,
-      'skip': true,
-      'index': '—',
-    },
+    {'label': 'Decorative chip', 'icon': Icons.star, 'skip': true, 'index': '—'},
     {'label': 'Submit', 'icon': Icons.send, 'skip': false, 'index': 3},
   ];
 
@@ -1514,42 +1504,42 @@ dynamic build(BuildContext context) {
     _Footgun(
       'Two siblings with autofocus: true',
       'Only one wins, and which one is undefined. Pick a single owner per '
-          'route, ideally the first input.',
+      'route, ideally the first input.',
       Icons.warning_amber,
       Colors.red,
     ),
     _Footgun(
       'canRequestFocus: false mid-traversal',
       'When tab traversal lands on a node that suddenly cannot request '
-          'focus, focus snaps to the next reachable node — surprising users.',
+      'focus, focus snaps to the next reachable node — surprising users.',
       Icons.report_problem,
       Colors.orange,
     ),
     _Footgun(
       'Owning your FocusNode',
       'If you pass a FocusNode you constructed, you must dispose() it. '
-          'Otherwise let Focus manage it for you.',
+      'Otherwise let Focus manage it for you.',
       Icons.delete_forever,
       Colors.deepOrange,
     ),
     _Footgun(
       'descendantsAreFocusable vs canRequestFocus',
       'They are not the same. canRequestFocus disables this node only; '
-          'descendantsAreFocusable disables every descendant.',
+      'descendantsAreFocusable disables every descendant.',
       Icons.compare_arrows,
       Colors.purple,
     ),
     _Footgun(
       'Forgetting includeSemantics',
       'Structural-only Focus wrappers will pollute the semantics tree '
-          'unless you set includeSemantics: false.',
+      'unless you set includeSemantics: false.',
       Icons.accessibility,
       Colors.indigo,
     ),
     _Footgun(
       'onKeyEvent vs onKey (legacy)',
       'onKey is deprecated. Use onKeyEvent with KeyDownEvent / KeyUpEvent / '
-          'KeyRepeatEvent — the new event hierarchy.',
+      'KeyRepeatEvent — the new event hierarchy.',
       Icons.update,
       Colors.brown,
     ),
@@ -1571,7 +1561,10 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: f.tone.withValues(alpha: 0.5), width: 1.2),
+          border: Border.all(
+            color: f.tone.withValues(alpha: 0.5),
+            width: 1.2,
+          ),
           boxShadow: [
             BoxShadow(
               color: f.tone.withValues(alpha: 0.18),
@@ -2032,7 +2025,11 @@ Widget _namedFocusBox(
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: reachable ? color : Colors.grey.shade600, size: 14.0),
+        Icon(
+          icon,
+          color: reachable ? color : Colors.grey.shade600,
+          size: 14.0,
+        ),
         const SizedBox(width: 6.0),
         Text(
           '$name • $role',

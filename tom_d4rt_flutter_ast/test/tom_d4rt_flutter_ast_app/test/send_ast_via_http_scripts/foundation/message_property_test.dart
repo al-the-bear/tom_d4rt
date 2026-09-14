@@ -166,7 +166,9 @@ class MessagePropertyDemo {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: colorBackground,
-        textTheme: const TextTheme(bodyMedium: TextStyle(color: colorInk)),
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(color: colorInk),
+        ),
       ),
       home: const DemoScaffold(),
     );
@@ -421,7 +423,9 @@ class HeroSection extends StatelessWidget {
             flex: 5,
             child: AspectRatio(
               aspectRatio: 1.05,
-              child: CustomPaint(painter: SpeechBubbleTreePainter()),
+              child: CustomPaint(
+                painter: SpeechBubbleTreePainter(),
+              ),
             ),
           ),
         ],
@@ -487,7 +491,11 @@ class SpeechBubbleTreePainter extends CustomPainter {
     final Offset rootCenter = Offset(w * 0.5, h * 0.18);
 
     // Trunk down.
-    canvas.drawLine(rootCenter, Offset(w * 0.5, h * 0.55), trunk);
+    canvas.drawLine(
+      rootCenter,
+      Offset(w * 0.5, h * 0.55),
+      trunk,
+    );
     // Branch left to first node.
     canvas.drawLine(
       Offset(w * 0.5, h * 0.40),
@@ -633,14 +641,14 @@ class AnatomySection extends StatelessWidget {
     return SectionShell(
       index: 1,
       title: 'Anatomy of MessageProperty',
-      subtitle: 'Constructor signature, parameter semantics, and inheritance.',
+      subtitle:
+          'Constructor signature, parameter semantics, and inheritance.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const CodeBlock(
             title: 'Signature',
-            code:
-                'class MessageProperty extends DiagnosticsProperty<void> {\n'
+            code: 'class MessageProperty extends DiagnosticsProperty<void> {\n'
                 '  MessageProperty(\n'
                 '    String name,\n'
                 '    String message, {\n'
@@ -783,7 +791,10 @@ class ParameterCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFE7ECF5),
                   borderRadius: BorderRadius.circular(4),
@@ -908,7 +919,10 @@ class TrafficDot extends StatelessWidget {
     return Container(
       width: 10,
       height: 10,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }
@@ -938,10 +952,10 @@ class SiblingGallerySection extends StatelessWidget {
         spacing: 16,
         runSpacing: 16,
         children: entries
-            .map(
-              (SiblingEntry e) =>
-                  SizedBox(width: 360, child: SiblingCard(entry: e)),
-            )
+            .map((SiblingEntry e) => SizedBox(
+                  width: 360,
+                  child: SiblingCard(entry: e),
+                ))
             .toList(),
       ),
     );
@@ -970,7 +984,10 @@ List<SiblingEntry> buildSiblingEntries() {
   // and calling toString(). We also hand-write the visible string for the
   // typed siblings (since constructing typed DiagnosticsProperty<T> objects
   // inside a const list is awkward).
-  final MessageProperty msg = MessageProperty('status', 'all systems green');
+  final MessageProperty msg = MessageProperty(
+    'status',
+    'all systems green',
+  );
   final String msgRendered = msg.toString();
 
   return <SiblingEntry>[
@@ -1006,7 +1023,8 @@ List<SiblingEntry> buildSiblingEntries() {
     ),
     const SiblingEntry(
       typeName: 'DoubleProperty',
-      signature: 'DoubleProperty(String name, double? value, {unit, showName})',
+      signature:
+          'DoubleProperty(String name, double? value, {unit, showName})',
       rendered: 'opacity: 0.6',
       note:
           'Wraps a double. Renders with the default toStringAsFixed formatting '
@@ -1015,7 +1033,8 @@ List<SiblingEntry> buildSiblingEntries() {
     ),
     const SiblingEntry(
       typeName: 'FlagProperty',
-      signature: 'FlagProperty(String name, {bool? value, ifTrue, ifFalse})',
+      signature:
+          'FlagProperty(String name, {bool? value, ifTrue, ifFalse})',
       rendered: 'enabled',
       note:
           'A boolean rendered using configurable phrases for the true and '
@@ -1207,13 +1226,19 @@ class WorkedExamplesSection extends StatelessWidget {
       WorkedExample(
         tag: 'TODO',
         accent: colorConsoleAmber,
-        property: MessageProperty('todo', 'needs profile-mode test'),
+        property: MessageProperty(
+          'todo',
+          'needs profile-mode test',
+        ),
         note: 'Reminder for a follow-up that does not yet have an issue.',
       ),
       WorkedExample(
         tag: 'UPSTREAM',
         accent: colorConsoleAccent,
-        property: MessageProperty('upstream', 'see issue #12345'),
+        property: MessageProperty(
+          'upstream',
+          'see issue #12345',
+        ),
         note: 'Cross-references an external dependency or framework bug.',
       ),
       WorkedExample(
@@ -1231,7 +1256,10 @@ class WorkedExamplesSection extends StatelessWidget {
       WorkedExample(
         tag: 'VERIFY',
         accent: colorConsoleGreen,
-        property: MessageProperty('verify', 'check on iOS'),
+        property: MessageProperty(
+          'verify',
+          'check on iOS',
+        ),
         note: 'Platform-specific verification step.',
       ),
       WorkedExample(
@@ -1351,7 +1379,10 @@ class WorkedExampleRow extends StatelessWidget {
         children: <Widget>[
           Container(
             width: 90,
-            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+            padding: const EdgeInsets.symmetric(
+              vertical: 2,
+              horizontal: 6,
+            ),
             decoration: BoxDecoration(
               color: example.accent.withAlpha(40),
               borderRadius: BorderRadius.circular(4),
@@ -1510,7 +1541,10 @@ class DiagnosticLevelRow extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: colorConsoleBg,
                 borderRadius: BorderRadius.circular(6),
@@ -1676,7 +1710,10 @@ class ShowNameVariantCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 10,
+            ),
             decoration: BoxDecoration(
               color: colorConsoleBg,
               borderRadius: BorderRadius.circular(6),
@@ -1723,8 +1760,7 @@ class DebugFillPropertiesRecipeSection extends StatelessWidget {
         children: <Widget>[
           const CodeBlock(
             title: 'lib/widgets/profile_tile.dart',
-            code:
-                'class ProfileTile extends StatelessWidget {\n'
+            code: 'class ProfileTile extends StatelessWidget {\n'
                 '  const ProfileTile({super.key, required this.label, required this.count});\n'
                 '  final String label;\n'
                 '  final int count;\n'
@@ -1759,7 +1795,10 @@ class DebugFillPropertiesRecipeSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
                 Text('ProfileTile', style: styleMonoConsole),
-                Text('  +-- label: "Hello"', style: styleMonoConsole),
+                Text(
+                  '  +-- label: "Hello"',
+                  style: styleMonoConsole,
+                ),
                 Text('  +-- count: 42', style: styleMonoConsole),
                 Text(
                   '  +-- status: beta - DO NOT SHIP',
@@ -1872,15 +1911,18 @@ class DiagnosticableRelationshipSection extends StatelessWidget {
           ),
           const AnalogueRow(
             left: 'ErrorDescription',
-            right: 'inside FlutterErrorDetails - describes what went wrong.',
+            right:
+                'inside FlutterErrorDetails - describes what went wrong.',
           ),
           const AnalogueRow(
             left: 'ErrorHint',
-            right: 'inside FlutterErrorDetails - suggests how to fix it.',
+            right:
+                'inside FlutterErrorDetails - suggests how to fix it.',
           ),
           const AnalogueRow(
             left: 'ErrorSummary',
-            right: 'inside FlutterErrorDetails - short headline of the error.',
+            right:
+                'inside FlutterErrorDetails - short headline of the error.',
           ),
           const AnalogueRow(
             left: 'DiagnosticsBlock',
@@ -1995,12 +2037,14 @@ class PitfallsSection extends StatelessWidget {
     return const SectionShell(
       index: 8,
       title: 'Pitfalls and gotchas',
-      subtitle: 'When NOT to use MessageProperty - and what to use instead.',
+      subtitle:
+          'When NOT to use MessageProperty - and what to use instead.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           PitfallCard(
-            title: 'Do not put a dynamic value in MessageProperty.',
+            title:
+                'Do not put a dynamic value in MessageProperty.',
             body:
                 'MessageProperty has no value slot. If you write '
                 'MessageProperty("count", "\$count"), DevTools and '

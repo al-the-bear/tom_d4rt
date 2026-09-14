@@ -98,11 +98,7 @@ Widget _buildIntroCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF0E7490),
-          Color(0xFF155E75),
-          Color(0xFF1E3A8A),
-        ],
+        colors: <Color>[Color(0xFF0E7490), Color(0xFF155E75), Color(0xFF1E3A8A)],
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: <BoxShadow>[
@@ -145,22 +141,10 @@ Widget _buildIntroCard() {
           runSpacing: 10,
           children: <Widget>[
             _introChip('SegmentedButton<T>', Icons.crop_din, Colors.cyanAccent),
-            _introChip(
-              'ButtonSegment<T>',
-              Icons.label_outline,
-              Colors.amberAccent,
-            ),
-            _introChip(
-              'ToggleButtons',
-              Icons.toggle_on,
-              Colors.lightGreenAccent,
-            ),
+            _introChip('ButtonSegment<T>', Icons.label_outline, Colors.amberAccent),
+            _introChip('ToggleButtons', Icons.toggle_on, Colors.lightGreenAccent),
             _introChip('Material 3', Icons.auto_awesome, Colors.pinkAccent),
-            _introChip(
-              'Type-safe',
-              Icons.verified_user,
-              Colors.lightBlueAccent,
-            ),
+            _introChip('Type-safe', Icons.verified_user, Colors.lightBlueAccent),
           ],
         ),
       ],
@@ -197,13 +181,7 @@ Widget _introChip(String label, IconData icon, Color color) {
 // ---------------------------------------------------------------------------
 // Section header used by every subsequent section.
 // ---------------------------------------------------------------------------
-Widget _sectionHeader(
-  String number,
-  String title,
-  String subtitle,
-  IconData icon,
-  Color color,
-) {
+Widget _sectionHeader(String number, String title, String subtitle, IconData icon, Color color) {
   return Container(
     padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -339,13 +317,9 @@ Widget _divider() {
 Widget _buildAnatomySection() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        'A',
-        'Anatomy of a SegmentedButton',
-        'Segments, divider, selected fill, optional checkmark icon.',
-        Icons.architecture,
-        const Color(0xFF6366F1),
-      ),
+      _sectionHeader('A', 'Anatomy of a SegmentedButton',
+          'Segments, divider, selected fill, optional checkmark icon.',
+          Icons.architecture, const Color(0xFF6366F1)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,36 +362,20 @@ Widget _buildAnatomySection() {
                   ),
                   const SizedBox(height: 18),
                   // Annotation rows.
-                  _annotationRow(
-                    'Segment',
-                    'A single ButtonSegment<T> entry.',
-                    Icons.crop_din,
-                    const Color(0xFF6366F1),
-                  ),
-                  _annotationRow(
-                    'Selected fill',
-                    'Segment whose value is in the `selected` set is highlighted.',
-                    Icons.format_color_fill,
-                    const Color(0xFFEC4899),
-                  ),
-                  _annotationRow(
-                    'Divider',
-                    'Thin vertical line separates adjacent segments.',
-                    Icons.more_vert,
-                    const Color(0xFF94A3B8),
-                  ),
-                  _annotationRow(
-                    'Optional icon',
-                    'ButtonSegment.icon renders left of the label by default.',
-                    Icons.label_important,
-                    const Color(0xFF0EA5E9),
-                  ),
-                  _annotationRow(
-                    'Checkmark',
-                    '`showSelectedIcon` (default true) prepends a check on selected items.',
-                    Icons.check_circle_outline,
-                    const Color(0xFF22C55E),
-                  ),
+                  _annotationRow('Segment', 'A single ButtonSegment<T> entry.',
+                      Icons.crop_din, const Color(0xFF6366F1)),
+                  _annotationRow('Selected fill',
+                      'Segment whose value is in the `selected` set is highlighted.',
+                      Icons.format_color_fill, const Color(0xFFEC4899)),
+                  _annotationRow('Divider',
+                      'Thin vertical line separates adjacent segments.',
+                      Icons.more_vert, const Color(0xFF94A3B8)),
+                  _annotationRow('Optional icon',
+                      'ButtonSegment.icon renders left of the label by default.',
+                      Icons.label_important, const Color(0xFF0EA5E9)),
+                  _annotationRow('Checkmark',
+                      '`showSelectedIcon` (default true) prepends a check on selected items.',
+                      Icons.check_circle_outline, const Color(0xFF22C55E)),
                 ],
               ),
             ),
@@ -500,13 +458,9 @@ Widget _annotationRow(String title, String desc, IconData icon, Color color) {
 Widget _buildSimpleSegmentedSection() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        '1',
-        'Simple SegmentedButton (single-select)',
-        'One value at a time. Common picker pattern.',
-        Icons.radio_button_checked,
-        const Color(0xFF0EA5E9),
-      ),
+      _sectionHeader('1', 'Simple SegmentedButton (single-select)',
+          'One value at a time. Common picker pattern.',
+          Icons.radio_button_checked, const Color(0xFF0EA5E9)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -534,10 +488,9 @@ Widget _buildSimpleSegmentedSection() {
               onSelectionChanged: (Set<_ViewMode> s) {},
             ),
             _captionRow(
-              'selected: <_ViewMode>{_ViewMode.grid}',
-              Icons.code,
-              const Color(0xFF0EA5E9),
-            ),
+                'selected: <_ViewMode>{_ViewMode.grid}',
+                Icons.code,
+                const Color(0xFF0EA5E9)),
             _divider(),
             _label('Theme picker — three options, "system" selected'),
             SegmentedButton<_Theme>(
@@ -562,34 +515,41 @@ Widget _buildSimpleSegmentedSection() {
               onSelectionChanged: (Set<_Theme> s) {},
             ),
             _captionRow(
-              'selected: <_Theme>{_Theme.system}',
-              Icons.code,
-              const Color(0xFF0EA5E9),
-            ),
+                'selected: <_Theme>{_Theme.system}',
+                Icons.code,
+                const Color(0xFF0EA5E9)),
             _divider(),
             _label('Pace picker — slow/medium/fast, "fast" selected'),
             SegmentedButton<_Pace>(
               segments: const <ButtonSegment<_Pace>>[
-                ButtonSegment<_Pace>(value: _Pace.slow, label: Text('Slow')),
+                ButtonSegment<_Pace>(
+                  value: _Pace.slow,
+                  label: Text('Slow'),
+                ),
                 ButtonSegment<_Pace>(
                   value: _Pace.medium,
                   label: Text('Medium'),
                 ),
-                ButtonSegment<_Pace>(value: _Pace.fast, label: Text('Fast')),
+                ButtonSegment<_Pace>(
+                  value: _Pace.fast,
+                  label: Text('Fast'),
+                ),
               ],
               selected: const <_Pace>{_Pace.fast},
               onSelectionChanged: (Set<_Pace> s) {},
             ),
             _captionRow(
-              'Label-only segments. selected: {fast}',
-              Icons.code,
-              const Color(0xFF0EA5E9),
-            ),
+                'Label-only segments. selected: {fast}',
+                Icons.code,
+                const Color(0xFF0EA5E9)),
             _divider(),
             _label('Disabled segment — "draft" cannot be picked'),
             SegmentedButton<_Filter>(
               segments: const <ButtonSegment<_Filter>>[
-                ButtonSegment<_Filter>(value: _Filter.all, label: Text('All')),
+                ButtonSegment<_Filter>(
+                  value: _Filter.all,
+                  label: Text('All'),
+                ),
                 ButtonSegment<_Filter>(
                   value: _Filter.active,
                   label: Text('Active'),
@@ -608,10 +568,9 @@ Widget _buildSimpleSegmentedSection() {
               onSelectionChanged: (Set<_Filter> s) {},
             ),
             _captionRow(
-              'enabled: false on the "draft" segment.',
-              Icons.block,
-              const Color(0xFFEF4444),
-            ),
+                'enabled: false on the "draft" segment.',
+                Icons.block,
+                const Color(0xFFEF4444)),
           ],
         ),
       ),
@@ -625,13 +584,9 @@ Widget _buildSimpleSegmentedSection() {
 Widget _buildMultiSelectSection() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        '2',
-        'Multi-select SegmentedButton',
-        'multiSelectionEnabled: true allows multiple values.',
-        Icons.checklist,
-        const Color(0xFF22C55E),
-      ),
+      _sectionHeader('2', 'Multi-select SegmentedButton',
+          'multiSelectionEnabled: true allows multiple values.',
+          Icons.checklist, const Color(0xFF22C55E)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -664,11 +619,8 @@ Widget _buildMultiSelectSection() {
               selected: const <_Channel>{_Channel.email, _Channel.push},
               onSelectionChanged: (Set<_Channel> s) {},
             ),
-            _captionRow(
-              'selected: {email, push}',
-              Icons.check_circle_outline,
-              const Color(0xFF22C55E),
-            ),
+            _captionRow('selected: {email, push}',
+                Icons.check_circle_outline, const Color(0xFF22C55E)),
             _divider(),
             _label('Empty selection allowed — none selected'),
             SegmentedButton<_Channel>(
@@ -691,11 +643,8 @@ Widget _buildMultiSelectSection() {
               selected: const <_Channel>{},
               onSelectionChanged: (Set<_Channel> s) {},
             ),
-            _captionRow(
-              'emptySelectionAllowed: true; selected: <_Channel>{}',
-              Icons.do_not_disturb_alt,
-              const Color(0xFF94A3B8),
-            ),
+            _captionRow('emptySelectionAllowed: true; selected: <_Channel>{}',
+                Icons.do_not_disturb_alt, const Color(0xFF94A3B8)),
             _divider(),
             _label('All selected — every value present'),
             SegmentedButton<_Channel>(
@@ -724,11 +673,8 @@ Widget _buildMultiSelectSection() {
               },
               onSelectionChanged: (Set<_Channel> s) {},
             ),
-            _captionRow(
-              'selected: {email, sms, push}',
-              Icons.done_all,
-              const Color(0xFF22C55E),
-            ),
+            _captionRow('selected: {email, sms, push}',
+                Icons.done_all, const Color(0xFF22C55E)),
             _divider(),
             _label('No selected icon (showSelectedIcon: false)'),
             SegmentedButton<_Channel>(
@@ -751,11 +697,8 @@ Widget _buildMultiSelectSection() {
               selected: const <_Channel>{_Channel.sms},
               onSelectionChanged: (Set<_Channel> s) {},
             ),
-            _captionRow(
-              'showSelectedIcon: false hides the leading checkmark.',
-              Icons.visibility_off,
-              const Color(0xFF64748B),
-            ),
+            _captionRow('showSelectedIcon: false hides the leading checkmark.',
+                Icons.visibility_off, const Color(0xFF64748B)),
           ],
         ),
       ),
@@ -769,13 +712,9 @@ Widget _buildMultiSelectSection() {
 Widget _buildIconOnlySection() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        '3',
-        'Icon-only segments',
-        'Compact picker that uses only icons + tooltips.',
-        Icons.format_align_left,
-        const Color(0xFFF97316),
-      ),
+      _sectionHeader('3', 'Icon-only segments',
+          'Compact picker that uses only icons + tooltips.',
+          Icons.format_align_left, const Color(0xFFF97316)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -808,11 +747,8 @@ Widget _buildIconOnlySection() {
               selected: const <_Alignment>{_Alignment.center},
               onSelectionChanged: (Set<_Alignment> s) {},
             ),
-            _captionRow(
-              'Each segment has icon + tooltip; no label widget.',
-              Icons.touch_app,
-              const Color(0xFFF97316),
-            ),
+            _captionRow('Each segment has icon + tooltip; no label widget.',
+                Icons.touch_app, const Color(0xFFF97316)),
             _divider(),
             _label('Size picker — md selected'),
             SegmentedButton<_SizeOpt>(
@@ -842,11 +778,8 @@ Widget _buildIconOnlySection() {
               selected: const <_SizeOpt>{_SizeOpt.md},
               onSelectionChanged: (Set<_SizeOpt> s) {},
             ),
-            _captionRow(
-              'Tooltips communicate semantics for icon-only buttons.',
-              Icons.info_outline,
-              const Color(0xFFF97316),
-            ),
+            _captionRow('Tooltips communicate semantics for icon-only buttons.',
+                Icons.info_outline, const Color(0xFFF97316)),
           ],
         ),
       ),
@@ -860,13 +793,9 @@ Widget _buildIconOnlySection() {
 Widget _buildLabelAndIconSection() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        '4',
-        'Label + Icon segments',
-        'Best for clarity — both an icon and explicit text label.',
-        Icons.style,
-        const Color(0xFFA855F7),
-      ),
+      _sectionHeader('4', 'Label + Icon segments',
+          'Best for clarity — both an icon and explicit text label.',
+          Icons.style, const Color(0xFFA855F7)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -922,11 +851,8 @@ Widget _buildLabelAndIconSection() {
               selected: const <int>{1, 2},
               onSelectionChanged: (Set<int> s) {},
             ),
-            _captionRow(
-              'Generic type parameter <int> works the same as enums.',
-              Icons.tag,
-              const Color(0xFFA855F7),
-            ),
+            _captionRow('Generic type parameter <int> works the same as enums.',
+                Icons.tag, const Color(0xFFA855F7)),
             _divider(),
             _label('Visual breakdown of label-and-icon segments'),
             Container(
@@ -940,21 +866,12 @@ Widget _buildLabelAndIconSection() {
               ),
               child: Column(
                 children: <Widget>[
-                  _featRow(
-                    'Leading icon',
-                    Icons.label_important_outline,
-                    'Renders to the left of the label by default.',
-                  ),
-                  _featRow(
-                    'Centered label',
-                    Icons.short_text,
-                    'Each ButtonSegment.label receives the foreground colour.',
-                  ),
-                  _featRow(
-                    'Selected check',
-                    Icons.check,
-                    'Replaces the icon for selected items unless disabled.',
-                  ),
+                  _featRow('Leading icon', Icons.label_important_outline,
+                      'Renders to the left of the label by default.'),
+                  _featRow('Centered label', Icons.short_text,
+                      'Each ButtonSegment.label receives the foreground colour.'),
+                  _featRow('Selected check', Icons.check,
+                      'Replaces the icon for selected items unless disabled.'),
                 ],
               ),
             ),
@@ -1001,13 +918,9 @@ Widget _featRow(String label, IconData icon, String desc) {
 Widget _buildCustomStyleSection() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        '5',
-        'Custom styling',
-        'SegmentedButton.styleFrom shortcut + ButtonStyle.',
-        Icons.palette,
-        const Color(0xFFEC4899),
-      ),
+      _sectionHeader('5', 'Custom styling',
+          'SegmentedButton.styleFrom shortcut + ButtonStyle.',
+          Icons.palette, const Color(0xFFEC4899)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1152,13 +1065,9 @@ Widget _buildCustomStyleSection() {
 Widget _buildToggleButtonsSection() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        '6',
-        'ToggleButtons (older API)',
-        'Index-based selection with a parallel List<bool>.',
-        Icons.toggle_on,
-        const Color(0xFF14B8A6),
-      ),
+      _sectionHeader('6', 'ToggleButtons (older API)',
+          'Index-based selection with a parallel List<bool>.',
+          Icons.toggle_on, const Color(0xFF14B8A6)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1189,10 +1098,9 @@ Widget _buildToggleButtonsSection() {
               ],
             ),
             _captionRow(
-              'isSelected: const <bool>[true, false, true]',
-              Icons.code,
-              const Color(0xFF14B8A6),
-            ),
+                'isSelected: const <bool>[true, false, true]',
+                Icons.code,
+                const Color(0xFF14B8A6)),
             _divider(),
             _label('Vertical layout — option two selected'),
             Row(
@@ -1255,10 +1163,7 @@ Widget _buildToggleButtonsSection() {
                           'Vertical ToggleButtons can build a sidebar-style picker. '
                           'Index 1 (search) is the active value because '
                           'isSelected[1] == true.',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF475569),
-                          ),
+                          style: TextStyle(fontSize: 12, color: Color(0xFF475569)),
                         ),
                       ],
                     ),
@@ -1286,10 +1191,9 @@ Widget _buildToggleButtonsSection() {
               ],
             ),
             _captionRow(
-              'isSelected vector controls multi-selection by index.',
-              Icons.list_alt,
-              const Color(0xFFF59E0B),
-            ),
+                'isSelected vector controls multi-selection by index.',
+                Icons.list_alt,
+                const Color(0xFFF59E0B)),
           ],
         ),
       ),
@@ -1303,13 +1207,9 @@ Widget _buildToggleButtonsSection() {
 Widget _buildSideBySideComparison() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        '7',
-        'Side-by-side comparison',
-        'Same task — two different APIs.',
-        Icons.compare_arrows,
-        const Color(0xFF1D4ED8),
-      ),
+      _sectionHeader('7', 'Side-by-side comparison',
+          'Same task — two different APIs.',
+          Icons.compare_arrows, const Color(0xFF1D4ED8)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1318,85 +1218,72 @@ Widget _buildSideBySideComparison() {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: _comparisonCard(
-                    title: 'SegmentedButton<T> (M3)',
-                    subtitle: 'Type-safe values',
-                    color: const Color(0xFF22C55E),
-                    body: SegmentedButton<_ViewMode>(
-                      segments: const <ButtonSegment<_ViewMode>>[
-                        ButtonSegment<_ViewMode>(
-                          value: _ViewMode.list,
-                          label: Text('List'),
-                          icon: Icon(Icons.view_list),
-                        ),
-                        ButtonSegment<_ViewMode>(
-                          value: _ViewMode.grid,
-                          label: Text('Grid'),
-                          icon: Icon(Icons.grid_view),
-                        ),
-                        ButtonSegment<_ViewMode>(
-                          value: _ViewMode.table,
-                          label: Text('Table'),
-                          icon: Icon(Icons.table_chart),
-                        ),
-                      ],
-                      selected: const <_ViewMode>{_ViewMode.grid},
-                      onSelectionChanged: (Set<_ViewMode> s) {},
-                    ),
-                    bullets: const <String>[
-                      'Pass values directly, not indices.',
-                      'Built-in selected check icon.',
-                      'Multi-select via Set<T>.',
-                      'M3 styling out of the box.',
+                Expanded(child: _comparisonCard(
+                  title: 'SegmentedButton<T> (M3)',
+                  subtitle: 'Type-safe values',
+                  color: const Color(0xFF22C55E),
+                  body: SegmentedButton<_ViewMode>(
+                    segments: const <ButtonSegment<_ViewMode>>[
+                      ButtonSegment<_ViewMode>(
+                        value: _ViewMode.list,
+                        label: Text('List'),
+                        icon: Icon(Icons.view_list),
+                      ),
+                      ButtonSegment<_ViewMode>(
+                        value: _ViewMode.grid,
+                        label: Text('Grid'),
+                        icon: Icon(Icons.grid_view),
+                      ),
+                      ButtonSegment<_ViewMode>(
+                        value: _ViewMode.table,
+                        label: Text('Table'),
+                        icon: Icon(Icons.table_chart),
+                      ),
                     ],
+                    selected: const <_ViewMode>{_ViewMode.grid},
+                    onSelectionChanged: (Set<_ViewMode> s) {},
                   ),
-                ),
+                  bullets: const <String>[
+                    'Pass values directly, not indices.',
+                    'Built-in selected check icon.',
+                    'Multi-select via Set<T>.',
+                    'M3 styling out of the box.',
+                  ],
+                )),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _comparisonCard(
-                    title: 'ToggleButtons (older)',
-                    subtitle: 'Index-based',
-                    color: const Color(0xFFF97316),
-                    body: ToggleButtons(
-                      isSelected: const <bool>[false, true, false],
-                      onPressed: (int index) {},
-                      borderRadius: BorderRadius.circular(8),
-                      selectedColor: Colors.white,
-                      fillColor: const Color(0xFFF97316),
-                      color: const Color(0xFF7C2D12),
-                      children: const <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 8,
-                          ),
-                          child: Icon(Icons.view_list),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 8,
-                          ),
-                          child: Icon(Icons.grid_view),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 8,
-                          ),
-                          child: Icon(Icons.table_chart),
-                        ),
-                      ],
-                    ),
-                    bullets: const <String>[
-                      'Track selection with List<bool>.',
-                      'No built-in checkmark.',
-                      'Free-form children Widget list.',
-                      'Lighter weight, classic look.',
+                Expanded(child: _comparisonCard(
+                  title: 'ToggleButtons (older)',
+                  subtitle: 'Index-based',
+                  color: const Color(0xFFF97316),
+                  body: ToggleButtons(
+                    isSelected: const <bool>[false, true, false],
+                    onPressed: (int index) {},
+                    borderRadius: BorderRadius.circular(8),
+                    selectedColor: Colors.white,
+                    fillColor: const Color(0xFFF97316),
+                    color: const Color(0xFF7C2D12),
+                    children: const <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        child: Icon(Icons.view_list),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        child: Icon(Icons.grid_view),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        child: Icon(Icons.table_chart),
+                      ),
                     ],
                   ),
-                ),
+                  bullets: const <String>[
+                    'Track selection with List<bool>.',
+                    'No built-in checkmark.',
+                    'Free-form children Widget list.',
+                    'Lighter weight, classic look.',
+                  ],
+                )),
               ],
             ),
             _divider(),
@@ -1517,36 +1404,11 @@ Widget _comparisonRowTable() {
       children: <Widget>[
         _tableHeaderRow(),
         _tableDataRow('Selection model', 'Set<T>', 'List<bool>', false),
-        _tableDataRow(
-          'Type safety',
-          'Compile-checked enum / type',
-          'Index ↔ value mapping by hand',
-          false,
-        ),
-        _tableDataRow(
-          'Selected icon',
-          'showSelectedIcon (default true)',
-          'Render manually',
-          false,
-        ),
-        _tableDataRow(
-          'Multi-select',
-          'multiSelectionEnabled flag',
-          'Multiple `true` entries',
-          false,
-        ),
-        _tableDataRow(
-          'Disabled segment',
-          'ButtonSegment.enabled',
-          'children + isSelected combo',
-          false,
-        ),
-        _tableDataRow(
-          'Material spec',
-          'Material 3 picker',
-          'Material 2 era',
-          true,
-        ),
+        _tableDataRow('Type safety', 'Compile-checked enum / type', 'Index ↔ value mapping by hand', false),
+        _tableDataRow('Selected icon', 'showSelectedIcon (default true)', 'Render manually', false),
+        _tableDataRow('Multi-select', 'multiSelectionEnabled flag', 'Multiple `true` entries', false),
+        _tableDataRow('Disabled segment', 'ButtonSegment.enabled', 'children + isSelected combo', false),
+        _tableDataRow('Material spec', 'Material 3 picker', 'Material 2 era', true),
       ],
     ),
   );
@@ -1563,39 +1425,9 @@ Widget _tableHeaderRow() {
     ),
     child: Row(
       children: const <Widget>[
-        Expanded(
-          flex: 3,
-          child: Text(
-            'Aspect',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 4,
-          child: Text(
-            'SegmentedButton<T>',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 4,
-          child: Text(
-            'ToggleButtons',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-        ),
+        Expanded(flex: 3, child: Text('Aspect', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+        Expanded(flex: 4, child: Text('SegmentedButton<T>', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+        Expanded(flex: 4, child: Text('ToggleButtons', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
       ],
     ),
   );
@@ -1650,65 +1482,34 @@ Widget _tableDataRow(String aspect, String segCol, String togCol, bool last) {
 Widget _buildDecisionGuide() {
   return Column(
     children: <Widget>[
-      _sectionHeader(
-        '8',
-        'Decision guide',
-        'When to prefer SegmentedButton over ToggleButtons.',
-        Icons.checklist_rtl,
-        const Color(0xFF0F766E),
-      ),
+      _sectionHeader('8', 'Decision guide',
+          'When to prefer SegmentedButton over ToggleButtons.',
+          Icons.checklist_rtl, const Color(0xFF0F766E)),
       _sectionBody(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _label('Pick SegmentedButton when…'),
-            _decisionRow(
-              'You target Material 3 design.',
-              Icons.auto_awesome,
-              const Color(0xFF22C55E),
-            ),
-            _decisionRow(
-              'You want compile-time-safe values (enum / typed).',
-              Icons.verified,
-              const Color(0xFF22C55E),
-            ),
-            _decisionRow(
-              'Selection should round-trip as a Set<T>.',
-              Icons.share,
-              const Color(0xFF22C55E),
-            ),
-            _decisionRow(
-              'You need multiSelectionEnabled or emptySelectionAllowed.',
-              Icons.checklist,
-              const Color(0xFF22C55E),
-            ),
-            _decisionRow(
-              'You like the built-in selected-check icon.',
-              Icons.check_circle,
-              const Color(0xFF22C55E),
-            ),
+            _decisionRow('You target Material 3 design.',
+                Icons.auto_awesome, const Color(0xFF22C55E)),
+            _decisionRow('You want compile-time-safe values (enum / typed).',
+                Icons.verified, const Color(0xFF22C55E)),
+            _decisionRow('Selection should round-trip as a Set<T>.',
+                Icons.share, const Color(0xFF22C55E)),
+            _decisionRow('You need multiSelectionEnabled or emptySelectionAllowed.',
+                Icons.checklist, const Color(0xFF22C55E)),
+            _decisionRow('You like the built-in selected-check icon.',
+                Icons.check_circle, const Color(0xFF22C55E)),
             const SizedBox(height: 10),
             _label('Pick ToggleButtons when…'),
-            _decisionRow(
-              'You target Material 2 / older themes.',
-              Icons.history,
-              const Color(0xFFF97316),
-            ),
-            _decisionRow(
-              'Children are already arbitrary widgets, not labels.',
-              Icons.widgets,
-              const Color(0xFFF97316),
-            ),
-            _decisionRow(
-              'You want a vertical bar (Axis.vertical).',
-              Icons.swap_vert,
-              const Color(0xFFF97316),
-            ),
-            _decisionRow(
-              'You only need the lightest possible look.',
-              Icons.air,
-              const Color(0xFFF97316),
-            ),
+            _decisionRow('You target Material 2 / older themes.',
+                Icons.history, const Color(0xFFF97316)),
+            _decisionRow('Children are already arbitrary widgets, not labels.',
+                Icons.widgets, const Color(0xFFF97316)),
+            _decisionRow('You want a vertical bar (Axis.vertical).',
+                Icons.swap_vert, const Color(0xFFF97316)),
+            _decisionRow('You only need the lightest possible look.',
+                Icons.air, const Color(0xFFF97316)),
             _divider(),
             _label('Quick rule of thumb'),
             Container(
@@ -1775,11 +1576,7 @@ Widget _decisionRow(String text, IconData icon, Color color) {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF334155),
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 12, color: Color(0xFF334155), height: 1.4),
           ),
         ),
       ],

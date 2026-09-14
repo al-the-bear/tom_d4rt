@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final ValueNotifier<_PlatformOwner> platform = ValueNotifier<_PlatformOwner>(
-    _PlatformOwner.linux,
-  );
+  final ValueNotifier<_PlatformOwner> platform =
+      ValueNotifier<_PlatformOwner>(_PlatformOwner.linux);
   final ValueNotifier<_WindowStateMode> stateMode =
       ValueNotifier<_WindowStateMode>(_WindowStateMode.normal);
   final ValueNotifier<double> windowCount = ValueNotifier<double>(3);
@@ -72,9 +71,18 @@ dynamic build(BuildContext context) {
   );
 }
 
-enum _PlatformOwner { linux, macOS, win32 }
+enum _PlatformOwner {
+  linux,
+  macOS,
+  win32,
+}
 
-enum _WindowStateMode { normal, maximized, minimized, fullscreen }
+enum _WindowStateMode {
+  normal,
+  maximized,
+  minimized,
+  fullscreen,
+}
 
 class _OwnerHero extends StatelessWidget {
   const _OwnerHero();
@@ -141,121 +149,98 @@ class _OwnerControlPanel extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(18),
-        child:
-            ValueListenableBuilder7<
-              _PlatformOwner,
-              _WindowStateMode,
-              double,
-              double,
-              bool,
-              bool,
-              bool
-            >(
-              first: platform,
-              second: stateMode,
-              third: windowCount,
-              fourth: focusWindow,
-              fifth: allowTiling,
-              sixth: allowModalStack,
-              seventh: multiMonitor,
-              builder:
-                  (
-                    BuildContext context,
-                    _PlatformOwner owner,
-                    _WindowStateMode mode,
-                    double count,
-                    double focus,
-                    bool tiling,
-                    bool modal,
-                    bool monitors,
-                  ) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text(
-                          'Owner Command Panel',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          children: <Widget>[
-                            for (final _PlatformOwner value
-                                in _PlatformOwner.values)
-                              ChoiceChip(
-                                selected: owner == value,
-                                label: Text(value.name),
-                                onSelected: (_) => platform.value = value,
-                              ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          children: <Widget>[
-                            for (final _WindowStateMode value
-                                in _WindowStateMode.values)
-                              FilterChip(
-                                selected: mode == value,
-                                label: Text(value.name),
-                                onSelected: (_) => stateMode.value = value,
-                              ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Text('Window count: ${count.toStringAsFixed(0)}'),
-                        Slider(
-                          min: 1,
-                          max: 6,
-                          divisions: 5,
-                          value: count,
-                          onChanged: (double v) {
-                            windowCount.value = v;
-                            if (focusWindow.value > v) {
-                              focusWindow.value = v;
-                            }
-                          },
-                        ),
-                        Text(
-                          'Focused window index: ${focus.toStringAsFixed(0)}',
-                        ),
-                        Slider(
-                          min: 1,
-                          max: count,
-                          divisions: (count - 1).round().clamp(1, 5),
-                          value: focus,
-                          onChanged: (double v) => focusWindow.value = v,
-                        ),
-                        SwitchListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          title: const Text('Allow tiling orchestration'),
-                          value: tiling,
-                          onChanged: (bool v) => allowTiling.value = v,
-                        ),
-                        SwitchListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          title: const Text('Allow modal stack management'),
-                          value: modal,
-                          onChanged: (bool v) => allowModalStack.value = v,
-                        ),
-                        SwitchListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          title: const Text('Multi-monitor routing enabled'),
-                          value: monitors,
-                          onChanged: (bool v) => multiMonitor.value = v,
-                        ),
-                      ],
-                    );
+        child: ValueListenableBuilder7<_PlatformOwner, _WindowStateMode, double,
+            double, bool, bool, bool>(
+          first: platform,
+          second: stateMode,
+          third: windowCount,
+          fourth: focusWindow,
+          fifth: allowTiling,
+          sixth: allowModalStack,
+          seventh: multiMonitor,
+          builder: (BuildContext context, _PlatformOwner owner,
+              _WindowStateMode mode, double count, double focus, bool tiling,
+              bool modal, bool monitors) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  'Owner Command Panel',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: <Widget>[
+                    for (final _PlatformOwner value in _PlatformOwner.values)
+                      ChoiceChip(
+                        selected: owner == value,
+                        label: Text(value.name),
+                        onSelected: (_) => platform.value = value,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: <Widget>[
+                    for (final _WindowStateMode value in _WindowStateMode.values)
+                      FilterChip(
+                        selected: mode == value,
+                        label: Text(value.name),
+                        onSelected: (_) => stateMode.value = value,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text('Window count: ${count.toStringAsFixed(0)}'),
+                Slider(
+                  min: 1,
+                  max: 6,
+                  divisions: 5,
+                  value: count,
+                  onChanged: (double v) {
+                    windowCount.value = v;
+                    if (focusWindow.value > v) {
+                      focusWindow.value = v;
+                    }
                   },
-            ),
+                ),
+                Text('Focused window index: ${focus.toStringAsFixed(0)}'),
+                Slider(
+                  min: 1,
+                  max: count,
+                  divisions: (count - 1).round().clamp(1, 5),
+                  value: focus,
+                  onChanged: (double v) => focusWindow.value = v,
+                ),
+                SwitchListTile(
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Allow tiling orchestration'),
+                  value: tiling,
+                  onChanged: (bool v) => allowTiling.value = v,
+                ),
+                SwitchListTile(
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Allow modal stack management'),
+                  value: modal,
+                  onChanged: (bool v) => allowModalStack.value = v,
+                ),
+                SwitchListTile(
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Multi-monitor routing enabled'),
+                  value: monitors,
+                  onChanged: (bool v) => multiMonitor.value = v,
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -277,8 +262,7 @@ class _OwnerContractBoard extends StatelessWidget {
             final List<_ContractMethod> methods = <_ContractMethod>[
               const _ContractMethod(
                 name: 'createWindow()',
-                purpose:
-                    'Allocates native window and attaches render view host.',
+                purpose: 'Allocates native window and attaches render view host.',
               ),
               const _ContractMethod(
                 name: 'destroyWindow()',
@@ -290,13 +274,11 @@ class _OwnerContractBoard extends StatelessWidget {
               ),
               const _ContractMethod(
                 name: 'setWindowState()',
-                purpose:
-                    'Transitions between normal, maximized, and fullscreen.',
+                purpose: 'Transitions between normal, maximized, and fullscreen.',
               ),
               _ContractMethod(
                 name: 'dispatchPlatformEvent()',
-                purpose:
-                    'Routes ${value.name} callbacks into framework lifecycle.',
+                purpose: 'Routes ${value.name} callbacks into framework lifecycle.',
               ),
             ];
 
@@ -322,11 +304,7 @@ class _OwnerContractBoard extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const Icon(
-                              Icons.functions,
-                              color: Color(0xFF3F4F9D),
-                              size: 18,
-                            ),
+                            const Icon(Icons.functions, color: Color(0xFF3F4F9D), size: 18),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Column(
@@ -334,9 +312,8 @@ class _OwnerContractBoard extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     method.name,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style:
+                                        const TextStyle(fontWeight: FontWeight.w700),
                                   ),
                                   const SizedBox(height: 3),
                                   Text(method.purpose),
@@ -369,80 +346,60 @@ class _OwnerImplementationMatrix extends StatelessWidget {
         padding: const EdgeInsets.all(18),
         child: ValueListenableBuilder<_PlatformOwner>(
           valueListenable: platform,
-          builder:
-              (BuildContext context, _PlatformOwner selected, Widget? child) {
-                final List<_ImplementationRow> rows = <_ImplementationRow>[
-                  _ImplementationRow(
-                    'Linux',
-                    'Wayland/X11 bridge',
-                    selected == _PlatformOwner.linux,
-                  ),
-                  _ImplementationRow(
-                    'macOS',
-                    'Cocoa NSWindow adapter',
-                    selected == _PlatformOwner.macOS,
-                  ),
-                  _ImplementationRow(
-                    'Win32',
-                    'HWND message loop owner',
-                    selected == _PlatformOwner.win32,
-                  ),
-                ];
+          builder: (BuildContext context, _PlatformOwner selected, Widget? child) {
+            final List<_ImplementationRow> rows = <_ImplementationRow>[
+              _ImplementationRow('Linux', 'Wayland/X11 bridge', selected == _PlatformOwner.linux),
+              _ImplementationRow('macOS', 'Cocoa NSWindow adapter', selected == _PlatformOwner.macOS),
+              _ImplementationRow('Win32', 'HWND message loop owner', selected == _PlatformOwner.win32),
+            ];
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      'Implementation Matrix',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17,
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  'Implementation Matrix',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+                ),
+                const SizedBox(height: 10),
+                for (final _ImplementationRow row in rows)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: row.active
+                              ? const Color(0xFF5263B6)
+                              : const Color(0xFFD3DFE6),
+                          width: row.active ? 1.6 : 1,
+                        ),
+                        color: row.active
+                            ? const Color(0xFFEFF2FF)
+                            : const Color(0xFFF8FBFD),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    for (final _ImplementationRow row in rows)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: row.active
-                                  ? const Color(0xFF5263B6)
-                                  : const Color(0xFFD3DFE6),
-                              width: row.active ? 1.6 : 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: <Widget>[
+                            SizedBox(
+                              width: 100,
+                              child: Text(
+                                row.platform,
+                                style: const TextStyle(fontWeight: FontWeight.w700),
+                              ),
                             ),
-                            color: row.active
-                                ? const Color(0xFFEFF2FF)
-                                : const Color(0xFFF8FBFD),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                              children: <Widget>[
-                                SizedBox(
-                                  width: 100,
-                                  child: Text(
-                                    row.platform,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(child: Text(row.adapter)),
-                                Chip(
-                                  label: Text(
-                                    row.active ? 'active' : 'standby',
-                                  ),
-                                ),
-                              ],
+                            Expanded(child: Text(row.adapter)),
+                            Chip(
+                              label: Text(row.active ? 'active' : 'standby'),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                  ],
-                );
-              },
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -473,81 +430,60 @@ class _OwnerOrchestrationCanvas extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(18),
-        child:
-            ValueListenableBuilder7<
-              _PlatformOwner,
-              _WindowStateMode,
-              double,
-              double,
-              bool,
-              bool,
-              bool
-            >(
-              first: platform,
-              second: stateMode,
-              third: windowCount,
-              fourth: focusWindow,
-              fifth: allowTiling,
-              sixth: allowModalStack,
-              seventh: multiMonitor,
-              builder:
-                  (
-                    BuildContext context,
-                    _PlatformOwner owner,
-                    _WindowStateMode mode,
-                    double count,
-                    double focus,
-                    bool tiling,
-                    bool modal,
-                    bool monitors,
-                  ) {
-                    final _OrchestrationResult result = _simulateOwner(
-                      owner: owner,
-                      stateMode: mode,
-                      windowCount: count.round(),
-                      focusWindow: focus.round(),
-                      allowTiling: tiling,
-                      allowModalStack: modal,
-                      multiMonitor: monitors,
-                    );
+        child: ValueListenableBuilder7<_PlatformOwner, _WindowStateMode, double,
+            double, bool, bool, bool>(
+          first: platform,
+          second: stateMode,
+          third: windowCount,
+          fourth: focusWindow,
+          fifth: allowTiling,
+          sixth: allowModalStack,
+          seventh: multiMonitor,
+          builder: (BuildContext context, _PlatformOwner owner,
+              _WindowStateMode mode, double count, double focus, bool tiling,
+              bool modal, bool monitors) {
+            final _OrchestrationResult result = _simulateOwner(
+              owner: owner,
+              stateMode: mode,
+              windowCount: count.round(),
+              focusWindow: focus.round(),
+              allowTiling: tiling,
+              allowModalStack: modal,
+              multiMonitor: monitors,
+            );
 
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text(
-                          'Orchestration Simulation',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        AspectRatio(
-                          aspectRatio: 1.85,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              border: Border.all(
-                                color: const Color(0xFFD0DEE6),
-                              ),
-                            ),
-                            child: CustomPaint(
-                              painter: _OwnerSimulationPainter(result: result),
-                              child: const SizedBox.expand(),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Dispatch steps: ${result.steps.join(' -> ')}',
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(result.summary),
-                      ],
-                    );
-                  },
-            ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  'Orchestration Simulation',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+                ),
+                const SizedBox(height: 10),
+                AspectRatio(
+                  aspectRatio: 1.85,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: const Color(0xFFD0DEE6)),
+                    ),
+                    child: CustomPaint(
+                      painter: _OwnerSimulationPainter(result: result),
+                      child: const SizedBox.expand(),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Dispatch steps: ${result.steps.join(' -> ')}',
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 4),
+                Text(result.summary),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -606,22 +542,10 @@ class _OwnerMessageTimeline extends StatelessWidget {
           valueListenable: platform,
           builder: (BuildContext context, _PlatformOwner owner, Widget? child) {
             final List<_MessageStep> messages = <_MessageStep>[
-              const _MessageStep(
-                'framework request',
-                'setWindowBounds(windowId, rect)',
-              ),
-              _MessageStep(
-                'owner translate',
-                'translate to ${owner.name} protocol payload',
-              ),
-              const _MessageStep(
-                'platform callback',
-                'native event pushed to bridge queue',
-              ),
-              const _MessageStep(
-                'state sync',
-                'WidgetsBinding observer receives update',
-              ),
+              const _MessageStep('framework request', 'setWindowBounds(windowId, rect)'),
+              _MessageStep('owner translate', 'translate to ${owner.name} protocol payload'),
+              const _MessageStep('platform callback', 'native event pushed to bridge queue'),
+              const _MessageStep('state sync', 'WidgetsBinding observer receives update'),
             ];
 
             return Column(
@@ -643,10 +567,7 @@ class _OwnerMessageTimeline extends StatelessWidget {
                           backgroundColor: const Color(0xFF3F4F9D),
                           child: Text(
                             '${i + 1}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -654,9 +575,7 @@ class _OwnerMessageTimeline extends StatelessWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: const Color(0xFFD3DFE6),
-                              ),
+                              border: Border.all(color: const Color(0xFFD3DFE6)),
                               color: const Color(0xFFF8FBFD),
                             ),
                             child: Padding(
@@ -666,9 +585,8 @@ class _OwnerMessageTimeline extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     messages[i].title,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style:
+                                        const TextStyle(fontWeight: FontWeight.w700),
                                   ),
                                   const SizedBox(height: 3),
                                   Text(messages[i].detail),
@@ -707,8 +625,7 @@ class _OwnerRecipeDeck extends StatelessWidget {
                 title: 'Abstract facade call',
                 code:
                     'owner.setWindowState(windowId, WindowState.maximized);\nowner.setWindowBounds(windowId, nextBounds);',
-                note:
-                    'Callers stay platform-agnostic through the owner contract.',
+                note: 'Callers stay platform-agnostic through the owner contract.',
               ),
               _RecipeCard(
                 title: 'Owner selection',
@@ -720,8 +637,7 @@ class _OwnerRecipeDeck extends StatelessWidget {
                 title: 'Event relay',
                 code:
                     'platformEventStream.listen((event) {\n  owner.dispatchPlatformEvent(event);\n});',
-                note:
-                    'Keeps native callbacks synchronized with framework state.',
+                note: 'Keeps native callbacks synchronized with framework state.',
               ),
             ];
 
@@ -743,9 +659,7 @@ class _OwnerRecipeDeck extends StatelessWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: const Color(0xFFD6E1E6),
-                              ),
+                              border: Border.all(color: const Color(0xFFD6E1E6)),
                               color: const Color(0xFFF8FBFD),
                             ),
                             child: Padding(
@@ -755,9 +669,7 @@ class _OwnerRecipeDeck extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     card.title,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style: const TextStyle(fontWeight: FontWeight.w700),
                                   ),
                                   const SizedBox(height: 8),
                                   Container(
@@ -982,8 +894,8 @@ class ValueListenableBuilder7<A, B, C, D, E, F, G> extends StatelessWidget {
   final ValueNotifier<E> fifth;
   final ValueNotifier<F> sixth;
   final ValueNotifier<G> seventh;
-  final Widget Function(BuildContext context, A a, B b, C c, D d, E e, F f, G g)
-  builder;
+  final Widget Function(BuildContext context, A a, B b, C c, D d, E e, F f,
+      G g) builder;
 
   @override
   Widget build(BuildContext context) {

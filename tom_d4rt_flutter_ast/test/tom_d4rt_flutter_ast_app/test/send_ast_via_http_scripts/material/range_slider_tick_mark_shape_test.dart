@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-enum _TickProfile { minimal, balanced, bold, contrast, accessible }
+enum _TickProfile {
+  minimal,
+  balanced,
+  bold,
+  contrast,
+  accessible,
+}
 
 class _TickPreset {
   const _TickPreset({
@@ -51,7 +57,10 @@ class _TickScenario {
 }
 
 class _TickGuideRow {
-  const _TickGuideRow({required this.title, required this.body});
+  const _TickGuideRow({
+    required this.title,
+    required this.body,
+  });
 
   final String title;
   final String body;
@@ -269,10 +278,9 @@ dynamic build(BuildContext context) {
   bool autoApplyScenario = true;
 
   _TickPreset presetFor(_TickProfile profile) {
-    return presets.firstWhere(
-      (_TickPreset p) => p.profile == profile,
-      orElse: () => presets.first,
-    );
+    return presets.firstWhere((
+      _TickPreset p,
+    ) => p.profile == profile, orElse: () => presets.first);
   }
 
   String twoDigits(int value) => value.toString().padLeft(2, '0');
@@ -310,11 +318,7 @@ dynamic build(BuildContext context) {
     return ((value - min) / span).clamp(0, 1);
   }
 
-  SliderThemeData makeTheme(
-    BuildContext context,
-    _TickPreset preset,
-    bool enabled,
-  ) {
+  SliderThemeData makeTheme(BuildContext context, _TickPreset preset, bool enabled) {
     final Color active = preset.color;
     final Color inactive = preset.color.withValues(alpha: 0.28);
     final Color disabledColor = Colors.blueGrey.shade300;
@@ -332,9 +336,7 @@ dynamic build(BuildContext context) {
       ),
       trackHeight: preset.trackHeight,
       activeTrackColor: enabled ? active : disabledColor,
-      inactiveTrackColor: enabled
-          ? inactive
-          : disabledColor.withValues(alpha: 0.5),
+      inactiveTrackColor: enabled ? inactive : disabledColor.withValues(alpha: 0.5),
       activeTickMarkColor: enabled
           ? active.withValues(alpha: 0.88)
           : disabledColor.withValues(alpha: 0.7),
@@ -379,10 +381,8 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 2),
               Text(
@@ -419,10 +419,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            metric.value,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
+          Text(metric.value, style: const TextStyle(fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -555,10 +552,7 @@ dynamic build(BuildContext context) {
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.15),
-                        avatar: const Icon(
-                          Icons.swap_horiz,
-                          color: Colors.white,
-                        ),
+                        avatar: const Icon(Icons.swap_horiz, color: Colors.white),
                         label: Text(
                           '${formatValue(values.start, unit)} - ${formatValue(values.end, unit)}',
                           style: const TextStyle(color: Colors.white),
@@ -591,22 +585,17 @@ dynamic build(BuildContext context) {
                     spacing: 10,
                     runSpacing: 10,
                     children: presets.map((_TickPreset preset) {
-                      final bool selectedChip =
-                          preset.profile == selectedProfile;
+                      final bool selectedChip = preset.profile == selectedProfile;
                       return ChoiceChip(
                         selected: selectedChip,
                         selectedColor: preset.color.withValues(alpha: 0.2),
                         avatar: Icon(
                           preset.icon,
                           size: 18,
-                          color: selectedChip
-                              ? preset.color
-                              : Colors.blueGrey.shade600,
+                          color: selectedChip ? preset.color : Colors.blueGrey.shade600,
                         ),
                         labelStyle: TextStyle(
-                          color: selectedChip
-                              ? preset.color
-                              : Colors.blueGrey.shade700,
+                          color: selectedChip ? preset.color : Colors.blueGrey.shade700,
                           fontWeight: FontWeight.w700,
                         ),
                         label: Text(preset.title),
@@ -691,9 +680,7 @@ dynamic build(BuildContext context) {
                           setState(() {
                             enabled = value;
                           });
-                          addLog(
-                            'Enabled switched to ${value ? 'true' : 'false'}.',
-                          );
+                          addLog('Enabled switched to ${value ? 'true' : 'false'}.');
                         },
                       ),
                       FilterChip(
@@ -813,8 +800,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Tick Metrics Dashboard',
-              subtitle:
-                  'Quantitative view of division density, span, and tick geometry.',
+              subtitle: 'Quantitative view of division density, span, and tick geometry.',
               icon: Icons.dashboard,
             ),
             const SizedBox(height: 10),
@@ -823,8 +809,10 @@ dynamic build(BuildContext context) {
               runSpacing: 10,
               children: metrics
                   .map(
-                    (_QuickMetric m) =>
-                        SizedBox(width: 220, child: metricTile(m)),
+                    (_QuickMetric m) => SizedBox(
+                      width: 220,
+                      child: metricTile(m),
+                    ),
                   )
                   .toList(),
             ),
@@ -837,9 +825,7 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 10),
             Column(
-              children: scenarios.asMap().entries.map((
-                MapEntry<int, _TickScenario> entry,
-              ) {
+              children: scenarios.asMap().entries.map((MapEntry<int, _TickScenario> entry) {
                 final int index = entry.key;
                 final _TickScenario scenario = entry.value;
                 final _TickPreset scenarioPreset = presetFor(scenario.profile);
@@ -963,20 +949,15 @@ dynamic build(BuildContext context) {
               child: showComparison
                   ? Column(
                       children: presets.map((_TickPreset preset) {
-                        final bool highlight =
-                            preset.profile == selectedProfile;
+                        final bool highlight = preset.profile == selectedProfile;
                         return Container(
                           margin: const EdgeInsets.only(bottom: 10),
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: preset.color.withValues(
-                              alpha: highlight ? 0.16 : 0.08,
-                            ),
+                            color: preset.color.withValues(alpha: highlight ? 0.16 : 0.08),
                             border: Border.all(
-                              color: preset.color.withValues(
-                                alpha: highlight ? 0.45 : 0.25,
-                              ),
+                              color: preset.color.withValues(alpha: highlight ? 0.45 : 0.25),
                             ),
                           ),
                           child: Column(
@@ -1117,9 +1098,7 @@ dynamic build(BuildContext context) {
                       ),
                     )
                   : Column(
-                      children: timeline.asMap().entries.map((
-                        MapEntry<int, _TickSnapshot> entry,
-                      ) {
+                      children: timeline.asMap().entries.map((MapEntry<int, _TickSnapshot> entry) {
                         final _TickSnapshot row = entry.value;
                         return Container(
                           margin: const EdgeInsets.only(bottom: 8),
@@ -1127,9 +1106,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: row.color.withValues(alpha: 0.08),
-                            border: Border.all(
-                              color: row.color.withValues(alpha: 0.30),
-                            ),
+                            border: Border.all(color: row.color.withValues(alpha: 0.30)),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1148,9 +1125,7 @@ dynamic build(BuildContext context) {
                                   children: <Widget>[
                                     Text(
                                       row.title,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                      style: const TextStyle(fontWeight: FontWeight.w700),
                                     ),
                                     const SizedBox(height: 3),
                                     Text(
@@ -1172,8 +1147,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'RangeSliderTickMarkShape Guide',
-              subtitle:
-                  'Practical recommendations for designing stepped range interactions.',
+              subtitle: 'Practical recommendations for designing stepped range interactions.',
               icon: Icons.menu_book,
             ),
             const SizedBox(height: 10),
@@ -1199,11 +1173,7 @@ dynamic build(BuildContext context) {
                           width: double.infinity,
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Colors.blueGrey.shade50,
-                              ),
-                            ),
+                            border: Border(bottom: BorderSide(color: Colors.blueGrey.shade50)),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1233,8 +1203,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Reference Pattern',
-              subtitle:
-                  'Canonical SliderTheme usage for custom RangeSliderTickMarkShape behavior.',
+              subtitle: 'Canonical SliderTheme usage for custom RangeSliderTickMarkShape behavior.',
               icon: Icons.code,
             ),
             const SizedBox(height: 10),
@@ -1271,8 +1240,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Diagnostics Console',
-              subtitle:
-                  'Session log of profile changes, scenario loads, and state operations.',
+              subtitle: 'Session log of profile changes, scenario loads, and state operations.',
               icon: Icons.terminal,
             ),
             const SizedBox(height: 10),
@@ -1375,12 +1343,7 @@ class _TickDiagnosticsPainter extends CustomPainter {
       background,
     );
 
-    final Rect track = Rect.fromLTWH(
-      24,
-      size.height * 0.62,
-      size.width - 48,
-      16,
-    );
+    final Rect track = Rect.fromLTWH(24, size.height * 0.62, size.width - 48, 16);
     canvas.drawRRect(
       RRect.fromRectAndRadius(track, const Radius.circular(999)),
       Paint()..color = const Color(0xFFCFD8DC),
@@ -1390,21 +1353,12 @@ class _TickDiagnosticsPainter extends CustomPainter {
 
     for (int i = 0; i <= safeDivisions; i++) {
       final double x = track.left + (track.width * (i / safeDivisions));
-      final bool milestone =
-          showMilestones &&
-          (safeDivisions >= 4) &&
-          (i % (safeDivisions ~/ 4 == 0 ? 1 : safeDivisions ~/ 4) == 0);
-      final double radius = milestone
-          ? preset.tickRadius + 1.2
-          : preset.tickRadius;
+      final bool milestone = showMilestones && (safeDivisions >= 4) && (i % (safeDivisions ~/ 4 == 0 ? 1 : safeDivisions ~/ 4) == 0);
+      final double radius = milestone ? preset.tickRadius + 1.2 : preset.tickRadius;
       final Color color = milestone
           ? preset.color.withValues(alpha: enabled ? 0.88 : 0.5)
           : preset.color.withValues(alpha: enabled ? 0.44 : 0.24);
-      canvas.drawCircle(
-        Offset(x, track.center.dy),
-        radius,
-        Paint()..color = color,
-      );
+      canvas.drawCircle(Offset(x, track.center.dy), radius, Paint()..color = color);
     }
 
     final double sx = track.left + (track.width * startNorm);
@@ -1461,10 +1415,7 @@ class _TickDiagnosticsPainter extends CustomPainter {
       final Rect rect = Rect.fromLTWH(x, anchor.dy - 62, width, height);
 
       final Paint paint = Paint()..color = preset.color.withValues(alpha: 0.92);
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(rect, const Radius.circular(10)),
-        paint,
-      );
+      canvas.drawRRect(RRect.fromRectAndRadius(rect, const Radius.circular(10)), paint);
 
       final Path tail = Path();
       if (left) {
@@ -1501,12 +1452,7 @@ class _TickDiagnosticsPainter extends CustomPainter {
     )..layout(maxWidth: size.width - 16);
     headline.paint(canvas, const Offset(8, 8));
 
-    final Rect info = Rect.fromLTWH(
-      14,
-      size.height * 0.14,
-      size.width - 28,
-      102,
-    );
+    final Rect info = Rect.fromLTWH(14, size.height * 0.14, size.width - 28, 102);
     canvas.drawRRect(
       RRect.fromRectAndRadius(info, const Radius.circular(10)),
       Paint()..color = preset.color.withValues(alpha: 0.10),

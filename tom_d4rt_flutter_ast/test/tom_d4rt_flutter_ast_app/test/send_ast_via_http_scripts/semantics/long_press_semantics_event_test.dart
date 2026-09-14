@@ -190,7 +190,10 @@ dynamic build(BuildContext context) {
       children: [
         Text('LongPressSemanticsEvent', style: bannerTitle),
         const SizedBox(height: 6),
-        Text('Granite Watchtower / a deep visual demo', style: bannerSub),
+        Text(
+          'Granite Watchtower / a deep visual demo',
+          style: bannerSub,
+        ),
         const SizedBox(height: 14),
         Text(
           'package:flutter/semantics.dart',
@@ -264,15 +267,13 @@ dynamic build(BuildContext context) {
               Text('Object', style: codeText),
               Text('  └── SemanticsEvent (abstract)', style: codeText),
               Text('         ├── TapSemanticsEvent', style: codeText),
-              Text(
-                '         ├── LongPressSemanticsEvent  ← this demo',
-                style: TextStyle(
-                  color: signalAmber,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text('         ├── LongPressSemanticsEvent  ← this demo',
+                  style: TextStyle(
+                    color: signalAmber,
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  )),
               Text('         ├── FocusSemanticsEvent', style: codeText),
               Text('         ├── AnnounceSemanticsEvent', style: codeText),
               Text('         └── TooltipSemanticsEvent', style: codeText),
@@ -438,8 +439,18 @@ dynamic build(BuildContext context) {
       'FocusSemanticsEvent',
     ],
     ['type string', 'longPress', 'tap', 'focus'],
-    ['getDataMap()', 'const {}', 'const {}', 'const {}'],
-    ['constructor args', 'none', 'none', 'none'],
+    [
+      'getDataMap()',
+      'const {}',
+      'const {}',
+      'const {}',
+    ],
+    [
+      'constructor args',
+      'none',
+      'none',
+      'none',
+    ],
     [
       'native trigger (iOS)',
       'VoiceOver double-tap-and-hold',
@@ -458,13 +469,48 @@ dynamic build(BuildContext context) {
       'Semantics(onTap: ...)',
       'Focus / FocusNode',
     ],
-    ['payload size', '0 bytes', '0 bytes', '0 bytes'],
-    ['idempotent re-fire', 'safe', 'safe', 'discouraged'],
-    ['raises context menu?', 'often', 'rarely', 'never'],
-    ['expected duration', '~500 ms', '<200 ms', 'instantaneous'],
-    ['analog mouse gesture', 'right-click context', 'left-click', 'tab key'],
-    ['haptic by default', 'yes', 'no', 'no'],
-    ['cancel on motion', 'yes', 'no', 'n/a'],
+    [
+      'payload size',
+      '0 bytes',
+      '0 bytes',
+      '0 bytes',
+    ],
+    [
+      'idempotent re-fire',
+      'safe',
+      'safe',
+      'discouraged',
+    ],
+    [
+      'raises context menu?',
+      'often',
+      'rarely',
+      'never',
+    ],
+    [
+      'expected duration',
+      '~500 ms',
+      '<200 ms',
+      'instantaneous',
+    ],
+    [
+      'analog mouse gesture',
+      'right-click context',
+      'left-click',
+      'tab key',
+    ],
+    [
+      'haptic by default',
+      'yes',
+      'no',
+      'no',
+    ],
+    [
+      'cancel on motion',
+      'yes',
+      'no',
+      'n/a',
+    ],
   ];
 
   final Widget section5Compare = Container(
@@ -630,53 +676,28 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
         Column(
           children: [
-            _hopCard(
-              '1',
-              'Widget',
-              'Semantics widget declares onLongPress.',
-              signalAmber,
-              basaltInk,
-            ),
+            _hopCard('1', 'Widget',
+                'Semantics widget declares onLongPress.', signalAmber, basaltInk),
             _hopArrow(slateDeep),
-            _hopCard(
-              '2',
-              'Element',
-              'Element binds Widget to the RenderObject tree.',
-              lichenMid,
-              basaltInk,
-            ),
+            _hopCard('2', 'Element',
+                'Element binds Widget to the RenderObject tree.', lichenMid,
+                basaltInk),
             _hopArrow(slateDeep),
-            _hopCard(
-              '3',
-              'RenderObject',
-              'RenderSemanticsAnnotations.sendSemanticsEvent fires.',
-              watchFire,
-              fogPaper,
-            ),
+            _hopCard('3', 'RenderObject',
+                'RenderSemanticsAnnotations.sendSemanticsEvent fires.',
+                watchFire, fogPaper),
             _hopArrow(slateDeep),
-            _hopCard(
-              '4',
-              'SemanticsNode',
-              'Node id stamped onto the outgoing event envelope.',
-              beaconRed,
-              fogPaper,
-            ),
+            _hopCard('4', 'SemanticsNode',
+                'Node id stamped onto the outgoing event envelope.',
+                beaconRed, fogPaper),
             _hopArrow(slateDeep),
-            _hopCard(
-              '5',
-              'SemanticsOwner',
-              'Owner serialises via toMap(nodeId: node.id).',
-              slateDeep,
-              fogPaper,
-            ),
+            _hopCard('5', 'SemanticsOwner',
+                'Owner serialises via toMap(nodeId: node.id).',
+                slateDeep, fogPaper),
             _hopArrow(slateDeep),
-            _hopCard(
-              '6',
-              'Platform channel',
-              'Engine forwards to iOS / Android / Web a11y bridge.',
-              basaltInk,
-              fogPaper,
-            ),
+            _hopCard('6', 'Platform channel',
+                'Engine forwards to iOS / Android / Web a11y bridge.',
+                basaltInk, fogPaper),
           ],
         ),
       ],
@@ -873,13 +894,8 @@ dynamic build(BuildContext context) {
           style: sectionLead,
         ),
         const SizedBox(height: 14),
-        _codeCard(
-          'framework dispatch',
-          snippet1,
-          basaltInk,
-          codeText,
-          signalAmber,
-        ),
+        _codeCard('framework dispatch', snippet1, basaltInk, codeText,
+            signalAmber),
         const SizedBox(height: 10),
         _codeCard('widget wiring', snippet2, basaltInk, codeText, lichenSoft),
         const SizedBox(height: 10),
@@ -926,7 +942,10 @@ dynamic build(BuildContext context) {
       'Element',
       'Glue between Widget and RenderObject; participates in updates.',
     ],
-    ['Widget', 'Configuration leaf — Semantics widgets declare a11y intent.'],
+    [
+      'Widget',
+      'Configuration leaf — Semantics widgets declare a11y intent.',
+    ],
     [
       'Long-press recognizer',
       'Gesture detector that accepts the gesture after ~500 ms of stillness.',
@@ -939,7 +958,10 @@ dynamic build(BuildContext context) {
       'TalkBack',
       'Google\'s screen reader; emits long press as double-tap-and-hold.',
     ],
-    ['Hint', 'A short verb-phrase the screen reader speaks for a gesture.'],
+    [
+      'Hint',
+      'A short verb-phrase the screen reader speaks for a gesture.',
+    ],
     [
       'Platform channel',
       'The bridge between Dart and the host OS\'s a11y stack.',
@@ -1094,7 +1116,11 @@ Widget _swatch(String label, Color color, Color textColor) {
     ),
     child: Text(
       label,
-      style: TextStyle(color: textColor, fontSize: 11, fontFamily: 'monospace'),
+      style: TextStyle(
+        color: textColor,
+        fontSize: 11,
+        fontFamily: 'monospace',
+      ),
     ),
   );
 }
@@ -1112,7 +1138,9 @@ Widget _propRow(
     decoration: BoxDecoration(
       color: paper,
       borderRadius: BorderRadius.circular(8),
-      border: Border(left: BorderSide(color: accent, width: 4)),
+      border: Border(
+        left: BorderSide(color: accent, width: 4),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1143,7 +1171,10 @@ Widget _propRow(
           ],
         ),
         const SizedBox(height: 6),
-        Text(prose, style: TextStyle(color: ink, fontSize: 12, height: 1.4)),
+        Text(
+          prose,
+          style: TextStyle(color: ink, fontSize: 12, height: 1.4),
+        ),
       ],
     ),
   );
@@ -1175,7 +1206,10 @@ Widget _timelineMark(String time, String label, Color color) {
       const SizedBox(height: 2),
       Text(
         label,
-        style: TextStyle(color: const Color(0xFFE9ECEF), fontSize: 10),
+        style: TextStyle(
+          color: const Color(0xFFE9ECEF),
+          fontSize: 10,
+        ),
       ),
     ],
   );
@@ -1325,7 +1359,10 @@ Widget _galleryCard(
           ),
         ),
         const SizedBox(height: 6),
-        Text(prose, style: TextStyle(color: fg, fontSize: 11, height: 1.4)),
+        Text(
+          prose,
+          style: TextStyle(color: fg, fontSize: 11, height: 1.4),
+        ),
         const SizedBox(height: 10),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
@@ -1368,7 +1405,13 @@ Widget _galleryCard(
   );
 }
 
-Widget _hopCard(String index, String title, String prose, Color bg, Color fg) {
+Widget _hopCard(
+  String index,
+  String title,
+  String prose,
+  Color bg,
+  Color fg,
+) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(12),
@@ -1438,7 +1481,13 @@ Widget _hopArrow(Color color) {
   );
 }
 
-Widget _calloutCard(bool good, String title, String prose, Color bg, Color fg) {
+Widget _calloutCard(
+  bool good,
+  String title,
+  String prose,
+  Color bg,
+  Color fg,
+) {
   return Container(
     width: 260,
     padding: const EdgeInsets.all(12),
@@ -1485,13 +1534,21 @@ Widget _calloutCard(bool good, String title, String prose, Color bg, Color fg) {
           ],
         ),
         const SizedBox(height: 8),
-        Text(prose, style: TextStyle(color: fg, fontSize: 11.5, height: 1.4)),
+        Text(
+          prose,
+          style: TextStyle(color: fg, fontSize: 11.5, height: 1.4),
+        ),
       ],
     ),
   );
 }
 
-Widget _scenarioCard(String title, String prose, Color bg, Color fg) {
+Widget _scenarioCard(
+  String title,
+  String prose,
+  Color bg,
+  Color fg,
+) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(12),
@@ -1511,7 +1568,10 @@ Widget _scenarioCard(String title, String prose, Color bg, Color fg) {
           ),
         ),
         const SizedBox(height: 6),
-        Text(prose, style: TextStyle(color: fg, fontSize: 12, height: 1.4)),
+        Text(
+          prose,
+          style: TextStyle(color: fg, fontSize: 12, height: 1.4),
+        ),
       ],
     ),
   );
@@ -1530,7 +1590,9 @@ Widget _codeCard(
     decoration: BoxDecoration(
       color: bg,
       borderRadius: BorderRadius.circular(10),
-      border: Border(left: BorderSide(color: accent, width: 4)),
+      border: Border(
+        left: BorderSide(color: accent, width: 4),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1551,7 +1613,12 @@ Widget _codeCard(
   );
 }
 
-Widget _glossRow(List<String> entry, Color bg, Color fg, Color accent) {
+Widget _glossRow(
+  List<String> entry,
+  Color bg,
+  Color fg,
+  Color accent,
+) {
   return Container(
     width: double.infinity,
     color: bg,

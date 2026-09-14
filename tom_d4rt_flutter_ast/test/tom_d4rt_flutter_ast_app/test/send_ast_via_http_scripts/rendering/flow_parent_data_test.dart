@@ -55,10 +55,7 @@ dynamic build(BuildContext context) {
       child: Text(
         label,
         style: TextStyle(
-          color: color,
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-        ),
+            color: color, fontSize: 11, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -78,34 +75,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: cAccentA, width: 1.2),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text(
-              index,
-              style: const TextStyle(
-                color: cAccentA,
-                fontWeight: FontWeight.w800,
-                fontSize: 13,
-              ),
-            ),
+            child: Text(index,
+                style: const TextStyle(
+                    color: cAccentA,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13)),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: cText,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.3,
-                  ),
-                ),
+                Text(title,
+                    style: const TextStyle(
+                        color: cText,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.3)),
                 const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: const TextStyle(color: cTextDim, fontSize: 12),
-                ),
+                Text(subtitle,
+                    style:
+                        const TextStyle(color: cTextDim, fontSize: 12)),
               ],
             ),
           ),
@@ -114,12 +104,10 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget panel(
-    Widget child, {
-    EdgeInsets padding = const EdgeInsets.all(16),
-    Color bg = cPanel,
-    Color border = cBorder,
-  }) {
+  Widget panel(Widget child,
+      {EdgeInsets padding = const EdgeInsets.all(16),
+      Color bg = cPanel,
+      Color border = cBorder}) {
     return Container(
       width: double.infinity,
       padding: padding,
@@ -140,20 +128,16 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 130,
-            child: Text(
-              k,
-              style: TextStyle(
-                color: accent ?? cTextDim,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(k,
+                style: TextStyle(
+                    color: accent ?? cTextDim,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600)),
           ),
           Expanded(
-            child: Text(
-              v,
-              style: const TextStyle(color: cText, fontSize: 12, height: 1.35),
-            ),
+            child: Text(v,
+                style: const TextStyle(
+                    color: cText, fontSize: 12, height: 1.35)),
           ),
         ],
       ),
@@ -169,15 +153,12 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: edge, width: 3)),
       ),
-      child: Text(
-        code,
-        style: TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 11.5,
-          height: 1.45,
-          color: cText.withValues(alpha: 0.92),
-        ),
-      ),
+      child: Text(code,
+          style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              height: 1.45,
+              color: cText.withValues(alpha: 0.92))),
     );
   }
 
@@ -209,29 +190,23 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(14),
           ),
           alignment: Alignment.center,
-          child: const Text(
-            'FP',
-            style: TextStyle(
-              color: cAccentB,
-              fontWeight: FontWeight.w900,
-              fontSize: 20,
-            ),
-          ),
+          child: const Text('FP',
+              style: TextStyle(
+                  color: cAccentB,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 20)),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'FlowParentData',
-                style: TextStyle(
-                  color: cText,
-                  fontSize: 26,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 0.4,
-                ),
-              ),
+              const Text('FlowParentData',
+                  style: TextStyle(
+                      color: cText,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 0.4)),
               const SizedBox(height: 4),
               const Text(
                 'Per-child transform carrier for Flow widget paint phase',
@@ -249,14 +224,11 @@ dynamic build(BuildContext context) {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(
-                parentDataReport,
-                style: const TextStyle(
-                  color: cTextDim,
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text(parentDataReport,
+                  style: const TextStyle(
+                      color: cTextDim,
+                      fontSize: 11,
+                      fontFamily: 'monospace')),
             ],
           ),
         ),
@@ -275,31 +247,27 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
-      child: Text(
-        label,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: color,
-          fontSize: 12.5,
-          fontWeight: FontWeight.w800,
-        ),
-      ),
+      child: Text(label,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: color,
+              fontSize: 12.5,
+              fontWeight: FontWeight.w800)),
     );
   }
 
   Widget arrow(String label, double width, {Color color = cTextDim}) {
     return Column(
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            color: color,
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                color: color, fontSize: 10, fontWeight: FontWeight.w600)),
         const SizedBox(height: 2),
-        Container(width: width, height: 2, color: color.withValues(alpha: 0.6)),
+        Container(
+          width: width,
+          height: 2,
+          color: color.withValues(alpha: 0.6),
+        ),
       ],
     );
   }
@@ -308,14 +276,9 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Architectural triangle',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Architectural triangle',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 14),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -328,7 +291,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [arrow('mutated by', 80, color: cAccentC)],
+          children: [
+            arrow('mutated by', 80, color: cAccentC),
+          ],
         ),
         const SizedBox(height: 8),
         Center(child: node('FlowDelegate.paintChildren()', cAccentC, 240)),
@@ -355,20 +320,15 @@ dynamic build(BuildContext context) {
             ? color.withValues(alpha: 0.08)
             : color.withValues(alpha: 0.28),
         border: Border.all(
-          color: color.withValues(alpha: dim ? 0.3 : 0.9),
-          width: 1,
-        ),
+            color: color.withValues(alpha: dim ? 0.3 : 0.9), width: 1),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: dim ? cTextDim : color,
-          fontFamily: 'monospace',
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
+      child: Text(label,
+          style: TextStyle(
+              color: dim ? cTextDim : color,
+              fontFamily: 'monospace',
+              fontSize: 11,
+              fontWeight: FontWeight.w700)),
     );
   }
 
@@ -380,14 +340,9 @@ dynamic build(BuildContext context) {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Anatomy of the per-child Matrix4',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Anatomy of the per-child Matrix4',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 4),
         const Text(
           'Each FlowParentData carries a 4x4 matrix that the delegate '
@@ -431,31 +386,24 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      chip('scale', cAccentA),
-                      const SizedBox(width: 6),
-                      chip('rotation/skew', cAccentC),
-                    ],
-                  ),
+                  Row(children: [
+                    chip('scale', cAccentA),
+                    const SizedBox(width: 6),
+                    chip('rotation/skew', cAccentC),
+                  ]),
                   const SizedBox(height: 6),
-                  Row(
-                    children: [
-                      chip('translation', cAccentB),
-                      const SizedBox(width: 6),
-                      chip('perspective', cAccentD),
-                    ],
-                  ),
+                  Row(children: [
+                    chip('translation', cAccentB),
+                    const SizedBox(width: 6),
+                    chip('perspective', cAccentD),
+                  ]),
                   const SizedBox(height: 12),
                   const Text(
                     'For Flow children we typically only set tx, ty, '
                     'sx, sy, and a single rotation around Z. The other '
                     'cells stay at the identity defaults.',
                     style: TextStyle(
-                      color: cTextDim,
-                      fontSize: 11.5,
-                      height: 1.45,
-                    ),
+                        color: cTextDim, fontSize: 11.5, height: 1.45),
                   ),
                 ],
               ),
@@ -481,20 +429,16 @@ dynamic build(BuildContext context) {
         border: Border.all(color: cText.withValues(alpha: 0.4), width: 1),
         boxShadow: [
           BoxShadow(
-            color: color.withValues(alpha: 0.45),
-            blurRadius: 10,
-            spreadRadius: 1,
-          ),
+              color: color.withValues(alpha: 0.45),
+              blurRadius: 10,
+              spreadRadius: 1),
         ],
       ),
-      child: Text(
-        '$i',
-        style: const TextStyle(
-          color: Color(0xFF0E1726),
-          fontWeight: FontWeight.w900,
-          fontSize: 13,
-        ),
-      ),
+      child: Text('$i',
+          style: const TextStyle(
+              color: Color(0xFF0E1726),
+              fontWeight: FontWeight.w900,
+              fontSize: 13)),
     );
   }
 
@@ -504,22 +448,24 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < fanCount; i++) {
     final double t = i / (fanCount - 1);
     final double angle = (t - 0.5) * (math.pi * 0.9);
-    fanChildren.add(
-      Positioned(
-        left: 130,
-        top: 150,
-        child: Transform.rotate(
-          angle: angle,
-          alignment: Alignment.bottomCenter,
-          child: Transform.translate(
-            offset: const Offset(0, -60),
-            child: orb(i, 36, Color.lerp(cAccentA, cAccentC, t) ?? cAccentA),
-          ),
+    fanChildren.add(Positioned(
+      left: 130,
+      top: 150,
+      child: Transform.rotate(
+        angle: angle,
+        alignment: Alignment.bottomCenter,
+        child: Transform.translate(
+          offset: const Offset(0, -60),
+          child: orb(i, 36,
+              Color.lerp(cAccentA, cAccentC, t) ?? cAccentA),
         ),
       ),
-    );
+    ));
   }
-  Widget fanFlow = SizedBox(height: 200, child: Stack(children: fanChildren));
+  Widget fanFlow = SizedBox(
+    height: 200,
+    child: Stack(children: fanChildren),
+  );
 
   // Orbital layout
   List<Widget> orbitChildren = <Widget>[];
@@ -529,35 +475,28 @@ dynamic build(BuildContext context) {
     final double a = (i / orbitCount) * math.pi * 2;
     final double dx = math.cos(a) * orbitRadius;
     final double dy = math.sin(a) * orbitRadius;
-    orbitChildren.add(
-      Positioned(
-        left: 130 + dx - 16,
-        top: 90 + dy - 16,
-        child: orb(
-          i,
-          32,
-          Color.lerp(cAccentB, cAccentD, i / orbitCount) ?? cAccentB,
-        ),
-      ),
-    );
+    orbitChildren.add(Positioned(
+      left: 130 + dx - 16,
+      top: 90 + dy - 16,
+      child: orb(
+          i, 32, Color.lerp(cAccentB, cAccentD, i / orbitCount) ?? cAccentB),
+    ));
   }
-  orbitChildren.add(
-    Positioned(
-      left: 130 - 6,
-      top: 90 - 6,
-      child: Container(
-        width: 12,
-        height: 12,
-        decoration: BoxDecoration(
-          color: cAccentA,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(color: cAccentA.withValues(alpha: 0.6), blurRadius: 8),
-          ],
-        ),
+  orbitChildren.add(Positioned(
+    left: 130 - 6,
+    top: 90 - 6,
+    child: Container(
+      width: 12,
+      height: 12,
+      decoration: BoxDecoration(
+        color: cAccentA,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(color: cAccentA.withValues(alpha: 0.6), blurRadius: 8),
+        ],
       ),
     ),
-  );
+  ));
   Widget orbitFlow = SizedBox(
     height: 200,
     child: Stack(children: orbitChildren),
@@ -571,34 +510,29 @@ dynamic build(BuildContext context) {
     final double scale = 0.55 + t * 0.55;
     final double dx = (t - 0.5) * 90;
     final double dy = (1 - t) * 80;
-    parallaxChildren.add(
-      Positioned(
-        left: 100 + dx,
-        top: 30 + dy,
-        child: Transform.scale(
-          scale: scale,
-          alignment: Alignment.center,
-          child: Container(
-            width: 70,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Color.lerp(cAccentC, cAccentB, t)!.withValues(alpha: 0.85),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: cText.withValues(alpha: 0.5)),
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              'L${i + 1}',
-              style: const TextStyle(
-                color: Color(0xFF0E1726),
-                fontWeight: FontWeight.w900,
-                fontSize: 12,
-              ),
-            ),
+    parallaxChildren.add(Positioned(
+      left: 100 + dx,
+      top: 30 + dy,
+      child: Transform.scale(
+        scale: scale,
+        alignment: Alignment.center,
+        child: Container(
+          width: 70,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Color.lerp(cAccentC, cAccentB, t)!.withValues(alpha: 0.85),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: cText.withValues(alpha: 0.5)),
           ),
+          alignment: Alignment.center,
+          child: Text('L${i + 1}',
+              style: const TextStyle(
+                  color: Color(0xFF0E1726),
+                  fontWeight: FontWeight.w900,
+                  fontSize: 12)),
         ),
       ),
-    );
+    ));
   }
   Widget parallaxFlow = SizedBox(
     height: 200,
@@ -613,25 +547,26 @@ dynamic build(BuildContext context) {
     final double dx = t * 250 + 10;
     final double dy = 90 + math.sin(t * math.pi * 2) * 50;
     final double rot = math.sin(t * math.pi * 2) * 0.5;
-    waveChildren.add(
-      Positioned(
-        left: dx,
-        top: dy,
-        child: Transform.rotate(
-          angle: rot,
-          child: Container(
-            width: 18,
-            height: 32,
-            decoration: BoxDecoration(
-              color: Color.lerp(cAccentD, cAccentA, t)!.withValues(alpha: 0.9),
-              borderRadius: BorderRadius.circular(4),
-            ),
+    waveChildren.add(Positioned(
+      left: dx,
+      top: dy,
+      child: Transform.rotate(
+        angle: rot,
+        child: Container(
+          width: 18,
+          height: 32,
+          decoration: BoxDecoration(
+            color: Color.lerp(cAccentD, cAccentA, t)!.withValues(alpha: 0.9),
+            borderRadius: BorderRadius.circular(4),
           ),
         ),
       ),
-    );
+    ));
   }
-  Widget waveFlow = SizedBox(height: 200, child: Stack(children: waveChildren));
+  Widget waveFlow = SizedBox(
+    height: 200,
+    child: Stack(children: waveChildren),
+  );
 
   Widget mockTitle(String name, String subtitle, Color tint) {
     return Container(
@@ -642,25 +577,18 @@ dynamic build(BuildContext context) {
         children: [
           Container(width: 8, height: 8, color: tint),
           const SizedBox(width: 8),
-          Text(
-            name,
-            style: TextStyle(
-              color: tint,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text(name,
+              style: TextStyle(
+                  color: tint,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800)),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(
-              subtitle,
-              style: const TextStyle(
-                color: cTextDim,
-                fontSize: 11,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ),
+              child: Text(subtitle,
+                  style: const TextStyle(
+                      color: cTextDim,
+                      fontSize: 11,
+                      fontStyle: FontStyle.italic))),
         ],
       ),
     );
@@ -676,7 +604,10 @@ dynamic build(BuildContext context) {
       clipBehavior: Clip.hardEdge,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [mockTitle(name, subtitle, tint), child],
+        children: [
+          mockTitle(name, subtitle, tint),
+          child,
+        ],
       ),
     );
   }
@@ -689,14 +620,11 @@ dynamic build(BuildContext context) {
     mainAxisSpacing: 12,
     crossAxisSpacing: 12,
     children: [
-      mockBox('Fan layout', 'rotation around bottom-center', fanFlow, cAccentA),
+      mockBox('Fan layout', 'rotation around bottom-center', fanFlow,
+          cAccentA),
       mockBox('Orbit', 'translation around a center', orbitFlow, cAccentB),
-      mockBox(
-        'Parallax stack',
-        'scale + translation per layer',
-        parallaxFlow,
-        cAccentC,
-      ),
+      mockBox('Parallax stack', 'scale + translation per layer',
+          parallaxFlow, cAccentC),
       mockBox('Wave', 'sin(x) translation + rotate', waveFlow, cAccentD),
     ],
   );
@@ -731,10 +659,7 @@ class FanDelegate extends FlowDelegate {
         const Text(
           'How a delegate writes into FlowParentData',
           style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
+              color: cText, fontWeight: FontWeight.w800, fontSize: 14),
         ),
         const SizedBox(height: 6),
         const Text(
@@ -753,22 +678,17 @@ class FanDelegate extends FlowDelegate {
   Widget tableHeader(List<String> labels) {
     final List<Widget> cells = <Widget>[];
     for (int i = 0; i < labels.length; i++) {
-      cells.add(
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            color: cAccentA.withValues(alpha: 0.18),
-            child: Text(
-              labels[i],
+      cells.add(Expanded(
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+          color: cAccentA.withValues(alpha: 0.18),
+          child: Text(labels[i],
               style: const TextStyle(
-                color: cAccentA,
-                fontSize: 12,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
+                  color: cAccentA,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800)),
         ),
-      );
+      ));
     }
     return Row(children: cells);
   }
@@ -776,24 +696,17 @@ class FanDelegate extends FlowDelegate {
   Widget tableRow(List<String> cells, {bool alt = false}) {
     final List<Widget> ws = <Widget>[];
     for (int i = 0; i < cells.length; i++) {
-      ws.add(
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            color: alt
-                ? cPanel.withValues(alpha: 0.6)
-                : cPanelAlt.withValues(alpha: 0.6),
-            child: Text(
-              cells[i],
+      ws.add(Expanded(
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+          color: alt
+              ? cPanel.withValues(alpha: 0.6)
+              : cPanelAlt.withValues(alpha: 0.6),
+          child: Text(cells[i],
               style: const TextStyle(
-                color: cText,
-                fontSize: 11.5,
-                height: 1.35,
-              ),
-            ),
-          ),
+                  color: cText, fontSize: 11.5, height: 1.35)),
         ),
-      );
+      ));
     }
     return Row(children: ws);
   }
@@ -802,31 +715,18 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'FlowParentData vs siblings',
-          style: TextStyle(
-            color: cText,
-            fontSize: 14,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        const Text('FlowParentData vs siblings',
+            style: TextStyle(
+                color: cText, fontSize: 14, fontWeight: FontWeight.w800)),
         const SizedBox(height: 10),
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Column(
             children: [
-              tableHeader(const [
-                'field',
-                'FlowParentData',
-                'StackParentData',
-                'ContainerBoxParentData',
-              ]),
-              tableRow(const [
-                'offset',
-                'inherited (origin)',
-                'computed by Stack',
-                'inherited',
-              ]),
+              tableHeader(const ['field', 'FlowParentData',
+                'StackParentData', 'ContainerBoxParentData']),
+              tableRow(const ['offset', 'inherited (origin)',
+                'computed by Stack', 'inherited']),
               tableRow(const [
                 'transform',
                 'private 4x4, set via paintChild',
@@ -871,12 +771,8 @@ class FanDelegate extends FlowDelegate {
   );
 
   // ---- Section 7: parent-data widgets reference card ----------------
-  Widget refRow(
-    String widget,
-    String parentDataType,
-    String purpose, {
-    bool alt = false,
-  }) {
+  Widget refRow(String widget, String parentDataType, String purpose,
+      {bool alt = false}) {
     return Container(
       color: alt ? cPanel.withValues(alpha: 0.4) : Colors.transparent,
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
@@ -884,34 +780,24 @@ class FanDelegate extends FlowDelegate {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 110,
-            child: Text(
-              widget,
-              style: const TextStyle(
-                color: cAccentB,
-                fontSize: 12,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
+              width: 110,
+              child: Text(widget,
+                  style: const TextStyle(
+                      color: cAccentB,
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w800))),
           SizedBox(
-            width: 170,
-            child: Text(
-              parentDataType,
-              style: const TextStyle(
-                color: cAccentD,
-                fontSize: 11,
-                fontFamily: 'monospace',
-              ),
-            ),
-          ),
+              width: 170,
+              child: Text(parentDataType,
+                  style: const TextStyle(
+                      color: cAccentD,
+                      fontSize: 11,
+                      fontFamily: 'monospace'))),
           Expanded(
-            child: Text(
-              purpose,
-              style: const TextStyle(color: cText, fontSize: 11.5),
-            ),
-          ),
+              child: Text(purpose,
+                  style:
+                      const TextStyle(color: cText, fontSize: 11.5))),
         ],
       ),
     );
@@ -921,64 +807,28 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Parent-data widgets in Flutter (reference)',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Parent-data widgets in Flutter (reference)',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 8),
-        refRow(
-          'Flow',
-          'FlowParentData',
-          'paint-only Matrix4 per child, set by FlowDelegate',
-        ),
-        refRow(
-          'Positioned',
-          'StackParentData',
-          'absolute positioning in a Stack',
-          alt: true,
-        ),
-        refRow(
-          'Flexible',
-          'FlexParentData',
-          'flex factor + fit inside Row/Column/Flex',
-        ),
-        refRow(
-          'Expanded',
-          'FlexParentData',
-          'shorthand for Flexible(fit: tight)',
-          alt: true,
-        ),
-        refRow(
-          'LayoutId',
-          'MultiChildLayoutParentData',
-          'tag for CustomMultiChildLayout delegate',
-        ),
-        refRow(
-          'TableCell',
-          'TableCellParentData',
-          'vertical alignment inside Table row',
-          alt: true,
-        ),
-        refRow(
-          'SliverGridTile',
-          'SliverGridParentData',
-          'grid cell info per sliver child',
-        ),
-        refRow(
-          'KeepAlive',
-          'KeepAliveParentDataMixin',
-          'prevent disposal in lazy lists',
-          alt: true,
-        ),
-        refRow(
-          'ListBody',
-          'BoxParentData',
-          'simple sequential layout, no extras',
-        ),
+        refRow('Flow', 'FlowParentData',
+            'paint-only Matrix4 per child, set by FlowDelegate'),
+        refRow('Positioned', 'StackParentData',
+            'absolute positioning in a Stack', alt: true),
+        refRow('Flexible', 'FlexParentData',
+            'flex factor + fit inside Row/Column/Flex'),
+        refRow('Expanded', 'FlexParentData',
+            'shorthand for Flexible(fit: tight)', alt: true),
+        refRow('LayoutId', 'MultiChildLayoutParentData',
+            'tag for CustomMultiChildLayout delegate'),
+        refRow('TableCell', 'TableCellParentData',
+            'vertical alignment inside Table row', alt: true),
+        refRow('SliverGridTile', 'SliverGridParentData',
+            'grid cell info per sliver child'),
+        refRow('KeepAlive', 'KeepAliveParentDataMixin',
+            'prevent disposal in lazy lists', alt: true),
+        refRow('ListBody', 'BoxParentData',
+            'simple sequential layout, no extras'),
       ],
     ),
   );
@@ -999,23 +849,19 @@ class FanDelegate extends FlowDelegate {
             children: [
               Container(width: 8, height: 8, color: tint),
               const SizedBox(width: 6),
-              Text(
-                title,
-                style: TextStyle(
-                  color: tint,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      color: tint,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w800)),
             ],
           ),
           const SizedBox(height: 8),
           SizedBox(height: 110, child: visual),
           const SizedBox(height: 6),
-          Text(
-            desc,
-            style: const TextStyle(color: cTextDim, fontSize: 11, height: 1.35),
-          ),
+          Text(desc,
+              style: const TextStyle(
+                  color: cTextDim, fontSize: 11, height: 1.35)),
         ],
       ),
     );
@@ -1026,29 +872,27 @@ class FanDelegate extends FlowDelegate {
   // transform — they all draw at the origin).
   List<Widget> identityChildren = <Widget>[];
   for (int i = 0; i < 4; i++) {
-    identityChildren.add(
-      Positioned(
-        left: 10,
-        top: 10,
-        child: Opacity(
-          opacity: 0.55,
-          child: orb(i, 28, Color.lerp(cAccentA, cAccentB, i / 3) ?? cAccentA),
-        ),
+    identityChildren.add(Positioned(
+      left: 10,
+      top: 10,
+      child: Opacity(
+        opacity: 0.55,
+        child: orb(i, 28,
+            Color.lerp(cAccentA, cAccentB, i / 3) ?? cAccentA),
       ),
-    );
+    ));
   }
   Widget identityVis = Stack(children: identityChildren);
 
   // translation only
   List<Widget> translationChildren = <Widget>[];
   for (int i = 0; i < 5; i++) {
-    translationChildren.add(
-      Positioned(
-        left: 6 + i * 36,
-        top: 30,
-        child: orb(i, 30, Color.lerp(cAccentC, cAccentB, i / 4) ?? cAccentC),
-      ),
-    );
+    translationChildren.add(Positioned(
+      left: 6 + i * 36,
+      top: 30,
+      child: orb(i, 30,
+          Color.lerp(cAccentC, cAccentB, i / 4) ?? cAccentC),
+    ));
   }
   Widget translationVis = Stack(children: translationChildren);
 
@@ -1056,19 +900,18 @@ class FanDelegate extends FlowDelegate {
   List<Widget> rotScaleChildren = <Widget>[];
   for (int i = 0; i < 5; i++) {
     final double t = i / 4;
-    rotScaleChildren.add(
-      Positioned(
-        left: 6 + i * 36,
-        top: 25,
-        child: Transform.rotate(
-          angle: (t - 0.5) * 1.2,
-          child: Transform.scale(
-            scale: 0.7 + t * 0.7,
-            child: orb(i, 28, Color.lerp(cAccentD, cAccentA, t) ?? cAccentD),
-          ),
+    rotScaleChildren.add(Positioned(
+      left: 6 + i * 36,
+      top: 25,
+      child: Transform.rotate(
+        angle: (t - 0.5) * 1.2,
+        child: Transform.scale(
+          scale: 0.7 + t * 0.7,
+          child: orb(i, 28,
+              Color.lerp(cAccentD, cAccentA, t) ?? cAccentD),
         ),
       ),
-    );
+    ));
   }
   Widget rotScaleVis = Stack(children: rotScaleChildren);
 
@@ -1076,46 +919,38 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Edge cases of the per-child transform',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Edge cases of the per-child transform',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: edgeMini(
-                'identity',
-                identityVis,
-                'No paintChild call, or transform = Matrix4.identity(): '
-                    'every child is drawn at the origin and they overlap.',
-                cAccentA,
-              ),
+                  'identity',
+                  identityVis,
+                  'No paintChild call, or transform = Matrix4.identity(): '
+                  'every child is drawn at the origin and they overlap.',
+                  cAccentA),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: edgeMini(
-                'translate-only',
-                translationVis,
-                'transform = Matrix4.translationValues(tx,ty,0): '
-                    'common case, places children in a row.',
-                cAccentB,
-              ),
+                  'translate-only',
+                  translationVis,
+                  'transform = Matrix4.translationValues(tx,ty,0): '
+                  'common case, places children in a row.',
+                  cAccentB),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: edgeMini(
-                'rotate + scale',
-                rotScaleVis,
-                'Composed Matrix4 with rotateZ and scale: produces '
-                    'fan-like sweeping content.',
-                cAccentC,
-              ),
+                  'rotate + scale',
+                  rotScaleVis,
+                  'Composed Matrix4 with rotateZ and scale: produces '
+                  'fan-like sweeping content.',
+                  cAccentC),
             ),
           ],
         ),
@@ -1137,45 +972,33 @@ class FanDelegate extends FlowDelegate {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 22,
-            height: 22,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.25),
-              border: Border.all(color: color, width: 1),
-              borderRadius: BorderRadius.circular(11),
-            ),
-            child: Text(
-              '$i',
-              style: TextStyle(
-                color: color,
-                fontSize: 11,
-                fontWeight: FontWeight.w800,
+              width: 22,
+              height: 22,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.25),
+                border: Border.all(color: color, width: 1),
+                borderRadius: BorderRadius.circular(11),
               ),
-            ),
-          ),
+              child: Text('$i',
+                  style: TextStyle(
+                      color: color,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800))),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(
+                        color: color,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800)),
                 const SizedBox(height: 2),
-                Text(
-                  desc,
-                  style: const TextStyle(
-                    color: cText,
-                    fontSize: 11.5,
-                    height: 1.4,
-                  ),
-                ),
+                Text(desc,
+                    style: const TextStyle(
+                        color: cText, fontSize: 11.5, height: 1.4)),
               ],
             ),
           ),
@@ -1188,51 +1011,31 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Frame lifecycle around FlowParentData',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Frame lifecycle around FlowParentData',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 10),
-        step(
-          1,
-          'mount',
-          'Flow widget creates RenderFlow; each child gets a fresh '
-              'FlowParentData on attach.',
-          cAccentA,
-        ),
-        step(
-          2,
-          'layout',
-          'RenderFlow lays out children at constraints; the '
-              'FlowParentData.offset stays at (0,0) — layout is intentionally '
-              'flat.',
-          cAccentB,
-        ),
-        step(
-          3,
-          'paint',
-          'RenderFlow asks the FlowDelegate to paint. The delegate '
-              'iterates childCount and calls paintChild(i, transform: m).',
-          cAccentC,
-        ),
-        step(
-          4,
-          'transform write',
-          'paintChild writes m onto FlowParentData._transform of child i, '
-              'then composes a transform layer for that child.',
-          cAccentD,
-        ),
-        step(
-          5,
-          'repaint',
-          'shouldRepaint(oldDelegate) decides whether the next frame '
-              'needs to call paintChildren again — animations live here.',
-          cAccentA,
-        ),
+        step(1, 'mount',
+            'Flow widget creates RenderFlow; each child gets a fresh '
+            'FlowParentData on attach.',
+            cAccentA),
+        step(2, 'layout',
+            'RenderFlow lays out children at constraints; the '
+            'FlowParentData.offset stays at (0,0) — layout is intentionally '
+            'flat.',
+            cAccentB),
+        step(3, 'paint',
+            'RenderFlow asks the FlowDelegate to paint. The delegate '
+            'iterates childCount and calls paintChild(i, transform: m).',
+            cAccentC),
+        step(4, 'transform write',
+            'paintChild writes m onto FlowParentData._transform of child i, '
+            'then composes a transform layer for that child.',
+            cAccentD),
+        step(5, 'repaint',
+            'shouldRepaint(oldDelegate) decides whether the next frame '
+            'needs to call paintChildren again — animations live here.',
+            cAccentA),
       ],
     ),
   );
@@ -1249,19 +1052,13 @@ class FanDelegate extends FlowDelegate {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: tint,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: tint, fontSize: 12, fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
-          Text(
-            body,
-            style: const TextStyle(color: cText, fontSize: 11.5, height: 1.4),
-          ),
+          Text(body,
+              style:
+                  const TextStyle(color: cText, fontSize: 11.5, height: 1.4)),
         ],
       ),
     );
@@ -1275,30 +1072,22 @@ class FanDelegate extends FlowDelegate {
     mainAxisSpacing: 10,
     crossAxisSpacing: 10,
     children: [
-      factCard(
-        'paint, not layout',
-        'FlowParentData affects only the paint pass. Children are '
-            'always laid out at the origin.',
-        cAccentA,
-      ),
-      factCard(
-        'private transform',
-        '_transform is private; FlowPaintingContext.paintChild is the '
-            'only sanctioned way to set it.',
-        cAccentB,
-      ),
-      factCard(
-        'hit testing',
-        'RenderFlow inverts the transform during hit-test, so the '
-            'visual position is also the interactive position.',
-        cAccentC,
-      ),
-      factCard(
-        'repaint boundary friendly',
-        'Each painted child is wrapped in its own transform layer, so '
-            'unchanged children can be cached.',
-        cAccentD,
-      ),
+      factCard('paint, not layout',
+          'FlowParentData affects only the paint pass. Children are '
+          'always laid out at the origin.',
+          cAccentA),
+      factCard('private transform',
+          '_transform is private; FlowPaintingContext.paintChild is the '
+          'only sanctioned way to set it.',
+          cAccentB),
+      factCard('hit testing',
+          'RenderFlow inverts the transform during hit-test, so the '
+          'visual position is also the interactive position.',
+          cAccentC),
+      factCard('repaint boundary friendly',
+          'Each painted child is wrapped in its own transform layer, so '
+          'unchanged children can be cached.',
+          cAccentD),
     ],
   );
 
@@ -1307,22 +1096,14 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Observed live values',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Observed live values',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 6),
         kv('runtimeType', runtimeTypeText, accent: cAccentB),
         kv('offset (default)', offsetText, accent: cAccentC),
-        kv(
-          'is ContainerBoxParentData<RenderBox>',
-          '$isContainerBox',
-          accent: cAccentA,
-        ),
+        kv('is ContainerBoxParentData<RenderBox>', '$isContainerBox',
+            accent: cAccentA),
         kv('probe report', parentDataReport, accent: cAccentD),
         const SizedBox(height: 6),
         const Text(
@@ -1345,27 +1126,23 @@ class FanDelegate extends FlowDelegate {
       final double dx = math.cos(phase) * 50;
       final double dy = math.sin(phase) * 30;
       final double scale = 0.6 + 0.4 * (math.sin(phase + t) + 1) / 2;
-      children.add(
-        Positioned(
-          left: 80 + dx - 10,
-          top: 50 + dy - 10,
-          child: Transform.scale(
-            scale: scale,
-            child: Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                color: tint.withValues(alpha: 0.85),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: cText.withValues(alpha: 0.4),
-                  width: 1,
-                ),
-              ),
+      children.add(Positioned(
+        left: 80 + dx - 10,
+        top: 50 + dy - 10,
+        child: Transform.scale(
+          scale: scale,
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              color: tint.withValues(alpha: 0.85),
+              shape: BoxShape.circle,
+              border:
+                  Border.all(color: cText.withValues(alpha: 0.4), width: 1),
             ),
           ),
         ),
-      );
+      ));
     }
     return Container(
       width: 160,
@@ -1390,15 +1167,12 @@ class FanDelegate extends FlowDelegate {
             color: tint.withValues(alpha: 0.18),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            't = ${t.toStringAsFixed(2)}',
-            style: TextStyle(
-              color: tint,
-              fontSize: 10,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          child: Text('t = ${t.toStringAsFixed(2)}',
+              style: TextStyle(
+                  color: tint,
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w800)),
         ),
       ],
     );
@@ -1409,7 +1183,8 @@ class FanDelegate extends FlowDelegate {
   const int snapCount = 5;
   for (int i = 0; i < snapCount; i++) {
     final double t = i / (snapCount - 1);
-    final Color tint = Color.lerp(cAccentB, cAccentC, t) ?? cAccentB;
+    final Color tint =
+        Color.lerp(cAccentB, cAccentC, t) ?? cAccentB;
     if (i > 0) {
       snapshotStrip.add(const SizedBox(width: 10));
     }
@@ -1420,14 +1195,9 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Animation snapshots (AlwaysStoppedAnimation)',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Animation snapshots (AlwaysStoppedAnimation)',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 4),
         const Text(
           'Each frame represents a different value of t fed into the '
@@ -1473,39 +1243,31 @@ class FanDelegate extends FlowDelegate {
           Container(
             width: 18,
             height: 18,
-            decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
-            alignment: Alignment.center,
-            child: const Text(
-              '!',
-              style: TextStyle(
-                color: Color(0xFF0E1726),
-                fontWeight: FontWeight.w900,
-                fontSize: 11,
-              ),
+            decoration: BoxDecoration(
+              color: tint,
+              shape: BoxShape.circle,
             ),
+            alignment: Alignment.center,
+            child: const Text('!',
+                style: TextStyle(
+                    color: Color(0xFF0E1726),
+                    fontWeight: FontWeight.w900,
+                    fontSize: 11)),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: tint,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                Text(label,
+                    style: TextStyle(
+                        color: tint,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800)),
                 const SizedBox(height: 3),
-                Text(
-                  detail,
-                  style: const TextStyle(
-                    color: cText,
-                    fontSize: 11.5,
-                    height: 1.4,
-                  ),
-                ),
+                Text(detail,
+                    style: const TextStyle(
+                        color: cText, fontSize: 11.5, height: 1.4)),
               ],
             ),
           ),
@@ -1518,45 +1280,30 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Common gotchas',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Common gotchas',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 10),
-        gotcha(
-          'No layout effect',
-          'Setting a transform via paintChild does NOT change child size '
-              'or its layout offset. Children always claim the full Flow size.',
-          cAccentA,
-        ),
-        gotcha(
-          'Children skipped if not painted',
-          'A child that is never targeted by paintChild simply does not '
-              'paint, but it still exists for layout and hit-testing purposes.',
-          cAccentB,
-        ),
-        gotcha(
-          'Hit-testing follows transform',
-          'Flow inverts each childs transform during hit-testing, so '
-              'pointer events land on the visually displayed position.',
-          cAccentC,
-        ),
-        gotcha(
-          'Repaint frequency',
-          'shouldRepaint must return true when delegate inputs change, '
-              'otherwise transforms stick to the last frame.',
-          cAccentD,
-        ),
-        gotcha(
-          'Order matters',
-          'Children are painted in the order paintChild is called. Skip '
-              'a child to mask it; reorder to layer it.',
-          cAccentA,
-        ),
+        gotcha('No layout effect',
+            'Setting a transform via paintChild does NOT change child size '
+            'or its layout offset. Children always claim the full Flow size.',
+            cAccentA),
+        gotcha('Children skipped if not painted',
+            'A child that is never targeted by paintChild simply does not '
+            'paint, but it still exists for layout and hit-testing purposes.',
+            cAccentB),
+        gotcha('Hit-testing follows transform',
+            'Flow inverts each childs transform during hit-testing, so '
+            'pointer events land on the visually displayed position.',
+            cAccentC),
+        gotcha('Repaint frequency',
+            'shouldRepaint must return true when delegate inputs change, '
+            'otherwise transforms stick to the last frame.',
+            cAccentD),
+        gotcha('Order matters',
+            'Children are painted in the order paintChild is called. Skip '
+            'a child to mask it; reorder to layer it.',
+            cAccentA),
       ],
     ),
   );
@@ -1573,26 +1320,22 @@ class FanDelegate extends FlowDelegate {
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(3),
-              border: Border.all(color: color.withValues(alpha: 0.6), width: 1),
+              border: Border.all(
+                  color: color.withValues(alpha: 0.6), width: 1),
             ),
           ),
           const SizedBox(width: 10),
           SizedBox(
-            width: 110,
-            child: Text(
-              label,
-              style: const TextStyle(
-                color: cText,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
+              width: 110,
+              child: Text(label,
+                  style: const TextStyle(
+                      color: cText,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700))),
           Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(color: cTextDim, fontSize: 11.5),
-            ),
+            child: Text(value,
+                style:
+                    const TextStyle(color: cTextDim, fontSize: 11.5)),
           ),
         ],
       ),
@@ -1603,14 +1346,9 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Color legend',
-          style: TextStyle(
-            color: cText,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Color legend',
+            style: TextStyle(
+                color: cText, fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 8),
         legendItem(cAccentA, 'amber', 'scale axes (sx, sy, sz)'),
         legendItem(cAccentB, 'sky', 'translation (tx, ty, tz)'),
@@ -1625,14 +1363,9 @@ class FanDelegate extends FlowDelegate {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Class signature',
-          style: TextStyle(
-            color: cText,
-            fontSize: 14,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        const Text('Class signature',
+            style: TextStyle(
+                color: cText, fontSize: 14, fontWeight: FontWeight.w800)),
         const SizedBox(height: 8),
         codeBlock(
           'class FlowParentData extends ContainerBoxParentData<RenderBox> {\n'
@@ -1668,14 +1401,11 @@ class FanDelegate extends FlowDelegate {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Summary',
-          style: TextStyle(
-            color: cAccentA,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-          ),
-        ),
+        const Text('Summary',
+            style: TextStyle(
+                color: cAccentA,
+                fontWeight: FontWeight.w800,
+                fontSize: 14)),
         const SizedBox(height: 6),
         const Text(
           'FlowParentData is the per-child slot that lets a Flow widget '
@@ -1711,102 +1441,60 @@ class FanDelegate extends FlowDelegate {
       children: [
         hero,
         const SizedBox(height: 18),
-        sectionTitle(
-          '01',
-          'Architecture',
-          'Where FlowParentData sits between the widget tree and paint.',
-        ),
+        sectionTitle('01', 'Architecture',
+            'Where FlowParentData sits between the widget tree and paint.'),
         triangle,
         const SizedBox(height: 18),
-        sectionTitle(
-          '02',
-          'Matrix anatomy',
-          'What lives inside the per-child Matrix4 carried by FlowParentData.',
-        ),
+        sectionTitle('02', 'Matrix anatomy',
+            'What lives inside the per-child Matrix4 carried by FlowParentData.'),
         matrixGrid,
         const SizedBox(height: 18),
-        sectionTitle(
-          '03',
-          'Sample flows (mocked)',
-          'Visual mock-ups of typical FlowDelegate outputs, drawn with Stack.',
-        ),
+        sectionTitle('03', 'Sample flows (mocked)',
+            'Visual mock-ups of typical FlowDelegate outputs, drawn with Stack.'),
         mockGrid,
         const SizedBox(height: 18),
-        sectionTitle(
-          '04',
-          'Delegate code',
-          'How a delegate would call paintChild to write into the parent data.',
-        ),
+        sectionTitle('04', 'Delegate code',
+            'How a delegate would call paintChild to write into the parent data.'),
         codeCard,
         const SizedBox(height: 18),
-        sectionTitle(
-          '05',
-          'Comparison',
-          'FlowParentData against StackParentData and ContainerBoxParentData.',
-        ),
+        sectionTitle('05', 'Comparison',
+            'FlowParentData against StackParentData and ContainerBoxParentData.'),
         compareTable,
         const SizedBox(height: 18),
-        sectionTitle(
-          '06',
-          'Edge cases',
-          'How specific Matrix4 inputs map to visible results.',
-        ),
+        sectionTitle('06', 'Edge cases',
+            'How specific Matrix4 inputs map to visible results.'),
         edgeCases,
         const SizedBox(height: 18),
-        sectionTitle(
-          '07',
-          'Lifecycle',
-          'Per-frame sequence from mount to repaint.',
-        ),
+        sectionTitle('07', 'Lifecycle',
+            'Per-frame sequence from mount to repaint.'),
         lifecycle,
         const SizedBox(height: 18),
-        sectionTitle(
-          '08',
-          'Quick facts',
-          'Bite-size pointers to remember when using Flow.',
-        ),
+        sectionTitle('08', 'Quick facts',
+            'Bite-size pointers to remember when using Flow.'),
         factsGrid,
         const SizedBox(height: 18),
-        sectionTitle(
-          '09',
-          'Live probe',
-          'Values observed from a real FlowParentData() instance at runtime.',
-        ),
+        sectionTitle('09', 'Live probe',
+            'Values observed from a real FlowParentData() instance at runtime.'),
         observed,
         const SizedBox(height: 18),
-        sectionTitle(
-          '10',
-          'Reference card',
-          'Other common parent-data widgets and what they configure.',
-        ),
+        sectionTitle('10', 'Reference card',
+            'Other common parent-data widgets and what they configure.'),
         refCard,
         const SizedBox(height: 18),
-        sectionTitle(
-          '11',
-          'Animation snapshots',
-          'Frozen progress samples illustrating how transforms evolve.',
-        ),
+        sectionTitle('11', 'Animation snapshots',
+            'Frozen progress samples illustrating how transforms evolve.'),
         animSnapshots,
         const SizedBox(height: 18),
-        sectionTitle(
-          '12',
-          'Gotchas',
-          'Things that bite you when shipping a Flow-based widget.',
-        ),
+        sectionTitle('12', 'Gotchas',
+            'Things that bite you when shipping a Flow-based widget.'),
         gotchaCard,
         const SizedBox(height: 18),
-        sectionTitle(
-          '13',
-          'Class signature',
-          'The minimal public surface of FlowParentData itself.',
-        ),
+        sectionTitle('13', 'Class signature',
+            'The minimal public surface of FlowParentData itself.'),
         signatureCard,
         const SizedBox(height: 18),
-        sectionTitle(
-          '14',
-          'Legend',
-          'Color decoding for the matrix anatomy section.',
-        ),
+        sectionTitle('14', 'Legend',
+            'Color decoding for the matrix anatomy section.'),
         legend,
         const SizedBox(height: 18),
         footer,
@@ -1815,5 +1503,8 @@ class FanDelegate extends FlowDelegate {
     ),
   );
 
-  return Scaffold(backgroundColor: cBg, body: body);
+  return Scaffold(
+    backgroundColor: cBg,
+    body: body,
+  );
 }

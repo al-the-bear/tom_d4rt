@@ -22,8 +22,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   // Reference data
   // ============================================================
-  final List<DebugSemanticsDumpOrder> allOrders =
-      DebugSemanticsDumpOrder.values;
+  final List<DebugSemanticsDumpOrder> allOrders = DebugSemanticsDumpOrder.values;
   final DebugSemanticsDumpOrder firstOrder = allOrders.first;
   final DebugSemanticsDumpOrder lastOrder = allOrders.last;
 
@@ -474,11 +473,26 @@ dynamic build(BuildContext context) {
                 'inverseHitTest',
                 Colors.deepOrange,
                 <Map<String, String>>[
-                  {'q': 'Print order', 'a': 'Last painted child first'},
-                  {'q': 'Mental model', 'a': 'Stacked cards top-down'},
-                  {'q': 'Useful for', 'a': 'Gesture / hit-test routing'},
-                  {'q': 'Pairs with', 'a': 'HitTestBehavior, Listener'},
-                  {'q': 'Warning', 'a': 'Not the screen reader order!'},
+                  {
+                    'q': 'Print order',
+                    'a': 'Last painted child first',
+                  },
+                  {
+                    'q': 'Mental model',
+                    'a': 'Stacked cards top-down',
+                  },
+                  {
+                    'q': 'Useful for',
+                    'a': 'Gesture / hit-test routing',
+                  },
+                  {
+                    'q': 'Pairs with',
+                    'a': 'HitTestBehavior, Listener',
+                  },
+                  {
+                    'q': 'Warning',
+                    'a': 'Not the screen reader order!',
+                  },
                 ],
               ),
             ),
@@ -490,11 +504,26 @@ dynamic build(BuildContext context) {
                 'traversalOrder',
                 Colors.indigo,
                 <Map<String, String>>[
-                  {'q': 'Print order', 'a': 'Reading order top-down'},
-                  {'q': 'Mental model', 'a': 'Newspaper columns'},
-                  {'q': 'Useful for', 'a': 'A11y review / focus order'},
-                  {'q': 'Pairs with', 'a': 'Semantics, OrdinalSortKey'},
-                  {'q': 'Warning', 'a': 'Not paint / hit-test order!'},
+                  {
+                    'q': 'Print order',
+                    'a': 'Reading order top-down',
+                  },
+                  {
+                    'q': 'Mental model',
+                    'a': 'Newspaper columns',
+                  },
+                  {
+                    'q': 'Useful for',
+                    'a': 'A11y review / focus order',
+                  },
+                  {
+                    'q': 'Pairs with',
+                    'a': 'Semantics, OrdinalSortKey',
+                  },
+                  {
+                    'q': 'Warning',
+                    'a': 'Not paint / hit-test order!',
+                  },
                 ],
               ),
             ),
@@ -538,7 +567,8 @@ dynamic build(BuildContext context) {
         _recipeCard(
           step: 1,
           title: 'Verify swipe-next order matches design',
-          body: 'Use traversalOrder to dump and confirm logical reading flow.',
+          body:
+              'Use traversalOrder to dump and confirm logical reading flow.',
           color: Colors.green.shade600,
         ),
         SizedBox(height: 10.0),
@@ -678,19 +708,21 @@ dynamic build(BuildContext context) {
         SizedBox(height: 16.0),
         Text(
           'Same parent SemanticsNode, four children, two orderings:',
-          style: TextStyle(fontSize: 13.0, color: Colors.deepPurple.shade700),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.deepPurple.shade700,
+          ),
         ),
         SizedBox(height: 16.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: _diagramColumn('inverseHitTest', Colors.deepOrange, <int>[
-                4,
-                3,
-                2,
-                1,
-              ]),
+              child: _diagramColumn(
+                'inverseHitTest',
+                Colors.deepOrange,
+                <int>[4, 3, 2, 1],
+              ),
             ),
             SizedBox(width: 12.0),
             Container(
@@ -716,12 +748,11 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(width: 12.0),
             Expanded(
-              child: _diagramColumn('traversalOrder', Colors.indigo, <int>[
-                1,
-                2,
-                3,
-                4,
-              ]),
+              child: _diagramColumn(
+                'traversalOrder',
+                Colors.indigo,
+                <int>[1, 2, 3, 4],
+              ),
             ),
           ],
         ),
@@ -911,12 +942,7 @@ dynamic build(BuildContext context) {
           Colors.indigo.shade700,
           false,
         ),
-        _refRow(
-          'Total values',
-          '${allOrders.length}',
-          Colors.teal.shade700,
-          true,
-        ),
+        _refRow('Total values', '${allOrders.length}', Colors.teal.shade700, true),
         _refRow(
           'First',
           'DebugSemanticsDumpOrder.${firstOrder.name} (index ${firstOrder.index})',
@@ -929,7 +955,12 @@ dynamic build(BuildContext context) {
           Colors.pink.shade700,
           true,
         ),
-        _refRow('Default arg', 'traversalOrder', Colors.green.shade700, false),
+        _refRow(
+          'Default arg',
+          'traversalOrder',
+          Colors.green.shade700,
+          false,
+        ),
         _refRow(
           'Used by',
           'debugDumpSemanticsTree, SemanticsNode.toStringDeep',
@@ -1337,7 +1368,10 @@ Widget _comparisonColumn(
               SizedBox(height: 2.0),
               Text(
                 row['a'] ?? '',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ],
           ),
@@ -1373,7 +1407,10 @@ Widget _recipeCard({
         Container(
           width: 32.0,
           height: 32.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
           child: Center(
             child: Text(
               '$step',
@@ -1401,7 +1438,10 @@ Widget _recipeCard({
               SizedBox(height: 2.0),
               Text(
                 body,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ],
           ),
@@ -1439,7 +1479,10 @@ Widget _pitfallTile(String title, String body, IconData icon) {
               SizedBox(height: 2.0),
               Text(
                 body,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ],
           ),
@@ -1566,7 +1609,10 @@ Widget _workflowStep(int idx, String cmd, String desc, Color color) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 6.0,
+                  vertical: 2.0,
+                ),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(4.0),
@@ -1584,7 +1630,10 @@ Widget _workflowStep(int idx, String cmd, String desc, Color color) {
               SizedBox(height: 4.0),
               Text(
                 desc,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ],
           ),
@@ -1597,7 +1646,11 @@ Widget _workflowStep(int idx, String cmd, String desc, Color color) {
 Widget _workflowConnector() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 14.0),
-    child: Container(width: 2.0, height: 16.0, color: Colors.blueGrey.shade300),
+    child: Container(
+      width: 2.0,
+      height: 16.0,
+      color: Colors.blueGrey.shade300,
+    ),
   );
 }
 

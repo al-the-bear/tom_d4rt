@@ -101,7 +101,11 @@ class _HeaderBanner extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 28.0, horizontal: 24.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primary, scheme.tertiary, scheme.secondary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.tertiary,
+            scheme.secondary,
+          ],
           stops: const <double>[0.0, 0.55, 1.0],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -233,10 +237,7 @@ class _Section1FamilyRoster extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surface,
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(
-          color: entry.accent.withValues(alpha: 0.4),
-          width: 1.5,
-        ),
+        border: Border.all(color: entry.accent.withValues(alpha: 0.4), width: 1.5),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: entry.accent.withValues(alpha: 0.12),
@@ -298,7 +299,10 @@ class _Section1FamilyRoster extends StatelessWidget {
             ),
             child: Text(
               entry.hook,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+              ),
             ),
           ),
         ],
@@ -350,8 +354,7 @@ class _Section2DefaultAppearance extends StatelessWidget {
         title: 'BackButton',
         accent: scheme.secondary,
         button: const BackButton(onPressed: null),
-        note:
-            'Picks Icons.arrow_back on Android / Icons.arrow_back_ios_new on iOS',
+        note: 'Picks Icons.arrow_back on Android / Icons.arrow_back_ios_new on iOS',
       ),
       _DefaultEntry(
         title: 'CloseButton',
@@ -381,7 +384,10 @@ class _Section2DefaultAppearance extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surface,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: e.accent.withValues(alpha: 0.35), width: 1.2),
+        border: Border.all(
+          color: e.accent.withValues(alpha: 0.35),
+          width: 1.2,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -521,7 +527,10 @@ class _Section3AppBarSpecimens extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surface,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: scheme.outlineVariant, width: 1.0),
+        border: Border.all(
+          color: scheme.outlineVariant,
+          width: 1.0,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -561,7 +570,10 @@ class _Section3AppBarSpecimens extends StatelessWidget {
           const SizedBox(height: 8.0),
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: SizedBox(height: kToolbarHeight, child: spec.bar),
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: spec.bar,
+            ),
           ),
         ],
       ),
@@ -1085,7 +1097,10 @@ class _Section7ComparisonTable extends StatelessWidget {
         leftLabel: 'DrawerButton',
         leftWidget: const DrawerButton(onPressed: null),
         rightLabel: 'IconButton(Icons.menu)',
-        rightWidget: const IconButton(icon: Icon(Icons.menu), onPressed: null),
+        rightWidget: const IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: null,
+        ),
         verdict:
             'DrawerButton wires the default to openDrawer() and reads as intent.',
         accent: scheme.primary,
@@ -1094,8 +1109,12 @@ class _Section7ComparisonTable extends StatelessWidget {
         leftLabel: 'EndDrawerButton',
         leftWidget: const EndDrawerButton(onPressed: null),
         rightLabel: 'IconButton(Icons.menu)',
-        rightWidget: const IconButton(icon: Icon(Icons.menu), onPressed: null),
-        verdict: 'EndDrawerButton routes to openEndDrawer() automatically.',
+        rightWidget: const IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: null,
+        ),
+        verdict:
+            'EndDrawerButton routes to openEndDrawer() automatically.',
         accent: scheme.tertiary,
       ),
       _ComparisonPair(
@@ -1114,7 +1133,10 @@ class _Section7ComparisonTable extends StatelessWidget {
         leftLabel: 'CloseButton',
         leftWidget: const CloseButton(onPressed: null),
         rightLabel: 'IconButton(Icons.close)',
-        rightWidget: const IconButton(icon: Icon(Icons.close), onPressed: null),
+        rightWidget: const IconButton(
+          icon: Icon(Icons.close),
+          onPressed: null,
+        ),
         verdict:
             'CloseButton expresses dismiss intent; semantics labelled by Material.',
         accent: scheme.error,
@@ -1122,18 +1144,12 @@ class _Section7ComparisonTable extends StatelessWidget {
     ];
     final rows = <Widget>[
       _buildHeader(),
-      ...List<Widget>.generate(
-        pairs.length,
-        (i) => _buildPairRow(pairs[i], i + 1),
-      ),
+      ...List<Widget>.generate(pairs.length, (i) => _buildPairRow(pairs[i], i + 1)),
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _SectionTitle(
-          text: 'Section 7: Comparison vs Raw IconButton',
-          scheme: scheme,
-        ),
+        _SectionTitle(text: 'Section 7: Comparison vs Raw IconButton', scheme: scheme),
         const SizedBox(height: 12.0),
         Container(
           decoration: BoxDecoration(
@@ -1704,10 +1720,7 @@ class _Section10Glossary extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _SectionTitle(
-          text: 'Section 10: Glossary and Takeaways',
-          scheme: scheme,
-        ),
+        _SectionTitle(text: 'Section 10: Glossary and Takeaways', scheme: scheme),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(14.0),
@@ -1932,7 +1945,9 @@ class _SectionTitle extends StatelessWidget {
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(8.0),
-        border: Border(left: BorderSide(color: scheme.primary, width: 3.5)),
+        border: Border(
+          left: BorderSide(color: scheme.primary, width: 3.5),
+        ),
       ),
       child: Text(
         '=== $text ===',

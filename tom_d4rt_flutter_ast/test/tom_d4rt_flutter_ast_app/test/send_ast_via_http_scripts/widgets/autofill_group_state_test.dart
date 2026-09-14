@@ -188,7 +188,10 @@ class _SectionHeader extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -401,8 +404,7 @@ class _LoginFormSectionState extends State<_LoginFormSection> {
   void _cancel() {
     _finishAutofillContext(shouldSave: false);
     setState(() {
-      _statusLine =
-          'Cancelled. shouldSave=false; password manager will '
+      _statusLine = 'Cancelled. shouldSave=false; password manager will '
           'not offer to save.';
     });
   }
@@ -536,8 +538,7 @@ class _AddressFormSectionState extends State<_AddressFormSection> {
   void _saveAndSubmit() {
     _finishAutofillContext();
     setState(() {
-      _status =
-          'Saved. AutofillGroupState committed via finishAutofillContext().';
+      _status = 'Saved. AutofillGroupState committed via finishAutofillContext().';
     });
   }
 
@@ -564,7 +565,9 @@ class _AddressFormSectionState extends State<_AddressFormSection> {
               const SizedBox(height: 12),
               TextField(
                 controller: _line1,
-                autofillHints: const <String>[AutofillHints.streetAddressLine1],
+                autofillHints: const <String>[
+                  AutofillHints.streetAddressLine1,
+                ],
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   labelText: 'Address line 1',
@@ -575,7 +578,9 @@ class _AddressFormSectionState extends State<_AddressFormSection> {
               const SizedBox(height: 12),
               TextField(
                 controller: _line2,
-                autofillHints: const <String>[AutofillHints.streetAddressLine2],
+                autofillHints: const <String>[
+                  AutofillHints.streetAddressLine2,
+                ],
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   labelText: 'Address line 2 (optional)',
@@ -590,7 +595,9 @@ class _AddressFormSectionState extends State<_AddressFormSection> {
                     flex: 3,
                     child: TextField(
                       controller: _city,
-                      autofillHints: const <String>[AutofillHints.addressCity],
+                      autofillHints: const <String>[
+                        AutofillHints.addressCity,
+                      ],
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                         labelText: 'City',
@@ -604,7 +611,9 @@ class _AddressFormSectionState extends State<_AddressFormSection> {
                     flex: 2,
                     child: TextField(
                       controller: _region,
-                      autofillHints: const <String>[AutofillHints.addressState],
+                      autofillHints: const <String>[
+                        AutofillHints.addressState,
+                      ],
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                         labelText: 'State',
@@ -622,7 +631,9 @@ class _AddressFormSectionState extends State<_AddressFormSection> {
                     flex: 2,
                     child: TextField(
                       controller: _postal,
-                      autofillHints: const <String>[AutofillHints.postalCode],
+                      autofillHints: const <String>[
+                        AutofillHints.postalCode,
+                      ],
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
@@ -637,7 +648,9 @@ class _AddressFormSectionState extends State<_AddressFormSection> {
                     flex: 3,
                     child: TextField(
                       controller: _country,
-                      autofillHints: const <String>[AutofillHints.countryName],
+                      autofillHints: const <String>[
+                        AutofillHints.countryName,
+                      ],
                       textInputAction: TextInputAction.done,
                       onSubmitted: (_) => _saveAndSubmit(),
                       decoration: const InputDecoration(
@@ -728,7 +741,9 @@ class _CreditCardSectionState extends State<_CreditCardSection> {
               const SizedBox(height: 12),
               TextField(
                 controller: _name,
-                autofillHints: const <String>[AutofillHints.creditCardName],
+                autofillHints: const <String>[
+                  AutofillHints.creditCardName,
+                ],
                 textCapitalization: TextCapitalization.words,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
@@ -740,7 +755,9 @@ class _CreditCardSectionState extends State<_CreditCardSection> {
               const SizedBox(height: 12),
               TextField(
                 controller: _number,
-                autofillHints: const <String>[AutofillHints.creditCardNumber],
+                autofillHints: const <String>[
+                  AutofillHints.creditCardNumber,
+                ],
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
@@ -943,10 +960,13 @@ class _ReadStateChildState extends State<_ReadStateChild> {
           Text(
             found
                 ? 'runtimeType: ${scope.runtimeType}\n'
-                      'mounted: ${scope.mounted}\n'
-                      'observed focus events: $_focusEvents'
+                  'mounted: ${scope.mounted}\n'
+                  'observed focus events: $_focusEvents'
                 : '—',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+            ),
           ),
           const SizedBox(height: 8),
           OutlinedButton.icon(
@@ -1138,7 +1158,10 @@ class _ActionVariantCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: color.shade100,
                   borderRadius: BorderRadius.circular(4),
@@ -1152,7 +1175,10 @@ class _ActionVariantCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              Text(description, style: const TextStyle(fontSize: 12)),
+              Text(
+                description,
+                style: const TextStyle(fontSize: 12),
+              ),
               const SizedBox(height: 12),
               TextField(
                 autofillHints: const <String>[AutofillHints.username],
@@ -1457,9 +1483,7 @@ class _HintsCatalogSection extends StatelessWidget {
     final Map<String, List<_HintCatalogEntry>> grouped =
         <String, List<_HintCatalogEntry>>{};
     for (final entry in _hintCatalog) {
-      grouped
-          .putIfAbsent(entry.category, () => <_HintCatalogEntry>[])
-          .add(entry);
+      grouped.putIfAbsent(entry.category, () => <_HintCatalogEntry>[]).add(entry);
     }
     return Card(
       child: Padding(
@@ -1539,7 +1563,10 @@ class _HintCatalogCard extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 'AutofillHints.${entry.label}',
-                style: const TextStyle(fontSize: 11, color: Colors.black54),
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: Colors.black54,
+                ),
               ),
               const SizedBox(height: 8),
               TextField(
@@ -1659,7 +1686,10 @@ class _CommitDemoSectionState extends State<_CommitDemoSection> {
                   'Total cancels: $_cancelCount\n'
                   'Calling finishAutofillContext clears the session — next '
                   'focus starts a fresh autofill attempt.',
-                  style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ],
@@ -1722,7 +1752,9 @@ class _PitfallsSection extends StatelessWidget {
     ];
 
     return Column(
-      children: <Widget>[for (final p in pitfalls) _PitfallCard(pitfall: p)],
+      children: <Widget>[
+        for (final p in pitfalls) _PitfallCard(pitfall: p),
+      ],
     );
   }
 }
@@ -1880,7 +1912,9 @@ class _ShippingRecipeCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextField(
-                autofillHints: const <String>[AutofillHints.telephoneNumber],
+                autofillHints: const <String>[
+                  AutofillHints.telephoneNumber,
+                ],
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   labelText: 'Phone',
@@ -1890,7 +1924,9 @@ class _ShippingRecipeCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextField(
-                autofillHints: const <String>[AutofillHints.streetAddressLine1],
+                autofillHints: const <String>[
+                  AutofillHints.streetAddressLine1,
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Street',
                   border: OutlineInputBorder(),
@@ -1898,7 +1934,9 @@ class _ShippingRecipeCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextField(
-                autofillHints: const <String>[AutofillHints.addressCity],
+                autofillHints: const <String>[
+                  AutofillHints.addressCity,
+                ],
                 decoration: const InputDecoration(
                   labelText: 'City',
                   border: OutlineInputBorder(),
@@ -1974,7 +2012,9 @@ class _ProfileEditRecipeCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextField(
-                autofillHints: const <String>[AutofillHints.organizationName],
+                autofillHints: const <String>[
+                  AutofillHints.organizationName,
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Organization',
                   border: OutlineInputBorder(),
@@ -2010,7 +2050,9 @@ class _PaymentRecipeCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               TextField(
-                autofillHints: const <String>[AutofillHints.creditCardNumber],
+                autofillHints: const <String>[
+                  AutofillHints.creditCardNumber,
+                ],
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Card number',
@@ -2019,7 +2061,9 @@ class _PaymentRecipeCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextField(
-                autofillHints: const <String>[AutofillHints.creditCardName],
+                autofillHints: const <String>[
+                  AutofillHints.creditCardName,
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Cardholder',
                   border: OutlineInputBorder(),
@@ -2085,11 +2129,7 @@ class _RecipeHeader extends StatelessWidget {
 // =============================================================================
 
 class _ReferenceRow {
-  const _ReferenceRow({
-    required this.symbol,
-    required this.kind,
-    required this.summary,
-  });
+  const _ReferenceRow({required this.symbol, required this.kind, required this.summary});
 
   final String symbol;
   final String kind;

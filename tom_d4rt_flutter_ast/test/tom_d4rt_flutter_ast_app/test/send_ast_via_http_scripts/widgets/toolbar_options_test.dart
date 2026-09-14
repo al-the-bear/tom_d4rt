@@ -246,10 +246,7 @@ class _InteractionLabTabState extends State<_InteractionLabTab> {
                   children: [
                     for (final action in actions)
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 8,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           color: action.color,
@@ -261,10 +258,7 @@ class _InteractionLabTabState extends State<_InteractionLabTab> {
                             const SizedBox(width: 4),
                             Text(
                               action.label,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
@@ -300,8 +294,7 @@ class _InteractionLabTabState extends State<_InteractionLabTab> {
                 ),
                 _RuleLine(
                   satisfied: _paste && _clipboardHasData && !_isReadOnly,
-                  text:
-                      'Paste requires clipboard content and writable context.',
+                  text: 'Paste requires clipboard content and writable context.',
                 ),
                 _RuleLine(
                   satisfied: _selectAll,
@@ -419,10 +412,7 @@ class _ProfileMatrixCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              profile.name,
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
+            Text(profile.name, style: const TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -508,9 +498,7 @@ class _RuleLine extends StatelessWidget {
         children: [
           Icon(
             satisfied ? Icons.check_circle : Icons.cancel,
-            color: satisfied
-                ? const Color(0xFF2E7D32)
-                : const Color(0xFFC62828),
+            color: satisfied ? const Color(0xFF2E7D32) : const Color(0xFFC62828),
             size: 18,
           ),
           const SizedBox(width: 8),
@@ -600,11 +588,7 @@ class _LegacyToolbarProfile {
 }
 
 class _DerivedAction {
-  const _DerivedAction({
-    required this.label,
-    required this.icon,
-    required this.color,
-  });
+  const _DerivedAction({required this.label, required this.icon, required this.color});
 
   final String label;
   final IconData icon;

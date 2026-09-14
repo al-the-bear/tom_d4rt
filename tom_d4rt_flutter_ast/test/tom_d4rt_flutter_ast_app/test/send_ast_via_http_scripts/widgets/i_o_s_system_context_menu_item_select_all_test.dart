@@ -30,22 +30,16 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: saOnPlum,
-            ),
-          ),
+          Text(title,
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: saOnPlum)),
           const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              color: saOnPlum.withValues(alpha: 0.85),
-            ),
-          ),
+          Text(subtitle,
+              style: TextStyle(
+                  fontSize: 12,
+                  color: saOnPlum.withValues(alpha: 0.85))),
         ],
       ),
     );
@@ -67,25 +61,20 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: saPlum.withValues(alpha: 0.08),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(10)),
             ),
-            child: Text(
-              heading,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: saPlum,
-              ),
-            ),
+            child: Text(heading,
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: saPlum)),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(14, 8, 14, 12),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: children,
-            ),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children),
           ),
         ],
       ),
@@ -98,16 +87,12 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('♦ ', style: TextStyle(color: saAccent, fontSize: 11)),
+          const Text('♦ ',
+              style: TextStyle(color: saAccent, fontSize: 11)),
           Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 12,
-                color: saTextDark,
-                height: 1.4,
-              ),
-            ),
+            child: Text(text,
+                style: const TextStyle(
+                    fontSize: 12, color: saTextDark, height: 1.4)),
           ),
         ],
       ),
@@ -123,15 +108,12 @@ dynamic build(BuildContext context) {
         color: const Color(0xFF2C0A1A),
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Text(
-        code,
-        style: const TextStyle(
-          fontSize: 11,
-          fontFamily: 'monospace',
-          color: saBlush,
-          height: 1.5,
-        ),
-      ),
+      child: Text(code,
+          style: const TextStyle(
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: saBlush,
+              height: 1.5)),
     );
   }
 
@@ -143,20 +125,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 140,
-            child: Text(
-              key,
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: saDark,
-              ),
-            ),
+            child: Text(key,
+                style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: saDark)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 11, color: saTextDark),
-            ),
+            child: Text(value,
+                style: const TextStyle(fontSize: 11, color: saTextDark)),
           ),
         ],
       ),
@@ -173,15 +150,12 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: saAccent.withValues(alpha: 0.25)),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 11,
-          fontStyle: FontStyle.italic,
-          color: saDark,
-          height: 1.4,
-        ),
-      ),
+      child: Text(text,
+          style: const TextStyle(
+              fontSize: 11,
+              fontStyle: FontStyle.italic,
+              color: saDark,
+              height: 1.4)),
     );
   }
 
@@ -205,26 +179,19 @@ dynamic build(BuildContext context) {
               color: saPlum.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              icon,
-              style: const TextStyle(fontSize: 12, color: saPlum),
-            ),
+            child: Text(icon,
+                style: const TextStyle(fontSize: 12, color: saPlum)),
           ),
           const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: saDark,
-            ),
-          ),
+          Text(label,
+              style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: saDark)),
           const SizedBox(width: 6),
           Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 11, color: saTextDark),
-            ),
+            child: Text(value,
+                style: const TextStyle(fontSize: 11, color: saTextDark)),
           ),
         ],
       ),
@@ -251,17 +218,15 @@ dynamic build(BuildContext context) {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: '$label: ',
-                    style: const TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: saDark,
-                    ),
-                  ),
+                      text: '$label: ',
+                      style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: saDark)),
                   TextSpan(
-                    text: desc,
-                    style: const TextStyle(fontSize: 11, color: saTextDark),
-                  ),
+                      text: desc,
+                      style: const TextStyle(
+                          fontSize: 11, color: saTextDark)),
                 ],
               ),
             ),
@@ -290,59 +255,52 @@ dynamic build(BuildContext context) {
             saKeyValue('Class', 'IOSSystemContextMenuItemSelectAll'),
             saKeyValue('Platform', 'iOS / iPadOS'),
             saKeyValue('Action', 'Selects all text in the field'),
-            saKeyValue('Toolbar', 'CupertinoAdaptiveTextSelectionToolbar'),
+            saKeyValue('Toolbar',
+                'CupertinoAdaptiveTextSelectionToolbar'),
             saDivider(),
             saBullet(
-              'IOSSystemContextMenuItemSelectAll represents the '
-              '"Select All" button in the iOS text selection context menu.',
-            ),
+                'IOSSystemContextMenuItemSelectAll represents the '
+                '"Select All" button in the iOS text selection context menu.'),
             saBullet(
-              'Tapping it selects the entire text content from the '
-              'start to the end of the field, making the selection '
-              'cover every character.',
-            ),
+                'Tapping it selects the entire text content from the '
+                'start to the end of the field, making the selection '
+                'cover every character.'),
             saBullet(
-              'This is a LOCAL operation – it never touches the clipboard, '
-              'the network, or leaves the app.',
-            ),
+                'This is a LOCAL operation – it never touches the clipboard, '
+                'the network, or leaves the app.'),
           ]),
 
           // ── 2. select all behavior ──
           saSection('2 · Select All Action Effect', [
-            saBullet('Step 1: User taps into a text field (cursor appears).'),
             saBullet(
-              'Step 2: User long-presses or double-taps to open context menu.',
-            ),
-            saBullet('Step 3: User taps "Select All" from the callout bar.'),
+                'Step 1: User taps into a text field (cursor appears).'),
             saBullet(
-              'Step 4: iOS sets TextSelection(baseOffset: 0, '
-              'extentOffset: text.length).',
-            ),
+                'Step 2: User long-presses or double-taps to open context menu.'),
             saBullet(
-              'Step 5: The callout bar updates to show Cut, Copy, and other '
-              'actions now that text is selected.',
-            ),
+                'Step 3: User taps "Select All" from the callout bar.'),
+            saBullet(
+                'Step 4: iOS sets TextSelection(baseOffset: 0, '
+                'extentOffset: text.length).'),
+            saBullet(
+                'Step 5: The callout bar updates to show Cut, Copy, and other '
+                'actions now that text is selected.'),
             saDivider(),
             saHighlight(
-              'Select All replaces the current selection with a full selection. '
-              'If text was already partially selected, the selection expands. '
-              'If text was already fully selected, nothing visible changes.',
-            ),
+                'Select All replaces the current selection with a full selection. '
+                'If text was already partially selected, the selection expands. '
+                'If text was already fully selected, nothing visible changes.'),
           ]),
 
           // ── 3. visibility conditions ──
           saSection('3 · When Select All Appears', [
             saBullet(
-              'Appears when the field has text content and NOT all of it '
-              'is already selected.',
-            ),
+                'Appears when the field has text content and NOT all of it '
+                'is already selected.'),
             saBullet(
-              'Hidden when the field is empty – there is nothing to select.',
-            ),
+                'Hidden when the field is empty – there is nothing to select.'),
             saBullet(
-              'Hidden when the entire text is already selected – Select All '
-              'would be a no-op.',
-            ),
+                'Hidden when the entire text is already selected – Select All '
+                'would be a no-op.'),
             saDivider(),
             saKeyValue('Text required', 'Yes (field must not be empty)'),
             saKeyValue('Full selection', 'Hides it (already selected all)'),
@@ -353,17 +311,14 @@ dynamic build(BuildContext context) {
           // ── 4. menu position ──
           saSection('4 · Context Menu Positioning', [
             saBullet(
-              'Select All is a PRIMARY item. It appears on the first '
-              'page of the iOS callout bar.',
-            ),
+                'Select All is a PRIMARY item. It appears on the first '
+                'page of the iOS callout bar.'),
             saBullet(
-              'Typical primary row order (when applicable): Cut | Copy | '
-              'Paste | Select All.',
-            ),
+                'Typical primary row order (when applicable): Cut | Copy | '
+                'Paste | Select All.'),
             saBullet(
-              'When there is no selection but a cursor exists, the menu '
-              'may show only: Select | Select All | Paste.',
-            ),
+                'When there is no selection but a cursor exists, the menu '
+                'may show only: Select | Select All | Paste.'),
             saDivider(),
             saKeyValue('Position', 'Primary row of callout bar'),
             saKeyValue('Icon', 'None (text label only)'),
@@ -373,31 +328,27 @@ dynamic build(BuildContext context) {
           // ── 5. selection behavior details ──
           saSection('5 · Selection Mechanics', [
             saBullet(
-              'Select All sets the TextSelection with baseOffset = 0 and '
-              'extentOffset = text.length.',
-            ),
+                'Select All sets the TextSelection with baseOffset = 0 and '
+                'extentOffset = text.length.'),
             saBullet(
-              'This is equivalent to pressing Cmd+A on macOS or Ctrl+A '
-              'on Windows/Linux.',
-            ),
+                'This is equivalent to pressing Cmd+A on macOS or Ctrl+A '
+                'on Windows/Linux.'),
             saCodeBlock(
-              '// What Select All does internally:\n'
-              'final fullSelection = TextSelection(\n'
-              '  baseOffset: 0,\n'
-              '  extentOffset: controller.text.length,\n'
-              ');\n'
-              'controller.selection = fullSelection;\n'
-              '\n'
-              '// After Select All:\n'
-              '// controller.selection.start == 0\n'
-              '// controller.selection.end == controller.text.length\n'
-              '// controller.selection.isCollapsed == false',
-            ),
+                '// What Select All does internally:\n'
+                'final fullSelection = TextSelection(\n'
+                '  baseOffset: 0,\n'
+                '  extentOffset: controller.text.length,\n'
+                ');\n'
+                'controller.selection = fullSelection;\n'
+                '\n'
+                '// After Select All:\n'
+                '// controller.selection.start == 0\n'
+                '// controller.selection.end == controller.text.length\n'
+                '// controller.selection.isCollapsed == false'),
             saDivider(),
             saBullet(
-              'The selection handles appear at the start and end of the text. '
-              'The user can drag either handle to refine the selection.',
-            ),
+                'The selection handles appear at the start and end of the text. '
+                'The user can drag either handle to refine the selection.'),
           ]),
 
           // ── 6. interaction with other actions ──
@@ -409,60 +360,53 @@ dynamic build(BuildContext context) {
             saInfoRow('🔍', 'Search:', 'Searches full text on the web'),
             saDivider(),
             saBullet(
-              'Select All is commonly used as a preparatory step before '
-              'Cut, Copy, or Delete operations.',
-            ),
+                'Select All is commonly used as a preparatory step before '
+                'Cut, Copy, or Delete operations.'),
             saBullet(
-              'In a typical "replace all text" flow: Select All → Paste '
-              'replaces the entire field content.',
-            ),
+                'In a typical "replace all text" flow: Select All → Paste '
+                'replaces the entire field content.'),
           ]),
 
           // ── 7. Flutter integration ──
           saSection('7 · Flutter Framework Integration', [
             saBullet(
-              'Select All is auto-provided by EditableText when the system '
-              'toolbar is shown. Flutter maps it to selectAll().',
-            ),
+                'Select All is auto-provided by EditableText when the system '
+                'toolbar is shown. Flutter maps it to selectAll().'),
             saBullet(
-              'In TextSelectionControls, handleSelectAll() calls '
-              'textEditingValue.selectAll() on the delegate.',
-            ),
+                'In TextSelectionControls, handleSelectAll() calls '
+                'textEditingValue.selectAll() on the delegate.'),
             saCodeBlock(
-              '// Flutter handles Select All internally:\n'
-              'void handleSelectAll(TextSelectionDelegate delegate) {\n'
-              '  delegate.selectAll(SelectionChangedCause.toolbar);\n'
-              '  delegate.hideToolbar();\n'
-              '}\n'
-              '\n'
-              '// This sets the selection to cover the full text\n'
-              '// and hides the toolbar (it reappears with new items)',
-            ),
+                '// Flutter handles Select All internally:\n'
+                'void handleSelectAll(TextSelectionDelegate delegate) {\n'
+                '  delegate.selectAll(SelectionChangedCause.toolbar);\n'
+                '  delegate.hideToolbar();\n'
+                '}\n'
+                '\n'
+                '// This sets the selection to cover the full text\n'
+                '// and hides the toolbar (it reappears with new items)'),
             saDivider(),
             saBullet(
-              'If you implement a custom contextMenuBuilder, include the '
-              'system selectAll button to preserve this functionality.',
-            ),
+                'If you implement a custom contextMenuBuilder, include the '
+                'system selectAll button to preserve this functionality.'),
           ]),
 
           // ── 8. class properties ──
           saSection('8 · Class Properties & Constructor', [
             saCodeBlock(
-              '// IOSSystemContextMenuItemSelectAll is a final class\n'
-              '// with a const constructor.\n'
-              'const IOSSystemContextMenuItemSelectAll({\n'
-              '  super.title,  // optional custom label\n'
-              '})\n'
-              '\n'
-              '// Usage:\n'
-              'const item = IOSSystemContextMenuItemSelectAll();\n'
-              '// item.title → null (uses system default "Select All")\n'
-              '\n'
-              'const custom = IOSSystemContextMenuItemSelectAll(\n'
-              '  title: \'Highlight Everything\',\n'
-              ');\n'
-              '// custom.title → "Highlight Everything"',
-            ),
+                '// IOSSystemContextMenuItemSelectAll is a final class\n'
+                '// with a const constructor.\n'
+                'const IOSSystemContextMenuItemSelectAll({\n'
+                '  super.title,  // optional custom label\n'
+                '})\n'
+                '\n'
+                '// Usage:\n'
+                'const item = IOSSystemContextMenuItemSelectAll();\n'
+                '// item.title → null (uses system default "Select All")\n'
+                '\n'
+                'const custom = IOSSystemContextMenuItemSelectAll(\n'
+                '  title: \'Highlight Everything\',\n'
+                ');\n'
+                '// custom.title → "Highlight Everything"'),
             saDivider(),
             saKeyValue('title', 'Optional String, null uses system default'),
             saKeyValue('Const', 'Yes, supports const construction'),
@@ -473,80 +417,67 @@ dynamic build(BuildContext context) {
           // ── 9. multiline text fields ──
           saSection('9 · Select All in Multiline Fields', [
             saBullet(
-              'In multiline TextField, Select All selects across ALL lines, '
-              'not just the current line.',
-            ),
+                'In multiline TextField, Select All selects across ALL lines, '
+                'not just the current line.'),
             saBullet(
-              'The selection spans from the first character of the first '
-              'line to the last character of the last line.',
-            ),
+                'The selection spans from the first character of the first '
+                'line to the last character of the last line.'),
             saBullet(
-              'Selection handles appear at the very top-left and very '
-              'bottom-right of the text content.',
-            ),
+                'Selection handles appear at the very top-left and very '
+                'bottom-right of the text content.'),
             saDivider(),
             saCodeBlock(
-              '// Multiline example:\n'
-              '// Text: "Line 1\\nLine 2\\nLine 3"\n'
-              '// After Select All:\n'
-              '//   selection.start == 0\n'
-              '//   selection.end == 20  (total chars)\n'
-              '//   selectedText == "Line 1\\nLine 2\\nLine 3"',
-            ),
+                '// Multiline example:\n'
+                '// Text: "Line 1\\nLine 2\\nLine 3"\n'
+                '// After Select All:\n'
+                '//   selection.start == 0\n'
+                '//   selection.end == 20  (total chars)\n'
+                '//   selectedText == "Line 1\\nLine 2\\nLine 3"'),
             saBullet(
-              'If only one line needs to be selected, the user must '
-              'manually drag the selection handles or triple-tap.',
-            ),
+                'If only one line needs to be selected, the user must '
+                'manually drag the selection handles or triple-tap.'),
           ]),
 
           // ── 10. empty and read-only fields ──
           saSection('10 · Edge Cases: Empty & Read-Only', [
             saBullet(
-              'Empty field: Select All is hidden because there is nothing '
-              'to select. The menu shows only Paste (if clipboard has data).',
-            ),
+                'Empty field: Select All is hidden because there is nothing '
+                'to select. The menu shows only Paste (if clipboard has data).'),
             saBullet(
-              'Read-only field: Select All IS shown (read-only still allows '
-              'selection for copying). After Select All, Copy is available.',
-            ),
+                'Read-only field: Select All IS shown (read-only still allows '
+                'selection for copying). After Select All, Copy is available.'),
             saBullet(
-              'Disabled field: No context menu appears at all. Select All '
-              'is not accessible in a disabled TextField.',
-            ),
+                'Disabled field: No context menu appears at all. Select All '
+                'is not accessible in a disabled TextField.'),
             saHighlight(
-              'Read-only with full selection already active: Select All is '
-              'hidden (it would be a no-op), but Copy remains available.',
-            ),
+                'Read-only with full selection already active: Select All is '
+                'hidden (it would be a no-op), but Copy remains available.'),
           ]),
 
           // ── 11. const canonicalization ──
           saSection('11 · Const Canonicalization & Identity', [
             saBullet(
-              'IOSSystemContextMenuItemSelectAll supports const construction.',
-            ),
+                'IOSSystemContextMenuItemSelectAll supports const construction.'),
             saBullet(
-              'Two const instances with the same arguments are identical '
-              '(identical() returns true).',
-            ),
+                'Two const instances with the same arguments are identical '
+                '(identical() returns true).'),
             saCodeBlock(
-              '// Const canonicalization:\n'
-              'const a = IOSSystemContextMenuItemSelectAll();\n'
-              'const b = IOSSystemContextMenuItemSelectAll();\n'
-              'identical(a, b); // true (same compile-time const)\n'
-              '\n'
-              'const c = IOSSystemContextMenuItemSelectAll(\n'
-              '  title: \'All\',\n'
-              ');\n'
-              'const d = IOSSystemContextMenuItemSelectAll(\n'
-              '  title: \'All\',\n'
-              ');\n'
-              'identical(c, d); // true (same title value)',
-            ),
+                '// Const canonicalization:\n'
+                'const a = IOSSystemContextMenuItemSelectAll();\n'
+                'const b = IOSSystemContextMenuItemSelectAll();\n'
+                'identical(a, b); // true (same compile-time const)\n'
+                '\n'
+                'const c = IOSSystemContextMenuItemSelectAll(\n'
+                '  title: \'All\',\n'
+                ');\n'
+                'const d = IOSSystemContextMenuItemSelectAll(\n'
+                '  title: \'All\',\n'
+                ');\n'
+                'identical(c, d); // true (same title value)'),
             saDivider(),
             saBullet(
-              'This is standard Dart behavior for all const classes. '
-              'It also means hashCode and == work correctly.',
-            ),
+                'This is standard Dart behavior for all const classes. '
+                'It also means hashCode and == work correctly.'),
           ]),
 
           // ── 12. platform differences ──
@@ -558,23 +489,22 @@ dynamic build(BuildContext context) {
             saKeyValue('Web', 'Ctrl+A / Cmd+A keyboard shortcut'),
             saDivider(),
             saBullet(
-              'On Android, the wording is "SELECT ALL" (all caps) in the '
-              'action mode bar. On iOS, it is "Select All" (title case).',
-            ),
+                'On Android, the wording is "SELECT ALL" (all caps) in the '
+                'action mode bar. On iOS, it is "Select All" (title case).'),
             saBullet(
-              'On desktop platforms, Select All is primarily a keyboard '
-              'shortcut rather than a context menu item.',
-            ),
+                'On desktop platforms, Select All is primarily a keyboard '
+                'shortcut rather than a context menu item.'),
           ]),
 
           // ── 13. VoiceOver accessibility ──
           saSection('13 · VoiceOver & Accessibility', [
-            saBullet('VoiceOver announces "Select All, button" when focused.'),
-            saBullet('The accessibility hint is "Selects all text."'),
             saBullet(
-              'After activation, VoiceOver announces the selected text '
-              'range and updated toolbar options.',
-            ),
+                'VoiceOver announces "Select All, button" when focused.'),
+            saBullet(
+                'The accessibility hint is "Selects all text."'),
+            saBullet(
+                'After activation, VoiceOver announces the selected text '
+                'range and updated toolbar options.'),
             saDivider(),
             saKeyValue('A11y label', '"Select All"'),
             saKeyValue('A11y trait', 'Button'),
@@ -584,29 +514,25 @@ dynamic build(BuildContext context) {
           // ── 14. SelectableText ──
           saSection('14 · Select All in SelectableText', [
             saBullet(
-              'SelectableText (read-only rich text widget) also supports '
-              'Select All through the system context menu.',
-            ),
+                'SelectableText (read-only rich text widget) also supports '
+                'Select All through the system context menu.'),
             saBullet(
-              'Unlike TextField, SelectableText does not have editability – '
-              'after Select All, only Copy and Share are available.',
-            ),
+                'Unlike TextField, SelectableText does not have editability – '
+                'after Select All, only Copy and Share are available.'),
             saCodeBlock(
-              '// SelectableText usage:\n'
-              'SelectableText(\n'
-              '  \'Long article text that the user may want to copy...\',\n'
-              '  showCursor: true,\n'
-              '  toolbarOptions: ToolbarOptions(\n'
-              '    selectAll: true, // ensure Select All is available\n'
-              '    copy: true,\n'
-              '  ),\n'
-              ')',
-            ),
+                '// SelectableText usage:\n'
+                'SelectableText(\n'
+                '  \'Long article text that the user may want to copy...\',\n'
+                '  showCursor: true,\n'
+                '  toolbarOptions: ToolbarOptions(\n'
+                '    selectAll: true, // ensure Select All is available\n'
+                '    copy: true,\n'
+                '  ),\n'
+                ')'),
             saDivider(),
             saBullet(
-              'In Flutter, SelectableText.rich() also supports Select All '
-              'across mixed TextSpan styles (bold, italic, links, etc.).',
-            ),
+                'In Flutter, SelectableText.rich() also supports Select All '
+                'across mixed TextSpan styles (bold, italic, links, etc.).'),
           ]),
 
           // ── 15. comparison with all menu items ──
@@ -614,10 +540,7 @@ dynamic build(BuildContext context) {
             saCompare('Cut', 'Clipboard write + delete (editable only)'),
             saCompare('Copy', 'Clipboard write (any field)'),
             saCompare('Paste', 'Clipboard read + insert (editable only)'),
-            saCompare(
-              'Select All',
-              'Full text selection (any non-empty field)',
-            ),
+            saCompare('Select All', 'Full text selection (any non-empty field)'),
             saCompare('Look Up', 'Inline dictionary/wiki (any field)'),
             saCompare('Translate', 'System translation (any field)'),
             saCompare('Search Web', 'Safari search (any field)'),
@@ -636,15 +559,14 @@ dynamic build(BuildContext context) {
             saKeyValue('Leaves app', 'No'),
             saDivider(),
             saCodeBlock(
-              '// Select All is auto-included by the system toolbar.\n'
-              'const item = IOSSystemContextMenuItemSelectAll();\n'
-              'print(item.title); // null (system default)\n'
-              'print(item is IOSSystemContextMenuItem); // true\n'
-              '\n'
-              'const custom = IOSSystemContextMenuItemSelectAll(\n'
-              '  title: \'Highlight All\',\n'
-              ');',
-            ),
+                '// Select All is auto-included by the system toolbar.\n'
+                'const item = IOSSystemContextMenuItemSelectAll();\n'
+                'print(item.title); // null (system default)\n'
+                'print(item is IOSSystemContextMenuItem); // true\n'
+                '\n'
+                'const custom = IOSSystemContextMenuItemSelectAll(\n'
+                '  title: \'Highlight All\',\n'
+                ');'),
           ]),
 
           // ── footer ──
@@ -656,10 +578,9 @@ dynamic build(BuildContext context) {
               'IOSSystemContextMenuItemSelectAll · Plum Deep Demo',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 10,
-                color: saMuted,
-                fontStyle: FontStyle.italic,
-              ),
+                  fontSize: 10,
+                  color: saMuted,
+                  fontStyle: FontStyle.italic),
             ),
           ),
         ],

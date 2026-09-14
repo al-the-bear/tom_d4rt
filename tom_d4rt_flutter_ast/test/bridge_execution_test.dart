@@ -14,9 +14,9 @@ import 'package:tom_d4rt_flutter_ast/tom_d4rt_flutter_ast.dart';
 
 /// Compiles [source] into an [AstBundle], skipping the libraries already
 /// bridged on [d4rt]'s runner (handled natively at runtime).
-Future<AstBundle> _bundle(FlutterD4rt d4rt, String source) => AstBundler(
-  bridgedLibraries: d4rt.interpreter.bridgedLibraryUris,
-).createFromSource(source);
+Future<AstBundle> _bundle(FlutterD4rt d4rt, String source) =>
+    AstBundler(bridgedLibraries: d4rt.interpreter.bridgedLibraryUris)
+        .createFromSource(source);
 
 void main() {
   group('FlutterD4rt bridge execution', () {

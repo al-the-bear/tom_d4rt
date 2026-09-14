@@ -34,8 +34,7 @@ const List<_ThemeRecipe> _recipes = [
   _ThemeRecipe(
     id: 'atlas-green',
     title: 'Atlas Green',
-    summary:
-        'Navigation-oriented enterprise tone with clear structure contrast.',
+    summary: 'Navigation-oriented enterprise tone with clear structure contrast.',
     accent: Color(0xFF166534),
     brightness: Brightness.light,
   ),
@@ -52,14 +51,12 @@ const List<_TransitionScenario> _scenarios = [
   _TransitionScenario(
     id: 'dashboard',
     title: 'Ops Dashboard',
-    description:
-        'Cards, chips, filters, and action rows under interpolated themes.',
+    description: 'Cards, chips, filters, and action rows under interpolated themes.',
   ),
   _TransitionScenario(
     id: 'forms',
     title: 'Forms Workspace',
-    description:
-        'Input, toggles, helper text, and validation accents across theme tweening.',
+    description: 'Input, toggles, helper text, and validation accents across theme tweening.',
   ),
   _TransitionScenario(
     id: 'catalog',
@@ -69,8 +66,7 @@ const List<_TransitionScenario> _scenarios = [
   _TransitionScenario(
     id: 'shell',
     title: 'App Shell',
-    description:
-        'Navigation rail, app bar, FAB, and surface hierarchy transitions.',
+    description: 'Navigation rail, app bar, FAB, and surface hierarchy transitions.',
   ),
 ];
 
@@ -242,45 +238,35 @@ dynamic build(BuildContext context) {
                         setState(() {
                           autoPlay = value;
                           timelineTick += 1;
-                          addEvent(
-                            'Auto-play ${value ? 'enabled' : 'disabled'}.',
-                          );
+                          addEvent('Auto-play ${value ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onContrastChanged: (value) {
                         setState(() {
                           highContrast = value;
                           timelineTick += 1;
-                          addEvent(
-                            'High contrast ${value ? 'enabled' : 'disabled'}.',
-                          );
+                          addEvent('High contrast ${value ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onDenseChanged: (value) {
                         setState(() {
                           denseMode = value;
                           timelineTick += 1;
-                          addEvent(
-                            'Dense mode ${value ? 'enabled' : 'disabled'}.',
-                          );
+                          addEvent('Dense mode ${value ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onDiagnosticsChanged: (value) {
                         setState(() {
                           showDiagnostics = value;
                           timelineTick += 1;
-                          addEvent(
-                            'Diagnostics ${value ? 'visible' : 'hidden'}.',
-                          );
+                          addEvent('Diagnostics ${value ? 'visible' : 'hidden'}.');
                         });
                       },
                       onTypographyChanged: (value) {
                         setState(() {
                           emphasizeTypography = value;
                           timelineTick += 1;
-                          addEvent(
-                            'Typography emphasis ${value ? 'enabled' : 'disabled'}.',
-                          );
+                          addEvent('Typography emphasis ${value ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onRoundnessChanged: (value) {
@@ -309,19 +295,14 @@ dynamic build(BuildContext context) {
                           gradient: LinearGradient(
                             colors: [
                               current.colorScheme.surface,
-                              current.colorScheme.surfaceContainerHighest
-                                  .withAlpha(168),
+                              current.colorScheme.surfaceContainerHighest.withAlpha(168),
                               current.colorScheme.surface,
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
                           borderRadius: BorderRadius.circular(18),
-                          border: Border.all(
-                            color: current.colorScheme.outlineVariant.withAlpha(
-                              130,
-                            ),
-                          ),
+                          border: Border.all(color: current.colorScheme.outlineVariant.withAlpha(130)),
                         ),
                         child: AnimatedScale(
                           scale: contentScale,
@@ -410,12 +391,8 @@ ThemeData _buildThemeFromRecipe(
 
   final textTheme = emphasizeTypography
       ? base.textTheme.copyWith(
-          titleLarge: base.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w800,
-          ),
-          titleMedium: base.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
+          titleLarge: base.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+          titleMedium: base.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
           bodyMedium: base.textTheme.bodyMedium?.copyWith(letterSpacing: 0.12),
         )
       : base.textTheme;
@@ -424,22 +401,16 @@ ThemeData _buildThemeFromRecipe(
     textTheme: textTheme,
     cardTheme: CardThemeData(
       elevation: denseMode ? 0.5 : 1.5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(cardRoundness),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(cardRoundness)),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: scheme.surfaceContainerHighest.withAlpha(140),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(cardRoundness - 4),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(cardRoundness - 4)),
       isDense: denseMode,
     ),
     chipTheme: base.chipTheme.copyWith(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(cardRoundness - 6),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(cardRoundness - 6)),
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: scheme.surface,
@@ -449,10 +420,7 @@ ThemeData _buildThemeFromRecipe(
     ),
     navigationRailTheme: NavigationRailThemeData(
       selectedIconTheme: IconThemeData(color: scheme.onSecondaryContainer),
-      selectedLabelTextStyle: TextStyle(
-        color: scheme.onSecondaryContainer,
-        fontWeight: FontWeight.w700,
-      ),
+      selectedLabelTextStyle: TextStyle(color: scheme.onSecondaryContainer, fontWeight: FontWeight.w700),
       indicatorColor: scheme.secondaryContainer,
       backgroundColor: scheme.surface,
     ),
@@ -491,9 +459,7 @@ Widget _header({
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(140),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(140)),
     ),
     child: Row(
       children: [
@@ -503,9 +469,7 @@ Widget _header({
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: CustomPaint(
             painter: _TweenGlyphPainter(
@@ -520,26 +484,16 @@ Widget _header({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ThemeDataTween Transition Studio',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text('ThemeDataTween Transition Studio', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               SizedBox(height: 4),
               Text(
                 'begin: ${beginRecipe.title}  end: ${endRecipe.title}  t=${tValue.toStringAsFixed(2)}  interactions: $interactionCount',
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(180),
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180), fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 5),
               Text(
                 scenario.description,
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(170),
-                ),
+                style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(170)),
               ),
             ],
           ),
@@ -593,24 +547,15 @@ Widget _controlPanel({
         end: Alignment.bottomCenter,
       ),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(130),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
     ),
     child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Transition Controls',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text('Transition Controls', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
           SizedBox(height: 4),
-          Text(
-            'Tune tween endpoints, interpolation progress, and preview conditions.',
-          ),
+          Text('Tune tween endpoints, interpolation progress, and preview conditions.'),
           SizedBox(height: 10),
           _dropdown<int>(
             label: 'Begin Theme Recipe',
@@ -635,10 +580,7 @@ Widget _controlPanel({
             value: scenarioIndex,
             items: [
               for (var i = 0; i < _scenarios.length; i++)
-                DropdownMenuItem<int>(
-                  value: i,
-                  child: Text(_scenarios[i].title),
-                ),
+                DropdownMenuItem<int>(value: i, child: Text(_scenarios[i].title)),
             ],
             onChanged: onScenarioChanged,
           ),
@@ -770,10 +712,7 @@ Widget _slider({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$label: ${value.toStringAsFixed(2)}',
-          style: TextStyle(fontWeight: FontWeight.w700),
-        ),
+        Text('$label: ${value.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.w700)),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ],
     ),
@@ -799,16 +738,11 @@ Widget _switch({
       children: [
         Row(
           children: [
-            Expanded(
-              child: Text(title, style: TextStyle(fontWeight: FontWeight.w700)),
-            ),
+            Expanded(child: Text(title, style: TextStyle(fontWeight: FontWeight.w700))),
             Switch(value: value, onChanged: onChanged),
           ],
         ),
-        Text(
-          subtitle,
-          style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160)),
-        ),
+        Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160))),
       ],
     ),
   );
@@ -855,7 +789,10 @@ Widget _buildBoard({
         onAction: onAction,
       );
     case 3:
-      return _shellBoard(current: current, onAction: onAction);
+      return _shellBoard(
+        current: current,
+        onAction: onAction,
+      );
     default:
       return _guideBoard(
         current: current,
@@ -883,12 +820,7 @@ Widget _timelineBoard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Transition Timeline',
-          scenario.description,
-          't=${tValue.toStringAsFixed(2)}',
-        ),
+        _section(current, 'Transition Timeline', scenario.description, 't=${tValue.toStringAsFixed(2)}'),
         SizedBox(height: 10),
         Wrap(
           spacing: 10,
@@ -904,23 +836,23 @@ Widget _timelineBoard({
         ),
         SizedBox(height: 12),
         if (showDiagnostics)
-          _diagnosticCard(current, 'Interpolation diagnostics', [
-            'current primary: ${_colorHex(current.colorScheme.primary)}',
-            'current surface: ${_colorHex(current.colorScheme.surface)}',
-            'begin primary: ${_colorHex(begin.colorScheme.primary)}',
-            'end primary: ${_colorHex(end.colorScheme.primary)}',
-            't progress: ${tValue.toStringAsFixed(3)}',
-          ]),
+          _diagnosticCard(
+            current,
+            'Interpolation diagnostics',
+            [
+              'current primary: ${_colorHex(current.colorScheme.primary)}',
+              'current surface: ${_colorHex(current.colorScheme.surface)}',
+              'begin primary: ${_colorHex(begin.colorScheme.primary)}',
+              'end primary: ${_colorHex(end.colorScheme.primary)}',
+              't progress: ${tValue.toStringAsFixed(3)}',
+            ],
+          ),
       ],
     ),
   );
 }
 
-Widget _timelineCard({
-  required ThemeData theme,
-  required String label,
-  required VoidCallback onAction,
-}) {
+Widget _timelineCard({required ThemeData theme, required String label, required VoidCallback onAction}) {
   return Theme(
     data: theme,
     child: Container(
@@ -929,9 +861,7 @@ Widget _timelineCard({
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest.withAlpha(120),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: theme.colorScheme.outlineVariant.withAlpha(128),
-        ),
+        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(128)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -969,36 +899,11 @@ Widget _tokenMatrixBoard({
   required double tValue,
 }) {
   final rows = [
-    (
-      'primary',
-      begin.colorScheme.primary,
-      end.colorScheme.primary,
-      current.colorScheme.primary,
-    ),
-    (
-      'secondary',
-      begin.colorScheme.secondary,
-      end.colorScheme.secondary,
-      current.colorScheme.secondary,
-    ),
-    (
-      'surface',
-      begin.colorScheme.surface,
-      end.colorScheme.surface,
-      current.colorScheme.surface,
-    ),
-    (
-      'onSurface',
-      begin.colorScheme.onSurface,
-      end.colorScheme.onSurface,
-      current.colorScheme.onSurface,
-    ),
-    (
-      'outline',
-      begin.colorScheme.outline,
-      end.colorScheme.outline,
-      current.colorScheme.outline,
-    ),
+    ('primary', begin.colorScheme.primary, end.colorScheme.primary, current.colorScheme.primary),
+    ('secondary', begin.colorScheme.secondary, end.colorScheme.secondary, current.colorScheme.secondary),
+    ('surface', begin.colorScheme.surface, end.colorScheme.surface, current.colorScheme.surface),
+    ('onSurface', begin.colorScheme.onSurface, end.colorScheme.onSurface, current.colorScheme.onSurface),
+    ('outline', begin.colorScheme.outline, end.colorScheme.outline, current.colorScheme.outline),
     (
       'titleLarge size',
       Color(0x00000000),
@@ -1012,12 +917,7 @@ Widget _tokenMatrixBoard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Token Matrix',
-          'Compare begin/end/current tokens across the tween.',
-          'matrix',
-        ),
+        _section(current, 'Token Matrix', 'Compare begin/end/current tokens across the tween.', 'matrix'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1025,24 +925,14 @@ Widget _tokenMatrixBoard({
           decoration: BoxDecoration(
             color: current.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             children: [
               for (var i = 0; i < rows.length; i++)
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
-                  child: _matrixRow(
-                    current,
-                    rows[i].$1,
-                    rows[i].$2,
-                    rows[i].$3,
-                    rows[i].$4,
-                    i,
-                    tValue,
-                  ),
+                  child: _matrixRow(current, rows[i].$1, rows[i].$2, rows[i].$3, rows[i].$4, i, tValue),
                 ),
             ],
           ),
@@ -1067,36 +957,22 @@ Widget _matrixRow(
     final currentSize = beginSize;
     return Row(
       children: [
-        SizedBox(
-          width: 120,
-          child: Text(label, style: TextStyle(fontWeight: FontWeight.w700)),
-        ),
-        Expanded(
-          child: Text(
-            'begin=${beginSize.toStringAsFixed(1)}  end=${endSize.toStringAsFixed(1)}  current=${currentSize.toStringAsFixed(1)}  t=${t.toStringAsFixed(2)}',
-          ),
-        ),
+        SizedBox(width: 120, child: Text(label, style: TextStyle(fontWeight: FontWeight.w700))),
+        Expanded(child: Text('begin=${beginSize.toStringAsFixed(1)}  end=${endSize.toStringAsFixed(1)}  current=${currentSize.toStringAsFixed(1)}  t=${t.toStringAsFixed(2)}')),
       ],
     );
   }
 
   return Row(
     children: [
-      SizedBox(
-        width: 120,
-        child: Text(label, style: TextStyle(fontWeight: FontWeight.w700)),
-      ),
+      SizedBox(width: 120, child: Text(label, style: TextStyle(fontWeight: FontWeight.w700))),
       _swatch(begin),
       SizedBox(width: 8),
       _swatch(end),
       SizedBox(width: 8),
       _swatch(value),
       SizedBox(width: 10),
-      Expanded(
-        child: Text(
-          'begin ${_colorHex(begin)}  end ${_colorHex(end)}  current ${_colorHex(value)}',
-        ),
-      ),
+      Expanded(child: Text('begin ${_colorHex(begin)}  end ${_colorHex(end)}  current ${_colorHex(value)}')),
     ],
   );
 }
@@ -1113,11 +989,7 @@ Widget _swatch(Color color) {
   );
 }
 
-Widget _sceneBoard({
-  required ThemeData current,
-  required _TransitionScenario scenario,
-  required ValueChanged<String> onAction,
-}) {
+Widget _sceneBoard({required ThemeData current, required _TransitionScenario scenario, required ValueChanged<String> onAction}) {
   final cards = [
     ('Pipeline Health', '76%', Icons.monitor_heart),
     ('Pending Reviews', '14', Icons.rate_review_outlined),
@@ -1130,12 +1002,7 @@ Widget _sceneBoard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Scene Playground',
-          'Live feature-style surface under interpolated theme.',
-          scenario.title,
-        ),
+        _section(current, 'Scene Playground', 'Live feature-style surface under interpolated theme.', scenario.title),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1143,9 +1010,7 @@ Widget _sceneBoard({
           decoration: BoxDecoration(
             color: current.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1186,36 +1051,17 @@ Widget _sceneBoard({
                                 children: [
                                   Icon(card.$3),
                                   SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      card.$1,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
+                                  Expanded(child: Text(card.$1, style: TextStyle(fontWeight: FontWeight.w700))),
                                 ],
                               ),
                               SizedBox(height: 10),
-                              Text(
-                                card.$2,
-                                style: current.textTheme.headlineMedium
-                                    ?.copyWith(fontWeight: FontWeight.w800),
-                              ),
+                              Text(card.$2, style: current.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
                               SizedBox(height: 8),
                               Wrap(
                                 spacing: 6,
                                 children: [
-                                  ActionChip(
-                                    label: Text('Inspect'),
-                                    onPressed: () =>
-                                        onAction('inspect-${card.$1}'),
-                                  ),
-                                  ActionChip(
-                                    label: Text('Drill down'),
-                                    onPressed: () =>
-                                        onAction('drill-${card.$1}'),
-                                  ),
+                                  ActionChip(label: Text('Inspect'), onPressed: () => onAction('inspect-${card.$1}')),
+                                  ActionChip(label: Text('Drill down'), onPressed: () => onAction('drill-${card.$1}')),
                                 ],
                               ),
                             ],
@@ -1233,10 +1079,7 @@ Widget _sceneBoard({
   );
 }
 
-Widget _shellBoard({
-  required ThemeData current,
-  required ValueChanged<String> onAction,
-}) {
+Widget _shellBoard({required ThemeData current, required ValueChanged<String> onAction}) {
   final navItems = [
     ('Overview', Icons.dashboard_outlined),
     ('Activity', Icons.timeline),
@@ -1249,12 +1092,7 @@ Widget _shellBoard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Shell Preview',
-          'Navigation + app frame behaviors under theme tween.',
-          'shell',
-        ),
+        _section(current, 'Shell Preview', 'Navigation + app frame behaviors under theme tween.', 'shell'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1262,9 +1100,7 @@ Widget _shellBoard({
           decoration: BoxDecoration(
             color: current.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Row(
             children: [
@@ -1286,14 +1122,8 @@ Widget _shellBoard({
                     AppBar(
                       title: Text('Interpolated App Shell'),
                       actions: [
-                        IconButton(
-                          onPressed: () => onAction('search'),
-                          icon: Icon(Icons.search),
-                        ),
-                        IconButton(
-                          onPressed: () => onAction('notifications'),
-                          icon: Icon(Icons.notifications_none),
-                        ),
+                        IconButton(onPressed: () => onAction('search'), icon: Icon(Icons.search)),
+                        IconButton(onPressed: () => onAction('notifications'), icon: Icon(Icons.notifications_none)),
                       ],
                     ),
                     Expanded(
@@ -1303,13 +1133,8 @@ Widget _shellBoard({
                           Card(
                             child: ListTile(
                               title: Text('Primary workspace panel'),
-                              subtitle: Text(
-                                'Observe app bar, surface, and list tile token interpolation.',
-                              ),
-                              trailing: FilledButton(
-                                onPressed: () => onAction('open-panel'),
-                                child: Text('Open'),
-                              ),
+                              subtitle: Text('Observe app bar, surface, and list tile token interpolation.'),
+                              trailing: FilledButton(onPressed: () => onAction('open-panel'), child: Text('Open')),
                             ),
                           ),
                           SizedBox(height: 10),
@@ -1319,33 +1144,16 @@ Widget _shellBoard({
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Theme-sensitive controls',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                  Text('Theme-sensitive controls', style: TextStyle(fontWeight: FontWeight.w700)),
                                   SizedBox(height: 8),
                                   Wrap(
                                     spacing: 8,
                                     runSpacing: 8,
                                     children: [
-                                      ElevatedButton(
-                                        onPressed: () => onAction('elevated'),
-                                        child: Text('Elevated'),
-                                      ),
-                                      OutlinedButton(
-                                        onPressed: () => onAction('outlined'),
-                                        child: Text('Outlined'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => onAction('text'),
-                                        child: Text('Text'),
-                                      ),
-                                      FilledButton.tonal(
-                                        onPressed: () => onAction('tonal'),
-                                        child: Text('Tonal'),
-                                      ),
+                                      ElevatedButton(onPressed: () => onAction('elevated'), child: Text('Elevated')),
+                                      OutlinedButton(onPressed: () => onAction('outlined'), child: Text('Outlined')),
+                                      TextButton(onPressed: () => onAction('text'), child: Text('Text')),
+                                      FilledButton.tonal(onPressed: () => onAction('tonal'), child: Text('Tonal')),
                                     ],
                                   ),
                                 ],
@@ -1377,12 +1185,7 @@ Widget _guideBoard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Guide + Timeline',
-          'Usage guidance, FAQ, and interaction history.',
-          'guide',
-        ),
+        _section(current, 'Guide + Timeline', 'Usage guidance, FAQ, and interaction history.', 'guide'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1390,17 +1193,12 @@ Widget _guideBoard({
           decoration: BoxDecoration(
             color: current.colorScheme.tertiaryContainer.withAlpha(110),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.tertiary.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.tertiary.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ThemeDataTween usage guidance',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('ThemeDataTween usage guidance', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               for (final g in _guidance) _bullet(g),
             ],
@@ -1413,17 +1211,12 @@ Widget _guideBoard({
           decoration: BoxDecoration(
             color: current.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'FAQ',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('FAQ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               for (final q in _faq)
                 Padding(
@@ -1431,10 +1224,7 @@ Widget _guideBoard({
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        q.question,
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
+                      Text(q.question, style: TextStyle(fontWeight: FontWeight.w700)),
                       SizedBox(height: 2),
                       Text(q.answer),
                     ],
@@ -1450,32 +1240,22 @@ Widget _guideBoard({
           decoration: BoxDecoration(
             color: current.colorScheme.primaryContainer.withAlpha(102),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.primary.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.primary.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Timeline',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('Timeline', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               Text('Interactions: $interactionCount  |  Ticks: $timelineTick'),
               SizedBox(height: 8),
               if (eventLog.isEmpty)
-                Text(
-                  'No events logged yet. Interact with controls and buttons to populate history.',
-                )
+                Text('No events logged yet. Interact with controls and buttons to populate history.')
               else
                 for (final e in eventLog)
                   Padding(
                     padding: EdgeInsets.only(bottom: 4),
-                    child: Text(
-                      e,
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-                    ),
+                    child: Text(e, style: TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
                   ),
             ],
           ),
@@ -1492,17 +1272,9 @@ Widget _section(ThemeData theme, String title, String subtitle, String chip) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800),
-            ),
+            Text(title, style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800)),
             SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(
-                color: theme.colorScheme.onSurface.withAlpha(175),
-              ),
-            ),
+            Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(175))),
           ],
         ),
       ),
@@ -1512,10 +1284,7 @@ Widget _section(ThemeData theme, String title, String subtitle, String chip) {
           color: theme.colorScheme.primaryContainer.withAlpha(170),
           borderRadius: BorderRadius.circular(999),
         ),
-        child: Text(
-          chip,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
-        ),
+        child: Text(chip, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
       ),
     ],
   );
@@ -1533,18 +1302,12 @@ Widget _diagnosticCard(ThemeData theme, String title, List<String> lines) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         SizedBox(height: 8),
         for (final line in lines)
           Padding(
             padding: EdgeInsets.only(bottom: 4),
-            child: Text(
-              line,
-              style: TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-            ),
+            child: Text(line, style: TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
           ),
       ],
     ),
@@ -1562,10 +1325,7 @@ Widget _bullet(String text) {
           child: Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: Color(0xFF0F766E),
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: Color(0xFF0F766E), shape: BoxShape.circle),
           ),
         ),
         Expanded(child: Text(text)),
@@ -1579,11 +1339,7 @@ String _colorHex(Color color) {
 }
 
 class _TweenGlyphPainter extends CustomPainter {
-  _TweenGlyphPainter({
-    required this.primary,
-    required this.secondary,
-    required this.seed,
-  });
+  _TweenGlyphPainter({required this.primary, required this.secondary, required this.seed});
 
   final Color primary;
   final Color secondary;
@@ -1596,13 +1352,9 @@ class _TweenGlyphPainter extends CustomPainter {
     for (var i = 0; i < 6; i++) {
       final w = size.width * (0.32 + rnd.nextDouble() * 0.58);
       final y = 8 + i * 8.3;
-      paint.color =
-          Color.lerp(primary, secondary, i / 5)?.withAlpha(225) ?? primary;
+      paint.color = Color.lerp(primary, secondary, i / 5)?.withAlpha(225) ?? primary;
       canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(8, y, w, 5.4),
-          Radius.circular(4),
-        ),
+        RRect.fromRectAndRadius(Rect.fromLTWH(8, y, w, 5.4), Radius.circular(4)),
         paint,
       );
     }
@@ -1610,9 +1362,7 @@ class _TweenGlyphPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _TweenGlyphPainter oldDelegate) {
-    return oldDelegate.primary != primary ||
-        oldDelegate.secondary != secondary ||
-        oldDelegate.seed != seed;
+    return oldDelegate.primary != primary || oldDelegate.secondary != secondary || oldDelegate.seed != seed;
   }
 }
 

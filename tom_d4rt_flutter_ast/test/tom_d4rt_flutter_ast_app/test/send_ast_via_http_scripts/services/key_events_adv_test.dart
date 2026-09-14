@@ -51,27 +51,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: mint, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -88,14 +82,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: seafoam),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: darkTeal.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: darkTeal.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -128,16 +119,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: darkTeal,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: darkTeal)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -155,14 +146,11 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? darkTeal : deepTeal,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? darkTeal : deepTeal)),
           );
         }).toList(),
       ),
@@ -179,23 +167,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? darkTeal : deepTeal,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.arrow_forward, size: 12, color: teal),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.arrow_forward, size: 12, color: teal),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -224,13 +207,8 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            tcFlow([
-              'TextField',
-              'EditableText',
-              'TextInput.attach()',
-              'TextInputConnection',
-              'Platform IME',
-            ]),
+            tcFlow(['TextField', 'EditableText', 'TextInput.attach()',
+                'TextInputConnection', 'Platform IME']),
             const SizedBox(height: 10),
             _tcRoleItem('attach()', 'Creates connection to platform', teal),
             _tcRoleItem('show()', 'Raises the soft keyboard', aqua),
@@ -260,29 +238,13 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             tcRow(['Field', 'Type', 'Purpose'], isHeader: true),
-            tcRow([
-              'inputType',
-              'TextInputType',
-              'Keyboard layout (text, number, email…)',
-            ]),
+            tcRow(['inputType', 'TextInputType', 'Keyboard layout (text, number, email…)']),
             tcRow(['obscureText', 'bool', 'Password masking']),
             tcRow(['autocorrect', 'bool', 'Enable auto-correction']),
-            tcRow([
-              'inputAction',
-              'TextInputAction',
-              'Enter key behavior (done, go, search…)',
-            ]),
-            tcRow([
-              'keyboardAppearance',
-              'Brightness',
-              'Light or dark keyboard',
-            ]),
+            tcRow(['inputAction', 'TextInputAction', 'Enter key behavior (done, go, search…)']),
+            tcRow(['keyboardAppearance', 'Brightness', 'Light or dark keyboard']),
             tcRow(['enableSuggestions', 'bool', 'Show prediction bar']),
-            tcRow([
-              'autofillConfiguration',
-              'AutofillConfig',
-              'Autofill hints',
-            ]),
+            tcRow(['autofillConfiguration', 'AutofillConfig', 'Autofill hints']),
           ],
         ),
       ),
@@ -330,33 +292,13 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              _tcLifecycleStep(
-                '1. TextInput.attach()',
-                'Connection created, becomes current',
-                teal,
-                true,
-              ),
+              _tcLifecycleStep('1. TextInput.attach()', 'Connection created, becomes current', teal, true),
               _tcLifecycleArrow(),
-              _tcLifecycleStep(
-                '2. connection.show()',
-                'Keyboard shown, ready for input',
-                aqua,
-                true,
-              ),
+              _tcLifecycleStep('2. connection.show()', 'Keyboard shown, ready for input', aqua, true),
               _tcLifecycleArrow(),
-              _tcLifecycleStep(
-                '3. setEditingState()',
-                'Active text editing',
-                ocean,
-                true,
-              ),
+              _tcLifecycleStep('3. setEditingState()', 'Active text editing', ocean, true),
               _tcLifecycleArrow(),
-              _tcLifecycleStep(
-                '4. connection.close()',
-                'Connection destroyed',
-                deepTeal,
-                false,
-              ),
+              _tcLifecycleStep('4. connection.close()', 'Connection destroyed', deepTeal, false),
             ],
           ),
         ),
@@ -381,11 +323,7 @@ dynamic build(BuildContext context) {
         'Platform Keyboard Behavior',
         Column(
           children: [
-            tcRow([
-              'Platform',
-              'show() Effect',
-              'close() Effect',
-            ], isHeader: true),
+            tcRow(['Platform', 'show() Effect', 'close() Effect'], isHeader: true),
             tcRow(['Android', 'Opens soft keyboard', 'Hides keyboard']),
             tcRow(['iOS', 'Opens soft keyboard', 'Hides keyboard']),
             tcRow(['Web', 'Focuses input element', 'Blurs input element']),
@@ -400,15 +338,12 @@ dynamic build(BuildContext context) {
         Row(
           children: [
             Expanded(
-              child: _tcStateBox(
-                'Hidden',
-                Icons.keyboard_hide,
-                Colors.grey,
-                false,
-              ),
+              child: _tcStateBox('Hidden', Icons.keyboard_hide, Colors.grey, false),
             ),
             const SizedBox(width: 8),
-            Expanded(child: _tcStateBox('Showing', Icons.keyboard, teal, true)),
+            Expanded(
+              child: _tcStateBox('Showing', Icons.keyboard, teal, true),
+            ),
             const SizedBox(width: 8),
             Expanded(
               child: _tcStateBox('Closed', Icons.close, deepTeal, false),
@@ -437,24 +372,9 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _tcValueField(
-              'text',
-              '"Hello, Flutter!"',
-              'The full text string',
-              teal,
-            ),
-            _tcValueField(
-              'selection',
-              'TextSelection(start: 7, end: 14)',
-              'Selected range',
-              aqua,
-            ),
-            _tcValueField(
-              'composing',
-              'TextRange(start: 0, end: 5)',
-              'IME composing region',
-              ocean,
-            ),
+            _tcValueField('text', '"Hello, Flutter!"', 'The full text string', teal),
+            _tcValueField('selection', 'TextSelection(start: 7, end: 14)', 'Selected range', aqua),
+            _tcValueField('composing', 'TextRange(start: 0, end: 5)', 'IME composing region', ocean),
           ],
         ),
       ),
@@ -464,21 +384,9 @@ dynamic build(BuildContext context) {
           children: [
             tcRow(['Direction', 'Method', 'What'], isHeader: true),
             tcRow(['Widget → Platform', 'setEditingState()', 'Push new value']),
-            tcRow([
-              'Platform → Widget',
-              'updateEditingValue()',
-              'IME sends update',
-            ]),
-            tcRow([
-              'Widget → Platform',
-              'setComposingRect()',
-              'Composing position',
-            ]),
-            tcRow([
-              'Platform → Widget',
-              'performAction()',
-              'User pressed action',
-            ]),
+            tcRow(['Platform → Widget', 'updateEditingValue()', 'IME sends update']),
+            tcRow(['Widget → Platform', 'setComposingRect()', 'Composing position']),
+            tcRow(['Platform → Widget', 'performAction()', 'User pressed action']),
           ],
         ),
       ),
@@ -531,10 +439,8 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                    '= Composing (underlined)',
-                    style: TextStyle(fontSize: 10, color: darkTeal),
-                  ),
+                  Text('= Composing (underlined)',
+                      style: TextStyle(fontSize: 10, color: darkTeal)),
                   const SizedBox(width: 12),
                   SizedBox(
                     width: 12,
@@ -547,10 +453,8 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                    '= Committed',
-                    style: TextStyle(fontSize: 10, color: darkTeal),
-                  ),
+                  Text('= Committed',
+                      style: TextStyle(fontSize: 10, color: darkTeal)),
                 ],
               ),
             ],
@@ -562,10 +466,7 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             tcRow(['Method', 'Purpose'], isHeader: true),
-            tcRow([
-              'setComposingRect()',
-              'Tell platform where composing text is drawn',
-            ]),
+            tcRow(['setComposingRect()', 'Tell platform where composing text is drawn']),
             tcRow(['setCaretRect()', 'Tell platform where the caret is']),
             tcRow(['setSelectionRects()', 'Provide rects for each character']),
             tcRow(['setStyle()', 'Font information for platform rendering']),
@@ -593,30 +494,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _tcSelectionDemo(
-              'Cursor only',
-              'Hello|',
-              'baseOffset=5, extentOffset=5',
-              teal,
-            ),
-            _tcSelectionDemo(
-              'Word selected',
-              'He[llo]',
-              'baseOffset=2, extentOffset=5',
-              aqua,
-            ),
-            _tcSelectionDemo(
-              'All selected',
-              '[Hello]',
-              'baseOffset=0, extentOffset=5',
-              ocean,
-            ),
-            _tcSelectionDemo(
-              'Reverse selection',
-              'He]llo[',
-              'affinity: upstream',
-              jade,
-            ),
+            _tcSelectionDemo('Cursor only', 'Hello|', 'baseOffset=5, extentOffset=5', teal),
+            _tcSelectionDemo('Word selected', 'He[llo]', 'baseOffset=2, extentOffset=5', aqua),
+            _tcSelectionDemo('All selected', '[Hello]', 'baseOffset=0, extentOffset=5', ocean),
+            _tcSelectionDemo('Reverse selection', 'He]llo[', 'affinity: upstream', jade),
           ],
         ),
       ),
@@ -641,31 +522,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _tcWhenItem(
-              'Programmatic text change',
-              'TextController.text = "new"',
-              true,
-              teal,
-            ),
-            _tcWhenItem(
-              'Format on input',
-              'Apply number formatting',
-              true,
-              aqua,
-            ),
+            _tcWhenItem('Programmatic text change', 'TextController.text = "new"', true, teal),
+            _tcWhenItem('Format on input', 'Apply number formatting', true, aqua),
             _tcWhenItem('Clear field', 'Reset to empty', true, ocean),
-            _tcWhenItem(
-              'During updateEditingValue',
-              'Platform pushing to us',
-              false,
-              Colors.red,
-            ),
-            _tcWhenItem(
-              'After connection closed',
-              'No longer active',
-              false,
-              Colors.red,
-            ),
+            _tcWhenItem('During updateEditingValue', 'Platform pushing to us', false, Colors.red),
+            _tcWhenItem('After connection closed', 'No longer active', false, Colors.red),
           ],
         ),
       ),
@@ -696,30 +557,10 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              _tcGeomItem(
-                'setCaretRect(Rect)',
-                'Caret blink position',
-                Icons.edit,
-                teal,
-              ),
-              _tcGeomItem(
-                'setComposingRect(Rect)',
-                'Underline region',
-                Icons.text_format,
-                aqua,
-              ),
-              _tcGeomItem(
-                'setSelectionRects(List<Rect>)',
-                'Per-character rects',
-                Icons.select_all,
-                ocean,
-              ),
-              _tcGeomItem(
-                'setEditableSizeAndTransform(...)',
-                'Full editable area',
-                Icons.crop,
-                jade,
-              ),
+              _tcGeomItem('setCaretRect(Rect)', 'Caret blink position', Icons.edit, teal),
+              _tcGeomItem('setComposingRect(Rect)', 'Underline region', Icons.text_format, aqua),
+              _tcGeomItem('setSelectionRects(List<Rect>)', 'Per-character rects', Icons.select_all, ocean),
+              _tcGeomItem('setEditableSizeAndTransform(...)', 'Full editable area', Icons.crop, jade),
             ],
           ),
         ),
@@ -829,11 +670,9 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 4),
               _tcFieldState('Password field', 'Inactive', Colors.grey, false),
               const SizedBox(height: 10),
-              Text(
-                'Only one connection is active — the most recent attach()',
-                style: TextStyle(fontSize: 10, color: darkTeal),
-                textAlign: TextAlign.center,
-              ),
+              Text('Only one connection is active — the most recent attach()',
+                  style: TextStyle(fontSize: 10, color: darkTeal),
+                  textAlign: TextAlign.center),
             ],
           ),
         ),
@@ -891,28 +730,12 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             tcRow(['Method', 'When called', 'Typical use'], isHeader: true),
-            tcRow([
-              'updateEditingValue',
-              'Text changed by IME',
-              'Update controller',
-            ]),
+            tcRow(['updateEditingValue', 'Text changed by IME', 'Update controller']),
             tcRow(['performAction', 'Action key pressed', 'Submit form']),
-            tcRow([
-              'updateFloatingCursor',
-              'Long-press drag',
-              'Reposition cursor',
-            ]),
-            tcRow([
-              'showAutocorrectionPrompt',
-              'Autocorrect suggestion',
-              'Show underline',
-            ]),
+            tcRow(['updateFloatingCursor', 'Long-press drag', 'Reposition cursor']),
+            tcRow(['showAutocorrectionPrompt', 'Autocorrect suggestion', 'Show underline']),
             tcRow(['connectionClosed', 'Connection ended', 'Cleanup state']),
-            tcRow([
-              'insertTextPlaceholder',
-              'Placeholder insert',
-              'Image slot',
-            ]),
+            tcRow(['insertTextPlaceholder', 'Placeholder insert', 'Image slot']),
             tcRow(['removeTextPlaceholder', 'Placeholder gone', 'Remove slot']),
           ],
         ),
@@ -938,31 +761,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _tcCheckItem(
-              'connection.connected == true?',
-              'Connection still active',
-              teal,
-            ),
-            _tcCheckItem(
-              'show() called after attach()?',
-              'Keyboard requested',
-              aqua,
-            ),
-            _tcCheckItem(
-              'setEditingState timing?',
-              'Not in updateEditingValue',
-              ocean,
-            ),
-            _tcCheckItem(
-              'Only one focus at a time?',
-              'No competing connections',
-              jade,
-            ),
-            _tcCheckItem(
-              'TextInputConfiguration correct?',
-              'Right keyboard type',
-              deepTeal,
-            ),
+            _tcCheckItem('connection.connected == true?', 'Connection still active', teal),
+            _tcCheckItem('show() called after attach()?', 'Keyboard requested', aqua),
+            _tcCheckItem('setEditingState timing?', 'Not in updateEditingValue', ocean),
+            _tcCheckItem('Only one focus at a time?', 'No competing connections', jade),
+            _tcCheckItem('TextInputConfiguration correct?', 'Right keyboard type', deepTeal),
           ],
         ),
       ),
@@ -1025,14 +828,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'TextInputConnection — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('TextInputConnection — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From attaching to the platform, managing editing state, '
@@ -1064,22 +864,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -1107,21 +895,16 @@ Widget _tcRoleItem(String method, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 120,
-          child: Text(
-            method,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'monospace',
-              color: color,
-            ),
-          ),
+          child: Text(method,
+              style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                  color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -1141,14 +924,7 @@ Widget _tcKeyboardChip(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 12, color: color),
         const SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 9,
-            fontWeight: FontWeight.w600,
-            color: color,
-          ),
-        ),
+        Text(label, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color)),
       ],
     ),
   );
@@ -1159,43 +935,24 @@ Widget _tcLifecycleStep(String label, String desc, Color color, bool active) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
-      color: active
-          ? color.withValues(alpha: 0.08)
-          : Colors.grey.withValues(alpha: 0.06),
+      color: active ? color.withValues(alpha: 0.08) : Colors.grey.withValues(alpha: 0.06),
       borderRadius: BorderRadius.circular(6),
       border: Border.all(
-        color: active
-            ? color.withValues(alpha: 0.3)
-            : Colors.grey.withValues(alpha: 0.2),
-      ),
+          color: active ? color.withValues(alpha: 0.3) : Colors.grey.withValues(alpha: 0.2)),
     ),
     child: Row(
       children: [
-        Icon(
-          active ? Icons.check_circle : Icons.cancel,
-          size: 16,
-          color: active ? color : Colors.grey,
-        ),
+        Icon(active ? Icons.check_circle : Icons.cancel,
+            size: 16, color: active ? color : Colors.grey),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: TextStyle(
-                  fontSize: 9,
-                  color: color.withValues(alpha: 0.7),
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+              Text(desc, style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
             ],
           ),
         ),
@@ -1208,11 +965,7 @@ Widget _tcLifecycleArrow() {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 2),
     child: Center(
-      child: Icon(
-        Icons.arrow_downward,
-        size: 14,
-        color: const Color(0xFF004D40),
-      ),
+      child: Icon(Icons.arrow_downward, size: 14, color: const Color(0xFF004D40)),
     ),
   );
 }
@@ -1231,32 +984,18 @@ Widget _tcValueField(String name, String value, String desc, Color color) {
       children: [
         Row(
           children: [
-            Text(
-              '.$name',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'monospace',
-                color: color,
-              ),
-            ),
+            Text('.$name', style: TextStyle(
+                fontSize: 11, fontWeight: FontWeight.bold,
+                fontFamily: 'monospace', color: color)),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                value,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontFamily: 'monospace',
-                  color: color.withValues(alpha: 0.7),
-                ),
-              ),
+              child: Text(value, style: TextStyle(
+                  fontSize: 10, fontFamily: 'monospace',
+                  color: color.withValues(alpha: 0.7))),
             ),
           ],
         ),
-        Text(
-          desc,
-          style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6)),
-        ),
+        Text(desc, style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6))),
       ],
     ),
   );
@@ -1270,10 +1009,9 @@ Widget _tcTextSegment(String text, Color color, bool composing) {
           ? Border(bottom: BorderSide(color: color, width: 2))
           : null,
     ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: color),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.w600, color: color)),
   );
 }
 
@@ -1290,31 +1028,20 @@ Widget _tcSelectionDemo(String label, String visual, String spec, Color color) {
       children: [
         SizedBox(
           width: 90,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
         ),
         SizedBox(
           width: 60,
-          child: Text(
-            visual,
-            style: TextStyle(
-              fontSize: 11,
-              fontFamily: 'monospace',
-              color: color,
-            ),
-          ),
+          child: Text(visual,
+              style: TextStyle(
+                  fontSize: 11, fontFamily: 'monospace', color: color)),
         ),
         Expanded(
-          child: Text(
-            spec,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
-          ),
+          child: Text(spec,
+              style: TextStyle(
+                  fontSize: 9, color: color.withValues(alpha: 0.7))),
         ),
       ],
     ),
@@ -1326,31 +1053,18 @@ Widget _tcWhenItem(String scenario, String detail, bool safe, Color color) {
     padding: const EdgeInsets.only(bottom: 4),
     child: Row(
       children: [
-        Icon(
-          safe ? Icons.check_circle : Icons.dangerous,
-          size: 14,
-          color: color,
-        ),
+        Icon(safe ? Icons.check_circle : Icons.dangerous,
+            size: 14, color: color),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                scenario,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                detail,
-                style: TextStyle(
-                  fontSize: 9,
-                  color: color.withValues(alpha: 0.7),
-                ),
-              ),
+              Text(scenario,
+                  style: TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+              Text(detail,
+                  style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
             ],
           ),
         ),
@@ -1368,22 +1082,15 @@ Widget _tcGeomItem(String method, String desc, IconData icon, Color color) {
         const SizedBox(width: 8),
         Expanded(
           flex: 3,
-          child: Text(
-            method,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'monospace',
-              color: color,
-            ),
-          ),
+          child: Text(method,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace', color: color)),
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
         ),
       ],
     ),
@@ -1403,14 +1110,9 @@ Widget _tcActionChip(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 12, color: color),
         const SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 9,
-            fontWeight: FontWeight.w600,
-            color: color,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                fontSize: 9, fontWeight: FontWeight.w600, color: color)),
       ],
     ),
   );
@@ -1427,21 +1129,11 @@ Widget _tcCheckItem(String question, String detail, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                question,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                detail,
-                style: TextStyle(
-                  fontSize: 9,
-                  color: color.withValues(alpha: 0.7),
-                ),
-              ),
+              Text(question,
+                  style: TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+              Text(detail,
+                  style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
             ],
           ),
         ),
@@ -1454,28 +1146,19 @@ Widget _tcStateBox(String label, IconData icon, Color color, bool active) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
-      color: active
-          ? color.withValues(alpha: 0.08)
-          : Colors.grey.withValues(alpha: 0.04),
+      color: active ? color.withValues(alpha: 0.08) : Colors.grey.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(8),
       border: Border.all(
-        color: active
-            ? color.withValues(alpha: 0.3)
-            : Colors.grey.withValues(alpha: 0.15),
-      ),
+          color: active ? color.withValues(alpha: 0.3) : Colors.grey.withValues(alpha: 0.15)),
     ),
     child: Column(
       children: [
         Icon(icon, size: 24, color: active ? color : Colors.grey),
         const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: active ? color : Colors.grey,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                fontSize: 10, fontWeight: FontWeight.w600,
+                color: active ? color : Colors.grey)),
       ],
     ),
   );
@@ -1486,41 +1169,26 @@ Widget _tcFieldState(String label, String status, Color color, bool active) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
-      color: active
-          ? color.withValues(alpha: 0.08)
-          : Colors.grey.withValues(alpha: 0.04),
+      color: active ? color.withValues(alpha: 0.08) : Colors.grey.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(6),
       border: Border.all(
-        color: active
-            ? color.withValues(alpha: 0.2)
-            : Colors.grey.withValues(alpha: 0.1),
-      ),
+          color: active ? color.withValues(alpha: 0.2) : Colors.grey.withValues(alpha: 0.1)),
     ),
     child: Row(
       children: [
-        Icon(
-          active ? Icons.text_fields : Icons.text_fields,
-          size: 14,
-          color: active ? color : Colors.grey,
-        ),
+        Icon(active ? Icons.text_fields : Icons.text_fields,
+            size: 14, color: active ? color : Colors.grey),
         const SizedBox(width: 8),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: active ? color : Colors.grey,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                fontSize: 10, fontWeight: FontWeight.w600,
+                color: active ? color : Colors.grey)),
         const Spacer(),
-        Text(
-          status,
-          style: TextStyle(
-            fontSize: 9,
-            fontWeight: active ? FontWeight.bold : FontWeight.normal,
-            color: active ? color : Colors.grey,
-          ),
-        ),
+        Text(status,
+            style: TextStyle(
+                fontSize: 9,
+                fontWeight: active ? FontWeight.bold : FontWeight.normal,
+                color: active ? color : Colors.grey)),
       ],
     ),
   );

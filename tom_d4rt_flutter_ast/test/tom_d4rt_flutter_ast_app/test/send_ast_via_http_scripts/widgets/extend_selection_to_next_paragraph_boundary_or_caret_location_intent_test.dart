@@ -29,7 +29,9 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.only(top: 24, bottom: 12),
       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [pcBronze, pcUmber]),
+        gradient: const LinearGradient(
+          colors: [pcBronze, pcUmber],
+        ),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -90,7 +92,11 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 14, color: pcBlack, height: 1.55),
+        style: const TextStyle(
+          fontSize: 14,
+          color: pcBlack,
+          height: 1.55,
+        ),
       ),
     );
   }
@@ -182,7 +188,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 14, color: pcBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 14,
+                color: pcBlack,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -220,7 +230,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 14, color: pcBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 14,
+                color: pcBlack,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -255,7 +269,11 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             Text(
               body,
-              style: const TextStyle(fontSize: 13, color: pcBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 13,
+                color: pcBlack,
+                height: 1.5,
+              ),
             ),
           ],
         ),
@@ -346,7 +364,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: pcTan.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: pcBronze, width: 4)),
+        border: Border(
+          left: BorderSide(color: pcBronze, width: 4),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -362,7 +382,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6),
           Text(
             text,
-            style: const TextStyle(fontSize: 13, color: pcBlack, height: 1.5),
+            style: const TextStyle(
+              fontSize: 13,
+              color: pcBlack,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -437,7 +461,11 @@ dynamic build(BuildContext context) {
                 'This dual-target behavior provides a more intuitive '
                 'paragraph-aware selection that respects the user\'s '
                 'horizontal cursor position.',
-                style: TextStyle(fontSize: 14, color: pcSand, height: 1.6),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: pcSand,
+                  height: 1.6,
+                ),
               ),
             ],
           ),
@@ -497,11 +525,11 @@ dynamic build(BuildContext context) {
         pcCallout(
           'Why does this matter?',
           'Consider selecting text downward through paragraphs. With a '
-              'plain paragraph-boundary intent, the extent always jumps to '
-              'column 0 or the end of the paragraph. With the caret-location '
-              'variant, the extent lands at the same horizontal position the '
-              'cursor was at, creating a more rectangular selection shape '
-              'that feels natural for column-oriented work.',
+          'plain paragraph-boundary intent, the extent always jumps to '
+          'column 0 or the end of the paragraph. With the caret-location '
+          'variant, the extent lands at the same horizontal position the '
+          'cursor was at, creating a more rectangular selection shape '
+          'that feels natural for column-oriented work.',
         ),
 
         pcSubHeader('Decision Logic'),
@@ -560,21 +588,21 @@ dynamic build(BuildContext context) {
         pcDiagram(
           'Cursor at P0, column 12:',
           'P0: "The framewor|k provides reactive UI.\\n"\n'
-              'P1: "Widgets compose into complex layouts.\\n"\n'
-              'P2: "State management drives rebuilds."\n\n'
-              'Paragraph boundary (end of P0) = column 36\n'
-              'Caret location on P1 at column 12 = "Widgets comp|ose..."\n\n'
-              'Column 12 on P1 < column 36 (paragraph end)\n'
-              '\u2192 Extent moves to P1 column 12 (caret location wins)',
+          'P1: "Widgets compose into complex layouts.\\n"\n'
+          'P2: "State management drives rebuilds."\n\n'
+          'Paragraph boundary (end of P0) = column 36\n'
+          'Caret location on P1 at column 12 = "Widgets comp|ose..."\n\n'
+          'Column 12 on P1 < column 36 (paragraph end)\n'
+          '\u2192 Extent moves to P1 column 12 (caret location wins)',
         ),
 
         pcDiagram(
           'Result:',
           'P0: "The framewor[k provides reactive UI.\\n"\n'
-              'P1: "Widgets comp]ose into complex layouts.\\n"\n'
-              '\n'
-              'base = P0:12, extent = P1:12\n'
-              'Selection spans the same column range across paragraphs.',
+          'P1: "Widgets comp]ose into complex layouts.\\n"\n'
+          '\n'
+          'base = P0:12, extent = P1:12\n'
+          'Selection spans the same column range across paragraphs.',
         ),
 
         pcSubHeader('Case B — Paragraph Boundary Is Nearer'),
@@ -582,19 +610,19 @@ dynamic build(BuildContext context) {
         pcDiagram(
           'Cursor at P0, column 34:',
           'P0: "The framework provides reactive U|I.\\n"\n'
-              'P1: "Widgets compose into complex layouts.\\n"\n\n'
-              'Paragraph boundary (end of P0) = column 36\n'
-              'Caret location on P1 at column 34 = "...complex layou|ts.\\n"\n\n'
-              'Column 36 (paragraph end) < Column 34+offset-in-P1\n'
-              '\u2192 Extent moves to P0 column 36 (paragraph boundary wins)',
+          'P1: "Widgets compose into complex layouts.\\n"\n\n'
+          'Paragraph boundary (end of P0) = column 36\n'
+          'Caret location on P1 at column 34 = "...complex layou|ts.\\n"\n\n'
+          'Column 36 (paragraph end) < Column 34+offset-in-P1\n'
+          '\u2192 Extent moves to P0 column 36 (paragraph boundary wins)',
         ),
 
         pcDiagram(
           'Result:',
           'P0: "The framework provides reactive U[I.]\\n"\n'
-              '\n'
-              'base = P0:34, extent = P0:36\n'
-              'Selection stopped at paragraph end — did not cross to P1.',
+          '\n'
+          'base = P0:34, extent = P0:36\n'
+          'Selection stopped at paragraph end — did not cross to P1.',
         ),
 
         pcDividerWidget(),
@@ -612,26 +640,26 @@ dynamic build(BuildContext context) {
         pcDiagram(
           'Cursor at P1, column 18:',
           'P0: "The framework provides reactive UI.\\n"\n'
-              'P1: "Widgets compose int|o complex layouts.\\n"\n'
-              'P2: "State management drives rebuilds."\n\n'
-              'Previous paragraph boundary (start of P1) = column 0 of P1\n'
-              'Caret location on P0 at column 18 = "The framework provi|des..."',
+          'P1: "Widgets compose int|o complex layouts.\\n"\n'
+          'P2: "State management drives rebuilds."\n\n'
+          'Previous paragraph boundary (start of P1) = column 0 of P1\n'
+          'Caret location on P0 at column 18 = "The framework provi|des..."',
         ),
 
         pcDiagram(
           'Backward — caret location nearer:',
           'P0: "The framework provi[des reactive UI.\\n"\n'
-              'P1: "Widgets compose int]o complex layouts.\\n"\n\n'
-              'base = P1:18, extent = P0:18\n'
-              'Extent moved to same column on previous paragraph.',
+          'P1: "Widgets compose int]o complex layouts.\\n"\n\n'
+          'base = P1:18, extent = P0:18\n'
+          'Extent moved to same column on previous paragraph.',
         ),
 
         pcDiagram(
           'Backward — paragraph boundary nearer (cursor at P1, column 3):',
           'P0: "The framework provides reactive UI.\\n"\n'
-              'P1: "Wid[gets compose into complex layouts.\\n"\n\n'
-              'base = P1:3, extent = P1:0 (start of P1)\n'
-              'Extent stopped at paragraph start.',
+          'P1: "Wid[gets compose into complex layouts.\\n"\n\n'
+          'base = P1:3, extent = P1:0 (start of P1)\n'
+          'Extent stopped at paragraph start.',
         ),
 
         pcDividerWidget(),
@@ -674,15 +702,15 @@ dynamic build(BuildContext context) {
         pcDiagram(
           'Same starting position — cursor at column 10, paragraph 0:',
           'Plain paragraph (forward):\n'
-              '  P0: "The quick [brown fox jumps over.]\\n"\n'
-              '  Extent = end of P0 (column 31)\n\n'
-              'Paragraph-or-caret (forward):\n'
-              '  P0: "The quick [brown fox jumps over.\\n"\n'
-              '  P1: "The lazy d]og sleeps all day.\\n"\n'
-              '  Extent = P1 column 10\n\n'
-              'The plain intent stops at the paragraph break.\n'
-              'The composite intent continues to the same column\n'
-              'on the next line (within the next paragraph).',
+          '  P0: "The quick [brown fox jumps over.]\\n"\n'
+          '  Extent = end of P0 (column 31)\n\n'
+          'Paragraph-or-caret (forward):\n'
+          '  P0: "The quick [brown fox jumps over.\\n"\n'
+          '  P1: "The lazy d]og sleeps all day.\\n"\n'
+          '  Extent = P1 column 10\n\n'
+          'The plain intent stops at the paragraph break.\n'
+          'The composite intent continues to the same column\n'
+          'on the next line (within the next paragraph).',
         ),
 
         pcDividerWidget(),
@@ -692,39 +720,32 @@ dynamic build(BuildContext context) {
         // =====================================================================
         pcHeader('6. Dispatch Pipeline'),
 
-        pcStep(
-          1,
+        pcStep(1,
           'Key event detected: typically a modifier+arrow combination '
           'that maps to paragraph-level selection with caret awareness.',
         ),
-        pcStep(
-          2,
+        pcStep(2,
           'Shortcuts widget maps the key to '
           'ExtendSelectionToNextParagraphBoundaryOrCaretLocationIntent.',
         ),
-        pcStep(
-          3,
+        pcStep(3,
           'Actions widget locates the registered action — typically '
           'provided by the EditableText widget.',
         ),
-        pcStep(
-          4,
+        pcStep(4,
           'The action reads the current TextSelection and TextPainter '
           'layout to determine both the paragraph boundary and the '
           'caret-equivalent position on the target line.',
         ),
-        pcStep(
-          5,
+        pcStep(5,
           'The action compares the two candidate positions and selects '
           'the one that is closer in the given direction.',
         ),
-        pcStep(
-          6,
+        pcStep(6,
           'A new TextSelection is produced: same base, new extent at '
           'the chosen position.',
         ),
-        pcStep(
-          7,
+        pcStep(7,
           'TextEditingValue is updated, selection highlight repaints, '
           'and viewport scrolls to show the new extent.',
         ),
@@ -742,21 +763,19 @@ dynamic build(BuildContext context) {
           'version:',
         ),
 
-        pcRow(
-          'macOS',
+        pcRow('macOS',
           'Shift+Option+Down = forward: true\n'
-              'Shift+Option+Up = forward: false',
+          'Shift+Option+Up = forward: false',
         ),
-        pcRow(
-          'Windows',
+        pcRow('Windows',
           'May map to Shift+Ctrl+Down in some configurations, '
-              'but the plain paragraph intent is more common.',
+          'but the plain paragraph intent is more common.',
         ),
-        pcRow('Linux', 'Similar to Windows; desktop-environment dependent.'),
-        pcRow(
-          'iOS',
-          'Used internally by the text system for '
-              'gesture-based paragraph selection.',
+        pcRow('Linux',
+          'Similar to Windows; desktop-environment dependent.',
+        ),
+        pcRow('iOS', 'Used internally by the text system for '
+          'gesture-based paragraph selection.',
         ),
 
         pcCard(
@@ -1037,27 +1056,22 @@ dynamic build(BuildContext context) {
           'selection intents:',
         ),
 
-        pcRow(
-          'Quick select to para end',
+        pcRow('Quick select to para end',
           'Use ExtendSelectionToNextParagraphBoundaryIntent — '
-              'simple, predictable.',
+          'simple, predictable.',
         ),
-        pcRow(
-          'Column-aware selection',
+        pcRow('Column-aware selection',
           'Use this composite intent — respects horizontal position.',
         ),
-        pcRow(
-          'Select entire paragraph',
+        pcRow('Select entire paragraph',
           'Use ExpandSelectionToNextParagraphBoundaryIntent — '
-              'grows selection symmetrically.',
+          'grows selection symmetrically.',
         ),
-        pcRow(
-          'Platform-native feel',
+        pcRow('Platform-native feel',
           'Use this composite intent, especially on macOS — '
-              'matches Option+Arrow behavior.',
+          'matches Option+Arrow behavior.',
         ),
-        pcRow(
-          'Programmatic selection',
+        pcRow('Programmatic selection',
           'Use the plain paragraph intent — deterministic behavior.',
         ),
 
@@ -1073,7 +1087,10 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [pcBronze.withValues(alpha: 0.12), pcSand],
+              colors: [
+                pcBronze.withValues(alpha: 0.12),
+                pcSand,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

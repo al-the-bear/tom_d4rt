@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.straighten,
       'title': 'What Is SliverOverlapAbsorber?',
-      'body':
-          'SliverOverlapAbsorber is a sliver widget that wraps another '
+      'body': 'SliverOverlapAbsorber is a sliver widget that wraps another '
           'sliver (typically a SliverAppBar) and measures how much of it '
           'overlaps the neighboring scroll region. It writes the measured '
           'overlap to a SliverOverlapAbsorberHandle so injectors can '
@@ -30,8 +29,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Why Do We Need It?',
-      'body':
-          'In NestedScrollView, the outer scroll view contains the '
+      'body': 'In NestedScrollView, the outer scroll view contains the '
           'header (SliverAppBar) and the inner scroll view contains body '
           'content. When the header is pinned, it physically sits on top of '
           'the inner scroll region. Without an absorber, the first items in '
@@ -41,8 +39,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'Absorber–Handle–Injector Trio',
-      'body':
-          'The absorber measures overlap and writes it to the handle. '
+      'body': 'The absorber measures overlap and writes it to the handle. '
           'The injector reads the handle and inserts compensating space. '
           'Together they solve the overlap problem elegantly without '
           'hardcoded padding values — the system is fully dynamic.',
@@ -51,8 +48,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility,
       'title': 'What Gets "Absorbed"?',
-      'body':
-          'The absorber does not change the visual appearance of its '
+      'body': 'The absorber does not change the visual appearance of its '
           'child sliver. It only measures the child\'s layout extent that '
           'overlaps the SliverOverlapInjector region. The child sliver '
           'renders exactly as it would without the absorber wrapping it.',
@@ -131,16 +127,14 @@ dynamic build(BuildContext context) {
     {
       'param': 'handle',
       'type': 'SliverOverlapAbsorberHandle',
-      'desc':
-          'Required. The handle to write overlap data to. Obtained '
+      'desc': 'Required. The handle to write overlap data to. Obtained '
           'via NestedScrollView.sliverOverlapAbsorberHandleFor(context) or '
           'created manually.',
     },
     {
       'param': 'sliver',
       'type': 'Widget?',
-      'desc':
-          'The sliver child to wrap and measure. Typically a '
+      'desc': 'The sliver child to wrap and measure. Typically a '
           'SliverAppBar, SliverPersistentHeader, or any header sliver '
           'that overlaps the body scroll region.',
     },
@@ -311,53 +305,53 @@ dynamic build(BuildContext context) {
                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
               ),
               SliverList(
-                delegate: SliverChildBuilderDelegate((
-                  BuildContext childCtx,
-                  int index,
-                ) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      color: index.isEven
-                          ? Colors.indigo.shade50
-                          : Colors.blue.shade50,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: Colors.indigo.withOpacity(0.12),
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext childCtx, int index) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
                       ),
-                    ),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 18,
-                          backgroundColor: Colors.indigo.shade200,
-                          child: Text(
-                            '${index + 1}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: index.isEven
+                            ? Colors.indigo.shade50
+                            : Colors.blue.shade50,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.indigo.withOpacity(0.12),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 18,
+                            backgroundColor: Colors.indigo.shade200,
+                            child: Text(
+                              '${index + 1}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            'Item ${index + 1} — properly positioned below '
-                            'the pinned app bar thanks to the absorber.',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey.shade700,
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              'Item ${index + 1} — properly positioned below '
+                              'the pinned app bar thanks to the absorber.',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey.shade700,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }, childCount: 20),
+                        ],
+                      ),
+                    );
+                  },
+                  childCount: 20,
+                ),
               ),
             ],
           );
@@ -449,71 +443,71 @@ dynamic build(BuildContext context) {
                     crossAxisSpacing: 10,
                     childAspectRatio: 1.3,
                   ),
-                  delegate: SliverChildBuilderDelegate((
-                    BuildContext childCtx,
-                    int index,
-                  ) {
-                    final gridColors = [
-                      Colors.deepPurple.shade100,
-                      Colors.indigo.shade100,
-                      Colors.blue.shade100,
-                      Colors.cyan.shade100,
-                      Colors.teal.shade100,
-                      Colors.green.shade100,
-                    ];
-                    final gridIcons = [
-                      Icons.photo,
-                      Icons.music_note,
-                      Icons.videocam,
-                      Icons.article,
-                      Icons.folder,
-                      Icons.bookmark,
-                    ];
-                    final gridLabels = [
-                      'Photos',
-                      'Music',
-                      'Videos',
-                      'Articles',
-                      'Files',
-                      'Bookmarks',
-                    ];
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: gridColors[index % gridColors.length],
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: Colors.indigo.withOpacity(0.15),
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext childCtx, int index) {
+                      final gridColors = [
+                        Colors.deepPurple.shade100,
+                        Colors.indigo.shade100,
+                        Colors.blue.shade100,
+                        Colors.cyan.shade100,
+                        Colors.teal.shade100,
+                        Colors.green.shade100,
+                      ];
+                      final gridIcons = [
+                        Icons.photo,
+                        Icons.music_note,
+                        Icons.videocam,
+                        Icons.article,
+                        Icons.folder,
+                        Icons.bookmark,
+                      ];
+                      final gridLabels = [
+                        'Photos',
+                        'Music',
+                        'Videos',
+                        'Articles',
+                        'Files',
+                        'Bookmarks',
+                      ];
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: gridColors[index % gridColors.length],
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.indigo.withOpacity(0.15),
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            gridIcons[index % gridIcons.length],
-                            color: Colors.indigo.shade400,
-                            size: 32,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            gridLabels[index % gridLabels.length],
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.indigo.shade700,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              gridIcons[index % gridIcons.length],
+                              color: Colors.indigo.shade400,
+                              size: 32,
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Tile ${index + 1}',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey.shade500,
+                            const SizedBox(height: 8),
+                            Text(
+                              gridLabels[index % gridLabels.length],
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.indigo.shade700,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }, childCount: 18),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Tile ${index + 1}',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey.shade500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    childCount: 18,
+                  ),
                 ),
               ),
             ],
@@ -531,8 +525,7 @@ dynamic build(BuildContext context) {
   final pinnedItems = <Map<String, dynamic>>[
     {
       'title': 'pinned: true',
-      'desc':
-          'The SliverAppBar stays visible at the top when scrolled. '
+      'desc': 'The SliverAppBar stays visible at the top when scrolled. '
           'The absorber constantly measures the height of the pinned portion '
           'and writes it to the handle. The injector reads this value and '
           'offsets content by exactly that many pixels.',
@@ -541,8 +534,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'pinned: false',
-      'desc':
-          'The SliverAppBar scrolls completely out of view. Once scroll '
+      'desc': 'The SliverAppBar scrolls completely out of view. Once scroll '
           'offset exceeds the header height, the overlap becomes zero. '
           'The absorber still measures, but writes 0 to the handle.',
       'icon': Icons.unfold_more,
@@ -550,8 +542,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'floating: true',
-      'desc':
-          'The header reappears whenever the user scrolls up, even '
+      'desc': 'The header reappears whenever the user scrolls up, even '
           'mid-list. The absorber re-measures the overlap as the floating '
           'header animates back into view. The injector adjusts dynamically.',
       'icon': Icons.vertical_align_top,
@@ -559,8 +550,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'snap: true (with floating)',
-      'desc':
-          'The floating header either fully shows or fully hides — '
+      'desc': 'The floating header either fully shows or fully hides — '
           'it snaps to one state. The absorber measures the full or zero '
           'overlap accordingly. Snap requires floating: true.',
       'icon': Icons.filter_center_focus,
@@ -585,7 +575,10 @@ dynamic build(BuildContext context) {
                 background: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.red.shade900, Colors.deepOrange.shade600],
+                      colors: [
+                        Colors.red.shade900,
+                        Colors.deepOrange.shade600,
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -596,7 +589,11 @@ dynamic build(BuildContext context) {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.push_pin, color: Colors.white70, size: 36),
+                          Icon(
+                            Icons.push_pin,
+                            color: Colors.white70,
+                            size: 36,
+                          ),
                           SizedBox(height: 6),
                           Text(
                             'This header is always pinned',
@@ -690,35 +687,35 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SliverList(
-                delegate: SliverChildBuilderDelegate((
-                  BuildContext childCtx,
-                  int index,
-                ) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 3,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      color: index.isEven
-                          ? Colors.red.shade50
-                          : Colors.orange.shade50,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      'Scroll item ${index + 1} — overlap is compensated '
-                      'dynamically as header collapses',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext childCtx, int index) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 3,
                       ),
-                    ),
-                  );
-                }, childCount: 20),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: index.isEven
+                            ? Colors.red.shade50
+                            : Colors.orange.shade50,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        'Scroll item ${index + 1} — overlap is compensated '
+                        'dynamically as header collapses',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                    );
+                  },
+                  childCount: 20,
+                ),
               ),
             ],
           );
@@ -1011,16 +1008,14 @@ dynamic build(BuildContext context) {
   final archSteps = <Map<String, dynamic>>[
     {
       'label': 'Outer ScrollView',
-      'detail':
-          'Contains the header slivers. Managed by the outer '
+      'detail': 'Contains the header slivers. Managed by the outer '
           'ScrollController of NestedScrollView.',
       'color': Colors.blueGrey,
       'icon': Icons.view_agenda,
     },
     {
       'label': 'SliverOverlapAbsorber',
-      'detail':
-          'Wraps SliverAppBar. During performLayout, computes '
+      'detail': 'Wraps SliverAppBar. During performLayout, computes '
           'overlap = childLayoutExtent that extends past the remaining '
           'paint extent. Writes to handle.',
       'color': Colors.indigo,
@@ -1028,32 +1023,28 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'SliverAppBar (child)',
-      'detail':
-          'The header sliver being measured. Renders normally. '
+      'detail': 'The header sliver being measured. Renders normally. '
           'Its layout extent is what the absorber captures.',
       'color': Colors.deepPurple,
       'icon': Icons.web_asset,
     },
     {
       'label': 'Handle (bridge)',
-      'detail':
-          'Stores layoutExtent and scrollExtent. Notifies '
+      'detail': 'Stores layoutExtent and scrollExtent. Notifies '
           'all registered listeners when values change.',
       'color': Colors.teal,
       'icon': Icons.handshake,
     },
     {
       'label': 'Inner ScrollView',
-      'detail':
-          'Contains the body content. Each tab has its own '
+      'detail': 'Contains the body content. Each tab has its own '
           'inner CustomScrollView with an injector at the top.',
       'color': Colors.blue,
       'icon': Icons.view_list,
     },
     {
       'label': 'SliverOverlapInjector',
-      'detail':
-          'Reads handle.layoutExtent and sizes itself to exactly '
+      'detail': 'Reads handle.layoutExtent and sizes itself to exactly '
           'that many pixels. Pushes content down so nothing hides.',
       'color': Colors.green,
       'icon': Icons.vertical_align_top,
@@ -1149,38 +1140,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.straighten,
-      'text':
-          'SliverOverlapAbsorber wraps a header sliver and measures '
+      'text': 'SliverOverlapAbsorber wraps a header sliver and measures '
           'how much it overlaps the body scroll region.',
     },
     {
       'icon': Icons.handshake,
-      'text':
-          'It writes the overlap (layoutExtent) to a '
+      'text': 'It writes the overlap (layoutExtent) to a '
           'SliverOverlapAbsorberHandle so injectors can read it.',
     },
     {
       'icon': Icons.push_pin,
-      'text':
-          'Essential when using pinned SliverAppBars in NestedScrollView '
+      'text': 'Essential when using pinned SliverAppBars in NestedScrollView '
           '— prevents content from hiding behind the header.',
     },
     {
       'icon': Icons.visibility,
-      'text':
-          'The absorber is transparent — it does not change how its '
+      'text': 'The absorber is transparent — it does not change how its '
           'child renders. It only measures and reports.',
     },
     {
       'icon': Icons.tab,
-      'text':
-          'In tabbed layouts, one absorber serves all tabs through '
+      'text': 'In tabbed layouts, one absorber serves all tabs through '
           'the shared handle — each tab body has an injector.',
     },
     {
       'icon': Icons.auto_awesome,
-      'text':
-          'NestedScrollView creates the absorber automatically in '
+      'text': 'NestedScrollView creates the absorber automatically in '
           'headerSliverBuilder — just wrap your SliverAppBar.',
     },
   ];

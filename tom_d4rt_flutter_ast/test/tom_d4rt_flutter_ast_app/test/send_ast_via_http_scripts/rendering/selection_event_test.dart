@@ -55,7 +55,9 @@ Widget _svSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_svMagenta, _svDarkMagenta]),
+      gradient: LinearGradient(
+        colors: [_svMagenta, _svDarkMagenta],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,7 +307,10 @@ Widget _svGestureChip(IconData icon, String label, Color color) {
       Container(
         width: 44,
         height: 44,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
         child: Icon(icon, color: Colors.white, size: 22),
       ),
       const SizedBox(height: 4),
@@ -396,11 +401,7 @@ Widget _svBuildEventTypes() {
             _svEnumTile('selectAll', _svMagenta, Icons.select_all),
             _svEnumTile('selectWord', _svTeal, Icons.text_fields),
             _svEnumTile('selectParagraph', _svSky, Icons.notes),
-            _svEnumTile(
-              'granularlyExtend',
-              _svMint,
-              Icons.keyboard_arrow_right,
-            ),
+            _svEnumTile('granularlyExtend', _svMint, Icons.keyboard_arrow_right),
             _svEnumTile('directionallyExtend', _svPlum, Icons.open_with),
           ],
         ),
@@ -586,18 +587,8 @@ Widget _svBuildHierarchy() {
             _svTableRow('SelectAll', '(none)', 'Ctrl+A / Cmd+A', false),
             _svTableRow('Clear', '(none)', 'Tap outside', true),
             _svTableRow('EdgeUpdate', 'position, edge', 'Drag handle', false),
-            _svTableRow(
-              'GranularlyExtend',
-              'dir, granularity',
-              'Shift+Arrow',
-              true,
-            ),
-            _svTableRow(
-              'DirectionallyExtend',
-              'direction, isEnd',
-              'Shift+Up/Down',
-              false,
-            ),
+            _svTableRow('GranularlyExtend', 'dir, granularity', 'Shift+Arrow', true),
+            _svTableRow('DirectionallyExtend', 'direction, isEnd', 'Shift+Up/Down', false),
           ],
         ),
       ),
@@ -605,22 +596,24 @@ Widget _svBuildHierarchy() {
   );
 }
 
-Widget _svHierarchyBranch(
-  String name,
-  String desc,
-  Color color,
-  IconData icon,
-) {
+Widget _svHierarchyBranch(String name, String desc, Color color, IconData icon) {
   return Padding(
     padding: const EdgeInsets.only(left: 24, top: 6, bottom: 6),
     child: Row(
       children: [
-        Container(width: 10, height: 2, color: _svMagenta),
+        Container(
+          width: 10,
+          height: 2,
+          color: _svMagenta,
+        ),
         const SizedBox(width: 6),
         Container(
           width: 28,
           height: 28,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
           child: Icon(icon, color: Colors.white, size: 14),
         ),
         const SizedBox(width: 10),
@@ -639,7 +632,10 @@ Widget _svHierarchyBranch(
               ),
               Text(
                 desc,
-                style: const TextStyle(color: _svCharcoal, fontSize: 11),
+                style: const TextStyle(
+                  color: _svCharcoal,
+                  fontSize: 11,
+                ),
               ),
             ],
           ),
@@ -671,14 +667,20 @@ Widget _svTableRow(String event, String data, String trigger, bool isAlt) {
           flex: 3,
           child: Text(
             data,
-            style: const TextStyle(color: _svCharcoal, fontSize: 11),
+            style: const TextStyle(
+              color: _svCharcoal,
+              fontSize: 11,
+            ),
           ),
         ),
         Expanded(
           flex: 3,
           child: Text(
             trigger,
-            style: const TextStyle(color: _svCharcoal, fontSize: 11),
+            style: const TextStyle(
+              color: _svCharcoal,
+              fontSize: 11,
+            ),
           ),
         ),
       ],
@@ -728,26 +730,11 @@ Widget _svBuildDispatchFlow() {
               ),
             ),
             const SizedBox(height: 16),
-            _svFlowStep(
-              'User Gesture',
-              'Pan / tap / key press',
-              _svAmber,
-              Icons.pan_tool,
-            ),
+            _svFlowStep('User Gesture', 'Pan / tap / key press', _svAmber, Icons.pan_tool),
             _svFlowArrow(),
-            _svFlowStep(
-              'SelectableRegion',
-              'Converts to SelectionEvent',
-              _svMagenta,
-              Icons.transform,
-            ),
+            _svFlowStep('SelectableRegion', 'Converts to SelectionEvent', _svMagenta, Icons.transform),
             _svFlowArrow(),
-            _svFlowStep(
-              'dispatchSelectionEvent()',
-              'Called on each Selectable',
-              _svTeal,
-              Icons.call_split,
-            ),
+            _svFlowStep('dispatchSelectionEvent()', 'Called on each Selectable', _svTeal, Icons.call_split),
             _svFlowArrow(),
             // Fork: three selectables
             Row(
@@ -760,12 +747,7 @@ Widget _svBuildDispatchFlow() {
             ),
             const SizedBox(height: 8),
             _svFlowArrow(),
-            _svFlowStep(
-              'Update Overlay',
-              'Handles + highlight redrawn',
-              _svMint,
-              Icons.layers,
-            ),
+            _svFlowStep('Update Overlay', 'Handles + highlight redrawn', _svMint, Icons.layers),
           ],
         ),
       ),
@@ -926,7 +908,10 @@ Widget _svResultCard(
         Text(
           desc,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: _svCharcoal, fontSize: 10),
+          style: const TextStyle(
+            color: _svCharcoal,
+            fontSize: 10,
+          ),
         ),
       ],
     ),
@@ -1101,7 +1086,10 @@ Widget _svBuildClear() {
                     ),
                     child: const Text(
                       'Some text\nwith selection',
-                      style: TextStyle(color: _svCharcoal, fontSize: 12),
+                      style: TextStyle(
+                        color: _svCharcoal,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
@@ -1114,10 +1102,7 @@ Widget _svBuildClear() {
                 children: [
                   const Icon(Icons.arrow_forward, color: Colors.grey, size: 20),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: Colors.grey.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(4),
@@ -1148,7 +1133,10 @@ Widget _svBuildClear() {
                     ),
                     child: const Text(
                       'Some text\nwithout selection',
-                      style: TextStyle(color: _svCharcoal, fontSize: 12),
+                      style: TextStyle(
+                        color: _svCharcoal,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
@@ -1240,7 +1228,11 @@ Widget _svBuildEdgeUpdate() {
                   // Start handle
                   Column(
                     children: [
-                      Container(width: 2, height: 20, color: _svTeal),
+                      Container(
+                        width: 2,
+                        height: 20,
+                        color: _svTeal,
+                      ),
                       Container(
                         width: 12,
                         height: 12,
@@ -1252,10 +1244,7 @@ Widget _svBuildEdgeUpdate() {
                     ],
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 4,
-                      vertical: 2,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     color: _svMagenta.withValues(alpha: 0.3),
                     child: const Text(
                       'beautiful ',
@@ -1269,7 +1258,11 @@ Widget _svBuildEdgeUpdate() {
                   // End handle
                   Column(
                     children: [
-                      Container(width: 2, height: 20, color: _svCoral),
+                      Container(
+                        width: 2,
+                        height: 20,
+                        color: _svCoral,
+                      ),
                       Container(
                         width: 12,
                         height: 12,
@@ -1360,7 +1353,11 @@ Widget _svBuildEdgeUpdate() {
               _svMagenta,
             ),
             const SizedBox(height: 6),
-            _svGranularityExample('word', '|Hello| |World|', _svTeal),
+            _svGranularityExample(
+              'word',
+              '|Hello| |World|',
+              _svTeal,
+            ),
             const SizedBox(height: 6),
             _svGranularityExample(
               'line',
@@ -1473,30 +1470,10 @@ Widget _svBuildGranularlyExtend() {
               ),
             ),
             const SizedBox(height: 12),
-            _svExtensionStep(
-              'Step 0',
-              'Hello |world',
-              'Cursor at position 6',
-              Colors.grey,
-            ),
-            _svExtensionStep(
-              'Step 1',
-              'Hello [w]orld',
-              'Shift+Right: extend by 1 char',
-              _svTeal,
-            ),
-            _svExtensionStep(
-              'Step 2',
-              'Hello [wo]rld',
-              'Shift+Right: extend by 1 char',
-              _svTeal,
-            ),
-            _svExtensionStep(
-              'Step 3',
-              'Hello [wor]ld',
-              'Shift+Right: extend by 1 char',
-              _svTeal,
-            ),
+            _svExtensionStep('Step 0', 'Hello |world', 'Cursor at position 6', Colors.grey),
+            _svExtensionStep('Step 1', 'Hello [w]orld', 'Shift+Right: extend by 1 char', _svTeal),
+            _svExtensionStep('Step 2', 'Hello [wo]rld', 'Shift+Right: extend by 1 char', _svTeal),
+            _svExtensionStep('Step 3', 'Hello [wor]ld', 'Shift+Right: extend by 1 char', _svTeal),
             const SizedBox(height: 8),
             const Text(
               'Each Shift+Right generates a GranularlyExtendSelectionEvent\n'
@@ -1532,30 +1509,10 @@ Widget _svBuildGranularlyExtend() {
               ),
             ),
             const SizedBox(height: 12),
-            _svExtensionStep(
-              'Step 0',
-              'Hello |world of code',
-              'Cursor at "world"',
-              Colors.grey,
-            ),
-            _svExtensionStep(
-              'Step 1',
-              'Hello [world] of code',
-              'Extend: 1 word forward',
-              _svMint,
-            ),
-            _svExtensionStep(
-              'Step 2',
-              'Hello [world of] code',
-              'Extend: 1 more word',
-              _svMint,
-            ),
-            _svExtensionStep(
-              'Step 3',
-              'Hello [world of code]',
-              'Extend: 1 more word',
-              _svMint,
-            ),
+            _svExtensionStep('Step 0', 'Hello |world of code', 'Cursor at "world"', Colors.grey),
+            _svExtensionStep('Step 1', 'Hello [world] of code', 'Extend: 1 word forward', _svMint),
+            _svExtensionStep('Step 2', 'Hello [world of] code', 'Extend: 1 more word', _svMint),
+            _svExtensionStep('Step 3', 'Hello [world of code]', 'Extend: 1 more word', _svMint),
           ],
         ),
       ),
@@ -1598,7 +1555,13 @@ Widget _svExtensionStep(String label, String text, String desc, Color color) {
                   fontSize: 12,
                 ),
               ),
-              Text(desc, style: TextStyle(color: color, fontSize: 10)),
+              Text(
+                desc,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                ),
+              ),
             ],
           ),
         ),
@@ -1757,13 +1720,15 @@ Widget _svLineBlock(String text, bool isHighlighted, bool hasCursor) {
     decoration: BoxDecoration(
       color: isHighlighted
           ? _svMagenta.withValues(alpha: 0.15)
-          : (hasCursor ? _svSky.withValues(alpha: 0.1) : Colors.transparent),
+          : (hasCursor
+              ? _svSky.withValues(alpha: 0.1)
+              : Colors.transparent),
       borderRadius: BorderRadius.circular(4),
       border: hasCursor
           ? Border.all(color: _svSky, width: 1)
           : (isHighlighted
-                ? Border.all(color: _svMagenta.withValues(alpha: 0.4))
-                : null),
+              ? Border.all(color: _svMagenta.withValues(alpha: 0.4))
+              : null),
     ),
     child: Text(
       text,
@@ -1771,9 +1736,7 @@ Widget _svLineBlock(String text, bool isHighlighted, bool hasCursor) {
         color: _svCharcoal,
         fontSize: 12,
         fontFamily: 'monospace',
-        fontWeight: isHighlighted || hasCursor
-            ? FontWeight.bold
-            : FontWeight.normal,
+        fontWeight: isHighlighted || hasCursor ? FontWeight.bold : FontWeight.normal,
       ),
     ),
   );
@@ -1876,46 +1839,16 @@ Widget _svBuildGestureMapping() {
                 ],
               ),
             ),
-            _svGestureRow(
-              'Long press',
-              'EdgeUpdate (character)',
-              'Mobile',
-              false,
-            ),
-            _svGestureRow(
-              'Long press + drag',
-              'EdgeUpdate (character)',
-              'Mobile',
-              true,
-            ),
+            _svGestureRow('Long press', 'EdgeUpdate (character)', 'Mobile', false),
+            _svGestureRow('Long press + drag', 'EdgeUpdate (character)', 'Mobile', true),
             _svGestureRow('Double tap', 'EdgeUpdate (word)', 'Both', false),
             _svGestureRow('Triple tap', 'EdgeUpdate (paragraph)', 'Both', true),
-            _svGestureRow(
-              'Click + drag',
-              'EdgeUpdate (character)',
-              'Desktop',
-              false,
-            ),
+            _svGestureRow('Click + drag', 'EdgeUpdate (character)', 'Desktop', false),
             _svGestureRow('Tap outside', 'ClearSelectionEvent', 'Both', true),
-            _svGestureRow(
-              'Ctrl+A / Cmd+A',
-              'SelectAllSelectionEvent',
-              'Desktop',
-              false,
-            ),
+            _svGestureRow('Ctrl+A / Cmd+A', 'SelectAllSelectionEvent', 'Desktop', false),
             _svGestureRow('Shift+Arrow', 'GranularlyExtend', 'Desktop', true),
-            _svGestureRow(
-              'Shift+Ctrl+Arrow',
-              'GranularlyExtend (word)',
-              'Desktop',
-              false,
-            ),
-            _svGestureRow(
-              'Shift+Up/Down',
-              'DirectionallyExtend',
-              'Desktop',
-              true,
-            ),
+            _svGestureRow('Shift+Ctrl+Arrow', 'GranularlyExtend (word)', 'Desktop', false),
+            _svGestureRow('Shift+Up/Down', 'DirectionallyExtend', 'Desktop', true),
           ],
         ),
       ),
@@ -2016,12 +1949,7 @@ Widget _svBuildGestureMapping() {
   );
 }
 
-Widget _svGestureRow(
-  String gesture,
-  String event,
-  String platform,
-  bool isAlt,
-) {
+Widget _svGestureRow(String gesture, String event, String platform, bool isAlt) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
     color: isAlt ? _svLightOrchid.withValues(alpha: 0.5) : Colors.white,
@@ -2031,7 +1959,10 @@ Widget _svGestureRow(
           flex: 3,
           child: Text(
             gesture,
-            style: const TextStyle(color: _svCharcoal, fontSize: 11),
+            style: const TextStyle(
+              color: _svCharcoal,
+              fontSize: 11,
+            ),
           ),
         ),
         Expanded(
@@ -2050,7 +1981,10 @@ Widget _svGestureRow(
           flex: 2,
           child: Text(
             platform,
-            style: const TextStyle(color: _svCharcoal, fontSize: 11),
+            style: const TextStyle(
+              color: _svCharcoal,
+              fontSize: 11,
+            ),
           ),
         ),
       ],
@@ -2327,27 +2261,27 @@ Widget _svBuildSummary() {
             _svSummaryBullet(
               'Base Class',
               'SelectionEvent is the abstract base with a type '
-                  'enum and five concrete subclasses.',
+              'enum and five concrete subclasses.',
             ),
             _svSummaryBullet(
               'Event Types',
               'SelectAll, Clear, EdgeUpdate, GranularlyExtend, '
-                  'DirectionallyExtend — covering all selection patterns.',
+              'DirectionallyExtend — covering all selection patterns.',
             ),
             _svSummaryBullet(
               'Dispatch',
               'Events flow through Selectables via dispatchSelectionEvent().  '
-                  'Each returns a SelectionResult.',
+              'Each returns a SelectionResult.',
             ),
             _svSummaryBullet(
               'Platform',
               'Same event types on mobile and desktop — only the triggering '
-                  'gesture differs.',
+              'gesture differs.',
             ),
             _svSummaryBullet(
               'Automatic',
               'Widget developers rarely interact with SelectionEvent '
-                  'directly — SelectionArea handles everything.',
+              'directly — SelectionArea handles everything.',
             ),
           ],
         ),
@@ -2454,7 +2388,10 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.event, size: 14),
                 SizedBox(width: 4),
-                Text('Rendering', style: TextStyle(fontSize: 12)),
+                Text(
+                  'Rendering',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),

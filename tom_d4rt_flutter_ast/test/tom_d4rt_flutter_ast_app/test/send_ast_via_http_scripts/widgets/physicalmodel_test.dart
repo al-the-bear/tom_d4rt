@@ -94,7 +94,10 @@ dynamic build(BuildContext context) {
       scaffoldBackgroundColor: _kPaper,
       textTheme: const TextTheme(),
     ),
-    home: const Scaffold(backgroundColor: _kPaper, body: _DemoBody()),
+    home: const Scaffold(
+      backgroundColor: _kPaper,
+      body: _DemoBody(),
+    ),
   );
 }
 
@@ -227,7 +230,11 @@ class _SectionShell extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: const TextStyle(color: _kInkMute, fontSize: 14, height: 1.4),
+            style: const TextStyle(
+              color: _kInkMute,
+              fontSize: 14,
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 20),
           child,
@@ -856,8 +863,7 @@ class _DossierCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          for (final String b in bullets)
-            _Bullet(b, tone: _kInkSoft, dotColor: tone),
+          for (final String b in bullets) _Bullet(b, tone: _kInkSoft, dotColor: tone),
         ],
       ),
     );
@@ -1030,7 +1036,10 @@ class _AnatomyTile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SizedBox(height: 96, child: Center(child: preview)),
+          SizedBox(
+            height: 96,
+            child: Center(child: preview),
+          ),
           const SizedBox(height: 12),
           Text(
             description,
@@ -1067,15 +1076,15 @@ class _ConstructorReferenceSection extends StatelessWidget {
         children: <Widget>[
           const _MonoBlock(
             'const PhysicalModel({\n'
-            '  Key? key,\n'
-            '  BoxShape shape = BoxShape.rectangle,\n'
-            '  Clip clipBehavior = Clip.none,\n'
-            '  BorderRadius? borderRadius,\n'
-            '  double elevation = 0.0,\n'
-            '  required Color color,\n'
-            '  Color shadowColor = const Color(0xFF000000),\n'
-            '  Widget? child,\n'
-            '});',
+                '  Key? key,\n'
+                '  BoxShape shape = BoxShape.rectangle,\n'
+                '  Clip clipBehavior = Clip.none,\n'
+                '  BorderRadius? borderRadius,\n'
+                '  double elevation = 0.0,\n'
+                '  required Color color,\n'
+                '  Color shadowColor = const Color(0xFF000000),\n'
+                '  Widget? child,\n'
+                '});',
             caption: 'lib/widgets/basic.dart',
           ),
           const SizedBox(height: 14),
@@ -1142,7 +1151,9 @@ class _ConstructorReferenceSection extends StatelessWidget {
 class _ElevationGridSection extends StatelessWidget {
   const _ElevationGridSection();
 
-  static const List<double> _values = <double>[0, 1, 2, 4, 6, 8, 12, 16, 24];
+  static const List<double> _values = <double>[
+    0, 1, 2, 4, 6, 8, 12, 16, 24,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -1816,11 +1827,11 @@ class _RecipeCardStackSection extends StatelessWidget {
           const SizedBox(height: 14),
           const _MonoBlock(
             'PhysicalModel(\n'
-            '  color: Colors.white,\n'
-            '  elevation: 14,\n'
-            '  borderRadius: BorderRadius.circular(14),\n'
-            '  child: ...content...,\n'
-            ')',
+                '  color: Colors.white,\n'
+                '  elevation: 14,\n'
+                '  borderRadius: BorderRadius.circular(14),\n'
+                '  child: ...content...,\n'
+                ')',
             caption: 'Stack child pattern',
           ),
         ],
@@ -2157,25 +2168,10 @@ class _RecipeLayeredReceiptsSection extends StatelessWidget {
           height: 260,
           child: Stack(
             children: <Widget>[
-              _receipt(
-                left: 30,
-                top: 30,
-                rotation: -math.pi / 48,
-                elevation: 1.5,
-              ),
+              _receipt(left: 30, top: 30, rotation: -math.pi / 48, elevation: 1.5),
               _receipt(left: 80, top: 50, rotation: math.pi / 72, elevation: 2),
-              _receipt(
-                left: 50,
-                top: 80,
-                rotation: -math.pi / 120,
-                elevation: 3,
-              ),
-              _receipt(
-                left: 100,
-                top: 100,
-                rotation: math.pi / 120,
-                elevation: 4,
-              ),
+              _receipt(left: 50, top: 80, rotation: -math.pi / 120, elevation: 3),
+              _receipt(left: 100, top: 100, rotation: math.pi / 120, elevation: 4),
             ],
           ),
         ),
@@ -2221,16 +2217,8 @@ class _RecipeLayeredReceiptsSection extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Container(
-                        width: 30,
-                        height: 5,
-                        color: const Color(0xFF92400E),
-                      ),
-                      Container(
-                        width: 40,
-                        height: 5,
-                        color: const Color(0xFF92400E),
-                      ),
+                      Container(width: 30, height: 5, color: const Color(0xFF92400E)),
+                      Container(width: 40, height: 5, color: const Color(0xFF92400E)),
                     ],
                   ),
                 ],
@@ -2315,14 +2303,7 @@ class _RecipeSlipPagesSection extends StatelessWidget {
                           const SizedBox(height: 6),
                           Container(width: 220, height: 6, color: _kRule),
                           const SizedBox(height: 14),
-                          Container(
-                            width: 100,
-                            height: 24,
-                            decoration: BoxDecoration(
-                              color: _kAccentSoft,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                          ),
+                          Container(width: 100, height: 24, decoration: BoxDecoration(color: _kAccentSoft, borderRadius: BorderRadius.circular(6))),
                         ],
                       ),
                     ),
@@ -2423,14 +2404,14 @@ class _PhysicalShapeSection extends StatelessWidget {
         children: <Widget>[
           const _MonoBlock(
             'const PhysicalShape({\n'
-            '  Key? key,\n'
-            '  required CustomClipper<Path> clipper,\n'
-            '  Clip clipBehavior = Clip.none,\n'
-            '  double elevation = 0.0,\n'
-            '  required Color color,\n'
-            '  Color shadowColor = const Color(0xFF000000),\n'
-            '  Widget? child,\n'
-            '});',
+                '  Key? key,\n'
+                '  required CustomClipper<Path> clipper,\n'
+                '  Clip clipBehavior = Clip.none,\n'
+                '  double elevation = 0.0,\n'
+                '  required Color color,\n'
+                '  Color shadowColor = const Color(0xFF000000),\n'
+                '  Widget? child,\n'
+                '});',
             caption: 'PhysicalShape signature',
           ),
           const SizedBox(height: 16),
@@ -2537,12 +2518,7 @@ class _NotchClipper extends CustomClipper<Path> {
     path.lineTo(size.width - 14, 0);
     path.quadraticBezierTo(size.width, 0, size.width, 14);
     path.lineTo(size.width, size.height - 14);
-    path.quadraticBezierTo(
-      size.width,
-      size.height,
-      size.width - 14,
-      size.height,
-    );
+    path.quadraticBezierTo(size.width, size.height, size.width - 14, size.height);
     path.lineTo(14, size.height);
     path.quadraticBezierTo(0, size.height, 0, size.height - 14);
     path.close();
@@ -2652,7 +2628,11 @@ class _WaveClipper extends CustomClipper<Path> {
     // Build a small sine-like wave with two control points.
     final double midY = size.height - 18;
     final double w = size.width;
-    path.cubicTo(w * 0.75, midY + 26, w * 0.25, midY - 26, 0, midY);
+    path.cubicTo(
+      w * 0.75, midY + 26,
+      w * 0.25, midY - 26,
+      0, midY,
+    );
     path.close();
     return path;
   }
@@ -2773,7 +2753,10 @@ class _SideBySidePane extends StatelessWidget {
               fontWeight: FontWeight.w800,
             ),
           ),
-          Text(caption, style: const TextStyle(color: _kInkMute, fontSize: 12)),
+          Text(
+            caption,
+            style: const TextStyle(color: _kInkMute, fontSize: 12),
+          ),
           const SizedBox(height: 14),
           SizedBox(height: 170, child: Center(child: child)),
         ],
@@ -2843,10 +2826,7 @@ class _ComparisonContainerSection extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _TwoColumnTable(
-            headers: const <String>[
-              'Aspect',
-              'PhysicalModel vs Container+BoxShadow',
-            ],
+            headers: const <String>['Aspect', 'PhysicalModel vs Container+BoxShadow'],
             rows: const <List<String>>[
               <String>[
                 'Shadow source',
@@ -3023,7 +3003,8 @@ class _RecapSection extends StatelessWidget {
     return _SectionShell(
       eyebrow: 'Recap',
       title: 'Everything you need to remember',
-      subtitle: 'The whole demo, distilled to a few load-bearing claims.',
+      subtitle:
+          'The whole demo, distilled to a few load-bearing claims.',
       eyebrowColor: _kGood,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

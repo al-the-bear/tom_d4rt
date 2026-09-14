@@ -224,7 +224,10 @@ Widget _privateHeaderChip(String label) {
     decoration: BoxDecoration(
       color: _kCardWhite.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(999),
-      border: Border.all(color: _kCardWhite.withValues(alpha: 0.32), width: 1),
+      border: Border.all(
+        color: _kCardWhite.withValues(alpha: 0.32),
+        width: 1,
+      ),
     ),
     child: Text(
       label,
@@ -257,7 +260,11 @@ Widget _privateBuildSection1Hero() {
           'matches the runtime type of the notification. Each listener '
           'returns a bool to decide whether the notification continues '
           'to bubble.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 20),
         Container(
@@ -316,8 +323,7 @@ Widget _privateBuildSection1Hero() {
             Expanded(
               child: _privateMiniCard(
                 title: 'Subscribe by type',
-                body:
-                    'A NotificationListener<T> only sees notifications '
+                body: 'A NotificationListener<T> only sees notifications '
                     'that are an instance of T. Listening to '
                     'ScrollNotification picks up all four scroll subtypes.',
                 color: _kAccentIndigo,
@@ -327,8 +333,7 @@ Widget _privateBuildSection1Hero() {
             Expanded(
               child: _privateMiniCard(
                 title: 'Bubbling is upward only',
-                body:
-                    'Notifications never travel sideways or downward. '
+                body: 'Notifications never travel sideways or downward. '
                     'They flow strictly from descendant to ancestor.',
                 color: _kAccentCoral,
               ),
@@ -337,8 +342,7 @@ Widget _privateBuildSection1Hero() {
             Expanded(
               child: _privateMiniCard(
                 title: 'No state required',
-                body:
-                    'NotificationListener itself is stateless wiring. '
+                body: 'NotificationListener itself is stateless wiring. '
                     'You can use it to forward events into setState, '
                     'a controller, or a model held above.',
                 color: _kAccentMint,
@@ -418,7 +422,11 @@ Widget _privateBuildSection2Anatomy() {
           'Below: widget A dispatches a notification. It travels through '
           'three ancestors. The middle ancestor returns true and stops '
           'the bubble; the highest ancestor never sees it.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 20),
         Container(
@@ -594,7 +602,11 @@ Widget _privateAnatomyArrow({required String label, required Color color}) {
 }
 
 Widget _privateLegendRow(List<Widget> items) {
-  return Wrap(spacing: 14, runSpacing: 8, children: items);
+  return Wrap(
+    spacing: 14,
+    runSpacing: 8,
+    children: items,
+  );
 }
 
 Widget _privateLegendItem(String label, Color color) {
@@ -639,7 +651,11 @@ Widget _privateBuildSection3BuiltinGallery() {
           'Listening to the base type (e.g. ScrollNotification) covers '
           'all of its leaf subtypes; listening to a leaf type (e.g. '
           'ScrollEndNotification) covers only that one.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 20),
         Wrap(
@@ -665,7 +681,8 @@ Widget _privateBuildSection3BuiltinGallery() {
               name: 'ScrollUpdateNotification',
               accent: _kAccentIndigo,
               kind: 'scroll',
-              description: 'Fires on every pixel-delta as the user scrolls.',
+              description:
+                  'Fires on every pixel-delta as the user scrolls.',
               snippet:
                   'NotificationListener<ScrollUpdateNotification>(\n'
                   '  onNotification: (n) {\n'
@@ -679,7 +696,8 @@ Widget _privateBuildSection3BuiltinGallery() {
               name: 'ScrollEndNotification',
               accent: _kAccentCoral,
               kind: 'scroll',
-              description: 'Fires when the Scrollable comes to rest.',
+              description:
+                  'Fires when the Scrollable comes to rest.',
               snippet:
                   'NotificationListener<ScrollEndNotification>(\n'
                   '  onNotification: (n) {\n'
@@ -708,7 +726,8 @@ Widget _privateBuildSection3BuiltinGallery() {
               name: 'UserScrollNotification',
               accent: _kAccentMint,
               kind: 'scroll',
-              description: 'Tells you the *direction* of user-driven scroll.',
+              description:
+                  'Tells you the *direction* of user-driven scroll.',
               snippet:
                   'NotificationListener<UserScrollNotification>(\n'
                   '  onNotification: (n) {\n'
@@ -787,7 +806,10 @@ Widget _privateBuiltinCard({
     decoration: BoxDecoration(
       color: _kCardWhite,
       borderRadius: BorderRadius.circular(14),
-      border: Border.all(color: accent.withValues(alpha: 0.45), width: 1.2),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.45),
+        width: 1.2,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -835,7 +857,11 @@ Widget _privateBuiltinCard({
         SizedBox(height: 6),
         Text(
           description,
-          style: TextStyle(color: _kPageInkSoft, fontSize: 12.5, height: 1.45),
+          style: TextStyle(
+            color: _kPageInkSoft,
+            fontSize: 12.5,
+            height: 1.45,
+          ),
         ),
         SizedBox(height: 10),
         _privateCodeBlock(snippet),
@@ -860,7 +886,11 @@ Widget _privateBuildSection4ReturnSemantics() {
           'The bool returned from onNotification is the single most '
           'important detail of the whole API. It decides whether '
           'ancestors above this listener will *also* see the event.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 20),
         Row(
@@ -935,7 +965,10 @@ Widget _privateReturnPanel({
     decoration: BoxDecoration(
       color: _kCardWhite,
       borderRadius: BorderRadius.circular(14),
-      border: Border.all(color: accent.withValues(alpha: 0.55), width: 1.3),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.55),
+        width: 1.3,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -974,7 +1007,11 @@ Widget _privateReturnPanel({
         SizedBox(height: 10),
         Text(
           explanation,
-          style: TextStyle(color: _kPageInkSoft, fontSize: 13, height: 1.5),
+          style: TextStyle(
+            color: _kPageInkSoft,
+            fontSize: 13,
+            height: 1.5,
+          ),
         ),
         SizedBox(height: 12),
         _privateCodeBlock(snippet),
@@ -1038,7 +1075,11 @@ Widget _privateBuildSection5ScrollExample() {
           'ScrollUpdateNotification. The widget below is purely '
           'illustrative — there is no live state in this demo, so the '
           'meter is rendered at a fixed value to show the layout.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 18),
         Container(
@@ -1090,7 +1131,11 @@ Widget _privateBuildSection5ScrollExample() {
           ),
           child: Row(
             children: [
-              Icon(Icons.lightbulb_outline, size: 18, color: _kAccentAmber),
+              Icon(
+                Icons.lightbulb_outline,
+                size: 18,
+                color: _kAccentAmber,
+              ),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1205,14 +1250,20 @@ Widget _privateFakeRow(String label, Color color) {
     decoration: BoxDecoration(
       color: _kCardWhite,
       borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: color.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: color.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
     ),
     child: Row(
       children: [
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 10),
         Text(
@@ -1246,7 +1297,11 @@ Widget _privateBuildSection6CustomScoreExample() {
           'controller through every level. Notifications are a clean '
           'fit: define a subclass, dispatch from the leaf, listen at the '
           'ancestor.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 18),
         _privateScoreBanner(),
@@ -1341,7 +1396,11 @@ Widget _privateScoreBanner() {
     ),
     child: Row(
       children: [
-        Icon(Icons.emoji_events_outlined, color: _kCardWhite, size: 28),
+        Icon(
+          Icons.emoji_events_outlined,
+          color: _kCardWhite,
+          size: 28,
+        ),
         SizedBox(width: 14),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1502,7 +1561,11 @@ Widget _privateBuildSection7Recipe() {
           'A complete, copy-pasteable mini recipe for adding a custom '
           'Notification to a screen: define the subclass, dispatch from '
           'the deep child, listen near the top of the screen.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 16),
         // NOTE: This code listing is rendered as a plain monospace Text
@@ -1622,7 +1685,11 @@ Widget _privateBuildSection8Comparison() {
           'Notifications are not always the right answer. The table '
           'below compares them to the other usual ways data flows '
           'between widgets in Flutter.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 18),
         Container(
@@ -1778,7 +1845,11 @@ Widget _privateCompareRow({
 Widget _privateCompareCell(String text) {
   return Text(
     text,
-    style: TextStyle(color: _kPageInkSoft, fontSize: 12, height: 1.4),
+    style: TextStyle(
+      color: _kPageInkSoft,
+      fontSize: 12,
+      height: 1.4,
+    ),
   );
 }
 
@@ -1797,14 +1868,17 @@ Widget _privateBuildSection9Pitfalls() {
         Text(
           'A short, opinionated list of mistakes to avoid when reaching '
           'for NotificationListener.',
-          style: TextStyle(fontSize: 14.5, height: 1.55, color: _kPageInkSoft),
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.55,
+            color: _kPageInkSoft,
+          ),
         ),
         SizedBox(height: 18),
         _privatePitfallCard(
           icon: Icons.block_outlined,
           title: 'Don\u2019t accidentally block bubbling.',
-          body:
-              'Returning true means \u0022I consumed it.\u0022 If a parent '
+          body: 'Returning true means \u0022I consumed it.\u0022 If a parent '
               'analytics layer also wants the event, you\u2019ve broken it. '
               'Default to false unless ownership is intentional.',
           accent: _kAccentCoral,
@@ -1812,8 +1886,7 @@ Widget _privateBuildSection9Pitfalls() {
         _privatePitfallCard(
           icon: Icons.account_tree_outlined,
           title: 'Listeners subscribe by static type T.',
-          body:
-              'NotificationListener<ScrollEndNotification> will not '
+          body: 'NotificationListener<ScrollEndNotification> will not '
               'see ScrollUpdateNotification. Listening to the abstract '
               'base type ScrollNotification covers all four subtypes.',
           accent: _kAccentTeal,
@@ -1821,16 +1894,14 @@ Widget _privateBuildSection9Pitfalls() {
         _privatePitfallCard(
           icon: Icons.swap_vert_outlined,
           title: 'No sideways or downward delivery.',
-          body:
-              'A sibling cannot receive your notification. Only '
+          body: 'A sibling cannot receive your notification. Only '
               'ancestors of the dispatching BuildContext fire.',
           accent: _kAccentIndigo,
         ),
         _privatePitfallCard(
           icon: Icons.history_toggle_off_outlined,
           title: 'Notifications are fire-and-forget.',
-          body:
-              'There is no return value to the dispatcher, no async '
+          body: 'There is no return value to the dispatcher, no async '
               'await, no acknowledgement. Use a Future-returning '
               'callback instead if you need a reply.',
           accent: _kAccentAmber,
@@ -1838,8 +1909,7 @@ Widget _privateBuildSection9Pitfalls() {
         _privatePitfallCard(
           icon: Icons.layers_outlined,
           title: 'Don\u2019t use them for cross-screen shared state.',
-          body:
-              'They live within one widget subtree. For app-wide '
+          body: 'They live within one widget subtree. For app-wide '
               'reactive state, reach for InheritedWidget / Provider / '
               'Riverpod / a controller.',
           accent: _kAccentMint,
@@ -1847,8 +1917,7 @@ Widget _privateBuildSection9Pitfalls() {
         _privatePitfallCard(
           icon: Icons.bolt_outlined,
           title: 'dispatch() needs a mounted BuildContext.',
-          body:
-              'After the widget that called dispatch is unmounted, '
+          body: 'After the widget that called dispatch is unmounted, '
               'further dispatches with the stale context are no-ops or '
               'throw. Capture context only inside callbacks that fire '
               'while the widget is alive.',
@@ -1871,7 +1940,10 @@ Widget _privatePitfallCard({
     decoration: BoxDecoration(
       color: _kCardWhite,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: accent.withValues(alpha: 0.5), width: 1.2),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.5),
+        width: 1.2,
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1995,10 +2067,7 @@ Widget _privateBuildSection10Closing() {
                   _privateClosingMetaRow('demo type', 'visual deep'),
                   _privateClosingMetaRow('subject', 'NotificationListener'),
                   _privateClosingMetaRow('sections', '10'),
-                  _privateClosingMetaRow(
-                    'dispatches called',
-                    '0 (illustrative)',
-                  ),
+                  _privateClosingMetaRow('dispatches called', '0 (illustrative)'),
                   _privateClosingMetaRow(
                     'custom subclass',
                     '_PrivateScoreNotification',
@@ -2144,7 +2213,10 @@ Widget _privateSectionShell({
     decoration: BoxDecoration(
       color: _kCardWhite,
       borderRadius: BorderRadius.circular(18),
-      border: Border.all(color: accent.withValues(alpha: 0.32), width: 1.2),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.32),
+        width: 1.2,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2207,7 +2279,10 @@ Widget _privateMiniCard({
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color.withValues(alpha: 0.45), width: 1.1),
+      border: Border.all(
+        color: color.withValues(alpha: 0.45),
+        width: 1.1,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2233,7 +2308,11 @@ Widget _privateMiniCard({
         SizedBox(height: 6),
         Text(
           body,
-          style: TextStyle(color: _kPageInkSoft, fontSize: 12, height: 1.5),
+          style: TextStyle(
+            color: _kPageInkSoft,
+            fontSize: 12,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -2349,7 +2428,10 @@ List<TextSpan> _privateColorizeDart(String code) {
       out.add(
         TextSpan(
           text: code.substring(i, j),
-          style: TextStyle(color: _kCodeComment, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: _kCodeComment,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       );
       i = j;
@@ -2386,12 +2468,7 @@ List<TextSpan> _privateColorizeDart(String code) {
       } else if (types.contains(word)) {
         col = _kCodeType;
       }
-      out.add(
-        TextSpan(
-          text: word,
-          style: TextStyle(color: col),
-        ),
-      );
+      out.add(TextSpan(text: word, style: TextStyle(color: col)));
       i = j;
       continue;
     }
@@ -2399,7 +2476,8 @@ List<TextSpan> _privateColorizeDart(String code) {
     // number
     if (_privateIsDigit(c)) {
       int j = i + 1;
-      while (j < code.length && (_privateIsDigit(code[j]) || code[j] == '.')) {
+      while (j < code.length &&
+          (_privateIsDigit(code[j]) || code[j] == '.')) {
         j++;
       }
       out.add(
@@ -2422,7 +2500,9 @@ List<TextSpan> _privateColorizeDart(String code) {
 bool _privateIsIdentStart(String c) {
   if (c.isEmpty) return false;
   final int cp = c.codeUnitAt(0);
-  return (cp >= 0x41 && cp <= 0x5A) || (cp >= 0x61 && cp <= 0x7A) || cp == 0x5F;
+  return (cp >= 0x41 && cp <= 0x5A) ||
+      (cp >= 0x61 && cp <= 0x7A) ||
+      cp == 0x5F;
 }
 
 bool _privateIsIdentPart(String c) {

@@ -67,9 +67,8 @@ final ValueNotifier<bool> _holdTab2 = ValueNotifier<bool>(true);
 final ValueNotifier<bool> _holdSparseEven = ValueNotifier<bool>(true);
 final ValueNotifier<int> _manualReleaseTick = ValueNotifier<int>(0);
 final ValueNotifier<int> _manualDispatchTick = ValueNotifier<int>(0);
-final ValueNotifier<String> _lastHandleEvent = ValueNotifier<String>(
-  '(no handle events yet)',
-);
+final ValueNotifier<String> _lastHandleEvent =
+    ValueNotifier<String>('(no handle events yet)');
 
 // ── Top-level entry point required by the harness ─────────────────────────
 dynamic build(BuildContext context) {
@@ -179,16 +178,14 @@ class _SectionHeader extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: theme.textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: Colors.black54,
-                  ),
+                  style: theme.textTheme.bodySmall
+                      ?.copyWith(color: Colors.black54),
                 ),
               ],
             ),
@@ -304,7 +301,11 @@ class _DemoCard extends StatelessWidget {
         padding: const EdgeInsets.all(14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[header, const SizedBox(height: 6), body],
+          children: <Widget>[
+            header,
+            const SizedBox(height: 6),
+            body,
+          ],
         ),
       ),
     );
@@ -354,7 +355,10 @@ class _Section1AnatomyCard extends StatelessWidget {
             'handle.release(); // notifies listeners and disposes',
           ),
           SizedBox(height: 6),
-          Text('Family tree', style: TextStyle(fontWeight: FontWeight.w600)),
+          Text(
+            'Family tree',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
           SizedBox(height: 4),
           _BulletLine(
             'Listenable → ChangeNotifier → KeepAliveHandle.',
@@ -395,32 +399,23 @@ class _Section2LifecycleCard extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
-          _LifecycleArrow(
-            '① CREATE',
-            'KeepAliveHandle handle = KeepAliveHandle();',
-          ),
-          _LifecycleArrow(
-            '② DISPATCH',
-            'KeepAliveNotification(handle).dispatch(context);',
-          ),
-          _LifecycleArrow(
-            '③ LISTEN',
-            'AutomaticKeepAlive ancestor calls handle.addListener(_onRelease);',
-          ),
-          _LifecycleArrow(
-            '④ HOLD',
-            'Slot is preserved across viewport scrolls / page swaps.',
-          ),
-          _LifecycleArrow(
-            '⑤ RELEASE',
-            'handle.release() → notifyListeners() → disposes handle.',
-          ),
-          _LifecycleArrow(
-            '⑥ DROP',
-            'Ancestor removes its listener, slot becomes evictable again.',
-          ),
+          _LifecycleArrow('① CREATE',
+              'KeepAliveHandle handle = KeepAliveHandle();'),
+          _LifecycleArrow('② DISPATCH',
+              'KeepAliveNotification(handle).dispatch(context);'),
+          _LifecycleArrow('③ LISTEN',
+              'AutomaticKeepAlive ancestor calls handle.addListener(_onRelease);'),
+          _LifecycleArrow('④ HOLD',
+              'Slot is preserved across viewport scrolls / page swaps.'),
+          _LifecycleArrow('⑤ RELEASE',
+              'handle.release() → notifyListeners() → disposes handle.'),
+          _LifecycleArrow('⑥ DROP',
+              'Ancestor removes its listener, slot becomes evictable again.'),
           SizedBox(height: 8),
-          Text('Notes:', style: TextStyle(fontWeight: FontWeight.w600)),
+          Text(
+            'Notes:',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
           _BulletLine(
             'A handle can only be released once; release() is effectively a '
             'one-shot notification.',
@@ -532,12 +527,14 @@ class _Section3ManualHandleCard extends StatelessWidget {
                             '${DateTime.now().toIso8601String()}';
                       });
                       KeepAliveNotification(handle).dispatch(innerContext);
-                      _manualDispatchTick.value = _manualDispatchTick.value + 1;
+                      _manualDispatchTick.value =
+                          _manualDispatchTick.value + 1;
                       // Immediately release for demo purposes; in real use
                       // the ancestor would hold the listener until the
                       // subtree no longer needs to be kept alive.
                       handle.dispose();
-                      _manualReleaseTick.value = _manualReleaseTick.value + 1;
+                      _manualReleaseTick.value =
+                          _manualReleaseTick.value + 1;
                     },
                   ),
                   const SizedBox(width: 12),
@@ -889,7 +886,10 @@ class _KeepAlivePageState extends State<_KeepAlivePage>
           const SizedBox(height: 8),
           Row(
             children: <Widget>[
-              ElevatedButton(onPressed: _bump, child: const Text('counter++')),
+              ElevatedButton(
+                onPressed: _bump,
+                child: const Text('counter++'),
+              ),
               const SizedBox(width: 12),
               Text('counter = $_counter'),
             ],
@@ -1256,9 +1256,8 @@ class _KeepAliveScrollerState extends State<_KeepAliveScroller>
                 dense: true,
                 leading: CircleAvatar(child: Text('$i')),
                 title: Text('Item $i'),
-                subtitle: Text(
-                  'Scroll, then change tab; offset survives if kept.',
-                ),
+                subtitle:
+                    Text('Scroll, then change tab; offset survives if kept.'),
               ),
             ),
           ),
@@ -1360,7 +1359,10 @@ class _Section7SparseListCard extends StatelessWidget {
                   itemCount: 60,
                   itemBuilder: (BuildContext _, int i) {
                     final bool keepThis = keepEven && (i % 2 == 0);
-                    return _SparseRow(index: i, keepAlive: keepThis);
+                    return _SparseRow(
+                      index: i,
+                      keepAlive: keepThis,
+                    );
                   },
                 );
               },
@@ -1424,9 +1426,8 @@ class _SparseRowState extends State<_SparseRow>
         children: <Widget>[
           CircleAvatar(
             radius: 14,
-            backgroundColor: widget.keepAlive
-                ? Colors.green
-                : Colors.grey.shade500,
+            backgroundColor:
+                widget.keepAlive ? Colors.green : Colors.grey.shade500,
             child: Text(
               '${widget.index}',
               style: const TextStyle(color: Colors.white, fontSize: 11),
@@ -1649,41 +1650,31 @@ class _ComparisonTable extends StatelessWidget {
             _TblCell('Provider / InheritedWidget', bold: true),
           ],
         ),
-        TableRow(
-          children: <Widget>[
-            _TblCell('purpose'),
-            _TblCell('preserve the State, controllers, scroll, etc.'),
-            _TblCell('share data above a subtree'),
-          ],
-        ),
-        TableRow(
-          children: <Widget>[
-            _TblCell('storage'),
-            _TblCell('stores nothing; just a slot lifeline'),
-            _TblCell('owns and exposes the data'),
-          ],
-        ),
-        TableRow(
-          children: <Widget>[
-            _TblCell('scope'),
-            _TblCell('the keep-alive subtree itself'),
-            _TblCell('any descendant of the provider'),
-          ],
-        ),
-        TableRow(
-          children: <Widget>[
-            _TblCell('granularity'),
-            _TblCell('one slot per handle'),
-            _TblCell('any number of consumers'),
-          ],
-        ),
-        TableRow(
-          children: <Widget>[
-            _TblCell('release'),
-            _TblCell('handle.release() drops keep-alive'),
-            _TblCell('parent dispose / rebuild changes data'),
-          ],
-        ),
+        TableRow(children: <Widget>[
+          _TblCell('purpose'),
+          _TblCell('preserve the State, controllers, scroll, etc.'),
+          _TblCell('share data above a subtree'),
+        ]),
+        TableRow(children: <Widget>[
+          _TblCell('storage'),
+          _TblCell('stores nothing; just a slot lifeline'),
+          _TblCell('owns and exposes the data'),
+        ]),
+        TableRow(children: <Widget>[
+          _TblCell('scope'),
+          _TblCell('the keep-alive subtree itself'),
+          _TblCell('any descendant of the provider'),
+        ]),
+        TableRow(children: <Widget>[
+          _TblCell('granularity'),
+          _TblCell('one slot per handle'),
+          _TblCell('any number of consumers'),
+        ]),
+        TableRow(children: <Widget>[
+          _TblCell('release'),
+          _TblCell('handle.release() drops keep-alive'),
+          _TblCell('parent dispose / rebuild changes data'),
+        ]),
       ],
     );
   }
@@ -1786,7 +1777,8 @@ class _Recipe extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(title,
+              style: const TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
           Text(body, style: const TextStyle(fontSize: 13)),
         ],
@@ -1875,11 +1867,8 @@ class _Pitfall extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(
-                Icons.warning_amber_rounded,
-                color: Colors.red,
-                size: 18,
-              ),
+              const Icon(Icons.warning_amber_rounded,
+                  color: Colors.red, size: 18),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
@@ -1930,41 +1919,31 @@ class _Section12HandleVsMixinTable extends StatelessWidget {
                   _TblCell('Raw KeepAliveHandle', bold: true),
                 ],
               ),
-              TableRow(
-                children: <Widget>[
-                  _TblCell('owns the handle?'),
-                  _TblCell('yes — internal _keepAliveHandle'),
-                  _TblCell('you do'),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _TblCell('boilerplate'),
-                  _TblCell('one mixin + super.build()'),
-                  _TblCell('full createState / addListener / dispose'),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _TblCell('updates handle'),
-                  _TblCell('updateKeepAlive() on flip'),
-                  _TblCell('release() and re-dispatch by hand'),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _TblCell('use case'),
-                  _TblCell('default for 99% of widgets'),
-                  _TblCell('custom keep-alive widgets, diagnostics, tests'),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _TblCell('granularity'),
-                  _TblCell('one State'),
-                  _TblCell('any context that can dispatch a notification'),
-                ],
-              ),
+              TableRow(children: <Widget>[
+                _TblCell('owns the handle?'),
+                _TblCell('yes — internal _keepAliveHandle'),
+                _TblCell('you do'),
+              ]),
+              TableRow(children: <Widget>[
+                _TblCell('boilerplate'),
+                _TblCell('one mixin + super.build()'),
+                _TblCell('full createState / addListener / dispose'),
+              ]),
+              TableRow(children: <Widget>[
+                _TblCell('updates handle'),
+                _TblCell('updateKeepAlive() on flip'),
+                _TblCell('release() and re-dispatch by hand'),
+              ]),
+              TableRow(children: <Widget>[
+                _TblCell('use case'),
+                _TblCell('default for 99% of widgets'),
+                _TblCell('custom keep-alive widgets, diagnostics, tests'),
+              ]),
+              TableRow(children: <Widget>[
+                _TblCell('granularity'),
+                _TblCell('one State'),
+                _TblCell('any context that can dispatch a notification'),
+              ]),
             ],
           ),
         ],
@@ -2003,71 +1982,51 @@ class _Section13ReferenceTable extends StatelessWidget {
               _TblCell('Notes', bold: true),
             ],
           ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('KeepAliveHandle'),
-              _TblCell('package:flutter/widgets.dart'),
-              _TblCell('Listenable; held by KeepAliveNotification.'),
-            ],
-          ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('dispose()  (overridden)'),
-              _TblCell('KeepAliveHandle'),
-              _TblCell(
-                'calls notifyListeners() first; the canonical "release" signal.',
-              ),
-            ],
-          ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('addListener(VoidCallback)'),
-              _TblCell('inherited from ChangeNotifier'),
-              _TblCell('register a callback that fires when release() runs.'),
-            ],
-          ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('removeListener(VoidCallback)'),
-              _TblCell('inherited from ChangeNotifier'),
-              _TblCell('detach a previously registered callback.'),
-            ],
-          ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('KeepAliveNotification(handle)'),
-              _TblCell('package:flutter/widgets.dart'),
-              _TblCell('Notification that ferries the handle up the tree.'),
-            ],
-          ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('KeepAliveNotification.dispatch(context)'),
-              _TblCell('inherited from Notification'),
-              _TblCell('walks the element tree to a NotificationListener.'),
-            ],
-          ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('AutomaticKeepAlive'),
-              _TblCell('package:flutter/widgets.dart'),
-              _TblCell('Listens for KeepAliveNotifications and holds slots.'),
-            ],
-          ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('AutomaticKeepAliveClientMixin<T>'),
-              _TblCell('package:flutter/widgets.dart'),
-              _TblCell('Mixin that owns the handle automatically.'),
-            ],
-          ),
-          TableRow(
-            children: <Widget>[
-              _TblCell('updateKeepAlive()'),
-              _TblCell('AutomaticKeepAliveClientMixin'),
-              _TblCell('re-evaluates wantKeepAlive and toggles the handle.'),
-            ],
-          ),
+          TableRow(children: <Widget>[
+            _TblCell('KeepAliveHandle'),
+            _TblCell('package:flutter/widgets.dart'),
+            _TblCell('Listenable; held by KeepAliveNotification.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('dispose()  (overridden)'),
+            _TblCell('KeepAliveHandle'),
+            _TblCell('calls notifyListeners() first; the canonical "release" signal.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('addListener(VoidCallback)'),
+            _TblCell('inherited from ChangeNotifier'),
+            _TblCell('register a callback that fires when release() runs.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('removeListener(VoidCallback)'),
+            _TblCell('inherited from ChangeNotifier'),
+            _TblCell('detach a previously registered callback.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('KeepAliveNotification(handle)'),
+            _TblCell('package:flutter/widgets.dart'),
+            _TblCell('Notification that ferries the handle up the tree.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('KeepAliveNotification.dispatch(context)'),
+            _TblCell('inherited from Notification'),
+            _TblCell('walks the element tree to a NotificationListener.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('AutomaticKeepAlive'),
+            _TblCell('package:flutter/widgets.dart'),
+            _TblCell('Listens for KeepAliveNotifications and holds slots.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('AutomaticKeepAliveClientMixin<T>'),
+            _TblCell('package:flutter/widgets.dart'),
+            _TblCell('Mixin that owns the handle automatically.'),
+          ]),
+          TableRow(children: <Widget>[
+            _TblCell('updateKeepAlive()'),
+            _TblCell('AutomaticKeepAliveClientMixin'),
+            _TblCell('re-evaluates wantKeepAlive and toggles the handle.'),
+          ]),
         ],
       ),
     );
@@ -2111,7 +2070,10 @@ class _Section14ClosingNotes extends StatelessWidget {
             'in static layouts.',
           ),
           SizedBox(height: 8),
-          Text('End of demo.', style: TextStyle(fontStyle: FontStyle.italic)),
+          Text(
+            'End of demo.',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
         ],
       ),
     );

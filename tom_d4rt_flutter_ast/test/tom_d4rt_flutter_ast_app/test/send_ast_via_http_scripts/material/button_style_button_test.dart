@@ -93,7 +93,11 @@ Widget buildButtonCard({
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Wrap(spacing: 12, runSpacing: 12, children: buttons),
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: buttons,
+          ),
         ),
         SizedBox(height: 12),
       ],
@@ -126,18 +130,13 @@ Widget buildStyleChip(String label) {
       color: Colors.blue.shade50,
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, color: Colors.blue.shade700),
-    ),
+    child: Text(label, style: TextStyle(fontSize: 10, color: Colors.blue.shade700)),
   );
 }
 
 dynamic build(BuildContext context) {
   debugPrint('=== ButtonStyleButton Deep Demo ===');
-  debugPrint(
-    'Demonstrating ElevatedButton, TextButton, OutlinedButton, FilledButton with ButtonStyle',
-  );
+  debugPrint('Demonstrating ElevatedButton, TextButton, OutlinedButton, FilledButton with ButtonStyle');
 
   return SingleChildScrollView(
     child: Column(
@@ -257,41 +256,35 @@ dynamic build(BuildContext context) {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
               ),
               child: Text('Square'),
             ),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
               child: Text('Rounded'),
             ),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               ),
               child: Text('Pill'),
             ),
             ElevatedButton(
               onPressed: () {},
-              style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+              style: ElevatedButton.styleFrom(
+                shape: StadiumBorder(),
+              ),
               child: Text('Stadium'),
             ),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                shape: BeveledRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
               child: Text('Beveled'),
             ),
@@ -330,8 +323,7 @@ dynamic build(BuildContext context) {
         ),
         buildButtonCard(
           title: 'Size Variations',
-          description:
-              'Custom padding and minimumSize for different button sizes',
+          description: 'Custom padding and minimumSize for different button sizes',
           buttons: [
             ElevatedButton(
               onPressed: () {},
@@ -473,9 +465,7 @@ dynamic build(BuildContext context) {
             OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                 side: BorderSide(color: Colors.black, width: 2),
               ),
               child: Text('Square'),
@@ -491,9 +481,7 @@ dynamic build(BuildContext context) {
             OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 side: BorderSide(color: Colors.orange, width: 2),
               ),
               child: Text('Rounded'),
@@ -503,9 +491,7 @@ dynamic build(BuildContext context) {
 
         // Section 5: FilledButton Styles
         buildSectionTitle('5. FilledButton Styles'),
-        buildDescription(
-          'FilledButton and FilledButton.tonal with custom styles',
-        ),
+        buildDescription('FilledButton and FilledButton.tonal with custom styles'),
 
         buildButtonCard(
           title: 'Filled Color Variations',
@@ -642,9 +628,7 @@ dynamic build(BuildContext context) {
 
         // Section 7: WidgetStateProperty
         buildSectionTitle('7. WidgetStateProperty Usage'),
-        buildDescription(
-          'Using WidgetStateProperty for state-dependent styling',
-        ),
+        buildDescription('Using WidgetStateProperty for state-dependent styling'),
 
         buildButtonCard(
           title: 'resolveWith for Background',
@@ -654,10 +638,8 @@ dynamic build(BuildContext context) {
               onPressed: () {},
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.pressed))
-                    return Colors.red.shade700;
-                  if (states.contains(WidgetState.hovered))
-                    return Colors.red.shade300;
+                  if (states.contains(WidgetState.pressed)) return Colors.red.shade700;
+                  if (states.contains(WidgetState.hovered)) return Colors.red.shade300;
                   return Colors.red;
                 }),
                 foregroundColor: WidgetStateProperty.all(Colors.white),
@@ -668,10 +650,8 @@ dynamic build(BuildContext context) {
               onPressed: () {},
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.pressed))
-                    return Colors.blue.shade700;
-                  if (states.contains(WidgetState.hovered))
-                    return Colors.blue.shade300;
+                  if (states.contains(WidgetState.pressed)) return Colors.blue.shade700;
+                  if (states.contains(WidgetState.hovered)) return Colors.blue.shade300;
                   return Colors.blue;
                 }),
                 foregroundColor: WidgetStateProperty.all(Colors.white),
@@ -709,11 +689,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
             ],
           ),
           child: Column(
@@ -739,50 +715,47 @@ dynamic build(BuildContext context) {
                         child: Text('Save'),
                       ),
                       SizedBox(height: 4),
-                      Text(
-                        'Elevated',
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
-                      ),
+                      Text('Elevated', style: TextStyle(fontSize: 10, color: Colors.grey)),
                     ],
                   ),
                   Column(
                     children: [
-                      FilledButton(onPressed: () {}, child: Text('Save')),
-                      SizedBox(height: 4),
-                      Text(
-                        'Filled',
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                      FilledButton(
+                        onPressed: () {},
+                        child: Text('Save'),
                       ),
+                      SizedBox(height: 4),
+                      Text('Filled', style: TextStyle(fontSize: 10, color: Colors.grey)),
                     ],
                   ),
                   Column(
                     children: [
-                      FilledButton.tonal(onPressed: () {}, child: Text('Save')),
-                      SizedBox(height: 4),
-                      Text(
-                        'Tonal',
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                      FilledButton.tonal(
+                        onPressed: () {},
+                        child: Text('Save'),
                       ),
+                      SizedBox(height: 4),
+                      Text('Tonal', style: TextStyle(fontSize: 10, color: Colors.grey)),
                     ],
                   ),
                   Column(
                     children: [
-                      OutlinedButton(onPressed: () {}, child: Text('Save')),
-                      SizedBox(height: 4),
-                      Text(
-                        'Outlined',
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                      OutlinedButton(
+                        onPressed: () {},
+                        child: Text('Save'),
                       ),
+                      SizedBox(height: 4),
+                      Text('Outlined', style: TextStyle(fontSize: 10, color: Colors.grey)),
                     ],
                   ),
                   Column(
                     children: [
-                      TextButton(onPressed: () {}, child: Text('Save')),
-                      SizedBox(height: 4),
-                      Text(
-                        'Text',
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text('Save'),
                       ),
+                      SizedBox(height: 4),
+                      Text('Text', style: TextStyle(fontSize: 10, color: Colors.grey)),
                     ],
                   ),
                 ],
@@ -802,11 +775,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
             ],
           ),
           child: Wrap(

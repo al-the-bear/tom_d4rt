@@ -142,12 +142,7 @@ Color _contrastingFor(Color c) {
 
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(
-      top: 28.0,
-      bottom: 12.0,
-      left: 18.0,
-      right: 18.0,
-    ),
+    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -187,7 +182,10 @@ Widget _sectionHeader(int index, String title, String tagline) {
 Widget _sectionDivider() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
-    child: Container(height: 1.0, color: _kHairline),
+    child: Container(
+      height: 1.0,
+      color: _kHairline,
+    ),
   );
 }
 
@@ -195,10 +193,7 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(
-    horizontal: 18.0,
-    vertical: 6.0,
-  ),
+  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
 }) {
   return Container(
     margin: margin,
@@ -219,12 +214,7 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(
-  String title, {
-  String? subtitle,
-  Color titleColor = _kInk,
-  Color subtitleColor = _kInkSecondary,
-}) {
+Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -264,13 +254,7 @@ Widget _pill(String label, {Color colour = _kAccent}) {
   );
 }
 
-Widget _swatch(
-  String name,
-  Color color, {
-  double width = 110.0,
-  double height = 64.0,
-  String? overrideHex,
-}) {
+Widget _swatch(String name, Color color, {double width = 110.0, double height = 64.0, String? overrideHex}) {
   final Color textColor = _contrastingFor(color);
   return Container(
     width: width,
@@ -330,12 +314,7 @@ Widget _labeledSwatch({
           ),
         ),
         const SizedBox(height: 6.0),
-        Text(
-          label,
-          style: _kSwatchNameStyle,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
+        Text(label, style: _kSwatchNameStyle, maxLines: 2, overflow: TextOverflow.ellipsis),
         if (sublabel != null) ...<Widget>[
           const SizedBox(height: 2.0),
           Text(sublabel, style: _kSwatchHexStyle),
@@ -418,11 +397,7 @@ class _Tok {
   const _Tok.type(this.text) : color = _kCodeType;
 }
 
-Widget _codeBlock({
-  required String title,
-  required String description,
-  required List<List<_Tok>> lines,
-}) {
+Widget _codeBlock({required String title, required String description, required List<List<_Tok>> lines}) {
   return _card(
     padding: const EdgeInsets.all(14.0),
     child: Column(
@@ -448,12 +423,7 @@ Widget _codeBlock({
   );
 }
 
-Widget _comparisonRow(
-  String topic,
-  String cupertinoSide,
-  String materialSide,
-  String themeSide,
-) {
+Widget _comparisonRow(String topic, String cupertinoSide, String materialSide, String themeSide) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     child: Row(
@@ -461,46 +431,18 @@ Widget _comparisonRow(
       children: <Widget>[
         SizedBox(
           width: 130.0,
-          child: Text(
-            topic,
-            style: const TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.w600,
-              color: _kInk,
-            ),
-          ),
+          child: Text(topic, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: _kInk)),
         ),
         Expanded(
-          child: Text(
-            cupertinoSide,
-            style: const TextStyle(
-              fontSize: 12.0,
-              color: _kInkSecondary,
-              height: 1.4,
-            ),
-          ),
+          child: Text(cupertinoSide, style: const TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.4)),
         ),
         const SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            materialSide,
-            style: const TextStyle(
-              fontSize: 12.0,
-              color: _kInkSecondary,
-              height: 1.4,
-            ),
-          ),
+          child: Text(materialSide, style: const TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.4)),
         ),
         const SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            themeSide,
-            style: const TextStyle(
-              fontSize: 12.0,
-              color: _kInkSecondary,
-              height: 1.4,
-            ),
-          ),
+          child: Text(themeSide, style: const TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.4)),
         ),
       ],
     ),
@@ -535,14 +477,7 @@ Widget _pitfallCallout(IconData icon, String title, String body, Color accent) {
                 ),
               ),
               const SizedBox(height: 4.0),
-              Text(
-                body,
-                style: const TextStyle(
-                  fontSize: 12.5,
-                  height: 1.45,
-                  color: _kInk,
-                ),
-              ),
+              Text(body, style: const TextStyle(fontSize: 12.5, height: 1.45, color: _kInk)),
             ],
           ),
         ),
@@ -551,11 +486,7 @@ Widget _pitfallCallout(IconData icon, String title, String body, Color accent) {
   );
 }
 
-Widget _chipGroup({
-  required String label,
-  required List<String> chips,
-  Color accent = _kAccent,
-}) {
+Widget _chipGroup({required String label, required List<String> chips, Color accent = _kAccent}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -575,10 +506,7 @@ Widget _chipGroup({
         children: <Widget>[
           for (final String c in chips)
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 9.0,
-                vertical: 4.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: accent.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(999.0),
@@ -642,11 +570,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF0A84FF),
-          Color(0xFF5E5CE6),
-          Color(0xFFBF5AF2),
-        ],
+        colors: <Color>[Color(0xFF0A84FF), Color(0xFF5E5CE6), Color(0xFFBF5AF2)],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -662,11 +586,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(
-              CupertinoIcons.paintbrush_fill,
-              color: Color(0xFFFFFFFF),
-              size: 26.0,
-            ),
+            Icon(CupertinoIcons.paintbrush_fill, color: Color(0xFFFFFFFF), size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'CupertinoColors',
@@ -724,185 +644,60 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   print('  building section 2 - static palette gallery');
 
-  final Color cActiveBlue = CupertinoDynamicColor.resolve(
-    CupertinoColors.activeBlue,
-    context,
-  );
-  final Color cActiveGreen = CupertinoDynamicColor.resolve(
-    CupertinoColors.activeGreen,
-    context,
-  );
-  final Color cActiveOrange = CupertinoDynamicColor.resolve(
-    CupertinoColors.activeOrange,
-    context,
-  );
-  final Color cDestructiveRed = CupertinoDynamicColor.resolve(
-    CupertinoColors.destructiveRed,
-    context,
-  );
-  final Color cInactiveGray = CupertinoDynamicColor.resolve(
-    CupertinoColors.inactiveGray,
-    context,
-  );
-  final Color cWhite = CupertinoColors.white;
-  final Color cBlack = CupertinoColors.black;
-  final Color cLightBgGray = CupertinoColors.lightBackgroundGray;
+  final Color cActiveBlue       = CupertinoDynamicColor.resolve(CupertinoColors.activeBlue, context);
+  final Color cActiveGreen      = CupertinoDynamicColor.resolve(CupertinoColors.activeGreen, context);
+  final Color cActiveOrange     = CupertinoDynamicColor.resolve(CupertinoColors.activeOrange, context);
+  final Color cDestructiveRed   = CupertinoDynamicColor.resolve(CupertinoColors.destructiveRed, context);
+  final Color cInactiveGray     = CupertinoDynamicColor.resolve(CupertinoColors.inactiveGray, context);
+  final Color cWhite            = CupertinoColors.white;
+  final Color cBlack            = CupertinoColors.black;
+  final Color cLightBgGray      = CupertinoColors.lightBackgroundGray;
   final Color cExtraLightBgGray = CupertinoColors.extraLightBackgroundGray;
-  final Color cDarkBgGray = CupertinoColors.darkBackgroundGray;
+  final Color cDarkBgGray       = CupertinoColors.darkBackgroundGray;
 
-  final Color cSystemBlue = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemBlue,
-    context,
-  );
-  final Color cSystemGreen = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemGreen,
-    context,
-  );
-  final Color cSystemIndigo = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemIndigo,
-    context,
-  );
-  final Color cSystemOrange = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemOrange,
-    context,
-  );
-  final Color cSystemPink = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemPink,
-    context,
-  );
-  final Color cSystemPurple = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemPurple,
-    context,
-  );
-  final Color cSystemRed = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemRed,
-    context,
-  );
-  final Color cSystemTeal = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemTeal,
-    context,
-  );
-  final Color cSystemYellow = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemYellow,
-    context,
-  );
-  final Color cSystemBrown = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemBrown,
-    context,
-  );
-  final Color cSystemCyan = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemCyan,
-    context,
-  );
-  final Color cSystemMint = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemMint,
-    context,
-  );
+  final Color cSystemBlue   = CupertinoDynamicColor.resolve(CupertinoColors.systemBlue, context);
+  final Color cSystemGreen  = CupertinoDynamicColor.resolve(CupertinoColors.systemGreen, context);
+  final Color cSystemIndigo = CupertinoDynamicColor.resolve(CupertinoColors.systemIndigo, context);
+  final Color cSystemOrange = CupertinoDynamicColor.resolve(CupertinoColors.systemOrange, context);
+  final Color cSystemPink   = CupertinoDynamicColor.resolve(CupertinoColors.systemPink, context);
+  final Color cSystemPurple = CupertinoDynamicColor.resolve(CupertinoColors.systemPurple, context);
+  final Color cSystemRed    = CupertinoDynamicColor.resolve(CupertinoColors.systemRed, context);
+  final Color cSystemTeal   = CupertinoDynamicColor.resolve(CupertinoColors.systemTeal, context);
+  final Color cSystemYellow = CupertinoDynamicColor.resolve(CupertinoColors.systemYellow, context);
+  final Color cSystemBrown  = CupertinoDynamicColor.resolve(CupertinoColors.systemBrown, context);
+  final Color cSystemCyan   = CupertinoDynamicColor.resolve(CupertinoColors.systemCyan, context);
+  final Color cSystemMint   = CupertinoDynamicColor.resolve(CupertinoColors.systemMint, context);
 
-  final Color cSystemGrey = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemGrey,
-    context,
-  );
-  final Color cSystemGrey2 = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemGrey2,
-    context,
-  );
-  final Color cSystemGrey3 = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemGrey3,
-    context,
-  );
-  final Color cSystemGrey4 = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemGrey4,
-    context,
-  );
-  final Color cSystemGrey5 = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemGrey5,
-    context,
-  );
-  final Color cSystemGrey6 = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemGrey6,
-    context,
-  );
+  final Color cSystemGrey   = CupertinoDynamicColor.resolve(CupertinoColors.systemGrey, context);
+  final Color cSystemGrey2  = CupertinoDynamicColor.resolve(CupertinoColors.systemGrey2, context);
+  final Color cSystemGrey3  = CupertinoDynamicColor.resolve(CupertinoColors.systemGrey3, context);
+  final Color cSystemGrey4  = CupertinoDynamicColor.resolve(CupertinoColors.systemGrey4, context);
+  final Color cSystemGrey5  = CupertinoDynamicColor.resolve(CupertinoColors.systemGrey5, context);
+  final Color cSystemGrey6  = CupertinoDynamicColor.resolve(CupertinoColors.systemGrey6, context);
 
-  final Color cLabel = CupertinoDynamicColor.resolve(
-    CupertinoColors.label,
-    context,
-  );
-  final Color cSecondaryLabel = CupertinoDynamicColor.resolve(
-    CupertinoColors.secondaryLabel,
-    context,
-  );
-  final Color cTertiaryLabel = CupertinoDynamicColor.resolve(
-    CupertinoColors.tertiaryLabel,
-    context,
-  );
-  final Color cQuaternaryLabel = CupertinoDynamicColor.resolve(
-    CupertinoColors.quaternaryLabel,
-    context,
-  );
-  final Color cPlaceholderText = CupertinoDynamicColor.resolve(
-    CupertinoColors.placeholderText,
-    context,
-  );
-  final Color cLink = CupertinoDynamicColor.resolve(
-    CupertinoColors.link,
-    context,
-  );
+  final Color cLabel            = CupertinoDynamicColor.resolve(CupertinoColors.label, context);
+  final Color cSecondaryLabel   = CupertinoDynamicColor.resolve(CupertinoColors.secondaryLabel, context);
+  final Color cTertiaryLabel    = CupertinoDynamicColor.resolve(CupertinoColors.tertiaryLabel, context);
+  final Color cQuaternaryLabel  = CupertinoDynamicColor.resolve(CupertinoColors.quaternaryLabel, context);
+  final Color cPlaceholderText  = CupertinoDynamicColor.resolve(CupertinoColors.placeholderText, context);
+  final Color cLink             = CupertinoDynamicColor.resolve(CupertinoColors.link, context);
 
-  final Color cSystemBg = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemBackground,
-    context,
-  );
-  final Color cSystemBg2 = CupertinoDynamicColor.resolve(
-    CupertinoColors.secondarySystemBackground,
-    context,
-  );
-  final Color cSystemBg3 = CupertinoDynamicColor.resolve(
-    CupertinoColors.tertiarySystemBackground,
-    context,
-  );
-  final Color cSystemGroupedBg = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemGroupedBackground,
-    context,
-  );
-  final Color cSystemGroupedBg2 = CupertinoDynamicColor.resolve(
-    CupertinoColors.secondarySystemGroupedBackground,
-    context,
-  );
-  final Color cSystemGroupedBg3 = CupertinoDynamicColor.resolve(
-    CupertinoColors.tertiarySystemGroupedBackground,
-    context,
-  );
+  final Color cSystemBg            = CupertinoDynamicColor.resolve(CupertinoColors.systemBackground, context);
+  final Color cSystemBg2           = CupertinoDynamicColor.resolve(CupertinoColors.secondarySystemBackground, context);
+  final Color cSystemBg3           = CupertinoDynamicColor.resolve(CupertinoColors.tertiarySystemBackground, context);
+  final Color cSystemGroupedBg     = CupertinoDynamicColor.resolve(CupertinoColors.systemGroupedBackground, context);
+  final Color cSystemGroupedBg2    = CupertinoDynamicColor.resolve(CupertinoColors.secondarySystemGroupedBackground, context);
+  final Color cSystemGroupedBg3    = CupertinoDynamicColor.resolve(CupertinoColors.tertiarySystemGroupedBackground, context);
 
-  final Color cSystemFill = CupertinoDynamicColor.resolve(
-    CupertinoColors.systemFill,
-    context,
-  );
-  final Color cSystemFill2 = CupertinoDynamicColor.resolve(
-    CupertinoColors.secondarySystemFill,
-    context,
-  );
-  final Color cSystemFill3 = CupertinoDynamicColor.resolve(
-    CupertinoColors.tertiarySystemFill,
-    context,
-  );
-  final Color cSystemFill4 = CupertinoDynamicColor.resolve(
-    CupertinoColors.quaternarySystemFill,
-    context,
-  );
+  final Color cSystemFill          = CupertinoDynamicColor.resolve(CupertinoColors.systemFill, context);
+  final Color cSystemFill2         = CupertinoDynamicColor.resolve(CupertinoColors.secondarySystemFill, context);
+  final Color cSystemFill3         = CupertinoDynamicColor.resolve(CupertinoColors.tertiarySystemFill, context);
+  final Color cSystemFill4         = CupertinoDynamicColor.resolve(CupertinoColors.quaternarySystemFill, context);
 
-  final Color cSeparator = CupertinoDynamicColor.resolve(
-    CupertinoColors.separator,
-    context,
-  );
-  final Color cOpaqueSeparator = CupertinoDynamicColor.resolve(
-    CupertinoColors.opaqueSeparator,
-    context,
-  );
+  final Color cSeparator        = CupertinoDynamicColor.resolve(CupertinoColors.separator, context);
+  final Color cOpaqueSeparator  = CupertinoDynamicColor.resolve(CupertinoColors.opaqueSeparator, context);
 
-  print(
-    '  resolved palette - systemBlue=${_hexOf(cSystemBlue)}, label=${_hexOf(cLabel)}, systemBackground=${_hexOf(cSystemBg)}',
-  );
+  print('  resolved palette - systemBlue=${_hexOf(cSystemBlue)}, label=${_hexOf(cLabel)}, systemBackground=${_hexOf(cSystemBg)}');
 
   final List<_PaletteEntry> staticPalette = <_PaletteEntry>[
     _PaletteEntry('activeBlue', cActiveBlue),
@@ -960,8 +755,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'Static palette',
-          subtitle:
-              '${staticPalette.length} CupertinoColors constants, resolved against this context',
+          subtitle: '${staticPalette.length} CupertinoColors constants, resolved against this context',
         ),
         const SizedBox(height: 14.0),
         Wrap(
@@ -1016,42 +810,14 @@ dynamic build(BuildContext context) {
   print('  building section 3 - CupertinoDynamicColor anatomy');
   const CupertinoDynamicColor systemBlueDyn = CupertinoColors.systemBlue;
   final List<_AnatomyEntry> anatomyEntries = <_AnatomyEntry>[
-    _AnatomyEntry('color', systemBlueDyn.color, 'light + base + default'),
-    _AnatomyEntry(
-      'darkColor',
-      systemBlueDyn.darkColor,
-      'dark + base + default',
-    ),
-    _AnatomyEntry(
-      'highContrastColor',
-      systemBlueDyn.highContrastColor,
-      'light + base + high',
-    ),
-    _AnatomyEntry(
-      'darkHighContrastColor',
-      systemBlueDyn.darkHighContrastColor,
-      'dark + base + high',
-    ),
-    _AnatomyEntry(
-      'elevatedColor',
-      systemBlueDyn.elevatedColor,
-      'light + elevated + default',
-    ),
-    _AnatomyEntry(
-      'darkElevatedColor',
-      systemBlueDyn.darkElevatedColor,
-      'dark + elevated + default',
-    ),
-    _AnatomyEntry(
-      'highContrastElevatedColor',
-      systemBlueDyn.highContrastElevatedColor,
-      'light + elevated + high',
-    ),
-    _AnatomyEntry(
-      'darkHighContrastElevatedColor',
-      systemBlueDyn.darkHighContrastElevatedColor,
-      'dark + elevated + high',
-    ),
+    _AnatomyEntry('color',                          systemBlueDyn.color,                          'light + base + default'),
+    _AnatomyEntry('darkColor',                      systemBlueDyn.darkColor,                      'dark + base + default'),
+    _AnatomyEntry('highContrastColor',              systemBlueDyn.highContrastColor,              'light + base + high'),
+    _AnatomyEntry('darkHighContrastColor',          systemBlueDyn.darkHighContrastColor,          'dark + base + high'),
+    _AnatomyEntry('elevatedColor',                  systemBlueDyn.elevatedColor,                  'light + elevated + default'),
+    _AnatomyEntry('darkElevatedColor',              systemBlueDyn.darkElevatedColor,              'dark + elevated + default'),
+    _AnatomyEntry('highContrastElevatedColor',      systemBlueDyn.highContrastElevatedColor,      'light + elevated + high'),
+    _AnatomyEntry('darkHighContrastElevatedColor',  systemBlueDyn.darkHighContrastElevatedColor,  'dark + elevated + high'),
   ];
   print('  systemBlue anatomy has ${anatomyEntries.length} slots');
 
@@ -1069,11 +835,7 @@ dynamic build(BuildContext context) {
           runSpacing: 12.0,
           children: <Widget>[
             for (final _AnatomyEntry e in anatomyEntries)
-              _labeledSwatch(
-                label: e.slot,
-                color: e.color,
-                sublabel: e.axesDescription,
-              ),
+              _labeledSwatch(label: e.slot, color: e.color, sublabel: e.axesDescription),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -1122,12 +884,12 @@ dynamic build(BuildContext context) {
   print('  building section 4 - resolveFrom showcase');
 
   const List<_DynPick> resolvePicks = <_DynPick>[
-    _DynPick('systemBlue', CupertinoColors.systemBlue),
-    _DynPick('systemRed', CupertinoColors.systemRed),
-    _DynPick('label', CupertinoColors.label),
-    _DynPick('systemFill', CupertinoColors.systemFill),
-    _DynPick('separator', CupertinoColors.separator),
-    _DynPick('systemBg', CupertinoColors.systemBackground),
+    _DynPick('systemBlue',  CupertinoColors.systemBlue),
+    _DynPick('systemRed',   CupertinoColors.systemRed),
+    _DynPick('label',       CupertinoColors.label),
+    _DynPick('systemFill',  CupertinoColors.systemFill),
+    _DynPick('separator',   CupertinoColors.separator),
+    _DynPick('systemBg',    CupertinoColors.systemBackground),
   ];
 
   Widget _resolveRow(String rowLabel, _ResolveMode mode) {
@@ -1136,14 +898,7 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            rowLabel,
-            style: const TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.w700,
-              color: _kInk,
-            ),
-          ),
+          Text(rowLabel, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: _kInk)),
           const SizedBox(height: 6.0),
           Row(
             children: <Widget>[
@@ -1171,8 +926,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'resolveFrom showcase',
-          subtitle:
-              'Same dynamic colors, four (brightness, contrast) combinations',
+          subtitle: 'Same dynamic colors, four (brightness, contrast) combinations',
         ),
         const SizedBox(height: 8.0),
         const Text(
@@ -1200,10 +954,10 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   print('  building section 5 - label hierarchy');
   final List<_LabelTier> labelTiers = <_LabelTier>[
-    _LabelTier('label', CupertinoColors.label),
+    _LabelTier('label',          CupertinoColors.label),
     _LabelTier('secondaryLabel', CupertinoColors.secondaryLabel),
-    _LabelTier('tertiaryLabel', CupertinoColors.tertiaryLabel),
-    _LabelTier('quaternaryLabel', CupertinoColors.quaternaryLabel),
+    _LabelTier('tertiaryLabel',  CupertinoColors.tertiaryLabel),
+    _LabelTier('quaternaryLabel',CupertinoColors.quaternaryLabel),
   ];
 
   Widget _labelOnBackground(Color bg, Brightness brightness) {
@@ -1213,9 +967,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: brightness == Brightness.light ? _kHairline : _kHairlineDark,
-          ),
+          border: Border.all(color: brightness == Brightness.light ? _kHairline : _kHairlineDark),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1226,9 +978,7 @@ dynamic build(BuildContext context) {
                 style: TextStyle(
                   fontSize: 14.5,
                   fontWeight: FontWeight.w600,
-                  color: brightness == Brightness.light
-                      ? t.color.color
-                      : t.color.darkColor,
+                  color: brightness == Brightness.light ? t.color.color : t.color.darkColor,
                 ),
               ),
               const SizedBox(height: 2.0),
@@ -1237,22 +987,15 @@ dynamic build(BuildContext context) {
                 style: TextStyle(
                   fontSize: 12.5,
                   height: 1.4,
-                  color: brightness == Brightness.light
-                      ? t.color.color
-                      : t.color.darkColor,
+                  color: brightness == Brightness.light ? t.color.color : t.color.darkColor,
                 ),
               ),
               const SizedBox(height: 10.0),
             ],
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 2.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
               decoration: BoxDecoration(
-                color: brightness == Brightness.light
-                    ? _kHairline
-                    : _kHairlineDark,
+                color: brightness == Brightness.light ? _kHairline : _kHairlineDark,
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(
@@ -1260,9 +1003,7 @@ dynamic build(BuildContext context) {
                 style: TextStyle(
                   fontSize: 10.0,
                   fontFamily: 'monospace',
-                  color: brightness == Brightness.light
-                      ? _kInkSecondary
-                      : _kInkOnDarkSecondary,
+                  color: brightness == Brightness.light ? _kInkSecondary : _kInkOnDarkSecondary,
                 ),
               ),
             ),
@@ -1322,8 +1063,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'Background hierarchy',
-          subtitle:
-              'systemBackground / secondary / tertiary, plus grouped variants',
+          subtitle: 'systemBackground / secondary / tertiary, plus grouped variants',
         ),
         const SizedBox(height: 14.0),
         Row(
@@ -1332,26 +1072,11 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  _hierBlock(
-                    color: cSystemBg,
-                    name: 'systemBackground',
-                    hexLabel: _hexOf(cSystemBg),
-                    foreground: _contrastingFor(cSystemBg),
-                  ),
+                  _hierBlock(color: cSystemBg,  name: 'systemBackground',            hexLabel: _hexOf(cSystemBg),  foreground: _contrastingFor(cSystemBg)),
                   const SizedBox(height: 8.0),
-                  _hierBlock(
-                    color: cSystemBg2,
-                    name: 'secondarySystemBackground',
-                    hexLabel: _hexOf(cSystemBg2),
-                    foreground: _contrastingFor(cSystemBg2),
-                  ),
+                  _hierBlock(color: cSystemBg2, name: 'secondarySystemBackground',   hexLabel: _hexOf(cSystemBg2), foreground: _contrastingFor(cSystemBg2)),
                   const SizedBox(height: 8.0),
-                  _hierBlock(
-                    color: cSystemBg3,
-                    name: 'tertiarySystemBackground',
-                    hexLabel: _hexOf(cSystemBg3),
-                    foreground: _contrastingFor(cSystemBg3),
-                  ),
+                  _hierBlock(color: cSystemBg3, name: 'tertiarySystemBackground',    hexLabel: _hexOf(cSystemBg3), foreground: _contrastingFor(cSystemBg3)),
                 ],
               ),
             ),
@@ -1359,26 +1084,11 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  _hierBlock(
-                    color: cSystemGroupedBg,
-                    name: 'systemGroupedBackground',
-                    hexLabel: _hexOf(cSystemGroupedBg),
-                    foreground: _contrastingFor(cSystemGroupedBg),
-                  ),
+                  _hierBlock(color: cSystemGroupedBg,  name: 'systemGroupedBackground',           hexLabel: _hexOf(cSystemGroupedBg),  foreground: _contrastingFor(cSystemGroupedBg)),
                   const SizedBox(height: 8.0),
-                  _hierBlock(
-                    color: cSystemGroupedBg2,
-                    name: 'secondarySystemGroupedBackground',
-                    hexLabel: _hexOf(cSystemGroupedBg2),
-                    foreground: _contrastingFor(cSystemGroupedBg2),
-                  ),
+                  _hierBlock(color: cSystemGroupedBg2, name: 'secondarySystemGroupedBackground',  hexLabel: _hexOf(cSystemGroupedBg2), foreground: _contrastingFor(cSystemGroupedBg2)),
                   const SizedBox(height: 8.0),
-                  _hierBlock(
-                    color: cSystemGroupedBg3,
-                    name: 'tertiarySystemGroupedBackground',
-                    hexLabel: _hexOf(cSystemGroupedBg3),
-                    foreground: _contrastingFor(cSystemGroupedBg3),
-                  ),
+                  _hierBlock(color: cSystemGroupedBg3, name: 'tertiarySystemGroupedBackground',   hexLabel: _hexOf(cSystemGroupedBg3), foreground: _contrastingFor(cSystemGroupedBg3)),
                 ],
               ),
             ),
@@ -1433,11 +1143,11 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: <Widget>[
-              _fillRow('systemFill', cSystemFill),
+              _fillRow('systemFill',           cSystemFill),
               const SizedBox(height: 6.0),
-              _fillRow('secondarySystemFill', cSystemFill2),
+              _fillRow('secondarySystemFill',  cSystemFill2),
               const SizedBox(height: 6.0),
-              _fillRow('tertiarySystemFill', cSystemFill3),
+              _fillRow('tertiarySystemFill',   cSystemFill3),
               const SizedBox(height: 6.0),
               _fillRow('quaternarySystemFill', cSystemFill4),
             ],
@@ -1511,8 +1221,12 @@ dynamic build(BuildContext context) {
         const _Tok.accent('CupertinoColors'),
         const _Tok.plain('.label,'),
       ],
-      <_Tok>[const _Tok.plain('  context,')],
-      <_Tok>[const _Tok.plain(');')],
+      <_Tok>[
+        const _Tok.plain('  context,'),
+      ],
+      <_Tok>[
+        const _Tok.plain(');'),
+      ],
     ],
   );
 
@@ -1544,7 +1258,9 @@ dynamic build(BuildContext context) {
         const _Tok.string('0xFF409CFF'),
         const _Tok.plain('),'),
       ],
-      <_Tok>[const _Tok.plain('  );')],
+      <_Tok>[
+        const _Tok.plain('  );'),
+      ],
     ],
   );
 
@@ -1566,7 +1282,9 @@ dynamic build(BuildContext context) {
         const _Tok.accent('CupertinoTheme'),
         const _Tok.plain('.of(context)'),
       ],
-      <_Tok>[const _Tok.plain('    .textTheme.actionTextStyle;')],
+      <_Tok>[
+        const _Tok.plain('    .textTheme.actionTextStyle;'),
+      ],
     ],
   );
 
@@ -1574,7 +1292,10 @@ dynamic build(BuildContext context) {
     title: 'MaterialApp interop',
     description: 'Use Cupertino colors as a Material seed',
     lines: <List<_Tok>>[
-      <_Tok>[const _Tok.accent('MaterialApp'), const _Tok.plain('(')],
+      <_Tok>[
+        const _Tok.accent('MaterialApp'),
+        const _Tok.plain('('),
+      ],
       <_Tok>[
         const _Tok.plain('  theme: '),
         const _Tok.accent('ThemeData'),
@@ -1590,9 +1311,15 @@ dynamic build(BuildContext context) {
         const _Tok.accent('CupertinoColors'),
         const _Tok.plain('.systemBlue,'),
       ],
-      <_Tok>[const _Tok.plain('    ),')],
-      <_Tok>[const _Tok.plain('  ),')],
-      <_Tok>[const _Tok.plain(');')],
+      <_Tok>[
+        const _Tok.plain('    ),'),
+      ],
+      <_Tok>[
+        const _Tok.plain('  ),'),
+      ],
+      <_Tok>[
+        const _Tok.plain(');'),
+      ],
     ],
   );
 
@@ -1613,11 +1340,11 @@ dynamic build(BuildContext context) {
         const _Tok.plain(');'),
       ],
       <_Tok>[
-        const _Tok.comment(
-          '// .withOpacity is still allowed but loses precision',
-        ),
+        const _Tok.comment('// .withOpacity is still allowed but loses precision'),
       ],
-      <_Tok>[const _Tok.comment('// when the source is wide-gamut.')],
+      <_Tok>[
+        const _Tok.comment('// when the source is wide-gamut.'),
+      ],
     ],
   );
 
@@ -1653,46 +1380,18 @@ dynamic build(BuildContext context) {
           children: const <Widget>[
             SizedBox(
               width: 130.0,
-              child: Text(
-                'Concern',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w700,
-                  color: _kInk,
-                ),
-              ),
+              child: Text('Concern', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: _kInk)),
             ),
             Expanded(
-              child: Text(
-                'CupertinoColors',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w700,
-                  color: _kAccent,
-                ),
-              ),
+              child: Text('CupertinoColors',  style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: _kAccent)),
             ),
             SizedBox(width: 8.0),
             Expanded(
-              child: Text(
-                'Material Colors',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w700,
-                  color: _kAccentIndigo,
-                ),
-              ),
+              child: Text('Material Colors', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: _kAccentIndigo)),
             ),
             SizedBox(width: 8.0),
             Expanded(
-              child: Text(
-                'ColorScheme',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w700,
-                  color: _kAccentTeal,
-                ),
-              ),
+              child: Text('ColorScheme',     style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: _kAccentTeal)),
             ),
           ],
         ),
@@ -1757,16 +1456,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.exclamationmark_triangle_fill,
-              color: _kAccentOrange,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.exclamationmark_triangle_fill, color: _kAccentOrange, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'Pitfalls',
-              subtitle:
-                  'Six mistakes that ship far too often with Cupertino colors',
+              subtitle: 'Six mistakes that ship far too often with Cupertino colors',
             ),
           ],
         ),
@@ -1775,54 +1469,54 @@ dynamic build(BuildContext context) {
           CupertinoIcons.xmark_octagon,
           'Forgetting to resolve a dynamic color',
           'CupertinoColors.label is a CupertinoDynamicColor, not a plain Color. Painting '
-              'with it directly works because CupertinoDynamicColor extends Color and falls '
-              'back to its .color slot - so you silently ship the "light + base + default" '
-              'value everywhere, including in dark mode.',
+          'with it directly works because CupertinoDynamicColor extends Color and falls '
+          'back to its .color slot - so you silently ship the "light + base + default" '
+          'value everywhere, including in dark mode.',
           _kAccentRed,
         ),
         _pitfallCallout(
           CupertinoIcons.drop_fill,
           'Alpha on a dynamic color loses dynamic dispatch',
           'CupertinoColors.systemBlue.withOpacity(0.5) returns a plain Color (the .color '
-              'slot times alpha). The result no longer knows it had eight slots. If you need '
-              'transparency that still resolves, build a CupertinoDynamicColor with the four '
-              'alpha-scaled variants, or call .withOpacity *after* resolving.',
+          'slot times alpha). The result no longer knows it had eight slots. If you need '
+          'transparency that still resolves, build a CupertinoDynamicColor with the four '
+          'alpha-scaled variants, or call .withOpacity *after* resolving.',
           _kAccentOrange,
         ),
         _pitfallCallout(
           CupertinoIcons.equal_circle,
           'Color equality is value equality',
           'Two CupertinoDynamicColor instances that resolve to the same .color slot will '
-              '== each other if (and only if) every named slot matches. Comparing a resolved '
-              'Color against the original dynamic constant will return false in dark mode - '
-              'never use == as a "is this my brand color?" check.',
+          '== each other if (and only if) every named slot matches. Comparing a resolved '
+          'Color against the original dynamic constant will return false in dark mode - '
+          'never use == as a "is this my brand color?" check.',
           _kAccentIndigo,
         ),
         _pitfallCallout(
           CupertinoIcons.shuffle,
           'Mixing palettes inside one screen',
           'A Material widget styled with Colors.blue placed next to a CupertinoSwitch '
-              'styled with CupertinoColors.systemBlue will not visually match - the two blues '
-              'differ by a few percent in hue and saturation. Pick one palette per screen and '
-              'stick with it; if you must mix, plumb a single seed through ColorScheme.fromSeed.',
+          'styled with CupertinoColors.systemBlue will not visually match - the two blues '
+          'differ by a few percent in hue and saturation. Pick one palette per screen and '
+          'stick with it; if you must mix, plumb a single seed through ColorScheme.fromSeed.',
           _kAccentPink,
         ),
         _pitfallCallout(
           CupertinoIcons.number,
           'Hard-coded hex strings',
           'Writing Color(0xFF007AFF) instead of CupertinoColors.systemBlue freezes the '
-              'value to the light/base/default slot - dark mode and high-contrast both lose '
-              'the brand color. Reserve hex literals for chrome that is intentionally static '
-              '(logos, illustrations) and use CupertinoColors elsewhere.',
+          'value to the light/base/default slot - dark mode and high-contrast both lose '
+          'the brand color. Reserve hex literals for chrome that is intentionally static '
+          '(logos, illustrations) and use CupertinoColors elsewhere.',
           _kAccentTeal,
         ),
         _pitfallCallout(
           CupertinoIcons.moon_circle_fill,
           'Dark-mode contrast is not free',
           'CupertinoColors only guarantees correct *system* colors in dark mode. Custom '
-              'app colors still need their own darkColor slot - and any text drawn on top '
-              'must use a label color (or a manually contrast-tested custom color), not a '
-              'hard-coded white/black. Verify with MediaQuery.highContrast on.',
+          'app colors still need their own darkColor slot - and any text drawn on top '
+          'must use a label color (or a manually contrast-tested custom color), not a '
+          'hard-coded white/black. Verify with MediaQuery.highContrast on.',
           _kAccentGreen,
         ),
       ],
@@ -1848,11 +1542,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(
-              CupertinoIcons.bookmark_fill,
-              color: Color(0xFFFFD60A),
-              size: 22.0,
-            ),
+            Icon(CupertinoIcons.bookmark_fill, color: Color(0xFFFFD60A), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Cheat Sheet',
@@ -1874,21 +1564,10 @@ dynamic build(BuildContext context) {
         _chipGroup(
           label: 'PALETTE',
           chips: const <String>[
-            'systemBlue',
-            'systemGreen',
-            'systemOrange',
-            'systemRed',
-            'systemPurple',
-            'systemPink',
-            'systemTeal',
-            'systemYellow',
-            'systemIndigo',
-            'systemBrown',
-            'systemMint',
-            'systemCyan',
-            'systemGrey..6',
-            'destructiveRed',
-            'activeBlue',
+            'systemBlue', 'systemGreen', 'systemOrange', 'systemRed',
+            'systemPurple', 'systemPink', 'systemTeal', 'systemYellow',
+            'systemIndigo', 'systemBrown', 'systemMint', 'systemCyan',
+            'systemGrey..6', 'destructiveRed', 'activeBlue',
           ],
           accent: _kAccent,
         ),
@@ -1896,20 +1575,11 @@ dynamic build(BuildContext context) {
         _chipGroup(
           label: 'HIERARCHIES',
           chips: const <String>[
-            'label',
-            'secondaryLabel',
-            'tertiaryLabel',
-            'quaternaryLabel',
-            'systemBackground',
-            '..systemBackground (3)',
-            'systemGroupedBackground',
-            '..systemGroupedBackground (3)',
-            'systemFill',
-            '..systemFill (4)',
-            'separator',
-            'opaqueSeparator',
-            'placeholderText',
-            'link',
+            'label', 'secondaryLabel', 'tertiaryLabel', 'quaternaryLabel',
+            'systemBackground', '..systemBackground (3)',
+            'systemGroupedBackground', '..systemGroupedBackground (3)',
+            'systemFill', '..systemFill (4)',
+            'separator', 'opaqueSeparator', 'placeholderText', 'link',
           ],
           accent: _kAccentGreen,
         ),
@@ -1921,8 +1591,7 @@ dynamic build(BuildContext context) {
             'dyn.resolveFrom(context)',
             'CupertinoDynamicColor.withBrightness(...)',
             'CupertinoDynamicColor(...) (8 slots)',
-            'Brightness.light',
-            'Brightness.dark',
+            'Brightness.light', 'Brightness.dark',
             'CupertinoUserInterfaceLevel',
             'MediaQuery.highContrastOf(context)',
           ],
@@ -1954,11 +1623,7 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              Icon(
-                CupertinoIcons.info_circle,
-                color: Color(0xFFFFD60A),
-                size: 18.0,
-              ),
+              Icon(CupertinoIcons.info_circle, color: Color(0xFFFFD60A), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1990,31 +1655,27 @@ dynamic build(BuildContext context) {
   print('  assembling 11 sections into scrollable gallery');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(1, 'Hero', 'Cupertino color philosophy'),
-    _sectionHeader(2, 'Static palette', 'CupertinoColors gallery'),
+    _sectionHeader(1, 'Hero',          'Cupertino color philosophy'),
+    _sectionHeader(2, 'Static palette','CupertinoColors gallery'),
     paletteGallery,
-    _sectionHeader(3, 'Anatomy', 'CupertinoDynamicColor of systemBlue'),
+    _sectionHeader(3, 'Anatomy',       'CupertinoDynamicColor of systemBlue'),
     anatomyCard,
-    _sectionHeader(
-      4,
-      'resolveFrom',
-      'Same color, four (brightness, contrast) combos',
-    ),
+    _sectionHeader(4, 'resolveFrom',   'Same color, four (brightness, contrast) combos'),
     resolveShowcase,
-    _sectionHeader(5, 'Labels', 'label hierarchy on light + dark'),
+    _sectionHeader(5, 'Labels',        'label hierarchy on light + dark'),
     labelHierarchy,
-    _sectionHeader(6, 'Backgrounds', 'systemBackground vs grouped'),
+    _sectionHeader(6, 'Backgrounds',   'systemBackground vs grouped'),
     backgroundHierarchy,
-    _sectionHeader(7, 'Fills', 'systemFill 1..4 transparency stack'),
+    _sectionHeader(7, 'Fills',         'systemFill 1..4 transparency stack'),
     fillsHierarchy,
     _sectionDivider(),
-    _sectionHeader(8, 'Code', 'Six idiomatic snippets'),
+    _sectionHeader(8, 'Code',          'Six idiomatic snippets'),
     codeBlocksSection,
-    _sectionHeader(9, 'Comparison', 'Cupertino vs Material vs ColorScheme'),
+    _sectionHeader(9, 'Comparison',    'Cupertino vs Material vs ColorScheme'),
     comparisonTable,
-    _sectionHeader(10, 'Pitfalls', 'Six common mistakes'),
+    _sectionHeader(10, 'Pitfalls',     'Six common mistakes'),
     pitfalls,
-    _sectionHeader(11, 'Cheat Sheet', 'Chips and tagline'),
+    _sectionHeader(11, 'Cheat Sheet',  'Chips and tagline'),
     cheatSheet,
   ];
   print('  section widget count: ${sectionWidgets.length}');
@@ -2049,8 +1710,7 @@ dynamic build(BuildContext context) {
   // A tiny print run that exercises math + UI imports so the analyzer
   // does not flag them as unused. These computations are otherwise inert.
   final double goldenRatio = (1.0 + math.sqrt(5.0)) / 2.0;
-  final Color goldenTint =
-      Color.lerp(cSystemBlue, cSystemPurple, 0.42) ?? cSystemBlue;
+  final Color goldenTint = Color.lerp(cSystemBlue, cSystemPurple, 0.42) ?? cSystemBlue;
   final TextDirection dir = TextDirection.ltr;
   print('Cupertino color system deep visual demo built successfully');
   print('  golden ratio sentinel: ${goldenRatio.toStringAsFixed(4)}');

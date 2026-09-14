@@ -84,14 +84,8 @@ Widget _shSectionTitle(String title, IconData icon) {
 Widget _shBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
-    ),
+    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
+    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -117,23 +111,9 @@ Widget _shInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _shTextDark,
-                ),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _shTextDark)),
               SizedBox(height: 4),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _shTextMedium,
-                  height: 1.4,
-                ),
-              ),
+              Text(body, style: TextStyle(fontSize: 12, color: _shTextMedium, height: 1.4)),
             ],
           ),
         ),
@@ -148,19 +128,8 @@ Widget _shInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _shCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: _shSurfaceDark,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 11,
-        fontFamily: 'monospace',
-        color: color ?? _shPrimary,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    decoration: BoxDecoration(color: _shSurfaceDark, borderRadius: BorderRadius.circular(4)),
+    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _shPrimary, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -197,14 +166,7 @@ Widget _shSection1Overview() {
         ),
         child: Column(
           children: [
-            Text(
-              'Header life cycle',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: _shTextDark,
-              ),
-            ),
+            Text('Header life cycle', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _shTextDark)),
             SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -215,10 +177,7 @@ Widget _shSection1Overview() {
                     SizedBox(height: 4),
                     _shBadge('Expanded', _shPrimary, _shOnPrimary),
                     SizedBox(height: 2),
-                    Text(
-                      'at top',
-                      style: TextStyle(fontSize: 9, color: _shTextMedium),
-                    ),
+                    Text('at top', style: TextStyle(fontSize: 9, color: _shTextMedium)),
                   ],
                 ),
                 Icon(Icons.arrow_forward, size: 14, color: _shGrey),
@@ -228,10 +187,7 @@ Widget _shSection1Overview() {
                     SizedBox(height: 4),
                     _shBadge('Compressed', _shAmber, _shOnPrimary),
                     SizedBox(height: 2),
-                    Text(
-                      'shrinking',
-                      style: TextStyle(fontSize: 9, color: _shTextMedium),
-                    ),
+                    Text('shrinking', style: TextStyle(fontSize: 9, color: _shTextMedium)),
                   ],
                 ),
                 Icon(Icons.arrow_forward, size: 14, color: _shGrey),
@@ -241,10 +197,7 @@ Widget _shSection1Overview() {
                     SizedBox(height: 4),
                     _shBadge('Scrolled off', _shRed, _shOnPrimary),
                     SizedBox(height: 2),
-                    Text(
-                      'gone',
-                      style: TextStyle(fontSize: 9, color: _shTextMedium),
-                    ),
+                    Text('gone', style: TextStyle(fontSize: 9, color: _shTextMedium)),
                   ],
                 ),
               ],
@@ -261,27 +214,9 @@ Widget _shSection1Overview() {
 // ---------------------------------------------------------------------------
 Widget _shSection2Mechanics() {
   final phases = <Map<String, dynamic>>[
-    {
-      'phase': 'Compression',
-      'range': 'scrollOffset: 0 → (max-min)',
-      'desc': 'Header shrinks from maxExtent to minExtent',
-      'color': _shPrimary,
-      'height': 50.0,
-    },
-    {
-      'phase': 'Scroll-out',
-      'range': 'scrollOffset: (max-min) → max',
-      'desc': 'At minExtent, header slides up and off screen',
-      'color': _shAmber,
-      'height': 40.0,
-    },
-    {
-      'phase': 'Off-screen',
-      'range': 'scrollOffset > maxExtent',
-      'desc': 'Header fully out of view, next sliver at top',
-      'color': _shRed,
-      'height': 30.0,
-    },
+    {'phase': 'Compression', 'range': 'scrollOffset: 0 → (max-min)', 'desc': 'Header shrinks from maxExtent to minExtent', 'color': _shPrimary, 'height': 50.0},
+    {'phase': 'Scroll-out', 'range': 'scrollOffset: (max-min) → max', 'desc': 'At minExtent, header slides up and off screen', 'color': _shAmber, 'height': 40.0},
+    {'phase': 'Off-screen', 'range': 'scrollOffset > maxExtent', 'desc': 'Header fully out of view, next sliver at top', 'color': _shRed, 'height': 30.0},
   ];
 
   return Column(
@@ -307,63 +242,34 @@ Widget _shSection2Mechanics() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Scroll phases',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _shTextDark,
-              ),
-            ),
+            Text('Scroll phases', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _shTextDark)),
             SizedBox(height: 8),
-            ...phases.map(
-              (p) => Container(
-                height: p['height'] as double,
-                margin: EdgeInsets.only(bottom: 6),
-                decoration: BoxDecoration(
-                  color: (p['color'] as Color).withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                    color: (p['color'] as Color).withValues(alpha: 0.4),
-                  ),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    _shBadge(
-                      p['phase'] as String,
-                      p['color'] as Color,
-                      _shOnPrimary,
-                    ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            p['range'] as String,
-                            style: TextStyle(
-                              fontSize: 9,
-                              color: p['color'] as Color,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'monospace',
-                            ),
-                          ),
-                          Text(
-                            p['desc'] as String,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: _shTextMedium,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+            ...phases.map((p) => Container(
+              height: p['height'] as double,
+              margin: EdgeInsets.only(bottom: 6),
+              decoration: BoxDecoration(
+                color: (p['color'] as Color).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color: (p['color'] as Color).withValues(alpha: 0.4)),
               ),
-            ),
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  _shBadge(p['phase'] as String, p['color'] as Color, _shOnPrimary),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(p['range'] as String, style: TextStyle(fontSize: 9, color: p['color'] as Color, fontWeight: FontWeight.w600, fontFamily: 'monospace')),
+                        Text(p['desc'] as String, style: TextStyle(fontSize: 10, color: _shTextMedium)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )),
           ],
         ),
       ),
@@ -376,26 +282,10 @@ Widget _shSection2Mechanics() {
 // ---------------------------------------------------------------------------
 Widget _shSection3Geometry() {
   final diffs = <Map<String, String>>[
-    {
-      'field': 'paintOrigin',
-      'pinned': '0 (always at top)',
-      'scrolling': 'Negative (slides up)',
-    },
-    {
-      'field': 'layoutExtent',
-      'pinned': 'max(min, max - offset)',
-      'scrolling': 'max(0, max - offset)',
-    },
-    {
-      'field': 'visible?',
-      'pinned': 'Always',
-      'scrolling': 'Only when offset < max',
-    },
-    {
-      'field': 'overlapsContent',
-      'pinned': 'Yes when content beneath',
-      'scrolling': 'No (not pinned)',
-    },
+    {'field': 'paintOrigin', 'pinned': '0 (always at top)', 'scrolling': 'Negative (slides up)'},
+    {'field': 'layoutExtent', 'pinned': 'max(min, max - offset)', 'scrolling': 'max(0, max - offset)'},
+    {'field': 'visible?', 'pinned': 'Always', 'scrolling': 'Only when offset < max'},
+    {'field': 'overlapsContent', 'pinned': 'Yes when content beneath', 'scrolling': 'No (not pinned)'},
   ];
 
   return Column(
@@ -423,78 +313,26 @@ Widget _shSection3Geometry() {
             // Header row
             Container(
               padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-              decoration: BoxDecoration(
-                color: _shSurface,
-                borderRadius: BorderRadius.circular(4),
-              ),
+              decoration: BoxDecoration(color: _shSurface, borderRadius: BorderRadius.circular(4)),
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 80,
-                    child: Text(
-                      'Field',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _shTextDark,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Pinned',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _shBlue,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Scrolling',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _shPrimary,
-                      ),
-                    ),
-                  ),
+                  SizedBox(width: 80, child: Text('Field', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _shTextDark))),
+                  Expanded(child: Text('Pinned', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _shBlue))),
+                  Expanded(child: Text('Scrolling', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _shPrimary))),
                 ],
               ),
             ),
-            ...diffs.map(
-              (d) => Container(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: _shDivider.withValues(alpha: 0.3),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: _shCode(d['field']!, color: _shTextDark),
-                    ),
-                    Expanded(
-                      child: Text(
-                        d['pinned']!,
-                        style: TextStyle(fontSize: 10, color: _shBlue),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        d['scrolling']!,
-                        style: TextStyle(fontSize: 10, color: _shPrimary),
-                      ),
-                    ),
-                  ],
-                ),
+            ...diffs.map((d) => Container(
+              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+              decoration: BoxDecoration(border: Border(bottom: BorderSide(color: _shDivider.withValues(alpha: 0.3)))),
+              child: Row(
+                children: [
+                  SizedBox(width: 80, child: _shCode(d['field']!, color: _shTextDark)),
+                  Expanded(child: Text(d['pinned']!, style: TextStyle(fontSize: 10, color: _shBlue))),
+                  Expanded(child: Text(d['scrolling']!, style: TextStyle(fontSize: 10, color: _shPrimary))),
+                ],
               ),
-            ),
+            )),
           ],
         ),
       ),
@@ -507,39 +345,11 @@ Widget _shSection3Geometry() {
 // ---------------------------------------------------------------------------
 Widget _shSection4WhenToUse() {
   final useCases = <Map<String, dynamic>>[
-    {
-      'case': 'Page introduction',
-      'desc':
-          'Hero image or welcome text that should not occupy permanent space',
-      'icon': Icons.article,
-      'color': _shPrimary,
-    },
-    {
-      'case': 'Section headers in lists',
-      'desc': 'Grouping headers that scroll naturally with their section',
-      'icon': Icons.list,
-      'color': _shTeal,
-    },
-    {
-      'case': 'Promotional banners',
-      'desc': 'Banners that show once and scroll away, not blocking content',
-      'icon': Icons.campaign,
-      'color': _shOrange,
-    },
-    {
-      'case': 'Form headers',
-      'desc':
-          'Instructions above a form that disappear as user focuses on fields',
-      'icon': Icons.description,
-      'color': _shPurple,
-    },
-    {
-      'case': 'Timeline markers',
-      'desc':
-          'Date headers in a timeline that scroll with the timeline content',
-      'icon': Icons.schedule,
-      'color': _shIndigo,
-    },
+    {'case': 'Page introduction', 'desc': 'Hero image or welcome text that should not occupy permanent space', 'icon': Icons.article, 'color': _shPrimary},
+    {'case': 'Section headers in lists', 'desc': 'Grouping headers that scroll naturally with their section', 'icon': Icons.list, 'color': _shTeal},
+    {'case': 'Promotional banners', 'desc': 'Banners that show once and scroll away, not blocking content', 'icon': Icons.campaign, 'color': _shOrange},
+    {'case': 'Form headers', 'desc': 'Instructions above a form that disappear as user focuses on fields', 'icon': Icons.description, 'color': _shPurple},
+    {'case': 'Timeline markers', 'desc': 'Date headers in a timeline that scroll with the timeline content', 'icon': Icons.schedule, 'color': _shIndigo},
   ];
 
   return Column(
@@ -555,45 +365,31 @@ Widget _shSection4WhenToUse() {
             'reverse scroll, use floating.',
         Icons.question_mark,
       ),
-      ...useCases.map(
-        (u) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: u['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(u['icon'] as IconData, size: 18, color: u['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      u['case'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _shTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      u['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _shTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...useCases.map((u) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: u['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(u['icon'] as IconData, size: 18, color: u['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(u['case'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+                  SizedBox(height: 2),
+                  Text(u['desc'] as String, style: TextStyle(fontSize: 11, color: _shTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
     ],
   );
 }
@@ -636,28 +432,17 @@ Widget _shSection5FlowComparison() {
                     {'label': 'At minExtent', 'color': _shBlue, 'h': 24.0},
                     {'label': 'Stays pinned ✓', 'color': _shBlue, 'h': 24.0},
                     {'label': 'Still pinned ✓', 'color': _shBlue, 'h': 24.0},
-                  ].map(
-                    (s) => Container(
-                      height: s['h'] as double,
-                      margin: EdgeInsets.only(bottom: 3),
-                      decoration: BoxDecoration(
-                        color: (s['color'] as Color).withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                          color: (s['color'] as Color).withValues(alpha: 0.3),
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        s['label'] as String,
-                        style: TextStyle(
-                          fontSize: 9,
-                          color: s['color'] as Color,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                  ].map((s) => Container(
+                    height: s['h'] as double,
+                    margin: EdgeInsets.only(bottom: 3),
+                    decoration: BoxDecoration(
+                      color: (s['color'] as Color).withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
                     ),
-                  ),
+                    alignment: Alignment.center,
+                    child: Text(s['label'] as String, style: TextStyle(fontSize: 9, color: s['color'] as Color, fontWeight: FontWeight.w600)),
+                  )),
                 ],
               ),
             ),
@@ -674,28 +459,17 @@ Widget _shSection5FlowComparison() {
                     {'label': 'At minExtent', 'color': _shAmber, 'h': 24.0},
                     {'label': 'Sliding off ↑', 'color': _shRed, 'h': 18.0},
                     {'label': 'Gone', 'color': _shGrey, 'h': 14.0},
-                  ].map(
-                    (s) => Container(
-                      height: s['h'] as double,
-                      margin: EdgeInsets.only(bottom: 3),
-                      decoration: BoxDecoration(
-                        color: (s['color'] as Color).withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                          color: (s['color'] as Color).withValues(alpha: 0.3),
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        s['label'] as String,
-                        style: TextStyle(
-                          fontSize: 9,
-                          color: s['color'] as Color,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                  ].map((s) => Container(
+                    height: s['h'] as double,
+                    margin: EdgeInsets.only(bottom: 3),
+                    decoration: BoxDecoration(
+                      color: (s['color'] as Color).withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
                     ),
-                  ),
+                    alignment: Alignment.center,
+                    child: Text(s['label'] as String, style: TextStyle(fontSize: 9, color: s['color'] as Color, fontWeight: FontWeight.w600)),
+                  )),
                 ],
               ),
             ),
@@ -733,95 +507,43 @@ Widget _shSection6Usage() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Configuration matrix',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: _shTextDark,
-              ),
-            ),
+            Text('Configuration matrix', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _shTextDark)),
             SizedBox(height: 8),
             ...[
-              {
-                'pinned': 'true',
-                'floating': 'false',
-                'result': 'Pinned',
-                'render': 'RenderSliverPinnedPersistentHeader',
-                'color': _shBlue,
-              },
-              {
-                'pinned': 'false',
-                'floating': 'true',
-                'result': 'Floating',
-                'render': 'RenderSliverFloatingPersistentHeader',
-                'color': _shTeal,
-              },
-              {
-                'pinned': 'false',
-                'floating': 'false',
-                'result': 'Scrolling ←',
-                'render': 'RenderSliverScrollingPersistentHeader',
-                'color': _shPrimary,
-              },
-            ].map(
-              (cfg) => Container(
-                margin: EdgeInsets.only(bottom: 6),
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: (cfg['color'] as Color).withValues(alpha: 0.06),
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border(
-                    left: BorderSide(color: cfg['color'] as Color, width: 3),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'pinned: ',
-                              style: TextStyle(
-                                fontSize: 9,
-                                color: _shTextMedium,
-                              ),
-                            ),
-                            _shCode(cfg['pinned'] as String),
-                            SizedBox(width: 8),
-                            Text(
-                              'floating: ',
-                              style: TextStyle(
-                                fontSize: 9,
-                                color: _shTextMedium,
-                              ),
-                            ),
-                            _shCode(cfg['floating'] as String),
-                          ],
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          cfg['render'] as String,
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: _shTextMedium,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    _shBadge(
-                      cfg['result'] as String,
-                      cfg['color'] as Color,
-                      _shOnPrimary,
-                    ),
-                  ],
-                ),
+              {'pinned': 'true', 'floating': 'false', 'result': 'Pinned', 'render': 'RenderSliverPinnedPersistentHeader', 'color': _shBlue},
+              {'pinned': 'false', 'floating': 'true', 'result': 'Floating', 'render': 'RenderSliverFloatingPersistentHeader', 'color': _shTeal},
+              {'pinned': 'false', 'floating': 'false', 'result': 'Scrolling ←', 'render': 'RenderSliverScrollingPersistentHeader', 'color': _shPrimary},
+            ].map((cfg) => Container(
+              margin: EdgeInsets.only(bottom: 6),
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: (cfg['color'] as Color).withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(6),
+                border: Border(left: BorderSide(color: cfg['color'] as Color, width: 3)),
               ),
-            ),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('pinned: ', style: TextStyle(fontSize: 9, color: _shTextMedium)),
+                          _shCode(cfg['pinned'] as String),
+                          SizedBox(width: 8),
+                          Text('floating: ', style: TextStyle(fontSize: 9, color: _shTextMedium)),
+                          _shCode(cfg['floating'] as String),
+                        ],
+                      ),
+                      SizedBox(height: 2),
+                      Text(cfg['render'] as String, style: TextStyle(fontSize: 9, color: _shTextMedium, fontFamily: 'monospace')),
+                    ],
+                  ),
+                  Spacer(),
+                  _shBadge(cfg['result'] as String, cfg['color'] as Color, _shOnPrimary),
+                ],
+              ),
+            )),
           ],
         ),
       ),
@@ -848,8 +570,7 @@ Widget _shSection7Combining() {
     },
     {
       'pattern': 'Scrolling header + SliverAppBar',
-      'desc':
-          'SliverAppBar (pinned) with an additional scrolling promotional area below',
+      'desc': 'SliverAppBar (pinned) with an additional scrolling promotional area below',
       'icon': Icons.web,
       'color': _shOrange,
     },
@@ -879,45 +600,31 @@ Widget _shSection7Combining() {
             'a pinned tab bar, giving the best of both worlds.',
         Icons.merge_type,
       ),
-      ...patterns.map(
-        (p) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: p['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      p['pattern'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _shTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      p['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _shTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...patterns.map((p) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(p['pattern'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+                  SizedBox(height: 2),
+                  Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _shTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
     ],
   );
 }
@@ -934,18 +641,12 @@ class _ShScrollingDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 160;
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final progress = (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
-    final bgColor =
-        Color.lerp(_shPrimary, _shPrimaryLight, progress) ?? _shPrimary;
+    final bgColor = Color.lerp(_shPrimary, _shPrimaryLight, progress) ?? _shPrimary;
     return Container(
       color: bgColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -971,10 +672,7 @@ class _ShScrollingDelegate extends SliverPersistentHeaderDelegate {
                     opacity: 1.0 - (progress * 1.8),
                     child: Text(
                       'This header will scroll away',
-                      style: TextStyle(
-                        color: _shOnPrimary.withValues(alpha: 0.7),
-                        fontSize: 11,
-                      ),
+                      style: TextStyle(color: _shOnPrimary.withValues(alpha: 0.7), fontSize: 11),
                     ),
                   ),
               ],
@@ -982,10 +680,7 @@ class _ShScrollingDelegate extends SliverPersistentHeaderDelegate {
           ),
           Text(
             'offset: ${shrinkOffset.toStringAsFixed(0)}',
-            style: TextStyle(
-              color: _shOnPrimary.withValues(alpha: 0.7),
-              fontSize: 9,
-            ),
+            style: TextStyle(color: _shOnPrimary.withValues(alpha: 0.7), fontSize: 9),
           ),
         ],
       ),
@@ -1018,14 +713,7 @@ Widget _shSection8Demo() {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 4, bottom: 4),
-              child: Text(
-                'Scrolling SliverPersistentHeader (pinned: false)',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: _shTextDark,
-                ),
-              ),
+              child: Text('Scrolling SliverPersistentHeader (pinned: false)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _shTextDark)),
             ),
             SizedBox(
               height: 300,
@@ -1041,18 +729,13 @@ Widget _shSection8Demo() {
                       itemCount: 40,
                       itemBuilder: (ctx, i) => Container(
                         height: 44,
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 4,
-                          vertical: 2,
-                        ),
+                        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                         decoration: BoxDecoration(
                           color: i.isEven
                               ? _shPrimary.withValues(alpha: 0.03)
                               : _shAccent.withValues(alpha: 0.03),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                            color: _shDivider.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: _shDivider.withValues(alpha: 0.2)),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -1060,18 +743,9 @@ Widget _shSection8Demo() {
                           children: [
                             Icon(Icons.eco, size: 14, color: _shAccent),
                             SizedBox(width: 8),
-                            Text(
-                              'Item ${i + 1}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: _shTextDark,
-                              ),
-                            ),
+                            Text('Item ${i + 1}', style: TextStyle(fontSize: 12, color: _shTextDark)),
                             Spacer(),
-                            Text(
-                              'row ${i + 1}',
-                              style: TextStyle(fontSize: 9, color: _shGrey),
-                            ),
+                            Text('row ${i + 1}', style: TextStyle(fontSize: 9, color: _shGrey)),
                           ],
                         ),
                       ),
@@ -1092,45 +766,12 @@ Widget _shSection8Demo() {
 // ---------------------------------------------------------------------------
 Widget _shSection9Tips() {
   final tips = <Map<String, dynamic>>[
-    {
-      'title': 'Don\'t assume visibility',
-      'desc':
-          'Scrolling headers can be off-screen — never put critical controls there',
-      'icon': Icons.visibility_off,
-      'color': _shRed,
-    },
-    {
-      'title': 'Prefer pinned for navigation',
-      'desc': 'Tab bars and action buttons should be pinned, not scrolling',
-      'icon': Icons.push_pin,
-      'color': _shBlue,
-    },
-    {
-      'title': 'Use for introductory content',
-      'desc': 'Welcome banners, section titles, promotional areas work best',
-      'icon': Icons.campaign,
-      'color': _shPrimary,
-    },
-    {
-      'title': 'Mind the extent range',
-      'desc': 'If min ≈ max, the header barely compresses before scrolling off',
-      'icon': Icons.straighten,
-      'color': _shAmber,
-    },
-    {
-      'title': 'Combine with pinned slivers',
-      'desc':
-          'Place a scrolling header before a pinned tab bar for a layered effect',
-      'icon': Icons.layers,
-      'color': _shTeal,
-    },
-    {
-      'title': 'Test scroll-back behaviour',
-      'desc':
-          'Verify the header re-expands properly when scrolling back to the top',
-      'icon': Icons.autorenew,
-      'color': _shOrange,
-    },
+    {'title': 'Don\'t assume visibility', 'desc': 'Scrolling headers can be off-screen — never put critical controls there', 'icon': Icons.visibility_off, 'color': _shRed},
+    {'title': 'Prefer pinned for navigation', 'desc': 'Tab bars and action buttons should be pinned, not scrolling', 'icon': Icons.push_pin, 'color': _shBlue},
+    {'title': 'Use for introductory content', 'desc': 'Welcome banners, section titles, promotional areas work best', 'icon': Icons.campaign, 'color': _shPrimary},
+    {'title': 'Mind the extent range', 'desc': 'If min ≈ max, the header barely compresses before scrolling off', 'icon': Icons.straighten, 'color': _shAmber},
+    {'title': 'Combine with pinned slivers', 'desc': 'Place a scrolling header before a pinned tab bar for a layered effect', 'icon': Icons.layers, 'color': _shTeal},
+    {'title': 'Test scroll-back behaviour', 'desc': 'Verify the header re-expands properly when scrolling back to the top', 'icon': Icons.autorenew, 'color': _shOrange},
   ];
 
   return Column(
@@ -1145,56 +786,39 @@ Widget _shSection9Tips() {
             'elements can hurt usability since the controls disappear.',
         Icons.warning,
       ),
-      ...tips.map(
-        (t) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: t['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(t['icon'] as IconData, size: 18, color: t['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      t['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _shTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      t['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _shTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...tips.map((t) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: t['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(t['icon'] as IconData, size: 18, color: t['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(t['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+                  SizedBox(height: 2),
+                  Text(t['desc'] as String, style: TextStyle(fontSize: 11, color: _shTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _shPrimary.withValues(alpha: 0.08),
-              _shAccent.withValues(alpha: 0.08),
-            ],
+            colors: [_shPrimary.withValues(alpha: 0.08), _shAccent.withValues(alpha: 0.08)],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _shPrimary.withValues(alpha: 0.2)),
@@ -1205,11 +829,7 @@ Widget _shSection9Tips() {
             SizedBox(height: 8),
             Text(
               'RenderSliverScrollingPersistentHeader',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: _shTextDark,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _shTextDark),
             ),
             SizedBox(height: 4),
             Text(
@@ -1270,10 +890,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Headers that compress and scroll away with the content',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _shOnPrimary.withValues(alpha: 0.85),
-                ),
+                style: TextStyle(fontSize: 12, color: _shOnPrimary.withValues(alpha: 0.85)),
               ),
             ],
           ),

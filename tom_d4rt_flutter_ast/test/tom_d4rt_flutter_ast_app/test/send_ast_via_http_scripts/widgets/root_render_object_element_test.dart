@@ -116,11 +116,9 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
   void _refreshProbe({bool silent = false}) {
     final _RootProbeSnapshot next = _probeRoot();
     if (!silent) {
-      debugPrint(
-        '[RenderTreeGenesis] probe refresh: '
-        'root=${next.rootRuntimeType} attached=${next.attached} '
-        'children=${next.childCount}',
-      );
+      debugPrint('[RenderTreeGenesis] probe refresh: '
+          'root=${next.rootRuntimeType} attached=${next.attached} '
+          'children=${next.childCount}');
     }
     if (!mounted) {
       return;
@@ -168,8 +166,7 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
       rootRuntimeType: rootRender.runtimeType.toString(),
       hasSize: hasSize,
       attached: rootRender.attached,
-      ownerRuntimeType:
-          rootRender.owner?.runtimeType.toString() ??
+      ownerRuntimeType: rootRender.owner?.runtimeType.toString() ??
           'PipelineOwner (detached)',
       childCount: count,
       note: null,
@@ -282,7 +279,11 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
               borderRadius: BorderRadius.circular(14),
             ),
             alignment: Alignment.center,
-            child: const Icon(Icons.hub_rounded, color: _kInk, size: 30),
+            child: const Icon(
+              Icons.hub_rounded,
+              color: _kInk,
+              size: 30,
+            ),
           ),
           const SizedBox(width: 18),
           Expanded(
@@ -335,7 +336,9 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
       decoration: BoxDecoration(
         color: _kPaper.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: _kPaper.withValues(alpha: 0.32)),
+        border: Border.all(
+          color: _kPaper.withValues(alpha: 0.32),
+        ),
       ),
       child: Text(
         label,
@@ -533,7 +536,10 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
           if (isRoot)
             Container(
               margin: const EdgeInsets.only(bottom: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 1,
+              ),
               decoration: BoxDecoration(
                 color: accent,
                 borderRadius: BorderRadius.circular(999),
@@ -586,11 +592,8 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.lightbulb_outline_rounded,
-                size: 16,
-                color: _kVioletDeep,
-              ),
+              Icon(Icons.lightbulb_outline_rounded,
+                  size: 16, color: _kVioletDeep),
               const SizedBox(width: 6),
               const Text(
                 'How to read the diagram',
@@ -610,7 +613,11 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
             'and its RenderView render object respectively. The widget tree has '
             'no explicit "root element" concept because widgets are immutable '
             'configuration objects, not stateful anchors.',
-            style: TextStyle(color: _kInkSoft, fontSize: 12, height: 1.4),
+            style: TextStyle(
+              color: _kInkSoft,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -624,8 +631,7 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
   Widget _buildRenderProbe() {
     return _SectionCard(
       title: 'Live render tree probe',
-      subtitle:
-          'We query WidgetsBinding.instance.rootElement, walk to its '
+      subtitle: 'We query WidgetsBinding.instance.rootElement, walk to its '
           'RenderObject, and print a few observable properties.',
       accent: _kPeachWarm,
       trailing: TextButton.icon(
@@ -714,7 +720,9 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
   Widget _buildProbeTableRow(_ProbeRow row, bool isOdd) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      decoration: BoxDecoration(color: isOdd ? _kPaperMid : _kPaper),
+      decoration: BoxDecoration(
+        color: isOdd ? _kPaperMid : _kPaper,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -760,7 +768,11 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.sensors_rounded, color: _kInk, size: 18),
+          const Icon(
+            Icons.sensors_rounded,
+            color: _kInk,
+            size: 18,
+          ),
           const SizedBox(width: 10),
           const Expanded(
             child: Text(
@@ -770,7 +782,11 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
               "via rootElement?.renderObject instead. The owner is always a "
               "PipelineOwner created by the binding, not something user code "
               "constructs.",
-              style: TextStyle(color: _kInk, fontSize: 12, height: 1.4),
+              style: TextStyle(
+                color: _kInk,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -785,8 +801,7 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
   Widget _buildPipelineStrip() {
     return _SectionCard(
       title: 'Pipeline phases the root kicks off',
-      subtitle:
-          'Every frame, the root element / render object drives these '
+      subtitle: 'Every frame, the root element / render object drives these '
           'four phases in order. All four must succeed for a frame to appear.',
       accent: _kGoldAccent,
       child: Padding(
@@ -890,7 +905,10 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: accent,
                   borderRadius: BorderRadius.circular(999),
@@ -927,11 +945,16 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 3,
+            ),
             decoration: BoxDecoration(
               color: _kGoldSoft,
               borderRadius: BorderRadius.circular(999),
-              border: Border.all(color: _kGoldAccent.withValues(alpha: 0.55)),
+              border: Border.all(
+                color: _kGoldAccent.withValues(alpha: 0.55),
+              ),
             ),
             child: const Text(
               'fires on each frame',
@@ -955,8 +978,7 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
   Widget _buildHitTestPanel() {
     return _SectionCard(
       title: 'Hit-test origin — pointer enters at the root',
-      subtitle:
-          'Pointer events always enter the render tree at the root. From '
+      subtitle: 'Pointer events always enter the render tree at the root. From '
           'there they walk downward until a leaf claims them.',
       accent: _kVioletSoft,
       child: Padding(
@@ -964,9 +986,15 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Expanded(flex: 3, child: _buildPhoneMock()),
+            Expanded(
+              flex: 3,
+              child: _buildPhoneMock(),
+            ),
             const SizedBox(width: 18),
-            Expanded(flex: 4, child: _buildHitTestTrace()),
+            Expanded(
+              flex: 4,
+              child: _buildHitTestTrace(),
+            ),
           ],
         ),
       ),
@@ -1049,7 +1077,11 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
                 ),
               ),
               // Simulated finger-tap indicator.
-              Positioned(right: 28, bottom: 48, child: _buildTapIndicator()),
+              Positioned(
+                right: 28,
+                bottom: 48,
+                child: _buildTapIndicator(),
+              ),
               // Arrow + caption pointing into the tree on the right side.
               Positioned(
                 right: 6,
@@ -1161,30 +1193,29 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _buildMiniNode('RenderView', isRoot: true),
-          const Icon(Icons.arrow_forward_rounded, size: 16, color: _kInkSoft),
+          const Icon(Icons.arrow_forward_rounded,
+              size: 16, color: _kInkSoft),
           _buildMiniNode('RenderPadding'),
-          const Icon(Icons.arrow_forward_rounded, size: 16, color: _kInkSoft),
+          const Icon(Icons.arrow_forward_rounded,
+              size: 16, color: _kInkSoft),
           _buildMiniNode('RenderParagraph', isLeaf: true),
         ],
       ),
     );
   }
 
-  Widget _buildMiniNode(
-    String label, {
-    bool isRoot = false,
-    bool isLeaf = false,
-  }) {
+  Widget _buildMiniNode(String label,
+      {bool isRoot = false, bool isLeaf = false}) {
     final Color tint = isRoot
         ? _kRenderTreeColour
         : isLeaf
-        ? _kPeachWarm
-        : _kVioletSoft;
+            ? _kPeachWarm
+            : _kVioletSoft;
     final Color tintSoft = isRoot
         ? _kRenderTreeSoft
         : isLeaf
-        ? _kPeachSoft
-        : _kVioletSoft.withValues(alpha: 0.35);
+            ? _kPeachSoft
+            : _kVioletSoft.withValues(alpha: 0.35);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
@@ -1275,8 +1306,7 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
   Widget _buildTeachingPanel() {
     return _SectionCard(
       title: 'Teaching panel — take these with you',
-      subtitle:
-          'Three short columns + a signature snippet. Internalise these '
+      subtitle: 'Three short columns + a signature snippet. Internalise these '
           'and the rest of the framework becomes legible.',
       accent: _kPeachWarm,
       child: Padding(
@@ -1382,7 +1412,11 @@ class _RenderTreeGenesisDemoState extends State<RenderTreeGenesisDemo> {
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 6, right: 6),
-            child: Icon(Icons.circle, size: 6, color: _kVioletMid),
+            child: Icon(
+              Icons.circle,
+              size: 6,
+              color: _kVioletMid,
+            ),
           ),
           Expanded(
             child: Text(
@@ -1496,11 +1530,8 @@ abstract class RootRenderObjectElement extends RenderObjectElement {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(
-            Icons.library_books_rounded,
-            color: _kGoldAccent,
-            size: 22,
-          ),
+          const Icon(Icons.library_books_rounded,
+              color: _kGoldAccent, size: 22),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -1667,12 +1698,12 @@ class _RootProbeSnapshot {
   });
 
   const _RootProbeSnapshot.empty()
-    : rootRuntimeType = 'RenderView (probe pending)',
-      hasSize = null,
-      attached = false,
-      ownerRuntimeType = 'PipelineOwner (probe pending)',
-      childCount = 0,
-      note = 'Probe has not run yet — waiting for first frame.';
+      : rootRuntimeType = 'RenderView (probe pending)',
+        hasSize = null,
+        attached = false,
+        ownerRuntimeType = 'PipelineOwner (probe pending)',
+        childCount = 0,
+        note = 'Probe has not run yet — waiting for first frame.';
 
   final String rootRuntimeType;
   final bool? hasSize;

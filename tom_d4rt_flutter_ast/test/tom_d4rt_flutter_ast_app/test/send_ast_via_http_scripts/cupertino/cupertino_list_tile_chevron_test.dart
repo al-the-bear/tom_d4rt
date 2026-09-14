@@ -235,7 +235,8 @@ class _SectionFrame extends StatelessWidget {
                       Text(
                         subtitle,
                         style: TextStyle(
-                          color: CupertinoColors.white.withValues(alpha: 0.92),
+                          color:
+                              CupertinoColors.white.withValues(alpha: 0.92),
                           fontSize: 12.5,
                           fontWeight: FontWeight.w500,
                         ),
@@ -439,7 +440,8 @@ class _HeroBannerSection extends StatelessWidget {
                   'The tiny ">" you put in trailing slots — and the '
                   'list tile family that hosts it.',
                   style: TextStyle(
-                    color: CupertinoColors.white.withValues(alpha: 0.94),
+                    color:
+                        CupertinoColors.white.withValues(alpha: 0.94),
                     fontSize: 13.5,
                     height: 1.35,
                     fontWeight: FontWeight.w500,
@@ -481,7 +483,10 @@ class _ChevronAnatomySection extends StatelessWidget {
       index: '2',
       title: 'Chevron anatomy',
       subtitle: 'A single CupertinoListTileChevron at its true size.',
-      headerGradient: const <Color>[Color(0xFF0A84FF), Color(0xFF64D2FF)],
+      headerGradient: const <Color>[
+        Color(0xFF0A84FF),
+        Color(0xFF64D2FF),
+      ],
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -496,7 +501,10 @@ class _ChevronAnatomySection extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: <Color>[Color(0xFFF2F2F7), Color(0xFFE5E5EA)],
+                  colors: <Color>[
+                    Color(0xFFF2F2F7),
+                    Color(0xFFE5E5EA),
+                  ],
                 ),
                 border: Border.all(
                   color: const Color(0xFF3C3C43).withValues(alpha: 0.18),
@@ -523,7 +531,8 @@ class _ChevronAnatomySection extends StatelessWidget {
                   Text(
                     'rendered ~18×18 logical px',
                     style: TextStyle(
-                      color: const Color(0xFF1C1C1E).withValues(alpha: 0.65),
+                      color: const Color(0xFF1C1C1E)
+                          .withValues(alpha: 0.65),
                       fontSize: 11.5,
                       fontWeight: FontWeight.w600,
                     ),
@@ -553,13 +562,10 @@ class _ChevronAnatomySection extends StatelessWidget {
                 const _PropLine(name: 'icon', value: 'right_chevron'),
                 const _PropLine(name: 'default size', value: '~18.0'),
                 const _PropLine(
-                  name: 'default color',
-                  value: 'CupertinoColors.systemGrey2',
-                ),
+                    name: 'default color',
+                    value: 'CupertinoColors.systemGrey2'),
                 const _PropLine(
-                  name: 'rtl',
-                  value: 'auto-flips via Icon glyph',
-                ),
+                    name: 'rtl', value: 'auto-flips via Icon glyph'),
                 const _Caption(
                   'CupertinoListTileChevron is essentially a const '
                   'wrapper around Icon(CupertinoIcons.right_chevron). '
@@ -570,14 +576,13 @@ class _ChevronAnatomySection extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                      horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color(0xFF0A84FF).withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: const Color(0xFF0A84FF).withValues(alpha: 0.30),
+                      color: const Color(0xFF0A84FF)
+                          .withValues(alpha: 0.30),
                     ),
                   ),
                   child: const Text(
@@ -623,23 +628,28 @@ class _ChevronColorSizeSection extends StatelessWidget {
       _ChevronSwatch(label: 'teal', color: Color(0xFF64D2FF), size: 18),
     ];
     const sizes = <_ChevronSwatch>[
-      _ChevronSwatch(label: '12 px', color: Color(0xFF8E8E93), size: 12),
-      _ChevronSwatch(label: '14 px', color: Color(0xFF8E8E93), size: 14),
       _ChevronSwatch(
-        label: '18 px (default)',
-        color: Color(0xFF8E8E93),
-        size: 18,
-      ),
-      _ChevronSwatch(label: '22 px', color: Color(0xFF8E8E93), size: 22),
-      _ChevronSwatch(label: '28 px', color: Color(0xFF8E8E93), size: 28),
-      _ChevronSwatch(label: '36 px', color: Color(0xFF8E8E93), size: 36),
+          label: '12 px', color: Color(0xFF8E8E93), size: 12),
+      _ChevronSwatch(
+          label: '14 px', color: Color(0xFF8E8E93), size: 14),
+      _ChevronSwatch(
+          label: '18 px (default)', color: Color(0xFF8E8E93), size: 18),
+      _ChevronSwatch(
+          label: '22 px', color: Color(0xFF8E8E93), size: 22),
+      _ChevronSwatch(
+          label: '28 px', color: Color(0xFF8E8E93), size: 28),
+      _ChevronSwatch(
+          label: '36 px', color: Color(0xFF8E8E93), size: 36),
     ];
 
     return _SectionFrame(
       index: '3',
       title: 'Color & size variations',
       subtitle: 'Recolor via IconTheme; resize via IconTheme.size.',
-      headerGradient: const <Color>[Color(0xFFFF9500), Color(0xFFFF2D55)],
+      headerGradient: const <Color>[
+        Color(0xFFFF9500),
+        Color(0xFFFF2D55),
+      ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -755,7 +765,10 @@ class _ListTileAnatomySection extends StatelessWidget {
       index: '4',
       title: 'CupertinoListTile anatomy',
       subtitle: 'Every slot, side-by-side with its callout.',
-      headerGradient: const <Color>[Color(0xFF5E5CE6), Color(0xFFBF5AF2)],
+      headerGradient: const <Color>[
+        Color(0xFF5E5CE6),
+        Color(0xFFBF5AF2),
+      ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -769,7 +782,10 @@ class _ListTileAnatomySection extends StatelessWidget {
               ),
             ),
             child: const CupertinoListTile(
-              leading: Icon(CupertinoIcons.wifi, color: Color(0xFF0A84FF)),
+              leading: Icon(
+                CupertinoIcons.wifi,
+                color: Color(0xFF0A84FF),
+              ),
               title: Text('Wi-Fi'),
               subtitle: Text('Home-5G'),
               additionalInfo: Text('Connected'),
@@ -798,7 +814,10 @@ class _ListTileAnatomySection extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: <Color>[Color(0xFFFFFFFF), Color(0xFFF2F2F7)],
+                colors: <Color>[
+                  Color(0xFFFFFFFF),
+                  Color(0xFFF2F2F7),
+                ],
               ),
               border: Border.all(
                 color: const Color(0xFF3C3C43).withValues(alpha: 0.18),
@@ -808,25 +827,20 @@ class _ListTileAnatomySection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
                 _PropLine(
-                  name: 'leadingSize',
-                  value: '28.0 (default), 30.0 (notched)',
-                ),
+                    name: 'leadingSize',
+                    value: '28.0 (default), 30.0 (notched)'),
                 _PropLine(
-                  name: 'leadingToTitle',
-                  value: '16.0 (default), 12.0 (notched)',
-                ),
+                    name: 'leadingToTitle',
+                    value: '16.0 (default), 12.0 (notched)'),
                 _PropLine(
-                  name: 'padding',
-                  value: 'EdgeInsetsDirectional.fromSTEB(...) per variant',
-                ),
+                    name: 'padding',
+                    value: 'EdgeInsetsDirectional.fromSTEB(...) per variant'),
                 _PropLine(
-                  name: 'backgroundColor',
-                  value: 'transparent (default)',
-                ),
+                    name: 'backgroundColor',
+                    value: 'transparent (default)'),
                 _PropLine(
-                  name: 'backgroundColorActivated',
-                  value: 'CupertinoColors.systemGrey4',
-                ),
+                    name: 'backgroundColorActivated',
+                    value: 'CupertinoColors.systemGrey4'),
                 _PropLine(name: 'trailing', value: 'commonly chevron'),
               ],
             ),
@@ -866,7 +880,10 @@ class _ListTileStateGridSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: CupertinoColors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: accent.withValues(alpha: 0.45), width: 1.2),
+        border: Border.all(
+          color: accent.withValues(alpha: 0.45),
+          width: 1.2,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: accent.withValues(alpha: 0.12),
@@ -880,7 +897,8 @@ class _ListTileStateGridSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
@@ -918,7 +936,8 @@ class _ListTileStateGridSection extends StatelessWidget {
               child: Text(
                 note,
                 style: TextStyle(
-                  color: const Color(0xFF1C1C1E).withValues(alpha: 0.72),
+                  color: const Color(0xFF1C1C1E)
+                      .withValues(alpha: 0.72),
                   fontSize: 11.5,
                   fontStyle: FontStyle.italic,
                 ),
@@ -935,7 +954,10 @@ class _ListTileStateGridSection extends StatelessWidget {
       index: '5',
       title: 'List tile state grid',
       subtitle: 'Default · activated · RTL · notched.',
-      headerGradient: const <Color>[Color(0xFF34C759), Color(0xFF30D158)],
+      headerGradient: const <Color>[
+        Color(0xFF34C759),
+        Color(0xFF30D158),
+      ],
       child: Column(
         children: <Widget>[
           // Row 1: default vs activated
@@ -964,9 +986,8 @@ class _ListTileStateGridSection extends StatelessWidget {
                   label: 'ACTIVATED',
                   accent: const Color(0xFFBF5AF2),
                   tile: CupertinoListTile(
-                    backgroundColor: CupertinoColors.systemGrey4.withValues(
-                      alpha: 0.55,
-                    ),
+                    backgroundColor:
+                        CupertinoColors.systemGrey4.withValues(alpha: 0.55),
                     leading: const Icon(
                       CupertinoIcons.bell_fill,
                       color: Color(0xFFFF9500),
@@ -1046,14 +1067,20 @@ class _SettingsListMockupSection extends StatelessWidget {
       index: '6',
       title: 'Settings list mockup',
       subtitle: 'CupertinoListSection + CupertinoListTile + chevrons.',
-      headerGradient: const <Color>[Color(0xFF1C1C1E), Color(0xFF3A3A3C)],
+      headerGradient: const <Color>[
+        Color(0xFF1C1C1E),
+        Color(0xFF3A3A3C),
+      ],
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: <Color>[Color(0xFFEFEFF4), Color(0xFFD9D9DE)],
+            colors: <Color>[
+              Color(0xFFEFEFF4),
+              Color(0xFFD9D9DE),
+            ],
           ),
         ),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
@@ -1089,7 +1116,10 @@ class _SettingsListMockupSection extends StatelessWidget {
                   trailing: CupertinoListTileChevron(),
                 ),
                 CupertinoListTile(
-                  leading: Icon(CupertinoIcons.wifi, color: Color(0xFF0A84FF)),
+                  leading: Icon(
+                    CupertinoIcons.wifi,
+                    color: Color(0xFF0A84FF),
+                  ),
                   title: Text('Wi-Fi'),
                   additionalInfo: Text('Home-5G'),
                   trailing: CupertinoListTileChevron(),
@@ -1224,7 +1254,10 @@ class _FormSectionMockupSection extends StatelessWidget {
       index: '7',
       title: 'CupertinoFormSection mockup',
       subtitle: 'Chevrons inside CupertinoFormRow.helper / prefix.',
-      headerGradient: const <Color>[Color(0xFF64D2FF), Color(0xFF30D158)],
+      headerGradient: const <Color>[
+        Color(0xFF64D2FF),
+        Color(0xFF30D158),
+      ],
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
         decoration: BoxDecoration(
@@ -1232,7 +1265,10 @@ class _FormSectionMockupSection extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: <Color>[Color(0xFFFFFFFF), Color(0xFFEFEFF4)],
+            colors: <Color>[
+              Color(0xFFFFFFFF),
+              Color(0xFFEFEFF4),
+            ],
           ),
         ),
         child: Column(
@@ -1290,7 +1326,10 @@ class _FormSectionMockupSection extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('On', style: TextStyle(color: Color(0xFF8E8E93))),
+                      Text(
+                        'On',
+                        style: TextStyle(color: Color(0xFF8E8E93)),
+                      ),
                       SizedBox(width: 6),
                       CupertinoListTileChevron(),
                     ],
@@ -1301,7 +1340,10 @@ class _FormSectionMockupSection extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('On', style: TextStyle(color: Color(0xFF8E8E93))),
+                      Text(
+                        'On',
+                        style: TextStyle(color: Color(0xFF8E8E93)),
+                      ),
                       SizedBox(width: 6),
                       CupertinoListTileChevron(),
                     ],
@@ -1312,7 +1354,10 @@ class _FormSectionMockupSection extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('Set', style: TextStyle(color: Color(0xFF8E8E93))),
+                      Text(
+                        'Set',
+                        style: TextStyle(color: Color(0xFF8E8E93)),
+                      ),
                       SizedBox(width: 6),
                       CupertinoListTileChevron(),
                     ],
@@ -1358,7 +1403,9 @@ class _ThemeIntegrationSection extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: theme.primaryColor.withValues(alpha: 0.45)),
+          border: Border.all(
+            color: theme.primaryColor.withValues(alpha: 0.45),
+          ),
         ),
         child: CupertinoListTile(
           title: Text(
@@ -1368,10 +1415,14 @@ class _ThemeIntegrationSection extends StatelessWidget {
           subtitle: Text(
             subtitle,
             style: TextStyle(
-              color: theme.textTheme.textStyle.color?.withValues(alpha: 0.65),
+              color: theme.textTheme.textStyle.color
+                  ?.withValues(alpha: 0.65),
             ),
           ),
-          leading: Icon(CupertinoIcons.paintbrush, color: theme.primaryColor),
+          leading: Icon(
+            CupertinoIcons.paintbrush,
+            color: theme.primaryColor,
+          ),
           trailing: const CupertinoListTileChevron(),
         ),
       ),
@@ -1384,7 +1435,10 @@ class _ThemeIntegrationSection extends StatelessWidget {
       index: '8',
       title: 'Theme integration',
       subtitle: 'How CupertinoTheme + CupertinoColors steer the chevron.',
-      headerGradient: const <Color>[Color(0xFFFF2D55), Color(0xFFBF5AF2)],
+      headerGradient: const <Color>[
+        Color(0xFFFF2D55),
+        Color(0xFFBF5AF2),
+      ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -1481,12 +1535,12 @@ class _PitfallsSection extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFF3B30).withValues(alpha: 0.08),
+                        color: const Color(0xFFFF3B30)
+                            .withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: const Color(
-                            0xFFFF3B30,
-                          ).withValues(alpha: 0.30),
+                          color: const Color(0xFFFF3B30)
+                              .withValues(alpha: 0.30),
                         ),
                       ),
                       child: bad,
@@ -1495,7 +1549,8 @@ class _PitfallsSection extends StatelessWidget {
                     Text(
                       dontText,
                       style: TextStyle(
-                        color: const Color(0xFF1C1C1E).withValues(alpha: 0.78),
+                        color: const Color(0xFF1C1C1E)
+                            .withValues(alpha: 0.78),
                         fontSize: 11.5,
                       ),
                     ),
@@ -1512,12 +1567,12 @@ class _PitfallsSection extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF34C759).withValues(alpha: 0.08),
+                        color: const Color(0xFF34C759)
+                            .withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: const Color(
-                            0xFF34C759,
-                          ).withValues(alpha: 0.30),
+                          color: const Color(0xFF34C759)
+                              .withValues(alpha: 0.30),
                         ),
                       ),
                       child: good,
@@ -1526,7 +1581,8 @@ class _PitfallsSection extends StatelessWidget {
                     Text(
                       doText,
                       style: TextStyle(
-                        color: const Color(0xFF1C1C1E).withValues(alpha: 0.78),
+                        color: const Color(0xFF1C1C1E)
+                            .withValues(alpha: 0.78),
                         fontSize: 11.5,
                       ),
                     ),
@@ -1546,7 +1602,10 @@ class _PitfallsSection extends StatelessWidget {
       index: '9',
       title: 'Pitfalls',
       subtitle: 'Common mistakes and the right way to fix them.',
-      headerGradient: const <Color>[Color(0xFFFF3B30), Color(0xFFFF9500)],
+      headerGradient: const <Color>[
+        Color(0xFFFF3B30),
+        Color(0xFFFF9500),
+      ],
       child: Column(
         children: <Widget>[
           _pair(
@@ -1554,7 +1613,11 @@ class _PitfallsSection extends StatelessWidget {
             bad: const Row(
               children: <Widget>[
                 Expanded(child: Text('Wi-Fi')),
-                Icon(Icons.chevron_right, size: 20, color: Color(0xFFAEAEB2)),
+                Icon(
+                  Icons.chevron_right,
+                  size: 20,
+                  color: Color(0xFFAEAEB2),
+                ),
               ],
             ),
             good: const Row(
@@ -1580,7 +1643,8 @@ class _PitfallsSection extends StatelessWidget {
             dontText:
                 'A navigation row without a chevron looks like a static '
                 'label and signals to the user "not tappable".',
-            doText: 'Always pair navigation rows with a chevron in trailing.',
+            doText:
+                'Always pair navigation rows with a chevron in trailing.',
           ),
           _pair(
             title: 'Hard-coding chevron flip for RTL',
@@ -1614,7 +1678,10 @@ class _PitfallsSection extends StatelessWidget {
               child: const CupertinoListTileChevron(),
             ),
             good: const IconTheme(
-              data: IconThemeData(color: Color(0xFF0A84FF), size: 18),
+              data: IconThemeData(
+                color: Color(0xFF0A84FF),
+                size: 18,
+              ),
               child: CupertinoListTileChevron(),
             ),
             dontText:
@@ -1708,7 +1775,9 @@ class _FooterSection extends StatelessWidget {
             'Drop it into trailing: of any CupertinoListTile to signal '
             '"navigates to a sub-screen".',
           ),
-          _bullet('It auto-mirrors in RTL — never hardcode left_chevron.'),
+          _bullet(
+            'It auto-mirrors in RTL — never hardcode left_chevron.',
+          ),
           _bullet(
             'Recolor / resize via IconTheme, not via the chevron itself.',
           ),
@@ -1744,7 +1813,8 @@ class _FooterSection extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                color: CupertinoColors.white.withValues(alpha: 0.94),
+                color:
+                    CupertinoColors.white.withValues(alpha: 0.94),
                 fontSize: 12.5,
                 height: 1.4,
               ),

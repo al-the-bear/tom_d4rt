@@ -363,11 +363,7 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF312E81),
-          Color(0xFF4F46E5),
-          Color(0xFF7C3AED),
-        ],
+        colors: <Color>[Color(0xFF312E81), Color(0xFF4F46E5), Color(0xFF7C3AED)],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -487,30 +483,30 @@ Widget _heroIntroCard() {
             '(groups that own a "first focus" within them). The tree is '
             'managed by a singleton FocusManager attached to '
             'WidgetsBinding.instance.focusManager.',
-            style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInk),
+            style: TextStyle(
+              fontSize: 13.5,
+              height: 1.5,
+              color: _kInk,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _bulletList(const <String>[
-                'Listenable: addListener fires on hasFocus changes.',
-                'attach()/detach() bind the node to an Element.',
-                'requestFocus() walks up to nearest enclosing FocusScope.',
-                'unfocus() can drop focus or escalate to the scope.',
-              ]),
-            ),
+            Expanded(child: _bulletList(const <String>[
+              'Listenable: addListener fires on hasFocus changes.',
+              'attach()/detach() bind the node to an Element.',
+              'requestFocus() walks up to nearest enclosing FocusScope.',
+              'unfocus() can drop focus or escalate to the scope.',
+            ])),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: _bulletList(const <String>[
-                'FocusScopeNode owns a "focusedChild" list.',
-                'FocusTraversalGroup picks the sort order.',
-                'FocusableActionDetector binds Shortcuts to Actions.',
-                'Focus widget is the inline declarative form.',
-              ]),
-            ),
+            Expanded(child: _bulletList(const <String>[
+              'FocusScopeNode owns a "focusedChild" list.',
+              'FocusTraversalGroup picks the sort order.',
+              'FocusableActionDetector binds Shortcuts to Actions.',
+              'Focus widget is the inline declarative form.',
+            ])),
           ],
         ),
       ],
@@ -522,26 +518,24 @@ Widget _bulletList(List<String> items) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: items
-        .map<Widget>(
-          (String s) => Padding(
-            padding: const EdgeInsets.only(bottom: 5.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(top: 6.0, right: 8.0),
-                  width: 6.0,
-                  height: 6.0,
-                  decoration: const BoxDecoration(
-                    color: _kAccent,
-                    shape: BoxShape.circle,
+        .map<Widget>((String s) => Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(top: 6.0, right: 8.0),
+                    width: 6.0,
+                    height: 6.0,
+                    decoration: const BoxDecoration(
+                      color: _kAccent,
+                      shape: BoxShape.circle,
+                    ),
                   ),
-                ),
-                Expanded(child: Text(s, style: _kBodySoftStyle)),
-              ],
-            ),
-          ),
-        )
+                  Expanded(child: Text(s, style: _kBodySoftStyle)),
+                ],
+              ),
+            ))
         .toList(growable: false),
   );
 }
@@ -569,71 +563,32 @@ class _HierarchyPainter extends CustomPainter {
       ..color = const Color(0xFF94A3B8);
 
     final List<_HierarchyBox> boxes = <_HierarchyBox>[
-      _HierarchyBox(
-        'Listenable',
-        const Rect.fromLTWH(20, 12, 150, 36),
-        const Color(0xFFE0E7FF),
-      ),
-      _HierarchyBox(
-        'ChangeNotifier',
-        const Rect.fromLTWH(20, 70, 170, 36),
-        const Color(0xFFE0E7FF),
-      ),
-      _HierarchyBox(
-        'DiagnosticableTreeMixin',
-        const Rect.fromLTWH(20, 128, 220, 36),
-        const Color(0xFFE0E7FF),
-      ),
-      _HierarchyBox(
-        'FocusNode',
-        const Rect.fromLTWH(50, 200, 160, 44),
-        const Color(0xFFBFDBFE),
-      ),
-      _HierarchyBox(
-        'FocusScopeNode',
-        const Rect.fromLTWH(260, 200, 190, 44),
-        const Color(0xFFFBCFE8),
-      ),
-      _HierarchyBox(
-        'FocusAttachment',
-        const Rect.fromLTWH(490, 200, 180, 44),
-        const Color(0xFFFEF3C7),
-      ),
-      _HierarchyBox(
-        'FocusManager',
-        const Rect.fromLTWH(50, 280, 170, 40),
-        const Color(0xFFC7D2FE),
-      ),
-      _HierarchyBox(
-        'Focus (widget)',
-        const Rect.fromLTWH(260, 280, 170, 40),
-        const Color(0xFFA7F3D0),
-      ),
-      _HierarchyBox(
-        'FocusScope (widget)',
-        const Rect.fromLTWH(450, 280, 200, 40),
-        const Color(0xFFA7F3D0),
-      ),
-      _HierarchyBox(
-        'FocusTraversalGroup',
-        const Rect.fromLTWH(50, 350, 210, 40),
-        const Color(0xFFFDE68A),
-      ),
-      _HierarchyBox(
-        'FocusTraversalPolicy (abstract)',
-        const Rect.fromLTWH(290, 350, 290, 40),
-        const Color(0xFFFDE68A),
-      ),
-      _HierarchyBox(
-        'FocusableActionDetector',
-        const Rect.fromLTWH(50, 420, 240, 40),
-        const Color(0xFFFCA5A5),
-      ),
-      _HierarchyBox(
-        'Shortcuts + Actions',
-        const Rect.fromLTWH(320, 420, 230, 40),
-        const Color(0xFFFCA5A5),
-      ),
+      _HierarchyBox('Listenable', const Rect.fromLTWH(20, 12, 150, 36),
+          const Color(0xFFE0E7FF)),
+      _HierarchyBox('ChangeNotifier', const Rect.fromLTWH(20, 70, 170, 36),
+          const Color(0xFFE0E7FF)),
+      _HierarchyBox('DiagnosticableTreeMixin',
+          const Rect.fromLTWH(20, 128, 220, 36), const Color(0xFFE0E7FF)),
+      _HierarchyBox('FocusNode', const Rect.fromLTWH(50, 200, 160, 44),
+          const Color(0xFFBFDBFE)),
+      _HierarchyBox('FocusScopeNode', const Rect.fromLTWH(260, 200, 190, 44),
+          const Color(0xFFFBCFE8)),
+      _HierarchyBox('FocusAttachment', const Rect.fromLTWH(490, 200, 180, 44),
+          const Color(0xFFFEF3C7)),
+      _HierarchyBox('FocusManager', const Rect.fromLTWH(50, 280, 170, 40),
+          const Color(0xFFC7D2FE)),
+      _HierarchyBox('Focus (widget)', const Rect.fromLTWH(260, 280, 170, 40),
+          const Color(0xFFA7F3D0)),
+      _HierarchyBox('FocusScope (widget)',
+          const Rect.fromLTWH(450, 280, 200, 40), const Color(0xFFA7F3D0)),
+      _HierarchyBox('FocusTraversalGroup',
+          const Rect.fromLTWH(50, 350, 210, 40), const Color(0xFFFDE68A)),
+      _HierarchyBox('FocusTraversalPolicy (abstract)',
+          const Rect.fromLTWH(290, 350, 290, 40), const Color(0xFFFDE68A)),
+      _HierarchyBox('FocusableActionDetector',
+          const Rect.fromLTWH(50, 420, 240, 40), const Color(0xFFFCA5A5)),
+      _HierarchyBox('Shortcuts + Actions',
+          const Rect.fromLTWH(320, 420, 230, 40), const Color(0xFFFCA5A5)),
     ];
 
     for (final _HierarchyBox b in boxes) {
@@ -672,14 +627,10 @@ class _HierarchyPainter extends CustomPainter {
       const double tipLen = 7.0;
       final Path path = Path()
         ..moveTo(b.dx, b.dy)
-        ..lineTo(
-          b.dx - tipLen * math.cos(angle - math.pi / 7),
-          b.dy - tipLen * math.sin(angle - math.pi / 7),
-        )
-        ..lineTo(
-          b.dx - tipLen * math.cos(angle + math.pi / 7),
-          b.dy - tipLen * math.sin(angle + math.pi / 7),
-        )
+        ..lineTo(b.dx - tipLen * math.cos(angle - math.pi / 7),
+            b.dy - tipLen * math.sin(angle - math.pi / 7))
+        ..lineTo(b.dx - tipLen * math.cos(angle + math.pi / 7),
+            b.dy - tipLen * math.sin(angle + math.pi / 7))
         ..close();
       canvas.drawPath(path, Paint()..color = p.color);
     }
@@ -783,50 +734,22 @@ class _FocusTreePainter extends CustomPainter {
 
     final List<_TreeBox> tree = <_TreeBox>[
       // root scope
-      _TreeBox(
-        'FocusScopeNode #root\n(WidgetsApp)',
-        const Rect.fromLTWH(180, 16, 220, 50),
-        scope,
-        border,
-      ),
+      _TreeBox('FocusScopeNode #root\n(WidgetsApp)',
+          const Rect.fromLTWH(180, 16, 220, 50), scope, border),
       // form scope
-      _TreeBox(
-        'FocusScopeNode #form\n(Form _formScope)',
-        const Rect.fromLTWH(180, 96, 220, 50),
-        scope,
-        border,
-      ),
+      _TreeBox('FocusScopeNode #form\n(Form _formScope)',
+          const Rect.fromLTWH(180, 96, 220, 50), scope, border),
       // five field nodes
-      _TreeBox(
-        'FocusNode\n"name"',
-        const Rect.fromLTWH(20, 184, 110, 44),
-        node,
-        border,
-      ),
-      _TreeBox(
-        'FocusNode\n"email"',
-        const Rect.fromLTWH(150, 184, 110, 44),
-        node,
-        border,
-      ),
-      _TreeBox(
-        'FocusNode\n"city" (PRIMARY)',
-        const Rect.fromLTWH(280, 184, 130, 44),
-        primary,
-        focusedBorder,
-      ),
-      _TreeBox(
-        'FocusNode\n"zip"',
-        const Rect.fromLTWH(430, 184, 110, 44),
-        node,
-        border,
-      ),
-      _TreeBox(
-        'FocusNode\n"submit"',
-        const Rect.fromLTWH(560, 184, 110, 44),
-        node,
-        border,
-      ),
+      _TreeBox('FocusNode\n"name"',
+          const Rect.fromLTWH(20, 184, 110, 44), node, border),
+      _TreeBox('FocusNode\n"email"',
+          const Rect.fromLTWH(150, 184, 110, 44), node, border),
+      _TreeBox('FocusNode\n"city" (PRIMARY)',
+          const Rect.fromLTWH(280, 184, 130, 44), primary, focusedBorder),
+      _TreeBox('FocusNode\n"zip"',
+          const Rect.fromLTWH(430, 184, 110, 44), node, border),
+      _TreeBox('FocusNode\n"submit"',
+          const Rect.fromLTWH(560, 184, 110, 44), node, border),
     ];
 
     for (final _TreeBox b in tree) {
@@ -1017,7 +940,9 @@ Widget _anatomyRow(
             ),
           ),
         ),
-        Expanded(child: Text(description, style: _kBodySoftStyle)),
+        Expanded(
+          child: Text(description, style: _kBodySoftStyle),
+        ),
       ],
     ),
   );
@@ -1026,13 +951,10 @@ Widget _anatomyRow(
 Widget _anatomySection() {
   // Construct dummy nodes for diagnostic field readouts. Their values are
   // captured statically for the table - we never call .requestFocus() on them.
-  final FocusNode labelled = FocusNode(
-    debugLabel: 'Anatomy.example',
-    skipTraversal: false,
-  );
+  final FocusNode labelled =
+      FocusNode(debugLabel: 'Anatomy.example', skipTraversal: false);
   final FocusScopeNode scope = FocusScopeNode(debugLabel: 'Anatomy.scope');
-  final String summaryLabelled =
-      'debugLabel="${labelled.debugLabel}", '
+  final String summaryLabelled = 'debugLabel="${labelled.debugLabel}", '
       'skipTraversal=${labelled.skipTraversal}, '
       'canRequestFocus=${labelled.canRequestFocus}';
   final String summaryScope =
@@ -1048,12 +970,14 @@ Widget _anatomySection() {
           padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 10.0),
           child: _cardTitle(
             'FocusNode anatomy',
-            subtitle:
-                'The core configuration surface of FocusNode and its '
+            subtitle: 'The core configuration surface of FocusNode and its '
                 'FocusScopeNode subclass.',
           ),
         ),
-        Container(height: 1.0, color: _kHairline),
+        Container(
+          height: 1.0,
+          color: _kHairline,
+        ),
         _anatomyRow(
           'debugLabel',
           'String?',
@@ -1187,7 +1111,10 @@ Widget _focusVariantCard(
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 8.0),
             Expanded(
@@ -1504,24 +1431,17 @@ Widget _traversalSection() {
     policy: ReadingOrderTraversalPolicy(),
     child: Column(
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(child: _miniInput('LTR top-left', colour: _kAccentBlue)),
-            const SizedBox(width: 6.0),
-            Expanded(child: _miniInput('LTR top-right', colour: _kAccentBlue)),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: _miniInput('LTR bottom-left', colour: _kAccentBlue),
-            ),
-            const SizedBox(width: 6.0),
-            Expanded(
-              child: _miniInput('LTR bottom-right', colour: _kAccentBlue),
-            ),
-          ],
-        ),
+        Row(children: <Widget>[
+          Expanded(child: _miniInput('LTR top-left', colour: _kAccentBlue)),
+          const SizedBox(width: 6.0),
+          Expanded(child: _miniInput('LTR top-right', colour: _kAccentBlue)),
+        ]),
+        Row(children: <Widget>[
+          Expanded(child: _miniInput('LTR bottom-left', colour: _kAccentBlue)),
+          const SizedBox(width: 6.0),
+          Expanded(
+              child: _miniInput('LTR bottom-right', colour: _kAccentBlue)),
+        ]),
       ],
     ),
   );
@@ -1552,20 +1472,16 @@ Widget _traversalSection() {
     policy: _DirectionalDemoPolicy(),
     child: Column(
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(child: _miniInput('UL', colour: _kAccentViolet)),
-            const SizedBox(width: 6.0),
-            Expanded(child: _miniInput('UR', colour: _kAccentViolet)),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(child: _miniInput('LL', colour: _kAccentViolet)),
-            const SizedBox(width: 6.0),
-            Expanded(child: _miniInput('LR', colour: _kAccentViolet)),
-          ],
-        ),
+        Row(children: <Widget>[
+          Expanded(child: _miniInput('UL', colour: _kAccentViolet)),
+          const SizedBox(width: 6.0),
+          Expanded(child: _miniInput('UR', colour: _kAccentViolet)),
+        ]),
+        Row(children: <Widget>[
+          Expanded(child: _miniInput('LL', colour: _kAccentViolet)),
+          const SizedBox(width: 6.0),
+          Expanded(child: _miniInput('LR', colour: _kAccentViolet)),
+        ]),
       ],
     ),
   );
@@ -1716,9 +1632,7 @@ Widget _detectorTile(
           runSpacing: 6.0,
           children: shortcuts.keys
               .map<Widget>(
-                (ShortcutActivator a) =>
-                    _pill(_shortcutLabel(a), colour: accent),
-              )
+                  (ShortcutActivator a) => _pill(_shortcutLabel(a), colour: accent))
               .toList(growable: false),
         ),
       ],
@@ -1803,7 +1717,8 @@ Widget _codeRecipesSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _codeBlock('''class _MyFormState extends State<MyForm> {
+      _codeBlock(
+        '''class _MyFormState extends State<MyForm> {
   late final FocusNode _name = FocusNode(debugLabel: 'name');
   late final FocusNode _email = FocusNode(debugLabel: 'email');
 
@@ -1821,7 +1736,9 @@ Widget _codeRecipesSection() {
       TextField(focusNode: _email),
     ]);
   }
-}''', title: 'recipe_01_manage_focusnode_in_state.dart'),
+}''',
+        title: 'recipe_01_manage_focusnode_in_state.dart',
+      ),
       _codeBlock(
         '''// Tap anywhere outside an input to dismiss the soft keyboard.
 GestureDetector(
@@ -1841,15 +1758,19 @@ showDialog(
 );''',
         title: 'recipe_03_autofocus_in_dialog.dart',
       ),
-      _codeBlock('''// Move focus on submit, chaining nodes by hand.
+      _codeBlock(
+        '''// Move focus on submit, chaining nodes by hand.
 TextField(
   focusNode: _name,
   textInputAction: TextInputAction.next,
   onSubmitted: (_) {
     _email.requestFocus();   // jump to the next field
   },
-)''', title: 'recipe_04_request_focus_chain.dart'),
-      _codeBlock('''// Custom key handler: swallow Enter inside a chat composer.
+)''',
+        title: 'recipe_04_request_focus_chain.dart',
+      ),
+      _codeBlock(
+        '''// Custom key handler: swallow Enter inside a chat composer.
 Focus(
   onKeyEvent: (FocusNode node, KeyEvent event) {
     if (event is KeyDownEvent &&
@@ -1861,7 +1782,9 @@ Focus(
     return KeyEventResult.ignored;
   },
   child: TextField(maxLines: null),
-);''', title: 'recipe_05_on_key_event.dart'),
+);''',
+        title: 'recipe_05_on_key_event.dart',
+      ),
       _codeBlock(
         '''// Group two side panels so Tab cycles within the side panel first.
 FocusTraversalGroup(
@@ -1886,11 +1809,8 @@ FocusTraversalGroup(
 // ---------------------------------------------------------------------------
 // SECTION 9 - COMPARISON TABLE
 // ---------------------------------------------------------------------------
-Widget _comparisonCell(
-  String text, {
-  bool header = false,
-  Color colour = _kInk,
-}) {
+Widget _comparisonCell(String text,
+    {bool header = false, Color colour = _kInk}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
     alignment: Alignment.centerLeft,
@@ -1944,16 +1864,9 @@ Widget _comparisonSection() {
           _comparisonCell('Aspect', header: true),
           _comparisonCell('FocusNode', header: true, colour: _kAccentBlue),
           _comparisonCell('FocusScopeNode', header: true, colour: _kAccentRose),
-          _comparisonCell(
-            'Focus (widget)',
-            header: true,
-            colour: _kAccentGreen,
-          ),
-          _comparisonCell(
-            'FocusableActionDetector',
-            header: true,
-            colour: _kAccentAmber,
-          ),
+          _comparisonCell('Focus (widget)', header: true, colour: _kAccentGreen),
+          _comparisonCell('FocusableActionDetector',
+              header: true, colour: _kAccentAmber),
         ]),
         _comparisonRow(<Widget>[
           _comparisonCell('Layer'),
@@ -2303,101 +2216,68 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           // Section 1
           _heroBanner(),
-          _sectionHeader(
-            1,
-            'Why FocusNode exists',
-            'A model layer above the widget tree for keystrokes.',
-          ),
+          _sectionHeader(1, 'Why FocusNode exists',
+              'A model layer above the widget tree for keystrokes.'),
           _heroIntroCard(),
           _sectionDivider(),
 
           // Section 2
-          _sectionHeader(
-            2,
-            'Class hierarchy',
-            'From Listenable down to FocusableActionDetector.',
-          ),
+          _sectionHeader(2, 'Class hierarchy',
+              'From Listenable down to FocusableActionDetector.'),
           _hierarchySection(),
           _sectionDivider(),
 
           // Section 3
-          _sectionHeader(
-            3,
-            'Focus tree for a Form',
-            'Scaffold -> Form -> 5 fields drawn as a node graph.',
-          ),
+          _sectionHeader(3, 'Focus tree for a Form',
+              'Scaffold -> Form -> 5 fields drawn as a node graph.'),
           _focusTreeSection(),
           _sectionDivider(),
 
           // Section 4
-          _sectionHeader(
-            4,
-            'FocusNode anatomy',
-            'Configuration fields, diagnostic fields, tree fields.',
-          ),
+          _sectionHeader(4, 'FocusNode anatomy',
+              'Configuration fields, diagnostic fields, tree fields.'),
           _anatomySection(),
           _sectionDivider(),
 
           // Section 5
-          _sectionHeader(
-            5,
-            'Six Focus() variants',
-            'autofocus, custom node, onKeyEvent, gated, skip, excluded.',
-          ),
+          _sectionHeader(5, 'Six Focus() variants',
+              'autofocus, custom node, onKeyEvent, gated, skip, excluded.'),
           _focusVariantsSection(),
           _sectionDivider(),
 
           // Section 6
-          _sectionHeader(
-            6,
-            'FocusTraversalGroup',
-            'Four mini forms, four traversal policies.',
-          ),
+          _sectionHeader(6, 'FocusTraversalGroup',
+              'Four mini forms, four traversal policies.'),
           _traversalSection(),
           _sectionDivider(),
 
           // Section 7
-          _sectionHeader(
-            7,
-            'FocusableActionDetector',
-            'Shortcuts + Actions + MouseRegion in one composite widget.',
-          ),
+          _sectionHeader(7, 'FocusableActionDetector',
+              'Shortcuts + Actions + MouseRegion in one composite widget.'),
           _focusableActionDetectorSection(),
           _sectionDivider(),
 
           // Section 8
-          _sectionHeader(
-            8,
-            'Code recipes',
-            'Six idiomatic snippets you will reach for again and again.',
-          ),
+          _sectionHeader(8, 'Code recipes',
+              'Six idiomatic snippets you will reach for again and again.'),
           _codeRecipesSection(),
           _sectionDivider(),
 
           // Section 9
-          _sectionHeader(
-            9,
-            'API surface comparison',
-            'FocusNode vs FocusScopeNode vs Focus vs FocusableActionDetector.',
-          ),
+          _sectionHeader(9, 'API surface comparison',
+              'FocusNode vs FocusScopeNode vs Focus vs FocusableActionDetector.'),
           _comparisonSection(),
           _sectionDivider(),
 
           // Section 10
-          _sectionHeader(
-            10,
-            'Pitfalls',
-            'Six callouts that commonly bite Flutter engineers.',
-          ),
+          _sectionHeader(10, 'Pitfalls',
+              'Six callouts that commonly bite Flutter engineers.'),
           _pitfallsSection(),
           _sectionDivider(),
 
           // Section 11
-          _sectionHeader(
-            11,
-            'Cheat-sheet',
-            'A compact map of the focus subsystem.',
-          ),
+          _sectionHeader(11, 'Cheat-sheet',
+              'A compact map of the focus subsystem.'),
           _cheatSheetFooter(),
         ],
       ),

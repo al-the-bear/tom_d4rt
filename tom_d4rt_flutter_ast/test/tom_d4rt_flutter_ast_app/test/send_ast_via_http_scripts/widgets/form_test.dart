@@ -102,11 +102,8 @@ Widget _section01HeroHeader() {
                 color: _sage.withValues(alpha: 0.25),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: const Icon(
-                Icons.assignment_turned_in,
-                color: _sage,
-                size: 36.0,
-              ),
+              child: const Icon(Icons.assignment_turned_in, color: _sage,
+                  size: 36.0),
             ),
             const SizedBox(width: 18.0),
             const Expanded(
@@ -168,14 +165,12 @@ Widget _heroChip(IconData icon, String label) {
       children: <Widget>[
         Icon(icon, color: _sage, size: 16.0),
         const SizedBox(width: 8.0),
-        Text(
-          label,
-          style: const TextStyle(
-            color: _cream,
-            fontSize: 13.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(label,
+            style: const TextStyle(
+              color: _cream,
+              fontSize: 13.0,
+              fontWeight: FontWeight.w600,
+            )),
       ],
     ),
   );
@@ -188,8 +183,7 @@ Widget _section02Concept() {
   return _sectionShell(
     number: '02',
     title: 'Concept — Form / FormState / FormField',
-    subtitle:
-        'A Form is an InheritedWidget that groups any number of '
+    subtitle: 'A Form is an InheritedWidget that groups any number of '
         'FormField descendants. The associated FormState is the imperative '
         'handle reached through a GlobalKey<FormState> — the gateway to '
         'validate(), save() and reset().',
@@ -199,43 +193,36 @@ Widget _section02Concept() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _conceptCard(
-                Icons.account_tree,
-                'Form',
-                'Inherited widget that registers nearby FormField descendants '
-                    'and exposes a FormState through Form.of(context) or via a '
-                    'GlobalKey<FormState>.',
-              ),
-            ),
+            Expanded(child: _conceptCard(
+              Icons.account_tree,
+              'Form',
+              'Inherited widget that registers nearby FormField descendants '
+                  'and exposes a FormState through Form.of(context) or via a '
+                  'GlobalKey<FormState>.',
+            )),
             const SizedBox(width: 14.0),
-            Expanded(
-              child: _conceptCard(
-                Icons.memory,
-                'FormState',
-                'Imperative API. Holds the list of registered fields. Call '
-                    'validate(), save() or reset() on it. Triggers rebuilds '
-                    'when its internal state changes.',
-              ),
-            ),
+            Expanded(child: _conceptCard(
+              Icons.memory,
+              'FormState',
+              'Imperative API. Holds the list of registered fields. Call '
+                  'validate(), save() or reset() on it. Triggers rebuilds '
+                  'when its internal state changes.',
+            )),
             const SizedBox(width: 14.0),
-            Expanded(
-              child: _conceptCard(
-                Icons.input,
-                'FormField<T>',
-                'A leaf widget that registers itself with the nearest Form. '
-                    'Owns an optional validator and an onSaved callback. '
-                    'TextFormField is the most common concrete implementation.',
-              ),
-            ),
+            Expanded(child: _conceptCard(
+              Icons.input,
+              'FormField<T>',
+              'A leaf widget that registers itself with the nearest Form. '
+                  'Owns an optional validator and an onSaved callback. '
+                  'TextFormField is the most common concrete implementation.',
+            )),
           ],
         ),
         const SizedBox(height: 22.0),
         _calloutBox(
           icon: Icons.lightbulb_outline,
           title: 'Why a GlobalKey?',
-          body:
-              'FormState lives in the framework, not in your widget tree '
+          body: 'FormState lives in the framework, not in your widget tree '
               'directly. To call validate/save/reset from outside the Form '
               'subtree (e.g. from an AppBar action) you attach a '
               'GlobalKey<FormState> to the Form and dereference it as '
@@ -245,8 +232,7 @@ Widget _section02Concept() {
         _calloutBox(
           icon: Icons.warning_amber_outlined,
           title: 'Two ways to reach FormState',
-          body:
-              '(1) GlobalKey — best when the trigger is outside the form '
+          body: '(1) GlobalKey — best when the trigger is outside the form '
               'subtree. (2) Form.of(context) — best when the trigger is a '
               'child widget below the Form; it uses InheritedWidget lookup.',
         ),
@@ -275,23 +261,19 @@ Widget _conceptCard(IconData icon, String title, String body) {
           child: Icon(icon, color: _navy, size: 22.0),
         ),
         const SizedBox(height: 14.0),
-        Text(
-          title,
-          style: const TextStyle(
-            color: _navy,
-            fontSize: 17.0,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text(title,
+            style: const TextStyle(
+              color: _navy,
+              fontSize: 17.0,
+              fontWeight: FontWeight.w700,
+            )),
         const SizedBox(height: 8.0),
-        Text(
-          body,
-          style: const TextStyle(
-            color: _navySoft,
-            fontSize: 13.0,
-            height: 1.45,
-          ),
-        ),
+        Text(body,
+            style: const TextStyle(
+              color: _navySoft,
+              fontSize: 13.0,
+              height: 1.45,
+            )),
       ],
     ),
   );
@@ -307,7 +289,9 @@ Widget _calloutBox({
     decoration: BoxDecoration(
       color: _sage.withValues(alpha: 0.18),
       borderRadius: BorderRadius.circular(12.0),
-      border: const Border(left: BorderSide(color: _sageDeep, width: 4.0)),
+      border: const Border(
+        left: BorderSide(color: _sageDeep, width: 4.0),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -318,23 +302,19 @@ Widget _calloutBox({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: const TextStyle(
-                  color: _navy,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text(title,
+                  style: const TextStyle(
+                    color: _navy,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w700,
+                  )),
               const SizedBox(height: 6.0),
-              Text(
-                body,
-                style: const TextStyle(
-                  color: _navySoft,
-                  fontSize: 13.5,
-                  height: 1.5,
-                ),
-              ),
+              Text(body,
+                  style: const TextStyle(
+                    color: _navySoft,
+                    fontSize: 13.5,
+                    height: 1.5,
+                  )),
             ],
           ),
         ),
@@ -350,8 +330,7 @@ Widget _section03Anatomy() {
   return _sectionShell(
     number: '03',
     title: 'Anatomy — Form tree and dataflow',
-    subtitle:
-        'A Form sits at the root, FormField descendants register '
+    subtitle: 'A Form sits at the root, FormField descendants register '
         'themselves at mount and unregister at unmount. validate/save/reset '
         'on the FormState fans out to every registered field.',
     body: Column(
@@ -382,32 +361,26 @@ Widget _section03Anatomy() {
               _verticalArrow(),
               Row(
                 children: <Widget>[
-                  Expanded(
-                    child: _anatomyRow(
-                      label: 'TextFormField #1\nlabel: Name',
-                      color: _sage,
-                      fg: _navy,
-                      icon: Icons.person,
-                    ),
-                  ),
+                  Expanded(child: _anatomyRow(
+                    label: 'TextFormField #1\nlabel: Name',
+                    color: _sage,
+                    fg: _navy,
+                    icon: Icons.person,
+                  )),
                   const SizedBox(width: 10.0),
-                  Expanded(
-                    child: _anatomyRow(
-                      label: 'TextFormField #2\nlabel: Email',
-                      color: _sage,
-                      fg: _navy,
-                      icon: Icons.email,
-                    ),
-                  ),
+                  Expanded(child: _anatomyRow(
+                    label: 'TextFormField #2\nlabel: Email',
+                    color: _sage,
+                    fg: _navy,
+                    icon: Icons.email,
+                  )),
                   const SizedBox(width: 10.0),
-                  Expanded(
-                    child: _anatomyRow(
-                      label: 'FormField<bool>\nlabel: Terms',
-                      color: _sage,
-                      fg: _navy,
-                      icon: Icons.check_circle_outline,
-                    ),
-                  ),
+                  Expanded(child: _anatomyRow(
+                    label: 'FormField<bool>\nlabel: Terms',
+                    color: _sage,
+                    fg: _navy,
+                    icon: Icons.check_circle_outline,
+                  )),
                 ],
               ),
             ],
@@ -416,32 +389,26 @@ Widget _section03Anatomy() {
         const SizedBox(height: 22.0),
         Row(
           children: <Widget>[
-            Expanded(
-              child: _flowArrowCard(
-                Icons.fact_check_outlined,
-                'validate()',
-                'Calls every field\'s validator. Returns true only if every '
-                    'validator returns null. Updates each FormField\'s errorText.',
-              ),
-            ),
+            Expanded(child: _flowArrowCard(
+              Icons.fact_check_outlined,
+              'validate()',
+              'Calls every field\'s validator. Returns true only if every '
+                  'validator returns null. Updates each FormField\'s errorText.',
+            )),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: _flowArrowCard(
-                Icons.save_outlined,
-                'save()',
-                'Iterates every registered field and calls its onSaved with '
-                    'the current value. Does not validate first.',
-              ),
-            ),
+            Expanded(child: _flowArrowCard(
+              Icons.save_outlined,
+              'save()',
+              'Iterates every registered field and calls its onSaved with '
+                  'the current value. Does not validate first.',
+            )),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: _flowArrowCard(
-                Icons.refresh,
-                'reset()',
-                'Restores each FormField to its initialValue and clears any '
-                    'error text. Useful for cancel buttons.',
-              ),
-            ),
+            Expanded(child: _flowArrowCard(
+              Icons.refresh,
+              'reset()',
+              'Restores each FormField to its initialValue and clears any '
+                  'error text. Useful for cancel buttons.',
+            )),
           ],
         ),
       ],
@@ -466,14 +433,12 @@ Widget _anatomyRow({
         Icon(icon, color: fg, size: 22.0),
         const SizedBox(width: 12.0),
         Expanded(
-          child: Text(
-            label,
-            style: TextStyle(
-              color: fg,
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                color: fg,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w600,
+              )),
         ),
       ],
     ),
@@ -504,26 +469,22 @@ Widget _flowArrowCard(IconData icon, String name, String description) {
           children: <Widget>[
             Icon(icon, color: _navy, size: 22.0),
             const SizedBox(width: 10.0),
-            Text(
-              name,
-              style: const TextStyle(
-                color: _navy,
-                fontSize: 15.0,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
-              ),
-            ),
+            Text(name,
+                style: const TextStyle(
+                  color: _navy,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                )),
           ],
         ),
         const SizedBox(height: 8.0),
-        Text(
-          description,
-          style: const TextStyle(
-            color: _navySoft,
-            fontSize: 12.5,
-            height: 1.45,
-          ),
-        ),
+        Text(description,
+            style: const TextStyle(
+              color: _navySoft,
+              fontSize: 12.5,
+              height: 1.45,
+            )),
       ],
     ),
   );
@@ -536,8 +497,7 @@ Widget _section04MinimalForm() {
   return _sectionShell(
     number: '04',
     title: 'Minimal Form',
-    subtitle:
-        'A Form with a single TextFormField plus a Submit button. The '
+    subtitle: 'A Form with a single TextFormField plus a Submit button. The '
         'GlobalKey at module scope is attached here so it is genuinely used '
         'in the live tree.',
     body: Row(
@@ -625,71 +585,61 @@ Widget _section05ValidationStates() {
   return _sectionShell(
     number: '05',
     title: 'Validation states',
-    subtitle:
-        'A single TextFormField can be observed in three discrete '
+    subtitle: 'A single TextFormField can be observed in three discrete '
         'visual states: pristine (untouched), typing (interactive) and '
         'error (after a failed validator).',
     body: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: _validationStateCard(
-            label: 'Pristine',
-            chipColor: _muted,
-            chipIcon: Icons.fiber_manual_record_outlined,
-            field: const TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.email_outlined),
-                border: OutlineInputBorder(),
-                helperText: 'Untouched — no validation yet.',
-              ),
+        Expanded(child: _validationStateCard(
+          label: 'Pristine',
+          chipColor: _muted,
+          chipIcon: Icons.fiber_manual_record_outlined,
+          field: const TextField(
+            decoration: InputDecoration(
+              labelText: 'Email',
+              prefixIcon: Icon(Icons.email_outlined),
+              border: OutlineInputBorder(),
+              helperText: 'Untouched — no validation yet.',
             ),
-            caption:
-                'autovalidateMode: disabled and never trigger validate(). '
-                'No errorText, no helper feedback yet.',
           ),
-        ),
+          caption: 'autovalidateMode: disabled and never trigger validate(). '
+              'No errorText, no helper feedback yet.',
+        )),
         const SizedBox(width: 14.0),
-        Expanded(
-          child: _validationStateCard(
-            label: 'Typing',
-            chipColor: _sageDeep,
-            chipIcon: Icons.edit_outlined,
-            field: TextField(
-              controller: TextEditingController()..text = 'reg',
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.email_outlined),
-                border: OutlineInputBorder(),
-                helperText: 'Partial input — validator not yet failing.',
-              ),
+        Expanded(child: _validationStateCard(
+          label: 'Typing',
+          chipColor: _sageDeep,
+          chipIcon: Icons.edit_outlined,
+          field: TextField(
+            controller: TextEditingController()..text = 'reg',
+            decoration: const InputDecoration(
+              labelText: 'Email',
+              prefixIcon: Icon(Icons.email_outlined),
+              border: OutlineInputBorder(),
+              helperText: 'Partial input — validator not yet failing.',
             ),
-            caption:
-                'autovalidateMode.onUserInteraction will not flag this '
-                'until a validator returns non-null.',
           ),
-        ),
+          caption: 'autovalidateMode.onUserInteraction will not flag this '
+              'until a validator returns non-null.',
+        )),
         const SizedBox(width: 14.0),
-        Expanded(
-          child: _validationStateCard(
-            label: 'Error',
-            chipColor: _coral,
-            chipIcon: Icons.error_outline,
-            field: TextField(
-              controller: TextEditingController()..text = 'bad@',
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.email_outlined),
-                border: OutlineInputBorder(),
-                errorText: 'Enter a valid email',
-              ),
+        Expanded(child: _validationStateCard(
+          label: 'Error',
+          chipColor: _coral,
+          chipIcon: Icons.error_outline,
+          field: TextField(
+            controller: TextEditingController()..text = 'bad@',
+            decoration: const InputDecoration(
+              labelText: 'Email',
+              prefixIcon: Icon(Icons.email_outlined),
+              border: OutlineInputBorder(),
+              errorText: 'Enter a valid email',
             ),
-            caption:
-                'errorText shown when the validator returns a non-null '
-                'string after validate() ran.',
           ),
-        ),
+          caption: 'errorText shown when the validator returns a non-null '
+              'string after validate() ran.',
+        )),
       ],
     ),
   );
@@ -723,28 +673,24 @@ Widget _validationStateCard({
             children: <Widget>[
               Icon(chipIcon, color: chipColor, size: 14.0),
               const SizedBox(width: 6.0),
-              Text(
-                label,
-                style: TextStyle(
-                  color: chipColor,
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                    color: chipColor,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w700,
+                  )),
             ],
           ),
         ),
         const SizedBox(height: 14.0),
         field,
         const SizedBox(height: 12.0),
-        Text(
-          caption,
-          style: const TextStyle(
-            color: _navySoft,
-            fontSize: 12.5,
-            height: 1.45,
-          ),
-        ),
+        Text(caption,
+            style: const TextStyle(
+              color: _navySoft,
+              fontSize: 12.5,
+              height: 1.45,
+            )),
       ],
     ),
   );
@@ -757,82 +703,71 @@ Widget _section06AutovalidateModeComparison() {
   return _sectionShell(
     number: '06',
     title: 'AutovalidateMode comparison',
-    subtitle:
-        'Four panels side-by-side: disabled, onUserInteraction and '
+    subtitle: 'Four panels side-by-side: disabled, onUserInteraction and '
         'always. The (deprecated alias) `never` is also briefly discussed.',
     body: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: _autovalidateCard(
-            title: 'disabled',
-            mode: 'AutovalidateMode.disabled',
-            flavor: _muted,
-            icon: Icons.toggle_off_outlined,
-            when: 'Validation only when the user calls validate() explicitly.',
-            field: const TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
+        Expanded(child: _autovalidateCard(
+          title: 'disabled',
+          mode: 'AutovalidateMode.disabled',
+          flavor: _muted,
+          icon: Icons.toggle_off_outlined,
+          when: 'Validation only when the user calls validate() explicitly.',
+          field: const TextField(
+            decoration: InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(),
             ),
           ),
-        ),
+        )),
         const SizedBox(width: 12.0),
-        Expanded(
-          child: _autovalidateCard(
-            title: 'never',
-            mode: 'AutovalidateMode.never',
-            flavor: _navySoft,
-            icon: Icons.block,
-            when: 'Synonym of disabled for migration. Same effect.',
-            field: const TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
+        Expanded(child: _autovalidateCard(
+          title: 'never',
+          mode: 'AutovalidateMode.never',
+          flavor: _navySoft,
+          icon: Icons.block,
+          when: 'Synonym of disabled for migration. Same effect.',
+          field: const TextField(
+            decoration: InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(),
             ),
           ),
-        ),
+        )),
         const SizedBox(width: 12.0),
-        Expanded(
-          child: _autovalidateCard(
-            title: 'onUserInteraction',
-            mode: 'AutovalidateMode.onUserInteraction',
-            flavor: _sageDeep,
-            icon: Icons.touch_app_outlined,
-            when:
-                'Validation kicks in after the user has interacted at least '
-                'once. Friendly for new forms.',
-            field: TextField(
-              controller: TextEditingController()..text = 'bad@',
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-                errorText: 'Enter a valid email',
-              ),
+        Expanded(child: _autovalidateCard(
+          title: 'onUserInteraction',
+          mode: 'AutovalidateMode.onUserInteraction',
+          flavor: _sageDeep,
+          icon: Icons.touch_app_outlined,
+          when: 'Validation kicks in after the user has interacted at least '
+              'once. Friendly for new forms.',
+          field: TextField(
+            controller: TextEditingController()..text = 'bad@',
+            decoration: const InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(),
+              errorText: 'Enter a valid email',
             ),
           ),
-        ),
+        )),
         const SizedBox(width: 12.0),
-        Expanded(
-          child: _autovalidateCard(
-            title: 'always',
-            mode: 'AutovalidateMode.always',
-            flavor: _coral,
-            icon: Icons.error_outline,
-            when:
-                'Validator runs every rebuild. Use for forms that should '
-                'pre-flag bad initial state.',
-            field: const TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-                errorText: 'Required',
-              ),
+        Expanded(child: _autovalidateCard(
+          title: 'always',
+          mode: 'AutovalidateMode.always',
+          flavor: _coral,
+          icon: Icons.error_outline,
+          when: 'Validator runs every rebuild. Use for forms that should '
+              'pre-flag bad initial state.',
+          field: const TextField(
+            decoration: InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(),
+              errorText: 'Required',
             ),
           ),
-        ),
+        )),
       ],
     ),
   );
@@ -860,15 +795,13 @@ Widget _autovalidateCard({
           children: <Widget>[
             Icon(icon, color: flavor, size: 20.0),
             const SizedBox(width: 8.0),
-            Text(
-              title,
-              style: TextStyle(
-                color: flavor,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.3,
-              ),
-            ),
+            Text(title,
+                style: TextStyle(
+                  color: flavor,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0.3,
+                )),
           ],
         ),
         const SizedBox(height: 10.0),
@@ -878,26 +811,22 @@ Widget _autovalidateCard({
             color: _navy.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(6.0),
           ),
-          child: Text(
-            mode,
-            style: const TextStyle(
-              color: _navy,
-              fontSize: 11.5,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text(mode,
+              style: const TextStyle(
+                color: _navy,
+                fontSize: 11.5,
+                fontFamily: 'monospace',
+              )),
         ),
         const SizedBox(height: 12.0),
         field,
         const SizedBox(height: 12.0),
-        Text(
-          when,
-          style: const TextStyle(
-            color: _navySoft,
-            fontSize: 12.0,
-            height: 1.45,
-          ),
-        ),
+        Text(when,
+            style: const TextStyle(
+              color: _navySoft,
+              fontSize: 12.0,
+              height: 1.45,
+            )),
       ],
     ),
   );
@@ -910,8 +839,7 @@ Widget _section07ValidatorPatterns() {
   return _sectionShell(
     number: '07',
     title: 'Validator patterns',
-    subtitle:
-        'A FormFieldValidator<T> is just `String? Function(T? value)`. '
+    subtitle: 'A FormFieldValidator<T> is just `String? Function(T? value)`. '
         'Return null when valid, return a message when not.',
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -919,8 +847,7 @@ Widget _section07ValidatorPatterns() {
         _validatorRow(
           title: 'Required',
           icon: Icons.priority_high,
-          code:
-              'String? required(String? v) => (v == null || v.isEmpty)\n'
+          code: 'String? required(String? v) => (v == null || v.isEmpty)\n'
               '  ? \'Required\' : null;',
           summary: 'The simplest pattern: null/empty becomes an error.',
         ),
@@ -928,43 +855,37 @@ Widget _section07ValidatorPatterns() {
         _validatorRow(
           title: 'Length range',
           icon: Icons.straighten,
-          code:
-              'String? len(String? v) {\n'
+          code: 'String? len(String? v) {\n'
               '  if (v == null) return \'Required\';\n'
               '  if (v.length < 3) return \'Too short\';\n'
               '  if (v.length > 32) return \'Too long\';\n'
               '  return null;\n'
               '}',
-          summary:
-              'Use for usernames, slugs, codes — combine with maxLength '
+          summary: 'Use for usernames, slugs, codes — combine with maxLength '
               'on the field for soft + hard caps.',
         ),
         const SizedBox(height: 14.0),
         _validatorRow(
           title: 'Email regex',
           icon: Icons.alternate_email,
-          code:
-              'final _email = RegExp(r\'^[^@\\s]+@[^@\\s]+\\.[^@\\s]+\$\');\n'
+          code: 'final _email = RegExp(r\'^[^@\\s]+@[^@\\s]+\\.[^@\\s]+\$\');\n'
               'String? email(String? v) =>\n'
               '  (v != null && _email.hasMatch(v))\n'
               '    ? null : \'Enter a valid email\';',
-          summary:
-              'A pragmatic email regex. For production prefer a battle-'
+          summary: 'A pragmatic email regex. For production prefer a battle-'
               'tested library because RFC 5322 is a rabbit hole.',
         ),
         const SizedBox(height: 14.0),
         _validatorRow(
           title: 'Numeric range',
           icon: Icons.pin,
-          code:
-              'String? age(String? v) {\n'
+          code: 'String? age(String? v) {\n'
               '  final n = int.tryParse(v ?? \'\');\n'
               '  if (n == null) return \'Must be a number\';\n'
               '  if (n < 18) return \'Must be 18 or older\';\n'
               '  return null;\n'
               '}',
-          summary:
-              'int.tryParse / double.tryParse return null on bad input '
+          summary: 'int.tryParse / double.tryParse return null on bad input '
               '— let your validator catch both the parse failure and the '
               'business rule.',
         ),
@@ -972,8 +893,7 @@ Widget _section07ValidatorPatterns() {
         _validatorRow(
           title: 'Password strength',
           icon: Icons.lock,
-          code:
-              'String? strongPassword(String? v) {\n'
+          code: 'String? strongPassword(String? v) {\n'
               '  if (v == null || v.length < 8) return \'Min 8 chars\';\n'
               '  final hasUpper = v.contains(RegExp(r\'[A-Z]\'));\n'
               '  final hasDigit = v.contains(RegExp(r\'[0-9]\'));\n'
@@ -981,8 +901,7 @@ Widget _section07ValidatorPatterns() {
               '  if (!hasDigit) return \'Need a digit\';\n'
               '  return null;\n'
               '}',
-          summary:
-              'Stack multiple checks but return only the *first* problem '
+          summary: 'Stack multiple checks but return only the *first* problem '
               '— a single message is less overwhelming than a wall of red.',
         ),
       ],
@@ -1020,28 +939,27 @@ Widget _validatorRow({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: const TextStyle(
-                  color: _navy,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text(title,
+                  style: const TextStyle(
+                    color: _navy,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w700,
+                  )),
               const SizedBox(height: 6.0),
-              Text(
-                summary,
-                style: const TextStyle(
-                  color: _navySoft,
-                  fontSize: 13.0,
-                  height: 1.45,
-                ),
-              ),
+              Text(summary,
+                  style: const TextStyle(
+                    color: _navySoft,
+                    fontSize: 13.0,
+                    height: 1.45,
+                  )),
             ],
           ),
         ),
         const SizedBox(width: 14.0),
-        Expanded(flex: 4, child: _codeBox(code)),
+        Expanded(
+          flex: 4,
+          child: _codeBox(code),
+        ),
       ],
     ),
   );
@@ -1054,41 +972,31 @@ Widget _section08MultiFieldLayouts() {
   return _sectionShell(
     number: '08',
     title: 'Multi-field layouts',
-    subtitle:
-        'Three reusable Form recipes: login, sign-up and a settings '
+    subtitle: 'Three reusable Form recipes: login, sign-up and a settings '
         'page that mixes toggles + sliders + text input.',
     body: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: _multiFieldCard(
-            title: 'Login',
-            subtitle:
-                'Two fields and a remember-me toggle. Validator only '
-                'checks non-empty + simple shape.',
-            form: _loginFormBody(),
-          ),
-        ),
+        Expanded(child: _multiFieldCard(
+          title: 'Login',
+          subtitle: 'Two fields and a remember-me toggle. Validator only '
+              'checks non-empty + simple shape.',
+          form: _loginFormBody(),
+        )),
         const SizedBox(width: 14.0),
-        Expanded(
-          child: _multiFieldCard(
-            title: 'Sign-up',
-            subtitle:
-                'Four fields with cross-field check (confirm password). '
-                'Shows AutovalidateMode.onUserInteraction.',
-            form: _signupFormBody(),
-          ),
-        ),
+        Expanded(child: _multiFieldCard(
+          title: 'Sign-up',
+          subtitle: 'Four fields with cross-field check (confirm password). '
+              'Shows AutovalidateMode.onUserInteraction.',
+          form: _signupFormBody(),
+        )),
         const SizedBox(width: 14.0),
-        Expanded(
-          child: _multiFieldCard(
-            title: 'Settings',
-            subtitle:
-                'A Form can wrap heterogeneous FormFields including '
-                'sliders and switches via custom FormField<T>.',
-            form: _settingsFormBody(),
-          ),
-        ),
+        Expanded(child: _multiFieldCard(
+          title: 'Settings',
+          subtitle: 'A Form can wrap heterogeneous FormFields including '
+              'sliders and switches via custom FormField<T>.',
+          form: _settingsFormBody(),
+        )),
       ],
     ),
   );
@@ -1109,19 +1017,19 @@ Widget _multiFieldCard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(
-            color: _navy,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        Text(title,
+            style: const TextStyle(
+              color: _navy,
+              fontSize: 18.0,
+              fontWeight: FontWeight.w800,
+            )),
         const SizedBox(height: 6.0),
-        Text(
-          subtitle,
-          style: const TextStyle(color: _muted, fontSize: 12.5, height: 1.4),
-        ),
+        Text(subtitle,
+            style: const TextStyle(
+              color: _muted,
+              fontSize: 12.5,
+              height: 1.4,
+            )),
         const SizedBox(height: 16.0),
         SizedBox(width: 360.0, child: form),
       ],
@@ -1156,10 +1064,9 @@ Widget _loginFormBody() {
             Checkbox(value: true, onChanged: null),
             const Text('Remember me', style: TextStyle(color: _navy)),
             const Spacer(),
-            const Text(
-              'Forgot?',
-              style: TextStyle(color: _sageDeep, fontWeight: FontWeight.w600),
-            ),
+            const Text('Forgot?',
+                style: TextStyle(color: _sageDeep,
+                    fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 6.0),
@@ -1250,18 +1157,10 @@ Widget _settingsFormBody() {
           ],
         ),
         const SizedBox(height: 8.0),
-        const Text(
-          'Daily reading goal (minutes)',
-          style: TextStyle(color: _navy, fontWeight: FontWeight.w600),
-        ),
-        Slider(
-          value: 30.0,
-          min: 5.0,
-          max: 120.0,
-          onChanged: null,
-          divisions: 23,
-          label: '30 min',
-        ),
+        const Text('Daily reading goal (minutes)',
+            style: TextStyle(color: _navy, fontWeight: FontWeight.w600)),
+        Slider(value: 30.0, min: 5.0, max: 120.0, onChanged: null,
+            divisions: 23, label: '30 min'),
         const SizedBox(height: 4.0),
         OutlinedButton(onPressed: null, child: const Text('Save settings')),
       ],
@@ -1276,8 +1175,7 @@ Widget _section09FormStateLifecycle() {
   return _sectionShell(
     number: '09',
     title: 'FormState lifecycle',
-    subtitle:
-        'How a registered FormField traverses validate → save → reset '
+    subtitle: 'How a registered FormField traverses validate → save → reset '
         'and how Form.of(context) gives nested children access to FormState.',
     body: Column(
       children: <Widget>[
@@ -1290,42 +1188,24 @@ Widget _section09FormStateLifecycle() {
           ),
           child: Column(
             children: <Widget>[
-              _lifecycleStep(
-                1,
-                Icons.add_circle_outline,
-                'Field mounts → registers itself with the nearest Form via '
-                'Form.of(context).',
-              ),
-              _lifecycleStep(
-                2,
-                Icons.edit,
-                'User types → field state updates internally; validator '
-                'runs depending on AutovalidateMode.',
-              ),
-              _lifecycleStep(
-                3,
-                Icons.fact_check_outlined,
-                'Submit pressed → _formKey.currentState!.validate() walks '
-                'every registered field.',
-              ),
-              _lifecycleStep(
-                4,
-                Icons.save_outlined,
-                'If validation passes → save() invokes each field\'s '
-                'onSaved callback so you can stash the value.',
-              ),
-              _lifecycleStep(
-                5,
-                Icons.refresh,
-                'reset() restores initialValue for every field and clears '
-                'every errorText.',
-              ),
-              _lifecycleStep(
-                6,
-                Icons.delete_outline,
-                'Field unmounts → unregisters; FormState garbage-collects '
-                'the entry; remaining fields are unaffected.',
-              ),
+              _lifecycleStep(1, Icons.add_circle_outline,
+                  'Field mounts → registers itself with the nearest Form via '
+                      'Form.of(context).'),
+              _lifecycleStep(2, Icons.edit,
+                  'User types → field state updates internally; validator '
+                      'runs depending on AutovalidateMode.'),
+              _lifecycleStep(3, Icons.fact_check_outlined,
+                  'Submit pressed → _formKey.currentState!.validate() walks '
+                      'every registered field.'),
+              _lifecycleStep(4, Icons.save_outlined,
+                  'If validation passes → save() invokes each field\'s '
+                      'onSaved callback so you can stash the value.'),
+              _lifecycleStep(5, Icons.refresh,
+                  'reset() restores initialValue for every field and clears '
+                      'every errorText.'),
+              _lifecycleStep(6, Icons.delete_outline,
+                  'Field unmounts → unregisters; FormState garbage-collects '
+                      'the entry; remaining fields are unaffected.'),
             ],
           ),
         ),
@@ -1333,8 +1213,7 @@ Widget _section09FormStateLifecycle() {
         _calloutBox(
           icon: Icons.info_outline,
           title: 'validate() is non-mutating from a save perspective',
-          body:
-              'validate() does not call onSaved. You must call save() '
+          body: 'validate() does not call onSaved. You must call save() '
               'separately after a successful validate(). This separation '
               'lets you validate early (e.g. on step change) without '
               'flushing values to your model prematurely.',
@@ -1358,10 +1237,11 @@ Widget _lifecycleStep(int index, IconData icon, String body) {
             borderRadius: BorderRadius.circular(16.0),
           ),
           alignment: Alignment.center,
-          child: Text(
-            '$index',
-            style: const TextStyle(color: _cream, fontWeight: FontWeight.w700),
-          ),
+          child: Text('$index',
+              style: const TextStyle(
+                color: _cream,
+                fontWeight: FontWeight.w700,
+              )),
         ),
         const SizedBox(width: 14.0),
         Icon(icon, color: _sageDeep, size: 22.0),
@@ -1369,14 +1249,12 @@ Widget _lifecycleStep(int index, IconData icon, String body) {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(top: 6.0),
-            child: Text(
-              body,
-              style: const TextStyle(
-                color: _navySoft,
-                fontSize: 13.5,
-                height: 1.45,
-              ),
-            ),
+            child: Text(body,
+                style: const TextStyle(
+                  color: _navySoft,
+                  fontSize: 13.5,
+                  height: 1.45,
+                )),
           ),
         ),
       ],
@@ -1391,52 +1269,45 @@ Widget _section10InputDecorationTheme() {
   return _sectionShell(
     number: '10',
     title: 'InputDecorationTheme propagation',
-    subtitle:
-        'Themes set at the Theme(data:) level flow through to every '
+    subtitle: 'Themes set at the Theme(data:) level flow through to every '
         'TextFormField inside the Form. This is how design systems keep '
         'forms consistent.',
     body: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: _themedFormPreview(
-            title: 'Default Material',
-            theme: const InputDecorationTheme(
-              border: OutlineInputBorder(),
-              filled: false,
-            ),
-            baseColor: _creamSoft,
+        Expanded(child: _themedFormPreview(
+          title: 'Default Material',
+          theme: const InputDecorationTheme(
+            border: OutlineInputBorder(),
+            filled: false,
           ),
-        ),
+          baseColor: _creamSoft,
+        )),
         const SizedBox(width: 14.0),
-        Expanded(
-          child: _themedFormPreview(
-            title: 'Filled sage',
-            theme: InputDecorationTheme(
-              filled: true,
-              fillColor: _sage.withValues(alpha: 0.25),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(color: _sageDeep),
-              ),
+        Expanded(child: _themedFormPreview(
+          title: 'Filled sage',
+          theme: InputDecorationTheme(
+            filled: true,
+            fillColor: _sage.withValues(alpha: 0.25),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: _sageDeep),
             ),
-            baseColor: _creamSoft,
           ),
-        ),
+          baseColor: _creamSoft,
+        )),
         const SizedBox(width: 14.0),
-        Expanded(
-          child: _themedFormPreview(
-            title: 'Dark navy',
-            theme: const InputDecorationTheme(
-              filled: true,
-              fillColor: _navy,
-              labelStyle: TextStyle(color: _cream),
-              hintStyle: TextStyle(color: _creamSoft),
-              border: OutlineInputBorder(),
-            ),
-            baseColor: _navy,
-            fieldText: _cream,
+        Expanded(child: _themedFormPreview(
+          title: 'Dark navy',
+          theme: const InputDecorationTheme(
+            filled: true,
+            fillColor: _navy,
+            labelStyle: TextStyle(color: _cream),
+            hintStyle: TextStyle(color: _creamSoft),
+            border: OutlineInputBorder(),
           ),
-        ),
+          baseColor: _navy,
+          fieldText: _cream,
+        )),
       ],
     ),
   );
@@ -1458,14 +1329,12 @@ Widget _themedFormPreview({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          title,
-          style: TextStyle(
-            color: fieldText,
-            fontSize: 15.0,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text(title,
+            style: TextStyle(
+              color: fieldText,
+              fontSize: 15.0,
+              fontWeight: FontWeight.w700,
+            )),
         const SizedBox(height: 12.0),
         Theme(
           data: ThemeData.light().copyWith(inputDecorationTheme: theme),
@@ -1503,8 +1372,7 @@ Widget _section11RealWorldRecipes() {
   return _sectionShell(
     number: '11',
     title: 'Real-world recipes',
-    subtitle:
-        'Three Forms drawn from common product UIs: checkout shipping, '
+    subtitle: 'Three Forms drawn from common product UIs: checkout shipping, '
         'profile edit, and a search-and-filter panel.',
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1512,8 +1380,7 @@ Widget _section11RealWorldRecipes() {
         _recipeCard(
           icon: Icons.local_shipping_outlined,
           title: 'Checkout — shipping address',
-          subtitle:
-              'Required name, two-line address, city, state and zip. '
+          subtitle: 'Required name, two-line address, city, state and zip. '
               'Note how grouping into rows preserves Form semantics.',
           form: _shippingForm(),
         ),
@@ -1521,8 +1388,7 @@ Widget _section11RealWorldRecipes() {
         _recipeCard(
           icon: Icons.person_outline,
           title: 'Profile — edit',
-          subtitle:
-              'Heterogeneous fields: photo placeholder, name, bio '
+          subtitle: 'Heterogeneous fields: photo placeholder, name, bio '
               '(multiline), and a region dropdown represented as a custom '
               'FormField.',
           form: _profileEditForm(),
@@ -1531,8 +1397,7 @@ Widget _section11RealWorldRecipes() {
         _recipeCard(
           icon: Icons.filter_alt_outlined,
           title: 'Search & filter',
-          subtitle:
-              'A Form makes filters submit/reset as a unit. Sliders and '
+          subtitle: 'A Form makes filters submit/reset as a unit. Sliders and '
               'chips can live inside the same FormState.',
           form: _searchFilterForm(),
         ),
@@ -1571,23 +1436,19 @@ Widget _recipeCard({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: const TextStyle(
-                  color: _navy,
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text(title,
+                  style: const TextStyle(
+                    color: _navy,
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.w800,
+                  )),
               const SizedBox(height: 6.0),
-              Text(
-                subtitle,
-                style: const TextStyle(
-                  color: _navySoft,
-                  fontSize: 13.0,
-                  height: 1.5,
-                ),
-              ),
+              Text(subtitle,
+                  style: const TextStyle(
+                    color: _navySoft,
+                    fontSize: 13.0,
+                    height: 1.5,
+                  )),
             ],
           ),
         ),
@@ -1628,8 +1489,7 @@ Widget _shippingForm() {
           const SizedBox(height: 10.0),
           Row(
             children: <Widget>[
-              const Expanded(
-                flex: 3,
+              const Expanded(flex: 3,
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: 'City',
@@ -1638,8 +1498,7 @@ Widget _shippingForm() {
                 ),
               ),
               const SizedBox(width: 10.0),
-              const Expanded(
-                flex: 2,
+              const Expanded(flex: 2,
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: 'State',
@@ -1648,8 +1507,7 @@ Widget _shippingForm() {
                 ),
               ),
               const SizedBox(width: 10.0),
-              Expanded(
-                flex: 2,
+              Expanded(flex: 2,
                 child: TextField(
                   controller: TextEditingController()..text = 'X',
                   decoration: const InputDecoration(
@@ -1740,10 +1598,8 @@ Widget _searchFilterForm() {
             ),
           ),
           const SizedBox(height: 14.0),
-          const Text(
-            'Price range',
-            style: TextStyle(color: _navy, fontWeight: FontWeight.w600),
-          ),
+          const Text('Price range',
+              style: TextStyle(color: _navy, fontWeight: FontWeight.w600)),
           RangeSlider(
             values: const RangeValues(15.0, 75.0),
             min: 0.0,
@@ -1775,7 +1631,10 @@ Widget _filterChip(String label, bool selected) {
     decoration: BoxDecoration(
       color: selected ? _sage.withValues(alpha: 0.5) : _cream,
       borderRadius: BorderRadius.circular(999.0),
-      border: Border.all(color: selected ? _sageDeep : _border, width: 1.0),
+      border: Border.all(
+        color: selected ? _sageDeep : _border,
+        width: 1.0,
+      ),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -1786,14 +1645,12 @@ Widget _filterChip(String label, bool selected) {
           size: 16.0,
         ),
         const SizedBox(width: 6.0),
-        Text(
-          label,
-          style: TextStyle(
-            color: selected ? _navy : _muted,
-            fontSize: 12.5,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+              color: selected ? _navy : _muted,
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+            )),
       ],
     ),
   );
@@ -1806,8 +1663,7 @@ Widget _section12ComparisonTable() {
   return _sectionShell(
     number: '12',
     title: 'Comparison — Form vs alternatives',
-    subtitle:
-        'When to reach for Form vs hand-rolled validation vs a '
+    subtitle: 'When to reach for Form vs hand-rolled validation vs a '
         'higher-level form package.',
     body: Container(
       decoration: BoxDecoration(
@@ -1879,15 +1735,13 @@ Widget _comparisonHeader() {
 }
 
 Widget _comparisonHeaderCell(String text) {
-  return Text(
-    text,
-    style: const TextStyle(
-      color: _cream,
-      fontSize: 13.5,
-      fontWeight: FontWeight.w800,
-      letterSpacing: 0.3,
-    ),
-  );
+  return Text(text,
+      style: const TextStyle(
+        color: _cream,
+        fontSize: 13.5,
+        fontWeight: FontWeight.w800,
+        letterSpacing: 0.3,
+      ));
 }
 
 Widget _comparisonRow(String aspect, String a, String b, String c) {
@@ -1899,16 +1753,13 @@ Widget _comparisonRow(String aspect, String a, String b, String c) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          flex: 2,
-          child: Text(
-            aspect,
-            style: const TextStyle(
-              color: _navy,
-              fontSize: 13.5,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+        Expanded(flex: 2,
+          child: Text(aspect,
+              style: const TextStyle(
+                color: _navy,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w700,
+              )),
         ),
         Expanded(flex: 3, child: _comparisonCell(a)),
         Expanded(flex: 3, child: _comparisonCell(b)),
@@ -1919,10 +1770,12 @@ Widget _comparisonRow(String aspect, String a, String b, String c) {
 }
 
 Widget _comparisonCell(String text) {
-  return Text(
-    text,
-    style: const TextStyle(color: _navySoft, fontSize: 12.5, height: 1.45),
-  );
+  return Text(text,
+      style: const TextStyle(
+        color: _navySoft,
+        fontSize: 12.5,
+        height: 1.45,
+      ));
 }
 
 // ---------------------------------------------------------------------------
@@ -1935,77 +1788,49 @@ Widget _section13Glossary() {
     subtitle: 'Fourteen terms you will encounter in any Form-shaped codebase.',
     body: Column(
       children: <Widget>[
-        _glossaryRow(
-          'Form',
-          'InheritedWidget that groups FormField descendants and exposes '
-              'a shared FormState through a GlobalKey or Form.of(context).',
-        ),
-        _glossaryRow(
-          'FormState',
-          'The State object behind Form. Holds the list of registered '
-              'fields and exposes validate(), save(), reset().',
-        ),
-        _glossaryRow(
-          'FormField<T>',
-          'Generic base class for any input that participates in Form. '
-              'Owns initialValue, validator, onSaved, autovalidateMode.',
-        ),
-        _glossaryRow(
-          'FormFieldState<T>',
-          'Per-field state — gives access to value, errorText, hasError, '
-              'didChange(), reset(), save(), validate().',
-        ),
-        _glossaryRow(
-          'TextFormField',
-          'The canonical FormField<String> implementation. Wraps a '
-              'TextField and forwards decoration + controller args.',
-        ),
-        _glossaryRow(
-          'AutovalidateMode',
-          'Enum: disabled / onUserInteraction / always (and the deprecated '
-              'never). Controls when validators run automatically.',
-        ),
-        _glossaryRow(
-          'validator',
-          'String? Function(T? value). Returns a human-readable message on '
-              'failure or null on success.',
-        ),
-        _glossaryRow(
-          'onSaved',
-          'void Function(T? value). Invoked by FormState.save() after a '
-              'successful validate() pass — your hook to copy values into a '
-              'model.',
-        ),
-        _glossaryRow(
-          'initialValue',
-          'The starting value when the field mounts; also the value reset() '
-              'returns to.',
-        ),
-        _glossaryRow(
-          'GlobalKey<FormState>',
-          'A long-lived key that lets non-descendant widgets call methods '
-              'on FormState (validate/save/reset).',
-        ),
-        _glossaryRow(
-          'Form.of(context)',
-          'Lookup helper that returns the nearest enclosing FormState. '
-              'Returns null when there is no Form ancestor.',
-        ),
-        _glossaryRow(
-          'errorText',
-          'The user-facing message rendered under a field when its '
-              'validator returned a non-null string.',
-        ),
-        _glossaryRow(
-          'InputDecoration',
-          'Visual decoration for inputs. Themed via InputDecorationTheme; '
-              'overrides via the decoration: argument of TextFormField.',
-        ),
-        _glossaryRow(
-          'decoration:',
-          'The TextFormField argument that flows through to InputDecorator '
-              'and renders the label, hint, error, icons and counter.',
-        ),
+        _glossaryRow('Form',
+            'InheritedWidget that groups FormField descendants and exposes '
+            'a shared FormState through a GlobalKey or Form.of(context).'),
+        _glossaryRow('FormState',
+            'The State object behind Form. Holds the list of registered '
+            'fields and exposes validate(), save(), reset().'),
+        _glossaryRow('FormField<T>',
+            'Generic base class for any input that participates in Form. '
+            'Owns initialValue, validator, onSaved, autovalidateMode.'),
+        _glossaryRow('FormFieldState<T>',
+            'Per-field state — gives access to value, errorText, hasError, '
+            'didChange(), reset(), save(), validate().'),
+        _glossaryRow('TextFormField',
+            'The canonical FormField<String> implementation. Wraps a '
+            'TextField and forwards decoration + controller args.'),
+        _glossaryRow('AutovalidateMode',
+            'Enum: disabled / onUserInteraction / always (and the deprecated '
+            'never). Controls when validators run automatically.'),
+        _glossaryRow('validator',
+            'String? Function(T? value). Returns a human-readable message on '
+            'failure or null on success.'),
+        _glossaryRow('onSaved',
+            'void Function(T? value). Invoked by FormState.save() after a '
+            'successful validate() pass — your hook to copy values into a '
+            'model.'),
+        _glossaryRow('initialValue',
+            'The starting value when the field mounts; also the value reset() '
+            'returns to.'),
+        _glossaryRow('GlobalKey<FormState>',
+            'A long-lived key that lets non-descendant widgets call methods '
+            'on FormState (validate/save/reset).'),
+        _glossaryRow('Form.of(context)',
+            'Lookup helper that returns the nearest enclosing FormState. '
+            'Returns null when there is no Form ancestor.'),
+        _glossaryRow('errorText',
+            'The user-facing message rendered under a field when its '
+            'validator returned a non-null string.'),
+        _glossaryRow('InputDecoration',
+            'Visual decoration for inputs. Themed via InputDecorationTheme; '
+            'overrides via the decoration: argument of TextFormField.'),
+        _glossaryRow('decoration:',
+            'The TextFormField argument that flows through to InputDecorator '
+            'and renders the label, hint, error, icons and counter.'),
       ],
     ),
   );
@@ -2022,26 +1847,22 @@ Widget _glossaryRow(String term, String definition) {
       children: <Widget>[
         SizedBox(
           width: 180.0,
-          child: Text(
-            term,
-            style: const TextStyle(
-              color: _navy,
-              fontSize: 13.5,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text(term,
+              style: const TextStyle(
+                color: _navy,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'monospace',
+              )),
         ),
         const SizedBox(width: 12.0),
         Expanded(
-          child: Text(
-            definition,
-            style: const TextStyle(
-              color: _navySoft,
-              fontSize: 13.0,
-              height: 1.5,
-            ),
-          ),
+          child: Text(definition,
+              style: const TextStyle(
+                color: _navySoft,
+                fontSize: 13.0,
+                height: 1.5,
+              )),
         ),
       ],
     ),
@@ -2065,15 +1886,13 @@ Widget _section14Epilogue() {
           children: <Widget>[
             const Icon(Icons.check_circle_outline, color: _sage, size: 28.0),
             const SizedBox(width: 12.0),
-            const Text(
-              'Epilogue',
-              style: TextStyle(
-                color: _cream,
-                fontSize: 22.0,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.4,
-              ),
-            ),
+            const Text('Epilogue',
+                style: TextStyle(
+                  color: _cream,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0.4,
+                )),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -2099,14 +1918,12 @@ Widget _section14Epilogue() {
             children: <Widget>[
               const Icon(Icons.bookmark_outline, color: _sage, size: 18.0),
               const SizedBox(width: 8.0),
-              const Text(
-                'End of Form deep dive',
-                style: TextStyle(
-                  color: _cream,
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              const Text('End of Form deep dive',
+                  style: TextStyle(
+                    color: _cream,
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w700,
+                  )),
             ],
           ),
         ),
@@ -2146,46 +1963,38 @@ Widget _sectionShell({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 6.0,
-              ),
+                  horizontal: 10.0, vertical: 6.0),
               decoration: BoxDecoration(
                 color: _sage.withValues(alpha: 0.35),
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: _navy,
-                  fontSize: 13.0,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                    color: _navy,
+                    fontSize: 13.0,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w800,
+                  )),
             ),
             const SizedBox(width: 14.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: _navy,
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.3,
-                    ),
-                  ),
+                  Text(title,
+                      style: const TextStyle(
+                        color: _navy,
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.3,
+                      )),
                   const SizedBox(height: 6.0),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(
-                      color: _navySoft,
-                      fontSize: 14.0,
-                      height: 1.5,
-                    ),
-                  ),
+                  Text(subtitle,
+                      style: const TextStyle(
+                        color: _navySoft,
+                        fontSize: 14.0,
+                        height: 1.5,
+                      )),
                 ],
               ),
             ),
@@ -2232,14 +2041,12 @@ Widget _previewBox(String title, Widget child) {
           children: <Widget>[
             const Icon(Icons.visibility_outlined, color: _sageDeep, size: 18.0),
             const SizedBox(width: 8.0),
-            Text(
-              title,
-              style: const TextStyle(
-                color: _navy,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(title,
+                style: const TextStyle(
+                  color: _navy,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                )),
           ],
         ),
         const SizedBox(height: 14.0),

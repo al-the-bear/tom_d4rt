@@ -30,8 +30,7 @@
 
 import 'package:flutter/material.dart';
 
-dynamic build(BuildContext context) =>
-    const MaterialBannerClosedReasonDemoApp();
+dynamic build(BuildContext context) => const MaterialBannerClosedReasonDemoApp();
 
 class MaterialBannerClosedReasonDemoApp extends StatelessWidget {
   const MaterialBannerClosedReasonDemoApp({super.key});
@@ -138,7 +137,10 @@ class _Recipe {
 }
 
 class _GlossaryEntry {
-  const _GlossaryEntry({required this.term, required this.definition});
+  const _GlossaryEntry({
+    required this.term,
+    required this.definition,
+  });
 
   final String term;
   final String definition;
@@ -202,7 +204,10 @@ class _HeaderBanner extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
-          colors: <Color>[scheme.primary, scheme.tertiary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.tertiary,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -402,7 +407,8 @@ class _ReasonCatalogueSection extends StatelessWidget {
               spacing: 16,
               runSpacing: 16,
               children: <Widget>[
-                for (final w in cards) SizedBox(width: 320, child: w),
+                for (final w in cards)
+                  SizedBox(width: 320, child: w),
               ],
             );
           },
@@ -670,7 +676,8 @@ class _AnatomySection extends StatelessWidget {
             ),
             _AnatomyCallout(
               label: 'action.onPressed',
-              note: 'Tapping resolves the close future with reason action.',
+              note:
+                  'Tapping resolves the close future with reason action.',
             ),
           ],
         ),
@@ -695,11 +702,17 @@ class _AnatomySection extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           onPressed: null,
-          child: Text('DISMISS', style: TextStyle(color: scheme.primary)),
+          child: Text(
+            'DISMISS',
+            style: TextStyle(color: scheme.primary),
+          ),
         ),
         TextButton(
           onPressed: null,
-          child: Text('SYNC NOW', style: TextStyle(color: scheme.primary)),
+          child: Text(
+            'SYNC NOW',
+            style: TextStyle(color: scheme.primary),
+          ),
         ),
       ],
     );
@@ -731,10 +744,7 @@ class _AnatomySection extends StatelessWidget {
     return MaterialBanner(
       backgroundColor: scheme.errorContainer,
       dividerColor: scheme.error.withValues(alpha: 0.30),
-      leading: Icon(
-        Icons.warning_amber_outlined,
-        color: scheme.onErrorContainer,
-      ),
+      leading: Icon(Icons.warning_amber_outlined, color: scheme.onErrorContainer),
       content: Text(
         'A required permission was revoked. Re-grant access to keep syncing.',
         style: TextStyle(color: scheme.onErrorContainer),
@@ -942,7 +952,11 @@ class _MappingTableSection extends StatelessWidget {
             children: <Widget>[
               _MappingHeader(scheme: scheme),
               for (int i = 0; i < _rows.length; i++)
-                _MappingRowView(row: _rows[i], scheme: scheme, zebra: i.isOdd),
+                _MappingRowView(
+                  row: _rows[i],
+                  scheme: scheme,
+                  zebra: i.isOdd,
+                ),
             ],
           ),
         ),
@@ -1006,7 +1020,10 @@ class _MappingRowView extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: scheme.primaryContainer,
                 borderRadius: BorderRadius.circular(999),
@@ -1029,14 +1046,18 @@ class _MappingRowView extends StatelessWidget {
               children: <Widget>[
                 Icon(
                   row.shouldRestore ? Icons.replay : Icons.block,
-                  color: row.shouldRestore ? scheme.tertiary : scheme.error,
+                  color: row.shouldRestore
+                      ? scheme.tertiary
+                      : scheme.error,
                   size: 18,
                 ),
                 const SizedBox(width: 6),
                 Text(
                   row.shouldRestore ? 'maybe' : 'no',
                   style: TextStyle(
-                    color: row.shouldRestore ? scheme.tertiary : scheme.error,
+                    color: row.shouldRestore
+                        ? scheme.tertiary
+                        : scheme.error,
                     fontWeight: FontWeight.w700,
                     fontSize: 12,
                   ),
@@ -1202,7 +1223,11 @@ class _StateNodeChip extends StatelessWidget {
           Text(
             node.subtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(color: node.color, fontSize: 11, height: 1.25),
+            style: TextStyle(
+              color: node.color,
+              fontSize: 11,
+              height: 1.25,
+            ),
           ),
         ],
       ),
@@ -1557,11 +1582,13 @@ class _GlossarySection extends StatelessWidget {
     ),
     _GlossaryEntry(
       term: 'OverflowBarAlignment',
-      definition: 'Used with overflowAlignment to position wrapped actions.',
+      definition:
+          'Used with overflowAlignment to position wrapped actions.',
     ),
     _GlossaryEntry(
       term: 'reason.action',
-      definition: 'User tapped an action button. Positive engagement signal.',
+      definition:
+          'User tapped an action button. Positive engagement signal.',
     ),
   ];
 
@@ -1662,7 +1689,10 @@ class _FinalSummaryCard extends StatelessWidget {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primaryContainer, scheme.tertiaryContainer],
+          colors: <Color>[
+            scheme.primaryContainer,
+            scheme.tertiaryContainer,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

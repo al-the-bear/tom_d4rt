@@ -27,26 +27,14 @@ dynamic build(BuildContext context) {
   );
 
   final DoubleProperty namedProp = DoubleProperty('width', 320.0, unit: 'px');
-  final DoubleProperty defaultedProp = DoubleProperty(
-    'scale',
-    1.0,
-    defaultValue: 1.0,
-  );
-  final DoubleProperty nullProp = DoubleProperty(
-    'height',
-    null,
-    ifNull: 'unbounded',
-  );
-  final DoubleProperty hiddenNameProp = DoubleProperty(
-    'density',
-    2.5,
-    showName: false,
-  );
-  final DoubleProperty fineProp = DoubleProperty(
-    'debugValue',
-    1.0e-9,
-    level: DiagnosticLevel.fine,
-  );
+  final DoubleProperty defaultedProp =
+      DoubleProperty('scale', 1.0, defaultValue: 1.0);
+  final DoubleProperty nullProp =
+      DoubleProperty('height', null, ifNull: 'unbounded');
+  final DoubleProperty hiddenNameProp =
+      DoubleProperty('density', 2.5, showName: false);
+  final DoubleProperty fineProp =
+      DoubleProperty('debugValue', 1.0e-9, level: DiagnosticLevel.fine);
   final DoubleProperty errorProp = DoubleProperty(
     'corruption',
     double.nan,
@@ -89,7 +77,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF512DA8), Color(0xFFAD1457)],
+        colors: [
+          Color(0xFF1A237E),
+          Color(0xFF512DA8),
+          Color(0xFFAD1457),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -122,7 +114,11 @@ dynamic build(BuildContext context) {
                   width: 1.2,
                 ),
               ),
-              child: Icon(Icons.linear_scale, color: Colors.white, size: 40.0),
+              child: Icon(
+                Icons.linear_scale,
+                color: Colors.white,
+                size: 40.0,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -167,10 +163,8 @@ dynamic build(BuildContext context) {
           children: [
             _heroPill('toString', heroProp.toString()),
             SizedBox(width: 8.0),
-            _heroPill(
-              'isFiltered(info)',
-              heroProp.isFiltered(DiagnosticLevel.info).toString(),
-            ),
+            _heroPill('isFiltered(info)',
+                heroProp.isFiltered(DiagnosticLevel.info).toString()),
           ],
         ),
       ],
@@ -362,15 +356,13 @@ dynamic build(BuildContext context) {
       examples: <_PropExample>[
         _PropExample(
           label: "tooltip: 'fraction in [0..1]'",
-          property: DoubleProperty(
-            'opacity',
-            0.5,
-            tooltip: 'fraction in [0..1]',
-          ),
+          property: DoubleProperty('opacity', 0.5,
+              tooltip: 'fraction in [0..1]'),
         ),
         _PropExample(
           label: "tooltip: 'logical pixels'",
-          property: DoubleProperty('size', 24.0, tooltip: 'logical pixels'),
+          property:
+              DoubleProperty('size', 24.0, tooltip: 'logical pixels'),
         ),
         _PropExample(
           label: "no tooltip",
@@ -415,15 +407,18 @@ dynamic build(BuildContext context) {
       examples: <_PropExample>[
         _PropExample(
           label: 'showName: true (default)',
-          property: DoubleProperty('density', 2.5, showName: true),
+          property:
+              DoubleProperty('density', 2.5, showName: true),
         ),
         _PropExample(
           label: 'showName: false',
-          property: DoubleProperty('density', 2.5, showName: false),
+          property:
+              DoubleProperty('density', 2.5, showName: false),
         ),
         _PropExample(
           label: 'showName: false + unit',
-          property: DoubleProperty('width', 320.0, showName: false, unit: 'px'),
+          property: DoubleProperty('width', 320.0,
+              showName: false, unit: 'px'),
         ),
       ],
     ),
@@ -444,15 +439,18 @@ dynamic build(BuildContext context) {
         ),
         _PropExample(
           label: 'level: DiagnosticLevel.debug',
-          property: DoubleProperty('c', 3.3, level: DiagnosticLevel.debug),
+          property:
+              DoubleProperty('c', 3.3, level: DiagnosticLevel.debug),
         ),
         _PropExample(
           label: 'level: DiagnosticLevel.warning',
-          property: DoubleProperty('d', 4.4, level: DiagnosticLevel.warning),
+          property: DoubleProperty('d', 4.4,
+              level: DiagnosticLevel.warning),
         ),
         _PropExample(
           label: 'level: DiagnosticLevel.error',
-          property: DoubleProperty('e', 5.5, level: DiagnosticLevel.error),
+          property:
+              DoubleProperty('e', 5.5, level: DiagnosticLevel.error),
         ),
       ],
     ),
@@ -485,7 +483,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.bolt, color: Colors.deepOrange.shade700, size: 28.0),
+            Icon(Icons.bolt,
+                color: Colors.deepOrange.shade700, size: 28.0),
             SizedBox(width: 10.0),
             Text(
               'DoubleProperty.lazy',
@@ -580,11 +579,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.terminal,
-              color: Colors.greenAccent.shade400,
-              size: 22.0,
-            ),
+            Icon(Icons.terminal,
+                color: Colors.greenAccent.shade400, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Diagnostics dump preview',
@@ -616,9 +612,8 @@ dynamic build(BuildContext context) {
             color: Colors.black.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(6.0),
             border: Border.all(
-              color: Colors.greenAccent.withValues(alpha: 0.3),
-              width: 1.0,
-            ),
+                color: Colors.greenAccent.withValues(alpha: 0.3),
+                width: 1.0),
           ),
           child: Text(
             '// dumpProps.forEach((p) => print(p.toString()));',
@@ -660,11 +655,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.red.shade800,
-              size: 28.0,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.red.shade800, size: 28.0),
             SizedBox(width: 10.0),
             Text(
               'Pitfalls',
@@ -738,11 +730,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.compare_arrows,
-              color: Colors.indigo.shade700,
-              size: 26.0,
-            ),
+            Icon(Icons.compare_arrows,
+                color: Colors.indigo.shade700, size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'Related Property classes',
@@ -823,7 +812,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.menu_book, color: Colors.green.shade800, size: 24.0),
+            Icon(Icons.menu_book,
+                color: Colors.green.shade800, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'Quick reference',
@@ -897,7 +887,8 @@ dynamic build(BuildContext context) {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.greenAccent.withValues(alpha: 0.7),
+                    color:
+                        Colors.greenAccent.withValues(alpha: 0.7),
                     blurRadius: 6.0,
                   ),
                 ],
@@ -1104,7 +1095,11 @@ Widget _parameterCard({
         SizedBox(height: 10.0),
         Text(
           summary,
-          style: TextStyle(fontSize: 13.0, color: Colors.black87, height: 1.45),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.black87,
+            height: 1.45,
+          ),
         ),
         SizedBox(height: 12.0),
         for (final _PropExample ex in examples)
@@ -1134,9 +1129,7 @@ Widget _parameterCard({
                 SizedBox(height: 6.0),
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 6.0,
-                  ),
+                      horizontal: 10.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade900,
                     borderRadius: BorderRadius.circular(6.0),
@@ -1158,7 +1151,10 @@ Widget _parameterCard({
                       Colors.indigo,
                     ),
                     SizedBox(width: 6.0),
-                    _miniBadge('level=${ex.property.level.name}', Colors.teal),
+                    _miniBadge(
+                      'level=${ex.property.level.name}',
+                      Colors.teal,
+                    ),
                   ],
                 ),
               ],
@@ -1308,7 +1304,10 @@ Widget _comparisonRow(
               SizedBox(height: 2.0),
               Text(
                 desc,
-                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 11.5,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ],
           ),

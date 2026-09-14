@@ -547,7 +547,14 @@ Widget _buildPropertyAnatomy() {
       Wrap(
         spacing: 10,
         runSpacing: 10,
-        children: tiles.map((w) => SizedBox(width: 320, child: w)).toList(),
+        children: tiles
+            .map(
+              (w) => SizedBox(
+                width: 320,
+                child: w,
+              ),
+            )
+            .toList(),
       ),
     ],
   );
@@ -712,7 +719,9 @@ Widget _buildBorderShowcase() {
       'thick top only',
       BoxDecoration(
         color: cFlagstone,
-        border: const Border(top: BorderSide(color: cReliquaryGold, width: 10)),
+        border: const Border(
+          top: BorderSide(color: cReliquaryGold, width: 10),
+        ),
       ),
     ),
   );
@@ -950,7 +959,11 @@ Widget _buildBoxShadowShowcase() {
         color: cChalkLight,
         borderRadius: BorderRadius.circular(2),
         boxShadow: const <BoxShadow>[
-          BoxShadow(color: cTransept, blurRadius: 0, offset: Offset(4, 4)),
+          BoxShadow(
+            color: cTransept,
+            blurRadius: 0,
+            offset: Offset(4, 4),
+          ),
         ],
       ),
     ),
@@ -1375,15 +1388,14 @@ Widget _buildLerpAndCopyWith() {
 
   // ACTUAL lerp call --- the canonical "halfway" decoration.
   final BoxDecoration mid =
-      BoxDecoration.lerp(a, b, 0.5) ?? const BoxDecoration(color: cTracery);
+      BoxDecoration.lerp(a, b, 0.5) ??
+      const BoxDecoration(color: cTracery);
 
   // ACTUAL copyWith call --- take A but replace its color with gold.
   final BoxDecoration aGold = a.copyWith(color: cReliquaryGold);
 
-  print(
-    ' BoxDecoration.lerp(a, b, 0.5) returned: '
-    '${mid.color}',
-  );
+  print(' BoxDecoration.lerp(a, b, 0.5) returned: '
+      '${mid.color}');
   print(' a.copyWith(color: gold) returned: ${aGold.color}');
 
   Widget tile(String label, BoxDecoration deco) {
@@ -1448,59 +1460,59 @@ Widget _buildDoAvoidCallouts() {
       'kind': 'DO',
       'rule':
           'Use BoxDecoration on Container.decoration. It is the path the '
-          'framework optimises and the one the rest of the ecosystem '
-          'expects.',
+              'framework optimises and the one the rest of the ecosystem '
+              'expects.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Combining `borderRadius` with `shape: BoxShape.circle`. The '
-          'engine throws an assertion --- a circle has no corners.',
+              'engine throws an assertion --- a circle has no corners.',
     },
     {
       'kind': 'DO',
       'rule':
           'Prefer `BoxDecoration.lerp(a, b, t)` over hand-tweening color, '
-          'border and radius separately --- it handles each property '
-          'piecewise for you.',
+              'border and radius separately --- it handles each property '
+              'piecewise for you.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Setting BOTH `Container.color` and `decoration: BoxDecoration(...)` '
-          'on the same Container. Flutter will assert; pick one.',
+              'on the same Container. Flutter will assert; pick one.',
     },
     {
       'kind': 'DO',
       'rule':
           'Use `image: DecorationImage(...)` to put a background bitmap on '
-          'top of the gradient. Set `fit: BoxFit.cover` for hero images.',
+              'top of the gradient. Set `fit: BoxFit.cover` for hero images.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Stacking many heavy `boxShadow`s with large blur radius on long '
-          'lists. Each shadow is a separate composite-time operation.',
+              'lists. Each shadow is a separate composite-time operation.',
     },
     {
       'kind': 'DO',
       'rule':
           'Reach for `decoration.copyWith(...)` when you want to derive a '
-          'variant (hover, selected) without re-typing every field.',
+              'variant (hover, selected) without re-typing every field.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Building a fresh BoxDecoration inside `build()` every frame for a '
-          'long-lived static element. Cache it as a `const` or a final '
-          'top-level token.',
+              'long-lived static element. Cache it as a `const` or a final '
+              'top-level token.',
     },
     {
       'kind': 'DO',
       'rule':
           'Use `backgroundBlendMode` only when there is a layer below to '
-          'blend against; on a top-level Container it has nothing to '
-          'mix with.',
+              'blend against; on a top-level Container it has nothing to '
+              'mix with.',
     },
   ];
 
@@ -1525,7 +1537,9 @@ Widget _buildDoAvoidCallouts() {
     tiles.add(
       Container(
         width: 320,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: IntrinsicHeight(
@@ -1714,26 +1728,22 @@ Widget _buildGlossary() {
   final entries = <Map<String, String>>[
     {
       'term': 'BoxDecoration',
-      'def':
-          'Painting recipe describing how a rectangular box is filled, '
+      'def': 'Painting recipe describing how a rectangular box is filled, '
           'gradient-painted, image-painted, bordered and shadowed.',
     },
     {
       'term': 'DecoratedBox',
-      'def':
-          'The widget that actually paints a Decoration. Container '
+      'def': 'The widget that actually paints a Decoration. Container '
           'wraps a DecoratedBox internally when you pass `decoration:`.',
     },
     {
       'term': 'Decoration',
-      'def':
-          'Abstract base class. BoxDecoration is the most common '
+      'def': 'Abstract base class. BoxDecoration is the most common '
           'concrete subclass; ShapeDecoration is the other common one.',
     },
     {
       'term': 'BoxShape',
-      'def':
-          'enum { rectangle, circle }. Selects whether the fill is '
+      'def': 'enum { rectangle, circle }. Selects whether the fill is '
           'clipped to a rectangle or to the inscribed circle.',
     },
     {
@@ -1742,26 +1752,22 @@ Widget _buildGlossary() {
     },
     {
       'term': 'BoxShadow',
-      'def':
-          'Tuple of (color, blurRadius, spreadRadius, offset, blurStyle). '
+      'def': 'Tuple of (color, blurRadius, spreadRadius, offset, blurStyle). '
           'Multiple shadows are painted in list order, back-to-front.',
     },
     {
       'term': 'Gradient',
-      'def':
-          'Abstract; concrete subclasses are LinearGradient, '
+      'def': 'Abstract; concrete subclasses are LinearGradient, '
           'RadialGradient, SweepGradient.',
     },
     {
       'term': 'BackgroundBlendMode',
-      'def':
-          'BlendMode applied to the fill (color + gradient) layer when '
+      'def': 'BlendMode applied to the fill (color + gradient) layer when '
           'compositing against what is painted below this DecoratedBox.',
     },
     {
       'term': 'BoxBorder',
-      'def':
-          'Abstract border type. Border (uniform sides) and '
+      'def': 'Abstract border type. Border (uniform sides) and '
           'BorderDirectional (start/end aware) are concrete subclasses.',
     },
     {
@@ -1770,38 +1776,32 @@ Widget _buildGlossary() {
     },
     {
       'term': 'lerp(a,b,t)',
-      'def':
-          'Linear interpolation between two BoxDecorations. Returns '
+      'def': 'Linear interpolation between two BoxDecorations. Returns '
           'null if both inputs are null.',
     },
     {
       'term': 'copyWith',
-      'def':
-          'Returns a new BoxDecoration where named fields are replaced '
+      'def': 'Returns a new BoxDecoration where named fields are replaced '
           'and others copied.',
     },
     {
       'term': 'getClipPath',
-      'def':
-          'Path describing the outline; used by clippers and ink '
+      'def': 'Path describing the outline; used by clippers and ink '
           'splash routing.',
     },
     {
       'term': 'hitTest',
-      'def':
-          'Predicate the framework calls to decide if a point is '
+      'def': 'Predicate the framework calls to decide if a point is '
           'inside the decoration\'s painted area.',
     },
     {
       'term': 'DecorationImage',
-      'def':
-          'A bitmap painted as part of the decoration; stacks over '
+      'def': 'A bitmap painted as part of the decoration; stacks over '
           'the gradient and under the border.',
     },
     {
       'term': 'spreadRadius',
-      'def':
-          'Adds (or removes, when negative) extra size to a BoxShadow '
+      'def': 'Adds (or removes, when negative) extra size to a BoxShadow '
           'before blurring.',
     },
   ];
@@ -1896,7 +1896,11 @@ Widget _buildRecapFooter() {
           'Reach for lerp when you want a midpoint, and copyWith when '
           'you want a variant. The cathedral is built one stone at a '
           'time --- and BoxDecoration is the chisel.',
-          style: TextStyle(color: cChalkLight, fontSize: 12, height: 1.5),
+          style: TextStyle(
+            color: cChalkLight,
+            fontSize: 12,
+            height: 1.5,
+          ),
         ),
       ],
     ),

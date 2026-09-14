@@ -29,11 +29,7 @@ Widget _scSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _scLightPurple, width: 1.5),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x1A4A148C),
-          blurRadius: 8,
-          offset: Offset(0, 3),
-        ),
+        BoxShadow(color: Color(0x1A4A148C), blurRadius: 8, offset: Offset(0, 3)),
       ],
     ),
     child: Column(
@@ -45,14 +41,9 @@ Widget _scSection(String title, List<Widget> children) {
             color: _scPlum,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _scWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _scWhite, fontSize: 15, fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -64,24 +55,17 @@ Widget _scSection(String title, List<Widget> children) {
 Widget _scLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _scDarkPurple,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _scDarkPurple, fontSize: 13, fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _scBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _scGray, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(color: _scGray, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -94,10 +78,8 @@ Widget _scChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(
-      label,
-      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(label,
+        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -109,20 +91,13 @@ Widget _scInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 130,
-          child: Text(
-            key,
-            style: const TextStyle(
-              color: _scDarkPurple,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(key,
+              style: const TextStyle(
+                  color: _scDarkPurple, fontSize: 12, fontWeight: FontWeight.w600)),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(color: _scGray, fontSize: 12),
-          ),
+          child: Text(value,
+              style: const TextStyle(color: _scGray, fontSize: 12)),
         ),
       ],
     ),
@@ -157,7 +132,10 @@ dynamic build(BuildContext context) {
       ),
     ),
     home: Scaffold(
-      appBar: AppBar(title: const Text('Scribe'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Scribe'),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(
@@ -197,26 +175,17 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x404A148C),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
+        BoxShadow(color: Color(0x404A148C), blurRadius: 12, offset: Offset(0, 4)),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.edit_note, size: 52, color: _scWhite),
         const SizedBox(height: 12),
-        const Text(
-          'Scribe',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: _scWhite,
-            fontSize: 24,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        const Text('Scribe',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: _scWhite, fontSize: 24, fontWeight: FontWeight.w800)),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -273,34 +242,18 @@ Widget _buildWhatIsIt() {
       ),
       child: Column(
         children: [
-          _buildUserCard(
-            'EditableText',
-            'The core text editing widget in Flutter. '
-                'Uses Scribe to connect to the platform keyboard.',
-            Icons.text_fields,
-            _scPlum,
-          ),
-          _buildUserCard(
-            'TextField / TextFormField',
-            'Higher-level widgets that '
-                'wrap EditableText. Scribe runs underneath.',
-            Icons.input,
-            _scMedPurple,
-          ),
-          _buildUserCard(
-            'CupertinoTextField',
-            'iOS-styled text field. Same '
-                'Scribe connection under the hood.',
-            Icons.phone_iphone,
-            _scAccentPink,
-          ),
-          _buildUserCard(
-            'Custom Text Editors',
-            'Any widget that needs direct '
-                'keyboard input can use Scribe.',
-            Icons.code,
-            _scAccentTeal,
-          ),
+          _buildUserCard('EditableText', 'The core text editing widget in Flutter. '
+              'Uses Scribe to connect to the platform keyboard.',
+              Icons.text_fields, _scPlum),
+          _buildUserCard('TextField / TextFormField', 'Higher-level widgets that '
+              'wrap EditableText. Scribe runs underneath.',
+              Icons.input, _scMedPurple),
+          _buildUserCard('CupertinoTextField', 'iOS-styled text field. Same '
+              'Scribe connection under the hood.',
+              Icons.phone_iphone, _scAccentPink),
+          _buildUserCard('Custom Text Editors', 'Any widget that needs direct '
+              'keyboard input can use Scribe.',
+              Icons.code, _scAccentTeal),
         ],
       ),
     ),
@@ -324,15 +277,11 @@ Widget _buildUserCard(String name, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(desc, style: const TextStyle(color: _scGray, fontSize: 11)),
+              Text(name,
+                  style: TextStyle(
+                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
+              Text(desc,
+                  style: const TextStyle(color: _scGray, fontSize: 11)),
             ],
           ),
         ),
@@ -366,14 +315,9 @@ Widget _buildScribeVsTextInputClient() {
               children: [
                 const Icon(Icons.history, size: 24, color: _scGray),
                 const SizedBox(height: 6),
-                const Text(
-                  'TextInputClient',
-                  style: TextStyle(
-                    color: _scGray,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('TextInputClient',
+                    style: TextStyle(
+                        color: _scGray, fontSize: 13, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 _scBody('Original interface'),
                 _scBody('updateEditingValue() — full state replacement'),
@@ -398,14 +342,9 @@ Widget _buildScribeVsTextInputClient() {
               children: [
                 const Icon(Icons.auto_awesome, size: 24, color: _scPlum),
                 const SizedBox(height: 6),
-                const Text(
-                  'Scribe ★',
-                  style: TextStyle(
-                    color: _scPlum,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Scribe ★',
+                    style: TextStyle(
+                        color: _scPlum, fontSize: 13, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 _scBody('Modern mixin replacement'),
                 _scBody('Delta-based updates (TextEditingDelta)'),
@@ -441,49 +380,31 @@ Widget _buildTextInputConnection() {
     ),
     _scDivider(),
     // Connection pipeline
-    _buildConnectionStep(
-      1,
-      'Widget requests focus',
-      'User taps on the text field, triggering focus acquisition.',
-      Icons.touch_app,
-      _scPlum,
-    ),
+    _buildConnectionStep(1, 'Widget requests focus',
+        'User taps on the text field, triggering focus acquisition.',
+        Icons.touch_app, _scPlum),
     _buildConnectionArrow(),
-    _buildConnectionStep(
-      2,
-      'Attach to TextInput',
-      'TextInput.attach(scribeInstance, config) creates a TextInputConnection.',
-      Icons.link,
-      _scMedPurple,
-    ),
+    _buildConnectionStep(2, 'Attach to TextInput',
+        'TextInput.attach(scribeInstance, config) creates a TextInputConnection.',
+        Icons.link, _scMedPurple),
     _buildConnectionArrow(),
-    _buildConnectionStep(
-      3,
-      'Show keyboard',
-      'connection.show() asks the platform to display the soft keyboard.',
-      Icons.keyboard,
-      _scAccentPink,
-    ),
+    _buildConnectionStep(3, 'Show keyboard',
+        'connection.show() asks the platform to display the soft keyboard.',
+        Icons.keyboard, _scAccentPink),
     _buildConnectionArrow(),
-    _buildConnectionStep(
-      4,
-      'Bidirectional communication',
-      'Platform sends text changes → Scribe callbacks fire.\n'
-          'Widget sends selection/value → platform updates IME.',
-      Icons.swap_horiz,
-      _scAccentTeal,
-    ),
+    _buildConnectionStep(4, 'Bidirectional communication',
+        'Platform sends text changes → Scribe callbacks fire.\n'
+        'Widget sends selection/value → platform updates IME.',
+        Icons.swap_horiz, _scAccentTeal),
     _buildConnectionArrow(),
-    _buildConnectionStep(
-      5,
-      'Detach on blur',
-      'connection.close() detaches when the widget loses focus.',
-      Icons.link_off,
-      _scGray,
-    ),
+    _buildConnectionStep(5, 'Detach on blur',
+        'connection.close() detaches when the widget loses focus.',
+        Icons.link_off, _scGray),
     _scDivider(),
     _scLabel('TextInputConfiguration'),
-    _scBody('When attaching, a TextInputConfiguration specifies:'),
+    _scBody(
+      'When attaching, a TextInputConfiguration specifies:',
+    ),
     _scInfoRow('inputType', 'TextInputType (text, number, email, url, etc.)'),
     _scInfoRow('obscureText', 'Whether input should be masked (passwords)'),
     _scInfoRow('autocorrect', 'Enable/disable autocorrection'),
@@ -494,12 +415,7 @@ Widget _buildTextInputConnection() {
 }
 
 Widget _buildConnectionStep(
-  int num,
-  String title,
-  String desc,
-  IconData icon,
-  Color color,
-) {
+    int num, String title, String desc, IconData icon, Color color) {
   return Container(
     margin: const EdgeInsets.only(bottom: 2),
     padding: const EdgeInsets.all(10),
@@ -514,14 +430,9 @@ Widget _buildConnectionStep(
           height: 32,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: _scWhite,
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: _scWhite, fontSize: 13, fontWeight: FontWeight.w800)),
           ),
         ),
         const SizedBox(width: 10),
@@ -531,15 +442,11 @@ Widget _buildConnectionStep(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(desc, style: const TextStyle(color: _scGray, fontSize: 11)),
+              Text(title,
+                  style: TextStyle(
+                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
+              Text(desc,
+                  style: const TextStyle(color: _scGray, fontSize: 11)),
             ],
           ),
         ),
@@ -582,9 +489,7 @@ Widget _buildDeltaBasedUpdates() {
           _buildDeltaExample('Before:', 'Hello Worl|', _scGray),
           const Icon(Icons.arrow_downward, size: 16, color: _scGray),
           _buildDeltaExample('Platform sends:', 'Hello World|', _scAccentPink),
-          _scBody(
-            '→ Entire string "Hello World" transmitted + cursor position',
-          ),
+          _scBody('→ Entire string "Hello World" transmitted + cursor position'),
           _scBody('→ Widget must diff old vs new to detect what changed'),
         ],
       ),
@@ -628,30 +533,14 @@ Widget _buildDeltaBasedUpdates() {
     ),
     _scDivider(),
     _scLabel('Delta Types'),
-    _buildDeltaTypeCard(
-      'TextEditingDeltaInsertion',
-      'Text was inserted at a position',
-      Icons.add,
-      _scAccentTeal,
-    ),
-    _buildDeltaTypeCard(
-      'TextEditingDeltaDeletion',
-      'Text was deleted from a range',
-      Icons.remove,
-      _scAccentPink,
-    ),
-    _buildDeltaTypeCard(
-      'TextEditingDeltaReplacement',
-      'Text range was replaced with new text',
-      Icons.find_replace,
-      _scAccentAmber,
-    ),
-    _buildDeltaTypeCard(
-      'TextEditingDeltaNonTextUpdate',
-      'Only selection/composing changed, no text change',
-      Icons.select_all,
-      _scMedPurple,
-    ),
+    _buildDeltaTypeCard('TextEditingDeltaInsertion', 'Text was inserted at a position',
+        Icons.add, _scAccentTeal),
+    _buildDeltaTypeCard('TextEditingDeltaDeletion', 'Text was deleted from a range',
+        Icons.remove, _scAccentPink),
+    _buildDeltaTypeCard('TextEditingDeltaReplacement', 'Text range was replaced with new text',
+        Icons.find_replace, _scAccentAmber),
+    _buildDeltaTypeCard('TextEditingDeltaNonTextUpdate', 'Only selection/composing changed, no text change',
+        Icons.select_all, _scMedPurple),
   ]);
 }
 
@@ -660,14 +549,9 @@ Widget _buildDeltaExample(String label, String text, Color color) {
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            color: color,
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                color: color, fontSize: 11, fontWeight: FontWeight.w600)),
         const SizedBox(width: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -675,26 +559,16 @@ Widget _buildDeltaExample(String label, String text, Color color) {
             color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            text,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: color, fontSize: 12, fontFamily: 'monospace')),
         ),
       ],
     ),
   );
 }
 
-Widget _buildDeltaTypeCard(
-  String name,
-  String desc,
-  IconData icon,
-  Color color,
-) {
+Widget _buildDeltaTypeCard(String name, String desc, IconData icon, Color color) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6),
     padding: const EdgeInsets.all(10),
@@ -711,16 +585,12 @@ Widget _buildDeltaTypeCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'monospace',
-                ),
-              ),
-              Text(desc, style: const TextStyle(color: _scGray, fontSize: 11)),
+              Text(name,
+                  style: TextStyle(
+                      color: color, fontSize: 11, fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace')),
+              Text(desc,
+                  style: const TextStyle(color: _scGray, fontSize: 11)),
             ],
           ),
         ),
@@ -748,34 +618,14 @@ Widget _buildSelectionHandling() {
     _scDivider(),
     // Selection visualization
     _scLabel('Selection Scenarios'),
-    _buildSelectionVisual(
-      'Cursor (no selection)',
-      'Hello World',
-      11,
-      11,
-      'base == extent → just a blinking cursor',
-    ),
-    _buildSelectionVisual(
-      'Forward selection',
-      'Hello World',
-      0,
-      5,
-      'base < extent → "Hello" selected left-to-right',
-    ),
-    _buildSelectionVisual(
-      'Backward selection',
-      'Hello World',
-      11,
-      6,
-      'base > extent → selected right-to-left',
-    ),
-    _buildSelectionVisual(
-      'Full selection',
-      'Hello World',
-      0,
-      11,
-      'Select All → entire text highlighted',
-    ),
+    _buildSelectionVisual('Cursor (no selection)', 'Hello World',
+        11, 11, 'base == extent → just a blinking cursor'),
+    _buildSelectionVisual('Forward selection', 'Hello World',
+        0, 5, 'base < extent → "Hello" selected left-to-right'),
+    _buildSelectionVisual('Backward selection', 'Hello World',
+        11, 6, 'base > extent → selected right-to-left'),
+    _buildSelectionVisual('Full selection', 'Hello World',
+        0, 11, 'Select All → entire text highlighted'),
     _scDivider(),
     _scBody(
       'Scribe reports selection changes back to the platform so the IME '
@@ -786,12 +636,7 @@ Widget _buildSelectionHandling() {
 }
 
 Widget _buildSelectionVisual(
-  String title,
-  String text,
-  int base,
-  int extent,
-  String desc,
-) {
+    String title, String text, int base, int extent, String desc) {
   final int start = base < extent ? base : extent;
   final int end = base < extent ? extent : base;
   final bool isCursor = base == extent;
@@ -806,14 +651,9 @@ Widget _buildSelectionVisual(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            color: _scDarkPurple,
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text(title,
+            style: const TextStyle(
+                color: _scDarkPurple, fontSize: 12, fontWeight: FontWeight.w700)),
         const SizedBox(height: 6),
         // Text with selection highlight
         Container(
@@ -826,19 +666,16 @@ Widget _buildSelectionVisual(
           child: RichText(
             text: TextSpan(
               style: const TextStyle(
-                color: _scDarkGray,
-                fontSize: 14,
-                fontFamily: 'monospace',
-              ),
+                  color: _scDarkGray, fontSize: 14, fontFamily: 'monospace'),
               children: [
-                if (start > 0) TextSpan(text: text.substring(0, start)),
+                if (start > 0)
+                  TextSpan(text: text.substring(0, start)),
                 if (isCursor)
                   TextSpan(
                     text: '|',
                     style: TextStyle(
-                      color: _scPlum.withValues(alpha: 0.8),
-                      fontWeight: FontWeight.w900,
-                    ),
+                        color: _scPlum.withValues(alpha: 0.8),
+                        fontWeight: FontWeight.w900),
                   ),
                 if (!isCursor)
                   TextSpan(
@@ -849,13 +686,15 @@ Widget _buildSelectionVisual(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                if (end < text.length) TextSpan(text: text.substring(end)),
+                if (end < text.length)
+                  TextSpan(text: text.substring(end)),
               ],
             ),
           ),
         ),
         const SizedBox(height: 4),
-        Text(desc, style: const TextStyle(color: _scGray, fontSize: 10.5)),
+        Text(desc,
+            style: const TextStyle(color: _scGray, fontSize: 10.5)),
       ],
     ),
   );
@@ -884,27 +723,12 @@ Widget _buildComposingRegion() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildComposingStep(
-            1,
-            'User types "nihon"',
-            'にほん',
-            true,
-            'Composing: kana shown with underline',
-          ),
-          _buildComposingStep(
-            2,
-            'IME shows candidates',
-            '[日本] にほん 二本',
-            true,
-            'Still composing: candidates displayed',
-          ),
-          _buildComposingStep(
-            3,
-            'User selects 日本',
-            '日本',
-            false,
-            'Committed: composing region cleared',
-          ),
+          _buildComposingStep(1, 'User types "nihon"', 'にほん', true,
+              'Composing: kana shown with underline'),
+          _buildComposingStep(2, 'IME shows candidates', '[日本] にほん 二本',
+              true, 'Still composing: candidates displayed'),
+          _buildComposingStep(3, 'User selects 日本', '日本', false,
+              'Committed: composing region cleared'),
         ],
       ),
     ),
@@ -926,30 +750,23 @@ Widget _buildComposingRegion() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'I am typing in ',
-            style: TextStyle(color: _scDarkGray, fontSize: 14),
-          ),
+          const Text('I am typing in ',
+              style: TextStyle(color: _scDarkGray, fontSize: 14)),
           Container(
             margin: const EdgeInsets.only(top: 2),
             padding: const EdgeInsets.symmetric(horizontal: 4),
             decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: _scMedPurple, width: 2)),
-            ),
-            child: const Text(
-              'Toky',
-              style: TextStyle(
-                color: _scMedPurple,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+              border: Border(
+                bottom: BorderSide(color: _scMedPurple, width: 2),
               ),
             ),
+            child: const Text('Toky',
+                style: TextStyle(
+                    color: _scMedPurple, fontSize: 14, fontWeight: FontWeight.w600)),
           ),
           const SizedBox(height: 4),
-          const Text(
-            '↑ composing region (underlined)',
-            style: TextStyle(color: _scGray, fontSize: 10),
-          ),
+          const Text('↑ composing region (underlined)',
+              style: TextStyle(color: _scGray, fontSize: 10)),
         ],
       ),
     ),
@@ -957,12 +774,7 @@ Widget _buildComposingRegion() {
 }
 
 Widget _buildComposingStep(
-  int num,
-  String action,
-  String display,
-  bool composing,
-  String desc,
-) {
+    int num, String action, String display, bool composing, String desc) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     child: Row(
@@ -976,14 +788,9 @@ Widget _buildComposingStep(
             shape: BoxShape.circle,
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: _scWhite,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: _scWhite, fontSize: 11, fontWeight: FontWeight.w700)),
           ),
         ),
         const SizedBox(width: 10),
@@ -991,14 +798,9 @@ Widget _buildComposingStep(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                action,
-                style: const TextStyle(
-                  color: _scDarkPurple,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              Text(action,
+                  style: const TextStyle(
+                      color: _scDarkPurple, fontSize: 11, fontWeight: FontWeight.w600)),
               Container(
                 margin: const EdgeInsets.only(top: 3),
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
@@ -1007,20 +809,17 @@ Widget _buildComposingStep(
                   borderRadius: BorderRadius.circular(4),
                   border: composing
                       ? const Border(
-                          bottom: BorderSide(color: _scMedPurple, width: 2),
-                        )
+                          bottom: BorderSide(color: _scMedPurple, width: 2))
                       : Border.all(color: _scAccentTeal.withValues(alpha: 0.3)),
                 ),
-                child: Text(
-                  display,
-                  style: TextStyle(
-                    color: composing ? _scMedPurple : _scAccentTeal,
-                    fontSize: 13,
-                  ),
-                ),
+                child: Text(display,
+                    style: TextStyle(
+                        color: composing ? _scMedPurple : _scAccentTeal,
+                        fontSize: 13)),
               ),
               const SizedBox(height: 2),
-              Text(desc, style: const TextStyle(color: _scGray, fontSize: 10)),
+              Text(desc,
+                  style: const TextStyle(color: _scGray, fontSize: 10)),
             ],
           ),
         ),
@@ -1060,18 +859,11 @@ Widget _buildIMEInteractionLifecycle() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Text(
-                  desc,
-                  style: const TextStyle(color: _scGray, fontSize: 11),
-                ),
+                Text(name,
+                    style: TextStyle(
+                        color: color, fontSize: 12, fontWeight: FontWeight.w700)),
+                Text(desc,
+                    style: const TextStyle(color: _scGray, fontSize: 11)),
               ],
             ),
           ),
@@ -1086,48 +878,21 @@ Widget _buildIMEInteractionLifecycle() {
       'through Scribe:',
     ),
     _scDivider(),
-    phase(
-      'connectionDidBecomeActive',
-      'TextInput connection established, keyboard visible',
-      _scPlum,
-      Icons.play_circle,
-    ),
-    phase(
-      'showAutocorrectionPromptRect',
-      'Platform requests rect for autocorrection UI',
-      _scMedPurple,
-      Icons.crop_square,
-    ),
-    phase(
-      'updateEditingValue / updateEditingValueWithDeltas',
-      'Platform sends text changes (full or delta-based)',
-      _scAccentTeal,
-      Icons.text_snippet,
-    ),
-    phase(
-      'performAction',
-      'User presses action button (done, go, search, newline)',
-      _scAccentAmber,
-      Icons.keyboard_return,
-    ),
-    phase(
-      'performPrivateCommand',
-      'IME sends custom commands (e.g., emoji, stickers)',
-      _scAccentPink,
-      Icons.extension,
-    ),
-    phase(
-      'updateFloatingCursor',
-      'Long-press cursor drag on iOS — raw position updates',
-      _scDarkPurple,
-      Icons.drag_handle,
-    ),
-    phase(
-      'connectionDidClose',
-      'TextInput connection closed, keyboard hidden',
-      _scGray,
-      Icons.stop_circle,
-    ),
+    phase('connectionDidBecomeActive', 'TextInput connection established, keyboard visible',
+        _scPlum, Icons.play_circle),
+    phase('showAutocorrectionPromptRect', 'Platform requests rect for autocorrection UI',
+        _scMedPurple, Icons.crop_square),
+    phase('updateEditingValue / updateEditingValueWithDeltas',
+        'Platform sends text changes (full or delta-based)',
+        _scAccentTeal, Icons.text_snippet),
+    phase('performAction', 'User presses action button (done, go, search, newline)',
+        _scAccentAmber, Icons.keyboard_return),
+    phase('performPrivateCommand', 'IME sends custom commands (e.g., emoji, stickers)',
+        _scAccentPink, Icons.extension),
+    phase('updateFloatingCursor', 'Long-press cursor drag on iOS — raw position updates',
+        _scDarkPurple, Icons.drag_handle),
+    phase('connectionDidClose', 'TextInput connection closed, keyboard hidden',
+        _scGray, Icons.stop_circle),
     _scDivider(),
     _scLabel('Callback Priority'),
     _scBody(
@@ -1152,42 +917,18 @@ Widget _buildAutofillIntegration() {
     _scDivider(),
     _scLabel('Autofill Hints'),
     _buildAutofillGroup([
-      _buildAutofillField(
-        'Username',
-        'AutofillHints.username',
-        Icons.person,
-        _scPlum,
-      ),
-      _buildAutofillField(
-        'Email',
-        'AutofillHints.email',
-        Icons.email,
-        _scMedPurple,
-      ),
-      _buildAutofillField(
-        'Password',
-        'AutofillHints.password',
-        Icons.lock,
-        _scAccentPink,
-      ),
-      _buildAutofillField(
-        'Phone',
-        'AutofillHints.telephoneNumber',
-        Icons.phone,
-        _scAccentTeal,
-      ),
-      _buildAutofillField(
-        'Address',
-        'AutofillHints.streetAddressLine1',
-        Icons.home,
-        _scAccentAmber,
-      ),
-      _buildAutofillField(
-        'Name',
-        'AutofillHints.name',
-        Icons.badge,
-        _scDarkPurple,
-      ),
+      _buildAutofillField('Username', 'AutofillHints.username',
+          Icons.person, _scPlum),
+      _buildAutofillField('Email', 'AutofillHints.email',
+          Icons.email, _scMedPurple),
+      _buildAutofillField('Password', 'AutofillHints.password',
+          Icons.lock, _scAccentPink),
+      _buildAutofillField('Phone', 'AutofillHints.telephoneNumber',
+          Icons.phone, _scAccentTeal),
+      _buildAutofillField('Address', 'AutofillHints.streetAddressLine1',
+          Icons.home, _scAccentAmber),
+      _buildAutofillField('Name', 'AutofillHints.name',
+          Icons.badge, _scDarkPurple),
     ]),
     _scDivider(),
     _scLabel('AutofillGroup'),
@@ -1212,14 +953,9 @@ Widget _buildAutofillIntegration() {
             children: [
               const Icon(Icons.security, size: 18, color: _scMedPurple),
               const SizedBox(width: 8),
-              const Text(
-                'Autofill Suggestion',
-                style: TextStyle(
-                  color: _scDarkPurple,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              const Text('Autofill Suggestion',
+                  style: TextStyle(
+                      color: _scDarkPurple, fontSize: 12, fontWeight: FontWeight.w700)),
             ],
           ),
           const SizedBox(height: 8),
@@ -1238,26 +974,16 @@ Widget _buildAutofillIntegration() {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'user@example.com',
-                        style: TextStyle(
-                          color: _scDarkPurple,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const Text(
-                        'Saved password • Tap to fill',
-                        style: TextStyle(color: _scGray, fontSize: 11),
-                      ),
+                      const Text('user@example.com',
+                          style: TextStyle(
+                              color: _scDarkPurple, fontSize: 13,
+                              fontWeight: FontWeight.w600)),
+                      const Text('Saved password • Tap to fill',
+                          style: TextStyle(color: _scGray, fontSize: 11)),
                     ],
                   ),
                 ),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 14,
-                  color: _scLightPurple,
-                ),
+                const Icon(Icons.arrow_forward_ios, size: 14, color: _scLightPurple),
               ],
             ),
           ),
@@ -1282,12 +1008,7 @@ Widget _buildAutofillGroup(List<Widget> fields) {
   );
 }
 
-Widget _buildAutofillField(
-  String label,
-  String hint,
-  IconData icon,
-  Color color,
-) {
+Widget _buildAutofillField(String label, String hint, IconData icon, Color color) {
   return Container(
     margin: const EdgeInsets.only(bottom: 4),
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -1299,23 +1020,13 @@ Widget _buildAutofillField(
       children: [
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
-        Text(
-          label,
-          style: TextStyle(
-            color: color,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                color: color, fontSize: 12, fontWeight: FontWeight.w600)),
         const Spacer(),
-        Text(
-          hint,
-          style: const TextStyle(
-            color: _scGray,
-            fontSize: 10,
-            fontFamily: 'monospace',
-          ),
-        ),
+        Text(hint,
+            style: const TextStyle(
+                color: _scGray, fontSize: 10, fontFamily: 'monospace')),
       ],
     ),
   );
@@ -1371,11 +1082,7 @@ Widget _buildMultiLineVsSingleLine() {
 }
 
 Widget _buildTextFieldSim(
-  String title,
-  bool multiLine,
-  List<String> details,
-  Color color,
-) {
+    String title, bool multiLine, List<String> details, Color color) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1385,14 +1092,9 @@ Widget _buildTextFieldSim(
     ),
     child: Column(
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: color,
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text(title,
+            style: TextStyle(
+                color: color, fontSize: 13, fontWeight: FontWeight.w700)),
         const SizedBox(height: 8),
         // Simulated field
         Container(
@@ -1404,19 +1106,13 @@ Widget _buildTextFieldSim(
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: color),
           ),
-          child: Text(
-            multiLine ? 'Line 1\nLine 2\nLine 3' : 'Single line text|',
-            style: TextStyle(color: color, fontSize: 10),
-          ),
+          child: Text(multiLine ? 'Line 1\nLine 2\nLine 3' : 'Single line text|',
+              style: TextStyle(color: color, fontSize: 10)),
         ),
         const SizedBox(height: 6),
-        ...details.map(
-          (d) => Text(
-            d,
+        ...details.map((d) => Text(d,
             style: const TextStyle(color: _scGray, fontSize: 10),
-            textAlign: TextAlign.center,
-          ),
-        ),
+            textAlign: TextAlign.center)),
       ],
     ),
   );
@@ -1440,11 +1136,7 @@ Widget _buildSimulatedTextEditor() {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: _scPlum, width: 2),
         boxShadow: const [
-          BoxShadow(
-            color: Color(0x1A4A148C),
-            blurRadius: 6,
-            offset: Offset(0, 2),
-          ),
+          BoxShadow(color: Color(0x1A4A148C), blurRadius: 6, offset: Offset(0, 2)),
         ],
       ),
       child: Column(
@@ -1454,10 +1146,10 @@ Widget _buildSimulatedTextEditor() {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: _scPlum.withValues(alpha: 0.06),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(8),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+              border: const Border(
+                bottom: BorderSide(color: _scLightPurple),
               ),
-              border: const Border(bottom: BorderSide(color: _scLightPurple)),
             ),
             child: Row(
               children: [
@@ -1482,11 +1174,7 @@ Widget _buildSimulatedTextEditor() {
             constraints: const BoxConstraints(minHeight: 120),
             child: RichText(
               text: TextSpan(
-                style: const TextStyle(
-                  color: _scDarkGray,
-                  fontSize: 13,
-                  height: 1.6,
-                ),
+                style: const TextStyle(color: _scDarkGray, fontSize: 13, height: 1.6),
                 children: [
                   const TextSpan(text: 'The quick '),
                   TextSpan(
@@ -1498,27 +1186,16 @@ Widget _buildSimulatedTextEditor() {
                     ),
                   ),
                   const TextSpan(text: ' jumps over the lazy dog.\n\n'),
-                  const TextSpan(
-                    text: 'Each character typed goes through the ',
-                  ),
+                  const TextSpan(text: 'Each character typed goes through the '),
                   const TextSpan(
                     text: 'Scribe',
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: _scMedPurple,
-                    ),
+                    style: TextStyle(fontStyle: FontStyle.italic, color: _scMedPurple),
                   ),
-                  const TextSpan(
-                    text:
-                        ' mixin, processed as a TextEditingDelta, '
-                        'and rendered by the ',
-                  ),
+                  const TextSpan(text: ' mixin, processed as a TextEditingDelta, '
+                      'and rendered by the '),
                   const TextSpan(
                     text: 'EditableText',
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: _scMedPurple,
-                    ),
+                    style: TextStyle(fontStyle: FontStyle.italic, color: _scMedPurple),
                   ),
                   const TextSpan(text: ' widget.\n\n'),
                   const TextSpan(text: 'Currently '),
@@ -1534,9 +1211,8 @@ Widget _buildSimulatedTextEditor() {
                   TextSpan(
                     text: '|',
                     style: TextStyle(
-                      color: _scPlum.withValues(alpha: 0.8),
-                      fontWeight: FontWeight.w900,
-                    ),
+                        color: _scPlum.withValues(alpha: 0.8),
+                        fontWeight: FontWeight.w900),
                   ),
                 ],
               ),
@@ -1547,20 +1223,18 @@ Widget _buildSimulatedTextEditor() {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: _scPlum.withValues(alpha: 0.04),
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(8),
+              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8)),
+              border: const Border(
+                top: BorderSide(color: _scLightPurple),
               ),
-              border: const Border(top: BorderSide(color: _scLightPurple)),
             ),
             child: Row(
               children: [
                 _scChip('Composing: "compo"', _scMedPurple),
                 _scChip('Cursor: 135', _scPlum),
                 const Spacer(),
-                const Text(
-                  'Lines: 3 | Words: 28',
-                  style: TextStyle(color: _scGray, fontSize: 10),
-                ),
+                const Text('Lines: 3 | Words: 28',
+                    style: TextStyle(color: _scGray, fontSize: 10)),
               ],
             ),
           ),

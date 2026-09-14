@@ -13,8 +13,7 @@ class _KeyEventTypeDeepDemoPage extends StatefulWidget {
   const _KeyEventTypeDeepDemoPage();
 
   @override
-  State<_KeyEventTypeDeepDemoPage> createState() =>
-      _KeyEventTypeDeepDemoPageState();
+  State<_KeyEventTypeDeepDemoPage> createState() => _KeyEventTypeDeepDemoPageState();
 }
 
 class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
@@ -40,21 +39,9 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
   double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0F172A),
-      const Color(0xFF1E293B),
-      const Color(0xFF38BDF8),
-    ],
-    <Color>[
-      const Color(0xFF3F1D38),
-      const Color(0xFF7B2D5E),
-      const Color(0xFFFB7185),
-    ],
-    <Color>[
-      const Color(0xFF0C4A6E),
-      const Color(0xFF0369A1),
-      const Color(0xFF22D3EE),
-    ],
+    <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
+    <Color>[const Color(0xFF3F1D38), const Color(0xFF7B2D5E), const Color(0xFFFB7185)],
+    <Color>[const Color(0xFF0C4A6E), const Color(0xFF0369A1), const Color(0xFF22D3EE)],
   ];
 
   @override
@@ -155,9 +142,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
     if (_entries.length > 28) {
       _entries.removeLast();
     }
-    _emit(
-      'Appended ${_phaseName(type)} event: phys ${_fmt(entry.physical)}, log ${_fmt(entry.logical)}.',
-    );
+    _emit('Appended ${_phaseName(type)} event: phys ${_fmt(entry.physical)}, log ${_fmt(entry.logical)}.');
     setState(() {});
   }
 
@@ -187,34 +172,16 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
     probe('down index is 0', ui.KeyEventType.down.index == 0);
     probe('up index is 1', ui.KeyEventType.up.index == 1);
     probe('repeat index is 2', ui.KeyEventType.repeat.index == 2);
-    probe(
-      'down and up are distinct',
-      ui.KeyEventType.down != ui.KeyEventType.up,
-    );
-    probe(
-      'repeat differs from down',
-      ui.KeyEventType.repeat != ui.KeyEventType.down,
-    );
+    probe('down and up are distinct', ui.KeyEventType.down != ui.KeyEventType.up);
+    probe('repeat differs from down', ui.KeyEventType.repeat != ui.KeyEventType.down);
     probe('down label is Key Down', ui.KeyEventType.down.label == 'Key Down');
     probe('up label is Key Up', ui.KeyEventType.up.label == 'Key Up');
-    probe(
-      'repeat label is Key Repeat',
-      ui.KeyEventType.repeat.label == 'Key Repeat',
-    );
-    probe(
-      'toString preserves enum token',
-      ui.KeyEventType.repeat.toString().contains('repeat'),
-    );
+    probe('repeat label is Key Repeat', ui.KeyEventType.repeat.label == 'Key Repeat');
+    probe('toString preserves enum token', ui.KeyEventType.repeat.toString().contains('repeat'));
 
     final ui.KeyData repeatData = _sampleKeyData(ui.KeyEventType.repeat);
-    probe(
-      'KeyData can carry repeat phase',
-      repeatData.type == ui.KeyEventType.repeat,
-    );
-    probe(
-      'summary text can be generated',
-      '${_passed.length + _failed.length} checks'.endsWith('checks'),
-    );
+    probe('KeyData can carry repeat phase', repeatData.type == ui.KeyEventType.repeat);
+    probe('summary text can be generated', '${_passed.length + _failed.length} checks'.endsWith('checks'));
 
     setState(() {});
   }
@@ -228,11 +195,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
         gradient: LinearGradient(colors: colors),
         borderRadius: BorderRadius.circular(18),
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: colors[1].withAlpha(94),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
+          BoxShadow(color: colors[1].withAlpha(94), blurRadius: 16, offset: const Offset(0, 8)),
         ],
       ),
       child: const Column(
@@ -240,11 +203,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
         children: <Widget>[
           Text(
             'KeyEventType Phase Laboratory',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Text(
@@ -282,10 +241,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-                ),
+                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -312,10 +268,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
             children: <Widget>[
               Icon(icon, color: color),
               const SizedBox(height: 8),
-              Text(
-                title,
-                style: TextStyle(color: color, fontWeight: FontWeight.w700),
-              ),
+              Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
               Text(body, style: const TextStyle(fontSize: 12)),
             ],
@@ -328,30 +281,14 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          card(
-            'Down',
-            'Starts a key press lifecycle and indicates actuation.',
-            Icons.arrow_downward,
-            const Color(0xFF16A34A),
-          ),
-          card(
-            'Repeat',
-            'Represents auto-repeat while key remains held.',
-            Icons.repeat,
-            const Color(0xFF2563EB),
-          ),
-          card(
-            'Up',
-            'Signals release and closes the interaction cycle.',
-            Icons.arrow_upward,
-            const Color(0xFFEA580C),
-          ),
-          card(
-            'Sequencing',
-            'Phase ordering drives input state machines.',
-            Icons.timeline,
-            const Color(0xFF7C3AED),
-          ),
+          card('Down', 'Starts a key press lifecycle and indicates actuation.', Icons.arrow_downward,
+              const Color(0xFF16A34A)),
+          card('Repeat', 'Represents auto-repeat while key remains held.', Icons.repeat,
+              const Color(0xFF2563EB)),
+          card('Up', 'Signals release and closes the interaction cycle.', Icons.arrow_upward,
+              const Color(0xFFEA580C)),
+          card('Sequencing', 'Phase ordering drives input state machines.', Icons.timeline,
+              const Color(0xFF7C3AED)),
         ],
       ),
     );
@@ -385,19 +322,9 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Phase controls and signal parameters',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Phase controls and signal parameters', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            children: <Widget>[
-              chip(ui.KeyEventType.down),
-              chip(ui.KeyEventType.repeat),
-              chip(ui.KeyEventType.up),
-            ],
-          ),
+          Wrap(spacing: 8, children: <Widget>[chip(ui.KeyEventType.down), chip(ui.KeyEventType.repeat), chip(ui.KeyEventType.up)]),
           const SizedBox(height: 8),
           Text('Press depth: ${_pressDepth.toStringAsFixed(2)}'),
           Slider(
@@ -542,10 +469,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Three-lane phase timeline',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Three-lane phase timeline', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -585,10 +509,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Repeat cadence analyzer',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Repeat cadence analyzer', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -624,10 +545,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'KeyData coupling by phase',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('KeyData coupling by phase', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -677,10 +595,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Phase event stream',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Phase event stream', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -689,10 +604,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
                 ? const Center(
                     child: Text(
                       'No phase entries yet. Append a phase or run a press cycle.',
-                      style: TextStyle(
-                        fontSize: 12.3,
-                        color: Color(0xFF64748B),
-                      ),
+                      style: TextStyle(fontSize: 12.3, color: Color(0xFF64748B)),
                     ),
                   )
                 : ListView.builder(
@@ -714,17 +626,8 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
                               width: 24,
                               height: 24,
                               alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: color,
-                              ),
-                              child: Text(
-                                '${index + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                ),
-                              ),
+                              decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+                              child: Text('${index + 1}', style: const TextStyle(color: Colors.white, fontSize: 11)),
                             ),
                             const SizedBox(width: 8),
                             Expanded(
@@ -749,24 +652,9 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
 
   Widget _phaseGuidancePanel() {
     final List<_GuideRow> rows = <_GuideRow>[
-      _GuideRow(
-        'Down',
-        'Start actions, set key-active state',
-        'On first press edge',
-        'Debounce initial edge',
-      ),
-      _GuideRow(
-        'Repeat',
-        'Continuous movement or text repeat',
-        'While key remains held',
-        'Throttle high rates',
-      ),
-      _GuideRow(
-        'Up',
-        'Finalize actions and clear state',
-        'On release edge',
-        'Ensure cleanup paths',
-      ),
+      _GuideRow('Down', 'Start actions, set key-active state', 'On first press edge', 'Debounce initial edge'),
+      _GuideRow('Repeat', 'Continuous movement or text repeat', 'While key remains held', 'Throttle high rates'),
+      _GuideRow('Up', 'Finalize actions and clear state', 'On release edge', 'Ensure cleanup paths'),
     ];
 
     return Container(
@@ -780,10 +668,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Phase usage matrix',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Phase usage matrix', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Table(
             border: TableBorder.all(color: const Color(0xFFE2E8F0)),
@@ -797,46 +682,10 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
               const TableRow(
                 decoration: BoxDecoration(color: Color(0xFFF1F5F9)),
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Phase',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Primary meaning',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Typical moment',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Implementation hint',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+                  Padding(padding: EdgeInsets.all(8), child: Text('Phase', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
+                  Padding(padding: EdgeInsets.all(8), child: Text('Primary meaning', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
+                  Padding(padding: EdgeInsets.all(8), child: Text('Typical moment', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
+                  Padding(padding: EdgeInsets.all(8), child: Text('Implementation hint', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
                 ],
               ),
               ...rows.map((row) => row.toRow()),
@@ -849,9 +698,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
 
   Widget _probePanel() {
     Widget line(String text, bool ok) {
-      final Color color = ok
-          ? const Color(0xFF15803D)
-          : const Color(0xFFB91C1C);
+      final Color color = ok ? const Color(0xFF15803D) : const Color(0xFFB91C1C);
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 3),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -862,11 +709,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
         ),
         child: Row(
           children: <Widget>[
-            Icon(
-              ok ? Icons.check_circle : Icons.cancel,
-              color: color,
-              size: 18,
-            ),
+            Icon(ok ? Icons.check_circle : Icons.cancel, color: color, size: 18),
             const SizedBox(width: 8),
             Expanded(child: Text(text, style: const TextStyle(fontSize: 12.2))),
           ],
@@ -885,10 +728,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Runtime probe dashboard',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
           const SizedBox(height: 8),
@@ -911,10 +751,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Interaction notes',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Interaction notes', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Container(
             height: 180,
@@ -928,14 +765,8 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
               itemCount: _notes.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    _notes[index],
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Text(_notes[index], style: const TextStyle(fontSize: 12)),
                 );
               },
             ),
@@ -1085,7 +916,12 @@ class _GuideRow {
     }
 
     return TableRow(
-      children: <Widget>[cell(phase), cell(primary), cell(moment), cell(hint)],
+      children: <Widget>[
+        cell(phase),
+        cell(primary),
+        cell(moment),
+        cell(hint),
+      ],
     );
   }
 }
@@ -1104,10 +940,7 @@ class _PhaseLanePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFF0F172A).withAlpha(26);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
-      bg,
-    );
+    canvas.drawRRect(RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)), bg);
 
     if (showGrid) {
       final Paint gp = Paint()
@@ -1129,28 +962,13 @@ class _PhaseLanePainter extends CustomPainter {
     final Paint lane = Paint()
       ..color = const Color(0xFF64748B)
       ..strokeWidth = 1.8;
-    canvas.drawLine(
-      Offset(10, laneTop),
-      Offset(size.width - 10, laneTop),
-      lane,
-    );
-    canvas.drawLine(
-      Offset(10, laneMid),
-      Offset(size.width - 10, laneMid),
-      lane,
-    );
-    canvas.drawLine(
-      Offset(10, laneBottom),
-      Offset(size.width - 10, laneBottom),
-      lane,
-    );
+    canvas.drawLine(Offset(10, laneTop), Offset(size.width - 10, laneTop), lane);
+    canvas.drawLine(Offset(10, laneMid), Offset(size.width - 10, laneMid), lane);
+    canvas.drawLine(Offset(10, laneBottom), Offset(size.width - 10, laneBottom), lane);
 
     void label(String text, double y) {
       final TextPainter tp = TextPainter(
-        text: TextSpan(
-          text: text,
-          style: const TextStyle(fontSize: 10.5, color: Color(0xFF0F172A)),
-        ),
+        text: TextSpan(text: text, style: const TextStyle(fontSize: 10.5, color: Color(0xFF0F172A))),
         textDirection: TextDirection.ltr,
       )..layout();
       tp.paint(canvas, Offset(10, y - 18));
@@ -1176,11 +994,7 @@ class _PhaseLanePainter extends CustomPainter {
         y = laneBottom;
         color = const Color(0xFFEA580C);
       }
-      canvas.drawCircle(
-        Offset(x, y),
-        5 + e.pressDepth * 3,
-        Paint()..color = color,
-      );
+      canvas.drawCircle(Offset(x, y), 5 + e.pressDepth * 3, Paint()..color = color);
     }
 
     final Offset p = Offset(14 + pulse * (size.width - 28), laneMid);
@@ -1189,9 +1003,7 @@ class _PhaseLanePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _PhaseLanePainter oldDelegate) {
-    return oldDelegate.entries != entries ||
-        oldDelegate.pulse != pulse ||
-        oldDelegate.showGrid != showGrid;
+    return oldDelegate.entries != entries || oldDelegate.pulse != pulse || oldDelegate.showGrid != showGrid;
   }
 }
 
@@ -1209,19 +1021,12 @@ class _CadencePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFF0F172A).withAlpha(18);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
-      bg,
-    );
+    canvas.drawRRect(RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)), bg);
 
     final Paint axis = Paint()
       ..color = const Color(0xFF64748B)
       ..strokeWidth = 2;
-    canvas.drawLine(
-      Offset(20, size.height - 24),
-      Offset(size.width - 12, size.height - 24),
-      axis,
-    );
+    canvas.drawLine(Offset(20, size.height - 24), Offset(size.width - 12, size.height - 24), axis);
     canvas.drawLine(Offset(20, size.height - 24), const Offset(20, 12), axis);
 
     final int samples = 24;
@@ -1230,40 +1035,22 @@ class _CadencePainter extends CustomPainter {
     for (int i = 0; i <= samples; i++) {
       final double x = 22 + i * (span / samples);
       final double t = i / samples;
-      final double y =
-          (size.height - 26) -
-          (t * repeats / 30).clamp(0, 1) * (size.height - 48);
-      canvas.drawCircle(
-        Offset(x, y),
-        2.4,
-        Paint()..color = const Color(0xFF2563EB),
-      );
+      final double y = (size.height - 26) - (t * repeats / 30).clamp(0, 1) * (size.height - 48);
+      canvas.drawCircle(Offset(x, y), 2.4, Paint()..color = const Color(0xFF2563EB));
       if (i > 0) {
         final double px = 22 + (i - 1) * (span / samples);
         final double pt = (i - 1) / samples;
-        final double py =
-            (size.height - 26) -
-            (pt * repeats / 30).clamp(0, 1) * (size.height - 48);
-        canvas.drawLine(
-          Offset(px, py),
-          Offset(x, y),
-          Paint()..color = const Color(0xFF2563EB),
-        );
+        final double py = (size.height - 26) - (pt * repeats / 30).clamp(0, 1) * (size.height - 48);
+        canvas.drawLine(Offset(px, py), Offset(x, y), Paint()..color = const Color(0xFF2563EB));
       }
     }
 
-    final Offset pulseDot = Offset(
-      22 + span * pulse,
-      size.height -
-          24 -
-          (size.height - 50) * (pulse * repeats / 30).clamp(0, 1),
-    );
+    final Offset pulseDot = Offset(22 + span * pulse, size.height - 24 - (size.height - 50) * (pulse * repeats / 30).clamp(0, 1));
     canvas.drawCircle(pulseDot, 5, Paint()..color = const Color(0xFF22D3EE));
 
     final TextPainter tp = TextPainter(
       text: TextSpan(
-        text:
-            'repeatRate ${repeatRate.toStringAsFixed(1)}Hz, hold ${holdMs.round()}ms',
+        text: 'repeatRate ${repeatRate.toStringAsFixed(1)}Hz, hold ${holdMs.round()}ms',
         style: const TextStyle(fontSize: 11.5, color: Color(0xFF0F172A)),
       ),
       textDirection: TextDirection.ltr,
@@ -1273,8 +1060,6 @@ class _CadencePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _CadencePainter oldDelegate) {
-    return oldDelegate.repeatRate != repeatRate ||
-        oldDelegate.holdMs != holdMs ||
-        oldDelegate.pulse != pulse;
+    return oldDelegate.repeatRate != repeatRate || oldDelegate.holdMs != holdMs || oldDelegate.pulse != pulse;
   }
 }

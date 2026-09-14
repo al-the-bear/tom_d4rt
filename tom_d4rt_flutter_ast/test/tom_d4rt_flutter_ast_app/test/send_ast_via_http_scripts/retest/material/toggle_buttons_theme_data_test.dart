@@ -87,8 +87,7 @@ const List<_ThemeRecipe> _recipes = [
   _ThemeRecipe(
     id: 'sunset-actions',
     title: 'Sunset Actions',
-    summary:
-        'Warm and expressive style for marketing or onboarding control sets.',
+    summary: 'Warm and expressive style for marketing or onboarding control sets.',
     seed: Color(0xFFC2410C),
     brightness: Brightness.light,
     data: ToggleButtonsThemeData(
@@ -112,8 +111,7 @@ const List<_ThemeRecipe> _recipes = [
   _ThemeRecipe(
     id: 'violet-lab',
     title: 'Violet Lab',
-    summary:
-        'Creative rounded controls with playful but clear state transitions.',
+    summary: 'Creative rounded controls with playful but clear state transitions.',
     seed: Color(0xFF7C3AED),
     brightness: Brightness.dark,
     data: ToggleButtonsThemeData(
@@ -137,45 +135,17 @@ const List<_ThemeRecipe> _recipes = [
 ];
 
 const List<_Scenario> _scenarios = [
-  _Scenario(
-    'toolbar',
-    'Editor Toolbar',
-    'Formatting controls for content editing surfaces.',
-  ),
-  _Scenario(
-    'filters',
-    'Filter Cluster',
-    'Faceted filter controls with selected and disabled states.',
-  ),
-  _Scenario(
-    'layout',
-    'Layout Switcher',
-    'View-mode toggles embedded in dashboard headers.',
-  ),
-  _Scenario(
-    'settings',
-    'Settings Panel',
-    'Grouped preferences where spacing and readability matter.',
-  ),
+  _Scenario('toolbar', 'Editor Toolbar', 'Formatting controls for content editing surfaces.'),
+  _Scenario('filters', 'Filter Cluster', 'Faceted filter controls with selected and disabled states.'),
+  _Scenario('layout', 'Layout Switcher', 'View-mode toggles embedded in dashboard headers.'),
+  _Scenario('settings', 'Settings Panel', 'Grouped preferences where spacing and readability matter.'),
 ];
 
 const List<_Faq> _faqs = [
-  _Faq(
-    'What is ToggleButtonsThemeData for?',
-    'It defines the default visual behavior of ToggleButtons across a subtree or theme.',
-  ),
-  _Faq(
-    'When should I theme instead of styling per widget?',
-    'Use theme data when multiple toggle groups share style language and state behavior.',
-  ),
-  _Faq(
-    'Which properties matter most first?',
-    'Start with fillColor, selectedColor, borderColor, borderRadius, and constraints.',
-  ),
-  _Faq(
-    'How do I test state quality?',
-    'Preview selected, unselected, disabled, and mixed groups under realistic interaction density.',
-  ),
+  _Faq('What is ToggleButtonsThemeData for?', 'It defines the default visual behavior of ToggleButtons across a subtree or theme.'),
+  _Faq('When should I theme instead of styling per widget?', 'Use theme data when multiple toggle groups share style language and state behavior.'),
+  _Faq('Which properties matter most first?', 'Start with fillColor, selectedColor, borderColor, borderRadius, and constraints.'),
+  _Faq('How do I test state quality?', 'Preview selected, unselected, disabled, and mixed groups under realistic interaction density.'),
 ];
 
 const List<String> _guideBullets = [
@@ -232,18 +202,14 @@ dynamic build(BuildContext context) {
       final scheme = ColorScheme.fromSeed(
         seedColor: recipe.seed,
         brightness: highContrast
-            ? (recipe.brightness == Brightness.light
-                  ? Brightness.light
-                  : Brightness.dark)
+            ? (recipe.brightness == Brightness.light ? Brightness.light : Brightness.dark)
             : recipe.brightness,
       );
 
       final baseTheme = ThemeData(
         useMaterial3: true,
         colorScheme: scheme,
-        visualDensity: denseMode
-            ? VisualDensity.compact
-            : VisualDensity.standard,
+        visualDensity: denseMode ? VisualDensity.compact : VisualDensity.standard,
       );
 
       final themedData = _effectiveToggleData(
@@ -256,12 +222,8 @@ dynamic build(BuildContext context) {
         toggleButtonsTheme: themedData,
         textTheme: emphasizeType
             ? baseTheme.textTheme.copyWith(
-                titleLarge: baseTheme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-                titleMedium: baseTheme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+                titleLarge: baseTheme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                titleMedium: baseTheme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
               )
             : baseTheme.textTheme,
       );
@@ -337,9 +299,7 @@ dynamic build(BuildContext context) {
                         setState(() {
                           disableAlternate = v;
                           tick += 1;
-                          addLog(
-                            'Alternate disable ${v ? 'enabled' : 'disabled'}.',
-                          );
+                          addLog('Alternate disable ${v ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onIconMode: (v) {
@@ -353,9 +313,7 @@ dynamic build(BuildContext context) {
                         setState(() {
                           emphasizeType = v;
                           tick += 1;
-                          addLog(
-                            'Typography emphasis ${v ? 'enabled' : 'disabled'}.',
-                          );
+                          addLog('Typography emphasis ${v ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onCardScale: (v) {
@@ -384,19 +342,14 @@ dynamic build(BuildContext context) {
                           gradient: LinearGradient(
                             colors: [
                               themed.colorScheme.surface,
-                              themed.colorScheme.surfaceContainerHighest
-                                  .withAlpha(160),
+                              themed.colorScheme.surfaceContainerHighest.withAlpha(160),
                               themed.colorScheme.surface,
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
                           borderRadius: BorderRadius.circular(18),
-                          border: Border.all(
-                            color: themed.colorScheme.outlineVariant.withAlpha(
-                              130,
-                            ),
-                          ),
+                          border: Border.all(color: themed.colorScheme.outlineVariant.withAlpha(130)),
                         ),
                         child: AnimatedScale(
                           scale: cardScale,
@@ -416,10 +369,7 @@ dynamic build(BuildContext context) {
                             settingsSelected: settingsSelected,
                             onToolbarTap: (i) {
                               setState(() {
-                                toolbarSelected = _singleSelect(
-                                  toolbarSelected,
-                                  i,
-                                );
+                                toolbarSelected = _singleSelect(toolbarSelected, i);
                                 interactionCount += 1;
                                 tick += 1;
                                 addLog('Toolbar toggled index $i.');
@@ -435,10 +385,7 @@ dynamic build(BuildContext context) {
                             },
                             onLayoutTap: (i) {
                               setState(() {
-                                layoutSelected = _singleSelect(
-                                  layoutSelected,
-                                  i,
-                                );
+                                layoutSelected = _singleSelect(layoutSelected, i);
                                 interactionCount += 1;
                                 tick += 1;
                                 addLog('Layout toggled index $i.');
@@ -446,10 +393,7 @@ dynamic build(BuildContext context) {
                             },
                             onSettingsTap: (i) {
                               setState(() {
-                                settingsSelected = _toggleAt(
-                                  settingsSelected,
-                                  i,
-                                );
+                                settingsSelected = _toggleAt(settingsSelected, i);
                                 interactionCount += 1;
                                 tick += 1;
                                 addLog('Settings toggled index $i.');
@@ -491,11 +435,12 @@ ToggleButtonsThemeData _effectiveToggleData(
   final radius = base.borderRadius?.resolve(TextDirection.ltr);
   final newRadius = radius == null
       ? BorderRadius.circular(10 + radiusBoost)
-      : BorderRadius.circular(
-          (radius.topLeft.x + radiusBoost).clamp(2, 36).toDouble(),
-        );
+      : BorderRadius.circular((radius.topLeft.x + radiusBoost).clamp(2, 36).toDouble());
 
-  return base.copyWith(constraints: scaledConstraints, borderRadius: newRadius);
+  return base.copyWith(
+    constraints: scaledConstraints,
+    borderRadius: newRadius,
+  );
 }
 
 List<bool> _singleSelect(List<bool> list, int index) {
@@ -511,23 +456,11 @@ List<bool> _toggleAt(List<bool> list, int index) {
 }
 
 String _boardName(int i) {
-  const names = [
-    'Recipe Gallery',
-    'Border Matrix',
-    'State Lab',
-    'Integrated Scenes',
-    'Guide + Timeline',
-  ];
+  const names = ['Recipe Gallery', 'Border Matrix', 'State Lab', 'Integrated Scenes', 'Guide + Timeline'];
   return names[i.clamp(0, names.length - 1)];
 }
 
-Widget _topHeader(
-  ThemeData theme,
-  _ThemeRecipe recipe,
-  _Scenario scenario,
-  int interactions,
-  int tick,
-) {
+Widget _topHeader(ThemeData theme, _ThemeRecipe recipe, _Scenario scenario, int interactions, int tick) {
   return Container(
     margin: EdgeInsets.fromLTRB(12, 12, 12, 10),
     padding: EdgeInsets.fromLTRB(16, 14, 16, 14),
@@ -542,9 +475,7 @@ Widget _topHeader(
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(130),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
     ),
     child: Row(
       children: [
@@ -554,9 +485,7 @@ Widget _topHeader(
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(140),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(140)),
           ),
           child: CustomPaint(
             painter: _GlyphPainter(
@@ -571,27 +500,14 @@ Widget _topHeader(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ToggleButtonsThemeData Studio',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text('ToggleButtonsThemeData Studio', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               SizedBox(height: 4),
               Text(
                 'recipe: ${recipe.title}  scenario: ${scenario.title}  interactions: $interactions',
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(180),
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180), fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 5),
-              Text(
-                recipe.summary,
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(170),
-                ),
-              ),
+              Text(recipe.summary, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(170))),
             ],
           ),
         ),
@@ -642,74 +558,25 @@ Widget _controls({
         end: Alignment.bottomCenter,
       ),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(130),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
     ),
     child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Theme Controls',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text('Theme Controls', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
           SizedBox(height: 4),
-          Text(
-            'Tune ToggleButtonsThemeData tokens and inspect behavior in context.',
-          ),
+          Text('Tune ToggleButtonsThemeData tokens and inspect behavior in context.'),
           SizedBox(height: 10),
-          _dropdown(
-            'Recipe',
-            recipeIndex,
-            _recipes.map((e) => e.title).toList(),
-            onRecipe,
-          ),
-          _dropdown(
-            'Scenario',
-            scenarioIndex,
-            _scenarios.map((e) => e.title).toList(),
-            onScenario,
-          ),
+          _dropdown('Recipe', recipeIndex, _recipes.map((e) => e.title).toList(), onRecipe),
+          _dropdown('Scenario', scenarioIndex, _scenarios.map((e) => e.title).toList(), onScenario),
           _dropdown('Board', boardIndex, List.generate(5, _boardName), onBoard),
-          _switchCard(
-            'Dense mode',
-            'Compact visual density for button groups',
-            denseMode,
-            onDense,
-          ),
-          _switchCard(
-            'High contrast',
-            'High contrast color scheme generation',
-            highContrast,
-            onContrast,
-          ),
-          _switchCard(
-            'Show diagnostics',
-            'Reveal resolved theme token values',
-            showDiagnostics,
-            onDiagnostics,
-          ),
-          _switchCard(
-            'Disable alternates',
-            'Disable every second toggle in groups',
-            disableAlternate,
-            onDisableAlternate,
-          ),
-          _switchCard(
-            'Icon mode',
-            'Display icons in toggle labels',
-            iconMode,
-            onIconMode,
-          ),
-          _switchCard(
-            'Typography emphasis',
-            'Strengthen title and label hierarchy',
-            emphasizeType,
-            onEmphasis,
-          ),
+          _switchCard('Dense mode', 'Compact visual density for button groups', denseMode, onDense),
+          _switchCard('High contrast', 'High contrast color scheme generation', highContrast, onContrast),
+          _switchCard('Show diagnostics', 'Reveal resolved theme token values', showDiagnostics, onDiagnostics),
+          _switchCard('Disable alternates', 'Disable every second toggle in groups', disableAlternate, onDisableAlternate),
+          _switchCard('Icon mode', 'Display icons in toggle labels', iconMode, onIconMode),
+          _switchCard('Typography emphasis', 'Strengthen title and label hierarchy', emphasizeType, onEmphasis),
           _slider('Card scale', cardScale, 0.9, 1.12, onCardScale),
           _slider('Constraint width scale', widthScale, 0.8, 1.5, onWidthScale),
           _slider('Radius boost', radiusBoost, -4, 12, onRadiusBoost),
@@ -719,12 +586,7 @@ Widget _controls({
   );
 }
 
-Widget _dropdown(
-  String label,
-  int value,
-  List<String> options,
-  ValueChanged<int> onChanged,
-) {
+Widget _dropdown(String label, int value, List<String> options, ValueChanged<int> onChanged) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.fromLTRB(10, 8, 10, 10),
@@ -742,10 +604,7 @@ Widget _dropdown(
           initialValue: value,
           isDense: true,
           decoration: InputDecoration(border: OutlineInputBorder()),
-          items: [
-            for (var i = 0; i < options.length; i++)
-              DropdownMenuItem(value: i, child: Text(options[i])),
-          ],
+          items: [for (var i = 0; i < options.length; i++) DropdownMenuItem(value: i, child: Text(options[i]))],
           onChanged: (v) {
             if (v != null) {
               onChanged(v);
@@ -757,12 +616,7 @@ Widget _dropdown(
   );
 }
 
-Widget _switchCard(
-  String title,
-  String subtitle,
-  bool value,
-  ValueChanged<bool> onChanged,
-) {
+Widget _switchCard(String title, String subtitle, bool value, ValueChanged<bool> onChanged) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
@@ -776,28 +630,17 @@ Widget _switchCard(
       children: [
         Row(
           children: [
-            Expanded(
-              child: Text(title, style: TextStyle(fontWeight: FontWeight.w700)),
-            ),
+            Expanded(child: Text(title, style: TextStyle(fontWeight: FontWeight.w700))),
             Switch(value: value, onChanged: onChanged),
           ],
         ),
-        Text(
-          subtitle,
-          style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160)),
-        ),
+        Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160))),
       ],
     ),
   );
 }
 
-Widget _slider(
-  String label,
-  double value,
-  double min,
-  double max,
-  ValueChanged<double> onChanged,
-) {
+Widget _slider(String label, double value, double min, double max, ValueChanged<double> onChanged) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -809,10 +652,7 @@ Widget _slider(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$label: ${value.toStringAsFixed(2)}',
-          style: TextStyle(fontWeight: FontWeight.w700),
-        ),
+        Text('$label: ${value.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.w700)),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ],
     ),
@@ -841,42 +681,13 @@ Widget _board({
 }) {
   switch (boardIndex) {
     case 0:
-      return _galleryBoard(
-        theme,
-        data,
-        iconMode,
-        disableAlternate,
-        onToolbarTap,
-        onFilterTap,
-        toolbarSelected,
-        filterSelected,
-        showDiagnostics,
-      );
+      return _galleryBoard(theme, data, iconMode, disableAlternate, onToolbarTap, onFilterTap, toolbarSelected, filterSelected, showDiagnostics);
     case 1:
       return _borderMatrixBoard(theme, data);
     case 2:
-      return _stateLabBoard(
-        theme,
-        data,
-        iconMode,
-        disableAlternate,
-        layoutSelected,
-        settingsSelected,
-        onLayoutTap,
-        onSettingsTap,
-        showDiagnostics,
-      );
+      return _stateLabBoard(theme, data, iconMode, disableAlternate, layoutSelected, settingsSelected, onLayoutTap, onSettingsTap, showDiagnostics);
     case 3:
-      return _integratedBoard(
-        theme,
-        scenario,
-        iconMode,
-        disableAlternate,
-        toolbarSelected,
-        filterSelected,
-        onToolbarTap,
-        onFilterTap,
-      );
+      return _integratedBoard(theme, scenario, iconMode, disableAlternate, toolbarSelected, filterSelected, onToolbarTap, onFilterTap);
     default:
       return _guideBoard(theme, interactionCount, tick, log);
   }
@@ -901,12 +712,7 @@ Widget _galleryBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          theme,
-          'Recipe Gallery',
-          'Core toggle groups under active ToggleButtonsThemeData.',
-          'gallery',
-        ),
+        _section(theme, 'Recipe Gallery', 'Core toggle groups under active ToggleButtonsThemeData.', 'gallery'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -914,17 +720,12 @@ Widget _galleryBoard(
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Editor Toolbar',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              Text('Editor Toolbar', style: TextStyle(fontWeight: FontWeight.w700)),
               SizedBox(height: 8),
               ToggleButtons(
                 isSelected: toolbarSelected,
@@ -938,10 +739,7 @@ Widget _galleryBoard(
                 ],
               ),
               SizedBox(height: 14),
-              Text(
-                'Filter Cluster',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              Text('Filter Cluster', style: TextStyle(fontWeight: FontWeight.w700)),
               SizedBox(height: 8),
               ToggleButtons(
                 isSelected: filterSelected,
@@ -962,16 +760,20 @@ Widget _galleryBoard(
         ),
         if (showDiagnostics) ...[
           SizedBox(height: 10),
-          _diagnostics(theme, 'ThemeData diagnostics', [
-            'color: ${_color(data.color)}',
-            'selectedColor: ${_color(data.selectedColor)}',
-            'fillColor: ${_color(data.fillColor)}',
-            'borderColor: ${_color(data.borderColor)}',
-            'selectedBorderColor: ${_color(data.selectedBorderColor)}',
-            'borderWidth: ${data.borderWidth?.toStringAsFixed(2) ?? '-'}',
-            'radius: ${data.borderRadius?.resolve(TextDirection.ltr).topLeft.x.toStringAsFixed(1) ?? '-'}',
-            'constraints.min: ${data.constraints?.minWidth.toStringAsFixed(1) ?? '-'} x ${data.constraints?.minHeight.toStringAsFixed(1) ?? '-'}',
-          ]),
+          _diagnostics(
+            theme,
+            'ThemeData diagnostics',
+            [
+              'color: ${_color(data.color)}',
+              'selectedColor: ${_color(data.selectedColor)}',
+              'fillColor: ${_color(data.fillColor)}',
+              'borderColor: ${_color(data.borderColor)}',
+              'selectedBorderColor: ${_color(data.selectedBorderColor)}',
+              'borderWidth: ${data.borderWidth?.toStringAsFixed(2) ?? '-'}',
+              'radius: ${data.borderRadius?.resolve(TextDirection.ltr).topLeft.x.toStringAsFixed(1) ?? '-'}',
+              'constraints.min: ${data.constraints?.minWidth.toStringAsFixed(1) ?? '-'} x ${data.constraints?.minHeight.toStringAsFixed(1) ?? '-'}',
+            ],
+          ),
         ],
       ],
     ),
@@ -989,30 +791,22 @@ Widget _buttonChild(bool iconMode, IconData icon, String text) {
     padding: EdgeInsets.symmetric(horizontal: 8),
     child: Row(
       mainAxisSize: MainAxisSize.min,
-      children: [Icon(icon, size: 16), SizedBox(width: 5), Text(text)],
+      children: [
+        Icon(icon, size: 16),
+        SizedBox(width: 5),
+        Text(text),
+      ],
     ),
   );
 }
 
 IconData _toolbarIcon(int i) {
-  const icons = [
-    Icons.format_bold,
-    Icons.format_italic,
-    Icons.link,
-    Icons.code,
-  ];
+  const icons = [Icons.format_bold, Icons.format_italic, Icons.link, Icons.code];
   return icons[i % icons.length];
 }
 
 IconData _filterIcon(int i) {
-  const icons = [
-    Icons.folder_open,
-    Icons.assignment_ind,
-    Icons.warning_amber,
-    Icons.check_circle,
-    Icons.person,
-    Icons.priority_high,
-  ];
+  const icons = [Icons.folder_open, Icons.assignment_ind, Icons.warning_amber, Icons.check_circle, Icons.person, Icons.priority_high];
   return icons[i % icons.length];
 }
 
@@ -1025,12 +819,7 @@ Widget _borderMatrixBoard(ThemeData theme, ToggleButtonsThemeData data) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          theme,
-          'Border Matrix',
-          'Visual matrix for border width/radius behavior.',
-          'matrix',
-        ),
+        _section(theme, 'Border Matrix', 'Visual matrix for border width/radius behavior.', 'matrix'),
         SizedBox(height: 10),
         for (var r = 0; r < radii.length; r++)
           Container(
@@ -1039,17 +828,12 @@ Widget _borderMatrixBoard(ThemeData theme, ToggleButtonsThemeData data) {
             decoration: BoxDecoration(
               color: theme.colorScheme.surface.withAlpha(190),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: theme.colorScheme.outlineVariant.withAlpha(128),
-              ),
+              border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(128)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Radius ${radii[r].toStringAsFixed(0)}',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
+                Text('Radius ${radii[r].toStringAsFixed(0)}', style: TextStyle(fontWeight: FontWeight.w700)),
                 SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
@@ -1074,11 +858,7 @@ Widget _borderMatrixBoard(ThemeData theme, ToggleButtonsThemeData data) {
   );
 }
 
-Widget _matrixGroup(
-  ThemeData theme,
-  ToggleButtonsThemeData data,
-  String label,
-) {
+Widget _matrixGroup(ThemeData theme, ToggleButtonsThemeData data, String label) {
   final local = theme.copyWith(toggleButtonsTheme: data);
   return Theme(
     data: local,
@@ -1090,27 +870,15 @@ Widget _matrixGroup(
       ),
       child: Column(
         children: [
-          Text(
-            label,
-            style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700),
-          ),
+          Text(label, style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700)),
           SizedBox(height: 6),
           ToggleButtons(
             isSelected: [true, false, true],
             onPressed: (_) {},
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Text('A'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Text('B'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Text('C'),
-              ),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Text('A')),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Text('B')),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Text('C')),
             ],
           ),
         ],
@@ -1138,12 +906,7 @@ Widget _stateLabBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          theme,
-          'State Lab',
-          'Selected, unselected, and disabled behavior checks.',
-          'state',
-        ),
+        _section(theme, 'State Lab', 'Selected, unselected, and disabled behavior checks.', 'state'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1151,17 +914,12 @@ Widget _stateLabBoard(
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Layout Switcher',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              Text('Layout Switcher', style: TextStyle(fontWeight: FontWeight.w700)),
               SizedBox(height: 8),
               ToggleButtons(
                 isSelected: layoutSelected,
@@ -1170,15 +928,11 @@ Widget _stateLabBoard(
                   onLayoutTap(i);
                 },
                 children: [
-                  for (var i = 0; i < layout.length; i++)
-                    _buttonChild(iconMode, _layoutIcon(i), layout[i]),
+                  for (var i = 0; i < layout.length; i++) _buttonChild(iconMode, _layoutIcon(i), layout[i]),
                 ],
               ),
               SizedBox(height: 14),
-              Text(
-                'Settings Cluster',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              Text('Settings Cluster', style: TextStyle(fontWeight: FontWeight.w700)),
               SizedBox(height: 8),
               ToggleButtons(
                 isSelected: settingsSelected,
@@ -1187,15 +941,11 @@ Widget _stateLabBoard(
                   onSettingsTap(i);
                 },
                 children: [
-                  for (var i = 0; i < settings.length; i++)
-                    _buttonChild(iconMode, _settingsIcon(i), settings[i]),
+                  for (var i = 0; i < settings.length; i++) _buttonChild(iconMode, _settingsIcon(i), settings[i]),
                 ],
               ),
               SizedBox(height: 14),
-              Text(
-                'Disabled preview',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              Text('Disabled preview', style: TextStyle(fontWeight: FontWeight.w700)),
               SizedBox(height: 8),
               ToggleButtons(
                 isSelected: [false, true, false],
@@ -1203,11 +953,7 @@ Widget _stateLabBoard(
                 children: [
                   _buttonChild(iconMode, Icons.visibility_outlined, 'One'),
                   _buttonChild(iconMode, Icons.visibility_off_outlined, 'Two'),
-                  _buttonChild(
-                    iconMode,
-                    Icons.remove_red_eye_outlined,
-                    'Three',
-                  ),
+                  _buttonChild(iconMode, Icons.remove_red_eye_outlined, 'Three'),
                 ],
               ),
             ],
@@ -1215,12 +961,16 @@ Widget _stateLabBoard(
         ),
         if (showDiagnostics) ...[
           SizedBox(height: 10),
-          _diagnostics(theme, 'State diagnostics', [
-            'selected count(layout): ${layoutSelected.where((e) => e).length}',
-            'selected count(settings): ${settingsSelected.where((e) => e).length}',
-            'disableAlternate: $disableAlternate',
-            'textStyle: ${data.textStyle?.fontWeight} ${data.textStyle?.fontSize?.toStringAsFixed(1) ?? '-'}',
-          ]),
+          _diagnostics(
+            theme,
+            'State diagnostics',
+            [
+              'selected count(layout): ${layoutSelected.where((e) => e).length}',
+              'selected count(settings): ${settingsSelected.where((e) => e).length}',
+              'disableAlternate: $disableAlternate',
+              'textStyle: ${data.textStyle?.fontWeight} ${data.textStyle?.fontSize?.toStringAsFixed(1) ?? '-'}',
+            ],
+          ),
         ],
       ],
     ),
@@ -1233,12 +983,7 @@ IconData _layoutIcon(int i) {
 }
 
 IconData _settingsIcon(int i) {
-  const icons = [
-    Icons.tips_and_updates_outlined,
-    Icons.save_outlined,
-    Icons.wrap_text,
-    Icons.preview_outlined,
-  ];
+  const icons = [Icons.tips_and_updates_outlined, Icons.save_outlined, Icons.wrap_text, Icons.preview_outlined];
   return icons[i % icons.length];
 }
 
@@ -1264,12 +1009,7 @@ Widget _integratedBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          theme,
-          'Integrated Scenes',
-          scenario.description,
-          scenario.title,
-        ),
+        _section(theme, 'Integrated Scenes', scenario.description, scenario.title),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1277,26 +1017,16 @@ Widget _integratedBoard(
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(labelText: 'Search metrics'),
-                    ),
-                  ),
+                  Expanded(child: TextField(decoration: InputDecoration(labelText: 'Search metrics'))),
                   SizedBox(width: 10),
-                  FilledButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.refresh),
-                    label: Text('Refresh'),
-                  ),
+                  FilledButton.icon(onPressed: () {}, icon: Icon(Icons.refresh), label: Text('Refresh')),
                 ],
               ),
               SizedBox(height: 12),
@@ -1351,28 +1081,13 @@ Widget _integratedBoard(
                                 children: [
                                   Icon(m.$3),
                                   SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      m.$1,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
+                                  Expanded(child: Text(m.$1, style: TextStyle(fontWeight: FontWeight.w700))),
                                 ],
                               ),
                               SizedBox(height: 10),
-                              Text(
-                                m.$2,
-                                style: theme.textTheme.headlineMedium?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
+                              Text(m.$2, style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
                               SizedBox(height: 8),
-                              OutlinedButton(
-                                onPressed: () {},
-                                child: Text('Inspect'),
-                              ),
+                              OutlinedButton(onPressed: () {}, child: Text('Inspect')),
                             ],
                           ),
                         ),
@@ -1388,23 +1103,13 @@ Widget _integratedBoard(
   );
 }
 
-Widget _guideBoard(
-  ThemeData theme,
-  int interactionCount,
-  int tick,
-  List<String> log,
-) {
+Widget _guideBoard(ThemeData theme, int interactionCount, int tick, List<String> log) {
   return SingleChildScrollView(
     padding: EdgeInsets.fromLTRB(14, 12, 14, 14),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          theme,
-          'Guide + Timeline',
-          'Practical guidance and interaction history.',
-          'guide',
-        ),
+        _section(theme, 'Guide + Timeline', 'Practical guidance and interaction history.', 'guide'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1412,17 +1117,12 @@ Widget _guideBoard(
           decoration: BoxDecoration(
             color: theme.colorScheme.tertiaryContainer.withAlpha(108),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: theme.colorScheme.tertiary.withAlpha(130),
-            ),
+            border: Border.all(color: theme.colorScheme.tertiary.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ToggleButtonsThemeData guidance',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('ToggleButtonsThemeData guidance', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               for (final g in _guideBullets) _bullet(g),
             ],
@@ -1435,17 +1135,12 @@ Widget _guideBoard(
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'FAQ',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('FAQ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               for (final f in _faqs)
                 Padding(
@@ -1474,25 +1169,17 @@ Widget _guideBoard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Timeline',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('Timeline', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               Text('Interactions: $interactionCount  |  Ticks: $tick'),
               SizedBox(height: 8),
               if (log.isEmpty)
-                Text(
-                  'No events yet. Interact with controls and groups to populate this log.',
-                )
+                Text('No events yet. Interact with controls and groups to populate this log.')
               else
                 for (final line in log)
                   Padding(
                     padding: EdgeInsets.only(bottom: 4),
-                    child: Text(
-                      line,
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-                    ),
+                    child: Text(line, style: TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
                   ),
             ],
           ),
@@ -1509,17 +1196,9 @@ Widget _section(ThemeData theme, String title, String subtitle, String chip) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800),
-            ),
+            Text(title, style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800)),
             SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(
-                color: theme.colorScheme.onSurface.withAlpha(175),
-              ),
-            ),
+            Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(175))),
           ],
         ),
       ),
@@ -1529,10 +1208,7 @@ Widget _section(ThemeData theme, String title, String subtitle, String chip) {
           color: theme.colorScheme.primaryContainer.withAlpha(170),
           borderRadius: BorderRadius.circular(999),
         ),
-        child: Text(
-          chip,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
-        ),
+        child: Text(chip, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
       ),
     ],
   );
@@ -1550,18 +1226,12 @@ Widget _diagnostics(ThemeData theme, String title, List<String> lines) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         SizedBox(height: 8),
         for (final line in lines)
           Padding(
             padding: EdgeInsets.only(bottom: 4),
-            child: Text(
-              line,
-              style: TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-            ),
+            child: Text(line, style: TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
           ),
       ],
     ),
@@ -1584,10 +1254,7 @@ Widget _bullet(String text) {
           child: Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: Color(0xFF0F766E),
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: Color(0xFF0F766E), shape: BoxShape.circle),
           ),
         ),
         Expanded(child: Text(text)),
@@ -1612,10 +1279,7 @@ class _GlyphPainter extends CustomPainter {
       final y = 8 + i * 8.3;
       p.color = Color.lerp(a, b, i / 5)?.withAlpha(220) ?? a;
       canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(8, y, w, 5.3),
-          Radius.circular(4),
-        ),
+        RRect.fromRectAndRadius(Rect.fromLTWH(8, y, w, 5.3), Radius.circular(4)),
         p,
       );
     }

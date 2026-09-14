@@ -70,7 +70,11 @@ enum _Stage {
   compendium,
 }
 
-enum _Density { sparse, normal, dense }
+enum _Density {
+  sparse,
+  normal,
+  dense,
+}
 
 class _TraceEvent {
   final DateTime at;
@@ -309,12 +313,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
   }
 
   void _pushTrace(String source, String message, Color tone) {
-    final event = _TraceEvent(
-      at: DateTime.now(),
-      source: source,
-      message: message,
-      tone: tone,
-    );
+    final event = _TraceEvent(at: DateTime.now(), source: source, message: message, tone: tone);
     setState(() {
       _timeline.insert(0, event);
       if (_timeline.length > 70) {
@@ -344,11 +343,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
 
   void _onManualAction(String lane, bool save) {
     setState(() => _manualActionEvents += 1);
-    _pushTrace(
-      lane,
-      'finishAutofillContext(shouldSave: $save)',
-      save ? _p.accentA : _p.accentC,
-    );
+    _pushTrace(lane, 'finishAutofillContext(shouldSave: $save)', save ? _p.accentA : _p.accentC);
   }
 
   void _onSelection(String lane, String note) {
@@ -402,10 +397,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -447,36 +439,15 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text(
-            'Stage',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Stage', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           for (var i = 0; i < _stageTitles.length; i++) _stageChip(i),
           const SizedBox(width: 10),
-          Text(
-            'Density',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Density', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           _densityChip('Sparse', _Density.sparse),
           _densityChip('Normal', _Density.normal),
           _densityChip('Dense', _Density.dense),
           const SizedBox(width: 10),
-          Text(
-            'Palette',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
         ],
       ),
@@ -523,9 +494,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
           border: Border.all(
-            color: _paletteIndex == index
-                ? _palettes[index].accentC
-                : Colors.transparent,
+            color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent,
             width: 2,
           ),
         ),
@@ -566,8 +535,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Global Controls',
-            subtitle:
-                'Tune lane sizes, action presets, and diagnostics visibility.',
+            subtitle: 'Tune lane sizes, action presets, and diagnostics visibility.',
             child: Column(
               children: <Widget>[
                 _slider(
@@ -586,43 +554,23 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                   max: 4,
                   divisions: 3,
                   color: _p.accentB,
-                  onChanged: (v) =>
-                      setState(() => _dynamicAddressLines = v.round()),
+                  onChanged: (v) => setState(() => _dynamicAddressLines = v.round()),
                 ),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
                   children: <Widget>[
                     _toggleChip('show tips', _showTips, (v) => _showTips = v),
-                    _toggleChip(
-                      'show metrics',
-                      _showMetrics,
-                      (v) => _showMetrics = v,
-                    ),
-                    _toggleChip(
-                      'show timeline',
-                      _showTimeline,
-                      (v) => _showTimeline = v,
-                    ),
-                    _toggleChip(
-                      'billing same as shipping',
-                      _billingSameAsShipping,
-                      (v) => _billingSameAsShipping = v,
-                    ),
+                    _toggleChip('show metrics', _showMetrics, (v) => _showMetrics = v),
+                    _toggleChip('show timeline', _showTimeline, (v) => _showTimeline = v),
+                    _toggleChip('billing same as shipping', _billingSameAsShipping, (v) => _billingSameAsShipping = v),
                     _toggleChip('verbose logs', _verbose, (v) => _verbose = v),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Row(
                   children: <Widget>[
-                    Text(
-                      'fundamental onDisposeAction',
-                      style: TextStyle(
-                        color: _p.ink,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 11.4,
-                      ),
-                    ),
+                    Text('fundamental onDisposeAction', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.4)),
                     const SizedBox(width: 10),
                     DropdownButton<AutofillContextAction>(
                       value: _fundamentalAction,
@@ -637,11 +585,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                       onChanged: (value) {
                         if (value != null) {
                           setState(() => _fundamentalAction = value);
-                          _pushTrace(
-                            'policy',
-                            'fundamental action -> ${value.name}',
-                            _p.accentA,
-                          );
+                          _pushTrace('policy', 'fundamental action -> ${value.name}', _p.accentA);
                         }
                       },
                     ),
@@ -666,8 +610,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                     child: _AutofillGroupLane(
                       laneId: 'fundamentals-account',
                       title: 'Account Group',
-                      subtitle:
-                          'Core identity fields grouped for sign-in profile.',
+                      subtitle: 'Core identity fields grouped for sign-in profile.',
                       palette: _p,
                       onDisposeAction: _fundamentalAction,
                       dynamicAddressLines: _effectiveDynamicAddressLines,
@@ -686,16 +629,14 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                 width: 510,
                 child: _panel(
                   title: 'Profile Group Lane',
-                  subtitle:
-                      'Extended profile fields with optional address lines.',
+                  subtitle: 'Extended profile fields with optional address lines.',
                   tint: _p.accentB.withValues(alpha: 0.03),
                   child: SizedBox(
                     height: _laneHeight,
                     child: _AutofillGroupLane(
                       laneId: 'fundamentals-profile',
                       title: 'Profile Group',
-                      subtitle:
-                          'Identity + address grouping with registry probe updates.',
+                      subtitle: 'Identity + address grouping with registry probe updates.',
                       palette: _p,
                       onDisposeAction: _fundamentalAction,
                       dynamicAddressLines: _effectiveDynamicAddressLines,
@@ -737,8 +678,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Hint Gallery Surface',
-            subtitle:
-                'Visual cards demonstrate field semantics and intended use.',
+            subtitle: 'Visual cards demonstrate field semantics and intended use.',
             tint: _p.accentC.withValues(alpha: 0.04),
             child: SizedBox(
               height: _galleryHeight,
@@ -782,28 +722,14 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
               const Spacer(),
               Text(
                 '#${index + 1}',
-                style: TextStyle(
-                  color: _p.muted,
-                  fontSize: 10.1,
-                  fontFamily: 'monospace',
-                ),
+                style: TextStyle(color: _p.muted, fontSize: 10.1, fontFamily: 'monospace'),
               ),
             ],
           ),
           const SizedBox(height: 6),
-          Text(
-            spec.title,
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text(spec.title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           const SizedBox(height: 4),
-          Text(
-            spec.note,
-            style: TextStyle(color: _p.muted, fontSize: 10.6, height: 1.3),
-          ),
+          Text(spec.note, style: TextStyle(color: _p.muted, fontSize: 10.6, height: 1.3)),
           const SizedBox(height: 6),
           TextField(
             autofillHints: <String>[spec.hint],
@@ -813,9 +739,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
               fillColor: _p.canvas,
               hintText: spec.hint,
               hintStyle: TextStyle(color: _p.muted, fontSize: 10.4),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
           ),
         ],
@@ -839,8 +763,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Checkout Controls',
-            subtitle:
-                'Toggle billing linkage and configure checkout dispose behavior.',
+            subtitle: 'Toggle billing linkage and configure checkout dispose behavior.',
             child: Row(
               children: <Widget>[
                 FilterChip(
@@ -848,22 +771,11 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                   label: const Text('billing same as shipping'),
                   onSelected: (v) {
                     setState(() => _billingSameAsShipping = v);
-                    _pushTrace(
-                      'checkout',
-                      'billing same as shipping -> $v',
-                      _p.accentB,
-                    );
+                    _pushTrace('checkout', 'billing same as shipping -> $v', _p.accentB);
                   },
                 ),
                 const SizedBox(width: 14),
-                Text(
-                  'checkout action',
-                  style: TextStyle(
-                    color: _p.ink,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 11.3,
-                  ),
-                ),
+                Text('checkout action', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.3)),
                 const SizedBox(width: 8),
                 DropdownButton<AutofillContextAction>(
                   value: _checkoutAction,
@@ -878,11 +790,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                   onChanged: (value) {
                     if (value != null) {
                       setState(() => _checkoutAction = value);
-                      _pushTrace(
-                        'checkout',
-                        'checkout action -> ${value.name}',
-                        _p.accentA,
-                      );
+                      _pushTrace('checkout', 'checkout action -> ${value.name}', _p.accentA);
                     }
                   },
                 ),
@@ -926,9 +834,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                           : 'Independent billing identity and address.',
                       palette: _p,
                       onDisposeAction: _checkoutAction,
-                      dynamicAddressLines: _billingSameAsShipping
-                          ? 1
-                          : _effectiveDynamicAddressLines,
+                      dynamicAddressLines: _billingSameAsShipping ? 1 : _effectiveDynamicAddressLines,
                       includePaymentSection: false,
                       includeShippingSection: true,
                       showTips: _showTips,
@@ -943,8 +849,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                     child: _AutofillGroupLane(
                       laneId: 'checkout-payment',
                       title: 'Payment Group',
-                      subtitle:
-                          'Payment fields grouped separately from addresses.',
+                      subtitle: 'Payment fields grouped separately from addresses.',
                       palette: _p,
                       onDisposeAction: _checkoutAction,
                       dynamicAddressLines: 1,
@@ -987,16 +892,8 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
               spacing: 16,
               runSpacing: 8,
               children: <Widget>[
-                _actionSelector(
-                  'lane A action',
-                  _disposeActionA,
-                  (v) => setState(() => _disposeActionA = v),
-                ),
-                _actionSelector(
-                  'lane B action',
-                  _disposeActionB,
-                  (v) => setState(() => _disposeActionB = v),
-                ),
+                _actionSelector('lane A action', _disposeActionA, (v) => setState(() => _disposeActionA = v)),
+                _actionSelector('lane B action', _disposeActionB, (v) => setState(() => _disposeActionB = v)),
               ],
             ),
           ),
@@ -1016,8 +913,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                     child: _AutofillGroupLane(
                       laneId: 'theater-a',
                       title: 'Theater Group A',
-                      subtitle:
-                          'Use save/cancel buttons to trigger explicit context finish.',
+                      subtitle: 'Use save/cancel buttons to trigger explicit context finish.',
                       palette: _p,
                       onDisposeAction: _disposeActionA,
                       dynamicAddressLines: _effectiveDynamicAddressLines,
@@ -1043,8 +939,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                     child: _AutofillGroupLane(
                       laneId: 'theater-b',
                       title: 'Theater Group B',
-                      subtitle:
-                          'Contrast group behavior with alternate action default.',
+                      subtitle: 'Contrast group behavior with alternate action default.',
                       palette: _p,
                       onDisposeAction: _disposeActionB,
                       dynamicAddressLines: _effectiveDynamicAddressLines,
@@ -1104,11 +999,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                     },
                   ),
                 const SizedBox(width: 10),
-                _toggleChip(
-                  'show summary',
-                  _showWizardSummary,
-                  (v) => _showWizardSummary = v,
-                ),
+                _toggleChip('show summary', _showWizardSummary, (v) => _showWizardSummary = v),
               ],
             ),
           ),
@@ -1140,8 +1031,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                   _AutofillGroupLane(
                     laneId: 'wizard-step-2',
                     title: 'Step 2: Address',
-                    subtitle:
-                        'Address-focused group with dynamic optional lines.',
+                    subtitle: 'Address-focused group with dynamic optional lines.',
                     palette: _p,
                     onDisposeAction: AutofillContextAction.commit,
                     dynamicAddressLines: _effectiveDynamicAddressLines,
@@ -1156,8 +1046,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                   _AutofillGroupLane(
                     laneId: 'wizard-step-3',
                     title: 'Step 3: Payment',
-                    subtitle:
-                        'Payment data grouped independently from profile.',
+                    subtitle: 'Payment data grouped independently from profile.',
                     palette: _p,
                     onDisposeAction: AutofillContextAction.commit,
                     dynamicAddressLines: 1,
@@ -1182,11 +1071,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                 spacing: 8,
                 runSpacing: 8,
                 children: <Widget>[
-                  for (final id in <String>[
-                    'wizard-step-1',
-                    'wizard-step-2',
-                    'wizard-step-3',
-                  ])
+                  for (final id in <String>['wizard-step-1', 'wizard-step-2', 'wizard-step-3'])
                     _probeTile(id),
                 ],
               ),
@@ -1210,15 +1095,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            id,
-            style: TextStyle(
-              color: _p.accentA,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w700,
-              fontSize: 10.8,
-            ),
-          ),
+          Text(id, style: TextStyle(color: _p.accentA, fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 10.8)),
           const SizedBox(height: 4),
           Text(
             status == null
@@ -1241,38 +1118,16 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'AutofillGroup Matrix',
-            subtitle:
-                'Component purpose, composition patterns, and runtime behavior.',
+            subtitle: 'Component purpose, composition patterns, and runtime behavior.',
             child: Column(
               children: <Widget>[
-                _matrix(
-                  'Purpose',
-                  'Define a scope that groups related autofill fields.',
-                ),
-                _matrix(
-                  'Primary use',
-                  'Wrap logically related TextField/TextFormField widgets.',
-                ),
-                _matrix(
-                  'Scope access',
-                  'Use AutofillGroup.maybeOf(context) or AutofillGroup.of(context).',
-                ),
-                _matrix(
-                  'Client registry',
-                  'Group state tracks active autofill clients in scope.',
-                ),
-                _matrix(
-                  'Dispose behavior',
-                  'onDisposeAction controls commit/cancel intent on dispose.',
-                ),
-                _matrix(
-                  'Manual completion',
-                  'TextInput.finishAutofillContext can explicitly save/cancel context.',
-                ),
-                _matrix(
-                  'Best practice',
-                  'Use separate groups for independent form segments (shipping vs payment).',
-                ),
+                _matrix('Purpose', 'Define a scope that groups related autofill fields.'),
+                _matrix('Primary use', 'Wrap logically related TextField/TextFormField widgets.'),
+                _matrix('Scope access', 'Use AutofillGroup.maybeOf(context) or AutofillGroup.of(context).'),
+                _matrix('Client registry', 'Group state tracks active autofill clients in scope.'),
+                _matrix('Dispose behavior', 'onDisposeAction controls commit/cancel intent on dispose.'),
+                _matrix('Manual completion', 'TextInput.finishAutofillContext can explicitly save/cancel context.'),
+                _matrix('Best practice', 'Use separate groups for independent form segments (shipping vs payment).'),
               ],
             ),
           ),
@@ -1285,28 +1140,22 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
                 _doDont(
                   good: true,
                   title: 'Do align group boundaries with user intent',
-                  detail:
-                      'Separate unrelated domains into different groups for predictable behavior.',
+                  detail: 'Separate unrelated domains into different groups for predictable behavior.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Do provide proper autofillHints for each field',
-                  detail:
-                      'Hints guide platform autofill services to supply accurate values.',
+                  detail: 'Hints guide platform autofill services to supply accurate values.',
                 ),
                 _doDont(
                   good: false,
-                  title:
-                      'Dont mix payment and profile fields in one huge group',
-                  detail:
-                      'Overly broad groups can reduce autofill clarity and maintainability.',
+                  title: 'Dont mix payment and profile fields in one huge group',
+                  detail: 'Overly broad groups can reduce autofill clarity and maintainability.',
                 ),
                 _doDont(
                   good: false,
-                  title:
-                      'Dont ignore disposal semantics in flows with teardown',
-                  detail:
-                      'Explicitly choose commit or cancel semantics where group disposal is common.',
+                  title: 'Dont ignore disposal semantics in flows with teardown',
+                  detail: 'Explicitly choose commit or cancel semantics where group disposal is common.',
                 ),
               ],
             ),
@@ -1343,24 +1192,12 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _check(
-                  'Fundamentals stage with two distinct AutofillGroup lane compositions.',
-                ),
-                _check(
-                  'Hint gallery stage with multiple hint-specific visual cards.',
-                ),
-                _check(
-                  'Checkout flow stage showing shipping, billing, and payment group separation.',
-                ),
-                _check(
-                  'Dispose theater stage comparing commit/cancel with manual finish actions.',
-                ),
-                _check(
-                  'Wizard stage demonstrating per-step group boundaries and probe summaries.',
-                ),
-                _check(
-                  'Compendium stage with matrix, do/dont, FAQ, and checklist guidance.',
-                ),
+                _check('Fundamentals stage with two distinct AutofillGroup lane compositions.'),
+                _check('Hint gallery stage with multiple hint-specific visual cards.'),
+                _check('Checkout flow stage showing shipping, billing, and payment group separation.'),
+                _check('Dispose theater stage comparing commit/cancel with manual finish actions.'),
+                _check('Wizard stage demonstrating per-step group boundaries and probe summaries.'),
+                _check('Compendium stage with matrix, do/dont, FAQ, and checklist guidance.'),
               ],
             ),
           ),
@@ -1383,14 +1220,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(
-          label,
-          style: TextStyle(
-            color: _p.ink,
-            fontWeight: FontWeight.w700,
-            fontSize: 11.4,
-          ),
-        ),
+        Text(label, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.4)),
         const SizedBox(width: 8),
         DropdownButton<AutofillContextAction>(
           value: current,
@@ -1430,22 +1260,14 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
     );
   }
 
-  Widget _toggleChip(
-    String label,
-    bool value,
-    void Function(bool value) assign,
-  ) {
+  Widget _toggleChip(String label, bool value, void Function(bool value) assign) {
     return FilterChip(
       selected: value,
       selectedColor: _p.accentA.withValues(alpha: 0.18),
       backgroundColor: Colors.white,
       checkmarkColor: _p.accentA,
       label: Text(label),
-      labelStyle: TextStyle(
-        color: _p.ink,
-        fontWeight: FontWeight.w700,
-        fontSize: 11,
-      ),
+      labelStyle: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11),
       onSelected: (selected) => setState(() => assign(selected)),
     );
   }
@@ -1488,20 +1310,10 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
         Container(
           width: 4,
           height: 22,
-          decoration: BoxDecoration(
-            color: _p.accentA,
-            borderRadius: BorderRadius.circular(2),
-          ),
+          decoration: BoxDecoration(color: _p.accentA, borderRadius: BorderRadius.circular(2)),
         ),
         const SizedBox(width: 8),
-        Text(
-          text,
-          style: TextStyle(
-            color: _p.ink,
-            fontSize: 18,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        Text(text, style: TextStyle(color: _p.ink, fontSize: 18, fontWeight: FontWeight.w800)),
       ],
     );
   }
@@ -1530,14 +1342,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w800,
-              fontSize: 14,
-            ),
-          ),
+          Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 14)),
           const SizedBox(height: 3),
           Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.3)),
           const SizedBox(height: 10),
@@ -1576,11 +1381,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
       ),
       child: Text(
         text,
-        style: TextStyle(
-          color: _p.ink,
-          fontSize: 9.9,
-          fontWeight: FontWeight.w700,
-        ),
+        style: TextStyle(color: _p.ink, fontSize: 9.9, fontWeight: FontWeight.w700),
       ),
     );
   }
@@ -1609,22 +1410,13 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
               ),
             ),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(color: _p.ink, fontSize: 11.4, height: 1.33),
-            ),
-          ),
+          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 11.4, height: 1.33))),
         ],
       ),
     );
   }
 
-  Widget _doDont({
-    required bool good,
-    required String title,
-    required String detail,
-  }) {
+  Widget _doDont({required bool good, required String title, required String detail}) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1643,23 +1435,9 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: _p.ink,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
+                Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
                 const SizedBox(height: 4),
-                Text(
-                  detail,
-                  style: TextStyle(
-                    color: _p.muted,
-                    fontSize: 11.3,
-                    height: 1.33,
-                  ),
-                ),
+                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.3, height: 1.33)),
               ],
             ),
           ),
@@ -1680,19 +1458,9 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Q: $q',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Q: $q', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           const SizedBox(height: 4),
-          Text(
-            'A: $a',
-            style: TextStyle(color: _p.muted, fontSize: 11.4, height: 1.34),
-          ),
+          Text('A: $a', style: TextStyle(color: _p.muted, fontSize: 11.4, height: 1.34)),
         ],
       ),
     );
@@ -1706,9 +1474,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12)),
-          ),
+          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12))),
         ],
       ),
     );
@@ -1728,12 +1494,7 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
         children: <Widget>[
           Icon(Icons.info_outline, color: _p.accentC, size: 18),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _p.ink, fontSize: 12, height: 1.34),
-            ),
-          ),
+          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12, height: 1.34))),
         ],
       ),
     );
@@ -1746,19 +1507,9 @@ class _AutofillGroupDeepDemoState extends State<_AutofillGroupDeepDemo> {
       color: _p.shell.withValues(alpha: 0.06),
       child: Row(
         children: <Widget>[
-          Text(
-            _stageTitles[_stage.index],
-            style: TextStyle(
-              color: _p.muted,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(_stageTitles[_stage.index], style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700)),
           const Spacer(),
-          Text(
-            'Palette: ${_p.name}',
-            style: TextStyle(color: _p.muted, fontSize: 11),
-          ),
+          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11)),
         ],
       ),
     );
@@ -1837,12 +1588,7 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
       return;
     }
     if (next > current) {
-      _extraLines.addAll(
-        List<TextEditingController>.generate(
-          next - current,
-          (_) => TextEditingController(),
-        ),
-      );
+      _extraLines.addAll(List<TextEditingController>.generate(next - current, (_) => TextEditingController()));
     } else {
       for (var i = current - 1; i >= next; i--) {
         _extraLines[i].dispose();
@@ -1850,11 +1596,7 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
       _extraLines = _extraLines.take(next).toList();
     }
     setState(() {});
-    widget.onTrace(
-      widget.laneId,
-      'extra address lines -> ${_extraLines.length}',
-      widget.palette.accentB,
-    );
+    widget.onTrace(widget.laneId, 'extra address lines -> ${_extraLines.length}', widget.palette.accentB);
   }
 
   @override
@@ -1949,19 +1691,9 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                widget.title,
-                style: TextStyle(
-                  color: widget.palette.ink,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 13.4,
-                ),
-              ),
+              Text(widget.title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w800, fontSize: 13.4)),
               const SizedBox(height: 2),
-              Text(
-                widget.subtitle,
-                style: TextStyle(color: widget.palette.muted, fontSize: 10.9),
-              ),
+              Text(widget.subtitle, style: TextStyle(color: widget.palette.muted, fontSize: 10.9)),
             ],
           ),
         ),
@@ -1991,25 +1723,11 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
       tone: widget.palette.accentA,
       child: Column(
         children: <Widget>[
-          _field(_name, 'Full name', const <String>[
-            AutofillHints.name,
-          ], Icons.person_outline),
+          _field(_name, 'Full name', const <String>[AutofillHints.name], Icons.person_outline),
           const SizedBox(height: 8),
-          _field(
-            _email,
-            'Email',
-            const <String>[AutofillHints.email],
-            Icons.alternate_email,
-            keyboard: TextInputType.emailAddress,
-          ),
+          _field(_email, 'Email', const <String>[AutofillHints.email], Icons.alternate_email, keyboard: TextInputType.emailAddress),
           const SizedBox(height: 8),
-          _field(
-            _phone,
-            'Phone',
-            const <String>[AutofillHints.telephoneNumber],
-            Icons.phone_outlined,
-            keyboard: TextInputType.phone,
-          ),
+          _field(_phone, 'Phone', const <String>[AutofillHints.telephoneNumber], Icons.phone_outlined, keyboard: TextInputType.phone),
         ],
       ),
     );
@@ -2021,28 +1739,25 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
       tone: widget.palette.accentB,
       child: Column(
         children: <Widget>[
-          _field(_address1, 'Street line 1', const <String>[
-            AutofillHints.streetAddressLine1,
-          ], Icons.home_outlined),
+          _field(_address1, 'Street line 1', const <String>[AutofillHints.streetAddressLine1], Icons.home_outlined),
           for (var i = 0; i < _extraLines.length; i++) ...<Widget>[
             const SizedBox(height: 8),
-            _field(_extraLines[i], 'Street line ${i + 2}', const <String>[
-              AutofillHints.streetAddressLine2,
-            ], Icons.short_text),
+            _field(
+              _extraLines[i],
+              'Street line ${i + 2}',
+              const <String>[AutofillHints.streetAddressLine2],
+              Icons.short_text,
+            ),
           ],
           const SizedBox(height: 8),
           Row(
             children: <Widget>[
               Expanded(
-                child: _field(_city, 'City', const <String>[
-                  AutofillHints.addressCity,
-                ], Icons.location_city_outlined),
+                child: _field(_city, 'City', const <String>[AutofillHints.addressCity], Icons.location_city_outlined),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: _field(_postal, 'Postal', const <String>[
-                  AutofillHints.postalCode,
-                ], Icons.markunread_mailbox_outlined),
+                child: _field(_postal, 'Postal', const <String>[AutofillHints.postalCode], Icons.markunread_mailbox_outlined),
               ),
             ],
           ),
@@ -2057,21 +1772,11 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
       tone: widget.palette.accentC,
       child: Column(
         children: <Widget>[
-          _field(_cardName, 'Cardholder name', const <String>[
-            AutofillHints.creditCardName,
-          ], Icons.badge_outlined),
+          _field(_cardName, 'Cardholder name', const <String>[AutofillHints.creditCardName], Icons.badge_outlined),
           const SizedBox(height: 8),
-          _field(
-            _cardNumber,
-            'Card number',
-            const <String>[AutofillHints.creditCardNumber],
-            Icons.credit_card_outlined,
-            keyboard: TextInputType.number,
-          ),
+          _field(_cardNumber, 'Card number', const <String>[AutofillHints.creditCardNumber], Icons.credit_card_outlined, keyboard: TextInputType.number),
           const SizedBox(height: 8),
-          _field(_cardExpiry, 'Expiry date', const <String>[
-            AutofillHints.creditCardExpirationDate,
-          ], Icons.event_outlined),
+          _field(_cardExpiry, 'Expiry date', const <String>[AutofillHints.creditCardExpirationDate], Icons.event_outlined),
         ],
       ),
     );
@@ -2090,10 +1795,7 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
       keyboardType: keyboard,
       onChanged: (value) {
         if (value.isNotEmpty && value.length % 6 == 0) {
-          widget.onSelection(
-            widget.laneId,
-            '$label reached ${value.length} chars',
-          );
+          widget.onSelection(widget.laneId, '$label reached ${value.length} chars');
         }
       },
       decoration: InputDecoration(
@@ -2106,11 +1808,7 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
     );
   }
 
-  Widget _sectionCard({
-    required String title,
-    required Color tone,
-    required Widget child,
-  }) {
+  Widget _sectionCard({required String title, required Color tone, required Widget child}) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(9),
@@ -2122,14 +1820,7 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              color: widget.palette.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 11.8,
-            ),
-          ),
+          Text(title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 11.8)),
           const SizedBox(height: 8),
           child,
         ],
@@ -2167,14 +1858,7 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Inspector',
-            style: TextStyle(
-              color: widget.palette.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 11.8,
-            ),
-          ),
+          Text('Inspector', style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 11.8)),
           const SizedBox(height: 8),
           _line('lane', widget.laneId),
           _line('action', widget.onDisposeAction.name),
@@ -2185,11 +1869,7 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
           if (widget.showTips)
             Text(
               'Tip: grouped fields improve autofill context relevance and maintainability.',
-              style: TextStyle(
-                color: widget.palette.muted,
-                fontSize: 10.3,
-                height: 1.3,
-              ),
+              style: TextStyle(color: widget.palette.muted, fontSize: 10.3, height: 1.3),
             ),
         ],
       ),
@@ -2206,19 +1886,10 @@ class _AutofillGroupLaneState extends State<_AutofillGroupLane> {
             width: 72,
             child: Text(
               key,
-              style: TextStyle(
-                color: widget.palette.muted,
-                fontFamily: 'monospace',
-                fontSize: 9.8,
-              ),
+              style: TextStyle(color: widget.palette.muted, fontFamily: 'monospace', fontSize: 9.8),
             ),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(color: widget.palette.ink, fontSize: 10.2),
-            ),
-          ),
+          Expanded(child: Text(value, style: TextStyle(color: widget.palette.ink, fontSize: 10.2))),
         ],
       ),
     );
@@ -2272,21 +1943,12 @@ class _AutofillGroupProbeState extends State<_AutofillGroupProbe> {
       decoration: BoxDecoration(
         color: widget.palette.accentC.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: widget.palette.accentC.withValues(alpha: 0.32),
-        ),
+        border: Border.all(color: widget.palette.accentC.withValues(alpha: 0.32)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'AutofillGroup Probe',
-            style: TextStyle(
-              color: widget.palette.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 11.8,
-            ),
-          ),
+          Text('AutofillGroup Probe', style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 11.8)),
           const SizedBox(height: 6),
           _row('has group', '$hasGroup'),
           _row('client count', '$count'),
@@ -2305,19 +1967,10 @@ class _AutofillGroupProbeState extends State<_AutofillGroupProbe> {
             width: 92,
             child: Text(
               key,
-              style: TextStyle(
-                color: widget.palette.ink,
-                fontFamily: 'monospace',
-                fontSize: 10,
-              ),
+              style: TextStyle(color: widget.palette.ink, fontFamily: 'monospace', fontSize: 10),
             ),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(color: widget.palette.ink, fontSize: 10.4),
-            ),
-          ),
+          Expanded(child: Text(value, style: TextStyle(color: widget.palette.ink, fontSize: 10.4))),
         ],
       ),
     );

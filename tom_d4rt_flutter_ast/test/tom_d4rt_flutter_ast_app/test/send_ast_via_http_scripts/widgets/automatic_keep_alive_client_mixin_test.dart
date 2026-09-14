@@ -143,7 +143,10 @@ class _SectionTitle extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: <Color>[Colors.indigo.shade400, Colors.indigo.shade800],
+                colors: <Color>[
+                  Colors.indigo.shade400,
+                  Colors.indigo.shade800,
+                ],
               ),
               borderRadius: BorderRadius.circular(3),
             ),
@@ -234,7 +237,11 @@ class _BulletPoint extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 6, right: 10),
-            child: Icon(Icons.circle, size: 8, color: Colors.indigo.shade500),
+            child: Icon(
+              Icons.circle,
+              size: 8,
+              color: Colors.indigo.shade500,
+            ),
           ),
           Expanded(
             child: Text(
@@ -252,7 +259,10 @@ class _GradientCard extends StatelessWidget {
   final List<Color> colors;
   final Widget child;
 
-  const _GradientCard({required this.colors, required this.child});
+  const _GradientCard({
+    required this.colors,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -348,7 +358,11 @@ class _Chevron extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Icon(Icons.chevron_right, size: 24, color: Colors.grey.shade500),
+      child: Icon(
+        Icons.chevron_right,
+        size: 24,
+        color: Colors.grey.shade500,
+      ),
     );
   }
 }
@@ -360,7 +374,11 @@ class _DownArrow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Icon(Icons.arrow_downward, size: 22, color: Colors.grey.shade500),
+      child: Icon(
+        Icons.arrow_downward,
+        size: 22,
+        color: Colors.grey.shade500,
+      ),
     );
   }
 }
@@ -407,7 +425,11 @@ class _HeroCard extends StatelessWidget {
                   color: Colors.white.withOpacity(0.18),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.layers, color: Colors.white, size: 32),
+                child: const Icon(
+                  Icons.layers,
+                  color: Colors.white,
+                  size: 32,
+                ),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -428,7 +450,11 @@ class _HeroCard extends StatelessWidget {
             'Mix into a State<T> to opt out of disposal by lazy parents '
             '(PageView, ListView, SliverList, TabBarView, NestedScrollView). '
             'Override wantKeepAlive and call super.build(context) first.',
-            style: TextStyle(fontSize: 14, color: Colors.white, height: 1.5),
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              height: 1.5,
+            ),
           ),
           const SizedBox(height: 14),
           Wrap(
@@ -535,7 +561,10 @@ class _AnatomyDiagram extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Colors.indigo.shade50, Colors.deepPurple.shade50],
+          colors: <Color>[
+            Colors.indigo.shade50,
+            Colors.deepPurple.shade50,
+          ],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.indigo.shade200),
@@ -658,7 +687,10 @@ class _AnatomyRow extends StatelessWidget {
                 const SizedBox(height: 3),
                 Text(
                   sub,
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
               ],
             ),
@@ -697,11 +729,23 @@ class _ProtocolSequence extends StatelessWidget {
           const SizedBox(height: 8),
           Row(
             children: const <Widget>[
-              _Pill(text: '1. mount', color: Colors.blue, icon: Icons.flag),
+              _Pill(
+                text: '1. mount',
+                color: Colors.blue,
+                icon: Icons.flag,
+              ),
               _Chevron(),
-              _Pill(text: '2. build', color: Colors.indigo, icon: Icons.layers),
+              _Pill(
+                text: '2. build',
+                color: Colors.indigo,
+                icon: Icons.layers,
+              ),
               _Chevron(),
-              _Pill(text: '3. subscribe', color: Colors.teal, icon: Icons.link),
+              _Pill(
+                text: '3. subscribe',
+                color: Colors.teal,
+                icon: Icons.link,
+              ),
               _Chevron(),
               _Pill(
                 text: '4. survive',
@@ -743,16 +787,8 @@ class _WithoutMixinLifecycleSection extends StatelessWidget {
             endColor: Color(0xFFFF8A65),
             steps: <_LifecycleStep>[
               _LifecycleStep('on screen', 'tap count: 7', Icons.visibility),
-              _LifecycleStep(
-                'scroll out',
-                'about to leave cache',
-                Icons.swap_horiz,
-              ),
-              _LifecycleStep(
-                'disposed',
-                'dispose() called',
-                Icons.delete_forever,
-              ),
+              _LifecycleStep('scroll out', 'about to leave cache', Icons.swap_horiz),
+              _LifecycleStep('disposed', 'dispose() called', Icons.delete_forever),
               _LifecycleStep('returns', 'tap count: 0', Icons.refresh),
             ],
           ),
@@ -823,11 +859,7 @@ class _LifecycleStrip extends StatelessWidget {
             builder: (BuildContext context, BoxConstraints constraints) {
               final List<Widget> tiles = <Widget>[];
               for (int i = 0; i < steps.length; i++) {
-                tiles.add(
-                  Expanded(
-                    child: _LifecycleTile(step: steps[i], color: endColor),
-                  ),
-                );
+                tiles.add(Expanded(child: _LifecycleTile(step: steps[i], color: endColor)));
                 if (i < steps.length - 1) {
                   tiles.add(const _Chevron());
                 }
@@ -938,7 +970,10 @@ class _SampleTileFreshState extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   'All ephemeral state was lost when the parent called dispose().',
-                  style: TextStyle(fontSize: 12, color: Colors.red.shade700),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.red.shade700,
+                  ),
                 ),
               ],
             ),
@@ -976,11 +1011,7 @@ class _WithMixinLifecycleSection extends StatelessWidget {
             endColor: Color(0xFF66BB6A),
             steps: <_LifecycleStep>[
               _LifecycleStep('on screen', 'tap count: 7', Icons.visibility),
-              _LifecycleStep(
-                'scroll out',
-                'parked, not disposed',
-                Icons.pause_circle,
-              ),
+              _LifecycleStep('scroll out', 'parked, not disposed', Icons.pause_circle),
               _LifecycleStep('kept', 'State retained in memory', Icons.shield),
               _LifecycleStep('returns', 'tap count: 7', Icons.check_circle),
             ],
@@ -1054,7 +1085,10 @@ class _SampleTilePreservedState extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   'The same State instance survived because wantKeepAlive returned true.',
-                  style: TextStyle(fontSize: 12, color: Colors.green.shade800),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.green.shade800,
+                  ),
                 ),
               ],
             ),
@@ -1236,7 +1270,10 @@ class _MockPageTile extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[accent.shade400, accent.shade700],
+          colors: <Color>[
+            accent.shade400,
+            accent.shade700,
+          ],
         ),
         borderRadius: BorderRadius.circular(12),
         boxShadow: <BoxShadow>[
@@ -1423,11 +1460,7 @@ class _MockTabBar extends StatelessWidget {
         children: <Widget>[
           _MockTabItem(label: 'Profile', selected: true, color: Colors.indigo),
           _MockTabItem(label: 'Address', selected: false, color: Colors.teal),
-          _MockTabItem(
-            label: 'Payment',
-            selected: false,
-            color: Colors.deepPurple,
-          ),
+          _MockTabItem(label: 'Payment', selected: false, color: Colors.deepPurple),
         ],
       ),
     );
@@ -1510,7 +1543,10 @@ class _MockFormTile extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: color.shade100,
                   borderRadius: BorderRadius.circular(6),
@@ -1527,14 +1563,15 @@ class _MockFormTile extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 'kept-alive after tab switch',
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey.shade600,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 10),
-          ...fields.map(
-            (_MockField f) => _MockFieldRow(field: f, color: color),
-          ),
+          ...fields.map((_MockField f) => _MockFieldRow(field: f, color: color)),
         ],
       ),
     );
@@ -1565,7 +1602,10 @@ class _MockFieldRow extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
+              ),
               decoration: BoxDecoration(
                 color: color.shade50,
                 borderRadius: BorderRadius.circular(6),
@@ -1573,7 +1613,10 @@ class _MockFieldRow extends StatelessWidget {
               ),
               child: Text(
                 field.value,
-                style: const TextStyle(fontSize: 13, fontFamily: 'monospace'),
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
           ),
@@ -1659,7 +1702,10 @@ class _SkylineDiagram extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Colors.blueGrey.shade50, Colors.indigo.shade50],
+          colors: <Color>[
+            Colors.blueGrey.shade50,
+            Colors.indigo.shade50,
+          ],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.indigo.shade100),
@@ -1875,7 +1921,10 @@ class _ConditionalTile extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             state,
-            style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
+            style: const TextStyle(
+              fontSize: 12,
+              fontFamily: 'monospace',
+            ),
           ),
           const SizedBox(height: 8),
           Container(
@@ -2029,8 +2078,7 @@ class _PitfallsSection extends StatelessWidget {
           ),
           const _PitfallCard(
             title: 'Heavy controllers retained forever',
-            symptom:
-                'Background animations or streams keep running off-screen.',
+            symptom: 'Background animations or streams keep running off-screen.',
             fix: 'Pause / detach when wantKeepAlive flips to a low-cost mode.',
             color: Colors.blueGrey,
             icon: Icons.battery_alert,
@@ -2065,7 +2113,10 @@ class _PitfallCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: <Color>[color.shade50, Colors.white],
+          colors: <Color>[
+            color.shade50,
+            Colors.white,
+          ],
         ),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: color.shade200),
@@ -2096,11 +2147,7 @@ class _PitfallCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 _LabelledLine(label: 'symptom', text: symptom),
-                _LabelledLine(
-                  label: 'fix',
-                  text: fix,
-                  accent: Colors.green.shade800,
-                ),
+                _LabelledLine(label: 'fix', text: fix, accent: Colors.green.shade800),
               ],
             ),
           ),
@@ -2178,7 +2225,8 @@ class _WhenNotToUseSection extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Icon(Icons.lightbulb, color: Colors.deepPurple.shade700),
+                    Icon(Icons.lightbulb,
+                        color: Colors.deepPurple.shade700),
                     const SizedBox(width: 8),
                     Text(
                       'Reach for these instead when the keep-alive mixin is wrong:',
@@ -2224,7 +2272,8 @@ class _WhenNotToUseSection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.do_not_disturb_on, color: Colors.red.shade700),
+                Icon(Icons.do_not_disturb_on,
+                    color: Colors.red.shade700),
                 const SizedBox(width: 10),
                 Expanded(
                   child: RichText(
@@ -2363,7 +2412,10 @@ class _RefRow extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(right: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6,
+              vertical: 2,
+            ),
             decoration: BoxDecoration(
               color: Colors.indigo.shade100,
               borderRadius: BorderRadius.circular(6),
@@ -2404,7 +2456,10 @@ class _FooterCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Colors.indigo.shade700, Colors.deepPurple.shade600],
+          colors: <Color>[
+            Colors.indigo.shade700,
+            Colors.deepPurple.shade600,
+          ],
         ),
         borderRadius: BorderRadius.circular(14),
         boxShadow: <BoxShadow>[
@@ -2440,7 +2495,11 @@ class _FooterCard extends StatelessWidget {
             'remember its private UI state. Reach for Provider/Bloc/'
             'Riverpod or persistent storage for anything that must '
             'outlive the immediate parent scrolling boundary.',
-            style: TextStyle(color: Colors.white, fontSize: 13.5, height: 1.5),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13.5,
+              height: 1.5,
+            ),
           ),
           const SizedBox(height: 12),
           Wrap(

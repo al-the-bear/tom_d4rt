@@ -103,7 +103,11 @@ const TextStyle _label = TextStyle(
   letterSpacing: 1.4,
 );
 
-const TextStyle _body = TextStyle(fontSize: 13.5, height: 1.5, color: _inkSoft);
+const TextStyle _body = TextStyle(
+  fontSize: 13.5,
+  height: 1.5,
+  color: _inkSoft,
+);
 
 const TextStyle _bodyStrong = TextStyle(
   fontSize: 13.5,
@@ -603,7 +607,10 @@ class _HeroSection extends StatelessWidget {
             ),
           ),
           SizedBox(width: 28),
-          Expanded(flex: 5, child: _HeroTreeGraphic(tree: tree)),
+          Expanded(
+            flex: 5,
+            child: _HeroTreeGraphic(tree: tree),
+          ),
         ],
       ),
     );
@@ -621,7 +628,10 @@ class _HeroTreeGraphic extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[_paperAlt, Colors.white],
+          colors: <Color>[
+            _paperAlt,
+            Colors.white,
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: _line),
@@ -746,11 +756,11 @@ class _AnatomySection extends StatelessWidget {
                     <String>['toStringShort()', 'Just the runtimeType label'],
                     <String>[
                       'toDiagnosticsNode()',
-                      'Wraps "this" as a DiagnosticsNode',
+                      'Wraps "this" as a DiagnosticsNode'
                     ],
                     <String>[
                       'debugFillProperties()',
-                      'Build a flat list of properties',
+                      'Build a flat list of properties'
                     ],
                   ],
                 ),
@@ -764,19 +774,19 @@ class _AnatomySection extends StatelessWidget {
                   rows: const <List<String>>[
                     <String>[
                       'debugDescribeChildren()',
-                      'Returns a List<DiagnosticsNode> of children',
+                      'Returns a List<DiagnosticsNode> of children'
                     ],
                     <String>[
                       'toStringDeep()',
-                      'Recursive, indented multi-line dump',
+                      'Recursive, indented multi-line dump'
                     ],
                     <String>[
                       'toStringShallow()',
-                      'Like toStringDeep but only one level',
+                      'Like toStringDeep but only one level'
                     ],
                     <String>[
                       'toDiagnosticsNode()',
-                      'Style defaults to DiagnosticsTreeStyle.sparse',
+                      'Style defaults to DiagnosticsTreeStyle.sparse'
                     ],
                   ],
                 ),
@@ -859,10 +869,10 @@ class _AnatomyBlock extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          row[0],
-                          style: _monoInk.copyWith(fontWeight: FontWeight.w700),
-                        ),
+                        Text(row[0],
+                            style: _monoInk.copyWith(
+                              fontWeight: FontWeight.w700,
+                            )),
                         Text(row[1], style: _body),
                       ],
                     ),
@@ -894,11 +904,7 @@ class _InheritanceChain extends StatelessWidget {
           _ChainArrow(),
           _ChainBox(label: 'Diagnosticable', tint: _accent),
           _ChainArrow(),
-          _ChainBox(
-            label: 'DiagnosticableTree',
-            tint: _accentAlt,
-            primary: true,
-          ),
+          _ChainBox(label: 'DiagnosticableTree', tint: _accentAlt, primary: true),
           _ChainArrow(),
           Expanded(
             child: Wrap(
@@ -1042,10 +1048,8 @@ class _DebugFillPropertiesSection extends StatelessWidget {
                 child: _CodeBlock(
                   title: 'lib/widgets/region_card.dart',
                   lines: const <_CodeLine>[
-                    _CodeLine(
-                      'class RegionCard extends StatelessWidget {',
-                      kind: _CodeKind.keyword,
-                    ),
+                    _CodeLine('class RegionCard extends StatelessWidget {',
+                        kind: _CodeKind.keyword),
                     _CodeLine('  const RegionCard({'),
                     _CodeLine('    super.key,'),
                     _CodeLine('    required this.label,'),
@@ -1065,19 +1069,14 @@ class _DebugFillPropertiesSection extends StatelessWidget {
                     _CodeLine('  void debugFillProperties('),
                     _CodeLine('      DiagnosticPropertiesBuilder properties,'),
                     _CodeLine('  ) {'),
+                    _CodeLine('    super.debugFillProperties(properties);',
+                        kind: _CodeKind.call),
                     _CodeLine(
-                      '    super.debugFillProperties(properties);',
-                      kind: _CodeKind.call,
-                    ),
+                        "    properties.add(StringProperty('label', label));"),
                     _CodeLine(
-                      "    properties.add(StringProperty('label', label));",
-                    ),
+                        "    properties.add(IntProperty('depth', depth));"),
                     _CodeLine(
-                      "    properties.add(IntProperty('depth', depth));",
-                    ),
-                    _CodeLine(
-                      "    properties.add(IntProperty('weight', weight,",
-                    ),
+                        "    properties.add(IntProperty('weight', weight,"),
                     _CodeLine('        defaultValue: 0));'),
                     _CodeLine('    properties.add(FlagProperty('),
                     _CodeLine("        'flagged',"),
@@ -1086,8 +1085,7 @@ class _DebugFillPropertiesSection extends StatelessWidget {
                     _CodeLine("        ifFalse: 'normal',"),
                     _CodeLine('    ));'),
                     _CodeLine(
-                      "    properties.add(ColorProperty('tint', tint));",
-                    ),
+                        "    properties.add(ColorProperty('tint', tint));"),
                     _CodeLine('  }'),
                     _CodeLine('}'),
                   ],
@@ -1255,15 +1253,11 @@ class _SampleSubclassSection extends StatelessWidget {
           _CodeBlock(
             title: 'lib/tree_node.dart',
             lines: const <_CodeLine>[
-              _CodeLine(
-                "import 'package:flutter/foundation.dart';",
-                kind: _CodeKind.keyword,
-              ),
+              _CodeLine("import 'package:flutter/foundation.dart';",
+                  kind: _CodeKind.keyword),
               _CodeLine(''),
-              _CodeLine(
-                'class TreeNode extends DiagnosticableTree {',
-                kind: _CodeKind.keyword,
-              ),
+              _CodeLine('class TreeNode extends DiagnosticableTree {',
+                  kind: _CodeKind.keyword),
               _CodeLine('  TreeNode({'),
               _CodeLine('    required this.label,'),
               _CodeLine('    required this.kind,'),
@@ -1284,23 +1278,19 @@ class _SampleSubclassSection extends StatelessWidget {
               _CodeLine(''),
               _CodeLine('  @override', kind: _CodeKind.annotation),
               _CodeLine(
-                "  String toStringShort() => 'TreeNode(\$label / \$kind)';",
-              ),
+                  "  String toStringShort() => 'TreeNode(\$label / \$kind)';"),
               _CodeLine(''),
               _CodeLine('  @override', kind: _CodeKind.annotation),
               _CodeLine('  void debugFillProperties('),
               _CodeLine('      DiagnosticPropertiesBuilder properties,'),
               _CodeLine('  ) {'),
-              _CodeLine(
-                '    super.debugFillProperties(properties);',
-                kind: _CodeKind.call,
-              ),
+              _CodeLine('    super.debugFillProperties(properties);',
+                  kind: _CodeKind.call),
               _CodeLine("    properties.add(StringProperty('label', label));"),
               _CodeLine("    properties.add(StringProperty('kind', kind));"),
               _CodeLine("    properties.add(IntProperty('depth', depth));"),
               _CodeLine(
-                "    properties.add(IntProperty('weight', weight, defaultValue: 0));",
-              ),
+                  "    properties.add(IntProperty('weight', weight, defaultValue: 0));"),
               _CodeLine('    properties.add(FlagProperty('),
               _CodeLine("        'flagged',"),
               _CodeLine('        value: flagged,'),
@@ -1316,8 +1306,7 @@ class _SampleSubclassSection extends StatelessWidget {
               _CodeLine('    return <DiagnosticsNode>['),
               _CodeLine('      for (int i = 0; i < children.length; i++)'),
               _CodeLine(
-                "        children[i].toDiagnosticsNode(name: 'child[\$i]'),",
-              ),
+                  "        children[i].toDiagnosticsNode(name: 'child[\$i]'),"),
               _CodeLine('    ];'),
               _CodeLine('  }'),
               _CodeLine('}'),
@@ -1334,7 +1323,8 @@ class _SampleSubclassSection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.lightbulb_outline, color: _mint, size: 18),
+                Icon(Icons.lightbulb_outline,
+                    color: _mint, size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -1393,99 +1383,71 @@ class _ToStringDeepConsoleSection extends StatelessWidget {
               _consoleLine('\u2502   depth: 0'),
               _consoleLine('\u2502   weight: 11'),
               _consoleLine('\u2502   flagged: normal'),
-              _consoleLine(
-                '\u2502   tint: Color(0xff4f46e5)',
-                color: _consoleSt,
-              ),
+              _consoleLine('\u2502   tint: Color(0xff4f46e5)',
+                  color: _consoleSt),
               _consoleLine('\u2502'),
               _consoleSeq(<TextSpan>[
                 _consoleLine('\u251C\u2500'),
                 _consoleLine('child[0]: ', color: _consoleDim),
-                _consoleLine(
-                  'TreeNode(Header / Region)',
-                  color: _consoleHi,
-                  weight: FontWeight.w700,
-                ),
+                _consoleLine('TreeNode(Header / Region)',
+                    color: _consoleHi, weight: FontWeight.w700),
               ]),
               _consoleLine('\u2502 \u2502   label: "Header"'),
               _consoleLine('\u2502 \u2502   kind: "Region"'),
               _consoleLine('\u2502 \u2502   depth: 1'),
               _consoleLine('\u2502 \u2502   weight: 4'),
-              _consoleLine(
-                '\u2502 \u2502   flagged: FLAGGED',
-                color: Color(0xFFF87171),
-                weight: FontWeight.w700,
-              ),
-              _consoleLine(
-                '\u2502 \u2502   tint: Color(0xff4f46e5)',
-                color: _consoleSt,
-              ),
+              _consoleLine('\u2502 \u2502   flagged: FLAGGED',
+                  color: Color(0xFFF87171), weight: FontWeight.w700),
+              _consoleLine('\u2502 \u2502   tint: Color(0xff4f46e5)',
+                  color: _consoleSt),
               _consoleLine('\u2502 \u2502'),
               _consoleSeq(<TextSpan>[
                 _consoleLine('\u2502 \u251C\u2500'),
                 _consoleLine('child[0]: ', color: _consoleDim),
-                _consoleLine(
-                  'TreeNode(Toolbar / AppBarSlot)',
-                  color: _consoleHi,
-                  weight: FontWeight.w700,
-                ),
+                _consoleLine('TreeNode(Toolbar / AppBarSlot)',
+                    color: _consoleHi, weight: FontWeight.w700),
               ]),
               _consoleLine('\u2502 \u2502     label: "Toolbar"'),
               _consoleLine('\u2502 \u2502     kind: "AppBarSlot"'),
               _consoleLine('\u2502 \u2502     depth: 2'),
               _consoleLine('\u2502 \u2502     weight: 3'),
               _consoleLine('\u2502 \u2502     flagged: normal'),
-              _consoleLine(
-                '\u2502 \u2502     tint: Color(0xff7c3aed)',
-                color: _consoleSt,
-              ),
+              _consoleLine('\u2502 \u2502     tint: Color(0xff7c3aed)',
+                  color: _consoleSt),
               _consoleLine('\u2502 \u2502'),
               _consoleSeq(<TextSpan>[
                 _consoleLine('\u2502 \u2514\u2500'),
                 _consoleLine('child[1]: ', color: _consoleDim),
-                _consoleLine(
-                  'TreeNode(Logo / ImageSlot)',
-                  color: _consoleHi,
-                  weight: FontWeight.w700,
-                ),
+                _consoleLine('TreeNode(Logo / ImageSlot)',
+                    color: _consoleHi, weight: FontWeight.w700),
               ]),
               _consoleLine('\u2502       label: "Logo"'),
               _consoleLine('\u2502       kind: "ImageSlot"'),
               _consoleLine('\u2502       depth: 2'),
               _consoleLine('\u2502       weight: 1'),
               _consoleLine('\u2502       flagged: normal'),
-              _consoleLine(
-                '\u2502       tint: Color(0xff059669)',
-                color: _consoleSt,
-              ),
+              _consoleLine('\u2502       tint: Color(0xff059669)',
+                  color: _consoleSt),
               _consoleLine('\u2502'),
               _consoleSeq(<TextSpan>[
                 _consoleLine('\u251C\u2500'),
                 _consoleLine('child[1]: ', color: _consoleDim),
-                _consoleLine(
-                  'TreeNode(Body / Region)',
-                  color: _consoleHi,
-                  weight: FontWeight.w700,
-                ),
+                _consoleLine('TreeNode(Body / Region)',
+                    color: _consoleHi, weight: FontWeight.w700),
               ]),
               _consoleLine('\u2502 \u2502   label: "Body"'),
               _consoleLine('\u2502 \u2502   kind: "Region"'),
               _consoleLine('\u2502 \u2502   depth: 1'),
               _consoleLine('\u2502 \u2502   weight: 5'),
               _consoleLine('\u2502 \u2502   flagged: normal'),
-              _consoleLine(
-                '\u2502 \u2502   tint: Color(0xff7c3aed)',
-                color: _consoleSt,
-              ),
+              _consoleLine('\u2502 \u2502   tint: Color(0xff7c3aed)',
+                  color: _consoleSt),
               _consoleLine('\u2502 \u2502'),
               _consoleSeq(<TextSpan>[
                 _consoleLine('\u2502 \u251C\u2500'),
                 _consoleLine('child[0]: ', color: _consoleDim),
-                _consoleLine(
-                  'TreeNode(ListTile / Item)',
-                  color: _consoleHi,
-                  weight: FontWeight.w700,
-                ),
+                _consoleLine('TreeNode(ListTile / Item)',
+                    color: _consoleHi, weight: FontWeight.w700),
               ]),
               _consoleLine('\u2502 \u2502     label: "ListTile"'),
               _consoleLine('\u2502 \u2502     depth: 2'),
@@ -1494,11 +1456,8 @@ class _ToStringDeepConsoleSection extends StatelessWidget {
               _consoleSeq(<TextSpan>[
                 _consoleLine('\u2502 \u2514\u2500'),
                 _consoleLine('child[1]: ', color: _consoleDim),
-                _consoleLine(
-                  'TreeNode(Footnote / Caption)',
-                  color: _consoleHi,
-                  weight: FontWeight.w700,
-                ),
+                _consoleLine('TreeNode(Footnote / Caption)',
+                    color: _consoleHi, weight: FontWeight.w700),
               ]),
               _consoleLine('\u2502       label: "Footnote"'),
               _consoleLine('\u2502       depth: 2'),
@@ -1507,17 +1466,15 @@ class _ToStringDeepConsoleSection extends StatelessWidget {
               _consoleSeq(<TextSpan>[
                 _consoleLine('\u2514\u2500'),
                 _consoleLine('child[2]: ', color: _consoleDim),
-                _consoleLine(
-                  'TreeNode(Footer / Region)',
-                  color: _consoleHi,
-                  weight: FontWeight.w700,
-                ),
+                _consoleLine('TreeNode(Footer / Region)',
+                    color: _consoleHi, weight: FontWeight.w700),
               ]),
               _consoleLine('      label: "Footer"'),
               _consoleLine('      depth: 1'),
               _consoleLine('      weight: 2'),
               _consoleLine('      flagged: normal'),
-              _consoleLine('      tint: Color(0xffd97706)', color: _consoleSt),
+              _consoleLine('      tint: Color(0xffd97706)',
+                  color: _consoleSt),
             ],
           ),
           SizedBox(height: 14),
@@ -1561,8 +1518,7 @@ class _PropertiesBuilderGallerySection extends StatelessWidget {
         title: 'DoubleProperty',
         kind: 'double',
         summary: 'Float with optional unit and tolerance — handy for sizes.',
-        example:
-            "DoubleProperty('opacity', opacity, unit: 'x', defaultValue: 1.0)",
+        example: "DoubleProperty('opacity', opacity, unit: 'x', defaultValue: 1.0)",
         tint: _mint,
       ),
       _PropEntry(
@@ -1585,7 +1541,8 @@ class _PropertiesBuilderGallerySection extends StatelessWidget {
         title: 'IterableProperty<T>',
         kind: 'List/Iterable',
         summary: 'Comma-separated short list with optional style override.',
-        example: "IterableProperty<TreeNode>('children', children)",
+        example:
+            "IterableProperty<TreeNode>('children', children)",
         tint: _rose,
       ),
       _PropEntry(
@@ -1610,7 +1567,8 @@ class _PropertiesBuilderGallerySection extends StatelessWidget {
         kind: 'T?',
         summary:
             'Like FlagProperty for nullable references — ifNull / ifPresent.',
-        example: "ObjectFlagProperty<VoidCallback>.has('onTap', onTap)",
+        example:
+            "ObjectFlagProperty<VoidCallback>.has('onTap', onTap)",
         tint: _mint,
       ),
       _PropEntry(
@@ -1623,8 +1581,10 @@ class _PropertiesBuilderGallerySection extends StatelessWidget {
       _PropEntry(
         title: 'MessageProperty',
         kind: 'String',
-        summary: 'Plain "name: message" pair — useful for a free-form note.',
-        example: "MessageProperty('mode', 'detached, awaiting attach()')",
+        summary:
+            'Plain "name: message" pair — useful for a free-form note.',
+        example:
+            "MessageProperty('mode', 'detached, awaiting attach()')",
         tint: _sky,
       ),
       _PropEntry(
@@ -1717,7 +1677,10 @@ class _PropCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _ink.withValues(alpha: 0.40)),
             ),
-            child: Text(entry.example, style: _mono.copyWith(fontSize: 11.5)),
+            child: Text(
+              entry.example,
+              style: _mono.copyWith(fontSize: 11.5),
+            ),
           ),
         ],
       ),
@@ -1826,7 +1789,8 @@ class _DiagnosticLevelSection extends StatelessWidget {
             spacing: 12,
             runSpacing: 12,
             children: <Widget>[
-              for (final _LevelEntry level in levels) _LevelChip(level: level),
+              for (final _LevelEntry level in levels)
+                _LevelChip(level: level),
             ],
           ),
         ],
@@ -1926,35 +1890,31 @@ class _DescribeChildrenSection extends StatelessWidget {
                   title: 'lib/tree_node.dart (excerpt)',
                   lines: const <_CodeLine>[
                     _CodeLine('@override', kind: _CodeKind.annotation),
-                    _CodeLine(
-                      'List<DiagnosticsNode> debugDescribeChildren() {',
-                    ),
+                    _CodeLine('List<DiagnosticsNode> debugDescribeChildren() {'),
                     _CodeLine('  return <DiagnosticsNode>['),
                     _CodeLine(
-                      '    // 1. Named, default style:',
-                      kind: _CodeKind.comment,
-                    ),
-                    _CodeLine("    header.toDiagnosticsNode(name: 'header'),"),
+                        '    // 1. Named, default style:',
+                        kind: _CodeKind.comment),
+                    _CodeLine(
+                        "    header.toDiagnosticsNode(name: 'header'),"),
                     _CodeLine(''),
                     _CodeLine(
-                      '    // 2. Anonymous slot:',
-                      kind: _CodeKind.comment,
-                    ),
+                        '    // 2. Anonymous slot:',
+                        kind: _CodeKind.comment),
                     _CodeLine('    body.toDiagnosticsNode(),'),
                     _CodeLine(''),
                     _CodeLine(
-                      '    // 3. Custom rendering style:',
-                      kind: _CodeKind.comment,
-                    ),
+                        '    // 3. Custom rendering style:',
+                        kind: _CodeKind.comment),
                     _CodeLine('    footer.toDiagnosticsNode('),
                     _CodeLine("        name: 'footer',"),
-                    _CodeLine('        style: DiagnosticsTreeStyle.dense,'),
+                    _CodeLine(
+                        '        style: DiagnosticsTreeStyle.dense,'),
                     _CodeLine('    ),'),
                     _CodeLine(''),
                     _CodeLine(
-                      '    // 4. Loose / non-Diagnosticable child:',
-                      kind: _CodeKind.comment,
-                    ),
+                        '    // 4. Loose / non-Diagnosticable child:',
+                        kind: _CodeKind.comment),
                     _CodeLine('    DiagnosticsProperty<Object>('),
                     _CodeLine("        'overlay',"),
                     _CodeLine('        overlay,'),
@@ -2151,56 +2111,44 @@ class _DevToolsTreePane extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
                 _DevToolsRow(
-                  glyph: '\u25BC',
-                  label: 'MaterialApp',
-                  tint: _accent,
-                ),
+                    glyph: '\u25BC', label: 'MaterialApp', tint: _accent),
                 _DevToolsRow(
-                  glyph: '  \u25BC',
-                  label: 'Scaffold',
-                  tint: _accentAlt,
-                ),
+                    glyph: '  \u25BC',
+                    label: 'Scaffold',
+                    tint: _accentAlt),
                 _DevToolsRow(
-                  glyph: '    \u25BC',
-                  label: 'AppShell',
-                  tint: _accent,
-                  selected: true,
-                ),
+                    glyph: '    \u25BC',
+                    label: 'AppShell',
+                    tint: _accent,
+                    selected: true),
                 _DevToolsRow(
-                  glyph: '      \u25BC',
-                  label: 'Header (RegionCard)',
-                  tint: _accent,
-                ),
+                    glyph: '      \u25BC',
+                    label: 'Header (RegionCard)',
+                    tint: _accent),
                 _DevToolsRow(
-                  glyph: '        \u25CF',
-                  label: 'Toolbar',
-                  tint: _accentAlt,
-                ),
+                    glyph: '        \u25CF',
+                    label: 'Toolbar',
+                    tint: _accentAlt),
                 _DevToolsRow(
-                  glyph: '        \u25CF',
-                  label: 'Logo',
-                  tint: _mint,
-                ),
+                    glyph: '        \u25CF',
+                    label: 'Logo',
+                    tint: _mint),
                 _DevToolsRow(
-                  glyph: '      \u25BC',
-                  label: 'Body (RegionCard)',
-                  tint: _accentAlt,
-                ),
+                    glyph: '      \u25BC',
+                    label: 'Body (RegionCard)',
+                    tint: _accentAlt),
                 _DevToolsRow(
-                  glyph: '        \u25CF',
-                  label: 'ListTile',
-                  tint: _sky,
-                ),
+                    glyph: '        \u25CF',
+                    label: 'ListTile',
+                    tint: _sky),
                 _DevToolsRow(
-                  glyph: '        \u25CF',
-                  label: 'Footnote',
-                  tint: _inkMute,
-                ),
+                    glyph: '        \u25CF',
+                    label: 'Footnote',
+                    tint: _inkMute),
                 _DevToolsRow(
-                  glyph: '      \u25CF',
-                  label: 'Footer',
-                  tint: _amber,
-                ),
+                    glyph: '      \u25CF',
+                    label: 'Footer',
+                    tint: _amber),
               ],
             ),
           ),
@@ -2228,7 +2176,9 @@ class _DevToolsRow extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
       decoration: BoxDecoration(
-        color: selected ? tint.withValues(alpha: 0.10) : Colors.transparent,
+        color: selected
+            ? tint.withValues(alpha: 0.10)
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
@@ -2248,7 +2198,8 @@ class _DevToolsRow extends StatelessWidget {
               fontFamily: 'monospace',
               fontSize: 11.5,
               color: selected ? tint : _ink,
-              fontWeight: selected ? FontWeight.w800 : FontWeight.w500,
+              fontWeight:
+                  selected ? FontWeight.w800 : FontWeight.w500,
             ),
           ),
         ],
@@ -2301,23 +2252,21 @@ class _DevToolsDetailsPane extends StatelessWidget {
                 _DevPropRow(name: 'kind', value: '"Root"', tint: _accent),
                 _DevPropRow(name: 'depth', value: '0', tint: _accentAlt),
                 _DevPropRow(
-                  name: 'weight',
-                  value: '11',
-                  tint: _accentAlt,
-                  note: 'non-default',
-                ),
-                _DevPropRow(name: 'flagged', value: 'normal', tint: _mint),
+                    name: 'weight',
+                    value: '11',
+                    tint: _accentAlt,
+                    note: 'non-default'),
                 _DevPropRow(
-                  name: 'tint',
-                  value: 'Color(0xff4f46e5)',
-                  tint: _accent,
-                  swatch: true,
-                ),
+                    name: 'flagged', value: 'normal', tint: _mint),
                 _DevPropRow(
-                  name: 'children',
-                  value: '[Header, Body, Footer]',
-                  tint: _amber,
-                ),
+                    name: 'tint',
+                    value: 'Color(0xff4f46e5)',
+                    tint: _accent,
+                    swatch: true),
+                _DevPropRow(
+                    name: 'children',
+                    value: '[Header, Body, Footer]',
+                    tint: _amber),
               ],
             ),
           ),
@@ -2422,28 +2371,24 @@ class _DevToolsFlow extends StatelessWidget {
           Row(
             children: const <Widget>[
               _FlowBox(
-                label: 'Element',
-                sub: 'extends DiagnosticableTree',
-                tint: _accent,
-              ),
+                  label: 'Element',
+                  sub: 'extends DiagnosticableTree',
+                  tint: _accent),
               _FlowArrow(),
               _FlowBox(
-                label: 'WidgetInspectorService',
-                sub: 'serialises tree to JSON',
-                tint: _accentAlt,
-              ),
+                  label: 'WidgetInspectorService',
+                  sub: 'serialises tree to JSON',
+                  tint: _accentAlt),
               _FlowArrow(),
               _FlowBox(
-                label: 'VM Service',
-                sub: 'streams to DevTools',
-                tint: _mint,
-              ),
+                  label: 'VM Service',
+                  sub: 'streams to DevTools',
+                  tint: _mint),
               _FlowArrow(),
               _FlowBox(
-                label: 'Inspector UI',
-                sub: 'renders tree + details',
-                tint: _amber,
-              ),
+                  label: 'Inspector UI',
+                  sub: 'renders tree + details',
+                  tint: _amber),
             ],
           ),
         ],
@@ -2483,7 +2428,11 @@ class _FlowBox extends StatelessWidget {
             SizedBox(height: 2),
             Text(
               sub,
-              style: TextStyle(fontSize: 10.5, color: _inkSoft, height: 1.3),
+              style: TextStyle(
+                fontSize: 10.5,
+                color: _inkSoft,
+                height: 1.3,
+              ),
             ),
           ],
         ),
@@ -2583,7 +2532,8 @@ class _ToStringComparisonSection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.warning_amber_rounded, color: _amber, size: 18),
+                Icon(Icons.warning_amber_rounded,
+                    color: _amber, size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -2650,7 +2600,10 @@ class _ComparePanel extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _ink.withValues(alpha: 0.40)),
             ),
-            child: Text(sample, style: _mono.copyWith(fontSize: 11.5)),
+            child: Text(
+              sample,
+              style: _mono.copyWith(fontSize: 11.5),
+            ),
           ),
         ],
       ),
@@ -2863,34 +2816,33 @@ class _AlgorithmStrip extends StatelessWidget {
           Row(
             children: const <Widget>[
               _AlgoStep(
-                n: '1',
-                title: 'startNode',
-                body: 'Header line: name, value description.',
-                tint: _accent,
-              ),
+                  n: '1',
+                  title: 'startNode',
+                  body:
+                      'Header line: name, value description.',
+                  tint: _accent),
               _AlgoArrow(),
               _AlgoStep(
-                n: '2',
-                title: 'properties',
-                body: 'For every visible DiagnosticsProperty, indent + line.',
-                tint: _accentAlt,
-              ),
+                  n: '2',
+                  title: 'properties',
+                  body:
+                      'For every visible DiagnosticsProperty, indent + line.',
+                  tint: _accentAlt),
               _AlgoArrow(),
               _AlgoStep(
-                n: '3',
-                title: 'children',
-                body:
-                    'For every DiagnosticsNode in debugDescribeChildren, '
-                    'recurse with the right prefix glyphs.',
-                tint: _mint,
-              ),
+                  n: '3',
+                  title: 'children',
+                  body:
+                      'For every DiagnosticsNode in debugDescribeChildren, '
+                      'recurse with the right prefix glyphs.',
+                  tint: _mint),
               _AlgoArrow(),
               _AlgoStep(
-                n: '4',
-                title: 'endNode',
-                body: 'Trailing blank line if the tree style demands it.',
-                tint: _amber,
-              ),
+                  n: '4',
+                  title: 'endNode',
+                  body:
+                      'Trailing blank line if the tree style demands it.',
+                  tint: _amber),
             ],
           ),
         ],
@@ -2934,7 +2886,9 @@ class _AlgoStep extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: tint.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: tint.withValues(alpha: 0.55)),
+                    border: Border.all(
+                      color: tint.withValues(alpha: 0.55),
+                    ),
                   ),
                   child: Text(
                     n,
@@ -2961,7 +2915,11 @@ class _AlgoStep extends StatelessWidget {
             SizedBox(height: 6),
             Text(
               body,
-              style: TextStyle(fontSize: 11.5, color: _inkSoft, height: 1.4),
+              style: TextStyle(
+                fontSize: 11.5,
+                color: _inkSoft,
+                height: 1.4,
+              ),
             ),
           ],
         ),
@@ -3084,21 +3042,18 @@ class _MatrixHeaderRow extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: Text('Feature', style: _bodyStrong.copyWith(color: _ink)),
+            child: Text('Feature',
+                style: _bodyStrong.copyWith(color: _ink)),
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              'Diagnosticable',
-              style: _bodyStrong.copyWith(color: _accent),
-            ),
+            child: Text('Diagnosticable',
+                style: _bodyStrong.copyWith(color: _accent)),
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              'DiagnosticableTree',
-              style: _bodyStrong.copyWith(color: _accentAlt),
-            ),
+            child: Text('DiagnosticableTree',
+                style: _bodyStrong.copyWith(color: _accentAlt)),
           ),
         ],
       ),
@@ -3132,8 +3087,14 @@ class _MatrixDataRow extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(flex: 4, child: Text(row.diagnosticable, style: _body)),
-          Expanded(flex: 4, child: Text(row.diagnosticableTree, style: _body)),
+          Expanded(
+            flex: 4,
+            child: Text(row.diagnosticable, style: _body),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(row.diagnosticableTree, style: _body),
+          ),
         ],
       ),
     );
@@ -3166,13 +3127,16 @@ class _PitfallsSection extends StatelessWidget {
       ),
       _PitfallEntry(
         title: 'Using DiagnosticsProperty<T> for typed values',
-        bad: "p.add(DiagnosticsProperty<int>('depth', depth));",
-        good: "p.add(IntProperty('depth', depth));",
+        bad:
+            "p.add(DiagnosticsProperty<int>('depth', depth));",
+        good:
+            "p.add(IntProperty('depth', depth));",
         tint: _amber,
       ),
       _PitfallEntry(
         title: 'Leaking children with toString',
-        bad: "Logger.info('built \$widget');  // toStringDeep on hot path!",
+        bad:
+            "Logger.info('built \$widget');  // toStringDeep on hot path!",
         good:
             'assert(() {\n'
             "  Logger.info('built \${widget.toStringShort()}');\n"
@@ -3182,13 +3146,16 @@ class _PitfallsSection extends StatelessWidget {
       ),
       _PitfallEntry(
         title: 'Skipping defaultValue',
-        bad: "p.add(IntProperty('weight', weight));  // always shown",
-        good: "p.add(IntProperty('weight', weight, defaultValue: 0));",
+        bad:
+            "p.add(IntProperty('weight', weight));  // always shown",
+        good:
+            "p.add(IntProperty('weight', weight, defaultValue: 0));",
         tint: _accentAlt,
       ),
       _PitfallEntry(
         title: 'Using bool directly for flags',
-        bad: "p.add(DiagnosticsProperty<bool>('flagged', flagged));",
+        bad:
+            "p.add(DiagnosticsProperty<bool>('flagged', flagged));",
         good:
             "p.add(FlagProperty('flagged', value: flagged,\n"
             "    ifTrue: 'FLAGGED', ifFalse: 'normal'));",
@@ -3256,7 +3223,8 @@ class _PitfallCard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.report_problem_rounded, size: 18, color: entry.tint),
+              Icon(Icons.report_problem_rounded,
+                  size: 18, color: entry.tint),
               SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -3427,7 +3395,10 @@ class _Footer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 18),
-          Container(height: 1, color: Colors.white.withValues(alpha: 0.18)),
+          Container(
+            height: 1,
+            color: Colors.white.withValues(alpha: 0.18),
+          ),
           SizedBox(height: 14),
           Text(
             'tom_d4rt_flutter_ast \u00B7 visual deep demo \u00B7 '

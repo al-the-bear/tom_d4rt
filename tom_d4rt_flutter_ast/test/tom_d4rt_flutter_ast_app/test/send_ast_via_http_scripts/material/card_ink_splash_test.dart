@@ -274,7 +274,10 @@ Widget _tableRow(List<String> cells, Color zebra) {
           Expanded(
             child: Text(
               cell,
-              style: const TextStyle(fontSize: 12.0, fontFamily: 'monospace'),
+              style: const TextStyle(
+                fontSize: 12.0,
+                fontFamily: 'monospace',
+              ),
             ),
           ),
       ],
@@ -332,7 +335,10 @@ Widget _splashSnapshot({
           right: 6.0,
           top: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6.0,
+              vertical: 2.0,
+            ),
             decoration: BoxDecoration(
               color: const Color(0xCC000000),
               borderRadius: BorderRadius.circular(10.0),
@@ -455,7 +461,10 @@ Widget _heroHeader() {
                   const SizedBox(height: 6.0),
                   const Text(
                     'A deep-demo tour of Card, Material, Ink, and Splash factories',
-                    style: TextStyle(color: Color(0xFFE1BEE7), fontSize: 14.0),
+                    style: TextStyle(
+                      color: Color(0xFFE1BEE7),
+                      fontSize: 14.0,
+                    ),
                   ),
                 ],
               ),
@@ -565,43 +574,26 @@ Widget _conceptOverview() {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
         ),
         const SizedBox(height: 8.0),
-        const Text(
-          '1. Card variants — default, filled, outlined',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text(
-          '2. Material elevation — 0/1/2/4/8/12/16/24',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text(
-          '3. InkWell — bounded splash surfaces',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text(
-          '4. InkResponse — unbounded splash with custom radius',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text(
-          '5. InkSplash factory — the classic radial bloom',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text(
-          '6. InkRipple factory — the modern Material 3 wave',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text(
-          '7. NoSplash and custom factories',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text(
-          '8. Custom shape & border',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text(
-          '9. Comparison grid — all factories side by side',
-          style: TextStyle(fontSize: 12.5),
-        ),
-        const Text('10. Glossary & epilogue', style: TextStyle(fontSize: 12.5)),
+        const Text('1. Card variants — default, filled, outlined',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('2. Material elevation — 0/1/2/4/8/12/16/24',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('3. InkWell — bounded splash surfaces',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('4. InkResponse — unbounded splash with custom radius',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('5. InkSplash factory — the classic radial bloom',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('6. InkRipple factory — the modern Material 3 wave',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('7. NoSplash and custom factories',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('8. Custom shape & border',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('9. Comparison grid — all factories side by side',
+            style: TextStyle(fontSize: 12.5)),
+        const Text('10. Glossary & epilogue',
+            style: TextStyle(fontSize: 12.5)),
       ],
     ),
   );
@@ -791,25 +783,22 @@ Widget _section1CardVariants() {
         const SizedBox(height: 14.0),
         Column(
           children: [
-            _tableHeader(const [
-              'Variant',
-              'Elevation',
-              'Border',
-              'Use',
-            ], _s1Deep),
-            _tableRow(const [
-              'default',
-              '0+',
-              'none',
-              'general',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['filled', '0', 'none', 'in-scaffold'], _s1Wash),
-            _tableRow(const [
-              'outlined',
-              '0',
-              'side',
-              'low-noise',
-            ], const Color(0xFFFFFFFF)),
+            _tableHeader(
+              const ['Variant', 'Elevation', 'Border', 'Use'],
+              _s1Deep,
+            ),
+            _tableRow(
+              const ['default', '0+', 'none', 'general'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['filled', '0', 'none', 'in-scaffold'],
+              _s1Wash,
+            ),
+            _tableRow(
+              const ['outlined', '0', 'side', 'low-noise'],
+              const Color(0xFFFFFFFF),
+            ),
           ],
         ),
       ],
@@ -891,25 +880,17 @@ Widget _section2Elevation() {
         Column(
           children: [
             _tableHeader(const ['dp', 'Role', 'Example'], _s2Deep),
-            _tableRow(const [
-              '0',
-              'flush',
-              'inline panel',
-            ], const Color(0xFFFFFFFF)),
+            _tableRow(const ['0', 'flush', 'inline panel'],
+                const Color(0xFFFFFFFF)),
             _tableRow(const ['1', 'resting', 'card'], _s2Wash),
-            _tableRow(const [
-              '2',
-              'resting+',
-              'switch',
-            ], const Color(0xFFFFFFFF)),
+            _tableRow(const ['2', 'resting+', 'switch'],
+                const Color(0xFFFFFFFF)),
             _tableRow(const ['4', 'raised', 'AppBar'], _s2Wash),
-            _tableRow(const ['8', 'hovered', 'FAB'], const Color(0xFFFFFFFF)),
+            _tableRow(const ['8', 'hovered', 'FAB'],
+                const Color(0xFFFFFFFF)),
             _tableRow(const ['12', 'menu', 'submenu'], _s2Wash),
-            _tableRow(const [
-              '16',
-              'sheet',
-              'nav drawer',
-            ], const Color(0xFFFFFFFF)),
+            _tableRow(const ['16', 'sheet', 'nav drawer'],
+                const Color(0xFFFFFFFF)),
             _tableRow(const ['24', 'top', 'modal'], _s2Wash),
           ],
         ),
@@ -1057,28 +1038,30 @@ Widget _section3InkWell() {
         const SizedBox(height: 14.0),
         Column(
           children: [
-            _tableHeader(const ['Callback', 'Trigger', 'Typical use'], _s3Deep),
-            _tableRow(const [
-              'onTap',
-              'single tap',
-              'select',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['onDoubleTap', 'double tap', 'zoom'], _s3Wash),
-            _tableRow(const [
-              'onLongPress',
-              'hold',
-              'context menu',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const [
-              'onHover',
-              'pointer enter/exit',
-              'cursor swap',
-            ], _s3Wash),
-            _tableRow(const [
-              'onHighlightChanged',
-              'press state',
-              'analytics',
-            ], const Color(0xFFFFFFFF)),
+            _tableHeader(
+              const ['Callback', 'Trigger', 'Typical use'],
+              _s3Deep,
+            ),
+            _tableRow(
+              const ['onTap', 'single tap', 'select'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['onDoubleTap', 'double tap', 'zoom'],
+              _s3Wash,
+            ),
+            _tableRow(
+              const ['onLongPress', 'hold', 'context menu'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['onHover', 'pointer enter/exit', 'cursor swap'],
+              _s3Wash,
+            ),
+            _tableRow(
+              const ['onHighlightChanged', 'press state', 'analytics'],
+              const Color(0xFFFFFFFF),
+            ),
           ],
         ),
       ],
@@ -1110,7 +1093,8 @@ Widget _section4InkResponse() {
           onTap: () {},
           onLongPress: () {},
           containedInkWell: containedInk,
-          highlightShape: containedInk ? BoxShape.rectangle : BoxShape.circle,
+          highlightShape:
+              containedInk ? BoxShape.rectangle : BoxShape.circle,
           radius: radius,
           splashColor: splash,
           highlightColor: highlight,
@@ -1234,22 +1218,22 @@ Widget _section4InkResponse() {
         const SizedBox(height: 14.0),
         Column(
           children: [
-            _tableHeader(const ['Param', 'Default', 'Effect'], _s4Deep),
-            _tableRow(const [
-              'containedInkWell',
-              'false',
-              'overflow on/off',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const [
-              'highlightShape',
-              'circle',
-              'wash shape',
-            ], _s4Wash),
-            _tableRow(const [
-              'radius',
-              'auto',
-              'splash size',
-            ], const Color(0xFFFFFFFF)),
+            _tableHeader(
+              const ['Param', 'Default', 'Effect'],
+              _s4Deep,
+            ),
+            _tableRow(
+              const ['containedInkWell', 'false', 'overflow on/off'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['highlightShape', 'circle', 'wash shape'],
+              _s4Wash,
+            ),
+            _tableRow(
+              const ['radius', 'auto', 'splash size'],
+              const Color(0xFFFFFFFF),
+            ),
           ],
         ),
       ],
@@ -1310,8 +1294,7 @@ Widget _section5InkSplash() {
         _sectionBanner(
           number: '5',
           title: 'InkSplash Factory',
-          subtitle:
-              'The classic radial bloom — a single circle expanding outward',
+          subtitle: 'The classic radial bloom — a single circle expanding outward',
           deep: _s5Deep,
           accent: _s5Accent,
         ),
@@ -1358,19 +1341,26 @@ Widget _section5InkSplash() {
         const SizedBox(height: 14.0),
         Column(
           children: [
-            _tableHeader(const ['Phase', 'Progress', 'Visual'], _s5Deep),
-            _tableRow(const [
-              'seed',
-              '0-15%',
-              'tiny dot',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['rise', '15-50%', 'expanding'], _s5Wash),
-            _tableRow(const [
-              'crest',
-              '50-75%',
-              'full bloom',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['fade', '75-100%', 'dissolving'], _s5Wash),
+            _tableHeader(
+              const ['Phase', 'Progress', 'Visual'],
+              _s5Deep,
+            ),
+            _tableRow(
+              const ['seed', '0-15%', 'tiny dot'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['rise', '15-50%', 'expanding'],
+              _s5Wash,
+            ),
+            _tableRow(
+              const ['crest', '50-75%', 'full bloom'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['fade', '75-100%', 'dissolving'],
+              _s5Wash,
+            ),
           ],
         ),
       ],
@@ -1497,15 +1487,26 @@ Widget _section6InkRipple() {
         const SizedBox(height: 14.0),
         Column(
           children: [
-            _tableHeader(const ['Factor', 'InkSplash', 'InkRipple'], _s6Deep),
-            _tableRow(const [
-              'shape',
-              'circle',
-              'circle+wash',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['fills surface', 'no', 'yes'], _s6Wash),
-            _tableRow(const ['cost', 'low', 'medium'], const Color(0xFFFFFFFF)),
-            _tableRow(const ['era', 'M2', 'M3'], _s6Wash),
+            _tableHeader(
+              const ['Factor', 'InkSplash', 'InkRipple'],
+              _s6Deep,
+            ),
+            _tableRow(
+              const ['shape', 'circle', 'circle+wash'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['fills surface', 'no', 'yes'],
+              _s6Wash,
+            ),
+            _tableRow(
+              const ['cost', 'low', 'medium'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['era', 'M2', 'M3'],
+              _s6Wash,
+            ),
           ],
         ),
       ],
@@ -1643,19 +1644,26 @@ Widget _section7SplashFactories() {
         const SizedBox(height: 14.0),
         Column(
           children: [
-            _tableHeader(const ['Factory', 'Visual', 'When'], _s7Deep),
-            _tableRow(const [
-              'InkSplash',
-              'circle',
-              'M2 lists',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['InkRipple', 'wave', 'M3 default'], _s7Wash),
-            _tableRow(const [
-              'NoSplash',
-              'none',
-              'desktop',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['custom', 'any', 'theming'], _s7Wash),
+            _tableHeader(
+              const ['Factory', 'Visual', 'When'],
+              _s7Deep,
+            ),
+            _tableRow(
+              const ['InkSplash', 'circle', 'M2 lists'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['InkRipple', 'wave', 'M3 default'],
+              _s7Wash,
+            ),
+            _tableRow(
+              const ['NoSplash', 'none', 'desktop'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['custom', 'any', 'theming'],
+              _s7Wash,
+            ),
           ],
         ),
       ],
@@ -1790,7 +1798,9 @@ Widget _section8CustomShape() {
                   margin: EdgeInsets.zero,
                   child: Container(
                     decoration: const BoxDecoration(
-                      gradient: RadialGradient(colors: [_s8Accent, _s8Soft]),
+                      gradient: RadialGradient(
+                        colors: [_s8Accent, _s8Soft],
+                      ),
                     ),
                     child: const Center(
                       child: Text(
@@ -1825,19 +1835,26 @@ Widget _section8CustomShape() {
         const SizedBox(height: 14.0),
         Column(
           children: [
-            _tableHeader(const ['Shape', 'Corners', 'Use case'], _s8Deep),
-            _tableRow(const [
-              'Rounded',
-              'curved',
-              'cards',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['Beveled', 'angular', 'badges'], _s8Wash),
-            _tableRow(const [
-              'Stadium',
-              'fully round',
-              'chips',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['Circle', 'circular', 'avatars'], _s8Wash),
+            _tableHeader(
+              const ['Shape', 'Corners', 'Use case'],
+              _s8Deep,
+            ),
+            _tableRow(
+              const ['Rounded', 'curved', 'cards'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['Beveled', 'angular', 'badges'],
+              _s8Wash,
+            ),
+            _tableRow(
+              const ['Stadium', 'fully round', 'chips'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['Circle', 'circular', 'avatars'],
+              _s8Wash,
+            ),
           ],
         ),
       ],
@@ -1947,18 +1964,22 @@ Widget _section9ComparisonGrid() {
         const SizedBox(height: 14.0),
         Column(
           children: [
-            _tableHeader(const ['Factory', 'Origin', 'Reaches edge?'], _s9Deep),
-            _tableRow(const [
-              'InkSplash',
-              'tap point',
-              'no',
-            ], const Color(0xFFFFFFFF)),
-            _tableRow(const ['InkRipple', 'tap point', 'yes'], _s9Wash),
-            _tableRow(const [
-              'NoSplash',
-              'n/a',
-              'n/a',
-            ], const Color(0xFFFFFFFF)),
+            _tableHeader(
+              const ['Factory', 'Origin', 'Reaches edge?'],
+              _s9Deep,
+            ),
+            _tableRow(
+              const ['InkSplash', 'tap point', 'no'],
+              const Color(0xFFFFFFFF),
+            ),
+            _tableRow(
+              const ['InkRipple', 'tap point', 'yes'],
+              _s9Wash,
+            ),
+            _tableRow(
+              const ['NoSplash', 'n/a', 'n/a'],
+              const Color(0xFFFFFFFF),
+            ),
           ],
         ),
       ],
@@ -2280,7 +2301,10 @@ dynamic build(BuildContext context) {
               const Center(
                 child: Text(
                   'Material Surface & Ripple Atelier  •  Deep Demo  •  d4rt corpus',
-                  style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 11.0),
+                  style: TextStyle(
+                    color: Color(0xFF9E9E9E),
+                    fontSize: 11.0,
+                  ),
                 ),
               ),
               const SizedBox(height: 12.0),

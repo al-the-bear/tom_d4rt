@@ -104,10 +104,7 @@ class _Home extends StatelessWidget {
             tabs: <Tab>[
               Tab(icon: Icon(Icons.rocket_launch_outlined), text: 'Hero'),
               Tab(icon: Icon(Icons.tune), text: 'Playground'),
-              Tab(
-                icon: Icon(Icons.rotate_90_degrees_ccw_outlined),
-                text: 'Rotation',
-              ),
+              Tab(icon: Icon(Icons.rotate_90_degrees_ccw_outlined), text: 'Rotation'),
               Tab(icon: Icon(Icons.zoom_in_outlined), text: 'Scale'),
               Tab(icon: Icon(Icons.transform_outlined), text: 'Skew'),
               Tab(icon: Icon(Icons.flip_outlined), text: 'Flip'),
@@ -144,11 +141,7 @@ class _Home extends StatelessWidget {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 class _Section extends StatelessWidget {
-  const _Section({
-    required this.title,
-    required this.subtitle,
-    required this.child,
-  });
+  const _Section({required this.title, required this.subtitle, required this.child});
   final String title;
   final String subtitle;
   final Widget child;
@@ -163,17 +156,15 @@ class _Section extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: scheme.onSurface,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.w700, color: scheme.onSurface),
           ),
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
           ),
           const SizedBox(height: 24),
           child,
@@ -184,11 +175,7 @@ class _Section extends StatelessWidget {
 }
 
 class _InfoCard extends StatelessWidget {
-  const _InfoCard({
-    required this.icon,
-    required this.title,
-    required this.body,
-  });
+  const _InfoCard({required this.icon, required this.title, required this.body});
   final IconData icon;
   final String title;
   final String body;
@@ -214,18 +201,13 @@ class _InfoCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: scheme.onSecondaryContainer,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(color: scheme.onSecondaryContainer),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  body,
-                  style: TextStyle(
-                    color: scheme.onSecondaryContainer,
-                    height: 1.4,
-                  ),
-                ),
+                Text(body, style: TextStyle(color: scheme.onSecondaryContainer, height: 1.4)),
               ],
             ),
           ),
@@ -259,11 +241,7 @@ class _CodeChip extends StatelessWidget {
 
 /// A card that frames a demo widget inside a clipped stage.
 class _DemoFrame extends StatelessWidget {
-  const _DemoFrame({
-    required this.label,
-    required this.child,
-    this.height = 140,
-  });
+  const _DemoFrame({required this.label, required this.child, this.height = 140});
   final String label;
   final Widget child;
   final double height;
@@ -290,9 +268,7 @@ class _DemoFrame extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               label,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
               textAlign: TextAlign.center,
             ),
           ),
@@ -321,22 +297,11 @@ class _SubjectCard extends StatelessWidget {
         color: bg,
         borderRadius: BorderRadius.circular(10),
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withAlpha(40),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
+          BoxShadow(color: Colors.black.withAlpha(40), blurRadius: 6, offset: const Offset(0, 3)),
         ],
       ),
       child: Center(
-        child: Text(
-          label,
-          style: TextStyle(
-            color: fg,
-            fontWeight: FontWeight.w600,
-            fontSize: 11,
-          ),
-        ),
+        child: Text(label, style: TextStyle(color: fg, fontWeight: FontWeight.w600, fontSize: 11)),
       ),
     );
   }
@@ -391,10 +356,7 @@ class _HeroTab extends StatelessWidget {
                 'AlwaysStoppedAnimation<double>(t). Both yield an Animation<double> for MatrixTransition.',
           ),
           const SizedBox(height: 24),
-          Text(
-            'Constructor signature',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Constructor signature', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 10),
           Container(
             width: double.infinity,
@@ -414,11 +376,7 @@ class _HeroTab extends StatelessWidget {
               '  Widget? child,\n'
               '})\n\n'
               'typedef TransformCallback = Matrix4 Function(double animationValue);',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12.5,
-                height: 1.6,
-              ),
+              style: TextStyle(fontFamily: 'monospace', fontSize: 12.5, height: 1.6),
             ),
           ),
           const SizedBox(height: 24),
@@ -440,10 +398,7 @@ class _HeroTab extends StatelessWidget {
                 'Alignment pivot',
               ])
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 7,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
                   decoration: BoxDecoration(
                     color: scheme.primaryContainer,
                     borderRadius: BorderRadius.circular(20),
@@ -570,13 +525,8 @@ class _PlaygroundTab extends StatelessWidget {
                 child: Center(
                   child: MatrixTransition(
                     animation: AlwaysStoppedAnimation<double>(t),
-                    onTransform: (double v) =>
-                        Matrix4.rotationZ(v * 2 * math.pi),
-                    child: const _SubjectCard(
-                      label: 'Rotate me',
-                      width: 90,
-                      height: 60,
-                    ),
+                    onTransform: (double v) => Matrix4.rotationZ(v * 2 * math.pi),
+                    child: const _SubjectCard(label: 'Rotate me', width: 90, height: 60),
                   ),
                 ),
               ),
@@ -603,10 +553,7 @@ class _PlaygroundTab extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Matrix display
-              Text(
-                'Current Matrix4 (column-major)',
-                style: Theme.of(ctx).textTheme.titleSmall,
-              ),
+              Text('Current Matrix4 (column-major)', style: Theme.of(ctx).textTheme.titleSmall),
               const SizedBox(height: 8),
               _Matrix4Grid(matrix: m),
               const SizedBox(height: 20),
@@ -625,11 +572,7 @@ class _PlaygroundTab extends StatelessWidget {
                   '      Matrix4.rotationZ(v * 2 * pi),\n'
                   '  child: myCard,\n'
                   ')',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    height: 1.6,
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 12, height: 1.6),
                 ),
               ),
             ],
@@ -734,22 +677,14 @@ class _RotationTab extends StatelessWidget {
                   label: label,
                   child: MatrixTransition(
                     animation: AlwaysStoppedAnimation<double>(deg / 360.0),
-                    onTransform: (double v) =>
-                        Matrix4.rotationZ(v * 2 * math.pi),
-                    child: const _SubjectCard(
-                      label: '★',
-                      width: 56,
-                      height: 40,
-                    ),
+                    onTransform: (double v) => Matrix4.rotationZ(v * 2 * math.pi),
+                    child: const _SubjectCard(label: '★', width: 56, height: 40),
                   ),
                 ),
             ],
           ),
           const SizedBox(height: 24),
-          Text(
-            'X and Y axis rotations',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('X and Y axis rotations', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 12),
           Row(
             children: <Widget>[
@@ -758,13 +693,8 @@ class _RotationTab extends StatelessWidget {
                   label: 'rotationX 45°',
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(0.125),
-                    onTransform: (double v) =>
-                        Matrix4.rotationX(v * 2 * math.pi),
-                    child: const _SubjectCard(
-                      label: 'Flip X',
-                      width: 80,
-                      height: 52,
-                    ),
+                    onTransform: (double v) => Matrix4.rotationX(v * 2 * math.pi),
+                    child: const _SubjectCard(label: 'Flip X', width: 80, height: 52),
                   ),
                 ),
               ),
@@ -774,13 +704,8 @@ class _RotationTab extends StatelessWidget {
                   label: 'rotationY 45°',
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(0.125),
-                    onTransform: (double v) =>
-                        Matrix4.rotationY(v * 2 * math.pi),
-                    child: const _SubjectCard(
-                      label: 'Flip Y',
-                      width: 80,
-                      height: 52,
-                    ),
+                    onTransform: (double v) => Matrix4.rotationY(v * 2 * math.pi),
+                    child: const _SubjectCard(label: 'Flip Y', width: 80, height: 52),
                   ),
                 ),
               ),
@@ -803,13 +728,8 @@ class _RotationTab extends StatelessWidget {
                   label: 'pivot: center (default)',
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(0.083),
-                    onTransform: (double v) =>
-                        Matrix4.rotationZ(v * 2 * math.pi),
-                    child: const _SubjectCard(
-                      label: 'Center',
-                      width: 72,
-                      height: 48,
-                    ),
+                    onTransform: (double v) => Matrix4.rotationZ(v * 2 * math.pi),
+                    child: const _SubjectCard(label: 'Center', width: 72, height: 48),
                   ),
                 ),
               ),
@@ -819,14 +739,9 @@ class _RotationTab extends StatelessWidget {
                   label: 'pivot: topLeft',
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(0.083),
-                    onTransform: (double v) =>
-                        Matrix4.rotationZ(v * 2 * math.pi),
+                    onTransform: (double v) => Matrix4.rotationZ(v * 2 * math.pi),
                     alignment: Alignment.topLeft,
-                    child: const _SubjectCard(
-                      label: 'TopLeft',
-                      width: 72,
-                      height: 48,
-                    ),
+                    child: const _SubjectCard(label: 'TopLeft', width: 72, height: 48),
                   ),
                 ),
               ),
@@ -855,13 +770,12 @@ class _ScaleTab extends StatelessWidget {
       (1.7, 'scale 1.7 — large'),
       (2.0, 'scale 2.0 — double'),
     ];
-    const List<(double, double, String)> nonUniform =
-        <(double, double, String)>[
-          (2.0, 0.5, 'scaleX×2, scaleY×0.5'),
-          (0.5, 2.0, 'scaleX×0.5, scaleY×2'),
-          (1.5, 0.8, 'scaleX×1.5, scaleY×0.8'),
-          (0.8, 1.5, 'scaleX×0.8, scaleY×1.5'),
-        ];
+    const List<(double, double, String)> nonUniform = <(double, double, String)>[
+      (2.0, 0.5, 'scaleX×2, scaleY×0.5'),
+      (0.5, 2.0, 'scaleX×0.5, scaleY×2'),
+      (1.5, 0.8, 'scaleX×1.5, scaleY×0.8'),
+      (0.8, 1.5, 'scaleX×0.8, scaleY×1.5'),
+    ];
     return _Section(
       title: 'Scale Showcase',
       subtitle:
@@ -896,20 +810,13 @@ class _ScaleTab extends StatelessWidget {
                   child: MatrixTransition(
                     animation: AlwaysStoppedAnimation<double>(s),
                     onTransform: (double v) => Matrix4.diagonal3Values(v, v, 1),
-                    child: const _SubjectCard(
-                      label: 'Scale',
-                      width: 54,
-                      height: 38,
-                    ),
+                    child: const _SubjectCard(label: 'Scale', width: 54, height: 38),
                   ),
                 ),
             ],
           ),
           const SizedBox(height: 24),
-          Text(
-            'Non-uniform scale (stretch)',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Non-uniform scale (stretch)', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 12),
           GridView.count(
             crossAxisCount: 2,
@@ -924,13 +831,8 @@ class _ScaleTab extends StatelessWidget {
                   label: label,
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(1),
-                    onTransform: (double _) =>
-                        Matrix4.diagonal3Values(sx, sy, 1),
-                    child: const _SubjectCard(
-                      label: 'Stretch',
-                      width: 60,
-                      height: 40,
-                    ),
+                    onTransform: (double _) => Matrix4.diagonal3Values(sx, sy, 1),
+                    child: const _SubjectCard(label: 'Stretch', width: 60, height: 40),
                   ),
                 ),
             ],
@@ -987,11 +889,7 @@ class _SkewTab extends StatelessWidget {
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(0.3),
                     onTransform: (double v) => Matrix4.skewX(v),
-                    child: const _SubjectCard(
-                      label: 'SkewX',
-                      width: 70,
-                      height: 48,
-                    ),
+                    child: const _SubjectCard(label: 'SkewX', width: 70, height: 48),
                   ),
                 ),
               ),
@@ -1003,11 +901,7 @@ class _SkewTab extends StatelessWidget {
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(0.3),
                     onTransform: (double v) => Matrix4.skewY(v),
-                    child: const _SubjectCard(
-                      label: 'SkewY',
-                      width: 70,
-                      height: 48,
-                    ),
+                    child: const _SubjectCard(label: 'SkewY', width: 70, height: 48),
                   ),
                 ),
               ),
@@ -1027,11 +921,7 @@ class _SkewTab extends StatelessWidget {
                       m.multiply(Matrix4.skewY(0.2));
                       return m;
                     },
-                    child: const _SubjectCard(
-                      label: 'Combined',
-                      width: 70,
-                      height: 48,
-                    ),
+                    child: const _SubjectCard(label: 'Combined', width: 70, height: 48),
                   ),
                 ),
               ),
@@ -1047,21 +937,14 @@ class _SkewTab extends StatelessWidget {
                       m.setEntry(3, 2, 0.002);
                       return m;
                     },
-                    child: const _SubjectCard(
-                      label: 'Persp',
-                      width: 70,
-                      height: 48,
-                    ),
+                    child: const _SubjectCard(label: 'Persp', width: 70, height: 48),
                   ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 24),
-          Text(
-            'Varying skewX angles',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Varying skewX angles', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 12),
           GridView.count(
             crossAxisCount: 2,
@@ -1082,11 +965,7 @@ class _SkewTab extends StatelessWidget {
                   child: MatrixTransition(
                     animation: AlwaysStoppedAnimation<double>(angle),
                     onTransform: (double v) => Matrix4.skewX(v),
-                    child: const _SubjectCard(
-                      label: 'Card',
-                      width: 64,
-                      height: 44,
-                    ),
+                    child: const _SubjectCard(label: 'Card', width: 64, height: 44),
                   ),
                 ),
             ],
@@ -1149,8 +1028,7 @@ class _FlipTab extends StatelessWidget {
                   height: 160,
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(1),
-                    onTransform: (double _) =>
-                        Matrix4.diagonal3Values(1, -1, 1),
+                    onTransform: (double _) => Matrix4.diagonal3Values(1, -1, 1),
                     child: const _AsymCard(),
                   ),
                 ),
@@ -1166,8 +1044,7 @@ class _FlipTab extends StatelessWidget {
                   height: 160,
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(1),
-                    onTransform: (double _) =>
-                        Matrix4.diagonal3Values(-1, 1, 1),
+                    onTransform: (double _) => Matrix4.diagonal3Values(-1, 1, 1),
                     child: const _AsymCard(),
                   ),
                 ),
@@ -1179,8 +1056,7 @@ class _FlipTab extends StatelessWidget {
                   height: 160,
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(1),
-                    onTransform: (double _) =>
-                        Matrix4.diagonal3Values(-1, -1, 1),
+                    onTransform: (double _) => Matrix4.diagonal3Values(-1, -1, 1),
                     child: const _AsymCard(),
                   ),
                 ),
@@ -1188,10 +1064,7 @@ class _FlipTab extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          Text(
-            'Partial flip (0 → 180° on Y axis)',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Partial flip (0 → 180° on Y axis)', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 12),
           const _InfoCard(
             icon: Icons.info_outline,
@@ -1220,24 +1093,19 @@ class _FlipTab extends StatelessWidget {
                       child: Center(
                         child: MatrixTransition(
                           animation: AlwaysStoppedAnimation<double>(t),
-                          onTransform: (double v) =>
-                              Matrix4.rotationY(v * math.pi),
+                          onTransform: (double v) => Matrix4.rotationY(v * math.pi),
                           child: Container(
                             width: 44,
                             height: 44,
                             decoration: BoxDecoration(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.tertiaryContainer,
+                              color: Theme.of(context).colorScheme.tertiaryContainer,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Center(
                               child: Text(
                                 '▶',
                                 style: TextStyle(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onTertiaryContainer,
+                                  color: Theme.of(context).colorScheme.onTertiaryContainer,
                                 ),
                               ),
                             ),
@@ -1246,11 +1114,7 @@ class _FlipTab extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      label,
-                      style: const TextStyle(fontSize: 10),
-                      textAlign: TextAlign.center,
-                    ),
+                    Text(label, style: const TextStyle(fontSize: 10), textAlign: TextAlign.center),
                   ],
                 ),
             ],
@@ -1286,10 +1150,7 @@ class _AsymCard extends StatelessWidget {
           Center(
             child: Text(
               'Flip',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: scheme.onPrimaryContainer,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w700, color: scheme.onPrimaryContainer),
             ),
           ),
           Positioned(
@@ -1351,9 +1212,7 @@ class _CompoundTab extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(ctx).colorScheme.surfaceContainerLowest,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: Theme.of(ctx).colorScheme.outlineVariant,
-                  ),
+                  border: Border.all(color: Theme.of(ctx).colorScheme.outlineVariant),
                 ),
                 child: Center(
                   child: MatrixTransition(
@@ -1366,21 +1225,14 @@ class _CompoundTab extends StatelessWidget {
                         ..setTranslationRaw(v * 30 - 15, v * 20 - 10, 0);
                       return tr * sc * r;
                     },
-                    child: const _SubjectCard(
-                      label: 'Compound',
-                      width: 80,
-                      height: 56,
-                    ),
+                    child: const _SubjectCard(label: 'Compound', width: 80, height: 56),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
               Row(
                 children: <Widget>[
-                  Text(
-                    't = ${t.toStringAsFixed(3)}',
-                    style: const TextStyle(fontFamily: 'monospace'),
-                  ),
+                  Text('t = ${t.toStringAsFixed(3)}', style: const TextStyle(fontFamily: 'monospace')),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Slider(
@@ -1394,10 +1246,7 @@ class _CompoundTab extends StatelessWidget {
               // Breakdown
               _CompoundBreakdown(t: t),
               const SizedBox(height: 20),
-              Text(
-                'Resulting compound matrix',
-                style: Theme.of(ctx).textTheme.titleSmall,
-              ),
+              Text('Resulting compound matrix', style: Theme.of(ctx).textTheme.titleSmall),
               const SizedBox(height: 8),
               _Matrix4Grid(matrix: compound),
             ],
@@ -1461,11 +1310,7 @@ class _CompoundBreakdown extends StatelessWidget {
 }
 
 class _BreakdownRow extends StatelessWidget {
-  const _BreakdownRow({
-    required this.label,
-    required this.value,
-    required this.icon,
-  });
+  const _BreakdownRow({required this.label, required this.value, required this.icon});
   final String label;
   final String value;
   final IconData icon;
@@ -1481,10 +1326,7 @@ class _BreakdownRow extends StatelessWidget {
           const SizedBox(width: 8),
           Text(label, style: const TextStyle(fontSize: 13)),
           const Spacer(),
-          Text(
-            value,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
-          ),
+          Text(value, style: const TextStyle(fontFamily: 'monospace', fontSize: 13)),
         ],
       ),
     );
@@ -1533,20 +1375,13 @@ class _CurvesTab extends StatelessWidget {
                         GestureDetector(
                           onTap: () => _curveIndex.value = i,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 14,
-                              vertical: 8,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                             decoration: BoxDecoration(
                               color: i == selected
                                   ? Theme.of(ctx).colorScheme.primary
-                                  : Theme.of(
-                                      ctx,
-                                    ).colorScheme.surfaceContainerHigh,
+                                  : Theme.of(ctx).colorScheme.surfaceContainerHigh,
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Theme.of(ctx).colorScheme.outlineVariant,
-                              ),
+                              border: Border.all(color: Theme.of(ctx).colorScheme.outlineVariant),
                             ),
                             child: Text(
                               _curveNames[i],
@@ -1555,9 +1390,7 @@ class _CurvesTab extends StatelessWidget {
                                 color: i == selected
                                     ? Theme.of(ctx).colorScheme.onPrimary
                                     : Theme.of(ctx).colorScheme.onSurface,
-                                fontWeight: i == selected
-                                    ? FontWeight.w600
-                                    : FontWeight.normal,
+                                fontWeight: i == selected ? FontWeight.w600 : FontWeight.normal,
                               ),
                             ),
                           ),
@@ -1619,9 +1452,7 @@ class _CurveCard extends StatelessWidget {
     final ColorScheme scheme = Theme.of(context).colorScheme;
     return Container(
       decoration: BoxDecoration(
-        color: highlighted
-            ? scheme.primaryContainer
-            : scheme.surfaceContainerLow,
+        color: highlighted ? scheme.primaryContainer : scheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: highlighted ? scheme.primary : scheme.outlineVariant,
@@ -1639,8 +1470,7 @@ class _CurveCard extends StatelessWidget {
                 builder: (BuildContext ctx, double t, Widget? child) {
                   return MatrixTransition(
                     animation: AlwaysStoppedAnimation<double>(t),
-                    onTransform: (double v) =>
-                        Matrix4.rotationZ(v * 2 * math.pi),
+                    onTransform: (double v) => Matrix4.rotationZ(v * 2 * math.pi),
                     child: child,
                   );
                 },
@@ -1648,9 +1478,7 @@ class _CurveCard extends StatelessWidget {
                   width: 36,
                   height: 26,
                   decoration: BoxDecoration(
-                    color: highlighted
-                        ? scheme.primary
-                        : scheme.primaryContainer,
+                    color: highlighted ? scheme.primary : scheme.primaryContainer,
                     borderRadius: BorderRadius.circular(6),
                   ),
                 ),
@@ -1707,9 +1535,7 @@ class _DiagramTab extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: i == cat
                                 ? Theme.of(ctx).colorScheme.primary
-                                : Theme.of(
-                                    ctx,
-                                  ).colorScheme.surfaceContainerHigh,
+                                : Theme.of(ctx).colorScheme.surfaceContainerHigh,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
@@ -1720,9 +1546,7 @@ class _DiagramTab extends StatelessWidget {
                               color: i == cat
                                   ? Theme.of(ctx).colorScheme.onPrimary
                                   : Theme.of(ctx).colorScheme.onSurface,
-                              fontWeight: i == cat
-                                  ? FontWeight.w700
-                                  : FontWeight.normal,
+                              fontWeight: i == cat ? FontWeight.w700 : FontWeight.normal,
                             ),
                           ),
                         ),
@@ -1843,10 +1667,7 @@ class _MatrixDiagramPainter extends CustomPainter {
     for (int row = 0; row < gridSize; row++) {
       for (int col = 0; col < gridSize; col++) {
         final Rect rect = Rect.fromLTWH(col * cellW, row * cellH, cellW, cellH);
-        final RRect rRect = RRect.fromRectAndRadius(
-          rect.deflate(2),
-          const Radius.circular(6),
-        );
+        final RRect rRect = RRect.fromRectAndRadius(rect.deflate(2), const Radius.circular(6));
         final bool hi = _highlighted(row, col);
 
         canvas.drawRRect(rRect, hi ? highlightPaint : bgPaint);
@@ -1911,69 +1732,13 @@ class _CompareTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme scheme = Theme.of(context).colorScheme;
     const List<List<String>> rows = <List<String>>[
-      <String>[
-        'Widget',
-        'Transform type',
-        'Animation',
-        'Axes',
-        'Skew',
-        'Perspective',
-        'Compose',
-      ],
-      <String>[
-        'MatrixTransition',
-        'Any Matrix4',
-        'Animation<double>',
-        'X/Y/Z',
-        '✓',
-        '✓',
-        '✓',
-      ],
-      <String>[
-        'RotationTransition',
-        'rotationZ only',
-        'Animation<double>',
-        'Z only',
-        '✗',
-        '✗',
-        '✗',
-      ],
-      <String>[
-        'ScaleTransition',
-        'uniform scale',
-        'Animation<double>',
-        'uniform',
-        '✗',
-        '✗',
-        '✗',
-      ],
-      <String>[
-        'SlideTransition',
-        'translation',
-        'Animation<Offset>',
-        'X/Y',
-        '✗',
-        '✗',
-        '✗',
-      ],
-      <String>[
-        'Transform (static)',
-        'Any Matrix4',
-        'none (static)',
-        'X/Y/Z',
-        '✓',
-        '✓',
-        '✓',
-      ],
-      <String>[
-        'AnimatedContainer',
-        'layout only',
-        'implicit',
-        'layout',
-        '✗',
-        '✗',
-        '✗',
-      ],
+      <String>['Widget', 'Transform type', 'Animation', 'Axes', 'Skew', 'Perspective', 'Compose'],
+      <String>['MatrixTransition', 'Any Matrix4', 'Animation<double>', 'X/Y/Z', '✓', '✓', '✓'],
+      <String>['RotationTransition', 'rotationZ only', 'Animation<double>', 'Z only', '✗', '✗', '✗'],
+      <String>['ScaleTransition', 'uniform scale', 'Animation<double>', 'uniform', '✗', '✗', '✗'],
+      <String>['SlideTransition', 'translation', 'Animation<Offset>', 'X/Y', '✗', '✗', '✗'],
+      <String>['Transform (static)', 'Any Matrix4', 'none (static)', 'X/Y/Z', '✓', '✓', '✓'],
+      <String>['AnimatedContainer', 'layout only', 'implicit', 'layout', '✗', '✗', '✗'],
     ];
 
     return _Section(
@@ -1989,11 +1754,8 @@ class _CompareTab extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: DataTable(
               headingRowColor: WidgetStateProperty.all(scheme.primaryContainer),
-              dataRowColor: WidgetStateProperty.resolveWith((
-                Set<WidgetState> states,
-              ) {
-                if (states.contains(WidgetState.selected))
-                  return scheme.secondaryContainer;
+              dataRowColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+                if (states.contains(WidgetState.selected)) return scheme.secondaryContainer;
                 return null;
               }),
               columnSpacing: 20,
@@ -2016,18 +1778,14 @@ class _CompareTab extends StatelessWidget {
                     selected: i == 1, // highlight MatrixTransition row
                     cells: <DataCell>[
                       for (final String cell in rows[i])
-                        DataCell(
-                          Text(
-                            cell,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: i == 1 ? 'monospace' : null,
-                              fontWeight: i == 1
-                                  ? FontWeight.w600
-                                  : FontWeight.normal,
-                            ),
+                        DataCell(Text(
+                          cell,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: i == 1 ? 'monospace' : null,
+                            fontWeight: i == 1 ? FontWeight.w600 : FontWeight.normal,
                           ),
-                        ),
+                        )),
                     ],
                   ),
               ],
@@ -2056,10 +1814,7 @@ class _CompareTab extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // Side-by-side live demo
-          Text(
-            'Side-by-side live comparison',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Side-by-side live comparison', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 12),
           Row(
             children: <Widget>[
@@ -2069,13 +1824,8 @@ class _CompareTab extends StatelessWidget {
                   height: 160,
                   child: MatrixTransition(
                     animation: const AlwaysStoppedAnimation<double>(0.125),
-                    onTransform: (double v) =>
-                        Matrix4.rotationZ(v * 2 * math.pi),
-                    child: const _SubjectCard(
-                      label: 'Matrix\nTrans.',
-                      width: 70,
-                      height: 48,
-                    ),
+                    onTransform: (double v) => Matrix4.rotationZ(v * 2 * math.pi),
+                    child: const _SubjectCard(label: 'Matrix\nTrans.', width: 70, height: 48),
                   ),
                 ),
               ),
@@ -2086,11 +1836,7 @@ class _CompareTab extends StatelessWidget {
                   height: 160,
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation<double>(0.125),
-                    child: const _SubjectCard(
-                      label: 'Rotation\nTrans.',
-                      width: 70,
-                      height: 48,
-                    ),
+                    child: const _SubjectCard(label: 'Rotation\nTrans.', width: 70, height: 48),
                   ),
                 ),
               ),
@@ -2102,11 +1848,7 @@ class _CompareTab extends StatelessWidget {
                   child: Transform(
                     transform: Matrix4.rotationZ(0.125 * 2 * math.pi),
                     alignment: Alignment.center,
-                    child: const _SubjectCard(
-                      label: 'Transform\n(static)',
-                      width: 70,
-                      height: 48,
-                    ),
+                    child: const _SubjectCard(label: 'Transform\n(static)', width: 70, height: 48),
                   ),
                 ),
               ),
@@ -2176,10 +1918,7 @@ class _ApiTab extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // TransformCallback type
-          Text(
-            'TransformCallback type alias',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('TransformCallback type alias', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 10),
           Container(
             width: double.infinity,
@@ -2196,61 +1935,27 @@ class _ApiTab extends StatelessWidget {
               '// You are responsible for converting it to a Matrix4.\n'
               '// Example:\n'
               '//   onTransform: (v) => Matrix4.rotationZ(v * 2 * pi)',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                height: 1.6,
-              ),
+              style: TextStyle(fontFamily: 'monospace', fontSize: 12, height: 1.6),
             ),
           ),
           const SizedBox(height: 24),
           // Common Matrix4 factories
-          Text(
-            'Common Matrix4 factory methods',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Common Matrix4 factory methods', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 10),
           const _FactoryRow('Matrix4.identity()', 'Identity — no transform'),
-          const _FactoryRow(
-            'Matrix4.rotationZ(radians)',
-            'Rotate around Z axis (screen normal)',
-          ),
-          const _FactoryRow(
-            'Matrix4.rotationX(radians)',
-            'Rotate around X axis (horizontal flip depth)',
-          ),
-          const _FactoryRow(
-            'Matrix4.rotationY(radians)',
-            'Rotate around Y axis (vertical flip depth)',
-          ),
-          const _FactoryRow(
-            'Matrix4.diagonal3Values(sx, sy, sz)',
-            'Non-uniform scale on each axis',
-          ),
+          const _FactoryRow('Matrix4.rotationZ(radians)', 'Rotate around Z axis (screen normal)'),
+          const _FactoryRow('Matrix4.rotationX(radians)', 'Rotate around X axis (horizontal flip depth)'),
+          const _FactoryRow('Matrix4.rotationY(radians)', 'Rotate around Y axis (vertical flip depth)'),
+          const _FactoryRow('Matrix4.diagonal3Values(sx, sy, sz)', 'Non-uniform scale on each axis'),
           const _FactoryRow('Matrix4.skewX(angle)', 'Horizontal shear'),
           const _FactoryRow('Matrix4.skewY(angle)', 'Vertical shear'),
-          const _FactoryRow(
-            'Matrix4.translationValues(tx, ty, tz)',
-            'Pixel translation',
-          ),
-          const _FactoryRow(
-            'm.multiply(other)',
-            'Compose (multiply) two transforms',
-          ),
-          const _FactoryRow(
-            'm.setEntry(row, col, val)',
-            'Set an individual cell (e.g. perspective)',
-          ),
-          const _FactoryRow(
-            'm.setTranslationRaw(tx, ty, tz)',
-            'Set translation in-place',
-          ),
+          const _FactoryRow('Matrix4.translationValues(tx, ty, tz)', 'Pixel translation'),
+          const _FactoryRow('m.multiply(other)', 'Compose (multiply) two transforms'),
+          const _FactoryRow('m.setEntry(row, col, val)', 'Set an individual cell (e.g. perspective)'),
+          const _FactoryRow('m.setTranslationRaw(tx, ty, tz)', 'Set translation in-place'),
           const SizedBox(height: 24),
           // Driving strategies
-          Text(
-            'Driving strategies (stateless)',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Driving strategies (stateless)', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 10),
           Container(
             width: double.infinity,
@@ -2288,11 +1993,7 @@ class _ApiTab extends StatelessWidget {
               '// Strategy C: AnimationController (StatefulWidget)\n'
               '// Pass the controller directly as animation.\n'
               '// onTransform receives controller.value each frame.',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11.5,
-                height: 1.7,
-              ),
+              style: TextStyle(fontFamily: 'monospace', fontSize: 11.5, height: 1.7),
             ),
           ),
           const SizedBox(height: 24),
@@ -2359,9 +2060,7 @@ class _ApiRow extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             note,
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
           ),
         ],
       ),
@@ -2386,11 +2085,7 @@ class _FactoryRow extends StatelessWidget {
             flex: 5,
             child: Text(
               signature,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                color: scheme.primary,
-              ),
+              style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: scheme.primary),
             ),
           ),
           const SizedBox(width: 12),
@@ -2398,9 +2093,7 @@ class _FactoryRow extends StatelessWidget {
             flex: 4,
             child: Text(
               description,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
             ),
           ),
         ],

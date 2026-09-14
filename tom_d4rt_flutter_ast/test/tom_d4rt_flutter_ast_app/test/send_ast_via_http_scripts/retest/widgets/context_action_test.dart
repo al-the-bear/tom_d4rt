@@ -169,36 +169,28 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────────────────
   // Color palette — copper/navy/ivory action theme
   // ──────────────────────────────────────────────────────────
-  const cCopper = Color(0xFFBF360C); // deep copper - primary
-  const cNavy = Color(0xFF1A237E); // deep navy - secondary
-  const cIvory = Color(0xFFFFFDE7); // soft ivory - surface
-  const cSlate = Color(0xFF37474F); // blue-grey slate - text
-  const cTeal = Color(0xFF00695C); // teal - success/info
-  const cPurple = Color(0xFF6A1B9A); // purple - highlight
-  const cAmber = Color(0xFFF57F17); // deep amber - warning
-  const cForest = Color(0xFF2E7D32); // forest green - positive
-  const cRose = Color(0xFFAD1457); // rose - accent
+  const cCopper = Color(0xFFBF360C);      // deep copper - primary
+  const cNavy = Color(0xFF1A237E);        // deep navy - secondary
+  const cIvory = Color(0xFFFFFDE7);       // soft ivory - surface
+  const cSlate = Color(0xFF37474F);       // blue-grey slate - text
+  const cTeal = Color(0xFF00695C);        // teal - success/info
+  const cPurple = Color(0xFF6A1B9A);      // purple - highlight
+  const cAmber = Color(0xFFF57F17);       // deep amber - warning
+  const cForest = Color(0xFF2E7D32);      // forest green - positive
+  const cRose = Color(0xFFAD1457);        // rose - accent
 
   // ──────────────────────────────────────────────────────────
   // Helper builders
   // ──────────────────────────────────────────────────────────
 
-  Widget sceneHeader(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color color,
-  ) {
+  Widget sceneHeader(String title, String subtitle, IconData icon, Color color) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 34.0, bottom: 14.0),
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            color.withValues(alpha: 0.15),
-            color.withValues(alpha: 0.03),
-          ],
+          colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.03)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -364,7 +356,10 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.all(12.0), child: child),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: child,
+          ),
         ],
       ),
     );
@@ -393,20 +388,13 @@ dynamic build(BuildContext context) {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.0,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
+            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: color),
           ),
           const SizedBox(height: 2.0),
           Text(
             detail,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 9.0,
-              color: color.withValues(alpha: 0.7),
-            ),
+            style: TextStyle(fontSize: 9.0, color: color.withValues(alpha: 0.7)),
           ),
         ],
       ),
@@ -446,64 +434,28 @@ dynamic build(BuildContext context) {
           children: [
             Text(
               'Intent → Action Pipeline',
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-                color: cCopper,
-              ),
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: cCopper),
             ),
             const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                pipelineBox(
-                  'Intent',
-                  'Describes WHAT\nto do',
-                  Icons.description,
-                  cNavy,
-                ),
+                pipelineBox('Intent', 'Describes WHAT\nto do', Icons.description, cNavy),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: cSlate.withValues(alpha: 0.4),
-                    size: 18.0,
-                  ),
+                  child: Icon(Icons.arrow_forward, color: cSlate.withValues(alpha: 0.4), size: 18.0),
                 ),
-                pipelineBox(
-                  'Actions\nWidget',
-                  'Maps Intent\nto Action',
-                  Icons.map,
-                  cTeal,
-                ),
+                pipelineBox('Actions\nWidget', 'Maps Intent\nto Action', Icons.map, cTeal),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: cSlate.withValues(alpha: 0.4),
-                    size: 18.0,
-                  ),
+                  child: Icon(Icons.arrow_forward, color: cSlate.withValues(alpha: 0.4), size: 18.0),
                 ),
-                pipelineBox(
-                  'Dispatcher',
-                  'Invokes the\nAction',
-                  Icons.send,
-                  cAmber,
-                ),
+                pipelineBox('Dispatcher', 'Invokes the\nAction', Icons.send, cAmber),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: cSlate.withValues(alpha: 0.4),
-                    size: 18.0,
-                  ),
+                  child: Icon(Icons.arrow_forward, color: cSlate.withValues(alpha: 0.4), size: 18.0),
                 ),
-                pipelineBox(
-                  'Context\nAction',
-                  'Receives\nBuildContext!',
-                  Icons.location_on,
-                  cCopper,
-                ),
+                pipelineBox('Context\nAction', 'Receives\nBuildContext!', Icons.location_on, cCopper),
               ],
             ),
             const SizedBox(height: 16.0),
@@ -555,11 +507,7 @@ dynamic build(BuildContext context) {
           children: [
             Text(
               'Class Hierarchy',
-              style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.bold,
-                color: cNavy,
-              ),
+              style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: cNavy),
             ),
             const SizedBox(height: 10.0),
             // Action base
@@ -576,19 +524,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Action<T extends Intent>',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
-                      color: cNavy,
-                      fontFamily: 'monospace',
-                    ),
+                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cNavy, fontFamily: 'monospace'),
                   ),
                   Text(
                     'invoke(T intent) — no context available',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: cSlate.withValues(alpha: 0.6),
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                   ),
                 ],
               ),
@@ -598,16 +538,8 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.only(left: 30.0),
               child: Column(
                 children: [
-                  Container(
-                    width: 2.0,
-                    height: 12.0,
-                    color: cSlate.withValues(alpha: 0.3),
-                  ),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    color: cSlate.withValues(alpha: 0.5),
-                    size: 18.0,
-                  ),
+                  Container(width: 2.0, height: 12.0, color: cSlate.withValues(alpha: 0.3)),
+                  Icon(Icons.arrow_drop_down, color: cSlate.withValues(alpha: 0.5), size: 18.0),
                 ],
               ),
             ),
@@ -618,10 +550,7 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: cCopper.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: cCopper.withValues(alpha: 0.3),
-                  width: 2.0,
-                ),
+                border: Border.all(color: cCopper.withValues(alpha: 0.3), width: 2.0),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -632,39 +561,22 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 6.0),
                       Text(
                         'ContextAction<T extends Intent>',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: cCopper,
-                          fontFamily: 'monospace',
-                        ),
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cCopper, fontFamily: 'monospace'),
                       ),
                     ],
                   ),
                   Text(
                     'invoke(T intent, [BuildContext? context])',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: cCopper.withValues(alpha: 0.8),
-                      fontFamily: 'monospace',
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: cCopper.withValues(alpha: 0.8), fontFamily: 'monospace'),
                   ),
                   Text(
                     'isEnabled(T intent, [BuildContext? context])',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: cCopper.withValues(alpha: 0.8),
-                      fontFamily: 'monospace',
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: cCopper.withValues(alpha: 0.8), fontFamily: 'monospace'),
                   ),
                   const SizedBox(height: 4.0),
                   Text(
                     '↑ Both methods receive the BuildContext from the invocation site!',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w600,
-                      color: cCopper,
-                    ),
+                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, color: cCopper),
                   ),
                 ],
               ),
@@ -677,19 +589,13 @@ dynamic build(BuildContext context) {
                   // CallbackAction branch
                   Column(
                     children: [
-                      Container(
-                        width: 2.0,
-                        height: 8.0,
-                        color: cSlate.withValues(alpha: 0.2),
-                      ),
+                      Container(width: 2.0, height: 8.0, color: cSlate.withValues(alpha: 0.2)),
                       Container(
                         padding: const EdgeInsets.all(6.0),
                         decoration: BoxDecoration(
                           color: cTeal.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(6.0),
-                          border: Border.all(
-                            color: cTeal.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: cTeal.withValues(alpha: 0.2)),
                         ),
                         child: Text(
                           'CallbackAction\n(extends Action)',
@@ -702,19 +608,13 @@ dynamic build(BuildContext context) {
                   const SizedBox(width: 20.0),
                   Column(
                     children: [
-                      Container(
-                        width: 2.0,
-                        height: 8.0,
-                        color: cSlate.withValues(alpha: 0.2),
-                      ),
+                      Container(width: 2.0, height: 8.0, color: cSlate.withValues(alpha: 0.2)),
                       Container(
                         padding: const EdgeInsets.all(6.0),
                         decoration: BoxDecoration(
                           color: cPurple.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(6.0),
-                          border: Border.all(
-                            color: cPurple.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: cPurple.withValues(alpha: 0.2)),
                         ),
                         child: Text(
                           'YourContextAction\n(extends ContextAction)',
@@ -853,7 +753,9 @@ dynamic build(BuildContext context) {
         accent: cTeal,
         width: 380.0,
         child: Actions(
-          actions: <Type, Action<Intent>>{GreetIntent: greetAction},
+          actions: <Type, Action<Intent>>{
+            GreetIntent: greetAction,
+          },
           child: Builder(
             builder: (innerContext) {
               // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch does not
@@ -955,7 +857,9 @@ dynamic build(BuildContext context) {
             accent: cForest,
             width: 250.0,
             child: Actions(
-              actions: <Type, Action<Intent>>{ToggleIntent: conditionalAction},
+              actions: <Type, Action<Intent>>{
+                ToggleIntent: conditionalAction,
+              },
               child: Builder(
                 builder: (innerContext) {
                   // Inside a Scaffold, so isEnabled should be true
@@ -990,10 +894,7 @@ dynamic build(BuildContext context) {
                       Text(
                         'Scaffold.maybeOf(context) found a Scaffold '
                         'ancestor → action is enabled.',
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: cSlate.withValues(alpha: 0.6),
-                        ),
+                        style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                       ),
                       const SizedBox(height: 6.0),
                       Container(
@@ -1001,24 +902,15 @@ dynamic build(BuildContext context) {
                         height: 40.0,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [
-                              cForest.withValues(alpha: 0.1),
-                              cForest.withValues(alpha: 0.2),
-                            ],
+                            colors: [cForest.withValues(alpha: 0.1), cForest.withValues(alpha: 0.2)],
                           ),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: cForest.withValues(alpha: 0.4),
-                          ),
+                          border: Border.all(color: cForest.withValues(alpha: 0.4)),
                         ),
                         child: Center(
                           child: Text(
                             'Action can be invoked ✓',
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              color: cForest,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: TextStyle(fontSize: 11.0, color: cForest, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
@@ -1057,10 +949,7 @@ dynamic build(BuildContext context) {
                   'Without a Scaffold above in the tree, '
                   'Scaffold.maybeOf(context) returns null '
                   '→ action reports disabled.',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: cSlate.withValues(alpha: 0.6),
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                 ),
                 const SizedBox(height: 6.0),
                 Container(
@@ -1074,11 +963,7 @@ dynamic build(BuildContext context) {
                   child: Center(
                     child: Text(
                       'Action blocked ✗',
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        color: cRose,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: TextStyle(fontSize: 11.0, color: cRose, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -1152,7 +1037,9 @@ dynamic build(BuildContext context) {
             accent: cSlate,
             width: 260.0,
             child: Actions(
-              actions: <Type, Action<Intent>>{PlainActionIntent: plainAction},
+              actions: <Type, Action<Intent>>{
+                PlainActionIntent: plainAction,
+              },
               child: Builder(
                 builder: (innerContext) {
                   // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch —
@@ -1169,46 +1056,28 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: cSlate.withValues(alpha: 0.05),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: cSlate.withValues(alpha: 0.15),
-                          ),
+                          border: Border.all(color: cSlate.withValues(alpha: 0.15)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Can access:',
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.bold,
-                                color: cSlate,
-                              ),
+                              style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cSlate),
                             ),
                             const SizedBox(height: 4.0),
                             Row(
                               children: [
                                 Icon(Icons.check, color: cForest, size: 14.0),
                                 const SizedBox(width: 4.0),
-                                Text(
-                                  'Intent data',
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    color: cSlate,
-                                  ),
-                                ),
+                                Text('Intent data', style: TextStyle(fontSize: 10.0, color: cSlate)),
                               ],
                             ),
                             Row(
                               children: [
                                 Icon(Icons.check, color: cForest, size: 14.0),
                                 const SizedBox(width: 4.0),
-                                Text(
-                                  'Action instance state',
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    color: cSlate,
-                                  ),
-                                ),
+                                Text('Action instance state', style: TextStyle(fontSize: 10.0, color: cSlate)),
                               ],
                             ),
                           ],
@@ -1221,41 +1090,22 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: cRose.withValues(alpha: 0.05),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: cRose.withValues(alpha: 0.15),
-                          ),
+                          border: Border.all(color: cRose.withValues(alpha: 0.15)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Cannot access:',
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.bold,
-                                color: cRose,
-                              ),
+                              style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cRose),
                             ),
                             const SizedBox(height: 4.0),
-                            for (final item in [
-                              'Theme',
-                              'MediaQuery',
-                              'Navigator',
-                              'Scaffold',
-                              'Localizations',
-                              'Directionality',
-                            ])
+                            for (final item in ['Theme', 'MediaQuery', 'Navigator', 'Scaffold', 'Localizations', 'Directionality'])
                               Row(
                                 children: [
                                   Icon(Icons.close, color: cRose, size: 14.0),
                                   const SizedBox(width: 4.0),
-                                  Text(
-                                    item,
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  Text(item, style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ],
                               ),
                           ],
@@ -1272,11 +1122,7 @@ dynamic build(BuildContext context) {
                         child: Center(
                           child: Text(
                             plainAction.lastResult,
-                            style: TextStyle(
-                              fontSize: 10.0,
-                              color: cSlate,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: TextStyle(fontSize: 10.0, color: cSlate, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
@@ -1294,7 +1140,9 @@ dynamic build(BuildContext context) {
             accent: cCopper,
             width: 260.0,
             child: Actions(
-              actions: <Type, Action<Intent>>{GreetIntent: ctxCompareAction},
+              actions: <Type, Action<Intent>>{
+                GreetIntent: ctxCompareAction,
+              },
               child: Builder(
                 builder: (innerContext) {
                   // D4RT-LIMITATION #8: Actions.find/invoke type-keyed dispatch
@@ -1315,45 +1163,23 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: cForest.withValues(alpha: 0.05),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: cForest.withValues(alpha: 0.15),
-                          ),
+                          border: Border.all(color: cForest.withValues(alpha: 0.15)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Can access:',
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.bold,
-                                color: cForest,
-                              ),
+                              style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cForest),
                             ),
                             const SizedBox(height: 4.0),
-                            for (final item in [
-                              'Intent data',
-                              'Action instance state',
-                              'Theme',
-                              'MediaQuery',
-                              'Navigator',
-                              'Scaffold',
-                              'Localizations',
-                              'Directionality',
-                              'Any InheritedWidget!',
-                            ])
+                            for (final item in ['Intent data', 'Action instance state', 'Theme', 'MediaQuery', 'Navigator', 'Scaffold', 'Localizations', 'Directionality', 'Any InheritedWidget!'])
                               Row(
                                 children: [
                                   Icon(Icons.check, color: cForest, size: 14.0),
                                   const SizedBox(width: 4.0),
                                   Flexible(
-                                    child: Text(
-                                      item,
-                                      style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: cSlate,
-                                      ),
-                                    ),
+                                    child: Text(item, style: TextStyle(fontSize: 10.0, color: cSlate)),
                                   ),
                                 ],
                               ),
@@ -1367,18 +1193,12 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: cCopper.withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(6.0),
-                          border: Border.all(
-                            color: cCopper.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: cCopper.withValues(alpha: 0.2)),
                         ),
                         child: Center(
                           child: Text(
                             'Type: ${action.runtimeType}',
-                            style: TextStyle(
-                              fontSize: 10.0,
-                              color: cCopper,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: TextStyle(fontSize: 10.0, color: cCopper, fontWeight: FontWeight.w600),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -1433,7 +1253,9 @@ dynamic build(BuildContext context) {
         accent: cPurple,
         width: 380.0,
         child: Actions(
-          actions: <Type, Action<Intent>>{ThemeReadIntent: themeAction},
+          actions: <Type, Action<Intent>>{
+            ThemeReadIntent: themeAction,
+          },
           child: Builder(
             builder: (innerContext) {
               // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch — call directly.
@@ -1460,10 +1282,7 @@ dynamic build(BuildContext context) {
                           'Action used Theme.of(context) to read the current '
                           'brightness setting. A regular Action could not do this '
                           'without the context parameter.',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: cSlate.withValues(alpha: 0.6),
-                          ),
+                          style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                         ),
                       ],
                     ),
@@ -1531,21 +1350,14 @@ dynamic build(BuildContext context) {
                 child: Builder(
                   builder: (innerContext) {
                     // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch — call directly.
-                    treeClimbAction.invoke(
-                      const TreeClimbIntent(),
-                      innerContext,
-                    );
+                    treeClimbAction.invoke(const TreeClimbIntent(), innerContext);
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.account_tree,
-                              color: cForest,
-                              size: 24.0,
-                            ),
+                            Icon(Icons.account_tree, color: cForest, size: 24.0),
                             const SizedBox(width: 8.0),
                             Expanded(
                               child: Text(
@@ -1568,10 +1380,7 @@ dynamic build(BuildContext context) {
                           '3-Container structure, so the count includes those '
                           'plus any Container widgets from the demoCard wrapper '
                           'and outer layout.',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: cSlate.withValues(alpha: 0.6),
-                          ),
+                          style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                         ),
                         const SizedBox(height: 6.0),
                         // Visual nesting representation
@@ -1592,15 +1401,11 @@ dynamic build(BuildContext context) {
                             children: [
                               for (var i = 0; i < 3; i++)
                                 Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 3.0,
-                                  ),
+                                  margin: const EdgeInsets.symmetric(horizontal: 3.0),
                                   width: 30.0,
                                   height: 30.0,
                                   decoration: BoxDecoration(
-                                    color: cForest.withValues(
-                                      alpha: 0.1 + i * 0.1,
-                                    ),
+                                    color: cForest.withValues(alpha: 0.1 + i * 0.1),
                                     borderRadius: BorderRadius.circular(4.0),
                                     border: Border.all(color: cForest),
                                   ),
@@ -1618,10 +1423,7 @@ dynamic build(BuildContext context) {
                               const SizedBox(width: 6.0),
                               Text(
                                 '← 3 local nesting levels',
-                                style: TextStyle(
-                                  fontSize: 10.0,
-                                  color: cForest,
-                                ),
+                                style: TextStyle(fontSize: 10.0, color: cForest),
                               ),
                             ],
                           ),
@@ -1649,41 +1451,30 @@ dynamic build(BuildContext context) {
               child: Directionality(
                 textDirection: TextDirection.ltr,
                 child: Actions(
-                  actions: <Type, Action<Intent>>{GreetIntent: ltrGreetAction},
+                  actions: <Type, Action<Intent>>{
+                    GreetIntent: ltrGreetAction,
+                  },
                   child: Builder(
                     builder: (innerContext) {
                       // D4RT-LIMITATION #8: Actions.find/invoke type-keyed dispatch
                       // does not work — use extracted variables directly instead.
                       final action = ltrGreetAction;
-                      ltrGreetAction.invoke(
-                        GreetIntent('LTR User'),
-                        innerContext,
-                      );
+                      ltrGreetAction.invoke(GreetIntent('LTR User'), innerContext);
                       return Container(
                         padding: const EdgeInsets.all(10.0),
                         margin: const EdgeInsets.all(4.0),
                         decoration: BoxDecoration(
                           color: cNavy.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: cNavy.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: cNavy.withValues(alpha: 0.2)),
                         ),
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.format_textdirection_l_to_r,
-                              color: cNavy,
-                              size: 24.0,
-                            ),
+                            Icon(Icons.format_textdirection_l_to_r, color: cNavy, size: 24.0),
                             const SizedBox(height: 4.0),
                             Text(
                               'LTR Context',
-                              style: TextStyle(
-                                fontSize: 11.0,
-                                fontWeight: FontWeight.bold,
-                                color: cNavy,
-                              ),
+                              style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cNavy),
                             ),
                             const SizedBox(height: 4.0),
                             Text(
@@ -1691,10 +1482,7 @@ dynamic build(BuildContext context) {
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
-                              style: TextStyle(
-                                fontSize: 9.0,
-                                color: cSlate.withValues(alpha: 0.7),
-                              ),
+                              style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.7)),
                             ),
                           ],
                         ),
@@ -1709,41 +1497,30 @@ dynamic build(BuildContext context) {
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: Actions(
-                  actions: <Type, Action<Intent>>{GreetIntent: rtlGreetAction},
+                  actions: <Type, Action<Intent>>{
+                    GreetIntent: rtlGreetAction,
+                  },
                   child: Builder(
                     builder: (innerContext) {
                       // D4RT-LIMITATION #8: Actions.find/invoke type-keyed dispatch
                       // does not work — use extracted variables directly instead.
                       final action = rtlGreetAction;
-                      rtlGreetAction.invoke(
-                        GreetIntent('RTL User'),
-                        innerContext,
-                      );
+                      rtlGreetAction.invoke(GreetIntent('RTL User'), innerContext);
                       return Container(
                         padding: const EdgeInsets.all(10.0),
                         margin: const EdgeInsets.all(4.0),
                         decoration: BoxDecoration(
                           color: cRose.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: cRose.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: cRose.withValues(alpha: 0.2)),
                         ),
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.format_textdirection_r_to_l,
-                              color: cRose,
-                              size: 24.0,
-                            ),
+                            Icon(Icons.format_textdirection_r_to_l, color: cRose, size: 24.0),
                             const SizedBox(height: 4.0),
                             Text(
                               'RTL Context',
-                              style: TextStyle(
-                                fontSize: 11.0,
-                                fontWeight: FontWeight.bold,
-                                color: cRose,
-                              ),
+                              style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cRose),
                             ),
                             const SizedBox(height: 4.0),
                             Text(
@@ -1751,10 +1528,7 @@ dynamic build(BuildContext context) {
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
-                              style: TextStyle(
-                                fontSize: 9.0,
-                                color: cSlate.withValues(alpha: 0.7),
-                              ),
+                              style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.7)),
                             ),
                           ],
                         ),
@@ -1834,11 +1608,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 4.0),
                         Text(
                           'Light Mode',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.bold,
-                            color: cSlate,
-                          ),
+                          style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cSlate),
                         ),
                         const SizedBox(height: 4.0),
                         Container(
@@ -1875,11 +1645,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 4.0),
                         Text(
                           'Dark Mode',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.bold,
-                            color: cIvory,
-                          ),
+                          style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cIvory),
                         ),
                         const SizedBox(height: 4.0),
                         Container(
@@ -1907,10 +1673,7 @@ dynamic build(BuildContext context) {
               'A ContextAction can read Theme.of(context).brightness to '
               'choose different formatting for light vs dark mode — without '
               'the caller needing to pass theme data in the Intent.',
-              style: TextStyle(
-                fontSize: 10.0,
-                color: cSlate.withValues(alpha: 0.6),
-              ),
+              style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
             ),
           ],
         ),
@@ -1942,32 +1705,16 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8.0),
                       Text(
                         'Gate Conditions',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: cTeal,
-                        ),
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cTeal),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8.0),
                   for (final gate in [
-                    {
-                      'check': 'Scaffold.maybeOf(context)',
-                      'purpose': 'Needs scaffold for snackbar',
-                    },
-                    {
-                      'check': 'Navigator.maybeOf(context)',
-                      'purpose': 'Needs navigator for routing',
-                    },
-                    {
-                      'check': 'Form.maybeOf(context)',
-                      'purpose': 'Needs form for validation',
-                    },
-                    {
-                      'check': 'Overlay.maybeOf(context)',
-                      'purpose': 'Needs overlay for popups',
-                    },
+                    {'check': 'Scaffold.maybeOf(context)', 'purpose': 'Needs scaffold for snackbar'},
+                    {'check': 'Navigator.maybeOf(context)', 'purpose': 'Needs navigator for routing'},
+                    {'check': 'Form.maybeOf(context)', 'purpose': 'Needs form for validation'},
+                    {'check': 'Overlay.maybeOf(context)', 'purpose': 'Needs overlay for popups'},
                   ])
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
@@ -1985,11 +1732,7 @@ dynamic build(BuildContext context) {
                           Expanded(
                             child: Text(
                               '${gate['check']} → ${gate['purpose']}',
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: cSlate.withValues(alpha: 0.7),
-                                fontFamily: 'monospace',
-                              ),
+                              style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.7), fontFamily: 'monospace'),
                             ),
                           ),
                         ],
@@ -2038,22 +1781,8 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.phone_android, color: cAmber, size: 20.0),
                       const SizedBox(height: 4.0),
-                      Text(
-                        'Phone',
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          color: cAmber,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Bottom\nSheet',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 8.0,
-                          color: cSlate.withValues(alpha: 0.5),
-                        ),
-                      ),
+                      Text('Phone', style: TextStyle(fontSize: 9.0, color: cAmber, fontWeight: FontWeight.bold)),
+                      Text('Bottom\nSheet', textAlign: TextAlign.center, style: TextStyle(fontSize: 8.0, color: cSlate.withValues(alpha: 0.5))),
                     ],
                   ),
                 ),
@@ -2072,22 +1801,8 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.tablet, color: cTeal, size: 20.0),
                       const SizedBox(height: 4.0),
-                      Text(
-                        'Tablet',
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          color: cTeal,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Side Panel',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 8.0,
-                          color: cSlate.withValues(alpha: 0.5),
-                        ),
-                      ),
+                      Text('Tablet', style: TextStyle(fontSize: 9.0, color: cTeal, fontWeight: FontWeight.bold)),
+                      Text('Side Panel', textAlign: TextAlign.center, style: TextStyle(fontSize: 8.0, color: cSlate.withValues(alpha: 0.5))),
                     ],
                   ),
                 ),
@@ -2106,22 +1821,8 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.desktop_windows, color: cNavy, size: 20.0),
                       const SizedBox(height: 4.0),
-                      Text(
-                        'Desktop',
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          color: cNavy,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Dialog',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 8.0,
-                          color: cSlate.withValues(alpha: 0.5),
-                        ),
-                      ),
+                      Text('Desktop', style: TextStyle(fontSize: 9.0, color: cNavy, fontWeight: FontWeight.bold)),
+                      Text('Dialog', textAlign: TextAlign.center, style: TextStyle(fontSize: 8.0, color: cSlate.withValues(alpha: 0.5))),
                     ],
                   ),
                 ),
@@ -2132,10 +1833,7 @@ dynamic build(BuildContext context) {
               'A ContextAction can read MediaQuery.sizeOf(context) in invoke() to '
               'show a bottom sheet on phone, a side panel on tablet, or a dialog '
               'on desktop — all from the same Intent mapping.',
-              style: TextStyle(
-                fontSize: 10.0,
-                color: cSlate.withValues(alpha: 0.6),
-              ),
+              style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
             ),
             const SizedBox(height: 6.0),
             codeSnippet(
@@ -2180,11 +1878,7 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 6.0),
                       Text(
                         'GreetIntent → DefaultGreetAction',
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          color: cSlate.withValues(alpha: 0.5),
-                          fontFamily: 'monospace',
-                        ),
+                        style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.5), fontFamily: 'monospace'),
                       ),
                     ],
                   ),
@@ -2206,11 +1900,7 @@ dynamic build(BuildContext context) {
                             const SizedBox(width: 6.0),
                             Text(
                               'GreetIntent → SpecialGreetAction',
-                              style: TextStyle(
-                                fontSize: 9.0,
-                                color: cSlate.withValues(alpha: 0.5),
-                                fontFamily: 'monospace',
-                              ),
+                              style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.5), fontFamily: 'monospace'),
                             ),
                           ],
                         ),
@@ -2220,21 +1910,14 @@ dynamic build(BuildContext context) {
                           height: 40.0,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [
-                                cRose.withValues(alpha: 0.08),
-                                cRose.withValues(alpha: 0.15),
-                              ],
+                              colors: [cRose.withValues(alpha: 0.08), cRose.withValues(alpha: 0.15)],
                             ),
                             borderRadius: BorderRadius.circular(6.0),
                           ),
                           child: Center(
                             child: Text(
                               'invoke() here → uses SpecialGreetAction (inner wins!)',
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: cRose,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: TextStyle(fontSize: 10.0, color: cRose, fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
@@ -2250,10 +1933,7 @@ dynamic build(BuildContext context) {
               'innermost one wins. With ContextAction, the inner action still '
               'has full context access — it can even find the OUTER action via '
               'context and delegate to it (using Action.callingAction).',
-              style: TextStyle(
-                fontSize: 10.0,
-                color: cSlate.withValues(alpha: 0.6),
-              ),
+              style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
             ),
           ],
         ),
@@ -2262,19 +1942,17 @@ dynamic build(BuildContext context) {
       // Pattern 5: Live Actions.invoke demonstration
       demoCard(
         title: 'Pattern: Live Actions.invoke Demonstration',
-        description:
-            'Actions.invoke passes context to ContextAction automatically',
+        description: 'Actions.invoke passes context to ContextAction automatically',
         accent: cCopper,
         width: 380.0,
         child: Actions(
-          actions: <Type, Action<Intent>>{ShowInfoIntent: showInfoAction},
+          actions: <Type, Action<Intent>>{
+            ShowInfoIntent: showInfoAction,
+          },
           child: Builder(
             builder: (innerContext) {
               // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch — call directly.
-              final result = showInfoAction.invoke(
-                const ShowInfoIntent(),
-                innerContext,
-              );
+              final result = showInfoAction.invoke(const ShowInfoIntent(), innerContext);
               print('  ShowInfoContextAction result: $result');
 
               return Column(
@@ -2293,11 +1971,7 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'Actions.invoke() automatically:',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.bold,
-                            color: cCopper,
-                          ),
+                          style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cCopper),
                         ),
                         const SizedBox(height: 6.0),
                         for (final step in [
@@ -2311,10 +1985,7 @@ dynamic build(BuildContext context) {
                             padding: const EdgeInsets.only(bottom: 2.0),
                             child: Text(
                               step,
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: cSlate.withValues(alpha: 0.7),
-                              ),
+                              style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.7)),
                             ),
                           ),
                       ],
@@ -2326,10 +1997,7 @@ dynamic build(BuildContext context) {
                     height: 40.0,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          cForest.withValues(alpha: 0.1),
-                          cForest.withValues(alpha: 0.2),
-                        ],
+                        colors: [cForest.withValues(alpha: 0.1), cForest.withValues(alpha: 0.2)],
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: cForest.withValues(alpha: 0.3)),
@@ -2366,10 +2034,7 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              cCopper.withValues(alpha: 0.08),
-              cNavy.withValues(alpha: 0.06),
-            ],
+            colors: [cCopper.withValues(alpha: 0.08), cNavy.withValues(alpha: 0.06)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -2426,10 +2091,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          cCopper.withValues(alpha: 0.12),
-          cNavy.withValues(alpha: 0.08),
-        ],
+        colors: [cCopper.withValues(alpha: 0.12), cNavy.withValues(alpha: 0.08)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

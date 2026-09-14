@@ -90,8 +90,7 @@ class _ValueIndicatorShapeDossierState
       _AnatomyRow(
         symbol: 'SliderComponentShape',
         kind: 'abstract base',
-        purpose:
-            'Base shape for single Slider visual parts (thumb, indicator).',
+        purpose: 'Base shape for single Slider visual parts (thumb, indicator).',
       ),
       _AnatomyRow(
         symbol: 'RangeSliderValueIndicatorShape',
@@ -99,14 +98,12 @@ class _ValueIndicatorShapeDossierState
         purpose: 'Base shape for the value indicator above RangeSlider thumbs.',
       ),
       _AnatomyRow(
-        symbol:
-            'getPreferredSize(isEnabled, isDiscrete, {labelPainter, textScaleFactor})',
+        symbol: 'getPreferredSize(isEnabled, isDiscrete, {labelPainter, textScaleFactor})',
         kind: 'method',
         purpose: 'Reports the bounding size the indicator wants to occupy.',
       ),
       _AnatomyRow(
-        symbol:
-            'paint(context, center, {activationAnimation, enableAnimation, ...})',
+        symbol: 'paint(context, center, {activationAnimation, enableAnimation, ...})',
         kind: 'method',
         purpose: 'Draws the indicator onto the Canvas above the thumb.',
       ),
@@ -148,7 +145,8 @@ class _ValueIndicatorShapeDossierState
         title: 'Modern dashboard',
         shape: 'DropSliderValueIndicatorShape',
         when: 'Compact UIs where the paddle feels too playful.',
-        snippet: 'valueIndicatorShape: const DropSliderValueIndicatorShape(),',
+        snippet:
+            'valueIndicatorShape: const DropSliderValueIndicatorShape(),',
         color: Color(0xFF00838F),
       ),
       _RecipeCard(
@@ -163,7 +161,8 @@ class _ValueIndicatorShapeDossierState
         title: 'Audio scrubber',
         shape: 'DropSliderValueIndicatorShape',
         when: 'Time labels like 03:14 read better in a narrow pin.',
-        snippet: 'showValueIndicator: ShowValueIndicator.always,',
+        snippet:
+            'showValueIndicator: ShowValueIndicator.always,',
         color: Color(0xFF2E7D32),
       ),
       _RecipeCard(
@@ -186,14 +185,16 @@ class _ValueIndicatorShapeDossierState
         title: 'Discrete only',
         shape: 'showValueIndicator.onlyForDiscrete',
         when: 'Steps slider where indicator only matters at divisions.',
-        snippet: 'showValueIndicator: ShowValueIndicator.onlyForDiscrete,',
+        snippet:
+            'showValueIndicator: ShowValueIndicator.onlyForDiscrete,',
         color: Color(0xFFAD1457),
       ),
       _RecipeCard(
         title: 'No indicator',
         shape: 'showValueIndicator.never',
         when: 'When the value is rendered elsewhere on screen already.',
-        snippet: 'showValueIndicator: ShowValueIndicator.never,',
+        snippet:
+            'showValueIndicator: ShowValueIndicator.never,',
         color: Color(0xFF5D4037),
       ),
     ];
@@ -246,7 +247,8 @@ class _ValueIndicatorShapeDossierState
       ),
       _GlossaryEntry(
         term: 'Tick mark',
-        definition: 'Dot drawn at each discrete division on the track.',
+        definition:
+            'Dot drawn at each discrete division on the track.',
       ),
       _GlossaryEntry(
         term: 'Divisions',
@@ -343,7 +345,8 @@ class _ValueIndicatorShapeDossierState
             const SizedBox(height: 12.0),
             _DropSection(
               continuousValue: _dropContinuous,
-              onContinuousChanged: (v) => setState(() => _dropContinuous = v),
+              onContinuousChanged: (v) =>
+                  setState(() => _dropContinuous = v),
               lowValue: _dropDiscreteLow,
               midValue: _dropDiscreteMid,
               highValue: _dropDiscreteHigh,
@@ -362,11 +365,14 @@ class _ValueIndicatorShapeDossierState
             const SizedBox(height: 12.0),
             _PaddleSection(
               continuousValue: _paddleContinuous,
-              onContinuousChanged: (v) => setState(() => _paddleContinuous = v),
+              onContinuousChanged: (v) =>
+                  setState(() => _paddleContinuous = v),
               discreteA: _paddleDiscreteA,
               discreteB: _paddleDiscreteB,
-              onDiscreteAChanged: (v) => setState(() => _paddleDiscreteA = v),
-              onDiscreteBChanged: (v) => setState(() => _paddleDiscreteB = v),
+              onDiscreteAChanged: (v) =>
+                  setState(() => _paddleDiscreteA = v),
+              onDiscreteBChanged: (v) =>
+                  setState(() => _paddleDiscreteB = v),
             ),
             const SizedBox(height: 24.0),
 
@@ -379,11 +385,14 @@ class _ValueIndicatorShapeDossierState
             const SizedBox(height: 12.0),
             _RectSection(
               continuousValue: _rectContinuous,
-              onContinuousChanged: (v) => setState(() => _rectContinuous = v),
+              onContinuousChanged: (v) =>
+                  setState(() => _rectContinuous = v),
               discreteA: _rectDiscreteA,
               discreteB: _rectDiscreteB,
-              onDiscreteAChanged: (v) => setState(() => _rectDiscreteA = v),
-              onDiscreteBChanged: (v) => setState(() => _rectDiscreteB = v),
+              onDiscreteAChanged: (v) =>
+                  setState(() => _rectDiscreteA = v),
+              onDiscreteBChanged: (v) =>
+                  setState(() => _rectDiscreteB = v),
             ),
             const SizedBox(height: 24.0),
 
@@ -407,8 +416,7 @@ class _ValueIndicatorShapeDossierState
             // ---------------- SECTION 7: showValueIndicator ------------------
             _SectionTitle(
               index: 7,
-              title:
-                  'ShowValueIndicator — always / discrete / continuous / never',
+              title: 'ShowValueIndicator — always / discrete / continuous / never',
               accent: Color(0xFFAD1457),
             ),
             const SizedBox(height: 12.0),
@@ -475,7 +483,10 @@ class _ValueIndicatorShapeDossierState
             Center(
               child: Text(
                 'Deep Demo • Slider value indicator shapes • Flutter Material',
-                style: TextStyle(fontSize: 12.0, color: Color(0xFF9E9E9E)),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Color(0xFF9E9E9E),
+                ),
               ),
             ),
           ],
@@ -807,7 +818,10 @@ class _AnatomyTable extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       r.purpose,
-                      style: const TextStyle(fontSize: 11.5, height: 1.35),
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        height: 1.35,
+                      ),
                     ),
                   ),
                 ],
@@ -1198,7 +1212,8 @@ class _RangeSliderSection extends StatelessWidget {
     final SliderThemeData base = SliderTheme.of(context);
 
     final SliderThemeData paddleTheme = base.copyWith(
-      rangeValueIndicatorShape: const PaddleRangeSliderValueIndicatorShape(),
+      rangeValueIndicatorShape:
+          const PaddleRangeSliderValueIndicatorShape(),
       showValueIndicator: ShowValueIndicator.always,
       activeTrackColor: const Color(0xFFE65100),
       inactiveTrackColor: const Color(0xFFFFCCBC),
@@ -1223,7 +1238,8 @@ class _RangeSliderSection extends StatelessWidget {
       ),
     );
     final SliderThemeData dropTheme = base.copyWith(
-      rangeValueIndicatorShape: const DropRangeSliderValueIndicatorShape(),
+      rangeValueIndicatorShape:
+          const DropRangeSliderValueIndicatorShape(),
       showValueIndicator: ShowValueIndicator.always,
       activeTrackColor: const Color(0xFF2E7D32),
       inactiveTrackColor: const Color(0xFFC8E6C9),
@@ -1263,7 +1279,9 @@ class _RangeSliderSection extends StatelessWidget {
             style: TextStyle(fontSize: 12.0),
           ),
           const SizedBox(height: 16.0),
-          const _ShowcaseLabel(text: 'PaddleRangeSliderValueIndicatorShape'),
+          const _ShowcaseLabel(
+            text: 'PaddleRangeSliderValueIndicatorShape',
+          ),
           SliderTheme(
             data: paddleTheme,
             child: RangeSlider(
@@ -1297,7 +1315,9 @@ class _RangeSliderSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12.0),
-          const _ShowcaseLabel(text: 'DropRangeSliderValueIndicatorShape'),
+          const _ShowcaseLabel(
+            text: 'DropRangeSliderValueIndicatorShape',
+          ),
           SliderTheme(
             data: dropTheme,
             child: RangeSlider(
@@ -1439,12 +1459,15 @@ class _ShowValueIndicatorSection extends StatelessWidget {
             ),
             child: Slider(
               value: onlyContinuousValue,
-              label: '${(onlyContinuousValue * 100).toStringAsFixed(0)}%',
+              label:
+                  '${(onlyContinuousValue * 100).toStringAsFixed(0)}%',
               onChanged: onOnlyContinuousChanged,
             ),
           ),
 
-          const _ShowcaseLabel(text: 'ShowValueIndicator.never (suppressed)'),
+          const _ShowcaseLabel(
+            text: 'ShowValueIndicator.never (suppressed)',
+          ),
           SliderTheme(
             data: mk(ShowValueIndicator.never, const Color(0xFF5D4037)),
             child: Slider(
@@ -1459,7 +1482,8 @@ class _ShowValueIndicatorSection extends StatelessWidget {
 
           const SizedBox(height: 8.0),
           _CodeBlock(
-            code: 'showValueIndicator: ShowValueIndicator.onlyForDiscrete,',
+            code:
+                'showValueIndicator: ShowValueIndicator.onlyForDiscrete,',
           ),
         ],
       ),
@@ -1548,7 +1572,10 @@ class _RecipeGrid extends StatelessWidget {
                       const SizedBox(height: 6.0),
                       Text(
                         card.when,
-                        style: const TextStyle(fontSize: 12.0, height: 1.35),
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                          height: 1.35,
+                        ),
                       ),
                       const SizedBox(height: 8.0),
                       _CodeBlock(code: card.snippet),
@@ -1689,7 +1716,10 @@ class _ComparisonTable extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 2,
-                    child: Text(r.feel, style: const TextStyle(fontSize: 11.0)),
+                    child: Text(
+                      r.feel,
+                      style: const TextStyle(fontSize: 11.0),
+                    ),
                   ),
                   Expanded(
                     flex: 3,
@@ -1757,7 +1787,10 @@ class _GlossaryList extends StatelessWidget {
                   Expanded(
                     child: Text(
                       e.definition,
-                      style: const TextStyle(fontSize: 12.0, height: 1.4),
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        height: 1.4,
+                      ),
                     ),
                   ),
                 ],

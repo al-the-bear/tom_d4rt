@@ -113,31 +113,25 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'label': '{hovered}',
       'states': <WidgetState>{WidgetState.hovered},
-      'resolved': constantBackground.resolve(<WidgetState>{
-        WidgetState.hovered,
-      }),
+      'resolved': constantBackground.resolve(<WidgetState>{WidgetState.hovered}),
     },
     <String, dynamic>{
       'label': '{pressed}',
       'states': <WidgetState>{WidgetState.pressed},
-      'resolved': constantBackground.resolve(<WidgetState>{
-        WidgetState.pressed,
-      }),
+      'resolved': constantBackground.resolve(<WidgetState>{WidgetState.pressed}),
     },
     <String, dynamic>{
       'label': '{disabled}',
       'states': <WidgetState>{WidgetState.disabled},
-      'resolved': constantBackground.resolve(<WidgetState>{
-        WidgetState.disabled,
-      }),
+      'resolved':
+          constantBackground.resolve(<WidgetState>{WidgetState.disabled}),
     },
     <String, dynamic>{
       'label': '{error,focused}',
       'states': <WidgetState>{WidgetState.error, WidgetState.focused},
-      'resolved': constantBackground.resolve(<WidgetState>{
-        WidgetState.error,
-        WidgetState.focused,
-      }),
+      'resolved': constantBackground.resolve(
+        <WidgetState>{WidgetState.error, WidgetState.focused},
+      ),
     },
   ];
 
@@ -150,46 +144,44 @@ dynamic build(BuildContext context) {
 
   final WidgetStateProperty<Color> resolvedBackground =
       WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
-        if (states.contains(WidgetState.disabled)) {
-          return const Color(0xFFBDBDBD);
-        }
-        if (states.contains(WidgetState.error)) {
-          return const Color(0xFFC62828);
-        }
-        if (states.contains(WidgetState.pressed)) {
-          return const Color(0xFF1A237E);
-        }
-        if (states.contains(WidgetState.hovered)) {
-          return const Color(0xFF283593);
-        }
-        if (states.contains(WidgetState.focused)) {
-          return const Color(0xFF303F9F);
-        }
-        if (states.contains(WidgetState.selected)) {
-          return const Color(0xFF3949AB);
-        }
-        return const Color(0xFF5C6BC0);
-      });
+    if (states.contains(WidgetState.disabled)) {
+      return const Color(0xFFBDBDBD);
+    }
+    if (states.contains(WidgetState.error)) {
+      return const Color(0xFFC62828);
+    }
+    if (states.contains(WidgetState.pressed)) {
+      return const Color(0xFF1A237E);
+    }
+    if (states.contains(WidgetState.hovered)) {
+      return const Color(0xFF283593);
+    }
+    if (states.contains(WidgetState.focused)) {
+      return const Color(0xFF303F9F);
+    }
+    if (states.contains(WidgetState.selected)) {
+      return const Color(0xFF3949AB);
+    }
+    return const Color(0xFF5C6BC0);
+  });
 
   final WidgetStateProperty<double> resolvedElevation =
       WidgetStateProperty.resolveWith<double>((Set<WidgetState> states) {
-        if (states.contains(WidgetState.disabled)) return 0.0;
-        if (states.contains(WidgetState.pressed)) return 1.0;
-        if (states.contains(WidgetState.hovered)) return 6.0;
-        if (states.contains(WidgetState.focused)) return 4.0;
-        return 2.0;
-      });
+    if (states.contains(WidgetState.disabled)) return 0.0;
+    if (states.contains(WidgetState.pressed)) return 1.0;
+    if (states.contains(WidgetState.hovered)) return 6.0;
+    if (states.contains(WidgetState.focused)) return 4.0;
+    return 2.0;
+  });
 
   // Probe the resolveWith property against every canonical single-state set
   // and a few interesting combinations.
   final List<Map<String, dynamic>> resolveWithSamples = canonicalStates
-      .map<Map<String, dynamic>>(
-        (WidgetState s) => <String, dynamic>{
-          'label': '{${s.name}}',
-          'background': resolvedBackground.resolve(<WidgetState>{s}),
-          'elevation': resolvedElevation.resolve(<WidgetState>{s}),
-        },
-      )
+      .map<Map<String, dynamic>>((WidgetState s) => <String, dynamic>{
+            'label': '{${s.name}}',
+            'background': resolvedBackground.resolve(<WidgetState>{s}),
+            'elevation': resolvedElevation.resolve(<WidgetState>{s}),
+          })
       .toList();
   resolveWithSamples.add(<String, dynamic>{
     'label': 'empty {}',
@@ -198,25 +190,17 @@ dynamic build(BuildContext context) {
   });
   resolveWithSamples.add(<String, dynamic>{
     'label': '{hovered,focused}',
-    'background': resolvedBackground.resolve(<WidgetState>{
-      WidgetState.hovered,
-      WidgetState.focused,
-    }),
-    'elevation': resolvedElevation.resolve(<WidgetState>{
-      WidgetState.hovered,
-      WidgetState.focused,
-    }),
+    'background': resolvedBackground
+        .resolve(<WidgetState>{WidgetState.hovered, WidgetState.focused}),
+    'elevation': resolvedElevation
+        .resolve(<WidgetState>{WidgetState.hovered, WidgetState.focused}),
   });
   resolveWithSamples.add(<String, dynamic>{
     'label': '{selected,pressed}',
-    'background': resolvedBackground.resolve(<WidgetState>{
-      WidgetState.selected,
-      WidgetState.pressed,
-    }),
-    'elevation': resolvedElevation.resolve(<WidgetState>{
-      WidgetState.selected,
-      WidgetState.pressed,
-    }),
+    'background': resolvedBackground
+        .resolve(<WidgetState>{WidgetState.selected, WidgetState.pressed}),
+    'elevation': resolvedElevation
+        .resolve(<WidgetState>{WidgetState.selected, WidgetState.pressed}),
   });
 
   // ===========================================================================
@@ -228,22 +212,20 @@ dynamic build(BuildContext context) {
 
   final WidgetStateProperty<Color> mapBackground =
       WidgetStateProperty<Color>.fromMap(<WidgetStatesConstraint, Color>{
-        WidgetState.disabled: const Color(0xFFE0E0E0),
-        WidgetState.error: const Color(0xFFEF5350),
-        WidgetState.pressed: const Color(0xFF00695C),
-        WidgetState.hovered: const Color(0xFF00897B),
-        WidgetState.focused: const Color(0xFF009688),
-        WidgetState.selected: const Color(0xFF26A69A),
-        WidgetState.any: const Color(0xFF4DB6AC),
-      });
+    WidgetState.disabled: const Color(0xFFE0E0E0),
+    WidgetState.error: const Color(0xFFEF5350),
+    WidgetState.pressed: const Color(0xFF00695C),
+    WidgetState.hovered: const Color(0xFF00897B),
+    WidgetState.focused: const Color(0xFF009688),
+    WidgetState.selected: const Color(0xFF26A69A),
+    WidgetState.any: const Color(0xFF4DB6AC),
+  });
 
   final List<Map<String, dynamic>> fromMapSamples = canonicalStates
-      .map<Map<String, dynamic>>(
-        (WidgetState s) => <String, dynamic>{
-          'label': '{${s.name}}',
-          'background': mapBackground.resolve(<WidgetState>{s}),
-        },
-      )
+      .map<Map<String, dynamic>>((WidgetState s) => <String, dynamic>{
+            'label': '{${s.name}}',
+            'background': mapBackground.resolve(<WidgetState>{s}),
+          })
       .toList();
   fromMapSamples.add(<String, dynamic>{
     'label': 'empty {} (any)',
@@ -256,9 +238,8 @@ dynamic build(BuildContext context) {
   // A Color that is also a WidgetStateProperty<Color>. The default color
   // (the empty-state value) is what you get if you just use it as a Color.
 
-  final WidgetStateColor stateColor = WidgetStateColor.resolveWith((
-    Set<WidgetState> states,
-  ) {
+  final WidgetStateColor stateColor =
+      WidgetStateColor.resolveWith((Set<WidgetState> states) {
     if (states.contains(WidgetState.disabled)) {
       return const Color(0xFFBDBDBD);
     }
@@ -275,12 +256,10 @@ dynamic build(BuildContext context) {
   });
 
   final List<Map<String, dynamic>> stateColorSamples = canonicalStates
-      .map<Map<String, dynamic>>(
-        (WidgetState s) => <String, dynamic>{
-          'label': s.name,
-          'color': stateColor.resolve(<WidgetState>{s}),
-        },
-      )
+      .map<Map<String, dynamic>>((WidgetState s) => <String, dynamic>{
+            'label': s.name,
+            'color': stateColor.resolve(<WidgetState>{s}),
+          })
       .toList();
 
   // ===========================================================================
@@ -296,66 +275,63 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'label': 'hovered',
-      'cursor': cursor.resolve(<WidgetState>{
-        WidgetState.hovered,
-      }).debugDescription,
+      'cursor':
+          cursor.resolve(<WidgetState>{WidgetState.hovered}).debugDescription,
     },
     <String, dynamic>{
       'label': 'disabled',
-      'cursor': cursor.resolve(<WidgetState>{
-        WidgetState.disabled,
-      }).debugDescription,
+      'cursor':
+          cursor.resolve(<WidgetState>{WidgetState.disabled}).debugDescription,
     },
     <String, dynamic>{
       'label': 'pressed',
-      'cursor': cursor.resolve(<WidgetState>{
-        WidgetState.pressed,
-      }).debugDescription,
+      'cursor':
+          cursor.resolve(<WidgetState>{WidgetState.pressed}).debugDescription,
     },
     <String, dynamic>{
       'label': 'focused',
-      'cursor': cursor.resolve(<WidgetState>{
-        WidgetState.focused,
-      }).debugDescription,
+      'cursor':
+          cursor.resolve(<WidgetState>{WidgetState.focused}).debugDescription,
     },
   ];
 
   // Custom cursor that picks based on multiple factors.
   final WidgetStateProperty<MouseCursor> customCursor =
       WidgetStateProperty.resolveWith<MouseCursor>((Set<WidgetState> states) {
-        if (states.contains(WidgetState.disabled)) {
-          return SystemMouseCursors.forbidden;
-        }
-        if (states.contains(WidgetState.dragged)) {
-          return SystemMouseCursors.grabbing;
-        }
-        if (states.contains(WidgetState.hovered)) {
-          return SystemMouseCursors.click;
-        }
-        return SystemMouseCursors.basic;
-      });
-  final List<Map<String, dynamic>> customCursorSamples = <Map<String, dynamic>>[
+    if (states.contains(WidgetState.disabled)) {
+      return SystemMouseCursors.forbidden;
+    }
+    if (states.contains(WidgetState.dragged)) {
+      return SystemMouseCursors.grabbing;
+    }
+    if (states.contains(WidgetState.hovered)) {
+      return SystemMouseCursors.click;
+    }
+    return SystemMouseCursors.basic;
+  });
+  final List<Map<String, dynamic>> customCursorSamples =
+      <Map<String, dynamic>>[
     <String, dynamic>{
       'label': 'empty',
       'cursor': customCursor.resolve(<WidgetState>{}).debugDescription,
     },
     <String, dynamic>{
       'label': 'hovered',
-      'cursor': customCursor.resolve(<WidgetState>{
-        WidgetState.hovered,
-      }).debugDescription,
+      'cursor': customCursor
+          .resolve(<WidgetState>{WidgetState.hovered})
+          .debugDescription,
     },
     <String, dynamic>{
       'label': 'dragged',
-      'cursor': customCursor.resolve(<WidgetState>{
-        WidgetState.dragged,
-      }).debugDescription,
+      'cursor': customCursor
+          .resolve(<WidgetState>{WidgetState.dragged})
+          .debugDescription,
     },
     <String, dynamic>{
       'label': 'disabled',
-      'cursor': customCursor.resolve(<WidgetState>{
-        WidgetState.disabled,
-      }).debugDescription,
+      'cursor': customCursor
+          .resolve(<WidgetState>{WidgetState.disabled})
+          .debugDescription,
     },
   ];
 
@@ -368,41 +344,39 @@ dynamic build(BuildContext context) {
 
   final WidgetStateBorderSide stateBorderSide =
       WidgetStateBorderSide.resolveWith((Set<WidgetState> states) {
-        if (states.contains(WidgetState.error)) {
-          return const BorderSide(color: Color(0xFFC62828), width: 2.5);
-        }
-        if (states.contains(WidgetState.disabled)) {
-          return const BorderSide(color: Color(0xFFBDBDBD), width: 1.0);
-        }
-        if (states.contains(WidgetState.pressed)) {
-          return const BorderSide(color: Color(0xFF1B5E20), width: 2.0);
-        }
-        if (states.contains(WidgetState.hovered)) {
-          return const BorderSide(color: Color(0xFF2E7D32), width: 1.8);
-        }
-        if (states.contains(WidgetState.focused)) {
-          return const BorderSide(color: Color(0xFF388E3C), width: 2.0);
-        }
-        if (states.contains(WidgetState.selected)) {
-          return const BorderSide(color: Color(0xFF43A047), width: 2.0);
-        }
-        return const BorderSide(color: Color(0xFF81C784), width: 1.0);
-      });
+    if (states.contains(WidgetState.error)) {
+      return const BorderSide(color: Color(0xFFC62828), width: 2.5);
+    }
+    if (states.contains(WidgetState.disabled)) {
+      return const BorderSide(color: Color(0xFFBDBDBD), width: 1.0);
+    }
+    if (states.contains(WidgetState.pressed)) {
+      return const BorderSide(color: Color(0xFF1B5E20), width: 2.0);
+    }
+    if (states.contains(WidgetState.hovered)) {
+      return const BorderSide(color: Color(0xFF2E7D32), width: 1.8);
+    }
+    if (states.contains(WidgetState.focused)) {
+      return const BorderSide(color: Color(0xFF388E3C), width: 2.0);
+    }
+    if (states.contains(WidgetState.selected)) {
+      return const BorderSide(color: Color(0xFF43A047), width: 2.0);
+    }
+    return const BorderSide(color: Color(0xFF81C784), width: 1.0);
+  });
 
   final List<Map<String, dynamic>> borderSamples = canonicalStates
       .map<Map<String, dynamic>>((WidgetState s) {
-        final BorderSide? side = stateBorderSide.resolve(<WidgetState>{s});
-        return <String, dynamic>{
-          'label': s.name,
-          'color': side?.color ?? const Color(0xFF000000),
-          'width': side?.width ?? 0.0,
-        };
-      })
-      .toList();
+    final BorderSide? side = stateBorderSide.resolve(<WidgetState>{s});
+    return <String, dynamic>{
+      'label': s.name,
+      'color': side?.color ?? const Color(0xFF000000),
+      'width': side?.width ?? 0.0,
+    };
+  }).toList();
   borderSamples.add(<String, dynamic>{
     'label': 'default',
-    'color':
-        stateBorderSide.resolve(<WidgetState>{})?.color ??
+    'color': stateBorderSide.resolve(<WidgetState>{})?.color ??
         const Color(0xFF000000),
     'width': stateBorderSide.resolve(<WidgetState>{})?.width ?? 0.0,
   });
@@ -413,9 +387,8 @@ dynamic build(BuildContext context) {
   // Text style that can change per state. Used by labelStyle on Chip, by
   // InputDecorationTheme, etc.
 
-  final WidgetStateTextStyle stateTextStyle = WidgetStateTextStyle.resolveWith((
-    Set<WidgetState> states,
-  ) {
+  final WidgetStateTextStyle stateTextStyle =
+      WidgetStateTextStyle.resolveWith((Set<WidgetState> states) {
     if (states.contains(WidgetState.disabled)) {
       return const TextStyle(
         color: Color(0xFF9E9E9E),
@@ -460,15 +433,14 @@ dynamic build(BuildContext context) {
 
   final List<Map<String, dynamic>> textStyleSamples = canonicalStates
       .map<Map<String, dynamic>>((WidgetState s) {
-        final TextStyle style = stateTextStyle.resolve(<WidgetState>{s});
-        return <String, dynamic>{
-          'label': s.name,
-          'color': style.color ?? const Color(0xFF000000),
-          'weight': style.fontWeight ?? FontWeight.normal,
-          'fontStyle': style.fontStyle ?? FontStyle.normal,
-        };
-      })
-      .toList();
+    final TextStyle style = stateTextStyle.resolve(<WidgetState>{s});
+    return <String, dynamic>{
+      'label': s.name,
+      'color': style.color ?? const Color(0xFF000000),
+      'weight': style.fontWeight ?? FontWeight.normal,
+      'fontStyle': style.fontStyle ?? FontStyle.normal,
+    };
+  }).toList();
 
   // ===========================================================================
   // SECTION 9: Shape as WidgetStateProperty<OutlinedBorder>
@@ -476,10 +448,9 @@ dynamic build(BuildContext context) {
   // OutlinedBorder that varies per state. Used to give shapes a state-driven
   // appearance (e.g. rounded when normal, stadium when selected).
 
-  final WidgetStateProperty<OutlinedBorder>
-  shapeProperty = WidgetStateProperty.resolveWith<OutlinedBorder>((
-    Set<WidgetState> states,
-  ) {
+  final WidgetStateProperty<OutlinedBorder> shapeProperty =
+      WidgetStateProperty.resolveWith<OutlinedBorder>(
+          (Set<WidgetState> states) {
     if (states.contains(WidgetState.selected)) {
       return const StadiumBorder();
     }
@@ -514,26 +485,22 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'label': 'hovered',
       'radius': radiusOf(
-        shapeProperty.resolve(<WidgetState>{WidgetState.hovered}),
-      ),
+          shapeProperty.resolve(<WidgetState>{WidgetState.hovered})),
     },
     <String, dynamic>{
       'label': 'pressed',
       'radius': radiusOf(
-        shapeProperty.resolve(<WidgetState>{WidgetState.pressed}),
-      ),
+          shapeProperty.resolve(<WidgetState>{WidgetState.pressed})),
     },
     <String, dynamic>{
       'label': 'selected',
       'radius': radiusOf(
-        shapeProperty.resolve(<WidgetState>{WidgetState.selected}),
-      ),
+          shapeProperty.resolve(<WidgetState>{WidgetState.selected})),
     },
     <String, dynamic>{
       'label': 'disabled',
       'radius': radiusOf(
-        shapeProperty.resolve(<WidgetState>{WidgetState.disabled}),
-      ),
+          shapeProperty.resolve(<WidgetState>{WidgetState.disabled})),
     },
   ];
 
@@ -586,9 +553,8 @@ dynamic build(BuildContext context) {
   // single ButtonStyle that drives an ElevatedButton across every state.
 
   final ButtonStyle compositeButtonStyle = ButtonStyle(
-    backgroundColor: WidgetStateProperty.resolveWith<Color>((
-      Set<WidgetState> states,
-    ) {
+    backgroundColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
       if (states.contains(WidgetState.disabled)) {
         return const Color(0xFFE0E0E0);
       }
@@ -603,17 +569,15 @@ dynamic build(BuildContext context) {
       }
       return const Color(0xFF1E88E5);
     }),
-    foregroundColor: WidgetStateProperty.resolveWith<Color>((
-      Set<WidgetState> states,
-    ) {
+    foregroundColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
       if (states.contains(WidgetState.disabled)) {
         return const Color(0xFF9E9E9E);
       }
       return const Color(0xFFFFFFFF);
     }),
-    overlayColor: WidgetStateProperty.resolveWith<Color>((
-      Set<WidgetState> states,
-    ) {
+    overlayColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
       if (states.contains(WidgetState.pressed)) {
         return const Color(0xFFFFFFFF).withValues(alpha: 0.24);
       }
@@ -625,9 +589,8 @@ dynamic build(BuildContext context) {
       }
       return const Color(0x00000000);
     }),
-    elevation: WidgetStateProperty.resolveWith<double>((
-      Set<WidgetState> states,
-    ) {
+    elevation: WidgetStateProperty.resolveWith<double>(
+        (Set<WidgetState> states) {
       if (states.contains(WidgetState.disabled)) return 0.0;
       if (states.contains(WidgetState.pressed)) return 1.0;
       if (states.contains(WidgetState.hovered)) return 6.0;
@@ -637,25 +600,26 @@ dynamic build(BuildContext context) {
     padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.symmetric(horizontal: 22.0, vertical: 14.0),
     ),
-    shape: WidgetStateProperty.resolveWith<OutlinedBorder>((
-      Set<WidgetState> states,
-    ) {
+    shape: WidgetStateProperty.resolveWith<OutlinedBorder>(
+        (Set<WidgetState> states) {
       if (states.contains(WidgetState.pressed)) {
-        return RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0));
+        return RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0),
+        );
       }
-      return RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0));
+      return RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14.0),
+      );
     }),
-    side: WidgetStateProperty.resolveWith<BorderSide>((
-      Set<WidgetState> states,
-    ) {
+    side: WidgetStateProperty.resolveWith<BorderSide>(
+        (Set<WidgetState> states) {
       if (states.contains(WidgetState.focused)) {
         return const BorderSide(color: Color(0xFF82B1FF), width: 2.0);
       }
       return BorderSide.none;
     }),
-    mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>((
-      Set<WidgetState> states,
-    ) {
+    mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>(
+        (Set<WidgetState> states) {
       if (states.contains(WidgetState.disabled)) {
         return SystemMouseCursors.forbidden;
       }
@@ -665,20 +629,17 @@ dynamic build(BuildContext context) {
 
   // Confirm the composite style resolves into sensible values for the four
   // most common live states a button might be in.
-  final List<Map<String, dynamic>> compositeSamples = <Map<String, dynamic>>[
+  final List<Map<String, dynamic>> compositeSamples =
+      <Map<String, dynamic>>[
     _resolveAll('idle', <WidgetState>{}, compositeButtonStyle),
-    _resolveAll('hovered', <WidgetState>{
-      WidgetState.hovered,
-    }, compositeButtonStyle),
-    _resolveAll('focused', <WidgetState>{
-      WidgetState.focused,
-    }, compositeButtonStyle),
-    _resolveAll('pressed', <WidgetState>{
-      WidgetState.pressed,
-    }, compositeButtonStyle),
-    _resolveAll('disabled', <WidgetState>{
-      WidgetState.disabled,
-    }, compositeButtonStyle),
+    _resolveAll('hovered', <WidgetState>{WidgetState.hovered},
+        compositeButtonStyle),
+    _resolveAll('focused', <WidgetState>{WidgetState.focused},
+        compositeButtonStyle),
+    _resolveAll('pressed', <WidgetState>{WidgetState.pressed},
+        compositeButtonStyle),
+    _resolveAll('disabled', <WidgetState>{WidgetState.disabled},
+        compositeButtonStyle),
   ];
 
   // ===========================================================================
@@ -690,37 +651,36 @@ dynamic build(BuildContext context) {
 
   final List<List<Map<String, dynamic>>> stateMatrix = canonicalStates
       .map<List<Map<String, dynamic>>>((WidgetState s) {
-        final Set<WidgetState> set = <WidgetState>{s};
-        return <Map<String, dynamic>>[
-          <String, dynamic>{
-            'kind': 'background',
-            'value': resolvedBackground.resolve(set),
-          },
-          <String, dynamic>{
-            'kind': 'elevation',
-            'value': resolvedElevation.resolve(set),
-          },
-          <String, dynamic>{
-            'kind': 'border-color',
-            'value':
-                stateBorderSide.resolve(set)?.color ?? const Color(0xFF000000),
-          },
-          <String, dynamic>{
-            'kind': 'border-width',
-            'value': stateBorderSide.resolve(set)?.width ?? 0.0,
-          },
-          <String, dynamic>{
-            'kind': 'text-color',
-            'value':
-                stateTextStyle.resolve(set).color ?? const Color(0xFF000000),
-          },
-          <String, dynamic>{
-            'kind': 'shape-r',
-            'value': radiusOf(shapeProperty.resolve(set)),
-          },
-        ];
-      })
-      .toList();
+    final Set<WidgetState> set = <WidgetState>{s};
+    return <Map<String, dynamic>>[
+      <String, dynamic>{
+        'kind': 'background',
+        'value': resolvedBackground.resolve(set),
+      },
+      <String, dynamic>{
+        'kind': 'elevation',
+        'value': resolvedElevation.resolve(set),
+      },
+      <String, dynamic>{
+        'kind': 'border-color',
+        'value': stateBorderSide.resolve(set)?.color ??
+            const Color(0xFF000000),
+      },
+      <String, dynamic>{
+        'kind': 'border-width',
+        'value': stateBorderSide.resolve(set)?.width ?? 0.0,
+      },
+      <String, dynamic>{
+        'kind': 'text-color',
+        'value':
+            stateTextStyle.resolve(set).color ?? const Color(0xFF000000),
+      },
+      <String, dynamic>{
+        'kind': 'shape-r',
+        'value': radiusOf(shapeProperty.resolve(set)),
+      },
+    ];
+  }).toList();
 
   // ===========================================================================
   // SECTION 13: WidgetStatesController
@@ -763,10 +723,9 @@ dynamic build(BuildContext context) {
   });
   controller.dispose();
 
-  final WidgetStatesController seeded = WidgetStatesController(<WidgetState>{
-    WidgetState.selected,
-    WidgetState.focused,
-  });
+  final WidgetStatesController seeded = WidgetStatesController(
+    <WidgetState>{WidgetState.selected, WidgetState.focused},
+  );
   controllerSnapshots.add(<String, dynamic>{
     'step': 'seeded({selected,focused})',
     'states': seeded.value.map((WidgetState s) => s.name).toList(),
@@ -823,12 +782,8 @@ dynamic build(BuildContext context) {
     final double t = i / 11.0;
     final int hue = (240.0 - 240.0 * t).round();
     final double sat = 0.55 + 0.35 * math.sin(t * math.pi);
-    return HSVColor.fromAHSV(
-      1.0,
-      hue.toDouble(),
-      sat.clamp(0.0, 1.0),
-      0.85,
-    ).toColor();
+    return HSVColor.fromAHSV(1.0, hue.toDouble(), sat.clamp(0.0, 1.0), 0.85)
+        .toColor();
   });
 
   // ===========================================================================
@@ -836,8 +791,7 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   final int totalStates = canonicalStates.length;
-  final int totalSamples =
-      resolveWithSamples.length +
+  final int totalSamples = resolveWithSamples.length +
       fromMapSamples.length +
       stateColorSamples.length +
       cursorSamples.length +
@@ -852,9 +806,8 @@ dynamic build(BuildContext context) {
   // Reference [constantElevation] and [constantPadding] so the analyzer
   // recognises them as used; they're also part of the narrative.
   final double demoElevation = constantElevation.resolve(<WidgetState>{});
-  final EdgeInsetsGeometry demoPadding = constantPadding.resolve(
-    <WidgetState>{},
-  );
+  final EdgeInsetsGeometry demoPadding =
+      constantPadding.resolve(<WidgetState>{});
 
   // ===========================================================================
   // BUILD THE UI
@@ -914,7 +867,8 @@ dynamic build(BuildContext context) {
               const Center(
                 child: Text(
                   'Deep Demo - WidgetState Family - Flutter Material',
-                  style: TextStyle(fontSize: 12.0, color: Color(0xFF9E9E9E)),
+                  style:
+                      TextStyle(fontSize: 12.0, color: Color(0xFF9E9E9E)),
                 ),
               ),
             ],
@@ -991,20 +945,13 @@ Widget _buildHeader(int totalStates, int totalSamples, int controllerSteps) {
         const SizedBox(height: 18.0),
         Row(
           children: <Widget>[
-            _headerChip(
-              '$totalStates canonical states',
-              const Color(0xFF7E57C2),
-            ),
+            _headerChip('$totalStates canonical states', const Color(0xFF7E57C2)),
             const SizedBox(width: 8.0),
-            _headerChip(
-              '$totalSamples resolution samples',
-              const Color(0xFF5E35B1),
-            ),
+            _headerChip('$totalSamples resolution samples',
+                const Color(0xFF5E35B1)),
             const SizedBox(width: 8.0),
-            _headerChip(
-              '$controllerSteps controller steps',
-              const Color(0xFF512DA8),
-            ),
+            _headerChip('$controllerSteps controller steps',
+                const Color(0xFF512DA8)),
           ],
         ),
       ],
@@ -1084,18 +1031,14 @@ Widget _buildConceptOverview() {
         const SizedBox(height: 12.0),
         _bullet('WidgetStateProperty.all(value) - constant function.'),
         _bullet(
-          'WidgetStateProperty.resolveWith((states) => value) - imperative.',
-        ),
+            'WidgetStateProperty.resolveWith((states) => value) - imperative.'),
         _bullet(
-          'WidgetStateProperty.fromMap({constraint: value, ...}) - declarative.',
-        ),
+            'WidgetStateProperty.fromMap({constraint: value, ...}) - declarative.'),
         _bullet(
-          'WidgetStateColor / WidgetStateBorderSide / WidgetStateTextStyle '
-          '/ WidgetStateOutlinedBorder / WidgetStateMouseCursor - typed sugar.',
-        ),
+            'WidgetStateColor / WidgetStateBorderSide / WidgetStateTextStyle '
+            '/ WidgetStateOutlinedBorder / WidgetStateMouseCursor - typed sugar.'),
         _bullet(
-          'MaterialState* - legacy typedefs; resolve identically to WidgetState*.',
-        ),
+            'MaterialState* - legacy typedefs; resolve identically to WidgetState*.'),
       ],
     ),
   );
@@ -1197,65 +1140,63 @@ Widget _buildStateGallery(List<Map<String, dynamic>> narratives) {
     icon: Icons.dashboard,
     child: Column(
       children: narratives
-          .map<Widget>(
-            (Map<String, dynamic> n) => Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                    color: (n['color'] as Color).withValues(alpha: 0.35),
-                    width: 1.0,
+          .map<Widget>((Map<String, dynamic> n) => Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: (n['color'] as Color).withValues(alpha: 0.35),
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: 42.0,
+                        height: 42.0,
+                        decoration: BoxDecoration(
+                          color: n['color'] as Color,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Icon(
+                          n['icon'] as IconData,
+                          color: const Color(0xFFFFFFFF),
+                          size: 22.0,
+                        ),
+                      ),
+                      const SizedBox(width: 12.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'WidgetState.${n['label'] as String}',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: n['color'] as Color,
+                              ),
+                            ),
+                            const SizedBox(height: 2.0),
+                            Text(
+                              n['narrative'] as String,
+                              style: const TextStyle(
+                                fontSize: 12.5,
+                                height: 1.4,
+                                color: Color(0xFF424242),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 42.0,
-                      height: 42.0,
-                      decoration: BoxDecoration(
-                        color: n['color'] as Color,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Icon(
-                        n['icon'] as IconData,
-                        color: const Color(0xFFFFFFFF),
-                        size: 22.0,
-                      ),
-                    ),
-                    const SizedBox(width: 12.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'WidgetState.${n['label'] as String}',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: n['color'] as Color,
-                            ),
-                          ),
-                          const SizedBox(height: 2.0),
-                          Text(
-                            n['narrative'] as String,
-                            style: const TextStyle(
-                              fontSize: 12.5,
-                              height: 1.4,
-                              color: Color(0xFF424242),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
+              ))
           .toList(),
     ),
   );
@@ -1279,12 +1220,10 @@ Widget _buildAllSection(
           spacing: 10.0,
           runSpacing: 10.0,
           children: samples
-              .map<Widget>(
-                (Map<String, dynamic> s) => _swatchTile(
-                  label: s['label'] as String,
-                  color: s['resolved'] as Color,
-                ),
-              )
+              .map<Widget>((Map<String, dynamic> s) => _swatchTile(
+                    label: s['label'] as String,
+                    color: s['resolved'] as Color,
+                  ))
               .toList(),
         ),
         const SizedBox(height: 12.0),
@@ -1293,7 +1232,10 @@ Widget _buildAllSection(
           decoration: BoxDecoration(
             color: const Color(0xFFFFFFFF),
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: const Color(0xFF9FA8DA), width: 1.0),
+            border: Border.all(
+              color: const Color(0xFF9FA8DA),
+              width: 1.0,
+            ),
           ),
           child: Padding(
             padding: demoPadding,
@@ -1390,66 +1332,66 @@ Widget _buildResolveWithSection(List<Map<String, dynamic>> samples) {
     icon: Icons.functions,
     child: Column(
       children: samples
-          .map<Widget>(
-            (Map<String, dynamic> s) => Padding(
-              padding: const EdgeInsets.only(bottom: 6.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 10.0,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 140.0,
-                      child: Text(
-                        s['label'] as String,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w600,
+          .map<Widget>((Map<String, dynamic> s) => Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 10.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 140.0,
+                        child: Text(
+                          s['label'] as String,
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      width: 28.0,
-                      height: 18.0,
-                      decoration: BoxDecoration(
-                        color: s['background'] as Color,
-                        borderRadius: BorderRadius.circular(4.0),
+                      Container(
+                        width: 28.0,
+                        height: 18.0,
+                        decoration: BoxDecoration(
+                          color: s['background'] as Color,
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8.0),
-                    SizedBox(
-                      width: 80.0,
-                      child: Text(
-                        _hex(s['background'] as Color),
+                      const SizedBox(width: 8.0),
+                      SizedBox(
+                        width: 80.0,
+                        child: Text(
+                          _hex(s['background'] as Color),
+                          style: const TextStyle(
+                            fontSize: 11.0,
+                            fontFamily: 'monospace',
+                            color: Color(0xFF757575),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: _elevationBar(s['elevation'] as double),
+                      ),
+                      const SizedBox(width: 8.0),
+                      Text(
+                        'e=${(s['elevation'] as double).toStringAsFixed(1)}',
                         style: const TextStyle(
                           fontSize: 11.0,
                           fontFamily: 'monospace',
-                          color: Color(0xFF757575),
+                          color: Color(0xFF4A148C),
                         ),
                       ),
-                    ),
-                    Expanded(child: _elevationBar(s['elevation'] as double)),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      'e=${(s['elevation'] as double).toStringAsFixed(1)}',
-                      style: const TextStyle(
-                        fontSize: 11.0,
-                        fontFamily: 'monospace',
-                        color: Color(0xFF4A148C),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          )
+              ))
           .toList(),
     ),
   );
@@ -1486,12 +1428,10 @@ Widget _buildFromMapSection(List<Map<String, dynamic>> samples) {
       spacing: 8.0,
       runSpacing: 8.0,
       children: samples
-          .map<Widget>(
-            (Map<String, dynamic> s) => _swatchTile(
-              label: s['label'] as String,
-              color: s['background'] as Color,
-            ),
-          )
+          .map<Widget>((Map<String, dynamic> s) => _swatchTile(
+                label: s['label'] as String,
+                color: s['background'] as Color,
+              ))
           .toList(),
     ),
   );
@@ -1508,12 +1448,10 @@ Widget _buildStateColorSection(List<Map<String, dynamic>> samples) {
       spacing: 8.0,
       runSpacing: 8.0,
       children: samples
-          .map<Widget>(
-            (Map<String, dynamic> s) => _swatchTile(
-              label: s['label'] as String,
-              color: s['color'] as Color,
-            ),
-          )
+          .map<Widget>((Map<String, dynamic> s) => _swatchTile(
+                label: s['label'] as String,
+                color: s['color'] as Color,
+              ))
           .toList(),
     ),
   );
@@ -1570,7 +1508,8 @@ Widget _cursorRow(Map<String, dynamic> s) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 4.0),
     child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      padding:
+          const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(6.0),
@@ -1589,11 +1528,8 @@ Widget _cursorRow(Map<String, dynamic> s) {
               ),
             ),
           ),
-          const Icon(
-            Icons.arrow_right_alt,
-            size: 16.0,
-            color: Color(0xFFD84315),
-          ),
+          const Icon(Icons.arrow_right_alt,
+              size: 16.0, color: Color(0xFFD84315)),
           const SizedBox(width: 6.0),
           Expanded(
             child: Text(
@@ -1620,55 +1556,53 @@ Widget _buildBorderSection(List<Map<String, dynamic>> samples) {
     icon: Icons.border_outer,
     child: Column(
       children: samples
-          .map<Widget>(
-            (Map<String, dynamic> s) => Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Container(
-                padding: const EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(
-                    color: s['color'] as Color,
-                    width: (s['width'] as double).clamp(0.5, 4.0),
+          .map<Widget>((Map<String, dynamic> s) => Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(
+                      color: s['color'] as Color,
+                      width: (s['width'] as double).clamp(0.5, 4.0),
+                    ),
                   ),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 120.0,
-                      child: Text(
-                        s['label'] as String,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w600,
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 120.0,
+                        child: Text(
+                          s['label'] as String,
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      width: 14.0,
-                      height: 14.0,
-                      decoration: BoxDecoration(
-                        color: s['color'] as Color,
-                        borderRadius: BorderRadius.circular(3.0),
+                      Container(
+                        width: 14.0,
+                        height: 14.0,
+                        decoration: BoxDecoration(
+                          color: s['color'] as Color,
+                          borderRadius: BorderRadius.circular(3.0),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      '${_hex(s['color'] as Color)}  '
-                      'width=${(s['width'] as double).toStringAsFixed(1)}',
-                      style: const TextStyle(
-                        fontSize: 11.0,
-                        fontFamily: 'monospace',
-                        color: Color(0xFF1B5E20),
+                      const SizedBox(width: 8.0),
+                      Text(
+                        '${_hex(s['color'] as Color)}  '
+                        'width=${(s['width'] as double).toStringAsFixed(1)}',
+                        style: const TextStyle(
+                          fontSize: 11.0,
+                          fontFamily: 'monospace',
+                          color: Color(0xFF1B5E20),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          )
+              ))
           .toList(),
     ),
   );
@@ -1683,44 +1617,42 @@ Widget _buildTextStyleSection(List<Map<String, dynamic>> samples) {
     icon: Icons.text_fields,
     child: Column(
       children: samples
-          .map<Widget>(
-            (Map<String, dynamic> s) => Padding(
-              padding: const EdgeInsets.only(bottom: 6.0),
-              child: Container(
-                padding: const EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 110.0,
-                      child: Text(
-                        s['label'] as String,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w600,
+          .map<Widget>((Map<String, dynamic> s) => Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 110.0,
+                        child: Text(
+                          s['label'] as String,
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'The quick brown fox',
-                        style: TextStyle(
-                          color: s['color'] as Color,
-                          fontWeight: s['weight'] as FontWeight,
-                          fontStyle: s['fontStyle'] as FontStyle,
-                          fontSize: 15.0,
+                      Expanded(
+                        child: Text(
+                          'The quick brown fox',
+                          style: TextStyle(
+                            color: s['color'] as Color,
+                            fontWeight: s['weight'] as FontWeight,
+                            fontStyle: s['fontStyle'] as FontStyle,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          )
+              ))
           .toList(),
     ),
   );
@@ -1737,43 +1669,44 @@ Widget _buildShapeSection(List<Map<String, dynamic>> samples) {
       spacing: 10.0,
       runSpacing: 10.0,
       children: samples
-          .map<Widget>(
-            (Map<String, dynamic> s) => Container(
-              width: 130.0,
-              height: 80.0,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFFFFF),
-                borderRadius: BorderRadius.circular(
-                  ((s['radius'] as double) > 100.0)
-                      ? 40.0
-                      : (s['radius'] as double),
+          .map<Widget>((Map<String, dynamic> s) => Container(
+                width: 130.0,
+                height: 80.0,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(
+                    ((s['radius'] as double) > 100.0)
+                        ? 40.0
+                        : (s['radius'] as double),
+                  ),
+                  border: Border.all(
+                    color: const Color(0xFFE65100),
+                    width: 2.0,
+                  ),
                 ),
-                border: Border.all(color: const Color(0xFFE65100), width: 2.0),
-              ),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    s['label'] as String,
-                    style: const TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFBF360C),
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      s['label'] as String,
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFBF360C),
+                      ),
                     ),
-                  ),
-                  Text(
-                    'r=${(s['radius'] as double).toStringAsFixed(0)}',
-                    style: const TextStyle(
-                      fontSize: 11.0,
-                      fontFamily: 'monospace',
-                      color: Color(0xFF757575),
+                    Text(
+                      'r=${(s['radius'] as double).toStringAsFixed(0)}',
+                      style: const TextStyle(
+                        fontSize: 11.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF757575),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          )
+                  ],
+                ),
+              ))
           .toList(),
     ),
   );
@@ -1790,12 +1723,10 @@ Widget _buildLegacySection(List<Map<String, dynamic>> samples) {
       spacing: 8.0,
       runSpacing: 8.0,
       children: samples
-          .map<Widget>(
-            (Map<String, dynamic> s) => _swatchTile(
-              label: s['label'] as String,
-              color: s['color'] as Color,
-            ),
-          )
+          .map<Widget>((Map<String, dynamic> s) => _swatchTile(
+                label: s['label'] as String,
+                color: s['color'] as Color,
+              ))
           .toList(),
     ),
   );
@@ -1828,7 +1759,10 @@ Widget _buildCompositeButtonStyleSection(
           decoration: BoxDecoration(
             color: const Color(0xFFFFFFFF),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: const Color(0xFFBBDEFB), width: 1.0),
+            border: Border.all(
+              color: const Color(0xFFBBDEFB),
+              width: 1.0,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1901,7 +1835,8 @@ Widget _compositeCard(Map<String, dynamic> s) {
       children: <Widget>[
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
+          padding:
+              const EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
           decoration: BoxDecoration(
             color: bg,
             borderRadius: BorderRadius.circular(10.0),
@@ -1910,7 +1845,11 @@ Widget _compositeCard(Map<String, dynamic> s) {
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              Container(color: overlay, width: double.infinity, height: 28.0),
+              Container(
+                color: overlay,
+                width: double.infinity,
+                height: 28.0,
+              ),
               Text(
                 'Button',
                 style: TextStyle(
@@ -1990,25 +1929,23 @@ Widget _buildStateMatrix(
         children: <Widget>[
           Row(
             children: headers
-                .map<Widget>(
-                  (String h) => Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4.0,
-                        vertical: 4.0,
-                      ),
-                      child: Text(
-                        h,
-                        style: const TextStyle(
-                          fontSize: 11.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'monospace',
-                          color: Color(0xFF311B92),
+                .map<Widget>((String h) => Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4.0,
+                          vertical: 4.0,
+                        ),
+                        child: Text(
+                          h,
+                          style: const TextStyle(
+                            fontSize: 11.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            color: Color(0xFF311B92),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                )
+                    ))
                 .toList(),
           ),
           const Divider(height: 6.0, color: Color(0xFFD1C4E9)),
@@ -2028,7 +1965,8 @@ Widget _buildStateMatrix(
                   children: <Widget>[
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 4.0),
                         child: Text(
                           s.name,
                           style: const TextStyle(
@@ -2102,72 +2040,72 @@ Widget _buildControllerSection(List<Map<String, dynamic>> snapshots) {
     icon: Icons.timeline,
     child: Column(
       children: snapshots
-          .map<Widget>(
-            (Map<String, dynamic> s) => Padding(
-              padding: const EdgeInsets.only(bottom: 6.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 8.0,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 160.0,
-                      child: Text(
-                        s['step'] as String,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF006064),
+          .map<Widget>((Map<String, dynamic> s) => Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 8.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 160.0,
+                        child: Text(
+                          s['step'] as String,
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF006064),
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Wrap(
-                        spacing: 4.0,
-                        runSpacing: 4.0,
-                        children: (s['states'] as List<dynamic>)
-                            .map<Widget>(
-                              (dynamic name) => Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                  vertical: 3.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF00838F),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Text(
-                                  name as String,
-                                  style: const TextStyle(
-                                    fontSize: 10.0,
-                                    color: Color(0xFFFFFFFF),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
+                      Expanded(
+                        child: Wrap(
+                          spacing: 4.0,
+                          runSpacing: 4.0,
+                          children: (s['states'] as List<dynamic>)
+                              .map<Widget>((dynamic name) => Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0,
+                                      vertical: 3.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF00838F),
+                                      borderRadius:
+                                          BorderRadius.circular(10.0),
+                                    ),
+                                    child: Text(
+                                      name as String,
+                                      style: const TextStyle(
+                                        fontSize: 10.0,
+                                        color: Color(0xFFFFFFFF),
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          )
+              ))
           .toList(),
     ),
   );
 }
 
-Widget _buildColorLadder(List<Map<String, dynamic>> ladder, List<Color> sweep) {
+Widget _buildColorLadder(
+  List<Map<String, dynamic>> ladder,
+  List<Color> sweep,
+) {
   return _sectionShell(
     title: '14. Resolved color ladder',
     subtitle: 'Visual sweep through every canonical state and combination',
@@ -2179,45 +2117,43 @@ Widget _buildColorLadder(List<Map<String, dynamic>> ladder, List<Color> sweep) {
       children: <Widget>[
         Column(
           children: ladder
-              .map<Widget>(
-                (Map<String, dynamic> entry) => Padding(
-                  padding: const EdgeInsets.only(bottom: 4.0),
-                  child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 160.0,
-                        child: Text(
-                          entry['name'] as String,
+              .map<Widget>((Map<String, dynamic> entry) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 160.0,
+                          child: Text(
+                            entry['name'] as String,
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF1B5E20),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 22.0,
+                            decoration: BoxDecoration(
+                              color: entry['color'] as Color,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Text(
+                          _hex(entry['color'] as Color),
                           style: const TextStyle(
-                            fontSize: 12.0,
+                            fontSize: 11.0,
                             fontFamily: 'monospace',
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF1B5E20),
+                            color: Color(0xFF2E7D32),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 22.0,
-                          decoration: BoxDecoration(
-                            color: entry['color'] as Color,
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8.0),
-                      Text(
-                        _hex(entry['color'] as Color),
-                        style: const TextStyle(
-                          fontSize: 11.0,
-                          fontFamily: 'monospace',
-                          color: Color(0xFF2E7D32),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
+                      ],
+                    ),
+                  ))
               .toList(),
         ),
         const SizedBox(height: 14.0),
@@ -2232,18 +2168,17 @@ Widget _buildColorLadder(List<Map<String, dynamic>> ladder, List<Color> sweep) {
         const SizedBox(height: 6.0),
         Row(
           children: sweep
-              .map<Widget>(
-                (Color c) => Expanded(
-                  child: Container(
-                    height: 22.0,
-                    margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                    decoration: BoxDecoration(
-                      color: c,
-                      borderRadius: BorderRadius.circular(3.0),
+              .map<Widget>((Color c) => Expanded(
+                    child: Container(
+                      height: 22.0,
+                      margin:
+                          const EdgeInsets.symmetric(horizontal: 1.0),
+                      decoration: BoxDecoration(
+                        color: c,
+                        borderRadius: BorderRadius.circular(3.0),
+                      ),
                     ),
-                  ),
-                ),
-              )
+                  ))
               .toList(),
         ),
       ],
@@ -2317,11 +2252,15 @@ Widget _summaryRow(String label, String value) {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(fontSize: 13.0, color: Color(0xFFFFFFFF)),
+            style: const TextStyle(
+              fontSize: 13.0,
+              color: Color(0xFFFFFFFF),
+            ),
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
           decoration: BoxDecoration(
             color: const Color(0xFFFFFFFF).withValues(alpha: 0.22),
             borderRadius: BorderRadius.circular(6.0),

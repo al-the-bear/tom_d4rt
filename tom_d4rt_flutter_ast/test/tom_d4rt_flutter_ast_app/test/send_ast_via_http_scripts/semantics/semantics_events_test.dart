@@ -78,88 +78,67 @@ dynamic build(BuildContext context) {
   Map<String, dynamic> announceData = <String, dynamic>{};
   String announceType = 'announce';
   try {
-    final probe = AnnounceSemanticsEvent(
-      'Item added to cart',
-      TextDirection.ltr,
-      0,
-    );
+    final probe = AnnounceSemanticsEvent('Item added to cart', TextDirection.ltr, 0);
     announceToString = probe.toString();
-    announceData = Map<String, dynamic>.from(
-      probe.getDataMap(),
-    ); // C18: see comment above announceData
+    announceData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     announceType = probe.type;
   } catch (e) {
     announceToString = 'AnnounceSemanticsEvent(<construct failed: $e>)';
   }
 
   String announceRtlToString = '(unbuilt)';
-  Map<String, dynamic> announceRtlData =
-      <String, dynamic>{}; // C18: non-const, see comment above announceData
+  Map<String, dynamic> announceRtlData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   try {
     final probe = AnnounceSemanticsEvent('تمت الإضافة', TextDirection.rtl, 1);
     announceRtlToString = probe.toString();
-    announceRtlData = Map<String, dynamic>.from(
-      probe.getDataMap(),
-    ); // C18: see comment above announceData
+    announceRtlData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
   } catch (e) {
     announceRtlToString = 'AnnounceSemanticsEvent(<construct failed: $e>)';
   }
 
   String tooltipToString = '(unbuilt)';
-  Map<String, dynamic> tooltipData =
-      <String, dynamic>{}; // C18: non-const, see comment above announceData
+  Map<String, dynamic> tooltipData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   String tooltipType = 'tooltip';
   try {
     final probe = TooltipSemanticsEvent('Save document');
     tooltipToString = probe.toString();
-    tooltipData = Map<String, dynamic>.from(
-      probe.getDataMap(),
-    ); // C18: see comment above announceData
+    tooltipData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     tooltipType = probe.type;
   } catch (e) {
     tooltipToString = 'TooltipSemanticsEvent(<construct failed: $e>)';
   }
 
   String longPressToString = '(unbuilt)';
-  Map<String, dynamic> longPressData =
-      <String, dynamic>{}; // C18: non-const, see comment above announceData
+  Map<String, dynamic> longPressData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   String longPressType = 'longPress';
   try {
     final probe = LongPressSemanticsEvent();
     longPressToString = probe.toString();
-    longPressData = Map<String, dynamic>.from(
-      probe.getDataMap(),
-    ); // C18: see comment above announceData
+    longPressData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     longPressType = probe.type;
   } catch (e) {
     longPressToString = 'LongPressSemanticsEvent(<construct failed: $e>)';
   }
 
   String tapToString = '(unbuilt)';
-  Map<String, dynamic> tapData =
-      <String, dynamic>{}; // C18: non-const, see comment above announceData
+  Map<String, dynamic> tapData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   String tapType = 'tap';
   try {
     final probe = TapSemanticEvent();
     tapToString = probe.toString();
-    tapData = Map<String, dynamic>.from(
-      probe.getDataMap(),
-    ); // C18: see comment above announceData
+    tapData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     tapType = probe.type;
   } catch (e) {
     tapToString = 'TapSemanticEvent(<construct failed: $e>)';
   }
 
   String focusToString = '(unbuilt)';
-  Map<String, dynamic> focusData =
-      <String, dynamic>{}; // C18: non-const, see comment above announceData
+  Map<String, dynamic> focusData = <String, dynamic>{}; // C18: non-const, see comment above announceData
   String focusType = 'focus';
   try {
     final probe = FocusSemanticEvent();
     focusToString = probe.toString();
-    focusData = Map<String, dynamic>.from(
-      probe.getDataMap(),
-    ); // C18: see comment above announceData
+    focusData = Map<String, dynamic>.from(probe.getDataMap()); // C18: see comment above announceData
     focusType = probe.type;
   } catch (e) {
     focusToString = 'FocusSemanticEvent(<construct failed: $e>)';
@@ -276,11 +255,7 @@ dynamic build(BuildContext context) {
                 'assistive-technology layer. Unlike the persistent SemanticsNode '
                 'tree (which describes the *state* of every widget that opted '
                 'into the accessibility tree), an event fires once and goes.',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: textOnDarkSoft,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 12.5, color: textOnDarkSoft, height: 1.4),
               ),
               SizedBox(height: 10.0),
               Text(
@@ -396,9 +371,24 @@ dynamic build(BuildContext context) {
       "'tooltip'",
       "{'message'}",
     ],
-    <String>['LongPressSemanticsEvent', '(no parameters)', "'longPress'", '{}'],
-    <String>['TapSemanticEvent', '(no parameters)', "'tap'", '{}'],
-    <String>['FocusSemanticsEvent', '(no parameters)', "'focus'", '{}'],
+    <String>[
+      'LongPressSemanticsEvent',
+      '(no parameters)',
+      "'longPress'",
+      '{}',
+    ],
+    <String>[
+      'TapSemanticEvent',
+      '(no parameters)',
+      "'tap'",
+      '{}',
+    ],
+    <String>[
+      'FocusSemanticsEvent',
+      '(no parameters)',
+      "'focus'",
+      '{}',
+    ],
   ];
 
   final Widget payloadTable = Container(
@@ -565,7 +555,10 @@ dynamic build(BuildContext context) {
         ),
       ),
       for (final Widget c in gallery)
-        Padding(padding: EdgeInsets.only(bottom: 12.0), child: c),
+        Padding(
+          padding: EdgeInsets.only(bottom: 12.0),
+          child: c,
+        ),
     ],
   );
 
@@ -842,36 +835,36 @@ dynamic build(BuildContext context) {
       'title': 'Over-announcing',
       'body':
           'Firing AnnounceSemanticsEvent every time anything changes drowns '
-          'the user. Prefer letting the existing semantics tree be read; '
-          'announce only out-of-band events that have no visible focus.',
+              'the user. Prefer letting the existing semantics tree be read; '
+              'announce only out-of-band events that have no visible focus.',
     },
     <String, String>{
       'title': 'Missing TextDirection',
       'body':
           'AnnounceSemanticsEvent requires a TextDirection. Using the wrong '
-          'direction for RTL text (Arabic/Hebrew) causes mispronounced or '
-          'reverse-ordered speech on some screen readers.',
+              'direction for RTL text (Arabic/Hebrew) causes mispronounced or '
+              'reverse-ordered speech on some screen readers.',
     },
     <String, String>{
       'title': 'Conflicting Semantics widgets',
       'body':
           'Wrapping a subtree in two Semantics widgets with different labels '
-          'creates two competing nodes. Pick one, or use MergeSemantics to '
-          'collapse them into a single composite node.',
+              'creates two competing nodes. Pick one, or use MergeSemantics to '
+              'collapse them into a single composite node.',
     },
     <String, String>{
       'title': 'Forgetting MergeSemantics',
       'body':
           'A Row of Icon + Text reads as two nodes by default. Wrap with '
-          'MergeSemantics to read as a single labelled control. This is '
-          'the most common a11y bug in custom buttons.',
+              'MergeSemantics to read as a single labelled control. This is '
+              'the most common a11y bug in custom buttons.',
     },
     <String, String>{
       'title': 'polite vs assertive misuse',
       'body':
           'Using assertive for non-critical updates interrupts the user. '
-          'Using polite for a critical error means it may never be heard '
-          'before the user navigates away. Match urgency to politeness.',
+              'Using polite for a critical error means it may never be heard '
+              'before the user navigates away. Match urgency to politeness.',
     },
   ];
 
@@ -932,53 +925,53 @@ dynamic build(BuildContext context) {
       'title': 'Announce after a successful save',
       'body':
           "await repository.save(doc);\n"
-          "SemanticsService.announce(\n"
-          "  'Document saved.',\n"
-          "  Directionality.of(context),\n"
-          ");",
+              "SemanticsService.announce(\n"
+              "  'Document saved.',\n"
+              "  Directionality.of(context),\n"
+              ");",
     },
     <String, String>{
       'title': 'Announce a validation error assertively',
       'body':
           "SemanticsService.announce(\n"
-          "  'Card number is invalid.',\n"
-          "  Directionality.of(context),\n"
-          "  assertiveness: Assertiveness.assertive,\n"
-          ");",
+              "  'Card number is invalid.',\n"
+              "  Directionality.of(context),\n"
+              "  assertiveness: Assertiveness.assertive,\n"
+              ");",
     },
     <String, String>{
       'title': 'Tooltip pulse on focus',
       'body':
           "Focus(\n"
-          "  onFocusChange: (gained) {\n"
-          "    if (gained) {\n"
-          "      SemanticsService.tooltip('Save document');\n"
-          "    }\n"
-          "  },\n"
-          "  child: child,\n"
-          ");",
+              "  onFocusChange: (gained) {\n"
+              "    if (gained) {\n"
+              "      SemanticsService.tooltip('Save document');\n"
+              "    }\n"
+              "  },\n"
+              "  child: child,\n"
+              ");",
     },
     <String, String>{
       'title': 'Custom semantics action',
       'body':
           "Semantics(\n"
-          "  customSemanticsActions: <CustomSemanticsAction, VoidCallback>{\n"
-          "    const CustomSemanticsAction(label: 'Archive'): _archive,\n"
-          "    const CustomSemanticsAction(label: 'Pin'): _pin,\n"
-          "  },\n"
-          "  child: card,\n"
-          ");",
+              "  customSemanticsActions: <CustomSemanticsAction, VoidCallback>{\n"
+              "    const CustomSemanticsAction(label: 'Archive'): _archive,\n"
+              "    const CustomSemanticsAction(label: 'Pin'): _pin,\n"
+              "  },\n"
+              "  child: card,\n"
+              ");",
     },
     <String, String>{
       'title': 'MergeSemantics composition',
       'body':
           "MergeSemantics(\n"
-          "  child: Row(children: <Widget>[\n"
-          "    const Icon(Icons.warning),\n"
-          "    const SizedBox(width: 8),\n"
-          "    Text(\"Battery low\"),\n"
-          "  ]),\n"
-          ");",
+              "  child: Row(children: <Widget>[\n"
+              "    const Icon(Icons.warning),\n"
+              "    const SizedBox(width: 8),\n"
+              "    Text(\"Battery low\"),\n"
+              "  ]),\n"
+              ");",
     },
   ];
 
@@ -1316,7 +1309,11 @@ Widget _footerChip(String label, Color fill, Color ink) {
     ),
     child: Text(
       label,
-      style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: fill),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.0,
+        color: fill,
+      ),
     ),
   );
 }
@@ -1325,20 +1322,12 @@ Widget _footerChip(String label, Color fill, Color ink) {
 // Private helpers — payload table
 // =============================================================================
 Widget _payloadHeaderRow(Color ink, Color paperColor) {
-  final TextStyle hStyle = TextStyle(
-    color: paperColor,
-    fontWeight: FontWeight.bold,
-    fontSize: 12.0,
-    letterSpacing: 0.5,
-  );
+  final TextStyle hStyle = TextStyle(color: paperColor, fontWeight: FontWeight.bold, fontSize: 12.0, letterSpacing: 0.5);
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
       color: ink,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(8.0),
-        topRight: Radius.circular(8.0),
-      ),
+      borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
     ),
     child: Row(
       children: <Widget>[
@@ -1358,30 +1347,14 @@ Widget _payloadRow(
   Color mutedColor,
   Color divider,
 ) {
-  final TextStyle keyStyle = TextStyle(
-    color: textColor,
-    fontWeight: FontWeight.w600,
-    fontSize: 11.5,
-    fontFamily: 'monospace',
-  );
-  final TextStyle valStyle = TextStyle(
-    color: mutedColor,
-    fontSize: 11.0,
-    fontFamily: 'monospace',
-    height: 1.35,
-  );
-  final TextStyle typeStyle = TextStyle(
-    color: textColor,
-    fontSize: 11.0,
-    fontFamily: 'monospace',
-  );
+  final TextStyle keyStyle = TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 11.5, fontFamily: 'monospace');
+  final TextStyle valStyle = TextStyle(color: mutedColor, fontSize: 11.0, fontFamily: 'monospace', height: 1.35);
+  final TextStyle typeStyle = TextStyle(color: textColor, fontSize: 11.0, fontFamily: 'monospace');
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
     decoration: BoxDecoration(
       color: bg,
-      border: Border(
-        bottom: BorderSide(color: divider.withValues(alpha: 0.25)),
-      ),
+      border: Border(bottom: BorderSide(color: divider.withValues(alpha: 0.25))),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1445,35 +1418,15 @@ Widget _eventCard({
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    ),
-                  ),
-                  Text(
-                    subtitle,
-                    style: TextStyle(fontSize: 11.5, color: mutedColor),
-                  ),
+                  Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, color: textColor)),
+                  Text(subtitle, style: TextStyle(fontSize: 11.5, color: mutedColor)),
                 ],
               ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-              decoration: BoxDecoration(
-                color: primary.withValues(alpha: 0.18),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: Text(
-                "type='$typeName'",
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10.5,
-                  color: primary,
-                ),
-              ),
+              decoration: BoxDecoration(color: primary.withValues(alpha: 0.18), borderRadius: BorderRadius.circular(12.0)),
+              child: Text("type='$typeName'", style: TextStyle(fontFamily: 'monospace', fontSize: 10.5, color: primary)),
             ),
           ],
         ),
@@ -1488,35 +1441,16 @@ Widget _eventCard({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'toString()',
-                style: TextStyle(
-                  fontSize: 10.5,
-                  color: mutedColor,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
-                ),
-              ),
+              Text('toString()', style: TextStyle(fontSize: 10.5, color: mutedColor, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
               SizedBox(height: 4.0),
-              Text(
-                toStringText,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11.5,
-                  color: textColor,
-                  height: 1.35,
-                ),
-              ),
+              Text(toStringText, style: TextStyle(fontFamily: 'monospace', fontSize: 11.5, color: textColor, height: 1.35)),
             ],
           ),
         ),
         SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: ink.withValues(alpha: 0.94),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
+          decoration: BoxDecoration(color: ink.withValues(alpha: 0.94), borderRadius: BorderRadius.circular(8.0)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -1524,40 +1458,19 @@ Widget _eventCard({
                 children: <Widget>[
                   Icon(Icons.data_object, color: primary, size: 14.0),
                   SizedBox(width: 6.0),
-                  Text(
-                    'getDataMap()',
-                    style: TextStyle(
-                      fontSize: 10.5,
-                      color: primary,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
+                  Text('getDataMap()', style: TextStyle(fontSize: 10.5, color: primary, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
                 ],
               ),
               SizedBox(height: 6.0),
               if (entries.isEmpty)
-                Text(
-                  '{}  // no payload — type alone is the signal',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11.0,
-                    color: paperColor.withValues(alpha: 0.8),
-                    fontStyle: FontStyle.italic,
-                  ),
-                )
+                Text('{}  // no payload — type alone is the signal',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: paperColor.withValues(alpha: 0.8), fontStyle: FontStyle.italic))
               else
                 for (final MapEntry<String, dynamic> e in entries)
                   Padding(
                     padding: EdgeInsets.only(bottom: 2.0),
-                    child: Text(
-                      "  '${e.key}': ${e.value}",
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 11.0,
-                        color: paperColor,
-                      ),
-                    ),
+                    child: Text("  '${e.key}': ${e.value}",
+                        style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: paperColor)),
                   ),
             ],
           ),
@@ -1597,23 +1510,13 @@ Widget _politenessColumn({
             Icon(icon, color: color, size: 22.0),
             SizedBox(width: 8.0),
             Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
+              child: Text(title,
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 13.0, fontWeight: FontWeight.bold, color: color)),
             ),
           ],
         ),
         SizedBox(height: 10.0),
-        Text(
-          description,
-          style: TextStyle(fontSize: 12.0, color: textColor, height: 1.4),
-        ),
+        Text(description, style: TextStyle(fontSize: 12.0, color: textColor, height: 1.4)),
         SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -1622,26 +1525,12 @@ Widget _politenessColumn({
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: color.withValues(alpha: 0.4)),
           ),
-          child: Text(
-            example,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11.0,
-              color: color,
-              height: 1.4,
-            ),
-          ),
+          child: Text(example,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: color, height: 1.4)),
         ),
         SizedBox(height: 10.0),
-        Text(
-          'Good for:',
-          style: TextStyle(
-            fontSize: 11.0,
-            color: mutedColor,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 0.4,
-          ),
-        ),
+        Text('Good for:',
+            style: TextStyle(fontSize: 11.0, color: mutedColor, fontWeight: FontWeight.bold, letterSpacing: 0.4)),
         SizedBox(height: 4.0),
         for (final String u in useCases)
           Padding(
@@ -1651,16 +1540,7 @@ Widget _politenessColumn({
               children: <Widget>[
                 Icon(Icons.fiber_manual_record, color: color, size: 7.0),
                 SizedBox(width: 6.0),
-                Expanded(
-                  child: Text(
-                    u,
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: textColor,
-                      height: 1.35,
-                    ),
-                  ),
-                ),
+                Expanded(child: Text(u, style: TextStyle(fontSize: 11.5, color: textColor, height: 1.35))),
               ],
             ),
           ),
@@ -1698,39 +1578,19 @@ Widget _apiRow(
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: accent.withValues(alpha: 0.7)),
           ),
-          child: Text(
-            name,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12.0,
-              color: accent,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: Text(name,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: accent, fontWeight: FontWeight.bold)),
         ),
         SizedBox(height: 8.0),
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Color(0xFF0A0F1E),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
+          decoration: BoxDecoration(color: Color(0xFF0A0F1E), borderRadius: BorderRadius.circular(8.0)),
           width: double.infinity,
-          child: Text(
-            signature,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11.0,
-              color: accent,
-              height: 1.4,
-            ),
-          ),
+          child: Text(signature,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: accent, height: 1.4)),
         ),
         SizedBox(height: 8.0),
-        Text(
-          description,
-          style: TextStyle(fontSize: 12.0, color: mutedColor, height: 1.4),
-        ),
+        Text(description, style: TextStyle(fontSize: 12.0, color: mutedColor, height: 1.4)),
       ],
     ),
   );
@@ -1765,37 +1625,16 @@ Widget _pitfallRow({
             border: Border.all(color: accent.withValues(alpha: 0.7)),
           ),
           alignment: Alignment.center,
-          child: Text(
-            '$index',
-            style: TextStyle(
-              color: accent,
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
-            ),
-          ),
+          child: Text('$index', style: TextStyle(color: accent, fontWeight: FontWeight.bold, fontSize: 14.0)),
         ),
         SizedBox(width: 12.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  color: textColor,
-                ),
-              ),
+              Text(title, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: textColor)),
               SizedBox(height: 4.0),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: mutedColor,
-                  height: 1.4,
-                ),
-              ),
+              Text(body, style: TextStyle(fontSize: 12.0, color: mutedColor, height: 1.4)),
             ],
           ),
         ),
@@ -1829,50 +1668,23 @@ Widget _idiomCard({
           children: <Widget>[
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-              decoration: BoxDecoration(
-                color: accent.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Text(
-                'Idiom $index',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11.0,
-                  color: accent,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              decoration: BoxDecoration(color: accent.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(8.0)),
+              child: Text('Idiom $index',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: accent, fontWeight: FontWeight.bold)),
             ),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.bold,
-                  color: textColor,
-                ),
-              ),
+              child: Text(title, style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: textColor)),
             ),
           ],
         ),
         SizedBox(height: 8.0),
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: ink,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
+          decoration: BoxDecoration(color: ink, borderRadius: BorderRadius.circular(8.0)),
           width: double.infinity,
-          child: Text(
-            body,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11.0,
-              color: accent,
-              height: 1.45,
-            ),
-          ),
+          child: Text(body,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: accent, height: 1.45)),
         ),
       ],
     ),
@@ -2048,11 +1860,9 @@ class _AccessibilityTreePainter extends CustomPainter {
     }
 
     // Root container
-    final Rect rootRect = Rect.fromLTWH(12.0, 14.0, w - 24.0, h - 28.0);
-    final RRect rootR = RRect.fromRectAndRadius(
-      rootRect,
-      Radius.circular(12.0),
-    );
+    final Rect rootRect =
+        Rect.fromLTWH(12.0, 14.0, w - 24.0, h - 28.0);
+    final RRect rootR = RRect.fromRectAndRadius(rootRect, Radius.circular(12.0));
     final Paint rootFill = Paint()..color = paperColor;
     final Paint rootStroke = Paint()
       ..color = ink.withValues(alpha: 0.7)
@@ -2072,12 +1882,7 @@ class _AccessibilityTreePainter extends CustomPainter {
 
     // App bar
     final Rect appBar = Rect.fromLTWH(24.0, 50.0, w - 48.0, 44.0);
-    _drawZone(
-      canvas,
-      appBar,
-      accentA,
-      'AppBar — flags: {hasEnabledState, isHeader}  actions: {}',
-    );
+    _drawZone(canvas, appBar, accentA, 'AppBar — flags: {hasEnabledState, isHeader}  actions: {}');
 
     // Save button
     final Rect saveBtn = Rect.fromLTWH(28.0, 110.0, 130.0, 60.0);

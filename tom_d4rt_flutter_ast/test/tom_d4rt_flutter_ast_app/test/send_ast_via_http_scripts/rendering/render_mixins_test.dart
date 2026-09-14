@@ -60,11 +60,7 @@ Map<String, dynamic> mixinProfile({
 // BADGE BUILDER - hexagonal badge motif (approximated by rotated rounded box)
 // ============================================================================
 
-Widget hexBadge({
-  required String label,
-  required Color color,
-  double size = 56.0,
-}) {
+Widget hexBadge({required String label, required Color color, double size = 56.0}) {
   return SizedBox(
     width: size,
     height: size,
@@ -194,7 +190,10 @@ Widget anatomyCard({
             ],
           ),
         ),
-        Padding(padding: EdgeInsets.all(16.0), child: body),
+        Padding(
+          padding: EdgeInsets.all(16.0),
+          child: body,
+        ),
       ],
     ),
   );
@@ -238,12 +237,19 @@ Widget bulletRow(String text, {Color color = kVioletMid}) {
           margin: EdgeInsets.only(top: 6.0, right: 8.0),
           width: 6.0,
           height: 6.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: kCharcoal, fontSize: 13.0, height: 1.45),
+            style: TextStyle(
+              color: kCharcoal,
+              fontSize: 13.0,
+              height: 1.45,
+            ),
           ),
         ),
       ],
@@ -251,11 +257,7 @@ Widget bulletRow(String text, {Color color = kVioletMid}) {
   );
 }
 
-Widget specimenFrame({
-  required String label,
-  required Widget child,
-  Color accent = kOrangeMolten,
-}) {
+Widget specimenFrame({required String label, required Widget child, Color accent = kOrangeMolten}) {
   return Container(
     margin: EdgeInsets.only(top: 12.0, bottom: 4.0),
     decoration: BoxDecoration(
@@ -274,7 +276,9 @@ Widget specimenFrame({
               topLeft: Radius.circular(11.0),
               topRight: Radius.circular(11.0),
             ),
-            border: Border(bottom: BorderSide(color: accent.withOpacity(0.35))),
+            border: Border(
+              bottom: BorderSide(color: accent.withOpacity(0.35)),
+            ),
           ),
           child: Row(
             children: [
@@ -292,7 +296,10 @@ Widget specimenFrame({
             ],
           ),
         ),
-        Padding(padding: EdgeInsets.all(12.0), child: child),
+        Padding(
+          padding: EdgeInsets.all(12.0),
+          child: child,
+        ),
       ],
     ),
   );
@@ -381,12 +388,7 @@ Widget profileTable(Map<String, dynamic> profile) {
 // TREE DIAGRAM BUILDER
 // ============================================================================
 
-Widget treeNode(
-  String label,
-  Color color, {
-  bool isMixin = false,
-  double width = 200.0,
-}) {
+Widget treeNode(String label, Color color, {bool isMixin = false, double width = 200.0}) {
   return Container(
     width: width,
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
@@ -422,7 +424,11 @@ Widget treeNode(
 }
 
 Widget treeConnector({double height = 14.0, Color color = kCharcoalSoft}) {
-  return Container(width: 2.0, height: height, color: color);
+  return Container(
+    width: 2.0,
+    height: height,
+    color: color,
+  );
 }
 
 // ============================================================================
@@ -438,8 +444,7 @@ dynamic build(BuildContext context) {
     mixinProfile(
       name: 'RenderObjectWithChildMixin',
       generics: '<ChildType extends RenderObject>',
-      purpose:
-          'Adds a single-child slot to a RenderObject with proper attach/detach plumbing.',
+      purpose: 'Adds a single-child slot to a RenderObject with proper attach/detach plumbing.',
       arity: 'exactly one child (nullable)',
       parentData: 'ParentData (whatever the child needs)',
       provides: <String>[
@@ -453,19 +458,12 @@ dynamic build(BuildContext context) {
         'RenderTransform',
         'RenderConstrainedBox',
       ],
-      keyMethods: <String>[
-        'attach(owner)',
-        'detach()',
-        'visitChildren',
-        'redepthChildren',
-      ],
+      keyMethods: <String>['attach(owner)', 'detach()', 'visitChildren', 'redepthChildren'],
     ),
     mixinProfile(
       name: 'ContainerRenderObjectMixin',
-      generics:
-          '<ChildType extends RenderObject, ParentDataType extends ContainerParentDataMixin<ChildType>>',
-      purpose:
-          'Maintains an intrusive doubly-linked list of children stored inside each child\'s ParentData.',
+      generics: '<ChildType extends RenderObject, ParentDataType extends ContainerParentDataMixin<ChildType>>',
+      purpose: 'Maintains an intrusive doubly-linked list of children stored inside each child\'s ParentData.',
       arity: 'zero or more children',
       parentData: 'ContainerParentDataMixin<ChildType>',
       provides: <String>[
@@ -480,19 +478,12 @@ dynamic build(BuildContext context) {
         'RenderWrap, RenderListBody',
         'RenderSliverList / RenderSliverGrid',
       ],
-      keyMethods: <String>[
-        'insert',
-        'remove',
-        'move',
-        'childBefore',
-        'childAfter',
-      ],
+      keyMethods: <String>['insert', 'remove', 'move', 'childBefore', 'childAfter'],
     ),
     mixinProfile(
       name: 'RenderProxyBoxMixin',
       generics: '<T extends RenderBox>',
-      purpose:
-          'Forwards layout, paint and hit-test to a single RenderBox child verbatim.',
+      purpose: 'Forwards layout, paint and hit-test to a single RenderBox child verbatim.',
       arity: 'exactly one RenderBox child',
       parentData: 'BoxParentData',
       provides: <String>[
@@ -512,8 +503,7 @@ dynamic build(BuildContext context) {
     mixinProfile(
       name: 'RenderProxySliverMixin',
       generics: '<T extends RenderSliver>',
-      purpose:
-          'Sliver counterpart to RenderProxyBoxMixin -- delegates geometry to a single sliver child.',
+      purpose: 'Sliver counterpart to RenderProxyBoxMixin -- delegates geometry to a single sliver child.',
       arity: 'exactly one RenderSliver child',
       parentData: 'SliverPhysicalParentData',
       provides: <String>[
@@ -528,18 +518,12 @@ dynamic build(BuildContext context) {
         'RenderSliverAnimatedOpacity',
         'RenderSliverOffstage',
       ],
-      keyMethods: <String>[
-        'performLayout',
-        'paint',
-        'hitTestChildren',
-        'applyPaintTransform',
-      ],
+      keyMethods: <String>['performLayout', 'paint', 'hitTestChildren', 'applyPaintTransform'],
     ),
     mixinProfile(
       name: 'RenderObjectWithLayoutCallbackMixin',
       generics: '<T extends Constraints>',
-      purpose:
-          'Marks a RenderObject as supporting a callback-driven layout pass (LayoutBuilder style).',
+      purpose: 'Marks a RenderObject as supporting a callback-driven layout pass (LayoutBuilder style).',
       arity: 'depends on host class',
       parentData: 'inherited from host',
       provides: <String>[
@@ -552,18 +536,12 @@ dynamic build(BuildContext context) {
         'RenderSliverLayoutBuilder',
         '_RenderTwoDimensionalViewport (lazy lists)',
       ],
-      keyMethods: <String>[
-        'invokeLayoutCallback',
-        'performLayout',
-        'markNeedsBuild',
-      ],
+      keyMethods: <String>['invokeLayoutCallback', 'performLayout', 'markNeedsBuild'],
     ),
     mixinProfile(
       name: 'RenderInlineChildrenContainerDefaults',
-      generics:
-          '<ChildType extends RenderBox, ParentDataType extends TextParentData>',
-      purpose:
-          'Provides default inline child placement logic for RenderParagraph-like objects (WidgetSpans).',
+      generics: '<ChildType extends RenderBox, ParentDataType extends TextParentData>',
+      purpose: 'Provides default inline child placement logic for RenderParagraph-like objects (WidgetSpans).',
       arity: 'zero or more inline children',
       parentData: 'TextParentData (offset + scale + placeholder index)',
       provides: <String>[
@@ -576,17 +554,12 @@ dynamic build(BuildContext context) {
         'RenderParagraph (WidgetSpan placement)',
         'Custom inline text render objects',
       ],
-      keyMethods: <String>[
-        'positionInlineChildren',
-        'paintInlineChildren',
-        'hitTestInlineChildren',
-      ],
+      keyMethods: <String>['positionInlineChildren', 'paintInlineChildren', 'hitTestInlineChildren'],
     ),
     mixinProfile(
       name: 'RenderSemanticsAnnotations',
       generics: '<no generics>',
-      purpose:
-          'Injects SemanticsConfiguration into the semantics tree without affecting layout/paint.',
+      purpose: 'Injects SemanticsConfiguration into the semantics tree without affecting layout/paint.',
       arity: 'single child (delegating)',
       parentData: 'BoxParentData',
       provides: <String>[
@@ -600,10 +573,7 @@ dynamic build(BuildContext context) {
         'RenderMergeSemantics, RenderBlockSemantics',
         'RenderExcludeSemantics',
       ],
-      keyMethods: <String>[
-        'describeSemanticsConfiguration',
-        'markNeedsSemanticsUpdate',
-      ],
+      keyMethods: <String>['describeSemanticsConfiguration', 'markNeedsSemanticsUpdate'],
     ),
   ];
 
@@ -613,62 +583,14 @@ dynamic build(BuildContext context) {
 
   final comparisonRows = <List<String>>[
     <String>['Mixin', 'Purpose', 'Arity', 'ParentData', 'Consumer'],
-    <String>[
-      'RenderObjectWithChildMixin',
-      'single child slot',
-      '1',
-      'ParentData',
-      'RenderProxyBox*',
-    ],
-    <String>[
-      'ContainerRenderObjectMixin',
-      'linked-list children',
-      '0..n',
-      'ContainerParentDataMixin',
-      'RenderFlex',
-    ],
-    <String>[
-      'RenderProxyBoxMixin',
-      'forward to child',
-      '1',
-      'BoxParentData',
-      'RenderOpacity',
-    ],
-    <String>[
-      'RenderProxySliverMixin',
-      'forward sliver to child',
-      '1',
-      'SliverPhysicalParentData',
-      'RenderSliverOpacity',
-    ],
-    <String>[
-      'RenderObjectWithLayoutCallbackMixin',
-      'callback layout',
-      'host-defined',
-      'host-defined',
-      'RenderConstrainedLayoutBuilder',
-    ],
-    <String>[
-      'RenderInlineChildrenContainerDefaults',
-      'inline placeholders',
-      '0..n',
-      'TextParentData',
-      'RenderParagraph',
-    ],
-    <String>[
-      'RenderSemanticsAnnotations',
-      'semantics injection',
-      '1',
-      'BoxParentData',
-      'Semantics widget',
-    ],
-    <String>[
-      'DebugOverflowIndicatorMixin',
-      'debug overflow paint',
-      'host-defined',
-      'host-defined',
-      'RenderFlex',
-    ],
+    <String>['RenderObjectWithChildMixin', 'single child slot', '1', 'ParentData', 'RenderProxyBox*'],
+    <String>['ContainerRenderObjectMixin', 'linked-list children', '0..n', 'ContainerParentDataMixin', 'RenderFlex'],
+    <String>['RenderProxyBoxMixin', 'forward to child', '1', 'BoxParentData', 'RenderOpacity'],
+    <String>['RenderProxySliverMixin', 'forward sliver to child', '1', 'SliverPhysicalParentData', 'RenderSliverOpacity'],
+    <String>['RenderObjectWithLayoutCallbackMixin', 'callback layout', 'host-defined', 'host-defined', 'RenderConstrainedLayoutBuilder'],
+    <String>['RenderInlineChildrenContainerDefaults', 'inline placeholders', '0..n', 'TextParentData', 'RenderParagraph'],
+    <String>['RenderSemanticsAnnotations', 'semantics injection', '1', 'BoxParentData', 'Semantics widget'],
+    <String>['DebugOverflowIndicatorMixin', 'debug overflow paint', 'host-defined', 'host-defined', 'RenderFlex'],
   ];
 
   // --------------------------------------------------------------------------
@@ -678,20 +600,17 @@ dynamic build(BuildContext context) {
   final parentDataFamily = <Map<String, String>>[
     <String, String>{
       'name': 'ParentData',
-      'addsWhat':
-          'base marker class; storage slot owned by the parent render object',
+      'addsWhat': 'base marker class; storage slot owned by the parent render object',
       'usedBy': 'any RenderObject',
     },
     <String, String>{
       'name': 'BoxParentData',
-      'addsWhat':
-          'Offset offset -- where the child is positioned relative to the parent box',
+      'addsWhat': 'Offset offset -- where the child is positioned relative to the parent box',
       'usedBy': 'RenderBox descendants',
     },
     <String, String>{
       'name': 'ContainerBoxParentData<ChildType>',
-      'addsWhat':
-          'doubly-linked list pointers (previousSibling / nextSibling) plus BoxParentData fields',
+      'addsWhat': 'doubly-linked list pointers (previousSibling / nextSibling) plus BoxParentData fields',
       'usedBy': 'multi-child box render objects',
     },
     <String, String>{
@@ -726,91 +645,24 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
 
   final glossary = <Map<String, String>>[
-    <String, String>{
-      'term': 'RenderObject',
-      'def':
-          'Element in the render tree responsible for layout, paint, hit-test, semantics.',
-    },
-    <String, String>{
-      'term': 'RenderBox',
-      'def':
-          'RenderObject that uses Cartesian (x,y, width, height) constraints.',
-    },
-    <String, String>{
-      'term': 'RenderSliver',
-      'def':
-          'RenderObject for scrollable viewport children using SliverConstraints/SliverGeometry.',
-    },
-    <String, String>{
-      'term': 'mixin',
-      'def':
-          'Dart construct that contributes fields and methods to a class via with-clause.',
-    },
-    <String, String>{
-      'term': 'ParentData',
-      'def': 'Opaque storage that a parent RenderObject hangs off each child.',
-    },
-    <String, String>{
-      'term': 'parentData walk',
-      'def':
-          'Walking children via parentData.nextSibling / previousSibling pointers.',
-    },
-    <String, String>{
-      'term': 'attach',
-      'def':
-          'Called when a RenderObject becomes part of a tree owned by a PipelineOwner.',
-    },
-    <String, String>{
-      'term': 'detach',
-      'def': 'Inverse of attach; clears the owner and dispatches to children.',
-    },
-    <String, String>{
-      'term': 'markNeedsLayout',
-      'def': 'Schedules this RenderObject for re-layout in the next frame.',
-    },
-    <String, String>{
-      'term': 'markNeedsPaint',
-      'def': 'Schedules a paint pass without forcing layout.',
-    },
-    <String, String>{
-      'term': 'performLayout',
-      'def':
-          'Implementation hook where a RenderObject sizes itself and its children.',
-    },
-    <String, String>{
-      'term': 'paint',
-      'def':
-          'Implementation hook that records painting onto the supplied PaintingContext.',
-    },
-    <String, String>{
-      'term': 'hitTest',
-      'def':
-          'Implementation hook that maps a position to RenderObjects under the pointer.',
-    },
-    <String, String>{
-      'term': 'LayoutCallback',
-      'def':
-          'Callback invoked during performLayout when build needs constraints first.',
-    },
-    <String, String>{
-      'term': 'SemanticsConfiguration',
-      'def':
-          'Bag of flags/labels/actions describing a RenderObject for accessibility.',
-    },
-    <String, String>{
-      'term': 'DebugCreator',
-      'def':
-          'Wrapper object attached to a RenderObject linking back to its creating Element.',
-    },
-    <String, String>{
-      'term': 'RenderTreeRootElement',
-      'def': 'Marker mixin for elements that introduce a new render tree root.',
-    },
-    <String, String>{
-      'term': 'RootElementMixin',
-      'def':
-          'Mixin that hosts a detached render tree (used by RenderObjectToWidgetAdapter).',
-    },
+    <String, String>{'term': 'RenderObject', 'def': 'Element in the render tree responsible for layout, paint, hit-test, semantics.'},
+    <String, String>{'term': 'RenderBox', 'def': 'RenderObject that uses Cartesian (x,y, width, height) constraints.'},
+    <String, String>{'term': 'RenderSliver', 'def': 'RenderObject for scrollable viewport children using SliverConstraints/SliverGeometry.'},
+    <String, String>{'term': 'mixin', 'def': 'Dart construct that contributes fields and methods to a class via with-clause.'},
+    <String, String>{'term': 'ParentData', 'def': 'Opaque storage that a parent RenderObject hangs off each child.'},
+    <String, String>{'term': 'parentData walk', 'def': 'Walking children via parentData.nextSibling / previousSibling pointers.'},
+    <String, String>{'term': 'attach', 'def': 'Called when a RenderObject becomes part of a tree owned by a PipelineOwner.'},
+    <String, String>{'term': 'detach', 'def': 'Inverse of attach; clears the owner and dispatches to children.'},
+    <String, String>{'term': 'markNeedsLayout', 'def': 'Schedules this RenderObject for re-layout in the next frame.'},
+    <String, String>{'term': 'markNeedsPaint', 'def': 'Schedules a paint pass without forcing layout.'},
+    <String, String>{'term': 'performLayout', 'def': 'Implementation hook where a RenderObject sizes itself and its children.'},
+    <String, String>{'term': 'paint', 'def': 'Implementation hook that records painting onto the supplied PaintingContext.'},
+    <String, String>{'term': 'hitTest', 'def': 'Implementation hook that maps a position to RenderObjects under the pointer.'},
+    <String, String>{'term': 'LayoutCallback', 'def': 'Callback invoked during performLayout when build needs constraints first.'},
+    <String, String>{'term': 'SemanticsConfiguration', 'def': 'Bag of flags/labels/actions describing a RenderObject for accessibility.'},
+    <String, String>{'term': 'DebugCreator', 'def': 'Wrapper object attached to a RenderObject linking back to its creating Element.'},
+    <String, String>{'term': 'RenderTreeRootElement', 'def': 'Marker mixin for elements that introduce a new render tree root.'},
+    <String, String>{'term': 'RootElementMixin', 'def': 'Mixin that hosts a detached render tree (used by RenderObjectToWidgetAdapter).'},
   ];
 
   // --------------------------------------------------------------------------
@@ -820,35 +672,27 @@ dynamic build(BuildContext context) {
   final pitfalls = <Map<String, String>>[
     <String, String>{
       'mistake': 'Forgetting to call super.attach(owner) / super.detach()',
-      'why':
-          'ContainerRenderObjectMixin iterates children inside its attach/detach. Skipping super leaves children with a stale owner.',
+      'why': 'ContainerRenderObjectMixin iterates children inside its attach/detach. Skipping super leaves children with a stale owner.',
     },
     <String, String>{
       'mistake': 'Not redeclaring covariant child type',
-      'why':
-          'RenderObjectWithChildMixin<RenderBox> exposes RenderObject getters by default; without covariant, subclasses cannot tighten the API.',
+      'why': 'RenderObjectWithChildMixin<RenderBox> exposes RenderObject getters by default; without covariant, subclasses cannot tighten the API.',
     },
     <String, String>{
       'mistake': 'ContainerRenderObjectMixin with the wrong ParentData type',
-      'why':
-          'setupParentData must produce a ContainerParentDataMixin or the linked-list walk crashes with type errors.',
+      'why': 'setupParentData must produce a ContainerParentDataMixin or the linked-list walk crashes with type errors.',
     },
     <String, String>{
       'mistake': 'Calling markNeedsBuild outside invokeLayoutCallback',
-      'why':
-          'Only RenderObjectWithLayoutCallbackMixin lets the framework rebuild widgets safely while layout is in flight.',
+      'why': 'Only RenderObjectWithLayoutCallbackMixin lets the framework rebuild widgets safely while layout is in flight.',
     },
     <String, String>{
-      'mistake':
-          'Mutating SemanticsConfiguration without markNeedsSemanticsUpdate',
-      'why':
-          'RenderSemanticsAnnotations caches the previous config; without the mark, accessibility services see stale data.',
+      'mistake': 'Mutating SemanticsConfiguration without markNeedsSemanticsUpdate',
+      'why': 'RenderSemanticsAnnotations caches the previous config; without the mark, accessibility services see stale data.',
     },
     <String, String>{
-      'mistake':
-          'Confusing RenderProxyBoxMixin with subclassing RenderProxyBox',
-      'why':
-          'The mixin provides defaults; the class adds RenderBox inheritance. Use the mixin only when you already extend a RenderBox base.',
+      'mistake': 'Confusing RenderProxyBoxMixin with subclassing RenderProxyBox',
+      'why': 'The mixin provides defaults; the class adds RenderBox inheritance. Use the mixin only when you already extend a RenderBox base.',
     },
   ];
 
@@ -860,41 +704,32 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'title': 'Single-child wrapper that paints',
       'mixins': <String>['RenderObjectWithChildMixin', 'RenderProxyBoxMixin'],
-      'snippet':
-          'class _MyPaintBox extends RenderBox with RenderObjectWithChildMixin<RenderBox>, RenderProxyBoxMixin<RenderBox> {\n  @override\n  void paint(PaintingContext c, Offset o) {\n    // ... custom paint ...\n    super.paint(c, o); // forwards to child\n  }\n}',
+      'snippet': 'class _MyPaintBox extends RenderBox with RenderObjectWithChildMixin<RenderBox>, RenderProxyBoxMixin<RenderBox> {\n  @override\n  void paint(PaintingContext c, Offset o) {\n    // ... custom paint ...\n    super.paint(c, o); // forwards to child\n  }\n}',
     },
     <String, dynamic>{
       'title': 'Multi-child container with parent data',
       'mixins': <String>['ContainerRenderObjectMixin'],
-      'snippet':
-          'class _MyRow extends RenderBox\n    with ContainerRenderObjectMixin<RenderBox, FlexParentData> {\n  @override\n  void setupParentData(RenderBox child) {\n    if (child.parentData is! FlexParentData) {\n      child.parentData = FlexParentData();\n    }\n  }\n}',
+      'snippet': 'class _MyRow extends RenderBox\n    with ContainerRenderObjectMixin<RenderBox, FlexParentData> {\n  @override\n  void setupParentData(RenderBox child) {\n    if (child.parentData is! FlexParentData) {\n      child.parentData = FlexParentData();\n    }\n  }\n}',
     },
     <String, dynamic>{
       'title': 'Proxy box with hit-test override',
       'mixins': <String>['RenderProxyBoxMixin'],
-      'snippet':
-          'class _ConditionalHit extends RenderProxyBox {\n  bool absorbing = false;\n  @override\n  bool hitTest(BoxHitTestResult r, { required Offset position }) {\n    return absorbing ? false : super.hitTest(r, position: position);\n  }\n}',
+      'snippet': 'class _ConditionalHit extends RenderProxyBox {\n  bool absorbing = false;\n  @override\n  bool hitTest(BoxHitTestResult r, { required Offset position }) {\n    return absorbing ? false : super.hitTest(r, position: position);\n  }\n}',
     },
     <String, dynamic>{
       'title': 'Layout-aware UI via LayoutBuilder',
       'mixins': <String>['RenderObjectWithLayoutCallbackMixin'],
-      'snippet':
-          'LayoutBuilder(\n  builder: (ctx, c) => c.maxWidth < 400\n      ? Column(children: cards)\n      : Row(children: cards),\n);',
+      'snippet': 'LayoutBuilder(\n  builder: (ctx, c) => c.maxWidth < 400\n      ? Column(children: cards)\n      : Row(children: cards),\n);',
     },
     <String, dynamic>{
       'title': 'Semantically-annotated card',
       'mixins': <String>['RenderSemanticsAnnotations'],
-      'snippet':
-          'Semantics(\n  label: \'Important card\',\n  hint: \'Tap to expand\',\n  button: true,\n  child: card,\n);',
+      'snippet': 'Semantics(\n  label: \'Important card\',\n  hint: \'Tap to expand\',\n  button: true,\n  child: card,\n);',
     },
     <String, dynamic>{
       'title': 'Container with custom paint via mixin',
-      'mixins': <String>[
-        'ContainerRenderObjectMixin',
-        'DebugOverflowIndicatorMixin',
-      ],
-      'snippet':
-          'class _DebugColumn extends RenderBox\n    with ContainerRenderObjectMixin<RenderBox, FlexParentData>,\n         DebugOverflowIndicatorMixin {\n  @override\n  void performLayout() { /* walk children, set parentData.offset */ }\n}',
+      'mixins': <String>['ContainerRenderObjectMixin', 'DebugOverflowIndicatorMixin'],
+      'snippet': 'class _DebugColumn extends RenderBox\n    with ContainerRenderObjectMixin<RenderBox, FlexParentData>,\n         DebugOverflowIndicatorMixin {\n  @override\n  void performLayout() { /* walk children, set parentData.offset */ }\n}',
     },
   ];
 
@@ -971,10 +806,7 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     for (final p in mixinProfiles)
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 5.0,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                         decoration: BoxDecoration(
                           color: Color(0x22FFFFFF),
                           borderRadius: BorderRadius.circular(14.0),
@@ -1004,8 +836,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '01',
             title: 'What mixins do in Dart',
-            subtitle:
-                'Reusable behaviour contracts attached without single inheritance.',
+            subtitle: 'Reusable behaviour contracts attached without single inheritance.',
             accent: kVioletMid,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1015,34 +846,16 @@ dynamic build(BuildContext context) {
                   'classical multiple inheritance. A class declared with the mixin keyword can be applied '
                   'via the with clause: class RenderFlex extends RenderBox with ContainerRenderObjectMixin<...>, '
                   'DebugOverflowIndicatorMixin.',
-                  style: TextStyle(
-                    color: kCharcoal,
-                    fontSize: 13.5,
-                    height: 1.55,
-                  ),
+                  style: TextStyle(color: kCharcoal, fontSize: 13.5, height: 1.55),
                 ),
                 SizedBox(height: 14.0),
-                sectionLabel(
-                  'Why the render tree relies on mixins',
-                  kVioletMid,
-                ),
-                bulletRow(
-                  'Most RenderObject contracts are orthogonal: child slots, parent data, semantics, debug overflow.',
-                ),
-                bulletRow(
-                  'Concrete classes pick exactly the combination they need: RenderFlex needs containers AND debug overflow; RenderOpacity needs proxy behaviour AND a single child slot.',
-                ),
-                bulletRow(
-                  'Mixins let the framework avoid a combinatorial explosion of base classes (RenderBoxWithChildAndDebugOverflow...) by composing instead.',
-                ),
-                bulletRow(
-                  'Generic mixins ensure type-safe child slots: RenderObjectWithChildMixin<RenderBox> versus RenderObjectWithChildMixin<RenderSliver>.',
-                ),
+                sectionLabel('Why the render tree relies on mixins', kVioletMid),
+                bulletRow('Most RenderObject contracts are orthogonal: child slots, parent data, semantics, debug overflow.'),
+                bulletRow('Concrete classes pick exactly the combination they need: RenderFlex needs containers AND debug overflow; RenderOpacity needs proxy behaviour AND a single child slot.'),
+                bulletRow('Mixins let the framework avoid a combinatorial explosion of base classes (RenderBoxWithChildAndDebugOverflow...) by composing instead.'),
+                bulletRow('Generic mixins ensure type-safe child slots: RenderObjectWithChildMixin<RenderBox> versus RenderObjectWithChildMixin<RenderSliver>.'),
                 SizedBox(height: 14.0),
-                sectionLabel(
-                  'Relationship to RenderObject base classes',
-                  kOrangeMolten,
-                ),
+                sectionLabel('Relationship to RenderObject base classes', kOrangeMolten),
                 codeBlock(
                   'abstract class RenderObject extends AbstractNode\n'
                   '    with DiagnosticableTreeMixin\n'
@@ -1105,11 +918,7 @@ dynamic build(BuildContext context) {
                   'Each hexagonal badge is a mixin you can snap onto a RenderObject. '
                   'The concrete class is the molecule built by combining the trunk with these branches.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: kCharcoalSoft,
-                    fontSize: 12.5,
-                    fontStyle: FontStyle.italic,
-                  ),
+                  style: TextStyle(color: kCharcoalSoft, fontSize: 12.5, fontStyle: FontStyle.italic),
                 ),
               ],
             ),
@@ -1121,8 +930,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '03',
             title: 'RenderObjectWithChildMixin<ChildType>',
-            subtitle:
-                'Single-child slot with parentData and attach/detach wired in.',
+            subtitle: 'Single-child slot with parentData and attach/detach wired in.',
             accent: kVioletMid,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1130,32 +938,23 @@ dynamic build(BuildContext context) {
                 profileTable(mixinProfiles[0]),
                 SizedBox(height: 12.0),
                 sectionLabel('What it provides', kVioletMid),
-                for (final s in (mixinProfiles[0]['provides'] as List<String>))
-                  bulletRow(s),
+                for (final s in (mixinProfiles[0]['provides'] as List<String>)) bulletRow(s),
                 SizedBox(height: 10.0),
                 sectionLabel('Who uses it', kOrangeMolten),
                 Wrap(
                   spacing: 8.0,
                   runSpacing: 6.0,
                   children: <Widget>[
-                    for (final c
-                        in (mixinProfiles[0]['consumers'] as List<String>))
+                    for (final c in (mixinProfiles[0]['consumers'] as List<String>))
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 5.0,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                         decoration: BoxDecoration(
                           color: kVioletSoft,
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Text(
                           c,
-                          style: TextStyle(
-                            color: kVioletDeep,
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: TextStyle(color: kVioletDeep, fontSize: 11.5, fontWeight: FontWeight.w600),
                         ),
                       ),
                   ],
@@ -1174,20 +973,14 @@ dynamic build(BuildContext context) {
                     child: Opacity(
                       opacity: 0.65,
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 10.0,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
                         decoration: BoxDecoration(
                           color: kVioletDeep,
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: Text(
                           'Single-child render object',
-                          style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 13.0,
-                          ),
+                          style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 13.0),
                         ),
                       ),
                     ),
@@ -1215,8 +1008,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '04',
             title: 'ContainerRenderObjectMixin<Child, ParentData>',
-            subtitle:
-                'Intrusive linked-list children stored inside each child\'s ParentData.',
+            subtitle: 'Intrusive linked-list children stored inside each child\'s ParentData.',
             accent: kOrangeMolten,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1224,32 +1016,23 @@ dynamic build(BuildContext context) {
                 profileTable(mixinProfiles[1]),
                 SizedBox(height: 12.0),
                 sectionLabel('What it provides', kOrangeMolten),
-                for (final s in (mixinProfiles[1]['provides'] as List<String>))
-                  bulletRow(s, color: kOrangeMolten),
+                for (final s in (mixinProfiles[1]['provides'] as List<String>)) bulletRow(s, color: kOrangeMolten),
                 SizedBox(height: 10.0),
                 sectionLabel('Who uses it', kVioletMid),
                 Wrap(
                   spacing: 8.0,
                   runSpacing: 6.0,
                   children: <Widget>[
-                    for (final c
-                        in (mixinProfiles[1]['consumers'] as List<String>))
+                    for (final c in (mixinProfiles[1]['consumers'] as List<String>))
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 5.0,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                         decoration: BoxDecoration(
                           color: kOrangeGlow,
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Text(
                           c,
-                          style: TextStyle(
-                            color: kCrimson,
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: TextStyle(color: kCrimson, fontSize: 11.5, fontWeight: FontWeight.w600),
                         ),
                       ),
                   ],
@@ -1275,23 +1058,11 @@ dynamic build(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       treeNode('A', kVioletMid, width: 56.0),
-                      Icon(
-                        Icons.arrow_forward_rounded,
-                        size: 16.0,
-                        color: kCharcoalSoft,
-                      ),
+                      Icon(Icons.arrow_forward_rounded, size: 16.0, color: kCharcoalSoft),
                       treeNode('B', kVioletMid, width: 56.0),
-                      Icon(
-                        Icons.arrow_forward_rounded,
-                        size: 16.0,
-                        color: kCharcoalSoft,
-                      ),
+                      Icon(Icons.arrow_forward_rounded, size: 16.0, color: kCharcoalSoft),
                       treeNode('C', kVioletMid, width: 56.0),
-                      Icon(
-                        Icons.arrow_forward_rounded,
-                        size: 16.0,
-                        color: kCharcoalSoft,
-                      ),
+                      Icon(Icons.arrow_forward_rounded, size: 16.0, color: kCharcoalSoft),
                       treeNode('D', kVioletMid, width: 56.0),
                     ],
                   ),
@@ -1308,12 +1079,7 @@ dynamic build(BuildContext context) {
                           height: 48.0,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: <Color>[
-                              kOrangeMolten,
-                              kAmber,
-                              kVioletMid,
-                              kMintDeep,
-                            ][i],
+                            color: <Color>[kOrangeMolten, kAmber, kVioletMid, kMintDeep][i],
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Text(
@@ -1353,8 +1119,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '05',
             title: 'RenderProxyBoxMixin',
-            subtitle:
-                'Forward layout, paint and hit-test to a single RenderBox child.',
+            subtitle: 'Forward layout, paint and hit-test to a single RenderBox child.',
             accent: kAmber,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1362,22 +1127,10 @@ dynamic build(BuildContext context) {
                 profileTable(mixinProfiles[2]),
                 SizedBox(height: 10.0),
                 sectionLabel('Proxy pattern', kAmber),
-                bulletRow(
-                  'intrinsic sizes delegated 1:1 to child',
-                  color: kAmber,
-                ),
-                bulletRow(
-                  'performLayout: child.layout(constraints, parentUsesSize: true); size = child.size',
-                  color: kAmber,
-                ),
-                bulletRow(
-                  'paint: context.paintChild(child!, offset)',
-                  color: kAmber,
-                ),
-                bulletRow(
-                  'hitTestChildren: child!.hitTest(result, position: position)',
-                  color: kAmber,
-                ),
+                bulletRow('intrinsic sizes delegated 1:1 to child', color: kAmber),
+                bulletRow('performLayout: child.layout(constraints, parentUsesSize: true); size = child.size', color: kAmber),
+                bulletRow('paint: context.paintChild(child!, offset)', color: kAmber),
+                bulletRow('hitTestChildren: child!.hitTest(result, position: position)', color: kAmber),
                 specimenFrame(
                   label: 'live specimen — Opacity / ColoredBox / IgnorePointer',
                   accent: kAmber,
@@ -1393,13 +1146,7 @@ dynamic build(BuildContext context) {
                               height: 56.0,
                               color: kVioletDeep,
                               alignment: Alignment.center,
-                              child: Text(
-                                'OP',
-                                style: TextStyle(
-                                  color: Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: Text('OP', style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),
                             ),
                           ),
                           ColoredBox(
@@ -1408,13 +1155,7 @@ dynamic build(BuildContext context) {
                               width: 56.0,
                               height: 56.0,
                               child: Center(
-                                child: Text(
-                                  'CB',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFFFFF),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                child: Text('CB', style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),
                               ),
                             ),
                           ),
@@ -1425,13 +1166,7 @@ dynamic build(BuildContext context) {
                               height: 56.0,
                               color: kMintDeep,
                               alignment: Alignment.center,
-                              child: Text(
-                                'IP',
-                                style: TextStyle(
-                                  color: Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: Text('IP', style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),
                             ),
                           ),
                         ],
@@ -1441,11 +1176,7 @@ dynamic build(BuildContext context) {
                         'OP = RenderOpacity, CB = RenderColoredBox, IP = RenderIgnorePointer — '
                         'all three share RenderProxyBoxMixin and only override paint or hit-test.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 11.5,
-                          color: kCharcoalSoft,
-                          fontStyle: FontStyle.italic,
-                        ),
+                        style: TextStyle(fontSize: 11.5, color: kCharcoalSoft, fontStyle: FontStyle.italic),
                       ),
                     ],
                   ),
@@ -1474,8 +1205,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '06',
             title: 'RenderProxySliverMixin',
-            subtitle:
-                'Sliver counterpart -- delegates geometry to a single sliver child.',
+            subtitle: 'Sliver counterpart -- delegates geometry to a single sliver child.',
             accent: kMintDeep,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1483,18 +1213,9 @@ dynamic build(BuildContext context) {
                 profileTable(mixinProfiles[3]),
                 SizedBox(height: 10.0),
                 sectionLabel('Why slivers need their own mixin', kMintDeep),
-                bulletRow(
-                  'Slivers exchange SliverGeometry instead of Size',
-                  color: kMintDeep,
-                ),
-                bulletRow(
-                  'Hit-testing uses sliver-specific protocol with axis cross-axis split',
-                  color: kMintDeep,
-                ),
-                bulletRow(
-                  'paintOffset stored in SliverPhysicalParentData',
-                  color: kMintDeep,
-                ),
+                bulletRow('Slivers exchange SliverGeometry instead of Size', color: kMintDeep),
+                bulletRow('Hit-testing uses sliver-specific protocol with axis cross-axis split', color: kMintDeep),
+                bulletRow('paintOffset stored in SliverPhysicalParentData', color: kMintDeep),
                 specimenFrame(
                   label: 'live specimen — CustomScrollView with SliverOpacity',
                   accent: kMintDeep,
@@ -1509,10 +1230,7 @@ dynamic build(BuildContext context) {
                             alignment: Alignment.center,
                             child: Text(
                               'Header (sliver adapter)',
-                              style: TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontSize: 12.0,
-                              ),
+                              style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0),
                             ),
                           ),
                         ),
@@ -1527,10 +1245,7 @@ dynamic build(BuildContext context) {
                                 padding: EdgeInsets.symmetric(horizontal: 12.0),
                                 child: Text(
                                   'Translucent row $i (RenderSliverOpacity)',
-                                  style: TextStyle(
-                                    fontSize: 11.5,
-                                    color: kCharcoal,
-                                  ),
+                                  style: TextStyle(fontSize: 11.5, color: kCharcoal),
                                 ),
                               ),
                               childCount: 8,
@@ -1561,75 +1276,45 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '07',
             title: 'RenderInlineChildrenContainerDefaults',
-            subtitle:
-                'Internal helpers for laying out inline render children (WidgetSpan placeholders).',
+            subtitle: 'Internal helpers for laying out inline render children (WidgetSpan placeholders).',
             accent: kCharcoalSoft,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 profileTable(mixinProfiles[5]),
                 SizedBox(height: 10.0),
-                sectionLabel(
-                  'Internal mixin -- rarely consumed directly',
-                  kCharcoalSoft,
-                ),
-                bulletRow(
-                  'Used inside RenderParagraph for WidgetSpan children',
-                  color: kCharcoalSoft,
-                ),
-                bulletRow(
-                  'Provides default implementations for positionInlineChildren, paintInlineChildren, hitTestInlineChildren',
-                  color: kCharcoalSoft,
-                ),
-                bulletRow(
-                  'Most app code touches it only via Text.rich and WidgetSpan',
-                  color: kCharcoalSoft,
-                ),
+                sectionLabel('Internal mixin -- rarely consumed directly', kCharcoalSoft),
+                bulletRow('Used inside RenderParagraph for WidgetSpan children', color: kCharcoalSoft),
+                bulletRow('Provides default implementations for positionInlineChildren, paintInlineChildren, hitTestInlineChildren', color: kCharcoalSoft),
+                bulletRow('Most app code touches it only via Text.rich and WidgetSpan', color: kCharcoalSoft),
                 specimenFrame(
                   label: 'live specimen — Text.rich with WidgetSpan',
                   accent: kCharcoalSoft,
                   child: Text.rich(
                     TextSpan(
-                      style: TextStyle(
-                        color: kCharcoal,
-                        fontSize: 14.0,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(color: kCharcoal, fontSize: 14.0, height: 1.4),
                       children: <InlineSpan>[
                         TextSpan(text: 'Inline children flow with the text: '),
                         WidgetSpan(
                           alignment: PlaceholderAlignment.middle,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 6.0,
-                              vertical: 3.0,
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
                             decoration: BoxDecoration(
                               color: kOrangeWarm,
                               borderRadius: BorderRadius.circular(6.0),
                             ),
                             child: Text(
                               'badge',
-                              style: TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontSize: 11.0,
-                              ),
+                              style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0),
                             ),
                           ),
                         ),
                         TextSpan(text: ' surrounded by '),
                         WidgetSpan(
                           alignment: PlaceholderAlignment.middle,
-                          child: Icon(
-                            Icons.star_rounded,
-                            size: 16.0,
-                            color: kAmber,
-                          ),
+                          child: Icon(Icons.star_rounded, size: 16.0, color: kAmber),
                         ),
-                        TextSpan(
-                          text:
-                              ' icons placed by RenderInlineChildrenContainerDefaults.',
-                        ),
+                        TextSpan(text: ' icons placed by RenderInlineChildrenContainerDefaults.'),
                       ],
                     ),
                   ),
@@ -1644,8 +1329,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '08',
             title: 'RenderObjectWithLayoutCallbackMixin',
-            subtitle:
-                'Allows widget building during the layout phase (LayoutBuilder).',
+            subtitle: 'Allows widget building during the layout phase (LayoutBuilder).',
             accent: kCrimson,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1653,21 +1337,11 @@ dynamic build(BuildContext context) {
                 profileTable(mixinProfiles[4]),
                 SizedBox(height: 10.0),
                 sectionLabel('What the layout callback unlocks', kCrimson),
-                bulletRow(
-                  'Lets a builder see its parent constraints before deciding children',
-                  color: kCrimson,
-                ),
-                bulletRow(
-                  'Used by LayoutBuilder, SliverLayoutBuilder, lazily built lists',
-                  color: kCrimson,
-                ),
-                bulletRow(
-                  'Re-entry from build to layout is guarded by invokeLayoutCallback',
-                  color: kCrimson,
-                ),
+                bulletRow('Lets a builder see its parent constraints before deciding children', color: kCrimson),
+                bulletRow('Used by LayoutBuilder, SliverLayoutBuilder, lazily built lists', color: kCrimson),
+                bulletRow('Re-entry from build to layout is guarded by invokeLayoutCallback', color: kCrimson),
                 specimenFrame(
-                  label:
-                      'live specimen — LayoutBuilder reacting to parent width',
+                  label: 'live specimen — LayoutBuilder reacting to parent width',
                   accent: kCrimson,
                   child: Column(
                     children: <Widget>[
@@ -1680,23 +1354,16 @@ dynamic build(BuildContext context) {
                               builder: (BuildContext ctx, BoxConstraints c) {
                                 final isWide = c.maxWidth >= 360.0;
                                 return Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0,
-                                    vertical: 8.0,
-                                  ),
+                                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                                   decoration: BoxDecoration(
                                     color: isWide ? kMintCool : kOrangeGlow,
                                     borderRadius: BorderRadius.circular(8.0),
-                                    border: Border.all(
-                                      color: kCharcoalSoft.withOpacity(0.25),
-                                    ),
+                                    border: Border.all(color: kCharcoalSoft.withOpacity(0.25)),
                                   ),
                                   child: Row(
                                     children: <Widget>[
                                       Icon(
-                                        isWide
-                                            ? Icons.desktop_windows_outlined
-                                            : Icons.smartphone_outlined,
+                                        isWide ? Icons.desktop_windows_outlined : Icons.smartphone_outlined,
                                         size: 16.0,
                                         color: kCharcoal,
                                       ),
@@ -1705,10 +1372,7 @@ dynamic build(BuildContext context) {
                                         child: Text(
                                           'maxWidth=${c.maxWidth.toStringAsFixed(1)} -> '
                                           '${isWide ? 'wide layout' : 'narrow layout'}',
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: kCharcoal,
-                                          ),
+                                          style: TextStyle(fontSize: 12.0, color: kCharcoal),
                                         ),
                                       ),
                                     ],
@@ -1742,8 +1406,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '09',
             title: 'RenderSemanticsAnnotations & friends',
-            subtitle:
-                'How mixins inject SemanticsConfiguration into the semantics tree.',
+            subtitle: 'How mixins inject SemanticsConfiguration into the semantics tree.',
             accent: kVioletDeep,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1751,21 +1414,11 @@ dynamic build(BuildContext context) {
                 profileTable(mixinProfiles[6]),
                 SizedBox(height: 10.0),
                 sectionLabel('Related semantics mixins / classes', kVioletDeep),
-                bulletRow(
-                  'RenderSemanticsAnnotations — labels, hints, values, flags, actions',
-                ),
-                bulletRow(
-                  'RenderSemanticsGestureHandler — handles onTap, onLongPress for semantics',
-                ),
-                bulletRow(
-                  'RenderMergeSemantics — flattens descendants into one semantic node',
-                ),
-                bulletRow(
-                  'RenderBlockSemantics — hides earlier siblings from accessibility',
-                ),
-                bulletRow(
-                  'RenderExcludeSemantics — drops a subtree from semantics output',
-                ),
+                bulletRow('RenderSemanticsAnnotations — labels, hints, values, flags, actions'),
+                bulletRow('RenderSemanticsGestureHandler — handles onTap, onLongPress for semantics'),
+                bulletRow('RenderMergeSemantics — flattens descendants into one semantic node'),
+                bulletRow('RenderBlockSemantics — hides earlier siblings from accessibility'),
+                bulletRow('RenderExcludeSemantics — drops a subtree from semantics output'),
                 specimenFrame(
                   label: 'live specimen — Semantics-decorated cards',
                   accent: kVioletDeep,
@@ -1776,28 +1429,18 @@ dynamic build(BuildContext context) {
                         hint: 'Activate to confirm',
                         button: true,
                         child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 14.0,
-                            vertical: 10.0,
-                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
                           decoration: BoxDecoration(
                             color: kVioletDeep,
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Row(
                             children: <Widget>[
-                              Icon(
-                                Icons.check_rounded,
-                                color: Color(0xFFFFFFFF),
-                                size: 18.0,
-                              ),
+                              Icon(Icons.check_rounded, color: Color(0xFFFFFFFF), size: 18.0),
                               SizedBox(width: 8.0),
                               Text(
                                 'Confirm',
-                                style: TextStyle(
-                                  color: Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w700),
                               ),
                             ],
                           ),
@@ -1808,10 +1451,7 @@ dynamic build(BuildContext context) {
                         header: true,
                         label: 'Inbox section, 3 unread messages',
                         child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 14.0,
-                            vertical: 10.0,
-                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: kOrangeGlow,
@@ -1819,10 +1459,7 @@ dynamic build(BuildContext context) {
                           ),
                           child: Text(
                             'Inbox (3)',
-                            style: TextStyle(
-                              color: kCharcoal,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: TextStyle(color: kCharcoal, fontWeight: FontWeight.w700),
                           ),
                         ),
                       ),
@@ -1836,24 +1473,11 @@ dynamic build(BuildContext context) {
                           ),
                           child: Row(
                             children: <Widget>[
-                              Icon(
-                                Icons.notifications_outlined,
-                                size: 18.0,
-                                color: kMintDeep,
-                              ),
+                              Icon(Icons.notifications_outlined, size: 18.0, color: kMintDeep),
                               SizedBox(width: 8.0),
-                              Text(
-                                '5',
-                                style: TextStyle(
-                                  color: kCharcoal,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
+                              Text('5', style: TextStyle(color: kCharcoal, fontWeight: FontWeight.w800)),
                               SizedBox(width: 4.0),
-                              Text(
-                                'alerts',
-                                style: TextStyle(color: kCharcoal),
-                              ),
+                              Text('alerts', style: TextStyle(color: kCharcoal)),
                             ],
                           ),
                         ),
@@ -1868,10 +1492,7 @@ dynamic build(BuildContext context) {
                           ),
                           child: Text(
                             'Decorative ribbon — excluded from semantics',
-                            style: TextStyle(
-                              color: kCharcoalSoft,
-                              fontStyle: FontStyle.italic,
-                            ),
+                            style: TextStyle(color: kCharcoalSoft, fontStyle: FontStyle.italic),
                           ),
                         ),
                       ),
@@ -1899,8 +1520,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '10',
             title: 'ParentData family',
-            subtitle:
-                'The shapes of data that parents hang off their children.',
+            subtitle: 'The shapes of data that parents hang off their children.',
             accent: kOrangeWarm,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1942,20 +1562,12 @@ dynamic build(BuildContext context) {
                         SizedBox(height: 6.0),
                         Text(
                           'adds: ${pd['addsWhat']}',
-                          style: TextStyle(
-                            color: kCharcoal,
-                            fontSize: 12.5,
-                            height: 1.4,
-                          ),
+                          style: TextStyle(color: kCharcoal, fontSize: 12.5, height: 1.4),
                         ),
                         SizedBox(height: 3.0),
                         Text(
                           'used by: ${pd['usedBy']}',
-                          style: TextStyle(
-                            color: kCharcoalSoft,
-                            fontSize: 11.5,
-                            fontStyle: FontStyle.italic,
-                          ),
+                          style: TextStyle(color: kCharcoalSoft, fontSize: 11.5, fontStyle: FontStyle.italic),
                         ),
                       ],
                     ),
@@ -1970,8 +1582,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '11',
             title: 'Mixin layering: how RenderFlex is built',
-            subtitle:
-                'A concrete class as a stack of mixins on a RenderBox base.',
+            subtitle: 'A concrete class as a stack of mixins on a RenderBox base.',
             accent: kVioletDeep,
             body: Column(
               children: <Widget>[
@@ -1979,32 +1590,13 @@ dynamic build(BuildContext context) {
                 treeConnector(),
                 treeNode('RenderBox', kVioletDeep, width: 260.0),
                 treeConnector(),
-                treeNode(
-                  '+ ContainerRenderObjectMixin<RenderBox, FlexParentData>',
-                  kOrangeMolten,
-                  isMixin: true,
-                  width: 360.0,
-                ),
+                treeNode('+ ContainerRenderObjectMixin<RenderBox, FlexParentData>', kOrangeMolten, isMixin: true, width: 360.0),
                 treeConnector(color: kOrangeMolten),
-                treeNode(
-                  '+ RenderBoxContainerDefaultsMixin<RenderBox, FlexParentData>',
-                  kAmber,
-                  isMixin: true,
-                  width: 360.0,
-                ),
+                treeNode('+ RenderBoxContainerDefaultsMixin<RenderBox, FlexParentData>', kAmber, isMixin: true, width: 360.0),
                 treeConnector(color: kAmber),
-                treeNode(
-                  '+ DebugOverflowIndicatorMixin',
-                  kCrimson,
-                  isMixin: true,
-                  width: 280.0,
-                ),
+                treeNode('+ DebugOverflowIndicatorMixin', kCrimson, isMixin: true, width: 280.0),
                 treeConnector(color: kCrimson),
-                treeNode(
-                  '= RenderFlex (Row / Column)',
-                  kVioletMid,
-                  width: 260.0,
-                ),
+                treeNode('= RenderFlex (Row / Column)', kVioletMid, width: 260.0),
                 SizedBox(height: 12.0),
                 Container(
                   padding: EdgeInsets.all(10.0),
@@ -2017,11 +1609,7 @@ dynamic build(BuildContext context) {
                     'Reading the stack: each + adds a focused contract. RenderFlex ends up with '
                     'child management, default box container helpers, debug overflow paint, and '
                     'flex-specific layout code -- none of which had to be duplicated from sibling classes.',
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: kCharcoal,
-                      height: 1.5,
-                    ),
+                    style: TextStyle(fontSize: 12.5, color: kCharcoal, height: 1.5),
                   ),
                 ),
               ],
@@ -2034,8 +1622,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '12',
             title: 'Composite specimen: which mixin powers which part?',
-            subtitle:
-                'A small annotated tree showing several mixins working together.',
+            subtitle: 'A small annotated tree showing several mixins working together.',
             accent: kOrangeMolten,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2056,10 +1643,7 @@ dynamic build(BuildContext context) {
                           alignment: Alignment.center,
                           child: Text(
                             'Header — SliverToBoxAdapter -> RenderProxySliverMixin',
-                            style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontSize: 11.5,
-                            ),
+                            style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.5),
                           ),
                         ),
                       ),
@@ -2085,10 +1669,7 @@ dynamic build(BuildContext context) {
                                   SizedBox(width: 8.0),
                                   Text(
                                     'List item $i — ContainerRenderObjectMixin children',
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: kCharcoal,
-                                    ),
+                                    style: TextStyle(fontSize: 12.0, color: kCharcoal),
                                   ),
                                 ],
                               ),
@@ -2104,10 +1685,7 @@ dynamic build(BuildContext context) {
                           alignment: Alignment.center,
                           child: Text(
                             'Footer — RenderProxyBoxMixin (ColoredBox) under SliverToBoxAdapter',
-                            style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontSize: 11.5,
-                            ),
+                            style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.5),
                           ),
                         ),
                       ),
@@ -2115,25 +1693,11 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 12.0),
-                bulletRow(
-                  'CustomScrollView -> RenderViewport with ContainerRenderObjectMixin<RenderSliver, SliverPhysicalContainerParentData>',
-                ),
-                bulletRow(
-                  'SliverToBoxAdapter -> RenderSliverSingleBoxAdapter (single-child slot)',
-                  color: kOrangeMolten,
-                ),
-                bulletRow(
-                  'SliverOpacity -> RenderProxySliverMixin (forwards geometry, modulates alpha)',
-                  color: kAmber,
-                ),
-                bulletRow(
-                  'SliverList -> ContainerRenderObjectMixin over RenderBox children',
-                  color: kMintDeep,
-                ),
-                bulletRow(
-                  'Each row Container -> RenderColoredBox / RenderDecoratedBox using RenderProxyBoxMixin',
-                  color: kCrimson,
-                ),
+                bulletRow('CustomScrollView -> RenderViewport with ContainerRenderObjectMixin<RenderSliver, SliverPhysicalContainerParentData>'),
+                bulletRow('SliverToBoxAdapter -> RenderSliverSingleBoxAdapter (single-child slot)', color: kOrangeMolten),
+                bulletRow('SliverOpacity -> RenderProxySliverMixin (forwards geometry, modulates alpha)', color: kAmber),
+                bulletRow('SliverList -> ContainerRenderObjectMixin over RenderBox children', color: kMintDeep),
+                bulletRow('Each row Container -> RenderColoredBox / RenderDecoratedBox using RenderProxyBoxMixin', color: kCrimson),
               ],
             ),
           ),
@@ -2163,11 +1727,7 @@ dynamic build(BuildContext context) {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Icon(
-                              Icons.menu_book_outlined,
-                              size: 16.0,
-                              color: kAmber,
-                            ),
+                            Icon(Icons.menu_book_outlined, size: 16.0, color: kAmber),
                             SizedBox(width: 6.0),
                             Expanded(
                               child: Text(
@@ -2188,21 +1748,14 @@ dynamic build(BuildContext context) {
                           children: <Widget>[
                             for (final m in (r['mixins'] as List<String>))
                               Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                  vertical: 3.0,
-                                ),
+                                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                                 decoration: BoxDecoration(
                                   color: kVioletSoft,
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 child: Text(
                                   m,
-                                  style: TextStyle(
-                                    color: kVioletDeep,
-                                    fontSize: 10.5,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: TextStyle(color: kVioletDeep, fontSize: 10.5, fontWeight: FontWeight.w600),
                                 ),
                               ),
                           ],
@@ -2222,8 +1775,7 @@ dynamic build(BuildContext context) {
           anatomyCard(
             index: '14',
             title: 'Comparison table',
-            subtitle:
-                'Mixin x purpose x arity x ParentData x representative consumer.',
+            subtitle: 'Mixin x purpose x arity x ParentData x representative consumer.',
             accent: kVioletMid,
             body: Container(
               decoration: BoxDecoration(
@@ -2245,10 +1797,7 @@ dynamic build(BuildContext context) {
                               )
                             : null,
                       ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 8.0,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                       child: Row(
                         children: <Widget>[
                           for (int c = 0; c < comparisonRows[i].length; c += 1)
@@ -2259,12 +1808,8 @@ dynamic build(BuildContext context) {
                                 style: TextStyle(
                                   color: i == 0 ? Color(0xFFFFFFFF) : kCharcoal,
                                   fontSize: 11.0,
-                                  fontWeight: i == 0
-                                      ? FontWeight.w800
-                                      : FontWeight.w500,
-                                  fontFamily: c == 0 || i == 0
-                                      ? null
-                                      : 'monospace',
+                                  fontWeight: i == 0 ? FontWeight.w800 : FontWeight.w500,
+                                  fontFamily: c == 0 || i == 0 ? null : 'monospace',
                                 ),
                               ),
                             ),
@@ -2301,11 +1846,7 @@ dynamic build(BuildContext context) {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Icon(
-                              Icons.warning_amber_rounded,
-                              size: 18.0,
-                              color: kCrimson,
-                            ),
+                            Icon(Icons.warning_amber_rounded, size: 18.0, color: kCrimson),
                             SizedBox(width: 8.0),
                             Expanded(
                               child: Text(
@@ -2322,11 +1863,7 @@ dynamic build(BuildContext context) {
                         SizedBox(height: 6.0),
                         Text(
                           p['why']!,
-                          style: TextStyle(
-                            color: kCharcoal,
-                            fontSize: 12.5,
-                            height: 1.5,
-                          ),
+                          style: TextStyle(color: kCharcoal, fontSize: 12.5, height: 1.5),
                         ),
                       ],
                     ),
@@ -2347,34 +1884,18 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 sectionLabel('DebugCreator', kCharcoalSoft),
-                bulletRow(
-                  'Object attached to RenderObject.debugCreator in debug builds.',
-                ),
-                bulletRow(
-                  'Carries the Element that created the render object, used by debug error messages.',
-                ),
-                bulletRow(
-                  'Never present in release builds; consumers must guard with kDebugMode.',
-                ),
+                bulletRow('Object attached to RenderObject.debugCreator in debug builds.'),
+                bulletRow('Carries the Element that created the render object, used by debug error messages.'),
+                bulletRow('Never present in release builds; consumers must guard with kDebugMode.'),
                 SizedBox(height: 8.0),
                 sectionLabel('RootElementMixin', kCharcoalSoft),
-                bulletRow(
-                  'Mixin applied to Element subclasses that anchor a fresh render tree.',
-                ),
-                bulletRow(
-                  'Used by RenderObjectToWidgetAdapter to bridge widget tree into an existing RenderObject.',
-                ),
-                bulletRow(
-                  'Hosts a private build owner and assignment hook for the root render object.',
-                ),
+                bulletRow('Mixin applied to Element subclasses that anchor a fresh render tree.'),
+                bulletRow('Used by RenderObjectToWidgetAdapter to bridge widget tree into an existing RenderObject.'),
+                bulletRow('Hosts a private build owner and assignment hook for the root render object.'),
                 SizedBox(height: 8.0),
                 sectionLabel('RenderTreeRootElement', kCharcoalSoft),
-                bulletRow(
-                  'Marker mixin signalling that an element introduces a new render tree root.',
-                ),
-                bulletRow(
-                  'Used internally by adapters and tests; not typically extended in app code.',
-                ),
+                bulletRow('Marker mixin signalling that an element introduces a new render tree root.'),
+                bulletRow('Used internally by adapters and tests; not typically extended in app code.'),
                 codeBlock(
                   '// RootElementMixin (sketch)\n'
                   'mixin RootElementMixin on Element {\n'
@@ -2408,10 +1929,7 @@ dynamic build(BuildContext context) {
                 for (final g in glossary)
                   Container(
                     margin: EdgeInsets.only(bottom: 6.0),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 8.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                     decoration: BoxDecoration(
                       color: kParchmentMid,
                       borderRadius: BorderRadius.circular(8.0),
@@ -2434,11 +1952,7 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: Text(
                             g['def']!,
-                            style: TextStyle(
-                              color: kCharcoal,
-                              fontSize: 12.0,
-                              height: 1.45,
-                            ),
+                            style: TextStyle(color: kCharcoal, fontSize: 12.0, height: 1.45),
                           ),
                         ),
                       ],
@@ -2486,39 +2000,24 @@ dynamic build(BuildContext context) {
                   'its with clause tells you its child arity, its parent-data shape, whether it forwards layout, '
                   'and whether it injects semantics. The hexagonal badges in this gallery are the alphabet; '
                   'concrete render classes spell entire words by snapping them together.',
-                  style: TextStyle(
-                    color: kVioletGlow,
-                    fontSize: 13.5,
-                    height: 1.55,
-                  ),
+                  style: TextStyle(color: kVioletGlow, fontSize: 13.5, height: 1.55),
                 ),
                 SizedBox(height: 14.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 8.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                   decoration: BoxDecoration(
                     color: Color(0x22FFFFFF),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.science_outlined,
-                        color: kOrangeGlow,
-                        size: 16.0,
-                      ),
+                      Icon(Icons.science_outlined, color: kOrangeGlow, size: 16.0),
                       SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
                           'Specimens: Opacity, ColoredBox, IgnorePointer, Row, CustomScrollView with SliverOpacity, '
                           'LayoutBuilder, Semantics, MergeSemantics, ExcludeSemantics, Text.rich with WidgetSpan.',
-                          style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 12.0,
-                            height: 1.45,
-                          ),
+                          style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0, height: 1.45),
                         ),
                       ),
                     ],

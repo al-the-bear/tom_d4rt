@@ -6,8 +6,7 @@ const List<_ThemeModel> _themeModels = <_ThemeModel>[
   _ThemeModel(
     id: 'aqua',
     name: 'Aqua Console',
-    subtitle:
-        'Cool routing map for interaction shields and pass-through zones.',
+    subtitle: 'Cool routing map for interaction shields and pass-through zones.',
     seed: Color(0xFF0369A1),
     brightness: Brightness.light,
   ),
@@ -31,8 +30,7 @@ const List<_ScenarioModel> _scenarioModels = <_ScenarioModel>[
   _ScenarioModel(
     mode: _ScenarioMode.shieldGrid,
     title: 'Shield Grid',
-    subtitle:
-        'Several controls routed through toggleable AbsorbPointer shields.',
+    subtitle: 'Several controls routed through toggleable AbsorbPointer shields.',
   ),
   _ScenarioModel(
     mode: _ScenarioMode.nestedStacks,
@@ -77,28 +75,23 @@ const List<String> _guideLines = <String>[
 const List<_FaqModel> _faqModels = <_FaqModel>[
   _FaqModel(
     question: 'When should I use AbsorbPointer?',
-    answer:
-        'Use it when you need to temporarily block interactions for a subtree while preserving layout and visuals.',
+    answer: 'Use it when you need to temporarily block interactions for a subtree while preserving layout and visuals.',
   ),
   _FaqModel(
     question: 'How is it different from IgnorePointer?',
-    answer:
-        'IgnorePointer removes subtree from hit testing; AbsorbPointer absorbs events and can stop routing behind it.',
+    answer: 'IgnorePointer removes subtree from hit testing; AbsorbPointer absorbs events and can stop routing behind it.',
   ),
   _FaqModel(
     question: 'Can I partially unblock controls?',
-    answer:
-        'Yes, by splitting UI into multiple absorbers and toggling each zone independently.',
+    answer: 'Yes, by splitting UI into multiple absorbers and toggling each zone independently.',
   ),
   _FaqModel(
     question: 'Why keep diagnostics in demos?',
-    answer:
-        'They prove which interactions were blocked versus passed through in real runtime behavior.',
+    answer: 'They prove which interactions were blocked versus passed through in real runtime behavior.',
   ),
   _FaqModel(
     question: 'Should I animate shield transitions?',
-    answer:
-        'Yes, gentle animation and labels reduce confusion when controls become disabled temporarily.',
+    answer: 'Yes, gentle animation and labels reduce confusion when controls become disabled temporarily.',
   ),
 ];
 
@@ -128,11 +121,7 @@ class _ThemeModel {
 }
 
 class _ScenarioModel {
-  const _ScenarioModel({
-    required this.mode,
-    required this.title,
-    required this.subtitle,
-  });
+  const _ScenarioModel({required this.mode, required this.title, required this.subtitle});
 
   final _ScenarioMode mode;
   final String title;
@@ -163,12 +152,7 @@ class _RouteEvent {
 }
 
 class _MetricModel {
-  const _MetricModel({
-    required this.title,
-    required this.value,
-    required this.note,
-    required this.icon,
-  });
+  const _MetricModel({required this.title, required this.value, required this.note, required this.icon});
 
   final String title;
   final String value;
@@ -200,12 +184,10 @@ class _RenderAbsorbPointerStudio extends StatefulWidget {
   const _RenderAbsorbPointerStudio();
 
   @override
-  State<_RenderAbsorbPointerStudio> createState() =>
-      _RenderAbsorbPointerStudioState();
+  State<_RenderAbsorbPointerStudio> createState() => _RenderAbsorbPointerStudioState();
 }
 
-class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
-    with SingleTickerProviderStateMixin {
+class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> with SingleTickerProviderStateMixin {
   late final AnimationController _pulse = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 9400),
@@ -257,12 +239,8 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
   String _phase = 'idle';
   String _statusText = 'Ready';
 
-  final TextEditingController _nameController = TextEditingController(
-    text: 'Alex',
-  );
-  final TextEditingController _noteController = TextEditingController(
-    text: 'AbsorbPointer deep demo',
-  );
+  final TextEditingController _nameController = TextEditingController(text: 'Alex');
+  final TextEditingController _noteController = TextEditingController(text: 'AbsorbPointer deep demo');
 
   _SnapshotModel _snapshot = const _SnapshotModel(
     scenario: 'shieldGrid',
@@ -279,12 +257,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _recordEvent(
-        zone: 'system',
-        action: 'init',
-        blocked: false,
-        note: 'RenderAbsorbPointer studio initialized.',
-      );
+      _recordEvent(zone: 'system', action: 'init', blocked: false, note: 'RenderAbsorbPointer studio initialized.');
     });
   }
 
@@ -298,12 +271,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
 
   bool get _effectiveAbsorb => _globalAbsorb;
 
-  void _recordEvent({
-    required String zone,
-    required String action,
-    required bool blocked,
-    required String note,
-  }) {
+  void _recordEvent({required String zone, required String action, required bool blocked, required String note}) {
     setState(() {
       if (blocked) {
         _blockedCount += 1;
@@ -311,13 +279,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
         _allowedCount += 1;
       }
       _events = <_RouteEvent>[
-        _RouteEvent(
-          time: DateTime.now(),
-          zone: zone,
-          action: action,
-          blocked: blocked,
-          note: note,
-        ),
+        _RouteEvent(time: DateTime.now(), zone: zone, action: action, blocked: blocked, note: note),
         ..._events,
       ].take(180).toList(growable: false);
     });
@@ -325,19 +287,11 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
 
   void _addHeat(Offset local) {
     setState(() {
-      _heatPoints = <Offset>[
-        local,
-        ..._heatPoints,
-      ].take(120).toList(growable: false);
+      _heatPoints = <Offset>[local, ..._heatPoints].take(120).toList(growable: false);
     });
   }
 
-  void _onZoneAction({
-    required String zone,
-    required String action,
-    required bool absorbed,
-    String note = '',
-  }) {
+  void _onZoneAction({required String zone, required String action, required bool absorbed, String note = ''}) {
     setState(() {
       _phase = absorbed ? 'blocked' : 'allowed';
       _statusText = absorbed ? 'Blocked at $zone' : 'Allowed at $zone';
@@ -349,9 +303,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
       zone: zone,
       action: action,
       blocked: absorbed,
-      note: note.isEmpty
-          ? (absorbed ? 'Absorbed by shield' : 'Action executed')
-          : note,
+      note: note.isEmpty ? (absorbed ? 'Absorbed by shield' : 'Action executed') : note,
     );
   }
 
@@ -392,12 +344,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
     } else {
       _pulse.stop();
     }
-    _recordEvent(
-      zone: 'control',
-      action: 'toggle:$key',
-      blocked: false,
-      note: 'Set to $next',
-    );
+    _recordEvent(zone: 'control', action: 'toggle:$key', blocked: false, note: 'Set to $next');
   }
 
   void _reset() {
@@ -444,47 +391,25 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
       _heatPoints = const <Offset>[];
       _nameController.text = 'Alex';
       _noteController.text = 'AbsorbPointer deep demo';
-      _snapshot = const _SnapshotModel(
-        scenario: 'shieldGrid',
-        stage: 'ready',
-        globalAbsorb: false,
-        blocked: 0,
-        allowed: 0,
-      );
+      _snapshot = const _SnapshotModel(scenario: 'shieldGrid', stage: 'ready', globalAbsorb: false, blocked: 0, allowed: 0);
     });
     _pulse.repeat();
-    _recordEvent(
-      zone: 'system',
-      action: 'reset',
-      blocked: false,
-      note: 'Studio reset to defaults',
-    );
+    _recordEvent(zone: 'system', action: 'reset', blocked: false, note: 'Studio reset to defaults');
   }
 
   @override
   Widget build(BuildContext context) {
     final _ThemeModel theme = _themeModels[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(
-      seedColor: theme.seed,
-      brightness: theme.brightness,
-    );
+    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
 
     return Theme(
-      data: ThemeData(
-        useMaterial3: true,
-        colorScheme: scheme,
-        brightness: theme.brightness,
-      ),
+      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                scheme.surface,
-                scheme.surfaceContainerLow,
-                scheme.surfaceContainer,
-              ],
+              colors: <Color>[scheme.surface, scheme.surfaceContainerLow, scheme.surfaceContainer],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -539,30 +464,11 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
                 Icon(Icons.block_outlined, color: scheme.primary, size: 26),
-                Text(
-                  'RenderAbsorbPointer Input Routing Lab',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 25,
-                  ),
-                ),
+                Text('RenderAbsorbPointer Input Routing Lab', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 25)),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: scheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  child: Text(
-                    _scenarioModels[_scenarioIndex].title,
-                    style: TextStyle(
-                      color: scheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
+                  child: Text(_scenarioModels[_scenarioIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
                 ),
               ],
             ),
@@ -586,14 +492,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Theme Profiles',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
+            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -609,37 +508,20 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _themeSwitches += 1;
                       _phase = 'theme';
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'theme',
-                      blocked: false,
-                      note: profile.id,
-                    );
+                    _recordEvent(zone: 'control', action: 'theme', blocked: false, note: profile.id);
                   },
                 );
               }),
             ),
             const SizedBox(height: 8),
-            Text(
-              _themeModels[_themeIndex].subtitle,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_themeModels[_themeIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
             const Divider(height: 22),
-            Text(
-              'Scenarios',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
+            Text('Scenarios', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_scenarioModels.length, (
-                int index,
-              ) {
+              children: List<Widget>.generate(_scenarioModels.length, (int index) {
                 final _ScenarioModel scenario = _scenarioModels[index];
                 return FilterChip(
                   selected: _scenarioIndex == index,
@@ -650,21 +532,13 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _scenarioSwitches += 1;
                       _phase = 'scenario';
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'scenario',
-                      blocked: false,
-                      note: scenario.mode.name,
-                    );
+                    _recordEvent(zone: 'control', action: 'scenario', blocked: false, note: scenario.mode.name);
                   },
                 );
               }),
             ),
             const SizedBox(height: 8),
-            Text(
-              _scenarioModels[_scenarioIndex].subtitle,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_scenarioModels[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
       ),
@@ -682,27 +556,13 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'Absorption Controls',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
+                Text('Absorption Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
                 const Spacer(),
-                OutlinedButton.icon(
-                  onPressed: _reset,
-                  icon: const Icon(Icons.restart_alt),
-                  label: const Text('Reset'),
-                ),
+                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Tune global and local absorbers, visuals, and interaction routing diagnostics.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Tune global and local absorbers, visuals, and interaction routing diagnostics.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 8),
             _slider(
               scheme: scheme,
@@ -721,8 +581,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               min: 0,
               max: 36,
               divisions: 72,
-              onChanged: (double value) =>
-                  setState(() => _cardRoundness = value),
+              onChanged: (double value) => setState(() => _cardRoundness = value),
               onEnded: (double value) => _onSlider('cardRoundness', value),
             ),
             _slider(
@@ -742,8 +601,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               min: 0,
               max: 0.9,
               divisions: 90,
-              onChanged: (double value) =>
-                  setState(() => _overlayAlpha = value),
+              onChanged: (double value) => setState(() => _overlayAlpha = value),
               onEnded: (double value) => _onSlider('overlayAlpha', value),
             ),
             _slider(
@@ -753,8 +611,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               min: 0,
               max: 1,
               divisions: 100,
-              onChanged: (double value) =>
-                  setState(() => _heatIntensity = value),
+              onChanged: (double value) => setState(() => _heatIntensity = value),
               onEnded: (double value) => _onSlider('heatIntensity', value),
             ),
             _slider(
@@ -812,46 +669,14 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(
-                  value: _globalAbsorb,
-                  onChanged: (bool? v) => _toggle('globalAbsorb', v),
-                  child: const Text('Global absorb'),
-                ),
-                CheckboxMenuButton(
-                  value: _showGrid,
-                  onChanged: (bool? v) => _toggle('grid', v),
-                  child: const Text('Show grid'),
-                ),
-                CheckboxMenuButton(
-                  value: _showLabels,
-                  onChanged: (bool? v) => _toggle('labels', v),
-                  child: const Text('Show labels'),
-                ),
-                CheckboxMenuButton(
-                  value: _showHeat,
-                  onChanged: (bool? v) => _toggle('heat', v),
-                  child: const Text('Show heat'),
-                ),
-                CheckboxMenuButton(
-                  value: _showDiagnostics,
-                  onChanged: (bool? v) => _toggle('diagnostics', v),
-                  child: const Text('Show diagnostics'),
-                ),
-                CheckboxMenuButton(
-                  value: _showGuide,
-                  onChanged: (bool? v) => _toggle('guide', v),
-                  child: const Text('Show guide'),
-                ),
-                CheckboxMenuButton(
-                  value: _showTimeline,
-                  onChanged: (bool? v) => _toggle('timeline', v),
-                  child: const Text('Show timeline'),
-                ),
-                CheckboxMenuButton(
-                  value: _animate,
-                  onChanged: (bool? v) => _toggle('animate', v),
-                  child: const Text('Animate background'),
-                ),
+                CheckboxMenuButton(value: _globalAbsorb, onChanged: (bool? v) => _toggle('globalAbsorb', v), child: const Text('Global absorb')),
+                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) => _toggle('grid', v), child: const Text('Show grid')),
+                CheckboxMenuButton(value: _showLabels, onChanged: (bool? v) => _toggle('labels', v), child: const Text('Show labels')),
+                CheckboxMenuButton(value: _showHeat, onChanged: (bool? v) => _toggle('heat', v), child: const Text('Show heat')),
+                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) => _toggle('diagnostics', v), child: const Text('Show diagnostics')),
+                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) => _toggle('guide', v), child: const Text('Show guide')),
+                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) => _toggle('timeline', v), child: const Text('Show timeline')),
+                CheckboxMenuButton(value: _animate, onChanged: (bool? v) => _toggle('animate', v), child: const Text('Animate background')),
               ],
             ),
             const SizedBox(height: 8),
@@ -866,12 +691,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _zoneAAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'zoneAAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'zoneAAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Zone A absorb'),
                 ),
@@ -882,12 +702,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _zoneBAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'zoneBAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'zoneBAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Zone B absorb'),
                 ),
@@ -898,12 +713,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _zoneCAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'zoneCAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'zoneCAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Zone C absorb'),
                 ),
@@ -914,12 +724,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _zoneDAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'zoneDAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'zoneDAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Zone D absorb'),
                 ),
@@ -930,12 +735,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _modalAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'modalAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'modalAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Modal absorb'),
                 ),
@@ -946,12 +746,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _dragAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'dragAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'dragAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Drag absorb'),
                 ),
@@ -962,12 +757,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _formAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'formAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'formAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Form absorb'),
                 ),
@@ -978,12 +768,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _nestedOuterAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'nestedOuterAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'nestedOuterAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Nested outer absorb'),
                 ),
@@ -994,12 +779,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       _nestedInnerAbsorb = value;
                       _controlEdits += 1;
                     });
-                    _recordEvent(
-                      zone: 'control',
-                      action: 'nestedInnerAbsorb',
-                      blocked: false,
-                      note: '$value',
-                    );
+                    _recordEvent(zone: 'control', action: 'nestedInnerAbsorb', blocked: false, note: '$value');
                   },
                   label: const Text('Nested inner absorb'),
                 ),
@@ -1016,12 +796,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
       _controlEdits += 1;
       _phase = 'control';
     });
-    _recordEvent(
-      zone: 'control',
-      action: 'slider:$name',
-      blocked: false,
-      note: value.toStringAsFixed(2),
-    );
+    _recordEvent(zone: 'control', action: 'slider:$name', blocked: false, note: value.toStringAsFixed(2));
   }
 
   Widget _slider({
@@ -1039,23 +814,11 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(
-              child: Text(label, style: TextStyle(color: scheme.onSurface)),
-            ),
-            Text(
-              value.toStringAsFixed(2),
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
+            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
-        Slider(
-          value: value,
-          min: min,
-          max: max,
-          divisions: divisions,
-          onChanged: onChanged,
-          onChangeEnd: onEnded,
-        ),
+        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onEnded),
       ],
     );
   }
@@ -1078,19 +841,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Interaction Stage',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Interaction Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
-            Text(
-              'Visual stage showing blocked and allowed routes under AbsorbPointer configurations.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Visual stage showing blocked and allowed routes under AbsorbPointer configurations.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 12),
             SizedBox(
               height: _stageHeight,
@@ -1104,13 +857,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                   child: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
-                      if (_showGrid)
-                        CustomPaint(
-                          painter: _RoutingGridPainter(
-                            progress: pulse,
-                            drift: _drift,
-                          ),
-                        ),
+                      if (_showGrid) CustomPaint(painter: _RoutingGridPainter(progress: pulse, drift: _drift)),
                       Listener(
                         onPointerDown: (PointerDownEvent e) {
                           _addHeat(e.localPosition);
@@ -1124,32 +871,17 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       if (_showHeat)
                         IgnorePointer(
                           child: CustomPaint(
-                            painter: _HeatPainter(
-                              points: _heatPoints,
-                              intensity: _heatIntensity,
-                            ),
+                            painter: _HeatPainter(points: _heatPoints, intensity: _heatIntensity),
                           ),
                         ),
                       if (_effectiveAbsorb)
                         IgnorePointer(
                           child: Container(
-                            color: Colors.black.withValues(
-                              alpha:
-                                  _overlayAlpha +
-                                  (_lockPulse *
-                                      0.2 *
-                                      (0.5 +
-                                          0.5 * math.sin(pulse * math.pi * 2))),
-                            ),
+                            color: Colors.black.withValues(alpha: _overlayAlpha + (_lockPulse * 0.2 * (0.5 + 0.5 * math.sin(pulse * math.pi * 2)))),
                             child: const Center(
                               child: Text(
                                 'GLOBAL ABSORB ACTIVE',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 24,
-                                  letterSpacing: 1.2,
-                                ),
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 24, letterSpacing: 1.2),
                               ),
                             ),
                           ),
@@ -1190,25 +922,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: _shieldZoneCard(
-                    scheme: scheme,
-                    zone: 'A',
-                    absorb: _zoneAAbsorb,
-                    colorA: scheme.primary,
-                    colorB: scheme.secondary,
-                  ),
-                ),
+                Expanded(child: _shieldZoneCard(scheme: scheme, zone: 'A', absorb: _zoneAAbsorb, colorA: scheme.primary, colorB: scheme.secondary)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _shieldZoneCard(
-                    scheme: scheme,
-                    zone: 'B',
-                    absorb: _zoneBAbsorb,
-                    colorA: scheme.tertiary,
-                    colorB: scheme.primary,
-                  ),
-                ),
+                Expanded(child: _shieldZoneCard(scheme: scheme, zone: 'B', absorb: _zoneBAbsorb, colorA: scheme.tertiary, colorB: scheme.primary)),
               ],
             ),
           ),
@@ -1216,25 +932,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: _shieldZoneCard(
-                    scheme: scheme,
-                    zone: 'C',
-                    absorb: _zoneCAbsorb,
-                    colorA: scheme.secondary,
-                    colorB: scheme.tertiary,
-                  ),
-                ),
+                Expanded(child: _shieldZoneCard(scheme: scheme, zone: 'C', absorb: _zoneCAbsorb, colorA: scheme.secondary, colorB: scheme.tertiary)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _shieldZoneCard(
-                    scheme: scheme,
-                    zone: 'D',
-                    absorb: _zoneDAbsorb,
-                    colorA: scheme.primary,
-                    colorB: scheme.tertiary,
-                  ),
-                ),
+                Expanded(child: _shieldZoneCard(scheme: scheme, zone: 'D', absorb: _zoneDAbsorb, colorA: scheme.primary, colorB: scheme.tertiary)),
               ],
             ),
           ),
@@ -1255,71 +955,33 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
       absorbing: blocked,
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: <Color>[
-              colorA.withValues(alpha: _zoneOpacity),
-              colorB.withValues(alpha: _zoneOpacity),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: LinearGradient(colors: <Color>[colorA.withValues(alpha: _zoneOpacity), colorB.withValues(alpha: _zoneOpacity)], begin: Alignment.topLeft, end: Alignment.bottomRight),
           borderRadius: BorderRadius.circular(_cardRoundness),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.45),
-            width: 1.5,
-          ),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 1.5),
         ),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              if (_showLabels)
-                Text(
-                  'Zone $zone',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 16,
-                  ),
-                ),
+              if (_showLabels) Text('Zone $zone', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16)),
               if (_showLabels) const SizedBox(height: 4),
-              if (_showLabels)
-                Text(
-                  blocked ? 'Absorbing input' : 'Passing input',
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
+              if (_showLabels) Text(blocked ? 'Absorbing input' : 'Passing input', style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w700, fontSize: 12)),
               const Spacer(),
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
                 children: <Widget>[
                   ElevatedButton(
-                    onPressed: () => _onZoneAction(
-                      zone: 'zone-$zone',
-                      action: 'primaryButton',
-                      absorbed: blocked,
-                    ),
+                    onPressed: () => _onZoneAction(zone: 'zone-$zone', action: 'primaryButton', absorbed: blocked),
                     child: const Text('Primary'),
                   ),
                   OutlinedButton(
-                    onPressed: () => _onZoneAction(
-                      zone: 'zone-$zone',
-                      action: 'secondaryButton',
-                      absorbed: blocked,
-                    ),
+                    onPressed: () => _onZoneAction(zone: 'zone-$zone', action: 'secondaryButton', absorbed: blocked),
                     child: const Text('Secondary'),
                   ),
                   FilledButton.tonal(
-                    onPressed: () => _onZoneAction(
-                      zone: 'zone-$zone',
-                      action: 'tonalButton',
-                      absorbed: blocked,
-                    ),
+                    onPressed: () => _onZoneAction(zone: 'zone-$zone', action: 'tonalButton', absorbed: blocked),
                     child: const Text('Tonal'),
                   ),
                 ],
@@ -1334,12 +996,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                           _lockPulse = value;
                           _controlEdits += 1;
                         });
-                        _onZoneAction(
-                          zone: 'zone-$zone',
-                          action: 'slider',
-                          absorbed: blocked,
-                          note: value.toStringAsFixed(2),
-                        );
+                        _onZoneAction(zone: 'zone-$zone', action: 'slider', absorbed: blocked, note: value.toStringAsFixed(2));
                       },
               ),
             ],
@@ -1363,32 +1020,16 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               child: Container(
                 height: 430,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      scheme.primary.withValues(alpha: _zoneOpacity),
-                      scheme.secondary.withValues(alpha: _zoneOpacity),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  gradient: LinearGradient(colors: <Color>[scheme.primary.withValues(alpha: _zoneOpacity), scheme.secondary.withValues(alpha: _zoneOpacity)], begin: Alignment.topLeft, end: Alignment.bottomRight),
                   borderRadius: BorderRadius.circular(_cardRoundness + 4),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.4),
-                    width: 2,
-                  ),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.4), width: 2),
                 ),
                 child: Stack(
                   children: <Widget>[
                     Positioned(
                       top: 14,
                       left: 14,
-                      child: Text(
-                        outerBlocked ? 'Outer absorbs' : 'Outer allows',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      child: Text(outerBlocked ? 'Outer absorbs' : 'Outer allows', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
                     ),
                     Center(
                       child: AbsorbPointer(
@@ -1397,50 +1038,26 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                           width: 420,
                           height: 250,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: <Color>[
-                                scheme.tertiary.withValues(alpha: 0.88),
-                                scheme.primary.withValues(alpha: 0.88),
-                              ],
-                            ),
+                            gradient: LinearGradient(colors: <Color>[scheme.tertiary.withValues(alpha: 0.88), scheme.primary.withValues(alpha: 0.88)]),
                             borderRadius: BorderRadius.circular(_cardRoundness),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.5),
-                              width: 1.8,
-                            ),
+                            border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.8),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  innerBlocked
-                                      ? 'Inner absorbs'
-                                      : 'Inner allows',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
+                                Text(innerBlocked ? 'Inner absorbs' : 'Inner allows', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
                                 const Spacer(),
                                 Row(
                                   children: <Widget>[
                                     ElevatedButton(
-                                      onPressed: () => _onZoneAction(
-                                        zone: 'nested-inner',
-                                        action: 'button',
-                                        absorbed: innerBlocked,
-                                      ),
+                                      onPressed: () => _onZoneAction(zone: 'nested-inner', action: 'button', absorbed: innerBlocked),
                                       child: const Text('Inner Action'),
                                     ),
                                     const SizedBox(width: 10),
                                     OutlinedButton(
-                                      onPressed: () => _onZoneAction(
-                                        zone: 'nested-inner',
-                                        action: 'outlined',
-                                        absorbed: innerBlocked,
-                                      ),
+                                      onPressed: () => _onZoneAction(zone: 'nested-inner', action: 'outlined', absorbed: innerBlocked),
                                       child: const Text('Inner Outline'),
                                     ),
                                   ],
@@ -1455,13 +1072,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       Positioned.fill(
                         child: IgnorePointer(
                           child: Container(
-                            color: Colors.black.withValues(
-                              alpha:
-                                  0.25 +
-                                  0.12 *
-                                      (0.5 +
-                                          0.5 * math.sin(pulse * math.pi * 2)),
-                            ),
+                            color: Colors.black.withValues(alpha: 0.25 + 0.12 * (0.5 + 0.5 * math.sin(pulse * math.pi * 2))),
                           ),
                         ),
                       ),
@@ -1472,9 +1083,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
             Positioned(
               right: 16,
               top: 16,
-              child: _modeBadge(
-                'outer=${_nestedOuterAbsorb ? 'absorb' : 'allow'} inner=${_nestedInnerAbsorb ? 'absorb' : 'allow'}',
-              ),
+              child: _modeBadge('outer=${_nestedOuterAbsorb ? 'absorb' : 'allow'} inner=${_nestedInnerAbsorb ? 'absorb' : 'allow'}'),
             ),
           ],
         ),
@@ -1493,27 +1102,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               Expanded(
                 child: Row(
                   children: <Widget>[
-                    Expanded(
-                      child: _actionPanel(
-                        scheme,
-                        'Back Panel A',
-                        'modal-back-a',
-                        blocked,
-                        scheme.primary,
-                        scheme.secondary,
-                      ),
-                    ),
+                    Expanded(child: _actionPanel(scheme, 'Back Panel A', 'modal-back-a', blocked, scheme.primary, scheme.secondary)),
                     const SizedBox(width: 12),
-                    Expanded(
-                      child: _actionPanel(
-                        scheme,
-                        'Back Panel B',
-                        'modal-back-b',
-                        blocked,
-                        scheme.tertiary,
-                        scheme.primary,
-                      ),
-                    ),
+                    Expanded(child: _actionPanel(scheme, 'Back Panel B', 'modal-back-b', blocked, scheme.tertiary, scheme.primary)),
                   ],
                 ),
               ),
@@ -1521,27 +1112,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               Expanded(
                 child: Row(
                   children: <Widget>[
-                    Expanded(
-                      child: _actionPanel(
-                        scheme,
-                        'Back Panel C',
-                        'modal-back-c',
-                        blocked,
-                        scheme.secondary,
-                        scheme.tertiary,
-                      ),
-                    ),
+                    Expanded(child: _actionPanel(scheme, 'Back Panel C', 'modal-back-c', blocked, scheme.secondary, scheme.tertiary)),
                     const SizedBox(width: 12),
-                    Expanded(
-                      child: _actionPanel(
-                        scheme,
-                        'Back Panel D',
-                        'modal-back-d',
-                        blocked,
-                        scheme.primary,
-                        scheme.tertiary,
-                      ),
-                    ),
+                    Expanded(child: _actionPanel(scheme, 'Back Panel D', 'modal-back-d', blocked, scheme.primary, scheme.tertiary)),
                   ],
                 ),
               ),
@@ -1552,39 +1125,18 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               child: AbsorbPointer(
                 absorbing: true,
                 child: Container(
-                  color: Colors.black.withValues(
-                    alpha:
-                        0.32 +
-                        0.18 * (0.5 + 0.5 * math.sin(pulse * math.pi * 2)),
-                  ),
+                  color: Colors.black.withValues(alpha: 0.32 + 0.18 * (0.5 + 0.5 * math.sin(pulse * math.pi * 2))),
                   child: Center(
                     child: Container(
                       width: 430,
                       padding: const EdgeInsets.all(18),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.5),
-                        ),
-                      ),
+                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white.withValues(alpha: 0.5))),
                       child: const Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Text(
-                            'Modal Gate Absorbing Input',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 22,
-                            ),
-                          ),
+                          Text('Modal Gate Absorbing Input', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 22)),
                           SizedBox(height: 8),
-                          Text(
-                            'Background panels are visible but non-interactive while absorb is active.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white70),
-                          ),
+                          Text('Background panels are visible but non-interactive while absorb is active.', textAlign: TextAlign.center, style: TextStyle(color: Colors.white70)),
                         ],
                       ),
                     ),
@@ -1597,63 +1149,26 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
     );
   }
 
-  Widget _actionPanel(
-    ColorScheme scheme,
-    String title,
-    String zone,
-    bool blocked,
-    Color c1,
-    Color c2,
-  ) {
+  Widget _actionPanel(ColorScheme scheme, String title, String zone, bool blocked, Color c1, Color c2) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: <Color>[
-            c1.withValues(alpha: _zoneOpacity),
-            c2.withValues(alpha: _zoneOpacity),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: LinearGradient(colors: <Color>[c1.withValues(alpha: _zoneOpacity), c2.withValues(alpha: _zoneOpacity)], begin: Alignment.topLeft, end: Alignment.bottomRight),
         borderRadius: BorderRadius.circular(_cardRoundness),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.45),
-          width: 1.5,
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 1.5),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
             const Spacer(),
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                ElevatedButton(
-                  onPressed: () => _onZoneAction(
-                    zone: zone,
-                    action: 'primary',
-                    absorbed: blocked,
-                  ),
-                  child: const Text('Action'),
-                ),
-                OutlinedButton(
-                  onPressed: () => _onZoneAction(
-                    zone: zone,
-                    action: 'secondary',
-                    absorbed: blocked,
-                  ),
-                  child: const Text('Route'),
-                ),
+                ElevatedButton(onPressed: () => _onZoneAction(zone: zone, action: 'primary', absorbed: blocked), child: const Text('Action')),
+                OutlinedButton(onPressed: () => _onZoneAction(zone: zone, action: 'secondary', absorbed: blocked), child: const Text('Route')),
               ],
             ),
           ],
@@ -1674,57 +1189,27 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
           child: GestureDetector(
             onPanUpdate: (DragUpdateDetails details) {
               if (blocked) {
-                _onZoneAction(
-                  zone: 'drag-deck',
-                  action: 'drag',
-                  absorbed: true,
-                );
+                _onZoneAction(zone: 'drag-deck', action: 'drag', absorbed: true);
                 return;
               }
               setState(() {
-                _dragX = (_dragX + (details.delta.dx / width)).clamp(
-                  0.05,
-                  0.95,
-                );
-                _dragY = (_dragY + (details.delta.dy / height)).clamp(
-                  0.05,
-                  0.95,
-                );
+                _dragX = (_dragX + (details.delta.dx / width)).clamp(0.05, 0.95);
+                _dragY = (_dragY + (details.delta.dy / height)).clamp(0.05, 0.95);
                 _dragCount += 1;
                 _phase = 'drag';
               });
-              _recordEvent(
-                zone: 'drag-deck',
-                action: 'drag',
-                blocked: false,
-                note:
-                    '(${_dragX.toStringAsFixed(2)}, ${_dragY.toStringAsFixed(2)})',
-              );
+              _recordEvent(zone: 'drag-deck', action: 'drag', blocked: false, note: '(${_dragX.toStringAsFixed(2)}, ${_dragY.toStringAsFixed(2)})');
             },
             onTapDown: (TapDownDetails details) {
               _addHeat(details.localPosition);
-              _onZoneAction(
-                zone: 'drag-deck',
-                action: 'tap',
-                absorbed: blocked,
-              );
+              _onZoneAction(zone: 'drag-deck', action: 'tap', absorbed: blocked);
             },
             child: Container(
               margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    scheme.primary.withValues(alpha: _zoneOpacity),
-                    scheme.tertiary.withValues(alpha: _zoneOpacity),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                gradient: LinearGradient(colors: <Color>[scheme.primary.withValues(alpha: _zoneOpacity), scheme.tertiary.withValues(alpha: _zoneOpacity)], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 borderRadius: BorderRadius.circular(_cardRoundness),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.45),
-                  width: 1.6,
-                ),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 1.6),
               ),
               child: Stack(
                 children: <Widget>[
@@ -1735,17 +1220,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       width: 84,
                       height: 84,
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(
-                          alpha:
-                              0.22 +
-                              0.25 *
-                                  (0.5 + 0.5 * math.sin(pulse * math.pi * 2)),
-                        ),
+                        color: Colors.white.withValues(alpha: 0.22 + 0.25 * (0.5 + 0.5 * math.sin(pulse * math.pi * 2))),
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.75),
-                          width: 2,
-                        ),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.75), width: 2),
                       ),
                       child: const Icon(Icons.open_with, color: Colors.white),
                     ),
@@ -1753,27 +1230,13 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                   Positioned(
                     left: 16,
                     top: 16,
-                    child: Text(
-                      blocked ? 'Drag deck absorbed' : 'Drag deck active',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                    child: Text(blocked ? 'Drag deck absorbed' : 'Drag deck active', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
                   ),
                   if (blocked)
                     Positioned.fill(
                       child: Container(
                         color: Colors.black.withValues(alpha: 0.25),
-                        child: const Center(
-                          child: Text(
-                            'Drag blocked by AbsorbPointer',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
+                        child: const Center(child: Text('Drag blocked by AbsorbPointer', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))),
                       ),
                     ),
                 ],
@@ -1798,29 +1261,14 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      scheme.primary.withValues(alpha: _zoneOpacity),
-                      scheme.secondary.withValues(alpha: _zoneOpacity),
-                    ],
-                  ),
+                  gradient: LinearGradient(colors: <Color>[scheme.primary.withValues(alpha: _zoneOpacity), scheme.secondary.withValues(alpha: _zoneOpacity)]),
                   borderRadius: BorderRadius.circular(_cardRoundness),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.45),
-                    width: 1.6,
-                  ),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 1.6),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
-                      'Form Flow Surface',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 16,
-                      ),
-                    ),
+                    const Text('Form Flow Surface', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16)),
                     const SizedBox(height: 10),
                     TextField(
                       controller: _nameController,
@@ -1830,18 +1278,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                             _formEdits += 1;
                             _phase = 'form';
                           });
-                          _recordEvent(
-                            zone: 'form',
-                            action: 'nameChanged',
-                            blocked: false,
-                            note: value,
-                          );
+                          _recordEvent(zone: 'form', action: 'nameChanged', blocked: false, note: value);
                         }
                       },
-                      decoration: const InputDecoration(
-                        filled: true,
-                        labelText: 'Name',
-                      ),
+                      decoration: const InputDecoration(filled: true, labelText: 'Name'),
                     ),
                     const SizedBox(height: 10),
                     TextField(
@@ -1853,18 +1293,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                             _formEdits += 1;
                             _phase = 'form';
                           });
-                          _recordEvent(
-                            zone: 'form',
-                            action: 'noteChanged',
-                            blocked: false,
-                            note: value.length.toString(),
-                          );
+                          _recordEvent(zone: 'form', action: 'noteChanged', blocked: false, note: value.length.toString());
                         }
                       },
-                      decoration: const InputDecoration(
-                        filled: true,
-                        labelText: 'Note',
-                      ),
+                      decoration: const InputDecoration(filled: true, labelText: 'Note'),
                     ),
                     const SizedBox(height: 12),
                     Wrap(
@@ -1872,31 +1304,17 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                       runSpacing: 8,
                       children: <Widget>[
                         ElevatedButton(
-                          onPressed: () => _onZoneAction(
-                            zone: 'form',
-                            action: 'save',
-                            absorbed: blocked,
-                            note: _nameController.text,
-                          ),
+                          onPressed: () => _onZoneAction(zone: 'form', action: 'save', absorbed: blocked, note: _nameController.text),
                           child: const Text('Save'),
                         ),
                         OutlinedButton(
-                          onPressed: () => _onZoneAction(
-                            zone: 'form',
-                            action: 'preview',
-                            absorbed: blocked,
-                            note: _noteController.text.length.toString(),
-                          ),
+                          onPressed: () => _onZoneAction(zone: 'form', action: 'preview', absorbed: blocked, note: _noteController.text.length.toString()),
                           child: const Text('Preview'),
                         ),
                         FilledButton.tonal(
                           onPressed: () {
                             if (blocked) {
-                              _onZoneAction(
-                                zone: 'form',
-                                action: 'clear',
-                                absorbed: true,
-                              );
+                              _onZoneAction(zone: 'form', action: 'clear', absorbed: true);
                               return;
                             }
                             setState(() {
@@ -1904,12 +1322,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                               _noteController.clear();
                               _phase = 'form';
                             });
-                            _recordEvent(
-                              zone: 'form',
-                              action: 'clear',
-                              blocked: false,
-                              note: 'cleared',
-                            );
+                            _recordEvent(zone: 'form', action: 'clear', blocked: false, note: 'cleared');
                           },
                           child: const Text('Clear'),
                         ),
@@ -1925,57 +1338,24 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
             flex: 2,
             child: Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.25),
-                borderRadius: BorderRadius.circular(_cardRoundness),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.35)),
-              ),
+              decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.25), borderRadius: BorderRadius.circular(_cardRoundness), border: Border.all(color: Colors.white.withValues(alpha: 0.35))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'State Summary',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('State Summary', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
                   const SizedBox(height: 8),
-                  Text(
-                    'formAbsorb=$_formAbsorb',
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                  Text(
-                    'globalAbsorb=$_globalAbsorb',
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                  Text(
-                    'name=${_nameController.text}',
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                  Text(
-                    'noteLength=${_noteController.text.length}',
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                  Text(
-                    'formEdits=$_formEdits',
-                    style: const TextStyle(color: Colors.white70),
-                  ),
+                  Text('formAbsorb=$_formAbsorb', style: const TextStyle(color: Colors.white70)),
+                  Text('globalAbsorb=$_globalAbsorb', style: const TextStyle(color: Colors.white70)),
+                  Text('name=${_nameController.text}', style: const TextStyle(color: Colors.white70)),
+                  Text('noteLength=${_noteController.text.length}', style: const TextStyle(color: Colors.white70)),
+                  Text('formEdits=$_formEdits', style: const TextStyle(color: Colors.white70)),
                   const SizedBox(height: 10),
                   Text(
-                    blocked
-                        ? 'Form interactions are currently absorbed.'
-                        : 'Form is interactive and events flow to fields and buttons.',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    blocked ? 'Form interactions are currently absorbed.' : 'Form is interactive and events flow to fields and buttons.',
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                   ),
                   const Spacer(),
-                  LinearProgressIndicator(
-                    value:
-                        0.4 + 0.3 * (0.5 + 0.5 * math.sin(pulse * math.pi * 2)),
-                  ),
+                  LinearProgressIndicator(value: 0.4 + 0.3 * (0.5 + 0.5 * math.sin(pulse * math.pi * 2))),
                 ],
               ),
             ),
@@ -1993,27 +1373,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
         children: <Widget>[
           Row(
             children: <Widget>[
-              Expanded(
-                child: _actionPanel(
-                  scheme,
-                  'Tap Metric Panel',
-                  'analytics-a',
-                  blocked,
-                  scheme.primary,
-                  scheme.secondary,
-                ),
-              ),
+              Expanded(child: _actionPanel(scheme, 'Tap Metric Panel', 'analytics-a', blocked, scheme.primary, scheme.secondary)),
               const SizedBox(width: 12),
-              Expanded(
-                child: _actionPanel(
-                  scheme,
-                  'Route Metric Panel',
-                  'analytics-b',
-                  blocked,
-                  scheme.tertiary,
-                  scheme.primary,
-                ),
-              ),
+              Expanded(child: _actionPanel(scheme, 'Route Metric Panel', 'analytics-b', blocked, scheme.tertiary, scheme.primary)),
             ],
           ),
           const SizedBox(height: 12),
@@ -2022,43 +1384,19 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               width: double.infinity,
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    scheme.secondary.withValues(alpha: _zoneOpacity),
-                    scheme.tertiary.withValues(alpha: _zoneOpacity),
-                  ],
-                ),
+                gradient: LinearGradient(colors: <Color>[scheme.secondary.withValues(alpha: _zoneOpacity), scheme.tertiary.withValues(alpha: _zoneOpacity)]),
                 borderRadius: BorderRadius.circular(_cardRoundness),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.45)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'Interpreter Interaction Verification',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 17,
-                    ),
-                  ),
+                  const Text('Interpreter Interaction Verification', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 17)),
                   const SizedBox(height: 8),
-                  const Text(
-                    '1. Toggle absorber states and observe blocked/allowed counters.',
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  const Text(
-                    '2. Validate nested and modal route changes in timeline entries.',
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  const Text(
-                    '3. Confirm drag and form paths freeze immediately when absorbed.',
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  const Text(
-                    '4. Ensure visual labels always explain current interaction lock state.',
-                    style: TextStyle(color: Colors.white70),
-                  ),
+                  const Text('1. Toggle absorber states and observe blocked/allowed counters.', style: TextStyle(color: Colors.white70)),
+                  const Text('2. Validate nested and modal route changes in timeline entries.', style: TextStyle(color: Colors.white70)),
+                  const Text('3. Confirm drag and form paths freeze immediately when absorbed.', style: TextStyle(color: Colors.white70)),
+                  const Text('4. Ensure visual labels always explain current interaction lock state.', style: TextStyle(color: Colors.white70)),
                   const SizedBox(height: 12),
                   Wrap(
                     spacing: 8,
@@ -2075,18 +1413,14 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                     children: <Widget>[
                       Expanded(
                         child: LinearProgressIndicator(
-                          value: (_allowedCount + _blockedCount) == 0
-                              ? 0
-                              : _allowedCount / (_allowedCount + _blockedCount),
+                          value: (_allowedCount + _blockedCount) == 0 ? 0 : _allowedCount / (_allowedCount + _blockedCount),
                           minHeight: 10,
                         ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: LinearProgressIndicator(
-                          value: (_allowedCount + _blockedCount) == 0
-                              ? 0
-                              : _blockedCount / (_allowedCount + _blockedCount),
+                          value: (_allowedCount + _blockedCount) == 0 ? 0 : _blockedCount / (_allowedCount + _blockedCount),
                           minHeight: 10,
                           color: Colors.redAccent,
                         ),
@@ -2105,19 +1439,8 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
   Widget _modeBadge(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.28),
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.4)),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          fontSize: 11,
-        ),
-      ),
+      decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.28), borderRadius: BorderRadius.circular(999), border: Border.all(color: Colors.white.withValues(alpha: 0.4))),
+      child: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
     );
   }
 
@@ -2130,19 +1453,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'AbsorbPointer vs IgnorePointer',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('AbsorbPointer vs IgnorePointer', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
-            Text(
-              'Comparison cards explain routing implications for common locking strategies.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Comparison cards explain routing implications for common locking strategies.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -2150,47 +1463,28 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                 final Widget absorb = _compareCard(
                   scheme: scheme,
                   title: 'AbsorbPointer',
-                  note:
-                      'Absorbs hits for subtree and can stop event reach behind depending on composition.',
+                  note: 'Absorbs hits for subtree and can stop event reach behind depending on composition.',
                   color: const Color(0xFF0F766E),
                   icon: Icons.block,
                 );
                 final Widget ignore = _compareCard(
                   scheme: scheme,
                   title: 'IgnorePointer',
-                  note:
-                      'Subtree does not receive hit testing; events can pass to widgets behind.',
+                  note: 'Subtree does not receive hit testing; events can pass to widgets behind.',
                   color: const Color(0xFF1D4ED8),
                   icon: Icons.visibility_off_outlined,
                 );
                 final Widget render = _compareCard(
                   scheme: scheme,
                   title: 'RenderAbsorbPointer',
-                  note:
-                      'Render layer primitive used by AbsorbPointer for event routing.',
+                  note: 'Render layer primitive used by AbsorbPointer for event routing.',
                   color: const Color(0xFFB45309),
                   icon: Icons.account_tree_outlined,
                 );
                 if (narrow) {
-                  return Column(
-                    children: <Widget>[
-                      absorb,
-                      const SizedBox(height: 10),
-                      ignore,
-                      const SizedBox(height: 10),
-                      render,
-                    ],
-                  );
+                  return Column(children: <Widget>[absorb, const SizedBox(height: 10), ignore, const SizedBox(height: 10), render]);
                 }
-                return Row(
-                  children: <Widget>[
-                    Expanded(child: absorb),
-                    const SizedBox(width: 10),
-                    Expanded(child: ignore),
-                    const SizedBox(width: 10),
-                    Expanded(child: render),
-                  ],
-                );
+                return Row(children: <Widget>[Expanded(child: absorb), const SizedBox(width: 10), Expanded(child: ignore), const SizedBox(width: 10), Expanded(child: render)]);
               },
             ),
           ],
@@ -2199,45 +1493,22 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
     );
   }
 
-  Widget _compareCard({
-    required ColorScheme scheme,
-    required String title,
-    required String note,
-    required Color color,
-    required IconData icon,
-  }) {
+  Widget _compareCard({required ColorScheme scheme, required String title, required String note, required Color color, required IconData icon}) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: scheme.outlineVariant),
-      ),
+      decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 6),
-            Text(
-              note,
-              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
-            ),
+            Text(note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
               height: 95,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.16),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: color.withValues(alpha: 0.65)),
-              ),
+              decoration: BoxDecoration(color: color.withValues(alpha: 0.16), borderRadius: BorderRadius.circular(10), border: Border.all(color: color.withValues(alpha: 0.65))),
               child: Center(child: Icon(icon, color: color, size: 34)),
             ),
           ],
@@ -2256,24 +1527,17 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Metrics and Diagnostics',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                    ? 3
-                    : constraints.maxWidth > 560
-                    ? 2
-                    : 1;
+                        ? 3
+                        : constraints.maxWidth > 560
+                            ? 2
+                            : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -2287,11 +1551,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                   itemBuilder: (BuildContext context, int index) {
                     final _MetricModel m = metrics[index];
                     return DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: scheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: scheme.outlineVariant),
-                      ),
+                      decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
                       child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Column(
@@ -2301,38 +1561,13 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    m.title,
-                                    style: TextStyle(
-                                      color: scheme.onSurfaceVariant,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
+                                Expanded(child: Text(m.title, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
                               ],
                             ),
                             const Spacer(),
-                            Text(
-                              m.value,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: scheme.onSurface,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15,
-                              ),
-                            ),
+                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
                             const SizedBox(height: 4),
-                            Text(
-                              m.note,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: scheme.onSurfaceVariant,
-                                fontSize: 12,
-                              ),
-                            ),
+                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
                           ],
                         ),
                       ),
@@ -2351,142 +1586,32 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
 
   List<_MetricModel> _metrics() {
     return <_MetricModel>[
-      _MetricModel(
-        title: 'Scenario',
-        value: _scenarioModels[_scenarioIndex].title,
-        note: 'Active absorption scenario.',
-        icon: Icons.route_outlined,
-      ),
-      _MetricModel(
-        title: 'Theme',
-        value: _themeModels[_themeIndex].name,
-        note: 'Current visual profile.',
-        icon: Icons.palette_outlined,
-      ),
-      _MetricModel(
-        title: 'Global Absorb',
-        value: '$_globalAbsorb',
-        note: 'Global routing lock state.',
-        icon: Icons.block_outlined,
-      ),
-      _MetricModel(
-        title: 'Status',
-        value: _statusText,
-        note: 'Latest routing status message.',
-        icon: Icons.info_outline,
-      ),
-      _MetricModel(
-        title: 'Blocked',
-        value: '$_blockedCount',
-        note: 'Blocked interactions recorded.',
-        icon: Icons.do_not_touch_outlined,
-      ),
-      _MetricModel(
-        title: 'Allowed',
-        value: '$_allowedCount',
-        note: 'Allowed interactions recorded.',
-        icon: Icons.check_circle_outline,
-      ),
-      _MetricModel(
-        title: 'Tap Count',
-        value: '$_tapCount',
-        note: 'Pointer taps observed on stage.',
-        icon: Icons.touch_app_outlined,
-      ),
-      _MetricModel(
-        title: 'Drag Count',
-        value: '$_dragCount',
-        note: 'Drag updates accepted.',
-        icon: Icons.open_with_outlined,
-      ),
-      _MetricModel(
-        title: 'Form Edits',
-        value: '$_formEdits',
-        note: 'Form updates accepted.',
-        icon: Icons.edit_outlined,
-      ),
-      _MetricModel(
-        title: 'Button Hits',
-        value: '$_buttonHits',
-        note: 'Successful action triggers.',
-        icon: Icons.smart_button_outlined,
-      ),
-      _MetricModel(
-        title: 'Zone Absorb',
-        value:
-            'A=$_zoneAAbsorb B=$_zoneBAbsorb C=$_zoneCAbsorb D=$_zoneDAbsorb',
-        note: 'Shield grid states.',
-        icon: Icons.grid_view_outlined,
-      ),
-      _MetricModel(
-        title: 'Nested',
-        value: 'outer=$_nestedOuterAbsorb inner=$_nestedInnerAbsorb',
-        note: 'Nested absorber states.',
-        icon: Icons.account_tree_outlined,
-      ),
-      _MetricModel(
-        title: 'Modal/Form/Drag',
-        value: 'modal=$_modalAbsorb form=$_formAbsorb drag=$_dragAbsorb',
-        note: 'Scenario lock toggles.',
-        icon: Icons.dashboard_customize_outlined,
-      ),
-      _MetricModel(
-        title: 'Panel Visuals',
-        value:
-            'round=${_cardRoundness.toStringAsFixed(1)} opacity=${_zoneOpacity.toStringAsFixed(2)}',
-        note: 'Card and panel style settings.',
-        icon: Icons.style_outlined,
-      ),
-      _MetricModel(
-        title: 'Overlay',
-        value:
-            'alpha=${_overlayAlpha.toStringAsFixed(2)} lockPulse=${_lockPulse.toStringAsFixed(2)}',
-        note: 'Global blocker overlay settings.',
-        icon: Icons.layers_outlined,
-      ),
-      _MetricModel(
-        title: 'Heat',
-        value:
-            'points=${_heatPoints.length} intensity=${_heatIntensity.toStringAsFixed(2)}',
-        note: 'Tap heat-map summary.',
-        icon: Icons.blur_on_outlined,
-      ),
-      _MetricModel(
-        title: 'Switches',
-        value:
-            'theme=$_themeSwitches scenario=$_scenarioSwitches controls=$_controlEdits',
-        note: 'Configuration change counters.',
-        icon: Icons.swap_horiz_outlined,
-      ),
-      _MetricModel(
-        title: 'Snapshot',
-        value:
-            '${_snapshot.scenario} ${_snapshot.stage} g=${_snapshot.globalAbsorb}',
-        note: 'Current run snapshot.',
-        icon: Icons.camera_outlined,
-      ),
-      _MetricModel(
-        title: 'Timeline Size',
-        value: '${_events.length}',
-        note: 'Bounded event timeline size.',
-        icon: Icons.timeline_outlined,
-      ),
-      _MetricModel(
-        title: 'Phase',
-        value: _phase,
-        note: 'Most recent interaction phase.',
-        icon: Icons.flag_outlined,
-      ),
+      _MetricModel(title: 'Scenario', value: _scenarioModels[_scenarioIndex].title, note: 'Active absorption scenario.', icon: Icons.route_outlined),
+      _MetricModel(title: 'Theme', value: _themeModels[_themeIndex].name, note: 'Current visual profile.', icon: Icons.palette_outlined),
+      _MetricModel(title: 'Global Absorb', value: '$_globalAbsorb', note: 'Global routing lock state.', icon: Icons.block_outlined),
+      _MetricModel(title: 'Status', value: _statusText, note: 'Latest routing status message.', icon: Icons.info_outline),
+      _MetricModel(title: 'Blocked', value: '$_blockedCount', note: 'Blocked interactions recorded.', icon: Icons.do_not_touch_outlined),
+      _MetricModel(title: 'Allowed', value: '$_allowedCount', note: 'Allowed interactions recorded.', icon: Icons.check_circle_outline),
+      _MetricModel(title: 'Tap Count', value: '$_tapCount', note: 'Pointer taps observed on stage.', icon: Icons.touch_app_outlined),
+      _MetricModel(title: 'Drag Count', value: '$_dragCount', note: 'Drag updates accepted.', icon: Icons.open_with_outlined),
+      _MetricModel(title: 'Form Edits', value: '$_formEdits', note: 'Form updates accepted.', icon: Icons.edit_outlined),
+      _MetricModel(title: 'Button Hits', value: '$_buttonHits', note: 'Successful action triggers.', icon: Icons.smart_button_outlined),
+      _MetricModel(title: 'Zone Absorb', value: 'A=$_zoneAAbsorb B=$_zoneBAbsorb C=$_zoneCAbsorb D=$_zoneDAbsorb', note: 'Shield grid states.', icon: Icons.grid_view_outlined),
+      _MetricModel(title: 'Nested', value: 'outer=$_nestedOuterAbsorb inner=$_nestedInnerAbsorb', note: 'Nested absorber states.', icon: Icons.account_tree_outlined),
+      _MetricModel(title: 'Modal/Form/Drag', value: 'modal=$_modalAbsorb form=$_formAbsorb drag=$_dragAbsorb', note: 'Scenario lock toggles.', icon: Icons.dashboard_customize_outlined),
+      _MetricModel(title: 'Panel Visuals', value: 'round=${_cardRoundness.toStringAsFixed(1)} opacity=${_zoneOpacity.toStringAsFixed(2)}', note: 'Card and panel style settings.', icon: Icons.style_outlined),
+      _MetricModel(title: 'Overlay', value: 'alpha=${_overlayAlpha.toStringAsFixed(2)} lockPulse=${_lockPulse.toStringAsFixed(2)}', note: 'Global blocker overlay settings.', icon: Icons.layers_outlined),
+      _MetricModel(title: 'Heat', value: 'points=${_heatPoints.length} intensity=${_heatIntensity.toStringAsFixed(2)}', note: 'Tap heat-map summary.', icon: Icons.blur_on_outlined),
+      _MetricModel(title: 'Switches', value: 'theme=$_themeSwitches scenario=$_scenarioSwitches controls=$_controlEdits', note: 'Configuration change counters.', icon: Icons.swap_horiz_outlined),
+      _MetricModel(title: 'Snapshot', value: '${_snapshot.scenario} ${_snapshot.stage} g=${_snapshot.globalAbsorb}', note: 'Current run snapshot.', icon: Icons.camera_outlined),
+      _MetricModel(title: 'Timeline Size', value: '${_events.length}', note: 'Bounded event timeline size.', icon: Icons.timeline_outlined),
+      _MetricModel(title: 'Phase', value: _phase, note: 'Most recent interaction phase.', icon: Icons.flag_outlined),
     ];
   }
 
   Widget _buildSnapshotPanel(ColorScheme scheme) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: scheme.outlineVariant),
-      ),
+      decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -2496,40 +1621,16 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text(
-                  'Routing Snapshot',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Routing Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'theme=${_themeModels[_themeIndex].id} scenario=${_scenarioModels[_scenarioIndex].mode.name} globalAbsorb=$_globalAbsorb',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'stageHeight=${_stageHeight.toStringAsFixed(0)} panelScale=${_panelScale.toStringAsFixed(2)} roundness=${_cardRoundness.toStringAsFixed(1)}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'zoneOpacity=${_zoneOpacity.toStringAsFixed(2)} overlayAlpha=${_overlayAlpha.toStringAsFixed(2)} heatIntensity=${_heatIntensity.toStringAsFixed(2)}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'drag=(${_dragX.toStringAsFixed(2)}, ${_dragY.toStringAsFixed(2)}) lockPulse=${_lockPulse.toStringAsFixed(2)} drift=${_drift.toStringAsFixed(2)}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'zones A=$_zoneAAbsorb B=$_zoneBAbsorb C=$_zoneCAbsorb D=$_zoneDAbsorb nestedOuter=$_nestedOuterAbsorb nestedInner=$_nestedInnerAbsorb',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'modal=$_modalAbsorb form=$_formAbsorb drag=$_dragAbsorb blocked=$_blockedCount allowed=$_allowedCount events=${_events.length}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('theme=${_themeModels[_themeIndex].id} scenario=${_scenarioModels[_scenarioIndex].mode.name} globalAbsorb=$_globalAbsorb', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('stageHeight=${_stageHeight.toStringAsFixed(0)} panelScale=${_panelScale.toStringAsFixed(2)} roundness=${_cardRoundness.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('zoneOpacity=${_zoneOpacity.toStringAsFixed(2)} overlayAlpha=${_overlayAlpha.toStringAsFixed(2)} heatIntensity=${_heatIntensity.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('drag=(${_dragX.toStringAsFixed(2)}, ${_dragY.toStringAsFixed(2)}) lockPulse=${_lockPulse.toStringAsFixed(2)} drift=${_drift.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('zones A=$_zoneAAbsorb B=$_zoneBAbsorb C=$_zoneCAbsorb D=$_zoneDAbsorb nestedOuter=$_nestedOuterAbsorb nestedInner=$_nestedInnerAbsorb', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('modal=$_modalAbsorb form=$_formAbsorb drag=$_dragAbsorb blocked=$_blockedCount allowed=$_allowedCount events=${_events.length}', style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
       ),
@@ -2545,14 +1646,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Guide and FAQ',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             ..._guideLines.map((String line) {
               return Padding(
@@ -2560,47 +1654,26 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Icon(Icons.circle, size: 8, color: scheme.primary),
-                    ),
+                    Padding(padding: const EdgeInsets.only(top: 4), child: Icon(Icons.circle, size: 8, color: scheme.primary)),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        line,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
-                    ),
+                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faqModels.map((_FaqModel faq) {
+            ..._faqModels.map(( _FaqModel faq) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  color: scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: scheme.outlineVariant),
-                ),
+                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        faq.question,
-                        style: TextStyle(
-                          color: scheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      Text(faq.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                       const SizedBox(height: 6),
-                      Text(
-                        faq.answer,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
+                      Text(faq.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
                     ],
                   ),
                 ),
@@ -2623,82 +1696,40 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio>
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'Interaction Timeline',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
+                Text('Interaction Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
                 const Spacer(),
                 TextButton.icon(
-                  onPressed: () =>
-                      setState(() => _events = const <_RouteEvent>[]),
+                  onPressed: () => setState(() => _events = const <_RouteEvent>[]),
                   icon: const Icon(Icons.clear_all),
                   label: const Text('Clear'),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Chronological record of blocked and allowed interactions across zones.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Chronological record of blocked and allowed interactions across zones.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 10),
             if (_events.isEmpty)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: scheme.outlineVariant),
-                ),
-                child: Text(
-                  'Timeline is empty. Interact with controls and stage to create events.',
-                  style: TextStyle(color: scheme.onSurfaceVariant),
-                ),
+                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                child: Text('Timeline is empty. Interact with controls and stage to create events.', style: TextStyle(color: scheme.onSurfaceVariant)),
               )
             else
               Column(
-                children: _events.take(42).map((_RouteEvent event) {
-                  final String stamp =
-                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _events.take(42).map(( _RouteEvent event) {
+                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: scheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: scheme.outlineVariant),
-                    ),
+                    decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
                     child: ListTile(
                       dense: true,
                       leading: CircleAvatar(
-                        backgroundColor: event.blocked
-                            ? Colors.red.withValues(alpha: 0.25)
-                            : Colors.green.withValues(alpha: 0.25),
-                        child: Icon(
-                          event.blocked ? Icons.block : Icons.check,
-                          size: 18,
-                          color: event.blocked ? Colors.red : Colors.green,
-                        ),
+                        backgroundColor: event.blocked ? Colors.red.withValues(alpha: 0.25) : Colors.green.withValues(alpha: 0.25),
+                        child: Icon(event.blocked ? Icons.block : Icons.check, size: 18, color: event.blocked ? Colors.red : Colors.green),
                       ),
-                      title: Text(
-                        '${event.zone}  |  ${event.action}',
-                        style: TextStyle(
-                          color: scheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                        ),
-                      ),
-                      subtitle: Text(
-                        '$stamp  |  ${event.blocked ? 'blocked' : 'allowed'}  |  ${event.note}',
-                        style: TextStyle(
-                          color: scheme.onSurfaceVariant,
-                          fontSize: 12,
-                        ),
-                      ),
+                      title: Text('${event.zone}  |  ${event.action}', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 13)),
+                      subtitle: Text('$stamp  |  ${event.blocked ? 'blocked' : 'allowed'}  |  ${event.note}', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
                     ),
                   );
                 }).toList(),
@@ -2721,26 +1752,15 @@ class _RoutingGridPainter extends CustomPainter {
     final Paint bg = Paint()
       ..shader = LinearGradient(
         colors: <Color>[
-          Color.lerp(
-            const Color(0xFF22D3EE),
-            const Color(0xFF34D399),
-            (math.sin(progress * math.pi * 2) + 1) / 2,
-          )!,
+          Color.lerp(const Color(0xFF22D3EE), const Color(0xFF34D399), (math.sin(progress * math.pi * 2) + 1) / 2)!,
           Color.lerp(const Color(0xFF3B82F6), const Color(0xFF8B5CF6), drift)!,
-          Color.lerp(
-            const Color(0xFFF59E0B),
-            const Color(0xFFEF4444),
-            (math.cos(progress * math.pi * 2) + 1) / 2,
-          )!,
+          Color.lerp(const Color(0xFFF59E0B), const Color(0xFFEF4444), (math.cos(progress * math.pi * 2) + 1) / 2)!,
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRect(Offset.zero & size, bg);
-    canvas.drawRect(
-      Offset.zero & size,
-      Paint()..color = Colors.black.withValues(alpha: 0.2),
-    );
+    canvas.drawRect(Offset.zero & size, Paint()..color = Colors.black.withValues(alpha: 0.2));
 
     final Paint grid = Paint()
       ..color = Colors.white.withValues(alpha: 0.12)

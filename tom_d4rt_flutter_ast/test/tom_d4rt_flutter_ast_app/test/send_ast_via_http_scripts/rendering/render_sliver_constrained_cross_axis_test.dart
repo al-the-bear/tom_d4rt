@@ -149,11 +149,8 @@ class _CrossAxisConstraintObservatoryState
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.straighten_rounded,
-                color: Colors.white,
-                size: 26,
-              ),
+              const Icon(Icons.straighten_rounded,
+                  color: Colors.white, size: 26),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -166,10 +163,8 @@ class _CrossAxisConstraintObservatoryState
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(999),
@@ -267,10 +262,8 @@ class _CrossAxisConstraintObservatoryState
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Verbose',
-                style: TextStyle(color: _theme.text, fontSize: 12),
-              ),
+              Text('Verbose',
+                  style: TextStyle(color: _theme.text, fontSize: 12)),
               Switch(
                 value: _verbose,
                 activeTrackColor: _theme.secondary,
@@ -321,8 +314,7 @@ class _CrossAxisConstraintObservatoryState
           const SizedBox(height: 12),
           _card(
             title: 'Lens Controls',
-            subtitle:
-                'Viewport width, constrained max extent, and overlay guides.',
+            subtitle: 'Viewport width, constrained max extent, and overlay guides.',
             child: Column(
               children: [
                 _sliderRow(
@@ -356,23 +348,14 @@ class _CrossAxisConstraintObservatoryState
                       style: TextStyle(color: _theme.text, fontSize: 12),
                     ),
                     const Spacer(),
-                    _metricChip(
-                      'viewport',
-                      available.toStringAsFixed(0),
-                      _theme.primary,
-                    ),
+                    _metricChip('viewport', available.toStringAsFixed(0),
+                        _theme.primary),
+                    const SizedBox(width: 6),
+                    _metricChip('constrained', constrained.toStringAsFixed(0),
+                        _theme.secondary),
                     const SizedBox(width: 6),
                     _metricChip(
-                      'constrained',
-                      constrained.toStringAsFixed(0),
-                      _theme.secondary,
-                    ),
-                    const SizedBox(width: 6),
-                    _metricChip(
-                      'gutter each',
-                      gutter.toStringAsFixed(0),
-                      _theme.text,
-                    ),
+                        'gutter each', gutter.toStringAsFixed(0), _theme.text),
                   ],
                 ),
               ],
@@ -587,10 +570,8 @@ class _CrossAxisConstraintObservatoryState
                     _metricChip('left flex', '$_leftFlex', _theme.primary),
                     const SizedBox(width: 6),
                     _metricChip(
-                      'middle fixed',
-                      _groupMaxExtent.toStringAsFixed(0),
-                      _theme.secondary,
-                    ),
+                        'middle fixed', _groupMaxExtent.toStringAsFixed(0),
+                        _theme.secondary),
                     const SizedBox(width: 6),
                     _metricChip('right flex', '$_rightFlex', _theme.primary),
                   ],
@@ -610,9 +591,7 @@ class _CrossAxisConstraintObservatoryState
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: _theme.muted.withValues(alpha: 0.26),
-                  ),
+                  border: Border.all(color: _theme.muted.withValues(alpha: 0.26)),
                 ),
                 child: CustomScrollView(
                   slivers: [
@@ -676,17 +655,13 @@ class _CrossAxisConstraintObservatoryState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet(
-                  'Constrained center lane can host article content for stable readability.',
-                ),
+                    'Constrained center lane can host article content for stable readability.'),
                 _bullet(
-                  'Flexible side lanes are useful for metadata rails, reactions, or tools.',
-                ),
+                    'Flexible side lanes are useful for metadata rails, reactions, or tools.'),
                 _bullet(
-                  'Cross-axis group allows multi-column sliver composition in one scroll axis.',
-                ),
+                    'Cross-axis group allows multi-column sliver composition in one scroll axis.'),
                 _bullet(
-                  'A fixed middle lane avoids over-long lines on ultrawide displays.',
-                ),
+                    'A fixed middle lane avoids over-long lines on ultrawide displays.'),
               ],
             ),
           ),
@@ -760,9 +735,7 @@ class _CrossAxisConstraintObservatoryState
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: _theme.muted.withValues(alpha: 0.26),
-                  ),
+                  border: Border.all(color: _theme.muted.withValues(alpha: 0.26)),
                 ),
                 child: CustomScrollView(
                   slivers: [
@@ -779,7 +752,10 @@ class _CrossAxisConstraintObservatoryState
                           background: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [_theme.primary, _theme.secondary],
+                                colors: [
+                                  _theme.primary,
+                                  _theme.secondary,
+                                ],
                               ),
                             ),
                           ),
@@ -831,8 +807,7 @@ class _CrossAxisConstraintObservatoryState
                       itemCount: 3,
                       itemBuilder: (context, index) => _storyTile(
                         title: 'Continuation card ${index + 1}',
-                        subtitle:
-                            'Downstream slivers are unaffected by prior cap.',
+                        subtitle: 'Downstream slivers are unaffected by prior cap.',
                         color: _theme.secondary.withValues(alpha: 0.12),
                       ),
                     ),
@@ -842,31 +817,31 @@ class _CrossAxisConstraintObservatoryState
                         sliver: SliverGrid(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisExtent: 68,
-                                crossAxisSpacing: 8,
-                                mainAxisSpacing: 8,
-                              ),
-                          delegate: SliverChildBuilderDelegate((
-                            context,
-                            index,
-                          ) {
-                            return Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: _theme.primary.withValues(alpha: 0.12),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'Tag ${index + 1}',
-                                style: TextStyle(
-                                  color: _theme.text,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w700,
+                            crossAxisCount: 3,
+                            mainAxisExtent: 68,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: _theme.primary.withValues(alpha: 0.12),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
-                              ),
-                            );
-                          }, childCount: 12),
+                                child: Text(
+                                  'Tag ${index + 1}',
+                                  style: TextStyle(
+                                    color: _theme.text,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              );
+                            },
+                            childCount: 12,
+                          ),
                         ),
                       ),
                   ],
@@ -886,9 +861,8 @@ class _CrossAxisConstraintObservatoryState
   }
 
   Widget _buildBreakpointLab() {
-    final constrained = _breakpointConstraint < _breakpointViewport
-        ? _breakpointConstraint
-        : _breakpointViewport;
+    final constrained =
+        _breakpointConstraint < _breakpointViewport ? _breakpointConstraint : _breakpointViewport;
     final leftOver = (_breakpointViewport - constrained).clamp(0.0, 9999.0);
 
     return SingleChildScrollView(
@@ -918,11 +892,8 @@ class _CrossAxisConstraintObservatoryState
                     const SizedBox(width: 6),
                     _presetButton('Ultrawide', 1320, 700),
                     const Spacer(),
-                    _metricChip(
-                      'gutter total',
-                      leftOver.toStringAsFixed(0),
-                      _theme.secondary,
-                    ),
+                    _metricChip('gutter total', leftOver.toStringAsFixed(0),
+                        _theme.secondary),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -971,9 +942,8 @@ class _CrossAxisConstraintObservatoryState
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: _theme.muted.withValues(alpha: 0.24),
-                      ),
+                      border:
+                          Border.all(color: _theme.muted.withValues(alpha: 0.24)),
                     ),
                     child: CustomScrollView(
                       slivers: [
@@ -985,9 +955,7 @@ class _CrossAxisConstraintObservatoryState
                         ),
                         SliverPadding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: _breakpointPadding,
-                            vertical: 8,
-                          ),
+                              horizontal: _breakpointPadding, vertical: 8),
                           sliver: SliverConstrainedCrossAxis(
                             maxExtent: _breakpointConstraint,
                             sliver: SliverList.builder(
@@ -1015,17 +983,13 @@ class _CrossAxisConstraintObservatoryState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet(
-                  'Text-heavy lanes: keep maxExtent moderate for line readability.',
-                ),
+                    'Text-heavy lanes: keep maxExtent moderate for line readability.'),
                 _bullet(
-                  'Card grids: either skip constraints or use larger maxExtent caps.',
-                ),
+                    'Card grids: either skip constraints or use larger maxExtent caps.'),
                 _bullet(
-                  'Data tables: consider separate layouts rather than strict caps.',
-                ),
+                    'Data tables: consider separate layouts rather than strict caps.'),
                 _bullet(
-                  'When side gutters become very large, add utility side lanes.',
-                ),
+                    'When side gutters become very large, add utility side lanes.'),
               ],
             ),
           ),
@@ -1051,8 +1015,7 @@ class _CrossAxisConstraintObservatoryState
           const SizedBox(height: 12),
           _card(
             title: 'Gallery Controls',
-            subtitle:
-                'Synchronize viewport and constraint values across cards.',
+            subtitle: 'Synchronize viewport and constraint values across cards.',
             child: Column(
               children: [
                 _sliderRow(
@@ -1135,14 +1098,11 @@ class _CrossAxisConstraintObservatoryState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet(
-                  'Unconstrained: best for visual media and full-bleed dashboards.',
-                ),
+                    'Unconstrained: best for visual media and full-bleed dashboards.'),
                 _bullet(
-                  'Constrained lane: best for long-form reading and forms.',
-                ),
+                    'Constrained lane: best for long-form reading and forms.'),
                 _bullet(
-                  'Cross-axis group: best for rich desktop workflows with side context.',
-                ),
+                    'Cross-axis group: best for rich desktop workflows with side context.'),
               ],
             ),
           ),
@@ -1159,7 +1119,12 @@ class _CrossAxisConstraintObservatoryState
   }) {
     return SizedBox(
       width: 410,
-      child: _card(title: title, subtitle: subtitle, tint: tint, child: child),
+      child: _card(
+        title: title,
+        subtitle: subtitle,
+        tint: tint,
+        child: child,
+      ),
     );
   }
 
@@ -1187,11 +1152,8 @@ class _CrossAxisConstraintObservatoryState
               Positioned(
                 right: 8,
                 top: 8,
-                child: _metricChip(
-                  'gutter',
-                  gutter.toStringAsFixed(0),
-                  _theme.secondary,
-                ),
+                child: _metricChip('gutter', gutter.toStringAsFixed(0),
+                    _theme.secondary),
               ),
             CustomScrollView(
               slivers: [
@@ -1250,11 +1212,8 @@ class _CrossAxisConstraintObservatoryState
               Positioned(
                 right: 8,
                 top: 8,
-                child: _metricChip(
-                  'center cap',
-                  constrained.toStringAsFixed(0),
-                  _theme.secondary,
-                ),
+                child: _metricChip('center cap',
+                    constrained.toStringAsFixed(0), _theme.secondary),
               ),
             CustomScrollView(
               slivers: [
@@ -1336,7 +1295,8 @@ class _CrossAxisConstraintObservatoryState
                 _matrixRow(
                   aspect: 'Cross-axis extent',
                   unconstrained: 'Uses full viewport cross axis',
-                  constrained: 'Uses min(maxExtent, viewportCrossAxisExtent)',
+                  constrained:
+                      'Uses min(maxExtent, viewportCrossAxisExtent)',
                 ),
                 _matrixRow(
                   aspect: 'Main-axis scroll',
@@ -1397,26 +1357,22 @@ class _CrossAxisConstraintObservatoryState
               children: [
                 _qa(
                   q: 'Does this widget affect scroll direction?',
-                  a:
-                      'No. It only caps cross-axis extent; main-axis scrolling '
+                  a: 'No. It only caps cross-axis extent; main-axis scrolling '
                       'and sliver order remain the same.',
                 ),
                 _qa(
                   q: 'Can it be used outside CustomScrollView?',
-                  a:
-                      'It is a sliver widget, so it should be used in sliver '
+                  a: 'It is a sliver widget, so it should be used in sliver '
                       'contexts like CustomScrollView slivers.',
                 ),
                 _qa(
                   q: 'Why combine it with SliverCrossAxisGroup?',
-                  a:
-                      'Group layouts allow a fixed-width center lane while '
+                  a: 'Group layouts allow a fixed-width center lane while '
                       'expanded side lanes consume the rest.',
                 ),
                 _qa(
                   q: 'What happens if maxExtent exceeds viewport width?',
-                  a:
-                      'The effective cross-axis extent is clamped to the '
+                  a: 'The effective cross-axis extent is clamped to the '
                       'viewport cross-axis extent.',
                 ),
               ],
@@ -1429,18 +1385,10 @@ class _CrossAxisConstraintObservatoryState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check(
-                  'Visual unconstrained vs constrained side-by-side display',
-                ),
-                _check(
-                  'Cross-axis group scenario with fixed+flex lane composition',
-                ),
-                _check(
-                  'Nested sliver composition with optional sections and toggles',
-                ),
-                _check(
-                  'Responsive breakpoint lab with live viewport and cap controls',
-                ),
+                _check('Visual unconstrained vs constrained side-by-side display'),
+                _check('Cross-axis group scenario with fixed+flex lane composition'),
+                _check('Nested sliver composition with optional sections and toggles'),
+                _check('Responsive breakpoint lab with live viewport and cap controls'),
                 _check('Comparison gallery with three strategy cards'),
                 _check('Instructive matrix, FAQ, and do/don\'t guidance'),
               ],
@@ -1508,7 +1456,11 @@ class _CrossAxisConstraintObservatoryState
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(color: _theme.muted, fontSize: 11.3, height: 1.3),
+            style: TextStyle(
+              color: _theme.muted,
+              fontSize: 11.3,
+              height: 1.3,
+            ),
           ),
         ],
       ),
@@ -1530,7 +1482,8 @@ class _CrossAxisConstraintObservatoryState
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: _theme.primary.withValues(alpha: 0.13),
                   borderRadius: BorderRadius.circular(999),
@@ -1548,7 +1501,10 @@ class _CrossAxisConstraintObservatoryState
               const Spacer(),
               Text(
                 'Constrained lane',
-                style: TextStyle(color: _theme.muted, fontSize: 10.5),
+                style: TextStyle(
+                  color: _theme.muted,
+                  fontSize: 10.5,
+                ),
               ),
             ],
           ),
@@ -1565,7 +1521,11 @@ class _CrossAxisConstraintObservatoryState
           Text(
             'This paragraph intentionally mimics long-form content. The cross-axis '
             'constraint keeps measure stable and readable as viewport size changes.',
-            style: TextStyle(color: _theme.muted, fontSize: 11.4, height: 1.35),
+            style: TextStyle(
+              color: _theme.muted,
+              fontSize: 11.4,
+              height: 1.35,
+            ),
           ),
         ],
       ),
@@ -1797,11 +1757,8 @@ class _CrossAxisConstraintObservatoryState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            good ? Icons.check_circle : Icons.cancel,
-            color: color,
-            size: 18,
-          ),
+          Icon(good ? Icons.check_circle : Icons.cancel,
+              color: color, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1959,7 +1916,10 @@ class _CrossAxisConstraintObservatoryState
             ),
           ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: _theme.muted, fontSize: 11.5)),
+          Text(
+            subtitle,
+            style: TextStyle(color: _theme.muted, fontSize: 11.5),
+          ),
           const SizedBox(height: 10),
           child,
         ],

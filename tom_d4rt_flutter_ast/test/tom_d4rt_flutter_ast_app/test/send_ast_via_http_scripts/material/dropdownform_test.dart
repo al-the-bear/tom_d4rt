@@ -44,11 +44,7 @@ const Color kRose = Color(0xFFFFE4E6);
 const Color kSky = Color(0xFFE0F2FE);
 const Color kPeach = Color(0xFFFFEDD5);
 
-TextStyle _heading(
-  double size, {
-  Color color = kInk,
-  FontWeight weight = FontWeight.w800,
-}) {
+TextStyle _heading(double size, {Color color = kInk, FontWeight weight = FontWeight.w800}) {
   return TextStyle(
     fontSize: size,
     fontWeight: weight,
@@ -67,11 +63,7 @@ TextStyle _mono(double size, {Color color = kInkSoft}) {
   );
 }
 
-TextStyle _body(
-  double size, {
-  Color color = kInkSoft,
-  FontWeight weight = FontWeight.w400,
-}) {
+TextStyle _body(double size, {Color color = kInkSoft, FontWeight weight = FontWeight.w400}) {
   return TextStyle(
     fontSize: size,
     color: color,
@@ -314,12 +306,7 @@ const List<FormOption> _toolOptions = <FormOption>[
   FormOption('hammer', 'Hammer', Icons.handyman, Color(0xFF64748B)),
   FormOption('wrench', 'Wrench', Icons.build, Color(0xFF0EA5E9)),
   FormOption('screw', 'Screwdriver', Icons.settings, Color(0xFFA855F7)),
-  FormOption(
-    'saw',
-    'Hand saw',
-    Icons.precision_manufacturing,
-    Color(0xFFF97316),
-  ),
+  FormOption('saw', 'Hand saw', Icons.precision_manufacturing, Color(0xFFF97316)),
 ];
 
 const List<String> _countries = <String>[
@@ -330,7 +317,9 @@ const List<String> _countries = <String>[
   'Portugal',
 ];
 
-const List<String> _currencies = <String>['CHF', 'JPY', 'ISK', 'NZD', 'EUR'];
+const List<String> _currencies = <String>[
+  'CHF', 'JPY', 'ISK', 'NZD', 'EUR',
+];
 
 const List<String> _timezones = <String>[
   'UTC+0',
@@ -341,10 +330,7 @@ const List<String> _timezones = <String>[
 ];
 
 const List<String> _cabinClasses = <String>[
-  'Economy',
-  'Premium',
-  'Business',
-  'First',
+  'Economy', 'Premium', 'Business', 'First',
 ];
 
 // ===========================================================================
@@ -370,7 +356,12 @@ List<DropdownMenuItem<String>> _basicItems(List<FormOption> options) {
 
 List<DropdownMenuItem<String>> _textOnlyItems(List<String> values) {
   return values
-      .map((String v) => DropdownMenuItem<String>(value: v, child: Text(v)))
+      .map(
+        (String v) => DropdownMenuItem<String>(
+          value: v,
+          child: Text(v),
+        ),
+      )
       .toList(growable: false);
 }
 
@@ -386,11 +377,7 @@ Widget _coverCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF1E1B4B),
-          Color(0xFF4338CA),
-          Color(0xFF7C3AED),
-        ],
+        colors: <Color>[Color(0xFF1E1B4B), Color(0xFF4338CA), Color(0xFF7C3AED)],
       ),
       boxShadow: <BoxShadow>[
         BoxShadow(
@@ -422,11 +409,7 @@ Widget _coverCard() {
               ),
             ),
             const Spacer(),
-            const Icon(
-              Icons.arrow_drop_down_circle,
-              color: Colors.white,
-              size: 28,
-            ),
+            const Icon(Icons.arrow_drop_down_circle, color: Colors.white, size: 28),
           ],
         ),
         const SizedBox(height: 18),
@@ -544,37 +527,17 @@ Widget _anatomyDiagram() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _anatomyLabel(
-                      'label',
-                      'InputDecoration.labelText',
-                      kAccent,
-                    ),
+                    _anatomyLabel('label', 'InputDecoration.labelText', kAccent),
                     const SizedBox(height: 6),
                     _anatomyLabel('prefix', 'InputDecoration.prefixIcon', kSky),
                     const SizedBox(height: 6),
-                    _anatomyLabel(
-                      'value/hint',
-                      'value, hint, disabledHint',
-                      kHighlight,
-                    ),
+                    _anatomyLabel('value/hint', 'value, hint, disabledHint', kHighlight),
                     const SizedBox(height: 6),
-                    _anatomyLabel(
-                      'chevron',
-                      'icon, iconSize, iconEnabledColor',
-                      kSuccess,
-                    ),
+                    _anatomyLabel('chevron', 'icon, iconSize, iconEnabledColor', kSuccess),
                     const SizedBox(height: 6),
-                    _anatomyLabel(
-                      'border',
-                      'InputDecoration.border / borderRadius',
-                      kDanger,
-                    ),
+                    _anatomyLabel('border', 'InputDecoration.border / borderRadius', kDanger),
                     const SizedBox(height: 6),
-                    _anatomyLabel(
-                      'menu',
-                      'dropdownColor, menuMaxHeight',
-                      kAccent,
-                    ),
+                    _anatomyLabel('menu', 'dropdownColor, menuMaxHeight', kAccent),
                   ],
                 ),
               ),
@@ -594,13 +557,13 @@ Widget _anatomyLabel(String name, String code, Color color) {
       Container(
         width: 10,
         height: 10,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
       ),
       const SizedBox(width: 8),
-      Text(
-        name,
-        style: _body(12, color: kInk, weight: FontWeight.w700),
-      ),
+      Text(name, style: _body(12, color: kInk, weight: FontWeight.w700)),
       const SizedBox(width: 6),
       Expanded(
         child: Text(
@@ -626,11 +589,7 @@ Widget _fakeDropdownPreview() {
       children: <Widget>[
         Text(
           'Country',
-          style: TextStyle(
-            fontSize: 11,
-            color: kAccent,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(fontSize: 11, color: kAccent, fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 8),
         Row(
@@ -643,7 +602,10 @@ Widget _fakeDropdownPreview() {
           ],
         ),
         const SizedBox(height: 8),
-        Container(height: 1, color: kInkMute.withValues(alpha: 0.2)),
+        Container(
+          height: 1,
+          color: kInkMute.withValues(alpha: 0.2),
+        ),
         const SizedBox(height: 8),
         Text(
           'Menu opens with dropdownColor /\nmenuMaxHeight constraints.',
@@ -717,7 +679,10 @@ Widget _buildSection01() {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Text('id: ${o.value}', style: _mono(10, color: kInkMute)),
+                  Text(
+                    'id: ${o.value}',
+                    style: _mono(10, color: kInkMute),
+                  ),
                 ],
               ),
             ),
@@ -761,12 +726,8 @@ Widget _buildSection01() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        1,
-        'items + DropdownMenuItem<T>',
-        'The list of selectable rows. T is inferred from items.value.',
-        kLavender,
-      ),
+      _sectionDivider(1, 'items + DropdownMenuItem<T>',
+          'The list of selectable rows. T is inferred from items.value.', kLavender),
       _card(
         title: 'Basic items with icon + label',
         subtitle: 'List<DropdownMenuItem<String>>',
@@ -789,8 +750,7 @@ Widget _buildSection01() {
         body: intItems,
         tags: const <String>['items', 'List.generate'],
         accent: kPeach,
-        footer:
-            'List.generate(5, (i) => DropdownMenuItem<int>(value: i+1, ...))',
+        footer: 'List.generate(5, (i) => DropdownMenuItem<int>(value: i+1, ...))',
       ),
     ],
   );
@@ -861,12 +821,8 @@ Widget _buildSection02() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        2,
-        'InputDecoration spectrum',
-        'Borders, fill, prefix/suffix, helpers and error states.',
-        kSky,
-      ),
+      _sectionDivider(2, 'InputDecoration spectrum',
+          'Borders, fill, prefix/suffix, helpers and error states.', kSky),
       _card(
         title: 'Filled + rounded border',
         subtitle: 'fillColor + borderRadius',
@@ -879,11 +835,7 @@ Widget _buildSection02() {
         subtitle: 'Pinned floating label, prefix + suffix icons',
         body: outlined,
         accent: kLavender,
-        tags: const <String>[
-          'prefixIcon',
-          'suffixIcon',
-          'floatingLabelBehavior',
-        ],
+        tags: const <String>['prefixIcon', 'suffixIcon', 'floatingLabelBehavior'],
       ),
       _card(
         title: 'Error decoration',
@@ -960,12 +912,8 @@ Widget _buildSection03() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        3,
-        'validator + autovalidateMode',
-        'How errors surface and when the validator is invoked.',
-        kRose,
-      ),
+      _sectionDivider(3, 'validator + autovalidateMode',
+          'How errors surface and when the validator is invoked.', kRose),
       _calloutBanner(
         icon: Icons.info_outline,
         title: 'AutovalidateMode',
@@ -1045,12 +993,8 @@ Widget _buildSection04() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        4,
-        'onChanged & onSaved',
-        'Callback patterns that play well with stateless d4rt rendering.',
-        kMint,
-      ),
+      _sectionDivider(4, 'onChanged & onSaved',
+          'Callback patterns that play well with stateless d4rt rendering.', kMint),
       _card(
         title: 'onChanged: (_) {}',
         subtitle: 'Interactivity rendered; callback is a no-op',
@@ -1119,12 +1063,8 @@ Widget _buildSection05() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        5,
-        'value / hint / disabledHint',
-        'Three ways to communicate the current state to the user.',
-        kPeach,
-      ),
+      _sectionDivider(5, 'value / hint / disabledHint',
+          'Three ways to communicate the current state to the user.', kPeach),
       _card(
         title: 'value',
         subtitle: 'Must match exactly one item.value',
@@ -1222,12 +1162,8 @@ Widget _buildSection06() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        6,
-        'Layout: isExpanded vs isDense',
-        'Controls horizontal stretching and vertical compactness.',
-        kAccentSoft,
-      ),
+      _sectionDivider(6, 'Layout: isExpanded vs isDense',
+          'Controls horizontal stretching and vertical compactness.', kAccentSoft),
       _card(
         title: 'isExpanded: true',
         subtitle: 'Fills the available horizontal space',
@@ -1321,12 +1257,8 @@ Widget _buildSection07() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        7,
-        'Chevron: icon / iconSize / iconColor',
-        'Theme the drop-down indicator itself.',
-        kSuccess.withValues(alpha: 0.25),
-      ),
+      _sectionDivider(7, 'Chevron: icon / iconSize / iconColor',
+          'Theme the drop-down indicator itself.', kSuccess.withValues(alpha: 0.25)),
       _card(
         title: 'Custom icon + iconEnabledColor',
         subtitle: 'icon, iconSize, iconEnabledColor',
@@ -1386,20 +1318,15 @@ Widget _buildSection08() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        8,
-        'focusNode & autofocus',
-        'Keyboard / a11y plumbing for the field.',
-        kAccentSoft,
-      ),
+      _sectionDivider(8, 'focusNode & autofocus',
+          'Keyboard / a11y plumbing for the field.', kAccentSoft),
       _card(
         title: 'focusNode',
         subtitle: 'External FocusNode injected into the dropdown',
         body: focusDemo,
         accent: kAccentSoft,
         tags: const <String>['focusNode'],
-        footer:
-            'final FocusNode focusNode = FocusNode(debugLabel: "demoFocus");',
+        footer: 'final FocusNode focusNode = FocusNode(debugLabel: "demoFocus");',
       ),
       _card(
         title: 'autofocus',
@@ -1435,13 +1362,16 @@ Widget _buildSection09() {
         helperText: 'Many items, but menu capped to 200 logical pixels.',
         border: OutlineInputBorder(),
       ),
-      items: List<DropdownMenuItem<String>>.generate(26, (int i) {
-        final String letter = String.fromCharCode(65 + i);
-        return DropdownMenuItem<String>(
-          value: letter.toLowerCase(),
-          child: Text('Letter $letter'),
-        );
-      }),
+      items: List<DropdownMenuItem<String>>.generate(
+        26,
+        (int i) {
+          final String letter = String.fromCharCode(65 + i);
+          return DropdownMenuItem<String>(
+            value: letter.toLowerCase(),
+            child: Text('Letter $letter'),
+          );
+        },
+      ),
       onChanged: (_) {},
     ),
   );
@@ -1449,12 +1379,8 @@ Widget _buildSection09() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        9,
-        'Menu: dropdownColor / menuMaxHeight',
-        'Restyle the popped surface and cap its scroll extent.',
-        kHighlight.withValues(alpha: 0.25),
-      ),
+      _sectionDivider(9, 'Menu: dropdownColor / menuMaxHeight',
+          'Restyle the popped surface and cap its scroll extent.', kHighlight.withValues(alpha: 0.25)),
       _card(
         title: 'dropdownColor',
         subtitle: 'Background colour for the opened menu',
@@ -1561,12 +1487,9 @@ Widget _buildSection10() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        10,
-        'Polish: feedback / alignment / radius / padding',
-        'The fine-tuning knobs at the bottom of the constructor.',
-        kSuccess.withValues(alpha: 0.25),
-      ),
+      _sectionDivider(10, 'Polish: feedback / alignment / radius / padding',
+          'The fine-tuning knobs at the bottom of the constructor.',
+          kSuccess.withValues(alpha: 0.25)),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -1675,12 +1598,9 @@ Widget _buildSection11() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _sectionDivider(
-        11,
-        'Sister widgets',
-        'How DropdownButton, DropdownMenu and DropdownMenuFormField compare.',
-        kAccentSoft,
-      ),
+      _sectionDivider(11, 'Sister widgets',
+          'How DropdownButton, DropdownMenu and DropdownMenuFormField compare.',
+          kAccentSoft),
       _card(
         title: 'DropdownButton<T>',
         subtitle: 'Material 2 base, no InputDecoration / FormField',
@@ -1888,7 +1808,10 @@ Widget _summary() {
           children: <Widget>[
             const Icon(Icons.summarize, color: kHighlight),
             const SizedBox(width: 8),
-            Text('Booking summary', style: _heading(15, color: kInk)),
+            Text(
+              'Booking summary',
+              style: _heading(15, color: kInk),
+            ),
           ],
         ),
         const SizedBox(height: 10),
@@ -1949,20 +1872,14 @@ Widget _summaryRow(String label, String value) {
 Widget _cheatSheet() {
   final List<List<String>> rows = <List<String>>[
     <String>['items', 'Required. List<DropdownMenuItem<T>>.'],
-    <String>[
-      'value',
-      'Selected value. Must match exactly one item.value or be null.',
-    ],
+    <String>['value', 'Selected value. Must match exactly one item.value or be null.'],
     <String>['hint', 'Shown when value == null and the field is enabled.'],
     <String>['disabledHint', 'Shown when disabled and value == null.'],
     <String>['onChanged', 'New-value callback. null = disabled.'],
     <String>['onSaved', 'Called from Form.save().'],
     <String>['validator', 'Returns String? error or null. Drives errorText.'],
     <String>['autovalidateMode', 'always · onUserInteraction · disabled.'],
-    <String>[
-      'decoration',
-      'InputDecoration: border, fill, prefix/suffix, helper, error.',
-    ],
+    <String>['decoration', 'InputDecoration: border, fill, prefix/suffix, helper, error.'],
     <String>['isExpanded', 'Fills the horizontal space available.'],
     <String>['isDense', 'Compact vertical layout.'],
     <String>['icon / iconSize', 'Trailing chevron and its size.'],
@@ -1992,7 +1909,10 @@ Widget _cheatSheet() {
           children: <Widget>[
             const Icon(Icons.menu_book, color: Colors.white),
             const SizedBox(width: 10),
-            Text('Cheat sheet', style: _heading(18, color: Colors.white)),
+            Text(
+              'Cheat sheet',
+              style: _heading(18, color: Colors.white),
+            ),
           ],
         ),
         const SizedBox(height: 14),

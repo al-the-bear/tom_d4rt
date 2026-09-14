@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.vertical_align_top,
       'title': 'Controls Floating Header Snap',
-      'body':
-          'FloatingHeaderSnapMode is an enum with two values '
+      'body': 'FloatingHeaderSnapMode is an enum with two values '
           'that define how a floating SliverPersistentHeader snaps '
           'back into view when the user scrolls down. It controls '
           'the visual behavior of the snap animation — whether the '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Used with SliverPersistentHeader',
-      'body':
-          'When a SliverPersistentHeader has floating=true and '
+      'body': 'When a SliverPersistentHeader has floating=true and '
           'a SliverPersistentHeaderDelegate that returns a non-null '
           'snapConfiguration, the FloatingHeaderSnapMode determines '
           'how the snap animation interacts with the scroll content.',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.app_settings_alt,
       'title': 'SliverAppBar Connection',
-      'body':
-          'SliverAppBar internally creates a '
+      'body': 'SliverAppBar internally creates a '
           'SliverPersistentHeader. When floating=true and snap=true '
           'on SliverAppBar, the snap behavior follows the default '
           'FloatingHeaderSnapMode. The enum gives precise control '
@@ -50,8 +47,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Two Distinct Behaviors',
-      'body':
-          'overlay: The header appears to slide over the scroll '
+      'body': 'overlay: The header appears to slide over the scroll '
           'content without pushing it. snap: The header pushes '
           'content down as it snaps into place, creating a more '
           '"physical" feel. Both animate, but the spatial '
@@ -75,18 +71,15 @@ dynamic build(BuildContext context) {
       'color': Colors.cyan[700]!,
       'shortLabel': 'overlay',
       'behavior': 'Slides over content',
-      'description':
-          'The header overlays scroll content as it '
+      'description': 'The header overlays scroll content as it '
           'appears. The scroll content does not move — only the '
           'header animates into position. This creates an effect '
           'where the header "covers" the top of the list. '
           'This is the DEFAULT mode.',
-      'visual':
-          'Header slides DOWN over the content, obscuring '
+      'visual': 'Header slides DOWN over the content, obscuring '
           'the top items until it reaches its resting position. '
           'Content stays in place.',
-      'useCase':
-          'Suitable for transparent or semi-transparent '
+      'useCase': 'Suitable for transparent or semi-transparent '
           'headers, search bars, or toolbars that don\'t need to '
           'displace content. Common in social media feeds.',
     },
@@ -97,17 +90,14 @@ dynamic build(BuildContext context) {
       'color': Colors.blue[700]!,
       'shortLabel': 'snap',
       'behavior': 'Pushes content down',
-      'description':
-          'The header snaps into view by pushing scroll '
+      'description': 'The header snaps into view by pushing scroll '
           'content down. Both the header and the list content '
           'animate together — the list moves to make room. This '
           'creates a more "solid" / "physical" behavior.',
-      'visual':
-          'Header pushes DOWN the content. List items move '
+      'visual': 'Header pushes DOWN the content. List items move '
           'down as the header appears, no items are obscured. '
           'Feels more like a real object sliding into a slot.',
-      'useCase':
-          'Better for opaque headers where content must '
+      'useCase': 'Better for opaque headers where content must '
           'always be fully visible. Navigation bars, status bars, '
           'or any header that shouldn\'t overlap content.',
     },
@@ -126,8 +116,7 @@ dynamic build(BuildContext context) {
       'role': 'Container',
       'icon': Icons.view_list,
       'color': Colors.grey[600]!,
-      'description':
-          'The outer scrollable that holds slivers. '
+      'description': 'The outer scrollable that holds slivers. '
           'All SliverPersistentHeaders live inside this.',
     },
     {
@@ -135,8 +124,7 @@ dynamic build(BuildContext context) {
       'role': 'Header Sliver',
       'icon': Icons.view_agenda,
       'color': Colors.cyan[600]!,
-      'description':
-          'A sliver that stays at the top of the '
+      'description': 'A sliver that stays at the top of the '
           'viewport. Can be floating (re-appears when scrolling '
           'down) or pinned (always visible).',
     },
@@ -145,8 +133,7 @@ dynamic build(BuildContext context) {
       'role': 'Configuration',
       'icon': Icons.settings,
       'color': Colors.blue[600]!,
-      'description':
-          'Defines the header\'s min/max extent, build '
+      'description': 'Defines the header\'s min/max extent, build '
           'method, and optionally a snapConfiguration with the '
           'FloatingHeaderSnapMode.',
     },
@@ -155,8 +142,7 @@ dynamic build(BuildContext context) {
       'role': 'Snap Config',
       'icon': Icons.tune,
       'color': Colors.cyan[700]!,
-      'description':
-          'Contains the snapMode (FloatingHeaderSnapMode) '
+      'description': 'Contains the snapMode (FloatingHeaderSnapMode) '
           'and optional vsync for the snap animation. Created by '
           'the delegate\'s snapConfiguration getter.',
     },
@@ -165,8 +151,7 @@ dynamic build(BuildContext context) {
       'role': 'Mode Enum',
       'icon': Icons.toggle_on,
       'color': Colors.blue[800]!,
-      'description':
-          'THIS ENUM. Determines whether the snap '
+      'description': 'THIS ENUM. Determines whether the snap '
           'animation overlays content or pushes it. Set in '
           'FloatingHeaderSnapConfiguration.',
     },
@@ -175,8 +160,7 @@ dynamic build(BuildContext context) {
       'role': 'High-Level Widget',
       'icon': Icons.web_asset,
       'color': Colors.grey[500]!,
-      'description':
-          'Convenience widget that wraps '
+      'description': 'Convenience widget that wraps '
           'SliverPersistentHeader. When floating=true & snap=true, '
           'it uses the default snap mode (overlay).',
     },
@@ -190,7 +174,11 @@ dynamic build(BuildContext context) {
   print('=== Section 4: Visual Comparison ===');
 
   final visualComparison = <Map<String, dynamic>>[
-    {'aspect': 'Mode', 'overlay': 'overlay (default)', 'snap': 'snap'},
+    {
+      'aspect': 'Mode',
+      'overlay': 'overlay (default)',
+      'snap': 'snap',
+    },
     {
       'aspect': 'Header animation',
       'overlay': 'Slides down over content',
@@ -236,11 +224,9 @@ dynamic build(BuildContext context) {
       'step': 1,
       'icon': Icons.arrow_upward,
       'color': Colors.cyan[600]!,
-      'overlay':
-          'Header hidden above viewport. Content scrolls '
+      'overlay': 'Header hidden above viewport. Content scrolls '
           'normally upward.',
-      'snap':
-          'Same. Header hidden above viewport. Content scrolls '
+      'snap': 'Same. Header hidden above viewport. Content scrolls '
           'normally upward.',
     },
     {
@@ -248,11 +234,9 @@ dynamic build(BuildContext context) {
       'step': 2,
       'icon': Icons.swap_vert,
       'color': Colors.blue[600]!,
-      'overlay':
-          'User starts scrolling down. The floating header '
+      'overlay': 'User starts scrolling down. The floating header '
           'begins to appear from the top edge.',
-      'snap':
-          'Same trigger. User scrolls down; header starts to '
+      'snap': 'Same trigger. User scrolls down; header starts to '
           'appear from top edge.',
     },
     {
@@ -260,11 +244,9 @@ dynamic build(BuildContext context) {
       'step': 3,
       'icon': Icons.animation,
       'color': Colors.cyan[700]!,
-      'overlay':
-          'Header slides down OVER the content. Content '
+      'overlay': 'Header slides down OVER the content. Content '
           'stays still. Header covers top list items.',
-      'snap':
-          'Header slides down AND content shifts down. No '
+      'snap': 'Header slides down AND content shifts down. No '
           'items are covered — they move to make room.',
     },
     {
@@ -272,12 +254,10 @@ dynamic build(BuildContext context) {
       'step': 4,
       'icon': Icons.check,
       'color': Colors.blue[700]!,
-      'overlay':
-          'Header rests at its maxExtent position, still '
+      'overlay': 'Header rests at its maxExtent position, still '
           'overlaying content. First visible list item may be '
           'partially hidden.',
-      'snap':
-          'Header rests at maxExtent. Content has shifted down '
+      'snap': 'Header rests at maxExtent. Content has shifted down '
           'by the header height. All list items fully visible.',
     },
     {
@@ -285,11 +265,9 @@ dynamic build(BuildContext context) {
       'step': 5,
       'icon': Icons.arrow_upward,
       'color': Colors.cyan[800]!,
-      'overlay':
-          'Header shrinks/hides as user scrolls up. Content '
+      'overlay': 'Header shrinks/hides as user scrolls up. Content '
           'remains in place; previously hidden items re-appear.',
-      'snap':
-          'Header shrinks/hides. Content shifts back up to fill '
+      'snap': 'Header shrinks/hides. Content shifts back up to fill '
           'the space the header occupied.',
     },
   ];
@@ -306,13 +284,11 @@ dynamic build(BuildContext context) {
       'name': 'Default floating SliverAppBar',
       'icon': Icons.web_asset,
       'color': Colors.cyan[700]!,
-      'description':
-          'SliverAppBar(floating: true, snap: true) uses '
+      'description': 'SliverAppBar(floating: true, snap: true) uses '
           'overlay mode by default. The app bar appears over the '
           'list content when scrolling down. This is the most '
           'common configuration.',
-      'code':
-          'SliverAppBar(\n'
+      'code': 'SliverAppBar(\n'
           '  floating: true,\n'
           '  snap: true,\n'
           '  title: Text(\'My App\'),\n'
@@ -322,13 +298,11 @@ dynamic build(BuildContext context) {
       'name': 'Custom delegate with snap mode',
       'icon': Icons.settings,
       'color': Colors.blue[700]!,
-      'description':
-          'To control the snap mode, create a custom '
+      'description': 'To control the snap mode, create a custom '
           'SliverPersistentHeaderDelegate and override '
           'snapConfiguration to return a '
           'FloatingHeaderSnapConfiguration with the desired mode.',
-      'code':
-          'FloatingHeaderSnapConfiguration(\n'
+      'code': 'FloatingHeaderSnapConfiguration(\n'
           '  snapMode: FloatingHeaderSnapMode.snap,\n'
           '  curve: Curves.easeOut,\n'
           '  duration: Duration(milliseconds: 200),\n'
@@ -338,13 +312,11 @@ dynamic build(BuildContext context) {
       'name': 'Floating without snap',
       'icon': Icons.drag_handle,
       'color': Colors.cyan[600]!,
-      'description':
-          'Setting floating=true but snap=false means '
+      'description': 'Setting floating=true but snap=false means '
           'the header follows the finger position exactly — no '
           'snap animation. FloatingHeaderSnapMode is irrelevant '
           'in this case because no snap occurs.',
-      'code':
-          'SliverAppBar(\n'
+      'code': 'SliverAppBar(\n'
           '  floating: true,\n'
           '  snap: false, // no snap animation\n'
           '  title: Text(\'Manual Float\'),\n'
@@ -354,14 +326,12 @@ dynamic build(BuildContext context) {
       'name': 'Pinned + floating + snap',
       'icon': Icons.push_pin,
       'color': Colors.blue[600]!,
-      'description':
-          'When pinned=true, the header never fully '
+      'description': 'When pinned=true, the header never fully '
           'disappears — it collapses to minExtent. The snap '
           'animation then expands it from minExtent to maxExtent. '
           'The snap mode still applies to how the expansion '
           'interacts with content.',
-      'code':
-          'SliverAppBar(\n'
+      'code': 'SliverAppBar(\n'
           '  pinned: true,\n'
           '  floating: true,\n'
           '  snap: true,\n'
@@ -383,8 +353,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.view_agenda,
       'color': Colors.cyan[600]!,
       'relationship': 'Consumer',
-      'description':
-          'The sliver widget that uses the snap mode. '
+      'description': 'The sliver widget that uses the snap mode. '
           'Its delegate provides the FloatingHeaderSnapConfiguration '
           'which contains the FloatingHeaderSnapMode enum value.',
     },
@@ -393,8 +362,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.tune,
       'color': Colors.blue[700]!,
       'relationship': 'Container',
-      'description':
-          'Configuration record that holds the snap mode '
+      'description': 'Configuration record that holds the snap mode '
           'enum value together with optional animation curve and '
           'duration. Returned by the delegate\'s snapConfiguration.',
     },
@@ -403,8 +371,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.settings,
       'color': Colors.cyan[700]!,
       'relationship': 'Provider',
-      'description':
-          'Abstract delegate that provides the snap '
+      'description': 'Abstract delegate that provides the snap '
           'configuration. Override snapConfiguration getter to '
           'return a FloatingHeaderSnapConfiguration with the '
           'desired snap mode.',
@@ -414,8 +381,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.web_asset,
       'color': Colors.blue[600]!,
       'relationship': 'High-level wrapper',
-      'description':
-          'Creates a SliverPersistentHeader internally. '
+      'description': 'Creates a SliverPersistentHeader internally. '
           'When floating=true and snap=true, it configures the '
           'snap behavior. Does not directly expose the snap mode '
           'enum — uses overlay by default.',
@@ -425,8 +391,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.developer_board,
       'color': Colors.grey[600]!,
       'relationship': 'Implementation',
-      'description':
-          'The render object that implements the floating '
+      'description': 'The render object that implements the floating '
           'behavior. Reads the snap mode to decide whether to '
           'adjust content offset during the snap animation.',
     },
@@ -445,8 +410,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.search,
       'color': Colors.cyan[700]!,
       'mode': 'overlay',
-      'description':
-          'A search bar floating at the top of a product '
+      'description': 'A search bar floating at the top of a product '
           'list. When the user scrolls down, the bar slides over '
           'the list. Overlay mode is natural here because the bar '
           'is semi-transparent / blurred and items behind it are '
@@ -457,8 +421,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.menu,
       'color': Colors.blue[700]!,
       'mode': 'snap',
-      'description':
-          'A solid navigation bar with tabs. When it '
+      'description': 'A solid navigation bar with tabs. When it '
           'snaps back, content should shift down — you don\'t want '
           'list items hidden behind an opaque bar. Snap mode '
           'ensures all content stays visible.',
@@ -468,8 +431,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.construction,
       'color': Colors.cyan[600]!,
       'mode': 'overlay',
-      'description':
-          'A thin action toolbar (share, like, bookmark) '
+      'description': 'A thin action toolbar (share, like, bookmark) '
           'that reappears when you start scrolling down in a feed. '
           'It\'s small enough that overlay is fine — minimal '
           'content is hidden and it feels lightweight.',
@@ -479,8 +441,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.filter_list,
       'color': Colors.blue[600]!,
       'mode': 'snap',
-      'description':
-          'A filter bar above search results. Users need '
+      'description': 'A filter bar above search results. Users need '
           'to see the first result below the bar. Snap mode pushes '
           'results down so the first item is always fully visible '
           'after the header settles.',
@@ -490,8 +451,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.image,
       'color': Colors.cyan[800]!,
       'mode': 'overlay',
-      'description':
-          'A SliverAppBar with a large hero image that '
+      'description': 'A SliverAppBar with a large hero image that '
           'collapses. When floating/snap re-expands it, overlay '
           'mode creates a nice parallax effect as the image '
           'appears over the scrolling content.',
@@ -509,8 +469,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Default Is Overlay',
-      'body':
-          'If you don\'t specify a snap mode, overlay is used. '
+      'body': 'If you don\'t specify a snap mode, overlay is used. '
           'This means headers will cover content when snapping. '
           'If your header is opaque and content shouldn\'t be '
           'hidden, explicitly set snap mode.',
@@ -519,8 +478,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'snap=false Makes Mode Irrelevant',
-      'body':
-          'FloatingHeaderSnapMode only matters when snap is '
+      'body': 'FloatingHeaderSnapMode only matters when snap is '
           'enabled (snap=true on SliverAppBar, or '
           'snapConfiguration is non-null on the delegate). Without '
           'snap, the header follows the scroll position directly '
@@ -530,8 +488,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Test Both Modes Visually',
-      'body':
-          'The difference between overlay and snap is subtle '
+      'body': 'The difference between overlay and snap is subtle '
           'but important. Always test both modes with your actual '
           'header content to see which feels right. Opaque headers '
           'almost always want snap mode.',
@@ -540,8 +497,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Custom Delegates for Custom Modes',
-      'body':
-          'SliverAppBar does not expose the snap mode directly. '
+      'body': 'SliverAppBar does not expose the snap mode directly. '
           'To use FloatingHeaderSnapMode.snap with SliverAppBar, '
           'you need a custom SliverPersistentHeaderDelegate that '
           'overrides snapConfiguration.',
@@ -550,8 +506,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Combine with stretchConfiguration',
-      'body':
-          'In Flutter 3+, SliverAppBar also supports stretch '
+      'body': 'In Flutter 3+, SliverAppBar also supports stretch '
           'mode. FloatingHeaderSnapMode and stretch modes are '
           'independent — you can combine them for rich scroll '
           'behaviors (snap on re-appear, stretch on overscroll).',
@@ -560,8 +515,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Snap Duration Affects UX',
-      'body':
-          'FloatingHeaderSnapConfiguration also takes a '
+      'body': 'FloatingHeaderSnapConfiguration also takes a '
           'duration and curve. A fast snap (100-200ms) feels '
           'responsive; a slow one (400ms+) feels sluggish. The '
           'mode determines WHAT animates, the duration determines '
@@ -605,7 +559,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.vertical_align_top, color: Colors.white, size: 40),
+                Icon(Icons.vertical_align_top,
+                    color: Colors.white, size: 40),
                 SizedBox(height: 12),
                 Text(
                   'FloatingHeaderSnapMode',
@@ -636,240 +591,191 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _snapHead('1', 'What is FloatingHeaderSnapMode?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: card['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: card['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          card['icon'] as IconData,
-                          color: card['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(card['icon'] as IconData,
+                            color: card['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            card['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(card['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      card['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(card['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Enum Values ──
           _snapHead('2', 'The Two Values'),
           SizedBox(height: 12),
-          ...enumValues.map(
-            (ev) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border(
-                    left: BorderSide(color: ev['color'] as Color, width: 5),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...enumValues.map((ev) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border(
+                      left: BorderSide(
+                          color: ev['color'] as Color, width: 5),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          ev['icon'] as IconData,
-                          color: ev['color'] as Color,
-                          size: 24,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(ev['icon'] as IconData,
+                            color: ev['color'] as Color, size: 24),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            ev['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'monospace',
-                              fontSize: 12,
-                              color: ev['color'] as Color,
-                            ),
-                          ),
+                          child: Text(ev['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'monospace',
+                                  fontSize: 12,
+                                  color: ev['color'] as Color)),
                         ),
-                        _snapChip(
-                          ev['behavior'] as String,
-                          ev['color'] as Color,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      ev['description'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: (ev['color'] as Color).withOpacity(0.06),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: (ev['color'] as Color).withOpacity(0.2),
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Visual:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: ev['color'] as Color,
-                            ),
-                          ),
-                          SizedBox(height: 2),
-                          Text(
-                            ev['visual'] as String,
-                            style: TextStyle(
-                              fontSize: 11,
+                        _snapChip(ev['behavior'] as String,
+                            ev['color'] as Color),
+                      ]),
+                      SizedBox(height: 10),
+                      Text(ev['description'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
                               color: Colors.grey[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
+                              height: 1.4)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: (ev['color'] as Color).withOpacity(0.06),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                              color: (ev['color'] as Color)
+                                  .withOpacity(0.2)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Visual:',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                    color: ev['color'] as Color)),
+                            SizedBox(height: 2),
+                            Text(ev['visual'] as String,
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey[700],
+                                    height: 1.3)),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      'Use case: ${ev['useCase']}',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[600],
-                        fontStyle: FontStyle.italic,
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                      SizedBox(height: 6),
+                      Text('Use case: ${ev['useCase']}',
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[600],
+                              fontStyle: FontStyle.italic,
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 3: Architecture ──
           _snapHead('3', 'Architecture & Class Relationships'),
           SizedBox(height: 12),
-          ...architecture.map(
-            (a) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: a['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
+          ...architecture.map((a) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: a['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          a['icon'] as IconData,
-                          color: a['color'] as Color,
-                          size: 18,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(a['icon'] as IconData,
+                            color: a['color'] as Color, size: 18),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            a['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'monospace',
-                              fontSize: 12,
-                              color: a['color'] as Color,
-                            ),
-                          ),
+                          child: Text(a['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'monospace',
+                                  fontSize: 12,
+                                  color: a['color'] as Color)),
                         ),
-                        _snapChip(a['role'] as String, Colors.grey[500]!),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      a['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                        _snapChip(
+                            a['role'] as String, Colors.grey[500]!),
+                      ]),
+                      SizedBox(height: 4),
+                      Text(a['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -883,108 +789,81 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.cyan[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
+            child: Column(children: [
+              Container(
+                padding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                decoration: BoxDecoration(
+                  color: Colors.cyan[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
+                ),
+                child: Row(children: [
+                  Expanded(
+                      flex: 2,
+                      child: Text('Aspect',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                  Expanded(
+                      flex: 3,
+                      child: Text('Overlay',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                  Expanded(
+                      flex: 3,
+                      child: Text('Snap',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                ]),
+              ),
+              ...visualComparison.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final row = entry.value;
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 6, horizontal: 10),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Aspect',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 2,
+                          child: Text(row['aspect'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10))),
                       Expanded(
-                        flex: 3,
-                        child: Text(
-                          'Overlay',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 3,
+                          child: Text(row['overlay'] as String,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.cyan[700],
+                                  height: 1.3))),
                       Expanded(
-                        flex: 3,
-                        child: Text(
-                          'Snap',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 3,
+                          child: Text(row['snap'] as String,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.blue[700],
+                                  height: 1.3))),
                     ],
                   ),
-                ),
-                ...visualComparison.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final row = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            row['aspect'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Text(
-                            row['overlay'] as String,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.cyan[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Text(
-                            row['snap'] as String,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.blue[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -992,369 +871,310 @@ dynamic build(BuildContext context) {
           // ── Section 5: Snap Timeline ──
           _snapHead('5', 'Snap Animation Timeline'),
           SizedBox(height: 12),
-          ...snapTimeline.map(
-            (st) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: st['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
+          ...snapTimeline.map((st) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: st['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            color: st['color'] as Color,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Text(
-                              '${st['step']}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                              ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 26,
+                            height: 26,
+                            decoration: BoxDecoration(
+                              color: st['color'] as Color,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Text('${st['step']}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11)),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    st['icon'] as IconData,
-                                    color: st['color'] as Color,
-                                    size: 14,
-                                  ),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  Icon(st['icon'] as IconData,
+                                      color: st['color'] as Color,
+                                      size: 14),
                                   SizedBox(width: 4),
-                                  Text(
-                                    st['phase'] as String,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 6),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        color: Colors.cyan[50],
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'overlay',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.cyan[700],
-                                              fontSize: 9,
-                                            ),
-                                          ),
-                                          SizedBox(height: 2),
-                                          Text(
-                                            st['overlay'] as String,
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.grey[700],
-                                              height: 1.2,
-                                            ),
-                                          ),
-                                        ],
+                                  Text(st['phase'] as String,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12)),
+                                ]),
+                                SizedBox(height: 6),
+                                Row(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                          color: Colors.cyan[50],
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('overlay',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                    color:
+                                                        Colors.cyan[700],
+                                                    fontSize: 9)),
+                                            SizedBox(height: 2),
+                                            Text(
+                                                st['overlay'] as String,
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color:
+                                                        Colors.grey[700],
+                                                    height: 1.2)),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: 4),
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[50],
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'snap',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.blue[700],
-                                              fontSize: 9,
-                                            ),
-                                          ),
-                                          SizedBox(height: 2),
-                                          Text(
-                                            st['snap'] as String,
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.grey[700],
-                                              height: 1.2,
-                                            ),
-                                          ),
-                                        ],
+                                    SizedBox(width: 4),
+                                    Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue[50],
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('snap',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                    color:
+                                                        Colors.blue[700],
+                                                    fontSize: 9)),
+                                            SizedBox(height: 2),
+                                            Text(st['snap'] as String,
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color:
+                                                        Colors.grey[700],
+                                                    height: 1.2)),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 6: SliverAppBar Usage ──
           _snapHead('6', 'Usage with SliverAppBar'),
           SizedBox(height: 12),
-          ...appBarUsage.map(
-            (u) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: u['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...appBarUsage.map((u) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: u['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          u['icon'] as IconData,
-                          color: u['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(u['icon'] as IconData,
+                            color: u['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            u['name'] as String,
+                          child: Text(u['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                        ),
+                      ]),
+                      SizedBox(height: 8),
+                      Text(u['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(u['code'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      u['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: Colors.cyan[800],
+                                height: 1.4)),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        u['code'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: Colors.cyan[800],
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 7: Related Classes ──
           _snapHead('7', 'Related Classes'),
           SizedBox(height: 12),
-          ...relatedClasses.map(
-            (rc) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: rc['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
+          ...relatedClasses.map((rc) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: rc['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          rc['icon'] as IconData,
-                          color: rc['color'] as Color,
-                          size: 16,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(rc['icon'] as IconData,
+                            color: rc['color'] as Color, size: 16),
                         SizedBox(width: 6),
                         Expanded(
-                          child: Text(
-                            rc['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'monospace',
-                              fontSize: 11,
-                              color: rc['color'] as Color,
-                            ),
-                          ),
+                          child: Text(rc['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'monospace',
+                                  fontSize: 11,
+                                  color: rc['color'] as Color)),
                         ),
-                        _snapChip(
-                          rc['relationship'] as String,
-                          Colors.grey[500]!,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      rc['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                        _snapChip(rc['relationship'] as String,
+                            Colors.grey[500]!),
+                      ]),
+                      SizedBox(height: 4),
+                      Text(rc['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 8: Scenarios ──
           _snapHead('8', 'Real-World Scenarios'),
           SizedBox(height: 12),
-          ...scenarios.map(
-            (s) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: s['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...scenarios.map((s) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: s['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          s['icon'] as IconData,
-                          color: s['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(s['icon'] as IconData,
+                            color: s['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            s['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(s['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                        _snapChip(
-                          s['mode'] as String,
-                          s['mode'] == 'overlay'
-                              ? Colors.cyan[600]!
-                              : Colors.blue[600]!,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      s['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                        _snapChip(s['mode'] as String,
+                            s['mode'] == 'overlay'
+                                ? Colors.cyan[600]!
+                                : Colors.blue[600]!),
+                      ]),
+                      SizedBox(height: 8),
+                      Text(s['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1386,41 +1206,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1461,26 +1269,20 @@ Widget _snapHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1496,13 +1298,10 @@ Widget _snapChip(String text, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 9,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 9,
+            fontWeight: FontWeight.bold)),
   );
 }

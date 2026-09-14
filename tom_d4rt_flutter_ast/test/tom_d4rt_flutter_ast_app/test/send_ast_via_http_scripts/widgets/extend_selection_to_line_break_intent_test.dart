@@ -28,7 +28,9 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.only(top: 24, bottom: 12),
       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [lbPlum, lbGrape]),
+        gradient: const LinearGradient(
+          colors: [lbPlum, lbGrape],
+        ),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -89,7 +91,11 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 14, color: lbBlack, height: 1.55),
+        style: const TextStyle(
+          fontSize: 14,
+          color: lbBlack,
+          height: 1.55,
+        ),
       ),
     );
   }
@@ -109,7 +115,11 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         code,
-        style: const TextStyle(fontSize: 13, color: lbLavender, height: 1.6),
+        style: const TextStyle(
+          fontSize: 13,
+          color: lbLavender,
+          height: 1.6,
+        ),
       ),
     );
   }
@@ -176,7 +186,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 14, color: lbBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 14,
+                color: lbBlack,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -214,7 +228,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 14, color: lbBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 14,
+                color: lbBlack,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -249,7 +267,11 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             Text(
               body,
-              style: const TextStyle(fontSize: 13, color: lbBlack, height: 1.5),
+              style: const TextStyle(
+                fontSize: 13,
+                color: lbBlack,
+                height: 1.5,
+              ),
             ),
           ],
         ),
@@ -317,7 +339,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           Text(
             content,
-            style: const TextStyle(fontSize: 13, color: lbBlack, height: 1.6),
+            style: const TextStyle(
+              fontSize: 13,
+              color: lbBlack,
+              height: 1.6,
+            ),
           ),
         ],
       ),
@@ -391,7 +417,11 @@ dynamic build(BuildContext context) {
                 'while the base (anchor) stays fixed. This is the bread-and-'
                 'butter shortcut for selecting text to the end or beginning '
                 'of the current visual or logical line.',
-                style: TextStyle(fontSize: 14, color: lbLilac, height: 1.6),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: lbLilac,
+                  height: 1.6,
+                ),
               ),
             ],
           ),
@@ -462,11 +492,11 @@ dynamic build(BuildContext context) {
             lbCompare(
               'ExpandSelectionToLineBreakIntent',
               'May move BOTH base and extent to ensure '
-                  'the selection grows toward the line break.\n\n'
-                  'The selection can only expand, never shrink.\n\n'
-                  'After the operation the base is always at the '
-                  'side closest to the line break target.\n\n'
-                  'Used by some platform-specific shortcut layers.',
+              'the selection grows toward the line break.\n\n'
+              'The selection can only expand, never shrink.\n\n'
+              'After the operation the base is always at the '
+              'side closest to the line break target.\n\n'
+              'Used by some platform-specific shortcut layers.',
               lbLavender,
             ),
           ],
@@ -477,31 +507,31 @@ dynamic build(BuildContext context) {
         lbDiagram(
           'Initial state  — cursor at column 15, no selection:',
           'Line: "The quick brown fox jumps over the lazy dog."\n'
-              '       0         1         2         3         4\n'
-              '       0123456789012345678901234567890123456789012345678\n'
-              '                  ^ cursor (offset 15)',
+          '       0         1         2         3         4\n'
+          '       0123456789012345678901234567890123456789012345678\n'
+          '                  ^ cursor (offset 15)',
         ),
 
         lbDiagram(
           'After Extend forward=true  (Shift+End):',
           '"The quick brown [fox jumps over the lazy dog.]"\n'
-              '                  ^base                      ^extent\n'
-              'Selection: offsets 15..48  (base=15, extent=48)',
+          '                  ^base                      ^extent\n'
+          'Selection: offsets 15..48  (base=15, extent=48)',
         ),
 
         lbDiagram(
           'After Extend forward=false  (Shift+Home):',
           '"[The quick brown] fox jumps over the lazy dog."\n'
-              ' ^extent          ^base\n'
-              'Selection: offsets 0..15  (base=15, extent=0)',
+          ' ^extent          ^base\n'
+          'Selection: offsets 0..15  (base=15, extent=0)',
         ),
 
         lbDiagram(
           'After Expand forward=true  (compare):',
           '"The quick brown [fox jumps over the lazy dog.]"\n'
-              '                  ^base                      ^extent\n'
-              'For a collapsed cursor, Expand and Extend give\n'
-              'the same result. Differences show with existing selection.',
+          '                  ^base                      ^extent\n'
+          'For a collapsed cursor, Expand and Extend give\n'
+          'the same result. Differences show with existing selection.',
         ),
 
         lbDividerWidget(),
@@ -570,14 +600,8 @@ dynamic build(BuildContext context) {
         ),
 
         lbRow('forward: true', 'Extend extent toward line END (right in LTR)'),
-        lbRow(
-          'forward: false',
-          'Extend extent toward line START (left in LTR)',
-        ),
-        lbRow(
-          'In RTL text',
-          'forward: true = visual left; false = visual right',
-        ),
+        lbRow('forward: false', 'Extend extent toward line START (left in LTR)'),
+        lbRow('In RTL text', 'forward: true = visual left; false = visual right'),
 
         lbSubHeader('Dispatched Shortcut Bindings'),
 
@@ -623,14 +647,14 @@ dynamic build(BuildContext context) {
         lbDiagram(
           'Before:',
           '"Hello, [world] today is fine."\n'
-              '         ^base  ^extent\n'
-              '  base=7, extent=12',
+          '         ^base  ^extent\n'
+          '  base=7, extent=12',
         ),
         lbDiagram(
           'After Extend forward=true:',
           '"Hello, [world today is fine.]"\n'
-              '         ^base               ^extent\n'
-              '  base=7, extent=29  (extent moved to end of line)',
+          '         ^base               ^extent\n'
+          '  base=7, extent=29  (extent moved to end of line)',
         ),
 
         lbSubHeader('Scenario B — Extend Backward, Extent After Base'),
@@ -638,14 +662,14 @@ dynamic build(BuildContext context) {
         lbDiagram(
           'Before:',
           '"Hello, [world] today is fine."\n'
-              '         ^base  ^extent\n'
-              '  base=7, extent=12',
+          '         ^base  ^extent\n'
+          '  base=7, extent=12',
         ),
         lbDiagram(
           'After Extend forward=false:',
           '"[Hello, ]world today is fine."\n'
-              ' ^extent  ^base\n'
-              '  base=7, extent=0  (extent crossed base, moved to line start)',
+          ' ^extent  ^base\n'
+          '  base=7, extent=0  (extent crossed base, moved to line start)',
         ),
 
         lbCard(
@@ -660,14 +684,14 @@ dynamic build(BuildContext context) {
         lbDiagram(
           'Before (reversed selection):',
           '"Hello, [world] today is fine."\n'
-              '         ^extent ^base\n'
-              '  base=12, extent=7',
+          '         ^extent ^base\n'
+          '  base=12, extent=7',
         ),
         lbDiagram(
           'After Extend forward=true:',
           '"Hello, world [today is fine.]"\n'
-              '               ^base         ^extent\n'
-              '  base=12, extent=29  (extent jumped past base to line end)',
+          '               ^base         ^extent\n'
+          '  base=12, extent=29  (extent jumped past base to line end)',
         ),
 
         lbSubHeader('Scenario D — Collapsed Cursor'),
@@ -675,19 +699,19 @@ dynamic build(BuildContext context) {
         lbDiagram(
           'Before (collapsed):',
           '"Hello, world today| is fine."\n'
-              '                   ^ cursor at offset 18',
+          '                   ^ cursor at offset 18',
         ),
         lbDiagram(
           'After Extend forward=true:',
           '"Hello, world today[ is fine.]"\n'
-              '                   ^base     ^extent\n'
-              '  base=18, extent=29',
+          '                   ^base     ^extent\n'
+          '  base=18, extent=29',
         ),
         lbDiagram(
           'After Extend forward=false:',
           '"[Hello, world today] is fine."\n'
-              ' ^extent             ^base\n'
-              '  base=18, extent=0',
+          ' ^extent             ^base\n'
+          '  base=18, extent=0',
         ),
 
         lbDividerWidget(),
@@ -702,38 +726,32 @@ dynamic build(BuildContext context) {
           'following pipeline processes the intent:',
         ),
 
-        lbStep(
-          1,
+        lbStep(1,
           'RawKeyboardListener / HardwareKeyboard detects Shift+End key '
           'combination and notifies the Shortcuts widget.',
         ),
-        lbStep(
-          2,
+        lbStep(2,
           'Shortcuts widget maps the key combo to '
           'ExtendSelectionToLineBreakIntent(forward: true) using the '
           'platform-appropriate ShortcutActivator.',
         ),
-        lbStep(
-          3,
+        lbStep(3,
           'The Actions widget receives the intent and looks up '
           'the registered Action<ExtendSelectionToLineBreakIntent> '
           'in the action dispatch chain.',
         ),
-        lbStep(
-          4,
+        lbStep(4,
           'EditableText registers an ExtendSelectionToLineBreakAction '
           '(or equivalent CallbackAction) that calls into the '
           'TextEditingActionTarget.',
         ),
-        lbStep(
-          5,
+        lbStep(5,
           'The action implementation reads the current TextSelection, '
           'calculates the line break position from the TextPainter '
           'layout metrics, and produces a new TextSelection with the '
           'same base but a new extent at the line boundary.',
         ),
-        lbStep(
-          6,
+        lbStep(6,
           'The TextEditingValue is updated, the text field repaints with '
           'the new selection highlight, and the cursor (now at the extent '
           'position) scrolls into view if necessary.',
@@ -797,24 +815,24 @@ dynamic build(BuildContext context) {
         lbRow(
           'ExtendSelectionTo\nLineBreakIntent',
           'Moves EXTENT to line break. Base stays. '
-              'Selection can grow or shrink.',
+          'Selection can grow or shrink.',
         ),
         lbRow(
           'ExpandSelectionTo\nLineBreakIntent',
           'Moves base or extent (whichever is needed) to '
-              'ensure the selection encompasses the line break. '
-              'Selection can only grow.',
+          'ensure the selection encompasses the line break. '
+          'Selection can only grow.',
         ),
         lbRow(
           'MoveSelectionTo\nLineBreakIntent',
           'Collapses cursor to line break position. '
-              'No selection remains — equivalent to End/Home '
-              'without Shift.',
+          'No selection remains — equivalent to End/Home '
+          'without Shift.',
         ),
         lbRow(
           'DeleteToLine\nBreakIntent',
           'Deletes from cursor to the line break. '
-              'Does not select first — destructive operation.',
+          'Does not select first — destructive operation.',
         ),
 
         lbSubHeader('Cross-Granularity Comparison'),
@@ -1116,7 +1134,10 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [lbGrape.withValues(alpha: 0.12), lbLilac],
+              colors: [
+                lbGrape.withValues(alpha: 0.12),
+                lbLilac,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

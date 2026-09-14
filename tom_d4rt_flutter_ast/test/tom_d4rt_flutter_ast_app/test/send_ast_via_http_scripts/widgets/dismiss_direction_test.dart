@@ -20,8 +20,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swipe,
       'title': 'Swipe Direction Control',
-      'body':
-          'DismissDirection is an enum that tells the Dismissible '
+      'body': 'DismissDirection is an enum that tells the Dismissible '
           'widget which swipe gestures to recognize. It determines '
           'whether the user can swipe left, right, up, down, or '
           'any combination. If the user swipes in a non-allowed '
@@ -31,8 +30,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.delete_sweep,
       'title': 'Part of the Dismissible Widget',
-      'body':
-          'Dismissible is a widget that can be dismissed by '
+      'body': 'Dismissible is a widget that can be dismissed by '
           'dragging in one or more directions. The direction property '
           'accepts a DismissDirection value. When the drag is complete '
           '(past the threshold), the widget animates off-screen and '
@@ -42,8 +40,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Seven Values',
-      'body':
-          'The enum has seven values:\n'
+      'body': 'The enum has seven values:\n'
           '• vertical — up or down\n'
           '• horizontal — left or right (end/start)\n'
           '• endToStart — right-to-left (LTR)\n'
@@ -56,8 +53,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.language,
       'title': 'RTL-Aware Naming',
-      'body':
-          'The names "startToEnd" and "endToStart" are '
+      'body': 'The names "startToEnd" and "endToStart" are '
           'directionality-aware. In LTR locales, startToEnd means '
           'left→right and endToStart means right→left. In RTL '
           'locales, they reverse. This ensures correct behavior '
@@ -80,8 +76,7 @@ dynamic build(BuildContext context) {
       'color': Colors.blue[600]!,
       'bgColor': Colors.blue[50]!,
       'arrow': '← →',
-      'meaning':
-          'Allows dismissal by swiping either left or right '
+      'meaning': 'Allows dismissal by swiping either left or right '
           '(both startToEnd and endToStart). The user can choose '
           'either direction. Useful for lists where both directions '
           'have different actions (e.g., archive left, delete right).',
@@ -93,8 +88,7 @@ dynamic build(BuildContext context) {
       'color': Colors.green[600]!,
       'bgColor': Colors.green[50]!,
       'arrow': '↑ ↓',
-      'meaning':
-          'Allows dismissal by swiping either up or down. '
+      'meaning': 'Allows dismissal by swiping either up or down. '
           'Less common than horizontal, but used in card stacks, '
           'notification panels, and vertically-oriented lists.',
       'usage': 'Card stack: swipe up to like, down to discard.',
@@ -105,8 +99,7 @@ dynamic build(BuildContext context) {
       'color': Colors.red[600]!,
       'bgColor': Colors.red[50]!,
       'arrow': '← (LTR)  /  → (RTL)',
-      'meaning':
-          'Allows dismissal only from the end side toward the '
+      'meaning': 'Allows dismissal only from the end side toward the '
           'start side. In LTR layouts, this is right-to-left. In '
           'RTL layouts, this is left-to-right. This is the most '
           'common direction for "delete" actions, following the '
@@ -119,8 +112,7 @@ dynamic build(BuildContext context) {
       'color': Colors.orange[600]!,
       'bgColor': Colors.orange[50]!,
       'arrow': '→ (LTR)  /  ← (RTL)',
-      'meaning':
-          'Allows dismissal only from the start side toward '
+      'meaning': 'Allows dismissal only from the start side toward '
           'the end side. In LTR layouts, this is left-to-right. '
           'Often used for "archive" or "mark as read" actions, '
           'providing a different semantic than the delete direction.',
@@ -132,8 +124,7 @@ dynamic build(BuildContext context) {
       'color': Colors.teal[600]!,
       'bgColor': Colors.teal[50]!,
       'arrow': '↑',
-      'meaning':
-          'Allows dismissal by swiping upward only. Used in '
+      'meaning': 'Allows dismissal by swiping upward only. Used in '
           'card interfaces, bottom sheets, and notification toasts '
           'that the user can flick upward to dismiss.',
       'usage': 'Dismiss a bottom notification by swiping up.',
@@ -144,8 +135,7 @@ dynamic build(BuildContext context) {
       'color': Colors.purple[600]!,
       'bgColor': Colors.purple[50]!,
       'arrow': '↓',
-      'meaning':
-          'Allows dismissal by swiping downward only. Used '
+      'meaning': 'Allows dismissal by swiping downward only. Used '
           'for top-positioned elements like banners, app bars, '
           'or floating cards that slide down to dismiss.',
       'usage': 'Dismiss a top banner by swiping down.',
@@ -156,8 +146,7 @@ dynamic build(BuildContext context) {
       'color': Colors.grey[600]!,
       'bgColor': Colors.grey[100]!,
       'arrow': '✕',
-      'meaning':
-          'Disables dismissal entirely. The Dismissible widget '
+      'meaning': 'Disables dismissal entirely. The Dismissible widget '
           'still exists in the tree but will not respond to any '
           'swipe gestures. Useful for conditionally disabling '
           'dismissal (e.g., in edit mode or for pinned items).',
@@ -216,8 +205,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'key',
       'type': 'Key (required)',
-      'role':
-          'Unique identifier so Flutter can track which item '
+      'role': 'Unique identifier so Flutter can track which item '
           'was dismissed. Must be unique per item in the list.',
       'icon': Icons.vpn_key,
       'color': Colors.red[600]!,
@@ -225,8 +213,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'direction',
       'type': 'DismissDirection',
-      'role':
-          'Which direction(s) allow dismissal. Defaults to '
+      'role': 'Which direction(s) allow dismissal. Defaults to '
           'DismissDirection.horizontal.',
       'icon': Icons.swap_horiz,
       'color': Colors.blue[600]!,
@@ -234,8 +221,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'onDismissed',
       'type': 'DismissDirectionCallback?',
-      'role':
-          'Called after the dismiss animation completes. Receives '
+      'role': 'Called after the dismiss animation completes. Receives '
           'the DismissDirection that was used, so you can take '
           'different actions per direction.',
       'icon': Icons.check_circle,
@@ -244,8 +230,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'confirmDismiss',
       'type': 'ConfirmDismissCallback?',
-      'role':
-          'Called before dismissal to ask for confirmation. '
+      'role': 'Called before dismissal to ask for confirmation. '
           'Return true to allow, false to cancel. Can show a dialog '
           'and await the user\'s response.',
       'icon': Icons.help_outline,
@@ -254,8 +239,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'background',
       'type': 'Widget?',
-      'role':
-          'Widget shown behind the child when swiped in the '
+      'role': 'Widget shown behind the child when swiped in the '
           'primary direction (startToEnd). Typically a colored '
           'container with an icon.',
       'icon': Icons.layers,
@@ -264,8 +248,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'secondaryBackground',
       'type': 'Widget?',
-      'role':
-          'Widget shown behind the child when swiped in the '
+      'role': 'Widget shown behind the child when swiped in the '
           'secondary direction (endToStart). If only background is '
           'set, it\'s used for both directions.',
       'icon': Icons.flip,
@@ -274,8 +257,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'dismissThresholds',
       'type': 'Map<DismissDirection, double>',
-      'role':
-          'Minimum drag fraction (0–1) for each direction before '
+      'role': 'Minimum drag fraction (0–1) for each direction before '
           'the dismiss is triggered. Default is 0.4 (40%) for all.',
       'icon': Icons.tune,
       'color': Colors.indigo[600]!,
@@ -283,8 +265,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'movementDuration',
       'type': 'Duration',
-      'role':
-          'How long the dismiss animation takes once the user '
+      'role': 'How long the dismiss animation takes once the user '
           'releases. Default is 200ms.',
       'icon': Icons.timer,
       'color': Colors.pink[600]!,
@@ -304,8 +285,7 @@ dynamic build(BuildContext context) {
       'color': Colors.red[500]!,
       'icon': Icons.delete,
       'alignment': Alignment.centerRight,
-      'desc':
-          'Red background with a trash icon aligned to the side '
+      'desc': 'Red background with a trash icon aligned to the side '
           'being revealed. As the user swipes right-to-left, the '
           'red background with the delete icon slides into view.',
     },
@@ -314,8 +294,7 @@ dynamic build(BuildContext context) {
       'color': Colors.green[500]!,
       'icon': Icons.archive,
       'alignment': Alignment.centerLeft,
-      'desc':
-          'Green background with an archive icon aligned left. '
+      'desc': 'Green background with an archive icon aligned left. '
           'Swiping left-to-right reveals the archive action. Can '
           'also show "Mark as Read" or "Pin" actions.',
     },
@@ -324,8 +303,7 @@ dynamic build(BuildContext context) {
       'color': Colors.orange[500]!,
       'icon': Icons.star,
       'alignment': Alignment.centerRight,
-      'desc':
-          'A gradient from transparent to colored, so the '
+      'desc': 'A gradient from transparent to colored, so the '
           'background intensifies as the user drags further. Creates '
           'a progressive reveal effect.',
     },
@@ -334,8 +312,7 @@ dynamic build(BuildContext context) {
       'color': Colors.blue[500]!,
       'icon': Icons.share,
       'alignment': Alignment.centerLeft,
-      'desc':
-          'Both an icon and a text label shown together: "Share" '
+      'desc': 'Both an icon and a text label shown together: "Share" '
           'with a share icon. The text gives explicit feedback about '
           'what the swipe action will do.',
     },
@@ -412,8 +389,7 @@ dynamic build(BuildContext context) {
       'title': 'onDismissed(DismissDirection direction)',
       'icon': Icons.check,
       'color': Colors.green[600]!,
-      'body':
-          'Called AFTER the dismiss animation completes and the '
+      'body': 'Called AFTER the dismiss animation completes and the '
           'widget has left the screen. The direction parameter tells '
           'you which way the user swiped, so you can take different '
           'actions:\n\n'
@@ -429,8 +405,7 @@ dynamic build(BuildContext context) {
       'title': 'confirmDismiss(DismissDirection direction)',
       'icon': Icons.help,
       'color': Colors.orange[600]!,
-      'body':
-          'Called BEFORE the dismiss happens. Must return a '
+      'body': 'Called BEFORE the dismiss happens. Must return a '
           'Future<bool?>. Return true to allow dismissal, false '
           'to cancel (the widget snaps back). You can show a dialog:\n\n'
           'confirmDismiss: (direction) async {\n'
@@ -452,8 +427,7 @@ dynamic build(BuildContext context) {
       'title': 'onResize()',
       'icon': Icons.height,
       'color': Colors.teal[600]!,
-      'body':
-          'Called each animation frame during the resize that '
+      'body': 'Called each animation frame during the resize that '
           'happens after dismissal. The list item shrinks to zero '
           'height. Useful for progress reporting or triggering '
           'side effects during the collapse animation.',
@@ -462,8 +436,7 @@ dynamic build(BuildContext context) {
       'title': 'onUpdate(DismissUpdateDetails details)',
       'icon': Icons.update,
       'color': Colors.blue[600]!,
-      'body':
-          'Called on each frame while the item is being dragged. '
+      'body': 'Called on each frame while the item is being dragged. '
           'Receives DismissUpdateDetails with: direction, reached, '
           'previousReached, progress. Useful for real-time UI '
           'feedback as the user drags (e.g., color intensity '
@@ -483,8 +456,7 @@ dynamic build(BuildContext context) {
       'title': 'Email List (Gmail Style)',
       'icon': Icons.mail,
       'color': Colors.red[500]!,
-      'body':
-          'Use DismissDirection.horizontal with different '
+      'body': 'Use DismissDirection.horizontal with different '
           'backgrounds: startToEnd reveals green "Archive" icon, '
           'endToStart reveals red "Delete" icon. The onDismissed '
           'callback checks direction to choose the action.',
@@ -493,8 +465,7 @@ dynamic build(BuildContext context) {
       'title': 'Todo List Item',
       'icon': Icons.check_box,
       'color': Colors.green[600]!,
-      'body':
-          'Use DismissDirection.endToStart for "complete" action. '
+      'body': 'Use DismissDirection.endToStart for "complete" action. '
           'The background shows a green checkmark. confirmDismiss '
           'can show an undo snackbar instead of a dialog for '
           'faster interaction.',
@@ -503,8 +474,7 @@ dynamic build(BuildContext context) {
       'title': 'Notification Panel',
       'icon': Icons.notifications,
       'color': Colors.blue[600]!,
-      'body':
-          'Use DismissDirection.horizontal to let users swipe '
+      'body': 'Use DismissDirection.horizontal to let users swipe '
           'notifications away in either direction. No confirmation '
           'needed — immediate dismissal with a simple fade.',
     },
@@ -512,8 +482,7 @@ dynamic build(BuildContext context) {
       'title': 'Shopping Cart Item',
       'icon': Icons.shopping_cart,
       'color': Colors.orange[600]!,
-      'body':
-          'Use DismissDirection.endToStart with confirmDismiss '
+      'body': 'Use DismissDirection.endToStart with confirmDismiss '
           'to show a "Remove from cart?" dialog. The background '
           'shows quantity and price info that was hidden behind '
           'the item card.',
@@ -522,8 +491,7 @@ dynamic build(BuildContext context) {
       'title': 'Card Stack (Tinder Style)',
       'icon': Icons.favorite,
       'color': Colors.pink[500]!,
-      'body':
-          'Use DismissDirection.horizontal with thresholds. '
+      'body': 'Use DismissDirection.horizontal with thresholds. '
           'startToEnd = like (green), endToStart = skip (red). '
           'The key insight: each card is a separate Dismissible '
           'with a unique key. When dismissed, the next card appears.',
@@ -541,8 +509,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Always Provide a Key',
-      'body':
-          'Dismissible requires a Key to track which item was '
+      'body': 'Dismissible requires a Key to track which item was '
           'dismissed. Without a proper key, Flutter may dismiss the '
           'wrong item or fail to update the list correctly. Use '
           'ValueKey(item.id) or UniqueKey().',
@@ -551,8 +518,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Remove from Data Source in onDismissed',
-      'body':
-          'The onDismissed callback is where you remove the item '
+      'body': 'The onDismissed callback is where you remove the item '
           'from your data list and call setState(). If you don\'t '
           'remove it, the widget rebuilds and the dismissed item '
           'reappears — a very common bug.',
@@ -561,8 +527,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Undo Pattern with SnackBar',
-      'body':
-          'Instead of confirmDismiss with a dialog, a smoother '
+      'body': 'Instead of confirmDismiss with a dialog, a smoother '
           'UX is to dismiss immediately, show a SnackBar with an '
           '"Undo" button, and only commit the deletion when the '
           'SnackBar closes without undo being pressed.',
@@ -571,8 +536,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'dismissThresholds Per Direction',
-      'body':
-          'The dismissThresholds map lets you set different '
+      'body': 'The dismissThresholds map lets you set different '
           'thresholds per direction. For destructive actions '
           '(delete), use a higher threshold (0.6) to prevent '
           'accidental dismissal. For less destructive actions '
@@ -582,8 +546,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'DismissDirection.none for Conditional Dismissal',
-      'body':
-          'Toggle between DismissDirection.horizontal and '
+      'body': 'Toggle between DismissDirection.horizontal and '
           'DismissDirection.none to enable/disable dismissal '
           'dynamically. Useful for edit mode, locked items, or '
           'items with pending network operations.',
@@ -592,8 +555,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Combine with AnimatedList',
-      'body':
-          'For the best visual experience, use Dismissible inside '
+      'body': 'For the best visual experience, use Dismissible inside '
           'an AnimatedList instead of a regular ListView. This gives '
           'you insert/remove animations that complement the '
           'dismiss animation.',
@@ -666,43 +628,37 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _heading('1', 'What is DismissDirection?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: _accentCard(card),
-            ),
-          ),
+          ...conceptCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: _accentCard(card),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Enum Values ──
           _heading('2', 'The Seven Enum Values'),
           SizedBox(height: 12),
-          ...enumValues.map(
-            (ev) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: ev['bgColor'] as Color,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: (ev['color'] as Color).withOpacity(0.4),
+          ...enumValues.map((ev) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: ev['bgColor'] as Color,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                        color: (ev['color'] as Color).withOpacity(0.4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
                         Container(
                           width: 36,
                           height: 36,
@@ -710,11 +666,8 @@ dynamic build(BuildContext context) {
                             color: ev['color'] as Color,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Icon(
-                            ev['icon'] as IconData,
-                            color: Colors.white,
-                            size: 20,
-                          ),
+                          child: Icon(ev['icon'] as IconData,
+                              color: Colors.white, size: 20),
                         ),
                         SizedBox(width: 12),
                         Expanded(
@@ -724,71 +677,52 @@ dynamic build(BuildContext context) {
                               Text(
                                 'DismissDirection.${ev['name']}',
                                 style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'monospace',
-                                  color: ev['color'] as Color,
-                                ),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'monospace',
+                                    color: ev['color'] as Color),
                               ),
-                              Text(
-                                ev['arrow'] as String,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
+                              Text(ev['arrow'] as String,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[600])),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      ev['meaning'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[800],
-                        height: 1.4,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.lightbulb_outline,
-                            size: 14,
-                            color: Colors.grey[500],
-                          ),
+                      ]),
+                      SizedBox(height: 10),
+                      Text(ev['meaning'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[800],
+                              height: 1.4)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Row(children: [
+                          Icon(Icons.lightbulb_outline,
+                              size: 14, color: Colors.grey[500]),
                           SizedBox(width: 6),
                           Expanded(
-                            child: Text(
-                              ev['usage'] as String,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.grey[700],
-                              ),
-                            ),
+                            child: Text(ev['usage'] as String,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey[700])),
                           ),
-                        ],
+                        ]),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -800,30 +734,24 @@ dynamic build(BuildContext context) {
             'The item slides in the swipe direction, exposing the '
             'colored background underneath.',
             style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[600],
-              height: 1.5,
-            ),
+                fontSize: 13, color: Colors.grey[600], height: 1.5),
           ),
           SizedBox(height: 12),
-          ...directionVisuals.map(
-            (dv) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                height: 70,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Stack(
-                  children: [
+          ...directionVisuals.map((dv) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Stack(children: [
                     // Background (action)
                     Container(
                       width: double.infinity,
@@ -834,11 +762,8 @@ dynamic build(BuildContext context) {
                       ),
                       alignment: dv['arrowAlignment'] as Alignment,
                       padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Icon(
-                        dv['bgIcon'] as IconData,
-                        color: Colors.white,
-                        size: 28,
-                      ),
+                      child: Icon(dv['bgIcon'] as IconData,
+                          color: Colors.white, size: 28),
                     ),
                     // Foreground (item partially swiped)
                     Positioned(
@@ -853,27 +778,20 @@ dynamic build(BuildContext context) {
                           border: Border.all(color: Colors.grey[300]!),
                         ),
                         padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: [
-                            Icon(Icons.drag_handle, color: Colors.grey[400]),
-                            SizedBox(width: 10),
-                            Text(
-                              dv['label'] as String,
+                        child: Row(children: [
+                          Icon(Icons.drag_handle, color: Colors.grey[400]),
+                          SizedBox(width: 10),
+                          Text(dv['label'] as String,
                               style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 13,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                          ],
-                        ),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 13,
+                                  color: Colors.grey[800])),
+                        ]),
                       ),
                     ),
-                  ],
+                  ]),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -887,91 +805,74 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.red[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
+            child: Column(children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: Colors.red[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
+                ),
+                child: Row(children: [
+                  _cell('Parameter', bold: true, white: true, flex: 2),
+                  _cell('Type', bold: true, white: true, flex: 2),
+                  _cell('Role', bold: true, white: true, flex: 4),
+                ]),
+              ),
+              ...integrationAnatomy.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final p = entry.value;
+                return Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _cell('Parameter', bold: true, white: true, flex: 2),
-                      _cell('Type', bold: true, white: true, flex: 2),
-                      _cell('Role', bold: true, white: true, flex: 4),
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(p['icon'] as IconData,
+                                size: 13, color: p['color'] as Color),
+                            SizedBox(width: 4),
+                            Expanded(
+                              child: Text(p['param'] as String,
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'monospace')),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Text(p['type'] as String,
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                color: Colors.red[700])),
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: Text(p['role'] as String,
+                            style: TextStyle(
+                                fontSize: 11, color: Colors.grey[700])),
+                      ),
                     ],
                   ),
-                ),
-                ...integrationAnatomy.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final p = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                p['icon'] as IconData,
-                                size: 13,
-                                color: p['color'] as Color,
-                              ),
-                              SizedBox(width: 4),
-                              Expanded(
-                                child: Text(
-                                  p['param'] as String,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'monospace',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            p['type'] as String,
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: Colors.red[700],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Text(
-                            p['role'] as String,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -979,23 +880,20 @@ dynamic build(BuildContext context) {
           // ── Section 5: Background Patterns ──
           _heading('5', 'Background Widget Patterns'),
           SizedBox(height: 12),
-          ...backgroundPatterns.map(
-            (bp) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
+          ...backgroundPatterns.map((bp) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(children: [
                     // Action preview
                     Container(
                       width: double.infinity,
@@ -1012,20 +910,14 @@ dynamic build(BuildContext context) {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
-                            bp['icon'] as IconData,
-                            color: Colors.white,
-                            size: 22,
-                          ),
+                          Icon(bp['icon'] as IconData,
+                              color: Colors.white, size: 22),
                           SizedBox(width: 8),
-                          Text(
-                            bp['title'] as String,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                          ),
+                          Text(bp['title'] as String,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
                         ],
                       ),
                     ),
@@ -1040,20 +932,15 @@ dynamic build(BuildContext context) {
                           bottomRight: Radius.circular(12),
                         ),
                       ),
-                      child: Text(
-                        bp['desc'] as String,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[700],
-                          height: 1.4,
-                        ),
-                      ),
+                      child: Text(bp['desc'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
                     ),
-                  ],
+                  ]),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1067,52 +954,46 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.red[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      _cell('Direction', bold: true, white: true, flex: 2),
-                      _cell('Axes', bold: true, white: true, flex: 1),
-                      _cell('LTR', bold: true, white: true, flex: 1),
-                      _cell('RTL', bold: true, white: true, flex: 1),
-                      _cell('Use Case', bold: true, white: true, flex: 3),
-                    ],
+            child: Column(children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                decoration: BoxDecoration(
+                  color: Colors.red[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
                 ),
-                ...comparisonRows.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final row = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      children: [
-                        _cell(row['direction']!, bold: true, flex: 2),
-                        _cell(row['axes']!, flex: 1),
-                        _cell(row['ltrGesture']!, flex: 1),
-                        _cell(row['rtlGesture']!, flex: 1),
-                        _cell(row['useCase']!, flex: 3),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                child: Row(children: [
+                  _cell('Direction', bold: true, white: true, flex: 2),
+                  _cell('Axes', bold: true, white: true, flex: 1),
+                  _cell('LTR', bold: true, white: true, flex: 1),
+                  _cell('RTL', bold: true, white: true, flex: 1),
+                  _cell('Use Case', bold: true, white: true, flex: 3),
+                ]),
+              ),
+              ...comparisonRows.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final row = entry.value;
+                return Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
+                  child: Row(children: [
+                    _cell(row['direction']!, bold: true, flex: 2),
+                    _cell(row['axes']!, flex: 1),
+                    _cell(row['ltrGesture']!, flex: 1),
+                    _cell(row['rtlGesture']!, flex: 1),
+                    _cell(row['useCase']!, flex: 3),
+                  ]),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -1120,135 +1001,109 @@ dynamic build(BuildContext context) {
           // ── Section 7: Callback Anatomy ──
           _heading('7', 'Callback Anatomy'),
           SizedBox(height: 12),
-          ...callbackInfo.map(
-            (ci) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: ci['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...callbackInfo.map((ci) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: ci['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          ci['icon'] as IconData,
-                          color: ci['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(ci['icon'] as IconData,
+                            color: ci['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            ci['title'] as String,
+                          child: Text(ci['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  fontFamily: 'monospace',
+                                  color: Colors.grey[900])),
+                        ),
+                      ]),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(ci['body'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(8),
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: Colors.grey[800],
+                                height: 1.4)),
                       ),
-                      child: Text(
-                        ci['body'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: Colors.grey[800],
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 8: Real-World Patterns ──
           _heading('8', 'Real-World Patterns'),
           SizedBox(height: 12),
-          ...patterns.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...patterns.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          p['icon'] as IconData,
-                          color: p['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(p['icon'] as IconData,
+                            color: p['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            p['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(p['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      p['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(p['body'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1280,41 +1135,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1355,26 +1198,20 @@ Widget _heading(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1394,37 +1231,29 @@ Widget _accentCard(Map<String, dynamic> card) {
         left: BorderSide(color: card['accent'] as Color, width: 4),
       ),
       boxShadow: [
-        BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        BoxShadow(
+            color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))
       ],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(
-              card['icon'] as IconData,
-              color: card['accent'] as Color,
-              size: 22,
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                card['title'] as String,
+        Row(children: [
+          Icon(card['icon'] as IconData,
+              color: card['accent'] as Color, size: 22),
+          SizedBox(width: 10),
+          Expanded(
+            child: Text(card['title'] as String,
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[900],
-                ),
-              ),
-            ),
-          ],
-        ),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[900])),
+          ),
+        ]),
         SizedBox(height: 10),
-        Text(
-          card['body'] as String,
-          style: TextStyle(fontSize: 13, color: Colors.grey[700], height: 1.5),
-        ),
+        Text(card['body'] as String,
+            style: TextStyle(
+                fontSize: 13, color: Colors.grey[700], height: 1.5)),
       ],
     ),
   );
@@ -1433,12 +1262,8 @@ Widget _accentCard(Map<String, dynamic> card) {
 // ──────────────────────────────────────────────────────────
 // Helper: Table cell
 // ──────────────────────────────────────────────────────────
-Widget _cell(
-  String text, {
-  bool bold = false,
-  bool white = false,
-  int flex = 1,
-}) {
+Widget _cell(String text,
+    {bool bold = false, bool white = false, int flex = 1}) {
   return Expanded(
     flex: flex,
     child: Text(

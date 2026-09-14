@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('=== FabContainedOffsetY Visual Demo ===');
-  print(
-    'Demonstrating FAB contained offset Y positioning in Scaffold contexts',
-  );
+  print('Demonstrating FAB contained offset Y positioning in Scaffold contexts');
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -76,14 +74,7 @@ Widget buildSectionHeader(String title) {
       color: Colors.indigo.shade700,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(
-      title,
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
-    ),
+    child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
   );
 }
 
@@ -96,21 +87,11 @@ Widget buildInfoCard(String label, String value) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade300),
     ),
-    child: Row(
-      children: [
-        Text(
-          label,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-          ),
-        ),
-      ],
-    ),
+    child: Row(children: [
+      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+      SizedBox(width: 8),
+      Expanded(child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700))),
+    ]),
   );
 }
 
@@ -126,55 +107,39 @@ Widget _buildContainedConcept() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'What does "Contained" mean?',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
+        Text('What does "Contained" mean?',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
         SizedBox(height: 12),
-        Text(
-          'Contained offset Y ensures the FAB stays within the visible bounds of the Scaffold body. '
-          'Unlike floating positions that can overlap the bottom bar or extend beyond the content area, '
-          'contained positions clamp the Y offset so the FAB is guaranteed to be fully visible.',
-          style: TextStyle(fontSize: 13, color: Color(0xFF37474F), height: 1.5),
-        ),
+        Text('Contained offset Y ensures the FAB stays within the visible bounds of the Scaffold body. '
+            'Unlike floating positions that can overlap the bottom bar or extend beyond the content area, '
+            'contained positions clamp the Y offset so the FAB is guaranteed to be fully visible.',
+            style: TextStyle(fontSize: 13, color: Color(0xFF37474F), height: 1.5)),
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(
-              child: _buildConceptCard(
-                'Unconstrained (Float)',
-                'May overlap bottom bar or extend below scaffold',
-                Color(0xFFEF5350),
-                Icons.open_with,
-              ),
-            ),
+            Expanded(child: _buildConceptCard(
+              'Unconstrained (Float)',
+              'May overlap bottom bar or extend below scaffold',
+              Color(0xFFEF5350),
+              Icons.open_with,
+            )),
             SizedBox(width: 12),
-            Expanded(
-              child: _buildConceptCard(
-                'Contained',
-                'Clamped to stay within visible scaffold body',
-                Color(0xFF66BB6A),
-                Icons.check_box_outline_blank,
-              ),
-            ),
+            Expanded(child: _buildConceptCard(
+              'Contained',
+              'Clamped to stay within visible scaffold body',
+              Color(0xFF66BB6A),
+              Icons.check_box_outline_blank,
+            )),
           ],
         ),
         SizedBox(height: 12),
-        buildInfoCard(
-          'Mixin:',
-          'FabContainedOffsetY provides getOffsetY with containment logic',
-        ),
+        buildInfoCard('Mixin:', 'FabContainedOffsetY provides getOffsetY with containment logic'),
       ],
     ),
   );
 }
 
-Widget _buildConceptCard(
-  String title,
-  String desc,
-  Color color,
-  IconData icon,
-) {
+Widget _buildConceptCard(String title, String desc, Color color, IconData icon) {
   return Container(
     padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -186,21 +151,11 @@ Widget _buildConceptCard(
       children: [
         Icon(icon, color: color, size: 32),
         SizedBox(height: 8),
-        Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-            color: color,
-          ),
-          textAlign: TextAlign.center,
-        ),
+        Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: color),
+            textAlign: TextAlign.center),
         SizedBox(height: 4),
-        Text(
-          desc,
-          style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
-          textAlign: TextAlign.center,
-        ),
+        Text(desc, style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
+            textAlign: TextAlign.center),
       ],
     ),
   );
@@ -218,40 +173,17 @@ Widget _buildFloatVsDockedVsTop() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Three Y-Position Strategies',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-        ),
+        Text('Three Y-Position Strategies',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
         SizedBox(height: 16),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: _buildYPositionScaffold(
-                'Float',
-                0.72,
-                Color(0xFFD84315),
-                false,
-              ),
-            ),
+            Expanded(child: _buildYPositionScaffold('Float', 0.72, Color(0xFFD84315), false)),
             SizedBox(width: 8),
-            Expanded(
-              child: _buildYPositionScaffold(
-                'Docked',
-                0.88,
-                Color(0xFF00897B),
-                true,
-              ),
-            ),
+            Expanded(child: _buildYPositionScaffold('Docked', 0.88, Color(0xFF00897B), true)),
             SizedBox(width: 8),
-            Expanded(
-              child: _buildYPositionScaffold(
-                'Top',
-                0.12,
-                Color(0xFF1565C0),
-                false,
-              ),
-            ),
+            Expanded(child: _buildYPositionScaffold('Top', 0.12, Color(0xFF1565C0), false)),
           ],
         ),
         SizedBox(height: 12),
@@ -263,12 +195,7 @@ Widget _buildFloatVsDockedVsTop() {
   );
 }
 
-Widget _buildYPositionScaffold(
-  String label,
-  double yFraction,
-  Color color,
-  bool docked,
-) {
+Widget _buildYPositionScaffold(String label, double yFraction, Color color, bool docked) {
   return Container(
     padding: EdgeInsets.all(4),
     decoration: BoxDecoration(
@@ -278,18 +205,10 @@ Widget _buildYPositionScaffold(
     ),
     child: Column(
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 11,
-            color: color,
-          ),
-        ),
+        Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: color)),
         SizedBox(height: 4),
         Container(
-          width: double.infinity,
-          height: 140,
+          width: double.infinity, height: 140,
           decoration: BoxDecoration(
             color: Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(4),
@@ -298,80 +217,43 @@ Widget _buildYPositionScaffold(
           child: Stack(
             children: [
               Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 18,
+                top: 0, left: 0, right: 0, height: 18,
                 child: Container(
                   color: Color(0xFF455A64),
-                  child: Center(
-                    child: Text(
-                      'AppBar',
-                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 6),
-                    ),
-                  ),
+                  child: Center(child: Text('AppBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 6))),
                 ),
               ),
               Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: 14,
+                bottom: 0, left: 0, right: 0, height: 14,
                 child: Container(
                   color: Color(0xFF78909C),
-                  child: Center(
-                    child: Text(
-                      'Bottom',
-                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 6),
-                    ),
-                  ),
+                  child: Center(child: Text('Bottom', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 6))),
                 ),
               ),
               Positioned(
-                left: 0,
-                right: 0,
+                left: 0, right: 0,
                 top: (140 * yFraction) - 12,
                 child: Center(
                   child: Container(
-                    width: 24,
-                    height: 24,
+                    width: 24, height: 24,
                     decoration: BoxDecoration(
-                      color: color,
-                      shape: BoxShape.circle,
-                      border: docked
-                          ? Border.all(color: Color(0xFFFFFFFF), width: 2)
-                          : null,
+                      color: color, shape: BoxShape.circle,
+                      border: docked ? Border.all(color: Color(0xFFFFFFFF), width: 2) : null,
                     ),
-                    child: Center(
-                      child: Icon(
-                        Icons.add,
-                        color: Color(0xFFFFFFFF),
-                        size: 12,
-                      ),
-                    ),
+                    child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 12)),
                   ),
                 ),
               ),
               Positioned(
-                left: 2,
-                top: (140 * yFraction) - 4,
+                left: 2, top: (140 * yFraction) - 4,
                 child: Container(
-                  width: 1,
-                  height: 40,
+                  width: 1, height: 40,
                   color: color.withValues(alpha: 0.4),
                 ),
               ),
               Positioned(
-                left: 6,
-                top: (140 * yFraction) + 16,
-                child: Text(
-                  'Y',
-                  style: TextStyle(
-                    fontSize: 7,
-                    color: color,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                left: 6, top: (140 * yFraction) + 16,
+                child: Text('Y', style: TextStyle(fontSize: 7, color: color, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -393,38 +275,16 @@ Widget _buildYOffsetCalculation() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'getOffsetY Calculation Steps',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-        ),
+        Text('getOffsetY Calculation Steps',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
         SizedBox(height: 16),
-        _buildCalcStep(
-          1,
-          'Get scaffold height',
-          'scaffoldHeight = scaffoldGeometry.scaffoldSize.height',
-          Color(0xFF1565C0),
-        ),
+        _buildCalcStep(1, 'Get scaffold height', 'scaffoldHeight = scaffoldGeometry.scaffoldSize.height', Color(0xFF1565C0)),
         SizedBox(height: 8),
-        _buildCalcStep(
-          2,
-          'Get content bottom',
-          'contentBottom = scaffoldHeight - bottomBarHeight',
-          Color(0xFF00897B),
-        ),
+        _buildCalcStep(2, 'Get content bottom', 'contentBottom = scaffoldHeight - bottomBarHeight', Color(0xFF00897B)),
         SizedBox(height: 8),
-        _buildCalcStep(
-          3,
-          'Calculate raw Y',
-          'rawY = contentBottom - fabHeight - padding',
-          Color(0xFFD84315),
-        ),
+        _buildCalcStep(3, 'Calculate raw Y', 'rawY = contentBottom - fabHeight - padding', Color(0xFFD84315)),
         SizedBox(height: 8),
-        _buildCalcStep(
-          4,
-          'Apply containment',
-          'y = clamp(rawY, minY, maxY)',
-          Color(0xFF6A1B9A),
-        ),
+        _buildCalcStep(4, 'Apply containment', 'y = clamp(rawY, minY, maxY)', Color(0xFF6A1B9A)),
         SizedBox(height: 16),
         Container(
           width: double.infinity,
@@ -436,64 +296,22 @@ Widget _buildYOffsetCalculation() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '// Contained offset Y formula:',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                  color: Color(0xFF78909C),
-                ),
-              ),
+              Text('// Contained offset Y formula:',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
               SizedBox(height: 4),
-              Text(
-                'fabY = scaffoldSize.height',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  color: Color(0xFF80CBC4),
-                ),
-              ),
-              Text(
-                '     - bottomViewPadding',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  color: Color(0xFF80CBC4),
-                ),
-              ),
-              Text(
-                '     - floatingActionButtonHeight',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  color: Color(0xFF80CBC4),
-                ),
-              ),
-              Text(
-                '     - kFloatingActionButtonMargin;',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  color: Color(0xFF80CBC4),
-                ),
-              ),
+              Text('fabY = scaffoldSize.height',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF80CBC4))),
+              Text('     - bottomViewPadding',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF80CBC4))),
+              Text('     - floatingActionButtonHeight',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF80CBC4))),
+              Text('     - kFloatingActionButtonMargin;',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF80CBC4))),
               SizedBox(height: 8),
-              Text(
-                '// Then clamp to content area',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                  color: Color(0xFF78909C),
-                ),
-              ),
-              Text(
-                'y = y.clamp(contentTop, contentBottom);',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  color: Color(0xFFFFCC80),
-                ),
-              ),
+              Text('// Then clamp to content area',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF78909C))),
+              Text('y = y.clamp(contentTop, contentBottom);',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFFFCC80))),
             ],
           ),
         ),
@@ -513,41 +331,17 @@ Widget _buildCalcStep(int step, String title, String formula, Color color) {
     child: Row(
       children: [
         Container(
-          width: 28,
-          height: 28,
+          width: 28, height: 28,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: Center(
-            child: Text(
-              '$step',
-              style: TextStyle(
-                color: Color(0xFFFFFFFF),
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-              ),
-            ),
-          ),
+          child: Center(child: Text('$step', style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold, fontSize: 13))),
         ),
         SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: color,
-                ),
-              ),
-              Text(
-                formula,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                  color: Color(0xFF616161),
-                ),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: color)),
+              Text(formula, style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161))),
             ],
           ),
         ),
@@ -568,14 +362,11 @@ Widget _buildContainedBoundaryRules() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Containment ensures FAB stays within bounds',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        Text('Containment ensures FAB stays within bounds',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         SizedBox(height: 16),
         Container(
-          width: double.infinity,
-          height: 220,
+          width: double.infinity, height: 220,
           decoration: BoxDecoration(
             color: Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(8),
@@ -584,113 +375,65 @@ Widget _buildContainedBoundaryRules() {
           child: Stack(
             children: [
               Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 30,
+                top: 0, left: 0, right: 0, height: 30,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF455A64),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(6),
-                      topRight: Radius.circular(6),
-                    ),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(6), topRight: Radius.circular(6)),
                   ),
-                  child: Center(
-                    child: Text(
-                      'AppBar',
-                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10),
-                    ),
-                  ),
+                  child: Center(child: Text('AppBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10))),
                 ),
               ),
               Positioned(
-                top: 30,
-                left: 0,
-                right: 0,
-                height: 1,
+                top: 30, left: 0, right: 0, height: 1,
                 child: Container(color: Color(0xFFEF5350)),
               ),
               Positioned(
-                top: 33,
-                left: 8,
-                child: Text(
-                  'minY (content top)',
-                  style: TextStyle(fontSize: 8, color: Color(0xFFEF5350)),
-                ),
+                top: 33, left: 8,
+                child: Text('minY (content top)', style: TextStyle(fontSize: 8, color: Color(0xFFEF5350))),
               ),
               Positioned(
-                bottom: 44,
-                left: 0,
-                right: 0,
-                height: 1,
+                bottom: 44, left: 0, right: 0, height: 1,
                 child: Container(color: Color(0xFF4CAF50)),
               ),
               Positioned(
-                bottom: 47,
-                left: 8,
-                child: Text(
-                  'maxY (content bottom)',
-                  style: TextStyle(fontSize: 8, color: Color(0xFF4CAF50)),
-                ),
+                bottom: 47, left: 8,
+                child: Text('maxY (content bottom)', style: TextStyle(fontSize: 8, color: Color(0xFF4CAF50))),
               ),
               Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: 36,
+                bottom: 0, left: 0, right: 0, height: 36,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF78909C),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(6),
-                      bottomRight: Radius.circular(6),
-                    ),
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(6), bottomRight: Radius.circular(6)),
                   ),
-                  child: Center(
-                    child: Text(
-                      'BottomNavigationBar',
-                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 9),
-                    ),
-                  ),
+                  child: Center(child: Text('BottomNavigationBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 9))),
                 ),
               ),
               Positioned(
-                top: 50,
-                left: 16,
-                right: 16,
-                bottom: 56,
+                top: 50, left: 16, right: 16, bottom: 56,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF2196F3).withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                      color: Color(0xFF2196F3).withValues(alpha: 0.3),
-                      width: 1,
-                    ),
+                    border: Border.all(color: Color(0xFF2196F3).withValues(alpha: 0.3), width: 1),
                   ),
                   child: Center(
-                    child: Text(
-                      'Valid FAB Y range\n(contained area)',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 10, color: Color(0xFF2196F3)),
-                    ),
+                    child: Text('Valid FAB Y range\n(contained area)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: Color(0xFF2196F3))),
                   ),
                 ),
               ),
               Positioned(
-                bottom: 56,
-                right: 24,
+                bottom: 56, right: 24,
                 child: Container(
-                  width: 36,
-                  height: 36,
+                  width: 36, height: 36,
                   decoration: BoxDecoration(
                     color: Color(0xFF283593),
                     shape: BoxShape.circle,
                   ),
-                  child: Center(
-                    child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 18),
-                  ),
+                  child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 18)),
                 ),
               ),
             ],
@@ -698,14 +441,8 @@ Widget _buildContainedBoundaryRules() {
         ),
         SizedBox(height: 12),
         buildInfoCard('Top Boundary:', 'Below the AppBar (content area start)'),
-        buildInfoCard(
-          'Bottom Boundary:',
-          'Above the BottomNavigationBar/BottomAppBar',
-        ),
-        buildInfoCard(
-          'Clamping:',
-          'Y position clamped between top and bottom boundaries',
-        ),
+        buildInfoCard('Bottom Boundary:', 'Above the BottomNavigationBar/BottomAppBar'),
+        buildInfoCard('Clamping:', 'Y position clamped between top and bottom boundaries'),
       ],
     ),
   );
@@ -717,15 +454,11 @@ Widget _buildBottomBarImpact() {
 
   items.add(_buildBarHeightRow('No bottom bar', 0, Color(0xFF4CAF50)));
   items.add(SizedBox(height: 6));
-  items.add(
-    _buildBarHeightRow('BottomNavigationBar (56px)', 56, Color(0xFF2196F3)),
-  );
+  items.add(_buildBarHeightRow('BottomNavigationBar (56px)', 56, Color(0xFF2196F3)));
   items.add(SizedBox(height: 6));
   items.add(_buildBarHeightRow('BottomAppBar (80px)', 80, Color(0xFFFF9800)));
   items.add(SizedBox(height: 6));
-  items.add(
-    _buildBarHeightRow('Tall custom bar (120px)', 120, Color(0xFFF44336)),
-  );
+  items.add(_buildBarHeightRow('Tall custom bar (120px)', 120, Color(0xFFF44336)));
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -737,17 +470,12 @@ Widget _buildBottomBarImpact() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Bottom bar height changes the contained Y maximum',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        Text('Bottom bar height changes the contained Y maximum',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         SizedBox(height: 12),
         Column(children: items),
         SizedBox(height: 12),
-        buildInfoCard(
-          'Rule:',
-          'Larger bottom bar = FAB moves UP in contained mode',
-        ),
+        buildInfoCard('Rule:', 'Larger bottom bar = FAB moves UP in contained mode'),
       ],
     ),
   );
@@ -772,8 +500,7 @@ Widget _buildBarHeightRow(String label, int barHeight, Color color) {
     child: Row(
       children: [
         Container(
-          width: 60,
-          height: 60,
+          width: 60, height: 60,
           decoration: BoxDecoration(
             color: Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(4),
@@ -782,12 +509,8 @@ Widget _buildBarHeightRow(String label, int barHeight, Color color) {
           child: Stack(
             children: [
               Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: barHeight > 0
-                    ? (barHeight / scaffoldH * 60).clamp(4.0, 30.0)
-                    : 0,
+                bottom: 0, left: 0, right: 0,
+                height: barHeight > 0 ? (barHeight / scaffoldH * 60).clamp(4.0, 30.0) : 0,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF78909C),
@@ -799,22 +522,13 @@ Widget _buildBarHeightRow(String label, int barHeight, Color color) {
                 ),
               ),
               Positioned(
-                bottom: barHeight > 0
-                    ? ((barHeight / scaffoldH * 60) + 4).clamp(8.0, 34.0)
-                    : 8,
-                left: 0,
-                right: 0,
+                bottom: barHeight > 0 ? ((barHeight / scaffoldH * 60) + 4).clamp(8.0, 34.0) : 8,
+                left: 0, right: 0,
                 child: Center(
                   child: Container(
-                    width: 16,
-                    height: 16,
-                    decoration: BoxDecoration(
-                      color: color,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 8),
-                    ),
+                    width: 16, height: 16,
+                    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                    child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 8)),
                   ),
                 ),
               ),
@@ -826,23 +540,10 @@ Widget _buildBarHeightRow(String label, int barHeight, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  color: color,
-                ),
-              ),
+              Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: color)),
               SizedBox(height: 2),
-              Text(
-                'Bar: ${barHeight}px  |  Available Y: ${availableY}px',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                  color: Color(0xFF616161),
-                ),
-              ),
+              Text('Bar: ${barHeight}px  |  Available Y: ${availableY}px',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161))),
               SizedBox(height: 4),
               Container(
                 height: 8,
@@ -882,10 +583,8 @@ Widget _buildSnackbarAdjustment() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Snackbar pushes FAB upward',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-        ),
+        Text('Snackbar pushes FAB upward',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
         SizedBox(height: 16),
         Row(
           children: [
@@ -899,17 +598,10 @@ Widget _buildSnackbarAdjustment() {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'Without Snackbar',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text('Without Snackbar', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
                     SizedBox(height: 4),
                     Container(
-                      height: 120,
-                      width: double.infinity,
+                      height: 120, width: double.infinity,
                       decoration: BoxDecoration(
                         color: Color(0xFFF5F5F5),
                         borderRadius: BorderRadius.circular(4),
@@ -917,40 +609,18 @@ Widget _buildSnackbarAdjustment() {
                       child: Stack(
                         children: [
                           Positioned(
-                            bottom: 20,
-                            right: 8,
+                            bottom: 20, right: 8,
                             child: Container(
-                              width: 32,
-                              height: 32,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF283593),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.add,
-                                  color: Color(0xFFFFFFFF),
-                                  size: 16,
-                                ),
-                              ),
+                              width: 32, height: 32,
+                              decoration: BoxDecoration(color: Color(0xFF283593), shape: BoxShape.circle),
+                              child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 16)),
                             ),
                           ),
                           Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 14,
+                            bottom: 0, left: 0, right: 0, height: 14,
                             child: Container(
                               color: Color(0xFF78909C),
-                              child: Center(
-                                child: Text(
-                                  'BottomBar',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFFFFF),
-                                    fontSize: 6,
-                                  ),
-                                ),
-                              ),
+                              child: Center(child: Text('BottomBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 6))),
                             ),
                           ),
                         ],
@@ -971,18 +641,10 @@ Widget _buildSnackbarAdjustment() {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'With Snackbar',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFF6F00),
-                      ),
-                    ),
+                    Text('With Snackbar', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFFFF6F00))),
                     SizedBox(height: 4),
                     Container(
-                      height: 120,
-                      width: double.infinity,
+                      height: 120, width: double.infinity,
                       decoration: BoxDecoration(
                         color: Color(0xFFF5F5F5),
                         borderRadius: BorderRadius.circular(4),
@@ -990,29 +652,15 @@ Widget _buildSnackbarAdjustment() {
                       child: Stack(
                         children: [
                           Positioned(
-                            bottom: 56,
-                            right: 8,
+                            bottom: 56, right: 8,
                             child: Container(
-                              width: 32,
-                              height: 32,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF283593),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.add,
-                                  color: Color(0xFFFFFFFF),
-                                  size: 16,
-                                ),
-                              ),
+                              width: 32, height: 32,
+                              decoration: BoxDecoration(color: Color(0xFF283593), shape: BoxShape.circle),
+                              child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 16)),
                             ),
                           ),
                           Positioned(
-                            bottom: 14,
-                            left: 4,
-                            right: 4,
-                            height: 36,
+                            bottom: 14, left: 4, right: 4, height: 36,
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Color(0xFF323232),
@@ -1021,44 +669,18 @@ Widget _buildSnackbarAdjustment() {
                               child: Row(
                                 children: [
                                   SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      'Action completed',
-                                      style: TextStyle(
-                                        color: Color(0xFFFFFFFF),
-                                        fontSize: 8,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    'UNDO',
-                                    style: TextStyle(
-                                      color: Color(0xFFFFCC80),
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  Expanded(child: Text('Action completed', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 8))),
+                                  Text('UNDO', style: TextStyle(color: Color(0xFFFFCC80), fontSize: 8, fontWeight: FontWeight.bold)),
                                   SizedBox(width: 8),
                                 ],
                               ),
                             ),
                           ),
                           Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 14,
+                            bottom: 0, left: 0, right: 0, height: 14,
                             child: Container(
                               color: Color(0xFF78909C),
-                              child: Center(
-                                child: Text(
-                                  'BottomBar',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFFFFF),
-                                    fontSize: 6,
-                                  ),
-                                ),
-                              ),
+                              child: Center(child: Text('BottomBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 6))),
                             ),
                           ),
                         ],
@@ -1071,14 +693,8 @@ Widget _buildSnackbarAdjustment() {
           ],
         ),
         SizedBox(height: 12),
-        buildInfoCard(
-          'Snackbar:',
-          'snackBarSize.height is subtracted from contained Y',
-        ),
-        buildInfoCard(
-          'Still Contained:',
-          'FAB moves up but remains within content bounds',
-        ),
+        buildInfoCard('Snackbar:', 'snackBarSize.height is subtracted from contained Y'),
+        buildInfoCard('Still Contained:', 'FAB moves up but remains within content bounds'),
       ],
     ),
   );
@@ -1096,10 +712,8 @@ Widget _buildMiniFabYDifferences() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Standard vs Mini FAB Y Offset',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-        ),
+        Text('Standard vs Mini FAB Y Offset',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
         SizedBox(height: 16),
         Row(
           children: [
@@ -1114,50 +728,16 @@ Widget _buildMiniFabYDifferences() {
                 child: Column(
                   children: [
                     Container(
-                      width: 56,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF283593),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.add,
-                          color: Color(0xFFFFFFFF),
-                          size: 28,
-                        ),
-                      ),
+                      width: 56, height: 56,
+                      decoration: BoxDecoration(color: Color(0xFF283593), shape: BoxShape.circle),
+                      child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 28)),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      'Standard',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        color: Color(0xFF283593),
-                      ),
-                    ),
-                    Text(
-                      '56x56 px',
-                      style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
-                    ),
+                    Text('Standard', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF283593))),
+                    Text('56x56 px', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
                     SizedBox(height: 4),
-                    Text(
-                      'margin: 16px',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 10,
-                        color: Color(0xFF616161),
-                      ),
-                    ),
-                    Text(
-                      'total offset: 72px',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 10,
-                        color: Color(0xFF616161),
-                      ),
-                    ),
+                    Text('margin: 16px', style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161))),
+                    Text('total offset: 72px', style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161))),
                   ],
                 ),
               ),
@@ -1174,50 +754,16 @@ Widget _buildMiniFabYDifferences() {
                 child: Column(
                   children: [
                     Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF6A1B9A),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.add,
-                          color: Color(0xFFFFFFFF),
-                          size: 20,
-                        ),
-                      ),
+                      width: 40, height: 40,
+                      decoration: BoxDecoration(color: Color(0xFF6A1B9A), shape: BoxShape.circle),
+                      child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 20)),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      'Mini',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        color: Color(0xFF6A1B9A),
-                      ),
-                    ),
-                    Text(
-                      '40x40 px',
-                      style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
-                    ),
+                    Text('Mini', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF6A1B9A))),
+                    Text('40x40 px', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
                     SizedBox(height: 4),
-                    Text(
-                      'margin: 16px',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 10,
-                        color: Color(0xFF616161),
-                      ),
-                    ),
-                    Text(
-                      'total offset: 56px',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 10,
-                        color: Color(0xFF616161),
-                      ),
-                    ),
+                    Text('margin: 16px', style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161))),
+                    Text('total offset: 56px', style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF616161))),
                   ],
                 ),
               ),
@@ -1225,14 +771,8 @@ Widget _buildMiniFabYDifferences() {
           ],
         ),
         SizedBox(height: 12),
-        buildInfoCard(
-          'Difference:',
-          'Mini FAB uses less Y offset (smaller height)',
-        ),
-        buildInfoCard(
-          'Same mixin:',
-          'Both use FabContainedOffsetY.getOffsetY()',
-        ),
+        buildInfoCard('Difference:', 'Mini FAB uses less Y offset (smaller height)'),
+        buildInfoCard('Same mixin:', 'Both use FabContainedOffsetY.getOffsetY()'),
       ],
     ),
   );
@@ -1250,10 +790,8 @@ Widget _buildKeyboardImpact() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Keyboard Visibility Changes Contained Area',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        Text('Keyboard Visibility Changes Contained Area',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         SizedBox(height: 16),
         Row(
           children: [
@@ -1267,18 +805,10 @@ Widget _buildKeyboardImpact() {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'Keyboard Hidden',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF4CAF50),
-                      ),
-                    ),
+                    Text('Keyboard Hidden', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF4CAF50))),
                     SizedBox(height: 4),
                     Container(
-                      height: 130,
-                      width: double.infinity,
+                      height: 130, width: double.infinity,
                       decoration: BoxDecoration(
                         color: Color(0xFFF5F5F5),
                         borderRadius: BorderRadius.circular(4),
@@ -1287,75 +817,31 @@ Widget _buildKeyboardImpact() {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            height: 16,
-                            child: Container(
-                              color: Color(0xFF455A64),
-                              child: Center(
-                                child: Text(
-                                  'AppBar',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFFFFF),
-                                    fontSize: 6,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            top: 0, left: 0, right: 0, height: 16,
+                            child: Container(color: Color(0xFF455A64),
+                              child: Center(child: Text('AppBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 6)))),
                           ),
                           Positioned(
-                            top: 16,
-                            left: 4,
-                            right: 4,
-                            bottom: 18,
+                            top: 16, left: 4, right: 4, bottom: 18,
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Color(
-                                  0xFF4CAF50,
-                                ).withValues(alpha: 0.08),
-                                border: Border.all(
-                                  color: Color(
-                                    0xFF4CAF50,
-                                  ).withValues(alpha: 0.3),
-                                ),
+                                color: Color(0xFF4CAF50).withValues(alpha: 0.08),
+                                border: Border.all(color: Color(0xFF4CAF50).withValues(alpha: 0.3)),
                               ),
-                              child: Center(
-                                child: Text(
-                                  'Full\nContent\nArea',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 8,
-                                    color: Color(0xFF4CAF50),
-                                  ),
-                                ),
-                              ),
+                              child: Center(child: Text('Full\nContent\nArea', textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 8, color: Color(0xFF4CAF50)))),
                             ),
                           ),
                           Positioned(
-                            bottom: 24,
-                            right: 8,
+                            bottom: 24, right: 8,
                             child: Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF283593),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.add,
-                                  color: Color(0xFFFFFFFF),
-                                  size: 10,
-                                ),
-                              ),
+                              width: 20, height: 20,
+                              decoration: BoxDecoration(color: Color(0xFF283593), shape: BoxShape.circle),
+                              child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 10)),
                             ),
                           ),
                           Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 14,
+                            bottom: 0, left: 0, right: 0, height: 14,
                             child: Container(color: Color(0xFF78909C)),
                           ),
                         ],
@@ -1376,18 +862,10 @@ Widget _buildKeyboardImpact() {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'Keyboard Visible',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFF6F00),
-                      ),
-                    ),
+                    Text('Keyboard Visible', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFFFF6F00))),
                     SizedBox(height: 4),
                     Container(
-                      height: 130,
-                      width: double.infinity,
+                      height: 130, width: double.infinity,
                       decoration: BoxDecoration(
                         color: Color(0xFFF5F5F5),
                         borderRadius: BorderRadius.circular(4),
@@ -1396,92 +874,37 @@ Widget _buildKeyboardImpact() {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            height: 16,
-                            child: Container(
-                              color: Color(0xFF455A64),
-                              child: Center(
-                                child: Text(
-                                  'AppBar',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFFFFF),
-                                    fontSize: 6,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            top: 0, left: 0, right: 0, height: 16,
+                            child: Container(color: Color(0xFF455A64),
+                              child: Center(child: Text('AppBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 6)))),
                           ),
                           Positioned(
-                            top: 16,
-                            left: 4,
-                            right: 4,
-                            bottom: 60,
+                            top: 16, left: 4, right: 4, bottom: 60,
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Color(
-                                  0xFFFF6F00,
-                                ).withValues(alpha: 0.08),
-                                border: Border.all(
-                                  color: Color(
-                                    0xFFFF6F00,
-                                  ).withValues(alpha: 0.3),
-                                ),
+                                color: Color(0xFFFF6F00).withValues(alpha: 0.08),
+                                border: Border.all(color: Color(0xFFFF6F00).withValues(alpha: 0.3)),
                               ),
-                              child: Center(
-                                child: Text(
-                                  'Reduced\nArea',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 8,
-                                    color: Color(0xFFFF6F00),
-                                  ),
-                                ),
-                              ),
+                              child: Center(child: Text('Reduced\nArea', textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 8, color: Color(0xFFFF6F00)))),
                             ),
                           ),
                           Positioned(
-                            bottom: 68,
-                            right: 8,
+                            bottom: 68, right: 8,
                             child: Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF283593),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.add,
-                                  color: Color(0xFFFFFFFF),
-                                  size: 10,
-                                ),
-                              ),
+                              width: 20, height: 20,
+                              decoration: BoxDecoration(color: Color(0xFF283593), shape: BoxShape.circle),
+                              child: Center(child: Icon(Icons.add, color: Color(0xFFFFFFFF), size: 10)),
                             ),
                           ),
                           Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 56,
+                            bottom: 0, left: 0, right: 0, height: 56,
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Color(0xFF424242),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(3),
-                                  bottomRight: Radius.circular(3),
-                                ),
+                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(3), bottomRight: Radius.circular(3)),
                               ),
-                              child: Center(
-                                child: Text(
-                                  'Keyboard',
-                                  style: TextStyle(
-                                    color: Color(0xFFFFFFFF),
-                                    fontSize: 9,
-                                  ),
-                                ),
-                              ),
+                              child: Center(child: Text('Keyboard', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 9))),
                             ),
                           ),
                         ],
@@ -1495,10 +918,7 @@ Widget _buildKeyboardImpact() {
         ),
         SizedBox(height: 12),
         buildInfoCard('Impact:', 'bottomViewPadding increases => FAB moves up'),
-        buildInfoCard(
-          'Contained:',
-          'FAB never goes below keyboard, always visible',
-        ),
+        buildInfoCard('Contained:', 'FAB never goes below keyboard, always visible'),
       ],
     ),
   );
@@ -1507,9 +927,7 @@ Widget _buildKeyboardImpact() {
 Widget _buildComparisonTable() {
   print('Building comparison table');
   List<Widget> rows = [];
-  rows.add(
-    _buildTableRow('Location', 'Uses Center X', 'Uses Contained Y', true),
-  );
+  rows.add(_buildTableRow('Location', 'Uses Center X', 'Uses Contained Y', true));
   rows.add(_buildTableRow('centerFloat', 'Yes', 'No (basic float)', false));
   rows.add(_buildTableRow('centerDocked', 'Yes', 'No (docked)', false));
   rows.add(_buildTableRow('centerTop', 'Yes', 'No (top)', false));
@@ -1529,10 +947,8 @@ Widget _buildComparisonTable() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Which locations use which offset mixins?',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        Text('Which locations use which offset mixins?',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         SizedBox(height: 12),
         Column(children: rows),
       ],
@@ -1540,12 +956,7 @@ Widget _buildComparisonTable() {
   );
 }
 
-Widget _buildTableRow(
-  String location,
-  String centerX,
-  String containedY,
-  bool isHeader,
-) {
+Widget _buildTableRow(String location, String centerX, String containedY, bool isHeader) {
   Color bg = isHeader ? Color(0xFF283593) : Color(0xFFFFFFFF);
   Color textColor = isHeader ? Color(0xFFFFFFFF) : Color(0xFF37474F);
   FontWeight weight = isHeader ? FontWeight.bold : FontWeight.normal;
@@ -1558,40 +969,9 @@ Widget _buildTableRow(
     ),
     child: Row(
       children: [
-        Expanded(
-          flex: 4,
-          child: Text(
-            location,
-            style: TextStyle(
-              fontSize: 11,
-              color: textColor,
-              fontWeight: weight,
-              fontFamily: isHeader ? null : 'monospace',
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Text(
-            centerX,
-            style: TextStyle(
-              fontSize: 11,
-              color: textColor,
-              fontWeight: weight,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Text(
-            containedY,
-            style: TextStyle(
-              fontSize: 11,
-              color: textColor,
-              fontWeight: weight,
-            ),
-          ),
-        ),
+        Expanded(flex: 4, child: Text(location, style: TextStyle(fontSize: 11, color: textColor, fontWeight: weight, fontFamily: isHeader ? null : 'monospace'))),
+        Expanded(flex: 3, child: Text(centerX, style: TextStyle(fontSize: 11, color: textColor, fontWeight: weight))),
+        Expanded(flex: 3, child: Text(containedY, style: TextStyle(fontSize: 11, color: textColor, fontWeight: weight))),
       ],
     ),
   );
@@ -1600,77 +980,21 @@ Widget _buildTableRow(
 Widget _buildPropertiesSection() {
   print('Building properties section');
   List<Widget> props = [];
-  props.add(
-    _buildPropCard(
-      'getOffsetY',
-      'double',
-      'Returns contained Y offset for FAB positioning',
-      Color(0xFF283593),
-    ),
-  );
+  props.add(_buildPropCard('getOffsetY', 'double', 'Returns contained Y offset for FAB positioning', Color(0xFF283593)));
   props.add(SizedBox(height: 6));
-  props.add(
-    _buildPropCard(
-      'scaffoldGeometry',
-      'ScaffoldPrelayoutGeometry',
-      'Layout measurements input',
-      Color(0xFF00897B),
-    ),
-  );
+  props.add(_buildPropCard('scaffoldGeometry', 'ScaffoldPrelayoutGeometry', 'Layout measurements input', Color(0xFF00897B)));
   props.add(SizedBox(height: 6));
-  props.add(
-    _buildPropCard(
-      'adjustment',
-      'double',
-      'Fine-tune Y position',
-      Color(0xFFD84315),
-    ),
-  );
+  props.add(_buildPropCard('adjustment', 'double', 'Fine-tune Y position', Color(0xFFD84315)));
   props.add(SizedBox(height: 6));
-  props.add(
-    _buildPropCard(
-      'scaffoldSize.height',
-      'double',
-      'Total scaffold height',
-      Color(0xFF6A1B9A),
-    ),
-  );
+  props.add(_buildPropCard('scaffoldSize.height', 'double', 'Total scaffold height', Color(0xFF6A1B9A)));
   props.add(SizedBox(height: 6));
-  props.add(
-    _buildPropCard(
-      'contentBottom',
-      'double',
-      'Bottom edge of content area',
-      Color(0xFF1565C0),
-    ),
-  );
+  props.add(_buildPropCard('contentBottom', 'double', 'Bottom edge of content area', Color(0xFF1565C0)));
   props.add(SizedBox(height: 6));
-  props.add(
-    _buildPropCard(
-      'contentTop',
-      'double',
-      'Top edge of content area',
-      Color(0xFFC62828),
-    ),
-  );
+  props.add(_buildPropCard('contentTop', 'double', 'Top edge of content area', Color(0xFFC62828)));
   props.add(SizedBox(height: 6));
-  props.add(
-    _buildPropCard(
-      'snackBarSize',
-      'Size',
-      'Active snackbar dimensions',
-      Color(0xFFFF6F00),
-    ),
-  );
+  props.add(_buildPropCard('snackBarSize', 'Size', 'Active snackbar dimensions', Color(0xFFFF6F00)));
   props.add(SizedBox(height: 6));
-  props.add(
-    _buildPropCard(
-      'bottomViewPadding',
-      'double',
-      'System inset (keyboard, etc.)',
-      Color(0xFF00695C),
-    ),
-  );
+  props.add(_buildPropCard('bottomViewPadding', 'double', 'System inset (keyboard, etc.)', Color(0xFF00695C)));
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -1682,10 +1006,8 @@ Widget _buildPropertiesSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'FabContainedOffsetY Properties and Parameters',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        Text('FabContainedOffsetY Properties and Parameters',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         SizedBox(height: 12),
         Column(children: props),
       ],
@@ -1705,8 +1027,7 @@ Widget _buildPropCard(String name, String type, String desc, Color color) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 4,
-          height: 40,
+          width: 4, height: 40,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(2),
@@ -1719,15 +1040,7 @@ Widget _buildPropCard(String name, String type, String desc, Color color) {
             children: [
               Row(
                 children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      color: color,
-                    ),
-                  ),
+                  Text(name, style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold, fontSize: 12, color: color)),
                   SizedBox(width: 8),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 1),
@@ -1735,22 +1048,12 @@ Widget _buildPropCard(String name, String type, String desc, Color color) {
                       color: Color(0xFFEEEEEE),
                       borderRadius: BorderRadius.circular(3),
                     ),
-                    child: Text(
-                      type,
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 9,
-                        color: Color(0xFF616161),
-                      ),
-                    ),
+                    child: Text(type, style: TextStyle(fontFamily: 'monospace', fontSize: 9, color: Color(0xFF616161))),
                   ),
                 ],
               ),
               SizedBox(height: 4),
-              Text(
-                desc,
-                style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
-              ),
+              Text(desc, style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
             ],
           ),
         ),

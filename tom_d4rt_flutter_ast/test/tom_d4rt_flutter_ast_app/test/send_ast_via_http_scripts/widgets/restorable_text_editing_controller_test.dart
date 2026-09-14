@@ -53,10 +53,8 @@ class _RestorableTextEditingControllerDemoState
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text(
-          'RestorableTextEditingController',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: Text('RestorableTextEditingController',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -74,7 +72,11 @@ class _RestorableTextEditingControllerDemoState
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [_TheoryTab(), _InteractiveTab(), _RestorationTab()],
+        children: [
+          _TheoryTab(),
+          _InteractiveTab(),
+          _RestorationTab(),
+        ],
       ),
     );
   }
@@ -134,7 +136,8 @@ class _TheoryTab extends StatelessWidget {
               SizedBox(height: 12),
               _buildConstructorRow(
                 name: 'With initial text',
-                code: "RestorableTextEditingController(text: 'Hello')",
+                code:
+                    "RestorableTextEditingController(text: 'Hello')",
                 description:
                     'Pre-fills the text field. On restoration the framework '
                     'recreates the controller with the saved text, not the '
@@ -247,29 +250,31 @@ class _TheoryTab extends StatelessWidget {
                 cells: ['Aspect', 'TextEditingController', 'Restorable'],
                 isHeader: true,
               ),
-              _buildTableRow(
-                cells: ['State', 'Lost on process kill', 'Encoded & restored'],
-              ),
-              _buildTableRow(
-                cells: ['Lifecycle', 'Manual dispose()', 'Auto-disposed'],
-              ),
-              _buildTableRow(
-                cells: [
-                  'Selection',
-                  'Not persisted',
-                  'Persisted (offset/extent)',
-                ],
-              ),
-              _buildTableRow(
-                cells: ['Composing', 'Not persisted', 'Persisted (IME region)'],
-              ),
-              _buildTableRow(
-                cells: [
-                  'Typical use',
-                  'Ephemeral forms',
-                  'Forms that survive backgrounding',
-                ],
-              ),
+              _buildTableRow(cells: [
+                'State',
+                'Lost on process kill',
+                'Encoded & restored',
+              ]),
+              _buildTableRow(cells: [
+                'Lifecycle',
+                'Manual dispose()',
+                'Auto-disposed',
+              ]),
+              _buildTableRow(cells: [
+                'Selection',
+                'Not persisted',
+                'Persisted (offset/extent)',
+              ]),
+              _buildTableRow(cells: [
+                'Composing',
+                'Not persisted',
+                'Persisted (IME region)',
+              ]),
+              _buildTableRow(cells: [
+                'Typical use',
+                'Ephemeral forms',
+                'Forms that survive backgrounding',
+              ]),
             ],
           ),
         ),
@@ -383,18 +388,13 @@ class _InteractiveTabState extends State<_InteractiveTab> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Total edits across all fields',
-                    style: TextStyle(color: Colors.white70, fontSize: 12),
-                  ),
-                  Text(
-                    '$_editCount listener callbacks',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text('Total edits across all fields',
+                      style: TextStyle(color: Colors.white70, fontSize: 12)),
+                  Text('$_editCount listener callbacks',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ],
@@ -415,7 +415,8 @@ class _InteractiveTabState extends State<_InteractiveTab> {
         // ── Text constructor field ──────────────────────
         _buildFieldCard(
           title: 'With Initial Text',
-          subtitle: "RestorableTextEditingController(text: 'Hello, Flutter!')",
+          subtitle:
+              "RestorableTextEditingController(text: 'Hello, Flutter!')",
           controller: _textCtrl,
           accentColor: _kAccent,
           icon: Icons.text_snippet,
@@ -425,7 +426,8 @@ class _InteractiveTabState extends State<_InteractiveTab> {
         // ── fromValue constructor field ─────────────────
         _buildFieldCard(
           title: 'From TextEditingValue',
-          subtitle: 'RestorableTextEditingController.fromValue(...)',
+          subtitle:
+              'RestorableTextEditingController.fromValue(...)',
           controller: _valueCtrl,
           accentColor: _kSuccess,
           icon: Icons.code,
@@ -564,22 +566,16 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: _kDarkText,
-                        fontSize: 14,
-                      ),
-                    ),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 11,
-                        color: _kMuted,
-                      ),
-                    ),
+                    Text(title,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: _kDarkText,
+                            fontSize: 14)),
+                    Text(subtitle,
+                        style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                            color: _kMuted)),
                   ],
                 ),
               ),
@@ -597,10 +593,8 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: accentColor, width: 2),
               ),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 10,
-              ),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               hintText: 'Type here...',
               suffixIcon: Icon(Icons.edit, color: accentColor, size: 18),
             ),
@@ -610,26 +604,21 @@ class _InteractiveTabState extends State<_InteractiveTab> {
           Row(
             children: [
               _buildMiniStat(
-                'Length',
-                '${controller.text.length}',
-                accentColor,
-              ),
+                  'Length', '${controller.text.length}', accentColor),
               SizedBox(width: 8),
               _buildMiniStat(
-                'Cursor',
-                controller.selection.isValid
-                    ? '${controller.selection.baseOffset}'
-                    : '—',
-                accentColor,
-              ),
+                  'Cursor',
+                  controller.selection.isValid
+                      ? '${controller.selection.baseOffset}'
+                      : '—',
+                  accentColor),
               SizedBox(width: 8),
               _buildMiniStat(
-                'Selected',
-                controller.selection.isValid
-                    ? '${controller.selection.end - controller.selection.start}'
-                    : '0',
-                accentColor,
-              ),
+                  'Selected',
+                  controller.selection.isValid
+                      ? '${controller.selection.end - controller.selection.start}'
+                      : '0',
+                  accentColor),
             ],
           ),
         ],
@@ -647,26 +636,21 @@ class _InteractiveTabState extends State<_InteractiveTab> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(label, style: TextStyle(fontSize: 10, color: _kMuted)),
+          Text(label,
+              style: TextStyle(fontSize: 10, color: _kMuted)),
           SizedBox(width: 4),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          Text(value,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color)),
         ],
       ),
     );
   }
 
   Widget _buildPropertyGrid(
-    String label,
-    TextEditingController ctrl,
-    Color color,
-  ) {
+      String label, TextEditingController ctrl, Color color) {
     final sel = ctrl.selection;
     final comp = ctrl.value.composing;
     return Column(
@@ -678,14 +662,11 @@ class _InteractiveTabState extends State<_InteractiveTab> {
             color: color.withOpacity(0.12),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
-              color: color,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                  color: color)),
         ),
         SizedBox(height: 6),
         Wrap(
@@ -695,21 +676,18 @@ class _InteractiveTabState extends State<_InteractiveTab> {
             _buildPropChip('text', '"${_truncate(ctrl.text, 20)}"'),
             _buildPropChip('length', '${ctrl.text.length}'),
             _buildPropChip(
-              'selection.base',
-              sel.isValid ? '${sel.baseOffset}' : 'invalid',
-            ),
+                'selection.base',
+                sel.isValid ? '${sel.baseOffset}' : 'invalid'),
             _buildPropChip(
-              'selection.extent',
-              sel.isValid ? '${sel.extentOffset}' : 'invalid',
-            ),
+                'selection.extent',
+                sel.isValid ? '${sel.extentOffset}' : 'invalid'),
+            _buildPropChip('selection.isCollapsed',
+                sel.isValid ? '${sel.isCollapsed}' : '—'),
             _buildPropChip(
-              'selection.isCollapsed',
-              sel.isValid ? '${sel.isCollapsed}' : '—',
-            ),
-            _buildPropChip(
-              'composing',
-              comp.isValid ? '${comp.start}..${comp.end}' : 'none',
-            ),
+                'composing',
+                comp.isValid
+                    ? '${comp.start}..${comp.end}'
+                    : 'none'),
           ],
         ),
       ],
@@ -730,19 +708,17 @@ class _InteractiveTabState extends State<_InteractiveTab> {
             TextSpan(
               text: '$label: ',
               style: TextStyle(
-                fontSize: 10,
-                color: _kMuted,
-                fontFamily: 'monospace',
-              ),
+                  fontSize: 10,
+                  color: _kMuted,
+                  fontFamily: 'monospace'),
             ),
             TextSpan(
               text: value,
               style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-                color: _kDarkText,
-                fontFamily: 'monospace',
-              ),
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: _kDarkText,
+                  fontFamily: 'monospace'),
             ),
           ],
         ),
@@ -830,14 +806,11 @@ class _RestorationTabState extends State<_RestorationTab> {
                   color: _kPrimary,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Text(
-                  'Rebuilds: $_rebuildCount',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
+                child: Text('Rebuilds: $_rebuildCount',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13)),
               ),
               SizedBox(width: 8),
               Container(
@@ -846,14 +819,11 @@ class _RestorationTabState extends State<_RestorationTab> {
                   color: _kAccent,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Text(
-                  'Saved keys: ${_savedBucket.length}',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
+                child: Text('Saved keys: ${_savedBucket.length}',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13)),
               ),
               Spacer(),
               ElevatedButton.icon(
@@ -888,19 +858,14 @@ class _RestorationTabState extends State<_RestorationTab> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              Icons.hourglass_top,
-                              size: 48,
-                              color: _kWarning.withOpacity(0.6),
-                            ),
+                            Icon(Icons.hourglass_top,
+                                size: 48,
+                                color: _kWarning.withOpacity(0.6)),
                             SizedBox(height: 8),
-                            Text(
-                              'Restoring...',
-                              style: TextStyle(
-                                color: _kWarning,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                            Text('Restoring...',
+                                style: TextStyle(
+                                    color: _kWarning,
+                                    fontWeight: FontWeight.w600)),
                           ],
                         ),
                       ),
@@ -911,7 +876,9 @@ class _RestorationTabState extends State<_RestorationTab> {
                 width: 260,
                 decoration: BoxDecoration(
                   color: _kCardBg,
-                  border: Border(left: BorderSide(color: Colors.grey.shade300)),
+                  border: Border(
+                    left: BorderSide(color: Colors.grey.shade300),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -921,24 +888,20 @@ class _RestorationTabState extends State<_RestorationTab> {
                       color: _kPrimary.withOpacity(0.08),
                       child: Row(
                         children: [
-                          Icon(Icons.list_alt, size: 16, color: _kPrimary),
+                          Icon(Icons.list_alt,
+                              size: 16, color: _kPrimary),
                           SizedBox(width: 6),
-                          Text(
-                            'Restoration Log',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13,
-                              color: _kDarkText,
-                            ),
-                          ),
+                          Text('Restoration Log',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13,
+                                  color: _kDarkText)),
                           Spacer(),
                           GestureDetector(
-                            onTap: () => setState(() => _events.clear()),
-                            child: Icon(
-                              Icons.delete_sweep,
-                              size: 16,
-                              color: _kMuted,
-                            ),
+                            onTap: () =>
+                                setState(() => _events.clear()),
+                            child: Icon(Icons.delete_sweep,
+                                size: 16, color: _kMuted),
                           ),
                         ],
                       ),
@@ -949,7 +912,8 @@ class _RestorationTabState extends State<_RestorationTab> {
                               child: Text(
                                 'Edit fields then press\n"Simulate Restore"',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: _kMuted, fontSize: 12),
+                                style: TextStyle(
+                                    color: _kMuted, fontSize: 12),
                               ),
                             )
                           : ListView.builder(
@@ -957,25 +921,29 @@ class _RestorationTabState extends State<_RestorationTab> {
                               itemCount: _events.length,
                               itemBuilder: (_, i) {
                                 final e = _events[i];
-                                final isSave = e.message.startsWith('SAVE');
-                                final isRestore = e.message.startsWith(
-                                  'RESTORE',
-                                );
-                                final isInit = e.message.startsWith('INIT');
+                                final isSave =
+                                    e.message.startsWith('SAVE');
+                                final isRestore =
+                                    e.message.startsWith('RESTORE');
+                                final isInit =
+                                    e.message.startsWith('INIT');
                                 Color tagColor = _kMuted;
                                 if (isSave) tagColor = _kAccent;
                                 if (isRestore) tagColor = _kWarning;
                                 if (isInit) tagColor = _kSuccess;
                                 return Padding(
-                                  padding: EdgeInsets.only(bottom: 4),
+                                  padding:
+                                      EdgeInsets.only(bottom: 4),
                                   child: Container(
                                     padding: EdgeInsets.all(6),
                                     decoration: BoxDecoration(
-                                      color: tagColor.withOpacity(0.06),
-                                      borderRadius: BorderRadius.circular(6),
+                                      color: tagColor
+                                          .withOpacity(0.06),
+                                      borderRadius:
+                                          BorderRadius.circular(6),
                                       border: Border.all(
-                                        color: tagColor.withOpacity(0.2),
-                                      ),
+                                          color: tagColor
+                                              .withOpacity(0.2)),
                                     ),
                                     child: Column(
                                       crossAxisAlignment:
@@ -987,7 +955,8 @@ class _RestorationTabState extends State<_RestorationTab> {
                                             fontFamily: 'monospace',
                                             fontSize: 11,
                                             color: _kDarkText,
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight:
+                                                FontWeight.w500,
                                           ),
                                         ),
                                         Text(
@@ -995,9 +964,8 @@ class _RestorationTabState extends State<_RestorationTab> {
                                           '${e.time.minute.toString().padLeft(2, '0')}:'
                                           '${e.time.second.toString().padLeft(2, '0')}',
                                           style: TextStyle(
-                                            fontSize: 9,
-                                            color: _kMuted,
-                                          ),
+                                              fontSize: 9,
+                                              color: _kMuted),
                                         ),
                                       ],
                                     ),
@@ -1030,7 +998,8 @@ class _RestorableFieldsPanel extends StatefulWidget {
   });
 
   @override
-  State<_RestorableFieldsPanel> createState() => _RestorableFieldsPanelState();
+  State<_RestorableFieldsPanel> createState() =>
+      _RestorableFieldsPanelState();
 }
 
 class _RestorableFieldsPanelState extends State<_RestorableFieldsPanel> {
@@ -1052,8 +1021,7 @@ class _RestorableFieldsPanelState extends State<_RestorableFieldsPanel> {
 
     if (nameText.isNotEmpty || emailText.isNotEmpty || notesText.isNotEmpty) {
       widget.onEvent(
-        'INIT  Restored ${widget.savedBucket.length} field(s) from bucket',
-      );
+          'INIT  Restored ${widget.savedBucket.length} field(s) from bucket');
     } else {
       widget.onEvent('INIT  Fresh start — bucket is empty');
     }
@@ -1094,11 +1062,7 @@ class _RestorableFieldsPanelState extends State<_RestorableFieldsPanel> {
                   'Type into the fields below, then press "Simulate Restore". '
                   'The panel rebuilds from scratch, but text is recovered from '
                   'the saved bucket — just like RestorationMixin would do.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _kDarkText,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
                 ),
               ),
             ],
@@ -1143,14 +1107,11 @@ class _RestorableFieldsPanelState extends State<_RestorableFieldsPanel> {
           child: widget.savedBucket.isEmpty
               ? Padding(
                   padding: EdgeInsets.all(12),
-                  child: Text(
-                    '(empty — type into fields above)',
-                    style: TextStyle(
-                      color: _kMuted,
-                      fontStyle: FontStyle.italic,
-                      fontSize: 13,
-                    ),
-                  ),
+                  child: Text('(empty — type into fields above)',
+                      style: TextStyle(
+                          color: _kMuted,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 13)),
                 )
               : Column(
                   children: widget.savedBucket.entries.map((e) {
@@ -1161,34 +1122,29 @@ class _RestorableFieldsPanelState extends State<_RestorableFieldsPanel> {
                           Container(
                             width: 70,
                             padding: EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
+                                horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               color: _kAccent.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Text(
-                              e.key,
-                              style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: _kAccent,
-                              ),
-                            ),
+                            child: Text(e.key,
+                                style: TextStyle(
+                                    fontFamily: 'monospace',
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: _kAccent)),
                           ),
                           SizedBox(width: 8),
-                          Icon(Icons.arrow_forward, size: 12, color: _kMuted),
+                          Icon(Icons.arrow_forward,
+                              size: 12, color: _kMuted),
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               '"${e.value}"',
                               style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 11,
-                                color: _kDarkText,
-                              ),
+                                  fontFamily: 'monospace',
+                                  fontSize: 11,
+                                  color: _kDarkText),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -1282,14 +1238,11 @@ class _RestorableFieldsPanelState extends State<_RestorableFieldsPanel> {
             children: [
               Icon(icon, color: _kPrimary, size: 18),
               SizedBox(width: 6),
-              Text(
-                label,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _kDarkText,
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: _kDarkText)),
               Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -1297,14 +1250,11 @@ class _RestorableFieldsPanelState extends State<_RestorableFieldsPanel> {
                   color: _kCodeBg,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Text(
-                  'id: "$restorationId"',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10,
-                    color: _kMuted,
-                  ),
-                ),
+                child: Text('id: "$restorationId"',
+                    style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        color: _kMuted)),
               ),
             ],
           ),
@@ -1321,7 +1271,8 @@ class _RestorableFieldsPanelState extends State<_RestorableFieldsPanel> {
                 borderRadius: BorderRadius.circular(6),
                 borderSide: BorderSide(color: _kPrimary, width: 2),
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               hintText: hint,
               hintStyle: TextStyle(color: _kMuted.withOpacity(0.5)),
             ),
@@ -1371,14 +1322,11 @@ Widget _buildSectionCard({required String title, required Widget child}) {
               ),
             ),
             SizedBox(width: 8),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 15,
-                color: _kDarkText,
-              ),
-            ),
+            Text(title,
+                style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15,
+                    color: _kDarkText)),
           ],
         ),
         SizedBox(height: 12),
@@ -1397,15 +1345,12 @@ Widget _buildCodeBlock(String code) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _kPrimary.withOpacity(0.15)),
     ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 12,
-        color: _kDarkText,
-        height: 1.5,
-      ),
-    ),
+    child: Text(code,
+        style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: _kDarkText,
+            height: 1.5)),
   );
 }
 
@@ -1425,14 +1370,9 @@ Widget _buildConstructorRow({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          name,
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            color: color,
-            fontSize: 13,
-          ),
-        ),
+        Text(name,
+            style: TextStyle(
+                fontWeight: FontWeight.w700, color: color, fontSize: 13)),
         SizedBox(height: 4),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -1440,20 +1380,14 @@ Widget _buildConstructorRow({
             color: _kCodeBg,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            code,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: _kDarkText,
-            ),
-          ),
+          child: Text(code,
+              style: TextStyle(
+                  fontFamily: 'monospace', fontSize: 11, color: _kDarkText)),
         ),
         SizedBox(height: 6),
-        Text(
-          description,
-          style: TextStyle(fontSize: 12, color: _kMuted, height: 1.4),
-        ),
+        Text(description,
+            style: TextStyle(
+                fontSize: 12, color: _kMuted, height: 1.4)),
       ],
     ),
   );
@@ -1472,35 +1406,31 @@ Widget _buildLifecycleStep({
         Container(
           width: 28,
           height: 28,
-          decoration: BoxDecoration(color: _kPrimary, shape: BoxShape.circle),
-          alignment: Alignment.center,
-          child: Text(
-            step,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-            ),
+          decoration: BoxDecoration(
+            color: _kPrimary,
+            shape: BoxShape.circle,
           ),
+          alignment: Alignment.center,
+          child: Text(step,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13)),
         ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _kDarkText,
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: _kDarkText)),
               SizedBox(height: 2),
-              Text(
-                detail,
-                style: TextStyle(fontSize: 12, color: _kMuted, height: 1.4),
-              ),
+              Text(detail,
+                  style: TextStyle(
+                      fontSize: 12, color: _kMuted, height: 1.4)),
             ],
           ),
         ),
@@ -1509,7 +1439,10 @@ Widget _buildLifecycleStep({
   );
 }
 
-TableRow _buildTableRow({required List<String> cells, bool isHeader = false}) {
+TableRow _buildTableRow({
+  required List<String> cells,
+  bool isHeader = false,
+}) {
   return TableRow(
     decoration: isHeader
         ? BoxDecoration(color: _kPrimary.withOpacity(0.08))
@@ -1517,14 +1450,12 @@ TableRow _buildTableRow({required List<String> cells, bool isHeader = false}) {
     children: cells.map((c) {
       return Padding(
         padding: EdgeInsets.all(8),
-        child: Text(
-          c,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-            color: isHeader ? _kPrimary : _kDarkText,
-          ),
-        ),
+        child: Text(c,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+              color: isHeader ? _kPrimary : _kDarkText,
+            )),
       );
     }).toList(),
   );
@@ -1544,10 +1475,9 @@ Widget _buildBestPractice({
         Icon(icon, color: color, size: 18),
         SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
-          ),
+          child: Text(text,
+              style:
+                  TextStyle(fontSize: 12, color: _kDarkText, height: 1.4)),
         ),
       ],
     ),

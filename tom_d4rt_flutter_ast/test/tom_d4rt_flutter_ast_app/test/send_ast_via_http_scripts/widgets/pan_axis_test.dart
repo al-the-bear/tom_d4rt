@@ -671,7 +671,9 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: purple100),
+              border: Border.all(
+                color: purple100,
+              ),
               boxShadow: [
                 BoxShadow(
                   color: entryColor.withValues(alpha: 0.1),
@@ -851,36 +853,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────┐');
-  print(
-    '  │  Purple 900  ${purple900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  Purple 800  ${purple800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
-  print(
-    '  │  Purple 700  ${purple700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  Purple 500  ${purple500.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  Purple 400  ${purple400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Purple 300  ${purple300.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  Purple 200  ${purple200.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  Purple 100  ${purple100.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  Purple 50   ${purple50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  Purple Lt   ${purpleLight.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
+  print('  │  Purple 900  ${purple900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  Purple 800  ${purple800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print('  │  Purple 700  ${purple700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  Purple 500  ${purple500.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  Purple 400  ${purple400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Purple 300  ${purple300.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  Purple 200  ${purple200.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  Purple 100  ${purple100.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  Purple 50   ${purple50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  Purple Lt   ${purpleLight.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
   print('  └──────────────────────────────────────────────────┘');
   print('');
 

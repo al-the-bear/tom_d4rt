@@ -276,12 +276,12 @@ class _PrivatePictureInPictureDelegate extends MultiChildLayoutDelegate {
     if (hasChild(_kPipCaption)) {
       layoutChild(
         _kPipCaption,
-        BoxConstraints.tightFor(width: floatSize.width, height: captionHeight),
+        BoxConstraints.tightFor(
+          width: floatSize.width,
+          height: captionHeight,
+        ),
       );
-      positionChild(
-        _kPipCaption,
-        Offset(floatLeft, floatTop + floatSize.height),
-      );
+      positionChild(_kPipCaption, Offset(floatLeft, floatTop + floatSize.height));
     }
 
     // Corner badge — overlaps the top-right of the floating window.
@@ -411,7 +411,11 @@ class _PrivateSection extends StatelessWidget {
 }
 
 class _PrivateChip extends StatelessWidget {
-  const _PrivateChip({required this.label, required this.color, this.icon});
+  const _PrivateChip({
+    required this.label,
+    required this.color,
+    this.icon,
+  });
 
   final String label;
   final Color color;
@@ -456,7 +460,11 @@ class _PrivateLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.4),
+      style: const TextStyle(
+        color: _kInkSoft,
+        fontSize: 12.5,
+        height: 1.4,
+      ),
     );
   }
 }
@@ -575,7 +583,10 @@ class _PrivateHero extends StatelessWidget {
           const SizedBox(width: _kGapXL),
           Expanded(
             flex: 2,
-            child: AspectRatio(aspectRatio: 1.05, child: _PrivateHeroBoxes()),
+            child: AspectRatio(
+              aspectRatio: 1.05,
+              child: _PrivateHeroBoxes(),
+            ),
           ),
         ],
       ),
@@ -758,10 +769,8 @@ class _PrivateAnatomy extends StatelessWidget {
               _PrivateChip(label: 'CustomMultiChildLayout', color: _kAccent),
               _PrivateChip(label: 'LayoutId', color: _kAccent2),
               _PrivateChip(label: 'MultiChildLayoutDelegate', color: _kAccent3),
-              _PrivateChip(
-                label: 'RenderCustomMultiChildLayoutBox',
-                color: _kAccent4,
-              ),
+              _PrivateChip(label: 'RenderCustomMultiChildLayoutBox',
+                  color: _kAccent4),
             ],
           ),
         ],
@@ -888,7 +897,9 @@ class _PrivateDashHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(colors: <Color>[_kInk, _kInkSoft]),
+        gradient: LinearGradient(
+          colors: <Color>[_kInk, _kInkSoft],
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: _kGapL),
       child: Row(
@@ -933,7 +944,8 @@ class _PrivateDashHeader extends StatelessWidget {
           const Spacer(),
           const Icon(Icons.search, color: Colors.white70, size: 18),
           const SizedBox(width: 14),
-          const Icon(Icons.notifications_none, color: Colors.white70, size: 18),
+          const Icon(Icons.notifications_none,
+              color: Colors.white70, size: 18),
           const SizedBox(width: 14),
           Container(
             width: 26,
@@ -970,21 +982,14 @@ class _PrivateDashSidebar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
           _PrivateNavItem(
-            icon: Icons.show_chart,
-            label: 'Overview',
-            selected: true,
-          ),
+              icon: Icons.show_chart, label: 'Overview', selected: true),
           _PrivateNavItem(icon: Icons.bolt, label: 'Live signals'),
           _PrivateNavItem(icon: Icons.layers, label: 'Pipelines'),
           _PrivateNavItem(icon: Icons.bug_report, label: 'Incidents'),
           _PrivateNavItem(icon: Icons.tune, label: 'Settings'),
           SizedBox(height: 16),
           _PrivateNavSection(title: 'Workspaces'),
-          _PrivateNavItem(
-            icon: Icons.circle,
-            label: 'production',
-            tinted: true,
-          ),
+          _PrivateNavItem(icon: Icons.circle, label: 'production', tinted: true),
           _PrivateNavItem(icon: Icons.circle, label: 'staging', tinted: true),
           _PrivateNavItem(icon: Icons.circle, label: 'preview', tinted: true),
         ],
@@ -1013,12 +1018,18 @@ class _PrivateNavItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 2),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
-        color: selected ? _kAccent.withValues(alpha: 0.10) : Colors.transparent,
+        color: selected
+            ? _kAccent.withValues(alpha: 0.10)
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: <Widget>[
-          Icon(icon, size: tinted ? 9 : 15, color: tinted ? _kAccent3 : base),
+          Icon(
+            icon,
+            size: tinted ? 9 : 15,
+            color: tinted ? _kAccent3 : base,
+          ),
           const SizedBox(width: 8),
           Text(
             label,
@@ -1104,18 +1115,8 @@ class _PrivateBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<double> bars = <double>[
-      0.32,
-      0.48,
-      0.61,
-      0.55,
-      0.72,
-      0.85,
-      0.66,
-      0.74,
-      0.81,
-      0.92,
-      0.78,
-      0.84,
+      0.32, 0.48, 0.61, 0.55, 0.72, 0.85, 0.66, 0.74,
+      0.81, 0.92, 0.78, 0.84,
     ];
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -1158,37 +1159,25 @@ class _PrivateDashKpiStrip extends StatelessWidget {
       child: Row(
         children: const <Widget>[
           Expanded(
-            child: _PrivateKpi(
-              label: 'Latency p99',
-              value: '142 ms',
-              trend: '+3 ms',
-            ),
-          ),
+              child: _PrivateKpi(
+                  label: 'Latency p99', value: '142 ms', trend: '+3 ms')),
           SizedBox(width: 8),
           Expanded(
-            child: _PrivateKpi(
-              label: 'Errors',
-              value: '0.04%',
-              trend: '-0.01%',
-            ),
-          ),
+              child: _PrivateKpi(
+                  label: 'Errors', value: '0.04%', trend: '-0.01%')),
           SizedBox(width: 8),
           Expanded(
-            child: _PrivateKpi(
-              label: 'Active jobs',
-              value: '8 412',
-              trend: '+312',
-              good: true,
-            ),
-          ),
+              child: _PrivateKpi(
+                  label: 'Active jobs',
+                  value: '8 412',
+                  trend: '+312',
+                  good: true)),
           SizedBox(width: 8),
           Expanded(
-            child: _PrivateKpi(
-              label: 'Spend / hr',
-              value: '\$ 18.40',
-              trend: '+\$0.60',
-            ),
-          ),
+              child: _PrivateKpi(
+                  label: 'Spend / hr',
+                  value: '\$ 18.40',
+                  trend: '+\$0.60')),
         ],
       ),
     );
@@ -1355,7 +1344,10 @@ class _PrivateAlertCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   body,
-                  style: const TextStyle(color: _kInkMuted, fontSize: 10.5),
+                  style: const TextStyle(
+                    color: _kInkMuted,
+                    fontSize: 10.5,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
@@ -1373,7 +1365,9 @@ class _PrivateDashFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: _kInk.withValues(alpha: 0.92)),
+      decoration: BoxDecoration(
+        color: _kInk.withValues(alpha: 0.92),
+      ),
       padding: const EdgeInsets.symmetric(horizontal: _kGapL),
       alignment: Alignment.centerLeft,
       child: Row(
@@ -1568,7 +1562,8 @@ class _PrivatePipMain extends StatelessWidget {
             top: 14,
             right: 16,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(999),
@@ -1634,7 +1629,8 @@ class _PrivatePipFloat extends StatelessWidget {
             bottom: 6,
             left: 6,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.45),
                 borderRadius: BorderRadius.circular(4),
@@ -1695,7 +1691,10 @@ class _PrivatePipBadge extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: _kAccent5.withValues(alpha: 0.5), blurRadius: 10),
+          BoxShadow(
+            color: _kAccent5.withValues(alpha: 0.5),
+            blurRadius: 10,
+          ),
         ],
       ),
       alignment: Alignment.center,
@@ -1720,7 +1719,9 @@ class _PrivatePipToolbar extends StatelessWidget {
       decoration: BoxDecoration(
         color: _kInk,
         border: Border(
-          top: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
+          top: BorderSide(
+            color: Colors.white.withValues(alpha: 0.05),
+          ),
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: _kGapL),
@@ -1833,7 +1834,8 @@ class _PrivateApiTable extends StatelessWidget {
           _PrivateApiRow(
             method: 'shouldRelayout',
             signature: 'bool shouldRelayout(Delegate oldDelegate)',
-            note: 'Return true when any layout-relevant field has changed.',
+            note:
+                'Return true when any layout-relevant field has changed.',
             color: _kAccent5,
           ),
         ],
@@ -1959,92 +1961,69 @@ class _PrivateCodeListing extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12),
+          _PrivateCodeLine(text: 'class DashDelegate extends',
+              colors: <Color>[_kAccent2, Colors.white70]),
           _PrivateCodeLine(
-            text: 'class DashDelegate extends',
-            colors: <Color>[_kAccent2, Colors.white70],
-          ),
+              indent: 4,
+              text: 'MultiChildLayoutDelegate {',
+              colors: <Color>[_kAccent3, Colors.white]),
           _PrivateCodeLine(
-            indent: 4,
-            text: 'MultiChildLayoutDelegate {',
-            colors: <Color>[_kAccent3, Colors.white],
-          ),
+              indent: 2,
+              text: '@override',
+              colors: <Color>[_kAccent4, Colors.white70]),
           _PrivateCodeLine(
-            indent: 2,
-            text: '@override',
-            colors: <Color>[_kAccent4, Colors.white70],
-          ),
+              indent: 2,
+              text: 'void performLayout(Size size) {',
+              colors: <Color>[Colors.white, Colors.white]),
           _PrivateCodeLine(
-            indent: 2,
-            text: 'void performLayout(Size size) {',
-            colors: <Color>[Colors.white, Colors.white],
-          ),
+              indent: 4,
+              text: 'if (hasChild(#header)) {',
+              colors: <Color>[_kAccent6, Colors.white70]),
           _PrivateCodeLine(
-            indent: 4,
-            text: 'if (hasChild(#header)) {',
-            colors: <Color>[_kAccent6, Colors.white70],
-          ),
+              indent: 6,
+              text: 'layoutChild(#header,',
+              colors: <Color>[_kAccent3, Colors.white70]),
           _PrivateCodeLine(
-            indent: 6,
-            text: 'layoutChild(#header,',
-            colors: <Color>[_kAccent3, Colors.white70],
-          ),
+              indent: 8,
+              text: '  BoxConstraints.tightFor(width: size.width, height: 56));',
+              colors: <Color>[Colors.white70, _kAccent4]),
           _PrivateCodeLine(
-            indent: 8,
-            text: '  BoxConstraints.tightFor(width: size.width, height: 56));',
-            colors: <Color>[Colors.white70, _kAccent4],
-          ),
-          _PrivateCodeLine(
-            indent: 6,
-            text: 'positionChild(#header, Offset.zero);',
-            colors: <Color>[_kAccent4, _kAccent6],
-          ),
-          _PrivateCodeLine(
-            indent: 4,
-            text: '}',
-            colors: <Color>[Colors.white70],
-          ),
+              indent: 6,
+              text: 'positionChild(#header, Offset.zero);',
+              colors: <Color>[_kAccent4, _kAccent6]),
+          _PrivateCodeLine(indent: 4, text: '}', colors: <Color>[Colors.white70]),
           _PrivateCodeLine(indent: 2, text: '}', colors: <Color>[Colors.white]),
           _PrivateCodeLine(
-            indent: 2,
-            text: '@override',
-            colors: <Color>[_kAccent4, Colors.white70],
-          ),
+              indent: 2,
+              text: '@override',
+              colors: <Color>[_kAccent4, Colors.white70]),
           _PrivateCodeLine(
-            indent: 2,
-            text: 'bool shouldRelayout(_) => false;',
-            colors: <Color>[_kAccent2, Colors.white70],
-          ),
+              indent: 2,
+              text: 'bool shouldRelayout(_) => false;',
+              colors: <Color>[_kAccent2, Colors.white70]),
           _PrivateCodeLine(text: '}', colors: <Color>[Colors.white]),
           SizedBox(height: 10),
           _PrivateCodeLine(
-            text: 'CustomMultiChildLayout(',
-            colors: <Color>[_kAccent3, Colors.white],
-          ),
+              text: 'CustomMultiChildLayout(',
+              colors: <Color>[_kAccent3, Colors.white]),
           _PrivateCodeLine(
-            indent: 2,
-            text: 'delegate: DashDelegate(),',
-            colors: <Color>[_kAccent4, Colors.white70],
-          ),
+              indent: 2,
+              text: 'delegate: DashDelegate(),',
+              colors: <Color>[_kAccent4, Colors.white70]),
           _PrivateCodeLine(
-            indent: 2,
-            text: 'children: [',
-            colors: <Color>[Colors.white70, Colors.white],
-          ),
+              indent: 2,
+              text: 'children: [',
+              colors: <Color>[Colors.white70, Colors.white]),
           _PrivateCodeLine(
-            indent: 4,
-            text: 'LayoutId(id: #header, child: Banner()),',
-            colors: <Color>[_kAccent5, Colors.white70],
-          ),
+              indent: 4,
+              text: 'LayoutId(id: #header, child: Banner()),',
+              colors: <Color>[_kAccent5, Colors.white70]),
           _PrivateCodeLine(
-            indent: 4,
-            text: 'LayoutId(id: #main,   child: Page()),',
-            colors: <Color>[_kAccent5, Colors.white70],
-          ),
+              indent: 4,
+              text: 'LayoutId(id: #main,   child: Page()),',
+              colors: <Color>[_kAccent5, Colors.white70]),
           _PrivateCodeLine(
-            indent: 2,
-            text: '],',
-            colors: <Color>[Colors.white70],
-          ),
+              indent: 2, text: '],', colors: <Color>[Colors.white70]),
           _PrivateCodeLine(text: ')', colors: <Color>[Colors.white]),
         ],
       ),
@@ -2287,8 +2266,7 @@ class _PrivatePitfalls extends StatelessWidget {
       children: const <Widget>[
         _PrivatePitfallCard(
           title: 'Forgetting to call layoutChild',
-          body:
-              'Every id passed via LayoutId MUST be laid out before the '
+          body: 'Every id passed via LayoutId MUST be laid out before the '
               'parent finishes performLayout. If you skip an id, the '
               'framework will assert in debug builds.',
           icon: Icons.warning_amber_rounded,
@@ -2297,8 +2275,7 @@ class _PrivatePitfalls extends StatelessWidget {
         SizedBox(height: 8),
         _PrivatePitfallCard(
           title: 'Calling positionChild before layoutChild',
-          body:
-              'You must size first, then position. Reading childSize '
+          body: 'You must size first, then position. Reading childSize '
               'before layoutChild has run yields null and crashes Offset.',
           icon: Icons.error_outline,
           color: _kAccent4,
@@ -2306,8 +2283,7 @@ class _PrivatePitfalls extends StatelessWidget {
         SizedBox(height: 8),
         _PrivatePitfallCard(
           title: 'Positions are parent-relative',
-          body:
-              'Offset(0, 0) is the top-left of the parent box, NOT the '
+          body: 'Offset(0, 0) is the top-left of the parent box, NOT the '
               'screen. Mixing global coordinates here is a common bug.',
           icon: Icons.gps_fixed,
           color: _kAccent6,
@@ -2315,8 +2291,7 @@ class _PrivatePitfalls extends StatelessWidget {
         SizedBox(height: 8),
         _PrivatePitfallCard(
           title: 'Optional slots need hasChild()',
-          body:
-              'If a LayoutId might be omitted by the build, gate every '
+          body: 'If a LayoutId might be omitted by the build, gate every '
               'layoutChild / positionChild on hasChild(id). Otherwise the '
               'layer will throw at runtime.',
           icon: Icons.toggle_off,
@@ -2325,8 +2300,7 @@ class _PrivatePitfalls extends StatelessWidget {
         SizedBox(height: 8),
         _PrivatePitfallCard(
           title: 'Stale shouldRelayout',
-          body:
-              'If you mutate a delegate field but return false from '
+          body: 'If you mutate a delegate field but return false from '
               'shouldRelayout, the layout is silently cached. Always '
               'compare every field.',
           icon: Icons.refresh,
@@ -2503,79 +2477,78 @@ dynamic build(BuildContext context) {
   // a minimal Center > Text summary.
   final List<Widget> _unused = const <Widget>[
     _PrivateHero(),
-    _PrivateSection(
-      index: 2,
-      title: 'Anatomy of a CustomMultiChildLayout',
-      subtitle:
-          'Two slots inside the constructor, both required to make the '
-          'render object work: a delegate and a list of LayoutId-tagged '
-          'children.',
-      tint: _kAccent2,
-      child: _PrivateAnatomy(),
-    ),
-    _PrivateSection(
-      index: 3,
-      title: 'Live: dashboard shell · 7 slots · _PrivateDashDelegate',
-      subtitle:
-          'A real CustomMultiChildLayout. Header, sidebar, alerts rail, '
-          'main viewport, KPI strip, footer, and a mini-map are placed '
-          'by the delegate below. Resize the window to see the slot '
-          'arithmetic in action.',
-      tint: _kAccent,
-      child: _PrivateDashboardDemo(),
-    ),
-    _PrivateSection(
-      index: 4,
-      title:
-          'Live: picture-in-picture · 5 slots · _PrivatePictureInPictureDelegate',
-      subtitle:
-          'Main viewport with a floating mini-window anchored to the '
-          'bottom-right, a caption strip directly below it, a corner '
-          'badge that overlaps the float, and a toolbar across the bottom.',
-      tint: _kAccent5,
-      child: _PrivatePictureInPictureDemo(),
-    ),
-    _PrivateSection(
-      index: 5,
-      title: 'MultiChildLayoutDelegate · API surface',
-      subtitle:
-          'Five methods you talk to. Three are mandatory in practice; '
-          'getSize is optional and only matters when the parent is '
-          'allowed to grow inside its own constraints.',
-      tint: _kAccent3,
-      child: _PrivateApiTable(),
-    ),
-    _PrivateSection(
-      index: 6,
-      title: 'Recipe · how every delegate is wired',
-      subtitle:
-          'Subclass MultiChildLayoutDelegate, override performLayout, '
-          'and pair every LayoutId in the children list with a '
-          'layoutChild + positionChild call.',
-      tint: _kAccent4,
-      child: _PrivateCodeListing(),
-    ),
-    _PrivateSection(
-      index: 7,
-      title: 'CustomMultiChildLayout vs the alternatives',
-      subtitle:
-          'Pick the right multi-child widget. The decision matrix '
-          'below assumes you have at least two children and need to '
-          'place them deliberately.',
-      tint: _kAccent6,
-      child: _PrivateComparison(),
-    ),
-    _PrivateSection(
-      index: 8,
-      title: 'Pitfalls — the ways this widget bites',
-      subtitle:
-          'Most CustomMultiChildLayout bugs are one of five flavours. '
-          'Each card below is a real mistake from real codebases.',
-      tint: _kAccent5,
-      child: _PrivatePitfalls(),
-    ),
-    _PrivateFooter(),
-  ];
+            _PrivateSection(
+              index: 2,
+              title: 'Anatomy of a CustomMultiChildLayout',
+              subtitle:
+                  'Two slots inside the constructor, both required to make the '
+                  'render object work: a delegate and a list of LayoutId-tagged '
+                  'children.',
+              tint: _kAccent2,
+              child: _PrivateAnatomy(),
+            ),
+            _PrivateSection(
+              index: 3,
+              title: 'Live: dashboard shell · 7 slots · _PrivateDashDelegate',
+              subtitle:
+                  'A real CustomMultiChildLayout. Header, sidebar, alerts rail, '
+                  'main viewport, KPI strip, footer, and a mini-map are placed '
+                  'by the delegate below. Resize the window to see the slot '
+                  'arithmetic in action.',
+              tint: _kAccent,
+              child: _PrivateDashboardDemo(),
+            ),
+            _PrivateSection(
+              index: 4,
+              title: 'Live: picture-in-picture · 5 slots · _PrivatePictureInPictureDelegate',
+              subtitle:
+                  'Main viewport with a floating mini-window anchored to the '
+                  'bottom-right, a caption strip directly below it, a corner '
+                  'badge that overlaps the float, and a toolbar across the bottom.',
+              tint: _kAccent5,
+              child: _PrivatePictureInPictureDemo(),
+            ),
+            _PrivateSection(
+              index: 5,
+              title: 'MultiChildLayoutDelegate · API surface',
+              subtitle:
+                  'Five methods you talk to. Three are mandatory in practice; '
+                  'getSize is optional and only matters when the parent is '
+                  'allowed to grow inside its own constraints.',
+              tint: _kAccent3,
+              child: _PrivateApiTable(),
+            ),
+            _PrivateSection(
+              index: 6,
+              title: 'Recipe · how every delegate is wired',
+              subtitle:
+                  'Subclass MultiChildLayoutDelegate, override performLayout, '
+                  'and pair every LayoutId in the children list with a '
+                  'layoutChild + positionChild call.',
+              tint: _kAccent4,
+              child: _PrivateCodeListing(),
+            ),
+            _PrivateSection(
+              index: 7,
+              title: 'CustomMultiChildLayout vs the alternatives',
+              subtitle:
+                  'Pick the right multi-child widget. The decision matrix '
+                  'below assumes you have at least two children and need to '
+                  'place them deliberately.',
+              tint: _kAccent6,
+              child: _PrivateComparison(),
+            ),
+            _PrivateSection(
+              index: 8,
+              title: 'Pitfalls — the ways this widget bites',
+              subtitle:
+                  'Most CustomMultiChildLayout bugs are one of five flavours. '
+                  'Each card below is a real mistake from real codebases.',
+              tint: _kAccent5,
+              child: _PrivatePitfalls(),
+            ),
+            _PrivateFooter(),
+          ];
   // Reference _unused so analyzer treats it as used at this scope too.
   // (The ignore_for_file directive already covers unused_local_variable.)
   final int _sectionsConstructed = _unused.length;

@@ -193,7 +193,10 @@ class _SectionHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(title, style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 if (hint != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 2),
@@ -263,7 +266,9 @@ class _StatChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: (color ?? scheme.surfaceContainerHighest).withValues(alpha: 0.9),
+        color: (color ?? scheme.surfaceContainerHighest).withValues(
+          alpha: 0.9,
+        ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: scheme.outlineVariant),
       ),
@@ -274,13 +279,18 @@ class _StatChip extends StatelessWidget {
             Icon(icon, size: 16, color: scheme.primary),
             const SizedBox(width: 6),
           ],
-          Text(label, style: Theme.of(context).textTheme.labelSmall),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
           const SizedBox(width: 6),
           Text(
             value,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              fontFeatures: const <FontFeature>[FontFeature.tabularFigures()],
-            ),
+                  fontFeatures: const <FontFeature>[
+                    FontFeature.tabularFigures(),
+                  ],
+                ),
           ),
         ],
       ),
@@ -384,7 +394,10 @@ class _IntroTab extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.primary, scheme.tertiary],
+              colors: <Color>[
+                scheme.primary,
+                scheme.tertiary,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -405,7 +418,9 @@ class _IntroTab extends StatelessWidget {
                   Expanded(
                     child: Text(
                       'GestureDetector',
-                      style: Theme.of(context).textTheme.headlineMedium
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
                           ?.copyWith(
                             color: scheme.onPrimary,
                             fontWeight: FontWeight.w700,
@@ -419,9 +434,9 @@ class _IntroTab extends StatelessWidget {
                 'Flutter\'s most versatile gesture-handling widget.\n'
                 'Wire taps, long-presses, pans, pinches, rotations, secondary and tertiary pointers, '
                 'all while controlling hit-testing behavior and semantics exposure.',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(color: scheme.onPrimary),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: scheme.onPrimary,
+                    ),
               ),
               const SizedBox(height: 16),
               Wrap(
@@ -433,10 +448,16 @@ class _IntroTab extends StatelessWidget {
                   _HeroPill(label: 'Long-press', icon: Icons.timer_outlined),
                   _HeroPill(label: 'Pan', icon: Icons.pan_tool_outlined),
                   _HeroPill(label: 'Scale', icon: Icons.pinch_outlined),
-                  _HeroPill(label: 'Secondary', icon: Icons.mouse_outlined),
+                  _HeroPill(
+                    label: 'Secondary',
+                    icon: Icons.mouse_outlined,
+                  ),
                   _HeroPill(label: 'Tertiary', icon: Icons.circle_outlined),
                   _HeroPill(label: 'Arena', icon: Icons.stadium_outlined),
-                  _HeroPill(label: 'Semantics', icon: Icons.accessibility_new),
+                  _HeroPill(
+                    label: 'Semantics',
+                    icon: Icons.accessibility_new,
+                  ),
                 ],
               ),
             ],
@@ -449,36 +470,31 @@ class _IntroTab extends StatelessWidget {
         ),
         const _InfoCard(
           title: 'Composable callbacks',
-          body:
-              'Every gesture family is optional. Declare only what you need, '
+          body: 'Every gesture family is optional. Declare only what you need, '
               'and Flutter enters the matching recognizers into the gesture arena. '
               'The winner receives the stream of events; the losers are cancelled.',
         ),
         const _InfoCard(
           title: 'Hit-test behavior controls event routing',
-          body:
-              'HitTestBehavior.deferToChild (default) lets only the child decide. '
+          body: 'HitTestBehavior.deferToChild (default) lets only the child decide. '
               'opaque claims the whole bounding rect; translucent allows events to '
               'continue to widgets under it as well.',
         ),
         const _InfoCard(
           title: 'Semantics participation',
-          body:
-              'Setting excludeFromSemantics: true hides the detector from '
+          body: 'Setting excludeFromSemantics: true hides the detector from '
               'screen readers. Use it carefully — only when a nested widget is '
               'already exposing a proper semantic action.',
         ),
         const _InfoCard(
           title: 'Drag start behavior',
-          body:
-              'dragStartBehavior: DragStartBehavior.down starts drags on the '
+          body: 'dragStartBehavior: DragStartBehavior.down starts drags on the '
               'first pointer-down (snappier); .start (default) waits until movement '
               'exceeds slop — preventing accidental drags during taps.',
         ),
         const _InfoCard(
           title: 'Trackpad scroll handling',
-          body:
-              'trackpadScrollCausesScale: true reinterprets two-finger '
+          body: 'trackpadScrollCausesScale: true reinterprets two-finger '
               'trackpad scrolls as scale gestures, matching desktop pinch-to-zoom '
               'expectations.',
         ),
@@ -499,7 +515,10 @@ class _IntroTab extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'What you will explore',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                    ),
                   ),
                   SizedBox(height: 8),
                   _BulletLine(
@@ -600,7 +619,10 @@ class _BulletLine extends StatelessWidget {
           Icon(icon, size: 16, color: scheme.primary),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: Theme.of(context).textTheme.bodyMedium),
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
           ),
         ],
       ),
@@ -703,7 +725,9 @@ class _TapFamilyTab extends StatelessWidget {
               _pushTapLog('onLongPress #${longPressCount.value}');
             },
             onLongPressStart: (LongPressStartDetails d) {
-              _pushTapLog('onLongPressStart @ ${_fmtOffset(d.localPosition)}');
+              _pushTapLog(
+                'onLongPressStart @ ${_fmtOffset(d.localPosition)}',
+              );
             },
             onLongPressEnd: (LongPressEndDetails d) {
               _pushTapLog('onLongPressEnd @ ${_fmtOffset(d.localPosition)}');
@@ -731,7 +755,11 @@ class _TapFamilyTab extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Icon(Icons.touch_app, size: 48, color: scheme.primary),
+                        Icon(
+                          Icons.touch_app,
+                          size: 48,
+                          color: scheme.primary,
+                        ),
                         const SizedBox(height: 6),
                         Text(
                           'Tap / double-tap / long-press',
@@ -797,15 +825,13 @@ class _TapFamilyTab extends StatelessWidget {
         const SizedBox(height: 8),
         const _InfoCard(
           title: 'Tap cancel semantics',
-          body:
-              'If the pointer moves outside the hit region or another '
+          body: 'If the pointer moves outside the hit region or another '
               'recognizer wins the arena, onTapCancel fires instead of onTapUp. '
               'The same applies to onDoubleTapCancel and onLongPressCancel.',
         ),
         const _InfoCard(
           title: 'Ordering',
-          body:
-              '1) onTapDown  →  2) onTapUp  OR  onTapCancel  →  3) onTap\n'
+          body: '1) onTapDown  →  2) onTapUp  OR  onTapCancel  →  3) onTap\n'
               'For long-press: onTapDown  →  onLongPressStart  →  '
               'onLongPressMoveUpdate*  →  onLongPressEnd  →  onLongPressUp  →  '
               'onLongPress.',
@@ -875,7 +901,9 @@ class _LongPressTab extends StatelessWidget {
               onLongPressStart: (LongPressStartDetails d) {
                 longPressActive.value = true;
                 longPressPosition.value = d.localPosition;
-                _pushLongPressLog('start @ ${_fmtOffset(d.localPosition)}');
+                _pushLongPressLog(
+                  'start @ ${_fmtOffset(d.localPosition)}',
+                );
               },
               onLongPressMoveUpdate: (LongPressMoveUpdateDetails d) {
                 longPressPosition.value = d.localPosition;
@@ -925,9 +953,8 @@ class _LongPressTab extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: active
-                                          ? scheme.primary.withValues(
-                                              alpha: 0.9,
-                                            )
+                                          ? scheme.primary
+                                              .withValues(alpha: 0.9)
                                           : scheme.primaryContainer,
                                       border: Border.all(
                                         color: scheme.onPrimary,
@@ -971,7 +998,9 @@ class _LongPressTab extends StatelessWidget {
                               children: <Widget>[
                                 Text(
                                   'drag progress',
-                                  style: Theme.of(context).textTheme.labelSmall,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall,
                                 ),
                                 const SizedBox(height: 4),
                                 LinearProgressIndicator(value: v),
@@ -989,16 +1018,14 @@ class _LongPressTab extends StatelessWidget {
         ),
         const _InfoCard(
           title: 'offsetFromOrigin',
-          body:
-              'onLongPressMoveUpdate details include offsetFromOrigin '
+          body: 'onLongPressMoveUpdate details include offsetFromOrigin '
               '(distance from the initial down point) and localOffsetFromOrigin. '
               'Great for dial-like controls, draw-on-press tools, and '
               'range-selectors.',
         ),
         const _InfoCard(
           title: 'Long-press velocity',
-          body:
-              'onLongPressEnd carries a Velocity — useful for fling-style '
+          body: 'onLongPressEnd carries a Velocity — useful for fling-style '
               'effects when the user releases while still moving.',
         ),
         _LogPane(
@@ -1104,7 +1131,8 @@ class _PanDragTab extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: <BoxShadow>[
                                 BoxShadow(
-                                  color: scheme.shadow.withValues(alpha: 0.25),
+                                  color: scheme.shadow
+                                      .withValues(alpha: 0.25),
                                   offset: const Offset(0, 4),
                                   blurRadius: 8,
                                 ),
@@ -1113,7 +1141,10 @@ class _PanDragTab extends StatelessWidget {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                Icon(Icons.open_with, color: scheme.onPrimary),
+                                Icon(
+                                  Icons.open_with,
+                                  color: scheme.onPrimary,
+                                ),
                                 const SizedBox(height: 2),
                                 Text(
                                   'Drag',
@@ -1151,7 +1182,8 @@ class _PanDragTab extends StatelessWidget {
                       builder: (BuildContext c, Velocity v, Widget? _) {
                         return _StatChip(
                           label: 'v px/s',
-                          value: v.pixelsPerSecond.distance.toStringAsFixed(0),
+                          value: v.pixelsPerSecond.distance
+                              .toStringAsFixed(0),
                           icon: Icons.speed,
                         );
                       },
@@ -1186,12 +1218,11 @@ class _PanDragTab extends StatelessWidget {
                       top: 18,
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
-                        onHorizontalDragUpdate: (DragUpdateDetails d) {
-                          horizontalLaneX.value =
-                              (horizontalLaneX.value + d.delta.dx).clamp(
-                                0.0,
-                                260.0,
-                              );
+                        onHorizontalDragUpdate:
+                            (DragUpdateDetails d) {
+                          horizontalLaneX.value = (horizontalLaneX.value +
+                                  d.delta.dx)
+                              .clamp(0.0, 260.0);
                         },
                         child: Container(
                           width: 54,
@@ -1243,12 +1274,11 @@ class _PanDragTab extends StatelessWidget {
                       top: y,
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
-                        onVerticalDragUpdate: (DragUpdateDetails d) {
-                          verticalLaneY.value =
-                              (verticalLaneY.value + d.delta.dy).clamp(
-                                0.0,
-                                120.0,
-                              );
+                        onVerticalDragUpdate:
+                            (DragUpdateDetails d) {
+                          verticalLaneY.value = (verticalLaneY.value +
+                                  d.delta.dy)
+                              .clamp(0.0, 120.0);
                         },
                         child: Container(
                           width: 54,
@@ -1278,16 +1308,14 @@ class _PanDragTab extends StatelessWidget {
         ),
         const _InfoCard(
           title: 'Axis-locked drags win faster',
-          body:
-              'onHorizontalDrag* and onVerticalDrag* are cheaper than '
+          body: 'onHorizontalDrag* and onVerticalDrag* are cheaper than '
               'onPan* because they only need to exceed slop in one axis. '
               'This helps inside scrollables: horizontal cards can be dragged '
               'without fighting the vertical list.',
         ),
         const _InfoCard(
           title: 'DragStartBehavior',
-          body:
-              'down: drag begins at the first touch-down; the initial delta '
+          body: 'down: drag begins at the first touch-down; the initial delta '
               'is zero but onStart fires immediately.\n'
               'start (default): drag begins once movement exceeds kTouchSlop; '
               'the initial delta may be non-zero.',
@@ -1488,23 +1516,20 @@ class _ScalePinchTab extends StatelessWidget {
         ),
         const _InfoCard(
           title: 'Scale details',
-          body:
-              'ScaleUpdateDetails carries: scale (absolute since start), '
+          body: 'ScaleUpdateDetails carries: scale (absolute since start), '
               'horizontalScale, verticalScale, rotation (radians), focalPoint '
               'and focalPointDelta. Use focalPoint for pivoting, rotation for '
               'rotational UIs, and scale for zooming.',
         ),
         const _InfoCard(
           title: 'trackpadScrollCausesScale',
-          body:
-              'On desktops, a two-finger trackpad scroll can be interpreted '
+          body: 'On desktops, a two-finger trackpad scroll can be interpreted '
               'as a scale gesture when this flag is true. Combine with '
               'trackpadScrollToScaleFactor for fine-grained control.',
         ),
         const _InfoCard(
           title: 'Scale vs pan vs long-press',
-          body:
-              'If you register onScale*, you cannot also register onPan* on '
+          body: 'If you register onScale*, you cannot also register onPan* on '
               'the same detector — onPan* is a subset of onScale*. The arena '
               'flags this at construction time. Use onScale* alone; pans are '
               'automatically emitted as 1-pointer scale updates.',
@@ -1597,16 +1622,14 @@ class _SecondaryTertiaryTab extends StatelessWidget {
         ),
         const _InfoCard(
           title: 'Pointer buttons',
-          body:
-              'Secondary = right mouse button. Tertiary = middle mouse '
+          body: 'Secondary = right mouse button. Tertiary = middle mouse '
               'button. On touchscreens only the primary pointer fires — '
               'secondary/tertiary are desktop-centric. Long-press variants '
               'follow the same down/move/end/up pattern as the primary.',
         ),
         const _InfoCard(
           title: 'Typical uses',
-          body:
-              'Secondary tap → context menus. Tertiary tap → open-in-new-'
+          body: 'Secondary tap → context menus. Tertiary tap → open-in-new-'
               'tab semantics. Both complement primary taps without stealing '
               'them from the arena.',
         ),
@@ -1651,10 +1674,16 @@ class _PointerCard extends StatelessWidget {
             children: <Widget>[
               Icon(icon, color: color),
               const SizedBox(width: 6),
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ],
           ),
-          Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+          Text(
+            subtitle,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
           const SizedBox(height: 10),
           ValueListenableBuilder<int>(
             valueListenable: countNotifier,
@@ -1711,7 +1740,8 @@ class _HitTestBehaviorTab extends StatelessWidget {
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () {
-                      layerBackdropCount.value = layerBackdropCount.value + 1;
+                      layerBackdropCount.value =
+                          layerBackdropCount.value + 1;
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -1745,7 +1775,8 @@ class _HitTestBehaviorTab extends StatelessWidget {
                       label: 'translucent',
                       width: 220,
                       height: 120,
-                      color: scheme.tertiaryContainer.withValues(alpha: 0.6),
+                      color:
+                          scheme.tertiaryContainer.withValues(alpha: 0.6),
                       counter: layerTranslucentCount,
                       note: 'hit + forward',
                     ),
@@ -1806,22 +1837,19 @@ class _HitTestBehaviorTab extends StatelessWidget {
         ),
         const _InfoCard(
           title: 'deferToChild',
-          body:
-              'The detector is only hit where its child paints. If the '
+          body: 'The detector is only hit where its child paints. If the '
               'child has transparent regions, taps there pass through to '
               'widgets behind — even without the translucent flag.',
         ),
         const _InfoCard(
           title: 'opaque',
-          body:
-              'Claims the entire bounding rect regardless of child painting. '
+          body: 'Claims the entire bounding rect regardless of child painting. '
               'Events never fall through. Useful for full-card tappable areas '
               'that have partial content.',
         ),
         const _InfoCard(
           title: 'translucent',
-          body:
-              'Reports a hit itself AND lets the same event continue through '
+          body: 'Reports a hit itself AND lets the same event continue through '
               'to widgets behind. Great for overlay hotspots that should not '
               'block underlying scrolling.',
         ),
@@ -1865,9 +1893,11 @@ class _LayerCard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.layers_outlined, size: 16, color: scheme.onSurface),
+              Icon(Icons.layers_outlined,
+                  size: 16, color: scheme.onSurface),
               const SizedBox(width: 4),
-              Text(label, style: Theme.of(context).textTheme.titleSmall),
+              Text(label,
+                  style: Theme.of(context).textTheme.titleSmall),
             ],
           ),
           Text(note, style: Theme.of(context).textTheme.bodySmall),
@@ -1954,29 +1984,25 @@ class _GestureArenaTab extends StatelessWidget {
         ),
         const _InfoCard(
           title: 'Admission',
-          body:
-              'Each GestureDetector has a GestureRecognizer for every '
+          body: 'Each GestureDetector has a GestureRecognizer for every '
               'enabled callback. When a pointer lands, all recognizers in the '
               'hit chain are admitted to the arena for that pointer.',
         ),
         const _InfoCard(
           title: 'Resolution',
-          body:
-              'Recognizers progressively call resolve(accepted|rejected). '
+          body: 'Recognizers progressively call resolve(accepted|rejected). '
               'The first to accept wins; any remaining are forcibly rejected. '
               'This is why tap vs drag cannot fire for the same pointer.',
         ),
         const _InfoCard(
           title: 'Sweep',
-          body:
-              'If a pointer is released and no one has accepted yet, the '
+          body: 'If a pointer is released and no one has accepted yet, the '
               'arena sweeps: the earliest-added candidate wins. This is why '
               'short taps still fire reliably when several detectors compete.',
         ),
         const _InfoCard(
           title: 'Team members',
-          body:
-              'Advanced recognizers may join a GestureArenaTeam and share '
+          body: 'Advanced recognizers may join a GestureArenaTeam and share '
               'a captain. The captain decides which member claims the pointer '
               '— used e.g. to coordinate scroll views with drag handles.',
         ),
@@ -1995,7 +2021,10 @@ class _ArenaPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = scheme.surfaceContainer;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(16)),
+      RRect.fromRectAndRadius(
+        Offset.zero & size,
+        const Radius.circular(16),
+      ),
       bg,
     );
 
@@ -2027,10 +2056,8 @@ class _ArenaPainter extends CustomPainter {
     )..layout();
     arenaLabel.paint(
       canvas,
-      Offset(
-        center.dx - arenaLabel.width / 2,
-        center.dy - arenaLabel.height / 2,
-      ),
+      Offset(center.dx - arenaLabel.width / 2,
+          center.dy - arenaLabel.height / 2),
     );
 
     // Candidates around the arena.
@@ -2060,7 +2087,9 @@ class _ArenaPainter extends CustomPainter {
       final Paint fill = Paint()
         ..color = isWinner
             ? scheme.primary
-            : (isRejected ? colors[i].withValues(alpha: 0.25) : colors[i]);
+            : (isRejected
+                ? colors[i].withValues(alpha: 0.25)
+                : colors[i]);
       canvas.drawCircle(Offset(cx, cy), 26, fill);
 
       final Paint border = Paint()
@@ -2101,8 +2130,10 @@ class _ArenaPainter extends CustomPainter {
         final Paint x = Paint()
           ..color = scheme.error
           ..strokeWidth = 2;
-        canvas.drawLine(Offset(cx - 8, cy - 8), Offset(cx + 8, cy + 8), x);
-        canvas.drawLine(Offset(cx + 8, cy - 8), Offset(cx - 8, cy + 8), x);
+        canvas.drawLine(
+            Offset(cx - 8, cy - 8), Offset(cx + 8, cy + 8), x);
+        canvas.drawLine(
+            Offset(cx + 8, cy - 8), Offset(cx - 8, cy + 8), x);
       }
 
       // Crown for winner.
@@ -2124,15 +2155,23 @@ class _ArenaPainter extends CustomPainter {
 
     // Pointer.
     final Paint pointerPaint = Paint()..color = scheme.error;
-    canvas.drawCircle(Offset(center.dx, size.height - 20), 8, pointerPaint);
+    canvas.drawCircle(
+      Offset(center.dx, size.height - 20),
+      8,
+      pointerPaint,
+    );
     final TextPainter pp = TextPainter(
       text: TextSpan(
         text: 'pointer',
-        style: TextStyle(color: scheme.onSurface, fontSize: 11),
+        style: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 11,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    pp.paint(canvas, Offset(center.dx - pp.width / 2, size.height - 20 + 12));
+    pp.paint(canvas,
+        Offset(center.dx - pp.width / 2, size.height - 20 + 12));
   }
 
   @override
@@ -2219,7 +2258,8 @@ class _SemanticsTab extends StatelessWidget {
                     behavior: HitTestBehavior.opaque,
                     excludeFromSemantics: excl,
                     onTap: () {
-                      semanticsTapCount.value = semanticsTapCount.value + 1;
+                      semanticsTapCount.value =
+                          semanticsTapCount.value + 1;
                     },
                     child: Container(
                       height: 96,
@@ -2247,7 +2287,9 @@ class _SemanticsTab extends StatelessWidget {
                             excl
                                 ? 'Invisible to a11y tree'
                                 : 'Visible to a11y tree',
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium,
                           ),
                         ],
                       ),
@@ -2274,29 +2316,28 @@ class _SemanticsTab extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: AspectRatio(
             aspectRatio: 2,
-            child: CustomPaint(painter: _SemanticsTreePainter(scheme: scheme)),
+            child: CustomPaint(
+              painter: _SemanticsTreePainter(scheme: scheme),
+            ),
           ),
         ),
         const _InfoCard(
           title: 'Default behavior',
-          body:
-              'By default, GestureDetector adds semantic actions for the '
+          body: 'By default, GestureDetector adds semantic actions for the '
               'gestures it handles (tap, long-press, horizontal/vertical '
               'scroll). Screen readers announce these and support the '
               'corresponding accessibility actions.',
         ),
         const _InfoCard(
           title: 'When to exclude',
-          body:
-              'If an inner widget — say an IconButton — already exposes a '
+          body: 'If an inner widget — say an IconButton — already exposes a '
               'tap action, the outer GestureDetector should usually '
               'excludeFromSemantics so the screen reader does not announce '
               'the same action twice.',
         ),
         const _InfoCard(
           title: 'Do not abuse',
-          body:
-              'Never use excludeFromSemantics to "hide" a control from '
+          body: 'Never use excludeFromSemantics to "hide" a control from '
               'screen-reader users. Prefer providing a Semantics wrapper with '
               'a clear label over silencing the widget.',
         ),
@@ -2314,7 +2355,10 @@ class _SemanticsTreePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = scheme.surfaceContainerLow;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(16)),
+      RRect.fromRectAndRadius(
+        Offset.zero & size,
+        const Radius.circular(16),
+      ),
       bg,
     );
 
@@ -2365,7 +2409,10 @@ class _SemanticsTreePainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    rootLabel.paint(canvas, Offset(root.dx - rootLabel.width / 2, 48));
+    rootLabel.paint(
+      canvas,
+      Offset(root.dx - rootLabel.width / 2, 48),
+    );
   }
 
   @override
@@ -2479,11 +2526,15 @@ class _SwipeToDismissDemo extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               'Swipe me away',
-                              style: Theme.of(context).textTheme.titleSmall,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall,
                             ),
                             Text(
                               'onHorizontalDragEnd → primaryVelocity',
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall,
                             ),
                           ],
                         ),
@@ -2528,21 +2579,25 @@ class _DragToReorderDemo extends StatelessWidget {
                 children: List<Widget>.generate(items.length, (int i) {
                   return ValueListenableBuilder<int?>(
                     valueListenable: reorderDragIndex,
-                    builder: (BuildContext c, int? dragIdx, Widget? _) {
+                    builder:
+                        (BuildContext c, int? dragIdx, Widget? _) {
                       final bool isDragging = dragIdx == i;
                       return GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onLongPressStart: (LongPressStartDetails d) {
                           reorderDragIndex.value = i;
                         },
-                        onLongPressMoveUpdate: (LongPressMoveUpdateDetails d) {
+                        onLongPressMoveUpdate:
+                            (LongPressMoveUpdateDetails d) {
                           final int? current = reorderDragIndex.value;
                           if (current == null) return;
                           final double dy = d.offsetFromOrigin.dy;
-                          final int target = (current + (dy / 50).round())
-                              .clamp(0, items.length - 1);
+                          final int target =
+                              (current + (dy / 50).round())
+                                  .clamp(0, items.length - 1);
                           if (target != current) {
-                            final List<String> next = List<String>.from(items);
+                            final List<String> next =
+                                List<String>.from(items);
                             final String item = next.removeAt(current);
                             next.insert(target, item);
                             reorderList.value = next;
@@ -2553,7 +2608,8 @@ class _DragToReorderDemo extends StatelessWidget {
                           reorderDragIndex.value = null;
                         },
                         child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          margin:
+                              const EdgeInsets.symmetric(vertical: 4),
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: isDragging
@@ -2639,7 +2695,10 @@ class _PhotoZoomDemo extends StatelessWidget {
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onScaleUpdate: (ScaleUpdateDetails d) {
-                photoZoom.value = (photoZoom.value * d.scale).clamp(0.8, 4.0);
+                photoZoom.value = (photoZoom.value * d.scale).clamp(
+                  0.8,
+                  4.0,
+                );
                 photoPan.value = photoPan.value + d.focalPointDelta;
               },
               onDoubleTap: () {
@@ -2655,7 +2714,8 @@ class _PhotoZoomDemo extends StatelessWidget {
                 builder: (BuildContext c, double z, Widget? _) {
                   return ValueListenableBuilder<Offset>(
                     valueListenable: photoPan,
-                    builder: (BuildContext ctx, Offset p, Widget? _) {
+                    builder:
+                        (BuildContext ctx, Offset p, Widget? _) {
                       return Transform(
                         alignment: Alignment.center,
                         transform: Matrix4.identity()
@@ -2688,7 +2748,10 @@ class _FakePhotoPainter extends CustomPainter {
     final Rect sky = Rect.fromLTWH(0, 0, size.width, size.height * 0.6);
     final Paint skyPaint = Paint()
       ..shader = LinearGradient(
-        colors: <Color>[scheme.primary, scheme.tertiary],
+        colors: <Color>[
+          scheme.primary,
+          scheme.tertiary,
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ).createShader(sky);
@@ -2696,13 +2759,22 @@ class _FakePhotoPainter extends CustomPainter {
 
     final Paint ground = Paint()..color = scheme.secondaryContainer;
     canvas.drawRect(
-      Rect.fromLTWH(0, size.height * 0.6, size.width, size.height * 0.4),
+      Rect.fromLTWH(
+        0,
+        size.height * 0.6,
+        size.width,
+        size.height * 0.4,
+      ),
       ground,
     );
 
     // Sun.
     final Paint sun = Paint()..color = scheme.inversePrimary;
-    canvas.drawCircle(Offset(size.width * 0.75, size.height * 0.25), 24, sun);
+    canvas.drawCircle(
+      Offset(size.width * 0.75, size.height * 0.25),
+      24,
+      sun,
+    );
 
     // Mountains.
     final Path mountain = Path()
@@ -2855,7 +2927,9 @@ class _LongPressMenuDemo extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       const Expanded(
-                        child: Text('Long-press this tile for a context menu.'),
+                        child: Text(
+                          'Long-press this tile for a context menu.',
+                        ),
                       ),
                     ],
                   ),
@@ -2877,19 +2951,17 @@ class _LongPressMenuDemo extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            _MenuItem(icon: Icons.open_in_new, label: 'Open'),
                             _MenuItem(
-                              icon: Icons.share_outlined,
-                              label: 'Share',
-                            ),
+                                icon: Icons.open_in_new, label: 'Open'),
                             _MenuItem(
-                              icon: Icons.download_outlined,
-                              label: 'Save',
-                            ),
+                                icon: Icons.share_outlined,
+                                label: 'Share'),
                             _MenuItem(
-                              icon: Icons.delete_outline,
-                              label: 'Delete',
-                            ),
+                                icon: Icons.download_outlined,
+                                label: 'Save'),
+                            _MenuItem(
+                                icon: Icons.delete_outline,
+                                label: 'Delete'),
                           ],
                         ),
                       ),
@@ -2957,16 +3029,20 @@ class _ScratchRevealDemo extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: <Color>[scheme.primary, scheme.tertiary],
+                        colors: <Color>[
+                          scheme.primary,
+                          scheme.tertiary,
+                        ],
                       ),
                     ),
                     child: Text(
                       'SECRET: 8 4 1 6',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: scheme.onPrimary,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 4,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.titleLarge?.copyWith(
+                                color: scheme.onPrimary,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 4,
+                              ),
                     ),
                   ),
                 ),
@@ -2978,15 +3054,19 @@ class _ScratchRevealDemo extends StatelessWidget {
                         ...scratchStrokes.value,
                         d.localPosition,
                       ];
-                      scratchRevealed.value = (scratchRevealed.value + 0.01)
-                          .clamp(0, 1);
+                      scratchRevealed.value =
+                          (scratchRevealed.value + 0.01).clamp(0, 1);
                     },
                     onPanEnd: (DragEndDetails d) {},
                     child: ValueListenableBuilder<List<Offset>>(
                       valueListenable: scratchStrokes,
-                      builder: (BuildContext ctx, List<Offset> pts, Widget? _) {
+                      builder: (BuildContext ctx, List<Offset> pts,
+                          Widget? _) {
                         return CustomPaint(
-                          painter: _ScratchPainter(scheme: scheme, points: pts),
+                          painter: _ScratchPainter(
+                            scheme: scheme,
+                            points: pts,
+                          ),
                           child: const SizedBox.expand(),
                         );
                       },
@@ -3022,7 +3102,8 @@ class _ScratchPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // Draw opaque layer over the secret.
-    final Paint cover = Paint()..color = scheme.surfaceContainerHighest;
+    final Paint cover = Paint()
+      ..color = scheme.surfaceContainerHighest;
     canvas.drawRect(Offset.zero & size, cover);
 
     // "Erase" by drawing BlendMode.clear circles at each pan point.
@@ -3138,9 +3219,10 @@ class _CompareRow extends StatelessWidget {
             width: 130,
             child: Text(
               widget,
-              style: Theme.of(
-                context,
-              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
+                  ?.copyWith(fontWeight: FontWeight.w700),
             ),
           ),
           Expanded(
@@ -3214,7 +3296,10 @@ class _CheatSheetBar extends StatelessWidget {
               icon: Icons.accessibility_new,
               text: 'excludeFromSemantics',
             ),
-            _CheatPill(icon: Icons.start, text: 'dragStartBehavior'),
+            _CheatPill(
+              icon: Icons.start,
+              text: 'dragStartBehavior',
+            ),
           ],
         ),
       ),
@@ -3245,7 +3330,10 @@ class _CheatPill extends StatelessWidget {
           children: <Widget>[
             Icon(icon, size: 14, color: scheme.primary),
             const SizedBox(width: 4),
-            Text(text, style: Theme.of(context).textTheme.labelSmall),
+            Text(
+              text,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
           ],
         ),
       ),

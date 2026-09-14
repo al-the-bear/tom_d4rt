@@ -36,11 +36,11 @@ class _Vec4Sample {
       '${z.toStringAsFixed(2)}, ${w.toStringAsFixed(2)})';
 
   Color get asColor => Color.fromRGBO(
-    (x * 255).clamp(0, 255).round(),
-    (y * 255).clamp(0, 255).round(),
-    (z * 255).clamp(0, 255).round(),
-    w.clamp(0.0, 1.0),
-  );
+        (x * 255).clamp(0, 255).round(),
+        (y * 255).clamp(0, 255).round(),
+        (z * 255).clamp(0, 255).round(),
+        w.clamp(0.0, 1.0),
+      );
 }
 
 class _SlotKind {
@@ -253,23 +253,21 @@ Widget _buildHero() {
 // ---------------------------------------------------------------------------
 Widget _buildComponentDecomposition() {
   final List<List<Object>> rows = <List<Object>>[
-    <Object>['x', 'r', 'red', kAccentX, 'channel 0 — first float'],
+    <Object>['x', 'r', 'red',   kAccentX, 'channel 0 — first float'],
     <Object>['y', 'g', 'green', kAccentY, 'channel 1 — second float'],
-    <Object>['z', 'b', 'blue', kAccentZ, 'channel 2 — third float'],
+    <Object>['z', 'b', 'blue',  kAccentZ, 'channel 2 — third float'],
     <Object>['w', 'a', 'alpha', kAccentW, 'channel 3 — fourth float'],
   ];
   final List<Widget> tiles = <Widget>[];
   for (int i = 0; i < rows.length; i++) {
     final List<Object> r = rows[i];
-    tiles.add(
-      _componentSwatch(
-        r[0] as String,
-        r[1] as String,
-        r[2] as String,
-        r[3] as Color,
-        r[4] as String,
-      ),
-    );
+    tiles.add(_componentSwatch(
+      r[0] as String,
+      r[1] as String,
+      r[2] as String,
+      r[3] as Color,
+      r[4] as String,
+    ));
     if (i != rows.length - 1) tiles.add(const SizedBox(height: 10));
   }
   return _section(
@@ -284,12 +282,7 @@ Widget _buildComponentDecomposition() {
 }
 
 Widget _componentSwatch(
-  String comp,
-  String alias,
-  String role,
-  Color color,
-  String note,
-) {
+    String comp, String alias, String role, Color color, String note) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -342,10 +335,8 @@ Widget _componentSwatch(
                     ),
                   ),
                   const SizedBox(width: 6),
-                  Text(
-                    '— $role',
-                    style: const TextStyle(color: kInk, fontSize: 12),
-                  ),
+                  Text('— $role',
+                      style: const TextStyle(color: kInk, fontSize: 12)),
                 ],
               ),
               const SizedBox(height: 4),
@@ -474,7 +465,8 @@ Widget _buildHomogeneousPanel(List<_Vec4Sample> samples) {
                 ),
               ),
             ),
-            Text(s.note, style: const TextStyle(color: kInkDim, fontSize: 11)),
+            Text(s.note,
+                style: const TextStyle(color: kInkDim, fontSize: 11)),
           ],
         ),
       ),
@@ -497,27 +489,18 @@ Widget _buildHomogeneousPanel(List<_Vec4Sample> samples) {
 // ---------------------------------------------------------------------------
 Widget _buildFlutterUsesPanel() {
   final List<List<String>> rows = <List<String>>[
-    <String>[
-      'Color (ARGB)',
-      '32-bit color packs (a, r, g, b) bytes — vec4 normalized to [0,1].',
-    ],
-    <String>[
-      'Matrix4 row',
-      'Each row of a 4x4 transform matrix is conceptually a vec4.',
-    ],
-    <String>['Rect', 'Left/Top/Right/Bottom rectangle data fits one vec4.'],
-    <String>[
-      'Quaternion',
-      'Rotation quaternions store (x, y, z, w) with w as the scalar part.',
-    ],
-    <String>[
-      'Padding/Insets',
-      'EdgeInsets.fromLTRB packs four scalars — same shape as vec4.',
-    ],
-    <String>[
-      'Tween pair',
-      'Pack a 2D from-to range into one vec4(fromX, fromY, toX, toY).',
-    ],
+    <String>['Color (ARGB)',
+      '32-bit color packs (a, r, g, b) bytes — vec4 normalized to [0,1].'],
+    <String>['Matrix4 row',
+      'Each row of a 4x4 transform matrix is conceptually a vec4.'],
+    <String>['Rect',
+      'Left/Top/Right/Bottom rectangle data fits one vec4.'],
+    <String>['Quaternion',
+      'Rotation quaternions store (x, y, z, w) with w as the scalar part.'],
+    <String>['Padding/Insets',
+      'EdgeInsets.fromLTRB packs four scalars — same shape as vec4.'],
+    <String>['Tween pair',
+      'Pack a 2D from-to range into one vec4(fromX, fromY, toX, toY).'],
   ];
   final List<Widget> children = <Widget>[];
   for (int i = 0; i < rows.length; i++) {
@@ -571,7 +554,10 @@ Widget _useRow(String head, String body) {
 // Slot family table (Float / Vec2 / Vec3 / Vec4).
 // ---------------------------------------------------------------------------
 Widget _buildSlotFamilyTable(List<_SlotKind> family) {
-  final List<Widget> rows = <Widget>[_slotHeader(), const SizedBox(height: 6)];
+  final List<Widget> rows = <Widget>[
+    _slotHeader(),
+    const SizedBox(height: 6),
+  ];
   for (int i = 0; i < family.length; i++) {
     rows.add(_slotRow(family[i], i == family.length - 1));
   }
@@ -648,17 +634,13 @@ Widget _slotRow(_SlotKind k, bool highlight) {
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            '${k.floats}',
-            style: const TextStyle(color: kInk, fontSize: 12),
-          ),
+          child: Text('${k.floats}',
+              style: const TextStyle(color: kInk, fontSize: 12)),
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            '${k.bytes}',
-            style: const TextStyle(color: kInk, fontSize: 12),
-          ),
+          child: Text('${k.bytes}',
+              style: const TextStyle(color: kInk, fontSize: 12)),
         ),
         Expanded(
           flex: 5,
@@ -676,8 +658,7 @@ Widget _slotRow(_SlotKind k, bool highlight) {
 // Mock GLSL shader source code card.
 // ---------------------------------------------------------------------------
 Widget _buildShaderSourceCard() {
-  const String src =
-      '#version 460 core\n'
+  const String src = '#version 460 core\n'
       '\n'
       '// Hypothetical fragment shader using a vec4 uniform.\n'
       'uniform vec2 uResolution;     // UniformVec2Slot\n'
@@ -722,22 +703,14 @@ Widget _buildShaderSourceCard() {
 // ---------------------------------------------------------------------------
 Widget _buildHypotheticalShaderOutput() {
   final List<List<Object>> bands = <List<Object>>[
-    <Object>[
-      'uTint = vec4(1, 0.5, 0.2, 1)',
-      const <Color>[Color(0xFFFF8030), Color(0xFFFFB57A)],
-    ],
-    <Object>[
-      'uTint = vec4(0.2, 0.6, 1.0, 1)',
-      const <Color>[Color(0xFF3399FF), Color(0xFF99CCFF)],
-    ],
-    <Object>[
-      'uTint = vec4(0.4, 0.95, 0.55, 1)',
-      const <Color>[Color(0xFF66F28C), Color(0xFFB3F8C6)],
-    ],
-    <Object>[
-      'uTint = vec4(0.85, 0.25, 0.85, 1)',
-      const <Color>[Color(0xFFD940D9), Color(0xFFEC8FEC)],
-    ],
+    <Object>['uTint = vec4(1, 0.5, 0.2, 1)',
+      const <Color>[Color(0xFFFF8030), Color(0xFFFFB57A)]],
+    <Object>['uTint = vec4(0.2, 0.6, 1.0, 1)',
+      const <Color>[Color(0xFF3399FF), Color(0xFF99CCFF)]],
+    <Object>['uTint = vec4(0.4, 0.95, 0.55, 1)',
+      const <Color>[Color(0xFF66F28C), Color(0xFFB3F8C6)]],
+    <Object>['uTint = vec4(0.85, 0.25, 0.85, 1)',
+      const <Color>[Color(0xFFD940D9), Color(0xFFEC8FEC)]],
   ];
   final List<Widget> children = <Widget>[];
   for (int i = 0; i < bands.length; i++) {
@@ -787,21 +760,12 @@ Widget _buildHypotheticalShaderOutput() {
 // ---------------------------------------------------------------------------
 Widget _buildVecComparisonTable() {
   final List<List<String>> rows = <List<String>>[
-    <String>[
-      'vec2',
-      '2 floats',
-      'UV coords, screen-space pairs, viewport size',
-    ],
-    <String>[
-      'vec3',
-      '3 floats',
-      'RGB color (no alpha), 3D position, surface normal',
-    ],
-    <String>[
-      'vec4',
-      '4 floats',
-      'RGBA color, homogeneous point, rectangle, quaternion',
-    ],
+    <String>['vec2', '2 floats',
+      'UV coords, screen-space pairs, viewport size'],
+    <String>['vec3', '3 floats',
+      'RGB color (no alpha), 3D position, surface normal'],
+    <String>['vec4', '4 floats',
+      'RGBA color, homogeneous point, rectangle, quaternion'],
   ];
   final List<Widget> body = <Widget>[];
   for (int i = 0; i < rows.length; i++) {
@@ -831,28 +795,22 @@ Widget _compareRow(String name, String size, String use) {
       children: <Widget>[
         SizedBox(
           width: 60,
-          child: Text(
-            name,
-            style: const TextStyle(
-              color: kAccentX,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'monospace',
-              fontSize: 13,
-            ),
-          ),
+          child: Text(name,
+              style: const TextStyle(
+                color: kAccentX,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'monospace',
+                fontSize: 13,
+              )),
         ),
         SizedBox(
           width: 80,
-          child: Text(
-            size,
-            style: const TextStyle(color: kInkDim, fontSize: 12),
-          ),
+          child: Text(size,
+              style: const TextStyle(color: kInkDim, fontSize: 12)),
         ),
         Expanded(
-          child: Text(
-            use,
-            style: const TextStyle(color: kInk, fontSize: 12, height: 1.35),
-          ),
+          child: Text(use,
+              style: const TextStyle(color: kInk, fontSize: 12, height: 1.35)),
         ),
       ],
     ),
@@ -864,27 +822,18 @@ Widget _compareRow(String name, String size, String use) {
 // ---------------------------------------------------------------------------
 Widget _buildEdgeCases() {
   final List<List<String>> rows = <List<String>>[
-    <String>[
-      'vec4(0, 0, 0, 0)',
-      'Fully transparent black; cleared color buffer.',
-    ],
-    <String>[
-      'vec4(1, 1, 1, 1)',
-      'Opaque white; identity tint for multiplicative blends.',
-    ],
-    <String>['vec4(0, 0, 0, 1)', 'Opaque black; common shadow color.'],
-    <String>[
-      'vec4(NaN, …)',
-      'Undefined behavior in most GPUs; produces black or garbage pixels.',
-    ],
-    <String>[
-      'vec4(Inf, …)',
-      'Saturates to max representable; alpha-blended pipelines clip to 1.',
-    ],
-    <String>[
-      'vec4 outside [0,1]',
-      'HDR territory — needs a high precision pipeline (vec4 16f / 32f).',
-    ],
+    <String>['vec4(0, 0, 0, 0)',
+      'Fully transparent black; cleared color buffer.'],
+    <String>['vec4(1, 1, 1, 1)',
+      'Opaque white; identity tint for multiplicative blends.'],
+    <String>['vec4(0, 0, 0, 1)',
+      'Opaque black; common shadow color.'],
+    <String>['vec4(NaN, …)',
+      'Undefined behavior in most GPUs; produces black or garbage pixels.'],
+    <String>['vec4(Inf, …)',
+      'Saturates to max representable; alpha-blended pipelines clip to 1.'],
+    <String>['vec4 outside [0,1]',
+      'HDR territory — needs a high precision pipeline (vec4 16f / 32f).'],
   ];
   final List<Widget> children = <Widget>[];
   for (int i = 0; i < rows.length; i++) {
@@ -914,20 +863,17 @@ Widget _edgeCaseRow(String code, String note) {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          code,
-          style: const TextStyle(
-            color: kAccentW,
-            fontFamily: 'monospace',
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text(code,
+            style: const TextStyle(
+              color: kAccentW,
+              fontFamily: 'monospace',
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            )),
         const SizedBox(height: 4),
-        Text(
-          note,
-          style: const TextStyle(color: kInk, fontSize: 12, height: 1.35),
-        ),
+        Text(note,
+            style: const TextStyle(
+                color: kInk, fontSize: 12, height: 1.35)),
       ],
     ),
   );
@@ -982,7 +928,8 @@ Widget _swizzleRow(String left, String right) {
             ),
           ),
         ),
-        const Text('=>', style: TextStyle(color: kInkDim, fontSize: 11)),
+        const Text('=>',
+            style: TextStyle(color: kInkDim, fontSize: 11)),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
@@ -1073,15 +1020,13 @@ Widget _buildBytePackPanel() {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                g[0] as String,
-                style: TextStyle(
-                  color: g[1] as Color,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text(g[0] as String,
+                  style: TextStyle(
+                    color: g[1] as Color,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                  )),
               const SizedBox(height: 4),
               Text(
                 'bytes ${g[2]}',
@@ -1133,27 +1078,18 @@ Widget _buildBytePackPanel() {
 // ---------------------------------------------------------------------------
 Widget _buildBlendModeHints() {
   final List<List<String>> rows = <List<String>>[
-    <String>[
-      'srcOver',
-      'C_out = C_src.rgb * C_src.a + C_dst.rgb * (1 - C_src.a)',
-    ],
-    <String>[
-      'multiply',
-      'C_out = C_src.rgb * C_dst.rgb (alpha still drives blend weight)',
-    ],
-    <String>[
-      'plus',
-      'C_out = C_src.rgb + C_dst.rgb (HDR-friendly, alpha additive)',
-    ],
-    <String>[
-      'screen',
-      'C_out = 1 - (1 - C_src.rgb) * (1 - C_dst.rgb), alpha modulates',
-    ],
-    <String>[
-      'modulate',
-      'C_out = C_src.rgba * C_dst.rgba (component-wise multiply)',
-    ],
-    <String>['xor', 'Symmetric difference of source and dest masks via alpha.'],
+    <String>['srcOver',
+      'C_out = C_src.rgb * C_src.a + C_dst.rgb * (1 - C_src.a)'],
+    <String>['multiply',
+      'C_out = C_src.rgb * C_dst.rgb (alpha still drives blend weight)'],
+    <String>['plus',
+      'C_out = C_src.rgb + C_dst.rgb (HDR-friendly, alpha additive)'],
+    <String>['screen',
+      'C_out = 1 - (1 - C_src.rgb) * (1 - C_dst.rgb), alpha modulates'],
+    <String>['modulate',
+      'C_out = C_src.rgba * C_dst.rgba (component-wise multiply)'],
+    <String>['xor',
+      'Symmetric difference of source and dest masks via alpha.'],
   ];
   final List<Widget> body = <Widget>[];
   for (int i = 0; i < rows.length; i++) {
@@ -1184,15 +1120,13 @@ Widget _blendRow(String name, String formula) {
       children: <Widget>[
         SizedBox(
           width: 90,
-          child: Text(
-            name,
-            style: const TextStyle(
-              color: kAccentZ,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          child: Text(name,
+              style: const TextStyle(
+                color: kAccentZ,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              )),
         ),
         Expanded(
           child: Text(
@@ -1215,41 +1149,20 @@ Widget _blendRow(String name, String formula) {
 // ---------------------------------------------------------------------------
 Widget _buildPipelineFlowPanel() {
   final List<List<String>> steps = <List<String>>[
-    <String>[
-      '1',
-      'shader.frag',
-      'Author writes GLSL with `uniform vec4 myParam;`.',
-    ],
-    <String>[
-      '2',
-      'pubspec.yaml',
-      'Register shader under `flutter: shaders:` so it ships with the app.',
-    ],
-    <String>[
-      '3',
-      'FragmentProgram.fromAsset',
-      'Compile-on-load returns a FragmentProgram instance.',
-    ],
-    <String>[
-      '4',
-      'program.fragmentShader()',
-      'Allocate a FragmentShader bound to its UniformSlots.',
-    ],
-    <String>[
-      '5',
-      'shader.setFloat(i, v)',
-      'Set each component of the vec4 in slot order — 4 calls per vec4.',
-    ],
-    <String>[
-      '6',
-      'Paint..shader = shader',
-      'Hand the configured shader to the canvas paint.',
-    ],
-    <String>[
-      '7',
-      'canvas.drawRect(..)',
-      'Engine schedules the draw; Skia/Impeller dispatches to GPU.',
-    ],
+    <String>['1', 'shader.frag',
+      'Author writes GLSL with `uniform vec4 myParam;`.'],
+    <String>['2', 'pubspec.yaml',
+      'Register shader under `flutter: shaders:` so it ships with the app.'],
+    <String>['3', 'FragmentProgram.fromAsset',
+      'Compile-on-load returns a FragmentProgram instance.'],
+    <String>['4', 'program.fragmentShader()',
+      'Allocate a FragmentShader bound to its UniformSlots.'],
+    <String>['5', 'shader.setFloat(i, v)',
+      'Set each component of the vec4 in slot order — 4 calls per vec4.'],
+    <String>['6', 'Paint..shader = shader',
+      'Hand the configured shader to the canvas paint.'],
+    <String>['7', 'canvas.drawRect(..)',
+      'Engine schedules the draw; Skia/Impeller dispatches to GPU.'],
   ];
   final List<Widget> kids = <Widget>[];
   for (int i = 0; i < steps.length; i++) {
@@ -1287,14 +1200,12 @@ Widget _pipelineRow(String num, String head, String desc) {
             color: kPhosphor.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            num,
-            style: const TextStyle(
-              color: kPhosphor,
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
-            ),
-          ),
+          child: Text(num,
+              style: const TextStyle(
+                color: kPhosphor,
+                fontWeight: FontWeight.w800,
+                fontSize: 13,
+              )),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -1302,24 +1213,17 @@ Widget _pipelineRow(String num, String head, String desc) {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                head,
-                style: const TextStyle(
-                  color: kInk,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                ),
-              ),
+              Text(head,
+                  style: const TextStyle(
+                    color: kInk,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  )),
               const SizedBox(height: 3),
-              Text(
-                desc,
-                style: const TextStyle(
-                  color: kInkDim,
-                  fontSize: 11.5,
-                  height: 1.4,
-                ),
-              ),
+              Text(desc,
+                  style: const TextStyle(
+                      color: kInkDim, fontSize: 11.5, height: 1.4)),
             ],
           ),
         ),
@@ -1333,22 +1237,14 @@ Widget _pipelineRow(String num, String head, String desc) {
 // ---------------------------------------------------------------------------
 Widget _buildQuaternionPanel() {
   final List<List<String>> rows = <List<String>>[
-    <String>['identity', 'vec4(0, 0, 0, 1)', 'No rotation — neutral element.'],
-    <String>[
-      '90deg around y',
-      'vec4(0, 0.7071, 0, 0.7071)',
-      'Quarter turn about Y axis.',
-    ],
-    <String>[
-      '180deg around z',
-      'vec4(0, 0, 1, 0)',
-      'Half turn about Z axis (w drops to 0).',
-    ],
-    <String>[
-      'random tilt',
-      'vec4(0.27, 0.13, 0.05, 0.95)',
-      'Small mixed rotation.',
-    ],
+    <String>['identity', 'vec4(0, 0, 0, 1)',
+      'No rotation — neutral element.'],
+    <String>['90deg around y',
+      'vec4(0, 0.7071, 0, 0.7071)', 'Quarter turn about Y axis.'],
+    <String>['180deg around z', 'vec4(0, 0, 1, 0)',
+      'Half turn about Z axis (w drops to 0).'],
+    <String>['random tilt',
+      'vec4(0.27, 0.13, 0.05, 0.95)', 'Small mixed rotation.'],
   ];
   final List<Widget> kids = <Widget>[];
   for (int i = 0; i < rows.length; i++) {
@@ -1382,14 +1278,12 @@ Widget _quatRow(String name, String value, String desc) {
           children: <Widget>[
             SizedBox(
               width: 130,
-              child: Text(
-                name,
-                style: const TextStyle(
-                  color: kAccentY,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 12.5,
-                ),
-              ),
+              child: Text(name,
+                  style: const TextStyle(
+                    color: kAccentY,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 12.5,
+                  )),
             ),
             Expanded(
               child: Text(
@@ -1404,10 +1298,9 @@ Widget _quatRow(String name, String value, String desc) {
           ],
         ),
         const SizedBox(height: 3),
-        Text(
-          desc,
-          style: const TextStyle(color: kInkDim, fontSize: 11.5, height: 1.4),
-        ),
+        Text(desc,
+            style: const TextStyle(
+                color: kInkDim, fontSize: 11.5, height: 1.4)),
       ],
     ),
   );
@@ -1418,30 +1311,18 @@ Widget _quatRow(String name, String value, String desc) {
 // ---------------------------------------------------------------------------
 Widget _buildPerformanceTipsPanel() {
   final List<List<String>> tips = <List<String>>[
-    <String>[
-      'Pack tightly',
-      'Combine related scalars into one vec4 to cut uniform-binding overhead.',
-    ],
-    <String>[
-      'Avoid setFloat in hot loops',
-      'Set uniforms once per frame, not per draw call.',
-    ],
-    <String>[
-      'Mind alignment',
-      'std140 aligns vec4 to 16 bytes; padding can surprise mixed-size structs.',
-    ],
-    <String>[
-      'Prefer half precision when safe',
-      'Color tints rarely need full 32-bit floats — Impeller may down-convert.',
-    ],
-    <String>[
-      'Watch driver caps',
-      'Max uniform vectors per shader varies; consult GL_MAX_FRAGMENT_UNIFORM_VECTORS.',
-    ],
-    <String>[
-      'Cache the shader',
-      'FragmentShader allocation is non-trivial; reuse instances per paint type.',
-    ],
+    <String>['Pack tightly',
+      'Combine related scalars into one vec4 to cut uniform-binding overhead.'],
+    <String>['Avoid setFloat in hot loops',
+      'Set uniforms once per frame, not per draw call.'],
+    <String>['Mind alignment',
+      'std140 aligns vec4 to 16 bytes; padding can surprise mixed-size structs.'],
+    <String>['Prefer half precision when safe',
+      'Color tints rarely need full 32-bit floats — Impeller may down-convert.'],
+    <String>['Watch driver caps',
+      'Max uniform vectors per shader varies; consult GL_MAX_FRAGMENT_UNIFORM_VECTORS.'],
+    <String>['Cache the shader',
+      'FragmentShader allocation is non-trivial; reuse instances per paint type.'],
   ];
   final List<Widget> kids = <Widget>[];
   for (int i = 0; i < tips.length; i++) {
@@ -1484,23 +1365,16 @@ Widget _tipRow(String head, String body) {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                head,
-                style: const TextStyle(
-                  color: kInk,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.5,
-                ),
-              ),
+              Text(head,
+                  style: const TextStyle(
+                    color: kInk,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.5,
+                  )),
               const SizedBox(height: 3),
-              Text(
-                body,
-                style: const TextStyle(
-                  color: kInkDim,
-                  fontSize: 11.5,
-                  height: 1.4,
-                ),
-              ),
+              Text(body,
+                  style: const TextStyle(
+                      color: kInkDim, fontSize: 11.5, height: 1.4)),
             ],
           ),
         ),
@@ -1514,14 +1388,7 @@ Widget _tipRow(String head, String body) {
 // ---------------------------------------------------------------------------
 Widget _buildAlphaLadder() {
   final List<double> alphas = <double>[
-    0.0,
-    0.1,
-    0.25,
-    0.4,
-    0.55,
-    0.7,
-    0.85,
-    1.0,
+    0.0, 0.1, 0.25, 0.4, 0.55, 0.7, 0.85, 1.0
   ];
   final List<Widget> rungs = <Widget>[];
   for (int i = 0; i < alphas.length; i++) {
@@ -1611,33 +1478,27 @@ Widget _matrixRow(String name, String body, String role) {
       children: <Widget>[
         SizedBox(
           width: 60,
-          child: Text(
-            name,
-            style: const TextStyle(
-              color: kAccentZ,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'monospace',
-              fontSize: 12,
-            ),
-          ),
+          child: Text(name,
+              style: const TextStyle(
+                color: kAccentZ,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'monospace',
+                fontSize: 12,
+              )),
         ),
         Expanded(
           flex: 4,
-          child: Text(
-            body,
-            style: const TextStyle(
-              color: kInk,
-              fontFamily: 'monospace',
-              fontSize: 11.5,
-            ),
-          ),
+          child: Text(body,
+              style: const TextStyle(
+                color: kInk,
+                fontFamily: 'monospace',
+                fontSize: 11.5,
+              )),
         ),
         Expanded(
           flex: 3,
-          child: Text(
-            role,
-            style: const TextStyle(color: kInkDim, fontSize: 11),
-          ),
+          child: Text(role,
+              style: const TextStyle(color: kInkDim, fontSize: 11)),
         ),
       ],
     ),
@@ -1649,38 +1510,22 @@ Widget _matrixRow(String name, String body, String role) {
 // ---------------------------------------------------------------------------
 Widget _buildGlossaryPanel() {
   final List<List<String>> entries = <List<String>>[
-    <String>[
-      'Uniform',
-      'Per-draw constant available to every fragment in a shader pass.',
-    ],
-    <String>[
-      'Slot',
-      'Typed binding point that the engine uses to map a Dart value to a uniform.',
-    ],
-    <String>[
-      'vec4',
-      'GLSL/SkSL four-float vector — the type behind UniformVec4Slot.',
-    ],
-    <String>[
-      'Swizzle',
-      'Component re-ordering syntax (.xyzw / .rgba / .stpq).',
-    ],
-    <String>[
-      'Homogeneous',
-      'Coordinate system where points use w=1 and directions use w=0.',
-    ],
-    <String>[
-      'std140',
-      'GLSL uniform-buffer layout rule that aligns vec4 to 16 bytes.',
-    ],
-    <String>[
-      'Quaternion',
-      'A vec4 used to represent 3D rotations without gimbal lock.',
-    ],
-    <String>[
-      'Premultiplied',
-      'Color encoding where rgb is pre-scaled by alpha for cheaper blending.',
-    ],
+    <String>['Uniform',
+      'Per-draw constant available to every fragment in a shader pass.'],
+    <String>['Slot',
+      'Typed binding point that the engine uses to map a Dart value to a uniform.'],
+    <String>['vec4',
+      'GLSL/SkSL four-float vector — the type behind UniformVec4Slot.'],
+    <String>['Swizzle',
+      'Component re-ordering syntax (.xyzw / .rgba / .stpq).'],
+    <String>['Homogeneous',
+      'Coordinate system where points use w=1 and directions use w=0.'],
+    <String>['std140',
+      'GLSL uniform-buffer layout rule that aligns vec4 to 16 bytes.'],
+    <String>['Quaternion',
+      'A vec4 used to represent 3D rotations without gimbal lock.'],
+    <String>['Premultiplied',
+      'Color encoding where rgb is pre-scaled by alpha for cheaper blending.'],
   ];
   final List<Widget> kids = <Widget>[];
   for (int i = 0; i < entries.length; i++) {
@@ -1710,20 +1555,17 @@ Widget _glossaryRow(String term, String def) {
       children: <Widget>[
         SizedBox(
           width: 110,
-          child: Text(
-            term,
-            style: const TextStyle(
-              color: kPhosphor,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          child: Text(term,
+              style: const TextStyle(
+                color: kPhosphor,
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              )),
         ),
         Expanded(
-          child: Text(
-            def,
-            style: const TextStyle(color: kInk, fontSize: 11.5, height: 1.4),
-          ),
+          child: Text(def,
+              style: const TextStyle(
+                  color: kInk, fontSize: 11.5, height: 1.4)),
         ),
       ],
     ),

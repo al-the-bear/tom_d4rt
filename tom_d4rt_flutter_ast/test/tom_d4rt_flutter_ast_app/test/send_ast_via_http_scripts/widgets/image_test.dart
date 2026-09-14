@@ -83,73 +83,15 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   final Uint8List tinyPngBytes = Uint8List.fromList(<int>[
-    0x89,
-    0x50,
-    0x4E,
-    0x47,
-    0x0D,
-    0x0A,
-    0x1A,
-    0x0A,
-    0x00,
-    0x00,
-    0x00,
-    0x0D,
-    0x49,
-    0x48,
-    0x44,
-    0x52,
-    0x00,
-    0x00,
-    0x00,
-    0x01,
-    0x00,
-    0x00,
-    0x00,
-    0x01,
-    0x08,
-    0x06,
-    0x00,
-    0x00,
-    0x00,
-    0x1F,
-    0x15,
-    0xC4,
-    0x89,
-    0x00,
-    0x00,
-    0x00,
-    0x0D,
-    0x49,
-    0x44,
-    0x41,
-    0x54,
-    0x78,
-    0x9C,
-    0x63,
-    0x00,
-    0x01,
-    0x00,
-    0x00,
-    0x05,
-    0x00,
-    0x01,
-    0x0D,
-    0x0A,
-    0x2D,
-    0xB4,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x49,
-    0x45,
-    0x4E,
-    0x44,
-    0xAE,
-    0x42,
-    0x60,
-    0x82,
+    0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
+    0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52,
+    0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+    0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4,
+    0x89, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x44, 0x41,
+    0x54, 0x78, 0x9C, 0x63, 0x00, 0x01, 0x00, 0x00,
+    0x05, 0x00, 0x01, 0x0D, 0x0A, 0x2D, 0xB4, 0x00,
+    0x00, 0x00, 0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE,
+    0x42, 0x60, 0x82,
   ]);
   final int tinyPngLength = tinyPngBytes.length;
   print('[image_test] synthetic PNG bytes prepared: $tinyPngLength bytes');
@@ -554,59 +496,59 @@ dynamic build(BuildContext context) {
 
   final List<Map<String, dynamic>> decorationCompositions =
       <Map<String, dynamic>>[
-        <String, dynamic>{
-          'title': 'Cover - banner hero',
-          'fit': BoxFit.cover,
-          'fitName': 'cover',
-          'alignment': Alignment.center,
-          'alignName': 'center',
-          'repeat': ImageRepeat.noRepeat,
-          'repeatName': 'noRepeat',
-          'colorBlendMode': BlendMode.darken,
-          'blendName': 'darken',
-          'opacity': 0.85,
-          'gradient': const <Color>[Color(0xFF26A69A), Color(0xFF004D40)],
-        },
-        <String, dynamic>{
-          'title': 'Contain - product shot',
-          'fit': BoxFit.contain,
-          'fitName': 'contain',
-          'alignment': Alignment.center,
-          'alignName': 'center',
-          'repeat': ImageRepeat.noRepeat,
-          'repeatName': 'noRepeat',
-          'colorBlendMode': BlendMode.srcOver,
-          'blendName': 'srcOver',
-          'opacity': 1.0,
-          'gradient': const <Color>[Color(0xFFFFAB91), Color(0xFFBF360C)],
-        },
-        <String, dynamic>{
-          'title': 'Tiled - wallpaper',
-          'fit': BoxFit.none,
-          'fitName': 'none',
-          'alignment': Alignment.topLeft,
-          'alignName': 'topLeft',
-          'repeat': ImageRepeat.repeat,
-          'repeatName': 'repeat',
-          'colorBlendMode': BlendMode.srcOver,
-          'blendName': 'srcOver',
-          'opacity': 0.95,
-          'gradient': const <Color>[Color(0xFFB39DDB), Color(0xFF4527A0)],
-        },
-        <String, dynamic>{
-          'title': 'Cover + multiply tint',
-          'fit': BoxFit.cover,
-          'fitName': 'cover',
-          'alignment': Alignment.bottomCenter,
-          'alignName': 'bottomCenter',
-          'repeat': ImageRepeat.noRepeat,
-          'repeatName': 'noRepeat',
-          'colorBlendMode': BlendMode.multiply,
-          'blendName': 'multiply',
-          'opacity': 0.9,
-          'gradient': const <Color>[Color(0xFFFFCC80), Color(0xFFE65100)],
-        },
-      ];
+    <String, dynamic>{
+      'title': 'Cover - banner hero',
+      'fit': BoxFit.cover,
+      'fitName': 'cover',
+      'alignment': Alignment.center,
+      'alignName': 'center',
+      'repeat': ImageRepeat.noRepeat,
+      'repeatName': 'noRepeat',
+      'colorBlendMode': BlendMode.darken,
+      'blendName': 'darken',
+      'opacity': 0.85,
+      'gradient': const <Color>[Color(0xFF26A69A), Color(0xFF004D40)],
+    },
+    <String, dynamic>{
+      'title': 'Contain - product shot',
+      'fit': BoxFit.contain,
+      'fitName': 'contain',
+      'alignment': Alignment.center,
+      'alignName': 'center',
+      'repeat': ImageRepeat.noRepeat,
+      'repeatName': 'noRepeat',
+      'colorBlendMode': BlendMode.srcOver,
+      'blendName': 'srcOver',
+      'opacity': 1.0,
+      'gradient': const <Color>[Color(0xFFFFAB91), Color(0xFFBF360C)],
+    },
+    <String, dynamic>{
+      'title': 'Tiled - wallpaper',
+      'fit': BoxFit.none,
+      'fitName': 'none',
+      'alignment': Alignment.topLeft,
+      'alignName': 'topLeft',
+      'repeat': ImageRepeat.repeat,
+      'repeatName': 'repeat',
+      'colorBlendMode': BlendMode.srcOver,
+      'blendName': 'srcOver',
+      'opacity': 0.95,
+      'gradient': const <Color>[Color(0xFFB39DDB), Color(0xFF4527A0)],
+    },
+    <String, dynamic>{
+      'title': 'Cover + multiply tint',
+      'fit': BoxFit.cover,
+      'fitName': 'cover',
+      'alignment': Alignment.bottomCenter,
+      'alignName': 'bottomCenter',
+      'repeat': ImageRepeat.noRepeat,
+      'repeatName': 'noRepeat',
+      'colorBlendMode': BlendMode.multiply,
+      'blendName': 'multiply',
+      'opacity': 0.9,
+      'gradient': const <Color>[Color(0xFFFFCC80), Color(0xFFE65100)],
+    },
+  ];
 
   // ===========================================================================
   // SECTION 10: FadeInImage PHASES - the four canonical stages of a
@@ -718,17 +660,26 @@ dynamic build(BuildContext context) {
 
   final List<Map<String, dynamic>> boxFitRoster = <Map<String, dynamic>>[];
   for (final BoxFit fit in BoxFit.values) {
-    boxFitRoster.add(<String, dynamic>{'name': fit.name, 'index': fit.index});
+    boxFitRoster.add(<String, dynamic>{
+      'name': fit.name,
+      'index': fit.index,
+    });
   }
 
   final List<Map<String, dynamic>> repeatRoster = <Map<String, dynamic>>[];
   for (final ImageRepeat rep in ImageRepeat.values) {
-    repeatRoster.add(<String, dynamic>{'name': rep.name, 'index': rep.index});
+    repeatRoster.add(<String, dynamic>{
+      'name': rep.name,
+      'index': rep.index,
+    });
   }
 
   final List<Map<String, dynamic>> filterRoster = <Map<String, dynamic>>[];
   for (final FilterQuality q in FilterQuality.values) {
-    filterRoster.add(<String, dynamic>{'name': q.name, 'index': q.index});
+    filterRoster.add(<String, dynamic>{
+      'name': q.name,
+      'index': q.index,
+    });
   }
 
   final List<Map<String, dynamic>> blendRoster = <Map<String, dynamic>>[
@@ -754,39 +705,39 @@ dynamic build(BuildContext context) {
       'title': 'Recipe: Image.network with full safety net',
       'body':
           'Image.network(url, fit: BoxFit.cover, alignment: Alignment.center, '
-          'loadingBuilder: (c, w, p) => p == null ? w : Spinner(), '
-          'errorBuilder: (c, e, s) => ErrorTile(error: e));',
+              'loadingBuilder: (c, w, p) => p == null ? w : Spinner(), '
+              'errorBuilder: (c, e, s) => ErrorTile(error: e));',
     },
     <String, String>{
       'title': 'Recipe: Image.memory from cached bytes',
       'body':
           'final bytes = await rootBundle.load(path); '
-          'Image.memory(bytes.buffer.asUint8List(), fit: BoxFit.contain);',
+              'Image.memory(bytes.buffer.asUint8List(), fit: BoxFit.contain);',
     },
     <String, String>{
       'title': 'Recipe: tinted icon-like image',
       'body':
           'Image.asset(path, color: brand, colorBlendMode: BlendMode.modulate, '
-          'fit: BoxFit.contain, filterQuality: FilterQuality.high);',
+              'fit: BoxFit.contain, filterQuality: FilterQuality.high);',
     },
     <String, String>{
       'title': 'Recipe: pixel-art friendly scaling',
       'body':
           'Image.asset(path, fit: BoxFit.fill, '
-          'filterQuality: FilterQuality.none); // nearest neighbor',
+              'filterQuality: FilterQuality.none); // nearest neighbor',
     },
     <String, String>{
       'title': 'Recipe: tiled background',
       'body':
           'Container(decoration: BoxDecoration(image: DecorationImage('
-          'image: AssetImage(path), repeat: ImageRepeat.repeat)));',
+              'image: AssetImage(path), repeat: ImageRepeat.repeat)));',
     },
     <String, String>{
       'title': 'Recipe: FadeInImage with low-resolution placeholder',
       'body':
           'FadeInImage.memoryNetwork(placeholder: kTransparentImage, '
-          'image: url, fit: BoxFit.cover, fadeInDuration: '
-          'Duration(milliseconds: 350));',
+              'image: url, fit: BoxFit.cover, fadeInDuration: '
+              'Duration(milliseconds: 350));',
     },
   ];
 
@@ -805,7 +756,7 @@ dynamic build(BuildContext context) {
       'term': 'ImageProvider',
       'definition':
           'Abstract source of bytes: NetworkImage, AssetImage, MemoryImage, '
-          'FileImage. Decoupled from the widget.',
+              'FileImage. Decoupled from the widget.',
     },
     <String, String>{
       'term': 'BoxFit',
@@ -819,7 +770,8 @@ dynamic build(BuildContext context) {
     },
     <String, String>{
       'term': 'ColorBlendMode',
-      'definition': 'BlendMode used together with Image.color to tint pixels.',
+      'definition':
+          'BlendMode used together with Image.color to tint pixels.',
     },
     <String, String>{
       'term': 'FilterQuality',
@@ -828,7 +780,8 @@ dynamic build(BuildContext context) {
     },
     <String, String>{
       'term': 'frameBuilder',
-      'definition': 'Optional hook to wrap each decoded frame in a widget.',
+      'definition':
+          'Optional hook to wrap each decoded frame in a widget.',
     },
     <String, String>{
       'term': 'loadingBuilder',
@@ -837,11 +790,13 @@ dynamic build(BuildContext context) {
     },
     <String, String>{
       'term': 'errorBuilder',
-      'definition': 'Fallback widget shown when the provider or decoder fails.',
+      'definition':
+          'Fallback widget shown when the provider or decoder fails.',
     },
     <String, String>{
       'term': 'DecorationImage',
-      'definition': 'Configuration record used inside BoxDecoration.image.',
+      'definition':
+          'Configuration record used inside BoxDecoration.image.',
     },
     <String, String>{
       'term': 'FadeInImage',
@@ -894,12 +849,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 20.0),
             _section11ImageMemory(memoryRecipe, tinyPngLength),
             const SizedBox(height: 20.0),
-            _section12Enums(
-              boxFitRoster,
-              repeatRoster,
-              filterRoster,
-              blendRoster,
-            ),
+            _section12Enums(boxFitRoster, repeatRoster, filterRoster,
+                blendRoster),
             const SizedBox(height: 20.0),
             _section13Recipes(recipes),
             const SizedBox(height: 20.0),
@@ -1086,7 +1037,10 @@ Widget _bulletText(String text) {
 // PIPELINE NARRATIVE (numbered section 0)
 // =============================================================================
 
-Widget _pipelineNarrative(List<Map<String, String>> steps, int tinyPngLength) {
+Widget _pipelineNarrative(
+  List<Map<String, String>> steps,
+  int tinyPngLength,
+) {
   return _benchCard(
     headerColorStart: _atelierDeep,
     headerColorEnd: _atelierMid,
@@ -1167,7 +1121,7 @@ Widget _pipelineNarrative(List<Map<String, String>> steps, int tinyPngLength) {
     recipeTitle: 'Recipe: end-to-end Image.network',
     recipeBody:
         'Image.network(url, fit: BoxFit.cover, loadingBuilder: ..., '
-        'errorBuilder: ..., frameBuilder: ...);',
+            'errorBuilder: ..., frameBuilder: ...);',
   );
 }
 
@@ -1183,8 +1137,7 @@ Widget _section1BoxFit(List<Map<String, dynamic>> atlas) {
     accentColor: _fitEnd,
     sectionNumber: '1',
     title: 'BoxFit atlas',
-    subtitle:
-        'fill / contain / cover / fitWidth / fitHeight / none / scaleDown',
+    subtitle: 'fill / contain / cover / fitWidth / fitHeight / none / scaleDown',
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -1192,7 +1145,8 @@ Widget _section1BoxFit(List<Map<String, dynamic>> atlas) {
           spacing: 10.0,
           runSpacing: 12.0,
           children: <Widget>[
-            for (final Map<String, dynamic> entry in atlas) _boxFitTile(entry),
+            for (final Map<String, dynamic> entry in atlas)
+              _boxFitTile(entry),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -1214,7 +1168,7 @@ Widget _section1BoxFit(List<Map<String, dynamic>> atlas) {
     recipeTitle: 'Recipe: hero card',
     recipeBody:
         'Image.network(url, fit: BoxFit.cover, alignment: Alignment.center); '
-        '// crops + centers, never distorts',
+            '// crops + centers, never distorts',
   );
 }
 
@@ -1325,7 +1279,7 @@ Widget _section2Alignment(List<Map<String, dynamic>> cells) {
     recipeTitle: 'Recipe: stage left poster',
     recipeBody:
         'Image.asset(path, alignment: Alignment.centerLeft, fit: BoxFit.none); '
-        '// useful for hero illustrations',
+            '// useful for hero illustrations',
   );
 }
 
@@ -1396,7 +1350,8 @@ Widget _section3Repeat(List<Map<String, dynamic>> modes) {
           spacing: 10.0,
           runSpacing: 12.0,
           children: <Widget>[
-            for (final Map<String, dynamic> entry in modes) _repeatTile(entry),
+            for (final Map<String, dynamic> entry in modes)
+              _repeatTile(entry),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -1418,7 +1373,7 @@ Widget _section3Repeat(List<Map<String, dynamic>> modes) {
     recipeTitle: 'Recipe: wallpaper background',
     recipeBody:
         'Container(decoration: BoxDecoration(image: DecorationImage('
-        'image: AssetImage(path), repeat: ImageRepeat.repeat)));',
+            'image: AssetImage(path), repeat: ImageRepeat.repeat)));',
   );
 }
 
@@ -1505,7 +1460,8 @@ Widget _section4Blend(List<Map<String, dynamic>> studio) {
           spacing: 10.0,
           runSpacing: 12.0,
           children: <Widget>[
-            for (final Map<String, dynamic> entry in studio) _blendTile(entry),
+            for (final Map<String, dynamic> entry in studio)
+              _blendTile(entry),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -1613,7 +1569,8 @@ Widget _section5FilterQuality(List<Map<String, dynamic>> levels) {
           spacing: 10.0,
           runSpacing: 12.0,
           children: <Widget>[
-            for (final Map<String, dynamic> entry in levels) _filterTile(entry),
+            for (final Map<String, dynamic> entry in levels)
+              _filterTile(entry),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -1635,7 +1592,7 @@ Widget _section5FilterQuality(List<Map<String, dynamic>> levels) {
     recipeTitle: 'Recipe: pixel art preservation',
     recipeBody:
         'Image.asset(pixelArt, filterQuality: FilterQuality.none, '
-        'fit: BoxFit.fill); // do NOT smooth',
+            'fit: BoxFit.fill); // do NOT smooth',
   );
 }
 
@@ -1741,7 +1698,7 @@ Widget _section6ErrorBuilder(List<Map<String, String>> fallbacks) {
     recipeTitle: 'Recipe: friendly fallback',
     recipeBody:
         'errorBuilder: (ctx, error, stack) => ErrorTile(title: \'Failed\', '
-        'message: error.toString());',
+            'message: error.toString());',
   );
 }
 
@@ -1767,7 +1724,9 @@ Widget _errorTile(Map<String, String> entry) {
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: _errorEnd, width: 1.0),
           ),
-          child: Center(child: Icon(icon, size: 32.0, color: _errorStart)),
+          child: Center(
+            child: Icon(icon, size: 32.0, color: _errorStart),
+          ),
         ),
         const SizedBox(height: 8.0),
         Text(
@@ -1845,8 +1804,8 @@ Widget _section7LoadingBuilder(List<Map<String, dynamic>> fragments) {
     recipeTitle: 'Recipe: progress-aware placeholder',
     recipeBody:
         'loadingBuilder: (ctx, child, progress) => progress == null ? child : '
-        'LinearProgressIndicator(value: progress.cumulativeBytesLoaded / '
-        'progress.expectedTotalBytes!);',
+            'LinearProgressIndicator(value: progress.cumulativeBytesLoaded / '
+            'progress.expectedTotalBytes!);',
   );
 }
 
@@ -1988,7 +1947,7 @@ Widget _section8FrameBuilder(List<Map<String, dynamic>> stages) {
     recipeTitle: 'Recipe: custom fade-in',
     recipeBody:
         'frameBuilder: (ctx, child, frame, sync) => AnimatedOpacity(opacity: '
-        'frame == null && !sync ? 0.0 : 1.0, duration: dur, child: child);',
+            'frame == null && !sync ? 0.0 : 1.0, duration: dur, child: child);',
   );
 }
 
@@ -2111,8 +2070,8 @@ Widget _section9DecorationImage(List<Map<String, dynamic>> comps) {
     recipeTitle: 'Recipe: hero banner background',
     recipeBody:
         'BoxDecoration(image: DecorationImage(image: NetworkImage(url), '
-        'fit: BoxFit.cover, colorFilter: ColorFilter.mode('
-        'Colors.black54, BlendMode.darken)));',
+            'fit: BoxFit.cover, colorFilter: ColorFilter.mode('
+            'Colors.black54, BlendMode.darken)));',
   );
 }
 
@@ -2248,8 +2207,8 @@ Widget _section10FadeIn(List<Map<String, dynamic>> phases) {
     recipeTitle: 'Recipe: smooth target reveal',
     recipeBody:
         'FadeInImage(placeholder: AssetImage(low), image: NetworkImage(hi), '
-        'fadeInDuration: Duration(milliseconds: 350), '
-        'fadeOutDuration: Duration(milliseconds: 200));',
+            'fadeInDuration: Duration(milliseconds: 350), '
+            'fadeOutDuration: Duration(milliseconds: 200));',
   );
 }
 
@@ -2282,7 +2241,8 @@ Widget _fadePhaseTile(Map<String, dynamic> entry) {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: const Center(
-                      child: Icon(Icons.blur_on, color: _fadeStart, size: 28.0),
+                      child: Icon(Icons.blur_on,
+                          color: _fadeStart, size: 28.0),
                     ),
                   ),
                 ),
@@ -2300,11 +2260,8 @@ Widget _fadePhaseTile(Map<String, dynamic> entry) {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: const Center(
-                      child: Icon(
-                        Icons.landscape,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
+                      child: Icon(Icons.landscape,
+                          color: Colors.white, size: 30.0),
                     ),
                   ),
                 ),
@@ -2431,7 +2388,7 @@ Widget _section11ImageMemory(
     recipeTitle: 'Recipe: bytes -> widget',
     recipeBody:
         'final Uint8List bytes = ...; '
-        'Image.memory(bytes, fit: BoxFit.contain, scale: 2.0);',
+            'Image.memory(bytes, fit: BoxFit.contain, scale: 2.0);',
   );
 }
 
@@ -2583,11 +2540,8 @@ Widget _section13Recipes(List<Map<String, String>> recipes) {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      const Icon(
-                        Icons.menu_book,
-                        size: 16.0,
-                        color: _memoryStart,
-                      ),
+                      const Icon(Icons.menu_book,
+                          size: 16.0, color: _memoryStart),
                       const SizedBox(width: 6.0),
                       Expanded(
                         child: Text(
@@ -2626,8 +2580,8 @@ Widget _section13Recipes(List<Map<String, String>> recipes) {
     recipeTitle: 'Recipe: read the recipes',
     recipeBody:
         'Treat each card as a starting point. Compose properties to match '
-        'your domain - the Image widget tolerates a wide variety of '
-        'configurations.',
+            'your domain - the Image widget tolerates a wide variety of '
+            'configurations.',
   );
 }
 
@@ -2682,7 +2636,7 @@ Widget _section14Glossary(List<Map<String, String>> glossary) {
     recipeTitle: 'Recipe: keep this nearby',
     recipeBody:
         'When in doubt, look up the term. The Flutter Image family is '
-        'small but each name carries weight.',
+            'small but each name carries weight.',
   );
 }
 
@@ -2906,7 +2860,10 @@ Widget _comparisonTable({
         ),
         for (int i = 0; i < rows.length; i++)
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 5.0,
+            ),
             decoration: BoxDecoration(
               color: i.isEven ? rowColor : Colors.white,
             ),
@@ -2948,7 +2905,11 @@ String _formatColor(Color c) {
 // -----------------------------------------------------------------------------
 
 class _BoxFitPainter extends CustomPainter {
-  _BoxFitPainter({required this.sx, required this.sy, required this.crop});
+  _BoxFitPainter({
+    required this.sx,
+    required this.sy,
+    required this.crop,
+  });
 
   final double sx;
   final double sy;
@@ -2958,7 +2919,10 @@ class _BoxFitPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Backdrop letterbox to emphasise empty space
     final Paint bg = Paint()..color = const Color(0xFFFBE9E7);
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), bg);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      bg,
+    );
 
     // "Image" geometry - a brand-coloured rectangle plus a diagonal stripe.
     final double w = size.width * sx;
@@ -2969,7 +2933,9 @@ class _BoxFitPainter extends CustomPainter {
     canvas.save();
     if (crop) {
       // mimic that cover crops outside the frame by clipping to the frame
-      canvas.clipRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height));
+      canvas.clipRect(
+        Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      );
     }
     final Rect imageRect = Rect.fromLTWH(dx, dy, w, h);
 
@@ -3032,7 +2998,10 @@ class _AlignmentPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFFE8F5E9);
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), bg);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      bg,
+    );
 
     // Faint center cross to give a reference for the alignment offset
     final Paint center = Paint()
@@ -3111,7 +3080,10 @@ class _RepeatPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFFE3F2FD);
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), bg);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      bg,
+    );
 
     final double tw = size.width / math.max(tileX, 1);
     final double th = size.height / math.max(tileY, 1);
@@ -3172,7 +3144,10 @@ class _BlendPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFFFCE4EC);
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), bg);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      bg,
+    );
 
     // Base "image" - a rainbow ramp inside a rounded rectangle
     final Rect baseRect = Rect.fromLTWH(
@@ -3237,7 +3212,10 @@ class _FilterQualityPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFFECEFF1);
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), bg);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      bg,
+    );
 
     // We mimic sampling by painting alternating coloured squares of pixelStep
     // size. Lower jitter = perfectly aligned (high quality), higher jitter
@@ -3265,7 +3243,11 @@ class _FilterQualityPainter extends CustomPainter {
     final Paint diag = Paint()
       ..color = const Color(0x66FFFFFF)
       ..strokeWidth = 4.0;
-    canvas.drawLine(Offset(0.0, size.height), Offset(size.width, 0.0), diag);
+    canvas.drawLine(
+      Offset(0.0, size.height),
+      Offset(size.width, 0.0),
+      diag,
+    );
 
     // Border
     final Paint border = Paint()
@@ -3307,7 +3289,9 @@ class _SpinnerPainter extends CustomPainter {
     final Paint arc = Paint()
       ..shader = const LinearGradient(
         colors: <Color>[_loadingStart, _loadingEnd],
-      ).createShader(Rect.fromLTWH(0.0, 0.0, size.width, size.height))
+      ).createShader(
+        Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      )
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4.0
       ..strokeCap = StrokeCap.round;
@@ -3343,7 +3327,10 @@ class _FrameStagePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFFEDE7F6);
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), bg);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      bg,
+    );
 
     // The "image" content as a multi-stop gradient with the requested opacity
     final Paint content = Paint()
@@ -3355,7 +3342,10 @@ class _FrameStagePainter extends CustomPainter {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ).createShader(Rect.fromLTWH(0.0, 0.0, size.width, size.height));
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), content);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      content,
+    );
 
     // Vertical scan-bars to give the impression of decoding progress
     final Paint scan = Paint()
@@ -3391,7 +3381,10 @@ class _DecorationPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint dimmer = Paint()..color = const Color(0x55000000);
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), dimmer);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      dimmer,
+    );
 
     if (repeat == 'repeat') {
       const double tileW = 18.0;
@@ -3507,7 +3500,10 @@ class _MemoryPreviewPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = Colors.white;
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height), bg);
+    canvas.drawRect(
+      Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+      bg,
+    );
 
     // Alpha checkerboard
     const double step = 14.0;

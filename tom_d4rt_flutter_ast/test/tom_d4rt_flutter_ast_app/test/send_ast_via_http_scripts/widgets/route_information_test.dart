@@ -31,7 +31,8 @@ const _kStepD = Color(0xFF6A1B9A);
 
 class _RouteInformationDemo extends StatefulWidget {
   @override
-  State<_RouteInformationDemo> createState() => _RouteInformationDemoState();
+  State<_RouteInformationDemo> createState() =>
+      _RouteInformationDemoState();
 }
 
 class _RouteInformationDemoState extends State<_RouteInformationDemo>
@@ -55,10 +56,8 @@ class _RouteInformationDemoState extends State<_RouteInformationDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text(
-          'RouteInformation',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-        ),
+        title: Text('RouteInformation',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -76,7 +75,11 @@ class _RouteInformationDemoState extends State<_RouteInformationDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [_TheoryTab(), _BuilderTab(), _Nav2FlowTab()],
+        children: [
+          _TheoryTab(),
+          _BuilderTab(),
+          _Nav2FlowTab(),
+        ],
       ),
     );
   }
@@ -103,7 +106,8 @@ class _TheoryTab extends StatelessWidget {
                 'URL, Android intent, etc.) into the Flutter router. It is '
                 'the bridge between the operating system\'s navigation model '
                 'and Flutter\'s Navigator 2.0.',
-                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(
+                    color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -133,8 +137,8 @@ class _TheoryTab extends StatelessWidget {
                 'uri',
                 'Uri',
                 'The full URI (path + query + fragment). This is the primary '
-                    'way to read the route. Includes scheme, host, path, query '
-                    'parameters, and fragment.',
+                'way to read the route. Includes scheme, host, path, query '
+                'parameters, and fragment.',
                 _kUriColor,
                 Icons.link,
               ),
@@ -143,8 +147,8 @@ class _TheoryTab extends StatelessWidget {
                 'state',
                 'Object?',
                 'An opaque state object associated with the route. On web, '
-                    'this maps to the browser\'s History.state. Can hold any '
-                    'serializable data.',
+                'this maps to the browser\'s History.state. Can hold any '
+                'serializable data.',
                 _kStateColor,
                 Icons.data_object,
               ),
@@ -153,8 +157,8 @@ class _TheoryTab extends StatelessWidget {
                 'location',
                 'String',
                 'Deprecated: Use uri.toString() instead. Returns the string '
-                    'representation of the URI. Included for backward '
-                    'compatibility with older Router implementations.',
+                'representation of the URI. Included for backward '
+                'compatibility with older Router implementations.',
                 Colors.grey.shade600,
                 Icons.text_fields,
               ),
@@ -182,20 +186,16 @@ class _TheoryTab extends StatelessWidget {
                     Text(
                       '/products/42?color=blue&size=L#reviews',
                       style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: _kDarkText,
-                      ),
+                          fontFamily: 'monospace',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: _kDarkText),
                     ),
                     SizedBox(height: 10),
                     _uriPart('/products/42', 'path', _kPrimary),
                     SizedBox(height: 4),
-                    _uriPart(
-                      'color=blue&size=L',
-                      'queryParameters',
-                      _kUriColor,
-                    ),
+                    _uriPart('color=blue&size=L', 'queryParameters',
+                        _kUriColor),
                     SizedBox(height: 4),
                     _uriPart('reviews', 'fragment', _kStepC),
                     SizedBox(height: 4),
@@ -214,53 +214,35 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _roleStep(
-                1,
-                'Platform URL Change',
-                'Browser/OS provides a new URL or the app calls Router.navigate().',
-                _kStepA,
-                Icons.public,
-              ),
+              _roleStep(1, 'Platform URL Change',
+                  'Browser/OS provides a new URL or the app calls Router.navigate().',
+                  _kStepA, Icons.public),
               SizedBox(height: 6),
-              _roleStep(
-                2,
-                'RouteInformationProvider',
-                'Wraps the platform-provided URI + state into a RouteInformation object.',
-                _kStepB,
-                Icons.input,
-              ),
+              _roleStep(2, 'RouteInformationProvider',
+                  'Wraps the platform-provided URI + state into a RouteInformation object.',
+                  _kStepB, Icons.input),
               SizedBox(height: 6),
-              _roleStep(
-                3,
-                'RouteInformationParser',
-                'Parses RouteInformation into an app-specific configuration object (e.g., a route tree).',
-                _kStepC,
-                Icons.settings,
-              ),
+              _roleStep(3, 'RouteInformationParser',
+                  'Parses RouteInformation into an app-specific configuration object (e.g., a route tree).',
+                  _kStepC, Icons.settings),
               SizedBox(height: 6),
-              _roleStep(
-                4,
-                'RouterDelegate',
-                'Builds the Navigator/page stack from the parsed configuration.',
-                _kStepD,
-                Icons.account_tree,
-              ),
+              _roleStep(4, 'RouterDelegate',
+                  'Builds the Navigator/page stack from the parsed configuration.',
+                  _kStepD, Icons.account_tree),
               SizedBox(height: 12),
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: _kHighlight,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Color(0xFFFFC107).withOpacity(0.3)),
+                  border: Border.all(
+                      color: Color(0xFFFFC107).withOpacity(0.3)),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.info_outline,
-                      size: 16,
-                      color: Color(0xFFF57F17),
-                    ),
+                    Icon(Icons.info_outline,
+                        size: 16, color: Color(0xFFF57F17)),
                     SizedBox(width: 6),
                     Expanded(
                       child: Text(
@@ -268,10 +250,9 @@ class _TheoryTab extends StatelessWidget {
                         'platform → app (initial load, back button) and '
                         'app → platform (updating the browser URL bar).',
                         style: TextStyle(
-                          fontSize: 12,
-                          color: _kDarkText,
-                          height: 1.4,
-                        ),
+                            fontSize: 12,
+                            color: _kDarkText,
+                            height: 1.4),
                       ),
                     ),
                   ],
@@ -293,18 +274,24 @@ class _TheoryTab extends StatelessWidget {
               2: FlexColumnWidth(3),
             },
             children: [
-              _tableRow([
-                'Aspect',
-                'RouteInformation',
-                'RouteSettings',
-              ], isHeader: true),
+              _tableRow(
+                  ['Aspect', 'RouteInformation', 'RouteSettings'],
+                  isHeader: true),
               _tableRow([
                 'Used by',
                 'Navigator 2.0 (Router)',
                 'Navigator 1.0 (push/pop)',
               ]),
-              _tableRow(['Identifier', 'uri (Uri)', 'name (String?)']),
-              _tableRow(['State', 'state (Object?)', 'arguments (Object?)']),
+              _tableRow([
+                'Identifier',
+                'uri (Uri)',
+                'name (String?)',
+              ]),
+              _tableRow([
+                'State',
+                'state (Object?)',
+                'arguments (Object?)',
+              ]),
               _tableRow([
                 'Platform aware',
                 'Yes — maps to browser URL',
@@ -326,31 +313,21 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _bp(
-                true,
-                'Use the uri property instead of the deprecated '
-                'location string for richer URL handling.',
-              ),
-              _bp(
-                true,
-                'Keep the state object serializable — on web it goes '
-                'through the History API which requires JSON-safe data.',
-              ),
-              _bp(
-                true,
-                'Parse query parameters from uri.queryParameters rather '
-                'than manually splitting the location string.',
-              ),
-              _bp(
-                false,
-                'Do NOT include sensitive information in the URI — it is '
-                'visible in the browser address bar.',
-              ),
-              _bp(
-                false,
-                'Do NOT rely on state persisting across app restarts on '
-                'mobile — it is only guaranteed for the current session.',
-              ),
+              _bp(true,
+                  'Use the uri property instead of the deprecated '
+                  'location string for richer URL handling.'),
+              _bp(true,
+                  'Keep the state object serializable — on web it goes '
+                  'through the History API which requires JSON-safe data.'),
+              _bp(true,
+                  'Parse query parameters from uri.queryParameters rather '
+                  'than manually splitting the location string.'),
+              _bp(false,
+                  'Do NOT include sensitive information in the URI — it is '
+                  'visible in the browser address bar.'),
+              _bp(false,
+                  'Do NOT rely on state persisting across app restarts on '
+                  'mobile — it is only guaranteed for the current session.'),
             ],
           ),
         ),
@@ -369,15 +346,12 @@ class _BuilderTab extends StatefulWidget {
 }
 
 class _BuilderTabState extends State<_BuilderTab> {
-  final TextEditingController _pathCtrl = TextEditingController(
-    text: '/products/42',
-  );
-  final TextEditingController _fragCtrl = TextEditingController(
-    text: 'reviews',
-  );
-  final TextEditingController _stateCtrl = TextEditingController(
-    text: 'scrollPos: 142',
-  );
+  final TextEditingController _pathCtrl =
+      TextEditingController(text: '/products/42');
+  final TextEditingController _fragCtrl =
+      TextEditingController(text: 'reviews');
+  final TextEditingController _stateCtrl =
+      TextEditingController(text: 'scrollPos: 142');
 
   // Query parameter entries
   final List<_QueryParam> _queryParams = [
@@ -406,7 +380,7 @@ class _BuilderTabState extends State<_BuilderTab> {
     final frag = _fragCtrl.text;
     final qp = {
       for (final p in _queryParams)
-        if (p.key.isNotEmpty) p.key: p.value,
+        if (p.key.isNotEmpty) p.key: p.value
     };
 
     final uri = Uri(
@@ -433,10 +407,8 @@ class _BuilderTabState extends State<_BuilderTab> {
       if (_builds.length > 20) _builds.removeLast();
     });
 
-    print(
-      'Built RouteInformation: ${uri.toString()}, '
-      'state=${_stateCtrl.text}',
-    );
+    print('Built RouteInformation: ${uri.toString()}, '
+        'state=${_stateCtrl.text}');
   }
 
   @override
@@ -454,7 +426,7 @@ class _BuilderTabState extends State<_BuilderTab> {
     final frag = _fragCtrl.text;
     final qp = {
       for (final p in _queryParams)
-        if (p.key.isNotEmpty) p.key: p.value,
+        if (p.key.isNotEmpty) p.key: p.value
     };
     final previewUri = Uri(
       path: path,
@@ -481,14 +453,11 @@ class _BuilderTabState extends State<_BuilderTab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Live URI Preview',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 11,
-                        color: _kPrimary,
-                      ),
-                    ),
+                    Text('Live URI Preview',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 11,
+                            color: _kPrimary)),
                     SizedBox(height: 6),
                     Container(
                       width: double.infinity,
@@ -496,16 +465,16 @@ class _BuilderTabState extends State<_BuilderTab> {
                       decoration: BoxDecoration(
                         color: _kCardBg,
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _kPrimary.withOpacity(0.2)),
+                        border: Border.all(
+                            color: _kPrimary.withOpacity(0.2)),
                       ),
                       child: Text(
                         previewUri.toString(),
                         style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: _kUriColor,
-                        ),
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: _kUriColor),
                       ),
                     ),
                   ],
@@ -522,16 +491,14 @@ class _BuilderTabState extends State<_BuilderTab> {
                   decoration: InputDecoration(
                     hintText: '/products/42',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                        borderRadius: BorderRadius.circular(8)),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 10,
-                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     prefixIcon: Icon(Icons.route, size: 18),
                   ),
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 13),
+                  style: TextStyle(
+                      fontFamily: 'monospace', fontSize: 13),
                 ),
               ),
               SizedBox(height: 12),
@@ -549,65 +516,58 @@ class _BuilderTabState extends State<_BuilderTab> {
                           children: [
                             Expanded(
                               child: TextField(
-                                controller: TextEditingController(text: p.key),
+                                controller:
+                                    TextEditingController(text: p.key),
                                 onChanged: (v) {
-                                  _queryParams[i] = _QueryParam(v, p.value);
+                                  _queryParams[i] =
+                                      _QueryParam(v, p.value);
                                   setState(() {});
                                 },
                                 decoration: InputDecoration(
                                   labelText: 'Key',
                                   labelStyle: TextStyle(fontSize: 10),
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
+                                      borderRadius:
+                                          BorderRadius.circular(6)),
                                   isDense: true,
                                   contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 8,
-                                  ),
+                                      horizontal: 8, vertical: 8),
                                 ),
                                 style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                ),
+                                    fontFamily: 'monospace',
+                                    fontSize: 11),
                               ),
                             ),
                             SizedBox(width: 6),
                             Expanded(
                               child: TextField(
-                                controller: TextEditingController(
-                                  text: p.value,
-                                ),
+                                controller:
+                                    TextEditingController(text: p.value),
                                 onChanged: (v) {
-                                  _queryParams[i] = _QueryParam(p.key, v);
+                                  _queryParams[i] =
+                                      _QueryParam(p.key, v);
                                   setState(() {});
                                 },
                                 decoration: InputDecoration(
                                   labelText: 'Value',
                                   labelStyle: TextStyle(fontSize: 10),
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
+                                      borderRadius:
+                                          BorderRadius.circular(6)),
                                   isDense: true,
                                   contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 8,
-                                  ),
+                                      horizontal: 8, vertical: 8),
                                 ),
                                 style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                ),
+                                    fontFamily: 'monospace',
+                                    fontSize: 11),
                               ),
                             ),
                             SizedBox(width: 4),
                             GestureDetector(
                               onTap: () => _removeParam(i),
-                              child: Icon(
-                                Icons.close,
-                                size: 18,
-                                color: _kStepC,
-                              ),
+                              child: Icon(Icons.close,
+                                  size: 18, color: _kStepC),
                             ),
                           ],
                         ),
@@ -618,27 +578,23 @@ class _BuilderTabState extends State<_BuilderTab> {
                       onTap: _addParam,
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
+                            horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
                           color: _kAccent.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: _kAccent.withOpacity(0.3)),
+                          border: Border.all(
+                              color: _kAccent.withOpacity(0.3)),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.add, size: 14, color: _kPrimary),
                             SizedBox(width: 4),
-                            Text(
-                              'Add Parameter',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: _kPrimary,
-                              ),
-                            ),
+                            Text('Add Parameter',
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: _kPrimary)),
                           ],
                         ),
                       ),
@@ -657,16 +613,14 @@ class _BuilderTabState extends State<_BuilderTab> {
                   decoration: InputDecoration(
                     hintText: 'section-name',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                        borderRadius: BorderRadius.circular(8)),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 10,
-                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     prefixIcon: Icon(Icons.tag, size: 18),
                   ),
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 13),
+                  style: TextStyle(
+                      fontFamily: 'monospace', fontSize: 13),
                 ),
               ),
               SizedBox(height: 12),
@@ -680,16 +634,14 @@ class _BuilderTabState extends State<_BuilderTab> {
                   decoration: InputDecoration(
                     hintText: 'Any serializable data',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                        borderRadius: BorderRadius.circular(8)),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 10,
-                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     prefixIcon: Icon(Icons.data_object, size: 18),
                   ),
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 13),
+                  style: TextStyle(
+                      fontFamily: 'monospace', fontSize: 13),
                 ),
               ),
               SizedBox(height: 12),
@@ -722,22 +674,17 @@ class _BuilderTabState extends State<_BuilderTab> {
                     _parsedRow('fragment', previewUri.fragment, _kStepC),
                     SizedBox(height: 4),
                     _parsedRow(
-                      'pathSegments',
-                      previewUri.pathSegments.join(', '),
-                      _kStepD,
-                    ),
+                        'pathSegments',
+                        previewUri.pathSegments.join(', '),
+                        _kStepD),
                     SizedBox(height: 4),
                     if (previewUri.queryParameters.isNotEmpty) ...[
-                      ...previewUri.queryParameters.entries.map(
-                        (e) => Padding(
-                          padding: EdgeInsets.only(bottom: 2),
-                          child: _parsedRow(
-                            'qp[${e.key}]',
-                            e.value,
-                            _kUriColor,
-                          ),
-                        ),
-                      ),
+                      ...previewUri.queryParameters.entries.map((e) =>
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 2),
+                            child: _parsedRow(
+                                'qp[${e.key}]', e.value, _kUriColor),
+                          )),
                     ],
                     SizedBox(height: 4),
                     _parsedRow('state', _stateCtrl.text, _kStateColor),
@@ -751,25 +698,23 @@ class _BuilderTabState extends State<_BuilderTab> {
                 'Quick Examples',
                 Column(
                   children: [
-                    _exampleBtn('/home', 'Simple path', Icons.home),
+                    _exampleBtn(
+                        '/home', 'Simple path', Icons.home),
                     SizedBox(height: 4),
                     _exampleBtn(
-                      '/users/123/profile',
-                      'Nested path with ID',
-                      Icons.person,
-                    ),
+                        '/users/123/profile',
+                        'Nested path with ID',
+                        Icons.person),
                     SizedBox(height: 4),
                     _exampleBtn(
-                      '/search?q=flutter&lang=dart',
-                      'With query params',
-                      Icons.search,
-                    ),
+                        '/search?q=flutter&lang=dart',
+                        'With query params',
+                        Icons.search),
                     SizedBox(height: 4),
                     _exampleBtn(
-                      '/docs/api#authentication',
-                      'With fragment',
-                      Icons.description,
-                    ),
+                        '/docs/api#authentication',
+                        'With fragment',
+                        Icons.description),
                   ],
                 ),
               ),
@@ -795,29 +740,24 @@ class _BuilderTabState extends State<_BuilderTab> {
                   children: [
                     Icon(Icons.history, size: 16, color: _kPrimary),
                     SizedBox(width: 6),
-                    Text(
-                      'Build History',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    Text('Build History',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13,
+                            color: _kDarkText)),
                     Spacer(),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: _kPrimary,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text(
-                        '$_buildCount',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text('$_buildCount',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w700)),
                     ),
                   ],
                 ),
@@ -828,7 +768,8 @@ class _BuilderTabState extends State<_BuilderTab> {
                         child: Text(
                           'Build RouteInformation\nobjects to see history',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: _kMuted, fontSize: 12),
+                          style:
+                              TextStyle(color: _kMuted, fontSize: 12),
                         ),
                       )
                     : ListView.builder(
@@ -842,35 +783,33 @@ class _BuilderTabState extends State<_BuilderTab> {
                               padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: _kPrimary.withOpacity(0.03),
-                                borderRadius: BorderRadius.circular(6),
+                                borderRadius:
+                                    BorderRadius.circular(6),
                                 border: Border.all(
-                                  color: _kPrimary.withOpacity(0.1),
-                                ),
+                                    color:
+                                        _kPrimary.withOpacity(0.1)),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                          horizontal: 4,
-                                          vertical: 1,
-                                        ),
+                                            horizontal: 4, vertical: 1),
                                         decoration: BoxDecoration(
-                                          color: _kPrimary.withOpacity(0.1),
-                                          borderRadius: BorderRadius.circular(
-                                            3,
-                                          ),
+                                          color: _kPrimary
+                                              .withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(3),
                                         ),
-                                        child: Text(
-                                          '#${b.id}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 9,
-                                            color: _kPrimary,
-                                          ),
-                                        ),
+                                        child: Text('#${b.id}',
+                                            style: TextStyle(
+                                                fontWeight:
+                                                    FontWeight.w700,
+                                                fontSize: 9,
+                                                color: _kPrimary)),
                                       ),
                                       Spacer(),
                                       Text(
@@ -878,37 +817,30 @@ class _BuilderTabState extends State<_BuilderTab> {
                                         '${b.time.minute.toString().padLeft(2, '0')}:'
                                         '${b.time.second.toString().padLeft(2, '0')}',
                                         style: TextStyle(
-                                          fontSize: 8,
-                                          color: _kMuted,
-                                        ),
+                                            fontSize: 8,
+                                            color: _kMuted),
                                       ),
                                     ],
                                   ),
                                   SizedBox(height: 4),
-                                  Text(
-                                    b.fullUri,
-                                    style: TextStyle(
-                                      fontFamily: 'monospace',
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w600,
-                                      color: _kUriColor,
-                                    ),
-                                  ),
+                                  Text(b.fullUri,
+                                      style: TextStyle(
+                                          fontFamily: 'monospace',
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w600,
+                                          color: _kUriColor)),
                                   SizedBox(height: 2),
                                   Wrap(
                                     spacing: 4,
                                     runSpacing: 2,
                                     children: [
-                                      _miniTag(
-                                        'segs:${b.segments.length}',
-                                        _kPrimary,
-                                      ),
-                                      _miniTag(
-                                        'qp:${b.paramCount}',
-                                        _kUriColor,
-                                      ),
+                                      _miniTag('segs:${b.segments.length}',
+                                          _kPrimary),
+                                      _miniTag('qp:${b.paramCount}',
+                                          _kUriColor),
                                       if (b.fragment.isNotEmpty)
-                                        _miniTag('#${b.fragment}', _kStepC),
+                                        _miniTag('#${b.fragment}',
+                                            _kStepC),
                                       if (b.state.isNotEmpty)
                                         _miniTag('state', _kStateColor),
                                     ],
@@ -937,24 +869,20 @@ class _BuilderTabState extends State<_BuilderTab> {
       ),
       child: Row(
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kMuted,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: _kMuted)),
           Spacer(),
           Flexible(
             child: Text(
               value.isEmpty ? '(empty)' : value,
               style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-                color: value.isEmpty ? _kMuted : color,
-              ),
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: value.isEmpty ? _kMuted : color),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -990,26 +918,21 @@ class _BuilderTabState extends State<_BuilderTab> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: _kDarkText,
-                    ),
-                  ),
-                  Text(
-                    uri,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: _kUriColor,
-                    ),
-                  ),
+                  Text(label,
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: _kDarkText)),
+                  Text(uri,
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: _kUriColor)),
                 ],
               ),
             ),
-            Icon(Icons.arrow_forward_ios, size: 12, color: _kMuted),
+            Icon(Icons.arrow_forward_ios,
+                size: 12, color: _kMuted),
           ],
         ),
       ),
@@ -1023,15 +946,12 @@ class _BuilderTabState extends State<_BuilderTab> {
         color: color.withOpacity(0.08),
         borderRadius: BorderRadius.circular(3),
       ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 8,
-          color: color,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      child: Text(label,
+          style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 8,
+              color: color,
+              fontWeight: FontWeight.w600)),
     );
   }
 }
@@ -1081,8 +1001,7 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
     _FlowStepData(
       title: 'Platform',
       subtitle: 'Browser / OS',
-      detail:
-          'The platform provides the initial URL when the app starts, '
+      detail: 'The platform provides the initial URL when the app starts, '
           'or when the user types a new URL in the browser bar, or when the '
           'OS delivers a deep link.',
       icon: Icons.public,
@@ -1091,8 +1010,7 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
     _FlowStepData(
       title: 'RouteInformationProvider',
       subtitle: 'PlatformRouteInformationProvider',
-      detail:
-          'Wraps the platform URL into a RouteInformation object. Also '
+      detail: 'Wraps the platform URL into a RouteInformation object. Also '
           'listens for programmatic navigation and pushes updated URLs back '
           'to the platform.',
       icon: Icons.input,
@@ -1101,8 +1019,7 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
     _FlowStepData(
       title: 'RouteInformation',
       subtitle: 'Data Transfer Object',
-      detail:
-          'Carries the URI and state between the provider and the '
+      detail: 'Carries the URI and state between the provider and the '
           'parser. This is the focus of this demo — it is the neutral '
           'handoff object.',
       icon: Icons.swap_horiz,
@@ -1111,8 +1028,7 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
     _FlowStepData(
       title: 'RouteInformationParser',
       subtitle: 'parseRouteInformation()',
-      detail:
-          'Converts the RouteInformation into an app-specific '
+      detail: 'Converts the RouteInformation into an app-specific '
           'configuration (e.g., a route tree, a path enum, or a typed '
           'route object).',
       icon: Icons.settings,
@@ -1121,8 +1037,7 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
     _FlowStepData(
       title: 'RouterDelegate',
       subtitle: 'setNewRoutePath()',
-      detail:
-          'Receives the parsed configuration and builds the Navigator\'s '
+      detail: 'Receives the parsed configuration and builds the Navigator\'s '
           'page stack accordingly. Calls notifyListeners() to rebuild.',
       icon: Icons.account_tree,
       color: Color(0xFF6A1B9A),
@@ -1130,8 +1045,7 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
     _FlowStepData(
       title: 'Widget Tree',
       subtitle: 'Navigator + Pages',
-      detail:
-          'The final widget tree renders the correct pages based on the '
+      detail: 'The final widget tree renders the correct pages based on the '
           'configuration provided by the RouterDelegate.',
       icon: Icons.widgets,
       color: Color(0xFFEF6C00),
@@ -1152,21 +1066,20 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
               SizedBox(width: 8),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   decoration: BoxDecoration(
                     color: _kCodeBg,
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: _kUriColor.withOpacity(0.3)),
+                    border: Border.all(
+                        color: _kUriColor.withOpacity(0.3)),
                   ),
-                  child: Text(
-                    _currentUrl,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: _kUriColor,
-                    ),
-                  ),
+                  child: Text(_currentUrl,
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: _kUriColor)),
                 ),
               ),
             ],
@@ -1213,30 +1126,25 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
                               SizedBox(width: 8),
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 6,
-                                  vertical: 2,
-                                ),
+                                    horizontal: 6, vertical: 2),
                                 decoration: BoxDecoration(
                                   color: _kPrimary.withOpacity(0.08),
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius:
+                                      BorderRadius.circular(4),
                                 ),
-                                child: Text(
-                                  'RouteInformation here',
-                                  style: TextStyle(
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.w700,
-                                    color: _kPrimary,
-                                  ),
-                                ),
+                                child: Text('RouteInformation here',
+                                    style: TextStyle(
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.w700,
+                                        color: _kPrimary)),
                               ),
                             ],
                           ],
                         ),
                       ),
                     GestureDetector(
-                      onTap: () => setState(
-                        () => _activeStep = _activeStep == i ? -1 : i,
-                      ),
+                      onTap: () => setState(() =>
+                          _activeStep = _activeStep == i ? -1 : i),
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 250),
                         padding: EdgeInsets.all(12),
@@ -1246,16 +1154,19 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
                               : _kCardBg,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: active ? step.color : Colors.grey.shade300,
+                            color: active
+                                ? step.color
+                                : Colors.grey.shade300,
                             width: active ? 2 : 1,
                           ),
                           boxShadow: active
                               ? [
                                   BoxShadow(
-                                    color: step.color.withOpacity(0.15),
+                                    color:
+                                        step.color.withOpacity(0.15),
                                     blurRadius: 8,
                                     offset: Offset(0, 2),
-                                  ),
+                                  )
                                 ]
                               : [],
                         ),
@@ -1269,67 +1180,54 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
                                 shape: BoxShape.circle,
                               ),
                               alignment: Alignment.center,
-                              child: Icon(
-                                step.icon,
-                                color: step.color,
-                                size: 20,
-                              ),
+                              child: Icon(step.icon,
+                                  color: step.color, size: 20),
                             ),
                             SizedBox(width: 12),
                             Expanded(
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                          horizontal: 5,
-                                          vertical: 1,
-                                        ),
+                                            horizontal: 5,
+                                            vertical: 1),
                                         decoration: BoxDecoration(
-                                          color: step.color.withOpacity(0.1),
-                                          borderRadius: BorderRadius.circular(
-                                            3,
-                                          ),
+                                          color: step.color
+                                              .withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(3),
                                         ),
-                                        child: Text(
-                                          '${i + 1}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 9,
-                                            color: step.color,
-                                          ),
-                                        ),
+                                        child: Text('${i + 1}',
+                                            style: TextStyle(
+                                                fontWeight:
+                                                    FontWeight.w700,
+                                                fontSize: 9,
+                                                color: step.color)),
                                       ),
                                       SizedBox(width: 6),
-                                      Text(
-                                        step.title,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 13,
-                                          color: _kDarkText,
-                                        ),
-                                      ),
+                                      Text(step.title,
+                                          style: TextStyle(
+                                              fontWeight:
+                                                  FontWeight.w700,
+                                              fontSize: 13,
+                                              color: _kDarkText)),
                                     ],
                                   ),
-                                  Text(
-                                    step.subtitle,
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: _kMuted,
-                                    ),
-                                  ),
+                                  Text(step.subtitle,
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: _kMuted)),
                                   if (active) ...[
                                     SizedBox(height: 6),
-                                    Text(
-                                      step.detail,
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                        color: _kDarkText,
-                                        height: 1.4,
-                                      ),
-                                    ),
+                                    Text(step.detail,
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: _kDarkText,
+                                            height: 1.4)),
                                     // Show what this step does with the URL
                                     SizedBox(height: 6),
                                     _stepUrlView(i),
@@ -1338,7 +1236,9 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
                               ),
                             ),
                             Icon(
-                              active ? Icons.expand_less : Icons.expand_more,
+                              active
+                                  ? Icons.expand_less
+                                  : Icons.expand_more,
                               color: _kMuted,
                               size: 20,
                             ),
@@ -1371,16 +1271,14 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.arrow_downward, size: 16, color: _kStepA),
+                        Icon(Icons.arrow_downward,
+                            size: 16, color: _kStepA),
                         SizedBox(width: 6),
-                        Text(
-                          'Platform → App (Inbound)',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                            color: _kStepA,
-                          ),
-                        ),
+                        Text('Platform → App (Inbound)',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                                color: _kStepA)),
                       ],
                     ),
                     SizedBox(height: 4),
@@ -1388,10 +1286,7 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
                       'When the user navigates to a URL (browser, deep link), '
                       'RouteInformation flows from the platform into the app.',
                       style: TextStyle(
-                        fontSize: 11,
-                        color: _kDarkText,
-                        height: 1.3,
-                      ),
+                          fontSize: 11, color: _kDarkText, height: 1.3),
                     ),
                   ],
                 ),
@@ -1409,16 +1304,14 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.arrow_upward, size: 16, color: _kStepD),
+                        Icon(Icons.arrow_upward,
+                            size: 16, color: _kStepD),
                         SizedBox(width: 6),
-                        Text(
-                          'App → Platform (Outbound)',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                            color: _kStepD,
-                          ),
-                        ),
+                        Text('App → Platform (Outbound)',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                                color: _kStepD)),
                       ],
                     ),
                     SizedBox(height: 4),
@@ -1428,10 +1321,7 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
                       'parser converts it back to RouteInformation and the '
                       'provider pushes the new URL to the platform.',
                       style: TextStyle(
-                        fontSize: 11,
-                        color: _kDarkText,
-                        height: 1.3,
-                      ),
+                          fontSize: 11, color: _kDarkText, height: 1.3),
                     ),
                   ],
                 ),
@@ -1457,10 +1347,9 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
           child: Text(
             'URL bar: $_currentUrl',
             style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kUriColor,
-            ),
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: _kUriColor),
           ),
         );
       case 1: // Provider
@@ -1476,10 +1365,9 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
             '  state: null,\n'
             ')',
             style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kDarkText,
-            ),
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: _kDarkText),
           ),
         );
       case 2: // RouteInformation itself
@@ -1511,10 +1399,9 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
             '  id: ${uri.pathSegments.length > 1 ? uri.pathSegments[1] : 'null'},\n'
             ')',
             style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kDarkText,
-            ),
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: _kDarkText),
           ),
         );
       case 4: // Delegate
@@ -1530,10 +1417,9 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
             '  MaterialPage(child: ${uri.pathSegments.isNotEmpty ? "${uri.pathSegments[0][0].toUpperCase()}${uri.pathSegments[0].substring(1)}Page" : "HomePage"}()),\n'
             ']',
             style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kDarkText,
-            ),
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: _kDarkText),
           ),
         );
       case 5: // Widget tree
@@ -1548,10 +1434,9 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
             '  pages: [HomePage, ${uri.pathSegments.isNotEmpty ? "${uri.pathSegments[0][0].toUpperCase()}${uri.pathSegments[0].substring(1)}Page" : "HomePage"}],\n'
             ')',
             style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kDarkText,
-            ),
+                fontFamily: 'monospace',
+                fontSize: 10,
+                color: _kDarkText),
           ),
         );
       default:
@@ -1577,14 +1462,11 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
           children: [
             Icon(icon, size: 12, color: _kPrimary),
             SizedBox(width: 4),
-            Text(
-              url,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10,
-                color: _kPrimary,
-              ),
-            ),
+            Text(url,
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 10,
+                    color: _kPrimary)),
           ],
         ),
       ),
@@ -1596,23 +1478,17 @@ class _Nav2FlowTabState extends State<_Nav2FlowTab> {
       padding: EdgeInsets.only(bottom: 2),
       child: Row(
         children: [
-          Text(
-            '$label: ',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kMuted,
-            ),
-          ),
-          Text(
-            value.isEmpty ? '(empty)' : value,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: value.isEmpty ? _kMuted : color,
-            ),
-          ),
+          Text('$label: ',
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: _kMuted)),
+          Text(value.isEmpty ? '(empty)' : value,
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: value.isEmpty ? _kMuted : color)),
         ],
       ),
     );
@@ -1667,14 +1543,11 @@ Widget _sectionCard(String title, Widget child) {
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 15,
-                  color: _kDarkText,
-                ),
-              ),
+              child: Text(title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 15,
+                      color: _kDarkText)),
             ),
           ],
         ),
@@ -1694,25 +1567,17 @@ Widget _codeBlock(String code) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _kAccent.withOpacity(0.3)),
     ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 12,
-        color: _kDarkText,
-        height: 1.5,
-      ),
-    ),
+    child: Text(code,
+        style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: _kDarkText,
+            height: 1.5)),
   );
 }
 
-Widget _propRow(
-  String name,
-  String type,
-  String desc,
-  Color color,
-  IconData icon,
-) {
+Widget _propRow(String name, String type, String desc, Color color,
+    IconData icon) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1738,31 +1603,24 @@ Widget _propRow(
             children: [
               Row(
                 children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                      color: color,
-                    ),
-                  ),
+                  Text(name,
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                          color: color)),
                   SizedBox(width: 6),
-                  Text(
-                    type,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: _kMuted,
-                    ),
-                  ),
+                  Text(type,
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: _kMuted)),
                 ],
               ),
               SizedBox(height: 3),
-              Text(
-                desc,
-                style: TextStyle(fontSize: 11, color: _kDarkText, height: 1.3),
-              ),
+              Text(desc,
+                  style: TextStyle(
+                      fontSize: 11, color: _kDarkText, height: 1.3)),
             ],
           ),
         ),
@@ -1777,13 +1635,15 @@ Widget _uriPart(String value, String label, Color color) {
       Container(
         width: 8,
         height: 8,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+            color: color, shape: BoxShape.circle),
       ),
       SizedBox(width: 6),
-      Text(
-        label,
-        style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: _kMuted),
-      ),
+      Text(label,
+          style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              color: _kMuted)),
       SizedBox(width: 6),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -1791,27 +1651,19 @@ Widget _uriPart(String value, String label, Color color) {
           color: color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text(
-          value,
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: color,
-          ),
-        ),
+        child: Text(value,
+            style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color)),
       ),
     ],
   );
 }
 
-Widget _roleStep(
-  int step,
-  String title,
-  String desc,
-  Color color,
-  IconData icon,
-) {
+Widget _roleStep(int step, String title, String desc, Color color,
+    IconData icon) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1829,32 +1681,25 @@ Widget _roleStep(
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
-          child: Text(
-            '$step',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 12,
-              color: color,
-            ),
-          ),
+          child: Text('$step',
+              style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 12,
+                  color: color)),
         ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                  color: _kDarkText,
-                ),
-              ),
-              Text(
-                desc,
-                style: TextStyle(fontSize: 11, color: _kMuted, height: 1.3),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: _kDarkText)),
+              Text(desc,
+                  style: TextStyle(
+                      fontSize: 11, color: _kMuted, height: 1.3)),
             ],
           ),
         ),
@@ -1872,14 +1717,12 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
     children: cells.map((c) {
       return Padding(
         padding: EdgeInsets.all(8),
-        child: Text(
-          c,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-            color: isHeader ? _kPrimary : _kDarkText,
-          ),
-        ),
+        child: Text(c,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight:
+                    isHeader ? FontWeight.w700 : FontWeight.w400,
+                color: isHeader ? _kPrimary : _kDarkText)),
       );
     }).toList(),
   );
@@ -1887,7 +1730,8 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
 
 Widget _bp(bool isGood, String text) {
   final color = isGood ? Color(0xFF2E7D32) : Color(0xFFC62828);
-  final icon = isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
+  final icon =
+      isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
   return Padding(
     padding: EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1896,10 +1740,9 @@ Widget _bp(bool isGood, String text) {
         Icon(icon, color: color, size: 18),
         SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  fontSize: 12, color: _kDarkText, height: 1.4)),
         ),
       ],
     ),

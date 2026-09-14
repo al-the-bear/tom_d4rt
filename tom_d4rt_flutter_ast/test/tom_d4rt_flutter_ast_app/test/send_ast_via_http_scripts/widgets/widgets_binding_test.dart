@@ -409,10 +409,7 @@ class _WbnHomeState extends State<_WbnHome>
                 caption: 'Live introspection of WidgetsBinding.instance.',
               ),
               const SizedBox(height: 12),
-              _WbnInstanceReadout(
-                snapshot: _snapshot,
-                onRefresh: _refreshSnapshot,
-              ),
+              _WbnInstanceReadout(snapshot: _snapshot, onRefresh: _refreshSnapshot),
               const SizedBox(height: 26),
               const _WbnSectionHeader(
                 index: 3,
@@ -564,20 +561,20 @@ class _WbnSnapshot {
   });
 
   factory _WbnSnapshot.placeholder() => const _WbnSnapshot(
-    runtimeTypeName: 'pending…',
-    hashCodeText: 'pending…',
-    observerCount: 0,
-    locales: <String>[],
-    primaryLocale: 'pending…',
-    platformBrightness: 'pending…',
-    rootElementInfo: 'pending…',
-    buildOwnerInfo: 'pending…',
-    pipelineOwnerInfo: 'pending…',
-    platformDispatcherInfo: 'pending…',
-    accessibilityFeatures: 'pending…',
-    accFlags: <String, bool>{},
-    firstFrameRasterized: 'pending…',
-  );
+        runtimeTypeName: 'pending…',
+        hashCodeText: 'pending…',
+        observerCount: 0,
+        locales: <String>[],
+        primaryLocale: 'pending…',
+        platformBrightness: 'pending…',
+        rootElementInfo: 'pending…',
+        buildOwnerInfo: 'pending…',
+        pipelineOwnerInfo: 'pending…',
+        platformDispatcherInfo: 'pending…',
+        accessibilityFeatures: 'pending…',
+        accFlags: <String, bool>{},
+        firstFrameRasterized: 'pending…',
+      );
 
   factory _WbnSnapshot.capture() {
     String runtimeTypeName;
@@ -760,7 +757,8 @@ class _WbnProbeObserver with WidgetsBindingObserver {
 // ---------------------------------------------------------------------------
 // Engine-room AppBar — brass plate with rivets and the little status lamp.
 // ---------------------------------------------------------------------------
-class _WbnEngineAppBar extends StatelessWidget implements PreferredSizeWidget {
+class _WbnEngineAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const _WbnEngineAppBar({
     required this.title,
     required this.subtitle,
@@ -784,12 +782,16 @@ class _WbnEngineAppBar extends StatelessWidget implements PreferredSizeWidget {
           end: Alignment.bottomRight,
           colors: <Color>[_kSteelDark, _kSteel, _kSteelDark],
         ),
-        border: Border(bottom: BorderSide(color: _kBrass, width: 3)),
+        border: Border(
+          bottom: BorderSide(color: _kBrass, width: 3),
+        ),
       ),
       child: Stack(
         children: <Widget>[
           // Rivet row — a CustomPainter row along the brass rim.
-          Positioned.fill(child: CustomPaint(painter: _WbnRivetRowPainter())),
+          Positioned.fill(
+            child: CustomPaint(painter: _WbnRivetRowPainter()),
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 18, 20, 12),
             child: Row(
@@ -921,7 +923,9 @@ class _WbnPipeBackdrop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Positioned.fill(child: CustomPaint(painter: _WbnPipeBackdropPainter())),
+        Positioned.fill(
+          child: CustomPaint(painter: _WbnPipeBackdropPainter()),
+        ),
         child,
       ],
     );
@@ -945,12 +949,28 @@ class _WbnPipeBackdropPainter extends CustomPainter {
     // Vertical pipes on the right margin.
     for (int i = 0; i < 3; i++) {
       final double x = size.width - 60 - i * 28;
-      canvas.drawLine(Offset(x, 40), Offset(x, size.height - 40), rim);
-      canvas.drawLine(Offset(x, 40), Offset(x, size.height - 40), pipe);
+      canvas.drawLine(
+        Offset(x, 40),
+        Offset(x, size.height - 40),
+        rim,
+      );
+      canvas.drawLine(
+        Offset(x, 40),
+        Offset(x, size.height - 40),
+        pipe,
+      );
     }
     // Horizontal pipe near the top.
-    canvas.drawLine(Offset(32, 24), Offset(size.width - 32, 24), rim);
-    canvas.drawLine(Offset(32, 24), Offset(size.width - 32, 24), pipe);
+    canvas.drawLine(
+      Offset(32, 24),
+      Offset(size.width - 32, 24),
+      rim,
+    );
+    canvas.drawLine(
+      Offset(32, 24),
+      Offset(size.width - 32, 24),
+      pipe,
+    );
   }
 
   @override
@@ -1143,8 +1163,8 @@ class _WbnDossierDeck extends StatelessWidget {
     final int cols = mq.size.width > 1100
         ? 3
         : mq.size.width > 720
-        ? 2
-        : 1;
+            ? 2
+            : 1;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final double gap = 14;
@@ -1246,10 +1266,26 @@ class _WbnBrassCard extends StatelessWidget {
       ),
       child: Stack(
         children: <Widget>[
-          Positioned(left: 8, top: 8, child: _WbnRivet()),
-          Positioned(right: 8, top: 8, child: _WbnRivet()),
-          Positioned(left: 8, bottom: 8, child: _WbnRivet()),
-          Positioned(right: 8, bottom: 8, child: _WbnRivet()),
+          Positioned(
+            left: 8,
+            top: 8,
+            child: _WbnRivet(),
+          ),
+          Positioned(
+            right: 8,
+            top: 8,
+            child: _WbnRivet(),
+          ),
+          Positioned(
+            left: 8,
+            bottom: 8,
+            child: _WbnRivet(),
+          ),
+          Positioned(
+            right: 8,
+            bottom: 8,
+            child: _WbnRivet(),
+          ),
           child,
         ],
       ),
@@ -1279,7 +1315,10 @@ class _WbnRivet extends StatelessWidget {
 // WidgetsBinding.instance values, each wrapped in try/catch.
 // ---------------------------------------------------------------------------
 class _WbnInstanceReadout extends StatelessWidget {
-  const _WbnInstanceReadout({required this.snapshot, required this.onRefresh});
+  const _WbnInstanceReadout({
+    required this.snapshot,
+    required this.onRefresh,
+  });
 
   final _WbnSnapshot snapshot;
   final VoidCallback onRefresh;
@@ -1344,12 +1383,8 @@ class _WbnReadoutGrid extends StatelessWidget {
     final List<_WbnReadoutRow> rows = <_WbnReadoutRow>[
       _WbnReadoutRow('runtimeType', snapshot.runtimeTypeName),
       _WbnReadoutRow('hashCode', snapshot.hashCodeText),
-      _WbnReadoutRow(
-        'observerCount (probed)',
-        snapshot.observerCount < 0
-            ? 'unavailable'
-            : '>= ${snapshot.observerCount}',
-      ),
+      _WbnReadoutRow('observerCount (probed)',
+          snapshot.observerCount < 0 ? 'unavailable' : '>= ${snapshot.observerCount}'),
       _WbnReadoutRow('primaryLocale', snapshot.primaryLocale),
       _WbnReadoutRow('locales.length', snapshot.locales.length.toString()),
       _WbnReadoutRow('platformBrightness', snapshot.platformBrightness),
@@ -1430,11 +1465,7 @@ class _WbnHelpBar extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                color: _kInkDim,
-                fontSize: 12,
-                height: 1.4,
-              ),
+              style: const TextStyle(color: _kInkDim, fontSize: 12, height: 1.4),
             ),
           ),
         ],
@@ -1737,7 +1768,10 @@ class _WbnGauge extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       unit,
-                      style: const TextStyle(color: _kInkDim, fontSize: 11),
+                      style: const TextStyle(
+                        color: _kInkDim,
+                        fontSize: 11,
+                      ),
                     ),
                   ],
                 ),
@@ -1786,10 +1820,11 @@ class _WbnGaugeNeedlePainter extends CustomPainter {
     // Inner glass.
     final Paint glass = Paint()
       ..style = PaintingStyle.fill
-      ..shader = ui.Gradient.radial(center, radius, <Color>[
-        _kGlassHi,
-        _kGlass,
-      ]);
+      ..shader = ui.Gradient.radial(
+        center,
+        radius,
+        <Color>[_kGlassHi, _kGlass],
+      );
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius - 4),
       math.pi,
@@ -1809,8 +1844,10 @@ class _WbnGaugeNeedlePainter extends CustomPainter {
       final double a = math.pi + (math.pi * i / 10);
       final double r1 = radius - 6;
       final double r2 = radius - (i % 5 == 0 ? 18 : 12);
-      final Offset p1 = center + Offset(math.cos(a) * r1, math.sin(a) * r1);
-      final Offset p2 = center + Offset(math.cos(a) * r2, math.sin(a) * r2);
+      final Offset p1 =
+          center + Offset(math.cos(a) * r1, math.sin(a) * r1);
+      final Offset p2 =
+          center + Offset(math.cos(a) * r2, math.sin(a) * r2);
       canvas.drawLine(p1, p2, i % 5 == 0 ? majorTick : tick);
     }
 
@@ -1830,12 +1867,9 @@ class _WbnGaugeNeedlePainter extends CustomPainter {
 
     // Needle.
     final double needleAngle = math.pi + math.pi * t;
-    final Offset tip =
-        center +
-        Offset(
-          math.cos(needleAngle) * (radius - 14),
-          math.sin(needleAngle) * (radius - 14),
-        );
+    final Offset tip = center +
+        Offset(math.cos(needleAngle) * (radius - 14),
+            math.sin(needleAngle) * (radius - 14));
     final Paint needlePaint = Paint()
       ..color = _kBoiler
       ..strokeWidth = 3
@@ -2018,10 +2052,8 @@ class _WbnValveButton extends StatelessWidget {
               if (count > 0) ...<Widget>[
                 const SizedBox(width: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 2,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: BorderRadius.circular(10),
@@ -2062,7 +2094,8 @@ class _WbnLogConsole extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: const BoxDecoration(
               color: _kSteelLo,
               borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
@@ -2130,7 +2163,10 @@ class _WbnLogConsole extends StatelessWidget {
 // Section 5 — Observer roster. Shows the inline observer status and the log.
 // ---------------------------------------------------------------------------
 class _WbnObserverRoster extends StatelessWidget {
-  const _WbnObserverRoster({required this.observerCount, required this.log});
+  const _WbnObserverRoster({
+    required this.observerCount,
+    required this.log,
+  });
   final int observerCount;
   final List<String> log;
 
@@ -2158,9 +2194,7 @@ class _WbnObserverRoster extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                      horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: _kSteel,
                     borderRadius: BorderRadius.circular(16),
@@ -2323,18 +2357,9 @@ class _WbnPipelineCard extends StatelessWidget {
             const SizedBox(height: 12),
             const _WbnPipelineDiagram(),
             const SizedBox(height: 14),
-            _WbnIntrospectionLine(
-              label: 'rootElement',
-              value: snapshot.rootElementInfo,
-            ),
-            _WbnIntrospectionLine(
-              label: 'buildOwner',
-              value: snapshot.buildOwnerInfo,
-            ),
-            _WbnIntrospectionLine(
-              label: 'pipelineOwner',
-              value: snapshot.pipelineOwnerInfo,
-            ),
+            _WbnIntrospectionLine(label: 'rootElement', value: snapshot.rootElementInfo),
+            _WbnIntrospectionLine(label: 'buildOwner', value: snapshot.buildOwnerInfo),
+            _WbnIntrospectionLine(label: 'pipelineOwner', value: snapshot.pipelineOwnerInfo),
             const SizedBox(height: 10),
             _WbnHelpBar(
               text:
@@ -2528,9 +2553,7 @@ class _WbnLocaleCard extends StatelessWidget {
                 for (final String l in snapshot.locales)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
-                    ),
+                        horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
                       color: _kSteel,
                       borderRadius: BorderRadius.circular(14),
@@ -2670,16 +2693,16 @@ class _WbnAccessibilityCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: haveReal
                         ? _kMint.withValues(alpha: 0.2)
                         : _kBoiler.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: haveReal ? _kMint : _kBoiler),
+                    border: Border.all(
+                      color: haveReal ? _kMint : _kBoiler,
+                    ),
                   ),
                   child: Text(
                     haveReal ? 'LIVE READ' : 'SIMULATED',
@@ -2866,7 +2889,8 @@ class _WbnRecipeDeck extends StatelessWidget {
     _WbnRecipe(
       icon: Icons.login,
       title: 'Add/remove observer correctly',
-      problem: 'Must react to app backgrounding to stop expensive streams.',
+      problem:
+          'Must react to app backgrounding to stop expensive streams.',
       snippet:
           'class _S extends State<W> with WidgetsBindingObserver {\n'
           '  @override void initState() {\n'
@@ -2898,7 +2922,8 @@ class _WbnRecipeDeck extends StatelessWidget {
     _WbnRecipe(
       icon: Icons.memory,
       title: 'Respond to memory pressure',
-      problem: 'Free image caches when the OS warns us about low memory.',
+      problem:
+          'Free image caches when the OS warns us about low memory.',
       snippet:
           '@override\n'
           'void didHaveMemoryPressure() {\n'
@@ -2917,8 +2942,8 @@ class _WbnRecipeDeck extends StatelessWidget {
         final int cols = c.maxWidth > 980
             ? 3
             : c.maxWidth > 640
-            ? 2
-            : 1;
+                ? 2
+                : 1;
         final double gap = 14;
         final double cardWidth = (c.maxWidth - gap * (cols - 1)) / cols;
         return Wrap(
@@ -3099,9 +3124,7 @@ class _WbnComparisonCard extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 3,
-                          ),
+                              horizontal: 8, vertical: 3),
                           decoration: BoxDecoration(
                             color: r.colour.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12),
@@ -3263,10 +3286,8 @@ class _WbnGlossaryCard extends StatelessWidget {
             for (final _WbnGlossaryEntry e in _entries)
               Container(
                 margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 decoration: BoxDecoration(
                   color: _kSteel,
                   borderRadius: BorderRadius.circular(8),

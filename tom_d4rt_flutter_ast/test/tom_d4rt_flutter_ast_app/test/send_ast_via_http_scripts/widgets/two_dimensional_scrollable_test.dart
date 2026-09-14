@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_horiz,
       'title': 'What is TwoDimensionalScrollable?',
-      'body':
-          'TwoDimensionalScrollable is the state-managing widget '
+      'body': 'TwoDimensionalScrollable is the state-managing widget '
           'that creates and controls two ScrollPosition objects: '
           'one for the horizontal axis, one for the vertical axis. '
           'It feeds both positions into a viewportBuilder callback.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Layer in the Stack',
-      'body':
-          'TwoDimensionalScrollView \u2192 TwoDimensionalScrollable '
+      'body': 'TwoDimensionalScrollView \u2192 TwoDimensionalScrollable '
           '\u2192 TwoDimensionalViewport. The scrollable sits in the '
           'middle, accepting user gestures and translating them into '
           'offset changes on both axes.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Gesture Routing',
-      'body':
-          'A single touch gesture may affect one or both axes. The '
+      'body': 'A single touch gesture may affect one or both axes. The '
           'diagonalDragBehavior property controls whether a drag '
           'moves one axis at a time or both simultaneously.',
       'accent': Colors.deepOrange,
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Two ScrollPositions',
-      'body':
-          'Unlike normal Scrollable (one position), this creates two '
+      'body': 'Unlike normal Scrollable (one position), this creates two '
           'independent positions. Each can have its own controller, '
           'physics, and direction. They are updated independently '
           'based on gesture decomposition.',
@@ -127,46 +123,40 @@ dynamic build(BuildContext context) {
     {
       'name': 'horizontalDetails',
       'type': 'ScrollableDetails',
-      'desc':
-          'Configuration for the horizontal scroll position: controller, '
+      'desc': 'Configuration for the horizontal scroll position: controller, '
           'physics, and decoration. The scrollable creates a '
           'ScrollPosition from these details.',
     },
     {
       'name': 'verticalDetails',
       'type': 'ScrollableDetails',
-      'desc':
-          'Configuration for the vertical scroll position. Same '
+      'desc': 'Configuration for the vertical scroll position. Same '
           'structure but for the vertical axis. Both are required.',
     },
     {
       'name': 'viewportBuilder',
       'type': 'TwoDimensionalViewportBuilder',
-      'desc':
-          'Callback that receives both ViewportOffset objects and '
+      'desc': 'Callback that receives both ViewportOffset objects and '
           'returns a TwoDimensionalViewport widget. The Scrollable '
           'calls this to build the viewport.',
     },
     {
       'name': 'diagonalDragBehavior',
       'type': 'DiagonalDragBehavior',
-      'desc':
-          'Controls how diagonal touch drags are decomposed into '
+      'desc': 'Controls how diagonal touch drags are decomposed into '
           'horizontal and vertical offsets.',
     },
     {
       'name': 'incrementCalculator',
       'type': 'TwoDimensionalScrollIncrementCalculator?',
-      'desc':
-          'Optional function that calculates how much to scroll '
+      'desc': 'Optional function that calculates how much to scroll '
           'for keyboard arrow keys and scroll buttons. Returns '
           'an Offset(dx, dy) increment.',
     },
     {
       'name': 'dragStartBehavior',
       'type': 'DragStartBehavior',
-      'desc':
-          'Whether the drag position starts from the point of the '
+      'desc': 'Whether the drag position starts from the point of the '
           'initial down event or the position when the drag threshold '
           'is met. Affects gesture precision.',
     },
@@ -255,8 +245,7 @@ dynamic build(BuildContext context) {
   final posTopics = <Map<String, dynamic>>[
     {
       'title': 'Independent Positions',
-      'desc':
-          'Each axis has its own ScrollPosition with separate min/max '
+      'desc': 'Each axis has its own ScrollPosition with separate min/max '
           'extents, current offset, and notification listeners. '
           'Scrolling one axis does not affect the other.',
       'visual': [
@@ -269,8 +258,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Controller Attachment',
-      'desc':
-          'Each position can be controlled by a separate '
+      'desc': 'Each position can be controlled by a separate '
           'ScrollController. This allows programmatic scrolling '
           'per axis: jumpTo, animateTo, addListener.',
       'visual': [
@@ -286,8 +274,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Physics Per Axis',
-      'desc':
-          'Horizontal and vertical can have different scroll physics. '
+      'desc': 'Horizontal and vertical can have different scroll physics. '
           'Example: clamping horizontally (no overscroll) while '
           'bouncing vertically (iOS-style overscroll).',
       'visual': [
@@ -348,17 +335,15 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: lines
-                      .map(
-                        (ln) => Text(
-                          ln,
-                          style: const TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 10,
-                            color: Color(0xFFCDD6F4),
-                            height: 1.5,
-                          ),
-                        ),
-                      )
+                      .map((ln) => Text(
+                            ln,
+                            style: const TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                              color: Color(0xFFCDD6F4),
+                              height: 1.5,
+                            ),
+                          ))
                       .toList(),
                 ),
               ),
@@ -377,16 +362,14 @@ dynamic build(BuildContext context) {
   final gestureSteps = <Map<String, dynamic>>[
     {
       'step': '1. Touch Down',
-      'desc':
-          'User places finger on screen. RawGestureDetector registers '
+      'desc': 'User places finger on screen. RawGestureDetector registers '
           'a potential drag in both directions simultaneously.',
       'icon': Icons.touch_app,
       'color': Colors.teal,
     },
     {
       'step': '2. Direction Detection',
-      'desc':
-          'As the finger moves, the delta is analyzed. The dominant '
+      'desc': 'As the finger moves, the delta is analyzed. The dominant '
           'direction (H or V) is determined based on '
           'diagonalDragBehavior setting.',
       'icon': Icons.explore,
@@ -394,8 +377,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Delta Decomposition',
-      'desc':
-          'The drag delta (dx, dy) is split according to the behavior: '
+      'desc': 'The drag delta (dx, dy) is split according to the behavior: '
           'free mode passes both; none mode zeroes the non-dominant; '
           'weighted modes scale by ratio.',
       'icon': Icons.call_split,
@@ -403,8 +385,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Position Update',
-      'desc':
-          'Each axis ScrollPosition receives its portion of the delta. '
+      'desc': 'Each axis ScrollPosition receives its portion of the delta. '
           'The position applies physics (clamping, bouncing) and '
           'updates its pixel offset.',
       'icon': Icons.system_update_alt,
@@ -412,8 +393,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Viewport Notified',
-      'desc':
-          'Both positions notify their listeners. The viewport '
+      'desc': 'Both positions notify their listeners. The viewport '
           'receives the new offsets and relayouts its children, '
           'removing offscreen cells and building new ones.',
       'icon': Icons.notifications_active,
@@ -440,7 +420,11 @@ dynamic build(BuildContext context) {
                     color: gsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(gs['icon'] as IconData, color: gsColor, size: 20),
+                  child: Icon(
+                    gs['icon'] as IconData,
+                    color: gsColor,
+                    size: 20,
+                  ),
                 ),
                 if (i < gestureSteps.length - 1)
                   Container(
@@ -497,12 +481,10 @@ dynamic build(BuildContext context) {
   final vbTopics = <Map<String, dynamic>>[
     {
       'title': 'Builder Callback Signature',
-      'desc':
-          'The viewportBuilder receives a BuildContext and two '
+      'desc': 'The viewportBuilder receives a BuildContext and two '
           'ViewportOffset objects (horizontal and vertical). It must '
           'return a TwoDimensionalViewport widget.',
-      'code':
-          'viewportBuilder: (\n'
+      'code': 'viewportBuilder: (\n'
           '  BuildContext ctx,\n'
           '  ViewportOffset horizontalOffset,\n'
           '  ViewportOffset verticalOffset,\n'
@@ -518,13 +500,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'ViewportOffset Explained',
-      'desc':
-          'ViewportOffset is the abstract base of ScrollPosition. '
+      'desc': 'ViewportOffset is the abstract base of ScrollPosition. '
           'It provides .pixels (current offset) and .applyViewportDimension '
           'for the viewport to report its size. The viewport listens '
           'for changes to trigger relayout.',
-      'code':
-          '// Inside the Viewport:\n'
+      'code': '// Inside the Viewport:\n'
           'horizontalOffset.addListener(_onScrollChanged);\n'
           'verticalOffset.addListener(_onScrollChanged);\n'
           '\n'
@@ -535,13 +515,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Rebuild Triggers',
-      'desc':
-          'The viewport is rebuilt when: a scroll position changes, '
+      'desc': 'The viewport is rebuilt when: a scroll position changes, '
           'the widget size changes (new constraints), the delegate '
           'changes, or a hot reload occurs. Only visible cells '
           'are rebuilt.',
-      'code':
-          '// Rebuilds when:\n'
+      'code': '// Rebuilds when:\n'
           '// - horizontalOffset.pixels changes\n'
           '// - verticalOffset.pixels changes\n'
           '// - Size constraints change\n'
@@ -618,8 +596,7 @@ dynamic build(BuildContext context) {
   final incrTopics = <Map<String, dynamic>>[
     {
       'title': 'What Are Scroll Increments?',
-      'desc':
-          'When the user presses arrow keys, Page Up/Down, or uses '
+      'desc': 'When the user presses arrow keys, Page Up/Down, or uses '
           'scroll buttons, the scrollable needs to know how many '
           'pixels to move per step. The incrementCalculator provides '
           'this as an Offset(dx, dy).',
@@ -628,8 +605,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Default Behavior',
-      'desc':
-          'Without a custom calculator, the scrollable uses '
+      'desc': 'Without a custom calculator, the scrollable uses '
           'standard Material increments: arrow keys move ~50px, '
           'page keys move one viewport extent minus some margin.',
       'icon': Icons.arrow_circle_down,
@@ -637,8 +613,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Calculator',
-      'desc':
-          'For a spreadsheet, you might want arrow keys to move '
+      'desc': 'For a spreadsheet, you might want arrow keys to move '
           'exactly one cell width/height. The calculator receives '
           'the ScrollIncrementDetails with axis, type (line/page), '
           'and metrics.',
@@ -647,8 +622,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No Keyboard = No Calculator',
-      'desc':
-          'On mobile devices without keyboard, the increment '
+      'desc': 'On mobile devices without keyboard, the increment '
           'calculator is never called. It only matters for desktop '
           'and web platforms where keyboard navigation is expected.',
       'icon': Icons.phone_android,
@@ -720,12 +694,10 @@ dynamic build(BuildContext context) {
   final integrationItems = <Map<String, dynamic>>[
     {
       'title': 'With ScrollControllers',
-      'desc':
-          'Attach separate ScrollControllers to each axis for '
+      'desc': 'Attach separate ScrollControllers to each axis for '
           'programmatic control, listening to offset changes, '
           'and animating to specific positions.',
-      'code':
-          'final hCtrl = ScrollController();\n'
+      'code': 'final hCtrl = ScrollController();\n'
           'final vCtrl = ScrollController();\n'
           '\n'
           'TwoDimensionalScrollView(\n'
@@ -741,12 +713,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'With NotificationListener',
-      'desc':
-          'Listen for ScrollNotification from either axis using a '
+      'desc': 'Listen for ScrollNotification from either axis using a '
           'NotificationListener. The notification includes metrics '
           'from the scrolled axis.',
-      'code':
-          'NotificationListener<ScrollNotification>(\n'
+      'code': 'NotificationListener<ScrollNotification>(\n'
           '  onNotification: (notification) {\n'
           '    print(notification.metrics.pixels);\n'
           '    return false;\n'
@@ -757,12 +727,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'With Scrollbar',
-      'desc':
-          'Each axis can have its own scrollbar. Wrapping with two '
+      'desc': 'Each axis can have its own scrollbar. Wrapping with two '
           'Scrollbar widgets (one horizontal, one vertical) connected '
           'to the respective controllers provides visual feedback.',
-      'code':
-          '// Vertical scrollbar\n'
+      'code': '// Vertical scrollbar\n'
           'Scrollbar(\n'
           '  controller: vCtrl,\n'
           '  child: // Horizontal scrollbar\n'
@@ -844,38 +812,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.swap_horiz,
-      'text':
-          'TwoDimensionalScrollable manages two independent '
+      'text': 'TwoDimensionalScrollable manages two independent '
           'ScrollPositions for horizontal and vertical scrolling.',
     },
     {
       'icon': Icons.touch_app,
-      'text':
-          'Gesture routing splits drag deltas between axes based '
+      'text': 'Gesture routing splits drag deltas between axes based '
           'on the diagonalDragBehavior setting.',
     },
     {
       'icon': Icons.build,
-      'text':
-          'The viewportBuilder callback receives both offsets and '
+      'text': 'The viewportBuilder callback receives both offsets and '
           'must return a TwoDimensionalViewport.',
     },
     {
       'icon': Icons.keyboard,
-      'text':
-          'incrementCalculator customizes keyboard/button scroll '
+      'text': 'incrementCalculator customizes keyboard/button scroll '
           'amounts, defaulting to Material conventions.',
     },
     {
       'icon': Icons.compare_arrows,
-      'text':
-          'Each axis can have independent physics, controllers, '
+      'text': 'Each axis can have independent physics, controllers, '
           'and scroll physics for maximum flexibility.',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'Sits between TwoDimensionalScrollView (user API) and '
+      'text': 'Sits between TwoDimensionalScrollView (user API) and '
           'TwoDimensionalViewport (rendering). The coordination layer.',
     },
   ];

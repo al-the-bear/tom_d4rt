@@ -325,7 +325,8 @@ dynamic build(BuildContext context) {
       'label': 'Local Dev Server (HTTP)',
       'uri': localUri,
       'bundle': localBundle,
-      'note': 'The mailroom across the corridor. Plain post; no escort needed.',
+      'note':
+          'The mailroom across the corridor. Plain post; no escort needed.',
       'icon': Icons.computer,
       'color': Color(0xFF6A1B9A),
     },
@@ -835,7 +836,10 @@ dynamic build(BuildContext context) {
                 Icon(c['icon'] as IconData, color: color, size: 20.0),
                 SizedBox(width: 6.0),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 6.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: BorderRadius.circular(4.0),
@@ -1009,7 +1013,10 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     s['desc'] as String,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF3E2723)),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Color(0xFF3E2723),
+                    ),
                   ),
                 ],
               ),
@@ -1392,7 +1399,12 @@ dynamic build(BuildContext context) {
   final ledgerEntries = <Widget>[];
   final allBundles = [cdnBundle, localBundle, versionedBundle, regionalBundle];
   final allUris = [cdnUri, localUri, versionedUri, regionalUri];
-  final ledgerLabels = ['Public CDN', 'Local Dev', 'Versioned', 'Regional EU'];
+  final ledgerLabels = [
+    'Public CDN',
+    'Local Dev',
+    'Versioned',
+    'Regional EU',
+  ];
   for (var i = 0; i < allBundles.length; i++) {
     final bundle = allBundles[i];
     final uri = allUris[i];
@@ -1927,6 +1939,10 @@ Widget _code(String code, Color textColor) {
 Widget _para(String text) {
   return Text(
     text,
-    style: TextStyle(fontSize: 12.0, height: 1.5, color: Color(0xFF3E2723)),
+    style: TextStyle(
+      fontSize: 12.0,
+      height: 1.5,
+      color: Color(0xFF3E2723),
+    ),
   );
 }

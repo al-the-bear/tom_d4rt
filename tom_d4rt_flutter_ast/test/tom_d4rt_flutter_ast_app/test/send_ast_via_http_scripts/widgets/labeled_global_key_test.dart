@@ -29,24 +29,18 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
-              color: fg,
-              letterSpacing: 0.3,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: fg,
+                  letterSpacing: 0.3)),
           const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              color: fg.withValues(alpha: 0.75),
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+          Text(subtitle,
+              style: TextStyle(
+                  fontSize: 12,
+                  color: fg.withValues(alpha: 0.75),
+                  fontStyle: FontStyle.italic)),
         ],
       ),
     );
@@ -62,10 +56,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(10),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 12, color: border, height: 1.5),
-      ),
+      child: Text(text,
+          style: TextStyle(fontSize: 12, color: border, height: 1.5)),
     );
   }
 
@@ -87,25 +79,19 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: accent)),
           ),
           Flexible(
-            child: Text(
-              value,
-              style: TextStyle(
-                fontSize: 11,
-                color: accent.withValues(alpha: 0.8),
-                fontFamily: 'monospace',
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
+            child: Text(value,
+                style: TextStyle(
+                    fontSize: 11,
+                    color: accent.withValues(alpha: 0.8),
+                    fontFamily: 'monospace'),
+                overflow: TextOverflow.ellipsis),
           ),
         ],
       ),
@@ -120,10 +106,8 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
-      ),
+      child: Text(text,
+          style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
     );
   }
 
@@ -135,24 +119,18 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 150,
-            child: Text(
-              key,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: accent,
-              ),
-            ),
+            child: Text(key,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(
-              val,
-              style: TextStyle(
-                fontSize: 11,
-                color: accent.withValues(alpha: 0.8),
-                fontFamily: 'monospace',
-              ),
-            ),
+            child: Text(val,
+                style: TextStyle(
+                    fontSize: 11,
+                    color: accent.withValues(alpha: 0.8),
+                    fontFamily: 'monospace')),
           ),
         ],
       ),
@@ -172,17 +150,13 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 3),
-        Text(label, style: const TextStyle(fontSize: 8, color: Colors.black54)),
+        Text(label,
+            style: const TextStyle(fontSize: 8, color: Colors.black54)),
       ],
     );
   }
 
-  Widget keyCard(
-    String label,
-    String debugLabel,
-    String details,
-    Color accent,
-  ) {
+  Widget keyCard(String label, String debugLabel, String details, Color accent) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12),
@@ -202,68 +176,49 @@ dynamic build(BuildContext context) {
                   color: accent,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text(
-                  label,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
+                child: Text(label,
+                    style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white)),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  debugLabel,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: accent,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                child: Text(debugLabel,
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: accent,
+                        fontFamily: 'monospace')),
               ),
             ],
           ),
           const SizedBox(height: 6),
-          Text(
-            details,
-            style: TextStyle(
-              fontSize: 11,
-              color: accent.withValues(alpha: 0.75),
-              height: 1.4,
-            ),
-          ),
+          Text(details,
+              style: TextStyle(
+                  fontSize: 11,
+                  color: accent.withValues(alpha: 0.75),
+                  height: 1.4)),
         ],
       ),
     );
   }
 
-  Widget hierarchyRow(
-    String indent,
-    String className,
-    Color accent,
-    bool highlight,
-  ) {
+  Widget hierarchyRow(String indent, String className, Color accent, bool highlight) {
     return Container(
       margin: const EdgeInsets.only(bottom: 4),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: highlight ? accent.withValues(alpha: 0.12) : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
-        border: highlight
-            ? Border.all(color: accent.withValues(alpha: 0.3))
-            : null,
+        border: highlight ? Border.all(color: accent.withValues(alpha: 0.3)) : null,
       ),
-      child: Text(
-        '$indent$className',
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: highlight ? FontWeight.w700 : FontWeight.w400,
-          color: highlight ? accent : accent.withValues(alpha: 0.7),
-          fontFamily: 'monospace',
-        ),
-      ),
+      child: Text('$indent$className',
+          style: TextStyle(
+              fontSize: 11,
+              fontWeight: highlight ? FontWeight.w700 : FontWeight.w400,
+              color: highlight ? accent : accent.withValues(alpha: 0.7),
+              fontFamily: 'monospace')),
     );
   }
 
@@ -277,19 +232,14 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
-              color: fg,
-            ),
-          ),
+          Text(value,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: fg)),
           const SizedBox(height: 2),
-          Text(
-            label,
-            style: TextStyle(fontSize: 9, color: fg.withValues(alpha: 0.7)),
-          ),
+          Text(label,
+              style: TextStyle(fontSize: 9, color: fg.withValues(alpha: 0.7))),
         ],
       ),
     );
@@ -375,12 +325,8 @@ dynamic build(BuildContext context) {
         ),
 
         // ── 2. Concept overview ──────────────────────────────────────
-        sectionBanner(
-          '2 · Concept Overview',
-          'Understanding labeled global keys',
-          burnedSienna,
-          Colors.white,
-        ),
+        sectionBanner('2 · Concept Overview',
+            'Understanding labeled global keys', burnedSienna, Colors.white),
         noteBox(
           'LabeledGlobalKey<T extends State<StatefulWidget>> is a GlobalKey '
           'subclass that carries a debugging label. Unlike ValueKey, '
@@ -405,12 +351,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Labeled creation ──────────────────────────────────────
-        sectionBanner(
-          '3 · Creating Labeled Keys',
-          'Keys with descriptive debug labels',
-          warmTerracotta,
-          deepRust,
-        ),
+        sectionBanner('3 · Creating Labeled Keys',
+            'Keys with descriptive debug labels', warmTerracotta, deepRust),
         noteBox(
           'Creating a LabeledGlobalKey with a string label provides '
           'meaningful debug output. The label is purely for debugging — '
@@ -427,12 +369,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Null label card ───────────────────────────────────────
-        sectionBanner(
-          '4 · Null Label Behavior',
-          'Keys without debug labels',
-          clayBrown,
-          Colors.white,
-        ),
+        sectionBanner('4 · Null Label Behavior',
+            'Keys without debug labels', clayBrown, Colors.white),
         noteBox(
           'Passing null (or omitting the label) creates a LabeledGlobalKey '
           'without a debug label. The toString() output will be less '
@@ -454,12 +392,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Typed key panel ───────────────────────────────────────
-        sectionBanner(
-          '5 · Typed LabeledGlobalKey',
-          'Keys parameterized with State types',
-          brickRose,
-          Colors.white,
-        ),
+        sectionBanner('5 · Typed LabeledGlobalKey',
+            'Keys parameterized with State types', brickRose, Colors.white),
         noteBox(
           'LabeledGlobalKey<T> can be typed with a specific State subclass. '
           'This enables type-safe access to the State via key.currentState. '
@@ -467,18 +401,12 @@ dynamic build(BuildContext context) {
           deepRust,
           sandstone,
         ),
-        keyCard(
-          'FORM',
-          'typedKey<FormState>',
-          'Provides type-safe access to FormState via currentState',
-          deepRust,
-        ),
-        keyCard(
-          'SCAFFOLD',
-          'typedKey<ScaffoldState>',
-          'Enables opening drawers via ScaffoldState',
-          burnedSienna,
-        ),
+        keyCard('FORM', 'typedKey<FormState>',
+            'Provides type-safe access to FormState via currentState',
+            deepRust),
+        keyCard('SCAFFOLD', 'typedKey<ScaffoldState>',
+            'Enables opening drawers via ScaffoldState',
+            burnedSienna),
         dataRow('FormState key', '$typedKey', deepRust),
         dataRow('ScaffoldState key', '$typedScaffold', burnedSienna),
         dataRow('Type parameter', 'State subclass', clayBrown),
@@ -492,12 +420,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Uniqueness grid ───────────────────────────────────────
-        sectionBanner(
-          '6 · Identity-Based Uniqueness',
-          'Same label ≠ same key',
-          adobeRed,
-          Colors.white,
-        ),
+        sectionBanner('6 · Identity-Based Uniqueness',
+            'Same label ≠ same key', adobeRed, Colors.white),
         noteBox(
           'Two LabeledGlobalKeys with the same label are NOT equal. '
           'Equality is based on instance identity, not label content. '
@@ -517,51 +441,29 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Identity Comparison',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: deepRust,
-                ),
-              ),
+              Text('Identity Comparison',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: deepRust)),
               const SizedBox(height: 8),
-              dataRow(
-                'Same label, diff instance',
-                '${keySameLabel1 != keySameLabel2} (not equal)',
-                deepRust,
-              ),
-              dataRow(
-                'Self-comparison',
-                '${keySameLabel1 == keySameLabel1} (equal)',
-                burnedSienna,
-              ),
-              dataRow(
-                'Reference copy',
-                '${keySameLabel1 == keySameLabel1} (equal)',
-                clayBrown,
-              ),
+              dataRow('Same label, diff instance', '${keySameLabel1 != keySameLabel2} (not equal)', deepRust),
+              dataRow('Self-comparison', '${keySameLabel1 == keySameLabel1} (equal)', burnedSienna),
+              dataRow('Reference copy', '${keySameLabel1 == keySameLabel1} (equal)', clayBrown),
               const SizedBox(height: 6),
-              Text(
-                'Each constructor call creates a unique key',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: deepRust.withValues(alpha: 0.7),
-                ),
-              ),
+              Text('Each constructor call creates a unique key',
+                  style: TextStyle(
+                      fontSize: 11,
+                      fontStyle: FontStyle.italic,
+                      color: deepRust.withValues(alpha: 0.7))),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 7. toString display ──────────────────────────────────────
-        sectionBanner(
-          '7 · String Representation',
-          'Debug-friendly toString output',
-          sunbaked,
-          deepRust,
-        ),
+        sectionBanner('7 · String Representation',
+            'Debug-friendly toString output', sunbaked, deepRust),
         noteBox(
           'toString() includes the debug label in brackets, making it '
           'easy to identify keys in debug output and the widget inspector.',
@@ -582,12 +484,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Inheritance chain ─────────────────────────────────────
-        sectionBanner(
-          '8 · Inheritance Hierarchy',
-          'Class hierarchy and key type system',
-          earthenOchre,
-          deepRust,
-        ),
+        sectionBanner('8 · Inheritance Hierarchy',
+            'Class hierarchy and key type system', earthenOchre, deepRust),
         noteBox(
           'LabeledGlobalKey sits at the top of a specialized hierarchy. '
           'Understanding the key type system is essential for choosing '
@@ -609,12 +507,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. State access panel ────────────────────────────────────
-        sectionBanner(
-          '9 · State Access Methods',
-          'currentState, currentWidget, currentContext',
-          deepRust,
-          Colors.white,
-        ),
+        sectionBanner('9 · State Access Methods',
+            'currentState, currentWidget, currentContext', deepRust, Colors.white),
         noteBox(
           'GlobalKey provides access to the widget tree through three '
           'getters: currentState (the State object), currentWidget (the '
@@ -645,25 +539,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Access Patterns',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: adobeRed,
-                ),
-              ),
+              Text('Access Patterns',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: adobeRed)),
               const SizedBox(height: 6),
-              dataRow(
-                'Form validation',
-                'formKey.currentState?.validate()',
-                deepRust,
-              ),
-              dataRow(
-                'Open drawer',
-                'scaffoldKey.currentState?.openDrawer()',
-                burnedSienna,
-              ),
+              dataRow('Form validation', 'formKey.currentState?.validate()', deepRust),
+              dataRow('Open drawer', 'scaffoldKey.currentState?.openDrawer()', burnedSienna),
               dataRow('Get context', 'key.currentContext', clayBrown),
               dataRow('Find widget', 'key.currentWidget', brickRose),
             ],
@@ -672,12 +555,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Comparison behavior ──────────────────────────────────
-        sectionBanner(
-          '10 · Equality & HashCode',
-          'Identity-based comparison mechanics',
-          burnedSienna,
-          Colors.white,
-        ),
+        sectionBanner('10 · Equality & HashCode',
+            'Identity-based comparison mechanics', burnedSienna, Colors.white),
         noteBox(
           'LabeledGlobalKey uses Dart\'s default identity equality. '
           'Each instance has a unique identity — even keys with identical '
@@ -687,27 +566,15 @@ dynamic build(BuildContext context) {
         ),
         dataRow('key1 == key2', '${key1 == key2}', deepRust),
         dataRow('key1 == key1', '${key1 == key1}', burnedSienna),
-        dataRow(
-          'sameLabel1 == sameLabel2',
-          '${keySameLabel1 == keySameLabel2}',
-          clayBrown,
-        ),
+        dataRow('sameLabel1 == sameLabel2', '${keySameLabel1 == keySameLabel2}', clayBrown),
         dataRow('key1.hashCode', '${key1.hashCode}', brickRose),
         dataRow('key2.hashCode', '${key2.hashCode}', adobeRed),
-        dataRow(
-          'Hashes different',
-          '${key1.hashCode != key2.hashCode}',
-          sunbaked,
-        ),
+        dataRow('Hashes different', '${key1.hashCode != key2.hashCode}', sunbaked),
         const SizedBox(height: 14),
 
         // ── 11. Builder integration ──────────────────────────────────
-        sectionBanner(
-          '11 · Builder Widget Integration',
-          'Using keys with Builder-pattern widgets',
-          clayBrown,
-          Colors.white,
-        ),
+        sectionBanner('11 · Builder Widget Integration',
+            'Using keys with Builder-pattern widgets', clayBrown, Colors.white),
         noteBox(
           'LabeledGlobalKey is commonly used with StatefulWidgets that '
           'expose their State through a key. Builder, Form, Scaffold, '
@@ -715,39 +582,23 @@ dynamic build(BuildContext context) {
           deepRust,
           sandstone,
         ),
-        keyCard(
-          'FORM',
-          'GlobalKey<FormState>',
-          'Form(key: formKey) → formKey.currentState?.validate()',
-          deepRust,
-        ),
-        keyCard(
-          'SCAFFOLD',
-          'GlobalKey<ScaffoldState>',
-          'Scaffold(key: scaffoldKey) → scaffoldKey.currentState?.openDrawer()',
-          burnedSienna,
-        ),
-        keyCard(
-          'NAVIGATOR',
-          'GlobalKey<NavigatorState>',
-          'Navigator(key: navKey) → navKey.currentState?.push(...)',
-          clayBrown,
-        ),
-        keyCard(
-          'ANIMATED',
-          'GlobalKey<AnimatedListState>',
-          'AnimatedList(key: listKey) → listKey.currentState?.insertItem(0)',
-          brickRose,
-        ),
+        keyCard('FORM', 'GlobalKey<FormState>',
+            'Form(key: formKey) → formKey.currentState?.validate()',
+            deepRust),
+        keyCard('SCAFFOLD', 'GlobalKey<ScaffoldState>',
+            'Scaffold(key: scaffoldKey) → scaffoldKey.currentState?.openDrawer()',
+            burnedSienna),
+        keyCard('NAVIGATOR', 'GlobalKey<NavigatorState>',
+            'Navigator(key: navKey) → navKey.currentState?.push(...)',
+            clayBrown),
+        keyCard('ANIMATED', 'GlobalKey<AnimatedListState>',
+            'AnimatedList(key: listKey) → listKey.currentState?.insertItem(0)',
+            brickRose),
         const SizedBox(height: 14),
 
         // ── 12. Form field keys ──────────────────────────────────────
-        sectionBanner(
-          '12 · Form Field Key Patterns',
-          'Keys for form validation and control',
-          adobeRed,
-          Colors.white,
-        ),
+        sectionBanner('12 · Form Field Key Patterns',
+            'Keys for form validation and control', adobeRed, Colors.white),
         noteBox(
           'Forms are the most common use case for LabeledGlobalKey. '
           'A Form widget with a GlobalKey<FormState> enables validation, '
@@ -766,31 +617,21 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Form Operations',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: deepRust,
-                ),
-              ),
+              Text('Form Operations',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: deepRust)),
               const SizedBox(height: 8),
               dataRow('validate()', 'Triggers all field validators', deepRust),
               dataRow('save()', 'Calls onSaved on all fields', burnedSienna),
-              dataRow(
-                'reset()',
-                'Resets all fields to initial values',
-                clayBrown,
-              ),
+              dataRow('reset()', 'Resets all fields to initial values', clayBrown),
               const SizedBox(height: 6),
-              Text(
-                'All operations available via formKey.currentState',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: deepRust.withValues(alpha: 0.7),
-                ),
-              ),
+              Text('All operations available via formKey.currentState',
+                  style: TextStyle(
+                      fontSize: 11,
+                      fontStyle: FontStyle.italic,
+                      color: deepRust.withValues(alpha: 0.7))),
             ],
           ),
         ),
@@ -805,12 +646,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Scrollable keys ──────────────────────────────────────
-        sectionBanner(
-          '13 · Scrollable Widget Keys',
-          'Keys for scroll control and introspection',
-          sunbaked,
-          deepRust,
-        ),
+        sectionBanner('13 · Scrollable Widget Keys',
+            'Keys for scroll control and introspection', sunbaked, deepRust),
         noteBox(
           'Scrollable widgets like ListView, GridView, and CustomScrollView '
           'can be controlled via GlobalKeys. Access the ScrollController '
@@ -818,24 +655,15 @@ dynamic build(BuildContext context) {
           deepRust,
           sandstone,
         ),
-        keyCard(
-          'SCROLL',
-          'scrollKey',
-          'Access ScrollPosition and ScrollController through State',
-          deepRust,
-        ),
-        keyCard(
-          'LIST',
-          'animatedListKey',
-          'AnimatedListState provides insertItem() and removeItem()',
-          burnedSienna,
-        ),
-        keyCard(
-          'SLIVER',
-          'sliverKey',
-          'SliverAnimatedListState for sliver-based animated lists',
-          clayBrown,
-        ),
+        keyCard('SCROLL', 'scrollKey',
+            'Access ScrollPosition and ScrollController through State',
+            deepRust),
+        keyCard('LIST', 'animatedListKey',
+            'AnimatedListState provides insertItem() and removeItem()',
+            burnedSienna),
+        keyCard('SLIVER', 'sliverKey',
+            'SliverAnimatedListState for sliver-based animated lists',
+            clayBrown),
         noteBox(
           'Scroll-related keys enable features like scroll-to-item, '
           'programmatic scroll position control, and scrollbar integration '
@@ -846,12 +674,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Animated widget keys ─────────────────────────────────
-        sectionBanner(
-          '14 · Animated Widget Keys',
-          'Keys for animation control',
-          earthenOchre,
-          deepRust,
-        ),
+        sectionBanner('14 · Animated Widget Keys',
+            'Keys for animation control', earthenOchre, deepRust),
         noteBox(
           'GlobalKeys enable reparenting widgets across different subtrees '
           'while preserving their State. This is the foundation for '
@@ -859,24 +683,15 @@ dynamic build(BuildContext context) {
           deepRust,
           sandstone,
         ),
-        keyCard(
-          'HERO',
-          'heroKey',
-          'Preserves State during Hero transitions between routes',
-          deepRust,
-        ),
-        keyCard(
-          'ANIM_LIST',
-          'animListKey',
-          'AnimatedListState.insertItem/removeItem with animation',
-          burnedSienna,
-        ),
-        keyCard(
-          'EXPANSION',
-          'expansionKey',
-          'ExpansionTile state for programmatic expand/collapse',
-          clayBrown,
-        ),
+        keyCard('HERO', 'heroKey',
+            'Preserves State during Hero transitions between routes',
+            deepRust),
+        keyCard('ANIM_LIST', 'animListKey',
+            'AnimatedListState.insertItem/removeItem with animation',
+            burnedSienna),
+        keyCard('EXPANSION', 'expansionKey',
+            'ExpansionTile state for programmatic expand/collapse',
+            clayBrown),
         noteBox(
           'When a widget with a GlobalKey moves from one parent to another, '
           'Flutter reparents the Element rather than creating a new one. '
@@ -887,12 +702,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Debugging patterns ───────────────────────────────────
-        sectionBanner(
-          '15 · Debugging Patterns',
-          'Using labels for effective debugging',
-          warmTerracotta,
-          Colors.white,
-        ),
+        sectionBanner('15 · Debugging Patterns',
+            'Using labels for effective debugging', warmTerracotta, Colors.white),
         noteBox(
           'The primary purpose of the label is debugging. Use descriptive '
           'labels that identify the widget purpose, not the widget type. '
@@ -911,14 +722,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Naming Conventions',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: deepRust,
-                ),
-              ),
+              Text('Naming Conventions',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: deepRust)),
               const SizedBox(height: 8),
               dataRow('✓ loginFormKey', 'Descriptive, clear purpose', deepRust),
               dataRow('✓ mainNavKey', 'Identifies the navigator', burnedSienna),
@@ -939,12 +747,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary dashboard ────────────────────────────────────
-        sectionBanner(
-          '16 · Summary Dashboard',
-          'LabeledGlobalKey metrics and usage',
-          deepRust,
-          Colors.white,
-        ),
+        sectionBanner('16 · Summary Dashboard',
+            'LabeledGlobalKey metrics and usage', deepRust, Colors.white),
         Wrap(
           spacing: 8,
           runSpacing: 8,
@@ -982,14 +786,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Rust / Terracotta Palette',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: deepRust,
-                ),
-              ),
+              Text('Rust / Terracotta Palette',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: deepRust)),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,

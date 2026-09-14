@@ -804,7 +804,9 @@ dynamic build(BuildContext context) {
           surfaceTintColor: Colors.pinkAccent,
           scrolledUnderElevation: 12.0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(24.0)),
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(24.0),
+            ),
           ),
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
@@ -1463,7 +1465,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 6.0),
         collapseParallaxDemo,
         SizedBox(height: 12.0),
-        Text('CollapseMode.pin', style: TextStyle(fontWeight: FontWeight.w600)),
+        Text(
+          'CollapseMode.pin',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
         SizedBox(height: 6.0),
         collapsePinDemo,
         SizedBox(height: 12.0),

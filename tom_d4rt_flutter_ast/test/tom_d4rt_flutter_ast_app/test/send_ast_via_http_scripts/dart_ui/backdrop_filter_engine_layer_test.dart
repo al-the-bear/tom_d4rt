@@ -126,7 +126,11 @@ class BackdropFilterDemoApp extends StatelessWidget {
               ),
               _EngineLayerDiagram(scheme: scheme),
               const SizedBox(height: 28.0),
-              _SectionHeader(index: 9, title: 'Recipe Gallery', scheme: scheme),
+              _SectionHeader(
+                index: 9,
+                title: 'Recipe Gallery',
+                scheme: scheme,
+              ),
               _RecipeGallery(scheme: scheme),
               const SizedBox(height: 28.0),
               _SectionHeader(
@@ -163,7 +167,11 @@ class _HeaderBanner extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[scheme.primary, scheme.secondary, scheme.tertiary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.secondary,
+            scheme.tertiary,
+          ],
         ),
         borderRadius: BorderRadius.circular(22.0),
         boxShadow: <BoxShadow>[
@@ -182,7 +190,11 @@ class _HeaderBanner extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.22),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.blur_on, size: 56.0, color: Colors.white),
+            child: const Icon(
+              Icons.blur_on,
+              size: 56.0,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(width: 20.0),
           Expanded(
@@ -300,9 +312,10 @@ class _SectionHeader extends StatelessWidget {
             height: 2.0,
             width: 90.0,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[scheme.primary, scheme.tertiary],
-              ),
+              gradient: LinearGradient(colors: <Color>[
+                scheme.primary,
+                scheme.tertiary,
+              ]),
               borderRadius: BorderRadius.circular(2.0),
             ),
           ),
@@ -489,7 +502,10 @@ class _GradientCanvas extends StatelessWidget {
     return Container(
       width: diameter,
       height: diameter,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+      ),
     );
   }
 }
@@ -552,7 +568,10 @@ class _BlurCard extends StatelessWidget {
                 const _GradientCanvas(width: w, height: h),
                 Positioned.fill(
                   child: BackdropFilter(
-                    filter: ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+                    filter: ui.ImageFilter.blur(
+                      sigmaX: sigma,
+                      sigmaY: sigma,
+                    ),
                     child: Container(
                       color: Colors.white.withValues(alpha: 0.05),
                       alignment: Alignment.bottomLeft,
@@ -593,7 +612,10 @@ class _BlurCard extends StatelessWidget {
           ),
           child: Text(
             _descriptionFor(sigma),
-            style: TextStyle(fontSize: 10.5, color: scheme.onSurfaceVariant),
+            style: TextStyle(
+              fontSize: 10.5,
+              color: scheme.onSurfaceVariant,
+            ),
           ),
         ),
       ],
@@ -678,7 +700,10 @@ class _DirectionalCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: scheme.outlineVariant, width: 1.0),
+        border: Border.all(
+          color: scheme.outlineVariant,
+          width: 1.0,
+        ),
       ),
       padding: const EdgeInsets.all(6.0),
       child: Column(
@@ -776,7 +801,10 @@ class _MorphologyPanel extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.zoom_out_map, color: scheme.onTertiaryContainer),
+              Icon(
+                Icons.zoom_out_map,
+                color: scheme.onTertiaryContainer,
+              ),
               const SizedBox(width: 8.0),
               Text(
                 'ImageFilter.dilate / ImageFilter.erode',
@@ -1306,7 +1334,11 @@ class _BlendModeShowcase extends StatelessWidget {
 }
 
 class _BlendEntry {
-  _BlendEntry({required this.mode, required this.overlay, required this.note});
+  _BlendEntry({
+    required this.mode,
+    required this.overlay,
+    required this.note,
+  });
   final BlendMode mode;
   final Color overlay;
   final String note;
@@ -1346,7 +1378,10 @@ class _BlendCard extends StatelessWidget {
                   ),
                   Positioned.fill(
                     child: BackdropFilter(
-                      filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                      filter: ui.ImageFilter.blur(
+                        sigmaX: 10.0,
+                        sigmaY: 10.0,
+                      ),
                       blendMode: entry.mode,
                       child: Container(color: entry.overlay),
                     ),
@@ -1383,7 +1418,10 @@ class _BlendCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Text(
               entry.note,
-              style: TextStyle(fontSize: 10.5, color: scheme.onSurfaceVariant),
+              style: TextStyle(
+                fontSize: 10.5,
+                color: scheme.onSurfaceVariant,
+              ),
             ),
           ),
         ],
@@ -1407,7 +1445,10 @@ class _EngineLayerDiagram extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[scheme.primaryContainer, scheme.tertiaryContainer],
+          colors: <Color>[
+            scheme.primaryContainer,
+            scheme.tertiaryContainer,
+          ],
         ),
         borderRadius: BorderRadius.circular(16.0),
       ),
@@ -1595,8 +1636,7 @@ class _FrostedCardRecipe extends StatelessWidget {
     const double h = 180.0;
     return _RecipeShell(
       title: 'Recipe 1: Frosted glass card',
-      caption:
-          'BackdropFilter + translucent rounded rectangle on top of '
+      caption: 'BackdropFilter + translucent rounded rectangle on top of '
           'a colourful gradient backdrop.',
       scheme: scheme,
       child: ClipRRect(
@@ -1800,7 +1840,9 @@ class _ModalScrimRecipe extends StatelessWidget {
               Positioned.fill(
                 child: BackdropFilter(
                   filter: ui.ImageFilter.blur(sigmaX: 18.0, sigmaY: 18.0),
-                  child: Container(color: Colors.black.withValues(alpha: 0.18)),
+                  child: Container(
+                    color: Colors.black.withValues(alpha: 0.18),
+                  ),
                 ),
               ),
               Center(
@@ -2021,7 +2063,10 @@ class _GlossaryPanel extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(Icons.menu_book, color: scheme.onPrimaryContainer),
+                  Icon(
+                    Icons.menu_book,
+                    color: scheme.onPrimaryContainer,
+                  ),
                   const SizedBox(width: 8.0),
                   Text(
                     'Glossary',
@@ -2035,7 +2080,12 @@ class _GlossaryPanel extends StatelessWidget {
               ),
               const SizedBox(height: 10.0),
               for (int i = 0; i < rows.length; i++)
-                _glossaryRow(rows[i][0], rows[i][1], scheme, alt: i.isEven),
+                _glossaryRow(
+                  rows[i][0],
+                  rows[i][1],
+                  scheme,
+                  alt: i.isEven,
+                ),
             ],
           ),
         ),
@@ -2105,7 +2155,10 @@ class _GlossaryPanel extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(Icons.report_problem, color: scheme.onErrorContainer),
+                  Icon(
+                    Icons.report_problem,
+                    color: scheme.onErrorContainer,
+                  ),
                   const SizedBox(width: 8.0),
                   Text(
                     'Pitfalls',
@@ -2140,12 +2193,7 @@ class _GlossaryPanel extends StatelessWidget {
     );
   }
 
-  Widget _glossaryRow(
-    String term,
-    String def,
-    ColorScheme s, {
-    bool alt = false,
-  }) {
+  Widget _glossaryRow(String term, String def, ColorScheme s, {bool alt = false}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2.0),
       padding: const EdgeInsets.all(10.0),
@@ -2192,7 +2240,11 @@ class _GlossaryPanel extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(Icons.check_circle, size: 16.0, color: s.tertiary),
+          Icon(
+            Icons.check_circle,
+            size: 16.0,
+            color: s.tertiary,
+          ),
           const SizedBox(width: 6.0),
           Expanded(
             child: Text(
@@ -2220,7 +2272,11 @@ class _GlossaryPanel extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(fontSize: 11.5, color: color, height: 1.35),
+              style: TextStyle(
+                fontSize: 11.5,
+                color: color,
+                height: 1.35,
+              ),
             ),
           ),
         ],

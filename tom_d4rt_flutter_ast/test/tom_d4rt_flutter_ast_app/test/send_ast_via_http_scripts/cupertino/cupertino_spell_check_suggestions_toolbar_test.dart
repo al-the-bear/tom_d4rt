@@ -101,19 +101,25 @@ const List<TypoSample> typoSamples = <TypoSample>[
 // Build helpers for static `ContextMenuButtonItem` lists.
 // ---------------------------------------------------------------------------
 
-List<ContextMenuButtonItem> buildSuggestionButtonItems(
-  List<String> suggestions,
-) {
+List<ContextMenuButtonItem> buildSuggestionButtonItems(List<String> suggestions) {
   final List<ContextMenuButtonItem> items = <ContextMenuButtonItem>[];
   for (final String suggestion in suggestions.take(3)) {
-    items.add(ContextMenuButtonItem(label: suggestion, onPressed: () {}));
+    items.add(
+      ContextMenuButtonItem(
+        label: suggestion,
+        onPressed: () {},
+      ),
+    );
   }
   return items;
 }
 
 List<ContextMenuButtonItem> buildEmptyStateItems() {
   return <ContextMenuButtonItem>[
-    ContextMenuButtonItem(label: 'No Replacements Found', onPressed: () {}),
+    ContextMenuButtonItem(
+      label: 'No Replacements Found',
+      onPressed: () {},
+    ),
   ];
 }
 
@@ -159,9 +165,7 @@ class SectionFrame extends StatelessWidget {
             padding: const EdgeInsets.all(14.0),
             decoration: BoxDecoration(
               color: accent,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(14.0),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(14.0)),
             ),
             child: Row(
               children: <Widget>[
@@ -202,7 +206,10 @@ class SectionFrame extends StatelessWidget {
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.all(16.0), child: body),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: body,
+          ),
         ],
       ),
     );
@@ -227,9 +234,7 @@ class IosSpellToolbarMock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color bg = dark
-        ? IosPalette.toolbarBackgroundDark
-        : IosPalette.toolbarBackground;
+    final Color bg = dark ? IosPalette.toolbarBackgroundDark : IosPalette.toolbarBackground;
     final Color fg = dark ? const Color(0xFFFFFFFF) : IosPalette.primaryText;
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -268,9 +273,11 @@ class IosSpellToolbarMock extends StatelessWidget {
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < suggestions.length; i++) {
       if (i > 0) {
-        children.add(
-          Container(width: 0.5, height: 30.0, color: IosPalette.separator),
-        );
+        children.add(Container(
+          width: 0.5,
+          height: 30.0,
+          color: IosPalette.separator,
+        ));
       }
       children.add(
         Padding(
@@ -367,22 +374,14 @@ class CodeListing extends StatelessWidget {
 class MisspelledRibbon extends StatelessWidget {
   final String sentence;
   final String typo;
-  const MisspelledRibbon({
-    super.key,
-    required this.sentence,
-    required this.typo,
-  });
+  const MisspelledRibbon({super.key, required this.sentence, required this.typo});
 
   @override
   Widget build(BuildContext context) {
     final int idx = sentence.indexOf(typo);
     final String pre = idx <= 0 ? '' : sentence.substring(0, idx);
-    final String hit = idx < 0
-        ? ''
-        : sentence.substring(idx, idx + typo.length);
-    final String post = idx < 0
-        ? sentence
-        : sentence.substring(idx + typo.length);
+    final String hit = idx < 0 ? '' : sentence.substring(idx, idx + typo.length);
+    final String post = idx < 0 ? sentence : sentence.substring(idx + typo.length);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -516,9 +515,7 @@ Widget anatomySection() {
               Positioned(
                 left: -10.0,
                 bottom: -32.0,
-                child: _anatomyLabel(
-                  'Anchor offset (TextSelectionToolbarAnchors)',
-                ),
+                child: _anatomyLabel('Anchor offset (TextSelectionToolbarAnchors)'),
               ),
             ],
           ),
@@ -527,8 +524,7 @@ Widget anatomySection() {
         const _AnatomyRow(
           dotColor: IosPalette.highlight,
           label: 'TextSelectionToolbarAnchors.primaryAnchor',
-          desc:
-              'Pixel position above the misspelled word; the toolbar tip aligns to it.',
+          desc: 'Pixel position above the misspelled word; the toolbar tip aligns to it.',
         ),
         const _AnatomyRow(
           dotColor: Color(0xFF34C759),
@@ -538,8 +534,7 @@ Widget anatomySection() {
         const _AnatomyRow(
           dotColor: Color(0xFFFF9500),
           label: '0.5 px hairline separators',
-          desc:
-              'iOS uses half-pixel separators between pills; native blur behind.',
+          desc: 'iOS uses half-pixel separators between pills; native blur behind.',
         ),
         const _AnatomyRow(
           dotColor: Color(0xFFFF3B30),
@@ -640,14 +635,13 @@ Widget defaultToolbarSection() {
   );
   final CupertinoSpellCheckSuggestionsToolbar realToolbar =
       CupertinoSpellCheckSuggestionsToolbar(
-        anchors: anchors,
-        buttonItems: items,
-      );
+    anchors: anchors,
+    buttonItems: items,
+  );
 
   return SectionFrame(
     title: 'Real Constructor',
-    subtitle:
-        'CupertinoSpellCheckSuggestionsToolbar(anchors: ..., buttonItems: ...)',
+    subtitle: 'CupertinoSpellCheckSuggestionsToolbar(anchors: ..., buttonItems: ...)',
     icon: CupertinoIcons.cube_box,
     accent: const Color(0xFFFF9500),
     body: Column(
@@ -667,10 +661,7 @@ Widget defaultToolbarSection() {
                 left: 12.0,
                 bottom: 8.0,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: const Color(0x99000000),
                     borderRadius: BorderRadius.circular(6.0),
@@ -697,8 +688,7 @@ Widget defaultToolbarSection() {
         ),
         const SizedBox(height: 8.0),
         const CodeListing(
-          code:
-              'CupertinoSpellCheckSuggestionsToolbar(\n'
+          code: 'CupertinoSpellCheckSuggestionsToolbar(\n'
               '  anchors: TextSelectionToolbarAnchors(\n'
               '    primaryAnchor: Offset(160.0, 220.0),\n'
               '    secondaryAnchor: Offset(160.0, 200.0),\n'
@@ -709,8 +699,7 @@ Widget defaultToolbarSection() {
               '    ContextMenuButtonItem(label: "then", onPressed: () {}),\n'
               '  ],\n'
               ')',
-          caption:
-              'Direct constructor — no EditableText needed for static demos.',
+          caption: 'Direct constructor — no EditableText needed for static demos.',
         ),
       ],
     ),
@@ -751,10 +740,7 @@ Widget _mockupCard(TypoSample sample) {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 2.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
               decoration: BoxDecoration(
                 color: IosPalette.underlineRed,
                 borderRadius: BorderRadius.circular(4.0),
@@ -782,10 +768,7 @@ Widget _mockupCard(TypoSample sample) {
                 children: <Widget>[
                   for (final String s in sample.suggestions)
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0,
-                        vertical: 2.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                       decoration: BoxDecoration(
                         color: IosPalette.highlightChip,
                         borderRadius: BorderRadius.circular(4.0),
@@ -806,7 +789,9 @@ Widget _mockupCard(TypoSample sample) {
         const SizedBox(height: 10.0),
         MisspelledRibbon(sentence: sample.contextSentence, typo: sample.typo),
         const SizedBox(height: 10.0),
-        Center(child: IosSpellToolbarMock(suggestions: sample.suggestions)),
+        Center(
+          child: IosSpellToolbarMock(suggestions: sample.suggestions),
+        ),
         const SizedBox(height: 6.0),
         Text(
           'TextRange(start: ${sample.range.start}, end: ${sample.range.end})',
@@ -836,16 +821,9 @@ Widget visualMockSection() {
       children: <Widget>[
         const Text('Idle state', style: _stateHeader),
         const SizedBox(height: 8.0),
-        Center(
-          child: IosSpellToolbarMock(
-            suggestions: <String>['the', 'them', 'then'],
-          ),
-        ),
+        Center(child: IosSpellToolbarMock(suggestions: <String>['the', 'them', 'then'])),
         const SizedBox(height: 24.0),
-        const Text(
-          'Hover state (middle pill highlighted)',
-          style: _stateHeader,
-        ),
+        const Text('Hover state (middle pill highlighted)', style: _stateHeader),
         const SizedBox(height: 8.0),
         Center(
           child: _StateAwarePillsMock(
@@ -934,9 +912,11 @@ class _StateAwarePillsMock extends StatelessWidget {
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < suggestions.length; i++) {
       if (i > 0) {
-        children.add(
-          Container(width: 0.5, height: 30.0, color: IosPalette.separator),
-        );
+        children.add(Container(
+          width: 0.5,
+          height: 30.0,
+          color: IosPalette.separator,
+        ));
       }
       final bool isHighlight = i == highlightIndex;
       Color bg = const Color(0x00000000);
@@ -950,9 +930,7 @@ class _StateAwarePillsMock extends StatelessWidget {
           child: Text(
             suggestions[i],
             style: TextStyle(
-              color: isHighlight && press
-                  ? IosPalette.highlight
-                  : IosPalette.primaryText,
+              color: isHighlight && press ? IosPalette.highlight : IosPalette.primaryText,
               fontSize: 14.0,
               fontWeight: isHighlight ? FontWeight.w600 : FontWeight.w500,
             ),
@@ -1026,11 +1004,7 @@ Widget comparisonSection() {
   );
 }
 
-Widget _platformColumn({
-  required String title,
-  required String subtitle,
-  required Widget child,
-}) {
+Widget _platformColumn({required String title, required String subtitle, required Widget child}) {
   return Container(
     padding: const EdgeInsets.all(10.0),
     decoration: BoxDecoration(
@@ -1051,7 +1025,10 @@ Widget _platformColumn({
         ),
         Text(
           subtitle,
-          style: const TextStyle(fontSize: 10.0, color: IosPalette.subtleText),
+          style: const TextStyle(
+            fontSize: 10.0,
+            color: IosPalette.subtleText,
+          ),
         ),
         const SizedBox(height: 14.0),
         Center(child: child),
@@ -1079,10 +1056,7 @@ Widget _materialPopupMock() {
       children: <Widget>[
         for (final String s in <String>['the', 'them', 'then'])
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 10.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
             child: Text(
               s,
               style: const TextStyle(
@@ -1116,8 +1090,7 @@ Widget _materialPopupMock() {
 Widget pipelineSection() {
   return SectionFrame(
     title: 'Spell-check pipeline',
-    subtitle:
-        'EditableText → SpellCheckConfiguration → DefaultSpellCheckService',
+    subtitle: 'EditableText → SpellCheckConfiguration → DefaultSpellCheckService',
     icon: CupertinoIcons.arrow_3_trianglepath,
     accent: const Color(0xFFAF52DE),
     body: Column(
@@ -1126,37 +1099,31 @@ Widget pipelineSection() {
         const _PipelineStep(
           n: '1',
           title: 'EditableText.spellCheckConfiguration',
-          desc:
-              'Opt in by passing a SpellCheckConfiguration to EditableText / CupertinoTextField.',
+          desc: 'Opt in by passing a SpellCheckConfiguration to EditableText / CupertinoTextField.',
         ),
         const _PipelineStep(
           n: '2',
           title: 'DefaultSpellCheckService',
-          desc:
-              'Calls into the platform spell-checker (iOS UITextChecker / Android suggestions).',
+          desc: 'Calls into the platform spell-checker (iOS UITextChecker / Android suggestions).',
         ),
         const _PipelineStep(
           n: '3',
           title: 'List<SuggestionSpan> from services.dart',
-          desc:
-              'Each span describes a TextRange and up to N suggestions for the misspelled slice.',
+          desc: 'Each span describes a TextRange and up to N suggestions for the misspelled slice.',
         ),
         const _PipelineStep(
           n: '4',
           title: 'spellCheckSuggestionsToolbarBuilder',
-          desc:
-              'Builds the toolbar widget from EditableTextState — defaults adapt to platform.',
+          desc: 'Builds the toolbar widget from EditableTextState — defaults adapt to platform.',
         ),
         const _PipelineStep(
           n: '5',
           title: 'CupertinoSpellCheckSuggestionsToolbar.editableText(state)',
-          desc:
-              'Convenience constructor that derives anchors + buttonItems from EditableTextState.',
+          desc: 'Convenience constructor that derives anchors + buttonItems from EditableTextState.',
         ),
         const SizedBox(height: 12.0),
         const CodeListing(
-          code:
-              'class SuggestionSpan {\n'
+          code: 'class SuggestionSpan {\n'
               '  final TextRange range;\n'
               '  final List<String> suggestions;\n'
               '  const SuggestionSpan(this.range, this.suggestions);\n'
@@ -1172,11 +1139,7 @@ class _PipelineStep extends StatelessWidget {
   final String n;
   final String title;
   final String desc;
-  const _PipelineStep({
-    required this.n,
-    required this.title,
-    required this.desc,
-  });
+  const _PipelineStep({required this.n, required this.title, required this.desc});
 
   @override
   Widget build(BuildContext context) {
@@ -1245,8 +1208,7 @@ Widget recipeSection() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const CodeListing(
-          code:
-              'CupertinoTextField(\n'
+          code: 'CupertinoTextField(\n'
               '  spellCheckConfiguration: SpellCheckConfiguration(\n'
               '    spellCheckService: DefaultSpellCheckService(),\n'
               '    spellCheckSuggestionsToolbarBuilder:\n'
@@ -1257,22 +1219,18 @@ Widget recipeSection() {
               '  ),\n'
               '  // ... other CupertinoTextField props (placeholder, padding, ...)\n'
               ');',
-          caption:
-              'Default builder is auto-selected when targetPlatform == iOS.',
+          caption: 'Default builder is auto-selected when targetPlatform == iOS.',
         ),
         const SizedBox(height: 12.0),
         const CodeListing(
-          code:
-              'CupertinoSpellCheckSuggestionsToolbar.editableText(\n'
+          code: 'CupertinoSpellCheckSuggestionsToolbar.editableText(\n'
               '  editableTextState: state,\n'
               ')',
-          caption:
-              'Equivalent to manually building anchors + buttonItems from state.',
+          caption: 'Equivalent to manually building anchors + buttonItems from state.',
         ),
         const SizedBox(height: 12.0),
         const CodeListing(
-          code:
-              'EditableText(\n'
+          code: 'EditableText(\n'
               '  controller: controller,\n'
               '  focusNode: focusNode,\n'
               '  style: textStyle,\n'
@@ -1306,37 +1264,31 @@ Widget pitfallsSection() {
       children: <Widget>[
         const _PitfallTile(
           title: 'DefaultSpellCheckService is not universal',
-          desc:
-              'On real devices it is currently iOS-only and Android-only; '
+          desc: 'On real devices it is currently iOS-only and Android-only; '
               'desktop and web fall back to no suggestions.',
         ),
         const _PitfallTile(
           title: 'Empty suggestion lists are valid',
-          desc:
-              'A SuggestionSpan may carry an empty List<String>; the toolbar '
+          desc: 'A SuggestionSpan may carry an empty List<String>; the toolbar '
               'shows "No Replacements Found" instead of a pill row.',
         ),
         const _PitfallTile(
           title: 'Maximum of 3 suggestions',
-          desc:
-              '_kMaxSuggestions == 3; extra entries beyond index 2 are silently dropped.',
+          desc: '_kMaxSuggestions == 3; extra entries beyond index 2 are silently dropped.',
         ),
         const _PitfallTile(
           title: 'Anchors must be in global coordinates',
-          desc:
-              'The toolbar positions itself using TextSelectionToolbarAnchors '
+          desc: 'The toolbar positions itself using TextSelectionToolbarAnchors '
               'against the global Overlay; misaligned anchors clip off-screen.',
         ),
         const _PitfallTile(
           title: 'Disposed EditableTextState',
-          desc:
-              'Capturing the state across frames inside a closure can crash '
+          desc: 'Capturing the state across frames inside a closure can crash '
               'when the field unmounts; rebuild via the toolbarBuilder callback.',
         ),
         const _PitfallTile(
           title: 'AdaptiveTextSelectionToolbar overrides',
-          desc:
-              'If you also set selectionControls, the toolbarBuilder must '
+          desc: 'If you also set selectionControls, the toolbarBuilder must '
               'cooperate with the controls menu — otherwise both render concurrently.',
         ),
       ],
@@ -1423,7 +1375,10 @@ Widget footerSection() {
         const SizedBox(height: 4.0),
         const Text(
           'Anchors • SuggestionSpan • DefaultSpellCheckService • iOS look-and-feel',
-          style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 11.0),
+          style: TextStyle(
+            color: Color(0xCCFFFFFF),
+            fontSize: 11.0,
+          ),
         ),
         const SizedBox(height: 12.0),
         Row(
@@ -1447,7 +1402,10 @@ Widget _footerStat(String label, String value) {
       children: <Widget>[
         Text(
           label,
-          style: const TextStyle(color: Color(0x99FFFFFF), fontSize: 10.0),
+          style: const TextStyle(
+            color: Color(0x99FFFFFF),
+            fontSize: 10.0,
+          ),
         ),
         Text(
           value,
@@ -1475,21 +1433,18 @@ dynamic build(BuildContext context) {
   );
   final List<SuggestionSpan> demoSpans = <SuggestionSpan>[
     demoSpan,
-    SuggestionSpan(const TextRange(start: 8, end: 15), const <String>[
-      'receive',
-      'receiver',
-      'receives',
-    ]),
-    SuggestionSpan(const TextRange(start: 8, end: 15), const <String>[
-      'occurred',
-      'occurs',
-      'occur',
-    ]),
-    SuggestionSpan(const TextRange(start: 10, end: 14), const <String>[
-      'a lot',
-      'about',
-      'along',
-    ]),
+    SuggestionSpan(
+      const TextRange(start: 8, end: 15),
+      const <String>['receive', 'receiver', 'receives'],
+    ),
+    SuggestionSpan(
+      const TextRange(start: 8, end: 15),
+      const <String>['occurred', 'occurs', 'occur'],
+    ),
+    SuggestionSpan(
+      const TextRange(start: 10, end: 14),
+      const <String>['a lot', 'about', 'along'],
+    ),
   ];
 
   return CupertinoApp(

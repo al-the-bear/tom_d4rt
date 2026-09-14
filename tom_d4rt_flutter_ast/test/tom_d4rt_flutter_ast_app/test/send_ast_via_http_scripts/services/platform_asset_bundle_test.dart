@@ -51,27 +51,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: wheat, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: TextStyle(
-                  color: caramel,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: TextStyle(
+                      color: caramel,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -88,14 +82,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: wheat),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: caramel.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: caramel.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -128,16 +119,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: caramel,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: caramel)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -148,19 +139,18 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? amber.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(bottom: BorderSide(color: wheat.withValues(alpha: 0.3))),
+        border: Border(
+          bottom: BorderSide(color: wheat.withValues(alpha: 0.3)),
+        ),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? caramel : deepAmber,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? caramel : deepAmber)),
           );
         }).toList(),
       ),
@@ -177,23 +167,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? caramel : deepAmber,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.arrow_forward, size: 12, color: amber),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.arrow_forward, size: 12, color: amber),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -220,24 +205,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            paFlow([
-              'pubspec.yaml',
-              'flutter build',
-              'AssetManifest',
-              'rootBundle.load()',
-              'ByteData',
-            ]),
+            paFlow(['pubspec.yaml', 'flutter build', 'AssetManifest',
+                'rootBundle.load()', 'ByteData']),
             const SizedBox(height: 10),
-            _paRoleBadge(
-              'Declares',
-              'pubspec.yaml flutter:assets section',
-              caramel,
-            ),
-            _paRoleBadge(
-              'Bundles',
-              'Build tool copies to asset dir',
-              deepAmber,
-            ),
+            _paRoleBadge('Declares', 'pubspec.yaml flutter:assets section', caramel),
+            _paRoleBadge('Bundles', 'Build tool copies to asset dir', deepAmber),
             _paRoleBadge('Manifests', 'AssetManifest.json maps keys', bronze),
             _paRoleBadge('Loads', 'rootBundle fetches bytes', amber),
           ],
@@ -265,11 +237,7 @@ dynamic build(BuildContext context) {
           children: [
             paRow(['Approach', 'Source', 'Testable?'], isHeader: true),
             paRow(['rootBundle', 'Global singleton', 'Hard to mock']),
-            paRow([
-              'DefaultAssetBundle.of()',
-              'InheritedWidget',
-              'Yes — wrap in test',
-            ]),
+            paRow(['DefaultAssetBundle.of()', 'InheritedWidget', 'Yes — wrap in test']),
           ],
         ),
       ),
@@ -297,11 +265,7 @@ dynamic build(BuildContext context) {
             paRow(['load(key)', 'Future<ByteData>', 'Binary files']),
             paRow(['loadString(key)', 'Future<String>', 'Text / JSON']),
             paRow(['loadStructuredData()', 'Future<T>', 'Parsed data']),
-            paRow([
-              'loadBuffer(key)',
-              'Future<ImmutableBuffer>',
-              'Optimized binary',
-            ]),
+            paRow(['loadBuffer(key)', 'Future<ImmutableBuffer>', 'Optimized binary']),
             paRow(['evict(key)', 'void', 'Clear from cache']),
             paRow(['clear()', 'void', 'Clear all cached']),
           ],
@@ -404,21 +368,12 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _paCodeLine('// Text asset', caramel),
-              _paCodeLine(
-                "final txt = await bundle.loadString('assets/about.txt');",
-                deepAmber,
-              ),
+              _paCodeLine("final txt = await bundle.loadString('assets/about.txt');", deepAmber),
               const SizedBox(height: 6),
               _paCodeLine('// JSON asset with caching', caramel),
-              _paCodeLine(
-                "final config = await bundle.loadStructuredData<Map>(",
-                deepAmber,
-              ),
+              _paCodeLine("final config = await bundle.loadStructuredData<Map>(", deepAmber),
               _paCodeLine("  'assets/config.json',", deepAmber),
-              _paCodeLine(
-                "  (str) async => jsonDecode(str) as Map,",
-                deepAmber,
-              ),
+              _paCodeLine("  (str) async => jsonDecode(str) as Map,", deepAmber),
               _paCodeLine(");", deepAmber),
             ],
           ),
@@ -446,12 +401,7 @@ dynamic build(BuildContext context) {
           children: [
             paRow(['Method', 'Return', 'Copy?', 'Best For'], isHeader: true),
             paRow(['load()', 'ByteData', '1 copy', 'General binary']),
-            paRow([
-              'loadBuffer()',
-              'ImmutableBuffer',
-              '0 copy',
-              'Images/shaders',
-            ]),
+            paRow(['loadBuffer()', 'ImmutableBuffer', '0 copy', 'Images/shaders']),
           ],
         ),
       ),
@@ -513,26 +463,11 @@ dynamic build(BuildContext context) {
             children: [
               _paCodeLine('flutter:', caramel),
               _paCodeLine('  assets:', caramel),
-              _paCodeLine(
-                '    - assets/logo.png        # single file',
-                deepAmber,
-              ),
-              _paCodeLine(
-                '    - assets/images/         # entire folder',
-                deepAmber,
-              ),
-              _paCodeLine(
-                '    - assets/images/icons/   # sub-folder too',
-                deepAmber,
-              ),
-              _paCodeLine(
-                '    - assets/config.json     # JSON config',
-                deepAmber,
-              ),
-              _paCodeLine(
-                '    - packages/pkg/asset.txt # package asset',
-                bronze,
-              ),
+              _paCodeLine('    - assets/logo.png        # single file', deepAmber),
+              _paCodeLine('    - assets/images/         # entire folder', deepAmber),
+              _paCodeLine('    - assets/images/icons/   # sub-folder too', deepAmber),
+              _paCodeLine('    - assets/config.json     # JSON config', deepAmber),
+              _paCodeLine('    - packages/pkg/asset.txt # package asset', bronze),
             ],
           ),
         ),
@@ -587,16 +522,8 @@ dynamic build(BuildContext context) {
           children: [
             paFlow(['packages/pkg_name/', 'lib/', 'assets/', 'file.png']),
             const SizedBox(height: 10),
-            _paKeyValue(
-              'Asset key',
-              'packages/my_pkg/assets/icon.svg',
-              caramel,
-            ),
-            _paKeyValue(
-              'Physical path',
-              'lib/assets/icon.svg in package',
-              deepAmber,
-            ),
+            _paKeyValue('Asset key', 'packages/my_pkg/assets/icon.svg', caramel),
+            _paKeyValue('Physical path', 'lib/assets/icon.svg in package', deepAmber),
             _paKeyValue('Resolution', 'Same 2.0x/3.0x rules apply', bronze),
           ],
         ),
@@ -622,11 +549,7 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             paRow(['Error', 'Cause', 'Fix'], isHeader: true),
-            paRow([
-              'Unable to load asset',
-              'Key not in manifest',
-              'Check pubspec',
-            ]),
+            paRow(['Unable to load asset', 'Key not in manifest', 'Check pubspec']),
             paRow(['FormatException', 'Binary loaded as string', 'Use load()']),
             paRow(['Asset not found', 'Missing build', 'flutter pub get']),
             paRow(['Wrong variant', 'Folder mismatch', 'Check 2.0x/ path']),
@@ -661,10 +584,7 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _paCodeLine(
-                'testWidgets("loads config", (tester) async {',
-                caramel,
-              ),
+              _paCodeLine('testWidgets("loads config", (tester) async {', caramel),
               _paCodeLine('  final bundle = TestAssetBundle();', deepAmber),
               _paCodeLine('  await tester.pumpWidget(', deepAmber),
               _paCodeLine('    DefaultAssetBundle(', deepAmber),
@@ -806,14 +726,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'PlatformAssetBundle — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('PlatformAssetBundle — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From rootBundle through manifests, resolution variants, '
@@ -845,22 +762,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -888,20 +793,13 @@ Widget _paRoleBadge(String role, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 70,
-          child: Text(
-            role,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(role,
+              style: TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -911,15 +809,12 @@ Widget _paRoleBadge(String role, String desc, Color color) {
 Widget _paCodeLine(String text, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 2),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 10,
-        fontFamily: 'monospace',
-        color: color,
-        height: 1.3,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            fontSize: 10,
+            fontFamily: 'monospace',
+            color: color,
+            height: 1.3)),
   );
 }
 
@@ -930,24 +825,15 @@ Widget _paKeyValue(String key, String value, Color color) {
       children: [
         SizedBox(
           width: 90,
-          child: Text(
-            key,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(key,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(
-              fontSize: 10,
-              fontFamily: 'monospace',
-              color: color.withValues(alpha: 0.8),
-            ),
-          ),
+          child: Text(value,
+              style: TextStyle(
+                  fontSize: 10, fontFamily: 'monospace',
+                  color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),

@@ -40,22 +40,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
+          Text(title,
+              style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
           const SizedBox(height: 3),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white.withValues(alpha: 0.85),
-            ),
-          ),
+          Text(subtitle,
+              style: TextStyle(
+                  fontSize: 12, color: Colors.white.withValues(alpha: 0.85))),
         ],
       ),
     );
@@ -91,10 +84,8 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
           ),
           Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(fontSize: 12.5, color: darkOlive),
-            ),
+            child: Text(text,
+                style: const TextStyle(fontSize: 12.5, color: darkOlive)),
           ),
         ],
       ),
@@ -108,23 +99,14 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
-      ),
+      child: Text(text,
+          style: const TextStyle(
+              fontSize: 11, fontWeight: FontWeight.w600, color: Colors.white)),
     );
   }
 
-  Widget srTreeRow(
-    String label, {
-    int indent = 0,
-    IconData icon = Icons.circle,
-    Color? color,
-  }) {
+  Widget srTreeRow(String label,
+      {int indent = 0, IconData icon = Icons.circle, Color? color}) {
     return Padding(
       padding: EdgeInsets.only(left: indent * 22.0, top: 3, bottom: 3),
       child: Row(
@@ -132,14 +114,11 @@ dynamic build(BuildContext context) {
           Icon(icon, size: 14, color: color ?? fernGreen),
           const SizedBox(width: 6),
           Expanded(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontFamily: 'monospace',
-                color: color ?? darkOlive,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: color ?? darkOlive)),
           ),
         ],
       ),
@@ -172,10 +151,8 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr01 — What is ChildSemanticsConfigurationsResult?',
-          'Return type from assembleSemanticsNode\'s partitioning logic',
-        ),
+        srHeader('sr01 — What is ChildSemanticsConfigurationsResult?',
+            'Return type from assembleSemanticsNode\'s partitioning logic'),
         const SizedBox(height: 10),
         srCard([
           const Text(
@@ -185,15 +162,15 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 13, color: darkOlive),
           ),
           const SizedBox(height: 10),
-          srBullet('mergeUp — configurations that merge into the parent node'),
           srBullet(
-            'siblingMergeUp — configurations that become sibling nodes, not merged',
-          ),
+              'mergeUp — configurations that merge into the parent node'),
           srBullet(
-            'The builder (ChildSemanticsConfigurationsResultBuilder) '
-            'creates these lists through markAsSiblingMergeUp() calls',
-          ),
-          srBullet('Used internally by RenderObject.assembleSemanticsNode'),
+              'siblingMergeUp — configurations that become sibling nodes, not merged'),
+          srBullet(
+              'The builder (ChildSemanticsConfigurationsResultBuilder) '
+              'creates these lists through markAsSiblingMergeUp() calls'),
+          srBullet(
+              'Used internally by RenderObject.assembleSemanticsNode'),
         ]),
         const SizedBox(height: 8),
         // Visual: two-bucket diagram
@@ -216,21 +193,16 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Text(
-                        'mergeUp',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: herb,
-                        ),
-                      ),
+                      const Text('mergeUp',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: herb)),
                       const SizedBox(height: 6),
                       const Icon(Icons.merge_type, size: 28, color: herb),
                       const SizedBox(height: 4),
-                      const Text(
-                        '→ parent node',
-                        style: TextStyle(fontSize: 11, color: darkOlive),
-                      ),
+                      const Text('→ parent node',
+                          style: TextStyle(fontSize: 11, color: darkOlive)),
                     ],
                   ),
                 ),
@@ -248,25 +220,17 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Text(
-                        'siblingMergeUp',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF7B68AE),
-                        ),
-                      ),
+                      const Text('siblingMergeUp',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF7B68AE))),
                       const SizedBox(height: 6),
-                      const Icon(
-                        Icons.call_split,
-                        size: 28,
-                        color: Color(0xFF7B68AE),
-                      ),
+                      const Icon(Icons.call_split,
+                          size: 28, color: Color(0xFF7B68AE)),
                       const SizedBox(height: 4),
-                      const Text(
-                        '→ sibling node',
-                        style: TextStyle(fontSize: 11, color: darkOlive),
-                      ),
+                      const Text('→ sibling node',
+                          style: TextStyle(fontSize: 11, color: darkOlive)),
                     ],
                   ),
                 ),
@@ -277,7 +241,6 @@ dynamic build(BuildContext context) {
       ],
     );
   }
-
   Widget srFieldRow(String name, String type, Color indicator) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -294,29 +257,22 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(
             width: 148,
-            child: Text(
-              name,
-              style: const TextStyle(
-                fontSize: 12,
-                fontFamily: 'monospace',
-                color: darkOlive,
-              ),
-            ),
+            child: Text(name,
+                style: const TextStyle(
+                    fontSize: 12, fontFamily: 'monospace', color: darkOlive)),
           ),
           Expanded(
-            child: Text(
-              type,
-              style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: herb.withValues(alpha: 0.9),
-              ),
-            ),
+            child: Text(type,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: herb.withValues(alpha: 0.9))),
           ),
         ],
       ),
     );
   }
+
 
   // ─────────────────────────────────────────────
   // Section 2: Class anatomy
@@ -326,21 +282,16 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr02 — Class Anatomy',
-          'Fields, construction, and immutability',
-        ),
+        srHeader('sr02 — Class Anatomy',
+            'Fields, construction, and immutability'),
         const SizedBox(height: 10),
         srCard([
-          const Text(
-            'ChildSemanticsConfigurationsResult',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'monospace',
-              color: herb,
-            ),
-          ),
+          const Text('ChildSemanticsConfigurationsResult',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                  color: herb)),
           const SizedBox(height: 8),
           // field table
           Container(
@@ -352,64 +303,46 @@ dynamic build(BuildContext context) {
               children: [
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 6,
-                    horizontal: 10,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
                   color: sage.withValues(alpha: 0.3),
                   child: const Row(
                     children: [
                       SizedBox(
-                        width: 160,
-                        child: Text(
-                          'Field',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: darkOlive,
-                          ),
-                        ),
-                      ),
+                          width: 160,
+                          child: Text('Field',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: darkOlive))),
                       Expanded(
-                        child: Text(
-                          'Type',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: darkOlive,
-                          ),
-                        ),
-                      ),
+                          child: Text('Type',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: darkOlive))),
                     ],
                   ),
                 ),
-                srFieldRow(
-                  'mergeUp',
-                  'List<SemanticsConfiguration>',
-                  fernGreen,
-                ),
-                srFieldRow(
-                  'siblingMergeUp',
-                  'List<SemanticsConfiguration>',
-                  rosemary,
-                ),
+                srFieldRow('mergeUp',
+                    'List<SemanticsConfiguration>', fernGreen),
+                srFieldRow('siblingMergeUp',
+                    'List<SemanticsConfiguration>', rosemary),
               ],
             ),
           ),
           const SizedBox(height: 10),
           srBullet('Both lists are final and set during construction'),
           srBullet(
-            'Created exclusively by ChildSemanticsConfigurationsResultBuilder.build()',
-          ),
+              'Created exclusively by ChildSemanticsConfigurationsResultBuilder.build()'),
           srBullet(
-            'The result is consumed by RenderObject during semantics assembly',
-          ),
+              'The result is consumed by RenderObject during semantics assembly'),
         ]),
       ],
     );
   }
-
-  Widget srPipelineStep(int step, String title, String code, Color stepColor) {
+  Widget srPipelineStep(
+      int step, String title, String code, Color stepColor) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -422,16 +355,16 @@ dynamic build(BuildContext context) {
           Container(
             width: 26,
             height: 26,
-            decoration: BoxDecoration(color: stepColor, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: stepColor,
+              shape: BoxShape.circle,
+            ),
             child: Center(
-              child: Text(
-                '$step',
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              child: Text('$step',
+                  style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
             ),
           ),
           const SizedBox(width: 10),
@@ -439,22 +372,16 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.bold,
-                    color: stepColor,
-                  ),
-                ),
-                Text(
-                  code,
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: darkOlive,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.bold,
+                        color: stepColor)),
+                Text(code,
+                    style: const TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: darkOlive)),
               ],
             ),
           ),
@@ -462,6 +389,7 @@ dynamic build(BuildContext context) {
       ),
     );
   }
+
 
   // ─────────────────────────────────────────────
   // Section 3: Relationship to the Builder
@@ -471,10 +399,8 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr03 — Builder → Result Pipeline',
-          'How ChildSemanticsConfigurationsResultBuilder produces the result',
-        ),
+        srHeader('sr03 — Builder → Result Pipeline',
+            'How ChildSemanticsConfigurationsResultBuilder produces the result'),
         const SizedBox(height: 10),
         srCard([
           const Text(
@@ -485,39 +411,23 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 12),
           // Pipeline steps
-          srPipelineStep(
-            1,
-            'Create Builder',
-            'new ChildSemanticsConfigurationsResultBuilder()',
-            sage,
-          ),
+          srPipelineStep(1, 'Create Builder',
+              'new ChildSemanticsConfigurationsResultBuilder()', sage),
           const SizedBox(height: 4),
           const Icon(Icons.arrow_downward, size: 18, color: herb),
           const SizedBox(height: 4),
-          srPipelineStep(
-            2,
-            'Mark siblings',
-            'builder.markAsSiblingMergeUp(config)',
-            thyme,
-          ),
+          srPipelineStep(2, 'Mark siblings',
+              'builder.markAsSiblingMergeUp(config)', thyme),
           const SizedBox(height: 4),
           const Icon(Icons.arrow_downward, size: 18, color: herb),
           const SizedBox(height: 4),
-          srPipelineStep(
-            3,
-            'Build result',
-            'final result = builder.build()',
-            fernGreen,
-          ),
+          srPipelineStep(3, 'Build result',
+              'final result = builder.build()', fernGreen),
           const SizedBox(height: 4),
           const Icon(Icons.arrow_downward, size: 18, color: herb),
           const SizedBox(height: 4),
-          srPipelineStep(
-            4,
-            'Access lists',
-            'result.mergeUp / result.siblingMergeUp',
-            rosemary,
-          ),
+          srPipelineStep(4, 'Access lists',
+              'result.mergeUp / result.siblingMergeUp', rosemary),
         ]),
       ],
     );
@@ -531,75 +441,42 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr04 — Merge Tree Visualization',
-          'How configurations partition into the accessibility tree',
-        ),
+        srHeader('sr04 — Merge Tree Visualization',
+            'How configurations partition into the accessibility tree'),
         const SizedBox(height: 10),
         srCard([
-          const Text(
-            'Before partitioning:',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.bold,
-              color: darkOlive,
-            ),
-          ),
+          const Text('Before partitioning:',
+              style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: darkOlive)),
           const SizedBox(height: 6),
           srTreeRow('RenderCustom (parent)', icon: Icons.account_tree),
-          srTreeRow(
-            '├─ Config A: label="Save"',
-            indent: 1,
-            icon: Icons.settings,
-          ),
-          srTreeRow(
-            '├─ Config B: label="Delete"',
-            indent: 1,
-            icon: Icons.settings,
-          ),
-          srTreeRow(
-            '└─ Config C: label="Cancel"',
-            indent: 1,
-            icon: Icons.settings,
-          ),
+          srTreeRow('├─ Config A: label="Save"',
+              indent: 1, icon: Icons.settings),
+          srTreeRow('├─ Config B: label="Delete"',
+              indent: 1, icon: Icons.settings),
+          srTreeRow('└─ Config C: label="Cancel"',
+              indent: 1, icon: Icons.settings),
           srDivider(),
-          const Text(
-            'After partitioning (B marked as sibling):',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.bold,
-              color: darkOlive,
-            ),
-          ),
+          const Text('After partitioning (B marked as sibling):',
+              style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: darkOlive)),
           const SizedBox(height: 6),
-          srTreeRow(
-            'SemanticsNode (parent)',
-            icon: Icons.account_tree,
-            color: fernGreen,
-          ),
-          srTreeRow(
-            '├─ A: "Save" (merged up)',
-            indent: 1,
-            icon: Icons.merge_type,
-            color: fernGreen,
-          ),
-          srTreeRow(
-            '├─ C: "Cancel" (merged up)',
-            indent: 1,
-            icon: Icons.merge_type,
-            color: fernGreen,
-          ),
-          srTreeRow(
-            'SemanticsNode (sibling)',
-            icon: Icons.call_split,
-            color: const Color(0xFF7B68AE),
-          ),
-          srTreeRow(
-            '└─ B: "Delete" (sibling merge up)',
-            indent: 1,
-            icon: Icons.call_split,
-            color: const Color(0xFF7B68AE),
-          ),
+          srTreeRow('SemanticsNode (parent)',
+              icon: Icons.account_tree, color: fernGreen),
+          srTreeRow('├─ A: "Save" (merged up)',
+              indent: 1, icon: Icons.merge_type, color: fernGreen),
+          srTreeRow('├─ C: "Cancel" (merged up)',
+              indent: 1, icon: Icons.merge_type, color: fernGreen),
+          srTreeRow('SemanticsNode (sibling)',
+              icon: Icons.call_split, color: const Color(0xFF7B68AE)),
+          srTreeRow('└─ B: "Delete" (sibling merge up)',
+              indent: 1,
+              icon: Icons.call_split,
+              color: const Color(0xFF7B68AE)),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -612,14 +489,8 @@ dynamic build(BuildContext context) {
       ],
     );
   }
-
   Widget srPropertyTile(
-    String name,
-    String type,
-    String desc,
-    IconData icon,
-    Color color,
-  ) {
+      String name, String type, String desc, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -637,30 +508,23 @@ dynamic build(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'monospace',
-                        color: color,
-                      ),
-                    ),
+                    Text(name,
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            color: color)),
                     const SizedBox(width: 6),
-                    Text(
-                      type,
-                      style: TextStyle(
-                        fontSize: 10.5,
-                        fontFamily: 'monospace',
-                        color: color.withValues(alpha: 0.7),
-                      ),
-                    ),
+                    Text(type,
+                        style: TextStyle(
+                            fontSize: 10.5,
+                            fontFamily: 'monospace',
+                            color: color.withValues(alpha: 0.7))),
                   ],
                 ),
-                Text(
-                  desc,
-                  style: const TextStyle(fontSize: 11.5, color: darkOlive),
-                ),
+                Text(desc,
+                    style:
+                        const TextStyle(fontSize: 11.5, color: darkOlive)),
               ],
             ),
           ),
@@ -668,6 +532,7 @@ dynamic build(BuildContext context) {
       ),
     );
   }
+
 
   // ─────────────────────────────────────────────
   // Section 5: SemanticsConfiguration properties
@@ -677,51 +542,24 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr05 — Key SemanticsConfiguration Properties',
-          'Properties that influence whether a config merges or splits',
-        ),
+        srHeader('sr05 — Key SemanticsConfiguration Properties',
+            'Properties that influence whether a config merges or splits'),
         const SizedBox(height: 10),
         srCard([
-          srPropertyTile(
-            'isSemanticBoundary',
-            'bool',
-            'When true, creates a new SemanticsNode boundary',
-            Icons.border_all,
-            sage,
-          ),
+          srPropertyTile('isSemanticBoundary', 'bool',
+              'When true, creates a new SemanticsNode boundary', Icons.border_all, sage),
           const SizedBox(height: 6),
-          srPropertyTile(
-            'isMergingSemanticsOfDescendants',
-            'bool',
-            'Merges all descendant semantics into this node',
-            Icons.merge,
-            thyme,
-          ),
+          srPropertyTile('isMergingSemanticsOfDescendants', 'bool',
+              'Merges all descendant semantics into this node', Icons.merge, thyme),
           const SizedBox(height: 6),
-          srPropertyTile(
-            'label',
-            'String',
-            'Accessibility label read by screen readers',
-            Icons.label,
-            fernGreen,
-          ),
+          srPropertyTile('label', 'String',
+              'Accessibility label read by screen readers', Icons.label, fernGreen),
           const SizedBox(height: 6),
-          srPropertyTile(
-            'isBlockingSemanticsOfPreviouslyPaintedNodes',
-            'bool',
-            'Blocks semantics from nodes painted before this one',
-            Icons.block,
-            rosemary,
-          ),
+          srPropertyTile('isBlockingSemanticsOfPreviouslyPaintedNodes', 'bool',
+              'Blocks semantics from nodes painted before this one', Icons.block, rosemary),
           const SizedBox(height: 6),
-          srPropertyTile(
-            'textDirection',
-            'TextDirection?',
-            'Text reading direction for the semantics node',
-            Icons.format_textdirection_l_to_r,
-            herb,
-          ),
+          srPropertyTile('textDirection', 'TextDirection?',
+              'Text reading direction for the semantics node', Icons.format_textdirection_l_to_r, herb),
         ]),
       ],
     );
@@ -735,21 +573,16 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr06 — Semantics Widget: Merged vs Standalone',
-          'Visual demo of how Semantics widget produces the merge behavior',
-        ),
+        srHeader('sr06 — Semantics Widget: Merged vs Standalone',
+            'Visual demo of how Semantics widget produces the merge behavior'),
         const SizedBox(height: 10),
         // Merged example
         srCard([
-          const Text(
-            'Merged (MergeSemantics wraps children):',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.bold,
-              color: herb,
-            ),
-          ),
+          const Text('Merged (MergeSemantics wraps children):',
+              style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: herb)),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(8),
@@ -768,14 +601,11 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 6),
                       Semantics(
                         label: 'Favorite',
-                        child: const Text(
-                          'Favorite',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: darkOlive,
-                          ),
-                        ),
+                        child: const Text('Favorite',
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: darkOlive)),
                       ),
                     ],
                   ),
@@ -795,23 +625,17 @@ dynamic build(BuildContext context) {
           const Text(
             '→ Screen reader announces: "Favorite, This item is marked as favorite"',
             style: TextStyle(
-              fontSize: 11.5,
-              fontStyle: FontStyle.italic,
-              color: thyme,
-            ),
+                fontSize: 11.5, fontStyle: FontStyle.italic, color: thyme),
           ),
         ]),
         const SizedBox(height: 8),
         // Standalone example
         srCard([
-          const Text(
-            'Standalone (separate Semantics nodes):',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.bold,
-              color: rosemary,
-            ),
-          ),
+          const Text('Standalone (separate Semantics nodes):',
+              style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: rosemary)),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(8),
@@ -828,17 +652,13 @@ dynamic build(BuildContext context) {
                   button: true,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 6,
-                    ),
+                        horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
                       color: fernGreen,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text(
-                      'Save',
-                      style: TextStyle(color: Colors.white, fontSize: 13),
-                    ),
+                    child: const Text('Save',
+                        style: TextStyle(color: Colors.white, fontSize: 13)),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -847,17 +667,13 @@ dynamic build(BuildContext context) {
                   button: true,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 6,
-                    ),
+                        horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
                       color: Colors.red.shade600,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text(
-                      'Delete',
-                      style: TextStyle(color: Colors.white, fontSize: 13),
-                    ),
+                    child: const Text('Delete',
+                        style: TextStyle(color: Colors.white, fontSize: 13)),
                   ),
                 ),
               ],
@@ -867,10 +683,7 @@ dynamic build(BuildContext context) {
           const Text(
             '→ Screen reader focuses each: "Save button" then "Delete button"',
             style: TextStyle(
-              fontSize: 11.5,
-              fontStyle: FontStyle.italic,
-              color: thyme,
-            ),
+                fontSize: 11.5, fontStyle: FontStyle.italic, color: thyme),
           ),
         ]),
       ],
@@ -885,10 +698,8 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr07 — ExcludeSemantics & BlockSemantics',
-          'Removing nodes from the accessibility tree',
-        ),
+        srHeader('sr07 — ExcludeSemantics & BlockSemantics',
+            'Removing nodes from the accessibility tree'),
         const SizedBox(height: 10),
         srCard([
           Row(
@@ -900,37 +711,27 @@ dynamic build(BuildContext context) {
                     color: Colors.red.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: Colors.red.withValues(alpha: 0.3),
-                    ),
+                        color: Colors.red.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.visibility_off,
-                        size: 28,
-                        color: Colors.red,
-                      ),
+                      const Icon(Icons.visibility_off,
+                          size: 28, color: Colors.red),
                       const SizedBox(height: 6),
-                      const Text(
-                        'ExcludeSemantics',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
-                      ),
+                      const Text('ExcludeSemantics',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red)),
                       const SizedBox(height: 4),
                       ExcludeSemantics(
                         child: Semantics(
                           label: 'This is hidden',
-                          child: const Text(
-                            'Hidden from A11Y',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey,
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                          ),
+                          child: const Text('Hidden from A11Y',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.lineThrough)),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -951,21 +752,17 @@ dynamic build(BuildContext context) {
                     color: Colors.orange.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: Colors.orange.withValues(alpha: 0.3),
-                    ),
+                        color: Colors.orange.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     children: [
                       const Icon(Icons.block, size: 28, color: Colors.orange),
                       const SizedBox(height: 6),
-                      const Text(
-                        'BlockSemantics',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.orange,
-                        ),
-                      ),
+                      const Text('BlockSemantics',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orange)),
                       const SizedBox(height: 4),
                       BlockSemantics(
                         child: Semantics(
@@ -973,10 +770,9 @@ dynamic build(BuildContext context) {
                           child: Container(
                             padding: const EdgeInsets.all(6),
                             color: Colors.orange.withValues(alpha: 0.1),
-                            child: const Text(
-                              'Blocks earlier siblings',
-                              style: TextStyle(fontSize: 11, color: darkOlive),
-                            ),
+                            child: const Text('Blocks earlier siblings',
+                                style: TextStyle(
+                                    fontSize: 11, color: darkOlive)),
                           ),
                         ),
                       ),
@@ -996,8 +792,8 @@ dynamic build(BuildContext context) {
       ],
     );
   }
-
-  Widget srFlowStep(String title, String desc, IconData icon, Color stepColor) {
+  Widget srFlowStep(
+      String title, String desc, IconData icon, Color stepColor) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
       decoration: BoxDecoration(
@@ -1013,18 +809,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.bold,
-                    color: stepColor,
-                  ),
-                ),
-                Text(
-                  desc,
-                  style: const TextStyle(fontSize: 11.5, color: darkOlive),
-                ),
+                Text(title,
+                    style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.bold,
+                        color: stepColor)),
+                Text(desc,
+                    style:
+                        const TextStyle(fontSize: 11.5, color: darkOlive)),
               ],
             ),
           ),
@@ -1032,13 +824,16 @@ dynamic build(BuildContext context) {
       ),
     );
   }
-
   Widget srFlowArrow() {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 2),
-      child: Center(child: Icon(Icons.arrow_downward, size: 16, color: herb)),
+      child: Center(
+        child: Icon(Icons.arrow_downward, size: 16, color: herb),
+      ),
     );
   }
+
+
 
   // ─────────────────────────────────────────────
   // Section 8: assembleSemanticsNode flow chart
@@ -1048,53 +843,33 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr08 — assembleSemanticsNode Flow',
-          'Where ChildSemanticsConfigurationsResult fits in the pipeline',
-        ),
+        srHeader('sr08 — assembleSemanticsNode Flow',
+            'Where ChildSemanticsConfigurationsResult fits in the pipeline'),
         const SizedBox(height: 10),
         srCard([
-          srFlowStep(
-            '1. Render tree traversal',
-            'Framework walks the render tree bottom-up',
-            Icons.account_tree,
-            sage,
-          ),
+          srFlowStep('1. Render tree traversal',
+              'Framework walks the render tree bottom-up', Icons.account_tree,
+              sage),
           srFlowArrow(),
-          srFlowStep(
-            '2. Collect child configs',
-            'Each child provides its SemanticsConfiguration',
-            Icons.list,
-            thyme,
-          ),
+          srFlowStep('2. Collect child configs',
+              'Each child provides its SemanticsConfiguration', Icons.list,
+              thyme),
           srFlowArrow(),
-          srFlowStep(
-            '3. Build partitioning result',
-            'Builder partitions configs into mergeUp / siblingMergeUp',
-            Icons.call_split,
-            fernGreen,
-          ),
+          srFlowStep('3. Build partitioning result',
+              'Builder partitions configs into mergeUp / siblingMergeUp',
+              Icons.call_split, fernGreen),
           srFlowArrow(),
-          srFlowStep(
-            '4. Create/update SemanticsNode',
-            'mergeUp items merge into parent node',
-            Icons.merge_type,
-            rosemary,
-          ),
+          srFlowStep('4. Create/update SemanticsNode',
+              'mergeUp items merge into parent node', Icons.merge_type,
+              rosemary),
           srFlowArrow(),
-          srFlowStep(
-            '5. Create sibling nodes',
-            'siblingMergeUp items become separate sibling nodes',
-            Icons.horizontal_split,
-            herb,
-          ),
+          srFlowStep('5. Create sibling nodes',
+              'siblingMergeUp items become separate sibling nodes',
+              Icons.horizontal_split, herb),
           srFlowArrow(),
-          srFlowStep(
-            '6. Update semantics tree',
-            'New nodes are sent to the engine for platform A11Y',
-            Icons.send,
-            darkOlive,
-          ),
+          srFlowStep('6. Update semantics tree',
+              'New nodes are sent to the engine for platform A11Y',
+              Icons.send, darkOlive),
         ]),
       ],
     );
@@ -1106,130 +881,71 @@ dynamic build(BuildContext context) {
   print('sr09 Accessibility tree depth visualization');
   Widget sr09TreeDepth() {
     final List<Map<String, dynamic>> treeNodes = [
-      {
-        'label': 'MaterialApp',
-        'depth': 0,
-        'icon': Icons.phone_android,
-        'color': sage,
-      },
+      {'label': 'MaterialApp', 'depth': 0, 'icon': Icons.phone_android, 'color': sage},
       {'label': 'Scaffold', 'depth': 1, 'icon': Icons.web, 'color': thyme},
-      {
-        'label': 'AppBar: "My App"',
-        'depth': 2,
-        'icon': Icons.title,
-        'color': fernGreen,
-      },
-      {
-        'label': 'Body (Column)',
-        'depth': 2,
-        'icon': Icons.view_column,
-        'color': fernGreen,
-      },
-      {
-        'label': 'Card: "User profile"',
-        'depth': 3,
-        'icon': Icons.person,
-        'color': rosemary,
-      },
-      {
-        'label': 'Avatar (excluded)',
-        'depth': 4,
-        'icon': Icons.visibility_off,
-        'color': Colors.grey,
-      },
-      {
-        'label': 'Name: "Alice"',
-        'depth': 4,
-        'icon': Icons.label,
-        'color': herb,
-      },
-      {
-        'label': 'Role: "Admin"',
-        'depth': 4,
-        'icon': Icons.badge,
-        'color': herb,
-      },
-      {
-        'label': 'Button: "Edit Profile"',
-        'depth': 3,
-        'icon': Icons.edit,
-        'color': rosemary,
-      },
-      {
-        'label': 'FAB: "Add item"',
-        'depth': 2,
-        'icon': Icons.add_circle,
-        'color': fernGreen,
-      },
+      {'label': 'AppBar: "My App"', 'depth': 2, 'icon': Icons.title, 'color': fernGreen},
+      {'label': 'Body (Column)', 'depth': 2, 'icon': Icons.view_column, 'color': fernGreen},
+      {'label': 'Card: "User profile"', 'depth': 3, 'icon': Icons.person, 'color': rosemary},
+      {'label': 'Avatar (excluded)', 'depth': 4, 'icon': Icons.visibility_off, 'color': Colors.grey},
+      {'label': 'Name: "Alice"', 'depth': 4, 'icon': Icons.label, 'color': herb},
+      {'label': 'Role: "Admin"', 'depth': 4, 'icon': Icons.badge, 'color': herb},
+      {'label': 'Button: "Edit Profile"', 'depth': 3, 'icon': Icons.edit, 'color': rosemary},
+      {'label': 'FAB: "Add item"', 'depth': 2, 'icon': Icons.add_circle, 'color': fernGreen},
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr09 — Accessibility Tree Depth',
-          'Typical Flutter app semantics tree structure',
-        ),
+        srHeader('sr09 — Accessibility Tree Depth',
+            'Typical Flutter app semantics tree structure'),
         const SizedBox(height: 10),
         srCard([
-          const Text(
-            'Semantics tree for a typical screen:',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.bold,
-              color: darkOlive,
-            ),
-          ),
+          const Text('Semantics tree for a typical screen:',
+              style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: darkOlive)),
           const SizedBox(height: 8),
-          ...treeNodes.map(
-            (node) => Padding(
-              padding: EdgeInsets.only(
-                left: (node['depth'] as int) * 20.0,
-                top: 3,
-                bottom: 3,
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 22,
-                    height: 22,
-                    decoration: BoxDecoration(
-                      color: (node['color'] as Color).withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                        color: (node['color'] as Color).withValues(alpha: 0.5),
+          ...treeNodes.map((node) => Padding(
+                padding: EdgeInsets.only(
+                    left: (node['depth'] as int) * 20.0, top: 3, bottom: 3),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 22,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        color: (node['color'] as Color).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                            color: (node['color'] as Color)
+                                .withValues(alpha: 0.5)),
                       ),
+                      child: Icon(node['icon'] as IconData,
+                          size: 13, color: node['color'] as Color),
                     ),
-                    child: Icon(
-                      node['icon'] as IconData,
-                      size: 13,
-                      color: node['color'] as Color,
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(node['label'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                              color: node['color'] == Colors.grey
+                                  ? Colors.grey
+                                  : darkOlive,
+                              decoration: node['color'] == Colors.grey
+                                  ? TextDecoration.lineThrough
+                                  : null)),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      node['label'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: node['color'] == Colors.grey
-                            ? Colors.grey
-                            : darkOlive,
-                        decoration: node['color'] == Colors.grey
-                            ? TextDecoration.lineThrough
-                            : null,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
           const SizedBox(height: 8),
           srBullet('Each node maps to a SemanticsNode in the engine'),
-          srBullet('Excluded nodes are omitted from the accessibility tree'),
-          srBullet('Merged nodes combine labels from multiple render objects'),
+          srBullet(
+              'Excluded nodes are omitted from the accessibility tree'),
+          srBullet(
+              'Merged nodes combine labels from multiple render objects'),
         ]),
       ],
     );
@@ -1242,104 +958,76 @@ dynamic build(BuildContext context) {
   Widget sr10ActionsGrid() {
     final List<Map<String, dynamic>> actions = [
       {'name': 'tap', 'icon': Icons.touch_app, 'desc': 'Activate / press'},
-      {
-        'name': 'longPress',
-        'icon': Icons.pan_tool,
-        'desc': 'Long press action',
-      },
+      {'name': 'longPress', 'icon': Icons.pan_tool, 'desc': 'Long press action'},
       {'name': 'scrollLeft', 'icon': Icons.arrow_back, 'desc': 'Scroll left'},
-      {
-        'name': 'scrollRight',
-        'icon': Icons.arrow_forward,
-        'desc': 'Scroll right',
-      },
+      {'name': 'scrollRight', 'icon': Icons.arrow_forward, 'desc': 'Scroll right'},
       {'name': 'scrollUp', 'icon': Icons.arrow_upward, 'desc': 'Scroll up'},
-      {
-        'name': 'scrollDown',
-        'icon': Icons.arrow_downward,
-        'desc': 'Scroll down',
-      },
+      {'name': 'scrollDown', 'icon': Icons.arrow_downward, 'desc': 'Scroll down'},
       {'name': 'increase', 'icon': Icons.add, 'desc': 'Increase value'},
       {'name': 'decrease', 'icon': Icons.remove, 'desc': 'Decrease value'},
       {'name': 'copy', 'icon': Icons.copy, 'desc': 'Copy to clipboard'},
       {'name': 'paste', 'icon': Icons.paste, 'desc': 'Paste from clipboard'},
       {'name': 'dismiss', 'icon': Icons.close, 'desc': 'Dismiss / clear'},
-      {
-        'name': 'focus',
-        'icon': Icons.center_focus_strong,
-        'desc': 'Request focus',
-      },
+      {'name': 'focus', 'icon': Icons.center_focus_strong, 'desc': 'Request focus'},
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr10 — Semantic Actions',
-          'Actions that can be attached to SemanticsConfiguration',
-        ),
+        srHeader('sr10 — Semantic Actions',
+            'Actions that can be attached to SemanticsConfiguration'),
         const SizedBox(height: 10),
         srCard([
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: actions
-                .map(
-                  (a) => Container(
-                    width: 135,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: sage.withValues(alpha: 0.12),
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: sage.withValues(alpha: 0.3)),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(a['icon'] as IconData, size: 16, color: fernGreen),
-                        const SizedBox(width: 6),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                a['name'] as String,
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'monospace',
-                                  color: herb,
-                                ),
-                              ),
-                              Text(
-                                a['desc'] as String,
-                                style: const TextStyle(
-                                  fontSize: 9.5,
-                                  color: darkOlive,
-                                ),
-                              ),
-                            ],
+                .map((a) => Container(
+                      width: 135,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: sage.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(6),
+                        border:
+                            Border.all(color: sage.withValues(alpha: 0.3)),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(a['icon'] as IconData,
+                              size: 16, color: fernGreen),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(a['name'] as String,
+                                    style: const TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'monospace',
+                                        color: herb)),
+                                Text(a['desc'] as String,
+                                    style: const TextStyle(
+                                        fontSize: 9.5, color: darkOlive)),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                        ],
+                      ),
+                    ))
                 .toList(),
           ),
           const SizedBox(height: 10),
           srBullet(
-            'Actions are attached to SemanticsConfiguration and forwarded '
-            'to the platform accessibility service',
-          ),
+              'Actions are attached to SemanticsConfiguration and forwarded '
+              'to the platform accessibility service'),
           srBullet(
-            'When mergeUp occurs, actions from children are combined; '
-            'siblingMergeUp keeps them separate',
-          ),
+              'When mergeUp occurs, actions from children are combined; '
+              'siblingMergeUp keeps them separate'),
         ]),
       ],
     );
   }
-
   Widget srCompRow(String aspect, String mergeUp, String sibling) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -1350,31 +1038,26 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 100,
-            child: Text(
-              aspect,
-              style: const TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w600,
-                color: darkOlive,
-              ),
-            ),
+            child: Text(aspect,
+                style: const TextStyle(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w600,
+                    color: darkOlive)),
           ),
           Expanded(
-            child: Text(
-              mergeUp,
-              style: const TextStyle(fontSize: 11.5, color: fernGreen),
-            ),
+            child: Text(mergeUp,
+                style: const TextStyle(fontSize: 11.5, color: fernGreen)),
           ),
           Expanded(
-            child: Text(
-              sibling,
-              style: const TextStyle(fontSize: 11.5, color: Color(0xFF7B68AE)),
-            ),
+            child: Text(sibling,
+                style: const TextStyle(
+                    fontSize: 11.5, color: Color(0xFF7B68AE))),
           ),
         ],
       ),
     );
   }
+
 
   // ─────────────────────────────────────────────
   // Section 11: Merge behavior comparison table
@@ -1384,10 +1067,8 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr11 — Merge Behavior Comparison',
-          'mergeUp vs siblingMergeUp side-by-side',
-        ),
+        srHeader('sr11 — Merge Behavior Comparison',
+            'mergeUp vs siblingMergeUp side-by-side'),
         const SizedBox(height: 10),
         srCard([
           Container(
@@ -1399,44 +1080,30 @@ dynamic build(BuildContext context) {
               children: [
                 // Header row
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 10,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   color: herb.withValues(alpha: 0.2),
                   child: const Row(
                     children: [
                       SizedBox(
-                        width: 100,
-                        child: Text(
-                          'Aspect',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: darkOlive,
-                          ),
-                        ),
-                      ),
+                          width: 100,
+                          child: Text('Aspect',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: darkOlive))),
                       Expanded(
-                        child: Text(
-                          'mergeUp',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: fernGreen,
-                          ),
-                        ),
-                      ),
+                          child: Text('mergeUp',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: fernGreen))),
                       Expanded(
-                        child: Text(
-                          'siblingMergeUp',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF7B68AE),
-                          ),
-                        ),
-                      ),
+                          child: Text('siblingMergeUp',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF7B68AE)))),
                     ],
                   ),
                 ),
@@ -1444,12 +1111,10 @@ dynamic build(BuildContext context) {
                 srCompRow('Labels', 'Concatenated', 'Separate'),
                 srCompRow('Actions', 'Combined', 'Independent'),
                 srCompRow('Focus', 'Single focus target', 'Own focus target'),
-                srCompRow('Use case', 'Icon + label', 'Distinct buttons'),
                 srCompRow(
-                  'Screen reader',
-                  'One announcement',
-                  'Separate stops',
-                ),
+                    'Use case', 'Icon + label', 'Distinct buttons'),
+                srCompRow(
+                    'Screen reader', 'One announcement', 'Separate stops'),
               ],
             ),
           ),
@@ -1466,20 +1131,15 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr12 — Real-World Pattern: Form Fields',
-          'How merge semantics improves form accessibility',
-        ),
+        srHeader('sr12 — Real-World Pattern: Form Fields',
+            'How merge semantics improves form accessibility'),
         const SizedBox(height: 10),
         srCard([
-          const Text(
-            'A form field typically merges its label + input + hint:',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.bold,
-              color: darkOlive,
-            ),
-          ),
+          const Text('A form field typically merges its label + input + hint:',
+              style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: darkOlive)),
           const SizedBox(height: 10),
           // Mock form field with merged semantics
           MergeSemantics(
@@ -1495,14 +1155,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Semantics(
                     label: 'Email address',
-                    child: const Text(
-                      'Email address',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: herb,
-                      ),
-                    ),
+                    child: const Text('Email address',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: herb)),
                   ),
                   const SizedBox(height: 4),
                   Container(
@@ -1514,26 +1171,20 @@ dynamic build(BuildContext context) {
                     ),
                     child: const Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        'user@example.com',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: darkOlive,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
+                      child: Text('user@example.com',
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: darkOlive,
+                              fontFamily: 'monospace')),
                     ),
                   ),
                   const SizedBox(height: 4),
                   Semantics(
                     label: 'Enter your email address',
-                    child: Text(
-                      'Enter your email address',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: thyme.withValues(alpha: 0.7),
-                      ),
-                    ),
+                    child: Text('Enter your email address',
+                        style: TextStyle(
+                            fontSize: 11,
+                            color: thyme.withValues(alpha: 0.7))),
                   ),
                 ],
               ),
@@ -1543,23 +1194,17 @@ dynamic build(BuildContext context) {
           const Text(
             '→ All three parts (label + input + hint) are announced together',
             style: TextStyle(
-              fontSize: 11.5,
-              fontStyle: FontStyle.italic,
-              color: thyme,
-            ),
+                fontSize: 11.5, fontStyle: FontStyle.italic, color: thyme),
           ),
         ]),
         const SizedBox(height: 8),
         // Separate field — sibling behavior
         srCard([
-          const Text(
-            'Adjacent buttons should remain separate (sibling):',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.bold,
-              color: darkOlive,
-            ),
-          ),
+          const Text('Adjacent buttons should remain separate (sibling):',
+              style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: darkOlive)),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -1574,14 +1219,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Center(
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('Submit',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ),
@@ -1598,14 +1240,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Center(
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('Cancel',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ),
@@ -1616,10 +1255,7 @@ dynamic build(BuildContext context) {
           const Text(
             '→ Submit and Cancel are separate focus targets (not merged)',
             style: TextStyle(
-              fontSize: 11.5,
-              fontStyle: FontStyle.italic,
-              color: thyme,
-            ),
+                fontSize: 11.5, fontStyle: FontStyle.italic, color: thyme),
           ),
         ]),
       ],
@@ -1632,114 +1268,70 @@ dynamic build(BuildContext context) {
   print('sr13 Semantic flags');
   Widget sr13Flags() {
     final flags = [
-      {
-        'name': 'hasCheckedState',
-        'desc': 'Widget has on/off state (checkbox)',
-        'icon': Icons.check_box,
-      },
-      {
-        'name': 'isChecked',
-        'desc': 'Current checked state',
-        'icon': Icons.check_circle,
-      },
-      {
-        'name': 'isSelected',
-        'desc': 'Widget is selected in a group',
-        'icon': Icons.radio_button_checked,
-      },
-      {
-        'name': 'isButton',
-        'desc': 'Acts as a button',
-        'icon': Icons.smart_button,
-      },
+      {'name': 'hasCheckedState', 'desc': 'Widget has on/off state (checkbox)', 'icon': Icons.check_box},
+      {'name': 'isChecked', 'desc': 'Current checked state', 'icon': Icons.check_circle},
+      {'name': 'isSelected', 'desc': 'Widget is selected in a group', 'icon': Icons.radio_button_checked},
+      {'name': 'isButton', 'desc': 'Acts as a button', 'icon': Icons.smart_button},
       {'name': 'isLink', 'desc': 'Acts as a hyperlink', 'icon': Icons.link},
       {'name': 'isHeader', 'desc': 'Is a heading element', 'icon': Icons.title},
-      {
-        'name': 'isTextField',
-        'desc': 'Accepts text input',
-        'icon': Icons.text_fields,
-      },
+      {'name': 'isTextField', 'desc': 'Accepts text input', 'icon': Icons.text_fields},
       {'name': 'isSlider', 'desc': 'Acts as a slider', 'icon': Icons.tune},
-      {
-        'name': 'isReadOnly',
-        'desc': 'Read-only (not editable)',
-        'icon': Icons.lock,
-      },
-      {
-        'name': 'isFocusable',
-        'desc': 'Can receive focus',
-        'icon': Icons.center_focus_strong,
-      },
-      {
-        'name': 'isFocused',
-        'desc': 'Currently has focus',
-        'icon': Icons.highlight,
-      },
-      {
-        'name': 'isEnabled',
-        'desc': 'Widget is enabled',
-        'icon': Icons.power_settings_new,
-      },
+      {'name': 'isReadOnly', 'desc': 'Read-only (not editable)', 'icon': Icons.lock},
+      {'name': 'isFocusable', 'desc': 'Can receive focus', 'icon': Icons.center_focus_strong},
+      {'name': 'isFocused', 'desc': 'Currently has focus', 'icon': Icons.highlight},
+      {'name': 'isEnabled', 'desc': 'Widget is enabled', 'icon': Icons.power_settings_new},
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr13 — Semantic Flags',
-          'Boolean flags that describe widget role and state',
-        ),
+        srHeader('sr13 — Semantic Flags',
+            'Boolean flags that describe widget role and state'),
         const SizedBox(height: 10),
         srCard([
           Wrap(
             spacing: 6,
             runSpacing: 6,
             children: flags
-                .map(
-                  (f) => Container(
-                    width: 175,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: paleLeaf.withValues(alpha: 0.5),
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: sage.withValues(alpha: 0.3)),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(f['icon'] as IconData, size: 16, color: herb),
-                        const SizedBox(width: 6),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                f['name'] as String,
-                                style: const TextStyle(
-                                  fontSize: 10.5,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'monospace',
-                                  color: darkOlive,
-                                ),
-                              ),
-                              Text(
-                                f['desc'] as String,
-                                style: const TextStyle(
-                                  fontSize: 9.5,
-                                  color: thyme,
-                                ),
-                              ),
-                            ],
+                .map((f) => Container(
+                      width: 175,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: paleLeaf.withValues(alpha: 0.5),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                            color: sage.withValues(alpha: 0.3)),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(f['icon'] as IconData,
+                              size: 16, color: herb),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(f['name'] as String,
+                                    style: const TextStyle(
+                                        fontSize: 10.5,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'monospace',
+                                        color: darkOlive)),
+                                Text(f['desc'] as String,
+                                    style: const TextStyle(
+                                        fontSize: 9.5, color: thyme)),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                        ],
+                      ),
+                    ))
                 .toList(),
           ),
           const SizedBox(height: 8),
           srBullet('Flags are set on SemanticsConfiguration objects'),
-          srBullet('When merged, flags from children combine via logical OR'),
+          srBullet(
+              'When merged, flags from children combine via logical OR'),
         ]),
       ],
     );
@@ -1753,10 +1345,8 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr14 — Interactive Semantics Showcase',
-          'Widgets with various semantic annotations',
-        ),
+        srHeader('sr14 — Interactive Semantics Showcase',
+            'Widgets with various semantic annotations'),
         const SizedBox(height: 10),
         srCard([
           // Checkbox-like semantics
@@ -1774,10 +1364,8 @@ dynamic build(BuildContext context) {
                 children: [
                   const Icon(Icons.check_box, color: fernGreen, size: 22),
                   const SizedBox(width: 8),
-                  const Text(
-                    'Accept terms and conditions',
-                    style: TextStyle(fontSize: 13, color: darkOlive),
-                  ),
+                  const Text('Accept terms and conditions',
+                      style: TextStyle(fontSize: 13, color: darkOlive)),
                 ],
               ),
             ),
@@ -1800,14 +1388,11 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Volume: 75%',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: darkOlive,
-                    ),
-                  ),
+                  const Text('Volume: 75%',
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: darkOlive)),
                   const SizedBox(height: 6),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
@@ -1816,9 +1401,8 @@ dynamic build(BuildContext context) {
                       child: LinearProgressIndicator(
                         value: 0.75,
                         backgroundColor: sage.withValues(alpha: 0.3),
-                        valueColor: const AlwaysStoppedAnimation<Color>(
-                          fernGreen,
-                        ),
+                        valueColor:
+                            const AlwaysStoppedAnimation<Color>(fernGreen),
                       ),
                     ),
                   ),
@@ -1839,19 +1423,16 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(40),
                 border: Border.all(color: lavender, width: 2),
               ),
-              child: const Icon(
-                Icons.person,
-                size: 40,
-                color: Color(0xFF7B68AE),
-              ),
+              child:
+                  const Icon(Icons.person, size: 40, color: Color(0xFF7B68AE)),
             ),
           ),
         ]),
       ],
     );
   }
-
-  Widget srTestCard(String name, String desc, IconData icon, Color color) {
+  Widget srTestCard(
+      String name, String desc, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -1867,19 +1448,15 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'monospace',
-                    color: color,
-                  ),
-                ),
-                Text(
-                  desc,
-                  style: const TextStyle(fontSize: 11.5, color: darkOlive),
-                ),
+                Text(name,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'monospace',
+                        color: color)),
+                Text(desc,
+                    style:
+                        const TextStyle(fontSize: 11.5, color: darkOlive)),
               ],
             ),
           ),
@@ -1887,6 +1464,7 @@ dynamic build(BuildContext context) {
       ),
     );
   }
+
 
   // ─────────────────────────────────────────────
   // Section 15: Testing semantics
@@ -1896,55 +1474,35 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr15 — Testing Semantics',
-          'Approaches and tools for verifying accessibility',
-        ),
+        srHeader('sr15 — Testing Semantics',
+            'Approaches and tools for verifying accessibility'),
         const SizedBox(height: 10),
         srCard([
-          const Text(
-            'Key testing strategies:',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.bold,
-              color: darkOlive,
-            ),
-          ),
+          const Text('Key testing strategies:',
+              style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: darkOlive)),
           const SizedBox(height: 8),
-          srTestCard(
-            'find.bySemanticsLabel()',
-            'Find widgets by their semantic label in tests',
-            Icons.search,
-            sage,
-          ),
+          srTestCard('find.bySemanticsLabel()',
+              'Find widgets by their semantic label in tests',
+              Icons.search, sage),
           const SizedBox(height: 6),
-          srTestCard(
-            'matchesSemantics()',
-            'Matcher that verifies semantic properties like label, flags, actions',
-            Icons.fact_check,
-            thyme,
-          ),
+          srTestCard('matchesSemantics()',
+              'Matcher that verifies semantic properties like label, flags, actions',
+              Icons.fact_check, thyme),
           const SizedBox(height: 6),
-          srTestCard(
-            'containsSemantics()',
-            'Checks that a SemanticsNode tree contains specific properties',
-            Icons.account_tree,
-            fernGreen,
-          ),
+          srTestCard('containsSemantics()',
+              'Checks that a SemanticsNode tree contains specific properties',
+              Icons.account_tree, fernGreen),
           const SizedBox(height: 6),
-          srTestCard(
-            'debugDumpSemanticsTree()',
-            'Prints the full semantics tree for debugging',
-            Icons.bug_report,
-            rosemary,
-          ),
+          srTestCard('debugDumpSemanticsTree()',
+              'Prints the full semantics tree for debugging',
+              Icons.bug_report, rosemary),
           const SizedBox(height: 6),
-          srTestCard(
-            'SemanticsDebugger',
-            'Widget that overlays accessibility info on the UI',
-            Icons.visibility,
-            herb,
-          ),
+          srTestCard('SemanticsDebugger',
+              'Widget that overlays accessibility info on the UI',
+              Icons.visibility, herb),
         ]),
       ],
     );
@@ -1956,110 +1514,75 @@ dynamic build(BuildContext context) {
   print('sr16 Summary dashboard');
   Widget sr16Dashboard() {
     final stats = [
-      {
-        'label': 'Fields',
-        'value': '2',
-        'sub': 'mergeUp + siblingMergeUp',
-        'color': fernGreen,
-      },
-      {
-        'label': 'Builder Steps',
-        'value': '4',
-        'sub': 'create → mark → build → access',
-        'color': thyme,
-      },
-      {
-        'label': 'Semantic Actions',
-        'value': '12+',
-        'sub': 'tap, scroll, copy...',
-        'color': rosemary,
-      },
-      {
-        'label': 'Semantic Flags',
-        'value': '12+',
-        'sub': 'isButton, isChecked...',
-        'color': herb,
-      },
+      {'label': 'Fields', 'value': '2', 'sub': 'mergeUp + siblingMergeUp', 'color': fernGreen},
+      {'label': 'Builder Steps', 'value': '4', 'sub': 'create → mark → build → access', 'color': thyme},
+      {'label': 'Semantic Actions', 'value': '12+', 'sub': 'tap, scroll, copy...', 'color': rosemary},
+      {'label': 'Semantic Flags', 'value': '12+', 'sub': 'isButton, isChecked...', 'color': herb},
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        srHeader(
-          'sr16 — Summary Dashboard',
-          'ChildSemanticsConfigurationsResult at a glance',
-        ),
+        srHeader('sr16 — Summary Dashboard',
+            'ChildSemanticsConfigurationsResult at a glance'),
         const SizedBox(height: 10),
         Wrap(
           spacing: 8,
           runSpacing: 8,
           children: stats
-              .map(
-                (s) => Container(
-                  width: 170,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        (s['color'] as Color).withValues(alpha: 0.15),
-                        (s['color'] as Color).withValues(alpha: 0.05),
+              .map((s) => Container(
+                    width: 170,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          (s['color'] as Color).withValues(alpha: 0.15),
+                          (s['color'] as Color).withValues(alpha: 0.05),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                          color:
+                              (s['color'] as Color).withValues(alpha: 0.3)),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(s['value'] as String,
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: s['color'] as Color)),
+                        Text(s['label'] as String,
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: darkOlive)),
+                        const SizedBox(height: 2),
+                        Text(s['sub'] as String,
+                            style: TextStyle(
+                                fontSize: 10,
+                                color:
+                                    darkOlive.withValues(alpha: 0.7)),
+                            textAlign: TextAlign.center),
                       ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: (s['color'] as Color).withValues(alpha: 0.3),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        s['value'] as String,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: s['color'] as Color,
-                        ),
-                      ),
-                      Text(
-                        s['label'] as String,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: darkOlive,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        s['sub'] as String,
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: darkOlive.withValues(alpha: 0.7),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              )
+                  ))
               .toList(),
         ),
         const SizedBox(height: 12),
         srCard([
           srBullet(
-            'ChildSemanticsConfigurationsResult partitions semantics configs into two groups',
-          ),
-          srBullet('mergeUp items merge into the parent SemanticsNode'),
+              'ChildSemanticsConfigurationsResult partitions semantics configs into two groups'),
           srBullet(
-            'siblingMergeUp items create separate sibling SemanticsNodes',
-          ),
+              'mergeUp items merge into the parent SemanticsNode'),
           srBullet(
-            'The builder pattern ensures configs are correctly classified',
-          ),
+              'siblingMergeUp items create separate sibling SemanticsNodes'),
           srBullet(
-            'This mechanism is critical for Flutter\'s accessibility tree structure',
-          ),
+              'The builder pattern ensures configs are correctly classified'),
+          srBullet(
+              'This mechanism is critical for Flutter\'s accessibility tree structure'),
         ]),
       ],
     );

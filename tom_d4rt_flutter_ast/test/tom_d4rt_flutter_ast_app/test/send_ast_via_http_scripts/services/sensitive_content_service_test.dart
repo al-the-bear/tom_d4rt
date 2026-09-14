@@ -52,27 +52,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: graphite, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -89,14 +83,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: silver),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: onyx.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: onyx.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -129,16 +120,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: onyx,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: onyx)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -156,14 +147,11 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? onyx : deepSlate,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? onyx : deepSlate)),
           );
         }).toList(),
       ),
@@ -180,23 +168,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? onyx : deepSlate,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.arrow_forward, size: 12, color: slate),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.arrow_forward, size: 12, color: slate),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -223,38 +206,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            snFlow([
-              'Mark region',
-              'Platform notified',
-              'Screenshot taken',
-              'Region redacted',
-              'Data protected',
-            ]),
+            snFlow(['Mark region', 'Platform notified', 'Screenshot taken',
+                'Region redacted', 'Data protected']),
             const SizedBox(height: 10),
-            _snProtectionBadge(
-              'Screenshot',
-              'Redacted in captures',
-              Icons.screenshot,
-              onyx,
-            ),
-            _snProtectionBadge(
-              'Recording',
-              'Hidden in screen recordings',
-              Icons.videocam,
-              deepSlate,
-            ),
-            _snProtectionBadge(
-              'Sharing',
-              'Obscured in screen share',
-              Icons.screen_share,
-              slate,
-            ),
-            _snProtectionBadge(
-              'Preview',
-              'Hidden in task switcher',
-              Icons.view_carousel,
-              charcoal,
-            ),
+            _snProtectionBadge('Screenshot', 'Redacted in captures', Icons.screenshot, onyx),
+            _snProtectionBadge('Recording', 'Hidden in screen recordings', Icons.videocam, deepSlate),
+            _snProtectionBadge('Sharing', 'Obscured in screen share', Icons.screen_share, slate),
+            _snProtectionBadge('Preview', 'Hidden in task switcher', Icons.view_carousel, charcoal),
           ],
         ),
       ),
@@ -340,18 +298,10 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _snBehaviorItem('Screenshots', 'Black screen or error toast', onyx),
-            _snBehaviorItem(
-              'Screen recording',
-              'Black frames for this window',
-              deepSlate,
-            ),
+            _snBehaviorItem('Screen recording', 'Black frames for this window', deepSlate),
             _snBehaviorItem('Recent apps', 'White/blank preview', slate),
             _snBehaviorItem('Cast/mirror', 'Black or blocked', charcoal),
-            _snBehaviorItem(
-              'Scrcpy/ADB',
-              'Black screen (most cases)',
-              obsidian,
-            ),
+            _snBehaviorItem('Scrcpy/ADB', 'Black screen (most cases)', obsidian),
           ],
         ),
       ),
@@ -376,11 +326,7 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             snRow(['Event', 'API', 'App Response'], isHeader: true),
-            snRow([
-              'Screenshot',
-              'UIApplication notification',
-              'After the fact',
-            ]),
+            snRow(['Screenshot', 'UIApplication notification', 'After the fact']),
             snRow(['Recording start', 'isCaptured = true', 'Can hide content']),
             snRow(['Recording stop', 'isCaptured = false', 'Can restore']),
             snRow(['AirPlay', 'isCaptured = true', 'Can hide content']),
@@ -408,13 +354,8 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            snFlow([
-              'Flutter API',
-              'Platform channel',
-              'Native code',
-              'System flags',
-              'OS enforcement',
-            ]),
+            snFlow(['Flutter API', 'Platform channel', 'Native code',
+                'System flags', 'OS enforcement']),
             const SizedBox(height: 10),
             snRow(['Layer', 'Component', 'Responsibility'], isHeader: true),
             snRow(['1', 'SensitiveContentService', 'Flutter-side API']),
@@ -474,36 +415,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _snLifecycleItem(
-              Icons.login,
-              'Login page shown',
-              'Enable protection',
-              onyx,
-            ),
-            _snLifecycleItem(
-              Icons.visibility,
-              'Password visible',
-              'Protection active',
-              deepSlate,
-            ),
-            _snLifecycleItem(
-              Icons.check,
-              'Auth complete',
-              'Disable protection',
-              slate,
-            ),
-            _snLifecycleItem(
-              Icons.home,
-              'Home screen',
-              'No protection needed',
-              charcoal,
-            ),
-            _snLifecycleItem(
-              Icons.payment,
-              'Payment page',
-              'Re-enable protection',
-              obsidian,
-            ),
+            _snLifecycleItem(Icons.login, 'Login page shown', 'Enable protection', onyx),
+            _snLifecycleItem(Icons.visibility, 'Password visible', 'Protection active', deepSlate),
+            _snLifecycleItem(Icons.check, 'Auth complete', 'Disable protection', slate),
+            _snLifecycleItem(Icons.home, 'Home screen', 'No protection needed', charcoal),
+            _snLifecycleItem(Icons.payment, 'Payment page', 'Re-enable protection', obsidian),
           ],
         ),
       ),
@@ -527,11 +443,7 @@ dynamic build(BuildContext context) {
         'Field Protection Levels',
         Column(
           children: [
-            snRow([
-              'Field Type',
-              'obscureText',
-              'Screenshot Block',
-            ], isHeader: true),
+            snRow(['Field Type', 'obscureText', 'Screenshot Block'], isHeader: true),
             snRow(['Password', 'Yes (dots)', 'Recommended']),
             snRow(['PIN', 'Usually yes', 'Recommended']),
             snRow(['SSN', 'Optional', 'Recommended']),
@@ -562,30 +474,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _snStrategyCard(
-              'Block',
-              'Prevent recording entirely',
-              Icons.block,
-              onyx,
-            ),
-            _snStrategyCard(
-              'Hide',
-              'Replace sensitive fields with placeholders',
-              Icons.visibility_off,
-              deepSlate,
-            ),
-            _snStrategyCard(
-              'Warn',
-              'Show warning overlay during recording',
-              Icons.warning,
-              slate,
-            ),
-            _snStrategyCard(
-              'Log',
-              'Record the event for audit',
-              Icons.description,
-              charcoal,
-            ),
+            _snStrategyCard('Block', 'Prevent recording entirely', Icons.block, onyx),
+            _snStrategyCard('Hide', 'Replace sensitive fields with placeholders', Icons.visibility_off, deepSlate),
+            _snStrategyCard('Warn', 'Show warning overlay during recording', Icons.warning, slate),
+            _snStrategyCard('Log', 'Record the event for audit', Icons.description, charcoal),
           ],
         ),
       ),
@@ -666,11 +558,7 @@ dynamic build(BuildContext context) {
         'Compliance Matrix',
         Column(
           children: [
-            snRow([
-              'Regulation',
-              'Data Type',
-              'Screenshot Rule',
-            ], isHeader: true),
+            snRow(['Regulation', 'Data Type', 'Screenshot Rule'], isHeader: true),
             snRow(['PCI DSS', 'Card data', 'Must mask/protect']),
             snRow(['HIPAA', 'Health records', 'Reasonable safeguards']),
             snRow(['GDPR', 'Personal data', 'Technical measures']),
@@ -700,36 +588,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _snUxItem(
-              'Explain',
-              'Tell users why screenshots are blocked',
-              Icons.info_outline,
-              onyx,
-            ),
-            _snUxItem(
-              'Scope',
-              'Only protect truly sensitive screens',
-              Icons.security,
-              deepSlate,
-            ),
-            _snUxItem(
-              'Alternative',
-              'Offer safe export/share options',
-              Icons.share,
-              slate,
-            ),
-            _snUxItem(
-              'Temporary',
-              'Lift protection after data changes',
-              Icons.timer,
-              charcoal,
-            ),
-            _snUxItem(
-              'Feedback',
-              'Show visual indicator when active',
-              Icons.shield,
-              obsidian,
-            ),
+            _snUxItem('Explain', 'Tell users why screenshots are blocked', Icons.info_outline, onyx),
+            _snUxItem('Scope', 'Only protect truly sensitive screens', Icons.security, deepSlate),
+            _snUxItem('Alternative', 'Offer safe export/share options', Icons.share, slate),
+            _snUxItem('Temporary', 'Lift protection after data changes', Icons.timer, charcoal),
+            _snUxItem('Feedback', 'Show visual indicator when active', Icons.shield, obsidian),
           ],
         ),
       ),
@@ -754,10 +617,7 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _snCheckItem(
-              'Verify FLAG_SECURE set via ADB screencap → black image',
-              onyx,
-            ),
+            _snCheckItem('Verify FLAG_SECURE set via ADB screencap → black image', onyx),
             _snCheckItem('Test screen recording shows blank frames', deepSlate),
             _snCheckItem('Check task switcher preview is blanked', slate),
             _snCheckItem('Verify protection toggles per route', charcoal),
@@ -783,11 +643,7 @@ dynamic build(BuildContext context) {
             snRow(['Topic', 'Section', 'Key Insight'], isHeader: true),
             snRow(['What', 'S01', 'Mark & redact sensitive regions']),
             snRow(['Platforms', 'S02', 'FLAG_SECURE / isCaptured']),
-            snRow([
-              'Classification',
-              'S03',
-              'Auth, financial, personal, medical',
-            ]),
+            snRow(['Classification', 'S03', 'Auth, financial, personal, medical']),
             snRow(['Android', 'S04', 'FLAG_SECURE blocks captures']),
             snRow(['iOS', 'S05', 'Detection via isCaptured']),
             snRow(['Flutter', 'S06', 'Platform channel to native flags']),
@@ -829,14 +685,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'SensitiveContentService — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('SensitiveContentService — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'Content protection in Flutter: from FLAG_SECURE and capture '
@@ -868,22 +721,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -895,12 +736,7 @@ dynamic build(BuildContext context) {
 // Top-level helpers
 // ═══════════════════════════════════════════════════
 
-Widget _snProtectionBadge(
-  String label,
-  String desc,
-  IconData icon,
-  Color color,
-) {
+Widget _snProtectionBadge(String label, String desc, IconData icon, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 5),
     child: Row(
@@ -909,20 +745,13 @@ Widget _snProtectionBadge(
         const SizedBox(width: 8),
         SizedBox(
           width: 80,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -945,32 +774,20 @@ Widget _snBehaviorItem(String scenario, String behavior, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 100,
-          child: Text(
-            scenario,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          child: Text(scenario,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
         ),
         Expanded(
-          child: Text(
-            behavior,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
-          ),
+          child: Text(behavior,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
         ),
       ],
     ),
   );
 }
 
-Widget _snLifecycleItem(
-  IconData icon,
-  String event,
-  String action,
-  Color color,
-) {
+Widget _snLifecycleItem(IconData icon, String event, String action, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
@@ -979,21 +796,14 @@ Widget _snLifecycleItem(
         const SizedBox(width: 6),
         Expanded(
           flex: 2,
-          child: Text(
-            event,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          child: Text(event,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            action,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
-          ),
+          child: Text(action,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
         ),
       ],
     ),
@@ -1015,20 +825,13 @@ Widget _snStrategyCard(String name, String desc, IconData icon, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 50,
-          child: Text(
-            name,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(name,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -1044,20 +847,13 @@ Widget _snUxItem(String label, String desc, IconData icon, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 70,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -1072,7 +868,8 @@ Widget _snCheckItem(String text, Color color) {
         Icon(Icons.check_circle_outline, size: 14, color: color),
         const SizedBox(width: 6),
         Expanded(
-          child: Text(text, style: TextStyle(fontSize: 10, color: color)),
+          child: Text(text,
+              style: TextStyle(fontSize: 10, color: color)),
         ),
       ],
     ),

@@ -48,9 +48,8 @@ final ValueNotifier<double> kPgGrade = ValueNotifier<double>(0.0);
 final ValueNotifier<double> kPgOpticalSize = ValueNotifier<double>(24.0);
 
 /// Drives the playground color choice (section 2).
-final ValueNotifier<Color> kPgColor = ValueNotifier<Color>(
-  const Color(0xFF6750A4),
-);
+final ValueNotifier<Color> kPgColor =
+    ValueNotifier<Color>(const Color(0xFF6750A4));
 
 /// Drives the lerp slider (section 7).
 final ValueNotifier<double> kLerpT = ValueNotifier<double>(0.5);
@@ -119,8 +118,16 @@ const List<_ShadowRecipe> _shadowRecipes = <_ShadowRecipe>[
     'Double Glow',
     'Two overlapping shadows — inner and outer — simulate neon glow.',
     <Shadow>[
-      Shadow(color: Color(0x80FFD54F), blurRadius: 4.0, offset: Offset.zero),
-      Shadow(color: Color(0x66FF8F00), blurRadius: 14.0, offset: Offset.zero),
+      Shadow(
+        color: Color(0x80FFD54F),
+        blurRadius: 4.0,
+        offset: Offset.zero,
+      ),
+      Shadow(
+        color: Color(0x66FF8F00),
+        blurRadius: 14.0,
+        offset: Offset.zero,
+      ),
     ],
   ),
   _ShadowRecipe(
@@ -197,42 +204,21 @@ const List<_UseCase> _useCases = <_UseCase>[
 
 const List<_CheatRow> _cheatSheet = <_CheatRow>[
   _CheatRow('size', 'double?', 'Logical pixel square for the glyph box.'),
+  _CheatRow('fill', 'double? (0..1)',
+      '0 = outlined, 1 = filled. Variable-font axis.'),
+  _CheatRow('weight', 'double? (100..700)',
+      'Stroke thickness axis. 400 ~ regular, 700 ~ bold.'),
   _CheatRow(
-    'fill',
-    'double? (0..1)',
-    '0 = outlined, 1 = filled. Variable-font axis.',
-  ),
-  _CheatRow(
-    'weight',
-    'double? (100..700)',
-    'Stroke thickness axis. 400 ~ regular, 700 ~ bold.',
-  ),
-  _CheatRow(
-    'grade',
-    'double? (-25..0..200)',
-    'Finer weight tuning without resize.',
-  ),
-  _CheatRow(
-    'opticalSize',
-    'double? (20/24/40/48)',
-    'Stroke compensates for rendered size.',
-  ),
+      'grade', 'double? (-25..0..200)', 'Finer weight tuning without resize.'),
+  _CheatRow('opticalSize', 'double? (20/24/40/48)',
+      'Stroke compensates for rendered size.'),
   _CheatRow('color', 'Color?', 'Applied as foreground; alpha encodes opacity.'),
-  _CheatRow(
-    'opacity',
-    'double? (deprecated)',
-    'Use color alpha channel instead.',
-  ),
-  _CheatRow(
-    'shadows',
-    'List<Shadow>?',
-    'List of drop shadows painted beneath the glyph.',
-  ),
-  _CheatRow(
-    'applyTextScaling',
-    'bool?',
-    'Scale size with MediaQuery.textScaler when true.',
-  ),
+  _CheatRow('opacity', 'double? (deprecated)',
+      'Use color alpha channel instead.'),
+  _CheatRow('shadows', 'List<Shadow>?',
+      'List of drop shadows painted beneath the glyph.'),
+  _CheatRow('applyTextScaling', 'bool?',
+      'Scale size with MediaQuery.textScaler when true.'),
 ];
 
 // ---------------------------------------------------------------------------
@@ -412,10 +398,7 @@ class _HeroInheritExplainer extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(
-                  Icons.account_tree,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                Icon(Icons.account_tree, color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
                 const Text(
                   'How IconTheme inheritance works',
@@ -461,19 +444,13 @@ class _InheritChain extends StatelessWidget {
             IconTheme(
               data: const IconThemeData(color: Colors.blue),
               child: const _ChainRow(
-                'section',
-                Icon(Icons.folder_open),
-                'blue, 28pt (size inherited)',
-              ),
+                  'section', Icon(Icons.folder_open), 'blue, 28pt (size inherited)'),
             ),
             const SizedBox(height: 6),
             IconTheme(
               data: const IconThemeData(color: Colors.deepOrange, size: 36),
-              child: const _ChainRow(
-                'leaf',
-                Icon(Icons.star),
-                'deepOrange, 36pt (fully local)',
-              ),
+              child: const _ChainRow('leaf', Icon(Icons.star),
+                  'deepOrange, 36pt (fully local)'),
             ),
           ],
         ),
@@ -492,13 +469,7 @@ class _ChainRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        SizedBox(
-          width: 64,
-          child: Text(
-            label,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
-        ),
+        SizedBox(width: 64, child: Text(label, style: const TextStyle(fontWeight: FontWeight.w600))),
         SizedBox(width: 40, child: icon),
         const SizedBox(width: 8),
         Expanded(child: Text(desc, style: const TextStyle(fontSize: 12))),
@@ -518,26 +489,14 @@ class _HeroQuickFacts extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const <Widget>[
-            Text(
-              'Quick facts',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text('Quick facts',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             SizedBox(height: 8),
-            _FactBullet(
-              'Immutable value class — create new instances via copyWith.',
-            ),
-            _FactBullet(
-              'Consumed by Icon, IconButton and every Material icon renderer.',
-            ),
-            _FactBullet(
-              'Supports variable-font axes: fill, weight, grade, opticalSize.',
-            ),
-            _FactBullet(
-              'IconThemeData.fallback() provides the framework defaults.',
-            ),
-            _FactBullet(
-              'IconThemeData.lerp(a, b, t) interpolates numeric fields and color.',
-            ),
+            _FactBullet('Immutable value class — create new instances via copyWith.'),
+            _FactBullet('Consumed by Icon, IconButton and every Material icon renderer.'),
+            _FactBullet('Supports variable-font axes: fill, weight, grade, opticalSize.'),
+            _FactBullet('IconThemeData.fallback() provides the framework defaults.'),
+            _FactBullet('IconThemeData.lerp(a, b, t) interpolates numeric fields and color.'),
           ],
         ),
       ),
@@ -664,10 +623,8 @@ class _PlaygroundControls extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'Live IconThemeData',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            const Text('Live IconThemeData',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             const SizedBox(height: 12),
             _SliderRow(
               label: 'size',
@@ -710,10 +667,8 @@ class _PlaygroundControls extends StatelessWidget {
               hint: 'Stroke compensation for rendered size.',
             ),
             const SizedBox(height: 16),
-            const Text(
-              'color',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-            ),
+            const Text('color',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             const _ColorRow(),
           ],
@@ -754,10 +709,8 @@ class _SliderRow extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(
                     width: 96,
-                    child: Text(
-                      label,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
-                    ),
+                    child: Text(label,
+                        style: const TextStyle(fontWeight: FontWeight.w600)),
                   ),
                   Expanded(
                     child: Slider(
@@ -769,24 +722,18 @@ class _SliderRow extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 52,
-                    child: Text(
-                      v.toStringAsFixed(decimals),
-                      textAlign: TextAlign.right,
-                      style: const TextStyle(
-                        fontFeatures: <FontFeature>[
-                          FontFeature.tabularFigures(),
-                        ],
-                      ),
-                    ),
+                    child: Text(v.toStringAsFixed(decimals),
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(fontFeatures: <FontFeature>[
+                          FontFeature.tabularFigures()
+                        ])),
                   ),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 96),
-                child: Text(
-                  hint,
-                  style: const TextStyle(fontSize: 11, color: Colors.black54),
-                ),
+                child: Text(hint,
+                    style: const TextStyle(fontSize: 11, color: Colors.black54)),
               ),
             ],
           );
@@ -833,28 +780,20 @@ class _PlaygroundExplainers extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Notes',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text('Notes',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             SizedBox(height: 8),
-            _Note(
-              'Variable-font axes only render when the bundled font supports '
-              'them. MaterialIcons respects size and color universally, while '
-              'weight/fill/grade/opticalSize are honored by the material '
-              'symbols variable families (MaterialSymbolsRounded/Outlined/Sharp).',
-            ),
+            _Note('Variable-font axes only render when the bundled font supports '
+                'them. MaterialIcons respects size and color universally, while '
+                'weight/fill/grade/opticalSize are honored by the material '
+                'symbols variable families (MaterialSymbolsRounded/Outlined/Sharp).'),
             SizedBox(height: 6),
-            _Note(
-              'IconTheme merges — a child IconTheme with only color set '
-              'keeps the ancestor size/weight/fill. Use IconThemeData.merge '
-              'to express that intent explicitly.',
-            ),
+            _Note('IconTheme merges — a child IconTheme with only color set '
+                'keeps the ancestor size/weight/fill. Use IconThemeData.merge '
+                'to express that intent explicitly.'),
             SizedBox(height: 6),
-            _Note(
-              'Color alpha is the recommended way to express translucency. '
-              'The opacity field is deprecated — see the API cheat sheet.',
-            ),
+            _Note('Color alpha is the recommended way to express translucency. '
+                'The opacity field is deprecated — see the API cheat sheet.'),
           ],
         ),
       ),
@@ -874,8 +813,7 @@ class _Note extends StatelessWidget {
         const Icon(Icons.info_outline, size: 16),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text, style: const TextStyle(fontSize: 12, height: 1.5)),
-        ),
+            child: Text(text, style: const TextStyle(fontSize: 12, height: 1.5))),
       ],
     );
   }
@@ -919,15 +857,11 @@ class _WeightIntro extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(
-                  Icons.line_weight,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                Icon(Icons.line_weight, color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                const Text(
-                  'Weight axis',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
+                const Text('Weight axis',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             const SizedBox(height: 8),
@@ -972,36 +906,26 @@ class _WeightCard extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text(
-                        stop.title,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      Text(stop.title,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600)),
                       const SizedBox(width: 8),
                       if (stop.value > 700)
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 2,
-                          ),
+                              horizontal: 6, vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.amber.shade200,
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: const Text(
-                            'capped to 700',
-                            style: TextStyle(fontSize: 10),
-                          ),
+                          child: const Text('capped to 700',
+                              style: TextStyle(fontSize: 10)),
                         ),
                     ],
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    stop.description,
-                    style: const TextStyle(fontSize: 12, height: 1.4),
-                  ),
+                  Text(stop.description,
+                      style: const TextStyle(fontSize: 12, height: 1.4)),
                 ],
               ),
             ),
@@ -1023,10 +947,8 @@ class _VariableAxesExplainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'Variable-font behaviors',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            const Text('Variable-font behaviors',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             const SizedBox(height: 12),
             _AxisExplain(
               icon: Icons.opacity,
@@ -1039,15 +961,13 @@ class _VariableAxesExplainer extends StatelessWidget {
             _AxisExplain(
               icon: Icons.swap_vert,
               title: 'grade -25 / 0 / 200',
-              body:
-                  'Finer stroke adjustment without touching size or weight. '
+              body: 'Finer stroke adjustment without touching size or weight. '
                   'Use positive grade on dark backgrounds to improve legibility.',
             ),
             _AxisExplain(
               icon: Icons.zoom_out_map,
               title: 'opticalSize 20 / 24 / 40 / 48',
-              body:
-                  'Selects a stroke design optimized for the target size. '
+              body: 'Selects a stroke design optimized for the target size. '
                   'Match opticalSize to the rendered size for sharpest strokes.',
             ),
           ],
@@ -1058,11 +978,8 @@ class _VariableAxesExplainer extends StatelessWidget {
 }
 
 class _AxisExplain extends StatelessWidget {
-  const _AxisExplain({
-    required this.icon,
-    required this.title,
-    required this.body,
-  });
+  const _AxisExplain(
+      {required this.icon, required this.title, required this.body});
   final IconData icon;
   final String title;
   final String body;
@@ -1080,15 +997,12 @@ class _AxisExplain extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                Text(title,
+                    style: const TextStyle(
+                        fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 2),
-                Text(body, style: const TextStyle(fontSize: 12, height: 1.4)),
+                Text(body,
+                    style: const TextStyle(fontSize: 12, height: 1.4)),
               ],
             ),
           ),
@@ -1136,15 +1050,12 @@ class _ShadowIntro extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(
-                  Icons.blur_on,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                Icon(Icons.blur_on,
+                    color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                const Text(
-                  'Shadow list',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
+                const Text('Shadow list',
+                    style: TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             const SizedBox(height: 8),
@@ -1193,18 +1104,12 @@ class _ShadowCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    recipe.title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  Text(recipe.title,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 4),
-                  Text(
-                    recipe.description,
-                    style: const TextStyle(fontSize: 12, height: 1.4),
-                  ),
+                  Text(recipe.description,
+                      style: const TextStyle(fontSize: 12, height: 1.4)),
                   const SizedBox(height: 10),
                   _ShadowDetails(shadows: recipe.shadows),
                 ],
@@ -1234,10 +1139,9 @@ class _ShadowDetails extends StatelessWidget {
               'offset=(${shadows[i].offset.dx.toStringAsFixed(1)}, '
               '${shadows[i].offset.dy.toStringAsFixed(1)})',
               style: const TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: Colors.black54,
-              ),
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: Colors.black54),
             ),
           ),
       ],
@@ -1256,23 +1160,15 @@ class _ShadowTips extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Tips',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text('Tips',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             SizedBox(height: 8),
-            _Note(
-              'Keep blurRadius proportional to size — a 6.0 blur on a 24pt '
-              'icon feels like a 12.0 blur on a 48pt icon.',
-            ),
-            _Note(
-              'Stack two shadows to simulate ambient + key lighting; pair '
-              'a soft large-blur shadow with a small tight shadow.',
-            ),
-            _Note(
-              'For glow effects, use a same-hue shadow with elevated alpha '
-              'and a large blur, offset zero.',
-            ),
+            _Note('Keep blurRadius proportional to size — a 6.0 blur on a 24pt '
+                'icon feels like a 12.0 blur on a 48pt icon.'),
+            _Note('Stack two shadows to simulate ambient + key lighting; pair '
+                'a soft large-blur shadow with a small tight shadow.'),
+            _Note('For glow effects, use a same-hue shadow with elevated alpha '
+                'and a large blur, offset zero.'),
           ],
         ),
       ),
@@ -1315,15 +1211,12 @@ class _ColorMatrixIntro extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(
-                  Icons.palette,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                Icon(Icons.palette,
+                    color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                const Text(
-                  '4 colors × 3 alpha levels',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
+                const Text('4 colors × 3 alpha levels',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             const SizedBox(height: 8),
@@ -1383,14 +1276,10 @@ class _MatrixCell extends StatelessWidget {
             child: const Icon(Icons.favorite),
           ),
           const SizedBox(height: 6),
-          Text(
-            'a=${(alpha * 100).round()}%',
-            style: const TextStyle(fontSize: 11),
-          ),
-          Text(
-            '#${applied.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
-            style: const TextStyle(fontSize: 9, color: Colors.black54),
-          ),
+          Text('a=${(alpha * 100).round()}%',
+              style: const TextStyle(fontSize: 11)),
+          Text('#${applied.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
+              style: const TextStyle(fontSize: 9, color: Colors.black54)),
         ],
       ),
     );
@@ -1408,24 +1297,16 @@ class _OpacityExplain extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Why not opacity?',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text('Why not opacity?',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             SizedBox(height: 8),
-            _Note(
-              'IconThemeData.opacity is deprecated. It existed before Color '
-              'supported an alpha channel in the same way; the alpha was '
-              'multiplied onto color at paint time.',
-            ),
-            _Note(
-              'Encoding translucency through color alpha composes cleanly '
-              'with blend modes, ShaderMask and image filters.',
-            ),
-            _Note(
-              'Opacity also stacks awkwardly under IconTheme merging — two '
-              'nested IconThemes with opacity 0.5 do not produce 0.25.',
-            ),
+            _Note('IconThemeData.opacity is deprecated. It existed before Color '
+                'supported an alpha channel in the same way; the alpha was '
+                'multiplied onto color at paint time.'),
+            _Note('Encoding translucency through color alpha composes cleanly '
+                'with blend modes, ShaderMask and image filters.'),
+            _Note('Opacity also stacks awkwardly under IconTheme merging — two '
+                'nested IconThemes with opacity 0.5 do not produce 0.25.'),
           ],
         ),
       ),
@@ -1485,15 +1366,12 @@ class _InheritIntro extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(
-                  Icons.account_tree,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                Icon(Icons.account_tree,
+                    color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                const Text(
-                  'IconTheme inheritance diagram',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
+                const Text('IconTheme inheritance diagram',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             const SizedBox(height: 8),
@@ -1585,18 +1463,15 @@ class _InheritTreePainter extends CustomPainter {
         maxLines: 2,
         ellipsis: '…',
       )..layout(maxWidth: size.width * 0.4);
-      side.paint(
-        canvas,
-        Offset(n.center.dx + n.radius + 16, n.center.dy - side.height / 2),
-      );
+      side.paint(canvas, Offset(n.center.dx + n.radius + 16,
+          n.center.dy - side.height / 2));
     }
 
     // "Wins" column title.
     final TextPainter winsTitle = TextPainter(
       text: const TextSpan(
-        text: 'effective',
-        style: TextStyle(fontSize: 10, color: Colors.black45),
-      ),
+          text: 'effective',
+          style: TextStyle(fontSize: 10, color: Colors.black45)),
       textDirection: TextDirection.ltr,
     )..layout();
     winsTitle.paint(canvas, Offset(8, 4));
@@ -1610,35 +1485,28 @@ class _InheritTreePainter extends CustomPainter {
       final _TreeNode n = nodes[i];
       final TextPainter w = TextPainter(
         text: TextSpan(
-          text: wins[i],
-          style: const TextStyle(
-            fontSize: 11,
-            color: Colors.black87,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+            text: wins[i],
+            style: const TextStyle(
+                fontSize: 11,
+                color: Colors.black87,
+                fontWeight: FontWeight.w600)),
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: 120);
       w.paint(canvas, Offset(8, n.center.dy - w.height / 2));
     }
   }
 
-  void _drawLabel(Canvas canvas, Offset c, double r, String label, Color fill) {
+  void _drawLabel(
+      Canvas canvas, Offset c, double r, String label, Color fill) {
     final Paint p = Paint()..color = fill;
     canvas.drawCircle(c, r, p);
-    canvas.drawCircle(
-      c,
-      r,
-      Paint()
-        ..color = Colors.white
-        ..strokeWidth = 2
-        ..style = PaintingStyle.stroke,
-    );
+    canvas.drawCircle(c, r,
+        Paint()..color = Colors.white..strokeWidth = 2..style = PaintingStyle.stroke);
     final TextPainter tp = TextPainter(
       text: TextSpan(
-        text: label,
-        style: const TextStyle(fontSize: 10, color: Colors.white, height: 1.1),
-      ),
+          text: label,
+          style: const TextStyle(
+              fontSize: 10, color: Colors.white, height: 1.1)),
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.center,
     )..layout(maxWidth: r * 2.4);
@@ -1676,23 +1544,15 @@ class _InheritWinners extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Who wins?',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text('Who wins?',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             SizedBox(height: 8),
-            _Note(
-              'For every field, the nearest ancestor with a non-null value '
-              'wins. Fields unset at the current depth fall through.',
-            ),
-            _Note(
-              'IconThemeData.merge(other) replaces any field set on other, '
-              'keeping the rest from this.',
-            ),
-            _Note(
-              'Use IconThemeData.fallback() as the outermost base to '
-              'guarantee no field is null when paint runs.',
-            ),
+            _Note('For every field, the nearest ancestor with a non-null value '
+                'wins. Fields unset at the current depth fall through.'),
+            _Note('IconThemeData.merge(other) replaces any field set on other, '
+                'keeping the rest from this.'),
+            _Note('Use IconThemeData.fallback() as the outermost base to '
+                'guarantee no field is null when paint runs.'),
           ],
         ),
       ),
@@ -1711,10 +1571,8 @@ class _LiveNestedIconTheme extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'Live nested preview',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            const Text('Live nested preview',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             IconTheme(
               data: const IconThemeData(color: Colors.deepPurple, size: 28),
@@ -1801,12 +1659,12 @@ class _OpsIntro extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.merge, color: Theme.of(context).colorScheme.primary),
+                Icon(Icons.merge,
+                    color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                const Text(
-                  'copyWith · merge · lerp',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
+                const Text('copyWith · merge · lerp',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             const SizedBox(height: 8),
@@ -1846,8 +1704,7 @@ class _CopyWithPanel extends StatelessWidget {
               children: <Widget>[
                 _OpColumn(
                   label: 'base',
-                  code:
-                      'IconThemeData(\n  size: 40,\n  color: 0xFF6750A4,\n  weight: 400,\n)',
+                  code: 'IconThemeData(\n  size: 40,\n  color: 0xFF6750A4,\n  weight: 400,\n)',
                   data: base,
                 ),
                 const SizedBox(width: 16),
@@ -1894,15 +1751,13 @@ class _MergePanel extends StatelessWidget {
               children: <Widget>[
                 _OpColumn(
                   label: 'a',
-                  code:
-                      'IconThemeData(\n  size: 32,\n  color: 0xFF1565C0,\n  weight: 300,\n)',
+                  code: 'IconThemeData(\n  size: 32,\n  color: 0xFF1565C0,\n  weight: 300,\n)',
                   data: a,
                 ),
                 const SizedBox(width: 16),
                 _OpColumn(
                   label: 'a.merge(b)',
-                  code:
-                      'merge({\n  size: 48,\n  shadows: [...],\n})\n// color,weight kept',
+                  code: 'merge({\n  size: 48,\n  shadows: [...],\n})\n// color,weight kept',
                   data: merged,
                 ),
               ],
@@ -1940,7 +1795,8 @@ class _LerpPanel extends StatelessWidget {
             ValueListenableBuilder<double>(
               valueListenable: kLerpT,
               builder: (_, double t, _) {
-                final IconThemeData lerped = IconThemeData.lerp(a, b, t);
+                final IconThemeData lerped =
+                    IconThemeData.lerp(a, b, t);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -1954,8 +1810,7 @@ class _LerpPanel extends StatelessWidget {
                         const SizedBox(width: 12),
                         _OpColumn(
                           label: 't=${t.toStringAsFixed(2)}',
-                          code:
-                              'size: ${lerped.size?.toStringAsFixed(1)}\n'
+                          code: 'size: ${lerped.size?.toStringAsFixed(1)}\n'
                               'weight: ${lerped.weight?.toStringAsFixed(0)}',
                           data: lerped,
                         ),
@@ -1971,10 +1826,8 @@ class _LerpPanel extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         const SizedBox(width: 8),
-                        const Text(
-                          't',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
+                        const Text('t',
+                            style: TextStyle(fontWeight: FontWeight.w600)),
                         Expanded(
                           child: Slider(
                             min: 0,
@@ -2002,14 +1855,11 @@ class _OpTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'monospace',
-      ),
-    );
+    return Text(text,
+        style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace'));
   }
 }
 
@@ -2035,23 +1885,22 @@ class _OpColumn extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              label,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-            ),
+            Text(label,
+                style: const TextStyle(
+                    fontSize: 12, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             Center(
-              child: IconTheme(data: data, child: const Icon(Icons.star)),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              code,
-              style: const TextStyle(
-                fontSize: 10,
-                fontFamily: 'monospace',
-                color: Colors.black87,
+              child: IconTheme(
+                data: data,
+                child: const Icon(Icons.star),
               ),
             ),
+            const SizedBox(height: 8),
+            Text(code,
+                style: const TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                    color: Colors.black87)),
           ],
         ),
       ),
@@ -2077,10 +1926,7 @@ class _SectionScaling extends StatelessWidget {
         SizedBox(height: 12),
         _ScalingPair(scaler: 1.0, label: 'textScaler 1.0× (device default)'),
         SizedBox(height: 12),
-        _ScalingPair(
-          scaler: 1.6,
-          label: 'textScaler 1.6× (large accessibility)',
-        ),
+        _ScalingPair(scaler: 1.6, label: 'textScaler 1.6× (large accessibility)'),
         SizedBox(height: 16),
         _ScalingTips(),
       ],
@@ -2101,15 +1947,12 @@ class _ScalingIntro extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(
-                  Icons.text_fields,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                Icon(Icons.text_fields,
+                    color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                const Text(
-                  'applyTextScaling',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
+                const Text('applyTextScaling',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             const SizedBox(height: 8),
@@ -2139,32 +1982,27 @@ class _ScalingPair extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              label,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-            ),
+            Text(label,
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
             const SizedBox(height: 12),
             MediaQuery(
-              data: MediaQuery.of(
-                context,
-              ).copyWith(textScaler: TextScaler.linear(scaler)),
+              data: MediaQuery.of(context)
+                  .copyWith(textScaler: TextScaler.linear(scaler)),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.surfaceContainerHighest,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(
                         children: <Widget>[
-                          const Text(
-                            'applyTextScaling: true',
-                            style: TextStyle(fontSize: 11),
-                          ),
+                          const Text('applyTextScaling: true',
+                              style: TextStyle(fontSize: 11)),
                           const SizedBox(height: 8),
                           IconTheme(
                             data: const IconThemeData(
@@ -2182,17 +2020,15 @@ class _ScalingPair extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.surfaceContainerHighest,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(
                         children: <Widget>[
-                          const Text(
-                            'applyTextScaling: false',
-                            style: TextStyle(fontSize: 11),
-                          ),
+                          const Text('applyTextScaling: false',
+                              style: TextStyle(fontSize: 11)),
                           const SizedBox(height: 8),
                           IconTheme(
                             data: const IconThemeData(
@@ -2226,23 +2062,15 @@ class _ScalingTips extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Accessibility tips',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text('Accessibility tips',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             SizedBox(height: 8),
-            _Note(
-              'Enable applyTextScaling on body icons that sit inside text '
-              'runs — they need to grow with the surrounding typography.',
-            ),
-            _Note(
-              'Leave applyTextScaling false on tightly laid-out chrome '
-              '(app bar, bottom nav) where growth would break the layout.',
-            ),
-            _Note(
-              'Combine with LayoutBuilder and minimum tap targets to keep '
-              'controls reachable at 2× scaling.',
-            ),
+            _Note('Enable applyTextScaling on body icons that sit inside text '
+                'runs — they need to grow with the surrounding typography.'),
+            _Note('Leave applyTextScaling false on tightly laid-out chrome '
+                '(app bar, bottom nav) where growth would break the layout.'),
+            _Note('Combine with LayoutBuilder and minimum tap targets to keep '
+                'controls reachable at 2× scaling.'),
           ],
         ),
       ),
@@ -2285,12 +2113,12 @@ class _UseCaseIntro extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.style, color: Theme.of(context).colorScheme.primary),
+                Icon(Icons.style,
+                    color: Theme.of(context).colorScheme.primary),
                 const SizedBox(width: 8),
-                const Text(
-                  'Use cases & comparison',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
+                const Text('Use cases & comparison',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               ],
             ),
             const SizedBox(height: 8),
@@ -2307,10 +2135,8 @@ class _UseCaseIntro extends StatelessWidget {
                   children: <Widget>[
                     const Icon(Icons.info_outline, size: 14),
                     const SizedBox(width: 6),
-                    Text(
-                      'Highlighted: ${_useCases[idx].title}',
-                      style: const TextStyle(fontSize: 12),
-                    ),
+                    Text('Highlighted: ${_useCases[idx].title}',
+                        style: const TextStyle(fontSize: 12)),
                   ],
                 );
               },
@@ -2378,7 +2204,7 @@ class _UseCaseCard extends StatelessWidget {
                                   color: Color(0x33000000),
                                   blurRadius: 8,
                                   offset: Offset(0, 3),
-                                ),
+                                )
                               ]
                             : null,
                       ),
@@ -2386,18 +2212,12 @@ class _UseCaseCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    useCase.title,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  Text(useCase.title,
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 4),
-                  Text(
-                    useCase.description,
-                    style: const TextStyle(fontSize: 11, height: 1.4),
-                  ),
+                  Text(useCase.description,
+                      style: const TextStyle(fontSize: 11, height: 1.4)),
                 ],
               ),
             ),
@@ -2419,10 +2239,8 @@ class _ComparisonTable extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const <Widget>[
-            Text(
-              'IconThemeData vs adjacent APIs',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text('IconThemeData vs adjacent APIs',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             SizedBox(height: 12),
             _CmpHeader(),
             _CmpRow(
@@ -2485,10 +2303,9 @@ class _ColHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
-    );
+    return Text(text,
+        style: const TextStyle(
+            fontSize: 11, fontWeight: FontWeight.w700));
   }
 }
 
@@ -2511,24 +2328,14 @@ class _CmpRow extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            flex: 2,
-            child: Text(
-              what,
-              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
-            ),
-          ),
+              flex: 2,
+              child: Text(what,
+                  style: const TextStyle(
+                      fontSize: 11, fontWeight: FontWeight.w600))),
+          Expanded(flex: 2, child: Text(kind, style: const TextStyle(fontSize: 11))),
+          Expanded(flex: 4, child: Text(role, style: const TextStyle(fontSize: 11))),
           Expanded(
-            flex: 2,
-            child: Text(kind, style: const TextStyle(fontSize: 11)),
-          ),
-          Expanded(
-            flex: 4,
-            child: Text(role, style: const TextStyle(fontSize: 11)),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(mutability, style: const TextStyle(fontSize: 11)),
-          ),
+              flex: 3, child: Text(mutability, style: const TextStyle(fontSize: 11))),
         ],
       ),
     );
@@ -2578,29 +2385,21 @@ class _CheatChip extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            row.field,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text(row.field,
+              style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace')),
           const SizedBox(height: 2),
-          Text(
-            row.type,
-            style: const TextStyle(
-              fontSize: 10,
-              fontFamily: 'monospace',
-              color: Colors.black54,
-            ),
-          ),
+          Text(row.type,
+              style: const TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: Colors.black54)),
           const SizedBox(height: 4),
           Expanded(
-            child: Text(
-              row.description,
-              style: const TextStyle(fontSize: 11, height: 1.3),
-            ),
+            child: Text(row.description,
+                style: const TextStyle(fontSize: 11, height: 1.3)),
           ),
         ],
       ),
@@ -2633,7 +2432,8 @@ class _ShadowRecipe {
 }
 
 class _UseCase {
-  const _UseCase(this.title, this.description, this.bg, this.fg, this.icon);
+  const _UseCase(
+      this.title, this.description, this.bg, this.fg, this.icon);
   final String title;
   final String description;
   final Color bg;

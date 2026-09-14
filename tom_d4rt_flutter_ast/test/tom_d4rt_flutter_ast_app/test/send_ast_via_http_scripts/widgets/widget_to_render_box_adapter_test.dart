@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.extension,
       'title': 'What is WidgetToRenderBoxAdapter?',
-      'body':
-          'WidgetToRenderBoxAdapter is a widget that takes an '
+      'body': 'WidgetToRenderBoxAdapter is a widget that takes an '
           'existing RenderBox and exposes it as a widget. This bridges '
           'the gap between the render object layer (low-level) and '
           'the widget layer (high-level declarative API).',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Two-Layer Architecture',
-      'body':
-          'Flutter has a widget layer (declarative, build methods) and '
+      'body': 'Flutter has a widget layer (declarative, build methods) and '
           'a render layer (imperative, layout/paint). Normally widgets '
           'create render objects. WidgetToRenderBoxAdapter reverses this: '
           'a render object is wrapped to be usable as a widget.',
@@ -37,8 +35,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Advanced / Low-Level',
-      'body':
-          'This widget is for advanced use cases where you have a '
+      'body': 'This widget is for advanced use cases where you have a '
           'RenderBox created outside the widget tree (e.g., from a '
           'custom rendering engine, a platform adapter, or legacy code). '
           'Most apps never need this.',
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.sync_alt,
       'title': 'Lifecycle Bridge',
-      'body':
-          'The adapter manages the lifecycle connection: the RenderBox '
+      'body': 'The adapter manages the lifecycle connection: the RenderBox '
           'is attached to the render tree when the widget mounts and '
           'detached when it unmounts. It does not create or destroy the '
           'RenderBox itself — that\u0027s the caller\u0027s responsibility.',
@@ -127,32 +123,28 @@ dynamic build(BuildContext context) {
     {
       'name': 'renderBox',
       'type': 'RenderBox',
-      'desc':
-          'The pre-existing RenderBox to be wrapped. This render '
+      'desc': 'The pre-existing RenderBox to be wrapped. This render '
           'object must not already be in the render tree. The adapter '
           'attaches it when the widget mounts.',
     },
     {
       'name': 'onBuild',
       'type': 'VoidCallback?',
-      'desc':
-          'Optional callback invoked during the build phase. Can be '
+      'desc': 'Optional callback invoked during the build phase. Can be '
           'used to synchronize external state with the widget tree\u0027s '
           'rebuild cycle.',
     },
     {
       'name': 'RenderBox',
       'type': 'Base class',
-      'desc':
-          'The base class for render objects that have a 2D Cartesian '
+      'desc': 'The base class for render objects that have a 2D Cartesian '
           'coordinate system. RenderBox defines the layout protocol: '
           'constraints in, size out.',
     },
     {
       'name': 'LeafRenderObjectWidget',
       'type': 'Superclass',
-      'desc':
-          'WidgetToRenderBoxAdapter extends LeafRenderObjectWidget. '
+      'desc': 'WidgetToRenderBoxAdapter extends LeafRenderObjectWidget. '
           'It creates a render object element that manages the provided '
           'RenderBox\u0027s attachment to the render tree.',
     },
@@ -241,8 +233,7 @@ dynamic build(BuildContext context) {
   final renderBoxTopics = <Map<String, dynamic>>[
     {
       'title': 'Box Constraints',
-      'desc':
-          'A RenderBox receives BoxConstraints: minWidth, maxWidth, '
+      'desc': 'A RenderBox receives BoxConstraints: minWidth, maxWidth, '
           'minHeight, maxHeight. It chooses a Size within these bounds. '
           'The parent provides constraints; the child reports its size.',
       'icon': Icons.crop,
@@ -250,8 +241,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Layout Protocol',
-      'desc':
-          'performLayout() computes the box\u0027s size from '
+      'desc': 'performLayout() computes the box\u0027s size from '
           'constraints. For a leaf box (no children), size is computed '
           'directly. For parent boxes, children are laid out first, '
           'then the parent sizes based on children\u0027s sizes.',
@@ -260,8 +250,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Paint Protocol',
-      'desc':
-          'paint(PaintingContext, Offset) draws the box\u0027s visual '
+      'desc': 'paint(PaintingContext, Offset) draws the box\u0027s visual '
           'content. The offset is the top-left corner in the parent\u0027s '
           'coordinate space. Use context.canvas for drawing operations.',
       'icon': Icons.brush,
@@ -269,8 +258,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Hit Testing',
-      'desc':
-          'hitTest() determines if a point is within the box. '
+      'desc': 'hitTest() determines if a point is within the box. '
           'Returns true if the box handles the event. Custom hit '
           'testing allows non-rectangular or transparent hit areas.',
       'icon': Icons.touch_app,
@@ -278,8 +266,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Semantics',
-      'desc':
-          'describeSemanticsConfiguration() adds accessibility '
+      'desc': 'describeSemanticsConfiguration() adds accessibility '
           'metadata. A RenderBox can describe itself for screen readers. '
           'The adapter\u0027s RenderBox should provide meaningful semantics.',
       'icon': Icons.accessibility,
@@ -311,7 +298,11 @@ dynamic build(BuildContext context) {
                   color: rbColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(rb['icon'] as IconData, color: rbColor, size: 20),
+                child: Icon(
+                  rb['icon'] as IconData,
+                  color: rbColor,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -353,8 +344,7 @@ dynamic build(BuildContext context) {
   final attachSteps = <Map<String, dynamic>>[
     {
       'step': '1. Create RenderBox',
-      'desc':
-          'The caller creates a RenderBox externally. This could '
+      'desc': 'The caller creates a RenderBox externally. This could '
           'be a custom paint box, a platform rendering bridge, or '
           'a render object from a different framework subsystem.',
       'icon': Icons.build,
@@ -362,8 +352,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Pass to Adapter',
-      'desc':
-          'The RenderBox is passed to WidgetToRenderBoxAdapter\u0027s '
+      'desc': 'The RenderBox is passed to WidgetToRenderBoxAdapter\u0027s '
           'renderBox parameter. The adapter stores a reference but '
           'does not yet attach the box to the render tree.',
       'icon': Icons.input,
@@ -371,8 +360,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Widget Mounts',
-      'desc':
-          'When the adapter widget is inserted into the widget tree, '
+      'desc': 'When the adapter widget is inserted into the widget tree, '
           'createElement creates a LeafRenderObjectElement. The element\u0027s '
           'mount triggers createRenderObject, which returns the stored box.',
       'icon': Icons.play_arrow,
@@ -380,8 +368,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Box Attached',
-      'desc':
-          'The render pipeline attaches the RenderBox. It receives '
+      'desc': 'The render pipeline attaches the RenderBox. It receives '
           'an owner (PipelineOwner) and is added to the render tree. '
           'Layout and paint are scheduled.',
       'icon': Icons.link,
@@ -389,8 +376,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Layout and Paint',
-      'desc':
-          'The RenderBox participates in normal layout and paint '
+      'desc': 'The RenderBox participates in normal layout and paint '
           'passes. It receives constraints from its parent render '
           'object, reports its size, and paints its content.',
       'icon': Icons.brush,
@@ -398,8 +384,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '6. Widget Unmounts',
-      'desc':
-          'When the adapter widget is removed, the RenderBox is '
+      'desc': 'When the adapter widget is removed, the RenderBox is '
           'detached from the render tree. The box itself is NOT '
           'disposed — the caller retains ownership.',
       'icon': Icons.eject,
@@ -583,7 +568,9 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: i.isEven ? cmpColor.withOpacity(0.03) : Colors.transparent,
+          color: i.isEven
+              ? cmpColor.withOpacity(0.03)
+              : Colors.transparent,
           border: Border(
             bottom: BorderSide(color: Colors.grey.withOpacity(0.15)),
           ),
@@ -604,13 +591,19 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 cmp['adapter'] as String,
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ),
             Expanded(
               child: Text(
                 cmp['custom'] as String,
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ),
           ],
@@ -627,8 +620,7 @@ dynamic build(BuildContext context) {
   final caveats = <Map<String, dynamic>>[
     {
       'title': 'Single-Use Constraint',
-      'desc':
-          'A RenderBox can only be in one place in the render tree. '
+      'desc': 'A RenderBox can only be in one place in the render tree. '
           'If you try to use the same RenderBox in two adapters '
           'simultaneously, the framework will throw a "render object '
           'already has a parent" error.',
@@ -637,8 +629,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No Widget Rebuilds',
-      'desc':
-          'Standard widgets rebuild when setState is called. The '
+      'desc': 'Standard widgets rebuild when setState is called. The '
           'adapter does not rebuild the RenderBox — it\u0027s not a '
           'widget-created object. To update, call markNeedsLayout '
           'or markNeedsPaint on the box directly.',
@@ -647,8 +638,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Ownership Responsibility',
-      'desc':
-          'The adapter does NOT dispose the RenderBox when unmounting. '
+      'desc': 'The adapter does NOT dispose the RenderBox when unmounting. '
           'The caller must track the box\u0027s lifecycle and dispose it '
           'when done. Failure to do so causes memory leaks.',
       'icon': Icons.delete_forever,
@@ -656,8 +646,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Constraints Mismatch',
-      'desc':
-          'The adapter\u0027s parent provides BoxConstraints. If the '
+      'desc': 'The adapter\u0027s parent provides BoxConstraints. If the '
           'RenderBox was designed for specific constraints, a mismatch '
           'can cause layout assertion failures or visual glitches. '
           'Wrap in SizedBox or ConstrainedBox to control constraints.',
@@ -666,8 +655,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No Children via Widget Tree',
-      'desc':
-          'WidgetToRenderBoxAdapter is a LeafRenderObjectWidget. It '
+      'desc': 'WidgetToRenderBoxAdapter is a LeafRenderObjectWidget. It '
           'cannot have widget children. If the RenderBox has child '
           'render objects, they must be managed outside the widget tree.',
       'icon': Icons.block,
@@ -698,7 +686,11 @@ dynamic build(BuildContext context) {
                 color: cvColor.withOpacity(0.12),
                 shape: BoxShape.circle,
               ),
-              child: Icon(cv['icon'] as IconData, color: cvColor, size: 18),
+              child: Icon(
+                cv['icon'] as IconData,
+                color: cvColor,
+                size: 18,
+              ),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -739,8 +731,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Custom Rendering Engine',
-      'desc':
-          'A custom rendering engine (e.g., a game engine or chart '
+      'desc': 'A custom rendering engine (e.g., a game engine or chart '
           'library) produces RenderBoxes. The adapter integrates '
           'these into a Flutter widget tree for layout and compositing.',
       'icon': Icons.games,
@@ -748,8 +739,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Platform View Bridge',
-      'desc':
-          'Platform-specific rendering (e.g., native canvas) wrapped '
+      'desc': 'Platform-specific rendering (e.g., native canvas) wrapped '
           'in a RenderBox. The adapter makes it usable alongside '
           'Flutter widgets without a full PlatformView setup.',
       'icon': Icons.devices_other,
@@ -757,8 +747,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Testing Infrastructure',
-      'desc':
-          'In tests, a mock or stub RenderBox can be injected into '
+      'desc': 'In tests, a mock or stub RenderBox can be injected into '
           'the widget tree for verifying layout, paint, or hit-test '
           'behavior without building a full widget subtree.',
       'icon': Icons.science,
@@ -766,8 +755,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Lazy Initialization',
-      'desc':
-          'A RenderBox that\u0027s expensive to create can be '
+      'desc': 'A RenderBox that\u0027s expensive to create can be '
           'pre-created and reattached via the adapter as needed. '
           'The box persists while the widget mounts/unmounts, '
           'avoiding recreation costs.',
@@ -776,8 +764,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Interop with Render Libraries',
-      'desc':
-          'Third-party render libraries that produce RenderBoxes '
+      'desc': 'Third-party render libraries that produce RenderBoxes '
           'directly. The adapter allows mixing their output with '
           'standard Flutter widgets in the same layout tree.',
       'icon': Icons.merge_type,
@@ -809,7 +796,11 @@ dynamic build(BuildContext context) {
                   color: ucColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(uc['icon'] as IconData, color: ucColor, size: 22),
+                child: Icon(
+                  uc['icon'] as IconData,
+                  color: ucColor,
+                  size: 22,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -851,38 +842,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.extension,
-      'text':
-          'WidgetToRenderBoxAdapter wraps a pre-existing RenderBox '
+      'text': 'WidgetToRenderBoxAdapter wraps a pre-existing RenderBox '
           'for use in the widget tree.',
     },
     {
       'icon': Icons.sync_alt,
-      'text':
-          'Bridges the render layer and widget layer in the '
+      'text': 'Bridges the render layer and widget layer in the '
           'reverse direction: render object to widget.',
     },
     {
       'icon': Icons.link,
-      'text':
-          'Attaches the RenderBox on mount and detaches on unmount. '
+      'text': 'Attaches the RenderBox on mount and detaches on unmount. '
           'The caller retains ownership of the box.',
     },
     {
       'icon': Icons.warning_amber,
-      'text':
-          'Advanced use only: for custom rendering engines, '
+      'text': 'Advanced use only: for custom rendering engines, '
           'platform bridges, and testing infrastructure.',
     },
     {
       'icon': Icons.block,
-      'text':
-          'Leaf widget: cannot have widget children. The RenderBox '
+      'text': 'Leaf widget: cannot have widget children. The RenderBox '
           'can only be in one adapter at a time.',
     },
     {
       'icon': Icons.memory,
-      'text':
-          'The caller must dispose the RenderBox when done. '
+      'text': 'The caller must dispose the RenderBox when done. '
           'The adapter does not manage disposal.',
     },
   ];

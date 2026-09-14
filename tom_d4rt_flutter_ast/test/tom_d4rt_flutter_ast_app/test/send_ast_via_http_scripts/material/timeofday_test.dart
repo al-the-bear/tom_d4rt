@@ -291,11 +291,8 @@ Widget _buildIntroCard() {
                 ],
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.access_time_filled,
-                color: Colors.white,
-                size: 30,
-              ),
+              child: const Icon(Icons.access_time_filled,
+                  color: Colors.white, size: 30),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -331,14 +328,19 @@ Widget _buildIntroCard() {
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.08),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.white.withOpacity(0.18), width: 1),
+            border:
+                Border.all(color: Colors.white.withOpacity(0.18), width: 1),
           ),
           child: const Text(
             'TimeOfDay represents a wall-clock time independent of any calendar '
             'date. It exposes hour (0..23), minute (0..59), and a derived '
             'AM/PM period. This deep demo walks the API surface entirely from '
             'static, deterministic values to keep d4rt happy.',
-            style: TextStyle(color: Colors.white, fontSize: 13.5, height: 1.5),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13.5,
+              height: 1.5,
+            ),
           ),
         ),
         const SizedBox(height: 14),
@@ -396,7 +398,10 @@ Widget _digitalReadout(TimeOfDay t, String caption) {
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: <Color>[_midnightInk, tint.withOpacity(0.85)],
+        colors: <Color>[
+          _midnightInk,
+          tint.withOpacity(0.85),
+        ],
       ),
       borderRadius: BorderRadius.circular(12),
       boxShadow: <BoxShadow>[
@@ -410,7 +415,8 @@ Widget _digitalReadout(TimeOfDay t, String caption) {
     child: Row(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.45),
             borderRadius: BorderRadius.circular(8),
@@ -680,7 +686,10 @@ Widget _comparisonRow(TimeOfDay t) {
         ),
         Expanded(
           flex: 4,
-          child: Text(_twelveHour(t), style: const TextStyle(fontSize: 13.5)),
+          child: Text(
+            _twelveHour(t),
+            style: const TextStyle(fontSize: 13.5),
+          ),
         ),
         Expanded(
           flex: 3,
@@ -743,11 +752,7 @@ Widget _buildPeriodSection() {
 }
 
 Widget _periodCard(
-  String label,
-  DayPeriod period,
-  IconData icon,
-  List<Color> gradient,
-) {
+    String label, DayPeriod period, IconData icon, List<Color> gradient) {
   return Container(
     padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -904,7 +909,10 @@ Widget _hopRow(TimeOfDay t) {
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Colors.white, _tintFor(t).withOpacity(0.08)],
+        colors: <Color>[
+          Colors.white,
+          _tintFor(t).withOpacity(0.08),
+        ],
       ),
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: Colors.grey.shade200),
@@ -936,21 +944,12 @@ Widget _hopRow(TimeOfDay t) {
             runSpacing: 4,
             children: <Widget>[
               _miniBadge('hour', '${t.hour}', Colors.blueGrey.shade400),
-              _miniBadge(
-                'hourOfPeriod',
-                '${t.hourOfPeriod}',
-                Colors.teal.shade400,
-              ),
-              _miniBadge(
-                'periodOffset',
-                '${t.periodOffset}',
-                Colors.purple.shade400,
-              ),
-              _miniBadge(
-                'sum',
-                '$sum',
-                ok ? Colors.green.shade500 : Colors.red.shade500,
-              ),
+              _miniBadge('hourOfPeriod', '${t.hourOfPeriod}',
+                  Colors.teal.shade400),
+              _miniBadge('periodOffset', '${t.periodOffset}',
+                  Colors.purple.shade400),
+              _miniBadge('sum', '$sum',
+                  ok ? Colors.green.shade500 : Colors.red.shade500),
             ],
           ),
         ),
@@ -999,9 +998,7 @@ Widget _buildReplacingSection() {
   final TimeOfDay r1 = base.replacing(hour: 14);
   final TimeOfDay r2 = base.replacing(minute: 0);
   final TimeOfDay r3 = base.replacing(hour: 22, minute: 30);
-  final TimeOfDay r4 = _showcaseTimes[5].replacing(
-    minute: 45,
-  ); // 18:05 -> 18:45
+  final TimeOfDay r4 = _showcaseTimes[5].replacing(minute: 45); // 18:05 -> 18:45
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
@@ -1059,11 +1056,8 @@ Widget _replacingRow(TimeOfDay before, TimeOfDay after, String label) {
             Expanded(child: _miniReadout(before)),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Icon(
-                Icons.arrow_forward,
-                color: Colors.deepOrange,
-                size: 22,
-              ),
+              child:
+                  Icon(Icons.arrow_forward, color: Colors.deepOrange, size: 22),
             ),
             Expanded(child: _miniReadout(after)),
           ],
@@ -1148,23 +1142,14 @@ Widget _buildConstantsCard() {
         ),
         child: Column(
           children: <Widget>[
-            _constantRow(
-              'minutesPerHour',
-              '${TimeOfDay.minutesPerHour}',
-              'Minutes inside a single hour.',
-            ),
+            _constantRow('minutesPerHour', '${TimeOfDay.minutesPerHour}',
+                'Minutes inside a single hour.'),
             const SizedBox(height: 8),
-            _constantRow(
-              'hoursPerPeriod',
-              '${TimeOfDay.hoursPerPeriod}',
-              'Hours per AM or PM half.',
-            ),
+            _constantRow('hoursPerPeriod', '${TimeOfDay.hoursPerPeriod}',
+                'Hours per AM or PM half.'),
             const SizedBox(height: 8),
-            _constantRow(
-              'hoursPerDay',
-              '${TimeOfDay.hoursPerDay}',
-              'Hours from midnight to midnight.',
-            ),
+            _constantRow('hoursPerDay', '${TimeOfDay.hoursPerDay}',
+                'Hours from midnight to midnight.'),
           ],
         ),
       ),
@@ -1189,7 +1174,8 @@ Widget _constantRow(String name, String value, String desc) {
     child: Row(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: <Color>[_dawnGold, _noonAmber],
@@ -1222,7 +1208,10 @@ Widget _constantRow(String name, String value, String desc) {
               const SizedBox(height: 2),
               Text(
                 desc,
-                style: TextStyle(fontSize: 11.5, color: Colors.brown.shade700),
+                style: TextStyle(
+                  fontSize: 11.5,
+                  color: Colors.brown.shade700,
+                ),
               ),
             ],
           ),
@@ -1316,16 +1305,16 @@ Widget _buildClockFaceVisualization() {
 // Hard-coded radius math, no trig - the relative offsets are precomputed.
 Widget _tick(int index, int label, bool emphasised) {
   final List<List<double>> offsets = <List<double>>[
-    <double>[0, -120], // 12 (top)
+    <double>[0, -120],     // 12 (top)
     <double>[60, -103.92], // 1
     <double>[103.92, -60], // 2
-    <double>[120, 0], // 3
-    <double>[103.92, 60], // 4
-    <double>[60, 103.92], // 5
-    <double>[0, 120], // 6
+    <double>[120, 0],      // 3
+    <double>[103.92, 60],  // 4
+    <double>[60, 103.92],  // 5
+    <double>[0, 120],      // 6
     <double>[-60, 103.92], // 7
     <double>[-103.92, 60], // 8
-    <double>[-120, 0], // 9
+    <double>[-120, 0],     // 9
     <double>[-103.92, -60], // 10
     <double>[-60, -103.92], // 11
   ];
@@ -1347,7 +1336,10 @@ Widget _tick(int index, int label, bool emphasised) {
                 colors: <Color>[_noonAmber, _duskRose],
               )
             : LinearGradient(
-                colors: <Color>[Colors.white, Colors.amber.shade100],
+                colors: <Color>[
+                  Colors.white,
+                  Colors.amber.shade100,
+                ],
               ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -1444,11 +1436,8 @@ Widget _buildGuidanceCard() {
                   ),
                 ],
               ),
-              child: const Icon(
-                Icons.lightbulb_outline,
-                color: Colors.white,
-                size: 22,
-              ),
+              child: const Icon(Icons.lightbulb_outline,
+                  color: Colors.white, size: 22),
             ),
             const SizedBox(width: 12),
             const Expanded(

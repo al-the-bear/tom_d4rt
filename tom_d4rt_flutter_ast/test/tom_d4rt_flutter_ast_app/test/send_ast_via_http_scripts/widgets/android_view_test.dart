@@ -103,7 +103,11 @@ enum _Stage {
   compendium,
 }
 
-enum _Density { sparse, normal, compact }
+enum _Density {
+  sparse,
+  normal,
+  compact,
+}
 
 class _TraceEntry {
   final DateTime time;
@@ -143,8 +147,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
   bool _verbose = false;
 
   Clip _clipBehavior = Clip.hardEdge;
-  PlatformViewHitTestBehavior _hitTestBehavior =
-      PlatformViewHitTestBehavior.opaque;
+  PlatformViewHitTestBehavior _hitTestBehavior = PlatformViewHitTestBehavior.opaque;
   TextDirection _layoutDirection = TextDirection.ltr;
 
   int _laneItemCount = 14;
@@ -178,15 +181,11 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
   Set<Factory<OneSequenceGestureRecognizer>> _gestureRecognizers() {
     final set = <Factory<OneSequenceGestureRecognizer>>{};
     if (_useEagerRecognizer) {
-      set.add(
-        Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new),
-      );
+      set.add(Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new));
     }
     if (_useVerticalDragRecognizer) {
       set.add(
-        Factory<OneSequenceGestureRecognizer>(
-          VerticalDragGestureRecognizer.new,
-        ),
+        Factory<OneSequenceGestureRecognizer>(VerticalDragGestureRecognizer.new),
       );
     }
     return set;
@@ -283,10 +282,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -331,11 +327,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
         children: [
           Text(
             'Stage',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
           ),
           for (var i = 0; i < _stageTitles.length; i++)
             ChoiceChip(
@@ -353,11 +345,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
           const SizedBox(width: 10),
           Text(
             'Density',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
           ),
           _densityChip('Sparse', _Density.sparse),
           _densityChip('Normal', _Density.normal),
@@ -365,11 +353,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
           const SizedBox(width: 10),
           Text(
             'Palette',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
           ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
@@ -494,34 +478,24 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                     Checkbox(
                       value: _attemptRealView,
                       activeColor: _p.primary,
-                      onChanged: (v) =>
-                          setState(() => _attemptRealView = v ?? true),
+                      onChanged: (v) => setState(() => _attemptRealView = v ?? true),
                     ),
-                    Text(
-                      'attempt real AndroidView',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('attempt real AndroidView',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _showGrid,
                       activeColor: _p.secondary,
                       onChanged: (v) => setState(() => _showGrid = v ?? true),
                     ),
-                    Text(
-                      'overlay grid',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('overlay grid', style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _showMetrics,
                       activeColor: _p.accent,
-                      onChanged: (v) =>
-                          setState(() => _showMetrics = v ?? true),
+                      onChanged: (v) => setState(() => _showMetrics = v ?? true),
                     ),
-                    Text(
-                      'show metrics',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show metrics', style: TextStyle(color: _p.ink, fontSize: 12)),
                   ],
                 ),
               ],
@@ -566,7 +540,9 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Expanded(child: _registryChecklist()),
+                          Expanded(
+                            child: _registryChecklist(),
+                          ),
                         ],
                       ),
                     ),
@@ -603,11 +579,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
         children: [
           Text(
             'Registry Checklist',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13),
           ),
           const SizedBox(height: 8),
           _bullet('Register viewType in native platform factory.'),
@@ -674,11 +646,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
               _clipCard('Clip.none Lane', Clip.none, 5201),
               _clipCard('Clip.hardEdge Lane', Clip.hardEdge, 5202),
               _clipCard('Clip.antiAlias Lane', Clip.antiAlias, 5203),
-              _clipCard(
-                'Clip.aaWithSaveLayer Lane',
-                Clip.antiAliasWithSaveLayer,
-                5204,
-              ),
+              _clipCard('Clip.aaWithSaveLayer Lane', Clip.antiAliasWithSaveLayer, 5204),
             ],
           ),
         ],
@@ -714,9 +682,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
         child: SizedBox(
           height: 340,
           child: _AndroidViewLane(
-            key: ValueKey(
-              'clip-$viewId-$_attemptRealView-$_gestureRecognizers().length',
-            ),
+            key: ValueKey('clip-$viewId-$_attemptRealView-$_gestureRecognizers().length'),
             label: title,
             viewId: viewId,
             viewType: 'demo.android.view.clip.$viewId',
@@ -772,16 +738,8 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
             runSpacing: 12,
             children: [
               _htCard('Opaque Lane', PlatformViewHitTestBehavior.opaque, 5301),
-              _htCard(
-                'Translucent Lane',
-                PlatformViewHitTestBehavior.translucent,
-                5302,
-              ),
-              _htCard(
-                'Transparent Lane',
-                PlatformViewHitTestBehavior.transparent,
-                5303,
-              ),
+              _htCard('Translucent Lane', PlatformViewHitTestBehavior.translucent, 5302),
+              _htCard('Transparent Lane', PlatformViewHitTestBehavior.transparent, 5303),
             ],
           ),
         ],
@@ -807,11 +765,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
     );
   }
 
-  Widget _htCard(
-    String title,
-    PlatformViewHitTestBehavior behavior,
-    int viewId,
-  ) {
+  Widget _htCard(String title, PlatformViewHitTestBehavior behavior, int viewId) {
     return SizedBox(
       width: 500,
       child: _card(
@@ -821,9 +775,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
         child: SizedBox(
           height: 340,
           child: _AndroidViewLane(
-            key: ValueKey(
-              'ht-$viewId-$_attemptRealView-$_clipBehavior-$_gestureRecognizers().length',
-            ),
+            key: ValueKey('ht-$viewId-$_attemptRealView-$_clipBehavior-$_gestureRecognizers().length'),
             label: title,
             viewId: viewId,
             viewType: 'demo.android.view.hittest.$viewId',
@@ -873,17 +825,11 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                       activeColor: _p.primary,
                       onChanged: (v) {
                         setState(() => _useEagerRecognizer = v ?? false);
-                        _pushTrace(
-                          'gesture',
-                          'eager recognizer: $_useEagerRecognizer',
-                          _p.primary,
-                        );
+                        _pushTrace('gesture', 'eager recognizer: $_useEagerRecognizer', _p.primary);
                       },
                     ),
-                    Text(
-                      'EagerGestureRecognizer',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('EagerGestureRecognizer',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _useVerticalDragRecognizer,
@@ -897,10 +843,8 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                         );
                       },
                     ),
-                    Text(
-                      'VerticalDragGestureRecognizer',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('VerticalDragGestureRecognizer',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                   ],
                 ),
                 if (_showMetrics)
@@ -908,16 +852,8 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                     spacing: 6,
                     runSpacing: 6,
                     children: [
-                      _chip(
-                        'recognizers',
-                        '$_gestureRecognizers().length',
-                        _p.accent,
-                      ),
-                      _chip(
-                        'attempt real',
-                        _attemptRealView ? 'yes' : 'no',
-                        _p.primary,
-                      ),
+                      _chip('recognizers', '$_gestureRecognizers().length', _p.accent),
+                      _chip('attempt real', _attemptRealView ? 'yes' : 'no', _p.primary),
                     ],
                   ),
               ],
@@ -969,9 +905,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                   child: SizedBox(
                     height: 340,
                     child: _AndroidViewLane(
-                      key: ValueKey(
-                        'gesture-empty-$_attemptRealView-$_clipBehavior-$_hitTestBehavior',
-                      ),
+                      key: ValueKey('gesture-empty-$_attemptRealView-$_clipBehavior-$_hitTestBehavior'),
                       label: 'No recognizers',
                       viewId: 5402,
                       viewType: 'demo.android.view.gesture.empty',
@@ -980,8 +914,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                       attemptReal: _attemptRealView,
                       clipBehavior: _clipBehavior,
                       hitTestBehavior: _hitTestBehavior,
-                      gestureRecognizers:
-                          const <Factory<OneSequenceGestureRecognizer>>{},
+                      gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
                       layoutDirection: _layoutDirection,
                       height: 340,
                       itemCount: _effectiveItemCount,
@@ -1016,8 +949,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
           const SizedBox(height: 12),
           _card(
             title: 'Direction Controls',
-            subtitle:
-                'Toggle layout direction and tune custom shell dimensions.',
+            subtitle: 'Toggle layout direction and tune custom shell dimensions.',
             child: Column(
               children: [
                 Wrap(
@@ -1068,11 +1000,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                     const SizedBox(width: 8),
                     TextButton.icon(
                       onPressed: () {
-                        _pushTrace(
-                          'note',
-                          'Manual checkpoint marker',
-                          _p.accent,
-                        );
+                        _pushTrace('note', 'Manual checkpoint marker', _p.accent);
                       },
                       icon: const Icon(Icons.bookmark_add_outlined),
                       label: const Text('Add marker'),
@@ -1111,8 +1039,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                     )
                   : ListView.separated(
                       itemCount: _trace.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 6),
+                      separatorBuilder: (context, index) => const SizedBox(height: 6),
                       itemBuilder: (context, index) {
                         final row = _trace[index];
                         return Container(
@@ -1120,9 +1047,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                           decoration: BoxDecoration(
                             color: row.color.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: row.color.withValues(alpha: 0.31),
-                            ),
+                            border: Border.all(color: row.color.withValues(alpha: 0.31)),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1132,11 +1057,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                               Expanded(
                                 child: Text(
                                   row.message,
-                                  style: TextStyle(
-                                    color: _p.ink,
-                                    fontSize: 11.4,
-                                    height: 1.33,
-                                  ),
+                                  style: TextStyle(color: _p.ink, fontSize: 11.4, height: 1.33),
                                 ),
                               ),
                               const SizedBox(width: 8),
@@ -1208,9 +1129,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
           width: shell.width,
           height: shell.height,
           child: _AndroidViewLane(
-            key: ValueKey(
-              'shell-$viewId-$_attemptRealView-$_layoutDirection-$_gestureRecognizers().length',
-            ),
+            key: ValueKey('shell-$viewId-$_attemptRealView-$_layoutDirection-$_gestureRecognizers().length'),
             label: '${shell.label} lane',
             viewId: viewId,
             viewType: 'demo.android.view.shell.$viewId',
@@ -1255,13 +1174,11 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
               children: [
                 _matrixRow(
                   keyText: 'Widget role',
-                  value:
-                      'Embed Android platform views in Flutter using virtual display.',
+                  value: 'Embed Android platform views in Flutter using virtual display.',
                 ),
                 _matrixRow(
                   keyText: 'viewType',
-                  value:
-                      'String identifying the registered native view factory.',
+                  value: 'String identifying the registered native view factory.',
                 ),
                 _matrixRow(
                   keyText: 'clipBehavior',
@@ -1273,8 +1190,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                 ),
                 _matrixRow(
                   keyText: 'gestureRecognizers',
-                  value:
-                      'Defines gesture recognizers forwarded to platform view.',
+                  value: 'Defines gesture recognizers forwarded to platform view.',
                 ),
                 _matrixRow(
                   keyText: 'layoutDirection',
@@ -1292,26 +1208,22 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
                 _doDont(
                   good: true,
                   title: 'Register viewType before use',
-                  detail:
-                      'Native factory must be registered before AndroidView creation.',
+                  detail: 'Native factory must be registered before AndroidView creation.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Ignore clip behavior implications',
-                  detail:
-                      'Clip mode affects visual fidelity and rendering cost.',
+                  detail: 'Clip mode affects visual fidelity and rendering cost.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Design gesture policy intentionally',
-                  detail:
-                      'Recognizer set should match platform view interaction model.',
+                  detail: 'Recognizer set should match platform view interaction model.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Neglect layoutDirection on localized apps',
-                  detail:
-                      'RTL content needs correct direction for proper rendering.',
+                  detail: 'RTL content needs correct direction for proper rendering.',
                 ),
               ],
             ),
@@ -1348,22 +1260,12 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check(
-                  'View Type Registry stage demonstrates basic creation and callbacks.',
-                ),
-                _check(
-                  'Clip Behavior Lab compares all Clip modes side-by-side.',
-                ),
-                _check(
-                  'Hit-Test Arena visualizes all hit test behavior modes.',
-                ),
+                _check('View Type Registry stage demonstrates basic creation and callbacks.'),
+                _check('Clip Behavior Lab compares all Clip modes side-by-side.'),
+                _check('Hit-Test Arena visualizes all hit test behavior modes.'),
                 _check('Gesture Workshop allows recognizer policy toggling.'),
-                _check(
-                  'Layout Direction Theater demonstrates LTR/RTL and responsive shells.',
-                ),
-                _check(
-                  'Compendium provides matrix, do/dont, FAQ, and checklist guidance.',
-                ),
+                _check('Layout Direction Theater demonstrates LTR/RTL and responsive shells.'),
+                _check('Compendium provides matrix, do/dont, FAQ, and checklist guidance.'),
               ],
             ),
           ),
@@ -1563,10 +1465,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
             margin: const EdgeInsets.only(top: 6),
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _p.primary,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: _p.primary),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -1595,10 +1494,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
           Icon(Icons.info_outline, color: _p.secondary, size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _p.ink, fontSize: 12, height: 1.34),
-            ),
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12, height: 1.34)),
           ),
         ],
       ),
@@ -1619,11 +1515,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
         const SizedBox(width: 8),
         Text(
           text,
-          style: TextStyle(
-            color: _p.ink,
-            fontWeight: FontWeight.w800,
-            fontSize: 18,
-          ),
+          style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 18),
         ),
       ],
     );
@@ -1655,11 +1547,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
         children: [
           Text(
             title,
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w800,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 14),
           ),
           const SizedBox(height: 3),
           Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.4)),
@@ -1686,10 +1574,7 @@ class _AndroidViewDeepDemoState extends State<_AndroidViewDeepDemo> {
             ),
           ),
           const Spacer(),
-          Text(
-            'Palette: ${_p.name}',
-            style: TextStyle(color: _p.muted, fontSize: 11),
-          ),
+          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11)),
         ],
       ),
     );
@@ -1782,9 +1667,7 @@ class _AndroidViewLaneState extends State<_AndroidViewLane> {
       return _simulationCard('Real view disabled by policy toggle.');
     }
     if (_status == 'unsupported') {
-      return _simulationCard(
-        'Host platform does not support AndroidView creation.',
-      );
+      return _simulationCard('Host platform does not support AndroidView creation.');
     }
     if (_status == 'error') {
       return _simulationCard('View creation error: $_error');
@@ -1803,9 +1686,7 @@ class _AndroidViewLaneState extends State<_AndroidViewLane> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
             decoration: BoxDecoration(
               color: widget.palette.secondary.withValues(alpha: 0.1),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Wrap(
               spacing: 6,
@@ -1820,21 +1701,9 @@ class _AndroidViewLaneState extends State<_AndroidViewLane> {
                   ),
                 ),
                 if (widget.showMetrics) ...[
-                  _laneChip(
-                    'viewId',
-                    '${widget.viewId}',
-                    widget.palette.primary,
-                  ),
-                  _laneChip(
-                    'clip',
-                    widget.clipBehavior.name,
-                    widget.palette.secondary,
-                  ),
-                  _laneChip(
-                    'hitTest',
-                    widget.hitTestBehavior.name,
-                    widget.palette.accent,
-                  ),
+                  _laneChip('viewId', '${widget.viewId}', widget.palette.primary),
+                  _laneChip('clip', widget.clipBehavior.name, widget.palette.secondary),
+                  _laneChip('hitTest', widget.hitTestBehavior.name, widget.palette.accent),
                 ],
               ],
             ),
@@ -1899,9 +1768,7 @@ class _AndroidViewLaneState extends State<_AndroidViewLane> {
       decoration: BoxDecoration(
         color: widget.palette.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: widget.palette.primary.withValues(alpha: 0.28),
-        ),
+        border: Border.all(color: widget.palette.primary.withValues(alpha: 0.28)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -1910,11 +1777,7 @@ class _AndroidViewLaneState extends State<_AndroidViewLane> {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.info_outline,
-                  color: widget.palette.primary,
-                  size: 18,
-                ),
+                Icon(Icons.info_outline, color: widget.palette.primary, size: 18),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -1929,18 +1792,13 @@ class _AndroidViewLaneState extends State<_AndroidViewLane> {
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              reason,
-              style: TextStyle(color: widget.palette.muted, fontSize: 11.3),
-            ),
+            Text(reason, style: TextStyle(color: widget.palette.muted, fontSize: 11.3)),
             const SizedBox(height: 8),
             Expanded(
               child: ListView.builder(
                 itemCount: widget.itemCount,
                 itemBuilder: (context, index) {
-                  final color = index.isEven
-                      ? widget.palette.primary
-                      : widget.palette.secondary;
+                  final color = index.isEven ? widget.palette.primary : widget.palette.secondary;
                   return Container(
                     margin: const EdgeInsets.only(bottom: 7),
                     padding: const EdgeInsets.all(8),

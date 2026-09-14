@@ -98,9 +98,9 @@ dynamic build(BuildContext context) {
         _dbInfoBox(
           'Strategy Pattern for Drag Constraints',
           'Instead of hardcoding drag boundaries into each draggable '
-              'widget, the delegate pattern allows swapping constraint '
-              'strategies at runtime. A widget can switch between free '
-              'movement, clamped boundaries, or snapping.',
+          'widget, the delegate pattern allows swapping constraint '
+          'strategies at runtime. A widget can switch between free '
+          'movement, clamped boundaries, or snapping.',
         ),
         const SizedBox(height: 24),
 
@@ -113,7 +113,9 @@ dynamic build(BuildContext context) {
 
         // ── 3. Boundary Types ──
         _dbSection('3. Common Boundary Types'),
-        _dbBody('Different strategies for constraining drag movement:'),
+        _dbBody(
+          'Different strategies for constraining drag movement:',
+        ),
         const SizedBox(height: 12),
         _buildBoundaryTypes(),
         const SizedBox(height: 24),
@@ -164,7 +166,9 @@ dynamic build(BuildContext context) {
 
         // ── 6. Snapping Boundary ──
         _dbSection('6. Snapping Boundary Pattern'),
-        _dbBody('Snap the drag position to the nearest grid point:'),
+        _dbBody(
+          'Snap the drag position to the nearest grid point:',
+        ),
         const SizedBox(height: 12),
         _dbCodeBlock(
           '// Grid-snapping drag boundary\n'
@@ -263,7 +267,9 @@ dynamic build(BuildContext context) {
 
         // ── 10. Delegate Composition ──
         _dbSection('10. Composing Multiple Delegates'),
-        _dbBody('Chain multiple boundary delegates to combine constraints:'),
+        _dbBody(
+          'Chain multiple boundary delegates to combine constraints:',
+        ),
         const SizedBox(height: 12),
         _dbCodeBlock(
           '// Composed drag boundary\n'
@@ -318,12 +324,16 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [_dbCopper.withValues(alpha: 0.08), _dbSand],
+              colors: [
+                _dbCopper.withValues(alpha: 0.08),
+                _dbSand,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: _dbCopper.withValues(alpha: 0.25)),
+            border: Border.all(
+                color: _dbCopper.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -346,16 +356,12 @@ dynamic build(BuildContext context) {
               _dbSummaryRow('Type', 'Abstract delegate class'),
               _dbSummaryRow('Pattern', 'Strategy pattern for drag bounds'),
               _dbSummaryRow('Core Method', 'constrainDrag(offset, size)'),
-              _dbSummaryRow(
-                'Implementations',
-                'Clamped, snapping, elastic, circular',
-              ),
+              _dbSummaryRow('Implementations',
+                  'Clamped, snapping, elastic, circular'),
               _dbSummaryRow('Composable', 'Yes — delegates can be chained'),
               _dbSummaryRow('Performance', 'Called per drag frame (~60Hz)'),
-              _dbSummaryRow(
-                'Use Cases',
-                'Bounded panels, joysticks, grid editors',
-              ),
+              _dbSummaryRow('Use Cases',
+                  'Bounded panels, joysticks, grid editors'),
             ],
           ),
         ),
@@ -385,7 +391,11 @@ Widget _dbSection(String title) {
 Widget _dbBody(String text) {
   return Text(
     text,
-    style: TextStyle(color: _dbBlack, fontSize: 15, height: 1.6),
+    style: TextStyle(
+      color: _dbBlack,
+      fontSize: 15,
+      height: 1.6,
+    ),
   );
 }
 
@@ -440,7 +450,11 @@ Widget _dbInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(color: _dbBlack, fontSize: 14, height: 1.5),
+          style: TextStyle(
+            color: _dbBlack,
+            fontSize: 14,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -467,7 +481,11 @@ Widget _dbSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: _dbBlack, fontSize: 13, height: 1.4),
+            style: TextStyle(
+              color: _dbBlack,
+              fontSize: 13,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -482,8 +500,7 @@ Widget _buildAPISurface() {
     {
       'name': 'constrainDrag',
       'sig': 'Offset constrainDrag(\n  Offset proposed, Size size)',
-      'desc':
-          'Returns the allowed position given the proposed one. '
+      'desc': 'Returns the allowed position given the proposed one. '
           'Called on every drag update frame.',
       'icon': Icons.compress,
       'color': _dbCopper,
@@ -521,8 +538,7 @@ Widget _buildAPISurface() {
             color: (methods[i]['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: (methods[i]['color'] as Color).withValues(alpha: 0.2),
-            ),
+              color: (methods[i]['color'] as Color).withValues(alpha: 0.2)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -534,11 +550,8 @@ Widget _buildAPISurface() {
                   color: methods[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
-                  methods[i]['icon'] as IconData,
-                  color: _dbWhite,
-                  size: 16,
-                ),
+                child: Icon(methods[i]['icon'] as IconData,
+                    color: _dbWhite, size: 16),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -566,10 +579,7 @@ Widget _buildAPISurface() {
                     Text(
                       methods[i]['desc'] as String,
                       style: TextStyle(
-                        color: _dbBlack,
-                        fontSize: 11,
-                        height: 1.3,
-                      ),
+                          color: _dbBlack, fontSize: 11, height: 1.3),
                     ),
                   ],
                 ),
@@ -641,19 +651,15 @@ Widget _buildBoundaryTypes() {
             color: (t['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: (t['color'] as Color).withValues(alpha: 0.2),
-            ),
+              color: (t['color'] as Color).withValues(alpha: 0.2)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(
-                    t['icon'] as IconData,
-                    color: t['color'] as Color,
-                    size: 16,
-                  ),
+                  Icon(t['icon'] as IconData,
+                      color: t['color'] as Color, size: 16),
                   const SizedBox(width: 6),
                   Text(
                     t['type'] as String,
@@ -666,13 +672,12 @@ Widget _buildBoundaryTypes() {
                 ],
               ),
               const SizedBox(height: 4),
-              Text(
-                t['desc'] as String,
-                style: TextStyle(color: _dbBlack, fontSize: 10),
-              ),
+              Text(t['desc'] as String,
+                  style: TextStyle(color: _dbBlack, fontSize: 10)),
               const SizedBox(height: 4),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: _dbBlack.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(4),
@@ -753,11 +758,8 @@ Widget _buildPositionLifecycle() {
                   color: steps[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(
-                  steps[i]['icon'] as IconData,
-                  color: _dbWhite,
-                  size: 14,
-                ),
+                child: Icon(steps[i]['icon'] as IconData,
+                    color: _dbWhite, size: 14),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -775,10 +777,7 @@ Widget _buildPositionLifecycle() {
                     Text(
                       steps[i]['detail'] as String,
                       style: TextStyle(
-                        color: _dbBlack,
-                        fontSize: 11,
-                        height: 1.3,
-                      ),
+                          color: _dbBlack, fontSize: 11, height: 1.3),
                     ),
                   ],
                 ),
@@ -788,7 +787,8 @@ Widget _buildPositionLifecycle() {
           if (i < steps.length - 1)
             Padding(
               padding: const EdgeInsets.only(left: 13),
-              child: Container(width: 2, height: 8, color: _dbDivider),
+              child: Container(
+                  width: 2, height: 8, color: _dbDivider),
             ),
         ],
       ],
@@ -811,10 +811,7 @@ Widget _buildElasticBehavior() {
         Text(
           'Elastic Over-Drag Resistance',
           style: TextStyle(
-            color: _dbCopper,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+            color: _dbCopper, fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Row(
@@ -827,26 +824,21 @@ Widget _buildElasticBehavior() {
                 decoration: BoxDecoration(
                   color: _dbSuccess.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _dbSuccess.withValues(alpha: 0.2)),
+                  border: Border.all(
+                      color: _dbSuccess.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.check_circle, color: _dbSuccess, size: 20),
+                    Icon(Icons.check_circle,
+                        color: _dbSuccess, size: 20),
                     const SizedBox(height: 4),
-                    Text(
-                      'Within Bounds',
-                      style: TextStyle(
-                        color: _dbSuccess,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text('Within Bounds',
+                        style: TextStyle(color: _dbSuccess, fontSize: 11,
+                            fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    Text(
-                      '1:1 movement\nNo resistance',
-                      style: TextStyle(color: _dbBlack, fontSize: 10),
-                      textAlign: TextAlign.center,
-                    ),
+                    Text('1:1 movement\nNo resistance',
+                        style: TextStyle(color: _dbBlack, fontSize: 10),
+                        textAlign: TextAlign.center),
                   ],
                 ),
               ),
@@ -859,26 +851,21 @@ Widget _buildElasticBehavior() {
                 decoration: BoxDecoration(
                   color: _dbWarning.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _dbWarning.withValues(alpha: 0.2)),
+                  border: Border.all(
+                      color: _dbWarning.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.warning_amber, color: _dbWarning, size: 20),
+                    Icon(Icons.warning_amber,
+                        color: _dbWarning, size: 20),
                     const SizedBox(height: 4),
-                    Text(
-                      'Elastic Zone',
-                      style: TextStyle(
-                        color: _dbWarning,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text('Elastic Zone',
+                        style: TextStyle(color: _dbWarning, fontSize: 11,
+                            fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    Text(
-                      'Reduced speed\nResistance grows',
-                      style: TextStyle(color: _dbBlack, fontSize: 10),
-                      textAlign: TextAlign.center,
-                    ),
+                    Text('Reduced speed\nResistance grows',
+                        style: TextStyle(color: _dbBlack, fontSize: 10),
+                        textAlign: TextAlign.center),
                   ],
                 ),
               ),
@@ -891,26 +878,20 @@ Widget _buildElasticBehavior() {
                 decoration: BoxDecoration(
                   color: _dbError.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _dbError.withValues(alpha: 0.2)),
+                  border: Border.all(
+                      color: _dbError.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   children: [
                     Icon(Icons.block, color: _dbError, size: 20),
                     const SizedBox(height: 4),
-                    Text(
-                      'Hard Limit',
-                      style: TextStyle(
-                        color: _dbError,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text('Hard Limit',
+                        style: TextStyle(color: _dbError, fontSize: 11,
+                            fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    Text(
-                      'No further\nmovement',
-                      style: TextStyle(color: _dbBlack, fontSize: 10),
-                      textAlign: TextAlign.center,
-                    ),
+                    Text('No further\nmovement',
+                        style: TextStyle(color: _dbBlack, fontSize: 10),
+                        textAlign: TextAlign.center),
                   ],
                 ),
               ),
@@ -975,10 +956,7 @@ Widget _buildMultiZone() {
         Text(
           'Zone-Based Drag Boundaries',
           style: TextStyle(
-            color: _dbCopper,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+            color: _dbCopper, fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         for (var i = 0; i < zones.length; i++) ...[
@@ -991,11 +969,8 @@ Widget _buildMultiZone() {
                   color: zones[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(
-                  zones[i]['icon'] as IconData,
-                  color: _dbWhite,
-                  size: 14,
-                ),
+                child: Icon(zones[i]['icon'] as IconData,
+                    color: _dbWhite, size: 14),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1013,10 +988,7 @@ Widget _buildMultiZone() {
                     Text(
                       zones[i]['behavior'] as String,
                       style: TextStyle(
-                        color: _dbBlack,
-                        fontSize: 11,
-                        height: 1.3,
-                      ),
+                          color: _dbBlack, fontSize: 11, height: 1.3),
                     ),
                   ],
                 ),
@@ -1030,10 +1002,7 @@ Widget _buildMultiZone() {
           'The delegate checks which zone the proposed position falls '
           'into and applies the corresponding constraint strategy.',
           style: TextStyle(
-            color: _dbMuted,
-            fontSize: 11,
-            fontStyle: FontStyle.italic,
-          ),
+            color: _dbMuted, fontSize: 11, fontStyle: FontStyle.italic),
         ),
       ],
     ),
@@ -1080,19 +1049,15 @@ Widget _buildPerformanceGrid() {
             color: (t['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (t['color'] as Color).withValues(alpha: 0.2),
-            ),
+              color: (t['color'] as Color).withValues(alpha: 0.2)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(
-                    t['icon'] as IconData,
-                    color: t['color'] as Color,
-                    size: 16,
-                  ),
+                  Icon(t['icon'] as IconData,
+                      color: t['color'] as Color, size: 16),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -1160,10 +1125,7 @@ Widget _buildIntegrationFlow() {
         Text(
           'Drag → Delegate → Render Pipeline',
           style: TextStyle(
-            color: _dbCopper,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+            color: _dbCopper, fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 14),
         for (var i = 0; i < steps.length; i++) ...[
@@ -1176,11 +1138,8 @@ Widget _buildIntegrationFlow() {
                   color: steps[i]['color'] as Color,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  steps[i]['icon'] as IconData,
-                  color: _dbWhite,
-                  size: 16,
-                ),
+                child: Icon(steps[i]['icon'] as IconData,
+                    color: _dbWhite, size: 16),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1198,10 +1157,7 @@ Widget _buildIntegrationFlow() {
                     Text(
                       steps[i]['role'] as String,
                       style: TextStyle(
-                        color: _dbBlack,
-                        fontSize: 11,
-                        height: 1.3,
-                      ),
+                          color: _dbBlack, fontSize: 11, height: 1.3),
                     ),
                   ],
                 ),
@@ -1214,7 +1170,8 @@ Widget _buildIntegrationFlow() {
               child: Column(
                 children: [
                   Container(width: 2, height: 6, color: _dbDivider),
-                  Icon(Icons.arrow_downward, color: _dbDivider, size: 12),
+                  Icon(Icons.arrow_downward,
+                      color: _dbDivider, size: 12),
                   Container(width: 2, height: 6, color: _dbDivider),
                 ],
               ),

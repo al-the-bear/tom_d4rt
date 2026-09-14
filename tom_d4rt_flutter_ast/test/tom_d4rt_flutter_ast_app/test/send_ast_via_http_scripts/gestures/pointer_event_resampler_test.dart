@@ -200,7 +200,12 @@ dynamic build(BuildContext context) {
     dispatched.add(ev);
   }
 
-  final List<int> sampleTimes = <int>[0, 16667, 33333, 50000];
+  final List<int> sampleTimes = <int>[
+    0,
+    16667,
+    33333,
+    50000,
+  ];
 
   for (int i = 0; i < sampleTimes.length - 1; i++) {
     final Duration s = Duration(microseconds: sampleTimes[i]);
@@ -240,22 +245,16 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            name,
-            style: TextStyle(
-              color: c.computeLuminance() > 0.5 ? inkSlate : paperFoam,
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            hex,
-            style: TextStyle(
-              color: c.computeLuminance() > 0.5 ? inkSlate : paperFoam,
-              fontSize: 9,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text(name,
+              style: TextStyle(
+                  color: c.computeLuminance() > 0.5 ? inkSlate : paperFoam,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold)),
+          Text(hex,
+              style: TextStyle(
+                  color: c.computeLuminance() > 0.5 ? inkSlate : paperFoam,
+                  fontSize: 9,
+                  fontFamily: 'monospace')),
         ],
       ),
     );
@@ -290,17 +289,15 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  name,
-                  style: TextStyle(
-                    color: phosphorGreen,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
+                Text(name,
+                    style: TextStyle(
+                        color: phosphorGreen,
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13)),
                 const SizedBox(height: 2),
-                Text(role, style: TextStyle(color: paperFoam, fontSize: 11)),
+                Text(role,
+                    style: TextStyle(color: paperFoam, fontSize: 11)),
               ],
             ),
           ),
@@ -328,31 +325,24 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.2),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(7),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(7)),
             ),
-            child: Text(
-              title,
-              style: TextStyle(
-                color: accent,
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'monospace',
-              ),
-            ),
+            child: Text(title,
+                style: TextStyle(
+                    color: accent,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace')),
           ),
           Padding(
             padding: const EdgeInsets.all(12),
-            child: Text(
-              code,
-              style: TextStyle(
-                color: paperFoam,
-                fontFamily: 'monospace',
-                fontSize: 11,
-                height: 1.4,
-              ),
-            ),
+            child: Text(code,
+                style: TextStyle(
+                    color: paperFoam,
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    height: 1.4)),
           ),
         ],
       ),
@@ -363,12 +353,7 @@ dynamic build(BuildContext context) {
   // Helper: an algorithm card.
   // ===========================================================================
   Widget algorithmCard(
-    int n,
-    String title,
-    String body,
-    Color hi,
-    IconData icon,
-  ) {
+      int n, String title, String body, Color hi, IconData icon) {
     return Container(
       width: 260,
       margin: const EdgeInsets.only(right: 12, bottom: 12),
@@ -391,14 +376,11 @@ dynamic build(BuildContext context) {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Center(
-                  child: Text(
-                    '$n',
-                    style: TextStyle(
-                      color: inkSlate,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
+                  child: Text('$n',
+                      style: TextStyle(
+                          color: inkSlate,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14)),
                 ),
               ),
               const SizedBox(width: 8),
@@ -406,19 +388,13 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            title,
-            style: TextStyle(
-              color: hi,
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: hi, fontWeight: FontWeight.bold, fontSize: 13)),
           const SizedBox(height: 6),
-          Text(
-            body,
-            style: TextStyle(color: paperFoam, fontSize: 11, height: 1.35),
-          ),
+          Text(body,
+              style: TextStyle(
+                  color: paperFoam, fontSize: 11, height: 1.35)),
         ],
       ),
     );
@@ -434,7 +410,8 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: deepLagoon,
         borderRadius: BorderRadius.circular(10),
-        border: Border(left: BorderSide(color: hi, width: 4)),
+        border: Border(
+            left: BorderSide(color: hi, width: 4)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -445,19 +422,15 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: hi,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(
+                        color: hi,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12)),
                 const SizedBox(height: 4),
-                Text(
-                  body,
-                  style: TextStyle(color: paperFoam, fontSize: 11, height: 1.3),
-                ),
+                Text(body,
+                    style:
+                        TextStyle(color: paperFoam, fontSize: 11, height: 1.3)),
               ],
             ),
           ),
@@ -482,21 +455,17 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           SizedBox(
             width: 130,
-            child: Text(
-              term,
-              style: TextStyle(
-                color: phosphorGreen,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.bold,
-                fontSize: 11,
-              ),
-            ),
+            child: Text(term,
+                style: TextStyle(
+                    color: phosphorGreen,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11)),
           ),
           Expanded(
-            child: Text(
-              def,
-              style: TextStyle(color: paperFoam, fontSize: 11, height: 1.35),
-            ),
+            child: Text(def,
+                style:
+                    TextStyle(color: paperFoam, fontSize: 11, height: 1.35)),
           ),
         ],
       ),
@@ -506,70 +475,46 @@ dynamic build(BuildContext context) {
   // ===========================================================================
   // Helper: a frame table row.
   // ===========================================================================
-  Widget frameRow(
-    String t,
-    String raw,
-    String resampled,
-    String delta,
-    Color rowColor,
-  ) {
+  Widget frameRow(String t, String raw, String resampled, String delta,
+      Color rowColor) {
     return Container(
       decoration: BoxDecoration(
         color: rowColor,
         border: Border(
-          bottom: BorderSide(
-            color: midnightTeal.withValues(alpha: 0.5),
-            width: 1,
-          ),
-        ),
+            bottom: BorderSide(
+                color: midnightTeal.withValues(alpha: 0.5), width: 1)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       child: Row(
         children: <Widget>[
           SizedBox(
-            width: 60,
-            child: Text(
-              t,
-              style: TextStyle(
-                color: planktonYellow,
-                fontFamily: 'monospace',
-                fontSize: 11,
-              ),
-            ),
-          ),
+              width: 60,
+              child: Text(t,
+                  style: TextStyle(
+                      color: planktonYellow,
+                      fontFamily: 'monospace',
+                      fontSize: 11))),
           Expanded(
-            flex: 3,
-            child: Text(
-              raw,
-              style: TextStyle(
-                color: marigoldSpark,
-                fontFamily: 'monospace',
-                fontSize: 11,
-              ),
-            ),
-          ),
+              flex: 3,
+              child: Text(raw,
+                  style: TextStyle(
+                      color: marigoldSpark,
+                      fontFamily: 'monospace',
+                      fontSize: 11))),
           Expanded(
-            flex: 3,
-            child: Text(
-              resampled,
-              style: TextStyle(
-                color: lagoonTeal,
-                fontFamily: 'monospace',
-                fontSize: 11,
-              ),
-            ),
-          ),
+              flex: 3,
+              child: Text(resampled,
+                  style: TextStyle(
+                      color: lagoonTeal,
+                      fontFamily: 'monospace',
+                      fontSize: 11))),
           SizedBox(
-            width: 90,
-            child: Text(
-              delta,
-              style: TextStyle(
-                color: glacialMint,
-                fontFamily: 'monospace',
-                fontSize: 11,
-              ),
-            ),
-          ),
+              width: 90,
+              child: Text(delta,
+                  style: TextStyle(
+                      color: glacialMint,
+                      fontFamily: 'monospace',
+                      fontSize: 11))),
         ],
       ),
     );
@@ -578,13 +523,8 @@ dynamic build(BuildContext context) {
   // ===========================================================================
   // Helper: a pointer-kind row in the kind matrix.
   // ===========================================================================
-  Widget kindRow(
-    IconData icon,
-    String kind,
-    String typical,
-    String resampled,
-    Color hi,
-  ) {
+  Widget kindRow(IconData icon, String kind, String typical, String resampled,
+      Color hi) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(10),
@@ -600,9 +540,8 @@ dynamic build(BuildContext context) {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: hi.withValues(alpha: 0.25),
-              borderRadius: BorderRadius.circular(20),
-            ),
+                color: hi.withValues(alpha: 0.25),
+                borderRadius: BorderRadius.circular(20)),
             child: Icon(icon, color: hi),
           ),
           const SizedBox(width: 12),
@@ -610,27 +549,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  kind,
-                  style: TextStyle(
-                    color: hi,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
+                Text(kind,
+                    style: TextStyle(
+                        color: hi,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13)),
                 const SizedBox(height: 4),
-                Text(
-                  'Typical: $typical',
-                  style: TextStyle(color: paperFoam, fontSize: 11),
-                ),
-                Text(
-                  'Resampling: $resampled',
-                  style: TextStyle(
-                    color: glacialMint,
-                    fontSize: 11,
-                    height: 1.3,
-                  ),
-                ),
+                Text('Typical: $typical',
+                    style:
+                        TextStyle(color: paperFoam, fontSize: 11)),
+                Text('Resampling: $resampled',
+                    style: TextStyle(
+                        color: glacialMint, fontSize: 11, height: 1.3)),
               ],
             ),
           ),
@@ -662,26 +592,18 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.touch_app, color: phosphorGreen, size: 32),
             const SizedBox(width: 12),
-            Text(
-              'PointerEventResampler',
-              style: TextStyle(
-                color: phosphorGreen,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'monospace',
-              ),
-            ),
+            Text('PointerEventResampler',
+                style: TextStyle(
+                    color: phosphorGreen,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace')),
           ],
         ),
         const SizedBox(height: 8),
-        Text(
-          'Theme: Phosphor Lagoon — bioluminescent input smoothing',
-          style: TextStyle(
-            color: iceBlue,
-            fontSize: 13,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text('Theme: Phosphor Lagoon — bioluminescent input smoothing',
+            style: TextStyle(
+                color: iceBlue, fontSize: 13, fontStyle: FontStyle.italic)),
         const SizedBox(height: 16),
         Wrap(
           children: <Widget>[
@@ -723,47 +645,44 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.menu_book, color: midnightTeal, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Anatomy of PointerEventResampler',
-              style: TextStyle(
-                color: midnightTeal,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Anatomy of PointerEventResampler',
+                style: TextStyle(
+                    color: midnightTeal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
         Text(
-          'PointerEventResampler is a buffer + interpolator placed between '
-          'the platform pointer source and the gesture pipeline. Its job '
-          'is to take an irregular, jittery stream of raw pointer samples '
-          '(arriving at whatever cadence the OS emits them) and produce a '
-          'smooth, vsync-aligned stream that lands precisely on each '
-          'render tick.',
-          style: TextStyle(color: inkSlate, fontSize: 12, height: 1.5),
-        ),
+            'PointerEventResampler is a buffer + interpolator placed between '
+            'the platform pointer source and the gesture pipeline. Its job '
+            'is to take an irregular, jittery stream of raw pointer samples '
+            '(arriving at whatever cadence the OS emits them) and produce a '
+            'smooth, vsync-aligned stream that lands precisely on each '
+            'render tick.',
+            style: TextStyle(
+                color: inkSlate, fontSize: 12, height: 1.5)),
         const SizedBox(height: 10),
         Text(
-          'The contract is small but precise. addEvent(e) enqueues a raw '
-          'event without dispatching it. sample(now, next, cb) drives the '
-          'resampler at a vsync tick: any queued events with timestamps '
-          'in the past relative to `now` are interpolated to land at '
-          'exactly `now`, and the synthesized events are passed to cb. '
-          'stop(cb) drains the queue when the gesture ends or the route '
-          'is torn down — a critical safety valve so no input is lost.',
-          style: TextStyle(color: inkSlate, fontSize: 12, height: 1.5),
-        ),
+            'The contract is small but precise. addEvent(e) enqueues a raw '
+            'event without dispatching it. sample(now, next, cb) drives the '
+            'resampler at a vsync tick: any queued events with timestamps '
+            'in the past relative to `now` are interpolated to land at '
+            'exactly `now`, and the synthesized events are passed to cb. '
+            'stop(cb) drains the queue when the gesture ends or the route '
+            'is torn down — a critical safety valve so no input is lost.',
+            style: TextStyle(
+                color: inkSlate, fontSize: 12, height: 1.5)),
         const SizedBox(height: 10),
         Text(
-          'The "queueing model" is the heart of it. Imagine raw events '
-          'arriving with timestamps {t=1.5, t=9.7, t=18.2, t=25.1, ...} '
-          'and vsync ticks at {t=0, t=16.7, t=33.3, ...}. At t=16.7, the '
-          'resampler interpolates between the t=9.7 and t=18.2 samples to '
-          'produce a synthesized PointerMoveEvent with timeStamp=16.7. '
-          'This is what gives Flutter its iOS-quality pointer smoothness.',
-          style: TextStyle(color: inkSlate, fontSize: 12, height: 1.5),
-        ),
+            'The "queueing model" is the heart of it. Imagine raw events '
+            'arriving with timestamps {t=1.5, t=9.7, t=18.2, t=25.1, ...} '
+            'and vsync ticks at {t=0, t=16.7, t=33.3, ...}. At t=16.7, the '
+            'resampler interpolates between the t=9.7 and t=18.2 samples to '
+            'produce a synthesized PointerMoveEvent with timeStamp=16.7. '
+            'This is what gives Flutter its iOS-quality pointer smoothness.',
+            style: TextStyle(
+                color: inkSlate, fontSize: 12, height: 1.5)),
       ],
     ),
   );
@@ -787,72 +706,62 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.api, color: phosphorGreen, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Public Surface',
-              style: TextStyle(
-                color: phosphorGreen,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Public Surface',
+                style: TextStyle(
+                    color: phosphorGreen,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
         propertyRow(
-          'addEvent(PointerEvent e)',
-          'Enqueue a raw event. Does not dispatch. The resampler stores '
-              'it in an internal FIFO awaiting the next sample() tick.',
-          phosphorGreen,
-          Icons.input,
-        ),
+            'addEvent(PointerEvent e)',
+            'Enqueue a raw event. Does not dispatch. The resampler stores '
+                'it in an internal FIFO awaiting the next sample() tick.',
+            phosphorGreen,
+            Icons.input),
         propertyRow(
-          'sample(now, next, cb)',
-          'The vsync driver. Inspects queued events, interpolates '
-              'positions to land at `now`, and calls cb(synthesizedEvent) '
-              'for each emission.',
-          lagoonTeal,
-          Icons.sync,
-        ),
+            'sample(now, next, cb)',
+            'The vsync driver. Inspects queued events, interpolates '
+                'positions to land at `now`, and calls cb(synthesizedEvent) '
+                'for each emission.',
+            lagoonTeal,
+            Icons.sync),
         propertyRow(
-          'stop(cb)',
-          'Drain the queue. Used at gesture end or route teardown. Any '
-              'remaining events are dispatched immediately, no interpolation.',
-          coralGlint,
-          Icons.stop_circle,
-        ),
+            'stop(cb)',
+            'Drain the queue. Used at gesture end or route teardown. Any '
+                'remaining events are dispatched immediately, no interpolation.',
+            coralGlint,
+            Icons.stop_circle),
         propertyRow(
-          'hasPendingEvents',
-          'Boolean getter. True if events remain in the queue after '
-              'sample(). The engine uses this to decide whether to keep '
-              'requesting frames.',
-          electricCyan,
-          Icons.help_outline,
-        ),
+            'hasPendingEvents',
+            'Boolean getter. True if events remain in the queue after '
+                'sample(). The engine uses this to decide whether to keep '
+                'requesting frames.',
+            electricCyan,
+            Icons.help_outline),
         propertyRow(
-          '_positionAt(Duration t)  [private]',
-          'Internal helper. Computes the interpolated pointer position at '
-              'a given sampleTime by linearly blending bracketing queued '
-              'events. Not part of the public surface, but the heart of '
-              'the algorithm.',
-          marigoldSpark,
-          Icons.place,
-        ),
+            '_positionAt(Duration t)  [private]',
+            'Internal helper. Computes the interpolated pointer position at '
+                'a given sampleTime by linearly blending bracketing queued '
+                'events. Not part of the public surface, but the heart of '
+                'the algorithm.',
+            marigoldSpark,
+            Icons.place),
         propertyRow(
-          'isDown',
-          'Boolean getter. True between PointerDownEvent and '
-              'PointerUpEvent. Influences whether sample() emits move vs. '
-              'hover events.',
-          planktonYellow,
-          Icons.arrow_downward,
-        ),
+            'isDown',
+            'Boolean getter. True between PointerDownEvent and '
+                'PointerUpEvent. Influences whether sample() emits move vs. '
+                'hover events.',
+            planktonYellow,
+            Icons.arrow_downward),
         propertyRow(
-          'isTracked',
-          'Boolean getter. True while the pointer is being followed. '
-              'Mouse/stylus hover tracking uses this even when isDown is '
-              'false.',
-          iceBlue,
-          Icons.gps_fixed,
-        ),
+            'isTracked',
+            'Boolean getter. True while the pointer is being followed. '
+                'Mouse/stylus hover tracking uses this even when isDown is '
+                'false.',
+            iceBlue,
+            Icons.gps_fixed),
       ],
     ),
   );
@@ -876,21 +785,16 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.timeline, color: electricCyan, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Sampling Timeline',
-              style: TextStyle(
-                color: electricCyan,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Sampling Timeline',
+                style: TextStyle(
+                    color: electricCyan,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
-        Text(
-          'Warm sparks = raw events. Cool ribbons = resampled output.',
-          style: TextStyle(color: iceBlue, fontSize: 11),
-        ),
+        Text('Warm sparks = raw events. Cool ribbons = resampled output.',
+            style: TextStyle(color: iceBlue, fontSize: 11)),
         const SizedBox(height: 12),
         Container(
           height: 200,
@@ -915,26 +819,21 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12),
         Row(
           children: <Widget>[
-            Container(width: 12, height: 12, color: marigoldSpark),
+            Container(
+                width: 12, height: 12, color: marigoldSpark),
             const SizedBox(width: 4),
-            Text(
-              'raw sample',
-              style: TextStyle(color: paperFoam, fontSize: 11),
-            ),
+            Text('raw sample',
+                style: TextStyle(color: paperFoam, fontSize: 11)),
             const SizedBox(width: 16),
             Container(width: 12, height: 12, color: lagoonTeal),
             const SizedBox(width: 4),
-            Text(
-              'resampled output',
-              style: TextStyle(color: paperFoam, fontSize: 11),
-            ),
+            Text('resampled output',
+                style: TextStyle(color: paperFoam, fontSize: 11)),
             const SizedBox(width: 16),
             Container(width: 12, height: 12, color: phosphorGreen),
             const SizedBox(width: 4),
-            Text(
-              'vsync tick',
-              style: TextStyle(color: paperFoam, fontSize: 11),
-            ),
+            Text('vsync tick',
+                style: TextStyle(color: paperFoam, fontSize: 11)),
           ],
         ),
       ],
@@ -962,23 +861,19 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.table_chart, color: planktonYellow, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Frame-by-Frame Resampling',
-              style: TextStyle(
-                color: planktonYellow,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Frame-by-Frame Resampling',
+                style: TextStyle(
+                    color: planktonYellow,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 8),
         Text(
-          'Showing 18 frames at idealized 60Hz. Raw column is the OS-emitted '
-          'sample with its actual timestamp; Resampled is what the engine '
-          'sees, aligned to vsync.',
-          style: TextStyle(color: iceBlue, fontSize: 11),
-        ),
+            'Showing 18 frames at idealized 60Hz. Raw column is the OS-emitted '
+            'sample with its actual timestamp; Resampled is what the engine '
+            'sees, aligned to vsync.',
+            style: TextStyle(color: iceBlue, fontSize: 11)),
         const SizedBox(height: 12),
         Container(
           decoration: BoxDecoration(
@@ -989,70 +884,54 @@ dynamic build(BuildContext context) {
           child: Row(
             children: <Widget>[
               SizedBox(
-                width: 60,
-                child: Text(
-                  't (ms)',
-                  style: TextStyle(
-                    color: phosphorGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
+                  width: 60,
+                  child: Text('t (ms)',
+                      style: TextStyle(
+                          color: phosphorGreen,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11))),
               Expanded(
-                flex: 3,
-                child: Text(
-                  'raw event',
-                  style: TextStyle(
-                    color: phosphorGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
+                  flex: 3,
+                  child: Text('raw event',
+                      style: TextStyle(
+                          color: phosphorGreen,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11))),
               Expanded(
-                flex: 3,
-                child: Text(
-                  'resampled position',
-                  style: TextStyle(
-                    color: phosphorGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
+                  flex: 3,
+                  child: Text('resampled position',
+                      style: TextStyle(
+                          color: phosphorGreen,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11))),
               SizedBox(
-                width: 90,
-                child: Text(
-                  'Δ (px)',
-                  style: TextStyle(
-                    color: phosphorGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
+                  width: 90,
+                  child: Text('Δ (px)',
+                      style: TextStyle(
+                          color: phosphorGreen,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11))),
             ],
           ),
         ),
         frameRow('0.0', 'Added @ (10,20)', '(10.0, 20.0)', '+0.0', rowA),
-        frameRow('1.5', 'Down @ (12,22)', 'queued', '—', rowB),
-        frameRow('9.7', 'Move @ (20,28)', 'queued', '—', rowA),
-        frameRow('16.7', 'vsync tick', '(31.0, 38.5)', '+11.0,18.5', rowB),
-        frameRow('18.2', 'Move @ (34,41)', 'queued', '—', rowA),
-        frameRow('25.1', 'Move @ (48,58)', 'queued', '—', rowB),
-        frameRow('33.3', 'vsync tick', '(60.5, 67.5)', '+29.5,29.0', rowA),
-        frameRow('33.7', 'Move @ (63,70)', 'queued', '—', rowB),
-        frameRow('41.9', 'Move @ (76,81)', 'queued', '—', rowA),
-        frameRow('49.5', 'Up @ (85,88)', 'queued', '—', rowB),
-        frameRow('50.0', 'vsync tick', '(85.0, 88.0)', '+24.5,20.5', rowA),
-        frameRow('50.0', 'stop drain', 'Up dispatched', 'final', rowB),
-        frameRow('66.7', 'idle', 'no event', '—', rowA),
-        frameRow('83.3', 'idle', 'no event', '—', rowB),
-        frameRow('100.0', 'idle', 'no event', '—', rowA),
-        frameRow('116.7', 'idle', 'no event', '—', rowB),
-        frameRow('133.3', 'idle', 'no event', '—', rowA),
-        frameRow('150.0', 'idle', 'no event', '—', rowB),
+        frameRow('1.5', 'Down @ (12,22)', 'queued',  '—', rowB),
+        frameRow('9.7', 'Move @ (20,28)', 'queued',  '—', rowA),
+        frameRow('16.7', 'vsync tick',     '(31.0, 38.5)', '+11.0,18.5', rowB),
+        frameRow('18.2', 'Move @ (34,41)', 'queued',  '—', rowA),
+        frameRow('25.1', 'Move @ (48,58)', 'queued',  '—', rowB),
+        frameRow('33.3', 'vsync tick',     '(60.5, 67.5)', '+29.5,29.0', rowA),
+        frameRow('33.7', 'Move @ (63,70)', 'queued',  '—', rowB),
+        frameRow('41.9', 'Move @ (76,81)', 'queued',  '—', rowA),
+        frameRow('49.5', 'Up @ (85,88)',   'queued',  '—', rowB),
+        frameRow('50.0', 'vsync tick',     '(85.0, 88.0)', '+24.5,20.5', rowA),
+        frameRow('50.0', 'stop drain',     'Up dispatched', 'final', rowB),
+        frameRow('66.7', 'idle',           'no event',     '—', rowA),
+        frameRow('83.3', 'idle',           'no event',     '—', rowB),
+        frameRow('100.0', 'idle',          'no event',     '—', rowA),
+        frameRow('116.7', 'idle',          'no event',     '—', rowB),
+        frameRow('133.3', 'idle',          'no event',     '—', rowA),
+        frameRow('150.0', 'idle',          'no event',     '—', rowB),
         const SizedBox(height: 12),
         Container(
           padding: const EdgeInsets.all(10),
@@ -1061,15 +940,11 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(6),
           ),
           child: Text(
-            'Captured ${dispatched.length} events from the live resampler. '
-            'isDown: ${resampler.isDown}. isTracked: ${resampler.isTracked}. '
-            'Pending: ${resampler.hasPendingEvents}.',
-            style: TextStyle(
-              color: glacialMint,
-              fontSize: 11,
-              fontFamily: 'monospace',
-            ),
-          ),
+              'Captured ${dispatched.length} events from the live resampler. '
+              'isDown: ${resampler.isDown}. isTracked: ${resampler.isTracked}. '
+              'Pending: ${resampler.hasPendingEvents}.',
+              style: TextStyle(
+                  color: glacialMint, fontSize: 11, fontFamily: 'monospace')),
         ),
       ],
     ),
@@ -1094,59 +969,50 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.devices, color: lagoonTeal, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Pointer Kind Matrix',
-              style: TextStyle(
-                color: lagoonTeal,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Pointer Kind Matrix',
+                style: TextStyle(
+                    color: lagoonTeal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
         kindRow(
-          Icons.touch_app,
-          'PointerDeviceKind.touch',
-          'finger; ~120Hz on modern phones; jittery raw cadence',
-          'aggressively interpolated; biggest visual win',
-          phosphorGreen,
-        ),
+            Icons.touch_app,
+            'PointerDeviceKind.touch',
+            'finger; ~120Hz on modern phones; jittery raw cadence',
+            'aggressively interpolated; biggest visual win',
+            phosphorGreen),
         kindRow(
-          Icons.mouse,
-          'PointerDeviceKind.mouse',
-          'OS-emitted at ~125Hz or driver rate; relatively regular',
-          'modest smoothing; mostly tick alignment',
-          electricCyan,
-        ),
+            Icons.mouse,
+            'PointerDeviceKind.mouse',
+            'OS-emitted at ~125Hz or driver rate; relatively regular',
+            'modest smoothing; mostly tick alignment',
+            electricCyan),
         kindRow(
-          Icons.edit,
-          'PointerDeviceKind.stylus',
-          'pencil/pen with pressure; 240Hz+ on modern hardware',
-          'high-precision interpolation preserving pressure curve',
-          marigoldSpark,
-        ),
+            Icons.edit,
+            'PointerDeviceKind.stylus',
+            'pencil/pen with pressure; 240Hz+ on modern hardware',
+            'high-precision interpolation preserving pressure curve',
+            marigoldSpark),
         kindRow(
-          Icons.swap_horiz,
-          'PointerDeviceKind.trackpad',
-          'macOS/iPadOS scroll-pan-zoom panel events',
-          'kinematic interpolation; momentum-aware',
-          coralGlint,
-        ),
+            Icons.swap_horiz,
+            'PointerDeviceKind.trackpad',
+            'macOS/iPadOS scroll-pan-zoom panel events',
+            'kinematic interpolation; momentum-aware',
+            coralGlint),
         kindRow(
-          Icons.gamepad,
-          'PointerDeviceKind.invertedStylus',
-          'eraser end of a stylus, or flipped pen orientation',
-          'identical algorithm; kind preserved through synthesis',
-          planktonYellow,
-        ),
+            Icons.gamepad,
+            'PointerDeviceKind.invertedStylus',
+            'eraser end of a stylus, or flipped pen orientation',
+            'identical algorithm; kind preserved through synthesis',
+            planktonYellow),
         kindRow(
-          Icons.help,
-          'PointerDeviceKind.unknown',
-          'platform did not report a kind; uncommon',
-          'falls through generic resampling logic',
-          iceBlue,
-        ),
+            Icons.help,
+            'PointerDeviceKind.unknown',
+            'platform did not report a kind; uncommon',
+            'falls through generic resampling logic',
+            iceBlue),
       ],
     ),
   );
@@ -1161,12 +1027,10 @@ dynamic build(BuildContext context) {
       child: Row(
         children: <Widget>[
           SizedBox(
-            width: 90,
-            child: Text(
-              label,
-              style: TextStyle(color: paperFoam, fontSize: 11, height: 1.3),
-            ),
-          ),
+              width: 90,
+              child: Text(label,
+                  style: TextStyle(
+                      color: paperFoam, fontSize: 11, height: 1.3))),
           Expanded(
             child: Stack(
               children: <Widget>[
@@ -1192,16 +1056,12 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(width: 8),
           SizedBox(
-            width: 60,
-            child: Text(
-              ms,
-              style: TextStyle(
-                color: glacialMint,
-                fontSize: 11,
-                fontFamily: 'monospace',
-              ),
-            ),
-          ),
+              width: 60,
+              child: Text(ms,
+                  style: TextStyle(
+                      color: glacialMint,
+                      fontSize: 11,
+                      fontFamily: 'monospace'))),
         ],
       ),
     );
@@ -1222,30 +1082,22 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.speed, color: phosphorGreen, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Perceived Latency: Before vs After',
-              style: TextStyle(
-                color: phosphorGreen,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Perceived Latency: Before vs After',
+                style: TextStyle(
+                    color: phosphorGreen,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
-        Text(
-          'Bars represent end-to-end finger-to-pixel latency in ms.',
-          style: TextStyle(color: iceBlue, fontSize: 11),
-        ),
+        Text('Bars represent end-to-end finger-to-pixel latency in ms.',
+            style: TextStyle(color: iceBlue, fontSize: 11)),
         const SizedBox(height: 12),
-        Text(
-          'Without resampling',
-          style: TextStyle(
-            color: coralGlint,
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text('Without resampling',
+            style: TextStyle(
+                color: coralGlint,
+                fontSize: 13,
+                fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         latencyBar('OS report', 0.18, marigoldSpark, '3.0 ms'),
         latencyBar('Queue', 0.10, marigoldSpark, '1.6 ms'),
@@ -1253,24 +1105,18 @@ dynamic build(BuildContext context) {
         latencyBar('Render', 0.50, coralGlint, '8.3 ms'),
         latencyBar('Display', 0.55, coralGlint, '9.0 ms'),
         const SizedBox(height: 4),
-        Text(
-          'Total ≈ 35.9 ms',
-          style: TextStyle(
-            color: coralGlint,
-            fontFamily: 'monospace',
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text('Total ≈ 35.9 ms',
+            style: TextStyle(
+                color: coralGlint,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.bold)),
         const SizedBox(height: 16),
-        Text(
-          'With PointerEventResampler',
-          style: TextStyle(
-            color: lagoonTeal,
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text('With PointerEventResampler',
+            style: TextStyle(
+                color: lagoonTeal,
+                fontSize: 13,
+                fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         latencyBar('OS report', 0.18, electricCyan, '3.0 ms'),
         latencyBar('Resample', 0.05, lagoonTeal, '0.8 ms'),
@@ -1278,15 +1124,12 @@ dynamic build(BuildContext context) {
         latencyBar('Render', 0.50, electricCyan, '8.3 ms'),
         latencyBar('Display', 0.55, electricCyan, '9.0 ms'),
         const SizedBox(height: 4),
-        Text(
-          'Total ≈ 26.1 ms (≈ 27% reduction in perceived lag)',
-          style: TextStyle(
-            color: lagoonTeal,
-            fontFamily: 'monospace',
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text('Total ≈ 26.1 ms (≈ 27% reduction in perceived lag)',
+            style: TextStyle(
+                color: lagoonTeal,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.bold)),
       ],
     ),
   );
@@ -1310,66 +1153,58 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.auto_awesome, color: marigoldSpark, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'The Algorithm in 5 Steps',
-              style: TextStyle(
-                color: marigoldSpark,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('The Algorithm in 5 Steps',
+                style: TextStyle(
+                    color: marigoldSpark,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
         Wrap(
           children: <Widget>[
             algorithmCard(
-              1,
-              'Enqueue',
-              'addEvent(e) appends e to an internal FIFO. The queue '
-                  'preserves arrival order and original timestamps. No '
-                  'dispatch happens here — only buffering.',
-              phosphorGreen,
-              Icons.input,
-            ),
+                1,
+                'Enqueue',
+                'addEvent(e) appends e to an internal FIFO. The queue '
+                    'preserves arrival order and original timestamps. No '
+                    'dispatch happens here — only buffering.',
+                phosphorGreen,
+                Icons.input),
             algorithmCard(
-              2,
-              'Tick',
-              'sample(now, next, cb) is invoked once per vsync. The '
-                  'resampler walks the queue from head to tail searching '
-                  'for the bracketing pair around `now`.',
-              lagoonTeal,
-              Icons.sync,
-            ),
+                2,
+                'Tick',
+                'sample(now, next, cb) is invoked once per vsync. The '
+                    'resampler walks the queue from head to tail searching '
+                    'for the bracketing pair around `now`.',
+                lagoonTeal,
+                Icons.sync),
             algorithmCard(
-              3,
-              'Interpolate',
-              'Given samples A at tA and B at tB with tA <= now <= tB, '
-                  'compute u = (now - tA) / (tB - tA) and lerp position = '
-                  'A.position + u * (B.position - A.position).',
-              electricCyan,
-              Icons.linear_scale,
-            ),
+                3,
+                'Interpolate',
+                'Given samples A at tA and B at tB with tA <= now <= tB, '
+                    'compute u = (now - tA) / (tB - tA) and lerp position = '
+                    'A.position + u * (B.position - A.position).',
+                electricCyan,
+                Icons.linear_scale),
             algorithmCard(
-              4,
-              'Adjust Timestamp',
-              'Synthesize a PointerEvent with timeStamp = now and '
-                  'position = lerped result. Original device timestamps '
-                  'are discarded — the engine sees only vsync-aligned '
-                  'time.',
-              marigoldSpark,
-              Icons.access_time,
-            ),
+                4,
+                'Adjust Timestamp',
+                'Synthesize a PointerEvent with timeStamp = now and '
+                    'position = lerped result. Original device timestamps '
+                    'are discarded — the engine sees only vsync-aligned '
+                    'time.',
+                marigoldSpark,
+                Icons.access_time),
             algorithmCard(
-              5,
-              'Trim & Emit',
-              'Discard queue entries with t <= now. Invoke cb(synth) for '
-                  'the synthesized event. If the queue is empty, '
-                  'hasPendingEvents becomes false and the engine can '
-                  'idle the frame loop.',
-              coralGlint,
-              Icons.outbox,
-            ),
+                5,
+                'Trim & Emit',
+                'Discard queue entries with t <= now. Invoke cb(synth) for '
+                    'the synthesized event. If the queue is empty, '
+                    'hasPendingEvents becomes false and the engine can '
+                    'idle the frame loop.',
+                coralGlint,
+                Icons.outbox),
           ],
         ),
       ],
@@ -1395,68 +1230,59 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.warning_amber, color: coralGlint, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Pitfalls & Gotchas',
-              style: TextStyle(
-                color: coralGlint,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Pitfalls & Gotchas',
+                style: TextStyle(
+                    color: coralGlint,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
         pitfall(
-          Icons.bedtime,
-          'Idle vsync',
-          'When no pointer events arrive but vsync still ticks, the '
-              'resampler must NOT re-emit stale positions. hasPendingEvents '
-              'guards against this — once false, the engine stops calling '
-              'sample() until new events arrive.',
-          marigoldSpark,
-        ),
+            Icons.bedtime,
+            'Idle vsync',
+            'When no pointer events arrive but vsync still ticks, the '
+                'resampler must NOT re-emit stale positions. hasPendingEvents '
+                'guards against this — once false, the engine stops calling '
+                'sample() until new events arrive.',
+            marigoldSpark),
         pitfall(
-          Icons.history_toggle_off,
-          'Late events',
-          'Events arriving with timeStamp < now (the OS reports the past) '
-              'are common at app start or after sleep. The resampler '
-              'snaps them to `now` and advances; do not treat them as '
-              'errors.',
-          coralGlint,
-        ),
+            Icons.history_toggle_off,
+            'Late events',
+            'Events arriving with timeStamp < now (the OS reports the past) '
+                'are common at app start or after sleep. The resampler '
+                'snaps them to `now` and advances; do not treat them as '
+                'errors.',
+            coralGlint),
         pitfall(
-          Icons.swap_calls,
-          'Kind switch mid-gesture',
-          'A user may go from finger to stylus mid-stroke on iPad. The '
-              'resampler tracks pointer kind per event; never assume the '
-              'kind is constant across the queue.',
-          planktonYellow,
-        ),
+            Icons.swap_calls,
+            'Kind switch mid-gesture',
+            'A user may go from finger to stylus mid-stroke on iPad. The '
+                'resampler tracks pointer kind per event; never assume the '
+                'kind is constant across the queue.',
+            planktonYellow),
         pitfall(
-          Icons.cancel,
-          'Forgotten stop()',
-          'If you tear down a route without calling stop(), buffered '
-              'events are leaked: the engine never dispatches them. '
-              'Always call stop(cb) on the resampler when the gesture '
-              'pipeline is destroyed.',
-          phosphorGreen,
-        ),
+            Icons.cancel,
+            'Forgotten stop()',
+            'If you tear down a route without calling stop(), buffered '
+                'events are leaked: the engine never dispatches them. '
+                'Always call stop(cb) on the resampler when the gesture '
+                'pipeline is destroyed.',
+            phosphorGreen),
         pitfall(
-          Icons.skip_next,
-          'Out-of-order timestamps',
-          'Some hardware reports events with non-monotonic timestamps. '
-              'addEvent assumes ordered enqueue; if you have a source '
-              'that emits out of order, sort before feeding the resampler.',
-          electricCyan,
-        ),
+            Icons.skip_next,
+            'Out-of-order timestamps',
+            'Some hardware reports events with non-monotonic timestamps. '
+                'addEvent assumes ordered enqueue; if you have a source '
+                'that emits out of order, sort before feeding the resampler.',
+            electricCyan),
         pitfall(
-          Icons.water_drop,
-          'Multi-pointer fan-out',
-          'PointerEventResampler tracks ONE pointer. For multi-touch, '
-              'instantiate one resampler per pointer ID and dispatch '
-              'addEvent based on event.pointer.',
-          lagoonTeal,
-        ),
+            Icons.water_drop,
+            'Multi-pointer fan-out',
+            'PointerEventResampler tracks ONE pointer. For multi-touch, '
+                'instantiate one resampler per pointer ID and dispatch '
+                'addEvent based on event.pointer.',
+            lagoonTeal),
       ],
     ),
   );
@@ -1480,69 +1306,60 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.code, color: glacialMint, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Canonical Usage Patterns',
-              style: TextStyle(
-                color: glacialMint,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Canonical Usage Patterns',
+                style: TextStyle(
+                    color: glacialMint,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
         codeBlock(
-          '1. Construction',
-          'final resampler = PointerEventResampler();\n'
-              '// no constructor arguments; ready to use immediately.',
-          phosphorGreen,
-        ),
+            '1. Construction',
+            'final resampler = PointerEventResampler();\n'
+                '// no constructor arguments; ready to use immediately.',
+            phosphorGreen),
         codeBlock(
-          '2. Enqueue raw events',
-          'binding.platformDispatcher.onPointerDataPacket = (packet) {\n'
-              '  for (final data in packet.data) {\n'
-              '    final event = decode(data);\n'
-              '    resampler.addEvent(event);\n'
-              '  }\n'
-              '};',
-          lagoonTeal,
-        ),
+            '2. Enqueue raw events',
+            'binding.platformDispatcher.onPointerDataPacket = (packet) {\n'
+                '  for (final data in packet.data) {\n'
+                '    final event = decode(data);\n'
+                '    resampler.addEvent(event);\n'
+                '  }\n'
+                '};',
+            lagoonTeal),
         codeBlock(
-          '3. Drive at vsync',
-          'binding.addPersistentFrameCallback((Duration t) {\n'
-              '  final next = t + const Duration(microseconds: 16667);\n'
-              '  resampler.sample(t, next, _dispatch);\n'
-              '});\n'
-              'void _dispatch(PointerEvent ev) {\n'
-              '  GestureBinding.instance.handlePointerEvent(ev);\n'
-              '}',
-          electricCyan,
-        ),
+            '3. Drive at vsync',
+            'binding.addPersistentFrameCallback((Duration t) {\n'
+                '  final next = t + const Duration(microseconds: 16667);\n'
+                '  resampler.sample(t, next, _dispatch);\n'
+                '});\n'
+                'void _dispatch(PointerEvent ev) {\n'
+                '  GestureBinding.instance.handlePointerEvent(ev);\n'
+                '}',
+            electricCyan),
         codeBlock(
-          '4. Drain on teardown',
-          'void dispose() {\n'
-              '  resampler.stop(_dispatch);\n'
-              '  super.dispose();\n'
-              '}',
-          marigoldSpark,
-        ),
+            '4. Drain on teardown',
+            'void dispose() {\n'
+                '  resampler.stop(_dispatch);\n'
+                '  super.dispose();\n'
+                '}',
+            marigoldSpark),
         codeBlock(
-          '5. Multi-pointer dispatch',
-          'final pool = <int, PointerEventResampler>{};\n'
-              'PointerEventResampler resamplerFor(int id) =>\n'
-              '    pool.putIfAbsent(id, PointerEventResampler.new);\n'
-              'void onEvent(PointerEvent e) =>\n'
-              '    resamplerFor(e.pointer).addEvent(e);',
-          coralGlint,
-        ),
+            '5. Multi-pointer dispatch',
+            'final pool = <int, PointerEventResampler>{};\n'
+                'PointerEventResampler resamplerFor(int id) =>\n'
+                '    pool.putIfAbsent(id, PointerEventResampler.new);\n'
+                'void onEvent(PointerEvent e) =>\n'
+                '    resamplerFor(e.pointer).addEvent(e);',
+            coralGlint),
         codeBlock(
-          '6. Inspect state',
-          'if (resampler.hasPendingEvents) {\n'
-              '  scheduleFrame();\n'
-              '}\n'
-              'final lastSeen = resampler.position;',
-          planktonYellow,
-        ),
+            '6. Inspect state',
+            'if (resampler.hasPendingEvents) {\n'
+                '  scheduleFrame();\n'
+                '}\n'
+                'final lastSeen = resampler.position;',
+            planktonYellow),
       ],
     ),
   );
@@ -1566,86 +1383,55 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.menu_book, color: iceBlue, size: 24),
             const SizedBox(width: 8),
-            Text(
-              'Glossary',
-              style: TextStyle(
-                color: iceBlue,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Glossary',
+                style: TextStyle(
+                    color: iceBlue,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
-        glossaryEntry(
-          'vsync',
-          'Vertical sync — the display refresh signal. ~60Hz on standard '
-              'screens, 120Hz on ProMotion/high-refresh.',
-        ),
-        glossaryEntry(
-          'PointerEvent',
-          'Base class in package:flutter/gestures for any input event '
-              '(down, up, move, hover, scroll, etc.).',
-        ),
-        glossaryEntry(
-          'Resampling',
-          'Process of interpolating samples to align with a target tick '
-              'rate, smoothing out source jitter.',
-        ),
-        glossaryEntry(
-          'Lerp',
-          'Linear interpolation: lerp(A, B, u) = A + u * (B - A) for '
-              'u in [0, 1].',
-        ),
-        glossaryEntry(
-          'Queueing',
-          'Buffering events without dispatch. The resampler queues up '
-              'incoming events and drains on sample().',
-        ),
-        glossaryEntry(
-          'Tick alignment',
-          'Forcing event timestamps to land exactly on a vsync boundary, '
-              'eliminating sub-frame timing variance.',
-        ),
-        glossaryEntry(
-          'Latency',
-          'End-to-end delay from finger touching screen to pixel '
-              'changing. Resampling reduces the queueing portion.',
-        ),
-        glossaryEntry(
-          'Pointer kind',
-          'Enum identifying input source: touch, mouse, stylus, '
-              'trackpad, etc. PointerDeviceKind in dart:ui.',
-        ),
-        glossaryEntry(
-          'Frame budget',
-          'Time allotted per frame; ~16.67ms at 60Hz, ~8.33ms at 120Hz. '
-              'Resampling lives inside this window.',
-        ),
-        glossaryEntry(
-          'Synthesized event',
-          'A new PointerEvent constructed by the resampler from '
-              'interpolated state, distinct from any raw input.',
-        ),
-        glossaryEntry(
-          'Drain',
-          'Forcefully empty the queue. Implemented by stop(cb).',
-        ),
-        glossaryEntry(
-          'FIFO',
-          'First-in-first-out — the ordering guarantee of the internal '
-              'event queue.',
-        ),
-        glossaryEntry(
-          'Monotonic time',
-          'Time source that never goes backwards. PointerEvent timestamps '
-              'are monotonic by contract.',
-        ),
-        glossaryEntry(
-          'Hot path',
-          'Code that runs every frame; resampler.sample() is in the hot '
-              'path so O(1) per event matters.',
-        ),
+        glossaryEntry('vsync',
+            'Vertical sync — the display refresh signal. ~60Hz on standard '
+                'screens, 120Hz on ProMotion/high-refresh.'),
+        glossaryEntry('PointerEvent',
+            'Base class in package:flutter/gestures for any input event '
+                '(down, up, move, hover, scroll, etc.).'),
+        glossaryEntry('Resampling',
+            'Process of interpolating samples to align with a target tick '
+                'rate, smoothing out source jitter.'),
+        glossaryEntry('Lerp',
+            'Linear interpolation: lerp(A, B, u) = A + u * (B - A) for '
+                'u in [0, 1].'),
+        glossaryEntry('Queueing',
+            'Buffering events without dispatch. The resampler queues up '
+                'incoming events and drains on sample().'),
+        glossaryEntry('Tick alignment',
+            'Forcing event timestamps to land exactly on a vsync boundary, '
+                'eliminating sub-frame timing variance.'),
+        glossaryEntry('Latency',
+            'End-to-end delay from finger touching screen to pixel '
+                'changing. Resampling reduces the queueing portion.'),
+        glossaryEntry('Pointer kind',
+            'Enum identifying input source: touch, mouse, stylus, '
+                'trackpad, etc. PointerDeviceKind in dart:ui.'),
+        glossaryEntry('Frame budget',
+            'Time allotted per frame; ~16.67ms at 60Hz, ~8.33ms at 120Hz. '
+                'Resampling lives inside this window.'),
+        glossaryEntry('Synthesized event',
+            'A new PointerEvent constructed by the resampler from '
+                'interpolated state, distinct from any raw input.'),
+        glossaryEntry('Drain',
+            'Forcefully empty the queue. Implemented by stop(cb).'),
+        glossaryEntry('FIFO',
+            'First-in-first-out — the ordering guarantee of the internal '
+                'event queue.'),
+        glossaryEntry('Monotonic time',
+            'Time source that never goes backwards. PointerEvent timestamps '
+                'are monotonic by contract.'),
+        glossaryEntry('Hot path',
+            'Code that runs every frame; resampler.sample() is in the hot '
+                'path so O(1) per event matters.'),
       ],
     ),
   );
@@ -1673,58 +1459,39 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.summarize, color: phosphorGreen, size: 28),
             const SizedBox(width: 12),
-            Text(
-              'Recap',
-              style: TextStyle(
-                color: phosphorGreen,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Recap',
+                style: TextStyle(
+                    color: phosphorGreen,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 12),
         Text(
-          'PointerEventResampler is the bridge between the platform pointer '
-          "source and Flutter's gesture pipeline. It buffers raw, jittery "
-          'events, interpolates them to vsync-aligned timestamps, and emits '
-          'a smooth synthesized stream that the engine consumes.',
-          style: TextStyle(color: paperFoam, fontSize: 12, height: 1.5),
-        ),
+            'PointerEventResampler is the bridge between the platform pointer '
+            "source and Flutter's gesture pipeline. It buffers raw, jittery "
+            'events, interpolates them to vsync-aligned timestamps, and emits '
+            'a smooth synthesized stream that the engine consumes.',
+            style: TextStyle(color: paperFoam, fontSize: 12, height: 1.5)),
         const SizedBox(height: 10),
-        Text(
-          'Key takeaways:',
-          style: TextStyle(
-            color: lagoonTeal,
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text('Key takeaways:',
+            style: TextStyle(
+                color: lagoonTeal,
+                fontSize: 13,
+                fontWeight: FontWeight.bold)),
         const SizedBox(height: 6),
-        Text(
-          '• addEvent enqueues without dispatching.',
-          style: TextStyle(color: glacialMint, fontSize: 11),
-        ),
-        Text(
-          '• sample(now, next, cb) is the vsync driver.',
-          style: TextStyle(color: glacialMint, fontSize: 11),
-        ),
-        Text(
-          '• stop(cb) drains the queue at gesture end.',
-          style: TextStyle(color: glacialMint, fontSize: 11),
-        ),
-        Text(
-          '• hasPendingEvents gates frame scheduling.',
-          style: TextStyle(color: glacialMint, fontSize: 11),
-        ),
-        Text(
-          '• One resampler instance per pointer ID.',
-          style: TextStyle(color: glacialMint, fontSize: 11),
-        ),
-        Text(
-          '• Linear interpolation between bracketing samples.',
-          style: TextStyle(color: glacialMint, fontSize: 11),
-        ),
+        Text('• addEvent enqueues without dispatching.',
+            style: TextStyle(color: glacialMint, fontSize: 11)),
+        Text('• sample(now, next, cb) is the vsync driver.',
+            style: TextStyle(color: glacialMint, fontSize: 11)),
+        Text('• stop(cb) drains the queue at gesture end.',
+            style: TextStyle(color: glacialMint, fontSize: 11)),
+        Text('• hasPendingEvents gates frame scheduling.',
+            style: TextStyle(color: glacialMint, fontSize: 11)),
+        Text('• One resampler instance per pointer ID.',
+            style: TextStyle(color: glacialMint, fontSize: 11)),
+        Text('• Linear interpolation between bracketing samples.',
+            style: TextStyle(color: glacialMint, fontSize: 11)),
         const SizedBox(height: 12),
         Container(
           padding: const EdgeInsets.all(10),
@@ -1734,24 +1501,19 @@ dynamic build(BuildContext context) {
             border: Border.all(color: marigoldSpark.withValues(alpha: 0.6)),
           ),
           child: Text(
-            'Live run produced ${dispatched.length} dispatched events; '
-            'isDown=${resampler.isDown} isTracked=${resampler.isTracked}.',
-            style: TextStyle(
-              color: marigoldSpark,
-              fontSize: 11,
-              fontFamily: 'monospace',
-            ),
-          ),
+              'Live run produced ${dispatched.length} dispatched events; '
+              'isDown=${resampler.isDown} isTracked=${resampler.isTracked}.',
+              style: TextStyle(
+                  color: marigoldSpark,
+                  fontSize: 11,
+                  fontFamily: 'monospace')),
         ),
         const SizedBox(height: 10),
-        Text(
-          '— end of Phosphor Lagoon —',
-          style: TextStyle(
-            color: phosphorGreen,
-            fontSize: 11,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text('— end of Phosphor Lagoon —',
+            style: TextStyle(
+                color: phosphorGreen,
+                fontSize: 11,
+                fontStyle: FontStyle.italic)),
       ],
     ),
   );
@@ -1798,14 +1560,12 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 24),
           Center(
             child: Text(
-              'Phosphor Lagoon · 12 sections · 13 palette colors · '
-              'seafoam=$seafoamPale',
-              style: TextStyle(
-                color: lagoonTeal,
-                fontSize: 11,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
+                'Phosphor Lagoon · 12 sections · 13 palette colors · '
+                'seafoam=$seafoamPale',
+                style: TextStyle(
+                    color: lagoonTeal,
+                    fontSize: 11,
+                    fontStyle: FontStyle.italic)),
           ),
           const SizedBox(height: 16),
         ],
@@ -1875,15 +1635,7 @@ class _LagoonTimelinePainter extends CustomPainter {
     final Paint rawPaint = Paint()..color = raw;
     final Paint rawAltPaint = Paint()..color = rawAlt;
     final List<double> rawXs = <double>[
-      0.04,
-      0.10,
-      0.19,
-      0.28,
-      0.37,
-      0.49,
-      0.62,
-      0.71,
-      0.83,
+      0.04, 0.10, 0.19, 0.28, 0.37, 0.49, 0.62, 0.71, 0.83
     ];
     for (int i = 0; i < rawXs.length; i++) {
       final double x = w * rawXs[i];
@@ -1929,9 +1681,9 @@ class _LagoonTimelinePainter extends CustomPainter {
   void _label(Canvas canvas, String text, Offset at, Color color, double fs) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
-        text: text,
-        style: TextStyle(color: color, fontSize: fs, fontFamily: 'monospace'),
-      ),
+          text: text,
+          style: TextStyle(
+              color: color, fontSize: fs, fontFamily: 'monospace')),
       textDirection: TextDirection.ltr,
     );
     tp.layout();

@@ -215,14 +215,13 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                 const SizedBox(width: 12),
                 const Text(
                   'S1 — Volume',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 4,
-                  ),
+                      horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.pink.shade50,
                     borderRadius: BorderRadius.circular(999),
@@ -253,7 +252,12 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                 ),
                 const SizedBox(width: 24),
                 // --- VU meter ------------------------------------------
-                Expanded(child: SizedBox(height: 220, child: _buildVuMeter(v))),
+                Expanded(
+                  child: SizedBox(
+                    height: 220,
+                    child: _buildVuMeter(v),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -302,7 +306,9 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                       _volume.value = 1.0;
                     });
                   },
-                  style: FilledButton.styleFrom(backgroundColor: Colors.pink),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Colors.pink,
+                  ),
                   icon: const Icon(Icons.graphic_eq),
                   label: const Text('Max'),
                 ),
@@ -354,10 +360,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                           end: Alignment.bottomCenter,
                           colors: <Color>[
                             _dialColorForIndex(i, segmentCount),
-                            _dialColorForIndex(
-                              i,
-                              segmentCount,
-                            ).withValues(alpha: 0.6),
+                            _dialColorForIndex(i, segmentCount)
+                                .withValues(alpha: 0.6),
                           ],
                         )
                       : null,
@@ -366,10 +370,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                   boxShadow: lit
                       ? <BoxShadow>[
                           BoxShadow(
-                            color: _dialColorForIndex(
-                              i,
-                              segmentCount,
-                            ).withValues(alpha: 0.4),
+                            color: _dialColorForIndex(i, segmentCount)
+                                .withValues(alpha: 0.4),
                             blurRadius: 4,
                           ),
                         ]
@@ -391,7 +393,10 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: RadialGradient(
-              colors: <Color>[Colors.grey.shade100, Colors.grey.shade300],
+              colors: <Color>[
+                Colors.grey.shade100,
+                Colors.grey.shade300,
+              ],
             ),
             boxShadow: <BoxShadow>[
               BoxShadow(
@@ -530,7 +535,10 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
               ),
               borderRadius: BorderRadius.circular(4),
               boxShadow: <BoxShadow>[
-                BoxShadow(color: tip.withValues(alpha: 0.6), blurRadius: 6),
+                BoxShadow(
+                  color: tip.withValues(alpha: 0.6),
+                  blurRadius: 6,
+                ),
               ],
             ),
           ),
@@ -586,15 +594,14 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                 const SizedBox(width: 12),
                 const Text(
                   'S2 — Playback Speed',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 const Spacer(),
                 // Big speed pill.
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+                      horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: <Color>[
@@ -718,8 +725,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                   color: isNearest
                       ? Colors.indigo.shade700
                       : (isMajor
-                            ? Colors.indigo.shade400
-                            : Colors.indigo.shade200),
+                          ? Colors.indigo.shade400
+                          : Colors.indigo.shade200),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -732,7 +739,9 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                     color: isNearest
                         ? Colors.indigo.shade900
                         : Colors.indigo.shade400,
-                    fontWeight: isNearest ? FontWeight.w700 : FontWeight.w500,
+                    fontWeight: isNearest
+                        ? FontWeight.w700
+                        : FontWeight.w500,
                   ),
                 )
               else
@@ -749,7 +758,10 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.indigo.shade100),
       ),
-      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: ticks),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: ticks,
+      ),
     );
   }
 
@@ -763,12 +775,15 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding:
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
           color: selected ? Colors.indigo.shade700 : Colors.white,
           borderRadius: BorderRadius.circular(999),
           border: Border.all(
-            color: selected ? Colors.indigo.shade900 : Colors.indigo.shade200,
+            color: selected
+                ? Colors.indigo.shade900
+                : Colors.indigo.shade200,
             width: 1.5,
           ),
           boxShadow: selected
@@ -827,7 +842,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                 const SizedBox(width: 12),
                 const Text(
                   'S3 — 5-Band Equalizer',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 const Spacer(),
                 Text(
@@ -889,34 +905,14 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                   icon: const Icon(Icons.horizontal_rule),
                   label: const Text('Flatten'),
                 ),
-                _buildEqPresetButton('Rock', <double>[
-                  4,
-                  2,
-                  -1,
-                  2,
-                  3,
-                ], Colors.red.shade700),
-                _buildEqPresetButton('Jazz', <double>[
-                  2,
-                  1,
-                  0,
-                  2,
-                  3,
-                ], Colors.amber.shade800),
-                _buildEqPresetButton('Classical', <double>[
-                  0,
-                  0,
-                  0,
-                  2,
-                  4,
-                ], Colors.blueGrey.shade700),
-                _buildEqPresetButton('Bass Boost', <double>[
-                  6,
-                  4,
-                  0,
-                  -1,
-                  -2,
-                ], Colors.deepPurple.shade700),
+                _buildEqPresetButton(
+                    'Rock', <double>[4, 2, -1, 2, 3], Colors.red.shade700),
+                _buildEqPresetButton(
+                    'Jazz', <double>[2, 1, 0, 2, 3], Colors.amber.shade800),
+                _buildEqPresetButton('Classical',
+                    <double>[0, 0, 0, 2, 4], Colors.blueGrey.shade700),
+                _buildEqPresetButton('Bass Boost',
+                    <double>[6, 4, 0, -1, -2], Colors.deepPurple.shade700),
               ],
             ),
           ],
@@ -935,7 +931,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
     });
   }
 
-  Widget _buildEqPresetButton(String name, List<double> values, Color color) {
+  Widget _buildEqPresetButton(
+      String name, List<double> values, Color color) {
     return FilledButton.tonal(
       onPressed: () {
         setState(() {
@@ -957,25 +954,23 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
   // Single EQ band: mini spectrum graphic + band label + vertical slider
   // (created by rotating a horizontal Slider 90° counter-clockwise) + dB
   // readout. `bandIdx` selects the shape of the mini spectrum.
-  Widget _buildEqBand(
-    RestorableDouble band,
-    String label,
-    int bandIdx,
-    ValueChanged<double> onChanged,
-  ) {
+  Widget _buildEqBand(RestorableDouble band, String label, int bandIdx,
+      ValueChanged<double> onChanged) {
     final double v = band.value;
     final String dbText = v == 0
         ? '0 dB'
-        : (v > 0
-              ? '+${v.toStringAsFixed(1)} dB'
-              : '${v.toStringAsFixed(1)} dB');
+        : (v > 0 ? '+${v.toStringAsFixed(1)} dB' : '${v.toStringAsFixed(1)} dB');
     final Color dbColor = v > 0.5
         ? Colors.green.shade400
         : (v < -0.5 ? Colors.red.shade400 : Colors.grey.shade400);
     return Column(
       children: <Widget>[
         // Mini spectrum hint.
-        SizedBox(width: 50, height: 30, child: _buildMiniSpectrum(bandIdx)),
+        SizedBox(
+          width: 50,
+          height: 30,
+          child: _buildMiniSpectrum(bandIdx),
+        ),
         const SizedBox(height: 6),
         Text(
           label,
@@ -997,7 +992,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                 activeTrackColor: Colors.teal.shade400,
                 inactiveTrackColor: Colors.grey.shade800,
                 thumbColor: Colors.tealAccent,
-                overlayColor: Colors.tealAccent.withValues(alpha: 0.25),
+                overlayColor:
+                    Colors.tealAccent.withValues(alpha: 0.25),
               ),
               child: Slider(
                 value: v,
@@ -1011,7 +1007,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
         ),
         const SizedBox(height: 6),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
           decoration: BoxDecoration(
             color: dbColor.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(6),
@@ -1106,7 +1103,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                 const SizedBox(width: 12),
                 const Text(
                   'S4 — Opacity',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 const Spacer(),
                 Text(
@@ -1203,16 +1201,16 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                     width: 192,
                     height: 192,
                     decoration: BoxDecoration(
-                      color: Colors.deepPurple.withValues(alpha: o),
+                      color:
+                          Colors.deepPurple.withValues(alpha: o),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Center(
                       child: Text(
                         'alpha=${o.toStringAsFixed(2)}',
                         style: TextStyle(
-                          color: Colors.white.withValues(
-                            alpha: o > 0.5 ? 1.0 : 0.4,
-                          ),
+                          color: Colors.white
+                              .withValues(alpha: o > 0.5 ? 1.0 : 0.4),
                           fontWeight: FontWeight.w700,
                           fontFamily: 'monospace',
                         ),
@@ -1287,9 +1285,10 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
     final Color baseColor = Colors.blue.shade600;
     final double brightnessDelta = b - 0.5;
     final Color adjusted = brightnessDelta >= 0
-        ? Color.lerp(baseColor, Colors.white, brightnessDelta * 2) ?? baseColor
+        ? Color.lerp(baseColor, Colors.white, brightnessDelta * 2) ??
+            baseColor
         : Color.lerp(baseColor, Colors.black, -brightnessDelta * 2) ??
-              baseColor;
+            baseColor;
     // Contrast effect: tighter stops = harder edge. contrast=0 gives a
     // soft spread (stops at 0.2 and 0.8); contrast=1 gives near-hard cut
     // (stops at 0.48 and 0.52).
@@ -1324,7 +1323,8 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
                 const SizedBox(width: 12),
                 const Text(
                   'S5 — Brightness & Contrast + Teaching',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -1447,7 +1447,10 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
       children: <Widget>[
         const Text(
           'Teaching panel — RestorableDouble concepts',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+          ),
         ),
         const SizedBox(height: 8),
         Wrap(
@@ -1530,7 +1533,10 @@ class _MediaControlsDemoState extends State<MediaControlsDemo>
             width: 140,
             child: Text(
               label,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+              ),
             ),
           ),
           const Text('→ '),

@@ -32,24 +32,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -66,7 +57,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 13, color: plumDark)),
+      child: Text(text,
+          style: TextStyle(fontSize: 13, color: plumDark)),
     );
   }
 
@@ -78,17 +70,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 180,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(value, style: TextStyle(fontSize: 13, color: plumDark)),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: plumDark)),
           ),
         ],
       ),
@@ -158,46 +148,35 @@ dynamic build(BuildContext context) {
                   Icon(Icons.select_all, size: 28, color: paleOrchid),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      'MultiSelectable\nSelectionContainer\nDelegate',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        height: 1.2,
-                      ),
-                    ),
+                    child: Text('MultiSelectable\nSelectionContainer\nDelegate',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            height: 1.2)),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'Abstract delegate managing multiple Selectable children for text selection',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 13,
-                ),
-              ),
+              Text('Abstract delegate managing multiple Selectable children for text selection',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 13)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  tag('Abstract Class', heather, Colors.white),
-                  tag('ChangeNotifier', softOrchid, plumDark),
-                  tag('Selection', lightHeather, plumDark),
-                  tag('Selectable', paleOrchid, plumDark),
-                ],
-              ),
+              Wrap(children: [
+                tag('Abstract Class', heather, Colors.white),
+                tag('ChangeNotifier', softOrchid, plumDark),
+                tag('Selection', lightHeather, plumDark),
+                tag('Selectable', paleOrchid, plumDark),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner(
-          '1 \u00b7 What Is MultiSelectableSelectionContainerDelegate',
-          'Coordinating selection across multiple selectable children',
-          deepOrchid,
-          Colors.white,
-        ),
+        sectionBanner('1 \u00b7 What Is MultiSelectableSelectionContainerDelegate',
+            'Coordinating selection across multiple selectable children',
+            deepOrchid, Colors.white),
         noteBox(
           'MultiSelectableSelectionContainerDelegate is an abstract class that '
           'extends SelectionContainerDelegate with ChangeNotifier. It manages '
@@ -208,23 +187,16 @@ dynamic build(BuildContext context) {
           orchidPurple,
           whiteOrchid,
         ),
-        dataRow(
-          'Extends',
-          'SelectionContainerDelegate with ChangeNotifier',
-          orchidPurple,
-        ),
+        dataRow('Extends', 'SelectionContainerDelegate with ChangeNotifier', orchidPurple),
         dataRow('Used by', 'SelectableRegion / SelectionArea', deepOrchid),
         dataRow('Manages', 'List<Selectable> children', heather),
         dataRow('Defined in', 'widgets/selectable_region.dart', plumDark),
         const SizedBox(height: 14),
 
         // ── 3. Where Selection happens ───────────────────────────────
-        sectionBanner(
-          '2 \u00b7 Selection Architecture Overview',
-          'How SelectableRegion, delegate, and selectables work together',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('2 \u00b7 Selection Architecture Overview',
+            'How SelectableRegion, delegate, and selectables work together',
+            orchidPurple, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -251,19 +223,15 @@ dynamic build(BuildContext context) {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'SelectableRegion',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            fontFamily: 'monospace',
-                            color: deepOrchid,
-                          ),
-                        ),
-                        Text(
-                          'Captures gestures (drag, double-tap, triple-tap)',
-                          style: TextStyle(fontSize: 10, color: plumDark),
-                        ),
+                        Text('SelectableRegion',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                fontFamily: 'monospace',
+                                color: deepOrchid)),
+                        Text('Captures gestures (drag, double-tap, triple-tap)',
+                            style: TextStyle(
+                                fontSize: 10, color: plumDark)),
                       ],
                     ),
                   ],
@@ -271,11 +239,7 @@ dynamic build(BuildContext context) {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Icon(
-                  Icons.arrow_downward,
-                  size: 18,
-                  color: orchidPurple,
-                ),
+                child: Icon(Icons.arrow_downward, size: 18, color: orchidPurple),
               ),
               // Middle: Delegate
               Container(
@@ -294,19 +258,15 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'MultiSelectableSelectionContainerDelegate',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: orchidPurple,
-                            ),
-                          ),
-                          Text(
-                            'Routes events to appropriate selectables',
-                            style: TextStyle(fontSize: 10, color: plumDark),
-                          ),
+                          Text('MultiSelectableSelectionContainerDelegate',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: orchidPurple)),
+                          Text('Routes events to appropriate selectables',
+                              style: TextStyle(
+                                  fontSize: 10, color: plumDark)),
                         ],
                       ),
                     ),
@@ -333,14 +293,11 @@ dynamic build(BuildContext context) {
                         child: Column(
                           children: [
                             Icon(Icons.text_fields, size: 16, color: heather),
-                            Text(
-                              'Selectable $i',
-                              style: TextStyle(
-                                fontSize: 9,
-                                fontFamily: 'monospace',
-                                color: plumDark,
-                              ),
-                            ),
+                            Text('Selectable $i',
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    fontFamily: 'monospace',
+                                    color: plumDark)),
                           ],
                         ),
                       ),
@@ -353,12 +310,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Key properties ────────────────────────────────────────
-        sectionBanner(
-          '3 \u00b7 Key Properties',
-          'Core state managed by the delegate',
-          heather,
-          Colors.white,
-        ),
+        sectionBanner('3 \u00b7 Key Properties',
+            'Core state managed by the delegate',
+            heather, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -369,34 +323,18 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final prop in [
-                (
-                  'selectables',
-                  'List<Selectable>',
-                  'Registered selectable children in screen order',
-                  orchidPurple,
-                  Icons.format_list_numbered,
-                ),
-                (
-                  'currentSelectionStartIndex',
-                  'int',
-                  'Index of the selectable where selection begins (-1 if none)',
-                  heather,
-                  Icons.start,
-                ),
-                (
-                  'currentSelectionEndIndex',
-                  'int',
-                  'Index of the selectable where selection ends (-1 if none)',
-                  deepOrchid,
-                  Icons.stop,
-                ),
-                (
-                  'value',
-                  'SelectionGeometry',
-                  'Current selection geometry (rects, handles, status)',
-                  plumDark,
-                  Icons.crop_free,
-                ),
+                ('selectables', 'List<Selectable>',
+                    'Registered selectable children in screen order',
+                    orchidPurple, Icons.format_list_numbered),
+                ('currentSelectionStartIndex', 'int',
+                    'Index of the selectable where selection begins (-1 if none)',
+                    heather, Icons.start),
+                ('currentSelectionEndIndex', 'int',
+                    'Index of the selectable where selection ends (-1 if none)',
+                    deepOrchid, Icons.stop),
+                ('value', 'SelectionGeometry',
+                    'Current selection geometry (rects, handles, status)',
+                    plumDark, Icons.crop_free),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -404,7 +342,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: prop.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: prop.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: prop.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -417,30 +356,23 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  prop.$1,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                    fontFamily: 'monospace',
-                                    color: prop.$4,
-                                  ),
-                                ),
+                                Text(prop.$1,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11,
+                                        fontFamily: 'monospace',
+                                        color: prop.$4)),
                                 const SizedBox(width: 6),
-                                Text(
-                                  prop.$2,
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontStyle: FontStyle.italic,
-                                    color: plumDark,
-                                  ),
-                                ),
+                                Text(prop.$2,
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontStyle: FontStyle.italic,
+                                        color: plumDark)),
                               ],
                             ),
-                            Text(
-                              prop.$3,
-                              style: TextStyle(fontSize: 11, color: plumDark),
-                            ),
+                            Text(prop.$3,
+                                style: TextStyle(
+                                    fontSize: 11, color: plumDark)),
                           ],
                         ),
                       ),
@@ -453,12 +385,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Selection events ──────────────────────────────────────
-        sectionBanner(
-          '4 \u00b7 Selection Events',
-          'Gestures and how they map to delegate methods',
-          deepOrchid,
-          Colors.white,
-        ),
+        sectionBanner('4 \u00b7 Selection Events',
+            'Gestures and how they map to delegate methods',
+            deepOrchid, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -479,14 +408,11 @@ dynamic build(BuildContext context) {
                   for (final h in ['Gesture', 'Delegate Method', 'Scope'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        h,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
                     ),
                 ],
               ),
@@ -497,42 +423,31 @@ dynamic build(BuildContext context) {
                 ('Ctrl+A / \u2318+A', 'handleSelectAll', 'All'),
                 ('Tap elsewhere', 'handleClearSelection', 'Clear'),
                 ('Shift+Arrow', 'handleGranularlyExtendSelection', 'Granular'),
-                (
-                  'Shift+Ctrl+Arrow',
-                  'handleDirectionallyExtendSelection',
-                  'Directional',
-                ),
+                ('Shift+Ctrl+Arrow', 'handleDirectionallyExtendSelection', 'Directional'),
               ])
                 TableRow(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: orchidPurple,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: orchidPurple)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontFamily: 'monospace',
-                          color: plumDark,
-                        ),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 9,
+                              fontFamily: 'monospace',
+                              color: plumDark)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(fontSize: 10, color: heather),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(
+                              fontSize: 10, color: heather)),
                     ),
                   ],
                 ),
@@ -542,12 +457,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Screen-order comparison ───────────────────────────────
-        sectionBanner(
-          '5 \u00b7 Screen-Order Comparison',
-          'How selectables are sorted on screen',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('5 \u00b7 Screen-Order Comparison',
+            'How selectables are sorted on screen',
+            orchidPurple, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -572,19 +484,15 @@ dynamic build(BuildContext context) {
                         children: [
                           Icon(Icons.swap_vert, size: 22, color: orchidPurple),
                           const SizedBox(height: 4),
-                          Text(
-                            'Vertical First',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: orchidPurple,
-                            ),
-                          ),
-                          Text(
-                            'Compare top edges\nwith threshold',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: plumDark),
-                          ),
+                          Text('Vertical First',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: orchidPurple)),
+                          Text('Compare top edges\nwith threshold',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 10, color: plumDark)),
                         ],
                       ),
                     ),
@@ -605,19 +513,15 @@ dynamic build(BuildContext context) {
                         children: [
                           Icon(Icons.swap_horiz, size: 22, color: heather),
                           const SizedBox(height: 4),
-                          Text(
-                            'Then Horizontal',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: heather,
-                            ),
-                          ),
-                          Text(
-                            'If same row,\ncompare left edges',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: plumDark),
-                          ),
+                          Text('Then Horizontal',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: heather)),
+                          Text('If same row,\ncompare left edges',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 10, color: plumDark)),
                         ],
                       ),
                     ),
@@ -639,12 +543,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. SelectionGeometry ─────────────────────────────────────
-        sectionBanner(
-          '6 \u00b7 SelectionGeometry',
-          'What the value property describes',
-          heather,
-          Colors.white,
-        ),
+        sectionBanner('6 \u00b7 SelectionGeometry',
+            'What the value property describes',
+            heather, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -655,77 +556,49 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final field in [
-                (
-                  'startSelectionPoint',
-                  'SelectionPoint?',
-                  'Position of the start handle',
-                  orchidPurple,
-                ),
-                (
-                  'endSelectionPoint',
-                  'SelectionPoint?',
-                  'Position of the end handle',
-                  heather,
-                ),
-                (
-                  'status',
-                  'SelectionStatus',
-                  'none, uncollapsed, or collapsed',
-                  deepOrchid,
-                ),
-                (
-                  'hasContent',
-                  'bool',
-                  'Whether any content is available',
-                  softOrchid,
-                ),
-                (
-                  'hasSelection',
-                  'bool',
-                  'Whether content is currently selected',
-                  plumDark,
-                ),
+                ('startSelectionPoint', 'SelectionPoint?', 'Position of the start handle',
+                    orchidPurple),
+                ('endSelectionPoint', 'SelectionPoint?', 'Position of the end handle',
+                    heather),
+                ('status', 'SelectionStatus', 'none, uncollapsed, or collapsed',
+                    deepOrchid),
+                ('hasContent', 'bool', 'Whether any content is available',
+                    softOrchid),
+                ('hasSelection', 'bool', 'Whether content is currently selected',
+                    plumDark),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
+                      horizontal: 10, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: field.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: field.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 110,
-                        child: Text(
-                          field.$1,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: field.$4,
-                          ),
-                        ),
+                        child: Text(field.$1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                color: field.$4)),
                       ),
                       SizedBox(
                         width: 80,
-                        child: Text(
-                          field.$2,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontStyle: FontStyle.italic,
-                            color: plumDark,
-                          ),
-                        ),
+                        child: Text(field.$2,
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontStyle: FontStyle.italic,
+                                color: plumDark)),
                       ),
                       Expanded(
-                        child: Text(
-                          field.$3,
-                          style: TextStyle(fontSize: 11, color: plumDark),
-                        ),
+                        child: Text(field.$3,
+                            style: TextStyle(
+                                fontSize: 11, color: plumDark)),
                       ),
                     ],
                   ),
@@ -736,12 +609,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Add / remove selectables ──────────────────────────────
-        sectionBanner(
-          '7 \u00b7 Registering Selectables',
-          'How children join and leave the delegate',
-          deepOrchid,
-          Colors.white,
-        ),
+        sectionBanner('7 \u00b7 Registering Selectables',
+            'How children join and leave the delegate',
+            deepOrchid, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -752,20 +622,12 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final method in [
-                (
-                  'add(Selectable selectable)',
-                  'Registers a new selectable child. '
-                      'The delegate schedules a comparison sort to determine screen order.',
-                  tealContrast,
-                  Icons.add_circle,
-                ),
-                (
-                  'remove(Selectable selectable)',
-                  'Unregisters a selectable child. '
-                      'The delegate clears it from selection tracking and recalculates geometry.',
-                  roseAccent,
-                  Icons.remove_circle,
-                ),
+                ('add(Selectable selectable)', 'Registers a new selectable child. '
+                    'The delegate schedules a comparison sort to determine screen order.',
+                    tealContrast, Icons.add_circle),
+                ('remove(Selectable selectable)', 'Unregisters a selectable child. '
+                    'The delegate clears it from selection tracking and recalculates geometry.',
+                    roseAccent, Icons.remove_circle),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -774,8 +636,7 @@ dynamic build(BuildContext context) {
                     color: method.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: method.$3, width: 3),
-                    ),
+                        left: BorderSide(color: method.$3, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -786,19 +647,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              method.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: method.$3,
-                              ),
-                            ),
-                            Text(
-                              method.$2,
-                              style: TextStyle(fontSize: 11, color: plumDark),
-                            ),
+                            Text(method.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                    fontFamily: 'monospace',
+                                    color: method.$3)),
+                            Text(method.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: plumDark)),
                           ],
                         ),
                       ),
@@ -811,12 +668,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Live demo: SelectionArea ──────────────────────────────
-        sectionBanner(
-          '8 \u00b7 Live Demo: SelectionArea',
-          'Text selection across multiple paragraphs',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('8 \u00b7 Live Demo: SelectionArea',
+            'Text selection across multiple paragraphs',
+            orchidPurple, Colors.white),
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -830,53 +684,38 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'First Paragraph',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: deepOrchid,
-                    ),
-                  ),
+                  Text('First Paragraph',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: deepOrchid)),
                   const SizedBox(height: 4),
-                  Text(
-                    'This is the first selectable text block. Try selecting '
-                    'text across paragraphs. The delegate coordinates selection '
-                    'between all children.',
-                    style: TextStyle(fontSize: 12, color: plumDark),
-                  ),
+                  Text('This is the first selectable text block. Try selecting '
+                      'text across paragraphs. The delegate coordinates selection '
+                      'between all children.',
+                      style: TextStyle(fontSize: 12, color: plumDark)),
                   const SizedBox(height: 10),
-                  Text(
-                    'Second Paragraph',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: orchidPurple,
-                    ),
-                  ),
+                  Text('Second Paragraph',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: orchidPurple)),
                   const SizedBox(height: 4),
-                  Text(
-                    'This is the second selectable text block. Selection '
-                    'can span from the first paragraph into this one. The delegate '
-                    'tracks start and end indices across selectables.',
-                    style: TextStyle(fontSize: 12, color: plumDark),
-                  ),
+                  Text('This is the second selectable text block. Selection '
+                      'can span from the first paragraph into this one. The delegate '
+                      'tracks start and end indices across selectables.',
+                      style: TextStyle(fontSize: 12, color: plumDark)),
                   const SizedBox(height: 10),
-                  Text(
-                    'Third Paragraph',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: heather,
-                    ),
-                  ),
+                  Text('Third Paragraph',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: heather)),
                   const SizedBox(height: 4),
-                  Text(
-                    'The third block. All three share one delegate that manages '
-                    'cross-paragraph selection, handle positioning, and clipboard '
-                    'content assembly.',
-                    style: TextStyle(fontSize: 12, color: plumDark),
-                  ),
+                  Text('The third block. All three share one delegate that manages '
+                      'cross-paragraph selection, handle positioning, and clipboard '
+                      'content assembly.',
+                      style: TextStyle(fontSize: 12, color: plumDark)),
                 ],
               ),
             ),
@@ -892,12 +731,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Handle methods detail ────────────────────────────────
-        sectionBanner(
-          '9 \u00b7 Handle Methods In Detail',
-          'Each method and what triggers it',
-          heather,
-          Colors.white,
-        ),
+        sectionBanner('9 \u00b7 Handle Methods In Detail',
+            'Each method and what triggers it',
+            heather, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -908,56 +744,35 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final handler in [
-                (
-                  'handleSelectionEdgeUpdate',
-                  'Sent when drag handle moves. Updates start or end '
-                      'selection edge by finding the selectable at the position '
-                      'and dispatching to it.',
-                  orchidPurple,
-                  Icons.drag_handle,
-                ),
-                (
-                  'handleClearSelection',
-                  'Clears selection in all selectables. Resets '
-                      'currentSelectionStartIndex and End to -1.',
-                  roseAccent,
-                  Icons.clear,
-                ),
-                (
-                  'handleSelectAll',
-                  'Selects all content in all selectables from first '
-                      'to last. Sets start=0, end=last index.',
-                  tealContrast,
-                  Icons.select_all,
-                ),
-                (
-                  'handleSelectWord',
-                  'Finds the selectable at the tap position and dispatches '
-                      'SelectWordSelectionEvent to it.',
-                  deepOrchid,
-                  Icons.text_format,
-                ),
-                (
-                  'handleSelectParagraph',
-                  'Like selectWord but selects an entire paragraph at the '
-                      'tap position.',
-                  heather,
-                  Icons.format_align_left,
-                ),
-                (
-                  'handleGranularlyExtendSelection',
-                  'Extends selection by character or word in a given '
-                      'direction. Used for Shift+Arrow key navigation.',
-                  softOrchid,
-                  Icons.keyboard_arrow_right,
-                ),
-                (
-                  'handleDirectionallyExtendSelection',
-                  'Extends selection by line in a given direction. Used '
-                      'for Shift+Up/Down key navigation.',
-                  plumDark,
-                  Icons.vertical_align_bottom,
-                ),
+                ('handleSelectionEdgeUpdate',
+                    'Sent when drag handle moves. Updates start or end '
+                    'selection edge by finding the selectable at the position '
+                    'and dispatching to it.',
+                    orchidPurple, Icons.drag_handle),
+                ('handleClearSelection',
+                    'Clears selection in all selectables. Resets '
+                    'currentSelectionStartIndex and End to -1.',
+                    roseAccent, Icons.clear),
+                ('handleSelectAll',
+                    'Selects all content in all selectables from first '
+                    'to last. Sets start=0, end=last index.',
+                    tealContrast, Icons.select_all),
+                ('handleSelectWord',
+                    'Finds the selectable at the tap position and dispatches '
+                    'SelectWordSelectionEvent to it.',
+                    deepOrchid, Icons.text_format),
+                ('handleSelectParagraph',
+                    'Like selectWord but selects an entire paragraph at the '
+                    'tap position.',
+                    heather, Icons.format_align_left),
+                ('handleGranularlyExtendSelection',
+                    'Extends selection by character or word in a given '
+                    'direction. Used for Shift+Arrow key navigation.',
+                    softOrchid, Icons.keyboard_arrow_right),
+                ('handleDirectionallyExtendSelection',
+                    'Extends selection by line in a given direction. Used '
+                    'for Shift+Up/Down key navigation.',
+                    plumDark, Icons.vertical_align_bottom),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -965,8 +780,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: handler.$3, width: 3),
-                    ),
+                        left: BorderSide(color: handler.$3, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -977,19 +791,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              handler.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: handler.$3,
-                              ),
-                            ),
-                            Text(
-                              handler.$2,
-                              style: TextStyle(fontSize: 11, color: plumDark),
-                            ),
+                            Text(handler.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                    fontFamily: 'monospace',
+                                    color: handler.$3)),
+                            Text(handler.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: plumDark)),
                           ],
                         ),
                       ),
@@ -1002,12 +812,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. getSelectedContent ───────────────────────────────────
-        sectionBanner(
-          '10 \u00b7 Getting Selected Content',
-          'How the delegate assembles clipboard text',
-          deepOrchid,
-          Colors.white,
-        ),
+        sectionBanner('10 \u00b7 Getting Selected Content',
+            'How the delegate assembles clipboard text',
+            deepOrchid, Colors.white),
         noteBox(
           'getSelectedContent() iterates through selectables between '
           'currentSelectionStartIndex and currentSelectionEndIndex, asking '
@@ -1026,30 +833,14 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                (
-                  1,
-                  'Check selection exists',
-                  'If startIndex or endIndex is -1, return null',
-                  orchidPurple,
-                ),
-                (
-                  2,
-                  'Iterate selectables',
-                  'From startIndex to endIndex inclusive',
-                  heather,
-                ),
-                (
-                  3,
-                  'Collect content',
-                  'Call getSelectedContent() on each selectable',
-                  deepOrchid,
-                ),
-                (
-                  4,
-                  'Concatenate',
-                  'Join text with newlines, return SelectedContent',
-                  softOrchid,
-                ),
+                (1, 'Check selection exists', 'If startIndex or endIndex is -1, return null',
+                    orchidPurple),
+                (2, 'Iterate selectables', 'From startIndex to endIndex inclusive',
+                    heather),
+                (3, 'Collect content', 'Call getSelectedContent() on each selectable',
+                    deepOrchid),
+                (4, 'Concatenate', 'Join text with newlines, return SelectedContent',
+                    softOrchid),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1057,7 +848,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: step.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: step.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -1069,32 +861,25 @@ dynamic build(BuildContext context) {
                           color: step.$4,
                           borderRadius: BorderRadius.circular(11),
                         ),
-                        child: Text(
-                          '${step.$1}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Text('${step.$1}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold)),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              step.$2,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: plumDark,
-                              ),
-                            ),
-                            Text(
-                              step.$3,
-                              style: TextStyle(fontSize: 11, color: plumDark),
-                            ),
+                            Text(step.$2,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: plumDark)),
+                            Text(step.$3,
+                                style: TextStyle(
+                                    fontSize: 11, color: plumDark)),
                           ],
                         ),
                       ),
@@ -1107,12 +892,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. pushHandleLayers ─────────────────────────────────────
-        sectionBanner(
-          '11 \u00b7 Push Handle Layers',
-          'How the delegate manages selection overlays',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('11 \u00b7 Push Handle Layers',
+            'How the delegate manages selection overlays',
+            orchidPurple, Colors.white),
         noteBox(
           'pushHandleLayers(LayerLink? startHandle, LayerLink? endHandle) '
           'distributes handle layer links to the appropriate selectables. '
@@ -1126,12 +908,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. ensureChildUpdated ───────────────────────────────────
-        sectionBanner(
-          '12 \u00b7 ensureChildUpdated()',
-          'Abstract method subclasses must implement',
-          heather,
-          Colors.white,
-        ),
+        sectionBanner('12 \u00b7 ensureChildUpdated()',
+            'Abstract method subclasses must implement',
+            heather, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1151,13 +930,11 @@ dynamic build(BuildContext context) {
                   border: Border.all(color: heather.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'void ensureChildUpdated(Selectable selectable);',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: plumDark,
-                  ),
-                ),
+                    'void ensureChildUpdated(Selectable selectable);',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: plumDark)),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -1175,12 +952,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Selection visualization ──────────────────────────────
-        sectionBanner(
-          '13 \u00b7 Selection State Visualization',
-          'How selection flows across children',
-          deepOrchid,
-          Colors.white,
-        ),
+        sectionBanner('13 \u00b7 Selection State Visualization',
+            'How selection flows across children',
+            deepOrchid, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1209,32 +983,31 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text(
-                          'Selectable $i',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: plumDark,
-                          ),
-                        ),
+                        child: Text('Selectable $i',
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                color: plumDark)),
                       ),
                       Expanded(
                         child: Text(
                           i == 0
                               ? 'Not selected'
                               : i == 1
-                              ? '\u25c0 startIndex = 1 (partial start)'
-                              : i == 3
-                              ? 'endIndex = 3 (partial end) \u25b6'
-                              : i == 2
-                              ? 'Fully selected (between start/end)'
-                              : 'Not selected',
+                                  ? '\u25c0 startIndex = 1 (partial start)'
+                                  : i == 3
+                                      ? 'endIndex = 3 (partial end) \u25b6'
+                                      : i == 2
+                                          ? 'Fully selected (between start/end)'
+                                          : 'Not selected',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: (i >= 1 && i <= 3)
                                 ? FontWeight.bold
                                 : FontWeight.normal,
-                            color: (i >= 1 && i <= 3) ? orchidPurple : plumDark,
+                            color: (i >= 1 && i <= 3)
+                                ? orchidPurple
+                                : plumDark,
                           ),
                         ),
                       ),
@@ -1247,12 +1020,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Class hierarchy ──────────────────────────────────────
-        sectionBanner(
-          '14 \u00b7 Class Hierarchy',
-          'Where the delegate sits in the type system',
-          orchidPurple,
-          Colors.white,
-        ),
+        sectionBanner('14 \u00b7 Class Hierarchy',
+            'Where the delegate sits in the type system',
+            orchidPurple, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1267,24 +1037,18 @@ dynamic build(BuildContext context) {
                 ('Object', Colors.grey),
                 ('\u2514\u2500 ChangeNotifier', Colors.grey),
                 ('    \u2514\u2500 SelectionContainerDelegate', heather),
-                (
-                  '        \u2514\u2500 MultiSelectableSelectionContainerDelegate',
-                  orchidPurple,
-                ),
+                ('        \u2514\u2500 MultiSelectableSelectionContainerDelegate', orchidPurple),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Text(
-                    level.$1,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      fontWeight: level.$1.contains('MultiSelectable')
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: level.$2,
-                    ),
-                  ),
+                  child: Text(level.$1,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: level.$1.contains('MultiSelectable')
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: level.$2)),
                 ),
             ],
           ),
@@ -1292,12 +1056,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepOrchid,
-          Colors.white,
-        ),
+        sectionBanner('15 \u00b7 Summary',
+            'Key takeaways', deepOrchid, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1329,19 +1089,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: softOrchid,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: softOrchid,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
+                        child: Text(point,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

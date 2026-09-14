@@ -486,7 +486,11 @@ Widget _buildAnatomyReference() {
           'DataTable rendered with showCheckboxColumn: true and a '
           'sortColumnIndex of 1 (the Salary column). Every label points '
           'to a region you can configure independently.',
-          style: TextStyle(color: kSlate700, fontSize: 13.5, height: 1.5),
+          style: TextStyle(
+            color: kSlate700,
+            fontSize: 13.5,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 18.0),
         Container(
@@ -516,7 +520,10 @@ Widget _buildAnatomyReference() {
                 fontSize: 13.0,
                 letterSpacing: 0.3,
               ),
-              dataTextStyle: const TextStyle(color: kSlate800, fontSize: 13.0),
+              dataTextStyle: const TextStyle(
+                color: kSlate800,
+                fontSize: 13.0,
+              ),
               border: TableBorder.symmetric(
                 inside: const BorderSide(color: kSlate300, width: 0.6),
               ),
@@ -531,7 +538,9 @@ Widget _buildAnatomyReference() {
                   tooltip: 'Annual base salary in US dollars',
                   onSort: (int _, bool _) {},
                 ),
-                const DataColumn(label: Text('Status')),
+                const DataColumn(
+                  label: Text('Status'),
+                ),
               ],
               rows: <DataRow>[
                 DataRow(
@@ -716,7 +725,10 @@ Widget _buildBasicGallery() {
             fontWeight: FontWeight.w800,
             fontSize: 13.0,
           ),
-          dataTextStyle: const TextStyle(color: kSlate800, fontSize: 13.0),
+          dataTextStyle: const TextStyle(
+            color: kSlate800,
+            fontSize: 13.0,
+          ),
           horizontalMargin: 20.0,
           columnSpacing: 28.0,
           dividerThickness: 0.0,
@@ -791,7 +803,10 @@ Widget _buildSortableSection() {
               fontSize: 13.0,
               letterSpacing: 0.4,
             ),
-            dataTextStyle: const TextStyle(color: kSlate800, fontSize: 13.0),
+            dataTextStyle: const TextStyle(
+              color: kSlate800,
+              fontSize: 13.0,
+            ),
             dividerThickness: 1.2,
             horizontalMargin: 18.0,
             columnSpacing: 28.0,
@@ -907,14 +922,14 @@ Widget _buildSelectableSection() {
               fontSize: 13.0,
               letterSpacing: 0.3,
             ),
-            dataRowColor: WidgetStateProperty.resolveWith<Color?>((
-              Set<WidgetState> states,
-            ) {
-              if (states.contains(WidgetState.selected)) {
-                return kRose100.withValues(alpha: 0.55);
-              }
-              return null;
-            }),
+            dataRowColor: WidgetStateProperty.resolveWith<Color?>(
+              (Set<WidgetState> states) {
+                if (states.contains(WidgetState.selected)) {
+                  return kRose100.withValues(alpha: 0.55);
+                }
+                return null;
+              },
+            ),
             columns: const <DataColumn>[
               DataColumn(label: Text('Engineer')),
               DataColumn(label: Text('Location')),
@@ -929,9 +944,24 @@ Widget _buildSelectableSection() {
           spacing: 10.0,
           runSpacing: 10.0,
           children: <Widget>[
-            _badge('showCheckboxColumn', 'true', kRose500, kRose100),
-            _badge('checkboxHorizontalMargin', '14.0', kRose500, kRose100),
-            _badge('DataRow.selected', '3 rows = true', kRose500, kRose100),
+            _badge(
+              'showCheckboxColumn',
+              'true',
+              kRose500,
+              kRose100,
+            ),
+            _badge(
+              'checkboxHorizontalMargin',
+              '14.0',
+              kRose500,
+              kRose100,
+            ),
+            _badge(
+              'DataRow.selected',
+              '3 rows = true',
+              kRose500,
+              kRose100,
+            ),
             _badge(
               'dataRowColor',
               'WidgetStateProperty.resolveWith',
@@ -1041,7 +1071,10 @@ Widget _buildThemeComparisonGrid() {
               fontSize: 11.5,
               letterSpacing: 0.6,
             ),
-            dataTextStyle: const TextStyle(color: kSlate800, fontSize: 12.0),
+            dataTextStyle: const TextStyle(
+              color: kSlate800,
+              fontSize: 12.0,
+            ),
           ),
         ),
         const SizedBox(height: 18.0),
@@ -1089,7 +1122,10 @@ Widget _buildThemeComparisonGrid() {
               fontWeight: FontWeight.w800,
               fontSize: 13.0,
             ),
-            dataTextStyle: const TextStyle(color: kSlate800, fontSize: 13.0),
+            dataTextStyle: const TextStyle(
+              color: kSlate800,
+              fontSize: 13.0,
+            ),
           ),
         ),
         const SizedBox(height: 18.0),
@@ -1253,11 +1289,18 @@ Widget _buildHeaderStylingShowcase() {
               fontSize: 13.0,
               letterSpacing: 0.4,
             ),
-            dataTextStyle: const TextStyle(color: kSlate800, fontSize: 13.0),
+            dataTextStyle: const TextStyle(
+              color: kSlate800,
+              fontSize: 13.0,
+            ),
             columns: <DataColumn>[
               DataColumn(
                 tooltip: 'Engineer full name',
-                label: _iconLabel(Icons.person_outline, 'Engineer', kIndigo600),
+                label: _iconLabel(
+                  Icons.person_outline,
+                  'Engineer',
+                  kIndigo600,
+                ),
               ),
               DataColumn(
                 tooltip: 'Department & cost-center identifier',
@@ -1372,7 +1415,9 @@ Widget _avatar(String name) {
     alignment: Alignment.center,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
-      gradient: const LinearGradient(colors: <Color>[kIndigo500, kViolet500]),
+      gradient: const LinearGradient(
+        colors: <Color>[kIndigo500, kViolet500],
+      ),
     ),
     child: Text(
       initials.toUpperCase(),
@@ -1446,10 +1491,8 @@ Widget _buildPaginatedSection() {
                 onPressed: () {},
               ),
               IconButton(
-                icon: const Icon(
-                  Icons.file_download_outlined,
-                  color: kSlate700,
-                ),
+                icon: const Icon(Icons.file_download_outlined,
+                    color: kSlate700),
                 tooltip: 'Export CSV',
                 onPressed: () {},
               ),
@@ -1528,10 +1571,7 @@ Widget _buildCheatSheet() {
       children: <Widget>[
         _cheatGroup('DataTable', <List<String>>[
           <String>['columns', 'List<DataColumn> — schema of the table.'],
-          <String>[
-            'rows',
-            'List<DataRow> — every row must match column count.',
-          ],
+          <String>['rows', 'List<DataRow> — every row must match column count.'],
           <String>['sortColumnIndex', 'Index of the column with the chevron.'],
           <String>['sortAscending', 'Chevron direction (true = up).'],
           <String>['showCheckboxColumn', 'Leading checkbox column toggle.'],
@@ -1548,10 +1588,7 @@ Widget _buildCheatSheet() {
           <String>['dataTextStyle', 'Default TextStyle for DataCells.'],
           <String>['decoration', 'BoxDecoration wrapping the whole table.'],
           <String>['border', 'TableBorder — internal grid lines.'],
-          <String>[
-            'checkboxHorizontalMargin',
-            'Leading margin for checkboxes.',
-          ],
+          <String>['checkboxHorizontalMargin', 'Leading margin for checkboxes.'],
         ]),
         const SizedBox(height: 16.0),
         _cheatGroup('DataColumn', <List<String>>[
@@ -1617,11 +1654,8 @@ Widget _buildCheatSheet() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(
-                Icons.lightbulb_outline,
-                size: 18.0,
-                color: kIndigo700,
-              ),
+              const Icon(Icons.lightbulb_outline,
+                  size: 18.0, color: kIndigo700),
               const SizedBox(width: 10.0),
               const Expanded(
                 child: Text(
@@ -1684,7 +1718,10 @@ Widget _cheatGroup(String title, List<List<String>> rows) {
           ],
         ),
         const SizedBox(height: 10.0),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: kvps),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: kvps,
+        ),
       ],
     ),
   );
@@ -1745,7 +1782,11 @@ Widget _sectionCard({
         const SizedBox(height: 8.0),
         Text(
           subtitle,
-          style: const TextStyle(color: kSlate600, fontSize: 13.0, height: 1.5),
+          style: const TextStyle(
+            color: kSlate600,
+            fontSize: 13.0,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 18.0),
         child,
@@ -1780,7 +1821,11 @@ Widget _explainer(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Icon(Icons.info_outline, size: 16.0, color: kSlate500),
+        const Icon(
+          Icons.info_outline,
+          size: 16.0,
+          color: kSlate500,
+        ),
         const SizedBox(width: 8.0),
         Expanded(
           child: Text(
@@ -1865,7 +1910,11 @@ Widget _badge(String key, String value, Color fg, Color bg) {
           ),
         ),
         const SizedBox(width: 6.0),
-        Container(width: 1.0, height: 12.0, color: fg.withValues(alpha: 0.4)),
+        Container(
+          width: 1.0,
+          height: 12.0,
+          color: fg.withValues(alpha: 0.4),
+        ),
         const SizedBox(width: 6.0),
         Text(
           value,

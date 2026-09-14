@@ -23,10 +23,8 @@ const Color _kStamp = Color(0xFF1F4F2A);
 
 dynamic build(BuildContext context) {
   print('SliverDelegates Deep Demo — Librarian\'s Card-Catalog Drawer');
-  print(
-    'Boot sequence: oiling drawer rails, sharpening pencils, '
-    'unrolling the catalog ribbon...',
-  );
+  print('Boot sequence: oiling drawer rails, sharpening pencils, '
+      'unrolling the catalog ribbon...');
 
   // ============================================================
   // SECTION 1: Drawer Header & Anatomy
@@ -70,11 +68,8 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              child: const Icon(
-                Icons.inventory_2_outlined,
-                color: _kParchment,
-                size: 30.0,
-              ),
+              child: const Icon(Icons.inventory_2_outlined,
+                  color: _kParchment, size: 30.0),
             ),
             const SizedBox(width: 14.0),
             const Expanded(
@@ -225,7 +220,11 @@ dynamic build(BuildContext context) {
             'addAutomaticKeepAlives, addRepaintBoundaries, addSemanticIndexes. '
             'The builder variant additionally exposes childCount, '
             'estimatedChildCount, and a semanticIndexCallback.',
-            style: TextStyle(fontSize: 11.5, color: _kInk, height: 1.4),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: _kInk,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -307,9 +306,7 @@ dynamic build(BuildContext context) {
       return localIndex + 1;
     },
   );
-  print(
-    'Built SliverChildBuilderDelegate (30 cards, semantic skip-every-3rd).',
-  );
+  print('Built SliverChildBuilderDelegate (30 cards, semantic skip-every-3rd).');
   print('  childCount         = ${builderTitled.childCount}');
   print('  estimatedChildCount= ${builderTitled.estimatedChildCount}');
 
@@ -396,10 +393,8 @@ dynamic build(BuildContext context) {
     semanticIndexOffset: 0,
     semanticIndexCallback: (Widget _, int localIndex) => localIndex,
   );
-  print(
-    'SliverChildListDelegate (eager) — '
-    'estimated=${listDelegate.estimatedChildCount}.',
-  );
+  print('SliverChildListDelegate (eager) — '
+      'estimated=${listDelegate.estimatedChildCount}.');
 
   // The .fixed flavour signals to Flutter that the list won't change —
   // each child is identified solely by its initial index, never by Key.
@@ -408,10 +403,8 @@ dynamic build(BuildContext context) {
     addRepaintBoundaries: true,
     addSemanticIndexes: true,
   );
-  print(
-    'SliverChildListDelegate.fixed — '
-    'estimated=${listDelegateFixed.estimatedChildCount}.',
-  );
+  print('SliverChildListDelegate.fixed — '
+      'estimated=${listDelegateFixed.estimatedChildCount}.');
 
   final listVariantsTable = _twoColumnTable(<List<String>>[
     <String>[
@@ -450,7 +443,9 @@ dynamic build(BuildContext context) {
               ),
             ),
             SliverList(delegate: builderTitled),
-            SliverToBoxAdapter(child: _drawerFooter('— END OF DRAWER A —')),
+            SliverToBoxAdapter(
+              child: _drawerFooter('— END OF DRAWER A —'),
+            ),
           ],
         ),
       ),
@@ -483,7 +478,9 @@ dynamic build(BuildContext context) {
               minimum: const EdgeInsets.symmetric(horizontal: 8.0),
               sliver: SliverList(delegate: listDelegate),
             ),
-            SliverToBoxAdapter(child: _drawerFooter('— END OF DRAWER B —')),
+            SliverToBoxAdapter(
+              child: _drawerFooter('— END OF DRAWER B —'),
+            ),
           ],
         ),
       ),
@@ -548,11 +545,8 @@ dynamic build(BuildContext context) {
             SliverVisibility(
               visible: true,
               sliver: SliverToBoxAdapter(
-                child: _stampLine(
-                  'VISIBLE',
-                  'this card draws normally',
-                  _kStamp,
-                ),
+                child: _stampLine('VISIBLE', 'this card draws normally',
+                    _kStamp),
               ),
             ),
             SliverVisibility(
@@ -609,8 +603,8 @@ dynamic build(BuildContext context) {
             ),
             SliverLayoutBuilder(
               builder: (BuildContext ctx, constraints) {
-                final remaining = constraints.remainingPaintExtent
-                    .toStringAsFixed(1);
+                final remaining =
+                    constraints.remainingPaintExtent.toStringAsFixed(1);
                 final cross = constraints.crossAxisExtent.toStringAsFixed(1);
                 final scrollOff = constraints.scrollOffset.toStringAsFixed(1);
                 return SliverToBoxAdapter(
@@ -723,7 +717,11 @@ dynamic build(BuildContext context) {
           'static form (no controller) — the snapshot below shows what '
           'the rack would look like with all entry animations frozen at '
           'value=1.0.',
-          style: TextStyle(fontSize: 12.0, color: _kInk, height: 1.5),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: _kInk,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 12.0),
         SizedBox(
@@ -747,27 +745,24 @@ dynamic build(BuildContext context) {
                   ),
                   SliverAnimatedList(
                     initialItemCount: 5,
-                    itemBuilder:
-                        (
-                          BuildContext ctx,
-                          int index,
-                          Animation<double> animation,
-                        ) {
-                          return FadeTransition(
-                            opacity: const AlwaysStoppedAnimation<double>(1.0),
-                            child: SizeTransition(
-                              sizeFactor: const AlwaysStoppedAnimation<double>(
-                                1.0,
-                              ),
-                              child: _catalogCardTile(
-                                index: index,
-                                callNumber: 'A-${(300 + index).toString()}',
-                                title: _animatedTitleFor(index),
-                                author: 'Catalog Clerk',
-                              ),
-                            ),
-                          );
-                        },
+                    itemBuilder: (
+                      BuildContext ctx,
+                      int index,
+                      Animation<double> animation,
+                    ) {
+                      return FadeTransition(
+                        opacity: const AlwaysStoppedAnimation<double>(1.0),
+                        child: SizeTransition(
+                          sizeFactor: const AlwaysStoppedAnimation<double>(1.0),
+                          child: _catalogCardTile(
+                            index: index,
+                            callNumber: 'A-${(300 + index).toString()}',
+                            title: _animatedTitleFor(index),
+                            author: 'Catalog Clerk',
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -1139,9 +1134,7 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+                  horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: _kRibbon.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(4.0),
@@ -1358,7 +1351,9 @@ Widget _sectionHeading(String text) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     decoration: BoxDecoration(
-      gradient: const LinearGradient(colors: [_kBrassDark, _kBrass]),
+      gradient: const LinearGradient(
+        colors: [_kBrassDark, _kBrass],
+      ),
       borderRadius: BorderRadius.circular(6.0),
       boxShadow: [
         BoxShadow(
@@ -1444,7 +1439,9 @@ Widget _resolutionPanel(bool lazy) {
               : _kInk.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(4.0),
           border: Border.all(
-            color: resolved ? accent : _kInk.withValues(alpha: 0.15),
+            color: resolved
+                ? accent
+                : _kInk.withValues(alpha: 0.15),
             width: 1.0,
           ),
         ),
@@ -1833,9 +1830,7 @@ Widget _catalogCardTile({
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 2.0,
-                    ),
+                        horizontal: 6.0, vertical: 2.0),
                     decoration: BoxDecoration(
                       color: _kInk.withValues(alpha: 0.07),
                       borderRadius: BorderRadius.circular(3.0),

@@ -47,61 +47,101 @@ const Color _kWarn = Color(0xFFFFCB6B);
 const LinearGradient _gradHero = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF1A2452), Color(0xFF2C2160), Color(0xFF45236E)],
+  colors: <Color>[
+    Color(0xFF1A2452),
+    Color(0xFF2C2160),
+    Color(0xFF45236E),
+  ],
 );
 
 const LinearGradient _gradManager = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF15244C), Color(0xFF1E2D5E), Color(0xFF253874)],
+  colors: <Color>[
+    Color(0xFF15244C),
+    Color(0xFF1E2D5E),
+    Color(0xFF253874),
+  ],
 );
 
 const LinearGradient _gradBucket = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF142D40), Color(0xFF19405A), Color(0xFF1F5774)],
+  colors: <Color>[
+    Color(0xFF142D40),
+    Color(0xFF19405A),
+    Color(0xFF1F5774),
+  ],
 );
 
 const LinearGradient _gradPayload = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF2A1A47), Color(0xFF3A205C), Color(0xFF4B2E76)],
+  colors: <Color>[
+    Color(0xFF2A1A47),
+    Color(0xFF3A205C),
+    Color(0xFF4B2E76),
+  ],
 );
 
 const LinearGradient _gradPipeline = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
-  colors: <Color>[Color(0xFF0E1A38), Color(0xFF18234E), Color(0xFF0E1A38)],
+  colors: <Color>[
+    Color(0xFF0E1A38),
+    Color(0xFF18234E),
+    Color(0xFF0E1A38),
+  ],
 );
 
 const LinearGradient _gradDecision = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF15323A), Color(0xFF1D4750), Color(0xFF235668)],
+  colors: <Color>[
+    Color(0xFF15323A),
+    Color(0xFF1D4750),
+    Color(0xFF235668),
+  ],
 );
 
 const LinearGradient _gradCallback = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF301E12), Color(0xFF44291A), Color(0xFF583622)],
+  colors: <Color>[
+    Color(0xFF301E12),
+    Color(0xFF44291A),
+    Color(0xFF583622),
+  ],
 );
 
 const LinearGradient _gradReference = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF1A1A35), Color(0xFF221E45), Color(0xFF2A2255)],
+  colors: <Color>[
+    Color(0xFF1A1A35),
+    Color(0xFF221E45),
+    Color(0xFF2A2255),
+  ],
 );
 
 const LinearGradient _gradChannel = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF12233F), Color(0xFF1A3050), Color(0xFF223D63)],
+  colors: <Color>[
+    Color(0xFF12233F),
+    Color(0xFF1A3050),
+    Color(0xFF223D63),
+  ],
 );
 
 const LinearGradient _gradPalette = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF192040), Color(0xFF222C55), Color(0xFF2D3A6F)],
+  colors: <Color>[
+    Color(0xFF192040),
+    Color(0xFF222C55),
+    Color(0xFF2D3A6F),
+  ],
 );
 
 // =====================================================================
@@ -109,63 +149,63 @@ const LinearGradient _gradPalette = LinearGradient(
 // =====================================================================
 
 List<BoxShadow> _heroShadows() => const <BoxShadow>[
-  BoxShadow(
-    color: Color(0x6608112F),
-    blurRadius: 28.0,
-    offset: Offset(0.0, 18.0),
-  ),
-  BoxShadow(
-    color: Color(0x40000000),
-    blurRadius: 6.0,
-    offset: Offset(0.0, 2.0),
-  ),
-  BoxShadow(
-    color: Color(0x2A6EA8FE),
-    blurRadius: 60.0,
-    offset: Offset(0.0, 0.0),
-    spreadRadius: 1.0,
-  ),
-];
+      BoxShadow(
+        color: Color(0x6608112F),
+        blurRadius: 28.0,
+        offset: Offset(0.0, 18.0),
+      ),
+      BoxShadow(
+        color: Color(0x40000000),
+        blurRadius: 6.0,
+        offset: Offset(0.0, 2.0),
+      ),
+      BoxShadow(
+        color: Color(0x2A6EA8FE),
+        blurRadius: 60.0,
+        offset: Offset(0.0, 0.0),
+        spreadRadius: 1.0,
+      ),
+    ];
 
 List<BoxShadow> _cardShadows() => const <BoxShadow>[
-  BoxShadow(
-    color: Color(0x55050817),
-    blurRadius: 18.0,
-    offset: Offset(0.0, 10.0),
-  ),
-  BoxShadow(
-    color: Color(0x33000000),
-    blurRadius: 4.0,
-    offset: Offset(0.0, 2.0),
-  ),
-];
+      BoxShadow(
+        color: Color(0x55050817),
+        blurRadius: 18.0,
+        offset: Offset(0.0, 10.0),
+      ),
+      BoxShadow(
+        color: Color(0x33000000),
+        blurRadius: 4.0,
+        offset: Offset(0.0, 2.0),
+      ),
+    ];
 
 List<BoxShadow> _glowShadows(Color tint) => <BoxShadow>[
-  BoxShadow(
-    color: tint.withValues(alpha: 0.35),
-    blurRadius: 38.0,
-    offset: const Offset(0.0, 0.0),
-    spreadRadius: 0.0,
-  ),
-  const BoxShadow(
-    color: Color(0x66000814),
-    blurRadius: 14.0,
-    offset: Offset(0.0, 8.0),
-  ),
-];
+      BoxShadow(
+        color: tint.withValues(alpha: 0.35),
+        blurRadius: 38.0,
+        offset: const Offset(0.0, 0.0),
+        spreadRadius: 0.0,
+      ),
+      const BoxShadow(
+        color: Color(0x66000814),
+        blurRadius: 14.0,
+        offset: Offset(0.0, 8.0),
+      ),
+    ];
 
 List<BoxShadow> _chipShadows() => const <BoxShadow>[
-  BoxShadow(
-    color: Color(0x55000814),
-    blurRadius: 10.0,
-    offset: Offset(0.0, 4.0),
-  ),
-  BoxShadow(
-    color: Color(0x222C61C0),
-    blurRadius: 18.0,
-    offset: Offset(0.0, 0.0),
-  ),
-];
+      BoxShadow(
+        color: Color(0x55000814),
+        blurRadius: 10.0,
+        offset: Offset(0.0, 4.0),
+      ),
+      BoxShadow(
+        color: Color(0x222C61C0),
+        blurRadius: 18.0,
+        offset: Offset(0.0, 0.0),
+      ),
+    ];
 
 // =====================================================================
 // Painter: round-trip restoration pipeline
@@ -227,10 +267,7 @@ class _PipelinePainter extends CustomPainter {
   }
 
   void _drawNode(Canvas canvas, Size size, _Node node, {required bool active}) {
-    final Offset center = Offset(
-      node.rel.dx * size.width,
-      node.rel.dy * size.height,
-    );
+    final Offset center = Offset(node.rel.dx * size.width, node.rel.dy * size.height);
     final double radius = active ? 38.0 : 32.0;
     final Rect box = Rect.fromCenter(
       center: center,
@@ -274,7 +311,10 @@ class _PipelinePainter extends CustomPainter {
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: box.width - 8.0);
-    tp.paint(canvas, box.center - Offset(tp.width / 2, tp.height / 2));
+    tp.paint(
+      canvas,
+      box.center - Offset(tp.width / 2, tp.height / 2),
+    );
   }
 
   void _drawArrow(
@@ -317,8 +357,7 @@ class _PipelinePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _PipelinePainter old) =>
-      old.highlight != highlight;
+  bool shouldRepaint(covariant _PipelinePainter old) => old.highlight != highlight;
 }
 
 class _Node {
@@ -349,34 +388,10 @@ class _BucketTreePainter extends CustomPainter {
       _BucketNode('app.theme', _kAccentC, const Offset(0.50, 0.40), 92.0, 24.0),
       _BucketNode('app.user', _kAccentD, const Offset(0.78, 0.40), 92.0, 24.0),
       _BucketNode('nav.tab=2', _kAccentE, const Offset(0.10, 0.72), 80.0, 22.0),
-      _BucketNode(
-        'nav.scroll=140',
-        _kAccentE,
-        const Offset(0.32, 0.72),
-        100.0,
-        22.0,
-      ),
-      _BucketNode(
-        'theme.dark=1',
-        _kAccentF,
-        const Offset(0.50, 0.72),
-        96.0,
-        22.0,
-      ),
-      _BucketNode(
-        'user.id=42',
-        _kAccentG,
-        const Offset(0.70, 0.72),
-        88.0,
-        22.0,
-      ),
-      _BucketNode(
-        'user.cart=[]',
-        _kAccentH,
-        const Offset(0.88, 0.72),
-        88.0,
-        22.0,
-      ),
+      _BucketNode('nav.scroll=140', _kAccentE, const Offset(0.32, 0.72), 100.0, 22.0),
+      _BucketNode('theme.dark=1', _kAccentF, const Offset(0.50, 0.72), 96.0, 22.0),
+      _BucketNode('user.id=42', _kAccentG, const Offset(0.70, 0.72), 88.0, 22.0),
+      _BucketNode('user.cart=[]', _kAccentH, const Offset(0.88, 0.72), 88.0, 22.0),
     ];
 
     final List<List<int>> edges = <List<int>>[
@@ -406,22 +421,12 @@ class _BucketTreePainter extends CustomPainter {
       );
       final Path p = Path()
         ..moveTo(a.dx, a.dy + 14.0)
-        ..cubicTo(
-          a.dx,
-          (a.dy + b.dy) / 2,
-          b.dx,
-          (a.dy + b.dy) / 2,
-          b.dx,
-          b.dy - 14.0,
-        );
+        ..cubicTo(a.dx, (a.dy + b.dy) / 2, b.dx, (a.dy + b.dy) / 2, b.dx, b.dy - 14.0);
       canvas.drawPath(p, edgePaint);
     }
 
     for (final _BucketNode n in tree) {
-      final Offset center = Offset(
-        n.rel.dx * size.width,
-        n.rel.dy * size.height,
-      );
+      final Offset center = Offset(n.rel.dx * size.width, n.rel.dy * size.height);
       final Rect r = Rect.fromCenter(center: center, width: n.w, height: n.h);
       final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(10.0));
       final Paint fill = Paint()
@@ -494,10 +499,7 @@ Widget _sectionShell({
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 4.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: glow.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(999.0),
@@ -529,7 +531,11 @@ Widget _sectionShell({
         const SizedBox(height: 6.0),
         Text(
           subtitle,
-          style: const TextStyle(color: _kInkMute, fontSize: 12.5, height: 1.4),
+          style: const TextStyle(
+            color: _kInkMute,
+            fontSize: 12.5,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 16.0),
         body,
@@ -543,7 +549,11 @@ Widget _prose(String text) {
     padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
     child: Text(
       text,
-      style: const TextStyle(color: _kInkSoft, fontSize: 13.0, height: 1.55),
+      style: const TextStyle(
+        color: _kInkSoft,
+        fontSize: 13.0,
+        height: 1.55,
+      ),
     ),
   );
 }
@@ -722,10 +732,7 @@ Widget _heroSection() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 4.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: _kAccentB.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(999.0),
@@ -743,10 +750,7 @@ Widget _heroSection() {
             ),
             const SizedBox(width: 8.0),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 4.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: _kAccentC.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(999.0),
@@ -792,7 +796,11 @@ Widget _heroSection() {
           'remember it. On the next launch the embedder replays the payload back, the '
           'manager rebuilds the tree, and individual RestorationMixin participants pull '
           'their values from named slots before the first frame renders.',
-          style: TextStyle(color: _kInkSoft, fontSize: 13.5, height: 1.55),
+          style: TextStyle(
+            color: _kInkSoft,
+            fontSize: 13.5,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 14.0),
         Row(
@@ -854,35 +862,19 @@ Widget _managerSection() {
           'wants to participate must wait for its slot to become available.',
         ),
         const SizedBox(height: 10.0),
-        _kvRow(
-          'rootBucket',
-          'Future<RestorationBucket?> — completes after the platform answers',
-        ),
-        _kvRow(
-          'isReplacing',
-          'bool — true while a new platform payload is being merged',
-        ),
-        _kvRow(
-          'flushData()',
-          'void — schedules a serialised payload write through the channel',
-        ),
-        _kvRow(
-          'handleRestorationUpdateFromEngine',
-          'protocol entry-point invoked by the engine when fresh data arrives',
-        ),
-        _kvRow(
-          'scheduleSerializationFor',
-          'void — marks a bucket dirty so its bytes are re-sent on the next flush',
-        ),
-        _kvRow(
-          'notifyListeners',
-          'ChangeNotifier — broadcasts when the tree mutates',
-        ),
+        _kvRow('rootBucket', 'Future<RestorationBucket?> — completes after the platform answers'),
+        _kvRow('isReplacing', 'bool — true while a new platform payload is being merged'),
+        _kvRow('flushData()', 'void — schedules a serialised payload write through the channel'),
+        _kvRow('handleRestorationUpdateFromEngine',
+            'protocol entry-point invoked by the engine when fresh data arrives'),
+        _kvRow('scheduleSerializationFor',
+            'void — marks a bucket dirty so its bytes are re-sent on the next flush'),
+        _kvRow('notifyListeners', 'ChangeNotifier — broadcasts when the tree mutates'),
         _calloutBox(
           'Lifecycle',
           'Construction is automatic. The framework instantiates the manager when the '
-              'service binding initialises, immediately requests an initial payload from the '
-              'platform, and then keeps the tree synchronised as the user moves through the app.',
+          'service binding initialises, immediately requests an initial payload from the '
+          'platform, and then keeps the tree synchronised as the user moves through the app.',
           _kAccentA,
           Icons.timeline_rounded,
         ),
@@ -939,9 +931,9 @@ Widget _bucketSection() {
         _calloutBox(
           'Ownership',
           'Two participants can claim the same restoration ID — the manager treats one as '
-              'the active owner and keeps the other warm. When the owner releases its claim the '
-              'warm participant immediately adopts the bucket and hydrates from its existing '
-              'values, which is how navigation animations preserve state across page swaps.',
+          'the active owner and keeps the other warm. When the owner releases its claim the '
+          'warm participant immediately adopts the bucket and hydrates from its existing '
+          'values, which is how navigation animations preserve state across page swaps.',
           _kAccentC,
           Icons.account_tree_rounded,
         ),
@@ -990,14 +982,10 @@ Widget _pipelineSection(int highlight, void Function(int) onStep) {
               GestureDetector(
                 onTap: () => onStep(i),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 6.0,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                   decoration: BoxDecoration(
-                    color: (i == highlight ? _kAccentB : _kBgSoft).withValues(
-                      alpha: i == highlight ? 0.35 : 1.0,
-                    ),
+                    color: (i == highlight ? _kAccentB : _kBgSoft)
+                        .withValues(alpha: i == highlight ? 0.35 : 1.0),
                     borderRadius: BorderRadius.circular(10.0),
                     border: Border.all(
                       color: i == highlight ? _kAccentB : _kCardEdge,
@@ -1017,41 +1005,20 @@ Widget _pipelineSection(int highlight, void Function(int) onStep) {
           ],
         ),
         const SizedBox(height: 12.0),
-        _kvRow(
-          '1. State',
-          'A widget mutates a RestorableProperty; the property writes to its bucket.',
-          accent: _kAccentA,
-        ),
-        _kvRow(
-          '2. Bucket',
-          'The bucket marks itself dirty and notifies the manager via finalize().',
-          accent: _kAccentB,
-        ),
-        _kvRow(
-          '3. Manager',
-          'The manager batches dirty buckets and serialises the payload.',
-          accent: _kAccentC,
-        ),
-        _kvRow(
-          '4. Channel',
-          'It writes through MethodChannel("flutter/restoration").put.',
-          accent: _kAccentD,
-        ),
-        _kvRow(
-          '5. OS',
-          'The embedder persists the bytes — SharedPreferences on Android, NSUserDefaults on iOS.',
-          accent: _kAccentE,
-        ),
-        _kvRow(
-          '6. Cold Start',
-          'On relaunch the embedder reads the bytes and pushes them via .get.',
-          accent: _kAccentF,
-        ),
-        _kvRow(
-          '7. Restored',
-          'Buckets rehydrate, properties call initWithValue, state is back.',
-          accent: _kAccentG,
-        ),
+        _kvRow('1. State', 'A widget mutates a RestorableProperty; the property writes to its bucket.',
+            accent: _kAccentA),
+        _kvRow('2. Bucket', 'The bucket marks itself dirty and notifies the manager via finalize().',
+            accent: _kAccentB),
+        _kvRow('3. Manager', 'The manager batches dirty buckets and serialises the payload.',
+            accent: _kAccentC),
+        _kvRow('4. Channel', 'It writes through MethodChannel("flutter/restoration").put.',
+            accent: _kAccentD),
+        _kvRow('5. OS', 'The embedder persists the bytes — SharedPreferences on Android, NSUserDefaults on iOS.',
+            accent: _kAccentE),
+        _kvRow('6. Cold Start', 'On relaunch the embedder reads the bytes and pushes them via .get.',
+            accent: _kAccentF),
+        _kvRow('7. Restored', 'Buckets rehydrate, properties call initWithValue, state is back.',
+            accent: _kAccentG),
       ],
     ),
   );
@@ -1124,8 +1091,8 @@ const MethodChannel('flutter/restoration')
         _calloutBox(
           'Size budget',
           'Embedders typically silently drop or truncate payloads larger than a few hundred '
-              'kilobytes. Anything you would not want to fit inside a single platform message '
-              'almost certainly belongs in a database, not in a restoration bucket.',
+          'kilobytes. Anything you would not want to fit inside a single platform message '
+          'almost certainly belongs in a database, not in a restoration bucket.',
           _kWarn,
           Icons.scale_rounded,
         ),
@@ -1176,96 +1143,49 @@ Widget _decisionSection() {
               fontWeight: FontWeight.w800,
               fontSize: 12.5,
             ),
-            dataTextStyle: const TextStyle(color: _kInkSoft, fontSize: 12.0),
+            dataTextStyle: const TextStyle(
+              color: _kInkSoft,
+              fontSize: 12.0,
+            ),
             columns: const <DataColumn>[
               DataColumn(label: Text('Type')),
               DataColumn(label: Text('Supported')),
               DataColumn(label: Text('Notes')),
             ],
             rows: <DataRow>[
-              _decisionRow(
-                'int',
-                _kOk,
-                'Native; round-trips as 32/64-bit integer.',
-              ),
-              _decisionRow(
-                'double',
-                _kOk,
-                'Native; NaN/±Infinity are preserved on most embedders.',
-              ),
-              _decisionRow(
-                'bool',
-                _kOk,
-                'Native; encoded as a 1-byte primitive.',
-              ),
-              _decisionRow(
-                'String',
-                _kOk,
-                'Native UTF-8; size-bound by the platform.',
-              ),
-              _decisionRow(
-                'Uint8List',
-                _kOk,
-                'Bytes pass through unmodified — useful for blobs.',
-              ),
-              _decisionRow(
-                'List<dynamic>',
-                _kOk,
-                'Allowed if every element is itself restoration-friendly.',
-              ),
-              _decisionRow(
-                'Map<String,dynamic>',
-                _kOk,
-                'Keys must be Strings; values must be restoration-friendly.',
-              ),
-              _decisionRow(
-                'DateTime',
-                _kWarn,
-                'Convert to ISO-8601 String or millisecondsSinceEpoch int.',
-              ),
-              _decisionRow(
-                'Enum',
-                _kWarn,
-                'Store .index as int; rebuild on read with Enum.values[i].',
-              ),
-              _decisionRow(
-                'Offset / Size / Rect',
-                _kWarn,
-                'Decompose into List<double> manually or via a RestorableValue.',
-              ),
-              _decisionRow(
-                'Color',
-                _kWarn,
-                'Store .value (int) and re-construct on read.',
-              ),
-              _decisionRow(
-                'Function / Closure',
-                _kBad,
-                'Not codec-friendly. Store an identifier and look the function up.',
-              ),
-              _decisionRow(
-                'Future / Stream',
-                _kBad,
-                'Live objects cannot be serialised. Persist their result instead.',
-              ),
-              _decisionRow(
-                'Widget / Element',
-                _kBad,
-                'Never. Rebuild the widget from primitive inputs.',
-              ),
-              _decisionRow(
-                'Image / ui.Image',
-                _kBad,
-                'Far too large; persist a URL or asset key.',
-              ),
+              _decisionRow('int', _kOk, 'Native; round-trips as 32/64-bit integer.'),
+              _decisionRow('double', _kOk, 'Native; NaN/±Infinity are preserved on most embedders.'),
+              _decisionRow('bool', _kOk, 'Native; encoded as a 1-byte primitive.'),
+              _decisionRow('String', _kOk, 'Native UTF-8; size-bound by the platform.'),
+              _decisionRow('Uint8List', _kOk, 'Bytes pass through unmodified — useful for blobs.'),
+              _decisionRow('List<dynamic>', _kOk,
+                  'Allowed if every element is itself restoration-friendly.'),
+              _decisionRow('Map<String,dynamic>', _kOk,
+                  'Keys must be Strings; values must be restoration-friendly.'),
+              _decisionRow('DateTime', _kWarn,
+                  'Convert to ISO-8601 String or millisecondsSinceEpoch int.'),
+              _decisionRow('Enum', _kWarn,
+                  'Store .index as int; rebuild on read with Enum.values[i].'),
+              _decisionRow('Offset / Size / Rect', _kWarn,
+                  'Decompose into List<double> manually or via a RestorableValue.'),
+              _decisionRow('Color', _kWarn,
+                  'Store .value (int) and re-construct on read.'),
+              _decisionRow('Function / Closure', _kBad,
+                  'Not codec-friendly. Store an identifier and look the function up.'),
+              _decisionRow('Future / Stream', _kBad,
+                  'Live objects cannot be serialised. Persist their result instead.'),
+              _decisionRow('Widget / Element', _kBad,
+                  'Never. Rebuild the widget from primitive inputs.'),
+              _decisionRow('Image / ui.Image', _kBad,
+                  'Far too large; persist a URL or asset key.'),
             ],
           ),
         ),
         _calloutBox(
           'Rule of thumb',
           'If you can describe the value in a sentence to another human without using '
-              'Dart-specific vocabulary, it is probably restoration-friendly. If you reach '
-              'for words like "live", "running", or "stream", it is not.',
+          'Dart-specific vocabulary, it is probably restoration-friendly. If you reach '
+          'for words like "live", "running", or "stream", it is not.',
           _kAccentC,
           Icons.rule_rounded,
         ),
@@ -1300,8 +1220,8 @@ DataRow _decisionRow(String type, Color status, String note) {
             status == _kOk
                 ? 'yes'
                 : status == _kWarn
-                ? 'convert'
-                : 'no',
+                    ? 'convert'
+                    : 'no',
             style: TextStyle(
               color: status,
               fontWeight: FontWeight.w800,
@@ -1409,8 +1329,8 @@ Widget _channelSection() {
         _calloutBox(
           'Encryption is not built in',
           'Restoration data is stored in plain text in the embedder\'s native preferences. '
-              'Treat it as recoverable hints, never as secrets. If a value would embarrass the '
-              'user if leaked, encrypt it yourself before writing, or store only a reference.',
+          'Treat it as recoverable hints, never as secrets. If a value would embarrass the '
+          'user if leaked, encrypt it yourself before writing, or store only a reference.',
           _kBad,
           Icons.lock_open_rounded,
         ),
@@ -1427,8 +1347,7 @@ Widget _callbackSection(bool needsRestore, void Function() onToggle) {
   return _sectionShell(
     tag: 'CALLBACK',
     title: 'RestorationCallback — bridging widget and bucket',
-    subtitle:
-        'void Function(bool needsRestore) — invoked on attach and on platform replay.',
+    subtitle: 'void Function(bool needsRestore) — invoked on attach and on platform replay.',
     gradient: _gradCallback,
     glow: _kAccentD,
     body: Column(
@@ -1446,14 +1365,14 @@ Widget _callbackSection(bool needsRestore, void Function() onToggle) {
         _codeCard(
           'typedef',
           'typedef RestorationCallback = void Function(bool needsRestore);\n\n'
-              'void onRestore(bool needsRestore) {\n'
-              '  if (needsRestore) {\n'
-              '    final int tab = bucket!.read<int>("tab") ?? 0;\n'
-              '    setState(() => _index = tab);\n'
-              '  } else {\n'
-              '    bucket!.write<int>("tab", _index);\n'
-              '  }\n'
-              '}',
+          'void onRestore(bool needsRestore) {\n'
+          '  if (needsRestore) {\n'
+          '    final int tab = bucket!.read<int>("tab") ?? 0;\n'
+          '    setState(() => _index = tab);\n'
+          '  } else {\n'
+          '    bucket!.write<int>("tab", _index);\n'
+          '  }\n'
+          '}',
           _kAccentD,
         ),
         const SizedBox(height: 12.0),
@@ -1482,10 +1401,7 @@ Widget _callbackSection(bool needsRestore, void Function() onToggle) {
                   Row(
                     children: <Widget>[
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 5.0,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                         decoration: BoxDecoration(
                           color: needsRestore
                               ? _kAccentF.withValues(alpha: 0.18)
@@ -1578,43 +1494,17 @@ Widget _referenceSection() {
             ),
             children: <TableRow>[
               _refRow('member', 'description', header: true),
-              _refRow(
-                'rootBucket',
-                'Future for the root bucket; nullable when the platform opts out.',
-              ),
-              _refRow(
-                'isReplacing',
-                'Whether the manager is in the middle of swapping payloads.',
-              ),
-              _refRow(
-                'flushData()',
-                'Asks the manager to immediately serialise dirty buckets.',
-              ),
+              _refRow('rootBucket', 'Future for the root bucket; nullable when the platform opts out.'),
+              _refRow('isReplacing', 'Whether the manager is in the middle of swapping payloads.'),
+              _refRow('flushData()', 'Asks the manager to immediately serialise dirty buckets.'),
               _refRow('scheduleSerializationFor()', 'Marks a bucket dirty.'),
-              _refRow(
-                'unscheduleSerializationFor()',
-                'Cancels a pending serialisation for a bucket.',
-              ),
-              _refRow(
-                'handleRestorationUpdateFromEngine()',
-                'Engine-only entry point; called when the platform pushes fresh data.',
-              ),
-              _refRow(
-                'addListener(VoidCallback)',
-                'Inherited from ChangeNotifier.',
-              ),
-              _refRow(
-                'removeListener(VoidCallback)',
-                'Inherited from ChangeNotifier.',
-              ),
-              _refRow(
-                'notifyListeners()',
-                'Inherited from ChangeNotifier; protected.',
-              ),
-              _refRow(
-                'debugRootBucketAccessed',
-                'Test hook indicating whether the root was touched.',
-              ),
+              _refRow('unscheduleSerializationFor()', 'Cancels a pending serialisation for a bucket.'),
+              _refRow('handleRestorationUpdateFromEngine()',
+                  'Engine-only entry point; called when the platform pushes fresh data.'),
+              _refRow('addListener(VoidCallback)', 'Inherited from ChangeNotifier.'),
+              _refRow('removeListener(VoidCallback)', 'Inherited from ChangeNotifier.'),
+              _refRow('notifyListeners()', 'Inherited from ChangeNotifier; protected.'),
+              _refRow('debugRootBucketAccessed', 'Test hook indicating whether the root was touched.'),
             ],
           ),
         ),
@@ -1629,9 +1519,9 @@ Widget _referenceSection() {
         _calloutBox(
           'Debug tip',
           'Set debugRootBucketAccessed to inspect whether your test environment is '
-              'actually reaching for the root bucket. Tests that rebuild widgets with new '
-              'restoration scopes occasionally race the rootBucket Future, and this flag is '
-              'the easiest way to detect that.',
+          'actually reaching for the root bucket. Tests that rebuild widgets with new '
+          'restoration scopes occasionally race the rootBucket Future, and this flag is '
+          'the easiest way to detect that.',
           _kAccentH,
           Icons.bug_report_rounded,
         ),
@@ -1642,7 +1532,9 @@ Widget _referenceSection() {
 
 TableRow _refRow(String a, String b, {bool header = false}) {
   return TableRow(
-    decoration: BoxDecoration(color: header ? _kBgMid : null),
+    decoration: BoxDecoration(
+      color: header ? _kBgMid : null,
+    ),
     children: <Widget>[
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
@@ -1682,8 +1574,7 @@ Widget _paletteSection() {
   return _sectionShell(
     tag: 'CONCEPTS',
     title: 'Method-channel & restoration concept palette',
-    subtitle:
-        'Adjacent ideas worth keeping in your head while reading this page.',
+    subtitle: 'Adjacent ideas worth keeping in your head while reading this page.',
     gradient: _gradPalette,
     glow: _kAccentE,
     body: Column(
@@ -1733,9 +1624,9 @@ Widget _paletteSection() {
         _calloutBox(
           'Not the same as state management',
           'Riverpod, Provider, Redux, Bloc — none of these are alternatives to restoration. '
-              'They live one layer above and decide where state lives. Restoration is the '
-              'cold-start crash protection underneath, and it is happy to coexist with any of '
-              'them as long as you teach them how to read and write a bucket.',
+          'They live one layer above and decide where state lives. Restoration is the '
+          'cold-start crash protection underneath, and it is happy to coexist with any of '
+          'them as long as you teach them how to read and write a bucket.',
           _kAccentE,
           Icons.info_outline_rounded,
         ),
@@ -1752,8 +1643,7 @@ Widget _checksSection() {
   return _sectionShell(
     tag: 'CHECKS',
     title: 'Static sanity calls',
-    subtitle:
-        'A few cheap reads that exercise the classes named in the test target.',
+    subtitle: 'A few cheap reads that exercise the classes named in the test target.',
     gradient: _gradManager,
     glow: _kAccentF,
     body: Builder(
@@ -1836,36 +1726,15 @@ Widget _checksSection() {
               'output stays self-describing.',
             ),
             const SizedBox(height: 10.0),
-            _kvRow(
-              'PlatformMenu',
-              '${platformMenu.label} · ${platformMenu.menus.length} items',
-              accent: _kAccentA,
-            ),
-            _kvRow(
-              'PlatformMenuItemGroup',
-              '${menuGroup.members.length} members',
-              accent: _kAccentB,
-            ),
-            _kvRow(
-              'PlatformProvidedMenuItem.about',
-              '${aboutItem.type}',
-              accent: _kAccentC,
-            ),
-            _kvRow(
-              'PlatformProvidedMenuItem.quit',
-              '${quitItem.type}',
-              accent: _kAccentD,
-            ),
-            _kvRow(
-              'RestorationCallback typedef',
-              'void Function(bool)',
-              accent: _kAccentE,
-            ),
-            _kvRow(
-              'Manager symbol',
-              'ServicesBinding.instance.restorationManager',
-              accent: _kAccentF,
-            ),
+            _kvRow('PlatformMenu', '${platformMenu.label} · ${platformMenu.menus.length} items',
+                accent: _kAccentA),
+            _kvRow('PlatformMenuItemGroup', '${menuGroup.members.length} members',
+                accent: _kAccentB),
+            _kvRow('PlatformProvidedMenuItem.about', '${aboutItem.type}', accent: _kAccentC),
+            _kvRow('PlatformProvidedMenuItem.quit', '${quitItem.type}', accent: _kAccentD),
+            _kvRow('RestorationCallback typedef', 'void Function(bool)', accent: _kAccentE),
+            _kvRow('Manager symbol', 'ServicesBinding.instance.restorationManager',
+                accent: _kAccentF),
           ],
         );
       },
@@ -1881,8 +1750,7 @@ Widget _closingSection() {
   return _sectionShell(
     tag: 'SUMMARY',
     title: 'When in doubt, prefer simpler primitives',
-    subtitle:
-        'A short summary of the trade-offs you implicitly accept by opting into restoration.',
+    subtitle: 'A short summary of the trade-offs you implicitly accept by opting into restoration.',
     gradient: _gradHero,
     glow: _kAccentG,
     body: Column(
@@ -1915,9 +1783,9 @@ Widget _closingSection() {
         _calloutBox(
           'Pair with tests',
           'TestRestorationManager from package:flutter/widgets.dart is the friend you '
-              'want — it lets you simulate a cold-start cycle in a single test, which is '
-              'usually faster than reasoning about whether your widget is correctly hooked '
-              'into the framework\'s mixin.',
+          'want — it lets you simulate a cold-start cycle in a single test, which is '
+          'usually faster than reasoning about whether your widget is correctly hooked '
+          'into the framework\'s mixin.',
           _kAccentG,
           Icons.check_circle_outline_rounded,
         ),
@@ -1962,19 +1830,25 @@ dynamic build(BuildContext context) {
                       _heroSection(),
                       _managerSection(),
                       _bucketSection(),
-                      _pipelineSection(highlight, (int i) {
-                        setInner(() {
-                          highlight = i;
-                        });
-                      }),
+                      _pipelineSection(
+                        highlight,
+                        (int i) {
+                          setInner(() {
+                            highlight = i;
+                          });
+                        },
+                      ),
                       _payloadSection(),
                       _decisionSection(),
                       _channelSection(),
-                      _callbackSection(needsRestore, () {
-                        setInner(() {
-                          needsRestore = !needsRestore;
-                        });
-                      }),
+                      _callbackSection(
+                        needsRestore,
+                        () {
+                          setInner(() {
+                            needsRestore = !needsRestore;
+                          });
+                        },
+                      ),
                       _referenceSection(),
                       _paletteSection(),
                       _checksSection(),

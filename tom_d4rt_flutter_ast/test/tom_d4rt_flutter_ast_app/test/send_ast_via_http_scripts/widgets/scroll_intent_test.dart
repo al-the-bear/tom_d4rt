@@ -152,7 +152,11 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
     });
   }
 
-  void _dispatchMultiple(AxisDirection d, ScrollIncrementType t, int count) {
+  void _dispatchMultiple(
+    AxisDirection d,
+    ScrollIncrementType t,
+    int count,
+  ) {
     for (int i = 0; i < count; i++) {
       _dispatchIntent(d, t);
     }
@@ -645,7 +649,10 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
           borderRadius: BorderRadius.circular(10),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 140),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 10,
+            ),
             decoration: BoxDecoration(
               color: selected
                   ? color.withValues(alpha: 0.18)
@@ -696,7 +703,10 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
           borderRadius: BorderRadius.circular(10),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 140),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 10,
+            ),
             decoration: BoxDecoration(
               color: selected
                   ? kMagenta.withValues(alpha: 0.18)
@@ -802,7 +812,10 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
         label: Text(
           'Dispatch  ${shortLabelForDirection(_selectedDirection)}  /  '
           '${shortLabelForType(_selectedType)}',
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14.5),
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 14.5,
+          ),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: kTeal,
@@ -833,7 +846,8 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(Icons.center_focus_strong, size: 14, color: kTeal),
+                const Icon(Icons.center_focus_strong,
+                    size: 14, color: kTeal),
                 const SizedBox(width: 6),
                 const Text(
                   'Focus + Actions(ScrollIntent → ScrollAction())',
@@ -882,10 +896,11 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
                           itemCount: 40,
                           itemBuilder: (context, index) {
                             final Color tint = Color.lerp(
-                              kTeal,
-                              kMagenta,
-                              index / 40.0,
-                            )!.withValues(alpha: 0.18);
+                                  kTeal,
+                                  kMagenta,
+                                  index / 40.0,
+                                )!
+                                .withValues(alpha: 0.18);
                             return Container(
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 10,
@@ -1080,7 +1095,10 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
             const SizedBox(height: 2),
             Text(
               '${shortLabelForType(rec.type)} · #${rec.sequence}',
-              style: const TextStyle(color: kMuted, fontSize: 11),
+              style: const TextStyle(
+                color: kMuted,
+                fontSize: 11,
+              ),
             ),
           ],
         ),
@@ -1156,7 +1174,11 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
               'The first Actions widget whose map contains ScrollIntent wins. '
               'If none is found, Actions.maybeInvoke returns null and nothing '
               'happens — a safe no-op.',
-              style: TextStyle(color: kInk, fontSize: 12.5, height: 1.45),
+              style: TextStyle(
+                color: kInk,
+                fontSize: 12.5,
+                height: 1.45,
+              ),
             ),
           ),
         ],
@@ -1189,7 +1211,10 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
           const SizedBox(width: 10),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
+              ),
               decoration: BoxDecoration(
                 color: highlighted
                     ? kTeal.withValues(alpha: 0.14)
@@ -1301,7 +1326,11 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
             icon: Icons.vertical_align_top,
             color: kTeal,
             onTap: () {
-              _dispatchMultiple(AxisDirection.up, ScrollIncrementType.page, 3);
+              _dispatchMultiple(
+                AxisDirection.up,
+                ScrollIncrementType.page,
+                3,
+              );
             },
           ),
         ],
@@ -1547,8 +1576,7 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
         Expanded(
           child: _buildCrossRefTile(
             title: 'ScrollIncrementType',
-            body:
-                'The enum that ScrollIntent.type carries. Controls the '
+            body: 'The enum that ScrollIntent.type carries. Controls the '
                 'step size: line or page.',
             accent: kTeal,
             file: 'scroll_increment_type_test.dart',
@@ -1558,8 +1586,7 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
         Expanded(
           child: _buildCrossRefTile(
             title: 'ScrollAction',
-            body:
-                'The built-in Action that consumes ScrollIntent. See the '
+            body: 'The built-in Action that consumes ScrollIntent. See the '
                 'neighbouring test for keyboard bindings and defaults.',
             accent: kMagenta,
             file: 'scroll_action_test.dart',
@@ -1603,11 +1630,18 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
           const SizedBox(height: 8),
           Text(
             body,
-            style: const TextStyle(color: kInk, fontSize: 12.5, height: 1.5),
+            style: const TextStyle(
+              color: kInk,
+              fontSize: 12.5,
+              height: 1.5,
+            ),
           ),
           const SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6,
+              vertical: 2,
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(4),
@@ -1636,37 +1670,37 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
         'title': 'First-class Intent',
         'body':
             'ScrollIntent is a first-class Intent — you can dispatch it from '
-            'code, not just from key bindings. That means buttons, '
-            'gestures, timers, or automated macros can all trigger scroll '
-            'behaviour.',
+                'code, not just from key bindings. That means buttons, '
+                'gestures, timers, or automated macros can all trigger scroll '
+                'behaviour.',
       },
       <String, String>{
         'title': 'Stateless by design',
         'body':
             'Keep ScrollIntent stateless; if you need velocity or smoothness, '
-            'use ScrollController.animateTo instead. An Intent is a tiny '
-            'message — it should not carry animation curves.',
+                'use ScrollController.animateTo instead. An Intent is a tiny '
+                'message — it should not carry animation curves.',
       },
       <String, String>{
         'title': 'invoke returns a result',
         'body':
             'Actions.invoke returns the Action\'s result — you can know if '
-            'dispatch succeeded. Use maybeInvoke if you want a safe '
-            'no-op when no binding is found.',
+                'dispatch succeeded. Use maybeInvoke if you want a safe '
+                'no-op when no binding is found.',
       },
       <String, String>{
         'title': 'Tree-scoped bindings',
         'body':
             'The Actions lookup is tree-scoped. You can wrap a single '
-            'ScrollView with Actions and override what line/page means '
-            'just for that part of the UI.',
+                'ScrollView with Actions and override what line/page means '
+                'just for that part of the UI.',
       },
       <String, String>{
         'title': 'Testing is trivial',
         'body':
             'Because ScrollIntent is just a value, you can construct one in '
-            'a widget test and call Actions.invoke to drive scrolling '
-            'without any keyboard simulation.',
+                'a widget test and call Actions.invoke to drive scrolling '
+                'without any keyboard simulation.',
       },
     ];
     return Column(
@@ -1698,7 +1732,8 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
               color: kTeal.withValues(alpha: 0.14),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(Icons.lightbulb_outline, size: 16, color: kTeal),
+            child: const Icon(Icons.lightbulb_outline,
+                size: 16, color: kTeal),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -1740,7 +1775,7 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
         'label': 'Desktop shortcuts',
         'body':
             'Wire Shortcuts(PageDown → ScrollIntent(down, page)) to match '
-            'native desktop apps.',
+                'native desktop apps.',
         'color': kTeal,
       },
       <String, dynamic>{
@@ -1748,7 +1783,7 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
         'label': 'Accessibility',
         'body':
             'Let assistive tech dispatch ScrollIntent without having to '
-            'simulate raw key events.',
+                'simulate raw key events.',
         'color': kMagenta,
       },
       <String, dynamic>{
@@ -1756,7 +1791,7 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
         'label': 'Custom buttons',
         'body':
             'On-screen ↑/↓ buttons that reuse the exact same scrolling code '
-            'as the keyboard path.',
+                'as the keyboard path.',
         'color': kDownBlue,
       },
       <String, dynamic>{
@@ -1764,7 +1799,7 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
         'label': 'Macros',
         'body':
             'Scripted or AI-driven dispatch of ScrollIntents to replay a '
-            'known navigation path.',
+                'known navigation path.',
         'color': kUpGreen,
       },
     ];
@@ -1828,7 +1863,10 @@ class _ScrollIntentWorkshopState extends State<ScrollIntentWorkshop> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[kInk, kInk.withValues(alpha: 0.9)],
+          colors: <Color>[
+            kInk,
+            kInk.withValues(alpha: 0.9),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1956,7 +1994,8 @@ dynamic build(BuildContext context) {
   // Reference the decorative shortcuts map so the helper survives tree
   // shaking in the AST interpreter. It also shows, at a glance, that the
   // classic Shortcuts → ScrollIntent wiring is still a first-class pattern.
-  final Map<ShortcutActivator, Intent> shortcuts = decorativeScrollShortcuts();
+  final Map<ShortcutActivator, Intent> shortcuts =
+      decorativeScrollShortcuts();
   debugPrint(
     '[ScrollIntent demo] decorative shortcuts prepared: '
     '${shortcuts.length} entries',

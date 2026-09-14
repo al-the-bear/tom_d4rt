@@ -230,38 +230,32 @@ dynamic build(BuildContext context) {
     const _ComparisonRow(
       topic: 'Creation',
       summary: 'const or runtime constructor with start/end doubles',
-      practice:
-          'Prefer const for static presets to improve readability and stable identity in docs.',
+      practice: 'Prefer const for static presets to improve readability and stable identity in docs.',
     ),
     const _ComparisonRow(
       topic: 'Update pattern',
       summary: 'Replace entire object on every drag step',
-      practice:
-          'Store RangeValues in one state field and assign new object in callback.',
+      practice: 'Store RangeValues in one state field and assign new object in callback.',
     ),
     const _ComparisonRow(
       topic: 'Validation',
       summary: 'Must remain in min/max and start <= end semantics',
-      practice:
-          'Clamp and sort via helper methods before publishing state to dependent widgets.',
+      practice: 'Clamp and sort via helper methods before publishing state to dependent widgets.',
     ),
     const _ComparisonRow(
       topic: 'Inter-widget sharing',
       summary: 'One object can drive charts, labels, and timelines',
-      practice:
-          'Derive secondary metrics (span, midpoint) from RangeValues centrally.',
+      practice: 'Derive secondary metrics (span, midpoint) from RangeValues centrally.',
     ),
     const _ComparisonRow(
       topic: 'Debugging',
       summary: 'toString and equality are useful during replay',
-      practice:
-          'Log RangeValues snapshots to compare expected state transitions.',
+      practice: 'Log RangeValues snapshots to compare expected state transitions.',
     ),
     const _ComparisonRow(
       topic: 'Persistence',
       summary: 'Serialize start/end pair for storage and restore',
-      practice:
-          'Use explicit schema with min/max context to avoid ambiguous replay.',
+      practice: 'Use explicit schema with min/max context to avoid ambiguous replay.',
     ),
   ];
 
@@ -321,9 +315,7 @@ dynamic build(BuildContext context) {
     }
 
     final RangeValues normalized = normalizeRange(input);
-    return normalizeRange(
-      RangeValues(snap(normalized.start), snap(normalized.end)),
-    );
+    return normalizeRange(RangeValues(snap(normalized.start), snap(normalized.end)));
   }
 
   void addLog(String message) {
@@ -337,10 +329,7 @@ dynamic build(BuildContext context) {
   }
 
   void addTimeline(String title, String detail, Color color) {
-    timeline.insert(
-      0,
-      _TimelineEntry(title: title, detail: detail, color: color),
-    );
+    timeline.insert(0, _TimelineEntry(title: title, detail: detail, color: color));
     if (timeline.length > 36) {
       timeline.removeLast();
     }
@@ -416,7 +405,10 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 2),
               Text(
                 subtitle,
-                style: TextStyle(color: Colors.blueGrey.shade700, height: 1.3),
+                style: TextStyle(
+                  color: Colors.blueGrey.shade700,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -489,12 +481,18 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Text(
                   label,
-                  style: TextStyle(color: color, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               Text(
                 valueLabel,
-                style: TextStyle(color: color, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ],
           ),
@@ -540,22 +538,9 @@ dynamic build(BuildContext context) {
     final List<Widget> rows = <Widget>[
       Row(
         children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: cell('Topic', tint: const Color(0xFFF2F7FF), header: true),
-          ),
-          Expanded(
-            flex: 2,
-            child: cell('Summary', tint: const Color(0xFFF2F7FF), header: true),
-          ),
-          Expanded(
-            flex: 3,
-            child: cell(
-              'Practice',
-              tint: const Color(0xFFF2F7FF),
-              header: true,
-            ),
-          ),
+          Expanded(flex: 2, child: cell('Topic', tint: const Color(0xFFF2F7FF), header: true)),
+          Expanded(flex: 2, child: cell('Summary', tint: const Color(0xFFF2F7FF), header: true)),
+          Expanded(flex: 3, child: cell('Practice', tint: const Color(0xFFF2F7FF), header: true)),
         ],
       ),
     ];
@@ -564,14 +549,7 @@ dynamic build(BuildContext context) {
       rows.add(
         Row(
           children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: cell(
-                row.topic,
-                tint: const Color(0xFFFBFDFF),
-                header: true,
-              ),
-            ),
+            Expanded(flex: 2, child: cell(row.topic, tint: const Color(0xFFFBFDFF), header: true)),
             Expanded(flex: 2, child: cell(row.summary)),
             Expanded(flex: 3, child: cell(row.practice)),
           ],
@@ -582,10 +560,7 @@ dynamic build(BuildContext context) {
     return SingleChildScrollView(child: Column(children: rows));
   }
 
-  Widget presetCard(
-    _RangePreset preset,
-    void Function(void Function()) setState,
-  ) {
+  Widget presetCard(_RangePreset preset, void Function(void Function()) setState) {
     return Container(
       width: 320,
       margin: const EdgeInsets.only(right: 12, bottom: 12),
@@ -597,10 +572,7 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomRight,
           colors: preset.gradient,
         ),
-        border: Border.all(
-          color: preset.primary.withValues(alpha: 0.4),
-          width: 1.2,
-        ),
+        border: Border.all(color: preset.primary.withValues(alpha: 0.4), width: 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -631,7 +603,10 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6),
           Text(
             preset.subtitle,
-            style: TextStyle(color: Colors.blueGrey.shade800, height: 1.3),
+            style: TextStyle(
+              color: Colors.blueGrey.shade800,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 10),
           Text(
@@ -647,10 +622,7 @@ dynamic build(BuildContext context) {
             spacing: 8,
             runSpacing: 8,
             children: <Widget>[
-              pill(
-                'Range',
-                '${fmt(preset.values.start)}..${fmt(preset.values.end)}${preset.unit}',
-              ),
+              pill('Range', '${fmt(preset.values.start)}..${fmt(preset.values.end)}${preset.unit}'),
               pill('Min/Max', '${fmt(preset.min)}..${fmt(preset.max)}'),
               pill('Div', '${preset.divisions}'),
             ],
@@ -707,58 +679,56 @@ dynamic build(BuildContext context) {
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: timeline.map((entry) {
-          return Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: entry.color.withValues(alpha: 0.35)),
-              color: entry.color.withValues(alpha: 0.08),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: 10,
-                  height: 10,
-                  margin: const EdgeInsets.only(top: 5),
-                  decoration: BoxDecoration(
-                    color: entry.color,
-                    shape: BoxShape.circle,
-                  ),
+    return SingleChildScrollView(child: Column(
+      children: timeline.map((entry) {
+        return Container(
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: entry.color.withValues(alpha: 0.35)),
+            color: entry.color.withValues(alpha: 0.08),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: 10,
+                height: 10,
+                margin: const EdgeInsets.only(top: 5),
+                decoration: BoxDecoration(
+                  color: entry.color,
+                  shape: BoxShape.circle,
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        entry.title,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: entry.color,
-                        ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      entry.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: entry.color,
                       ),
-                      const SizedBox(height: 2),
-                      Text(
-                        entry.detail,
-                        style: TextStyle(
-                          color: Colors.blueGrey.shade800,
-                          height: 1.32,
-                        ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      entry.detail,
+                      style: TextStyle(
+                        color: Colors.blueGrey.shade800,
+                        height: 1.32,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        }).toList(),
-      ),
-    );
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    ));
   }
 
   Widget snapshotPanel() {
@@ -780,62 +750,60 @@ dynamic build(BuildContext context) {
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: history.map((snapshot) {
-          final double span = snapshot.values.end - snapshot.values.start;
-          return Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: snapshot.color.withValues(alpha: 0.34)),
-              color: snapshot.color.withValues(alpha: 0.08),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Snapshot #${snapshot.id}',
-                      style: TextStyle(
-                        color: snapshot.color,
-                        fontWeight: FontWeight.w800,
-                      ),
+    return SingleChildScrollView(child: Column(
+      children: history.map((snapshot) {
+        final double span = snapshot.values.end - snapshot.values.start;
+        return Container(
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: snapshot.color.withValues(alpha: 0.34)),
+            color: snapshot.color.withValues(alpha: 0.08),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(
+                    'Snapshot #${snapshot.id}',
+                    style: TextStyle(
+                      color: snapshot.color,
+                      fontWeight: FontWeight.w800,
                     ),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Range: ${fmt(snapshot.values.start)}..${fmt(snapshot.values.end)}',
-                      style: TextStyle(
-                        color: Colors.blueGrey.shade800,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Range: ${fmt(snapshot.values.start)}..${fmt(snapshot.values.end)}',
+                    style: TextStyle(
+                      color: Colors.blueGrey.shade800,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'min/max=${fmt(snapshot.min)}..${fmt(snapshot.max)} | span=${fmt(span)}',
-                  style: TextStyle(
-                    color: Colors.blueGrey.shade700,
-                    fontSize: 12,
                   ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'min/max=${fmt(snapshot.min)}..${fmt(snapshot.max)} | span=${fmt(span)}',
+                style: TextStyle(
+                  color: Colors.blueGrey.shade700,
+                  fontSize: 12,
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  snapshot.note,
-                  style: TextStyle(
-                    color: Colors.blueGrey.shade700,
-                    fontSize: 12,
-                  ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                snapshot.note,
+                style: TextStyle(
+                  color: Colors.blueGrey.shade700,
+                  fontSize: 12,
                 ),
-              ],
-            ),
-          );
-        }).toList(),
-      ),
-    );
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    ));
   }
 
   Widget consolePanel() {
@@ -882,9 +850,7 @@ dynamic build(BuildContext context) {
     required bool emphasize,
     required void Function(void Function()) setState,
   }) {
-    final Color active = emphasize
-        ? primary.withValues(alpha: 1)
-        : primary.withValues(alpha: 0.9);
+    final Color active = emphasize ? primary.withValues(alpha: 1) : primary.withValues(alpha: 0.9);
     final Color inactive = darkCanvas
         ? secondary.withValues(alpha: 0.36)
         : secondary.withValues(alpha: 0.74);
@@ -936,9 +902,7 @@ dynamic build(BuildContext context) {
           Text(
             subtitle,
             style: TextStyle(
-              color: darkCanvas
-                  ? const Color(0xFFCFD8DC)
-                  : Colors.blueGrey.shade700,
+              color: darkCanvas ? const Color(0xFFCFD8DC) : Colors.blueGrey.shade700,
               height: 1.3,
             ),
           ),
@@ -949,10 +913,7 @@ dynamic build(BuildContext context) {
               min: min,
               max: max,
               divisions: divisions,
-              labels: RangeLabels(
-                withUnit(current.start),
-                withUnit(current.end),
-              ),
+              labels: RangeLabels(withUnit(current.start), withUnit(current.end)),
               values: current,
               onChanged: enabled
                   ? (RangeValues values) {
@@ -960,17 +921,13 @@ dynamic build(BuildContext context) {
                         current = snappedRange(values);
                         updates += 1;
                       });
-                      addLog(
-                        'Preview "$title" changed: ${withUnit(current.start)} -> ${withUnit(current.end)}.',
-                      );
+                      addLog('Preview "$title" changed: ${withUnit(current.start)} -> ${withUnit(current.end)}.');
                     }
                   : null,
               onChangeStart: enabled
                   ? (RangeValues values) {
                       dragStarts += 1;
-                      addLog(
-                        'Drag started on "$title" at ${fmt(values.start)}..${fmt(values.end)}.',
-                      );
+                      addLog('Drag started on "$title" at ${fmt(values.start)}..${fmt(values.end)}.');
                     }
                   : null,
               onChangeEnd: enabled
@@ -994,9 +951,7 @@ dynamic build(BuildContext context) {
                   child: Text(
                     'Span: ${fmt(current.end - current.start)}',
                     style: TextStyle(
-                      color: darkCanvas
-                          ? const Color(0xFFD7E3F8)
-                          : Colors.blueGrey.shade900,
+                      color: darkCanvas ? const Color(0xFFD7E3F8) : Colors.blueGrey.shade900,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -1004,9 +959,7 @@ dynamic build(BuildContext context) {
                 Text(
                   'step ${fmt((max - min) / math.max(1, divisions))}',
                   style: TextStyle(
-                    color: darkCanvas
-                        ? const Color(0xFFB7C9E6)
-                        : Colors.blueGrey.shade700,
+                    color: darkCanvas ? const Color(0xFFB7C9E6) : Colors.blueGrey.shade700,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -1022,54 +975,23 @@ dynamic build(BuildContext context) {
     builder: (BuildContext context, void Function(void Function()) setState) {
       final double span = current.end - current.start;
       final double midpoint = (current.start + current.end) / 2;
-      final double normalizedStart =
-          ((current.start - min) / math.max(0.0001, max - min)).clamp(0, 1);
-      final double normalizedEnd =
-          ((current.end - min) / math.max(0.0001, max - min)).clamp(0, 1);
+      final double normalizedStart = ((current.start - min) / math.max(0.0001, max - min)).clamp(0, 1);
+      final double normalizedEnd = ((current.end - min) / math.max(0.0001, max - min)).clamp(0, 1);
       final double progress = (span / math.max(0.0001, max - min)).clamp(0, 1);
 
       final RangeValues baseline = const RangeValues(20, 72);
-      final bool equalToBaseline =
-          normalizeRange(current) == normalizeRange(baseline);
+      final bool equalToBaseline = normalizeRange(current) == normalizeRange(baseline);
 
       final List<_Metric> metrics = <_Metric>[
         _Metric(label: 'Start', value: withUnit(current.start), color: primary),
         _Metric(label: 'End', value: withUnit(current.end), color: secondary),
-        _Metric(
-          label: 'Span',
-          value: fmt(span),
-          color: const Color(0xFF6A1B9A),
-        ),
-        _Metric(
-          label: 'Midpoint',
-          value: withUnit(midpoint),
-          color: const Color(0xFF00838F),
-        ),
-        _Metric(
-          label: 'Divisions',
-          value: '$divisions',
-          color: const Color(0xFF2E7D32),
-        ),
-        _Metric(
-          label: 'Updates',
-          value: '$updates',
-          color: const Color(0xFFE65100),
-        ),
-        _Metric(
-          label: 'Drag starts',
-          value: '$dragStarts',
-          color: const Color(0xFFAD1457),
-        ),
-        _Metric(
-          label: 'Drag ends',
-          value: '$dragEnds',
-          color: const Color(0xFF283593),
-        ),
-        _Metric(
-          label: 'Preset loads',
-          value: '$loads',
-          color: const Color(0xFF455A64),
-        ),
+        _Metric(label: 'Span', value: fmt(span), color: const Color(0xFF6A1B9A)),
+        _Metric(label: 'Midpoint', value: withUnit(midpoint), color: const Color(0xFF00838F)),
+        _Metric(label: 'Divisions', value: '$divisions', color: const Color(0xFF2E7D32)),
+        _Metric(label: 'Updates', value: '$updates', color: const Color(0xFFE65100)),
+        _Metric(label: 'Drag starts', value: '$dragStarts', color: const Color(0xFFAD1457)),
+        _Metric(label: 'Drag ends', value: '$dragEnds', color: const Color(0xFF283593)),
+        _Metric(label: 'Preset loads', value: '$loads', color: const Color(0xFF455A64)),
       ];
 
       return Container(
@@ -1132,20 +1054,11 @@ dynamic build(BuildContext context) {
                     spacing: 8,
                     runSpacing: 8,
                     children: <Widget>[
-                      pill(
-                        'Current',
-                        '${withUnit(current.start)} -> ${withUnit(current.end)}',
-                      ),
+                      pill('Current', '${withUnit(current.start)} -> ${withUnit(current.end)}'),
                       pill('Min/Max', '${fmt(min)}..${fmt(max)}'),
-                      pill(
-                        'Normalized',
-                        '${fmt(normalizedStart)}..${fmt(normalizedEnd)}',
-                      ),
+                      pill('Normalized', '${fmt(normalizedStart)}..${fmt(normalizedEnd)}'),
                       pill('Equal baseline', equalToBaseline ? 'Yes' : 'No'),
-                      pill(
-                        'Progress',
-                        '${(progress * 100).toStringAsFixed(1)}%',
-                      ),
+                      pill('Progress', '${(progress * 100).toStringAsFixed(1)}%'),
                     ],
                   ),
                 ],
@@ -1159,11 +1072,7 @@ dynamic build(BuildContext context) {
               icon: Icons.auto_graph,
             ),
             const SizedBox(height: 10),
-            Wrap(
-              children: presets
-                  .map((preset) => presetCard(preset, setState))
-                  .toList(),
-            ),
+            Wrap(children: presets.map((preset) => presetCard(preset, setState)).toList()),
             const SizedBox(height: 18),
             sectionTitle(
               title: 'RangeValues Controls',
@@ -1197,9 +1106,7 @@ dynamic build(BuildContext context) {
                               current = normalizeRange(current);
                               updates += 1;
                             });
-                            addLog(
-                              'Min changed to ${fmt(min)} and range normalized.',
-                            );
+                            addLog('Min changed to ${fmt(min)} and range normalized.');
                           },
                           color: const Color(0xFF00695C),
                         ),
@@ -1219,9 +1126,7 @@ dynamic build(BuildContext context) {
                               current = normalizeRange(current);
                               updates += 1;
                             });
-                            addLog(
-                              'Max changed to ${fmt(max)} and range normalized.',
-                            );
+                            addLog('Max changed to ${fmt(max)} and range normalized.');
                           },
                           color: const Color(0xFF0D47A1),
                         ),
@@ -1242,14 +1147,10 @@ dynamic build(BuildContext context) {
                           onChanged: enabled
                               ? (double value) {
                                   setState(() {
-                                    current = snappedRange(
-                                      RangeValues(value, current.end),
-                                    );
+                                    current = snappedRange(RangeValues(value, current.end));
                                     updates += 1;
                                   });
-                                  addLog(
-                                    'Start manually set to ${fmt(current.start)}.',
-                                  );
+                                  addLog('Start manually set to ${fmt(current.start)}.');
                                 }
                               : null,
                           color: const Color(0xFF8E24AA),
@@ -1267,14 +1168,10 @@ dynamic build(BuildContext context) {
                           onChanged: enabled
                               ? (double value) {
                                   setState(() {
-                                    current = snappedRange(
-                                      RangeValues(current.start, value),
-                                    );
+                                    current = snappedRange(RangeValues(current.start, value));
                                     updates += 1;
                                   });
-                                  addLog(
-                                    'End manually set to ${fmt(current.end)}.',
-                                  );
+                                  addLog('End manually set to ${fmt(current.end)}.');
                                 }
                               : null,
                           color: const Color(0xFFE65100),
@@ -1299,9 +1196,7 @@ dynamic build(BuildContext context) {
                               current = snappedRange(current);
                               updates += 1;
                             });
-                            addLog(
-                              'Divisions set to $divisions; range snapped.',
-                            );
+                            addLog('Divisions set to $divisions; range snapped.');
                           },
                           color: const Color(0xFF2E7D32),
                         ),
@@ -1312,14 +1207,8 @@ dynamic build(BuildContext context) {
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: const Color(
-                              0xFF1E88E5,
-                            ).withValues(alpha: 0.08),
-                            border: Border.all(
-                              color: const Color(
-                                0xFF1E88E5,
-                              ).withValues(alpha: 0.3),
-                            ),
+                            color: const Color(0xFF1E88E5).withValues(alpha: 0.08),
+                            border: Border.all(color: const Color(0xFF1E88E5).withValues(alpha: 0.3)),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1339,15 +1228,11 @@ dynamic build(BuildContext context) {
                                   OutlinedButton(
                                     onPressed: () {
                                       setState(() {
-                                        current = normalizeRange(
-                                          RangeValues(min, max),
-                                        );
+                                        current = normalizeRange(RangeValues(min, max));
                                         updates += 1;
                                       });
                                       addLog('Expanded range to full bounds.');
-                                      captureSnapshot(
-                                        'Expanded to full bounds',
-                                      );
+                                      captureSnapshot('Expanded to full bounds');
                                     },
                                     child: const Text('Full Range'),
                                   ),
@@ -1356,38 +1241,22 @@ dynamic build(BuildContext context) {
                                       setState(() {
                                         final double center = (min + max) / 2;
                                         final double quarter = (max - min) / 4;
-                                        current = snappedRange(
-                                          RangeValues(
-                                            center - quarter,
-                                            center + quarter,
-                                          ),
-                                        );
+                                        current = snappedRange(RangeValues(center - quarter, center + quarter));
                                         updates += 1;
                                       });
                                       addLog('Centered range around midpoint.');
-                                      captureSnapshot(
-                                        'Centered around midpoint',
-                                      );
+                                      captureSnapshot('Centered around midpoint');
                                     },
                                     child: const Text('Center Band'),
                                   ),
                                   OutlinedButton(
                                     onPressed: () {
                                       setState(() {
-                                        current = snappedRange(
-                                          RangeValues(
-                                            current.start,
-                                            current.start,
-                                          ),
-                                        );
+                                        current = snappedRange(RangeValues(current.start, current.start));
                                         updates += 1;
                                       });
-                                      addLog(
-                                        'Collapsed range to single point.',
-                                      );
-                                      captureSnapshot(
-                                        'Collapsed to point range',
-                                      );
+                                      addLog('Collapsed range to single point.');
+                                      captureSnapshot('Collapsed to point range');
                                     },
                                     child: const Text('Point Range'),
                                   ),
@@ -1413,46 +1282,34 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: enabled,
-                            title: const Text('Enable interaction'),
-                            subtitle: const Text(
-                              'Disables slider interactions when off.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                enabled = value;
-                              });
-                              addLog(
-                                value
-                                    ? 'Interaction enabled.'
-                                    : 'Interaction disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: enabled,
+                          title: const Text('Enable interaction'),
+                          subtitle: const Text('Disables slider interactions when off.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              enabled = value;
+                            });
+                            addLog(value ? 'Interaction enabled.' : 'Interaction disabled.');
+                          },
+                        ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: darkCanvas,
-                            title: const Text('Dark preview canvas'),
-                            subtitle: const Text(
-                              'Simulate dark surfaces for visual checks.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                darkCanvas = value;
-                              });
-                              addLog(
-                                value
-                                    ? 'Dark canvas enabled.'
-                                    : 'Dark canvas disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: darkCanvas,
+                          title: const Text('Dark preview canvas'),
+                          subtitle: const Text('Simulate dark surfaces for visual checks.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              darkCanvas = value;
+                            });
+                            addLog(value ? 'Dark canvas enabled.' : 'Dark canvas disabled.');
+                          },
+                        ),
                         ),
                       ),
                     ],
@@ -1463,46 +1320,34 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: denseOverlay,
-                            title: const Text('Dense overlay hints'),
-                            subtitle: const Text(
-                              'Show extra span and step hints in previews.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                denseOverlay = value;
-                              });
-                              addLog(
-                                value
-                                    ? 'Dense overlay hints enabled.'
-                                    : 'Dense overlay hints disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: denseOverlay,
+                          title: const Text('Dense overlay hints'),
+                          subtitle: const Text('Show extra span and step hints in previews.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              denseOverlay = value;
+                            });
+                            addLog(value ? 'Dense overlay hints enabled.' : 'Dense overlay hints disabled.');
+                          },
+                        ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: showHistogram,
-                            title: const Text('Show histogram'),
-                            subtitle: const Text(
-                              'Displays interval occupancy bars.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                showHistogram = value;
-                              });
-                              addLog(
-                                value
-                                    ? 'Histogram enabled.'
-                                    : 'Histogram hidden.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: showHistogram,
+                          title: const Text('Show histogram'),
+                          subtitle: const Text('Displays interval occupancy bars.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              showHistogram = value;
+                            });
+                            addLog(value ? 'Histogram enabled.' : 'Histogram hidden.');
+                          },
+                        ),
                         ),
                       ),
                     ],
@@ -1513,47 +1358,35 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: showMilestones,
-                            title: const Text('Milestone lines'),
-                            subtitle: const Text(
-                              'Quarter markers in diagnostics strip.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                showMilestones = value;
-                              });
-                              addLog(
-                                value
-                                    ? 'Milestones visible.'
-                                    : 'Milestones hidden.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: showMilestones,
+                          title: const Text('Milestone lines'),
+                          subtitle: const Text('Quarter markers in diagnostics strip.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              showMilestones = value;
+                            });
+                            addLog(value ? 'Milestones visible.' : 'Milestones hidden.');
+                          },
+                        ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                            contentPadding: EdgeInsets.zero,
-                            value: snapToDivisions,
-                            title: const Text('Snap to divisions'),
-                            subtitle: const Text(
-                              'Rounds updates to nearest step.',
-                            ),
-                            onChanged: (bool value) {
-                              setState(() {
-                                snapToDivisions = value;
-                                current = snappedRange(current);
-                              });
-                              addLog(
-                                value
-                                    ? 'Snapping enabled.'
-                                    : 'Snapping disabled.',
-                              );
-                            },
-                          ),
+                          contentPadding: EdgeInsets.zero,
+                          value: snapToDivisions,
+                          title: const Text('Snap to divisions'),
+                          subtitle: const Text('Rounds updates to nearest step.'),
+                          onChanged: (bool value) {
+                            setState(() {
+                              snapToDivisions = value;
+                              current = snappedRange(current);
+                            });
+                            addLog(value ? 'Snapping enabled.' : 'Snapping disabled.');
+                          },
+                        ),
                         ),
                       ),
                     ],
@@ -1571,8 +1404,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 10),
             previewPanel(
               title: 'Primary Preview',
-              subtitle:
-                  'Core interval editing panel with value labels and change callbacks.',
+              subtitle: 'Core interval editing panel with value labels and change callbacks.',
               gradient: darkCanvas
                   ? <Color>[const Color(0xFF101820), const Color(0xFF1D2D44)]
                   : <Color>[const Color(0xFFFFFFFF), const Color(0xFFF4F8FF)],
@@ -1582,8 +1414,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 12),
             previewPanel(
               title: 'Contrast Preview',
-              subtitle:
-                  'Higher contrast surface for accessibility and dense-content stress testing.',
+              subtitle: 'Higher contrast surface for accessibility and dense-content stress testing.',
               gradient: darkCanvas
                   ? <Color>[const Color(0xFF0B0F1A), const Color(0xFF1E293B)]
                   : <Color>[const Color(0xFFEFF5FF), const Color(0xFFFFFFFF)],
@@ -1722,9 +1553,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: card.color.withValues(alpha: 0.26),
-                    ),
+                    border: Border.all(color: card.color.withValues(alpha: 0.26)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1871,18 +1700,11 @@ class _DistributionPainter extends CustomPainter {
     for (int i = 0; i < bars; i++) {
       final bool active = i >= startIndex && i <= endIndex;
       final double h = active ? 58 : 24;
-      final Rect bar = Rect.fromLTWH(
-        14 + i * barWidth,
-        size.height - h - 18,
-        barWidth - 2,
-        h,
-      );
+      final Rect bar = Rect.fromLTWH(14 + i * barWidth, size.height - h - 18, barWidth - 2, h);
       canvas.drawRRect(
         RRect.fromRectAndRadius(bar, const Radius.circular(4)),
         Paint()
-          ..color = active
-              ? color.withValues(alpha: 0.85)
-              : const Color(0xFFCFD8E6)
+          ..color = active ? color.withValues(alpha: 0.85) : const Color(0xFFCFD8E6)
           ..style = PaintingStyle.fill,
       );
     }
@@ -1949,12 +1771,7 @@ class _RangeDiagnosticsPainter extends CustomPainter {
       bg,
     );
 
-    final Rect track = Rect.fromLTWH(
-      24,
-      size.height * 0.62,
-      size.width - 48,
-      12,
-    );
+    final Rect track = Rect.fromLTWH(24, size.height * 0.62, size.width - 48, 12);
     canvas.drawRRect(
       RRect.fromRectAndRadius(track, const Radius.circular(999)),
       Paint()..color = const Color(0xFFC7D4E7),
@@ -1978,8 +1795,7 @@ class _RangeDiagnosticsPainter extends CustomPainter {
     final int safeDivisions = math.max(1, divisions);
     for (int i = 0; i <= safeDivisions; i++) {
       final double x = track.left + track.width * (i / safeDivisions);
-      final bool milestone =
-          showMilestones &&
+      final bool milestone = showMilestones &&
           safeDivisions >= 4 &&
           i % (safeDivisions ~/ 4 == 0 ? 1 : safeDivisions ~/ 4) == 0;
       final double h = milestone ? 16 : 9;
@@ -2022,12 +1838,7 @@ class _RangeDiagnosticsPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       )..layout();
 
-      final Rect r = Rect.fromLTWH(
-        anchor.dx - t.width / 2 - 8,
-        anchor.dy - 34,
-        t.width + 16,
-        22,
-      );
+      final Rect r = Rect.fromLTWH(anchor.dx - t.width / 2 - 8, anchor.dy - 34, t.width + 16, 22);
       canvas.drawRRect(
         RRect.fromRectAndRadius(r, const Radius.circular(10)),
         Paint()..color = color.withValues(alpha: 0.9),
@@ -2048,8 +1859,7 @@ class _RangeDiagnosticsPainter extends CustomPainter {
 
     final TextPainter header = TextPainter(
       text: TextSpan(
-        text:
-            'RangeValues Diagnostics | min=$minLabel | max=$maxLabel | divisions=$divisions',
+        text: 'RangeValues Diagnostics | min=$minLabel | max=$maxLabel | divisions=$divisions',
         style: const TextStyle(
           color: Color(0xFF294172),
           fontWeight: FontWeight.w700,

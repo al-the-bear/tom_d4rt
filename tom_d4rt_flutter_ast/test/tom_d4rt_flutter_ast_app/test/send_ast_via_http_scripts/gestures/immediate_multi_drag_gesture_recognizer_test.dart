@@ -55,8 +55,7 @@ dynamic build(BuildContext context) {
             _PrivateSectionHeader(
               index: 1,
               title: 'Anatomy of onStart and the Drag interface',
-              subtitle:
-                  'What you return from onStart and what the framework calls on it.',
+              subtitle: 'What you return from onStart and what the framework calls on it.',
             ),
             const SizedBox(height: 12),
             _PrivateAnatomyCard(),
@@ -64,8 +63,7 @@ dynamic build(BuildContext context) {
             _PrivateSectionHeader(
               index: 2,
               title: 'The four MultiDrag siblings',
-              subtitle:
-                  'Immediate, Delayed, Horizontal, Vertical — same shape, different arena rules.',
+              subtitle: 'Immediate, Delayed, Horizontal, Vertical — same shape, different arena rules.',
             ),
             const SizedBox(height: 12),
             _PrivateFamilyGrid(),
@@ -73,18 +71,15 @@ dynamic build(BuildContext context) {
             _PrivateSectionHeader(
               index: 3,
               title: 'Gesture arena timeline',
-              subtitle:
-                  'PointerDown -> claim -> win or lose -> Drag callbacks.',
+              subtitle: 'PointerDown -> claim -> win or lose -> Drag callbacks.',
             ),
             const SizedBox(height: 12),
             _PrivateArenaTimeline(),
             const SizedBox(height: 28),
             _PrivateSectionHeader(
               index: 4,
-              title:
-                  'Pointer-trail gallery: claim-on-down vs claim-after-delay',
-              subtitle:
-                  'Six tiles contrasting Immediate (orange) and Delayed (slate) trails.',
+              title: 'Pointer-trail gallery: claim-on-down vs claim-after-delay',
+              subtitle: 'Six tiles contrasting Immediate (orange) and Delayed (slate) trails.',
             ),
             const SizedBox(height: 12),
             _PrivateTrailGallery(),
@@ -92,8 +87,7 @@ dynamic build(BuildContext context) {
             _PrivateSectionHeader(
               index: 5,
               title: 'Code recipe — RawGestureDetector',
-              subtitle:
-                  'Wire ImmediateMultiDragGestureRecognizer through a gestures map.',
+              subtitle: 'Wire ImmediateMultiDragGestureRecognizer through a gestures map.',
             ),
             const SizedBox(height: 12),
             _PrivateRecipeCard(),
@@ -103,8 +97,7 @@ dynamic build(BuildContext context) {
             _PrivateSectionHeader(
               index: 6,
               title: 'Multi-finger choreography',
-              subtitle:
-                  'Three fingers, three sticky notes, three concurrent drags.',
+              subtitle: 'Three fingers, three sticky notes, three concurrent drags.',
             ),
             const SizedBox(height: 12),
             _PrivateChoreographyCard(),
@@ -112,8 +105,7 @@ dynamic build(BuildContext context) {
             _PrivateSectionHeader(
               index: 7,
               title: 'Five-finger trail visualization',
-              subtitle:
-                  'A snapshot of an Immediate recognizer tracking five concurrent pointers.',
+              subtitle: 'A snapshot of an Immediate recognizer tracking five concurrent pointers.',
             ),
             const SizedBox(height: 12),
             _PrivateFiveFingerTrails(),
@@ -121,8 +113,7 @@ dynamic build(BuildContext context) {
             _PrivateSectionHeader(
               index: 8,
               title: 'Pitfalls and when to choose which',
-              subtitle:
-                  'Immediate steals scroll gestures; Delayed feels laggy for direct manipulation.',
+              subtitle: 'Immediate steals scroll gestures; Delayed feels laggy for direct manipulation.',
             ),
             const SizedBox(height: 12),
             _PrivatePitfallsCard(),
@@ -283,11 +274,7 @@ class _PrivateHeroCard extends StatelessWidget {
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: const Icon(
-                  Icons.touch_app,
-                  color: Colors.white,
-                  size: 36,
-                ),
+                child: const Icon(Icons.touch_app, color: Colors.white, size: 36),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -328,9 +315,7 @@ class _PrivateHeroCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               child: Stack(
                 children: [
-                  Positioned.fill(
-                    child: CustomPaint(painter: _PrivateFiveTrailPainter()),
-                  ),
+                  Positioned.fill(child: CustomPaint(painter: _PrivateFiveTrailPainter())),
                   const Positioned(
                     left: 16,
                     top: 12,
@@ -347,10 +332,7 @@ class _PrivateHeroCard extends StatelessWidget {
                     right: 16,
                     bottom: 12,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -628,8 +610,7 @@ class _PrivateAnatomyCard extends StatelessWidget {
           _PrivateDragCallbackRow(
             symbol: 'update',
             type: 'DragUpdateDetails',
-            description:
-                'Pointer moved. Use details.delta and details.globalPosition.',
+            description: 'Pointer moved. Use details.delta and details.globalPosition.',
             color: const Color(0xFFFF6F3C),
             icon: Icons.swipe,
           ),
@@ -637,8 +618,7 @@ class _PrivateAnatomyCard extends StatelessWidget {
           _PrivateDragCallbackRow(
             symbol: 'end',
             type: 'DragEndDetails',
-            description:
-                'Pointer lifted. Use details.velocity for fling physics.',
+            description: 'Pointer lifted. Use details.velocity for fling physics.',
             color: const Color(0xFF2A9D8F),
             icon: Icons.outbond,
           ),
@@ -646,8 +626,7 @@ class _PrivateAnatomyCard extends StatelessWidget {
           _PrivateDragCallbackRow(
             symbol: 'cancel',
             type: 'void',
-            description:
-                'Arena rejected this pointer. Roll back any drag effect.',
+            description: 'Arena rejected this pointer. Roll back any drag effect.',
             color: const Color(0xFF8B5CF6),
             icon: Icons.cancel,
           ),
@@ -758,8 +737,7 @@ class _PrivateFamilyGrid extends StatelessWidget {
         name: 'ImmediateMultiDragGestureRecognizer',
         tagline: 'Claim now, ask questions later.',
         claimRule: 'Wins arena on PointerDown.',
-        typicalUse:
-            'Direct-manipulation drag-and-drop where any motion is a drag.',
+        typicalUse: 'Direct-manipulation drag-and-drop where any motion is a drag.',
         icon: Icons.flash_on,
         color: Color(0xFFFF6F3C),
         delayLabel: '0 ms',
@@ -834,10 +812,7 @@ class _PrivateFamilyCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: spec.color.withValues(alpha: 0.45),
-          width: 1.5,
-        ),
+        border: Border.all(color: spec.color.withValues(alpha: 0.45), width: 1.5),
         boxShadow: [
           BoxShadow(
             color: spec.color.withValues(alpha: 0.10),
@@ -884,29 +859,16 @@ class _PrivateFamilyCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             spec.claimRule,
-            style: const TextStyle(
-              fontSize: 11.5,
-              height: 1.4,
-              color: Color(0xFF555555),
-            ),
+            style: const TextStyle(fontSize: 11.5, height: 1.4, color: Color(0xFF555555)),
           ),
           const SizedBox(height: 10),
           Wrap(
             spacing: 6,
             runSpacing: 4,
             children: [
-              _PrivateMiniBadge(
-                label: 'delay ${spec.delayLabel}',
-                color: spec.color,
-              ),
-              _PrivateMiniBadge(
-                label: 'slop ${spec.slopLabel}',
-                color: spec.color,
-              ),
-              _PrivateMiniBadge(
-                label: 'axis ${spec.axisLabel}',
-                color: spec.color,
-              ),
+              _PrivateMiniBadge(label: 'delay ${spec.delayLabel}', color: spec.color),
+              _PrivateMiniBadge(label: 'slop ${spec.slopLabel}', color: spec.color),
+              _PrivateMiniBadge(label: 'axis ${spec.axisLabel}', color: spec.color),
             ],
           ),
           const SizedBox(height: 10),
@@ -967,16 +929,14 @@ class _PrivateArenaTimeline extends StatelessWidget {
       const _PrivateTimelineStep(
         time: 't+0',
         event: 'PointerDownEvent',
-        detail:
-            'Finger touches screen. New entry in GestureBinding pointer router.',
+        detail: 'Finger touches screen. New entry in GestureBinding pointer router.',
         color: Color(0xFFFF6F3C),
         icon: Icons.touch_app,
       ),
       const _PrivateTimelineStep(
         time: 't+0',
         event: 'addAllowedPointer',
-        detail:
-            'Recognizer creates a MultiDragPointerState for this pointer ID.',
+        detail: 'Recognizer creates a MultiDragPointerState for this pointer ID.',
         color: Color(0xFFE76F51),
         icon: Icons.add_circle,
       ),
@@ -990,16 +950,14 @@ class _PrivateArenaTimeline extends StatelessWidget {
       const _PrivateTimelineStep(
         time: 't+0+e',
         event: 'resolve(GestureDisposition.accepted)',
-        detail:
-            'Immediate variant immediately claims the arena. No slop, no delay.',
+        detail: 'Immediate variant immediately claims the arena. No slop, no delay.',
         color: Color(0xFFE9C46A),
         icon: Icons.flash_on,
       ),
       const _PrivateTimelineStep(
         time: 't+0+e',
         event: 'onStart(position) -> Drag',
-        detail:
-            'Recognizer asks owner for a Drag. If null, the pointer is dropped.',
+        detail: 'Recognizer asks owner for a Drag. If null, the pointer is dropped.',
         color: Color(0xFF2A9D8F),
         icon: Icons.play_arrow,
       ),
@@ -1020,8 +978,7 @@ class _PrivateArenaTimeline extends StatelessWidget {
       const _PrivateTimelineStep(
         time: 'parallel',
         event: 'Drag.cancel()',
-        detail:
-            'If something else wins (rare for Immediate), the drag is rolled back.',
+        detail: 'If something else wins (rare for Immediate), the drag is rolled back.',
         color: Color(0xFF8B5CF6),
         icon: Icons.cancel,
       ),
@@ -1141,68 +1098,55 @@ class _PrivateTrailGallery extends StatelessWidget {
       children: [
         Row(
           children: [
-            Expanded(
-              child: _PrivateTrailTile(
-                title: 'Immediate · Tap-and-go',
-                variant: _PrivateTrailVariant.immediateTapGo,
-                accent: const Color(0xFFFF6F3C),
-                caption:
-                    'Drag fires on the very first move. Perfect for live drag.',
-              ),
-            ),
+            Expanded(child: _PrivateTrailTile(
+              title: 'Immediate · Tap-and-go',
+              variant: _PrivateTrailVariant.immediateTapGo,
+              accent: const Color(0xFFFF6F3C),
+              caption: 'Drag fires on the very first move. Perfect for live drag.',
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _PrivateTrailTile(
-                title: 'Delayed · Hold-then-drag',
-                variant: _PrivateTrailVariant.delayedHoldDrag,
-                accent: const Color(0xFF6C7A89),
-                caption: 'Nothing happens for ~500 ms, then drag activates.',
-              ),
-            ),
+            Expanded(child: _PrivateTrailTile(
+              title: 'Delayed · Hold-then-drag',
+              variant: _PrivateTrailVariant.delayedHoldDrag,
+              accent: const Color(0xFF6C7A89),
+              caption: 'Nothing happens for ~500 ms, then drag activates.',
+            )),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(
-              child: _PrivateTrailTile(
-                title: 'Immediate · Diagonal swipe',
-                variant: _PrivateTrailVariant.immediateDiagonal,
-                accent: const Color(0xFFE76F51),
-                caption: 'Any direction works — no axis constraint.',
-              ),
-            ),
+            Expanded(child: _PrivateTrailTile(
+              title: 'Immediate · Diagonal swipe',
+              variant: _PrivateTrailVariant.immediateDiagonal,
+              accent: const Color(0xFFE76F51),
+              caption: 'Any direction works — no axis constraint.',
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _PrivateTrailTile(
-                title: 'Delayed · Released early',
-                variant: _PrivateTrailVariant.delayedAborted,
-                accent: const Color(0xFFA0A8B0),
-                caption: 'Lifting before the timeout sends a tap, not a drag.',
-              ),
-            ),
+            Expanded(child: _PrivateTrailTile(
+              title: 'Delayed · Released early',
+              variant: _PrivateTrailVariant.delayedAborted,
+              accent: const Color(0xFFA0A8B0),
+              caption: 'Lifting before the timeout sends a tap, not a drag.',
+            )),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(
-              child: _PrivateTrailTile(
-                title: 'Immediate · Two pointers in flight',
-                variant: _PrivateTrailVariant.immediateTwoFingers,
-                accent: const Color(0xFFF4A261),
-                caption: 'Two pointer states track in parallel.',
-              ),
-            ),
+            Expanded(child: _PrivateTrailTile(
+              title: 'Immediate · Two pointers in flight',
+              variant: _PrivateTrailVariant.immediateTwoFingers,
+              accent: const Color(0xFFF4A261),
+              caption: 'Two pointer states track in parallel.',
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _PrivateTrailTile(
-                title: 'Delayed · Hold then drag',
-                variant: _PrivateTrailVariant.delayedHoldThenDrag,
-                accent: const Color(0xFF8B5CF6),
-                caption: 'Static dwell circle, then trail follows.',
-              ),
-            ),
+            Expanded(child: _PrivateTrailTile(
+              title: 'Delayed · Hold then drag',
+              variant: _PrivateTrailVariant.delayedHoldThenDrag,
+              accent: const Color(0xFF8B5CF6),
+              caption: 'Static dwell circle, then trail follows.',
+            )),
           ],
         ),
       ],
@@ -1261,21 +1205,14 @@ class _PrivateTrailTile extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CustomPaint(
-                painter: _PrivateVariantTrailPainter(
-                  variant: variant,
-                  accent: accent,
-                ),
+                painter: _PrivateVariantTrailPainter(variant: variant, accent: accent),
               ),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             caption,
-            style: const TextStyle(
-              fontSize: 11,
-              height: 1.4,
-              color: Color(0xFF555555),
-            ),
+            style: const TextStyle(fontSize: 11, height: 1.4, color: Color(0xFF555555)),
           ),
         ],
       ),
@@ -1292,69 +1229,53 @@ class _PrivateVariantTrailPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     switch (variant) {
       case _PrivateTrailVariant.immediateTapGo:
-        _drawTrail(
-          canvas,
-          size,
-          _path([
-            Offset(0.10, 0.55),
-            Offset(0.30, 0.50),
-            Offset(0.55, 0.45),
-            Offset(0.85, 0.40),
-          ]),
-        );
+        _drawTrail(canvas, size, _path([
+          Offset(0.10, 0.55),
+          Offset(0.30, 0.50),
+          Offset(0.55, 0.45),
+          Offset(0.85, 0.40),
+        ]));
         break;
       case _PrivateTrailVariant.delayedHoldDrag:
         _drawDwell(canvas, size, const Offset(0.18, 0.55));
-        _drawTrail(
-          canvas,
-          size,
-          _path([
-            Offset(0.18, 0.55),
-            Offset(0.40, 0.55),
-            Offset(0.65, 0.55),
-            Offset(0.85, 0.55),
-          ]),
-        );
+        _drawTrail(canvas, size, _path([
+          Offset(0.18, 0.55),
+          Offset(0.40, 0.55),
+          Offset(0.65, 0.55),
+          Offset(0.85, 0.55),
+        ]));
         break;
       case _PrivateTrailVariant.immediateDiagonal:
-        _drawTrail(
-          canvas,
-          size,
-          _path([
-            Offset(0.15, 0.85),
-            Offset(0.35, 0.65),
-            Offset(0.55, 0.45),
-            Offset(0.80, 0.20),
-          ]),
-        );
+        _drawTrail(canvas, size, _path([
+          Offset(0.15, 0.85),
+          Offset(0.35, 0.65),
+          Offset(0.55, 0.45),
+          Offset(0.80, 0.20),
+        ]));
         break;
       case _PrivateTrailVariant.delayedAborted:
         _drawDwell(canvas, size, const Offset(0.5, 0.5), aborted: true);
         break;
       case _PrivateTrailVariant.immediateTwoFingers:
-        _drawTrail(
-          canvas,
-          size,
-          _path([Offset(0.10, 0.30), Offset(0.35, 0.30), Offset(0.60, 0.30)]),
-        );
-        _drawTrail(
-          canvas,
-          size,
-          _path([Offset(0.10, 0.70), Offset(0.40, 0.70), Offset(0.70, 0.70)]),
-        );
+        _drawTrail(canvas, size, _path([
+          Offset(0.10, 0.30),
+          Offset(0.35, 0.30),
+          Offset(0.60, 0.30),
+        ]));
+        _drawTrail(canvas, size, _path([
+          Offset(0.10, 0.70),
+          Offset(0.40, 0.70),
+          Offset(0.70, 0.70),
+        ]));
         break;
       case _PrivateTrailVariant.delayedHoldThenDrag:
         _drawDwell(canvas, size, const Offset(0.20, 0.55));
-        _drawTrail(
-          canvas,
-          size,
-          _path([
-            Offset(0.20, 0.55),
-            Offset(0.40, 0.45),
-            Offset(0.65, 0.40),
-            Offset(0.85, 0.30),
-          ]),
-        );
+        _drawTrail(canvas, size, _path([
+          Offset(0.20, 0.55),
+          Offset(0.40, 0.45),
+          Offset(0.65, 0.40),
+          Offset(0.85, 0.30),
+        ]));
         break;
     }
   }
@@ -1373,10 +1294,7 @@ class _PrivateVariantTrailPainter extends CustomPainter {
     for (int i = 0; i < normalized.length - 1; i++) {
       canvas.drawLine(
         Offset(normalized[i].dx * size.width, normalized[i].dy * size.height),
-        Offset(
-          normalized[i + 1].dx * size.width,
-          normalized[i + 1].dy * size.height,
-        ),
+        Offset(normalized[i + 1].dx * size.width, normalized[i + 1].dy * size.height),
         linePaint,
       );
     }
@@ -1391,16 +1309,8 @@ class _PrivateVariantTrailPainter extends CustomPainter {
     }
   }
 
-  void _drawDwell(
-    Canvas canvas,
-    Size size,
-    Offset normalized, {
-    bool aborted = false,
-  }) {
-    final center = Offset(
-      normalized.dx * size.width,
-      normalized.dy * size.height,
-    );
+  void _drawDwell(Canvas canvas, Size size, Offset normalized, {bool aborted = false}) {
+    final center = Offset(normalized.dx * size.width, normalized.dy * size.height);
     final ringPaint = Paint()
       ..color = accent.withValues(alpha: 0.30)
       ..style = PaintingStyle.stroke
@@ -1572,16 +1482,15 @@ class _PrivateLiveRawGestureDetectorIllustration extends StatelessWidget {
             behavior: HitTestBehavior.opaque,
             gestures: <Type, GestureRecognizerFactory>{
               ImmediateMultiDragGestureRecognizer:
-                  GestureRecognizerFactoryWithHandlers<
-                    ImmediateMultiDragGestureRecognizer
-                  >(() => ImmediateMultiDragGestureRecognizer(), (
-                    ImmediateMultiDragGestureRecognizer instance,
-                  ) {
-                    instance.onStart = (Offset position) {
-                      // No-op: returning null tells the recognizer to ignore this pointer.
-                      return null;
-                    };
-                  }),
+                  GestureRecognizerFactoryWithHandlers<ImmediateMultiDragGestureRecognizer>(
+                () => ImmediateMultiDragGestureRecognizer(),
+                (ImmediateMultiDragGestureRecognizer instance) {
+                  instance.onStart = (Offset position) {
+                    // No-op: returning null tells the recognizer to ignore this pointer.
+                    return null;
+                  };
+                },
+              ),
             },
             child: Container(
               height: 96,
@@ -1593,9 +1502,7 @@ class _PrivateLiveRawGestureDetectorIllustration extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: const Color(0xFFFF6F3C).withValues(alpha: 0.5),
-                ),
+                border: Border.all(color: const Color(0xFFFF6F3C).withValues(alpha: 0.5)),
               ),
               child: const Text(
                 '(touchable but inert canvas)',
@@ -1719,26 +1626,17 @@ class _PrivateStickyNote extends StatelessWidget {
           children: [
             Text(
               label,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
             ),
             const SizedBox(height: 6),
-            Container(
-              width: 60,
-              height: 2,
-              color: Colors.black.withValues(alpha: 0.15),
-            ),
+            Container(width: 60, height: 2, color: Colors.black.withValues(alpha: 0.15)),
             const SizedBox(height: 4),
-            Container(
-              width: 50,
-              height: 2,
-              color: Colors.black.withValues(alpha: 0.10),
-            ),
+            Container(width: 50, height: 2, color: Colors.black.withValues(alpha: 0.10)),
             const SizedBox(height: 4),
-            Container(
-              width: 40,
-              height: 2,
-              color: Colors.black.withValues(alpha: 0.08),
-            ),
+            Container(width: 40, height: 2, color: Colors.black.withValues(alpha: 0.08)),
           ],
         ),
       ),
@@ -1769,9 +1667,7 @@ class _PrivateChoreographyPainter extends CustomPainter {
     ];
 
     for (final path in paths) {
-      final pts = path
-          .map((p) => Offset(p.dx * size.width, p.dy * size.height))
-          .toList();
+      final pts = path.map((p) => Offset(p.dx * size.width, p.dy * size.height)).toList();
       final stroke = Paint()
         ..color = fingerColor.withValues(alpha: 0.45)
         ..strokeWidth = 2
@@ -1846,26 +1742,11 @@ class _PrivateFiveFingerTrails extends StatelessWidget {
             spacing: 8,
             runSpacing: 6,
             children: const [
-              _PrivateTrailLegend(
-                label: 'pointer 17 (F1)',
-                color: Color(0xFFFF6F3C),
-              ),
-              _PrivateTrailLegend(
-                label: 'pointer 18 (F2)',
-                color: Color(0xFFFFE66D),
-              ),
-              _PrivateTrailLegend(
-                label: 'pointer 19 (F3)',
-                color: Color(0xFF7FE0CB),
-              ),
-              _PrivateTrailLegend(
-                label: 'pointer 20 (F4)',
-                color: Color(0xFFFFAFCC),
-              ),
-              _PrivateTrailLegend(
-                label: 'pointer 21 (F5)',
-                color: Color(0xFFB8B5FF),
-              ),
+              _PrivateTrailLegend(label: 'pointer 17 (F1)', color: Color(0xFFFF6F3C)),
+              _PrivateTrailLegend(label: 'pointer 18 (F2)', color: Color(0xFFFFE66D)),
+              _PrivateTrailLegend(label: 'pointer 19 (F3)', color: Color(0xFF7FE0CB)),
+              _PrivateTrailLegend(label: 'pointer 20 (F4)', color: Color(0xFFFFAFCC)),
+              _PrivateTrailLegend(label: 'pointer 21 (F5)', color: Color(0xFFB8B5FF)),
             ],
           ),
         ],
@@ -1976,14 +1857,8 @@ class _PrivateFiveTrailDarkPainter extends CustomPainter {
         ..style = PaintingStyle.stroke;
       for (int i = 0; i < trail.points.length - 1; i++) {
         canvas.drawLine(
-          Offset(
-            trail.points[i].x * size.width,
-            trail.points[i].y * size.height,
-          ),
-          Offset(
-            trail.points[i + 1].x * size.width,
-            trail.points[i + 1].y * size.height,
-          ),
+          Offset(trail.points[i].x * size.width, trail.points[i].y * size.height),
+          Offset(trail.points[i + 1].x * size.width, trail.points[i + 1].y * size.height),
           linePaint,
         );
       }
@@ -2114,11 +1989,7 @@ class _PrivatePitfallTile extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.lightbulb_outline,
-                        color: pitfall.color,
-                        size: 14,
-                      ),
+                      Icon(Icons.lightbulb_outline, color: pitfall.color, size: 14),
                       const SizedBox(width: 6),
                       Expanded(
                         child: Text(
@@ -2207,24 +2078,15 @@ class _PrivateDecisionMatrix extends StatelessWidget {
               children: const [
                 Expanded(
                   flex: 4,
-                  child: Text(
-                    'Scenario',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
+                  child: Text('Scenario', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(
-                    'Recommendation',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
+                  child: Text('Recommendation', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                 ),
                 Expanded(
                   flex: 5,
-                  child: Text(
-                    'Why',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
+                  child: Text('Why', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                 ),
               ],
             ),
@@ -2234,19 +2096,14 @@ class _PrivateDecisionMatrix extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
                 color: i.isEven ? Colors.white : const Color(0xFFFAF7F2),
-                border: Border(
-                  top: BorderSide(color: rows[i].color.withValues(alpha: 0.18)),
-                ),
+                border: Border(top: BorderSide(color: rows[i].color.withValues(alpha: 0.18))),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     flex: 4,
-                    child: Text(
-                      rows[i].scenario,
-                      style: const TextStyle(fontSize: 11.5, height: 1.4),
-                    ),
+                    child: Text(rows[i].scenario, style: const TextStyle(fontSize: 11.5, height: 1.4)),
                   ),
                   Expanded(
                     flex: 4,
@@ -2265,11 +2122,7 @@ class _PrivateDecisionMatrix extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       rows[i].reason,
-                      style: const TextStyle(
-                        fontSize: 11.5,
-                        height: 1.4,
-                        color: Color(0xFF555555),
-                      ),
+                      style: const TextStyle(fontSize: 11.5, height: 1.4, color: Color(0xFF555555)),
                     ),
                   ),
                 ],

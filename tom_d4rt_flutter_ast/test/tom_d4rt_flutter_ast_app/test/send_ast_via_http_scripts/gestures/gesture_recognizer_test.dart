@@ -24,7 +24,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF311B92), Color(0xFF4A148C)],
+        colors: [
+          Color(0xFF1A237E),
+          Color(0xFF311B92),
+          Color(0xFF4A148C),
+        ],
         stops: [0.0, 0.55, 1.0],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -290,72 +294,36 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 16.0),
-        _buildTreeNode(
-          'GestureRecognizer',
-          'abstract',
-          Colors.indigo.shade700,
-          0,
-        ),
+        _buildTreeNode('GestureRecognizer', 'abstract',
+            Colors.indigo.shade700, 0),
         _buildTreeConnector(0),
-        _buildTreeNode(
-          'OneSequenceGestureRecognizer',
-          'abstract',
-          Colors.indigo.shade500,
-          1,
-        ),
+        _buildTreeNode('OneSequenceGestureRecognizer', 'abstract',
+            Colors.indigo.shade500, 1),
         _buildTreeConnector(1),
-        _buildTreeNode(
-          'PrimaryPointerGestureRecognizer',
-          'abstract',
-          Colors.purple.shade400,
-          2,
-        ),
+        _buildTreeNode('PrimaryPointerGestureRecognizer', 'abstract',
+            Colors.purple.shade400, 2),
         SizedBox(height: 8.0),
         Wrap(
           spacing: 10.0,
           runSpacing: 10.0,
           alignment: WrapAlignment.center,
           children: [
-            _buildLeafNode(
-              'TapGestureRecognizer',
-              Icons.touch_app,
-              Colors.teal,
-            ),
-            _buildLeafNode(
-              'DoubleTapGestureRecognizer',
-              Icons.double_arrow,
-              Colors.cyan,
-            ),
-            _buildLeafNode(
-              'LongPressGestureRecognizer',
-              Icons.timer,
-              Colors.amber.shade800,
-            ),
-            _buildLeafNode(
-              'VerticalDragGestureRecognizer',
-              Icons.swap_vert,
-              Colors.green,
-            ),
-            _buildLeafNode(
-              'HorizontalDragGestureRecognizer',
-              Icons.swap_horiz,
-              Colors.blue,
-            ),
-            _buildLeafNode(
-              'PanGestureRecognizer',
-              Icons.pan_tool_alt,
-              Colors.deepPurple,
-            ),
-            _buildLeafNode(
-              'ScaleGestureRecognizer',
-              Icons.zoom_out_map,
-              Colors.pink,
-            ),
-            _buildLeafNode(
-              'ForcePressGestureRecognizer',
-              Icons.compress,
-              Colors.red,
-            ),
+            _buildLeafNode('TapGestureRecognizer', Icons.touch_app,
+                Colors.teal),
+            _buildLeafNode('DoubleTapGestureRecognizer',
+                Icons.double_arrow, Colors.cyan),
+            _buildLeafNode('LongPressGestureRecognizer',
+                Icons.timer, Colors.amber.shade800),
+            _buildLeafNode('VerticalDragGestureRecognizer',
+                Icons.swap_vert, Colors.green),
+            _buildLeafNode('HorizontalDragGestureRecognizer',
+                Icons.swap_horiz, Colors.blue),
+            _buildLeafNode('PanGestureRecognizer',
+                Icons.pan_tool_alt, Colors.deepPurple),
+            _buildLeafNode('ScaleGestureRecognizer',
+                Icons.zoom_out_map, Colors.pink),
+            _buildLeafNode('ForcePressGestureRecognizer',
+                Icons.compress, Colors.red),
           ],
         ),
         SizedBox(height: 12.0),
@@ -517,7 +485,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.blueGrey.shade900, Colors.indigo.shade900],
+        colors: [
+          Colors.blueGrey.shade900,
+          Colors.indigo.shade900,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -559,7 +530,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 16.0),
         SizedBox(
           height: 240.0,
-          child: CustomPaint(painter: _ArenaPainter(), child: Container()),
+          child: CustomPaint(
+            painter: _ArenaPainter(),
+            child: Container(),
+          ),
         ),
         SizedBox(height: 12.0),
         Wrap(
@@ -608,8 +582,7 @@ dynamic build(BuildContext context) {
     _buildSubclassCard(
       title: 'TapGestureRecognizer',
       tagline: 'single primary pointer · short duration',
-      description:
-          'Detects a quick tap. Wins the arena on PointerUpEvent '
+      description: 'Detects a quick tap. Wins the arena on PointerUpEvent '
           'when no other recognizer has a stronger claim.',
       callbacks: ['onTapDown', 'onTap', 'onTapCancel'],
       icon: Icons.touch_app,
@@ -618,8 +591,7 @@ dynamic build(BuildContext context) {
     _buildSubclassCard(
       title: 'DoubleTapGestureRecognizer',
       tagline: 'two taps within kDoubleTapTimeout',
-      description:
-          'Tracks two consecutive taps. Will reject other tap '
+      description: 'Tracks two consecutive taps. Will reject other tap '
           'recognizers in the same arena to claim the second tap.',
       callbacks: ['onDoubleTapDown', 'onDoubleTap', 'onDoubleTapCancel'],
       icon: Icons.double_arrow,
@@ -628,8 +600,7 @@ dynamic build(BuildContext context) {
     _buildSubclassCard(
       title: 'LongPressGestureRecognizer',
       tagline: 'pointer held > kLongPressTimeout',
-      description:
-          'Fires after a configurable hold delay. Often paired '
+      description: 'Fires after a configurable hold delay. Often paired '
           'with feedback haptics through GestureBinding.',
       callbacks: ['onLongPressStart', 'onLongPress', 'onLongPressEnd'],
       icon: Icons.timer,
@@ -638,8 +609,7 @@ dynamic build(BuildContext context) {
     _buildSubclassCard(
       title: 'PanGestureRecognizer',
       tagline: 'arbitrary 2-D drag',
-      description:
-          'Tracks unconstrained drag gestures. Useful for canvases, '
+      description: 'Tracks unconstrained drag gestures. Useful for canvases, '
           'reorderable lists, and free-form drawing.',
       callbacks: ['onPanStart', 'onPanUpdate', 'onPanEnd'],
       icon: Icons.pan_tool_alt,
@@ -648,8 +618,7 @@ dynamic build(BuildContext context) {
     _buildSubclassCard(
       title: 'HorizontalDragGestureRecognizer',
       tagline: 'horizontal-axis drag',
-      description:
-          'Resolves accepted only after movement crosses the '
+      description: 'Resolves accepted only after movement crosses the '
           'horizontal slop threshold; rejects on vertical-dominant motion.',
       callbacks: ['onStart', 'onUpdate', 'onEnd'],
       icon: Icons.swap_horiz,
@@ -658,8 +627,7 @@ dynamic build(BuildContext context) {
     _buildSubclassCard(
       title: 'VerticalDragGestureRecognizer',
       tagline: 'vertical-axis drag',
-      description:
-          'Mirror of the horizontal drag recognizer. Powers '
+      description: 'Mirror of the horizontal drag recognizer. Powers '
           'Scrollable, BottomSheet, RefreshIndicator and similar widgets.',
       callbacks: ['onStart', 'onUpdate', 'onEnd'],
       icon: Icons.swap_vert,
@@ -668,8 +636,7 @@ dynamic build(BuildContext context) {
     _buildSubclassCard(
       title: 'ScaleGestureRecognizer',
       tagline: 'two or more pointers · pinch / zoom',
-      description:
-          'Tracks scale, rotation, and focal-point translation. '
+      description: 'Tracks scale, rotation, and focal-point translation. '
           'Extends OneSequenceGestureRecognizer directly.',
       callbacks: ['onScaleStart', 'onScaleUpdate', 'onScaleEnd'],
       icon: Icons.zoom_out_map,
@@ -678,8 +645,7 @@ dynamic build(BuildContext context) {
     _buildSubclassCard(
       title: 'ForcePressGestureRecognizer',
       tagline: '3-D Touch / pressure-sensitive',
-      description:
-          'Fires when pointer pressure crosses startPressure and '
+      description: 'Fires when pointer pressure crosses startPressure and '
           'peakPressure thresholds. iOS / Apple Pencil oriented.',
       callbacks: ['onStart', 'onPeak', 'onUpdate', 'onEnd'],
       icon: Icons.compress,
@@ -935,10 +901,8 @@ dynamic build(BuildContext context) {
   final phaseAnim = AlwaysStoppedAnimation<double>(0.0);
   final glowAnim = AlwaysStoppedAnimation<double>(0.5);
   const stillness = Duration.zero;
-  print(
-    'phaseAnim.value=${phaseAnim.value} glowAnim.value=${glowAnim.value} '
-    'duration=$stillness',
-  );
+  print('phaseAnim.value=${phaseAnim.value} glowAnim.value=${glowAnim.value} '
+      'duration=$stillness');
 
   print('GestureRecognizer Deep Demo completed successfully');
 
@@ -959,9 +923,7 @@ dynamic build(BuildContext context) {
               hero,
               SizedBox(height: 24.0),
               _buildSectionTitle(
-                '1. Anatomy of GestureRecognizer',
-                Icons.account_tree,
-              ),
+                  '1. Anatomy of GestureRecognizer', Icons.account_tree),
               anatomy,
               SizedBox(height: 24.0),
               _buildSectionTitle('2. Class Hierarchy', Icons.device_hub),
@@ -1131,7 +1093,12 @@ Widget _buildAnatomyRow(
 // ============================================================
 // Helper: tree node
 // ============================================================
-Widget _buildTreeNode(String name, String tag, Color color, int depth) {
+Widget _buildTreeNode(
+  String name,
+  String tag,
+  Color color,
+  int depth,
+) {
   return Container(
     margin: EdgeInsets.only(left: depth * 18.0),
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
@@ -1378,29 +1345,29 @@ class _ArenaPainter extends CustomPainter {
     final ringPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.0
-      ..shader =
-          LinearGradient(
-            colors: [Colors.amberAccent, Colors.deepPurpleAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ).createShader(
-            Rect.fromCircle(center: Offset(centerX, centerY), radius: 90.0),
-          );
+      ..shader = LinearGradient(
+        colors: [Colors.amberAccent, Colors.deepPurpleAccent],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ).createShader(Rect.fromCircle(
+        center: Offset(centerX, centerY),
+        radius: 90.0,
+      ));
     canvas.drawCircle(Offset(centerX, centerY), 90.0, ringPaint);
 
     // Inner "arena floor"
     final floorPaint = Paint()
-      ..shader =
-          LinearGradient(
-            colors: [
-              Colors.indigo.shade700.withValues(alpha: 0.4),
-              Colors.deepPurple.shade700.withValues(alpha: 0.6),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ).createShader(
-            Rect.fromCircle(center: Offset(centerX, centerY), radius: 80.0),
-          );
+      ..shader = LinearGradient(
+        colors: [
+          Colors.indigo.shade700.withValues(alpha: 0.4),
+          Colors.deepPurple.shade700.withValues(alpha: 0.6),
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ).createShader(Rect.fromCircle(
+        center: Offset(centerX, centerY),
+        radius: 80.0,
+      ));
     canvas.drawCircle(Offset(centerX, centerY), 80.0, floorPaint);
 
     // Pointer marker at center
@@ -1446,14 +1413,18 @@ class _ArenaPainter extends CustomPainter {
 
       // Recognizer chip
       final chipPaint = Paint()
-        ..shader =
-            LinearGradient(
-              colors: [slot.color.withValues(alpha: 0.4), slot.color],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ).createShader(
-              Rect.fromCenter(center: Offset(x, y), width: 90.0, height: 36.0),
-            );
+        ..shader = LinearGradient(
+          colors: [
+            slot.color.withValues(alpha: 0.4),
+            slot.color,
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ).createShader(Rect.fromCenter(
+          center: Offset(x, y),
+          width: 90.0,
+          height: 36.0,
+        ));
       final chipRect = RRect.fromRectAndRadius(
         Rect.fromCenter(center: Offset(x, y), width: 96.0, height: 40.0),
         Radius.circular(20.0),
@@ -1651,7 +1622,11 @@ Widget _buildSubclassCard({
         SizedBox(height: 8.0),
         Text(
           description,
-          style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.3),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12.0,
+            height: 1.3,
+          ),
         ),
         SizedBox(height: 10.0),
         Container(

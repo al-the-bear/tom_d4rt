@@ -43,10 +43,8 @@ class GestureClassDemoApp extends StatelessWidget {
       seedColor: Colors.deepPurple,
       brightness: Brightness.light,
     );
-    final ThemeData theme = ThemeData(
-      colorScheme: colorScheme,
-      useMaterial3: true,
-    );
+    final ThemeData theme =
+        ThemeData(colorScheme: colorScheme, useMaterial3: true);
     print('GestureClassDemo: building root MaterialApp');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -284,7 +282,10 @@ class _SectionHeading extends StatelessWidget {
               ),
             ),
           ),
-          Icon(Icons.chevron_right, color: colorScheme.outlineVariant),
+          Icon(
+            Icons.chevron_right,
+            color: colorScheme.outlineVariant,
+          ),
         ],
       ),
     );
@@ -316,24 +317,12 @@ class _HierarchySection extends StatelessWidget {
               Icons.adjust,
               colorScheme.tertiary,
               <_HierNode>[
-                _HierNode(
-                  'TapGestureRecognizer',
-                  Icons.touch_app,
-                  colorScheme.primary,
-                  const <_HierNode>[],
-                ),
-                _HierNode(
-                  'LongPressGestureRecognizer',
-                  Icons.timer,
-                  colorScheme.secondary,
-                  const <_HierNode>[],
-                ),
-                _HierNode(
-                  'ForcePressGestureRecognizer',
-                  Icons.compress,
-                  colorScheme.error,
-                  const <_HierNode>[],
-                ),
+                _HierNode('TapGestureRecognizer', Icons.touch_app,
+                    colorScheme.primary, const <_HierNode>[]),
+                _HierNode('LongPressGestureRecognizer', Icons.timer,
+                    colorScheme.secondary, const <_HierNode>[]),
+                _HierNode('ForcePressGestureRecognizer', Icons.compress,
+                    colorScheme.error, const <_HierNode>[]),
               ],
             ),
             _HierNode(
@@ -341,38 +330,18 @@ class _HierarchySection extends StatelessWidget {
               Icons.swipe,
               colorScheme.tertiary,
               <_HierNode>[
-                _HierNode(
-                  'VerticalDragGestureRecognizer',
-                  Icons.swap_vert,
-                  colorScheme.primary,
-                  const <_HierNode>[],
-                ),
-                _HierNode(
-                  'HorizontalDragGestureRecognizer',
-                  Icons.swap_horiz,
-                  colorScheme.secondary,
-                  const <_HierNode>[],
-                ),
-                _HierNode(
-                  'PanGestureRecognizer',
-                  Icons.open_with,
-                  colorScheme.tertiary,
-                  const <_HierNode>[],
-                ),
+                _HierNode('VerticalDragGestureRecognizer', Icons.swap_vert,
+                    colorScheme.primary, const <_HierNode>[]),
+                _HierNode('HorizontalDragGestureRecognizer', Icons.swap_horiz,
+                    colorScheme.secondary, const <_HierNode>[]),
+                _HierNode('PanGestureRecognizer', Icons.open_with,
+                    colorScheme.tertiary, const <_HierNode>[]),
               ],
             ),
-            _HierNode(
-              'ScaleGestureRecognizer',
-              Icons.zoom_out_map,
-              colorScheme.error,
-              const <_HierNode>[],
-            ),
-            _HierNode(
-              'DoubleTapGestureRecognizer',
-              Icons.touch_app_outlined,
-              colorScheme.primary,
-              const <_HierNode>[],
-            ),
+            _HierNode('ScaleGestureRecognizer', Icons.zoom_out_map,
+                colorScheme.error, const <_HierNode>[]),
+            _HierNode('DoubleTapGestureRecognizer', Icons.touch_app_outlined,
+                colorScheme.primary, const <_HierNode>[]),
           ],
         ),
       ],
@@ -506,7 +475,11 @@ class _GestureDetectorFacadeSection extends StatelessWidget {
                 onTap: () {
                   print('preview onTap');
                 },
-                child: _previewBox(colorScheme.primary, 'Tap me', Icons.adjust),
+                child: _previewBox(
+                  colorScheme.primary,
+                  'Tap me',
+                  Icons.adjust,
+                ),
               ),
             ),
             _buildPreviewTile(
@@ -532,7 +505,11 @@ class _GestureDetectorFacadeSection extends StatelessWidget {
                 onLongPress: () {
                   print('preview onLongPress');
                 },
-                child: _previewBox(colorScheme.tertiary, 'Hold', Icons.timer),
+                child: _previewBox(
+                  colorScheme.tertiary,
+                  'Hold',
+                  Icons.timer,
+                ),
               ),
             ),
             _buildPreviewTile(
@@ -543,7 +520,11 @@ class _GestureDetectorFacadeSection extends StatelessWidget {
                 onPanUpdate: (DragUpdateDetails d) {
                   print('preview onPanUpdate ${d.delta}');
                 },
-                child: _previewBox(colorScheme.error, 'Drag', Icons.open_with),
+                child: _previewBox(
+                  colorScheme.error,
+                  'Drag',
+                  Icons.open_with,
+                ),
               ),
             ),
             _buildPreviewTile(
@@ -734,7 +715,12 @@ class _RecognizerCatalogueSection extends StatelessWidget {
             'Pressure-sensitive press, available on platforms with a force '
             'channel (3D Touch, stylus). Triggers above startPressure and '
             'peakPressure thresholds.',
-        callbacks: const <String>['onStart', 'onPeak', 'onUpdate', 'onEnd'],
+        callbacks: const <String>[
+          'onStart',
+          'onPeak',
+          'onUpdate',
+          'onEnd',
+        ],
         accent: colorScheme.error,
         icon: Icons.compress,
         diagram: _ForceDiagram(color: colorScheme.error),
@@ -744,7 +730,12 @@ class _RecognizerCatalogueSection extends StatelessWidget {
         purpose:
             'One-axis drag. Wins the arena when vertical motion exceeds slop. '
             'Used by Scrollable for vertical scroll views.',
-        callbacks: const <String>['onStart', 'onUpdate', 'onEnd', 'onCancel'],
+        callbacks: const <String>[
+          'onStart',
+          'onUpdate',
+          'onEnd',
+          'onCancel',
+        ],
         accent: colorScheme.secondary,
         icon: Icons.swap_vert,
         diagram: _VerticalDragDiagram(color: colorScheme.secondary),
@@ -754,7 +745,12 @@ class _RecognizerCatalogueSection extends StatelessWidget {
         purpose:
             'One-axis drag. Wins the arena when horizontal motion exceeds '
             'slop. Used by Dismissible and PageView for horizontal motion.',
-        callbacks: const <String>['onStart', 'onUpdate', 'onEnd', 'onCancel'],
+        callbacks: const <String>[
+          'onStart',
+          'onUpdate',
+          'onEnd',
+          'onCancel',
+        ],
         accent: colorScheme.tertiary,
         icon: Icons.swap_horiz,
         diagram: _HorizontalDragDiagram(color: colorScheme.tertiary),
@@ -944,7 +940,8 @@ class _LongPressDiagram extends StatelessWidget {
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.15),
             shape: BoxShape.circle,
-            border: Border.all(color: color.withValues(alpha: 0.5), width: 2.0),
+            border:
+                Border.all(color: color.withValues(alpha: 0.5), width: 2.0),
           ),
         ),
         Icon(Icons.timer, size: 32.0, color: color),
@@ -981,7 +978,12 @@ class _PanPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
     final Path path = Path()
       ..moveTo(8, size.height - 8)
-      ..quadraticBezierTo(size.width / 2, 4, size.width - 8, size.height / 2);
+      ..quadraticBezierTo(
+        size.width / 2,
+        4,
+        size.width - 8,
+        size.height / 2,
+      );
     canvas.drawPath(path, stroke);
     final Paint dot = Paint()..color = color;
     canvas.drawCircle(Offset(8, size.height - 8), 4.0, dot);
@@ -1333,10 +1335,7 @@ class _ArenaSection extends StatelessWidget {
               _arenaToken('reject', colorScheme.error, Icons.close),
               _arenaToken('hold', colorScheme.secondary, Icons.pause),
               _arenaToken(
-                'sweep',
-                colorScheme.tertiary,
-                Icons.cleaning_services,
-              ),
+                  'sweep', colorScheme.tertiary, Icons.cleaning_services),
               _arenaToken('resolve', colorScheme.primary, Icons.gavel),
             ],
           ),
@@ -1403,11 +1402,7 @@ class _ArenaDiagram extends StatelessWidget {
               _participant('Tap', colorScheme.primary, Icons.touch_app, false),
               _participant('Pan', colorScheme.tertiary, Icons.open_with, true),
               _participant(
-                'Scale',
-                colorScheme.secondary,
-                Icons.zoom_out_map,
-                false,
-              ),
+                  'Scale', colorScheme.secondary, Icons.zoom_out_map, false),
               _participant('Drag-V', colorScheme.error, Icons.swap_vert, false),
             ],
           ),
@@ -1444,7 +1439,11 @@ class _ArenaDiagram extends StatelessWidget {
             shape: BoxShape.circle,
             border: Border.all(color: color, width: winner ? 3.0 : 1.5),
           ),
-          child: Icon(icon, color: winner ? Colors.white : color, size: 22.0),
+          child: Icon(
+            icon,
+            color: winner ? Colors.white : color,
+            size: 22.0,
+          ),
         ),
         const SizedBox(height: 4.0),
         Text(
@@ -1547,7 +1546,10 @@ class _VelocitySection extends StatelessWidget {
           Text(
             'dx ${v.pixelsPerSecond.dx.toStringAsFixed(1)}\n'
             'dy ${v.pixelsPerSecond.dy.toStringAsFixed(1)}',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11.0,
+            ),
           ),
           const SizedBox(height: 6.0),
           LinearProgressIndicator(
@@ -1740,7 +1742,10 @@ class _DragStartBehaviorSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8.0),
-          SizedBox(height: 60.0, child: visualBuilder(accent)),
+          SizedBox(
+            height: 60.0,
+            child: visualBuilder(accent),
+          ),
           const SizedBox(height: 8.0),
           Text(
             description,
@@ -1748,7 +1753,8 @@ class _DragStartBehaviorSection extends StatelessWidget {
           ),
           const SizedBox(height: 6.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(4.0),
@@ -1884,10 +1890,8 @@ class _DecisionMatrixSection extends StatelessWidget {
         children: <Widget>[
           Container(
             color: colorScheme.primary,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 10.0,
-            ),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -1919,9 +1923,7 @@ class _DecisionMatrixSection extends StatelessWidget {
                   ? colorScheme.surfaceContainerHigh
                   : colorScheme.surface,
               padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 8.0,
-              ),
+                  horizontal: 12.0, vertical: 8.0),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -2047,7 +2049,8 @@ class _RecipeSection extends StatelessWidget {
                       const SizedBox(height: 4.0),
                       Text(
                         r.body,
-                        style: const TextStyle(fontSize: 12.0, height: 1.4),
+                        style:
+                            const TextStyle(fontSize: 12.0, height: 1.4),
                       ),
                     ],
                   ),
@@ -2143,7 +2146,8 @@ class _GlossarySection extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(Icons.menu_book, color: colorScheme.onPrimaryContainer),
+                  Icon(Icons.menu_book,
+                      color: colorScheme.onPrimaryContainer),
                   const SizedBox(width: 8.0),
                   Text(
                     'Glossary',
@@ -2179,9 +2183,8 @@ class _GlossarySection extends StatelessWidget {
                           row[1],
                           style: TextStyle(
                             fontSize: 12.0,
-                            color: colorScheme.onPrimaryContainer.withValues(
-                              alpha: 0.85,
-                            ),
+                            color: colorScheme.onPrimaryContainer
+                                .withValues(alpha: 0.85),
                             height: 1.35,
                           ),
                         ),
@@ -2284,7 +2287,8 @@ class _Takeaways extends StatelessWidget {
                       ),
                       Text(
                         t.body,
-                        style: const TextStyle(fontSize: 12.0, height: 1.35),
+                        style:
+                            const TextStyle(fontSize: 12.0, height: 1.35),
                       ),
                     ],
                   ),

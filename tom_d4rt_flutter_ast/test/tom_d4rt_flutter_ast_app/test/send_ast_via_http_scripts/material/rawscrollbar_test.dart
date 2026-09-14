@@ -79,12 +79,8 @@ Widget buildSectionDivider(String title, String subtitle, Color accent) {
   );
 }
 
-Widget buildExplanationCard(
-  String title,
-  String body,
-  IconData icon,
-  Color accent,
-) {
+Widget buildExplanationCard(String title, String body, IconData icon,
+    Color accent) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(14),
@@ -150,7 +146,10 @@ Widget buildParameterPill(String name, String value, Color color) {
             fontWeight: FontWeight.w700,
           ),
         ),
-        Text(': ', style: TextStyle(fontSize: 11, color: color)),
+        Text(
+          ': ',
+          style: TextStyle(fontSize: 11, color: color),
+        ),
         Text(
           value,
           style: TextStyle(
@@ -1072,17 +1071,17 @@ Widget buildMaterialScrollbarSection() {
   final Widget themedBar = Theme(
     data: ThemeData(
       scrollbarTheme: ScrollbarThemeData(
-        thumbColor: WidgetStateProperty.resolveWith<Color?>((
-          Set<WidgetState> states,
-        ) {
-          if (states.contains(WidgetState.dragged)) {
-            return paletteAt(0);
-          }
-          if (states.contains(WidgetState.hovered)) {
-            return paletteAt(2);
-          }
-          return paletteAt(4).withOpacity(0.7);
-        }),
+        thumbColor: WidgetStateProperty.resolveWith<Color?>(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.dragged)) {
+              return paletteAt(0);
+            }
+            if (states.contains(WidgetState.hovered)) {
+              return paletteAt(2);
+            }
+            return paletteAt(4).withOpacity(0.7);
+          },
+        ),
         trackColor: WidgetStateProperty.all<Color>(
           paletteAt(4).withOpacity(0.12),
         ),
@@ -1256,16 +1255,14 @@ Widget buildCupertinoScrollbarSection() {
 // Section 9: ScrollbarThemeData reference table
 // ---------------------------------------------------------------------------
 
-Widget buildThemeReferenceRow(
-  String parameter,
-  String type,
-  String purpose,
-  Color accent,
-) {
+Widget buildThemeReferenceRow(String parameter, String type, String purpose,
+    Color accent) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
     decoration: BoxDecoration(
-      border: Border(bottom: BorderSide(color: accent.withOpacity(0.2))),
+      border: Border(
+        bottom: BorderSide(color: accent.withOpacity(0.2)),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1331,39 +1328,28 @@ Widget buildThemeReferenceTable() {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
               decoration: BoxDecoration(
                 color: accent.withOpacity(0.12),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(11)),
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(11)),
               ),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     flex: 3,
-                    child: Text(
-                      'parameter',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: accent,
-                      ),
-                    ),
+                    child: Text('parameter',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800, color: accent)),
                   ),
                   Expanded(
                     flex: 4,
-                    child: Text(
-                      'type',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: accent,
-                      ),
-                    ),
+                    child: Text('type',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800, color: accent)),
                   ),
                   Expanded(
                     flex: 6,
-                    child: Text(
-                      'purpose',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: accent,
-                      ),
-                    ),
+                    child: Text('purpose',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800, color: accent)),
                   ),
                 ],
               ),
@@ -1459,7 +1445,10 @@ Widget buildMetricsRow(String label, String value, Color accent) {
         Container(
           width: 6,
           height: 6,
-          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: accent,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 10),
         Expanded(
@@ -1478,7 +1467,10 @@ Widget buildMetricsRow(String label, String value, Color accent) {
           flex: 6,
           child: Text(
             value,
-            style: TextStyle(fontSize: 12, color: Colors.grey.shade900),
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey.shade900,
+            ),
           ),
         ),
       ],
@@ -1553,7 +1545,11 @@ Widget buildScrollMetricsAnatomy() {
               sampleMetrics.pixels.toStringAsFixed(1),
               accent,
             ),
-            buildMetricsRow('axis', sampleMetrics.axis.toString(), accent),
+            buildMetricsRow(
+              'axis',
+              sampleMetrics.axis.toString(),
+              accent,
+            ),
             buildMetricsRow(
               'axisDirection',
               sampleMetrics.axisDirection.toString(),
@@ -1801,9 +1797,7 @@ Widget buildAnatomyDiagram() {
                               Expanded(
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
-                                    vertical: 2,
-                                    horizontal: 6,
-                                  ),
+                                      vertical: 2, horizontal: 6),
                                   decoration: BoxDecoration(
                                     color: tintAt(i, 0.18),
                                     borderRadius: BorderRadius.circular(4),
@@ -1829,7 +1823,11 @@ Widget buildAnatomyDiagram() {
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 8),
-                  Container(width: 6, height: 12, color: Colors.transparent),
+                  Container(
+                    width: 6,
+                    height: 12,
+                    color: Colors.transparent,
+                  ),
                   Expanded(
                     child: Container(
                       width: 12,
@@ -1878,7 +1876,10 @@ Widget buildAnatomyDiagram() {
                   Text(
                     'Margins and padding apply between the track and the '
                     'viewport edge.',
-                    style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
                 ],
               ),
@@ -1939,7 +1940,10 @@ dynamic build(BuildContext context) {
           'RawScrollbar -> Scrollbar (Material) -> CupertinoScrollbar.\n'
           'This demo enumerates every public parameter visually and shows a '
           'ScrollbarThemeData reference table plus a ScrollMetrics anatomy.',
-          style: TextStyle(color: Colors.white.withOpacity(0.94), fontSize: 14),
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.94),
+            fontSize: 14,
+          ),
         ),
       ],
     ),

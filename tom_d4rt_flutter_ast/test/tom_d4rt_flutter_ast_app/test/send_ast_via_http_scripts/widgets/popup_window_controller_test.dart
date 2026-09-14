@@ -337,8 +337,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 4,
-            height: 32,
+            width: 4, height: 32,
             decoration: BoxDecoration(
               color: accent,
               borderRadius: BorderRadius.circular(2),
@@ -362,10 +361,7 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(width: 6),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4,
-                        vertical: 1,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
                       decoration: BoxDecoration(
                         color: green50,
                         borderRadius: BorderRadius.circular(3),
@@ -381,7 +377,10 @@ dynamic build(BuildContext context) {
                     ),
                   ],
                 ),
-                Text(desc, style: TextStyle(color: green800, fontSize: 11)),
+                Text(
+                  desc,
+                  style: TextStyle(color: green800, fontSize: 11),
+                ),
               ],
             ),
           ),
@@ -433,27 +432,11 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
                 ...[
-                  {
-                    'param': 'parent',
-                    'type': 'RegularWindowController',
-                    'required': true,
-                  },
+                  {'param': 'parent', 'type': 'RegularWindowController', 'required': true},
                   {'param': 'anchorRect', 'type': 'Rect', 'required': true},
-                  {
-                    'param': 'positioner',
-                    'type': 'PopupWindowPositioner',
-                    'required': false,
-                  },
-                  {
-                    'param': 'preferredConstraints',
-                    'type': 'BoxConstraints?',
-                    'required': false,
-                  },
-                  {
-                    'param': 'delegate',
-                    'type': 'PopupWindowControllerDelegate',
-                    'required': false,
-                  },
+                  {'param': 'positioner', 'type': 'PopupWindowPositioner', 'required': false},
+                  {'param': 'preferredConstraints', 'type': 'BoxConstraints?', 'required': false},
+                  {'param': 'delegate', 'type': 'PopupWindowControllerDelegate', 'required': false},
                 ].map((p) {
                   final req = p['required'] as bool;
                   return Padding(
@@ -462,23 +445,16 @@ dynamic build(BuildContext context) {
                       children: [
                         Container(
                           width: 56,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 4,
-                            vertical: 2,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                           decoration: BoxDecoration(
-                            color: req
-                                ? green400.withValues(alpha: 0.4)
-                                : Colors.white.withValues(alpha: 0.1),
+                            color: req ? green400.withValues(alpha: 0.4) : Colors.white.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Center(
                             child: Text(
                               req ? 'required' : 'optional',
                               style: TextStyle(
-                                color: req
-                                    ? Colors.white
-                                    : Colors.white.withValues(alpha: 0.6),
+                                color: req ? Colors.white : Colors.white.withValues(alpha: 0.6),
                                 fontSize: 9,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -606,11 +582,7 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.desktop_windows,
-                            color: green900,
-                            size: 16,
-                          ),
+                          Icon(Icons.desktop_windows, color: green900, size: 16),
                           const SizedBox(width: 6),
                           Text(
                             'RegularWindowController (Parent)',
@@ -626,17 +598,11 @@ dynamic build(BuildContext context) {
                       // Anchor rect
                       Container(
                         width: 120,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Color(0xFFFFF9C4),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                            color: Color(0xFFFDD835),
-                            width: 1,
-                          ),
+                          border: Border.all(color: Color(0xFFFDD835), width: 1),
                         ),
                         child: Text(
                           'anchorRect',
@@ -661,11 +627,7 @@ dynamic build(BuildContext context) {
                         ),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.picture_in_picture,
-                              color: green700,
-                              size: 14,
-                            ),
+                            Icon(Icons.picture_in_picture, color: green700, size: 14),
                             const SizedBox(width: 6),
                             Text(
                               'PopupWindowController',
@@ -709,36 +671,11 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 ...[
-                  {
-                    'feature': 'Native window',
-                    'popup': true,
-                    'dialog': false,
-                    'overlay': false,
-                  },
-                  {
-                    'feature': 'Escapes bounds',
-                    'popup': true,
-                    'dialog': false,
-                    'overlay': false,
-                  },
-                  {
-                    'feature': 'Own render tree',
-                    'popup': true,
-                    'dialog': false,
-                    'overlay': false,
-                  },
-                  {
-                    'feature': 'All platforms',
-                    'popup': false,
-                    'dialog': true,
-                    'overlay': true,
-                  },
-                  {
-                    'feature': 'Stable API',
-                    'popup': false,
-                    'dialog': true,
-                    'overlay': true,
-                  },
+                  {'feature': 'Native window', 'popup': true, 'dialog': false, 'overlay': false},
+                  {'feature': 'Escapes bounds', 'popup': true, 'dialog': false, 'overlay': false},
+                  {'feature': 'Own render tree', 'popup': true, 'dialog': false, 'overlay': false},
+                  {'feature': 'All platforms', 'popup': false, 'dialog': true, 'overlay': true},
+                  {'feature': 'Stable API', 'popup': false, 'dialog': true, 'overlay': true},
                 ].map((row) {
                   Widget check(bool val) => Icon(
                     val ? Icons.check_circle : Icons.cancel_outlined,
@@ -756,18 +693,9 @@ dynamic build(BuildContext context) {
                             style: TextStyle(color: green900, fontSize: 12),
                           ),
                         ),
-                        SizedBox(
-                          width: 50,
-                          child: Center(child: check(row['popup'] as bool)),
-                        ),
-                        SizedBox(
-                          width: 50,
-                          child: Center(child: check(row['dialog'] as bool)),
-                        ),
-                        SizedBox(
-                          width: 50,
-                          child: Center(child: check(row['overlay'] as bool)),
-                        ),
+                        SizedBox(width: 50, child: Center(child: check(row['popup'] as bool))),
+                        SizedBox(width: 50, child: Center(child: check(row['dialog'] as bool))),
+                        SizedBox(width: 50, child: Center(child: check(row['overlay'] as bool))),
                       ],
                     ),
                   );
@@ -779,42 +707,15 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 120),
                       SizedBox(
                         width: 50,
-                        child: Center(
-                          child: Text(
-                            'Popup',
-                            style: TextStyle(
-                              color: green700,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
+                        child: Center(child: Text('Popup', style: TextStyle(color: green700, fontSize: 10, fontWeight: FontWeight.w700))),
                       ),
                       SizedBox(
                         width: 50,
-                        child: Center(
-                          child: Text(
-                            'Dialog',
-                            style: TextStyle(
-                              color: green700,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
+                        child: Center(child: Text('Dialog', style: TextStyle(color: green700, fontSize: 10, fontWeight: FontWeight.w700))),
                       ),
                       SizedBox(
                         width: 50,
-                        child: Center(
-                          child: Text(
-                            'Overlay',
-                            style: TextStyle(
-                              color: green700,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
+                        child: Center(child: Text('Overlay', style: TextStyle(color: green700, fontSize: 10, fontWeight: FontWeight.w700))),
                       ),
                     ],
                   ),
@@ -908,36 +809,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  Forest      ${forest.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  Green 900   ${green900.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  Green 800   ${green800.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  Green 700   ${green700.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Green 400   ${green400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  Green 200   ${green200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  Green 100   ${green100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  Green 50    ${green50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  LtGreen 50  ${lightGreen50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
-  print(
-    '  │  Teal 900    ${teal900.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
+  print('  │  Forest      ${forest.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  Green 900   ${green900.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  Green 800   ${green800.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  Green 700   ${green700.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Green 400   ${green400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  Green 200   ${green200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  Green 100   ${green100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  Green 50    ${green50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  LtGreen 50  ${lightGreen50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
+  print('  │  Teal 900    ${teal900.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

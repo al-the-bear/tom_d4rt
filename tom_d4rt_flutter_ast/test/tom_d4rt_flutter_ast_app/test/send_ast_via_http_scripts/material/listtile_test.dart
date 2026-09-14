@@ -8,14 +8,8 @@ import 'package:flutter/material.dart';
 // HELPER BUILDERS - top-level functions only (no Stateless/Stateful subclasses).
 // -----------------------------------------------------------------------------
 
-Widget _sectionHeader(
-  String number,
-  String title,
-  String subtitle,
-  Color background,
-  Color border,
-  Color accent,
-) {
+Widget _sectionHeader(String number, String title, String subtitle,
+    Color background, Color border, Color accent) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(16.0),
@@ -63,7 +57,10 @@ Widget _sectionHeader(
               SizedBox(height: 4.0),
               Text(
                 subtitle,
-                style: TextStyle(fontSize: 12.0, color: Color(0xFF555555)),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Color(0xFF555555),
+                ),
               ),
             ],
           ),
@@ -122,12 +119,8 @@ Widget _tileCard(Widget tile, Color tint) {
   );
 }
 
-Widget _recipeCard(
-  String title,
-  String description,
-  Color accent,
-  List<Widget> tiles,
-) {
+Widget _recipeCard(String title, String description, Color accent,
+    List<Widget> tiles) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 12.0),
@@ -191,7 +184,9 @@ Widget _recipeCard(
           ),
           child: Material(
             type: MaterialType.transparency,
-            child: Column(children: tiles),
+            child: Column(
+              children: tiles,
+            ),
           ),
         ),
       ],
@@ -284,7 +279,10 @@ Widget _glossaryEntry(String term, String definition, Color tint) {
               children: [
                 TextSpan(
                   text: '$term — ',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: tint),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: tint,
+                  ),
                 ),
                 TextSpan(text: definition),
               ],
@@ -307,7 +305,9 @@ dynamic build(BuildContext context) {
   final Color s1Border = Color(0xFF9FA8DA);
   final Color s1Accent = Color(0xFF3949AB);
 
-  final basicTitleOnly = ListTile(title: Text('Title only'));
+  final basicTitleOnly = ListTile(
+    title: Text('Title only'),
+  );
 
   final basicTitleSubtitle = ListTile(
     title: Text('Title with subtitle'),
@@ -327,7 +327,8 @@ dynamic build(BuildContext context) {
   final basicComplete = ListTile(
     leading: CircleAvatar(
       backgroundColor: s1Accent,
-      child: Text('A', style: TextStyle(color: Color(0xFFFFFFFF))),
+      child: Text('A',
+          style: TextStyle(color: Color(0xFFFFFFFF))),
     ),
     title: Text('All four slots'),
     subtitle: Text('leading + title + subtitle + trailing'),
@@ -625,32 +626,34 @@ dynamic build(BuildContext context) {
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
       dense: false,
       style: ListTileStyle.list,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
     ),
     child: Material(
       type: MaterialType.transparency,
       child: Column(
-        children: [
-          ListTile(
-            leading: Icon(Icons.brush),
-            title: Text('Themed tile A'),
-            subtitle: Text('Inherits iconColor + textColor'),
-          ),
-          SizedBox(height: 6.0),
-          ListTile(
-            leading: Icon(Icons.format_paint),
-            title: Text('Themed tile B'),
-            subtitle: Text('Same theme, different content'),
-          ),
-          SizedBox(height: 6.0),
-          ListTile(
-            selected: true,
-            leading: Icon(Icons.star),
-            title: Text('Themed + selected'),
-            subtitle: Text('Picks up selectedTileColor & selectedColor'),
-          ),
-        ],
-      ),
+      children: [
+        ListTile(
+          leading: Icon(Icons.brush),
+          title: Text('Themed tile A'),
+          subtitle: Text('Inherits iconColor + textColor'),
+        ),
+        SizedBox(height: 6.0),
+        ListTile(
+          leading: Icon(Icons.format_paint),
+          title: Text('Themed tile B'),
+          subtitle: Text('Same theme, different content'),
+        ),
+        SizedBox(height: 6.0),
+        ListTile(
+          selected: true,
+          leading: Icon(Icons.star),
+          title: Text('Themed + selected'),
+          subtitle: Text('Picks up selectedTileColor & selectedColor'),
+        ),
+      ],
+    ),
     ),
   );
 
@@ -862,7 +865,9 @@ dynamic build(BuildContext context) {
     leading: Icon(Icons.tune),
     title: Text('Custom colors'),
     subtitle: Text('Background/text/icon colors per state'),
-    children: [ListTile(title: Text('Custom palette child'))],
+    children: [
+      ListTile(title: Text('Custom palette child')),
+    ],
   );
 
   // ==========================================================================
@@ -969,7 +974,10 @@ dynamic build(BuildContext context) {
 
   final settingsSignOut = ListTile(
     leading: Icon(Icons.logout, color: Color(0xFFC62828)),
-    title: Text('Sign out', style: TextStyle(color: Color(0xFFC62828))),
+    title: Text(
+      'Sign out',
+      style: TextStyle(color: Color(0xFFC62828)),
+    ),
     onTap: () {},
   );
 
@@ -990,10 +998,11 @@ dynamic build(BuildContext context) {
     title: Row(
       children: [
         Expanded(child: Text('Margaux')),
-        Text(
-          '09:14',
-          style: TextStyle(fontSize: 11.0, color: Color(0xFF777777)),
-        ),
+        Text('09:14',
+            style: TextStyle(
+              fontSize: 11.0,
+              color: Color(0xFF777777),
+            )),
       ],
     ),
     subtitle: Text(
@@ -1031,10 +1040,11 @@ dynamic build(BuildContext context) {
     title: Row(
       children: [
         Expanded(child: Text('Renzo')),
-        Text(
-          'Yesterday',
-          style: TextStyle(fontSize: 11.0, color: Color(0xFF777777)),
-        ),
+        Text('Yesterday',
+            style: TextStyle(
+              fontSize: 11.0,
+              color: Color(0xFF777777),
+            )),
       ],
     ),
     subtitle: Text(
@@ -1056,7 +1066,11 @@ dynamic build(BuildContext context) {
     title: Row(
       children: [
         Expanded(child: Text('Klara')),
-        Text('Mon', style: TextStyle(fontSize: 11.0, color: Color(0xFF777777))),
+        Text('Mon',
+            style: TextStyle(
+              fontSize: 11.0,
+              color: Color(0xFF777777),
+            )),
       ],
     ),
     subtitle: Text(
@@ -1110,9 +1124,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 4.0,
-                    ),
+                        horizontal: 10.0, vertical: 4.0),
                     decoration: BoxDecoration(
                       color: Color(0x33FFFFFF),
                       borderRadius: BorderRadius.circular(20.0),
@@ -1153,9 +1165,7 @@ dynamic build(BuildContext context) {
                     children: [
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: Color(0x22FFFFFF),
                           borderRadius: BorderRadius.circular(4.0),
@@ -1170,9 +1180,7 @@ dynamic build(BuildContext context) {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: Color(0x22FFFFFF),
                           borderRadius: BorderRadius.circular(4.0),
@@ -1187,9 +1195,7 @@ dynamic build(BuildContext context) {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: Color(0x22FFFFFF),
                           borderRadius: BorderRadius.circular(4.0),
@@ -1204,9 +1210,7 @@ dynamic build(BuildContext context) {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: Color(0x22FFFFFF),
                           borderRadius: BorderRadius.circular(4.0),
@@ -1221,9 +1225,7 @@ dynamic build(BuildContext context) {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: Color(0x22FFFFFF),
                           borderRadius: BorderRadius.circular(4.0),
@@ -1238,9 +1240,7 @@ dynamic build(BuildContext context) {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: Color(0x22FFFFFF),
                           borderRadius: BorderRadius.circular(4.0),
@@ -1285,11 +1285,8 @@ dynamic build(BuildContext context) {
                             color: Color(0xFF3949AB),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          child: Icon(
-                            Icons.menu_book,
-                            color: Color(0xFFFFFFFF),
-                            size: 20.0,
-                          ),
+                          child: Icon(Icons.menu_book,
+                              color: Color(0xFFFFFFFF), size: 20.0),
                         ),
                         SizedBox(width: 12.0),
                         Text(
@@ -1321,26 +1318,16 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(height: 6.0),
-                    Text(
-                      '• 1-7  Core ListTile knobs',
-                      style: TextStyle(fontSize: 12.0, height: 1.5),
-                    ),
-                    Text(
-                      '• 8-9  Style + Theme propagation',
-                      style: TextStyle(fontSize: 12.0, height: 1.5),
-                    ),
-                    Text(
-                      '• 10-13 Tile family (Checkbox / Radio / Switch)',
-                      style: TextStyle(fontSize: 12.0, height: 1.5),
-                    ),
-                    Text(
-                      '• 14   ExpansionTile (open & closed snapshots)',
-                      style: TextStyle(fontSize: 12.0, height: 1.5),
-                    ),
-                    Text(
-                      '• 15-17 Real-world recipes',
-                      style: TextStyle(fontSize: 12.0, height: 1.5),
-                    ),
+                    Text('• 1-7  Core ListTile knobs',
+                        style: TextStyle(fontSize: 12.0, height: 1.5)),
+                    Text('• 8-9  Style + Theme propagation',
+                        style: TextStyle(fontSize: 12.0, height: 1.5)),
+                    Text('• 10-13 Tile family (Checkbox / Radio / Switch)',
+                        style: TextStyle(fontSize: 12.0, height: 1.5)),
+                    Text('• 14   ExpansionTile (open & closed snapshots)',
+                        style: TextStyle(fontSize: 12.0, height: 1.5)),
+                    Text('• 15-17 Real-world recipes',
+                        style: TextStyle(fontSize: 12.0, height: 1.5)),
                   ],
                 ),
               ),
@@ -1355,14 +1342,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '1',
-                    'Anatomy basics',
-                    'Title, subtitle, leading and trailing slots',
-                    s1Bg,
-                    s1Border,
-                    s1Accent,
-                  ),
+                  _sectionHeader('1', 'Anatomy basics',
+                      'Title, subtitle, leading and trailing slots',
+                      s1Bg, s1Border, s1Accent),
                   _sectionBody(Color(0xFFFFFFFF), s1Border, [
                     _captionLabel('TITLE ONLY', s1Accent),
                     _tileCard(basicTitleOnly, s1Border),
@@ -1388,14 +1370,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '2',
-                    'isThreeLine',
-                    'Reserve space for multi-line subtitles',
-                    s2Bg,
-                    s2Border,
-                    s2Accent,
-                  ),
+                  _sectionHeader('2', 'isThreeLine',
+                      'Reserve space for multi-line subtitles',
+                      s2Bg, s2Border, s2Accent),
                   _sectionBody(Color(0xFFFFFFFF), s2Border, [
                     _captionLabel('isThreeLine: false (default)', s2Accent),
                     _tileCard(twoLineTile, s2Border),
@@ -1417,14 +1394,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '3',
-                    'Dense vs default',
-                    'dense + VisualDensity snapshots',
-                    s3Bg,
-                    s3Border,
-                    s3Accent,
-                  ),
+                  _sectionHeader('3', 'Dense vs default',
+                      'dense + VisualDensity snapshots',
+                      s3Bg, s3Border, s3Accent),
                   _sectionBody(Color(0xFFFFFFFF), s3Border, [
                     _captionLabel('DEFAULT', s3Accent),
                     _tileCard(defaultDensityTile, s3Border),
@@ -1434,10 +1406,8 @@ dynamic build(BuildContext context) {
                     _tileCard(compactDensityTile, s3Border),
                     _captionLabel('VisualDensity.comfortable', s3Accent),
                     _tileCard(comfortableDensityTile, s3Border),
-                    _captionLabel(
-                      'VisualDensity.adaptivePlatformDensity',
-                      s3Accent,
-                    ),
+                    _captionLabel('VisualDensity.adaptivePlatformDensity',
+                        s3Accent),
                     _tileCard(adaptivePlatformDensityTile, s3Border),
                   ]),
                 ],
@@ -1453,14 +1423,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '4',
-                    'contentPadding',
-                    'Tune the gutters and vertical bleed',
-                    s4Bg,
-                    s4Border,
-                    s4Accent,
-                  ),
+                  _sectionHeader('4', 'contentPadding',
+                      'Tune the gutters and vertical bleed',
+                      s4Bg, s4Border, s4Accent),
                   _sectionBody(Color(0xFFFFFFFF), s4Border, [
                     _captionLabel('EdgeInsets.zero', s4Accent),
                     _tileCard(paddingZero, s4Border),
@@ -1484,14 +1449,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '5',
-                    'enabled vs disabled',
-                    'Greyed-out, non-interactive tiles',
-                    s5Bg,
-                    s5Border,
-                    s5Accent,
-                  ),
+                  _sectionHeader('5', 'enabled vs disabled',
+                      'Greyed-out, non-interactive tiles',
+                      s5Bg, s5Border, s5Accent),
                   _sectionBody(Color(0xFFFFFFFF), s5Border, [
                     _captionLabel('enabled: true', s5Accent),
                     _tileCard(enabledTile, s5Border),
@@ -1513,14 +1473,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '6',
-                    'selected highlights',
-                    'selectedColor + selectedTileColor',
-                    s6Bg,
-                    s6Border,
-                    s6Accent,
-                  ),
+                  _sectionHeader('6', 'selected highlights',
+                      'selectedColor + selectedTileColor',
+                      s6Bg, s6Border, s6Accent),
                   _sectionBody(Color(0xFFFFFFFF), s6Border, [
                     _captionLabel('selected: false', s6Accent),
                     _tileCard(unselectedTile, s6Border),
@@ -1542,14 +1497,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '7',
-                    'ListTileTitleAlignment',
-                    'How leading/trailing align to the title',
-                    s7Bg,
-                    s7Border,
-                    s7Accent,
-                  ),
+                  _sectionHeader('7', 'ListTileTitleAlignment',
+                      'How leading/trailing align to the title',
+                      s7Bg, s7Border, s7Accent),
                   _sectionBody(Color(0xFFFFFFFF), s7Border, [
                     _captionLabel('threeLine', s7Accent),
                     _tileCard(alignmentThreeLine, s7Border),
@@ -1575,14 +1525,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '8',
-                    'ListTileStyle',
-                    'list vs drawer text weights',
-                    s8Bg,
-                    s8Border,
-                    s8Accent,
-                  ),
+                  _sectionHeader('8', 'ListTileStyle',
+                      'list vs drawer text weights',
+                      s8Bg, s8Border, s8Accent),
                   _sectionBody(Color(0xFFFFFFFF), s8Border, [
                     _captionLabel('ListTileStyle.list', s8Accent),
                     _tileCard(styleList, s8Border),
@@ -1615,19 +1560,12 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '9',
-                    'ListTileTheme',
-                    'Cascade colors, padding, and shape down a subtree',
-                    s9Bg,
-                    s9Border,
-                    s9Accent,
-                  ),
+                  _sectionHeader('9', 'ListTileTheme',
+                      'Cascade colors, padding, and shape down a subtree',
+                      s9Bg, s9Border, s9Accent),
                   _sectionBody(Color(0xFFFFFFFF), s9Border, [
-                    _captionLabel(
-                      'THREE TILES UNDER ONE LISTTILETHEME',
-                      s9Accent,
-                    ),
+                    _captionLabel('THREE TILES UNDER ONE LISTTILETHEME',
+                        s9Accent),
                     Container(
                       decoration: BoxDecoration(
                         color: Color(0xFFF3E5F5),
@@ -1651,14 +1589,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '10',
-                    'ListTileControlAffinity',
-                    'platform / leading / trailing slots',
-                    s10Bg,
-                    s10Border,
-                    s10Accent,
-                  ),
+                  _sectionHeader('10', 'ListTileControlAffinity',
+                      'platform / leading / trailing slots',
+                      s10Bg, s10Border, s10Accent),
                   _sectionBody(Color(0xFFFFFFFF), s10Border, [
                     _captionLabel('platform', s10Accent),
                     _tileCard(affinityPlatform, s10Border),
@@ -1668,23 +1601,14 @@ dynamic build(BuildContext context) {
                     _tileCard(affinityTrailing, s10Border),
                     SizedBox(height: 6.0),
                     _comparisonRow(
-                      'platform',
-                      'iOS: leading',
-                      'Android: trailing',
-                      s10Accent,
-                    ),
+                        'platform', 'iOS: leading', 'Android: trailing',
+                        s10Accent),
                     _comparisonRow(
-                      'leading',
-                      'control: leading',
-                      'secondary: trailing',
-                      s10Accent,
-                    ),
+                        'leading', 'control: leading', 'secondary: trailing',
+                        s10Accent),
                     _comparisonRow(
-                      'trailing',
-                      'control: trailing',
-                      'secondary: leading',
-                      s10Accent,
-                    ),
+                        'trailing', 'control: trailing', 'secondary: leading',
+                        s10Accent),
                   ]),
                 ],
               ),
@@ -1699,14 +1623,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '11',
-                    'CheckboxListTile',
-                    'Boolean + tristate selection',
-                    s11Bg,
-                    s11Border,
-                    s11Accent,
-                  ),
+                  _sectionHeader('11', 'CheckboxListTile',
+                      'Boolean + tristate selection',
+                      s11Bg, s11Border, s11Accent),
                   _sectionBody(Color(0xFFFFFFFF), s11Border, [
                     _captionLabel('value: true', s11Accent),
                     _tileCard(checkboxOn, s11Border),
@@ -1730,14 +1649,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '12',
-                    'RadioListTile',
-                    'Mutually exclusive choice within a group',
-                    s12Bg,
-                    s12Border,
-                    s12Accent,
-                  ),
+                  _sectionHeader('12', 'RadioListTile',
+                      'Mutually exclusive choice within a group',
+                      s12Bg, s12Border, s12Accent),
                   _sectionBody(Color(0xFFFFFFFF), s12Border, [
                     _captionLabel('GROUP (groupValue: a)', s12Accent),
                     _tileCard(
@@ -1768,14 +1682,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '13',
-                    'SwitchListTile',
-                    'Toggleable preferences with optional secondary slot',
-                    s13Bg,
-                    s13Border,
-                    s13Accent,
-                  ),
+                  _sectionHeader('13', 'SwitchListTile',
+                      'Toggleable preferences with optional secondary slot',
+                      s13Bg, s13Border, s13Accent),
                   _sectionBody(Color(0xFFFFFFFF), s13Border, [
                     _captionLabel('value: true', s13Accent),
                     _tileCard(switchOn, s13Border),
@@ -1799,14 +1708,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '14',
-                    'ExpansionTile',
-                    'Disclosure tile with collapsible children',
-                    s14Bg,
-                    s14Border,
-                    s14Accent,
-                  ),
+                  _sectionHeader('14', 'ExpansionTile',
+                      'Disclosure tile with collapsible children',
+                      s14Bg, s14Border, s14Accent),
                   _sectionBody(Color(0xFFFFFFFF), s14Border, [
                     _captionLabel('CLOSED SNAPSHOT', s14Accent),
                     _tileCard(expansionClosed, s14Border),
@@ -1828,14 +1732,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '15',
-                    'Recipe: contact card list',
-                    'Avatar + name + email + chat affordance',
-                    s15Bg,
-                    s15Border,
-                    s15Accent,
-                  ),
+                  _sectionHeader('15', 'Recipe: contact card list',
+                      'Avatar + name + email + chat affordance',
+                      s15Bg, s15Border, s15Accent),
                   _sectionBody(Color(0xFFFFFFFF), s15Border, [
                     _recipeCard(
                       'Address book - "Pioneers" group',
@@ -1867,14 +1766,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '16',
-                    'Recipe: settings list',
-                    'Mixed ListTile + SwitchListTile preferences',
-                    s16Bg,
-                    s16Border,
-                    s16Accent,
-                  ),
+                  _sectionHeader('16', 'Recipe: settings list',
+                      'Mixed ListTile + SwitchListTile preferences',
+                      s16Bg, s16Border, s16Accent),
                   _sectionBody(Color(0xFFFFFFFF), s16Border, [
                     _recipeCard(
                       'App settings',
@@ -1910,14 +1804,9 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader(
-                    '17',
-                    'Recipe: chat preview list',
-                    'Three-line tiles with timestamp and unread badge',
-                    s17Bg,
-                    s17Border,
-                    s17Accent,
-                  ),
+                  _sectionHeader('17', 'Recipe: chat preview list',
+                      'Three-line tiles with timestamp and unread badge',
+                      s17Bg, s17Border, s17Accent),
                   _sectionBody(Color(0xFFFFFFFF), s17Border, [
                     _recipeCard(
                       'Inbox',
@@ -1958,11 +1847,8 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.local_library,
-                          color: Color(0xFFF57F17),
-                          size: 22.0,
-                        ),
+                        Icon(Icons.local_library,
+                            color: Color(0xFFF57F17), size: 22.0),
                         SizedBox(width: 10.0),
                         Text(
                           'Glossary',
@@ -1975,76 +1861,48 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     SizedBox(height: 8.0),
-                    _glossaryEntry(
-                      'leading',
-                      'Widget shown before the title (often an Icon or CircleAvatar).',
-                      Color(0xFF3949AB),
-                    ),
-                    _glossaryEntry(
-                      'title',
-                      'Primary line of text. Required slot in practice.',
-                      Color(0xFF00796B),
-                    ),
-                    _glossaryEntry(
-                      'subtitle',
-                      'Secondary line under the title. May wrap when isThreeLine is true.',
-                      Color(0xFFE65100),
-                    ),
-                    _glossaryEntry(
-                      'trailing',
-                      'Widget shown after the title (chevron, badge, switch, icon).',
-                      Color(0xFFC2185B),
-                    ),
-                    _glossaryEntry(
-                      'isThreeLine',
-                      'Reserves vertical space for a two-line subtitle.',
-                      Color(0xFF455A64),
-                    ),
-                    _glossaryEntry(
-                      'dense',
-                      'Tighter text style and reduced padding.',
-                      Color(0xFF0277BD),
-                    ),
-                    _glossaryEntry(
-                      'selected',
-                      'Toggles selectedColor / selectedTileColor on the tile.',
-                      Color(0xFF7B1FA2),
-                    ),
-                    _glossaryEntry(
-                      'enabled',
-                      'When false, the tile is greyed out and onTap is ignored.',
-                      Color(0xFF2E7D32),
-                    ),
-                    _glossaryEntry(
-                      'contentPadding',
-                      'EdgeInsets applied inside the tile around the content row.',
-                      Color(0xFF512DA8),
-                    ),
-                    _glossaryEntry(
-                      'ListTileStyle',
-                      'list (default body weight) or drawer (heavier for navigation).',
-                      Color(0xFFFF8F00),
-                    ),
-                    _glossaryEntry(
-                      'ListTileTheme',
-                      'InheritedWidget that supplies defaults to descendant tiles.',
-                      Color(0xFF00838F),
-                    ),
-                    _glossaryEntry(
-                      'ListTileTitleAlignment',
-                      'Enum: threeLine / titleHeight / top / center / bottom.',
-                      Color(0xFF827717),
-                    ),
-                    _glossaryEntry(
-                      'ListTileControlAffinity',
-                      'Enum: platform / leading / trailing for the embedded control.',
-                      Color(0xFFC62828),
-                    ),
-                    _glossaryEntry(
-                      'ExpansionTile',
-                      'ListTile that toggles a column of children open/closed.',
-                      Color(0xFF5D4037),
-                    ),
+                    _glossaryEntry('leading',
+                        'Widget shown before the title (often an Icon or CircleAvatar).',
+                        Color(0xFF3949AB)),
+                    _glossaryEntry('title',
+                        'Primary line of text. Required slot in practice.',
+                        Color(0xFF00796B)),
+                    _glossaryEntry('subtitle',
+                        'Secondary line under the title. May wrap when isThreeLine is true.',
+                        Color(0xFFE65100)),
+                    _glossaryEntry('trailing',
+                        'Widget shown after the title (chevron, badge, switch, icon).',
+                        Color(0xFFC2185B)),
+                    _glossaryEntry('isThreeLine',
+                        'Reserves vertical space for a two-line subtitle.',
+                        Color(0xFF455A64)),
+                    _glossaryEntry('dense',
+                        'Tighter text style and reduced padding.',
+                        Color(0xFF0277BD)),
+                    _glossaryEntry('selected',
+                        'Toggles selectedColor / selectedTileColor on the tile.',
+                        Color(0xFF7B1FA2)),
+                    _glossaryEntry('enabled',
+                        'When false, the tile is greyed out and onTap is ignored.',
+                        Color(0xFF2E7D32)),
+                    _glossaryEntry('contentPadding',
+                        'EdgeInsets applied inside the tile around the content row.',
+                        Color(0xFF512DA8)),
+                    _glossaryEntry('ListTileStyle',
+                        'list (default body weight) or drawer (heavier for navigation).',
+                        Color(0xFFFF8F00)),
+                    _glossaryEntry('ListTileTheme',
+                        'InheritedWidget that supplies defaults to descendant tiles.',
+                        Color(0xFF00838F)),
+                    _glossaryEntry('ListTileTitleAlignment',
+                        'Enum: threeLine / titleHeight / top / center / bottom.',
+                        Color(0xFF827717)),
+                    _glossaryEntry('ListTileControlAffinity',
+                        'Enum: platform / leading / trailing for the embedded control.',
+                        Color(0xFFC62828)),
+                    _glossaryEntry('ExpansionTile',
+                        'ListTile that toggles a column of children open/closed.',
+                        Color(0xFF5D4037)),
                   ],
                 ),
               ),
@@ -2061,7 +1919,10 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF1A237E), Color(0xFF5E35B1)],
+                  colors: [
+                    Color(0xFF1A237E),
+                    Color(0xFF5E35B1),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -2072,7 +1933,8 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.flag, color: Color(0xFFFFFFFF), size: 22.0),
+                      Icon(Icons.flag,
+                          color: Color(0xFFFFFFFF), size: 22.0),
                       SizedBox(width: 10.0),
                       Text(
                         'Closing notes',
@@ -2100,9 +1962,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 14.0),
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 6.0,
-                    ),
+                        horizontal: 10.0, vertical: 6.0),
                     decoration: BoxDecoration(
                       color: Color(0x33FFFFFF),
                       borderRadius: BorderRadius.circular(20.0),

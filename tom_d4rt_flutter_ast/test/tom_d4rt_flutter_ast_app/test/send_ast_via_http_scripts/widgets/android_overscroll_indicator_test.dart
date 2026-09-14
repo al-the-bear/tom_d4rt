@@ -55,9 +55,20 @@ const _palettes = <_Palette>[
   ),
 ];
 
-enum _Stage { studio, gallery, switchboard, nested, theater, compendium }
+enum _Stage {
+  studio,
+  gallery,
+  switchboard,
+  nested,
+  theater,
+  compendium,
+}
 
-enum _Density { relaxed, balanced, dense }
+enum _Density {
+  relaxed,
+  balanced,
+  dense,
+}
 
 class _ShellProfile {
   final String label;
@@ -144,8 +155,7 @@ class _DemoScrollBehavior extends MaterialScrollBehavior {
     }
 
     final supportsAndroidOverscroll =
-        platform == TargetPlatform.android ||
-        platform == TargetPlatform.fuchsia;
+        platform == TargetPlatform.android || platform == TargetPlatform.fuchsia;
 
     if (!supportsAndroidOverscroll) {
       return child;
@@ -306,10 +316,7 @@ class _AndroidOverscrollIndicatorDemoState
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -353,11 +360,7 @@ class _AndroidOverscrollIndicatorDemoState
         children: [
           Text(
             'Stage',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
           ),
           for (var i = 0; i < _stageTitles.length; i++)
             ChoiceChip(
@@ -375,11 +378,7 @@ class _AndroidOverscrollIndicatorDemoState
           const SizedBox(width: 10),
           Text(
             'Density',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
           ),
           _densityChip('Relaxed', _Density.relaxed),
           _densityChip('Balanced', _Density.balanced),
@@ -387,11 +386,7 @@ class _AndroidOverscrollIndicatorDemoState
           const SizedBox(width: 10),
           Text(
             'Palette',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
           ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
@@ -529,45 +524,32 @@ class _AndroidOverscrollIndicatorDemoState
                     Checkbox(
                       value: _enableIndicator,
                       activeColor: _p.primary,
-                      onChanged: (v) =>
-                          setState(() => _enableIndicator = v ?? true),
+                      onChanged: (v) => setState(() => _enableIndicator = v ?? true),
                     ),
-                    Text(
-                      'indicator enabled',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('indicator enabled',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _useBounce,
                       activeColor: _p.secondary,
                       onChanged: (v) => setState(() => _useBounce = v ?? false),
                     ),
-                    Text(
-                      'bouncing physics',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('bouncing physics',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _showOverlayGrid,
                       activeColor: _p.accent,
-                      onChanged: (v) =>
-                          setState(() => _showOverlayGrid = v ?? true),
+                      onChanged: (v) => setState(() => _showOverlayGrid = v ?? true),
                     ),
-                    Text(
-                      'overlay grid',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('overlay grid', style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _showMetrics,
                       activeColor: _p.primary,
-                      onChanged: (v) =>
-                          setState(() => _showMetrics = v ?? true),
+                      onChanged: (v) => setState(() => _showMetrics = v ?? true),
                     ),
-                    Text(
-                      'show metrics',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show metrics', style: TextStyle(color: _p.ink, fontSize: 12)),
                   ],
                 ),
               ],
@@ -702,9 +684,7 @@ class _AndroidOverscrollIndicatorDemoState
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
             decoration: BoxDecoration(
               color: _p.secondary.withValues(alpha: 0.1),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Wrap(
               spacing: 6,
@@ -728,7 +708,10 @@ class _AndroidOverscrollIndicatorDemoState
             ),
           ),
           Expanded(
-            child: ScrollConfiguration(behavior: behavior, child: child),
+            child: ScrollConfiguration(
+              behavior: behavior,
+              child: child,
+            ),
           ),
         ],
       ),
@@ -738,11 +721,8 @@ class _AndroidOverscrollIndicatorDemoState
   Widget _verticalFeed(int count, String prefix) {
     return NotificationListener<ScrollEndNotification>(
       onNotification: (notification) {
-        _log(
-          'scroll',
-          '$prefix scroll end @${notification.metrics.pixels.toStringAsFixed(1)}',
-          _p.accent,
-        );
+        _log('scroll', '$prefix scroll end @${notification.metrics.pixels.toStringAsFixed(1)}',
+            _p.accent);
         return false;
       },
       child: ListView.builder(
@@ -865,18 +845,10 @@ class _AndroidOverscrollIndicatorDemoState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Use glow for strong edge feedback in data-heavy utilities.',
-                ),
-                _bullet(
-                  'Use stretch for softer, modern motion-driven surfaces.',
-                ),
-                _bullet(
-                  'Keep platform conventions in mind for user expectations.',
-                ),
-                _bullet(
-                  'Indicator style should align with your motion language.',
-                ),
+                _bullet('Use glow for strong edge feedback in data-heavy utilities.'),
+                _bullet('Use stretch for softer, modern motion-driven surfaces.'),
+                _bullet('Keep platform conventions in mind for user expectations.'),
+                _bullet('Indicator style should align with your motion language.'),
               ],
             ),
           ),
@@ -901,8 +873,7 @@ class _AndroidOverscrollIndicatorDemoState
           const SizedBox(height: 12),
           _card(
             title: 'Policy Controls',
-            subtitle:
-                'Indicator and platform controls shared across preview lanes.',
+            subtitle: 'Indicator and platform controls shared across preview lanes.',
             child: Column(
               children: [
                 _indicatorModeRow(),
@@ -916,48 +887,32 @@ class _AndroidOverscrollIndicatorDemoState
                       activeColor: _p.primary,
                       onChanged: (v) {
                         setState(() => _enableIndicator = v ?? true);
-                        _log(
-                          'policy',
-                          'indicator enabled: $_enableIndicator',
-                          _p.primary,
-                        );
+                        _log('policy', 'indicator enabled: $_enableIndicator', _p.primary);
                       },
                     ),
-                    Text(
-                      'enable overscroll indicator',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('enable overscroll indicator',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _useBounce,
                       activeColor: _p.secondary,
                       onChanged: (v) {
                         setState(() => _useBounce = v ?? false);
-                        _log(
-                          'policy',
-                          'physics: ${_useBounce ? 'bounce' : 'clamp'}',
-                          _p.secondary,
-                        );
+                        _log('policy', 'physics: ${_useBounce ? 'bounce' : 'clamp'}',
+                            _p.secondary);
                       },
                     ),
-                    Text(
-                      'bouncing physics',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('bouncing physics',
+                        style: TextStyle(color: _p.ink, fontSize: 12)),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _showMetrics,
                       activeColor: _p.accent,
-                      onChanged: (v) =>
-                          setState(() => _showMetrics = v ?? true),
+                      onChanged: (v) => setState(() => _showMetrics = v ?? true),
                     ),
-                    Text(
-                      'show metrics',
-                      style: TextStyle(color: _p.ink, fontSize: 12),
-                    ),
+                    Text('show metrics', style: TextStyle(color: _p.ink, fontSize: 12)),
                     const Spacer(),
-                    if (_showMetrics)
-                      _chip('events', '${_events.length}', _p.accent),
+                    if (_showMetrics) _chip('events', '${_events.length}', _p.accent),
                   ],
                 ),
                 _sliderRow(
@@ -1031,8 +986,7 @@ class _AndroidOverscrollIndicatorDemoState
                     )
                   : ListView.separated(
                       itemCount: _events.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 6),
+                      separatorBuilder: (context, index) => const SizedBox(height: 6),
                       itemBuilder: (context, index) {
                         final row = _events[index];
                         return Container(
@@ -1040,9 +994,7 @@ class _AndroidOverscrollIndicatorDemoState
                           decoration: BoxDecoration(
                             color: row.color.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: row.color.withValues(alpha: 0.3),
-                            ),
+                            border: Border.all(color: row.color.withValues(alpha: 0.3)),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1118,11 +1070,7 @@ class _AndroidOverscrollIndicatorDemoState
                 const SizedBox(height: 6),
                 Text(
                   'Horizontal drag this lane to inspect glow/stretch behavior.',
-                  style: TextStyle(
-                    color: _p.muted,
-                    fontSize: 10.6,
-                    height: 1.3,
-                  ),
+                  style: TextStyle(color: _p.muted, fontSize: 10.6, height: 1.3),
                 ),
                 const Spacer(),
                 _chip('idx', '${index + 1}', color),
@@ -1215,18 +1163,10 @@ class _AndroidOverscrollIndicatorDemoState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Keep outer policy consistent with global app behavior.',
-                ),
-                _bullet(
-                  'Inner exceptions should be intentional and documented.',
-                ),
-                _bullet(
-                  'Avoid abrupt visual language changes between parent and child lanes.',
-                ),
-                _bullet(
-                  'Log nested interactions when debugging gesture conflicts.',
-                ),
+                _bullet('Keep outer policy consistent with global app behavior.'),
+                _bullet('Inner exceptions should be intentional and documented.'),
+                _bullet('Avoid abrupt visual language changes between parent and child lanes.'),
+                _bullet('Log nested interactions when debugging gesture conflicts.'),
               ],
             ),
           ),
@@ -1338,7 +1278,10 @@ class _AndroidOverscrollIndicatorDemoState
                   keyText: 'Type',
                   value: 'Enum controlling Android overscroll visual style.',
                 ),
-                _matrixRow(keyText: 'Values', value: 'glow and stretch.'),
+                _matrixRow(
+                  keyText: 'Values',
+                  value: 'glow and stretch.',
+                ),
                 _matrixRow(
                   keyText: 'Primary context',
                   value:
@@ -1350,8 +1293,7 @@ class _AndroidOverscrollIndicatorDemoState
                 ),
                 _matrixRow(
                   keyText: 'Stretch behavior',
-                  value:
-                      'Applies elastic stretch effect to content near boundaries.',
+                  value: 'Applies elastic stretch effect to content near boundaries.',
                 ),
               ],
             ),
@@ -1376,15 +1318,13 @@ class _AndroidOverscrollIndicatorDemoState
                 ),
                 _doDont(
                   good: true,
-                  title:
-                      'Test nested scrollables with explicit policy decisions',
+                  title: 'Test nested scrollables with explicit policy decisions',
                   detail:
                       'Nested interactions can amplify visual and gesture surprises.',
                 ),
                 _doDont(
                   good: false,
-                  title:
-                      'Assume non-Android platforms show same indicator behavior',
+                  title: 'Assume non-Android platforms show same indicator behavior',
                   detail:
                       'Platform-aware behavior is part of the policy contract.',
                 ),
@@ -1424,17 +1364,11 @@ class _AndroidOverscrollIndicatorDemoState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _check('Glow and stretch are both demonstrated visually.'),
-                _check(
-                  'Runtime policy switching for mode and platform is demonstrated.',
-                ),
-                _check(
-                  'Vertical and horizontal overscroll displays are included.',
-                ),
+                _check('Runtime policy switching for mode and platform is demonstrated.'),
+                _check('Vertical and horizontal overscroll displays are included.'),
                 _check('Nested scroll behavior with mixed policies is shown.'),
                 _check('Responsive shell comparisons are included.'),
-                _check(
-                  'Compendium provides practical guidance and verification notes.',
-                ),
+                _check('Compendium provides practical guidance and verification notes.'),
               ],
             ),
           ),
@@ -1634,10 +1568,7 @@ class _AndroidOverscrollIndicatorDemoState
             margin: const EdgeInsets.only(top: 6),
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _p.primary,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: _p.primary),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -1666,10 +1597,7 @@ class _AndroidOverscrollIndicatorDemoState
           Icon(Icons.info_outline, color: _p.secondary, size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _p.ink, fontSize: 12, height: 1.34),
-            ),
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12, height: 1.34)),
           ),
         ],
       ),
@@ -1690,11 +1618,7 @@ class _AndroidOverscrollIndicatorDemoState
         const SizedBox(width: 8),
         Text(
           text,
-          style: TextStyle(
-            color: _p.ink,
-            fontWeight: FontWeight.w800,
-            fontSize: 18,
-          ),
+          style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 18),
         ),
       ],
     );
@@ -1726,11 +1650,7 @@ class _AndroidOverscrollIndicatorDemoState
         children: [
           Text(
             title,
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w800,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 14),
           ),
           const SizedBox(height: 3),
           Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.4)),
@@ -1757,10 +1677,7 @@ class _AndroidOverscrollIndicatorDemoState
             ),
           ),
           const Spacer(),
-          Text(
-            'Palette: ${_p.name}',
-            style: TextStyle(color: _p.muted, fontSize: 11),
-          ),
+          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11)),
         ],
       ),
     );

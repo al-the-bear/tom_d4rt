@@ -191,11 +191,8 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.subdirectory_arrow_right,
-                            color: accentEnabled,
-                            size: 16.0,
-                          ),
+                          Icon(Icons.subdirectory_arrow_right,
+                              color: accentEnabled, size: 16.0),
                           SizedBox(width: 4.0),
                           Text(
                             'Hero',
@@ -288,7 +285,8 @@ dynamic build(BuildContext context) {
           ],
         ),
         child: Center(
-          child: Icon(Icons.rocket_launch, color: Colors.white, size: 44.0),
+          child: Icon(Icons.rocket_launch,
+              color: Colors.white, size: 44.0),
         ),
       ),
     ),
@@ -319,10 +317,9 @@ dynamic build(BuildContext context) {
               Text(
                 'tag: demo-baseline-hero',
                 style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.bold,
-                  color: accentEnabled,
-                ),
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    color: accentEnabled),
               ),
               SizedBox(height: 6.0),
               Text(
@@ -379,11 +376,8 @@ dynamic build(BuildContext context) {
           ],
         ),
         child: Center(
-          child: Icon(
-            Icons.do_not_disturb_on_outlined,
-            color: Colors.white,
-            size: 44.0,
-          ),
+          child: Icon(Icons.do_not_disturb_on_outlined,
+              color: Colors.white, size: 44.0),
         ),
       ),
     ),
@@ -414,10 +408,9 @@ dynamic build(BuildContext context) {
               Text(
                 'tag: demo-inert-hero',
                 style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.bold,
-                  color: accentDisabled,
-                ),
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    color: accentDisabled),
               ),
               SizedBox(height: 6.0),
               Text(
@@ -766,9 +759,7 @@ dynamic build(BuildContext context) {
         Text(
           'Good tags (unique, descriptive, stable):',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.green.shade800,
-          ),
+              fontWeight: FontWeight.bold, color: Colors.green.shade800),
         ),
         SizedBox(height: 6.0),
         Column(children: goodTagsList),
@@ -776,9 +767,7 @@ dynamic build(BuildContext context) {
         Text(
           'Bad tag patterns (avoid):',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.red.shade800,
-          ),
+              fontWeight: FontWeight.bold, color: Colors.red.shade800),
         ),
         SizedBox(height: 6.0),
         Column(children: badTagsList),
@@ -820,34 +809,37 @@ dynamic build(BuildContext context) {
     enabled: true,
     child: Hero(
       tag: 'shuttle-demo',
-      flightShuttleBuilder:
-          (
-            BuildContext flightContext,
-            Animation<double> animation,
-            HeroFlightDirection flightDirection,
-            BuildContext fromHeroContext,
-            BuildContext toHeroContext,
-          ) {
-            // Custom mid-flight visual: a glowing ring. Not actually shown
-            // in this static demo since no transition fires, but the
-            // closure is constructed and referenced by Hero.
-            return Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [Colors.white, Colors.deepPurple.shade300],
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.deepPurple.withValues(alpha: 0.6),
-                    blurRadius: 20.0,
-                  ),
-                ],
+      flightShuttleBuilder: (
+        BuildContext flightContext,
+        Animation<double> animation,
+        HeroFlightDirection flightDirection,
+        BuildContext fromHeroContext,
+        BuildContext toHeroContext,
+      ) {
+        // Custom mid-flight visual: a glowing ring. Not actually shown
+        // in this static demo since no transition fires, but the
+        // closure is constructed and referenced by Hero.
+        return Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: RadialGradient(
+              colors: [Colors.white, Colors.deepPurple.shade300],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.deepPurple.withValues(alpha: 0.6),
+                blurRadius: 20.0,
               ),
-              child: Icon(Icons.flight, color: Colors.white, size: 36.0),
-            );
-          },
-      placeholderBuilder: (BuildContext context, Size heroSize, Widget child) {
+            ],
+          ),
+          child: Icon(Icons.flight, color: Colors.white, size: 36.0),
+        );
+      },
+      placeholderBuilder: (
+        BuildContext context,
+        Size heroSize,
+        Widget child,
+      ) {
         // Placeholder shown at the source while the flight is active.
         return Container(
           width: heroSize.width,
@@ -892,7 +884,8 @@ dynamic build(BuildContext context) {
           ],
         ),
         child: Center(
-          child: Icon(Icons.flight_takeoff, color: Colors.white, size: 40.0),
+          child: Icon(Icons.flight_takeoff,
+              color: Colors.white, size: 40.0),
         ),
       ),
     ),
@@ -987,7 +980,8 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Icon(Icons.flight_takeoff, color: Colors.indigo, size: 18.0),
+              Icon(Icons.flight_takeoff,
+                  color: Colors.indigo, size: 18.0),
               SizedBox(width: 6.0),
               Text(
                 'Outer HeroMode (enabled: true)',
@@ -1038,9 +1032,7 @@ dynamic build(BuildContext context) {
                         color: Colors.grey.shade400,
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(
-                          color: Colors.grey.shade700,
-                          width: 1.5,
-                        ),
+                            color: Colors.grey.shade700, width: 1.5),
                       ),
                       child: Center(
                         child: Text(
@@ -1065,10 +1057,7 @@ dynamic build(BuildContext context) {
             'right-hand Hero only. Other Heroes outside this subtree '
             'remain governed by the outer HeroMode.',
             style: TextStyle(
-              fontSize: 12.0,
-              height: 1.4,
-              color: Colors.grey.shade800,
-            ),
+                fontSize: 12.0, height: 1.4, color: Colors.grey.shade800),
           ),
         ],
       ),
@@ -1093,42 +1082,17 @@ dynamic build(BuildContext context) {
   );
 
   final products = <_Product>[
-    _Product(
-      'Mountain Bike',
-      'BIKE-01',
-      Colors.red.shade400,
-      true,
-      Icons.directions_bike,
-    ),
-    _Product(
-      'Tent 4P',
-      'TENT-04',
-      Colors.green.shade500,
-      true,
-      Icons.holiday_village,
-    ),
-    _Product(
-      'Stove',
-      'STOVE-12',
-      Colors.orange.shade500,
-      true,
-      Icons.local_fire_department,
-    ),
-    _Product(
-      'Bottle',
-      'BOTL-77',
-      Colors.blue.shade400,
-      false,
-      Icons.water_drop,
-    ),
+    _Product('Mountain Bike', 'BIKE-01', Colors.red.shade400, true,
+        Icons.directions_bike),
+    _Product('Tent 4P', 'TENT-04', Colors.green.shade500, true,
+        Icons.holiday_village),
+    _Product('Stove', 'STOVE-12', Colors.orange.shade500, true,
+        Icons.local_fire_department),
+    _Product('Bottle', 'BOTL-77', Colors.blue.shade400, false,
+        Icons.water_drop),
     _Product('Map', 'MAP-09', Colors.brown.shade400, false, Icons.map),
-    _Product(
-      'Compass',
-      'CMPS-22',
-      Colors.indigo.shade400,
-      false,
-      Icons.explore,
-    ),
+    _Product('Compass', 'CMPS-22', Colors.indigo.shade400, false,
+        Icons.explore),
   ];
 
   final productCards = <Widget>[];
@@ -1197,7 +1161,9 @@ dynamic build(BuildContext context) {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
-              color: p.featured ? Colors.green.shade100 : Colors.grey.shade200,
+              color: p.featured
+                  ? Colors.green.shade100
+                  : Colors.grey.shade200,
               borderRadius: BorderRadius.circular(4.0),
             ),
             child: Text(
@@ -1245,7 +1211,8 @@ dynamic build(BuildContext context) {
     enabled: featureFlagOn,
     child: Hero(
       tag: 'pattern-a-flag',
-      child: _patternBox('feature flag = $featureFlagOn', Colors.cyan.shade600),
+      child: _patternBox(
+          'feature flag = $featureFlagOn', Colors.cyan.shade600),
     ),
   );
 
@@ -1255,7 +1222,8 @@ dynamic build(BuildContext context) {
     enabled: !reduceMotion,
     child: Hero(
       tag: 'pattern-b-reduce',
-      child: _patternBox('reduceMotion = $reduceMotion', Colors.cyan.shade700),
+      child: _patternBox(
+          'reduceMotion = $reduceMotion', Colors.cyan.shade700),
     ),
   );
 
@@ -1265,7 +1233,8 @@ dynamic build(BuildContext context) {
     enabled: allowFlight,
     child: Hero(
       tag: 'pattern-c-arg',
-      child: _patternBox('routeArg.allowFlight', Colors.cyan.shade800),
+      child:
+          _patternBox('routeArg.allowFlight', Colors.cyan.shade800),
     ),
   );
 
@@ -1364,7 +1333,11 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 4.0),
-                  Text(f.body, style: TextStyle(fontSize: 12.0, height: 1.4)),
+                  Text(
+                    f.body,
+                    style:
+                        TextStyle(fontSize: 12.0, height: 1.4),
+                  ),
                 ],
               ),
             ),
@@ -1392,32 +1365,19 @@ dynamic build(BuildContext context) {
   final matrixRows = <Widget>[];
   final matrix = [
     _MatrixRow(
-      'Cross-route hero animation needed',
-      'enabled: true',
-      accentEnabled,
-    ),
+        'Cross-route hero animation needed', 'enabled: true', accentEnabled),
+    _MatrixRow('Subtree shown in modal sheet only', 'enabled: false',
+        accentDisabled),
+    _MatrixRow('List item that may be re-keyed', 'enabled: false',
+        accentDisabled),
+    _MatrixRow('Route ignores hero observer entirely',
+        'wrap entire route', accentDisabled),
+    _MatrixRow('Reduce-motion is on', 'enabled: !reduceMotion',
+        accentInfo),
     _MatrixRow(
-      'Subtree shown in modal sheet only',
-      'enabled: false',
-      accentDisabled,
-    ),
-    _MatrixRow(
-      'List item that may be re-keyed',
-      'enabled: false',
-      accentDisabled,
-    ),
-    _MatrixRow(
-      'Route ignores hero observer entirely',
-      'wrap entire route',
-      accentDisabled,
-    ),
-    _MatrixRow('Reduce-motion is on', 'enabled: !reduceMotion', accentInfo),
-    _MatrixRow('Feature in beta', 'enabled: featureFlag', accentWarn),
-    _MatrixRow(
-      'Default everywhere else',
-      'enabled: true (omit)',
-      accentEnabled,
-    ),
+        'Feature in beta', 'enabled: featureFlag', accentWarn),
+    _MatrixRow('Default everywhere else', 'enabled: true (omit)',
+        accentEnabled),
   ];
   for (final m in matrix) {
     matrixRows.add(
@@ -1433,7 +1393,10 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               flex: 3,
-              child: Text(m.scenario, style: TextStyle(fontSize: 12.5)),
+              child: Text(
+                m.scenario,
+                style: TextStyle(fontSize: 12.5),
+              ),
             ),
             Expanded(
               flex: 2,
@@ -1492,7 +1455,11 @@ dynamic build(BuildContext context) {
           'to true wherever you want the standard cross-route flight, '
           'and switch it off whenever a subtree must stay still during '
           'transitions. Treat it as documentation, not magic.',
-          style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.5),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 13.0,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -1607,7 +1574,10 @@ Widget _sectionHeader({
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.95), color.withValues(alpha: 0.65)],
+        colors: [
+          color.withValues(alpha: 0.95),
+          color.withValues(alpha: 0.65),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1697,10 +1667,9 @@ Widget _comparisonPanel({
         Text(
           subtitle,
           style: TextStyle(
-            fontSize: 11.5,
-            fontStyle: FontStyle.italic,
-            color: Colors.grey.shade700,
-          ),
+              fontSize: 11.5,
+              fontStyle: FontStyle.italic,
+              color: Colors.grey.shade700),
         ),
         SizedBox(height: 12.0),
         Center(
@@ -1737,10 +1706,9 @@ Widget _comparisonPanel({
         Text(
           'tag: $tag',
           style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.0,
-            color: Colors.grey.shade700,
-          ),
+              fontFamily: 'monospace',
+              fontSize: 11.0,
+              color: Colors.grey.shade700),
         ),
       ],
     ),

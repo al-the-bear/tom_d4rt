@@ -390,7 +390,11 @@ dynamic build(BuildContext context) {
                   cs.onInverseSurface,
                   cs.inverseSurface,
                 ),
-                swatchTile('inversePrimary', cs.inversePrimary, cs.onPrimary),
+                swatchTile(
+                  'inversePrimary',
+                  cs.inversePrimary,
+                  cs.onPrimary,
+                ),
               ],
             );
           },
@@ -447,7 +451,10 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 10),
                 Row(
                   children: <Widget>[
-                    FilledButton(onPressed: () {}, child: const Text('Filled')),
+                    FilledButton(
+                      onPressed: () {},
+                      child: const Text('Filled'),
+                    ),
                     const SizedBox(width: 8),
                     OutlinedButton(
                       onPressed: () {},
@@ -456,12 +463,7 @@ dynamic build(BuildContext context) {
                   ],
                 ),
                 const SizedBox(height: 8),
-                Chip(
-                  label: Text(
-                    'Tag',
-                    style: TextStyle(color: t.colorScheme.onSecondaryContainer),
-                  ),
-                ),
+                Chip(label: Text('Tag', style: TextStyle(color: t.colorScheme.onSecondaryContainer))),
               ],
             ),
           );
@@ -544,7 +546,9 @@ dynamic build(BuildContext context) {
                 Row(
                   children: <Widget>[
                     Switch(value: true, onChanged: (_) {}),
-                    Expanded(child: Slider(value: 0.6, onChanged: (_) {})),
+                    Expanded(
+                      child: Slider(value: 0.6, onChanged: (_) {}),
+                    ),
                   ],
                 ),
               ],
@@ -644,10 +648,7 @@ dynamic build(BuildContext context) {
                     style: tt.bodyMedium,
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    'LABELSMALL · STATUS · 2026-05-02',
-                    style: tt.labelSmall,
-                  ),
+                  Text('LABELSMALL · STATUS · 2026-05-02', style: tt.labelSmall),
                 ],
               );
             },
@@ -663,8 +664,15 @@ dynamic build(BuildContext context) {
 
   final ThemeData s5Theme = ThemeData(
     useMaterial3: true,
-    iconTheme: const IconThemeData(color: s5Primary, size: 28, opacity: 1.0),
-    primaryIconTheme: const IconThemeData(color: Colors.white, size: 22),
+    iconTheme: const IconThemeData(
+      color: s5Primary,
+      size: 28,
+      opacity: 1.0,
+    ),
+    primaryIconTheme: const IconThemeData(
+      color: Colors.white,
+      size: 22,
+    ),
     primaryColor: s5Primary,
   );
 
@@ -702,10 +710,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 color: s5Primary,
                 child: Builder(
                   builder: (BuildContext c) {
@@ -855,8 +860,14 @@ dynamic build(BuildContext context) {
                       selected: sel2,
                       onSelected: (bool v) => s(() => sel2 = v),
                     ),
-                    const Chip(label: Text('Disabled'), onDeleted: null),
-                    ActionChip(label: const Text('Action'), onPressed: () {}),
+                    const Chip(
+                      label: Text('Disabled'),
+                      onDeleted: null,
+                    ),
+                    ActionChip(
+                      label: const Text('Action'),
+                      onPressed: () {},
+                    ),
                   ],
                 );
               },
@@ -876,7 +887,9 @@ dynamic build(BuildContext context) {
     dialogTheme: DialogThemeData(
       backgroundColor: s8DialogBg,
       elevation: 8,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+      ),
       titleTextStyle: const TextStyle(
         color: s8DialogTitle,
         fontWeight: FontWeight.w800,
@@ -898,7 +911,8 @@ dynamic build(BuildContext context) {
         'elevation, shape, title/content text styles, and icon color. The '
         'snippet below renders a faux dialog (no overlay) so the static '
         'demo reads cleanly.',
-    caption: 'For real showDialog calls these same tokens apply automatically.',
+    caption:
+        'For real showDialog calls these same tokens apply automatically.',
     body: liveStrip(
       Theme(
         data: s8Theme,
@@ -934,10 +948,7 @@ dynamic build(BuildContext context) {
                     children: <Widget>[
                       TextButton(onPressed: () {}, child: const Text('Cancel')),
                       const SizedBox(width: 8),
-                      FilledButton(
-                        onPressed: () {},
-                        child: const Text('Delete'),
-                      ),
+                      FilledButton(onPressed: () {}, child: const Text('Delete')),
                     ],
                   ),
                 ],
@@ -1097,16 +1108,11 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text(
-                      'Saved successfully.',
-                      style: s.contentTextStyle,
-                    ),
+                    child: Text('Saved successfully.', style: s.contentTextStyle),
                   ),
                   TextButton(
                     onPressed: () {},
-                    style: TextButton.styleFrom(
-                      foregroundColor: s.actionTextColor,
-                    ),
+                    style: TextButton.styleFrom(foregroundColor: s.actionTextColor),
                     child: const Text('UNDO'),
                   ),
                 ],
@@ -1180,10 +1186,7 @@ dynamic build(BuildContext context) {
                 prefixIcon: Icon(Icons.public),
               ),
               items: const <DropdownMenuItem<String>>[
-                DropdownMenuItem<String>(
-                  value: 'us',
-                  child: Text('United States'),
-                ),
+                DropdownMenuItem<String>(value: 'us', child: Text('United States')),
                 DropdownMenuItem<String>(value: 'fr', child: Text('France')),
                 DropdownMenuItem<String>(value: 'jp', child: Text('Japan')),
               ],
@@ -1210,8 +1213,7 @@ dynamic build(BuildContext context) {
 
   final Widget section13 = sectionCard(
     backdrop: s13Backdrop,
-    title:
-        '13. scaffoldBackgroundColor / dividerColor / disabledColor / hoverColor / focusColor',
+    title: '13. scaffoldBackgroundColor / dividerColor / disabledColor / hoverColor / focusColor',
     description:
         'Several top-level color slots configure the surfaces a Scaffold '
         'paints behind its body, the default Divider color, the color used '
@@ -1231,20 +1233,18 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'scaffoldBackgroundColor = ${hex(t.scaffoldBackgroundColor)}',
-                  ),
+                  Text('scaffoldBackgroundColor = ${hex(t.scaffoldBackgroundColor)}'),
                   const SizedBox(height: 10),
-                  Container(height: 1, color: t.dividerColor),
+                  Container(
+                    height: 1,
+                    color: t.dividerColor,
+                  ),
                   const SizedBox(height: 10),
                   Text('dividerColor = ${hex(t.dividerColor)}'),
                   const SizedBox(height: 14),
                   Row(
                     children: <Widget>[
-                      ElevatedButton(
-                        onPressed: null,
-                        child: const Text('Disabled'),
-                      ),
+                      ElevatedButton(onPressed: null, child: const Text('Disabled')),
                       const SizedBox(width: 12),
                       Text('disabledColor = ${hex(t.disabledColor)}'),
                     ],
@@ -1338,10 +1338,7 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   Text(
                     'BrandTokens.brandPrimary = ${hex(b.brandPrimary)}',
-                    style: TextStyle(
-                      color: b.brandPrimary,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(color: b.brandPrimary, fontWeight: FontWeight.w700),
                   ),
                   Text('BrandTokens.brandRadius = ${b.brandRadius}'),
                   Text('BrandTokens.brandPadding = ${b.brandPadding}'),
@@ -1397,7 +1394,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 8),
             const Card(
               child: Padding(

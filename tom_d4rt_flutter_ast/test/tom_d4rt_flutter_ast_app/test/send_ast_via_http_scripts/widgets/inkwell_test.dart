@@ -142,7 +142,11 @@ Widget _conceptOverview() {
       children: [
         Row(
           children: [
-            Container(width: 4.0, height: 24.0, color: Color(0xFF4A148C)),
+            Container(
+              width: 4.0,
+              height: 24.0,
+              color: Color(0xFF4A148C),
+            ),
             SizedBox(width: 10.0),
             Text(
               'About this atelier',
@@ -208,7 +212,10 @@ Widget _conceptRow(Color color, String title, String body) {
           margin: EdgeInsets.only(top: 6.0),
           width: 10.0,
           height: 10.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 12.0),
         Expanded(
@@ -306,7 +313,11 @@ Widget _sectionBanner(int number, String title, String subtitle, Color color) {
   );
 }
 
-Widget _recipeCard(Color color, String label, List<List<String>> bullets) {
+Widget _recipeCard(
+  Color color,
+  String label,
+  List<List<String>> bullets,
+) {
   // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #117, P5(a)):
   // Flutter forbids `borderRadius` on a `Border(...)` with non-uniform colors
   // (here: thick colored `left` + thin neutral `top/right/bottom`). Refactor
@@ -337,83 +348,80 @@ Widget _recipeCard(Color color, String label, List<List<String>> bullets) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+        Row(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: Text(
+                'RECIPE',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1.5,
+                ),
+              ),
+            ),
+            SizedBox(width: 8.0),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10.0),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: bullets.map((b) {
+            return Padding(
+              padding: EdgeInsets.only(bottom: 4.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '▸ ',
+                    style: TextStyle(
+                      color: color,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          color: Color(0xFF424242),
+                          fontSize: 12.5,
+                          height: 1.4,
+                        ),
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 3.0,
-                            ),
-                            decoration: BoxDecoration(
-                              color: color,
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: Text(
-                              'RECIPE',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: 1.5,
-                              ),
+                          TextSpan(
+                            text: '${b[0]}: ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF212121),
                             ),
                           ),
-                          SizedBox(width: 8.0),
-                          Expanded(
-                            child: Text(
-                              label,
-                              style: TextStyle(
-                                color: color,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
+                          TextSpan(text: b[1]),
                         ],
                       ),
-                      SizedBox(height: 10.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: bullets.map((b) {
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: 4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '▸ ',
-                                  style: TextStyle(
-                                    color: color,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      style: TextStyle(
-                                        color: Color(0xFF424242),
-                                        fontSize: 12.5,
-                                        height: 1.4,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: '${b[0]}: ',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: Color(0xFF212121),
-                                          ),
-                                        ),
-                                        TextSpan(text: b[1]),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
+      ],
                   ),
                 ),
               ),
@@ -535,7 +543,9 @@ Widget _splashOverlay({
 
 Widget _highlightOverlay(Color color) {
   return Positioned.fill(
-    child: IgnorePointer(child: Container(color: color.withOpacity(0.18))),
+    child: IgnorePointer(
+      child: Container(color: color.withOpacity(0.18)),
+    ),
   );
 }
 
@@ -662,11 +672,8 @@ Widget _section1Basic() {
                       ),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.water_drop,
-                            color: palette.primary,
-                            size: 20.0,
-                          ),
+                          Icon(Icons.water_drop,
+                              color: palette.primary, size: 20.0),
                           SizedBox(width: 10.0),
                           Text(
                             'Ripple captured at t=0.55',
@@ -701,11 +708,15 @@ Widget _section1Basic() {
           ],
         ),
       ),
-      _recipeCard(palette.primary, 'Minimum viable InkWell', [
-        ['Material', 'wrap your InkWell so the ink has a surface to paint on'],
-        ['onTap', 'must be non-null for the widget to be enabled'],
-        ['borderRadius', 'should match the parent Material for clean clipping'],
-      ]),
+      _recipeCard(
+        palette.primary,
+        'Minimum viable InkWell',
+        [
+          ['Material', 'wrap your InkWell so the ink has a surface to paint on'],
+          ['onTap', 'must be non-null for the widget to be enabled'],
+          ['borderRadius', 'should match the parent Material for clean clipping'],
+        ],
+      ),
     ],
   );
 }
@@ -822,20 +833,15 @@ Widget _section2Splash() {
           }).toList(),
         ),
       ),
-      _recipeCard(palette.primary, 'Customising splashColor', [
+      _recipeCard(
+        palette.primary,
+        'Customising splashColor',
         [
-          'Opacity',
-          'always use opacity ≤ 0.5 so underlying content remains visible',
+          ['Opacity', 'always use opacity ≤ 0.5 so underlying content remains visible'],
+          ['Theme override', 'theme-wide via ThemeData.splashColor for app-wide tone'],
+          ['Brand colors', 'pair with brand primary for instantly-recognisable feedback'],
         ],
-        [
-          'Theme override',
-          'theme-wide via ThemeData.splashColor for app-wide tone',
-        ],
-        [
-          'Brand colors',
-          'pair with brand primary for instantly-recognisable feedback',
-        ],
-      ]),
+      ),
       _comparisonTable(
         palette.primary,
         'Splash color guidance by surface',
@@ -931,17 +937,15 @@ Widget _section3Highlight() {
           ],
         ),
       ),
-      _recipeCard(palette.primary, 'When to customise highlightColor', [
+      _recipeCard(
+        palette.primary,
+        'When to customise highlightColor',
         [
-          'Press feedback',
-          'use a tone darker than splashColor for tactile depth',
+          ['Press feedback', 'use a tone darker than splashColor for tactile depth'],
+          ['Transparent', 'Colors.transparent disables the highlight layer entirely'],
+          ['Long-press', 'highlight remains while onLongPress is being awaited'],
         ],
-        [
-          'Transparent',
-          'Colors.transparent disables the highlight layer entirely',
-        ],
-        ['Long-press', 'highlight remains while onLongPress is being awaited'],
-      ]),
+      ),
     ],
   );
 }
@@ -1033,34 +1037,26 @@ Widget _section4Hover() {
             SizedBox(height: 12.0),
             _hoverRow(palette, 'Cursor away', null, Icons.mouse_outlined),
             SizedBox(height: 8.0),
-            _hoverRow(
-              palette,
-              'Cursor entering',
-              palette.accent.withOpacity(0.15),
-              Icons.east,
-            ),
+            _hoverRow(palette, 'Cursor entering',
+                palette.accent.withOpacity(0.15), Icons.east),
             SizedBox(height: 8.0),
-            _hoverRow(
-              palette,
-              'Hover fully on',
-              palette.accent.withOpacity(0.28),
-              Icons.fullscreen,
-            ),
+            _hoverRow(palette, 'Hover fully on',
+                palette.accent.withOpacity(0.28), Icons.fullscreen),
             SizedBox(height: 8.0),
-            _hoverRow(
-              palette,
-              'Cursor leaving',
-              palette.accent.withOpacity(0.10),
-              Icons.west,
-            ),
+            _hoverRow(palette, 'Cursor leaving',
+                palette.accent.withOpacity(0.10), Icons.west),
           ],
         ),
       ),
-      _recipeCard(palette.primary, 'Designing hover affordances', [
-        ['Subtle', 'desktop convention: opacity 0.04–0.12'],
-        ['Pointer', 'pair with MouseRegion if you need cursor changes'],
-        ['Animate', 'transitions are handled internally by InkWell'],
-      ]),
+      _recipeCard(
+        palette.primary,
+        'Designing hover affordances',
+        [
+          ['Subtle', 'desktop convention: opacity 0.04–0.12'],
+          ['Pointer', 'pair with MouseRegion if you need cursor changes'],
+          ['Animate', 'transitions are handled internally by InkWell'],
+        ],
+      ),
     ],
   );
 }
@@ -1108,7 +1104,9 @@ Widget _hoverRow(
         ),
         if (hoverTint != null)
           Positioned.fill(
-            child: IgnorePointer(child: Container(color: hoverTint)),
+            child: IgnorePointer(
+              child: Container(color: hoverTint),
+            ),
           ),
       ],
     ),
@@ -1159,11 +1157,15 @@ Widget _section5Focus() {
           ],
         ),
       ),
-      _recipeCard(palette.primary, 'Keyboard focus best practices', [
-        ['canRequestFocus', 'set to false to opt out of focus navigation'],
-        ['autofocus', 'use sparingly — only on the first input of a screen'],
-        ['focusColor', 'must meet WCAG contrast against the surface'],
-      ]),
+      _recipeCard(
+        palette.primary,
+        'Keyboard focus best practices',
+        [
+          ['canRequestFocus', 'set to false to opt out of focus navigation'],
+          ['autofocus', 'use sparingly — only on the first input of a screen'],
+          ['focusColor', 'must meet WCAG contrast against the surface'],
+        ],
+      ),
       _comparisonTable(
         palette.primary,
         'Focus vs hover semantics',
@@ -1278,15 +1280,16 @@ Widget _section6CustomBorder() {
           ],
         ),
       ),
-      _recipeCard(palette.primary, 'Matching the clip to the shape', [
-        ['Stadium', 'great for pill-shaped action buttons'],
+      _recipeCard(
+        palette.primary,
+        'Matching the clip to the shape',
         [
-          'Circle',
-          'use for icon buttons — combine with radius for ripple size',
+          ['Stadium', 'great for pill-shaped action buttons'],
+          ['Circle', 'use for icon buttons — combine with radius for ripple size'],
+          ['RoundedRectangle', 'most common; mirror your card shape'],
+          ['Custom', 'any ShapeBorder works — including BeveledRectangleBorder'],
         ],
-        ['RoundedRectangle', 'most common; mirror your card shape'],
-        ['Custom', 'any ShapeBorder works — including BeveledRectangleBorder'],
-      ]),
+      ),
       _comparisonTable(
         palette.primary,
         'borderRadius vs customBorder',
@@ -1474,11 +1477,8 @@ Widget _beveledDemo(_Section6Palette palette) {
             padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 18.0),
             child: Row(
               children: [
-                Icon(
-                  Icons.diamond_outlined,
-                  color: palette.primary,
-                  size: 22.0,
-                ),
+                Icon(Icons.diamond_outlined,
+                    color: palette.primary, size: 22.0),
                 SizedBox(width: 12.0),
                 Text(
                   'Beveled Rectangle',
@@ -1629,11 +1629,15 @@ Widget _section7Radius() {
           ],
         ),
       ),
-      _recipeCard(palette.primary, 'Tuning the radius', [
-        ['Default', 'when null, the radius fills the parent bounds'],
-        ['IconButton', 'flutter uses a fixed radius around 24.0 by default'],
-        ['Custom', 'set explicitly for circular ripples on irregular widgets'],
-      ]),
+      _recipeCard(
+        palette.primary,
+        'Tuning the radius',
+        [
+          ['Default', 'when null, the radius fills the parent bounds'],
+          ['IconButton', 'flutter uses a fixed radius around 24.0 by default'],
+          ['Custom', 'set explicitly for circular ripples on irregular widgets'],
+        ],
+      ),
     ],
   );
 }
@@ -1706,11 +1710,8 @@ Widget _section8Contained() {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: Color(0xFFFF8F00),
-                    size: 18.0,
-                  ),
+                  Icon(Icons.info_outline,
+                      color: Color(0xFFFF8F00), size: 18.0),
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
@@ -1730,14 +1731,15 @@ Widget _section8Contained() {
           ],
         ),
       ),
-      _recipeCard(palette.primary, 'Bounded vs unbounded', [
+      _recipeCard(
+        palette.primary,
+        'Bounded vs unbounded',
         [
-          'Bounded',
-          'ripple is clipped to the child bounds — typical for cards',
+          ['Bounded', 'ripple is clipped to the child bounds — typical for cards'],
+          ['Unbounded', 'ripple expands past child — typical for icon buttons'],
+          ['highlightShape', 'rectangle vs circle changes the press tint shape'],
         ],
-        ['Unbounded', 'ripple expands past child — typical for icon buttons'],
-        ['highlightShape', 'rectangle vs circle changes the press tint shape'],
-      ]),
+      ),
     ],
   );
 }
@@ -1751,9 +1753,8 @@ Widget _containedDemo(
 ) {
   return Material(
     color: palette.surface,
-    borderRadius: shape == BoxShape.rectangle
-        ? BorderRadius.circular(10.0)
-        : null,
+    borderRadius:
+        shape == BoxShape.rectangle ? BorderRadius.circular(10.0) : null,
     shape: shape == BoxShape.circle ? CircleBorder() : null,
     clipBehavior: Clip.antiAlias,
     child: SizedBox(
@@ -1874,12 +1875,16 @@ Widget _section9SplashFactory() {
           ],
         ),
       ),
-      _recipeCard(palette.primary, 'Choosing a splashFactory', [
-        ['InkSplash', 'the historical default — sharp ripple edge'],
-        ['InkRipple', 'modern softer ripple — paired with Material 3'],
-        ['NoSplash', 'when you want feedback only via highlight/hover'],
-        ['Custom', 'subclass InteractiveInkFeatureFactory for brand effects'],
-      ]),
+      _recipeCard(
+        palette.primary,
+        'Choosing a splashFactory',
+        [
+          ['InkSplash', 'the historical default — sharp ripple edge'],
+          ['InkRipple', 'modern softer ripple — paired with Material 3'],
+          ['NoSplash', 'when you want feedback only via highlight/hover'],
+          ['Custom', 'subclass InteractiveInkFeatureFactory for brand effects'],
+        ],
+      ),
     ],
   );
 }
@@ -1915,7 +1920,8 @@ Widget _factoryDemo(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   alignment: Alignment.center,
-                  child: Icon(Icons.water, color: palette.primary, size: 20.0),
+                  child: Icon(Icons.water,
+                      color: palette.primary, size: 20.0),
                 ),
                 SizedBox(width: 12.0),
                 Expanded(
@@ -1932,7 +1938,10 @@ Widget _factoryDemo(
                       ),
                       Text(
                         description,
-                        style: TextStyle(fontSize: 12.0, color: palette.muted),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: palette.muted,
+                        ),
                       ),
                     ],
                   ),
@@ -2009,17 +2018,15 @@ Widget _section10InkVsResponse() {
           ['Default highlight', 'rectangular tint', 'circular tint'],
         ],
       ),
-      _recipeCard(palette.primary, 'When to pick which', [
-        ['InkWell', 'almost always — for card-shaped, rectangular targets'],
+      _recipeCard(
+        palette.primary,
+        'When to pick which',
         [
-          'InkResponse',
-          'when you need a circular ripple that spills past child',
+          ['InkWell', 'almost always — for card-shaped, rectangular targets'],
+          ['InkResponse', 'when you need a circular ripple that spills past child'],
+          ['Material first', 'both require a Material ancestor — wrap accordingly'],
         ],
-        [
-          'Material first',
-          'both require a Material ancestor — wrap accordingly',
-        ],
-      ]),
+      ),
     ],
   );
 }
@@ -2061,11 +2068,8 @@ Widget _inkWellSide(_Section10Palette palette) {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.square_outlined,
-                          color: palette.primary,
-                          size: 30.0,
-                        ),
+                        Icon(Icons.square_outlined,
+                            color: palette.primary, size: 30.0),
                         SizedBox(height: 6.0),
                         Text(
                           'Rectangular',
@@ -2130,11 +2134,8 @@ Widget _inkResponseSide(_Section10Palette palette) {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.circle_outlined,
-                        color: palette.accent,
-                        size: 30.0,
-                      ),
+                      Icon(Icons.circle_outlined,
+                          color: palette.accent, size: 30.0),
                       SizedBox(height: 6.0),
                       Text(
                         'Circular',
@@ -2191,47 +2192,24 @@ Widget _section11Gestures() {
   final palette = _Section11Palette();
   final gestures = <List<dynamic>>[
     ['onTap', 'Simple click / tap', Icons.touch_app, palette.primary],
-    [
-      'onDoubleTap',
-      'Two quick taps in succession',
-      Icons.double_arrow,
-      Color(0xFF1565C0),
-    ],
+    ['onDoubleTap', 'Two quick taps in succession', Icons.double_arrow,
+        Color(0xFF1565C0)],
     ['onLongPress', 'Press and hold ~500ms', Icons.timer, Color(0xFF2E7D32)],
-    ['onTapDown', 'Pointer goes down', Icons.arrow_downward, Color(0xFF6A1B9A)],
+    ['onTapDown', 'Pointer goes down', Icons.arrow_downward,
+        Color(0xFF6A1B9A)],
     ['onTapUp', 'Pointer goes up', Icons.arrow_upward, Color(0xFFAD1457)],
-    [
-      'onTapCancel',
-      'Gesture cancelled mid-press',
-      Icons.cancel,
-      Color(0xFFC62828),
-    ],
+    ['onTapCancel', 'Gesture cancelled mid-press', Icons.cancel,
+        Color(0xFFC62828)],
     ['onHover', 'Mouse enters / leaves', Icons.mouse, Color(0xFF00838F)],
-    [
-      'onFocusChange',
-      'Focus gained or lost',
-      Icons.center_focus_strong,
-      Color(0xFF4527A0),
-    ],
+    ['onFocusChange', 'Focus gained or lost', Icons.center_focus_strong,
+        Color(0xFF4527A0)],
     ['onSecondaryTap', 'Right-click', Icons.swap_horiz, Color(0xFFEF6C00)],
-    [
-      'onSecondaryTapDown',
-      'Right-click pointer down',
-      Icons.south_east,
-      Color(0xFFD84315),
-    ],
-    [
-      'onSecondaryTapUp',
-      'Right-click pointer up',
-      Icons.north_west,
-      Color(0xFF5D4037),
-    ],
-    [
-      'onHighlightChanged',
-      'Highlight state toggled',
-      Icons.flash_on,
-      Color(0xFFFB8C00),
-    ],
+    ['onSecondaryTapDown', 'Right-click pointer down', Icons.south_east,
+        Color(0xFFD84315)],
+    ['onSecondaryTapUp', 'Right-click pointer up', Icons.north_west,
+        Color(0xFF5D4037)],
+    ['onHighlightChanged', 'Highlight state toggled', Icons.flash_on,
+        Color(0xFFFB8C00)],
   ];
 
   return Column(
@@ -2335,18 +2313,16 @@ Widget _section11Gestures() {
           ['Mobile', 'Tap', 'Long-press menu (platform-specific)'],
         ],
       ),
-      _recipeCard(palette.primary, 'Gesture binding tips', [
-        ['Enable check', 'InkWell needs at least one non-null callback'],
-        ['onTapCancel', 'use to revert visual state if the gesture aborts'],
+      _recipeCard(
+        palette.primary,
+        'Gesture binding tips',
         [
-          'Conflicts',
-          'avoid wrapping in GestureDetector with overlapping callbacks',
+          ['Enable check', 'InkWell needs at least one non-null callback'],
+          ['onTapCancel', 'use to revert visual state if the gesture aborts'],
+          ['Conflicts', 'avoid wrapping in GestureDetector with overlapping callbacks'],
+          ['Disabled', 'pass null to every callback to disable feedback entirely'],
         ],
-        [
-          'Disabled',
-          'pass null to every callback to disable feedback entirely',
-        ],
-      ]),
+      ),
     ],
   );
 }
@@ -2373,25 +2349,16 @@ Widget _glossaryPanel() {
     ['splashColor', 'The color of the expanding ripple wave.'],
     ['highlightColor', 'The color of the surface tint while pressed.'],
     ['hoverColor', 'The color tint applied when a mouse pointer enters.'],
-    [
-      'focusColor',
-      'The color tint applied when the widget has keyboard focus.',
-    ],
+    ['focusColor', 'The color tint applied when the widget has keyboard focus.'],
     ['customBorder', 'A ShapeBorder used to clip the ripple to a shape.'],
     ['borderRadius', 'Rectangle-only convenience for clipping the ripple.'],
     ['radius', 'Maximum radius the ripple may reach.'],
     ['containedInkWell', 'Whether the ripple is clipped to the child bounds.'],
     ['highlightShape', 'Rectangle or circle — the shape of the press tint.'],
-    [
-      'splashFactory',
-      'Factory that creates the ripple feature; swap to NoSplash to disable.',
-    ],
+    ['splashFactory', 'Factory that creates the ripple feature; swap to NoSplash to disable.'],
     ['InkSplash.splashFactory', 'Classic Material radial ripple.'],
     ['InkRipple.splashFactory', 'Modern Material 3 broader ripple.'],
-    [
-      'NoSplash.splashFactory',
-      'Disables the splash entirely while keeping highlights.',
-    ],
+    ['NoSplash.splashFactory', 'Disables the splash entirely while keeping highlights.'],
     ['onTap', 'Single primary tap callback; required to enable the widget.'],
     ['onDoubleTap', 'Two quick primary taps callback.'],
     ['onLongPress', 'Press-and-hold callback (~500ms).'],
@@ -2448,7 +2415,8 @@ Widget _glossaryPanel() {
               padding: EdgeInsets.symmetric(vertical: 8.0),
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: Color(0xFFEEEEEE), width: 1.0),
+                  bottom:
+                      BorderSide(color: Color(0xFFEEEEEE), width: 1.0),
                 ),
               ),
               child: Row(
@@ -2499,7 +2467,11 @@ Widget _epilogue() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Color(0xFF1A237E), Color(0xFF4A148C), Color(0xFF880E4F)],
+        colors: [
+          Color(0xFF1A237E),
+          Color(0xFF4A148C),
+          Color(0xFF880E4F),
+        ],
       ),
       borderRadius: BorderRadius.circular(16.0),
     ),
@@ -2553,11 +2525,8 @@ Widget _epilogue() {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.lightbulb_outline,
-                color: Color(0xFFFFD54F),
-                size: 18.0,
-              ),
+              Icon(Icons.lightbulb_outline,
+                  color: Color(0xFFFFD54F), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(

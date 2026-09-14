@@ -86,7 +86,10 @@ class _MockSpellCheckService extends SpellCheckService {
             end == text.length || !_isWordChar(text.codeUnitAt(end));
         if (leftBoundary && rightBoundary) {
           spans.add(
-            SuggestionSpan(TextRange(start: idx, end: end), replacements),
+            SuggestionSpan(
+              TextRange(start: idx, end: end),
+              replacements,
+            ),
           );
         }
         start = end;
@@ -95,10 +98,8 @@ class _MockSpellCheckService extends SpellCheckService {
 
     // SuggestionSpans are conventionally returned in document order so the
     // editor can iterate through them efficiently. Sort by start offset.
-    spans.sort(
-      (SuggestionSpan a, SuggestionSpan b) =>
-          a.range.start.compareTo(b.range.start),
-    );
+    spans.sort((SuggestionSpan a, SuggestionSpan b) =>
+        a.range.start.compareTo(b.range.start));
     return spans;
   }
 
@@ -195,7 +196,11 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
       child: Text(
         text,
-        style: TextStyle(color: color ?? mahogany, fontSize: size, height: 1.5),
+        style: TextStyle(
+          color: color ?? mahogany,
+          fontSize: size,
+          height: 1.5,
+        ),
       ),
     );
   }
@@ -277,10 +282,7 @@ dynamic build(BuildContext context) {
     Color accent = terracotta,
   }) {
     return FutureBuilder<List<SuggestionSpan>?>(
-      future: service.fetchSpellCheckSuggestions(
-        const Locale('en', 'US'),
-        text,
-      ),
+      future: service.fetchSpellCheckSuggestions(const Locale('en', 'US'), text),
       builder: (BuildContext ctx, AsyncSnapshot<List<SuggestionSpan>?> snap) {
         if (!snap.hasData) {
           return Padding(
@@ -357,11 +359,8 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        const Icon(
-                          Icons.error_outline,
-                          color: spellRed,
-                          size: 16,
-                        ),
+                        const Icon(Icons.error_outline,
+                            color: spellRed, size: 16),
                         const SizedBox(width: 6),
                         Text(
                           span.range.textInside(text),
@@ -387,7 +386,8 @@ dynamic build(BuildContext context) {
                       spacing: 6,
                       runSpacing: 4,
                       children: <Widget>[
-                        for (final String suggestion in span.suggestions)
+                        for (final String suggestion
+                            in span.suggestions)
                           ActionChip(
                             avatar: const Icon(
                               Icons.auto_fix_high,
@@ -431,7 +431,9 @@ dynamic build(BuildContext context) {
     int cursor = 0;
     for (final SuggestionSpan span in spans) {
       if (span.range.start > cursor) {
-        children.add(TextSpan(text: text.substring(cursor, span.range.start)));
+        children.add(
+          TextSpan(text: text.substring(cursor, span.range.start)),
+        );
       }
       children.add(
         TextSpan(
@@ -453,7 +455,11 @@ dynamic build(BuildContext context) {
     }
     return RichText(
       text: TextSpan(
-        style: TextStyle(fontSize: fontSize, color: mahogany, height: 1.5),
+        style: TextStyle(
+          fontSize: fontSize,
+          color: mahogany,
+          height: 1.5,
+        ),
         children: children,
       ),
     );
@@ -479,23 +485,23 @@ dynamic build(BuildContext context) {
         callout(
           'CONTRACT',
           'fetchSpellCheckSuggestions(Locale locale, String text) returns a '
-              'Future<List<SuggestionSpan>?>. Each SuggestionSpan carries a '
-              'TextRange and a list of replacement strings ordered by likelihood.',
+          'Future<List<SuggestionSpan>?>. Each SuggestionSpan carries a '
+          'TextRange and a list of replacement strings ordered by likelihood.',
           terracotta,
         ),
         callout(
           'ASYNC',
           'The contract is asynchronous because real implementations cross '
-              'the platform channel boundary. Returning null indicates the '
-              'request was cancelled or unsupported; an empty list means the '
-              'platform looked but found nothing.',
+          'the platform channel boundary. Returning null indicates the '
+          'request was cancelled or unsupported; an empty list means the '
+          'platform looked but found nothing.',
           rust,
         ),
         callout(
           'SCOPE',
           'Each call inspects the entire string, not just the user\'s last '
-              'edit. The TextField throttles invocations and only redraws the '
-              'misspelling underlines when the result list changes.',
+          'edit. The TextField throttles invocations and only redraws the '
+          'misspelling underlines when the result list changes.',
           bronze,
         ),
         Wrap(
@@ -585,28 +591,28 @@ class _MockSpellCheckService extends SpellCheckService {
         callout(
           'STEP 1',
           'Extend SpellCheckService and override fetchSpellCheckSuggestions. '
-              'The signature is fixed; you may not change parameters or return '
-              'type.',
+          'The signature is fixed; you may not change parameters or return '
+          'type.',
           terracotta,
         ),
         callout(
           'STEP 2',
           'Use Future.delayed (or a real platform call) to keep the contract '
-              'asynchronous. Synchronous returns still work, but real Flutter '
-              'editors expect the call to be deferable.',
+          'asynchronous. Synchronous returns still work, but real Flutter '
+          'editors expect the call to be deferable.',
           rust,
         ),
         callout(
           'STEP 3',
           'Return SuggestionSpans sorted by range.start so the editor can '
-              'walk them in document order while painting underlines.',
+          'walk them in document order while painting underlines.',
           bronze,
         ),
         callout(
           'STEP 4',
           'Apply word-boundary checks so substrings inside other words are '
-              'not flagged. The platform default does this implicitly; custom '
-              'services must do it explicitly.',
+          'not flagged. The platform default does this implicitly; custom '
+          'services must do it explicitly.',
           burnSienna,
         ),
       ],
@@ -633,7 +639,12 @@ class _MockSpellCheckService extends SpellCheckService {
 
   // ─── Section 5: Service contract explainer ───
   Widget section5Contract() {
-    Widget contractCard(String title, String body, IconData icon, Color color) {
+    Widget contractCard(
+      String title,
+      String body,
+      IconData icon,
+      Color color,
+    ) {
       return Container(
         width: 220,
         margin: const EdgeInsets.only(right: 12, bottom: 8),
@@ -700,32 +711,32 @@ class _MockSpellCheckService extends SpellCheckService {
               contractCard(
                 'Synchronous? No',
                 'Returns Future<List<SuggestionSpan>?>. Real implementations '
-                    'cross the platform channel boundary; the editor awaits the '
-                    'result before redrawing underlines.',
+                'cross the platform channel boundary; the editor awaits the '
+                'result before redrawing underlines.',
                 Icons.sync,
                 terracotta,
               ),
               contractCard(
                 'Scope? Entire string',
                 'The service is invoked with the full document text on every '
-                    'meaningful change. The editor itself coalesces edits before '
-                    'invoking the service.',
+                'meaningful change. The editor itself coalesces edits before '
+                'invoking the service.',
                 Icons.text_fields,
                 rust,
               ),
               contractCard(
                 'Language? From config',
                 'The locale comes from SpellCheckConfiguration on the '
-                    'TextField. Implementations that span languages branch on '
-                    'the supplied Locale to pick a dictionary.',
+                'TextField. Implementations that span languages branch on '
+                'the supplied Locale to pick a dictionary.',
                 Icons.language,
                 copper,
               ),
               contractCard(
                 'Platform support? iOS+Android',
                 'The default implementation only works on iOS and Android. '
-                    'Other platforms (web, desktop) need a custom service such '
-                    'as the one in this demo.',
+                'Other platforms (web, desktop) need a custom service such '
+                'as the one in this demo.',
                 Icons.phone_iphone,
                 bronze,
               ),
@@ -947,8 +958,7 @@ class _MockSpellCheckService extends SpellCheckService {
         ),
         showcaseField(
           label: 'Default toolbar',
-          description:
-              'Plain SpellCheckConfiguration with our mock service. '
+          description: 'Plain SpellCheckConfiguration with our mock service. '
               'The platform supplies the toolbar UI.',
           config: SpellCheckConfiguration(spellCheckService: mockService),
           seedText: 'Quick brown fox jumpd over teh lazy dog.',
@@ -956,39 +966,39 @@ class _MockSpellCheckService extends SpellCheckService {
         ),
         showcaseField(
           label: 'Custom suggestions toolbar builder',
-          description:
-              'spellCheckSuggestionsToolbarBuilder lets you control '
+          description: 'spellCheckSuggestionsToolbarBuilder lets you control '
               'how the suggestions toolbar is constructed when a misspelling '
               'is tapped on mobile.',
           config: SpellCheckConfiguration(
             spellCheckService: mockService,
-            spellCheckSuggestionsToolbarBuilder:
-                (BuildContext ctx, EditableTextState state) {
-                  return Container(
-                    margin: const EdgeInsets.all(6),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: warmGlow,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: bronze),
-                    ),
-                    child: const Text(
-                      'Custom toolbar (mock)',
-                      style: TextStyle(
-                        color: mahogany,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  );
-                },
+            spellCheckSuggestionsToolbarBuilder: (
+              BuildContext ctx,
+              EditableTextState state,
+            ) {
+              return Container(
+                margin: const EdgeInsets.all(6),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: warmGlow,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: bronze),
+                ),
+                child: const Text(
+                  'Custom toolbar (mock)',
+                  style: TextStyle(
+                    color: mahogany,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            },
           ),
           seedText: 'Definately recieve a wierd surprise.',
           accent: rust,
         ),
         showcaseField(
           label: 'Custom misspelled-text style',
-          description:
-              'misspelledTextStyle overrides how flagged words are '
+          description: 'misspelledTextStyle overrides how flagged words are '
               'rendered. Here we use solid red bold instead of the default '
               'wavy underline.',
           config: SpellCheckConfiguration(
@@ -1005,8 +1015,7 @@ class _MockSpellCheckService extends SpellCheckService {
         ),
         showcaseField(
           label: 'Disabled (no service)',
-          description:
-              'SpellCheckConfiguration.disabled() turns spell '
+          description: 'SpellCheckConfiguration.disabled() turns spell '
               'checking off entirely while keeping the rest of the editor '
               'intact.',
           config: const SpellCheckConfiguration.disabled(),
@@ -1058,13 +1067,12 @@ class _MockSpellCheckService extends SpellCheckService {
               children: <Widget>[
                 for (final SuggestionSpan span in spans)
                   Tooltip(
-                    message: 'Suggestions: ${span.suggestions.join(", ")}',
+                    message:
+                        'Suggestions: ${span.suggestions.join(", ")}',
                     child: Container(
                       margin: const EdgeInsets.only(right: 6, bottom: 6),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: spellRed.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(6),
@@ -1171,8 +1179,7 @@ class _MockSpellCheckService extends SpellCheckService {
             children: <Widget>[
               recipeCard(
                 title: 'Email composer',
-                description:
-                    'Default mock service, default UI. Best for '
+                description: 'Default mock service, default UI. Best for '
                     'general purpose long-form prose.',
                 icon: Icons.mail_outline,
                 color: terracotta,
@@ -1196,8 +1203,7 @@ class _MockSpellCheckService extends SpellCheckService {
               ),
               recipeCard(
                 title: 'Code editor (no spellcheck)',
-                description:
-                    'Spell checking actively gets in the way of '
+                description: 'Spell checking actively gets in the way of '
                     'identifiers; disable it entirely.',
                 icon: Icons.code,
                 color: bronze,
@@ -1222,8 +1228,7 @@ class _MockSpellCheckService extends SpellCheckService {
               ),
               recipeCard(
                 title: 'Document editor',
-                description:
-                    'Custom service that includes domain words — '
+                description: 'Custom service that includes domain words — '
                     'the same _MockSpellCheckService here is illustrative.',
                 icon: Icons.description_outlined,
                 color: copper,
@@ -1252,8 +1257,7 @@ class _MockSpellCheckService extends SpellCheckService {
               ),
               recipeCard(
                 title: 'Comment box',
-                description:
-                    'Default platform service for short, casual '
+                description: 'Default platform service for short, casual '
                     'replies. Falls back to platform UI everywhere.',
                 icon: Icons.comment_outlined,
                 color: rust,
@@ -1417,21 +1421,21 @@ class _MockSpellCheckService extends SpellCheckService {
         callout(
           'TIP',
           'When prototyping, always start with a custom service like the '
-              'mock above. Switching to DefaultSpellCheckService later is a '
-              'single-line change.',
+          'mock above. Switching to DefaultSpellCheckService later is a '
+          'single-line change.',
           terracotta,
         ),
         callout(
           'GOTCHA',
           'SpellCheckConfiguration is final — you cannot mutate the service '
-              'in place. Build a new configuration and rebuild the TextField '
-              'when the user toggles spell-checking.',
+          'in place. Build a new configuration and rebuild the TextField '
+          'when the user toggles spell-checking.',
           rust,
         ),
         callout(
           'TESTING',
           'A custom mock service yields deterministic behaviour in widget '
-              'tests. The platform default cannot be exercised in pure tests.',
+          'tests. The platform default cannot be exercised in pure tests.',
           bronze,
         ),
       ],
@@ -1517,8 +1521,7 @@ class _LiveTextFieldDemo extends StatefulWidget {
     required SpellCheckService service,
     required void Function(SuggestionSpan span, String replacement) onApply,
     Color accent,
-  })
-  buildSuggestionsPanel;
+  }) buildSuggestionsPanel;
 
   const _LiveTextFieldDemo({
     required this.service,
@@ -1546,8 +1549,7 @@ class _LiveTextFieldDemoState extends State<_LiveTextFieldDemo> {
   void initState() {
     super.initState();
     _controller = TextEditingController(
-      text:
-          'Yesterday I recieve teh letter and definately got '
+      text: 'Yesterday I recieve teh letter and definately got '
           'embarass in front of my collegue.',
     );
     _controller.addListener(_handleChange);
@@ -1643,7 +1645,11 @@ class _LiveTextFieldDemoState extends State<_LiveTextFieldDemo> {
             'to the mock service. The panel below the field re-runs the '
             'service each rebuild and exposes each SuggestionSpan with '
             'tappable ActionChips for every replacement.',
-            style: TextStyle(color: mahogany, fontSize: 14, height: 1.5),
+            style: TextStyle(
+              color: mahogany,
+              fontSize: 14,
+              height: 1.5,
+            ),
           ),
         ),
         TextField(
@@ -1654,7 +1660,9 @@ class _LiveTextFieldDemoState extends State<_LiveTextFieldDemo> {
           ),
           decoration: InputDecoration(
             labelText: 'Compose…',
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             filled: true,
             fillColor: paleWarm,
           ),
@@ -1680,7 +1688,10 @@ class _LiveTextFieldDemoState extends State<_LiveTextFieldDemo> {
                 child: Text(
                   'Tap any chip to replace the misspelled word in place. The '
                   'panel re-evaluates after each edit.',
-                  style: TextStyle(color: burnSienna, fontSize: 12.5),
+                  style: TextStyle(
+                    color: burnSienna,
+                    fontSize: 12.5,
+                  ),
                 ),
               ),
             ],
@@ -1698,8 +1709,7 @@ class _EssayEditorDemo extends StatefulWidget {
     required String text,
     required List<SuggestionSpan> spans,
     double fontSize,
-  })
-  buildHighlightView;
+  }) buildHighlightView;
 
   const _EssayEditorDemo({
     required this.service,
@@ -1726,8 +1736,7 @@ class _EssayEditorDemoState extends State<_EssayEditorDemo> {
   void initState() {
     super.initState();
     _controller = TextEditingController(
-      text:
-          'It was a wierd morning. The collegue from the goverment '
+      text: 'It was a wierd morning. The collegue from the goverment '
           'definately wanted to recieve the report untill noon. We had to '
           'seperate the issues into two enviroments and acheive a '
           'persistant solution. The occured incidents were embarass and '
@@ -1789,7 +1798,8 @@ class _EssayEditorDemoState extends State<_EssayEditorDemo> {
               ),
             ),
           ),
-          const Icon(Icons.article_outlined, color: Colors.white, size: 22),
+          const Icon(Icons.article_outlined,
+              color: Colors.white, size: 22),
         ],
       ),
     );
@@ -1802,7 +1812,8 @@ class _EssayEditorDemoState extends State<_EssayEditorDemo> {
         const Locale('en', 'US'),
         _controller.text,
       ),
-      builder: (BuildContext ctx, AsyncSnapshot<List<SuggestionSpan>?> snap) {
+      builder: (BuildContext ctx,
+          AsyncSnapshot<List<SuggestionSpan>?> snap) {
         final List<SuggestionSpan> spans = snap.data ?? <SuggestionSpan>[];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1816,7 +1827,11 @@ class _EssayEditorDemoState extends State<_EssayEditorDemo> {
                 'the live text and decorates flagged words with a wavy red '
                 'underline using TextDecoration.underline + '
                 'TextDecorationStyle.wavy.',
-                style: TextStyle(color: mahogany, fontSize: 14, height: 1.5),
+                style: TextStyle(
+                  color: mahogany,
+                  fontSize: 14,
+                  height: 1.5,
+                ),
               ),
             ),
             TextField(
@@ -1896,7 +1911,11 @@ class _TooltipEssayView extends StatelessWidget {
     if (spans.isEmpty) {
       return Text(
         text,
-        style: const TextStyle(color: mahogany, fontSize: 14.5, height: 1.6),
+        style: const TextStyle(
+          color: mahogany,
+          fontSize: 14.5,
+          height: 1.6,
+        ),
       );
     }
     final List<InlineSpan> children = <InlineSpan>[];
@@ -1935,7 +1954,11 @@ class _TooltipEssayView extends StatelessWidget {
     }
     return RichText(
       text: TextSpan(
-        style: const TextStyle(color: mahogany, fontSize: 14.5, height: 1.6),
+        style: const TextStyle(
+          color: mahogany,
+          fontSize: 14.5,
+          height: 1.6,
+        ),
         children: children,
       ),
     );

@@ -84,10 +84,7 @@ class _DismissibleDemoPageState extends State<_DismissibleDemoPage> {
                 _rtl
                     ? 'Ambient direction: RTL (start and end are mirrored)'
                     : 'Ambient direction: LTR (default start/end semantics)',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
               ),
             ],
           ),
@@ -107,17 +104,13 @@ class _DismissibleDemoPageState extends State<_DismissibleDemoPage> {
                 movementMs: _movementMs,
                 crossAxisEndOffset: _crossAxisEndOffset,
                 onRtlChanged: (v) => setState(() => _rtl = v),
-                onRequireConfirmChanged: (v) =>
-                    setState(() => _requireConfirm = v),
+                onRequireConfirmChanged: (v) => setState(() => _requireConfirm = v),
                 onCompactChanged: (v) => setState(() => _compact = v),
                 onShowGuidesChanged: (v) => setState(() => _showGuides = v),
-                onThresholdStartChanged: (v) =>
-                    setState(() => _thresholdStartToEnd = v),
-                onThresholdEndChanged: (v) =>
-                    setState(() => _thresholdEndToStart = v),
+                onThresholdStartChanged: (v) => setState(() => _thresholdStartToEnd = v),
+                onThresholdEndChanged: (v) => setState(() => _thresholdEndToStart = v),
                 onMovementChanged: (v) => setState(() => _movementMs = v),
-                onCrossAxisChanged: (v) =>
-                    setState(() => _crossAxisEndOffset = v),
+                onCrossAxisChanged: (v) => setState(() => _crossAxisEndOffset = v),
               ),
               const SizedBox(height: 12),
               const _SceneCard(
@@ -249,10 +242,7 @@ class _DismissibleDemoPageState extends State<_DismissibleDemoPage> {
     });
   }
 
-  Future<bool?> _handleConfirmDismiss(
-    DismissDirection direction,
-    _SwipeEntry entry,
-  ) async {
+  Future<bool?> _handleConfirmDismiss(DismissDirection direction, _SwipeEntry entry) async {
     if (!_requireConfirm) {
       _log('Auto-approved ${entry.title} (${direction.name})');
       return true;
@@ -319,9 +309,7 @@ class _DismissibleDemoPageState extends State<_DismissibleDemoPage> {
     });
 
     if (details.reached && !details.previousReached) {
-      _log(
-        'Threshold crossed in ${details.direction.name} at progress ${details.progress.toStringAsFixed(2)}',
-      );
+      _log('Threshold crossed in ${details.direction.name} at progress ${details.progress.toStringAsFixed(2)}');
     }
   }
 
@@ -364,10 +352,7 @@ class _DismissibleDemoPageState extends State<_DismissibleDemoPage> {
     _log('Vertical up dismiss: ${entry.title}');
   }
 
-  void _dismissVerticalDownEntry(
-    _SwipeEntry entry,
-    DismissDirection direction,
-  ) {
+  void _dismissVerticalDownEntry(_SwipeEntry entry, DismissDirection direction) {
     setState(() {
       _verticalDownEntries.removeWhere((e) => e.id == entry.id);
     });
@@ -379,9 +364,7 @@ class _DismissibleDemoPageState extends State<_DismissibleDemoPage> {
       _inboxEntries.removeWhere((e) => e.id == entry.id);
       _archivedEntries.insert(0, entry);
     });
-    _log(
-      'Inbox dismissed ${entry.title} (${direction.name}) and moved to archive queue',
-    );
+    _log('Inbox dismissed ${entry.title} (${direction.name}) and moved to archive queue');
   }
 
   void _undoLastArchived() {
@@ -515,20 +498,12 @@ class _HeroControlPanel extends StatelessWidget {
         children: [
           const Text(
             'Dismissible Control Deck',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 27,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 27, fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 8),
           const Text(
             'Tune gesture thresholds and animation behavior globally, then interact with each scene to observe live Dismissible behavior.',
-            style: TextStyle(
-              color: Color(0xFFF2F8FF),
-              fontSize: 13,
-              height: 1.45,
-            ),
+            style: TextStyle(color: Color(0xFFF2F8FF), fontSize: 13, height: 1.45),
           ),
           const SizedBox(height: 12),
           Row(
@@ -539,13 +514,7 @@ class _HeroControlPanel extends StatelessWidget {
                   onChanged: onRtlChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Global RTL',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  title: const Text('Global RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
               ),
               const SizedBox(width: 8),
@@ -555,13 +524,7 @@ class _HeroControlPanel extends StatelessWidget {
                   onChanged: onRequireConfirmChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Require confirmDismiss',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  title: const Text('Require confirmDismiss', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
               ),
               const SizedBox(width: 8),
@@ -571,13 +534,7 @@ class _HeroControlPanel extends StatelessWidget {
                   onChanged: onCompactChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Compact cards',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  title: const Text('Compact cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
               ),
               const SizedBox(width: 8),
@@ -587,13 +544,7 @@ class _HeroControlPanel extends StatelessWidget {
                   onChanged: onShowGuidesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Show guide lines',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  title: const Text('Show guide lines', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
               ),
             ],
@@ -601,10 +552,7 @@ class _HeroControlPanel extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             'Threshold startToEnd: ${thresholdStartToEnd.toStringAsFixed(2)}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
           Slider(
             value: thresholdStartToEnd,
@@ -617,10 +565,7 @@ class _HeroControlPanel extends StatelessWidget {
           ),
           Text(
             'Threshold endToStart: ${thresholdEndToStart.toStringAsFixed(2)}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
           Slider(
             value: thresholdEndToStart,
@@ -633,10 +578,7 @@ class _HeroControlPanel extends StatelessWidget {
           ),
           Text(
             'movementDuration: ${movementMs.toStringAsFixed(0)}ms',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
           Slider(
             value: movementMs,
@@ -649,10 +591,7 @@ class _HeroControlPanel extends StatelessWidget {
           ),
           Text(
             'crossAxisEndOffset: ${crossAxisEndOffset.toStringAsFixed(2)}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
           Slider(
             value: crossAxisEndOffset,
@@ -668,11 +607,7 @@ class _HeroControlPanel extends StatelessWidget {
             runSpacing: 8,
             children: [
               _HeroChip(label: rtl ? 'Direction: RTL' : 'Direction: LTR'),
-              _HeroChip(
-                label: requireConfirm
-                    ? 'confirmDismiss active'
-                    : 'confirmDismiss bypassed',
-              ),
+              _HeroChip(label: requireConfirm ? 'confirmDismiss active' : 'confirmDismiss bypassed'),
               const _HeroChip(label: 'onUpdate progress telemetry'),
               const _HeroChip(label: 'background + secondaryBackground'),
               const _HeroChip(label: 'horizontal + vertical directions'),
@@ -701,11 +636,7 @@ class _HeroChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          fontSize: 11,
-        ),
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11),
       ),
     );
   }
@@ -755,20 +686,13 @@ class _SceneCard extends StatelessWidget {
                   color: accent.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  '$index',
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w900),
-                ),
+                child: Text('$index', style: TextStyle(color: accent, fontWeight: FontWeight.w900)),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
-                    color: accent,
-                    fontSize: 19,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: TextStyle(color: accent, fontSize: 19, fontWeight: FontWeight.w800),
                 ),
               ),
             ],
@@ -776,11 +700,7 @@ class _SceneCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              height: 1.45,
-              color: accent.withValues(alpha: 0.84),
-            ),
+            style: TextStyle(fontSize: 12, height: 1.45, color: accent.withValues(alpha: 0.84)),
           ),
           const SizedBox(height: 12),
           child,
@@ -868,11 +788,7 @@ class _AnatomyScene extends StatelessWidget {
             '  onDismissed: (direction) => removeFromList(entry),\n'
             '  child: card,\n'
             ')',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11.1,
-              height: 1.4,
-            ),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11.1, height: 1.4),
           ),
         ),
       ],
@@ -905,22 +821,12 @@ class _AnatomyInfoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: accent,
-                fontWeight: FontWeight.w800,
-                fontSize: 13.4,
-              ),
-            ),
+            Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13.4)),
             const SizedBox(height: 6),
             for (final line in lines)
               Padding(
                 padding: const EdgeInsets.only(bottom: 4),
-                child: Text(
-                  line,
-                  style: const TextStyle(fontSize: 11.4, height: 1.35),
-                ),
+                child: Text(line, style: const TextStyle(fontSize: 11.4, height: 1.35)),
               ),
           ],
         ),
@@ -1049,23 +955,13 @@ class _DirectionListCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
-                    color: accent,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 13.3,
-                  ),
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13.3),
                 ),
               ),
               TextButton(onPressed: onReset, child: const Text('Reset list')),
             ],
           ),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 11.1,
-              color: accent.withValues(alpha: 0.82),
-            ),
-          ),
+          Text(subtitle, style: TextStyle(fontSize: 11.1, color: accent.withValues(alpha: 0.82))),
           const SizedBox(height: 8),
           if (entries.isEmpty)
             Container(
@@ -1093,11 +989,7 @@ class _DirectionListCard extends StatelessWidget {
                   background: backgroundBuilder(context, entry),
                   secondaryBackground: secondaryBuilder(context, entry),
                   onDismissed: (d) => onDismissed(entry, d),
-                  child: _EntryTile(
-                    entry: entry,
-                    compact: compact,
-                    accent: accent,
-                  ),
+                  child: _EntryTile(entry: entry, compact: compact, accent: accent),
                 );
               },
             ),
@@ -1145,11 +1037,7 @@ class _ConfirmScene extends StatelessWidget {
               Expanded(
                 child: Text(
                   'Confirm dismiss queue (${requireConfirm ? 'dialog approval required' : 'auto approval'})',
-                  style: const TextStyle(
-                    color: accent,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 13.3,
-                  ),
+                  style: const TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13.3),
                 ),
               ),
               TextButton(onPressed: onReset, child: const Text('Reset queue')),
@@ -1193,11 +1081,7 @@ class _ConfirmScene extends StatelessWidget {
                   ),
                   confirmDismiss: (direction) => onConfirm(direction, entry),
                   onDismissed: (direction) => onDismiss(entry, direction),
-                  child: _EntryTile(
-                    entry: entry,
-                    compact: compact,
-                    accent: accent,
-                  ),
+                  child: _EntryTile(entry: entry, compact: compact, accent: accent),
                 );
               },
             ),
@@ -1283,20 +1167,10 @@ class _ThresholdLabScene extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Threshold lab draggable card',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: accent,
-                        ),
-                      ),
+                      Text('Threshold lab draggable card', style: TextStyle(fontWeight: FontWeight.w800, color: accent)),
                       Text(
                         'Direction ${liveDirection.name} | reached=${liveReached ? 'yes' : 'no'} | progress=${progress.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 10.5,
-                          color: accent.withValues(alpha: 0.85),
-                        ),
+                        style: TextStyle(fontFamily: 'monospace', fontSize: 10.5, color: accent.withValues(alpha: 0.85)),
                       ),
                     ],
                   ),
@@ -1317,16 +1191,14 @@ class _ThresholdLabScene extends StatelessWidget {
           label: 'startToEnd threshold',
           value: thresholdStartToEnd,
           accent: const Color(0xFF2F7C71),
-          highlight:
-              liveDirection == DismissDirection.startToEnd && liveReached,
+          highlight: liveDirection == DismissDirection.startToEnd && liveReached,
         ),
         const SizedBox(height: 8),
         _ProgressBand(
           label: 'endToStart threshold',
           value: thresholdEndToStart,
           accent: const Color(0xFFB14D4D),
-          highlight:
-              liveDirection == DismissDirection.endToStart && liveReached,
+          highlight: liveDirection == DismissDirection.endToStart && liveReached,
         ),
       ],
     );
@@ -1379,11 +1251,7 @@ class _ResizeMotionScene extends StatelessWidget {
               Expanded(
                 child: Text(
                   'movementDuration ${movementMs.toStringAsFixed(0)}ms | crossAxisEndOffset ${crossAxisEndOffset.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    color: accent,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 12.8,
-                  ),
+                  style: const TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 12.8),
                 ),
               ),
               TextButton(onPressed: onReset, child: const Text('Reset')),
@@ -1468,16 +1336,10 @@ class _ResizeListCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: accent,
-              fontWeight: FontWeight.w800,
-              fontSize: 12.5,
-            ),
-          ),
+          Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 12.5)),
           const SizedBox(height: 8),
-          if (entries.isEmpty) const Text('All cards dismissed.'),
+          if (entries.isEmpty)
+            const Text('All cards dismissed.'),
           if (entries.isNotEmpty)
             ListView.separated(
               itemCount: entries.length,
@@ -1507,11 +1369,7 @@ class _ResizeListCard extends StatelessWidget {
                   ),
                   onResize: onResize,
                   onDismissed: (direction) => onDismissed(entry, direction),
-                  child: _EntryTile(
-                    entry: entry,
-                    compact: compact,
-                    accent: accent,
-                  ),
+                  child: _EntryTile(entry: entry, compact: compact, accent: accent),
                 );
               },
             ),
@@ -1637,25 +1495,18 @@ class _VerticalListCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w800),
-                ),
-              ),
+              Expanded(child: Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800))),
               TextButton(onPressed: onReset, child: const Text('Reset')),
             ],
           ),
           if (guide)
             Text(
               'Guide: drag cards vertically in ${direction.name} direction',
-              style: TextStyle(
-                fontSize: 10.8,
-                color: accent.withValues(alpha: 0.84),
-              ),
+              style: TextStyle(fontSize: 10.8, color: accent.withValues(alpha: 0.84)),
             ),
           const SizedBox(height: 6),
-          if (entries.isEmpty) const Text('No cards left.'),
+          if (entries.isEmpty)
+            const Text('No cards left.'),
           if (entries.isNotEmpty)
             ListView.separated(
               itemCount: entries.length,
@@ -1668,22 +1519,14 @@ class _VerticalListCard extends StatelessWidget {
                   key: ValueKey('vertical-${direction.name}-${entry.id}'),
                   direction: direction,
                   background: _DismissBackground(
-                    label: direction == DismissDirection.up
-                        ? 'Up action'
-                        : 'Down action',
-                    icon: direction == DismissDirection.up
-                        ? Icons.keyboard_arrow_up_rounded
-                        : Icons.keyboard_arrow_down_rounded,
+                    label: direction == DismissDirection.up ? 'Up action' : 'Down action',
+                    icon: direction == DismissDirection.up ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded,
                     alignment: Alignment.center,
                     color: accent,
                     subtitle: 'Vertical dismiss',
                   ),
                   onDismissed: (d) => onDismissed(entry, d),
-                  child: _EntryTile(
-                    entry: entry,
-                    compact: compact,
-                    accent: accent,
-                  ),
+                  child: _EntryTile(entry: entry, compact: compact, accent: accent),
                 );
               },
             ),
@@ -1738,11 +1581,7 @@ class _PracticalInboxCard extends StatelessWidget {
               const Expanded(
                 child: Text(
                   'Practical inbox triage',
-                  style: TextStyle(
-                    color: accent,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 13.4,
-                  ),
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13.4),
                 ),
               ),
               TextButton(onPressed: onUndo, child: const Text('Undo latest')),
@@ -1754,7 +1593,8 @@ class _PracticalInboxCard extends StatelessWidget {
             style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
           ),
           const SizedBox(height: 8),
-          if (entries.isEmpty) const Text('Inbox is empty.'),
+          if (entries.isEmpty)
+            const Text('Inbox is empty.'),
           if (entries.isNotEmpty)
             ListView.separated(
               itemCount: entries.length,
@@ -1790,11 +1630,7 @@ class _PracticalInboxCard extends StatelessWidget {
                     return Future<bool>.value(true);
                   },
                   onDismissed: (direction) => onDismissed(entry, direction),
-                  child: _EntryTile(
-                    entry: entry,
-                    compact: compact,
-                    accent: accent,
-                  ),
+                  child: _EntryTile(entry: entry, compact: compact, accent: accent),
                 );
               },
             ),
@@ -1838,17 +1674,8 @@ class _DismissBackground extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(color: color, fontWeight: FontWeight.w800),
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  color: color.withValues(alpha: 0.82),
-                  fontSize: 10.4,
-                ),
-              ),
+              Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w800)),
+              Text(subtitle, style: TextStyle(color: color.withValues(alpha: 0.82), fontSize: 10.4)),
             ],
           ),
         ],
@@ -1900,20 +1727,13 @@ class _EntryTile extends StatelessWidget {
               children: [
                 Text(
                   entry.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    color: accent,
-                    fontSize: compact ? 12.2 : 13.2,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: compact ? 12.2 : 13.2),
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 2),
                 Text(
                   entry.subtitle,
-                  style: TextStyle(
-                    fontSize: compact ? 10.4 : 11.2,
-                    color: accent.withValues(alpha: 0.82),
-                  ),
+                  style: TextStyle(fontSize: compact ? 10.4 : 11.2, color: accent.withValues(alpha: 0.82)),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
@@ -1927,14 +1747,7 @@ class _EntryTile extends StatelessWidget {
                 color: entry.color.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(999),
               ),
-              child: Text(
-                entry.tag,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: entry.color,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              child: Text(entry.tag, style: TextStyle(fontSize: 10, color: entry.color, fontWeight: FontWeight.w800)),
             ),
           ),
         ],
@@ -1963,22 +1776,13 @@ class _ProgressBand extends StatelessWidget {
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: accent.withValues(alpha: highlight ? 0.5 : 0.2),
-        ),
+        border: Border.all(color: accent.withValues(alpha: highlight ? 0.5 : 0.2)),
       ),
       child: Row(
         children: [
           SizedBox(
             width: 150,
-            child: Text(
-              label,
-              style: TextStyle(
-                color: accent,
-                fontWeight: FontWeight.w700,
-                fontSize: 11.5,
-              ),
-            ),
+            child: Text(label, style: TextStyle(color: accent, fontWeight: FontWeight.w700, fontSize: 11.5)),
           ),
           Expanded(
             child: LinearProgressIndicator(
@@ -2024,20 +1828,13 @@ class _MiniLogPreview extends StatelessWidget {
         children: [
           const Text(
             'Recent confirm flow events',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 11.5,
-              color: Color(0xFF2A7E72),
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 11.5, color: Color(0xFF2A7E72)),
           ),
           const SizedBox(height: 6),
           for (final line in events.take(4))
             Padding(
               padding: const EdgeInsets.only(bottom: 3),
-              child: Text(
-                line,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 10.2),
-              ),
+              child: Text(line, style: const TextStyle(fontFamily: 'monospace', fontSize: 10.2)),
             ),
           if (events.isEmpty) const Text('No events yet.'),
         ],
@@ -2065,11 +1862,7 @@ class _EventLogCard extends StatelessWidget {
         children: [
           const Text(
             'Event Log',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 16,
-              color: Color(0xFF314A5E),
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: Color(0xFF314A5E)),
           ),
           const SizedBox(height: 8),
           if (events.isEmpty)
@@ -2078,13 +1871,7 @@ class _EventLogCard extends StatelessWidget {
             for (final event in events)
               Padding(
                 padding: const EdgeInsets.only(bottom: 4),
-                child: Text(
-                  event,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.8,
-                  ),
-                ),
+                child: Text(event, style: const TextStyle(fontFamily: 'monospace', fontSize: 10.8)),
               ),
         ],
       ),
@@ -2113,11 +1900,7 @@ class _RecapCard extends StatelessWidget {
         children: [
           Text(
             'Deep Demo Recap',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF30495B),
-            ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF30495B)),
           ),
           SizedBox(height: 8),
           Text(

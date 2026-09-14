@@ -117,11 +117,7 @@ dynamic build(BuildContext context) {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[
-            Color(0xFF111111),
-            Color(0xFF2A2A2A),
-            Color(0xFF111111),
-          ],
+          colors: <Color>[Color(0xFF111111), Color(0xFF2A2A2A), Color(0xFF111111)],
           stops: <double>[0.0, 0.5, 1.0],
         ),
       ),
@@ -138,12 +134,7 @@ dynamic build(BuildContext context) {
     return Row(mainAxisSize: MainAxisSize.min, children: letters);
   }
 
-  Widget sectionHeader(
-    String number,
-    String title,
-    String subtitle,
-    IconData icon,
-  ) {
+  Widget sectionHeader(String number, String title, String subtitle, IconData icon) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 18.0),
@@ -157,11 +148,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: brass, width: 1.5),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Colors.black54,
-            blurRadius: 8.0,
-            offset: Offset(0.0, 4.0),
-          ),
+          BoxShadow(color: Colors.black54, blurRadius: 8.0, offset: Offset(0.0, 4.0)),
         ],
       ),
       child: Row(
@@ -212,11 +199,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: brass.withOpacity(0.5), width: 1.0),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 4.0,
-            offset: Offset(0.0, 2.0),
-          ),
+          BoxShadow(color: Colors.black26, blurRadius: 4.0, offset: Offset(0.0, 2.0)),
         ],
       ),
       child: Column(
@@ -251,7 +234,10 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(width: 130.0, child: Text(name, style: monoStyle)),
+          SizedBox(
+            width: 130.0,
+            child: Text(name, style: monoStyle),
+          ),
           SizedBox(
             width: 130.0,
             child: Text(
@@ -413,43 +399,35 @@ dynamic build(BuildContext context) {
   );
 
   final MaterialPageRoute<dynamic> dialogRoute = MaterialPageRoute<dynamic>(
-    settings: const RouteSettings(
-      name: '/ticket-booth',
-      arguments: 'first-class',
-    ),
+    settings: const RouteSettings(name: '/ticket-booth', arguments: 'first-class'),
     fullscreenDialog: true,
-    builder: (BuildContext ctx) =>
-        placeholderPage('Ticket Booth', burgundyDeep),
+    builder: (BuildContext ctx) => placeholderPage('Ticket Booth', burgundyDeep),
   );
 
   final MaterialPageRoute<dynamic> ephemeralRoute = MaterialPageRoute<dynamic>(
     settings: const RouteSettings(name: '/announcement'),
     maintainState: false,
-    builder: (BuildContext ctx) =>
-        placeholderPage('Announcement', burgundySoft),
+    builder: (BuildContext ctx) => placeholderPage('Announcement', burgundySoft),
   );
 
   final MaterialPageRoute<String> stringResultRoute = MaterialPageRoute<String>(
     settings: const RouteSettings(name: '/pick-destination'),
-    builder: (BuildContext ctx) =>
-        placeholderPage('Pick Destination', burgundy),
+    builder: (BuildContext ctx) => placeholderPage('Pick Destination', burgundy),
   );
 
   final MaterialPageRoute<bool> boolResultRoute = MaterialPageRoute<bool>(
     settings: const RouteSettings(name: '/confirm-boarding'),
     fullscreenDialog: true,
-    builder: (BuildContext ctx) =>
-        placeholderPage('Confirm Boarding', burgundyDeep),
+    builder: (BuildContext ctx) => placeholderPage('Confirm Boarding', burgundyDeep),
   );
 
-  final List<MaterialPageRoute<dynamic>> allRoutes =
-      <MaterialPageRoute<dynamic>>[
-        standardRoute,
-        dialogRoute,
-        ephemeralRoute,
-        stringResultRoute,
-        boolResultRoute,
-      ];
+  final List<MaterialPageRoute<dynamic>> allRoutes = <MaterialPageRoute<dynamic>>[
+    standardRoute,
+    dialogRoute,
+    ephemeralRoute,
+    stringResultRoute,
+    boolResultRoute,
+  ];
 
   // Safely read route properties; properties available pre-attachment
   // include settings, maintainState, fullscreenDialog, opaque, barrierColor,
@@ -481,11 +459,7 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: brass, width: 2.5),
       boxShadow: const <BoxShadow>[
-        BoxShadow(
-          color: Colors.black,
-          blurRadius: 16.0,
-          offset: Offset(0.0, 6.0),
-        ),
+        BoxShadow(color: Colors.black, blurRadius: 16.0, offset: Offset(0.0, 6.0)),
       ],
     ),
     child: Column(
@@ -586,29 +560,23 @@ dynamic build(BuildContext context) {
           'for richer payloads.',
         ),
         const SizedBox(height: 6.0),
-        Row(
-          children: <Widget>[
-            chip('MaterialPageRoute<String>', burgundy, cream),
-            const SizedBox(width: 8.0),
-            chip('Future<String?>', signalGreen, Colors.white),
-          ],
-        ),
+        Row(children: <Widget>[
+          chip('MaterialPageRoute<String>', burgundy, cream),
+          const SizedBox(width: 8.0),
+          chip('Future<String?>', signalGreen, Colors.white),
+        ]),
         const SizedBox(height: 4.0),
-        Row(
-          children: <Widget>[
-            chip('MaterialPageRoute<bool>', burgundy, cream),
-            const SizedBox(width: 8.0),
-            chip('Future<bool?>', signalGreen, Colors.white),
-          ],
-        ),
+        Row(children: <Widget>[
+          chip('MaterialPageRoute<bool>', burgundy, cream),
+          const SizedBox(width: 8.0),
+          chip('Future<bool?>', signalGreen, Colors.white),
+        ]),
         const SizedBox(height: 4.0),
-        Row(
-          children: <Widget>[
-            chip('MaterialPageRoute<MyModel>', burgundy, cream),
-            const SizedBox(width: 8.0),
-            chip('Future<MyModel?>', signalGreen, Colors.white),
-          ],
-        ),
+        Row(children: <Widget>[
+          chip('MaterialPageRoute<MyModel>', burgundy, cream),
+          const SizedBox(width: 8.0),
+          chip('Future<MyModel?>', signalGreen, Colors.white),
+        ]),
       ]),
       parchmentCard('Push/pop semantics', <Widget>[
         bodyLine(
@@ -762,102 +730,98 @@ dynamic build(BuildContext context) {
     ),
     child: IntrinsicHeight(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            width: 12.0,
-            decoration: const BoxDecoration(
-              color: brass,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                bottomLeft: Radius.circular(10.0),
-              ),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Container(
+          width: 12.0,
+          decoration: const BoxDecoration(
+            color: brass,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              bottomLeft: Radius.circular(10.0),
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'BOARDING PASS — Constructor',
-                        style: TextStyle(
-                          color: brassLight,
-                          fontSize: 11.0,
-                          letterSpacing: 2.2,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Icon(Icons.confirmation_number, color: brass, size: 22.0),
-                    ],
-                  ),
-                  const SizedBox(height: 4.0),
-                  Container(height: 1.0, color: brass.withOpacity(0.4)),
-                  const SizedBox(height: 8.0),
-                  boardingPassRow('CLASS', 'MaterialPageRoute<T>'),
-                  boardingPassRow('TRACK', 'Material → PageRoute → ModalRoute'),
-                  boardingPassRow('FACTORY', 'const not supported'),
-                  boardingPassRow('RESULT', 'Future<T?>'),
-                  const SizedBox(height: 6.0),
-                  Text(
-                    'Tear here to push onto the Navigator stack.',
-                    style: TextStyle(
-                      color: brassLight,
-                      fontSize: 10.0,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            width: 70.0,
-            decoration: BoxDecoration(
-              color: burgundy,
-              border: Border(
-                left: BorderSide(
-                  color: brass.withOpacity(0.4),
-                  width: 1.0,
-                  style: BorderStyle.solid,
-                ),
-              ),
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(10.0),
-                bottomRight: Radius.circular(10.0),
-              ),
-            ),
-            alignment: Alignment.center,
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(14.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'BOARDING PASS — Constructor',
+                      style: TextStyle(
+                        color: brassLight,
+                        fontSize: 11.0,
+                        letterSpacing: 2.2,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Icon(Icons.confirmation_number, color: brass, size: 22.0),
+                  ],
+                ),
+                const SizedBox(height: 4.0),
+                Container(height: 1.0, color: brass.withOpacity(0.4)),
+                const SizedBox(height: 8.0),
+                boardingPassRow('CLASS', 'MaterialPageRoute<T>'),
+                boardingPassRow('TRACK', 'Material → PageRoute → ModalRoute'),
+                boardingPassRow('FACTORY', 'const not supported'),
+                boardingPassRow('RESULT', 'Future<T?>'),
+                const SizedBox(height: 6.0),
                 Text(
-                  'SEAT',
+                  'Tear here to push onto the Navigator stack.',
                   style: TextStyle(
                     color: brassLight,
-                    fontSize: 9.0,
-                    letterSpacing: 1.5,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  '07A',
-                  style: TextStyle(
-                    color: brass,
-                    fontFamily: 'monospace',
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 10.0,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
               ],
             ),
           ),
-        ],
-      ),
+        ),
+        Container(
+          width: 70.0,
+          decoration: BoxDecoration(
+            color: burgundy,
+            border: Border(
+              left: BorderSide(color: brass.withOpacity(0.4), width: 1.0, style: BorderStyle.solid),
+            ),
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(10.0),
+              bottomRight: Radius.circular(10.0),
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'SEAT',
+                style: TextStyle(
+                  color: brassLight,
+                  fontSize: 9.0,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                '07A',
+                style: TextStyle(
+                  color: brass,
+                  fontFamily: 'monospace',
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
     ),
   );
 
@@ -872,74 +836,19 @@ dynamic build(BuildContext context) {
       ),
       boardingPass,
       parchmentCard('Parameter table', <Widget>[
-        paramRow(
-          'builder',
-          'WidgetBuilder',
-          'required',
-          'The page contents — receives a BuildContext.',
-        ),
-        paramRow(
-          'settings',
-          'RouteSettings?',
-          'null',
-          'Name and arguments associated with this route.',
-        ),
-        paramRow(
-          'maintainState',
-          'bool',
-          'true',
-          'If false, the route is destroyed when not visible.',
-        ),
-        paramRow(
-          'fullscreenDialog',
-          'bool',
-          'false',
-          'Vertical slide + close icon instead of back arrow.',
-        ),
-        paramRow(
-          'allowSnapshotting',
-          'bool',
-          'true',
-          'Permits rasterized snapshots during transitions.',
-        ),
-        paramRow(
-          'barrierDismissible',
-          'bool',
-          'false',
-          'Whether tapping the barrier dismisses the route.',
-        ),
+        paramRow('builder', 'WidgetBuilder', 'required', 'The page contents — receives a BuildContext.'),
+        paramRow('settings', 'RouteSettings?', 'null', 'Name and arguments associated with this route.'),
+        paramRow('maintainState', 'bool', 'true', 'If false, the route is destroyed when not visible.'),
+        paramRow('fullscreenDialog', 'bool', 'false', 'Vertical slide + close icon instead of back arrow.'),
+        paramRow('allowSnapshotting', 'bool', 'true', 'Permits rasterized snapshots during transitions.'),
+        paramRow('barrierDismissible', 'bool', 'false', 'Whether tapping the barrier dismisses the route.'),
       ]),
       parchmentCard('Inherited from ModalRoute / TransitionRoute', <Widget>[
-        paramRow(
-          'barrierColor',
-          'Color?',
-          'null',
-          'Modal scrim color; null means no scrim.',
-        ),
-        paramRow(
-          'barrierLabel',
-          'String?',
-          'null',
-          'Semantic label announced for the barrier.',
-        ),
-        paramRow(
-          'opaque',
-          'bool',
-          'true',
-          'PageRoute is always opaque by default.',
-        ),
-        paramRow(
-          'transitionDuration',
-          'Duration',
-          '300ms',
-          'Forward animation length.',
-        ),
-        paramRow(
-          'reverseTransitionDuration',
-          'Duration',
-          '300ms',
-          'Reverse animation length.',
-        ),
+        paramRow('barrierColor', 'Color?', 'null', 'Modal scrim color; null means no scrim.'),
+        paramRow('barrierLabel', 'String?', 'null', 'Semantic label announced for the barrier.'),
+        paramRow('opaque', 'bool', 'true', 'PageRoute is always opaque by default.'),
+        paramRow('transitionDuration', 'Duration', '300ms', 'Forward animation length.'),
+        paramRow('reverseTransitionDuration', 'Duration', '300ms', 'Reverse animation length.'),
       ]),
     ],
   );
@@ -949,11 +858,7 @@ dynamic build(BuildContext context) {
   // ========================================================================
   print('pageroute_test: section 5 — live specimens');
 
-  Widget specimenCard(
-    String name,
-    MaterialPageRoute<dynamic> route,
-    Color tint,
-  ) {
+  Widget specimenCard(String name, MaterialPageRoute<dynamic> route, Color tint) {
     final String settingsName = safeStr(() => '${route.settings.name}');
     final String settingsArgs = safeStr(() => '${route.settings.arguments}');
     final String fsDialog = safeStr(() => '${route.fullscreenDialog}');
@@ -975,10 +880,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 8.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: tint,
               borderRadius: const BorderRadius.only(
@@ -1036,26 +938,10 @@ dynamic build(BuildContext context) {
         Icons.science_outlined,
       ),
       specimenCard('Standard route — /timetable', standardRoute, burgundy),
-      specimenCard(
-        'Fullscreen dialog — /ticket-booth',
-        dialogRoute,
-        burgundyDeep,
-      ),
-      specimenCard(
-        'Ephemeral route — /announcement',
-        ephemeralRoute,
-        burgundySoft,
-      ),
-      specimenCard(
-        'Typed (String) — /pick-destination',
-        stringResultRoute,
-        burgundy,
-      ),
-      specimenCard(
-        'Typed (bool) — /confirm-boarding',
-        boolResultRoute,
-        burgundyDeep,
-      ),
+      specimenCard('Fullscreen dialog — /ticket-booth', dialogRoute, burgundyDeep),
+      specimenCard('Ephemeral route — /announcement', ephemeralRoute, burgundySoft),
+      specimenCard('Typed (String) — /pick-destination', stringResultRoute, burgundy),
+      specimenCard('Typed (bool) — /confirm-boarding', boolResultRoute, burgundyDeep),
       parchmentCard('Reading order', <Widget>[
         bodyLine(
           'These properties are safe to read before the route is attached '
@@ -1228,12 +1114,7 @@ dynamic build(BuildContext context) {
   // ========================================================================
   print('pageroute_test: section 7 — fullscreenDialog vs standard');
 
-  Widget compareCard(
-    String title,
-    IconData icon,
-    Color bg,
-    List<String> bullets,
-  ) {
+  Widget compareCard(String title, IconData icon, Color bg, List<String> bullets) {
     final List<Widget> rows = <Widget>[];
     for (final String b in bullets) {
       rows.add(
@@ -1312,13 +1193,18 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            compareCard('Standard route', Icons.arrow_back, burgundy, <String>[
-              'Horizontal slide on iOS, upward fade on Android.',
-              'Leading button is a back arrow.',
-              'Swipe-back gesture supported on iOS.',
-              'Use for in-flow navigation steps.',
-              'fullscreenDialog: false (default).',
-            ]),
+            compareCard(
+              'Standard route',
+              Icons.arrow_back,
+              burgundy,
+              <String>[
+                'Horizontal slide on iOS, upward fade on Android.',
+                'Leading button is a back arrow.',
+                'Swipe-back gesture supported on iOS.',
+                'Use for in-flow navigation steps.',
+                'fullscreenDialog: false (default).',
+              ],
+            ),
             compareCard(
               'Fullscreen dialog',
               Icons.close,
@@ -1350,15 +1236,9 @@ dynamic build(BuildContext context) {
     pageBuilder: (BuildContext ctx, Animation<double> a, Animation<double> b) {
       return placeholderPage('Fade Page', burgundy);
     },
-    transitionsBuilder:
-        (
-          BuildContext ctx,
-          Animation<double> a,
-          Animation<double> b,
-          Widget child,
-        ) {
-          return FadeTransition(opacity: a, child: child);
-        },
+    transitionsBuilder: (BuildContext ctx, Animation<double> a, Animation<double> b, Widget child) {
+      return FadeTransition(opacity: a, child: child);
+    },
   );
 
   final PageRouteBuilder<dynamic> slideBuilder = PageRouteBuilder<dynamic>(
@@ -1367,21 +1247,12 @@ dynamic build(BuildContext context) {
     pageBuilder: (BuildContext ctx, Animation<double> a, Animation<double> b) {
       return placeholderPage('Slide Page', burgundyDeep);
     },
-    transitionsBuilder:
-        (
-          BuildContext ctx,
-          Animation<double> a,
-          Animation<double> b,
-          Widget child,
-        ) {
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1.0, 0.0),
-              end: Offset.zero,
-            ).animate(a),
-            child: child,
-          );
-        },
+    transitionsBuilder: (BuildContext ctx, Animation<double> a, Animation<double> b, Widget child) {
+      return SlideTransition(
+        position: Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(a),
+        child: child,
+      );
+    },
   );
 
   final PageRouteBuilder<dynamic> scaleBuilder = PageRouteBuilder<dynamic>(
@@ -1390,15 +1261,9 @@ dynamic build(BuildContext context) {
     pageBuilder: (BuildContext ctx, Animation<double> a, Animation<double> b) {
       return placeholderPage('Scale Page', burgundySoft);
     },
-    transitionsBuilder:
-        (
-          BuildContext ctx,
-          Animation<double> a,
-          Animation<double> b,
-          Widget child,
-        ) {
-          return ScaleTransition(scale: a, child: child);
-        },
+    transitionsBuilder: (BuildContext ctx, Animation<double> a, Animation<double> b, Widget child) {
+      return ScaleTransition(scale: a, child: child);
+    },
   );
 
   final PageRouteBuilder<dynamic> rotationBuilder = PageRouteBuilder<dynamic>(
@@ -1407,15 +1272,9 @@ dynamic build(BuildContext context) {
     pageBuilder: (BuildContext ctx, Animation<double> a, Animation<double> b) {
       return placeholderPage('Rotate Page', burgundy);
     },
-    transitionsBuilder:
-        (
-          BuildContext ctx,
-          Animation<double> a,
-          Animation<double> b,
-          Widget child,
-        ) {
-          return RotationTransition(turns: a, child: child);
-        },
+    transitionsBuilder: (BuildContext ctx, Animation<double> a, Animation<double> b, Widget child) {
+      return RotationTransition(turns: a, child: child);
+    },
   );
 
   // Build snapshot-style cards showing each transition wrapping a sample
@@ -1442,12 +1301,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget builderCard(
-    String title,
-    String routeName,
-    Duration dur,
-    Widget sample,
-  ) {
+  Widget builderCard(String title, String routeName, Duration dur, Widget sample) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
       padding: const EdgeInsets.all(12.0),
@@ -1483,21 +1337,17 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(height: 4.0),
-                Row(
-                  children: <Widget>[
-                    chip('settings.name', burgundy, cream),
-                    const SizedBox(width: 6.0),
-                    Text(routeName, style: monoStyle),
-                  ],
-                ),
+                Row(children: <Widget>[
+                  chip('settings.name', burgundy, cream),
+                  const SizedBox(width: 6.0),
+                  Text(routeName, style: monoStyle),
+                ]),
                 const SizedBox(height: 4.0),
-                Row(
-                  children: <Widget>[
-                    chip('duration', signalAmber, Colors.white),
-                    const SizedBox(width: 6.0),
-                    Text('${dur.inMilliseconds}ms', style: monoStyle),
-                  ],
-                ),
+                Row(children: <Widget>[
+                  chip('duration', signalAmber, Colors.white),
+                  const SizedBox(width: 6.0),
+                  Text('${dur.inMilliseconds}ms', style: monoStyle),
+                ]),
               ],
             ),
           ),
@@ -1538,10 +1388,7 @@ dynamic build(BuildContext context) {
         slideBuilder.settings.name ?? '',
         slideBuilder.transitionDuration,
         SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(0.5, 0.0),
-            end: Offset.zero,
-          ).animate(mid),
+          position: Tween<Offset>(begin: const Offset(0.5, 0.0), end: Offset.zero).animate(mid),
           child: sampleChild('slide', burgundyDeep),
         ),
       ),
@@ -1603,11 +1450,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: brass, width: 1.0),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 3.0,
-            offset: Offset(0.0, 2.0),
-          ),
+          BoxShadow(color: Colors.black26, blurRadius: 3.0, offset: Offset(0.0, 2.0)),
         ],
       ),
       child: Column(
@@ -1774,7 +1617,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               role,
-              style: const TextStyle(color: cream, fontSize: 12.0, height: 1.3),
+              style: const TextStyle(
+                color: cream,
+                fontSize: 12.0,
+                height: 1.3,
+              ),
             ),
           ),
         ],
@@ -1801,41 +1648,13 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: <Widget>[
-            ladderRung(
-              1,
-              'install()',
-              'Adds overlay entries and prepares the route.',
-            ),
-            ladderRung(
-              2,
-              'didPush()',
-              'Called when pushed; returns the entry animation future.',
-            ),
-            ladderRung(
-              3,
-              'didChangeNext()',
-              'Notified when a new route is pushed on top.',
-            ),
-            ladderRung(
-              4,
-              'didChangePrevious()',
-              'Notified when the route below changes.',
-            ),
-            ladderRung(
-              5,
-              'didPopNext()',
-              'Notified when the route on top pops off.',
-            ),
-            ladderRung(
-              6,
-              'didPop(result)',
-              'Called when this route is popped; emits result.',
-            ),
-            ladderRung(
-              7,
-              'dispose()',
-              'Tear down. Single-use: cannot be pushed again.',
-            ),
+            ladderRung(1, 'install()', 'Adds overlay entries and prepares the route.'),
+            ladderRung(2, 'didPush()', 'Called when pushed; returns the entry animation future.'),
+            ladderRung(3, 'didChangeNext()', 'Notified when a new route is pushed on top.'),
+            ladderRung(4, 'didChangePrevious()', 'Notified when the route below changes.'),
+            ladderRung(5, 'didPopNext()', 'Notified when the route on top pops off.'),
+            ladderRung(6, 'didPop(result)', 'Called when this route is popped; emits result.'),
+            ladderRung(7, 'dispose()', 'Tear down. Single-use: cannot be pushed again.'),
           ],
         ),
       ),
@@ -1867,10 +1686,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 8.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: burgundy,
               borderRadius: const BorderRadius.only(
@@ -2278,7 +2094,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               def,
-              style: const TextStyle(color: ink, fontSize: 12.0, height: 1.45),
+              style: const TextStyle(
+                color: ink,
+                fontSize: 12.0,
+                height: 1.45,
+              ),
             ),
           ),
         ],
@@ -2305,78 +2125,48 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: <Widget>[
-            glossaryEntry(
-              'Navigator',
-              'Widget that manages a stack of Route<T> objects. '
-                  'Found at the root of MaterialApp.',
-            ),
-            glossaryEntry(
-              'Overlay',
-              'A stack of OverlayEntry widgets layered on top of the '
-                  'app. Routes install entries here.',
-            ),
-            glossaryEntry(
-              'OverlayEntry',
-              'A single layer in the overlay; a route can install '
-                  'multiple to support layered content.',
-            ),
-            glossaryEntry(
-              'ModalBarrier',
-              'The full-screen widget that blocks input behind a '
-                  'modal route; can be tinted via barrierColor.',
-            ),
-            glossaryEntry(
-              'Hero',
-              'Widget that animates a shared element between two '
-                  'routes during a push/pop transition.',
-            ),
-            glossaryEntry(
-              'MaterialPageRoute<T>',
-              'Concrete PageRoute that uses platform-appropriate '
-                  'slide+fade transitions.',
-            ),
-            glossaryEntry(
-              'PageRoute<T>',
-              'Abstract opaque modal route covering the full screen.',
-            ),
-            glossaryEntry(
-              'TransitionRoute<T>',
-              'Abstract Route that drives an animation for entry '
-                  'and exit.',
-            ),
-            glossaryEntry(
-              'ModalRoute<T>',
-              'Abstract Route with a modal barrier and focus '
-                  'management.',
-            ),
-            glossaryEntry(
-              'OverlayRoute<T>',
-              'Abstract Route that installs OverlayEntry instances.',
-            ),
-            glossaryEntry(
-              'RouteSettings',
-              'Immutable name + arguments pair attached to a route.',
-            ),
-            glossaryEntry(
-              'NavigatorState',
-              'State object exposing push/pop/replace methods. '
-                  'Accessed via Navigator.of(context).',
-            ),
-            glossaryEntry(
-              'RouteAware',
-              'Mixin for widgets that want to be notified when '
-                  'their route\'s visibility changes.',
-            ),
-            glossaryEntry(
-              'RouteObserver',
-              'NavigatorObserver subclass that dispatches RouteAware '
-                  'callbacks to subscribed widgets.',
-            ),
-            glossaryEntry(
-              'HeroController',
-              'NavigatorObserver that coordinates Hero animations '
-                  'between routes.',
-            ),
+            glossaryEntry('Navigator',
+                'Widget that manages a stack of Route<T> objects. '
+                'Found at the root of MaterialApp.'),
+            glossaryEntry('Overlay',
+                'A stack of OverlayEntry widgets layered on top of the '
+                'app. Routes install entries here.'),
+            glossaryEntry('OverlayEntry',
+                'A single layer in the overlay; a route can install '
+                'multiple to support layered content.'),
+            glossaryEntry('ModalBarrier',
+                'The full-screen widget that blocks input behind a '
+                'modal route; can be tinted via barrierColor.'),
+            glossaryEntry('Hero',
+                'Widget that animates a shared element between two '
+                'routes during a push/pop transition.'),
+            glossaryEntry('MaterialPageRoute<T>',
+                'Concrete PageRoute that uses platform-appropriate '
+                'slide+fade transitions.'),
+            glossaryEntry('PageRoute<T>',
+                'Abstract opaque modal route covering the full screen.'),
+            glossaryEntry('TransitionRoute<T>',
+                'Abstract Route that drives an animation for entry '
+                'and exit.'),
+            glossaryEntry('ModalRoute<T>',
+                'Abstract Route with a modal barrier and focus '
+                'management.'),
+            glossaryEntry('OverlayRoute<T>',
+                'Abstract Route that installs OverlayEntry instances.'),
+            glossaryEntry('RouteSettings',
+                'Immutable name + arguments pair attached to a route.'),
+            glossaryEntry('NavigatorState',
+                'State object exposing push/pop/replace methods. '
+                'Accessed via Navigator.of(context).'),
+            glossaryEntry('RouteAware',
+                'Mixin for widgets that want to be notified when '
+                'their route\'s visibility changes.'),
+            glossaryEntry('RouteObserver',
+                'NavigatorObserver subclass that dispatches RouteAware '
+                'callbacks to subscribed widgets.'),
+            glossaryEntry('HeroController',
+                'NavigatorObserver that coordinates Hero animations '
+                'between routes.'),
           ],
         ),
       ),
@@ -2388,12 +2178,10 @@ dynamic build(BuildContext context) {
   // ========================================================================
   print('pageroute_test: section 15 — Cupertino cameo');
 
-  final CupertinoPageRoute<dynamic> cupertinoSpecimen =
-      CupertinoPageRoute<dynamic>(
-        settings: const RouteSettings(name: '/cupertino-cameo'),
-        builder: (BuildContext ctx) =>
-            placeholderPage('Cupertino', burgundyDeep),
-      );
+  final CupertinoPageRoute<dynamic> cupertinoSpecimen = CupertinoPageRoute<dynamic>(
+    settings: const RouteSettings(name: '/cupertino-cameo'),
+    builder: (BuildContext ctx) => placeholderPage('Cupertino', burgundyDeep),
+  );
 
   final Widget section15 = Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2405,23 +2193,11 @@ dynamic build(BuildContext context) {
         Icons.apple,
       ),
       parchmentCard('CupertinoPageRoute properties', <Widget>[
-        propRow(
-          'settings.name',
-          safeStr(() => '${cupertinoSpecimen.settings.name}'),
-        ),
-        propRow(
-          'fullscreenDialog',
-          safeStr(() => '${cupertinoSpecimen.fullscreenDialog}'),
-        ),
-        propRow(
-          'maintainState',
-          safeStr(() => '${cupertinoSpecimen.maintainState}'),
-        ),
+        propRow('settings.name', safeStr(() => '${cupertinoSpecimen.settings.name}')),
+        propRow('fullscreenDialog', safeStr(() => '${cupertinoSpecimen.fullscreenDialog}')),
+        propRow('maintainState', safeStr(() => '${cupertinoSpecimen.maintainState}')),
         propRow('opaque', safeStr(() => '${cupertinoSpecimen.opaque}')),
-        propRow(
-          'transitionDuration',
-          safeStr(() => '${cupertinoSpecimen.transitionDuration}'),
-        ),
+        propRow('transitionDuration', safeStr(() => '${cupertinoSpecimen.transitionDuration}')),
       ]),
       parchmentCard('When to pick which', <Widget>[
         bodyLine(

@@ -32,38 +32,24 @@ dynamic build(BuildContext context) {
   final behaviorDescriptions = {
     FloatingLabelBehavior.auto: {
       'title': 'Auto',
-      'description':
-          'Label floats when focused or has content. Default behavior.',
+      'description': 'Label floats when focused or has content. Default behavior.',
       'icon': Icons.auto_fix_high,
       'color': Colors.blue,
-      'states': [
-        'Empty+Unfocused: Inside',
-        'Focused: Floats',
-        'Has Text: Floats',
-      ],
+      'states': ['Empty+Unfocused: Inside', 'Focused: Floats', 'Has Text: Floats'],
     },
     FloatingLabelBehavior.always: {
       'title': 'Always',
-      'description':
-          'Label always floats above the input, regardless of focus or content.',
+      'description': 'Label always floats above the input, regardless of focus or content.',
       'icon': Icons.vertical_align_top,
       'color': Colors.green,
-      'states': [
-        'Empty+Unfocused: Floats',
-        'Focused: Floats',
-        'Has Text: Floats',
-      ],
+      'states': ['Empty+Unfocused: Floats', 'Focused: Floats', 'Has Text: Floats'],
     },
     FloatingLabelBehavior.never: {
       'title': 'Never',
       'description': 'Label never floats. Disappears when there is content.',
       'icon': Icons.vertical_align_center,
       'color': Colors.orange,
-      'states': [
-        'Empty+Unfocused: Inside',
-        'Focused: Inside',
-        'Has Text: Hidden',
-      ],
+      'states': ['Empty+Unfocused: Inside', 'Focused: Inside', 'Has Text: Hidden'],
     },
   };
 
@@ -78,10 +64,7 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.1),
-              color.withValues(alpha: 0.05),
-            ],
+            colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.05)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -115,11 +98,7 @@ dynamic build(BuildContext context) {
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
-                      data['icon'] as IconData,
-                      color: color,
-                      size: 24.0,
-                    ),
+                    child: Icon(data['icon'] as IconData, color: color, size: 24.0),
                   ),
                   SizedBox(width: 12.0),
                   Column(
@@ -168,32 +147,24 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  ...states.map(
-                    (state) => Container(
-                      margin: EdgeInsets.symmetric(vertical: 2.0),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.circle, size: 8.0, color: color),
-                          SizedBox(width: 8.0),
-                          Text(
-                            state,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.grey.shade700,
-                            ),
-                          ),
-                        ],
-                      ),
+                  ...states.map((state) => Container(
+                    margin: EdgeInsets.symmetric(vertical: 2.0),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
-                  ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.circle, size: 8.0, color: color),
+                        SizedBox(width: 8.0),
+                        Text(
+                          state,
+                          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                        ),
+                      ],
+                    ),
+                  )),
                 ],
               ),
             ),
@@ -330,10 +301,7 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 6.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     decoration: BoxDecoration(
                       color: Colors.blue.shade100,
                       borderRadius: BorderRadius.circular(8.0),
@@ -352,10 +320,7 @@ dynamic build(BuildContext context) {
                       labelText: 'Label',
                       floatingLabelBehavior: FloatingLabelBehavior.auto,
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 16.0,
-                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
                     ),
                   ),
                 ],
@@ -366,10 +331,7 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 6.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     decoration: BoxDecoration(
                       color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(8.0),
@@ -388,10 +350,7 @@ dynamic build(BuildContext context) {
                       labelText: 'Label',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 16.0,
-                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
                     ),
                   ),
                 ],
@@ -402,10 +361,7 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 6.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     decoration: BoxDecoration(
                       color: Colors.orange.shade100,
                       borderRadius: BorderRadius.circular(8.0),
@@ -424,10 +380,7 @@ dynamic build(BuildContext context) {
                       labelText: 'Label',
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 16.0,
-                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
                     ),
                   ),
                 ],
@@ -527,10 +480,7 @@ dynamic build(BuildContext context) {
   decorationExamples.add(
     _buildDecorationExample(
       title: 'Filled Style',
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        borderSide: BorderSide.none,
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide.none),
       behavior: FloatingLabelBehavior.auto,
       color: Colors.deepOrange,
       filled: true,
@@ -555,7 +505,7 @@ dynamic build(BuildContext context) {
   for (var i = 0; i < allValues.length; i++) {
     final value = allValues[i];
     print('values[$i] = ${value.name}');
-
+    
     enumInfoCards.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 4.0),
@@ -668,10 +618,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 8.0),
-              _buildCodeSnippet(
-                'FloatingLabelBehavior.values',
-                '[auto, always, never]',
-              ),
+              _buildCodeSnippet('FloatingLabelBehavior.values', '[auto, always, never]'),
               _buildCodeSnippet('behavior.name', '"auto"'),
               _buildCodeSnippet('behavior.index', '0'),
               _buildCodeSnippet('FloatingLabelBehavior.values[1]', 'always'),
@@ -692,29 +639,25 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility,
       'title': 'Label Visibility',
-      'description':
-          'Always behavior ensures labels are always visible, improving form comprehension for users with cognitive disabilities.',
+      'description': 'Always behavior ensures labels are always visible, improving form comprehension for users with cognitive disabilities.',
       'recommendation': 'Use Always for complex forms',
     },
     {
       'icon': Icons.text_fields,
       'title': 'Placeholder vs Label',
-      'description':
-          'Never behavior uses labels as placeholders. This can cause accessibility issues as the label disappears when typing.',
+      'description': 'Never behavior uses labels as placeholders. This can cause accessibility issues as the label disappears when typing.',
       'recommendation': 'Provide separate hintText with Never behavior',
     },
     {
       'icon': Icons.hearing,
       'title': 'Screen Reader Support',
-      'description':
-          'All behaviors work with screen readers via semanticLabel. The label text is announced regardless of visual state.',
+      'description': 'All behaviors work with screen readers via semanticLabel. The label text is announced regardless of visual state.',
       'recommendation': 'Always set semanticLabel for accessibility',
     },
     {
       'icon': Icons.contrast,
       'title': 'Color Contrast',
-      'description':
-          'Floating labels are typically smaller and may have reduced contrast. Ensure sufficient color contrast for readability.',
+      'description': 'Floating labels are typically smaller and may have reduced contrast. Ensure sufficient color contrast for readability.',
       'recommendation': 'Test with WCAG contrast requirements',
     },
   ];
@@ -768,10 +711,7 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(height: 8.0),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                     decoration: BoxDecoration(
                       color: Colors.green.shade50,
                       borderRadius: BorderRadius.circular(4.0),
@@ -780,11 +720,7 @@ dynamic build(BuildContext context) {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.check_circle,
-                          color: Colors.green.shade600,
-                          size: 14.0,
-                        ),
+                        Icon(Icons.check_circle, color: Colors.green.shade600, size: 14.0),
                         SizedBox(width: 4.0),
                         Text(
                           item['recommendation'] as String,
@@ -819,11 +755,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.accessibility_new,
-              color: Colors.purple.shade700,
-              size: 28.0,
-            ),
+            Icon(Icons.accessibility_new, color: Colors.purple.shade700, size: 28.0),
             SizedBox(width: 12.0),
             Text(
               'Accessibility Considerations',
@@ -850,32 +782,27 @@ dynamic build(BuildContext context) {
   final apiItems = [
     {
       'signature': 'FloatingLabelBehavior.auto',
-      'description':
-          'Label floats when field is focused or has content. This is the default.',
+      'description': 'Label floats when field is focused or has content. This is the default.',
       'icon': Icons.auto_mode,
     },
     {
       'signature': 'FloatingLabelBehavior.always',
-      'description':
-          'Label always floats above the text field, regardless of state.',
+      'description': 'Label always floats above the text field, regardless of state.',
       'icon': Icons.upload,
     },
     {
       'signature': 'FloatingLabelBehavior.never',
-      'description':
-          'Label never floats. Acts as placeholder, hidden when there is content.',
+      'description': 'Label never floats. Acts as placeholder, hidden when there is content.',
       'icon': Icons.stop,
     },
     {
       'signature': 'FloatingLabelBehavior.values',
-      'description':
-          'Static list containing all enum values: [auto, always, never].',
+      'description': 'Static list containing all enum values: [auto, always, never].',
       'icon': Icons.list,
     },
     {
       'signature': 'behavior.name',
-      'description':
-          'Returns the string name of the enum value (e.g., "auto").',
+      'description': 'Returns the string name of the enum value (e.g., "auto").',
       'icon': Icons.label,
     },
     {
@@ -1009,7 +936,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Control how text field labels float and animate',
-                style: TextStyle(fontSize: 14.0, color: Colors.white70),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.white70,
+                ),
               ),
             ],
           ),
@@ -1018,15 +948,18 @@ dynamic build(BuildContext context) {
         // Section 1: Overview
         SizedBox(height: 24.0),
         _buildSectionHeader('Section 1: Enum Overview', Icons.info_outline),
-        Wrap(alignment: WrapAlignment.center, children: overviewCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: overviewCards,
+        ),
 
         // Section 2: TextField Examples
         SizedBox(height: 32.0),
-        _buildSectionHeader(
-          'Section 2: TextField Examples',
-          Icons.text_snippet,
+        _buildSectionHeader('Section 2: TextField Examples', Icons.text_snippet),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: textFieldExamples,
         ),
-        Wrap(alignment: WrapAlignment.center, children: textFieldExamples),
 
         // Section 3: Side-by-Side Comparison
         SizedBox(height: 32.0),
@@ -1043,7 +976,10 @@ dynamic build(BuildContext context) {
         // Section 5: InputDecoration Integration
         SizedBox(height: 32.0),
         _buildSectionHeader('Section 5: Decoration Styles', Icons.style),
-        Wrap(alignment: WrapAlignment.center, children: decorationExamples),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: decorationExamples,
+        ),
 
         // Section 6: Enum Properties
         SizedBox(height: 32.0),
@@ -1052,10 +988,7 @@ dynamic build(BuildContext context) {
 
         // Section 7: Accessibility
         SizedBox(height: 32.0),
-        _buildSectionHeader(
-          'Section 7: Accessibility',
-          Icons.accessibility_new,
-        ),
+        _buildSectionHeader('Section 7: Accessibility', Icons.accessibility_new),
         accessibilityCard,
 
         // Section 8: API Reference
@@ -1327,7 +1260,10 @@ Widget _buildEnumProperty(String label, String value) {
     children: [
       Text(
         '$label: ',
-        style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
+        style: TextStyle(
+          fontSize: 11.0,
+          color: Colors.grey.shade500,
+        ),
       ),
       Text(
         value,

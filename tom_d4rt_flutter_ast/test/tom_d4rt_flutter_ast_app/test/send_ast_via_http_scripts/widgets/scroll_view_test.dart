@@ -42,7 +42,10 @@ dynamic build(BuildContext context) {
       ),
       textTheme: const TextTheme(
         bodyMedium: TextStyle(color: kInk),
-        headlineSmall: TextStyle(color: kForest, fontWeight: FontWeight.w700),
+        headlineSmall: TextStyle(
+          color: kForest,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     ),
     home: const _ScrollViewFamilyHome(),
@@ -202,7 +205,10 @@ class _HeroHeader extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[kForest, kSage],
+          colors: <Color>[
+            kForest,
+            kSage,
+          ],
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -226,7 +232,9 @@ class _HeroHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: kCream.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(color: kCream.withValues(alpha: 0.32)),
+                  border: Border.all(
+                    color: kCream.withValues(alpha: 0.32),
+                  ),
                 ),
                 child: const Text(
                   'abstract class ScrollView',
@@ -502,7 +510,9 @@ class _SubclassCard extends StatelessWidget {
                 bottomLeft: Radius.circular(18),
                 bottomRight: Radius.circular(18),
               ),
-              border: Border(top: BorderSide(color: kMist)),
+              border: Border(
+                top: BorderSide(color: kMist),
+              ),
             ),
             child: diagnostics,
           ),
@@ -598,19 +608,17 @@ class _ListViewCard extends StatelessWidget {
         cacheExtent: 600,
         itemBuilder: (context, index) {
           final hue = (index * 9) % 360;
-          final color = HSLColor.fromAHSL(
-            1,
-            hue.toDouble(),
-            0.45,
-            0.62,
-          ).toColor();
+          final color = HSLColor.fromAHSL(1, hue.toDouble(), 0.45, 0.62)
+              .toColor();
           return Container(
             margin: const EdgeInsets.symmetric(vertical: 4),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.22),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: color.withValues(alpha: 0.62)),
+              border: Border.all(
+                color: color.withValues(alpha: 0.62),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -642,7 +650,11 @@ class _ListViewCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Icon(Icons.chevron_right_rounded, color: kInk, size: 18),
+                const Icon(
+                  Icons.chevron_right_rounded,
+                  color: kInk,
+                  size: 18,
+                ),
               ],
             ),
           );
@@ -743,8 +755,7 @@ class _CustomScrollViewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SubclassCard(
       title: 'CustomScrollView',
-      subtitle:
-          'CustomScrollView extends ScrollView — slivers all the way down',
+      subtitle: 'CustomScrollView extends ScrollView — slivers all the way down',
       stripColor: kInk,
       height: 420,
       diagnostics: Column(
@@ -763,7 +774,10 @@ class _CustomScrollViewCard extends StatelessWidget {
           _KvRow(k: 'scrollDirection', v: 'Axis.vertical'),
           _KvRow(k: 'physics', v: 'BouncingScrollPhysics'),
           _KvRow(k: 'cacheExtent', v: '300.0'),
-          _KvRow(k: 'slivers', v: '[SliverAppBar, Adapter, List, Grid]'),
+          _KvRow(
+            k: 'slivers',
+            v: '[SliverAppBar, Adapter, List, Grid]',
+          ),
         ],
       ),
       child: CustomScrollView(
@@ -817,52 +831,58 @@ class _CustomScrollViewCard extends StatelessWidget {
           ),
           // SliverList (20 items).
           SliverList(
-            delegate: SliverChildBuilderDelegate((context, i) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: kSage.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: kSage.withValues(alpha: 0.46)),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: 22,
-                      height: 22,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: kSage,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        '${i + 1}',
-                        style: const TextStyle(
-                          color: kCream,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w800,
+            delegate: SliverChildBuilderDelegate(
+              (context, i) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 3,
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: kSage.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: kSage.withValues(alpha: 0.46)),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 22,
+                        height: 22,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: kSage,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          '${i + 1}',
+                          style: const TextStyle(
+                            color: kCream,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'SliverList row ${i + 1}',
-                        style: const TextStyle(
-                          color: kInk,
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w600,
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          'SliverList row ${i + 1}',
+                          style: const TextStyle(
+                            color: kInk,
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }, childCount: 20),
+                    ],
+                  ),
+                );
+              },
+              childCount: 20,
+            ),
           ),
           // SliverGrid (2 x 10).
           SliverPadding(
@@ -874,30 +894,35 @@ class _CustomScrollViewCard extends StatelessWidget {
                 crossAxisSpacing: 8,
                 childAspectRatio: 2.4,
               ),
-              delegate: SliverChildBuilderDelegate((context, i) {
-                final color = HSLColor.fromAHSL(
-                  1,
-                  (i * 36).toDouble() % 360,
-                  0.5,
-                  0.58,
-                ).toColor();
-                return Container(
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.22),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: color.withValues(alpha: 0.72)),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'g${i + 1}',
-                    style: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 13,
+              delegate: SliverChildBuilderDelegate(
+                (context, i) {
+                  final color = HSLColor.fromAHSL(
+                    1,
+                    (i * 36).toDouble() % 360,
+                    0.5,
+                    0.58,
+                  ).toColor();
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.22),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: color.withValues(alpha: 0.72),
+                      ),
                     ),
-                  ),
-                );
-              }, childCount: 20),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'g${i + 1}',
+                      style: TextStyle(
+                        color: color,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 13,
+                      ),
+                    ),
+                  );
+                },
+                childCount: 20,
+              ),
             ),
           ),
         ],
@@ -970,7 +995,10 @@ class _PageViewCard extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: <Color>[color, color.withValues(alpha: 0.62)],
+                      colors: <Color>[
+                        color,
+                        color.withValues(alpha: 0.62),
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: <BoxShadow>[
@@ -1034,7 +1062,9 @@ class _PageViewCard extends StatelessWidget {
                     width: active ? 20 : 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: active ? kForest : kForest.withValues(alpha: 0.28),
+                      color: active
+                          ? kForest
+                          : kForest.withValues(alpha: 0.28),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -1168,7 +1198,10 @@ class _SharedDiagnosticsPanel extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: kCoral.withValues(alpha: 0.24),
                   borderRadius: BorderRadius.circular(6),
@@ -1427,7 +1460,10 @@ class _PropertyMiniCard extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Padding(padding: const EdgeInsets.all(8), child: child),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: child,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -1487,7 +1523,10 @@ class _ShrinkWrapListDemo extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: kSage.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(6),
@@ -1519,7 +1558,8 @@ class _NeverScrollListDemo extends StatelessWidget {
           color: kInk.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(6),
         ),
-        child: Text('locked ${i + 1}', style: const TextStyle(fontSize: 12)),
+        child: Text('locked ${i + 1}',
+            style: const TextStyle(fontSize: 12)),
       ),
     );
   }
@@ -1537,13 +1577,17 @@ class _HorizontalListDemo extends StatelessWidget {
         width: 56,
         margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 6),
         decoration: BoxDecoration(
-          color: HSLColor.fromAHSL(1, (i * 18).toDouble(), 0.5, 0.62).toColor(),
+          color: HSLColor.fromAHSL(1, (i * 18).toDouble(), 0.5, 0.62)
+              .toColor(),
           borderRadius: BorderRadius.circular(8),
         ),
         alignment: Alignment.center,
         child: Text(
           '${i + 1}',
-          style: const TextStyle(color: kCream, fontWeight: FontWeight.w800),
+          style: const TextStyle(
+            color: kCream,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       ),
     );
@@ -1631,7 +1675,9 @@ class _ClassHierarchyDiagram extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: kAmber.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: kAmber.withValues(alpha: 0.52)),
+                  border: Border.all(
+                    color: kAmber.withValues(alpha: 0.52),
+                  ),
                 ),
                 child: const Row(
                   children: <Widget>[
@@ -1713,7 +1759,11 @@ class _ArrowDown extends StatelessWidget {
     return Column(
       children: <Widget>[
         const SizedBox(height: 8),
-        Container(width: 2, height: 18, color: kForest.withValues(alpha: 0.6)),
+        Container(
+          width: 2,
+          height: 18,
+          color: kForest.withValues(alpha: 0.6),
+        ),
         Icon(
           Icons.arrow_drop_down_rounded,
           color: kForest.withValues(alpha: 0.8),
@@ -1872,7 +1922,9 @@ class _DecisionRowTile extends StatelessWidget {
               )
             : null,
         border: Border(
-          bottom: BorderSide(color: isLast ? Colors.transparent : kMist),
+          bottom: BorderSide(
+            color: isLast ? Colors.transparent : kMist,
+          ),
         ),
       ),
       child: Row(
@@ -1908,7 +1960,10 @@ class _DecisionRowTile extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: kCoral.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(8),
@@ -2101,7 +2156,10 @@ class _FooterSummary extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: kCoral.withValues(alpha: 0.24),
                   borderRadius: BorderRadius.circular(6),

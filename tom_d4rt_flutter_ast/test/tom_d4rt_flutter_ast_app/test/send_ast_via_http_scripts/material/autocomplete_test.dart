@@ -388,9 +388,7 @@ Widget buildRecentItem(String text, Color color, {String? time}) {
 dynamic build(BuildContext context) {
   debugPrint('=== Autocomplete Test Script ===');
   debugPrint('Testing autocomplete widget patterns with various data sources');
-  debugPrint(
-    'Demonstrates suggestion lists, text field states, and typed inputs',
-  );
+  debugPrint('Demonstrates suggestion lists, text field states, and typed inputs');
 
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),

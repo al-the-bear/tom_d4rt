@@ -20,8 +20,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.route,
       'title': 'Routes Live Outside the Tree',
-      'body':
-          'When you push a new route (showDialog, Navigator.push), '
+      'body': 'When you push a new route (showDialog, Navigator.push), '
           'the route\'s widget is inserted into an Overlay above the '
           'Navigator — it does not sit underneath your page\'s widget '
           'subtree. This means InheritedWidgets from the page (Theme, '
@@ -32,8 +31,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.palette,
       'title': 'Lost Theme Data',
-      'body':
-          'Imagine a page that applies a custom Theme with a '
+      'body': 'Imagine a page that applies a custom Theme with a '
           'purple color scheme. When you open a dialog from that page, '
           'the dialog may not see purple — it falls back to the app '
           'Theme because the Overlay ancestor has no knowledge of your '
@@ -43,8 +41,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.save,
       'title': 'CapturedThemes to the Rescue',
-      'body':
-          'CapturedThemes captures a snapshot of all Inherited'
+      'body': 'CapturedThemes captures a snapshot of all Inherited'
           'Theme widgets between two contexts (from ancestor down to '
           'current). It then wraps a child widget with those themes, '
           'making them available in any subtree — even one outside '
@@ -54,8 +51,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'How the Framework Uses It',
-      'body':
-          'Navigator internally calls InheritedTheme.capture() '
+      'body': 'Navigator internally calls InheritedTheme.capture() '
           'when pushing routes, so route transitions automatically '
           'carry the themes from the source page. This is why a '
           'Material page\'s theme usually reaches its dialogs. '
@@ -75,8 +71,7 @@ dynamic build(BuildContext context) {
     {
       'step': 1,
       'title': 'Identify the Source Context',
-      'body':
-          'The context where the route is being pushed from — '
+      'body': 'The context where the route is being pushed from — '
           'this is where the themes are "alive". Every InheritedTheme '
           'above this context is a candidate for capture.',
       'color': Colors.indigo[400]!,
@@ -84,8 +79,7 @@ dynamic build(BuildContext context) {
     {
       'step': 2,
       'title': 'Walk Up to Navigator',
-      'body':
-          'InheritedTheme.capture() walks from the source context '
+      'body': 'InheritedTheme.capture() walks from the source context '
           'up to a specified ancestor context (usually the Navigator\'s '
           'context). It collects every InheritedTheme it encounters.',
       'color': Colors.indigo[500]!,
@@ -93,8 +87,7 @@ dynamic build(BuildContext context) {
     {
       'step': 3,
       'title': 'Create CapturedThemes',
-      'body':
-          'The collected themes are stored in a CapturedThemes '
+      'body': 'The collected themes are stored in a CapturedThemes '
           'object. This object can wrap any widget, re-creating the '
           'InheritedTheme layers around it.',
       'color': Colors.indigo[600]!,
@@ -102,8 +95,7 @@ dynamic build(BuildContext context) {
     {
       'step': 4,
       'title': 'Wrap the Route Content',
-      'body':
-          'When the route builds its page, CapturedThemes.wrap() '
+      'body': 'When the route builds its page, CapturedThemes.wrap() '
           'is called with the route\'s child widget. The child is '
           'nested inside re-created InheritedTheme widgets, so '
           'Theme.of() and similar calls work as expected.',
@@ -112,8 +104,7 @@ dynamic build(BuildContext context) {
     {
       'step': 5,
       'title': 'Route Sees the Themes',
-      'body':
-          'The dialog/page/overlay content can now call '
+      'body': 'The dialog/page/overlay content can now call '
           'Theme.of(context) and get the same theme data that '
           'existed at the source context — even though the route '
           'is mounted in the Overlay, not under the original page.',
@@ -131,12 +122,10 @@ dynamic build(BuildContext context) {
   final apiMembers = <Map<String, String>>[
     {
       'member': 'InheritedTheme.capture()',
-      'signature':
-          'static CapturedThemes capture(\n'
+      'signature': 'static CapturedThemes capture(\n'
           '  {required BuildContext from,\n'
           '   required BuildContext? to})',
-      'description':
-          'The factory method. Walks from "from" context '
+      'description': 'The factory method. Walks from "from" context '
           'up to "to" context, collecting InheritedTheme widgets. '
           'Returns a CapturedThemes instance. The "to" parameter is '
           'typically the Navigator\'s context.',
@@ -144,30 +133,25 @@ dynamic build(BuildContext context) {
     {
       'member': 'CapturedThemes.wrap()',
       'signature': 'Widget wrap(Widget child)',
-      'description':
-          'Wraps the given child widget with the captured '
+      'description': 'Wraps the given child widget with the captured '
           'InheritedTheme layers, outermost first. Returns the wrapped '
           'widget tree. This is how route content gets access to the '
           'themes.',
     },
     {
       'member': 'InheritedTheme (abstract)',
-      'signature':
-          'abstract class InheritedTheme\n'
+      'signature': 'abstract class InheritedTheme\n'
           '  extends InheritedWidget',
-      'description':
-          'The base class for theme InheritedWidgets that '
+      'description': 'The base class for theme InheritedWidgets that '
           'participate in capture. Theme, IconTheme, DefaultTextStyle, '
           'CupertinoTheme all extend InheritedTheme. Custom widgets '
           'can too.',
     },
     {
       'member': 'InheritedTheme.wrap()',
-      'signature':
-          'Widget wrap(BuildContext context,\n'
+      'signature': 'Widget wrap(BuildContext context,\n'
           '  Widget child)',
-      'description':
-          'Each InheritedTheme subclass implements wrap() — '
+      'description': 'Each InheritedTheme subclass implements wrap() — '
           'it creates a new Theme/IconTheme/etc. widget that injects '
           'the captured data. CapturedThemes.wrap() calls each '
           'InheritedTheme.wrap() in order.',
@@ -187,8 +171,7 @@ dynamic build(BuildContext context) {
   final themeScenarios = <Map<String, dynamic>>[
     {
       'title': 'Page Theme (Source)',
-      'description':
-          'The page applies a deep-purple theme. All '
+      'description': 'The page applies a deep-purple theme. All '
           'widgets under this page see deepPurple as the primary '
           'color via Theme.of(context).',
       'primaryColor': Colors.deepPurple,
@@ -198,8 +181,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dialog With Captured Theme',
-      'description':
-          'A dialog opened from the page, where themes '
+      'description': 'A dialog opened from the page, where themes '
           'were captured. The dialog sees deepPurple — it feels '
           'like part of the same visual context.',
       'primaryColor': Colors.deepPurple,
@@ -209,8 +191,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dialog Without Captured Theme',
-      'description':
-          'A dialog where themes were NOT captured. It '
+      'description': 'A dialog where themes were NOT captured. It '
           'falls back to the app-level default (blue). The visual '
           'disconnect is jarring.',
       'primaryColor': Colors.blue,
@@ -232,40 +213,35 @@ dynamic build(BuildContext context) {
       'name': 'Theme (MaterialApp)',
       'icon': Icons.palette,
       'color': Colors.purple[600]!,
-      'captures':
-          'ThemeData — primaryColor, colorScheme, textTheme, '
+      'captures': 'ThemeData — primaryColor, colorScheme, textTheme, '
           'iconTheme, all Material design tokens.',
     },
     {
       'name': 'CupertinoTheme',
       'icon': Icons.phone_iphone,
       'color': Colors.blue[600]!,
-      'captures':
-          'CupertinoThemeData — brightness, primaryColor, '
+      'captures': 'CupertinoThemeData — brightness, primaryColor, '
           'barBackgroundColor, scaffoldBackgroundColor.',
     },
     {
       'name': 'IconTheme',
       'icon': Icons.star,
       'color': Colors.amber[700]!,
-      'captures':
-          'IconThemeData — color, size, opacity. Affects all '
+      'captures': 'IconThemeData — color, size, opacity. Affects all '
           'Icon widgets below.',
     },
     {
       'name': 'DefaultTextStyle',
       'icon': Icons.text_fields,
       'color': Colors.teal[600]!,
-      'captures':
-          'TextStyle — default font, size, weight, color for '
+      'captures': 'TextStyle — default font, size, weight, color for '
           'Text widgets that don\'t specify their own style.',
     },
     {
       'name': 'Custom InheritedTheme',
       'icon': Icons.extension,
       'color': Colors.green[600]!,
-      'captures':
-          'Any class extending InheritedTheme that implements '
+      'captures': 'Any class extending InheritedTheme that implements '
           'wrap() will be captured automatically. Great for design '
           'system tokens.',
     },
@@ -315,8 +291,7 @@ dynamic build(BuildContext context) {
       'title': 'Navigator & Routes (Built-in)',
       'icon': Icons.navigation,
       'color': Colors.indigo[600]!,
-      'body':
-          'Navigator.push automatically captures themes from the '
+      'body': 'Navigator.push automatically captures themes from the '
           'source context. MaterialPageRoute, CupertinoPageRoute, '
           'and DialogRoute all use CapturedThemes internally. You '
           'benefit from this without writing any capture code.',
@@ -325,8 +300,7 @@ dynamic build(BuildContext context) {
       'title': 'showDialog / showModalBottomSheet',
       'icon': Icons.open_in_new,
       'color': Colors.deepPurple[500]!,
-      'body':
-          'These convenience functions call Navigator.push with '
+      'body': 'These convenience functions call Navigator.push with '
           'a DialogRoute that captures themes. This is why a dialog '
           'from a themed page looks right. The capture happens inside '
           'the route implementation.',
@@ -335,8 +309,7 @@ dynamic build(BuildContext context) {
       'title': 'Custom Overlay Entries',
       'icon': Icons.layers,
       'color': Colors.purple[500]!,
-      'body':
-          'If you create OverlayEntries manually (tooltips, '
+      'body': 'If you create OverlayEntries manually (tooltips, '
           'dropdowns, popups), you need to capture themes yourself '
           'because there is no Navigator involved:\n\n'
           'final themes = InheritedTheme.capture(\n'
@@ -349,8 +322,7 @@ dynamic build(BuildContext context) {
       'title': 'Design System Tokens',
       'icon': Icons.design_services,
       'color': Colors.teal[600]!,
-      'body':
-          'Custom InheritedTheme subclasses let you capture '
+      'body': 'Custom InheritedTheme subclasses let you capture '
           'design tokens (spacing, border radii, shadows) alongside '
           'Material/Cupertino themes. Implement wrap() to re-create '
           'the provider, and the capture system handles the rest.',
@@ -359,8 +331,7 @@ dynamic build(BuildContext context) {
       'title': 'PopupMenuButton Theming',
       'icon': Icons.menu,
       'color': Colors.blue[600]!,
-      'body':
-          'PopupMenuButton opens a route for the menu. Themes '
+      'body': 'PopupMenuButton opens a route for the menu. Themes '
           'are captured so the popup items match the button\'s '
           'context. Without capture, popup menus might appear with '
           'the wrong colors if the button is inside a themed subtree.',
@@ -377,56 +348,46 @@ dynamic build(BuildContext context) {
   final comparisonRows = <Map<String, String>>[
     {
       'aspect': 'Scope',
-      'captured':
-          'Captures ALL InheritedThemes '
+      'captured': 'Captures ALL InheritedThemes '
           '(Theme, IconTheme, DefaultText'
           'Style, CupertinoTheme, custom).',
-      'themeOf':
-          'Returns only the nearest Theme '
+      'themeOf': 'Returns only the nearest Theme '
           'data. Other InheritedThemes '
           'need separate calls.',
     },
     {
       'aspect': 'Context Requirement',
-      'captured':
-          'Needs source and ancestor '
+      'captured': 'Needs source and ancestor '
           'contexts at capture time. Can '
           'be used later in any context.',
-      'themeOf':
-          'Needs a BuildContext that is a '
+      'themeOf': 'Needs a BuildContext that is a '
           'descendant of the Theme widget '
           'at call time.',
     },
     {
       'aspect': 'Use Case',
-      'captured':
-          'Routes, overlays, and detached '
+      'captured': 'Routes, overlays, and detached '
           'subtrees that need full theme '
           'continuity.',
-      'themeOf':
-          'Normal widgets that live in the '
+      'themeOf': 'Normal widgets that live in the '
           'same subtree as their Theme '
           'ancestor.',
     },
     {
       'aspect': 'Reactivity',
-      'captured':
-          'Snapshot at capture time. If '
+      'captured': 'Snapshot at capture time. If '
           'the source theme changes later, '
           'the captured version is stale.',
-      'themeOf':
-          'Live lookup. Always returns the '
+      'themeOf': 'Live lookup. Always returns the '
           'current theme. Rebuilds when '
           'the theme changes.',
     },
     {
       'aspect': 'Framework Usage',
-      'captured':
-          'Used automatically by Navigator, '
+      'captured': 'Used automatically by Navigator, '
           'DialogRoute, ModalRoute. You '
           'rarely call it manually.',
-      'themeOf':
-          'Used everywhere in widget build '
+      'themeOf': 'Used everywhere in widget build '
           'methods to style content.',
     },
   ];
@@ -442,8 +403,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Usually Automatic',
-      'body':
-          'You rarely need to use CapturedThemes directly. '
+      'body': 'You rarely need to use CapturedThemes directly. '
           'Navigator routes capture themes automatically. Only '
           'reach for manual capture when creating custom overlay '
           'entries or popup systems.',
@@ -452,8 +412,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Snapshot, Not Live',
-      'body':
-          'Captured themes are a snapshot taken at push time. '
+      'body': 'Captured themes are a snapshot taken at push time. '
           'If the source page\'s theme changes while the dialog '
           'is open, the dialog won\'t update. For live updates '
           'across routes, use a global state management solution.',
@@ -462,8 +421,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Custom InheritedTheme',
-      'body':
-          'To participate in capture, your InheritedWidget must '
+      'body': 'To participate in capture, your InheritedWidget must '
           'extend InheritedTheme (not InheritedWidget directly) and '
           'implement wrap(). This is the contract that '
           'InheritedTheme.capture() relies on.',
@@ -472,8 +430,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Ancestor Context Matters',
-      'body':
-          'The "to" context in capture() defines the upper '
+      'body': 'The "to" context in capture() defines the upper '
           'boundary. Only themes between "from" and "to" are captured. '
           'If "to" is too low, you miss themes. If it\'s the root, '
           'you capture everything — but that\'s usually wasteful.',
@@ -482,8 +439,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Debugging Theme Issues',
-      'body':
-          'If a dialog shows the wrong theme, check whether '
+      'body': 'If a dialog shows the wrong theme, check whether '
           'the page applies Theme below the Navigator context. '
           'Themes above Navigator are already visible to the '
           'Overlay; themes below need capture.',
@@ -492,8 +448,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Builder for Local Themes',
-      'body':
-          'Use Builder to create a context that sits below '
+      'body': 'Use Builder to create a context that sits below '
           'a Theme override. Then pass that context to your route '
           'push to ensure the local theme is captured.',
       'severity': 'tip',
@@ -566,206 +521,171 @@ dynamic build(BuildContext context) {
           // ── Section 1: The Problem ──
           _sectionTitle('1', 'The Problem — Why Capture Themes?'),
           SizedBox(height: 12),
-          ...problemCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: card['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          card['icon'] as IconData,
-                          color: card['accent'] as Color,
-                          size: 22,
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            card['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      card['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
+          ...problemCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                        color: card['accent'] as Color,
+                        width: 4,
                       ),
                     ),
-                  ],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(card['icon'] as IconData,
+                            color: card['accent'] as Color, size: 22),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Text(card['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
+                        ),
+                      ]),
+                      SizedBox(height: 10),
+                      Text(card['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: How Capture Works ──
           _sectionTitle('2', 'How Capture Works — Step by Step'),
           SizedBox(height: 12),
-          ...captureSteps.map(
-            (step) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      color: step['color'] as Color,
-                      shape: BoxShape.circle,
+          ...captureSteps.map((step) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: step['color'] as Color,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text('${step['step']}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                      ),
                     ),
-                    child: Center(
-                      child: Text(
-                        '${step['step']}',
-                        style: TextStyle(
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(14),
+                        decoration: BoxDecoration(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 3,
+                                offset: Offset(0, 1))
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(step['title'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Colors.grey[900])),
+                            SizedBox(height: 6),
+                            Text(step['body'] as String,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                    height: 1.4)),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 3,
-                            offset: Offset(0, 1),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            step['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            step['body'] as String,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 3: API Surface ──
           _sectionTitle('3', 'API Surface'),
           SizedBox(height: 12),
-          ...apiMembers.map(
-            (m) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.indigo[200]!),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.indigo[50],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        m['member']!,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.indigo[900],
+          ...apiMembers.map((m) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.indigo[200]!),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.indigo[50],
+                          borderRadius: BorderRadius.circular(6),
                         ),
+                        child: Text(m['member']!,
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.indigo[900])),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        m['signature']!,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: Colors.grey[800],
-                          height: 1.4,
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(6),
                         ),
+                        child: Text(m['signature']!,
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: Colors.grey[800],
+                                height: 1.4)),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      m['description']!,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      SizedBox(height: 8),
+                      Text(m['description']!,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -777,185 +697,141 @@ dynamic build(BuildContext context) {
             'dialog with captured themes, and a dialog without. '
             'Notice how color consistency breaks without capture.',
             style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[600],
-              height: 1.5,
-            ),
+                fontSize: 13, color: Colors.grey[600], height: 1.5),
           ),
           SizedBox(height: 12),
-          ...themeScenarios.map(
-            (ts) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: ts['bgColor'] as Color,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: (ts['primaryColor'] as MaterialColor)[300]!,
-                    width: 2,
+          ...themeScenarios.map((ts) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: ts['bgColor'] as Color,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                        color: (ts['primaryColor'] as MaterialColor)[300]!,
+                        width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          ts['icon'] as IconData,
-                          color: ts['primaryColor'] as Color,
-                          size: 26,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(ts['icon'] as IconData,
+                            color: ts['primaryColor'] as Color, size: 26),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            ts['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              color: ts['textColor'] as Color,
-                            ),
-                          ),
+                          child: Text(ts['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  color: ts['textColor'] as Color)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      ts['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: ts['textColor'] as Color,
-                        height: 1.4,
-                      ),
-                    ),
-                    SizedBox(height: 12),
-                    // Mini "button" styled with the theme color
-                    Row(
-                      children: [
+                      ]),
+                      SizedBox(height: 10),
+                      Text(ts['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: ts['textColor'] as Color,
+                              height: 1.4)),
+                      SizedBox(height: 12),
+                      // Mini "button" styled with the theme color
+                      Row(children: [
                         Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             color: ts['primaryColor'] as Color,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Text(
-                            'Primary Button',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          child: Text('Primary Button',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(width: 12),
                         Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: ts['primaryColor'] as Color,
-                              width: 2,
-                            ),
+                                color: ts['primaryColor'] as Color, width: 2),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Text(
-                            'Outline Button',
-                            style: TextStyle(
-                              color: ts['primaryColor'] as Color,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          child: Text('Outline Button',
+                              style: TextStyle(
+                                  color: ts['primaryColor'] as Color,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
                         ),
-                      ],
-                    ),
-                  ],
+                      ]),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: Captured InheritedThemes ──
           _sectionTitle('5', 'Which InheritedThemes Are Captured?'),
           SizedBox(height: 12),
-          ...inheritedThemes.map(
-            (it) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
+          ...inheritedThemes.map((it) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: (it['color'] as Color).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(it['icon'] as IconData,
+                            color: it['color'] as Color, size: 22),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(it['name'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Colors.grey[900])),
+                            SizedBox(height: 4),
+                            Text(it['captures'] as String,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                    height: 1.4)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: (it['color'] as Color).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Icon(
-                        it['icon'] as IconData,
-                        color: it['color'] as Color,
-                        size: 22,
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            it['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            it['captures'] as String,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -981,62 +857,48 @@ dynamic build(BuildContext context) {
           // ── Section 7: Real-World Patterns ──
           _sectionTitle('7', 'Real-World Patterns'),
           SizedBox(height: 12),
-          ...patterns.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...patterns.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          p['icon'] as IconData,
-                          color: p['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(p['icon'] as IconData,
+                            color: p['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            p['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(p['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      p['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(p['body'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1050,10 +912,9 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
             child: Column(
@@ -1067,18 +928,11 @@ dynamic build(BuildContext context) {
                       topRight: Radius.circular(12),
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      _tCell('Aspect', bold: true, white: true, flex: 2),
-                      _tCell(
-                        'CapturedThemes',
-                        bold: true,
-                        white: true,
-                        flex: 3,
-                      ),
-                      _tCell('Theme.of()', bold: true, white: true, flex: 3),
-                    ],
-                  ),
+                  child: Row(children: [
+                    _tCell('Aspect', bold: true, white: true, flex: 2),
+                    _tCell('CapturedThemes', bold: true, white: true, flex: 3),
+                    _tCell('Theme.of()', bold: true, white: true, flex: 3),
+                  ]),
                 ),
                 ...comparisonRows.asMap().entries.map((entry) {
                   final idx = entry.key;
@@ -1130,41 +984,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1205,26 +1047,20 @@ Widget _sectionTitle(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1233,12 +1069,8 @@ Widget _sectionTitle(String number, String title) {
 // ──────────────────────────────────────────────────────────
 // Helper: Table cell
 // ──────────────────────────────────────────────────────────
-Widget _tCell(
-  String text, {
-  bool bold = false,
-  bool white = false,
-  int flex = 1,
-}) {
+Widget _tCell(String text,
+    {bool bold = false, bool white = false, int flex = 1}) {
   return Expanded(
     flex: flex,
     child: Text(
@@ -1282,34 +1114,26 @@ Widget _buildTreeDiagram({
               topRight: Radius.circular(11),
             ),
           ),
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-            ),
-          ),
+          child: Text(title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13)),
         ),
         Padding(
           padding: EdgeInsets.all(14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: lines
-                .map(
-                  (line) => Padding(
-                    padding: EdgeInsets.only(bottom: 3),
-                    child: Text(
-                      line,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: Colors.grey[800],
-                        height: 1.3,
-                      ),
-                    ),
-                  ),
-                )
+                .map((line) => Padding(
+                      padding: EdgeInsets.only(bottom: 3),
+                      child: Text(line,
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                              color: Colors.grey[800],
+                              height: 1.3)),
+                    ))
                 .toList(),
           ),
         ),

@@ -64,9 +64,16 @@ enum _Scene {
   compendium,
 }
 
-enum _AxisMode { vertical, horizontal }
+enum _AxisMode {
+  vertical,
+  horizontal,
+}
 
-enum _DensityPreset { sparse, normal, dense }
+enum _DensityPreset {
+  sparse,
+  normal,
+  dense,
+}
 
 class _ShellModel {
   final String label;
@@ -146,8 +153,7 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
 
   _ThemeProfile get _t => _profiles[_themeIndex];
 
-  Axis get _axis =>
-      _axisMode == _AxisMode.vertical ? Axis.vertical : Axis.horizontal;
+  Axis get _axis => _axisMode == _AxisMode.vertical ? Axis.vertical : Axis.horizontal;
 
   void _trace(String msg) {
     if (_verbose) {
@@ -188,11 +194,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.table_rows_rounded,
-                color: Colors.white,
-                size: 28,
-              ),
+              const Icon(Icons.table_rows_rounded,
+                  color: Colors.white, size: 28),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -205,10 +208,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -379,24 +380,18 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                     Checkbox(
                       value: _baseShowHint,
                       activeColor: _t.primary,
-                      onChanged: (v) =>
-                          setState(() => _baseShowHint = v ?? true),
+                      onChanged: (v) => setState(() => _baseShowHint = v ?? true),
                     ),
-                    Text(
-                      'show extent badge',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show extent badge',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _basePadding,
                       activeColor: _t.secondary,
-                      onChanged: (v) =>
-                          setState(() => _basePadding = v ?? true),
+                      onChanged: (v) => setState(() => _basePadding = v ?? true),
                     ),
-                    Text(
-                      'sliver padding',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('sliver padding',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
                     _chip('extent', _baseExtent.toStringAsFixed(0), _t.primary),
                     const SizedBox(width: 6),
@@ -605,10 +600,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       onChanged: (v) =>
                           setState(() => _mixShowOverlay = v ?? true),
                     ),
-                    Text(
-                      'show interval lines',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show interval lines',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _mixShowDensityBadge,
@@ -616,16 +609,10 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       onChanged: (v) =>
                           setState(() => _mixShowDensityBadge = v ?? true),
                     ),
-                    Text(
-                      'show density badge',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show density badge',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
-                    _chip(
-                      'active extent',
-                      extent.toStringAsFixed(0),
-                      _t.primary,
-                    ),
+                    _chip('active extent', extent.toStringAsFixed(0), _t.primary),
                   ],
                 ),
               ],
@@ -660,8 +647,7 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                           sliver: SliverFixedExtentList.builder(
                             itemExtent: extent,
                             itemCount: count,
-                            itemBuilder: (context, index) =>
-                                _mixTile(index, extent),
+                            itemBuilder: (context, index) => _mixTile(index, extent),
                           ),
                         ),
                       ],
@@ -681,7 +667,11 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       Positioned(
                         top: 8,
                         right: 8,
-                        child: _chip('preset', _density.name, _t.secondary),
+                        child: _chip(
+                          'preset',
+                          _density.name,
+                          _t.secondary,
+                        ),
                       ),
                   ],
                 ),
@@ -696,15 +686,9 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Sparse increases scan comfort for rich card content.'),
-                _bullet(
-                  'Dense raises information throughput for compact dashboards.',
-                ),
-                _bullet(
-                  'Uniform extent remains stable across all density states.',
-                ),
-                _bullet(
-                  'Use one extent policy per lane to keep rhythm coherent.',
-                ),
+                _bullet('Dense raises information throughput for compact dashboards.'),
+                _bullet('Uniform extent remains stable across all density states.'),
+                _bullet('Use one extent policy per lane to keep rhythm coherent.'),
               ],
             ),
           ),
@@ -833,10 +817,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       onChanged: (v) =>
                           setState(() => _narrativePinned = v ?? true),
                     ),
-                    Text(
-                      'pinned app bar',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('pinned app bar',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _narrativeFloating,
@@ -844,10 +826,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       onChanged: (v) =>
                           setState(() => _narrativeFloating = v ?? false),
                     ),
-                    Text(
-                      'floating app bar',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('floating app bar',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _narrativeFooter,
@@ -855,16 +835,10 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       onChanged: (v) =>
                           setState(() => _narrativeFooter = v ?? true),
                     ),
-                    Text(
-                      'show footer',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show footer',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
-                    _chip(
-                      'extent',
-                      _narrativeExtent.toStringAsFixed(0),
-                      _t.secondary,
-                    ),
+                    _chip('extent', _narrativeExtent.toStringAsFixed(0), _t.secondary),
                   ],
                 ),
               ],
@@ -892,10 +866,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       expandedHeight: 120,
                       backgroundColor: _t.primary,
                       flexibleSpace: FlexibleSpaceBar(
-                        title: const Text(
-                          'Narrative Flow',
-                          style: TextStyle(fontSize: 13),
-                        ),
+                        title: const Text('Narrative Flow',
+                            style: TextStyle(fontSize: 13)),
                         background: Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -927,7 +899,9 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       itemBuilder: (context, index) => _chapterTile(index),
                     ),
                     if (_narrativeFooter)
-                      SliverToBoxAdapter(child: _narrativeFooterPanel()),
+                      SliverToBoxAdapter(
+                        child: _narrativeFooterPanel(),
+                      ),
                   ],
                 ),
               ),
@@ -1108,29 +1082,20 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                     Checkbox(
                       value: _axisPadding,
                       activeColor: _t.primary,
-                      onChanged: (v) =>
-                          setState(() => _axisPadding = v ?? true),
+                      onChanged: (v) => setState(() => _axisPadding = v ?? true),
                     ),
-                    Text(
-                      'apply sliver padding',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('apply sliver padding',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _axisLegend,
                       activeColor: _t.secondary,
                       onChanged: (v) => setState(() => _axisLegend = v ?? true),
                     ),
-                    Text(
-                      'show legend chip',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show legend chip',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
-                    _chip(
-                      'axis',
-                      horizontal ? 'horizontal' : 'vertical',
-                      _t.primary,
-                    ),
+                    _chip('axis', horizontal ? 'horizontal' : 'vertical', _t.primary),
                   ],
                 ),
               ],
@@ -1138,9 +1103,7 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
           ),
           const SizedBox(height: 12),
           _card(
-            title: horizontal
-                ? 'Horizontal Fixed Tiles'
-                : 'Vertical Fixed Rows',
+            title: horizontal ? 'Horizontal Fixed Tiles' : 'Vertical Fixed Rows',
             subtitle: horizontal
                 ? 'Extent defines tile width.'
                 : 'Extent defines row height.',
@@ -1201,15 +1164,9 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Vertical fixed rows suit logs, forms, and data feeds.',
-                ),
-                _bullet(
-                  'Horizontal fixed tiles suit media strips and selector rails.',
-                ),
-                _bullet(
-                  'Use spacing and padding for rhythm without breaking extent consistency.',
-                ),
+                _bullet('Vertical fixed rows suit logs, forms, and data feeds.'),
+                _bullet('Horizontal fixed tiles suit media strips and selector rails.'),
+                _bullet('Use spacing and padding for rhythm without breaking extent consistency.'),
               ],
             ),
           ),
@@ -1237,17 +1194,13 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
     final tone = index.isEven ? _t.primary : _t.secondary;
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical: horizontal ? 10 : _axisSpacing / 2,
-        horizontal: horizontal ? _axisSpacing / 2 : 0,
-      ),
+          vertical: horizontal ? 10 : _axisSpacing / 2,
+          horizontal: horizontal ? _axisSpacing / 2 : 0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            tone.withValues(alpha: 0.84),
-            _t.accent.withValues(alpha: 0.8),
-          ],
+          colors: [tone.withValues(alpha: 0.84), _t.accent.withValues(alpha: 0.8)],
         ),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -1311,10 +1264,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       activeColor: _t.primary,
                       onChanged: (v) => setState(() => _shellTrio = v ?? true),
                     ),
-                    Text(
-                      'show preset trio',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show preset trio',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
                     _chip('mode', _shellTrio ? 'trio' : 'custom', _t.primary),
                   ],
@@ -1357,10 +1308,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                       onChanged: (v) =>
                           setState(() => _shellMetrics = v ?? true),
                     ),
-                    Text(
-                      'show shell metrics',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show shell metrics',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                   ],
                 ),
               ],
@@ -1371,7 +1320,9 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
             Wrap(
               spacing: 12,
               runSpacing: 12,
-              children: [for (final shell in _shellPresets) _shellCard(shell)],
+              children: [
+                for (final shell in _shellPresets) _shellCard(shell),
+              ],
             )
           else
             _shellCard(
@@ -1389,15 +1340,9 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Compact shells often need tighter extents to fit more context.',
-                ),
-                _bullet(
-                  'Larger shells can support larger extents for calmer pacing.',
-                ),
-                _bullet(
-                  'Fixed extents keep row cadence predictable across shell classes.',
-                ),
+                _bullet('Compact shells often need tighter extents to fit more context.'),
+                _bullet('Larger shells can support larger extents for calmer pacing.'),
+                _bullet('Fixed extents keep row cadence predictable across shell classes.'),
               ],
             ),
           ),
@@ -1445,11 +1390,7 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                   Positioned(
                     top: 8,
                     right: 8,
-                    child: _chip(
-                      'extent',
-                      shell.extent.toStringAsFixed(0),
-                      _t.secondary,
-                    ),
+                    child: _chip('extent', shell.extent.toStringAsFixed(0), _t.secondary),
                   ),
               ],
             ),
@@ -1586,8 +1527,7 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
               children: [
                 _qa(
                   q: 'Why choose SliverFixedExtentList over SliverList?',
-                  a:
-                      'Choose it when child heights can remain uniform and you '
+                  a: 'Choose it when child heights can remain uniform and you '
                       'want predictable geometry and rhythm.',
                 ),
                 _qa(
@@ -1613,17 +1553,11 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _check('Fundamentals board covers extent and count behavior.'),
-                _check(
-                  'Density mixer demonstrates presets and interval overlays.',
-                ),
-                _check(
-                  'Sectioned narrative shows integration with other slivers.',
-                ),
+                _check('Density mixer demonstrates presets and interval overlays.'),
+                _check('Sectioned narrative shows integration with other slivers.'),
                 _check('Axis theater compares vertical and horizontal modes.'),
                 _check('Responsive shell gallery validates device adaptation.'),
-                _check(
-                  'Compendium includes matrix, do/dont, FAQ, and checklist.',
-                ),
+                _check('Compendium includes matrix, do/dont, FAQ, and checklist.'),
               ],
             ),
           ),
@@ -1769,7 +1703,8 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(good ? Icons.check_circle : Icons.cancel, color: tone, size: 18),
+          Icon(good ? Icons.check_circle : Icons.cancel,
+              color: tone, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1784,7 +1719,10 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(detail, style: TextStyle(color: _t.muted, fontSize: 11.3)),
+                Text(
+                  detail,
+                  style: TextStyle(color: _t.muted, fontSize: 11.3),
+                ),
               ],
             ),
           ),
@@ -1829,10 +1767,14 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
+          const Icon(Icons.check_circle,
+              color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(color: _t.ink, fontSize: 12)),
+            child: Text(
+              text,
+              style: TextStyle(color: _t.ink, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -1948,7 +1890,10 @@ class _FixedExtentListLabState extends State<_FixedExtentListLab> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: _t.muted, fontSize: 11.4)),
+          Text(
+            subtitle,
+            style: TextStyle(color: _t.muted, fontSize: 11.4),
+          ),
           const SizedBox(height: 10),
           child,
         ],

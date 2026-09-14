@@ -346,9 +346,7 @@ dynamic build(BuildContext context) {
             width: 24,
             height: 24,
             decoration: BoxDecoration(
-              color: isCurrent
-                  ? Colors.white.withValues(alpha: 0.3)
-                  : deepOrange200.withValues(alpha: 0.4),
+              color: isCurrent ? Colors.white.withValues(alpha: 0.3) : deepOrange200.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(
@@ -437,31 +435,11 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 12),
                 ...[
-                  {
-                    'label': 'System Back Button',
-                    'detail': 'Platform sends back event',
-                    'arrow': true,
-                  },
-                  {
-                    'label': 'BackButtonDispatcher',
-                    'detail': 'Listens to system back',
-                    'arrow': true,
-                  },
-                  {
-                    'label': 'Router.popRoute()',
-                    'detail': 'Delegates to routerDelegate',
-                    'arrow': true,
-                  },
-                  {
-                    'label': 'PopNavigatorRouterDelegateMixin',
-                    'detail': 'popRoute() → navigatorKey.maybePop()',
-                    'arrow': true,
-                  },
-                  {
-                    'label': 'Navigator.maybePop()',
-                    'detail': 'Pops top route if allowed',
-                    'arrow': false,
-                  },
+                  {'label': 'System Back Button', 'detail': 'Platform sends back event', 'arrow': true},
+                  {'label': 'BackButtonDispatcher', 'detail': 'Listens to system back', 'arrow': true},
+                  {'label': 'Router.popRoute()', 'detail': 'Delegates to routerDelegate', 'arrow': true},
+                  {'label': 'PopNavigatorRouterDelegateMixin', 'detail': 'popRoute() → navigatorKey.maybePop()', 'arrow': true},
+                  {'label': 'Navigator.maybePop()', 'detail': 'Pops top route if allowed', 'arrow': false},
                 ].asMap().entries.map((entry) {
                   final i = entry.key;
                   final item = entry.value;
@@ -512,11 +490,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         if (item['arrow'] as bool)
-                          Icon(
-                            Icons.arrow_downward,
-                            color: deepOrange400,
-                            size: 14,
-                          ),
+                          Icon(Icons.arrow_downward, color: deepOrange400, size: 14),
                       ],
                     ),
                   );
@@ -568,24 +542,9 @@ dynamic build(BuildContext context) {
                   ],
                 ),
                 const SizedBox(height: 8),
-                buildRouteCard(
-                  name: '/settings/theme',
-                  index: 3,
-                  isCurrent: true,
-                  bg: deepOrange700,
-                ),
-                buildRouteCard(
-                  name: '/settings',
-                  index: 2,
-                  isCurrent: false,
-                  bg: deepOrange700,
-                ),
-                buildRouteCard(
-                  name: '/ (Home)',
-                  index: 1,
-                  isCurrent: false,
-                  bg: deepOrange700,
-                ),
+                buildRouteCard(name: '/settings/theme', index: 3, isCurrent: true, bg: deepOrange700),
+                buildRouteCard(name: '/settings', index: 2, isCurrent: false, bg: deepOrange700),
+                buildRouteCard(name: '/ (Home)', index: 1, isCurrent: false, bg: deepOrange700),
                 const SizedBox(height: 8),
                 Container(
                   width: double.infinity,
@@ -606,20 +565,12 @@ dynamic build(BuildContext context) {
                               const TextSpan(text: 'Back pressed → '),
                               TextSpan(
                                 text: 'popRoute()',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'monospace',
-                                  color: deepOrange900,
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.w700, fontFamily: 'monospace', color: deepOrange900),
                               ),
                               const TextSpan(text: ' → '),
                               TextSpan(
                                 text: 'maybePop()',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'monospace',
-                                  color: deepOrange900,
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.w700, fontFamily: 'monospace', color: deepOrange900),
                               ),
                               const TextSpan(text: ' → pops /settings/theme'),
                             ],
@@ -663,19 +614,10 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
                 ...[
-                  {
-                    'check': true,
-                    'text': 'Same key in getter AND Navigator widget',
-                  },
-                  {
-                    'check': true,
-                    'text': 'Key created as a field (not in build)',
-                  },
+                  {'check': true, 'text': 'Same key in getter AND Navigator widget'},
+                  {'check': true, 'text': 'Key created as a field (not in build)'},
                   {'check': true, 'text': 'popRoute() finds Navigator via key'},
-                  {
-                    'check': false,
-                    'text': 'Different keys → back button broken',
-                  },
+                  {'check': false, 'text': 'Different keys → back button broken'},
                   {'check': false, 'text': 'New key per build → state lost'},
                 ].map((item) {
                   final ok = item['check'] as bool;
@@ -692,7 +634,10 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: Text(
                             item['text'] as String,
-                            style: TextStyle(color: brown800, fontSize: 12),
+                            style: TextStyle(
+                              color: brown800,
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                       ],
@@ -825,47 +770,18 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 ...[
-                  {
-                    'platform': 'Android',
-                    'mechanism': 'System back → popRoute()',
-                    'icon': Icons.phone_android,
-                    'uses': true,
-                  },
-                  {
-                    'platform': 'Web',
-                    'mechanism': 'Browser back → popRoute()',
-                    'icon': Icons.language,
-                    'uses': true,
-                  },
-                  {
-                    'platform': 'iOS',
-                    'mechanism': 'Edge swipe (CupertinoRoute)',
-                    'icon': Icons.phone_iphone,
-                    'uses': false,
-                  },
-                  {
-                    'platform': 'macOS',
-                    'mechanism': 'App-provided back button',
-                    'icon': Icons.laptop_mac,
-                    'uses': false,
-                  },
-                  {
-                    'platform': 'Windows',
-                    'mechanism': 'App-provided back button',
-                    'icon': Icons.desktop_windows,
-                    'uses': false,
-                  },
+                  {'platform': 'Android', 'mechanism': 'System back → popRoute()', 'icon': Icons.phone_android, 'uses': true},
+                  {'platform': 'Web', 'mechanism': 'Browser back → popRoute()', 'icon': Icons.language, 'uses': true},
+                  {'platform': 'iOS', 'mechanism': 'Edge swipe (CupertinoRoute)', 'icon': Icons.phone_iphone, 'uses': false},
+                  {'platform': 'macOS', 'mechanism': 'App-provided back button', 'icon': Icons.laptop_mac, 'uses': false},
+                  {'platform': 'Windows', 'mechanism': 'App-provided back button', 'icon': Icons.desktop_windows, 'uses': false},
                 ].map((p) {
                   final uses = p['uses'] as bool;
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 4),
                     child: Row(
                       children: [
-                        Icon(
-                          p['icon'] as IconData,
-                          color: uses ? deepOrange900 : Color(0xFF9E9E9E),
-                          size: 16,
-                        ),
+                        Icon(p['icon'] as IconData, color: uses ? deepOrange900 : Color(0xFF9E9E9E), size: 16),
                         const SizedBox(width: 8),
                         SizedBox(
                           width: 65,
@@ -880,13 +796,9 @@ dynamic build(BuildContext context) {
                         ),
                         if (uses)
                           Container(
-                            width: 6,
-                            height: 6,
+                            width: 6, height: 6,
                             margin: const EdgeInsets.only(right: 6),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF43A047),
-                              shape: BoxShape.circle,
-                            ),
+                            decoration: BoxDecoration(color: Color(0xFF43A047), shape: BoxShape.circle),
                           ),
                         Expanded(
                           child: Text(
@@ -939,36 +851,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  Dark Red     ${darkRed.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  DeepOr 900   ${deepOrange900.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  DeepOr 800   ${deepOrange800.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  DeepOr 700   ${deepOrange700.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  DeepOr 400   ${deepOrange400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  DeepOr 200   ${deepOrange200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  DeepOr 100   ${deepOrange100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  DeepOr 50    ${deepOrange50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  Orange 50    ${orange50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
-  print(
-    '  │  Brown 800    ${brown800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
+  print('  │  Dark Red     ${darkRed.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  DeepOr 900   ${deepOrange900.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  DeepOr 800   ${deepOrange800.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  DeepOr 700   ${deepOrange700.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  DeepOr 400   ${deepOrange400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  DeepOr 200   ${deepOrange200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  DeepOr 100   ${deepOrange100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  DeepOr 50    ${deepOrange50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  Orange 50    ${orange50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
+  print('  │  Brown 800    ${brown800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

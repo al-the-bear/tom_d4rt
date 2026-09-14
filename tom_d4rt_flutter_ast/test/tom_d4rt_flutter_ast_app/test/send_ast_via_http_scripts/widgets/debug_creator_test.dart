@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.bug_report,
       'title': 'Linking Widgets to RenderObjects',
-      'body':
-          'DebugCreator is a DiagnosticsNode that stores a '
+      'body': 'DebugCreator is a DiagnosticsNode that stores a '
           'reference to the Element that created a RenderObject. '
           'When a RenderObject throws an error during layout or '
           'paint, Flutter uses the DebugCreator to report which '
@@ -30,8 +29,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.link,
       'title': 'The debugCreator Property',
-      'body':
-          'Every RenderObject has a debugCreator property '
+      'body': 'Every RenderObject has a debugCreator property '
           '(type Object?). When the framework creates a '
           'RenderObject via RenderObjectElement.mount(), it sets '
           'renderObject.debugCreator = DebugCreator(this). '
@@ -41,8 +39,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.error_outline,
       'title': 'Error Message Enhancement',
-      'body':
-          'When a layout or paint error occurs, the framework '
+      'body': 'When a layout or paint error occurs, the framework '
           'walks up from the RenderObject and inspects debugCreator. '
           'It extracts the widget and element to produce messages '
           'like "The relevant error-causing widget was: Container" '
@@ -52,8 +49,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.search,
       'title': 'Inspector Integration',
-      'body':
-          'The Flutter Inspector (DevTools) uses debugCreator '
+      'body': 'The Flutter Inspector (DevTools) uses debugCreator '
           'to link the render tree back to the widget tree. When '
           'you select a RenderObject in the inspector, it can '
           'highlight the corresponding widget because of this '
@@ -114,8 +110,7 @@ dynamic build(BuildContext context) {
       'step': 1,
       'title': 'RenderObjectElement.mount()',
       'color': Colors.deepPurple[600]!,
-      'detail':
-          'When a RenderObjectElement is mounted, it calls '
+      'detail': 'When a RenderObjectElement is mounted, it calls '
           'widget.createRenderObject(this). Immediately after, in '
           'debug mode, it sets renderObject.debugCreator = '
           'DebugCreator(this). The "this" is the element.',
@@ -124,8 +119,7 @@ dynamic build(BuildContext context) {
       'step': 2,
       'title': 'RenderObject stores reference',
       'color': Colors.purple[500]!,
-      'detail':
-          'RenderObject has a debugCreator property of type '
+      'detail': 'RenderObject has a debugCreator property of type '
           'Object?. In release mode this is compiled away (it\'s '
           'inside assert blocks). In debug mode, it holds the '
           'DebugCreator instance with the creating element.',
@@ -134,8 +128,7 @@ dynamic build(BuildContext context) {
       'step': 3,
       'title': 'Error occurs in RenderObject',
       'color': Colors.deepPurple[400]!,
-      'detail':
-          'During layout, paint, or hit-testing, a RenderObject '
+      'detail': 'During layout, paint, or hit-testing, a RenderObject '
           'throws (e.g., "A RenderFlex overflowed"). The framework '
           'catches this and creates a FlutterError with diagnostic '
           'information.',
@@ -144,8 +137,7 @@ dynamic build(BuildContext context) {
       'step': 4,
       'title': 'debugCreator inspected',
       'color': Colors.purple[400]!,
-      'detail':
-          'The error handler inspects renderObject.debugCreator. '
+      'detail': 'The error handler inspects renderObject.debugCreator. '
           'If it is a DebugCreator, the framework extracts the '
           'Element, gets the Widget reference, and produces the '
           '"relevant error-causing widget" line in the error report.',
@@ -154,8 +146,7 @@ dynamic build(BuildContext context) {
       'step': 5,
       'title': 'Error message displayed',
       'color': Colors.deepPurple[300]!,
-      'detail':
-          'The final error message includes: the error itself, '
+      'detail': 'The final error message includes: the error itself, '
           'the RenderObject type, the widget name and location, '
           'and often the parent chain. All of this is possible '
           'because DebugCreator linked render to widget.',
@@ -174,8 +165,7 @@ dynamic build(BuildContext context) {
       'title': 'WITH DebugCreator (normal)',
       'color': Colors.green[600]!,
       'icon': Icons.check_circle,
-      'message':
-          '══╡ EXCEPTION CAUGHT BY RENDERING ╞══\n'
+      'message': '══╡ EXCEPTION CAUGHT BY RENDERING ╞══\n'
           'A RenderFlex overflowed by 42 pixels\n'
           'on the right.\n'
           '\n'
@@ -185,16 +175,14 @@ dynamic build(BuildContext context) {
           '\n'
           'The overflowing RenderFlex has an\n'
           'orientation of Axis.horizontal.',
-      'note':
-          'DebugCreator tells you exactly which Row widget '
+      'note': 'DebugCreator tells you exactly which Row widget '
           'caused the overflow and where in your source code.',
     },
     {
       'title': 'WITHOUT DebugCreator (hypothetical)',
       'color': Colors.red[500]!,
       'icon': Icons.cancel,
-      'message':
-          '══╡ EXCEPTION CAUGHT BY RENDERING ╞══\n'
+      'message': '══╡ EXCEPTION CAUGHT BY RENDERING ╞══\n'
           'A RenderFlex overflowed by 42 pixels\n'
           'on the right.\n'
           '\n'
@@ -202,8 +190,7 @@ dynamic build(BuildContext context) {
           'orientation of Axis.horizontal.\n'
           '\n'
           '(No widget information available)',
-      'note':
-          'Without DebugCreator, you would only know a RenderFlex '
+      'note': 'Without DebugCreator, you would only know a RenderFlex '
           'overflowed, but not which widget or file it came from.',
     },
   ];
@@ -219,8 +206,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Constructor',
       'color': Colors.deepPurple[600]!,
-      'code':
-          '// DebugCreator(Element element)\n'
+      'code': '// DebugCreator(Element element)\n'
           '//\n'
           '// Takes the Element that created the\n'
           '// RenderObject. The element holds:\n'
@@ -232,8 +218,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'element Property',
       'color': Colors.purple[500]!,
-      'code':
-          '// DebugCreator exposes:\n'
+      'code': '// DebugCreator exposes:\n'
           '//   final Element element;\n'
           '//\n'
           '// Through element, you can access:\n'
@@ -246,8 +231,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'toString() Override',
       'color': Colors.deepPurple[400]!,
-      'code':
-          '// DebugCreator.toString() returns:\n'
+      'code': '// DebugCreator.toString() returns:\n'
           '//   element.debugGetCreatorChain(12)\n'
           '//\n'
           '// This produces a chain like:\n'
@@ -260,8 +244,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Debug-Only Nature',
       'color': Colors.purple[400]!,
-      'code':
-          '// debugCreator is set inside assert():\n'
+      'code': '// debugCreator is set inside assert():\n'
           '//\n'
           '// assert(() {\n'
           '//   renderObject.debugCreator =\n'
@@ -283,10 +266,26 @@ dynamic build(BuildContext context) {
   print('=== Section 6: Creator Chain ===');
 
   final creatorChain = <Map<String, dynamic>>[
-    {'widget': 'MaterialApp', 'depth': 0, 'color': Colors.blue[600]!},
-    {'widget': 'Scaffold', 'depth': 1, 'color': Colors.blue[500]!},
-    {'widget': 'Column', 'depth': 2, 'color': Colors.indigo[400]!},
-    {'widget': 'Container', 'depth': 3, 'color': Colors.deepPurple[400]!},
+    {
+      'widget': 'MaterialApp',
+      'depth': 0,
+      'color': Colors.blue[600]!,
+    },
+    {
+      'widget': 'Scaffold',
+      'depth': 1,
+      'color': Colors.blue[500]!,
+    },
+    {
+      'widget': 'Column',
+      'depth': 2,
+      'color': Colors.indigo[400]!,
+    },
+    {
+      'widget': 'Container',
+      'depth': 3,
+      'color': Colors.deepPurple[400]!,
+    },
     {
       'widget': 'DecoratedBox (RenderObjectWidget)',
       'depth': 4,
@@ -297,8 +296,7 @@ dynamic build(BuildContext context) {
   final chainDetails = <Map<String, dynamic>>[
     {
       'title': 'What debugGetCreatorChain() Shows',
-      'body':
-          'Starting from the RenderObject\'s creating Element, '
+      'body': 'Starting from the RenderObject\'s creating Element, '
           'it walks up the element tree collecting widget names. '
           'This creates the "Container ← Column ← Scaffold" style '
           'chain you see in error messages. It stops at the given '
@@ -307,8 +305,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Only RenderObjectElements Create',
-      'body':
-          'DebugCreator is only set on RenderObjects created by '
+      'body': 'DebugCreator is only set on RenderObjects created by '
           'RenderObjectElements. StatelessElement and '
           'StatefulElement (ComponentElements) do NOT create '
           'RenderObjects, so they never produce a DebugCreator. '
@@ -317,8 +314,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'InspectorSelection Uses It',
-      'body':
-          'When DevTools\' widget inspector highlights a widget, '
+      'body': 'When DevTools\' widget inspector highlights a widget, '
           'it finds the RenderObject, reads debugCreator, extracts '
           'the Element, and highlights the Widget. The whole '
           'Widget Inspector relies on this debug-mode link.',
@@ -337,8 +333,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Framework Sets debugCreator',
       'color': Colors.deepPurple[600]!,
-      'code':
-          '// In RenderObjectElement.mount():\n'
+      'code': '// In RenderObjectElement.mount():\n'
           '//\n'
           '// @override\n'
           '// void mount(Element? parent, Object? slot) {\n'
@@ -360,8 +355,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Error Handler Reads debugCreator',
       'color': Colors.purple[500]!,
-      'code':
-          '// In the error reporting code:\n'
+      'code': '// In the error reporting code:\n'
           '//\n'
           '// if (renderObj.debugCreator != null) {\n'
           '//   final creator = renderObj.debugCreator;\n'
@@ -378,8 +372,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Custom RenderObject with Creator',
       'color': Colors.deepPurple[400]!,
-      'code':
-          '// If you create a custom RenderObject\n'
+      'code': '// If you create a custom RenderObject\n'
           '// outside the widget framework, you can\n'
           '// manually set debugCreator:\n'
           '//\n'
@@ -406,40 +399,35 @@ dynamic build(BuildContext context) {
     {
       'tool': 'debugGetCreatorChain()',
       'color': Colors.deepPurple[600]!,
-      'desc':
-          'Element method that walks ancestors collecting widget '
+      'desc': 'Element method that walks ancestors collecting widget '
           'names. DebugCreator.toString() calls this. Returns a '
           'string like "Container ← Padding ← Column ← Scaffold".',
     },
     {
       'tool': 'DiagnosticsDebugCreator',
       'color': Colors.purple[500]!,
-      'desc':
-          'A specialized DiagnosticsNode that wraps a DebugCreator '
+      'desc': 'A specialized DiagnosticsNode that wraps a DebugCreator '
           'for inclusion in FlutterError diagnostic outputs. Formats '
           'the creator chain for error messages.',
     },
     {
       'tool': 'debugFillProperties()',
       'color': Colors.deepPurple[400]!,
-      'desc':
-          'Override on Widget and RenderObject to provide custom '
+      'desc': 'Override on Widget and RenderObject to provide custom '
           'diagnostic properties. Works alongside DebugCreator to '
           'give rich error information.',
     },
     {
       'tool': 'debugDescribeChildren()',
       'color': Colors.purple[400]!,
-      'desc':
-          'Returns diagnostic info about a node\'s children. '
+      'desc': 'Returns diagnostic info about a node\'s children. '
           'Used by the widget inspector to build the tree view. '
           'Complementary to DebugCreator.',
     },
     {
       'tool': 'FlutterError.reportError()',
       'color': Colors.deepPurple[300]!,
-      'desc':
-          'The central error reporting function. Reads DebugCreator '
+      'desc': 'The central error reporting function. Reads DebugCreator '
           'from the error\'s informationCollector to include widget '
           'context in the error output.',
     },
@@ -456,8 +444,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Debug-Only, Zero Cost',
-      'body':
-          'DebugCreator and debugCreator exist only in debug mode. '
+      'body': 'DebugCreator and debugCreator exist only in debug mode. '
           'In release builds, they are compiled away via assert(). '
           'There is zero memory or performance cost in production.',
       'severity': 'info',
@@ -465,8 +452,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Read Error Messages Carefully',
-      'body':
-          'When you see "The relevant error-causing widget was:", '
+      'body': 'When you see "The relevant error-causing widget was:", '
           'that information was produced by DebugCreator. It tells '
           'you exactly which widget and source location caused the '
           'problem. Always look for this line first.',
@@ -475,8 +461,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Custom RenderObjects Need It',
-      'body':
-          'If you create RenderObjects manually (outside the widget '
+      'body': 'If you create RenderObjects manually (outside the widget '
           'framework), set debugCreator yourself in an assert block. '
           'Otherwise, errors from your RenderObject will lack '
           'widget context in debug messages.',
@@ -485,8 +470,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Inspector Depends on It',
-      'body':
-          'The Flutter DevTools widget inspector uses debugCreator '
+      'body': 'The Flutter DevTools widget inspector uses debugCreator '
           'to link render objects to widgets. If debugCreator is '
           'null, the inspector cannot show the creating widget for '
           'that render object.',
@@ -495,8 +479,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Use debugFillProperties Too',
-      'body':
-          'While DebugCreator provides the "which widget" info, '
+      'body': 'While DebugCreator provides the "which widget" info, '
           'debugFillProperties provides the "what properties" info. '
           'Together they create rich, actionable error messages. '
           'Always override debugFillProperties in custom widgets.',
@@ -505,8 +488,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Don\'t Access in Release',
-      'body':
-          'Never write production code that depends on debugCreator. '
+      'body': 'Never write production code that depends on debugCreator. '
           'It is null in release mode. Use it only for debugging, '
           'logging, and testing. Accessing it in release code will '
           'always give you null.',
@@ -580,63 +562,50 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _dcHead('1', 'What is DebugCreator?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (c) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: c['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((c) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: c['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          c['icon'] as IconData,
-                          color: c['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(c['icon'] as IconData,
+                            color: c['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            c['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(c['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      c['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(c['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -651,10 +620,9 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 3,
-                  offset: Offset(0, 1),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 3,
+                    offset: Offset(0, 1))
               ],
             ),
             child: Column(
@@ -662,53 +630,41 @@ dynamic build(BuildContext context) {
               children: hierarchy.map((h) {
                 final depth = h['depth'] as int;
                 return Padding(
-                  padding: EdgeInsets.only(bottom: 8, left: depth * 20.0),
-                  child: Row(
-                    children: [
-                      if (depth > 0)
-                        Padding(
-                          padding: EdgeInsets.only(right: 6),
-                          child: Text(
-                            '└─',
+                  padding: EdgeInsets.only(
+                      bottom: 8, left: depth * 20.0),
+                  child: Row(children: [
+                    if (depth > 0)
+                      Padding(
+                        padding: EdgeInsets.only(right: 6),
+                        child: Text('└─',
                             style: TextStyle(
-                              fontFamily: 'monospace',
+                                fontFamily: 'monospace',
+                                fontSize: 10,
+                                color: Colors.grey[400])),
+                      ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: (h['color'] as Color).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: h['color'] as Color),
+                      ),
+                      child: Text(h['name'] as String,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               fontSize: 10,
-                              color: Colors.grey[400],
-                            ),
-                          ),
-                        ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: (h['color'] as Color).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: h['color'] as Color),
-                        ),
-                        child: Text(
-                          h['name'] as String,
+                              fontFamily: 'monospace',
+                              color: h['color'] as Color)),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(h['note'] as String,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: h['color'] as Color,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          h['note'] as String,
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                              fontSize: 9,
+                              color: Colors.grey[600])),
+                    ),
+                  ]),
                 );
               }).toList(),
             ),
@@ -719,216 +675,181 @@ dynamic build(BuildContext context) {
           // ── Section 3: Framework Usage ──
           _dcHead('3', 'How the Framework Uses It'),
           SizedBox(height: 12),
-          ...frameworkSteps.map(
-            (fs) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: fs['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...frameworkSteps.map((fs) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: fs['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 26,
-                      height: 26,
-                      decoration: BoxDecoration(
-                        color: fs['color'] as Color,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${fs['step']}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 26,
+                        height: 26,
+                        decoration: BoxDecoration(
+                          color: fs['color'] as Color,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text('${fs['step']}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            fs['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            fs['detail'] as String,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(fs['title'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'monospace')),
+                            SizedBox(height: 4),
+                            Text(fs['detail'] as String,
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey[700],
+                                    height: 1.3)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 4: Error Messages ──
           _dcHead('4', 'Error Messages Comparison'),
           SizedBox(height: 12),
-          ...errorExamples.map(
-            (ee) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: ee['color'] as Color, width: 4),
+          ...errorExamples.map((ee) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: ee['color'] as Color, width: 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          ee['icon'] as IconData,
-                          color: ee['color'] as Color,
-                          size: 18,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(ee['icon'] as IconData,
+                            color: ee['color'] as Color, size: 18),
                         SizedBox(width: 8),
-                        Text(
-                          ee['title'] as String,
+                        Text(ee['title'] as String,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: ee['color'] as Color)),
+                      ]),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[900],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(ee['message'] as String,
+                            style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 9,
+                                color: Colors.red[200],
+                                height: 1.5)),
+                      ),
+                      SizedBox(height: 8),
+                      Text(ee['note'] as String,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: ee['color'] as Color,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        ee['message'] as String,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9,
-                          color: Colors.red[200],
-                          height: 1.5,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      ee['note'] as String,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[600],
-                        fontStyle: FontStyle.italic,
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                              fontSize: 11,
+                              color: Colors.grey[600],
+                              fontStyle: FontStyle.italic,
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: Internals ──
           _dcHead('5', 'DebugCreator Internals'),
           SizedBox(height: 12),
-          ...internals.map(
-            (ic) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: ic['color'] as Color, width: 4),
+          ...internals.map((ic) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: ic['color'] as Color, width: 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      ic['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        ic['code'] as String,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9,
-                          color: Colors.purple[200],
-                          height: 1.4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(ic['title'] as String,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[900],
+                          borderRadius: BorderRadius.circular(8),
                         ),
+                        child: Text(ic['code'] as String,
+                            style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 9,
+                                color: Colors.purple[200],
+                                height: 1.4)),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -943,23 +864,19 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 3,
-                  offset: Offset(0, 1),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 3,
+                    offset: Offset(0, 1))
               ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Widget Creator Chain (bottom → top):',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                    color: Colors.grey[800],
-                  ),
-                ),
+                Text('Widget Creator Chain (bottom → top):',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: Colors.grey[800])),
                 SizedBox(height: 12),
                 ...creatorChain.reversed.map((cc) {
                   final depth = cc['depth'] as int;
@@ -971,39 +888,32 @@ dynamic build(BuildContext context) {
                         if (depth > 0)
                           Padding(
                             padding: EdgeInsets.only(right: 4),
-                            child: Icon(
-                              Icons.arrow_upward,
-                              size: 12,
-                              color: cc['color'] as Color,
-                            ),
+                            child: Icon(Icons.arrow_upward,
+                                size: 12,
+                                color: cc['color'] as Color),
                           ),
                         Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
-                          ),
+                              horizontal: 10, vertical: 5),
                           decoration: BoxDecoration(
-                            color: (cc['color'] as Color).withOpacity(0.1),
+                            color: (cc['color'] as Color)
+                                .withOpacity(0.1),
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: cc['color'] as Color),
+                            border: Border.all(
+                                color: cc['color'] as Color),
                           ),
-                          child: Text(
-                            cc['widget'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: cc['color'] as Color,
-                            ),
-                          ),
+                          child: Text(cc['widget'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  fontFamily: 'monospace',
+                                  color: cc['color'] as Color)),
                         ),
                         if (depth == creatorChain.length - 1)
                           Padding(
                             padding: EdgeInsets.only(left: 8),
-                            child: _dcTag(
-                              'debugCreator set here',
-                              Colors.deepPurple[600]!,
-                            ),
+                            child: _dcTag('debugCreator set here',
+                                Colors.deepPurple[600]!),
                           ),
                       ],
                     ),
@@ -1013,147 +923,126 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 10),
-          ...chainDetails.map(
-            (cd) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: (cd['color'] as Color).withOpacity(0.06),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: (cd['color'] as Color).withOpacity(0.3),
+          ...chainDetails.map((cd) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: (cd['color'] as Color).withOpacity(0.06),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: (cd['color'] as Color).withOpacity(0.3)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(cd['title'] as String,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: cd['color'] as Color)),
+                      SizedBox(height: 4),
+                      Text(cd['body'] as String,
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      cd['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: cd['color'] as Color,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      cd['body'] as String,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 7: Code Patterns ──
           _dcHead('7', 'Code Patterns'),
           SizedBox(height: 12),
-          ...patterns.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
+          ...patterns.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      p['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        p['code'] as String,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9,
-                          color: Colors.purple[200],
-                          height: 1.4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(p['title'] as String,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[900],
+                          borderRadius: BorderRadius.circular(8),
                         ),
+                        child: Text(p['code'] as String,
+                            style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 9,
+                                color: Colors.purple[200],
+                                height: 1.4)),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 8: Related ──
           _dcHead('8', 'Related Debug Tools'),
           SizedBox(height: 12),
-          ...relatedTools.map(
-            (rt) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: rt['color'] as Color, width: 4),
+          ...relatedTools.map((rt) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: rt['color'] as Color, width: 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _dcTag(rt['tool'] as String,
+                          rt['color'] as Color),
+                      SizedBox(height: 8),
+                      Text(rt['desc'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _dcTag(rt['tool'] as String, rt['color'] as Color),
-                    SizedBox(height: 8),
-                    Text(
-                      rt['desc'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1185,41 +1074,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1258,26 +1135,20 @@ Widget _dcHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1293,14 +1164,11 @@ Widget _dcTag(String text, Color color) {
       color: color.withOpacity(0.12),
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: color,
-        fontSize: 9,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'monospace',
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: color,
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'monospace')),
   );
 }

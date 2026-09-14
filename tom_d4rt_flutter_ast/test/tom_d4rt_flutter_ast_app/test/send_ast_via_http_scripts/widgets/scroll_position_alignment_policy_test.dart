@@ -56,10 +56,8 @@ class _ScrollPositionAlignmentPolicyDemoState
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text(
-          'ScrollPositionAlignmentPolicy',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-        ),
+        title: Text('ScrollPositionAlignmentPolicy',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -77,7 +75,11 @@ class _ScrollPositionAlignmentPolicyDemoState
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [_TheoryTab(), _PolicySwitcherTab(), _SideBySideTab()],
+        children: [
+          _TheoryTab(),
+          _PolicySwitcherTab(),
+          _SideBySideTab(),
+        ],
       ),
     );
   }
@@ -103,7 +105,8 @@ class _TheoryTab extends StatelessWidget {
                 'ScrollPosition.ensureVisible() aligns an object within the '
                 'viewport. When you call Scrollable.ensureVisible(context), '
                 'this policy determines the final scroll offset.',
-                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(
+                    color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -200,12 +203,10 @@ class _TheoryTab extends StatelessWidget {
               3: FlexColumnWidth(2),
             },
             children: [
-              _tableRow([
-                'Policy',
-                'Uses alignment?',
-                'Scrolls if...',
-                'Typical use',
-              ], isHeader: true),
+              _tableRow(
+                ['Policy', 'Uses alignment?', 'Scrolls if...', 'Typical use'],
+                isHeader: true,
+              ),
               _tableRow([
                 'explicit',
                 'Yes',
@@ -235,26 +236,14 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _stepRow(
-                '1',
-                'Find the target RenderObject',
-                'The framework walks up from the context to find the nearest Scrollable.',
-              ),
-              _stepRow(
-                '2',
-                'Compute current visibility',
-                'Determines whether the object is above, below, or within the viewport.',
-              ),
-              _stepRow(
-                '3',
-                'Apply policy',
-                'explicit: compute offset from alignment. keepVisibleAtEnd/Start: compute minimum scroll.',
-              ),
-              _stepRow(
-                '4',
-                'Animate or jump',
-                'If a duration is given, animates to the offset. Otherwise jumps immediately.',
-              ),
+              _stepRow('1', 'Find the target RenderObject',
+                  'The framework walks up from the context to find the nearest Scrollable.'),
+              _stepRow('2', 'Compute current visibility',
+                  'Determines whether the object is above, below, or within the viewport.'),
+              _stepRow('3', 'Apply policy',
+                  'explicit: compute offset from alignment. keepVisibleAtEnd/Start: compute minimum scroll.'),
+              _stepRow('4', 'Animate or jump',
+                  'If a duration is given, animates to the offset. Otherwise jumps immediately.'),
               SizedBox(height: 8),
               _codeBlock(
                 '// Full signature\n'
@@ -279,26 +268,16 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _bp(
-                true,
-                'Use keepVisibleAtEnd for chat-like UIs where new content appears at the bottom.',
-              ),
-              _bp(
-                true,
-                'Use keepVisibleAtStart for expanding sections that push content down.',
-              ),
-              _bp(
-                true,
-                'Use explicit with alignment: 0.5 to center focused items (e.g., search results).',
-              ),
-              _bp(
-                false,
-                'Do NOT mix keepVisible policies with a non-zero alignment — the alignment is ignored.',
-              ),
-              _bp(
-                false,
-                'Avoid calling ensureVisible every frame — batch calls or debounce for performance.',
-              ),
+              _bp(true,
+                  'Use keepVisibleAtEnd for chat-like UIs where new content appears at the bottom.'),
+              _bp(true,
+                  'Use keepVisibleAtStart for expanding sections that push content down.'),
+              _bp(true,
+                  'Use explicit with alignment: 0.5 to center focused items (e.g., search results).'),
+              _bp(false,
+                  'Do NOT mix keepVisible policies with a non-zero alignment — the alignment is ignored.'),
+              _bp(false,
+                  'Avoid calling ensureVisible every frame — batch calls or debounce for performance.'),
             ],
           ),
         ),
@@ -343,55 +322,44 @@ class _TheoryTab extends StatelessWidget {
                 child: Icon(icon, color: color, size: 20),
               ),
               SizedBox(width: 10),
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16,
-                  color: color,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text(name,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16,
+                      color: color,
+                      fontFamily: 'monospace')),
             ],
           ),
           SizedBox(height: 10),
-          Text(
-            description,
-            style: TextStyle(color: _kDarkText, fontSize: 13, height: 1.5),
-          ),
+          Text(description,
+              style: TextStyle(
+                  color: _kDarkText, fontSize: 13, height: 1.5)),
           SizedBox(height: 10),
           _codeBlock(code),
           SizedBox(height: 10),
-          Text(
-            'Use cases:',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
-              color: _kMuted,
-            ),
-          ),
+          Text('Use cases:',
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                  color: _kMuted)),
           SizedBox(height: 4),
-          ...useCases.map(
-            (uc) => Padding(
-              padding: EdgeInsets.only(bottom: 3),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('• ', style: TextStyle(color: color, fontSize: 12)),
-                  Expanded(
-                    child: Text(
-                      uc,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: _kDarkText,
-                        height: 1.3,
-                      ),
+          ...useCases.map((uc) => Padding(
+                padding: EdgeInsets.only(bottom: 3),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('• ',
+                        style: TextStyle(color: color, fontSize: 12)),
+                    Expanded(
+                      child: Text(uc,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: _kDarkText,
+                              height: 1.3)),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -454,8 +422,7 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
         if (_log.length > 20) _log.removeLast();
       });
       print(
-        'ensureVisible: policy=${_policy.name}, target=$_targetIndex, alignment=$_alignment',
-      );
+          'ensureVisible: policy=${_policy.name}, target=$_targetIndex, alignment=$_alignment');
     }
   }
 
@@ -472,14 +439,11 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
               // Policy selector
               Row(
                 children: [
-                  Text(
-                    'Policy:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                      color: _kDarkText,
-                    ),
-                  ),
+                  Text('Policy:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: _kDarkText)),
                   SizedBox(width: 8),
                   ..._buildPolicyButtons(),
                 ],
@@ -488,25 +452,22 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
               // Target and alignment
               Row(
                 children: [
-                  Text(
-                    'Target:',
-                    style: TextStyle(fontSize: 12, color: _kDarkText),
-                  ),
+                  Text('Target:',
+                      style: TextStyle(
+                          fontSize: 12, color: _kDarkText)),
                   SizedBox(width: 6),
                   SizedBox(
                     width: 60,
                     height: 34,
                     child: TextField(
-                      controller: TextEditingController(text: '$_targetIndex'),
+                      controller: TextEditingController(
+                          text: '$_targetIndex'),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                        ),
+                            borderRadius: BorderRadius.circular(6)),
                         contentPadding: EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
+                            horizontal: 8, vertical: 4),
                         isDense: true,
                       ),
                       style: TextStyle(fontSize: 12),
@@ -519,10 +480,9 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                     ),
                   ),
                   SizedBox(width: 16),
-                  Text(
-                    'Alignment:',
-                    style: TextStyle(fontSize: 12, color: _kDarkText),
-                  ),
+                  Text('Alignment:',
+                      style: TextStyle(
+                          fontSize: 12, color: _kDarkText)),
                   SizedBox(width: 6),
                   SizedBox(
                     width: 140,
@@ -533,23 +493,22 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                       divisions: 10,
                       label: _alignment.toStringAsFixed(1),
                       activeColor: _kAccent,
-                      onChanged: (v) => setState(() => _alignment = v),
+                      onChanged: (v) =>
+                          setState(() => _alignment = v),
                     ),
                   ),
-                  Text(
-                    _alignment.toStringAsFixed(1),
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: _kPrimary,
-                    ),
-                  ),
+                  Text(_alignment.toStringAsFixed(1),
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: _kPrimary)),
                   Spacer(),
                   ElevatedButton.icon(
                     onPressed: _scrollToTarget,
                     icon: Icon(Icons.my_location, size: 16),
-                    label: Text('Scroll', style: TextStyle(fontSize: 12)),
+                    label: Text('Scroll',
+                        style: TextStyle(fontSize: 12)),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _kPrimary,
                       foregroundColor: Colors.white,
@@ -578,20 +537,21 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                       key: _keys[i],
                       margin: EdgeInsets.only(bottom: 6),
                       padding: EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 12,
-                      ),
+                          horizontal: 14, vertical: 12),
                       decoration: BoxDecoration(
                         color: isTarget ? _kTargetBg : _kCardBg,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: isTarget ? _kAccent : Colors.grey.shade200,
+                          color: isTarget
+                              ? _kAccent
+                              : Colors.grey.shade200,
                           width: isTarget ? 2 : 1,
                         ),
                         boxShadow: isTarget
                             ? [
                                 BoxShadow(
-                                  color: _kAccent.withOpacity(0.3),
+                                  color:
+                                      _kAccent.withOpacity(0.3),
                                   blurRadius: 8,
                                 ),
                               ]
@@ -612,7 +572,9 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                             child: Text(
                               '$i',
                               style: TextStyle(
-                                color: isTarget ? Colors.white : _kPrimary,
+                                color: isTarget
+                                    ? Colors.white
+                                    : _kPrimary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13,
                               ),
@@ -621,16 +583,21 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                           SizedBox(width: 12),
                           Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  isTarget ? 'TARGET ITEM #$i' : 'Item #$i',
+                                  isTarget
+                                      ? 'TARGET ITEM #$i'
+                                      : 'Item #$i',
                                   style: TextStyle(
                                     fontWeight: isTarget
                                         ? FontWeight.w800
                                         : FontWeight.w500,
                                     fontSize: 13,
-                                    color: isTarget ? _kPrimary : _kDarkText,
+                                    color: isTarget
+                                        ? _kPrimary
+                                        : _kDarkText,
                                   ),
                                 ),
                                 Text(
@@ -638,15 +605,15 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                                       ? 'ensureVisible() targets this item'
                                       : 'Scroll content item',
                                   style: TextStyle(
-                                    fontSize: 11,
-                                    color: _kMuted,
-                                  ),
+                                      fontSize: 11,
+                                      color: _kMuted),
                                 ),
                               ],
                             ),
                           ),
                           if (isTarget)
-                            Icon(Icons.star, color: _kPrimary, size: 20),
+                            Icon(Icons.star,
+                                color: _kPrimary, size: 20),
                         ],
                       ),
                     );
@@ -659,7 +626,8 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                 width: 260,
                 decoration: BoxDecoration(
                   color: _kCardBg,
-                  border: Border(left: BorderSide(color: Colors.grey.shade300)),
+                  border: Border(
+                      left: BorderSide(color: Colors.grey.shade300)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -669,27 +637,22 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                       color: _kAccent.withOpacity(0.1),
                       child: Row(
                         children: [
-                          Icon(Icons.receipt_long, size: 16, color: _kAccent),
+                          Icon(Icons.receipt_long,
+                              size: 16, color: _kAccent),
                           SizedBox(width: 6),
-                          Text(
-                            'Scroll Log',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13,
-                              color: _kDarkText,
-                            ),
-                          ),
+                          Text('Scroll Log',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13,
+                                  color: _kDarkText)),
                           Spacer(),
                           GestureDetector(
                             onTap: () => setState(() {
                               _log.clear();
                               _scrollCount = 0;
                             }),
-                            child: Icon(
-                              Icons.delete_sweep,
-                              size: 16,
-                              color: _kMuted,
-                            ),
+                            child: Icon(Icons.delete_sweep,
+                                size: 16, color: _kMuted),
                           ),
                         ],
                       ),
@@ -700,7 +663,8 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                               child: Text(
                                 'Press "Scroll" to see\npolicy effects',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: _kMuted, fontSize: 12),
+                                style: TextStyle(
+                                    color: _kMuted, fontSize: 12),
                               ),
                             )
                           : ListView.builder(
@@ -711,30 +675,30 @@ class _PolicySwitcherTabState extends State<_PolicySwitcherTab> {
                                 Color rowColor = _kExplicit;
                                 if (entry.contains('keepVisibleAtEnd')) {
                                   rowColor = _kKeepEnd;
-                                } else if (entry.contains(
-                                  'keepVisibleAtStart',
-                                )) {
+                                } else if (entry
+                                    .contains('keepVisibleAtStart')) {
                                   rowColor = _kKeepStart;
                                 }
                                 return Padding(
-                                  padding: EdgeInsets.only(bottom: 3),
+                                  padding:
+                                      EdgeInsets.only(bottom: 3),
                                   child: Container(
                                     padding: EdgeInsets.all(6),
                                     decoration: BoxDecoration(
-                                      color: rowColor.withOpacity(0.06),
-                                      borderRadius: BorderRadius.circular(4),
+                                      color: rowColor
+                                          .withOpacity(0.06),
+                                      borderRadius:
+                                          BorderRadius.circular(4),
                                       border: Border.all(
-                                        color: rowColor.withOpacity(0.2),
-                                      ),
+                                          color: rowColor
+                                              .withOpacity(0.2)),
                                     ),
-                                    child: Text(
-                                      entry,
-                                      style: TextStyle(
-                                        fontFamily: 'monospace',
-                                        fontSize: 10,
-                                        color: _kDarkText,
-                                      ),
-                                    ),
+                                    child: Text(entry,
+                                        style: TextStyle(
+                                            fontFamily:
+                                                'monospace',
+                                            fontSize: 10,
+                                            color: _kDarkText)),
                                   ),
                                 );
                               },
@@ -889,14 +853,11 @@ class _SideBySideTabState extends State<_SideBySideTab> {
           color: _kPrimary.withOpacity(0.06),
           child: Row(
             children: [
-              Text(
-                'Target item:',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: _kDarkText,
-                ),
-              ),
+              Text('Target item:',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: _kDarkText)),
               SizedBox(width: 6),
               _targetButton(5),
               _targetButton(10),
@@ -904,7 +865,8 @@ class _SideBySideTabState extends State<_SideBySideTab> {
               _targetButton(30),
               _targetButton(38),
               SizedBox(width: 16),
-              Text('Align:', style: TextStyle(fontSize: 12, color: _kDarkText)),
+              Text('Align:',
+                  style: TextStyle(fontSize: 12, color: _kDarkText)),
               SizedBox(
                 width: 100,
                 child: Slider(
@@ -916,20 +878,18 @@ class _SideBySideTabState extends State<_SideBySideTab> {
                   onChanged: (v) => setState(() => _alignment = v),
                 ),
               ),
-              Text(
-                _alignment.toStringAsFixed(1),
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  color: _kPrimary,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              Text(_alignment.toStringAsFixed(1),
+                  style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                      color: _kPrimary,
+                      fontWeight: FontWeight.w600)),
               Spacer(),
               ElevatedButton.icon(
                 onPressed: _scrollAll,
                 icon: Icon(Icons.compare_arrows, size: 16),
-                label: Text('Scroll All', style: TextStyle(fontSize: 12)),
+                label: Text('Scroll All',
+                    style: TextStyle(fontSize: 12)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _kPrimary,
                   foregroundColor: Colors.white,
@@ -953,7 +913,8 @@ class _SideBySideTabState extends State<_SideBySideTab> {
               'All three columns scroll to item #$_targetIndex '
               'simultaneously. Compare how each policy positions the target. '
               'The alignment slider only affects "explicit".',
-              style: TextStyle(fontSize: 11, color: _kDarkText, height: 1.3),
+              style: TextStyle(
+                  fontSize: 11, color: _kDarkText, height: 1.3),
             ),
           ),
         ),
@@ -999,15 +960,12 @@ class _SideBySideTabState extends State<_SideBySideTab> {
             padding: EdgeInsets.symmetric(vertical: 8),
             color: color.withOpacity(0.08),
             alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 12,
-                color: color,
-                fontFamily: 'monospace',
-              ),
-            ),
+            child: Text(title,
+                style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 12,
+                    color: color,
+                    fontFamily: 'monospace')),
           ),
           // List
           Expanded(
@@ -1019,12 +977,17 @@ class _SideBySideTabState extends State<_SideBySideTab> {
                 return Container(
                   key: keys[i],
                   margin: EdgeInsets.only(bottom: 4),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 8, vertical: 8),
                   decoration: BoxDecoration(
-                    color: isTarget ? _kTargetBg : Colors.grey.shade50,
+                    color: isTarget
+                        ? _kTargetBg
+                        : Colors.grey.shade50,
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: isTarget ? color : Colors.grey.shade200,
+                      color: isTarget
+                          ? color
+                          : Colors.grey.shade200,
                       width: isTarget ? 2 : 1,
                     ),
                   ),
@@ -1034,18 +997,19 @@ class _SideBySideTabState extends State<_SideBySideTab> {
                         width: 22,
                         height: 22,
                         decoration: BoxDecoration(
-                          color: isTarget ? color : color.withOpacity(0.1),
+                          color: isTarget
+                              ? color
+                              : color.withOpacity(0.1),
                           shape: BoxShape.circle,
                         ),
                         alignment: Alignment.center,
-                        child: Text(
-                          '$i',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: isTarget ? Colors.white : color,
-                          ),
-                        ),
+                        child: Text('$i',
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: isTarget
+                                    ? Colors.white
+                                    : color)),
                       ),
                       SizedBox(width: 6),
                       Text(
@@ -1078,11 +1042,12 @@ class _SideBySideTabState extends State<_SideBySideTab> {
         child: ElevatedButton(
           onPressed: () => setState(() => _targetIndex = idx),
           style: ElevatedButton.styleFrom(
-            backgroundColor: isActive ? _kAccent : Colors.white,
-            foregroundColor: isActive ? Colors.white : _kPrimary,
+            backgroundColor:
+                isActive ? _kAccent : Colors.white,
+            foregroundColor:
+                isActive ? Colors.white : _kPrimary,
             side: BorderSide(
-              color: isActive ? _kAccent : _kPrimary.withOpacity(0.3),
-            ),
+                color: isActive ? _kAccent : _kPrimary.withOpacity(0.3)),
             padding: EdgeInsets.symmetric(horizontal: 8),
             elevation: isActive ? 2 : 0,
           ),
@@ -1126,14 +1091,11 @@ Widget _sectionCard(String title, Widget child) {
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 15,
-                  color: _kDarkText,
-                ),
-              ),
+              child: Text(title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 15,
+                      color: _kDarkText)),
             ),
           ],
         ),
@@ -1153,15 +1115,12 @@ Widget _codeBlock(String code) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _kPrimary.withOpacity(0.15)),
     ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 12,
-        color: _kDarkText,
-        height: 1.5,
-      ),
-    ),
+    child: Text(code,
+        style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: _kDarkText,
+            height: 1.5)),
   );
 }
 
@@ -1174,34 +1133,30 @@ Widget _stepRow(String num, String title, String detail) {
         Container(
           width: 26,
           height: 26,
-          decoration: BoxDecoration(color: _kPrimary, shape: BoxShape.circle),
-          alignment: Alignment.center,
-          child: Text(
-            num,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
+          decoration: BoxDecoration(
+            color: _kPrimary,
+            shape: BoxShape.circle,
           ),
+          alignment: Alignment.center,
+          child: Text(num,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
         ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _kDarkText,
-                ),
-              ),
-              Text(
-                detail,
-                style: TextStyle(fontSize: 12, color: _kMuted, height: 1.3),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: _kDarkText)),
+              Text(detail,
+                  style: TextStyle(
+                      fontSize: 12, color: _kMuted, height: 1.3)),
             ],
           ),
         ),
@@ -1218,14 +1173,13 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
     children: cells.map((c) {
       return Padding(
         padding: EdgeInsets.all(8),
-        child: Text(
-          c,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-            color: isHeader ? _kPrimary : _kDarkText,
-          ),
-        ),
+        child: Text(c,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight:
+                  isHeader ? FontWeight.w700 : FontWeight.w400,
+              color: isHeader ? _kPrimary : _kDarkText,
+            )),
       );
     }).toList(),
   );
@@ -1233,7 +1187,8 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
 
 Widget _bp(bool isGood, String text) {
   final color = isGood ? _kSuccess : Color(0xFFC62828);
-  final icon = isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
+  final icon =
+      isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
   return Padding(
     padding: EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1242,10 +1197,9 @@ Widget _bp(bool isGood, String text) {
         Icon(icon, color: color, size: 18),
         SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  fontSize: 12, color: _kDarkText, height: 1.4)),
         ),
       ],
     ),

@@ -48,7 +48,9 @@ Widget _spSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_spCopper, _spDarkCopper]),
+      gradient: LinearGradient(
+        colors: [_spCopper, _spDarkCopper],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,17 +236,9 @@ Widget _spBuildOverview() {
             const SizedBox(height: 14),
             _spFieldRow('localPosition', 'Offset', 'Where the handle tip sits'),
             const SizedBox(height: 4),
-            _spFieldRow(
-              'lineHeight',
-              'double',
-              'Text line height at this point',
-            ),
+            _spFieldRow('lineHeight', 'double', 'Text line height at this point'),
             const SizedBox(height: 4),
-            _spFieldRow(
-              'handleType',
-              'TextSelectionHandleType',
-              'Visual handle style',
-            ),
+            _spFieldRow('handleType', 'TextSelectionHandleType', 'Visual handle style'),
           ],
         ),
       ),
@@ -300,7 +294,10 @@ Widget _spFieldRow(String name, String type, String desc) {
         Expanded(
           child: Text(
             desc,
-            style: const TextStyle(color: _spCharcoal, fontSize: 11),
+            style: const TextStyle(
+              color: _spCharcoal,
+              fontSize: 11,
+            ),
           ),
         ),
       ],
@@ -395,7 +392,11 @@ Widget _spBuildLocalPosition() {
                     top: 12,
                     child: Column(
                       children: [
-                        Container(width: 2, height: 18, color: _spBlue),
+                        Container(
+                          width: 2,
+                          height: 18,
+                          color: _spBlue,
+                        ),
                         Container(
                           width: 10,
                           height: 10,
@@ -413,7 +414,11 @@ Widget _spBuildLocalPosition() {
                     top: 37,
                     child: Column(
                       children: [
-                        Container(width: 2, height: 18, color: _spBurnt),
+                        Container(
+                          width: 2,
+                          height: 18,
+                          color: _spBurnt,
+                        ),
                         Container(
                           width: 10,
                           height: 10,
@@ -463,11 +468,7 @@ Widget _spBuildLocalPosition() {
                 const SizedBox(width: 4),
                 const Text(
                   'Start: (93, 30)  ',
-                  style: TextStyle(
-                    color: _spBlue,
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                  ),
+                  style: TextStyle(color: _spBlue, fontSize: 11, fontFamily: 'monospace'),
                 ),
                 Container(
                   width: 10,
@@ -480,11 +481,7 @@ Widget _spBuildLocalPosition() {
                 const SizedBox(width: 4),
                 const Text(
                   'End: (163, 55)',
-                  style: TextStyle(
-                    color: _spBurnt,
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                  ),
+                  style: TextStyle(color: _spBurnt, fontSize: 11, fontFamily: 'monospace'),
                 ),
               ],
             ),
@@ -596,7 +593,10 @@ Widget _spBuildLineHeight() {
                 const SizedBox(height: 8),
                 const Text(
                   'Tiny footer (lineHeight ≈ 10)',
-                  style: TextStyle(color: _spSlate, fontSize: 10),
+                  style: TextStyle(
+                    color: _spSlate,
+                    fontSize: 10,
+                  ),
                 ),
               ],
             ),
@@ -613,7 +613,11 @@ Widget _spLineHeightDemo(String label, double lineHeight, double fontSize) {
       // Handle visualization
       Column(
         children: [
-          Container(width: 3, height: lineHeight, color: _spCopper),
+          Container(
+            width: 3,
+            height: lineHeight,
+            color: _spCopper,
+          ),
           Container(
             width: 12,
             height: 12,
@@ -637,7 +641,10 @@ Widget _spLineHeightDemo(String label, double lineHeight, double fontSize) {
             children: [
               Text(
                 label,
-                style: TextStyle(color: _spCharcoal, fontSize: fontSize),
+                style: TextStyle(
+                  color: _spCharcoal,
+                  fontSize: fontSize,
+                ),
               ),
               const Spacer(),
               _spTag('lineHeight: ${lineHeight.toInt()}', _spCopper),
@@ -774,10 +781,7 @@ Widget _spBuildHandleType() {
                   ],
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 2,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                   color: _spCopper.withValues(alpha: 0.2),
                   child: const Text(
                     'selected text here',
@@ -921,7 +925,11 @@ Widget _spHandleTypeCard(
         Text(
           desc,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: _spCharcoal, fontSize: 11, height: 1.4),
+          style: const TextStyle(
+            color: _spCharcoal,
+            fontSize: 11,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -961,7 +969,7 @@ Widget _spBuildConsumption() {
               1,
               'Selectable creates SelectionPoint',
               'After processing a selection event, the render object '
-                  'computes the handle position and creates a SelectionPoint.',
+              'computes the handle position and creates a SelectionPoint.',
               _spCopper,
             ),
             _spPipelineArrow(),
@@ -969,7 +977,7 @@ Widget _spBuildConsumption() {
               2,
               'Wrapped in SelectionGeometry',
               'The SelectionPoint is placed as startSelectionPoint '
-                  'or endSelectionPoint in the geometry.',
+              'or endSelectionPoint in the geometry.',
               _spBurnt,
             ),
             _spPipelineArrow(),
@@ -977,7 +985,7 @@ Widget _spBuildConsumption() {
               3,
               'Geometry published via ValueNotifier',
               'The Selectable\'s value property notifies listeners '
-                  'that the geometry has changed.',
+              'that the geometry has changed.',
               _spTeal,
             ),
             _spPipelineArrow(),
@@ -985,7 +993,7 @@ Widget _spBuildConsumption() {
               4,
               'SelectableRegion reads the point',
               'Extracts localPosition and converts to global coords.  '
-                  'Uses lineHeight to size the handle overlay.',
+              'Uses lineHeight to size the handle overlay.',
               _spBlue,
             ),
             _spPipelineArrow(),
@@ -993,7 +1001,7 @@ Widget _spBuildConsumption() {
               5,
               'Handle overlay positioned',
               'A FollowerLayer tracks the LeaderLayer placed at '
-                  'localPosition.  The handle widget renders using handleType.',
+              'localPosition.  The handle widget renders using handleType.',
               _spMint,
             ),
           ],
@@ -1023,7 +1031,10 @@ Widget _spPipelineStep(int num, String title, String desc, Color color) {
       Container(
         width: 28,
         height: 28,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
         child: Center(
           child: Text(
             '$num',
@@ -1240,11 +1251,7 @@ Widget _spBuildRtlConsiderations() {
                       const SizedBox(width: 8),
                       const Text(
                         'English: left-to-right',
-                        style: TextStyle(
-                          color: _spBlue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: _spBlue, fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                     ],
                   ),
@@ -1256,24 +1263,14 @@ Widget _spBuildRtlConsiderations() {
                         children: [
                           const Text(
                             '.left',
-                            style: TextStyle(
-                              color: _spBlue,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(color: _spBlue, fontSize: 10, fontWeight: FontWeight.bold),
                           ),
-                          const Text(
-                            '= start',
-                            style: TextStyle(color: _spSlate, fontSize: 9),
-                          ),
+                          const Text('= start', style: TextStyle(color: _spSlate, fontSize: 9)),
                         ],
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 8),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         color: _spBlue.withValues(alpha: 0.15),
                         child: const Text(
                           'Hello World',
@@ -1284,16 +1281,9 @@ Widget _spBuildRtlConsiderations() {
                         children: [
                           const Text(
                             '.right',
-                            style: TextStyle(
-                              color: _spBurnt,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(color: _spBurnt, fontSize: 10, fontWeight: FontWeight.bold),
                           ),
-                          const Text(
-                            '= end',
-                            style: TextStyle(color: _spSlate, fontSize: 9),
-                          ),
+                          const Text('= end', style: TextStyle(color: _spSlate, fontSize: 9)),
                         ],
                       ),
                     ],
@@ -1319,11 +1309,7 @@ Widget _spBuildRtlConsiderations() {
                       const SizedBox(width: 8),
                       const Text(
                         'Arabic/Hebrew: right-to-left',
-                        style: TextStyle(
-                          color: _spTeal,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: _spTeal, fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                     ],
                   ),
@@ -1335,24 +1321,14 @@ Widget _spBuildRtlConsiderations() {
                         children: [
                           const Text(
                             '.left',
-                            style: TextStyle(
-                              color: _spBlue,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(color: _spBlue, fontSize: 10, fontWeight: FontWeight.bold),
                           ),
-                          const Text(
-                            '= end',
-                            style: TextStyle(color: _spSlate, fontSize: 9),
-                          ),
+                          const Text('= end', style: TextStyle(color: _spSlate, fontSize: 9)),
                         ],
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 8),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         color: _spTeal.withValues(alpha: 0.15),
                         child: const Text(
                           'مرحبا بالعالم',
@@ -1364,16 +1340,9 @@ Widget _spBuildRtlConsiderations() {
                         children: [
                           const Text(
                             '.right',
-                            style: TextStyle(
-                              color: _spBurnt,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(color: _spBurnt, fontSize: 10, fontWeight: FontWeight.bold),
                           ),
-                          const Text(
-                            '= start',
-                            style: TextStyle(color: _spSlate, fontSize: 9),
-                          ),
+                          const Text('= start', style: TextStyle(color: _spSlate, fontSize: 9)),
                         ],
                       ),
                     ],
@@ -1438,18 +1407,10 @@ Widget _spBuildLiveDemo() {
                   const SizedBox(width: 8),
                   const Text(
                     'Rich Content Selection',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   const Spacer(),
-                  _spTag(
-                    'multiple lineHeights',
-                    _spPeach,
-                    textColor: _spDarkCopper,
-                  ),
+                  _spTag('multiple lineHeights', _spPeach, textColor: _spDarkCopper),
                 ],
               ),
             ),
@@ -1509,7 +1470,10 @@ Widget _spBuildLiveDemo() {
                     const SizedBox(height: 10),
                     const Text(
                       '— Attribution in tiny text',
-                      style: TextStyle(color: _spSlate, fontSize: 9),
+                      style: TextStyle(
+                        color: _spSlate,
+                        fontSize: 9,
+                      ),
                     ),
                   ],
                 ),
@@ -1563,24 +1527,12 @@ Widget _spBuildSummary() {
               ],
             ),
             const SizedBox(height: 12),
-            _spSummaryItem(
-              'Three Fields',
-              'localPosition, lineHeight, handleType.',
-            ),
-            _spSummaryItem(
-              'localPosition',
-              'Offset in the Selectable\'s local coords.',
-            ),
+            _spSummaryItem('Three Fields', 'localPosition, lineHeight, handleType.'),
+            _spSummaryItem('localPosition', 'Offset in the Selectable\'s local coords.'),
             _spSummaryItem('lineHeight', 'Scales handle height to text size.'),
-            _spSummaryItem(
-              'handleType',
-              'left, right, or collapsed visual style.',
-            ),
+            _spSummaryItem('handleType', 'left, right, or collapsed visual style.'),
             _spSummaryItem('Consumed by', 'SelectableRegion → handle overlay.'),
-            _spSummaryItem(
-              'RTL Aware',
-              'handleType is about screen position, not text direction.',
-            ),
+            _spSummaryItem('RTL Aware', 'handleType is about screen position, not text direction.'),
           ],
         ),
       ),
@@ -1596,37 +1548,31 @@ Widget _spSummaryItem(String title, String desc) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 6,
-          height: 6,
+          width: 6, height: 6,
           margin: const EdgeInsets.only(top: 5),
-          decoration: const BoxDecoration(
-            color: _spGold,
-            shape: BoxShape.circle,
-          ),
+          decoration: const BoxDecoration(color: _spGold, shape: BoxShape.circle),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '$title — ',
-                  style: const TextStyle(
-                    color: _spPeach,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+            text: TextSpan(children: [
+              TextSpan(
+                text: '$title — ',
+                style: const TextStyle(
+                  color: _spPeach,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
                 ),
-                TextSpan(
-                  text: desc,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.9),
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+              ),
+              TextSpan(
+                text: desc,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 12,
+                  height: 1.4,
                 ),
-              ],
-            ),
+              ),
+            ]),
           ),
         ),
       ],

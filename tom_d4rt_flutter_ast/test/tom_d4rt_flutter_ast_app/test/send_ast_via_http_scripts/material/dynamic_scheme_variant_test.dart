@@ -321,7 +321,11 @@ class DynamicSchemeVariantDemoApp extends StatelessWidget {
               'one-line tagline describing the variant character.',
         ),
         const SizedBox(height: 12.0),
-        Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+        Wrap(
+          spacing: 12.0,
+          runSpacing: 12.0,
+          children: cards,
+        ),
       ],
     );
   }
@@ -490,11 +494,7 @@ class DynamicSchemeVariantDemoApp extends StatelessWidget {
     final List<_RoleEntry> roles = <_RoleEntry>[
       _RoleEntry('primary', cs.primary, cs.onPrimary),
       _RoleEntry('onPrimary', cs.onPrimary, cs.primary),
-      _RoleEntry(
-        'primaryContainer',
-        cs.primaryContainer,
-        cs.onPrimaryContainer,
-      ),
+      _RoleEntry('primaryContainer', cs.primaryContainer, cs.onPrimaryContainer),
       _RoleEntry(
         'onPrimaryContainer',
         cs.onPrimaryContainer,
@@ -527,7 +527,11 @@ class DynamicSchemeVariantDemoApp extends StatelessWidget {
       _RoleEntry('error', cs.error, cs.onError),
       _RoleEntry('onError', cs.onError, cs.error),
       _RoleEntry('errorContainer', cs.errorContainer, cs.onErrorContainer),
-      _RoleEntry('onErrorContainer', cs.onErrorContainer, cs.errorContainer),
+      _RoleEntry(
+        'onErrorContainer',
+        cs.onErrorContainer,
+        cs.errorContainer,
+      ),
       _RoleEntry('surface', cs.surface, cs.onSurface),
       _RoleEntry('onSurface', cs.onSurface, cs.surface),
       _RoleEntry('surfaceVariant', cs.surfaceVariant, cs.onSurfaceVariant),
@@ -735,7 +739,8 @@ class DynamicSchemeVariantDemoApp extends StatelessWidget {
             width: 100.0,
             child: Row(
               children: <Widget>[
-                Icon(_variantIcon(v), color: Colors.grey.shade700, size: 14.0),
+                Icon(_variantIcon(v),
+                    color: Colors.grey.shade700, size: 14.0),
                 const SizedBox(width: 4.0),
                 Expanded(
                   child: Text(
@@ -852,7 +857,10 @@ class DynamicSchemeVariantDemoApp extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: s.seed,
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.grey.shade400, width: 1.0),
+                  border: Border.all(
+                    color: Colors.grey.shade400,
+                    width: 1.0,
+                  ),
                 ),
               ),
               const SizedBox(width: 10.0),
@@ -1012,59 +1020,51 @@ class DynamicSchemeVariantDemoApp extends StatelessWidget {
                     // Background grid (5 vertical + 5 horizontal lines).
                     for (int i = 0; i <= 4; i++) {
                       final double frac = i / 4.0;
-                      points.add(
-                        Positioned(
-                          left: w * frac,
-                          top: 0.0,
-                          bottom: 0.0,
-                          child: Container(
-                            width: 1.0,
-                            color: Colors.grey.shade200,
-                          ),
+                      points.add(Positioned(
+                        left: w * frac,
+                        top: 0.0,
+                        bottom: 0.0,
+                        child: Container(
+                          width: 1.0,
+                          color: Colors.grey.shade200,
                         ),
-                      );
-                      points.add(
-                        Positioned(
-                          top: h * frac,
-                          left: 0.0,
-                          right: 0.0,
-                          child: Container(
-                            height: 1.0,
-                            color: Colors.grey.shade200,
-                          ),
+                      ));
+                      points.add(Positioned(
+                        top: h * frac,
+                        left: 0.0,
+                        right: 0.0,
+                        child: Container(
+                          height: 1.0,
+                          color: Colors.grey.shade200,
                         ),
-                      );
+                      ));
                     }
 
                     // Axis labels.
-                    points.add(
-                      const Positioned(
-                        left: 4.0,
-                        bottom: 4.0,
-                        child: Text(
-                          'neutral / subtle',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: Colors.grey,
-                            fontStyle: FontStyle.italic,
-                          ),
+                    points.add(const Positioned(
+                      left: 4.0,
+                      bottom: 4.0,
+                      child: Text(
+                        'neutral / subtle',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Colors.grey,
+                          fontStyle: FontStyle.italic,
                         ),
                       ),
-                    );
-                    points.add(
-                      const Positioned(
-                        right: 4.0,
-                        top: 4.0,
-                        child: Text(
-                          'colored / vibrant',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: Colors.grey,
-                            fontStyle: FontStyle.italic,
-                          ),
+                    ));
+                    points.add(const Positioned(
+                      right: 4.0,
+                      top: 4.0,
+                      child: Text(
+                        'colored / vibrant',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Colors.grey,
+                          fontStyle: FontStyle.italic,
                         ),
                       ),
-                    );
+                    ));
 
                     // Variant dots / chips.
                     for (final _VariantPos p in positions) {
@@ -1075,53 +1075,50 @@ class DynamicSchemeVariantDemoApp extends StatelessWidget {
                       );
                       final double rawLeft = w * p.x - 50.0;
                       final double rawTop = h * (1.0 - p.y) - 14.0;
-                      final double left = rawLeft.clamp(
-                        0.0,
-                        (w - 100.0).clamp(0.0, w),
-                      );
-                      final double top = rawTop.clamp(
-                        0.0,
-                        (h - 28.0).clamp(0.0, h),
-                      );
-                      points.add(
-                        Positioned(
-                          left: left,
-                          top: top,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 4.0,
-                            ),
-                            decoration: BoxDecoration(
-                              color: cs.primaryContainer,
-                              borderRadius: BorderRadius.circular(14.0),
-                              border: Border.all(color: cs.primary, width: 1.5),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Container(
-                                  width: 10.0,
-                                  height: 10.0,
-                                  decoration: BoxDecoration(
-                                    color: cs.primary,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                const SizedBox(width: 6.0),
-                                Text(
-                                  _variantLabel(p.variant),
-                                  style: TextStyle(
-                                    fontSize: 11.0,
-                                    color: cs.onPrimaryContainer,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
+                      final double left =
+                          rawLeft.clamp(0.0, (w - 100.0).clamp(0.0, w));
+                      final double top =
+                          rawTop.clamp(0.0, (h - 28.0).clamp(0.0, h));
+                      points.add(Positioned(
+                        left: left,
+                        top: top,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 4.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: cs.primaryContainer,
+                            borderRadius: BorderRadius.circular(14.0),
+                            border: Border.all(
+                              color: cs.primary,
+                              width: 1.5,
                             ),
                           ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Container(
+                                width: 10.0,
+                                height: 10.0,
+                                decoration: BoxDecoration(
+                                  color: cs.primary,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              const SizedBox(width: 6.0),
+                              Text(
+                                _variantLabel(p.variant),
+                                style: TextStyle(
+                                  fontSize: 11.0,
+                                  color: cs.onPrimaryContainer,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      );
+                      ));
                     }
 
                     return Stack(children: points);
@@ -1247,14 +1244,10 @@ class DynamicSchemeVariantDemoApp extends StatelessWidget {
   }
 
   Widget _recipeCard(_Recipe r) {
-    final ColorScheme cs = _scheme(
-      _seedDeepPurple,
-      r.variant,
-      Brightness.light,
-    );
+    final ColorScheme cs =
+        _scheme(_seedDeepPurple, r.variant, Brightness.light);
 
-    final String code =
-        'theme: ThemeData(\n'
+    final String code = 'theme: ThemeData(\n'
         '  useMaterial3: true,\n'
         '  colorScheme: ColorScheme.fromSeed(\n'
         '    seedColor: ${r.seed},\n'

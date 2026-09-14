@@ -94,7 +94,10 @@ dynamic build(BuildContext context) {
                 'Scroll positions (ListView, GridView)',
                 Color(0xFF1565C0),
               ),
-              _buildRestoreBullet('Text field contents', Color(0xFF2E7D32)),
+              _buildRestoreBullet(
+                'Text field contents',
+                Color(0xFF2E7D32),
+              ),
               _buildRestoreBullet(
                 'Selected tabs and navigation state',
                 Color(0xFFE65100),
@@ -158,7 +161,10 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 6.0,
+                  vertical: 2.0,
+                ),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(4.0),
@@ -323,7 +329,10 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   detail,
-                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
               ],
             ),
@@ -436,7 +445,10 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               example,
-              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Colors.grey.shade600,
+              ),
             ),
           ),
         ],
@@ -448,7 +460,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Color(0xFFF3E5F5), Color(0xFFE1BEE7)]),
+      gradient: LinearGradient(
+        colors: [Color(0xFFF3E5F5), Color(0xFFE1BEE7)],
+      ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: Color(0xFF6A1B9A)),
     ),
@@ -457,7 +471,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.data_object, color: Color(0xFF6A1B9A), size: 24.0),
+            Icon(Icons.data_object,
+                color: Color(0xFF6A1B9A), size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Built-in Restorable Properties',
@@ -539,7 +554,10 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
+          border: Border.all(
+            color: color.withValues(alpha: 0.5),
+            width: 1.5,
+          ),
         ),
         child: Column(
           children: [
@@ -556,7 +574,9 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: [
                   Icon(
-                    hasRestoration ? Icons.check_circle : Icons.cancel,
+                    hasRestoration
+                        ? Icons.check_circle
+                        : Icons.cancel,
                     color: color,
                     size: 18.0,
                   ),
@@ -636,24 +656,34 @@ dynamic build(BuildContext context) {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildComparisonPanel('Without Restoration', false, [
-              {'icon': '1.', 'text': 'User fills in form'},
-              {'icon': '2.', 'text': 'Switches to camera app'},
-              {'icon': '3.', 'text': 'OS kills your app'},
-              {'icon': '4.', 'text': 'User returns'},
-              {'icon': '❌', 'text': 'Form is empty!'},
-              {'icon': '❌', 'text': 'Scroll pos reset to top'},
-              {'icon': '❌', 'text': 'Tab set to first tab'},
-            ], Color(0xFFC62828)),
-            buildComparisonPanel('With RootRestorationScope', true, [
-              {'icon': '1.', 'text': 'User fills in form'},
-              {'icon': '2.', 'text': 'Switches to camera app'},
-              {'icon': '3.', 'text': 'OS kills your app'},
-              {'icon': '4.', 'text': 'User returns'},
-              {'icon': '✅', 'text': 'Form data restored'},
-              {'icon': '✅', 'text': 'Scroll pos maintained'},
-              {'icon': '✅', 'text': 'Same tab selected'},
-            ], Color(0xFF2E7D32)),
+            buildComparisonPanel(
+              'Without Restoration',
+              false,
+              [
+                {'icon': '1.', 'text': 'User fills in form'},
+                {'icon': '2.', 'text': 'Switches to camera app'},
+                {'icon': '3.', 'text': 'OS kills your app'},
+                {'icon': '4.', 'text': 'User returns'},
+                {'icon': '❌', 'text': 'Form is empty!'},
+                {'icon': '❌', 'text': 'Scroll pos reset to top'},
+                {'icon': '❌', 'text': 'Tab set to first tab'},
+              ],
+              Color(0xFFC62828),
+            ),
+            buildComparisonPanel(
+              'With RootRestorationScope',
+              true,
+              [
+                {'icon': '1.', 'text': 'User fills in form'},
+                {'icon': '2.', 'text': 'Switches to camera app'},
+                {'icon': '3.', 'text': 'OS kills your app'},
+                {'icon': '4.', 'text': 'User returns'},
+                {'icon': '✅', 'text': 'Form data restored'},
+                {'icon': '✅', 'text': 'Scroll pos maintained'},
+                {'icon': '✅', 'text': 'Same tab selected'},
+              ],
+              Color(0xFF2E7D32),
+            ),
           ],
         ),
       ],
@@ -794,11 +824,17 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 7: Scope comparison ===');
 
-  Widget buildCompareRow(String feature, String rootScope, String childScope) {
+  Widget buildCompareRow(
+    String feature,
+    String rootScope,
+    String childScope,
+  ) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.shade200),
+        ),
       ),
       child: Row(
         children: [
@@ -823,7 +859,10 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 rootScope,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF1565C0)),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: Color(0xFF1565C0),
+                ),
               ),
             ),
           ),
@@ -836,7 +875,10 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 childScope,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF2E7D32)),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: Color(0xFF2E7D32),
+                ),
               ),
             ),
           ),
@@ -1143,7 +1185,11 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0D47A1), Color(0xFF1565C0), Color(0xFF1976D2)],
+              colors: [
+                Color(0xFF0D47A1),
+                Color(0xFF1565C0),
+                Color(0xFF1976D2),
+              ],
             ),
           ),
           child: Column(
@@ -1270,7 +1316,10 @@ Widget _buildRestoreBullet(String text, Color color) {
         ),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(text, style: TextStyle(fontSize: 12.0, color: color)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12.0, color: color),
+          ),
         ),
       ],
     ),

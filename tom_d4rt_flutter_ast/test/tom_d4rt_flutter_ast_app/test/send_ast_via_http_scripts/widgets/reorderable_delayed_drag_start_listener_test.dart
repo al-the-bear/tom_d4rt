@@ -397,15 +397,23 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        buildTimelineBar('Immediate Drag (ReorderableDragStartListener)', [
-          {'label': 'Press', 'flex': 1, 'color': Color(0xFFFF5722)},
-          {'label': 'Dragging →', 'flex': 5, 'color': Color(0xFF2196F3)},
-        ], Color(0xFFFF5722)),
-        buildTimelineBar('Delayed Drag (ReorderableDelayedDragStartListener)', [
-          {'label': 'Press', 'flex': 1, 'color': Color(0xFFFF9800)},
-          {'label': '⏱ Delay...', 'flex': 2, 'color': Color(0xFFFFC107)},
-          {'label': 'Dragging →', 'flex': 3, 'color': Color(0xFF4CAF50)},
-        ], Color(0xFF4CAF50)),
+        buildTimelineBar(
+          'Immediate Drag (ReorderableDragStartListener)',
+          [
+            {'label': 'Press', 'flex': 1, 'color': Color(0xFFFF5722)},
+            {'label': 'Dragging →', 'flex': 5, 'color': Color(0xFF2196F3)},
+          ],
+          Color(0xFFFF5722),
+        ),
+        buildTimelineBar(
+          'Delayed Drag (ReorderableDelayedDragStartListener)',
+          [
+            {'label': 'Press', 'flex': 1, 'color': Color(0xFFFF9800)},
+            {'label': '⏱ Delay...', 'flex': 2, 'color': Color(0xFFFFC107)},
+            {'label': 'Dragging →', 'flex': 3, 'color': Color(0xFF4CAF50)},
+          ],
+          Color(0xFF4CAF50),
+        ),
         SizedBox(height: 8.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -421,7 +429,10 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'The delay ensures that scrolling gestures are not '
                   'accidentally interpreted as reorder-drag gestures.',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFE65100)),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Color(0xFFE65100),
+                  ),
                 ),
               ),
             ],
@@ -496,8 +507,8 @@ dynamic build(BuildContext context) {
     final priorityColor = task['priority'] == 'High'
         ? Color(0xFFF44336)
         : task['priority'] == 'Medium'
-        ? Color(0xFFFF9800)
-        : Color(0xFF4CAF50);
+            ? Color(0xFFFF9800)
+            : Color(0xFF4CAF50);
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
@@ -505,15 +516,15 @@ dynamic build(BuildContext context) {
         color: isPlaceholder
             ? Colors.grey.shade200
             : isDragging
-            ? Colors.white
-            : Colors.white,
+                ? Colors.white
+                : Colors.white,
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(
           color: isPlaceholder
               ? Colors.grey.shade400
               : isDragging
-              ? color
-              : Colors.grey.shade200,
+                  ? color
+                  : Colors.grey.shade200,
           width: isDragging ? 2.0 : 1.0,
         ),
         boxShadow: isDragging
@@ -603,7 +614,8 @@ dynamic build(BuildContext context) {
   // Build "at rest" list
   final atRestList = Column(
     children: [
-      for (var i = 0; i < taskItems.length; i++) buildTaskItem(taskItems[i], i),
+      for (var i = 0; i < taskItems.length; i++)
+        buildTaskItem(taskItems[i], i),
     ],
   );
 
@@ -778,7 +790,10 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   description,
-                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
                 SizedBox(height: 8.0),
                 itemPreview,
@@ -816,11 +831,17 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Photo collection',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13.0),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13.0,
+                ),
               ),
               Text(
                 '24 items',
-                style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: Colors.grey.shade500,
+                ),
               ),
             ],
           ),
@@ -865,7 +886,10 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFFF3E5F5), Colors.white],
+                colors: [
+                  Color(0xFFF3E5F5),
+                  Colors.white,
+                ],
               ),
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(10.0),
@@ -883,7 +907,11 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                 ),
-                Icon(Icons.swap_vert, color: Color(0xFF7B1FA2), size: 18.0),
+                Icon(
+                  Icons.swap_vert,
+                  color: Color(0xFF7B1FA2),
+                  size: 18.0,
+                ),
               ],
             ),
           ),
@@ -914,7 +942,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(width: 8.0),
-        Icon(Icons.unfold_more, color: Color(0xFF00ACC1), size: 16.0),
+        Icon(
+          Icons.unfold_more,
+          color: Color(0xFF00ACC1),
+          size: 16.0,
+        ),
       ],
     ),
   );
@@ -1004,7 +1036,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Color(0xFFFCE4EC), Color(0xFFF8BBD0)]),
+      gradient: LinearGradient(
+        colors: [Color(0xFFFCE4EC), Color(0xFFF8BBD0)],
+      ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: Color(0xFFC62828), width: 1.5),
     ),
@@ -1131,7 +1165,8 @@ dynamic build(BuildContext context) {
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.blue.shade50,
-                                      borderRadius: BorderRadius.circular(4.0),
+                                      borderRadius:
+                                          BorderRadius.circular(4.0),
                                     ),
                                   ),
                               ],
@@ -1199,7 +1234,8 @@ dynamic build(BuildContext context) {
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.blue.shade50,
-                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderRadius:
+                                        BorderRadius.circular(4.0),
                                   ),
                                 ),
                                 // Placeholder where item was
@@ -1211,7 +1247,8 @@ dynamic build(BuildContext context) {
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade200,
-                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderRadius:
+                                        BorderRadius.circular(4.0),
                                     border: Border.all(
                                       color: Colors.grey.shade400,
                                     ),
@@ -1225,7 +1262,8 @@ dynamic build(BuildContext context) {
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.blue.shade50,
-                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderRadius:
+                                        BorderRadius.circular(4.0),
                                   ),
                                 ),
                               ],
@@ -1238,10 +1276,11 @@ dynamic build(BuildContext context) {
                               child: Container(
                                 height: 28.0,
                                 decoration: BoxDecoration(
-                                  color: Color(
-                                    0xFF4CAF50,
-                                  ).withValues(alpha: 0.3),
-                                  borderRadius: BorderRadius.circular(4.0),
+                                  color: Color(0xFF4CAF50).withValues(
+                                    alpha: 0.3,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.circular(4.0),
                                   border: Border.all(
                                     color: Color(0xFF4CAF50),
                                     width: 2.0,
@@ -1298,7 +1337,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)]),
+      gradient: LinearGradient(
+        colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)],
+      ),
       borderRadius: BorderRadius.circular(12.0),
     ),
     child: Column(
@@ -1415,7 +1456,9 @@ dynamic build(BuildContext context) {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
-              color: enabled ? Color(0xFFE8F5E9) : Color(0xFFFBE9E7),
+              color: enabled
+                  ? Color(0xFFE8F5E9)
+                  : Color(0xFFFBE9E7),
               borderRadius: BorderRadius.circular(6.0),
             ),
             child: Text(
@@ -1574,7 +1617,11 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF1B5E20), Color(0xFF2E7D32), Color(0xFF388E3C)],
+              colors: [
+                Color(0xFF1B5E20),
+                Color(0xFF2E7D32),
+                Color(0xFF388E3C),
+              ],
             ),
           ),
           child: Column(

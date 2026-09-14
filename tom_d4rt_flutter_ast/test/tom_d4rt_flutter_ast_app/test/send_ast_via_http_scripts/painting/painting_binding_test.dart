@@ -72,7 +72,7 @@ Widget buildCodeBlock(String code) {
 
 Widget buildPaintingBindingInstanceSection() {
   print('Building PaintingBinding.instance section');
-
+  
   List<String> instanceFacts = [
     'PaintingBinding.instance returns the singleton binding',
     'Accessed after WidgetsFlutterBinding.ensureInitialized()',
@@ -81,7 +81,7 @@ Widget buildPaintingBindingInstanceSection() {
     'Never null after binding initialization',
     'Thread-safe singleton access pattern',
   ];
-
+  
   List<IconData> factIcons = [
     Icons.star,
     Icons.play_arrow,
@@ -90,7 +90,7 @@ Widget buildPaintingBindingInstanceSection() {
     Icons.check_circle,
     Icons.lock,
   ];
-
+  
   List<Color> factColors = [
     Colors.amber,
     Colors.green,
@@ -99,7 +99,7 @@ Widget buildPaintingBindingInstanceSection() {
     Colors.teal,
     Colors.orange,
   ];
-
+  
   List<Widget> factWidgets = [];
   int f = 0;
   for (f = 0; f < instanceFacts.length; f = f + 1) {
@@ -121,7 +121,11 @@ Widget buildPaintingBindingInstanceSection() {
                 color: factColors[f],
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(factIcons[f], color: Colors.white, size: 20),
+              child: Icon(
+                factIcons[f],
+                color: Colors.white,
+                size: 20,
+              ),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -135,7 +139,7 @@ Widget buildPaintingBindingInstanceSection() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -168,28 +172,28 @@ Widget buildPaintingBindingInstanceSection() {
 
 Widget buildInstanceAccessPatterns() {
   print('Building instance access patterns');
-
+  
   List<String> patternTitles = [
     'Ensure Initialization First',
     'Direct Instance Access',
     'Via WidgetsBinding',
     'Null-Safe Access Pattern',
   ];
-
+  
   List<String> patternCodes = [
     'void main() {\n  WidgetsFlutterBinding.ensureInitialized();\n  runApp(MyApp());\n}',
     'PaintingBinding binding = PaintingBinding.instance;\nImageCache cache = binding.imageCache;',
     'WidgetsBinding.instance;\n// Also provides PaintingBinding functionality',
     'PaintingBinding? binding = PaintingBinding.instance;\nif (binding != null) {\n  // Safe to use\n}',
   ];
-
+  
   List<String> patternNotes = [
     'Always ensure binding is initialized before accessing',
     'Direct access when you know binding is initialized',
     'WidgetsBinding includes all binding mixins',
     'Use null-safe pattern in edge cases',
   ];
-
+  
   List<Widget> patternWidgets = [];
   int p = 0;
   for (p = 0; p < patternTitles.length; p = p + 1) {
@@ -269,7 +273,7 @@ Widget buildInstanceAccessPatterns() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -299,7 +303,7 @@ Widget buildInstanceAccessPatterns() {
 
 Widget buildImageCachePropertySection() {
   print('Building imageCache property section');
-
+  
   List<String> cacheProperties = [
     'maximumSize: max number of images',
     'maximumSizeBytes: max memory in bytes',
@@ -308,7 +312,7 @@ Widget buildImageCachePropertySection() {
     'liveImageCount: images with active handles',
     'pendingImageCount: images being loaded',
   ];
-
+  
   List<IconData> propIcons = [
     Icons.format_list_numbered,
     Icons.memory,
@@ -317,7 +321,7 @@ Widget buildImageCachePropertySection() {
     Icons.visibility,
     Icons.hourglass_empty,
   ];
-
+  
   List<Widget> propWidgets = [];
   int i = 0;
   for (i = 0; i < cacheProperties.length; i = i + 1) {
@@ -327,11 +331,17 @@ Widget buildImageCachePropertySection() {
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: rowColor,
-          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+          border: Border(
+            bottom: BorderSide(color: Colors.grey.shade200),
+          ),
         ),
         child: Row(
           children: [
-            Icon(propIcons[i], size: 20, color: Colors.blue.shade700),
+            Icon(
+              propIcons[i],
+              size: 20,
+              color: Colors.blue.shade700,
+            ),
             SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -344,7 +354,7 @@ Widget buildImageCachePropertySection() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     decoration: BoxDecoration(
@@ -380,9 +390,7 @@ Widget buildImageCachePropertySection() {
             ],
           ),
         ),
-        buildCodeBlock(
-          'ImageCache get imageCache => PaintingBinding.instance.imageCache;',
-        ),
+        buildCodeBlock('ImageCache get imageCache => PaintingBinding.instance.imageCache;'),
         Column(children: propWidgets),
       ],
     ),
@@ -391,7 +399,7 @@ Widget buildImageCachePropertySection() {
 
 Widget buildImageCacheConfigurationSection() {
   print('Building imageCache configuration section');
-
+  
   List<String> configTitles = [
     'Set Maximum Image Count',
     'Set Maximum Memory Size',
@@ -399,7 +407,7 @@ Widget buildImageCacheConfigurationSection() {
     'Clear Specific Image',
     'Evict Image by Key',
   ];
-
+  
   List<String> configCodes = [
     'PaintingBinding.instance.imageCache.maximumSize = 1000;',
     'PaintingBinding.instance.imageCache.maximumSizeBytes = 100 << 20;',
@@ -407,7 +415,7 @@ Widget buildImageCacheConfigurationSection() {
     'PaintingBinding.instance.imageCache.clearLiveImages();',
     'PaintingBinding.instance.imageCache.evict(imageKey);',
   ];
-
+  
   List<String> configDescriptions = [
     'Default is 1000 images. Increase for image-heavy apps.',
     'Default is 100MB. Set based on available memory.',
@@ -415,7 +423,7 @@ Widget buildImageCacheConfigurationSection() {
     'Clears images with active handles only.',
     'Removes specific image by its cache key.',
   ];
-
+  
   List<Color> configColors = [
     Colors.green,
     Colors.orange,
@@ -423,7 +431,7 @@ Widget buildImageCacheConfigurationSection() {
     Colors.purple,
     Colors.teal,
   ];
-
+  
   List<Widget> configWidgets = [];
   int c = 0;
   for (c = 0; c < configTitles.length; c = c + 1) {
@@ -496,7 +504,7 @@ Widget buildImageCacheConfigurationSection() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -526,7 +534,7 @@ Widget buildImageCacheConfigurationSection() {
 
 Widget buildInstantiateImageCodecSection() {
   print('Building instantiateImageCodec section');
-
+  
   List<String> codecSteps = [
     'Obtain image bytes from source',
     'Call instantiateImageCodec with bytes',
@@ -534,7 +542,7 @@ Widget buildInstantiateImageCodecSection() {
     'Use codec to get frames',
     'Dispose codec when done',
   ];
-
+  
   List<String> stepDetails = [
     'Load bytes from network, asset, or file system',
     'Binding decodes bytes into a Codec instance',
@@ -542,7 +550,7 @@ Widget buildInstantiateImageCodecSection() {
     'getNextFrame() returns FrameInfo objects',
     'Always dispose to release native resources',
   ];
-
+  
   List<IconData> stepIcons = [
     Icons.download,
     Icons.transform,
@@ -550,7 +558,7 @@ Widget buildInstantiateImageCodecSection() {
     Icons.video_library,
     Icons.delete_outline,
   ];
-
+  
   List<Widget> stepWidgets = [];
   int s = 0;
   for (s = 0; s < codecSteps.length; s = s + 1) {
@@ -567,7 +575,11 @@ Widget buildInstantiateImageCodecSection() {
                   color: Colors.deepOrange.shade600,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(stepIcons[s], color: Colors.white, size: 24),
+                child: Icon(
+                  stepIcons[s],
+                  color: Colors.white,
+                  size: 24,
+                ),
               ),
               if (s < codecSteps.length - 1)
                 Container(
@@ -611,7 +623,7 @@ Widget buildInstantiateImageCodecSection() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -634,9 +646,7 @@ Widget buildInstantiateImageCodecSection() {
           ],
         ),
         SizedBox(height: 12),
-        buildCodeBlock(
-          'Future<ui.Codec> instantiateImageCodec(\n  Uint8List bytes, {\n  int? cacheWidth,\n  int? cacheHeight,\n  bool allowUpscaling = false,\n});',
-        ),
+        buildCodeBlock('Future<ui.Codec> instantiateImageCodec(\n  Uint8List bytes, {\n  int? cacheWidth,\n  int? cacheHeight,\n  bool allowUpscaling = false,\n});'),
         SizedBox(height: 12),
         Column(children: stepWidgets),
       ],
@@ -646,7 +656,7 @@ Widget buildInstantiateImageCodecSection() {
 
 Widget buildInstantiateImageCodecExample() {
   print('Building instantiateImageCodec example');
-
+  
   String exampleCode = '''
 Future<ui.Image> decodeImage(Uint8List bytes) async {
   ui.Codec codec = await PaintingBinding.instance
@@ -742,11 +752,7 @@ Future<ui.Image> decodeResized(Uint8List bytes) async {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.photo_size_select_small,
-                    color: Colors.orange.shade700,
-                    size: 18,
-                  ),
+                  Icon(Icons.photo_size_select_small, color: Colors.orange.shade700, size: 18),
                   SizedBox(width: 8),
                   Text(
                     'Decode with Resize',
@@ -785,7 +791,7 @@ Future<ui.Image> decodeResized(Uint8List bytes) async {
 
 Widget buildInstantiateImageCodecWithSizeSection() {
   print('Building instantiateImageCodecWithSize section');
-
+  
   List<String> features = [
     'Returns codec along with natural image dimensions',
     'Useful when you need size before decoding',
@@ -793,7 +799,7 @@ Widget buildInstantiateImageCodecWithSizeSection() {
     'More efficient for responsive image loading',
     'Avoids double-decode for size detection',
   ];
-
+  
   List<Widget> featureWidgets = [];
   int f = 0;
   for (f = 0; f < features.length; f = f + 1) {
@@ -807,7 +813,11 @@ Widget buildInstantiateImageCodecWithSizeSection() {
         ),
         child: Row(
           children: [
-            Icon(Icons.check_circle, size: 18, color: Colors.purple.shade600),
+            Icon(
+              Icons.check_circle,
+              size: 18,
+              color: Colors.purple.shade600,
+            ),
             SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -820,7 +830,7 @@ Widget buildInstantiateImageCodecWithSizeSection() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -843,9 +853,7 @@ Widget buildInstantiateImageCodecWithSizeSection() {
           ],
         ),
         SizedBox(height: 12),
-        buildCodeBlock(
-          'Future<ui.Codec> instantiateImageCodecWithSize(\n  ui.ImmutableBuffer buffer, {\n  TargetImageSizeCallback? getTargetSize,\n});',
-        ),
+        buildCodeBlock('Future<ui.Codec> instantiateImageCodecWithSize(\n  ui.ImmutableBuffer buffer, {\n  TargetImageSizeCallback? getTargetSize,\n});'),
         SizedBox(height: 12),
         Column(children: featureWidgets),
       ],
@@ -855,7 +863,7 @@ Widget buildInstantiateImageCodecWithSizeSection() {
 
 Widget buildCodecWithSizeExample() {
   print('Building codec with size example');
-
+  
   String callbackCode = '''
 typedef TargetImageSizeCallback = TargetImageSize Function(
   int intrinsicWidth,
@@ -984,7 +992,7 @@ Future<ui.Codec> loadResponsiveImage(Uint8List bytes) async {
 
 Widget buildSystemFontsChangedSection() {
   print('Building system fonts changed section');
-
+  
   List<String> eventDetails = [
     'Triggered when system fonts change',
     'Fonts may change during app runtime',
@@ -992,7 +1000,7 @@ Widget buildSystemFontsChangedSection() {
     'System font settings modified',
     'Font accessibility settings changed',
   ];
-
+  
   List<String> handlerActions = [
     'Notify text rendering widgets',
     'Invalidate cached text layouts',
@@ -1000,7 +1008,7 @@ Widget buildSystemFontsChangedSection() {
     'Update font metrics',
     'Refresh font family lists',
   ];
-
+  
   List<Widget> detailWidgets = [];
   int d = 0;
   for (d = 0; d < eventDetails.length; d = d + 1) {
@@ -1029,7 +1037,7 @@ Widget buildSystemFontsChangedSection() {
       ),
     );
   }
-
+  
   List<Widget> actionWidgets = [];
   int a = 0;
   for (a = 0; a < handlerActions.length; a = a + 1) {
@@ -1038,7 +1046,11 @@ Widget buildSystemFontsChangedSection() {
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(
           children: [
-            Icon(Icons.arrow_forward, size: 16, color: Colors.orange.shade600),
+            Icon(
+              Icons.arrow_forward,
+              size: 16,
+              color: Colors.orange.shade600,
+            ),
             SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -1051,7 +1063,7 @@ Widget buildSystemFontsChangedSection() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1074,9 +1086,7 @@ Widget buildSystemFontsChangedSection() {
           ],
         ),
         SizedBox(height: 12),
-        buildCodeBlock(
-          'void handleSystemFontsChanged() {\n  systemFonts.notifyListeners();\n}',
-        ),
+        buildCodeBlock('void handleSystemFontsChanged() {\n  systemFonts.notifyListeners();\n}'),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.all(10),
@@ -1130,7 +1140,7 @@ Widget buildSystemFontsChangedSection() {
 
 Widget buildSystemFontsListenerExample() {
   print('Building system fonts listener example');
-
+  
   String listenerCode = '''
 class FontAwareWidget extends StatefulWidget {
   @override
@@ -1227,7 +1237,7 @@ class _FontAwareWidgetState extends State<FontAwareWidget> {
 
 Widget buildBindingMixinHierarchy() {
   print('Building binding mixin hierarchy');
-
+  
   List<String> mixinNames = [
     'BindingBase',
     'GestureBinding',
@@ -1238,7 +1248,7 @@ Widget buildBindingMixinHierarchy() {
     'RendererBinding',
     'WidgetsBinding',
   ];
-
+  
   List<String> mixinDescriptions = [
     'Base class for all bindings',
     'Gesture recognition and hit testing',
@@ -1249,7 +1259,7 @@ Widget buildBindingMixinHierarchy() {
     'Render tree management',
     'Widget tree management',
   ];
-
+  
   List<Color> mixinColors = [
     Colors.grey,
     Colors.pink,
@@ -1260,7 +1270,7 @@ Widget buildBindingMixinHierarchy() {
     Colors.orange,
     Colors.teal,
   ];
-
+  
   List<Widget> mixinWidgets = [];
   int m = 0;
   for (m = 0; m < mixinNames.length; m = m + 1) {
@@ -1270,9 +1280,7 @@ Widget buildBindingMixinHierarchy() {
         margin: EdgeInsets.only(left: m * 8.0),
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: isPainting
-              ? Colors.indigo.shade100
-              : mixinColors[m].withAlpha(30),
+          color: isPainting ? Colors.indigo.shade100 : mixinColors[m].withAlpha(30),
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
             color: isPainting ? Colors.indigo : mixinColors[m].withAlpha(100),
@@ -1296,15 +1304,16 @@ Widget buildBindingMixinHierarchy() {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: isPainting ? FontWeight.bold : FontWeight.normal,
-                color: isPainting
-                    ? Colors.indigo.shade800
-                    : Colors.grey.shade800,
+                color: isPainting ? Colors.indigo.shade800 : Colors.grey.shade800,
               ),
             ),
             SizedBox(width: 8),
             Text(
               '- ${mixinDescriptions[m]}',
-              style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.grey.shade600,
+              ),
             ),
           ],
         ),
@@ -1314,7 +1323,7 @@ Widget buildBindingMixinHierarchy() {
       mixinWidgets.add(SizedBox(height: 4));
     }
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1353,7 +1362,7 @@ Widget buildBindingMixinHierarchy() {
 
 Widget buildPaintingBindingSummary() {
   print('Building PaintingBinding summary');
-
+  
   List<String> summaryPoints = [
     'PaintingBinding is a mixin that provides painting services',
     'Access via PaintingBinding.instance after binding init',
@@ -1363,7 +1372,7 @@ Widget buildPaintingBindingSummary() {
     'systemFonts notifies when system fonts change',
     'Part of WidgetsFlutterBinding mixin hierarchy',
   ];
-
+  
   List<IconData> summaryIcons = [
     Icons.extension,
     Icons.login,
@@ -1373,7 +1382,7 @@ Widget buildPaintingBindingSummary() {
     Icons.font_download,
     Icons.layers,
   ];
-
+  
   List<Widget> summaryWidgets = [];
   int s = 0;
   for (s = 0; s < summaryPoints.length; s = s + 1) {
@@ -1386,7 +1395,11 @@ Widget buildPaintingBindingSummary() {
         ),
         child: Row(
           children: [
-            Icon(summaryIcons[s], size: 20, color: Colors.indigo.shade600),
+            Icon(
+              summaryIcons[s],
+              size: 20,
+              color: Colors.indigo.shade600,
+            ),
             SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -1399,7 +1412,7 @@ Widget buildPaintingBindingSummary() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1435,56 +1448,56 @@ Widget buildPaintingBindingSummary() {
 dynamic build(BuildContext context) {
   print('PaintingBinding deep demo test executing');
   print('Testing PaintingBinding from painting library');
-
+  
   print('\n--- PaintingBinding.instance ---');
   print('Singleton access to painting binding');
   print('Available after WidgetsFlutterBinding.ensureInitialized()');
-
+  
   print('\n--- imageCache Property ---');
   print('ImageCache manages decoded image storage');
   print('Configurable max size and memory limits');
-
+  
   print('\n--- instantiateImageCodec ---');
   print('Decodes image bytes into ui.Codec');
   print('Supports resize during decode');
-
+  
   print('\n--- instantiateImageCodecWithSize ---');
   print('Returns codec with natural dimensions');
   print('getTargetSize callback for responsive sizing');
-
+  
   print('\n--- System Fonts Changed ---');
   print('handleSystemFontsChanged() notifies listeners');
   print('systemFonts Listenable for font updates');
-
+  
   print('\nPaintingBinding deep demo completed');
 
   List<Widget> allSections = [];
-
+  
   allSections.add(buildSectionHeader('PaintingBinding Deep Demo'));
-
+  
   allSections.add(buildSectionHeader('1. PaintingBinding.instance'));
   allSections.add(buildPaintingBindingInstanceSection());
   allSections.add(buildInstanceAccessPatterns());
-
+  
   allSections.add(buildSectionHeader('2. imageCache Property'));
   allSections.add(buildImageCachePropertySection());
   allSections.add(buildImageCacheConfigurationSection());
-
+  
   allSections.add(buildSectionHeader('3. instantiateImageCodec'));
   allSections.add(buildInstantiateImageCodecSection());
   allSections.add(buildInstantiateImageCodecExample());
-
+  
   allSections.add(buildSectionHeader('4. instantiateImageCodecWithSize'));
   allSections.add(buildInstantiateImageCodecWithSizeSection());
   allSections.add(buildCodecWithSizeExample());
-
+  
   allSections.add(buildSectionHeader('5. System Fonts Changed Handling'));
   allSections.add(buildSystemFontsChangedSection());
   allSections.add(buildSystemFontsListenerExample());
-
+  
   allSections.add(buildSectionHeader('Binding Hierarchy'));
   allSections.add(buildBindingMixinHierarchy());
-
+  
   allSections.add(buildSectionHeader('Summary'));
   allSections.add(buildPaintingBindingSummary());
 

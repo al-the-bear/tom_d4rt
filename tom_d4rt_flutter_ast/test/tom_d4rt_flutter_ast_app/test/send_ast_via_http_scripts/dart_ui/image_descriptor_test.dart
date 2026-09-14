@@ -14,8 +14,7 @@ class _ImageDescriptorDeepDemo extends StatefulWidget {
   const _ImageDescriptorDeepDemo();
 
   @override
-  State<_ImageDescriptorDeepDemo> createState() =>
-      _ImageDescriptorDeepDemoState();
+  State<_ImageDescriptorDeepDemo> createState() => _ImageDescriptorDeepDemoState();
 }
 
 class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
@@ -39,92 +38,21 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
   double _animValue = 0.0;
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0B132B),
-      const Color(0xFF1C2541),
-      const Color(0xFF5BC0BE),
-    ],
-    <Color>[
-      const Color(0xFF14213D),
-      const Color(0xFFFCA311),
-      const Color(0xFFE5E5E5),
-    ],
-    <Color>[
-      const Color(0xFF1B4332),
-      const Color(0xFF2D6A4F),
-      const Color(0xFF95D5B2),
-    ],
+    <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
+    <Color>[const Color(0xFF14213D), const Color(0xFFFCA311), const Color(0xFFE5E5E5)],
+    <Color>[const Color(0xFF1B4332), const Color(0xFF2D6A4F), const Color(0xFF95D5B2)],
   ];
 
   static const List<int> _tinyPngBytes = <int>[
-    0x89,
-    0x50,
-    0x4E,
-    0x47,
-    0x0D,
-    0x0A,
-    0x1A,
-    0x0A,
-    0x00,
-    0x00,
-    0x00,
-    0x0D,
-    0x49,
-    0x48,
-    0x44,
-    0x52,
-    0x00,
-    0x00,
-    0x00,
-    0x01,
-    0x00,
-    0x00,
-    0x00,
-    0x01,
-    0x08,
-    0x06,
-    0x00,
-    0x00,
-    0x00,
-    0x1F,
-    0x15,
-    0xC4,
-    0x89,
-    0x00,
-    0x00,
-    0x00,
-    0x0D,
-    0x49,
-    0x44,
-    0x41,
-    0x54,
-    0x78,
-    0x9C,
-    0x63,
-    0xF8,
-    0xCF,
-    0xC0,
-    0x00,
-    0x00,
-    0x04,
-    0x00,
-    0x01,
-    0xFE,
-    0xA7,
-    0x56,
-    0xF5,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x49,
-    0x45,
-    0x4E,
-    0x44,
-    0xAE,
-    0x42,
-    0x60,
-    0x82,
+    0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
+    0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52,
+    0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+    0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4,
+    0x89, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x44, 0x41,
+    0x54, 0x78, 0x9C, 0x63, 0xF8, 0xCF, 0xC0, 0x00,
+    0x00, 0x04, 0x00, 0x01, 0xFE, 0xA7, 0x56, 0xF5,
+    0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4E, 0x44,
+    0xAE, 0x42, 0x60, 0x82,
   ];
 
   @override
@@ -172,17 +100,14 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
     ui.ImageDescriptor? descriptor;
     ui.Codec? codec;
     try {
-      buffer = await ui.ImmutableBuffer.fromUint8List(
-        Uint8List.fromList(_tinyPngBytes),
-      );
+      buffer = await ui.ImmutableBuffer.fromUint8List(Uint8List.fromList(_tinyPngBytes));
       _recordProbe('ImmutableBuffer.fromUint8List (encoded)', true);
 
       descriptor = await ui.ImageDescriptor.encoded(buffer);
       _recordProbe(
         'ImageDescriptor.encoded creation',
         true,
-        note:
-            'w=${descriptor.width}, h=${descriptor.height}, bpp=${descriptor.bytesPerPixel}',
+        note: 'w=${descriptor.width}, h=${descriptor.height}, bpp=${descriptor.bytesPerPixel}',
       );
 
       codec = await descriptor.instantiateCodec(
@@ -229,8 +154,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
       _recordProbe(
         'ImageDescriptor.raw creation',
         true,
-        note:
-            'w=${descriptor.width}, h=${descriptor.height}, bpp=${descriptor.bytesPerPixel}',
+        note: 'w=${descriptor.width}, h=${descriptor.height}, bpp=${descriptor.bytesPerPixel}',
       );
 
       codec = await descriptor.instantiateCodec(
@@ -271,10 +195,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
     });
 
     _recordProbe('ImageDescriptor concept loaded', true);
-    _recordProbe(
-      'Target sizing available',
-      _targetWidth > 0 && _targetHeight > 0,
-    );
+    _recordProbe('Target sizing available', _targetWidth > 0 && _targetHeight > 0);
 
     if (_useEncodedPath) {
       await _runEncodedProbe();
@@ -290,12 +211,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
     });
   }
 
-  Widget _sectionTitle(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color accent,
-  ) {
+  Widget _sectionTitle(String title, String subtitle, IconData icon, Color accent) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 14, 16, 8),
       padding: const EdgeInsets.all(12),
@@ -319,10 +235,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-                ),
+                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -354,11 +267,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
         children: <Widget>[
           Text(
             'ImageDescriptor',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Text(
@@ -388,10 +297,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
             children: <Widget>[
               Icon(icon, color: color),
               const SizedBox(height: 8),
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.w700, color: color),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
               const SizedBox(height: 4),
               Text(text, style: const TextStyle(fontSize: 12)),
             ],
@@ -404,30 +310,14 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          card(
-            Icons.dataset,
-            '1) Bytes',
-            'Encoded PNG or raw RGBA data in ImmutableBuffer.',
-            const Color(0xFF0EA5E9),
-          ),
-          card(
-            Icons.schema,
-            '2) Descriptor',
-            'ImageDescriptor stores dimensions and pixel info.',
-            const Color(0xFF10B981),
-          ),
-          card(
-            Icons.movie_filter,
-            '3) Codec',
-            'instantiateCodec creates frame stream at target size.',
-            const Color(0xFF8B5CF6),
-          ),
-          card(
-            Icons.image,
-            '4) Frame',
-            'Use frame.image in RawImage/Canvas rendering.',
-            const Color(0xFFF97316),
-          ),
+          card(Icons.dataset, '1) Bytes', 'Encoded PNG or raw RGBA data in ImmutableBuffer.',
+              const Color(0xFF0EA5E9)),
+          card(Icons.schema, '2) Descriptor', 'ImageDescriptor stores dimensions and pixel info.',
+              const Color(0xFF10B981)),
+          card(Icons.movie_filter, '3) Codec', 'instantiateCodec creates frame stream at target size.',
+              const Color(0xFF8B5CF6)),
+          card(Icons.image, '4) Frame', 'Use frame.image in RawImage/Canvas rendering.',
+              const Color(0xFFF97316)),
         ],
       ),
     );
@@ -445,10 +335,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Decode controls',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Decode controls', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Text('Target width: ${_targetWidth.toStringAsFixed(0)}'),
           Slider(
@@ -566,10 +453,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Decoded image output',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Decoded image output', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -585,9 +469,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
             child: Stack(
               children: <Widget>[
                 if (_showGrid)
-                  const Positioned.fill(
-                    child: CustomPaint(painter: _DescriptorGridPainter()),
-                  ),
+                  const Positioned.fill(child: CustomPaint(painter: _DescriptorGridPainter())),
                 Center(
                   child: Transform.scale(
                     scale: 0.95 + (_animValue * 0.08),
@@ -597,10 +479,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
                       decoration: BoxDecoration(
                         color: Colors.white.withAlpha(30),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: Colors.white.withAlpha(120),
-                          width: 1.4,
-                        ),
+                        border: Border.all(color: Colors.white.withAlpha(120), width: 1.4),
                       ),
                       child: _decodedImage == null
                           ? const Center(
@@ -611,10 +490,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
                             )
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: RawImage(
-                                image: _decodedImage,
-                                fit: BoxFit.cover,
-                              ),
+                              child: RawImage(image: _decodedImage, fit: BoxFit.cover),
                             ),
                     ),
                   ),
@@ -647,10 +523,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
             children: <Widget>[
               Icon(icon, color: color),
               const SizedBox(height: 8),
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.w700, color: color),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
               const SizedBox(height: 4),
               Text(details, style: const TextStyle(fontSize: 11.8)),
             ],
@@ -709,16 +582,10 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
                 const SizedBox(height: 8),
                 Text(
                   title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  detail,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
-                ),
+                Text(detail, style: const TextStyle(color: Colors.white, fontSize: 12)),
               ],
             ),
           ),
@@ -785,10 +652,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Runtime probe dashboard',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}   Failed: ${_failed.length}'),
           const SizedBox(height: 8),
@@ -811,9 +675,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
   }
 
   Widget _buildSummary() {
-    final String mode = _useEncodedPath
-        ? 'encoded bytes path'
-        : 'raw pixel path';
+    final String mode = _useEncodedPath ? 'encoded bytes path' : 'raw pixel path';
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 8, 16, 20),
       padding: const EdgeInsets.all(12),

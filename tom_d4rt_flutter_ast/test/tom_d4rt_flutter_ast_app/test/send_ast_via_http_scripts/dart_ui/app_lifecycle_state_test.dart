@@ -98,10 +98,7 @@ class _DemoScaffold extends StatelessWidget {
             const SizedBox(height: 12.0),
             platformMatrix,
             const SizedBox(height: 32.0),
-            _sectionTitle(
-              '4. Decision matrix - what should your app do?',
-              scheme,
-            ),
+            _sectionTitle('4. Decision matrix - what should your app do?', scheme),
             const SizedBox(height: 12.0),
             decisionMatrix,
             const SizedBox(height: 32.0),
@@ -127,7 +124,11 @@ class _DemoScaffold extends StatelessWidget {
       padding: const EdgeInsets.all(24.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primary, scheme.tertiary, scheme.secondary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.tertiary,
+            scheme.secondary,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -281,7 +282,11 @@ class _DemoScaffold extends StatelessWidget {
     return Column(children: cards);
   }
 
-  Widget _buildStateCard(_LifecycleEntry entry, int index, ColorScheme scheme) {
+  Widget _buildStateCard(
+    _LifecycleEntry entry,
+    int index,
+    ColorScheme scheme,
+  ) {
     final String enumName = entry.state.toString().split('.').last;
     print('State card: $enumName (index $index)');
     return Container(
@@ -289,7 +294,10 @@ class _DemoScaffold extends StatelessWidget {
       decoration: BoxDecoration(
         color: entry.bg,
         borderRadius: BorderRadius.circular(16.0),
-        border: Border.all(color: entry.fg.withValues(alpha: 0.25), width: 1.4),
+        border: Border.all(
+          color: entry.fg.withValues(alpha: 0.25),
+          width: 1.4,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -372,8 +380,7 @@ class _DemoScaffold extends StatelessWidget {
               children: <Widget>[
                 _miniStateChip(
                   label: 'visible',
-                  active:
-                      entry.state == AppLifecycleState.resumed ||
+                  active: entry.state == AppLifecycleState.resumed ||
                       entry.state == AppLifecycleState.inactive,
                   fg: entry.fg,
                 ),
@@ -386,8 +393,7 @@ class _DemoScaffold extends StatelessWidget {
                 const SizedBox(width: 8.0),
                 _miniStateChip(
                   label: 'frames',
-                  active:
-                      entry.state != AppLifecycleState.paused &&
+                  active: entry.state != AppLifecycleState.paused &&
                       entry.state != AppLifecycleState.detached,
                   fg: entry.fg,
                 ),
@@ -407,7 +413,9 @@ class _DemoScaffold extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
       decoration: BoxDecoration(
-        color: active ? fg.withValues(alpha: 0.22) : fg.withValues(alpha: 0.06),
+        color: active
+            ? fg.withValues(alpha: 0.22)
+            : fg.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(
           color: fg.withValues(alpha: active ? 0.5 : 0.2),
@@ -516,7 +524,10 @@ class _DemoScaffold extends StatelessWidget {
           const SizedBox(height: 4.0),
           Text(
             'Boxes are states. Arrows are platform-driven transitions.',
-            style: TextStyle(fontSize: 11.0, color: scheme.onSurfaceVariant),
+            style: TextStyle(
+              fontSize: 11.0,
+              color: scheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 16.0),
           ...nodes,
@@ -580,8 +591,16 @@ class _DemoScaffold extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Column(
         children: <Widget>[
-          Container(width: 2.0, height: 12.0, color: scheme.outline),
-          Icon(Icons.arrow_downward, size: 20.0, color: scheme.outline),
+          Container(
+            width: 2.0,
+            height: 12.0,
+            color: scheme.outline,
+          ),
+          Icon(
+            Icons.arrow_downward,
+            size: 20.0,
+            color: scheme.outline,
+          ),
         ],
       ),
     );
@@ -600,7 +619,11 @@ class _DemoScaffold extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Icon(Icons.replay, color: scheme.primary, size: 22.0),
+          Icon(
+            Icons.replay,
+            color: scheme.primary,
+            size: 22.0,
+          ),
           const SizedBox(width: 10.0),
           Expanded(
             child: Text(
@@ -656,7 +679,9 @@ class _DemoScaffold extends StatelessWidget {
       ),
     ];
 
-    final List<Widget> rowWidgets = <Widget>[_platformHeaderRow(scheme)];
+    final List<Widget> rowWidgets = <Widget>[
+      _platformHeaderRow(scheme),
+    ];
     for (final _PlatformRow row in rows) {
       rowWidgets.add(_platformDataRow(row, scheme));
     }
@@ -898,7 +923,11 @@ class _DemoScaffold extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Icon(Icons.arrow_forward, size: 14.0, color: entry.accent),
+              Icon(
+                Icons.arrow_forward,
+                size: 14.0,
+                color: entry.accent,
+              ),
               const SizedBox(width: 6.0),
               Expanded(
                 child: Text(
@@ -1120,44 +1149,38 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
     final List<_GlossaryEntry> entries = <_GlossaryEntry>[
       _GlossaryEntry(
         term: 'WidgetsBindingObserver',
-        body:
-            'Mixin you add to a State class so that '
+        body: 'Mixin you add to a State class so that '
             'didChangeAppLifecycleState is delivered to your code.',
         icon: Icons.extension,
       ),
       _GlossaryEntry(
         term: 'didChangeAppLifecycleState',
-        body:
-            'Callback invoked by the framework whenever the app moves '
+        body: 'Callback invoked by the framework whenever the app moves '
             'between AppLifecycleState values.',
         icon: Icons.swap_horiz,
       ),
       _GlossaryEntry(
         term: 'AppLifecycleListener',
-        body:
-            'Higher level helper class that exposes onResume, onHide, '
+        body: 'Higher level helper class that exposes onResume, onHide, '
             'onPause, onDetach, onInactive callbacks separately - often '
             'easier than implementing didChangeAppLifecycleState.',
         icon: Icons.event_note,
       ),
       _GlossaryEntry(
         term: 'visible',
-        body:
-            'True in resumed and inactive. False in hidden, paused and '
+        body: 'True in resumed and inactive. False in hidden, paused and '
             'detached.',
         icon: Icons.visibility,
       ),
       _GlossaryEntry(
         term: 'focused',
-        body:
-            'True only in resumed. Anything else means input is not '
+        body: 'True only in resumed. Anything else means input is not '
             'reaching your widgets.',
         icon: Icons.center_focus_strong,
       ),
       _GlossaryEntry(
         term: 'rendering frames',
-        body:
-            'The engine schedules frames whenever the app is not paused '
+        body: 'The engine schedules frames whenever the app is not paused '
             'or detached. In hidden state frames may still be requested '
             'but the platform discards them.',
         icon: Icons.movie,
@@ -1174,7 +1197,10 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
       padding: const EdgeInsets.all(18.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primaryContainer, scheme.tertiaryContainer],
+          colors: <Color>[
+            scheme.primaryContainer,
+            scheme.tertiaryContainer,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1226,7 +1252,12 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
       ),
     );
 
-    return Column(children: <Widget>[...tiles, takeaways]);
+    return Column(
+      children: <Widget>[
+        ...tiles,
+        takeaways,
+      ],
+    );
   }
 
   Widget _glossaryTile(_GlossaryEntry e, ColorScheme scheme) {

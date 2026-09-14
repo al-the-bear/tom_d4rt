@@ -185,7 +185,11 @@ Widget _recipeCard({
         SizedBox(height: 12.0),
         Text(
           body,
-          style: TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.5),
+          style: TextStyle(
+            color: _inkSoft,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -263,7 +267,11 @@ Widget _table({
                 padding: EdgeInsets.all(10.0),
                 child: Text(
                   c,
-                  style: TextStyle(color: _ink, fontSize: 12.5, height: 1.4),
+                  style: TextStyle(
+                    color: _ink,
+                    fontSize: 12.5,
+                    height: 1.4,
+                  ),
                 ),
               ),
             )
@@ -324,7 +332,11 @@ Widget _calloutBox({
               SizedBox(height: 6.0),
               Text(
                 body,
-                style: TextStyle(color: _ink, fontSize: 12.5, height: 1.45),
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: 12.5,
+                  height: 1.45,
+                ),
               ),
             ],
           ),
@@ -669,7 +681,9 @@ dynamic build(BuildContext context) {
         label: 'Home',
       ),
       NavigationDestination(
-        icon: Badge(child: Icon(Icons.search)),
+        icon: Badge(
+          child: Icon(Icons.search),
+        ),
         label: 'Search',
       ),
       NavigationDestination(
@@ -778,8 +792,12 @@ dynamic build(BuildContext context) {
         label: Text('Board'),
       ),
       NavigationRailDestination(
-        icon: Badge(child: Icon(Icons.task_outlined)),
-        selectedIcon: Badge(child: Icon(Icons.task)),
+        icon: Badge(
+          child: Icon(Icons.task_outlined),
+        ),
+        selectedIcon: Badge(
+          child: Icon(Icons.task),
+        ),
         label: Text('Tasks'),
       ),
       NavigationRailDestination(
@@ -986,7 +1004,10 @@ dynamic build(BuildContext context) {
                   unread > 0
                       ? '$unread new message${unread == 1 ? '' : 's'}'
                       : 'All caught up',
-                  style: TextStyle(color: _inkMuted, fontSize: 11.5),
+                  style: TextStyle(
+                    color: _inkMuted,
+                    fontSize: 11.5,
+                  ),
                 ),
               ],
             ),
@@ -1043,11 +1064,8 @@ dynamic build(BuildContext context) {
                   count: 23,
                   backgroundColor: _s7Primary,
                   textColor: Colors.white,
-                  child: Icon(
-                    Icons.mark_email_unread_outlined,
-                    color: _s7Primary,
-                    size: 22.0,
-                  ),
+                  child: Icon(Icons.mark_email_unread_outlined,
+                      color: _s7Primary, size: 22.0),
                 ),
               ],
             ),
@@ -1066,12 +1084,8 @@ dynamic build(BuildContext context) {
   // SECTION 12: BADGE + AVATAR & STATUS COMPOSITIONS
   // ============================================================================
 
-  Widget statusAvatar(
-    IconData face,
-    Color tint,
-    Color statusColor, {
-    String? count,
-  }) {
+  Widget statusAvatar(IconData face, Color tint, Color statusColor,
+      {String? count}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
       child: Badge(
@@ -1098,12 +1112,7 @@ dynamic build(BuildContext context) {
       statusAvatar(Icons.person_2, _s2Primary, _s1Primary, count: '3'),
       statusAvatar(Icons.person_3, _s6Primary, _s3Primary, count: '!'),
       statusAvatar(Icons.person_4, _s10Primary, _inkMuted),
-      statusAvatar(
-        Icons.person_outline,
-        _s11Primary,
-        _s12Primary,
-        count: 'NEW',
-      ),
+      statusAvatar(Icons.person_outline, _s11Primary, _s12Primary, count: 'NEW'),
     ],
   );
 
@@ -1156,22 +1165,16 @@ dynamic build(BuildContext context) {
               count: 12,
               backgroundColor: Colors.white,
               textColor: _ink,
-              child: Icon(
-                Icons.notifications_active,
-                color: Colors.white,
-                size: 28.0,
-              ),
+              child: Icon(Icons.notifications_active,
+                  color: Colors.white, size: 28.0),
             ),
             SizedBox(width: 16.0),
             Badge.count(
               count: 99,
               backgroundColor: Colors.white,
               textColor: _ink,
-              child: Icon(
-                Icons.mark_chat_unread,
-                color: Colors.white,
-                size: 28.0,
-              ),
+              child:
+                  Icon(Icons.mark_chat_unread, color: Colors.white, size: 28.0),
             ),
           ],
         ),
@@ -1281,7 +1284,11 @@ dynamic build(BuildContext context) {
           'simple dot or a label such as a number or short string. Badges '
           'are typically used on icons, avatars, and especially navigation '
           'destinations to indicate unread or pending items.',
-          style: TextStyle(color: _inkSoft, fontSize: 13.5, height: 1.55),
+          style: TextStyle(
+            color: _inkSoft,
+            fontSize: 13.5,
+            height: 1.55,
+          ),
         ),
         SizedBox(height: 12.0),
         Row(
@@ -1485,7 +1492,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'smallSize controls the dot diameter; largeSize sets the label chip\'s height.',
-          style: TextStyle(color: _inkSoft, fontSize: 13.0, height: 1.4),
+          style: TextStyle(
+            color: _inkSoft,
+            fontSize: 13.0,
+            height: 1.4,
+          ),
         ),
         SizedBox(height: 10.0),
         Row(
@@ -1769,7 +1780,8 @@ dynamic build(BuildContext context) {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.dashboard, size: 56.0, color: _s9Primary),
+                        Icon(Icons.dashboard,
+                            size: 56.0, color: _s9Primary),
                         SizedBox(height: 10.0),
                         Text(
                           'Compact NavigationRail',
@@ -1782,7 +1794,10 @@ dynamic build(BuildContext context) {
                         SizedBox(height: 4.0),
                         Text(
                           'labelType: NavigationRailLabelType.all',
-                          style: TextStyle(color: _inkMuted, fontSize: 12.0),
+                          style: TextStyle(
+                            color: _inkMuted,
+                            fontSize: 12.0,
+                          ),
                         ),
                       ],
                     ),
@@ -1812,11 +1827,8 @@ dynamic build(BuildContext context) {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.notifications_active,
-                          size: 56.0,
-                          color: _s9Primary,
-                        ),
+                        Icon(Icons.notifications_active,
+                            size: 56.0, color: _s9Primary),
                         SizedBox(height: 10.0),
                         Text(
                           'Extended NavigationRail',
@@ -1829,7 +1841,10 @@ dynamic build(BuildContext context) {
                         SizedBox(height: 4.0),
                         Text(
                           'extended: true with full destination labels',
-                          style: TextStyle(color: _inkMuted, fontSize: 12.0),
+                          style: TextStyle(
+                            color: _inkMuted,
+                            fontSize: 12.0,
+                          ),
                         ),
                       ],
                     ),
@@ -2139,8 +2154,7 @@ dynamic build(BuildContext context) {
             _sectionBanner(
               number: 4,
               title: 'Color & Style Customization',
-              subtitle:
-                  'Branded palettes via backgroundColor/textColor/textStyle.',
+              subtitle: 'Branded palettes via backgroundColor/textColor/textStyle.',
               primary: _s4Primary,
               soft: _s4Soft,
             ),
@@ -2172,8 +2186,7 @@ dynamic build(BuildContext context) {
             _sectionBanner(
               number: 8,
               title: 'NavigationBar Badges',
-              subtitle:
-                  'Material 3 bottom bar with Badge-wrapped destinations.',
+              subtitle: 'Material 3 bottom bar with Badge-wrapped destinations.',
               primary: _s8Primary,
               soft: _s8Soft,
             ),
@@ -2269,7 +2282,11 @@ Widget _conceptCell({
               SizedBox(height: 4.0),
               Text(
                 detail,
-                style: TextStyle(color: _inkSoft, fontSize: 12.0, height: 1.45),
+                style: TextStyle(
+                  color: _inkSoft,
+                  fontSize: 12.0,
+                  height: 1.45,
+                ),
               ),
             ],
           ),
@@ -2300,7 +2317,11 @@ Widget _glossaryRow(String term, String definition) {
         Expanded(
           child: Text(
             definition,
-            style: TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.45),
+            style: TextStyle(
+              color: _inkSoft,
+              fontSize: 12.5,
+              height: 1.45,
+            ),
           ),
         ),
       ],

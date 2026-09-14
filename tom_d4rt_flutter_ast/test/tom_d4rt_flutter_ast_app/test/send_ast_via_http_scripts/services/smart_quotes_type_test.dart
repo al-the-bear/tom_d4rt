@@ -346,7 +346,11 @@ class _DemoSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              const Divider(height: 1, thickness: 1, color: Color(0xFFEDE7F1)),
+              const Divider(
+                height: 1,
+                thickness: 1,
+                color: Color(0xFFEDE7F1),
+              ),
               const SizedBox(height: 16),
               child,
             ],
@@ -466,7 +470,10 @@ class _QuoteDiagram extends StatelessWidget {
               Expanded(
                 child: _DiagramColumn(
                   title: 'Straight ASCII',
-                  glyphs: <String>["'apostrophe'", '"double quote"'],
+                  glyphs: <String>[
+                    "'apostrophe'",
+                    '"double quote"',
+                  ],
                   hint:
                       'Code, JSON, URLs, identifiers. The same glyph for '
                       'open and close.',
@@ -689,7 +696,10 @@ class _LabeledTextField extends StatelessWidget {
 }
 
 class _LiveMirror extends StatelessWidget {
-  const _LiveMirror({required this.enabledText, required this.disabledText});
+  const _LiveMirror({
+    required this.enabledText,
+    required this.disabledText,
+  });
 
   final String enabledText;
   final String disabledText;
@@ -737,7 +747,9 @@ class _LiveMirror extends StatelessWidget {
           code == 0x2019 ||
           code == 0x201C ||
           code == 0x201D) {
-        only.add('U+${code.toRadixString(16).toUpperCase().padLeft(4, '0')}');
+        only.add(
+          'U+${code.toRadixString(16).toUpperCase().padLeft(4, '0')}',
+        );
       }
     }
     if (only.isEmpty) return '<no quote chars>';
@@ -755,7 +767,10 @@ class _MirrorRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(width: 70, child: _Mono(label)),
+        SizedBox(
+          width: 70,
+          child: _Mono(label),
+        ),
         const SizedBox(width: 8),
         Expanded(
           child: SelectableText(
@@ -823,7 +838,10 @@ class _SideBySideCupertinoFieldsState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const _Pill('Cupertino · enabled', color: Color(0xFF1B5E20)),
+                  const _Pill(
+                    'Cupertino · enabled',
+                    color: Color(0xFF1B5E20),
+                  ),
                   const SizedBox(height: 8),
                   CupertinoTextField(
                     controller: _enabled,
@@ -849,7 +867,10 @@ class _SideBySideCupertinoFieldsState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const _Pill('Cupertino · disabled', color: Color(0xFFB71C1C)),
+                  const _Pill(
+                    'Cupertino · disabled',
+                    color: Color(0xFFB71C1C),
+                  ),
                   const SizedBox(height: 8),
                   CupertinoTextField(
                     controller: _disabled,
@@ -873,7 +894,10 @@ class _SideBySideCupertinoFieldsState
           ],
         ),
         const SizedBox(height: 16),
-        _LiveMirror(enabledText: _enabled.text, disabledText: _disabled.text),
+        _LiveMirror(
+          enabledText: _enabled.text,
+          disabledText: _disabled.text,
+        ),
       ],
     );
   }
@@ -897,13 +921,21 @@ class _KeyboardMatrix extends StatelessWidget {
       type: TextInputType.emailAddress,
       hint: 'name@example.com',
     ),
-    _KbRow(label: 'url', type: TextInputType.url, hint: 'https://flutter.dev'),
+    _KbRow(
+      label: 'url',
+      type: TextInputType.url,
+      hint: 'https://flutter.dev',
+    ),
     _KbRow(
       label: 'multiline',
       type: TextInputType.multiline,
       hint: 'Multi-line essay…',
     ),
-    _KbRow(label: 'name', type: TextInputType.name, hint: 'Ada Lovelace'),
+    _KbRow(
+      label: 'name',
+      type: TextInputType.name,
+      hint: 'Ada Lovelace',
+    ),
   ];
 
   @override
@@ -913,8 +945,14 @@ class _KeyboardMatrix extends StatelessWidget {
       runSpacing: 12,
       children: <Widget>[
         for (final _KbRow row in _rows) ...<Widget>[
-          _MatrixCell(row: row, quotes: SmartQuotesType.enabled),
-          _MatrixCell(row: row, quotes: SmartQuotesType.disabled),
+          _MatrixCell(
+            row: row,
+            quotes: SmartQuotesType.enabled,
+          ),
+          _MatrixCell(
+            row: row,
+            quotes: SmartQuotesType.disabled,
+          ),
         ],
       ],
     );
@@ -922,7 +960,11 @@ class _KeyboardMatrix extends StatelessWidget {
 }
 
 class _KbRow {
-  const _KbRow({required this.label, required this.type, required this.hint});
+  const _KbRow({
+    required this.label,
+    required this.type,
+    required this.hint,
+  });
   final String label;
   final TextInputType type;
   final String hint;
@@ -1087,20 +1129,19 @@ class _HighlightBox extends StatelessWidget {
     final List<TextSpan> spans = <TextSpan>[];
     for (final int code in text.runes) {
       final String s = String.fromCharCode(code);
-      final bool curly =
-          code == 0x2018 || code == 0x2019 || code == 0x201C || code == 0x201D;
-      spans.add(
-        TextSpan(
-          text: s,
-          style: TextStyle(
-            color: curly ? const Color(0xFF6750A4) : const Color(0xFF1D1B20),
-            fontWeight: curly ? FontWeight.w800 : FontWeight.w400,
-            backgroundColor: curly
-                ? const Color(0xFFEADDFF)
-                : Colors.transparent,
-          ),
+      final bool curly = code == 0x2018 ||
+          code == 0x2019 ||
+          code == 0x201C ||
+          code == 0x201D;
+      spans.add(TextSpan(
+        text: s,
+        style: TextStyle(
+          color: curly ? const Color(0xFF6750A4) : const Color(0xFF1D1B20),
+          fontWeight: curly ? FontWeight.w800 : FontWeight.w400,
+          backgroundColor:
+              curly ? const Color(0xFFEADDFF) : Colors.transparent,
         ),
-      );
+      ));
     }
     return Container(
       padding: const EdgeInsets.all(12),
@@ -1207,7 +1248,8 @@ class _PlatformBehaviorTable extends StatelessWidget {
                       : Colors.transparent,
                   cells: <Widget>[
                     _Td(
-                      r.name + (r.platform == current ? '  <- you' : ''),
+                      r.name +
+                          (r.platform == current ? '  <- you' : ''),
                       bold: r.platform == current,
                     ),
                     _Td(r.enabled),
@@ -1330,7 +1372,8 @@ class _SmartQuotesGrid extends StatelessWidget {
         rowChildren.add(SizedBox(width: w, child: cells[i]));
       } else {
         final double flex = i < cellFlex.length ? cellFlex[i] : 1.0;
-        rowChildren.add(Expanded(flex: (flex * 10).round(), child: cells[i]));
+        rowChildren
+            .add(Expanded(flex: (flex * 10).round(), child: cells[i]));
       }
     }
     return SizedBox(
@@ -1932,7 +1975,9 @@ class _RecipeCardState extends State<_RecipeCard> {
                       : const Color(0xFFB71C1C),
                 ),
                 _Pill(
-                  widget.enableSuggestions ? 'suggestions' : 'no suggestions',
+                  widget.enableSuggestions
+                      ? 'suggestions'
+                      : 'no suggestions',
                   color: widget.enableSuggestions
                       ? const Color(0xFF1B5E20)
                       : const Color(0xFFB71C1C),
@@ -1975,74 +2020,62 @@ class _ReferenceTable extends StatelessWidget {
         rowHeight: 88,
         headerHeight: 40,
         bodyRows: const <_SmartQuotesGridRow>[
-          _SmartQuotesGridRow(
-            cells: <Widget>[
-              _Td('smartQuotesType'),
-              _Td('SmartQuotesType?'),
-              _Td('platform / kbd inferred'),
-              _Td(
-                'Whether the IME substitutes \u201C\u201D and \u2018\u2019 '
-                'for straight quotes.',
-              ),
-            ],
-          ),
-          _SmartQuotesGridRow(
-            cells: <Widget>[
-              _Td('smartDashesType'),
-              _Td('SmartDashesType?'),
-              _Td('platform / kbd inferred'),
-              _Td(
-                'Whether double-hyphens are replaced by an em-dash. Same '
-                'iOS-keyboard mechanism as smart quotes.',
-              ),
-            ],
-          ),
-          _SmartQuotesGridRow(
-            cells: <Widget>[
-              _Td('autocorrect'),
-              _Td('bool'),
-              _Td('true'),
-              _Td(
-                'Whether the IME offers spelling/grammar autocorrect. '
-                'Independent of smart quotes — they can co-exist.',
-              ),
-            ],
-          ),
-          _SmartQuotesGridRow(
-            cells: <Widget>[
-              _Td('enableSuggestions'),
-              _Td('bool'),
-              _Td('true'),
-              _Td(
-                'Whether the IME shows the suggestion strip. Disabling does '
-                'not by itself disable autocorrect or smart quotes.',
-              ),
-            ],
-          ),
-          _SmartQuotesGridRow(
-            cells: <Widget>[
-              _Td('obscureText'),
-              _Td('bool'),
-              _Td('false'),
-              _Td(
-                'When true, all of autocorrect, suggestions, smart quotes, '
-                'and smart dashes are forcibly disabled regardless of the '
-                'explicit values.',
-              ),
-            ],
-          ),
-          _SmartQuotesGridRow(
-            cells: <Widget>[
-              _Td('keyboardType'),
-              _Td('TextInputType'),
-              _Td('text'),
-              _Td(
-                'Influences the inferred default for smartQuotesType and '
-                'smartDashesType (e.g. url and emailAddress default to '
-                'disabled).',
-              ),
-            ],
-          ),
+          _SmartQuotesGridRow(cells: <Widget>[
+            _Td('smartQuotesType'),
+            _Td('SmartQuotesType?'),
+            _Td('platform / kbd inferred'),
+            _Td(
+              'Whether the IME substitutes \u201C\u201D and \u2018\u2019 '
+              'for straight quotes.',
+            ),
+          ]),
+          _SmartQuotesGridRow(cells: <Widget>[
+            _Td('smartDashesType'),
+            _Td('SmartDashesType?'),
+            _Td('platform / kbd inferred'),
+            _Td(
+              'Whether double-hyphens are replaced by an em-dash. Same '
+              'iOS-keyboard mechanism as smart quotes.',
+            ),
+          ]),
+          _SmartQuotesGridRow(cells: <Widget>[
+            _Td('autocorrect'),
+            _Td('bool'),
+            _Td('true'),
+            _Td(
+              'Whether the IME offers spelling/grammar autocorrect. '
+              'Independent of smart quotes — they can co-exist.',
+            ),
+          ]),
+          _SmartQuotesGridRow(cells: <Widget>[
+            _Td('enableSuggestions'),
+            _Td('bool'),
+            _Td('true'),
+            _Td(
+              'Whether the IME shows the suggestion strip. Disabling does '
+              'not by itself disable autocorrect or smart quotes.',
+            ),
+          ]),
+          _SmartQuotesGridRow(cells: <Widget>[
+            _Td('obscureText'),
+            _Td('bool'),
+            _Td('false'),
+            _Td(
+              'When true, all of autocorrect, suggestions, smart quotes, '
+              'and smart dashes are forcibly disabled regardless of the '
+              'explicit values.',
+            ),
+          ]),
+          _SmartQuotesGridRow(cells: <Widget>[
+            _Td('keyboardType'),
+            _Td('TextInputType'),
+            _Td('text'),
+            _Td(
+              'Influences the inferred default for smartQuotesType and '
+              'smartDashesType (e.g. url and emailAddress default to '
+              'disabled).',
+            ),
+          ]),
         ],
       ),
     );

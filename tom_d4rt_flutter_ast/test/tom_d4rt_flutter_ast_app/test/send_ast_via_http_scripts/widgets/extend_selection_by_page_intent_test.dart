@@ -127,39 +127,19 @@ dynamic build(BuildContext context) {
           width: isTarget ? 2.0 : 1.0,
         ),
         boxShadow: isTarget
-            ? [
-                BoxShadow(
-                  color: _pgPrimary.withValues(alpha: 0.15),
-                  blurRadius: 6.0,
-                  offset: const Offset(0.0, 3.0),
-                ),
-              ]
+            ? [BoxShadow(color: _pgPrimary.withValues(alpha: 0.15), blurRadius: 6.0, offset: const Offset(0.0, 3.0))]
             : [],
       ),
       child: Row(
         children: [
-          Icon(
-            isTarget ? Icons.star : Icons.circle_outlined,
-            color: isTarget ? _pgAccent : _pgMuted,
-            size: 18.0,
-          ),
+          Icon(isTarget ? Icons.star : Icons.circle_outlined, color: isTarget ? _pgAccent : _pgMuted, size: 18.0),
           const SizedBox(width: 10.0),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  c['name']!,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: isTarget ? FontWeight.w700 : FontWeight.w500,
-                    color: isTarget ? _pgPrimary : _pgDark,
-                  ),
-                ),
-                Text(
-                  c['note']!,
-                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
-                ),
+                Text(c['name']!, style: TextStyle(fontSize: 14.0, fontWeight: isTarget ? FontWeight.w700 : FontWeight.w500, color: isTarget ? _pgPrimary : _pgDark)),
+                Text(c['note']!, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600)),
               ],
             ),
           ),
@@ -182,42 +162,23 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Constructor',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: _pgDark,
-          ),
-        ),
+        Text('Constructor', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _pgDark)),
         const SizedBox(height: 6.0),
         Container(
           padding: const EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
-            color: _pgDark.withValues(alpha: 0.04),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
+          decoration: BoxDecoration(color: _pgDark.withValues(alpha: 0.04), borderRadius: BorderRadius.circular(8.0)),
           child: Text(
             'const ExtendSelectionByPageIntent({\n'
             '  required bool forward,\n'
             '}) : super(forward);',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12.0,
-              color: _pgDark,
-              height: 1.5,
-            ),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: _pgDark, height: 1.5),
           ),
         ),
         const SizedBox(height: 8.0),
         Text(
           'forward: true  → page down (Shift+PageDown)\n'
           'forward: false → page up   (Shift+PageUp)',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey.shade700,
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.45),
         ),
       ],
     ),
@@ -238,14 +199,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'What is a "page"?',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w700,
-            color: _pgDark,
-          ),
-        ),
+        Text('What is a "page"?', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700, color: _pgDark)),
         const SizedBox(height: 10.0),
         Text(
           'A "page" in Flutter\'s text editing is the visible viewport '
@@ -260,11 +214,7 @@ dynamic build(BuildContext context) {
           'spacing, and the physical size of the widget.  For example, '
           'a 600 px tall field with 20 px line height ≈ 30 lines '
           'per page.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.grey.shade700,
-            height: 1.55,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.55),
         ),
         const SizedBox(height: 14.0),
         // Visual diagram
@@ -282,42 +232,22 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Viewport',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: _pgPrimary,
-                      ),
-                    ),
+                    Text('Viewport', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: _pgPrimary)),
                     const SizedBox(height: 4.0),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
                           color: _pgHighlight.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4.0),
-                          border: Border.all(
-                            color: _pgAccent.withValues(alpha: 0.3),
-                            width: 2.0,
-                          ),
+                          border: Border.all(color: _pgAccent.withValues(alpha: 0.3), width: 2.0),
                         ),
                         child: Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.visibility,
-                                color: _pgAccent,
-                                size: 28.0,
-                              ),
+                              Icon(Icons.visibility, color: _pgAccent, size: 28.0),
                               const SizedBox(height: 4.0),
-                              Text(
-                                '~30 lines visible',
-                                style: TextStyle(
-                                  fontSize: 11.0,
-                                  color: _pgAccent,
-                                ),
-                              ),
+                              Text('~30 lines visible', style: TextStyle(fontSize: 11.0, color: _pgAccent)),
                             ],
                           ),
                         ),
@@ -340,14 +270,7 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Full document',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: _pgPrimary,
-                      ),
-                    ),
+                    Text('Full document', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: _pgPrimary)),
                     const SizedBox(height: 4.0),
                     Expanded(
                       child: Stack(
@@ -358,41 +281,18 @@ dynamic build(BuildContext context) {
                                 color: _pgMuted.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              child: Center(
-                                child: Text(
-                                  '200 lines total',
-                                  style: TextStyle(
-                                    fontSize: 11.0,
-                                    color: _pgMuted,
-                                  ),
-                                ),
-                              ),
+                              child: Center(child: Text('200 lines total', style: TextStyle(fontSize: 11.0, color: _pgMuted))),
                             ),
                           ),
                           Positioned(
-                            top: 20.0,
-                            left: 0.0,
-                            right: 0.0,
-                            height: 40.0,
+                            top: 20.0, left: 0.0, right: 0.0, height: 40.0,
                             child: Container(
                               decoration: BoxDecoration(
                                 color: _pgHighlight.withValues(alpha: 0.25),
                                 borderRadius: BorderRadius.circular(3.0),
-                                border: Border.all(
-                                  color: _pgAccent,
-                                  width: 1.5,
-                                ),
+                                border: Border.all(color: _pgAccent, width: 1.5),
                               ),
-                              child: Center(
-                                child: Text(
-                                  '1 page',
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: _pgAccent,
-                                  ),
-                                ),
-                              ),
+                              child: Center(child: Text('1 page', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, color: _pgAccent))),
                             ),
                           ),
                         ],
@@ -432,32 +332,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w700,
-              color: _pgDark,
-            ),
-          ),
+          Text(title, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _pgDark)),
           const SizedBox(height: 4.0),
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.grey.shade600,
-              height: 1.4,
-            ),
-          ),
+          Text(description, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.4)),
           const SizedBox(height: 10.0),
           for (int ln = startLine; ln <= endLine; ln++)
             Container(
               width: double.infinity,
               margin: const EdgeInsets.only(bottom: 1.0),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 3.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
               decoration: BoxDecoration(
                 color: ln >= selStartLine && ln <= selEndLine
                     ? _pgHighlight.withValues(alpha: 0.2)
@@ -468,14 +351,7 @@ dynamic build(BuildContext context) {
                 children: [
                   SizedBox(
                     width: 28.0,
-                    child: Text(
-                      '$ln',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Colors.grey.shade400,
-                      ),
-                    ),
+                    child: Text('$ln', style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade400)),
                   ),
                   Expanded(
                     child: Container(
@@ -494,33 +370,13 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Row(
             children: [
-              Container(
-                width: 12.0,
-                height: 12.0,
-                decoration: BoxDecoration(
-                  color: _pgHighlight.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2.0),
-                ),
-              ),
+              Container(width: 12.0, height: 12.0, decoration: BoxDecoration(color: _pgHighlight.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(2.0))),
               const SizedBox(width: 6.0),
-              Text(
-                'Selected',
-                style: TextStyle(fontSize: 11.0, color: _pgMuted),
-              ),
+              Text('Selected', style: TextStyle(fontSize: 11.0, color: _pgMuted)),
               const SizedBox(width: 16.0),
-              Container(
-                width: 12.0,
-                height: 12.0,
-                decoration: BoxDecoration(
-                  color: _pgMuted.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(2.0),
-                ),
-              ),
+              Container(width: 12.0, height: 12.0, decoration: BoxDecoration(color: _pgMuted.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(2.0))),
               const SizedBox(width: 6.0),
-              Text(
-                'Unselected',
-                style: TextStyle(fontSize: 11.0, color: _pgMuted),
-              ),
+              Text('Unselected', style: TextStyle(fontSize: 11.0, color: _pgMuted)),
             ],
           ),
         ],
@@ -542,26 +398,15 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.keyboard_arrow_down, color: _pgAccent, size: 26.0),
             const SizedBox(width: 8.0),
-            Text(
-              'forward: true — Shift+PageDown',
-              style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.w700,
-                color: _pgDark,
-              ),
-            ),
+            Text('forward: true — Shift+PageDown', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _pgDark)),
           ],
         ),
         const SizedBox(height: 10.0),
         pgSelectionPreview(
           title: 'BEFORE: caret at line 25',
-          description:
-              'The caret sits at line 25 in a 200-line document with ~30 lines per page.',
-          startLine: 20,
-          endLine: 35,
-          totalLines: 200,
-          selStartLine: -1,
-          selEndLine: -1,
+          description: 'The caret sits at line 25 in a 200-line document with ~30 lines per page.',
+          startLine: 20, endLine: 35, totalLines: 200,
+          selStartLine: -1, selEndLine: -1,
         ),
         const SizedBox(height: 8.0),
         Center(
@@ -570,27 +415,16 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.arrow_downward, color: _pgAccent, size: 22.0),
               const SizedBox(width: 6.0),
-              Text(
-                'Shift+PageDown',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w600,
-                  color: _pgAccent,
-                ),
-              ),
+              Text('Shift+PageDown', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _pgAccent)),
             ],
           ),
         ),
         const SizedBox(height: 8.0),
         pgSelectionPreview(
           title: 'AFTER: selection from 25 to 55',
-          description:
-              'Extent moved ~30 lines forward.  Base stays at line 25.',
-          startLine: 20,
-          endLine: 60,
-          totalLines: 200,
-          selStartLine: 25,
-          selEndLine: 55,
+          description: 'Extent moved ~30 lines forward.  Base stays at line 25.',
+          startLine: 20, endLine: 60, totalLines: 200,
+          selStartLine: 25, selEndLine: 55,
         ),
       ],
     ),
@@ -615,26 +449,15 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.keyboard_arrow_up, color: _pgMuted, size: 26.0),
             const SizedBox(width: 8.0),
-            Text(
-              'forward: false — Shift+PageUp',
-              style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.w700,
-                color: _pgDark,
-              ),
-            ),
+            Text('forward: false — Shift+PageUp', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _pgDark)),
           ],
         ),
         const SizedBox(height: 10.0),
         pgSelectionPreview(
           title: 'BEFORE: caret at line 80',
-          description:
-              'The caret sits at line 80 in the same 200-line document.',
-          startLine: 75,
-          endLine: 90,
-          totalLines: 200,
-          selStartLine: -1,
-          selEndLine: -1,
+          description: 'The caret sits at line 80 in the same 200-line document.',
+          startLine: 75, endLine: 90, totalLines: 200,
+          selStartLine: -1, selEndLine: -1,
         ),
         const SizedBox(height: 8.0),
         Center(
@@ -643,27 +466,16 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.arrow_upward, color: _pgMuted, size: 22.0),
               const SizedBox(width: 6.0),
-              Text(
-                'Shift+PageUp',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w600,
-                  color: _pgMuted,
-                ),
-              ),
+              Text('Shift+PageUp', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _pgMuted)),
             ],
           ),
         ),
         const SizedBox(height: 8.0),
         pgSelectionPreview(
           title: 'AFTER: selection from 50 to 80',
-          description:
-              'Extent moved ~30 lines backward to line 50.  Base stays at 80.',
-          startLine: 45,
-          endLine: 85,
-          totalLines: 200,
-          selStartLine: 50,
-          selEndLine: 80,
+          description: 'Extent moved ~30 lines backward to line 50.  Base stays at 80.',
+          startLine: 45, endLine: 85, totalLines: 200,
+          selStartLine: 50, selEndLine: 80,
         ),
       ],
     ),
@@ -675,30 +487,10 @@ dynamic build(BuildContext context) {
   print('=== Section 6: Keyboard shortcuts ===');
 
   final kbRows = <Map<String, String>>[
-    {
-      'platform': 'macOS',
-      'down': '\u21E7+Fn+\u2193',
-      'up': '\u21E7+Fn+\u2191',
-      'note': 'Fn remaps arrows to Page keys',
-    },
-    {
-      'platform': 'Windows',
-      'down': 'Shift+PageDown',
-      'up': 'Shift+PageUp',
-      'note': 'Standard',
-    },
-    {
-      'platform': 'Linux',
-      'down': 'Shift+PageDown',
-      'up': 'Shift+PageUp',
-      'note': 'Same',
-    },
-    {
-      'platform': 'Web',
-      'down': 'Shift+PageDown',
-      'up': 'Shift+PageUp',
-      'note': 'Follows host OS',
-    },
+    {'platform': 'macOS', 'down': '\u21E7+Fn+\u2193', 'up': '\u21E7+Fn+\u2191', 'note': 'Fn remaps arrows to Page keys'},
+    {'platform': 'Windows', 'down': 'Shift+PageDown', 'up': 'Shift+PageUp', 'note': 'Standard'},
+    {'platform': 'Linux', 'down': 'Shift+PageDown', 'up': 'Shift+PageUp', 'note': 'Same'},
+    {'platform': 'Web', 'down': 'Shift+PageDown', 'up': 'Shift+PageUp', 'note': 'Follows host OS'},
   ];
 
   Widget pgKbRow(Map<String, String> r, int idx) {
@@ -710,44 +502,10 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: [
-          SizedBox(
-            width: 70.0,
-            child: Text(
-              r['platform']!,
-              style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w600,
-                color: _pgDark,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              r['down']!,
-              style: TextStyle(
-                fontSize: 12.0,
-                fontFamily: 'monospace',
-                color: _pgAccent,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              r['up']!,
-              style: TextStyle(
-                fontSize: 12.0,
-                fontFamily: 'monospace',
-                color: _pgMuted,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 80.0,
-            child: Text(
-              r['note']!,
-              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
-            ),
-          ),
+          SizedBox(width: 70.0, child: Text(r['platform']!, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _pgDark))),
+          Expanded(child: Text(r['down']!, style: TextStyle(fontSize: 12.0, fontFamily: 'monospace', color: _pgAccent))),
+          Expanded(child: Text(r['up']!, style: TextStyle(fontSize: 12.0, fontFamily: 'monospace', color: _pgMuted))),
+          SizedBox(width: 80.0, child: Text(r['note']!, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500))),
         ],
       ),
     );
@@ -763,74 +521,22 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Platform shortcuts',
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w700,
-            color: _pgDark,
-          ),
-        ),
+        Text('Platform shortcuts', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _pgDark)),
         const SizedBox(height: 8.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-          decoration: BoxDecoration(
-            color: _pgPrimary.withValues(alpha: 0.06),
-            borderRadius: BorderRadius.circular(6.0),
-          ),
+          decoration: BoxDecoration(color: _pgPrimary.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(6.0)),
           child: Row(
             children: [
-              SizedBox(
-                width: 70.0,
-                child: Text(
-                  'Platform',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'Page Down',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'Page Up',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 80.0,
-                child: Text(
-                  'Note',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
-              ),
+              SizedBox(width: 70.0, child: Text('Platform', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _pgDark))),
+              Expanded(child: Text('Page Down', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _pgDark))),
+              Expanded(child: Text('Page Up', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _pgDark))),
+              SizedBox(width: 80.0, child: Text('Note', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _pgDark))),
             ],
           ),
         ),
         const SizedBox(height: 4.0),
-        for (int i = 0; i < kbRows.length; i++)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 2.0),
-            child: pgKbRow(kbRows[i], i),
-          ),
+        for (int i = 0; i < kbRows.length; i++) Padding(padding: const EdgeInsets.only(bottom: 2.0), child: pgKbRow(kbRows[i], i)),
       ],
     ),
   );
@@ -841,37 +547,12 @@ dynamic build(BuildContext context) {
   print('=== Section 7: Dispatch flow ===');
 
   final steps = <Map<String, String>>[
-    {
-      'step': '1',
-      'title': 'Key event arrives',
-      'detail': 'Shift+PageDown maps to the intent via Shortcuts widget.',
-    },
-    {
-      'step': '2',
-      'title': 'Viewport height measured',
-      'detail':
-          'The action reads RenderEditable.size.height for the page size.',
-    },
-    {
-      'step': '3',
-      'title': 'Line count estimated',
-      'detail': 'Height divided by preferredLineHeight gives lines per page.',
-    },
-    {
-      'step': '4',
-      'title': 'Target offset computed',
-      'detail': 'Current extent line ± lines-per-page determines the new line.',
-    },
-    {
-      'step': '5',
-      'title': 'Selection updated',
-      'detail': 'controller.selection.copyWith(extentOffset: newOffset).',
-    },
-    {
-      'step': '6',
-      'title': 'Scroll adjusted',
-      'detail': 'The scrollable ensures the new extent is visible.',
-    },
+    {'step': '1', 'title': 'Key event arrives', 'detail': 'Shift+PageDown maps to the intent via Shortcuts widget.'},
+    {'step': '2', 'title': 'Viewport height measured', 'detail': 'The action reads RenderEditable.size.height for the page size.'},
+    {'step': '3', 'title': 'Line count estimated', 'detail': 'Height divided by preferredLineHeight gives lines per page.'},
+    {'step': '4', 'title': 'Target offset computed', 'detail': 'Current extent line ± lines-per-page determines the new line.'},
+    {'step': '5', 'title': 'Selection updated', 'detail': 'controller.selection.copyWith(extentOffset: newOffset).'},
+    {'step': '6', 'title': 'Scroll adjusted', 'detail': 'The scrollable ensures the new extent is visible.'},
   ];
 
   Widget pgStepRow(Map<String, String> s, bool isLast) {
@@ -881,29 +562,11 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             Container(
-              width: 30.0,
-              height: 30.0,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: _pgPrimary,
-              ),
-              child: Center(
-                child: Text(
-                  s['step']!,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13.0,
-                  ),
-                ),
-              ),
+              width: 30.0, height: 30.0,
+              decoration: const BoxDecoration(shape: BoxShape.circle, color: _pgPrimary),
+              child: Center(child: Text(s['step']!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13.0))),
             ),
-            if (!isLast)
-              Container(
-                width: 2.0,
-                height: 30.0,
-                color: _pgMuted.withValues(alpha: 0.3),
-              ),
+            if (!isLast) Container(width: 2.0, height: 30.0, color: _pgMuted.withValues(alpha: 0.3)),
           ],
         ),
         const SizedBox(width: 12.0),
@@ -911,30 +574,13 @@ dynamic build(BuildContext context) {
           child: Container(
             margin: const EdgeInsets.only(bottom: 4.0),
             padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: _pgLight.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+            decoration: BoxDecoration(color: _pgLight.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(8.0)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  s['title']!,
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
+                Text(s['title']!, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _pgDark)),
                 const SizedBox(height: 2.0),
-                Text(
-                  s['detail']!,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey.shade700,
-                    height: 1.4,
-                  ),
-                ),
+                Text(s['detail']!, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4)),
               ],
             ),
           ),
@@ -945,25 +591,13 @@ dynamic build(BuildContext context) {
 
   final dispatchSection = Container(
     padding: const EdgeInsets.all(16.0),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: _pgPrimary.withValues(alpha: 0.15)),
-    ),
+    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12.0), border: Border.all(color: _pgPrimary.withValues(alpha: 0.15))),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Dispatch flow',
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w700,
-            color: _pgDark,
-          ),
-        ),
+        Text('Dispatch flow', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _pgDark)),
         const SizedBox(height: 10.0),
-        for (int i = 0; i < steps.length; i++)
-          pgStepRow(steps[i], i == steps.length - 1),
+        for (int i = 0; i < steps.length; i++) pgStepRow(steps[i], i == steps.length - 1),
       ],
     ),
   );
@@ -974,31 +608,11 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Granularity comparison ===');
 
   final compRows = <Map<String, String>>[
-    {
-      'intent': 'ExtendSelectionByCharacterIntent',
-      'distance': '1 grapheme',
-      'speed': 'Slow (fine-grained)',
-    },
-    {
-      'intent': 'ExtendSelectionToNextWordBoundaryIntent',
-      'distance': '1 word',
-      'speed': 'Medium',
-    },
-    {
-      'intent': 'ExpandSelectionToLineBreakIntent',
-      'distance': 'To line end/start',
-      'speed': 'Medium-fast',
-    },
-    {
-      'intent': 'ExtendSelectionByPageIntent',
-      'distance': '~1 viewport',
-      'speed': 'Fast',
-    },
-    {
-      'intent': 'ExpandSelectionToDocumentBoundaryIntent',
-      'distance': 'To doc end/start',
-      'speed': 'Maximum',
-    },
+    {'intent': 'ExtendSelectionByCharacterIntent', 'distance': '1 grapheme', 'speed': 'Slow (fine-grained)'},
+    {'intent': 'ExtendSelectionToNextWordBoundaryIntent', 'distance': '1 word', 'speed': 'Medium'},
+    {'intent': 'ExpandSelectionToLineBreakIntent', 'distance': 'To line end/start', 'speed': 'Medium-fast'},
+    {'intent': 'ExtendSelectionByPageIntent', 'distance': '~1 viewport', 'speed': 'Fast'},
+    {'intent': 'ExpandSelectionToDocumentBoundaryIntent', 'distance': 'To doc end/start', 'speed': 'Maximum'},
   ];
 
   Widget pgCompRow(Map<String, String> c, int idx) {
@@ -1008,41 +622,15 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: isSelf
             ? _pgHighlight.withValues(alpha: 0.15)
-            : idx.isEven
-            ? _pgLight.withValues(alpha: 0.4)
-            : Colors.white,
+            : idx.isEven ? _pgLight.withValues(alpha: 0.4) : Colors.white,
         borderRadius: BorderRadius.circular(6.0),
-        border: isSelf
-            ? Border.all(color: _pgAccent.withValues(alpha: 0.4))
-            : null,
+        border: isSelf ? Border.all(color: _pgAccent.withValues(alpha: 0.4)) : null,
       ),
       child: Row(
         children: [
-          Expanded(
-            flex: 3,
-            child: Text(
-              c['intent']!,
-              style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: isSelf ? FontWeight.w700 : FontWeight.w500,
-                color: _pgDark,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              c['distance']!,
-              style: TextStyle(fontSize: 11.0, color: _pgAccent),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              c['speed']!,
-              style: TextStyle(fontSize: 11.0, color: _pgMuted),
-            ),
-          ),
+          Expanded(flex: 3, child: Text(c['intent']!, style: TextStyle(fontSize: 11.0, fontWeight: isSelf ? FontWeight.w700 : FontWeight.w500, color: _pgDark))),
+          Expanded(flex: 2, child: Text(c['distance']!, style: TextStyle(fontSize: 11.0, color: _pgAccent))),
+          Expanded(flex: 2, child: Text(c['speed']!, style: TextStyle(fontSize: 11.0, color: _pgMuted))),
         ],
       ),
     );
@@ -1050,73 +638,25 @@ dynamic build(BuildContext context) {
 
   final compSection = Container(
     padding: const EdgeInsets.all(16.0),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: _pgPrimary.withValues(alpha: 0.15)),
-    ),
+    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12.0), border: Border.all(color: _pgPrimary.withValues(alpha: 0.15))),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Selection granularity spectrum',
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w700,
-            color: _pgDark,
-          ),
-        ),
+        Text('Selection granularity spectrum', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _pgDark)),
         const SizedBox(height: 8.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-          decoration: BoxDecoration(
-            color: _pgPrimary.withValues(alpha: 0.06),
-            borderRadius: BorderRadius.circular(6.0),
-          ),
+          decoration: BoxDecoration(color: _pgPrimary.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(6.0)),
           child: Row(
             children: [
-              Expanded(
-                flex: 3,
-                child: Text(
-                  'Intent',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Distance',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Speed',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
-              ),
+              Expanded(flex: 3, child: Text('Intent', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _pgDark))),
+              Expanded(flex: 2, child: Text('Distance', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _pgDark))),
+              Expanded(flex: 2, child: Text('Speed', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _pgDark))),
             ],
           ),
         ),
         const SizedBox(height: 4.0),
-        for (int i = 0; i < compRows.length; i++)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 2.0),
-            child: pgCompRow(compRows[i], i),
-          ),
+        for (int i = 0; i < compRows.length; i++) Padding(padding: const EdgeInsets.only(bottom: 2.0), child: pgCompRow(compRows[i], i)),
       ],
     ),
   );
@@ -1131,8 +671,7 @@ dynamic build(BuildContext context) {
       'title': 'Half-page selection',
       'icon': Icons.content_cut,
       'desc': 'Override to extend by half a viewport instead of a full page.',
-      'code':
-          'CallbackAction<ExtendSelectionByPageIntent>(\n'
+      'code': 'CallbackAction<ExtendSelectionByPageIntent>(\n'
           '  onInvoke: (intent) {\n'
           '    final linesPerPage = viewportHeight ~/ lineHeight;\n'
           '    final half = linesPerPage ~/ 2;\n'
@@ -1148,10 +687,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Paragraph-aware page',
       'icon': Icons.format_indent_increase,
-      'desc':
-          'Instead of an exact viewport page, snap to the nearest paragraph boundary.',
-      'code':
-          'CallbackAction<ExtendSelectionByPageIntent>(\n'
+      'desc': 'Instead of an exact viewport page, snap to the nearest paragraph boundary.',
+      'code': 'CallbackAction<ExtendSelectionByPageIntent>(\n'
           '  onInvoke: (intent) {\n'
           '    final boundary = findParagraphBoundary(\n'
           '      controller.text,\n'
@@ -1169,8 +706,7 @@ dynamic build(BuildContext context) {
       'title': 'Selection counter',
       'icon': Icons.analytics,
       'desc': 'Count how many page-selection events occur for analytics.',
-      'code':
-          'CallbackAction<ExtendSelectionByPageIntent>(\n'
+      'code': 'CallbackAction<ExtendSelectionByPageIntent>(\n'
           '  onInvoke: (intent) {\n'
           '    analytics.track(\'page_select\',\n'
           '      direction: intent.forward ? \'down\' : \'up\');\n'
@@ -1196,44 +732,17 @@ dynamic build(BuildContext context) {
             children: [
               Icon(p['icon'] as IconData, color: _pgPrimary, size: 22.0),
               const SizedBox(width: 10.0),
-              Expanded(
-                child: Text(
-                  p['title'] as String,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: _pgDark,
-                  ),
-                ),
-              ),
+              Expanded(child: Text(p['title'] as String, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _pgDark))),
             ],
           ),
           const SizedBox(height: 6.0),
-          Text(
-            p['desc'] as String,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.grey.shade700,
-              height: 1.4,
-            ),
-          ),
+          Text(p['desc'] as String, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
           const SizedBox(height: 10.0),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: _pgDark.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Text(
-              p['code'] as String,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11.0,
-                color: _pgDark,
-                height: 1.4,
-              ),
-            ),
+            decoration: BoxDecoration(color: _pgDark.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(8.0)),
+            child: Text(p['code'] as String, style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: _pgDark, height: 1.4)),
           ),
         ],
       ),
@@ -1250,31 +759,12 @@ dynamic build(BuildContext context) {
   print('=== Section 10: Edge cases ===');
 
   final edgeCases = <Map<String, String>>[
-    {
-      'case': 'Fewer than one page left',
-      'result': 'Extent moves to document end (or start) without overshooting.',
-    },
-    {
-      'case': 'Single-line TextField',
-      'result': 'Page size ≈ 1 line; behaves like "to end" or "to start".',
-    },
-    {
-      'case': 'Non-scrollable field',
-      'result':
-          'Viewport height equals content height; selects all remaining text.',
-    },
-    {
-      'case': 'Very large font size',
-      'result': 'Page covers fewer lines; selection granularity feels coarser.',
-    },
-    {
-      'case': 'Rapidly changing viewport',
-      'result': 'Each dispatch re-measures; page jumps track the latest size.',
-    },
-    {
-      'case': 'Empty document',
-      'result': 'No movement.  Selection remains collapsed at offset 0.',
-    },
+    {'case': 'Fewer than one page left', 'result': 'Extent moves to document end (or start) without overshooting.'},
+    {'case': 'Single-line TextField', 'result': 'Page size ≈ 1 line; behaves like "to end" or "to start".'},
+    {'case': 'Non-scrollable field', 'result': 'Viewport height equals content height; selects all remaining text.'},
+    {'case': 'Very large font size', 'result': 'Page covers fewer lines; selection granularity feels coarser.'},
+    {'case': 'Rapidly changing viewport', 'result': 'Each dispatch re-measures; page jumps track the latest size.'},
+    {'case': 'Empty document', 'result': 'No movement.  Selection remains collapsed at offset 0.'},
   ];
 
   Widget pgEdgeRow(Map<String, String> e) {
@@ -1295,23 +785,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  e['case']!,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w600,
-                    color: _pgDark,
-                  ),
-                ),
+                Text(e['case']!, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: _pgDark)),
                 const SizedBox(height: 2.0),
-                Text(
-                  e['result']!,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey.shade600,
-                    height: 1.35,
-                  ),
-                ),
+                Text(e['result']!, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.35)),
               ],
             ),
           ),
@@ -1333,10 +809,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _pgAccent.withValues(alpha: 0.07),
-          _pgLight.withValues(alpha: 0.4),
-        ],
+        colors: [_pgAccent.withValues(alpha: 0.07), _pgLight.withValues(alpha: 0.4)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1350,14 +823,7 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.swap_vert, color: _pgPrimary, size: 22.0),
             const SizedBox(width: 10.0),
-            Text(
-              'Scroll behavior',
-              style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.w700,
-                color: _pgDark,
-              ),
-            ),
+            Text('Scroll behavior', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _pgDark)),
           ],
         ),
         const SizedBox(height: 10.0),
@@ -1373,25 +839,8 @@ dynamic build(BuildContext context) {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 6.0,
-                  height: 6.0,
-                  margin: const EdgeInsets.only(top: 6.0, right: 10.0),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _pgAccent,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    fact,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: _pgDark,
-                      height: 1.45,
-                    ),
-                  ),
-                ),
+                Container(width: 6.0, height: 6.0, margin: const EdgeInsets.only(top: 6.0, right: 10.0), decoration: const BoxDecoration(shape: BoxShape.circle, color: _pgAccent)),
+                Expanded(child: Text(fact, style: TextStyle(fontSize: 12.0, color: _pgDark, height: 1.45))),
               ],
             ),
           ),
@@ -1420,10 +869,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _pgPrimary.withValues(alpha: 0.08),
-          _pgLight.withValues(alpha: 0.5),
-        ],
+        colors: [_pgPrimary.withValues(alpha: 0.08), _pgLight.withValues(alpha: 0.5)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1437,14 +883,7 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.summarize, color: _pgPrimary, size: 24.0),
             const SizedBox(width: 10.0),
-            Text(
-              'Summary',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: _pgDark,
-              ),
-            ),
+            Text('Summary', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: _pgDark)),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -1454,25 +893,8 @@ dynamic build(BuildContext context) {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 6.0,
-                  height: 6.0,
-                  margin: const EdgeInsets.only(top: 6.0, right: 10.0),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _pgAccent,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    b,
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: _pgDark,
-                      height: 1.45,
-                    ),
-                  ),
-                ),
+                Container(width: 6.0, height: 6.0, margin: const EdgeInsets.only(top: 6.0, right: 10.0), decoration: const BoxDecoration(shape: BoxShape.circle, color: _pgAccent)),
+                Expanded(child: Text(b, style: TextStyle(fontSize: 13.0, color: _pgDark, height: 1.45))),
               ],
             ),
           ),
@@ -1540,20 +962,10 @@ Widget pgSectionHeader(String title) {
         Container(
           width: 4.0,
           height: 22.0,
-          decoration: BoxDecoration(
-            color: _pgAccent,
-            borderRadius: BorderRadius.circular(2.0),
-          ),
+          decoration: BoxDecoration(color: _pgAccent, borderRadius: BorderRadius.circular(2.0)),
         ),
         const SizedBox(width: 10.0),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 17.0,
-            fontWeight: FontWeight.bold,
-            color: _pgDark,
-          ),
-        ),
+        Text(title, style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold, color: _pgDark)),
       ],
     ),
   );

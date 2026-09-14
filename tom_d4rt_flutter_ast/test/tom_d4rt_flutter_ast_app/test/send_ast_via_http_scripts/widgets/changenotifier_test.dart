@@ -106,12 +106,8 @@ const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 // to keep the file readable top-to-bottom.
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(
-      top: 28.0,
-      bottom: 12.0,
-      left: 18.0,
-      right: 18.0,
-    ),
+    padding:
+        const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -152,10 +148,8 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(
-    horizontal: 18.0,
-    vertical: 6.0,
-  ),
+  EdgeInsets margin =
+      const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
 }) {
   return Container(
     margin: margin,
@@ -426,10 +420,8 @@ class _HierarchyPainter extends CustomPainter {
       rootW,
       rootH,
     );
-    final RRect rootRRect = RRect.fromRectAndRadius(
-      rootRect,
-      const Radius.circular(8.0),
-    );
+    final RRect rootRRect =
+        RRect.fromRectAndRadius(rootRect, const Radius.circular(8.0));
     canvas.drawRRect(rootRRect, boxFill);
     canvas.drawRRect(rootRRect, boxStroke);
     _label(canvas, 'Listenable (abstract)', rootRect, _kAccent, bold: true);
@@ -447,19 +439,15 @@ class _HierarchyPainter extends CustomPainter {
     for (int i = 0; i < 3; i++) {
       final double x = gap + i * (leafW + gap);
       final Rect leafRect = Rect.fromLTWH(x, bottomY, leafW, leafH);
-      final RRect leafRRect = RRect.fromRectAndRadius(
-        leafRect,
-        const Radius.circular(8.0),
-      );
+      final RRect leafRRect =
+          RRect.fromRectAndRadius(leafRect, const Radius.circular(8.0));
       canvas.drawRRect(leafRRect, leafFill);
       canvas.drawRRect(leafRRect, leafStroke);
       _label(canvas, labels[i], leafRect, _kAccentGreen, bold: true);
 
       // Connector line from the root to this leaf.
-      final Offset topAnchor = Offset(
-        rootRect.center.dx,
-        rootRect.bottom + 0.0,
-      );
+      final Offset topAnchor =
+          Offset(rootRect.center.dx, rootRect.bottom + 0.0);
       final Offset leafTop = Offset(leafRect.center.dx, leafRect.top);
       _drawArrow(canvas, topAnchor, leafTop, linePaint);
     }
@@ -491,14 +479,12 @@ class _HierarchyPainter extends CustomPainter {
     final double ux = dx / len;
     final double uy = dy / len;
     final double headSize = 6.0;
-    final Offset left = Offset(
-      b.dx - ux * headSize + -uy * (headSize * 0.6),
-      b.dy - uy * headSize + ux * (headSize * 0.6),
-    );
-    final Offset right = Offset(
-      b.dx - ux * headSize + uy * (headSize * 0.6),
-      b.dy - uy * headSize + -ux * (headSize * 0.6),
-    );
+    final Offset left =
+        Offset(b.dx - ux * headSize + -uy * (headSize * 0.6),
+            b.dy - uy * headSize + ux * (headSize * 0.6));
+    final Offset right =
+        Offset(b.dx - ux * headSize + uy * (headSize * 0.6),
+            b.dy - uy * headSize + -ux * (headSize * 0.6));
     final Path head = Path()
       ..moveTo(b.dx, b.dy)
       ..lineTo(left.dx, left.dy)
@@ -574,10 +560,8 @@ class _LifecyclePainter extends CustomPainter {
         width: slotW - 12.0,
         height: boxH,
       );
-      final RRect rrect = RRect.fromRectAndRadius(
-        rect,
-        const Radius.circular(8.0),
-      );
+      final RRect rrect =
+          RRect.fromRectAndRadius(rect, const Radius.circular(8.0));
       final Paint fill = Paint()..color = step.colour.withOpacity(0.12);
       final Paint stroke = Paint()
         ..color = step.colour
@@ -610,7 +594,8 @@ class _LifecyclePainter extends CustomPainter {
       // Arrow connecting to the next box.
       if (i < steps.length - 1) {
         final Offset a = Offset(rect.right, rect.center.dy);
-        final Offset b = Offset(rect.right + 12.0, rect.center.dy);
+        final Offset b =
+            Offset(rect.right + 12.0, rect.center.dy);
         canvas.drawLine(a, b, linePaint);
         // Arrow head.
         final Path head = Path()
@@ -683,16 +668,10 @@ class _ReactiveTreePainter extends CustomPainter {
       ..strokeWidth = 1.2;
 
     // Source on the left.
-    final Rect source = Rect.fromLTWH(
-      12.0,
-      size.height / 2.0 - 22.0,
-      150.0,
-      44.0,
-    );
-    final RRect sourceR = RRect.fromRectAndRadius(
-      source,
-      const Radius.circular(10.0),
-    );
+    final Rect source =
+        Rect.fromLTWH(12.0, size.height / 2.0 - 22.0, 150.0, 44.0);
+    final RRect sourceR =
+        RRect.fromRectAndRadius(source, const Radius.circular(10.0));
     canvas.drawRRect(sourceR, sourceFill);
     canvas.drawRRect(sourceR, sourceStroke);
     _drawText(canvas, 'Listenable\n(notifier)', source, _kAccent, bold: true);
@@ -707,30 +686,19 @@ class _ReactiveTreePainter extends CustomPainter {
     final double childW = 180.0;
     final double childH = 36.0;
     final double startX = size.width - childW - 12.0;
-    final double totalH =
-        childH * children.length + 8.0 * (children.length - 1);
+    final double totalH = childH * children.length + 8.0 * (children.length - 1);
     final double startY = (size.height - totalH) / 2.0;
     for (int i = 0; i < children.length; i++) {
       final _TreeChild c = children[i];
-      final Rect rect = Rect.fromLTWH(
-        startX,
-        startY + i * (childH + 8.0),
-        childW,
-        childH,
-      );
-      final RRect rrect = RRect.fromRectAndRadius(
-        rect,
-        const Radius.circular(8.0),
-      );
+      final Rect rect =
+          Rect.fromLTWH(startX, startY + i * (childH + 8.0), childW, childH);
+      final RRect rrect =
+          RRect.fromRectAndRadius(rect, const Radius.circular(8.0));
       canvas.drawRRect(rrect, c.reactive ? subscriberFill : inertFill);
       canvas.drawRRect(rrect, c.reactive ? subscriberStroke : inertStroke);
-      _drawText(
-        canvas,
-        c.label,
-        rect,
-        c.reactive ? _kAccentGreen : _kInkSecondary,
-        bold: c.reactive,
-      );
+      _drawText(canvas, c.label, rect,
+          c.reactive ? _kAccentGreen : _kInkSecondary,
+          bold: c.reactive);
 
       // Connecting line: solid for reactive, dashed for inert.
       final Offset a = Offset(source.right, source.center.dy);
@@ -770,7 +738,8 @@ class _ReactiveTreePainter extends CustomPainter {
     final double uy = dy / len;
     double travelled = 0.0;
     while (travelled < len) {
-      final double segEnd = (travelled + dash) < len ? (travelled + dash) : len;
+      final double segEnd =
+          (travelled + dash) < len ? (travelled + dash) : len;
       final Offset p1 = Offset(a.dx + ux * travelled, a.dy + uy * travelled);
       final Offset p2 = Offset(a.dx + ux * segEnd, a.dy + uy * segEnd);
       canvas.drawLine(p1, p2, paint);
@@ -844,7 +813,10 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF5E5CE6), Color(0xFF2F80ED)],
+        colors: <Color>[
+          Color(0xFF5E5CE6),
+          Color(0xFF2F80ED),
+        ],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -1056,9 +1028,8 @@ dynamic build(BuildContext context) {
   final ValueNotifier<int> intNotifier = ValueNotifier<int>(42);
   final ValueNotifier<String> stringNotifier = ValueNotifier<String>('hi');
   final ValueNotifier<Color> colourNotifier = ValueNotifier<Color>(Colors.blue);
-  final ValueNotifier<List<int>> listNotifier = ValueNotifier<List<int>>(
-    <int>[],
-  );
+  final ValueNotifier<List<int>> listNotifier =
+      ValueNotifier<List<int>>(<int>[]);
   final ValueNotifier<Map<String, int>> mapNotifier =
       ValueNotifier<Map<String, int>>(<String, int>{});
   final ValueNotifier<Object?> nullNotifier = ValueNotifier<Object?>(null);
@@ -1085,10 +1056,8 @@ dynamic build(BuildContext context) {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6.0,
-                  vertical: 2.0,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                 decoration: BoxDecoration(
                   color: colour.withOpacity(0.14),
                   borderRadius: BorderRadius.circular(4.0),
@@ -1106,7 +1075,10 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 8.0),
-          Text('value:', style: _kCaptionStyle),
+          Text(
+            'value:',
+            style: _kCaptionStyle,
+          ),
           Text(
             currentDisplay,
             style: const TextStyle(
@@ -1234,7 +1206,8 @@ dynamic build(BuildContext context) {
     colour: _kAccentPink,
     body: ValueListenableBuilder<Map<String, int>>(
       valueListenable: mapNotifier,
-      builder: (BuildContext context, Map<String, int> value, Widget? child) {
+      builder:
+          (BuildContext context, Map<String, int> value, Widget? child) {
         return Text(
           'keys: ${value.keys.length}',
           style: const TextStyle(
@@ -1316,11 +1289,8 @@ dynamic build(BuildContext context) {
   final ValueNotifier<int> mergeCount = ValueNotifier<int>(7);
   final ValueNotifier<String> mergeLabel = ValueNotifier<String>('idle');
   final ValueNotifier<bool> mergeFlag = ValueNotifier<bool>(true);
-  final Listenable merged = Listenable.merge(<Listenable>[
-    mergeCount,
-    mergeLabel,
-    mergeFlag,
-  ]);
+  final Listenable merged =
+      Listenable.merge(<Listenable>[mergeCount, mergeLabel, mergeFlag]);
 
   final Widget mergeDemo = _card(
     child: Column(
@@ -1382,16 +1352,18 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(width: 12.0),
-              Container(width: 1.0, height: 60.0, color: _kHairline),
+              Container(
+                width: 1.0,
+                height: 60.0,
+                color: _kHairline,
+              ),
               const SizedBox(width: 12.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'AnimatedBuilder(listenable: merged)',
-                      style: _kCaptionStyle,
-                    ),
+                    Text('AnimatedBuilder(listenable: merged)',
+                        style: _kCaptionStyle),
                     const SizedBox(height: 4.0),
                     AnimatedBuilder(
                       animation: merged,
@@ -1401,9 +1373,8 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: _kAccent.withOpacity(0.10),
                             borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(
-                              color: _kAccent.withOpacity(0.3),
-                            ),
+                            border:
+                                Border.all(color: _kAccent.withOpacity(0.3)),
                           ),
                           child: Text(
                             'snapshot: count=${mergeCount.value} '
@@ -1504,9 +1475,11 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // Comparison table and three side-by-side snippet cards.
   // -------------------------------------------------------------------------
-  Widget _comparisonRow(String name, String input, String typed, String use) {
+  Widget _comparisonRow(
+      String name, String input, String typed, String use) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+      padding:
+          const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: _kHairline)),
       ),
@@ -1538,10 +1511,19 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               typed,
-              style: const TextStyle(fontSize: 12.0, color: _kInkSecondary),
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: _kInkSecondary,
+              ),
             ),
           ),
-          Expanded(flex: 3, child: Text(use, style: _kBodyStyle)),
+          Expanded(
+            flex: 3,
+            child: Text(
+              use,
+              style: _kBodyStyle,
+            ),
+          ),
         ],
       ),
     );
@@ -1571,9 +1553,17 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: <Widget>[
-              Expanded(flex: 2, child: Text('Widget', style: _kCaptionStyle)),
-              Expanded(flex: 2, child: Text('Input', style: _kCaptionStyle)),
-              Expanded(child: Text('Typed?', style: _kCaptionStyle)),
+              Expanded(
+                flex: 2,
+                child: Text('Widget', style: _kCaptionStyle),
+              ),
+              Expanded(
+                flex: 2,
+                child: Text('Input', style: _kCaptionStyle),
+              ),
+              Expanded(
+                child: Text('Typed?', style: _kCaptionStyle),
+              ),
               Expanded(
                 flex: 3,
                 child: Text('When to use', style: _kCaptionStyle),
@@ -1645,10 +1635,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8.0),
         _codeBlock(_listenableBuilderSnippet, title: 'ListenableBuilder'),
         _codeBlock(_animatedBuilderSnippet, title: 'AnimatedBuilder'),
-        _codeBlock(
-          _valueListenableBuilderSnippet,
-          title: 'ValueListenableBuilder<int>',
-        ),
+        _codeBlock(_valueListenableBuilderSnippet,
+            title: 'ValueListenableBuilder<int>'),
       ],
     ),
   );
@@ -1716,8 +1704,7 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Pitfalls',
-              subtitle:
-                  'Six mistakes you will eventually make - and how to avoid them',
+              subtitle: 'Six mistakes you will eventually make - and how to avoid them',
             ),
           ],
         ),
@@ -1854,22 +1841,14 @@ dynamic build(BuildContext context) {
     children: <Widget>[
       _codeBlock(_modelClassCode, title: 'a — model class with private state'),
       _codeBlock(_proxyProviderCode, title: 'b — ProxyProvider pattern'),
-      _codeBlock(
-        _changeNotifierProviderCode,
-        title: 'c — ChangeNotifierProvider (provider package)',
-      ),
-      _codeBlock(
-        _animatedBuilderSelectorCode,
-        title: 'd — AnimatedBuilder with a selector',
-      ),
-      _codeBlock(
-        _valueListenableOneLinerCode,
-        title: 'e — ValueListenableBuilder one-liner',
-      ),
-      _codeBlock(
-        _mergeCompositionCode,
-        title: 'f — Listenable.merge composition',
-      ),
+      _codeBlock(_changeNotifierProviderCode,
+          title: 'c — ChangeNotifierProvider (provider package)'),
+      _codeBlock(_animatedBuilderSelectorCode,
+          title: 'd — AnimatedBuilder with a selector'),
+      _codeBlock(_valueListenableOneLinerCode,
+          title: 'e — ValueListenableBuilder one-liner'),
+      _codeBlock(_mergeCompositionCode,
+          title: 'f — Listenable.merge composition'),
     ],
   );
 
@@ -1913,29 +1892,45 @@ dynamic build(BuildContext context) {
           spacing: 10.0,
           runSpacing: 10.0,
           children: <Widget>[
-            _chipGroup('FOUNDATION', const <String>[
-              'Listenable',
-              'ChangeNotifier',
-              'ValueListenable<T>',
-              'ValueNotifier<T>',
-              'Animation<T>',
-            ], _kAccent),
-            _chipGroup('WIDGETS', const <String>[
-              'StatefulWidget',
-              'State.dispose',
-              'InheritedNotifier',
-            ], _kAccentBlue),
-            _chipGroup('BUILDERS', const <String>[
-              'ListenableBuilder',
-              'AnimatedBuilder',
-              'ValueListenableBuilder<T>',
-            ], _kAccentGreen),
-            _chipGroup('SELECTORS', const <String>[
-              'Selector<T,S>',
-              'Consumer<T>',
-              'context.watch<T>()',
-              'context.select<T,S>()',
-            ], _kAccentAmber),
+            _chipGroup(
+              'FOUNDATION',
+              const <String>[
+                'Listenable',
+                'ChangeNotifier',
+                'ValueListenable<T>',
+                'ValueNotifier<T>',
+                'Animation<T>',
+              ],
+              _kAccent,
+            ),
+            _chipGroup(
+              'WIDGETS',
+              const <String>[
+                'StatefulWidget',
+                'State.dispose',
+                'InheritedNotifier',
+              ],
+              _kAccentBlue,
+            ),
+            _chipGroup(
+              'BUILDERS',
+              const <String>[
+                'ListenableBuilder',
+                'AnimatedBuilder',
+                'ValueListenableBuilder<T>',
+              ],
+              _kAccentGreen,
+            ),
+            _chipGroup(
+              'SELECTORS',
+              const <String>[
+                'Selector<T,S>',
+                'Consumer<T>',
+                'context.watch<T>()',
+                'context.select<T,S>()',
+              ],
+              _kAccentAmber,
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -1979,59 +1974,37 @@ dynamic build(BuildContext context) {
   print('  building widget tree with 11 sections');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(
-      2,
-      'Hierarchy',
-      'Listenable, ChangeNotifier, ValueNotifier<T>, Animation<T>',
-    ),
+    _sectionHeader(2, 'Hierarchy',
+        'Listenable, ChangeNotifier, ValueNotifier<T>, Animation<T>'),
     hierarchyDiagram,
-    _sectionHeader(
-      3,
-      'Lifecycle',
-      'addListener -> notifyListeners -> callback -> removeListener -> dispose',
-    ),
+    _sectionHeader(3, 'Lifecycle',
+        'addListener -> notifyListeners -> callback -> removeListener -> dispose'),
     lifecycleDiagram,
-    _sectionHeader(
-      4,
-      'ValueNotifier gallery',
-      'Six typed notifiers piped through ValueListenableBuilder',
-    ),
+    _sectionHeader(4, 'ValueNotifier gallery',
+        'Six typed notifiers piped through ValueListenableBuilder'),
     valueGallery,
-    _sectionHeader(
-      5,
-      'Listenable.merge',
-      'Compose many notifiers into one Listenable',
-    ),
+    _sectionHeader(5, 'Listenable.merge',
+        'Compose many notifiers into one Listenable'),
     mergeDemo,
-    _sectionHeader(
-      6,
-      'Custom ChangeNotifier',
-      'CounterModel - the canonical 8-liner',
-    ),
+    _sectionHeader(6, 'Custom ChangeNotifier',
+        'CounterModel - the canonical 8-liner'),
     counterModelSection,
-    _sectionHeader(
-      7,
-      'Builders compared',
-      'ListenableBuilder vs AnimatedBuilder vs ValueListenableBuilder',
-    ),
+    _sectionHeader(7, 'Builders compared',
+        'ListenableBuilder vs AnimatedBuilder vs ValueListenableBuilder'),
     comparisonTable,
     builderSnippets,
-    _sectionHeader(
-      8,
-      'Reactive tree',
-      'Only *Builder subscribers rebuild on notify',
-    ),
+    _sectionHeader(8, 'Reactive tree',
+        'Only *Builder subscribers rebuild on notify'),
     reactiveTree,
     _sectionDivider(),
-    _sectionHeader(9, 'Pitfalls', 'Six common ChangeNotifier mistakes'),
+    _sectionHeader(9, 'Pitfalls',
+        'Six common ChangeNotifier mistakes'),
     pitfalls,
-    _sectionHeader(10, 'Idioms', 'Six idiomatic code blocks for everyday work'),
+    _sectionHeader(10, 'Idioms',
+        'Six idiomatic code blocks for everyday work'),
     idiomCodeBlocks,
-    _sectionHeader(
-      11,
-      'Cheat Sheet',
-      'Chips, categories and a closing tagline',
-    ),
+    _sectionHeader(11, 'Cheat Sheet',
+        'Chips, categories and a closing tagline'),
     cheatSheet,
   ];
   print('  section widget count: ${sectionWidgets.length}');

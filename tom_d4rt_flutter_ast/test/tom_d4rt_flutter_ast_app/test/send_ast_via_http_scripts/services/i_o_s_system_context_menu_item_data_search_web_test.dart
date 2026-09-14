@@ -28,11 +28,7 @@ Widget _swSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _swLightRose, width: 1.5),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x1A000000),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Color(0x1A000000), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -44,14 +40,9 @@ Widget _swSection(String title, List<Widget> children) {
             color: _swRoseGold,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _swWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _swWhite, fontSize: 15, fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -63,24 +54,17 @@ Widget _swSection(String title, List<Widget> children) {
 Widget _swLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _swDeepPink,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _swDeepPink, fontSize: 13, fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _swBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _swGray, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(color: _swGray, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -93,10 +77,8 @@ Widget _swChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(
-      label,
-      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(label,
+        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -108,20 +90,13 @@ Widget _swInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 140,
-          child: Text(
-            key,
-            style: const TextStyle(
-              color: _swDeepPink,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(key,
+              style: const TextStyle(
+                  color: _swDeepPink, fontSize: 12, fontWeight: FontWeight.w600)),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(color: _swGray, fontSize: 12),
-          ),
+          child: Text(value,
+              style: const TextStyle(color: _swGray, fontSize: 12)),
         ),
       ],
     ),
@@ -199,26 +174,17 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x40AD1457),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
+        BoxShadow(color: Color(0x40AD1457), blurRadius: 12, offset: Offset(0, 4)),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.search, size: 52, color: _swWhite),
         const SizedBox(height: 12),
-        const Text(
-          'IOSSystemContextMenuItemData\nSearchWeb',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: _swWhite,
-            fontSize: 20,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        const Text('IOSSystemContextMenuItemData\nSearchWeb',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: _swWhite, fontSize: 20, fontWeight: FontWeight.w800)),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -341,19 +307,12 @@ Widget _buildIOSContextMenuArchitecture() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(label,
+                    style: TextStyle(
+                        color: color, fontSize: 13, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
-                Text(
-                  detail,
-                  style: const TextStyle(color: _swGray, fontSize: 11.5),
-                ),
+                Text(detail,
+                    style: const TextStyle(color: _swGray, fontSize: 11.5)),
               ],
             ),
           ),
@@ -369,30 +328,18 @@ Widget _buildIOSContextMenuArchitecture() {
       'provide native-feeling text editing menus.',
     ),
     _swDivider(),
-    archLayer(
-      'UIEditMenuInteraction',
-      'iOS 16+ API: modern menu presentation with configuration blocks',
-      _swAppleBlue,
-      Icons.edit,
-    ),
-    archLayer(
-      'UIMenuController',
-      'Legacy API (iOS 13–15): global singleton that shows/hides context menus',
-      _swSystemTeal,
-      Icons.menu_open,
-    ),
-    archLayer(
-      'UIMenuElement / UIAction',
-      'Individual menu items with title, image, and action handler',
-      _swMedRose,
-      Icons.touch_app,
-    ),
-    archLayer(
-      'Flutter SystemContextMenu',
-      'Flutter widget that requests the native iOS system context menu via platform channels',
-      _swRoseGold,
-      Icons.widgets,
-    ),
+    archLayer('UIEditMenuInteraction',
+        'iOS 16+ API: modern menu presentation with configuration blocks',
+        _swAppleBlue, Icons.edit),
+    archLayer('UIMenuController',
+        'Legacy API (iOS 13–15): global singleton that shows/hides context menus',
+        _swSystemTeal, Icons.menu_open),
+    archLayer('UIMenuElement / UIAction',
+        'Individual menu items with title, image, and action handler',
+        _swMedRose, Icons.touch_app),
+    archLayer('Flutter SystemContextMenu',
+        'Flutter widget that requests the native iOS system context menu via platform channels',
+        _swRoseGold, Icons.widgets),
     _swDivider(),
     _swLabel('How Flutter Requests the System Menu'),
     _swBody(
@@ -412,13 +359,8 @@ Widget _buildIOSContextMenuArchitecture() {
 Widget _buildSystemMenuItemCatalog() {
   print('[Section 4] System context menu item catalog');
 
-  Widget menuItem(
-    String title,
-    IconData icon,
-    Color color,
-    String description, {
-    bool isHighlighted = false,
-  }) {
+  Widget menuItem(String title, IconData icon, Color color, String description,
+      {bool isHighlighted = false}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 6),
       padding: const EdgeInsets.all(10),
@@ -448,42 +390,32 @@ Widget _buildSystemMenuItemCatalog() {
               children: [
                 Row(
                   children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text(title,
+                        style: TextStyle(
+                            color: color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700)),
                     if (isHighlighted) ...[
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: color,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Text(
-                          'THIS DEMO',
-                          style: TextStyle(
-                            color: _swWhite,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        child: const Text('THIS DEMO',
+                            style: TextStyle(
+                                color: _swWhite,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w700)),
                       ),
                     ],
                   ],
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  description,
-                  style: const TextStyle(color: _swGray, fontSize: 11),
-                ),
+                Text(description,
+                    style: const TextStyle(color: _swGray, fontSize: 11)),
               ],
             ),
           ),
@@ -498,49 +430,21 @@ Widget _buildSystemMenuItemCatalog() {
       'Flutter wraps each as an IOSSystemContextMenuItemData subclass:',
     ),
     _swDivider(),
-    menuItem(
-      'Cut',
-      Icons.content_cut,
-      _swDarkGray,
-      'Removes selected text and places it on the clipboard',
-    ),
-    menuItem(
-      'Copy',
-      Icons.copy,
-      _swDarkGray,
-      'Places selected text on the clipboard',
-    ),
-    menuItem(
-      'Paste',
-      Icons.paste,
-      _swDarkGray,
-      'Inserts clipboard content at the cursor position',
-    ),
-    menuItem(
-      'Select All',
-      Icons.select_all,
-      _swDarkGray,
-      'Selects all text in the current field',
-    ),
-    menuItem(
-      'Search Web',
-      Icons.search,
-      _swRoseGold,
-      'Opens Safari search for the selected text',
-      isHighlighted: true,
-    ),
-    menuItem(
-      'Share...',
-      Icons.share,
-      _swAppleBlue,
-      'Opens the iOS share sheet for the selected text',
-    ),
-    menuItem(
-      'Look Up',
-      Icons.auto_stories,
-      _swSystemTeal,
-      'Opens the iOS dictionary/Wikipedia look-up for selected text',
-    ),
+    menuItem('Cut', Icons.content_cut, _swDarkGray,
+        'Removes selected text and places it on the clipboard'),
+    menuItem('Copy', Icons.copy, _swDarkGray,
+        'Places selected text on the clipboard'),
+    menuItem('Paste', Icons.paste, _swDarkGray,
+        'Inserts clipboard content at the cursor position'),
+    menuItem('Select All', Icons.select_all, _swDarkGray,
+        'Selects all text in the current field'),
+    menuItem('Search Web', Icons.search, _swRoseGold,
+        'Opens Safari search for the selected text',
+        isHighlighted: true),
+    menuItem('Share...', Icons.share, _swAppleBlue,
+        'Opens the iOS share sheet for the selected text'),
+    menuItem('Look Up', Icons.auto_stories, _swSystemTeal,
+        'Opens the iOS dictionary/Wikipedia look-up for selected text'),
     _swDivider(),
     _swBody(
       'Not all items appear in every context. The system decides which items '
@@ -566,10 +470,7 @@ Widget _buildSearchWebSpecifics() {
     _swInfoRow('type', 'IOSSystemContextMenuItemType.searchWeb'),
     _swInfoRow('availability', 'Requires text selection (not empty)'),
     _swInfoRow('handler', 'System-managed — opens Safari with search query'),
-    _swInfoRow(
-      'localization',
-      'Automatically localized by iOS to device language',
-    ),
+    _swInfoRow('localization', 'Automatically localized by iOS to device language'),
     _swInfoRow('icon', 'SF Symbol: magnifyingglass (system-provided)'),
     _swDivider(),
     _swLabel('When Does It Appear?'),
@@ -583,10 +484,7 @@ Widget _buildSearchWebSpecifics() {
         children: [
           _buildConditionRow(true, 'Text is selected in the field'),
           _buildConditionRow(true, 'Device has web browser capability'),
-          _buildConditionRow(
-            true,
-            'System context menu is requested (not custom)',
-          ),
+          _buildConditionRow(true, 'System context menu is requested (not custom)'),
           _buildConditionRow(false, 'No text is selected (cursor only)'),
           _buildConditionRow(false, 'Custom menu explicitly excludes it'),
           _buildConditionRow(false, 'iOS version < 13'),
@@ -616,14 +514,11 @@ Widget _buildSearchWebSpecifics() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Search Engine Integration',
-                  style: TextStyle(
-                    color: _swAppleBlue,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Search Engine Integration',
+                    style: TextStyle(
+                        color: _swAppleBlue,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
                 _swBody(
                   'Google (default), Bing, Yahoo, DuckDuckGo, Ecosia — '
@@ -650,13 +545,11 @@ Widget _buildConditionRow(bool met, String text) {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: met ? const Color(0xFF43A047) : const Color(0xFFE53935),
-              fontSize: 12,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                color: met ? const Color(0xFF43A047) : const Color(0xFFE53935),
+                fontSize: 12,
+              )),
         ),
       ],
     ),
@@ -669,13 +562,7 @@ Widget _buildConditionRow(bool met, String text) {
 Widget _buildSelectionToSearchPipeline() {
   print('[Section 6] Selection to search pipeline');
 
-  Widget pipeStep(
-    int step,
-    String label,
-    String detail,
-    IconData icon,
-    Color color,
-  ) {
+  Widget pipeStep(int step, String label, String detail, IconData icon, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 6),
       child: Row(
@@ -683,16 +570,14 @@ Widget _buildSelectionToSearchPipeline() {
           Container(
             width: 36,
             height: 36,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
             child: Center(
-              child: Text(
-                '$step',
-                style: const TextStyle(
-                  color: _swWhite,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              child: Text('$step',
+                  style: const TextStyle(
+                      color: _swWhite, fontSize: 14, fontWeight: FontWeight.w800)),
             ),
           ),
           const SizedBox(width: 12),
@@ -700,19 +585,12 @@ Widget _buildSelectionToSearchPipeline() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(label,
+                    style: TextStyle(
+                        color: color, fontSize: 13, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
-                Text(
-                  detail,
-                  style: const TextStyle(color: _swGray, fontSize: 11.5),
-                ),
+                Text(detail,
+                    style: const TextStyle(color: _swGray, fontSize: 11.5)),
               ],
             ),
           ),
@@ -728,65 +606,45 @@ Widget _buildSelectionToSearchPipeline() {
       'layers across Flutter and iOS:',
     ),
     _swDivider(),
-    pipeStep(
-      1,
-      'User selects text',
-      'Double-tap or drag handles to select text in EditableText',
-      Icons.text_fields,
-      _swRoseGold,
-    ),
+    pipeStep(1, 'User selects text',
+        'Double-tap or drag handles to select text in EditableText',
+        Icons.text_fields, _swRoseGold),
     Container(
       margin: const EdgeInsets.only(left: 18, bottom: 6),
       height: 16,
       width: 2,
       color: _swLightRose,
     ),
-    pipeStep(
-      2,
-      'Long-press shows menu',
-      'Flutter sends SystemContextMenu.show() via platform channel',
-      Icons.menu,
-      _swMedRose,
-    ),
+    pipeStep(2, 'Long-press shows menu',
+        'Flutter sends SystemContextMenu.show() via platform channel',
+        Icons.menu, _swMedRose),
     Container(
       margin: const EdgeInsets.only(left: 18, bottom: 6),
       height: 16,
       width: 2,
       color: _swLightRose,
     ),
-    pipeStep(
-      3,
-      'iOS presents UIEditMenuInteraction',
-      'System creates menu with applicable items based on selection',
-      Icons.phone_iphone,
-      _swAppleBlue,
-    ),
+    pipeStep(3, 'iOS presents UIEditMenuInteraction',
+        'System creates menu with applicable items based on selection',
+        Icons.phone_iphone, _swAppleBlue),
     Container(
       margin: const EdgeInsets.only(left: 18, bottom: 6),
       height: 16,
       width: 2,
       color: _swLightRose,
     ),
-    pipeStep(
-      4,
-      'User taps "Search Web"',
-      'iOS captures the action and reads selected text from the first responder',
-      Icons.touch_app,
-      _swSystemTeal,
-    ),
+    pipeStep(4, 'User taps "Search Web"',
+        'iOS captures the action and reads selected text from the first responder',
+        Icons.touch_app, _swSystemTeal),
     Container(
       margin: const EdgeInsets.only(left: 18, bottom: 6),
       height: 16,
       width: 2,
       color: _swLightRose,
     ),
-    pipeStep(
-      5,
-      'Safari opens with search',
-      'iOS opens Safari (or in-app SFSafariViewController) with the query',
-      Icons.open_in_browser,
-      const Color(0xFF43A047),
-    ),
+    pipeStep(5, 'Safari opens with search',
+        'iOS opens Safari (or in-app SFSafariViewController) with the query',
+        Icons.open_in_browser, const Color(0xFF43A047)),
     _swDivider(),
     _swBody(
       'Flutter\'s role is to request the system menu and process any callbacks '
@@ -817,48 +675,18 @@ Widget _buildUIMenuHierarchy() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildMenuTreeItem(
-            'UIMenu (root)',
-            Icons.folder_open,
-            _swDeepPink,
-            0,
-          ),
+          _buildMenuTreeItem('UIMenu (root)', Icons.folder_open, _swDeepPink, 0),
           _buildMenuTreeItem('UIMenu: "Edit"', Icons.folder, _swMedRose, 1),
-          _buildMenuTreeItem(
-            'UIAction: "Cut"',
-            Icons.content_cut,
-            _swDarkGray,
-            2,
-          ),
+          _buildMenuTreeItem('UIAction: "Cut"', Icons.content_cut, _swDarkGray, 2),
           _buildMenuTreeItem('UIAction: "Copy"', Icons.copy, _swDarkGray, 2),
           _buildMenuTreeItem('UIAction: "Paste"', Icons.paste, _swDarkGray, 2),
-          _buildMenuTreeItem(
-            'UIAction: "Select All"',
-            Icons.select_all,
-            _swDarkGray,
-            2,
-          ),
+          _buildMenuTreeItem('UIAction: "Select All"', Icons.select_all, _swDarkGray, 2),
           _buildMenuTreeItem('UIMenu: "Learn"', Icons.folder, _swMedRose, 1),
-          _buildMenuTreeItem(
-            'UIAction: "Look Up"',
-            Icons.auto_stories,
-            _swSystemTeal,
-            2,
-          ),
-          _buildMenuTreeItem(
-            'UIAction: "Search Web" ★',
-            Icons.search,
-            _swRoseGold,
-            2,
-            isHighlighted: true,
-          ),
+          _buildMenuTreeItem('UIAction: "Look Up"', Icons.auto_stories, _swSystemTeal, 2),
+          _buildMenuTreeItem('UIAction: "Search Web" ★', Icons.search, _swRoseGold, 2,
+              isHighlighted: true),
           _buildMenuTreeItem('UIMenu: "Share"', Icons.folder, _swMedRose, 1),
-          _buildMenuTreeItem(
-            'UIAction: "Share..."',
-            Icons.share,
-            _swAppleBlue,
-            2,
-          ),
+          _buildMenuTreeItem('UIAction: "Share..."', Icons.share, _swAppleBlue, 2),
         ],
       ),
     ),
@@ -869,25 +697,14 @@ Widget _buildUIMenuHierarchy() {
       'too many items, in which case submenus appear as expandable groups.',
     ),
     _swLabel('Menu Presentation Styles'),
-    _swInfoRow(
-      'Compact',
-      'Horizontal pill bar above/below selection (default)',
-    ),
+    _swInfoRow('Compact', 'Horizontal pill bar above/below selection (default)'),
     _swInfoRow('Expanded', 'When more items than fit in compact view'),
-    _swInfoRow(
-      'Contextual',
-      'With preview when 3D Touch / Haptic Touch is used',
-    ),
+    _swInfoRow('Contextual', 'With preview when 3D Touch / Haptic Touch is used'),
   ]);
 }
 
-Widget _buildMenuTreeItem(
-  String label,
-  IconData icon,
-  Color color,
-  int indent, {
-  bool isHighlighted = false,
-}) {
+Widget _buildMenuTreeItem(String label, IconData icon, Color color, int indent,
+    {bool isHighlighted = false}) {
   return Padding(
     padding: EdgeInsets.only(left: indent * 20.0, bottom: 4),
     child: Row(
@@ -902,17 +719,13 @@ Widget _buildMenuTreeItem(
               borderRadius: BorderRadius.circular(4),
               border: Border.all(color: color),
             ),
-            child: Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    color: color, fontSize: 12, fontWeight: FontWeight.w700)),
           )
         else
-          Text(label, style: TextStyle(color: color, fontSize: 12)),
+          Text(label,
+              style: TextStyle(color: color, fontSize: 12)),
       ],
     ),
   );
@@ -983,11 +796,7 @@ Widget _buildContextMenuSimulation() {
           // Text with selection highlight
           RichText(
             text: TextSpan(
-              style: const TextStyle(
-                color: _swDarkGray,
-                fontSize: 15,
-                height: 1.6,
-              ),
+              style: const TextStyle(color: _swDarkGray, fontSize: 15, height: 1.6),
               children: [
                 const TextSpan(text: 'The quick brown fox '),
                 TextSpan(
@@ -999,10 +808,8 @@ Widget _buildContextMenuSimulation() {
                 ),
                 const TextSpan(text: ' the lazy dog. '),
                 const TextSpan(
-                  text:
-                      'This is a sample text field demonstrating '
-                      'iOS text selection with system context menu.',
-                ),
+                    text: 'This is a sample text field demonstrating '
+                        'iOS text selection with system context menu.'),
               ],
             ),
           ),
@@ -1011,7 +818,11 @@ Widget _buildContextMenuSimulation() {
           Row(
             children: [
               const SizedBox(width: 130),
-              Container(width: 2, height: 20, color: _swAppleBlue),
+              Container(
+                width: 2,
+                height: 20,
+                color: _swAppleBlue,
+              ),
               Container(
                 width: 10,
                 height: 10,
@@ -1029,7 +840,11 @@ Widget _buildContextMenuSimulation() {
                   shape: BoxShape.circle,
                 ),
               ),
-              Container(width: 2, height: 20, color: _swAppleBlue),
+              Container(
+                width: 2,
+                height: 20,
+                color: _swAppleBlue,
+              ),
             ],
           ),
         ],
@@ -1058,14 +873,11 @@ Widget _buildContextMenuSimulation() {
               const Icon(Icons.open_in_browser, size: 20, color: _swAppleBlue),
               const SizedBox(width: 8),
               const Expanded(
-                child: Text(
-                  'Safari opens with: "jumps over" search',
-                  style: TextStyle(
-                    color: _swAppleBlue,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text('Safari opens with: "jumps over" search',
+                    style: TextStyle(
+                        color: _swAppleBlue,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600)),
               ),
             ],
           ),
@@ -1101,24 +913,24 @@ Widget _buildMenuButton(String label, bool highlighted) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
-      color: highlighted
-          ? _swAppleBlue.withValues(alpha: 0.3)
-          : Colors.transparent,
+      color: highlighted ? _swAppleBlue.withValues(alpha: 0.3) : Colors.transparent,
       borderRadius: BorderRadius.circular(6),
     ),
-    child: Text(
-      label,
-      style: TextStyle(
-        color: highlighted ? _swWhite : const Color(0xFFE5E5EA),
-        fontSize: 13,
-        fontWeight: highlighted ? FontWeight.w700 : FontWeight.w500,
-      ),
-    ),
+    child: Text(label,
+        style: TextStyle(
+          color: highlighted ? _swWhite : const Color(0xFFE5E5EA),
+          fontSize: 13,
+          fontWeight: highlighted ? FontWeight.w700 : FontWeight.w500,
+        )),
   );
 }
 
 Widget _buildMenuSeparator() {
-  return Container(width: 1, height: 24, color: const Color(0xFF48484A));
+  return Container(
+    width: 1,
+    height: 24,
+    color: const Color(0xFF48484A),
+  );
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1134,30 +946,50 @@ Widget _buildPlatformComparison() {
     ),
     _swDivider(),
     // Comparison cards
-    _buildPlatformCard('iOS', Icons.phone_iphone, _swRoseGold, [
-      'Built-in "Search Web" in system menu',
-      'Opens Safari with selected text',
-      'Localized by the OS automatically',
-      'Part of UIEditMenuInteraction',
-    ]),
-    _buildPlatformCard('Android', Icons.android, const Color(0xFF43A047), [
-      'No exact equivalent to "Search Web"',
-      '"Web Search" via PROCESS_TEXT intent',
-      'Third-party apps can register as handlers',
-      'Uses ActionMode with floating toolbar',
-    ]),
-    _buildPlatformCard('macOS', Icons.laptop_mac, _swDarkGray, [
-      '"Search with Google" in right-click menu',
-      'Opens default browser, not necessarily Safari',
-      'NSTextView provides built-in search action',
-      'Keyboard shortcut: ⌘⇧L for Look Up',
-    ]),
-    _buildPlatformCard('Web', Icons.public, _swAppleBlue, [
-      'No system context menu item for search',
-      'Browser provides its own right-click menu',
-      'Flutter Web uses custom context menus',
-      'Search functionality must be implemented manually',
-    ]),
+    _buildPlatformCard(
+      'iOS',
+      Icons.phone_iphone,
+      _swRoseGold,
+      [
+        'Built-in "Search Web" in system menu',
+        'Opens Safari with selected text',
+        'Localized by the OS automatically',
+        'Part of UIEditMenuInteraction',
+      ],
+    ),
+    _buildPlatformCard(
+      'Android',
+      Icons.android,
+      const Color(0xFF43A047),
+      [
+        'No exact equivalent to "Search Web"',
+        '"Web Search" via PROCESS_TEXT intent',
+        'Third-party apps can register as handlers',
+        'Uses ActionMode with floating toolbar',
+      ],
+    ),
+    _buildPlatformCard(
+      'macOS',
+      Icons.laptop_mac,
+      _swDarkGray,
+      [
+        '"Search with Google" in right-click menu',
+        'Opens default browser, not necessarily Safari',
+        'NSTextView provides built-in search action',
+        'Keyboard shortcut: ⌘⇧L for Look Up',
+      ],
+    ),
+    _buildPlatformCard(
+      'Web',
+      Icons.public,
+      _swAppleBlue,
+      [
+        'No system context menu item for search',
+        'Browser provides its own right-click menu',
+        'Flutter Web uses custom context menus',
+        'Search functionality must be implemented manually',
+      ],
+    ),
     _buildPlatformCard(
       'Windows / Linux',
       Icons.desktop_windows,
@@ -1173,11 +1005,7 @@ Widget _buildPlatformComparison() {
 }
 
 Widget _buildPlatformCard(
-  String platform,
-  IconData icon,
-  Color color,
-  List<String> features,
-) {
+    String platform, IconData icon, Color color, List<String> features) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     padding: const EdgeInsets.all(12),
@@ -1189,38 +1017,28 @@ Widget _buildPlatformCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(icon, size: 20, color: color),
-            const SizedBox(width: 8),
-            Text(
-              platform,
+        Row(children: [
+          Icon(icon, size: 20, color: color),
+          const SizedBox(width: 8),
+          Text(platform,
               style: TextStyle(
-                color: color,
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        ),
+                  color: color, fontSize: 14, fontWeight: FontWeight.w700)),
+        ]),
         const SizedBox(height: 8),
-        ...features.map(
-          (f) => Padding(
-            padding: const EdgeInsets.only(bottom: 3),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('• ', style: TextStyle(color: color, fontSize: 12)),
-                Expanded(
-                  child: Text(
-                    f,
-                    style: const TextStyle(color: _swGray, fontSize: 11.5),
+        ...features.map((f) => Padding(
+              padding: const EdgeInsets.only(bottom: 3),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('• ',
+                      style: TextStyle(color: color, fontSize: 12)),
+                  Expanded(
+                    child: Text(f,
+                        style: const TextStyle(color: _swGray, fontSize: 11.5)),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                ],
+              ),
+            )),
       ],
     ),
   );
@@ -1278,10 +1096,8 @@ Widget _buildLocaleRow(String flag, String language, String label) {
         const SizedBox(width: 10),
         SizedBox(
           width: 80,
-          child: Text(
-            language,
-            style: const TextStyle(color: _swGray, fontSize: 12),
-          ),
+          child: Text(language,
+              style: const TextStyle(color: _swGray, fontSize: 12)),
         ),
         Expanded(
           child: Container(
@@ -1291,14 +1107,11 @@ Widget _buildLocaleRow(String flag, String language, String label) {
               borderRadius: BorderRadius.circular(4),
               border: Border.all(color: _swLightRose),
             ),
-            child: Text(
-              label,
-              style: const TextStyle(
-                color: _swDeepPink,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            child: Text(label,
+                style: const TextStyle(
+                    color: _swDeepPink,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500)),
           ),
         ),
       ],
@@ -1336,18 +1149,13 @@ Widget _buildIntegrationWithFlutter() {
                 children: [
                   const Icon(Icons.text_fields, size: 28, color: _swRoseGold),
                   const SizedBox(height: 6),
-                  const Text(
-                    'TextField',
-                    style: TextStyle(
-                      color: _swRoseGold,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  const Text('TextField',
+                      style: TextStyle(
+                          color: _swRoseGold,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
-                  _swBody(
-                    'Material text input.\nFull edit capabilities.\nSystem menu on long-press.',
-                  ),
+                  _swBody('Material text input.\nFull edit capabilities.\nSystem menu on long-press.'),
                 ],
               ),
             ),
@@ -1365,18 +1173,13 @@ Widget _buildIntegrationWithFlutter() {
                 children: [
                   const Icon(Icons.text_snippet, size: 28, color: _swAppleBlue),
                   const SizedBox(height: 6),
-                  const Text(
-                    'SelectableText',
-                    style: TextStyle(
-                      color: _swAppleBlue,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  const Text('SelectableText',
+                      style: TextStyle(
+                          color: _swAppleBlue,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
-                  _swBody(
-                    'Read-only selection.\nNo edit items shown.\nSearch Web appears.',
-                  ),
+                  _swBody('Read-only selection.\nNo edit items shown.\nSearch Web appears.'),
                 ],
               ),
             ),
@@ -1392,24 +1195,15 @@ Widget _buildIntegrationWithFlutter() {
               ),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.phone_iphone,
-                    size: 28,
-                    color: _swSystemTeal,
-                  ),
+                  const Icon(Icons.phone_iphone, size: 28, color: _swSystemTeal),
                   const SizedBox(height: 6),
-                  const Text(
-                    'CupertinoTextField',
-                    style: TextStyle(
-                      color: _swSystemTeal,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  const Text('CupertinoTextField',
+                      style: TextStyle(
+                          color: _swSystemTeal,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
-                  _swBody(
-                    'iOS-styled field.\nNative look & feel.\nFull system menu.',
-                  ),
+                  _swBody('iOS-styled field.\nNative look & feel.\nFull system menu.'),
                 ],
               ),
             ),
@@ -1478,12 +1272,8 @@ Widget _buildSummary() {
           _swBody('✦ Opens Safari with selected text as search query'),
           _swBody('✦ Automatically localized by the OS'),
           _swBody('✦ Part of the IOSSystemContextMenuItemData hierarchy'),
-          _swBody(
-            '✦ Appears in UIEditMenuInteraction (iOS 16+) and UIMenuController (legacy)',
-          ),
-          _swBody(
-            '✦ Works with TextField, SelectableText, and CupertinoTextField',
-          ),
+          _swBody('✦ Appears in UIEditMenuInteraction (iOS 16+) and UIMenuController (legacy)'),
+          _swBody('✦ Works with TextField, SelectableText, and CupertinoTextField'),
           _swBody('✦ No Flutter callback — action is handled entirely by iOS'),
           _swBody('✦ Cannot be individually filtered from the system menu'),
         ],

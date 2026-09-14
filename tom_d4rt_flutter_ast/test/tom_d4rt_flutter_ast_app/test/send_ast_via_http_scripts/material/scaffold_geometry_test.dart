@@ -85,11 +85,7 @@ Widget buildScaffoldLayoutDiagram() {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.web_asset,
-                          size: 48,
-                          color: Colors.grey.shade400,
-                        ),
+                        Icon(Icons.web_asset, size: 48, color: Colors.grey.shade400),
                         SizedBox(height: 8),
                         Text(
                           'Body Content Area',
@@ -254,10 +250,7 @@ Widget buildScaffoldLayoutDiagram() {
                         top: 2,
                         left: 2,
                         child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 4,
-                            vertical: 2,
-                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.pink.shade100,
                             borderRadius: BorderRadius.circular(4),
@@ -279,14 +272,8 @@ Widget buildScaffoldLayoutDiagram() {
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard(
-          'Scaffold',
-          'Main visual structure for Material Design layouts',
-        ),
-        buildInfoCard(
-          'ScaffoldGeometry',
-          'Contains geometry info for layout calculations',
-        ),
+        buildInfoCard('Scaffold', 'Main visual structure for Material Design layouts'),
+        buildInfoCard('ScaffoldGeometry', 'Contains geometry info for layout calculations'),
       ],
     ),
   );
@@ -345,7 +332,10 @@ Widget buildBottomNavBarTopSection() {
                     top: 18,
                     left: 0,
                     right: 0,
-                    child: Container(height: 2, color: Colors.amber),
+                    child: Container(
+                      height: 2,
+                      color: Colors.amber,
+                    ),
                   ),
                 ],
               ),
@@ -366,16 +356,15 @@ Widget buildBottomNavBarTopSection() {
                   SizedBox(height: 2),
                   Text(
                     descriptions[i],
-                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 14,
-              color: Colors.blue.shade300,
-            ),
+            Icon(Icons.arrow_forward_ios, size: 14, color: Colors.blue.shade300),
           ],
         ),
       ),
@@ -395,11 +384,7 @@ Widget buildBottomNavBarTopSection() {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.vertical_align_top,
-              color: Colors.blue.shade700,
-              size: 24,
-            ),
+            Icon(Icons.vertical_align_top, color: Colors.blue.shade700, size: 24),
             SizedBox(width: 8),
             Text(
               'bottomNavigationBarTop Property',
@@ -543,9 +528,7 @@ Widget buildFabAreaVisualization() {
                     // FAB indicator
                     Positioned(
                       left: fabAlignments[i] == Alignment.bottomLeft ? 4 : null,
-                      right: fabAlignments[i] == Alignment.bottomRight
-                          ? 4
-                          : null,
+                      right: fabAlignments[i] == Alignment.bottomRight ? 4 : null,
                       bottom: isDocked[i] ? 12 : 26,
                       child: fabAlignments[i] == Alignment.bottomCenter
                           ? Center(
@@ -556,11 +539,7 @@ Widget buildFabAreaVisualization() {
                                   color: Colors.pink,
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 12,
-                                ),
+                                child: Icon(Icons.add, color: Colors.white, size: 12),
                               ),
                             )
                           : Container(
@@ -570,19 +549,13 @@ Widget buildFabAreaVisualization() {
                                 color: Colors.pink,
                                 shape: BoxShape.circle,
                               ),
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 12,
-                              ),
+                              child: Icon(Icons.add, color: Colors.white, size: 12),
                             ),
                     ),
                     // FAB area rectangle
                     Positioned(
                       left: fabAlignments[i] == Alignment.bottomLeft ? 2 : null,
-                      right: fabAlignments[i] == Alignment.bottomRight
-                          ? 2
-                          : null,
+                      right: fabAlignments[i] == Alignment.bottomRight ? 2 : null,
                       bottom: isDocked[i] ? 8 : 22,
                       child: fabAlignments[i] == Alignment.bottomCenter
                           ? Container()
@@ -651,14 +624,8 @@ Widget buildFabAreaVisualization() {
         ),
         SizedBox(height: 12),
         buildInfoCard('Type', 'Rect? - nullable rectangle'),
-        buildInfoCard(
-          'Coordinates',
-          'Contains left, top, right, bottom values',
-        ),
-        buildInfoCard(
-          'Usage',
-          'Used by BottomAppBar to create notch around FAB',
-        ),
+        buildInfoCard('Coordinates', 'Contains left, top, right, bottom values'),
+        buildInfoCard('Usage', 'Used by BottomAppBar to create notch around FAB'),
       ],
     ),
   );
@@ -739,11 +706,7 @@ Widget buildGeometryRelationships() {
             SizedBox(width: 8),
             Column(
               children: [
-                Icon(
-                  Icons.arrow_forward,
-                  size: 16,
-                  color: Colors.purple.shade400,
-                ),
+                Icon(Icons.arrow_forward, size: 16, color: Colors.purple.shade400),
                 Text(
                   rel['type']!,
                   style: TextStyle(fontSize: 8, color: Colors.purple.shade600),
@@ -830,7 +793,9 @@ Widget buildGeometryPropertiesTable() {
         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
           color: i % 2 == 0 ? Colors.grey.shade50 : Colors.white,
-          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+          border: Border(
+            bottom: BorderSide(color: Colors.grey.shade200),
+          ),
         ),
         child: Row(
           children: [
@@ -902,7 +867,9 @@ Widget buildGeometryPropertiesTable() {
         ),
         Container(
           padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          decoration: BoxDecoration(color: Colors.indigo.shade100),
+          decoration: BoxDecoration(
+            color: Colors.indigo.shade100,
+          ),
           child: Row(
             children: [
               Expanded(
@@ -1022,10 +989,7 @@ Widget build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard(
-          'Note',
-          'ScaffoldGeometry is typically accessed during layout via callbacks',
-        ),
+        buildInfoCard('Note', 'ScaffoldGeometry is typically accessed during layout via callbacks'),
       ],
     ),
   );
@@ -1136,11 +1100,7 @@ Widget buildNotchInteractionSection() {
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.check_circle,
-                      color: Colors.green.shade600,
-                      size: 20,
-                    ),
+                    Icon(Icons.check_circle, color: Colors.green.shade600, size: 20),
                     SizedBox(height: 4),
                     Text(
                       'With FAB Area',
@@ -1152,10 +1112,7 @@ Widget buildNotchInteractionSection() {
                     ),
                     Text(
                       'Notch created',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.green.shade600,
-                      ),
+                      style: TextStyle(fontSize: 10, color: Colors.green.shade600),
                     ),
                   ],
                 ),
@@ -1184,10 +1141,7 @@ Widget buildNotchInteractionSection() {
                     ),
                     Text(
                       'Flat bar edge',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.red.shade600,
-                      ),
+                      style: TextStyle(fontSize: 10, color: Colors.red.shade600),
                     ),
                   ],
                 ),

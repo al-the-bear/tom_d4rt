@@ -76,28 +76,23 @@ const List<String> _guideItems = <String>[
 const List<_FaqEntry> _faqEntries = <_FaqEntry>[
   _FaqEntry(
     question: 'When should I use Listener instead of GestureDetector?',
-    answer:
-        'Use Listener when you need raw pointer granularity rather than semantic gestures.',
+    answer: 'Use Listener when you need raw pointer granularity rather than semantic gestures.',
   ),
   _FaqEntry(
     question: 'How does HitTestBehavior impact pointer events?',
-    answer:
-        'It determines whether transparent regions receive events and whether events pass through.',
+    answer: 'It determines whether transparent regions receive events and whether events pass through.',
   ),
   _FaqEntry(
     question: 'Can I observe scroll wheel input?',
-    answer:
-        'Yes, via onPointerSignal, typically as PointerScrollEvent with scrollDelta.',
+    answer: 'Yes, via onPointerSignal, typically as PointerScrollEvent with scrollDelta.',
   ),
   _FaqEntry(
     question: 'Does Listener support hover separately from move?',
-    answer:
-        'Yes, onPointerHover is triggered when no button is pressed and pointer moves in region.',
+    answer: 'Yes, onPointerHover is triggered when no button is pressed and pointer moves in region.',
   ),
   _FaqEntry(
     question: 'How can I test event ordering?',
-    answer:
-        'Record timestamped logs in a timeline and compare down/move/up/cancel sequences.',
+    answer: 'Record timestamped logs in a timeline and compare down/move/up/cancel sequences.',
   ),
 ];
 
@@ -127,11 +122,7 @@ class _ThemePreset {
 }
 
 class _SceneSpec {
-  const _SceneSpec({
-    required this.mode,
-    required this.title,
-    required this.description,
-  });
+  const _SceneSpec({required this.mode, required this.title, required this.description});
 
   final _SceneMode mode;
   final String title;
@@ -168,12 +159,7 @@ class _EventSample {
 }
 
 class _MetricTile {
-  const _MetricTile({
-    required this.title,
-    required this.value,
-    required this.note,
-    required this.icon,
-  });
+  const _MetricTile({required this.title, required this.value, required this.note, required this.icon});
 
   final String title;
   final String value;
@@ -203,13 +189,10 @@ class _RenderPointerListenerStudio extends StatefulWidget {
   const _RenderPointerListenerStudio();
 
   @override
-  State<_RenderPointerListenerStudio> createState() =>
-      _RenderPointerListenerStudioState();
+  State<_RenderPointerListenerStudio> createState() => _RenderPointerListenerStudioState();
 }
 
-class _RenderPointerListenerStudioState
-    extends State<_RenderPointerListenerStudio>
-    with SingleTickerProviderStateMixin {
+class _RenderPointerListenerStudioState extends State<_RenderPointerListenerStudio> with SingleTickerProviderStateMixin {
   late final AnimationController _pulse = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 8800),
@@ -278,15 +261,7 @@ class _RenderPointerListenerStudioState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _appendSyntheticEvent(
-        'system',
-        'init',
-        'studio',
-        Offset.zero,
-        Offset.zero,
-        0,
-        -1,
-      );
+      _appendSyntheticEvent('system', 'init', 'studio', Offset.zero, Offset.zero, 0, -1);
     });
   }
 
@@ -296,15 +271,7 @@ class _RenderPointerListenerStudioState
     super.dispose();
   }
 
-  void _appendSyntheticEvent(
-    String zone,
-    String kind,
-    String type,
-    Offset local,
-    Offset delta,
-    int buttons,
-    int pointer,
-  ) {
+  void _appendSyntheticEvent(String zone, String kind, String type, Offset local, Offset delta, int buttons, int pointer) {
     setState(() {
       _events = <_EventSample>[
         _EventSample(
@@ -322,11 +289,7 @@ class _RenderPointerListenerStudioState
     });
   }
 
-  void _recordPointer({
-    required String zone,
-    required PointerEvent event,
-    required String type,
-  }) {
+  void _recordPointer({required String zone, required PointerEvent event, required String type}) {
     final String kind = event.kind.name;
     setState(() {
       _lastDeviceKind = kind;
@@ -353,10 +316,7 @@ class _RenderPointerListenerStudioState
         }
       }
 
-      final List<Offset> trail = _pointerTrails.putIfAbsent(
-        event.pointer,
-        () => <Offset>[],
-      );
+      final List<Offset> trail = _pointerTrails.putIfAbsent(event.pointer, () => <Offset>[]);
       trail.add(event.localPosition);
       if (trail.length > _maxTrailPoints) {
         trail.removeRange(0, trail.length - _maxTrailPoints);
@@ -425,15 +385,7 @@ class _RenderPointerListenerStudioState
     } else {
       _pulse.stop();
     }
-    _appendSyntheticEvent(
-      'control',
-      'toggle',
-      key,
-      Offset.zero,
-      Offset.zero,
-      next ? 1 : 0,
-      -1,
-    );
+    _appendSyntheticEvent('control', 'toggle', key, Offset.zero, Offset.zero, next ? 1 : 0, -1);
   }
 
   void _reset() {
@@ -476,49 +428,25 @@ class _RenderPointerListenerStudioState
       _signalCount = 0;
       _signalX = 0;
       _signalY = 0;
-      _snapshot = const _StageSnapshot(
-        scene: 'introPad',
-        behavior: 'opaque',
-        maxTrail: 240,
-        activePointerCount: 0,
-      );
+      _snapshot = const _StageSnapshot(scene: 'introPad', behavior: 'opaque', maxTrail: 240, activePointerCount: 0);
     });
     _pulse.repeat();
-    _appendSyntheticEvent(
-      'system',
-      'reset',
-      'defaults',
-      Offset.zero,
-      Offset.zero,
-      0,
-      -1,
-    );
+    _appendSyntheticEvent('system', 'reset', 'defaults', Offset.zero, Offset.zero, 0, -1);
   }
 
   @override
   Widget build(BuildContext context) {
     final _ThemePreset profile = _pointerThemes[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(
-      seedColor: profile.seed,
-      brightness: profile.brightness,
-    );
+    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: profile.seed, brightness: profile.brightness);
 
     return Theme(
-      data: ThemeData(
-        useMaterial3: true,
-        colorScheme: scheme,
-        brightness: profile.brightness,
-      ),
+      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: profile.brightness),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                scheme.surface,
-                scheme.surfaceContainerLow,
-                scheme.surfaceContainer,
-              ],
+              colors: <Color>[scheme.surface, scheme.surfaceContainerLow, scheme.surfaceContainer],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -575,28 +503,12 @@ class _RenderPointerListenerStudioState
                 Icon(Icons.touch_app_outlined, size: 26, color: scheme.primary),
                 Text(
                   'RenderPointerListener Interaction Observatory',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 25,
-                  ),
+                  style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 25),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: scheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  child: Text(
-                    _sceneSpecs[_sceneIndex].title,
-                    style: TextStyle(
-                      color: scheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
+                  child: Text(_sceneSpecs[_sceneIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
                 ),
               ],
             ),
@@ -620,14 +532,7 @@ class _RenderPointerListenerStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Theme Profiles',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
+            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -643,33 +548,15 @@ class _RenderPointerListenerStudioState
                       _themeChanges += 1;
                       _phase = 'theme';
                     });
-                    _appendSyntheticEvent(
-                      'control',
-                      'theme',
-                      p.id,
-                      Offset.zero,
-                      Offset.zero,
-                      0,
-                      -1,
-                    );
+                    _appendSyntheticEvent('control', 'theme', p.id, Offset.zero, Offset.zero, 0, -1);
                   },
                 );
               }),
             ),
             const SizedBox(height: 8),
-            Text(
-              _pointerThemes[_themeIndex].subtitle,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_pointerThemes[_themeIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
             const Divider(height: 22),
-            Text(
-              'Pointer Scenes',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
+            Text('Pointer Scenes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -685,24 +572,13 @@ class _RenderPointerListenerStudioState
                       _sceneChanges += 1;
                       _phase = 'scene';
                     });
-                    _appendSyntheticEvent(
-                      'control',
-                      'scene',
-                      s.mode.name,
-                      Offset.zero,
-                      Offset.zero,
-                      0,
-                      -1,
-                    );
+                    _appendSyntheticEvent('control', 'scene', s.mode.name, Offset.zero, Offset.zero, 0, -1);
                   },
                 );
               }),
             ),
             const SizedBox(height: 8),
-            Text(
-              _sceneSpecs[_sceneIndex].description,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_sceneSpecs[_sceneIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
       ),
@@ -720,27 +596,13 @@ class _RenderPointerListenerStudioState
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'Pointer Controls',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
+                Text('Pointer Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
                 const Spacer(),
-                OutlinedButton.icon(
-                  onPressed: _reset,
-                  icon: const Icon(Icons.restart_alt),
-                  label: const Text('Reset'),
-                ),
+                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Tune stage and tracing parameters to inspect raw pointer behavior.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Tune stage and tracing parameters to inspect raw pointer behavior.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 8),
             _slider(
               scheme: scheme,
@@ -839,18 +701,11 @@ class _RenderPointerListenerStudioState
               min: 50,
               max: 500,
               divisions: 90,
-              onChanged: (double v) =>
-                  setState(() => _maxTrailPoints = v.round()),
+              onChanged: (double v) => setState(() => _maxTrailPoints = v.round()),
               onChangeEnd: (double v) => _bumpControl('maxTrailPoints', v),
             ),
             const SizedBox(height: 8),
-            Text(
-              'HitTestBehavior',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('HitTestBehavior', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -864,15 +719,7 @@ class _RenderPointerListenerStudioState
                       _behaviorChanges += 1;
                       _phase = 'behavior';
                     });
-                    _appendSyntheticEvent(
-                      'control',
-                      'behavior',
-                      b.name,
-                      Offset.zero,
-                      Offset.zero,
-                      0,
-                      -1,
-                    );
+                    _appendSyntheticEvent('control', 'behavior', b.name, Offset.zero, Offset.zero, 0, -1);
                   },
                 );
               }).toList(),
@@ -881,51 +728,15 @@ class _RenderPointerListenerStudioState
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(
-                  value: _animate,
-                  onChanged: (bool? v) => _toggle('animate', v),
-                  child: const Text('Animate background'),
-                ),
-                CheckboxMenuButton(
-                  value: _showGrid,
-                  onChanged: (bool? v) => _toggle('grid', v),
-                  child: const Text('Show grid'),
-                ),
-                CheckboxMenuButton(
-                  value: _showTrail,
-                  onChanged: (bool? v) => _toggle('trail', v),
-                  child: const Text('Show trails'),
-                ),
-                CheckboxMenuButton(
-                  value: _showHoverHeat,
-                  onChanged: (bool? v) => _toggle('hover', v),
-                  child: const Text('Show hover heat'),
-                ),
-                CheckboxMenuButton(
-                  value: _showRawCoordinates,
-                  onChanged: (bool? v) => _toggle('coords', v),
-                  child: const Text('Show coordinates'),
-                ),
-                CheckboxMenuButton(
-                  value: _showSignalHints,
-                  onChanged: (bool? v) => _toggle('signal', v),
-                  child: const Text('Show signal hints'),
-                ),
-                CheckboxMenuButton(
-                  value: _showDiagnostics,
-                  onChanged: (bool? v) => _toggle('diagnostics', v),
-                  child: const Text('Show diagnostics'),
-                ),
-                CheckboxMenuButton(
-                  value: _showGuide,
-                  onChanged: (bool? v) => _toggle('guide', v),
-                  child: const Text('Show guide'),
-                ),
-                CheckboxMenuButton(
-                  value: _showTimeline,
-                  onChanged: (bool? v) => _toggle('timeline', v),
-                  child: const Text('Show timeline'),
-                ),
+                CheckboxMenuButton(value: _animate, onChanged: (bool? v) => _toggle('animate', v), child: const Text('Animate background')),
+                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) => _toggle('grid', v), child: const Text('Show grid')),
+                CheckboxMenuButton(value: _showTrail, onChanged: (bool? v) => _toggle('trail', v), child: const Text('Show trails')),
+                CheckboxMenuButton(value: _showHoverHeat, onChanged: (bool? v) => _toggle('hover', v), child: const Text('Show hover heat')),
+                CheckboxMenuButton(value: _showRawCoordinates, onChanged: (bool? v) => _toggle('coords', v), child: const Text('Show coordinates')),
+                CheckboxMenuButton(value: _showSignalHints, onChanged: (bool? v) => _toggle('signal', v), child: const Text('Show signal hints')),
+                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) => _toggle('diagnostics', v), child: const Text('Show diagnostics')),
+                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) => _toggle('guide', v), child: const Text('Show guide')),
+                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) => _toggle('timeline', v), child: const Text('Show timeline')),
               ],
             ),
           ],
@@ -939,15 +750,7 @@ class _RenderPointerListenerStudioState
       _controlEdits += 1;
       _phase = 'control';
     });
-    _appendSyntheticEvent(
-      'control',
-      'slider',
-      '$name=${value.toStringAsFixed(2)}',
-      Offset.zero,
-      Offset.zero,
-      0,
-      -1,
-    );
+    _appendSyntheticEvent('control', 'slider', '$name=${value.toStringAsFixed(2)}', Offset.zero, Offset.zero, 0, -1);
   }
 
   Widget _slider({
@@ -965,23 +768,11 @@ class _RenderPointerListenerStudioState
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(
-              child: Text(label, style: TextStyle(color: scheme.onSurface)),
-            ),
-            Text(
-              value.toStringAsFixed(2),
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
+            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
-        Slider(
-          value: value,
-          min: min,
-          max: max,
-          divisions: divisions,
-          onChanged: onChanged,
-          onChangeEnd: onChangeEnd,
-        ),
+        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
       ],
     );
   }
@@ -1003,19 +794,9 @@ class _RenderPointerListenerStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Pointer Stage',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Pointer Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
-            Text(
-              'Interact directly with the stage to generate raw pointer streams.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Interact directly with the stage to generate raw pointer streams.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 12),
             GestureDetector(
               onTap: () {
@@ -1023,15 +804,7 @@ class _RenderPointerListenerStudioState
                   _stageTaps += 1;
                   _phase = 'tap';
                 });
-                _appendSyntheticEvent(
-                  'stage',
-                  'tap',
-                  'gesture',
-                  Offset.zero,
-                  Offset.zero,
-                  0,
-                  -1,
-                );
+                _appendSyntheticEvent('stage', 'tap', 'gesture', Offset.zero, Offset.zero, 0, -1);
               },
               child: SizedBox(
                 height: _stageHeight,
@@ -1045,13 +818,7 @@ class _RenderPointerListenerStudioState
                     child: Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
-                        if (_showGrid)
-                          CustomPaint(
-                            painter: _StageGridPainter(
-                              progress: progress,
-                              drift: _drift,
-                            ),
-                          ),
+                        if (_showGrid) CustomPaint(painter: _StageGridPainter(progress: progress, drift: _drift)),
                         _buildSceneLayer(scheme, progress),
                         if (_showTrail)
                           IgnorePointer(
@@ -1068,9 +835,7 @@ class _RenderPointerListenerStudioState
                           IgnorePointer(
                             child: CustomPaint(
                               painter: _HoverHeatPainter(
-                                points: _hoverPoints.values.toList(
-                                  growable: false,
-                                ),
+                                points: _hoverPoints.values.toList(growable: false),
                                 strength: _hoverStrength,
                               ),
                             ),
@@ -1096,17 +861,10 @@ class _RenderPointerListenerStudioState
   Widget _coordBadge(ColorScheme scheme) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.36),
-        borderRadius: BorderRadius.circular(10),
-      ),
+      decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.36), borderRadius: BorderRadius.circular(10)),
       child: Text(
         'type=$_lastType kind=$_lastDeviceKind\nlocal=(${_lastLocal.dx.toStringAsFixed(1)}, ${_lastLocal.dy.toStringAsFixed(1)}) delta=(${_lastDelta.dx.toStringAsFixed(1)}, ${_lastDelta.dy.toStringAsFixed(1)})',
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-        ),
+        style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
       ),
     );
   }
@@ -1136,25 +894,9 @@ class _RenderPointerListenerStudioState
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: _pointerZone(
-                    scheme: scheme,
-                    zone: 'intro-left',
-                    title: 'Primary Pad',
-                    colorA: scheme.primary,
-                    colorB: scheme.secondary,
-                  ),
-                ),
+                Expanded(child: _pointerZone(scheme: scheme, zone: 'intro-left', title: 'Primary Pad', colorA: scheme.primary, colorB: scheme.secondary)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _pointerZone(
-                    scheme: scheme,
-                    zone: 'intro-right',
-                    title: 'Secondary Pad',
-                    colorA: scheme.tertiary,
-                    colorB: scheme.primary,
-                  ),
-                ),
+                Expanded(child: _pointerZone(scheme: scheme, zone: 'intro-right', title: 'Secondary Pad', colorA: scheme.tertiary, colorB: scheme.primary)),
               ],
             ),
           ),
@@ -1162,35 +904,11 @@ class _RenderPointerListenerStudioState
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: _pointerZone(
-                    scheme: scheme,
-                    zone: 'intro-mini-1',
-                    title: 'Mini A',
-                    colorA: scheme.secondary,
-                    colorB: scheme.tertiary,
-                  ),
-                ),
+                Expanded(child: _pointerZone(scheme: scheme, zone: 'intro-mini-1', title: 'Mini A', colorA: scheme.secondary, colorB: scheme.tertiary)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _pointerZone(
-                    scheme: scheme,
-                    zone: 'intro-mini-2',
-                    title: 'Mini B',
-                    colorA: scheme.primary,
-                    colorB: scheme.secondary,
-                  ),
-                ),
+                Expanded(child: _pointerZone(scheme: scheme, zone: 'intro-mini-2', title: 'Mini B', colorA: scheme.primary, colorB: scheme.secondary)),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: _pointerZone(
-                    scheme: scheme,
-                    zone: 'intro-mini-3',
-                    title: 'Mini C',
-                    colorA: scheme.tertiary,
-                    colorB: scheme.primary,
-                  ),
-                ),
+                Expanded(child: _pointerZone(scheme: scheme, zone: 'intro-mini-3', title: 'Mini C', colorA: scheme.tertiary, colorB: scheme.primary)),
               ],
             ),
           ),
@@ -1215,11 +933,7 @@ class _RenderPointerListenerStudioState
             width: 236 * _padScale,
             height: 146 * _padScale,
             colorA: Color.lerp(scheme.primary, scheme.secondary, (i % 4) / 4)!,
-            colorB: Color.lerp(
-              scheme.tertiary,
-              scheme.primary,
-              ((i + 2) % 5) / 5,
-            )!,
+            colorB: Color.lerp(scheme.tertiary, scheme.primary, ((i + 2) % 5) / 5)!,
             labelMode: 'hover',
           ),
         ),
@@ -1265,41 +979,13 @@ class _RenderPointerListenerStudioState
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: _deviceCard(
-                    scheme: scheme,
-                    title: 'Mouse',
-                    value: '${_countByKind(PointerDeviceKind.mouse)} events',
-                    icon: Icons.mouse_outlined,
-                  ),
-                ),
+                Expanded(child: _deviceCard(scheme: scheme, title: 'Mouse', value: '${_countByKind(PointerDeviceKind.mouse)} events', icon: Icons.mouse_outlined)),
                 const SizedBox(width: 10),
-                Expanded(
-                  child: _deviceCard(
-                    scheme: scheme,
-                    title: 'Touch',
-                    value: '${_countByKind(PointerDeviceKind.touch)} events',
-                    icon: Icons.pan_tool_outlined,
-                  ),
-                ),
+                Expanded(child: _deviceCard(scheme: scheme, title: 'Touch', value: '${_countByKind(PointerDeviceKind.touch)} events', icon: Icons.pan_tool_outlined)),
                 const SizedBox(width: 10),
-                Expanded(
-                  child: _deviceCard(
-                    scheme: scheme,
-                    title: 'Stylus',
-                    value: '${_countByKind(PointerDeviceKind.stylus)} events',
-                    icon: Icons.edit_outlined,
-                  ),
-                ),
+                Expanded(child: _deviceCard(scheme: scheme, title: 'Stylus', value: '${_countByKind(PointerDeviceKind.stylus)} events', icon: Icons.edit_outlined)),
                 const SizedBox(width: 10),
-                Expanded(
-                  child: _deviceCard(
-                    scheme: scheme,
-                    title: 'Trackpad',
-                    value: '${_countByKind(PointerDeviceKind.trackpad)} events',
-                    icon: Icons.laptop_mac_outlined,
-                  ),
-                ),
+                Expanded(child: _deviceCard(scheme: scheme, title: 'Trackpad', value: '${_countByKind(PointerDeviceKind.trackpad)} events', icon: Icons.laptop_mac_outlined)),
               ],
             ),
           ),
@@ -1319,38 +1005,13 @@ class _RenderPointerListenerStudioState
             Positioned.fill(
               child: Listener(
                 behavior: HitTestBehavior.translucent,
-                onPointerDown: (PointerDownEvent e) => _recordPointer(
-                  zone: 'arena-bottom',
-                  event: e,
-                  type: 'down',
-                ),
-                onPointerMove: (PointerMoveEvent e) => _recordPointer(
-                  zone: 'arena-bottom',
-                  event: e,
-                  type: 'move',
-                ),
-                onPointerUp: (PointerUpEvent e) =>
-                    _recordPointer(zone: 'arena-bottom', event: e, type: 'up'),
-                onPointerHover: (PointerHoverEvent e) => _recordPointer(
-                  zone: 'arena-bottom',
-                  event: e,
-                  type: 'hover',
-                ),
+                onPointerDown: (PointerDownEvent e) => _recordPointer(zone: 'arena-bottom', event: e, type: 'down'),
+                onPointerMove: (PointerMoveEvent e) => _recordPointer(zone: 'arena-bottom', event: e, type: 'move'),
+                onPointerUp: (PointerUpEvent e) => _recordPointer(zone: 'arena-bottom', event: e, type: 'up'),
+                onPointerHover: (PointerHoverEvent e) => _recordPointer(zone: 'arena-bottom', event: e, type: 'hover'),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: base,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: scheme.primary, width: 2),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Bottom translucent listener',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+                  decoration: BoxDecoration(color: base, borderRadius: BorderRadius.circular(20), border: Border.all(color: scheme.primary, width: 2)),
+                  child: const Center(child: Text('Bottom translucent listener', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))),
                 ),
               ),
             ),
@@ -1361,64 +1022,24 @@ class _RenderPointerListenerStudioState
               bottom: 70,
               child: Listener(
                 behavior: _behavior,
-                onPointerDown: (PointerDownEvent e) => _recordPointer(
-                  zone: 'arena-middle',
-                  event: e,
-                  type: 'down',
-                ),
-                onPointerMove: (PointerMoveEvent e) => _recordPointer(
-                  zone: 'arena-middle',
-                  event: e,
-                  type: 'move',
-                ),
-                onPointerUp: (PointerUpEvent e) =>
-                    _recordPointer(zone: 'arena-middle', event: e, type: 'up'),
-                onPointerHover: (PointerHoverEvent e) => _recordPointer(
-                  zone: 'arena-middle',
-                  event: e,
-                  type: 'hover',
-                ),
-                onPointerCancel: (PointerCancelEvent e) => _recordPointer(
-                  zone: 'arena-middle',
-                  event: e,
-                  type: 'cancel',
-                ),
+                onPointerDown: (PointerDownEvent e) => _recordPointer(zone: 'arena-middle', event: e, type: 'down'),
+                onPointerMove: (PointerMoveEvent e) => _recordPointer(zone: 'arena-middle', event: e, type: 'move'),
+                onPointerUp: (PointerUpEvent e) => _recordPointer(zone: 'arena-middle', event: e, type: 'up'),
+                onPointerHover: (PointerHoverEvent e) => _recordPointer(zone: 'arena-middle', event: e, type: 'hover'),
+                onPointerCancel: (PointerCancelEvent e) => _recordPointer(zone: 'arena-middle', event: e, type: 'cancel'),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: <Color>[
-                        scheme.secondary.withValues(alpha: 0.88),
-                        scheme.tertiary.withValues(alpha: 0.88),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    gradient: LinearGradient(colors: <Color>[scheme.secondary.withValues(alpha: 0.88), scheme.tertiary.withValues(alpha: 0.88)], begin: Alignment.topLeft, end: Alignment.bottomRight),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.5),
-                      width: 2,
-                    ),
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 2),
                   ),
                   child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        const Text(
-                          'Middle listener',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 17,
-                          ),
-                        ),
+                        const Text('Middle listener', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17)),
                         const SizedBox(height: 6),
-                        Text(
-                          'behavior: ${_behavior.name}',
-                          style: const TextStyle(
-                            color: Colors.white70,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        Text('behavior: ${_behavior.name}', style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w700)),
                       ],
                     ),
                   ),
@@ -1432,31 +1053,13 @@ class _RenderPointerListenerStudioState
               bottom: 170,
               child: Listener(
                 behavior: HitTestBehavior.opaque,
-                onPointerDown: (PointerDownEvent e) =>
-                    _recordPointer(zone: 'arena-top', event: e, type: 'down'),
-                onPointerMove: (PointerMoveEvent e) =>
-                    _recordPointer(zone: 'arena-top', event: e, type: 'move'),
-                onPointerUp: (PointerUpEvent e) =>
-                    _recordPointer(zone: 'arena-top', event: e, type: 'up'),
-                onPointerHover: (PointerHoverEvent e) =>
-                    _recordPointer(zone: 'arena-top', event: e, type: 'hover'),
+                onPointerDown: (PointerDownEvent e) => _recordPointer(zone: 'arena-top', event: e, type: 'down'),
+                onPointerMove: (PointerMoveEvent e) => _recordPointer(zone: 'arena-top', event: e, type: 'move'),
+                onPointerUp: (PointerUpEvent e) => _recordPointer(zone: 'arena-top', event: e, type: 'up'),
+                onPointerHover: (PointerHoverEvent e) => _recordPointer(zone: 'arena-top', event: e, type: 'hover'),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.38),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.66),
-                    ),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Top opaque listener',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+                  decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.38), borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white.withValues(alpha: 0.66))),
+                  child: const Center(child: Text('Top opaque listener', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))),
                 ),
               ),
             ),
@@ -1484,88 +1087,41 @@ class _RenderPointerListenerStudioState
             flex: 3,
             child: Listener(
               behavior: _behavior,
-              onPointerSignal: (PointerSignalEvent e) =>
-                  _recordPointer(zone: 'signal-main', event: e, type: 'signal'),
-              onPointerHover: (PointerHoverEvent e) =>
-                  _recordPointer(zone: 'signal-main', event: e, type: 'hover'),
-              onPointerMove: (PointerMoveEvent e) =>
-                  _recordPointer(zone: 'signal-main', event: e, type: 'move'),
-              onPointerDown: (PointerDownEvent e) =>
-                  _recordPointer(zone: 'signal-main', event: e, type: 'down'),
-              onPointerUp: (PointerUpEvent e) =>
-                  _recordPointer(zone: 'signal-main', event: e, type: 'up'),
+              onPointerSignal: (PointerSignalEvent e) => _recordPointer(zone: 'signal-main', event: e, type: 'signal'),
+              onPointerHover: (PointerHoverEvent e) => _recordPointer(zone: 'signal-main', event: e, type: 'hover'),
+              onPointerMove: (PointerMoveEvent e) => _recordPointer(zone: 'signal-main', event: e, type: 'move'),
+              onPointerDown: (PointerDownEvent e) => _recordPointer(zone: 'signal-main', event: e, type: 'down'),
+              onPointerUp: (PointerUpEvent e) => _recordPointer(zone: 'signal-main', event: e, type: 'up'),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      scheme.primary.withValues(alpha: _zoneOpacity),
-                      scheme.secondary.withValues(alpha: _zoneOpacity),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  gradient: LinearGradient(colors: <Color>[scheme.primary.withValues(alpha: _zoneOpacity), scheme.secondary.withValues(alpha: _zoneOpacity)], begin: Alignment.topLeft, end: Alignment.bottomRight),
                   borderRadius: BorderRadius.circular(_zoneRoundness),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.52),
-                  ),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.52)),
                 ),
                 child: Stack(
                   children: <Widget>[
                     const Positioned(
                       left: 14,
                       top: 12,
-                      child: Text(
-                        'Signal Capture Surface',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 16,
-                        ),
-                      ),
+                      child: Text('Signal Capture Surface', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16)),
                     ),
                     if (_showSignalHints)
                       Positioned(
                         right: 14,
                         top: 12,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.35),
-                            borderRadius: BorderRadius.circular(999),
-                          ),
-                          child: const Text(
-                            'Use mouse wheel / trackpad scroll',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 11,
-                            ),
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.35), borderRadius: BorderRadius.circular(999)),
+                          child: const Text('Use mouse wheel / trackpad scroll', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
                         ),
                       ),
                     Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Text(
-                            'signalX=${_signalX.toStringAsFixed(1)} signalY=${_signalY.toStringAsFixed(1)}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 17,
-                            ),
-                          ),
+                          Text('signalX=${_signalX.toStringAsFixed(1)} signalY=${_signalY.toStringAsFixed(1)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17)),
                           const SizedBox(height: 8),
-                          Text(
-                            'signal events: $_signalCount',
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          Text('signal events: $_signalCount', style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w700)),
                         ],
                       ),
                     ),
@@ -1614,62 +1170,23 @@ class _RenderPointerListenerStudioState
         children: <Widget>[
           Row(
             children: <Widget>[
-              Expanded(
-                child: _pointerZone(
-                  scheme: scheme,
-                  zone: 'analytics-main',
-                  title: 'Analytics Tap Zone',
-                  colorA: scheme.primary,
-                  colorB: scheme.secondary,
-                ),
-              ),
+              Expanded(child: _pointerZone(scheme: scheme, zone: 'analytics-main', title: 'Analytics Tap Zone', colorA: scheme.primary, colorB: scheme.secondary)),
               const SizedBox(width: 12),
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.22),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.35),
-                    ),
-                  ),
+                  decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.22), borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white.withValues(alpha: 0.35))),
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const Text(
-                        'Interpreter Verification Focus',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 15,
-                        ),
-                      ),
+                      const Text('Interpreter Verification Focus', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
                       const SizedBox(height: 8),
-                      const Text(
-                        '1. Raw pointer streams arrive in ordered timeline',
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                      const Text(
-                        '2. HitTest behavior toggles observable routing changes',
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                      const Text(
-                        '3. Hover and signal channels remain distinct',
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                      const Text(
-                        '4. Event counters update predictably across devices',
-                        style: TextStyle(color: Colors.white70),
-                      ),
+                      const Text('1. Raw pointer streams arrive in ordered timeline', style: TextStyle(color: Colors.white70)),
+                      const Text('2. HitTest behavior toggles observable routing changes', style: TextStyle(color: Colors.white70)),
+                      const Text('3. Hover and signal channels remain distinct', style: TextStyle(color: Colors.white70)),
+                      const Text('4. Event counters update predictably across devices', style: TextStyle(color: Colors.white70)),
                       const SizedBox(height: 8),
-                      Text(
-                        'lastType=$_lastType lastKind=$_lastDeviceKind',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      Text('lastType=$_lastType lastKind=$_lastDeviceKind', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                     ],
                   ),
                 ),
@@ -1680,52 +1197,19 @@ class _RenderPointerListenerStudioState
           Expanded(
             child: Listener(
               behavior: _behavior,
-              onPointerDown: (PointerDownEvent e) => _recordPointer(
-                zone: 'analytics-floor',
-                event: e,
-                type: 'down',
-              ),
-              onPointerMove: (PointerMoveEvent e) => _recordPointer(
-                zone: 'analytics-floor',
-                event: e,
-                type: 'move',
-              ),
-              onPointerUp: (PointerUpEvent e) =>
-                  _recordPointer(zone: 'analytics-floor', event: e, type: 'up'),
-              onPointerHover: (PointerHoverEvent e) => _recordPointer(
-                zone: 'analytics-floor',
-                event: e,
-                type: 'hover',
-              ),
-              onPointerSignal: (PointerSignalEvent e) => _recordPointer(
-                zone: 'analytics-floor',
-                event: e,
-                type: 'signal',
-              ),
+              onPointerDown: (PointerDownEvent e) => _recordPointer(zone: 'analytics-floor', event: e, type: 'down'),
+              onPointerMove: (PointerMoveEvent e) => _recordPointer(zone: 'analytics-floor', event: e, type: 'move'),
+              onPointerUp: (PointerUpEvent e) => _recordPointer(zone: 'analytics-floor', event: e, type: 'up'),
+              onPointerHover: (PointerHoverEvent e) => _recordPointer(zone: 'analytics-floor', event: e, type: 'hover'),
+              onPointerSignal: (PointerSignalEvent e) => _recordPointer(zone: 'analytics-floor', event: e, type: 'signal'),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      scheme.tertiary.withValues(alpha: 0.86),
-                      scheme.primary.withValues(alpha: 0.86),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  gradient: LinearGradient(colors: <Color>[scheme.tertiary.withValues(alpha: 0.86), scheme.primary.withValues(alpha: 0.86)], begin: Alignment.topLeft, end: Alignment.bottomRight),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.42),
-                  ),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.42)),
                 ),
                 child: const Center(
-                  child: Text(
-                    'Analytics Floor Listener',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 18,
-                    ),
-                  ),
+                  child: Text('Analytics Floor Listener', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
                 ),
               ),
             ),
@@ -1751,77 +1235,37 @@ class _RenderPointerListenerStudioState
       height: height,
       child: Listener(
         behavior: _behavior,
-        onPointerDown: (PointerDownEvent e) =>
-            _recordPointer(zone: zone, event: e, type: 'down'),
-        onPointerMove: (PointerMoveEvent e) =>
-            _recordPointer(zone: zone, event: e, type: 'move'),
-        onPointerUp: (PointerUpEvent e) =>
-            _recordPointer(zone: zone, event: e, type: 'up'),
-        onPointerCancel: (PointerCancelEvent e) =>
-            _recordPointer(zone: zone, event: e, type: 'cancel'),
-        onPointerHover: (PointerHoverEvent e) =>
-            _recordPointer(zone: zone, event: e, type: 'hover'),
-        onPointerSignal: (PointerSignalEvent e) =>
-            _recordPointer(zone: zone, event: e, type: 'signal'),
+        onPointerDown: (PointerDownEvent e) => _recordPointer(zone: zone, event: e, type: 'down'),
+        onPointerMove: (PointerMoveEvent e) => _recordPointer(zone: zone, event: e, type: 'move'),
+        onPointerUp: (PointerUpEvent e) => _recordPointer(zone: zone, event: e, type: 'up'),
+        onPointerCancel: (PointerCancelEvent e) => _recordPointer(zone: zone, event: e, type: 'cancel'),
+        onPointerHover: (PointerHoverEvent e) => _recordPointer(zone: zone, event: e, type: 'hover'),
+        onPointerSignal: (PointerSignalEvent e) => _recordPointer(zone: zone, event: e, type: 'signal'),
         child: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                colorA.withValues(alpha: _zoneOpacity),
-                colorB.withValues(alpha: _zoneOpacity),
-              ],
+              colors: <Color>[colorA.withValues(alpha: _zoneOpacity), colorB.withValues(alpha: _zoneOpacity)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(_zoneRoundness),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.48),
-              width: 1.6,
-            ),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.48), width: 1.6),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15,
-                  ),
-                ),
+                Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
                 const SizedBox(height: 4),
-                Text(
-                  'behavior: ${_behavior.name}',
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
+                Text('behavior: ${_behavior.name}', style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w700, fontSize: 12)),
                 if (hint != null) ...<Widget>[
                   const SizedBox(height: 4),
-                  Text(
-                    hint,
-                    style: const TextStyle(color: Colors.white70, fontSize: 12),
-                  ),
+                  Text(hint, style: const TextStyle(color: Colors.white70, fontSize: 12)),
                 ],
                 const Spacer(),
-                Text(
-                  'events here: ${_countByZone(zone)}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
-                if (labelMode == 'hover')
-                  Text(
-                    'hover events: ${_countByZoneAndType(zone, 'hover')}',
-                    style: const TextStyle(color: Colors.white70, fontSize: 11),
-                  ),
+                Text('events here: ${_countByZone(zone)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12)),
+                if (labelMode == 'hover') Text('hover events: ${_countByZoneAndType(zone, 'hover')}', style: const TextStyle(color: Colors.white70, fontSize: 11)),
               ],
             ),
           ),
@@ -1830,18 +1274,9 @@ class _RenderPointerListenerStudioState
     );
   }
 
-  Widget _deviceCard({
-    required ColorScheme scheme,
-    required String title,
-    required String value,
-    required IconData icon,
-  }) {
+  Widget _deviceCard({required ColorScheme scheme, required String title, required String value, required IconData icon}) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: scheme.outlineVariant),
-      ),
+      decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -1851,25 +1286,11 @@ class _RenderPointerListenerStudioState
               children: <Widget>[
                 Icon(icon, size: 18, color: scheme.primary),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      color: scheme.onSurface,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+                Expanded(child: Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700))),
               ],
             ),
             const Spacer(),
-            Text(
-              value,
-              style: TextStyle(
-                color: scheme.onSurfaceVariant,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(value, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700)),
           ],
         ),
       ),
@@ -1880,33 +1301,21 @@ class _RenderPointerListenerStudioState
     return Container(
       width: 280,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.35),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-          fontSize: 12,
-        ),
-      ),
+      decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.35), borderRadius: BorderRadius.circular(12)),
+      child: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 12)),
     );
   }
 
   int _countByZone(String zone) {
-    return _events.where((_EventSample e) => e.zone == zone).length;
+    return _events.where(( _EventSample e) => e.zone == zone).length;
   }
 
   int _countByZoneAndType(String zone, String type) {
-    return _events
-        .where((_EventSample e) => e.zone == zone && e.type == type)
-        .length;
+    return _events.where(( _EventSample e) => e.zone == zone && e.type == type).length;
   }
 
   int _countByKind(PointerDeviceKind kind) {
-    return _events.where((_EventSample e) => e.kind == kind.name).length;
+    return _events.where(( _EventSample e) => e.kind == kind.name).length;
   }
 
   Widget _buildBehaviorBoard(ColorScheme scheme) {
@@ -1918,19 +1327,9 @@ class _RenderPointerListenerStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Hit-Test Behavior Guide',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Hit-Test Behavior Guide', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
-            Text(
-              'Behavior affects event routing in transparent and stacked regions.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Behavior affects event routing in transparent and stacked regions.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1938,15 +1337,13 @@ class _RenderPointerListenerStudioState
                 final Widget a = _behaviorCard(
                   scheme: scheme,
                   title: 'opaque',
-                  note:
-                      'Always hit-test within bounds, even transparent areas.',
+                  note: 'Always hit-test within bounds, even transparent areas.',
                   color: const Color(0xFF0F766E),
                 );
                 final Widget b = _behaviorCard(
                   scheme: scheme,
                   title: 'translucent',
-                  note:
-                      'Receives events and allows targets behind to also receive.',
+                  note: 'Receives events and allows targets behind to also receive.',
                   color: const Color(0xFF1D4ED8),
                 );
                 final Widget c = _behaviorCard(
@@ -1956,25 +1353,9 @@ class _RenderPointerListenerStudioState
                   color: const Color(0xFFB45309),
                 );
                 if (narrow) {
-                  return Column(
-                    children: <Widget>[
-                      a,
-                      const SizedBox(height: 10),
-                      b,
-                      const SizedBox(height: 10),
-                      c,
-                    ],
-                  );
+                  return Column(children: <Widget>[a, const SizedBox(height: 10), b, const SizedBox(height: 10), c]);
                 }
-                return Row(
-                  children: <Widget>[
-                    Expanded(child: a),
-                    const SizedBox(width: 10),
-                    Expanded(child: b),
-                    const SizedBox(width: 10),
-                    Expanded(child: c),
-                  ],
-                );
+                return Row(children: <Widget>[Expanded(child: a), const SizedBox(width: 10), Expanded(child: b), const SizedBox(width: 10), Expanded(child: c)]);
               },
             ),
           ],
@@ -1983,50 +1364,23 @@ class _RenderPointerListenerStudioState
     );
   }
 
-  Widget _behaviorCard({
-    required ColorScheme scheme,
-    required String title,
-    required String note,
-    required Color color,
-  }) {
+  Widget _behaviorCard({required ColorScheme scheme, required String title, required String note, required Color color}) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: scheme.outlineVariant),
-      ),
+      decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 6),
-            Text(
-              note,
-              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
-            ),
+            Text(note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
               height: 92,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.16),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: color.withValues(alpha: 0.64)),
-              ),
-              child: Center(
-                child: Text(
-                  'active=${_behavior.name == title}',
-                  style: TextStyle(color: color, fontWeight: FontWeight.w800),
-                ),
-              ),
+              decoration: BoxDecoration(color: color.withValues(alpha: 0.16), borderRadius: BorderRadius.circular(10), border: Border.all(color: color.withValues(alpha: 0.64))),
+              child: Center(child: Text('active=${_behavior.name == title}', style: TextStyle(color: color, fontWeight: FontWeight.w800))),
             ),
           ],
         ),
@@ -2044,24 +1398,17 @@ class _RenderPointerListenerStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Metrics and Diagnostics',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                    ? 3
-                    : constraints.maxWidth > 560
-                    ? 2
-                    : 1;
+                        ? 3
+                        : constraints.maxWidth > 560
+                            ? 2
+                            : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -2075,11 +1422,7 @@ class _RenderPointerListenerStudioState
                   itemBuilder: (BuildContext context, int index) {
                     final _MetricTile tile = tiles[index];
                     return DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: scheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: scheme.outlineVariant),
-                      ),
+                      decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
                       child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Column(
@@ -2087,44 +1430,15 @@ class _RenderPointerListenerStudioState
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(
-                                  tile.icon,
-                                  size: 18,
-                                  color: scheme.primary,
-                                ),
+                                Icon(tile.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    tile.title,
-                                    style: TextStyle(
-                                      color: scheme.onSurfaceVariant,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
+                                Expanded(child: Text(tile.title, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
                               ],
                             ),
                             const Spacer(),
-                            Text(
-                              tile.value,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: scheme.onSurface,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15,
-                              ),
-                            ),
+                            Text(tile.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
                             const SizedBox(height: 4),
-                            Text(
-                              tile.note,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: scheme.onSurfaceVariant,
-                                fontSize: 12,
-                              ),
-                            ),
+                            Text(tile.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
                           ],
                         ),
                       ),
@@ -2143,130 +1457,30 @@ class _RenderPointerListenerStudioState
 
   List<_MetricTile> _buildMetrics() {
     return <_MetricTile>[
-      _MetricTile(
-        title: 'Scene',
-        value: _sceneSpecs[_sceneIndex].title,
-        note: 'Active pointer demo scene.',
-        icon: Icons.view_in_ar_outlined,
-      ),
-      _MetricTile(
-        title: 'Theme',
-        value: _pointerThemes[_themeIndex].name,
-        note: 'Visual profile for current run.',
-        icon: Icons.palette_outlined,
-      ),
-      _MetricTile(
-        title: 'Behavior',
-        value: _behavior.name,
-        note: 'Current hit-test behavior.',
-        icon: Icons.track_changes_outlined,
-      ),
-      _MetricTile(
-        title: 'Stage Height',
-        value: _stageHeight.toStringAsFixed(0),
-        note: 'Height of interaction stage.',
-        icon: Icons.height_outlined,
-      ),
-      _MetricTile(
-        title: 'Counters',
-        value: 'down=$_downCount move=$_moveCount up=$_upCount',
-        note: 'Primary pointer event counts.',
-        icon: Icons.countertops_outlined,
-      ),
-      _MetricTile(
-        title: 'Secondary',
-        value: 'hover=$_hoverCount cancel=$_cancelCount signal=$_signalCount',
-        note: 'Hover/cancel/signal counts.',
-        icon: Icons.insights_outlined,
-      ),
-      _MetricTile(
-        title: 'Signal Drift',
-        value:
-            'x=${_signalX.toStringAsFixed(1)} y=${_signalY.toStringAsFixed(1)}',
-        note: 'Accumulated scroll signal totals.',
-        icon: Icons.swipe_vertical_outlined,
-      ),
-      _MetricTile(
-        title: 'Trails',
-        value: '${_pointerTrails.length} pointers',
-        note: 'Distinct pointer trail maps stored.',
-        icon: Icons.timeline_outlined,
-      ),
-      _MetricTile(
-        title: 'Hover Points',
-        value: '${_hoverPoints.length}',
-        note: 'Live hover points in view.',
-        icon: Icons.blur_on_outlined,
-      ),
-      _MetricTile(
-        title: 'Trail Config',
-        value:
-            'max=$_maxTrailPoints fade=${_trailFade.toStringAsFixed(2)} width=${_trailThickness.toStringAsFixed(1)}',
-        note: 'Trail visualization settings.',
-        icon: Icons.gesture_outlined,
-      ),
-      _MetricTile(
-        title: 'Changes',
-        value:
-            'theme=$_themeChanges scene=$_sceneChanges behavior=$_behaviorChanges',
-        note: 'Major mode switch counters.',
-        icon: Icons.swap_horiz_outlined,
-      ),
-      _MetricTile(
-        title: 'Edits',
-        value: 'controls=$_controlEdits taps=$_stageTaps',
-        note: 'Interaction edits and stage taps.',
-        icon: Icons.tune_outlined,
-      ),
-      _MetricTile(
-        title: 'Last Event',
-        value: '$_lastType / $_lastDeviceKind',
-        note: 'Most recent event channel and device kind.',
-        icon: Icons.fiber_manual_record_outlined,
-      ),
-      _MetricTile(
-        title: 'Last Position',
-        value:
-            '(${_lastLocal.dx.toStringAsFixed(1)}, ${_lastLocal.dy.toStringAsFixed(1)})',
-        note: 'Latest local pointer coordinates.',
-        icon: Icons.my_location_outlined,
-      ),
-      _MetricTile(
-        title: 'Last Delta',
-        value:
-            '(${_lastDelta.dx.toStringAsFixed(1)}, ${_lastDelta.dy.toStringAsFixed(1)})',
-        note: 'Latest pointer delta vector.',
-        icon: Icons.open_with_outlined,
-      ),
-      _MetricTile(
-        title: 'Snapshot',
-        value:
-            '${_snapshot.scene} ${_snapshot.behavior} active=${_snapshot.activePointerCount}',
-        note: 'Current snapshot summary.',
-        icon: Icons.camera_outlined,
-      ),
-      _MetricTile(
-        title: 'Phase',
-        value: _phase,
-        note: 'Latest interaction phase.',
-        icon: Icons.flag_outlined,
-      ),
-      _MetricTile(
-        title: 'Event Log Size',
-        value: '${_events.length}',
-        note: 'Bounded timeline event count.',
-        icon: Icons.list_alt_outlined,
-      ),
+      _MetricTile(title: 'Scene', value: _sceneSpecs[_sceneIndex].title, note: 'Active pointer demo scene.', icon: Icons.view_in_ar_outlined),
+      _MetricTile(title: 'Theme', value: _pointerThemes[_themeIndex].name, note: 'Visual profile for current run.', icon: Icons.palette_outlined),
+      _MetricTile(title: 'Behavior', value: _behavior.name, note: 'Current hit-test behavior.', icon: Icons.track_changes_outlined),
+      _MetricTile(title: 'Stage Height', value: _stageHeight.toStringAsFixed(0), note: 'Height of interaction stage.', icon: Icons.height_outlined),
+      _MetricTile(title: 'Counters', value: 'down=$_downCount move=$_moveCount up=$_upCount', note: 'Primary pointer event counts.', icon: Icons.countertops_outlined),
+      _MetricTile(title: 'Secondary', value: 'hover=$_hoverCount cancel=$_cancelCount signal=$_signalCount', note: 'Hover/cancel/signal counts.', icon: Icons.insights_outlined),
+      _MetricTile(title: 'Signal Drift', value: 'x=${_signalX.toStringAsFixed(1)} y=${_signalY.toStringAsFixed(1)}', note: 'Accumulated scroll signal totals.', icon: Icons.swipe_vertical_outlined),
+      _MetricTile(title: 'Trails', value: '${_pointerTrails.length} pointers', note: 'Distinct pointer trail maps stored.', icon: Icons.timeline_outlined),
+      _MetricTile(title: 'Hover Points', value: '${_hoverPoints.length}', note: 'Live hover points in view.', icon: Icons.blur_on_outlined),
+      _MetricTile(title: 'Trail Config', value: 'max=$_maxTrailPoints fade=${_trailFade.toStringAsFixed(2)} width=${_trailThickness.toStringAsFixed(1)}', note: 'Trail visualization settings.', icon: Icons.gesture_outlined),
+      _MetricTile(title: 'Changes', value: 'theme=$_themeChanges scene=$_sceneChanges behavior=$_behaviorChanges', note: 'Major mode switch counters.', icon: Icons.swap_horiz_outlined),
+      _MetricTile(title: 'Edits', value: 'controls=$_controlEdits taps=$_stageTaps', note: 'Interaction edits and stage taps.', icon: Icons.tune_outlined),
+      _MetricTile(title: 'Last Event', value: '$_lastType / $_lastDeviceKind', note: 'Most recent event channel and device kind.', icon: Icons.fiber_manual_record_outlined),
+      _MetricTile(title: 'Last Position', value: '(${_lastLocal.dx.toStringAsFixed(1)}, ${_lastLocal.dy.toStringAsFixed(1)})', note: 'Latest local pointer coordinates.', icon: Icons.my_location_outlined),
+      _MetricTile(title: 'Last Delta', value: '(${_lastDelta.dx.toStringAsFixed(1)}, ${_lastDelta.dy.toStringAsFixed(1)})', note: 'Latest pointer delta vector.', icon: Icons.open_with_outlined),
+      _MetricTile(title: 'Snapshot', value: '${_snapshot.scene} ${_snapshot.behavior} active=${_snapshot.activePointerCount}', note: 'Current snapshot summary.', icon: Icons.camera_outlined),
+      _MetricTile(title: 'Phase', value: _phase, note: 'Latest interaction phase.', icon: Icons.flag_outlined),
+      _MetricTile(title: 'Event Log Size', value: '${_events.length}', note: 'Bounded timeline event count.', icon: Icons.list_alt_outlined),
     ];
   }
 
   Widget _buildSnapshotPane(ColorScheme scheme) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: scheme.outlineVariant),
-      ),
+      decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -2276,40 +1490,16 @@ class _RenderPointerListenerStudioState
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text(
-                  'Runtime Snapshot',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Runtime Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'theme=${_pointerThemes[_themeIndex].id} scene=${_sceneSpecs[_sceneIndex].mode.name} behavior=${_behavior.name}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'stage=${_stageHeight.toStringAsFixed(0)} trailFade=${_trailFade.toStringAsFixed(2)} trailThickness=${_trailThickness.toStringAsFixed(2)} maxTrail=$_maxTrailPoints',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'hoverStrength=${_hoverStrength.toStringAsFixed(2)} zoneRound=${_zoneRoundness.toStringAsFixed(1)} zoneOpacity=${_zoneOpacity.toStringAsFixed(2)} drift=${_drift.toStringAsFixed(2)}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'padScale=${_padScale.toStringAsFixed(2)} signalGain=${_signalGain.toStringAsFixed(2)} signalX=${_signalX.toStringAsFixed(1)} signalY=${_signalY.toStringAsFixed(1)}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'flags animate=$_animate grid=$_showGrid trail=$_showTrail hover=$_showHoverHeat coords=$_showRawCoordinates signal=$_showSignalHints',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'counts down=$_downCount move=$_moveCount up=$_upCount cancel=$_cancelCount hover=$_hoverCount signal=$_signalCount',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('theme=${_pointerThemes[_themeIndex].id} scene=${_sceneSpecs[_sceneIndex].mode.name} behavior=${_behavior.name}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('stage=${_stageHeight.toStringAsFixed(0)} trailFade=${_trailFade.toStringAsFixed(2)} trailThickness=${_trailThickness.toStringAsFixed(2)} maxTrail=$_maxTrailPoints', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('hoverStrength=${_hoverStrength.toStringAsFixed(2)} zoneRound=${_zoneRoundness.toStringAsFixed(1)} zoneOpacity=${_zoneOpacity.toStringAsFixed(2)} drift=${_drift.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('padScale=${_padScale.toStringAsFixed(2)} signalGain=${_signalGain.toStringAsFixed(2)} signalX=${_signalX.toStringAsFixed(1)} signalY=${_signalY.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('flags animate=$_animate grid=$_showGrid trail=$_showTrail hover=$_showHoverHeat coords=$_showRawCoordinates signal=$_showSignalHints', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('counts down=$_downCount move=$_moveCount up=$_upCount cancel=$_cancelCount hover=$_hoverCount signal=$_signalCount', style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
       ),
@@ -2325,14 +1515,7 @@ class _RenderPointerListenerStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Guide and FAQ',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             ..._guideItems.map((String line) {
               return Padding(
@@ -2340,47 +1523,26 @@ class _RenderPointerListenerStudioState
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Icon(Icons.circle, size: 8, color: scheme.primary),
-                    ),
+                    Padding(padding: const EdgeInsets.only(top: 4), child: Icon(Icons.circle, size: 8, color: scheme.primary)),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        line,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
-                    ),
+                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faqEntries.map((_FaqEntry entry) {
+            ..._faqEntries.map(( _FaqEntry entry) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  color: scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: scheme.outlineVariant),
-                ),
+                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        entry.question,
-                        style: TextStyle(
-                          color: scheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      Text(entry.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                       const SizedBox(height: 6),
-                      Text(
-                        entry.answer,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
+                      Text(entry.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
                     ],
                   ),
                 ),
@@ -2403,81 +1565,42 @@ class _RenderPointerListenerStudioState
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'Event Timeline',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
+                Text('Event Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
                 const Spacer(),
                 TextButton.icon(
-                  onPressed: () =>
-                      setState(() => _events = const <_EventSample>[]),
+                  onPressed: () => setState(() => _events = const <_EventSample>[]),
                   icon: const Icon(Icons.clear_all),
                   label: const Text('Clear'),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Chronological raw pointer events recorded by Listener zones.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Chronological raw pointer events recorded by Listener zones.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 10),
             if (_events.isEmpty)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: scheme.outlineVariant),
-                ),
-                child: Text(
-                  'Timeline is empty. Interact with the stage to capture events.',
-                  style: TextStyle(color: scheme.onSurfaceVariant),
-                ),
+                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                child: Text('Timeline is empty. Interact with the stage to capture events.', style: TextStyle(color: scheme.onSurfaceVariant)),
               )
             else
               Column(
-                children: _events.take(40).map((_EventSample e) {
-                  final String ts =
-                      '${e.time.hour.toString().padLeft(2, '0')}:${e.time.minute.toString().padLeft(2, '0')}:${e.time.second.toString().padLeft(2, '0')}';
+                children: _events.take(40).map(( _EventSample e) {
+                  final String ts = '${e.time.hour.toString().padLeft(2, '0')}:${e.time.minute.toString().padLeft(2, '0')}:${e.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: scheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: scheme.outlineVariant),
-                    ),
+                    decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
                     child: ListTile(
                       dense: true,
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(
-                          e.type.characters.first.toUpperCase(),
-                          style: TextStyle(
-                            color: scheme.onPrimaryContainer,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        child: Text(e.type.characters.first.toUpperCase(), style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
                       ),
-                      title: Text(
-                        '${e.zone}  |  ${e.type} (${e.kind})',
-                        style: TextStyle(
-                          color: scheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                        ),
-                      ),
+                      title: Text('${e.zone}  |  ${e.type} (${e.kind})', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 13)),
                       subtitle: Text(
                         '$ts  local=(${e.local.dx.toStringAsFixed(1)}, ${e.local.dy.toStringAsFixed(1)}) delta=(${e.delta.dx.toStringAsFixed(1)}, ${e.delta.dy.toStringAsFixed(1)}) buttons=${e.buttons} pointer=${e.pointer}',
-                        style: TextStyle(
-                          color: scheme.onSurfaceVariant,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
                       ),
                     ),
                   );
@@ -2501,26 +1624,15 @@ class _StageGridPainter extends CustomPainter {
     final Paint bg = Paint()
       ..shader = LinearGradient(
         colors: <Color>[
-          Color.lerp(
-            const Color(0xFF0EA5E9),
-            const Color(0xFF22C55E),
-            (math.sin(progress * math.pi * 2) + 1) / 2,
-          )!,
+          Color.lerp(const Color(0xFF0EA5E9), const Color(0xFF22C55E), (math.sin(progress * math.pi * 2) + 1) / 2)!,
           Color.lerp(const Color(0xFF2563EB), const Color(0xFF7C3AED), drift)!,
-          Color.lerp(
-            const Color(0xFFF59E0B),
-            const Color(0xFFEF4444),
-            (math.cos(progress * math.pi * 2) + 1) / 2,
-          )!,
+          Color.lerp(const Color(0xFFF59E0B), const Color(0xFFEF4444), (math.cos(progress * math.pi * 2) + 1) / 2)!,
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRect(Offset.zero & size, bg);
-    canvas.drawRect(
-      Offset.zero & size,
-      Paint()..color = Colors.black.withValues(alpha: 0.2),
-    );
+    canvas.drawRect(Offset.zero & size, Paint()..color = Colors.black.withValues(alpha: 0.2));
 
     final Paint grid = Paint()
       ..color = Colors.white.withValues(alpha: 0.12)
@@ -2570,9 +1682,7 @@ class _TrailPainter extends CustomPainter {
         index += 1;
         continue;
       }
-      final Color c = palette[index % palette.length].withValues(
-        alpha: fade * (0.7 + 0.3 * math.sin(pulse * math.pi * 2 + index)),
-      );
+      final Color c = palette[index % palette.length].withValues(alpha: fade * (0.7 + 0.3 * math.sin(pulse * math.pi * 2 + index)));
       final Paint paint = Paint()
         ..color = c
         ..strokeWidth = thickness
@@ -2590,10 +1700,7 @@ class _TrailPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _TrailPainter oldDelegate) {
-    return oldDelegate.trails != trails ||
-        oldDelegate.fade != fade ||
-        oldDelegate.thickness != thickness ||
-        oldDelegate.pulse != pulse;
+    return oldDelegate.trails != trails || oldDelegate.fade != fade || oldDelegate.thickness != thickness || oldDelegate.pulse != pulse;
   }
 }
 

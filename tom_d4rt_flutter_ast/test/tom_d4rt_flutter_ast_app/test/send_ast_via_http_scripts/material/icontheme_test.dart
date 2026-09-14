@@ -108,9 +108,8 @@ dynamic build(BuildContext context) {
   final mergedTheme = baseTheme.merge(overrideTheme);
 
   // resolve — supplies a BuildContext so MaterialStateColors etc. can resolve.
-  final resolvedTheme = const IconThemeData(
-    color: Color(0xFF43A047),
-  ).resolve(context);
+  final resolvedTheme =
+      const IconThemeData(color: Color(0xFF43A047)).resolve(context);
 
   // isConcrete — true when color, size, opacity are all set to non-null.
   final concreteTheme = const IconThemeData(
@@ -215,66 +214,71 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final dataSpecimenTiles = List<Widget>.generate(dataSpecimens.length, (
-    int i,
-  ) {
-    final spec = dataSpecimens[i];
-    final Color tint = (spec['color'] as Color?) ?? const Color(0xFF607D8B);
-    final double? sz = spec['size'] as double?;
-    final double? op = spec['opacity'] as double?;
-    return Container(
-      width: 132.0,
-      margin: const EdgeInsets.all(6.0),
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[
-            tint.withValues(alpha: 0.10),
-            tint.withValues(alpha: 0.22),
+  final dataSpecimenTiles = List<Widget>.generate(
+    dataSpecimens.length,
+    (int i) {
+      final spec = dataSpecimens[i];
+      final Color tint =
+          (spec['color'] as Color?) ?? const Color(0xFF607D8B);
+      final double? sz = spec['size'] as double?;
+      final double? op = spec['opacity'] as double?;
+      return Container(
+        width: 132.0,
+        margin: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: <Color>[
+              tint.withValues(alpha: 0.10),
+              tint.withValues(alpha: 0.22),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(
+            color: tint.withValues(alpha: 0.55),
+            width: 1.2,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              spec['name'] as String,
+              style: TextStyle(
+                fontSize: 11.5,
+                fontWeight: FontWeight.w700,
+                color: tint,
+              ),
+            ),
+            const SizedBox(height: 6.0),
+            Text(
+              'color: ${_describeColor(tint)}',
+              style: const TextStyle(fontSize: 10.0, height: 1.2),
+            ),
+            Text(
+              'size:    ${sz?.toStringAsFixed(1) ?? '—'}',
+              style: const TextStyle(
+                fontSize: 10.0,
+                height: 1.2,
+                fontFamily: 'monospace',
+              ),
+            ),
+            Text(
+              'opacity: ${op?.toStringAsFixed(2) ?? '—'}',
+              style: const TextStyle(
+                fontSize: 10.0,
+                height: 1.2,
+                fontFamily: 'monospace',
+              ),
+            ),
           ],
         ),
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: tint.withValues(alpha: 0.55), width: 1.2),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            spec['name'] as String,
-            style: TextStyle(
-              fontSize: 11.5,
-              fontWeight: FontWeight.w700,
-              color: tint,
-            ),
-          ),
-          const SizedBox(height: 6.0),
-          Text(
-            'color: ${_describeColor(tint)}',
-            style: const TextStyle(fontSize: 10.0, height: 1.2),
-          ),
-          Text(
-            'size:    ${sz?.toStringAsFixed(1) ?? '—'}',
-            style: const TextStyle(
-              fontSize: 10.0,
-              height: 1.2,
-              fontFamily: 'monospace',
-            ),
-          ),
-          Text(
-            'opacity: ${op?.toStringAsFixed(2) ?? '—'}',
-            style: const TextStyle(
-              fontSize: 10.0,
-              height: 1.2,
-              fontFamily: 'monospace',
-            ),
-          ),
-        ],
-      ),
-    );
-  });
+      );
+    },
+  );
 
   // ==========================================================================
   // SECTION 2: COLOR PALETTE — IconTheme.color cascading down
@@ -336,49 +340,52 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final paletteTiles = List<Widget>.generate(paletteEntries.length, (int i) {
-    final entry = paletteEntries[i];
-    final Color tint = entry['color'] as Color;
-    final IconData iconData = entry['icon'] as IconData;
-    final String label = entry['name'] as String;
-    return Container(
-      width: 96.0,
-      margin: const EdgeInsets.all(6.0),
-      padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 6.0),
-      decoration: BoxDecoration(
-        color: tint.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: tint.withValues(alpha: 0.5), width: 1.0),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          IconTheme(
-            data: IconThemeData(color: tint, size: 36.0),
-            child: Icon(iconData),
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w600,
-              color: tint,
+  final paletteTiles = List<Widget>.generate(
+    paletteEntries.length,
+    (int i) {
+      final entry = paletteEntries[i];
+      final Color tint = entry['color'] as Color;
+      final IconData iconData = entry['icon'] as IconData;
+      final String label = entry['name'] as String;
+      return Container(
+        width: 96.0,
+        margin: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 6.0),
+        decoration: BoxDecoration(
+          color: tint.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(14.0),
+          border: Border.all(color: tint.withValues(alpha: 0.5), width: 1.0),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconTheme(
+              data: IconThemeData(color: tint, size: 36.0),
+              child: Icon(iconData),
             ),
-          ),
-          const SizedBox(height: 2.0),
-          Text(
-            _describeColor(tint),
-            style: const TextStyle(
-              fontSize: 9.5,
-              fontFamily: 'monospace',
-              color: Color(0xFF455A64),
+            const SizedBox(height: 8.0),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w600,
+                color: tint,
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  });
+            const SizedBox(height: 2.0),
+            Text(
+              _describeColor(tint),
+              style: const TextStyle(
+                fontSize: 9.5,
+                fontFamily: 'monospace',
+                color: Color(0xFF455A64),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 
   // ==========================================================================
   // SECTION 3: SIZE LADDER — IconTheme.size from 12 to 96
@@ -386,107 +393,102 @@ dynamic build(BuildContext context) {
   // Same icon, scaled by progressively larger IconThemes. Each tile wraps a
   // single Icon in its own IconTheme so the size cascades from the wrapper.
 
-  final sizeLadder = <double>[
-    12.0,
-    16.0,
-    20.0,
-    24.0,
-    28.0,
-    32.0,
-    40.0,
-    48.0,
-    64.0,
-    96.0,
-  ];
-  final sizeTiles = List<Widget>.generate(sizeLadder.length, (int i) {
-    final double s = sizeLadder[i];
-    final double t = i / (sizeLadder.length - 1);
-    final Color tint = Color.lerp(
-      const Color(0xFF00ACC1),
-      const Color(0xFF1A237E),
-      t,
-    )!;
-    return Container(
-      width: math.max(60.0, s + 28.0),
-      margin: const EdgeInsets.all(6.0),
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[
-            tint.withValues(alpha: 0.10),
-            tint.withValues(alpha: 0.25),
+  final sizeLadder = <double>[12.0, 16.0, 20.0, 24.0, 28.0, 32.0, 40.0, 48.0, 64.0, 96.0];
+  final sizeTiles = List<Widget>.generate(
+    sizeLadder.length,
+    (int i) {
+      final double s = sizeLadder[i];
+      final double t = i / (sizeLadder.length - 1);
+      final Color tint = Color.lerp(
+        const Color(0xFF00ACC1),
+        const Color(0xFF1A237E),
+        t,
+      )!;
+      return Container(
+        width: math.max(60.0, s + 28.0),
+        margin: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: <Color>[
+              tint.withValues(alpha: 0.10),
+              tint.withValues(alpha: 0.25),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: tint.withValues(alpha: 0.6), width: 1.0),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconTheme(
+              data: IconThemeData(size: s, color: tint),
+              child: const Icon(Icons.flag_circle),
+            ),
+            const SizedBox(height: 6.0),
+            Text(
+              '${s.toStringAsFixed(0)} px',
+              style: TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.w600,
+                color: tint,
+              ),
+            ),
           ],
         ),
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: tint.withValues(alpha: 0.6), width: 1.0),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          IconTheme(
-            data: IconThemeData(size: s, color: tint),
-            child: const Icon(Icons.flag_circle),
-          ),
-          const SizedBox(height: 6.0),
-          Text(
-            '${s.toStringAsFixed(0)} px',
-            style: TextStyle(
-              fontSize: 11.0,
-              fontWeight: FontWeight.w600,
-              color: tint,
-            ),
-          ),
-        ],
-      ),
-    );
-  });
+      );
+    },
+  );
 
   // ==========================================================================
   // SECTION 4: OPACITY LANE — IconTheme.opacity from 0.10 to 1.00
   // ==========================================================================
 
   final opacityRamp = <double>[0.10, 0.25, 0.40, 0.55, 0.70, 0.85, 1.00];
-  final opacityTiles = List<Widget>.generate(opacityRamp.length, (int i) {
-    final double op = opacityRamp[i];
-    return Container(
-      width: 78.0,
-      margin: const EdgeInsets.all(6.0),
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: const Color(0xFF263238).withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: const Color(0xFF263238).withValues(alpha: 0.30),
-          width: 1.0,
+  final opacityTiles = List<Widget>.generate(
+    opacityRamp.length,
+    (int i) {
+      final double op = opacityRamp[i];
+      return Container(
+        width: 78.0,
+        margin: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: const Color(0xFF263238).withValues(alpha: 0.06),
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(
+            color: const Color(0xFF263238).withValues(alpha: 0.30),
+            width: 1.0,
+          ),
         ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          IconTheme(
-            data: IconThemeData(
-              color: const Color(0xFF263238),
-              size: 36.0,
-              opacity: op,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconTheme(
+              data: IconThemeData(
+                color: const Color(0xFF263238),
+                size: 36.0,
+                opacity: op,
+              ),
+              child: const Icon(Icons.brightness_high),
             ),
-            child: const Icon(Icons.brightness_high),
-          ),
-          const SizedBox(height: 6.0),
-          Text(
-            op.toStringAsFixed(2),
-            style: const TextStyle(
-              fontSize: 11.0,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF263238),
+            const SizedBox(height: 6.0),
+            Text(
+              op.toStringAsFixed(2),
+              style: const TextStyle(
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF263238),
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  });
+          ],
+        ),
+      );
+    },
+  );
 
   // ==========================================================================
   // SECTION 5: SHADOWS — IconTheme.shadows composition
@@ -584,45 +586,58 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final shadowTiles = List<Widget>.generate(shadowRecipes.length, (int i) {
-    final Map<String, Object> rec = shadowRecipes[i];
-    final String name = rec['name'] as String;
-    final IconData iconData = rec['icon'] as IconData;
-    final Color tint = rec['tint'] as Color;
-    final List<Shadow> shadows = rec['shadows'] as List<Shadow>;
-    return Container(
-      width: 130.0,
-      margin: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.all(14.0),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFAFAFA),
-        borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: tint.withValues(alpha: 0.45), width: 1.2),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          IconTheme(
-            data: IconThemeData(color: tint, size: 44.0, shadows: shadows),
-            child: Icon(iconData),
+  final shadowTiles = List<Widget>.generate(
+    shadowRecipes.length,
+    (int i) {
+      final Map<String, Object> rec = shadowRecipes[i];
+      final String name = rec['name'] as String;
+      final IconData iconData = rec['icon'] as IconData;
+      final Color tint = rec['tint'] as Color;
+      final List<Shadow> shadows = rec['shadows'] as List<Shadow>;
+      return Container(
+        width: 130.0,
+        margin: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(14.0),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFAFAFA),
+          borderRadius: BorderRadius.circular(12.0),
+          border: Border.all(
+            color: tint.withValues(alpha: 0.45),
+            width: 1.2,
           ),
-          const SizedBox(height: 10.0),
-          Text(
-            name,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w700,
-              color: tint,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconTheme(
+              data: IconThemeData(
+                color: tint,
+                size: 44.0,
+                shadows: shadows,
+              ),
+              child: Icon(iconData),
             ),
-          ),
-          Text(
-            '${shadows.length} layer${shadows.length == 1 ? '' : 's'}',
-            style: const TextStyle(fontSize: 10.0, color: Color(0xFF607D8B)),
-          ),
-        ],
-      ),
-    );
-  });
+            const SizedBox(height: 10.0),
+            Text(
+              name,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w700,
+                color: tint,
+              ),
+            ),
+            Text(
+              '${shadows.length} layer${shadows.length == 1 ? '' : 's'}',
+              style: const TextStyle(
+                fontSize: 10.0,
+                color: Color(0xFF607D8B),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 
   // ==========================================================================
   // SECTION 6: NESTED INHERITANCE — parent + child IconTheme
@@ -691,71 +706,83 @@ dynamic build(BuildContext context) {
   // chips showing the parameter values being threaded through IconTheme.
 
   final weightSteps = <double>[100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0];
-  final weightTiles = List<Widget>.generate(weightSteps.length, (int i) {
-    final double w = weightSteps[i];
-    final double t = (w - 100.0) / 600.0;
-    final Color tint = Color.lerp(
-      const Color(0xFFB0BEC5),
-      const Color(0xFF263238),
-      t,
-    )!;
-    return _AxisTile(
-      label: 'w ${w.toStringAsFixed(0)}',
-      tint: tint,
-      data: IconThemeData(color: tint, size: 38.0, weight: w),
-      icon: Icons.brightness_4,
-    );
-  });
+  final weightTiles = List<Widget>.generate(
+    weightSteps.length,
+    (int i) {
+      final double w = weightSteps[i];
+      final double t = (w - 100.0) / 600.0;
+      final Color tint = Color.lerp(
+        const Color(0xFFB0BEC5),
+        const Color(0xFF263238),
+        t,
+      )!;
+      return _AxisTile(
+        label: 'w ${w.toStringAsFixed(0)}',
+        tint: tint,
+        data: IconThemeData(color: tint, size: 38.0, weight: w),
+        icon: Icons.brightness_4,
+      );
+    },
+  );
 
   final gradeSteps = <double>[-25.0, 0.0, 100.0, 200.0];
-  final gradeTiles = List<Widget>.generate(gradeSteps.length, (int i) {
-    final double g = gradeSteps[i];
-    final double t = (g + 25.0) / 225.0;
-    final Color tint = Color.lerp(
-      const Color(0xFF80DEEA),
-      const Color(0xFF006064),
-      t,
-    )!;
-    return _AxisTile(
-      label: 'g ${g.toStringAsFixed(0)}',
-      tint: tint,
-      data: IconThemeData(color: tint, size: 38.0, grade: g),
-      icon: Icons.tune,
-    );
-  });
+  final gradeTiles = List<Widget>.generate(
+    gradeSteps.length,
+    (int i) {
+      final double g = gradeSteps[i];
+      final double t = (g + 25.0) / 225.0;
+      final Color tint = Color.lerp(
+        const Color(0xFF80DEEA),
+        const Color(0xFF006064),
+        t,
+      )!;
+      return _AxisTile(
+        label: 'g ${g.toStringAsFixed(0)}',
+        tint: tint,
+        data: IconThemeData(color: tint, size: 38.0, grade: g),
+        icon: Icons.tune,
+      );
+    },
+  );
 
   final opticalSteps = <double>[20.0, 24.0, 40.0, 48.0];
-  final opticalTiles = List<Widget>.generate(opticalSteps.length, (int i) {
-    final double o = opticalSteps[i];
-    final double t = (o - 20.0) / 28.0;
-    final Color tint = Color.lerp(
-      const Color(0xFFCE93D8),
-      const Color(0xFF4A148C),
-      t,
-    )!;
-    return _AxisTile(
-      label: 'o ${o.toStringAsFixed(0)}',
-      tint: tint,
-      data: IconThemeData(color: tint, size: o, opticalSize: o),
-      icon: Icons.bubble_chart,
-    );
-  });
+  final opticalTiles = List<Widget>.generate(
+    opticalSteps.length,
+    (int i) {
+      final double o = opticalSteps[i];
+      final double t = (o - 20.0) / 28.0;
+      final Color tint = Color.lerp(
+        const Color(0xFFCE93D8),
+        const Color(0xFF4A148C),
+        t,
+      )!;
+      return _AxisTile(
+        label: 'o ${o.toStringAsFixed(0)}',
+        tint: tint,
+        data: IconThemeData(color: tint, size: o, opticalSize: o),
+        icon: Icons.bubble_chart,
+      );
+    },
+  );
 
   final fillSteps = <double>[0.0, 0.25, 0.5, 0.75, 1.0];
-  final fillTiles = List<Widget>.generate(fillSteps.length, (int i) {
-    final double f = fillSteps[i];
-    final Color tint = Color.lerp(
-      const Color(0xFFFFCDD2),
-      const Color(0xFFB71C1C),
-      f,
-    )!;
-    return _AxisTile(
-      label: 'f ${f.toStringAsFixed(2)}',
-      tint: tint,
-      data: IconThemeData(color: tint, size: 38.0, fill: f),
-      icon: Icons.favorite,
-    );
-  });
+  final fillTiles = List<Widget>.generate(
+    fillSteps.length,
+    (int i) {
+      final double f = fillSteps[i];
+      final Color tint = Color.lerp(
+        const Color(0xFFFFCDD2),
+        const Color(0xFFB71C1C),
+        f,
+      )!;
+      return _AxisTile(
+        label: 'f ${f.toStringAsFixed(2)}',
+        tint: tint,
+        data: IconThemeData(color: tint, size: 38.0, fill: f),
+        icon: Icons.favorite,
+      );
+    },
+  );
 
   // ==========================================================================
   // SECTION 8: LIGHT vs DARK ADAPTATION
@@ -1000,7 +1027,10 @@ dynamic build(BuildContext context) {
           title: 'Theme default only',
           subtitle: 'IconTheme(blue, 32) → no overrides',
           child: IconTheme(
-            data: const IconThemeData(color: Color(0xFF1976D2), size: 32.0),
+            data: const IconThemeData(
+              color: Color(0xFF1976D2),
+              size: 32.0,
+            ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -1018,7 +1048,10 @@ dynamic build(BuildContext context) {
           title: 'Per-icon override',
           subtitle: 'IconTheme(blue, 32) + color/size on Icon',
           child: IconTheme(
-            data: const IconThemeData(color: Color(0xFF1976D2), size: 32.0),
+            data: const IconThemeData(
+              color: Color(0xFF1976D2),
+              size: 32.0,
+            ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -1055,45 +1088,48 @@ dynamic build(BuildContext context) {
     'concreteTheme.isConcrete=$concreteFlag',
     'ambient(IconTheme.of).color=${_describeColor(ambient.color)}',
   ];
-  final provenanceTiles = List<Widget>.generate(provenanceLog.length, (int i) {
-    final String entry = provenanceLog[i];
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 22.0,
-            height: 22.0,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: const Color(0xFF455A64).withValues(alpha: 0.10),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-            child: Text(
-              '${i + 1}',
-              style: const TextStyle(
-                fontSize: 10.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF455A64),
+  final provenanceTiles = List<Widget>.generate(
+    provenanceLog.length,
+    (int i) {
+      final String entry = provenanceLog[i];
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: 22.0,
+              height: 22.0,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: const Color(0xFF455A64).withValues(alpha: 0.10),
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: Text(
+                '${i + 1}',
+                style: const TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF455A64),
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: Text(
-              entry,
-              style: const TextStyle(
-                fontSize: 11.5,
-                fontFamily: 'monospace',
-                color: Color(0xFF263238),
+            const SizedBox(width: 8.0),
+            Expanded(
+              child: Text(
+                entry,
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  fontFamily: 'monospace',
+                  color: Color(0xFF263238),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  });
+          ],
+        ),
+      );
+    },
+  );
 
   // ==========================================================================
   // SECTION 14: FINAL COMPOSITION — every piece together
@@ -1157,51 +1193,15 @@ dynamic build(BuildContext context) {
               spacing: 14.0,
               runSpacing: 10.0,
               children: <Widget>[
-                _NamedThemeChip(
-                  label: 'colored',
-                  data: coloredIconTheme,
-                  icon: Icons.bookmark,
-                ),
-                _NamedThemeChip(
-                  label: 'sized',
-                  data: sizedIconTheme,
-                  icon: Icons.work,
-                ),
-                _NamedThemeChip(
-                  label: 'opacity',
-                  data: opacityIconTheme,
-                  icon: Icons.visibility,
-                ),
-                _NamedThemeChip(
-                  label: 'shadowed',
-                  data: shadowedIconTheme,
-                  icon: Icons.star,
-                ),
-                _NamedThemeChip(
-                  label: 'full',
-                  data: fullIconTheme,
-                  icon: Icons.auto_awesome,
-                ),
-                _NamedThemeChip(
-                  label: 'copied',
-                  data: copiedIconTheme,
-                  icon: Icons.style,
-                ),
-                _NamedThemeChip(
-                  label: 'merged',
-                  data: mergedTheme,
-                  icon: Icons.merge_type,
-                ),
-                _NamedThemeChip(
-                  label: 'resolved',
-                  data: resolvedTheme,
-                  icon: Icons.check_circle,
-                ),
-                _NamedThemeChip(
-                  label: 'concrete',
-                  data: concreteTheme,
-                  icon: Icons.fact_check,
-                ),
+                _NamedThemeChip(label: 'colored', data: coloredIconTheme, icon: Icons.bookmark),
+                _NamedThemeChip(label: 'sized', data: sizedIconTheme, icon: Icons.work),
+                _NamedThemeChip(label: 'opacity', data: opacityIconTheme, icon: Icons.visibility),
+                _NamedThemeChip(label: 'shadowed', data: shadowedIconTheme, icon: Icons.star),
+                _NamedThemeChip(label: 'full', data: fullIconTheme, icon: Icons.auto_awesome),
+                _NamedThemeChip(label: 'copied', data: copiedIconTheme, icon: Icons.style),
+                _NamedThemeChip(label: 'merged', data: mergedTheme, icon: Icons.merge_type),
+                _NamedThemeChip(label: 'resolved', data: resolvedTheme, icon: Icons.check_circle),
+                _NamedThemeChip(label: 'concrete', data: concreteTheme, icon: Icons.fact_check),
               ],
             ),
           ),
@@ -1293,25 +1293,13 @@ dynamic build(BuildContext context) {
                 'like color and size.',
             accent: const Color(0xFF4E342E),
           ),
-          _LabeledRow(
-            label: 'weight (100 → 700)',
-            child: Wrap(children: weightTiles),
-          ),
+          _LabeledRow(label: 'weight (100 → 700)', child: Wrap(children: weightTiles)),
           const SizedBox(height: 10.0),
-          _LabeledRow(
-            label: 'grade (-25 → 200)',
-            child: Wrap(children: gradeTiles),
-          ),
+          _LabeledRow(label: 'grade (-25 → 200)', child: Wrap(children: gradeTiles)),
           const SizedBox(height: 10.0),
-          _LabeledRow(
-            label: 'opticalSize (20 → 48)',
-            child: Wrap(children: opticalTiles),
-          ),
+          _LabeledRow(label: 'opticalSize (20 → 48)', child: Wrap(children: opticalTiles)),
           const SizedBox(height: 10.0),
-          _LabeledRow(
-            label: 'fill (0.0 → 1.0)',
-            child: Wrap(children: fillTiles),
-          ),
+          _LabeledRow(label: 'fill (0.0 → 1.0)', child: Wrap(children: fillTiles)),
           const SizedBox(height: 22.0),
 
           // --- Section 8: light / dark adaptation ---
@@ -1345,10 +1333,7 @@ dynamic build(BuildContext context) {
           ),
           toolbar,
           const SizedBox(height: 14.0),
-          _LabeledRow(
-            label: 'Badges (IconTheme provides tint+size)',
-            child: badgeRow,
-          ),
+          _LabeledRow(label: 'Badges (IconTheme provides tint+size)', child: badgeRow),
           const SizedBox(height: 14.0),
           _LabeledRow(label: 'ListTile cluster', child: listTileColumn),
           const SizedBox(height: 22.0),
@@ -1414,7 +1399,10 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: const Color(0xFFCFD8DC), width: 1.0),
+              border: Border.all(
+                color: const Color(0xFFCFD8DC),
+                width: 1.0,
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1676,7 +1664,10 @@ class _AxisTile extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          IconTheme(data: data, child: Icon(icon)),
+          IconTheme(
+            data: data,
+            child: Icon(icon),
+          ),
           const SizedBox(height: 6.0),
           Text(
             label,
@@ -1890,7 +1881,10 @@ class _NamedThemeChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          IconTheme(data: data, child: Icon(icon)),
+          IconTheme(
+            data: data,
+            child: Icon(icon),
+          ),
           const SizedBox(width: 8.0),
           Text(
             label,

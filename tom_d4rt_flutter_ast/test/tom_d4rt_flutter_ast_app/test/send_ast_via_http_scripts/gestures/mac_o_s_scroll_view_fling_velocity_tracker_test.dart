@@ -15,9 +15,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   // SETUP : exercise the real tracker so the value is visible.
   // ============================================================
-  final tracker = MacOSScrollViewFlingVelocityTracker(
-    PointerDeviceKind.trackpad,
-  );
+  final tracker = MacOSScrollViewFlingVelocityTracker(PointerDeviceKind.trackpad);
   final samples = <Map<String, dynamic>>[
     {'t': 0, 'dx': 0.0, 'dy': 0.0},
     {'t': 16, 'dx': 5.0, 'dy': 0.0},
@@ -202,8 +200,7 @@ dynamic build(BuildContext context) {
               child: _anatomyCard(
                 label: 'INPUT',
                 title: 'addPosition()',
-                body:
-                    'Stores (Duration, Offset) into a 20-slot ring at index +1.',
+                body: 'Stores (Duration, Offset) into a 20-slot ring at index +1.',
                 icon: Icons.input,
                 color: Colors.indigo,
               ),
@@ -213,8 +210,7 @@ dynamic build(BuildContext context) {
               child: _anatomyCard(
                 label: 'COMPUTE',
                 title: '_previousVelocityAt(i)',
-                body:
-                    'Δposition / Δtime between two adjacent ring slots, in px/s.',
+                body: 'Δposition / Δtime between two adjacent ring slots, in px/s.',
                 icon: Icons.calculate,
                 color: Colors.teal,
               ),
@@ -301,9 +297,8 @@ dynamic build(BuildContext context) {
           ),
           boxShadow: [
             BoxShadow(
-              color: (isLatest ? Colors.deepOrange : Colors.blue).withValues(
-                alpha: 0.25,
-              ),
+              color: (isLatest ? Colors.deepOrange : Colors.blue)
+                  .withValues(alpha: 0.25),
               blurRadius: 6.0,
               offset: Offset(0.0, 3.0),
             ),
@@ -685,11 +680,7 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               _compareHeader(),
-              _compareRow(
-                'Class',
-                'IOSScrollViewFling…',
-                'MacOSScrollViewFling…',
-              ),
+              _compareRow('Class', 'IOSScrollViewFling…', 'MacOSScrollViewFling…'),
               _compareRow('Sample buffer size', '20', '20 (inherited)'),
               _compareRow('Stop heuristic', '40 ms', '40 ms (inherited)'),
               _compareRow('Weight on v[-2]', '0.60', '0.15'),
@@ -771,23 +762,15 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 14.0),
         _kv('runtimeType', '${tracker.runtimeType}'),
-        _kv(
-          'pixelsPerSecond',
-          '${pps.dx.toStringAsFixed(2)} px/s, '
-              '${pps.dy.toStringAsFixed(2)} px/s',
-        ),
+        _kv('pixelsPerSecond', '${pps.dx.toStringAsFixed(2)} px/s, '
+            '${pps.dy.toStringAsFixed(2)} px/s'),
         _kv('confidence', confidence.toStringAsFixed(3)),
         _kv('duration', '${duration.inMicroseconds} µs'),
-        _kv(
-          'offset',
-          '${offsetTotal.dx.toStringAsFixed(2)}, '
-              '${offsetTotal.dy.toStringAsFixed(2)}',
-        ),
-        _kv(
-          'getVelocity().pixelsPerSecond',
-          '${velocity.pixelsPerSecond.dx.toStringAsFixed(2)}, '
-              '${velocity.pixelsPerSecond.dy.toStringAsFixed(2)}',
-        ),
+        _kv('offset', '${offsetTotal.dx.toStringAsFixed(2)}, '
+            '${offsetTotal.dy.toStringAsFixed(2)}'),
+        _kv('getVelocity().pixelsPerSecond',
+            '${velocity.pixelsPerSecond.dx.toStringAsFixed(2)}, '
+            '${velocity.pixelsPerSecond.dy.toStringAsFixed(2)}'),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -844,36 +827,17 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        _perfRow(
-          'addPosition',
-          'O(1) — ring buffer write',
-          Icons.input,
-          Colors.green,
-        ),
-        _perfRow(
-          'getVelocityEstimate',
-          'O(1) — three Offset operations',
-          Icons.calculate,
-          Colors.blue,
-        ),
-        _perfRow(
-          'Memory footprint',
-          '20 _PointAtTime slots ≈ 320 bytes',
-          Icons.memory,
-          Colors.deepPurple,
-        ),
-        _perfRow(
-          'Allocation churn',
-          'Zero per addPosition, one VelocityEstimate per read',
-          Icons.recycling,
-          Colors.teal,
-        ),
-        _perfRow(
-          'Compared to base VelocityTracker',
-          'Cheaper (no regression), less robust to noise',
-          Icons.balance,
-          Colors.orange,
-        ),
+        _perfRow('addPosition', 'O(1) — ring buffer write',
+            Icons.input, Colors.green),
+        _perfRow('getVelocityEstimate', 'O(1) — three Offset operations',
+            Icons.calculate, Colors.blue),
+        _perfRow('Memory footprint', '20 _PointAtTime slots ≈ 320 bytes',
+            Icons.memory, Colors.deepPurple),
+        _perfRow('Allocation churn', 'Zero per addPosition, one VelocityEstimate per read',
+            Icons.recycling, Colors.teal),
+        _perfRow('Compared to base VelocityTracker',
+            'Cheaper (no regression), less robust to noise',
+            Icons.balance, Colors.orange),
       ],
     ),
   );
@@ -911,20 +875,20 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        _refRow(
-          'Constructor',
-          'MacOSScrollViewFlingVelocityTracker(PointerDeviceKind kind)',
-        ),
-        _refRow('Inherited', 'addPosition(Duration time, Offset position)'),
+        _refRow('Constructor',
+            'MacOSScrollViewFlingVelocityTracker(PointerDeviceKind kind)'),
+        _refRow('Inherited',
+            'addPosition(Duration time, Offset position)'),
         _refRow('Inherited', 'getVelocity() → Velocity'),
-        _refRow('Overridden', 'getVelocityEstimate() → VelocityEstimate?'),
-        _refRow('Inherits from', 'IOSScrollViewFlingVelocityTracker'),
-        _refRow(
-          'Sibling class',
-          'IOSScrollViewFlingVelocityTracker (different weights)',
-        ),
+        _refRow('Overridden',
+            'getVelocityEstimate() → VelocityEstimate?'),
+        _refRow('Inherits from',
+            'IOSScrollViewFlingVelocityTracker'),
+        _refRow('Sibling class',
+            'IOSScrollViewFlingVelocityTracker (different weights)'),
         _refRow('Library', 'package:flutter/gestures.dart'),
-        _refRow('Source', 'flutter/lib/src/gestures/velocity_tracker.dart'),
+        _refRow('Source',
+            'flutter/lib/src/gestures/velocity_tracker.dart'),
       ],
     ),
   );
@@ -937,7 +901,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF0D1117), Color(0xFF161B22), Color(0xFF21262D)],
+        colors: [
+          Color(0xFF0D1117),
+          Color(0xFF161B22),
+          Color(0xFF21262D),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -984,11 +952,8 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Row(
           children: [
-            Icon(
-              Icons.terminal,
-              color: Colors.greenAccent.shade400,
-              size: 16.0,
-            ),
+            Icon(Icons.terminal,
+                color: Colors.greenAccent.shade400, size: 16.0),
             SizedBox(width: 8.0),
             Text(
               'static motion — AlwaysStoppedAnimation<double> + Duration.zero',
@@ -1002,22 +967,20 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 4.0),
         // Demonstrate the static motion tokens explicitly.
-        Builder(
-          builder: (_) {
-            final AlwaysStoppedAnimation<double> staticOpacity =
-                AlwaysStoppedAnimation<double>(1.0);
-            final Duration zero = Duration.zero;
-            return Text(
-              '   AlwaysStoppedAnimation<double>.value = '
-              '${staticOpacity.value} ; Duration = ${zero.inMicroseconds} µs',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10.5,
-                color: Colors.white70,
-              ),
-            );
-          },
-        ),
+        Builder(builder: (_) {
+          final AlwaysStoppedAnimation<double> staticOpacity =
+              AlwaysStoppedAnimation<double>(1.0);
+          final Duration zero = Duration.zero;
+          return Text(
+            '   AlwaysStoppedAnimation<double>.value = '
+            '${staticOpacity.value} ; Duration = ${zero.inMicroseconds} µs',
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10.5,
+              color: Colors.white70,
+            ),
+          );
+        }),
       ],
     ),
   );
@@ -1039,37 +1002,25 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               _sectionLabel('1. Anatomy', Icons.architecture, Colors.cyan),
               anatomySection,
-              _sectionLabel(
-                '2. Samples timeline',
-                Icons.timeline,
-                Colors.deepOrange,
-              ),
+              _sectionLabel('2. Samples timeline', Icons.timeline,
+                  Colors.deepOrange),
               samplesTimelineSection,
-              _sectionLabel(
-                '3. Weighted-average curve',
-                Icons.tune,
-                Colors.green,
-              ),
+              _sectionLabel('3. Weighted-average curve', Icons.tune,
+                  Colors.green),
               weightCurveSection,
               _sectionLabel('4. Recipes', Icons.menu_book, Colors.indigo),
               recipesSection,
               _sectionLabel('5. Pitfalls', Icons.warning_amber, Colors.red),
               pitfallsSection,
-              _sectionLabel(
-                '6. iOS vs macOS',
-                Icons.compare,
-                Colors.deepPurple,
-              ),
+              _sectionLabel('6. iOS vs macOS', Icons.compare,
+                  Colors.deepPurple),
               comparisonSection,
               _sectionLabel('7. Live estimate', Icons.speed, Colors.teal),
               liveEstimateSection,
               _sectionLabel('8. Performance', Icons.bolt, Colors.amber),
               performanceSection,
-              _sectionLabel(
-                '9. Quick reference',
-                Icons.bookmarks,
-                Colors.blueGrey,
-              ),
+              _sectionLabel('9. Quick reference', Icons.bookmarks,
+                  Colors.blueGrey),
               quickRefSection,
               asciiFooter,
               SizedBox(height: 24.0),
@@ -1185,7 +1136,11 @@ Widget _anatomyCard({
         SizedBox(height: 4.0),
         Text(
           body,
-          style: TextStyle(fontSize: 11.0, color: Colors.black87, height: 1.35),
+          style: TextStyle(
+            fontSize: 11.0,
+            color: Colors.black87,
+            height: 1.35,
+          ),
         ),
       ],
     ),
@@ -1588,12 +1543,8 @@ Widget _kv(String key, String value) {
   );
 }
 
-Widget _perfRow(
-  String op,
-  String complexity,
-  IconData icon,
-  MaterialColor color,
-) {
+Widget _perfRow(String op, String complexity, IconData icon,
+    MaterialColor color) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 5.0),
     child: Row(

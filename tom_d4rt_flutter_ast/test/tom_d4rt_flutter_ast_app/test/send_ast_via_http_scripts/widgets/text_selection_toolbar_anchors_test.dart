@@ -265,27 +265,21 @@ dynamic build(BuildContext context) {
   print('[Pin Saffron] === TextSelectionToolbarAnchors field manual ===');
   print('[Pin Saffron] Constructed 14 anchor instances.');
   print(
-    '[Pin Saffron] anchorMidWord.primary = ${anchorMidWord.primaryAnchor}, secondary = ${anchorMidWord.secondaryAnchor}',
-  );
+      '[Pin Saffron] anchorMidWord.primary = ${anchorMidWord.primaryAnchor}, secondary = ${anchorMidWord.secondaryAnchor}');
   print(
-    '[Pin Saffron] anchorCaret.primary = ${anchorCaret.primaryAnchor}, secondary = ${anchorCaret.secondaryAnchor}',
-  );
+      '[Pin Saffron] anchorCaret.primary = ${anchorCaret.primaryAnchor}, secondary = ${anchorCaret.secondaryAnchor}');
   print(
-    '[Pin Saffron] anchorOnlyPrimary.primary = ${anchorOnlyPrimary.primaryAnchor}, secondary = ${anchorOnlyPrimary.secondaryAnchor}',
-  );
+      '[Pin Saffron] anchorOnlyPrimary.primary = ${anchorOnlyPrimary.primaryAnchor}, secondary = ${anchorOnlyPrimary.secondaryAnchor}');
   print(
-    '[Pin Saffron] anchorScrolled (in scrolled view) primary = ${anchorScrolled.primaryAnchor}',
-  );
+      '[Pin Saffron] anchorScrolled (in scrolled view) primary = ${anchorScrolled.primaryAnchor}');
   print(
-    '[Pin Saffron] anchorFractional has sub-pixel components dx=${anchorFractional.primaryAnchor.dx}, dy=${anchorFractional.primaryAnchor.dy}',
-  );
+      '[Pin Saffron] anchorFractional has sub-pixel components dx=${anchorFractional.primaryAnchor.dx}, dy=${anchorFractional.primaryAnchor.dy}');
   print(
-    '[Pin Saffron] TextSelectionPoints built: start ${pointStartSimple.point}, end ${pointEndSimple.point}',
-  );
+      '[Pin Saffron] TextSelectionPoints built: start ${pointStartSimple.point}, end ${pointEndSimple.point}');
   print(
-    '[Pin Saffron] RTL points: start ${pointStartRtl.point} (${pointStartRtl.direction}), end ${pointEndRtl.point} (${pointEndRtl.direction})',
-  );
-  print('[Pin Saffron] runtimeType check: ${anchorMidWord.runtimeType}');
+      '[Pin Saffron] RTL points: start ${pointStartRtl.point} (${pointStartRtl.direction}), end ${pointEndRtl.point} (${pointEndRtl.direction})');
+  print(
+      '[Pin Saffron] runtimeType check: ${anchorMidWord.runtimeType}');
   print('[Pin Saffron] Building 11 cork-board sections...');
   print('[Pin Saffron] === build() exiting normally ===');
 
@@ -516,7 +510,10 @@ Widget _swatch(String label, Color color) {
           ),
         ),
         const SizedBox(height: 2),
-        Text(label, style: const TextStyle(color: cParchmentMap, fontSize: 9)),
+        Text(
+          label,
+          style: const TextStyle(color: cParchmentMap, fontSize: 9),
+        ),
       ],
     ),
   );
@@ -595,52 +592,38 @@ Widget _buildSection3Properties(TextSelectionToolbarAnchors live) {
     title: '3 -- Property Anatomy',
     accent: cLeafGreen,
     children: [
+      _propRow('primaryAnchor', 'Offset',
+          'Preferred toolbar position. Usually top-centre of the selection.'),
+      _propRow('secondaryAnchor', 'Offset?',
+          'Fallback toolbar position. Usually bottom-centre of the selection. May be null.'),
       _propRow(
-        'primaryAnchor',
-        'Offset',
-        'Preferred toolbar position. Usually top-centre of the selection.',
-      ),
+          'TextSelectionToolbarAnchors(...)',
+          'const constructor',
+          'Direct construction with explicit anchor points; both must already be in Overlay coordinates.'),
       _propRow(
-        'secondaryAnchor',
-        'Offset?',
-        'Fallback toolbar position. Usually bottom-centre of the selection. May be null.',
-      ),
-      _propRow(
-        'TextSelectionToolbarAnchors(...)',
-        'const constructor',
-        'Direct construction with explicit anchor points; both must already be in Overlay coordinates.',
-      ),
-      _propRow(
-        'fromSelection(...)',
-        'factory',
-        'Computes the anchors from a RenderBox + glyph heights + selection endpoints.',
-      ),
-      _propRow(
-        '@immutable',
-        'annotation',
-        'Anchors are value-shaped; treat them as throwaway records, not as mutable state.',
-      ),
+          'fromSelection(...)',
+          'factory',
+          'Computes the anchors from a RenderBox + glyph heights + selection endpoints.'),
+      _propRow('@immutable', 'annotation',
+          'Anchors are value-shaped; treat them as throwaway records, not as mutable state.'),
       const SizedBox(height: 12),
       const Text(
         'Live values from anchorMidWord:',
         style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: cInkUmber,
-          fontSize: 12,
-        ),
+            fontWeight: FontWeight.bold,
+            color: cInkUmber,
+            fontSize: 12),
       ),
       _propRow(
-        'live.primaryAnchor',
-        'Offset',
-        '(${live.primaryAnchor.dx.toStringAsFixed(1)}, ${live.primaryAnchor.dy.toStringAsFixed(1)})',
-      ),
+          'live.primaryAnchor',
+          'Offset',
+          '(${live.primaryAnchor.dx.toStringAsFixed(1)}, ${live.primaryAnchor.dy.toStringAsFixed(1)})'),
       _propRow(
-        'live.secondaryAnchor',
-        'Offset?',
-        live.secondaryAnchor == null
-            ? '<null>'
-            : '(${live.secondaryAnchor!.dx.toStringAsFixed(1)}, ${live.secondaryAnchor!.dy.toStringAsFixed(1)})',
-      ),
+          'live.secondaryAnchor',
+          'Offset?',
+          live.secondaryAnchor == null
+              ? '<null>'
+              : '(${live.secondaryAnchor!.dx.toStringAsFixed(1)}, ${live.secondaryAnchor!.dy.toStringAsFixed(1)})'),
       _propRow('live.runtimeType', 'Type', '${live.runtimeType}'),
     ],
   );
@@ -886,10 +869,7 @@ Widget _buildSection4Geometry(TextSelectionToolbarAnchors a) {
         'are conceptually paired even though they are stored as separate '
         'Offset values.',
         style: TextStyle(
-          fontSize: 11,
-          color: cInkUmber,
-          fontStyle: FontStyle.italic,
-        ),
+            fontSize: 11, color: cInkUmber, fontStyle: FontStyle.italic),
       ),
     ],
   );
@@ -905,8 +885,7 @@ Widget _buildSection4Geometry(TextSelectionToolbarAnchors a) {
 //  instances.
 // =============================================================================
 Widget _buildSection5Gallery(
-  List<MapEntry<String, TextSelectionToolbarAnchors>> entries,
-) {
+    List<MapEntry<String, TextSelectionToolbarAnchors>> entries) {
   return _sectionCard(
     title: '5 -- Sample Anchors Gallery (14 viewports)',
     accent: cSaffronDeep,
@@ -917,20 +896,22 @@ Widget _buildSection5Gallery(
         'hollow pin for secondaryAnchor. The captions below each viewport '
         'are read directly from the anchor instance.',
         style: TextStyle(
-          fontSize: 12,
-          color: cInkUmber,
-          fontStyle: FontStyle.italic,
-        ),
+            fontSize: 12,
+            color: cInkUmber,
+            fontStyle: FontStyle.italic),
       ),
       const SizedBox(height: 12),
-      Wrap(spacing: 14, runSpacing: 14, children: _buildViewportCards(entries)),
+      Wrap(
+        spacing: 14,
+        runSpacing: 14,
+        children: _buildViewportCards(entries),
+      ),
     ],
   );
 }
 
 List<Widget> _buildViewportCards(
-  List<MapEntry<String, TextSelectionToolbarAnchors>> entries,
-) {
+    List<MapEntry<String, TextSelectionToolbarAnchors>> entries) {
   // Indexed loop -- avoids for-in / collection-for over BridgedInstance
   // (the script runs under D4rt where iterators on bridged lists can break).
   final List<Widget> cards = <Widget>[];
@@ -1016,9 +997,7 @@ Widget _buildViewportCard(String label, TextSelectionToolbarAnchors a) {
                   decoration: BoxDecoration(
                     color: cSaffronGlow.withValues(alpha: 0.30),
                     border: Border.all(
-                      color: cSaffronDeep.withValues(alpha: 0.5),
-                      width: 0.6,
-                    ),
+                        color: cSaffronDeep.withValues(alpha: 0.5), width: 0.6),
                   ),
                 ),
               ),
@@ -1106,52 +1085,44 @@ Widget _buildSection6FromSelection({
       ),
       const SizedBox(height: 8),
       _factoryStep(
-        'step 1',
-        'Read the global rectangle of the editing region by calling '
-            'renderBox.localToGlobal(Offset.zero) and renderBox.size, '
-            'producing a Rect in Overlay coordinates.',
-      ),
+          'step 1',
+          'Read the global rectangle of the editing region by calling '
+              'renderBox.localToGlobal(Offset.zero) and renderBox.size, '
+              'producing a Rect in Overlay coordinates.'),
       _factoryStep(
-        'step 2',
-        'For each TextSelectionPoint in selectionEndpoints, translate '
-            'point.point from local into global with renderBox.localToGlobal.',
-      ),
+          'step 2',
+          'For each TextSelectionPoint in selectionEndpoints, translate '
+              'point.point from local into global with renderBox.localToGlobal.'),
       _factoryStep(
-        'step 3',
-        'Compute the topmost y as min(startTop, endTop) where startTop '
-            'is the start point\'s y minus startGlyphHeight (because the '
-            'point is at the baseline, the glyph extends upward by its '
-            'height).',
-      ),
+          'step 3',
+          'Compute the topmost y as min(startTop, endTop) where startTop '
+              'is the start point\'s y minus startGlyphHeight (because the '
+              'point is at the baseline, the glyph extends upward by its '
+              'height).'),
       _factoryStep(
-        'step 4',
-        'Compute the bottommost y as max(startBottom, endBottom) where '
-            'each bottom is just the point\'s y (baseline).',
-      ),
+          'step 4',
+          'Compute the bottommost y as max(startBottom, endBottom) where '
+              'each bottom is just the point\'s y (baseline).'),
       _factoryStep(
-        'step 5',
-        'Compute the centre x as (start.x + end.x) / 2, then clamp it '
-            'to within the editing region\'s horizontal extent.',
-      ),
+          'step 5',
+          'Compute the centre x as (start.x + end.x) / 2, then clamp it '
+              'to within the editing region\'s horizontal extent.'),
       _factoryStep(
-        'step 6',
-        'primaryAnchor = Offset(centerX, topY) -- top-centre of the '
-            'selection.\nsecondaryAnchor = Offset(centerX, bottomY) -- '
-            'bottom-centre of the selection.',
-      ),
+          'step 6',
+          'primaryAnchor = Offset(centerX, topY) -- top-centre of the '
+              'selection.\nsecondaryAnchor = Offset(centerX, bottomY) -- '
+              'bottom-centre of the selection.'),
       _factoryStep(
-        'step 7',
-        'Both anchors are clamped to the editing-region rectangle so '
-            'the toolbar never points outside the field.',
-      ),
+          'step 7',
+          'Both anchors are clamped to the editing-region rectangle so '
+              'the toolbar never points outside the field.'),
       const SizedBox(height: 12),
       const Text(
         'Hand-built TextSelectionPoint inputs:',
         style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: cCorkDeep,
-          fontSize: 13,
-        ),
+            fontWeight: FontWeight.bold,
+            color: cCorkDeep,
+            fontSize: 13),
       ),
       const SizedBox(height: 6),
       _selectionPointRow('simple, single-line LTR start', startSimple),
@@ -1207,10 +1178,7 @@ Widget _factoryStep(String label, String desc) {
           child: Text(
             desc,
             style: const TextStyle(
-              fontSize: 12,
-              color: cInkUmber,
-              height: 1.45,
-            ),
+                fontSize: 12, color: cInkUmber, height: 1.45),
           ),
         ),
       ],
@@ -1348,7 +1316,10 @@ Widget _placementCase(String title, String body, {required bool primaryUsed}) {
                   child: const Center(
                     child: Text(
                       'toolbar',
-                      style: TextStyle(color: cParchmentMap, fontSize: 9),
+                      style: TextStyle(
+                        color: cParchmentMap,
+                        fontSize: 9,
+                      ),
                     ),
                   ),
                 ),
@@ -1373,10 +1344,7 @@ Widget _placementCase(String title, String body, {required bool primaryUsed}) {
               Text(
                 body,
                 style: const TextStyle(
-                  fontSize: 12,
-                  color: cInkUmber,
-                  height: 1.45,
-                ),
+                    fontSize: 12, color: cInkUmber, height: 1.45),
               ),
               const SizedBox(height: 6),
               Text(
@@ -1479,10 +1447,7 @@ Widget _viewportStripe(String label, double width, {required double primaryX}) {
       Text(
         'pin at x=$primaryX',
         style: const TextStyle(
-          fontFamily: 'monospace',
-          color: cSkyBlue,
-          fontSize: 11,
-        ),
+            fontFamily: 'monospace', color: cSkyBlue, fontSize: 11),
       ),
     ],
   );
@@ -1503,35 +1468,30 @@ Widget _buildSection9Comparison() {
       ],
     ),
     _cmpRow(
-      'AdaptiveTextSelectionToolbar',
-      'centred above primaryAnchor',
-      'flips below secondaryAnchor when no room above',
-      'horizontal clamp to safe area; vertical flip',
-    ),
+        'AdaptiveTextSelectionToolbar',
+        'centred above primaryAnchor',
+        'flips below secondaryAnchor when no room above',
+        'horizontal clamp to safe area; vertical flip'),
     _cmpRow(
-      'CupertinoTextSelectionToolbar',
-      'tail points down at primaryAnchor',
-      'tail flips up at secondaryAnchor',
-      'tail position computed from anchor offset',
-    ),
+        'CupertinoTextSelectionToolbar',
+        'tail points down at primaryAnchor',
+        'tail flips up at secondaryAnchor',
+        'tail position computed from anchor offset'),
     _cmpRow(
-      'TextSelectionToolbar (Material)',
-      'top-aligned at primaryAnchor',
-      'bottom-aligned at secondaryAnchor',
-      'horizontal clamp to MediaQuery.padding',
-    ),
+        'TextSelectionToolbar (Material)',
+        'top-aligned at primaryAnchor',
+        'bottom-aligned at secondaryAnchor',
+        'horizontal clamp to MediaQuery.padding'),
     _cmpRow(
-      'DesktopTextSelectionToolbar',
-      'always uses primaryAnchor',
-      'rarely consults secondaryAnchor',
-      'desktop has more vertical space',
-    ),
+        'DesktopTextSelectionToolbar',
+        'always uses primaryAnchor',
+        'rarely consults secondaryAnchor',
+        'desktop has more vertical space'),
     _cmpRow(
-      'Custom toolbar via anchors property',
-      'whatever your delegate decides',
-      'whatever your delegate decides',
-      'you implement the policy yourself',
-    ),
+        'Custom toolbar via anchors property',
+        'whatever your delegate decides',
+        'whatever your delegate decides',
+        'you implement the policy yourself'),
   ];
   return _sectionCard(
     title: '9 -- Comparison Grid',
@@ -1545,9 +1505,7 @@ Widget _buildSection9Comparison() {
       const SizedBox(height: 8),
       Table(
         border: TableBorder.all(
-          color: cCorkDeep.withValues(alpha: 0.4),
-          width: 0.6,
-        ),
+            color: cCorkDeep.withValues(alpha: 0.4), width: 0.6),
         columnWidths: const {
           0: FixedColumnWidth(220),
           1: FlexColumnWidth(),
@@ -1577,40 +1535,34 @@ TableRow _cmpRow(String name, String pri, String sec, String clamp) {
       ),
       Padding(
         padding: const EdgeInsets.all(6),
-        child: Text(
-          pri,
-          style: const TextStyle(fontSize: 11, color: cInkUmber),
-        ),
+        child: Text(pri,
+            style: const TextStyle(fontSize: 11, color: cInkUmber)),
       ),
       Padding(
         padding: const EdgeInsets.all(6),
-        child: Text(
-          sec,
-          style: const TextStyle(fontSize: 11, color: cInkUmber),
-        ),
+        child: Text(sec,
+            style: const TextStyle(fontSize: 11, color: cInkUmber)),
       ),
       Padding(
         padding: const EdgeInsets.all(6),
-        child: Text(
-          clamp,
-          style: const TextStyle(fontSize: 11, color: cInkUmber),
-        ),
+        child: Text(clamp,
+            style: const TextStyle(fontSize: 11, color: cInkUmber)),
       ),
     ],
   );
 }
 
 Widget _hCell(String t) => Padding(
-  padding: const EdgeInsets.all(6),
-  child: Text(
-    t,
-    style: const TextStyle(
-      color: cSaffronGlow,
-      fontWeight: FontWeight.bold,
-      fontSize: 11,
-    ),
-  ),
-);
+      padding: const EdgeInsets.all(6),
+      child: Text(
+        t,
+        style: const TextStyle(
+          color: cSaffronGlow,
+          fontWeight: FontWeight.bold,
+          fontSize: 11,
+        ),
+      ),
+    );
 
 // =============================================================================
 //  SECTION 10 -- DO / AVOID callouts.
@@ -1620,51 +1572,24 @@ Widget _buildSection10DoAvoid() {
     title: '10 -- DO and AVOID',
     accent: cLeafGreen,
     children: [
-      _doRow(
-        true,
-        'DO',
-        'Use TextSelectionToolbarAnchors.fromSelection in render objects that already hold a RenderBox and a list of TextSelectionPoint -- it does the global translation for you.',
-      ),
-      _doRow(
-        true,
-        'DO',
-        'Pass anchors in *Overlay-global* coordinates when constructing the value directly. The toolbar layout delegate assumes that frame.',
-      ),
-      _doRow(
-        true,
-        'DO',
-        'Set secondaryAnchor to the bottom-centre of the selection, not just any nearby point. The delegate uses it as the flipped position.',
-      ),
-      _doRow(
-        true,
-        'DO',
-        'Allow secondaryAnchor to be null when your toolbar is small enough that primary always fits.',
-      ),
-      _doRow(
-        false,
-        'AVOID',
-        'Passing local-frame Offsets directly. The toolbar will land in the wrong place, often hidden behind your AppBar.',
-      ),
-      _doRow(
-        false,
-        'AVOID',
-        'Reusing a TextSelectionToolbarAnchors instance after the layout has changed. Anchors are not reactive; rebuild them.',
-      ),
-      _doRow(
-        false,
-        'AVOID',
-        'Putting the same Offset value in primary and secondary unless the selection is genuinely a degenerate caret.',
-      ),
-      _doRow(
-        false,
-        'AVOID',
-        'Forgetting to clamp the centre x to the editing region\'s horizontal extent. A toolbar with a tail outside the field looks broken.',
-      ),
-      _doRow(
-        false,
-        'AVOID',
-        'Trying to mutate primaryAnchor or secondaryAnchor after construction -- the class is @immutable.',
-      ),
+      _doRow(true, 'DO',
+          'Use TextSelectionToolbarAnchors.fromSelection in render objects that already hold a RenderBox and a list of TextSelectionPoint -- it does the global translation for you.'),
+      _doRow(true, 'DO',
+          'Pass anchors in *Overlay-global* coordinates when constructing the value directly. The toolbar layout delegate assumes that frame.'),
+      _doRow(true, 'DO',
+          'Set secondaryAnchor to the bottom-centre of the selection, not just any nearby point. The delegate uses it as the flipped position.'),
+      _doRow(true, 'DO',
+          'Allow secondaryAnchor to be null when your toolbar is small enough that primary always fits.'),
+      _doRow(false, 'AVOID',
+          'Passing local-frame Offsets directly. The toolbar will land in the wrong place, often hidden behind your AppBar.'),
+      _doRow(false, 'AVOID',
+          'Reusing a TextSelectionToolbarAnchors instance after the layout has changed. Anchors are not reactive; rebuild them.'),
+      _doRow(false, 'AVOID',
+          'Putting the same Offset value in primary and secondary unless the selection is genuinely a degenerate caret.'),
+      _doRow(false, 'AVOID',
+          'Forgetting to clamp the centre x to the editing region\'s horizontal extent. A toolbar with a tail outside the field looks broken.'),
+      _doRow(false, 'AVOID',
+          'Trying to mutate primaryAnchor or secondaryAnchor after construction -- the class is @immutable.'),
     ],
   );
 }
@@ -1694,14 +1619,9 @@ Widget _doRow(bool good, String tag, String text) {
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 12,
-              color: cInkUmber,
-              height: 1.45,
-            ),
-          ),
+          child: Text(text,
+              style: const TextStyle(
+                  fontSize: 12, color: cInkUmber, height: 1.45)),
         ),
       ],
     ),
@@ -1815,67 +1735,67 @@ Widget _buildSection12Glossary() {
   final terms = <List<String>>[
     [
       'TextSelectionToolbarAnchors',
-      'Two-Offset record bridging selection geometry to toolbar placement.',
+      'Two-Offset record bridging selection geometry to toolbar placement.'
     ],
     [
       'primaryAnchor',
-      'Preferred Overlay-global position for the toolbar -- usually top-centre of the selection.',
+      'Preferred Overlay-global position for the toolbar -- usually top-centre of the selection.'
     ],
     [
       'secondaryAnchor',
-      'Fallback Overlay-global position for the toolbar -- usually bottom-centre. Nullable.',
+      'Fallback Overlay-global position for the toolbar -- usually bottom-centre. Nullable.'
     ],
     [
       'TextSelectionPoint',
-      'A pair of (Offset point, TextDirection direction) returned by the editable render object\'s endpoints query.',
+      'A pair of (Offset point, TextDirection direction) returned by the editable render object\'s endpoints query.'
     ],
     [
       'startGlyphHeight',
-      'Height of the leading glyph at the selection start. Used to extend the selection rect upward from the baseline.',
+      'Height of the leading glyph at the selection start. Used to extend the selection rect upward from the baseline.'
     ],
     [
       'endGlyphHeight',
-      'Height of the trailing glyph at the selection end. Same role as startGlyphHeight on the other side.',
+      'Height of the trailing glyph at the selection end. Same role as startGlyphHeight on the other side.'
     ],
     [
       'RenderBox',
-      'The render object hosting the editable text. Provides the localToGlobal transform and the size of the editing region.',
+      'The render object hosting the editable text. Provides the localToGlobal transform and the size of the editing region.'
     ],
     [
       'AdaptiveTextSelectionToolbar',
-      'The widget that picks Cupertino vs Material toolbar variants and consumes anchors for placement.',
+      'The widget that picks Cupertino vs Material toolbar variants and consumes anchors for placement.'
     ],
     [
       'CupertinoTextSelectionToolbar',
-      'iOS-style selection toolbar; uses anchors to position its tail.',
+      'iOS-style selection toolbar; uses anchors to position its tail.'
     ],
     [
       'TextSelectionToolbar (Material)',
-      'Material-style selection toolbar; uses anchors to position the popover.',
+      'Material-style selection toolbar; uses anchors to position the popover.'
     ],
     [
       'Overlay',
-      'The render layer above the regular widget tree where the selection toolbar lives. Anchors are global to this layer.',
+      'The render layer above the regular widget tree where the selection toolbar lives. Anchors are global to this layer.'
     ],
     [
       'localToGlobal',
-      'RenderBox method that maps a point from a box\'s local frame into the FlutterView\'s global frame.',
+      'RenderBox method that maps a point from a box\'s local frame into the FlutterView\'s global frame.'
     ],
     [
       'safe area',
-      'The portion of the screen not occluded by status bars, keyboards, or notches. The placement strategy considers this.',
+      'The portion of the screen not occluded by status bars, keyboards, or notches. The placement strategy considers this.'
     ],
     [
       'flip',
-      'When primaryAnchor cannot fit, the layout flips the toolbar to secondaryAnchor and orients the tail upward.',
+      'When primaryAnchor cannot fit, the layout flips the toolbar to secondaryAnchor and orients the tail upward.'
     ],
     [
       'clamp',
-      'When neither anchor fits perfectly, the layout pushes the toolbar inward so it stays inside the safe area.',
+      'When neither anchor fits perfectly, the layout pushes the toolbar inward so it stays inside the safe area.'
     ],
     [
       'placement strategy',
-      'The set of policy decisions implemented by the toolbar layout delegate when interpreting an anchor pair.',
+      'The set of policy decisions implemented by the toolbar layout delegate when interpreting an anchor pair.'
     ],
   ];
   // Indexed loop -- avoids collection-for over BridgedInstance (D4rt rule).
@@ -1903,10 +1823,7 @@ Widget _buildSection12Glossary() {
               child: Text(
                 t[1],
                 style: const TextStyle(
-                  fontSize: 12,
-                  color: cInkUmber,
-                  height: 1.4,
-                ),
+                    fontSize: 12, color: cInkUmber, height: 1.4),
               ),
             ),
           ],
@@ -1929,7 +1846,9 @@ Widget _buildSection13Recap() {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
-      gradient: const LinearGradient(colors: [cCorkDeep, cPinShadow]),
+      gradient: const LinearGradient(
+        colors: [cCorkDeep, cPinShadow],
+      ),
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: cSaffronPin, width: 1.5),
     ),

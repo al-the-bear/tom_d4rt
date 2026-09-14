@@ -164,7 +164,9 @@ class HeroHeaderSection extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: cyan300.withValues(alpha: 0.22),
                     borderRadius: BorderRadius.circular(999),
-                    border: Border.all(color: cyan200.withValues(alpha: 0.50)),
+                    border: Border.all(
+                      color: cyan200.withValues(alpha: 0.50),
+                    ),
                   ),
                   child: const Text(
                     'package:flutter/rendering.dart',
@@ -243,22 +245,38 @@ class StackedLayersIcon extends StatelessWidget {
           Positioned(
             left: 14,
             top: 14,
-            child: LayerCard(size: 52, tint: cyan700, border: cyan500),
+            child: LayerCard(
+              size: 52,
+              tint: cyan700,
+              border: cyan500,
+            ),
           ),
           Positioned(
             left: 22,
             top: 26,
-            child: LayerCard(size: 52, tint: cyan600, border: cyan400),
+            child: LayerCard(
+              size: 52,
+              tint: cyan600,
+              border: cyan400,
+            ),
           ),
           Positioned(
             left: 30,
             top: 38,
-            child: LayerCard(size: 52, tint: cyan500, border: cyan300),
+            child: LayerCard(
+              size: 52,
+              tint: cyan500,
+              border: cyan300,
+            ),
           ),
           const Positioned(
             left: 50,
             top: 58,
-            child: Icon(Icons.link_rounded, color: Colors.white, size: 20),
+            child: Icon(
+              Icons.link_rounded,
+              color: Colors.white,
+              size: 20,
+            ),
           ),
         ],
       ),
@@ -457,18 +475,28 @@ class LayerTreeNode extends StatelessWidget {
               color: tint,
               shape: BoxShape.circle,
               boxShadow: [
-                BoxShadow(color: tint.withValues(alpha: 0.55), blurRadius: 8),
+                BoxShadow(
+                  color: tint.withValues(alpha: 0.55),
+                  blurRadius: 8,
+                ),
               ],
             ),
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
+              ),
               decoration: BoxDecoration(
-                color: highlight ? cyan500.withValues(alpha: 0.18) : slate800,
+                color: highlight
+                    ? cyan500.withValues(alpha: 0.18)
+                    : slate800,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: highlight ? cyan300.withValues(alpha: 0.65) : slate700,
+                  color: highlight
+                      ? cyan300.withValues(alpha: 0.65)
+                      : slate700,
                   width: highlight ? 1.4 : 1.0,
                 ),
               ),
@@ -775,7 +803,10 @@ class TransformInheritanceSection extends StatelessWidget {
           'inherits exactly that transform, with linkedOffset (0, 56) applied '
           'on top.',
       children: const [
-        SizedBox(height: 280, child: TransformInheritanceCanvas()),
+        SizedBox(
+          height: 280,
+          child: TransformInheritanceCanvas(),
+        ),
         SizedBox(height: 16),
         TransformInheritanceLegend(),
       ],
@@ -1596,7 +1627,9 @@ class ComparisonColumn extends StatelessWidget {
         color: highlight ? cyan100.withValues(alpha: 0.45) : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: highlight ? cyan300.withValues(alpha: 0.85) : slate200,
+          color: highlight
+              ? cyan300.withValues(alpha: 0.85)
+              : slate200,
           width: highlight ? 1.4 : 1.0,
         ),
       ),
@@ -1923,7 +1956,10 @@ class TooltipArrow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(size: const Size(14, 8), painter: TooltipArrowPainter());
+    return CustomPaint(
+      size: const Size(14, 8),
+      painter: TooltipArrowPainter(),
+    );
   }
 }
 
@@ -2253,7 +2289,10 @@ class SectionShell extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: cyan100,
                 borderRadius: BorderRadius.circular(6),
@@ -2289,7 +2328,11 @@ class SectionShell extends StatelessWidget {
           padding: const EdgeInsets.only(left: 2),
           child: Text(
             subtitle,
-            style: const TextStyle(color: slate600, fontSize: 13, height: 1.5),
+            style: const TextStyle(
+              color: slate600,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
         const SizedBox(height: 16),

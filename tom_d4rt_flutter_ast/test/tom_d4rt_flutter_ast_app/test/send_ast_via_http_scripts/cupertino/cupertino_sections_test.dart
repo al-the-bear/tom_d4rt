@@ -62,7 +62,10 @@ Widget _buildIntroCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Color(0xFF5E5CE6), Color(0xFF007AFF)],
+        colors: [
+          Color(0xFF5E5CE6),
+          Color(0xFF007AFF),
+        ],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: const [
@@ -211,31 +214,19 @@ Widget _buildAnatomyDiagram() {
             children: [
               _anatomyRow('header', 'optional Text/Widget above the tiles'),
               _anatomyRow('topMargin', 'space above the section block'),
-              _anatomyRow(
-                'decoration',
-                'BoxDecoration drawn around the entire section',
-              ),
-              _anatomyRow(
-                'backgroundColor',
-                'fill applied behind the tiles inside the section',
-              ),
-              _anatomyRow(
-                'CupertinoListTile',
-                'a single row inside the section',
-              ),
+              _anatomyRow('decoration',
+                  'BoxDecoration drawn around the entire section'),
+              _anatomyRow('backgroundColor',
+                  'fill applied behind the tiles inside the section'),
+              _anatomyRow('CupertinoListTile',
+                  'a single row inside the section'),
               _anatomyRow('separatorColor', 'color of the inter-tile dividers'),
-              _anatomyRow(
-                'dividerMargin',
-                'leading inset that all dividers respect',
-              ),
-              _anatomyRow(
-                'additionalDividerMargin',
-                'extra leading inset added to dividers when leading is set',
-              ),
-              _anatomyRow(
-                'margin',
-                'outer margin around the whole section block',
-              ),
+              _anatomyRow('dividerMargin',
+                  'leading inset that all dividers respect'),
+              _anatomyRow('additionalDividerMargin',
+                  'extra leading inset added to dividers when leading is set'),
+              _anatomyRow('margin',
+                  'outer margin around the whole section block'),
               _anatomyRow('footer', 'optional Text/Widget below the tiles'),
               const SizedBox(height: 14),
               Container(
@@ -345,19 +336,15 @@ Widget _buildBaseSection() {
             children: [
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.device_phone_portrait,
-                  const Color(0xFF007AFF),
-                ),
+                    CupertinoIcons.device_phone_portrait, const Color(0xFF007AFF)),
                 title: const Text('iPhone'),
                 subtitle: const Text('64.2 GB used of 128 GB'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {},
               ),
               CupertinoListTile(
-                leading: _squareIcon(
-                  CupertinoIcons.cloud,
-                  const Color(0xFF5AC8FA),
-                ),
+                leading:
+                    _squareIcon(CupertinoIcons.cloud, const Color(0xFF5AC8FA)),
                 title: const Text('iCloud'),
                 subtitle: const Text('38 GB of 200 GB'),
                 trailing: const CupertinoListTileChevron(),
@@ -365,19 +352,15 @@ Widget _buildBaseSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.archivebox,
-                  const Color(0xFFFF9500),
-                ),
+                    CupertinoIcons.archivebox, const Color(0xFFFF9500)),
                 title: const Text('Backups'),
                 subtitle: const Text('Last backup 2 days ago'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {},
               ),
               CupertinoListTile(
-                leading: _squareIcon(
-                  CupertinoIcons.trash,
-                  const Color(0xFFFF3B30),
-                ),
+                leading:
+                    _squareIcon(CupertinoIcons.trash, const Color(0xFFFF3B30)),
                 title: const Text('Recently Deleted'),
                 subtitle: const Text('12 items'),
                 trailing: const CupertinoListTileChevron(),
@@ -437,9 +420,7 @@ Widget _buildInsetGroupedSection() {
             children: [
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.gear_alt,
-                  const Color(0xFF8E8E93),
-                ),
+                    CupertinoIcons.gear_alt, const Color(0xFF8E8E93)),
                 title: const Text('About'),
                 additionalInfo: const Text('iOS 17.4'),
                 trailing: const CupertinoListTileChevron(),
@@ -447,9 +428,7 @@ Widget _buildInsetGroupedSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.arrow_down_circle,
-                  const Color(0xFF007AFF),
-                ),
+                    CupertinoIcons.arrow_down_circle, const Color(0xFF007AFF)),
                 title: const Text('Software Update'),
                 additionalInfo: const Text('Up to date'),
                 trailing: const CupertinoListTileChevron(),
@@ -457,9 +436,7 @@ Widget _buildInsetGroupedSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.airplane,
-                  const Color(0xFFFF9500),
-                ),
+                    CupertinoIcons.airplane, const Color(0xFFFF9500)),
                 title: const Text('AirDrop'),
                 additionalInfo: const Text('Contacts Only'),
                 trailing: const CupertinoListTileChevron(),
@@ -467,27 +444,22 @@ Widget _buildInsetGroupedSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.tv,
-                  const Color(0xFF5856D6),
-                ),
+                    CupertinoIcons.tv, const Color(0xFF5856D6)),
                 title: const Text('AirPlay & Handoff'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {},
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.rectangle_on_rectangle,
-                  const Color(0xFF34C759),
-                ),
+                    CupertinoIcons.rectangle_on_rectangle,
+                    const Color(0xFF34C759)),
                 title: const Text('Picture in Picture'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {},
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.car_detailed,
-                  const Color(0xFF007AFF),
-                ),
+                    CupertinoIcons.car_detailed, const Color(0xFF007AFF)),
                 title: const Text('CarPlay'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {},
@@ -550,9 +522,7 @@ Widget _buildHeaderAndFooterSection() {
             children: [
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.bell,
-                  const Color(0xFFFF3B30),
-                ),
+                    CupertinoIcons.bell, const Color(0xFFFF3B30)),
                 title: const Text('Allow Notifications'),
                 additionalInfo: const Text('On'),
                 trailing: const CupertinoListTileChevron(),
@@ -560,9 +530,7 @@ Widget _buildHeaderAndFooterSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.speaker_2,
-                  const Color(0xFF5AC8FA),
-                ),
+                    CupertinoIcons.speaker_2, const Color(0xFF5AC8FA)),
                 title: const Text('Sounds'),
                 additionalInfo: const Text('Tritone'),
                 trailing: const CupertinoListTileChevron(),
@@ -570,9 +538,7 @@ Widget _buildHeaderAndFooterSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.app_badge,
-                  const Color(0xFFFF9500),
-                ),
+                    CupertinoIcons.app_badge, const Color(0xFFFF9500)),
                 title: const Text('Badges'),
                 additionalInfo: const Text('On'),
                 trailing: const CupertinoListTileChevron(),
@@ -580,9 +546,7 @@ Widget _buildHeaderAndFooterSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.chat_bubble_2,
-                  const Color(0xFF34C759),
-                ),
+                    CupertinoIcons.chat_bubble_2, const Color(0xFF34C759)),
                 title: const Text('Previews'),
                 additionalInfo: const Text('When Unlocked'),
                 trailing: const CupertinoListTileChevron(),
@@ -644,9 +608,7 @@ Widget _buildSeparatorAndMarginSection() {
             children: [
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.heart_fill,
-                  const Color(0xFFFF2D55),
-                ),
+                    CupertinoIcons.heart_fill, const Color(0xFFFF2D55)),
                 title: const Text('Health'),
                 subtitle: const Text('Steps, sleep, heart rate'),
                 trailing: const CupertinoListTileChevron(),
@@ -654,9 +616,7 @@ Widget _buildSeparatorAndMarginSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.flame_fill,
-                  const Color(0xFFFF9500),
-                ),
+                    CupertinoIcons.flame_fill, const Color(0xFFFF9500)),
                 title: const Text('Activity'),
                 subtitle: const Text('Move, exercise, stand rings'),
                 trailing: const CupertinoListTileChevron(),
@@ -664,9 +624,7 @@ Widget _buildSeparatorAndMarginSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.bed_double_fill,
-                  const Color(0xFF5856D6),
-                ),
+                    CupertinoIcons.bed_double_fill, const Color(0xFF5856D6)),
                 title: const Text('Sleep'),
                 subtitle: const Text('7h 42m last night'),
                 trailing: const CupertinoListTileChevron(),
@@ -696,9 +654,7 @@ Widget _buildSeparatorAndMarginSection() {
             children: [
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.wifi,
-                  const Color(0xFF007AFF),
-                ),
+                    CupertinoIcons.wifi, const Color(0xFF007AFF)),
                 title: const Text('Wi-Fi'),
                 additionalInfo: const Text('CafeNet'),
                 trailing: const CupertinoListTileChevron(),
@@ -706,9 +662,7 @@ Widget _buildSeparatorAndMarginSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.bluetooth,
-                  const Color(0xFF007AFF),
-                ),
+                    CupertinoIcons.bluetooth, const Color(0xFF007AFF)),
                 title: const Text('Bluetooth'),
                 additionalInfo: const Text('On'),
                 trailing: const CupertinoListTileChevron(),
@@ -716,9 +670,8 @@ Widget _buildSeparatorAndMarginSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.antenna_radiowaves_left_right,
-                  const Color(0xFF34C759),
-                ),
+                    CupertinoIcons.antenna_radiowaves_left_right,
+                    const Color(0xFF34C759)),
                 title: const Text('Cellular'),
                 additionalInfo: const Text('5G'),
                 trailing: const CupertinoListTileChevron(),
@@ -726,9 +679,8 @@ Widget _buildSeparatorAndMarginSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.personalhotspot,
-                  const Color(0xFF34C759),
-                ),
+                    CupertinoIcons.personalhotspot,
+                    const Color(0xFF34C759)),
                 title: const Text('Personal Hotspot'),
                 additionalInfo: const Text('Off'),
                 trailing: const CupertinoListTileChevron(),
@@ -791,14 +743,15 @@ Widget _buildCustomBackgroundSection() {
             decoration: BoxDecoration(
               color: const Color(0xFFF8F4FF),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: const Color(0xFF5856D6), width: 1.2),
+              border: Border.all(
+                color: const Color(0xFF5856D6),
+                width: 1.2,
+              ),
             ),
             children: [
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.sun_max_fill,
-                  const Color(0xFFFF9500),
-                ),
+                    CupertinoIcons.sun_max_fill, const Color(0xFFFF9500)),
                 title: const Text('Light'),
                 additionalInfo: const Text('Active'),
                 trailing: const CupertinoListTileChevron(),
@@ -806,18 +759,15 @@ Widget _buildCustomBackgroundSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.moon_fill,
-                  const Color(0xFF5856D6),
-                ),
+                    CupertinoIcons.moon_fill, const Color(0xFF5856D6)),
                 title: const Text('Dark'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {},
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.circle_lefthalf_fill,
-                  const Color(0xFF8E8E93),
-                ),
+                    CupertinoIcons.circle_lefthalf_fill,
+                    const Color(0xFF8E8E93)),
                 title: const Text('Automatic'),
                 subtitle: const Text('Match the system setting'),
                 trailing: const CupertinoListTileChevron(),
@@ -825,9 +775,7 @@ Widget _buildCustomBackgroundSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.eye,
-                  const Color(0xFF34C759),
-                ),
+                    CupertinoIcons.eye, const Color(0xFF34C759)),
                 title: const Text('Display Zoom'),
                 additionalInfo: const Text('Standard'),
                 trailing: const CupertinoListTileChevron(),
@@ -886,9 +834,8 @@ Widget _buildNotchedTileSection() {
             children: [
               CupertinoListTile.notched(
                 leading: _squareIcon(
-                  CupertinoIcons.lock_shield,
-                  const Color(0xFF007AFF),
-                ),
+                    CupertinoIcons.lock_shield,
+                    const Color(0xFF007AFF)),
                 title: const Text('Face ID & Passcode'),
                 additionalInfo: const Text('On'),
                 trailing: const CupertinoListTileChevron(),
@@ -896,9 +843,8 @@ Widget _buildNotchedTileSection() {
               ),
               CupertinoListTile.notched(
                 leading: _squareIcon(
-                  CupertinoIcons.location_fill,
-                  const Color(0xFF34C759),
-                ),
+                    CupertinoIcons.location_fill,
+                    const Color(0xFF34C759)),
                 title: const Text('Location Services'),
                 additionalInfo: const Text('On'),
                 trailing: const CupertinoListTileChevron(),
@@ -906,27 +852,22 @@ Widget _buildNotchedTileSection() {
               ),
               CupertinoListTile.notched(
                 leading: _squareIcon(
-                  CupertinoIcons.camera_fill,
-                  const Color(0xFFFF9500),
-                ),
+                    CupertinoIcons.camera_fill,
+                    const Color(0xFFFF9500)),
                 title: const Text('Camera'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {},
               ),
               CupertinoListTile.notched(
                 leading: _squareIcon(
-                  CupertinoIcons.mic_fill,
-                  const Color(0xFFFF3B30),
-                ),
+                    CupertinoIcons.mic_fill, const Color(0xFFFF3B30)),
                 title: const Text('Microphone'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {},
               ),
               CupertinoListTile.notched(
                 leading: _squareIcon(
-                  CupertinoIcons.eye_fill,
-                  const Color(0xFFAF52DE),
-                ),
+                    CupertinoIcons.eye_fill, const Color(0xFFAF52DE)),
                 title: const Text('Tracking'),
                 additionalInfo: const Text('Limited'),
                 trailing: const CupertinoListTileChevron(),
@@ -989,9 +930,7 @@ Widget _buildAdditionalInfoSection() {
             children: [
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.wifi,
-                  const Color(0xFF007AFF),
-                ),
+                    CupertinoIcons.wifi, const Color(0xFF007AFF)),
                 title: const Text('Home Wi-Fi'),
                 subtitle: const Text('5 GHz · WPA3'),
                 additionalInfo: const Text('Connected'),
@@ -1000,9 +939,7 @@ Widget _buildAdditionalInfoSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.bluetooth,
-                  const Color(0xFF007AFF),
-                ),
+                    CupertinoIcons.bluetooth, const Color(0xFF007AFF)),
                 title: const Text('AirPods Pro'),
                 subtitle: const Text('Battery 84%'),
                 additionalInfo: const Text('Connected'),
@@ -1011,9 +948,7 @@ Widget _buildAdditionalInfoSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.creditcard,
-                  const Color(0xFF000000),
-                ),
+                    CupertinoIcons.creditcard, const Color(0xFF000000)),
                 title: const Text('Apple Pay'),
                 subtitle: const Text('3 cards available'),
                 additionalInfo: const Text('Default'),
@@ -1022,9 +957,8 @@ Widget _buildAdditionalInfoSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.envelope_fill,
-                  const Color(0xFF5AC8FA),
-                ),
+                    CupertinoIcons.envelope_fill,
+                    const Color(0xFF5AC8FA)),
                 title: const Text('Mail'),
                 subtitle: const Text('user@example.com'),
                 additionalInfo: const Text('Push'),
@@ -1033,9 +967,7 @@ Widget _buildAdditionalInfoSection() {
               ),
               CupertinoListTile(
                 leading: _squareIcon(
-                  CupertinoIcons.calendar,
-                  const Color(0xFFFF3B30),
-                ),
+                    CupertinoIcons.calendar, const Color(0xFFFF3B30)),
                 title: const Text('Calendar'),
                 subtitle: const Text('iCloud · Work · Family'),
                 additionalInfo: const Text('3 accounts'),
@@ -1152,9 +1084,15 @@ Widget _buildVsMaterialListSection() {
                         ),
                       ),
                     ),
-                    _materialRow(icon: Icons.person, label: 'Profile'),
+                    _materialRow(
+                      icon: Icons.person,
+                      label: 'Profile',
+                    ),
                     _materialDivider(),
-                    _materialRow(icon: Icons.settings, label: 'Settings'),
+                    _materialRow(
+                      icon: Icons.settings,
+                      label: 'Settings',
+                    ),
                     _materialDivider(),
                     _materialRow(
                       icon: Icons.notifications,
@@ -1194,7 +1132,10 @@ Widget _materialRow({
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(fontSize: 15, color: Color(0xFF222222)),
+            style: const TextStyle(
+              fontSize: 15,
+              color: Color(0xFF222222),
+            ),
           ),
         ),
         if (trailing != null)
@@ -1267,43 +1208,43 @@ Widget _buildUsageGuide() {
                 const Color(0xFF34C759),
                 'Use insetGrouped on tinted scroll surfaces',
                 'Modern iOS Settings, profile screens, and account flows feel '
-                    'best with insetGrouped against a CupertinoSystemBackground '
-                    'parent.',
+                'best with insetGrouped against a CupertinoSystemBackground '
+                'parent.',
               ),
               _guideRow(
                 CupertinoIcons.checkmark_seal_fill,
                 const Color(0xFF34C759),
                 'Use base for full-bleed lists',
                 'Action sheets, file pickers, and dense reference lists look '
-                    'right with the full-width base style.',
+                'right with the full-width base style.',
               ),
               _guideRow(
                 CupertinoIcons.checkmark_seal_fill,
                 const Color(0xFF34C759),
                 'Reach for .notched tiles in iOS 16+ surfaces',
                 'They produce the tighter spacing and smaller leading icon '
-                    'slots seen in current iOS Settings.',
+                'slots seen in current iOS Settings.',
               ),
               _guideRow(
                 CupertinoIcons.exclamationmark_triangle_fill,
                 const Color(0xFFFF9500),
                 'Avoid mixing base and insetGrouped on the same screen',
                 'It creates jarring switches between full-width and inset '
-                    'edges. Pick one rhythm per page.',
+                'edges. Pick one rhythm per page.',
               ),
               _guideRow(
                 CupertinoIcons.exclamationmark_triangle_fill,
                 const Color(0xFFFF9500),
                 'Keep header text short and uppercase',
                 'iOS section captions are typically 1–3 short words. Long '
-                    'headers wrap and look heavy.',
+                'headers wrap and look heavy.',
               ),
               _guideRow(
                 CupertinoIcons.xmark_seal_fill,
                 const Color(0xFFFF3B30),
                 'Do not nest CupertinoListSection in a Card',
                 'The section already provides its own card; wrapping it in '
-                    'Material Card stacks two surfaces and breaks elevation.',
+                'Material Card stacks two surfaces and breaks elevation.',
               ),
               const SizedBox(height: 14),
               Container(
@@ -1350,7 +1291,8 @@ Widget _buildUsageGuide() {
   );
 }
 
-Widget _guideRow(IconData icon, Color color, String title, String description) {
+Widget _guideRow(
+    IconData icon, Color color, String title, String description) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6),
     child: Row(
@@ -1419,7 +1361,9 @@ Widget _sectionHeader({
           decoration: BoxDecoration(
             color: CupertinoColors.white.withOpacity(0.22),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: CupertinoColors.white.withOpacity(0.4)),
+            border: Border.all(
+              color: CupertinoColors.white.withOpacity(0.4),
+            ),
           ),
           child: Icon(icon, color: CupertinoColors.white, size: 24),
         ),
@@ -1432,9 +1376,7 @@ Widget _sectionHeader({
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 2,
-                    ),
+                        horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
                       color: CupertinoColors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(6),

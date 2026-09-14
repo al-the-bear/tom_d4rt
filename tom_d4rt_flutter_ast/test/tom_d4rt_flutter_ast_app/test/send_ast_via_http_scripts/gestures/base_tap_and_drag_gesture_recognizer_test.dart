@@ -172,7 +172,7 @@ dynamic build(BuildContext context) {
       'title': 'Pointer Down',
       'desc':
           'A primary pointer touches the screen. The recognizer registers the '
-          'down event and starts tracking position and timestamp.',
+              'down event and starts tracking position and timestamp.',
       'icon': Icons.fiber_manual_record,
       'color': Colors.indigo,
     },
@@ -181,7 +181,7 @@ dynamic build(BuildContext context) {
       'title': 'Primary Pointer Accepted',
       'desc':
           'The recognizer claims the gesture-arena slot for this single '
-          'primary pointer. Secondary pointers are rejected.',
+              'primary pointer. Secondary pointers are rejected.',
       'icon': Icons.flag,
       'color': Colors.teal,
     },
@@ -190,7 +190,7 @@ dynamic build(BuildContext context) {
       'title': 'Slop Check',
       'desc':
           'While the pointer remains within `kTouchSlop` of the origin, the '
-          'gesture is still ambiguous (could be tap or drag).',
+              'gesture is still ambiguous (could be tap or drag).',
       'icon': Icons.radio_button_unchecked,
       'color': Colors.amber.shade700,
     },
@@ -199,7 +199,7 @@ dynamic build(BuildContext context) {
       'title': 'Tap-or-Drag Decision',
       'desc':
           'If the pointer drifts outside slop → onDragStart fires. If it lifts '
-          'inside slop → onTapUp fires. Mutually exclusive branches.',
+              'inside slop → onTapUp fires. Mutually exclusive branches.',
       'icon': Icons.alt_route,
       'color': Colors.deepPurple,
     },
@@ -208,7 +208,7 @@ dynamic build(BuildContext context) {
       'title': 'End',
       'desc':
           'Either onDragEnd (with velocity) or onTapUp completes the cycle. '
-          'consecutiveTapCount may carry into the next sequence.',
+              'consecutiveTapCount may carry into the next sequence.',
       'icon': Icons.flag_circle,
       'color': Colors.pink,
     },
@@ -236,7 +236,10 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: LinearGradient(
-                        colors: [color.withValues(alpha: 0.6), color],
+                        colors: [
+                          color.withValues(alpha: 0.6),
+                          color,
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -302,11 +305,7 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          step['icon'] as IconData,
-                          color: color,
-                          size: 20.0,
-                        ),
+                        Icon(step['icon'] as IconData, color: color, size: 20.0),
                         SizedBox(width: 8.0),
                         Text(
                           step['title'] as String,
@@ -386,8 +385,7 @@ dynamic build(BuildContext context) {
   final callbackSignatures = [
     {
       'name': 'onTapDown',
-      'sig':
-          'GestureTapDragDownCallback? onTapDown;\n'
+      'sig': 'GestureTapDragDownCallback? onTapDown;\n'
           '\n'
           '// Called when the primary pointer first contacts the screen.\n'
           'typedef GestureTapDragDownCallback =\n'
@@ -396,8 +394,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'onTapUp',
-      'sig':
-          'GestureTapDragUpCallback? onTapUp;\n'
+      'sig': 'GestureTapDragUpCallback? onTapUp;\n'
           '\n'
           '// Called when the primary pointer lifts WITHIN slop.\n'
           'typedef GestureTapDragUpCallback =\n'
@@ -406,8 +403,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'onDragStart',
-      'sig':
-          'GestureTapDragStartCallback? onDragStart;\n'
+      'sig': 'GestureTapDragStartCallback? onDragStart;\n'
           '\n'
           '// Called when the pointer drifts OUTSIDE slop.\n'
           'typedef GestureTapDragStartCallback =\n'
@@ -416,8 +412,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'onDragUpdate',
-      'sig':
-          'GestureTapDragUpdateCallback? onDragUpdate;\n'
+      'sig': 'GestureTapDragUpdateCallback? onDragUpdate;\n'
           '\n'
           '// Called for every drag delta during an active drag.\n'
           'typedef GestureTapDragUpdateCallback =\n'
@@ -426,8 +421,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'onDragEnd',
-      'sig':
-          'GestureTapDragEndCallback? onDragEnd;\n'
+      'sig': 'GestureTapDragEndCallback? onDragEnd;\n'
           '\n'
           '// Called when the drag terminates (with velocity).\n'
           'typedef GestureTapDragEndCallback =\n'
@@ -446,7 +440,10 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.grey.shade900,
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
+          border: Border.all(
+            color: color.withValues(alpha: 0.5),
+            width: 1.5,
+          ),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.25),
@@ -667,7 +664,10 @@ dynamic build(BuildContext context) {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.indigo.shade300, Colors.indigo.shade400],
+                      colors: [
+                        Colors.indigo.shade300,
+                        Colors.indigo.shade400,
+                      ],
                     ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(7.0),
@@ -1099,9 +1099,8 @@ dynamic build(BuildContext context) {
                     TextSpan(
                       text: 'quick',
                       style: TextStyle(
-                        backgroundColor: Colors.deepPurple.withValues(
-                          alpha: 0.25,
-                        ),
+                        backgroundColor:
+                            Colors.deepPurple.withValues(alpha: 0.25),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -1127,10 +1126,7 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   _buildSelectionLegend(
-                    'caret',
-                    Colors.indigo.shade700,
-                    isCaret: true,
-                  ),
+                      'caret', Colors.indigo.shade700, isCaret: true),
                   SizedBox(width: 12.0),
                   _buildSelectionLegend('drag-range', Colors.teal),
                   SizedBox(width: 12.0),
@@ -1206,9 +1202,8 @@ dynamic build(BuildContext context) {
               topRight: Radius.circular(13.0),
             ),
             border: Border(
-              bottom: BorderSide(
-                color: Colors.teal.shade400.withValues(alpha: 0.5),
-              ),
+              bottom:
+                  BorderSide(color: Colors.teal.shade400.withValues(alpha: 0.5)),
             ),
           ),
           child: Row(
@@ -1270,7 +1265,7 @@ dynamic build(BuildContext context) {
       'title': 'Tap delays accept',
       'desc':
           'onTapUp does NOT fire instantly on pointer-up — the recognizer '
-          'waits for the arena to resolve to ensure no drag follows.',
+              'waits for the arena to resolve to ensure no drag follows.',
       'icon': Icons.hourglass_bottom,
       'color': Colors.red,
     },
@@ -1278,7 +1273,7 @@ dynamic build(BuildContext context) {
       'title': 'Drag preempts tap',
       'desc':
           'Once slop is crossed, onTapUp will NEVER fire for that sequence. '
-          'Plan callbacks for mutual exclusion.',
+              'Plan callbacks for mutual exclusion.',
       'icon': Icons.block,
       'color': Colors.orange,
     },
@@ -1286,7 +1281,7 @@ dynamic build(BuildContext context) {
       'title': 'Slop ≠ tolerance',
       'desc':
           'kTouchSlop is for tap-vs-drag — not for hit-testing. Don\'t conflate '
-          'with widget hit-test margins.',
+              'with widget hit-test margins.',
       'icon': Icons.straighten,
       'color': Colors.amber,
     },
@@ -1294,7 +1289,7 @@ dynamic build(BuildContext context) {
       'title': 'consecutiveTapCount resets on slop',
       'desc':
           'Crossing slop in any tap of a sequence cancels the multi-tap. The '
-          'next pointer-down restarts at count = 1.',
+              'next pointer-down restarts at count = 1.',
       'icon': Icons.refresh,
       'color': Colors.deepPurple,
     },
@@ -1302,7 +1297,7 @@ dynamic build(BuildContext context) {
       'title': 'debugOwner uniqueness',
       'desc':
           'Use a distinct debugOwner per recognizer. Sharing breaks logs and '
-          'arena diagnostics, especially across selectable widgets.',
+              'arena diagnostics, especially across selectable widgets.',
       'icon': Icons.label_important_outline,
       'color': Colors.pink,
     },
@@ -1326,7 +1321,10 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
+          border: Border.all(
+            color: color.withValues(alpha: 0.5),
+            width: 1.5,
+          ),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.18),
@@ -1344,7 +1342,11 @@ dynamic build(BuildContext context) {
                 color: color.withValues(alpha: 0.25),
                 shape: BoxShape.circle,
               ),
-              child: Icon(fg['icon'] as IconData, color: color, size: 24.0),
+              child: Icon(
+                fg['icon'] as IconData,
+                color: color,
+                size: 24.0,
+              ),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1424,18 +1426,14 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 12.0),
         _buildRecapBullet(
-          'Abstract base — extend, never instantiate directly.',
-        ),
+            'Abstract base — extend, never instantiate directly.'),
+        _buildRecapBullet('Fuses tap and drag in a single primary-pointer flow.'),
         _buildRecapBullet(
-          'Fuses tap and drag in a single primary-pointer flow.',
-        ),
-        _buildRecapBullet('Slop decides tap vs drag; commitment is one-way.'),
+            'Slop decides tap vs drag; commitment is one-way.'),
         _buildRecapBullet(
-          'consecutiveTapCount enables word/line selection patterns.',
-        ),
+            'consecutiveTapCount enables word/line selection patterns.'),
         _buildRecapBullet(
-          'Concrete: TapAndPanGestureRecognizer (used by SelectionContainer).',
-        ),
+            'Concrete: TapAndPanGestureRecognizer (used by SelectionContainer).'),
         _buildRecapBullet('eagerVictoryOnDrag tunes arena behavior.'),
       ],
     ),
@@ -1588,10 +1586,8 @@ Widget _buildHierarchyNode(
                   SizedBox(width: 8.0),
                   if (isAbstract)
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 6.0,
-                        vertical: 1.0,
-                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.0),
                       decoration: BoxDecoration(
                         color: highlight
                             ? Colors.white.withValues(alpha: 0.25)
@@ -1909,11 +1905,7 @@ Widget _buildSelectionRow(
   );
 }
 
-Widget _buildSelectionLegend(
-  String label,
-  Color color, {
-  bool isCaret = false,
-}) {
+Widget _buildSelectionLegend(String label, Color color, {bool isCaret = false}) {
   return Row(
     children: [
       Container(
@@ -1928,7 +1920,10 @@ Widget _buildSelectionLegend(
       SizedBox(width: 4.0),
       Text(
         label,
-        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+        style: TextStyle(
+          fontSize: 10.0,
+          color: Colors.grey.shade700,
+        ),
       ),
     ],
   );
@@ -1945,7 +1940,11 @@ Widget _buildRecapBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.4),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.white,
+              height: 1.4,
+            ),
           ),
         ),
       ],

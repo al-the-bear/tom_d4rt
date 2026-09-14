@@ -24,12 +24,10 @@ class _DeviceOrientationBuilderDemoPage extends StatefulWidget {
   const _DeviceOrientationBuilderDemoPage();
 
   @override
-  State<_DeviceOrientationBuilderDemoPage> createState() =>
-      _DeviceOrientationBuilderDemoPageState();
+  State<_DeviceOrientationBuilderDemoPage> createState() => _DeviceOrientationBuilderDemoPageState();
 }
 
-class _DeviceOrientationBuilderDemoPageState
-    extends State<_DeviceOrientationBuilderDemoPage> {
+class _DeviceOrientationBuilderDemoPageState extends State<_DeviceOrientationBuilderDemoPage> {
   bool _simulateLandscape = false;
   bool _denseCards = false;
   double _cardScale = 1.0;
@@ -44,9 +42,7 @@ class _DeviceOrientationBuilderDemoPageState
     const cSand = Color(0xFFF6F3EB);
 
     final baseQuery = MediaQuery.of(context);
-    final simulatedSize = _simulateLandscape
-        ? const Size(980, 540)
-        : const Size(540, 980);
+    final simulatedSize = _simulateLandscape ? const Size(980, 540) : const Size(540, 980);
     final simulatedQuery = baseQuery.copyWith(size: simulatedSize);
 
     return MediaQuery(
@@ -78,8 +74,7 @@ class _DeviceOrientationBuilderDemoPageState
                 isLandscape: _simulateLandscape,
                 denseCards: _denseCards,
                 cardScale: _cardScale,
-                onLandscapeToggle: (value) =>
-                    setState(() => _simulateLandscape = value),
+                onLandscapeToggle: (value) => setState(() => _simulateLandscape = value),
                 onDenseToggle: (value) => setState(() => _denseCards = value),
                 onScaleChanged: (value) => setState(() => _cardScale = value),
               ),
@@ -183,7 +178,11 @@ class _HeroBanner extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [Color(0xFF0E6177), Color(0xFF3A879B), Color(0xFF6C5AA3)],
+          colors: [
+            Color(0xFF0E6177),
+            Color(0xFF3A879B),
+            Color(0xFF6C5AA3),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -193,21 +192,13 @@ class _HeroBanner extends StatelessWidget {
         children: [
           const Text(
             'DeviceOrientationBuilder',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
-              color: Colors.white,
-            ),
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white),
           ),
           const SizedBox(height: 8),
           const Text(
             'Build orientation-specific widget trees from MediaQuery device orientation. '
             'Great for device posture policies and foldable-friendly adaptation that should not depend solely on local constraints.',
-            style: TextStyle(
-              fontSize: 13,
-              height: 1.45,
-              color: Color(0xFFF1FAFF),
-            ),
+            style: TextStyle(fontSize: 13, height: 1.45, color: Color(0xFFF1FAFF)),
           ),
           const SizedBox(height: 12),
           Row(
@@ -220,13 +211,7 @@ class _HeroBanner extends StatelessWidget {
                     onChanged: onLandscapeToggle,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text(
-                      'Simulate Landscape',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    title: const Text('Simulate Landscape', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
                 ),
               ),
@@ -239,13 +224,7 @@ class _HeroBanner extends StatelessWidget {
                     onChanged: onDenseToggle,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text(
-                      'Dense Cards',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    title: const Text('Dense Cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
                 ),
               ),
@@ -254,10 +233,7 @@ class _HeroBanner extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             'Card scale: ${cardScale.toStringAsFixed(2)}x',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
           Slider(
             value: cardScale,
@@ -300,11 +276,7 @@ class _HeroTag extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          fontSize: 11,
-        ),
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11),
       ),
     );
   }
@@ -354,20 +326,13 @@ class _ScenePanel extends StatelessWidget {
                   color: accent.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  '$index',
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w900),
-                ),
+                child: Text('$index', style: TextStyle(color: accent, fontWeight: FontWeight.w900)),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w800,
-                    color: accent,
-                  ),
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: accent),
                 ),
               ),
             ],
@@ -375,11 +340,7 @@ class _ScenePanel extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              height: 1.45,
-              color: accent.withValues(alpha: 0.8),
-            ),
+            style: TextStyle(fontSize: 12, height: 1.45, color: accent.withValues(alpha: 0.8)),
           ),
           const SizedBox(height: 12),
           child,
@@ -452,11 +413,7 @@ class _ConceptScene extends StatelessWidget {
             '      : TallScaffold();\n'
             '  },\n'
             ')',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              height: 1.4,
-            ),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11, height: 1.4),
           ),
         ),
       ],
@@ -493,14 +450,7 @@ class _ConceptCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: accent,
-                fontWeight: FontWeight.w800,
-                fontSize: 13,
-              ),
-            ),
+            Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13)),
             const SizedBox(height: 6),
             Text(line1, style: const TextStyle(fontSize: 11.6, height: 1.35)),
             const SizedBox(height: 3),
@@ -583,14 +533,7 @@ class _MismatchCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: accent,
-                fontWeight: FontWeight.w800,
-                fontSize: 13,
-              ),
-            ),
+            Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13)),
             const SizedBox(height: 8),
             DeviceOrientationBuilder(
               builder: (context, deviceOrientation) {
@@ -604,9 +547,7 @@ class _MismatchCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: accent.withValues(alpha: 0.2),
-                            ),
+                            border: Border.all(color: accent.withValues(alpha: 0.2)),
                           ),
                           child: Text(
                             'Device: $deviceOrientation\nLayout: $layoutOrientation',
@@ -626,17 +567,12 @@ class _MismatchCard extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: accent.withValues(alpha: 0.25),
-                                ),
+                                border: Border.all(color: accent.withValues(alpha: 0.25)),
                               ),
                               child: Center(
                                 child: Text(
                                   '${localSize.width.toInt()} x ${localSize.height.toInt()}',
-                                  style: TextStyle(
-                                    color: accent,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
                                 ),
                               ),
                             ),
@@ -683,24 +619,14 @@ class _DashboardScene extends StatelessWidget {
                     children: [
                       _NavRailCard(scale: cardScale),
                       SizedBox(width: gap),
-                      Expanded(
-                        child: _DashboardGrid(
-                          scale: cardScale,
-                          columns: 2,
-                          dense: denseCards,
-                        ),
-                      ),
+                      Expanded(child: _DashboardGrid(scale: cardScale, columns: 2, dense: denseCards)),
                     ],
                   )
                 : Column(
                     children: [
                       _TopNavStrip(scale: cardScale),
                       SizedBox(height: gap),
-                      _DashboardGrid(
-                        scale: cardScale,
-                        columns: 1,
-                        dense: denseCards,
-                      ),
+                      _DashboardGrid(scale: cardScale, columns: 1, dense: denseCards),
                     ],
                   ),
           ],
@@ -728,29 +654,13 @@ class _NavRailCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Icon(
-              Icons.dashboard_rounded,
-              color: const Color(0xFF2F7A66),
-              size: 22 * scale,
-            ),
+            Icon(Icons.dashboard_rounded, color: const Color(0xFF2F7A66), size: 22 * scale),
             SizedBox(height: 8 * scale),
-            Icon(
-              Icons.map_rounded,
-              color: const Color(0xFF2F7A66),
-              size: 20 * scale,
-            ),
+            Icon(Icons.map_rounded, color: const Color(0xFF2F7A66), size: 20 * scale),
             SizedBox(height: 8 * scale),
-            Icon(
-              Icons.analytics_rounded,
-              color: const Color(0xFF2F7A66),
-              size: 20 * scale,
-            ),
+            Icon(Icons.analytics_rounded, color: const Color(0xFF2F7A66), size: 20 * scale),
             SizedBox(height: 8 * scale),
-            Icon(
-              Icons.settings_rounded,
-              color: const Color(0xFF2F7A66),
-              size: 20 * scale,
-            ),
+            Icon(Icons.settings_rounded, color: const Color(0xFF2F7A66), size: 20 * scale),
           ],
         ),
       ),
@@ -776,26 +686,10 @@ class _TopNavStrip extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Icon(
-            Icons.dashboard_rounded,
-            color: const Color(0xFF2F7A66),
-            size: 20 * scale,
-          ),
-          Icon(
-            Icons.map_rounded,
-            color: const Color(0xFF2F7A66),
-            size: 20 * scale,
-          ),
-          Icon(
-            Icons.analytics_rounded,
-            color: const Color(0xFF2F7A66),
-            size: 20 * scale,
-          ),
-          Icon(
-            Icons.settings_rounded,
-            color: const Color(0xFF2F7A66),
-            size: 20 * scale,
-          ),
+          Icon(Icons.dashboard_rounded, color: const Color(0xFF2F7A66), size: 20 * scale),
+          Icon(Icons.map_rounded, color: const Color(0xFF2F7A66), size: 20 * scale),
+          Icon(Icons.analytics_rounded, color: const Color(0xFF2F7A66), size: 20 * scale),
+          Icon(Icons.settings_rounded, color: const Color(0xFF2F7A66), size: 20 * scale),
         ],
       ),
     );
@@ -803,11 +697,7 @@ class _TopNavStrip extends StatelessWidget {
 }
 
 class _DashboardGrid extends StatelessWidget {
-  const _DashboardGrid({
-    required this.scale,
-    required this.columns,
-    required this.dense,
-  });
+  const _DashboardGrid({required this.scale, required this.columns, required this.dense});
 
   final double scale;
   final int columns;
@@ -825,34 +715,10 @@ class _DashboardGrid extends StatelessWidget {
       mainAxisSpacing: spacing,
       childAspectRatio: columns == 1 ? 2.9 : 1.55,
       children: [
-        _MetricCard(
-          scale: scale,
-          title: 'Active Routes',
-          value: '18',
-          accent: const Color(0xFF0E6177),
-          icon: Icons.route,
-        ),
-        _MetricCard(
-          scale: scale,
-          title: 'On-time Delivery',
-          value: '96%',
-          accent: const Color(0xFF2F7A66),
-          icon: Icons.timer,
-        ),
-        _MetricCard(
-          scale: scale,
-          title: 'Alerts',
-          value: '4',
-          accent: const Color(0xFFE07054),
-          icon: Icons.warning_amber,
-        ),
-        _MetricCard(
-          scale: scale,
-          title: 'Fuel Index',
-          value: '71',
-          accent: const Color(0xFF6C5AA3),
-          icon: Icons.local_gas_station,
-        ),
+        _MetricCard(scale: scale, title: 'Active Routes', value: '18', accent: const Color(0xFF0E6177), icon: Icons.route),
+        _MetricCard(scale: scale, title: 'On-time Delivery', value: '96%', accent: const Color(0xFF2F7A66), icon: Icons.timer),
+        _MetricCard(scale: scale, title: 'Alerts', value: '4', accent: const Color(0xFFE07054), icon: Icons.warning_amber),
+        _MetricCard(scale: scale, title: 'Fuel Index', value: '71', accent: const Color(0xFF6C5AA3), icon: Icons.local_gas_station),
       ],
     );
   }
@@ -899,22 +765,9 @@ class _MetricCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 11 * scale,
-                    color: accent.withValues(alpha: 0.8),
-                  ),
-                ),
+                Text(title, style: TextStyle(fontSize: 11 * scale, color: accent.withValues(alpha: 0.8))),
                 const SizedBox(height: 4),
-                Text(
-                  value,
-                  style: TextStyle(
-                    fontSize: 19 * scale,
-                    fontWeight: FontWeight.w800,
-                    color: accent,
-                  ),
-                ),
+                Text(value, style: TextStyle(fontSize: 19 * scale, fontWeight: FontWeight.w800, color: accent)),
               ],
             ),
           ),
@@ -946,17 +799,11 @@ class _ParallelPreviewScene extends StatelessWidget {
           children: [
             MediaQuery(
               data: portraitScope,
-              child: const _PreviewScopeCard(
-                label: 'Portrait Preview',
-                accent: Color(0xFF6C5AA3),
-              ),
+              child: const _PreviewScopeCard(label: 'Portrait Preview', accent: Color(0xFF6C5AA3)),
             ),
             MediaQuery(
               data: landscapeScope,
-              child: const _PreviewScopeCard(
-                label: 'Landscape Preview',
-                accent: Color(0xFF6C5AA3),
-              ),
+              child: const _PreviewScopeCard(label: 'Landscape Preview', accent: Color(0xFF6C5AA3)),
             ),
           ],
         ),
@@ -988,14 +835,7 @@ class _PreviewScopeCard extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: accent,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 13.5,
-                  ),
-                ),
+                Text(label, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13.5)),
                 const SizedBox(height: 6),
                 Text(
                   'Resolved device orientation: $orientation',
@@ -1009,13 +849,9 @@ class _PreviewScopeCard extends StatelessWidget {
                 isLandscape
                     ? Row(
                         children: [
-                          Expanded(
-                            child: _MiniPanel(title: 'Rail', accent: accent),
-                          ),
+                          Expanded(child: _MiniPanel(title: 'Rail', accent: accent)),
                           const SizedBox(width: 8),
-                          Expanded(
-                            child: _MiniPanel(title: 'Content', accent: accent),
-                          ),
+                          Expanded(child: _MiniPanel(title: 'Content', accent: accent)),
                         ],
                       )
                     : Column(
@@ -1051,10 +887,7 @@ class _MiniPanel extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: accent.withValues(alpha: 0.2)),
       ),
-      child: Text(
-        title,
-        style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-      ),
+      child: Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
     );
   }
 }
@@ -1102,11 +935,7 @@ class _InteractiveLabScene extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _DashboardGrid(
-                          scale: cardScale,
-                          columns: 2,
-                          dense: denseCards,
-                        ),
+                        child: _DashboardGrid(scale: cardScale, columns: 2, dense: denseCards),
                       ),
                     ],
                   )
@@ -1119,11 +948,7 @@ class _InteractiveLabScene extends StatelessWidget {
                         onScaleChanged: onScaleChanged,
                       ),
                       const SizedBox(height: 12),
-                      _DashboardGrid(
-                        scale: cardScale,
-                        columns: 1,
-                        dense: denseCards,
-                      ),
+                      _DashboardGrid(scale: cardScale, columns: 1, dense: denseCards),
                     ],
                   ),
           ],
@@ -1159,10 +984,7 @@ class _ControlPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Lab Controls',
-            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5),
-          ),
+          const Text('Lab Controls', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5)),
           const SizedBox(height: 8),
           Material(
             type: MaterialType.transparency,
@@ -1175,10 +997,7 @@ class _ControlPanel extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            'Scale: ${cardScale.toStringAsFixed(2)}x',
-            style: const TextStyle(fontWeight: FontWeight.w700),
-          ),
+          Text('Scale: ${cardScale.toStringAsFixed(2)}x', style: const TextStyle(fontWeight: FontWeight.w700)),
           Slider(
             value: cardScale,
             min: 0.85,
@@ -1214,24 +1033,21 @@ class _ArchitectureScene extends StatelessWidget {
           accent: const Color(0xFF0E6177),
           denseCards: denseCards,
           cardScale: cardScale,
-          policy:
-              'Landscape: split map + queue. Portrait: stacked queue then map.',
+          policy: 'Landscape: split map + queue. Portrait: stacked queue then map.',
         ),
         _FeatureModuleCard(
           title: 'Creative Module',
           accent: const Color(0xFFE07054),
           denseCards: denseCards,
           cardScale: cardScale,
-          policy:
-              'Landscape: side-by-side asset board. Portrait: sequential storyboard.',
+          policy: 'Landscape: side-by-side asset board. Portrait: sequential storyboard.',
         ),
         _FeatureModuleCard(
           title: 'Research Module',
           accent: const Color(0xFF2F7A66),
           denseCards: denseCards,
           cardScale: cardScale,
-          policy:
-              'Landscape: table + chart columns. Portrait: chart-first narrative blocks.',
+          policy: 'Landscape: table + chart columns. Portrait: chart-first narrative blocks.',
         ),
       ],
     );
@@ -1279,66 +1095,28 @@ class _FeatureModuleCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    color: accent,
-                    fontSize: 14,
-                  ),
-                ),
+                Text(title, style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 14)),
                 const SizedBox(height: 4),
-                Text(
-                  policy,
-                  style: TextStyle(
-                    fontSize: 11.2,
-                    color: accent.withValues(alpha: 0.82),
-                    height: 1.35,
-                  ),
-                ),
+                Text(policy, style: TextStyle(fontSize: 11.2, color: accent.withValues(alpha: 0.82), height: 1.35)),
                 const SizedBox(height: 8),
                 Text(
                   'Resolved orientation: $orientation',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.2,
-                    color: accent.withValues(alpha: 0.82),
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.2, color: accent.withValues(alpha: 0.82)),
                 ),
                 const SizedBox(height: 8),
                 isLandscape
                     ? Row(
                         children: [
-                          Expanded(
-                            child: _ModuleTile(
-                              accent: accent,
-                              title: 'Panel A',
-                              height: tileHeight * cardScale,
-                            ),
-                          ),
+                          Expanded(child: _ModuleTile(accent: accent, title: 'Panel A', height: tileHeight * cardScale)),
                           const SizedBox(width: 8),
-                          Expanded(
-                            child: _ModuleTile(
-                              accent: accent,
-                              title: 'Panel B',
-                              height: tileHeight * cardScale,
-                            ),
-                          ),
+                          Expanded(child: _ModuleTile(accent: accent, title: 'Panel B', height: tileHeight * cardScale)),
                         ],
                       )
                     : Column(
                         children: [
-                          _ModuleTile(
-                            accent: accent,
-                            title: 'Panel A',
-                            height: tileHeight * cardScale,
-                          ),
+                          _ModuleTile(accent: accent, title: 'Panel A', height: tileHeight * cardScale),
                           const SizedBox(height: 8),
-                          _ModuleTile(
-                            accent: accent,
-                            title: 'Panel B',
-                            height: tileHeight * cardScale,
-                          ),
+                          _ModuleTile(accent: accent, title: 'Panel B', height: tileHeight * cardScale),
                         ],
                       ),
               ],
@@ -1351,11 +1129,7 @@ class _FeatureModuleCard extends StatelessWidget {
 }
 
 class _ModuleTile extends StatelessWidget {
-  const _ModuleTile({
-    required this.accent,
-    required this.title,
-    required this.height,
-  });
+  const _ModuleTile({required this.accent, required this.title, required this.height});
 
   final Color accent;
   final String title;
@@ -1372,10 +1146,7 @@ class _ModuleTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: accent.withValues(alpha: 0.22)),
       ),
-      child: Text(
-        title,
-        style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-      ),
+      child: Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
     );
   }
 }
@@ -1401,11 +1172,7 @@ class _RecapCard extends StatelessWidget {
         children: [
           Text(
             'Deep Demo Recap',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF314B5B),
-            ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF314B5B)),
           ),
           SizedBox(height: 8),
           Text(

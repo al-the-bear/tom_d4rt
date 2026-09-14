@@ -115,7 +115,11 @@ TextStyle _codeStyle({Color color = kSlateSteel, double size = 12.5}) {
 }
 
 TextStyle _captionStyle({Color color = kAshSmoke, double size = 11}) {
-  return TextStyle(color: color, fontSize: size, fontStyle: FontStyle.italic);
+  return TextStyle(
+    color: color,
+    fontSize: size,
+    fontStyle: FontStyle.italic,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -172,7 +176,9 @@ Widget _sectionHeader(String index, String title, {Color? accent}) {
           ),
         ),
         const SizedBox(width: 10),
-        Expanded(child: Text(title, style: _titleStyle(size: 18))),
+        Expanded(
+          child: Text(title, style: _titleStyle(size: 18)),
+        ),
       ],
     ),
   );
@@ -204,15 +210,23 @@ Widget _bulletList(List<String> bullets, {Color dot = kEmberOrange}) {
               margin: const EdgeInsets.only(top: 6, right: 8),
               width: 8,
               height: 8,
-              decoration: BoxDecoration(color: dot, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: dot,
+                shape: BoxShape.circle,
+              ),
             ),
-            Expanded(child: Text(bullets[i], style: _bodyStyle())),
+            Expanded(
+              child: Text(bullets[i], style: _bodyStyle()),
+            ),
           ],
         ),
       ),
     );
   }
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: rows,
+  );
 }
 
 Widget _kvRow(String key, String value, {Color? keyColor}) {
@@ -225,10 +239,15 @@ Widget _kvRow(String key, String value, {Color? keyColor}) {
           width: 150,
           child: Text(
             key,
-            style: _subtitleStyle(color: keyColor ?? kNightshadePlum, size: 13),
+            style: _subtitleStyle(
+              color: keyColor ?? kNightshadePlum,
+              size: 13,
+            ),
           ),
         ),
-        Expanded(child: Text(value, style: _codeStyle())),
+        Expanded(
+          child: Text(value, style: _codeStyle()),
+        ),
       ],
     ),
   );
@@ -252,28 +271,19 @@ Widget _codeCard(String title, String code, {Color? accent}) {
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(
-                color: kEmberOrange,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: kEmberOrange, shape: BoxShape.circle),
             ),
             const SizedBox(width: 6),
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(
-                color: kMarigoldGold,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: kMarigoldGold, shape: BoxShape.circle),
             ),
             const SizedBox(width: 6),
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(
-                color: kChartreuseLeaf,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: kChartreuseLeaf, shape: BoxShape.circle),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -375,7 +385,10 @@ Widget _treeNode(String label, Color color, {bool highlight = false}) {
     decoration: BoxDecoration(
       color: highlight ? color : color.withValues(alpha: 0.20),
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color, width: highlight ? 2.4 : 1.0),
+      border: Border.all(
+        color: color,
+        width: highlight ? 2.4 : 1.0,
+      ),
     ),
     child: Text(
       label,
@@ -444,12 +457,12 @@ Widget _localeRow(String locale, String region, String translation) {
       children: [
         SizedBox(
           width: 64,
-          child: Text(
-            locale,
-            style: _codeStyle(size: 12, color: kNightshadePlum),
-          ),
+          child: Text(locale, style: _codeStyle(size: 12, color: kNightshadePlum)),
         ),
-        SizedBox(width: 130, child: Text(region, style: _bodyStyle(size: 12))),
+        SizedBox(
+          width: 130,
+          child: Text(region, style: _bodyStyle(size: 12)),
+        ),
         Expanded(
           child: Text(
             translation,
@@ -485,16 +498,17 @@ Widget _instanceCard(
               decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8),
-            Expanded(child: Text(label, style: _subtitleStyle(size: 14))),
+            Expanded(
+              child: Text(label, style: _subtitleStyle(size: 14)),
+            ),
           ],
         ),
         const SizedBox(height: 8),
         _kvRow('runtimeType', '${instance.runtimeType}'),
-        _kvRow(
-          'hashCode bucket',
-          '0x${(instance.hashCode & 0xFFFF).toRadixString(16)}',
-        ),
-        _kvRow('is base type', '${instance is IOSSystemContextMenuItemData}'),
+        _kvRow('hashCode bucket',
+            '0x${(instance.hashCode & 0xFFFF).toRadixString(16)}'),
+        _kvRow('is base type',
+            '${instance is IOSSystemContextMenuItemData}'),
       ],
     ),
   );
@@ -504,9 +518,7 @@ Widget _instanceCard(
 //                                  build()
 // ===========================================================================
 dynamic build(BuildContext context) {
-  print(
-    '=== Tablet Marigold almanac for IOSSystemContextMenuItemDataPaste ===',
-  );
+  print('=== Tablet Marigold almanac for IOSSystemContextMenuItemDataPaste ===');
   print('Step 1: minting palette and helper widgets.');
   print('Step 2: instantiating six IOSSystemContextMenuItemDataPaste objects.');
 
@@ -526,10 +538,8 @@ dynamic build(BuildContext context) {
   final IOSSystemContextMenuItemDataPaste pasteZeta =
       IOSSystemContextMenuItemDataPaste();
 
-  print(
-    'Step 3: confirming runtimeType is identical: '
-    '${pasteAlpha.runtimeType} == ${pasteBeta.runtimeType}',
-  );
+  print('Step 3: confirming runtimeType is identical: '
+      '${pasteAlpha.runtimeType} == ${pasteBeta.runtimeType}');
 
   print('Step 4: building the title banner with palette swatches.');
 
@@ -604,11 +614,8 @@ dynamic build(BuildContext context) {
   final Widget section2 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionHeader(
-        '02',
-        'Anatomy of a SystemContextMenu',
-        accent: kLagoonTeal,
-      ),
+      _sectionHeader('02', 'Anatomy of a SystemContextMenu',
+          accent: kLagoonTeal),
       _proseBlock(
         'On iOS the operating system renders edit menus through a UIKit '
         'class called UIEditMenuInteraction.  Flutter exposes that surface '
@@ -661,25 +668,17 @@ dynamic build(BuildContext context) {
             _kvRow('Library', 'package:flutter/services.dart'),
             _kvRow('Sealed parent', 'IOSSystemContextMenuItemData'),
             _kvRow('Constructor (3.41)', 'IOSSystemContextMenuItemDataPaste()'),
-            _kvRow(
-              'Constructor (newer)',
-              'IOSSystemContextMenuItemDataPaste({String? title})',
-            ),
+            _kvRow('Constructor (newer)',
+                'IOSSystemContextMenuItemDataPaste({String? title})'),
             _kvRow('Identity (alpha)', '${pasteAlpha.runtimeType}'),
-            _kvRow('Identity (beta)', '${pasteBeta.runtimeType}'),
+            _kvRow('Identity (beta)',  '${pasteBeta.runtimeType}'),
             _kvRow('Identity (gamma)', '${pasteGamma.runtimeType}'),
-            _kvRow(
-              'Hash bucket (alpha)',
-              '0x${(pasteAlpha.hashCode & 0xFFFF).toRadixString(16)}',
-            ),
-            _kvRow(
-              'Hash bucket (beta)',
-              '0x${(pasteBeta.hashCode & 0xFFFF).toRadixString(16)}',
-            ),
-            _kvRow(
-              'Equality',
-              'reference-equal only; two ctor calls yield distinct objects',
-            ),
+            _kvRow('Hash bucket (alpha)',
+                '0x${(pasteAlpha.hashCode & 0xFFFF).toRadixString(16)}'),
+            _kvRow('Hash bucket (beta)',
+                '0x${(pasteBeta.hashCode & 0xFFFF).toRadixString(16)}'),
+            _kvRow('Equality',
+                'reference-equal only; two ctor calls yield distinct objects'),
             _kvRow('Mutability', 'immutable; no public setters'),
             _kvRow('Serialisation', 'opaque; encoded inside SystemContextMenu'),
             _kvRow('Platform', 'iOS only; ignored on Android/desktop/web'),
@@ -706,19 +705,20 @@ dynamic build(BuildContext context) {
   final Widget section4 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionHeader('04', 'Construction gallery', accent: kEmberOrange),
+      _sectionHeader('04', 'Construction gallery',
+          accent: kEmberOrange),
       _proseBlock(
         'Below are six freshly minted IOSSystemContextMenuItemDataPaste '
         'instances.  The values printed inside each card come from real '
         'object inspection at build time.  We use them later in the menu '
         'wiring snippets.',
       ),
-      _instanceCard('Alpha (the canonical paste)', pasteAlpha, kMarigoldGold),
-      _instanceCard('Beta (paired with Cut/Copy)', pasteBeta, kEmberOrange),
-      _instanceCard('Gamma (compose-bar action)', pasteGamma, kLagoonTeal),
-      _instanceCard('Delta (paste-then-format)', pasteDelta, kChartreuseLeaf),
-      _instanceCard('Epsilon (snapshot test)', pasteEpsilon, kPeonyBlush),
-      _instanceCard('Zeta (clipboard QA harness)', pasteZeta, kNightshadePlum),
+      _instanceCard('Alpha (the canonical paste)',  pasteAlpha,   kMarigoldGold),
+      _instanceCard('Beta (paired with Cut/Copy)',  pasteBeta,    kEmberOrange),
+      _instanceCard('Gamma (compose-bar action)',   pasteGamma,   kLagoonTeal),
+      _instanceCard('Delta (paste-then-format)',    pasteDelta,   kChartreuseLeaf),
+      _instanceCard('Epsilon (snapshot test)',      pasteEpsilon, kPeonyBlush),
+      _instanceCard('Zeta (clipboard QA harness)',  pasteZeta,    kNightshadePlum),
       const SizedBox(height: 8),
       _proseBlock(
         'Note that all six instances report the same runtimeType.  Their '
@@ -738,11 +738,8 @@ dynamic build(BuildContext context) {
   final Widget section5 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionHeader(
-        '05',
-        'Family tree of IOSSystemContextMenuItemData',
-        accent: kChartreuseLeaf,
-      ),
+      _sectionHeader('05', 'Family tree of IOSSystemContextMenuItemData',
+          accent: kChartreuseLeaf),
       _proseBlock(
         'The sealed parent and its eight known leaves.  Paste is the only '
         'highlighted node here.  In real Flutter source the names appear as '
@@ -760,11 +757,8 @@ dynamic build(BuildContext context) {
         child: Column(
           children: [
             // Root.
-            _treeNode(
-              'sealed IOSSystemContextMenuItemData',
-              kSlateSteel,
-              highlight: true,
-            ),
+            _treeNode('sealed IOSSystemContextMenuItemData',
+                kSlateSteel, highlight: true),
             Container(
               width: 2,
               height: 14,
@@ -818,33 +812,26 @@ dynamic build(BuildContext context) {
   final Widget section6 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionHeader('06', 'Localisation matrix', accent: kPeonyBlush),
+      _sectionHeader('06', 'Localisation matrix',
+          accent: kPeonyBlush),
       _proseBlock(
         'iOS, not Flutter, owns the rendered glyph for Paste.  The translations '
         'below show what the user actually sees on a device whose locale is '
         'set to the listed value.  These strings are hand-curated for the '
         'almanac and match the standard UIKit translations as of iOS 17.',
       ),
-      _localeRow('en-US', 'English (US)', 'Paste'),
-      _localeRow('es-ES', 'Spanish (Spain)', 'Pegar'),
-      _localeRow('fr-FR', 'French (France)', 'Coller'),
-      _localeRow('de-DE', 'German', 'Einf\u00fcgen'),
-      _localeRow('it-IT', 'Italian', 'Incolla'),
-      _localeRow('pt-BR', 'Portuguese (BR)', 'Colar'),
-      _localeRow('ja-JP', 'Japanese', '\u8cbc\u308a\u4ed8\u3051'),
-      _localeRow('zh-CN', 'Chinese (Simp.)', '\u7c98\u8d34'),
-      _localeRow('ko-KR', 'Korean', '\ubd99\uc5ec\ub123\uae30'),
-      _localeRow('ar-SA', 'Arabic (KSA)', '\u0644\u0635\u0642'),
-      _localeRow(
-        'ru-RU',
-        'Russian',
-        '\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c',
-      ),
-      _localeRow(
-        'hi-IN',
-        'Hindi',
-        '\u091a\u093f\u092a\u0915\u093e\u090f\u0902',
-      ),
+      _localeRow('en-US', 'English (US)',     'Paste'),
+      _localeRow('es-ES', 'Spanish (Spain)',  'Pegar'),
+      _localeRow('fr-FR', 'French (France)',  'Coller'),
+      _localeRow('de-DE', 'German',           'Einf\u00fcgen'),
+      _localeRow('it-IT', 'Italian',          'Incolla'),
+      _localeRow('pt-BR', 'Portuguese (BR)',  'Colar'),
+      _localeRow('ja-JP', 'Japanese',         '\u8cbc\u308a\u4ed8\u3051'),
+      _localeRow('zh-CN', 'Chinese (Simp.)',  '\u7c98\u8d34'),
+      _localeRow('ko-KR', 'Korean',           '\ubd99\uc5ec\ub123\uae30'),
+      _localeRow('ar-SA', 'Arabic (KSA)',     '\u0644\u0635\u0642'),
+      _localeRow('ru-RU', 'Russian',          '\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c'),
+      _localeRow('hi-IN', 'Hindi',            '\u091a\u093f\u092a\u0915\u093e\u090f\u0902'),
       const SizedBox(height: 8),
       _proseBlock(
         'Because the glyph is iOS-rendered, you cannot override it from Dart '
@@ -864,40 +851,41 @@ dynamic build(BuildContext context) {
   final Widget section7 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionHeader('07', 'Render pipeline (5 hops)', accent: kLagoonTeal),
+      _sectionHeader('07', 'Render pipeline (5 hops)',
+          accent: kLagoonTeal),
       _pipelineHop(
         1,
         'Widget tree authors mount SystemContextMenu',
         'Your Dart code declares the menu as part of a TextField overlay or '
-            'a custom selection controller.',
+        'a custom selection controller.',
         kMarigoldGold,
       ),
       _pipelineHop(
         2,
         'SystemContextMenu collects IOSSystemContextMenuItemData entries',
         'Paste is one entry; the framework validates that the list is non-empty '
-            'and that the items are sealed leaves.',
+        'and that the items are sealed leaves.',
         kEmberOrange,
       ),
       _pipelineHop(
         3,
         'SystemContextMenuController.show() crosses the platform channel',
         'A method-channel call is dispatched on the flutter/platform channel '
-            'with the encoded item list.',
+        'with the encoded item list.',
         kLagoonTeal,
       ),
       _pipelineHop(
         4,
         'UIKit UIEditMenuInteraction renders the menu',
         'iOS picks up the call inside the Flutter engine\'s plugin layer and '
-            'forwards it to UIEditMenuInteraction with the matching responder.',
+        'forwards it to UIEditMenuInteraction with the matching responder.',
         kNightshadePlum,
       ),
       _pipelineHop(
         5,
         'User taps Paste and UIKit fires paste(_:)',
         'The standard responder chain delivers the action to whichever first '
-            'responder claims canPerformAction(\\#selector(paste:)).',
+        'responder claims canPerformAction(\\#selector(paste:)).',
         kChartreuseLeaf,
       ),
       const SizedBox(height: 8),
@@ -923,44 +911,44 @@ dynamic build(BuildContext context) {
       _doAvoid(
         'DO mount Paste only on editable text surfaces',
         'A non-editable Text widget cannot accept a paste; the menu entry '
-            'will appear inert if you mount it on read-only content.',
+        'will appear inert if you mount it on read-only content.',
         isDo: true,
       ),
       _doAvoid(
         'DO let iOS hide the entry when the clipboard is empty',
         'You should not pre-filter the menu yourself.  iOS already inspects '
-            'the pasteboard and removes Paste when there is nothing to paste.',
+        'the pasteboard and removes Paste when there is nothing to paste.',
         isDo: true,
       ),
       _doAvoid(
         'DO accept the iOS 16+ permission dialog as part of UX',
         'On iOS 16 and newer, the user sees "App wants to paste from Clipboard" '
-            'on first paste; design copy that explains why pasting is needed.',
+        'on first paste; design copy that explains why pasting is needed.',
         isDo: true,
       ),
       _doAvoid(
         'AVOID assuming Paste fires synchronously',
         'The platform channel call is asynchronous; do not block UI flow on '
-            'an immediate paste completion.',
+        'an immediate paste completion.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID using IOSSystemContextMenuItemDataPaste on Android',
         'It is iOS-only.  On Android, build a Material context menu with '
-            'ContextMenuButtonItem and a paste callback instead.',
+        'ContextMenuButtonItem and a paste callback instead.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID overriding the title with sensitive content',
         'On Flutter versions that support a title override, do not embed PII '
-            'or secrets in the menu label; the OS may log menu strings for '
-            'accessibility.',
+        'or secrets in the menu label; the OS may log menu strings for '
+        'accessibility.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID retaining a Paste instance and reusing it across menus',
         'It is cheap to construct.  Building a fresh instance per menu '
-            'avoids accidental aliasing in tests and snapshot diffs.',
+        'avoids accidental aliasing in tests and snapshot diffs.',
         isDo: false,
       ),
     ],
@@ -974,60 +962,61 @@ dynamic build(BuildContext context) {
   final Widget section9 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionHeader('09', 'Canonical recipes', accent: kSlateSteel),
+      _sectionHeader('09', 'Canonical recipes',
+          accent: kSlateSteel),
       _codeCard(
         'Recipe 1: minimal Paste-only menu',
         'SystemContextMenu(\n'
-            '  anchor: cursorRect,\n'
-            '  items: const [\n'
-            '    IOSSystemContextMenuItemDataPaste(),\n'
-            '  ],\n'
-            ');',
+        '  anchor: cursorRect,\n'
+        '  items: const [\n'
+        '    IOSSystemContextMenuItemDataPaste(),\n'
+        '  ],\n'
+        ');',
         accent: kMarigoldGold,
       ),
       _codeCard(
         'Recipe 2: full edit menu',
         'final items = <IOSSystemContextMenuItemData>[\n'
-            '  const IOSSystemContextMenuItemDataCut(),\n'
-            '  const IOSSystemContextMenuItemDataCopy(),\n'
-            '  const IOSSystemContextMenuItemDataPaste(),\n'
-            '  const IOSSystemContextMenuItemDataSelectAll(),\n'
-            '];',
+        '  const IOSSystemContextMenuItemDataCut(),\n'
+        '  const IOSSystemContextMenuItemDataCopy(),\n'
+        '  const IOSSystemContextMenuItemDataPaste(),\n'
+        '  const IOSSystemContextMenuItemDataSelectAll(),\n'
+        '];',
         accent: kEmberOrange,
       ),
       _codeCard(
         'Recipe 3: imperative show()',
         'SystemContextMenuController.show(\n'
-            '  targetRect: cursorRect,\n'
-            '  items: const [IOSSystemContextMenuItemDataPaste()],\n'
-            ');',
+        '  targetRect: cursorRect,\n'
+        '  items: const [IOSSystemContextMenuItemDataPaste()],\n'
+        ');',
         accent: kLagoonTeal,
       ),
       _codeCard(
         'Recipe 4: snapshot-test friendly factory',
         'IOSSystemContextMenuItemDataPaste makePaste() {\n'
-            '  return IOSSystemContextMenuItemDataPaste();\n'
-            '}\n\n'
-            'expect(makePaste().runtimeType.toString(),\n'
-            '  contains("Paste"));',
+        '  return IOSSystemContextMenuItemDataPaste();\n'
+        '}\n\n'
+        'expect(makePaste().runtimeType.toString(),\n'
+        '  contains("Paste"));',
         accent: kChartreuseLeaf,
       ),
       _codeCard(
         'Recipe 5: platform-guarded use',
         'if (Theme.of(context).platform == TargetPlatform.iOS) {\n'
-            '  return SystemContextMenu(\n'
-            '    anchor: rect,\n'
-            '    items: const [IOSSystemContextMenuItemDataPaste()],\n'
-            '  );\n'
-            '} else {\n'
-            '  return AdaptiveTextSelectionToolbar.editable(\n'
-            '    anchors: anchors, clipboardStatus: ClipboardStatus.pasteable,\n'
-            '    onPaste: () { /* manual paste */ },\n'
-            '    onCopy: null, onCut: null, onSelectAll: null,\n'
-            '    onLookUp: null, onSearchWeb: null, onShare: null,\n'
-            '    onLiveTextInput: null,\n'
-            '  );\n'
-            '}',
+        '  return SystemContextMenu(\n'
+        '    anchor: rect,\n'
+        '    items: const [IOSSystemContextMenuItemDataPaste()],\n'
+        '  );\n'
+        '} else {\n'
+        '  return AdaptiveTextSelectionToolbar.editable(\n'
+        '    anchors: anchors, clipboardStatus: ClipboardStatus.pasteable,\n'
+        '    onPaste: () { /* manual paste */ },\n'
+        '    onCopy: null, onCut: null, onSelectAll: null,\n'
+        '    onLookUp: null, onSearchWeb: null, onShare: null,\n'
+        '    onLiveTextInput: null,\n'
+        '  );\n'
+        '}',
         accent: kNightshadePlum,
       ),
     ],
@@ -1042,76 +1031,48 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _sectionHeader('10', 'Glossary', accent: kMochaBean),
-      _glossaryItem(
-        'SystemContextMenu',
-        'Flutter widget that mounts an iOS-native context menu by passing a '
-            'list of IOSSystemContextMenuItemData entries to the engine.',
-      ),
-      _glossaryItem(
-        'SystemContextMenuController',
-        'Service object exposing imperative show()/hide() methods for the '
-            'iOS-native context menu.',
-      ),
-      _glossaryItem(
-        'IOSSystemContextMenuItemData',
-        'Sealed base class whose leaves describe each menu entry: Cut, '
-            'Copy, Paste, SelectAll, LookUp, Translate, ShareLink, Custom.',
-      ),
-      _glossaryItem(
-        'IOSSystemContextMenuItemDataPaste',
-        'Sealed leaf representing the Paste action.  No-arg ctor in 3.41; '
-            'optional title in newer versions.',
-      ),
-      _glossaryItem(
-        'UIEditMenuInteraction',
-        'UIKit class that renders the iOS-native edit menu.  Flutter\'s '
-            'engine talks to it on your behalf.',
-      ),
-      _glossaryItem(
-        'Pasteboard',
-        'iOS term for the system clipboard.  When empty, iOS hides Paste '
-            'even if you supplied it.',
-      ),
-      _glossaryItem(
-        'Responder chain',
-        'UIKit mechanism that routes actions like paste(_:) up the view '
-            'hierarchy until a responder claims them.',
-      ),
-      _glossaryItem(
-        'paste(_:)',
-        'Selector defined on UIResponderStandardEditActions that fires when '
-            'the user picks Paste.',
-      ),
-      _glossaryItem(
-        'Method channel',
-        'Async bridge between Dart and platform code.  Carries the menu '
-            'item list and user selection.',
-      ),
-      _glossaryItem(
-        'AdaptiveTextSelectionToolbar',
-        'Cross-platform alternative used on Android, desktop, and the web '
-            'when the iOS-native menu is unavailable.',
-      ),
-      _glossaryItem(
-        'ClipboardStatus',
-        'Enum used by AdaptiveTextSelectionToolbar to gate the Paste entry '
-            'when iOS-native menus are not in play.',
-      ),
-      _glossaryItem(
-        'Sealed type',
-        'Dart type whose set of subtypes is closed at compile time.  '
-            'Enables exhaustive switch statements.',
-      ),
-      _glossaryItem(
-        'Marker object',
-        'Lightweight value whose only purpose is to declare intent; '
-            'IOSSystemContextMenuItemDataPaste is one such marker.',
-      ),
-      _glossaryItem(
-        'Snapshot test',
-        'Test pattern that captures a stable representation of widget '
-            'output and compares it against a baseline file.',
-      ),
+      _glossaryItem('SystemContextMenu',
+          'Flutter widget that mounts an iOS-native context menu by passing a '
+          'list of IOSSystemContextMenuItemData entries to the engine.'),
+      _glossaryItem('SystemContextMenuController',
+          'Service object exposing imperative show()/hide() methods for the '
+          'iOS-native context menu.'),
+      _glossaryItem('IOSSystemContextMenuItemData',
+          'Sealed base class whose leaves describe each menu entry: Cut, '
+          'Copy, Paste, SelectAll, LookUp, Translate, ShareLink, Custom.'),
+      _glossaryItem('IOSSystemContextMenuItemDataPaste',
+          'Sealed leaf representing the Paste action.  No-arg ctor in 3.41; '
+          'optional title in newer versions.'),
+      _glossaryItem('UIEditMenuInteraction',
+          'UIKit class that renders the iOS-native edit menu.  Flutter\'s '
+          'engine talks to it on your behalf.'),
+      _glossaryItem('Pasteboard',
+          'iOS term for the system clipboard.  When empty, iOS hides Paste '
+          'even if you supplied it.'),
+      _glossaryItem('Responder chain',
+          'UIKit mechanism that routes actions like paste(_:) up the view '
+          'hierarchy until a responder claims them.'),
+      _glossaryItem('paste(_:)',
+          'Selector defined on UIResponderStandardEditActions that fires when '
+          'the user picks Paste.'),
+      _glossaryItem('Method channel',
+          'Async bridge between Dart and platform code.  Carries the menu '
+          'item list and user selection.'),
+      _glossaryItem('AdaptiveTextSelectionToolbar',
+          'Cross-platform alternative used on Android, desktop, and the web '
+          'when the iOS-native menu is unavailable.'),
+      _glossaryItem('ClipboardStatus',
+          'Enum used by AdaptiveTextSelectionToolbar to gate the Paste entry '
+          'when iOS-native menus are not in play.'),
+      _glossaryItem('Sealed type',
+          'Dart type whose set of subtypes is closed at compile time.  '
+          'Enables exhaustive switch statements.'),
+      _glossaryItem('Marker object',
+          'Lightweight value whose only purpose is to declare intent; '
+          'IOSSystemContextMenuItemDataPaste is one such marker.'),
+      _glossaryItem('Snapshot test',
+          'Test pattern that captures a stable representation of widget '
+          'output and compares it against a baseline file.'),
     ],
   );
 
@@ -1149,20 +1110,26 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 10),
-        _bulletList([
-          'Sealed leaf of IOSSystemContextMenuItemData; iOS-only.',
-          'No-arg ctor in Flutter 3.41; later versions add optional title.',
-          'Carries no state; identity is the only observable property.',
-          'Wired into SystemContextMenu / SystemContextMenuController.',
-          'iOS owns the glyph and hides it when the clipboard is empty.',
-          'Construct fresh per menu mount; do not retain across rebuilds.',
-          'Use AdaptiveTextSelectionToolbar on non-iOS platforms.',
-          'Treat snapshot tests as runtimeType assertions only.',
-        ], dot: kMarigoldGold),
+        _bulletList(
+          [
+            'Sealed leaf of IOSSystemContextMenuItemData; iOS-only.',
+            'No-arg ctor in Flutter 3.41; later versions add optional title.',
+            'Carries no state; identity is the only observable property.',
+            'Wired into SystemContextMenu / SystemContextMenuController.',
+            'iOS owns the glyph and hides it when the clipboard is empty.',
+            'Construct fresh per menu mount; do not retain across rebuilds.',
+            'Use AdaptiveTextSelectionToolbar on non-iOS platforms.',
+            'Treat snapshot tests as runtimeType assertions only.',
+          ],
+          dot: kMarigoldGold,
+        ),
         const SizedBox(height: 12),
         Text(
           'Tablet Marigold almanac complete.',
-          style: TextStyle(color: kPeonyBlush, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: kPeonyBlush,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -1174,11 +1141,8 @@ dynamic build(BuildContext context) {
   final Widget section12 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionHeader(
-        '12',
-        'Instance dump (quick reference)',
-        accent: kAshSmoke,
-      ),
+      _sectionHeader('12', 'Instance dump (quick reference)',
+          accent: kAshSmoke),
       _proseBlock(
         'Direct dump of the six instances created in section 4.  Useful for '
         'comparing snapshot baselines and verifying that ctor calls produce '
@@ -1194,44 +1158,28 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _kvRow('alpha.runtimeType', '${pasteAlpha.runtimeType}'),
-            _kvRow('beta.runtimeType', '${pasteBeta.runtimeType}'),
-            _kvRow('gamma.runtimeType', '${pasteGamma.runtimeType}'),
-            _kvRow('delta.runtimeType', '${pasteDelta.runtimeType}'),
+            _kvRow('alpha.runtimeType',   '${pasteAlpha.runtimeType}'),
+            _kvRow('beta.runtimeType',    '${pasteBeta.runtimeType}'),
+            _kvRow('gamma.runtimeType',   '${pasteGamma.runtimeType}'),
+            _kvRow('delta.runtimeType',   '${pasteDelta.runtimeType}'),
             _kvRow('epsilon.runtimeType', '${pasteEpsilon.runtimeType}'),
-            _kvRow('zeta.runtimeType', '${pasteZeta.runtimeType}'),
-            _kvRow(
-              'alpha is base',
-              '${pasteAlpha is IOSSystemContextMenuItemData}',
-            ),
-            _kvRow(
-              'beta is base',
-              '${pasteBeta is IOSSystemContextMenuItemData}',
-            ),
-            _kvRow(
-              'gamma is base',
-              '${pasteGamma is IOSSystemContextMenuItemData}',
-            ),
-            _kvRow(
-              'delta is base',
-              '${pasteDelta is IOSSystemContextMenuItemData}',
-            ),
-            _kvRow(
-              'epsilon is base',
-              '${pasteEpsilon is IOSSystemContextMenuItemData}',
-            ),
-            _kvRow(
-              'zeta is base',
-              '${pasteZeta is IOSSystemContextMenuItemData}',
-            ),
-            _kvRow(
-              'identical(alpha, beta)',
-              '${identical(pasteAlpha, pasteBeta)}',
-            ),
-            _kvRow(
-              'identical(alpha, alpha)',
-              '${identical(pasteAlpha, pasteAlpha)}',
-            ),
+            _kvRow('zeta.runtimeType',    '${pasteZeta.runtimeType}'),
+            _kvRow('alpha is base',
+                '${pasteAlpha is IOSSystemContextMenuItemData}'),
+            _kvRow('beta is base',
+                '${pasteBeta is IOSSystemContextMenuItemData}'),
+            _kvRow('gamma is base',
+                '${pasteGamma is IOSSystemContextMenuItemData}'),
+            _kvRow('delta is base',
+                '${pasteDelta is IOSSystemContextMenuItemData}'),
+            _kvRow('epsilon is base',
+                '${pasteEpsilon is IOSSystemContextMenuItemData}'),
+            _kvRow('zeta is base',
+                '${pasteZeta is IOSSystemContextMenuItemData}'),
+            _kvRow('identical(alpha, beta)',
+                '${identical(pasteAlpha, pasteBeta)}'),
+            _kvRow('identical(alpha, alpha)',
+                '${identical(pasteAlpha, pasteAlpha)}'),
           ],
         ),
       ),

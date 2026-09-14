@@ -190,7 +190,10 @@ dynamic build(BuildContext context) {
                   padding: EdgeInsets.all(12.0),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.amber.shade200, Colors.amber.shade400],
+                      colors: [
+                        Colors.amber.shade200,
+                        Colors.amber.shade400,
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -275,8 +278,7 @@ dynamic build(BuildContext context) {
   final logicalCard = _buildKindCard(
     title: 'SliverLogicalParentData',
     field: 'double? layoutOffset',
-    summary:
-        'Scroll-direction-natural offset along the main axis. The render '
+    summary: 'Scroll-direction-natural offset along the main axis. The render '
         'sliver decides how to convert it to a paint Offset.',
     accent: indigoDeep,
     accentSoft: Colors.indigo.shade50,
@@ -293,8 +295,7 @@ dynamic build(BuildContext context) {
   final physicalCard = _buildKindCard(
     title: 'SliverPhysicalParentData',
     field: 'Offset paintOffset',
-    summary:
-        'Concrete pixel offset from parent origin. Encodes axis direction '
+    summary: 'Concrete pixel offset from parent origin. Encodes axis direction '
         'directly into the (dx, dy) pair.',
     accent: mintDeep,
     accentSoft: Colors.teal.shade50,
@@ -376,14 +377,12 @@ dynamic build(BuildContext context) {
     final pd = SliverLogicalParentData();
     pd.layoutOffset = v;
     print('Instance: layoutOffset=${pd.layoutOffset}');
-    instanceCards.add(
-      _buildOffsetInstanceCard(
-        pd,
-        indigoDeep: indigoDeep,
-        mintDeep: mintDeep,
-        amberDeep: amberDeep,
-      ),
-    );
+    instanceCards.add(_buildOffsetInstanceCard(
+      pd,
+      indigoDeep: indigoDeep,
+      mintDeep: mintDeep,
+      amberDeep: amberDeep,
+    ));
   }
   print('Created ${instanceCards.length} instance cards');
 
@@ -742,8 +741,7 @@ dynamic build(BuildContext context) {
     _buildLifecycleStep(
       step: 1,
       title: 'parentData attached',
-      detail:
-          'setupParentData() assigns a SliverLogicalParentData '
+      detail: 'setupParentData() assigns a SliverLogicalParentData '
           'instance with layoutOffset = null.',
       accent: indigoDeep,
       icon: Icons.link,
@@ -751,8 +749,7 @@ dynamic build(BuildContext context) {
     _buildLifecycleStep(
       step: 2,
       title: 'layout pass',
-      detail:
-          'performLayout() walks children, sets each '
+      detail: 'performLayout() walks children, sets each '
           'pd.layoutOffset to the running main-axis cursor.',
       accent: mintDeep,
       icon: Icons.architecture,
@@ -760,8 +757,7 @@ dynamic build(BuildContext context) {
     _buildLifecycleStep(
       step: 3,
       title: 'paintOffset computed',
-      detail:
-          'At paint time, parent projects layoutOffset onto the '
+      detail: 'At paint time, parent projects layoutOffset onto the '
           'concrete axis to yield an Offset.',
       accent: amberDeep,
       icon: Icons.visibility,
@@ -769,8 +765,7 @@ dynamic build(BuildContext context) {
     _buildLifecycleStep(
       step: 4,
       title: 'painted',
-      detail:
-          'Child is composited at the projected offset. Re-layouts '
+      detail: 'Child is composited at the projected offset. Re-layouts '
           'reuse the same parentData slot.',
       accent: Colors.deepPurple.shade600,
       icon: Icons.brush,
@@ -813,8 +808,7 @@ dynamic build(BuildContext context) {
   final footguns = <Widget>[
     _buildFootgunCard(
       title: 'Logical ≠ physical',
-      detail:
-          'layoutOffset is NOT a pixel coordinate. Do not feed it '
+      detail: 'layoutOffset is NOT a pixel coordinate. Do not feed it '
           'directly into a Canvas drawRect — project it first.',
       accent: Colors.red.shade700,
       accentSoft: Colors.red.shade50,
@@ -822,8 +816,7 @@ dynamic build(BuildContext context) {
     ),
     _buildFootgunCard(
       title: 'null means not laid out',
-      detail:
-          'A null layoutOffset signals the child has not been '
+      detail: 'A null layoutOffset signals the child has not been '
           'laid out in the current frame. Treat it as "skip paint".',
       accent: Colors.deepOrange.shade700,
       accentSoft: Colors.deepOrange.shade50,
@@ -831,8 +824,7 @@ dynamic build(BuildContext context) {
     ),
     _buildFootgunCard(
       title: 'Scroll-direction-natural coords',
-      detail:
-          'For AxisDirection.up, larger layoutOffset moves the '
+      detail: 'For AxisDirection.up, larger layoutOffset moves the '
           'child further from the leading edge — which is the bottom.',
       accent: amberDeep,
       accentSoft: Colors.amber.shade50,
@@ -840,8 +832,7 @@ dynamic build(BuildContext context) {
     ),
     _buildFootgunCard(
       title: 'Single field — no Offset()',
-      detail:
-          'Logical parent data only stores main-axis position. '
+      detail: 'Logical parent data only stores main-axis position. '
           'Cross-axis is implicitly 0 in the parent\'s frame.',
       accent: indigoDeep,
       accentSoft: Colors.indigo.shade50,
@@ -849,8 +840,7 @@ dynamic build(BuildContext context) {
     ),
     _buildFootgunCard(
       title: 'Don\'t share instances',
-      detail:
-          'Each child needs its own SliverLogicalParentData. '
+      detail: 'Each child needs its own SliverLogicalParentData. '
           'Sharing one across children corrupts layout.',
       accent: mintDeep,
       accentSoft: Colors.teal.shade50,
@@ -997,11 +987,7 @@ dynamic build(BuildContext context) {
             children: instanceCards,
           ),
           SizedBox(height: 8.0),
-          _buildSectionHeader(
-            '4. Scroll axis impact',
-            Icons.swap_calls,
-            indigoDeep,
-          ),
+          _buildSectionHeader('4. Scroll axis impact', Icons.swap_calls, indigoDeep),
           axisGrid,
           _buildSectionHeader('5. CustomScrollView flow', Icons.list, mintDeep),
           flowDiagram,
@@ -1037,7 +1023,9 @@ Widget _buildSectionHeader(String title, IconData icon, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
     ),
     child: Row(
       children: [
@@ -1121,7 +1109,10 @@ Widget _buildKindCard({
           ),
         ),
         SizedBox(height: 8.0),
-        Text(summary, style: TextStyle(fontSize: 11.0, color: Colors.black87)),
+        Text(
+          summary,
+          style: TextStyle(fontSize: 11.0, color: Colors.black87),
+        ),
         SizedBox(height: 10.0),
         for (final b in bullets)
           Padding(
@@ -1172,7 +1163,9 @@ Widget _buildOffsetInstanceCard(
   final isNull = value == null;
   final accent = isNull
       ? Colors.red.shade600
-      : (value == 0.0 ? indigoDeep : (value < 200.0 ? mintDeep : amberDeep));
+      : (value == 0.0
+          ? indigoDeep
+          : (value < 200.0 ? mintDeep : amberDeep));
   final label = isNull ? 'null' : value.toStringAsFixed(1);
   final fillFraction = isNull
       ? 0.0
@@ -1285,8 +1278,8 @@ Widget _buildAxisCard({
   required AxisDirection direction,
 }) {
   // Track which side the layoutOffset measures from.
-  final isVertical =
-      direction == AxisDirection.down || direction == AxisDirection.up;
+  final isVertical = direction == AxisDirection.down ||
+      direction == AxisDirection.up;
   return Container(
     width: 200.0,
     padding: EdgeInsets.all(12.0),
@@ -1351,7 +1344,10 @@ Widget _buildAxisCard({
               ),
               Center(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: accent.withValues(alpha: 0.85),
                     borderRadius: BorderRadius.circular(20.0),
@@ -1539,7 +1535,9 @@ Widget _buildCodeSnippet(String code, Color textColor) {
     decoration: BoxDecoration(
       color: Colors.grey.shade800,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(left: BorderSide(color: textColor, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: textColor, width: 3.0),
+      ),
     ),
     child: Text(
       code,
@@ -1583,7 +1581,10 @@ Widget _buildLifecycleStep({
           height: 36.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [accent, accent.withValues(alpha: 0.7)],
+              colors: [
+                accent,
+                accent.withValues(alpha: 0.7),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1704,7 +1705,11 @@ Widget _buildRecapBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.35),
+            style: TextStyle(
+              fontSize: 12.5,
+              color: Colors.white,
+              height: 1.35,
+            ),
           ),
         ),
       ],

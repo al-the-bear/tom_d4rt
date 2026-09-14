@@ -281,7 +281,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[parchment, color.withValues(alpha: 0.12)],
+            colors: <Color>[
+              parchment,
+              color.withValues(alpha: 0.12),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -334,7 +337,11 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               fr['note'] as String,
-              style: TextStyle(fontSize: 10.0, color: ink, height: 1.3),
+              style: TextStyle(
+                fontSize: 10.0,
+                color: ink,
+                height: 1.3,
+              ),
             ),
           ],
         ),
@@ -621,10 +628,8 @@ dynamic build(BuildContext context) {
                 right: 12.0,
                 bottom: 12.0,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 6.0,
-                  ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: brassDark,
                     borderRadius: BorderRadius.circular(6.0),
@@ -739,7 +744,13 @@ dynamic build(BuildContext context) {
   print('--- Section 8: Rotation collar ---');
 
   final rotationDials = <Widget>[];
-  final List<double> rotationSamples = <double>[0.0, 0.4, -0.6, 1.2, -1.5];
+  final List<double> rotationSamples = <double>[
+    0.0,
+    0.4,
+    -0.6,
+    1.2,
+    -1.5,
+  ];
   for (int i = 0; i < rotationSamples.length; i++) {
     final r = rotationSamples[i];
     print(
@@ -799,7 +810,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 16.0),
-        Wrap(alignment: WrapAlignment.center, children: rotationDials),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: rotationDials,
+        ),
       ],
     ),
   );
@@ -1452,7 +1466,10 @@ Widget _buildReadoutCard({
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[parchment, accent.withValues(alpha: 0.06)],
+        colors: <Color>[
+          parchment,
+          accent.withValues(alpha: 0.06),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1612,9 +1629,8 @@ Widget _buildScaleAxisGauge({
   final double width = (isUniform || orientation == Axis.horizontal)
       ? scaled
       : base;
-  final double height = (isUniform || orientation == Axis.vertical)
-      ? scaled
-      : base;
+  final double height =
+      (isUniform || orientation == Axis.vertical) ? scaled : base;
   return SizedBox(
     width: 110.0,
     child: Column(
@@ -1725,7 +1741,11 @@ Widget _buildRotationDial({
                 width: 4.0,
                 height: 60.0,
                 alignment: Alignment.topCenter,
-                child: Container(width: 2.0, height: 8.0, color: brassDark),
+                child: Container(
+                  width: 2.0,
+                  height: 8.0,
+                  color: brassDark,
+                ),
               ),
               // Needle (rotated)
               Transform.rotate(
@@ -1736,7 +1756,11 @@ Widget _buildRotationDial({
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: <Widget>[
-                      Container(width: 3.0, height: 25.0, color: accent),
+                      Container(
+                        width: 3.0,
+                        height: 25.0,
+                        color: accent,
+                      ),
                     ],
                   ),
                 ),

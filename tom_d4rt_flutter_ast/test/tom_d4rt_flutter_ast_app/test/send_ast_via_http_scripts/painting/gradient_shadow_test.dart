@@ -527,7 +527,10 @@ class _LinearGradientAtlas extends StatelessWidget {
         gradient: _decal(),
       ),
     ];
-    return Wrap(alignment: WrapAlignment.center, children: swatches);
+    return Wrap(
+      alignment: WrapAlignment.center,
+      children: swatches,
+    );
   }
 }
 
@@ -878,7 +881,10 @@ class _BoxShadowMatrix extends StatelessWidget {
           const SizedBox(height: 28.0),
           Text(
             label,
-            style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
+            style: const TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           _Caption(caption),
         ],
@@ -1139,7 +1145,10 @@ class _ShadowPrimitives extends StatelessWidget {
     );
   }
 
-  Widget _insetCard({required String label, required Color color}) {
+  Widget _insetCard({
+    required String label,
+    required Color color,
+  }) {
     // BoxShadow.inner blurStyle simulates an inset look; we layer two for
     // a clearer pressed-in effect on a Material 3 surface tint.
     return Container(
@@ -1897,11 +1906,7 @@ class _FooterStripe extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Icon(
-            Icons.palette_outlined,
-            size: 28.0,
-            color: scheme.onPrimaryContainer,
-          ),
+          Icon(Icons.palette_outlined, size: 28.0, color: scheme.onPrimaryContainer),
           const SizedBox(width: 12.0),
           Expanded(
             child: Text(

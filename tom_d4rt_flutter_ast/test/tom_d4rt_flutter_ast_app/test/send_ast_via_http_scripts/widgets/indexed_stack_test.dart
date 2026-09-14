@@ -36,8 +36,7 @@ class _IndexedStackDeepDemoPage extends StatefulWidget {
   const _IndexedStackDeepDemoPage();
 
   @override
-  State<_IndexedStackDeepDemoPage> createState() =>
-      _IndexedStackDeepDemoPageState();
+  State<_IndexedStackDeepDemoPage> createState() => _IndexedStackDeepDemoPageState();
 }
 
 class _IndexedStackDeepDemoPageState extends State<_IndexedStackDeepDemoPage> {
@@ -71,10 +70,7 @@ class _IndexedStackDeepDemoPageState extends State<_IndexedStackDeepDemoPage> {
               const SizedBox(height: 2),
               Text(
                 'Scale ${config.scale.toStringAsFixed(2)} | Direction ${config.textDirection == TextDirection.rtl ? 'RTL' : 'LTR'} | Focus: persistent child state',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -220,11 +216,7 @@ class _TopRibbon extends StatelessWidget {
           children: [
             const Text(
               'IndexedStack Control Deck',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 28,
-              ),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 28),
             ),
             const SizedBox(height: 6),
             const Text(
@@ -238,72 +230,48 @@ class _TopRibbon extends StatelessWidget {
                   child: Material(
                     type: MaterialType.transparency,
                     child: SwitchListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      value: compact,
-                      onChanged: onCompactChanged,
-                      title: const Text(
-                        'Compact',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    value: compact,
+                    onChanged: onCompactChanged,
+                    title: const Text('Compact', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                   ),
                 ),
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
                     child: SwitchListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      value: showGrid,
-                      onChanged: onShowGridChanged,
-                      title: const Text(
-                        'Guide grid',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    value: showGrid,
+                    onChanged: onShowGridChanged,
+                    title: const Text('Guide grid', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                   ),
                 ),
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
                     child: SwitchListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      value: showLabels,
-                      onChanged: onShowLabelsChanged,
-                      title: const Text(
-                        'Labels',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    value: showLabels,
+                    onChanged: onShowLabelsChanged,
+                    title: const Text('Labels', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                   ),
                 ),
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
                     child: SwitchListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      value: rtl,
-                      onChanged: onRtlChanged,
-                      title: const Text(
-                        'RTL',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    value: rtl,
+                    onChanged: onRtlChanged,
+                    title: const Text('RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                   ),
                 ),
               ],
@@ -311,10 +279,7 @@ class _TopRibbon extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               'Global scale: ${scale.toStringAsFixed(2)}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
             ),
             Slider(
               value: scale,
@@ -358,14 +323,7 @@ class _RibbonTag extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: Colors.white.withValues(alpha: 0.35)),
       ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          fontSize: 12,
-        ),
-      ),
+      child: Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12)),
     );
   }
 }
@@ -392,11 +350,7 @@ class _SceneCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 14,
-            offset: const Offset(0, 6),
-          ),
+          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 14, offset: const Offset(0, 6)),
         ],
       ),
       child: Padding(
@@ -411,32 +365,16 @@ class _SceneCard extends StatelessWidget {
                   radius: 14,
                   backgroundColor: accent,
                   foregroundColor: Colors.white,
-                  child: Text(
-                    '$index',
-                    style: const TextStyle(fontWeight: FontWeight.w800),
-                  ),
+                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: accent,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
+                      Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 18)),
                       const SizedBox(height: 4),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(
-                          color: Color(0xFF2F4454),
-                          height: 1.34,
-                        ),
-                      ),
+                      Text(subtitle, style: const TextStyle(color: Color(0xFF2F4454), height: 1.34)),
                     ],
                   ),
                 ),
@@ -483,21 +421,17 @@ class _FundamentalSceneState extends State<_FundamentalScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Index controls',
-                        style: TextStyle(fontWeight: FontWeight.w800),
-                      ),
+                      const Text('Index controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
                       SegmentedButton<int>(
                         segments: const [
-                          ButtonSegment(value: 0, label: Text('0')),
-                          ButtonSegment(value: 1, label: Text('1')),
-                          ButtonSegment(value: 2, label: Text('2')),
+                          ButtonSegment(value: 0, label: Text('0')), 
+                          ButtonSegment(value: 1, label: Text('1')), 
+                          ButtonSegment(value: 2, label: Text('2')), 
                           ButtonSegment(value: 3, label: Text('3')),
                         ],
                         selected: {_index},
-                        onSelectionChanged: (value) =>
-                            setState(() => _index = value.first),
+                        onSelectionChanged: (value) => setState(() => _index = value.first),
                       ),
                       const SizedBox(height: 8),
                       _LabeledSlider(
@@ -511,22 +445,22 @@ class _FundamentalSceneState extends State<_FundamentalScene> {
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          value: _showBounds,
-                          onChanged: (v) => setState(() => _showBounds = v),
-                          title: const Text('Show panel bounds'),
-                        ),
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        value: _showBounds,
+                        onChanged: (v) => setState(() => _showBounds = v),
+                        title: const Text('Show panel bounds'),
+                      ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          value: _showIndexBadge,
-                          onChanged: (v) => setState(() => _showIndexBadge = v),
-                          title: const Text('Show active index badge'),
-                        ),
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        value: _showIndexBadge,
+                        onChanged: (v) => setState(() => _showIndexBadge = v),
+                        title: const Text('Show active index badge'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       Container(
@@ -536,27 +470,12 @@ class _FundamentalSceneState extends State<_FundamentalScene> {
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Behavior essentials',
-                              style: TextStyle(fontWeight: FontWeight.w800),
-                            ),
+                            Text('Behavior essentials', style: TextStyle(fontWeight: FontWeight.w800)),
                             SizedBox(height: 6),
-                            _BulletText(
-                              text:
-                                  'All children exist in the tree, but only one child is painted.',
-                            ),
-                            _BulletText(
-                              text:
-                                  'Switching index is instant and keeps hidden child states alive.',
-                            ),
-                            _BulletText(
-                              text:
-                                  'Parent size is determined by the largest child constraints.',
-                            ),
-                            _BulletText(
-                              text:
-                                  'Use this when tab contents must not reset on switch.',
-                            ),
+                            _BulletText(text: 'All children exist in the tree, but only one child is painted.'),
+                            _BulletText(text: 'Switching index is instant and keeps hidden child states alive.'),
+                            _BulletText(text: 'Parent size is determined by the largest child constraints.'),
+                            _BulletText(text: 'Use this when tab contents must not reset on switch.'),
                           ],
                         ),
                       ),
@@ -625,20 +544,14 @@ class _FundamentalSceneState extends State<_FundamentalScene> {
                         right: 10,
                         top: 10,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                           decoration: BoxDecoration(
                             color: const Color(0xCC1D2F3D),
                             borderRadius: BorderRadius.circular(999),
                           ),
                           child: Text(
                             'active index: $_index',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                           ),
                         ),
                       ),
@@ -665,12 +578,7 @@ class _FundamentalSceneState extends State<_FundamentalScene> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: color.withValues(alpha: 0.10),
-        border: Border.all(
-          color: showBounds
-              ? color.withValues(alpha: 0.65)
-              : color.withValues(alpha: 0.25),
-          width: showBounds ? 2 : 1,
-        ),
+        border: Border.all(color: showBounds ? color.withValues(alpha: 0.65) : color.withValues(alpha: 0.25), width: showBounds ? 2 : 1),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -682,14 +590,7 @@ class _FundamentalSceneState extends State<_FundamentalScene> {
                 Icon(icon, color: color, size: 22 * scale),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 18,
-                    ),
-                  ),
+                  child: Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 18)),
                 ),
               ],
             ),
@@ -706,17 +607,12 @@ class _FundamentalSceneState extends State<_FundamentalScene> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: color.withValues(alpha: 0.22),
-                        ),
+                        border: Border.all(color: color.withValues(alpha: 0.22)),
                       ),
                       child: Center(
                         child: Text(
                           'tile ${i + 1}',
-                          style: TextStyle(
-                            color: color.withValues(alpha: 0.88),
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: TextStyle(color: color.withValues(alpha: 0.88), fontWeight: FontWeight.w700),
                         ),
                       ),
                     ),
@@ -737,8 +633,7 @@ class _SelectionPatternsScene extends StatefulWidget {
   final _DemoConfig config;
 
   @override
-  State<_SelectionPatternsScene> createState() =>
-      _SelectionPatternsSceneState();
+  State<_SelectionPatternsScene> createState() => _SelectionPatternsSceneState();
 }
 
 class _SelectionPatternsSceneState extends State<_SelectionPatternsScene> {
@@ -776,40 +671,37 @@ class _SelectionPatternsSceneState extends State<_SelectionPatternsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Control modes',
-                        style: TextStyle(fontWeight: FontWeight.w800),
-                      ),
+                      const Text('Control modes', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          value: _chipMode,
-                          onChanged: (v) => setState(() => _chipMode = v),
-                          title: const Text('Enable choice-chip control'),
-                        ),
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        value: _chipMode,
+                        onChanged: (v) => setState(() => _chipMode = v),
+                        title: const Text('Enable choice-chip control'),
+                      ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          value: _sliderMode,
-                          onChanged: (v) => setState(() => _sliderMode = v),
-                          title: const Text('Enable slider control'),
-                        ),
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        value: _sliderMode,
+                        onChanged: (v) => setState(() => _sliderMode = v),
+                        title: const Text('Enable slider control'),
+                      ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          value: _stepButtons,
-                          onChanged: (v) => setState(() => _stepButtons = v),
-                          title: const Text('Enable stepper buttons'),
-                        ),
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        value: _stepButtons,
+                        onChanged: (v) => setState(() => _stepButtons = v),
+                        title: const Text('Enable stepper buttons'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       if (_chipMode)
@@ -892,10 +784,7 @@ class _SelectionPatternsSceneState extends State<_SelectionPatternsScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Unified IndexedStack output',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                    const Text('Unified IndexedStack output', style: TextStyle(fontWeight: FontWeight.w800)),
                     const SizedBox(height: 8),
                     Expanded(
                       child: Container(
@@ -907,30 +796,10 @@ class _SelectionPatternsSceneState extends State<_SelectionPatternsScene> {
                         child: IndexedStack(
                           index: _index,
                           children: [
-                            _modePanel(
-                              _cBlue,
-                              'Console Mode',
-                              Icons.terminal_rounded,
-                              'Terminal-like panel with command snippets and output cards.',
-                            ),
-                            _modePanel(
-                              _cTeal,
-                              'Review Mode',
-                              Icons.rate_review_rounded,
-                              'Review board with checklist and annotation surfaces.',
-                            ),
-                            _modePanel(
-                              _cAmber,
-                              'Deploy Mode',
-                              Icons.rocket_launch_rounded,
-                              'Deployment deck with wave-progress indicators.',
-                            ),
-                            _modePanel(
-                              _cRose,
-                              'Observe Mode',
-                              Icons.remove_red_eye_rounded,
-                              'Monitoring panel for incident and health streams.',
-                            ),
+                            _modePanel(_cBlue, 'Console Mode', Icons.terminal_rounded, 'Terminal-like panel with command snippets and output cards.'),
+                            _modePanel(_cTeal, 'Review Mode', Icons.rate_review_rounded, 'Review board with checklist and annotation surfaces.'),
+                            _modePanel(_cAmber, 'Deploy Mode', Icons.rocket_launch_rounded, 'Deployment deck with wave-progress indicators.'),
+                            _modePanel(_cRose, 'Observe Mode', Icons.remove_red_eye_rounded, 'Monitoring panel for incident and health streams.'),
                           ],
                         ),
                       ),
@@ -967,14 +836,7 @@ class _SelectionPatternsSceneState extends State<_SelectionPatternsScene> {
               children: [
                 Icon(icon, color: color),
                 const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: color,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                  ),
-                ),
+                Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 18)),
               ],
             ),
             const SizedBox(height: 8),
@@ -997,10 +859,7 @@ class _SelectionPatternsSceneState extends State<_SelectionPatternsScene> {
                     child: Center(
                       child: Text(
                         'module ${i + 1}',
-                        style: TextStyle(
-                          color: color.withValues(alpha: 0.85),
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(color: color.withValues(alpha: 0.85), fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
@@ -1032,30 +891,10 @@ class _StatePersistenceSceneState extends State<_StatePersistenceScene> {
   void initState() {
     super.initState();
     _panes = [
-      _PersistencePane(
-        id: 'A',
-        tone: _cBlue,
-        title: 'Form Draft',
-        onEvent: _push,
-      ),
-      _PersistencePane(
-        id: 'B',
-        tone: _cTeal,
-        title: 'Checklist Board',
-        onEvent: _push,
-      ),
-      _PersistencePane(
-        id: 'C',
-        tone: _cAmber,
-        title: 'Counter Deck',
-        onEvent: _push,
-      ),
-      _PersistencePane(
-        id: 'D',
-        tone: _cRose,
-        title: 'Filter Matrix',
-        onEvent: _push,
-      ),
+      _PersistencePane(id: 'A', tone: _cBlue, title: 'Form Draft', onEvent: _push),
+      _PersistencePane(id: 'B', tone: _cTeal, title: 'Checklist Board', onEvent: _push),
+      _PersistencePane(id: 'C', tone: _cAmber, title: 'Counter Deck', onEvent: _push),
+      _PersistencePane(id: 'D', tone: _cRose, title: 'Filter Matrix', onEvent: _push),
     ];
   }
 
@@ -1085,10 +924,7 @@ class _StatePersistenceSceneState extends State<_StatePersistenceScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Persistence controller',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                    const Text('Persistence controller', style: TextStyle(fontWeight: FontWeight.w800)),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
@@ -1125,37 +961,17 @@ class _StatePersistenceSceneState extends State<_StatePersistenceScene> {
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'What to verify',
-                            style: TextStyle(fontWeight: FontWeight.w800),
-                          ),
+                          Text('What to verify', style: TextStyle(fontWeight: FontWeight.w800)),
                           SizedBox(height: 6),
-                          _BulletText(
-                            text:
-                                'Edit text in one pane, switch away, then return: text remains.',
-                          ),
-                          _BulletText(
-                            text:
-                                'Toggle switches and counters remain unchanged across index switches.',
-                          ),
-                          _BulletText(
-                            text:
-                                'Scroll positions are retained when each pane owns a controller.',
-                          ),
-                          _BulletText(
-                            text:
-                                'No reset unless parent rebuild replaces children instances.',
-                          ),
+                          _BulletText(text: 'Edit text in one pane, switch away, then return: text remains.'),
+                          _BulletText(text: 'Toggle switches and counters remain unchanged across index switches.'),
+                          _BulletText(text: 'Scroll positions are retained when each pane owns a controller.'),
+                          _BulletText(text: 'No reset unless parent rebuild replaces children instances.'),
                         ],
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Expanded(
-                      child: _EventPanel(
-                        title: 'Persistence events',
-                        events: _events,
-                      ),
-                    ),
+                    Expanded(child: _EventPanel(title: 'Persistence events', events: _events)),
                   ],
                 ),
               ),
@@ -1233,30 +1049,15 @@ class _PersistencePaneState extends State<_PersistencePane> {
               Icon(Icons.layers_rounded, color: widget.tone),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  widget.title,
-                  style: TextStyle(
-                    color: widget.tone,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                  ),
-                ),
+                child: Text(widget.title, style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800, fontSize: 18)),
               ),
-              Text(
-                'count: $_count',
-                style: TextStyle(
-                  color: widget.tone,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('count: $_count', style: TextStyle(color: widget.tone, fontWeight: FontWeight.w700)),
             ],
           ),
           const SizedBox(height: 8),
           TextField(
             controller: _controller,
-            onChanged: (value) => widget.onEvent(
-              'pane ${widget.id} text updated (${value.length} chars)',
-            ),
+            onChanged: (value) => widget.onEvent('pane ${widget.id} text updated (${value.length} chars)'),
             decoration: const InputDecoration(
               labelText: 'Persistent text field',
               border: OutlineInputBorder(),
@@ -1291,15 +1092,15 @@ class _PersistencePaneState extends State<_PersistencePane> {
           Material(
             type: MaterialType.transparency,
             child: SwitchListTile(
-              dense: true,
-              contentPadding: EdgeInsets.zero,
-              value: _enabled,
-              onChanged: (v) {
-                setState(() => _enabled = v);
-                widget.onEvent('pane ${widget.id} switch = $v');
-              },
-              title: const Text('Pane-specific toggle'),
-            ),
+            dense: true,
+            contentPadding: EdgeInsets.zero,
+            value: _enabled,
+            onChanged: (v) {
+              setState(() => _enabled = v);
+              widget.onEvent('pane ${widget.id} switch = $v');
+            },
+            title: const Text('Pane-specific toggle'),
+          ),
           ),
           const SizedBox(height: 6),
           Expanded(
@@ -1317,26 +1118,21 @@ class _PersistencePaneState extends State<_PersistencePane> {
                   return Material(
                     type: MaterialType.transparency,
                     child: ListTile(
-                      dense: true,
-                      title: Text('Item ${index + 1}'),
-                      subtitle: Text('selection in pane ${widget.id}'),
-                      trailing: Icon(
-                        selected ? Icons.check_circle : Icons.circle_outlined,
-                        color: selected ? widget.tone : null,
-                      ),
-                      onTap: () {
-                        setState(() {
-                          if (selected) {
-                            _selected.remove(index);
-                          } else {
-                            _selected.add(index);
-                          }
-                        });
-                        widget.onEvent(
-                          'pane ${widget.id} item ${index + 1} -> ${!selected}',
-                        );
-                      },
-                    ),
+                    dense: true,
+                    title: Text('Item ${index + 1}'),
+                    subtitle: Text('selection in pane ${widget.id}'),
+                    trailing: Icon(selected ? Icons.check_circle : Icons.circle_outlined, color: selected ? widget.tone : null),
+                    onTap: () {
+                      setState(() {
+                        if (selected) {
+                          _selected.remove(index);
+                        } else {
+                          _selected.add(index);
+                        }
+                      });
+                      widget.onEvent('pane ${widget.id} item ${index + 1} -> ${!selected}');
+                    },
+                  ),
                   );
                 },
               ),
@@ -1354,8 +1150,7 @@ class _BackgroundActivityScene extends StatefulWidget {
   final _DemoConfig config;
 
   @override
-  State<_BackgroundActivityScene> createState() =>
-      _BackgroundActivitySceneState();
+  State<_BackgroundActivityScene> createState() => _BackgroundActivitySceneState();
 }
 
 class _BackgroundActivitySceneState extends State<_BackgroundActivityScene> {
@@ -1367,30 +1162,10 @@ class _BackgroundActivitySceneState extends State<_BackgroundActivityScene> {
   void initState() {
     super.initState();
     _panes = [
-      _TickerPane(
-        title: 'CPU Feed',
-        tone: _cBlue,
-        seed: 1,
-        paused: () => _paused,
-      ),
-      _TickerPane(
-        title: 'Queue Feed',
-        tone: _cTeal,
-        seed: 2,
-        paused: () => _paused,
-      ),
-      _TickerPane(
-        title: 'Traffic Feed',
-        tone: _cAmber,
-        seed: 3,
-        paused: () => _paused,
-      ),
-      _TickerPane(
-        title: 'Error Feed',
-        tone: _cRose,
-        seed: 4,
-        paused: () => _paused,
-      ),
+      _TickerPane(title: 'CPU Feed', tone: _cBlue, seed: 1, paused: () => _paused),
+      _TickerPane(title: 'Queue Feed', tone: _cTeal, seed: 2, paused: () => _paused),
+      _TickerPane(title: 'Traffic Feed', tone: _cAmber, seed: 3, paused: () => _paused),
+      _TickerPane(title: 'Error Feed', tone: _cRose, seed: 4, paused: () => _paused),
     ];
   }
 
@@ -1411,10 +1186,7 @@ class _BackgroundActivitySceneState extends State<_BackgroundActivityScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Background activity controls',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                    const Text('Background activity controls', style: TextStyle(fontWeight: FontWeight.w800)),
                     const SizedBox(height: 8),
                     SegmentedButton<int>(
                       segments: const [
@@ -1424,19 +1196,18 @@ class _BackgroundActivitySceneState extends State<_BackgroundActivityScene> {
                         ButtonSegment(value: 3, label: Text('Error')),
                       ],
                       selected: {_index},
-                      onSelectionChanged: (v) =>
-                          setState(() => _index = v.first),
+                      onSelectionChanged: (v) => setState(() => _index = v.first),
                     ),
                     const SizedBox(height: 8),
                     Material(
                       type: MaterialType.transparency,
                       child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _paused,
-                        onChanged: (v) => setState(() => _paused = v),
-                        title: const Text('Pause all feeds'),
-                      ),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: _paused,
+                      onChanged: (v) => setState(() => _paused = v),
+                      title: const Text('Pause all feeds'),
+                    ),
                     ),
                     const SizedBox(height: 8),
                     Container(
@@ -1446,30 +1217,16 @@ class _BackgroundActivitySceneState extends State<_BackgroundActivityScene> {
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Lifecycle note',
-                            style: TextStyle(fontWeight: FontWeight.w800),
-                          ),
+                          Text('Lifecycle note', style: TextStyle(fontWeight: FontWeight.w800)),
                           SizedBox(height: 6),
-                          _BulletText(
-                            text: 'IndexedStack keeps hidden children mounted.',
-                          ),
-                          _BulletText(
-                            text:
-                                'Timers inside hidden children keep running unless manually paused.',
-                          ),
-                          _BulletText(
-                            text:
-                                'This is powerful for continuity but has memory/cpu tradeoffs.',
-                          ),
+                          _BulletText(text: 'IndexedStack keeps hidden children mounted.'),
+                          _BulletText(text: 'Timers inside hidden children keep running unless manually paused.'),
+                          _BulletText(text: 'This is powerful for continuity but has memory/cpu tradeoffs.'),
                         ],
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Try switching between tabs and observe counters continue.',
-                      style: TextStyle(fontSize: 12),
-                    ),
+                    const Text('Try switching between tabs and observe counters continue.', style: TextStyle(fontSize: 12)),
                   ],
                 ),
               ),
@@ -1519,9 +1276,7 @@ class _TickerPaneState extends State<_TickerPane> {
   void initState() {
     super.initState();
     _rnd = math.Random(widget.seed);
-    _values.addAll(
-      List<double>.generate(20, (_) => 30 + _rnd.nextDouble() * 50),
-    );
+    _values.addAll(List<double>.generate(20, (_) => 30 + _rnd.nextDouble() * 50));
     _timer = Timer.periodic(const Duration(milliseconds: 600), (_) {
       if (!mounted || widget.paused()) {
         return;
@@ -1557,22 +1312,9 @@ class _TickerPaneState extends State<_TickerPane> {
               Icon(Icons.graphic_eq_rounded, color: widget.tone),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  widget.title,
-                  style: TextStyle(
-                    color: widget.tone,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                  ),
-                ),
+                child: Text(widget.title, style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800, fontSize: 18)),
               ),
-              Text(
-                'tick $_tick',
-                style: TextStyle(
-                  color: widget.tone,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('tick $_tick', style: TextStyle(color: widget.tone, fontWeight: FontWeight.w700)),
             ],
           ),
           const SizedBox(height: 10),
@@ -1586,28 +1328,15 @@ class _TickerPaneState extends State<_TickerPane> {
           Row(
             children: [
               Expanded(
-                child: _StatChip(
-                  label: 'min',
-                  value: _values.reduce(math.min).toStringAsFixed(1),
-                  color: widget.tone,
-                ),
+                child: _StatChip(label: 'min', value: _values.reduce(math.min).toStringAsFixed(1), color: widget.tone),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: _StatChip(
-                  label: 'max',
-                  value: _values.reduce(math.max).toStringAsFixed(1),
-                  color: widget.tone,
-                ),
+                child: _StatChip(label: 'max', value: _values.reduce(math.max).toStringAsFixed(1), color: widget.tone),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: _StatChip(
-                  label: 'avg',
-                  value: (_values.reduce((a, b) => a + b) / _values.length)
-                      .toStringAsFixed(1),
-                  color: widget.tone,
-                ),
+                child: _StatChip(label: 'avg', value: (_values.reduce((a, b) => a + b) / _values.length).toStringAsFixed(1), color: widget.tone),
               ),
             ],
           ),
@@ -1641,9 +1370,7 @@ class _SparkPainter extends CustomPainter {
 
     final maxValue = values.reduce(math.max);
     final minValue = values.reduce(math.min);
-    final span = (maxValue - minValue).abs() < 0.001
-        ? 1.0
-        : (maxValue - minValue);
+    final span = (maxValue - minValue).abs() < 0.001 ? 1.0 : (maxValue - minValue);
 
     final path = Path();
     final area = Path();
@@ -1707,10 +1434,7 @@ class _ResponsiveRtlSceneState extends State<_ResponsiveRtlScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Responsive controls',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                    const Text('Responsive controls', style: TextStyle(fontWeight: FontWeight.w800)),
                     const SizedBox(height: 8),
                     SegmentedButton<int>(
                       segments: const [
@@ -1719,39 +1443,38 @@ class _ResponsiveRtlSceneState extends State<_ResponsiveRtlScene> {
                         ButtonSegment(value: 2, label: Text('Config')),
                       ],
                       selected: {_index},
-                      onSelectionChanged: (v) =>
-                          setState(() => _index = v.first),
+                      onSelectionChanged: (v) => setState(() => _index = v.first),
                     ),
                     const SizedBox(height: 8),
                     Material(
                       type: MaterialType.transparency,
                       child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _wide,
-                        onChanged: (v) => setState(() => _wide = v),
-                        title: const Text('Wide container mode'),
-                      ),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: _wide,
+                      onChanged: (v) => setState(() => _wide = v),
+                      title: const Text('Wide container mode'),
+                    ),
                     ),
                     Material(
                       type: MaterialType.transparency,
                       child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _dense,
-                        onChanged: (v) => setState(() => _dense = v),
-                        title: const Text('Dense tile mode'),
-                      ),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: _dense,
+                      onChanged: (v) => setState(() => _dense = v),
+                      title: const Text('Dense tile mode'),
+                    ),
                     ),
                     Material(
                       type: MaterialType.transparency,
                       child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _showHints,
-                        onChanged: (v) => setState(() => _showHints = v),
-                        title: const Text('Show direction and size hints'),
-                      ),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: _showHints,
+                      onChanged: (v) => setState(() => _showHints = v),
+                      title: const Text('Show direction and size hints'),
+                    ),
                     ),
                     const SizedBox(height: 8),
                     Container(
@@ -1761,23 +1484,11 @@ class _ResponsiveRtlSceneState extends State<_ResponsiveRtlScene> {
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Composition advice',
-                            style: TextStyle(fontWeight: FontWeight.w800),
-                          ),
+                          Text('Composition advice', style: TextStyle(fontWeight: FontWeight.w800)),
                           SizedBox(height: 6),
-                          _BulletText(
-                            text:
-                                'IndexedStack works well with responsive wrappers and breakpoints.',
-                          ),
-                          _BulletText(
-                            text:
-                                'RTL changes are naturally reflected by surrounding Directionality.',
-                          ),
-                          _BulletText(
-                            text:
-                                'Keep child state local to each view and avoid re-creating children lists.',
-                          ),
+                          _BulletText(text: 'IndexedStack works well with responsive wrappers and breakpoints.'),
+                          _BulletText(text: 'RTL changes are naturally reflected by surrounding Directionality.'),
+                          _BulletText(text: 'Keep child state local to each view and avoid re-creating children lists.'),
                         ],
                       ),
                     ),
@@ -1807,22 +1518,14 @@ class _ResponsiveRtlSceneState extends State<_ResponsiveRtlScene> {
                         if (_showHints)
                           Container(
                             width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                             decoration: const BoxDecoration(
                               color: Color(0xFFEAF1F8),
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(10),
-                              ),
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
                             ),
                             child: Text(
                               'container ${_wide ? 'wide' : 'narrow'} | direction ${widget.config.textDirection == TextDirection.rtl ? 'rtl' : 'ltr'} | active view $_index',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 12,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
                             ),
                           ),
                         Expanded(
@@ -1863,14 +1566,7 @@ class _ResponsiveRtlSceneState extends State<_ResponsiveRtlScene> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '$title View',
-              style: TextStyle(
-                color: tone,
-                fontWeight: FontWeight.w800,
-                fontSize: 18,
-              ),
-            ),
+            Text('$title View', style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 18)),
             const SizedBox(height: 8),
             Expanded(
               child: GridView.count(
@@ -1889,10 +1585,7 @@ class _ResponsiveRtlSceneState extends State<_ResponsiveRtlScene> {
                     child: Center(
                       child: Text(
                         '$title ${i + 1}',
-                        style: TextStyle(
-                          color: tone.withValues(alpha: 0.85),
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(color: tone.withValues(alpha: 0.85), fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
@@ -1912,8 +1605,7 @@ class _PracticalWorkspaceScene extends StatefulWidget {
   final _DemoConfig config;
 
   @override
-  State<_PracticalWorkspaceScene> createState() =>
-      _PracticalWorkspaceSceneState();
+  State<_PracticalWorkspaceScene> createState() => _PracticalWorkspaceSceneState();
 }
 
 class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
@@ -2004,9 +1696,7 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: _highContrast
-                              ? const Color(0xFF1D2831)
-                              : Colors.white,
+                          color: _highContrast ? const Color(0xFF1D2831) : Colors.white,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: const Color(0xFFD8E2EE)),
                         ),
@@ -2016,26 +1706,15 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                             Expanded(
                               child: Row(
                                 children: [
-                                  _workspaceRail(
-                                    _compactRail,
-                                    _highContrast,
-                                    labels,
-                                  ),
+                                  _workspaceRail(_compactRail, _highContrast, labels),
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        if (_showMeta)
-                                          _workspaceMeta(
-                                            _highContrast,
-                                            labels[_index],
-                                          ),
+                                        if (_showMeta) _workspaceMeta(_highContrast, labels[_index]),
                                         Expanded(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8),
-                                            child: IndexedStack(
-                                              index: _index,
-                                              children: _views,
-                                            ),
+                                            child: IndexedStack(index: _index, children: _views),
                                           ),
                                         ),
                                       ],
@@ -2077,22 +1756,9 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
         children: [
           const Icon(Icons.dashboard_customize_rounded, color: _cOlive),
           const SizedBox(width: 8),
-          Text(
-            'Ops Workspace',
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
-          ),
+          Text('Ops Workspace', style: TextStyle(color: textColor, fontWeight: FontWeight.w800, fontSize: 18)),
           const Spacer(),
-          Text(
-            'IndexedStack mode switching',
-            style: TextStyle(
-              color: textColor.withValues(alpha: 0.85),
-              fontSize: 12,
-            ),
-          ),
+          Text('IndexedStack mode switching', style: TextStyle(color: textColor.withValues(alpha: 0.85), fontSize: 12)),
         ],
       ),
     );
@@ -2119,32 +1785,16 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
               margin: const EdgeInsets.all(6),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
               decoration: BoxDecoration(
-                color: selected
-                    ? _cOlive.withValues(alpha: 0.22)
-                    : Colors.transparent,
+                color: selected ? _cOlive.withValues(alpha: 0.22) : Colors.transparent,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: selected
-                      ? _cOlive.withValues(alpha: 0.45)
-                      : Colors.transparent,
-                ),
+                border: Border.all(color: selected ? _cOlive.withValues(alpha: 0.45) : Colors.transparent),
               ),
               child: Column(
                 children: [
-                  Icon(
-                    _workspaceIcons[index],
-                    color: selected
-                        ? _cOlive
-                        : textColor.withValues(alpha: 0.8),
-                    size: compact ? 18 : 20,
-                  ),
+                  Icon(_workspaceIcons[index], color: selected ? _cOlive : textColor.withValues(alpha: 0.8), size: compact ? 18 : 20),
                   if (!compact) ...[
                     const SizedBox(height: 3),
-                    Text(
-                      labels[index],
-                      style: TextStyle(color: textColor, fontSize: 10),
-                      textAlign: TextAlign.center,
-                    ),
+                    Text(labels[index], style: TextStyle(color: textColor, fontSize: 10), textAlign: TextAlign.center),
                   ],
                 ],
               ),
@@ -2166,18 +1816,9 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
       ),
       child: Row(
         children: [
-          Text(
-            'active: $activeLabel',
-            style: TextStyle(color: textColor, fontWeight: FontWeight.w700),
-          ),
+          Text('active: $activeLabel', style: TextStyle(color: textColor, fontWeight: FontWeight.w700)),
           const Spacer(),
-          Text(
-            'children preserved across view switches',
-            style: TextStyle(
-              color: textColor.withValues(alpha: 0.82),
-              fontSize: 12,
-            ),
-          ),
+          Text('children preserved across view switches', style: TextStyle(color: textColor.withValues(alpha: 0.82), fontSize: 12)),
         ],
       ),
     );
@@ -2194,22 +1835,9 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
       ),
       child: Row(
         children: [
-          Text(
-            'Workspace footer',
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Workspace footer', style: TextStyle(color: textColor, fontWeight: FontWeight.w700, fontSize: 12)),
           const Spacer(),
-          Text(
-            'Index: $_index',
-            style: TextStyle(
-              color: textColor.withValues(alpha: 0.82),
-              fontSize: 12,
-            ),
-          ),
+          Text('Index: $_index', style: TextStyle(color: textColor.withValues(alpha: 0.82), fontSize: 12)),
         ],
       ),
     );
@@ -2248,14 +1876,7 @@ class _MetricsViewState extends State<_MetricsView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Metrics View',
-            style: TextStyle(
-              color: _cBlue,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
-          ),
+          const Text('Metrics View', style: TextStyle(color: _cBlue, fontWeight: FontWeight.w800, fontSize: 18)),
           const SizedBox(height: 8),
           _LabeledSlider(
             label: 'System load',
@@ -2281,26 +1902,11 @@ class _MetricsViewState extends State<_MetricsView> {
           Expanded(
             child: Row(
               children: [
-                Expanded(
-                  child: _MetricCard(
-                    title: 'Load',
-                    value: '${(_load * 100).toStringAsFixed(1)}%',
-                  ),
-                ),
+                Expanded(child: _MetricCard(title: 'Load', value: '${(_load * 100).toStringAsFixed(1)}%')),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: _MetricCard(
-                    title: 'Latency',
-                    value: '${_latency.toStringAsFixed(1)}ms',
-                  ),
-                ),
+                Expanded(child: _MetricCard(title: 'Latency', value: '${_latency.toStringAsFixed(1)}ms')),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: _MetricCard(
-                    title: 'Errors',
-                    value: '${(3 + (_load * 12)).round()}',
-                  ),
-                ),
+                Expanded(child: _MetricCard(title: 'Errors', value: '${(3 + (_load * 12)).round()}')),
               ],
             ),
           ),
@@ -2338,14 +1944,7 @@ class _TasksViewState extends State<_TasksView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Tasks View ($completed/${_tasks.length})',
-            style: const TextStyle(
-              color: _cTeal,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
-          ),
+          Text('Tasks View ($completed/${_tasks.length})', style: const TextStyle(color: _cTeal, fontWeight: FontWeight.w800, fontSize: 18)),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
@@ -2355,15 +1954,15 @@ class _TasksViewState extends State<_TasksView> {
                 return Material(
                   type: MaterialType.transparency,
                   child: CheckboxListTile(
-                    value: task.done,
-                    onChanged: (v) {
-                      setState(() => task.done = v ?? false);
-                      widget.onEvent('task ${task.title} -> ${task.done}');
-                    },
-                    title: Text(task.title),
-                    subtitle: Text(task.done ? 'Completed' : 'Pending'),
-                    controlAffinity: ListTileControlAffinity.leading,
-                  ),
+                  value: task.done,
+                  onChanged: (v) {
+                    setState(() => task.done = v ?? false);
+                    widget.onEvent('task ${task.title} -> ${task.done}');
+                  },
+                  title: Text(task.title),
+                  subtitle: Text(task.done ? 'Completed' : 'Pending'),
+                  controlAffinity: ListTileControlAffinity.leading,
+                ),
                 );
               },
             ),
@@ -2406,14 +2005,7 @@ class _TimelineViewState extends State<_TimelineView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Timeline View',
-            style: TextStyle(
-              color: _cAmber,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
-          ),
+          const Text('Timeline View', style: TextStyle(color: _cAmber, fontWeight: FontWeight.w800, fontSize: 18)),
           const SizedBox(height: 8),
           _LabeledSlider(
             label: 'Program progress',
@@ -2422,31 +2014,26 @@ class _TimelineViewState extends State<_TimelineView> {
             max: 1,
             onChanged: (v) {
               setState(() => _progress = v);
-              widget.onEvent(
-                'timeline progress ${(_progress * 100).toStringAsFixed(1)}%',
-              );
+              widget.onEvent('timeline progress ${(_progress * 100).toStringAsFixed(1)}%');
             },
           ),
           Material(
             type: MaterialType.transparency,
             child: SwitchListTile(
-              dense: true,
-              contentPadding: EdgeInsets.zero,
-              value: _showMilestones,
-              onChanged: (v) {
-                setState(() => _showMilestones = v);
-                widget.onEvent('timeline milestones = $v');
-              },
-              title: const Text('Show milestone markers'),
-            ),
+            dense: true,
+            contentPadding: EdgeInsets.zero,
+            value: _showMilestones,
+            onChanged: (v) {
+              setState(() => _showMilestones = v);
+              widget.onEvent('timeline milestones = $v');
+            },
+            title: const Text('Show milestone markers'),
+          ),
           ),
           const SizedBox(height: 8),
           Expanded(
             child: CustomPaint(
-              painter: _TimelinePainter(
-                progress: _progress,
-                showMilestones: _showMilestones,
-              ),
+              painter: _TimelinePainter(progress: _progress, showMilestones: _showMilestones),
               child: const SizedBox.expand(),
             ),
           ),
@@ -2457,10 +2044,7 @@ class _TimelineViewState extends State<_TimelineView> {
 }
 
 class _TimelinePainter extends CustomPainter {
-  const _TimelinePainter({
-    required this.progress,
-    required this.showMilestones,
-  });
+  const _TimelinePainter({required this.progress, required this.showMilestones});
 
   final double progress;
   final bool showMilestones;
@@ -2478,29 +2062,19 @@ class _TimelinePainter extends CustomPainter {
 
     final y = size.height * 0.5;
     canvas.drawLine(Offset(20, y), Offset(size.width - 20, y), line);
-    canvas.drawLine(
-      Offset(20, y),
-      Offset(20 + (size.width - 40) * progress, y),
-      fill,
-    );
+    canvas.drawLine(Offset(20, y), Offset(20 + (size.width - 40) * progress, y), fill);
 
     if (showMilestones) {
       for (int i = 0; i <= 4; i++) {
         final x = 20 + ((size.width - 40) * (i / 4));
-        canvas.drawCircle(
-          Offset(x, y),
-          6,
-          Paint()
-            ..color = i / 4 <= progress ? _cAmber : const Color(0xFF9FB1C2),
-        );
+        canvas.drawCircle(Offset(x, y), 6, Paint()..color = i / 4 <= progress ? _cAmber : const Color(0xFF9FB1C2));
       }
     }
   }
 
   @override
   bool shouldRepaint(covariant _TimelinePainter oldDelegate) {
-    return oldDelegate.progress != progress ||
-        oldDelegate.showMilestones != showMilestones;
+    return oldDelegate.progress != progress || oldDelegate.showMilestones != showMilestones;
   }
 }
 
@@ -2515,10 +2089,7 @@ class _LogsView extends StatefulWidget {
 
 class _LogsViewState extends State<_LogsView> {
   late final ScrollController _scroll;
-  final List<String> _lines = List<String>.generate(
-    30,
-    (i) => 'line ${i + 1}: initialized module-${(i % 5) + 1}',
-  );
+  final List<String> _lines = List<String>.generate(30, (i) => 'line ${i + 1}: initialized module-${(i % 5) + 1}');
 
   @override
   void initState() {
@@ -2544,24 +2115,13 @@ class _LogsViewState extends State<_LogsView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Logs View',
-            style: TextStyle(
-              color: _cRose,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
-          ),
+          const Text('Logs View', style: TextStyle(color: _cRose, fontWeight: FontWeight.w800, fontSize: 18)),
           const SizedBox(height: 8),
           Row(
             children: [
               FilledButton.tonal(
                 onPressed: () {
-                  setState(
-                    () => _lines.add(
-                      'line ${_lines.length + 1}: event captured at ${_clock()}',
-                    ),
-                  );
+                  setState(() => _lines.add('line ${_lines.length + 1}: event captured at ${_clock()}'));
                   widget.onEvent('log appended');
                 },
                 child: const Text('Append log'),
@@ -2596,9 +2156,7 @@ class _LogsViewState extends State<_LogsView> {
                     child: Text(
                       _lines[index],
                       style: TextStyle(
-                        color: index.isEven
-                            ? const Color(0xFFB8CBDC)
-                            : const Color(0xFF88B9E4),
+                        color: index.isEven ? const Color(0xFFB8CBDC) : const Color(0xFF88B9E4),
                         fontFamily: 'monospace',
                         fontSize: 12,
                       ),
@@ -2631,19 +2189,9 @@ class _MetricCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
-          ),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
           const SizedBox(height: 4),
-          Text(
-            value,
-            style: const TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-              color: _cBlue,
-            ),
-          ),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18, color: _cBlue)),
         ],
       ),
     );
@@ -2651,11 +2199,7 @@ class _MetricCard extends StatelessWidget {
 }
 
 class _StatChip extends StatelessWidget {
-  const _StatChip({
-    required this.label,
-    required this.value,
-    required this.color,
-  });
+  const _StatChip({required this.label, required this.value, required this.color});
 
   final String label;
   final String value;
@@ -2672,19 +2216,9 @@ class _StatChip extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.w700,
-              fontSize: 11,
-            ),
-          ),
+          Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11)),
           const SizedBox(height: 2),
-          Text(
-            value,
-            style: TextStyle(color: color, fontWeight: FontWeight.w800),
-          ),
+          Text(value, style: TextStyle(color: color, fontWeight: FontWeight.w800)),
         ],
       ),
     );
@@ -2761,17 +2295,8 @@ class _LabeledSlider extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$label: ${value.toStringAsFixed(2)}',
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
-        ),
-        Slider(
-          value: value,
-          min: min,
-          max: max,
-          divisions: divisions,
-          onChanged: onChanged,
-        ),
+        Text('$label: ${value.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
+        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged),
       ],
     );
   }
@@ -2799,18 +2324,12 @@ class _EventPanel extends StatelessWidget {
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
           if (events.isEmpty)
-            const Text(
-              'No interactions yet.',
-              style: TextStyle(color: Color(0xFF607489)),
-            )
+            const Text('No interactions yet.', style: TextStyle(color: Color(0xFF607489)))
           else
             ...events.map(
               (line) => Padding(
                 padding: const EdgeInsets.only(bottom: 3),
-                child: Text(
-                  line,
-                  style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
-                ),
+                child: Text(line, style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
               ),
             ),
         ],
@@ -2865,14 +2384,7 @@ class _RecapPanel extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Recap: IndexedStack',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
-          ),
+          Text('Recap: IndexedStack', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
           SizedBox(height: 8),
           Text(
             'IndexedStack is the go-to widget for mode switching where each panel must preserve local state. It paints one child at a time while keeping all children alive, enabling smooth workspace transitions and persistent UI context.',

@@ -45,7 +45,10 @@ dynamic build(BuildContext context) {
           ],
         ),
         borderRadius: BorderRadius.circular(18.0),
-        border: Border.all(color: accent.withValues(alpha: 0.45), width: 1.4),
+        border: Border.all(
+          color: accent.withValues(alpha: 0.45),
+          width: 1.4,
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -129,7 +132,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12.0),
-        border: Border(left: BorderSide(color: color, width: 4.0)),
+        border: Border(
+          left: BorderSide(color: color, width: 4.0),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,7 +314,9 @@ dynamic build(BuildContext context) {
         child: SizedBox(
           width: 110.0,
           height: 110.0,
-          child: Center(child: Icon(icon, color: color, size: 40.0)),
+          child: Center(
+            child: Icon(icon, color: color, size: 40.0),
+          ),
         ),
       );
     } else if (matType == MaterialType.button) {
@@ -328,7 +335,10 @@ dynamic build(BuildContext context) {
                 const SizedBox(width: 8.0),
                 Text(
                   'Button',
-                  style: TextStyle(color: color, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -352,7 +362,9 @@ dynamic build(BuildContext context) {
         ),
         child: Material(
           type: MaterialType.transparency,
-          child: Center(child: Icon(icon, color: color, size: 40.0)),
+          child: Center(
+            child: Icon(icon, color: color, size: 40.0),
+          ),
         ),
       );
     } else {
@@ -363,7 +375,9 @@ dynamic build(BuildContext context) {
         child: SizedBox(
           width: 160.0,
           height: 110.0,
-          child: Center(child: Icon(icon, color: color, size: 40.0)),
+          child: Center(
+            child: Icon(icon, color: color, size: 40.0),
+          ),
         ),
       );
     }
@@ -523,7 +537,9 @@ dynamic build(BuildContext context) {
   final List<Map<String, dynamic>> shapeEntries = <Map<String, dynamic>>[
     <String, dynamic>{
       'name': 'RoundedRectangleBorder r=4',
-      'shape': RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+      'shape': RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4.0),
+      ),
       'color': Colors.blue,
       'icon': Icons.crop_square,
     },
@@ -642,7 +658,9 @@ dynamic build(BuildContext context) {
             child: SizedBox(
               width: 130.0,
               height: 100.0,
-              child: Center(child: Icon(icon, color: color, size: 36.0)),
+              child: Center(
+                child: Icon(icon, color: color, size: 36.0),
+              ),
             ),
           ),
           const SizedBox(height: 10.0),
@@ -887,7 +905,10 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[Colors.teal.shade300, Colors.cyan.shade200],
+                  colors: <Color>[
+                    Colors.teal.shade300,
+                    Colors.cyan.shade200,
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -895,7 +916,10 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'borderOnForeground: true\nborder paints OVER child',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -931,7 +955,10 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'borderOnForeground: false\nchild paints OVER border',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -1040,15 +1067,16 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(height: 10.0),
               // This text uses the inherited Material.textStyle.
-              const Text('The quick brown fox jumps over the lazy dog.'),
+              const Text(
+                'The quick brown fox jumps over the lazy dog.',
+              ),
               const SizedBox(height: 8.0),
               Text(
                 desc,
                 style: TextStyle(
                   fontSize: 10.0,
                   fontWeight: FontWeight.normal,
-                  color:
-                      style.color?.withValues(alpha: 0.7) ??
+                  color: style.color?.withValues(alpha: 0.7) ??
                       Colors.grey.shade500,
                 ),
               ),
@@ -1340,7 +1368,10 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 14.0),
-          Container(height: 1.0, color: Colors.grey.shade200),
+          Container(
+            height: 1.0,
+            color: Colors.grey.shade200,
+          ),
           const SizedBox(height: 12.0),
           Text(
             'A Material widget is more than a colored rectangle — it is the '
@@ -1359,7 +1390,10 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 4.0),
               Text(
                 'elevation 8',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
               const SizedBox(width: 14.0),
               Icon(
@@ -1370,7 +1404,10 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 4.0),
               Text(
                 'tint: indigo',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
               const SizedBox(width: 14.0),
               Icon(
@@ -1381,7 +1418,10 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 4.0),
               Text(
                 'radius 20',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
             ],
           ),
@@ -1420,14 +1460,20 @@ dynamic build(BuildContext context) {
         splashColor: color.withValues(alpha: 0.30),
         highlightColor: color.withValues(alpha: 0.10),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 8.0,
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
                 width: 8.0,
                 height: 8.0,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 8.0),
               Text(
@@ -1586,7 +1632,10 @@ dynamic build(BuildContext context) {
               ),
               Text(
                 label,
-                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 11.5,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ],
           ),
@@ -1602,7 +1651,9 @@ dynamic build(BuildContext context) {
   final List<Map<String, dynamic>> matrixShapes = <Map<String, dynamic>>[
     <String, dynamic>{
       'name': 'rect4',
-      'shape': RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+      'shape': RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4.0),
+      ),
     },
     <String, dynamic>{
       'name': 'rect18',
@@ -1610,7 +1661,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(18.0),
       ),
     },
-    <String, dynamic>{'name': 'stadium', 'shape': const StadiumBorder()},
+    <String, dynamic>{
+      'name': 'stadium',
+      'shape': const StadiumBorder(),
+    },
     <String, dynamic>{
       'name': 'beveled',
       'shape': BeveledRectangleBorder(
@@ -1630,8 +1684,7 @@ dynamic build(BuildContext context) {
         final String name = sh['name'] as String;
         final ShapeBorder shape = sh['shape'] as ShapeBorder;
         // Hue varies along the row for visual delight.
-        final double hue =
-            ((row * matrixShapes.length + col) /
+        final double hue = ((row * matrixShapes.length + col) /
                 (matrixElevations.length * matrixShapes.length)) *
             360.0;
         final Color tone = HSVColor.fromAHSV(1.0, hue, 0.45, 0.95).toColor();
@@ -2035,7 +2088,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: RadialGradient(
-        colors: <Color>[Colors.indigo.shade50, Colors.white],
+        colors: <Color>[
+          Colors.indigo.shade50,
+          Colors.white,
+        ],
         radius: 1.2,
         center: Alignment.topLeft,
       ),
@@ -2092,7 +2148,10 @@ dynamic build(BuildContext context) {
       height: 320.0,
       decoration: BoxDecoration(
         gradient: RadialGradient(
-          colors: <Color>[Colors.indigo.shade50, Colors.white],
+          colors: <Color>[
+            Colors.indigo.shade50,
+            Colors.white,
+          ],
         ),
         borderRadius: BorderRadius.circular(24.0),
         border: Border.all(color: Colors.indigo.shade100, width: 1.5),
@@ -2154,7 +2213,10 @@ dynamic build(BuildContext context) {
             'background fill.',
             accent: Colors.blue,
           ),
-          Wrap(alignment: WrapAlignment.center, children: typeTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: typeTiles,
+          ),
 
           // Section 2 — Elevation
           sectionHeader(
@@ -2172,7 +2234,10 @@ dynamic build(BuildContext context) {
             'affecting the surface itself.',
             accent: Colors.indigo,
           ),
-          Wrap(alignment: WrapAlignment.center, children: elevationTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: elevationTiles,
+          ),
           const SizedBox(height: 16.0),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
@@ -2186,7 +2251,10 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: shadowTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: shadowTiles,
+          ),
 
           // Section 3 — Shapes
           sectionHeader(
@@ -2203,7 +2271,10 @@ dynamic build(BuildContext context) {
             'CircleBorder discs are all rendered from the same Material API.',
             accent: Colors.pink,
           ),
-          Wrap(alignment: WrapAlignment.center, children: shapeTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: shapeTiles,
+          ),
 
           // Section 4 — Surface tint
           sectionHeader(
@@ -2220,7 +2291,10 @@ dynamic build(BuildContext context) {
             'opt out of the tinting overlay.',
             accent: Colors.teal,
           ),
-          Wrap(alignment: WrapAlignment.center, children: tintTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: tintTiles,
+          ),
 
           // Section 5 — borderRadius vs shape + clip + borderOnForeground
           sectionHeader(
@@ -2240,7 +2314,10 @@ dynamic build(BuildContext context) {
           ),
           radiusVsShape,
           const SizedBox(height: 18.0),
-          Wrap(alignment: WrapAlignment.center, children: clipTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: clipTiles,
+          ),
           const SizedBox(height: 18.0),
           borderForegroundDemo,
 
@@ -2259,7 +2336,10 @@ dynamic build(BuildContext context) {
             'rendered look depends entirely on the host Material.',
             accent: Colors.orange,
           ),
-          Wrap(alignment: WrapAlignment.center, children: textStyleTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: textStyleTiles,
+          ),
 
           // Section 7 — animationDuration
           sectionHeader(
@@ -2276,7 +2356,10 @@ dynamic build(BuildContext context) {
             'design systems often pin custom values.',
             accent: Colors.deepPurple,
           ),
-          Wrap(alignment: WrapAlignment.center, children: durationTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: durationTiles,
+          ),
 
           // Section 8 — Ink hosts
           sectionHeader(
@@ -2293,7 +2376,10 @@ dynamic build(BuildContext context) {
             'paint the resulting reaction within its clip region.',
             accent: Colors.cyan,
           ),
-          Wrap(alignment: WrapAlignment.center, children: inkHostTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: inkHostTiles,
+          ),
 
           // Section 9 — Real world compositions
           sectionHeader(
@@ -2319,9 +2405,15 @@ dynamic build(BuildContext context) {
             children: chipTiles,
           ),
           const SizedBox(height: 24.0),
-          Wrap(alignment: WrapAlignment.center, children: fabTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: fabTiles,
+          ),
           const SizedBox(height: 24.0),
-          Wrap(alignment: WrapAlignment.center, children: statTiles),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: statTiles,
+          ),
 
           // Section 10 — Combo matrix
           sectionHeader(
@@ -2338,7 +2430,9 @@ dynamic build(BuildContext context) {
             'compete for the eye.',
             accent: Colors.deepOrange,
           ),
-          Column(children: matrixRows),
+          Column(
+            children: matrixRows,
+          ),
 
           // Section 11 — Properties table
           sectionHeader(
@@ -2399,7 +2493,10 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(18.0),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: <Color>[Color(0xFF1A237E), Color(0xFF5E35B1)],
+                colors: <Color>[
+                  Color(0xFF1A237E),
+                  Color(0xFF5E35B1),
+                ],
               ),
               borderRadius: BorderRadius.circular(16.0),
             ),

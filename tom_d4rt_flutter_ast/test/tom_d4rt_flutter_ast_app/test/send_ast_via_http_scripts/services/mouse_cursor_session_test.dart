@@ -28,11 +28,7 @@ Widget _mcSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _mcLightIndigo, width: 1.5),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x1A000000),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Color(0x1A000000), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -44,14 +40,9 @@ Widget _mcSection(String title, List<Widget> children) {
             color: _mcMidnight,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _mcWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _mcWhite, fontSize: 15, fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -63,24 +54,17 @@ Widget _mcSection(String title, List<Widget> children) {
 Widget _mcLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _mcDeepIndigo,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _mcDeepIndigo, fontSize: 13, fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _mcBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _mcGray, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(color: _mcGray, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -93,10 +77,8 @@ Widget _mcChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(
-      label,
-      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(label,
+        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -108,20 +90,13 @@ Widget _mcInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 130,
-          child: Text(
-            key,
-            style: const TextStyle(
-              color: _mcDeepIndigo,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(key,
+              style: const TextStyle(
+                  color: _mcDeepIndigo, fontSize: 12, fontWeight: FontWeight.w600)),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(color: _mcGray, fontSize: 12),
-          ),
+          child: Text(value,
+              style: const TextStyle(color: _mcGray, fontSize: 12)),
         ),
       ],
     ),
@@ -199,26 +174,17 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x401A237E),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
+        BoxShadow(color: Color(0x401A237E), blurRadius: 12, offset: Offset(0, 4)),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.mouse, size: 52, color: _mcWhite),
         const SizedBox(height: 12),
-        const Text(
-          'MouseCursorSession',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: _mcWhite,
-            fontSize: 22,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        const Text('MouseCursorSession',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: _mcWhite, fontSize: 22, fontWeight: FontWeight.w800)),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -332,19 +298,12 @@ Widget _buildCursorArchitecture() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(label,
+                    style: TextStyle(
+                        color: color, fontSize: 13, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
-                Text(
-                  detail,
-                  style: const TextStyle(color: _mcGray, fontSize: 11.5),
-                ),
+                Text(detail,
+                    style: const TextStyle(color: _mcGray, fontSize: 11.5)),
               ],
             ),
           ),
@@ -359,36 +318,21 @@ Widget _buildCursorArchitecture() {
       'Understanding the full architecture helps explain why sessions exist.',
     ),
     _mcDivider(),
-    archBox(
-      'MouseTracker',
-      'Tracks all mouse devices and their current cursor states across the render tree',
-      _mcMidnight,
-      Icons.track_changes,
-    ),
-    archBox(
-      'MouseRegion / RenderMouseRegion',
-      'Declares which cursor should be active when the mouse enters a region',
-      _mcDeepIndigo,
-      Icons.crop_square,
-    ),
-    archBox(
-      'MouseCursor',
-      'Describes a cursor appearance and creates sessions via createSession()',
-      _mcMedIndigo,
-      Icons.mouse,
-    ),
-    archBox(
-      'MouseCursorSession',
-      'Active instance that communicates with the OS to change the cursor',
-      _mcAccentOrange,
-      Icons.play_circle_outline,
-    ),
-    archBox(
-      'Platform Channel',
-      'Sends cursor change events to native code (SystemChannels.mouseCursor)',
-      _mcAccentTeal,
-      Icons.send,
-    ),
+    archBox('MouseTracker',
+        'Tracks all mouse devices and their current cursor states across the render tree',
+        _mcMidnight, Icons.track_changes),
+    archBox('MouseRegion / RenderMouseRegion',
+        'Declares which cursor should be active when the mouse enters a region',
+        _mcDeepIndigo, Icons.crop_square),
+    archBox('MouseCursor',
+        'Describes a cursor appearance and creates sessions via createSession()',
+        _mcMedIndigo, Icons.mouse),
+    archBox('MouseCursorSession',
+        'Active instance that communicates with the OS to change the cursor',
+        _mcAccentOrange, Icons.play_circle_outline),
+    archBox('Platform Channel',
+        'Sends cursor change events to native code (SystemChannels.mouseCursor)',
+        _mcAccentTeal, Icons.send),
     _mcDivider(),
     _mcBody(
       'The flow is: MouseRegion declares a cursor → MouseTracker detects '
@@ -404,12 +348,8 @@ Widget _buildCursorArchitecture() {
 Widget _buildSessionLifecycle() {
   print('[Section 4] Session lifecycle states');
 
-  Widget stateBox(
-    String name,
-    String description,
-    Color color, {
-    bool isActive = false,
-  }) {
+  Widget stateBox(String name, String description, Color color,
+      {bool isActive = false}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 6),
       padding: const EdgeInsets.all(12),
@@ -430,19 +370,14 @@ Widget _buildSessionLifecycle() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(name,
+                    style: TextStyle(
+                        color: color,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
-                Text(
-                  description,
-                  style: const TextStyle(color: _mcGray, fontSize: 11.5),
-                ),
+                Text(description,
+                    style: const TextStyle(color: _mcGray, fontSize: 11.5)),
               ],
             ),
           ),
@@ -453,14 +388,11 @@ Widget _buildSessionLifecycle() {
                 color: color,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text(
-                'ACTIVE',
-                style: TextStyle(
-                  color: _mcWhite,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: const Text('ACTIVE',
+                  style: TextStyle(
+                      color: _mcWhite,
+                      fontSize: 9,
+                      fontWeight: FontWeight.w700)),
             ),
         ],
       ),
@@ -474,47 +406,34 @@ Widget _buildSessionLifecycle() {
         children: [
           const Icon(Icons.arrow_downward, size: 14, color: _mcLightIndigo),
           const SizedBox(width: 6),
-          Text(
-            label,
-            style: TextStyle(
-              color: _mcGray.withValues(alpha: 0.7),
-              fontSize: 11,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: _mcGray.withValues(alpha: 0.7), fontSize: 11)),
         ],
       ),
     );
   }
 
   return _mcSection('Session Lifecycle', [
-    _mcBody('A MouseCursorSession goes through a well-defined lifecycle:'),
+    _mcBody(
+      'A MouseCursorSession goes through a well-defined lifecycle:',
+    ),
     _mcDivider(),
-    stateBox(
-      'Created',
-      'cursor.createSession(deviceId) called by MouseTracker',
-      const Color(0xFF9E9E9E),
-    ),
+    stateBox('Created', 'cursor.createSession(deviceId) called by MouseTracker',
+        const Color(0xFF9E9E9E)),
     arrow('session.activate()'),
-    stateBox(
-      'Activated',
-      'Platform cursor changed via SystemChannels.mouseCursor',
-      _mcAccentTeal,
-      isActive: true,
-    ),
+    stateBox('Activated',
+        'Platform cursor changed via SystemChannels.mouseCursor',
+        _mcAccentTeal, isActive: true),
     arrow('mouse leaves region / new cursor assigned'),
-    stateBox(
-      'Disposed',
-      'session.dispose() called — cursor resources released',
-      const Color(0xFFE53935),
-    ),
+    stateBox('Disposed',
+        'session.dispose() called — cursor resources released',
+        const Color(0xFFE53935)),
     _mcDivider(),
     _mcLabel('Session Contract'),
     _mcInfoRow('activate()', 'Must send the cursor change to the platform'),
     _mcInfoRow('dispose()', 'Must clean up any resources held by the session'),
-    _mcInfoRow(
-      'cursor',
-      'Reference back to the MouseCursor that created this session',
-    ),
+    _mcInfoRow('cursor', 'Reference back to the MouseCursor that created this session'),
     _mcInfoRow('device', 'The mouse device ID this session applies to'),
     _mcDivider(),
     _mcBody(
@@ -562,24 +481,15 @@ Widget _buildActivationFlow() {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
-                        Icons.text_fields,
-                        size: 20,
-                        color: _mcMedIndigo,
-                      ),
+                      const Icon(Icons.text_fields, size: 20, color: _mcMedIndigo),
                       const SizedBox(height: 4),
-                      const Text(
-                        'Region A',
-                        style: TextStyle(
-                          color: _mcMedIndigo,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const Text(
-                        'cursor: text',
-                        style: TextStyle(color: _mcGray, fontSize: 10),
-                      ),
+                      const Text('Region A',
+                          style: TextStyle(
+                              color: _mcMedIndigo,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600)),
+                      const Text('cursor: text',
+                          style: TextStyle(color: _mcGray, fontSize: 10)),
                     ],
                   ),
                 ),
@@ -589,16 +499,10 @@ Widget _buildActivationFlow() {
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   children: [
-                    const Icon(
-                      Icons.arrow_forward,
-                      size: 20,
-                      color: _mcAccentOrange,
-                    ),
-                    const Text(
-                      'mouse\nmoves',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: _mcAccentOrange, fontSize: 9),
-                    ),
+                    const Icon(Icons.arrow_forward, size: 20, color: _mcAccentOrange),
+                    const Text('mouse\nmoves',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: _mcAccentOrange, fontSize: 9)),
                   ],
                 ),
               ),
@@ -613,24 +517,15 @@ Widget _buildActivationFlow() {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
-                        Icons.pan_tool,
-                        size: 20,
-                        color: _mcAccentTeal,
-                      ),
+                      const Icon(Icons.pan_tool, size: 20, color: _mcAccentTeal),
                       const SizedBox(height: 4),
-                      const Text(
-                        'Region B',
-                        style: TextStyle(
-                          color: _mcAccentTeal,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const Text(
-                        'cursor: grab',
-                        style: TextStyle(color: _mcGray, fontSize: 10),
-                      ),
+                      const Text('Region B',
+                          style: TextStyle(
+                              color: _mcAccentTeal,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600)),
+                      const Text('cursor: grab',
+                          style: TextStyle(color: _mcGray, fontSize: 10)),
                     ],
                   ),
                 ),
@@ -663,12 +558,7 @@ Widget _buildActivationFlow() {
 Widget _buildSystemCursorCatalog() {
   print('[Section 6] System cursor visual catalog');
 
-  Widget cursorCard(
-    String name,
-    IconData icon,
-    String description,
-    Color accent,
-  ) {
+  Widget cursorCard(String name, IconData icon, String description, Color accent) {
     return Container(
       margin: const EdgeInsets.only(bottom: 6),
       padding: const EdgeInsets.all(10),
@@ -693,19 +583,14 @@ Widget _buildSystemCursorCatalog() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    color: accent,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(name,
+                    style: TextStyle(
+                        color: accent,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
-                Text(
-                  description,
-                  style: const TextStyle(color: _mcGray, fontSize: 11),
-                ),
+                Text(description,
+                    style: const TextStyle(color: _mcGray, fontSize: 11)),
               ],
             ),
           ),
@@ -722,145 +607,35 @@ Widget _buildSystemCursorCatalog() {
     _mcDivider(),
     _mcLabel('Basic Cursors'),
     cursorCard('basic', Icons.mouse, 'Default arrow pointer', _mcMidnight),
-    cursorCard(
-      'click',
-      Icons.touch_app,
-      'Hand pointer for clickable elements',
-      _mcDeepIndigo,
-    ),
-    cursorCard(
-      'text',
-      Icons.text_fields,
-      'I-beam for text selection',
-      _mcMedIndigo,
-    ),
-    cursorCard(
-      'forbidden',
-      Icons.block,
-      'Circle-slash for disabled areas',
-      const Color(0xFFE53935),
-    ),
-    cursorCard(
-      'none',
-      Icons.visibility_off,
-      'Hidden cursor (invisible)',
-      _mcGray,
-    ),
+    cursorCard('click', Icons.touch_app, 'Hand pointer for clickable elements', _mcDeepIndigo),
+    cursorCard('text', Icons.text_fields, 'I-beam for text selection', _mcMedIndigo),
+    cursorCard('forbidden', Icons.block, 'Circle-slash for disabled areas', const Color(0xFFE53935)),
+    cursorCard('none', Icons.visibility_off, 'Hidden cursor (invisible)', _mcGray),
     _mcDivider(),
     _mcLabel('Resize Cursors'),
-    cursorCard(
-      'resizeUp',
-      Icons.arrow_upward,
-      'Resize handle pointing up',
-      _mcAccentTeal,
-    ),
-    cursorCard(
-      'resizeDown',
-      Icons.arrow_downward,
-      'Resize handle pointing down',
-      _mcAccentTeal,
-    ),
-    cursorCard(
-      'resizeLeft',
-      Icons.arrow_back,
-      'Resize handle pointing left',
-      _mcAccentTeal,
-    ),
-    cursorCard(
-      'resizeRight',
-      Icons.arrow_forward,
-      'Resize handle pointing right',
-      _mcAccentTeal,
-    ),
-    cursorCard(
-      'resizeUpDown',
-      Icons.swap_vert,
-      'Vertical resize (↕)',
-      _mcAccentTeal,
-    ),
-    cursorCard(
-      'resizeLeftRight',
-      Icons.swap_horiz,
-      'Horizontal resize (↔)',
-      _mcAccentTeal,
-    ),
+    cursorCard('resizeUp', Icons.arrow_upward, 'Resize handle pointing up', _mcAccentTeal),
+    cursorCard('resizeDown', Icons.arrow_downward, 'Resize handle pointing down', _mcAccentTeal),
+    cursorCard('resizeLeft', Icons.arrow_back, 'Resize handle pointing left', _mcAccentTeal),
+    cursorCard('resizeRight', Icons.arrow_forward, 'Resize handle pointing right', _mcAccentTeal),
+    cursorCard('resizeUpDown', Icons.swap_vert, 'Vertical resize (↕)', _mcAccentTeal),
+    cursorCard('resizeLeftRight', Icons.swap_horiz, 'Horizontal resize (↔)', _mcAccentTeal),
     _mcDivider(),
     _mcLabel('Drag & Move Cursors'),
-    cursorCard(
-      'grab',
-      Icons.pan_tool,
-      'Open hand for grabbable content',
-      _mcAccentOrange,
-    ),
-    cursorCard(
-      'grabbing',
-      Icons.back_hand,
-      'Closed hand during drag',
-      _mcAccentOrange,
-    ),
-    cursorCard(
-      'move',
-      Icons.open_with,
-      'Four-direction move indicator',
-      _mcAccentOrange,
-    ),
-    cursorCard(
-      'allScroll',
-      Icons.drag_indicator,
-      'Scroll in all directions',
-      _mcAccentOrange,
-    ),
+    cursorCard('grab', Icons.pan_tool, 'Open hand for grabbable content', _mcAccentOrange),
+    cursorCard('grabbing', Icons.back_hand, 'Closed hand during drag', _mcAccentOrange),
+    cursorCard('move', Icons.open_with, 'Four-direction move indicator', _mcAccentOrange),
+    cursorCard('allScroll', Icons.drag_indicator, 'Scroll in all directions', _mcAccentOrange),
     _mcDivider(),
     _mcLabel('Special Cursors'),
-    cursorCard(
-      'wait',
-      Icons.hourglass_top,
-      'Busy/loading cursor (spinner)',
-      _mcDeepIndigo,
-    ),
-    cursorCard(
-      'progress',
-      Icons.hourglass_bottom,
-      'Background activity indicator',
-      _mcDeepIndigo,
-    ),
-    cursorCard(
-      'help',
-      Icons.help_outline,
-      'Question mark for help context',
-      _mcDeepIndigo,
-    ),
-    cursorCard(
-      'cell',
-      Icons.grid_4x4,
-      'Cell/crosshair selection',
-      _mcDeepIndigo,
-    ),
-    cursorCard(
-      'precise',
-      Icons.gps_fixed,
-      'Crosshair for precision',
-      _mcDeepIndigo,
-    ),
+    cursorCard('wait', Icons.hourglass_top, 'Busy/loading cursor (spinner)', _mcDeepIndigo),
+    cursorCard('progress', Icons.hourglass_bottom, 'Background activity indicator', _mcDeepIndigo),
+    cursorCard('help', Icons.help_outline, 'Question mark for help context', _mcDeepIndigo),
+    cursorCard('cell', Icons.grid_4x4, 'Cell/crosshair selection', _mcDeepIndigo),
+    cursorCard('precise', Icons.gps_fixed, 'Crosshair for precision', _mcDeepIndigo),
     cursorCard('copy', Icons.copy, 'Copy indicator during drag', _mcDeepIndigo),
-    cursorCard(
-      'alias',
-      Icons.shortcut,
-      'Alias/shortcut creation',
-      _mcDeepIndigo,
-    ),
-    cursorCard(
-      'noDrop',
-      Icons.do_not_disturb,
-      'Cannot drop here indicator',
-      const Color(0xFFE53935),
-    ),
-    cursorCard(
-      'disappearing',
-      Icons.exit_to_app,
-      'Item will be removed if dropped',
-      _mcGray,
-    ),
+    cursorCard('alias', Icons.shortcut, 'Alias/shortcut creation', _mcDeepIndigo),
+    cursorCard('noDrop', Icons.do_not_disturb, 'Cannot drop here indicator', const Color(0xFFE53935)),
+    cursorCard('disappearing', Icons.exit_to_app, 'Item will be removed if dropped', _mcGray),
     _mcDivider(),
     _mcBody(
       'Each cursor kind maps to a platform-specific cursor constant. '
@@ -902,9 +677,7 @@ Widget _buildCustomCursorSessions() {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 32),
-            child: _mcBody(
-              'return AnimatedCursorSession(cursor: this, device: device);',
-            ),
+            child: _mcBody('return AnimatedCursorSession(cursor: this, device: device);'),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 16),
@@ -995,14 +768,8 @@ Widget _buildSessionStacking() {
             children: [
               const Icon(Icons.mouse, size: 14, color: _mcMidnight),
               const SizedBox(width: 4),
-              const Text(
-                'Outer Region: cursor.basic (arrow)',
-                style: TextStyle(
-                  color: _mcMidnight,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              const Text('Outer Region: cursor.basic (arrow)',
+                  style: TextStyle(color: _mcMidnight, fontSize: 11, fontWeight: FontWeight.w600)),
             ],
           ),
           const SizedBox(height: 8),
@@ -1020,14 +787,11 @@ Widget _buildSessionStacking() {
                   children: [
                     const Icon(Icons.touch_app, size: 14, color: _mcMedIndigo),
                     const SizedBox(width: 4),
-                    const Text(
-                      'Middle Region: cursor.click (hand)',
-                      style: TextStyle(
-                        color: _mcMedIndigo,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    const Text('Middle Region: cursor.click (hand)',
+                        style: TextStyle(
+                            color: _mcMedIndigo,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600)),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -1041,27 +805,15 @@ Widget _buildSessionStacking() {
                     ),
                     child: Column(
                       children: [
-                        const Icon(
-                          Icons.text_fields,
-                          size: 20,
-                          color: _mcAccentOrange,
-                        ),
+                        const Icon(Icons.text_fields, size: 20, color: _mcAccentOrange),
                         const SizedBox(height: 4),
-                        const Text(
-                          'Inner: cursor.text',
-                          style: TextStyle(
-                            color: _mcAccentOrange,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const Text(
-                          '(takes priority ★)',
-                          style: TextStyle(
-                            color: _mcAccentOrange,
-                            fontSize: 10,
-                          ),
-                        ),
+                        const Text('Inner: cursor.text',
+                            style: TextStyle(
+                                color: _mcAccentOrange,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700)),
+                        const Text('(takes priority ★)',
+                            style: TextStyle(color: _mcAccentOrange, fontSize: 10)),
                       ],
                     ),
                   ),
@@ -1097,14 +849,11 @@ Widget _buildSessionStacking() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'MouseCursor.defer',
-                  style: TextStyle(
-                    color: _mcAccentTeal,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('MouseCursor.defer',
+                    style: TextStyle(
+                        color: _mcAccentTeal,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
                 _mcBody(
                   'A special cursor that means "use the parent region\'s cursor". '
@@ -1133,19 +882,10 @@ Widget _buildMouseRegionInteraction() {
     _mcDivider(),
     _mcLabel('MouseRegion Properties Affecting Sessions'),
     _mcInfoRow('cursor', 'The MouseCursor to use (creates the session)'),
-    _mcInfoRow(
-      'onEnter',
-      'Called when mouse enters — session activated before this',
-    ),
-    _mcInfoRow(
-      'onExit',
-      'Called when mouse exits — session disposed after this',
-    ),
+    _mcInfoRow('onEnter', 'Called when mouse enters — session activated before this'),
+    _mcInfoRow('onExit', 'Called when mouse exits — session disposed after this'),
     _mcInfoRow('onHover', 'Called during movement — session remains active'),
-    _mcInfoRow(
-      'opaque',
-      'Whether the region blocks hit testing for regions below',
-    ),
+    _mcInfoRow('opaque', 'Whether the region blocks hit testing for regions below'),
     _mcDivider(),
     // Visual timeline
     _mcLabel('Event Timeline'),
@@ -1157,30 +897,15 @@ Widget _buildMouseRegionInteraction() {
       ),
       child: Column(
         children: [
-          _buildTimelineEvent(
-            'Mouse enters region',
-            'create & activate session',
-            _mcAccentTeal,
-            Icons.login,
-          ),
-          _buildTimelineEvent(
-            'Mouse moves within',
-            'session stays active, onHover fires',
-            _mcMedIndigo,
-            Icons.open_with,
-          ),
-          _buildTimelineEvent(
-            'Widget rebuilds with new cursor',
-            'old session disposed, new session created',
-            _mcAccentOrange,
-            Icons.refresh,
-          ),
-          _buildTimelineEvent(
-            'Mouse leaves region',
-            'session disposed, fallback activated',
-            const Color(0xFFE53935),
-            Icons.logout,
-          ),
+          _buildTimelineEvent('Mouse enters region', 'create & activate session',
+              _mcAccentTeal, Icons.login),
+          _buildTimelineEvent('Mouse moves within', 'session stays active, onHover fires',
+              _mcMedIndigo, Icons.open_with),
+          _buildTimelineEvent('Widget rebuilds with new cursor',
+              'old session disposed, new session created',
+              _mcAccentOrange, Icons.refresh),
+          _buildTimelineEvent('Mouse leaves region', 'session disposed, fallback activated',
+              const Color(0xFFE53935), Icons.logout),
         ],
       ),
     ),
@@ -1201,14 +926,10 @@ Widget _buildMouseRegionInteraction() {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.touch_app, size: 18, color: _mcMidnight),
-                const Text(
-                  'Button',
-                  style: TextStyle(color: _mcMidnight, fontSize: 11),
-                ),
-                const Text(
-                  '→ click',
-                  style: TextStyle(color: _mcGray, fontSize: 10),
-                ),
+                const Text('Button',
+                    style: TextStyle(color: _mcMidnight, fontSize: 11)),
+                const Text('→ click',
+                    style: TextStyle(color: _mcGray, fontSize: 10)),
               ],
             ),
           ),
@@ -1226,14 +947,10 @@ Widget _buildMouseRegionInteraction() {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.text_fields, size: 18, color: _mcDeepIndigo),
-                const Text(
-                  'TextField',
-                  style: TextStyle(color: _mcDeepIndigo, fontSize: 11),
-                ),
-                const Text(
-                  '→ text',
-                  style: TextStyle(color: _mcGray, fontSize: 10),
-                ),
+                const Text('TextField',
+                    style: TextStyle(color: _mcDeepIndigo, fontSize: 11)),
+                const Text('→ text',
+                    style: TextStyle(color: _mcGray, fontSize: 10)),
               ],
             ),
           ),
@@ -1251,14 +968,10 @@ Widget _buildMouseRegionInteraction() {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.pan_tool, size: 18, color: _mcAccentOrange),
-                const Text(
-                  'Draggable',
-                  style: TextStyle(color: _mcAccentOrange, fontSize: 11),
-                ),
-                const Text(
-                  '→ grab',
-                  style: TextStyle(color: _mcGray, fontSize: 10),
-                ),
+                const Text('Draggable',
+                    style: TextStyle(color: _mcAccentOrange, fontSize: 11)),
+                const Text('→ grab',
+                    style: TextStyle(color: _mcGray, fontSize: 10)),
               ],
             ),
           ),
@@ -1276,14 +989,10 @@ Widget _buildMouseRegionInteraction() {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.swap_horiz, size: 18, color: _mcAccentTeal),
-                const Text(
-                  'Resize',
-                  style: TextStyle(color: _mcAccentTeal, fontSize: 11),
-                ),
-                const Text(
-                  '→ resizeLR',
-                  style: TextStyle(color: _mcGray, fontSize: 10),
-                ),
+                const Text('Resize',
+                    style: TextStyle(color: _mcAccentTeal, fontSize: 11)),
+                const Text('→ resizeLR',
+                    style: TextStyle(color: _mcGray, fontSize: 10)),
               ],
             ),
           ),
@@ -1293,12 +1002,7 @@ Widget _buildMouseRegionInteraction() {
   ]);
 }
 
-Widget _buildTimelineEvent(
-  String event,
-  String detail,
-  Color color,
-  IconData icon,
-) {
+Widget _buildTimelineEvent(String event, String detail, Color color, IconData icon) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     child: Row(
@@ -1314,18 +1018,10 @@ Widget _buildTimelineEvent(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                event,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                detail,
-                style: const TextStyle(color: _mcGray, fontSize: 11),
-              ),
+              Text(event,
+                  style: TextStyle(
+                      color: color, fontSize: 12, fontWeight: FontWeight.w600)),
+              Text(detail, style: const TextStyle(color: _mcGray, fontSize: 11)),
             ],
           ),
         ),
@@ -1352,42 +1048,18 @@ Widget _buildPlatformIntegration() {
     _mcInfoRow('Return', 'Future<void> (completes when cursor set)'),
     _mcDivider(),
     _mcLabel('Cursor Mapping by Platform'),
-    _buildPlatformCursorMap(
-      'Windows',
-      'IDC_ARROW, IDC_HAND, IDC_IBEAM, ...',
-      Icons.desktop_windows,
-      _mcMidnight,
-    ),
-    _buildPlatformCursorMap(
-      'macOS',
-      'NSCursor.arrow, .pointingHand, .iBeam, ...',
-      Icons.laptop_mac,
-      _mcDeepIndigo,
-    ),
-    _buildPlatformCursorMap(
-      'Linux/GTK',
-      'GDK_ARROW, GDK_HAND2, GDK_XTERM, ...',
-      Icons.computer,
-      _mcMedIndigo,
-    ),
-    _buildPlatformCursorMap(
-      'Web',
-      'CSS cursor: default, pointer, text, ...',
-      Icons.public,
-      _mcAccentTeal,
-    ),
-    _buildPlatformCursorMap(
-      'Android',
-      'Not applicable (touch only)',
-      Icons.android,
-      _mcGray,
-    ),
-    _buildPlatformCursorMap(
-      'iOS',
-      'Not applicable (touch only)',
-      Icons.phone_iphone,
-      _mcGray,
-    ),
+    _buildPlatformCursorMap('Windows', 'IDC_ARROW, IDC_HAND, IDC_IBEAM, ...',
+        Icons.desktop_windows, _mcMidnight),
+    _buildPlatformCursorMap('macOS', 'NSCursor.arrow, .pointingHand, .iBeam, ...',
+        Icons.laptop_mac, _mcDeepIndigo),
+    _buildPlatformCursorMap('Linux/GTK', 'GDK_ARROW, GDK_HAND2, GDK_XTERM, ...',
+        Icons.computer, _mcMedIndigo),
+    _buildPlatformCursorMap('Web', 'CSS cursor: default, pointer, text, ...',
+        Icons.public, _mcAccentTeal),
+    _buildPlatformCursorMap('Android', 'Not applicable (touch only)',
+        Icons.android, _mcGray),
+    _buildPlatformCursorMap('iOS', 'Not applicable (touch only)',
+        Icons.phone_iphone, _mcGray),
     _mcDivider(),
     _mcBody(
       'Mouse cursor sessions are only meaningful on desktop and web platforms '
@@ -1398,11 +1070,7 @@ Widget _buildPlatformIntegration() {
 }
 
 Widget _buildPlatformCursorMap(
-  String platform,
-  String mapping,
-  IconData icon,
-  Color color,
-) {
+    String platform, String mapping, IconData icon, Color color) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6),
     padding: const EdgeInsets.all(10),
@@ -1417,20 +1085,13 @@ Widget _buildPlatformCursorMap(
         const SizedBox(width: 10),
         SizedBox(
           width: 75,
-          child: Text(
-            platform,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(platform,
+              style: TextStyle(
+                  color: color, fontSize: 12, fontWeight: FontWeight.w700)),
         ),
         Expanded(
-          child: Text(
-            mapping,
-            style: const TextStyle(color: _mcGray, fontSize: 11),
-          ),
+          child: Text(mapping,
+              style: const TextStyle(color: _mcGray, fontSize: 11)),
         ),
       ],
     ),
@@ -1476,10 +1137,8 @@ Widget _buildDebugVisualizations() {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: EdgeInsets.all(4),
-                  child: Text(
-                    'MouseRegion: basic',
-                    style: TextStyle(color: Color(0x8000FF00), fontSize: 9),
-                  ),
+                  child: Text('MouseRegion: basic',
+                      style: TextStyle(color: Color(0x8000FF00), fontSize: 9)),
                 ),
               ),
             ),
@@ -1498,23 +1157,14 @@ Widget _buildDebugVisualizations() {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 4,
-                      vertical: 2,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     color: const Color(0x40FFFF00),
-                    child: const Text(
-                      'click',
-                      style: TextStyle(color: Color(0xFFFFFF00), fontSize: 9),
-                    ),
+                    child: const Text('click',
+                        style: TextStyle(color: Color(0xFFFFFF00), fontSize: 9)),
                   ),
                   const Expanded(
                     child: Center(
-                      child: Icon(
-                        Icons.touch_app,
-                        size: 24,
-                        color: Color(0x60FFFF00),
-                      ),
+                      child: Icon(Icons.touch_app, size: 24, color: Color(0x60FFFF00)),
                     ),
                   ),
                 ],
@@ -1535,23 +1185,14 @@ Widget _buildDebugVisualizations() {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 4,
-                      vertical: 2,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     color: const Color(0x40FF6600),
-                    child: const Text(
-                      'text',
-                      style: TextStyle(color: Color(0xFFFF6600), fontSize: 9),
-                    ),
+                    child: const Text('text',
+                        style: TextStyle(color: Color(0xFFFF6600), fontSize: 9)),
                   ),
                   const Expanded(
                     child: Center(
-                      child: Icon(
-                        Icons.text_fields,
-                        size: 24,
-                        color: Color(0x60FF6600),
-                      ),
+                      child: Icon(Icons.text_fields, size: 24, color: Color(0x60FF6600)),
                     ),
                   ),
                 ],
@@ -1585,18 +1226,12 @@ Widget _buildDebugVisualizations() {
               ),
               child: const Row(
                 children: [
-                  Text(
-                    'Active: ',
-                    style: TextStyle(color: Color(0xFF888888), fontSize: 10),
-                  ),
-                  Text(
-                    'SystemMouseCursor(click) ',
-                    style: TextStyle(color: Color(0xFFFFFF00), fontSize: 10),
-                  ),
-                  Text(
-                    '| Device: 0 | Session: active',
-                    style: TextStyle(color: Color(0xFF888888), fontSize: 10),
-                  ),
+                  Text('Active: ',
+                      style: TextStyle(color: Color(0xFF888888), fontSize: 10)),
+                  Text('SystemMouseCursor(click) ',
+                      style: TextStyle(color: Color(0xFFFFFF00), fontSize: 10)),
+                  Text('| Device: 0 | Session: active',
+                      style: TextStyle(color: Color(0xFF888888), fontSize: 10)),
                 ],
               ),
             ),
@@ -1640,9 +1275,7 @@ Widget _buildSummary() {
         children: [
           _mcBody('✦ MouseCursor creates sessions via createSession(device)'),
           _mcBody('✦ Sessions manage activate() and dispose() lifecycle'),
-          _mcBody(
-            '✦ MouseTracker coordinates session switching between regions',
-          ),
+          _mcBody('✦ MouseTracker coordinates session switching between regions'),
           _mcBody('✦ Innermost MouseRegion with a non-defer cursor wins'),
           _mcBody('✦ Sessions communicate via SystemChannels.mouseCursor'),
           _mcBody('✦ Platform mapping varies (Win32, NSCursor, GDK, CSS)'),

@@ -201,10 +201,8 @@ class SectionCard extends StatelessWidget {
               ),
               if (tag != null)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: tagColor,
                     borderRadius: BorderRadius.circular(999),
@@ -267,12 +265,10 @@ class SoftPanel extends StatelessWidget {
 }
 
 class Pill extends StatelessWidget {
-  const Pill(
-    this.label, {
-    super.key,
-    this.color = paletteAccentSoft,
-    this.textColor = paletteAccentDeep,
-  });
+  const Pill(this.label,
+      {super.key,
+      this.color = paletteAccentSoft,
+      this.textColor = paletteAccentDeep});
   final String label;
   final Color color;
   final Color textColor;
@@ -298,12 +294,8 @@ class Pill extends StatelessWidget {
 }
 
 class MonoText extends StatelessWidget {
-  const MonoText(
-    this.text, {
-    super.key,
-    this.color = paletteInk,
-    this.size = 13.0,
-  });
+  const MonoText(this.text,
+      {super.key, this.color = paletteInk, this.size = 13.0});
   final String text;
   final Color color;
   final double size;
@@ -378,16 +370,17 @@ class SectionHero extends StatelessWidget {
                 _HeroFactRow(label: 'Returns', value: 'Future<DateTimeRange?>'),
                 SizedBox(height: 6),
                 _HeroFactRow(
-                  label: 'Modes',
-                  value: 'calendar · input · calendarOnly',
-                ),
+                    label: 'Modes', value: 'calendar · input · calendarOnly'),
                 SizedBox(height: 6),
                 _HeroFactRow(label: 'Dismiss', value: 'returns null'),
               ],
             ),
           ),
           const SizedBox(width: 20),
-          const Expanded(flex: 4, child: _HeroCalendarGraphic()),
+          const Expanded(
+            flex: 4,
+            child: _HeroCalendarGraphic(),
+          ),
         ],
       ),
     );
@@ -474,18 +467,18 @@ class _HeroCalendarGraphic extends StatelessWidget {
     }
 
     Widget header(String s) => SizedBox(
-      width: cellSize,
-      child: Text(
-        s,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w800,
-          color: paletteFaint,
-          letterSpacing: 0.5,
-        ),
-      ),
-    );
+          width: cellSize,
+          child: Text(
+            s,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w800,
+              color: paletteFaint,
+              letterSpacing: 0.5,
+            ),
+          ),
+        );
 
     return Container(
       decoration: BoxDecoration(
@@ -505,7 +498,8 @@ class _HeroCalendarGraphic extends StatelessWidget {
         children: [
           Row(
             children: const [
-              Icon(Icons.calendar_today, size: 14, color: paletteAccentDeep),
+              Icon(Icons.calendar_today,
+                  size: 14, color: paletteAccentDeep),
               SizedBox(width: 6),
               Text(
                 'March 2026',
@@ -831,25 +825,19 @@ class _ParamTable extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: i.isEven ? paletteSurface : const Color(0xFFFAFAFB),
-                border: const Border(top: BorderSide(color: paletteHairline)),
+                border: const Border(
+                  top: BorderSide(color: paletteHairline),
+                ),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _BodyCell(rows[i][0], flex: 4, mono: true, bold: true),
-                  _BodyCell(
-                    rows[i][1],
-                    flex: 4,
-                    mono: true,
-                    color: paletteAccentDeep,
-                  ),
-                  _BodyCell(
-                    rows[i][2],
-                    flex: 3,
-                    mono: true,
-                    color: paletteMuted,
-                  ),
+                  _BodyCell(rows[i][1],
+                      flex: 4, mono: true, color: paletteAccentDeep),
+                  _BodyCell(rows[i][2],
+                      flex: 3, mono: true, color: paletteMuted),
                   _BodyCell(rows[i][3], flex: 7),
                 ],
               ),
@@ -932,7 +920,10 @@ class SectionCalendarMockup extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Expanded(flex: 5, child: _CalendarDialogMock()),
+          Expanded(
+            flex: 5,
+            child: _CalendarDialogMock(),
+          ),
           SizedBox(width: 16),
           Expanded(
             flex: 4,
@@ -1201,34 +1192,36 @@ class _DayCell extends StatelessWidget {
     }
 
     Widget endpoint() => Container(
-      width: 26,
-      height: 26,
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        color: paletteAccentDeep,
-        shape: BoxShape.circle,
-      ),
-      child: content,
-    );
+          width: 26,
+          height: 26,
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            color: paletteAccentDeep,
+            shape: BoxShape.circle,
+          ),
+          child: content,
+        );
 
     Widget normal() => Container(
-      width: 26,
-      height: 26,
-      alignment: Alignment.center,
-      decoration: isToday
-          ? BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: paletteAccent, width: 1.4),
-            )
-          : null,
-      child: content,
-    );
+          width: 26,
+          height: 26,
+          alignment: Alignment.center,
+          decoration: isToday
+              ? BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: paletteAccent, width: 1.4),
+                )
+              : null,
+          child: content,
+        );
 
     return SizedBox(
       height: 30,
       child: DecoratedBox(
         decoration: bandDeco ?? const BoxDecoration(),
-        child: Center(child: (isStart || isEnd) ? endpoint() : normal()),
+        child: Center(
+          child: (isStart || isEnd) ? endpoint() : normal(),
+        ),
       ),
     );
   }
@@ -1260,11 +1253,8 @@ class _DialogButton extends StatelessWidget {
 }
 
 class _ExplainerRow extends StatelessWidget {
-  const _ExplainerRow({
-    required this.number,
-    required this.title,
-    required this.body,
-  });
+  const _ExplainerRow(
+      {required this.number, required this.title, required this.body});
   final String number;
   final String title;
   final String body;
@@ -1456,7 +1446,8 @@ class _InputDialogMock extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(Icons.calendar_today, size: 18, color: Colors.white),
+                const Icon(Icons.calendar_today,
+                    size: 18, color: Colors.white),
               ],
             ),
           ),
@@ -1558,7 +1549,9 @@ class _MockTextField extends StatelessWidget {
           decoration: const BoxDecoration(
             color: Color(0xFFF4F6FA),
             borderRadius: BorderRadius.all(Radius.circular(6)),
-            border: Border(bottom: BorderSide(color: paletteAccent, width: 2)),
+            border: Border(
+              bottom: BorderSide(color: paletteAccent, width: 2),
+            ),
           ),
           child: Text(
             value,
@@ -1614,15 +1607,13 @@ class SectionDataShape extends StatelessWidget {
                 CodeLine.code('  final DateTime start;'),
                 CodeLine.code('  final DateTime end;'),
                 CodeLine.code(
-                  '  DateTimeRange({required this.start, required this.end})',
-                ),
+                    '  DateTimeRange({required this.start, required this.end})'),
                 CodeLine.code('    : assert(!start.isAfter(end));'),
                 CodeLine.code('}'),
                 CodeLine.empty(),
                 CodeLine.cmt('// Convenience: Duration spanned by the range.'),
                 CodeLine.code(
-                  'Duration get duration => end.difference(start);',
-                ),
+                    'Duration get duration => end.difference(start);'),
               ],
             ),
           ),
@@ -1638,12 +1629,12 @@ class SectionDataShape extends StatelessWidget {
                 SizedBox(height: 8),
                 _FactBox(k: 'duration', v: 'end.difference(start)'),
                 SizedBox(height: 8),
-                _FactBox(k: 'returns null', v: 'when user dismisses dialog'),
+                _FactBox(
+                    k: 'returns null', v: 'when user dismisses dialog'),
                 SizedBox(height: 8),
                 _FactBox(
-                  k: 'normalized',
-                  v: 'time-of-day stripped to midnight',
-                ),
+                    k: 'normalized',
+                    v: 'time-of-day stripped to midnight'),
               ],
             ),
           ),
@@ -1807,11 +1798,8 @@ class _LocBlock extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 4,
-                    child: MonoText(
-                      r[0],
-                      size: 11,
-                      color: const Color(0xFF581C87),
-                    ),
+                    child: MonoText(r[0],
+                        size: 11, color: const Color(0xFF581C87)),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -1863,10 +1851,12 @@ class SectionBuilderParam extends StatelessWidget {
                 CodeLine.code('  context: context,'),
                 CodeLine.code('  firstDate: DateTime(2020),'),
                 CodeLine.code('  lastDate: DateTime(2030),'),
-                CodeLine.code('  builder: (BuildContext ctx, Widget? child) {'),
+                CodeLine.code(
+                    '  builder: (BuildContext ctx, Widget? child) {'),
                 CodeLine.code('    return Theme('),
                 CodeLine.code('      data: ThemeData.dark().copyWith('),
-                CodeLine.code('        colorScheme: const ColorScheme.dark('),
+                CodeLine.code(
+                    '        colorScheme: const ColorScheme.dark('),
                 CodeLine.code('          primary: Color(0xFF4F46E5),'),
                 CodeLine.code('          onPrimary: Colors.white,'),
                 CodeLine.code('          surface: Color(0xFF1F2933),'),
@@ -1906,7 +1896,10 @@ class SectionBuilderParam extends StatelessWidget {
                   v: 'simulate a different text scaler',
                 ),
                 SizedBox(height: 8),
-                _FactBox(k: 'child', v: 'never null inside builder'),
+                _FactBox(
+                  k: 'child',
+                  v: 'never null inside builder',
+                ),
               ],
             ),
           ),
@@ -1937,64 +1930,59 @@ class SectionRecipe extends StatelessWidget {
         lines: <CodeLine>[
           CodeLine.cmt('// Inside an async event handler:'),
           CodeLine.code('final DateTime now = DateTime.now();'),
-          CodeLine.code('final DateTime first = DateTime(now.year, 1, 1);'),
           CodeLine.code(
-            'final DateTime last  = DateTime(now.year + 1, 12, 31);',
-          ),
+              'final DateTime first = DateTime(now.year, 1, 1);'),
+          CodeLine.code(
+              'final DateTime last  = DateTime(now.year + 1, 12, 31);'),
           CodeLine.code('final DateTimeRange initial = DateTimeRange('),
           CodeLine.code('  start: DateTime(now.year, 3, 5),'),
           CodeLine.code('  end:   DateTime(now.year, 3, 12),'),
           CodeLine.code(');'),
           CodeLine.empty(),
           CodeLine.code(
-            'final DateTimeRange? picked = await showDateRangePicker(',
-          ),
+              'final DateTimeRange? picked = await showDateRangePicker('),
           CodeLine.code('  context:                       context,'),
           CodeLine.code('  firstDate:                     first,'),
           CodeLine.code('  lastDate:                      last,'),
           CodeLine.code('  initialDateRange:              initial,'),
           CodeLine.code('  currentDate:                   now,'),
           CodeLine.code(
-            '  initialEntryMode:              DatePickerEntryMode.calendar,',
-          ),
+              '  initialEntryMode:              DatePickerEntryMode.calendar,'),
           CodeLine.code('  helpText:                      "Pick your stay",'),
           CodeLine.code('  cancelText:                    "Discard",'),
           CodeLine.code('  confirmText:                   "Apply",'),
           CodeLine.code('  saveText:                      "Save",'),
-          CodeLine.code('  errorFormatText:               "Use mm/dd/yyyy",'),
           CodeLine.code(
-            '  errorInvalidText:              "Outside allowed window",',
-          ),
+              '  errorFormatText:               "Use mm/dd/yyyy",'),
           CodeLine.code(
-            '  errorInvalidRangeText:         "Start must be before end",',
-          ),
+              '  errorInvalidText:              "Outside allowed window",'),
+          CodeLine.code(
+              '  errorInvalidRangeText:         "Start must be before end",'),
           CodeLine.code('  fieldStartHintText:            "mm/dd/yyyy",'),
           CodeLine.code('  fieldEndHintText:              "mm/dd/yyyy",'),
           CodeLine.code('  fieldStartLabelText:           "Check-in",'),
           CodeLine.code('  fieldEndLabelText:             "Check-out",'),
           CodeLine.code(
-            '  keyboardType:                  TextInputType.datetime,',
-          ),
+              '  keyboardType:                  TextInputType.datetime,'),
           CodeLine.code('  barrierDismissible:            true,'),
           CodeLine.code('  barrierColor:                  Colors.black54,'),
-          CodeLine.code('  barrierLabel:                  "Pick range modal",'),
+          CodeLine.code(
+              '  barrierLabel:                  "Pick range modal",'),
           CodeLine.code('  useRootNavigator:              true,'),
           CodeLine.code(
-            '  routeSettings:                 const RouteSettings(name: "/range"),',
-          ),
-          CodeLine.code('  textDirection:                 TextDirection.ltr,'),
-          CodeLine.code('  anchorPoint:                   const Offset(0, 0),'),
+              '  routeSettings:                 const RouteSettings(name: "/range"),'),
           CodeLine.code(
-            '  switchToInputEntryModeIcon:    const Icon(Icons.edit_outlined),',
-          ),
+              '  textDirection:                 TextDirection.ltr,'),
           CodeLine.code(
-            '  switchToCalendarEntryModeIcon: const Icon(Icons.calendar_today),',
-          ),
+              '  anchorPoint:                   const Offset(0, 0),'),
+          CodeLine.code(
+              '  switchToInputEntryModeIcon:    const Icon(Icons.edit_outlined),'),
+          CodeLine.code(
+              '  switchToCalendarEntryModeIcon: const Icon(Icons.calendar_today),'),
           CodeLine.code('  builder: (ctx, child) => Theme('),
           CodeLine.code('    data: Theme.of(ctx).copyWith('),
           CodeLine.code(
-            '      colorScheme: Theme.of(ctx).colorScheme.copyWith(',
-          ),
+              '      colorScheme: Theme.of(ctx).colorScheme.copyWith('),
           CodeLine.code('        primary: const Color(0xFF4F46E5),'),
           CodeLine.code('      ),'),
           CodeLine.code('    ),'),
@@ -2007,7 +1995,8 @@ class SectionRecipe extends StatelessWidget {
           CodeLine.code('  // user tapped Cancel or the barrier'),
           CodeLine.code('  return;'),
           CodeLine.code('} else {'),
-          CodeLine.code(r'  print("from ${picked.start} to ${picked.end}");'),
+          CodeLine.code(
+              r'  print("from ${picked.start} to ${picked.end}");'),
           CodeLine.code('}'),
         ],
       ),
@@ -2068,7 +2057,8 @@ class SectionComparison extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: const BoxDecoration(
                 color: Color(0xFFE0F2FE),
                 borderRadius: BorderRadius.only(
@@ -2088,12 +2078,12 @@ class SectionComparison extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: i.isEven ? paletteSurface : const Color(0xFFFAFAFB),
-                  border: const Border(top: BorderSide(color: paletteHairline)),
+                  border: const Border(
+                    top: BorderSide(color: paletteHairline),
+                  ),
                 ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 9,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -2108,14 +2098,14 @@ class SectionComparison extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Expanded(flex: 6, child: MonoText(rows[i][1], size: 11.5)),
                     Expanded(
                       flex: 6,
-                      child: MonoText(
-                        rows[i][2],
-                        size: 11.5,
-                        color: paletteAccentDeep,
-                      ),
+                      child: MonoText(rows[i][1], size: 11.5),
+                    ),
+                    Expanded(
+                      flex: 6,
+                      child: MonoText(rows[i][2],
+                          size: 11.5, color: paletteAccentDeep),
                     ),
                   ],
                 ),
@@ -2228,7 +2218,8 @@ class _PitfallTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.warning_amber_rounded, size: 18, color: paletteWarn),
+          const Icon(Icons.warning_amber_rounded,
+              size: 18, color: paletteWarn),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -2293,7 +2284,8 @@ class SectionFooter extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: const Color(0x33FFFFFF),
               borderRadius: BorderRadius.circular(999),
@@ -2319,9 +2311,16 @@ class SectionFooter extends StatelessWidget {
 // =====================================================================
 
 class CodeLine {
-  const CodeLine.code(this.text) : isComment = false, isEmpty = false;
-  const CodeLine.cmt(this.text) : isComment = true, isEmpty = false;
-  const CodeLine.empty() : text = '', isComment = false, isEmpty = true;
+  const CodeLine.code(this.text)
+      : isComment = false,
+        isEmpty = false;
+  const CodeLine.cmt(this.text)
+      : isComment = true,
+        isEmpty = false;
+  const CodeLine.empty()
+      : text = '',
+        isComment = false,
+        isEmpty = true;
 
   final String text;
   final bool isComment;

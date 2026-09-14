@@ -51,27 +51,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: silver, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -88,14 +82,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: silver),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: charcoal.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: charcoal.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -128,16 +119,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: charcoal,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: charcoal)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -155,14 +146,11 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? charcoal : graphite,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? charcoal : graphite)),
           );
         }).toList(),
       ),
@@ -179,23 +167,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? charcoal : deepSlate,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.arrow_forward, size: 12, color: slate),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.arrow_forward, size: 12, color: slate),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -223,19 +206,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            mcFlow([
-              'Mouse move',
-              'Hit test',
-              'Collect annotations',
-              'Resolve cursor',
-              'Set platform cursor',
-            ]),
+            mcFlow(['Mouse move', 'Hit test', 'Collect annotations',
+                'Resolve cursor', 'Set platform cursor']),
             const SizedBox(height: 10),
-            _mcRoleBadge(
-              'Collects',
-              'MouseCursor annotations from hit test',
-              slate,
-            ),
+            _mcRoleBadge('Collects', 'MouseCursor annotations from hit test', slate),
             _mcRoleBadge('Resolves', 'Front-most annotation wins', pewter),
             _mcRoleBadge('Defers', 'defer() falls through to next', graphite),
             _mcRoleBadge('Applies', 'Sends to platform via channel', deepSlate),
@@ -264,24 +238,9 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _mcClassBox('MouseCursor', 'Abstract base class', charcoal, 0),
-            _mcClassBox(
-              'SystemMouseCursor',
-              'Platform-native cursors',
-              deepSlate,
-              1,
-            ),
-            _mcClassBox(
-              'MaterialStateMouseCursor',
-              'State-dependent cursors',
-              slate,
-              1,
-            ),
-            _mcClassBox(
-              '_DeferringMouseCursor',
-              'Falls through to parent',
-              pewter,
-              1,
-            ),
+            _mcClassBox('SystemMouseCursor', 'Platform-native cursors', deepSlate, 1),
+            _mcClassBox('MaterialStateMouseCursor', 'State-dependent cursors', slate, 1),
+            _mcClassBox('_DeferringMouseCursor', 'Falls through to parent', pewter, 1),
             _mcClassBox('_NoopMouseCursor', 'Invisible, no change', ash, 1),
           ],
         ),
@@ -382,27 +341,9 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              _mcResolutionStep(
-                1,
-                'Front-most annotation',
-                'MouseCursor.defer',
-                'Skip',
-                charcoal,
-              ),
-              _mcResolutionStep(
-                2,
-                'Next annotation',
-                'SystemMouseCursors.click',
-                'Use!',
-                deepSlate,
-              ),
-              _mcResolutionStep(
-                3,
-                'Would check next',
-                '(not reached)',
-                '—',
-                ash,
-              ),
+              _mcResolutionStep(1, 'Front-most annotation', 'MouseCursor.defer', 'Skip', charcoal),
+              _mcResolutionStep(2, 'Next annotation', 'SystemMouseCursors.click', 'Use!', deepSlate),
+              _mcResolutionStep(3, 'Would check next', '(not reached)', '—', ash),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
@@ -478,13 +419,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              _mcStackLevel(
-                'Tooltip overlay',
-                'defer()',
-                'Passes through',
-                ash,
-                3,
-              ),
+              _mcStackLevel('Tooltip overlay', 'defer()', 'Passes through', ash, 3),
               _mcStackLevel('Button', 'click', 'Wins!', deepSlate, 2),
               _mcStackLevel('Background', 'basic', 'Fallback', paleSlate, 1),
             ],
@@ -511,11 +446,7 @@ dynamic build(BuildContext context) {
         'State-Dependent Cursors',
         Column(
           children: [
-            mcRow([
-              'State',
-              'clickable Cursor',
-              'textable Cursor',
-            ], isHeader: true),
+            mcRow(['State', 'clickable Cursor', 'textable Cursor'], isHeader: true),
             mcRow(['enabled', 'click', 'text']),
             mcRow(['disabled', 'basic', 'basic']),
             mcRow(['hovered', 'click', 'text']),
@@ -545,24 +476,9 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _mcStepItem(
-              1,
-              'Extend MouseCursor',
-              'class MyCursor extends MouseCursor',
-              charcoal,
-            ),
-            _mcStepItem(
-              2,
-              'Override createSession()',
-              'Returns MouseCursorSession',
-              deepSlate,
-            ),
-            _mcStepItem(
-              3,
-              'Implement activate()',
-              'Set platform cursor',
-              slate,
-            ),
+            _mcStepItem(1, 'Extend MouseCursor', 'class MyCursor extends MouseCursor', charcoal),
+            _mcStepItem(2, 'Override createSession()', 'Returns MouseCursorSession', deepSlate),
+            _mcStepItem(3, 'Implement activate()', 'Set platform cursor', slate),
             _mcStepItem(4, 'Implement dispose()', 'Restore default', pewter),
           ],
         ),
@@ -587,12 +503,7 @@ dynamic build(BuildContext context) {
         'Platform Mapping',
         Column(
           children: [
-            mcRow([
-              'Flutter Name',
-              'macOS',
-              'Windows',
-              'Web CSS',
-            ], isHeader: true),
+            mcRow(['Flutter Name', 'macOS', 'Windows', 'Web CSS'], isHeader: true),
             mcRow(['basic', 'arrow', 'IDC_ARROW', 'default']),
             mcRow(['click', 'pointingHand', 'IDC_HAND', 'pointer']),
             mcRow(['text', 'IBeam', 'IDC_IBEAM', 'text']),
@@ -682,11 +593,7 @@ dynamic build(BuildContext context) {
         'Widget Cursor Table',
         Column(
           children: [
-            mcRow([
-              'Widget',
-              'Enabled Cursor',
-              'Disabled Cursor',
-            ], isHeader: true),
+            mcRow(['Widget', 'Enabled Cursor', 'Disabled Cursor'], isHeader: true),
             mcRow(['ElevatedButton', 'click', 'basic']),
             mcRow(['TextButton', 'click', 'basic']),
             mcRow(['IconButton', 'click', 'basic']),
@@ -747,12 +654,7 @@ dynamic build(BuildContext context) {
         'Platform Support',
         Column(
           children: [
-            mcRow([
-              'Platform',
-              'Has Cursor?',
-              'Custom?',
-              'Full Set?',
-            ], isHeader: true),
+            mcRow(['Platform', 'Has Cursor?', 'Custom?', 'Full Set?'], isHeader: true),
             mcRow(['macOS', 'Yes', 'Yes', 'Yes']),
             mcRow(['Windows', 'Yes', 'Yes', 'Most']),
             mcRow(['Linux', 'Yes', 'Limited', 'Most']),
@@ -785,11 +687,7 @@ dynamic build(BuildContext context) {
             mcRow(['Technique', 'What', 'Find'], isHeader: true),
             mcRow(['gesture.moveTo()', 'Hover over widget', 'Triggers cursor']),
             mcRow(['gesture.moveBy()', 'Move relative', 'Transition test']),
-            mcRow([
-              'find.byType(MouseRegion)',
-              'Find region',
-              'Check cursor prop',
-            ]),
+            mcRow(['find.byType(MouseRegion)', 'Find region', 'Check cursor prop']),
             mcRow(['RendererBinding', 'Get cursor', 'Active cursor']),
           ],
         ),
@@ -853,14 +751,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'MouseCursorManager — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('MouseCursorManager — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From cursor resolution through system catalogs, stacking, '
@@ -892,22 +787,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -935,20 +818,13 @@ Widget _mcRoleBadge(String role, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 70,
-          child: Text(
-            role,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(role,
+              style: TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -972,20 +848,12 @@ Widget _mcClassBox(String name, String desc, Color color, int indent) {
             Text('└ ', style: TextStyle(fontSize: 10, color: color)),
           ],
           Expanded(
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'monospace',
-                color: color,
-              ),
-            ),
+            child: Text(name,
+                style: TextStyle(
+                    fontSize: 10, fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace', color: color)),
           ),
-          Text(
-            desc,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6)),
-          ),
+          Text(desc, style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6))),
         ],
       ),
     ),
@@ -1005,26 +873,15 @@ Widget _mcCursorChip(String name, IconData icon, Color color) {
       children: [
         Icon(icon, size: 12, color: color),
         const SizedBox(width: 4),
-        Text(
-          name,
-          style: TextStyle(
-            fontSize: 9,
-            fontWeight: FontWeight.w600,
-            color: color,
-          ),
-        ),
+        Text(name,
+            style: TextStyle(
+                fontSize: 9, fontWeight: FontWeight.w600, color: color)),
       ],
     ),
   );
 }
 
-Widget _mcResolutionStep(
-  int num,
-  String layer,
-  String cursor,
-  String result,
-  Color color,
-) {
+Widget _mcResolutionStep(int num, String layer, String cursor, String result, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 4),
     child: Row(
@@ -1037,64 +894,40 @@ Widget _mcResolutionStep(
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 3,
-          child: Text(layer, style: TextStyle(fontSize: 10, color: color)),
+          child: Text(layer,
+              style: TextStyle(fontSize: 10, color: color)),
         ),
         Expanded(
           flex: 3,
-          child: Text(
-            cursor,
-            style: TextStyle(
-              fontSize: 9,
-              fontFamily: 'monospace',
-              color: color.withValues(alpha: 0.7),
-            ),
-          ),
+          child: Text(cursor,
+              style: TextStyle(
+                  fontSize: 9, fontFamily: 'monospace',
+                  color: color.withValues(alpha: 0.7))),
         ),
         SizedBox(
           width: 40,
-          child: Text(
-            result,
-            style: TextStyle(
-              fontSize: 9,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(result,
+              style: TextStyle(
+                  fontSize: 9, fontWeight: FontWeight.bold, color: color)),
         ),
       ],
     ),
   );
 }
 
-Widget _mcStackLevel(
-  String label,
-  String cursor,
-  String note,
-  Color color,
-  int depth,
-) {
+Widget _mcStackLevel(String label, String cursor, String note, Color color, int depth) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.only(bottom: 4),
-    padding: EdgeInsets.only(
-      left: (3 - depth) * 12.0 + 8,
-      top: 6,
-      bottom: 6,
-      right: 8,
-    ),
+    padding: EdgeInsets.only(left: (3 - depth) * 12.0 + 8, top: 6, bottom: 6, right: 8),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.1),
       borderRadius: BorderRadius.circular(6),
@@ -1103,32 +936,18 @@ Widget _mcStackLevel(
     child: Row(
       children: [
         Expanded(
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
         ),
         SizedBox(
           width: 60,
-          child: Text(
-            cursor,
-            style: TextStyle(
-              fontSize: 9,
-              fontFamily: 'monospace',
-              color: color,
-            ),
-          ),
+          child: Text(cursor,
+              style: TextStyle(fontSize: 9, fontFamily: 'monospace', color: color)),
         ),
         SizedBox(
           width: 70,
-          child: Text(
-            note,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
-          ),
+          child: Text(note,
+              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
         ),
       ],
     ),
@@ -1148,14 +967,9 @@ Widget _mcStepItem(int num, String title, String detail, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 8),
@@ -1163,22 +977,13 @@ Widget _mcStepItem(int num, String title, String detail, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                detail,
-                style: TextStyle(
-                  fontSize: 9,
-                  fontFamily: 'monospace',
-                  color: color.withValues(alpha: 0.7),
-                ),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+              Text(detail,
+                  style: TextStyle(
+                      fontSize: 9, fontFamily: 'monospace',
+                      color: color.withValues(alpha: 0.7))),
             ],
           ),
         ),
@@ -1200,23 +1005,14 @@ Widget _mcDragPhase(String phase, String cursor, IconData icon, Color color) {
       children: [
         Icon(icon, size: 18, color: color),
         const SizedBox(width: 8),
-        Text(
-          phase,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
+        Text(phase,
+            style: TextStyle(
+                fontSize: 11, fontWeight: FontWeight.bold, color: color)),
         const Spacer(),
-        Text(
-          cursor,
-          style: TextStyle(
-            fontSize: 10,
-            fontFamily: 'monospace',
-            color: color.withValues(alpha: 0.7),
-          ),
-        ),
+        Text(cursor,
+            style: TextStyle(
+                fontSize: 10, fontFamily: 'monospace',
+                color: color.withValues(alpha: 0.7))),
       ],
     ),
   );

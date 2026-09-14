@@ -23,7 +23,8 @@ Tween<T> _safeReverseTween<T>(Tween<T> tween, String label) {
     }
     if (tween is RectTween) {
       final rectTween = tween as RectTween;
-      return RectTween(begin: rectTween.end, end: rectTween.begin) as Tween<T>;
+      return RectTween(begin: rectTween.end, end: rectTween.begin)
+          as Tween<T>;
     }
     if (tween is IntTween) {
       final intTween = tween as IntTween;

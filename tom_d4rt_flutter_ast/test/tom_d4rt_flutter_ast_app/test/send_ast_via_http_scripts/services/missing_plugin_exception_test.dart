@@ -116,7 +116,11 @@ dynamic build(BuildContext context) {
               width: 2.0,
             ),
           ),
-          child: Icon(Icons.extension_off, size: 56.0, color: Colors.white),
+          child: Icon(
+            Icons.extension_off,
+            size: 56.0,
+            color: Colors.white,
+          ),
         ),
         SizedBox(width: 20.0),
         Expanded(
@@ -143,7 +147,10 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 10.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.35),
                   borderRadius: BorderRadius.circular(6.0),
@@ -318,7 +325,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: tone.withValues(alpha: 0.25),
                     borderRadius: BorderRadius.circular(4.0),
@@ -354,7 +364,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'message field: ${msg ?? "<null>"}',
-              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.grey.shade800,
+              ),
             ),
           ],
         ),
@@ -415,7 +428,9 @@ dynamic build(BuildContext context) {
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border(left: BorderSide(color: color, width: 5.0)),
+          border: Border(
+            left: BorderSide(color: color, width: 5.0),
+          ),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.15),
@@ -643,7 +658,12 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Column(children: [comparisonHeader, ...comparisonDataRows]),
+    child: Column(
+      children: [
+        comparisonHeader,
+        ...comparisonDataRows,
+      ],
+    ),
   );
 
   // ============================================================
@@ -1040,10 +1060,18 @@ dynamic build(BuildContext context) {
           _sectionHeader('4. When it happens', Icons.event, Colors.indigo),
           ...scenarioCards,
           SizedBox(height: 18.0),
-          _sectionHeader('5. Catch pattern', Icons.shield, Colors.green),
+          _sectionHeader(
+            '5. Catch pattern',
+            Icons.shield,
+            Colors.green,
+          ),
           catchPattern,
           SizedBox(height: 18.0),
-          _sectionHeader('6. Comparison', Icons.compare_arrows, Colors.purple),
+          _sectionHeader(
+            '6. Comparison',
+            Icons.compare_arrows,
+            Colors.purple,
+          ),
           comparisonTable,
           SizedBox(height: 18.0),
           _sectionHeader(
@@ -1060,7 +1088,11 @@ dynamic build(BuildContext context) {
           ),
           methodChannelBasics,
           SizedBox(height: 18.0),
-          _sectionHeader('9. Footguns', Icons.warning_amber, Colors.red),
+          _sectionHeader(
+            '9. Footguns',
+            Icons.warning_amber,
+            Colors.red,
+          ),
           ...footgunCards,
           SizedBox(height: 18.0),
           _sectionHeader('10. Recap', Icons.summarize, Colors.deepOrange),
@@ -1196,7 +1228,11 @@ Widget _buildDataCell(String text, double width, Color color) {
     child: Text(
       text,
       textAlign: TextAlign.left,
-      style: TextStyle(fontSize: 11.5, color: color, fontFamily: 'monospace'),
+      style: TextStyle(
+        fontSize: 11.5,
+        color: color,
+        fontFamily: 'monospace',
+      ),
     ),
   );
 }

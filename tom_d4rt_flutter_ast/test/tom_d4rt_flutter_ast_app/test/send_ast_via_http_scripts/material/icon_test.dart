@@ -28,7 +28,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [_kPrimaryDark, _kPrimary, Color(0xFF5C6BC0)],
+        colors: [
+          _kPrimaryDark,
+          _kPrimary,
+          Color(0xFF5C6BC0),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         stops: [0.0, 0.55, 1.0],
@@ -63,7 +67,11 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(Icons.emoji_symbols, color: Colors.white, size: 44.0),
+              child: Icon(
+                Icons.emoji_symbols,
+                color: Colors.white,
+                size: 44.0,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -146,7 +154,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF263238), Color(0xFF37474F)],
+        colors: [
+          Color(0xFF263238),
+          Color(0xFF37474F),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -182,38 +193,38 @@ dynamic build(BuildContext context) {
           'icon',
           'IconData?',
           'The required positional argument - which glyph to render. '
-              'Typically one of the Icons.* constants which reference the '
-              'Material font.',
+          'Typically one of the Icons.* constants which reference the '
+          'Material font.',
         ),
         _buildAnatomyEntry(
           'size',
           'double?',
           'Logical pixel height (and width) of the rendered glyph. '
-              'Defaults to IconTheme.of(context).size, often 24.',
+          'Defaults to IconTheme.of(context).size, often 24.',
         ),
         _buildAnatomyEntry(
           'fill',
           'double?',
           'Variable font axis from 0.0 (outlined) to 1.0 (filled). '
-              'Only meaningful for variable Material Symbols fonts.',
+          'Only meaningful for variable Material Symbols fonts.',
         ),
         _buildAnatomyEntry(
           'weight',
           'double?',
           'Stroke weight of the glyph between 100 and 700. '
-              'Defaults to 400. Maps to the Material Symbols wght axis.',
+          'Defaults to 400. Maps to the Material Symbols wght axis.',
         ),
         _buildAnatomyEntry(
           'grade',
           'double?',
           'Granular weight for emphasis between -25 and 200. '
-              'Subtle visual adjustment without changing icon size.',
+          'Subtle visual adjustment without changing icon size.',
         ),
         _buildAnatomyEntry(
           'opticalSize',
           'double?',
           'Optical size adjustment between 20 and 48. '
-              'Tunes stroke contrast for the rendered size.',
+          'Tunes stroke contrast for the rendered size.',
         ),
         _buildAnatomyEntry(
           'color',
@@ -234,13 +245,13 @@ dynamic build(BuildContext context) {
           'textDirection',
           'TextDirection?',
           'Used to flip glyphs whose IconData has matchTextDirection: true. '
-              'Defaults to Directionality.of(context).',
+          'Defaults to Directionality.of(context).',
         ),
         _buildAnatomyEntry(
           'applyTextScaling',
           'bool?',
           'Whether MediaQuery.textScaler should scale the icon size. '
-              'Defaults to false.',
+          'Defaults to false.',
         ),
         _buildAnatomyEntry(
           'blendMode',
@@ -275,12 +286,18 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)],
+        colors: [
+          Color(0xFFE8EAF6),
+          Color(0xFFC5CAE9),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: _kPrimary.withValues(alpha: 0.3), width: 1.0),
+      border: Border.all(
+        color: _kPrimary.withValues(alpha: 0.3),
+        width: 1.0,
+      ),
       boxShadow: [
         BoxShadow(
           color: _kPrimary.withValues(alpha: 0.18),
@@ -331,7 +348,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'A second size walk using a glyph with finer detail (Icons.flutter_dash):',
-          style: TextStyle(fontSize: 12.0, color: _kPrimaryDark, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: _kPrimaryDark,
+            height: 1.4,
+          ),
         ),
         SizedBox(height: 12.0),
         Wrap(
@@ -347,7 +368,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'And one more with a directional glyph (Icons.arrow_circle_right):',
-          style: TextStyle(fontSize: 12.0, color: _kPrimaryDark, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: _kPrimaryDark,
+            height: 1.4,
+          ),
         ),
         SizedBox(height: 12.0),
         Wrap(
@@ -403,7 +428,11 @@ dynamic build(BuildContext context) {
           'Icons inherit IconTheme.color by default but may be overridden '
           'with the color parameter. Below is a sweep across the full '
           'Material 2 palette.',
-          style: TextStyle(fontSize: 12.0, color: _kMuted, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: _kMuted,
+            height: 1.4,
+          ),
         ),
         SizedBox(height: 16.0),
         _buildColorRow('Reds', [
@@ -464,31 +493,11 @@ dynamic build(BuildContext context) {
         ]),
         SizedBox(height: 12.0),
         _buildColorRow('Oranges', [
-          _buildColorChip(
-            'orange 100',
-            Color(0xFFFFE0B2),
-            Icons.local_fire_department,
-          ),
-          _buildColorChip(
-            'orange 300',
-            Color(0xFFFFB74D),
-            Icons.local_fire_department,
-          ),
-          _buildColorChip(
-            'orange 500',
-            Color(0xFFFF9800),
-            Icons.local_fire_department,
-          ),
-          _buildColorChip(
-            'orange 700',
-            Color(0xFFF57C00),
-            Icons.local_fire_department,
-          ),
-          _buildColorChip(
-            'orange 900',
-            Color(0xFFE65100),
-            Icons.local_fire_department,
-          ),
+          _buildColorChip('orange 100', Color(0xFFFFE0B2), Icons.local_fire_department),
+          _buildColorChip('orange 300', Color(0xFFFFB74D), Icons.local_fire_department),
+          _buildColorChip('orange 500', Color(0xFFFF9800), Icons.local_fire_department),
+          _buildColorChip('orange 700', Color(0xFFF57C00), Icons.local_fire_department),
+          _buildColorChip('orange 900', Color(0xFFE65100), Icons.local_fire_department),
         ]),
         SizedBox(height: 12.0),
         _buildColorRow('Browns', [
@@ -740,7 +749,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
+        colors: [
+          Color(0xFFFFF3E0),
+          Color(0xFFFFE0B2),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -789,9 +801,12 @@ dynamic build(BuildContext context) {
               child: _buildComparisonPanel(
                 title: 'Icon (passive)',
                 accent: _kPrimary,
-                code:
-                    "Icon(\n  Icons.thumb_up,\n  size: 32,\n  color: Colors.indigo,\n)",
-                child: Icon(Icons.thumb_up, size: 32.0, color: _kPrimary),
+                code: "Icon(\n  Icons.thumb_up,\n  size: 32,\n  color: Colors.indigo,\n)",
+                child: Icon(
+                  Icons.thumb_up,
+                  size: 32.0,
+                  color: _kPrimary,
+                ),
                 notes: const [
                   'No tap target',
                   'No splash effect',
@@ -805,11 +820,14 @@ dynamic build(BuildContext context) {
               child: _buildComparisonPanel(
                 title: 'IconButton (interactive)',
                 accent: _kAccent,
-                code:
-                    "IconButton(\n  onPressed: () {},\n  icon: Icon(Icons.thumb_up),\n)",
+                code: "IconButton(\n  onPressed: () {},\n  icon: Icon(Icons.thumb_up),\n)",
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.thumb_up, size: 32.0, color: _kAccent),
+                  icon: Icon(
+                    Icons.thumb_up,
+                    size: 32.0,
+                    color: _kAccent,
+                  ),
                 ),
                 notes: const [
                   '48x48 tap target',
@@ -864,7 +882,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFEDE7F6), Color(0xFFD1C4E9)],
+        colors: [
+          Color(0xFFEDE7F6),
+          Color(0xFFD1C4E9),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -911,8 +932,7 @@ dynamic build(BuildContext context) {
           children: [
             _buildShadowCase(
               label: 'soft drop',
-              code:
-                  'Shadow(\n  color: black54,\n  blurRadius: 4,\n  offset: (2,2),\n)',
+              code: 'Shadow(\n  color: black54,\n  blurRadius: 4,\n  offset: (2,2),\n)',
               child: Icon(
                 Icons.star,
                 size: 64.0,
@@ -928,8 +948,7 @@ dynamic build(BuildContext context) {
             ),
             _buildShadowCase(
               label: 'glow',
-              code:
-                  'Shadow(\n  color: amber,\n  blurRadius: 16,\n  offset: (0,0),\n)',
+              code: 'Shadow(\n  color: amber,\n  blurRadius: 16,\n  offset: (0,0),\n)',
               child: Icon(
                 Icons.bolt,
                 size: 64.0,
@@ -950,8 +969,7 @@ dynamic build(BuildContext context) {
             ),
             _buildShadowCase(
               label: 'long shadow',
-              code:
-                  'Shadow(\n  color: black87,\n  blurRadius: 0,\n  offset: (6,6),\n)',
+              code: 'Shadow(\n  color: black87,\n  blurRadius: 0,\n  offset: (6,6),\n)',
               child: Icon(
                 Icons.cloud,
                 size: 64.0,
@@ -1156,7 +1174,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFE0F2F1), Color(0xFFB2DFDB)],
+        colors: [
+          Color(0xFFE0F2F1),
+          Color(0xFFB2DFDB),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1214,7 +1235,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFFCE4EC), Color(0xFFF8BBD0)],
+        colors: [
+          Color(0xFFFCE4EC),
+          Color(0xFFF8BBD0),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1320,7 +1344,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF263238), Color(0xFF37474F), Color(0xFF455A64)],
+        colors: [
+          Color(0xFF263238),
+          Color(0xFF37474F),
+          Color(0xFF455A64),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1392,11 +1420,7 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.tips_and_updates,
-                color: Color(0xFFFFE082),
-                size: 22.0,
-              ),
+              Icon(Icons.tips_and_updates, color: Color(0xFFFFE082), size: 22.0),
               SizedBox(width: 12.0),
               Expanded(
                 child: Text(
@@ -1619,12 +1643,17 @@ Widget _buildSectionHeader(
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.02)],
+        colors: [
+          color.withValues(alpha: 0.12),
+          color.withValues(alpha: 0.02),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.1),
@@ -1749,7 +1778,11 @@ Widget _buildSizeStop(IconData icon, double size, Color color) {
         height: 100.0,
         width: size + 16.0 < 40.0 ? 40.0 : size + 16.0,
         child: Center(
-          child: Icon(icon, size: size, color: color),
+          child: Icon(
+            icon,
+            size: size,
+            color: color,
+          ),
         ),
       ),
       SizedBox(height: 4.0),
@@ -1791,7 +1824,13 @@ Widget _buildColorRow(String label, List<Widget> chips) {
             ),
           ),
         ),
-        Expanded(child: Wrap(spacing: 8.0, runSpacing: 8.0, children: chips)),
+        Expanded(
+          child: Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: chips,
+          ),
+        ),
       ],
     ),
   );
@@ -1804,7 +1843,10 @@ Widget _buildColorChip(String label, Color color, IconData icon) {
     decoration: BoxDecoration(
       color: Color(0xFFFAFAFA),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
+      border: Border.all(
+        color: color.withValues(alpha: 0.5),
+        width: 1.0,
+      ),
     ),
     child: Column(
       mainAxisSize: MainAxisSize.min,
@@ -1837,7 +1879,10 @@ Widget _buildCategoryGrid({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: accent.withValues(alpha: 0.3), width: 1.2),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.3),
+        width: 1.2,
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.14),
@@ -1929,7 +1974,10 @@ Widget _buildLabelledIconTile(_LabelledIcon li, Color accent) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(color: accent.withValues(alpha: 0.18), width: 1.0),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.18),
+        width: 1.0,
+      ),
     ),
     child: Column(
       mainAxisSize: MainAxisSize.min,
@@ -1964,7 +2012,10 @@ Widget _buildComparisonPanel({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: accent.withValues(alpha: 0.4), width: 1.5),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.4),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),
@@ -2025,7 +2076,10 @@ Widget _buildComparisonPanel({
                   Expanded(
                     child: Text(
                       n,
-                      style: TextStyle(fontSize: 11.0, color: _kMuted),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: _kMuted,
+                      ),
                     ),
                   ),
                 ],
@@ -2063,7 +2117,10 @@ Widget _buildShadowCase({
     ),
     child: Column(
       children: [
-        SizedBox(height: 80.0, child: Center(child: child)),
+        SizedBox(
+          height: 80.0,
+          child: Center(child: child),
+        ),
         SizedBox(height: 8.0),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
@@ -2134,7 +2191,11 @@ Widget _buildGradientIcon({
           shaderCallback: (Rect bounds) {
             return gradient.createShader(bounds);
           },
-          child: Icon(icon, size: 56.0, color: Colors.white),
+          child: Icon(
+            icon,
+            size: 56.0,
+            color: Colors.white,
+          ),
         ),
         SizedBox(height: 8.0),
         Text(
@@ -2163,7 +2224,10 @@ Widget _buildFeatureCard({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: accent.withValues(alpha: 0.3), width: 1.2),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.3),
+        width: 1.2,
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.18),
@@ -2202,7 +2266,11 @@ Widget _buildFeatureCard({
         SizedBox(height: 6.0),
         Text(
           body,
-          style: TextStyle(fontSize: 12.5, color: _kMuted, height: 1.45),
+          style: TextStyle(
+            fontSize: 12.5,
+            color: _kMuted,
+            height: 1.45,
+          ),
         ),
       ],
     ),
@@ -2241,11 +2309,21 @@ Widget _buildSettingsTile({
                 ),
               ),
               SizedBox(height: 2.0),
-              Text(subtitle, style: TextStyle(fontSize: 12.0, color: _kMuted)),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: _kMuted,
+                ),
+              ),
             ],
           ),
         ),
-        Icon(Icons.chevron_right, color: Color(0xFFBDBDBD), size: 20.0),
+        Icon(
+          Icons.chevron_right,
+          color: Color(0xFFBDBDBD),
+          size: 20.0,
+        ),
       ],
     ),
   );
@@ -2257,7 +2335,10 @@ Widget _buildIconChip(IconData icon, String label, Color accent) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: accent.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.18),
@@ -2294,7 +2375,10 @@ Widget _buildDirectionalityPanel({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: accent.withValues(alpha: 0.4), width: 1.2),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.4),
+        width: 1.2,
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),
@@ -2333,10 +2417,26 @@ Widget _buildDirectionalityPanel({
                 'arrow_forward',
                 accent,
               ),
-              _buildDirectionalRow(Icons.arrow_back, 'arrow_back', accent),
-              _buildDirectionalRow(Icons.send, 'send', accent),
-              _buildDirectionalRow(Icons.reply, 'reply', accent),
-              _buildDirectionalRow(Icons.redo, 'redo', accent),
+              _buildDirectionalRow(
+                Icons.arrow_back,
+                'arrow_back',
+                accent,
+              ),
+              _buildDirectionalRow(
+                Icons.send,
+                'send',
+                accent,
+              ),
+              _buildDirectionalRow(
+                Icons.reply,
+                'reply',
+                accent,
+              ),
+              _buildDirectionalRow(
+                Icons.redo,
+                'redo',
+                accent,
+              ),
               _buildDirectionalRow(
                 Icons.chevron_right,
                 'chevron_right',

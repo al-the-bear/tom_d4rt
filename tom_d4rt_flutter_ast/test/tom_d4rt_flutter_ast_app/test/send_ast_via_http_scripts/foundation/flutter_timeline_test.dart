@@ -308,8 +308,8 @@ dynamic build(BuildContext context) {
       'mode': kReleaseMode
           ? 'release'
           : kProfileMode
-          ? 'profile'
-          : 'debug',
+              ? 'profile'
+              : 'debug',
       'platform': defaultTargetPlatform.toString(),
     },
   );
@@ -321,10 +321,13 @@ dynamic build(BuildContext context) {
   FlutterTimeline.finishSync();
 
   // timeSync is the safe, scoped equivalent of startSync/finishSync.
-  final Map<String, int> phaseTotals =
-      FlutterTimeline.timeSync<Map<String, int>>('compute phase totals', () {
-        return _phaseTotals(trace);
-      }, arguments: <String, Object?>{'events': trace.length});
+  final Map<String, int> phaseTotals = FlutterTimeline.timeSync<Map<String, int>>(
+    'compute phase totals',
+    () {
+      return _phaseTotals(trace);
+    },
+    arguments: <String, Object?>{'events': trace.length},
+  );
 
   // instantSync is a zero-duration "ping" — useful for marking gestures,
   // network responses, GC events, etc.
@@ -392,25 +395,17 @@ Widget _dossier() {
         style: TextStyle(fontSize: 14, height: 1.4),
       ),
       const SizedBox(height: 8),
-      _bullet(
-        'The Performance Overlay (the colored bars at the top of the screen).',
-      ),
+      _bullet('The Performance Overlay (the colored bars at the top of the screen).'),
       _bullet('The DevTools "Performance" page (frame chart, flame chart).'),
       _bullet('The DevTools "Timeline" page (full VM event stream).'),
       _bullet('Any tool that ingests Dart VM "Timeline" JSON output.'),
       const SizedBox(height: 12),
       _factRow('Library', 'package:flutter/foundation.dart'),
       _factRow('Class', 'FlutterTimeline'),
-      _factRow(
-        'Primary methods',
-        'startSync / finishSync / timeSync / instantSync',
-      ),
+      _factRow('Primary methods', 'startSync / finishSync / timeSync / instantSync'),
       _factRow('Cost in release', 'effectively zero — calls are elided'),
       _factRow('Cost in profile', 'tiny — a few hundred ns per event'),
-      _factRow(
-        'Visible output',
-        'none, unless DevTools or VM trace is recording',
-      ),
+      _factRow('Visible output', 'none, unless DevTools or VM trace is recording'),
       const SizedBox(height: 12),
       const Text(
         'Build-mode behavior',
@@ -441,8 +436,7 @@ Widget _anatomySection() {
     accent: Colors.teal,
     children: <Widget>[
       _apiBlock(
-        signature:
-            'FlutterTimeline.startSync(String name, {Map<String, Object?>? arguments})',
+        signature: 'FlutterTimeline.startSync(String name, {Map<String, Object?>? arguments})',
         description:
             'Opens a new "duration" event on the current thread. Every '
             'startSync MUST be paired with exactly one finishSync. They '
@@ -457,8 +451,7 @@ Widget _anatomySection() {
             'profile mode.',
       ),
       _apiBlock(
-        signature:
-            'FlutterTimeline.timeSync<T>(String name, T Function() body, '
+        signature: 'FlutterTimeline.timeSync<T>(String name, T Function() body, '
             '{Map<String, Object?>? arguments})',
         description:
             'Convenience wrapper that calls startSync, runs body, then '
@@ -467,8 +460,7 @@ Widget _anatomySection() {
             'forwarded to the caller.',
       ),
       _apiBlock(
-        signature:
-            'FlutterTimeline.instantSync(String name, {Map<String, Object?>? arguments})',
+        signature: 'FlutterTimeline.instantSync(String name, {Map<String, Object?>? arguments})',
         description:
             'Emits a zero-duration event at "now". Use for things like '
             '"image decoded", "gesture detected", "websocket message". '
@@ -506,7 +498,10 @@ Widget _apiBlock({required String signature, required String description}) {
           ),
         ),
         const SizedBox(height: 6),
-        Text(description, style: const TextStyle(fontSize: 13, height: 1.4)),
+        Text(
+          description,
+          style: const TextStyle(fontSize: 13, height: 1.4),
+        ),
       ],
     ),
   );
@@ -523,61 +518,21 @@ Widget _stackDiagram() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _stackBar(
-          label: 'startSync("frame")',
-          width: 380,
-          color: Colors.indigo.shade300,
-          indent: 0,
-        ),
+        _stackBar(label: 'startSync("frame")', width: 380, color: Colors.indigo.shade300, indent: 0),
         const SizedBox(height: 4),
-        _stackBar(
-          label: 'startSync("build")',
-          width: 220,
-          color: Colors.blue.shade300,
-          indent: 20,
-        ),
+        _stackBar(label: 'startSync("build")', width: 220, color: Colors.blue.shade300, indent: 20),
         const SizedBox(height: 4),
-        _stackBar(
-          label: 'startSync("widget.build")',
-          width: 140,
-          color: Colors.cyan.shade300,
-          indent: 40,
-        ),
+        _stackBar(label: 'startSync("widget.build")', width: 140, color: Colors.cyan.shade300, indent: 40),
         const SizedBox(height: 4),
-        _stackBar(
-          label: 'finishSync() // widget.build',
-          width: 140,
-          color: Colors.cyan.shade100,
-          indent: 40,
-        ),
+        _stackBar(label: 'finishSync() // widget.build', width: 140, color: Colors.cyan.shade100, indent: 40),
         const SizedBox(height: 4),
-        _stackBar(
-          label: 'finishSync() // build',
-          width: 220,
-          color: Colors.blue.shade100,
-          indent: 20,
-        ),
+        _stackBar(label: 'finishSync() // build', width: 220, color: Colors.blue.shade100, indent: 20),
         const SizedBox(height: 4),
-        _stackBar(
-          label: 'startSync("paint")',
-          width: 160,
-          color: Colors.green.shade300,
-          indent: 20,
-        ),
+        _stackBar(label: 'startSync("paint")', width: 160, color: Colors.green.shade300, indent: 20),
         const SizedBox(height: 4),
-        _stackBar(
-          label: 'finishSync() // paint',
-          width: 160,
-          color: Colors.green.shade100,
-          indent: 20,
-        ),
+        _stackBar(label: 'finishSync() // paint', width: 160, color: Colors.green.shade100, indent: 20),
         const SizedBox(height: 4),
-        _stackBar(
-          label: 'finishSync() // frame',
-          width: 380,
-          color: Colors.indigo.shade100,
-          indent: 0,
-        ),
+        _stackBar(label: 'finishSync() // frame', width: 380, color: Colors.indigo.shade100, indent: 0),
       ],
     ),
   );
@@ -736,8 +691,7 @@ Widget _budgetGuide({required String label}) {
 
 Widget _eventBar({required _MockEvent event}) {
   return Tooltip(
-    message:
-        '${event.name}\n'
+    message: '${event.name}\n'
         'category: ${event.category}\n'
         'start: ${(event.startUs / _usPerMs).toStringAsFixed(2)} ms\n'
         'duration: ${(event.durationUs / _usPerMs).toStringAsFixed(2)} ms',
@@ -768,8 +722,7 @@ Widget _eventBar({required _MockEvent event}) {
 
 Widget _instantPin({required _MockInstant instant, required double height}) {
   return Tooltip(
-    message:
-        '${instant.name} @ ${(instant.atUs / _usPerMs).toStringAsFixed(2)} ms',
+    message: '${instant.name} @ ${(instant.atUs / _usPerMs).toStringAsFixed(2)} ms',
     child: SizedBox(
       width: 6,
       height: height,
@@ -784,10 +737,7 @@ Widget _instantPin({required _MockInstant instant, required double height}) {
             ),
           ),
           Expanded(
-            child: Container(
-              width: 1,
-              color: _colorFor(instant.category).withOpacity(0.6),
-            ),
+            child: Container(width: 1, color: _colorFor(instant.category).withOpacity(0.6)),
           ),
         ],
       ),
@@ -811,11 +761,18 @@ Widget _legendRow() {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Container(width: 10, height: 10, color: e.value),
+              Container(
+                width: 10,
+                height: 10,
+                color: e.value,
+              ),
               const SizedBox(width: 4),
               Text(
                 e.key,
-                style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                ),
               ),
             ],
           ),
@@ -831,13 +788,7 @@ Widget _legendRow() {
 Widget _phaseBarChart({required Map<String, int> totals}) {
   // We display the totals in the canonical pipeline order, even if a phase
   // is missing from the data.
-  const List<String> order = <String>[
-    'build',
-    'layout',
-    'paint',
-    'composite',
-    'raster',
-  ];
+  const List<String> order = <String>['build', 'layout', 'paint', 'composite', 'raster'];
   final int maxValue = totals.values.fold<int>(0, math.max);
   // Compute a sensible right axis — round up to nearest 5 ms.
   final int axisUs = ((maxValue / 5000).ceil() * 5000).clamp(5000, 1 << 30);
@@ -855,7 +806,11 @@ Widget _phaseBarChart({required Map<String, int> totals}) {
       ),
       const SizedBox(height: 12),
       for (final String phase in order)
-        _phaseBarRow(label: phase, us: totals[phase] ?? 0, axisUs: axisUs),
+        _phaseBarRow(
+          label: phase,
+          us: totals[phase] ?? 0,
+          axisUs: axisUs,
+        ),
       const SizedBox(height: 12),
       Container(
         padding: const EdgeInsets.all(10),
@@ -938,7 +893,10 @@ Widget _phaseBarRow({
           child: Text(
             '${(us / _usPerMs).toStringAsFixed(2)} ms',
             textAlign: TextAlign.right,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+            ),
           ),
         ),
       ],
@@ -1029,7 +987,8 @@ final json = blocks.map((b) => <String, Object?>{
       ),
       _recipe(
         title: 'Profiling tips',
-        body: 'A few rules of thumb when reading a real trace.',
+        body:
+            'A few rules of thumb when reading a real trace.',
         code: '''
 // 1. Profile mode only — debug numbers are misleading.
 // 2. Run on a physical device, not a simulator.
@@ -1068,7 +1027,10 @@ Widget _recipe({
           ),
         ),
         const SizedBox(height: 4),
-        Text(body, style: const TextStyle(fontSize: 13, height: 1.4)),
+        Text(
+          body,
+          style: const TextStyle(fontSize: 13, height: 1.4),
+        ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.all(8),
@@ -1249,11 +1211,8 @@ Widget _pitfall({required String title, required String body}) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.red.shade700,
-              size: 18,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.red.shade700, size: 18),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
@@ -1497,7 +1456,10 @@ Widget _recapPoint({
                 ),
               ),
               const SizedBox(height: 2),
-              Text(body, style: const TextStyle(fontSize: 12, height: 1.4)),
+              Text(
+                body,
+                style: const TextStyle(fontSize: 12, height: 1.4),
+              ),
             ],
           ),
         ),

@@ -10,12 +10,7 @@ import 'package:flutter/material.dart';
 // SECTION HEADER HELPER
 // Re-usable visual section header with chip-style label and rule line.
 // ============================================================================
-Widget sectionHeader(
-  String number,
-  String title,
-  String tagline,
-  Color accent,
-) {
+Widget sectionHeader(String number, String title, String tagline, Color accent) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(4.0, 24.0, 4.0, 12.0),
     child: Row(
@@ -100,7 +95,9 @@ Widget narrative(String text, Color tint) {
     decoration: BoxDecoration(
       color: tint.withValues(alpha: 0.07),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: tint, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: tint, width: 4.0),
+      ),
     ),
     child: Text(
       text,
@@ -195,7 +192,8 @@ class _DiagonalStripesPainter extends BoxPainter {
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     final Size size = configuration.size ?? Size.zero;
     final Rect rect = offset & size;
-    final Path clipPath = Path()..addRRect(deco.borderRadius.toRRect(rect));
+    final Path clipPath = Path()
+      ..addRRect(deco.borderRadius.toRRect(rect));
     canvas.save();
     canvas.clipPath(clipPath);
     final Paint paintA = Paint()..color = deco.stripeA;
@@ -204,20 +202,13 @@ class _DiagonalStripesPainter extends BoxPainter {
     final double radians = deco.angleDegrees * math.pi / 180.0;
     final double dx = math.cos(radians);
     final double dy = math.sin(radians);
-    final double diag =
-        math.sqrt(size.width * size.width + size.height * size.height) * 2.0;
+    final double diag = math.sqrt(size.width * size.width + size.height * size.height) * 2.0;
     final Offset center = rect.center;
     final int stripes = (diag / (deco.stripeWidth * 2.0)).ceil() + 4;
     for (int i = -stripes; i < stripes; i++) {
       final double t = i * deco.stripeWidth * 2.0;
-      final Offset p1 = Offset(
-        center.dx + t * dx - dy * diag,
-        center.dy + t * dy + dx * diag,
-      );
-      final Offset p2 = Offset(
-        center.dx + t * dx + dy * diag,
-        center.dy + t * dy - dx * diag,
-      );
+      final Offset p1 = Offset(center.dx + t * dx - dy * diag, center.dy + t * dy + dx * diag);
+      final Offset p2 = Offset(center.dx + t * dx + dy * diag, center.dy + t * dy - dx * diag);
       final Paint stripePaint = Paint()
         ..color = paintB.color
         ..strokeWidth = deco.stripeWidth
@@ -278,7 +269,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: const Icon(Icons.style, size: 32.0, color: Colors.white),
+              child: const Icon(
+                Icons.style,
+                size: 32.0,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(width: 14.0),
             const Expanded(
@@ -296,7 +291,10 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     'Decoration anatomy, gallery, shadows, gradients, shapes.',
-                    style: TextStyle(color: Colors.white70, fontSize: 12.0),
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12.0,
+                    ),
                   ),
                 ],
               ),
@@ -335,9 +333,7 @@ dynamic build(BuildContext context) {
     paletteCoral,
   ];
 
-  final List<Widget> fillSamples = List<Widget>.generate(fillPalette.length, (
-    int i,
-  ) {
+  final List<Widget> fillSamples = List<Widget>.generate(fillPalette.length, (int i) {
     final Color c = fillPalette[i];
     return labelledSample(
       DecoratedBox(
@@ -434,7 +430,9 @@ dynamic build(BuildContext context) {
   final Widget borderTopOnly = DecoratedBox(
     decoration: const BoxDecoration(
       color: Colors.white,
-      border: Border(top: BorderSide(color: paletteViolet, width: 4.0)),
+      border: Border(
+        top: BorderSide(color: paletteViolet, width: 4.0),
+      ),
     ),
     child: const SizedBox(
       width: 130.0,
@@ -446,7 +444,9 @@ dynamic build(BuildContext context) {
   final Widget borderLeftOnly = DecoratedBox(
     decoration: const BoxDecoration(
       color: Color(0xFFF5F5F5),
-      border: Border(left: BorderSide(color: paletteEmerald, width: 6.0)),
+      border: Border(
+        left: BorderSide(color: paletteEmerald, width: 6.0),
+      ),
     ),
     child: const SizedBox(
       width: 130.0,
@@ -495,30 +495,30 @@ dynamic build(BuildContext context) {
   // From sharp corners to fully pill / circular.
   // --------------------------------------------------------------------------
   final List<double> radiusValues = <double>[0.0, 4.0, 12.0, 20.0, 32.0, 999.0];
-  final List<Widget> radiusSamples = List<Widget>.generate(
-    radiusValues.length,
-    (int i) {
-      final double r = radiusValues[i];
-      return labelledSample(
-        DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                paletteIndigo.withValues(alpha: 0.85),
-                paletteViolet.withValues(alpha: 0.85),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(r),
+  final List<Widget> radiusSamples = List<Widget>.generate(radiusValues.length, (int i) {
+    final double r = radiusValues[i];
+    return labelledSample(
+      DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              paletteIndigo.withValues(alpha: 0.85),
+              paletteViolet.withValues(alpha: 0.85),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          child: const SizedBox(width: 90.0, height: 60.0),
+          borderRadius: BorderRadius.circular(r),
         ),
-        'r=${r == 999.0 ? "pill" : r.toStringAsFixed(0)}',
-        paletteViolet,
-      );
-    },
-  );
+        child: const SizedBox(
+          width: 90.0,
+          height: 60.0,
+        ),
+      ),
+      'r=${r == 999.0 ? "pill" : r.toStringAsFixed(0)}',
+      paletteViolet,
+    );
+  });
 
   // --------------------------------------------------------------------------
   // SECTION 5 - SHADOW COOKBOOK
@@ -552,95 +552,127 @@ dynamic build(BuildContext context) {
     );
   }
 
-  final Widget shadowSoft = shadowSample('soft', <BoxShadow>[
-    BoxShadow(
-      color: Colors.black.withValues(alpha: 0.08),
-      blurRadius: 12.0,
-      offset: const Offset(0.0, 4.0),
-    ),
-  ], paletteSlate);
+  final Widget shadowSoft = shadowSample(
+    'soft',
+    <BoxShadow>[
+      BoxShadow(
+        color: Colors.black.withValues(alpha: 0.08),
+        blurRadius: 12.0,
+        offset: const Offset(0.0, 4.0),
+      ),
+    ],
+    paletteSlate,
+  );
 
-  final Widget shadowHard = shadowSample('hard', <BoxShadow>[
-    BoxShadow(
-      color: Colors.black.withValues(alpha: 0.5),
-      blurRadius: 2.0,
-      offset: const Offset(4.0, 4.0),
-    ),
-  ], paletteSlate);
+  final Widget shadowHard = shadowSample(
+    'hard',
+    <BoxShadow>[
+      BoxShadow(
+        color: Colors.black.withValues(alpha: 0.5),
+        blurRadius: 2.0,
+        offset: const Offset(4.0, 4.0),
+      ),
+    ],
+    paletteSlate,
+  );
 
-  final Widget shadowLifted = shadowSample('lifted', <BoxShadow>[
-    BoxShadow(
-      color: Colors.black.withValues(alpha: 0.18),
-      blurRadius: 22.0,
-      spreadRadius: 1.0,
-      offset: const Offset(0.0, 12.0),
-    ),
-  ], paletteSlate);
+  final Widget shadowLifted = shadowSample(
+    'lifted',
+    <BoxShadow>[
+      BoxShadow(
+        color: Colors.black.withValues(alpha: 0.18),
+        blurRadius: 22.0,
+        spreadRadius: 1.0,
+        offset: const Offset(0.0, 12.0),
+      ),
+    ],
+    paletteSlate,
+  );
 
-  final Widget shadowGlow = shadowSample('glow', <BoxShadow>[
-    BoxShadow(
-      color: paletteRose.withValues(alpha: 0.6),
-      blurRadius: 20.0,
-      spreadRadius: 2.0,
-    ),
-  ], paletteRose);
+  final Widget shadowGlow = shadowSample(
+    'glow',
+    <BoxShadow>[
+      BoxShadow(
+        color: paletteRose.withValues(alpha: 0.6),
+        blurRadius: 20.0,
+        spreadRadius: 2.0,
+      ),
+    ],
+    paletteRose,
+  );
 
-  final Widget shadowNeon = shadowSample('neon', <BoxShadow>[
-    BoxShadow(
-      color: paletteTeal.withValues(alpha: 0.7),
-      blurRadius: 10.0,
-      spreadRadius: 0.5,
-    ),
-    BoxShadow(
-      color: paletteTeal.withValues(alpha: 0.4),
-      blurRadius: 24.0,
-      spreadRadius: 4.0,
-    ),
-  ], paletteTeal);
+  final Widget shadowNeon = shadowSample(
+    'neon',
+    <BoxShadow>[
+      BoxShadow(
+        color: paletteTeal.withValues(alpha: 0.7),
+        blurRadius: 10.0,
+        spreadRadius: 0.5,
+      ),
+      BoxShadow(
+        color: paletteTeal.withValues(alpha: 0.4),
+        blurRadius: 24.0,
+        spreadRadius: 4.0,
+      ),
+    ],
+    paletteTeal,
+  );
 
-  final Widget shadowDouble = shadowSample('double', <BoxShadow>[
-    BoxShadow(
-      color: Colors.black.withValues(alpha: 0.15),
-      blurRadius: 4.0,
-      offset: const Offset(0.0, 2.0),
-    ),
-    BoxShadow(
-      color: Colors.black.withValues(alpha: 0.10),
-      blurRadius: 16.0,
-      offset: const Offset(0.0, 10.0),
-    ),
-  ], paletteSlate);
+  final Widget shadowDouble = shadowSample(
+    'double',
+    <BoxShadow>[
+      BoxShadow(
+        color: Colors.black.withValues(alpha: 0.15),
+        blurRadius: 4.0,
+        offset: const Offset(0.0, 2.0),
+      ),
+      BoxShadow(
+        color: Colors.black.withValues(alpha: 0.10),
+        blurRadius: 16.0,
+        offset: const Offset(0.0, 10.0),
+      ),
+    ],
+    paletteSlate,
+  );
 
-  final Widget shadowEmboss = shadowSample('emboss', <BoxShadow>[
-    BoxShadow(
-      color: Colors.white,
-      blurRadius: 6.0,
-      offset: const Offset(-3.0, -3.0),
-    ),
-    BoxShadow(
-      color: Colors.black.withValues(alpha: 0.25),
-      blurRadius: 6.0,
-      offset: const Offset(3.0, 3.0),
-    ),
-  ], paletteSlate);
+  final Widget shadowEmboss = shadowSample(
+    'emboss',
+    <BoxShadow>[
+      BoxShadow(
+        color: Colors.white,
+        blurRadius: 6.0,
+        offset: const Offset(-3.0, -3.0),
+      ),
+      BoxShadow(
+        color: Colors.black.withValues(alpha: 0.25),
+        blurRadius: 6.0,
+        offset: const Offset(3.0, 3.0),
+      ),
+    ],
+    paletteSlate,
+  );
 
-  final Widget shadowColoredTrio = shadowSample('tri-tone', <BoxShadow>[
-    BoxShadow(
-      color: paletteIndigo.withValues(alpha: 0.4),
-      blurRadius: 10.0,
-      offset: const Offset(-6.0, 0.0),
-    ),
-    BoxShadow(
-      color: paletteRose.withValues(alpha: 0.4),
-      blurRadius: 10.0,
-      offset: const Offset(6.0, 0.0),
-    ),
-    BoxShadow(
-      color: paletteAmber.withValues(alpha: 0.4),
-      blurRadius: 10.0,
-      offset: const Offset(0.0, 8.0),
-    ),
-  ], paletteAmber);
+  final Widget shadowColoredTrio = shadowSample(
+    'tri-tone',
+    <BoxShadow>[
+      BoxShadow(
+        color: paletteIndigo.withValues(alpha: 0.4),
+        blurRadius: 10.0,
+        offset: const Offset(-6.0, 0.0),
+      ),
+      BoxShadow(
+        color: paletteRose.withValues(alpha: 0.4),
+        blurRadius: 10.0,
+        offset: const Offset(6.0, 0.0),
+      ),
+      BoxShadow(
+        color: paletteAmber.withValues(alpha: 0.4),
+        blurRadius: 10.0,
+        offset: const Offset(0.0, 8.0),
+      ),
+    ],
+    paletteAmber,
+  );
 
   // --------------------------------------------------------------------------
   // SECTION 6 - GRADIENT LAB: LINEAR
@@ -698,7 +730,11 @@ dynamic build(BuildContext context) {
 
   final Widget linearTriColor = linearGradientTile(
     const LinearGradient(
-      colors: [Color(0xFFEF5350), Color(0xFFFFEE58), Color(0xFF66BB6A)],
+      colors: [
+        Color(0xFFEF5350),
+        Color(0xFFFFEE58),
+        Color(0xFF66BB6A),
+      ],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     ),
@@ -796,7 +832,11 @@ dynamic build(BuildContext context) {
 
   final Widget radialThreeStop = radialGradientTile(
     const RadialGradient(
-      colors: [Color(0xFFFFFFFF), Color(0xFF80DEEA), Color(0xFF006064)],
+      colors: [
+        Color(0xFFFFFFFF),
+        Color(0xFF80DEEA),
+        Color(0xFF006064),
+      ],
       stops: [0.0, 0.4, 1.0],
       radius: 0.85,
     ),
@@ -871,7 +911,11 @@ dynamic build(BuildContext context) {
 
   final Widget sweepDuo = sweepGradientTile(
     const SweepGradient(
-      colors: [Color(0xFF00ACC1), Color(0xFFEF5350), Color(0xFF00ACC1)],
+      colors: [
+        Color(0xFF00ACC1),
+        Color(0xFFEF5350),
+        Color(0xFF00ACC1),
+      ],
     ),
     'duo loop',
   );
@@ -889,50 +933,42 @@ dynamic build(BuildContext context) {
     paletteEmerald,
   ];
 
-  final List<Widget> circleSamples = List<Widget>.generate(
-    circlePalette.length,
-    (int i) {
-      final Color c = circlePalette[i];
-      return Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: c,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: c.withValues(alpha: 0.5),
-                blurRadius: 12.0,
-                offset: const Offset(0.0, 6.0),
-              ),
-            ],
-          ),
-          child: SizedBox(
-            width: 64.0,
-            height: 64.0,
-            child: Center(
-              child: Text(
-                '${i + 1}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 18.0,
-                ),
+  final List<Widget> circleSamples = List<Widget>.generate(circlePalette.length, (int i) {
+    final Color c = circlePalette[i];
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: c,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: c.withValues(alpha: 0.5),
+              blurRadius: 12.0,
+              offset: const Offset(0.0, 6.0),
+            ),
+          ],
+        ),
+        child: SizedBox(
+          width: 64.0,
+          height: 64.0,
+          child: Center(
+            child: Text(
+              '${i + 1}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 18.0,
               ),
             ),
           ),
         ),
-      );
-    },
-  );
+      ),
+    );
+  });
 
   final List<Widget> pillSamples = List<Widget>.generate(4, (int i) {
-    final List<Color> tones = <Color>[
-      paletteIndigo,
-      paletteRose,
-      paletteTeal,
-      paletteAmber,
-    ];
+    final List<Color> tones = <Color>[paletteIndigo, paletteRose, paletteTeal, paletteAmber];
     final List<String> labels = <String>['NEW', 'HOT', 'BETA', 'PRO'];
     final Color c = tones[i];
     return Padding(
@@ -1225,10 +1261,7 @@ dynamic build(BuildContext context) {
   final Widget blendOverlay = blendModeTile(BlendMode.overlay, 'overlay');
   final Widget blendDarken = blendModeTile(BlendMode.darken, 'darken');
   final Widget blendLighten = blendModeTile(BlendMode.lighten, 'lighten');
-  final Widget blendDifference = blendModeTile(
-    BlendMode.difference,
-    'difference',
-  );
+  final Widget blendDifference = blendModeTile(BlendMode.difference, 'difference');
   final Widget blendExclusion = blendModeTile(BlendMode.exclusion, 'exclusion');
 
   // --------------------------------------------------------------------------
@@ -1237,7 +1270,9 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   final Widget logoMark = labelledSample(
     DecoratedBox(
-      decoration: const FlutterLogoDecoration(style: FlutterLogoStyle.markOnly),
+      decoration: const FlutterLogoDecoration(
+        style: FlutterLogoStyle.markOnly,
+      ),
       child: const SizedBox(width: 96.0, height: 96.0),
     ),
     'markOnly',
@@ -1278,7 +1313,10 @@ dynamic build(BuildContext context) {
       color: paletteIndigo,
       borderRadius: BorderRadius.circular(8.0),
       boxShadow: <BoxShadow>[
-        BoxShadow(color: paletteIndigo.withValues(alpha: 0.5), blurRadius: 8.0),
+        BoxShadow(
+          color: paletteIndigo.withValues(alpha: 0.5),
+          blurRadius: 8.0,
+        ),
       ],
     ),
     end: BoxDecoration(
@@ -1295,9 +1333,7 @@ dynamic build(BuildContext context) {
   );
 
   Widget transitionFrame(double t, String caption) {
-    final AlwaysStoppedAnimation<double> anim = AlwaysStoppedAnimation<double>(
-      t,
-    );
+    final AlwaysStoppedAnimation<double> anim = AlwaysStoppedAnimation<double>(t);
     final Animation<Decoration> decorationAnim = decoTween.animate(anim);
     return labelledSample(
       DecoratedBoxTransition(
@@ -1421,7 +1457,10 @@ dynamic build(BuildContext context) {
             children: [
               const Text(
                 'Decoration Toolkit',
-                style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const SizedBox(height: 4.0),
               Text(
@@ -1649,17 +1688,11 @@ dynamic build(BuildContext context) {
           children: const [
             Text(
               'GATE  A12',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
             ),
             Text(
               'SEAT  14C',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -1672,13 +1705,19 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: paletteAmber.withValues(alpha: 0.10),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(left: BorderSide(color: paletteAmber, width: 5.0)),
+      border: Border(
+        left: BorderSide(color: paletteAmber, width: 5.0),
+      ),
     ),
     padding: const EdgeInsets.all(14.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.lightbulb_outline, color: paletteAmber, size: 22.0),
+        const Icon(
+          Icons.lightbulb_outline,
+          color: paletteAmber,
+          size: 22.0,
+        ),
         const SizedBox(width: 10.0),
         const Expanded(
           child: Column(
@@ -1860,9 +1899,7 @@ dynamic build(BuildContext context) {
     'Multiple BoxShadow entries stack to produce neon, embossed, or layered effects.',
   ];
 
-  final List<Widget> takeawayItems = List<Widget>.generate(takeaways.length, (
-    int i,
-  ) {
+  final List<Widget> takeawayItems = List<Widget>.generate(takeaways.length, (int i) {
     final List<Color> tints = <Color>[
       paletteIndigo,
       paletteRose,
@@ -1880,13 +1917,19 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: tint.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: tint.withValues(alpha: 0.3), width: 1.0),
+        border: Border.all(
+          color: tint.withValues(alpha: 0.3),
+          width: 1.0,
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           DecoratedBox(
-            decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: tint,
+              shape: BoxShape.circle,
+            ),
             child: SizedBox(
               width: 26.0,
               height: 26.0,
@@ -1934,25 +1977,18 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           introHero,
-          sectionHeader(
-            '01',
-            'Color Fills',
-            'BoxDecoration.color basics',
-            paletteIndigo,
-          ),
+          sectionHeader('01', 'Color Fills', 'BoxDecoration.color basics', paletteIndigo),
           narrative(
             'A simple solid color is the foundation of every decoration. Below we render '
             'eight palette swatches inside DecoratedBox wrappers. Each tile prints its '
             'hex value so you can copy/paste the design tokens directly.',
             paletteIndigo,
           ),
-          Wrap(alignment: WrapAlignment.center, children: fillSamples),
-          sectionHeader(
-            '02',
-            'Border Cookbook',
-            'Border.all and asymmetric sides',
-            paletteRose,
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: fillSamples,
           ),
+          sectionHeader('02', 'Border Cookbook', 'Border.all and asymmetric sides', paletteRose),
           narrative(
             'Borders can be applied uniformly with Border.all, or per-side using the '
             'Border() constructor. Combine with borderRadius for soft corners — and use '
@@ -1974,25 +2010,18 @@ dynamic build(BuildContext context) {
               borderAsymmetricRadius,
             ],
           ),
-          sectionHeader(
-            '03',
-            'Border Radius',
-            'From sharp to fully pill',
-            paletteTeal,
-          ),
+          sectionHeader('03', 'Border Radius', 'From sharp to fully pill', paletteTeal),
           narrative(
             'The borderRadius parameter accepts any BorderRadius geometry. Pass a very '
             'large value (or BorderRadius.circular(999)) to produce a fully pill or '
             'circular shape from rectangular bounds.',
             paletteTeal,
           ),
-          Wrap(alignment: WrapAlignment.center, children: radiusSamples),
-          sectionHeader(
-            '04',
-            'Shadow Cookbook',
-            'Soft, hard, glow, neon and emboss',
-            paletteSlate,
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: radiusSamples,
           ),
+          sectionHeader('04', 'Shadow Cookbook', 'Soft, hard, glow, neon and emboss', paletteSlate),
           narrative(
             'BoxShadow is composed of color, blurRadius, spreadRadius and offset. '
             'Stack multiple shadows to build neon halos, embossed buttons, or layered '
@@ -2012,12 +2041,7 @@ dynamic build(BuildContext context) {
               shadowColoredTrio,
             ],
           ),
-          sectionHeader(
-            '05',
-            'Linear Gradients',
-            'Direction, stops, rainbow',
-            paletteAmber,
-          ),
+          sectionHeader('05', 'Linear Gradients', 'Direction, stops, rainbow', paletteAmber),
           narrative(
             'LinearGradient flows in a straight line between begin and end Alignment '
             'points. Add explicit stops to create hard color transitions or stripes. '
@@ -2037,12 +2061,7 @@ dynamic build(BuildContext context) {
               linearSubtle,
             ],
           ),
-          sectionHeader(
-            '06',
-            'Radial Gradients',
-            'Center, focal, multi-stop',
-            paletteViolet,
-          ),
+          sectionHeader('06', 'Radial Gradients', 'Center, focal, multi-stop', paletteViolet),
           narrative(
             'RadialGradient blooms outward from a center point. Provide a focal point '
             'for an off-center light source effect, or shrink the radius for a tightly '
@@ -2060,12 +2079,7 @@ dynamic build(BuildContext context) {
               radialWide,
             ],
           ),
-          sectionHeader(
-            '07',
-            'Sweep Gradients',
-            'Conic & color wheels',
-            paletteEmerald,
-          ),
+          sectionHeader('07', 'Sweep Gradients', 'Conic & color wheels', paletteEmerald),
           narrative(
             'SweepGradient rotates colors around a center, creating conic / pie / color '
             'wheel effects. Constrain startAngle and endAngle to draw only an arc.',
@@ -2073,29 +2087,30 @@ dynamic build(BuildContext context) {
           ),
           Wrap(
             alignment: WrapAlignment.center,
-            children: <Widget>[sweepFull, sweepHalf, sweepQuarter, sweepDuo],
+            children: <Widget>[
+              sweepFull,
+              sweepHalf,
+              sweepQuarter,
+              sweepDuo,
+            ],
           ),
-          sectionHeader(
-            '08',
-            'Circle & Pill',
-            'BoxShape.circle and large radii',
-            paletteCoral,
-          ),
+          sectionHeader('08', 'Circle & Pill', 'BoxShape.circle and large radii', paletteCoral),
           narrative(
             'BoxShape.circle turns any DecoratedBox into a perfect circle (clipping to '
             'the shortest side). For pills, use BoxShape.rectangle plus a borderRadius '
             'of half the height.',
             paletteCoral,
           ),
-          Wrap(alignment: WrapAlignment.center, children: circleSamples),
-          const SizedBox(height: 6.0),
-          Wrap(alignment: WrapAlignment.center, children: pillSamples),
-          sectionHeader(
-            '09',
-            'ShapeDecoration',
-            'Stadium, beveled, star, polygon',
-            paletteIndigo,
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: circleSamples,
           ),
+          const SizedBox(height: 6.0),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: pillSamples,
+          ),
+          sectionHeader('09', 'ShapeDecoration', 'Stadium, beveled, star, polygon', paletteIndigo),
           narrative(
             'ShapeDecoration accepts a ShapeBorder, opening the door to stadiums, '
             'beveled rectangles, n-pointed stars, and polygonal silhouettes. Combine '
@@ -2125,12 +2140,7 @@ dynamic build(BuildContext context) {
               gradientShapeStar,
             ],
           ),
-          sectionHeader(
-            '10',
-            'DecorationPosition',
-            'background vs foreground',
-            paletteRose,
-          ),
+          sectionHeader('10', 'DecorationPosition', 'background vs foreground', paletteRose),
           narrative(
             'DecorationPosition.background (default) paints the decoration UNDER the '
             'child. DecorationPosition.foreground paints it OVER the child — useful '
@@ -2141,26 +2151,22 @@ dynamic build(BuildContext context) {
             alignment: WrapAlignment.center,
             spacing: 14.0,
             runSpacing: 14.0,
-            children: <Widget>[positionBackground, positionForeground],
+            children: <Widget>[
+              positionBackground,
+              positionForeground,
+            ],
           ),
-          sectionHeader(
-            '11',
-            'Foreground Posters',
-            'Real overlay scrim use-cases',
-            paletteSlate,
-          ),
+          sectionHeader('11', 'Foreground Posters', 'Real overlay scrim use-cases', paletteSlate),
           narrative(
             'A common pattern is to apply a foreground gradient that darkens the bottom '
             'of an image-like surface, then position text on top for guaranteed contrast.',
             paletteSlate,
           ),
-          Wrap(alignment: WrapAlignment.center, children: posters),
-          sectionHeader(
-            '12',
-            'Blend Modes',
-            'backgroundBlendMode showcase',
-            paletteTeal,
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: posters,
           ),
+          sectionHeader('12', 'Blend Modes', 'backgroundBlendMode showcase', paletteTeal),
           narrative(
             'When BoxDecoration has both a color and a gradient (or image), the '
             'backgroundBlendMode controls how they combine. Multiply darkens, screen '
@@ -2180,12 +2186,7 @@ dynamic build(BuildContext context) {
               blendExclusion,
             ],
           ),
-          sectionHeader(
-            '13',
-            'FlutterLogoDecoration',
-            'Built-in logo decoration',
-            paletteViolet,
-          ),
+          sectionHeader('13', 'FlutterLogoDecoration', 'Built-in logo decoration', paletteViolet),
           narrative(
             'FlutterLogoDecoration paints the Flutter logo as a Decoration. It has '
             'three styles — markOnly, horizontal, stacked — and supports textColor '
@@ -2196,14 +2197,13 @@ dynamic build(BuildContext context) {
             alignment: WrapAlignment.center,
             spacing: 12.0,
             runSpacing: 12.0,
-            children: <Widget>[logoMark, logoHorizontal, logoStacked],
+            children: <Widget>[
+              logoMark,
+              logoHorizontal,
+              logoStacked,
+            ],
           ),
-          sectionHeader(
-            '14',
-            'DecoratedBoxTransition',
-            'Tween between decorations',
-            paletteAmber,
-          ),
+          sectionHeader('14', 'DecoratedBoxTransition', 'Tween between decorations', paletteAmber),
           narrative(
             'DecoratedBoxTransition rebuilds when the bound Animation<Decoration> ticks. '
             'Here we sample six static frames from a DecorationTween that morphs from '
@@ -2211,13 +2211,11 @@ dynamic build(BuildContext context) {
             'glowing shadow.',
             paletteAmber,
           ),
-          Wrap(alignment: WrapAlignment.center, children: transitionFrames),
-          sectionHeader(
-            '15',
-            'Custom Decoration',
-            'Subclassing Decoration & BoxPainter',
-            paletteEmerald,
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: transitionFrames,
           ),
+          sectionHeader('15', 'Custom Decoration', 'Subclassing Decoration & BoxPainter', paletteEmerald),
           narrative(
             'For unique looks, subclass Decoration and provide a BoxPainter. The painter '
             'receives the canvas and the size, and is free to draw anything. Below: a '
@@ -2228,14 +2226,13 @@ dynamic build(BuildContext context) {
             alignment: WrapAlignment.center,
             spacing: 12.0,
             runSpacing: 12.0,
-            children: <Widget>[customStripeA, customStripeB, customStripeC],
+            children: <Widget>[
+              customStripeA,
+              customStripeB,
+              customStripeC,
+            ],
           ),
-          sectionHeader(
-            '16',
-            'Real-World Cards',
-            'Production-grade compositions',
-            paletteCoral,
-          ),
+          sectionHeader('16', 'Real-World Cards', 'Production-grade compositions', paletteCoral),
           narrative(
             'The previous sections covered atoms. Below: complete molecules — a product '
             'card, a glass surface, an airline ticket and an info banner — each built '
@@ -2244,23 +2241,19 @@ dynamic build(BuildContext context) {
           ),
           Wrap(
             alignment: WrapAlignment.center,
-            children: <Widget>[productCard, glassCard, ticketCard],
+            children: <Widget>[
+              productCard,
+              glassCard,
+              ticketCard,
+            ],
           ),
           infoBanner,
-          sectionHeader(
-            '17',
-            'Metrics',
-            'Counts produced by this demo',
-            paletteIndigo,
-          ),
+          sectionHeader('17', 'Metrics', 'Counts produced by this demo', paletteIndigo),
           metricsBar,
-          sectionHeader(
-            '18',
-            'Key Takeaways',
-            'Quick reference for the decoration family',
-            paletteRose,
+          sectionHeader('18', 'Key Takeaways', 'Quick reference for the decoration family', paletteRose),
+          Column(
+            children: takeawayItems,
           ),
-          Column(children: takeawayItems),
           const SizedBox(height: 24.0),
           Container(
             padding: const EdgeInsets.all(14.0),

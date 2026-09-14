@@ -64,7 +64,12 @@ enum _PadStage {
   verification,
 }
 
-enum _GalleryKind { list, grid, fixedExtent, adapter }
+enum _GalleryKind {
+  list,
+  grid,
+  fixedExtent,
+  adapter,
+}
 
 dynamic build(BuildContext context) {
   return const _SliverPaddingAtlas();
@@ -162,11 +167,8 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.space_dashboard_rounded,
-                color: Colors.white,
-                size: 27,
-              ),
+              const Icon(Icons.space_dashboard_rounded,
+                  color: Colors.white, size: 27),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -179,10 +181,8 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(999),
@@ -396,17 +396,9 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                     const Spacer(),
                     _metricChip('T', _playTop.toStringAsFixed(0), _t.primary),
                     const SizedBox(width: 6),
-                    _metricChip(
-                      'B',
-                      _playBottom.toStringAsFixed(0),
-                      _t.primary,
-                    ),
+                    _metricChip('B', _playBottom.toStringAsFixed(0), _t.primary),
                     const SizedBox(width: 6),
-                    _metricChip(
-                      'S',
-                      _playStart.toStringAsFixed(0),
-                      _t.secondary,
-                    ),
+                    _metricChip('S', _playStart.toStringAsFixed(0), _t.secondary),
                     const SizedBox(width: 6),
                     _metricChip('E', _playEnd.toStringAsFixed(0), _t.secondary),
                   ],
@@ -422,8 +414,7 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                 flex: 3,
                 child: _card(
                   title: 'Live SliverPadding Scene',
-                  subtitle:
-                      'Insets wrap a sliver list between intro and outro blocks.',
+                  subtitle: 'Insets wrap a sliver list between intro and outro blocks.',
                   tint: _t.primary.withValues(alpha: 0.04),
                   child: SizedBox(
                     height: 560,
@@ -431,9 +422,7 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: _t.muted.withValues(alpha: 0.24),
-                        ),
+                        border: Border.all(color: _t.muted.withValues(alpha: 0.24)),
                       ),
                       child: Stack(
                         children: [
@@ -451,9 +440,7 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                           CustomScrollView(
                             slivers: [
                               SliverToBoxAdapter(
-                                child: _stageBanner(
-                                  'Padded segment starts below',
-                                ),
+                                child: _stageBanner('Padded segment starts below'),
                               ),
                               SliverPadding(
                                 padding: insets,
@@ -489,18 +476,10 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _bullet(
-                        'Top and bottom insets add scroll spacing around sliver.',
-                      ),
-                      _bullet(
-                        'Start and end insets shrink available cross-axis width.',
-                      ),
-                      _bullet(
-                        'Inset changes propagate through sliver layout each frame.',
-                      ),
-                      _bullet(
-                        'SliverPadding is render-layer aware, unlike box padding.',
-                      ),
+                      _bullet('Top and bottom insets add scroll spacing around sliver.'),
+                      _bullet('Start and end insets shrink available cross-axis width.'),
+                      _bullet('Inset changes propagate through sliver layout each frame.'),
+                      _bullet('SliverPadding is render-layer aware, unlike box padding.'),
                       const SizedBox(height: 8),
                       Container(
                         width: double.infinity,
@@ -508,9 +487,7 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: _t.muted.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: _t.muted.withValues(alpha: 0.2)),
                         ),
                         child: Text(
                           'Current insets\n'
@@ -594,17 +571,9 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                       style: TextStyle(color: _t.ink, fontSize: 12),
                     ),
                     const Spacer(),
-                    _metricChip(
-                      'V',
-                      _axisVertical.toStringAsFixed(0),
-                      _t.primary,
-                    ),
+                    _metricChip('V', _axisVertical.toStringAsFixed(0), _t.primary),
                     const SizedBox(width: 6),
-                    _metricChip(
-                      'H',
-                      _axisHorizontal.toStringAsFixed(0),
-                      _t.secondary,
-                    ),
+                    _metricChip('H', _axisHorizontal.toStringAsFixed(0), _t.secondary),
                   ],
                 ),
               ],
@@ -626,8 +595,7 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                 title: 'Horizontal Only',
                 subtitle: 'Start and end insets only',
                 padding: EdgeInsetsDirectional.symmetric(
-                  horizontal: _axisHorizontal,
-                ),
+                    horizontal: _axisHorizontal),
                 color: _t.secondary,
                 overlayText: 'start/end only',
               ),
@@ -652,13 +620,9 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Vertical insets alter where sliver content starts/ends in scroll axis.',
-                ),
+                _bullet('Vertical insets alter where sliver content starts/ends in scroll axis.'),
                 _bullet('Horizontal insets reduce child cross-axis budget.'),
-                _bullet(
-                  'Combined insets can frame content as a centered reading corridor.',
-                ),
+                _bullet('Combined insets can frame content as a centered reading corridor.'),
               ],
             ),
           ),
@@ -812,17 +776,9 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                       style: TextStyle(color: _t.ink, fontSize: 12),
                     ),
                     const Spacer(),
-                    _metricChip(
-                      'left',
-                      resolvedLeft.toStringAsFixed(0),
-                      _t.primary,
-                    ),
+                    _metricChip('left', resolvedLeft.toStringAsFixed(0), _t.primary),
                     const SizedBox(width: 6),
-                    _metricChip(
-                      'right',
-                      resolvedRight.toStringAsFixed(0),
-                      _t.secondary,
-                    ),
+                    _metricChip('right', resolvedRight.toStringAsFixed(0), _t.secondary),
                   ],
                 ),
               ],
@@ -836,8 +792,7 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                 flex: 3,
                 child: _card(
                   title: 'Directional Sliver Surface',
-                  subtitle:
-                      'Padding uses EdgeInsetsDirectional and live directionality.',
+                  subtitle: 'Padding uses EdgeInsetsDirectional and live directionality.',
                   tint: _t.primary.withValues(alpha: 0.04),
                   child: SizedBox(
                     height: 540,
@@ -845,22 +800,17 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: _t.muted.withValues(alpha: 0.24),
-                        ),
+                        border: Border.all(color: _t.muted.withValues(alpha: 0.24)),
                       ),
                       child: Directionality(
-                        textDirection: _dirIsRtl
-                            ? TextDirection.rtl
-                            : TextDirection.ltr,
+                        textDirection:
+                            _dirIsRtl ? TextDirection.rtl : TextDirection.ltr,
                         child: CustomScrollView(
                           slivers: [
                             SliverToBoxAdapter(
-                              child: _stageBanner(
-                                _dirIsRtl
-                                    ? 'RTL direction active'
-                                    : 'LTR direction active',
-                              ),
+                              child: _stageBanner(_dirIsRtl
+                                  ? 'RTL direction active'
+                                  : 'LTR direction active'),
                             ),
                             SliverPadding(
                               padding: edgeInsets,
@@ -895,15 +845,9 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _bullet(
-                          'EdgeInsetsDirectional is locale direction aware.',
-                        ),
-                        _bullet(
-                          'Start/end are semantic edges, not physical edges.',
-                        ),
-                        _bullet(
-                          'Top/bottom stay unchanged across direction modes.',
-                        ),
+                        _bullet('EdgeInsetsDirectional is locale direction aware.'),
+                        _bullet('Start/end are semantic edges, not physical edges.'),
+                        _bullet('Top/bottom stay unchanged across direction modes.'),
                         const SizedBox(height: 8),
                         Container(
                           width: double.infinity,
@@ -911,9 +855,7 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: _t.muted.withValues(alpha: 0.2),
-                            ),
+                            border: Border.all(color: _t.muted.withValues(alpha: 0.2)),
                           ),
                           child: Text(
                             'Direction: ${_dirIsRtl ? 'RTL' : 'LTR'}\n'
@@ -963,15 +905,15 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
     }
 
     if (_nestedCenterCap) {
-      lane = SliverConstrainedCrossAxis(maxExtent: _nestedCap, sliver: lane);
+      lane = SliverConstrainedCrossAxis(
+        maxExtent: _nestedCap,
+        sliver: lane,
+      );
     }
 
     if (_nestedOuter) {
       lane = SliverPadding(
-        padding: EdgeInsets.symmetric(
-          horizontal: _nestedOuterPad,
-          vertical: 10,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: _nestedOuterPad, vertical: 10),
         sliver: lane,
       );
     }
@@ -1072,26 +1014,15 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                           runSpacing: 6,
                           children: [
                             if (_nestedOuter)
-                              _metricChip(
-                                'outer',
-                                _nestedOuterPad.toStringAsFixed(0),
-                                _t.primary,
-                              ),
+                              _metricChip('outer',
+                                  _nestedOuterPad.toStringAsFixed(0), _t.primary),
                             if (_nestedInner)
-                              _metricChip(
-                                'inner',
-                                _nestedInnerPad.toStringAsFixed(0),
-                                _t.secondary,
-                              ),
+                              _metricChip('inner',
+                                  _nestedInnerPad.toStringAsFixed(0), _t.secondary),
                             if (_nestedCenterCap)
-                              _metricChip(
-                                'max',
-                                _nestedCap.toStringAsFixed(0),
-                                _t.accent,
-                              ),
-                            if (!_nestedOuter &&
-                                !_nestedInner &&
-                                !_nestedCenterCap)
+                              _metricChip('max',
+                                  _nestedCap.toStringAsFixed(0), _t.accent),
+                            if (!_nestedOuter && !_nestedInner && !_nestedCenterCap)
                               _metricChip('mode', 'no wrappers', _t.muted),
                           ],
                         ),
@@ -1111,15 +1042,9 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Outer wrappers affect larger layout region first.'),
-                _bullet(
-                  'Inner wrappers further inset child slivers after outer transforms.',
-                ),
-                _bullet(
-                  'Insert cross-axis constraints between padding layers when needed.',
-                ),
-                _bullet(
-                  'Use clear wrapper intent to keep layout maintenance simple.',
-                ),
+                _bullet('Inner wrappers further inset child slivers after outer transforms.'),
+                _bullet('Insert cross-axis constraints between padding layers when needed.'),
+                _bullet('Use clear wrapper intent to keep layout maintenance simple.'),
               ],
             ),
           ),
@@ -1302,9 +1227,7 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                     ),
                     SliverPadding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: _galleryH,
-                        vertical: _galleryV,
-                      ),
+                          horizontal: _galleryH, vertical: _galleryV),
                       sliver: demoSliver,
                     ),
                   ],
@@ -1319,15 +1242,9 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Padding logic is consistent even as child sliver type changes.',
-                ),
-                _bullet(
-                  'Grid and fixed-extent slivers keep their own internal layout rules.',
-                ),
-                _bullet(
-                  'Padding is ideal for section framing in large composite scroll views.',
-                ),
+                _bullet('Padding logic is consistent even as child sliver type changes.'),
+                _bullet('Grid and fixed-extent slivers keep their own internal layout rules.'),
+                _bullet('Padding is ideal for section framing in large composite scroll views.'),
               ],
             ),
           ),
@@ -1395,22 +1312,21 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
               children: [
                 _doDont(
                   good: true,
-                  title:
-                      'Use SliverPadding to frame sections in CustomScrollView',
+                  title: 'Use SliverPadding to frame sections in CustomScrollView',
                   detail:
                       'It preserves sliver-aware layout behavior and scroll geometry.',
                 ),
                 _doDont(
                   good: false,
-                  title:
-                      'Replace all spacing with box padding inside sliver children',
+                  title: 'Replace all spacing with box padding inside sliver children',
                   detail:
                       'You lose clear section-level sliver framing and can complicate structure.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Prefer EdgeInsetsDirectional for localized apps',
-                  detail: 'Start/end naturally adapt in RTL and LTR contexts.',
+                  detail:
+                      'Start/end naturally adapt in RTL and LTR contexts.',
                 ),
                 _doDont(
                   good: false,
@@ -1429,26 +1345,22 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
               children: [
                 _qa(
                   q: 'Does SliverPadding change child sliver type?',
-                  a:
-                      'No. It wraps the child and transforms its constraints and '
+                  a: 'No. It wraps the child and transforms its constraints and '
                       'position through edge insets.',
                 ),
                 _qa(
                   q: 'Can I use SliverPadding around SliverGrid?',
-                  a:
-                      'Yes. It works with most sliver children including lists, '
+                  a: 'Yes. It works with most sliver children including lists, '
                       'grids, and adapter-based compositions.',
                 ),
                 _qa(
                   q: 'Should I use EdgeInsetsDirectional always?',
-                  a:
-                      'Use it when direction-aware spacing is desired. Use plain '
+                  a: 'Use it when direction-aware spacing is desired. Use plain '
                       'EdgeInsets when physical left/right is intentional.',
                 ),
                 _qa(
                   q: 'How does it interact with cross-axis constraints?',
-                  a:
-                      'Padding insets apply first, then downstream wrappers like '
+                  a: 'Padding insets apply first, then downstream wrappers like '
                       'SliverConstrainedCrossAxis can further constrain width.',
                 ),
               ],
@@ -1462,15 +1374,11 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _check('Four-edge interactive insets playground implemented.'),
-                _check(
-                  'Axis-specific comparison across vertical/horizontal/full cases.',
-                ),
+                _check('Axis-specific comparison across vertical/horizontal/full cases.'),
                 _check('Directional and RTL mapping demonstrated visually.'),
                 _check('Nested wrapper stack behavior shown with toggles.'),
                 _check('Multiple sliver families padded in gallery mode.'),
-                _check(
-                  'Guide includes matrix, dos and donts, FAQ, and checklist.',
-                ),
+                _check('Guide includes matrix, dos and donts, FAQ, and checklist.'),
               ],
             ),
           ),
@@ -1536,7 +1444,11 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(color: _t.muted, fontSize: 11.2, height: 1.3),
+            style: TextStyle(
+              color: _t.muted,
+              fontSize: 11.2,
+              height: 1.3,
+            ),
           ),
         ],
       ),
@@ -1553,7 +1465,10 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
       builder: (context, constraints) {
         return Column(
           children: [
-            Container(height: top, color: _t.primary.withValues(alpha: 0.08)),
+            Container(
+              height: top,
+              color: _t.primary.withValues(alpha: 0.08),
+            ),
             Expanded(
               child: Row(
                 children: [
@@ -1730,11 +1645,8 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            good ? Icons.check_circle : Icons.cancel,
-            color: color,
-            size: 18,
-          ),
+          Icon(good ? Icons.check_circle : Icons.cancel,
+              color: color, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1749,7 +1661,10 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(detail, style: TextStyle(color: _t.muted, fontSize: 11.3)),
+                Text(
+                  detail,
+                  style: TextStyle(color: _t.muted, fontSize: 11.3),
+                ),
               ],
             ),
           ),
@@ -1797,7 +1712,10 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(color: _t.ink, fontSize: 12)),
+            child: Text(
+              text,
+              style: TextStyle(color: _t.ink, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -1886,7 +1804,10 @@ class _SliverPaddingAtlasState extends State<_SliverPaddingAtlas> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: _t.muted, fontSize: 11.5)),
+          Text(
+            subtitle,
+            style: TextStyle(color: _t.muted, fontSize: 11.5),
+          ),
           const SizedBox(height: 10),
           child,
         ],

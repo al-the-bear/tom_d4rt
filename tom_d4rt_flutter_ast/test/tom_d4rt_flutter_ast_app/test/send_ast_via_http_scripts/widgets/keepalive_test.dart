@@ -22,10 +22,8 @@ import 'package:flutter/widgets.dart';
 // identical to a real `KeepAlive(...)` invocation, while skipping
 // the ParentDataWidget machinery. Real KeepAlive usage inside slivers
 // would *not* go through this stub.
-Widget _illustrativeKeepAlive({
-  required bool keepAlive,
-  required Widget child,
-}) => child;
+Widget _illustrativeKeepAlive({required bool keepAlive, required Widget child}) =>
+    child;
 
 dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────────────────────────────
@@ -202,9 +200,8 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 13),
             decoration: BoxDecoration(
               color: emberPale,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Text(
               heading,
@@ -216,7 +213,10 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Padding(padding: const EdgeInsets.all(13), child: content),
+          Padding(
+            padding: const EdgeInsets.all(13),
+            child: content,
+          ),
         ],
       ),
     );
@@ -285,16 +285,20 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          color: fg,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
 
   Widget hRule() => Container(
-    height: 1,
-    margin: const EdgeInsets.symmetric(vertical: 8),
-    color: emberPale,
-  );
+        height: 1,
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        color: emberPale,
+      );
 
   Widget bullet(String text) {
     return Padding(
@@ -328,15 +332,15 @@ dynamic build(BuildContext context) {
           for (int i = 0; i < rows.length; i++)
             TableRow(
               decoration: BoxDecoration(
-                color: i == 0 ? hbg : (i.isEven ? emberCream : Colors.white),
+                color: i == 0
+                    ? hbg
+                    : (i.isEven ? emberCream : Colors.white),
               ),
               children: [
                 for (final cell in rows[i])
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 7,
-                    ),
+                        horizontal: 10, vertical: 7),
                     child: Text(
                       cell,
                       style: TextStyle(
@@ -414,7 +418,8 @@ dynamic build(BuildContext context) {
           ),
           if (keptAlive)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
               decoration: BoxDecoration(
                 color: charcoal,
                 borderRadius: BorderRadius.circular(10),
@@ -438,7 +443,8 @@ dynamic build(BuildContext context) {
             )
           else
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
               decoration: BoxDecoration(
                 color: ash.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(10),
@@ -545,7 +551,11 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Column(
         children: [
-          Container(width: 2, height: 16, color: color),
+          Container(
+            width: 2,
+            height: 16,
+            color: color,
+          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
@@ -561,7 +571,11 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Container(width: 2, height: 6, color: color),
+          Container(
+            width: 2,
+            height: 6,
+            color: color,
+          ),
           Icon(Icons.arrow_drop_down, color: color, size: 22),
         ],
       ),
@@ -648,7 +662,8 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: bg ?? Colors.white,
-        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8)),
+        borderRadius:
+            const BorderRadius.vertical(bottom: Radius.circular(8)),
         border: Border.all(color: emberPale),
       ),
       child: body,
@@ -687,7 +702,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.25)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.25),
+                ),
               ),
               child: const Icon(
                 Icons.local_fire_department,
@@ -746,11 +763,8 @@ dynamic build(BuildContext context) {
   final Widget section1 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '1',
-        'Dossier — What is the KeepAlive family for?',
-        'The art of remembering when nobody is watching',
-      ),
+      sectionBanner('1', 'Dossier — What is the KeepAlive family for?',
+          'The art of remembering when nobody is watching'),
       noteBox(
         'Flutter\'s lazy scrollables — ListView.builder, SliverList, '
         'PageView, TabBarView, GridView — destroy off-screen children to '
@@ -767,22 +781,14 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             dataRow('KeepAlive', 'ParentDataWidget — flags a child "keep me"'),
-            dataRow(
-              'KeepAliveNotification',
-              'Notification — child to ancestor sliver',
-            ),
-            dataRow(
-              'KeepAliveHandle',
-              'Listenable — release token carried by notification',
-            ),
-            dataRow(
-              'AutomaticKeepAlive',
-              'Widget — listens for notifications, wraps each slot',
-            ),
-            dataRow(
-              'AutomaticKeepAliveClientMixin',
-              'mixin on State — the convenience API',
-            ),
+            dataRow('KeepAliveNotification',
+                'Notification — child to ancestor sliver'),
+            dataRow('KeepAliveHandle',
+                'Listenable — release token carried by notification'),
+            dataRow('AutomaticKeepAlive',
+                'Widget — listens for notifications, wraps each slot'),
+            dataRow('AutomaticKeepAliveClientMixin',
+                'mixin on State — the convenience API'),
           ],
         ),
       ),
@@ -791,27 +797,17 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bullet(
-              'A multi-page wizard inside a TabBarView where each tab '
-              'has a half-filled form.',
-            ),
-            bullet(
-              'A PageView showing chat threads, each with its own '
-              'scroll offset that should not jump to top on swipe.',
-            ),
-            bullet(
-              'A long ListView.builder where some rows contain a '
-              'video that should keep its playback position.',
-            ),
-            bullet(
-              'A NestedScrollView body whose inner Scrollables must '
-              'retain their last position when the outer header collapses.',
-            ),
-            bullet(
-              'Any widget whose State construction is expensive (a '
-              'large initial fetch, a CustomPainter cache, an animation '
-              'graph) and should not be torn down on a small swipe.',
-            ),
+            bullet('A multi-page wizard inside a TabBarView where each tab '
+                'has a half-filled form.'),
+            bullet('A PageView showing chat threads, each with its own '
+                'scroll offset that should not jump to top on swipe.'),
+            bullet('A long ListView.builder where some rows contain a '
+                'video that should keep its playback position.'),
+            bullet('A NestedScrollView body whose inner Scrollables must '
+                'retain their last position when the outer header collapses.'),
+            bullet('Any widget whose State construction is expensive (a '
+                'large initial fetch, a CustomPainter cache, an animation '
+                'graph) and should not be torn down on a small swipe.'),
           ],
         ),
       ),
@@ -820,23 +816,15 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bullet(
-              'Pure presentational rows — text, image, no internal '
-              'state worth preserving.',
-            ),
-            bullet(
-              'Stateless widgets — keep-alive only protects State '
-              'objects from disposal; a Stateless rebuild is cheap.',
-            ),
-            bullet(
-              'Items where you actually want fresh content each time '
-              '(e.g. a "now playing" row that should always pull live '
-              'data on rebuild).',
-            ),
-            bullet(
-              'Lists with thousands of items — keeping them all alive '
-              'defeats the memory-saving purpose of lazy building.',
-            ),
+            bullet('Pure presentational rows — text, image, no internal '
+                'state worth preserving.'),
+            bullet('Stateless widgets — keep-alive only protects State '
+                'objects from disposal; a Stateless rebuild is cheap.'),
+            bullet('Items where you actually want fresh content each time '
+                '(e.g. a "now playing" row that should always pull live '
+                'data on rebuild).'),
+            bullet('Lists with thousands of items — keeping them all alive '
+                'defeats the memory-saving purpose of lazy building.'),
           ],
         ),
       ),
@@ -849,11 +837,8 @@ dynamic build(BuildContext context) {
   final Widget section2 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '2',
-        'Anatomy — The KeepAlive ParentDataWidget',
-        'The low-level "keep me" flag, set in the parent\'s parentData',
-      ),
+      sectionBanner('2', 'Anatomy — The KeepAlive ParentDataWidget',
+          'The low-level "keep me" flag, set in the parent\'s parentData'),
       noteBox(
         'KeepAlive is a ParentDataWidget<KeepAliveParentDataMixin>. It '
         'writes a single boolean (keepAlive) into the slot\'s parentData. '
@@ -885,19 +870,11 @@ dynamic build(BuildContext context) {
           children: [
             actor('KeepAlive', ember, Icons.bolt, sub: 'keepAlive: bool'),
             arrowDown('extends', smoke),
-            actor(
-              'ParentDataWidget<KeepAliveParentDataMixin>',
-              emberDeep,
-              Icons.account_tree,
-              sub: 'writes parentData',
-            ),
+            actor('ParentDataWidget<KeepAliveParentDataMixin>', emberDeep,
+                Icons.account_tree, sub: 'writes parentData'),
             arrowDown('extends', smoke),
-            actor(
-              'ProxyWidget',
-              emberDark,
-              Icons.swap_horiz,
-              sub: 'wraps a single child',
-            ),
+            actor('ProxyWidget', emberDark, Icons.swap_horiz,
+                sub: 'wraps a single child'),
             arrowDown('extends', smoke),
             actor('Widget', charcoal, Icons.widgets, sub: 'the immutable spec'),
           ],
@@ -931,7 +908,8 @@ dynamic build(BuildContext context) {
                         child: const Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.bolt, color: emberGold, size: 28),
+                            Icon(Icons.bolt,
+                                color: emberGold, size: 28),
                             SizedBox(height: 4),
                             Text(
                               'keepAlive: true',
@@ -970,11 +948,8 @@ dynamic build(BuildContext context) {
                         child: const Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              Icons.delete_outline,
-                              color: Colors.white,
-                              size: 28,
-                            ),
+                            Icon(Icons.delete_outline,
+                                color: Colors.white, size: 28),
                             SizedBox(height: 4),
                             Text(
                               'keepAlive: false',
@@ -986,7 +961,10 @@ dynamic build(BuildContext context) {
                             ),
                             Text(
                               'free to be disposed',
-                              style: TextStyle(color: ash, fontSize: 10.5),
+                              style: TextStyle(
+                                color: ash,
+                                fontSize: 10.5,
+                              ),
                             ),
                           ],
                         ),
@@ -1015,27 +993,16 @@ dynamic build(BuildContext context) {
         'Members reference',
         kvTable([
           ['Member', 'Kind', 'Description'],
-          [
-            'keepAlive',
-            'final bool',
-            'true → ask parent sliver to preserve this slot',
-          ],
-          ['child', 'final Widget', 'the slot to be preserved (single child)'],
-          [
-            'applyParentData',
-            'override',
-            'writes keepAlive into the slot\'s parentData',
-          ],
-          [
-            'debugCanApplyOutOfTurn',
-            'override',
-            'true so the flag can be flipped late in the frame',
-          ],
-          [
-            'debugTypicalAncestorWidgetClass',
-            'override',
-            'SliverWithKeepAliveWidget (compile-time documentation)',
-          ],
+          ['keepAlive', 'final bool',
+              'true → ask parent sliver to preserve this slot'],
+          ['child', 'final Widget',
+              'the slot to be preserved (single child)'],
+          ['applyParentData', 'override',
+              'writes keepAlive into the slot\'s parentData'],
+          ['debugCanApplyOutOfTurn', 'override',
+              'true so the flag can be flipped late in the frame'],
+          ['debugTypicalAncestorWidgetClass', 'override',
+              'SliverWithKeepAliveWidget (compile-time documentation)'],
         ]),
       ),
     ],
@@ -1047,11 +1014,8 @@ dynamic build(BuildContext context) {
   final Widget section3 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '3',
-        'Notification + Handle — the keep-alive protocol',
-        'A bubble-up Notification carrying a Listenable release token',
-      ),
+      sectionBanner('3', 'Notification + Handle — the keep-alive protocol',
+          'A bubble-up Notification carrying a Listenable release token'),
       noteBox(
         'A child that wants to be kept alive does not call a method on its '
         'ancestor — instead it dispatches a KeepAliveNotification carrying '
@@ -1154,15 +1118,14 @@ dynamic build(BuildContext context) {
         'KeepAliveHandle — the release-token Listenable',
         kvTable([
           ['Member', 'Kind', 'Description'],
-          [
-            'KeepAliveHandle()',
-            'constructor',
-            'creates a fresh ChangeNotifier',
-          ],
-          ['addListener', 'inherited', 'AutomaticKeepAlive registers here'],
+          ['KeepAliveHandle()', 'constructor', 'creates a fresh ChangeNotifier'],
+          ['addListener', 'inherited',
+              'AutomaticKeepAlive registers here'],
           ['removeListener', 'inherited', 'symmetry with addListener'],
-          ['dispose', 'override', 'fires notifyListeners() then tears down'],
-          ['hashCode / ==', 'identity', 'each handle is a unique reference'],
+          ['dispose', 'override',
+              'fires notifyListeners() then tears down'],
+          ['hashCode / ==', 'identity',
+              'each handle is a unique reference'],
         ]),
       ),
       infoCard(
@@ -1170,25 +1133,17 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bullet(
-              'Notifications travel up the element tree without the '
-              'sender needing a reference to the receiver — perfect for '
-              'arbitrary nesting (a Form inside a Card inside a tab).',
-            ),
-            bullet(
-              'Multiple AutomaticKeepAlive ancestors can co-exist (e.g. '
-              'nested PageView + ListView). The notification stops at the '
-              'first one that handles it; the others ignore.',
-            ),
-            bullet(
-              'The release path is implicit: dispose the handle, the '
-              'listener disappears with it. No teardown call to make on '
-              'the ancestor.',
-            ),
-            bullet(
-              'It composes with other Notifications (Scroll, Size) so '
-              'the same mechanism powers many cross-cutting concerns.',
-            ),
+            bullet('Notifications travel up the element tree without the '
+                'sender needing a reference to the receiver — perfect for '
+                'arbitrary nesting (a Form inside a Card inside a tab).'),
+            bullet('Multiple AutomaticKeepAlive ancestors can co-exist (e.g. '
+                'nested PageView + ListView). The notification stops at the '
+                'first one that handles it; the others ignore.'),
+            bullet('The release path is implicit: dispose the handle, the '
+                'listener disappears with it. No teardown call to make on '
+                'the ancestor.'),
+            bullet('It composes with other Notifications (Scroll, Size) so '
+                'the same mechanism powers many cross-cutting concerns.'),
           ],
         ),
       ),
@@ -1201,11 +1156,8 @@ dynamic build(BuildContext context) {
   final Widget section4 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '4',
-        'AutomaticKeepAlive — the slot-wrapping listener',
-        'The widget that turns notifications into ParentData',
-      ),
+      sectionBanner('4', 'AutomaticKeepAlive — the slot-wrapping listener',
+          'The widget that turns notifications into ParentData'),
       noteBox(
         'AutomaticKeepAlive is the bridge between the high-level "I want '
         'to be kept alive" notification and the low-level KeepAlive '
@@ -1221,24 +1173,16 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             bullet('Renders its child unchanged in the normal case.'),
-            bullet(
-              'Subscribes to KeepAliveNotification events from inside '
-              'the subtree.',
-            ),
-            bullet(
-              'For each unique handle that arrives, adds a listener '
-              'and tracks it in a Set<Listenable>.',
-            ),
-            bullet(
-              'While the set is non-empty, wraps the rendered child '
-              'in KeepAlive(keepAlive: true, …) so the parent sliver\'s '
-              'parentData says "keep me".',
-            ),
-            bullet(
-              'When a tracked handle is disposed, its listener removes '
-              'it from the set. If the set becomes empty, it rebuilds '
-              'with KeepAlive(keepAlive: false, …) and the slot is freed.',
-            ),
+            bullet('Subscribes to KeepAliveNotification events from inside '
+                'the subtree.'),
+            bullet('For each unique handle that arrives, adds a listener '
+                'and tracks it in a Set<Listenable>.'),
+            bullet('While the set is non-empty, wraps the rendered child '
+                'in KeepAlive(keepAlive: true, …) so the parent sliver\'s '
+                'parentData says "keep me".'),
+            bullet('When a tracked handle is disposed, its listener removes '
+                'it from the set. If the set becomes empty, it rebuilds '
+                'with KeepAlive(keepAlive: false, …) and the slot is freed.'),
           ],
         ),
       ),
@@ -1259,26 +1203,14 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            actor(
-              'SliverList.builder',
-              emberDeep,
-              Icons.view_list,
-              sub: 'sliver delegate, addAutomaticKeepAlives: true',
-            ),
+            actor('SliverList.builder', emberDeep, Icons.view_list,
+                sub: 'sliver delegate, addAutomaticKeepAlives: true'),
             arrowDown('wraps each tile', smoke),
-            actor(
-              'AutomaticKeepAlive',
-              ember,
-              Icons.shield,
-              sub: 'listens for KeepAliveNotification',
-            ),
+            actor('AutomaticKeepAlive', ember, Icons.shield,
+                sub: 'listens for KeepAliveNotification'),
             arrowDown('on demand', smoke),
-            actor(
-              'KeepAlive(keepAlive: true)',
-              emberDark,
-              Icons.bolt,
-              sub: 'ParentDataWidget written into slot',
-            ),
+            actor('KeepAlive(keepAlive: true)', emberDark, Icons.bolt,
+                sub: 'ParentDataWidget written into slot'),
             arrowDown('contains', smoke),
             actor('Your tile', ivyDark, Icons.widgets, sub: 'the visible UI'),
           ],
@@ -1293,11 +1225,8 @@ dynamic build(BuildContext context) {
   final Widget section5 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '5',
-        'AutomaticKeepAliveClientMixin — the friendly API',
-        'The mixin every Flutter tutorial reaches for',
-      ),
+      sectionBanner('5', 'AutomaticKeepAliveClientMixin — the friendly API',
+          'The mixin every Flutter tutorial reaches for'),
       noteBox(
         'AutomaticKeepAliveClientMixin is the friendly, idiomatic way to '
         'use the protocol from inside a State subclass. You mix it in, '
@@ -1351,24 +1280,16 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             bullet('Holds a private KeepAliveHandle? _keepAliveHandle.'),
-            bullet(
-              'On first super.build(), if wantKeepAlive is true and '
-              'there is no handle yet, creates one, dispatches the '
-              'notification, and stores the handle.',
-            ),
-            bullet(
-              'On each super.build(), reconciles current wantKeepAlive '
-              'with the handle: if false-and-have, disposes it; if '
-              'true-and-none, creates a new one.',
-            ),
-            bullet(
-              'updateKeepAlive() — public method you can call when '
-              'wantKeepAlive\'s value changes without a setState.',
-            ),
-            bullet(
-              'On dispose(), releases the handle so listeners are not '
-              'leaked.',
-            ),
+            bullet('On first super.build(), if wantKeepAlive is true and '
+                'there is no handle yet, creates one, dispatches the '
+                'notification, and stores the handle.'),
+            bullet('On each super.build(), reconciles current wantKeepAlive '
+                'with the handle: if false-and-have, disposes it; if '
+                'true-and-none, creates a new one.'),
+            bullet('updateKeepAlive() — public method you can call when '
+                'wantKeepAlive\'s value changes without a setState.'),
+            bullet('On dispose(), releases the handle so listeners are not '
+                'leaked.'),
           ],
         ),
       ),
@@ -1389,18 +1310,14 @@ dynamic build(BuildContext context) {
         'Reference table',
         kvTable([
           ['Member', 'Kind', 'Description'],
-          ['wantKeepAlive', 'getter (override)', 'true → request preservation'],
-          [
-            'super.build(context)',
-            'inherited call',
-            'reconciles handle each build',
-          ],
-          [
-            'updateKeepAlive()',
-            'method',
-            'force-resync after wantKeepAlive changes',
-          ],
-          ['dispose()', 'override', 'releases handle automatically'],
+          ['wantKeepAlive', 'getter (override)',
+              'true → request preservation'],
+          ['super.build(context)', 'inherited call',
+              'reconciles handle each build'],
+          ['updateKeepAlive()', 'method',
+              'force-resync after wantKeepAlive changes'],
+          ['dispose()', 'override',
+              'releases handle automatically'],
         ]),
       ),
     ],
@@ -1412,11 +1329,8 @@ dynamic build(BuildContext context) {
   final Widget section6 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '6',
-        'Recipes — real-world keep-alive scenarios',
-        'Four canonical patterns with pseudocode and a visual sketch',
-      ),
+      sectionBanner('6', 'Recipes — real-world keep-alive scenarios',
+          'Four canonical patterns with pseudocode and a visual sketch'),
 
       // Recipe A — TabBarView with form preservation
       infoCard(
@@ -1459,30 +1373,24 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             Row(
               children: [
-                Expanded(
-                  child: slot(
-                    label: 'Tab 0 — Profile',
-                    color: emberDeep,
-                    keptAlive: true,
-                    sub: 'TextField "Ada"',
-                  ),
-                ),
-                Expanded(
-                  child: slot(
-                    label: 'Tab 1 — Address',
-                    color: rust,
-                    keptAlive: true,
-                    sub: 'TextField "221B…"',
-                  ),
-                ),
-                Expanded(
-                  child: slot(
-                    label: 'Tab 2 — Notes',
-                    color: ember,
-                    keptAlive: true,
-                    sub: 'TextField "draft…"',
-                  ),
-                ),
+                Expanded(child: slot(
+                  label: 'Tab 0 — Profile',
+                  color: emberDeep,
+                  keptAlive: true,
+                  sub: 'TextField "Ada"',
+                )),
+                Expanded(child: slot(
+                  label: 'Tab 1 — Address',
+                  color: rust,
+                  keptAlive: true,
+                  sub: 'TextField "221B…"',
+                )),
+                Expanded(child: slot(
+                  label: 'Tab 2 — Notes',
+                  color: ember,
+                  keptAlive: true,
+                  sub: 'TextField "draft…"',
+                )),
               ],
             ),
             const SizedBox(height: 4),
@@ -1533,33 +1441,27 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             Row(
               children: [
-                Expanded(
-                  child: slot(
-                    label: 'Chart',
-                    color: skyDeep,
-                    keptAlive: true,
-                    sub: '14 series cached',
-                    height: 80,
-                  ),
-                ),
-                Expanded(
-                  child: slot(
-                    label: 'Map',
-                    color: ivy,
-                    keptAlive: true,
-                    sub: 'tiles 5/15/24 in RAM',
-                    height: 80,
-                  ),
-                ),
-                Expanded(
-                  child: slot(
-                    label: 'Camera',
-                    color: rust,
-                    keptAlive: true,
-                    sub: 'stream active',
-                    height: 80,
-                  ),
-                ),
+                Expanded(child: slot(
+                  label: 'Chart',
+                  color: skyDeep,
+                  keptAlive: true,
+                  sub: '14 series cached',
+                  height: 80,
+                )),
+                Expanded(child: slot(
+                  label: 'Map',
+                  color: ivy,
+                  keptAlive: true,
+                  sub: 'tiles 5/15/24 in RAM',
+                  height: 80,
+                )),
+                Expanded(child: slot(
+                  label: 'Camera',
+                  color: rust,
+                  keptAlive: true,
+                  sub: 'stream active',
+                  height: 80,
+                )),
               ],
             ),
           ],
@@ -1598,36 +1500,18 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             Column(
               children: [
-                slot(
-                  label: 'Row #0 (text)',
-                  color: smoke,
-                  keptAlive: false,
-                  sub: 'cheap, will recycle',
-                ),
-                slot(
-                  label: 'Row #1 (text)',
-                  color: smoke,
-                  keptAlive: false,
-                  sub: 'cheap, will recycle',
-                ),
-                slot(
-                  label: 'Row #50 (video)',
-                  color: rust,
-                  keptAlive: true,
-                  sub: 'wantKeepAlive: true',
-                ),
-                slot(
-                  label: 'Row #51 (text)',
-                  color: smoke,
-                  keptAlive: false,
-                  sub: 'cheap, will recycle',
-                ),
-                slot(
-                  label: 'Row #100 (video)',
-                  color: rust,
-                  keptAlive: true,
-                  sub: 'wantKeepAlive: true',
-                ),
+                slot(label: 'Row #0 (text)', color: smoke,
+                    keptAlive: false, sub: 'cheap, will recycle'),
+                slot(label: 'Row #1 (text)', color: smoke,
+                    keptAlive: false, sub: 'cheap, will recycle'),
+                slot(label: 'Row #50 (video)', color: rust,
+                    keptAlive: true,
+                    sub: 'wantKeepAlive: true'),
+                slot(label: 'Row #51 (text)', color: smoke,
+                    keptAlive: false, sub: 'cheap, will recycle'),
+                slot(label: 'Row #100 (video)', color: rust,
+                    keptAlive: true,
+                    sub: 'wantKeepAlive: true'),
               ],
             ),
           ],
@@ -1671,27 +1555,21 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             Row(
               children: [
-                Expanded(
-                  child: slot(
-                    label: 'Feed (scroll = 482px)',
-                    color: emberDeep,
-                    keptAlive: true,
-                  ),
-                ),
-                Expanded(
-                  child: slot(
-                    label: 'Photos (scroll = 1240px)',
-                    color: ember,
-                    keptAlive: true,
-                  ),
-                ),
-                Expanded(
-                  child: slot(
-                    label: 'About (scroll = 12px)',
-                    color: rust,
-                    keptAlive: true,
-                  ),
-                ),
+                Expanded(child: slot(
+                  label: 'Feed (scroll = 482px)',
+                  color: emberDeep,
+                  keptAlive: true,
+                )),
+                Expanded(child: slot(
+                  label: 'Photos (scroll = 1240px)',
+                  color: ember,
+                  keptAlive: true,
+                )),
+                Expanded(child: slot(
+                  label: 'About (scroll = 12px)',
+                  color: rust,
+                  keptAlive: true,
+                )),
               ],
             ),
           ],
@@ -1706,11 +1584,8 @@ dynamic build(BuildContext context) {
   final Widget section7 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '7',
-        'With vs Without — life of an off-screen slot',
-        'Vertical timeline contrasting two slots side by side',
-      ),
+      sectionBanner('7', 'With vs Without — life of an off-screen slot',
+          'Vertical timeline contrasting two slots side by side'),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1789,19 +1664,22 @@ dynamic build(BuildContext context) {
                       timelineStep(
                         step: 2,
                         title: 'super.build()',
-                        description: 'mixin dispatches KeepAliveNotification',
+                        description:
+                            'mixin dispatches KeepAliveNotification',
                         color: ember,
                       ),
                       timelineStep(
                         step: 3,
                         title: 'AutomaticKeepAlive listens to handle',
-                        description: 'parentData updated to keepAlive: true',
+                        description:
+                            'parentData updated to keepAlive: true',
                         color: emberDeep,
                       ),
                       timelineStep(
                         step: 4,
                         title: 'User scrolls slot off-screen',
-                        description: 'parent skips disposal — State survives',
+                        description:
+                            'parent skips disposal — State survives',
                         color: emberGold,
                       ),
                       timelineStep(
@@ -1845,11 +1723,8 @@ dynamic build(BuildContext context) {
   final Widget section8 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '8',
-        'Pitfalls — when keep-alive bites back',
-        'The dark side of preserving everything forever',
-      ),
+      sectionBanner('8', 'Pitfalls — when keep-alive bites back',
+          'The dark side of preserving everything forever'),
       infoCard(
         'Pitfall 1 — Memory cost grows linearly',
         Column(
@@ -1878,21 +1753,15 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bullet(
-              'Keep-alive prevents disposal, but a kept-alive widget '
-              'is still rebuilt when its dependencies change (InheritedWidget '
-              'updates, setState in ancestors).',
-            ),
-            bullet(
-              'If you assume "off-screen = never rebuilt" you may be '
-              'doing work the user never sees. Profile with a debug print '
-              'in build to confirm.',
-            ),
-            bullet(
-              'AutomaticKeepAlive uses Offstage and TickerMode under '
-              'the hood — animations are paused while off-screen but the '
-              'tree itself remains.',
-            ),
+            bullet('Keep-alive prevents disposal, but a kept-alive widget '
+                'is still rebuilt when its dependencies change (InheritedWidget '
+                'updates, setState in ancestors).'),
+            bullet('If you assume "off-screen = never rebuilt" you may be '
+                'doing work the user never sees. Profile with a debug print '
+                'in build to confirm.'),
+            bullet('AutomaticKeepAlive uses Offstage and TickerMode under '
+                'the hood — animations are paused while off-screen but the '
+                'tree itself remains.'),
           ],
         ),
       ),
@@ -1914,15 +1783,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bullet(
-              'wantKeepAlive is a getter; the mixin checks it only on '
-              'super.build(). If you change a flag that affects it and do '
-              'not trigger a rebuild, the keep-alive state will not update.',
-            ),
-            bullet(
-              'Workaround: call updateKeepAlive() yourself after flipping '
-              'the underlying field — or wrap the change in setState.',
-            ),
+            bullet('wantKeepAlive is a getter; the mixin checks it only on '
+                'super.build(). If you change a flag that affects it and do '
+                'not trigger a rebuild, the keep-alive state will not update.'),
+            bullet('Workaround: call updateKeepAlive() yourself after flipping '
+                'the underlying field — or wrap the change in setState.'),
             const SizedBox(height: 4),
             codeBlock(
               'void onStartTyping() {\n'
@@ -1938,16 +1803,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bullet(
-              'If you write keep-alive manually (without the mixin) and '
-              'forget to dispose the KeepAliveHandle, the AutomaticKeepAlive '
-              'will hold the slot forever, even when the user navigates '
-              'far away.',
-            ),
-            bullet(
-              'Always pair handle creation with handle.dispose() in your '
-              'State.dispose() — or use the mixin which does this for you.',
-            ),
+            bullet('If you write keep-alive manually (without the mixin) and '
+                'forget to dispose the KeepAliveHandle, the AutomaticKeepAlive '
+                'will hold the slot forever, even when the user navigates '
+                'far away.'),
+            bullet('Always pair handle creation with handle.dispose() in your '
+                'State.dispose() — or use the mixin which does this for you.'),
           ],
         ),
       ),
@@ -1956,18 +1817,14 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bullet(
-              'Keep-alive preserves State objects, not data. If your '
-              'data lives in a Provider/Bloc/Riverpod store, the data is '
-              'already preserved by that store — adding keep-alive is '
-              'redundant and may even cause stale State to override '
-              'fresh store values.',
-            ),
-            bullet(
-              'Use keep-alive only when there is per-widget transient '
-              'state worth keeping (text fields, scroll offset, animation '
-              'progress).',
-            ),
+            bullet('Keep-alive preserves State objects, not data. If your '
+                'data lives in a Provider/Bloc/Riverpod store, the data is '
+                'already preserved by that store — adding keep-alive is '
+                'redundant and may even cause stale State to override '
+                'fresh store values.'),
+            bullet('Use keep-alive only when there is per-widget transient '
+                'state worth keeping (text fields, scroll offset, animation '
+                'progress).'),
           ],
         ),
       ),
@@ -1980,31 +1837,19 @@ dynamic build(BuildContext context) {
   final Widget section9 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '9',
-        'KeepAlive vs wantKeepAlive — which level to use?',
-        'Pick the right abstraction for the right job',
-      ),
+      sectionBanner('9', 'KeepAlive vs wantKeepAlive — which level to use?',
+          'Pick the right abstraction for the right job'),
       kvTable([
-        [
-          'Concern',
-          'KeepAlive (ParentDataWidget)',
-          'AutomaticKeepAliveClientMixin',
-        ],
+        ['Concern', 'KeepAlive (ParentDataWidget)',
+            'AutomaticKeepAliveClientMixin'],
         ['Lifecycle awareness', 'static flag', 'dynamic per build'],
         ['Boilerplate', 'one widget', 'mixin + super.build + dispose'],
         ['Per-slot wrapping', 'manual', 'automatic via AutomaticKeepAlive'],
         ['Reacts to setState', 'no', 'yes'],
-        [
-          'Best for',
-          'tests, demos, fixed conditions',
-          'real apps, dynamic conditions',
-        ],
-        [
-          'Source-of-truth',
-          'parentData boolean',
-          'wantKeepAlive getter + handle',
-        ],
+        ['Best for', 'tests, demos, fixed conditions',
+            'real apps, dynamic conditions'],
+        ['Source-of-truth', 'parentData boolean',
+            'wantKeepAlive getter + handle'],
         ['Discoverability', 'low (internal)', 'high (in every tutorial)'],
       ]),
       const SizedBox(height: 8),
@@ -2025,11 +1870,8 @@ dynamic build(BuildContext context) {
   final Widget section10 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '10',
-        'Sandboxes — literal KeepAlive widget on screen',
-        'Real KeepAlive instances inside little SizedBoxes',
-      ),
+      sectionBanner('10', 'Sandboxes — literal KeepAlive widget on screen',
+          'Real KeepAlive instances inside little SizedBoxes'),
       noteBox(
         'These KeepAlive widgets are rendered for visual reference. They '
         'are not inside a sliver, so their keep-alive bit has no effect at '
@@ -2099,7 +1941,8 @@ dynamic build(BuildContext context) {
                   child: const Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.delete_outline, color: Colors.white, size: 32),
+                      Icon(Icons.delete_outline,
+                          color: Colors.white, size: 32),
                       SizedBox(height: 4),
                       Text(
                         'Sandbox B',
@@ -2155,7 +1998,10 @@ dynamic build(BuildContext context) {
                       SizedBox(height: 2),
                       Text(
                         '14 series, 3.2 MB cache',
-                        style: TextStyle(color: emberGold, fontSize: 11),
+                        style: TextStyle(
+                          color: emberGold,
+                          fontSize: 11,
+                        ),
                       ),
                     ],
                   ),
@@ -2191,7 +2037,10 @@ dynamic build(BuildContext context) {
                       SizedBox(height: 2),
                       Text(
                         'pos: 2:17 / 8:42',
-                        style: TextStyle(color: emberGold, fontSize: 11),
+                        style: TextStyle(
+                          color: emberGold,
+                          fontSize: 11,
+                        ),
                       ),
                     ],
                   ),
@@ -2227,7 +2076,10 @@ dynamic build(BuildContext context) {
                       SizedBox(height: 2),
                       Text(
                         'cheap text, OK to recycle',
-                        style: TextStyle(color: ash, fontSize: 11),
+                        style: TextStyle(
+                          color: ash,
+                          fontSize: 11,
+                        ),
                       ),
                     ],
                   ),
@@ -2246,11 +2098,8 @@ dynamic build(BuildContext context) {
   final Widget section11 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '11',
-        'ParentData walk-through — where the flag lives',
-        'How a sliver reads keepAlive from its child\'s parentData',
-      ),
+      sectionBanner('11', 'ParentData walk-through — where the flag lives',
+          'How a sliver reads keepAlive from its child\'s parentData'),
       noteBox(
         'A render object owns a parentData object for each of its '
         'children. The KeepAlive ParentDataWidget writes a single flag — '
@@ -2292,22 +2141,13 @@ dynamic build(BuildContext context) {
         kvTable([
           ['Layer', 'Type', 'Stores'],
           ['Widget', 'KeepAlive', 'keepAlive constant'],
-          [
-            'Element',
-            '_KeepAliveElement',
-            'wraps the child, calls applyParentData',
-          ],
+          ['Element', '_KeepAliveElement',
+              'wraps the child, calls applyParentData'],
           ['RenderObject', 'RenderBox', 'has parentData of mixin type'],
-          [
-            'ParentData',
-            'KeepAliveParentDataMixin',
-            'keepAlive: bool — the actual flag',
-          ],
-          [
-            'Sliver',
-            'RenderSliverMultiBoxAdaptor',
-            'reads the flag in collectGarbage()',
-          ],
+          ['ParentData', 'KeepAliveParentDataMixin',
+              'keepAlive: bool — the actual flag'],
+          ['Sliver', 'RenderSliverMultiBoxAdaptor',
+              'reads the flag in collectGarbage()'],
         ]),
       ),
     ],
@@ -2319,11 +2159,8 @@ dynamic build(BuildContext context) {
   final Widget section12 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '12',
-        'Cheat sheet — the whole protocol on one page',
-        'A visual roll-call of every actor and signal',
-      ),
+      sectionBanner('12', 'Cheat sheet — the whole protocol on one page',
+          'A visual roll-call of every actor and signal'),
       Container(
         width: double.infinity,
         padding: const EdgeInsets.all(14),
@@ -2335,47 +2172,23 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            actor(
-              'State subclass + mixin',
-              sky,
-              Icons.account_circle,
-              sub: 'wantKeepAlive ?',
-            ),
+            actor('State subclass + mixin', sky, Icons.account_circle,
+                sub: 'wantKeepAlive ?'),
             arrowDown('super.build(context)', emberDeep),
-            actor(
-              'AutomaticKeepAliveClientMixin',
-              skyDeep,
-              Icons.layers,
-              sub: 'creates handle, dispatches notification',
-            ),
+            actor('AutomaticKeepAliveClientMixin', skyDeep, Icons.layers,
+                sub: 'creates handle, dispatches notification'),
             arrowDown('KeepAliveNotification(handle)', emberDark),
-            actor(
-              'AutomaticKeepAlive (ancestor)',
-              ember,
-              Icons.shield,
-              sub: 'catches, adds listener to handle',
-            ),
+            actor('AutomaticKeepAlive (ancestor)', ember, Icons.shield,
+                sub: 'catches, adds listener to handle'),
             arrowDown('wraps slot in KeepAlive(true)', emberDeep),
-            actor(
-              'KeepAlive ParentDataWidget',
-              emberDark,
-              Icons.bolt,
-              sub: 'writes keepAlive: true into parentData',
-            ),
+            actor('KeepAlive ParentDataWidget', emberDark, Icons.bolt,
+                sub: 'writes keepAlive: true into parentData'),
             arrowDown('parentData read', rust),
-            actor(
-              'SliverMultiBoxAdaptor',
-              rust,
-              Icons.view_stream,
-              sub: 'collectGarbage() skips this slot',
-            ),
+            actor('SliverMultiBoxAdaptor', rust, Icons.view_stream,
+                sub: 'collectGarbage() skips this slot'),
             arrowDown('eventually...', smoke),
-            actor(
-              'handle.dispose() — release',
-              blood,
-              Icons.power_off,
-              sub: 'listener removed, slot freed',
-            ),
+            actor('handle.dispose() — release', blood, Icons.power_off,
+                sub: 'listener removed, slot freed'),
           ],
         ),
       ),
@@ -2388,40 +2201,31 @@ dynamic build(BuildContext context) {
   final Widget section13 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '13',
-        'Glossary — words you will hear around keep-alive',
-        'Short definitions for cross-team discussions',
-      ),
+      sectionBanner('13', 'Glossary — words you will hear around keep-alive',
+          'Short definitions for cross-team discussions'),
       infoCard(
         'Vocabulary',
         kvTable([
           ['Term', 'Definition'],
           ['Slot', 'a single child position inside a lazy sliver'],
-          [
-            'Element recycling',
-            'reusing the same Element for a different widget',
-          ],
-          [
-            'Sliver',
-            'a portion of a scrollable area that contributes geometry',
-          ],
-          [
-            'cacheExtent',
-            'pixels of pre-rendering outside the visible viewport',
-          ],
-          ['Handle', 'short name for KeepAliveHandle — the release token'],
-          [
-            'Notification',
-            'short name for KeepAliveNotification — the bubble-up signal',
-          ],
-          [
-            'ParentData',
-            'metadata about a child that lives in the parent render',
-          ],
-          ['Mixin', 'the convenience API: AutomaticKeepAliveClientMixin'],
-          ['Recycling', 'destroying an off-screen slot to reclaim memory'],
-          ['Preservation', 'opposite of recycling — what keep-alive achieves'],
+          ['Element recycling',
+              'reusing the same Element for a different widget'],
+          ['Sliver',
+              'a portion of a scrollable area that contributes geometry'],
+          ['cacheExtent',
+              'pixels of pre-rendering outside the visible viewport'],
+          ['Handle',
+              'short name for KeepAliveHandle — the release token'],
+          ['Notification',
+              'short name for KeepAliveNotification — the bubble-up signal'],
+          ['ParentData',
+              'metadata about a child that lives in the parent render'],
+          ['Mixin',
+              'the convenience API: AutomaticKeepAliveClientMixin'],
+          ['Recycling',
+              'destroying an off-screen slot to reclaim memory'],
+          ['Preservation',
+              'opposite of recycling — what keep-alive achieves'],
         ]),
       ),
     ],
@@ -2433,32 +2237,21 @@ dynamic build(BuildContext context) {
   final Widget section14 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      sectionBanner(
-        '14',
-        'Recap — five members, one idea',
-        'Preserve State across viewport recycling',
-      ),
+      sectionBanner('14', 'Recap — five members, one idea',
+          'Preserve State across viewport recycling'),
       infoCard(
         'Five members, one job',
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             bullet('KeepAlive — the low-level boolean flag in parentData.'),
-            bullet(
-              'KeepAliveHandle — the disposable release-token Listenable.',
-            ),
-            bullet(
-              'KeepAliveNotification — the bubble-up envelope carrying '
-              'a handle from child to ancestor.',
-            ),
-            bullet(
-              'AutomaticKeepAlive — the wrapper that listens for the '
-              'notification and writes the flag.',
-            ),
-            bullet(
-              'AutomaticKeepAliveClientMixin — the convenience API on '
-              'State that does it all for you.',
-            ),
+            bullet('KeepAliveHandle — the disposable release-token Listenable.'),
+            bullet('KeepAliveNotification — the bubble-up envelope carrying '
+                'a handle from child to ancestor.'),
+            bullet('AutomaticKeepAlive — the wrapper that listens for the '
+                'notification and writes the flag.'),
+            bullet('AutomaticKeepAliveClientMixin — the convenience API on '
+                'State that does it all for you.'),
           ],
         ),
       ),

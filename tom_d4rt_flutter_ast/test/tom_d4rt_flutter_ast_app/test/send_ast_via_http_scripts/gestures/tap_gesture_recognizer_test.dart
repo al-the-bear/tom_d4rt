@@ -129,7 +129,10 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 150,
-            child: Text(k, style: const TextStyle(color: cMuted, fontSize: 12)),
+            child: Text(
+              k,
+              style: const TextStyle(color: cMuted, fontSize: 12),
+            ),
           ),
           Expanded(
             child: Text(
@@ -253,7 +256,10 @@ dynamic build(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(label, style: TextStyle(color: color, fontSize: 10)),
+          Text(
+            label,
+            style: TextStyle(color: color, fontSize: 10),
+          ),
           Container(width: 28, height: 2, color: color.withValues(alpha: 0.6)),
         ],
       ),
@@ -583,17 +589,9 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 6),
-              fieldRow(
-                'globalPosition',
-                'Offset',
-                'Position in global coords.',
-              ),
+              fieldRow('globalPosition', 'Offset', 'Position in global coords.'),
               fieldRow('localPosition', 'Offset?', 'Position relative to box.'),
-              fieldRow(
-                'kind',
-                'PointerDeviceKind',
-                'touch / mouse / stylus / trackpad.',
-              ),
+              fieldRow('kind', 'PointerDeviceKind', 'touch / mouse / stylus / trackpad.'),
             ],
           ),
         ),
@@ -618,17 +616,9 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 6),
-              fieldRow(
-                'globalPosition',
-                'Offset',
-                'Release position (global).',
-              ),
+              fieldRow('globalPosition', 'Offset', 'Release position (global).'),
               fieldRow('localPosition', 'Offset?', 'Release position (local).'),
-              fieldRow(
-                'kind',
-                'PointerDeviceKind',
-                'Inherited from PointerEvent.',
-              ),
+              fieldRow('kind', 'PointerDeviceKind', 'Inherited from PointerEvent.'),
             ],
           ),
         ),
@@ -1095,11 +1085,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 4),
                 Text(
                   body,
-                  style: const TextStyle(
-                    color: cText,
-                    fontSize: 11.5,
-                    height: 1.35,
-                  ),
+                  style: const TextStyle(color: cText, fontSize: 11.5, height: 1.35),
                 ),
               ],
             ),
@@ -1186,11 +1172,7 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Text(
                   bullets[i],
-                  style: const TextStyle(
-                    color: cText,
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+                  style: const TextStyle(color: cText, fontSize: 12, height: 1.4),
                 ),
               ),
             ],
@@ -1286,11 +1268,7 @@ dynamic build(BuildContext context) {
           children: [
             Text(
               label,
-              style: TextStyle(
-                color: color,
-                fontSize: 10.5,
-                letterSpacing: 0.4,
-              ),
+              style: TextStyle(color: color, fontSize: 10.5, letterSpacing: 0.4),
             ),
             const SizedBox(height: 4),
             Text(
@@ -1439,66 +1417,42 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 8),
         timelineLegendRow,
-        timelineRow('PointerDown', cMuted, const [
-          true,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-        ], 'arrival in arena'),
-        timelineRow('onTapDown', cAccent, const [
-          false,
-          true,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-        ], 'after arena admit'),
-        timelineRow('PointerMove', cMuted, const [
-          false,
-          false,
-          true,
-          true,
-          false,
-          false,
-          false,
-          false,
-        ], 'small drift inside slop'),
-        timelineRow('PointerUp', cOk, const [
-          false,
-          false,
-          false,
-          false,
-          false,
-          true,
-          false,
-          false,
-        ], 'release inside window'),
-        timelineRow('onTap', cAccent, const [
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          true,
-          false,
-        ], 'high-level fires first'),
-        timelineRow('onTapUp', cAccent, const [
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          true,
-        ], 'paired Up details'),
+        timelineRow(
+          'PointerDown',
+          cMuted,
+          const [true, false, false, false, false, false, false, false],
+          'arrival in arena',
+        ),
+        timelineRow(
+          'onTapDown',
+          cAccent,
+          const [false, true, false, false, false, false, false, false],
+          'after arena admit',
+        ),
+        timelineRow(
+          'PointerMove',
+          cMuted,
+          const [false, false, true, true, false, false, false, false],
+          'small drift inside slop',
+        ),
+        timelineRow(
+          'PointerUp',
+          cOk,
+          const [false, false, false, false, false, true, false, false],
+          'release inside window',
+        ),
+        timelineRow(
+          'onTap',
+          cAccent,
+          const [false, false, false, false, false, false, true, false],
+          'high-level fires first',
+        ),
+        timelineRow(
+          'onTapUp',
+          cAccent,
+          const [false, false, false, false, false, false, false, true],
+          'paired Up details',
+        ),
       ],
     ),
   );

@@ -75,14 +75,8 @@ Widget _tlSectionTitle(String title, IconData icon) {
 Widget _tlBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
-    ),
+    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
+    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -108,23 +102,9 @@ Widget _tlInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _tlTextDark,
-                ),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _tlTextDark)),
               SizedBox(height: 4),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _tlTextMedium,
-                  height: 1.4,
-                ),
-              ),
+              Text(body, style: TextStyle(fontSize: 12, color: _tlTextMedium, height: 1.4)),
             ],
           ),
         ),
@@ -149,14 +129,7 @@ Widget _tlToolbarButton(String label, IconData icon, {bool enabled = true}) {
       children: [
         Icon(icon, size: 14, color: enabled ? _tlPrimary : _tlGrey),
         SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            color: enabled ? _tlTextDark : _tlGrey,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Text(label, style: TextStyle(fontSize: 11, color: enabled ? _tlTextDark : _tlGrey, fontWeight: FontWeight.w500)),
       ],
     ),
   );
@@ -172,15 +145,7 @@ Widget _tlCode(String text) {
       color: _tlSurfaceDark,
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 11,
-        fontFamily: 'monospace',
-        color: _tlPrimary,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _tlPrimary, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -191,10 +156,7 @@ Widget _tlSection1Overview() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _tlSectionTitle(
-        '1 · SingleChildLayoutDelegate Overview',
-        Icons.architecture,
-      ),
+      _tlSectionTitle('1 · SingleChildLayoutDelegate Overview', Icons.architecture),
       _tlInfoCard(
         'What is a SingleChildLayoutDelegate?',
         'An abstract class that defines how a SingleChildLayoutDelegate positions '
@@ -222,25 +184,13 @@ Widget _tlSection1Overview() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Delegate contract',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tlTextDark,
-              ),
-            ),
+            Text('Delegate contract', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
             SizedBox(height: 8),
             Row(
               children: [
                 _tlCode('getSize()'),
                 SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Full overlay area',
-                    style: TextStyle(fontSize: 11, color: _tlTextMedium),
-                  ),
-                ),
+                Expanded(child: Text('Full overlay area', style: TextStyle(fontSize: 11, color: _tlTextMedium))),
               ],
             ),
             SizedBox(height: 4),
@@ -248,12 +198,7 @@ Widget _tlSection1Overview() {
               children: [
                 _tlCode('getConstraintsForChild()'),
                 SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Loose constraints for toolbar',
-                    style: TextStyle(fontSize: 11, color: _tlTextMedium),
-                  ),
-                ),
+                Expanded(child: Text('Loose constraints for toolbar', style: TextStyle(fontSize: 11, color: _tlTextMedium))),
               ],
             ),
             SizedBox(height: 4),
@@ -261,12 +206,7 @@ Widget _tlSection1Overview() {
               children: [
                 _tlCode('getPositionForChild()'),
                 SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Clamped anchor offset',
-                    style: TextStyle(fontSize: 11, color: _tlTextMedium),
-                  ),
-                ),
+                Expanded(child: Text('Clamped anchor offset', style: TextStyle(fontSize: 11, color: _tlTextMedium))),
               ],
             ),
             SizedBox(height: 4),
@@ -274,12 +214,7 @@ Widget _tlSection1Overview() {
               children: [
                 _tlCode('shouldRelayout()'),
                 SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Checks anchor change',
-                    style: TextStyle(fontSize: 11, color: _tlTextMedium),
-                  ),
-                ),
+                Expanded(child: Text('Checks anchor change', style: TextStyle(fontSize: 11, color: _tlTextMedium))),
               ],
             ),
           ],
@@ -316,47 +251,33 @@ Widget _tlSection2Anchoring() {
           children: [
             // Simulated text lines
             Positioned(
-              left: 16,
-              top: 40,
-              child: Text(
-                'The quick brown fox jumps over',
-                style: TextStyle(fontSize: 13, color: _tlGrey),
-              ),
+              left: 16, top: 40,
+              child: Text('The quick brown fox jumps over', style: TextStyle(fontSize: 13, color: _tlGrey)),
             ),
             Positioned(
-              left: 16,
-              top: 58,
+              left: 16, top: 58,
               child: Row(
                 children: [
                   Text('the ', style: TextStyle(fontSize: 13, color: _tlGrey)),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 2),
                     color: _tlAccent.withValues(alpha: 0.4),
-                    child: Text(
-                      'lazy dog and the cat',
-                      style: TextStyle(fontSize: 13, color: _tlTextDark),
-                    ),
+                    child: Text('lazy dog and the cat', style: TextStyle(fontSize: 13, color: _tlTextDark)),
                   ),
                 ],
               ),
             ),
             Positioned(
-              left: 16,
-              top: 76,
-              child: Text(
-                'sat on the mat yesterday.',
-                style: TextStyle(fontSize: 13, color: _tlGrey),
-              ),
+              left: 16, top: 76,
+              child: Text('sat on the mat yesterday.', style: TextStyle(fontSize: 13, color: _tlGrey)),
             ),
             // Anchor point indicator
             Positioned(
-              left: 46,
-              top: 42,
+              left: 46, top: 42,
               child: Column(
                 children: [
                   Container(
-                    width: 12,
-                    height: 12,
+                    width: 12, height: 12,
                     decoration: BoxDecoration(
                       color: _tlPrimary,
                       shape: BoxShape.circle,
@@ -369,20 +290,13 @@ Widget _tlSection2Anchoring() {
             ),
             // Toolbar positioned above the anchor
             Positioned(
-              left: 30,
-              top: 8,
+              left: 30, top: 8,
               child: Container(
                 padding: EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(6),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))],
                   border: Border.all(color: _tlDivider),
                 ),
                 child: Row(
@@ -399,26 +313,17 @@ Widget _tlSection2Anchoring() {
             ),
             // Label
             Positioned(
-              right: 12,
-              top: 8,
+              right: 12, top: 8,
               child: _tlBadge('anchor', _tlPrimary, _tlOnPrimary),
             ),
             // Info
             Positioned(
-              left: 16,
-              bottom: 12,
+              left: 16, bottom: 12,
               child: Row(
                 children: [
                   Icon(Icons.info_outline, size: 14, color: _tlTextMedium),
                   SizedBox(width: 4),
-                  Text(
-                    'Toolbar floats above the selection anchor',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: _tlTextMedium,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
+                  Text('Toolbar floats above the selection anchor', style: TextStyle(fontSize: 10, color: _tlTextMedium, fontStyle: FontStyle.italic)),
                 ],
               ),
             ),
@@ -455,46 +360,19 @@ Widget _tlSection3Clamping() {
         ),
         child: Column(
           children: [
-            Text(
-              'Clamping scenarios',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tlTextDark,
-              ),
-            ),
+            Text('Clamping scenarios', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
             SizedBox(height: 10),
             // Left edge
-            _tlClampRow(
-              'Left edge',
-              'Toolbar shifts rightward',
-              Icons.arrow_forward,
-              _tlBlue,
-            ),
+            _tlClampRow('Left edge', 'Toolbar shifts rightward', Icons.arrow_forward, _tlBlue),
             SizedBox(height: 6),
             // Right edge
-            _tlClampRow(
-              'Right edge',
-              'Toolbar shifts leftward',
-              Icons.arrow_back,
-              _tlPrimary,
-            ),
+            _tlClampRow('Right edge', 'Toolbar shifts leftward', Icons.arrow_back, _tlPrimary),
             SizedBox(height: 6),
             // Top edge
-            _tlClampRow(
-              'Top edge',
-              'Toolbar appears below',
-              Icons.arrow_downward,
-              _tlGreen,
-            ),
+            _tlClampRow('Top edge', 'Toolbar appears below', Icons.arrow_downward, _tlGreen),
             SizedBox(height: 6),
             // Normal
-            _tlClampRow(
-              'Normal',
-              'Toolbar above anchor',
-              Icons.arrow_upward,
-              _tlOrange,
-            ),
+            _tlClampRow('Normal', 'Toolbar above anchor', Icons.arrow_upward, _tlOrange),
           ],
         ),
       ),
@@ -509,14 +387,7 @@ Widget _tlSection3Clamping() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Clamping formula',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tlTextDark,
-              ),
-            ),
+            Text('Clamping formula', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
             SizedBox(height: 6),
             _tlCode('x = clamp(anchor.dx, 0, overlay.width - toolbar.width)'),
             SizedBox(height: 4),
@@ -535,39 +406,19 @@ Widget _tlSection3Clamping() {
   );
 }
 
-Widget _tlClampRow(
-  String scenario,
-  String behaviour,
-  IconData arrow,
-  Color color,
-) {
+Widget _tlClampRow(String scenario, String behaviour, IconData arrow, Color color) {
   return Row(
     children: [
       Container(
         width: 80,
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text(
-          scenario,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: color,
-          ),
-        ),
+        decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)),
+        child: Text(scenario, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color)),
       ),
       SizedBox(width: 8),
       Icon(arrow, size: 16, color: color),
       SizedBox(width: 8),
-      Expanded(
-        child: Text(
-          behaviour,
-          style: TextStyle(fontSize: 11, color: _tlTextMedium),
-        ),
-      ),
+      Expanded(child: Text(behaviour, style: TextStyle(fontSize: 11, color: _tlTextMedium))),
     ],
   );
 }
@@ -599,14 +450,7 @@ Widget _tlSection4Constraints() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Constraint flow',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tlTextDark,
-              ),
-            ),
+            Text('Constraint flow', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
             SizedBox(height: 10),
             Row(
               children: [
@@ -616,36 +460,20 @@ Widget _tlSection4Constraints() {
                     decoration: BoxDecoration(
                       color: _tlSurface,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _tlPrimary.withValues(alpha: 0.3),
-                      ),
+                      border: Border.all(color: _tlPrimary.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'Parent constraints',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _tlPrimary,
-                          ),
-                        ),
+                        Text('Parent constraints', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _tlPrimary)),
                         SizedBox(height: 4),
-                        Text(
-                          'max: 400 × 800',
-                          style: TextStyle(fontSize: 11, color: _tlTextDark),
-                        ),
+                        Text('max: 400 × 800', style: TextStyle(fontSize: 11, color: _tlTextDark)),
                       ],
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    size: 18,
-                    color: _tlTextMedium,
-                  ),
+                  child: Icon(Icons.arrow_forward, size: 18, color: _tlTextMedium),
                 ),
                 Expanded(
                   child: Container(
@@ -653,40 +481,21 @@ Widget _tlSection4Constraints() {
                     decoration: BoxDecoration(
                       color: _tlSurface,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _tlAccentDark.withValues(alpha: 0.3),
-                      ),
+                      border: Border.all(color: _tlAccentDark.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'Child constraints',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _tlAccentDark,
-                          ),
-                        ),
+                        Text('Child constraints', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _tlAccentDark)),
                         SizedBox(height: 4),
-                        Text(
-                          '0–400 × 0–800',
-                          style: TextStyle(fontSize: 11, color: _tlTextDark),
-                        ),
-                        Text(
-                          '(loose)',
-                          style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                        ),
+                        Text('0–400 × 0–800', style: TextStyle(fontSize: 11, color: _tlTextDark)),
+                        Text('(loose)', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
                       ],
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    size: 18,
-                    color: _tlTextMedium,
-                  ),
+                  child: Icon(Icons.arrow_forward, size: 18, color: _tlTextMedium),
                 ),
                 Expanded(
                   child: Container(
@@ -694,29 +503,14 @@ Widget _tlSection4Constraints() {
                     decoration: BoxDecoration(
                       color: _tlSurface,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: _tlGreen.withValues(alpha: 0.3),
-                      ),
+                      border: Border.all(color: _tlGreen.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'Toolbar size',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _tlGreen,
-                          ),
-                        ),
+                        Text('Toolbar size', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _tlGreen)),
                         SizedBox(height: 4),
-                        Text(
-                          '220 × 36',
-                          style: TextStyle(fontSize: 11, color: _tlTextDark),
-                        ),
-                        Text(
-                          '(intrinsic)',
-                          style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                        ),
+                        Text('220 × 36', style: TextStyle(fontSize: 11, color: _tlTextDark)),
+                        Text('(intrinsic)', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
                       ],
                     ),
                   ),
@@ -757,27 +551,12 @@ Widget _tlSection5Position() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Step-by-step',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tlTextDark,
-              ),
-            ),
+            Text('Step-by-step', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
             SizedBox(height: 8),
             _tlStepRow(1, 'Receive anchor offset from selection', _tlPrimary),
             _tlStepRow(2, 'Subtract toolbar height + gap', _tlAccentDark),
-            _tlStepRow(
-              3,
-              'Clamp x to [0, overlay.width - toolbar.width]',
-              _tlBlue,
-            ),
-            _tlStepRow(
-              4,
-              'Clamp y to [0, overlay.height - toolbar.height]',
-              _tlGreen,
-            ),
+            _tlStepRow(3, 'Clamp x to [0, overlay.width - toolbar.width]', _tlBlue),
+            _tlStepRow(4, 'Clamp y to [0, overlay.height - toolbar.height]', _tlGreen),
             _tlStepRow(5, 'Return Offset(clampedX, clampedY)', _tlOrange),
           ],
         ),
@@ -793,53 +572,27 @@ Widget _tlSection5Position() {
         child: Stack(
           children: [
             // Overlay area label
-            Positioned(
-              left: 8,
-              top: 8,
-              child: Text(
-                'Overlay area',
-                style: TextStyle(fontSize: 10, color: _tlGrey),
-              ),
-            ),
+            Positioned(left: 8, top: 8, child: Text('Overlay area', style: TextStyle(fontSize: 10, color: _tlGrey))),
             // Anchor
             Positioned(
-              left: 140,
-              top: 90,
+              left: 140, top: 90,
               child: Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: _tlPrimary,
-                  shape: BoxShape.circle,
-                ),
+                width: 10, height: 10,
+                decoration: BoxDecoration(color: _tlPrimary, shape: BoxShape.circle),
               ),
             ),
             Positioned(
-              left: 126,
-              top: 104,
-              child: Text(
-                'anchor',
-                style: TextStyle(
-                  fontSize: 9,
-                  color: _tlPrimary,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              left: 126, top: 104,
+              child: Text('anchor', style: TextStyle(fontSize: 9, color: _tlPrimary, fontWeight: FontWeight.w600)),
             ),
             // Dashed line up
             Positioned(
-              left: 144,
-              top: 50,
-              child: Container(
-                width: 1,
-                height: 40,
-                color: _tlPrimary.withValues(alpha: 0.4),
-              ),
+              left: 144, top: 50,
+              child: Container(width: 1, height: 40, color: _tlPrimary.withValues(alpha: 0.4)),
             ),
             // Toolbar
             Positioned(
-              left: 80,
-              top: 20,
+              left: 80, top: 20,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
@@ -864,15 +617,10 @@ Widget _tlSection5Position() {
             ),
             // Dimension arrows
             Positioned(
-              right: 12,
-              top: 20,
+              right: 12, top: 20,
               child: Column(
                 children: [
-                  _tlBadge(
-                    'y = anchor.dy - h - gap',
-                    _tlAccentDark,
-                    _tlOnPrimary,
-                  ),
+                  _tlBadge('y = anchor.dy - h - gap', _tlAccentDark, _tlOnPrimary),
                   SizedBox(height: 40),
                   _tlBadge('x = clamp(anchor.dx)', _tlBlue, _tlOnPrimary),
                 ],
@@ -891,26 +639,13 @@ Widget _tlStepRow(int step, String desc, Color color) {
     child: Row(
       children: [
         Container(
-          width: 22,
-          height: 22,
+          width: 22, height: 22,
           alignment: Alignment.center,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: Text(
-            '$step',
-            style: TextStyle(
-              fontSize: 10,
-              color: _tlOnPrimary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text('$step', style: TextStyle(fontSize: 10, color: _tlOnPrimary, fontWeight: FontWeight.w700)),
         ),
         SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 11, color: _tlTextMedium),
-          ),
-        ),
+        Expanded(child: Text(desc, style: TextStyle(fontSize: 11, color: _tlTextMedium))),
       ],
     ),
   );
@@ -954,31 +689,12 @@ Widget _tlSection6Comparison() {
                   children: [
                     Icon(Icons.desktop_windows, size: 24, color: _tlPrimary),
                     SizedBox(height: 6),
-                    Text(
-                      'Desktop',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: _tlTextDark,
-                      ),
-                    ),
+                    Text('Desktop', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _tlTextDark)),
                     SizedBox(height: 6),
-                    Text(
-                      '• Compact buttons',
-                      style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                    ),
-                    Text(
-                      '• Right-click context',
-                      style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                    ),
-                    Text(
-                      '• Mouse-sized targets',
-                      style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                    ),
-                    Text(
-                      '• Anchored to cursor',
-                      style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                    ),
+                    Text('• Compact buttons', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
+                    Text('• Right-click context', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
+                    Text('• Mouse-sized targets', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
+                    Text('• Anchored to cursor', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
                   ],
                 ),
               ),
@@ -996,31 +712,12 @@ Widget _tlSection6Comparison() {
                   children: [
                     Icon(Icons.phone_android, size: 24, color: _tlBlue),
                     SizedBox(height: 6),
-                    Text(
-                      'Mobile',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: _tlTextDark,
-                      ),
-                    ),
+                    Text('Mobile', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _tlTextDark)),
                     SizedBox(height: 6),
-                    Text(
-                      '• Bubble popup',
-                      style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                    ),
-                    Text(
-                      '• Long-press trigger',
-                      style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                    ),
-                    Text(
-                      '• Large touch targets',
-                      style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                    ),
-                    Text(
-                      '• Above selection',
-                      style: TextStyle(fontSize: 10, color: _tlTextMedium),
-                    ),
+                    Text('• Bubble popup', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
+                    Text('• Long-press trigger', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
+                    Text('• Large touch targets', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
+                    Text('• Above selection', style: TextStyle(fontSize: 10, color: _tlTextMedium)),
                   ],
                 ),
               ),
@@ -1059,14 +756,7 @@ Widget _tlSection7Content() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Standard toolbar buttons',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tlTextDark,
-              ),
-            ),
+            Text('Standard toolbar buttons', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
             SizedBox(height: 10),
             Wrap(
               spacing: 6,
@@ -1079,14 +769,7 @@ Widget _tlSection7Content() {
               ],
             ),
             SizedBox(height: 12),
-            Text(
-              'Contextual buttons',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tlTextDark,
-              ),
-            ),
+            Text('Contextual buttons', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
             SizedBox(height: 6),
             Wrap(
               spacing: 6,
@@ -1106,11 +789,7 @@ Widget _tlSection7Content() {
                 Expanded(
                   child: Text(
                     'Disabled buttons show when the action is unavailable (e.g. nothing to paste)',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: _tlTextMedium,
-                      fontStyle: FontStyle.italic,
-                    ),
+                    style: TextStyle(fontSize: 10, color: _tlTextMedium, fontStyle: FontStyle.italic),
                   ),
                 ),
               ],
@@ -1127,42 +806,12 @@ Widget _tlSection7Content() {
 // ---------------------------------------------------------------------------
 Widget _tlSection8EdgeCases() {
   final cases = <Map<String, dynamic>>[
-    {
-      'title': 'Near top edge',
-      'desc': 'Toolbar flips below the selection',
-      'icon': Icons.vertical_align_top,
-      'color': _tlPrimary,
-    },
-    {
-      'title': 'Near right edge',
-      'desc': 'Toolbar left-aligns to selection end',
-      'icon': Icons.align_horizontal_right,
-      'color': _tlBlue,
-    },
-    {
-      'title': 'Very short line',
-      'desc': 'Toolbar centres above available text',
-      'icon': Icons.short_text,
-      'color': _tlGreen,
-    },
-    {
-      'title': 'Multi-line selection',
-      'desc': 'Anchored to the first line\'s midpoint',
-      'icon': Icons.format_line_spacing,
-      'color': _tlOrange,
-    },
-    {
-      'title': 'Empty selection',
-      'desc': 'Toolbar appears at cursor caret position',
-      'icon': Icons.text_rotation_none,
-      'color': _tlAccentDark,
-    },
-    {
-      'title': 'RTL text',
-      'desc': 'Anchor adjusts to start of RTL selection',
-      'icon': Icons.format_textdirection_r_to_l,
-      'color': Color(0xFF6A1B9A),
-    },
+    {'title': 'Near top edge', 'desc': 'Toolbar flips below the selection', 'icon': Icons.vertical_align_top, 'color': _tlPrimary},
+    {'title': 'Near right edge', 'desc': 'Toolbar left-aligns to selection end', 'icon': Icons.align_horizontal_right, 'color': _tlBlue},
+    {'title': 'Very short line', 'desc': 'Toolbar centres above available text', 'icon': Icons.short_text, 'color': _tlGreen},
+    {'title': 'Multi-line selection', 'desc': 'Anchored to the first line\'s midpoint', 'icon': Icons.format_line_spacing, 'color': _tlOrange},
+    {'title': 'Empty selection', 'desc': 'Toolbar appears at cursor caret position', 'icon': Icons.text_rotation_none, 'color': _tlAccentDark},
+    {'title': 'RTL text', 'desc': 'Anchor adjusts to start of RTL selection', 'icon': Icons.format_textdirection_r_to_l, 'color': Color(0xFF6A1B9A)},
   ];
 
   return Column(
@@ -1177,45 +826,31 @@ Widget _tlSection8EdgeCases() {
             'UI elements can all affect the available space.',
         Icons.border_style,
       ),
-      ...cases.map(
-        (c) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: c['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(c['icon'] as IconData, size: 18, color: c['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      c['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _tlTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      c['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _tlTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...cases.map((c) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: c['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          children: [
+            Icon(c['icon'] as IconData, size: 18, color: c['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(c['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
+                  SizedBox(height: 2),
+                  Text(c['desc'] as String, style: TextStyle(fontSize: 11, color: _tlTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
     ],
   );
 }
@@ -1254,48 +889,21 @@ Widget _tlSection9Integration() {
         ),
         child: Column(
           children: [
-            Text(
-              'Component chain',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-                color: _tlTextDark,
-              ),
-            ),
+            Text('Component chain', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _tlTextDark)),
             SizedBox(height: 10),
             Row(
               children: [
-                Expanded(
-                  child: _tlBadge('EditableText', _tlPrimary, _tlOnPrimary),
-                ),
+                Expanded(child: _tlBadge('EditableText', _tlPrimary, _tlOnPrimary)),
                 Icon(Icons.arrow_forward, size: 14, color: _tlTextMedium),
-                Expanded(
-                  child: _tlBadge(
-                    'SelectionOverlay',
-                    _tlAccentDark,
-                    _tlOnPrimary,
-                  ),
-                ),
+                Expanded(child: _tlBadge('SelectionOverlay', _tlAccentDark, _tlOnPrimary)),
               ],
             ),
             SizedBox(height: 6),
             Row(
               children: [
-                Expanded(
-                  child: _tlBadge(
-                    'CustomSingleChildLayout',
-                    _tlBlue,
-                    _tlOnPrimary,
-                  ),
-                ),
+                Expanded(child: _tlBadge('CustomSingleChildLayout', _tlBlue, _tlOnPrimary)),
                 Icon(Icons.arrow_forward, size: 14, color: _tlTextMedium),
-                Expanded(
-                  child: _tlBadge(
-                    'ToolbarLayoutDelegate',
-                    _tlGreen,
-                    _tlOnPrimary,
-                  ),
-                ),
+                Expanded(child: _tlBadge('ToolbarLayoutDelegate', _tlGreen, _tlOnPrimary)),
               ],
             ),
             SizedBox(height: 6),
@@ -1316,10 +924,7 @@ Widget _tlSection9Integration() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _tlPrimary.withValues(alpha: 0.08),
-              _tlAccent.withValues(alpha: 0.1),
-            ],
+            colors: [_tlPrimary.withValues(alpha: 0.08), _tlAccent.withValues(alpha: 0.1)],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _tlPrimary.withValues(alpha: 0.2)),
@@ -1330,11 +935,7 @@ Widget _tlSection9Integration() {
             SizedBox(height: 8),
             Text(
               'DesktopTextSelectionToolbarLayoutDelegate',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-                color: _tlTextDark,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: _tlTextDark),
             ),
             SizedBox(height: 4),
             Text(
@@ -1396,10 +997,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Anchor-based toolbar positioning with on-screen clamping',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _tlOnPrimary.withValues(alpha: 0.85),
-                ),
+                style: TextStyle(fontSize: 12, color: _tlOnPrimary.withValues(alpha: 0.85)),
               ),
             ],
           ),

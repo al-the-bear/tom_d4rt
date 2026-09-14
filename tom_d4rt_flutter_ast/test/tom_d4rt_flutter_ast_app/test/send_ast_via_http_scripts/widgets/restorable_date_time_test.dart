@@ -49,37 +49,19 @@ import 'dart:math' as math;
 
 String _formatDate(DateTime d) {
   const months = <String>[
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
   ];
-  const weekdays = <String>['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const weekdays = <String>[
+    'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+  ];
   return '${weekdays[d.weekday - 1]}, ${months[d.month - 1]} ${d.day}, ${d.year}';
 }
 
 String _formatDateShort(DateTime d) {
   const months = <String>[
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
   ];
   return '${months[d.month - 1]} ${d.day}';
 }
@@ -99,7 +81,9 @@ String _formatTime24(DateTime d) {
 }
 
 String _formatWeekdayShort(DateTime d) {
-  const weekdays = <String>['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+  const weekdays = <String>[
+    'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN',
+  ];
   return weekdays[d.weekday - 1];
 }
 
@@ -154,7 +138,10 @@ dynamic build(BuildContext context) {
   debugPrint('[RestorableDateTime demo] Building MaterialApp...');
   return MaterialApp(
     title: 'RestorableDateTime Deep Demo',
-    theme: ThemeData(colorSchemeSeed: Colors.deepPurple, useMaterial3: true),
+    theme: ThemeData(
+      colorSchemeSeed: Colors.deepPurple,
+      useMaterial3: true,
+    ),
     // The `restorationScopeId` on the `MaterialApp` enables state restoration
     // for the entire subtree — without this, `RestorationMixin` reports
     // restoration as disabled and `registerForRestoration` becomes a no-op.
@@ -186,46 +173,36 @@ class _AppointmentSchedulerDemoState extends State<AppointmentSchedulerDemo>
   // Scenario 1 — hero "next appointment".
   // A classic `RestorableDateTime` use case: a single appointment that must
   // survive process death on mobile.
-  final RestorableDateTime _appointment = RestorableDateTime(
-    DateTime(2026, 5, 1, 14, 30),
-  );
+  final RestorableDateTime _appointment =
+      RestorableDateTime(DateTime(2026, 5, 1, 14, 30));
 
   // Scenario 2 — Monday-aligned anchor for the calendar strip.
-  final RestorableDateTime _anchorDate = RestorableDateTime(
-    DateTime(2026, 4, 27),
-  );
+  final RestorableDateTime _anchorDate =
+      RestorableDateTime(DateTime(2026, 4, 27));
 
   // Scenario 3 — master UTC instant for timezone conversion.
-  final RestorableDateTime _masterUtc = RestorableDateTime(
-    DateTime.utc(2026, 4, 23, 12, 0),
-  );
+  final RestorableDateTime _masterUtc =
+      RestorableDateTime(DateTime.utc(2026, 4, 23, 12, 0));
 
   // Scenario 4 — countdown target and its start anchor.
-  final RestorableDateTime _target = RestorableDateTime(
-    DateTime(2026, 12, 25, 0, 0),
-  );
-  final RestorableDateTime _countdownStart = RestorableDateTime(
-    DateTime(2026, 4, 23, 0, 0),
-  );
+  final RestorableDateTime _target =
+      RestorableDateTime(DateTime(2026, 12, 25, 0, 0));
+  final RestorableDateTime _countdownStart =
+      RestorableDateTime(DateTime(2026, 4, 23, 0, 0));
 
   // Scenario 5 — last five visit timestamps, each its own
   // `RestorableDateTime`. Storing them as separate properties makes each one
   // individually restorable under a stable id.
-  final RestorableDateTime _visit1 = RestorableDateTime(
-    DateTime(2026, 4, 20, 9, 15),
-  );
-  final RestorableDateTime _visit2 = RestorableDateTime(
-    DateTime(2026, 4, 16, 14, 2),
-  );
-  final RestorableDateTime _visit3 = RestorableDateTime(
-    DateTime(2026, 4, 8, 11, 30),
-  );
-  final RestorableDateTime _visit4 = RestorableDateTime(
-    DateTime(2026, 3, 29, 17, 45),
-  );
-  final RestorableDateTime _visit5 = RestorableDateTime(
-    DateTime(2026, 3, 10, 8, 0),
-  );
+  final RestorableDateTime _visit1 =
+      RestorableDateTime(DateTime(2026, 4, 20, 9, 15));
+  final RestorableDateTime _visit2 =
+      RestorableDateTime(DateTime(2026, 4, 16, 14, 2));
+  final RestorableDateTime _visit3 =
+      RestorableDateTime(DateTime(2026, 4, 8, 11, 30));
+  final RestorableDateTime _visit4 =
+      RestorableDateTime(DateTime(2026, 3, 29, 17, 45));
+  final RestorableDateTime _visit5 =
+      RestorableDateTime(DateTime(2026, 3, 10, 8, 0));
 
   // ------------------------------------------------------------------
   // RestorationMixin contract
@@ -672,7 +649,10 @@ class _AppointmentSchedulerDemoState extends State<AppointmentSchedulerDemo>
             Colors.black.withValues(alpha: 0.55),
           ],
         ),
-        border: Border.all(color: Colors.amber.shade300, width: 3),
+        border: Border.all(
+          color: Colors.amber.shade300,
+          width: 3,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.4),
@@ -748,8 +728,7 @@ class _AppointmentSchedulerDemoState extends State<AppointmentSchedulerDemo>
     final List<Widget> dayCards = <Widget>[];
     for (int i = 0; i < 7; i++) {
       final DateTime day = monday.add(Duration(days: i));
-      final bool isAnchor =
-          day.year == anchor.year &&
+      final bool isAnchor = day.year == anchor.year &&
           day.month == anchor.month &&
           day.day == anchor.day;
       dayCards.add(Expanded(child: _buildDayCard(day, highlighted: isAnchor)));
@@ -819,10 +798,10 @@ class _AppointmentSchedulerDemoState extends State<AppointmentSchedulerDemo>
     required VoidCallback onPressed,
     bool primary = false,
   }) {
-    final Color bg = primary
-        ? Colors.deepPurple.shade600
-        : Colors.deepPurple.shade50;
-    final Color fg = primary ? Colors.white : Colors.deepPurple.shade800;
+    final Color bg =
+        primary ? Colors.deepPurple.shade600 : Colors.deepPurple.shade50;
+    final Color fg =
+        primary ? Colors.white : Colors.deepPurple.shade800;
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(10),
@@ -861,7 +840,10 @@ class _AppointmentSchedulerDemoState extends State<AppointmentSchedulerDemo>
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: <Color>[Colors.deepPurple.shade500, Colors.indigo.shade700],
+            colors: <Color>[
+              Colors.deepPurple.shade500,
+              Colors.indigo.shade700,
+            ],
           ),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(color: Colors.amber.shade300, width: 2.5),
@@ -954,7 +936,10 @@ class _AppointmentSchedulerDemoState extends State<AppointmentSchedulerDemo>
           const SizedBox(height: 2),
           Text(
             _formatDateShort(day),
-            style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
+            style: TextStyle(
+              fontSize: 10,
+              color: Colors.grey.shade500,
+            ),
           ),
         ],
       ),
@@ -1181,7 +1166,10 @@ class _AppointmentSchedulerDemoState extends State<AppointmentSchedulerDemo>
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[const Color(0xFF1A1046), Colors.indigo.shade900],
+          colors: <Color>[
+            const Color(0xFF1A1046),
+            Colors.indigo.shade900,
+          ],
         ),
         borderRadius: BorderRadius.circular(24),
       ),
@@ -1325,7 +1313,9 @@ class _AppointmentSchedulerDemoState extends State<AppointmentSchedulerDemo>
             Colors.black.withValues(alpha: 0.5),
           ],
         ),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.12),
+        ),
       ),
       child: Stack(
         alignment: Alignment.center,

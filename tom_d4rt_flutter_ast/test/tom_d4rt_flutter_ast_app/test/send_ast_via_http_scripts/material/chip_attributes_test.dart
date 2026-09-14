@@ -339,249 +339,195 @@ class _PrivateHeroSection extends StatelessWidget {
     // Plain Chip examples
     chips.add(const Chip(label: Text('flutter')));
     chips.add(const Chip(label: Text('dart')));
-    chips.add(
-      Chip(
-        label: const Text('material'),
-        avatar: const Icon(Icons.layers, size: 18, color: _kAccent),
-      ),
-    );
-    chips.add(
-      Chip(
-        label: const Text('design'),
-        backgroundColor: _kAccentSoft,
-        side: const BorderSide(color: _kAccent),
-      ),
-    );
-    chips.add(const Chip(label: Text('widgets'), shape: StadiumBorder()));
+    chips.add(Chip(
+      label: const Text('material'),
+      avatar: const Icon(Icons.layers, size: 18, color: _kAccent),
+    ));
+    chips.add(Chip(
+      label: const Text('design'),
+      backgroundColor: _kAccentSoft,
+      side: const BorderSide(color: _kAccent),
+    ));
+    chips.add(const Chip(
+      label: Text('widgets'),
+      shape: StadiumBorder(),
+    ));
 
     // ActionChip examples
-    chips.add(
-      ActionChip(
-        label: const Text('Refresh'),
-        avatar: const Icon(Icons.refresh, size: 18),
-        onPressed: () {},
-      ),
-    );
-    chips.add(
-      ActionChip(
-        label: const Text('Share'),
-        avatar: const Icon(Icons.share, size: 18),
-        onPressed: () {},
-        backgroundColor: _kInfoSoft,
-        side: const BorderSide(color: _kInfo),
-      ),
-    );
-    chips.add(
-      ActionChip(
-        label: const Text('Save'),
-        onPressed: () {},
-        shape: const StadiumBorder(),
-      ),
-    );
-    chips.add(
-      ActionChip(
-        label: const Text('Export'),
-        onPressed: () {},
-        backgroundColor: _kPositiveSoft,
-      ),
-    );
+    chips.add(ActionChip(
+      label: const Text('Refresh'),
+      avatar: const Icon(Icons.refresh, size: 18),
+      onPressed: () {},
+    ));
+    chips.add(ActionChip(
+      label: const Text('Share'),
+      avatar: const Icon(Icons.share, size: 18),
+      onPressed: () {},
+      backgroundColor: _kInfoSoft,
+      side: const BorderSide(color: _kInfo),
+    ));
+    chips.add(ActionChip(
+      label: const Text('Save'),
+      onPressed: () {},
+      shape: const StadiumBorder(),
+    ));
+    chips.add(ActionChip(
+      label: const Text('Export'),
+      onPressed: () {},
+      backgroundColor: _kPositiveSoft,
+    ));
 
     // ChoiceChip examples
-    chips.add(
-      ChoiceChip(
-        label: const Text('Daily'),
-        selected: true,
-        onSelected: (_) {},
-        selectedColor: _kAccentSoft,
-      ),
-    );
-    chips.add(
-      ChoiceChip(
-        label: const Text('Weekly'),
-        selected: false,
-        onSelected: (_) {},
-      ),
-    );
-    chips.add(
-      ChoiceChip(
-        label: const Text('Monthly'),
-        selected: false,
-        onSelected: (_) {},
-      ),
-    );
-    chips.add(
-      const ChoiceChip(label: Text('Yearly (disabled)'), selected: false),
-    );
+    chips.add(ChoiceChip(
+      label: const Text('Daily'),
+      selected: true,
+      onSelected: (_) {},
+      selectedColor: _kAccentSoft,
+    ));
+    chips.add(ChoiceChip(
+      label: const Text('Weekly'),
+      selected: false,
+      onSelected: (_) {},
+    ));
+    chips.add(ChoiceChip(
+      label: const Text('Monthly'),
+      selected: false,
+      onSelected: (_) {},
+    ));
+    chips.add(const ChoiceChip(
+      label: Text('Yearly (disabled)'),
+      selected: false,
+    ));
 
     // FilterChip examples
-    chips.add(
-      FilterChip(
-        label: const Text('Sci-Fi'),
-        selected: true,
-        onSelected: (_) {},
-        avatar: const Icon(Icons.bolt, size: 18, color: _kAccent),
-      ),
-    );
-    chips.add(
-      FilterChip(
-        label: const Text('Drama'),
-        selected: false,
-        onSelected: (_) {},
-      ),
-    );
-    chips.add(
-      FilterChip(
-        label: const Text('Horror'),
-        selected: true,
-        onSelected: (_) {},
-        backgroundColor: _kRoseSoft,
-        selectedColor: _kRose.withValues(alpha: 0.2),
-        side: const BorderSide(color: _kRose),
-      ),
-    );
-    chips.add(
-      FilterChip(
-        label: const Text('Comedy'),
-        selected: false,
-        onSelected: (_) {},
-      ),
-    );
-    chips.add(
-      FilterChip(
-        label: const Text('Romance'),
-        selected: true,
-        onSelected: (_) {},
-        checkmarkColor: _kPositive,
-      ),
-    );
+    chips.add(FilterChip(
+      label: const Text('Sci-Fi'),
+      selected: true,
+      onSelected: (_) {},
+      avatar: const Icon(Icons.bolt, size: 18, color: _kAccent),
+    ));
+    chips.add(FilterChip(
+      label: const Text('Drama'),
+      selected: false,
+      onSelected: (_) {},
+    ));
+    chips.add(FilterChip(
+      label: const Text('Horror'),
+      selected: true,
+      onSelected: (_) {},
+      backgroundColor: _kRoseSoft,
+      selectedColor: _kRose.withValues(alpha: 0.2),
+      side: const BorderSide(color: _kRose),
+    ));
+    chips.add(FilterChip(
+      label: const Text('Comedy'),
+      selected: false,
+      onSelected: (_) {},
+    ));
+    chips.add(FilterChip(
+      label: const Text('Romance'),
+      selected: true,
+      onSelected: (_) {},
+      checkmarkColor: _kPositive,
+    ));
 
     // InputChip examples
-    chips.add(
-      InputChip(
-        label: const Text('alice@example.com'),
-        avatar: const CircleAvatar(
-          backgroundColor: _kAccent,
-          child: Text('A', style: TextStyle(color: Colors.white, fontSize: 12)),
-        ),
-        onDeleted: () {},
+    chips.add(InputChip(
+      label: const Text('alice@example.com'),
+      avatar: const CircleAvatar(
+        backgroundColor: _kAccent,
+        child: Text('A',
+            style: TextStyle(color: Colors.white, fontSize: 12)),
       ),
-    );
-    chips.add(
-      InputChip(
-        label: const Text('bob@example.com'),
-        avatar: const CircleAvatar(
-          backgroundColor: _kViolet,
-          child: Text('B', style: TextStyle(color: Colors.white, fontSize: 12)),
-        ),
-        onDeleted: () {},
+      onDeleted: () {},
+    ));
+    chips.add(InputChip(
+      label: const Text('bob@example.com'),
+      avatar: const CircleAvatar(
+        backgroundColor: _kViolet,
+        child: Text('B',
+            style: TextStyle(color: Colors.white, fontSize: 12)),
       ),
-    );
-    chips.add(
-      InputChip(
-        label: const Text('carla@example.com'),
-        avatar: const CircleAvatar(
-          backgroundColor: _kTeal,
-          child: Text('C', style: TextStyle(color: Colors.white, fontSize: 12)),
-        ),
-        onDeleted: () {},
-        selected: true,
+      onDeleted: () {},
+    ));
+    chips.add(InputChip(
+      label: const Text('carla@example.com'),
+      avatar: const CircleAvatar(
+        backgroundColor: _kTeal,
+        child: Text('C',
+            style: TextStyle(color: Colors.white, fontSize: 12)),
       ),
-    );
-    chips.add(
-      InputChip(
-        label: const Text('dan@example.com'),
-        onDeleted: () {},
-        onPressed: () {},
-      ),
-    );
-    chips.add(
-      const InputChip(
-        label: Text('eve@example.com (disabled)'),
-        isEnabled: false,
-      ),
-    );
+      onDeleted: () {},
+      selected: true,
+    ));
+    chips.add(InputChip(
+      label: const Text('dan@example.com'),
+      onDeleted: () {},
+      onPressed: () {},
+    ));
+    chips.add(const InputChip(
+      label: Text('eve@example.com (disabled)'),
+      isEnabled: false,
+    ));
 
     // RawChip examples
-    chips.add(
-      RawChip(
-        label: const Text('raw-foo'),
-        onPressed: () {},
-        shape: const StadiumBorder(),
-        side: const BorderSide(color: _kAccent),
-      ),
-    );
-    chips.add(
-      RawChip(
-        label: const Text('raw-bar'),
-        onPressed: () {},
-        onDeleted: () {},
-        avatar: const Icon(Icons.tag, size: 18),
-      ),
-    );
-    chips.add(
-      RawChip(
-        label: const Text('raw-baz'),
-        selected: true,
-        onSelected: (_) {},
-        showCheckmark: true,
-      ),
-    );
-    chips.add(
-      RawChip(
-        label: const Text('raw-quux'),
-        onPressed: () {},
-        backgroundColor: _kVioletSoft,
-        side: const BorderSide(color: _kViolet),
-      ),
-    );
+    chips.add(RawChip(
+      label: const Text('raw-foo'),
+      onPressed: () {},
+      shape: const StadiumBorder(),
+      side: const BorderSide(color: _kAccent),
+    ));
+    chips.add(RawChip(
+      label: const Text('raw-bar'),
+      onPressed: () {},
+      onDeleted: () {},
+      avatar: const Icon(Icons.tag, size: 18),
+    ));
+    chips.add(RawChip(
+      label: const Text('raw-baz'),
+      selected: true,
+      onSelected: (_) {},
+      showCheckmark: true,
+    ));
+    chips.add(RawChip(
+      label: const Text('raw-quux'),
+      onPressed: () {},
+      backgroundColor: _kVioletSoft,
+      side: const BorderSide(color: _kViolet),
+    ));
 
     // Variants — colored
-    chips.add(
-      Chip(
-        label: const Text('error'),
-        backgroundColor: _kDangerSoft,
-        side: const BorderSide(color: _kDanger),
-        labelStyle: const TextStyle(
-          color: _kDanger,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-    chips.add(
-      Chip(
-        label: const Text('warning'),
-        backgroundColor: _kWarnSoft,
-        side: const BorderSide(color: _kWarn),
-        labelStyle: const TextStyle(color: _kWarn, fontWeight: FontWeight.w600),
-      ),
-    );
-    chips.add(
-      Chip(
-        label: const Text('ok'),
-        backgroundColor: _kPositiveSoft,
-        side: const BorderSide(color: _kPositive),
-        labelStyle: const TextStyle(
-          color: _kPositive,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-    chips.add(
-      Chip(
-        label: const Text('info'),
-        backgroundColor: _kInfoSoft,
-        side: const BorderSide(color: _kInfo),
-        labelStyle: const TextStyle(color: _kInfo, fontWeight: FontWeight.w600),
-      ),
-    );
+    chips.add(Chip(
+      label: const Text('error'),
+      backgroundColor: _kDangerSoft,
+      side: const BorderSide(color: _kDanger),
+      labelStyle: const TextStyle(color: _kDanger, fontWeight: FontWeight.w600),
+    ));
+    chips.add(Chip(
+      label: const Text('warning'),
+      backgroundColor: _kWarnSoft,
+      side: const BorderSide(color: _kWarn),
+      labelStyle: const TextStyle(color: _kWarn, fontWeight: FontWeight.w600),
+    ));
+    chips.add(Chip(
+      label: const Text('ok'),
+      backgroundColor: _kPositiveSoft,
+      side: const BorderSide(color: _kPositive),
+      labelStyle:
+          const TextStyle(color: _kPositive, fontWeight: FontWeight.w600),
+    ));
+    chips.add(Chip(
+      label: const Text('info'),
+      backgroundColor: _kInfoSoft,
+      side: const BorderSide(color: _kInfo),
+      labelStyle: const TextStyle(color: _kInfo, fontWeight: FontWeight.w600),
+    ));
     chips.add(const Chip(label: Text('beta'), elevation: 4));
     chips.add(const Chip(label: Text('archived'), elevation: 0));
-    chips.add(
-      Chip(
-        label: const Text('priority'),
-        avatar: const Icon(Icons.flag, size: 18, color: _kRose),
-      ),
-    );
+    chips.add(Chip(
+      label: const Text('priority'),
+      avatar: const Icon(Icons.flag, size: 18, color: _kRose),
+    ));
 
     return chips;
   }
@@ -603,7 +549,11 @@ class _PrivateHeroSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Wrap(spacing: 8, runSpacing: 10, children: cloud),
+          Wrap(
+            spacing: 8,
+            runSpacing: 10,
+            children: cloud,
+          ),
         ],
       ),
     );
@@ -625,7 +575,9 @@ class _PrivateAnatomySection extends StatelessWidget {
         children: <Widget>[
           const _PrivateLabel('A chip is the sum of its anatomy:', bold: true),
           const SizedBox(height: 16),
-          Center(child: _PrivateBigChipDiagram()),
+          Center(
+            child: _PrivateBigChipDiagram(),
+          ),
           const SizedBox(height: 18),
           Wrap(
             spacing: 14,
@@ -636,10 +588,7 @@ class _PrivateAnatomySection extends StatelessWidget {
               _PrivateAnatomyTag(swatch: _kRose, label: 'deleteIcon'),
               _PrivateAnatomyTag(swatch: _kFaint, label: 'padding'),
               _PrivateAnatomyTag(swatch: _kSubInk, label: 'border (side)'),
-              _PrivateAnatomyTag(
-                swatch: _kAccentSoft,
-                label: 'backgroundColor',
-              ),
+              _PrivateAnatomyTag(swatch: _kAccentSoft, label: 'backgroundColor'),
               _PrivateAnatomyTag(swatch: _kViolet, label: 'elevation shadow'),
             ],
           ),
@@ -667,7 +616,8 @@ class _PrivateAnatomyTag extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 6),
-        Text(label, style: const TextStyle(color: _kInk, fontSize: 12)),
+        Text(label,
+            style: const TextStyle(color: _kInk, fontSize: 12)),
       ],
     );
   }
@@ -766,10 +716,8 @@ class _PrivateBigChipDiagram extends StatelessWidget {
           const Positioned(
             bottom: -22,
             right: 12,
-            child: _PrivateCallout(
-              text: 'side / shape / elevation',
-              color: _kViolet,
-            ),
+            child:
+                _PrivateCallout(text: 'side / shape / elevation', color: _kViolet),
           ),
         ],
       ),
@@ -839,21 +787,21 @@ class _PrivateFamilyMatrix extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               color: _kPaper,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(14)),
+              borderRadius:
+                  BorderRadius.vertical(top: Radius.circular(14)),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: <Widget>[
                 const SizedBox(
                   width: 110,
-                  child: Text(
-                    'Subclass',
-                    style: TextStyle(
-                      color: _kInk,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                    ),
-                  ),
+                  child: Text('Subclass',
+                      style: TextStyle(
+                        color: _kInk,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                      )),
                 ),
                 ..._columns.map<Widget>((String c) {
                   return Expanded(
@@ -877,7 +825,10 @@ class _PrivateFamilyMatrix extends StatelessWidget {
               decoration: const BoxDecoration(
                 border: Border(top: BorderSide(color: _kLine)),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 10,
+              ),
               child: Row(
                 children: <Widget>[
                   SizedBox(
@@ -913,9 +864,7 @@ class _PrivateMixinDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color c = value ? _kPositive : _kFaint;
-    final IconData ic = value
-        ? Icons.check_circle
-        : Icons.remove_circle_outline;
+    final IconData ic = value ? Icons.check_circle : Icons.remove_circle_outline;
     return Icon(ic, color: c, size: 18);
   }
 }
@@ -935,7 +884,9 @@ class _PrivateAttributeGallery extends StatelessWidget {
         description:
             'The string content. labelStyle sets typography on the label widget.',
         examples: <Widget>[
-          const Chip(label: Text('plain')),
+          const Chip(
+            label: Text('plain'),
+          ),
           Chip(
             label: const Text('italic'),
             labelStyle: const TextStyle(
@@ -957,7 +908,10 @@ class _PrivateAttributeGallery extends StatelessWidget {
         description:
             'Padding wrapping the label. Distinct from `padding` which surrounds the entire chip.',
         examples: <Widget>[
-          const Chip(label: Text('tight'), labelPadding: EdgeInsets.zero),
+          const Chip(
+            label: Text('tight'),
+            labelPadding: EdgeInsets.zero,
+          ),
           Chip(
             label: const Text('medium'),
             labelPadding: const EdgeInsets.symmetric(horizontal: 6),
@@ -970,7 +924,8 @@ class _PrivateAttributeGallery extends StatelessWidget {
       ),
       _PrivateAttrCard(
         attribute: 'avatar',
-        description: 'Leading widget. CircleAvatar, Icon, or any small widget.',
+        description:
+            'Leading widget. CircleAvatar, Icon, or any small widget.',
         examples: <Widget>[
           Chip(
             label: const Text('icon'),
@@ -1006,9 +961,18 @@ class _PrivateAttributeGallery extends StatelessWidget {
         description:
             'Padding around the entire chip body (between border and contents).',
         examples: <Widget>[
-          Chip(label: const Text('tight'), padding: const EdgeInsets.all(0)),
-          Chip(label: const Text('medium'), padding: const EdgeInsets.all(4)),
-          Chip(label: const Text('wide'), padding: const EdgeInsets.all(10)),
+          Chip(
+            label: const Text('tight'),
+            padding: const EdgeInsets.all(0),
+          ),
+          Chip(
+            label: const Text('medium'),
+            padding: const EdgeInsets.all(4),
+          ),
+          Chip(
+            label: const Text('wide'),
+            padding: const EdgeInsets.all(10),
+          ),
         ],
       ),
       _PrivateAttrCard(
@@ -1022,7 +986,10 @@ class _PrivateAttributeGallery extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
           ),
-          const Chip(label: Text('stadium'), shape: StadiumBorder()),
+          const Chip(
+            label: Text('stadium'),
+            shape: StadiumBorder(),
+          ),
           Chip(
             label: const Text('squircle'),
             shape: RoundedRectangleBorder(
@@ -1033,7 +1000,8 @@ class _PrivateAttributeGallery extends StatelessWidget {
       ),
       _PrivateAttrCard(
         attribute: 'side',
-        description: 'Border drawn around the chip. Width and color tuneable.',
+        description:
+            'Border drawn around the chip. Width and color tuneable.',
         examples: <Widget>[
           Chip(
             label: const Text('thin'),
@@ -1054,8 +1022,14 @@ class _PrivateAttributeGallery extends StatelessWidget {
         description:
             'Fill behind the chip. M3 themes can override; explicit value wins.',
         examples: <Widget>[
-          Chip(label: const Text('paper'), backgroundColor: _kPaper),
-          Chip(label: const Text('soft accent'), backgroundColor: _kAccentSoft),
+          Chip(
+            label: const Text('paper'),
+            backgroundColor: _kPaper,
+          ),
+          Chip(
+            label: const Text('soft accent'),
+            backgroundColor: _kAccentSoft,
+          ),
           Chip(
             label: const Text('soft positive'),
             backgroundColor: _kPositiveSoft,
@@ -1064,19 +1038,37 @@ class _PrivateAttributeGallery extends StatelessWidget {
       ),
       _PrivateAttrCard(
         attribute: 'elevation',
-        description: 'Z-axis lift, casting a softer shadow as it grows.',
+        description:
+            'Z-axis lift, casting a softer shadow as it grows.',
         examples: <Widget>[
-          const Chip(label: Text('flat (0)'), elevation: 0),
-          const Chip(label: Text('mid (4)'), elevation: 4),
-          const Chip(label: Text('high (12)'), elevation: 12),
+          const Chip(
+            label: Text('flat (0)'),
+            elevation: 0,
+          ),
+          const Chip(
+            label: Text('mid (4)'),
+            elevation: 4,
+          ),
+          const Chip(
+            label: Text('high (12)'),
+            elevation: 12,
+          ),
         ],
       ),
       _PrivateAttrCard(
         attribute: 'shadowColor',
-        description: 'Color of the cast shadow when elevation > 0.',
+        description:
+            'Color of the cast shadow when elevation > 0.',
         examples: <Widget>[
-          const Chip(label: Text('default'), elevation: 6),
-          const Chip(label: Text('warm'), elevation: 6, shadowColor: _kRose),
+          const Chip(
+            label: Text('default'),
+            elevation: 6,
+          ),
+          const Chip(
+            label: Text('warm'),
+            elevation: 6,
+            shadowColor: _kRose,
+          ),
           const Chip(
             label: Text('violet'),
             elevation: 6,
@@ -1111,7 +1103,10 @@ class _PrivateAttributeGallery extends StatelessWidget {
         description:
             'IconThemeData applied to icons inside the chip (e.g. avatar Icon).',
         examples: <Widget>[
-          Chip(label: const Text('default'), avatar: const Icon(Icons.star)),
+          Chip(
+            label: const Text('default'),
+            avatar: const Icon(Icons.star),
+          ),
           Chip(
             label: const Text('custom small'),
             avatar: const Icon(Icons.star),
@@ -1126,16 +1121,27 @@ class _PrivateAttributeGallery extends StatelessWidget {
       ),
       _PrivateAttrCard(
         attribute: 'clipBehavior',
-        description: 'How content is clipped against the chip\'s shape.',
+        description:
+            'How content is clipped against the chip\'s shape.',
         examples: <Widget>[
-          Chip(label: const Text('none'), clipBehavior: Clip.none),
-          Chip(label: const Text('hardEdge'), clipBehavior: Clip.hardEdge),
-          Chip(label: const Text('antiAlias'), clipBehavior: Clip.antiAlias),
+          Chip(
+            label: const Text('none'),
+            clipBehavior: Clip.none,
+          ),
+          Chip(
+            label: const Text('hardEdge'),
+            clipBehavior: Clip.hardEdge,
+          ),
+          Chip(
+            label: const Text('antiAlias'),
+            clipBehavior: Clip.antiAlias,
+          ),
         ],
       ),
       _PrivateAttrCard(
         attribute: 'materialTapTargetSize',
-        description: 'shrinkWrap vs padded. Controls min hit-area, often 48dp.',
+        description:
+            'shrinkWrap vs padded. Controls min hit-area, often 48dp.',
         examples: <Widget>[
           ActionChip(
             label: const Text('shrink wrap'),
@@ -1147,7 +1153,10 @@ class _PrivateAttributeGallery extends StatelessWidget {
             onPressed: () {},
             materialTapTargetSize: MaterialTapTargetSize.padded,
           ),
-          ActionChip(label: const Text('default'), onPressed: () {}),
+          ActionChip(
+            label: const Text('default'),
+            onPressed: () {},
+          ),
         ],
       ),
       _PrivateAttrCard(
@@ -1243,7 +1252,8 @@ class _PrivateAttrCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: _kAccentSoft,
                   borderRadius: BorderRadius.circular(6),
@@ -1265,7 +1275,11 @@ class _PrivateAttrCard extends StatelessWidget {
             style: const TextStyle(color: _kSubInk, fontSize: 12),
           ),
           const SizedBox(height: 14),
-          Wrap(spacing: 8, runSpacing: 10, children: examples),
+          Wrap(
+            spacing: 8,
+            runSpacing: 10,
+            children: examples,
+          ),
         ],
       ),
     );
@@ -1341,8 +1355,7 @@ class _PrivateSelectionMatrix extends StatelessWidget {
           const _PrivateLabel('FilterChip — 4 rows × 6 columns', bold: true),
           const SizedBox(height: 4),
           const _PrivateMiniCaption(
-            'Each cell uses a static `selected:` value; `onSelected: (_) {}` toggles enable/disable.',
-          ),
+              'Each cell uses a static `selected:` value; `onSelected: (_) {}` toggles enable/disable.'),
           const SizedBox(height: 14),
           for (int r = 0; r < 4; r++)
             Padding(
@@ -1424,8 +1437,7 @@ class _PrivateStateColorChain extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           const _PrivateMiniCaption(
-            '`color` resolves to a Color depending on the WidgetState set; we visualize the static result for each state.',
-          ),
+              '`color` resolves to a Color depending on the WidgetState set; we visualize the static result for each state.'),
           const SizedBox(height: 14),
           Wrap(
             spacing: 12,
@@ -1443,7 +1455,10 @@ class _PrivateStateColorChain extends StatelessWidget {
           const SizedBox(height: 18),
           const Divider(height: 1, color: _kLine),
           const SizedBox(height: 14),
-          const _PrivateLabel('Pseudo-code', bold: true),
+          const _PrivateLabel(
+            'Pseudo-code',
+            bold: true,
+          ),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -1568,10 +1583,8 @@ class _PrivateRecipeCard extends StatelessWidget {
             children: <Widget>[
               const Icon(Icons.menu_book_outlined, color: _kViolet),
               const SizedBox(width: 8),
-              const _PrivateLabel(
-                'Recipe — Fully styled FilterChip',
-                bold: true,
-              ),
+              const _PrivateLabel('Recipe — Fully styled FilterChip',
+                  bold: true),
               const Spacer(),
               FilterChip(
                 label: const Text('Sci-Fi'),
@@ -1583,7 +1596,8 @@ class _PrivateRecipeCard extends StatelessWidget {
                   color: Colors.white,
                 ),
                 labelPadding: const EdgeInsets.symmetric(horizontal: 4),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 4),
                 shape: const StadiumBorder(),
                 side: const BorderSide(color: _kAccent),
                 backgroundColor: _kAccentSoft,
@@ -1597,7 +1611,8 @@ class _PrivateRecipeCard extends StatelessWidget {
                 visualDensity: VisualDensity.standard,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 clipBehavior: Clip.antiAlias,
-                iconTheme: const IconThemeData(color: Colors.white, size: 16),
+                iconTheme:
+                    const IconThemeData(color: Colors.white, size: 16),
               ),
             ],
           ),
@@ -1639,9 +1654,20 @@ class _PrivateThemePanel extends StatelessWidget {
       children: <Widget>[
         Chip(label: Text('$name a')),
         Chip(label: Text('$name b')),
-        FilterChip(label: Text('$name c'), selected: true, onSelected: (_) {}),
-        FilterChip(label: Text('$name d'), selected: false, onSelected: (_) {}),
-        ActionChip(label: Text('$name e'), onPressed: () {}),
+        FilterChip(
+          label: Text('$name c'),
+          selected: true,
+          onSelected: (_) {},
+        ),
+        FilterChip(
+          label: Text('$name d'),
+          selected: false,
+          onSelected: (_) {},
+        ),
+        ActionChip(
+          label: Text('$name e'),
+          onPressed: () {},
+        ),
       ],
     );
   }
@@ -1655,8 +1681,7 @@ class _PrivateThemePanel extends StatelessWidget {
           const _PrivateLabel('default theme', bold: true),
           const SizedBox(height: 4),
           const _PrivateMiniCaption(
-            'No surrounding ChipTheme — uses ThemeData.chipTheme.',
-          ),
+              'No surrounding ChipTheme — uses ThemeData.chipTheme.'),
           const SizedBox(height: 12),
           _row('default'),
           const SizedBox(height: 18),
@@ -1665,8 +1690,7 @@ class _PrivateThemePanel extends StatelessWidget {
           const _PrivateLabel('with ChipTheme override', bold: true),
           const SizedBox(height: 4),
           const _PrivateMiniCaption(
-            'Wrapped in ChipTheme(data: ChipThemeData(...)) — values cascade to children.',
-          ),
+              'Wrapped in ChipTheme(data: ChipThemeData(...)) — values cascade to children.'),
           const SizedBox(height: 12),
           ChipTheme(
             data: ChipThemeData(
@@ -1681,7 +1705,10 @@ class _PrivateThemePanel extends StatelessWidget {
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
               shape: const StadiumBorder(),
               side: const BorderSide(color: _kViolet),
               elevation: 2,
@@ -1758,11 +1785,8 @@ class _PrivatePitfalls extends StatelessWidget {
                     color: _kWarnSoft,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(
-                    Icons.warning_amber_outlined,
-                    color: _kWarn,
-                    size: 16,
-                  ),
+                  child: const Icon(Icons.warning_amber_outlined,
+                      color: _kWarn, size: 16),
                 ),
                 const SizedBox(width: 12),
                 Expanded(

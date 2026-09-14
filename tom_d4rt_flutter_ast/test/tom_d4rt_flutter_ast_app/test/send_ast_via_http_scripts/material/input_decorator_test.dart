@@ -8,21 +8,20 @@ Widget buildSectionHeader(String title, IconData icon, Color color) {
     margin: EdgeInsets.fromLTRB(8, 16, 8, 8),
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [color, color.withValues(alpha: 0.7)]),
+      gradient: LinearGradient(
+        colors: [color, color.withValues(alpha: 0.7)],
+      ),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Row(
       children: [
         Icon(icon, color: Colors.white, size: 20),
         SizedBox(width: 8),
-        Text(
-          title,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(title,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold)),
       ],
     ),
   );
@@ -53,19 +52,14 @@ Widget buildInfoCard(String label, String description, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: color,
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: color)),
               SizedBox(height: 2),
-              Text(
-                description,
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-              ),
+              Text(description,
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
             ],
           ),
         ),
@@ -98,15 +92,11 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-        'Basic Labels & Hints',
-        Icons.text_fields,
-        Colors.indigo,
-      ),
+          'Basic Labels & Hints', Icons.text_fields, Colors.indigo),
       buildInfoCard(
-        'InputDecorator',
-        'Wraps any widget and applies InputDecoration styling including labels, hints, and helper text.',
-        Colors.indigo,
-      ),
+          'InputDecorator',
+          'Wraps any widget and applies InputDecoration styling including labels, hints, and helper text.',
+          Colors.indigo),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
@@ -114,10 +104,8 @@ dynamic build(BuildContext context) {
             hintText: 'Enter your full name',
             helperText: 'First and last name required',
           ),
-          child: Text(
-            'John Doe',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('John Doe',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -129,10 +117,8 @@ dynamic build(BuildContext context) {
             helperText: 'We will never share your email',
             helperStyle: TextStyle(color: Colors.teal, fontSize: 11),
           ),
-          child: Text(
-            'alice@example.com',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('alice@example.com',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.indigo.shade50,
       ),
@@ -143,14 +129,10 @@ dynamic build(BuildContext context) {
             hintText: '+1 (555) 000-0000',
             helperText: 'Include country code',
             labelStyle: TextStyle(
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.w600,
-            ),
+                color: Colors.deepPurple, fontWeight: FontWeight.w600),
           ),
-          child: Text(
-            '+1 (555) 123-4567',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('+1 (555) 123-4567',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -162,7 +144,8 @@ dynamic build(BuildContext context) {
             hintText: 'This field is empty - notice the label position',
             helperText: 'isEmpty controls label animation',
           ),
-          child: Text('', style: TextStyle(fontSize: 16)),
+          child: Text('',
+              style: TextStyle(fontSize: 16)),
         ),
         Colors.grey.shade50,
       ),
@@ -175,15 +158,10 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-        'Prefix & Suffix Icons',
-        Icons.star_border,
-        Colors.orange,
-      ),
-      buildInfoCard(
-        'prefixIcon / suffixIcon',
-        'Place icons before or after the input area to provide visual context.',
-        Colors.orange,
-      ),
+          'Prefix & Suffix Icons', Icons.star_border, Colors.orange),
+      buildInfoCard('prefixIcon / suffixIcon',
+          'Place icons before or after the input area to provide visual context.',
+          Colors.orange),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
@@ -191,10 +169,8 @@ dynamic build(BuildContext context) {
             hintText: 'Type to search...',
             prefixIcon: Icon(Icons.search, color: Colors.orange),
           ),
-          child: Text(
-            'Flutter widgets',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Flutter widgets',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -206,10 +182,8 @@ dynamic build(BuildContext context) {
             prefixIcon: Icon(Icons.lock, color: Colors.orange.shade700),
             suffixIcon: Icon(Icons.visibility_off, color: Colors.grey),
           ),
-          child: Text(
-            '********',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('********',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.orange.shade50,
       ),
@@ -221,10 +195,8 @@ dynamic build(BuildContext context) {
             prefixIcon: Icon(Icons.language, color: Colors.blue),
             suffixIcon: Icon(Icons.open_in_new, color: Colors.blue.shade300),
           ),
-          child: Text(
-            'https://flutter.dev',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('https://flutter.dev',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -237,10 +209,8 @@ dynamic build(BuildContext context) {
             suffixIcon: Icon(Icons.calculate, color: Colors.green.shade300),
             icon: Icon(Icons.account_balance_wallet, color: Colors.grey),
           ),
-          child: Text(
-            '1,250.00',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('1,250.00',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.green.shade50,
       ),
@@ -252,23 +222,22 @@ dynamic build(BuildContext context) {
   final Widget borderSection = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader('Border Styles', Icons.border_all, Colors.teal),
-      buildInfoCard(
-        'OutlineInputBorder vs UnderlineInputBorder',
-        'Two built-in border types: outline draws a rectangle, underline draws only the bottom edge.',
-        Colors.teal,
-      ),
+      buildSectionHeader(
+          'Border Styles', Icons.border_all, Colors.teal),
+      buildInfoCard('OutlineInputBorder vs UnderlineInputBorder',
+          'Two built-in border types: outline draws a rectangle, underline draws only the bottom edge.',
+          Colors.teal),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
             labelText: 'Outline Border',
             hintText: 'Rectangle border around the field',
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
-          child: Text(
-            'Outlined content',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Outlined content',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -279,10 +248,8 @@ dynamic build(BuildContext context) {
             hintText: 'Bottom edge decoration only',
             border: UnderlineInputBorder(),
           ),
-          child: Text(
-            'Underlined content',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Underlined content',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.teal.shade50,
       ),
@@ -291,16 +258,16 @@ dynamic build(BuildContext context) {
           decoration: InputDecoration(
             labelText: 'Rounded Outline',
             hintText: 'Large border radius',
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(24),
               borderSide: BorderSide(color: Colors.teal, width: 2),
             ),
           ),
-          child: Text(
-            'Rounded border',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Rounded border',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -311,10 +278,8 @@ dynamic build(BuildContext context) {
             hintText: 'InputBorder.none removes the border',
             border: InputBorder.none,
           ),
-          child: Text(
-            'Borderless input',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Borderless input',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.grey.shade100,
       ),
@@ -326,12 +291,11 @@ dynamic build(BuildContext context) {
   final Widget errorSection = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader('Error State', Icons.error_outline, Colors.red),
-      buildInfoCard(
-        'errorText / errorStyle / errorBorder',
-        'Display validation errors beneath the field with custom styling and border colors.',
-        Colors.red,
-      ),
+      buildSectionHeader(
+          'Error State', Icons.error_outline, Colors.red),
+      buildInfoCard('errorText / errorStyle / errorBorder',
+          'Display validation errors beneath the field with custom styling and border colors.',
+          Colors.red),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
@@ -342,10 +306,8 @@ dynamic build(BuildContext context) {
               borderSide: BorderSide(color: Colors.red.shade700, width: 2),
             ),
           ),
-          child: Text(
-            'admin',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('admin',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -355,10 +317,9 @@ dynamic build(BuildContext context) {
             labelText: 'Email',
             errorText: 'Please enter a valid email address',
             errorStyle: TextStyle(
-              color: Colors.deepOrange,
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
-            ),
+                color: Colors.deepOrange,
+                fontWeight: FontWeight.w600,
+                fontSize: 12),
             errorMaxLines: 2,
             border: OutlineInputBorder(),
             errorBorder: OutlineInputBorder(
@@ -366,10 +327,8 @@ dynamic build(BuildContext context) {
             ),
             prefixIcon: Icon(Icons.email, color: Colors.red.shade300),
           ),
-          child: Text(
-            'not-an-email',
-            style: TextStyle(fontSize: 16, color: Colors.red.shade700),
-          ),
+          child: Text('not-an-email',
+              style: TextStyle(fontSize: 16, color: Colors.red.shade700)),
         ),
         Colors.red.shade50,
       ),
@@ -377,18 +336,15 @@ dynamic build(BuildContext context) {
         InputDecorator(
           decoration: InputDecoration(
             labelText: 'Password',
-            errorText:
-                'Must be at least 8 characters with one uppercase letter and one number',
+            errorText: 'Must be at least 8 characters with one uppercase letter and one number',
             errorMaxLines: 3,
             errorStyle: TextStyle(fontSize: 11, color: Colors.red),
             border: UnderlineInputBorder(),
             prefixIcon: Icon(Icons.lock_outline, color: Colors.red.shade200),
             suffixIcon: Icon(Icons.warning_amber, color: Colors.amber),
           ),
-          child: Text(
-            'abc',
-            style: TextStyle(fontSize: 16, color: Colors.black54),
-          ),
+          child: Text('abc',
+              style: TextStyle(fontSize: 16, color: Colors.black54)),
         ),
         Colors.white,
       ),
@@ -401,15 +357,10 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-        'Focused State',
-        Icons.center_focus_strong,
-        Colors.blue,
-      ),
-      buildInfoCard(
-        'focusedBorder / focusedErrorBorder',
-        'Custom borders applied when the field gains focus. These override the default border.',
-        Colors.blue,
-      ),
+          'Focused State', Icons.center_focus_strong, Colors.blue),
+      buildInfoCard('focusedBorder / focusedErrorBorder',
+          'Custom borders applied when the field gains focus. These override the default border.',
+          Colors.blue),
       buildDecoratorCard(
         InputDecorator(
           isFocused: true,
@@ -422,10 +373,8 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: Text(
-            'Active input here',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Active input here',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.blue.shade50,
       ),
@@ -440,14 +389,10 @@ dynamic build(BuildContext context) {
               borderSide: BorderSide(color: Colors.purple, width: 3),
             ),
             floatingLabelStyle: TextStyle(
-              color: Colors.purple,
-              fontWeight: FontWeight.bold,
-            ),
+                color: Colors.purple, fontWeight: FontWeight.bold),
           ),
-          child: Text(
-            'Purple focused',
-            style: TextStyle(fontSize: 16, color: Colors.purple),
-          ),
+          child: Text('Purple focused',
+              style: TextStyle(fontSize: 16, color: Colors.purple)),
         ),
         Colors.white,
       ),
@@ -463,10 +408,8 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: Text(
-            'Error + focused',
-            style: TextStyle(fontSize: 16, color: Colors.deepOrange),
-          ),
+          child: Text('Error + focused',
+              style: TextStyle(fontSize: 16, color: Colors.deepOrange)),
         ),
         Colors.orange.shade50,
       ),
@@ -479,15 +422,10 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-        'Filled vs Unfilled',
-        Icons.format_color_fill,
-        Colors.purple,
-      ),
-      buildInfoCard(
-        'filled / fillColor',
-        'Set filled: true to add a background color behind the input area. Combine with fillColor for custom tones.',
-        Colors.purple,
-      ),
+          'Filled vs Unfilled', Icons.format_color_fill, Colors.purple),
+      buildInfoCard('filled / fillColor',
+          'Set filled: true to add a background color behind the input area. Combine with fillColor for custom tones.',
+          Colors.purple),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
@@ -496,10 +434,8 @@ dynamic build(BuildContext context) {
             filled: false,
             border: OutlineInputBorder(),
           ),
-          child: Text(
-            'No fill',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('No fill',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -511,10 +447,8 @@ dynamic build(BuildContext context) {
             filled: true,
             border: UnderlineInputBorder(),
           ),
-          child: Text(
-            'Default fill color',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Default fill color',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -525,12 +459,12 @@ dynamic build(BuildContext context) {
             hintText: 'Light purple background',
             filled: true,
             fillColor: Colors.purple.shade50,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
-          child: Text(
-            'Purple fill',
-            style: TextStyle(fontSize: 16, color: Colors.purple),
-          ),
+          child: Text('Purple fill',
+              style: TextStyle(fontSize: 16, color: Colors.purple)),
         ),
         Colors.white,
       ),
@@ -547,10 +481,8 @@ dynamic build(BuildContext context) {
             ),
             prefixIcon: Icon(Icons.eco, color: Colors.teal),
           ),
-          child: Text(
-            'Filled with icon',
-            style: TextStyle(fontSize: 16, color: Colors.teal.shade700),
-          ),
+          child: Text('Filled with icon',
+              style: TextStyle(fontSize: 16, color: Colors.teal.shade700)),
         ),
         Colors.white,
       ),
@@ -563,15 +495,10 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-        'Floating Label Behavior',
-        Icons.label,
-        Colors.deepOrange,
-      ),
-      buildInfoCard(
-        'FloatingLabelBehavior',
-        'Controls when the label floats above the input: always, auto (default), or never.',
-        Colors.deepOrange,
-      ),
+          'Floating Label Behavior', Icons.label, Colors.deepOrange),
+      buildInfoCard('FloatingLabelBehavior',
+          'Controls when the label floats above the input: always, auto (default), or never.',
+          Colors.deepOrange),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
@@ -581,7 +508,8 @@ dynamic build(BuildContext context) {
             border: OutlineInputBorder(),
           ),
           isEmpty: true,
-          child: Text('', style: TextStyle(fontSize: 16)),
+          child: Text('',
+              style: TextStyle(fontSize: 16)),
         ),
         Colors.deepOrange.shade50,
       ),
@@ -593,10 +521,8 @@ dynamic build(BuildContext context) {
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             border: OutlineInputBorder(),
           ),
-          child: Text(
-            'Some content here',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Some content here',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -609,7 +535,8 @@ dynamic build(BuildContext context) {
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             border: OutlineInputBorder(),
           ),
-          child: Text('', style: TextStyle(fontSize: 16)),
+          child: Text('',
+              style: TextStyle(fontSize: 16)),
         ),
         Colors.grey.shade50,
       ),
@@ -621,10 +548,8 @@ dynamic build(BuildContext context) {
             floatingLabelBehavior: FloatingLabelBehavior.never,
             border: OutlineInputBorder(),
           ),
-          child: Text(
-            'Content present',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Content present',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -636,19 +561,16 @@ dynamic build(BuildContext context) {
             hintText: 'Always float with focused styling',
             floatingLabelBehavior: FloatingLabelBehavior.always,
             floatingLabelStyle: TextStyle(
-              color: Colors.deepOrange,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+                color: Colors.deepOrange,
+                fontWeight: FontWeight.bold,
+                fontSize: 18),
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.deepOrange, width: 2),
             ),
           ),
-          child: Text(
-            'Styled floating label',
-            style: TextStyle(fontSize: 16, color: Colors.deepOrange),
-          ),
+          child: Text('Styled floating label',
+              style: TextStyle(fontSize: 16, color: Colors.deepOrange)),
         ),
         Colors.deepOrange.shade50,
       ),
@@ -661,15 +583,10 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-        'Prefix/Suffix Widgets & Counter',
-        Icons.widgets,
-        Colors.cyan,
-      ),
-      buildInfoCard(
-        'prefix / suffix / counterText',
-        'Unlike prefixIcon, prefix and suffix are inline widgets that appear inside the input area. counterText shows character counts.',
-        Colors.cyan,
-      ),
+          'Prefix/Suffix Widgets & Counter', Icons.widgets, Colors.cyan),
+      buildInfoCard('prefix / suffix / counterText',
+          'Unlike prefixIcon, prefix and suffix are inline widgets that appear inside the input area. counterText shows character counts.',
+          Colors.cyan),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
@@ -677,31 +594,23 @@ dynamic build(BuildContext context) {
             border: OutlineInputBorder(),
             prefix: Container(
               padding: EdgeInsets.only(right: 8),
-              child: Text(
-                '\$',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                ),
-              ),
+              child: Text('\$',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green)),
             ),
             suffix: Container(
               padding: EdgeInsets.only(left: 8),
-              child: Text(
-                'USD',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              child: Text('USD',
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500)),
             ),
           ),
-          child: Text(
-            '99.99',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('99.99',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -715,10 +624,8 @@ dynamic build(BuildContext context) {
             suffixText: '.com',
             suffixStyle: TextStyle(color: Colors.cyan.shade600, fontSize: 14),
           ),
-          child: Text(
-            'mysite',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('mysite',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.cyan.shade50,
       ),
@@ -729,12 +636,12 @@ dynamic build(BuildContext context) {
             hintText: 'Tell us about yourself',
             border: OutlineInputBorder(),
             counterText: '42 / 200 characters',
-            counterStyle: TextStyle(fontSize: 11, color: Colors.cyan.shade600),
+            counterStyle: TextStyle(
+                fontSize: 11,
+                color: Colors.cyan.shade600),
           ),
-          child: Text(
-            'I love building Flutter apps and exploring new widgets',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('I love building Flutter apps and exploring new widgets',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -750,27 +657,21 @@ dynamic build(BuildContext context) {
                 color: Colors.amber.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                'CODE',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber.shade800,
-                ),
-              ),
+              child: Text('CODE',
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber.shade800)),
             ),
             suffix: Icon(Icons.check_circle, color: Colors.green, size: 20),
             counterText: 'Valid code applied',
             counterStyle: TextStyle(color: Colors.green, fontSize: 11),
           ),
-          child: Text(
-            'SAVE20',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
+          child: Text('SAVE20',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87)),
         ),
         Colors.amber.shade50,
       ),
@@ -782,12 +683,11 @@ dynamic build(BuildContext context) {
   final Widget denseSection = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader('Dense vs Normal', Icons.compress, Colors.brown),
-      buildInfoCard(
-        'isDense',
-        'When isDense is true, the decorator reduces vertical spacing. Useful in forms with many fields.',
-        Colors.brown,
-      ),
+      buildSectionHeader(
+          'Dense vs Normal', Icons.compress, Colors.brown),
+      buildInfoCard('isDense',
+          'When isDense is true, the decorator reduces vertical spacing. Useful in forms with many fields.',
+          Colors.brown),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
@@ -798,10 +698,8 @@ dynamic build(BuildContext context) {
             isDense: false,
             prefixIcon: Icon(Icons.person, color: Colors.brown),
           ),
-          child: Text(
-            'Normal spacing',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Normal spacing',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -815,10 +713,8 @@ dynamic build(BuildContext context) {
             isDense: true,
             prefixIcon: Icon(Icons.person, color: Colors.brown),
           ),
-          child: Text(
-            'Dense spacing',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Dense spacing',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.brown.shade50,
       ),
@@ -832,10 +728,8 @@ dynamic build(BuildContext context) {
                   border: OutlineInputBorder(),
                   isDense: false,
                 ),
-                child: Text(
-                  'A',
-                  style: TextStyle(fontSize: 16, color: Colors.black87),
-                ),
+                child: Text('A',
+                    style: TextStyle(fontSize: 16, color: Colors.black87)),
               ),
               Colors.white,
             ),
@@ -848,10 +742,8 @@ dynamic build(BuildContext context) {
                   border: OutlineInputBorder(),
                   isDense: true,
                 ),
-                child: Text(
-                  'B',
-                  style: TextStyle(fontSize: 16, color: Colors.black87),
-                ),
+                child: Text('B',
+                    style: TextStyle(fontSize: 16, color: Colors.black87)),
               ),
               Colors.brown.shade50,
             ),
@@ -866,12 +758,11 @@ dynamic build(BuildContext context) {
   final Widget paddingSection = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader('Content Padding', Icons.padding, Colors.green),
-      buildInfoCard(
-        'contentPadding',
-        'Override the default padding inside the decorator to achieve custom layouts.',
-        Colors.green,
-      ),
+      buildSectionHeader(
+          'Content Padding', Icons.padding, Colors.green),
+      buildInfoCard('contentPadding',
+          'Override the default padding inside the decorator to achieve custom layouts.',
+          Colors.green),
       buildDecoratorCard(
         InputDecorator(
           decoration: InputDecoration(
@@ -879,10 +770,8 @@ dynamic build(BuildContext context) {
             helperText: 'No contentPadding override',
             border: OutlineInputBorder(),
           ),
-          child: Text(
-            'Default',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Default',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -894,10 +783,8 @@ dynamic build(BuildContext context) {
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.all(24),
           ),
-          child: Text(
-            'Spacious input area',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Spacious input area',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.green.shade50,
       ),
@@ -909,10 +796,8 @@ dynamic build(BuildContext context) {
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.all(4),
           ),
-          child: Text(
-            'Compact',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Compact',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -924,10 +809,8 @@ dynamic build(BuildContext context) {
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.fromLTRB(32, 16, 8, 16),
           ),
-          child: Text(
-            'Left-heavy padding',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Left-heavy padding',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.green.shade50,
       ),
@@ -939,10 +822,8 @@ dynamic build(BuildContext context) {
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
           ),
-          child: Text(
-            'Tall rows',
-            style: TextStyle(fontSize: 16, color: Colors.black87),
-          ),
+          child: Text('Tall rows',
+              style: TextStyle(fontSize: 16, color: Colors.black87)),
         ),
         Colors.white,
       ),
@@ -963,128 +844,68 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'InputDecorator Properties Demonstrated:',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        Text('InputDecorator Properties Demonstrated:',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         SizedBox(height: 8),
         Wrap(
           spacing: 6,
           runSpacing: 6,
           children: [
-            Chip(
-              label: Text('labelText', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.indigo.shade100,
-            ),
-            Chip(
-              label: Text('hintText', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.indigo.shade50,
-            ),
-            Chip(
-              label: Text('helperText', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.indigo.shade100,
-            ),
-            Chip(
-              label: Text('prefixIcon', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.orange.shade100,
-            ),
-            Chip(
-              label: Text('suffixIcon', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.orange.shade50,
-            ),
-            Chip(
-              label: Text('icon', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.orange.shade100,
-            ),
-            Chip(
-              label: Text('OutlineInputBorder', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.teal.shade100,
-            ),
-            Chip(
-              label: Text(
-                'UnderlineInputBorder',
-                style: TextStyle(fontSize: 10),
-              ),
-              backgroundColor: Colors.teal.shade50,
-            ),
-            Chip(
-              label: Text('InputBorder.none', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.teal.shade100,
-            ),
-            Chip(
-              label: Text('errorText', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.red.shade100,
-            ),
-            Chip(
-              label: Text('errorStyle', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.red.shade50,
-            ),
-            Chip(
-              label: Text('errorBorder', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.red.shade100,
-            ),
-            Chip(
-              label: Text('focusedBorder', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.blue.shade100,
-            ),
-            Chip(
-              label: Text('isFocused', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.blue.shade50,
-            ),
-            Chip(
-              label: Text('filled', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.purple.shade100,
-            ),
-            Chip(
-              label: Text('fillColor', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.purple.shade50,
-            ),
-            Chip(
-              label: Text(
-                'FloatingLabelBehavior',
-                style: TextStyle(fontSize: 10),
-              ),
-              backgroundColor: Colors.deepOrange.shade100,
-            ),
-            Chip(
-              label: Text('prefix', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.cyan.shade100,
-            ),
-            Chip(
-              label: Text('suffix', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.cyan.shade50,
-            ),
-            Chip(
-              label: Text('counterText', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.cyan.shade100,
-            ),
-            Chip(
-              label: Text('isDense', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.brown.shade100,
-            ),
-            Chip(
-              label: Text('contentPadding', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.green.shade100,
-            ),
-            Chip(
-              label: Text('isEmpty', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.grey.shade200,
-            ),
-            Chip(
-              label: Text('floatingLabelStyle', style: TextStyle(fontSize: 10)),
-              backgroundColor: Colors.deepOrange.shade50,
-            ),
+            Chip(label: Text('labelText', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.indigo.shade100),
+            Chip(label: Text('hintText', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.indigo.shade50),
+            Chip(label: Text('helperText', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.indigo.shade100),
+            Chip(label: Text('prefixIcon', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.orange.shade100),
+            Chip(label: Text('suffixIcon', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.orange.shade50),
+            Chip(label: Text('icon', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.orange.shade100),
+            Chip(label: Text('OutlineInputBorder', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.teal.shade100),
+            Chip(label: Text('UnderlineInputBorder', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.teal.shade50),
+            Chip(label: Text('InputBorder.none', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.teal.shade100),
+            Chip(label: Text('errorText', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.red.shade100),
+            Chip(label: Text('errorStyle', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.red.shade50),
+            Chip(label: Text('errorBorder', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.red.shade100),
+            Chip(label: Text('focusedBorder', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.blue.shade100),
+            Chip(label: Text('isFocused', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.blue.shade50),
+            Chip(label: Text('filled', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.purple.shade100),
+            Chip(label: Text('fillColor', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.purple.shade50),
+            Chip(label: Text('FloatingLabelBehavior', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.deepOrange.shade100),
+            Chip(label: Text('prefix', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.cyan.shade100),
+            Chip(label: Text('suffix', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.cyan.shade50),
+            Chip(label: Text('counterText', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.cyan.shade100),
+            Chip(label: Text('isDense', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.brown.shade100),
+            Chip(label: Text('contentPadding', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.green.shade100),
+            Chip(label: Text('isEmpty', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.grey.shade200),
+            Chip(label: Text('floatingLabelStyle', style: TextStyle(fontSize: 10)),
+                backgroundColor: Colors.deepOrange.shade50),
           ],
         ),
         SizedBox(height: 8),
-        Text(
-          'Total sections: 10 demo groups + summary',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
-        Text(
-          'InputDecorator wraps any widget with Material Design input styling.',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
+        Text('Total sections: 10 demo groups + summary',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text('InputDecorator wraps any widget with Material Design input styling.',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
       ],
     ),
   );

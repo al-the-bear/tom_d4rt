@@ -18,16 +18,14 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'InheritedWidget for Selection',
-      'body':
-          'SelectionRegistrarScope is an InheritedWidget that hosts a '
+      'body': 'SelectionRegistrarScope is an InheritedWidget that hosts a '
           'SelectionRegistrar. It propagates the registrar down the widget '
           'tree so Selectable descendants can find and register with it.',
     },
     {
       'icon': Icons.app_registration,
       'title': 'Registration Gateway',
-      'body':
-          'Selectable widgets (like Text inside a SelectionArea) use '
+      'body': 'Selectable widgets (like Text inside a SelectionArea) use '
           'the registrar from the nearest SelectionRegistrarScope to '
           'register themselves. The registrar then dispatches selection '
           'events to all registered selectables.',
@@ -35,16 +33,14 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Created by SelectionContainer',
-      'body':
-          'You rarely create SelectionRegistrarScope directly. '
+      'body': 'You rarely create SelectionRegistrarScope directly. '
           'SelectionContainer creates one internally, wrapping its child '
           'subtree with a registrar backed by its delegate.',
     },
     {
       'icon': Icons.block,
       'title': 'Disabling Selection',
-      'body':
-          'SelectionContainer.disabled() creates a scope with a null '
+      'body': 'SelectionContainer.disabled() creates a scope with a null '
           'registrar, preventing descendant widgets from registering '
           'for selection – effectively making content non-selectable.',
     },
@@ -66,11 +62,7 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              p['icon'] as IconData,
-              color: Colors.deepPurple.shade700,
-              size: 26.0,
-            ),
+            Icon(p['icon'] as IconData, color: Colors.deepPurple.shade700, size: 26.0),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -87,11 +79,7 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: Colors.grey.shade800,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
                   ),
                 ],
               ),
@@ -112,8 +100,7 @@ dynamic build(BuildContext context) {
       'step': '1',
       'title': 'Scope Provides Registrar',
       'color': Colors.blue,
-      'code':
-          'SelectionRegistrarScope(\n'
+      'code': 'SelectionRegistrarScope(\n'
           '  registrar: myRegistrar,\n'
           '  child: subtree,\n'
           ')',
@@ -123,8 +110,7 @@ dynamic build(BuildContext context) {
       'step': '2',
       'title': 'Descendants Look Up Scope',
       'color': Colors.green,
-      'code':
-          'final registrar =\n'
+      'code': 'final registrar =\n'
           '  SelectionContainer.maybeOf(context);',
       'desc': 'Any descendant can find the nearest registrar using context.',
     },
@@ -132,24 +118,20 @@ dynamic build(BuildContext context) {
       'step': '3',
       'title': 'Selectables Register',
       'color': Colors.purple,
-      'code':
-          'registrar?.add(this);\n'
+      'code': 'registrar?.add(this);\n'
           '// ...\n'
           'registrar?.remove(this);',
-      'desc':
-          'Selectable render objects call add() on mount and remove() on unmount.',
+      'desc': 'Selectable render objects call add() on mount and remove() on unmount.',
     },
     {
       'step': '4',
       'title': 'Events Dispatched',
       'color': Colors.orange,
-      'code':
-          '// SelectionArea dispatches:\n'
+      'code': '// SelectionArea dispatches:\n'
           'registrar.dispatchSelectionEvent(\n'
           '  SelectWordSelectionEvent(...),\n'
           ');',
-      'desc':
-          'Selection events flow through the registrar to all registered selectables.',
+      'desc': 'Selection events flow through the registrar to all registered selectables.',
     },
   ];
 
@@ -167,44 +149,28 @@ dynamic build(BuildContext context) {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 8.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.08),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(9.0),
-                ),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
               ),
               child: Row(
                 children: [
                   Container(
                     width: 22.0,
                     height: 22.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: color,
-                    ),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: color),
                     child: Center(
                       child: Text(
                         is_['step'] as String,
-                        style: const TextStyle(
-                          fontSize: 11.0,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
+                        style: const TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.white),
                       ),
                     ),
                   ),
                   const SizedBox(width: 8.0),
                   Text(
                     is_['title'] as String,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                    ),
+                    style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: color),
                   ),
                 ],
               ),
@@ -215,11 +181,7 @@ dynamic build(BuildContext context) {
               color: Colors.grey.shade50,
               child: Text(
                 is_['code'] as String,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  fontFamily: 'monospace',
-                  color: Colors.grey.shade800,
-                ),
+                style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade800),
               ),
             ),
             Container(
@@ -227,11 +189,7 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 is_['desc'] as String,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  color: Colors.grey.shade600,
-                  height: 1.3,
-                ),
+                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600, height: 1.3),
               ),
             ),
           ],
@@ -250,8 +208,7 @@ dynamic build(BuildContext context) {
       'method': 'add(Selectable selectable)',
       'color': Colors.green,
       'icon': Icons.add_circle_outline,
-      'desc':
-          'Registers a Selectable with the registrar. Called by '
+      'desc': 'Registers a Selectable with the registrar. Called by '
           'SelectionRegistrant mixin during attach(). The registrar '
           'starts tracking this selectable for selection events.',
     },
@@ -259,8 +216,7 @@ dynamic build(BuildContext context) {
       'method': 'remove(Selectable selectable)',
       'color': Colors.red,
       'icon': Icons.remove_circle_outline,
-      'desc':
-          'Unregisters a Selectable from the registrar. Called '
+      'desc': 'Unregisters a Selectable from the registrar. Called '
           'during detach() or when the registrar changes. The selectable '
           'will no longer receive selection events.',
     },
@@ -307,11 +263,7 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     rm['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.grey.shade700,
-                      height: 1.35,
-                    ),
+                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
                   ),
                 ],
               ),
@@ -397,11 +349,7 @@ dynamic build(BuildContext context) {
               if (indent > 0)
                 Padding(
                   padding: const EdgeInsets.only(right: 6.0),
-                  child: Icon(
-                    Icons.subdirectory_arrow_right,
-                    size: 12.0,
-                    color: Colors.grey.shade400,
-                  ),
+                  child: Icon(Icons.subdirectory_arrow_right, size: 12.0, color: Colors.grey.shade400),
                 ),
               Icon(Icons.circle, size: 6.0, color: color),
               const SizedBox(width: 6.0),
@@ -410,21 +358,14 @@ dynamic build(BuildContext context) {
                   children: [
                     Text(
                       tn['widget'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700,
-                        color: color,
-                      ),
+                      style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
+                          fontWeight: FontWeight.w700, color: color),
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
                         tn['role'] as String,
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: Colors.grey.shade500,
-                        ),
+                        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -461,12 +402,10 @@ dynamic build(BuildContext context) {
     {
       'title': 'SelectionContainer.disabled()',
       'color': Colors.red,
-      'desc':
-          'The most common use of the scope is through '
+      'desc': 'The most common use of the scope is through '
           'SelectionContainer.disabled() which creates a scope with '
           'a null registrar, preventing selection in a subtree.',
-      'code':
-          'SelectionArea(\n'
+      'code': 'SelectionArea(\n'
           '  child: Column(\n'
           '    children: [\n'
           '      Text("Selectable text"),\n'
@@ -481,12 +420,10 @@ dynamic build(BuildContext context) {
     {
       'title': 'Nested Selection Containers',
       'color': Colors.blue,
-      'desc':
-          'Each SelectionContainer creates its own scope. Nested '
+      'desc': 'Each SelectionContainer creates its own scope. Nested '
           'containers create a hierarchy of registrars, allowing '
           'different sections to have independent selection behavior.',
-      'code':
-          'SelectionArea(\n'
+      'code': 'SelectionArea(\n'
           '  child: Column(\n'
           '    children: [\n'
           '      SelectionContainer(\n'
@@ -504,12 +441,10 @@ dynamic build(BuildContext context) {
     {
       'title': 'Looking Up the Registrar',
       'color': Colors.green,
-      'desc':
-          'Use SelectionContainer.maybeOf() to find the nearest '
+      'desc': 'Use SelectionContainer.maybeOf() to find the nearest '
           'registrar. Returns null if selection is disabled or no '
           'SelectionRegistrarScope is in the tree.',
-      'code':
-          '// In a RenderObject or widget:\n'
+      'code': '// In a RenderObject or widget:\n'
           'final registrar =\n'
           '  SelectionContainer.maybeOf(context);\n'
           '\n'
@@ -522,12 +457,10 @@ dynamic build(BuildContext context) {
     {
       'title': 'updateShouldNotify',
       'color': Colors.purple,
-      'desc':
-          'The scope notifies descendants when the registrar changes. '
+      'desc': 'The scope notifies descendants when the registrar changes. '
           'This triggers re-registration: selectables remove from old '
           'registrar and add to the new one.',
-      'code':
-          '// Internal to SelectionRegistrarScope:\n'
+      'code': '// Internal to SelectionRegistrarScope:\n'
           '@override\n'
           'bool updateShouldNotify(\n'
           '  SelectionRegistrarScope old,\n'
@@ -554,31 +487,18 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(9.0),
-                ),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
               ),
               child: Text(
                 p['title'] as String,
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
+                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: color),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 8.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
               child: Text(
                 p['desc'] as String,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                  height: 1.35,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
               ),
             ),
             Container(
@@ -592,11 +512,7 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 p['code'] as String,
-                style: TextStyle(
-                  fontSize: 10.5,
-                  fontFamily: 'monospace',
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 10.5, fontFamily: 'monospace', color: Colors.grey.shade700),
               ),
             ),
           ],
@@ -611,32 +527,12 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {
-      'icon': Icons.account_tree,
-      'text':
-          'SelectionRegistrarScope is an InheritedWidget hosting a SelectionRegistrar',
-    },
-    {
-      'icon': Icons.app_registration,
-      'text': 'Selectable render objects register/unregister through it',
-    },
-    {
-      'icon': Icons.layers,
-      'text': 'Created automatically by SelectionContainer and SelectionArea',
-    },
-    {
-      'icon': Icons.block,
-      'text': 'SelectionContainer.disabled() creates scope with null registrar',
-    },
-    {
-      'icon': Icons.sync,
-      'text':
-          'updateShouldNotify triggers re-registration when registrar changes',
-    },
-    {
-      'icon': Icons.search,
-      'text': 'Look up via SelectionContainer.maybeOf(context)',
-    },
+    {'icon': Icons.account_tree, 'text': 'SelectionRegistrarScope is an InheritedWidget hosting a SelectionRegistrar'},
+    {'icon': Icons.app_registration, 'text': 'Selectable render objects register/unregister through it'},
+    {'icon': Icons.layers, 'text': 'Created automatically by SelectionContainer and SelectionArea'},
+    {'icon': Icons.block, 'text': 'SelectionContainer.disabled() creates scope with null registrar'},
+    {'icon': Icons.sync, 'text': 'updateShouldNotify triggers re-registration when registrar changes'},
+    {'icon': Icons.search, 'text': 'Look up via SelectionContainer.maybeOf(context)'},
   ];
 
   final summaryItems = <Widget>[];
@@ -647,20 +543,12 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              sp['icon'] as IconData,
-              size: 16.0,
-              color: Colors.deepPurple.shade700,
-            ),
+            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.deepPurple.shade700),
             const SizedBox(width: 8.0),
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: Colors.grey.shade800,
-                  height: 1.3,
-                ),
+                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
               ),
             ),
           ],
@@ -707,12 +595,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSBullet(
-                  'What is SelectionRegistrarScope?',
-                  'An InheritedWidget that provides a SelectionRegistrar '
-                      'to descendant widgets, enabling them to participate '
-                      'in text selection.',
-                ),
+                _buildSRSBullet('What is SelectionRegistrarScope?',
+                    'An InheritedWidget that provides a SelectionRegistrar '
+                    'to descendant widgets, enabling them to participate '
+                    'in text selection.'),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -724,10 +610,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSBullet(
-                  'InheritedWidget Pattern',
-                  'How the scope propagates the registrar down the tree.',
-                ),
+                _buildSRSBullet('InheritedWidget Pattern',
+                    'How the scope propagates the registrar down the tree.'),
                 const SizedBox(height: 14.0),
                 ...inheritedWidgets,
                 const SizedBox(height: 10.0),
@@ -741,11 +625,7 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.info_outline,
-                        size: 16.0,
-                        color: Colors.amber.shade800,
-                      ),
+                      Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
@@ -753,11 +633,7 @@ dynamic build(BuildContext context) {
                           'automates the register/unregister lifecycle. It '
                           'listens for scope changes and re-registers with '
                           'the new registrar automatically.',
-                          style: TextStyle(
-                            fontSize: 11.5,
-                            color: Colors.amber.shade900,
-                            height: 1.35,
-                          ),
+                          style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.35),
                         ),
                       ),
                     ],
@@ -772,11 +648,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSBullet(
-                  'SelectionRegistrar Interface',
-                  'The abstract interface that the scope hosts. Only two '
-                      'methods: add() and remove().',
-                ),
+                _buildSRSBullet('SelectionRegistrar Interface',
+                    'The abstract interface that the scope hosts. Only two '
+                    'methods: add() and remove().'),
                 const SizedBox(height: 14.0),
                 ...registrarCards,
                 const SizedBox(height: 14.0),
@@ -785,32 +659,21 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.deepPurple.withValues(alpha: 0.04),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: Colors.deepPurple.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.2)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Selectable Interface',
-                        style: TextStyle(
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.deepPurple.shade700,
-                        ),
-                      ),
+                      Text('Selectable Interface',
+                          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
+                              color: Colors.deepPurple.shade700)),
                       const SizedBox(height: 8.0),
                       Text(
                         'The Selectable objects that register must implement '
                         'dispatchSelectionEvent(), getSelectionGeometry(), '
                         'and other methods. This is handled by the framework '
                         'for built-in widgets like Text paragraphs.',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade700,
-                          height: 1.4,
-                        ),
+                        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4),
                       ),
                       const SizedBox(height: 8.0),
                       Container(
@@ -826,11 +689,7 @@ dynamic build(BuildContext context) {
                           '  void add(Selectable selectable);\n'
                           '  void remove(Selectable selectable);\n'
                           '}',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            fontFamily: 'monospace',
-                            color: Colors.grey.shade700,
-                          ),
+                          style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade700),
                         ),
                       ),
                     ],
@@ -845,11 +704,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSBullet(
-                  'Widget Tree Propagation',
-                  'How SelectionRegistrarScope scopes flow through '
-                      'the widget tree.',
-                ),
+                _buildSRSBullet('Widget Tree Propagation',
+                    'How SelectionRegistrarScope scopes flow through '
+                    'the widget tree.'),
                 const SizedBox(height: 14.0),
                 Container(
                   padding: const EdgeInsets.all(14.0),
@@ -869,32 +726,21 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.deepPurple.withValues(alpha: 0.04),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: Colors.deepPurple.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.2)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Scope Nesting',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.deepPurple.shade700,
-                        ),
-                      ),
+                      Text('Scope Nesting',
+                          style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
+                              color: Colors.deepPurple.shade700)),
                       const SizedBox(height: 6.0),
                       Text(
                         'Each SelectionContainer creates a new scope that '
                         'shadows the parent scope. Selectables always register '
                         'with the nearest (innermost) scope. This creates a '
                         'hierarchy where selection can be managed per-section.',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade700,
-                          height: 1.4,
-                        ),
+                        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4),
                       ),
                     ],
                   ),
@@ -908,11 +754,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSBullet(
-                  'Live Selection Demo',
-                  'Text inside a SelectionArea can be selected. '
-                      'The registrar scope makes this possible.',
-                ),
+                _buildSRSBullet('Live Selection Demo',
+                    'Text inside a SelectionArea can be selected. '
+                    'The registrar scope makes this possible.'),
                 const SizedBox(height: 14.0),
                 liveDemo,
               ],
@@ -924,11 +768,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSBullet(
-                  'Disabling Selection',
-                  'SelectionContainer.disabled() creates a scope with '
-                      'null registrar, blocking selection in a subtree.',
-                ),
+                _buildSRSBullet('Disabling Selection',
+                    'SelectionContainer.disabled() creates a scope with '
+                    'null registrar, blocking selection in a subtree.'),
                 const SizedBox(height: 14.0),
                 disabledDemo,
               ],
@@ -940,10 +782,8 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSBullet(
-                  'Code Patterns',
-                  'Common usage patterns for SelectionRegistrarScope.',
-                ),
+                _buildSRSBullet('Code Patterns',
+                    'Common usage patterns for SelectionRegistrarScope.'),
                 const SizedBox(height: 14.0),
                 ...patternCards,
               ],
@@ -967,9 +807,7 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: Colors.deepPurple.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.2)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -994,31 +832,15 @@ Widget _buildSRSBullet(String title, String body) {
     decoration: BoxDecoration(
       color: Colors.deepPurple.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: Colors.deepPurple.shade700, width: 3.0),
-      ),
+      border: Border(left: BorderSide(color: Colors.deepPurple.shade700, width: 3.0)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.deepPurple.shade700,
-          ),
-        ),
+        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: Colors.deepPurple.shade700)),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(
-            body,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.grey.shade700,
-              height: 1.4,
-            ),
-          ),
+          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
         ],
       ],
     ),
@@ -1076,18 +898,13 @@ class _SRSLiveDemoState extends State<_SRSLiveDemo> {
                   decoration: BoxDecoration(
                     color: Colors.deepPurple.withValues(alpha: 0.03),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: Colors.deepPurple.withValues(alpha: 0.15),
-                    ),
+                    border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.15)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: _hasRegistrar
                               ? Colors.green.withValues(alpha: 0.1)
@@ -1108,9 +925,7 @@ class _SRSLiveDemoState extends State<_SRSLiveDemo> {
                               style: TextStyle(
                                 fontSize: 11.0,
                                 fontWeight: FontWeight.w700,
-                                color: _hasRegistrar
-                                    ? Colors.green.shade700
-                                    : Colors.red.shade700,
+                                color: _hasRegistrar ? Colors.green.shade700 : Colors.red.shade700,
                               ),
                             ),
                           ],
@@ -1122,11 +937,7 @@ class _SRSLiveDemoState extends State<_SRSLiveDemo> {
                         'a SelectionRegistrarScope. The scope hosts a '
                         'registrar that Text paragraphs automatically '
                         'register with.',
-                        style: TextStyle(
-                          fontSize: 13.0,
-                          height: 1.55,
-                          color: Colors.black87,
-                        ),
+                        style: TextStyle(fontSize: 13.0, height: 1.55, color: Colors.black87),
                       ),
                       const SizedBox(height: 10.0),
                       const Text(
@@ -1134,22 +945,14 @@ class _SRSLiveDemoState extends State<_SRSLiveDemo> {
                         'dispatches selection events to all registered '
                         'selectables. Each Text widget responds by updating '
                         'its selection highlight.',
-                        style: TextStyle(
-                          fontSize: 13.0,
-                          height: 1.55,
-                          color: Colors.black87,
-                        ),
+                        style: TextStyle(fontSize: 13.0, height: 1.55, color: Colors.black87),
                       ),
                       const SizedBox(height: 10.0),
                       const Text(
                         'You can select across these paragraphs because they '
                         'all share the same registrar from the enclosing '
                         'SelectionRegistrarScope.',
-                        style: TextStyle(
-                          fontSize: 13.0,
-                          height: 1.55,
-                          color: Colors.black87,
-                        ),
+                        style: TextStyle(fontSize: 13.0, height: 1.55, color: Colors.black87),
                       ),
                     ],
                   ),
@@ -1168,14 +971,9 @@ class _SRSLiveDemoState extends State<_SRSLiveDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'How it works:',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.deepPurple.shade700,
-                  ),
-                ),
+                Text('How it works:',
+                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                        color: Colors.deepPurple.shade700)),
                 const SizedBox(height: 6.0),
                 _stepItem('1', 'SelectionArea creates a registrar'),
                 _stepItem('2', 'SelectionRegistrarScope hosts the registrar'),
@@ -1203,22 +1001,15 @@ class _SRSLiveDemoState extends State<_SRSLiveDemo> {
               color: Colors.deepPurple.withValues(alpha: 0.15),
             ),
             child: Center(
-              child: Text(
-                num,
-                style: TextStyle(
-                  fontSize: 9.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.deepPurple.shade700,
-                ),
-              ),
+              child: Text(num,
+                  style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w700,
+                      color: Colors.deepPurple.shade700)),
             ),
           ),
           const SizedBox(width: 8.0),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
-            ),
+            child: Text(text,
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
           ),
         ],
       ),
@@ -1264,29 +1055,18 @@ class _SRSDisabledDemo extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: Colors.green.withValues(alpha: 0.25),
-                    ),
+                    border: Border.all(color: Colors.green.withValues(alpha: 0.25)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.check_circle,
-                            size: 14.0,
-                            color: Colors.green,
-                          ),
+                          Icon(Icons.check_circle, size: 14.0, color: Colors.green),
                           const SizedBox(width: 6.0),
-                          Text(
-                            'Selectable (registrar available)',
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.green.shade700,
-                            ),
-                          ),
+                          Text('Selectable (registrar available)',
+                              style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                                  color: Colors.green.shade700)),
                         ],
                       ),
                       const SizedBox(height: 8.0),
@@ -1308,9 +1088,7 @@ class _SRSDisabledDemo extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.red.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: Colors.red.withValues(alpha: 0.25),
-                      ),
+                      border: Border.all(color: Colors.red.withValues(alpha: 0.25)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1319,14 +1097,9 @@ class _SRSDisabledDemo extends StatelessWidget {
                           children: [
                             Icon(Icons.cancel, size: 14.0, color: Colors.red),
                             const SizedBox(width: 6.0),
-                            Text(
-                              'Non-Selectable (registrar is null)',
-                              style: TextStyle(
-                                fontSize: 11.0,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.red.shade700,
-                              ),
-                            ),
+                            Text('Non-Selectable (registrar is null)',
+                                style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                                    color: Colors.red.shade700)),
                           ],
                         ),
                         const SizedBox(height: 8.0),
@@ -1348,29 +1121,18 @@ class _SRSDisabledDemo extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: Colors.green.withValues(alpha: 0.25),
-                    ),
+                    border: Border.all(color: Colors.green.withValues(alpha: 0.25)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.check_circle,
-                            size: 14.0,
-                            color: Colors.green,
-                          ),
+                          Icon(Icons.check_circle, size: 14.0, color: Colors.green),
                           const SizedBox(width: 6.0),
-                          Text(
-                            'Selectable again (parent scope restored)',
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.green.shade700,
-                            ),
-                          ),
+                          Text('Selectable again (parent scope restored)',
+                              style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                                  color: Colors.green.shade700)),
                         ],
                       ),
                       const SizedBox(height: 8.0),
@@ -1401,11 +1163,7 @@ class _SRSDisabledDemo extends StatelessWidget {
               '  +-- SelectionContainer.disabled()\n'
               '  |     +-- Text (NOT selectable)\n'
               '  +-- Text (selectable)',
-              style: TextStyle(
-                fontSize: 10.5,
-                fontFamily: 'monospace',
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 10.5, fontFamily: 'monospace', color: Colors.grey.shade700),
             ),
           ),
         ],

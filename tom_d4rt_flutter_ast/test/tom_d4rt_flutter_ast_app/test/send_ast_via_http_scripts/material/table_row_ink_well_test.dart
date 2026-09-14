@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 20.0),
-
+              
               // Basic table example
               Text(
                 'Basic Usage:',
@@ -81,7 +81,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12.0),
-
+              
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300),
@@ -106,24 +106,15 @@ dynamic build(BuildContext context) {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text(
-                            'Item',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          child: Text('Item', style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text(
-                            'Qty',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          child: Text('Qty', style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Text(
-                            'Price',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          child: Text('Price', style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ],
                     ),
@@ -185,9 +176,9 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-
+              
               SizedBox(height: 12.0),
-
+              
               Row(
                 children: [
                   Icon(Icons.touch_app, size: 16.0, color: Colors.grey),
@@ -262,40 +253,36 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Customize splash and highlight colors for different visual effects:',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 16.0),
-
+              
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Table(
-                  columnWidths: {0: FlexColumnWidth(2), 1: FlexColumnWidth(3)},
+                  columnWidths: {
+                    0: FlexColumnWidth(2),
+                    1: FlexColumnWidth(3),
+                  },
                   children: [
                     TableRow(
-                      decoration: BoxDecoration(color: Colors.grey.shade100),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                      ),
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Color Type',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
-                          ),
+                          child: Text('Color Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                         ),
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Tap to Test',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
-                          ),
+                          child: Text('Tap to Test', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                         ),
                       ],
                     ),
@@ -304,16 +291,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Blue Splash',
-                            style: TextStyle(fontSize: 12.0),
-                          ),
+                          child: Text('Blue Splash', style: TextStyle(fontSize: 12.0)),
                         ),
                         TableRowInkWell(
                           onTap: () => print('Blue splash'),
-                          overlayColor: WidgetStateProperty.all(
-                            Colors.blue.withValues(alpha: 0.3),
-                          ),
+                          overlayColor: WidgetStateProperty.all(Colors.blue.withValues(alpha: 0.3)),
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             child: Row(
@@ -327,10 +309,7 @@ dynamic build(BuildContext context) {
                                   ),
                                 ),
                                 SizedBox(width: 8.0),
-                                Text(
-                                  'Tap here',
-                                  style: TextStyle(fontSize: 12.0),
-                                ),
+                                Text('Tap here', style: TextStyle(fontSize: 12.0)),
                               ],
                             ),
                           ),
@@ -342,16 +321,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Pink Splash',
-                            style: TextStyle(fontSize: 12.0),
-                          ),
+                          child: Text('Pink Splash', style: TextStyle(fontSize: 12.0)),
                         ),
                         TableRowInkWell(
                           onTap: () => print('Pink splash'),
-                          overlayColor: WidgetStateProperty.all(
-                            Colors.pink.withValues(alpha: 0.3),
-                          ),
+                          overlayColor: WidgetStateProperty.all(Colors.pink.withValues(alpha: 0.3)),
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             child: Row(
@@ -365,10 +339,7 @@ dynamic build(BuildContext context) {
                                   ),
                                 ),
                                 SizedBox(width: 8.0),
-                                Text(
-                                  'Tap here',
-                                  style: TextStyle(fontSize: 12.0),
-                                ),
+                                Text('Tap here', style: TextStyle(fontSize: 12.0)),
                               ],
                             ),
                           ),
@@ -380,16 +351,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Green Splash',
-                            style: TextStyle(fontSize: 12.0),
-                          ),
+                          child: Text('Green Splash', style: TextStyle(fontSize: 12.0)),
                         ),
                         TableRowInkWell(
                           onTap: () => print('Green splash'),
-                          overlayColor: WidgetStateProperty.all(
-                            Colors.green.withValues(alpha: 0.3),
-                          ),
+                          overlayColor: WidgetStateProperty.all(Colors.green.withValues(alpha: 0.3)),
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             child: Row(
@@ -403,10 +369,7 @@ dynamic build(BuildContext context) {
                                   ),
                                 ),
                                 SizedBox(width: 8.0),
-                                Text(
-                                  'Tap here',
-                                  style: TextStyle(fontSize: 12.0),
-                                ),
+                                Text('Tap here', style: TextStyle(fontSize: 12.0)),
                               ],
                             ),
                           ),
@@ -418,16 +381,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Orange Splash',
-                            style: TextStyle(fontSize: 12.0),
-                          ),
+                          child: Text('Orange Splash', style: TextStyle(fontSize: 12.0)),
                         ),
                         TableRowInkWell(
                           onTap: () => print('Orange splash'),
-                          overlayColor: WidgetStateProperty.all(
-                            Colors.orange.withValues(alpha: 0.3),
-                          ),
+                          overlayColor: WidgetStateProperty.all(Colors.orange.withValues(alpha: 0.3)),
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             child: Row(
@@ -441,10 +399,7 @@ dynamic build(BuildContext context) {
                                   ),
                                 ),
                                 SizedBox(width: 8.0),
-                                Text(
-                                  'Tap here',
-                                  style: TextStyle(fontSize: 12.0),
-                                ),
+                                Text('Tap here', style: TextStyle(fontSize: 12.0)),
                               ],
                             ),
                           ),
@@ -514,10 +469,13 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Combining TableRowInkWell with selection state for interactive tables:',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 16.0),
-
+              
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300),
@@ -532,61 +490,42 @@ dynamic build(BuildContext context) {
                   children: [
                     // Header
                     TableRow(
-                      decoration: BoxDecoration(color: Colors.blue.shade50),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade50,
+                      ),
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Icon(
-                            Icons.check_box_outline_blank,
-                            size: 18.0,
-                            color: Colors.grey,
-                          ),
+                          child: Icon(Icons.check_box_outline_blank, size: 18.0, color: Colors.grey),
                         ),
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Name',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
-                          ),
+                          child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                         ),
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Status',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
-                          ),
+                          child: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                         ),
                       ],
                     ),
                     // Selected row
                     TableRow(
-                      decoration: BoxDecoration(color: Colors.blue.shade100),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade100,
+                      ),
                       children: [
                         TableRowInkWell(
                           onTap: () => print('Toggle row 1'),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Icon(
-                              Icons.check_box,
-                              size: 18.0,
-                              color: Colors.blue,
-                            ),
+                            child: Icon(Icons.check_box, size: 18.0, color: Colors.blue),
                           ),
                         ),
                         TableRowInkWell(
                           onTap: () => print('Select row 1'),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Project Alpha',
-                              style: TextStyle(fontSize: 12.0),
-                            ),
+                            child: Text('Project Alpha', style: TextStyle(fontSize: 12.0)),
                           ),
                         ),
                         TableRowInkWell(
@@ -594,21 +533,12 @@ dynamic build(BuildContext context) {
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 2.0,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                               decoration: BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              child: Text(
-                                'Active',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10.0,
-                                ),
-                              ),
+                              child: Text('Active', style: TextStyle(color: Colors.white, fontSize: 10.0)),
                             ),
                           ),
                         ),
@@ -621,21 +551,14 @@ dynamic build(BuildContext context) {
                           onTap: () => print('Toggle row 2'),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Icon(
-                              Icons.check_box_outline_blank,
-                              size: 18.0,
-                              color: Colors.grey,
-                            ),
+                            child: Icon(Icons.check_box_outline_blank, size: 18.0, color: Colors.grey),
                           ),
                         ),
                         TableRowInkWell(
                           onTap: () => print('Select row 2'),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Project Beta',
-                              style: TextStyle(fontSize: 12.0),
-                            ),
+                            child: Text('Project Beta', style: TextStyle(fontSize: 12.0)),
                           ),
                         ),
                         TableRowInkWell(
@@ -643,21 +566,12 @@ dynamic build(BuildContext context) {
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 2.0,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                               decoration: BoxDecoration(
                                 color: Colors.orange,
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              child: Text(
-                                'Pending',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10.0,
-                                ),
-                              ),
+                              child: Text('Pending', style: TextStyle(color: Colors.white, fontSize: 10.0)),
                             ),
                           ),
                         ),
@@ -670,21 +584,14 @@ dynamic build(BuildContext context) {
                           onTap: () => print('Toggle row 3'),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Icon(
-                              Icons.check_box_outline_blank,
-                              size: 18.0,
-                              color: Colors.grey,
-                            ),
+                            child: Icon(Icons.check_box_outline_blank, size: 18.0, color: Colors.grey),
                           ),
                         ),
                         TableRowInkWell(
                           onTap: () => print('Select row 3'),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Project Gamma',
-                              style: TextStyle(fontSize: 12.0),
-                            ),
+                            child: Text('Project Gamma', style: TextStyle(fontSize: 12.0)),
                           ),
                         ),
                         TableRowInkWell(
@@ -692,21 +599,12 @@ dynamic build(BuildContext context) {
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 2.0,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                               decoration: BoxDecoration(
                                 color: Colors.grey,
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              child: Text(
-                                'Draft',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10.0,
-                                ),
-                              ),
+                              child: Text('Draft', style: TextStyle(color: Colors.white, fontSize: 10.0)),
                             ),
                           ),
                         ),
@@ -715,7 +613,7 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-
+              
               SizedBox(height: 12.0),
               Text(
                 'First row shown in selected state',
@@ -785,10 +683,13 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'TableRowInkWell supports onLongPress for context menu actions:',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 16.0),
-
+              
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300),
@@ -802,66 +703,32 @@ dynamic build(BuildContext context) {
                   },
                   children: [
                     TableRow(
-                      decoration: BoxDecoration(color: Colors.grey.shade100),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                      ),
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Icon(
-                            Icons.folder,
-                            size: 16.0,
-                            color: Colors.grey.shade700,
-                          ),
+                          child: Icon(Icons.folder, size: 16.0, color: Colors.grey.shade700),
                         ),
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'File',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
-                          ),
+                          child: Text('File', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                         ),
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Size',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
-                          ),
+                          child: Text('Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                         ),
                       ],
                     ),
-                    _buildFileRow(
-                      Icons.description,
-                      'document.pdf',
-                      '2.5 MB',
-                      Colors.red,
-                    ),
-                    _buildFileRow(
-                      Icons.image,
-                      'photo.jpg',
-                      '1.2 MB',
-                      Colors.green,
-                    ),
-                    _buildFileRow(
-                      Icons.movie,
-                      'video.mp4',
-                      '45 MB',
-                      Colors.blue,
-                    ),
-                    _buildFileRow(
-                      Icons.audiotrack,
-                      'song.mp3',
-                      '5.7 MB',
-                      Colors.purple,
-                    ),
+                    _buildFileRow(Icons.description, 'document.pdf', '2.5 MB', Colors.red),
+                    _buildFileRow(Icons.image, 'photo.jpg', '1.2 MB', Colors.green),
+                    _buildFileRow(Icons.movie, 'video.mp4', '45 MB', Colors.blue),
+                    _buildFileRow(Icons.audiotrack, 'song.mp3', '5.7 MB', Colors.purple),
                   ],
                 ),
               ),
-
+              
               SizedBox(height: 12.0),
               Container(
                 padding: EdgeInsets.all(10.0),
@@ -944,7 +811,10 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     'Q4 2024',
-                    style: TextStyle(fontSize: 12.0, color: Colors.white70),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.white70,
+                    ),
                   ),
                 ],
               ),
@@ -953,7 +823,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-
+        
         // Table content
         Container(
           decoration: BoxDecoration(
@@ -981,43 +851,19 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      'Region',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11.0,
-                      ),
-                    ),
+                    child: Text('Region', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0)),
                   ),
                   Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      'Sales',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11.0,
-                      ),
-                    ),
+                    child: Text('Sales', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0)),
                   ),
                   Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      'Growth',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11.0,
-                      ),
-                    ),
+                    child: Text('Growth', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0)),
                   ),
                   Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      'Target',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11.0,
-                      ),
-                    ),
+                    child: Text('Target', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0)),
                   ),
                 ],
               ),
@@ -1029,7 +875,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-
+        
         // Footer
         Container(
           width: double.infinity,
@@ -1047,7 +893,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Total: \$6.0M',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12.0,
+                ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -1124,40 +973,36 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Use onDoubleTap for inline editing scenarios:',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 16.0),
-
+              
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Table(
-                  columnWidths: {0: FlexColumnWidth(2), 1: FlexColumnWidth(1)},
+                  columnWidths: {
+                    0: FlexColumnWidth(2),
+                    1: FlexColumnWidth(1),
+                  },
                   children: [
                     TableRow(
-                      decoration: BoxDecoration(color: Colors.grey.shade100),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                      ),
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Item',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
-                          ),
+                          child: Text('Item', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                         ),
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Value',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
-                          ),
+                          child: Text('Value', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                         ),
                       ],
                     ),
@@ -1169,31 +1014,19 @@ dynamic build(BuildContext context) {
                             padding: EdgeInsets.all(10.0),
                             child: Row(
                               children: [
-                                Icon(
-                                  Icons.person,
-                                  size: 16.0,
-                                  color: Colors.grey,
-                                ),
+                                Icon(Icons.person, size: 16.0, color: Colors.grey),
                                 SizedBox(width: 8.0),
-                                Text(
-                                  'Username',
-                                  style: TextStyle(fontSize: 12.0),
-                                ),
+                                Text('Username', style: TextStyle(fontSize: 12.0)),
                               ],
                             ),
                           ),
                         ),
                         TableRowInkWell(
                           onDoubleTap: () => print('Edit john_doe'),
-                          overlayColor: WidgetStateProperty.all(
-                            Colors.green.withValues(alpha: 0.2),
-                          ),
+                          overlayColor: WidgetStateProperty.all(Colors.green.withValues(alpha: 0.2)),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'john_doe',
-                              style: TextStyle(fontSize: 12.0),
-                            ),
+                            child: Text('john_doe', style: TextStyle(fontSize: 12.0)),
                           ),
                         ),
                       ],
@@ -1206,11 +1039,7 @@ dynamic build(BuildContext context) {
                             padding: EdgeInsets.all(10.0),
                             child: Row(
                               children: [
-                                Icon(
-                                  Icons.email,
-                                  size: 16.0,
-                                  color: Colors.grey,
-                                ),
+                                Icon(Icons.email, size: 16.0, color: Colors.grey),
                                 SizedBox(width: 8.0),
                                 Text('Email', style: TextStyle(fontSize: 12.0)),
                               ],
@@ -1219,15 +1048,10 @@ dynamic build(BuildContext context) {
                         ),
                         TableRowInkWell(
                           onDoubleTap: () => print('Edit email'),
-                          overlayColor: WidgetStateProperty.all(
-                            Colors.green.withValues(alpha: 0.2),
-                          ),
+                          overlayColor: WidgetStateProperty.all(Colors.green.withValues(alpha: 0.2)),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'john@example.com',
-                              style: TextStyle(fontSize: 12.0),
-                            ),
+                            child: Text('john@example.com', style: TextStyle(fontSize: 12.0)),
                           ),
                         ),
                       ],
@@ -1240,11 +1064,7 @@ dynamic build(BuildContext context) {
                             padding: EdgeInsets.all(10.0),
                             child: Row(
                               children: [
-                                Icon(
-                                  Icons.phone,
-                                  size: 16.0,
-                                  color: Colors.grey,
-                                ),
+                                Icon(Icons.phone, size: 16.0, color: Colors.grey),
                                 SizedBox(width: 8.0),
                                 Text('Phone', style: TextStyle(fontSize: 12.0)),
                               ],
@@ -1253,15 +1073,10 @@ dynamic build(BuildContext context) {
                         ),
                         TableRowInkWell(
                           onDoubleTap: () => print('Edit phone'),
-                          overlayColor: WidgetStateProperty.all(
-                            Colors.green.withValues(alpha: 0.2),
-                          ),
+                          overlayColor: WidgetStateProperty.all(Colors.green.withValues(alpha: 0.2)),
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              '+1 555-1234',
-                              style: TextStyle(fontSize: 12.0),
-                            ),
+                            child: Text('+1 555-1234', style: TextStyle(fontSize: 12.0)),
                           ),
                         ),
                       ],
@@ -1269,7 +1084,7 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-
+              
               SizedBox(height: 8.0),
               Text(
                 'Double-tap value cells to edit',
@@ -1440,32 +1255,16 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 16.0),
-
+        
         _buildApiRow('onTap', 'GestureTapCallback?', 'Single tap callback'),
-        _buildApiRow(
-          'onDoubleTap',
-          'GestureTapCallback?',
-          'Double tap callback',
-        ),
-        _buildApiRow(
-          'onLongPress',
-          'GestureLongPressCallback?',
-          'Long press callback',
-        ),
-        _buildApiRow(
-          'onHighlightChanged',
-          'ValueChanged<bool>?',
-          'Highlight state change',
-        ),
-        _buildApiRow(
-          'overlayColor',
-          'WidgetStateProperty<Color?>?',
-          'State-dependent overlay color',
-        ),
+        _buildApiRow('onDoubleTap', 'GestureTapCallback?', 'Double tap callback'),
+        _buildApiRow('onLongPress', 'GestureLongPressCallback?', 'Long press callback'),
+        _buildApiRow('onHighlightChanged', 'ValueChanged<bool>?', 'Highlight state change'),
+        _buildApiRow('overlayColor', 'WidgetStateProperty<Color?>?', 'State-dependent overlay color'),
         _buildApiRow('child', 'Widget', 'Cell content widget'),
-
+        
         SizedBox(height: 16.0),
-
+        
         Container(
           padding: EdgeInsets.all(12.0),
           decoration: BoxDecoration(
@@ -1482,7 +1281,10 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'TableRowInkWell is designed specifically for use within Table widgets. '
                   'For other layouts, use InkWell or InkResponse.',
-                  style: TextStyle(fontSize: 12.0, color: Colors.blue.shade900),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.blue.shade900,
+                  ),
                 ),
               ),
             ],
@@ -1528,12 +1330,18 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Deep Demo',
-                style: TextStyle(fontSize: 16.0, color: Colors.white70),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.white70,
+                ),
               ),
               SizedBox(height: 8.0),
               Text(
                 'Ink splash effects for table row cells',
-                style: TextStyle(fontSize: 13.0, color: Colors.white60),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.white60,
+                ),
               ),
             ],
           ),
@@ -1601,12 +1409,7 @@ Widget _buildSectionHeader(String title, IconData icon) {
 }
 
 // Helper: File row
-TableRow _buildFileRow(
-  IconData icon,
-  String name,
-  String size,
-  Color iconColor,
-) {
+TableRow _buildFileRow(IconData icon, String name, String size, Color iconColor) {
   return TableRow(
     children: [
       TableRowInkWell(
@@ -1630,10 +1433,7 @@ TableRow _buildFileRow(
         onLongPress: () => print('Context menu for $name'),
         child: Padding(
           padding: EdgeInsets.all(10.0),
-          child: Text(
-            size,
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
-          ),
+          child: Text(size, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600)),
         ),
       ),
     ],
@@ -1641,12 +1441,7 @@ TableRow _buildFileRow(
 }
 
 // Helper: Sales row
-TableRow _buildSalesRow(
-  String region,
-  String sales,
-  String growth,
-  bool positive,
-) {
+TableRow _buildSalesRow(String region, String sales, String growth, bool positive) {
   return TableRow(
     children: [
       TableRowInkWell(
@@ -1660,10 +1455,7 @@ TableRow _buildSalesRow(
         onTap: () => print('$region details'),
         child: Padding(
           padding: EdgeInsets.all(12.0),
-          child: Text(
-            sales,
-            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
-          ),
+          child: Text(sales, style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold)),
         ),
       ),
       TableRowInkWell(
@@ -1723,7 +1515,10 @@ Widget _buildApiRow(String prop, String type, String desc) {
         Expanded(
           child: Text(
             desc,
-            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+            style: TextStyle(
+              fontSize: 11.0,
+              color: Colors.grey.shade700,
+            ),
           ),
         ),
       ],

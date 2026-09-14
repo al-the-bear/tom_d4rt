@@ -62,14 +62,12 @@ Widget buildThemedNavBar({
   int currentIndex = 0,
   List<BottomNavigationBarItem>? items,
 }) {
-  List<BottomNavigationBarItem> navItems =
-      items ??
-      [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-        BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Saved'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-      ];
+  List<BottomNavigationBarItem> navItems = items ?? [
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
+    BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Saved'),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+  ];
 
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -179,14 +177,8 @@ Widget buildNestedThemeDemo({
               currentIndex: outerIndex,
               items: [
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.explore),
-                  label: 'Explore',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.bookmark),
-                  label: 'Saved',
-                ),
+                BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
+                BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Saved'),
               ],
               onTap: (i) {},
             ),
@@ -215,14 +207,8 @@ Widget buildNestedThemeDemo({
               currentIndex: innerIndex,
               items: [
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.explore),
-                  label: 'Explore',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.bookmark),
-                  label: 'Saved',
-                ),
+                BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
+                BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Saved'),
               ],
               onTap: (i) {},
             ),
@@ -235,21 +221,14 @@ Widget buildNestedThemeDemo({
 }
 
 // Helper: theme property row
-Widget buildThemePropertyRow(
-  String property,
-  String outerVal,
-  String innerVal,
-) {
+Widget buildThemePropertyRow(String property, String outerVal, String innerVal) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 3),
     child: Row(
       children: [
         Expanded(
           flex: 2,
-          child: Text(
-            property,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-          ),
+          child: Text(property, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
         ),
         Expanded(
           child: Container(
@@ -258,10 +237,7 @@ Widget buildThemePropertyRow(
               color: Colors.deepPurple.shade50,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              outerVal,
-              style: TextStyle(fontSize: 11, color: Colors.deepPurple),
-            ),
+            child: Text(outerVal, style: TextStyle(fontSize: 11, color: Colors.deepPurple)),
           ),
         ),
         SizedBox(width: 8),
@@ -272,10 +248,7 @@ Widget buildThemePropertyRow(
               color: Colors.orange.shade50,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              innerVal,
-              style: TextStyle(fontSize: 11, color: Colors.orange.shade700),
-            ),
+            child: Text(innerVal, style: TextStyle(fontSize: 11, color: Colors.orange.shade700)),
           ),
         ),
       ],
@@ -345,9 +318,7 @@ dynamic build(BuildContext context) {
 
         // Section 1: Basic Theme Wrapping
         buildSectionTitle('1. Basic Theme Wrapping'),
-        buildDescription(
-          'BottomNavigationBarTheme wrapping bars with different themes',
-        ),
+        buildDescription('BottomNavigationBarTheme wrapping bars with different themes'),
 
         buildThemedNavBar(
           title: 'Blue Ocean Theme',
@@ -429,9 +400,7 @@ dynamic build(BuildContext context) {
 
         // Section 3: Nested Theme Inheritance
         buildSectionTitle('3. Nested Theme Inheritance'),
-        buildDescription(
-          'Inner themes override outer themes, demonstrating cascading',
-        ),
+        buildDescription('Inner themes override outer themes, demonstrating cascading'),
 
         buildNestedThemeDemo(
           title: 'Purple Outer -> Orange Inner',
@@ -473,36 +442,18 @@ dynamic build(BuildContext context) {
                 children: [
                   Expanded(flex: 2, child: SizedBox()),
                   Expanded(
-                    child: Text(
-                      'Outer',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
-                      ),
-                    ),
+                    child: Text('Outer', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.deepPurple)),
                   ),
                   SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      'Inner',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orange.shade700,
-                      ),
-                    ),
+                    child: Text('Inner', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.orange.shade700)),
                   ),
                 ],
               ),
               SizedBox(height: 4),
               buildThemePropertyRow('backgroundColor', 'deepPurple', 'orange'),
               buildThemePropertyRow('selectedColor', 'white', 'white'),
-              buildThemePropertyRow(
-                'unselectedColor',
-                'purple.200',
-                'orange.200',
-              ),
+              buildThemePropertyRow('unselectedColor', 'purple.200', 'orange.200'),
               buildThemePropertyRow('type', 'fixed', 'fixed'),
             ],
           ),
@@ -570,16 +521,8 @@ dynamic build(BuildContext context) {
             backgroundColor: Colors.blueGrey.shade800,
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white54,
-            selectedIconTheme: IconThemeData(
-              size: 26,
-              opacity: 1.0,
-              color: Colors.white,
-            ),
-            unselectedIconTheme: IconThemeData(
-              size: 22,
-              opacity: 0.5,
-              color: Colors.white,
-            ),
+            selectedIconTheme: IconThemeData(size: 26, opacity: 1.0, color: Colors.white),
+            unselectedIconTheme: IconThemeData(size: 22, opacity: 0.5, color: Colors.white),
             type: BottomNavigationBarType.fixed,
           ),
           currentIndex: 2,
@@ -596,14 +539,8 @@ dynamic build(BuildContext context) {
             backgroundColor: Colors.white,
             selectedItemColor: Colors.pink,
             unselectedItemColor: Colors.grey,
-            selectedLabelStyle: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-            unselectedLabelStyle: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.normal,
-            ),
+            selectedLabelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            unselectedLabelStyle: TextStyle(fontSize: 11, fontWeight: FontWeight.normal),
             type: BottomNavigationBarType.fixed,
           ),
           currentIndex: 1,
@@ -615,14 +552,8 @@ dynamic build(BuildContext context) {
             backgroundColor: Colors.amber.shade50,
             selectedItemColor: Colors.brown.shade800,
             unselectedItemColor: Colors.brown.shade300,
-            selectedLabelStyle: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
-            unselectedLabelStyle: TextStyle(
-              fontSize: 11,
-              fontStyle: FontStyle.italic,
-            ),
+            selectedLabelStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            unselectedLabelStyle: TextStyle(fontSize: 11, fontStyle: FontStyle.italic),
             type: BottomNavigationBarType.fixed,
           ),
           currentIndex: 3,
@@ -639,11 +570,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
             ],
           ),
           child: Column(
@@ -696,9 +623,7 @@ dynamic build(BuildContext context) {
 
         // Section 7: Using with full Theme widget
         buildSectionTitle('7. Full Theme Widget Integration'),
-        buildDescription(
-          'BottomNavigationBarTheme within Theme widget context',
-        ),
+        buildDescription('BottomNavigationBarTheme within Theme widget context'),
 
         Container(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -706,11 +631,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
             ],
           ),
           child: Column(
@@ -745,22 +666,10 @@ dynamic build(BuildContext context) {
                   child: BottomNavigationBar(
                     currentIndex: 1,
                     items: [
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.dashboard),
-                        label: 'Dashboard',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.analytics),
-                        label: 'Analytics',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.inbox),
-                        label: 'Inbox',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.settings),
-                        label: 'Settings',
-                      ),
+                      BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
+                      BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'Analytics'),
+                      BottomNavigationBarItem(icon: Icon(Icons.inbox), label: 'Inbox'),
+                      BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
                     ],
                     onTap: (i) {},
                   ),
@@ -773,9 +682,7 @@ dynamic build(BuildContext context) {
 
         // Section 8: Different Item Sets
         buildSectionTitle('8. Different Navigation Item Sets'),
-        buildDescription(
-          'Same theme applied to different icon/label combinations',
-        ),
+        buildDescription('Same theme applied to different icon/label combinations'),
 
         buildThemedNavBar(
           title: 'Social Media Icons',
@@ -788,18 +695,9 @@ dynamic build(BuildContext context) {
           ),
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.rss_feed), label: 'Feed'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.message),
-              label: 'Messages',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Alerts',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: 'Me',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages'),
+            BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Alerts'),
+            BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Me'),
           ],
           currentIndex: 0,
         ),
@@ -814,14 +712,8 @@ dynamic build(BuildContext context) {
           ),
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Shop'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: 'Cart',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long),
-              label: 'Orders',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
+            BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'Orders'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
           ],
           currentIndex: 1,
@@ -836,19 +728,10 @@ dynamic build(BuildContext context) {
             type: BottomNavigationBarType.fixed,
           ),
           items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.library_music),
-              label: 'Library',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.library_music), label: 'Library'),
             BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_fill),
-              label: 'Playing',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.queue_music),
-              label: 'Playlists',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.play_circle_fill), label: 'Playing'),
+            BottomNavigationBarItem(icon: Icon(Icons.queue_music), label: 'Playlists'),
           ],
           currentIndex: 2,
         ),

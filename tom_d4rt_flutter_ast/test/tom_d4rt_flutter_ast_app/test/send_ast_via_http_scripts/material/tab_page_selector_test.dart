@@ -63,7 +63,10 @@ dynamic build(BuildContext context) {
                 'TabPageSelector displays a row of circular indicators that show '
                 'which tab is currently selected. It works with TabController to '
                 'sync with TabBar and TabBarView.',
-                style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 16.0),
               Container(
@@ -84,23 +87,11 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(height: 8.0),
-                    _buildPropertyRow(
-                      'controller',
-                      'TabController to sync with',
-                    ),
+                    _buildPropertyRow('controller', 'TabController to sync with'),
                     _buildPropertyRow('color', 'Selected indicator fill color'),
-                    _buildPropertyRow(
-                      'selectedColor',
-                      'Unselected indicator color',
-                    ),
-                    _buildPropertyRow(
-                      'indicatorSize',
-                      'Diameter of dot indicators',
-                    ),
-                    _buildPropertyRow(
-                      'borderStyle',
-                      'Border styling for indicators',
-                    ),
+                    _buildPropertyRow('selectedColor', 'Unselected indicator color'),
+                    _buildPropertyRow('indicatorSize', 'Diameter of dot indicators'),
+                    _buildPropertyRow('borderStyle', 'Border styling for indicators'),
                   ],
                 ),
               ),
@@ -144,46 +135,14 @@ dynamic build(BuildContext context) {
 
   final colorExamples = <Widget>[];
   final colorSchemes = [
-    {
-      'name': 'Default',
-      'selected': Colors.grey,
-      'unselected': Colors.grey.shade300,
-    },
-    {
-      'name': 'Blue',
-      'selected': Colors.blue,
-      'unselected': Colors.blue.shade100,
-    },
-    {
-      'name': 'Green',
-      'selected': Colors.green,
-      'unselected': Colors.green.shade100,
-    },
-    {
-      'name': 'Orange',
-      'selected': Colors.orange,
-      'unselected': Colors.orange.shade100,
-    },
-    {
-      'name': 'Purple',
-      'selected': Colors.purple,
-      'unselected': Colors.purple.shade100,
-    },
-    {
-      'name': 'Pink',
-      'selected': Colors.pink,
-      'unselected': Colors.pink.shade100,
-    },
-    {
-      'name': 'Cyan',
-      'selected': Colors.cyan,
-      'unselected': Colors.cyan.shade100,
-    },
-    {
-      'name': 'Amber',
-      'selected': Colors.amber,
-      'unselected': Colors.amber.shade100,
-    },
+    {'name': 'Default', 'selected': Colors.grey, 'unselected': Colors.grey.shade300},
+    {'name': 'Blue', 'selected': Colors.blue, 'unselected': Colors.blue.shade100},
+    {'name': 'Green', 'selected': Colors.green, 'unselected': Colors.green.shade100},
+    {'name': 'Orange', 'selected': Colors.orange, 'unselected': Colors.orange.shade100},
+    {'name': 'Purple', 'selected': Colors.purple, 'unselected': Colors.purple.shade100},
+    {'name': 'Pink', 'selected': Colors.pink, 'unselected': Colors.pink.shade100},
+    {'name': 'Cyan', 'selected': Colors.cyan, 'unselected': Colors.cyan.shade100},
+    {'name': 'Amber', 'selected': Colors.amber, 'unselected': Colors.amber.shade100},
   ];
 
   for (final scheme in colorSchemes) {
@@ -259,7 +218,10 @@ dynamic build(BuildContext context) {
         Text(
           'The indicatorSize property controls the diameter of each dot. '
           'Default size is 12.0 logical pixels.',
-          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.grey.shade700,
+          ),
         ),
         SizedBox(height: 20.0),
 
@@ -340,7 +302,10 @@ dynamic build(BuildContext context) {
               Text(
                 'Indicators can have solid borders or no borders at all. '
                 'The borderStyle property accepts BorderStyle.solid or BorderStyle.none.',
-                style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 20.0),
 
@@ -476,26 +441,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        'First Page',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        ),
-                      ),
+                      Text('First Page', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                       SizedBox(height: 8.0),
                       _buildSimulatedIndicators(5, 0, Colors.blue, 14.0),
                     ],
                   ),
                   Column(
                     children: [
-                      Text(
-                        'Second Page',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        ),
-                      ),
+                      Text('Second Page', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                       SizedBox(height: 8.0),
                       _buildSimulatedIndicators(5, 1, Colors.blue, 14.0),
                     ],
@@ -508,26 +461,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        'Middle Page',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        ),
-                      ),
+                      Text('Middle Page', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                       SizedBox(height: 8.0),
                       _buildSimulatedIndicators(5, 2, Colors.blue, 14.0),
                     ],
                   ),
                   Column(
                     children: [
-                      Text(
-                        'Last Page',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        ),
-                      ),
+                      Text('Last Page', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
                       SizedBox(height: 8.0),
                       _buildSimulatedIndicators(5, 4, Colors.blue, 14.0),
                     ],
@@ -587,7 +528,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Onboarding Flow',
-                style: TextStyle(fontSize: 13.0, color: Colors.white70),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.white70,
+                ),
               ),
             ],
           ),
@@ -651,16 +595,10 @@ dynamic build(BuildContext context) {
                     child: Text('Skip', style: TextStyle(color: Colors.grey)),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24.0,
-                      vertical: 12.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.indigo.shade400,
-                          Colors.indigo.shade600,
-                        ],
+                        colors: [Colors.indigo.shade400, Colors.indigo.shade600],
                       ),
                       borderRadius: BorderRadius.circular(24.0),
                     ),
@@ -726,7 +664,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 8.0),
                     Text(
                       'Photo 3 of 6',
-                      style: TextStyle(color: Colors.white, fontSize: 14.0),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                      ),
                     ),
                   ],
                 ),
@@ -771,13 +712,7 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               // White indicators on dark background
-              _buildSimulatedIndicators(
-                6,
-                2,
-                Colors.white,
-                8.0,
-                unselectedColor: Colors.white24,
-              ),
+              _buildSimulatedIndicators(6, 2, Colors.white, 8.0, unselectedColor: Colors.white24),
               SizedBox(height: 16.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -791,11 +726,7 @@ dynamic build(BuildContext context) {
                   ),
                   Row(
                     children: [
-                      Icon(
-                        Icons.favorite_border,
-                        color: Colors.white70,
-                        size: 20.0,
-                      ),
+                      Icon(Icons.favorite_border, color: Colors.white70, size: 20.0),
                       SizedBox(width: 12.0),
                       Icon(Icons.share, color: Colors.white70, size: 20.0),
                     ],
@@ -1031,7 +962,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Page indicator dots for tab views',
-                style: TextStyle(fontSize: 14.0, color: Colors.white70),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.white70,
+                ),
               ),
             ],
           ),
@@ -1047,7 +981,10 @@ dynamic build(BuildContext context) {
         _buildSectionHeader('Section 2: Color Schemes', Icons.palette),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Wrap(alignment: WrapAlignment.center, children: colorExamples),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: colorExamples,
+          ),
         ),
 
         // Section 3: Sizes
@@ -1130,7 +1067,10 @@ Widget _buildPropertyRow(String name, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+            ),
           ),
         ),
       ],
@@ -1154,30 +1094,23 @@ Widget _buildSimulatedIndicators(
         width: size,
         height: size,
         decoration: BoxDecoration(
-          color: i == selected
-              ? selectedColor
-              : (unselectedColor ?? selectedColor.withValues(alpha: 0.3)),
+          color: i == selected ? selectedColor : (unselectedColor ?? selectedColor.withValues(alpha: 0.3)),
           shape: BoxShape.circle,
           border: i != selected
-              ? Border.all(
-                  color: selectedColor.withValues(alpha: 0.5),
-                  width: 1.0,
-                )
+              ? Border.all(color: selectedColor.withValues(alpha: 0.5), width: 1.0)
               : null,
         ),
       ),
     );
   }
-  return Row(mainAxisSize: MainAxisSize.min, children: dots);
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: dots,
+  );
 }
 
 // Helper: Build bordered indicators
-Widget _buildBorderedIndicators(
-  int count,
-  int selected,
-  bool hasBorder,
-  Color color,
-) {
+Widget _buildBorderedIndicators(int count, int selected, bool hasBorder, Color color) {
   final dots = <Widget>[];
   for (var i = 0; i < count; i++) {
     dots.add(
@@ -1193,7 +1126,10 @@ Widget _buildBorderedIndicators(
       ),
     );
   }
-  return Row(mainAxisSize: MainAxisSize.min, children: dots);
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: dots,
+  );
 }
 
 // Helper: Build size example
@@ -1208,7 +1144,10 @@ Widget _buildSizeExample(String label, double size, Color color) {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.grey.shade700,
+          ),
         ),
         Spacer(),
         _buildSimulatedIndicators(4, 1, color, size),

@@ -47,7 +47,9 @@ dynamic build(BuildContext context) {
     theme: ThemeData(
       scaffoldBackgroundColor: _kPaper,
       fontFamily: 'Roboto',
-      textTheme: const TextTheme(bodyMedium: TextStyle(color: _kInk)),
+      textTheme: const TextTheme(
+        bodyMedium: TextStyle(color: _kInk),
+      ),
     ),
     home: Scaffold(
       backgroundColor: _kPaper,
@@ -110,16 +112,11 @@ class _PrivateSection1Hero extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(999),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.35),
-                      ),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.35)),
                     ),
                     child: Text(
                       'package:flutter/services.dart',
@@ -170,7 +167,10 @@ class _PrivateSection1Hero extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 24),
-            Expanded(flex: 5, child: _PrivatePhoneMockup()),
+            Expanded(
+              flex: 5,
+              child: _PrivatePhoneMockup(),
+            ),
           ],
         ),
       ),
@@ -210,10 +210,7 @@ class _PrivatePhoneMockup extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF111827),
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.18),
-          width: 2,
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.18), width: 2),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.35),
@@ -241,35 +238,21 @@ class _PrivatePhoneMockup extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  '9:41',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.9),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.signal_cellular_alt,
-                      size: 12,
-                      color: Colors.white.withValues(alpha: 0.85),
-                    ),
-                    const SizedBox(width: 4),
-                    Icon(
-                      Icons.wifi,
-                      size: 12,
-                      color: Colors.white.withValues(alpha: 0.85),
-                    ),
-                    const SizedBox(width: 4),
-                    Icon(
-                      Icons.battery_full,
-                      size: 14,
-                      color: Colors.white.withValues(alpha: 0.85),
-                    ),
-                  ],
-                ),
+                Text('9:41',
+                    style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.9),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
+                Row(children: <Widget>[
+                  Icon(Icons.signal_cellular_alt,
+                      size: 12, color: Colors.white.withValues(alpha: 0.85)),
+                  const SizedBox(width: 4),
+                  Icon(Icons.wifi,
+                      size: 12, color: Colors.white.withValues(alpha: 0.85)),
+                  const SizedBox(width: 4),
+                  Icon(Icons.battery_full,
+                      size: 14, color: Colors.white.withValues(alpha: 0.85)),
+                ]),
               ],
             ),
           ),
@@ -287,14 +270,11 @@ class _PrivatePhoneMockup extends StatelessWidget {
                 const Icon(Icons.alternate_email, size: 16, color: _kInkMuted),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    'user@example|',
-                    style: TextStyle(
-                      color: _kInk,
-                      fontSize: 13,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  child: Text('user@example|',
+                      style: TextStyle(
+                          color: _kInk,
+                          fontSize: 13,
+                          fontFamily: 'monospace')),
                 ),
               ],
             ),
@@ -323,75 +303,20 @@ class _PrivatePhoneMockup extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Column(
               children: <Widget>[
-                _PrivateKeyRow(
-                  keys: const <String>[
-                    '1',
-                    '2',
-                    '3',
-                    '4',
-                    '5',
-                    '6',
-                    '7',
-                    '8',
-                    '9',
-                    '0',
-                  ],
-                ),
+                _PrivateKeyRow(keys: const <String>['1','2','3','4','5','6','7','8','9','0']),
                 const SizedBox(height: 6),
-                _PrivateKeyRow(
-                  keys: const <String>[
-                    'q',
-                    'w',
-                    'e',
-                    'r',
-                    't',
-                    'y',
-                    'u',
-                    'i',
-                    'o',
-                    'p',
-                  ],
-                ),
+                _PrivateKeyRow(keys: const <String>['q','w','e','r','t','y','u','i','o','p']),
                 const SizedBox(height: 6),
-                _PrivateKeyRow(
-                  keys: const <String>[
-                    'a',
-                    's',
-                    'd',
-                    'f',
-                    'g',
-                    'h',
-                    'j',
-                    'k',
-                    'l',
-                  ],
-                ),
+                _PrivateKeyRow(keys: const <String>['a','s','d','f','g','h','j','k','l']),
                 const SizedBox(height: 6),
-                _PrivateKeyRow(
-                  keys: const <String>[
-                    'z',
-                    'x',
-                    'c',
-                    'v',
-                    'b',
-                    'n',
-                    'm',
-                    '@',
-                    '.',
-                  ],
-                ),
+                _PrivateKeyRow(keys: const <String>['z','x','c','v','b','n','m','@','.']),
                 const SizedBox(height: 8),
                 Row(
                   children: <Widget>[
                     _PrivateKeyCap(label: 'ABC', flex: 2),
                     _PrivateKeyCap(label: 'space', flex: 5),
                     _PrivateKeyCap(label: '@', flex: 1),
-                    _PrivateKeyCap(
-                      label: 'next',
-                      flex: 2,
-                      color: _kAccent,
-                      textColor: Colors.white,
-                    ),
+                    _PrivateKeyCap(label: 'next', flex: 2, color: _kAccent, textColor: Colors.white),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -421,11 +346,10 @@ class _PrivateSuggestion extends StatelessWidget {
     return Text(
       label,
       style: const TextStyle(
-        color: Colors.white,
-        fontSize: 11,
-        fontFamily: 'monospace',
-        fontWeight: FontWeight.w600,
-      ),
+          color: Colors.white,
+          fontSize: 11,
+          fontFamily: 'monospace',
+          fontWeight: FontWeight.w600),
     );
   }
 }
@@ -464,10 +388,7 @@ class _PrivateKeyCap extends StatelessWidget {
         decoration: BoxDecoration(
           color: color ?? _kKeyCap,
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            color: _kKeyEdge.withValues(alpha: 0.6),
-            width: 0.6,
-          ),
+          border: Border.all(color: _kKeyEdge.withValues(alpha: 0.6), width: 0.6),
         ),
         alignment: Alignment.center,
         child: Text(
@@ -490,91 +411,23 @@ class _PrivateSection2Anatomy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<_PrivateAnatomyRow> rows = <_PrivateAnatomyRow>[
-      _PrivateAnatomyRow(
-        'inputType',
-        'TextInputType',
-        'Logical keyboard kind (text, email, number…)',
-      ),
-      _PrivateAnatomyRow(
-        'readOnly',
-        'bool',
-        'When true the field cannot be edited via IME',
-      ),
-      _PrivateAnatomyRow(
-        'obscureText',
-        'bool',
-        'Hides characters and disables suggestions',
-      ),
-      _PrivateAnatomyRow(
-        'autocorrect',
-        'bool',
-        'Allow the platform to auto-correct typed text',
-      ),
-      _PrivateAnatomyRow(
-        'smartDashesType',
-        'SmartDashesType',
-        'Convert "--" to em-dash on Apple platforms',
-      ),
-      _PrivateAnatomyRow(
-        'smartQuotesType',
-        'SmartQuotesType',
-        'Curly quotes vs straight quotes',
-      ),
-      _PrivateAnatomyRow(
-        'enableSuggestions',
-        'bool',
-        'Show predictive suggestions in the IME bar',
-      ),
-      _PrivateAnatomyRow(
-        'enableInteractiveSelection',
-        'bool',
-        'Allow native selection handles & magnifier',
-      ),
-      _PrivateAnatomyRow(
-        'actionLabel',
-        'String?',
-        'Custom label drawn on the action key',
-      ),
-      _PrivateAnatomyRow(
-        'inputAction',
-        'TextInputAction',
-        'Logical action: done, go, search, next…',
-      ),
-      _PrivateAnatomyRow(
-        'keyboardAppearance',
-        'Brightness',
-        'Light or dark IME chrome (iOS-respecting)',
-      ),
-      _PrivateAnatomyRow(
-        'textCapitalization',
-        'TextCapitalization',
-        'none / words / sentences / characters',
-      ),
-      _PrivateAnatomyRow(
-        'autofillConfiguration',
-        'AutofillConfiguration',
-        'Hints + uniqueId for autofill providers',
-      ),
-      _PrivateAnatomyRow(
-        'enableIMEPersonalizedLearning',
-        'bool',
-        'Let the IME learn from this field’s content',
-      ),
-      _PrivateAnatomyRow(
-        'allowedMimeTypes',
-        'List<String>',
-        'Mime types the IME may insert (e.g. image/gif)',
-      ),
-      _PrivateAnatomyRow(
-        'enableDeltaModel',
-        'bool',
-        'Send TextEditingDelta updates to the client',
-      ),
-      _PrivateAnatomyRow(
-        'viewId',
-        'int?',
-        'Target FlutterView id for multi-window apps',
-      ),
+      _PrivateAnatomyRow('inputType', 'TextInputType', 'Logical keyboard kind (text, email, number…)'),
+      _PrivateAnatomyRow('readOnly', 'bool', 'When true the field cannot be edited via IME'),
+      _PrivateAnatomyRow('obscureText', 'bool', 'Hides characters and disables suggestions'),
+      _PrivateAnatomyRow('autocorrect', 'bool', 'Allow the platform to auto-correct typed text'),
+      _PrivateAnatomyRow('smartDashesType', 'SmartDashesType', 'Convert "--" to em-dash on Apple platforms'),
+      _PrivateAnatomyRow('smartQuotesType', 'SmartQuotesType', 'Curly quotes vs straight quotes'),
+      _PrivateAnatomyRow('enableSuggestions', 'bool', 'Show predictive suggestions in the IME bar'),
+      _PrivateAnatomyRow('enableInteractiveSelection', 'bool', 'Allow native selection handles & magnifier'),
+      _PrivateAnatomyRow('actionLabel', 'String?', 'Custom label drawn on the action key'),
+      _PrivateAnatomyRow('inputAction', 'TextInputAction', 'Logical action: done, go, search, next…'),
+      _PrivateAnatomyRow('keyboardAppearance', 'Brightness', 'Light or dark IME chrome (iOS-respecting)'),
+      _PrivateAnatomyRow('textCapitalization', 'TextCapitalization', 'none / words / sentences / characters'),
+      _PrivateAnatomyRow('autofillConfiguration', 'AutofillConfiguration', 'Hints + uniqueId for autofill providers'),
+      _PrivateAnatomyRow('enableIMEPersonalizedLearning', 'bool', 'Let the IME learn from this field’s content'),
+      _PrivateAnatomyRow('allowedMimeTypes', 'List<String>', 'Mime types the IME may insert (e.g. image/gif)'),
+      _PrivateAnatomyRow('enableDeltaModel', 'bool', 'Send TextEditingDelta updates to the client'),
+      _PrivateAnatomyRow('viewId', 'int?', 'Target FlutterView id for multi-window apps'),
     ];
     return _PrivateCard(
       child: Padding(
@@ -600,12 +453,10 @@ class _PrivateSection2Anatomy extends StatelessWidget {
                   spacing: 14,
                   runSpacing: 12,
                   children: rows
-                      .map<Widget>(
-                        (row) => SizedBox(
-                          width: colWidth,
-                          child: _PrivateAnatomyTile(row: row),
-                        ),
-                      )
+                      .map<Widget>((row) => SizedBox(
+                            width: colWidth,
+                            child: _PrivateAnatomyTile(row: row),
+                          ))
                       .toList(),
                 );
               },
@@ -678,11 +529,7 @@ class _PrivateAnatomyTile extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             row.description,
-            style: const TextStyle(
-              color: _kInkSoft,
-              fontSize: 13,
-              height: 1.35,
-            ),
+            style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.35),
           ),
         ],
       ),
@@ -695,51 +542,51 @@ class _PrivateAnatomyTile extends StatelessWidget {
 // ===========================================================================
 class _PrivateSection3Examples extends StatelessWidget {
   TextInputConfiguration _regular() => const TextInputConfiguration(
-    inputType: TextInputType.text,
-    autocorrect: true,
-    enableSuggestions: true,
-    textCapitalization: TextCapitalization.sentences,
-    inputAction: TextInputAction.done,
-    keyboardAppearance: Brightness.light,
-  );
+        inputType: TextInputType.text,
+        autocorrect: true,
+        enableSuggestions: true,
+        textCapitalization: TextCapitalization.sentences,
+        inputAction: TextInputAction.done,
+        keyboardAppearance: Brightness.light,
+      );
   TextInputConfiguration _password() => const TextInputConfiguration(
-    inputType: TextInputType.visiblePassword,
-    obscureText: true,
-    autocorrect: false,
-    enableSuggestions: false,
-    smartDashesType: SmartDashesType.disabled,
-    smartQuotesType: SmartQuotesType.disabled,
-    enableIMEPersonalizedLearning: false,
-    inputAction: TextInputAction.done,
-  );
+        inputType: TextInputType.visiblePassword,
+        obscureText: true,
+        autocorrect: false,
+        enableSuggestions: false,
+        smartDashesType: SmartDashesType.disabled,
+        smartQuotesType: SmartQuotesType.disabled,
+        enableIMEPersonalizedLearning: false,
+        inputAction: TextInputAction.done,
+      );
   TextInputConfiguration _email() => const TextInputConfiguration(
-    inputType: TextInputType.emailAddress,
-    autocorrect: false,
-    enableSuggestions: false,
-    textCapitalization: TextCapitalization.none,
-    inputAction: TextInputAction.next,
-  );
+        inputType: TextInputType.emailAddress,
+        autocorrect: false,
+        enableSuggestions: false,
+        textCapitalization: TextCapitalization.none,
+        inputAction: TextInputAction.next,
+      );
   TextInputConfiguration _phone() => const TextInputConfiguration(
-    inputType: TextInputType.phone,
-    autocorrect: false,
-    enableSuggestions: false,
-    inputAction: TextInputAction.done,
-  );
+        inputType: TextInputType.phone,
+        autocorrect: false,
+        enableSuggestions: false,
+        inputAction: TextInputAction.done,
+      );
   TextInputConfiguration _multiline() => const TextInputConfiguration(
-    inputType: TextInputType.multiline,
-    textCapitalization: TextCapitalization.sentences,
-    inputAction: TextInputAction.newline,
-    autocorrect: true,
-    enableSuggestions: true,
-  );
+        inputType: TextInputType.multiline,
+        textCapitalization: TextCapitalization.sentences,
+        inputAction: TextInputAction.newline,
+        autocorrect: true,
+        enableSuggestions: true,
+      );
   TextInputConfiguration _search() => const TextInputConfiguration(
-    inputType: TextInputType.text,
-    autocorrect: false,
-    enableSuggestions: true,
-    textCapitalization: TextCapitalization.none,
-    inputAction: TextInputAction.search,
-    actionLabel: 'Find',
-  );
+        inputType: TextInputType.text,
+        autocorrect: false,
+        enableSuggestions: true,
+        textCapitalization: TextCapitalization.none,
+        inputAction: TextInputAction.search,
+        actionLabel: 'Find',
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -867,24 +714,20 @@ class _PrivateSection3Examples extends StatelessWidget {
               accent: _kViolet,
             ),
             const SizedBox(height: 18),
-            LayoutBuilder(
-              builder: (BuildContext ctx, BoxConstraints c) {
-                final int cols = c.maxWidth > 980 ? 2 : 1;
-                final double cw = (c.maxWidth - (cols - 1) * 16) / cols;
-                return Wrap(
-                  spacing: 16,
-                  runSpacing: 16,
-                  children: specs
-                      .map<Widget>(
-                        (s) => SizedBox(
+            LayoutBuilder(builder: (BuildContext ctx, BoxConstraints c) {
+              final int cols = c.maxWidth > 980 ? 2 : 1;
+              final double cw = (c.maxWidth - (cols - 1) * 16) / cols;
+              return Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: specs
+                    .map<Widget>((s) => SizedBox(
                           width: cw,
                           child: _PrivateExampleCard(spec: s),
-                        ),
-                      )
-                      .toList(),
-                );
-              },
-            ),
+                        ))
+                    .toList(),
+              );
+            }),
           ],
         ),
       ),
@@ -964,16 +807,11 @@ class _PrivateExampleCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(999),
-                    border: Border.all(
-                      color: spec.accent.withValues(alpha: 0.4),
-                    ),
+                    border: Border.all(color: spec.accent.withValues(alpha: 0.4)),
                   ),
                   child: Text(
                     spec.config.inputAction.toString().split('.').last,
@@ -1011,7 +849,10 @@ class _PrivateExampleCard extends StatelessWidget {
           // toJson
           Padding(
             padding: const EdgeInsets.fromLTRB(14, 4, 14, 14),
-            child: _PrivateConsoleBlock(title: 'toJson()', text: _renderJson()),
+            child: _PrivateConsoleBlock(
+              title: 'toJson()',
+              text: _renderJson(),
+            ),
           ),
         ],
       ),
@@ -1066,9 +907,7 @@ class _PrivateMockField extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
-        crossAxisAlignment: multiline
-            ? CrossAxisAlignment.start
-            : CrossAxisAlignment.center,
+        crossAxisAlignment: multiline ? CrossAxisAlignment.start : CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: multiline ? 10 : 0),
@@ -1088,7 +927,11 @@ class _PrivateMockField extends StatelessWidget {
               ),
             ),
           ),
-          Container(width: 1.5, height: 16, color: accent),
+          Container(
+            width: 1.5,
+            height: 16,
+            color: accent,
+          ),
         ],
       ),
     );
@@ -1102,97 +945,22 @@ class _PrivateSection4ActionGallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<_PrivateActionTile> tiles = <_PrivateActionTile>[
-      _PrivateActionTile(
-        'done',
-        Icons.check_circle,
-        _kEmerald,
-        'Submits the form, dismisses keyboard',
-      ),
-      _PrivateActionTile(
-        'go',
-        Icons.arrow_forward,
-        _kAccent,
-        'Generic "go" — submit and proceed',
-      ),
-      _PrivateActionTile(
-        'search',
-        Icons.search,
-        _kViolet,
-        'Trigger a search — magnifier icon on iOS',
-      ),
+      _PrivateActionTile('done', Icons.check_circle, _kEmerald, 'Submits the form, dismisses keyboard'),
+      _PrivateActionTile('go', Icons.arrow_forward, _kAccent, 'Generic "go" — submit and proceed'),
+      _PrivateActionTile('search', Icons.search, _kViolet, 'Trigger a search — magnifier icon on iOS'),
       _PrivateActionTile('send', Icons.send, _kPink, 'Send the typed message'),
-      _PrivateActionTile(
-        'next',
-        Icons.east,
-        _kAccent,
-        'Move focus to the next field',
-      ),
-      _PrivateActionTile(
-        'previous',
-        Icons.west,
-        _kSlate,
-        'Move focus to the previous field (Android)',
-      ),
-      _PrivateActionTile(
-        'continueAction',
-        Icons.double_arrow,
-        _kAccent,
-        'iOS continue — typically same as next',
-      ),
-      _PrivateActionTile(
-        'join',
-        Icons.group_add,
-        _kEmerald,
-        'Join (e.g. Wi-Fi network passphrase)',
-      ),
-      _PrivateActionTile(
-        'route',
-        Icons.alt_route,
-        _kViolet,
-        'Direction lookup — Maps style',
-      ),
-      _PrivateActionTile(
-        'emergencyCall',
-        Icons.local_hospital,
-        _kRose,
-        'Emergency call shortcut',
-      ),
-      _PrivateActionTile(
-        'newline',
-        Icons.subdirectory_arrow_left,
-        _kAmber,
-        'Insert a literal line break',
-      ),
-      _PrivateActionTile(
-        'none',
-        Icons.block,
-        _kSlate,
-        'No action — the key is hidden',
-      ),
-      _PrivateActionTile(
-        'unspecified',
-        Icons.help_outline,
-        _kInkMuted,
-        'Platform default for the inputType',
-      ),
-      _PrivateActionTile(
-        'done (alt)',
-        Icons.keyboard_return,
-        _kEmerald,
-        'Some IMEs show "Return" instead',
-      ),
-      _PrivateActionTile(
-        'go (alt)',
-        Icons.flight_takeoff,
-        _kAccent,
-        'Some IMEs show a takeoff glyph',
-      ),
-      _PrivateActionTile(
-        'send (alt)',
-        Icons.outgoing_mail,
-        _kPink,
-        'Mail apps render an envelope',
-      ),
+      _PrivateActionTile('next', Icons.east, _kAccent, 'Move focus to the next field'),
+      _PrivateActionTile('previous', Icons.west, _kSlate, 'Move focus to the previous field (Android)'),
+      _PrivateActionTile('continueAction', Icons.double_arrow, _kAccent, 'iOS continue — typically same as next'),
+      _PrivateActionTile('join', Icons.group_add, _kEmerald, 'Join (e.g. Wi-Fi network passphrase)'),
+      _PrivateActionTile('route', Icons.alt_route, _kViolet, 'Direction lookup — Maps style'),
+      _PrivateActionTile('emergencyCall', Icons.local_hospital, _kRose, 'Emergency call shortcut'),
+      _PrivateActionTile('newline', Icons.subdirectory_arrow_left, _kAmber, 'Insert a literal line break'),
+      _PrivateActionTile('none', Icons.block, _kSlate, 'No action — the key is hidden'),
+      _PrivateActionTile('unspecified', Icons.help_outline, _kInkMuted, 'Platform default for the inputType'),
+      _PrivateActionTile('done (alt)', Icons.keyboard_return, _kEmerald, 'Some IMEs show "Return" instead'),
+      _PrivateActionTile('go (alt)', Icons.flight_takeoff, _kAccent, 'Some IMEs show a takeoff glyph'),
+      _PrivateActionTile('send (alt)', Icons.outgoing_mail, _kPink, 'Mail apps render an envelope'),
     ];
     return _PrivateCard(
       child: Padding(
@@ -1302,37 +1070,33 @@ class _PrivateSection5Capitalization extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<_PrivateCapEntry> caps = <_PrivateCapEntry>[
       _PrivateCapEntry(
-        'TextCapitalization.none',
-        'Never auto-capitalize. Treat input verbatim.',
-        'hello world from flutter',
-        'hello world from flutter',
-        _kSlate,
-        _kSlateSoft,
-      ),
+          'TextCapitalization.none',
+          'Never auto-capitalize. Treat input verbatim.',
+          'hello world from flutter',
+          'hello world from flutter',
+          _kSlate,
+          _kSlateSoft),
       _PrivateCapEntry(
-        'TextCapitalization.words',
-        'Capitalize the first letter of every word.',
-        'hello world from flutter',
-        'Hello World From Flutter',
-        _kAccent,
-        _kAccentSoft,
-      ),
+          'TextCapitalization.words',
+          'Capitalize the first letter of every word.',
+          'hello world from flutter',
+          'Hello World From Flutter',
+          _kAccent,
+          _kAccentSoft),
       _PrivateCapEntry(
-        'TextCapitalization.sentences',
-        'Capitalize the first letter of every sentence.',
-        'hello world. how are you?',
-        'Hello world. How are you?',
-        _kViolet,
-        _kVioletSoft,
-      ),
+          'TextCapitalization.sentences',
+          'Capitalize the first letter of every sentence.',
+          'hello world. how are you?',
+          'Hello world. How are you?',
+          _kViolet,
+          _kVioletSoft),
       _PrivateCapEntry(
-        'TextCapitalization.characters',
-        'Force every character to upper case (caps lock).',
-        'hello world',
-        'HELLO WORLD',
-        _kRose,
-        _kRoseSoft,
-      ),
+          'TextCapitalization.characters',
+          'Force every character to upper case (caps lock).',
+          'hello world',
+          'HELLO WORLD',
+          _kRose,
+          _kRoseSoft),
     ];
     return _PrivateCard(
       child: Padding(
@@ -1349,28 +1113,20 @@ class _PrivateSection5Capitalization extends StatelessWidget {
               accent: _kPink,
             ),
             const SizedBox(height: 18),
-            LayoutBuilder(
-              builder: (BuildContext ctx, BoxConstraints c) {
-                final int cols = c.maxWidth > 880
-                    ? 4
-                    : c.maxWidth > 560
-                    ? 2
-                    : 1;
-                final double cw = (c.maxWidth - (cols - 1) * 12) / cols;
-                return Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: caps
-                      .map<Widget>(
-                        (cap) => SizedBox(
+            LayoutBuilder(builder: (BuildContext ctx, BoxConstraints c) {
+              final int cols = c.maxWidth > 880 ? 4 : c.maxWidth > 560 ? 2 : 1;
+              final double cw = (c.maxWidth - (cols - 1) * 12) / cols;
+              return Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: caps
+                    .map<Widget>((cap) => SizedBox(
                           width: cw,
                           child: _PrivateCapCard(entry: cap),
-                        ),
-                      )
-                      .toList(),
-                );
-              },
-            ),
+                        ))
+                    .toList(),
+              );
+            }),
           ],
         ),
       ),
@@ -1385,14 +1141,8 @@ class _PrivateCapEntry {
   final String after;
   final Color accent;
   final Color accentSoft;
-  _PrivateCapEntry(
-    this.name,
-    this.description,
-    this.before,
-    this.after,
-    this.accent,
-    this.accentSoft,
-  );
+  _PrivateCapEntry(this.name, this.description, this.before, this.after,
+      this.accent, this.accentSoft);
 }
 
 class _PrivateCapCard extends StatelessWidget {
@@ -1432,17 +1182,9 @@ class _PrivateCapCard extends StatelessWidget {
             style: const TextStyle(color: _kInkSoft, fontSize: 12, height: 1.4),
           ),
           const SizedBox(height: 12),
-          _PrivateBeforeAfter(
-            label: 'before',
-            value: entry.before,
-            accent: _kInkMuted,
-          ),
+          _PrivateBeforeAfter(label: 'before', value: entry.before, accent: _kInkMuted),
           const SizedBox(height: 6),
-          _PrivateBeforeAfter(
-            label: 'after',
-            value: entry.after,
-            accent: entry.accent,
-          ),
+          _PrivateBeforeAfter(label: 'after', value: entry.after, accent: entry.accent),
         ],
       ),
     );
@@ -1518,39 +1260,35 @@ class _PrivateSection6Brightness extends StatelessWidget {
               accent: _kAmber,
             ),
             const SizedBox(height: 16),
-            LayoutBuilder(
-              builder: (BuildContext ctx, BoxConstraints c) {
-                final double w = c.maxWidth > 760
-                    ? (c.maxWidth - 16) / 2
-                    : c.maxWidth;
-                return Wrap(
-                  spacing: 16,
-                  runSpacing: 16,
-                  children: <Widget>[
-                    SizedBox(
-                      width: w,
-                      child: _PrivateBrightnessCard(
-                        label: 'Brightness.light',
-                        bg: const Color(0xFFE5E7EB),
-                        keyCap: Colors.white,
-                        keyText: _kInk,
-                        accent: _kAccent,
-                      ),
+            LayoutBuilder(builder: (BuildContext ctx, BoxConstraints c) {
+              final double w = c.maxWidth > 760 ? (c.maxWidth - 16) / 2 : c.maxWidth;
+              return Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: <Widget>[
+                  SizedBox(
+                    width: w,
+                    child: _PrivateBrightnessCard(
+                      label: 'Brightness.light',
+                      bg: const Color(0xFFE5E7EB),
+                      keyCap: Colors.white,
+                      keyText: _kInk,
+                      accent: _kAccent,
                     ),
-                    SizedBox(
-                      width: w,
-                      child: _PrivateBrightnessCard(
-                        label: 'Brightness.dark',
-                        bg: const Color(0xFF1E293B),
-                        keyCap: const Color(0xFF334155),
-                        keyText: Colors.white,
-                        accent: _kViolet,
-                      ),
+                  ),
+                  SizedBox(
+                    width: w,
+                    child: _PrivateBrightnessCard(
+                      label: 'Brightness.dark',
+                      bg: const Color(0xFF1E293B),
+                      keyCap: const Color(0xFF334155),
+                      keyText: Colors.white,
+                      accent: _kViolet,
                     ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                ],
+              );
+            }),
           ],
         ),
       ),
@@ -1603,33 +1341,31 @@ class _PrivateBrightnessCard extends StatelessWidget {
           for (final List<String> row in const <List<String>>[
             <String>['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
             <String>['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-            <String>['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+            <String>['z', 'x', 'c', 'v', 'b', 'n', 'm']
           ])
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 3),
               child: Row(
                 children: row
-                    .map<Widget>(
-                      (String k) => Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 2),
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color: keyCap,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            k,
-                            style: TextStyle(
-                              color: keyText,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                    .map<Widget>((String k) => Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 2),
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: keyCap,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              k,
+                              style: TextStyle(
+                                color: keyText,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13,
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    )
+                        ))
                     .toList(),
               ),
             ),
@@ -1646,13 +1382,8 @@ class _PrivateBrightnessCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   alignment: Alignment.center,
-                  child: Text(
-                    '123',
-                    style: TextStyle(
-                      color: keyText,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text('123',
+                      style: TextStyle(color: keyText, fontWeight: FontWeight.w600)),
                 ),
               ),
               Expanded(
@@ -1665,13 +1396,8 @@ class _PrivateBrightnessCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   alignment: Alignment.center,
-                  child: Text(
-                    'space',
-                    style: TextStyle(
-                      color: keyText,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text('space',
+                      style: TextStyle(color: keyText, fontWeight: FontWeight.w600)),
                 ),
               ),
               Expanded(
@@ -1684,13 +1410,8 @@ class _PrivateBrightnessCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   alignment: Alignment.center,
-                  child: const Text(
-                    'done',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: const Text('done',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
               ),
             ],
@@ -1715,11 +1436,7 @@ class _PrivateSection7Autofill extends StatelessWidget {
       _PrivateAutofillChip('newPassword', Icons.enhanced_encryption, _kRose),
       _PrivateAutofillChip('oneTimeCode', Icons.sms_outlined, _kViolet),
       _PrivateAutofillChip('telephoneNumber', Icons.phone_outlined, _kEmerald),
-      _PrivateAutofillChip(
-        'telephoneNumberNational',
-        Icons.phone_iphone,
-        _kEmerald,
-      ),
+      _PrivateAutofillChip('telephoneNumberNational', Icons.phone_iphone, _kEmerald),
       _PrivateAutofillChip('name', Icons.badge_outlined, _kAmber),
       _PrivateAutofillChip('givenName', Icons.face_outlined, _kAmber),
       _PrivateAutofillChip('familyName', Icons.family_restroom, _kAmber),
@@ -1727,18 +1444,10 @@ class _PrivateSection7Autofill extends StatelessWidget {
       _PrivateAutofillChip('nameSuffix', Icons.subtitles_outlined, _kAmber),
       _PrivateAutofillChip('nickname', Icons.tag, _kAmber),
       _PrivateAutofillChip('streetAddressLine1', Icons.home_outlined, _kPink),
-      _PrivateAutofillChip(
-        'streetAddressLine2',
-        Icons.home_work_outlined,
-        _kPink,
-      ),
+      _PrivateAutofillChip('streetAddressLine2', Icons.home_work_outlined, _kPink),
       _PrivateAutofillChip('addressCity', Icons.location_city, _kPink),
       _PrivateAutofillChip('addressState', Icons.map_outlined, _kPink),
-      _PrivateAutofillChip(
-        'postalCode',
-        Icons.markunread_mailbox_outlined,
-        _kPink,
-      ),
+      _PrivateAutofillChip('postalCode', Icons.markunread_mailbox_outlined, _kPink),
       _PrivateAutofillChip('countryName', Icons.flag_outlined, _kPink),
       _PrivateAutofillChip('creditCardNumber', Icons.credit_card, _kSlate),
       _PrivateAutofillChip('creditCardSecurityCode', Icons.password, _kSlate),
@@ -1786,11 +1495,7 @@ class _PrivateSection7Autofill extends StatelessWidget {
                   const SizedBox(height: 6),
                   const Text(
                     'fields:',
-                    style: TextStyle(
-                      color: _kInkMuted,
-                      fontSize: 11,
-                      letterSpacing: 0.6,
-                    ),
+                    style: TextStyle(color: _kInkMuted, fontSize: 11, letterSpacing: 0.6),
                   ),
                   const SizedBox(height: 4),
                   Padding(
@@ -1798,38 +1503,14 @@ class _PrivateSection7Autofill extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const <Widget>[
-                        Text(
-                          '• uniqueIdentifier — String',
-                          style: TextStyle(
-                            color: _kInkSoft,
-                            fontSize: 12,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
-                        Text(
-                          '• autofillHints     — List<String>',
-                          style: TextStyle(
-                            color: _kInkSoft,
-                            fontSize: 12,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
-                        Text(
-                          '• currentEditingValue — TextEditingValue',
-                          style: TextStyle(
-                            color: _kInkSoft,
-                            fontSize: 12,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
-                        Text(
-                          '• hintText           — String?',
-                          style: TextStyle(
-                            color: _kInkSoft,
-                            fontSize: 12,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        Text('• uniqueIdentifier — String',
+                            style: TextStyle(color: _kInkSoft, fontSize: 12, fontFamily: 'monospace')),
+                        Text('• autofillHints     — List<String>',
+                            style: TextStyle(color: _kInkSoft, fontSize: 12, fontFamily: 'monospace')),
+                        Text('• currentEditingValue — TextEditingValue',
+                            style: TextStyle(color: _kInkSoft, fontSize: 12, fontFamily: 'monospace')),
+                        Text('• hintText           — String?',
+                            style: TextStyle(color: _kInkSoft, fontSize: 12, fontFamily: 'monospace')),
                       ],
                     ),
                   ),
@@ -2040,24 +1721,20 @@ class _PrivateSection9Pitfalls extends StatelessWidget {
               accent: _kRose,
             ),
             const SizedBox(height: 16),
-            LayoutBuilder(
-              builder: (BuildContext ctx, BoxConstraints c) {
-                final int cols = c.maxWidth > 880 ? 2 : 1;
-                final double cw = (c.maxWidth - (cols - 1) * 14) / cols;
-                return Wrap(
-                  spacing: 14,
-                  runSpacing: 14,
-                  children: pitfalls
-                      .map<Widget>(
-                        (p) => SizedBox(
+            LayoutBuilder(builder: (BuildContext ctx, BoxConstraints c) {
+              final int cols = c.maxWidth > 880 ? 2 : 1;
+              final double cw = (c.maxWidth - (cols - 1) * 14) / cols;
+              return Wrap(
+                spacing: 14,
+                runSpacing: 14,
+                children: pitfalls
+                    .map<Widget>((p) => SizedBox(
                           width: cw,
                           child: _PrivatePitfallCard(pitfall: p),
-                        ),
-                      )
-                      .toList(),
-                );
-              },
-            ),
+                        ))
+                    .toList(),
+              );
+            }),
           ],
         ),
       ),
@@ -2156,11 +1833,7 @@ class _PrivateSection10Footer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.keyboard_alt_outlined,
-                color: _kAccent,
-                size: 20,
-              ),
+              child: const Icon(Icons.keyboard_alt_outlined, color: _kAccent, size: 20),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -2236,7 +1909,10 @@ class _PrivateCard extends StatelessWidget {
           ),
         ],
       ),
-      child: ClipRRect(borderRadius: BorderRadius.circular(18), child: child),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(18),
+        child: child,
+      ),
     );
   }
 }
@@ -2386,10 +2062,7 @@ class _PrivateCodeBlock extends StatelessWidget {
                 ),
                 const Spacer(),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 2,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(999),
@@ -2428,7 +2101,10 @@ class _PrivateTrafficLight extends StatelessWidget {
     return Container(
       width: 9,
       height: 9,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }

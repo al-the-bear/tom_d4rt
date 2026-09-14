@@ -248,12 +248,8 @@ class _AxisEntry {
 dynamic build(BuildContext context) {
   print('[tide-almanac] ScrollMetrics deep-dive demo starting');
   print('[tide-almanac] Theme: harbour-master almanac, 16-colour tide scale');
-  print(
-    '[tide-almanac] D4rt mode: snapshot build, no Stateful, no controllers',
-  );
-  print(
-    '[tide-almanac] Target: ScrollMetrics, FixedScrollMetrics, PageMetrics',
-  );
+  print('[tide-almanac] D4rt mode: snapshot build, no Stateful, no controllers');
+  print('[tide-almanac] Target: ScrollMetrics, FixedScrollMetrics, PageMetrics');
 
   // ---------------------------------------------------------------------------
   //  Eight FixedScrollMetrics samples.
@@ -473,7 +469,10 @@ dynamic build(BuildContext context) {
   final ScrollMetrics c1 = m2.copyWith(pixels: 1500.0);
   final ScrollMetrics c2 = m2.copyWith(viewportDimension: 300.0);
   final ScrollMetrics c3 = m2.copyWith(maxScrollExtent: 4800.0);
-  final ScrollMetrics c4 = m2.copyWith(minScrollExtent: -120.0, pixels: -120.0);
+  final ScrollMetrics c4 = m2.copyWith(
+    minScrollExtent: -120.0,
+    pixels: -120.0,
+  );
   final List<_CopyEntry> copies = <_CopyEntry>[
     _CopyEntry(
       label: 'shifted pixels',
@@ -519,21 +518,15 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < copies.length; i++) {
     final _CopyEntry e = copies[i];
     print('[tide-almanac] copyWith --- ${e.label}');
-    print(
-      '  original.pixels=${e.original.pixels} '
-      'derived.pixels=${e.derived.pixels}',
-    );
-    print(
-      '  original.maxScrollExtent=${e.original.maxScrollExtent} '
-      'derived.maxScrollExtent=${e.derived.maxScrollExtent}',
-    );
-    print(
-      '  derived.extentBefore=${e.derived.extentBefore} '
-      'extentInside=${e.derived.extentInside} '
-      'extentAfter=${e.derived.extentAfter} '
-      'atEdge=${e.derived.atEdge} '
-      'outOfRange=${e.derived.outOfRange}',
-    );
+    print('  original.pixels=${e.original.pixels} '
+        'derived.pixels=${e.derived.pixels}');
+    print('  original.maxScrollExtent=${e.original.maxScrollExtent} '
+        'derived.maxScrollExtent=${e.derived.maxScrollExtent}');
+    print('  derived.extentBefore=${e.derived.extentBefore} '
+        'extentInside=${e.derived.extentInside} '
+        'extentAfter=${e.derived.extentAfter} '
+        'atEdge=${e.derived.atEdge} '
+        'outOfRange=${e.derived.outOfRange}');
   }
 
   // ---------------------------------------------------------------------------
@@ -603,10 +596,8 @@ dynamic build(BuildContext context) {
     final _PageEntry e = pages[i];
     final PageMetrics m = e.metrics;
     print('[tide-almanac] page metrics --- ${e.label}');
-    print(
-      '  pixels=${m.pixels} viewport=${m.viewportDimension} '
-      'page=${m.page} viewportFraction=${m.viewportFraction}',
-    );
+    print('  pixels=${m.pixels} viewport=${m.viewportDimension} '
+        'page=${m.page} viewportFraction=${m.viewportFraction}');
   }
 
   // ---------------------------------------------------------------------------
@@ -686,11 +677,9 @@ dynamic build(BuildContext context) {
   print('[tide-almanac] axUp.axisDirection=${axUp.axisDirection}');
   for (int i = 0; i < axes.length; i++) {
     final _AxisEntry a = axes[i];
-    print(
-      '[tide-almanac] axis ${a.label} '
-      'axis=${a.metrics.axis} '
-      'axisDirection=${a.metrics.axisDirection}',
-    );
+    print('[tide-almanac] axis ${a.label} '
+        'axis=${a.metrics.axis} '
+        'axisDirection=${a.metrics.axisDirection}');
   }
 
   // ---------------------------------------------------------------------------
@@ -861,7 +850,11 @@ Widget _proseParagraph(String text) {
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     child: Text(
       text,
-      style: TextStyle(color: tideAbyss, fontSize: 13.5, height: 1.55),
+      style: TextStyle(
+        color: tideAbyss,
+        fontSize: 13.5,
+        height: 1.55,
+      ),
     ),
   );
 }
@@ -901,7 +894,11 @@ Widget _kvRow(String key, String value, {Color? accent}) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: tideAbyss, fontSize: 12.5, height: 1.4),
+            style: TextStyle(
+              color: tideAbyss,
+              fontSize: 12.5,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -949,9 +946,7 @@ Widget _captionedCard({
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 3.0,
-                ),
+                    horizontal: 8.0, vertical: 3.0),
                 decoration: BoxDecoration(
                   color: tideShell,
                   borderRadius: BorderRadius.circular(6.0),
@@ -1028,7 +1023,12 @@ Widget _section1TitleBanner() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[tideAbyss, tideMidnight, tideNavy, tideHarbour],
+        colors: <Color>[
+          tideAbyss,
+          tideMidnight,
+          tideNavy,
+          tideHarbour,
+        ],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: <BoxShadow>[
@@ -1108,9 +1108,7 @@ Widget _section1TitleBanner() {
             color: tideAbyss.withValues(alpha: 0.55),
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(
-              color: tideShell.withValues(alpha: 0.2),
-              width: 1.0,
-            ),
+                color: tideShell.withValues(alpha: 0.2), width: 1.0),
           ),
           child: Wrap(
             spacing: 8.0,
@@ -1277,42 +1275,30 @@ Widget _section3PropertyAnatomy() {
           ),
         ),
         const SizedBox(height: 8.0),
-        _kvRow(
-          'minScrollExtent (double)',
-          'The lowest pixels value reachable without overscrolling. Almost '
-              'always 0 for ListViews.',
-          accent: tideNavy,
-        ),
-        _kvRow(
-          'maxScrollExtent (double)',
-          'The highest pixels value reachable without overscrolling. '
-              'Total document length minus viewportDimension.',
-          accent: tideNavy,
-        ),
-        _kvRow(
-          'pixels (double)',
-          'The current reading of the tide-gauge. Can fall outside '
-              '[minScrollExtent, maxScrollExtent] when overscrolled.',
-          accent: tideOilLamp,
-        ),
-        _kvRow(
-          'viewportDimension (double)',
-          'The size of the visible slice along the scroll axis. For a '
-              'vertical ListView, this is the visible height.',
-          accent: tideShoal,
-        ),
-        _kvRow(
-          'axisDirection (AxisDirection)',
-          'down / up / right / left. Direction the visible slice moves '
-              'when pixels grows. Determines axis (horizontal/vertical).',
-          accent: tideHarbour,
-        ),
-        _kvRow(
-          'devicePixelRatio (double)',
-          'The MediaQuery devicePixelRatio captured with the snapshot. '
-              'Used to round to nearest physical pixel for crisp paint.',
-          accent: tideDrift,
-        ),
+        _kvRow('minScrollExtent (double)',
+            'The lowest pixels value reachable without overscrolling. Almost '
+            'always 0 for ListViews.',
+            accent: tideNavy),
+        _kvRow('maxScrollExtent (double)',
+            'The highest pixels value reachable without overscrolling. '
+            'Total document length minus viewportDimension.',
+            accent: tideNavy),
+        _kvRow('pixels (double)',
+            'The current reading of the tide-gauge. Can fall outside '
+            '[minScrollExtent, maxScrollExtent] when overscrolled.',
+            accent: tideOilLamp),
+        _kvRow('viewportDimension (double)',
+            'The size of the visible slice along the scroll axis. For a '
+            'vertical ListView, this is the visible height.',
+            accent: tideShoal),
+        _kvRow('axisDirection (AxisDirection)',
+            'down / up / right / left. Direction the visible slice moves '
+            'when pixels grows. Determines axis (horizontal/vertical).',
+            accent: tideHarbour),
+        _kvRow('devicePixelRatio (double)',
+            'The MediaQuery devicePixelRatio captured with the snapshot. '
+            'Used to round to nearest physical pixel for crisp paint.',
+            accent: tideDrift),
         _divider(),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
@@ -1331,48 +1317,34 @@ Widget _section3PropertyAnatomy() {
           ),
         ),
         const SizedBox(height: 8.0),
-        _kvRow(
-          'axis',
-          'axisDirectionToAxis(axisDirection): horizontal for left/right; '
-              'vertical for up/down.',
-          accent: tideHarbour,
-        ),
-        _kvRow(
-          'extentBefore',
-          'pixels - minScrollExtent, clamped >= 0. Material that has '
-              'scrolled away above the visible window.',
-          accent: tideNavy,
-        ),
-        _kvRow(
-          'extentInside',
-          'How much of the document is inside the visible window. '
-              'min(pixels + viewport, max) - max(pixels, min), clamped >= 0.',
-          accent: tideShoal,
-        ),
-        _kvRow(
-          'extentAfter',
-          'maxScrollExtent - min(pixels + viewport, max), clamped >= 0. '
-              'Material still ahead of the window.',
-          accent: tideOilLamp,
-        ),
-        _kvRow(
-          'extentTotal',
-          'maxScrollExtent - minScrollExtent. The full length of the '
-              'document along the scroll axis.',
-          accent: tideDrift,
-        ),
-        _kvRow(
-          'atEdge',
-          'pixels == minScrollExtent || pixels == maxScrollExtent. '
-              'True only at the rim, not past it.',
-          accent: tideSeafoam,
-        ),
-        _kvRow(
-          'outOfRange',
-          'pixels < minScrollExtent || pixels > maxScrollExtent. '
-              'True only when overscrolled past either rim.',
-          accent: tideWarn,
-        ),
+        _kvRow('axis',
+            'axisDirectionToAxis(axisDirection): horizontal for left/right; '
+            'vertical for up/down.',
+            accent: tideHarbour),
+        _kvRow('extentBefore',
+            'pixels - minScrollExtent, clamped >= 0. Material that has '
+            'scrolled away above the visible window.',
+            accent: tideNavy),
+        _kvRow('extentInside',
+            'How much of the document is inside the visible window. '
+            'min(pixels + viewport, max) - max(pixels, min), clamped >= 0.',
+            accent: tideShoal),
+        _kvRow('extentAfter',
+            'maxScrollExtent - min(pixels + viewport, max), clamped >= 0. '
+            'Material still ahead of the window.',
+            accent: tideOilLamp),
+        _kvRow('extentTotal',
+            'maxScrollExtent - minScrollExtent. The full length of the '
+            'document along the scroll axis.',
+            accent: tideDrift),
+        _kvRow('atEdge',
+            'pixels == minScrollExtent || pixels == maxScrollExtent. '
+            'True only at the rim, not past it.',
+            accent: tideSeafoam),
+        _kvRow('outOfRange',
+            'pixels < minScrollExtent || pixels > maxScrollExtent. '
+            'True only when overscrolled past either rim.',
+            accent: tideWarn),
         _divider(),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
@@ -1391,13 +1363,11 @@ Widget _section3PropertyAnatomy() {
           ),
         ),
         const SizedBox(height: 8.0),
-        _kvRow(
-          'copyWith(...)',
-          'Returns a new FixedScrollMetrics with selected fields '
-              'replaced. The only safe way to derive a new metrics from an '
-              'existing one without mutating shared state.',
-          accent: tideHarbour,
-        ),
+        _kvRow('copyWith(...)',
+            'Returns a new FixedScrollMetrics with selected fields '
+            'replaced. The only safe way to derive a new metrics from an '
+            'existing one without mutating shared state.',
+            accent: tideHarbour),
       ],
     ),
   );
@@ -1474,35 +1444,25 @@ Widget _section4RulerLegend() {
         const SizedBox(height: 8.0),
         _extentChipStrip(legendMetrics),
         _divider(),
-        _kvRow(
-          'dry sand strip',
-          'The full ruler including overscroll padding on either side.',
-          accent: tideSandDry,
-        ),
-        _kvRow(
-          'wet sand strip',
-          '[minScrollExtent, maxScrollExtent] --- in-bounds territory.',
-          accent: tideSandWet,
-        ),
-        _kvRow(
-          'window rectangle',
-          '[pixels, pixels+viewportDimension] clamped to the wet strip. '
-              'The actual visible slice.',
-          accent: tideHarbour,
-        ),
-        _kvRow(
-          'lamp marker',
-          'Vertical line at pixels itself --- the leading edge of the '
-              'visible window.',
-          accent: tideOilLamp,
-        ),
-        _kvRow(
-          'chip strip below',
-          'extentBefore / extentInside / extentAfter sized to the ratio '
-              'of each part of extentTotal, plus a flag chip for atEdge / '
-              'outOfRange.',
-          accent: tideShoal,
-        ),
+        _kvRow('dry sand strip',
+            'The full ruler including overscroll padding on either side.',
+            accent: tideSandDry),
+        _kvRow('wet sand strip',
+            '[minScrollExtent, maxScrollExtent] --- in-bounds territory.',
+            accent: tideSandWet),
+        _kvRow('window rectangle',
+            '[pixels, pixels+viewportDimension] clamped to the wet strip. '
+            'The actual visible slice.',
+            accent: tideHarbour),
+        _kvRow('lamp marker',
+            'Vertical line at pixels itself --- the leading edge of the '
+            'visible window.',
+            accent: tideOilLamp),
+        _kvRow('chip strip below',
+            'extentBefore / extentInside / extentAfter sized to the ratio '
+            'of each part of extentTotal, plus a flag chip for atEdge / '
+            'outOfRange.',
+            accent: tideShoal),
       ],
     ),
   );
@@ -1581,7 +1541,9 @@ Widget _ruler(ScrollMetrics m, {required Color accent}) {
             heightFactor: 1.0,
             child: Container(
               margin: EdgeInsets.only(left: 0.0),
-              decoration: BoxDecoration(color: tideSandWet),
+              decoration: BoxDecoration(
+                color: tideSandWet,
+              ),
             ),
           ),
         ),
@@ -1593,7 +1555,9 @@ Widget _ruler(ScrollMetrics m, {required Color accent}) {
             Expanded(flex: (minPosC * 1000).round(), child: const SizedBox()),
             Expanded(
               flex: ((maxPosC - minPosC) * 1000).round() + 1,
-              child: Container(color: tideSandWet),
+              child: Container(
+                color: tideSandWet,
+              ),
             ),
             Expanded(
               flex: ((1.0 - maxPosC) * 1000).round() + 1,
@@ -1632,7 +1596,10 @@ Widget _ruler(ScrollMetrics m, {required Color accent}) {
               flex: (winStartC * 1000).round() + 1,
               child: const SizedBox(),
             ),
-            Container(width: 3.0, color: tideOilLamp),
+            Container(
+              width: 3.0,
+              color: tideOilLamp,
+            ),
             Expanded(
               flex: ((1.0 - winStartC) * 1000).round() + 1,
               child: const SizedBox(),
@@ -1842,7 +1809,11 @@ Widget _sampleCard(_TideSample s) {
       children: <Widget>[
         Text(
           s.narrative,
-          style: TextStyle(color: tideAbyss, fontSize: 12.5, height: 1.5),
+          style: TextStyle(
+            color: tideAbyss,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 12.0),
         _ruler(m, accent: s.accent),
@@ -1851,50 +1822,28 @@ Widget _sampleCard(_TideSample s) {
         const SizedBox(height: 10.0),
         _divider(),
         _kvRow('pixels', m.pixels.toStringAsFixed(1), accent: s.accent),
-        _kvRow(
-          'min .. max',
-          '${m.minScrollExtent.toStringAsFixed(1)} .. '
-              '${m.maxScrollExtent.toStringAsFixed(1)}',
-          accent: tideNavy,
-        ),
-        _kvRow(
-          'viewportDimension',
-          m.viewportDimension.toStringAsFixed(1),
-          accent: tideShoal,
-        ),
-        _kvRow(
-          'extentBefore',
-          m.extentBefore.toStringAsFixed(1),
-          accent: tideNavy,
-        ),
-        _kvRow(
-          'extentInside',
-          m.extentInside.toStringAsFixed(1),
-          accent: tideShoal,
-        ),
-        _kvRow(
-          'extentAfter',
-          m.extentAfter.toStringAsFixed(1),
-          accent: tideOilLamp,
-        ),
-        _kvRow(
-          'extentTotal',
-          m.extentTotal.toStringAsFixed(1),
-          accent: tideDrift,
-        ),
+        _kvRow('min .. max',
+            '${m.minScrollExtent.toStringAsFixed(1)} .. '
+            '${m.maxScrollExtent.toStringAsFixed(1)}',
+            accent: tideNavy),
+        _kvRow('viewportDimension',
+            m.viewportDimension.toStringAsFixed(1),
+            accent: tideShoal),
+        _kvRow('extentBefore', m.extentBefore.toStringAsFixed(1),
+            accent: tideNavy),
+        _kvRow('extentInside', m.extentInside.toStringAsFixed(1),
+            accent: tideShoal),
+        _kvRow('extentAfter', m.extentAfter.toStringAsFixed(1),
+            accent: tideOilLamp),
+        _kvRow('extentTotal', m.extentTotal.toStringAsFixed(1),
+            accent: tideDrift),
         _kvRow('atEdge', m.atEdge.toString(), accent: tideSeafoam),
         _kvRow('outOfRange', m.outOfRange.toString(), accent: tideWarn),
-        _kvRow(
-          'axisDirection',
-          m.axisDirection.toString(),
-          accent: tideHarbour,
-        ),
+        _kvRow('axisDirection', m.axisDirection.toString(),
+            accent: tideHarbour),
         _kvRow('axis', m.axis.toString(), accent: tideHarbour),
-        _kvRow(
-          'devicePixelRatio',
-          m.devicePixelRatio.toStringAsFixed(1),
-          accent: tideDrift,
-        ),
+        _kvRow('devicePixelRatio',
+            m.devicePixelRatio.toStringAsFixed(1), accent: tideDrift),
       ],
     ),
   );
@@ -1953,7 +1902,11 @@ Widget _copyCard(_CopyEntry e) {
       children: <Widget>[
         Text(
           e.description,
-          style: TextStyle(color: tideAbyss, fontSize: 12.5, height: 1.5),
+          style: TextStyle(
+            color: tideAbyss,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 12.0),
         Row(
@@ -2053,7 +2006,10 @@ Widget _miniLine(String key, double value) {
         ),
         Text(
           value.toStringAsFixed(1),
-          style: TextStyle(color: tideAbyss, fontSize: 10.5),
+          style: TextStyle(
+            color: tideAbyss,
+            fontSize: 10.5,
+          ),
         ),
       ],
     ),
@@ -2116,45 +2072,38 @@ Widget _pageCard(_PageEntry e) {
       children: <Widget>[
         Text(
           e.description,
-          style: TextStyle(color: tideAbyss, fontSize: 12.5, height: 1.5),
+          style: TextStyle(
+            color: tideAbyss,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 12.0),
         // Render five page rectangles with one highlighted to the
         // floor(page) index.
         _pageStrip(e.metrics),
         const SizedBox(height: 12.0),
-        _kvRow('pixels', e.metrics.pixels.toStringAsFixed(1), accent: e.accent),
-        _kvRow(
-          'viewportDimension',
-          e.metrics.viewportDimension.toStringAsFixed(1),
-          accent: tideShoal,
-        ),
-        _kvRow(
-          'viewportFraction',
-          e.metrics.viewportFraction.toStringAsFixed(2),
-          accent: tideDrift,
-        ),
-        _kvRow(
-          'page',
-          (e.metrics.page ?? 0.0).toStringAsFixed(2),
-          accent: tideOilLamp,
-        ),
-        _kvRow(
-          'extentBefore',
-          e.metrics.extentBefore.toStringAsFixed(1),
-          accent: tideNavy,
-        ),
-        _kvRow(
-          'extentInside',
-          e.metrics.extentInside.toStringAsFixed(1),
-          accent: tideShoal,
-        ),
-        _kvRow(
-          'extentAfter',
-          e.metrics.extentAfter.toStringAsFixed(1),
-          accent: tideOilLamp,
-        ),
-        _kvRow('atEdge', e.metrics.atEdge.toString(), accent: tideSeafoam),
+        _kvRow('pixels', e.metrics.pixels.toStringAsFixed(1),
+            accent: e.accent),
+        _kvRow('viewportDimension',
+            e.metrics.viewportDimension.toStringAsFixed(1),
+            accent: tideShoal),
+        _kvRow('viewportFraction',
+            e.metrics.viewportFraction.toStringAsFixed(2),
+            accent: tideDrift),
+        _kvRow('page', (e.metrics.page ?? 0.0).toStringAsFixed(2),
+            accent: tideOilLamp),
+        _kvRow('extentBefore',
+            e.metrics.extentBefore.toStringAsFixed(1),
+            accent: tideNavy),
+        _kvRow('extentInside',
+            e.metrics.extentInside.toStringAsFixed(1),
+            accent: tideShoal),
+        _kvRow('extentAfter',
+            e.metrics.extentAfter.toStringAsFixed(1),
+            accent: tideOilLamp),
+        _kvRow('atEdge', e.metrics.atEdge.toString(),
+            accent: tideSeafoam),
       ],
     ),
   );
@@ -2179,28 +2128,26 @@ Widget _pageStrip(PageMetrics m) {
     } else {
       bg = tideMist;
     }
-    cells.add(
-      Expanded(
-        child: Container(
-          height: 36.0,
-          margin: const EdgeInsets.symmetric(horizontal: 2.0),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: bg,
-            borderRadius: BorderRadius.circular(6.0),
-            border: Border.all(color: tideNavy, width: 1.0),
-          ),
-          child: Text(
-            'p$i',
-            style: TextStyle(
-              color: tideMidnight,
-              fontSize: 12.0,
-              fontWeight: FontWeight.w700,
-            ),
+    cells.add(Expanded(
+      child: Container(
+        height: 36.0,
+        margin: const EdgeInsets.symmetric(horizontal: 2.0),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: BorderRadius.circular(6.0),
+          border: Border.all(color: tideNavy, width: 1.0),
+        ),
+        child: Text(
+          'p$i',
+          style: TextStyle(
+            color: tideMidnight,
+            fontSize: 12.0,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
-    );
+    ));
   }
   return Row(children: cells);
 }
@@ -2260,7 +2207,11 @@ Widget _axisCard(_AxisEntry a) {
       children: <Widget>[
         Text(
           a.description,
-          style: TextStyle(color: tideAbyss, fontSize: 12.5, height: 1.5),
+          style: TextStyle(
+            color: tideAbyss,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 12.0),
         Row(
@@ -2272,27 +2223,18 @@ Widget _axisCard(_AxisEntry a) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _kvRow(
-                    'axisDirection',
-                    a.metrics.axisDirection.toString(),
-                    accent: a.accent,
-                  ),
+                  _kvRow('axisDirection', a.metrics.axisDirection.toString(),
+                      accent: a.accent),
                   _kvRow('axis', a.metrics.axis.toString(), accent: a.accent),
-                  _kvRow(
-                    'extentBefore',
-                    a.metrics.extentBefore.toStringAsFixed(1),
-                    accent: tideNavy,
-                  ),
-                  _kvRow(
-                    'extentInside',
-                    a.metrics.extentInside.toStringAsFixed(1),
-                    accent: tideShoal,
-                  ),
-                  _kvRow(
-                    'extentAfter',
-                    a.metrics.extentAfter.toStringAsFixed(1),
-                    accent: tideOilLamp,
-                  ),
+                  _kvRow('extentBefore',
+                      a.metrics.extentBefore.toStringAsFixed(1),
+                      accent: tideNavy),
+                  _kvRow('extentInside',
+                      a.metrics.extentInside.toStringAsFixed(1),
+                      accent: tideShoal),
+                  _kvRow('extentAfter',
+                      a.metrics.extentAfter.toStringAsFixed(1),
+                      accent: tideOilLamp),
                 ],
               ),
             ),
@@ -2409,25 +2351,21 @@ Widget _doColumn() {
         ),
         const SizedBox(height: 8.0),
         _doAvoidLine(
-          'Use atEdge for "snap to edge" decisions; it is exclusive of '
-          'overscroll.',
-        ),
+            'Use atEdge for "snap to edge" decisions; it is exclusive of '
+            'overscroll.'),
         _doAvoidLine(
-          'Use outOfRange when reacting to refresh-spinner pulls or '
-          'bounce physics.',
-        ),
+            'Use outOfRange when reacting to refresh-spinner pulls or '
+            'bounce physics.'),
         _doAvoidLine(
-          'Compute thumb position from extentBefore / extentTotal --- '
-          'the framework already clamps for you.',
-        ),
+            'Compute thumb position from extentBefore / extentTotal --- '
+            'the framework already clamps for you.'),
         _doAvoidLine(
-          'Treat ScrollMetrics as immutable; copyWith() to derive new '
-          'snapshots.',
-        ),
-        _doAvoidLine('Read .axis when you only care horizontal vs vertical.'),
+            'Treat ScrollMetrics as immutable; copyWith() to derive new '
+            'snapshots.'),
         _doAvoidLine(
-          'Read .axisDirection when you also need forward / reverse.',
-        ),
+            'Read .axis when you only care horizontal vs vertical.'),
+        _doAvoidLine(
+            'Read .axisDirection when you also need forward / reverse.'),
       ],
     ),
   );
@@ -2462,30 +2400,24 @@ Widget _avoidColumn() {
         ),
         const SizedBox(height: 8.0),
         _doAvoidLine(
-          'Comparing pixels < maxScrollExtent --- ignores overscroll on '
-          'the tail.',
-        ),
+            'Comparing pixels < maxScrollExtent --- ignores overscroll on '
+            'the tail.'),
         _doAvoidLine(
-          'Dividing by extentTotal without checking for the calm-pool '
-          'case (extentTotal == 0).',
-        ),
+            'Dividing by extentTotal without checking for the calm-pool '
+            'case (extentTotal == 0).'),
         _doAvoidLine(
-          'Using .pixels as a thumb-rail fraction --- it does not '
-          'normalise to the rail length.',
-        ),
+            'Using .pixels as a thumb-rail fraction --- it does not '
+            'normalise to the rail length.'),
         _doAvoidLine(
-          'Mutating ScrollMetrics --- it is immutable; do not subclass '
-          'to add fields.',
-        ),
+            'Mutating ScrollMetrics --- it is immutable; do not subclass '
+            'to add fields.'),
         _doAvoidLine(
-          'Assuming extentBefore + extentInside + extentAfter equals '
-          'extentTotal during overscroll --- the clamps may make it '
-          'less.',
-        ),
+            'Assuming extentBefore + extentInside + extentAfter equals '
+            'extentTotal during overscroll --- the clamps may make it '
+            'less.'),
         _doAvoidLine(
-          'Mixing AxisDirection with TextDirection --- they are '
-          'different concepts.',
-        ),
+            'Mixing AxisDirection with TextDirection --- they are '
+            'different concepts.'),
       ],
     ),
   );
@@ -2509,7 +2441,11 @@ Widget _doAvoidLine(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: tideAbyss, fontSize: 12.0, height: 1.45),
+            style: TextStyle(
+              color: tideAbyss,
+              fontSize: 12.0,
+              height: 1.45,
+            ),
           ),
         ),
       ],
@@ -2620,9 +2556,7 @@ Widget _recipeCard(String code, String title, String snippet, String note) {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 6.0,
-                  vertical: 2.0,
-                ),
+                    horizontal: 6.0, vertical: 2.0),
                 decoration: BoxDecoration(
                   color: tideShell,
                   borderRadius: BorderRadius.circular(4.0),
@@ -2653,7 +2587,9 @@ Widget _recipeCard(String code, String title, String snippet, String note) {
         Container(
           padding: const EdgeInsets.all(12.0),
           width: double.infinity,
-          decoration: BoxDecoration(color: tideAbyss),
+          decoration: BoxDecoration(
+            color: tideAbyss,
+          ),
           child: Text(
             snippet,
             style: TextStyle(
@@ -2668,7 +2604,11 @@ Widget _recipeCard(String code, String title, String snippet, String note) {
           padding: const EdgeInsets.all(12.0),
           child: Text(
             note,
-            style: TextStyle(color: tideAbyss, fontSize: 12.5, height: 1.5),
+            style: TextStyle(
+              color: tideAbyss,
+              fontSize: 12.5,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -2690,107 +2630,107 @@ Widget _section11Glossary() {
     <String>[
       'atEdge',
       'pixels equals minScrollExtent or maxScrollExtent. Exclusive of '
-          'overscroll: a position past the rim is not on the rim.',
+          'overscroll: a position past the rim is not on the rim.'
     ],
     <String>[
       'AxisDirection',
       'Enum of {up, down, left, right}. Encodes both axis and forward / '
-          'reverse along that axis.',
+          'reverse along that axis.'
     ],
     <String>[
       'axis',
       'Derived: Axis.horizontal for left/right; Axis.vertical for up/down. '
-          'Used by layout code that does not care about reverse.',
+          'Used by layout code that does not care about reverse.'
     ],
     <String>[
       'devicePixelRatio',
       'The MediaQuery devicePixelRatio captured with the metrics, used '
-          'when rounding to physical pixels.',
+          'when rounding to physical pixels.'
     ],
     <String>[
       'extentAfter',
       'Material that has not yet entered the visible window. Clamped at '
-          'zero when overscrolled past the tail.',
+          'zero when overscrolled past the tail.'
     ],
     <String>[
       'extentBefore',
       'Material already scrolled out of the visible window above. Clamped '
-          'at zero when overscrolled past the head.',
+          'at zero when overscrolled past the head.'
     ],
     <String>[
       'extentInside',
       'How much of the document is currently visible. Equals viewport '
-          'when fully in-bounds; less when overscrolled.',
+          'when fully in-bounds; less when overscrolled.'
     ],
     <String>[
       'extentTotal',
       'maxScrollExtent - minScrollExtent. The full length of the document '
-          'along the scroll axis.',
+          'along the scroll axis.'
     ],
     <String>[
       'FixedScrollMetrics',
       'Concrete immutable bag that implements ScrollMetrics. The frozen '
-          'snapshot used in notifications.',
+          'snapshot used in notifications.'
     ],
     <String>[
       'outOfRange',
       'pixels is past the rim (overscrolled). Mutually exclusive with '
-          'atEdge.',
+          'atEdge.'
     ],
     <String>[
       'PageMetrics',
       'FixedScrollMetrics subclass with one extra getter: page = pixels / '
-          'max(viewportDimension, 1).',
+          'max(viewportDimension, 1).'
     ],
     <String>[
       'viewportDimension',
       'The size of the visible slice along the scroll axis. The visible '
-          'height for a vertical ListView.',
+          'height for a vertical ListView.'
     ],
   ];
   final List<Widget> rows = <Widget>[];
   for (int i = 0; i < entries.length; i++) {
     final String term = entries[i][0];
     final String def = entries[i][1];
-    rows.add(
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: 140.0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 4.0,
-                ),
-                decoration: BoxDecoration(
-                  color: tideNavy,
-                  borderRadius: BorderRadius.circular(6.0),
-                ),
-                child: Text(
-                  term,
-                  style: TextStyle(
-                    color: tideShell,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 0.3,
-                  ),
-                ),
+    rows.add(Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: 140.0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0, vertical: 4.0),
+              decoration: BoxDecoration(
+                color: tideNavy,
+                borderRadius: BorderRadius.circular(6.0),
               ),
-            ),
-            const SizedBox(width: 12.0),
-            Expanded(
               child: Text(
-                def,
-                style: TextStyle(color: tideAbyss, fontSize: 12.5, height: 1.5),
+                term,
+                style: TextStyle(
+                  color: tideShell,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.3,
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 12.0),
+          Expanded(
+            child: Text(
+              def,
+              style: TextStyle(
+                color: tideAbyss,
+                fontSize: 12.5,
+                height: 1.5,
+              ),
+            ),
+          ),
+        ],
       ),
-    );
+    ));
   }
   return Container(
     padding: const EdgeInsets.all(20.0),
@@ -2830,7 +2770,11 @@ Widget _section12RecapFooter() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[tideAbyss, tideMidnight, tideNavy],
+        colors: <Color>[
+          tideAbyss,
+          tideMidnight,
+          tideNavy,
+        ],
       ),
       borderRadius: BorderRadius.circular(16.0),
     ),
@@ -2855,25 +2799,20 @@ Widget _section12RecapFooter() {
         ),
         const SizedBox(height: 10.0),
         _recapBullet(
-          'ScrollMetrics is six stored fields plus seven derived getters; '
-          'do not try to remember more.',
-        ),
+            'ScrollMetrics is six stored fields plus seven derived getters; '
+            'do not try to remember more.'),
         _recapBullet(
-          'Use atEdge and outOfRange together: one is on the rim, the '
-          'other is past it.',
-        ),
+            'Use atEdge and outOfRange together: one is on the rim, the '
+            'other is past it.'),
         _recapBullet(
-          'extentBefore + extentInside + extentAfter equals extentTotal '
-          'in-bounds; less during overscroll.',
-        ),
+            'extentBefore + extentInside + extentAfter equals extentTotal '
+            'in-bounds; less during overscroll.'),
         _recapBullet(
-          'copyWith() is the only safe way to derive a new metrics from '
-          'an existing one.',
-        ),
+            'copyWith() is the only safe way to derive a new metrics from '
+            'an existing one.'),
         _recapBullet(
-          'PageMetrics adds page = pixels / max(viewportDimension, 1) '
-          'for snap-physics.',
-        ),
+            'PageMetrics adds page = pixels / max(viewportDimension, 1) '
+            'for snap-physics.'),
         const SizedBox(height: 14.0),
         Text(
           'Close the almanac. Hang it back on its nail beside the door.',
@@ -2906,7 +2845,11 @@ Widget _recapBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: tideShell, fontSize: 13.0, height: 1.5),
+            style: TextStyle(
+              color: tideShell,
+              fontSize: 13.0,
+              height: 1.5,
+            ),
           ),
         ),
       ],

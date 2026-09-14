@@ -34,7 +34,7 @@ dynamic build(BuildContext context) {
       'color': Colors.blueGrey,
       'description':
           'Suppress any action key entirely. The keyboard renders no '
-          'special return key (or a disabled one). Rare in user-facing UIs.',
+              'special return key (or a disabled one). Rare in user-facing UIs.',
       'iosMapping': 'UIReturnKeyType.default (suppressed)',
       'androidMapping': 'IME_ACTION_NONE',
       'example':
@@ -46,7 +46,7 @@ dynamic build(BuildContext context) {
       'color': Colors.grey,
       'description':
           'Default action; lets the platform choose. Falls back to "done" '
-          'on iOS and to a generic newline/done on Android.',
+              'on iOS and to a generic newline/done on Android.',
       'iosMapping': 'UIReturnKeyType.default',
       'androidMapping': 'IME_ACTION_UNSPECIFIED',
       'example':
@@ -58,12 +58,12 @@ dynamic build(BuildContext context) {
       'color': Colors.green,
       'description':
           'User signals "I am finished editing this field". Typically '
-          'closes the keyboard and unfocuses the input.',
+              'closes the keyboard and unfocuses the input.',
       'iosMapping': 'UIReturnKeyType.done',
       'androidMapping': 'IME_ACTION_DONE',
       'example':
           'Last field of a profile form, or a single-field dialog like '
-          '"Rename folder".',
+              '"Rename folder".',
     },
     TextInputAction.go: {
       'icon': Icons.arrow_forward,
@@ -71,10 +71,11 @@ dynamic build(BuildContext context) {
       'color': Colors.indigo,
       'description':
           'User wants to navigate or submit toward a destination. Common '
-          'for URL bars and "load this thing" inputs.',
+              'for URL bars and "load this thing" inputs.',
       'iosMapping': 'UIReturnKeyType.go',
       'androidMapping': 'IME_ACTION_GO',
-      'example': 'Browser address bar; "open project by id" prompt.',
+      'example':
+          'Browser address bar; "open project by id" prompt.',
     },
     TextInputAction.search: {
       'icon': Icons.search,
@@ -82,8 +83,8 @@ dynamic build(BuildContext context) {
       'color': Colors.deepPurple,
       'description':
           'User is ready to execute a search query. Strong semantic '
-          'signal — pair with `keyboardType: TextInputType.text` or '
-          '`webSearchAddress`.',
+              'signal — pair with `keyboardType: TextInputType.text` or '
+              '`webSearchAddress`.',
       'iosMapping': 'UIReturnKeyType.search',
       'androidMapping': 'IME_ACTION_SEARCH',
       'example': 'App-bar search field; help/article lookup.',
@@ -94,7 +95,7 @@ dynamic build(BuildContext context) {
       'color': Colors.teal,
       'description':
           'User is shipping a message — chat, comment, e-mail compose. '
-          'Often paired with onSubmitted that posts to a backend.',
+              'Often paired with onSubmitted that posts to a backend.',
       'iosMapping': 'UIReturnKeyType.send',
       'androidMapping': 'IME_ACTION_SEND',
       'example': 'Chat compose box; comment box; SMS-like input.',
@@ -105,7 +106,7 @@ dynamic build(BuildContext context) {
       'color': Colors.blue,
       'description':
           'Moves focus to the next input in a form chain. Use with '
-          'FocusNode / FocusScope.of(context).nextFocus() in onSubmitted.',
+              'FocusNode / FocusScope.of(context).nextFocus() in onSubmitted.',
       'iosMapping': 'UIReturnKeyType.next',
       'androidMapping': 'IME_ACTION_NEXT',
       'example': 'Username -> Password chain; multi-step registration.',
@@ -116,8 +117,8 @@ dynamic build(BuildContext context) {
       'color': Colors.cyan,
       'description':
           'Moves focus to the previous input. Less common because most '
-          'keyboards only render one primary action key, but useful for '
-          'forms where backward navigation matters.',
+              'keyboards only render one primary action key, but useful for '
+              'forms where backward navigation matters.',
       'iosMapping': 'UIReturnKeyType.default (no native "prev")',
       'androidMapping': 'IME_ACTION_PREVIOUS',
       'example':
@@ -129,7 +130,7 @@ dynamic build(BuildContext context) {
       'color': Colors.orange,
       'description':
           'iOS-flavoured "Continue" button. On Android it falls back to '
-          '"next" or "done". Commonly used for onboarding flows.',
+              '"next" or "done". Commonly used for onboarding flows.',
       'iosMapping': 'UIReturnKeyType.continue',
       'androidMapping': 'IME_ACTION_NEXT (fallback)',
       'example':
@@ -141,7 +142,7 @@ dynamic build(BuildContext context) {
       'color': Colors.lightGreen,
       'description':
           'iOS Wi-Fi / community style "Join" button. On Android it '
-          'usually maps to IME_ACTION_DONE.',
+              'usually maps to IME_ACTION_DONE.',
       'iosMapping': 'UIReturnKeyType.join',
       'androidMapping': 'IME_ACTION_DONE (fallback)',
       'example':
@@ -153,10 +154,11 @@ dynamic build(BuildContext context) {
       'color': Colors.amber,
       'description':
           'iOS "Route" button, used in maps to compute a route. Android '
-          'falls back to default.',
+              'falls back to default.',
       'iosMapping': 'UIReturnKeyType.route',
       'androidMapping': 'IME_ACTION_UNSPECIFIED (fallback)',
-      'example': 'Address field in a maps / navigation application.',
+      'example':
+          'Address field in a maps / navigation application.',
     },
     TextInputAction.emergencyCall: {
       'icon': Icons.local_hospital,
@@ -164,7 +166,7 @@ dynamic build(BuildContext context) {
       'color': Colors.red,
       'description':
           'iOS "Emergency Call" button. Reserved for system-level '
-          'emergency dialer flows; almost never appropriate in app UI.',
+              'emergency dialer flows; almost never appropriate in app UI.',
       'iosMapping': 'UIReturnKeyType.emergencyCall',
       'androidMapping': 'IME_ACTION_UNSPECIFIED (fallback)',
       'example':
@@ -176,11 +178,12 @@ dynamic build(BuildContext context) {
       'color': Colors.brown,
       'description':
           'Inserts a newline instead of submitting. ONLY VALID for '
-          'multi-line TextFields (maxLines != 1). Using it on a '
-          'single-line field will throw an assertion in debug.',
+              'multi-line TextFields (maxLines != 1). Using it on a '
+              'single-line field will throw an assertion in debug.',
       'iosMapping': 'UIReturnKeyType.default (newline)',
       'androidMapping': 'IME_ACTION_NONE + multiline flag',
-      'example': 'Long-form note editor; multi-line comment composer.',
+      'example':
+          'Long-form note editor; multi-line comment composer.',
     },
   };
   print('Built meta map with ${meta.length} entries');
@@ -249,10 +252,7 @@ dynamic build(BuildContext context) {
           spacing: 8.0,
           runSpacing: 8.0,
           children: [
-            _heroChip(
-              '${TextInputAction.values.length} values',
-              Icons.list_alt,
-            ),
+            _heroChip('${TextInputAction.values.length} values', Icons.list_alt),
             _heroChip('package:flutter/services.dart', Icons.inventory_2),
             _heroChip('drives onSubmitted', Icons.bolt),
           ],
@@ -304,9 +304,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'Every soft keyboard on mobile has a single primary "action key" — '
-          'often labelled return, done, search, send, go, next, etc. '
-          'TextInputAction tells the platform which label and which icon '
-          'to render and which IME action to fire when pressed.',
+              'often labelled return, done, search, send, go, next, etc. '
+              'TextInputAction tells the platform which label and which icon '
+              'to render and which IME action to fire when pressed.',
           style: TextStyle(fontSize: 14.0, color: Colors.indigo.shade900),
         ),
         SizedBox(height: 12.0),
@@ -322,11 +322,9 @@ dynamic build(BuildContext context) {
         _primerBullet('TextField.onSubmitted(value) is invoked.'),
         _primerBullet('TextField.onEditingComplete fires (default unfocuses).'),
         _primerBullet(
-          'For Form fields, onFieldSubmitted runs and validators may trigger.',
-        ),
+            'For Form fields, onFieldSubmitted runs and validators may trigger.'),
         _primerBullet(
-          'Focus may move (e.g. nextFocus()) when you wire it up explicitly.',
-        ),
+            'Focus may move (e.g. nextFocus()) when you wire it up explicitly.'),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -337,12 +335,12 @@ dynamic build(BuildContext context) {
           ),
           child: Text(
             'TextField(\n'
-            '  textInputAction: TextInputAction.next,\n'
-            '  onSubmitted: (value) {\n'
-            '    // value is the submitted text\n'
-            '    // move focus, validate, send to API, ...\n'
-            '  },\n'
-            ')',
+                '  textInputAction: TextInputAction.next,\n'
+                '  onSubmitted: (value) {\n'
+                '    // value is the submitted text\n'
+                '    // move focus, validate, send to API, ...\n'
+                '  },\n'
+                ')',
             style: TextStyle(
               fontFamily: 'monospace',
               fontSize: 12.0,
@@ -369,122 +367,111 @@ dynamic build(BuildContext context) {
     final android = m['androidMapping'] as String;
     final example = m['example'] as String;
     print(
-      'Card[${action.name}] -> iOS=$ios | Android=$android | label="$label"',
-    );
+        'Card[${action.name}] -> iOS=$ios | Android=$android | label="$label"');
 
-    valueCards.add(
-      Container(
-        width: 320.0,
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.08),
-              color.withValues(alpha: 0.18),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(14.0),
-          border: Border.all(color: color, width: 1.5),
-          boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.25),
-              blurRadius: 10.0,
-              offset: Offset(0.0, 5.0),
-            ),
+    valueCards.add(Container(
+      width: 320.0,
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            color.withValues(alpha: 0.08),
+            color.withValues(alpha: 0.18),
           ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.25),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(icon, color: color, size: 24.0),
+        borderRadius: BorderRadius.circular(14.0),
+        border: Border.all(color: color, width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.25),
+            blurRadius: 10.0,
+            offset: Offset(0.0, 5.0),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.25),
+                  shape: BoxShape.circle,
                 ),
-                SizedBox(width: 12.0),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'TextInputAction.${action.name}',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.bold,
-                          color: color,
-                        ),
-                      ),
-                      Text(
-                        'index ${action.index}',
-                        style: TextStyle(
-                          fontSize: 11.0,
-                          color: Colors.grey.shade700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                _miniKeyboardKey(label, color),
-              ],
-            ),
-            SizedBox(height: 12.0),
-            Text(
-              description,
-              style: TextStyle(
-                fontSize: 13.0,
-                color: Colors.black87,
-                height: 1.3,
+                child: Icon(icon, color: color, size: 24.0),
               ),
-            ),
-            SizedBox(height: 12.0),
-            _platformRow(Icons.phone_iphone, 'iOS', ios, Colors.grey.shade800),
-            SizedBox(height: 4.0),
-            _platformRow(
-              Icons.android,
-              'Android',
-              android,
-              Colors.green.shade800,
-            ),
-            SizedBox(height: 10.0),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: color.withValues(alpha: 0.4)),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.lightbulb_outline, size: 14.0, color: color),
-                  SizedBox(width: 6.0),
-                  Expanded(
-                    child: Text(
-                      example,
+              SizedBox(width: 12.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'TextInputAction.${action.name}',
                       style: TextStyle(
-                        fontSize: 12.0,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.grey.shade800,
+                        fontFamily: 'monospace',
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.bold,
+                        color: color,
                       ),
                     ),
-                  ),
-                ],
+                    Text(
+                      'index ${action.index}',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              _miniKeyboardKey(label, color),
+            ],
+          ),
+          SizedBox(height: 12.0),
+          Text(
+            description,
+            style: TextStyle(fontSize: 13.0, color: Colors.black87, height: 1.3),
+          ),
+          SizedBox(height: 12.0),
+          _platformRow(Icons.phone_iphone, 'iOS', ios, Colors.grey.shade800),
+          SizedBox(height: 4.0),
+          _platformRow(
+              Icons.android, 'Android', android, Colors.green.shade800),
+          SizedBox(height: 10.0),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: color.withValues(alpha: 0.4)),
             ),
-          ],
-        ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.lightbulb_outline, size: 14.0, color: color),
+                SizedBox(width: 6.0),
+                Expanded(
+                  child: Text(
+                    example,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey.shade800,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-    );
+    ));
   }
   print('Built ${valueCards.length} value cards');
 
@@ -514,63 +501,61 @@ dynamic build(BuildContext context) {
     final m = meta[action]!;
     final color = m['color'] as Color;
     final isMultiline = action == TextInputAction.newline;
-    realFields.add(
-      Container(
-        width: 300.0,
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(14.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: color, width: 1.5),
-          boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.18),
-              blurRadius: 8.0,
-              offset: Offset(0.0, 4.0),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(m['icon'] as IconData, color: color, size: 18.0),
-                SizedBox(width: 6.0),
-                Text(
-                  'textInputAction: .${action.name}',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12.0,
-                    color: color,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8.0),
-            TextField(
-              textInputAction: action,
-              maxLines: isMultiline ? 3 : 1,
-              minLines: isMultiline ? 2 : 1,
-              decoration: InputDecoration(
-                isDense: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                hintText: isMultiline
-                    ? 'Type a few lines... return inserts newlines'
-                    : 'Try the keyboard return key',
-                prefixIcon: Icon(m['icon'] as IconData, color: color),
-              ),
-              onSubmitted: (_) {},
-              onEditingComplete: () {},
-            ),
-          ],
-        ),
+    realFields.add(Container(
+      width: 300.0,
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(14.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(color: color, width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.18),
+            blurRadius: 8.0,
+            offset: Offset(0.0, 4.0),
+          ),
+        ],
       ),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(m['icon'] as IconData, color: color, size: 18.0),
+              SizedBox(width: 6.0),
+              Text(
+                'textInputAction: .${action.name}',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8.0),
+          TextField(
+            textInputAction: action,
+            maxLines: isMultiline ? 3 : 1,
+            minLines: isMultiline ? 2 : 1,
+            decoration: InputDecoration(
+              isDense: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              hintText: isMultiline
+                  ? 'Type a few lines... return inserts newlines'
+                  : 'Try the keyboard return key',
+              prefixIcon: Icon(m['icon'] as IconData, color: color),
+            ),
+            onSubmitted: (_) {},
+            onEditingComplete: () {},
+          ),
+        ],
+      ),
+    ));
   }
   print('Built ${realFields.length} live TextFields');
 
@@ -584,10 +569,9 @@ dynamic build(BuildContext context) {
     icon: Icons.login,
     description:
         'Use TextInputAction.next on every field except the final one, '
-        'which uses TextInputAction.done. In onSubmitted, move focus '
-        'forward until the last field, where you submit the form.',
-    code:
-        'final emailFocus = FocusNode();\n'
+            'which uses TextInputAction.done. In onSubmitted, move focus '
+            'forward until the last field, where you submit the form.',
+    code: 'final emailFocus = FocusNode();\n'
         'final pwdFocus = FocusNode();\n\n'
         'TextField(\n'
         '  focusNode: emailFocus,\n'
@@ -632,10 +616,9 @@ dynamic build(BuildContext context) {
     icon: Icons.search,
     description:
         'A search input wants the keyboard\'s "Search" key. Combine with '
-        'a leading magnifier icon and clear UX affordance. Submit performs '
-        'the query.',
-    code:
-        'TextField(\n'
+            'a leading magnifier icon and clear UX affordance. Submit performs '
+            'the query.',
+    code: 'TextField(\n'
         '  textInputAction: TextInputAction.search,\n'
         '  decoration: InputDecoration(\n'
         '    hintText: "Search articles...",\n'
@@ -662,11 +645,10 @@ dynamic build(BuildContext context) {
     icon: Icons.send,
     description:
         'A comment / chat box uses TextInputAction.send. Note: if you want '
-        'multi-line input, use TextInputAction.newline OR a separate Send '
-        'button — you cannot have both newline insertion AND a send key '
-        'on the same field.',
-    code:
-        'TextField(\n'
+            'multi-line input, use TextInputAction.newline OR a separate Send '
+            'button — you cannot have both newline insertion AND a send key '
+            'on the same field.',
+    code: 'TextField(\n'
         '  textInputAction: TextInputAction.send,\n'
         '  decoration: InputDecoration(\n'
         '    hintText: "Add a comment",\n'
@@ -717,11 +699,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.compare_arrows,
-              color: Colors.orange.shade900,
-              size: 22.0,
-            ),
+            Icon(Icons.compare_arrows, color: Colors.orange.shade900, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'textInputAction vs keyboardType',
@@ -736,48 +714,24 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'These two are independent axes. keyboardType picks WHICH '
-          'characters the keyboard shows (numbers, e-mail, URL, multiline). '
-          'textInputAction picks the LABEL of the action key. They '
-          'compose:',
+              'characters the keyboard shows (numbers, e-mail, URL, multiline). '
+              'textInputAction picks the LABEL of the action key. They '
+              'compose:',
           style: TextStyle(fontSize: 13.0, color: Colors.brown.shade900),
         ),
         SizedBox(height: 12.0),
-        _comparisonRow(
-          'Numeric keypad',
-          'TextInputType.number',
-          'TextInputAction.done',
-          Colors.blue,
-        ),
-        _comparisonRow(
-          'Email address',
-          'TextInputType.emailAddress',
-          'TextInputAction.next',
-          Colors.indigo,
-        ),
-        _comparisonRow(
-          'URL bar',
-          'TextInputType.url',
-          'TextInputAction.go',
-          Colors.purple,
-        ),
-        _comparisonRow(
-          'Search',
-          'TextInputType.text',
-          'TextInputAction.search',
-          Colors.deepPurple,
-        ),
-        _comparisonRow(
-          'Chat compose',
-          'TextInputType.text',
-          'TextInputAction.send',
-          Colors.teal,
-        ),
-        _comparisonRow(
-          'Multi-line note',
-          'TextInputType.multiline',
-          'TextInputAction.newline',
-          Colors.brown,
-        ),
+        _comparisonRow('Numeric keypad', 'TextInputType.number',
+            'TextInputAction.done', Colors.blue),
+        _comparisonRow('Email address', 'TextInputType.emailAddress',
+            'TextInputAction.next', Colors.indigo),
+        _comparisonRow('URL bar', 'TextInputType.url', 'TextInputAction.go',
+            Colors.purple),
+        _comparisonRow('Search', 'TextInputType.text',
+            'TextInputAction.search', Colors.deepPurple),
+        _comparisonRow('Chat compose', 'TextInputType.text',
+            'TextInputAction.send', Colors.teal),
+        _comparisonRow('Multi-line note', 'TextInputType.multiline',
+            'TextInputAction.newline', Colors.brown),
       ],
     ),
   );
@@ -917,7 +871,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 'test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/'
-                'services/text_input_action_test.dart',
+                    'services/text_input_action_test.dart',
                 style: TextStyle(
                   fontFamily: 'monospace',
                   fontSize: 11.0,
@@ -969,16 +923,14 @@ dynamic build(BuildContext context) {
         Wrap(alignment: WrapAlignment.center, children: valueCards),
         SizedBox(height: 24.0),
         _sectionTitle(
-          '3. Mock soft-keyboards',
-          Icons.keyboard,
-          Colors.blueGrey,
-        ),
+            '3. Mock soft-keyboards', Icons.keyboard, Colors.blueGrey),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: mockKeyboardsWrap,
         ),
         SizedBox(height: 24.0),
-        _sectionTitle('4. Live TextField grid', Icons.input, Colors.teal),
+        _sectionTitle(
+            '4. Live TextField grid', Icons.input, Colors.teal),
         Wrap(alignment: WrapAlignment.center, children: realFields),
         SizedBox(height: 24.0),
         _sectionTitle('5. Recipes', Icons.menu_book, Colors.blue),
@@ -989,10 +941,7 @@ dynamic build(BuildContext context) {
         composeRecipe,
         SizedBox(height: 24.0),
         _sectionTitle(
-          '6. Axes: action vs keyboardType',
-          Icons.compare,
-          Colors.orange,
-        ),
+            '6. Axes: action vs keyboardType', Icons.compare, Colors.orange),
         comparisonMatrix,
         SizedBox(height: 24.0),
         _sectionTitle('7. Pitfalls', Icons.warning_amber, Colors.red),
@@ -1041,12 +990,17 @@ Widget _sectionTitle(String text, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.05)],
+        colors: [
+          color.withValues(alpha: 0.18),
+          color.withValues(alpha: 0.05),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
     ),
     child: Row(
       children: [
@@ -1084,12 +1038,7 @@ Widget _primerBullet(String text) {
   );
 }
 
-Widget _platformRow(
-  IconData icon,
-  String platform,
-  String mapping,
-  Color color,
-) {
+Widget _platformRow(IconData icon, String platform, String mapping, Color color) {
   return Row(
     children: [
       Icon(icon, color: color, size: 14.0),
@@ -1147,7 +1096,11 @@ Widget _miniKeyboardKey(String label, Color color) {
 
 Widget _mockKeyboard(String name, String actionLabel, Color color) {
   // A schematic 3-row keyboard with a highlighted action key on the right.
-  const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
+  const rows = [
+    'qwertyuiop',
+    'asdfghjkl',
+    'zxcvbnm',
+  ];
   return Container(
     width: 280.0,
     padding: EdgeInsets.all(10.0),
@@ -1188,11 +1141,7 @@ Widget _mockKeyboard(String name, String actionLabel, Color color) {
               ),
             ),
             Spacer(),
-            Icon(
-              Icons.arrow_drop_down,
-              size: 14.0,
-              color: Colors.grey.shade700,
-            ),
+            Icon(Icons.arrow_drop_down, size: 14.0, color: Colors.grey.shade700),
           ],
         ),
         SizedBox(height: 8.0),
@@ -1239,10 +1188,8 @@ Widget _mockKeyboard(String name, String actionLabel, Color color) {
                 color: Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(4.0),
               ),
-              child: Text(
-                '123',
-                style: TextStyle(fontSize: 9.0, color: Colors.black87),
-              ),
+              child: Text('123',
+                  style: TextStyle(fontSize: 9.0, color: Colors.black87)),
             ),
             SizedBox(width: 4.0),
             Expanded(
@@ -1253,10 +1200,8 @@ Widget _mockKeyboard(String name, String actionLabel, Color color) {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(
-                  'space',
-                  style: TextStyle(fontSize: 9.0, color: Colors.black54),
-                ),
+                child: Text('space',
+                    style: TextStyle(fontSize: 9.0, color: Colors.black54)),
               ),
             ),
             SizedBox(width: 4.0),
@@ -1294,11 +1239,7 @@ Widget _mockKeyboard(String name, String actionLabel, Color color) {
 }
 
 Widget _comparisonRow(
-  String useCase,
-  String kbType,
-  String action,
-  Color color,
-) {
+    String useCase, String kbType, String action, Color color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4.0),
     padding: EdgeInsets.all(10.0),
@@ -1364,7 +1305,10 @@ Widget _recipeCard({
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.06), color.withValues(alpha: 0.18)],
+        colors: [
+          color.withValues(alpha: 0.06),
+          color.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

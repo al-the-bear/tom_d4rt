@@ -387,11 +387,7 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF7F1D1D),
-          Color(0xFFB91C1C),
-          Color(0xFFDC2626),
-        ],
+        colors: <Color>[Color(0xFF7F1D1D), Color(0xFFB91C1C), Color(0xFFDC2626)],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -513,30 +509,30 @@ Widget _heroIntroCard() {
             'FlutterError.reportError. The static callbacks presentError and '
             'onError decide what happens next: print to console, send to '
             'Sentry, replace the affected widget with ErrorWidget, etc.',
-            style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInk),
+            style: TextStyle(
+              fontSize: 13.5,
+              height: 1.5,
+              color: _kInk,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _bulletList(const <String>[
-                'FlutterError extends AssertionError and is a DiagnosticableTree.',
-                'FlutterErrorDetails packages the exception with metadata.',
-                'reportError -> onError -> presentError -> dumpErrorToConsole.',
-                'ErrorWidget replaces the broken build()-throwing widget.',
-              ], bulletColour: _kAccent),
-            ),
+            Expanded(child: _bulletList(const <String>[
+              'FlutterError extends AssertionError and is a DiagnosticableTree.',
+              'FlutterErrorDetails packages the exception with metadata.',
+              'reportError -> onError -> presentError -> dumpErrorToConsole.',
+              'ErrorWidget replaces the broken build()-throwing widget.',
+            ], bulletColour: _kAccent)),
             const SizedBox(width: 16.0),
-            Expanded(
-              child: _bulletList(const <String>[
-                'In debug mode, the default ErrorWidget is a red screen.',
-                'In release mode, the default ErrorWidget is a grey box.',
-                'ErrorWidget.builder lets you replace both globally.',
-                'silent: true suppresses console output (use sparingly).',
-              ], bulletColour: _kAccentAmber),
-            ),
+            Expanded(child: _bulletList(const <String>[
+              'In debug mode, the default ErrorWidget is a red screen.',
+              'In release mode, the default ErrorWidget is a grey box.',
+              'ErrorWidget.builder lets you replace both globally.',
+              'silent: true suppresses console output (use sparingly).',
+            ], bulletColour: _kAccentAmber)),
           ],
         ),
       ],
@@ -612,57 +608,36 @@ Widget _detailsAnatomyCard() {
               '`FlutterErrorDetails(exception: e)`.',
         ),
         const SizedBox(height: 12.0),
-        _detailsField(
-          'exception',
-          'Object',
-          'The thing that was thrown. Often a FlutterError, but can be '
-              'any Object - even a String.',
-          _kAccent,
-        ),
-        _detailsField(
-          'stack',
-          'StackTrace?',
-          'The stack at the throw site. Will be filtered by FlutterError\'s '
-              'stackFilter to drop framework-internal frames.',
-          _kAccentSlate,
-        ),
-        _detailsField(
-          'library',
-          'String',
-          'Human-readable origin: "widgets library", "rendering library", '
-              '"gestures library". Drives the red-screen header.',
-          _kAccentTeal,
-        ),
-        _detailsField(
-          'context',
-          'DiagnosticsNode?',
-          'A DiagnosticsNode describing *where* the error occurred. Often '
-              'an ErrorDescription like "during build()".',
-          _kAccentBlue,
-        ),
-        _detailsField(
-          'informationCollector',
-          'InformationCollector?',
-          'A nullary closure returning an Iterable<DiagnosticsNode>. Lets '
-              'you defer expensive diagnostic gathering until the error is '
-              'actually presented.',
-          _kAccentViolet,
-        ),
-        _detailsField(
-          'silent',
-          'bool',
-          'When true, presentError is not called for this report. Used by '
-              'the framework for re-thrown errors that have already been '
-              'reported once.',
-          _kAccentAmber,
-        ),
-        _detailsField(
-          'errorWidget',
-          'Object?',
-          'An optional pre-built error widget. Some frameworks set this '
-              'instead of relying on ErrorWidget.builder.',
-          _kAccentRose,
-        ),
+        _detailsField('exception', 'Object',
+            'The thing that was thrown. Often a FlutterError, but can be '
+            'any Object - even a String.',
+            _kAccent),
+        _detailsField('stack', 'StackTrace?',
+            'The stack at the throw site. Will be filtered by FlutterError\'s '
+            'stackFilter to drop framework-internal frames.',
+            _kAccentSlate),
+        _detailsField('library', 'String',
+            'Human-readable origin: "widgets library", "rendering library", '
+            '"gestures library". Drives the red-screen header.',
+            _kAccentTeal),
+        _detailsField('context', 'DiagnosticsNode?',
+            'A DiagnosticsNode describing *where* the error occurred. Often '
+            'an ErrorDescription like "during build()".',
+            _kAccentBlue),
+        _detailsField('informationCollector', 'InformationCollector?',
+            'A nullary closure returning an Iterable<DiagnosticsNode>. Lets '
+            'you defer expensive diagnostic gathering until the error is '
+            'actually presented.',
+            _kAccentViolet),
+        _detailsField('silent', 'bool',
+            'When true, presentError is not called for this report. Used by '
+            'the framework for re-thrown errors that have already been '
+            'reported once.',
+            _kAccentAmber),
+        _detailsField('errorWidget', 'Object?',
+            'An optional pre-built error widget. Some frameworks set this '
+            'instead of relying on ErrorWidget.builder.',
+            _kAccentRose),
       ],
     ),
   );
@@ -682,38 +657,26 @@ Widget _detailsMockInstance() {
           subtitleColor: _kInkOnDarkSecondary,
         ),
         const SizedBox(height: 12.0),
-        _kvRow(
-          'exception',
-          'FlutterError("RenderBox was not laid out: ...")',
-          valueColour: const Color(0xFFFCA5A5),
-        ),
-        _kvRow(
-          'stack',
-          '#0 RenderBox._getIntrinsicDimension ... (filtered: 17 frames)',
-          valueColour: _kInkOnDarkSecondary,
-        ),
-        _kvRow(
-          'library',
-          '"rendering library"',
-          valueColour: const Color(0xFFFDE68A),
-        ),
-        _kvRow(
-          'context',
-          'ErrorDescription("during performLayout")',
-          valueColour: const Color(0xFF93C5FD),
-        ),
-        _kvRow(
-          'informationCollector',
-          '() sync* { yield DiagnosticsProperty<...>("...", ...); }',
-          valueColour: const Color(0xFFC4B5FD),
-        ),
-        _kvRow('silent', 'false', valueColour: const Color(0xFFA7F3D0)),
-        _kvRow('errorWidget', 'null', valueColour: _kInkOnDarkSecondary),
-        _kvRow(
-          'stackFilter',
-          'null  -> FlutterError.defaultStackFilter applied',
-          valueColour: _kInkOnDarkSecondary,
-        ),
+        _kvRow('exception', 'FlutterError("RenderBox was not laid out: ...")',
+            valueColour: const Color(0xFFFCA5A5)),
+        _kvRow('stack',
+            '#0 RenderBox._getIntrinsicDimension ... (filtered: 17 frames)',
+            valueColour: _kInkOnDarkSecondary),
+        _kvRow('library', '"rendering library"',
+            valueColour: const Color(0xFFFDE68A)),
+        _kvRow('context',
+            'ErrorDescription("during performLayout")',
+            valueColour: const Color(0xFF93C5FD)),
+        _kvRow('informationCollector',
+            '() sync* { yield DiagnosticsProperty<...>("...", ...); }',
+            valueColour: const Color(0xFFC4B5FD)),
+        _kvRow('silent', 'false',
+            valueColour: const Color(0xFFA7F3D0)),
+        _kvRow('errorWidget', 'null',
+            valueColour: _kInkOnDarkSecondary),
+        _kvRow('stackFilter',
+            'null  -> FlutterError.defaultStackFilter applied',
+            valueColour: _kInkOnDarkSecondary),
       ],
     ),
   );
@@ -885,7 +848,10 @@ Widget _mockCompactToast() {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 3.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 7.0,
+            vertical: 3.0,
+          ),
           decoration: BoxDecoration(
             color: _kErrorPanel.withOpacity(0.25),
             borderRadius: BorderRadius.circular(6.0),
@@ -952,7 +918,10 @@ Widget _mockIncidentCard() {
                   SizedBox(height: 2.0),
                   Text(
                     'We logged it. You can keep using the rest of the app.',
-                    style: TextStyle(fontSize: 12.5, color: _kInkSecondary),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: _kInkSecondary,
+                    ),
                   ),
                 ],
               ),
@@ -1156,12 +1125,8 @@ Widget _errorWidgetGallery() {
 // ---------------------------------------------------------------------------
 // SECTION 4 - DiagnosticsNode hierarchy
 // ---------------------------------------------------------------------------
-Widget _treeNode(
-  String label,
-  String type,
-  Color colour, {
-  bool isRoot = false,
-}) {
+Widget _treeNode(String label, String type, Color colour,
+    {bool isRoot = false}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 4.0),
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 9.0),
@@ -1175,7 +1140,10 @@ Widget _treeNode(
         Container(
           width: 10.0,
           height: 10.0,
-          decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: colour,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 10.0),
         Text(
@@ -1223,23 +1191,35 @@ Widget _diagnosticsTreeCard() {
         ),
         const SizedBox(height: 12.0),
         _treeNode('FlutterError', 'DiagnosticableTree', _kAccent, isRoot: true),
-        _treeIndent(_treeNode('summary', 'ErrorSummary', _kErrorRed)),
         _treeIndent(
-          _treeNode('description', 'ErrorDescription', _kAccentSlate),
+          _treeNode('summary', 'ErrorSummary', _kErrorRed),
         ),
         _treeIndent(
           _treeNode('description', 'ErrorDescription', _kAccentSlate),
         ),
         _treeIndent(
-          _treeNode('property', 'DiagnosticsProperty<Object>', _kAccentBlue),
+          _treeNode('description', 'ErrorDescription', _kAccentSlate),
         ),
-        _treeIndent(_treeNode('property', 'IntProperty', _kAccentBlue)),
-        _treeIndent(_treeNode('hint', 'ErrorHint', _kAccentTeal)),
-        _treeIndent(_treeNode('hint', 'ErrorHint', _kAccentTeal)),
         _treeIndent(
-          _treeNode('context', 'ErrorDescription (level=info)', _kAccentViolet),
+          _treeNode('property', 'DiagnosticsProperty<Object>',
+              _kAccentBlue),
         ),
-        _treeIndent(_treeNode('stack', 'DiagnosticsStackTrace', _kAccentRose)),
+        _treeIndent(
+          _treeNode('property', 'IntProperty', _kAccentBlue),
+        ),
+        _treeIndent(
+          _treeNode('hint', 'ErrorHint', _kAccentTeal),
+        ),
+        _treeIndent(
+          _treeNode('hint', 'ErrorHint', _kAccentTeal),
+        ),
+        _treeIndent(
+          _treeNode('context', 'ErrorDescription (level=info)',
+              _kAccentViolet),
+        ),
+        _treeIndent(
+          _treeNode('stack', 'DiagnosticsStackTrace', _kAccentRose),
+        ),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(10.0),
@@ -1273,36 +1253,24 @@ Widget _diagnosticsLevelTable() {
               'uses it to decide what to print.',
         ),
         const SizedBox(height: 10.0),
-        _kvRow(
-          'DiagnosticLevel.error',
-          'ErrorSummary - always shown, bold, top of report',
-          valueColour: _kErrorRedDeep,
-        ),
-        _kvRow(
-          'DiagnosticLevel.summary',
-          'ErrorDescription used as a context node',
-          valueColour: _kAccentSlate,
-        ),
-        _kvRow(
-          'DiagnosticLevel.info',
-          'ErrorDescription, ErrorHint, default for props',
-          valueColour: _kAccentBlue,
-        ),
-        _kvRow(
-          'DiagnosticLevel.warning',
-          'Custom properties signalling something off',
-          valueColour: _kAccentAmber,
-        ),
-        _kvRow(
-          'DiagnosticLevel.hidden',
-          'Nodes excluded from default printing entirely',
-          valueColour: _kInkTertiary,
-        ),
-        _kvRow(
-          'DiagnosticLevel.debug',
-          'Nodes shown only in -v dumpRenderTree output',
-          valueColour: _kInkTertiary,
-        ),
+        _kvRow('DiagnosticLevel.error',
+            'ErrorSummary - always shown, bold, top of report',
+            valueColour: _kErrorRedDeep),
+        _kvRow('DiagnosticLevel.summary',
+            'ErrorDescription used as a context node',
+            valueColour: _kAccentSlate),
+        _kvRow('DiagnosticLevel.info',
+            'ErrorDescription, ErrorHint, default for props',
+            valueColour: _kAccentBlue),
+        _kvRow('DiagnosticLevel.warning',
+            'Custom properties signalling something off',
+            valueColour: _kAccentAmber),
+        _kvRow('DiagnosticLevel.hidden',
+            'Nodes excluded from default printing entirely',
+            valueColour: _kInkTertiary),
+        _kvRow('DiagnosticLevel.debug',
+            'Nodes shown only in -v dumpRenderTree output',
+            valueColour: _kInkTertiary),
       ],
     ),
   );
@@ -1328,7 +1296,10 @@ Widget _flowLane(String title, List<String> bullets, Color colour) {
             Container(
               width: 10.0,
               height: 10.0,
-              decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: colour,
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 8.0),
             Text(
@@ -1354,7 +1325,11 @@ Widget _flowArrow(String label) {
     child: Row(
       children: <Widget>[
         const SizedBox(width: 12.0),
-        Container(width: 2.0, height: 18.0, color: _kInkTertiary),
+        Container(
+          width: 2.0,
+          height: 18.0,
+          color: _kInkTertiary,
+        ),
         const SizedBox(width: 8.0),
         Text(
           label,
@@ -1382,29 +1357,45 @@ Widget _errorFlowCard() {
               'are the actual control flow inside FlutterError.',
         ),
         const SizedBox(height: 12.0),
-        _flowLane('callsite throws', const <String>[
-          'Framework code: `throw FlutterError.fromParts(<DiagnosticsNode>[...])`.',
-          'User code: `throw FlutterError("Something went wrong")`.',
-          'Or: an async future completes with an error inside runApp\'s zone.',
-        ], _kAccent),
+        _flowLane(
+          'callsite throws',
+          const <String>[
+            'Framework code: `throw FlutterError.fromParts(<DiagnosticsNode>[...])`.',
+            'User code: `throw FlutterError("Something went wrong")`.',
+            'Or: an async future completes with an error inside runApp\'s zone.',
+          ],
+          _kAccent,
+        ),
         _flowArrow('caught by zone / Element.performRebuild / etc.'),
-        _flowLane('FlutterError.reportError(details)', const <String>[
-          'The single funnel that all framework error paths use.',
-          'Invokes `FlutterError.onError(details)` if non-null.',
-          'If `silent: true`, presentError is skipped.',
-        ], _kAccentAmber),
+        _flowLane(
+          'FlutterError.reportError(details)',
+          const <String>[
+            'The single funnel that all framework error paths use.',
+            'Invokes `FlutterError.onError(details)` if non-null.',
+            'If `silent: true`, presentError is skipped.',
+          ],
+          _kAccentAmber,
+        ),
         _flowArrow('onError (mutable static callback)'),
-        _flowLane('FlutterError.onError', const <String>[
-          'Default: `FlutterError.presentError`.',
-          'Replace it in main() to send to Sentry, Crashlytics, etc.',
-          'Set to null to silence everything (rarely a good idea).',
-        ], _kAccentBlue),
+        _flowLane(
+          'FlutterError.onError',
+          const <String>[
+            'Default: `FlutterError.presentError`.',
+            'Replace it in main() to send to Sentry, Crashlytics, etc.',
+            'Set to null to silence everything (rarely a good idea).',
+          ],
+          _kAccentBlue,
+        ),
         _flowArrow('presentError (also a static)'),
-        _flowLane('FlutterError.presentError', const <String>[
-          'Default: `FlutterError.dumpErrorToConsole`.',
-          'You can swap it for a logger that writes JSON to a file.',
-          'Only called once for the same error within a frame.',
-        ], _kAccentTeal),
+        _flowLane(
+          'FlutterError.presentError',
+          const <String>[
+            'Default: `FlutterError.dumpErrorToConsole`.',
+            'You can swap it for a logger that writes JSON to a file.',
+            'Only called once for the same error within a frame.',
+          ],
+          _kAccentTeal,
+        ),
         _flowArrow('dumpErrorToConsole'),
         _flowLane(
           'dumpErrorToConsole(details, forceReport: false)',
@@ -1430,31 +1421,19 @@ Widget _presentVsReportTable() {
           subtitle: 'They look interchangeable but have very different jobs.',
         ),
         const SizedBox(height: 12.0),
-        _kvRow(
-          'reportError',
-          'Entry point. Always call this. Never replace.',
-          valueColour: _kAccentAmber,
-        ),
-        _kvRow(
-          'onError',
-          'Callback you replace. Goes to Sentry / your logger.',
-          valueColour: _kAccentBlue,
-        ),
-        _kvRow(
-          'presentError',
-          'The "render this to humans" step.',
-          valueColour: _kAccentTeal,
-        ),
-        _kvRow(
-          'dumpErrorToConsole',
-          'The default presenter. Pretty printer for DiagnosticsNode tree.',
-          valueColour: _kAccentGreen,
-        ),
-        _kvRow(
-          'silent',
-          'Field on FlutterErrorDetails. Skips presentError only.',
-          valueColour: _kInkTertiary,
-        ),
+        _kvRow('reportError', 'Entry point. Always call this. Never replace.',
+            valueColour: _kAccentAmber),
+        _kvRow('onError',
+            'Callback you replace. Goes to Sentry / your logger.',
+            valueColour: _kAccentBlue),
+        _kvRow('presentError', 'The "render this to humans" step.',
+            valueColour: _kAccentTeal),
+        _kvRow('dumpErrorToConsole',
+            'The default presenter. Pretty printer for DiagnosticsNode tree.',
+            valueColour: _kAccentGreen),
+        _kvRow('silent',
+            'Field on FlutterErrorDetails. Skips presentError only.',
+            valueColour: _kInkTertiary),
       ],
     ),
   );
@@ -1497,7 +1476,12 @@ Widget _roleRow(String name, String purpose, String example, Color colour) {
               ),
             ),
             const SizedBox(width: 10.0),
-            Expanded(child: Text(purpose, style: _kBodyStyle)),
+            Expanded(
+              child: Text(
+                purpose,
+                style: _kBodyStyle,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -1508,7 +1492,10 @@ Widget _roleRow(String name, String purpose, String example, Color colour) {
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: _kHairline),
           ),
-          child: Text(example, style: _kMonoInlineStyle),
+          child: Text(
+            example,
+            style: _kMonoInlineStyle,
+          ),
         ),
       ],
     ),
@@ -1843,52 +1830,76 @@ Widget _cheatSheetFooter() {
               'A compact map of every public symbol in the error subsystem.',
         ),
         const SizedBox(height: 8.0),
-        _chipGroup('core classes', const <String>[
-          'FlutterError',
-          'FlutterErrorDetails',
-          'ErrorWidget',
-          'DiagnosticableTree',
-        ], _kAccent),
-        _chipGroup('DiagnosticsNode subclasses', const <String>[
-          'ErrorSummary',
-          'ErrorDescription',
-          'ErrorHint',
-          'ErrorSpacer',
-          'DiagnosticsProperty<T>',
-          'IntProperty',
-          'StringProperty',
-          'DiagnosticsStackTrace',
-        ], _kAccentBlue),
-        _chipGroup('static callbacks', const <String>[
-          'FlutterError.onError',
-          'FlutterError.presentError',
-          'FlutterError.demangleStackTrace',
-          'ErrorWidget.builder',
-        ], _kAccentTeal),
-        _chipGroup('static methods', const <String>[
-          'FlutterError.reportError',
-          'FlutterError.dumpErrorToConsole',
-          'FlutterError.defaultStackFilter',
-          'FlutterError.resetErrorCount',
-          'FlutterError.fromParts',
-        ], _kAccentAmber),
-        _chipGroup('FlutterErrorDetails fields', const <String>[
-          'exception',
-          'stack',
-          'library',
-          'context',
-          'informationCollector',
-          'silent',
-          'errorWidget',
-          'stackFilter',
-        ], _kAccentViolet),
-        _chipGroup('related', const <String>[
-          'AssertionError',
-          'PlatformException',
-          'runZonedGuarded',
-          'WidgetsBinding',
-          'BindingBase',
-        ], _kAccentRose),
+        _chipGroup(
+          'core classes',
+          const <String>[
+            'FlutterError',
+            'FlutterErrorDetails',
+            'ErrorWidget',
+            'DiagnosticableTree',
+          ],
+          _kAccent,
+        ),
+        _chipGroup(
+          'DiagnosticsNode subclasses',
+          const <String>[
+            'ErrorSummary',
+            'ErrorDescription',
+            'ErrorHint',
+            'ErrorSpacer',
+            'DiagnosticsProperty<T>',
+            'IntProperty',
+            'StringProperty',
+            'DiagnosticsStackTrace',
+          ],
+          _kAccentBlue,
+        ),
+        _chipGroup(
+          'static callbacks',
+          const <String>[
+            'FlutterError.onError',
+            'FlutterError.presentError',
+            'FlutterError.demangleStackTrace',
+            'ErrorWidget.builder',
+          ],
+          _kAccentTeal,
+        ),
+        _chipGroup(
+          'static methods',
+          const <String>[
+            'FlutterError.reportError',
+            'FlutterError.dumpErrorToConsole',
+            'FlutterError.defaultStackFilter',
+            'FlutterError.resetErrorCount',
+            'FlutterError.fromParts',
+          ],
+          _kAccentAmber,
+        ),
+        _chipGroup(
+          'FlutterErrorDetails fields',
+          const <String>[
+            'exception',
+            'stack',
+            'library',
+            'context',
+            'informationCollector',
+            'silent',
+            'errorWidget',
+            'stackFilter',
+          ],
+          _kAccentViolet,
+        ),
+        _chipGroup(
+          'related',
+          const <String>[
+            'AssertionError',
+            'PlatformException',
+            'runZonedGuarded',
+            'WidgetsBinding',
+            'BindingBase',
+          ],
+          _kAccentRose,
+        ),
       ],
     ),
   );
@@ -1925,86 +1936,59 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           // Section 1
           _heroBanner(),
-          _sectionHeader(
-            1,
-            'Why FlutterError exists',
-            'Typed errors, typed bundles, a callback chain you can hook.',
-          ),
+          _sectionHeader(1, 'Why FlutterError exists',
+              'Typed errors, typed bundles, a callback chain you can hook.'),
           _heroIntroCard(),
           _sectionDivider(),
 
           // Section 2
-          _sectionHeader(
-            2,
-            'FlutterErrorDetails anatomy',
-            'Every field of the bundle that reportError accepts.',
-          ),
+          _sectionHeader(2, 'FlutterErrorDetails anatomy',
+              'Every field of the bundle that reportError accepts.'),
           _detailsAnatomyCard(),
           _detailsMockInstance(),
           _sectionDivider(),
 
           // Section 3
-          _sectionHeader(
-            3,
-            'ErrorWidget.builder gallery',
-            'Default red screen, default grey box, and three custom UIs.',
-          ),
+          _sectionHeader(3, 'ErrorWidget.builder gallery',
+              'Default red screen, default grey box, and three custom UIs.'),
           _errorWidgetGallery(),
           _sectionDivider(),
 
           // Section 4
-          _sectionHeader(
-            4,
-            'DiagnosticsNode hierarchy',
-            'How a FlutterError decomposes into a tree of nodes.',
-          ),
+          _sectionHeader(4, 'DiagnosticsNode hierarchy',
+              'How a FlutterError decomposes into a tree of nodes.'),
           _diagnosticsTreeCard(),
           _diagnosticsLevelTable(),
           _sectionDivider(),
 
           // Section 5
-          _sectionHeader(
-            5,
-            'presentError vs onError vs reportError',
-            'The dispatch chain from callsite to console.',
-          ),
+          _sectionHeader(5, 'presentError vs onError vs reportError',
+              'The dispatch chain from callsite to console.'),
           _errorFlowCard(),
           _presentVsReportTable(),
           _sectionDivider(),
 
           // Section 6
-          _sectionHeader(
-            6,
-            'Summary, Description, Hint - roles',
-            'Picking the right DiagnosticsNode subclass for each line.',
-          ),
+          _sectionHeader(6, 'Summary, Description, Hint - roles',
+              'Picking the right DiagnosticsNode subclass for each line.'),
           _rolesCard(),
           _sectionDivider(),
 
           // Section 7
-          _sectionHeader(
-            7,
-            'Code recipes',
-            'Six idiomatic snippets for throwing, wrapping, and hooking.',
-          ),
+          _sectionHeader(7, 'Code recipes',
+              'Six idiomatic snippets for throwing, wrapping, and hooking.'),
           _recipesCards(),
           _sectionDivider(),
 
           // Section 8
-          _sectionHeader(
-            8,
-            'Pitfalls',
-            'Eight callouts that commonly bite Flutter engineers.',
-          ),
+          _sectionHeader(8, 'Pitfalls',
+              'Eight callouts that commonly bite Flutter engineers.'),
           _pitfallsCard(),
           _sectionDivider(),
 
           // Section 9
-          _sectionHeader(
-            9,
-            'Cheat-sheet',
-            'A compact map of the error subsystem.',
-          ),
+          _sectionHeader(9, 'Cheat-sheet',
+              'A compact map of the error subsystem.'),
           _cheatSheetFooter(),
         ],
       ),

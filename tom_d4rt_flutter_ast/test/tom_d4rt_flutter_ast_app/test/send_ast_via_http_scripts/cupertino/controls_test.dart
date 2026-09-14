@@ -104,12 +104,7 @@ const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 // file approachable to anyone reading top-to-bottom.
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(
-      top: 28.0,
-      bottom: 12.0,
-      left: 18.0,
-      right: 18.0,
-    ),
+    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -146,15 +141,7 @@ Widget _sectionHeader(int index, String title, String tagline) {
   );
 }
 
-Widget _card({
-  required Widget child,
-  Color background = _kCardBg,
-  EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(
-    horizontal: 18.0,
-    vertical: 6.0,
-  ),
-}) {
+Widget _card({required Widget child, Color background = _kCardBg, EdgeInsets padding = _kCardPadding, EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0)}) {
   return Container(
     margin: margin,
     padding: padding,
@@ -174,12 +161,7 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(
-  String title, {
-  String? subtitle,
-  Color titleColor = _kInk,
-  Color subtitleColor = _kInkSecondary,
-}) {
+Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -298,16 +280,7 @@ Widget _variantLabel(String label, {Color colour = _kInkSecondary}) {
   );
 }
 
-Widget _variantTile({
-  required Widget child,
-  required String label,
-  Color background = _kCardBg,
-  Color labelColour = _kInkSecondary,
-  EdgeInsets innerPadding = const EdgeInsets.symmetric(
-    horizontal: 12.0,
-    vertical: 12.0,
-  ),
-}) {
+Widget _variantTile({required Widget child, required String label, Color background = _kCardBg, Color labelColour = _kInkSecondary, EdgeInsets innerPadding = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0)}) {
   return Container(
     margin: const EdgeInsets.all(6.0),
     padding: innerPadding,
@@ -320,7 +293,10 @@ Widget _variantTile({
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 56.0, child: Center(child: child)),
+        SizedBox(
+          height: 56.0,
+          child: Center(child: child),
+        ),
         _variantLabel(label, colour: labelColour),
       ],
     ),
@@ -361,7 +337,10 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF007AFF), Color(0xFF5856D6)],
+        colors: <Color>[
+          Color(0xFF007AFF),
+          Color(0xFF5856D6),
+        ],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -417,21 +396,17 @@ dynamic build(BuildContext context) {
           spacing: 8.0,
           runSpacing: 8.0,
           children: <Widget>[
-            _pill('iOS Look', colour: const Color(0xFFFFFFFF)),
-            _pill('HIG Aware', colour: const Color(0xFFFFFFFF)),
+            _pill('iOS Look',    colour: const Color(0xFFFFFFFF)),
+            _pill('HIG Aware',   colour: const Color(0xFFFFFFFF)),
             _pill('Theme-aware', colour: const Color(0xFFFFFFFF)),
-            _pill('Dart-only', colour: const Color(0xFFFFFFFF)),
+            _pill('Dart-only',   colour: const Color(0xFFFFFFFF)),
             _pill('No Material', colour: const Color(0xFFFFFFFF)),
           ],
         ),
         const SizedBox(height: 16.0),
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.checkmark_seal_fill,
-              color: Color(0xFFFFFFFF),
-              size: 18.0,
-            ),
+            const Icon(CupertinoIcons.checkmark_seal_fill, color: Color(0xFFFFFFFF), size: 18.0),
             const SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -483,10 +458,7 @@ dynamic build(BuildContext context) {
       children: const <Widget>[
         Icon(CupertinoIcons.cloud_download, color: _kAccent, size: 18.0),
         SizedBox(width: 6.0),
-        Text(
-          'Download',
-          style: TextStyle(color: _kAccent, fontWeight: FontWeight.w500),
-        ),
+        Text('Download', style: TextStyle(color: _kAccent, fontWeight: FontWeight.w500)),
       ],
     ),
   );
@@ -529,16 +501,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.square_grid_2x2_fill,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.square_grid_2x2_fill, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoButton',
-              subtitle:
-                  'Six tap-targets covering text, filled, icon, disabled, dark and custom variants',
+              subtitle: 'Six tap-targets covering text, filled, icon, disabled, dark and custom variants',
             ),
           ],
         ),
@@ -546,17 +513,12 @@ dynamic build(BuildContext context) {
         Wrap(
           alignment: WrapAlignment.start,
           children: <Widget>[
-            _variantTile(child: buttonPlain, label: 'text'),
-            _variantTile(child: buttonFilled, label: 'filled'),
+            _variantTile(child: buttonPlain,    label: 'text'),
+            _variantTile(child: buttonFilled,   label: 'filled'),
             _variantTile(child: buttonWithIcon, label: 'icon+label'),
             _variantTile(child: buttonDisabled, label: 'disabled'),
-            _variantTile(
-              child: buttonDark,
-              label: 'dark',
-              background: _kCardDark,
-              labelColour: _kInkOnDarkSecondary,
-            ),
-            _variantTile(child: buttonCustom, label: 'custom radius'),
+            _variantTile(child: buttonDark,     label: 'dark', background: _kCardDark, labelColour: _kInkOnDarkSecondary),
+            _variantTile(child: buttonCustom,   label: 'custom radius'),
           ],
         ),
       ],
@@ -573,15 +535,24 @@ dynamic build(BuildContext context) {
   //   * `activeColor` and `thumbColor` change the look while the value
   //     remains `false`/`true` from the constructor.
   // -------------------------------------------------------------------------
-  final Widget switchOff = CupertinoSwitch(value: false, onChanged: (_) {});
-  final Widget switchOn = CupertinoSwitch(value: true, onChanged: (_) {});
+  final Widget switchOff = CupertinoSwitch(
+    value: false,
+    onChanged: (_) {},
+  );
+  final Widget switchOn = CupertinoSwitch(
+    value: true,
+    onChanged: (_) {},
+  );
   final Widget switchCustomThumb = CupertinoSwitch(
     value: true,
     activeColor: _kAccentGreen,
     thumbColor: const Color(0xFFFFF7E0),
     onChanged: (_) {},
   );
-  final Widget switchDisabled = CupertinoSwitch(value: false, onChanged: null);
+  final Widget switchDisabled = CupertinoSwitch(
+    value: false,
+    onChanged: null,
+  );
   final Widget switchDark = CupertinoSwitch(
     value: true,
     activeColor: _kAccentPink,
@@ -594,16 +565,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.switch_camera,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.switch_camera, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoSwitch',
-              subtitle:
-                  'Boolean toggle - default off/on, custom thumb, disabled, and a dark-mode tinted variant',
+              subtitle: 'Boolean toggle - default off/on, custom thumb, disabled, and a dark-mode tinted variant',
             ),
           ],
         ),
@@ -611,16 +577,11 @@ dynamic build(BuildContext context) {
         Wrap(
           alignment: WrapAlignment.start,
           children: <Widget>[
-            _variantTile(child: switchOff, label: 'off'),
-            _variantTile(child: switchOn, label: 'on'),
+            _variantTile(child: switchOff,         label: 'off'),
+            _variantTile(child: switchOn,          label: 'on'),
             _variantTile(child: switchCustomThumb, label: 'custom thumb'),
-            _variantTile(child: switchDisabled, label: 'disabled'),
-            _variantTile(
-              child: switchDark,
-              label: 'dark / pink',
-              background: _kCardDark,
-              labelColour: _kInkOnDarkSecondary,
-            ),
+            _variantTile(child: switchDisabled,    label: 'disabled'),
+            _variantTile(child: switchDark,        label: 'dark / pink', background: _kCardDark, labelColour: _kInkOnDarkSecondary),
           ],
         ),
       ],
@@ -636,12 +597,7 @@ dynamic build(BuildContext context) {
   //   * value = 1.0 (slider all the way to the right)
   //   * `divisions` + a custom `activeColor` to show tick behaviour.
   // -------------------------------------------------------------------------
-  Widget _sliderTile(
-    double value,
-    String label, {
-    int? divisions,
-    Color activeColor = _kAccent,
-  }) {
+  Widget _sliderTile(double value, String label, {int? divisions, Color activeColor = _kAccent}) {
     return Container(
       margin: const EdgeInsets.all(6.0),
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
@@ -686,16 +642,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.slider_horizontal_3,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.slider_horizontal_3, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoSlider',
-              subtitle:
-                  'Continuous and discrete value selection - four snapshots across the value range',
+              subtitle: 'Continuous and discrete value selection - four snapshots across the value range',
             ),
           ],
         ),
@@ -703,15 +654,10 @@ dynamic build(BuildContext context) {
         Wrap(
           alignment: WrapAlignment.start,
           children: <Widget>[
-            _sliderTile(0.0, 'value = 0.0'),
-            _sliderTile(0.5, 'value = 0.5'),
-            _sliderTile(1.0, 'value = 1.0'),
-            _sliderTile(
-              0.4,
-              'divisions = 5, activeColor = orange',
-              divisions: 5,
-              activeColor: _kAccentOrange,
-            ),
+            _sliderTile(0.0,  'value = 0.0'),
+            _sliderTile(0.5,  'value = 0.5'),
+            _sliderTile(1.0,  'value = 1.0'),
+            _sliderTile(0.4,  'divisions = 5, activeColor = orange', divisions: 5, activeColor: _kAccentOrange),
           ],
         ),
       ],
@@ -727,18 +673,9 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   Widget _segmented3() {
     const Map<int, Widget> children = <int, Widget>{
-      0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Day'),
-      ),
-      1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Week'),
-      ),
-      2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Month'),
-      ),
+      0: Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0), child: Text('Day')),
+      1: Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0), child: Text('Week')),
+      2: Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0), child: Text('Month')),
     };
     return CupertinoSegmentedControl<int>(
       children: children,
@@ -749,26 +686,11 @@ dynamic build(BuildContext context) {
 
   Widget _segmented5() {
     const Map<int, Widget> children = <int, Widget>{
-      0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('XS'),
-      ),
-      1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('S'),
-      ),
-      2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('M'),
-      ),
-      3: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('L'),
-      ),
-      4: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('XL'),
-      ),
+      0: Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('XS')),
+      1: Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('S')),
+      2: Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('M')),
+      3: Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('L')),
+      4: Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('XL')),
     };
     return CupertinoSegmentedControl<int>(
       children: children,
@@ -779,18 +701,9 @@ dynamic build(BuildContext context) {
 
   Widget _segmentedCustom() {
     const Map<int, Widget> children = <int, Widget>{
-      0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Off'),
-      ),
-      1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Auto'),
-      ),
-      2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('On'),
-      ),
+      0: Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0), child: Text('Off')),
+      1: Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0), child: Text('Auto')),
+      2: Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0), child: Text('On')),
     };
     return CupertinoSegmentedControl<int>(
       children: children,
@@ -809,16 +722,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.rectangle_split_3x1,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.rectangle_split_3x1, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoSegmentedControl<int>',
-              subtitle:
-                  'Discrete picker styled like a UISegmentedControl - 3/5 items and a custom-coloured variant',
+              subtitle: 'Discrete picker styled like a UISegmentedControl - 3/5 items and a custom-coloured variant',
             ),
           ],
         ),
@@ -827,10 +735,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 14.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 14.0),
               margin: const EdgeInsets.symmetric(vertical: 6.0),
               decoration: BoxDecoration(
                 color: _kCardBg,
@@ -847,10 +752,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 14.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 14.0),
               margin: const EdgeInsets.symmetric(vertical: 6.0),
               decoration: BoxDecoration(
                 color: _kCardBg,
@@ -867,10 +769,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 14.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 14.0),
               margin: const EdgeInsets.symmetric(vertical: 6.0),
               decoration: BoxDecoration(
                 color: _kCardBg,
@@ -880,10 +779,7 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'custom selectedColor / borderColor (green), groupValue = 2',
-                    style: _kCaptionStyle,
-                  ),
+                  Text('custom selectedColor / borderColor (green), groupValue = 2', style: _kCaptionStyle),
                   const SizedBox(height: 8.0),
                   Center(child: _segmentedCustom()),
                 ],
@@ -906,18 +802,9 @@ dynamic build(BuildContext context) {
     groupValue: 'b',
     onValueChanged: (_) {},
     children: const <String, Widget>{
-      'a': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0),
-        child: Text('One'),
-      ),
-      'b': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0),
-        child: Text('Two'),
-      ),
-      'c': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0),
-        child: Text('Three'),
-      ),
+      'a': Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0), child: Text('One')),
+      'b': Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0), child: Text('Two')),
+      'c': Padding(padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0), child: Text('Three')),
     },
   );
 
@@ -927,22 +814,10 @@ dynamic build(BuildContext context) {
     thumbColor: const Color(0xFFFFFFFF),
     backgroundColor: const Color(0xFFE5E5EA),
     children: const <String, Widget>{
-      'mentions': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('Mentions'),
-      ),
-      'replies': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('Replies'),
-      ),
-      'reactions': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('Reactions'),
-      ),
-      'bookmarked': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Text('Bookmarked'),
-      ),
+      'mentions':   Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('Mentions')),
+      'replies':    Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('Replies')),
+      'reactions':  Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('Reactions')),
+      'bookmarked': Padding(padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), child: Text('Bookmarked')),
     },
   );
 
@@ -952,16 +827,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.rectangle_3_offgrid,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.rectangle_3_offgrid, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoSlidingSegmentedControl<String>',
-              subtitle:
-                  'Modern animated segmented selector - short labels and long labels',
+              subtitle: 'Modern animated segmented selector - short labels and long labels',
             ),
           ],
         ),
@@ -994,10 +864,7 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'longer labels, groupValue = "replies"',
-                style: _kCaptionStyle,
-              ),
+              Text('longer labels, groupValue = "replies"', style: _kCaptionStyle),
               const SizedBox(height: 8.0),
               Center(child: slidingLong),
             ],
@@ -1138,16 +1005,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.check_mark_circled,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.check_mark_circled, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoCheckbox & CupertinoRadio<T>',
-              subtitle:
-                  'Single-state toggle and exclusive-choice picker, rendered Cupertino-style',
+              subtitle: 'Single-state toggle and exclusive-choice picker, rendered Cupertino-style',
             ),
           ],
         ),
@@ -1192,8 +1054,7 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoTextField (brief)',
-              subtitle:
-                  'A quick look - see textfield_test.dart for the full gallery',
+              subtitle: 'A quick look - see textfield_test.dart for the full gallery',
             ),
           ],
         ),
@@ -1211,11 +1072,7 @@ dynamic build(BuildContext context) {
             placeholder: 'name@example.com',
             prefix: const Padding(
               padding: EdgeInsets.only(left: 10.0, right: 6.0),
-              child: Icon(
-                CupertinoIcons.mail,
-                color: _kInkTertiary,
-                size: 18.0,
-              ),
+              child: Icon(CupertinoIcons.mail, color: _kInkTertiary, size: 18.0),
             ),
             decoration: BoxDecoration(
               color: const Color(0xFFF7F7F8),
@@ -1243,16 +1100,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.arrow_2_circlepath,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.arrow_2_circlepath, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoActivityIndicator',
-              subtitle:
-                  'Four sizes - default, small, large, custom colour/radius',
+              subtitle: 'Four sizes - default, small, large, custom colour/radius',
             ),
           ],
         ),
@@ -1272,10 +1124,7 @@ dynamic build(BuildContext context) {
                 children: const <Widget>[
                   CupertinoActivityIndicator(),
                   SizedBox(height: 6.0),
-                  Text(
-                    'default',
-                    style: TextStyle(fontSize: 11.0, color: _kInkSecondary),
-                  ),
+                  Text('default', style: TextStyle(fontSize: 11.0, color: _kInkSecondary)),
                 ],
               ),
               Column(
@@ -1283,10 +1132,7 @@ dynamic build(BuildContext context) {
                 children: const <Widget>[
                   CupertinoActivityIndicator(radius: 8.0),
                   SizedBox(height: 6.0),
-                  Text(
-                    'radius = 8',
-                    style: TextStyle(fontSize: 11.0, color: _kInkSecondary),
-                  ),
+                  Text('radius = 8', style: TextStyle(fontSize: 11.0, color: _kInkSecondary)),
                 ],
               ),
               Column(
@@ -1294,10 +1140,7 @@ dynamic build(BuildContext context) {
                 children: const <Widget>[
                   CupertinoActivityIndicator(radius: 18.0),
                   SizedBox(height: 6.0),
-                  Text(
-                    'radius = 18',
-                    style: TextStyle(fontSize: 11.0, color: _kInkSecondary),
-                  ),
+                  Text('radius = 18', style: TextStyle(fontSize: 11.0, color: _kInkSecondary)),
                 ],
               ),
               Column(
@@ -1308,10 +1151,7 @@ dynamic build(BuildContext context) {
                     color: _kAccentOrange,
                   ),
                   SizedBox(height: 6.0),
-                  Text(
-                    'radius = 24, orange',
-                    style: TextStyle(fontSize: 11.0, color: _kInkSecondary),
-                  ),
+                  Text('radius = 24, orange', style: TextStyle(fontSize: 11.0, color: _kInkSecondary)),
                 ],
               ),
             ],
@@ -1327,8 +1167,7 @@ dynamic build(BuildContext context) {
   // The picker needs a `FixedExtentScrollController` to render a non-default
   // initial selection. We build the controller eagerly and pass it in.
   // -------------------------------------------------------------------------
-  final FixedExtentScrollController pickerController =
-      FixedExtentScrollController(initialItem: 3);
+  final FixedExtentScrollController pickerController = FixedExtentScrollController(initialItem: 3);
   final List<String> _pickerEntries = const <String>[
     'Avocado',
     'Banana',
@@ -1348,16 +1187,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.selection_pin_in_out,
-              color: _kAccent,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.selection_pin_in_out, color: _kAccent, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'CupertinoPicker',
-              subtitle:
-                  'Wheel-style selector - rendered with a FixedExtentScrollController(initialItem: 3)',
+              subtitle: 'Wheel-style selector - rendered with a FixedExtentScrollController(initialItem: 3)',
             ),
           ],
         ),
@@ -1534,8 +1368,7 @@ CupertinoPicker(
             const SizedBox(width: 6.0),
             _cardTitle(
               'Idiomatic Usage - Code Snippets',
-              subtitle:
-                  'Short, copy-pasteable examples for every control in the gallery',
+              subtitle: 'Short, copy-pasteable examples for every control in the gallery',
             ),
           ],
         ),
@@ -1557,12 +1390,7 @@ CupertinoPicker(
   // Side-by-side mapping from Cupertino controls to their Material
   // counterparts, with a one-line note on behavioural differences.
   // -------------------------------------------------------------------------
-  Widget _tableRow(
-    String cupertino,
-    String material,
-    String note, {
-    bool header = false,
-  }) {
+  Widget _tableRow(String cupertino, String material, String note, {bool header = false}) {
     final TextStyle style = header
         ? const TextStyle(
             fontSize: 12.5,
@@ -1575,14 +1403,16 @@ CupertinoPicker(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
       decoration: BoxDecoration(
         color: header ? const Color(0xFFF7F7F8) : const Color(0x00000000),
-        border: Border(bottom: BorderSide(color: _kHairline)),
+        border: Border(
+          bottom: BorderSide(color: _kHairline),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(flex: 3, child: Text(cupertino, style: style)),
-          Expanded(flex: 3, child: Text(material, style: style)),
-          Expanded(flex: 4, child: Text(note, style: style)),
+          Expanded(flex: 3, child: Text(material,  style: style)),
+          Expanded(flex: 4, child: Text(note,      style: style)),
         ],
       ),
     );
@@ -1597,16 +1427,11 @@ CupertinoPicker(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Row(
             children: <Widget>[
-              const Icon(
-                CupertinoIcons.rectangle_grid_2x2,
-                color: _kAccent,
-                size: 20.0,
-              ),
+              const Icon(CupertinoIcons.rectangle_grid_2x2, color: _kAccent, size: 20.0),
               const SizedBox(width: 6.0),
               _cardTitle(
                 'Cupertino vs Material',
-                subtitle:
-                    'Quick mapping between control families - same intent, different feel',
+                subtitle: 'Quick mapping between control families - same intent, different feel',
               ),
             ],
           ),
@@ -1618,67 +1443,18 @@ CupertinoPicker(
           ),
           child: Column(
             children: <Widget>[
-              _tableRow(
-                'Cupertino',
-                'Material',
-                'Behaviour / visual difference',
-                header: true,
-              ),
-              _tableRow(
-                'CupertinoButton',
-                'TextButton / FilledButton',
-                'Cupertino fades on press; Material runs an ink ripple animation.',
-              ),
-              _tableRow(
-                'CupertinoButton.filled',
-                'FilledButton',
-                'Cupertino uses systemBlue + 8px radius; Material uses primary.',
-              ),
-              _tableRow(
-                'CupertinoSwitch',
-                'Switch',
-                'Cupertino track is taller and rounded; Material is rectangular w/ thumb shadow.',
-              ),
-              _tableRow(
-                'CupertinoSlider',
-                'Slider',
-                'Cupertino has thinner track and a circular thumb without ripple.',
-              ),
-              _tableRow(
-                'CupertinoSegmentedControl',
-                'SegmentedButton',
-                'Cupertino fills selected; SegmentedButton uses outlined chips.',
-              ),
-              _tableRow(
-                'CupertinoSlidingSegmentedControl',
-                'ToggleButtons (animated)',
-                'Sliding control animates a single thumb; ToggleButtons toggle independently.',
-              ),
-              _tableRow(
-                'CupertinoCheckbox',
-                'Checkbox',
-                'Visually similar; Cupertino is sharper-cornered and lacks ink splash.',
-              ),
-              _tableRow(
-                'CupertinoRadio<T>',
-                'Radio<T>',
-                'Same API shape; visual stroke widths differ slightly.',
-              ),
-              _tableRow(
-                'CupertinoTextField',
-                'TextField',
-                'Cupertino has rounded border and no floating label by default.',
-              ),
-              _tableRow(
-                'CupertinoActivityIndicator',
-                'CircularProgressIndicator',
-                'Cupertino spins 8 ticks (UIKit style); Material has a sweeping arc.',
-              ),
-              _tableRow(
-                'CupertinoPicker',
-                'DropdownButton / ListWheelScrollView',
-                'Cupertino is a wheel; Material is a flat dropdown menu.',
-              ),
+              _tableRow('Cupertino', 'Material', 'Behaviour / visual difference', header: true),
+              _tableRow('CupertinoButton',                 'TextButton / FilledButton',  'Cupertino fades on press; Material runs an ink ripple animation.'),
+              _tableRow('CupertinoButton.filled',          'FilledButton',               'Cupertino uses systemBlue + 8px radius; Material uses primary.'),
+              _tableRow('CupertinoSwitch',                 'Switch',                     'Cupertino track is taller and rounded; Material is rectangular w/ thumb shadow.'),
+              _tableRow('CupertinoSlider',                 'Slider',                     'Cupertino has thinner track and a circular thumb without ripple.'),
+              _tableRow('CupertinoSegmentedControl',       'SegmentedButton',            'Cupertino fills selected; SegmentedButton uses outlined chips.'),
+              _tableRow('CupertinoSlidingSegmentedControl','ToggleButtons (animated)',   'Sliding control animates a single thumb; ToggleButtons toggle independently.'),
+              _tableRow('CupertinoCheckbox',               'Checkbox',                   'Visually similar; Cupertino is sharper-cornered and lacks ink splash.'),
+              _tableRow('CupertinoRadio<T>',               'Radio<T>',                   'Same API shape; visual stroke widths differ slightly.'),
+              _tableRow('CupertinoTextField',              'TextField',                  'Cupertino has rounded border and no floating label by default.'),
+              _tableRow('CupertinoActivityIndicator',      'CircularProgressIndicator',  'Cupertino spins 8 ticks (UIKit style); Material has a sweeping arc.'),
+              _tableRow('CupertinoPicker',                 'DropdownButton / ListWheelScrollView', 'Cupertino is a wheel; Material is a flat dropdown menu.'),
             ],
           ),
         ),
@@ -1741,16 +1517,11 @@ CupertinoPicker(
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.exclamationmark_triangle_fill,
-              color: _kAccentOrange,
-              size: 20.0,
-            ),
+            const Icon(CupertinoIcons.exclamationmark_triangle_fill, color: _kAccentOrange, size: 20.0),
             const SizedBox(width: 6.0),
             _cardTitle(
               'Pitfalls',
-              subtitle:
-                  'Five mistakes that ship far too often when wiring up Cupertino controls',
+              subtitle: 'Five mistakes that ship far too often when wiring up Cupertino controls',
             ),
           ],
         ),
@@ -1759,40 +1530,40 @@ CupertinoPicker(
           CupertinoIcons.xmark_octagon,
           'onChanged: null is not the same as () {}',
           'Passing null to a CupertinoSwitch/Slider/Checkbox/Radio disables the control '
-              '(the visual changes to grey). Passing an empty (_) {} keeps the control enabled '
-              'but discards the user\'s input - typically a bug rather than a UX choice.',
+          '(the visual changes to grey). Passing an empty (_) {} keeps the control enabled '
+          'but discards the user\'s input - typically a bug rather than a UX choice.',
           _kAccentRed,
         ),
         _pitfall(
           CupertinoIcons.lightbulb,
           'Many controls require a CupertinoTheme ancestor',
           'CupertinoButton, CupertinoSlider, CupertinoSwitch read from the surrounding '
-              'CupertinoTheme to obtain accent colours. Outside a CupertinoApp / CupertinoTheme, '
-              'they fall back to defaults that may look out-of-place in your design.',
+          'CupertinoTheme to obtain accent colours. Outside a CupertinoApp / CupertinoTheme, '
+          'they fall back to defaults that may look out-of-place in your design.',
           _kAccentOrange,
         ),
         _pitfall(
           CupertinoIcons.rectangle_split_3x1,
           'CupertinoSegmentedControl needs Map<T, Widget>',
           'children is a Map, not a List. The keys are the candidate values and must implement '
-              '== and hashCode (use int, String, or a Dart enum). The Map must not be empty - the '
-              'framework asserts at construction time.',
+          '== and hashCode (use int, String, or a Dart enum). The Map must not be empty - the '
+          'framework asserts at construction time.',
           _kAccentIndigo,
         ),
         _pitfall(
           CupertinoIcons.rectangle_3_offgrid,
           'Sliding segmented control: same Map<T, Widget> rule',
           'CupertinoSlidingSegmentedControl shares the segmented-control contract but also '
-              'animates a thumb between cells. The Map must contain at least two entries; with '
-              'one entry, the thumb never has anywhere to slide.',
+          'animates a thumb between cells. The Map must contain at least two entries; with '
+          'one entry, the thumb never has anywhere to slide.',
           _kAccentTeal,
         ),
         _pitfall(
           CupertinoIcons.selection_pin_in_out,
           'CupertinoPicker initial selection needs a FixedExtentScrollController',
           'You cannot set the initial item via a constructor parameter - instead, pass a '
-              'FixedExtentScrollController(initialItem: N). Hold the controller in state so '
-              'rebuilds don\'t reset the wheel back to item 0.',
+          'FixedExtentScrollController(initialItem: N). Hold the controller in state so '
+          'rebuilds don\'t reset the wheel back to item 0.',
           _kAccentGreen,
         ),
       ],
@@ -1850,11 +1621,7 @@ CupertinoPicker(
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(
-              CupertinoIcons.bookmark_fill,
-              color: Color(0xFFFFD60A),
-              size: 22.0,
-            ),
+            Icon(CupertinoIcons.bookmark_fill, color: Color(0xFFFFD60A), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Cheat Sheet',
@@ -1878,50 +1645,17 @@ CupertinoPicker(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _cheatRow(
-                'CupertinoButton',
-                'CupertinoButton(onPressed:, child:)',
-              ),
-              _cheatRow(
-                'CupertinoButton.filled',
-                'CupertinoButton.filled(onPressed:, child:)',
-              ),
-              _cheatRow(
-                'CupertinoSwitch',
-                'CupertinoSwitch(value:, onChanged:)',
-              ),
-              _cheatRow(
-                'CupertinoSlider',
-                'CupertinoSlider(value:, onChanged:, divisions:?)',
-              ),
-              _cheatRow(
-                'CupertinoSegmentedControl<T>',
-                'CupertinoSegmentedControl<T>(children: Map<T,Widget>, groupValue:, onValueChanged:)',
-              ),
-              _cheatRow(
-                'CupertinoSlidingSegmentedControl<T>',
-                'CupertinoSlidingSegmentedControl<T>(children: Map<T,Widget>, groupValue:, onValueChanged:)',
-              ),
-              _cheatRow(
-                'CupertinoCheckbox',
-                'CupertinoCheckbox(value:, onChanged:)',
-              ),
-              _cheatRow(
-                'CupertinoRadio<T>',
-                'CupertinoRadio<T>(value:, groupValue:, onChanged:)',
-              ),
-              _cheatRow(
-                'CupertinoTextField',
-                'CupertinoTextField(placeholder:?, controller:?, decoration:?)',
-              ),
-              _cheatRow(
-                'CupertinoActivityIndicator',
-                'CupertinoActivityIndicator(radius:?, color:?)',
-              ),
-              _cheatRow(
-                'CupertinoPicker',
-                'CupertinoPicker(itemExtent:, onSelectedItemChanged:, children: List<Widget>)',
-              ),
+              _cheatRow('CupertinoButton',                  'CupertinoButton(onPressed:, child:)'),
+              _cheatRow('CupertinoButton.filled',           'CupertinoButton.filled(onPressed:, child:)'),
+              _cheatRow('CupertinoSwitch',                  'CupertinoSwitch(value:, onChanged:)'),
+              _cheatRow('CupertinoSlider',                  'CupertinoSlider(value:, onChanged:, divisions:?)'),
+              _cheatRow('CupertinoSegmentedControl<T>',     'CupertinoSegmentedControl<T>(children: Map<T,Widget>, groupValue:, onValueChanged:)'),
+              _cheatRow('CupertinoSlidingSegmentedControl<T>', 'CupertinoSlidingSegmentedControl<T>(children: Map<T,Widget>, groupValue:, onValueChanged:)'),
+              _cheatRow('CupertinoCheckbox',                'CupertinoCheckbox(value:, onChanged:)'),
+              _cheatRow('CupertinoRadio<T>',                'CupertinoRadio<T>(value:, groupValue:, onChanged:)'),
+              _cheatRow('CupertinoTextField',               'CupertinoTextField(placeholder:?, controller:?, decoration:?)'),
+              _cheatRow('CupertinoActivityIndicator',       'CupertinoActivityIndicator(radius:?, color:?)'),
+              _cheatRow('CupertinoPicker',                  'CupertinoPicker(itemExtent:, onSelectedItemChanged:, children: List<Widget>)'),
             ],
           ),
         ),
@@ -1935,11 +1669,7 @@ CupertinoPicker(
           ),
           child: Row(
             children: <Widget>[
-              const Icon(
-                CupertinoIcons.info_circle,
-                color: Color(0xFFFFD60A),
-                size: 18.0,
-              ),
+              const Icon(CupertinoIcons.info_circle, color: Color(0xFFFFD60A), size: 18.0),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1970,36 +1700,32 @@ CupertinoPicker(
   print('  building widget tree with 13 sections');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(2, 'Buttons', 'CupertinoButton + CupertinoButton.filled'),
+    _sectionHeader(2, 'Buttons',          'CupertinoButton + CupertinoButton.filled'),
     buttonGallery,
-    _sectionHeader(3, 'Switches', 'CupertinoSwitch in five states'),
+    _sectionHeader(3, 'Switches',         'CupertinoSwitch in five states'),
     switchGallery,
-    _sectionHeader(4, 'Sliders', 'CupertinoSlider continuous and discrete'),
+    _sectionHeader(4, 'Sliders',          'CupertinoSlider continuous and discrete'),
     sliderGallery,
-    _sectionHeader(5, 'Segmented', 'CupertinoSegmentedControl<int>'),
+    _sectionHeader(5, 'Segmented',        'CupertinoSegmentedControl<int>'),
     segmentedGallery,
-    _sectionHeader(
-      6,
-      'Sliding Segmented',
-      'CupertinoSlidingSegmentedControl<String>',
-    ),
+    _sectionHeader(6, 'Sliding Segmented','CupertinoSlidingSegmentedControl<String>'),
     slidingGallery,
-    _sectionHeader(7, 'Check / Radio', 'CupertinoCheckbox + CupertinoRadio<T>'),
+    _sectionHeader(7, 'Check / Radio',    'CupertinoCheckbox + CupertinoRadio<T>'),
     checkRadioGallery,
-    _sectionHeader(8, 'Text Field', 'CupertinoTextField (brief)'),
+    _sectionHeader(8, 'Text Field',       'CupertinoTextField (brief)'),
     textFieldVariants,
-    _sectionHeader(9, 'Activity Indicator', 'CupertinoActivityIndicator'),
+    _sectionHeader(9, 'Activity Indicator','CupertinoActivityIndicator'),
     indicatorGallery,
-    _sectionHeader(10, 'Picker', 'CupertinoPicker static wheel'),
+    _sectionHeader(10, 'Picker',          'CupertinoPicker static wheel'),
     pickerGallery,
     _sectionDivider(),
-    _sectionHeader(11, 'Code', 'Idiomatic usage snippets'),
+    _sectionHeader(11, 'Code',            'Idiomatic usage snippets'),
     codeBlocksSection,
-    _sectionHeader(12, 'Comparison', 'Cupertino vs Material counterparts'),
+    _sectionHeader(12, 'Comparison',      'Cupertino vs Material counterparts'),
     comparisonTable,
-    _sectionHeader(13, 'Pitfalls', 'Five common mistakes'),
+    _sectionHeader(13, 'Pitfalls',        'Five common mistakes'),
     pitfalls,
-    _sectionHeader(14, 'Cheat Sheet', 'Constructors at a glance'),
+    _sectionHeader(14, 'Cheat Sheet',     'Constructors at a glance'),
     cheatSheet,
   ];
   print('  section widget count: ${sectionWidgets.length}');

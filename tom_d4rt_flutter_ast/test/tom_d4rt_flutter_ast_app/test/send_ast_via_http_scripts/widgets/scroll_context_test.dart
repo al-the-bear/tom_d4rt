@@ -146,10 +146,7 @@ class _HeroHeader extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: kCoral,
                   borderRadius: BorderRadius.circular(999),
@@ -166,10 +163,7 @@ class _HeroHeader extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: kSeaFoam.withValues(alpha: 0.25),
                   border: Border.all(color: kSeaFoam.withValues(alpha: 0.6)),
@@ -330,7 +324,11 @@ class _WiringPainter extends CustomPainter {
       final subTP = TextPainter(
         text: TextSpan(
           text: b.subtitle,
-          style: const TextStyle(color: kSlate, fontSize: 11, height: 1.2),
+          style: const TextStyle(
+            color: kSlate,
+            fontSize: 11,
+            height: 1.2,
+          ),
         ),
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: b.rect.width - 12);
@@ -352,7 +350,10 @@ class _WiringPainter extends CustomPainter {
         )
         ..close();
       canvas.drawPath(path, arrowHead);
-      final mid = Offset((start.dx + end.dx) / 2, (start.dy + end.dy) / 2 - 10);
+      final mid = Offset(
+        (start.dx + end.dx) / 2,
+        (start.dy + end.dy) / 2 - 10,
+      );
       final lbl = TextPainter(
         text: TextSpan(
           text: label,
@@ -415,7 +416,11 @@ class _WiringPainter extends CustomPainter {
     if (x > pi) x -= twoPi;
     if (x < -pi) x += twoPi;
     final x2 = x * x;
-    return x * (1 - x2 / 6 + x2 * x2 / 120 - x2 * x2 * x2 / 5040);
+    return x *
+        (1 -
+            x2 / 6 +
+            x2 * x2 / 120 -
+            x2 * x2 * x2 / 5040);
   }
 
   double _cos(double a) {
@@ -607,9 +612,7 @@ class _DiagnosticsReadout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progress = max > min
-        ? ((pixels - min) / (max - min)).clamp(0.0, 1.0)
-        : 0.0;
+    final progress = max > min ? ((pixels - min) / (max - min)).clamp(0.0, 1.0) : 0.0;
     return Container(
       height: 300,
       padding: const EdgeInsets.all(14),
@@ -687,6 +690,7 @@ class _DiagnosticsReadout extends StatelessWidget {
         return 'AxisDirection.right';
     }
   }
+
 }
 
 class _AxisArrowIcon extends StatelessWidget {
@@ -734,8 +738,13 @@ class _ReadoutRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         children: [
-          SizedBox(width: 150, child: Text(label, style: kMono)),
-          Expanded(child: Text(value, style: kMonoBold)),
+          SizedBox(
+            width: 150,
+            child: Text(label, style: kMono),
+          ),
+          Expanded(
+            child: Text(value, style: kMonoBold),
+          ),
         ],
       ),
     );
@@ -815,21 +824,11 @@ class _TriScrollerPanelState extends State<_TriScrollerPanel> {
           'Scroll one — the others are undisturbed.',
       child: Row(
         children: [
-          Expanded(
-            child: _SmallScroller(label: 'alpha', tone: kOcean, controller: _a),
-          ),
+          Expanded(child: _SmallScroller(label: 'alpha', tone: kOcean, controller: _a)),
           const SizedBox(width: 12),
-          Expanded(
-            child: _SmallScroller(label: 'beta', tone: kCoral, controller: _b),
-          ),
+          Expanded(child: _SmallScroller(label: 'beta', tone: kCoral, controller: _b)),
           const SizedBox(width: 12),
-          Expanded(
-            child: _SmallScroller(
-              label: 'gamma',
-              tone: kSeaFoam,
-              controller: _c,
-            ),
-          ),
+          Expanded(child: _SmallScroller(label: 'gamma', tone: kSeaFoam, controller: _c)),
         ],
       ),
     );
@@ -908,9 +907,7 @@ class _SmallScroller extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: kMist.withValues(alpha: 0.5),
-            borderRadius: const BorderRadius.vertical(
-              bottom: Radius.circular(10),
-            ),
+            borderRadius: const BorderRadius.vertical(bottom: Radius.circular(10)),
             border: Border.all(color: tone.withValues(alpha: 0.25)),
           ),
           child: Column(
@@ -936,9 +933,16 @@ class _MiniStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: 50, child: Text(label, style: kMono)),
+        SizedBox(
+          width: 50,
+          child: Text(label, style: kMono),
+        ),
         Expanded(
-          child: Text(value, style: kMonoBold, overflow: TextOverflow.ellipsis),
+          child: Text(
+            value,
+            style: kMonoBold,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );
@@ -1030,8 +1034,7 @@ class _AxisTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final axis = axisDirectionToAxis(direction);
-    final reverse =
-        direction == AxisDirection.up || direction == AxisDirection.left;
+    final reverse = direction == AxisDirection.up || direction == AxisDirection.left;
     return Container(
       decoration: BoxDecoration(
         color: kCard,
@@ -1045,9 +1048,8 @@ class _AxisTile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: kOcean,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(11),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(11)),
             ),
             child: Row(
               children: [
@@ -1223,14 +1225,9 @@ class _VsyncDemoPanelState extends State<_VsyncDemoPanel> {
               itemCount: 80,
               itemBuilder: (context, i) => Container(
                 margin: const EdgeInsets.symmetric(vertical: 3),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 decoration: BoxDecoration(
-                  color: i.isEven
-                      ? kMist.withValues(alpha: 0.3)
-                      : Colors.transparent,
+                  color: i.isEven ? kMist.withValues(alpha: 0.3) : Colors.transparent,
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text('vsync-driven item #$i', style: kMono),
@@ -1447,9 +1444,7 @@ class _RestoreTileState extends State<_RestoreTile> {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: kMist.withValues(alpha: 0.5),
-            borderRadius: const BorderRadius.vertical(
-              bottom: Radius.circular(10),
-            ),
+            borderRadius: const BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
           child: Text(
             widget.restored
@@ -1533,10 +1528,7 @@ class _NotificationContextPanelState extends State<_NotificationContextPanel> {
                   itemCount: 60,
                   itemBuilder: (context, i) => Container(
                     margin: const EdgeInsets.symmetric(vertical: 3),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 8,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                     decoration: BoxDecoration(
                       color: kOcean.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
@@ -1736,7 +1728,10 @@ class _RefRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 200, child: Text(entry.name, style: kMonoBold)),
+          SizedBox(
+            width: 200,
+            child: Text(entry.name, style: kMonoBold),
+          ),
           SizedBox(
             width: 110,
             child: Text(
@@ -1752,7 +1747,11 @@ class _RefRow extends StatelessWidget {
           Expanded(
             child: Text(
               entry.note,
-              style: const TextStyle(color: kSlate, fontSize: 12, height: 1.4),
+              style: const TextStyle(
+                color: kSlate,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -1851,7 +1850,11 @@ class _TeachingPanel extends StatelessWidget {
 }
 
 class _Bullet extends StatelessWidget {
-  const _Bullet({required this.tone, required this.title, required this.body});
+  const _Bullet({
+    required this.tone,
+    required this.title,
+    required this.body,
+  });
   final Color tone;
   final String title;
   final String body;
@@ -1888,7 +1891,11 @@ class _Bullet extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             body,
-            style: const TextStyle(color: kSlate, fontSize: 12, height: 1.4),
+            style: const TextStyle(
+              color: kSlate,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1998,10 +2005,7 @@ class _SectionCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: kOcean,
                   borderRadius: BorderRadius.circular(6),
@@ -2032,7 +2036,11 @@ class _SectionCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             subtitle,
-            style: const TextStyle(color: kSlate, fontSize: 12.5, height: 1.5),
+            style: const TextStyle(
+              color: kSlate,
+              fontSize: 12.5,
+              height: 1.5,
+            ),
           ),
           const SizedBox(height: 14),
           child,

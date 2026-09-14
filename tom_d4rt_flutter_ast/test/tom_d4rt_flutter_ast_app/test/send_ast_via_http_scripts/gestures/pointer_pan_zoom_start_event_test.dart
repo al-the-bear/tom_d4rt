@@ -700,7 +700,11 @@ class HeroHeader extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[kViolet700, kViolet500, kTeal700],
+          colors: <Color>[
+            kViolet700,
+            kViolet500,
+            kTeal700,
+          ],
           stops: <double>[0.0, 0.55, 1.0],
         ),
         boxShadow: <BoxShadow>[
@@ -743,9 +747,18 @@ class HeroHeader extends StatelessWidget {
                   spacing: 8,
                   runSpacing: 8,
                   children: const <Widget>[
-                    HeroBadge(label: 'gestures.dart', icon: Icons.code),
-                    HeroBadge(label: 'trackpad-only', icon: Icons.mouse),
-                    HeroBadge(label: 'phase: START', icon: Icons.flag_outlined),
+                    HeroBadge(
+                      label: 'gestures.dart',
+                      icon: Icons.code,
+                    ),
+                    HeroBadge(
+                      label: 'trackpad-only',
+                      icon: Icons.mouse,
+                    ),
+                    HeroBadge(
+                      label: 'phase: START',
+                      icon: Icons.flag_outlined,
+                    ),
                     HeroBadge(
                       label: 'down = false',
                       icon: Icons.toggle_off_outlined,
@@ -788,7 +801,11 @@ class HeroIcon extends StatelessWidget {
         ],
       ),
       child: const Center(
-        child: Icon(Icons.start, color: Color(0xFF4C1D95), size: 42),
+        child: Icon(
+          Icons.start,
+          color: Color(0xFF4C1D95),
+          size: 42,
+        ),
       ),
     );
   }
@@ -798,7 +815,11 @@ class HeroBadge extends StatelessWidget {
   final String label;
   final IconData icon;
 
-  const HeroBadge({super.key, required this.label, required this.icon});
+  const HeroBadge({
+    super.key,
+    required this.label,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -853,7 +874,9 @@ class PhaseStateMachine extends StatelessWidget {
       decoration: const BoxDecoration(
         color: kSurfaceCard,
         borderRadius: BorderRadius.all(Radius.circular(18)),
-        border: Border.fromBorderSide(BorderSide(color: kViolet100, width: 1)),
+        border: Border.fromBorderSide(
+          BorderSide(color: kViolet100, width: 1),
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Color(0x14000000),
@@ -876,7 +899,11 @@ class PhaseStateMachine extends StatelessWidget {
           const SizedBox(height: 4),
           const Text(
             'A trackpad pan/zoom gesture moves through five distinct phases.',
-            style: TextStyle(color: kInkMuted, fontSize: 13, height: 1.4),
+            style: TextStyle(
+              color: kInkMuted,
+              fontSize: 13,
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 18),
           Row(
@@ -915,7 +942,10 @@ class PhasePillView extends StatelessWidget {
               ],
             ),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 14,
+              ),
               decoration: const BoxDecoration(
                 color: kViolet600,
                 borderRadius: BorderRadius.all(Radius.circular(14)),
@@ -966,7 +996,9 @@ class PhasePillView extends StatelessWidget {
       decoration: const BoxDecoration(
         color: kViolet50,
         borderRadius: BorderRadius.all(Radius.circular(12)),
-        border: Border.fromBorderSide(BorderSide(color: kViolet100, width: 1)),
+        border: Border.fromBorderSide(
+          BorderSide(color: kViolet100, width: 1),
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -986,7 +1018,10 @@ class PhasePillView extends StatelessWidget {
           Text(
             pill.moment,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: kInkMuted, fontSize: 10.5),
+            style: const TextStyle(
+              color: kInkMuted,
+              fontSize: 10.5,
+            ),
           ),
         ],
       ),
@@ -1020,7 +1055,11 @@ class TooltipBubble extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Icon(Icons.arrow_downward, size: 12, color: kViolet900),
+              const Icon(
+                Icons.arrow_downward,
+                size: 12,
+                color: kViolet900,
+              ),
               const SizedBox(width: 4),
               Text(
                 text,
@@ -1047,7 +1086,11 @@ class PhaseConnector extends StatelessWidget {
       width: 22,
       height: 56,
       child: Center(
-        child: Icon(Icons.chevron_right, color: kViolet300, size: 22),
+        child: Icon(
+          Icons.chevron_right,
+          color: kViolet300,
+          size: 22,
+        ),
       ),
     );
   }
@@ -1160,7 +1203,11 @@ class FieldSquare extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Icon(field.icon, color: field.teardrop, size: 20),
+                    child: Icon(
+                      field.icon,
+                      color: field.teardrop,
+                      size: 20,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -1394,10 +1441,7 @@ class ConstructionSample extends StatelessWidget {
             kind: CodeLineKind.comment,
           ),
           const SizedBox(height: 6),
-          CodeLine(
-            text: '// timeStamp: $timeStampText',
-            kind: CodeLineKind.comment,
-          ),
+          CodeLine(text: '// timeStamp: $timeStampText', kind: CodeLineKind.comment),
           CodeLine(text: '// position:  $position', kind: CodeLineKind.comment),
         ],
       ),
@@ -1415,7 +1459,10 @@ class CodeDot extends StatelessWidget {
     return Container(
       width: 10,
       height: 10,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }
@@ -1547,7 +1594,9 @@ class ReadoutCellView extends StatelessWidget {
       decoration: const BoxDecoration(
         color: kSurfaceCard,
         borderRadius: BorderRadius.all(Radius.circular(12)),
-        border: Border.fromBorderSide(BorderSide(color: kViolet100, width: 1)),
+        border: Border.fromBorderSide(
+          BorderSide(color: kViolet100, width: 1),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1634,12 +1683,18 @@ class TrackpadDiagram extends StatelessWidget {
       decoration: const BoxDecoration(
         color: kSurfaceCard,
         borderRadius: BorderRadius.all(Radius.circular(18)),
-        border: Border.fromBorderSide(BorderSide(color: kViolet100, width: 1)),
+        border: Border.fromBorderSide(
+          BorderSide(color: kViolet100, width: 1),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          const SizedBox(width: 320, height: 220, child: TrackpadStage()),
+          const SizedBox(
+            width: 320,
+            height: 220,
+            child: TrackpadStage(),
+          ),
           const SizedBox(height: 14),
           Wrap(
             alignment: WrapAlignment.center,
@@ -1685,27 +1740,55 @@ class TrackpadStage extends StatelessWidget {
           child: TrackpadSurface(),
         ),
         // Center START dot
-        Positioned(left: 140, top: 90, child: StartDot()),
+        Positioned(
+          left: 140,
+          top: 90,
+          child: StartDot(),
+        ),
         // Three converging fingers
         Positioned(
           left: 30,
           top: 40,
-          child: FingerGlyph(label: '1', color: kViolet500, angle: 0.6),
+          child: FingerGlyph(
+            label: '1',
+            color: kViolet500,
+            angle: 0.6,
+          ),
         ),
         Positioned(
           right: 36,
           top: 38,
-          child: FingerGlyph(label: '2', color: kViolet600, angle: -0.6),
+          child: FingerGlyph(
+            label: '2',
+            color: kViolet600,
+            angle: -0.6,
+          ),
         ),
         Positioned(
           left: 142,
           bottom: 26,
-          child: FingerGlyph(label: '3', color: kViolet700, angle: 0.0),
+          child: FingerGlyph(
+            label: '3',
+            color: kViolet700,
+            angle: 0.0,
+          ),
         ),
         // Converge arrows (drawn as small chevrons)
-        Positioned(left: 78, top: 78, child: ChevronGlyph(angle: 0.6)),
-        Positioned(right: 86, top: 76, child: ChevronGlyph(angle: -0.6)),
-        Positioned(left: 156, bottom: 70, child: ChevronGlyph(angle: 1.5708)),
+        Positioned(
+          left: 78,
+          top: 78,
+          child: ChevronGlyph(angle: 0.6),
+        ),
+        Positioned(
+          right: 86,
+          top: 76,
+          child: ChevronGlyph(angle: -0.6),
+        ),
+        Positioned(
+          left: 156,
+          bottom: 70,
+          child: ChevronGlyph(angle: 1.5708),
+        ),
       ],
     );
   }
@@ -1724,7 +1807,9 @@ class TrackpadSurface extends StatelessWidget {
           colors: <Color>[kTeal100, kTeal200],
         ),
         borderRadius: BorderRadius.all(Radius.circular(20)),
-        border: Border.fromBorderSide(BorderSide(color: kTeal400, width: 2)),
+        border: Border.fromBorderSide(
+          BorderSide(color: kTeal400, width: 2),
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Color(0x14000000),
@@ -1794,7 +1879,11 @@ class StartDot extends StatelessWidget {
           stops: <double>[0.0, 0.7, 1.0],
         ),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: Color(0x66B45309), blurRadius: 18, spreadRadius: 2),
+          BoxShadow(
+            color: Color(0x66B45309),
+            blurRadius: 18,
+            spreadRadius: 2,
+          ),
         ],
       ),
       child: const Center(
@@ -1954,7 +2043,9 @@ class CompareTable extends StatelessWidget {
       decoration: const BoxDecoration(
         color: kSurfaceCard,
         borderRadius: BorderRadius.all(Radius.circular(18)),
-        border: Border.fromBorderSide(BorderSide(color: kViolet100, width: 1)),
+        border: Border.fromBorderSide(
+          BorderSide(color: kViolet100, width: 1),
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Color(0x14000000),
@@ -1998,7 +2089,9 @@ class CompareColumnView extends StatelessWidget {
             : kSurface,
         borderRadius: const BorderRadius.all(Radius.circular(14)),
         border: Border.all(
-          color: column.current ? column.accent : kViolet100,
+          color: column.current
+              ? column.accent
+              : kViolet100,
           width: column.current ? 2 : 1,
         ),
       ),
@@ -2061,8 +2154,7 @@ class CompareColumnView extends StatelessWidget {
           const SizedBox(height: 12),
           const CompareSubheading(label: 'Carries'),
           const SizedBox(height: 4),
-          for (final String c in column.carries)
-            CompareBullet(text: c, ok: true),
+          for (final String c in column.carries) CompareBullet(text: c, ok: true),
           const SizedBox(height: 8),
           const CompareSubheading(label: 'Missing'),
           const SizedBox(height: 4),
@@ -2120,9 +2212,8 @@ class CompareBullet extends StatelessWidget {
                 fontSize: 11.5,
                 height: 1.35,
                 fontFamily: 'monospace',
-                decoration: ok
-                    ? TextDecoration.none
-                    : TextDecoration.lineThrough,
+                decoration:
+                    ok ? TextDecoration.none : TextDecoration.lineThrough,
               ),
             ),
           ),
@@ -2163,9 +2254,8 @@ class UseCaseGrid extends StatelessWidget {
     final List<Widget> rows = <Widget>[];
     for (int i = 0; i < entries.length; i += 2) {
       final UseCaseEntry left = entries[i];
-      final UseCaseEntry? right = (i + 1 < entries.length)
-          ? entries[i + 1]
-          : null;
+      final UseCaseEntry? right =
+          (i + 1 < entries.length) ? entries[i + 1] : null;
       rows.add(
         Padding(
           padding: const EdgeInsets.only(bottom: 14),
@@ -2208,7 +2298,9 @@ class UseCaseCard extends StatelessWidget {
       decoration: const BoxDecoration(
         color: kSurfaceCard,
         borderRadius: BorderRadius.all(Radius.circular(18)),
-        border: Border.fromBorderSide(BorderSide(color: kViolet100, width: 1)),
+        border: Border.fromBorderSide(
+          BorderSide(color: kViolet100, width: 1),
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Color(0x10000000),
@@ -2371,9 +2463,8 @@ class CaveatRow extends StatelessWidget {
                       height: 38,
                       decoration: BoxDecoration(
                         color: entry.tint.withValues(alpha: 0.15),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
                       ),
                       child: Icon(entry.icon, color: entry.tint, size: 20),
                     ),
@@ -2472,45 +2563,48 @@ class TakeawayFooter extends StatelessWidget {
           Expanded(
             child: Container(
               padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
-              decoration: const BoxDecoration(
-                color: kSurfaceCard,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-                border: Border.fromBorderSide(
-                  BorderSide(color: kViolet100, width: 1),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.summarize_outlined,
-                        color: kViolet600,
-                        size: 20,
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'Takeaways',
-                        style: TextStyle(
-                          color: kInkPrimary,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  for (int i = 0; i < takeaways.length; i++) ...<Widget>[
-                    TakeawayItem(index: i + 1, line: takeaways[i]),
-                    if (i != takeaways.length - 1) const SizedBox(height: 10),
-                  ],
-                ],
+            decoration: const BoxDecoration(
+              color: kSurfaceCard,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              border: Border.fromBorderSide(
+                BorderSide(color: kViolet100, width: 1),
               ),
             ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.summarize_outlined,
+                      color: kViolet600,
+                      size: 20,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Takeaways',
+                      style: TextStyle(
+                        color: kInkPrimary,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                for (int i = 0; i < takeaways.length; i++) ...<Widget>[
+                  TakeawayItem(
+                    index: i + 1,
+                    line: takeaways[i],
+                  ),
+                  if (i != takeaways.length - 1) const SizedBox(height: 10),
+                ],
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
+    ),
     );
   }
 }
@@ -2526,7 +2620,11 @@ class SidebarStripe extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[kViolet400, kViolet600, kViolet800],
+          colors: <Color>[
+            kViolet400,
+            kViolet600,
+            kViolet800,
+          ],
         ),
         borderRadius: BorderRadius.all(Radius.circular(8)),
         boxShadow: <BoxShadow>[
@@ -2545,7 +2643,11 @@ class TakeawayItem extends StatelessWidget {
   final int index;
   final TakeawayLine line;
 
-  const TakeawayItem({super.key, required this.index, required this.line});
+  const TakeawayItem({
+    super.key,
+    required this.index,
+    required this.line,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2558,7 +2660,9 @@ class TakeawayItem extends StatelessWidget {
           decoration: const BoxDecoration(
             color: kViolet50,
             shape: BoxShape.circle,
-            border: Border.fromBorderSide(BorderSide(color: kViolet300)),
+            border: Border.fromBorderSide(
+              BorderSide(color: kViolet300),
+            ),
           ),
           child: Center(
             child: Text(
@@ -2620,7 +2724,9 @@ class SignaturePill extends StatelessWidget {
         decoration: const BoxDecoration(
           color: kViolet50,
           borderRadius: BorderRadius.all(Radius.circular(999)),
-          border: Border.fromBorderSide(BorderSide(color: kViolet200)),
+          border: Border.fromBorderSide(
+            BorderSide(color: kViolet200),
+          ),
         ),
         child: const Row(
           mainAxisSize: MainAxisSize.min,
@@ -2691,7 +2797,9 @@ class SectionHeading extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: tint,
-                      borderRadius: const BorderRadius.all(Radius.circular(6)),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(6),
+                      ),
                     ),
                     child: Text(
                       number,

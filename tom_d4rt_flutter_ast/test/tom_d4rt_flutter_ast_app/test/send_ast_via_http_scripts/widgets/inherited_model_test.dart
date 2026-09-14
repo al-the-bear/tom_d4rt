@@ -161,7 +161,10 @@ dynamic build(BuildContext context) {
         backgroundColor: palette.background,
         body: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 28),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 28,
+              vertical: 28,
+            ),
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1180),
@@ -249,7 +252,11 @@ class _PrivateSectionHero extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [palette.primary, palette.tertiary, palette.secondary],
+          colors: [
+            palette.primary,
+            palette.tertiary,
+            palette.secondary,
+          ],
           stops: const [0.0, 0.55, 1.0],
         ),
         borderRadius: BorderRadius.circular(28),
@@ -340,19 +347,35 @@ class _PrivateSectionHero extends StatelessWidget {
               'lets descendants declare which *aspect* of the model they '
               'care about -- and the framework only notifies them when '
               'that aspect actually changed.',
-              style: TextStyle(color: Colors.white, fontSize: 15, height: 1.55),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                height: 1.55,
+              ),
             ),
           ),
           const SizedBox(height: 22),
           Row(
             children: [
-              _PrivateHeroStat(value: '1', label: 'aspect per subscription'),
+              _PrivateHeroStat(
+                value: '1',
+                label: 'aspect per subscription',
+              ),
               const SizedBox(width: 18),
-              _PrivateHeroStat(value: 'O(deps)', label: 'dispatch cost'),
+              _PrivateHeroStat(
+                value: 'O(deps)',
+                label: 'dispatch cost',
+              ),
               const SizedBox(width: 18),
-              _PrivateHeroStat(value: '6', label: 'aspects in this demo'),
+              _PrivateHeroStat(
+                value: '6',
+                label: 'aspects in this demo',
+              ),
               const SizedBox(width: 18),
-              _PrivateHeroStat(value: '0', label: 'wasted rebuilds'),
+              _PrivateHeroStat(
+                value: '0',
+                label: 'wasted rebuilds',
+              ),
             ],
           ),
         ],
@@ -625,7 +648,10 @@ class _PrivateAnatomyNode extends StatelessWidget {
 }
 
 class _PrivateTreeBranch extends StatelessWidget {
-  const _PrivateTreeBranch({required this.palette, required this.count});
+  const _PrivateTreeBranch({
+    required this.palette,
+    required this.count,
+  });
 
   final _PrivateColorPalette palette;
   final int count;
@@ -637,7 +663,10 @@ class _PrivateTreeBranch extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List<Widget>.generate(count, (int i) {
-          return Container(width: 2, color: palette.border);
+          return Container(
+            width: 2,
+            color: palette.border,
+          );
         }),
       ),
     );
@@ -846,7 +875,10 @@ class _PrivateAspectConsumerCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 4,
+            ),
             decoration: BoxDecoration(
               color: swatch.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(999),
@@ -905,36 +937,12 @@ class _PrivateSectionContrastBroad extends StatelessWidget {
                 'Cost grows linearly with dependent count.',
               ],
               bars: [
-                _PrivateBarSlice(
-                  label: 'primary',
-                  filled: true,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'secondary',
-                  filled: true,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'tertiary',
-                  filled: true,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'success',
-                  filled: true,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'warning',
-                  filled: true,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'danger',
-                  filled: true,
-                  palette: palette,
-                ),
+                _PrivateBarSlice(label: 'primary', filled: true, palette: palette),
+                _PrivateBarSlice(label: 'secondary', filled: true, palette: palette),
+                _PrivateBarSlice(label: 'tertiary', filled: true, palette: palette),
+                _PrivateBarSlice(label: 'success', filled: true, palette: palette),
+                _PrivateBarSlice(label: 'warning', filled: true, palette: palette),
+                _PrivateBarSlice(label: 'danger', filled: true, palette: palette),
               ],
             ),
           ),
@@ -953,36 +961,12 @@ class _PrivateSectionContrastBroad extends StatelessWidget {
                 'Cost scales with *changed aspects*, not dependent count.',
               ],
               bars: [
-                _PrivateBarSlice(
-                  label: 'primary',
-                  filled: true,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'secondary',
-                  filled: false,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'tertiary',
-                  filled: false,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'success',
-                  filled: false,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'warning',
-                  filled: false,
-                  palette: palette,
-                ),
-                _PrivateBarSlice(
-                  label: 'danger',
-                  filled: false,
-                  palette: palette,
-                ),
+                _PrivateBarSlice(label: 'primary', filled: true, palette: palette),
+                _PrivateBarSlice(label: 'secondary', filled: false, palette: palette),
+                _PrivateBarSlice(label: 'tertiary', filled: false, palette: palette),
+                _PrivateBarSlice(label: 'success', filled: false, palette: palette),
+                _PrivateBarSlice(label: 'warning', filled: false, palette: palette),
+                _PrivateBarSlice(label: 'danger', filled: false, palette: palette),
               ],
             ),
           ),
@@ -1178,7 +1162,8 @@ class _PrivateSectionUpdateMethods extends StatelessWidget {
             tone: palette.primary,
             method: 'updateShouldNotify(T oldWidget) -> bool',
             triggers: 'Once per InheritedModel update',
-            answers: 'Should we even bother walking the dependent list at all?',
+            answers:
+                'Should we even bother walking the dependent list at all?',
             tip:
                 'Return true if *any* aspect could conceivably have changed. '
                 'Return false to skip the entire notification step.',
@@ -1280,7 +1265,10 @@ class _PrivateMethodRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 6,
+            ),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(8),
@@ -1308,7 +1296,11 @@ class _PrivateMethodRow extends StatelessWidget {
             value: answers,
           ),
           const SizedBox(height: 6),
-          _PrivateLabeledLine(palette: palette, label: 'tip', value: tip),
+          _PrivateLabeledLine(
+            palette: palette,
+            label: 'tip',
+            value: tip,
+          ),
         ],
       ),
     );
@@ -1660,7 +1652,10 @@ class _PrivateMediaQueryEntry {
 }
 
 class _PrivateMediaQueryChip extends StatelessWidget {
-  const _PrivateMediaQueryChip({required this.palette, required this.entry});
+  const _PrivateMediaQueryChip({
+    required this.palette,
+    required this.entry,
+  });
 
   final _PrivateColorPalette palette;
   final _PrivateMediaQueryEntry entry;
@@ -1715,7 +1710,11 @@ class _PrivateMediaQueryChip extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             entry.oneLiner,
-            style: TextStyle(color: palette.inkSoft, fontSize: 11, height: 1.5),
+            style: TextStyle(
+              color: palette.inkSoft,
+              fontSize: 11,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -1836,7 +1835,10 @@ class _PrivatePerfBar extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       row.sublabel,
-                      style: TextStyle(color: palette.inkSoft, fontSize: 11),
+                      style: TextStyle(
+                        color: palette.inkSoft,
+                        fontSize: 11,
+                      ),
                     ),
                   ],
                 ),
@@ -1878,7 +1880,10 @@ class _PrivatePerfBar extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [row.color.withValues(alpha: 0.7), row.color],
+                        colors: [
+                          row.color.withValues(alpha: 0.7),
+                          row.color,
+                        ],
                       ),
                     ),
                   ),
@@ -1994,7 +1999,10 @@ class _PrivatePitfall {
 }
 
 class _PrivatePitfallCard extends StatelessWidget {
-  const _PrivatePitfallCard({required this.palette, required this.pitfall});
+  const _PrivatePitfallCard({
+    required this.palette,
+    required this.pitfall,
+  });
 
   final _PrivateColorPalette palette;
   final _PrivatePitfall pitfall;
@@ -2137,7 +2145,10 @@ class _PrivateSectionFooter extends StatelessWidget {
           ),
           const SizedBox(width: 24),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 18,
+              vertical: 14,
+            ),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(14),

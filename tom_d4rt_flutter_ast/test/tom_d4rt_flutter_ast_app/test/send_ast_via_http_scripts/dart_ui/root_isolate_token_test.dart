@@ -115,42 +115,42 @@ dynamic build(BuildContext context) {
     <String>[
       'RootIsolateToken',
       'class',
-      'Opaque handle bound to the root isolate of the engine. Sendable.',
+      'Opaque handle bound to the root isolate of the engine. Sendable.'
     ],
     <String>[
       'RootIsolateToken.instance',
       'static getter',
-      'Returns the token for the current root isolate, or null off-root.',
+      'Returns the token for the current root isolate, or null off-root.'
     ],
     <String>[
       'BackgroundIsolateBinaryMessenger',
       'class',
-      'A BinaryMessenger usable from a non-root isolate after ensureInitialized.',
+      'A BinaryMessenger usable from a non-root isolate after ensureInitialized.'
     ],
     <String>[
       'BackgroundIsolateBinaryMessenger.ensureInitialized(token)',
       'static method',
-      'Binds the calling isolate to the root isolate using the supplied token.',
+      'Binds the calling isolate to the root isolate using the supplied token.'
     ],
     <String>[
       'ServicesBinding.instance.defaultBinaryMessenger',
       'getter',
-      'Resolves to the BackgroundIsolateBinaryMessenger when initialized.',
+      'Resolves to the BackgroundIsolateBinaryMessenger when initialized.'
     ],
     <String>[
       'MethodChannel.invokeMethod',
       'instance method',
-      'Becomes safe on a background isolate once the messenger is initialized.',
+      'Becomes safe on a background isolate once the messenger is initialized.'
     ],
     <String>[
       'Isolate.spawn',
       'static method',
-      'Standard Dart API used to start the background worker that holds the token.',
+      'Standard Dart API used to start the background worker that holds the token.'
     ],
     <String>[
       'compute<Q,R>(fn, msg)',
       'top-level function',
-      'Higher-level helper — does NOT wire RootIsolateToken; channels won\'t work.',
+      'Higher-level helper — does NOT wire RootIsolateToken; channels won\'t work.'
     ],
   ];
 
@@ -386,23 +386,11 @@ dynamic build(BuildContext context) {
     <String>['2', 'main', 'create ReceivePort rp'],
     <String>['3', 'main', 'Isolate.spawn(entry, [token, rp.sendPort])'],
     <String>['4', 'bg ', 'entry receives [token, parentSendPort]'],
-    <String>[
-      '5',
-      'bg ',
-      'BackgroundIsolateBinaryMessenger.ensureInitialized(token)',
-    ],
-    <String>[
-      '6',
-      'bg ',
-      'create local ReceivePort and send sendPort to parent',
-    ],
+    <String>['5', 'bg ', 'BackgroundIsolateBinaryMessenger.ensureInitialized(token)'],
+    <String>['6', 'bg ', 'create local ReceivePort and send sendPort to parent'],
     <String>['7', 'main', 'rp.listen receives bg sendPort'],
     <String>['8', 'main', 'send Job over bg sendPort'],
-    <String>[
-      '9',
-      'bg ',
-      'process Job using MethodChannel("plugin").invokeMethod',
-    ],
+    <String>['9', 'bg ', 'process Job using MethodChannel("plugin").invokeMethod'],
     <String>['10', 'bg ', 'reply with Result through parent sendPort'],
     <String>['11', 'main', 'consume Result, update UI on root isolate'],
     <String>['12', 'main', 'optionally tear down bg via Isolate.kill'],
@@ -442,34 +430,14 @@ dynamic build(BuildContext context) {
   // TIMELINE / LIFECYCLE BARS
   // ---------------------------------------------------------------------------
   final List<List<dynamic>> lifecycleBars = <List<dynamic>>[
-    <dynamic>[
-      'boot',
-      0.05,
-      rootEmerald,
-      'Engine launches; root isolate created',
-    ],
+    <dynamic>['boot', 0.05, rootEmerald, 'Engine launches; root isolate created'],
     <dynamic>['runApp', 0.10, rootMint, 'Widgets mount; messenger ready'],
-    <dynamic>[
-      'idle',
-      0.20,
-      forestMid,
-      'UI runs frames; no background work yet',
-    ],
-    <dynamic>[
-      'spawn',
-      0.05,
-      spawnMagenta,
-      'Isolate.spawn(entry, [token, port])',
-    ],
+    <dynamic>['idle', 0.20, forestMid, 'UI runs frames; no background work yet'],
+    <dynamic>['spawn', 0.05, spawnMagenta, 'Isolate.spawn(entry, [token, port])'],
     <dynamic>['ensure', 0.05, tokenAmber, 'ensureInitialized(token) in worker'],
     <dynamic>['working', 0.30, bgTeal, 'Background plugin calls + computation'],
     <dynamic>['reply', 0.05, spawnBlush, 'SendPort delivers result'],
-    <dynamic>[
-      'idle2',
-      0.15,
-      forestMid,
-      'UI consumes result; bg holds for next job',
-    ],
+    <dynamic>['idle2', 0.15, forestMid, 'UI consumes result; bg holds for next job'],
     <dynamic>['kill', 0.05, warningRust, 'Optional Isolate.kill teardown'],
   ];
 
@@ -515,10 +483,7 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(4),
-              border: Border.all(
-                color: paperBone.withValues(alpha: 0.25),
-                width: 1,
-              ),
+              border: Border.all(color: paperBone.withValues(alpha: 0.25), width: 1),
             ),
           ),
           const SizedBox(width: 12),
@@ -536,7 +501,13 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(desc, style: TextStyle(color: paperWarm, fontSize: 11)),
+                Text(
+                  desc,
+                  style: TextStyle(
+                    color: paperWarm,
+                    fontSize: 11,
+                  ),
+                ),
               ],
             ),
           ),
@@ -545,12 +516,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget sectionHeader(
-    String number,
-    String title,
-    String subtitle,
-    Color accent,
-  ) {
+  Widget sectionHeader(String number, String title, String subtitle, Color accent) {
     return Container(
       margin: const EdgeInsets.only(top: 24, bottom: 12),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -564,7 +530,9 @@ dynamic build(BuildContext context) {
           ],
         ),
         borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: accent, width: 4)),
+        border: Border(
+          left: BorderSide(color: accent, width: 4),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -640,17 +608,15 @@ dynamic build(BuildContext context) {
   Widget asciiBox(List<String> lines, Color color) {
     final List<Widget> rendered = <Widget>[];
     for (int i = 0; i < lines.length; i = i + 1) {
-      rendered.add(
-        Text(
-          lines[i],
-          style: TextStyle(
-            color: color,
-            fontSize: 11,
-            fontFamily: 'monospace',
-            height: 1.25,
-          ),
+      rendered.add(Text(
+        lines[i],
+        style: TextStyle(
+          color: color,
+          fontSize: 11,
+          fontFamily: 'monospace',
+          height: 1.25,
         ),
-      );
+      ));
     }
     return Container(
       width: double.infinity,
@@ -677,13 +643,14 @@ dynamic build(BuildContext context) {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[forestDeep, forestMid, forestNight],
+          colors: <Color>[
+            forestDeep,
+            forestMid,
+            forestNight,
+          ],
         ),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: tokenAmber.withValues(alpha: 0.45),
-          width: 1.5,
-        ),
+        border: Border.all(color: tokenAmber.withValues(alpha: 0.45), width: 1.5),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: tokenAmber.withValues(alpha: 0.18),
@@ -736,7 +703,11 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
-                    colors: <Color>[rootMint, rootEmerald, forestDeep],
+                    colors: <Color>[
+                      rootMint,
+                      rootEmerald,
+                      forestDeep,
+                    ],
                   ),
                   border: Border.all(color: rootMint, width: 2),
                   boxShadow: <BoxShadow>[
@@ -775,10 +746,7 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     Container(
                       margin: const EdgeInsets.only(bottom: 4),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
                         color: tokenAmber,
                         borderRadius: BorderRadius.circular(3),
@@ -834,7 +802,11 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
-                    colors: <Color>[bgTeal, bgTealDeep, forestDeep],
+                    colors: <Color>[
+                      bgTeal,
+                      bgTealDeep,
+                      forestDeep,
+                    ],
                   ),
                   border: Border.all(color: bgTeal, width: 2),
                   boxShadow: <BoxShadow>[
@@ -875,10 +847,7 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: forestNight.withValues(alpha: 0.6),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: tokenAmber.withValues(alpha: 0.3),
-                width: 1,
-              ),
+              border: Border.all(color: tokenAmber.withValues(alpha: 0.3), width: 1),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -982,302 +951,283 @@ dynamic build(BuildContext context) {
   final List<Widget> swatchWidgets = <Widget>[];
   for (int i = 0; i < paletteRows.length; i = i + 1) {
     final List<dynamic> row = paletteRows[i];
-    swatchWidgets.add(
-      swatch(row[0] as String, row[1] as Color, row[2] as String),
-    );
+    swatchWidgets.add(swatch(row[0] as String, row[1] as Color, row[2] as String));
   }
 
   // API section: a striped table.
   final List<Widget> apiWidgets = <Widget>[];
-  apiWidgets.add(
-    Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        color: tokenAmber.withValues(alpha: 0.18),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(6),
-          topRight: Radius.circular(6),
-        ),
+  apiWidgets.add(Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    decoration: BoxDecoration(
+      color: tokenAmber.withValues(alpha: 0.18),
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(6),
+        topRight: Radius.circular(6),
       ),
+    ),
+    child: Row(
+      children: <Widget>[
+        Expanded(
+          flex: 4,
+          child: Text(
+            'symbol',
+            style: TextStyle(
+              color: tokenAmber,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+              letterSpacing: 1.0,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(
+            'kind',
+            style: TextStyle(
+              color: tokenAmber,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+              letterSpacing: 1.0,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 6,
+          child: Text(
+            'description',
+            style: TextStyle(
+              color: tokenAmber,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+              letterSpacing: 1.0,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ));
+  for (int i = 0; i < apiRows.length; i = i + 1) {
+    final List<String> r = apiRows[i];
+    final Color stripe = (i % 2 == 0) ? forestDeep : forestMid;
+    apiWidgets.add(Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      color: stripe,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
             flex: 4,
             child: Text(
-              'symbol',
+              r[0],
               style: TextStyle(
-                color: tokenAmber,
-                fontWeight: FontWeight.w800,
-                fontSize: 11,
-                letterSpacing: 1.0,
+                color: spawnBlush,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
           Expanded(
             flex: 2,
             child: Text(
-              'kind',
-              style: TextStyle(
-                color: tokenAmber,
-                fontWeight: FontWeight.w800,
-                fontSize: 11,
-                letterSpacing: 1.0,
-              ),
+              r[1],
+              style: TextStyle(color: paperWarm, fontSize: 11),
             ),
           ),
           Expanded(
             flex: 6,
             child: Text(
-              'description',
-              style: TextStyle(
-                color: tokenAmber,
-                fontWeight: FontWeight.w800,
-                fontSize: 11,
-                letterSpacing: 1.0,
-              ),
+              r[2],
+              style: TextStyle(color: paperBone, fontSize: 11.5, height: 1.35),
             ),
           ),
         ],
       ),
-    ),
-  );
-  for (int i = 0; i < apiRows.length; i = i + 1) {
-    final List<String> r = apiRows[i];
-    final Color stripe = (i % 2 == 0) ? forestDeep : forestMid;
-    apiWidgets.add(
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        color: stripe,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              flex: 4,
-              child: Text(
-                r[0],
-                style: TextStyle(
-                  color: spawnBlush,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Text(
-                r[1],
-                style: TextStyle(color: paperWarm, fontSize: 11),
-              ),
-            ),
-            Expanded(
-              flex: 6,
-              child: Text(
-                r[2],
-                style: TextStyle(
-                  color: paperBone,
-                  fontSize: 11.5,
-                  height: 1.35,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    ));
   }
 
   // Scenario panels.
   final List<Widget> scenarioWidgets = <Widget>[];
   for (int i = 0; i < scenarios.length; i = i + 1) {
     final List<String> s = scenarios[i];
-    scenarioWidgets.add(
-      Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: forestDeep,
-          borderRadius: BorderRadius.circular(8),
-          border: Border(left: BorderSide(color: bgTeal, width: 4)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  width: 24,
-                  height: 24,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: bgTeal,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    '${i + 1}',
-                    style: TextStyle(
-                      color: forestNight,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    s[0],
-                    style: TextStyle(
-                      color: paperBone,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              s[1],
-              style: TextStyle(color: paperBone, fontSize: 12.5, height: 1.4),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              s[2],
-              style: TextStyle(
-                color: cautionMustard,
-                fontSize: 11.5,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(s[3], style: TextStyle(color: spawnBlush, fontSize: 11.5)),
-          ],
+    scenarioWidgets.add(Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: forestDeep,
+        borderRadius: BorderRadius.circular(8),
+        border: Border(
+          left: BorderSide(color: bgTeal, width: 4),
         ),
       ),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 24,
+                height: 24,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: bgTeal,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  '${i + 1}',
+                  style: TextStyle(
+                    color: forestNight,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  s[0],
+                  style: TextStyle(
+                    color: paperBone,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            s[1],
+            style: TextStyle(color: paperBone, fontSize: 12.5, height: 1.4),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            s[2],
+            style: TextStyle(
+              color: cautionMustard,
+              fontSize: 11.5,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            s[3],
+            style: TextStyle(color: spawnBlush, fontSize: 11.5),
+          ),
+        ],
+      ),
+    ));
   }
 
   // Comparison table.
   final List<Widget> compareWidgets = <Widget>[];
-  compareWidgets.add(
-    Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        color: spawnMagenta.withValues(alpha: 0.22),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(6),
-          topRight: Radius.circular(6),
-        ),
+  compareWidgets.add(Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    decoration: BoxDecoration(
+      color: spawnMagenta.withValues(alpha: 0.22),
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(6),
+        topRight: Radius.circular(6),
       ),
+    ),
+    child: Row(
+      children: <Widget>[
+        Expanded(
+          flex: 3,
+          child: Text(
+            'tool',
+            style: TextStyle(
+              color: spawnBlush,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+              letterSpacing: 1.0,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Text(
+            'category',
+            style: TextStyle(
+              color: spawnBlush,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+              letterSpacing: 1.0,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 5,
+          child: Text(
+            'role',
+            style: TextStyle(
+              color: spawnBlush,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+              letterSpacing: 1.0,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 5,
+          child: Text(
+            'note',
+            style: TextStyle(
+              color: spawnBlush,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+              letterSpacing: 1.0,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ));
+  for (int i = 0; i < compareRows.length; i = i + 1) {
+    final List<String> r = compareRows[i];
+    final Color stripe = (i % 2 == 0) ? forestDeep : forestMid;
+    compareWidgets.add(Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      color: stripe,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
             flex: 3,
             child: Text(
-              'tool',
+              r[0],
               style: TextStyle(
                 color: spawnBlush,
-                fontWeight: FontWeight.w800,
-                fontSize: 11,
-                letterSpacing: 1.0,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
           Expanded(
             flex: 3,
             child: Text(
-              'category',
-              style: TextStyle(
-                color: spawnBlush,
-                fontWeight: FontWeight.w800,
-                fontSize: 11,
-                letterSpacing: 1.0,
-              ),
+              r[1],
+              style: TextStyle(color: paperWarm, fontSize: 11),
             ),
           ),
           Expanded(
             flex: 5,
             child: Text(
-              'role',
-              style: TextStyle(
-                color: spawnBlush,
-                fontWeight: FontWeight.w800,
-                fontSize: 11,
-                letterSpacing: 1.0,
-              ),
+              r[2],
+              style: TextStyle(color: paperBone, fontSize: 11.5, height: 1.35),
             ),
           ),
           Expanded(
             flex: 5,
             child: Text(
-              'note',
-              style: TextStyle(
-                color: spawnBlush,
-                fontWeight: FontWeight.w800,
-                fontSize: 11,
-                letterSpacing: 1.0,
-              ),
+              r[3],
+              style: TextStyle(color: cautionMustard, fontSize: 11.5, height: 1.35),
             ),
           ),
         ],
       ),
-    ),
-  );
-  for (int i = 0; i < compareRows.length; i = i + 1) {
-    final List<String> r = compareRows[i];
-    final Color stripe = (i % 2 == 0) ? forestDeep : forestMid;
-    compareWidgets.add(
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        color: stripe,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Text(
-                r[0],
-                style: TextStyle(
-                  color: spawnBlush,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Text(
-                r[1],
-                style: TextStyle(color: paperWarm, fontSize: 11),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Text(
-                r[2],
-                style: TextStyle(
-                  color: paperBone,
-                  fontSize: 11.5,
-                  height: 1.35,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Text(
-                r[3],
-                style: TextStyle(
-                  color: cautionMustard,
-                  fontSize: 11.5,
-                  height: 1.35,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    ));
   }
 
   // Sequence diagram.
@@ -1286,136 +1236,124 @@ dynamic build(BuildContext context) {
     final List<String> step = sequenceRows[i];
     final bool isMain = step[1].trim() == 'main';
     final Color sideColor = isMain ? rootEmerald : bgTeal;
-    sequenceWidgets.add(
-      Container(
-        margin: const EdgeInsets.only(bottom: 4),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-        decoration: BoxDecoration(
-          color: forestDeep,
-          borderRadius: BorderRadius.circular(4),
-          border: Border(left: BorderSide(color: sideColor, width: 4)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 28,
-              alignment: Alignment.center,
-              child: Text(
-                step[0],
-                style: TextStyle(
-                  color: tokenAmber,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ),
-            Container(
-              width: 56,
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              margin: const EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                color: sideColor.withValues(alpha: 0.22),
-                borderRadius: BorderRadius.circular(3),
-              ),
-              child: Text(
-                step[1],
-                style: TextStyle(
-                  color: sideColor,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                  fontFamily: 'monospace',
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                step[2],
-                style: TextStyle(
-                  color: paperBone,
-                  fontSize: 11.5,
-                  fontFamily: 'monospace',
-                  height: 1.35,
-                ),
-              ),
-            ),
-          ],
+    sequenceWidgets.add(Container(
+      margin: const EdgeInsets.only(bottom: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+      decoration: BoxDecoration(
+        color: forestDeep,
+        borderRadius: BorderRadius.circular(4),
+        border: Border(
+          left: BorderSide(color: sideColor, width: 4),
         ),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            width: 28,
+            alignment: Alignment.center,
+            child: Text(
+              step[0],
+              style: TextStyle(
+                color: tokenAmber,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ),
+          Container(
+            width: 56,
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            margin: const EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+              color: sideColor.withValues(alpha: 0.22),
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: Text(
+              step[1],
+              style: TextStyle(
+                color: sideColor,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'monospace',
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              step[2],
+              style: TextStyle(
+                color: paperBone,
+                fontSize: 11.5,
+                fontFamily: 'monospace',
+                height: 1.35,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // Pitfalls.
   final List<Widget> pitfallWidgets = <Widget>[];
   for (int i = 0; i < pitfallRows.length; i = i + 1) {
     final List<String> p = pitfallRows[i];
-    pitfallWidgets.add(
-      Container(
-        margin: const EdgeInsets.only(bottom: 8),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: forestNight,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: warningRust.withValues(alpha: 0.6),
-            width: 1,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
-                  decoration: BoxDecoration(
-                    color: warningRust,
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                  child: Text(
-                    '!',
-                    style: TextStyle(
-                      color: paperBone,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    p[0],
-                    style: TextStyle(
-                      color: paperBone,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 6),
-            Text(
-              'symptom: ${p[1]}',
-              style: TextStyle(
-                color: cautionMustard,
-                fontSize: 11.5,
-                height: 1.35,
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              'fix: ${p[2]}',
-              style: TextStyle(color: rootMint, fontSize: 11.5, height: 1.35),
-            ),
-          ],
-        ),
+    pitfallWidgets.add(Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: forestNight,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: warningRust.withValues(alpha: 0.6), width: 1),
       ),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: warningRust,
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                child: Text(
+                  '!',
+                  style: TextStyle(
+                    color: paperBone,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  p[0],
+                  style: TextStyle(
+                    color: paperBone,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'symptom: ${p[1]}',
+            style: TextStyle(color: cautionMustard, fontSize: 11.5, height: 1.35),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            'fix: ${p[2]}',
+            style: TextStyle(color: rootMint, fontSize: 11.5, height: 1.35),
+          ),
+        ],
+      ),
+    ));
   }
 
   // Glossary.
@@ -1423,101 +1361,97 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < glossary.length; i = i + 1) {
     final List<String> g = glossary[i];
     final Color stripe = (i % 2 == 0) ? forestDeep : forestMid;
-    glossaryWidgets.add(
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        color: stripe,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Text(
-                g[0],
-                style: TextStyle(
-                  color: tokenGlow,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                ),
+    glossaryWidgets.add(Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      color: stripe,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            flex: 3,
+            child: Text(
+              g[0],
+              style: TextStyle(
+                color: tokenGlow,
+                fontWeight: FontWeight.w800,
+                fontSize: 12,
+                fontFamily: 'monospace',
               ),
             ),
-            Expanded(
-              flex: 7,
-              child: Text(
-                g[1],
-                style: TextStyle(color: paperBone, fontSize: 12, height: 1.4),
-              ),
+          ),
+          Expanded(
+            flex: 7,
+            child: Text(
+              g[1],
+              style: TextStyle(color: paperBone, fontSize: 12, height: 1.4),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
 
   // Decision flowchart.
   final List<Widget> decisionWidgets = <Widget>[];
   for (int i = 0; i < decisionRows.length; i = i + 1) {
     final List<String> d = decisionRows[i];
-    decisionWidgets.add(
-      Container(
-        margin: const EdgeInsets.only(bottom: 6),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: forestDeep,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: bgTeal.withValues(alpha: 0.4), width: 1),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: 36,
-              height: 36,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: bgTealDeep,
-                borderRadius: BorderRadius.circular(18),
-                border: Border.all(color: bgTeal, width: 2),
-              ),
-              child: Text(
-                d[0],
-                style: TextStyle(
-                  color: paperBone,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 11,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    d[1],
-                    style: TextStyle(
-                      color: paperBone,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    d[2],
-                    style: TextStyle(
-                      color: paperWarm,
-                      fontSize: 11.5,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+    decisionWidgets.add(Container(
+      margin: const EdgeInsets.only(bottom: 6),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: forestDeep,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: bgTeal.withValues(alpha: 0.4), width: 1),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: 36,
+            height: 36,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: bgTealDeep,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: bgTeal, width: 2),
+            ),
+            child: Text(
+              d[0],
+              style: TextStyle(
+                color: paperBone,
+                fontWeight: FontWeight.w900,
+                fontSize: 11,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  d[1],
+                  style: TextStyle(
+                    color: paperBone,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  d[2],
+                  style: TextStyle(
+                    color: paperWarm,
+                    fontSize: 11.5,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // Lifecycle bars.
@@ -1528,59 +1462,57 @@ dynamic build(BuildContext context) {
     final double weight = bar[1] as double;
     final Color color = bar[2] as Color;
     final String desc = bar[3] as String;
-    lifecycleWidgets.add(
-      Container(
-        margin: const EdgeInsets.only(bottom: 6),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: 70,
-              child: Text(
-                label,
-                style: TextStyle(
-                  color: color,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w800,
-                ),
+    lifecycleWidgets.add(Container(
+      margin: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            width: 70,
+            child: Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
               ),
             ),
-            Expanded(
-              child: Stack(
-                children: <Widget>[
-                  Container(
+          ),
+          Expanded(
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  height: 16,
+                  decoration: BoxDecoration(
+                    color: forestNight,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                FractionallySizedBox(
+                  widthFactor: weight * 3.0 > 1.0 ? 1.0 : weight * 3.0,
+                  child: Container(
                     height: 16,
                     decoration: BoxDecoration(
-                      color: forestNight,
+                      color: color,
                       borderRadius: BorderRadius.circular(3),
                     ),
                   ),
-                  FractionallySizedBox(
-                    widthFactor: weight * 3.0 > 1.0 ? 1.0 : weight * 3.0,
-                    child: Container(
-                      height: 16,
-                      decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(width: 10),
-            SizedBox(
-              width: 220,
-              child: Text(
-                desc,
-                style: TextStyle(color: paperWarm, fontSize: 10.5),
-              ),
+          ),
+          const SizedBox(width: 10),
+          SizedBox(
+            width: 220,
+            child: Text(
+              desc,
+              style: TextStyle(color: paperWarm, fontSize: 10.5),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
 
   // Snippet.
@@ -1597,35 +1529,33 @@ dynamic build(BuildContext context) {
     } else {
       lineColor = paperBone;
     }
-    snippetWidgets.add(
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: 28,
-            child: Text(
-              '${i + 1}',
-              style: TextStyle(
-                color: tokenAmber.withValues(alpha: 0.6),
-                fontSize: 11,
-                fontFamily: 'monospace',
-              ),
+    snippetWidgets.add(Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(
+          width: 28,
+          child: Text(
+            '${i + 1}',
+            style: TextStyle(
+              color: tokenAmber.withValues(alpha: 0.6),
+              fontSize: 11,
+              fontFamily: 'monospace',
             ),
           ),
-          Expanded(
-            child: Text(
-              line.isEmpty ? ' ' : line,
-              style: TextStyle(
-                color: lineColor,
-                fontSize: 11.5,
-                fontFamily: 'monospace',
-                height: 1.4,
-              ),
+        ),
+        Expanded(
+          child: Text(
+            line.isEmpty ? ' ' : line,
+            style: TextStyle(
+              color: lineColor,
+              fontSize: 11.5,
+              fontFamily: 'monospace',
+              height: 1.4,
             ),
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ));
   }
 
   // ---------------------------------------------------------------------------
@@ -1640,11 +1570,17 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: forestDeep,
         borderRadius: BorderRadius.circular(6),
-        border: Border(left: BorderSide(color: side, width: 3)),
+        border: Border(
+          left: BorderSide(color: side, width: 3),
+        ),
       ),
       child: Text(
         body,
-        style: TextStyle(color: paperBone, fontSize: 12.5, height: 1.55),
+        style: TextStyle(
+          color: paperBone,
+          fontSize: 12.5,
+          height: 1.55,
+        ),
       ),
     );
   }
@@ -1932,10 +1868,7 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: forestNight,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: tokenAmber.withValues(alpha: 0.45),
-                  width: 1,
-                ),
+                border: Border.all(color: tokenAmber.withValues(alpha: 0.45), width: 1),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

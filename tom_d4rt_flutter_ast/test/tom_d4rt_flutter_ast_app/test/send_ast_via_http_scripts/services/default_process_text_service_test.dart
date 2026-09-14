@@ -123,18 +123,12 @@ dynamic build(BuildContext context) {
 
   // A representative sample action so we can demonstrate
   // immutability, equality, and hashCode without any I/O.
-  final ProcessTextAction sample = ProcessTextAction(
-    'com.deepl.translate',
-    'Translate',
-  );
-  final ProcessTextAction sameSample = ProcessTextAction(
-    'com.deepl.translate',
-    'Translate',
-  );
-  final ProcessTextAction differentSample = ProcessTextAction(
-    'com.google.search',
-    'Search',
-  );
+  final ProcessTextAction sample =
+      ProcessTextAction('com.deepl.translate', 'Translate');
+  final ProcessTextAction sameSample =
+      ProcessTextAction('com.deepl.translate', 'Translate');
+  final ProcessTextAction differentSample =
+      ProcessTextAction('com.google.search', 'Search');
 
   final bool sampleEqualsSame = sample == sameSample;
   final bool sampleEqualsOther = sample == differentSample;
@@ -269,8 +263,7 @@ dynamic build(BuildContext context) {
     final Color color = galleryColors[i];
     final String subtitle = gallerySubtitles[i];
     print(
-      'Gallery[$i]: id=${action.id}, label=${action.label}, hint=$subtitle',
-    );
+        'Gallery[$i]: id=${action.id}, label=${action.label}, hint=$subtitle');
     actionCards.add(_buildActionCard(action, icon, color, subtitle));
   }
   print('Built ${actionCards.length} gallery cards');
@@ -304,7 +297,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.api, color: Colors.blueGrey.shade800, size: 24.0),
+            Icon(
+              Icons.api,
+              color: Colors.blueGrey.shade800,
+              size: 24.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'abstract class ProcessTextService',
@@ -358,32 +355,28 @@ dynamic build(BuildContext context) {
     },
     <String, Object>{
       'title': 'DefaultProcessTextService',
-      'detail':
-          'queryTextActions() invokes the SystemChannels.processText '
+      'detail': 'queryTextActions() invokes the SystemChannels.processText '
           'MethodChannel with "ProcessText.queryTextActions".',
       'icon': Icons.tune,
       'color': Colors.indigo,
     },
     <String, Object>{
       'title': 'Flutter engine (Java/Kotlin)',
-      'detail':
-          'ProcessTextPlugin queries the PackageManager for activities '
+      'detail': 'ProcessTextPlugin queries the PackageManager for activities '
           'matching ACTION_PROCESS_TEXT with mimeType text/plain.',
       'icon': Icons.android,
       'color': Colors.green,
     },
     <String, Object>{
       'title': 'Android system',
-      'detail':
-          'Returns a Map<String, String> of activity ids to localized '
+      'detail': 'Returns a Map<String, String> of activity ids to localized '
           'labels — one entry per installed text-processing app.',
       'icon': Icons.phone_android,
       'color': Colors.lime,
     },
     <String, Object>{
       'title': 'List<ProcessTextAction>',
-      'detail':
-          'The map is reshaped into immutable ProcessTextAction objects '
+      'detail': 'The map is reshaped into immutable ProcessTextAction objects '
           'and resolved as the Future returned to the toolbar.',
       'icon': Icons.list_alt,
       'color': Colors.deepPurple,
@@ -434,8 +427,7 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children:
-          <Widget>[
+      children: <Widget>[
             Center(
               child: Text(
                 'queryTextActions() — call flow',
@@ -481,7 +473,9 @@ dynamic build(BuildContext context) {
 
   final List<Widget> menuItems = <Widget>[];
   for (int i = 0; i < menuActions.length; i++) {
-    menuItems.add(_buildMenuItem(menuActions[i], menuIcons[i], menuColors[i]));
+    menuItems.add(
+      _buildMenuItem(menuActions[i], menuIcons[i], menuColors[i]),
+    );
   }
 
   final Widget selectionToolbarMock = Container(
@@ -508,7 +502,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.text_fields, color: Colors.grey.shade800, size: 22.0),
+            Icon(Icons.text_fields,
+                color: Colors.grey.shade800, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Simulated Android selection toolbar',
@@ -582,10 +577,10 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 6.0,
             runSpacing: 6.0,
-            children:
-                <Widget>[
+            children: <Widget>[
                   _buildBuiltInItem('Copy', Icons.content_copy, Colors.black87),
-                  _buildBuiltInItem('Cut', Icons.content_cut, Colors.black87),
+                  _buildBuiltInItem(
+                      'Cut', Icons.content_cut, Colors.black87),
                   Container(
                     width: 1.0,
                     height: 24.0,
@@ -638,9 +633,8 @@ dynamic build(BuildContext context) {
     final bool eq = left == right;
     final bool hashEq = left.hashCode == right.hashCode;
     print(
-      'Pair[$i]: ${left.id}/${left.label} vs ${right.id}/${right.label} '
-      '== $eq, hashEq $hashEq',
-    );
+        'Pair[$i]: ${left.id}/${left.label} vs ${right.id}/${right.label} '
+        '== $eq, hashEq $hashEq');
     equalityRows.add(_buildEqualityRow(left, right, eq, hashEq));
   }
 
@@ -665,11 +659,14 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:
-          <Widget>[
+      children: <Widget>[
             Row(
               children: [
-                Icon(Icons.balance, color: Colors.green.shade800, size: 22.0),
+                Icon(
+                  Icons.balance,
+                  color: Colors.green.shade800,
+                  size: 22.0,
+                ),
                 SizedBox(width: 8.0),
                 Text(
                   'Equality matrix',
@@ -728,7 +725,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.lock_open, color: Colors.orange.shade800, size: 22.0),
+            Icon(
+              Icons.lock_open,
+              color: Colors.orange.shade800,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'processTextAction(id, text, readOnly)',
@@ -808,7 +809,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber, color: Colors.red.shade700, size: 22.0),
+            Icon(
+              Icons.warning_amber,
+              color: Colors.red.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Expanded(
               child: Text(
@@ -1091,7 +1096,10 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8.0),
-        Wrap(alignment: WrapAlignment.center, children: actionCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: actionCards,
+        ),
         SizedBox(height: 24.0),
         Text(
           '3. ProcessTextService interface',
@@ -1272,7 +1280,10 @@ Widget _buildActionCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.25)],
+        colors: [
+          color.withValues(alpha: 0.10),
+          color.withValues(alpha: 0.25),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1435,7 +1446,10 @@ Widget _buildPipelineStage(
         Container(
           width: 28.0,
           height: 28.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
           child: Center(
             child: Text(
               '$index',
@@ -1601,7 +1615,11 @@ Widget _buildBoolBadge(String label, bool value) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(value ? Icons.check : Icons.close, color: color, size: 13.0),
+        Icon(
+          value ? Icons.check : Icons.close,
+          color: color,
+          size: 13.0,
+        ),
         SizedBox(width: 3.0),
         Text(
           label,
@@ -1665,7 +1683,11 @@ Widget _buildReadOnlyColumn({
         SizedBox(height: 8.0),
         Text(
           description,
-          style: TextStyle(fontSize: 11.5, color: Colors.black87, height: 1.35),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: Colors.black87,
+            height: 1.35,
+          ),
         ),
         SizedBox(height: 8.0),
         Container(

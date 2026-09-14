@@ -39,10 +39,8 @@ dynamic build(BuildContext context) {
       child: Center(child: Text('Fullscreen dialog body')),
     ),
   );
-  print(
-    '  pageFullscreenDialog.fullscreenDialog = '
-    '${pageFullscreenDialog.fullscreenDialog}',
-  );
+  print('  pageFullscreenDialog.fullscreenDialog = '
+      '${pageFullscreenDialog.fullscreenDialog}');
 
   final pageNonPoppable = CupertinoPage<dynamic>(
     title: 'Required',
@@ -63,9 +61,7 @@ dynamic build(BuildContext context) {
     allowSnapshotting: false,
     child: const Center(child: Text('snapshot suppressed during transition')),
   );
-  print(
-    '  pageNoSnapshot.allowSnapshotting = ${pageNoSnapshot.allowSnapshotting}',
-  );
+  print('  pageNoSnapshot.allowSnapshotting = ${pageNoSnapshot.allowSnapshotting}');
 
   final pageWithKey = CupertinoPage<dynamic>(
     key: const ValueKey<String>('keyed-cupertino-page'),
@@ -79,9 +75,7 @@ dynamic build(BuildContext context) {
     restorationId: 'cupertino-page-restoration',
     child: const Center(child: Text('survives process restart')),
   );
-  print(
-    '  pageWithRestorationId.restorationId = ${pageWithRestorationId.restorationId}',
-  );
+  print('  pageWithRestorationId.restorationId = ${pageWithRestorationId.restorationId}');
 
   final pageWithName = CupertinoPage<dynamic>(
     title: 'Named',
@@ -113,9 +107,7 @@ dynamic build(BuildContext context) {
   );
   print('  pageFullyConfigured.name = ${pageFullyConfigured.name}');
   print('  pageFullyConfigured.title = ${pageFullyConfigured.title}');
-  print(
-    '  pageFullyConfigured.fullscreenDialog = ${pageFullyConfigured.fullscreenDialog}',
-  );
+  print('  pageFullyConfigured.fullscreenDialog = ${pageFullyConfigured.fullscreenDialog}');
 
   // ---------------------------------------------------------------------------
   // Section 2: CupertinoPageRoute parameter showcase.
@@ -142,9 +134,7 @@ dynamic build(BuildContext context) {
   // gesture-enabled state is illustrated in Section 6 (anatomy diagram).
   print('  routeBasic.popGestureEnabled = (requires attached Navigator)');
   print('  routeBasic.transitionDuration = ${routeBasic.transitionDuration}');
-  print(
-    '  routeBasic.reverseTransitionDuration = ${routeBasic.reverseTransitionDuration}',
-  );
+  print('  routeBasic.reverseTransitionDuration = ${routeBasic.reverseTransitionDuration}');
 
   final routeTitled = CupertinoPageRoute<dynamic>(
     title: 'Detail',
@@ -166,26 +156,19 @@ dynamic build(BuildContext context) {
       child: Center(child: Text('compose body')),
     ),
   );
-  print(
-    '  routeFullscreen.fullscreenDialog = ${routeFullscreen.fullscreenDialog}',
-  );
+  print('  routeFullscreen.fullscreenDialog = ${routeFullscreen.fullscreenDialog}');
 
   final routeUnmaintained = CupertinoPageRoute<dynamic>(
     maintainState: false,
     builder: (BuildContext _) => const Center(child: Text('volatile route')),
   );
-  print(
-    '  routeUnmaintained.maintainState = ${routeUnmaintained.maintainState}',
-  );
+  print('  routeUnmaintained.maintainState = ${routeUnmaintained.maintainState}');
 
   final routeNoSnapshot = CupertinoPageRoute<dynamic>(
     allowSnapshotting: false,
-    builder: (BuildContext _) =>
-        const Center(child: Text('snapshotless route')),
+    builder: (BuildContext _) => const Center(child: Text('snapshotless route')),
   );
-  print(
-    '  routeNoSnapshot.allowSnapshotting = ${routeNoSnapshot.allowSnapshotting}',
-  );
+  print('  routeNoSnapshot.allowSnapshotting = ${routeNoSnapshot.allowSnapshotting}');
 
   final routeRestorable = CupertinoPageRoute<dynamic>(
     title: 'Restorable',
@@ -210,18 +193,14 @@ dynamic build(BuildContext context) {
   for (var i = 0; i < tStops.length; i++) {
     final double t = tStops[i];
     final Animation<double> primary = AlwaysStoppedAnimation<double>(t);
-    final Animation<double> secondary = const AlwaysStoppedAnimation<double>(
-      0.0,
-    );
+    final Animation<double> secondary =
+        const AlwaysStoppedAnimation<double>(0.0);
     final Widget transition = CupertinoPageTransition(
       primaryRouteAnimation: primary,
       secondaryRouteAnimation: secondary,
       linearTransition: false,
-      child: _transitionCard(
-        'CupertinoPageTransition',
-        t,
-        accent: const Color(0xFF0A84FF),
-      ),
+      child: _transitionCard('CupertinoPageTransition', t,
+          accent: const Color(0xFF0A84FF)),
     );
     pageTransitionSnapshots.add(_clipTransitionSnapshot(transition, t));
     print('  CupertinoPageTransition snapshot @ t=$t built');
@@ -231,18 +210,14 @@ dynamic build(BuildContext context) {
   for (var i = 0; i < tStops.length; i++) {
     final double t = tStops[i];
     final Animation<double> primary = AlwaysStoppedAnimation<double>(t);
-    final Animation<double> secondary = const AlwaysStoppedAnimation<double>(
-      0.0,
-    );
+    final Animation<double> secondary =
+        const AlwaysStoppedAnimation<double>(0.0);
     final Widget transition = CupertinoFullscreenDialogTransition(
       primaryRouteAnimation: primary,
       secondaryRouteAnimation: secondary,
       linearTransition: false,
-      child: _transitionCard(
-        'CupertinoFullscreenDialogTransition',
-        t,
-        accent: const Color(0xFF34C759),
-      ),
+      child: _transitionCard('CupertinoFullscreenDialogTransition', t,
+          accent: const Color(0xFF34C759)),
     );
     fullscreenTransitionSnapshots.add(_clipTransitionSnapshot(transition, t));
     print('  CupertinoFullscreenDialogTransition snapshot @ t=$t built');
@@ -253,18 +228,14 @@ dynamic build(BuildContext context) {
   for (var i = 0; i < tStops.length; i++) {
     final double t = tStops[i];
     final Animation<double> primary = AlwaysStoppedAnimation<double>(t);
-    final Animation<double> secondary = const AlwaysStoppedAnimation<double>(
-      0.0,
-    );
+    final Animation<double> secondary =
+        const AlwaysStoppedAnimation<double>(0.0);
     final Widget transition = CupertinoPageTransition(
       primaryRouteAnimation: primary,
       secondaryRouteAnimation: secondary,
       linearTransition: true,
-      child: _transitionCard(
-        'linearTransition: true',
-        t,
-        accent: const Color(0xFFFF9F0A),
-      ),
+      child: _transitionCard('linearTransition: true', t,
+          accent: const Color(0xFFFF9F0A)),
     );
     linearTransitionSnapshots.add(_clipTransitionSnapshot(transition, t));
     print('  Linear CupertinoPageTransition snapshot @ t=$t built');
@@ -274,14 +245,10 @@ dynamic build(BuildContext context) {
   final manualEasing = <Map<String, double>>[];
   for (var i = 0; i < tStops.length; i++) {
     final double t = tStops[i];
-    final double offsetX = Tween<double>(
-      begin: 1.0,
-      end: 0.0,
-    ).transform(Curves.linearToEaseOut.transform(t));
-    final double parallax = Tween<double>(
-      begin: 0.0,
-      end: -0.3,
-    ).transform(Curves.linearToEaseOut.transform(t));
+    final double offsetX =
+        Tween<double>(begin: 1.0, end: 0.0).transform(Curves.linearToEaseOut.transform(t));
+    final double parallax =
+        Tween<double>(begin: 0.0, end: -0.3).transform(Curves.linearToEaseOut.transform(t));
     manualEasing.add(<String, double>{
       't': t,
       'offsetX': offsetX,
@@ -362,14 +329,11 @@ dynamic build(BuildContext context) {
         'Body painted under it via ObstructingPreferredSizeWidget.',
         'Provides backgroundColor and resizeToAvoidBottomInset.',
       ],
-      accent: const Color(0xFFFF9F0A),
-    ),
+      accent: const Color(0xFFFF9F0A)),
   ];
   for (var i = 0; i < concepts.length; i++) {
-    print(
-      '  concept ${concepts[i].label} (${concepts[i].family}): '
-      '${concepts[i].tagline}',
-    );
+    print('  concept ${concepts[i].label} (${concepts[i].family}): '
+        '${concepts[i].tagline}');
   }
 
   // ---------------------------------------------------------------------------
@@ -383,8 +347,7 @@ dynamic build(BuildContext context) {
       label: 'Home',
       title: 'Cupertino Photos',
       kind: _StackKind.root,
-      details:
-          'Root CupertinoPage — never popped, supplies the back chevron target.',
+      details: 'Root CupertinoPage — never popped, supplies the back chevron target.',
     ),
     _StackFrame(
       depth: 1,
@@ -416,10 +379,8 @@ dynamic build(BuildContext context) {
     ),
   ];
   for (var i = 0; i < stackFrames.length; i++) {
-    print(
-      '  frame depth=${stackFrames[i].depth} '
-      'label=${stackFrames[i].label} kind=${stackFrames[i].kind}',
-    );
+    print('  frame depth=${stackFrames[i].depth} '
+        'label=${stackFrames[i].label} kind=${stackFrames[i].kind}');
   }
 
   // ---------------------------------------------------------------------------
@@ -481,11 +442,7 @@ dynamic build(BuildContext context) {
     <String>['restorationId', 'String?', 'restorationScopeId via state'],
     <String>['arguments', 'Object? arguments', 'inherited via RouteSettings'],
     <String>['equality', 'compared by key in pages diff', 'identity in stack'],
-    <String>[
-      'typical usage',
-      'Navigator(pages: [...])',
-      'Navigator.push(context, ...)',
-    ],
+    <String>['typical usage', 'Navigator(pages: [...])', 'Navigator.push(context, ...)'],
   ];
   for (var i = 0; i < comparisonRows.length; i++) {
     final List<String> row = comparisonRows[i];
@@ -500,18 +457,14 @@ dynamic build(BuildContext context) {
   final materialPageBasic = MaterialPage<dynamic>(
     child: const Center(child: Text('Material body')),
   );
-  print(
-    '  materialPageBasic.maintainState = ${materialPageBasic.maintainState}',
-  );
+  print('  materialPageBasic.maintainState = ${materialPageBasic.maintainState}');
 
   final materialPageFullscreen = MaterialPage<dynamic>(
     fullscreenDialog: true,
     child: const Center(child: Text('Material fullscreen body')),
   );
-  print(
-    '  materialPageFullscreen.fullscreenDialog = '
-    '${materialPageFullscreen.fullscreenDialog}',
-  );
+  print('  materialPageFullscreen.fullscreenDialog = '
+      '${materialPageFullscreen.fullscreenDialog}');
 
   final materialPageNamed = MaterialPage<dynamic>(
     name: '/material/named',
@@ -531,107 +484,87 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _pageInspectorCard(
-          'basic',
-          attrs: <String, String>{
-            'child': pageBasic.child.runtimeType.toString(),
-            'maintainState': '${pageBasic.maintainState}',
-            'fullscreenDialog': '${pageBasic.fullscreenDialog}',
-            'allowSnapshotting': '${pageBasic.allowSnapshotting}',
-            'canPop': '${pageBasic.canPop}',
-          },
-          accent: const Color(0xFF0A84FF),
-        ),
+        _pageInspectorCard('basic',
+            attrs: <String, String>{
+              'child': pageBasic.child.runtimeType.toString(),
+              'maintainState': '${pageBasic.maintainState}',
+              'fullscreenDialog': '${pageBasic.fullscreenDialog}',
+              'allowSnapshotting': '${pageBasic.allowSnapshotting}',
+              'canPop': '${pageBasic.canPop}',
+            },
+            accent: const Color(0xFF0A84FF)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'titled',
-          attrs: <String, String>{
-            'title': '${pageTitled.title}',
-            'child': pageTitled.child.runtimeType.toString(),
-          },
-          accent: const Color(0xFF5856D6),
-        ),
+        _pageInspectorCard('titled',
+            attrs: <String, String>{
+              'title': '${pageTitled.title}',
+              'child': pageTitled.child.runtimeType.toString(),
+            },
+            accent: const Color(0xFF5856D6)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'fullscreenDialog',
-          attrs: <String, String>{
-            'title': '${pageFullscreenDialog.title}',
-            'fullscreenDialog': '${pageFullscreenDialog.fullscreenDialog}',
-          },
-          accent: const Color(0xFFFF375F),
-        ),
+        _pageInspectorCard('fullscreenDialog',
+            attrs: <String, String>{
+              'title': '${pageFullscreenDialog.title}',
+              'fullscreenDialog': '${pageFullscreenDialog.fullscreenDialog}',
+            },
+            accent: const Color(0xFFFF375F)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'canPop: false',
-          attrs: <String, String>{
-            'canPop': '${pageNonPoppable.canPop}',
-            'note': 'rejects programmatic + gesture pops',
-          },
-          accent: const Color(0xFFFF9F0A),
-        ),
+        _pageInspectorCard('canPop: false',
+            attrs: <String, String>{
+              'canPop': '${pageNonPoppable.canPop}',
+              'note': 'rejects programmatic + gesture pops',
+            },
+            accent: const Color(0xFFFF9F0A)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'maintainState: false',
-          attrs: <String, String>{
-            'maintainState': '${pageNoMaintain.maintainState}',
-            'note': 'state dropped while off-stack',
-          },
-          accent: const Color(0xFF34C759),
-        ),
+        _pageInspectorCard('maintainState: false',
+            attrs: <String, String>{
+              'maintainState': '${pageNoMaintain.maintainState}',
+              'note': 'state dropped while off-stack',
+            },
+            accent: const Color(0xFF34C759)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'allowSnapshotting: false',
-          attrs: <String, String>{
-            'allowSnapshotting': '${pageNoSnapshot.allowSnapshotting}',
-            'note': 'no raster cache during transition',
-          },
-          accent: const Color(0xFF30B0C7),
-        ),
+        _pageInspectorCard('allowSnapshotting: false',
+            attrs: <String, String>{
+              'allowSnapshotting': '${pageNoSnapshot.allowSnapshotting}',
+              'note': 'no raster cache during transition',
+            },
+            accent: const Color(0xFF30B0C7)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'with key',
-          attrs: <String, String>{
-            'key': '${pageWithKey.key}',
-            'note': 'identity stable across pages-list rebuilds',
-          },
-          accent: const Color(0xFFAF52DE),
-        ),
+        _pageInspectorCard('with key',
+            attrs: <String, String>{
+              'key': '${pageWithKey.key}',
+              'note': 'identity stable across pages-list rebuilds',
+            },
+            accent: const Color(0xFFAF52DE)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'with restorationId',
-          attrs: <String, String>{
-            'restorationId': '${pageWithRestorationId.restorationId}',
-          },
-          accent: const Color(0xFFFF2D55),
-        ),
+        _pageInspectorCard('with restorationId',
+            attrs: <String, String>{
+              'restorationId': '${pageWithRestorationId.restorationId}',
+            },
+            accent: const Color(0xFFFF2D55)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'with name',
-          attrs: <String, String>{'name': '${pageWithName.name}'},
-          accent: const Color(0xFFBF5AF2),
-        ),
+        _pageInspectorCard('with name',
+            attrs: <String, String>{
+              'name': '${pageWithName.name}',
+            },
+            accent: const Color(0xFFBF5AF2)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'with arguments',
-          attrs: <String, String>{
-            'arguments': '${pageWithArguments.arguments}',
-          },
-          accent: const Color(0xFF64D2FF),
-        ),
+        _pageInspectorCard('with arguments',
+            attrs: <String, String>{
+              'arguments': '${pageWithArguments.arguments}',
+            },
+            accent: const Color(0xFF64D2FF)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'fully configured',
-          attrs: <String, String>{
-            'title': '${pageFullyConfigured.title}',
-            'name': '${pageFullyConfigured.name}',
-            'maintainState': '${pageFullyConfigured.maintainState}',
-            'fullscreenDialog': '${pageFullyConfigured.fullscreenDialog}',
-            'allowSnapshotting': '${pageFullyConfigured.allowSnapshotting}',
-            'canPop': '${pageFullyConfigured.canPop}',
-            'restorationId': '${pageFullyConfigured.restorationId}',
-          },
-          accent: const Color(0xFF0A84FF),
-        ),
+        _pageInspectorCard('fully configured',
+            attrs: <String, String>{
+              'title': '${pageFullyConfigured.title}',
+              'name': '${pageFullyConfigured.name}',
+              'maintainState': '${pageFullyConfigured.maintainState}',
+              'fullscreenDialog': '${pageFullyConfigured.fullscreenDialog}',
+              'allowSnapshotting': '${pageFullyConfigured.allowSnapshotting}',
+              'canPop': '${pageFullyConfigured.canPop}',
+              'restorationId': '${pageFullyConfigured.restorationId}',
+            },
+            accent: const Color(0xFF0A84FF)),
       ],
     ),
   );
@@ -643,77 +576,63 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _routeInspectorCard(
-          'routeBasic',
-          attrs: <String, String>{
-            'maintainState': '${routeBasic.maintainState}',
-            'fullscreenDialog': '${routeBasic.fullscreenDialog}',
-            'allowSnapshotting': '${routeBasic.allowSnapshotting}',
-            'opaque': '${routeBasic.opaque}',
-            'barrierDismissible': '${routeBasic.barrierDismissible}',
-            'transitionDuration': '${routeBasic.transitionDuration}',
-            'reverseTransitionDuration':
-                '${routeBasic.reverseTransitionDuration}',
-          },
-          accent: const Color(0xFF0A84FF),
-        ),
+        _routeInspectorCard('routeBasic',
+            attrs: <String, String>{
+              'maintainState': '${routeBasic.maintainState}',
+              'fullscreenDialog': '${routeBasic.fullscreenDialog}',
+              'allowSnapshotting': '${routeBasic.allowSnapshotting}',
+              'opaque': '${routeBasic.opaque}',
+              'barrierDismissible': '${routeBasic.barrierDismissible}',
+              'transitionDuration': '${routeBasic.transitionDuration}',
+              'reverseTransitionDuration':
+                  '${routeBasic.reverseTransitionDuration}',
+            },
+            accent: const Color(0xFF0A84FF)),
         const SizedBox(height: 8),
-        _routeInspectorCard(
-          'routeTitled',
-          attrs: <String, String>{'title': '${routeTitled.title}'},
-          accent: const Color(0xFF5856D6),
-        ),
+        _routeInspectorCard('routeTitled',
+            attrs: <String, String>{
+              'title': '${routeTitled.title}',
+            },
+            accent: const Color(0xFF5856D6)),
         const SizedBox(height: 8),
-        _routeInspectorCard(
-          'routeFullscreen',
-          attrs: <String, String>{
-            'title': '${routeFullscreen.title}',
-            'fullscreenDialog': '${routeFullscreen.fullscreenDialog}',
-          },
-          accent: const Color(0xFFFF375F),
-        ),
+        _routeInspectorCard('routeFullscreen',
+            attrs: <String, String>{
+              'title': '${routeFullscreen.title}',
+              'fullscreenDialog': '${routeFullscreen.fullscreenDialog}',
+            },
+            accent: const Color(0xFFFF375F)),
         const SizedBox(height: 8),
-        _routeInspectorCard(
-          'routeUnmaintained',
-          attrs: <String, String>{
-            'maintainState': '${routeUnmaintained.maintainState}',
-          },
-          accent: const Color(0xFFFF9F0A),
-        ),
+        _routeInspectorCard('routeUnmaintained',
+            attrs: <String, String>{
+              'maintainState': '${routeUnmaintained.maintainState}',
+            },
+            accent: const Color(0xFFFF9F0A)),
         const SizedBox(height: 8),
-        _routeInspectorCard(
-          'routeNoSnapshot',
-          attrs: <String, String>{
-            'allowSnapshotting': '${routeNoSnapshot.allowSnapshotting}',
-          },
-          accent: const Color(0xFF34C759),
-        ),
+        _routeInspectorCard('routeNoSnapshot',
+            attrs: <String, String>{
+              'allowSnapshotting': '${routeNoSnapshot.allowSnapshotting}',
+            },
+            accent: const Color(0xFF34C759)),
         const SizedBox(height: 8),
-        _routeInspectorCard(
-          'routeRestorable',
-          attrs: <String, String>{
-            'runtimeType': '${routeRestorable.runtimeType}',
-          },
-          accent: const Color(0xFF30B0C7),
-        ),
+        _routeInspectorCard('routeRestorable',
+            attrs: <String, String>{
+              'runtimeType': '${routeRestorable.runtimeType}',
+            },
+            accent: const Color(0xFF30B0C7)),
         const SizedBox(height: 8),
-        _routeInspectorCard(
-          'adapterRoute',
-          attrs: <String, String>{
-            'note': 'createRoute(context) from pageFullyConfigured',
-            'runtimeType': '${adapterRoute.runtimeType}',
-          },
-          accent: const Color(0xFFAF52DE),
-        ),
+        _routeInspectorCard('adapterRoute',
+            attrs: <String, String>{
+              'note': 'createRoute(context) from pageFullyConfigured',
+              'runtimeType': '${adapterRoute.runtimeType}',
+            },
+            accent: const Color(0xFFAF52DE)),
         const SizedBox(height: 8),
-        _routeInspectorCard(
-          'routeFromPlainPage',
-          attrs: <String, String>{
-            'note': 'createRoute(context) from pageBasic',
-            'runtimeType': '${routeFromPlainPage.runtimeType}',
-          },
-          accent: const Color(0xFFBF5AF2),
-        ),
+        _routeInspectorCard('routeFromPlainPage',
+            attrs: <String, String>{
+              'note': 'createRoute(context) from pageBasic',
+              'runtimeType': '${routeFromPlainPage.runtimeType}',
+            },
+            accent: const Color(0xFFBF5AF2)),
       ],
     ),
   );
@@ -771,28 +690,24 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _pageInspectorCard(
-          'MaterialPage basic',
-          attrs: <String, String>{
-            'maintainState': '${materialPageBasic.maintainState}',
-            'fullscreenDialog': '${materialPageBasic.fullscreenDialog}',
-          },
-          accent: const Color(0xFF34C759),
-        ),
+        _pageInspectorCard('MaterialPage basic',
+            attrs: <String, String>{
+              'maintainState': '${materialPageBasic.maintainState}',
+              'fullscreenDialog': '${materialPageBasic.fullscreenDialog}',
+            },
+            accent: const Color(0xFF34C759)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'MaterialPage fullscreenDialog',
-          attrs: <String, String>{
-            'fullscreenDialog': '${materialPageFullscreen.fullscreenDialog}',
-          },
-          accent: const Color(0xFFFF9F0A),
-        ),
+        _pageInspectorCard('MaterialPage fullscreenDialog',
+            attrs: <String, String>{
+              'fullscreenDialog': '${materialPageFullscreen.fullscreenDialog}',
+            },
+            accent: const Color(0xFFFF9F0A)),
         const SizedBox(height: 8),
-        _pageInspectorCard(
-          'MaterialPage named',
-          attrs: <String, String>{'name': '${materialPageNamed.name}'},
-          accent: const Color(0xFF5856D6),
-        ),
+        _pageInspectorCard('MaterialPage named',
+            attrs: <String, String>{
+              'name': '${materialPageNamed.name}',
+            },
+            accent: const Color(0xFF5856D6)),
       ],
     ),
   );
@@ -812,10 +727,9 @@ dynamic build(BuildContext context) {
         Text(
           'CupertinoPage / CupertinoPageRoute',
           style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFFFFFFF),
-          ),
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFFFFFFF)),
         ),
         SizedBox(height: 4),
         Text(
@@ -833,10 +747,9 @@ dynamic build(BuildContext context) {
     child: const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Notes',
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-        ),
+        Text('Notes',
+            style: TextStyle(
+                fontSize: 13, fontWeight: FontWeight.bold)),
         SizedBox(height: 4),
         Text(
           'This demo is a static snapshot. Navigator.push / pop are described '
@@ -918,10 +831,9 @@ Widget _section({
         Text(
           title,
           style: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1C1C1E),
-          ),
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1C1C1E)),
         ),
         const SizedBox(height: 4),
         Text(
@@ -945,33 +857,31 @@ Widget _pageInspectorCard(
   for (var i = 0; i < keys.length; i++) {
     final String key = keys[i];
     final String value = attrs[key] ?? '';
-    rows.add(
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 1),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: 130,
-              child: Text(
-                key,
-                style: const TextStyle(
+    rows.add(Padding(
+      padding: const EdgeInsets.symmetric(vertical: 1),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: 130,
+            child: Text(
+              key,
+              style: const TextStyle(
                   fontSize: 11,
                   color: Color(0xFF636366),
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+                  fontWeight: FontWeight.w600),
             ),
-            Expanded(
-              child: Text(
-                value,
-                style: const TextStyle(fontSize: 11, color: Color(0xFF1C1C1E)),
-              ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                  fontSize: 11, color: Color(0xFF1C1C1E)),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
   return Container(
     decoration: BoxDecoration(
@@ -986,10 +896,9 @@ Widget _pageInspectorCard(
         Text(
           label,
           style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-            color: accent,
-          ),
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: accent),
         ),
         const SizedBox(height: 6),
         ...rows,
@@ -1012,10 +921,9 @@ Widget _transitionRowLabel(String text) {
     child: Text(
       text,
       style: const TextStyle(
-        fontSize: 13,
-        fontWeight: FontWeight.bold,
-        color: Color(0xFF1C1C1E),
-      ),
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF1C1C1E)),
     ),
   );
 }
@@ -1023,20 +931,19 @@ Widget _transitionRowLabel(String text) {
 Widget _transitionRow(List<Widget> snapshots, List<double> tStops) {
   final List<Widget> cells = <Widget>[];
   for (var i = 0; i < snapshots.length; i++) {
-    cells.add(
-      Expanded(
-        child: Column(
-          children: <Widget>[
-            Text(
-              't = ${tStops[i].toStringAsFixed(2)}',
-              style: const TextStyle(fontSize: 10, color: Color(0xFF636366)),
-            ),
-            const SizedBox(height: 2),
-            snapshots[i],
-          ],
-        ),
+    cells.add(Expanded(
+      child: Column(
+        children: <Widget>[
+          Text(
+            't = ${tStops[i].toStringAsFixed(2)}',
+            style: const TextStyle(
+                fontSize: 10, color: Color(0xFF636366)),
+          ),
+          const SizedBox(height: 2),
+          snapshots[i],
+        ],
       ),
-    );
+    ));
     if (i < snapshots.length - 1) {
       cells.add(const SizedBox(width: 4));
     }
@@ -1049,7 +956,10 @@ Widget _clipTransitionSnapshot(Widget transition, double t) {
     child: SizedBox(
       width: 60,
       height: 90,
-      child: Container(color: const Color(0xFFEFEFF4), child: transition),
+      child: Container(
+        color: const Color(0xFFEFEFF4),
+        child: transition,
+      ),
     ),
   );
 }
@@ -1068,10 +978,9 @@ Widget _transitionCard(String name, double t, {required Color accent}) {
         Text(
           't=${t.toStringAsFixed(2)}',
           style: TextStyle(
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
-            color: accent,
-          ),
+              fontSize: 9,
+              fontWeight: FontWeight.bold,
+              color: accent),
         ),
         const SizedBox(height: 2),
         Text(
@@ -1090,10 +999,9 @@ Widget _manualEasingTable(List<Map<String, double>> rows) {
       child: Text(
         'Manual easing values (Tween.transform(t), no animate())',
         style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: Color(0xFF1C1C1E),
-        ),
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF1C1C1E)),
       ),
     ),
     Container(
@@ -1103,24 +1011,21 @@ Widget _manualEasingTable(List<Map<String, double>> rows) {
         children: <Widget>[
           SizedBox(
             width: 40,
-            child: Text(
-              't',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-            ),
+            child: Text('t',
+                style: TextStyle(
+                    fontSize: 11, fontWeight: FontWeight.bold)),
           ),
           SizedBox(
             width: 110,
-            child: Text(
-              'offsetX (1→0)',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-            ),
+            child: Text('offsetX (1→0)',
+                style: TextStyle(
+                    fontSize: 11, fontWeight: FontWeight.bold)),
           ),
           SizedBox(
             width: 110,
-            child: Text(
-              'parallax (0→-0.3)',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-            ),
+            child: Text('parallax (0→-0.3)',
+                style: TextStyle(
+                    fontSize: 11, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -1132,42 +1037,32 @@ Widget _manualEasingTable(List<Map<String, double>> rows) {
     final double offsetX = row['offsetX'] ?? 0.0;
     final double parallax = row['parallax'] ?? 0.0;
     final bool even = i.isEven;
-    children.add(
-      Container(
-        color: even ? const Color(0xFFF2F2F7) : const Color(0xFFFFFFFF),
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-        child: Row(
-          children: <Widget>[
-            SizedBox(
-              width: 40,
-              child: Text(
-                t.toStringAsFixed(2),
-                style: const TextStyle(fontSize: 11),
-              ),
-            ),
-            SizedBox(
-              width: 110,
-              child: Text(
-                offsetX.toStringAsFixed(4),
-                style: const TextStyle(fontSize: 11),
-              ),
-            ),
-            SizedBox(
-              width: 110,
-              child: Text(
-                parallax.toStringAsFixed(4),
-                style: const TextStyle(fontSize: 11),
-              ),
-            ),
-          ],
-        ),
+    children.add(Container(
+      color: even ? const Color(0xFFF2F2F7) : const Color(0xFFFFFFFF),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+      child: Row(
+        children: <Widget>[
+          SizedBox(
+            width: 40,
+            child: Text(t.toStringAsFixed(2),
+                style: const TextStyle(fontSize: 11)),
+          ),
+          SizedBox(
+            width: 110,
+            child: Text(offsetX.toStringAsFixed(4),
+                style: const TextStyle(fontSize: 11)),
+          ),
+          SizedBox(
+            width: 110,
+            child: Text(parallax.toStringAsFixed(4),
+                style: const TextStyle(fontSize: 11)),
+          ),
+        ],
       ),
-    );
+    ));
   }
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: children,
-  );
+      crossAxisAlignment: CrossAxisAlignment.start, children: children);
 }
 
 Widget _conceptDiagram(List<_Concept> concepts) {
@@ -1190,14 +1085,11 @@ Widget _conceptDiagram(List<_Concept> concepts) {
 
   Widget column(String title, List<_Concept> items, Color titleColor) {
     final List<Widget> kids = <Widget>[
-      Text(
-        title,
-        style: TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-          color: titleColor,
-        ),
-      ),
+      Text(title,
+          style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: titleColor)),
       const SizedBox(height: 6),
     ];
     for (var i = 0; i < items.length; i++) {
@@ -1241,31 +1133,27 @@ Widget _conceptDiagram(List<_Concept> concepts) {
 Widget _conceptCard(_Concept c) {
   final List<Widget> bullets = <Widget>[];
   for (var i = 0; i < c.bullets.length; i++) {
-    bullets.add(
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 1),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(top: 4),
-              child: Icon(
-                CupertinoIcons.circle_fill,
-                size: 6,
-                color: Color(0xFF636366),
-              ),
+    bullets.add(Padding(
+      padding: const EdgeInsets.symmetric(vertical: 1),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.only(top: 4),
+            child: Icon(CupertinoIcons.circle_fill,
+                size: 6, color: Color(0xFF636366)),
+          ),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              c.bullets[i],
+              style: const TextStyle(
+                  fontSize: 11, color: Color(0xFF1C1C1E)),
             ),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                c.bullets[i],
-                style: const TextStyle(fontSize: 11, color: Color(0xFF1C1C1E)),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
   return Container(
     decoration: BoxDecoration(
@@ -1280,19 +1168,17 @@ Widget _conceptCard(_Concept c) {
         Text(
           c.label,
           style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: c.accent,
-          ),
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: c.accent),
         ),
         const SizedBox(height: 2),
         Text(
           c.tagline,
           style: const TextStyle(
-            fontSize: 10,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF636366),
-          ),
+              fontSize: 10,
+              fontStyle: FontStyle.italic,
+              color: Color(0xFF636366)),
         ),
         const SizedBox(height: 6),
         ...bullets,
@@ -1307,79 +1193,69 @@ Widget _stackDiagram(List<_StackFrame> frames) {
     final _StackFrame frame = frames[i];
     final Color color = _stackKindColor(frame.kind);
     final double leftPad = 8.0 + (frame.depth.toDouble() * 18.0);
-    children.add(
-      Padding(
-        padding: EdgeInsets.only(left: leftPad, right: 8, top: 4, bottom: 4),
-        child: Container(
-          decoration: BoxDecoration(
-            color: color.withAlpha(40),
-            border: Border.all(color: color, width: 1),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: 28,
-                height: 28,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-                alignment: Alignment.center,
-                child: Text(
-                  '${frame.depth}',
-                  style: const TextStyle(
+    children.add(Padding(
+      padding: EdgeInsets.only(left: leftPad, right: 8, top: 4, bottom: 4),
+      child: Container(
+        decoration: BoxDecoration(
+          color: color.withAlpha(40),
+          border: Border.all(color: color, width: 1),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: 28,
+              height: 28,
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                '${frame.depth}',
+                style: const TextStyle(
                     color: Color(0xFFFFFFFF),
                     fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                    fontWeight: FontWeight.bold),
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      '${frame.label} — ${frame.title}',
-                      style: const TextStyle(
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    '${frame.label} — ${frame.title}',
+                    style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1C1C1E),
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      '${_stackKindLabel(frame.kind)}: ${frame.details}',
-                      style: const TextStyle(
-                        fontSize: 10,
-                        color: Color(0xFF636366),
-                      ),
-                    ),
-                  ],
-                ),
+                        color: Color(0xFF1C1C1E)),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    '${_stackKindLabel(frame.kind)}: ${frame.details}',
+                    style: const TextStyle(
+                        fontSize: 10, color: Color(0xFF636366)),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
+    ));
     if (i < frames.length - 1) {
-      children.add(
-        Padding(
-          padding: EdgeInsets.only(left: leftPad + 4),
-          child: const Icon(
-            CupertinoIcons.down_arrow,
-            size: 14,
-            color: Color(0xFF636366),
-          ),
-        ),
-      );
+      children.add(Padding(
+        padding: EdgeInsets.only(left: leftPad + 4),
+        child: const Icon(CupertinoIcons.down_arrow,
+            size: 14, color: Color(0xFF636366)),
+      ));
     }
   }
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: children,
-  );
+      crossAxisAlignment: CrossAxisAlignment.stretch, children: children);
 }
 
 Color _stackKindColor(_StackKind kind) {
@@ -1431,49 +1307,41 @@ Widget _anatomyDiagram(List<_AnatomyPart> parts) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SizedBox(
-            width: 110,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                _anatomyBox('A', const Color(0xFFE5E5EA), height: 32),
-                const SizedBox(height: 2),
-                Expanded(child: _anatomyBox('B', const Color(0xFFF2F2F7))),
-                const SizedBox(height: 2),
-                _anatomyBox('C', const Color(0xFFD1D1D6), height: 24),
-                const SizedBox(height: 2),
-                Row(
-                  children: <Widget>[
-                    Expanded(
+        SizedBox(
+          width: 110,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _anatomyBox('A', const Color(0xFFE5E5EA), height: 32),
+              const SizedBox(height: 2),
+              Expanded(child: _anatomyBox('B', const Color(0xFFF2F2F7))),
+              const SizedBox(height: 2),
+              _anatomyBox('C', const Color(0xFFD1D1D6), height: 24),
+              const SizedBox(height: 2),
+              Row(
+                children: <Widget>[
+                  Expanded(
                       flex: 1,
-                      child: _anatomyBox(
-                        'D',
-                        const Color(0xFFAEAEB2),
-                        height: 26,
-                      ),
-                    ),
-                    const SizedBox(width: 2),
-                    Expanded(
+                      child: _anatomyBox('D', const Color(0xFFAEAEB2),
+                          height: 26)),
+                  const SizedBox(width: 2),
+                  Expanded(
                       flex: 6,
-                      child: _anatomyBox(
-                        'E',
-                        const Color(0xFF8E8E93),
-                        height: 26,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                      child: _anatomyBox('E', const Color(0xFF8E8E93),
+                          height: 26)),
+                ],
+              ),
+            ],
           ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _anatomyLegend(parts),
-            ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _anatomyLegend(parts),
           ),
-        ],
+        ),
+      ],
       ),
     ),
   );
@@ -1490,10 +1358,9 @@ Widget _anatomyBox(String letter, Color color, {double? height}) {
     child: Text(
       letter,
       style: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-        color: Color(0xFF1C1C1E),
-      ),
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF1C1C1E)),
     ),
   );
 }
@@ -1502,54 +1369,46 @@ List<Widget> _anatomyLegend(List<_AnatomyPart> parts) {
   final List<Widget> out = <Widget>[];
   for (var i = 0; i < parts.length; i++) {
     final _AnatomyPart p = parts[i];
-    out.add(
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 3),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                color: p.color,
-                border: Border.all(color: const Color(0xFF8E8E93), width: 0.5),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                p.letter,
-                style: const TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
+    out.add(Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: 22,
+            height: 22,
+            decoration: BoxDecoration(
+              color: p.color,
+              border: Border.all(color: const Color(0xFF8E8E93), width: 0.5),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              p.letter,
+              style: const TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  p.name,
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold),
                 ),
-              ),
+                Text(
+                  p.blurb,
+                  style: const TextStyle(
+                      fontSize: 10, color: Color(0xFF636366)),
+                ),
+              ],
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    p.name,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    p.blurb,
-                    style: const TextStyle(
-                      fontSize: 10,
-                      color: Color(0xFF636366),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
   return out;
 }
@@ -1562,47 +1421,45 @@ Widget _comparisonMatrix(List<List<String>> rows) {
     final Color bg = isHeader
         ? const Color(0xFFE5E5EA)
         : (i.isEven ? const Color(0xFFF2F2F7) : const Color(0xFFFFFFFF));
-    tableRows.add(
-      Container(
-        color: bg,
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: 110,
-              child: Text(
-                row[0],
-                style: TextStyle(
+    tableRows.add(Container(
+      color: bg,
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: 110,
+            child: Text(
+              row[0],
+              style: TextStyle(
                   fontSize: 11,
-                  fontWeight: isHeader ? FontWeight.bold : FontWeight.w600,
-                  color: const Color(0xFF1C1C1E),
-                ),
-              ),
+                  fontWeight:
+                      isHeader ? FontWeight.bold : FontWeight.w600,
+                  color: const Color(0xFF1C1C1E)),
             ),
-            Expanded(
-              child: Text(
-                row[1],
-                style: TextStyle(
+          ),
+          Expanded(
+            child: Text(
+              row[1],
+              style: TextStyle(
                   fontSize: 11,
-                  fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
+                  fontWeight:
+                      isHeader ? FontWeight.bold : FontWeight.normal),
             ),
-            const SizedBox(width: 4),
-            Expanded(
-              child: Text(
-                row[2],
-                style: TextStyle(
+          ),
+          const SizedBox(width: 4),
+          Expanded(
+            child: Text(
+              row[2],
+              style: TextStyle(
                   fontSize: 11,
-                  fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
+                  fontWeight:
+                      isHeader ? FontWeight.bold : FontWeight.normal),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
   return Container(
     decoration: BoxDecoration(

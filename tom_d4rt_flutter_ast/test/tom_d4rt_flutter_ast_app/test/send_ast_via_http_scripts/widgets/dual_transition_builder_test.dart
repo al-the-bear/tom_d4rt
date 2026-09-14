@@ -167,11 +167,7 @@ Widget _buildIntroCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF1565C0),
-          Color(0xFF42A5F5),
-          Color(0xFF80D8FF),
-        ],
+        colors: <Color>[Color(0xFF1565C0), Color(0xFF42A5F5), Color(0xFF80D8FF)],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: const <BoxShadow>[
@@ -247,7 +243,11 @@ Widget _buildIntroCard() {
           'reverseBuilder takes over. This is invaluable when entry '
           'and exit transitions are visually different — for example a '
           'fade-in on the way in and a slide-out on the way out.',
-          style: TextStyle(color: Colors.white, fontSize: 14, height: 1.45),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 18),
         Row(
@@ -390,11 +390,7 @@ Widget _statusFlowRow() {
       gradient: const LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: <Color>[
-          Color(0xFFE8F5E9),
-          Color(0xFFFFF3E0),
-          Color(0xFFFFEBEE),
-        ],
+        colors: <Color>[Color(0xFFE8F5E9), Color(0xFFFFF3E0), Color(0xFFFFEBEE)],
       ),
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: _divider),
@@ -455,7 +451,10 @@ Widget _statusNode(String label, String range, Color color, IconData icon) {
           color: color,
         ),
       ),
-      Text(range, style: const TextStyle(fontSize: 10.5, color: _inkSoft)),
+      Text(
+        range,
+        style: const TextStyle(fontSize: 10.5, color: _inkSoft),
+      ),
     ],
   );
 }
@@ -756,7 +755,9 @@ Widget _buildSlideFowardReverseExample() {
             children: <Widget>[
               Expanded(child: _slideDualBuilder(_animQuarter, 'Mid 0.25')),
               const SizedBox(width: 8),
-              Expanded(child: _slideDualBuilder(_animThreeQuarter, 'Mid 0.75')),
+              Expanded(
+                child: _slideDualBuilder(_animThreeQuarter, 'Mid 0.75'),
+              ),
             ],
           ),
         ),
@@ -993,11 +994,8 @@ Widget _anatomyDiagramBox() {
     ),
     child: Column(
       children: <Widget>[
-        _anatomyRow(
-          'animation',
-          'Animation<double>',
-          'The status source. Drives both builders.',
-        ),
+        _anatomyRow('animation', 'Animation<double>',
+            'The status source. Drives both builders.'),
         const SizedBox(height: 8),
         _anatomyDownArrow(),
         const SizedBox(height: 8),
@@ -1131,11 +1129,8 @@ Widget _anatomyChild(String name, String type, Color color) {
 
 Widget _anatomyDownArrow() {
   return const Center(
-    child: Icon(
-      Icons.keyboard_double_arrow_down_rounded,
-      color: _accentWarning,
-      size: 22,
-    ),
+    child: Icon(Icons.keyboard_double_arrow_down_rounded,
+        color: _accentWarning, size: 22),
   );
 }
 
@@ -1346,7 +1341,10 @@ Widget _comparisonCard({
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[color.withOpacity(0.10), Colors.white],
+        colors: <Color>[
+          color.withOpacity(0.10),
+          Colors.white,
+        ],
       ),
       borderRadius: BorderRadius.circular(14),
       border: Border.all(
@@ -1391,10 +1389,8 @@ Widget _comparisonCard({
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
-                  '• ',
-                  style: TextStyle(color: _inkSoft, fontSize: 12.5),
-                ),
+                const Text('• ',
+                    style: TextStyle(color: _inkSoft, fontSize: 12.5)),
                 Expanded(
                   child: Text(
                     b,
@@ -1732,7 +1728,11 @@ Widget _sectionCard({
           padding: const EdgeInsets.only(left: 44),
           child: Text(
             subtitle,
-            style: const TextStyle(color: _inkSoft, fontSize: 13, height: 1.45),
+            style: const TextStyle(
+              color: _inkSoft,
+              fontSize: 13,
+              height: 1.45,
+            ),
           ),
         ),
         const SizedBox(height: 16),
@@ -1809,11 +1809,8 @@ Widget _midpointStrip({required String label, required Widget child}) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              Icons.center_focus_strong_rounded,
-              color: _accentWarning,
-              size: 16,
-            ),
+            const Icon(Icons.center_focus_strong_rounded,
+                color: _accentWarning, size: 16),
             const SizedBox(width: 6),
             Text(
               label,

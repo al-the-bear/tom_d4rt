@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.drag_handle,
       'title': 'What is DraggableScrollableController?',
-      'body':
-          'DraggableScrollableController provides programmatic '
+      'body': 'DraggableScrollableController provides programmatic '
           'control over a DraggableScrollableSheet. It can animate '
           'the sheet to a specific extent, read the current size, '
           'reset to initial position, and listen to size changes.',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.open_in_full,
       'title': 'Extent-Based Sizing',
-      'body':
-          'The sheet\u0027s size is expressed as a fraction of the '
+      'body': 'The sheet\u0027s size is expressed as a fraction of the '
           'parent height (0.0 to 1.0). initialChildSize sets the '
           'starting extent, minChildSize the minimum (collapsed), '
           'and maxChildSize the maximum (expanded).',
@@ -37,8 +35,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Animated Transitions',
-      'body':
-          'The controller\u0027s animateTo method smoothly animates '
+      'body': 'The controller\u0027s animateTo method smoothly animates '
           'the sheet between extents. It accepts a target size, '
           'duration, and curve, enabling polished expand/collapse '
           'animations triggered by buttons or gestures.',
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.adjust,
       'title': 'Snap Points',
-      'body':
-          'When snap is true, the sheet snaps to predefined '
+      'body': 'When snap is true, the sheet snaps to predefined '
           'positions after a drag ends. snapSizes defines the '
           'intermediate snap points between min and max. The '
           'controller can animate to any snap point.',
@@ -127,61 +123,53 @@ dynamic build(BuildContext context) {
     {
       'name': 'size',
       'type': 'double',
-      'desc':
-          'The current extent of the sheet as a fraction of the '
+      'desc': 'The current extent of the sheet as a fraction of the '
           'parent height (0.0 to 1.0). Reading this requires the '
           'controller to be attached to a sheet.',
     },
     {
       'name': 'isAttached',
       'type': 'bool',
-      'desc':
-          'Whether the controller is currently attached to a '
+      'desc': 'Whether the controller is currently attached to a '
           'DraggableScrollableSheet. Must be true before calling '
           'animateTo, jumpTo, reset, or reading size.',
     },
     {
       'name': 'pixels',
       'type': 'double',
-      'desc':
-          'The current extent in pixels rather than as a fraction. '
+      'desc': 'The current extent in pixels rather than as a fraction. '
           'Useful for computing absolute positions or offsets.',
     },
     {
       'name': 'animateTo()',
       'type': 'Future<void>',
-      'desc':
-          'Animates the sheet to the given size (fraction). '
+      'desc': 'Animates the sheet to the given size (fraction). '
           'Accepts duration and curve parameters. Returns a '
           'Future that completes when the animation finishes.',
     },
     {
       'name': 'jumpTo()',
       'type': 'void',
-      'desc':
-          'Instantly moves the sheet to the given size without '
+      'desc': 'Instantly moves the sheet to the given size without '
           'animation. Faster than animateTo but visually abrupt.',
     },
     {
       'name': 'reset()',
       'type': 'void',
-      'desc':
-          'Returns the sheet to its initial child size. Equivalent '
+      'desc': 'Returns the sheet to its initial child size. Equivalent '
           'to animateTo(initialChildSize) but without animation.',
     },
     {
       'name': 'pixelsToSize()',
       'type': 'double',
-      'desc':
-          'Converts a pixel value to a size fraction relative to '
+      'desc': 'Converts a pixel value to a size fraction relative to '
           'the parent. Useful when computing target sizes from '
           'layout measurements.',
     },
     {
       'name': 'sizeToPixels()',
       'type': 'double',
-      'desc':
-          'Converts a size fraction to pixels. The inverse of '
+      'desc': 'Converts a size fraction to pixels. The inverse of '
           'pixelsToSize. Useful for calculating absolute '
           'positions from size fractions.',
     },
@@ -270,21 +258,17 @@ dynamic build(BuildContext context) {
   final setupSteps = <Map<String, dynamic>>[
     {
       'step': '1. Create Controller',
-      'desc':
-          'Instantiate DraggableScrollableController in initState '
+      'desc': 'Instantiate DraggableScrollableController in initState '
           'or as a field. Dispose it in dispose() to prevent leaks.',
-      'diagram':
-          'final controller =\n'
+      'diagram': 'final controller =\n'
           '    DraggableScrollableController();',
       'color': Colors.indigo,
     },
     {
       'step': '2. Attach to Sheet',
-      'desc':
-          'Pass the controller to the sheet\u0027s controller param. '
+      'desc': 'Pass the controller to the sheet\u0027s controller param. '
           'The sheet attaches in its initState.',
-      'diagram':
-          'DraggableScrollableSheet(\n'
+      'diagram': 'DraggableScrollableSheet(\n'
           '  controller: controller,\n'
           '  initialChildSize: 0.3,\n'
           '  minChildSize: 0.1,\n'
@@ -300,11 +284,9 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Programmatic Control',
-      'desc':
-          'Use the controller to animate or jump to extents. '
+      'desc': 'Use the controller to animate or jump to extents. '
           'Check isAttached before calling methods.',
-      'diagram':
-          'if (controller.isAttached) {\n'
+      'diagram': 'if (controller.isAttached) {\n'
           '  await controller.animateTo(\n'
           '    0.8,\n'
           '    duration: Duration(ms: 300),\n'
@@ -315,11 +297,9 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Read Size',
-      'desc':
-          'Access controller.size to read the current extent. '
+      'desc': 'Access controller.size to read the current extent. '
           'Use in animations, badges, or conditional UI.',
-      'diagram':
-          'final currentSize = controller.size;\n'
+      'diagram': 'final currentSize = controller.size;\n'
           'print("Sheet is at \$currentSize");\n'
           '// 0.3 = 30% of parent height',
       'color': Colors.orange,
@@ -394,40 +374,35 @@ dynamic build(BuildContext context) {
   final snapTopics = <Map<String, dynamic>>[
     {
       'title': 'Enabling Snap',
-      'desc':
-          'Set snap: true on DraggableScrollableSheet. After a '
+      'desc': 'Set snap: true on DraggableScrollableSheet. After a '
           'drag ends, the sheet animates to the nearest snap point '
           'instead of resting at the drag-release position.',
       'color': Colors.indigo,
     },
     {
       'title': 'snapSizes',
-      'desc':
-          'A list of fractional extents between minChildSize and '
+      'desc': 'A list of fractional extents between minChildSize and '
           'maxChildSize. These are additional snap targets. The '
           'min and max are always implicit snap points.',
       'color': Colors.blue,
     },
     {
       'title': 'Snap Behavior',
-      'desc':
-          'The sheet snaps to the closest target. If the user '
+      'desc': 'The sheet snaps to the closest target. If the user '
           'flings with velocity, it snaps in the fling direction '
           'to the next snap point, not necessarily the closest.',
       'color': Colors.green,
     },
     {
       'title': 'Controller + Snap',
-      'desc':
-          'animateTo respects snap points. If you animate to 0.45 '
+      'desc': 'animateTo respects snap points. If you animate to 0.45 '
           'and snap sizes include [0.3, 0.6], the sheet honors '
           'the target you specify, not the nearest snap.',
       'color': Colors.orange,
     },
     {
       'title': 'Dynamic Snap',
-      'desc':
-          'snapSizes can be changed dynamically. Rebuilding the '
+      'desc': 'snapSizes can be changed dynamically. Rebuilding the '
           'sheet with different snapSizes updates the targets. '
           'The current position may snap to a new target.',
       'color': Colors.purple,
@@ -508,12 +483,10 @@ dynamic build(BuildContext context) {
   final modalPatterns = <Map<String, dynamic>>[
     {
       'title': 'showModalBottomSheet',
-      'desc':
-          'Wrap DraggableScrollableSheet inside '
+      'desc': 'Wrap DraggableScrollableSheet inside '
           'showModalBottomSheet for a draggable modal that can '
           'be dismissed by dragging down past minChildSize.',
-      'diagram':
-          'showModalBottomSheet(\n'
+      'diagram': 'showModalBottomSheet(\n'
           '  context: context,\n'
           '  isScrollControlled: true,\n'
           '  builder: (_) {\n'
@@ -530,12 +503,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'expand: false',
-      'desc':
-          'Set expand to false when inside a modal. This tells '
+      'desc': 'Set expand to false when inside a modal. This tells '
           'the sheet not to expand to fill its parent. Instead, '
           'it sizes itself to initialChildSize of the screen.',
-      'diagram':
-          'DraggableScrollableSheet(\n'
+      'diagram': 'DraggableScrollableSheet(\n'
           '  expand: false,  // for modals\n'
           '  initialChildSize: 0.5,\n'
           '  maxChildSize: 0.9,\n'
@@ -546,12 +517,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'isScrollControlled: true',
-      'desc':
-          'Required when using DraggableScrollableSheet inside a '
+      'desc': 'Required when using DraggableScrollableSheet inside a '
           'modal. Without it, the modal is constrained to half '
           'the screen and cannot be resized.',
-      'diagram':
-          'showModalBottomSheet(\n'
+      'diagram': 'showModalBottomSheet(\n'
           '  isScrollControlled: true,\n'
           '  // Allows the sheet to control\n'
           '  // its own height\n'
@@ -561,12 +530,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dismiss on Drag Down',
-      'desc':
-          'When the user drags below minChildSize, the modal '
+      'desc': 'When the user drags below minChildSize, the modal '
           'dismisses automatically. This is default behavior. '
           'The controller can detect this via size approaching 0.',
-      'diagram':
-          '// Sheet auto-dismisses when\n'
+      'diagram': '// Sheet auto-dismisses when\n'
           '// dragged below minChildSize.\n'
           '// No extra code needed.',
       'color': Colors.orange,
@@ -641,8 +608,7 @@ dynamic build(BuildContext context) {
   final notifTopics = <Map<String, dynamic>>[
     {
       'title': 'DraggableScrollableNotification',
-      'desc':
-          'The sheet dispatches notifications as its extent changes. '
+      'desc': 'The sheet dispatches notifications as its extent changes. '
           'Wrap the sheet in NotificationListener to react to '
           'size changes without polling the controller.',
       'icon': Icons.notifications,
@@ -650,8 +616,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Notification Properties',
-      'desc':
-          'The notification provides: extent (current fraction), '
+      'desc': 'The notification provides: extent (current fraction), '
           'minExtent, maxExtent, initialExtent, and context. '
           'Use these to drive dependent UI.',
       'icon': Icons.list_alt,
@@ -659,8 +624,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Listening Pattern',
-      'desc':
-          'NotificationListener<DraggableScrollableNotification>( '
+      'desc': 'NotificationListener<DraggableScrollableNotification>( '
           'onNotification: (n) { setState(...); return true; }, '
           'child: sheet). Return true to stop propagation.',
       'icon': Icons.hearing,
@@ -668,8 +632,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Controller Listener',
-      'desc':
-          'DraggableScrollableController extends ChangeNotifier. '
+      'desc': 'DraggableScrollableController extends ChangeNotifier. '
           'Use addListener to get notified of size changes. '
           'More efficient than notification bubbling.',
       'icon': Icons.track_changes,
@@ -677,8 +640,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Use Cases',
-      'desc':
-          'Fade a backdrop as the sheet expands. Show/hide a FAB '
+      'desc': 'Fade a backdrop as the sheet expands. Show/hide a FAB '
           'based on extent. Update a map visible area. Animate '
           'header opacity based on sheet position.',
       'icon': Icons.lightbulb_outline,
@@ -750,8 +712,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Map Bottom Sheet',
-      'desc':
-          'Google Maps-style draggable sheet over a map. The '
+      'desc': 'Google Maps-style draggable sheet over a map. The '
           'controller expands the sheet when a location is tapped, '
           'collapses it when the map is tapped.',
       'icon': Icons.map,
@@ -759,8 +720,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Music Player',
-      'desc':
-          'A mini-player bar that expands into a full player. '
+      'desc': 'A mini-player bar that expands into a full player. '
           'The controller animates between collapsed (showing '
           'track info) and expanded (showing controls + artwork).',
       'icon': Icons.music_note,
@@ -768,8 +728,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Filter Panel',
-      'desc':
-          'A filter sheet that slides up over product listings. '
+      'desc': 'A filter sheet that slides up over product listings. '
           'The controller expands it on "Filter" button tap and '
           'collapses it on "Apply" with snap points at 0.3, 0.6.',
       'icon': Icons.filter_list,
@@ -777,8 +736,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Chat Input',
-      'desc':
-          'A chat input area that expands as the user types more. '
+      'desc': 'A chat input area that expands as the user types more. '
           'The controller tracks the text field height and adjusts '
           'the sheet extent to accommodate multiple lines.',
       'icon': Icons.chat,
@@ -786,8 +744,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Detail Preview',
-      'desc':
-          'A file/item detail preview that starts as a small strip '
+      'desc': 'A file/item detail preview that starts as a small strip '
           'showing the title. Drag up reveals full details. '
           'Programmatic expansion on list item long-press.',
       'icon': Icons.preview,
@@ -795,8 +752,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Onboarding Steps',
-      'desc':
-          'A bottom sheet that walks through onboarding steps. '
+      'desc': 'A bottom sheet that walks through onboarding steps. '
           'The controller animates to progressively larger '
           'extents as the user advances through steps.',
       'icon': Icons.school,
@@ -868,38 +824,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.drag_handle,
-      'text':
-          'DraggableScrollableController provides programmatic '
+      'text': 'DraggableScrollableController provides programmatic '
           'control: animateTo, jumpTo, reset, and size reading.',
     },
     {
       'icon': Icons.straighten,
-      'text':
-          'Size is expressed as a fraction (0.0 to 1.0) of the '
+      'text': 'Size is expressed as a fraction (0.0 to 1.0) of the '
           'parent height. Use pixels property for absolute values.',
     },
     {
       'icon': Icons.animation,
-      'text':
-          'animateTo smoothly transitions with customizable '
+      'text': 'animateTo smoothly transitions with customizable '
           'duration and curve. jumpTo moves instantly.',
     },
     {
       'icon': Icons.adjust,
-      'text':
-          'Snap points define positions the sheet settles to after '
+      'text': 'Snap points define positions the sheet settles to after '
           'a drag. Enable with snap: true and snapSizes.',
     },
     {
       'icon': Icons.web_asset,
-      'text':
-          'For modals, set expand: false and isScrollControlled: '
+      'text': 'For modals, set expand: false and isScrollControlled: '
           'true on showModalBottomSheet.',
     },
     {
       'icon': Icons.notifications,
-      'text':
-          'Listen to size changes via addListener (ChangeNotifier) '
+      'text': 'Listen to size changes via addListener (ChangeNotifier) '
           'or DraggableScrollableNotification.',
     },
   ];

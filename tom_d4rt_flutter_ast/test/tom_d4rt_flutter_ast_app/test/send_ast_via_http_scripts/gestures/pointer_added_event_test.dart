@@ -45,10 +45,8 @@ dynamic build(BuildContext context) {
     distanceMax: 0.0,
     embedderId: 7001,
   );
-  print(
-    'mouse: device=${mouseAdded.device}, pos=${mouseAdded.position}, '
-    'kind=${mouseAdded.kind}',
-  );
+  print('mouse: device=${mouseAdded.device}, pos=${mouseAdded.position}, '
+      'kind=${mouseAdded.kind}');
 
   final touchAdded = PointerAddedEvent(
     timeStamp: Duration(milliseconds: 2400),
@@ -62,10 +60,8 @@ dynamic build(BuildContext context) {
     radiusMax: 24.0,
     embedderId: 7002,
   );
-  print(
-    'touch: device=${touchAdded.device}, pressureMax=${touchAdded.pressureMax}, '
-    'radiusMax=${touchAdded.radiusMax}',
-  );
+  print('touch: device=${touchAdded.device}, pressureMax=${touchAdded.pressureMax}, '
+      'radiusMax=${touchAdded.radiusMax}');
 
   final stylusAdded = PointerAddedEvent(
     timeStamp: Duration(milliseconds: 3600),
@@ -81,10 +77,8 @@ dynamic build(BuildContext context) {
     tilt: 0.349, // ~20 degrees in radians
     embedderId: 7003,
   );
-  print(
-    'stylus: orientation=${stylusAdded.orientation}, tilt=${stylusAdded.tilt}, '
-    'distanceMax=${stylusAdded.distanceMax}',
-  );
+  print('stylus: orientation=${stylusAdded.orientation}, tilt=${stylusAdded.tilt}, '
+      'distanceMax=${stylusAdded.distanceMax}');
 
   final trackpadAdded = PointerAddedEvent(
     timeStamp: Duration(milliseconds: 4800),
@@ -94,10 +88,8 @@ dynamic build(BuildContext context) {
     position: Offset(640.0, 400.0),
     embedderId: 7004,
   );
-  print(
-    'trackpad: kind=${trackpadAdded.kind}, '
-    'embedderId=${trackpadAdded.embedderId}',
-  );
+  print('trackpad: kind=${trackpadAdded.kind}, '
+      'embedderId=${trackpadAdded.embedderId}');
 
   final invertedStylusAdded = PointerAddedEvent(
     timeStamp: Duration(milliseconds: 6000),
@@ -114,10 +106,8 @@ dynamic build(BuildContext context) {
     obscured: true,
     embedderId: 7005,
   );
-  print(
-    'invertedStylus: obscured=${invertedStylusAdded.obscured}, '
-    'distance=${invertedStylusAdded.distance}',
-  );
+  print('invertedStylus: obscured=${invertedStylusAdded.obscured}, '
+      'distance=${invertedStylusAdded.distance}');
 
   final unknownAdded = PointerAddedEvent(
     timeStamp: Duration(milliseconds: 7200),
@@ -127,53 +117,21 @@ dynamic build(BuildContext context) {
     position: Offset.zero,
     embedderId: 0,
   );
-  print(
-    'unknown: device=${unknownAdded.device}, position=${unknownAdded.position}',
-  );
+  print('unknown: device=${unknownAdded.device}, position=${unknownAdded.position}');
 
   final samples = <_SampleEntry>[
-    _SampleEntry(
-      mouseAdded,
-      'Mouse',
-      'USB / Bluetooth mouse plugged in',
-      Icons.mouse,
-      Colors.blue,
-    ),
-    _SampleEntry(
-      touchAdded,
-      'Touch',
-      'Finger identified by touchscreen',
-      Icons.touch_app,
-      Colors.orange,
-    ),
-    _SampleEntry(
-      stylusAdded,
-      'Stylus',
-      'Active pen woken near digitizer',
-      Icons.edit,
-      Colors.purple,
-    ),
-    _SampleEntry(
-      trackpadAdded,
-      'Trackpad',
-      'Trackpad surfaced by embedder',
-      Icons.crop_landscape,
-      Colors.teal,
-    ),
-    _SampleEntry(
-      invertedStylusAdded,
-      'Inverted Stylus',
-      'Pen flipped — eraser end engaged',
-      Icons.swap_vert,
-      Colors.deepOrange,
-    ),
-    _SampleEntry(
-      unknownAdded,
-      'Unknown',
-      'Embedder reported no kind',
-      Icons.help_outline,
-      Colors.grey,
-    ),
+    _SampleEntry(mouseAdded, 'Mouse', 'USB / Bluetooth mouse plugged in',
+        Icons.mouse, Colors.blue),
+    _SampleEntry(touchAdded, 'Touch', 'Finger identified by touchscreen',
+        Icons.touch_app, Colors.orange),
+    _SampleEntry(stylusAdded, 'Stylus', 'Active pen woken near digitizer',
+        Icons.edit, Colors.purple),
+    _SampleEntry(trackpadAdded, 'Trackpad', 'Trackpad surfaced by embedder',
+        Icons.crop_landscape, Colors.teal),
+    _SampleEntry(invertedStylusAdded, 'Inverted Stylus',
+        'Pen flipped — eraser end engaged', Icons.swap_vert, Colors.deepOrange),
+    _SampleEntry(unknownAdded, 'Unknown', 'Embedder reported no kind',
+        Icons.help_outline, Colors.grey),
   ];
   print('Constructed ${samples.length} sample events');
 
@@ -186,7 +144,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
+        colors: [
+          Color(0xFF0F2027),
+          Color(0xFF203A43),
+          Color(0xFF2C5364),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -227,11 +189,8 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              child: Icon(
-                Icons.add_circle_outline,
-                size: 36.0,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.add_circle_outline,
+                  size: 36.0, color: Colors.white),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -285,7 +244,11 @@ dynamic build(BuildContext context) {
             'first appearing on a touchscreen. It is NOT a touch and NOT a '
             'movement; it announces the device. The first interaction follows '
             'as a separate event (hover / down / scroll).',
-            style: TextStyle(color: Colors.white, fontSize: 13.5, height: 1.55),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13.5,
+              height: 1.55,
+            ),
           ),
         ),
         SizedBox(height: 14.0),
@@ -309,125 +272,58 @@ dynamic build(BuildContext context) {
   print('=== Section 2: Class anatomy — full field inventory ===');
 
   final fieldRows = <_FieldRow>[
-    _FieldRow(
-      'timeStamp',
-      'Duration',
-      'When the engine recorded the event.',
-      '${stylusAdded.timeStamp}',
-      Colors.indigo,
-    ),
-    _FieldRow(
-      'pointer',
-      'int',
-      'Unique identifier for this pointer interaction.',
-      '${stylusAdded.pointer}',
-      Colors.blue,
-    ),
-    _FieldRow(
-      'kind',
-      'PointerDeviceKind',
-      'Kind of input device (mouse, touch, stylus, trackpad, ...).',
-      '${stylusAdded.kind}',
-      Colors.purple,
-    ),
-    _FieldRow(
-      'device',
-      'int',
-      'Engine-assigned device id (sticky across events).',
-      '${stylusAdded.device}',
-      Colors.deepPurple,
-    ),
-    _FieldRow(
-      'position',
-      'Offset',
-      'Initial logical position when the device was added.',
-      '${stylusAdded.position}',
-      Colors.teal,
-    ),
-    _FieldRow(
-      'obscured',
-      'bool',
-      'True if the platform reports the input was obscured.',
-      '${stylusAdded.obscured}',
-      Colors.brown,
-    ),
-    _FieldRow(
-      'pressureMin',
-      'double',
-      'Minimum reportable pressure for this device (1.0 if unsupported).',
-      '${stylusAdded.pressureMin}',
-      Colors.green,
-    ),
-    _FieldRow(
-      'pressureMax',
-      'double',
-      'Maximum reportable pressure for this device.',
-      '${stylusAdded.pressureMax}',
-      Colors.lightGreen,
-    ),
-    _FieldRow(
-      'distance',
-      'double',
-      'Distance from the surface (only meaningful while not down).',
-      '${stylusAdded.distance}',
-      Colors.orange,
-    ),
-    _FieldRow(
-      'distanceMax',
-      'double',
-      'Maximum reportable distance from the surface.',
-      '${stylusAdded.distanceMax}',
-      Colors.deepOrange,
-    ),
-    _FieldRow(
-      'radiusMinor',
-      'double',
-      'Computed minor axis radius of the contact (0 on Added).',
-      '${stylusAdded.radiusMinor}',
-      Colors.pink,
-    ),
-    _FieldRow(
-      'radiusMajor',
-      'double',
-      'Computed major axis radius of the contact (0 on Added).',
-      '${stylusAdded.radiusMajor}',
-      Colors.pinkAccent,
-    ),
-    _FieldRow(
-      'radiusMin',
-      'double',
-      'Minimum reportable radius for this device.',
-      '${stylusAdded.radiusMin}',
-      Colors.red,
-    ),
-    _FieldRow(
-      'radiusMax',
-      'double',
-      'Maximum reportable radius for this device.',
-      '${stylusAdded.radiusMax}',
-      Colors.redAccent,
-    ),
-    _FieldRow(
-      'orientation',
-      'double',
-      'Stylus orientation in radians (compass bearing).',
-      '${stylusAdded.orientation.toStringAsFixed(3)} rad',
-      Colors.cyan,
-    ),
-    _FieldRow(
-      'tilt',
-      'double',
-      'Stylus tilt from perpendicular in radians.',
-      '${stylusAdded.tilt.toStringAsFixed(3)} rad',
-      Colors.lightBlue,
-    ),
-    _FieldRow(
-      'embedderId',
-      'int',
-      'Embedder-assigned identifier (Linux/Win shells, web).',
-      '${stylusAdded.embedderId}',
-      Colors.blueGrey,
-    ),
+    _FieldRow('timeStamp', 'Duration', 'When the engine recorded the event.',
+        '${stylusAdded.timeStamp}', Colors.indigo),
+    _FieldRow('pointer', 'int',
+        'Unique identifier for this pointer interaction.',
+        '${stylusAdded.pointer}', Colors.blue),
+    _FieldRow('kind', 'PointerDeviceKind',
+        'Kind of input device (mouse, touch, stylus, trackpad, ...).',
+        '${stylusAdded.kind}', Colors.purple),
+    _FieldRow('device', 'int',
+        'Engine-assigned device id (sticky across events).',
+        '${stylusAdded.device}', Colors.deepPurple),
+    _FieldRow('position', 'Offset',
+        'Initial logical position when the device was added.',
+        '${stylusAdded.position}', Colors.teal),
+    _FieldRow('obscured', 'bool',
+        'True if the platform reports the input was obscured.',
+        '${stylusAdded.obscured}', Colors.brown),
+    _FieldRow('pressureMin', 'double',
+        'Minimum reportable pressure for this device (1.0 if unsupported).',
+        '${stylusAdded.pressureMin}', Colors.green),
+    _FieldRow('pressureMax', 'double',
+        'Maximum reportable pressure for this device.',
+        '${stylusAdded.pressureMax}', Colors.lightGreen),
+    _FieldRow('distance', 'double',
+        'Distance from the surface (only meaningful while not down).',
+        '${stylusAdded.distance}', Colors.orange),
+    _FieldRow('distanceMax', 'double',
+        'Maximum reportable distance from the surface.',
+        '${stylusAdded.distanceMax}', Colors.deepOrange),
+    _FieldRow('radiusMinor', 'double',
+        'Computed minor axis radius of the contact (0 on Added).',
+        '${stylusAdded.radiusMinor}', Colors.pink),
+    _FieldRow('radiusMajor', 'double',
+        'Computed major axis radius of the contact (0 on Added).',
+        '${stylusAdded.radiusMajor}', Colors.pinkAccent),
+    _FieldRow('radiusMin', 'double',
+        'Minimum reportable radius for this device.',
+        '${stylusAdded.radiusMin}', Colors.red),
+    _FieldRow('radiusMax', 'double',
+        'Maximum reportable radius for this device.',
+        '${stylusAdded.radiusMax}', Colors.redAccent),
+    _FieldRow('orientation', 'double',
+        'Stylus orientation in radians (compass bearing).',
+        '${stylusAdded.orientation.toStringAsFixed(3)} rad',
+        Colors.cyan),
+    _FieldRow('tilt', 'double',
+        'Stylus tilt from perpendicular in radians.',
+        '${stylusAdded.tilt.toStringAsFixed(3)} rad',
+        Colors.lightBlue),
+    _FieldRow('embedderId', 'int',
+        'Embedder-assigned identifier (Linux/Win shells, web).',
+        '${stylusAdded.embedderId}', Colors.blueGrey),
   ];
 
   final classAnatomy = Container(
@@ -568,18 +464,11 @@ dynamic build(BuildContext context) {
             _hierNode('PointerUpEvent', Colors.purple, false),
             _hierNode('PointerCancelEvent', Colors.red, false),
             _hierNode('PointerScrollEvent', Colors.orange, false),
-            _hierNode(
-              'PointerScrollInertiaCancelEvent',
-              Colors.deepOrange,
-              false,
-            ),
+            _hierNode('PointerScrollInertiaCancelEvent',
+                Colors.deepOrange, false),
             _hierNode('PointerScaleEvent', Colors.pink, false),
             _hierNode('PointerPanZoomStartEvent', Colors.amber.shade700, false),
-            _hierNode(
-              'PointerPanZoomUpdateEvent',
-              Colors.amber.shade800,
-              false,
-            ),
+            _hierNode('PointerPanZoomUpdateEvent', Colors.amber.shade800, false),
             _hierNode('PointerPanZoomEndEvent', Colors.amber.shade900, false),
             _hierNode('PointerSignalEvent', Colors.brown, false),
           ],
@@ -616,12 +505,10 @@ dynamic build(BuildContext context) {
 
   final sampleCards = <Widget>[];
   for (final s in samples) {
-    print(
-      'Card: ${s.label} -> '
-      'pointer=${s.event.pointer}, device=${s.event.device}, '
-      'kind=${s.event.kind}, position=${s.event.position}, '
-      'embedderId=${s.event.embedderId}',
-    );
+    print('Card: ${s.label} -> '
+        'pointer=${s.event.pointer}, device=${s.event.device}, '
+        'kind=${s.event.kind}, position=${s.event.position}, '
+        'embedderId=${s.event.embedderId}');
     sampleCards.add(_buildSampleCard(s));
   }
 
@@ -702,12 +589,8 @@ dynamic build(BuildContext context) {
               _flowArrow(),
               _flowNode('Exit', Icons.logout, Colors.lime.shade700),
               _flowArrow(),
-              _flowNode(
-                'Removed',
-                Icons.remove_circle,
-                Colors.blueGrey,
-                isEnd: true,
-              ),
+              _flowNode('Removed', Icons.remove_circle, Colors.blueGrey,
+                  isEnd: true),
             ],
           ),
         ),
@@ -778,16 +661,16 @@ dynamic build(BuildContext context) {
         _recipeBlock(
           '1. Logging device additions',
           'Subscribe to GestureBinding pointerRouter or override\n'
-              'WidgetsFlutterBinding.handlePointerEvent. PointerAddedEvent\n'
-              'is purely informational — no hit testing happens.',
+          'WidgetsFlutterBinding.handlePointerEvent. PointerAddedEvent\n'
+          'is purely informational — no hit testing happens.',
           'void onPointerEvent(PointerEvent e) {\n'
-              '  if (e is PointerAddedEvent) {\n'
-              '    log.info(\n'
-              '      "device added id=\${e.device} kind=\${e.kind} "\n'
-              '      "embedderId=\${e.embedderId} pos=\${e.position}",\n'
-              '    );\n'
-              '  }\n'
-              '}',
+          '  if (e is PointerAddedEvent) {\n'
+          '    log.info(\n'
+          '      "device added id=\${e.device} kind=\${e.kind} "\n'
+          '      "embedderId=\${e.embedderId} pos=\${e.position}",\n'
+          '    );\n'
+          '  }\n'
+          '}',
           Colors.cyan.shade300,
           Colors.cyan,
         ),
@@ -795,21 +678,21 @@ dynamic build(BuildContext context) {
         _recipeBlock(
           '2. Populating a multi-pointer dashboard',
           'Maintain a Map<int, _DeviceInfo> keyed by event.device.\n'
-              'Insert on PointerAddedEvent, remove on PointerRemovedEvent.\n'
-              'Use device — not pointer — as the long-lived identifier.',
+          'Insert on PointerAddedEvent, remove on PointerRemovedEvent.\n'
+          'Use device — not pointer — as the long-lived identifier.',
           'final Map<int, _DeviceInfo> _devices = {};\n'
-              '\n'
-              'void track(PointerEvent e) {\n'
-              '  if (e is PointerAddedEvent) {\n'
-              '    _devices[e.device] = _DeviceInfo(\n'
-              '      kind: e.kind,\n'
-              '      addedAt: e.timeStamp,\n'
-              '      embedderId: e.embedderId,\n'
-              '    );\n'
-              '  } else if (e is PointerRemovedEvent) {\n'
-              '    _devices.remove(e.device);\n'
-              '  }\n'
-              '}',
+          '\n'
+          'void track(PointerEvent e) {\n'
+          '  if (e is PointerAddedEvent) {\n'
+          '    _devices[e.device] = _DeviceInfo(\n'
+          '      kind: e.kind,\n'
+          '      addedAt: e.timeStamp,\n'
+          '      embedderId: e.embedderId,\n'
+          '    );\n'
+          '  } else if (e is PointerRemovedEvent) {\n'
+          '    _devices.remove(e.device);\n'
+          '  }\n'
+          '}',
           Colors.greenAccent,
           Colors.green,
         ),
@@ -817,20 +700,20 @@ dynamic build(BuildContext context) {
         _recipeBlock(
           '3. Conditional UI when a stylus appears',
           'Detect stylus presence and reveal a pen-specific panel\n'
-              '(brush size, tilt indicator). Use kind to discriminate.',
+          '(brush size, tilt indicator). Use kind to discriminate.',
           'bool stylusPresent = false;\n'
-              '\n'
-              'void watch(PointerEvent e) {\n'
-              '  if (e is PointerAddedEvent &&\n'
-              '      e.kind == PointerDeviceKind.stylus) {\n'
-              '    stylusPresent = true;\n'
-              '    showStylusToolbar();\n'
-              '  } else if (e is PointerRemovedEvent &&\n'
-              '             e.kind == PointerDeviceKind.stylus) {\n'
-              '    stylusPresent = false;\n'
-              '    hideStylusToolbar();\n'
-              '  }\n'
-              '}',
+          '\n'
+          'void watch(PointerEvent e) {\n'
+          '  if (e is PointerAddedEvent &&\n'
+          '      e.kind == PointerDeviceKind.stylus) {\n'
+          '    stylusPresent = true;\n'
+          '    showStylusToolbar();\n'
+          '  } else if (e is PointerRemovedEvent &&\n'
+          '             e.kind == PointerDeviceKind.stylus) {\n'
+          '    stylusPresent = false;\n'
+          '    hideStylusToolbar();\n'
+          '  }\n'
+          '}',
           Colors.pinkAccent,
           Colors.pink,
         ),
@@ -866,11 +749,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.compare_arrows,
-              color: Colors.amber.shade800,
-              size: 22.0,
-            ),
+            Icon(Icons.compare_arrows, color: Colors.amber.shade800, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'PointerAddedEvent vs siblings',
@@ -963,11 +842,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.red.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.red.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls',
@@ -983,29 +859,29 @@ dynamic build(BuildContext context) {
         _pitfall(
           'Mouse-add events on web',
           'Browsers do not always announce a mouse before its first hover. '
-              'Fabricated PointerAddedEvents may carry position == Offset.zero.',
+          'Fabricated PointerAddedEvents may carry position == Offset.zero.',
         ),
         _pitfall(
           'Embedder-specific behaviour',
           'Linux / Windows shells, custom embedders, and Android may '
-              'duplicate add events on focus changes. Treat re-additions of the '
-              'same device id as benign.',
+          'duplicate add events on focus changes. Treat re-additions of the '
+          'same device id as benign.',
         ),
         _pitfall(
           'Missing PointerRemovedEvent',
           'Crashes, sleep, and embedder bugs can drop the trailing remove. '
-              'Don\'t treat it as a strict invariant — periodically GC stale '
-              'device entries by timestamp.',
+          'Don\'t treat it as a strict invariant — periodically GC stale '
+          'device entries by timestamp.',
         ),
         _pitfall(
           'Confusing pointer with device',
           'pointer is per-interaction; device is the physical id. '
-              'For long-lived dashboards key by device, not pointer.',
+          'For long-lived dashboards key by device, not pointer.',
         ),
         _pitfall(
           'Treating Added as a touch',
           'PointerAddedEvent is announcement-only. Triggering gesture '
-              'logic on it produces phantom interactions.',
+          'logic on it produces phantom interactions.',
         ),
       ],
     ),
@@ -1038,11 +914,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.description_outlined,
-              color: Colors.greenAccent,
-              size: 20.0,
-            ),
+            Icon(Icons.description_outlined,
+                color: Colors.greenAccent, size: 20.0),
             SizedBox(width: 8.0),
             Text(
               'File',
@@ -1099,19 +972,12 @@ dynamic build(BuildContext context) {
         SizedBox(height: 10.0),
         classAnatomy,
         SizedBox(height: 28.0),
-        _sectionTitle(
-          '2. PointerEvent hierarchy',
-          Icons.hub,
-          Colors.deepPurple,
-        ),
+        _sectionTitle('2. PointerEvent hierarchy', Icons.hub, Colors.deepPurple),
         SizedBox(height: 10.0),
         hierarchy,
         SizedBox(height: 28.0),
-        _sectionTitle(
-          '3. Sample grid (6 device kinds)',
-          Icons.dashboard,
-          Colors.blue,
-        ),
+        _sectionTitle('3. Sample grid (6 device kinds)',
+            Icons.dashboard, Colors.blue),
         SizedBox(height: 10.0),
         sampleGrid,
         SizedBox(height: 28.0),
@@ -1123,11 +989,8 @@ dynamic build(BuildContext context) {
         SizedBox(height: 10.0),
         recipes,
         SizedBox(height: 28.0),
-        _sectionTitle(
-          '6. Comparison vs siblings',
-          Icons.compare_arrows,
-          Colors.brown,
-        ),
+        _sectionTitle('6. Comparison vs siblings',
+            Icons.compare_arrows, Colors.brown),
         SizedBox(height: 10.0),
         comparison,
         SizedBox(height: 28.0),
@@ -1135,7 +998,8 @@ dynamic build(BuildContext context) {
         SizedBox(height: 10.0),
         pitfalls,
         SizedBox(height: 28.0),
-        _sectionTitle('8. Footer', Icons.description_outlined, Colors.blueGrey),
+        _sectionTitle('8. Footer', Icons.description_outlined,
+            Colors.blueGrey),
         SizedBox(height: 10.0),
         footer,
         SizedBox(height: 24.0),
@@ -1207,12 +1071,17 @@ Widget _sectionTitle(String title, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.16), color.withValues(alpha: 0.04)],
+        colors: [
+          color.withValues(alpha: 0.16),
+          color.withValues(alpha: 0.04),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
     ),
     child: Row(
       children: [
@@ -1239,7 +1108,9 @@ Widget _buildFieldRow(_FieldRow row) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.7),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(left: BorderSide(color: row.color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: row.color, width: 4.0),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1260,7 +1131,8 @@ Widget _buildFieldRow(_FieldRow row) {
               ),
               SizedBox(height: 2.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.5),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.5),
                 decoration: BoxDecoration(
                   color: row.color.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(4.0),
@@ -1292,7 +1164,8 @@ Widget _buildFieldRow(_FieldRow row) {
               ),
               SizedBox(height: 4.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(4.0),
@@ -1437,18 +1310,14 @@ Widget _buildSampleCard(_SampleEntry s) {
               _kv('position', '${e.position}', s.color),
               _kv('timeStamp', '${e.timeStamp}', s.color),
               _kv('embedderId', '${e.embedderId}', s.color),
-              _kv(
-                'pressureMin..Max',
-                '${e.pressureMin}..${e.pressureMax}',
-                s.color,
-              ),
-              _kv(
-                'distance / max',
-                '${e.distance} / ${e.distanceMax}',
-                s.color,
-              ),
-              _kv('radiusMin..Max', '${e.radiusMin}..${e.radiusMax}', s.color),
-              _kv('orientation', e.orientation.toStringAsFixed(3), s.color),
+              _kv('pressureMin..Max',
+                  '${e.pressureMin}..${e.pressureMax}', s.color),
+              _kv('distance / max',
+                  '${e.distance} / ${e.distanceMax}', s.color),
+              _kv('radiusMin..Max',
+                  '${e.radiusMin}..${e.radiusMax}', s.color),
+              _kv('orientation',
+                  e.orientation.toStringAsFixed(3), s.color),
               _kv('tilt', e.tilt.toStringAsFixed(3), s.color),
               _kv('obscured', '${e.obscured}', s.color),
               _kv('down', '${e.down}', s.color),
@@ -1494,24 +1363,25 @@ Widget _kv(String k, String v, Color color) {
   );
 }
 
-Widget _flowNode(
-  String label,
-  IconData icon,
-  Color color, {
-  bool isStart = false,
-  bool isEnd = false,
-}) {
+Widget _flowNode(String label, IconData icon, Color color,
+    {bool isStart = false, bool isEnd = false}) {
   return Container(
     width: 92.0,
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.32)],
+        colors: [
+          color.withValues(alpha: 0.18),
+          color.withValues(alpha: 0.32),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: color, width: (isStart || isEnd) ? 2.5 : 1.2),
+      border: Border.all(
+        color: color,
+        width: (isStart || isEnd) ? 2.5 : 1.2,
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.30),
@@ -1538,7 +1408,8 @@ Widget _flowNode(
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.circular(3.0),
@@ -1557,7 +1428,8 @@ Widget _flowNode(
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.circular(3.0),
@@ -1596,7 +1468,9 @@ Widget _recipeBlock(
     decoration: BoxDecoration(
       color: Colors.black.withValues(alpha: 0.4),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: accent, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: accent, width: 3.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1724,14 +1598,17 @@ Widget _pitfall(String title, String body) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.7),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: Colors.red.shade400, width: 3.5)),
+      border: Border(
+        left: BorderSide(color: Colors.red.shade400, width: 3.5),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Icon(Icons.error_outline, color: Colors.red.shade700, size: 16.0),
+            Icon(Icons.error_outline,
+                color: Colors.red.shade700, size: 16.0),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(

@@ -209,7 +209,10 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.cyan.shade700,
                     borderRadius: BorderRadius.circular(6.0),
@@ -485,7 +488,9 @@ dynamic build(BuildContext context) {
                 value: p,
                 minHeight: 6.0,
                 backgroundColor: Colors.white,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.cyan.shade600),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.cyan.shade600,
+                ),
               ),
             ),
             SizedBox(height: 4.0),
@@ -943,10 +948,8 @@ dynamic build(BuildContext context) {
           _sectionHeading('5. Real-world mock', Icons.cloud_download),
           Wrap(alignment: WrapAlignment.center, children: mockCards),
           SizedBox(height: 24.0),
-          _sectionHeading(
-            '6. ImageChunkEvent vs Stream<List<int>>',
-            Icons.compare_arrows,
-          ),
+          _sectionHeading('6. ImageChunkEvent vs Stream<List<int>>',
+              Icons.compare_arrows),
           comparisonTable,
           SizedBox(height: 24.0),
           _sectionHeading('7. Memory model', Icons.memory),
@@ -975,7 +978,9 @@ Widget _sectionHeading(String text, IconData icon) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: Colors.cyan.shade700, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: Colors.cyan.shade700, width: 4.0),
+      ),
     ),
     child: Row(
       children: [
@@ -1350,16 +1355,16 @@ Widget _recapBullet(String text) {
       children: [
         Padding(
           padding: EdgeInsets.only(top: 4.0, right: 8.0),
-          child: Icon(
-            Icons.check_circle,
-            color: Colors.cyan.shade100,
-            size: 14.0,
-          ),
+          child: Icon(Icons.check_circle, color: Colors.cyan.shade100, size: 14.0),
         ),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.35),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13.0,
+              height: 1.35,
+            ),
           ),
         ),
       ],

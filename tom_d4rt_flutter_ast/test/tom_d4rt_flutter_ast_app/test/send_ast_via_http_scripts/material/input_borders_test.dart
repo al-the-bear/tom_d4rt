@@ -53,16 +53,9 @@ class _OutlineAnatomyPainter extends CustomPainter {
     const double labelStart = 36.0;
     const double labelHeight = 14.0;
 
-    final Rect frame = Rect.fromLTWH(
-      inset,
-      inset,
-      size.width - inset * 2,
-      size.height - inset * 2,
-    );
-    final RRect frameR = RRect.fromRectAndRadius(
-      frame,
-      const Radius.circular(radius),
-    );
+    final Rect frame =
+        Rect.fromLTWH(inset, inset, size.width - inset * 2, size.height - inset * 2);
+    final RRect frameR = RRect.fromRectAndRadius(frame, const Radius.circular(radius));
 
     final Paint framePaint = Paint()
       ..color = frameColor
@@ -78,11 +71,7 @@ class _OutlineAnatomyPainter extends CustomPainter {
       12,
     );
     final Path gapClear = Path()..addRect(gapRect);
-    final Path drawn = Path.combine(
-      PathOperation.difference,
-      framePath,
-      gapClear,
-    );
+    final Path drawn = Path.combine(PathOperation.difference, framePath, gapClear);
     canvas.drawPath(drawn, framePaint);
 
     // Floating label rect.
@@ -98,11 +87,7 @@ class _OutlineAnatomyPainter extends CustomPainter {
     final TextPainter labelTp = TextPainter(
       text: TextSpan(
         text: 'floating label',
-        style: TextStyle(
-          color: labelColor,
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-        ),
+        style: TextStyle(color: labelColor, fontSize: 10, fontWeight: FontWeight.w700),
       ),
       textDirection: TextDirection.ltr,
     );
@@ -139,11 +124,7 @@ class _OutlineAnatomyPainter extends CustomPainter {
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: cornerLabels[i],
-          style: TextStyle(
-            color: annotationColor,
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(color: annotationColor, fontSize: 10, fontWeight: FontWeight.w700),
         ),
         textDirection: TextDirection.ltr,
       );
@@ -157,19 +138,12 @@ class _OutlineAnatomyPainter extends CustomPainter {
     final TextPainter gapTp = TextPainter(
       text: TextSpan(
         text: 'gapPadding',
-        style: TextStyle(
-          color: gapColor,
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-        ),
+        style: TextStyle(color: gapColor, fontSize: 10, fontWeight: FontWeight.w700),
       ),
       textDirection: TextDirection.ltr,
     );
     gapTp.layout();
-    gapTp.paint(
-      canvas,
-      Offset(labelRect.center.dx - gapTp.width / 2, frame.top - 22),
-    );
+    gapTp.paint(canvas, Offset(labelRect.center.dx - gapTp.width / 2, frame.top - 22));
   }
 
   @override
@@ -208,12 +182,10 @@ class _DashedFramePainter extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..style = PaintingStyle.stroke;
     final Path framePath = Path()
-      ..addRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(0, 0, size.width, size.height),
-          Radius.circular(radius),
-        ),
-      );
+      ..addRRect(RRect.fromRectAndRadius(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+        Radius.circular(radius),
+      ));
     for (final PathMetric metric in framePath.computeMetrics()) {
       double distance = 0;
       while (distance < metric.length) {
@@ -275,21 +247,11 @@ class _BorderHierarchyPainter extends CustomPainter {
         textAlign: TextAlign.center,
       );
       tp.layout(maxWidth: r.width - 8);
-      tp.paint(
-        canvas,
-        Offset(
-          r.left + (r.width - tp.width) / 2,
-          r.top + (r.height - tp.height) / 2,
-        ),
-      );
+      tp.paint(canvas, Offset(r.left + (r.width - tp.width) / 2, r.top + (r.height - tp.height) / 2));
     }
 
     final double centerX = size.width / 2;
-    final Rect parent = Rect.fromCenter(
-      center: Offset(centerX, 22),
-      width: 200,
-      height: 32,
-    );
+    final Rect parent = Rect.fromCenter(center: Offset(centerX, 22), width: 200, height: 32);
     drawBox(parent, 'InputBorder (abstract)');
 
     final double childY = 96;
@@ -343,24 +305,12 @@ dynamic build(BuildContext context) {
 
   // ─── Reusable text editing controllers (static content) ───
   final TextEditingController emptyCtrl = TextEditingController(text: '');
-  final TextEditingController helloCtrl = TextEditingController(
-    text: 'Hello, world',
-  );
-  final TextEditingController emailCtrl = TextEditingController(
-    text: 'alex@example.org',
-  );
-  final TextEditingController errorCtrl = TextEditingController(
-    text: 'not-an-email',
-  );
-  final TextEditingController focusedCtrl = TextEditingController(
-    text: 'pretend-focused',
-  );
-  final TextEditingController numbersCtrl = TextEditingController(
-    text: '12 34 56',
-  );
-  final TextEditingController longCtrl = TextEditingController(
-    text: 'A longer pre-filled sentence',
-  );
+  final TextEditingController helloCtrl = TextEditingController(text: 'Hello, world');
+  final TextEditingController emailCtrl = TextEditingController(text: 'alex@example.org');
+  final TextEditingController errorCtrl = TextEditingController(text: 'not-an-email');
+  final TextEditingController focusedCtrl = TextEditingController(text: 'pretend-focused');
+  final TextEditingController numbersCtrl = TextEditingController(text: '12 34 56');
+  final TextEditingController longCtrl = TextEditingController(text: 'A longer pre-filled sentence');
 
   // ─── Borders constructed up front so they can be reused ───
   const InputBorder noBorder = InputBorder.none;
@@ -518,12 +468,8 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget infoCard(
-    String heading,
-    Widget content, {
-    List<Color>? headerGradient,
-    Color? bodyColor,
-  }) {
+  Widget infoCard(String heading, Widget content,
+      {List<Color>? headerGradient, Color? bodyColor}) {
     final List<Color> gradient = headerGradient ?? <Color>[indigoDeep, indigo];
     return Container(
       width: double.infinity,
@@ -557,9 +503,7 @@ dynamic build(BuildContext context) {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Text(
               heading,
@@ -595,7 +539,10 @@ dynamic build(BuildContext context) {
             ),
           ),
           Expanded(
-            child: Text(value, style: TextStyle(fontSize: 12, color: slate)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 12, color: slate),
+            ),
           ),
         ],
       ),
@@ -653,9 +600,7 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             decoration: BoxDecoration(
               color: a.withValues(alpha: 0.20),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Row(
               children: <Widget>[
@@ -753,9 +698,7 @@ dynamic build(BuildContext context) {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Text(
               title,
@@ -794,10 +737,11 @@ dynamic build(BuildContext context) {
   final Widget section1 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('01', 'What is an InputBorder?', const <Color>[
-        indigoDeep,
-        indigo,
-      ]),
+      sectionBanner(
+        '01',
+        'What is an InputBorder?',
+        const <Color>[indigoDeep, indigo],
+      ),
       proseBox(
         '`InputBorder` is the abstract base class for the rectangular border '
         'that frames the inner content of any Material text input. It extends '
@@ -825,21 +769,12 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             dataRow('InputBorder', 'abstract; extends ShapeBorder'),
             dataRow('InputBorder.none', 'sentinel — paints nothing'),
-            dataRow(
-              'OutlineInputBorder',
-              'rounded rect with optional label gap',
-            ),
-            dataRow(
-              'UnderlineInputBorder',
-              'single bottom line, optional top radii',
-            ),
+            dataRow('OutlineInputBorder', 'rounded rect with optional label gap'),
+            dataRow('UnderlineInputBorder', 'single bottom line, optional top radii'),
             dataRow('borderSide', 'BorderSide(color,width,style)'),
             dataRow('borderRadius', 'BorderRadius for the corners'),
             dataRow('gapPadding', 'padding around the floating label'),
-            dataRow(
-              'isOutline',
-              'true for OutlineInputBorder, false for Underline',
-            ),
+            dataRow('isOutline', 'true for OutlineInputBorder, false for Underline'),
           ],
         ),
         headerGradient: const <Color>[indigoDeep, indigo],
@@ -873,10 +808,11 @@ dynamic build(BuildContext context) {
   final Widget section2 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('02', 'Anatomy of an OutlineInputBorder', const <Color>[
-        indigo,
-        teal,
-      ]),
+      sectionBanner(
+        '02',
+        'Anatomy of an OutlineInputBorder',
+        const <Color>[indigo, teal],
+      ),
       proseBox(
         'The diagram below renders an `OutlineInputBorder` with a floating '
         'label cut out of the top edge. The corner radii are labelled (TL, TR, '
@@ -924,15 +860,9 @@ dynamic build(BuildContext context) {
             dataRow('top edge', 'starts at TL+r, ends at TR-r'),
             dataRow('label gap', 'cleared region in top stroke'),
             dataRow('gapPadding (px)', 'each side of label, default 4.0'),
-            dataRow(
-              'floating label sits',
-              'centered vertically on the top edge',
-            ),
+            dataRow('floating label sits', 'centered vertically on the top edge'),
             dataRow('paint order', 'fill first, then stroke, then label'),
-            dataRow(
-              'hit testing',
-              'inherits from ShapeBorder via getOuterPath',
-            ),
+            dataRow('hit testing', 'inherits from ShapeBorder via getOuterPath'),
           ],
         ),
         headerGradient: const <Color>[teal, indigo],
@@ -977,10 +907,7 @@ dynamic build(BuildContext context) {
         focusedBorder: focusedBorder,
         errorBorder: errorBorder,
         disabledBorder: disabledBorder,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 12,
-        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       ),
     );
   }
@@ -988,10 +915,11 @@ dynamic build(BuildContext context) {
   final Widget section3 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('03', 'Gallery — Every Interesting Variant', const <Color>[
-        teal,
-        indigo,
-      ]),
+      sectionBanner(
+        '03',
+        'Gallery — Every Interesting Variant',
+        const <Color>[teal, indigo],
+      ),
       proseBox(
         'Each card below isolates one configuration so you can see exactly '
         'which knob produces which visual. The text shown is static; an '
@@ -1001,8 +929,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'InputBorder.none',
-        note:
-            'No painted border at all. Useful inside a Card or Container '
+        note: 'No painted border at all. Useful inside a Card or Container '
             'where the parent already provides visual containment, or when '
             'you want a search field that looks like a plain label.',
         field: makeField(
@@ -1016,8 +943,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Default underline (no override)',
-        note:
-            'Omitting `border` entirely yields the Material default, a thin '
+        note: 'Omitting `border` entirely yields the Material default, a thin '
             'underline that grows to the theme primary colour when focused. '
             'This is what almost every TextField in Material apps looks like.',
         field: makeField(
@@ -1030,8 +956,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'UnderlineInputBorder with custom BorderSide',
-        note:
-            'A custom colour and thickness on the bottom edge. The other '
+        note: 'A custom colour and thickness on the bottom edge. The other '
             'three edges stay invisible. Useful for chat composers or rows '
             'of inline editors.',
         field: makeField(
@@ -1045,8 +970,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'OutlineInputBorder, default radius (r=4)',
-        note:
-            'The plain rounded outline you get from `OutlineInputBorder()` '
+        note: 'The plain rounded outline you get from `OutlineInputBorder()` '
             'with no parameters: 4-pixel corner radius, 1-pixel stroke.',
         field: makeField(
           label: 'Outline',
@@ -1058,8 +982,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'OutlineInputBorder with circular radius',
-        note:
-            'A 12-pixel radius gives a friendlier shape. Pair the radius '
+        note: 'A 12-pixel radius gives a friendlier shape. Pair the radius '
             'with a slightly larger `gapPadding` so the label clears the '
             'curve cleanly.',
         field: makeField(
@@ -1073,8 +996,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'OutlineInputBorder, stadium shape',
-        note:
-            'A very large radius (≥ field height / 2) flattens into a pill. '
+        note: 'A very large radius (≥ field height / 2) flattens into a pill. '
             'When stadium fields are used, set the radius to a constant that '
             '\u2265 28 to make sure short and tall fields look identical.',
         field: makeField(
@@ -1089,8 +1011,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'OutlineInputBorder with specific corners',
-        note:
-            'BorderRadius.only(topLeft: …, bottomRight: …) yields '
+        note: 'BorderRadius.only(topLeft: …, bottomRight: …) yields '
             'asymmetric corners. Use this sparingly; it is most often seen in '
             'chat bubbles, where one corner matches the avatar position.',
         field: makeField(
@@ -1103,8 +1024,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Heavy weight outline (BorderSide width 3.2)',
-        note:
-            'A bold stroke is sometimes used to indicate the primary input '
+        note: 'A bold stroke is sometimes used to indicate the primary input '
             'on a form. Keep `gapPadding` larger so the floating label still '
             'has breathing room (here 8.0).',
         field: makeField(
@@ -1118,8 +1038,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Hairline outline (BorderSide width 0.5)',
-        note:
-            'A 0.5-pixel stroke produces a subtle, document-style edge. On '
+        note: 'A 0.5-pixel stroke produces a subtle, document-style edge. On '
             'high-DPI screens this still resolves to a single physical pixel.',
         field: makeField(
           label: 'Hairline',
@@ -1131,8 +1050,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Hairline underline (BorderSide width 0.5)',
-        note:
-            'The hairline trick applies to UnderlineInputBorder too. Pair '
+        note: 'The hairline trick applies to UnderlineInputBorder too. Pair '
             'it with a muted grey to evoke a printed form.',
         field: makeField(
           label: 'Hairline underline',
@@ -1144,8 +1062,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Dashed-feel border (CustomPainter overlay)',
-        note:
-            '`OutlineInputBorder` does not expose a dash pattern, so to '
+        note: '`OutlineInputBorder` does not expose a dash pattern, so to '
             'fake one we paint a dashed rectangle behind the field and set '
             '`InputBorder.none`. The painter walks `Path.computeMetrics()` '
             'and stamps `dashWidth` segments separated by `dashGap`.',
@@ -1175,8 +1092,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Error state (red border)',
-        note:
-            'When `errorText` is non-null, Material uses `errorBorder` (or '
+        note: 'When `errorText` is non-null, Material uses `errorBorder` (or '
             'falls back to the default error colour from `ColorScheme`). The '
             'helper text below the field flips red automatically.',
         field: makeField(
@@ -1193,8 +1109,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Disabled state (gray dim border)',
-        note:
-            'Setting `enabled: false` swaps to `disabledBorder` and dims '
+        note: 'Setting `enabled: false` swaps to `disabledBorder` and dims '
             'the label/text colours. Always provide a `disabledBorder` if '
             'you have customised the enabled one — Material will not invent '
             'one for you.',
@@ -1210,8 +1125,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Focused state (primary colour, width 2.4)',
-        note:
-            'We cannot actually focus a field in a static demo, but this '
+        note: 'We cannot actually focus a field in a static demo, but this '
             'card shows the visual you would get: an outline matching '
             '`focusedBorder`. Note `gapPadding` should match between '
             '`enabledBorder` and `focusedBorder`, or the label will jump '
@@ -1228,8 +1142,7 @@ dynamic build(BuildContext context) {
       ),
       galleryEntry(
         title: 'Filled + UnderlineInputBorder',
-        note:
-            'Setting `filled: true` adds a fill colour underneath the '
+        note: 'Setting `filled: true` adds a fill colour underneath the '
             'border. UnderlineInputBorder is a classic match because the '
             'fill substitutes for the missing top/left/right strokes.',
         field: makeField(
@@ -1251,11 +1164,7 @@ dynamic build(BuildContext context) {
   // ─────────────────────────────────────────────────────────────────────────
   print('[Section 4] State matrix');
 
-  Widget matrixCell(
-    InputBorder border, {
-    bool enabled = true,
-    String? errorText,
-  }) {
+  Widget matrixCell(InputBorder border, {bool enabled = true, String? errorText}) {
     return Padding(
       padding: const EdgeInsets.all(6),
       child: SizedBox(
@@ -1272,22 +1181,15 @@ dynamic build(BuildContext context) {
             focusedBorder: border,
             disabledBorder: border,
             errorBorder: border,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 6,
-            ),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           ),
         ),
       ),
     );
   }
 
-  TableRow matrixRow(
-    String label,
-    Color color,
-    Widget outlineCell,
-    Widget underlineCell,
-  ) {
+  TableRow matrixRow(String label, Color color, Widget outlineCell, Widget underlineCell) {
     return TableRow(
       children: <Widget>[
         Padding(
@@ -1310,10 +1212,11 @@ dynamic build(BuildContext context) {
   final Widget section4 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('04', 'State Matrix — Outline vs Underline', const <Color>[
-        indigoDeep,
-        teal,
-      ]),
+      sectionBanner(
+        '04',
+        'State Matrix — Outline vs Underline',
+        const <Color>[indigoDeep, teal],
+      ),
       proseBox(
         'The matrix shows the four important states of a TextField side by '
         'side, with one column per concrete `InputBorder` subclass. Read it '
@@ -1536,10 +1439,11 @@ dynamic build(BuildContext context) {
   final Widget section6 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('06', 'Code Snippets — Common Setups', const <Color>[
-        indigo,
-        rose,
-      ]),
+      sectionBanner(
+        '06',
+        'Code Snippets — Common Setups',
+        const <Color>[indigo, rose],
+      ),
       proseBox(
         'Three patterns cover 90% of real apps: an outline form, an underline '
         'composer, and a theme-driven application. Copy these as starting '
@@ -1549,70 +1453,70 @@ dynamic build(BuildContext context) {
       codeSnippetCard(
         'outline_form.dart',
         '// Outline field with explicit state borders.\n'
-            'TextField(\n'
-            '  decoration: InputDecoration(\n'
-            '    labelText: \'Email\',\n'
-            '    hintText: \'you@example.com\',\n'
-            '    border: OutlineInputBorder(\n'
-            '      borderRadius: BorderRadius.circular(12),\n'
-            '      borderSide: BorderSide(color: Colors.indigo, width: 1.4),\n'
-            '      gapPadding: 4,\n'
-            '    ),\n'
-            '    focusedBorder: OutlineInputBorder(\n'
-            '      borderRadius: BorderRadius.circular(12),\n'
-            '      borderSide: BorderSide(color: Colors.indigo, width: 2.4),\n'
-            '      gapPadding: 4,\n'
-            '    ),\n'
-            '    errorBorder: OutlineInputBorder(\n'
-            '      borderRadius: BorderRadius.circular(12),\n'
-            '      borderSide: BorderSide(color: Colors.red, width: 1.6),\n'
-            '    ),\n'
-            '    disabledBorder: OutlineInputBorder(\n'
-            '      borderRadius: BorderRadius.circular(12),\n'
-            '      borderSide: BorderSide(color: Colors.grey, width: 1.0),\n'
-            '    ),\n'
-            '  ),\n'
-            ');\n',
+        'TextField(\n'
+        '  decoration: InputDecoration(\n'
+        '    labelText: \'Email\',\n'
+        '    hintText: \'you@example.com\',\n'
+        '    border: OutlineInputBorder(\n'
+        '      borderRadius: BorderRadius.circular(12),\n'
+        '      borderSide: BorderSide(color: Colors.indigo, width: 1.4),\n'
+        '      gapPadding: 4,\n'
+        '    ),\n'
+        '    focusedBorder: OutlineInputBorder(\n'
+        '      borderRadius: BorderRadius.circular(12),\n'
+        '      borderSide: BorderSide(color: Colors.indigo, width: 2.4),\n'
+        '      gapPadding: 4,\n'
+        '    ),\n'
+        '    errorBorder: OutlineInputBorder(\n'
+        '      borderRadius: BorderRadius.circular(12),\n'
+        '      borderSide: BorderSide(color: Colors.red, width: 1.6),\n'
+        '    ),\n'
+        '    disabledBorder: OutlineInputBorder(\n'
+        '      borderRadius: BorderRadius.circular(12),\n'
+        '      borderSide: BorderSide(color: Colors.grey, width: 1.0),\n'
+        '    ),\n'
+        '  ),\n'
+        ');\n',
         accent: indigo,
       ),
       codeSnippetCard(
         'underline_composer.dart',
         '// Chat composer with only an underline that thickens on focus.\n'
-            'TextField(\n'
-            '  decoration: InputDecoration(\n'
-            '    hintText: \'Type a message\',\n'
-            '    border: UnderlineInputBorder(\n'
-            '      borderSide: BorderSide(color: Colors.grey, width: 1.0),\n'
-            '    ),\n'
-            '    focusedBorder: UnderlineInputBorder(\n'
-            '      borderSide: BorderSide(color: Colors.teal, width: 2.0),\n'
-            '    ),\n'
-            '    filled: true,\n'
-            '    fillColor: Color(0xFFF1F5F9),\n'
-            '  ),\n'
-            ');\n',
+        'TextField(\n'
+        '  decoration: InputDecoration(\n'
+        '    hintText: \'Type a message\',\n'
+        '    border: UnderlineInputBorder(\n'
+        '      borderSide: BorderSide(color: Colors.grey, width: 1.0),\n'
+        '    ),\n'
+        '    focusedBorder: UnderlineInputBorder(\n'
+        '      borderSide: BorderSide(color: Colors.teal, width: 2.0),\n'
+        '    ),\n'
+        '    filled: true,\n'
+        '    fillColor: Color(0xFFF1F5F9),\n'
+        '  ),\n'
+        ');\n',
         accent: teal,
       ),
       codeSnippetCard(
         'themed_app.dart',
         '// Hoist borders into ThemeData so every field inherits.\n'
-            'MaterialApp(\n'
-            '  theme: ThemeData(\n'
-            '    inputDecorationTheme: InputDecorationTheme(\n'
-            '      border: OutlineInputBorder(\n'
-            '        borderRadius: BorderRadius.circular(12),\n'
-            '      ),\n'
-            '      focusedBorder: OutlineInputBorder(\n'
-            '        borderRadius: BorderRadius.circular(12),\n'
-            '        borderSide: BorderSide(color: Colors.indigo, width: 2.4),\n'
-            '      ),\n'
-            '      filled: true,\n'
-            '      fillColor: Color(0xFFE0E7FF),\n'
-            '      isDense: true,\n'
-            '    ),\n'
-            '  ),\n'
-            '  home: const MyForm(),\n'
-            ');\n',
+        'MaterialApp(\n'
+        '  theme: ThemeData(\n'
+        '    inputDecorationTheme: InputDecorationTheme(\n'
+        '      border: OutlineInputBorder(\n'
+        '        borderRadius: BorderRadius.circular(12),\n'
+        '      ),\n'
+        '      focusedBorder: OutlineInputBorder(\n'
+        '        borderRadius: BorderRadius.circular(12),\n'
+        '        borderSide: BorderSide(color: Colors.indigo, width: 2.4),\n'
+        '      ),\n'
+        '      filled: true,\n'
+        '      fillColor: Color(0xFFE0E7FF),\n'
+        '      isDense: true,\n'
+        '    ),\n'
+        '  ),\n'
+        '  home: const MyForm(),\n'
+        ');\n',
         accent: rose,
       ),
     ],
@@ -1641,10 +1545,11 @@ dynamic build(BuildContext context) {
   final Widget section7 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('07', 'Pitfalls — Things That Will Bite You', const <Color>[
-        rose,
-        indigoDeep,
-      ]),
+      sectionBanner(
+        '07',
+        'Pitfalls — Things That Will Bite You',
+        const <Color>[rose, indigoDeep],
+      ),
       proseBox(
         'Six small mistakes are responsible for almost every "the border is '
         'wrong" bug. Each pitfall below is worth a code-review checklist '
@@ -1654,53 +1559,53 @@ dynamic build(BuildContext context) {
       pitfallCard(
         'Forgetting Material ancestor',
         'TextField uses ink wells and tooltip overlays internally. If you '
-            'place a TextField outside a Material ancestor (for example, inside '
-            'a raw Container that is not under a Scaffold), the border can '
-            'render but selection and hover effects will be broken. Always wrap '
-            'standalone fields in a `Material` widget with `type: '
-            'MaterialType.transparency` if necessary.',
+        'place a TextField outside a Material ancestor (for example, inside '
+        'a raw Container that is not under a Scaffold), the border can '
+        'render but selection and hover effects will be broken. Always wrap '
+        'standalone fields in a `Material` widget with `type: '
+        'MaterialType.transparency` if necessary.',
         const <Color>[rose, amber],
       ),
       pitfallCard(
         'gapPadding too small for the label',
         'When `floatingLabelBehavior` is `always` or the field has long '
-            'label text, a tiny `gapPadding` (the default 4.0 is fine for short '
-            'labels) lets the glyphs visually touch the stroke. Bump '
-            '`gapPadding` to 6 or 8 if your labels are long or use bold weights.',
+        'label text, a tiny `gapPadding` (the default 4.0 is fine for short '
+        'labels) lets the glyphs visually touch the stroke. Bump '
+        '`gapPadding` to 6 or 8 if your labels are long or use bold weights.',
         const <Color>[amber, rose],
       ),
       pitfallCard(
         'BorderSide.none misuse',
         '`BorderSide.none` makes a side zero-width, but the rest of the '
-            'border may still paint. To turn off the border entirely use '
-            '`InputBorder.none`. To turn off just one side of an outline you '
-            'cannot — `OutlineInputBorder` always paints all four sides.',
+        'border may still paint. To turn off the border entirely use '
+        '`InputBorder.none`. To turn off just one side of an outline you '
+        'cannot — `OutlineInputBorder` always paints all four sides.',
         const <Color>[indigoDeep, rose],
       ),
       pitfallCard(
         'Mismatched borderRadius between states',
         'If `enabledBorder` and `focusedBorder` have different '
-            '`borderRadius` values, the field will visibly snap when focus '
-            'changes. Always copy the same radius (or compose with '
-            '`OutlineInputBorder.copyWith`) so the only thing that changes is '
-            '`borderSide`.',
+        '`borderRadius` values, the field will visibly snap when focus '
+        'changes. Always copy the same radius (or compose with '
+        '`OutlineInputBorder.copyWith`) so the only thing that changes is '
+        '`borderSide`.',
         const <Color>[indigo, teal],
       ),
       pitfallCard(
         'Missing disabledBorder',
         'If you customise `enabledBorder` but omit `disabledBorder`, the '
-            'disabled state falls back to the theme default — which is a '
-            'subtle grey underline regardless of how you styled the rest. '
-            'Always supply a matching disabled border.',
+        'disabled state falls back to the theme default — which is a '
+        'subtle grey underline regardless of how you styled the rest. '
+        'Always supply a matching disabled border.',
         const <Color>[disabledGray, slate],
       ),
       pitfallCard(
         'Setting border but no enabledBorder',
         'The single `border` slot is a fallback for all states. The '
-            'instant you set `enabledBorder`, `focusedBorder`, etc., the '
-            '`border` value is ignored. A common bug is to spend an hour '
-            'editing `border` while `enabledBorder` is set elsewhere — '
-            'changes appear to have no effect.',
+        'instant you set `enabledBorder`, `focusedBorder`, etc., the '
+        '`border` value is ignored. A common bug is to spend an hour '
+        'editing `border` while `enabledBorder` is set elsewhere — '
+        'changes appear to have no effect.',
         const <Color>[slate, indigoDeep],
       ),
     ],
@@ -1714,10 +1619,11 @@ dynamic build(BuildContext context) {
   final Widget section8 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('08', 'Glossary — Quick Reference', const <Color>[
-        indigoDeep,
-        teal,
-      ]),
+      sectionBanner(
+        '08',
+        'Glossary — Quick Reference',
+        const <Color>[indigoDeep, teal],
+      ),
       proseBox(
         'A glossary of every type touched in this file. Definitions match '
         'the official dartdoc wording so readers can switch between this '
@@ -1734,10 +1640,7 @@ dynamic build(BuildContext context) {
             dataRow('InputBorder.none', 'sentinel for "no border at all"'),
             dataRow('BorderSide', '(color, width, style, strokeAlign)'),
             dataRow('BorderRadius', 'four Radii: tl, tr, bl, br'),
-            dataRow(
-              'gapPadding',
-              'pixels of clear space around floating label',
-            ),
+            dataRow('gapPadding', 'pixels of clear space around floating label'),
             dataRow('InputDecoration', 'value object passed to TextField'),
             dataRow('InputDecorationTheme', 'ThemeData-wide defaults'),
             dataRow('InputDecorator', 'private widget that paints the border'),
@@ -1775,10 +1678,11 @@ dynamic build(BuildContext context) {
   final Widget section9 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('09', 'Cheat Sheet — Pick The Right Border', const <Color>[
-        teal,
-        indigo,
-      ]),
+      sectionBanner(
+        '09',
+        'Cheat Sheet — Pick The Right Border',
+        const <Color>[teal, indigo],
+      ),
       proseBox(
         'When you sit down to wire a new form, scan the cheat sheet first. '
         'It maps a one-line intent ("I want a chat composer") to the '
@@ -1804,70 +1708,54 @@ dynamic build(BuildContext context) {
             DataColumn(label: Text('width')),
           ],
           rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Material default form')),
-                DataCell(Text('Underline')),
-                DataCell(Text('—')),
-                DataCell(Text('1.0')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Modern card form')),
-                DataCell(Text('Outline')),
-                DataCell(Text('12')),
-                DataCell(Text('1.4')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Search bar')),
-                DataCell(Text('Outline')),
-                DataCell(Text('32 (stadium)')),
-                DataCell(Text('1.6')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Chat composer')),
-                DataCell(Text('Underline + filled')),
-                DataCell(Text('—')),
-                DataCell(Text('1.0')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Plain inline edit')),
-                DataCell(Text('InputBorder.none')),
-                DataCell(Text('—')),
-                DataCell(Text('0')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Bold primary field')),
-                DataCell(Text('Outline (heavy)')),
-                DataCell(Text('6')),
-                DataCell(Text('3.2')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Document-style entry')),
-                DataCell(Text('Outline (hairline)')),
-                DataCell(Text('6')),
-                DataCell(Text('0.5')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Asymmetric chat bubble field')),
-                DataCell(Text('Outline (corner radii)')),
-                DataCell(Text('16 tl/br')),
-                DataCell(Text('1.4')),
-              ],
-            ),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Material default form')),
+              DataCell(Text('Underline')),
+              DataCell(Text('—')),
+              DataCell(Text('1.0')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Modern card form')),
+              DataCell(Text('Outline')),
+              DataCell(Text('12')),
+              DataCell(Text('1.4')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Search bar')),
+              DataCell(Text('Outline')),
+              DataCell(Text('32 (stadium)')),
+              DataCell(Text('1.6')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Chat composer')),
+              DataCell(Text('Underline + filled')),
+              DataCell(Text('—')),
+              DataCell(Text('1.0')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Plain inline edit')),
+              DataCell(Text('InputBorder.none')),
+              DataCell(Text('—')),
+              DataCell(Text('0')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Bold primary field')),
+              DataCell(Text('Outline (heavy)')),
+              DataCell(Text('6')),
+              DataCell(Text('3.2')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Document-style entry')),
+              DataCell(Text('Outline (hairline)')),
+              DataCell(Text('6')),
+              DataCell(Text('0.5')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Asymmetric chat bubble field')),
+              DataCell(Text('Outline (corner radii)')),
+              DataCell(Text('16 tl/br')),
+              DataCell(Text('1.4')),
+            ]),
           ],
         ),
         headerGradient: const <Color>[indigo, teal],
@@ -1918,22 +1806,22 @@ dynamic build(BuildContext context) {
       codeSnippetCard(
         'copy_with_pattern.dart',
         'final base = OutlineInputBorder(\n'
-            '  borderRadius: BorderRadius.circular(10),\n'
-            '  borderSide: BorderSide(color: Colors.slate, width: 1.0),\n'
-            '  gapPadding: 4,\n'
-            ');\n'
-            '\n'
-            'final focused = base.copyWith(\n'
-            '  borderSide: BorderSide(color: Colors.indigo, width: 2.4),\n'
-            ');\n'
-            '\n'
-            'final error = base.copyWith(\n'
-            '  borderSide: BorderSide(color: Colors.red, width: 1.6),\n'
-            ');\n'
-            '\n'
-            'final disabled = base.copyWith(\n'
-            '  borderSide: BorderSide(color: Colors.grey, width: 1.0),\n'
-            ');\n',
+        '  borderRadius: BorderRadius.circular(10),\n'
+        '  borderSide: BorderSide(color: Colors.slate, width: 1.0),\n'
+        '  gapPadding: 4,\n'
+        ');\n'
+        '\n'
+        'final focused = base.copyWith(\n'
+        '  borderSide: BorderSide(color: Colors.indigo, width: 2.4),\n'
+        ');\n'
+        '\n'
+        'final error = base.copyWith(\n'
+        '  borderSide: BorderSide(color: Colors.red, width: 1.6),\n'
+        ');\n'
+        '\n'
+        'final disabled = base.copyWith(\n'
+        '  borderSide: BorderSide(color: Colors.grey, width: 1.0),\n'
+        ');\n',
         accent: indigo,
       ),
       infoCard(
@@ -2060,10 +1948,11 @@ dynamic build(BuildContext context) {
   final Widget section12 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('12', 'BorderRadius — Corner Geometry', const <Color>[
-        indigoDeep,
-        rose,
-      ]),
+      sectionBanner(
+        '12',
+        'BorderRadius — Corner Geometry',
+        const <Color>[indigoDeep, rose],
+      ),
       proseBox(
         '`BorderRadius` controls the four corner radii of an '
         '`OutlineInputBorder`. The constructors split along two axes: '

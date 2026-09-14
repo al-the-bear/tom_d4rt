@@ -313,7 +313,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'Route A: ToggleButtonsTheme inherited widget',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
               ),
               const SizedBox(height: 8),
               themedToggle(
@@ -331,14 +334,25 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'Route B: ThemeData.toggleButtonsTheme',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
               ),
               const SizedBox(height: 8),
               Theme(
-                data: Theme.of(context).copyWith(toggleButtonsTheme: twinTheme),
+                data: Theme.of(context).copyWith(
+                  toggleButtonsTheme: twinTheme,
+                ),
                 child: StatefulBuilder(
-                  builder: (BuildContext sbContext, StateSetter setState) {
-                    final List<bool> sel = <bool>[true, false, false, false];
+                  builder:
+                      (BuildContext sbContext, StateSetter setState) {
+                    final List<bool> sel = <bool>[
+                      true,
+                      false,
+                      false,
+                      false,
+                    ];
                     return ToggleButtons(
                       isSelected: sel,
                       onPressed: (int idx) {
@@ -414,15 +428,24 @@ dynamic build(BuildContext context) {
                 },
                 children: const <Widget>[
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     child: Text('Low'),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     child: Text('Medium'),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     child: Text('High'),
                   ),
                 ],
@@ -439,9 +462,8 @@ dynamic build(BuildContext context) {
             builder: (BuildContext innerContext) {
               // Read the outer theme via .of(context) and copyWith only the
               // fields we want to change. This is the canonical merge pattern.
-              final ToggleButtonsThemeData inherited = ToggleButtonsTheme.of(
-                innerContext,
-              );
+              final ToggleButtonsThemeData inherited =
+                  ToggleButtonsTheme.of(innerContext);
               final ToggleButtonsThemeData overlay = ToggleButtonsThemeData(
                 color: inherited.color,
                 selectedColor: innerAmberSelectedFg,
@@ -462,7 +484,8 @@ dynamic build(BuildContext context) {
               return ToggleButtonsTheme(
                 data: overlay,
                 child: StatefulBuilder(
-                  builder: (BuildContext sbContext, StateSetter setState) {
+                  builder:
+                      (BuildContext sbContext, StateSetter setState) {
                     final List<bool> sel = <bool>[false, true, false];
                     return ToggleButtons(
                       isSelected: sel,
@@ -562,7 +585,10 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 const Text(
                   'Sibling A (purple, pill shape)',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 themedToggle(
@@ -588,7 +614,10 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 const Text(
                   'Sibling B (green, sharp corners)',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 themedToggle(
@@ -665,7 +694,10 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
+              style: const TextStyle(
+                fontSize: 12,
+                fontFamily: 'monospace',
+              ),
             ),
           ),
         ],
@@ -686,7 +718,8 @@ dynamic build(BuildContext context) {
       data: readoutTheme,
       child: Builder(
         builder: (BuildContext readContext) {
-          final ToggleButtonsThemeData t = ToggleButtonsTheme.of(readContext);
+          final ToggleButtonsThemeData t =
+              ToggleButtonsTheme.of(readContext);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -743,7 +776,8 @@ dynamic build(BuildContext context) {
                     ),
                     readoutLine(
                       'borderWidth',
-                      t.borderWidth?.toStringAsFixed(2) ?? '(inherited / null)',
+                      t.borderWidth?.toStringAsFixed(2) ??
+                          '(inherited / null)',
                     ),
                     readoutLine(
                       'borderRadius',
@@ -762,7 +796,7 @@ dynamic build(BuildContext context) {
                       t.textStyle == null
                           ? '(inherited / null)'
                           : 'size=${t.textStyle!.fontSize ?? '-'} '
-                                'weight=${t.textStyle!.fontWeight ?? '-'}',
+                              'weight=${t.textStyle!.fontWeight ?? '-'}',
                     ),
                   ],
                 ),
@@ -836,7 +870,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'Top - Pill style',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
               ),
               const SizedBox(height: 8),
               themedToggle(
@@ -859,7 +896,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'Middle - Outlined style',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
               ),
               const SizedBox(height: 8),
               themedToggle(
@@ -882,26 +922,41 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'Bottom - Chip style',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
               ),
               const SizedBox(height: 8),
               themedToggle(
                 theme: chipTheme,
                 children: const <Widget>[
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     child: Text('S'),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     child: Text('M'),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     child: Text('L'),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     child: Text('XL'),
                   ),
                 ],
@@ -1015,7 +1070,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 10,
+            ),
             decoration: const BoxDecoration(
               color: panelChrome,
               borderRadius: BorderRadius.only(
@@ -1045,7 +1103,10 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 const Text(
                   'View',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 themedToggle(
@@ -1056,7 +1117,10 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 14),
                 const Text(
                   'Density',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 themedToggle(
@@ -1133,14 +1197,20 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
         ),
         const SizedBox(height: 8),
-        ToggleButtonsTheme(data: decoupledTheme, child: const _ThemedToolbar()),
+        ToggleButtonsTheme(
+          data: decoupledTheme,
+          child: const _ThemedToolbar(),
+        ),
         const SizedBox(height: 16),
         const Text(
           'Same widget, sibling green ToggleButtonsTheme:',
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
         ),
         const SizedBox(height: 8),
-        ToggleButtonsTheme(data: sibGreenTheme, child: const _ThemedToolbar()),
+        ToggleButtonsTheme(
+          data: sibGreenTheme,
+          child: const _ThemedToolbar(),
+        ),
       ],
     ),
   );
@@ -1203,7 +1273,10 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(6),
                 child: Icon(Icons.format_strikethrough),
               ),
-              Padding(padding: EdgeInsets.all(6), child: Icon(Icons.link)),
+              Padding(
+                padding: EdgeInsets.all(6),
+                child: Icon(Icons.link),
+              ),
             ],
             initial: const <bool>[true, false, false, false, false],
           ),
@@ -1404,7 +1477,10 @@ class _GuideRow extends StatelessWidget {
       children: <Widget>[
         Text(
           marker,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 13,
+          ),
         ),
         const SizedBox(height: 4),
         ...bullets.map(
@@ -1465,11 +1541,11 @@ class _AnimatedThemeDemoState extends State<_AnimatedThemeDemo> {
       builder: (BuildContext animContext, double t, Widget? _) {
         final ToggleButtonsThemeData lerped =
             ToggleButtonsThemeData.lerp(
-              widget.startTheme,
-              widget.endTheme,
-              t,
-            ) ??
-            widget.startTheme;
+                  widget.startTheme,
+                  widget.endTheme,
+                  t,
+                ) ??
+                widget.startTheme;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

@@ -164,27 +164,19 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
 
   final propLabel = AttributedStringProperty('label', attrPlain);
-  final propAcronymLabel = AttributedStringProperty(
-    'label',
-    attrSpellOutAcronym,
-  );
-  final propConfirmationValue = AttributedStringProperty(
-    'value',
-    attrSpellOutCode,
-  );
+  final propAcronymLabel =
+      AttributedStringProperty('label', attrSpellOutAcronym);
+  final propConfirmationValue =
+      AttributedStringProperty('value', attrSpellOutCode);
   final propFrenchLabel = AttributedStringProperty('label', attrLocaleFrench);
   final propGermanHint = AttributedStringProperty('hint', attrLocaleGerman);
   final propJapaneseHint = AttributedStringProperty('hint', attrLocaleJapanese);
   final propMixed = AttributedStringProperty('value', attrMixed);
   final propVerboseHint = AttributedStringProperty('hint', attrLongHint);
-  final propIncreased = AttributedStringProperty(
-    'increasedValue',
-    attrIncreased,
-  );
-  final propDecreased = AttributedStringProperty(
-    'decreasedValue',
-    attrDecreased,
-  );
+  final propIncreased =
+      AttributedStringProperty('increasedValue', attrIncreased);
+  final propDecreased =
+      AttributedStringProperty('decreasedValue', attrDecreased);
   final propNullValue = AttributedStringProperty('label', null);
   final propWithDescription = AttributedStringProperty(
     'label',
@@ -303,7 +295,10 @@ dynamic build(BuildContext context) {
             child: Container(
               width: 6,
               height: 6,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
             ),
           ),
           Expanded(
@@ -565,7 +560,11 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[cVerbenaDeep, cVerbena, cVerbenaLight],
+        colors: <Color>[
+          cVerbenaDeep,
+          cVerbena,
+          cVerbenaLight,
+        ],
       ),
       borderRadius: BorderRadius.circular(14),
       boxShadow: <BoxShadow>[
@@ -689,14 +688,9 @@ dynamic build(BuildContext context) {
       ),
       kvRow('name', 'String label printed before the value, e.g. "label".'),
       kvRow('value', 'The wrapped AttributedString instance, possibly null.'),
-      kvRow(
-        'description',
-        'Optional human description used when value is missing.',
-      ),
-      kvRow(
-        'level',
-        'DiagnosticLevel - usually .info; raise to .hidden to suppress.',
-      ),
+      kvRow('description',
+          'Optional human description used when value is missing.'),
+      kvRow('level', 'DiagnosticLevel - usually .info; raise to .hidden to suppress.'),
       kvRow('defaultValue', 'When equal to value, the Inspector dims the row.'),
       kvRow('showName', 'Whether to print the name prefix at all.'),
       SizedBox(height: 8),
@@ -853,7 +847,10 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Text(
               label,
-              style: TextStyle(fontWeight: FontWeight.w700, color: cBrassDark),
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: cBrassDark,
+              ),
             ),
             SizedBox(height: 4),
             kvRow('string', attr.string),
@@ -1055,10 +1052,8 @@ dynamic build(BuildContext context) {
             left: BorderSide(color: color, width: 3),
             top: BorderSide(color: color.withValues(alpha: 0.25), width: 0.6),
             right: BorderSide(color: color.withValues(alpha: 0.25), width: 0.6),
-            bottom: BorderSide(
-              color: color.withValues(alpha: 0.25),
-              width: 0.6,
-            ),
+            bottom:
+                BorderSide(color: color.withValues(alpha: 0.25), width: 0.6),
           ),
         ),
         child: Column(
@@ -1122,8 +1117,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               treeProp('value.string: "${propLabel.value?.string}"'),
               treeProp(
-                'attributes: ${propLabel.value?.attributes.length ?? 0}',
-              ),
+                  'attributes: ${propLabel.value?.attributes.length ?? 0}'),
               treeProp('toString: ${propLabel.toString()}'),
             ],
           ),
@@ -1134,8 +1128,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               treeProp('value.string: "${propVerboseHint.value?.string}"'),
               treeProp(
-                'attributes: ${propVerboseHint.value?.attributes.length ?? 0}',
-              ),
+                  'attributes: ${propVerboseHint.value?.attributes.length ?? 0}'),
               treeProp('toString: ${propVerboseHint.toString()}'),
             ],
           ),
@@ -1146,8 +1139,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               treeProp('value.string: "${propMixed.value?.string}"'),
               treeProp(
-                'attributes: ${propMixed.value?.attributes.length ?? 0}',
-              ),
+                  'attributes: ${propMixed.value?.attributes.length ?? 0}'),
               treeProp('toString: ${propMixed.toString()}'),
             ],
           ),
@@ -1158,8 +1150,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               treeProp('value.string: "${propIncreased.value?.string}"'),
               treeProp(
-                'attributes: ${propIncreased.value?.attributes.length ?? 0}',
-              ),
+                  'attributes: ${propIncreased.value?.attributes.length ?? 0}'),
               treeProp('toString: ${propIncreased.toString()}'),
             ],
           ),
@@ -1170,8 +1161,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               treeProp('value.string: "${propDecreased.value?.string}"'),
               treeProp(
-                'attributes: ${propDecreased.value?.attributes.length ?? 0}',
-              ),
+                  'attributes: ${propDecreased.value?.attributes.length ?? 0}'),
               treeProp('toString: ${propDecreased.toString()}'),
             ],
           ),
@@ -1392,70 +1382,38 @@ dynamic build(BuildContext context) {
     subtitle: 'Twelve plus terms you will meet around this property.',
     accent: cBrass,
     children: <Widget>[
-      glossaryRow(
-        'AttributedString',
-        'A String paired with a list of StringAttribute spans.',
-      ),
-      glossaryRow(
-        'AttributedStringProperty',
-        'DiagnosticsProperty<AttributedString> for diagnostics output.',
-      ),
-      glossaryRow(
-        'StringAttribute',
-        'Abstract base for spans (SpellOut, Locale, ...).',
-      ),
-      glossaryRow(
-        'SpellOutStringAttribute',
-        'Tells screen readers to spell a span letter by letter.',
-      ),
-      glossaryRow(
-        'LocaleStringAttribute',
-        'Pins a span to a specific Locale for pronunciation.',
-      ),
-      glossaryRow(
-        'TextRange',
-        'Half-open [start, end) span of UTF-16 code units.',
-      ),
-      glossaryRow(
-        'Locale',
-        'Language and country tag like en-US, ja-JP, zh-CN.',
-      ),
-      glossaryRow(
-        'SemanticsConfiguration',
-        'Buffer of semantics fields built up by widgets.',
-      ),
-      glossaryRow(
-        'SemanticsNode',
-        'Live node in the accessibility tree at runtime.',
-      ),
-      glossaryRow(
-        'DiagnosticsProperty',
-        'Generic typed property carried by the diagnostics tree.',
-      ),
-      glossaryRow(
-        'DiagnosticsNode',
-        'Tree node printed in widget inspector dumps.',
-      ),
-      glossaryRow(
-        'debugFillProperties',
-        'Hook that contributes properties to the diagnostics tree.',
-      ),
-      glossaryRow(
-        'Inspector',
-        'Flutter DevTools panel that consumes diagnostics tree dumps.',
-      ),
-      glossaryRow(
-        'DiagnosticLevel',
-        'Visibility band: hidden, fine, info, warning, error, summary.',
-      ),
-      glossaryRow(
-        'DefaultValue',
-        'When property value matches default, the row is dimmed.',
-      ),
-      glossaryRow(
-        'Verbena',
-        'A purple flowering herb; here, the demo color theme.',
-      ),
+      glossaryRow('AttributedString',
+          'A String paired with a list of StringAttribute spans.'),
+      glossaryRow('AttributedStringProperty',
+          'DiagnosticsProperty<AttributedString> for diagnostics output.'),
+      glossaryRow('StringAttribute',
+          'Abstract base for spans (SpellOut, Locale, ...).'),
+      glossaryRow('SpellOutStringAttribute',
+          'Tells screen readers to spell a span letter by letter.'),
+      glossaryRow('LocaleStringAttribute',
+          'Pins a span to a specific Locale for pronunciation.'),
+      glossaryRow('TextRange',
+          'Half-open [start, end) span of UTF-16 code units.'),
+      glossaryRow('Locale',
+          'Language and country tag like en-US, ja-JP, zh-CN.'),
+      glossaryRow('SemanticsConfiguration',
+          'Buffer of semantics fields built up by widgets.'),
+      glossaryRow('SemanticsNode',
+          'Live node in the accessibility tree at runtime.'),
+      glossaryRow('DiagnosticsProperty',
+          'Generic typed property carried by the diagnostics tree.'),
+      glossaryRow('DiagnosticsNode',
+          'Tree node printed in widget inspector dumps.'),
+      glossaryRow('debugFillProperties',
+          'Hook that contributes properties to the diagnostics tree.'),
+      glossaryRow('Inspector',
+          'Flutter DevTools panel that consumes diagnostics tree dumps.'),
+      glossaryRow('DiagnosticLevel',
+          'Visibility band: hidden, fine, info, warning, error, summary.'),
+      glossaryRow('DefaultValue',
+          'When property value matches default, the row is dimmed.'),
+      glossaryRow('Verbena',
+          'A purple flowering herb; here, the demo color theme.'),
     ],
   );
 

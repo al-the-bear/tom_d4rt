@@ -65,12 +65,7 @@ const Color _refInk = Color(0xFF212121);
 // -----------------------------------------------------------------------------
 // Helper widgets used across multiple sections.
 // -----------------------------------------------------------------------------
-Widget _sectionHeader(
-  String number,
-  String title,
-  Color background,
-  Color ink,
-) {
+Widget _sectionHeader(String number, String title, Color background, Color ink) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.only(top: 24, bottom: 8),
@@ -117,10 +112,7 @@ Widget _sectionHeader(
 Widget _bodyText(String text, {Color color = Colors.black87}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-    child: Text(
-      text,
-      style: TextStyle(color: color, fontSize: 13, height: 1.4),
-    ),
+    child: Text(text, style: TextStyle(color: color, fontSize: 13, height: 1.4)),
   );
 }
 
@@ -138,11 +130,7 @@ Widget _readout(String label, RangeValues values, Color ink) {
         children: [
           Text(
             '$label  ',
-            style: TextStyle(
-              color: ink,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: ink, fontWeight: FontWeight.bold, fontSize: 12),
           ),
           Text(
             'start = ${values.start.toStringAsFixed(2)}',
@@ -250,8 +238,7 @@ dynamic build(BuildContext context) {
                   children: [
                     SliderTheme(
                       data: SliderThemeData(
-                        rangeTrackShape: const GappedRangeSliderTrackShape(),
-                        trackGap: 6.0,
+                        rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                         activeTrackColor: _heroAccent,
                         inactiveTrackColor: _heroAccent.withOpacity(0.25),
                         thumbColor: _heroAccent,
@@ -326,8 +313,7 @@ dynamic build(BuildContext context) {
                   children: [
                     SliderTheme(
                       data: SliderThemeData(
-                        rangeTrackShape:
-                            const RoundedRectRangeSliderTrackShape(),
+                        rangeTrackShape: const RoundedRectRangeSliderTrackShape(),
                         activeTrackColor: _compareLegacy,
                         inactiveTrackColor: _compareLegacy.withOpacity(0.25),
                         thumbColor: _compareLegacy,
@@ -372,8 +358,7 @@ dynamic build(BuildContext context) {
                   children: [
                     SliderTheme(
                       data: SliderThemeData(
-                        rangeTrackShape: const GappedRangeSliderTrackShape(),
-                        trackGap: 6.0,
+                        rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                         activeTrackColor: _compareGapped,
                         inactiveTrackColor: _compareGapped.withOpacity(0.25),
                         thumbColor: _compareGapped,
@@ -445,8 +430,7 @@ dynamic build(BuildContext context) {
                   ),
                   SliderTheme(
                     data: SliderThemeData(
-                      rangeTrackShape: const GappedRangeSliderTrackShape(),
-                      trackGap: 6.0,
+                      rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                       activeTrackColor: _heightActive,
                       inactiveTrackColor: _heightInactive,
                       thumbColor: _heightActive,
@@ -516,7 +500,12 @@ dynamic build(BuildContext context) {
   // combinations to demonstrate that the gap remains visible against the
   // surrounding track regardless of the colour palette.
   // ===========================================================================
-  Widget paletteRow(String label, Color active, Color inactive, Color ink) {
+  Widget paletteRow(
+    String label,
+    Color active,
+    Color inactive,
+    Color ink,
+  ) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         RangeValues values = const RangeValues(0.2, 0.85);
@@ -562,8 +551,7 @@ dynamic build(BuildContext context) {
                   ),
                   SliderTheme(
                     data: SliderThemeData(
-                      rangeTrackShape: const GappedRangeSliderTrackShape(),
-                      trackGap: 6.0,
+                      rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                       activeTrackColor: active,
                       inactiveTrackColor: inactive,
                       thumbColor: active,
@@ -619,24 +607,12 @@ dynamic build(BuildContext context) {
             style: TextStyle(color: Colors.black87, fontSize: 12),
           ),
         ),
-        paletteRow(
-          'Teal/Cyan',
-          const Color(0xFF00838F),
-          const Color(0xFFB2EBF2),
-          _paletteRowAink,
-        ),
-        paletteRow(
-          'Pink/Rose',
-          const Color(0xFFAD1457),
-          const Color(0xFFF8BBD0),
-          _paletteRowBink,
-        ),
-        paletteRow(
-          'Indigo/Lilac',
-          const Color(0xFF4527A0),
-          const Color(0xFFD1C4E9),
-          _paletteRowCink,
-        ),
+        paletteRow('Teal/Cyan', const Color(0xFF00838F),
+            const Color(0xFFB2EBF2), _paletteRowAink),
+        paletteRow('Pink/Rose', const Color(0xFFAD1457),
+            const Color(0xFFF8BBD0), _paletteRowBink),
+        paletteRow('Indigo/Lilac', const Color(0xFF4527A0),
+            const Color(0xFFD1C4E9), _paletteRowCink),
       ],
     ),
   );
@@ -673,8 +649,7 @@ dynamic build(BuildContext context) {
                   ),
                   SliderTheme(
                     data: SliderThemeData(
-                      rangeTrackShape: const GappedRangeSliderTrackShape(),
-                      trackGap: 6.0,
+                      rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                       activeTrackColor: _divisionInk,
                       inactiveTrackColor: _divisionInk.withOpacity(0.2),
                       thumbColor: _divisionInk,
@@ -786,8 +761,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12),
         SliderTheme(
           data: SliderThemeData(
-            rangeTrackShape: const GappedRangeSliderTrackShape(),
-            trackGap: 6.0,
+            rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
             activeTrackColor: _disabledInk,
             inactiveTrackColor: _disabledInk.withOpacity(0.25),
             disabledActiveTrackColor: _disabledInk.withOpacity(0.4),
@@ -914,8 +888,7 @@ dynamic build(BuildContext context) {
                       ),
                       SliderTheme(
                         data: SliderThemeData(
-                          rangeTrackShape: const GappedRangeSliderTrackShape(),
-                          trackGap: 6.0,
+                          rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                           activeTrackColor: _priceInk,
                           inactiveTrackColor: _priceInk.withOpacity(0.2),
                           thumbColor: _priceInk,
@@ -945,9 +918,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: _priceInk.withOpacity(0.4),
-                            ),
+                            border: Border.all(color: _priceInk.withOpacity(0.4)),
                           ),
                           child: Row(
                             children: [
@@ -1067,8 +1038,7 @@ dynamic build(BuildContext context) {
                       ),
                       SliderTheme(
                         data: SliderThemeData(
-                          rangeTrackShape: const GappedRangeSliderTrackShape(),
-                          trackGap: 6.0,
+                          rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                           activeTrackColor: _tempInk,
                           inactiveTrackColor: _tempCool.withOpacity(0.4),
                           thumbColor: _tempInk,
@@ -1224,8 +1194,7 @@ dynamic build(BuildContext context) {
                       ),
                       SliderTheme(
                         data: SliderThemeData(
-                          rangeTrackShape: const GappedRangeSliderTrackShape(),
-                          trackGap: 6.0,
+                          rangeTrackShape: const GappedRangeSliderTrackShape(), trackGap: 6.0,
                           activeTrackColor: _soundInk,
                           inactiveTrackColor: _soundInk.withOpacity(0.2),
                           thumbColor: _soundInk,
@@ -1354,14 +1323,9 @@ dynamic build(BuildContext context) {
         refRow('class', 'GappedRangeSliderTrackShape'),
         refRow('extends', 'RangeSliderTrackShape'),
         refRow('mixes in', 'BaseRangeSliderTrackShape'),
-        refRow(
-          'paint(...)',
-          'Canvas, Offset, {required RenderBox parentBox, ...}',
-        ),
-        refRow(
-          'getPreferredRect',
-          'Returns the rect along which the track is drawn',
-        ),
+        refRow('paint(...)', 'Canvas, Offset, {required RenderBox parentBox, ...}'),
+        refRow('getPreferredRect',
+            'Returns the rect along which the track is drawn'),
         refRow('Slot in theme', 'SliderThemeData.rangeTrackShape'),
         refRow('M3 default', 'Auto-installed when useMaterial3: true'),
         refRow('Companion thumb', 'HandleRangeSliderThumbShape (M3 default)'),
@@ -1425,45 +1389,28 @@ dynamic build(BuildContext context) {
                 'represents, when M3 enables it, and a live preview slider.',
               ),
               heroSection,
-              _sectionHeader(
-                '2',
-                'Side-by-side comparison',
-                _compareBg,
-                _compareGapped,
-              ),
+              _sectionHeader('2', 'Side-by-side comparison', _compareBg,
+                  _compareGapped),
               _bodyText(
                 'Two RangeSliders rendered with identical numeric values; only '
                 'the rangeTrackShape differs.',
               ),
               compareSection,
-              _sectionHeader(
-                '3',
-                'Track-height sweep',
-                _heightBg,
-                _heightActive,
-              ),
+              _sectionHeader('3', 'Track-height sweep', _heightBg, _heightActive),
               _bodyText(
                 'Three rows with trackHeight set to 4, 8, and 16 logical '
                 'pixels. The gap scales with the track height.',
               ),
               heightSection,
-              _sectionHeader(
-                '4',
-                'Active vs inactive palette sweep',
-                _paletteBg,
-                _paletteRowAink,
-              ),
+              _sectionHeader('4', 'Active vs inactive palette sweep', _paletteBg,
+                  _paletteRowAink),
               _bodyText(
                 'Three palette combinations to confirm the gap is visible '
                 'against any active/inactive colour pair.',
               ),
               paletteSection,
-              _sectionHeader(
-                '5',
-                'Discrete divisions',
-                _divisionBg,
-                _divisionInk,
-              ),
+              _sectionHeader('5', 'Discrete divisions', _divisionBg,
+                  _divisionInk),
               _bodyText(
                 'Three rows with divisions=4, 10, and 20 to show how the gap '
                 'interacts with tick marks.',
@@ -1475,33 +1422,21 @@ dynamic build(BuildContext context) {
                 'paint path.',
               ),
               disabledSection,
-              _sectionHeader(
-                '7',
-                'Recipe: price-range filter',
-                _priceBg,
-                _priceInk,
-              ),
+              _sectionHeader('7', 'Recipe: price-range filter', _priceBg,
+                  _priceInk),
               _bodyText(
                 'A storefront-style price filter with currency labels.',
               ),
               priceSection,
-              _sectionHeader(
-                '8',
-                'Recipe: temperature-range scheduler',
-                _tempBg,
-                _tempInk,
-              ),
+              _sectionHeader('8', 'Recipe: temperature-range scheduler', _tempBg,
+                  _tempInk),
               _bodyText(
                 'A thermostat-style scheduler with degree labels and a '
                 'colour-blended track.',
               ),
               tempSection,
-              _sectionHeader(
-                '9',
-                'Recipe: sound-level dual-thumb meter',
-                _soundBg,
-                _soundInk,
-              ),
+              _sectionHeader('9', 'Recipe: sound-level dual-thumb meter',
+                  _soundBg, _soundInk),
               _bodyText(
                 'A studio-style sound-level meter with custom thumb shapes.',
               ),

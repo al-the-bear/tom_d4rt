@@ -85,7 +85,11 @@ Widget panel({
           padding: EdgeInsets.only(left: 18.0),
           child: Text(
             subtitle,
-            style: TextStyle(color: kTextLo, fontSize: 12.5, height: 1.4),
+            style: TextStyle(
+              color: kTextLo,
+              fontSize: 12.5,
+              height: 1.4,
+            ),
           ),
         ),
         SizedBox(height: 14.0),
@@ -204,12 +208,20 @@ Widget bullet(String text, {Color color = kTextMid, IconData? icon}) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon ?? Icons.chevron_right, size: 14.0, color: kAccentSoft),
+        Icon(
+          icon ?? Icons.chevron_right,
+          size: 14.0,
+          color: kAccentSoft,
+        ),
         SizedBox(width: 6.0),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: color, fontSize: 12.5, height: 1.45),
+            style: TextStyle(
+              color: color,
+              fontSize: 12.5,
+              height: 1.45,
+            ),
           ),
         ),
       ],
@@ -253,7 +265,13 @@ Widget sectionHeader(String number, String title, String subtitle) {
                 letterSpacing: 0.4,
               ),
             ),
-            Text(subtitle, style: TextStyle(color: kTextLo, fontSize: 12.0)),
+            Text(
+              subtitle,
+              style: TextStyle(
+                color: kTextLo,
+                fontSize: 12.0,
+              ),
+            ),
           ],
         ),
       ],
@@ -319,7 +337,11 @@ Widget buildHeroBanner() {
               Text(
                 'Platform-aware Material back-arrow that pops the\n'
                 'enclosing Navigator via Navigator.maybePop.',
-                style: TextStyle(color: kTextMid, fontSize: 14.0, height: 1.5),
+                style: TextStyle(
+                  color: kTextMid,
+                  fontSize: 14.0,
+                  height: 1.5,
+                ),
               ),
               SizedBox(height: 20.0),
               Row(
@@ -392,7 +414,10 @@ Widget _heroIconTile(IconData icon, String label, Color color) {
         child: Icon(icon, color: color, size: 26.0),
       ),
       SizedBox(height: 6.0),
-      Text(label, style: TextStyle(color: kTextMid, fontSize: 11.0)),
+      Text(
+        label,
+        style: TextStyle(color: kTextMid, fontSize: 11.0),
+      ),
     ],
   );
 }
@@ -424,7 +449,10 @@ Widget buildAnatomySection() {
                   border: Border.all(color: kBorderSoft),
                 ),
                 alignment: Alignment.center,
-                child: BackButton(color: kAccent, onPressed: () {}),
+                child: BackButton(
+                  color: kAccent,
+                  onPressed: () {},
+                ),
               ),
             ),
             SizedBox(width: 14.0),
@@ -437,10 +465,7 @@ Widget buildAnatomySection() {
                   kvRow('extends', 'StatelessWidget'),
                   kvRow('renders', 'IconButton(icon: BackButtonIcon())'),
                   kvRow('hit target', '48.0 x 48.0 logical px'),
-                  kvRow(
-                    'default tooltip',
-                    'MaterialLocalizations.backButtonTooltip',
-                  ),
+                  kvRow('default tooltip', 'MaterialLocalizations.backButtonTooltip'),
                   kvRow('default onPressed', 'Navigator.maybePop(context)'),
                   kvRow('color param', 'Color? - icon color'),
                   kvRow('style param', 'ButtonStyle? - merged with theme'),
@@ -489,69 +514,57 @@ Widget buildPlatformIconPanel() {
       children: [
         Row(
           children: [
-            Expanded(
-              child: _platformTile(
-                platform: 'Android',
-                color: kAndroid,
-                icon: Icons.arrow_back,
-                tokenName: 'Icons.arrow_back',
-                note: 'Default Material arrow.',
-              ),
-            ),
+            Expanded(child: _platformTile(
+              platform: 'Android',
+              color: kAndroid,
+              icon: Icons.arrow_back,
+              tokenName: 'Icons.arrow_back',
+              note: 'Default Material arrow.',
+            )),
             SizedBox(width: 10.0),
-            Expanded(
-              child: _platformTile(
-                platform: 'iOS',
-                color: kIos,
-                icon: Icons.arrow_back_ios_new,
-                tokenName: 'Icons.arrow_back_ios_new',
-                note: 'Thin chevron, matches UINavigationBar.',
-              ),
-            ),
+            Expanded(child: _platformTile(
+              platform: 'iOS',
+              color: kIos,
+              icon: Icons.arrow_back_ios_new,
+              tokenName: 'Icons.arrow_back_ios_new',
+              note: 'Thin chevron, matches UINavigationBar.',
+            )),
             SizedBox(width: 10.0),
-            Expanded(
-              child: _platformTile(
-                platform: 'macOS',
-                color: kIos,
-                icon: Icons.arrow_back_ios_new,
-                tokenName: 'Icons.arrow_back_ios_new',
-                note: 'Same chevron as iOS.',
-              ),
-            ),
+            Expanded(child: _platformTile(
+              platform: 'macOS',
+              color: kIos,
+              icon: Icons.arrow_back_ios_new,
+              tokenName: 'Icons.arrow_back_ios_new',
+              note: 'Same chevron as iOS.',
+            )),
           ],
         ),
         SizedBox(height: 10.0),
         Row(
           children: [
-            Expanded(
-              child: _platformTile(
-                platform: 'Linux',
-                color: kAccent,
-                icon: Icons.arrow_back,
-                tokenName: 'Icons.arrow_back',
-                note: 'Falls back to Android arrow.',
-              ),
-            ),
+            Expanded(child: _platformTile(
+              platform: 'Linux',
+              color: kAccent,
+              icon: Icons.arrow_back,
+              tokenName: 'Icons.arrow_back',
+              note: 'Falls back to Android arrow.',
+            )),
             SizedBox(width: 10.0),
-            Expanded(
-              child: _platformTile(
-                platform: 'Windows',
-                color: kAccent,
-                icon: Icons.arrow_back,
-                tokenName: 'Icons.arrow_back',
-                note: 'Falls back to Android arrow.',
-              ),
-            ),
+            Expanded(child: _platformTile(
+              platform: 'Windows',
+              color: kAccent,
+              icon: Icons.arrow_back,
+              tokenName: 'Icons.arrow_back',
+              note: 'Falls back to Android arrow.',
+            )),
             SizedBox(width: 10.0),
-            Expanded(
-              child: _platformTile(
-                platform: 'Fuchsia',
-                color: kFuchsia,
-                icon: Icons.arrow_back,
-                tokenName: 'Icons.arrow_back',
-                note: 'Falls back to Android arrow.',
-              ),
-            ),
+            Expanded(child: _platformTile(
+              platform: 'Fuchsia',
+              color: kFuchsia,
+              icon: Icons.arrow_back,
+              tokenName: 'Icons.arrow_back',
+              note: 'Falls back to Android arrow.',
+            )),
           ],
         ),
         SizedBox(height: 14.0),
@@ -624,7 +637,10 @@ Widget _platformTile({
           ),
         ),
         SizedBox(height: 4.0),
-        Text(note, style: TextStyle(color: kTextLo, fontSize: 11.0)),
+        Text(
+          note,
+          style: TextStyle(color: kTextLo, fontSize: 11.0),
+        ),
       ],
     ),
   );
@@ -646,69 +662,67 @@ Widget buildAppBarGallery() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: _appBarCard(
-                label: 'Default',
-                description: 'BackButton with framework defaults.',
-                appBar: AppBar(
-                  backgroundColor: kBgCard,
-                  foregroundColor: kTextHi,
-                  leading: BackButton(onPressed: () {}),
-                  title: Text('Inbox'),
-                ),
+            Expanded(child: _appBarCard(
+              label: 'Default',
+              description: 'BackButton with framework defaults.',
+              appBar: AppBar(
+                backgroundColor: kBgCard,
+                foregroundColor: kTextHi,
+                leading: BackButton(onPressed: () {}),
+                title: Text('Inbox'),
               ),
-            ),
+            )),
             SizedBox(width: kCardGap),
-            Expanded(
-              child: _appBarCard(
-                label: 'Custom color',
-                description: 'BackButton(color: Color(0xFFE8B23A))',
-                appBar: AppBar(
-                  backgroundColor: kBgCard,
-                  foregroundColor: kTextHi,
-                  leading: BackButton(color: kWarn, onPressed: () {}),
-                  title: Text('Settings'),
+            Expanded(child: _appBarCard(
+              label: 'Custom color',
+              description: 'BackButton(color: Color(0xFFE8B23A))',
+              appBar: AppBar(
+                backgroundColor: kBgCard,
+                foregroundColor: kTextHi,
+                leading: BackButton(
+                  color: kWarn,
+                  onPressed: () {},
                 ),
+                title: Text('Settings'),
               ),
-            ),
+            )),
           ],
         ),
         SizedBox(height: kCardGap),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: _appBarCard(
-                label: 'Custom onPressed',
-                description: 'Override pop behaviour with a callback.',
-                appBar: AppBar(
-                  backgroundColor: kBgCard,
-                  foregroundColor: kTextHi,
-                  leading: BackButton(onPressed: () {}),
-                  title: Text('Compose'),
-                  actions: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.send, color: kAccent),
-                    ),
-                  ],
-                ),
+            Expanded(child: _appBarCard(
+              label: 'Custom onPressed',
+              description: 'Override pop behaviour with a callback.',
+              appBar: AppBar(
+                backgroundColor: kBgCard,
+                foregroundColor: kTextHi,
+                leading: BackButton(onPressed: () {}),
+                title: Text('Compose'),
+                actions: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.send, color: kAccent),
+                  ),
+                ],
               ),
-            ),
+            )),
             SizedBox(width: kCardGap),
-            Expanded(
-              child: _appBarCard(
-                label: 'Hero-tag context',
-                description: 'BackButton inside a Hero-decorated AppBar.',
-                appBar: AppBar(
-                  backgroundColor: kAccentDeep,
-                  foregroundColor: kTextHi,
-                  leading: BackButton(color: kTextHi, onPressed: () {}),
-                  title: Text('Detail'),
-                  elevation: 4.0,
+            Expanded(child: _appBarCard(
+              label: 'Hero-tag context',
+              description: 'BackButton inside a Hero-decorated AppBar.',
+              appBar: AppBar(
+                backgroundColor: kAccentDeep,
+                foregroundColor: kTextHi,
+                leading: BackButton(
+                  color: kTextHi,
+                  onPressed: () {},
                 ),
+                title: Text('Detail'),
+                elevation: 4.0,
               ),
-            ),
+            )),
           ],
         ),
         SizedBox(height: kCardGap),
@@ -745,13 +759,23 @@ Widget _appBarCard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [pill(label, color: kAccent)]),
+        Row(
+          children: [
+            pill(label, color: kAccent),
+          ],
+        ),
         SizedBox(height: 8.0),
-        Text(description, style: TextStyle(color: kTextLo, fontSize: 11.5)),
+        Text(
+          description,
+          style: TextStyle(color: kTextLo, fontSize: 11.5),
+        ),
         SizedBox(height: 10.0),
         ClipRRect(
           borderRadius: BorderRadius.circular(6.0),
-          child: SizedBox(height: 56.0, child: appBar),
+          child: SizedBox(
+            height: 56.0,
+            child: appBar,
+          ),
         ),
         SizedBox(height: 8.0),
         Container(
@@ -855,7 +879,9 @@ Widget buildBackButtonIconCard() {
                     'Use inside custom buttons, GestureDetectors or '
                     'any place an Icon would normally go.',
                   ),
-                  bullet('No tap behaviour - you wire your own onTap.'),
+                  bullet(
+                    'No tap behaviour - you wire your own onTap.',
+                  ),
                 ],
               ),
             ),
@@ -906,7 +932,10 @@ Widget buildCloseButtonPanel() {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CloseButton(color: kDanger, onPressed: () {}),
+                    CloseButton(
+                      color: kDanger,
+                      onPressed: () {},
+                    ),
                     SizedBox(height: 8.0),
                     Text(
                       'CloseButton',
@@ -925,7 +954,10 @@ Widget buildCloseButtonPanel() {
                   kvRow('widget', 'CloseButton', color: kDanger),
                   kvRow('icon', 'Icons.close'),
                   kvRow('tooltip', 'MaterialLocalizations.closeButtonTooltip'),
-                  kvRow('default onPressed', 'Navigator.maybePop(context)'),
+                  kvRow(
+                    'default onPressed',
+                    'Navigator.maybePop(context)',
+                  ),
                   kvRow('typical use', 'fullscreen dialogs / modal sheets'),
                   kvRow('color param', 'Color? icon tint'),
                   kvRow('style param', 'ButtonStyle? merged with theme'),
@@ -1191,8 +1223,7 @@ Widget buildRootNavigatorPanel() {
             Expanded(
               child: _stateTile(
                 title: 'canPop == true',
-                detail:
-                    'BackButton invokes Navigator.pop and the route '
+                detail: 'BackButton invokes Navigator.pop and the route '
                     'animates out.',
                 icon: Icons.check_circle,
                 color: kSuccess,
@@ -1202,8 +1233,7 @@ Widget buildRootNavigatorPanel() {
             Expanded(
               child: _stateTile(
                 title: 'canPop == false',
-                detail:
-                    'BackButton renders normally but maybePop becomes '
+                detail: 'BackButton renders normally but maybePop becomes '
                     'a no-op. The visible state is unchanged.',
                 icon: Icons.do_not_disturb_on,
                 color: kWarn,
@@ -1213,8 +1243,7 @@ Widget buildRootNavigatorPanel() {
             Expanded(
               child: _stateTile(
                 title: 'fullscreenDialog',
-                detail:
-                    'CloseButton replaces BackButton automatically; '
+                detail: 'CloseButton replaces BackButton automatically; '
                     'the same maybePop logic applies.',
                 icon: Icons.close,
                 color: kDanger,
@@ -1297,53 +1326,42 @@ Widget buildPitfallsPanel() {
         _pitfall(
           title: 'BackButton on root route',
           problem: 'Tapping does nothing because there is nothing to pop.',
-          fix:
-              'Hide the leading widget when Navigator.canPop() == false, '
+          fix: 'Hide the leading widget when Navigator.canPop() == false, '
               'or override onPressed to exit the app.',
         ),
         _pitfall(
           title: 'Custom onPressed forgetting to pop',
-          problem:
-              'Providing onPressed replaces the default behaviour - '
+          problem: 'Providing onPressed replaces the default behaviour - '
               'Navigator.maybePop is no longer called.',
-          fix:
-              'In the callback, call Navigator.of(context).maybePop() '
+          fix: 'In the callback, call Navigator.of(context).maybePop() '
               'after performing the side effect.',
         ),
         _pitfall(
           title: 'WillPopScope drift',
-          problem:
-              'WillPopScope is deprecated since Flutter 3.12 and '
+          problem: 'WillPopScope is deprecated since Flutter 3.12 and '
               'misbehaves with Android predictive back gesture.',
-          fix:
-              'Migrate to PopScope; canPop + onPopInvoked replace '
+          fix: 'Migrate to PopScope; canPop + onPopInvoked replace '
               'onWillPop.',
         ),
         _pitfall(
           title: 'BackButtonListener without Router',
-          problem:
-              'BackButtonListener throws if no Router ancestor is '
+          problem: 'BackButtonListener throws if no Router ancestor is '
               'present - common when used in a vanilla MaterialApp.',
-          fix:
-              'Switch to PopScope, or use MaterialApp.router with a '
+          fix: 'Switch to PopScope, or use MaterialApp.router with a '
               'RouterDelegate.',
         ),
         _pitfall(
           title: 'Nested Navigators confusion',
-          problem:
-              'BackButton always pops the nearest Navigator. With '
+          problem: 'BackButton always pops the nearest Navigator. With '
               'nested Navigators this might pop the inner stack only.',
-          fix:
-              'Pass a custom onPressed that calls '
+          fix: 'Pass a custom onPressed that calls '
               'Navigator.of(context, rootNavigator: true).maybePop().',
         ),
         _pitfall(
           title: 'Localised tooltip overridden',
-          problem:
-              'Setting style or wrapping the BackButton in a Tooltip '
+          problem: 'Setting style or wrapping the BackButton in a Tooltip '
               'replaces the built-in localised "Back" text.',
-          fix:
-              'Prefer leaving the default tooltip in place; if you must '
+          fix: 'Prefer leaving the default tooltip in place; if you must '
               'override, supply a localised string from your own ARB.',
         ),
       ],
@@ -1407,7 +1425,8 @@ Widget _pitfall({
 Widget buildReferenceTable() {
   return panel(
     title: 'Reference - BackButton family at a glance',
-    subtitle: 'Quick comparison table covering the five widgets in this demo.',
+    subtitle:
+        'Quick comparison table covering the five widgets in this demo.',
     accent: kAccent,
     child: Column(
       children: [

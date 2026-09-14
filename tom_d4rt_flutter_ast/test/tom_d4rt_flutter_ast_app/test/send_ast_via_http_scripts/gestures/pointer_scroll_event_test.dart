@@ -221,10 +221,7 @@ class _PageBody extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                _Chip(
-                  text: 'extends PointerSignalEvent',
-                  color: _Palette.violet,
-                ),
+                _Chip(text: 'extends PointerSignalEvent', color: _Palette.violet),
                 _Chip(text: 'extends PointerEvent', color: _Palette.kelp),
                 _Chip(text: 'immutable', color: _Palette.amber),
                 _Chip(text: 'discrete', color: _Palette.signal),
@@ -275,27 +272,11 @@ class _PageBody extends StatelessWidget {
 
   Widget _anatomyLegend() {
     final List<List<String>> rows = <List<String>>[
-      <String>[
-        'scrollDelta.dy < 0',
-        'wheel rolled away from user',
-        'scroll up',
-      ],
+      <String>['scrollDelta.dy < 0', 'wheel rolled away from user', 'scroll up'],
       <String>['scrollDelta.dy > 0', 'wheel rolled toward user', 'scroll down'],
-      <String>[
-        'scrollDelta.dx != 0',
-        'shift+wheel or sideways trackpad',
-        'pan',
-      ],
-      <String>[
-        'delta == Offset.zero',
-        'always — scroll has no drag delta',
-        '—',
-      ],
-      <String>[
-        'kind == mouse',
-        'discrete tick, often integer multiples',
-        'wheel',
-      ],
+      <String>['scrollDelta.dx != 0', 'shift+wheel or sideways trackpad', 'pan'],
+      <String>['delta == Offset.zero', 'always — scroll has no drag delta', '—'],
+      <String>['kind == mouse', 'discrete tick, often integer multiples', 'wheel'],
       <String>['kind == trackpad', 'continuous pixel deltas', 'pad'],
     ];
 
@@ -311,17 +292,17 @@ class _PageBody extends StatelessWidget {
       }
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: children,
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: children);
   }
 
   Widget _legendRow(String code, String desc, String tag) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(width: 160, child: Text(code, style: _Type.mono)),
+        SizedBox(
+          width: 160,
+          child: Text(code, style: _Type.mono),
+        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(top: 2),
@@ -355,22 +336,20 @@ class _PageBody extends StatelessWidget {
       // Stretch-Row in pair-card grid inside the unbounded vertical
       // viewport — wrap in IntrinsicHeight so Expanded(_FieldCard) pairs
       // share the tallest card's height with finite constraints.
-      rows.add(
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: _FieldCard(spec: a)),
-              const SizedBox(width: 12),
-              Expanded(
-                child: b == null
-                    ? const SizedBox.shrink()
-                    : _FieldCard(spec: b),
-              ),
-            ],
-          ),
+      rows.add(IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(child: _FieldCard(spec: a)),
+            const SizedBox(width: 12),
+            Expanded(
+              child: b == null
+                  ? const SizedBox.shrink()
+                  : _FieldCard(spec: b),
+            ),
+          ],
         ),
-      );
+      ));
       if (i + 2 < specs.length) {
         rows.add(const SizedBox(height: 12));
       }
@@ -532,24 +511,24 @@ class _PageBody extends StatelessWidget {
   // ---------------------------------------------------------------------------
   Widget _buildMagnitudeMatrix() {
     final List<List<Offset>> grid = <List<Offset>>[
-      <Offset>[const Offset(0, 16), const Offset(0, 64), const Offset(0, 240)],
-      <Offset>[const Offset(16, 0), const Offset(64, 0), const Offset(240, 0)],
+      <Offset>[
+        const Offset(0, 16),
+        const Offset(0, 64),
+        const Offset(0, 240),
+      ],
+      <Offset>[
+        const Offset(16, 0),
+        const Offset(64, 0),
+        const Offset(240, 0),
+      ],
       <Offset>[
         const Offset(11, 11),
         const Offset(45, 45),
         const Offset(170, 170),
       ],
     ];
-    final List<String> rowLabels = <String>[
-      'vertical',
-      'horizontal',
-      'diagonal',
-    ];
-    final List<String> colLabels = <String>[
-      'small (16px)',
-      'medium (64px)',
-      'large (240px)',
-    ];
+    final List<String> rowLabels = <String>['vertical', 'horizontal', 'diagonal'];
+    final List<String> colLabels = <String>['small (16px)', 'medium (64px)', 'large (240px)'];
 
     final List<Widget> headerCells = <Widget>[
       _matrixHeaderCell('axis ↓ / size →', isHeader: true),
@@ -571,14 +550,12 @@ class _PageBody extends StatelessWidget {
       // Stretch-Row inside the unbounded SingleChildScrollView gets
       // infinite cross-axis constraints. IntrinsicHeight gives the row
       // a finite height matching its tallest cell.
-      rows.add(
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _flexEqual(cells),
-          ),
+      rows.add(IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: _flexEqual(cells),
         ),
-      );
+      ));
     }
 
     return _Section(
@@ -608,9 +585,7 @@ class _PageBody extends StatelessWidget {
       height: 36,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: isHeader
-            ? Colors.transparent
-            : _Palette.indigo.withValues(alpha: 0.4),
+        color: isHeader ? Colors.transparent : _Palette.indigo.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -678,7 +653,10 @@ class _PageBody extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            Expanded(flex: 1, child: _cumulativeChart(cumulativeY)),
+            Expanded(
+              flex: 1,
+              child: _cumulativeChart(cumulativeY),
+            ),
           ],
         ),
       ),
@@ -714,19 +692,17 @@ class _PageBody extends StatelessWidget {
       'means in this particular surface.',
     ];
     for (int i = 0; i < lines.length; i++) {
-      paragraphs.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
-          child: Text(
-            lines[i],
-            style: _Type.body.copyWith(
-              color: i == 0 ? _Palette.amber : _Palette.ink,
-              fontWeight: i == 0 ? FontWeight.w700 : FontWeight.w400,
-              fontSize: i == 0 ? 16 : 13,
-            ),
+      paragraphs.add(Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
+        child: Text(
+          lines[i],
+          style: _Type.body.copyWith(
+            color: i == 0 ? _Palette.amber : _Palette.ink,
+            fontWeight: i == 0 ? FontWeight.w700 : FontWeight.w400,
+            fontSize: i == 0 ? 16 : 13,
           ),
         ),
-      );
+      ));
     }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -739,7 +715,9 @@ class _PageBody extends StatelessWidget {
 
   Widget _scrollIndicator(double offset) {
     final double frac = (offset / 600.0).clamp(0.0, 1.0);
-    return CustomPaint(painter: _ScrollbarPainter(fraction: frac));
+    return CustomPaint(
+      painter: _ScrollbarPainter(fraction: frac),
+    );
   }
 
   Widget _cumulativeChart(List<double> values) {
@@ -853,7 +831,8 @@ class _PageBody extends StatelessWidget {
     final List<_Recipe> recipes = <_Recipe>[
       _Recipe(
         title: 'Listener — minimum viable handler',
-        purpose: 'Catch every wheel tick that lands inside a widget subtree.',
+        purpose:
+            'Catch every wheel tick that lands inside a widget subtree.',
         snippet: <_Span>[
           _Span('Listener', _Palette.violet),
           _Span('(\n  ', _Palette.foam),
@@ -892,10 +871,7 @@ class _PageBody extends StatelessWidget {
           _Span('PointerScrollEvent', _Palette.violet),
           _Span(') {\n    ', _Palette.foam),
           _Span('GestureBinding', _Palette.violet),
-          _Span(
-            '.instance.pointerSignalResolver\n        .register(e, _handle);\n  }\n}\n\n',
-            _Palette.foam,
-          ),
+          _Span('.instance.pointerSignalResolver\n        .register(e, _handle);\n  }\n}\n\n', _Palette.foam),
           _Span('void', _Palette.signal),
           _Span(' ', _Palette.foam),
           _Span('_handle', _Palette.amber),
@@ -936,10 +912,7 @@ class _PageBody extends StatelessWidget {
             'events on their timeStamp field.',
         snippet: <_Span>[
           _Span('final', _Palette.signal),
-          _Span(
-            ' dt = (e.timeStamp - last.timeStamp)\n    .inMicroseconds / 1e6;\n',
-            _Palette.foam,
-          ),
+          _Span(' dt = (e.timeStamp - last.timeStamp)\n    .inMicroseconds / 1e6;\n', _Palette.foam),
           _Span('final', _Palette.signal),
           _Span(' v = dt > 0\n    ? e.scrollDelta / dt\n    : ', _Palette.foam),
           _Span('Offset', _Palette.violet),
@@ -992,8 +965,7 @@ class _PageBody extends StatelessWidget {
         body:
             'Accelerated wheel drivers may report >500px per tick. Decide '
             'whether to honour them or saturate.',
-        guard:
-            'final s = (e.scrollDelta.dy.abs() > 400) ? 400.0 : e.scrollDelta.dy;',
+        guard: 'final s = (e.scrollDelta.dy.abs() > 400) ? 400.0 : e.scrollDelta.dy;',
         accent: _Palette.violet,
       ),
       _EdgeCase(
@@ -1011,7 +983,8 @@ class _PageBody extends StatelessWidget {
             'A nested ScrollView consumes wheel ticks before your Listener '
             'sees them. Wrap with a NotificationListener if you need '
             'visibility into resolved scroll changes instead.',
-        guard: 'NotificationListener<ScrollNotification>(onNotification: …)',
+        guard:
+            'NotificationListener<ScrollNotification>(onNotification: …)',
         accent: _Palette.plasma,
       ),
       _EdgeCase(
@@ -1032,22 +1005,20 @@ class _PageBody extends StatelessWidget {
       // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #27, P1):
       // Stretch-Row in edge-case pair grid inside the unbounded vertical
       // viewport — wrap in IntrinsicHeight to scope the cross-axis size.
-      rows.add(
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: _EdgeCaseCard(data: a)),
-              const SizedBox(width: 12),
-              Expanded(
-                child: b == null
-                    ? const SizedBox.shrink()
-                    : _EdgeCaseCard(data: b),
-              ),
-            ],
-          ),
+      rows.add(IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(child: _EdgeCaseCard(data: a)),
+            const SizedBox(width: 12),
+            Expanded(
+              child: b == null
+                  ? const SizedBox.shrink()
+                  : _EdgeCaseCard(data: b),
+            ),
+          ],
         ),
-      );
+      ));
       if (i + 2 < cases.length) {
         rows.add(const SizedBox(height: 12));
       }
@@ -1123,7 +1094,11 @@ class _PageBody extends StatelessWidget {
           'inside try/catch and renders the surviving instance. Construction '
           'is wrapped because some variants assert on certain Flutter '
           'engine builds.',
-      child: Wrap(spacing: 12, runSpacing: 12, children: tiles),
+      child: Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: tiles,
+      ),
     );
   }
 
@@ -1338,7 +1313,9 @@ class _PulsarBadge extends StatelessWidget {
       width: 64,
       height: 64,
       child: CustomPaint(
-        painter: _PulsarPainter(phase: AlwaysStoppedAnimation<double>(seed)),
+        painter: _PulsarPainter(
+          phase: AlwaysStoppedAnimation<double>(seed),
+        ),
       ),
     );
   }
@@ -1399,40 +1376,35 @@ class _InheritanceLadder extends StatelessWidget {
     final List<Widget> rungs = <Widget>[];
     for (int i = 0; i < chain.length; i++) {
       final bool last = i == chain.length - 1;
-      rungs.add(
-        Container(
-          margin: const EdgeInsets.only(right: 8),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          decoration: BoxDecoration(
-            color: last
-                ? _Palette.signal.withValues(alpha: 0.18)
-                : _Palette.indigo.withValues(alpha: 0.6),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: last
-                  ? _Palette.signal
-                  : _Palette.violet.withValues(alpha: 0.4),
-            ),
-          ),
-          child: Text(
-            chain[i],
-            style: _Type.mono.copyWith(
-              color: last ? _Palette.signal : _Palette.foam,
-              fontWeight: last ? FontWeight.w800 : FontWeight.w500,
-            ),
+      rungs.add(Container(
+        margin: const EdgeInsets.only(right: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: last ? _Palette.signal.withValues(alpha: 0.18) : _Palette.indigo.withValues(alpha: 0.6),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: last ? _Palette.signal : _Palette.violet.withValues(alpha: 0.4),
           ),
         ),
-      );
-      if (!last) {
-        rungs.add(
-          const Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: Text('▸', style: TextStyle(color: _Palette.faint)),
+        child: Text(
+          chain[i],
+          style: _Type.mono.copyWith(
+            color: last ? _Palette.signal : _Palette.foam,
+            fontWeight: last ? FontWeight.w800 : FontWeight.w500,
           ),
-        );
+        ),
+      ));
+      if (!last) {
+        rungs.add(const Padding(
+          padding: EdgeInsets.only(right: 8),
+          child: Text('▸', style: TextStyle(color: _Palette.faint)),
+        ));
       }
     }
-    return Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: rungs);
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: rungs,
+    );
   }
 }
 
@@ -1459,19 +1431,17 @@ class _MouseAnatomyPainter extends CustomPainter {
       ..color = _Palette.violet.withValues(alpha: 0.22)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        body.shift(const Offset(0, 8)),
-        const Radius.circular(60),
-      ),
+      RRect.fromRectAndRadius(body.shift(const Offset(0, 8)), const Radius.circular(60)),
       shadow,
     );
 
     // Body
     final Paint bodyPaint = Paint()
-      ..shader = ui.Gradient.linear(body.topCenter, body.bottomCenter, <Color>[
-        const Color(0xFF1B2152),
-        const Color(0xFF0E1230),
-      ]);
+      ..shader = ui.Gradient.linear(
+        body.topCenter,
+        body.bottomCenter,
+        <Color>[const Color(0xFF1B2152), const Color(0xFF0E1230)],
+      );
     canvas.drawRRect(
       RRect.fromRectAndRadius(body, const Radius.circular(60)),
       bodyPaint,
@@ -1523,11 +1493,7 @@ class _MouseAnatomyPainter extends CustomPainter {
       ..strokeWidth = 1.2;
     for (int i = 0; i < 7; i++) {
       final double y = wheel.top + 6 + (i / 6.0) * (wheel.height - 12) + t * 2;
-      canvas.drawLine(
-        Offset(wheel.left + 2, y),
-        Offset(wheel.right - 2, y),
-        ridge,
-      );
+      canvas.drawLine(Offset(wheel.left + 2, y), Offset(wheel.right - 2, y), ridge);
     }
 
     // Wheel glow
@@ -1570,25 +1536,14 @@ class _MouseAnatomyPainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: const TextSpan(
         text: 'position',
-        style: TextStyle(
-          color: _Palette.foam,
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(color: _Palette.foam, fontSize: 10, fontWeight: FontWeight.w600),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
     tp.paint(canvas, Offset(cx + 32, slot.center.dy + 6));
   }
 
-  void _drawArrow(
-    Canvas canvas,
-    Offset origin,
-    Offset dir,
-    double length,
-    Color color,
-    String label,
-  ) {
+  void _drawArrow(Canvas canvas, Offset origin, Offset dir, double length, Color color, String label) {
     final Offset end = origin + Offset(dir.dx * length, dir.dy * length);
     final Paint stem = Paint()
       ..color = color
@@ -1607,11 +1562,7 @@ class _MouseAnatomyPainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: label,
-        style: TextStyle(
-          color: color,
-          fontSize: 9.5,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(color: color, fontSize: 9.5, fontWeight: FontWeight.w600),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1721,10 +1672,7 @@ class _FieldCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     spec.sample,
-                    style: _Type.mono.copyWith(
-                      color: _Palette.amber,
-                      fontSize: 12,
-                    ),
+                    style: _Type.mono.copyWith(color: _Palette.amber, fontSize: 12),
                   ),
                 ),
               ],
@@ -1794,9 +1742,7 @@ class _TickerRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
       decoration: BoxDecoration(
-        color: index.isEven
-            ? _Palette.indigo.withValues(alpha: 0.35)
-            : _Palette.midnight,
+        color: index.isEven ? _Palette.indigo.withValues(alpha: 0.35) : _Palette.midnight,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -1810,10 +1756,7 @@ class _TickerRow extends StatelessWidget {
           ),
           SizedBox(
             width: 86,
-            child: Text(
-              _ms(tick.t),
-              style: _Type.mono.copyWith(color: _Palette.foam),
-            ),
+            child: Text(_ms(tick.t), style: _Type.mono.copyWith(color: _Palette.foam)),
           ),
           Container(
             width: 26,
@@ -1997,8 +1940,7 @@ class _ScrollbarPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ScrollbarPainter old) =>
-      old.fraction != fraction;
+  bool shouldRepaint(covariant _ScrollbarPainter old) => old.fraction != fraction;
 }
 
 class _LineChartPainter extends CustomPainter {
@@ -2090,56 +2032,42 @@ class _ComparisonTable extends StatelessWidget {
       final bool isHeader = r == 0;
       final List<Widget> cells = <Widget>[];
       for (int c = 0; c < rows[r].length; c++) {
-        cells.add(
-          Expanded(
-            flex: c == 0 ? 2 : 3,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: _Palette.line.withValues(alpha: 0.7),
-                  ),
-                ),
+        cells.add(Expanded(
+          flex: c == 0 ? 2 : 3,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: _Palette.line.withValues(alpha: 0.7)),
               ),
-              child: Text(
-                rows[r][c],
-                style: isHeader
-                    ? _Type.label.copyWith(
-                        color: c == 0 ? _Palette.faint : _Palette.plasma,
-                        fontSize: 11,
-                      )
-                    : (c == 0
-                          ? _Type.dim.copyWith(
-                              color: _Palette.faint,
-                              fontWeight: FontWeight.w600,
-                            )
-                          : _Type.body.copyWith(
-                              fontFamily: 'monospace',
-                              fontSize: 12.5,
-                            )),
-              ),
+            ),
+            child: Text(
+              rows[r][c],
+              style: isHeader
+                  ? _Type.label.copyWith(
+                      color: c == 0 ? _Palette.faint : _Palette.plasma,
+                      fontSize: 11,
+                    )
+                  : (c == 0
+                      ? _Type.dim.copyWith(color: _Palette.faint, fontWeight: FontWeight.w600)
+                      : _Type.body.copyWith(fontFamily: 'monospace', fontSize: 12.5)),
             ),
           ),
-        );
+        ));
       }
-      built.add(
-        Container(
-          color: isHeader
-              ? _Palette.indigo.withValues(alpha: 0.5)
-              : Colors.transparent,
-          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #27, P1):
-          // Stretch-Row inside an unbounded vertical viewport — wrap in
-          // IntrinsicHeight so the bottom-bordered cells share a finite
-          // common height instead of receiving infinite constraints.
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: cells,
-            ),
+      built.add(Container(
+        color: isHeader ? _Palette.indigo.withValues(alpha: 0.5) : Colors.transparent,
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #27, P1):
+        // Stretch-Row inside an unbounded vertical viewport — wrap in
+        // IntrinsicHeight so the bottom-bordered cells share a finite
+        // common height instead of receiving infinite constraints.
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: cells,
           ),
         ),
-      );
+      ));
     }
     return Container(
       decoration: BoxDecoration(
@@ -2164,7 +2092,11 @@ class _Span {
 }
 
 class _Recipe {
-  _Recipe({required this.title, required this.purpose, required this.snippet});
+  _Recipe({
+    required this.title,
+    required this.purpose,
+    required this.snippet,
+  });
   final String title;
   final String purpose;
   final List<_Span> snippet;
@@ -2179,17 +2111,10 @@ class _RecipeCard extends StatelessWidget {
     final List<TextSpan> spans = <TextSpan>[];
     for (int i = 0; i < recipe.snippet.length; i++) {
       final _Span s = recipe.snippet[i];
-      spans.add(
-        TextSpan(
-          text: s.text,
-          style: TextStyle(
-            color: s.color,
-            fontFamily: 'monospace',
-            fontSize: 12.5,
-            height: 1.55,
-          ),
-        ),
-      );
+      spans.add(TextSpan(
+        text: s.text,
+        style: TextStyle(color: s.color, fontFamily: 'monospace', fontSize: 12.5, height: 1.55),
+      ));
     }
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),

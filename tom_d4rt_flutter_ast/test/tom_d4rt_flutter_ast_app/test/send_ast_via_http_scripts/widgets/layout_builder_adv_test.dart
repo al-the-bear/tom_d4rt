@@ -253,32 +253,22 @@ Widget _buildSection1HeaderAnatomy() {
           ),
           child: Column(
             children: [
-              _anatomyRow(
-                'Parent',
-                'minW=0, maxW=600\nminH=0, maxH=inf',
-                Colors.indigo,
-              ),
+              _anatomyRow('Parent', 'minW=0, maxW=600\nminH=0, maxH=inf',
+                  Colors.indigo),
               _anatomyArrow('passes BoxConstraints down'),
-              _anatomyRow(
-                'LayoutBuilder',
-                'reads constraints,\nbuilds subtree',
-                _accent,
-              ),
+              _anatomyRow('LayoutBuilder', 'reads constraints,\nbuilds subtree',
+                  _accent),
               _anatomyArrow('builder(context, constraints)'),
               _anatomyRow(
-                'Subtree',
-                'sized against the\nsame constraints',
-                _good,
-              ),
+                  'Subtree', 'sized against the\nsame constraints', _good),
             ],
           ),
         ),
         _caption(
-          'The builder closure runs during the layout phase, not the build '
-          'phase. That is why you cannot call setState inside it without '
-          'scheduling a post-frame callback -- you would mutate state in the '
-          'middle of laying out the tree.',
-        ),
+            'The builder closure runs during the layout phase, not the build '
+            'phase. That is why you cannot call setState inside it without '
+            'scheduling a post-frame callback -- you would mutate state in the '
+            'middle of laying out the tree.'),
       ],
     ),
   );
@@ -322,14 +312,11 @@ Widget _anatomyArrow(String text) {
       children: [
         Container(width: 2, height: 18, color: _muted),
         const SizedBox(width: 10),
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 11.5,
-            color: _muted,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text(text,
+            style: const TextStyle(
+                fontSize: 11.5,
+                color: _muted,
+                fontStyle: FontStyle.italic)),
       ],
     ),
   );
@@ -399,12 +386,10 @@ Widget _breakpointGrid() {
             rowItems.add(const SizedBox(width: 8));
           }
         }
-        rows.add(
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Row(children: rowItems),
-          ),
-        );
+        rows.add(Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Row(children: rowItems),
+        ));
       }
 
       return Column(
@@ -413,10 +398,7 @@ Widget _breakpointGrid() {
           Text(
             'tier=$tier  maxW=${constraints.maxWidth.toStringAsFixed(0)}px  -> $columns col${columns == 1 ? '' : 's'}',
             style: const TextStyle(
-              fontSize: 11.5,
-              color: _muted,
-              fontWeight: FontWeight.w600,
-            ),
+                fontSize: 11.5, color: _muted, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 8),
           ...rows,
@@ -440,19 +422,13 @@ Widget _demoCard(String title, String value, Color color) {
         Text(
           title,
           style: TextStyle(
-            fontSize: 11.5,
-            color: color,
-            fontWeight: FontWeight.w600,
-          ),
+              fontSize: 11.5, color: color, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 2),
         Text(
           value,
           style: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w700,
-            color: _ink,
-          ),
+              fontSize: 17, fontWeight: FontWeight.w700, color: _ink),
         ),
       ],
     ),
@@ -483,9 +459,8 @@ Widget _buildSection3Orientation() {
               _label('FORCED PORTRAIT  240w x 320h'),
               SizedBox(width: 240, height: 320, child: _orientationBox()),
               _caption(
-                'Aspect <1, so OrientationBuilder returns Orientation.portrait '
-                'and we stack the cards vertically.',
-              ),
+                  'Aspect <1, so OrientationBuilder returns Orientation.portrait '
+                  'and we stack the cards vertically.'),
             ],
           ),
         ),
@@ -497,9 +472,8 @@ Widget _buildSection3Orientation() {
               _label('FORCED LANDSCAPE  360w x 180h'),
               SizedBox(width: 360, height: 180, child: _orientationBox()),
               _caption(
-                'Aspect >1, so OrientationBuilder returns Orientation.landscape '
-                'and the same content flows horizontally.',
-              ),
+                  'Aspect >1, so OrientationBuilder returns Orientation.landscape '
+                  'and the same content flows horizontally.'),
             ],
           ),
         ),
@@ -529,28 +503,27 @@ Widget _orientationBox() {
           child: Text(
             'orientation=$orientationLabel',
             style: const TextStyle(
-              color: _accent,
-              fontWeight: FontWeight.w600,
-              fontSize: 11.5,
-            ),
+                color: _accent, fontWeight: FontWeight.w600, fontSize: 11.5),
           ),
         ),
       );
 
       if (isLandscape) {
-        children.add(
-          Expanded(
-            child: Row(children: [for (final c in cards) Expanded(child: c)]),
+        children.add(Expanded(
+          child: Row(
+            children: [
+              for (final c in cards) Expanded(child: c),
+            ],
           ),
-        );
+        ));
       } else {
-        children.add(
-          Expanded(
-            child: Column(
-              children: [for (final c in cards) Expanded(child: c)],
-            ),
+        children.add(Expanded(
+          child: Column(
+            children: [
+              for (final c in cards) Expanded(child: c),
+            ],
           ),
-        );
+        ));
       }
 
       return Container(
@@ -580,14 +553,9 @@ Widget _orientChip(String label, IconData icon, Color color) {
       children: [
         Icon(icon, color: color, size: 22),
         const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            color: color,
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                color: color, fontSize: 11, fontWeight: FontWeight.w600)),
       ],
     ),
   );
@@ -655,19 +623,14 @@ Widget _aspectAware() {
           children: [
             for (int i = 0; i < 4; i++)
               Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(3),
-                  color: _accent.withOpacity(0.1 + (i * 0.18)),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '#$i',
+                  child: Container(
+                margin: const EdgeInsets.all(3),
+                color: _accent.withOpacity(0.1 + (i * 0.18)),
+                alignment: Alignment.center,
+                child: Text('#$i',
                     style: const TextStyle(
-                      color: _accent,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
+                        color: _accent, fontWeight: FontWeight.w700)),
+              )),
           ],
         );
       } else if (ratio < 1.5) {
@@ -678,17 +641,13 @@ Widget _aspectAware() {
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(3),
-                      color: _good.withOpacity(0.18),
-                    ),
-                  ),
+                      child: Container(
+                          margin: const EdgeInsets.all(3),
+                          color: _good.withOpacity(0.18))),
                   Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(3),
-                      color: _accent.withOpacity(0.18),
-                    ),
-                  ),
+                      child: Container(
+                          margin: const EdgeInsets.all(3),
+                          color: _accent.withOpacity(0.18))),
                 ],
               ),
             ),
@@ -696,17 +655,13 @@ Widget _aspectAware() {
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(3),
-                      color: _warn.withOpacity(0.20),
-                    ),
-                  ),
+                      child: Container(
+                          margin: const EdgeInsets.all(3),
+                          color: _warn.withOpacity(0.20))),
                   Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(3),
-                      color: _bad.withOpacity(0.18),
-                    ),
-                  ),
+                      child: Container(
+                          margin: const EdgeInsets.all(3),
+                          color: _bad.withOpacity(0.18))),
                 ],
               ),
             ),
@@ -722,10 +677,9 @@ Widget _aspectAware() {
                 margin: const EdgeInsets.all(3),
                 color: _accent.withOpacity(0.15),
                 alignment: Alignment.center,
-                child: const Text(
-                  'banner',
-                  style: TextStyle(color: _accent, fontWeight: FontWeight.w700),
-                ),
+                child: const Text('banner',
+                    style: TextStyle(
+                        color: _accent, fontWeight: FontWeight.w700)),
               ),
             ),
             Expanded(
@@ -733,17 +687,13 @@ Widget _aspectAware() {
               child: Column(
                 children: [
                   Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(3),
-                      color: _good.withOpacity(0.2),
-                    ),
-                  ),
+                      child: Container(
+                          margin: const EdgeInsets.all(3),
+                          color: _good.withOpacity(0.2))),
                   Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(3),
-                      color: _warn.withOpacity(0.2),
-                    ),
-                  ),
+                      child: Container(
+                          margin: const EdgeInsets.all(3),
+                          color: _warn.withOpacity(0.2))),
                 ],
               ),
             ),
@@ -766,10 +716,7 @@ Widget _aspectAware() {
               child: Text(
                 'mode=$mode  ratio=${ratio.toStringAsFixed(2)}',
                 style: const TextStyle(
-                  fontSize: 11,
-                  color: _accent,
-                  fontWeight: FontWeight.w600,
-                ),
+                    fontSize: 11, color: _accent, fontWeight: FontWeight.w600),
               ),
             ),
             Expanded(child: body),
@@ -832,10 +779,9 @@ Widget _buildSection5RadialClock() {
                 '}',
               ]),
               _caption(
-                'layoutChild() returns the size after sizing; positionChild() '
-                'sets the top-left corner.  Both must be called exactly once '
-                'per id.',
-              ),
+                  'layoutChild() returns the size after sizing; positionChild() '
+                  'sets the top-left corner.  Both must be called exactly once '
+                  'per id.'),
             ],
           ),
         ),
@@ -858,9 +804,7 @@ class _RadialClockDelegate extends MultiChildLayoutDelegate {
         const BoxConstraints.tightFor(width: 70, height: 70),
       );
       positionChild(
-        'hub',
-        center - Offset(hubSize.width / 2, hubSize.height / 2),
-      );
+          'hub', center - Offset(hubSize.width / 2, hubSize.height / 2));
     }
 
     for (int i = 1; i <= 12; i++) {
@@ -871,8 +815,7 @@ class _RadialClockDelegate extends MultiChildLayoutDelegate {
         id,
         const BoxConstraints.tightFor(width: 36, height: 36),
       );
-      final Offset target =
-          center +
+      final Offset target = center +
           Offset(math.cos(theta) * radius, math.sin(theta) * radius) -
           Offset(bubble.width / 2, bubble.height / 2);
       positionChild(id, target);
@@ -890,20 +833,14 @@ Widget _clockHub() {
       shape: BoxShape.circle,
       boxShadow: [
         BoxShadow(
-          color: _accent.withOpacity(0.35),
-          blurRadius: 14,
-          spreadRadius: 1,
-        ),
+            color: _accent.withOpacity(0.35), blurRadius: 14, spreadRadius: 1)
       ],
     ),
     alignment: Alignment.center,
     child: const Text(
       '12h',
       style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
-        fontSize: 16,
-      ),
+          color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16),
     ),
   );
 }
@@ -919,10 +856,7 @@ Widget _clockBubble(String label) {
     child: Text(
       label,
       style: const TextStyle(
-        color: _accent,
-        fontWeight: FontWeight.w700,
-        fontSize: 12,
-      ),
+          color: _accent, fontWeight: FontWeight.w700, fontSize: 12),
     ),
   );
 }
@@ -1010,40 +944,32 @@ class _EditorShellDelegate extends MultiChildLayoutDelegate {
 
     if (hasChild('header')) {
       layoutChild(
-        'header',
-        BoxConstraints.tightFor(width: size.width, height: headerHeight),
-      );
+          'header',
+          BoxConstraints.tightFor(
+              width: size.width, height: headerHeight));
       positionChild('header', Offset.zero);
     }
     if (hasChild('sidebar')) {
-      layoutChild(
-        'sidebar',
-        BoxConstraints.tightFor(width: sidebarWidth, height: middleHeight),
-      );
+      layoutChild('sidebar',
+          BoxConstraints.tightFor(width: sidebarWidth, height: middleHeight));
       positionChild('sidebar', Offset(0, headerHeight));
     }
     if (hasChild('editor')) {
-      layoutChild(
-        'editor',
-        BoxConstraints.tightFor(width: editorWidth, height: middleHeight),
-      );
+      layoutChild('editor',
+          BoxConstraints.tightFor(width: editorWidth, height: middleHeight));
       positionChild('editor', Offset(sidebarWidth, headerHeight));
     }
     if (hasChild('inspector')) {
       layoutChild(
-        'inspector',
-        BoxConstraints.tightFor(width: inspectorWidth, height: middleHeight),
-      );
+          'inspector',
+          BoxConstraints.tightFor(
+              width: inspectorWidth, height: middleHeight));
       positionChild(
-        'inspector',
-        Offset(sidebarWidth + editorWidth, headerHeight),
-      );
+          'inspector', Offset(sidebarWidth + editorWidth, headerHeight));
     }
     if (hasChild('footer')) {
-      layoutChild(
-        'footer',
-        BoxConstraints.tightFor(width: size.width, height: footerHeight),
-      );
+      layoutChild('footer',
+          BoxConstraints.tightFor(width: size.width, height: footerHeight));
       positionChild('footer', Offset(0, size.height - footerHeight));
     }
   }
@@ -1066,10 +992,7 @@ Widget _shellRegion(String label, Color color) {
     child: Text(
       label,
       style: TextStyle(
-        color: color,
-        fontWeight: FontWeight.w700,
-        fontSize: 12.5,
-      ),
+          color: color, fontWeight: FontWeight.w700, fontSize: 12.5),
     ),
   );
 }
@@ -1092,25 +1015,16 @@ Widget _buildSection7SingleChildLayout() {
     body: Row(
       children: [
         Expanded(
-          child: _singleChildExample(
-            _SingleChildAnchor.topLeft,
-            'top-left + 12px inset',
-          ),
-        ),
+            child: _singleChildExample(
+                _SingleChildAnchor.topLeft, 'top-left + 12px inset')),
         const SizedBox(width: 14),
         Expanded(
-          child: _singleChildExample(
-            _SingleChildAnchor.center,
-            'centered exactly',
-          ),
-        ),
+            child: _singleChildExample(
+                _SingleChildAnchor.center, 'centered exactly')),
         const SizedBox(width: 14),
         Expanded(
-          child: _singleChildExample(
-            _SingleChildAnchor.bottomRight,
-            'bottom-right + 12px',
-          ),
-        ),
+            child: _singleChildExample(
+                _SingleChildAnchor.bottomRight, 'bottom-right + 12px')),
       ],
     ),
   );
@@ -1143,10 +1057,9 @@ Widget _singleChildExample(_SingleChildAnchor anchor, String caption) {
             child: const Text(
               'tile',
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700),
             ),
           ),
         ),
@@ -1222,11 +1135,8 @@ Widget _nestedBuilder() {
   return LayoutBuilder(
     builder: (context, outer) {
       if (outer.maxWidth < 480) {
-        return _innerCard(
-          'narrow outer\nstack-only',
-          color: _warn,
-          height: 160,
-        );
+        return _innerCard('narrow outer\nstack-only',
+            color: _warn, height: 160);
       }
       return Row(
         children: [
@@ -1235,29 +1145,18 @@ Widget _nestedBuilder() {
             child: LayoutBuilder(
               builder: (context, inner) {
                 if (inner.maxWidth < 320) {
-                  return _innerCard(
-                    'inner=small\nsingle col',
-                    color: _accent,
-                    height: 160,
-                  );
+                  return _innerCard('inner=small\nsingle col',
+                      color: _accent, height: 160);
                 }
                 return Row(
                   children: [
                     Expanded(
-                      child: _innerCard(
-                        'inner=medium\nA',
-                        color: _accent,
-                        height: 160,
-                      ),
-                    ),
+                        child: _innerCard('inner=medium\nA',
+                            color: _accent, height: 160)),
                     const SizedBox(width: 6),
                     Expanded(
-                      child: _innerCard(
-                        'inner=medium\nB',
-                        color: _good,
-                        height: 160,
-                      ),
-                    ),
+                        child: _innerCard('inner=medium\nB',
+                            color: _good, height: 160)),
                   ],
                 );
               },
@@ -1265,16 +1164,16 @@ Widget _nestedBuilder() {
           ),
           const SizedBox(width: 8),
           Expanded(
-            flex: 1,
-            child: _innerCard('outer\nsidebar', color: _muted, height: 160),
-          ),
+              flex: 1,
+              child: _innerCard('outer\nsidebar', color: _muted, height: 160)),
         ],
       );
     },
   );
 }
 
-Widget _innerCard(String text, {required Color color, required double height}) {
+Widget _innerCard(String text,
+    {required Color color, required double height}) {
   return Container(
     height: height,
     decoration: BoxDecoration(
@@ -1288,11 +1187,7 @@ Widget _innerCard(String text, {required Color color, required double height}) {
       text,
       textAlign: TextAlign.center,
       style: TextStyle(
-        color: color,
-        fontSize: 12,
-        fontWeight: FontWeight.w700,
-        height: 1.3,
-      ),
+          color: color, fontSize: 12, fontWeight: FontWeight.w700, height: 1.3),
     ),
   );
 }
@@ -1339,17 +1234,17 @@ Widget _constraintInspector() {
             _kv('maxWidth', c.maxWidth.toStringAsFixed(1)),
             _kv('minHeight', c.minHeight.toStringAsFixed(1)),
             _kv(
-              'maxHeight',
-              c.maxHeight.isFinite ? c.maxHeight.toStringAsFixed(1) : 'inf',
-            ),
+                'maxHeight',
+                c.maxHeight.isFinite
+                    ? c.maxHeight.toStringAsFixed(1)
+                    : 'inf'),
             const Divider(height: 18),
             _kv('hasBoundedWidth', '${c.hasBoundedWidth}'),
             _kv('hasBoundedHeight', '${c.hasBoundedHeight}'),
             _kv('isTight', '${c.isTight}'),
             _kv(
-              'biggest',
-              '${c.biggest.width.toStringAsFixed(0)} x ${c.biggest.height.isFinite ? c.biggest.height.toStringAsFixed(0) : 'inf'}',
-            ),
+                'biggest',
+                '${c.biggest.width.toStringAsFixed(0)} x ${c.biggest.height.isFinite ? c.biggest.height.toStringAsFixed(0) : 'inf'}'),
           ],
         ),
       );
@@ -1368,22 +1263,20 @@ Widget _kv(String k, String v) {
           child: Text(
             k,
             style: const TextStyle(
-              fontSize: 11,
-              color: _muted,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'monospace',
-            ),
+                fontSize: 11,
+                color: _muted,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'monospace'),
           ),
         ),
         Expanded(
           child: Text(
             v,
             style: const TextStyle(
-              fontSize: 11.5,
-              color: _ink,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'monospace',
-            ),
+                fontSize: 11.5,
+                color: _ink,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'monospace'),
           ),
         ),
       ],
@@ -1430,17 +1323,13 @@ Widget _doPanel() {
         _badgeRow('DO', _good, Icons.check),
         const SizedBox(height: 8),
         _bulletText(
-          'Use LayoutBuilder when the *shape* of the subtree depends on the parent\'s constraints (1- vs 2- vs 3-column grid, rail vs drawer).',
-        ),
+            'Use LayoutBuilder when the *shape* of the subtree depends on the parent\'s constraints (1- vs 2- vs 3-column grid, rail vs drawer).'),
         _bulletText(
-          'Use OrientationBuilder when the same data should be laid out differently based on aspect ratio.',
-        ),
+            'Use OrientationBuilder when the same data should be laid out differently based on aspect ratio.'),
         _bulletText(
-          'Use CustomMultiChildLayout when you need free-form 2D positioning that no built-in widget can express (radial menus, asymmetric shells).',
-        ),
+            'Use CustomMultiChildLayout when you need free-form 2D positioning that no built-in widget can express (radial menus, asymmetric shells).'),
         _bulletText(
-          'Use CustomSingleChildLayout when you need to control the constraints AND position of exactly one child.',
-        ),
+            'Use CustomSingleChildLayout when you need to control the constraints AND position of exactly one child.'),
       ],
     ),
   );
@@ -1460,17 +1349,13 @@ Widget _dontPanel() {
         _badgeRow('DON\'T', _bad, Icons.block),
         const SizedBox(height: 8),
         _bulletText(
-          'Don\'t wrap a widget in LayoutBuilder if its content does not actually read `constraints` -- you just paid for a relayout-time rebuild for nothing.',
-        ),
+            'Don\'t wrap a widget in LayoutBuilder if its content does not actually read `constraints` -- you just paid for a relayout-time rebuild for nothing.'),
         _bulletText(
-          'Don\'t call setState inside the builder closure synchronously; the framework is already laying out and will throw.',
-        ),
+            'Don\'t call setState inside the builder closure synchronously; the framework is already laying out and will throw.'),
         _bulletText(
-          'Don\'t use LayoutBuilder for top-level screen-size decisions when the answer is the same for the entire screen -- MediaQuery.of(context) is cheaper.',
-        ),
+            'Don\'t use LayoutBuilder for top-level screen-size decisions when the answer is the same for the entire screen -- MediaQuery.of(context) is cheaper.'),
         _bulletText(
-          'Don\'t forget to call layoutChild/positionChild exactly once per id inside a MultiChildLayoutDelegate.',
-        ),
+            'Don\'t forget to call layoutChild/positionChild exactly once per id inside a MultiChildLayoutDelegate.'),
       ],
     ),
   );
@@ -1492,10 +1377,9 @@ Widget _badgeRow(String label, Color color, IconData icon) {
             Text(
               label,
               style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 11,
-              ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11),
             ),
           ],
         ),

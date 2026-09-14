@@ -70,11 +70,7 @@ Widget buildScaffoldStateClassInfo() {
                 color: Colors.teal.shade100,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                Icons.dashboard_customize,
-                color: Colors.teal.shade700,
-                size: 32,
-              ),
+              child: Icon(Icons.dashboard_customize, color: Colors.teal.shade700, size: 32),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -102,10 +98,7 @@ Widget buildScaffoldStateClassInfo() {
         SizedBox(height: 16),
         buildInfoCard('Extends', 'State<Scaffold>'),
         buildInfoCard('Package', 'package:flutter/material.dart'),
-        buildInfoCard(
-          'Purpose',
-          'Manages Scaffold lifecycle and drawer/sheet interactions',
-        ),
+        buildInfoCard('Purpose', 'Manages Scaffold lifecycle and drawer/sheet interactions'),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.all(12),
@@ -125,40 +118,23 @@ Widget buildScaffoldStateClassInfo() {
                 children: [
                   Icon(Icons.menu_open, color: Colors.teal.shade600, size: 18),
                   SizedBox(width: 8),
-                  Text(
-                    'Drawer and EndDrawer control',
-                    style: TextStyle(fontSize: 13),
-                  ),
+                  Text('Drawer and EndDrawer control', style: TextStyle(fontSize: 13)),
                 ],
               ),
               SizedBox(height: 4),
               Row(
                 children: [
-                  Icon(
-                    Icons.view_agenda,
-                    color: Colors.teal.shade600,
-                    size: 18,
-                  ),
+                  Icon(Icons.view_agenda, color: Colors.teal.shade600, size: 18),
                   SizedBox(width: 8),
-                  Text(
-                    'BottomSheet management',
-                    style: TextStyle(fontSize: 13),
-                  ),
+                  Text('BottomSheet management', style: TextStyle(fontSize: 13)),
                 ],
               ),
               SizedBox(height: 4),
               Row(
                 children: [
-                  Icon(
-                    Icons.notifications_active,
-                    color: Colors.teal.shade600,
-                    size: 18,
-                  ),
+                  Icon(Icons.notifications_active, color: Colors.teal.shade600, size: 18),
                   SizedBox(width: 8),
-                  Text(
-                    'SnackBar display (via ScaffoldMessenger)',
-                    style: TextStyle(fontSize: 13),
-                  ),
+                  Text('SnackBar display (via ScaffoldMessenger)', style: TextStyle(fontSize: 13)),
                 ],
               ),
             ],
@@ -210,20 +186,13 @@ Widget buildFullyPopulatedScaffold() {
                       bottomLeft: Radius.circular(6),
                     ),
                     border: Border(
-                      right: BorderSide(
-                        color: Colors.orange.shade300,
-                        width: 2,
-                      ),
+                      right: BorderSide(color: Colors.orange.shade300, width: 2),
                     ),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.chevron_right,
-                        color: Colors.orange.shade700,
-                        size: 24,
-                      ),
+                      Icon(Icons.chevron_right, color: Colors.orange.shade700, size: 24),
                       SizedBox(height: 4),
                       RotatedBox(
                         quarterTurns: 3,
@@ -260,11 +229,7 @@ Widget buildFullyPopulatedScaffold() {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.chevron_left,
-                        color: Colors.purple.shade700,
-                        size: 24,
-                      ),
+                      Icon(Icons.chevron_left, color: Colors.purple.shade700, size: 24),
                       SizedBox(height: 4),
                       RotatedBox(
                         quarterTurns: 1,
@@ -292,7 +257,9 @@ Widget buildFullyPopulatedScaffold() {
                     // AppBar area
                     Container(
                       height: 56,
-                      decoration: BoxDecoration(color: Colors.teal),
+                      decoration: BoxDecoration(
+                        color: Colors.teal,
+                      ),
                       child: Row(
                         children: [
                           SizedBox(width: 12),
@@ -323,11 +290,7 @@ Widget buildFullyPopulatedScaffold() {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.web_asset,
-                                size: 48,
-                                color: Colors.grey.shade400,
-                              ),
+                              Icon(Icons.web_asset, size: 48, color: Colors.grey.shade400),
                               SizedBox(height: 8),
                               Text(
                                 'body',
@@ -362,11 +325,7 @@ Widget buildFullyPopulatedScaffold() {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.save,
-                            color: Colors.blue.shade600,
-                            size: 18,
-                          ),
+                          Icon(Icons.save, color: Colors.blue.shade600, size: 18),
                           SizedBox(width: 8),
                           Text(
                             'persistentFooterButtons',
@@ -399,34 +358,20 @@ Widget buildFullyPopulatedScaffold() {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(Icons.home, color: Colors.teal, size: 22),
-                              Text(
-                                'Home',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.teal,
-                                ),
-                              ),
+                              Text('Home', style: TextStyle(fontSize: 10, color: Colors.teal)),
                             ],
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.explore,
-                                color: Colors.grey.shade600,
-                                size: 22,
-                              ),
+                              Icon(Icons.explore, color: Colors.grey.shade600, size: 22),
                               Text('Explore', style: TextStyle(fontSize: 10)),
                             ],
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.person,
-                                color: Colors.grey.shade600,
-                                size: 22,
-                              ),
+                              Icon(Icons.person, color: Colors.grey.shade600, size: 22),
                               Text('Profile', style: TextStyle(fontSize: 10)),
                             ],
                           ),
@@ -499,7 +444,11 @@ Widget _buildSlotChip(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: color),
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
+        color: color,
+      ),
     ),
   );
 }
@@ -710,11 +659,7 @@ Widget buildDrawerStates() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.lightbulb_outline,
-                color: Colors.amber.shade800,
-                size: 20,
-              ),
+              Icon(Icons.lightbulb_outline, color: Colors.amber.shade800, size: 20),
               SizedBox(width: 8),
               Expanded(
                 child: Column(
@@ -731,10 +676,7 @@ Widget buildDrawerStates() {
                     SizedBox(height: 4),
                     Text(
                       'Use Scaffold.of(context) to get ScaffoldState, then check isDrawerOpen or isEndDrawerOpen.',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.amber.shade900,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.amber.shade900),
                     ),
                   ],
                 ),
@@ -865,26 +807,11 @@ Widget buildBodyAreaVisualization() {
           ],
         ),
         SizedBox(height: 16),
-        _buildBodyConfigRow(
-          'extendBody',
-          'Body extends behind appBar',
-          Icons.expand,
-          Colors.blue,
-        ),
+        _buildBodyConfigRow('extendBody', 'Body extends behind appBar', Icons.expand, Colors.blue),
         SizedBox(height: 8),
-        _buildBodyConfigRow(
-          'extendBodyBehindAppBar',
-          'Body extends behind appBar and status bar',
-          Icons.vertical_align_top,
-          Colors.green,
-        ),
+        _buildBodyConfigRow('extendBodyBehindAppBar', 'Body extends behind appBar and status bar', Icons.vertical_align_top, Colors.green),
         SizedBox(height: 8),
-        _buildBodyConfigRow(
-          'resizeToAvoidBottomInset',
-          'Body resizes when keyboard shows',
-          Icons.keyboard,
-          Colors.orange,
-        ),
+        _buildBodyConfigRow('resizeToAvoidBottomInset', 'Body resizes when keyboard shows', Icons.keyboard, Colors.orange),
         SizedBox(height: 16),
         Container(
           width: double.infinity,
@@ -906,10 +833,7 @@ Widget buildBodyAreaVisualization() {
                   child: Center(
                     child: Text(
                       'Status Bar Area',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey.shade600,
-                      ),
+                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
                     ),
                   ),
                 ),
@@ -925,11 +849,7 @@ Widget buildBodyAreaVisualization() {
                   child: Center(
                     child: Text(
                       'AppBar Area',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -960,10 +880,7 @@ Widget buildBodyAreaVisualization() {
                         SizedBox(height: 4),
                         Text(
                           'Normal positioning',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.blue.shade500,
-                          ),
+                          style: TextStyle(fontSize: 11, color: Colors.blue.shade500),
                         ),
                       ],
                     ),
@@ -992,25 +909,14 @@ Widget buildBodyAreaVisualization() {
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard(
-          'Primary Scrollable',
-          'Scaffold body automatically gets PrimaryScrollController',
-        ),
-        buildInfoCard(
-          'SafeArea Integration',
-          'Body respects system UI overlays by default',
-        ),
+        buildInfoCard('Primary Scrollable', 'Scaffold body automatically gets PrimaryScrollController'),
+        buildInfoCard('SafeArea Integration', 'Body respects system UI overlays by default'),
       ],
     ),
   );
 }
 
-Widget _buildBodyConfigRow(
-  String property,
-  String description,
-  IconData icon,
-  Color color,
-) {
+Widget _buildBodyConfigRow(String property, String description, IconData icon, Color color) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1062,11 +968,7 @@ Widget buildAppBarAreaVisualization() {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.web_asset_outlined,
-              color: Colors.teal.shade700,
-              size: 24,
-            ),
+            Icon(Icons.web_asset_outlined, color: Colors.teal.shade700, size: 24),
             SizedBox(width: 8),
             Text(
               'AppBar Area Details',
@@ -1090,11 +992,7 @@ Widget buildAppBarAreaVisualization() {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.signal_cellular_4_bar,
-                      color: Colors.white,
-                      size: 12,
-                    ),
+                    Icon(Icons.signal_cellular_4_bar, color: Colors.white, size: 12),
                     SizedBox(width: 8),
                     Text(
                       'System Status Bar',
@@ -1156,11 +1054,7 @@ Widget buildAppBarAreaVisualization() {
                         color: Colors.white.withAlpha(30),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Icon(
-                        Icons.more_vert,
-                        color: Colors.white,
-                        size: 22,
-                      ),
+                      child: Icon(Icons.more_vert, color: Colors.white, size: 22),
                     ),
                     SizedBox(width: 12),
                   ],
@@ -1170,29 +1064,13 @@ Widget buildAppBarAreaVisualization() {
           ),
         ),
         SizedBox(height: 16),
-        _buildAppBarSection(
-          'leading',
-          'Widget shown before title (usually menu icon or back arrow)',
-          Colors.orange,
-        ),
+        _buildAppBarSection('leading', 'Widget shown before title (usually menu icon or back arrow)', Colors.orange),
         SizedBox(height: 8),
-        _buildAppBarSection(
-          'title',
-          'Primary content of the app bar (typically Text widget)',
-          Colors.blue,
-        ),
+        _buildAppBarSection('title', 'Primary content of the app bar (typically Text widget)', Colors.blue),
         SizedBox(height: 8),
-        _buildAppBarSection(
-          'actions',
-          'List of widgets shown after the title (toolbar buttons)',
-          Colors.green,
-        ),
+        _buildAppBarSection('actions', 'List of widgets shown after the title (toolbar buttons)', Colors.green),
         SizedBox(height: 8),
-        _buildAppBarSection(
-          'bottom',
-          'Widget shown below the app bar (e.g., TabBar)',
-          Colors.purple,
-        ),
+        _buildAppBarSection('bottom', 'Widget shown below the app bar (e.g., TabBar)', Colors.purple),
         SizedBox(height: 16),
         Container(
           padding: EdgeInsets.all(12),
@@ -1215,19 +1093,12 @@ Widget buildAppBarAreaVisualization() {
               SizedBox(height: 8),
               Row(
                 children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: Colors.teal.shade600,
-                    size: 16,
-                  ),
+                  Icon(Icons.info_outline, color: Colors.teal.shade600, size: 16),
                   SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'AppBar leading widget can trigger Scaffold.of(context).openDrawer()',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.teal.shade700,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.teal.shade700),
                     ),
                   ),
                 ],
@@ -1235,19 +1106,12 @@ Widget buildAppBarAreaVisualization() {
               SizedBox(height: 4),
               Row(
                 children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: Colors.teal.shade600,
-                    size: 16,
-                  ),
+                  Icon(Icons.info_outline, color: Colors.teal.shade600, size: 16),
                   SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'automaticallyImplyLeading defaults to showing drawer icon when drawer exists',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.teal.shade700,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.teal.shade700),
                     ),
                   ),
                 ],
@@ -1319,11 +1183,7 @@ Widget buildBottomSheetVisualization() {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.view_agenda_outlined,
-              color: Colors.indigo.shade700,
-              size: 24,
-            ),
+            Icon(Icons.view_agenda_outlined, color: Colors.indigo.shade700, size: 24),
             SizedBox(width: 8),
             Text(
               'BottomSheet via ScaffoldState',
@@ -1351,10 +1211,7 @@ Widget buildBottomSheetVisualization() {
                       child: Center(
                         child: Text(
                           'AppBar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -1416,30 +1273,21 @@ Widget buildBottomSheetVisualization() {
                       SizedBox(height: 8),
                       Text(
                         'Shown via ScaffoldState.showBottomSheet()',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                       ),
                       SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
                               color: Colors.indigo,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
                               'Action Button',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
+                              style: TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ),
                         ],
@@ -1470,12 +1318,7 @@ Widget buildBottomSheetVisualization() {
   );
 }
 
-Widget _buildBottomSheetTypeCard(
-  String title,
-  String method,
-  String description,
-  Color color,
-) {
+Widget _buildBottomSheetTypeCard(String title, String method, String description, Color color) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1601,10 +1444,7 @@ Widget buildScaffoldAccessPatterns() {
                     SizedBox(height: 4),
                     Text(
                       'Calling Scaffold.of(context) with context from same build method that creates Scaffold will fail. Use Builder widget or pass context from descendant.',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.red.shade700,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.red.shade700),
                     ),
                   ],
                 ),
@@ -1672,11 +1512,7 @@ Widget _buildAccessPatternCard(
             Expanded(
               child: Text(
                 note,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: color,
-                  fontStyle: FontStyle.italic,
-                ),
+                style: TextStyle(fontSize: 11, color: color, fontStyle: FontStyle.italic),
               ),
             ),
           ],
@@ -1690,9 +1526,7 @@ dynamic build(BuildContext context) {
   print('ScaffoldState deep demo executing');
   print('Class: ScaffoldState');
   print('Package: material');
-  print(
-    'Description: State class for Scaffold widget that manages drawers and bottom sheets',
-  );
+  print('Description: State class for Scaffold widget that manages drawers and bottom sheets');
 
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),

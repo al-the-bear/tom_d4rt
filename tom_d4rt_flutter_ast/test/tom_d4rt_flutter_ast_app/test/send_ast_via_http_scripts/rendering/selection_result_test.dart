@@ -29,10 +29,8 @@ import 'package:flutter/rendering.dart';
 // ============================================================
 dynamic build(BuildContext context) {
   print('SelectionResult Deep Demo executing');
-  print(
-    'Flutter rendering enum: SelectionResult.values.length = '
-    '${SelectionResult.values.length}',
-  );
+  print('Flutter rendering enum: SelectionResult.values.length = '
+      '${SelectionResult.values.length}');
 
   // ------------------------------------------------------------
   // Section 1: HERO HEADER
@@ -42,7 +40,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF311B92), Color(0xFF4A148C)],
+        colors: [
+          Color(0xFF1A237E),
+          Color(0xFF311B92),
+          Color(0xFF4A148C),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -71,7 +73,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: Icon(Icons.text_fields, size: 44.0, color: Colors.white),
+              child: Icon(
+                Icons.text_fields,
+                size: 44.0,
+                color: Colors.white,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -226,10 +232,10 @@ dynamic build(BuildContext context) {
           'The selection edge passed completely through this child. Move on.',
       'parentAction':
           'Parent advances its iterator to the next child and dispatches the '
-          'same event again.',
+              'same event again.',
       'returnedWhen':
           'A text span finished consuming a forward drag and the cursor exited '
-          'on its trailing side.',
+              'on its trailing side.',
     },
     {
       'value': SelectionResult.previous,
@@ -238,26 +244,27 @@ dynamic build(BuildContext context) {
       'color': Colors.orange,
       'meaning':
           'The selection edge passed completely through this child going the '
-          'other way. Walk back.',
+              'other way. Walk back.',
       'parentAction':
           'Parent rewinds its iterator to the previous child and dispatches '
-          'the event again.',
+              'the event again.',
       'returnedWhen':
           'A reverse drag exited on the leading side, or selectWord landed '
-          'before this Selectable\'s start.',
+              'before this Selectable\'s start.',
     },
     {
       'value': SelectionResult.end,
       'label': 'END',
       'icon': Icons.adjust,
       'color': Colors.blue,
-      'meaning': 'The selection edge landed inside this Selectable. Stop here.',
+      'meaning':
+          'The selection edge landed inside this Selectable. Stop here.',
       'parentAction':
           'Parent stops walking. The current child owns the active edge and '
-          'will paint the highlight.',
+              'will paint the highlight.',
       'returnedWhen':
           'A tap or drag landed on a glyph belonging to this Selectable; '
-          'getResultBasedOnRect returned end.',
+              'getResultBasedOnRect returned end.',
     },
     {
       'value': SelectionResult.pending,
@@ -266,13 +273,13 @@ dynamic build(BuildContext context) {
       'color': Colors.amber.shade800,
       'meaning':
           'The child cannot decide yet (still laying out, async content, '
-          'off-screen lazy list).',
+              'off-screen lazy list).',
       'parentAction':
           'Parent keeps the event queued and re-dispatches it after the next '
-          'layout pass.',
+              'layout pass.',
       'returnedWhen':
           'A SliverList item that has not yet been built, or a custom widget '
-          'awaiting an ImageStream/network result.',
+              'awaiting an ImageStream/network result.',
     },
     {
       'value': SelectionResult.none,
@@ -283,10 +290,10 @@ dynamic build(BuildContext context) {
           'This Selectable cannot or will not respond to the event at all.',
       'parentAction':
           'Parent treats the child as inert and continues with the next '
-          'candidate, leaving any prior decision intact.',
+              'candidate, leaving any prior decision intact.',
       'returnedWhen':
           'A purely decorative widget registered as Selectable, or an event '
-          'type the child does not recognise.',
+              'type the child does not recognise.',
     },
   ];
 
@@ -336,7 +343,10 @@ dynamic build(BuildContext context) {
         Text(
           'Parent dispatches once. Child answers with a SelectionResult. '
           'The arrow below shows what the parent does next.',
-          style: TextStyle(fontSize: 12.0, color: Colors.teal.shade800),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.teal.shade800,
+          ),
         ),
         SizedBox(height: 18.0),
         // Parent box
@@ -370,35 +380,20 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              _flowRow(
-                SelectionResult.next,
-                'iterator++   (forward walk)',
-                Colors.green,
-              ),
+              _flowRow(SelectionResult.next, 'iterator++   (forward walk)',
+                  Colors.green),
               _flowDivider(),
-              _flowRow(
-                SelectionResult.previous,
-                'iterator--   (rewind walk)',
-                Colors.orange,
-              ),
+              _flowRow(SelectionResult.previous,
+                  'iterator--   (rewind walk)', Colors.orange),
               _flowDivider(),
-              _flowRow(
-                SelectionResult.end,
-                'stop walking, attach edge here',
-                Colors.blue,
-              ),
+              _flowRow(SelectionResult.end,
+                  'stop walking, attach edge here', Colors.blue),
               _flowDivider(),
-              _flowRow(
-                SelectionResult.pending,
-                'queue event, retry after layout',
-                Colors.amber.shade800,
-              ),
+              _flowRow(SelectionResult.pending,
+                  'queue event, retry after layout', Colors.amber.shade800),
               _flowDivider(),
-              _flowRow(
-                SelectionResult.none,
-                'skip child, keep prior decision',
-                Colors.grey.shade700,
-              ),
+              _flowRow(SelectionResult.none,
+                  'skip child, keep prior decision', Colors.grey.shade700),
             ],
           ),
         ),
@@ -462,16 +457,25 @@ dynamic build(BuildContext context) {
         Text(
           'Each span is its own Selectable. The colour shows what the span '
           'returns when the parent dispatches the event.',
-          style: TextStyle(fontSize: 12.0, color: Colors.deepPurple.shade700),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.deepPurple.shade700,
+          ),
         ),
         SizedBox(height: 14.0),
-        Wrap(children: [for (final span in spans) _buildMockSpanChip(span)]),
+        Wrap(
+          children: [
+            for (final span in spans) _buildMockSpanChip(span),
+          ],
+        ),
         SizedBox(height: 16.0),
         // Traversal arrow strip
         Row(
           children: [
             for (var i = 0; i < spans.length; i++)
-              Expanded(child: _spanArrow(spans[i])),
+              Expanded(
+                child: _spanArrow(spans[i]),
+              ),
           ],
         ),
         SizedBox(height: 12.0),
@@ -620,7 +624,10 @@ dynamic build(BuildContext context) {
         Text(
           'Both enums sit in the same selection subsystem but answer very '
           'different questions.',
-          style: TextStyle(fontSize: 13.0, color: Colors.deepOrange.shade800),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.deepOrange.shade800,
+          ),
         ),
         SizedBox(height: 14.0),
         Row(
@@ -827,7 +834,10 @@ dynamic build(BuildContext context) {
         conceptPrimer,
         SizedBox(height: 24.0),
         _sectionTitle('2. Per-value cards'),
-        Wrap(alignment: WrapAlignment.center, children: valueCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: valueCards,
+        ),
         SizedBox(height: 24.0),
         _sectionTitle('3. Traversal flow'),
         traversalFlow,
@@ -931,7 +941,10 @@ Widget _buildValueCard(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.22)],
+        colors: [
+          color.withValues(alpha: 0.10),
+          color.withValues(alpha: 0.22),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1014,7 +1027,11 @@ Widget _cardField(String title, String body, Color color) {
       SizedBox(height: 2.0),
       Text(
         body,
-        style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
+        style: TextStyle(
+          fontSize: 12.0,
+          color: Colors.black87,
+          height: 1.4,
+        ),
       ),
     ],
   );
@@ -1044,7 +1061,8 @@ Widget _mockHighlight(SelectionResult value, Color color) {
         SizedBox(height: 6.0),
         Row(
           children: [
-            for (var i = 0; i < 8; i++) _highlightSlice(i, value, color),
+            for (var i = 0; i < 8; i++)
+              _highlightSlice(i, value, color),
           ],
         ),
       ],
@@ -1084,7 +1102,10 @@ Widget _highlightSlice(int i, SelectionResult value, Color color) {
       decoration: BoxDecoration(
         color: slot,
         borderRadius: BorderRadius.circular(2.0),
-        border: Border.all(color: color.withValues(alpha: 0.25), width: 0.5),
+        border: Border.all(
+          color: color.withValues(alpha: 0.25),
+          width: 0.5,
+        ),
       ),
     ),
   );
@@ -1197,7 +1218,10 @@ Widget _flowRow(SelectionResult value, String action, Color color) {
         Expanded(
           child: Text(
             action,
-            style: TextStyle(fontSize: 12.0, color: Colors.black87),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.black87,
+            ),
           ),
         ),
       ],
@@ -1295,7 +1319,10 @@ Widget _spanLegendChip(SelectionResult value) {
         Container(
           width: 8.0,
           height: 8.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 6.0),
         Text(
@@ -1338,7 +1365,11 @@ Widget _recipeBlock(
         SizedBox(height: 6.0),
         Text(
           description,
-          style: TextStyle(fontSize: 12.0, color: Colors.white70, height: 1.45),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.white70,
+            height: 1.45,
+          ),
         ),
         SizedBox(height: 10.0),
         Container(
@@ -1407,7 +1438,11 @@ Widget _compareCard(
         SizedBox(height: 8.0),
         Text(
           purpose,
-          style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.black87,
+            height: 1.4,
+          ),
         ),
         SizedBox(height: 10.0),
         Wrap(

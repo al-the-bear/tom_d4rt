@@ -53,10 +53,8 @@ class _MacOSControllerDemoState extends State<_MacOSControllerDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text(
-          'RegularWindowControllerMacOS',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
-        ),
+        title: Text('RegularWindowControllerMacOS',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -74,7 +72,11 @@ class _MacOSControllerDemoState extends State<_MacOSControllerDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [_TheoryTab(), _CocoaSimulatorTab(), _AppKitPatternsTab()],
+        children: [
+          _TheoryTab(),
+          _CocoaSimulatorTab(),
+          _AppKitPatternsTab(),
+        ],
       ),
     );
   }
@@ -137,19 +139,15 @@ class _TheoryTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'RegularWindowControllerMacOS',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    Text('RegularWindowControllerMacOS',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: _kDarkText)),
                     SizedBox(height: 3),
-                    Text(
-                      'macOS-specific window controller using Cocoa',
-                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                    ),
+                    Text('macOS-specific window controller using Cocoa',
+                        style: TextStyle(
+                            fontSize: 12, color: Colors.grey[600])),
                   ],
                 ),
               ),
@@ -168,7 +166,8 @@ class _TheoryTab extends StatelessWidget {
               'NSWindowController to provide native window management on macOS. '
               'It translates Flutter\'s windowing API into Objective-C / Swift '
               'calls through the macOS embedding layer.',
-              style: TextStyle(fontSize: 12.5, color: _kDarkText, height: 1.5),
+              style: TextStyle(
+                  fontSize: 12.5, color: _kDarkText, height: 1.5),
             ),
           ),
           SizedBox(height: 12),
@@ -197,39 +196,20 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Class Hierarchy',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Class Hierarchy',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
-          _hierarchyRow(
-            'ChangeNotifier',
-            0,
-            Colors.grey[600]!,
-            'Foundation mixin',
-          ),
-          _hierarchyRow(
-            'BaseWindowController',
-            1,
-            Color(0xFF5D4037),
-            'Window lifecycle base',
-          ),
-          _hierarchyRow(
-            'RegularWindowController',
-            2,
-            Color(0xFF1565C0),
-            'Abstract regular window',
-          ),
-          _hierarchyRow(
-            'RegularWindowControllerMacOS',
-            3,
-            _kMacColor,
-            'Cocoa / NSWindow implementation',
-          ),
+          _hierarchyRow('ChangeNotifier', 0, Colors.grey[600]!,
+              'Foundation mixin'),
+          _hierarchyRow('BaseWindowController', 1, Color(0xFF5D4037),
+              'Window lifecycle base'),
+          _hierarchyRow('RegularWindowController', 2, Color(0xFF1565C0),
+              'Abstract regular window'),
+          _hierarchyRow('RegularWindowControllerMacOS', 3, _kMacColor,
+              'Cocoa / NSWindow implementation'),
           SizedBox(height: 12),
           Container(
             padding: EdgeInsets.all(10),
@@ -247,10 +227,9 @@ class _TheoryTab extends StatelessWidget {
                     'NSWindowDelegate for receiving native Cocoa '
                     'notifications about window lifecycle events.',
                     style: TextStyle(
-                      fontSize: 11.5,
-                      color: Colors.grey[700],
-                      height: 1.4,
-                    ),
+                        fontSize: 11.5,
+                        color: Colors.grey[700],
+                        height: 1.4),
                   ),
                 ),
               ],
@@ -275,21 +254,16 @@ class _TheoryTab extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8),
-          Text(
-            name,
-            style: TextStyle(
-              fontSize: 11.5,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'monospace',
-              color: color,
-            ),
-          ),
+          Text(name,
+              style: TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'monospace',
+                  color: color)),
           SizedBox(width: 8),
           Flexible(
-            child: Text(
-              desc,
-              style: TextStyle(fontSize: 10.5, color: Colors.grey[500]),
-            ),
+            child: Text(desc,
+                style: TextStyle(fontSize: 10.5, color: Colors.grey[500])),
           ),
         ],
       ),
@@ -311,48 +285,31 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.architecture, size: 20, color: _kCocoaColor),
               SizedBox(width: 8),
-              Text(
-                'Cocoa Architecture',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('Cocoa Architecture',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 14),
-          _cocoaLayer('Flutter Widget Tree', 'Your app UI', Color(0xFF1565C0)),
+          _cocoaLayer('Flutter Widget Tree', 'Your app UI',
+              Color(0xFF1565C0)),
           _cocoaArrow(),
-          _cocoaLayer(
-            'RegularWindowControllerMacOS',
-            'Dart-side controller',
-            _kPrimary,
-          ),
+          _cocoaLayer('RegularWindowControllerMacOS',
+              'Dart-side controller', _kPrimary),
           _cocoaArrow(),
-          _cocoaLayer(
-            'FlutterViewController',
-            'macOS embedding layer (ObjC/Swift)',
-            Color(0xFF5D4037),
-          ),
+          _cocoaLayer('FlutterViewController',
+              'macOS embedding layer (ObjC/Swift)', Color(0xFF5D4037)),
           _cocoaArrow(),
-          _cocoaLayer(
-            'NSWindowController + NSWindow',
-            'Cocoa window management',
-            _kCocoaColor,
-          ),
+          _cocoaLayer('NSWindowController + NSWindow',
+              'Cocoa window management', _kCocoaColor),
           _cocoaArrow(),
-          _cocoaLayer(
-            'Core Animation + Metal',
-            'Rendering pipeline',
-            Color(0xFFBF360C),
-          ),
+          _cocoaLayer('Core Animation + Metal',
+              'Rendering pipeline', Color(0xFFBF360C)),
           _cocoaArrow(),
-          _cocoaLayer(
-            'WindowServer',
-            'macOS display compositor',
-            Colors.grey[600]!,
-          ),
+          _cocoaLayer('WindowServer',
+              'macOS display compositor', Colors.grey[600]!),
           SizedBox(height: 14),
           Container(
             padding: EdgeInsets.all(10),
@@ -365,7 +322,8 @@ class _TheoryTab extends StatelessWidget {
               'between the Flutter engine and the Cocoa window system. Each '
               'Flutter view is backed by an FlutterView (NSView subclass) '
               'with Metal rendering.',
-              style: TextStyle(fontSize: 11.5, color: _kDarkText, height: 1.4),
+              style: TextStyle(
+                  fontSize: 11.5, color: _kDarkText, height: 1.4),
             ),
           ),
         ],
@@ -389,18 +347,14 @@ class _TheoryTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: TextStyle(fontSize: 10.5, color: Colors.grey[500]),
-              ),
+              Text(name,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: color)),
+              Text(desc,
+                  style: TextStyle(
+                      fontSize: 10.5, color: Colors.grey[500])),
             ],
           ),
         ),
@@ -465,75 +419,58 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Properties',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Properties',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 4),
-          Text(
-            'Mapped to NSWindow properties',
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+          Text('Mapped to NSWindow properties',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           SizedBox(height: 12),
-          ...props.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Row(
-                children: [
-                  Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: _kPropertyColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(6),
+          ...props.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: _kPropertyColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Icon(p['icon'] as IconData,
+                          size: 15, color: _kPropertyColor),
                     ),
-                    child: Icon(
-                      p['icon'] as IconData,
-                      size: 15,
-                      color: _kPropertyColor,
+                    SizedBox(width: 10),
+                    SizedBox(
+                      width: 86,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(p['name'] as String,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontFamily: 'monospace',
+                                  fontWeight: FontWeight.w600,
+                                  color: _kPropertyColor)),
+                          Text(p['type'] as String,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: Colors.grey[500])),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  SizedBox(
-                    width: 86,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          p['name'] as String,
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(p['desc'] as String,
                           style: TextStyle(
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w600,
-                            color: _kPropertyColor,
-                          ),
-                        ),
-                        Text(
-                          p['type'] as String,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                      ],
+                              fontSize: 11, color: Colors.grey[600])),
                     ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      p['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -593,59 +530,48 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Methods \u2192 Cocoa Mapping',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Methods \u2192 Cocoa Mapping',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
-          ...methods.map(
-            (m) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _kCodeBg,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          m['method']!,
+          ...methods.map((m) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: _kCodeBg,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(m['method']!,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontFamily: 'monospace',
+                                  fontWeight: FontWeight.w600,
+                                  color: _kMethodColor)),
+                          Spacer(),
+                          Text(m['cocoa']!,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: _kCocoaColor)),
+                        ],
+                      ),
+                      SizedBox(height: 2),
+                      Text(m['note']!,
                           style: TextStyle(
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w600,
-                            color: _kMethodColor,
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          m['cocoa']!,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: _kCocoaColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      m['note']!,
-                      style: TextStyle(fontSize: 10.5, color: Colors.grey[600]),
-                    ),
-                  ],
+                              fontSize: 10.5,
+                              color: Colors.grey[600])),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
         ],
       ),
     );
@@ -694,66 +620,53 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.style, size: 18, color: _kCocoaColor),
               SizedBox(width: 8),
-              Text(
-                'NSWindowStyleMask',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('NSWindowStyleMask',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 4),
-          Text(
-            'Bitmask that defines window chrome features',
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+          Text('Bitmask that defines window chrome features',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           SizedBox(height: 12),
-          ...styles.map(
-            (s) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 6,
-                    height: 6,
-                    margin: EdgeInsets.only(top: 5),
-                    decoration: BoxDecoration(
-                      color: _kCocoaColor,
-                      shape: BoxShape.circle,
+          ...styles.map((s) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 6,
+                      height: 6,
+                      margin: EdgeInsets.only(top: 5),
+                      decoration: BoxDecoration(
+                        color: _kCocoaColor,
+                        shape: BoxShape.circle,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          s['mask']!,
-                          style: TextStyle(
-                            fontSize: 10.5,
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w600,
-                            color: _kCocoaColor,
-                          ),
-                        ),
-                        SizedBox(height: 1),
-                        Text(
-                          s['desc']!,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(s['mask']!,
+                              style: TextStyle(
+                                  fontSize: 10.5,
+                                  fontFamily: 'monospace',
+                                  fontWeight: FontWeight.w600,
+                                  color: _kCocoaColor)),
+                          SizedBox(height: 1),
+                          Text(s['desc']!,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[600])),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -761,7 +674,11 @@ class _TheoryTab extends StatelessWidget {
 
   Widget _buildLifecycleCard() {
     final phases = <Map<String, dynamic>>[
-      {'phase': 'Allocated', 'native': 'alloc/init', 'color': Colors.grey[600]},
+      {
+        'phase': 'Allocated',
+        'native': 'alloc/init',
+        'color': Colors.grey[600],
+      },
       {
         'phase': 'Ordered Front',
         'native': 'makeKeyAndOrderFront:',
@@ -772,7 +689,11 @@ class _TheoryTab extends StatelessWidget {
         'native': 'windowDidBecomeKey:',
         'color': _kPropertyColor,
       },
-      {'phase': 'Active', 'native': '(user interaction)', 'color': _kAccent},
+      {
+        'phase': 'Active',
+        'native': '(user interaction)',
+        'color': _kAccent,
+      },
       {
         'phase': 'Should Close',
         'native': 'windowShouldClose:',
@@ -783,7 +704,11 @@ class _TheoryTab extends StatelessWidget {
         'native': 'windowWillClose:',
         'color': _kMethodColor,
       },
-      {'phase': 'Released', 'native': 'dealloc', 'color': Colors.grey[800]},
+      {
+        'phase': 'Released',
+        'native': 'dealloc',
+        'color': Colors.grey[800],
+      },
     ];
 
     return Container(
@@ -796,14 +721,11 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'NSWindow Lifecycle',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('NSWindow Lifecycle',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
           ...phases.asMap().entries.map((e) {
             final isLast = e.key == phases.length - 1;
@@ -816,27 +738,28 @@ class _TheoryTab extends StatelessWidget {
                       width: 18,
                       height: 18,
                       decoration: BoxDecoration(
-                        color:
-                            (e.value['color'] as Color?)?.withOpacity(0.15) ??
+                        color: (e.value['color'] as Color?)
+                                ?.withOpacity(0.15) ??
                             Colors.grey[200],
                         border: Border.all(
-                          color: e.value['color'] as Color? ?? Colors.grey,
-                        ),
+                            color: e.value['color'] as Color? ??
+                                Colors.grey),
                         shape: BoxShape.circle,
                       ),
                       child: Center(
-                        child: Text(
-                          '${e.key + 1}',
-                          style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700,
-                            color: e.value['color'] as Color?,
-                          ),
-                        ),
+                        child: Text('${e.key + 1}',
+                            style: TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w700,
+                                color: e.value['color'] as Color?)),
                       ),
                     ),
                     if (!isLast)
-                      Container(width: 2, height: 20, color: Colors.grey[300]),
+                      Container(
+                        width: 2,
+                        height: 20,
+                        color: Colors.grey[300],
+                      ),
                   ],
                 ),
                 SizedBox(width: 10),
@@ -846,22 +769,16 @@ class _TheoryTab extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          e.value['phase'] as String,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: e.value['color'] as Color?,
-                          ),
-                        ),
-                        Text(
-                          e.value['native'] as String,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: Colors.grey[500],
-                          ),
-                        ),
+                        Text(e.value['phase'] as String,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: e.value['color'] as Color?)),
+                        Text(e.value['native'] as String,
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                color: Colors.grey[500])),
                       ],
                     ),
                   ),
@@ -883,10 +800,9 @@ Widget _infoBadge(String text, Color color) {
       border: Border.all(color: color.withOpacity(0.3)),
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            fontSize: 10, fontWeight: FontWeight.w600, color: color)),
   );
 }
 
@@ -926,7 +842,9 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
         _isFullScreen = false;
       }
     });
-    _log(_isZoomed ? '[window zoom:self]' : '[window zoom:self] // unzoom');
+    _log(_isZoomed
+        ? '[window zoom:self]'
+        : '[window zoom:self] // unzoom');
   }
 
   void _toggleMiniaturize() {
@@ -937,11 +855,9 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
         _isFullScreen = false;
       }
     });
-    _log(
-      _isMiniaturized
-          ? '[window miniaturize:self]'
-          : '[window deminiaturize:self]',
-    );
+    _log(_isMiniaturized
+        ? '[window miniaturize:self]'
+        : '[window deminiaturize:self]');
   }
 
   void _toggleFullScreen() {
@@ -992,14 +908,11 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'NSWindow Preview',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: _kDarkText,
-            ),
-          ),
+          Text('NSWindow Preview',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText)),
           SizedBox(height: 12),
           Center(
             child: AnimatedContainer(
@@ -1008,8 +921,8 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
               width: _isZoomed || _isFullScreen
                   ? MediaQuery.of(context).size.width - 64
                   : _isMiniaturized
-                  ? 80
-                  : _windowWidth.clamp(140.0, 340.0),
+                      ? 80
+                      : _windowWidth.clamp(140.0, 340.0),
               height: _isMiniaturized ? 24 : _windowHeight.clamp(80.0, 240.0),
               decoration: BoxDecoration(
                 color: _selectedAppearance == 'Aqua'
@@ -1040,8 +953,7 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                             : [Color(0xFF3D3D3D), Color(0xFF2D2D2D)],
                       ),
                       borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(8),
-                      ),
+                          top: Radius.circular(8)),
                     ),
                     child: Row(
                       children: [
@@ -1055,9 +967,8 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                                 : Colors.grey[400],
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: Color(0xFFE0443E).withOpacity(0.5),
-                              width: 0.5,
-                            ),
+                                color: Color(0xFFE0443E).withOpacity(0.5),
+                                width: 0.5),
                           ),
                         ),
                         SizedBox(width: 6),
@@ -1070,9 +981,8 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                                 : Colors.grey[400],
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: Color(0xFFDEA123).withOpacity(0.5),
-                              width: 0.5,
-                            ),
+                                color: Color(0xFFDEA123).withOpacity(0.5),
+                                width: 0.5),
                           ),
                         ),
                         SizedBox(width: 6),
@@ -1085,9 +995,8 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                                 : Colors.grey[400],
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: Color(0xFF1DAD2B).withOpacity(0.5),
-                              width: 0.5,
-                            ),
+                                color: Color(0xFF1DAD2B).withOpacity(0.5),
+                                width: 0.5),
                           ),
                         ),
                         Expanded(
@@ -1115,8 +1024,7 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                               ? Colors.white
                               : Color(0xFF1E1E1E),
                           borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(8),
-                          ),
+                              bottom: Radius.circular(8)),
                         ),
                         child: Center(
                           child: Column(
@@ -1134,22 +1042,18 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                                 '${_windowWidth.toInt()} \u00D7 '
                                 '${_windowHeight.toInt()}',
                                 style: TextStyle(
-                                  fontSize: 10,
-                                  fontFamily: 'monospace',
-                                  color: Colors.grey[500],
-                                ),
+                                    fontSize: 10,
+                                    fontFamily: 'monospace',
+                                    color: Colors.grey[500]),
                               ),
                               if (_isFullScreen)
                                 Padding(
                                   padding: EdgeInsets.only(top: 2),
-                                  child: Text(
-                                    'FULL SCREEN',
-                                    style: TextStyle(
-                                      fontSize: 8.5,
-                                      fontWeight: FontWeight.w700,
-                                      color: _kCocoaColor,
-                                    ),
-                                  ),
+                                  child: Text('FULL SCREEN',
+                                      style: TextStyle(
+                                          fontSize: 8.5,
+                                          fontWeight: FontWeight.w700,
+                                          color: _kCocoaColor)),
                                 ),
                             ],
                           ),
@@ -1176,55 +1080,30 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Window State',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: _kDarkText,
-            ),
-          ),
+          Text('Window State',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText)),
           SizedBox(height: 12),
           Row(
             children: [
-              _macStateBtn(
-                'Key',
-                Icons.flash_on,
-                _isKey,
-                Color(0xFF1565C0),
-                () {
-                  setState(() => _isKey = !_isKey);
-                  _log(
-                    _isKey
-                        ? '[window makeKeyAndOrderFront:self]'
-                        : 'windowDidResignKey:',
-                  );
-                },
-              ),
+              _macStateBtn('Key', Icons.flash_on, _isKey,
+                  Color(0xFF1565C0), () {
+                setState(() => _isKey = !_isKey);
+                _log(_isKey
+                    ? '[window makeKeyAndOrderFront:self]'
+                    : 'windowDidResignKey:');
+              }),
               SizedBox(width: 6),
-              _macStateBtn(
-                'Zoom',
-                Icons.fullscreen,
-                _isZoomed,
-                _kPrimary,
-                _toggleZoom,
-              ),
+              _macStateBtn('Zoom', Icons.fullscreen, _isZoomed,
+                  _kPrimary, _toggleZoom),
               SizedBox(width: 6),
-              _macStateBtn(
-                'Mini',
-                Icons.minimize,
-                _isMiniaturized,
-                Color(0xFFE65100),
-                _toggleMiniaturize,
-              ),
+              _macStateBtn('Mini', Icons.minimize, _isMiniaturized,
+                  Color(0xFFE65100), _toggleMiniaturize),
               SizedBox(width: 6),
-              _macStateBtn(
-                'Full',
-                Icons.fullscreen_exit,
-                _isFullScreen,
-                _kMethodColor,
-                _toggleFullScreen,
-              ),
+              _macStateBtn('Full', Icons.fullscreen_exit, _isFullScreen,
+                  _kMethodColor, _toggleFullScreen),
             ],
           ),
         ],
@@ -1232,13 +1111,8 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
     );
   }
 
-  Widget _macStateBtn(
-    String label,
-    IconData icon,
-    bool active,
-    Color color,
-    VoidCallback onTap,
-  ) {
+  Widget _macStateBtn(String label, IconData icon, bool active,
+      Color color, VoidCallback onTap) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -1253,16 +1127,15 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
           ),
           child: Column(
             children: [
-              Icon(icon, size: 18, color: active ? color : Colors.grey[400]),
+              Icon(icon,
+                  size: 18,
+                  color: active ? color : Colors.grey[400]),
               SizedBox(height: 2),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.w600,
-                  color: active ? color : Colors.grey[400],
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w600,
+                      color: active ? color : Colors.grey[400])),
             ],
           ),
         ),
@@ -1281,22 +1154,16 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'setContentSize:',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'monospace',
-              color: _kDarkText,
-            ),
-          ),
+          Text('setContentSize:',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                  color: _kDarkText)),
           SizedBox(height: 10),
           Row(
             children: [
-              Text(
-                'W:',
-                style: TextStyle(fontSize: 11, color: Colors.grey[700]),
-              ),
+              Text('W:', style: TextStyle(fontSize: 11, color: Colors.grey[700])),
               Expanded(
                 child: Slider(
                   value: _windowWidth,
@@ -1305,28 +1172,22 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                   activeColor: _kPrimary,
                   onChanged: (v) {
                     setState(() => _windowWidth = v);
-                    _log(
-                      '[window setContentSize:NSMakeSize'
-                      '(${v.toInt()}, ${_windowHeight.toInt()})]',
-                    );
+                    _log('[window setContentSize:NSMakeSize'
+                        '(${v.toInt()}, ${_windowHeight.toInt()})]');
                   },
                 ),
               ),
               SizedBox(
                 width: 36,
-                child: Text(
-                  '${_windowWidth.toInt()}',
-                  style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
-                ),
+                child: Text('${_windowWidth.toInt()}',
+                    style: TextStyle(
+                        fontSize: 11, fontFamily: 'monospace')),
               ),
             ],
           ),
           Row(
             children: [
-              Text(
-                'H:',
-                style: TextStyle(fontSize: 11, color: Colors.grey[700]),
-              ),
+              Text('H:', style: TextStyle(fontSize: 11, color: Colors.grey[700])),
               Expanded(
                 child: Slider(
                   value: _windowHeight,
@@ -1335,19 +1196,16 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                   activeColor: _kAccent,
                   onChanged: (v) {
                     setState(() => _windowHeight = v);
-                    _log(
-                      '[window setContentSize:NSMakeSize'
-                      '(${_windowWidth.toInt()}, ${v.toInt()})]',
-                    );
+                    _log('[window setContentSize:NSMakeSize'
+                        '(${_windowWidth.toInt()}, ${v.toInt()})]');
                   },
                 ),
               ),
               SizedBox(
                 width: 36,
-                child: Text(
-                  '${_windowHeight.toInt()}',
-                  style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
-                ),
+                child: Text('${_windowHeight.toInt()}',
+                    style: TextStyle(
+                        fontSize: 11, fontFamily: 'monospace')),
               ),
             ],
           ),
@@ -1367,15 +1225,12 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'setTitle:',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'monospace',
-              color: _kDarkText,
-            ),
-          ),
+          Text('setTitle:',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                  color: _kDarkText)),
           SizedBox(height: 10),
           TextField(
             decoration: InputDecoration(
@@ -1389,7 +1244,8 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
               isDense: true,
             ),
             onChanged: (v) {
-              setState(() => _windowTitle = v.isNotEmpty ? v : 'Untitled');
+              setState(
+                  () => _windowTitle = v.isNotEmpty ? v : 'Untitled');
               _log('[window setTitle:@"$_windowTitle"]');
             },
           ),
@@ -1409,19 +1265,14 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'NSAppearance',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: _kDarkText,
-            ),
-          ),
+          Text('NSAppearance',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText)),
           SizedBox(height: 4),
-          Text(
-            'macOS appearance affects window chrome rendering',
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+          Text('macOS appearance affects window chrome rendering',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           SizedBox(height: 10),
           Row(
             children: [
@@ -1443,9 +1294,8 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
         onTap: () {
           setState(() => _selectedAppearance = name);
           _log(
-            '[window setAppearance:[NSAppearance '
-            'appearanceNamed:NSAppearanceName$name]]',
-          );
+              '[window setAppearance:[NSAppearance '
+              'appearanceNamed:NSAppearanceName$name]]');
         },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 10),
@@ -1491,14 +1341,11 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                 ],
               ),
               SizedBox(height: 4),
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: isDark ? Colors.white70 : Colors.black87,
-                ),
-              ),
+              Text(name,
+                  style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white70 : Colors.black87)),
             ],
           ),
         ),
@@ -1521,22 +1368,17 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
             children: [
               Icon(Icons.search, size: 18, color: _kPropertyColor),
               SizedBox(width: 8),
-              Text(
-                'NSWindow Inspector',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: _kDarkText,
-                ),
-              ),
+              Text('NSWindow Inspector',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: _kDarkText)),
             ],
           ),
           SizedBox(height: 12),
           _inspectorRow('title', '@"$_windowTitle"'),
-          _inspectorRow(
-            'contentSize',
-            'NSMakeSize(${_windowWidth.toInt()}, ${_windowHeight.toInt()})',
-          ),
+          _inspectorRow('contentSize',
+              'NSMakeSize(${_windowWidth.toInt()}, ${_windowHeight.toInt()})'),
           _inspectorRow('isKeyWindow', '$_isKey'),
           _inspectorRow('isZoomed', '$_isZoomed'),
           _inspectorRow('isMiniaturized', '$_isMiniaturized'),
@@ -1554,25 +1396,19 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
         children: [
           SizedBox(
             width: 100,
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w600,
-                color: _kPropertyColor,
-              ),
-            ),
+            child: Text(name,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w600,
+                    color: _kPropertyColor)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: _kDarkText,
-              ),
-            ),
+            child: Text(value,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: _kDarkText)),
           ),
         ],
       ),
@@ -1594,21 +1430,17 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
             children: [
               Icon(Icons.terminal, size: 18, color: _kCocoaColor),
               SizedBox(width: 8),
-              Text(
-                'Objective-C Message Log',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: _kDarkText,
-                ),
-              ),
+              Text('Objective-C Message Log',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: _kDarkText)),
               Spacer(),
               GestureDetector(
                 onTap: () => setState(() => _cocoaLog.clear()),
-                child: Text(
-                  'Clear',
-                  style: TextStyle(fontSize: 10, color: Colors.grey[500]),
-                ),
+                child: Text('Clear',
+                    style: TextStyle(
+                        fontSize: 10, color: Colors.grey[500])),
               ),
             ],
           ),
@@ -1622,9 +1454,9 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
             child: _cocoaLog.isEmpty
                 ? Center(
                     child: Text(
-                      'Interact with controls to emit Cocoa messages',
-                      style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-                    ),
+                        'Interact with controls to emit Cocoa messages',
+                        style: TextStyle(
+                            fontSize: 11, color: Colors.grey[600])),
                   )
                 : ListView.builder(
                     padding: EdgeInsets.all(8),
@@ -1634,18 +1466,17 @@ class _CocoaSimulatorTabState extends State<_CocoaSimulatorTab> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '\u25B8 ',
-                            style: TextStyle(fontSize: 10.5, color: _kAccent),
-                          ),
+                          Text('\u25B8 ',
+                              style: TextStyle(
+                                  fontSize: 10.5,
+                                  color: _kAccent)),
                           Expanded(
                             child: Text(
                               _cocoaLog[i],
                               style: TextStyle(
-                                fontSize: 10.5,
-                                fontFamily: 'monospace',
-                                color: Color(0xFFCE93D8),
-                              ),
+                                  fontSize: 10.5,
+                                  fontFamily: 'monospace',
+                                  color: Color(0xFFCE93D8)),
                             ),
                           ),
                         ],
@@ -1737,58 +1568,50 @@ class _AppKitPatternsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'NSWindowDelegate Methods',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('NSWindowDelegate Methods',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 4),
           Text(
-            'Cocoa callbacks forwarded to '
-            'RegularWindowControllerDelegate',
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+              'Cocoa callbacks forwarded to '
+              'RegularWindowControllerDelegate',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           SizedBox(height: 12),
-          ...methods.map(
-            (m) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _kCodeBg,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '- (${m['returns']!})${m['method']!}',
-                            style: TextStyle(
-                              fontSize: 10.5,
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.w600,
-                              color: _kCocoaColor,
+          ...methods.map((m) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: _kCodeBg,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '- (${m['returns']!})${m['method']!}',
+                              style: TextStyle(
+                                  fontSize: 10.5,
+                                  fontFamily: 'monospace',
+                                  fontWeight: FontWeight.w600,
+                                  color: _kCocoaColor),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      m['purpose']!,
-                      style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-                    ),
-                  ],
+                        ],
+                      ),
+                      SizedBox(height: 2),
+                      Text(m['purpose']!,
+                          style: TextStyle(
+                              fontSize: 11, color: Colors.grey[600])),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
         ],
       ),
     );
@@ -1830,67 +1653,55 @@ class _AppKitPatternsTab extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.notifications_active, size: 18, color: _kPrimary),
+              Icon(Icons.notifications_active,
+                  size: 18, color: _kPrimary),
               SizedBox(width: 8),
-              Text(
-                'NSNotification Center',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('NSNotification Center',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 4),
-          Text(
-            'macOS uses NSNotificationCenter for window events',
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+          Text('macOS uses NSNotificationCenter for window events',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           SizedBox(height: 12),
-          ...notifications.map(
-            (n) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 6,
-                    height: 6,
-                    margin: EdgeInsets.only(top: 5),
-                    decoration: BoxDecoration(
-                      color: _kAccent,
-                      shape: BoxShape.circle,
+          ...notifications.map((n) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 6,
+                      height: 6,
+                      margin: EdgeInsets.only(top: 5),
+                      decoration: BoxDecoration(
+                        color: _kAccent,
+                        shape: BoxShape.circle,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          n['name']!,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w600,
-                            color: _kCocoaColor,
-                          ),
-                        ),
-                        Text(
-                          n['desc']!,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(n['name']!,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  fontWeight: FontWeight.w600,
+                                  color: _kCocoaColor)),
+                          Text(n['desc']!,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[600])),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -1911,47 +1722,26 @@ class _AppKitPatternsTab extends StatelessWidget {
             children: [
               Icon(Icons.aspect_ratio, size: 18, color: _kCocoaColor),
               SizedBox(width: 8),
-              Text(
-                'Full-Screen Transition',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('Full-Screen Transition',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 12),
-          _transitionStep(
-            1,
-            'toggleFullScreen: sent',
-            'User clicks green button or ^^F',
-            Color(0xFF1565C0),
-          ),
-          _transitionStep(
-            2,
-            'windowWillEnterFullScreen:',
-            'Delegate notified, prepare animation',
-            _kPrimary,
-          ),
-          _transitionStep(
-            3,
-            'Cocoa animation plays',
-            'System slides window into dedicated Space',
-            _kCocoaColor,
-          ),
-          _transitionStep(
-            4,
-            'windowDidEnterFullScreen:',
-            'Transition complete, update Flutter state',
-            _kPropertyColor,
-          ),
-          _transitionStep(
-            5,
-            'notifyListeners()',
-            'ChangeNotifier fires, UI rebuilds',
-            _kAccent,
-          ),
+          _transitionStep(1, 'toggleFullScreen: sent',
+              'User clicks green button or ^^F', Color(0xFF1565C0)),
+          _transitionStep(2, 'windowWillEnterFullScreen:',
+              'Delegate notified, prepare animation', _kPrimary),
+          _transitionStep(3, 'Cocoa animation plays',
+              'System slides window into dedicated Space',
+              _kCocoaColor),
+          _transitionStep(4, 'windowDidEnterFullScreen:',
+              'Transition complete, update Flutter state',
+              _kPropertyColor),
+          _transitionStep(5, 'notifyListeners()',
+              'ChangeNotifier fires, UI rebuilds', _kAccent),
           SizedBox(height: 10),
           Container(
             padding: EdgeInsets.all(10),
@@ -1963,7 +1753,8 @@ class _AppKitPatternsTab extends StatelessWidget {
               'macOS full-screen transitions create a new Space and include '
               'a slide animation. This is different from Linux/Windows '
               'fullscreen which just resizes the window in-place.',
-              style: TextStyle(fontSize: 11.5, color: _kDarkText, height: 1.4),
+              style: TextStyle(
+                  fontSize: 11.5, color: _kDarkText, height: 1.4),
             ),
           ),
         ],
@@ -1971,7 +1762,8 @@ class _AppKitPatternsTab extends StatelessWidget {
     );
   }
 
-  Widget _transitionStep(int step, String title, String desc, Color color) {
+  Widget _transitionStep(
+      int step, String title, String desc, Color color) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8),
       child: Row(
@@ -1986,14 +1778,11 @@ class _AppKitPatternsTab extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Center(
-              child: Text(
-                '$step',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
-              ),
+              child: Text('$step',
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: color)),
             ),
           ),
           SizedBox(width: 10),
@@ -2001,22 +1790,16 @@ class _AppKitPatternsTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: color,
-                  ),
-                ),
-                Text(
-                  desc,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey[600],
-                    height: 1.3,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: color)),
+                Text(desc,
+                    style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[600],
+                        height: 1.3)),
               ],
             ),
           ),
@@ -2040,14 +1823,11 @@ class _AppKitPatternsTab extends StatelessWidget {
             children: [
               Icon(Icons.view_headline, size: 18, color: _kPrimary),
               SizedBox(width: 8),
-              Text(
-                'NSToolbar Integration',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('NSToolbar Integration',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 12),
@@ -2060,28 +1840,20 @@ class _AppKitPatternsTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'macOS windows can integrate with NSToolbar:',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: _kDarkText,
-                  ),
-                ),
+                Text('macOS windows can integrate with NSToolbar:',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: _kDarkText)),
                 SizedBox(height: 8),
-                _toolbarItem(
-                  'Unified title + toolbar',
-                  'titlebarAppearsTransparent = YES',
-                ),
-                _toolbarItem('Title visibility', 'titleVisibility = .hidden'),
-                _toolbarItem(
-                  'Toolbar style',
-                  'toolbarStyle = .unified / .unifiedCompact',
-                ),
-                _toolbarItem(
-                  'Full-size content view',
-                  'styleMask |= .fullSizeContentView',
-                ),
+                _toolbarItem('Unified title + toolbar',
+                    'titlebarAppearsTransparent = YES'),
+                _toolbarItem('Title visibility',
+                    'titleVisibility = .hidden'),
+                _toolbarItem('Toolbar style',
+                    'toolbarStyle = .unified / .unifiedCompact'),
+                _toolbarItem('Full-size content view',
+                    'styleMask |= .fullSizeContentView'),
               ],
             ),
           ),
@@ -2091,10 +1863,7 @@ class _AppKitPatternsTab extends StatelessWidget {
             'render Flutter content behind the title bar for a '
             'modern macOS look.',
             style: TextStyle(
-              fontSize: 11.5,
-              color: Colors.grey[700],
-              height: 1.4,
-            ),
+                fontSize: 11.5, color: Colors.grey[700], height: 1.4),
           ),
         ],
       ),
@@ -2113,22 +1882,16 @@ class _AppKitPatternsTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: _kDarkText,
-                  ),
-                ),
-                Text(
-                  code,
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    color: _kCocoaColor,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: _kDarkText)),
+                Text(code,
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: _kCocoaColor)),
               ],
             ),
           ),
@@ -2148,14 +1911,11 @@ class _AppKitPatternsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Multi-Window Pattern on macOS',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Multi-Window Pattern on macOS',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
           Container(
             padding: EdgeInsets.all(10),
@@ -2166,80 +1926,53 @@ class _AppKitPatternsTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '// Create a secondary window',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: Colors.grey[500],
-                  ),
-                ),
+                Text('// Create a secondary window',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: Colors.grey[500])),
                 SizedBox(height: 2),
-                Text(
-                  'final controller = RegularWindowController(',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: _kDarkText,
-                  ),
-                ),
-                Text(
-                  '  preferredSize: Size(800, 600),',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: _kDarkText,
-                  ),
-                ),
-                Text(
-                  '  title: "Settings",',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: _kDarkText,
-                  ),
-                ),
-                Text(
-                  '  delegate: myDelegate,',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: _kDarkText,
-                  ),
-                ),
-                Text(
-                  ');',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: _kDarkText,
-                  ),
-                ),
+                Text('final controller = RegularWindowController(',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: _kDarkText)),
+                Text('  preferredSize: Size(800, 600),',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: _kDarkText)),
+                Text('  title: "Settings",',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: _kDarkText)),
+                Text('  delegate: myDelegate,',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: _kDarkText)),
+                Text(');',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: _kDarkText)),
                 SizedBox(height: 6),
-                Text(
-                  '// On macOS this creates an NSWindowController',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: Colors.grey[500],
-                  ),
-                ),
-                Text(
-                  '// with an associated NSWindow and',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: Colors.grey[500],
-                  ),
-                ),
-                Text(
-                  '// FlutterViewController for rendering.',
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: Colors.grey[500],
-                  ),
-                ),
+                Text('// On macOS this creates an NSWindowController',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: Colors.grey[500])),
+                Text('// with an associated NSWindow and',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: Colors.grey[500])),
+                Text('// FlutterViewController for rendering.',
+                    style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: Colors.grey[500])),
               ],
             ),
           ),
@@ -2255,31 +1988,26 @@ class _AppKitPatternsTab extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.window, size: 20, color: _kPrimary),
+                      Icon(Icons.window,
+                          size: 20, color: _kPrimary),
                       SizedBox(height: 4),
-                      Text(
-                        'Main Window',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: _kPrimary,
-                        ),
-                      ),
-                      Text(
-                        'AppDelegate',
-                        style: TextStyle(fontSize: 9, color: Colors.grey[500]),
-                      ),
+                      Text('Main Window',
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: _kPrimary)),
+                      Text('AppDelegate',
+                          style: TextStyle(
+                              fontSize: 9,
+                              color: Colors.grey[500])),
                     ],
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 6),
-                child: Icon(
-                  Icons.arrow_forward,
-                  size: 16,
-                  color: Colors.grey[400],
-                ),
+                child: Icon(Icons.arrow_forward,
+                    size: 16, color: Colors.grey[400]),
               ),
               Expanded(
                 child: Container(
@@ -2290,20 +2018,18 @@ class _AppKitPatternsTab extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.window, size: 20, color: _kCocoaColor),
+                      Icon(Icons.window,
+                          size: 20, color: _kCocoaColor),
                       SizedBox(height: 4),
-                      Text(
-                        'Child Window',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: _kCocoaColor,
-                        ),
-                      ),
-                      Text(
-                        'WindowController',
-                        style: TextStyle(fontSize: 9, color: Colors.grey[500]),
-                      ),
+                      Text('Child Window',
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: _kCocoaColor)),
+                      Text('WindowController',
+                          style: TextStyle(
+                              fontSize: 9,
+                              color: Colors.grey[500])),
                     ],
                   ),
                 ),
@@ -2319,33 +2045,28 @@ class _AppKitPatternsTab extends StatelessWidget {
     final practices = <Map<String, String>>[
       {
         'title': 'Respect Appearances',
-        'detail':
-            'Use NSAppearance-aware colors. Don\'t hard-code '
+        'detail': 'Use NSAppearance-aware colors. Don\'t hard-code '
             'light or dark theme values — let the system handle '
             'appearance changes.',
       },
       {
         'title': 'Handle Full-Screen Spaces',
-        'detail':
-            'macOS full-screen creates a dedicated Space. Ensure '
+        'detail': 'macOS full-screen creates a dedicated Space. Ensure '
             'your UI adapts to both windowed and full-screen layouts.',
       },
       {
         'title': 'Save/Restore Frames',
-        'detail':
-            'Use setFrameAutosaveName: to let macOS remember '
+        'detail': 'Use setFrameAutosaveName: to let macOS remember '
             'window position and size across launches.',
       },
       {
         'title': 'Close Confirmation',
-        'detail':
-            'Implement windowShouldClose: via the delegate to '
+        'detail': 'Implement windowShouldClose: via the delegate to '
             'prompt for unsaved changes before allowing close.',
       },
       {
         'title': 'Avoid Blocking the Main Thread',
-        'detail':
-            'Cocoa window operations happen on the main thread. '
+        'detail': 'Cocoa window operations happen on the main thread. '
             'Heavy computation should be dispatched elsewhere.',
       },
     ];
@@ -2364,70 +2085,56 @@ class _AppKitPatternsTab extends StatelessWidget {
             children: [
               Icon(Icons.star, size: 18, color: _kAccent),
               SizedBox(width: 8),
-              Text(
-                'macOS Best Practices',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('macOS Best Practices',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 12),
-          ...practices.asMap().entries.map(
-            (e) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 22,
-                    height: 22,
-                    decoration: BoxDecoration(
-                      color: _kAccent.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '${e.key + 1}',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          color: _kDarkText,
-                        ),
+          ...practices.asMap().entries.map((e) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 22,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        color: _kAccent.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text('${e.key + 1}',
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                color: _kDarkText)),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          e.value['title']!,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: _kDarkText,
-                          ),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          e.value['detail']!,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey[600],
-                            height: 1.4,
-                          ),
-                        ),
-                      ],
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(e.value['title']!,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: _kDarkText)),
+                          SizedBox(height: 2),
+                          Text(e.value['detail']!,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[600],
+                                  height: 1.4)),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );

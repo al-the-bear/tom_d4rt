@@ -50,7 +50,10 @@ const _palettes = <_Pal>[
   ),
 ];
 
-enum _SemanticsMode { alwaysInclude, includeWhenVisible }
+enum _SemanticsMode {
+  alwaysInclude,
+  includeWhenVisible,
+}
 
 String _semanticsModeLabel(_SemanticsMode mode) {
   switch (mode) {
@@ -136,11 +139,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.filter_hdr_rounded,
-                size: 28,
-                color: Colors.white,
-              ),
+              const Icon(Icons.filter_hdr_rounded,
+                  size: 28, color: Colors.white),
               const SizedBox(width: 10),
               const Text(
                 'Sliver Fade Theater',
@@ -152,10 +152,7 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(999),
@@ -244,9 +241,7 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                   color: _palettes[i].primary,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: _paletteIndex == i
-                        ? Colors.white
-                        : Colors.transparent,
+                    color: _paletteIndex == i ? Colors.white : Colors.transparent,
                     width: 2,
                   ),
                   boxShadow: [
@@ -331,11 +326,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                         },
                       ),
                     ),
-                    _metricChip(
-                      'Opacity',
-                      _stageOpacity.toStringAsFixed(2),
-                      _p.primary,
-                    ),
+                    _metricChip('Opacity', _stageOpacity.toStringAsFixed(2),
+                        _p.primary),
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -346,10 +338,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                     children: [
                       _legendPill('Static Sliver', _p.secondary),
                       _legendPill('Animated Sliver', _p.primary),
-                      _legendPill(
-                        'Current α = ${_stageOpacity.toStringAsFixed(2)}',
-                        _p.accent,
-                      ),
+                      _legendPill('Current α = ${_stageOpacity.toStringAsFixed(2)}',
+                          _p.accent),
                     ],
                   ),
                 Row(
@@ -421,16 +411,10 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Sliver remains in scroll pipeline while opacity changes.',
-                ),
-                _bullet(
-                  'Transition is animation-driven, not a hard visibility switch.',
-                ),
+                _bullet('Sliver remains in scroll pipeline while opacity changes.'),
+                _bullet('Transition is animation-driven, not a hard visibility switch.'),
                 _bullet('Geometry and sliver ordering are preserved.'),
-                _bullet(
-                  'Use for progressive reveal inside custom scroll sequences.',
-                ),
+                _bullet('Use for progressive reveal inside custom scroll sequences.'),
               ],
             ),
           ),
@@ -460,9 +444,7 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.14),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Text(
               title,
@@ -483,12 +465,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                     ),
                     if (animatedOpacity == null)
                       SliverToBoxAdapter(
-                        child: _fadeCard(
-                          'Static Block',
-                          color,
-                          opacityLabel: '1.00',
-                          staticMode: true,
-                        ),
+                        child: _fadeCard('Static Block', color,
+                            opacityLabel: '1.00', staticMode: true),
                       )
                     else
                       SliverAnimatedOpacity(
@@ -588,28 +566,25 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
     );
   }
 
-  Widget _fadeCard(
-    String title,
-    Color color, {
-    required String opacityLabel,
-    required bool staticMode,
-  }) {
+  Widget _fadeCard(String title, Color color,
+      {required String opacityLabel, required bool staticMode}) {
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 8, 10, 8),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.2), _p.surface],
+          colors: [
+            color.withValues(alpha: 0.2),
+            _p.surface,
+          ],
         ),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: color.withValues(alpha: 0.4)),
       ),
       child: Row(
         children: [
-          Icon(
-            staticMode ? Icons.radio_button_checked : Icons.animation,
-            color: color,
-          ),
+          Icon(staticMode ? Icons.radio_button_checked : Icons.animation,
+              color: color),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -661,19 +636,15 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                     },
                   ),
                 ),
-                _metricChip(
-                  'Tension',
-                  _scrollFadeTension.toStringAsFixed(2),
-                  _p.primary,
-                ),
+                _metricChip('Tension', _scrollFadeTension.toStringAsFixed(2),
+                    _p.primary),
               ],
             ),
           ),
           const SizedBox(height: 12),
           _card(
             title: 'Reactive Stage',
-            subtitle:
-                'Multiple sliver sections using different opacity curves.',
+            subtitle: 'Multiple sliver sections using different opacity curves.',
             tint: _p.primary.withValues(alpha: 0.04),
             child: Container(
               width: double.infinity,
@@ -751,16 +722,10 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Early sections often use slower decay (higher alpha).',
-                ),
+                _bullet('Early sections often use slower decay (higher alpha).'),
                 _bullet('Mid sections can balance context and emphasis.'),
-                _bullet(
-                  'Late sections may start lower to suggest continuation.',
-                ),
-                _bullet(
-                  'Mix different durations to avoid synchronized flashing.',
-                ),
+                _bullet('Late sections may start lower to suggest continuation.'),
+                _bullet('Mix different durations to avoid synchronized flashing.'),
               ],
             ),
           ),
@@ -816,11 +781,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                         },
                       ),
                     ),
-                    _metricChip(
-                      'Overlay',
-                      _overlayOpacity.toStringAsFixed(2),
-                      _p.secondary,
-                    ),
+                    _metricChip('Overlay', _overlayOpacity.toStringAsFixed(2),
+                        _p.secondary),
                   ],
                 ),
               ],
@@ -829,8 +791,7 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
           const SizedBox(height: 12),
           _card(
             title: 'Choreography Stage',
-            subtitle:
-                'Pinned sliver header + animated opacity blocks + overlay veil.',
+            subtitle: 'Pinned sliver header + animated opacity blocks + overlay veil.',
             tint: _p.primary.withValues(alpha: 0.04),
             child: Container(
               width: double.infinity,
@@ -851,25 +812,20 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                             minExtentValue: 56,
                             maxExtentValue: 88,
                             builder: (context, shrinkOffset, overlapsContent) {
-                              final t = (shrinkOffset / (88 - 56)).clamp(
-                                0.0,
-                                1.0,
-                              );
+                              final t =
+                                  (shrinkOffset / (88 - 56)).clamp(0.0, 1.0);
                               return Container(
                                 color: Color.lerp(
                                   _p.primary.withValues(alpha: 0.22),
                                   _p.primary.withValues(alpha: 0.45),
                                   t,
                                 ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
                                 child: Row(
                                   children: [
-                                    Icon(
-                                      Icons.push_pin,
-                                      color: _p.primary.withValues(alpha: 0.9),
-                                    ),
+                                    Icon(Icons.push_pin,
+                                        color: _p.primary.withValues(alpha: 0.9)),
                                     const SizedBox(width: 8),
                                     Text(
                                       'Pinned Navigator',
@@ -881,9 +837,7 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                                     ),
                                     const Spacer(),
                                     Text(
-                                      overlapsContent
-                                          ? 'overlap on'
-                                          : 'overlap off',
+                                      overlapsContent ? 'overlap on' : 'overlap off',
                                       style: TextStyle(
                                         color: _p.muted,
                                         fontSize: 11,
@@ -940,12 +894,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              _p.surface.withValues(
-                                alpha: _overlayOpacity * 0.5,
-                              ),
-                              _p.surface.withValues(
-                                alpha: _overlayOpacity * 0.1,
-                              ),
+                              _p.surface.withValues(alpha: _overlayOpacity * 0.5),
+                              _p.surface.withValues(alpha: _overlayOpacity * 0.1),
                             ],
                           ),
                         ),
@@ -1029,11 +979,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                         onChanged: (v) => setState(() => _stageOpacity = v),
                       ),
                     ),
-                    _metricChip(
-                      'Opacity',
-                      _stageOpacity.toStringAsFixed(2),
-                      _p.primary,
-                    ),
+                    _metricChip('Opacity', _stageOpacity.toStringAsFixed(2),
+                        _p.primary),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -1043,9 +990,7 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: _p.primary.withValues(alpha: 0.3),
-                    ),
+                    border: Border.all(color: _p.primary.withValues(alpha: 0.3)),
                   ),
                   child: CustomScrollView(
                     slivers: [
@@ -1069,10 +1014,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                      Icons.accessibility_new,
-                                      color: _p.primary,
-                                    ),
+                                    Icon(Icons.accessibility_new,
+                                        color: _p.primary),
                                     const SizedBox(width: 8),
                                     Text(
                                       'Semantic content panel',
@@ -1089,10 +1032,9 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                                   'Mode: ${_semanticsModeLabel(_semanticsMode)}\n'
                                   'Visual alpha: ${_stageOpacity.toStringAsFixed(2)}',
                                   style: TextStyle(
-                                    color: _p.ink,
-                                    fontSize: 11.5,
-                                    height: 1.35,
-                                  ),
+                                      color: _p.ink,
+                                      fontSize: 11.5,
+                                      height: 1.35),
                                 ),
                                 const SizedBox(height: 10),
                                 Row(
@@ -1145,14 +1087,10 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'At low opacity, decide if semantics should still be exposed.',
-                ),
+                _bullet('At low opacity, decide if semantics should still be exposed.'),
                 _bullet('Prevent confusing invisible-but-clickable controls.'),
                 _bullet('Pair opacity transitions with clear state cues.'),
-                _bullet(
-                  'Audit reading order in scroll contexts with fading sections.',
-                ),
+                _bullet('Audit reading order in scroll contexts with fading sections.'),
               ],
             ),
           ),
@@ -1223,11 +1161,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                 ),
               ),
               const SizedBox(width: 8),
-              _metricChip(
-                'Load→Content',
-                _stageOpacity.toStringAsFixed(2),
-                _p.primary,
-              ),
+              _metricChip('Load→Content', _stageOpacity.toStringAsFixed(2),
+                  _p.primary),
             ],
           ),
           const SizedBox(height: 8),
@@ -1299,33 +1234,24 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
               opacity: (_stageOpacity * 1.0).clamp(0, 1),
               duration: const Duration(milliseconds: 350),
               sliver: SliverToBoxAdapter(
-                child: _guidedBlock(
-                  'Step 1 · Overview',
-                  _p.primary,
-                  Icons.looks_one_rounded,
-                ),
+                child: _guidedBlock('Step 1 · Overview', _p.primary,
+                    Icons.looks_one_rounded),
               ),
             ),
             SliverAnimatedOpacity(
               opacity: ((_stageOpacity - 0.2) * 1.25).clamp(0, 1),
               duration: const Duration(milliseconds: 400),
               sliver: SliverToBoxAdapter(
-                child: _guidedBlock(
-                  'Step 2 · Configure',
-                  _p.secondary,
-                  Icons.looks_two_rounded,
-                ),
+                child: _guidedBlock('Step 2 · Configure', _p.secondary,
+                    Icons.looks_two_rounded),
               ),
             ),
             SliverAnimatedOpacity(
               opacity: ((_stageOpacity - 0.4) * 1.7).clamp(0, 1),
               duration: const Duration(milliseconds: 470),
               sliver: SliverToBoxAdapter(
-                child: _guidedBlock(
-                  'Step 3 · Launch',
-                  _p.accent,
-                  Icons.looks_3_rounded,
-                ),
+                child: _guidedBlock('Step 3 · Launch', _p.accent,
+                    Icons.looks_3_rounded),
               ),
             ),
           ],
@@ -1382,11 +1308,8 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                 ),
               ),
               const SizedBox(width: 8),
-              _metricChip(
-                'Dismiss',
-                _overlayOpacity.toStringAsFixed(2),
-                _p.accent,
-              ),
+              _metricChip('Dismiss', _overlayOpacity.toStringAsFixed(2),
+                  _p.accent),
             ],
           ),
           const SizedBox(height: 8),
@@ -1532,27 +1455,23 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
               children: [
                 _qa(
                   q: 'How is this different from wrapping a box widget in AnimatedOpacity?',
-                  a:
-                      'SliverAnimatedOpacity operates natively in the sliver '
+                  a: 'SliverAnimatedOpacity operates natively in the sliver '
                       'layout pipeline, preserving sliver composition and '
                       'scroll geometry expectations.',
                 ),
                 _qa(
                   q: 'Does opacity animation remove the sliver from layout?',
-                  a:
-                      'No, not by itself. Opacity changes paint output. Use '
+                  a: 'No, not by itself. Opacity changes paint output. Use '
                       'additional visibility logic if layout removal is needed.',
                 ),
                 _qa(
                   q: 'When should alwaysIncludeSemantics be true?',
-                  a:
-                      'Use true when semantic presence must remain stable '
+                  a: 'Use true when semantic presence must remain stable '
                       'despite visual fading, such as assistive workflows.',
                 ),
                 _qa(
                   q: 'Can this be scroll-driven?',
-                  a:
-                      'Yes. Bind opacity values to scroll progress (directly or '
+                  a: 'Yes. Bind opacity values to scroll progress (directly or '
                       'via notifiers) for narrative-style sliver transitions.',
                 ),
               ],
@@ -1670,7 +1589,10 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.5)),
+          Text(
+            subtitle,
+            style: TextStyle(color: _p.muted, fontSize: 11.5),
+          ),
           const SizedBox(height: 10),
           child,
         ],
@@ -1720,7 +1642,10 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
           Icon(icon, size: 18, color: _p.ink),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(label, style: TextStyle(fontSize: 12, color: _p.ink)),
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 12, color: _p.ink),
+            ),
           ),
         ],
       ),
@@ -1833,11 +1758,7 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            good ? Icons.check_circle : Icons.cancel,
-            color: color,
-            size: 18,
-          ),
+          Icon(good ? Icons.check_circle : Icons.cancel, color: color, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1861,7 +1782,10 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(reason, style: TextStyle(color: _p.muted, fontSize: 11.4)),
+                Text(
+                  reason,
+                  style: TextStyle(color: _p.muted, fontSize: 11.4),
+                ),
               ],
             ),
           ),
@@ -1909,7 +1833,10 @@ class _SliverFadeTheaterState extends State<_SliverFadeTheater> {
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12)),
+            child: Text(
+              text,
+              style: TextStyle(color: _p.ink, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -1987,11 +1914,7 @@ class _PinnedHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxExtentValue;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return builder(context, shrinkOffset, overlapsContent);
   }
 

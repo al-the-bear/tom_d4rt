@@ -27,36 +27,28 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────────────────
   // Color palette — slate/coral/cream professional menu theme
   // ──────────────────────────────────────────────────────────
-  const cSlate = Color(0xFF37474F); // blue-grey slate - primary
-  const cCoral = Color(0xFFE57373); // soft coral - accent
-  const cCream = Color(0xFFFFFBF5); // warm cream - surface
-  const cNavy = Color(0xFF1A237E); // deep navy - secondary
-  const cTeal = Color(0xFF00695C); // teal - success
-  const cAmber = Color(0xFFF57F17); // amber - warning
-  const cForest = Color(0xFF2E7D32); // forest - positive
-  const cRose = Color(0xFFAD1457); // rose - highlight
-  const cPurple = Color(0xFF6A1B9A); // purple - info
+  const cSlate = Color(0xFF37474F);       // blue-grey slate - primary
+  const cCoral = Color(0xFFE57373);       // soft coral - accent
+  const cCream = Color(0xFFFFFBF5);       // warm cream - surface
+  const cNavy = Color(0xFF1A237E);        // deep navy - secondary
+  const cTeal = Color(0xFF00695C);        // teal - success
+  const cAmber = Color(0xFFF57F17);       // amber - warning
+  const cForest = Color(0xFF2E7D32);      // forest - positive
+  const cRose = Color(0xFFAD1457);        // rose - highlight
+  const cPurple = Color(0xFF6A1B9A);      // purple - info
 
   // ──────────────────────────────────────────────────────────
   // Helper builders
   // ──────────────────────────────────────────────────────────
 
-  Widget sceneHeader(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color color,
-  ) {
+  Widget sceneHeader(String title, String subtitle, IconData icon, Color color) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 34.0, bottom: 14.0),
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            color.withValues(alpha: 0.15),
-            color.withValues(alpha: 0.03),
-          ],
+          colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.03)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -222,7 +214,10 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.all(12.0), child: child),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: child,
+          ),
         ],
       ),
     );
@@ -255,10 +250,7 @@ dynamic build(BuildContext context) {
             if (items[i].isSeparator)
               Container(
                 height: 1.0,
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 4.0,
-                ),
+                margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 color: cSlate.withValues(alpha: 0.1),
               )
             else
@@ -271,24 +263,15 @@ dynamic build(BuildContext context) {
                   },
                   borderRadius: BorderRadius.vertical(
                     top: i == 0 ? const Radius.circular(8.0) : Radius.zero,
-                    bottom: i == items.length - 1
-                        ? const Radius.circular(8.0)
-                        : Radius.zero,
+                    bottom: i == items.length - 1 ? const Radius.circular(8.0) : Radius.zero,
                   ),
                   child: Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 10.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
                     child: Row(
                       children: [
                         if (items[i].icon != null) ...[
-                          Icon(
-                            items[i].icon,
-                            size: 18.0,
-                            color: items[i].color ?? cSlate,
-                          ),
+                          Icon(items[i].icon, size: 18.0, color: items[i].color ?? cSlate),
                           const SizedBox(width: 10.0),
                         ],
                         Expanded(
@@ -342,20 +325,13 @@ dynamic build(BuildContext context) {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 10.0,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
+            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color),
           ),
           const SizedBox(height: 2.0),
           Text(
             detail,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 8.0,
-              color: color.withValues(alpha: 0.7),
-            ),
+            style: TextStyle(fontSize: 8.0, color: color.withValues(alpha: 0.7)),
           ),
         ],
       ),
@@ -394,59 +370,28 @@ dynamic build(BuildContext context) {
           children: [
             Text(
               'Context Menu Flow',
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-                color: cSlate,
-              ),
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: cSlate),
             ),
             const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                pipelineBox(
-                  'User\nGesture',
-                  'Right-click\nLong-press',
-                  Icons.touch_app,
-                  cCoral,
-                ),
+                pipelineBox('User\nGesture', 'Right-click\nLong-press', Icons.touch_app, cCoral),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: cSlate.withValues(alpha: 0.4),
-                    size: 16.0,
-                  ),
+                  child: Icon(Icons.arrow_forward, color: cSlate.withValues(alpha: 0.4), size: 16.0),
                 ),
-                pipelineBox(
-                  'Controller\n.show()',
-                  'Creates\nOverlayEntry',
-                  Icons.settings,
-                  cNavy,
-                ),
+                pipelineBox('Controller\n.show()', 'Creates\nOverlayEntry', Icons.settings, cNavy),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: cSlate.withValues(alpha: 0.4),
-                    size: 16.0,
-                  ),
+                  child: Icon(Icons.arrow_forward, color: cSlate.withValues(alpha: 0.4), size: 16.0),
                 ),
                 pipelineBox('Overlay', 'Inserts\nentry', Icons.layers, cTeal),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: cSlate.withValues(alpha: 0.4),
-                    size: 16.0,
-                  ),
+                  child: Icon(Icons.arrow_forward, color: cSlate.withValues(alpha: 0.4), size: 16.0),
                 ),
-                pipelineBox(
-                  'Menu\nWidget',
-                  'Your custom\nmenu UI',
-                  Icons.menu,
-                  cForest,
-                ),
+                pipelineBox('Menu\nWidget', 'Your custom\nmenu UI', Icons.menu, cForest),
               ],
             ),
             const SizedBox(height: 16.0),
@@ -497,44 +442,16 @@ dynamic build(BuildContext context) {
           children: [
             Text(
               'ContextMenuController API',
-              style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.bold,
-                color: cNavy,
-              ),
+              style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: cNavy),
             ),
             const SizedBox(height: 10.0),
             for (final method in [
-              {
-                'name': 'show({context, contextMenuBuilder})',
-                'desc': 'Display the menu as an OverlayEntry',
-                'color': cForest,
-              },
-              {
-                'name': 'remove()',
-                'desc': 'Hide this controller\'s menu (if shown)',
-                'color': cTeal,
-              },
-              {
-                'name': 'removeAny() [static]',
-                'desc': 'Hide ANY currently shown menu',
-                'color': cAmber,
-              },
-              {
-                'name': 'isShown',
-                'desc': 'True if this controller\'s menu is visible',
-                'color': cPurple,
-              },
-              {
-                'name': 'markNeedsBuild()',
-                'desc': 'Rebuild the menu to reflect state changes',
-                'color': cCoral,
-              },
-              {
-                'name': 'onRemove callback',
-                'desc': 'Called when the menu is dismissed',
-                'color': cRose,
-              },
+              {'name': 'show({context, contextMenuBuilder})', 'desc': 'Display the menu as an OverlayEntry', 'color': cForest},
+              {'name': 'remove()', 'desc': 'Hide this controller\'s menu (if shown)', 'color': cTeal},
+              {'name': 'removeAny() [static]', 'desc': 'Hide ANY currently shown menu', 'color': cAmber},
+              {'name': 'isShown', 'desc': 'True if this controller\'s menu is visible', 'color': cPurple},
+              {'name': 'markNeedsBuild()', 'desc': 'Rebuild the menu to reflect state changes', 'color': cCoral},
+              {'name': 'onRemove callback', 'desc': 'Called when the menu is dismissed', 'color': cRose},
             ])
               Padding(
                 padding: const EdgeInsets.only(bottom: 6.0),
@@ -566,10 +483,7 @@ dynamic build(BuildContext context) {
                           ),
                           Text(
                             method['desc'] as String,
-                            style: TextStyle(
-                              fontSize: 10.0,
-                              color: cSlate.withValues(alpha: 0.6),
-                            ),
+                            style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                           ),
                         ],
                       ),
@@ -643,20 +557,10 @@ dynamic build(BuildContext context) {
                       width: 28.0,
                       height: 28.0,
                       decoration: BoxDecoration(
-                        color: [
-                          cNavy,
-                          cTeal,
-                          cForest,
-                          cCoral,
-                        ][i].withValues(alpha: 0.15),
+                        color: [cNavy, cTeal, cForest, cCoral][i].withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(14.0),
                         border: Border.all(
-                          color: [
-                            cNavy,
-                            cTeal,
-                            cForest,
-                            cCoral,
-                          ][i].withValues(alpha: 0.4),
+                          color: [cNavy, cTeal, cForest, cCoral][i].withValues(alpha: 0.4),
                         ),
                       ),
                       child: Center(
@@ -676,12 +580,7 @@ dynamic build(BuildContext context) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            [
-                              'Create Controller',
-                              'Call show()',
-                              'Menu Visible',
-                              'Call remove()',
-                            ][i],
+                            ['Create Controller', 'Call show()', 'Menu Visible', 'Call remove()'][i],
                             style: TextStyle(
                               fontSize: 12.0,
                               fontWeight: FontWeight.bold,
@@ -695,20 +594,13 @@ dynamic build(BuildContext context) {
                               'controller.isShown == true, menu floats in Overlay',
                               'Menu removed, onRemove called, isShown == false',
                             ][i],
-                            style: TextStyle(
-                              fontSize: 10.0,
-                              color: cSlate.withValues(alpha: 0.6),
-                            ),
+                            style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                           ),
                         ],
                       ),
                     ),
                     if (i < 3)
-                      Icon(
-                        Icons.arrow_downward,
-                        color: cSlate.withValues(alpha: 0.3),
-                        size: 16.0,
-                      ),
+                      Icon(Icons.arrow_downward, color: cSlate.withValues(alpha: 0.3), size: 16.0),
                   ],
                 ),
               ),
@@ -738,19 +630,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        Icons.notifications_active,
-                        color: cCoral,
-                        size: 18.0,
-                      ),
+                      Icon(Icons.notifications_active, color: cCoral, size: 18.0),
                       const SizedBox(width: 8.0),
                       Text(
                         'onRemove fires when:',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: cCoral,
-                        ),
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cCoral),
                       ),
                     ],
                   ),
@@ -777,10 +661,7 @@ dynamic build(BuildContext context) {
                           Expanded(
                             child: Text(
                               trigger,
-                              style: TextStyle(
-                                fontSize: 10.5,
-                                color: cSlate.withValues(alpha: 0.7),
-                              ),
+                              style: TextStyle(fontSize: 10.5, color: cSlate.withValues(alpha: 0.7)),
                             ),
                           ),
                         ],
@@ -822,19 +703,12 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(30.0),
                     border: Border.all(color: cSlate.withValues(alpha: 0.2)),
                   ),
-                  child: Icon(
-                    Icons.visibility_off,
-                    color: cSlate.withValues(alpha: 0.4),
-                    size: 28.0,
-                  ),
+                  child: Icon(Icons.visibility_off, color: cSlate.withValues(alpha: 0.4), size: 28.0),
                 ),
                 const SizedBox(height: 8.0),
                 Text(
                   'No OverlayEntry',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: cSlate.withValues(alpha: 0.6),
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: cSlate.withValues(alpha: 0.6)),
                 ),
               ],
             ),
@@ -920,20 +794,14 @@ dynamic build(BuildContext context) {
                       left: i * 90.0,
                       top: 0.0,
                       bottom: 0.0,
-                      child: Container(
-                        width: 1.0,
-                        color: cSlate.withValues(alpha: 0.1),
-                      ),
+                      child: Container(width: 1.0, color: cSlate.withValues(alpha: 0.1)),
                     ),
                   for (var i = 1; i < 3; i++)
                     Positioned(
                       top: i * 45.0,
                       left: 0.0,
                       right: 0.0,
-                      child: Container(
-                        height: 1.0,
-                        color: cSlate.withValues(alpha: 0.1),
-                      ),
+                      child: Container(height: 1.0, color: cSlate.withValues(alpha: 0.1)),
                     ),
                   // Tap point indicator
                   Positioned(
@@ -973,9 +841,7 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(6.0),
-                        border: Border.all(
-                          color: cSlate.withValues(alpha: 0.2),
-                        ),
+                        border: Border.all(color: cSlate.withValues(alpha: 0.2)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withValues(alpha: 0.1),
@@ -988,14 +854,8 @@ dynamic build(BuildContext context) {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Menu Item',
-                            style: TextStyle(fontSize: 9.0, color: cSlate),
-                          ),
-                          Text(
-                            'Menu Item',
-                            style: TextStyle(fontSize: 9.0, color: cSlate),
-                          ),
+                          Text('Menu Item', style: TextStyle(fontSize: 9.0, color: cSlate)),
+                          Text('Menu Item', style: TextStyle(fontSize: 9.0, color: cSlate)),
                         ],
                       ),
                     ),
@@ -1004,11 +864,7 @@ dynamic build(BuildContext context) {
                   Positioned(
                     left: 167.0,
                     top: 68.0,
-                    child: Icon(
-                      Icons.arrow_right_alt,
-                      color: cTeal,
-                      size: 14.0,
-                    ),
+                    child: Icon(Icons.arrow_right_alt, color: cTeal, size: 14.0),
                   ),
                   // Origin label
                   Positioned(
@@ -1016,10 +872,7 @@ dynamic build(BuildContext context) {
                     top: 4.0,
                     child: Text(
                       '(0,0)',
-                      style: TextStyle(
-                        fontSize: 8.0,
-                        color: cSlate.withValues(alpha: 0.4),
-                      ),
+                      style: TextStyle(fontSize: 8.0, color: cSlate.withValues(alpha: 0.4)),
                     ),
                   ),
                 ],
@@ -1072,10 +925,7 @@ dynamic build(BuildContext context) {
                 Text(
                   'Secondary button\nor two-finger tap',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: cSlate.withValues(alpha: 0.6),
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                 ),
               ],
             ),
@@ -1101,10 +951,7 @@ dynamic build(BuildContext context) {
                 Text(
                   'Press and hold\nfor ~500ms',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: cSlate.withValues(alpha: 0.6),
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                 ),
               ],
             ),
@@ -1137,10 +984,7 @@ dynamic build(BuildContext context) {
                     child: Text(
                       'If user clicks near screen edge, menu may overflow. '
                       'Calculate adjusted position based on menu size and screen bounds.',
-                      style: TextStyle(
-                        fontSize: 10.5,
-                        color: cSlate.withValues(alpha: 0.7),
-                      ),
+                      style: TextStyle(fontSize: 10.5, color: cSlate.withValues(alpha: 0.7)),
                     ),
                   ),
                 ],
@@ -1209,11 +1053,7 @@ dynamic build(BuildContext context) {
           children: [
             Text(
               'Two Controllers, One Menu Slot',
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-                color: cCoral,
-              ),
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: cCoral),
             ),
             const SizedBox(height: 16.0),
             Row(
@@ -1248,10 +1088,7 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8.0),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 6.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                       decoration: BoxDecoration(
                         color: cForest.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(6.0),
@@ -1267,10 +1104,7 @@ dynamic build(BuildContext context) {
                 Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 6.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                       decoration: BoxDecoration(
                         color: cCoral.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(6.0),
@@ -1290,10 +1124,7 @@ dynamic build(BuildContext context) {
                     Text(
                       'A is auto-\nremoved',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        color: cSlate.withValues(alpha: 0.5),
-                      ),
+                      style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.5)),
                     ),
                   ],
                 ),
@@ -1306,10 +1137,7 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: cTeal.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                          color: cTeal.withValues(alpha: 0.4),
-                          width: 2.0,
-                        ),
+                        border: Border.all(color: cTeal.withValues(alpha: 0.4), width: 2.0),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -1329,10 +1157,7 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8.0),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 6.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                       decoration: BoxDecoration(
                         color: cTeal.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(6.0),
@@ -1340,11 +1165,7 @@ dynamic build(BuildContext context) {
                       ),
                       child: Text(
                         'Menu B (now showing)',
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          fontWeight: FontWeight.bold,
-                          color: cTeal,
-                        ),
+                        style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: cTeal),
                       ),
                     ),
                   ],
@@ -1366,11 +1187,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'What happens when B.show() is called:',
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.bold,
-                      color: cSlate,
-                    ),
+                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cSlate),
                   ),
                   const SizedBox(height: 6.0),
                   for (var i = 0; i < 4; i++)
@@ -1382,12 +1199,7 @@ dynamic build(BuildContext context) {
                             width: 18.0,
                             height: 18.0,
                             decoration: BoxDecoration(
-                              color: [
-                                cCoral,
-                                cCoral,
-                                cTeal,
-                                cTeal,
-                              ][i].withValues(alpha: 0.15),
+                              color: [cCoral, cCoral, cTeal, cTeal][i].withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(9.0),
                             ),
                             child: Center(
@@ -1410,10 +1222,7 @@ dynamic build(BuildContext context) {
                                 'B\'s OverlayEntry is created and inserted',
                                 '_shownInstance is set to B',
                               ][i],
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: cSlate.withValues(alpha: 0.7),
-                              ),
+                              style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.7)),
                             ),
                           ),
                         ],
@@ -1436,22 +1245,10 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (final reason in [
-              {
-                'icon': Icons.psychology,
-                'text': 'User focus: Multiple menus are confusing',
-              },
-              {
-                'icon': Icons.layers_clear,
-                'text': 'Visual clarity: Overlapping menus look broken',
-              },
-              {
-                'icon': Icons.touch_app,
-                'text': 'Interaction simplicity: One decision at a time',
-              },
-              {
-                'icon': Icons.memory,
-                'text': 'Resource efficiency: One overlay entry, not many',
-              },
+              {'icon': Icons.psychology, 'text': 'User focus: Multiple menus are confusing'},
+              {'icon': Icons.layers_clear, 'text': 'Visual clarity: Overlapping menus look broken'},
+              {'icon': Icons.touch_app, 'text': 'Interaction simplicity: One decision at a time'},
+              {'icon': Icons.memory, 'text': 'Resource efficiency: One overlay entry, not many'},
             ])
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
@@ -1464,20 +1261,13 @@ dynamic build(BuildContext context) {
                         color: cPurple.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6.0),
                       ),
-                      child: Icon(
-                        reason['icon'] as IconData,
-                        color: cPurple,
-                        size: 18.0,
-                      ),
+                      child: Icon(reason['icon'] as IconData, color: cPurple, size: 18.0),
                     ),
                     const SizedBox(width: 10.0),
                     Expanded(
                       child: Text(
                         reason['text'] as String,
-                        style: TextStyle(
-                          fontSize: 11.0,
-                          color: cSlate.withValues(alpha: 0.7),
-                        ),
+                        style: TextStyle(fontSize: 11.0, color: cSlate.withValues(alpha: 0.7)),
                       ),
                     ),
                   ],
@@ -1540,11 +1330,7 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'Before',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.bold,
-                            color: cSlate.withValues(alpha: 0.6),
-                          ),
+                          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cSlate.withValues(alpha: 0.6)),
                         ),
                         const SizedBox(height: 6.0),
                         Container(
@@ -1552,46 +1338,24 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(6.0),
-                            border: Border.all(
-                              color: cSlate.withValues(alpha: 0.15),
-                            ),
+                            border: Border.all(color: cSlate.withValues(alpha: 0.15)),
                           ),
                           child: Column(
                             children: [
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(
-                                    Icons.check_box_outline_blank,
-                                    color: cSlate,
-                                    size: 14.0,
-                                  ),
+                                  Icon(Icons.check_box_outline_blank, color: cSlate, size: 14.0),
                                   const SizedBox(width: 4.0),
-                                  Text(
-                                    'Option A',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  Text('Option A', style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ],
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(
-                                    Icons.check_box_outline_blank,
-                                    color: cSlate,
-                                    size: 14.0,
-                                  ),
+                                  Icon(Icons.check_box_outline_blank, color: cSlate, size: 14.0),
                                   const SizedBox(width: 4.0),
-                                  Text(
-                                    'Option B',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  Text('Option B', style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ],
                               ),
                             ],
@@ -1609,11 +1373,7 @@ dynamic build(BuildContext context) {
                         Text(
                           'markNeeds\nBuild()',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 8.0,
-                            fontWeight: FontWeight.bold,
-                            color: cForest,
-                          ),
+                          style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, color: cForest),
                         ),
                       ],
                     ),
@@ -1624,11 +1384,7 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'After',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.bold,
-                            color: cForest,
-                          ),
+                          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cForest),
                         ),
                         const SizedBox(height: 6.0),
                         Container(
@@ -1636,46 +1392,24 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(6.0),
-                            border: Border.all(
-                              color: cForest.withValues(alpha: 0.3),
-                            ),
+                            border: Border.all(color: cForest.withValues(alpha: 0.3)),
                           ),
                           child: Column(
                             children: [
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(
-                                    Icons.check_box,
-                                    color: cForest,
-                                    size: 14.0,
-                                  ),
+                                  Icon(Icons.check_box, color: cForest, size: 14.0),
                                   const SizedBox(width: 4.0),
-                                  Text(
-                                    'Option A',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cForest,
-                                    ),
-                                  ),
+                                  Text('Option A', style: TextStyle(fontSize: 10.0, color: cForest)),
                                 ],
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(
-                                    Icons.check_box_outline_blank,
-                                    color: cSlate,
-                                    size: 14.0,
-                                  ),
+                                  Icon(Icons.check_box_outline_blank, color: cSlate, size: 14.0),
                                   const SizedBox(width: 4.0),
-                                  Text(
-                                    'Option B',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  Text('Option B', style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ],
                               ),
                             ],
@@ -1740,10 +1474,7 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(width: 6.0),
-                      Text(
-                        'Downloading...',
-                        style: TextStyle(fontSize: 10.0, color: cSlate),
-                      ),
+                      Text('Downloading...', style: TextStyle(fontSize: 10.0, color: cSlate)),
                     ],
                   ),
                   const SizedBox(height: 6.0),
@@ -1765,14 +1496,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   const SizedBox(height: 4.0),
-                  Text(
-                    '65%',
-                    style: TextStyle(
-                      fontSize: 9.0,
-                      color: cAmber,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text('65%', style: TextStyle(fontSize: 9.0, color: cAmber, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -1800,19 +1524,12 @@ dynamic build(BuildContext context) {
                     Row(
                       children: [
                         Icon(
-                          (opt['checked'] as bool)
-                              ? Icons.check_box
-                              : Icons.check_box_outline_blank,
+                          (opt['checked'] as bool) ? Icons.check_box : Icons.check_box_outline_blank,
                           size: 14.0,
-                          color: (opt['checked'] as bool)
-                              ? cTeal
-                              : cSlate.withValues(alpha: 0.4),
+                          color: (opt['checked'] as bool) ? cTeal : cSlate.withValues(alpha: 0.4),
                         ),
                         const SizedBox(width: 6.0),
-                        Text(
-                          opt['label'] as String,
-                          style: TextStyle(fontSize: 10.0, color: cSlate),
-                        ),
+                        Text(opt['label'] as String, style: TextStyle(fontSize: 10.0, color: cSlate)),
                       ],
                     ),
                 ],
@@ -1853,10 +1570,7 @@ dynamic build(BuildContext context) {
                   Text(
                     'Calling markNeedsBuild() when the menu is not shown will cause an '
                     'assertion error. Always check controller.isShown first.',
-                    style: TextStyle(
-                      fontSize: 10.5,
-                      color: cSlate.withValues(alpha: 0.7),
-                    ),
+                    style: TextStyle(fontSize: 10.5, color: cSlate.withValues(alpha: 0.7)),
                   ),
                 ],
               ),
@@ -1902,27 +1616,11 @@ dynamic build(BuildContext context) {
           children: [
             buildStyledMenu(
               items: [
-                _MenuItem(
-                  icon: Icons.content_cut,
-                  label: 'Cut',
-                  shortcut: '⌘X',
-                ),
-                _MenuItem(
-                  icon: Icons.content_copy,
-                  label: 'Copy',
-                  shortcut: '⌘C',
-                ),
-                _MenuItem(
-                  icon: Icons.content_paste,
-                  label: 'Paste',
-                  shortcut: '⌘V',
-                ),
+                _MenuItem(icon: Icons.content_cut, label: 'Cut', shortcut: '⌘X'),
+                _MenuItem(icon: Icons.content_copy, label: 'Copy', shortcut: '⌘C'),
+                _MenuItem(icon: Icons.content_paste, label: 'Paste', shortcut: '⌘V'),
                 _MenuItem.separator(),
-                _MenuItem(
-                  icon: Icons.select_all,
-                  label: 'Select All',
-                  shortcut: '⌘A',
-                ),
+                _MenuItem(icon: Icons.select_all, label: 'Select All', shortcut: '⌘A'),
               ],
               accent: cNavy,
               onDismiss: null,
@@ -1956,11 +1654,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Text Selected',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold,
-                      color: cTeal,
-                    ),
+                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cTeal),
                   ),
                   const SizedBox(height: 6.0),
                   buildStyledMenu(
@@ -1982,11 +1676,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Image Selected',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold,
-                      color: cCoral,
-                    ),
+                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cCoral),
                   ),
                   const SizedBox(height: 6.0),
                   buildStyledMenu(
@@ -2054,10 +1744,7 @@ dynamic build(BuildContext context) {
                     'Use red/warning colors for delete, remove, or '
                     'other irreversible operations. A separator helps '
                     'visually isolate dangerous actions.',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: cSlate.withValues(alpha: 0.6),
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                   ),
                 ],
               ),
@@ -2145,10 +1832,7 @@ dynamic build(BuildContext context) {
                         child: Text(
                           'GestureDetector barrier\n(tapping here dismisses menu)',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 9.0,
-                            color: cSlate.withValues(alpha: 0.4),
-                          ),
+                          style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.4)),
                         ),
                       ),
                     ),
@@ -2163,9 +1847,7 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(6.0),
-                        border: Border.all(
-                          color: cSlate.withValues(alpha: 0.2),
-                        ),
+                        border: Border.all(color: cSlate.withValues(alpha: 0.2)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withValues(alpha: 0.1),
@@ -2176,22 +1858,9 @@ dynamic build(BuildContext context) {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            'Menu',
-                            style: TextStyle(
-                              fontSize: 10.0,
-                              color: cAmber,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Item 1',
-                            style: TextStyle(fontSize: 9.0, color: cSlate),
-                          ),
-                          Text(
-                            'Item 2',
-                            style: TextStyle(fontSize: 9.0, color: cSlate),
-                          ),
+                          Text('Menu', style: TextStyle(fontSize: 10.0, color: cAmber, fontWeight: FontWeight.bold)),
+                          Text('Item 1', style: TextStyle(fontSize: 9.0, color: cSlate)),
+                          Text('Item 2', style: TextStyle(fontSize: 9.0, color: cSlate)),
                         ],
                       ),
                     ),
@@ -2233,10 +1902,7 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              cSlate.withValues(alpha: 0.08),
-              cCoral.withValues(alpha: 0.06),
-            ],
+            colors: [cSlate.withValues(alpha: 0.08), cCoral.withValues(alpha: 0.06)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -2292,10 +1958,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          cSlate.withValues(alpha: 0.12),
-          cCoral.withValues(alpha: 0.08),
-        ],
+        colors: [cSlate.withValues(alpha: 0.12), cCoral.withValues(alpha: 0.08)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

@@ -217,7 +217,11 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
       'player name field.',
     );
     _log.add(
-      _LifecycleLogEntry(DateTime.now(), 'initState', 'controller created'),
+      _LifecycleLogEntry(
+        DateTime.now(),
+        'initState',
+        'controller created',
+      ),
     );
   }
 
@@ -393,7 +397,10 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
         elevation: 4,
         title: const Text(
           'RestorationMixin — Board Game Session',
-          style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.4),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.4,
+          ),
         ),
         actions: <Widget>[
           IconButton(
@@ -480,9 +487,7 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
                         border: Border.all(color: _creamDeep, width: 1),
                       ),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 14,
-                      ),
+                          horizontal: 12, vertical: 14),
                       // Closed 2026-04-29 — Fa1 EditableText sub-pocket.
                       //
                       // The original `TextField(controller:
@@ -681,7 +686,10 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
       decoration: BoxDecoration(
         color: _cream,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: rolling ? _burntRed : _charcoal, width: 3),
+        border: Border.all(
+          color: rolling ? _burntRed : _charcoal,
+          width: 3,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: _charcoal.withValues(alpha: 0.35),
@@ -690,7 +698,9 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
           ),
         ],
       ),
-      child: Stack(children: _pipsForValue(value, size)),
+      child: Stack(
+        children: _pipsForValue(value, size),
+      ),
     );
   }
 
@@ -705,7 +715,10 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
         positions = <Offset>[Offset(center, center)];
         break;
       case 2:
-        positions = <Offset>[Offset(edge, edge), Offset(far, far)];
+        positions = <Offset>[
+          Offset(edge, edge),
+          Offset(far, far),
+        ];
         break;
       case 3:
         positions = <Offset>[
@@ -836,7 +849,10 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
         alignment: Alignment.center,
         child: const Text(
           'No rolls recorded yet.',
-          style: TextStyle(color: _slate, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: _slate,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       );
     }
@@ -1009,7 +1025,12 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
     final List<_PropRow> rows = <_PropRow>[
       _PropRow('score', 'RestorableInt', '${_score.value}', true),
       _PropRow('current_turn', 'RestorableInt', '${_currentTurn.value}', true),
-      _PropRow('dice', 'RestorableInt', '${_diceValue.value}', _diceRegistered),
+      _PropRow(
+        'dice',
+        'RestorableInt',
+        '${_diceValue.value}',
+        _diceRegistered,
+      ),
       _PropRow('player_name', 'RestorableString', _playerName.value, true),
       _PropRow('is_rolling', 'RestorableBool', '${_isRolling.value}', true),
       _PropRow(
@@ -1083,7 +1104,10 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
           ),
           for (int i = 0; i < rows.length; i++)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
+              ),
               decoration: BoxDecoration(
                 color: i.isEven
                     ? _cream.withValues(alpha: 0.5)
@@ -1368,14 +1392,20 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
               padding: EdgeInsets.all(8),
               child: Text(
                 'Member',
-                style: TextStyle(fontWeight: FontWeight.w800, color: _charcoal),
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: _charcoal,
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
                 'Responsibility',
-                style: TextStyle(fontWeight: FontWeight.w800, color: _charcoal),
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: _charcoal,
+                ),
               ),
             ),
           ],
@@ -1465,8 +1495,7 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
   }
 
   Widget _buildCodeBlock() {
-    const String snippet =
-        '''class _MyState extends State<…> with RestorationMixin {
+    const String snippet = '''class _MyState extends State<…> with RestorationMixin {
   @override String? get restorationId => 'my_scope';
   final _counter = RestorableInt(0);
   @override

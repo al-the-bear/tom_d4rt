@@ -497,7 +497,11 @@ dynamic build(BuildContext context) {
   final variantVerbose = AboutDialog(
     applicationName: 'VerboseApp',
     applicationVersion: '2.5.1',
-    applicationIcon: Icon(Icons.menu_book, color: Colors.indigo, size: 40.0),
+    applicationIcon: Icon(
+      Icons.menu_book,
+      color: Colors.indigo,
+      size: 40.0,
+    ),
     applicationLegalese: '\u00a9 2026 VerboseApp Inc.',
     children: [
       SizedBox(height: 14.0),
@@ -593,8 +597,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 6: showAboutDialog code block ===');
 
-  final showAboutCode =
-      '// Open the dialog imperatively from a button:\n'
+  final showAboutCode = '// Open the dialog imperatively from a button:\n'
       'showAboutDialog(\n'
       '  context: context,\n'
       '  applicationName: "Tom Demo",\n'
@@ -728,33 +731,33 @@ dynamic build(BuildContext context) {
         Material(
           type: MaterialType.transparency,
           child: ListTile(
-            leading: Icon(Icons.home, color: purplePrimary),
-            title: Text('Home'),
-          ),
+          leading: Icon(Icons.home, color: purplePrimary),
+          title: Text('Home'),
+        ),
         ),
         Material(
           type: MaterialType.transparency,
           child: ListTile(
-            leading: Icon(Icons.settings, color: purplePrimary),
-            title: Text('Settings'),
-          ),
+          leading: Icon(Icons.settings, color: purplePrimary),
+          title: Text('Settings'),
+        ),
         ),
         Divider(height: 1.0),
         Material(
           type: MaterialType.transparency,
           child: AboutListTile(
-            icon: Icon(Icons.info_outline, color: purplePrimary),
-            applicationName: 'Tom Demo',
-            applicationVersion: '1.0.0',
-            applicationLegalese: '\u00a9 2026 Tom AI',
-            aboutBoxChildren: [
-              SizedBox(height: 12.0),
-              Text(
-                'Embedded directly in the drawer.',
-                style: TextStyle(fontSize: 12.0),
-              ),
-            ],
-          ),
+          icon: Icon(Icons.info_outline, color: purplePrimary),
+          applicationName: 'Tom Demo',
+          applicationVersion: '1.0.0',
+          applicationLegalese: '\u00a9 2026 Tom AI',
+          aboutBoxChildren: [
+            SizedBox(height: 12.0),
+            Text(
+              'Embedded directly in the drawer.',
+              style: TextStyle(fontSize: 12.0),
+            ),
+          ],
+        ),
         ),
       ],
     ),
@@ -801,11 +804,8 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.lightbulb_outline,
-                color: Colors.amber.shade800,
-                size: 18.0,
-              ),
+              Icon(Icons.lightbulb_outline,
+                  color: Colors.amber.shade800, size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -955,11 +955,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.red.shade700,
-              size: 24.0,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.red.shade700, size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Footguns',
@@ -975,39 +972,39 @@ dynamic build(BuildContext context) {
         _footgunRow(
           'Nullable applicationName',
           'When omitted, Flutter falls back to the platform/runtime name. '
-              'The dialog title becomes "About <fallback>" — usually not what '
-              'you want for branded apps.',
+          'The dialog title becomes "About <fallback>" — usually not what '
+          'you want for branded apps.',
           Colors.red,
         ),
         SizedBox(height: 10.0),
         _footgunRow(
           'Legalese is small print only',
           'applicationLegalese is rendered with a small, low-contrast style. '
-              'Do not stuff long terms-of-service or critical info there — users '
-              'will skip it. Use children for actual prose.',
+          'Do not stuff long terms-of-service or critical info there — users '
+          'will skip it. Use children for actual prose.',
           Colors.deepOrange,
         ),
         SizedBox(height: 10.0),
         _footgunRow(
           'Dialog is immutable after open',
           'AboutDialog reads its props at build time. Once visible, you cannot '
-              'edit name/version/legalese; you must dismiss and re-show with new '
-              'arguments.',
+          'edit name/version/legalese; you must dismiss and re-show with new '
+          'arguments.',
           Colors.orange,
         ),
         SizedBox(height: 10.0),
         _footgunRow(
           'Children appear ABOVE the License button',
           'Order matters: children render between the legalese and the '
-              '"View Licenses" button. Plan layout accordingly.',
+          '"View Licenses" button. Plan layout accordingly.',
           Colors.brown,
         ),
         SizedBox(height: 10.0),
         _footgunRow(
           'No onClose callback',
           'AboutDialog has no built-in close hook. If you need to react to '
-              'dismissal, await showAboutDialog() and act on the future\'s '
-              'completion.',
+          'dismissal, await showAboutDialog() and act on the future\'s '
+          'completion.',
           Colors.purple,
         ),
       ],
@@ -1203,7 +1200,10 @@ Widget _anatomyRow(IconData icon, String label, String desc, Color color) {
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
+          border: Border.all(
+            color: color.withValues(alpha: 0.5),
+            width: 1.0,
+          ),
         ),
         child: Icon(icon, color: color, size: 20.0),
       ),
@@ -1222,7 +1222,10 @@ Widget _anatomyRow(IconData icon, String label, String desc, Color color) {
               ),
             ),
             SizedBox(height: 2.0),
-            Text(desc, style: TextStyle(fontSize: 11.0, color: Colors.black87)),
+            Text(
+              desc,
+              style: TextStyle(fontSize: 11.0, color: Colors.black87),
+            ),
           ],
         ),
       ),
@@ -1274,7 +1277,10 @@ Widget _showcaseCard(
           ),
         ),
         SizedBox(height: 6.0),
-        Text(desc, style: TextStyle(fontSize: 11.0, color: Colors.black87)),
+        Text(
+          desc,
+          style: TextStyle(fontSize: 11.0, color: Colors.black87),
+        ),
         SizedBox(height: 8.0),
         Container(
           decoration: BoxDecoration(
@@ -1282,7 +1288,11 @@ Widget _showcaseCard(
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: Colors.grey.shade300, width: 1.0),
           ),
-          child: SizedBox(width: 296.0, height: 280.0, child: aboutDialog),
+          child: SizedBox(
+            width: 296.0,
+            height: 280.0,
+            child: aboutDialog,
+          ),
         ),
       ],
     ),
@@ -1304,7 +1314,10 @@ Widget _variantPreviewCard(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
+        colors: [
+          color.withValues(alpha: 0.08),
+          color.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1336,7 +1349,10 @@ Widget _variantPreviewCard(
           ],
         ),
         SizedBox(height: 4.0),
-        Text(tag, style: TextStyle(fontSize: 11.0, color: Colors.black54)),
+        Text(
+          tag,
+          style: TextStyle(fontSize: 11.0, color: Colors.black54),
+        ),
         SizedBox(height: 8.0),
         Container(
           decoration: BoxDecoration(
@@ -1350,7 +1366,11 @@ Widget _variantPreviewCard(
               ),
             ],
           ),
-          child: SizedBox(width: 256.0, height: 320.0, child: aboutDialog),
+          child: SizedBox(
+            width: 256.0,
+            height: 320.0,
+            child: aboutDialog,
+          ),
         ),
       ],
     ),
@@ -1455,7 +1475,11 @@ Widget _recapBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.4),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.white,
+              height: 1.4,
+            ),
           ),
         ),
       ],

@@ -113,25 +113,19 @@ dynamic build(BuildContext context) {
     text: 'Parent ',
     style: TextStyle(fontSize: 16.0),
     children: [
-      TextSpan(
-        text: 'child1 ',
-        style: TextStyle(color: Colors.blue),
-      ),
-      TextSpan(
-        text: 'child2 ',
-        style: TextStyle(color: Colors.green),
-      ),
-      TextSpan(
-        text: 'child3',
-        style: TextStyle(color: Colors.red),
-      ),
+      TextSpan(text: 'child1 ', style: TextStyle(color: Colors.blue)),
+      TextSpan(text: 'child2 ', style: TextStyle(color: Colors.green)),
+      TextSpan(text: 'child3', style: TextStyle(color: Colors.red)),
     ],
   );
 
   // Tappable-looking styled span (no recognizer in D4rt).
   final TextSpan tappableSpan = TextSpan(
     text: 'Tappable text',
-    style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+    style: TextStyle(
+      color: Colors.blue,
+      decoration: TextDecoration.underline,
+    ),
   );
 
   // Span with a semanticsLabel that re-labels an emoji.
@@ -225,8 +219,7 @@ dynamic build(BuildContext context) {
     {
       'left': "Styled red 'Styled text'",
       'right': "Styled red 'Styled text'",
-      'equal':
-          styledSpan ==
+      'equal': styledSpan ==
           TextSpan(
             text: 'Styled text',
             style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
@@ -349,7 +342,11 @@ Widget _heroHeader() {
         Text(
           'A typographic atelier for TextSpan, WidgetSpan,\n'
           'RichText and Text.rich — composed for the D4rt interpreter.',
-          style: TextStyle(fontSize: 15.0, color: _heroSoft, height: 1.5),
+          style: TextStyle(
+            fontSize: 15.0,
+            color: _heroSoft,
+            height: 1.5,
+          ),
         ),
         SizedBox(height: 18.0),
         Row(
@@ -481,7 +478,11 @@ Widget _bullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(fontSize: 13.0, color: _overviewInk, height: 1.4),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: _overviewInk,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -529,7 +530,11 @@ Widget _sectionOne(
         _recipeCard(
           accent: _s1Ink,
           title: 'Recipe — bare span',
-          lines: const <String>["TextSpan(", "  text: 'Hello World',", ")"],
+          lines: const <String>[
+            "TextSpan(",
+            "  text: 'Hello World',",
+            ")",
+          ],
         ),
         SizedBox(height: 10.0),
         _recipeCard(
@@ -793,7 +798,10 @@ Widget _sectionFour(TextSpan semanticSpan) {
               Text.rich(semanticSpan, style: TextStyle(fontSize: 28.0)),
               SizedBox(width: 14.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: _s4Ink,
                   borderRadius: BorderRadius.circular(12.0),
@@ -819,7 +827,10 @@ Widget _sectionFour(TextSpan semanticSpan) {
               Text.rich(abbrSpan, style: TextStyle(fontSize: 18.0)),
               SizedBox(width: 14.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: _s4Ink,
                   borderRadius: BorderRadius.circular(12.0),
@@ -875,13 +886,16 @@ Widget _sectionFour(TextSpan semanticSpan) {
 // =============================================================================
 Widget _sectionFive(List<Map<String, dynamic>> alignmentRows) {
   Widget chip(Color c, String label) => Container(
-    padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
-    decoration: BoxDecoration(
-      color: c,
-      borderRadius: BorderRadius.circular(4.0),
-    ),
-    child: Text(label, style: TextStyle(color: Colors.white, fontSize: 10.0)),
-  );
+        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+        decoration: BoxDecoration(
+          color: c,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(color: Colors.white, fontSize: 10.0),
+        ),
+      );
 
   Widget alignmentDemo(PlaceholderAlignment alignment) {
     final TextSpan demo = TextSpan(
@@ -893,8 +907,7 @@ Widget _sectionFive(List<Map<String, dynamic>> alignmentRows) {
           // Flutter asserts baseline != null for aboveBaseline / belowBaseline /
           // baseline alignments (widget_span.dart line 83). Supply it for all
           // three; ignored by the other three alignments.
-          baseline:
-              (alignment == PlaceholderAlignment.baseline ||
+          baseline: (alignment == PlaceholderAlignment.baseline ||
                   alignment == PlaceholderAlignment.aboveBaseline ||
                   alignment == PlaceholderAlignment.belowBaseline)
               ? TextBaseline.alphabetic
@@ -952,7 +965,10 @@ Widget _sectionFive(List<Map<String, dynamic>> alignmentRows) {
                       Expanded(
                         child: Text(
                           row['description'] as String,
-                          style: TextStyle(fontSize: 12.0, color: _s5Ink),
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: _s5Ink,
+                          ),
                         ),
                       ),
                     ],
@@ -1016,7 +1032,9 @@ Widget _sectionSix(TextSpan parentSpan) {
       style: TextStyle(fontSize: 16.0, color: Color(0xFF2C1810)),
       children: [
         TextSpan(text: 'Hello '),
-        WidgetSpan(child: Icon(Icons.favorite, size: 16.0, color: Colors.red)),
+        WidgetSpan(
+          child: Icon(Icons.favorite, size: 16.0, color: Colors.red),
+        ),
         TextSpan(text: ' World '),
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
@@ -1165,7 +1183,10 @@ Widget _sectionSeven(List<Map<String, dynamic>> ratingStats) {
             padding: EdgeInsets.only(bottom: 10.0),
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 10.0,
+              ),
               decoration: BoxDecoration(
                 color: _s7Tile,
                 borderRadius: BorderRadius.circular(10.0),
@@ -1352,7 +1373,10 @@ Widget _sectionEight(
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(4.0),
-                      border: Border.all(color: _s8Border, width: 1.0),
+                      border: Border.all(
+                        color: _s8Border,
+                        width: 1.0,
+                      ),
                     ),
                     child: Text(
                       '"${c['plain']}"  (len: ${c['len']})',
@@ -1397,10 +1421,7 @@ Widget _glossaryPanel() {
     ['TextSpan', 'Inline string fragment with optional style and children.'],
     ['WidgetSpan', 'Embeds a full Widget inside a paragraph.'],
     ['PlaceholderAlignment', 'How a WidgetSpan aligns to surrounding text.'],
-    [
-      'TextBaseline',
-      'alphabetic / ideographic — used with baseline alignment.',
-    ],
+    ['TextBaseline', 'alphabetic / ideographic — used with baseline alignment.'],
     ['RichText', 'Low-level widget that paints an InlineSpan tree.'],
     ['Text.rich', 'Text widget constructor that accepts an InlineSpan tree.'],
     ['semanticsLabel', 'Accessibility override for the visible text.'],
@@ -1451,7 +1472,10 @@ Widget _glossaryPanel() {
               children: [
                 Container(
                   width: 130.0,
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: _glossaryInk,
                     borderRadius: BorderRadius.circular(4.0),
@@ -1727,7 +1751,10 @@ Widget _recipeCard({
             Container(
               width: 6.0,
               height: 6.0,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
             SizedBox(width: 8.0),
             Text(

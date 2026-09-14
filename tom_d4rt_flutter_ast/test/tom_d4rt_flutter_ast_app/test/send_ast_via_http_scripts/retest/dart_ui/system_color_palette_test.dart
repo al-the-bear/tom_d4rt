@@ -857,17 +857,13 @@ dynamic build(BuildContext context) {
       light = null;
       dark = null;
       platformError = e.toString();
-      print(
-        'WARNING: SystemColor not supported on this platform: $platformError',
-      );
+      print('WARNING: SystemColor not supported on this platform: $platformError');
     }
   } else {
     platformError =
         'UnsupportedError: SystemColor not supported on the current platform '
         '(platformProvidesSystemColors == false)';
-    print(
-      'WARNING: SystemColor not supported on this platform: $platformError',
-    );
+    print('WARNING: SystemColor not supported on this platform: $platformError');
   }
 
   // If SystemColor is not supported, show a fallback UI
@@ -900,8 +896,7 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  platformError ??
-                      'SystemColor API is not available on this platform.',
+                  platformError ?? 'SystemColor API is not available on this platform.',
                   style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   textAlign: TextAlign.center,
                 ),

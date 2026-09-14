@@ -52,27 +52,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: seafoam, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -89,14 +83,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: lightMint.withValues(alpha: 0.7)),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: darkTeal.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: darkTeal.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -112,21 +103,16 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: darkTeal,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: darkTeal,
+                  fontFamily: 'monospace')),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              detail,
-              style: TextStyle(fontSize: 12, color: deepJade),
-            ),
+            child: Text(detail,
+                style: TextStyle(fontSize: 12, color: deepJade)),
           ),
         ],
       ),
@@ -162,16 +148,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: darkTeal,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: darkTeal)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -189,14 +175,11 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? darkTeal : deepJade,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? darkTeal : deepJade)),
           );
         }).toList(),
       ),
@@ -213,23 +196,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? darkTeal : jade,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.east, size: 12, color: mint),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.east, size: 12, color: mint),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -249,14 +227,13 @@ dynamic build(BuildContext context) {
         border: Border.all(color: color.withValues(alpha: 0.6)),
       ),
       child: Center(
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: color.computeLuminance() > 0.5 ? darkTeal : Colors.white,
-          ),
-        ),
+        child: Text(label,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color.computeLuminance() > 0.5
+                    ? darkTeal
+                    : Colors.white)),
       ),
     );
   }
@@ -304,18 +281,10 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.person, color: jade, size: 24),
                         const SizedBox(height: 4),
-                        Text(
-                          'Identity',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: jade,
-                          ),
-                        ),
-                        Text(
-                          'Name, email, phone',
-                          style: TextStyle(fontSize: 9, color: deepJade),
-                        ),
+                        Text('Identity',
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: jade)),
+                        Text('Name, email, phone',
+                            style: TextStyle(fontSize: 9, color: deepJade)),
                       ],
                     ),
                   ),
@@ -334,18 +303,10 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.lock, color: darkTeal, size: 24),
                         const SizedBox(height: 4),
-                        Text(
-                          'Credentials',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: darkTeal,
-                          ),
-                        ),
-                        Text(
-                          'Username, password',
-                          style: TextStyle(fontSize: 9, color: deepJade),
-                        ),
+                        Text('Credentials',
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: darkTeal)),
+                        Text('Username, password',
+                            style: TextStyle(fontSize: 9, color: deepJade)),
                       ],
                     ),
                   ),
@@ -364,18 +325,10 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.credit_card, color: mint, size: 24),
                         const SizedBox(height: 4),
-                        Text(
-                          'Payment',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: mint,
-                          ),
-                        ),
-                        Text(
-                          'Card number, CVV',
-                          style: TextStyle(fontSize: 9, color: deepJade),
-                        ),
+                        Text('Payment',
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: mint)),
+                        Text('Card number, CVV',
+                            style: TextStyle(fontSize: 9, color: deepJade)),
                       ],
                     ),
                   ),
@@ -406,11 +359,7 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             acRow(['Member', 'Type', 'Purpose'], isHeader: true),
-            acRow([
-              'textInputConfiguration',
-              'getter',
-              'Returns autofill config',
-            ]),
+            acRow(['textInputConfiguration', 'getter', 'Returns autofill config']),
             acRow(['autofillId', 'String', 'Unique ID for this client']),
             acRow(['currentTextEditingValue', 'getter', 'Current text value']),
             acRow(['autofill()', 'method', 'Receive autofilled value']),
@@ -422,26 +371,14 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _acImplementor(
-              'EditableTextState',
-              'Primary text input implementation',
-              Icons.edit,
-              jade,
-            ),
+            _acImplementor('EditableTextState', 'Primary text input implementation',
+                Icons.edit, jade),
             const SizedBox(height: 6),
-            _acImplementor(
-              'Custom TextInputClient',
-              'For custom text fields',
-              Icons.code,
-              darkTeal,
-            ),
+            _acImplementor('Custom TextInputClient', 'For custom text fields',
+                Icons.code, darkTeal),
             const SizedBox(height: 6),
-            _acImplementor(
-              'Third-party packages',
-              'Any package wrapping text input',
-              Icons.extension,
-              mint,
-            ),
+            _acImplementor('Third-party packages', 'Any package wrapping text input',
+                Icons.extension, mint),
           ],
         ),
       ),
@@ -478,14 +415,8 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'AutofillGroup',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: darkTeal,
-                    ),
-                  ),
+                  Text('AutofillGroup',
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: darkTeal)),
                   const SizedBox(height: 8),
                   _acFormField('Username', Icons.person, jade),
                   const SizedBox(height: 6),
@@ -496,10 +427,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 10),
-            acCode(
-              'onDisposeAction',
-              'What to do when group disposes (commit/cancel)',
-            ),
+            acCode('onDisposeAction', 'What to do when group disposes (commit/cancel)'),
           ],
         ),
       ),
@@ -511,10 +439,7 @@ dynamic build(BuildContext context) {
             acRow(['register(client)', 'Add a client to the group']),
             acRow(['unregister(autofillId)', 'Remove a client from the group']),
             acRow(['getAutofillClients()', 'Get all clients in the group']),
-            acRow([
-              'attach(client)',
-              'Attach a specific client to the platform',
-            ]),
+            acRow(['attach(client)', 'Attach a specific client to the platform']),
           ],
         ),
       ),
@@ -539,42 +464,18 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _acLifecycleStep(
-              1,
-              'Register',
-              'Fields announce themselves to the platform',
-              jade,
-            ),
-            _acLifecycleStep(
-              2,
-              'Activate',
-              'User focuses a field — platform shows popup',
-              darkTeal,
-            ),
-            _acLifecycleStep(
-              3,
-              'Fill',
-              'Platform fills matching fields in the group',
-              mint,
-            ),
-            _acLifecycleStep(
-              4,
-              'Edit',
-              'User may modify autofilled values',
-              deepJade,
-            ),
-            _acLifecycleStep(
-              5,
-              'Commit',
-              'Form submits — save new credentials',
-              emeraldDark,
-            ),
-            _acLifecycleStep(
-              6,
-              'Unregister',
-              'Fields are disposed and removed',
-              malachite,
-            ),
+            _acLifecycleStep(1, 'Register', 'Fields announce themselves to the platform',
+                jade),
+            _acLifecycleStep(2, 'Activate', 'User focuses a field — platform shows popup',
+                darkTeal),
+            _acLifecycleStep(3, 'Fill', 'Platform fills matching fields in the group',
+                mint),
+            _acLifecycleStep(4, 'Edit', 'User may modify autofilled values',
+                deepJade),
+            _acLifecycleStep(5, 'Commit', 'Form submits — save new credentials',
+                emeraldDark),
+            _acLifecycleStep(6, 'Unregister', 'Fields are disposed and removed',
+                malachite),
           ],
         ),
       ),
@@ -648,26 +549,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            acLayerBox(
-              'Flutter: AutofillClient + AutofillGroup',
-              jade.withValues(alpha: 0.15),
-              38,
-            ),
-            acLayerBox(
-              'Engine: TextInput channel',
-              mint.withValues(alpha: 0.15),
-              38,
-            ),
-            acLayerBox(
-              'Platform: AutofillManager / ASAuthorization',
-              deepJade.withValues(alpha: 0.12),
-              38,
-            ),
-            acLayerBox(
-              'Service: Google / iCloud Keychain / 3rd party',
-              darkTeal.withValues(alpha: 0.08),
-              38,
-            ),
+            acLayerBox('Flutter: AutofillClient + AutofillGroup', jade.withValues(alpha: 0.15), 38),
+            acLayerBox('Engine: TextInput channel', mint.withValues(alpha: 0.15), 38),
+            acLayerBox('Platform: AutofillManager / ASAuthorization', deepJade.withValues(alpha: 0.12), 38),
+            acLayerBox('Service: Google / iCloud Keychain / 3rd party', darkTeal.withValues(alpha: 0.08), 38),
             const SizedBox(height: 10),
             acRow(['Platform', 'Service', 'Features'], isHeader: true),
             acRow(['Android 8+', 'Autofill Framework', 'Save, fill, datasets']),
@@ -723,18 +608,10 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.save, color: jade, size: 22),
                         const SizedBox(height: 4),
-                        Text(
-                          'New Data',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: jade,
-                          ),
-                        ),
-                        Text(
-                          '"Save password?"',
-                          style: TextStyle(fontSize: 9, color: deepJade),
-                        ),
+                        Text('New Data',
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: jade)),
+                        Text('"Save password?"',
+                            style: TextStyle(fontSize: 9, color: deepJade)),
                       ],
                     ),
                   ),
@@ -754,18 +631,10 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.update, color: darkTeal, size: 22),
                         const SizedBox(height: 4),
-                        Text(
-                          'Updated Data',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: darkTeal,
-                          ),
-                        ),
-                        Text(
-                          '"Update password?"',
-                          style: TextStyle(fontSize: 9, color: deepJade),
-                        ),
+                        Text('Updated Data',
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: darkTeal)),
+                        Text('"Update password?"',
+                            style: TextStyle(fontSize: 9, color: deepJade)),
                       ],
                     ),
                   ),
@@ -785,18 +654,10 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.cancel, color: mint, size: 22),
                         const SizedBox(height: 4),
-                        Text(
-                          'Cancelled',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: mint,
-                          ),
-                        ),
-                        Text(
-                          'No save prompt',
-                          style: TextStyle(fontSize: 9, color: deepJade),
-                        ),
+                        Text('Cancelled',
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: mint)),
+                        Text('No save prompt',
+                            style: TextStyle(fontSize: 9, color: deepJade)),
                       ],
                     ),
                   ),
@@ -848,11 +709,10 @@ dynamic build(BuildContext context) {
                 '  ),\n'
                 ')',
                 style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: darkTeal,
-                  height: 1.4,
-                ),
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: darkTeal,
+                    height: 1.4),
               ),
             ),
           ],
@@ -901,14 +761,8 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'AutofillGroup: Address',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: darkTeal,
-                    ),
-                  ),
+                  Text('AutofillGroup: Address',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: darkTeal)),
                   const Divider(),
                   _acFormField('Street Address', Icons.home, jade),
                   const SizedBox(height: 4),
@@ -956,42 +810,18 @@ dynamic build(BuildContext context) {
         'Security Checklist',
         Column(
           children: [
-            _acSecurityItem(
-              Icons.check_circle,
-              'Mark passwords with AutofillHints.password',
-              jade,
-              true,
-            ),
-            _acSecurityItem(
-              Icons.check_circle,
-              'Use obscureText: true for sensitive fields',
-              jade,
-              true,
-            ),
-            _acSecurityItem(
-              Icons.check_circle,
-              'Commit credentials only on successful auth',
-              jade,
-              true,
-            ),
-            _acSecurityItem(
-              Icons.check_circle,
-              'Use HTTPS for all auth endpoints',
-              jade,
-              true,
-            ),
-            _acSecurityItem(
-              Icons.warning,
-              'Don\'t log autofilled values',
-              darkTeal,
-              false,
-            ),
-            _acSecurityItem(
-              Icons.warning,
-              'Don\'t expose saved passwords in debug',
-              darkTeal,
-              false,
-            ),
+            _acSecurityItem(Icons.check_circle, 'Mark passwords with AutofillHints.password',
+                jade, true),
+            _acSecurityItem(Icons.check_circle, 'Use obscureText: true for sensitive fields',
+                jade, true),
+            _acSecurityItem(Icons.check_circle, 'Commit credentials only on successful auth',
+                jade, true),
+            _acSecurityItem(Icons.check_circle, 'Use HTTPS for all auth endpoints',
+                jade, true),
+            _acSecurityItem(Icons.warning, 'Don\'t log autofilled values',
+                darkTeal, false),
+            _acSecurityItem(Icons.warning, 'Don\'t expose saved passwords in debug',
+                darkTeal, false),
           ],
         ),
       ),
@@ -1107,33 +937,17 @@ dynamic build(BuildContext context) {
         'Accessibility Benefits',
         Column(
           children: [
-            _acA11yBenefit(
-              Icons.accessibility,
-              'Reduced motor effort',
-              'Fewer keystrokes for form completion',
-              jade,
-            ),
+            _acA11yBenefit(Icons.accessibility, 'Reduced motor effort',
+                'Fewer keystrokes for form completion', jade),
             const SizedBox(height: 6),
-            _acA11yBenefit(
-              Icons.text_fields,
-              'Semantic labeling',
-              'Hints provide context for screen readers',
-              darkTeal,
-            ),
+            _acA11yBenefit(Icons.text_fields, 'Semantic labeling',
+                'Hints provide context for screen readers', darkTeal),
             const SizedBox(height: 6),
-            _acA11yBenefit(
-              Icons.speed,
-              'Faster task completion',
-              'Important for users with cognitive load',
-              mint,
-            ),
+            _acA11yBenefit(Icons.speed, 'Faster task completion',
+                'Important for users with cognitive load', mint),
             const SizedBox(height: 6),
-            _acA11yBenefit(
-              Icons.touch_app,
-              'Reduced error rate',
-              'Pre-filled data avoids typos',
-              deepJade,
-            ),
+            _acA11yBenefit(Icons.touch_app, 'Reduced error rate',
+                'Pre-filled data avoids typos', deepJade),
           ],
         ),
       ),
@@ -1156,31 +970,16 @@ dynamic build(BuildContext context) {
         'Pitfalls & Solutions',
         Column(
           children: [
-            _acPitfall(
-              'Missing AutofillGroup',
-              'Fields fill individually, not together',
-              'Wrap related fields in AutofillGroup',
-            ),
-            _acPitfall(
-              'Wrong hints',
-              'Platform shows wrong suggestions',
-              'Use exact AutofillHints constants',
-            ),
-            _acPitfall(
-              'No onDisposeAction',
-              'Credentials not saved',
-              'Set AutofillContextAction.commit',
-            ),
-            _acPitfall(
-              'Hot restart clears',
-              'Autofill state lost on restart',
-              'Expected; test on release builds',
-            ),
-            _acPitfall(
-              'Web iframe issues',
-              'Browser blocks cross-origin autofill',
-              'Ensure same-origin or use allowAutofill',
-            ),
+            _acPitfall('Missing AutofillGroup', 'Fields fill individually, not together',
+                'Wrap related fields in AutofillGroup'),
+            _acPitfall('Wrong hints', 'Platform shows wrong suggestions',
+                'Use exact AutofillHints constants'),
+            _acPitfall('No onDisposeAction', 'Credentials not saved',
+                'Set AutofillContextAction.commit'),
+            _acPitfall('Hot restart clears', 'Autofill state lost on restart',
+                'Expected; test on release builds'),
+            _acPitfall('Web iframe issues', 'Browser blocks cross-origin autofill',
+                'Ensure same-origin or use allowAutofill'),
           ],
         ),
       ),
@@ -1243,14 +1042,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'AutofillClient — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('AutofillClient — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From interface contract through grouping, platform integration, '
@@ -1281,22 +1077,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -1320,7 +1104,8 @@ Widget _acFormField(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
-        Text(label, style: TextStyle(fontSize: 12, color: color)),
+        Text(label,
+            style: TextStyle(fontSize: 12, color: color)),
         const Spacer(),
         Icon(Icons.auto_awesome, size: 14, color: color.withValues(alpha: 0.4)),
       ],
@@ -1344,18 +1129,11 @@ Widget _acImplementor(String name, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: Color(0xFF004D40)),
-              ),
+              Text(name,
+                  style: TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold, color: color)),
+              Text(desc,
+                  style: const TextStyle(fontSize: 10, color: Color(0xFF004D40))),
             ],
           ),
         ),
@@ -1378,14 +1156,11 @@ Widget _acLifecycleStep(int num, String phase, String desc, Color color) {
             borderRadius: BorderRadius.circular(13),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 10),
@@ -1393,18 +1168,13 @@ Widget _acLifecycleStep(int num, String phase, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                phase,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 11, color: Color(0xFF004D40)),
-              ),
+              Text(phase,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(fontSize: 11, color: Color(0xFF004D40))),
             ],
           ),
         ),
@@ -1421,14 +1191,11 @@ Widget _acSecurityItem(IconData icon, String text, Color color, bool isGood) {
         Icon(icon, size: 18, color: color),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 12,
-              color: const Color(0xFF004D40),
-              fontWeight: isGood ? FontWeight.normal : FontWeight.w600,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  fontSize: 12,
+                  color: const Color(0xFF004D40),
+                  fontWeight: isGood ? FontWeight.normal : FontWeight.w600)),
         ),
       ],
     ),
@@ -1451,18 +1218,11 @@ Widget _acA11yBenefit(IconData icon, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: Color(0xFF004D40)),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold, color: color)),
+              Text(desc,
+                  style: const TextStyle(fontSize: 10, color: Color(0xFF004D40))),
             ],
           ),
         ),
@@ -1483,25 +1243,17 @@ Widget _acPitfall(String issue, String symptom, String fix) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                issue,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                symptom,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontStyle: FontStyle.italic,
-                  color: const Color(0xFF00695C),
-                ),
-              ),
-              Text(
-                'Fix: $fix',
-                style: const TextStyle(fontSize: 10, color: Color(0xFF004D40)),
-              ),
+              Text(issue,
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.w600)),
+              Text(symptom,
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontStyle: FontStyle.italic,
+                      color: const Color(0xFF00695C))),
+              Text('Fix: $fix',
+                  style: const TextStyle(
+                      fontSize: 10, color: Color(0xFF004D40))),
             ],
           ),
         ),

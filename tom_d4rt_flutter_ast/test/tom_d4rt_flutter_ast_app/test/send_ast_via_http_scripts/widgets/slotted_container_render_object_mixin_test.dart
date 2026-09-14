@@ -205,11 +205,9 @@ class _ScromTriptychRender extends RenderBox
     double width = 0;
     bool any = false;
     for (final RenderBox child in children) {
-      final Size s = child.getDryLayout(
-        BoxConstraints(
-          maxWidth: constraints.maxWidth.isFinite ? constraints.maxWidth : 320,
-        ),
-      );
+      final Size s = child.getDryLayout(BoxConstraints(
+        maxWidth: constraints.maxWidth.isFinite ? constraints.maxWidth : 320,
+      ));
       if (any) total += _gap;
       total += s.height;
       width = math.max(width, s.width);
@@ -250,9 +248,13 @@ class _ScromTriptychRender extends RenderBox
 
 /// A SlottedMultiChildRenderObjectWidget that forwards three optional
 /// children to the three named slots of `_ScromTriptychRender`.
-class _ScromTriptych
-    extends SlottedMultiChildRenderObjectWidget<_ScromSlot, RenderBox> {
-  const _ScromTriptych({this.header, this.body, this.trailing, this.gap = 12});
+class _ScromTriptych extends SlottedMultiChildRenderObjectWidget<_ScromSlot, RenderBox> {
+  const _ScromTriptych({
+    this.header,
+    this.body,
+    this.trailing,
+    this.gap = 12,
+  });
 
   final Widget? header;
   final Widget? body;
@@ -261,10 +263,10 @@ class _ScromTriptych
 
   @override
   Iterable<_ScromSlot> get slots => const <_ScromSlot>[
-    _ScromSlot.header,
-    _ScromSlot.body,
-    _ScromSlot.trailing,
-  ];
+        _ScromSlot.header,
+        _ScromSlot.body,
+        _ScromSlot.trailing,
+      ];
 
   @override
   Widget? childForSlot(_ScromSlot slot) {
@@ -292,6 +294,7 @@ class _ScromTriptych
   }
 }
 
+
 // =============================================================================
 // d4rt ENTRY POINT — top-level `build(BuildContext context)` returning a
 // MaterialApp. No main(), no runApp(). This is the function the harness
@@ -302,9 +305,7 @@ class _ScromTriptych
 /// study in a single MaterialApp with a custom Scaffold so we can theme the
 /// AppBar consistently with the blueprint aesthetic.
 dynamic build(BuildContext context) {
-  debugPrint(
-    '[scrom] build() called — mounting SlottedContainerRenderObjectMixin study',
-  );
+  debugPrint('[scrom] build() called — mounting SlottedContainerRenderObjectMixin study');
   return const MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'SlottedContainerRenderObjectMixin — blueprint anatomy',
@@ -488,7 +489,10 @@ class _ScromHero extends StatelessWidget {
                         height: 10,
                         decoration: BoxDecoration(
                           color: _scromRedPencil,
-                          border: Border.all(color: _scromBlueprint, width: 1),
+                          border: Border.all(
+                            color: _scromBlueprint,
+                            width: 1,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -516,7 +520,11 @@ class _ScromHero extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 14),
-                  Container(width: 120, height: 2, color: _scromRedPencil),
+                  Container(
+                    width: 120,
+                    height: 2,
+                    color: _scromRedPencil,
+                  ),
                   const SizedBox(height: 14),
                   Text(
                     'A working study of SlottedContainerRenderObjectMixin — the '
@@ -645,8 +653,7 @@ class _ScromCompassPainter extends CustomPainter {
     ];
     for (final (String label, double a0) in slots) {
       final double a = a0 + angle * 0.25;
-      final Offset pos =
-          center + Offset(math.cos(a) * r * 0.58, math.sin(a) * r * 0.58);
+      final Offset pos = center + Offset(math.cos(a) * r * 0.58, math.sin(a) * r * 0.58);
       final Paint dot = Paint()..color = _scromRedPencil;
       canvas.drawCircle(pos, 5, dot);
       canvas.drawCircle(
@@ -825,7 +832,11 @@ class _ScromSectionTitle extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Container(width: 36, height: 2, color: _scromBlueprint),
+              Container(
+                width: 36,
+                height: 2,
+                color: _scromBlueprint,
+              ),
             ],
           ),
         ),
@@ -880,7 +891,9 @@ class _ScromAnatomyPanel extends StatelessWidget {
               flex: 5,
               child: SizedBox(
                 height: 320,
-                child: CustomPaint(painter: _ScromAnatomyPainter()),
+                child: CustomPaint(
+                  painter: _ScromAnatomyPainter(),
+                ),
               ),
             ),
             const SizedBox(width: 18),
@@ -1050,17 +1063,13 @@ class _ScromAnatomyPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      label.paint(
-        canvas,
-        Offset(body.right + 4, slot.center.dy - label.height / 2),
-      );
+      label.paint(canvas, Offset(body.right + 4, slot.center.dy - label.height / 2));
     }
 
     // Top banner label.
     final TextPainter title = TextPainter(
       text: TextSpan(
-        text:
-            'RenderBox with SlottedContainerRenderObjectMixin<_ScromSlot, RenderBox>',
+        text: 'RenderBox with SlottedContainerRenderObjectMixin<_ScromSlot, RenderBox>',
         style: TextStyle(
           fontSize: 11,
           fontFamily: 'monospace',
@@ -1080,11 +1089,7 @@ class _ScromAnatomyPainter extends CustomPainter {
       ..strokeWidth = 1;
     canvas.drawLine(Offset(body.left, dy), Offset(body.right, dy), dim);
     canvas.drawLine(Offset(body.left, dy - 4), Offset(body.left, dy + 4), dim);
-    canvas.drawLine(
-      Offset(body.right, dy - 4),
-      Offset(body.right, dy + 4),
-      dim,
-    );
+    canvas.drawLine(Offset(body.right, dy - 4), Offset(body.right, dy + 4), dim);
     final TextPainter dimLabel = TextPainter(
       text: TextSpan(
         text: 'size.width = incoming.constrain(maxChildWidth)',
@@ -1096,7 +1101,10 @@ class _ScromAnatomyPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    dimLabel.paint(canvas, Offset(body.center.dx - dimLabel.width / 2, dy + 4));
+    dimLabel.paint(
+      canvas,
+      Offset(body.center.dx - dimLabel.width / 2, dy + 4),
+    );
   }
 
   @override
@@ -1230,7 +1238,10 @@ class _ScromTriptychCase extends StatelessWidget {
                   width: 1,
                 ),
               ),
-              child: Align(alignment: Alignment.topCenter, child: child),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: child,
+              ),
             ),
           ],
         ),
@@ -1426,7 +1437,9 @@ class _ScromLayoutDiagram extends StatelessWidget {
         padding: const EdgeInsets.all(18),
         child: SizedBox(
           height: 420,
-          child: CustomPaint(painter: _ScromLayoutPainter()),
+          child: CustomPaint(
+            painter: _ScromLayoutPainter(),
+          ),
         ),
       ),
     );
@@ -1456,12 +1469,11 @@ class _ScromLayoutPainter extends CustomPainter {
     canvas.drawRect(box, boxStroke);
 
     // Three slot rectangles inside.
-    final List<({String name, double fraction})> slots =
-        <({String name, double fraction})>[
-          (name: 'header', fraction: 0.18),
-          (name: 'body', fraction: 0.52),
-          (name: 'trailing', fraction: 0.25),
-        ];
+    final List<({String name, double fraction})> slots = <({String name, double fraction})>[
+      (name: 'header', fraction: 0.18),
+      (name: 'body', fraction: 0.52),
+      (name: 'trailing', fraction: 0.25),
+    ];
 
     const double pad = 10;
     final double usable = box.height - pad * 2 - 2 * 8;
@@ -1469,7 +1481,12 @@ class _ScromLayoutPainter extends CustomPainter {
 
     for (int i = 0; i < slots.length; i++) {
       final double h = usable * slots[i].fraction;
-      final Rect slot = Rect.fromLTWH(box.left + 14, y, box.width - 28, h);
+      final Rect slot = Rect.fromLTWH(
+        box.left + 14,
+        y,
+        box.width - 28,
+        h,
+      );
       // Fill with pencil hatching.
       final Paint hatch = Paint()
         ..color = _scromBlueprintSoft.withValues(alpha: 0.14)
@@ -1517,7 +1534,11 @@ class _ScromLayoutPainter extends CustomPainter {
         Offset(from.dx - 20, to.dy),
         ink,
       );
-      canvas.drawLine(Offset(from.dx - 20, to.dy), to, ink);
+      canvas.drawLine(
+        Offset(from.dx - 20, to.dy),
+        to,
+        ink,
+      );
       canvas.drawLine(to, to + const Offset(-6, -4), ink);
       canvas.drawLine(to, to + const Offset(-6, 4), ink);
 
@@ -1674,8 +1695,7 @@ class _ScromComparePanel extends StatelessWidget {
           child: _ScromCompareCard(
             tone: _ScromCompareTone.wrong,
             title: 'DON\'T · list semantics pretending to be slot semantics',
-            code:
-                'class BadTriptych extends RenderBox\n'
+            code: 'class BadTriptych extends RenderBox\n'
                 '    with ContainerRenderObjectMixin<RenderBox, _Pd>,\n'
                 '         RenderBoxContainerDefaultsMixin<RenderBox, _Pd> {\n'
                 '  // Implementer convention: firstChild = header,\n'
@@ -1703,8 +1723,7 @@ class _ScromComparePanel extends StatelessWidget {
           child: _ScromCompareCard(
             tone: _ScromCompareTone.right,
             title: 'DO · name the slots; let the mixin own the map',
-            code:
-                'class GoodTriptych extends RenderBox\n'
+            code: 'class GoodTriptych extends RenderBox\n'
                 '    with SlottedContainerRenderObjectMixin<_ScromSlot, RenderBox> {\n'
                 '  RenderBox? get headerChild   => childForSlot(_ScromSlot.header);\n'
                 '  RenderBox? get bodyChild     => childForSlot(_ScromSlot.body);\n'
@@ -1755,10 +1774,10 @@ class _ScromCompareCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color accent = tone == _ScromCompareTone.wrong
-        ? _scromRedPencil
-        : _scromBlueprint;
-    final String bang = tone == _ScromCompareTone.wrong ? '×' : '✓';
+    final Color accent =
+        tone == _ScromCompareTone.wrong ? _scromRedPencil : _scromBlueprint;
+    final String bang =
+        tone == _ScromCompareTone.wrong ? '×' : '✓';
     return _ScromPaper(
       child: Padding(
         padding: const EdgeInsets.all(14),
@@ -1872,8 +1891,7 @@ class _ScromCrossRefPanel extends StatelessWidget {
                 'A doubly-linked list of children with ContainerParentDataMixin-typed '
                 'parentData. First/last pointers, next/prev siblings. Great for Row, '
                 'Column, Flow, Wrap — anywhere children are homogeneous and sequential.',
-            when:
-                'Use when children are interchangeable and indexed by position.',
+            when: 'Use when children are interchangeable and indexed by position.',
           ),
         ),
         SizedBox(width: 12),
@@ -1885,8 +1903,7 @@ class _ScromCrossRefPanel extends StatelessWidget {
                 'A typed map from SlotType to ChildType. Each slot holds at most one '
                 'child. Slot identity is preserved across rebuilds. Provides attach, '
                 'detach, visit, diagnostics — subclass implements layout / paint / hitTest.',
-            when:
-                'Use when children play different roles: header, body, trailing, etc.',
+            when: 'Use when children play different roles: header, body, trailing, etc.',
             accent: true,
           ),
         ),
@@ -1924,9 +1941,8 @@ class _ScromRefCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color border = accent
-        ? _scromRedPencil
-        : _scromBlueprint.withValues(alpha: 0.7);
+    final Color border =
+        accent ? _scromRedPencil : _scromBlueprint.withValues(alpha: 0.7);
     return _ScromPaper(
       child: Padding(
         padding: const EdgeInsets.all(14),
@@ -2142,7 +2158,11 @@ class _ScromColophon extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(width: 10, height: 10, color: _scromRedPencil),
+          Container(
+            width: 10,
+            height: 10,
+            color: _scromRedPencil,
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(

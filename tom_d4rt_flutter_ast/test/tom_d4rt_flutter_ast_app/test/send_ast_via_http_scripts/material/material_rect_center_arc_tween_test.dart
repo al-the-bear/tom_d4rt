@@ -480,7 +480,9 @@ Widget _buildCenterArcProperty() {
   for (int i = 0; i <= 8; i++) {
     final double t = i / 8;
     final Rect r = tween.lerp(t);
-    rectSamples.add(_buildRectBox(r, Color(0xFF00897B).withValues(alpha: 0.6)));
+    rectSamples.add(
+      _buildRectBox(r, Color(0xFF00897B).withValues(alpha: 0.6)),
+    );
     // Mark center with a small bright dot
     centerMarkers.add(_buildDot(r.center, Color(0xFFD50000), size: 6.0));
   }
@@ -1104,7 +1106,10 @@ Widget _buildEdgeCases() {
       ),
       SizedBox(height: 4),
       _buildInfoCard('begin = end', _fmtRect(sameRect)),
-      _buildInfoCard('t=0.5 result', _fmtRect(sameMid)),
+      _buildInfoCard(
+        't=0.5 result',
+        _fmtRect(sameMid),
+      ),
       _buildInfoCard(
         'Observation',
         'When begin equals end, all t values return the same rect.',

@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.camera,
       'title': 'What is SnapshotPainter?',
-      'body':
-          'SnapshotPainter is an abstract class that works with '
+      'body': 'SnapshotPainter is an abstract class that works with '
           'SnapshotWidget. When a snapshot is active, the child widget tree '
           'is rasterized (drawn) into an image once, and SnapshotPainter\'s '
           'paintSnapshot method is called with that image on subsequent '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.speed,
       'title': 'Performance Benefits',
-      'body':
-          'Rasterizing complex widget trees into a single image avoids '
+      'body': 'Rasterizing complex widget trees into a single image avoids '
           'the cost of laying out and painting dozens or hundreds of child '
           'widgets every frame. This is especially valuable during animations '
           'where only the snapshot effect changes, not the children.',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.brush,
       'title': 'Custom Visual Effects',
-      'body':
-          'By overriding paintSnapshot, you can apply any Canvas-level '
+      'body': 'By overriding paintSnapshot, you can apply any Canvas-level '
           'effect to the rasterized image: tinting, opacity changes, '
           'transforms (rotation, scale), filters, clipping, or drawing '
           'additional decorations around the captured content.',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'Painter Lifecycle',
-      'body':
-          'SnapshotPainter extends ChangeNotifier. When the painter\'s '
+      'body': 'SnapshotPainter extends ChangeNotifier. When the painter\'s '
           'state changes (e.g., tint color updates), call notifyListeners() '
           'to trigger a repaint. The shouldRepaint method determines if '
           'the snapshot image itself needs to be recaptured.',
@@ -129,41 +125,35 @@ dynamic build(BuildContext context) {
     {
       'method': 'paint(context, offset, size, painter)',
       'returns': 'void',
-      'desc':
-          'Called when the snapshot is NOT active or not available. '
+      'desc': 'Called when the snapshot is NOT active or not available. '
           'Paints the child normally using PaintingContext. The default '
           'implementation simply delegates to context.paintChild.',
     },
     {
-      'method':
-          'paintSnapshot(context, offset, size, image, sourceSize, pixelRatio)',
+      'method': 'paintSnapshot(context, offset, size, image, sourceSize, pixelRatio)',
       'returns': 'void',
-      'desc':
-          'Called when the snapshot IS active. Receives the rasterized '
+      'desc': 'Called when the snapshot IS active. Receives the rasterized '
           'ui.Image of the child tree. Override to apply visual effects '
           'like tinting, transforming, or decorating the cached image.',
     },
     {
       'method': 'shouldRepaint(oldPainter)',
       'returns': 'bool',
-      'desc':
-          'Called when the painter is replaced. Return true if the new '
+      'desc': 'Called when the painter is replaced. Return true if the new '
           'painter would produce different output than the old one. Similar '
           'to CustomPainter.shouldRepaint.',
     },
     {
       'method': 'addListener(listener)',
       'returns': 'void',
-      'desc':
-          'Inherited from ChangeNotifier. Add a listener that is '
+      'desc': 'Inherited from ChangeNotifier. Add a listener that is '
           'called when notifyListeners() is invoked. SnapshotWidget '
           'listens to trigger repaints.',
     },
     {
       'method': 'notifyListeners()',
       'returns': 'void',
-      'desc':
-          'Call when the painter\'s visual state changes (e.g., tint '
+      'desc': 'Call when the painter\'s visual state changes (e.g., tint '
           'color, opacity, border width). Triggers a repaint without '
           'recapturing the snapshot image.',
     },
@@ -256,8 +246,7 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'label': 'Child Widget Tree',
-      'desc':
-          'A complex tree with dozens of widgets — columns, rows, '
+      'desc': 'A complex tree with dozens of widgets — columns, rows, '
           'images, text, icons, decorations. Normally repainted every frame.',
       'icon': Icons.account_tree,
       'color': Colors.blue,
@@ -265,8 +254,7 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'label': 'Rasterize to Image',
-      'desc':
-          'The entire child tree is painted once to an offscreen image '
+      'desc': 'The entire child tree is painted once to an offscreen image '
           '(ui.Image). This captures the visual output as pixels.',
       'icon': Icons.camera_alt,
       'color': Colors.orange,
@@ -274,8 +262,7 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'label': 'paintSnapshot Called',
-      'desc':
-          'On subsequent frames, paintSnapshot receives this cached image. '
+      'desc': 'On subsequent frames, paintSnapshot receives this cached image. '
           'No need to rebuild or repaint the child tree.',
       'icon': Icons.brush,
       'color': Colors.green,
@@ -283,8 +270,7 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'label': 'Apply Effects',
-      'desc':
-          'Your custom SnapshotPainter can draw the image with '
+      'desc': 'Your custom SnapshotPainter can draw the image with '
           'modifications: tint, rotation, scale, opacity, borders.',
       'icon': Icons.auto_fix_high,
       'color': Colors.purple,
@@ -410,7 +396,9 @@ dynamic build(BuildContext context) {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: tColor == Colors.transparent ? Colors.indigo : tColor,
+                color: tColor == Colors.transparent
+                    ? Colors.indigo
+                    : tColor,
               ),
             ),
             const SizedBox(height: 4),
@@ -436,10 +424,7 @@ dynamic build(BuildContext context) {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.photo,
-                              color: Colors.white.withOpacity(0.9),
-                            ),
+                            Icon(Icons.photo, color: Colors.white.withOpacity(0.9)),
                             Text(
                               'Gallery',
                               style: TextStyle(
@@ -452,10 +437,7 @@ dynamic build(BuildContext context) {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.music_note,
-                              color: Colors.white.withOpacity(0.9),
-                            ),
+                            Icon(Icons.music_note, color: Colors.white.withOpacity(0.9)),
                             Text(
                               'Music',
                               style: TextStyle(
@@ -468,10 +450,7 @@ dynamic build(BuildContext context) {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.video_library,
-                              color: Colors.white.withOpacity(0.9),
-                            ),
+                            Icon(Icons.video_library, color: Colors.white.withOpacity(0.9)),
                             Text(
                               'Video',
                               style: TextStyle(
@@ -486,7 +465,10 @@ dynamic build(BuildContext context) {
                   ),
                   // Tint overlay (simulates what paintSnapshot would do)
                   if (tOpacity > 0)
-                    Container(height: 80, color: tColor.withOpacity(tOpacity)),
+                    Container(
+                      height: 80,
+                      color: tColor.withOpacity(tOpacity),
+                    ),
                 ],
               ),
             ),
@@ -504,8 +486,7 @@ dynamic build(BuildContext context) {
   final borderEffects = <Map<String, dynamic>>[
     {
       'name': 'Rounded Border',
-      'desc':
-          'SnapshotPainter adds a rounded border around the cached '
+      'desc': 'SnapshotPainter adds a rounded border around the cached '
           'image. Useful for card-like effects during transitions.',
       'borderColor': Colors.indigo,
       'borderWidth': 3.0,
@@ -514,8 +495,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Shadow Effect',
-      'desc':
-          'Draw a shadow behind the snapshot image. Simulates elevation '
+      'desc': 'Draw a shadow behind the snapshot image. Simulates elevation '
           'changes during animations without repainting children.',
       'borderColor': Colors.transparent,
       'borderWidth': 0.0,
@@ -524,8 +504,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Thick Colored Frame',
-      'desc':
-          'A bold colored frame painted by paintSnapshot around the '
+      'desc': 'A bold colored frame painted by paintSnapshot around the '
           'cached content. Great for focus/selection indicators.',
       'borderColor': Colors.deepOrange,
       'borderWidth': 5.0,
@@ -534,8 +513,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Double Border',
-      'desc':
-          'Outer and inner borders painted around the snapshot. '
+      'desc': 'Outer and inner borders painted around the snapshot. '
           'Achieves complex frame effects without widget overhead.',
       'borderColor': Colors.teal,
       'borderWidth': 2.0,
@@ -563,7 +541,9 @@ dynamic build(BuildContext context) {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.bold,
-                color: beColor == Colors.transparent ? Colors.indigo : beColor,
+                color: beColor == Colors.transparent
+                    ? Colors.indigo
+                    : beColor,
               ),
             ),
             const SizedBox(height: 4),
@@ -591,7 +571,10 @@ dynamic build(BuildContext context) {
                   height: 70,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.indigo.shade700, Colors.blue.shade500],
+                      colors: [
+                        Colors.indigo.shade700,
+                        Colors.blue.shade500,
+                      ],
                     ),
                   ),
                   child: Center(
@@ -630,8 +613,7 @@ dynamic build(BuildContext context) {
     {
       'scenario': 'Tint color changed',
       'result': 'true',
-      'reason':
-          'The visual output differs because the overlay color is '
+      'reason': 'The visual output differs because the overlay color is '
           'different. The snapshot image itself does not need to be '
           'recaptured, but paintSnapshot must be called again.',
       'icon': Icons.palette,
@@ -640,8 +622,7 @@ dynamic build(BuildContext context) {
     {
       'scenario': 'Same painter reused',
       'result': 'false',
-      'reason':
-          'No visual change. Returning false skips the repaint entirely. '
+      'reason': 'No visual change. Returning false skips the repaint entirely. '
           'This is an optimization — the framework can reuse the last frame.',
       'icon': Icons.check_circle,
       'color': Colors.green,
@@ -649,8 +630,7 @@ dynamic build(BuildContext context) {
     {
       'scenario': 'Border width changed',
       'result': 'true',
-      'reason':
-          'The border around the snapshot image is thicker or thinner. '
+      'reason': 'The border around the snapshot image is thicker or thinner. '
           'Although the captured image is the same, the decoration differs.',
       'icon': Icons.border_style,
       'color': Colors.indigo,
@@ -658,8 +638,7 @@ dynamic build(BuildContext context) {
     {
       'scenario': 'Opacity threshold crossed',
       'result': 'true',
-      'reason':
-          'The painter now draws the image at a different opacity. '
+      'reason': 'The painter now draws the image at a different opacity. '
           'Even small opacity changes produce visible differences.',
       'icon': Icons.opacity,
       'color': Colors.purple,
@@ -759,8 +738,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Page Transitions',
-      'body':
-          'During a page transition, capture the outgoing page as a '
+      'body': 'During a page transition, capture the outgoing page as a '
           'snapshot and animate it (scale, fade, rotate) without '
           'maintaining the entire widget tree of the old page.',
       'icon': Icons.swap_horiz,
@@ -768,8 +746,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Scroll Performance',
-      'body':
-          'Complex list items can be snapshotted while scrolling fast. '
+      'body': 'Complex list items can be snapshotted while scrolling fast. '
           'The user sees the cached image instead of re-rendering expensive '
           'widgets like charts or rich media layouts.',
       'icon': Icons.speed,
@@ -777,8 +754,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Visual Feedback',
-      'body':
-          'Apply a tint or border to a snapshot during drag operations, '
+      'body': 'Apply a tint or border to a snapshot during drag operations, '
           'long presses, or focus changes. The visual feedback is cheap '
           'because it operates on a cached image.',
       'icon': Icons.touch_app,
@@ -786,8 +762,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Blur / Frosted Glass',
-      'body':
-          'Capture content behind a panel, then paint the snapshot '
+      'body': 'Capture content behind a panel, then paint the snapshot '
           'with a blur filter or reduced opacity to create frosted glass '
           'effects without using BackdropFilter.',
       'icon': Icons.blur_on,
@@ -795,8 +770,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Drag Preview',
-      'body':
-          'When dragging a widget, use a snapshot as the drag feedback '
+      'body': 'When dragging a widget, use a snapshot as the drag feedback '
           'image. The original widget can be replaced while the snapshot '
           'follows the pointer, maintaining visual continuity.',
       'icon': Icons.drag_indicator,
@@ -804,8 +778,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Animation Freezing',
-      'body':
-          'Freeze a widget tree at a specific frame while animating '
+      'body': 'Freeze a widget tree at a specific frame while animating '
           'something else. The snapshot captures one moment, then you '
           'can animate the snapshot\'s position or opacity.',
       'icon': Icons.ac_unit,
@@ -877,38 +850,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.camera,
-      'text':
-          'SnapshotPainter is an abstract class that paints over a '
+      'text': 'SnapshotPainter is an abstract class that paints over a '
           'cached rasterized image of a child widget tree.',
     },
     {
       'icon': Icons.brush,
-      'text':
-          'Override paintSnapshot to apply custom visual effects: tints, '
+      'text': 'Override paintSnapshot to apply custom visual effects: tints, '
           'borders, transforms, opacity, and composite operations.',
     },
     {
       'icon': Icons.speed,
-      'text':
-          'Major performance benefit: complex child trees are painted once '
+      'text': 'Major performance benefit: complex child trees are painted once '
           'to an image, then the image is reused on subsequent frames.',
     },
     {
       'icon': Icons.refresh,
-      'text':
-          'Call notifyListeners() when the painter\'s visual state changes. '
+      'text': 'Call notifyListeners() when the painter\'s visual state changes. '
           'Implement shouldRepaint to control when effects update.',
     },
     {
       'icon': Icons.widgets,
-      'text':
-          'Works with SnapshotWidget. Set SnapshotWidget.painter to your '
+      'text': 'Works with SnapshotWidget. Set SnapshotWidget.painter to your '
           'custom SnapshotPainter subclass.',
     },
     {
       'icon': Icons.architecture,
-      'text':
-          'Extends ChangeNotifier, so it follows the standard listener '
+      'text': 'Extends ChangeNotifier, so it follows the standard listener '
           'pattern. Dispose properly to avoid memory leaks.',
     },
   ];

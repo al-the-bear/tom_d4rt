@@ -378,7 +378,9 @@ Widget _calloutBox({
   // [Container(width:4, color: tint), Expanded(Padding(content))]).
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+    ),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: IntrinsicHeight(
@@ -391,7 +393,10 @@ Widget _calloutBox({
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.10),
-                  border: Border.all(color: color.withOpacity(0.3), width: 1.0),
+                  border: Border.all(
+                    color: color.withOpacity(0.3),
+                    width: 1.0,
+                  ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -473,7 +478,10 @@ class _AnatomyPainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(14)),
+      RRect.fromRectAndRadius(
+        Offset.zero & size,
+        const Radius.circular(14),
+      ),
       bg,
     );
 
@@ -549,7 +557,11 @@ class _AnatomyPainter extends CustomPainter {
         // Light dot indicator on live/pending cells.
         if (state == 1 || state == 2) {
           final dot = Paint()..color = Colors.white.withOpacity(0.9);
-          canvas.drawCircle(Offset(rect.right - 5, rect.top + 5), 1.8, dot);
+          canvas.drawCircle(
+            Offset(rect.right - 5, rect.top + 5),
+            1.8,
+            dot,
+          );
         }
       }
     }
@@ -661,7 +673,10 @@ class _LifecyclePainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(14)),
+      RRect.fromRectAndRadius(
+        Offset.zero & size,
+        const Radius.circular(14),
+      ),
       bg,
     );
 
@@ -725,7 +740,10 @@ class _LifecyclePainter extends CustomPainter {
         textAlign: TextAlign.center,
       );
       title.layout(maxWidth: boxW - 8);
-      title.paint(canvas, Offset(p.dx + (boxW - title.width) / 2, p.dy + 6));
+      title.paint(
+        canvas,
+        Offset(p.dx + (boxW - title.width) / 2, p.dy + 6),
+      );
 
       final cap = TextPainter(
         text: TextSpan(
@@ -790,25 +808,21 @@ class _BytesBarPainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(12)),
+      RRect.fromRectAndRadius(
+        Offset.zero & size,
+        const Radius.circular(12),
+      ),
       bg,
     );
 
-    final barRect = Rect.fromLTWH(
-      20,
-      size.height / 2 - 14,
-      size.width - 40,
-      28,
-    );
+    final barRect = Rect.fromLTWH(20, size.height / 2 - 14, size.width - 40, 28);
     final track = Paint()..color = Colors.white12;
     canvas.drawRRect(
       RRect.fromRectAndRadius(barRect, const Radius.circular(14)),
       track,
     );
 
-    final fraction = budget <= 0
-        ? 0.0
-        : (used / budget).clamp(0.0, 1.0).toDouble();
+    final fraction = budget <= 0 ? 0.0 : (used / budget).clamp(0.0, 1.0).toDouble();
     final fillRect = Rect.fromLTWH(
       barRect.left,
       barRect.top,
@@ -820,8 +834,8 @@ class _BytesBarPainter extends CustomPainter {
         colors: fraction > 0.85
             ? const [_accentRed, _accentAmber]
             : fraction > 0.6
-            ? const [_accentAmber, _accentGreen]
-            : const [_accentGreen, _accentCyan],
+                ? const [_accentAmber, _accentGreen]
+                : const [_accentGreen, _accentCyan],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ).createShader(fillRect);
@@ -860,8 +874,7 @@ class _BytesBarPainter extends CustomPainter {
     final pct = (fraction * 100).toStringAsFixed(0);
     final label = TextPainter(
       text: TextSpan(
-        text:
-            'currentSizeBytes=${_formatBytes(used)} / maximumSizeBytes=${_formatBytes(budget)}   ($pct%)',
+        text: 'currentSizeBytes=${_formatBytes(used)} / maximumSizeBytes=${_formatBytes(budget)}   ($pct%)',
         style: const TextStyle(
           color: Colors.white,
           fontSize: 11,
@@ -916,7 +929,11 @@ class _SwatchPainter extends CustomPainter {
 
     // Center dot — "decode origin" marker.
     final dot = Paint()..color = Colors.white.withOpacity(0.75);
-    canvas.drawCircle(Offset(size.width * 0.30, size.height * 0.30), 2.5, dot);
+    canvas.drawCircle(
+      Offset(size.width * 0.30, size.height * 0.30),
+      2.5,
+      dot,
+    );
   }
 
   @override
@@ -1156,7 +1173,11 @@ class _KnobRow extends StatelessWidget {
           Expanded(
             child: Text(
               desc,
-              style: const TextStyle(color: _ink, fontSize: 12, height: 1.4),
+              style: const TextStyle(
+                color: _ink,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -1229,15 +1250,11 @@ Widget _buildSnapshotSection(_CacheSnapshot snap) {
               const SizedBox(height: 10),
               _kv('runtimeType', snap.typeName),
               _kv('maximumSize', '${snap.maximumSize}  entries'),
-              _kv(
-                'maximumSizeBytes',
-                '${snap.maximumSizeBytes}  bytes  (${_formatBytes(snap.maximumSizeBytes)})',
-              ),
+              _kv('maximumSizeBytes',
+                  '${snap.maximumSizeBytes}  bytes  (${_formatBytes(snap.maximumSizeBytes)})'),
               _kv('currentSize', '${snap.currentSize}  entries'),
-              _kv(
-                'currentSizeBytes',
-                '${snap.currentSizeBytes}  bytes  (${_formatBytes(snap.currentSizeBytes)})',
-              ),
+              _kv('currentSizeBytes',
+                  '${snap.currentSizeBytes}  bytes  (${_formatBytes(snap.currentSizeBytes)})'),
               _kv('liveImageCount', '${snap.liveImageCount}'),
               _kv('pendingImageCount', '${snap.pendingImageCount}'),
               if (snap.error != null)
@@ -1293,19 +1310,13 @@ Widget _buildLifecycleSection() {
             _chip('precacheImage', _accentCyan, icon: Icons.download_outlined),
             _chip('putIfAbsent', _accentBlue, icon: Icons.add_box_outlined),
             _chip('ImageStream', _accentCyan, icon: Icons.stream_outlined),
-            _chip(
-              'ImageStreamCompleter',
-              _accentAmber,
-              icon: Icons.cached_outlined,
-            ),
+            _chip('ImageStreamCompleter', _accentAmber,
+                icon: Icons.cached_outlined),
             _chip('ImageInfo', _accentGreen, icon: Icons.image_outlined),
             _chip('evict', _accentRed, icon: Icons.delete_outline),
             _chip('clear', _accentRed, icon: Icons.delete_sweep_outlined),
-            _chip(
-              'clearLiveImages',
-              _accentRed,
-              icon: Icons.warning_amber_outlined,
-            ),
+            _chip('clearLiveImages', _accentRed,
+                icon: Icons.warning_amber_outlined),
           ],
         ),
       ],
@@ -1338,8 +1349,7 @@ Widget _buildOperationsSection() {
           child: Column(
             children: const [
               _OpRow(
-                sig:
-                    'putIfAbsent(Object key, ImageStreamCompleter Function() loader, {ImageErrorListener? onError})',
+                sig: 'putIfAbsent(Object key, ImageStreamCompleter Function() loader, {ImageErrorListener? onError})',
                 returns: 'ImageStreamCompleter?',
                 desc:
                     'Lookup by key; if absent, invoke loader and admit the '
@@ -1355,12 +1365,14 @@ Widget _buildOperationsSection() {
               _OpRow(
                 sig: 'clear()',
                 returns: 'void',
-                desc: 'Drop every cached entry; live entries are left alone.',
+                desc:
+                    'Drop every cached entry; live entries are left alone.',
               ),
               _OpRow(
                 sig: 'clearLiveImages()',
                 returns: 'void',
-                desc: 'Force-dispose live entries. Visible images may flash.',
+                desc:
+                    'Force-dispose live entries. Visible images may flash.',
               ),
               _OpRow(
                 sig: 'containsKey(Object key)',
@@ -1372,7 +1384,8 @@ Widget _buildOperationsSection() {
               _OpRow(
                 sig: 'statusForKey(Object key)',
                 returns: 'ImageCacheStatus',
-                desc: 'Structured status: pending, keepAlive, live, untracked.',
+                desc:
+                    'Structured status: pending, keepAlive, live, untracked.',
               ),
             ],
           ),
@@ -1421,7 +1434,11 @@ class _OpRow extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             desc,
-            style: const TextStyle(color: _ink, fontSize: 12, height: 1.4),
+            style: const TextStyle(
+              color: _ink,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1476,7 +1493,9 @@ Widget _buildGallerySection() {
         Wrap(
           spacing: 10,
           runSpacing: 10,
-          children: [for (final e in entries) _GallerySwatch(entry: e)],
+          children: [
+            for (final e in entries) _GallerySwatch(entry: e),
+          ],
         ),
       ],
     ),
@@ -1628,34 +1647,13 @@ Widget _buildEvictionSection() {
           child: Column(
             children: [
               _evictHeader(),
-              _evictRow(
-                'evict(key)',
-                'one cached',
-                'rare',
-                'safe',
-                _accentGreen,
-              ),
-              _evictRow(
-                'evict(key, includeLive: true)',
-                'one (any state)',
-                'rare',
-                'medium',
-                _accentAmber,
-              ),
-              _evictRow(
-                'clear()',
-                'all cached',
-                'on-demand',
-                'safe',
-                _accentGreen,
-              ),
-              _evictRow(
-                'clearLiveImages()',
-                'all (including live)',
-                'lifecycle only',
-                'dangerous',
-                _accentRed,
-              ),
+              _evictRow('evict(key)', 'one cached', 'rare', 'safe', _accentGreen),
+              _evictRow('evict(key, includeLive: true)', 'one (any state)',
+                  'rare', 'medium', _accentAmber),
+              _evictRow('clear()', 'all cached', 'on-demand', 'safe',
+                  _accentGreen),
+              _evictRow('clearLiveImages()', 'all (including live)',
+                  'lifecycle only', 'dangerous', _accentRed),
             ],
           ),
         ),
@@ -1685,62 +1683,25 @@ Widget _evictHeader() {
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     child: Row(
       children: const [
-        Expanded(
-          flex: 3,
-          child: Text(
-            'verb',
-            style: TextStyle(
-              color: _accentRed,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Text(
-            'scope',
-            style: TextStyle(
-              color: _accentRed,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'frequency',
-            style: TextStyle(
-              color: _accentRed,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'safety',
-            style: TextStyle(
-              color: _accentRed,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
+        Expanded(flex: 3, child: Text('verb',
+            style: TextStyle(color: _accentRed, fontSize: 12,
+                fontWeight: FontWeight.w800))),
+        Expanded(flex: 3, child: Text('scope',
+            style: TextStyle(color: _accentRed, fontSize: 12,
+                fontWeight: FontWeight.w800))),
+        Expanded(flex: 2, child: Text('frequency',
+            style: TextStyle(color: _accentRed, fontSize: 12,
+                fontWeight: FontWeight.w800))),
+        Expanded(flex: 2, child: Text('safety',
+            style: TextStyle(color: _accentRed, fontSize: 12,
+                fontWeight: FontWeight.w800))),
       ],
     ),
   );
 }
 
-Widget _evictRow(
-  String verb,
-  String scope,
-  String freq,
-  String safety,
-  Color safetyColor,
-) {
+Widget _evictRow(String verb, String scope, String freq, String safety,
+    Color safetyColor) {
   return Container(
     decoration: const BoxDecoration(
       border: Border(bottom: BorderSide(color: Colors.white12)),
@@ -1893,7 +1854,8 @@ Widget _buildStatusSection() {
               _StatusRow(
                 name: 'untracked',
                 color: _muted,
-                desc: 'Cache has never seen this key. putIfAbsent admits it.',
+                desc:
+                    'Cache has never seen this key. putIfAbsent admits it.',
               ),
               _StatusRow(
                 name: 'pending',
@@ -1966,7 +1928,11 @@ class _StatusRow extends StatelessWidget {
           Expanded(
             child: Text(
               desc,
-              style: const TextStyle(color: _ink, fontSize: 12, height: 1.4),
+              style: const TextStyle(
+                color: _ink,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -2009,7 +1975,8 @@ Widget _buildInteractionsSection() {
         ),
         _kv('PaintingBinding.instance', 'singleton, late-initialised'),
         _kv('PaintingBinding.imageCache', 'ImageCache (live)'),
-        _kv('PaintingBinding.createImageCache()', 'overridable hook for tests'),
+        _kv('PaintingBinding.createImageCache()',
+            'overridable hook for tests'),
         _kv('PaintingBinding.evict(key)', 'forwards to cache.evict'),
       ],
     ),
@@ -2232,12 +2199,10 @@ dynamic build(BuildContext context) {
   print('image_cache_test: building deep visual demo');
 
   final snap = _takeSnapshot();
-  print(
-    'image_cache_test: snapshot available=${snap.available} '
-    'maxSize=${snap.maximumSize} maxBytes=${snap.maximumSizeBytes} '
-    'curSize=${snap.currentSize} curBytes=${snap.currentSizeBytes} '
-    'live=${snap.liveImageCount} pending=${snap.pendingImageCount}',
-  );
+  print('image_cache_test: snapshot available=${snap.available} '
+      'maxSize=${snap.maximumSize} maxBytes=${snap.maximumSizeBytes} '
+      'curSize=${snap.currentSize} curBytes=${snap.currentSizeBytes} '
+      'live=${snap.liveImageCount} pending=${snap.pendingImageCount}');
 
   // Defensive demo-only references so the analyzer accepts the imports used
   // for type discussion in the prose / snippets. None of these are mutated.

@@ -4,15 +4,18 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+
 // D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
-mixin _TickerProviderShim<T extends StatefulWidget> on State<T>
-    implements TickerProvider {
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
   @override
   Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
 }
 
 dynamic build(BuildContext context) {
-  return MaterialApp(theme: ThemeData.light(), home: const ShaderMaskDemo());
+  return MaterialApp(
+    theme: ThemeData.light(),
+    home: const ShaderMaskDemo(),
+  );
 }
 
 class ShaderMaskDemo extends StatefulWidget {
@@ -148,20 +151,10 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
           ).createShader(bounds);
         case 2:
           return const SweepGradient(
-            colors: [
-              Colors.red,
-              Colors.orange,
-              Colors.yellow,
-              Colors.green,
-              Colors.blue,
-              Colors.purple,
-              Colors.red,
-            ],
+            colors: [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple, Colors.red],
           ).createShader(bounds);
         default:
-          return const LinearGradient(
-            colors: [Colors.white, Colors.white],
-          ).createShader(bounds);
+          return const LinearGradient(colors: [Colors.white, Colors.white]).createShader(bounds);
       }
     }
 
@@ -215,38 +208,33 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
               child: ShaderMask(
                 shaderCallback: getShader,
                 blendMode: BlendMode.srcIn,
-                child: const Icon(Icons.star, size: 150, color: Colors.white),
+                child: const Icon(
+                  Icons.star,
+                  size: 150,
+                  color: Colors.white,
+                ),
               ),
             ),
 
             const SizedBox(height: 16),
 
             // All gradient types comparison
-            const Text(
-              'All gradient types:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('All gradient types:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildGradientDemo(
                   'Linear',
-                  (bounds) => const LinearGradient(
-                    colors: [Colors.blue, Colors.cyan],
-                  ).createShader(bounds),
+                  (bounds) => const LinearGradient(colors: [Colors.blue, Colors.cyan]).createShader(bounds),
                 ),
                 _buildGradientDemo(
                   'Radial',
-                  (bounds) => const RadialGradient(
-                    colors: [Colors.red, Colors.orange],
-                  ).createShader(bounds),
+                  (bounds) => const RadialGradient(colors: [Colors.red, Colors.orange]).createShader(bounds),
                 ),
                 _buildGradientDemo(
                   'Sweep',
-                  (bounds) => const SweepGradient(
-                    colors: [Colors.purple, Colors.pink, Colors.purple],
-                  ).createShader(bounds),
+                  (bounds) => const SweepGradient(colors: [Colors.purple, Colors.pink, Colors.purple]).createShader(bounds),
                 ),
               ],
             ),
@@ -258,16 +246,17 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
     );
   }
 
-  Widget _buildGradientDemo(
-    String label,
-    Shader Function(Rect) shaderCallback,
-  ) {
+  Widget _buildGradientDemo(String label, Shader Function(Rect) shaderCallback) {
     return Column(
       children: [
         ShaderMask(
           shaderCallback: shaderCallback,
           blendMode: BlendMode.srcIn,
-          child: Container(width: 80, height: 80, color: Colors.white),
+          child: Container(
+            width: 80,
+            height: 80,
+            color: Colors.white,
+          ),
         ),
         const SizedBox(height: 4),
         Text(label, style: const TextStyle(fontSize: 12)),
@@ -362,26 +351,11 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Common blend modes:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                  Text(
-                    '• srcIn: Shows shader inside child bounds',
-                    style: TextStyle(fontSize: 11),
-                  ),
-                  Text(
-                    '• srcATop: Shader over child, respecting alpha',
-                    style: TextStyle(fontSize: 11),
-                  ),
-                  Text(
-                    '• modulate: Multiplies colors',
-                    style: TextStyle(fontSize: 11),
-                  ),
-                  Text(
-                    '• dstIn: Child masked by shader alpha',
-                    style: TextStyle(fontSize: 11),
-                  ),
+                  Text('Common blend modes:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  Text('• srcIn: Shows shader inside child bounds', style: TextStyle(fontSize: 11)),
+                  Text('• srcATop: Shader over child, respecting alpha', style: TextStyle(fontSize: 11)),
+                  Text('• modulate: Multiplies colors', style: TextStyle(fontSize: 11)),
+                  Text('• dstIn: Child masked by shader alpha', style: TextStyle(fontSize: 11)),
                 ],
               ),
             ),
@@ -405,35 +379,21 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
     final effects = [
       (
         'Rainbow',
-        const LinearGradient(
-          colors: [
-            Colors.red,
-            Colors.orange,
-            Colors.yellow,
-            Colors.green,
-            Colors.blue,
-            Colors.purple,
-          ],
-        ),
+        const LinearGradient(colors: [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple])
       ),
       (
         'Gold',
         const LinearGradient(
           colors: [Color(0xFFD4AF37), Color(0xFFFFF8DC), Color(0xFFD4AF37)],
           stops: [0.0, 0.5, 1.0],
-        ),
+        )
       ),
       (
         'Silver',
         const LinearGradient(
-          colors: [
-            Color(0xFF808080),
-            Color(0xFFC0C0C0),
-            Color(0xFFE8E8E8),
-            Color(0xFFC0C0C0),
-          ],
+          colors: [Color(0xFF808080), Color(0xFFC0C0C0), Color(0xFFE8E8E8), Color(0xFFC0C0C0)],
           stops: [0.0, 0.3, 0.6, 1.0],
-        ),
+        )
       ),
       (
         'Fire',
@@ -441,16 +401,9 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
           colors: [Colors.red, Colors.orange, Colors.yellow],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-        ),
+        )
       ),
-      (
-        'Ocean',
-        const LinearGradient(
-          colors: [Color(0xFF0077BE), Color(0xFF00C6FF)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
+      ('Ocean', const LinearGradient(colors: [Color(0xFF0077BE), Color(0xFF00C6FF)], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
     ];
 
     return Card(
@@ -486,8 +439,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             // Demo text
             Center(
               child: ShaderMask(
-                shaderCallback: (bounds) =>
-                    effects[_textEffect].$2.createShader(bounds),
+                shaderCallback: (bounds) => effects[_textEffect].$2.createShader(bounds),
                 blendMode: BlendMode.srcIn,
                 child: const Text(
                   'FLUTTER',
@@ -503,10 +455,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 24),
 
             // All effects showcase
-            const Text(
-              'All text effects:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('All text effects:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 12),
             ...effects.map((effect) {
               return Padding(
@@ -515,14 +464,10 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                   children: [
                     SizedBox(
                       width: 80,
-                      child: Text(
-                        effect.$1,
-                        style: const TextStyle(fontSize: 12),
-                      ),
+                      child: Text(effect.$1, style: const TextStyle(fontSize: 12)),
                     ),
                     ShaderMask(
-                      shaderCallback: (bounds) =>
-                          effect.$2.createShader(bounds),
+                      shaderCallback: (bounds) => effect.$2.createShader(bounds),
                       blendMode: BlendMode.srcIn,
                       child: const Text(
                         'ShaderMask',
@@ -560,7 +505,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
           center: Alignment.center,
           radius: 0.8,
           colors: [Colors.transparent, Colors.black87],
-        ),
+        )
       ),
       (
         'Spotlight',
@@ -568,19 +513,14 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
           center: Alignment.center,
           radius: 0.5,
           colors: [Colors.white, Colors.transparent],
-        ),
+        )
       ),
       (
         'Horizontal Fade',
         const LinearGradient(
-          colors: [
-            Colors.transparent,
-            Colors.white,
-            Colors.white,
-            Colors.transparent,
-          ],
+          colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
           stops: [0.0, 0.2, 0.8, 1.0],
-        ),
+        )
       ),
       (
         'Duotone',
@@ -588,7 +528,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
           colors: [Colors.cyan, Colors.purple],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-        ),
+        )
       ),
     ];
 
@@ -611,11 +551,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
               Positioned(
                 left: 20 + i * 35.0,
                 top: 30,
-                child: Icon(
-                  Icons.star,
-                  color: Colors.white.withValues(alpha: 0.6),
-                  size: 24,
-                ),
+                child: Icon(Icons.star, color: Colors.white.withValues(alpha: 0.6), size: 24),
               ),
             const Center(
               child: Icon(Icons.landscape, size: 60, color: Colors.white),
@@ -662,11 +598,8 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                 child: imageEffects[_imageEffect].$2 == null
                     ? buildDemoImage()
                     : ShaderMask(
-                        shaderCallback: (bounds) =>
-                            imageEffects[_imageEffect].$2!.createShader(bounds),
-                        blendMode: _imageEffect == 4
-                            ? BlendMode.srcIn
-                            : BlendMode.dstIn,
+                        shaderCallback: (bounds) => imageEffects[_imageEffect].$2!.createShader(bounds),
+                        blendMode: _imageEffect == 4 ? BlendMode.srcIn : BlendMode.dstIn,
                         child: buildDemoImage(),
                       ),
               ),
@@ -718,12 +651,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
           return const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Colors.transparent,
-              Colors.white,
-              Colors.white,
-              Colors.transparent,
-            ],
+            colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
             stops: [0.0, 0.15, 0.85, 1.0],
           );
         case 3: // Left
@@ -782,8 +710,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                 borderRadius: BorderRadius.circular(8),
               ),
               child: ShaderMask(
-                shaderCallback: (bounds) =>
-                    getFadeGradient().createShader(bounds),
+                shaderCallback: (bounds) => getFadeGradient().createShader(bounds),
                 blendMode: BlendMode.dstIn,
                 child: ListView.builder(
                   padding: const EdgeInsets.all(8),
@@ -801,13 +728,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                           CircleAvatar(
                             backgroundColor: Colors.deepOrange,
                             radius: 16,
-                            child: Text(
-                              '${index + 1}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
+                            child: Text('${index + 1}', style: const TextStyle(color: Colors.white, fontSize: 12)),
                           ),
                           const SizedBox(width: 12),
                           Text('List item ${index + 1}'),
@@ -822,11 +743,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 8),
             const Text(
               'Scroll the list to see the fade effect at edges.',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 12,
-                color: Colors.grey,
-              ),
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.grey),
             ),
 
             print('Fade effects section rendered'),
@@ -857,10 +774,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 16),
 
             // Animated shimmer text
-            const Text(
-              '1. Shimmer Text:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('1. Shimmer Text:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Center(
               child: AnimatedBuilder(
@@ -869,11 +783,13 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                   return ShaderMask(
                     shaderCallback: (bounds) {
                       return LinearGradient(
-                        colors: const [Colors.grey, Colors.white, Colors.grey],
+                        colors: const [
+                          Colors.grey,
+                          Colors.white,
+                          Colors.grey,
+                        ],
                         stops: const [0.0, 0.5, 1.0],
-                        transform: _SlideGradientTransform(
-                          _animController.value * 2 - 0.5,
-                        ),
+                        transform: _SlideGradientTransform(_animController.value * 2 - 0.5),
                       ).createShader(bounds);
                     },
                     blendMode: BlendMode.srcIn,
@@ -893,10 +809,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 24),
 
             // Rotating sweep gradient
-            const Text(
-              '2. Rotating Sweep:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('2. Rotating Sweep:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Center(
               child: AnimatedBuilder(
@@ -905,25 +818,13 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                   return ShaderMask(
                     shaderCallback: (bounds) {
                       return SweepGradient(
-                        colors: const [
-                          Colors.red,
-                          Colors.orange,
-                          Colors.yellow,
-                          Colors.green,
-                          Colors.blue,
-                          Colors.purple,
-                          Colors.red,
-                        ],
+                        colors: const [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple, Colors.red],
                         startAngle: _animController.value * 2 * math.pi,
                         endAngle: (_animController.value + 1) * 2 * math.pi,
                       ).createShader(bounds);
                     },
                     blendMode: BlendMode.srcIn,
-                    child: const Icon(
-                      Icons.settings,
-                      size: 80,
-                      color: Colors.white,
-                    ),
+                    child: const Icon(Icons.settings, size: 80, color: Colors.white),
                   );
                 },
               ),
@@ -932,17 +833,13 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 24),
 
             // Pulsing radial
-            const Text(
-              '3. Pulsing Radial:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('3. Pulsing Radial:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Center(
               child: AnimatedBuilder(
                 animation: _animController,
                 builder: (context, child) {
-                  final radius =
-                      0.3 + 0.5 * math.sin(_animController.value * 2 * math.pi);
+                  final radius = 0.3 + 0.5 * math.sin(_animController.value * 2 * math.pi);
                   return ShaderMask(
                     shaderCallback: (bounds) {
                       return RadialGradient(
@@ -959,11 +856,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: const Center(
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.white,
-                          size: 50,
-                        ),
+                        child: Icon(Icons.favorite, color: Colors.white, size: 50),
                       ),
                     ),
                   );
@@ -1002,10 +895,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 16),
 
             // Use Case 1: App Logo
-            const Text(
-              '1. Gradient Logo:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('1. Gradient Logo:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Center(
               child: Row(
@@ -1018,11 +908,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                       end: Alignment.bottomRight,
                     ).createShader(bounds),
                     blendMode: BlendMode.srcIn,
-                    child: const Icon(
-                      Icons.flutter_dash,
-                      size: 48,
-                      color: Colors.white,
-                    ),
+                    child: const Icon(Icons.flutter_dash, size: 48, color: Colors.white),
                   ),
                   const SizedBox(width: 8),
                   ShaderMask(
@@ -1034,10 +920,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                     blendMode: BlendMode.srcIn,
                     child: const Text(
                       'MyApp',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -1047,10 +930,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 24),
 
             // Use Case 2: Loading Skeleton
-            const Text(
-              '2. Loading Skeleton:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('2. Loading Skeleton:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             AnimatedBuilder(
               animation: _animController,
@@ -1063,9 +943,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                       Colors.grey.shade300,
                     ],
                     stops: const [0.0, 0.5, 1.0],
-                    transform: _SlideGradientTransform(
-                      _animController.value * 2 - 0.5,
-                    ),
+                    transform: _SlideGradientTransform(_animController.value * 2 - 0.5),
                   ).createShader(bounds),
                   blendMode: BlendMode.srcATop,
                   child: Container(
@@ -1085,17 +963,9 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: double.infinity,
-                                height: 14,
-                                color: Colors.grey.shade300,
-                              ),
+                              Container(width: double.infinity, height: 14, color: Colors.grey.shade300),
                               const SizedBox(height: 8),
-                              Container(
-                                width: 150,
-                                height: 14,
-                                color: Colors.grey.shade300,
-                              ),
+                              Container(width: 150, height: 14, color: Colors.grey.shade300),
                             ],
                           ),
                         ),
@@ -1109,10 +979,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 24),
 
             // Use Case 3: Disabled State
-            const Text(
-              '3. Disabled State:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('3. Disabled State:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -1121,18 +988,12 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                 Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
-                        'Enabled',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      child: const Text('Enabled', style: TextStyle(color: Colors.white)),
                     ),
                     const SizedBox(height: 4),
                     const Text('Normal', style: TextStyle(fontSize: 11)),
@@ -1148,18 +1009,12 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                       ).createShader(bounds),
                       blendMode: BlendMode.saturation,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 12,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                         decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Text(
-                          'Disabled',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        child: const Text('Disabled', style: TextStyle(color: Colors.white)),
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -1172,29 +1027,19 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             const SizedBox(height: 24),
 
             // Use Case 4: Badge Highlight
-            const Text(
-              '4. Premium Badge:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('4. Premium Badge:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Center(
               child: ShaderMask(
                 shaderCallback: (bounds) => const LinearGradient(
-                  colors: [
-                    Color(0xFFFFD700),
-                    Color(0xFFFFF8DC),
-                    Color(0xFFFFD700),
-                  ],
+                  colors: [Color(0xFFFFD700), Color(0xFFFFF8DC), Color(0xFFFFD700)],
                   stops: [0.0, 0.5, 1.0],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ).createShader(bounds),
                 blendMode: BlendMode.srcIn,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 2),
                     borderRadius: BorderRadius.circular(20),
@@ -1204,13 +1049,7 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
                     children: [
                       Icon(Icons.star, color: Colors.white),
                       SizedBox(width: 6),
-                      Text(
-                        'PREMIUM',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
-                        ),
-                      ),
+                      Text('PREMIUM', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2)),
                     ],
                   ),
                 ),
@@ -1253,16 +1092,8 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
             ),
             const Divider(),
 
-            _buildApiRow(
-              'shaderCallback',
-              '(Rect) => Shader',
-              'Function that creates shader from bounds',
-            ),
-            _buildApiRow(
-              'blendMode',
-              'BlendMode',
-              'How shader composites (default: modulate)',
-            ),
+            _buildApiRow('shaderCallback', '(Rect) => Shader', 'Function that creates shader from bounds'),
+            _buildApiRow('blendMode', 'BlendMode', 'How shader composites (default: modulate)'),
             _buildApiRow('child', 'Widget?', 'Widget to be masked'),
 
             const SizedBox(height: 12),
@@ -1309,31 +1140,13 @@ class _ShaderMaskDemoState extends State<ShaderMaskDemo>
         children: [
           SizedBox(
             width: 120,
-            child: Text(
-              name,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(name, style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w600)),
           ),
           SizedBox(
             width: 120,
-            child: Text(
-              type,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                color: Colors.deepOrange,
-                fontSize: 12,
-              ),
-            ),
+            child: Text(type, style: const TextStyle(fontFamily: 'monospace', color: Colors.deepOrange, fontSize: 12)),
           ),
-          Expanded(
-            child: Text(
-              description,
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
-            ),
-          ),
+          Expanded(child: Text(description, style: const TextStyle(fontSize: 12, color: Colors.grey))),
         ],
       ),
     );

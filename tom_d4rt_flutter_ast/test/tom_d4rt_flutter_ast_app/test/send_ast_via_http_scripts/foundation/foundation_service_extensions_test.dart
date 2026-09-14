@@ -30,7 +30,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF311B92), Color(0xFF4A148C)],
+        colors: [
+          Color(0xFF1A237E),
+          Color(0xFF311B92),
+          Color(0xFF4A148C),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -126,19 +130,13 @@ dynamic build(BuildContext context) {
         SizedBox(height: 18.0),
         Row(
           children: [
-            _buildHeroChip(
-              'enum',
-              Icons.label_important_outline,
-              Colors.cyanAccent,
-            ),
+            _buildHeroChip('enum', Icons.label_important_outline,
+                Colors.cyanAccent),
             SizedBox(width: 8.0),
             _buildHeroChip('foundation', Icons.foundation, Colors.amberAccent),
             SizedBox(width: 8.0),
             _buildHeroChip(
-              'ext.flutter.*',
-              Icons.cable,
-              Colors.lightGreenAccent,
-            ),
+                'ext.flutter.*', Icons.cable, Colors.lightGreenAccent),
             SizedBox(width: 8.0),
             _buildHeroChip('DevTools', Icons.bug_report, Colors.pinkAccent),
           ],
@@ -178,7 +176,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.architecture, color: Colors.indigo.shade700, size: 24.0),
+            Icon(Icons.architecture,
+                color: Colors.indigo.shade700, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'Anatomy of a Foundation Service Extension',
@@ -208,33 +207,24 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildCodeLine(
-                '// Registered in BindingBase.initServiceExtensions',
-                Colors.grey.shade400,
-              ),
+                  '// Registered in BindingBase.initServiceExtensions',
+                  Colors.grey.shade400),
+              _buildCodeLine('registerServiceExtension(',
+                  Colors.lightBlueAccent.shade100),
               _buildCodeLine(
-                'registerServiceExtension(',
-                Colors.lightBlueAccent.shade100,
-              ),
-              _buildCodeLine(
-                '  name: FoundationServiceExtensions.reassemble.name,',
-                Colors.amberAccent.shade100,
-              ),
-              _buildCodeLine(
-                '  callback: (Map<String, String> args) async {',
-                Colors.greenAccent.shade100,
-              ),
-              _buildCodeLine(
-                '    await reassembleApplication();',
-                Colors.white,
-              ),
+                  '  name: FoundationServiceExtensions.reassemble.name,',
+                  Colors.amberAccent.shade100),
+              _buildCodeLine('  callback: (Map<String, String> args) async {',
+                  Colors.greenAccent.shade100),
+              _buildCodeLine('    await reassembleApplication();',
+                  Colors.white),
               _buildCodeLine('    return <String, dynamic>{};', Colors.white),
               _buildCodeLine('  },', Colors.greenAccent.shade100),
               _buildCodeLine(');', Colors.lightBlueAccent.shade100),
               SizedBox(height: 8.0),
               _buildCodeLine(
-                '// Invoked by tooling as: ext.flutter.reassemble',
-                Colors.grey.shade400,
-              ),
+                  '// Invoked by tooling as: ext.flutter.reassemble',
+                  Colors.grey.shade400),
             ],
           ),
         ),
@@ -244,21 +234,12 @@ dynamic build(BuildContext context) {
           runSpacing: 10.0,
           children: [
             _buildAnatomyPill(
-              'name',
-              '.name suffix on enum value',
-              Colors.indigo,
-            ),
+                'name', '.name suffix on enum value', Colors.indigo),
             _buildAnatomyPill(
-              'prefix',
-              'ext.flutter.<name>',
-              Colors.deepPurple,
-            ),
+                'prefix', 'ext.flutter.<name>', Colors.deepPurple),
             _buildAnatomyPill('args', 'Map<String,String>', Colors.teal),
             _buildAnatomyPill(
-              'result',
-              'Map<String,dynamic>',
-              Colors.deepOrange,
-            ),
+                'result', 'Map<String,dynamic>', Colors.deepOrange),
             _buildAnatomyPill('async', 'Future<Map<...>>', Colors.pink),
             _buildAnatomyPill('VM', 'Dart VM service', Colors.green),
           ],
@@ -420,9 +401,11 @@ dynamic build(BuildContext context) {
 
   final List<Widget> extensionCards = <Widget>[];
   for (int i = 0; i < extensionMetas.length; i++) {
-    extensionCards.add(
-      _buildExtensionCard(extensionMetas[i], sectionFade.value, i),
-    );
+    extensionCards.add(_buildExtensionCard(
+      extensionMetas[i],
+      sectionFade.value,
+      i,
+    ));
     if (i < extensionMetas.length - 1) {
       extensionCards.add(SizedBox(height: 14.0));
     }
@@ -459,11 +442,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.menu_book,
-              color: Colors.deepPurple.shade700,
-              size: 24.0,
-            ),
+            Icon(Icons.menu_book,
+                color: Colors.deepPurple.shade700, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'DevTools Recipes',
@@ -567,11 +547,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.orange.shade800,
-              size: 24.0,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.orange.shade800, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'Common Pitfalls',
@@ -668,7 +645,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.compare_arrows, color: Colors.teal.shade700, size: 24.0),
+            Icon(Icons.compare_arrows,
+                color: Colors.teal.shade700, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'Sibling ServiceExtensions Enums',
@@ -751,7 +729,8 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline, size: 18.0, color: Colors.teal.shade800),
+              Icon(Icons.info_outline,
+                  size: 18.0, color: Colors.teal.shade800),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -775,14 +754,20 @@ dynamic build(BuildContext context) {
   // ============================================================
   // SECTION 7: Quick reference table of every enum value
   // ============================================================
-  final List<TableRow> referenceRows = <TableRow>[_buildReferenceHeaderRow()];
+  final List<TableRow> referenceRows = <TableRow>[
+    _buildReferenceHeaderRow(),
+  ];
   for (int i = 0; i < FoundationServiceExtensions.values.length; i++) {
     final FoundationServiceExtensions v = FoundationServiceExtensions.values[i];
     final _ExtensionMeta meta = extensionMetas.firstWhere(
       (_ExtensionMeta m) => m.value == v,
       orElse: () => extensionMetas[0],
     );
-    referenceRows.add(_buildReferenceRow(index: i, enumValue: v, meta: meta));
+    referenceRows.add(_buildReferenceRow(
+      index: i,
+      enumValue: v,
+      meta: meta,
+    ));
   }
 
   final Widget quickReference = Container(
@@ -790,7 +775,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.blueGrey.shade50, Colors.cyan.shade50],
+        colors: [
+          Colors.blueGrey.shade50,
+          Colors.cyan.shade50,
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -809,7 +797,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.menu_open, color: Colors.blueGrey.shade700, size: 22.0),
+            Icon(Icons.menu_open,
+                color: Colors.blueGrey.shade700, size: 22.0),
             SizedBox(width: 10.0),
             Text(
               'Quick Reference',
@@ -831,7 +820,10 @@ dynamic build(BuildContext context) {
           },
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           border: TableBorder.symmetric(
-            inside: BorderSide(color: Colors.blueGrey.shade200, width: 0.6),
+            inside: BorderSide(
+              color: Colors.blueGrey.shade200,
+              width: 0.6,
+            ),
           ),
           children: referenceRows,
         ),
@@ -847,7 +839,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.lightBlue.shade50, Colors.indigo.shade50],
+        colors: [
+          Colors.lightBlue.shade50,
+          Colors.indigo.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -866,7 +861,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.timeline, color: Colors.lightBlue.shade800, size: 24.0),
+            Icon(Icons.timeline,
+                color: Colors.lightBlue.shade800, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'Lifecycle of a Service Extension Call',
@@ -938,7 +934,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF0D1117), Color(0xFF161B22), Color(0xFF1F2937)],
+        colors: [
+          Color(0xFF0D1117),
+          Color(0xFF161B22),
+          Color(0xFF1F2937),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1034,53 +1034,29 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               heroHeader,
               _buildSectionTitle(
-                '1. Anatomy',
-                Icons.architecture,
-                Colors.indigo,
-              ),
+                  '1. Anatomy', Icons.architecture, Colors.indigo),
               anatomySection,
-              _buildSectionTitle(
-                '2. Per-Value Extension Cards',
-                Icons.view_module,
-                Colors.deepPurple,
-              ),
+              _buildSectionTitle('2. Per-Value Extension Cards',
+                  Icons.view_module, Colors.deepPurple),
               ...extensionCards,
               SizedBox(height: 8.0),
               _buildSectionTitle(
-                '3. DevTools Recipes',
-                Icons.menu_book,
-                Colors.deepPurple,
-              ),
+                  '3. DevTools Recipes', Icons.menu_book, Colors.deepPurple),
               recipesSection,
               _buildSectionTitle(
-                '4. Pitfalls',
-                Icons.warning_amber_rounded,
-                Colors.orange,
-              ),
+                  '4. Pitfalls', Icons.warning_amber_rounded, Colors.orange),
               pitfallsSection,
-              _buildSectionTitle(
-                '5. Sibling ServiceExtensions Enums',
-                Icons.compare_arrows,
-                Colors.teal,
-              ),
+              _buildSectionTitle('5. Sibling ServiceExtensions Enums',
+                  Icons.compare_arrows, Colors.teal),
               comparisonSection,
               _buildSectionTitle(
-                '6. Lifecycle',
-                Icons.timeline,
-                Colors.lightBlue,
-              ),
+                  '6. Lifecycle', Icons.timeline, Colors.lightBlue),
               lifecycleSection,
               _buildSectionTitle(
-                '7. Quick Reference',
-                Icons.menu_open,
-                Colors.blueGrey,
-              ),
+                  '7. Quick Reference', Icons.menu_open, Colors.blueGrey),
               quickReference,
               _buildSectionTitle(
-                '8. Wire Format',
-                Icons.terminal,
-                Colors.green,
-              ),
+                  '8. Wire Format', Icons.terminal, Colors.green),
               asciiFooter,
             ],
           ),
@@ -1137,7 +1113,9 @@ Widget _buildSectionTitle(String label, IconData icon, MaterialColor color) {
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(left: BorderSide(color: color.shade400, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color.shade400, width: 4.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.12),
@@ -1220,7 +1198,10 @@ Widget _buildAnatomyPill(String label, String value, MaterialColor color) {
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.shade100, color.shade50],
+        colors: [
+          color.shade100,
+          color.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1262,7 +1243,8 @@ Widget _buildAnatomyPill(String label, String value, MaterialColor color) {
 // ================================================================
 // Card for a single FoundationServiceExtensions value
 // ================================================================
-Widget _buildExtensionCard(_ExtensionMeta meta, double fadeValue, int index) {
+Widget _buildExtensionCard(
+    _ExtensionMeta meta, double fadeValue, int index) {
   final List<Widget> bulletWidgets = <Widget>[];
   for (final String bullet in meta.bullets) {
     bulletWidgets.add(
@@ -1271,7 +1253,8 @@ Widget _buildExtensionCard(_ExtensionMeta meta, double fadeValue, int index) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.chevron_right, size: 16.0, color: meta.gradient[1]),
+            Icon(Icons.chevron_right,
+                size: 16.0, color: meta.gradient[1]),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -1348,9 +1331,7 @@ Widget _buildExtensionCard(_ExtensionMeta meta, double fadeValue, int index) {
                         children: [
                           Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 3.0,
-                            ),
+                                horizontal: 8.0, vertical: 3.0),
                             decoration: BoxDecoration(
                               color: Colors.black.withValues(alpha: 0.22),
                               borderRadius: BorderRadius.circular(10.0),
@@ -1367,9 +1348,7 @@ Widget _buildExtensionCard(_ExtensionMeta meta, double fadeValue, int index) {
                           SizedBox(width: 6.0),
                           Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 3.0,
-                            ),
+                                horizontal: 8.0, vertical: 3.0),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.22),
                               borderRadius: BorderRadius.circular(10.0),
@@ -1408,9 +1387,7 @@ Widget _buildExtensionCard(_ExtensionMeta meta, double fadeValue, int index) {
                       SizedBox(height: 6.0),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.16),
                           borderRadius: BorderRadius.circular(6.0),
@@ -1438,7 +1415,8 @@ Widget _buildExtensionCard(_ExtensionMeta meta, double fadeValue, int index) {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.bolt, size: 16.0, color: meta.gradient[1]),
+                    Icon(Icons.bolt,
+                        size: 16.0, color: meta.gradient[1]),
                     SizedBox(width: 6.0),
                     Text(
                       meta.tagline,
@@ -1465,9 +1443,7 @@ Widget _buildExtensionCard(_ExtensionMeta meta, double fadeValue, int index) {
                 SizedBox(height: 12.0),
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 10.0,
-                  ),
+                      horizontal: 12.0, vertical: 10.0),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade900,
                     borderRadius: BorderRadius.circular(10.0),
@@ -1481,11 +1457,8 @@ Widget _buildExtensionCard(_ExtensionMeta meta, double fadeValue, int index) {
                   ),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.terminal,
-                        size: 14.0,
-                        color: Colors.greenAccent,
-                      ),
+                      Icon(Icons.terminal,
+                          size: 14.0, color: Colors.greenAccent),
                       SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
@@ -1621,7 +1594,9 @@ Widget _buildPitfall({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(left: BorderSide(color: color.shade400, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color.shade400, width: 4.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.14),
@@ -1678,7 +1653,10 @@ Widget _buildCompareHeader() {
   return Container(
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.teal.shade100, Colors.cyan.shade100],
+        colors: [
+          Colors.teal.shade100,
+          Colors.cyan.shade100,
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1739,13 +1717,8 @@ Widget _buildCompareHeader() {
 // ================================================================
 // Comparison row (sibling enums table)
 // ================================================================
-Widget _buildCompareRow(
-  String name,
-  String library,
-  String count,
-  String examples,
-  MaterialColor color,
-) {
+Widget _buildCompareRow(String name, String library, String count,
+    String examples, MaterialColor color) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
     decoration: BoxDecoration(
@@ -1801,7 +1774,10 @@ Widget _buildCompareRow(
           flex: 4,
           child: Text(
             examples,
-            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
+            style: TextStyle(
+              fontSize: 11.0,
+              color: Colors.grey.shade800,
+            ),
           ),
         ),
       ],
@@ -1816,7 +1792,10 @@ TableRow _buildReferenceHeaderRow() {
   return TableRow(
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.blueGrey.shade200, Colors.cyan.shade100],
+        colors: [
+          Colors.blueGrey.shade200,
+          Colors.cyan.shade100,
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1889,7 +1868,10 @@ TableRow _buildReferenceRow({
       _refDataCell(
         Text(
           meta.tagline,
-          style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: Colors.grey.shade800,
+          ),
         ),
       ),
     ],
@@ -1935,7 +1917,10 @@ Widget _buildLifecycleStep({
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.white, color.shade50],
+        colors: [
+          Colors.white,
+          color.shade50,
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),

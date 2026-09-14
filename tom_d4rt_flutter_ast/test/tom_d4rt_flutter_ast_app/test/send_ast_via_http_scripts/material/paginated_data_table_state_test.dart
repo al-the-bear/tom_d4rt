@@ -10,39 +10,17 @@ import 'package:flutter/material.dart';
 // =============================================================================
 class _EmployeeDataSource extends DataTableSource {
   static const _names = <String>[
-    'Alice Johnson',
-    'Bob Smith',
-    'Carol Davis',
-    'David Wilson',
-    'Emma Brown',
-    'Frank Miller',
-    'Grace Lee',
-    'Henry Taylor',
-    'Iris Chen',
-    'Jack Thompson',
-    'Kate Anderson',
-    'Liam Garcia',
-    'Mia Rodriguez',
-    'Noah Martinez',
-    'Olivia Hernandez',
-    'Peter Lopez',
-    'Quinn Walker',
-    'Rachel Hall',
-    'Samuel Allen',
-    'Tara Young',
-    'Uma King',
-    'Victor Wright',
-    'Wendy Scott',
-    'Xavier Green',
+    'Alice Johnson', 'Bob Smith', 'Carol Davis', 'David Wilson',
+    'Emma Brown', 'Frank Miller', 'Grace Lee', 'Henry Taylor',
+    'Iris Chen', 'Jack Thompson', 'Kate Anderson', 'Liam Garcia',
+    'Mia Rodriguez', 'Noah Martinez', 'Olivia Hernandez', 'Peter Lopez',
+    'Quinn Walker', 'Rachel Hall', 'Samuel Allen', 'Tara Young',
+    'Uma King', 'Victor Wright', 'Wendy Scott', 'Xavier Green',
     'Yara Adams',
   ];
 
   static const _departments = <String>[
-    'Engineering',
-    'Marketing',
-    'Sales',
-    'Finance',
-    'HR',
+    'Engineering', 'Marketing', 'Sales', 'Finance', 'HR',
   ];
 
   @override
@@ -77,17 +55,13 @@ class _EmployeeDataSource extends DataTableSource {
 // =============================================================================
 class _TransactionDataSource extends DataTableSource {
   static const _categories = <String>[
-    'Groceries',
-    'Utilities',
-    'Rent',
-    'Dining',
-    'Travel',
-    'Entertainment',
-    'Health',
-    'Shopping',
+    'Groceries', 'Utilities', 'Rent', 'Dining', 'Travel',
+    'Entertainment', 'Health', 'Shopping',
   ];
 
-  static const _statuses = <String>['Cleared', 'Pending', 'Posted', 'Refunded'];
+  static const _statuses = <String>[
+    'Cleared', 'Pending', 'Posted', 'Refunded',
+  ];
 
   @override
   DataRow? getRow(int index) {
@@ -123,26 +97,12 @@ class _TransactionDataSource extends DataTableSource {
 // =============================================================================
 class _ProductDataSource extends DataTableSource {
   static const _items = <String>[
-    'Wireless Mouse',
-    'Mechanical Keyboard',
-    'USB-C Hub',
-    'Laptop Stand',
-    'Desk Lamp',
-    'Monitor Arm',
-    'Webcam HD',
-    'Headphones Pro',
-    'Microphone Studio',
-    'Cable Organizer',
-    'Standing Desk',
-    'Office Chair',
-    'Notebook Set',
-    'Pen Holder',
-    'Phone Mount',
-    'Tablet Stand',
-    'External SSD',
-    'Power Bank',
-    'Wall Charger',
-    'Smart Plug',
+    'Wireless Mouse', 'Mechanical Keyboard', 'USB-C Hub',
+    'Laptop Stand', 'Desk Lamp', 'Monitor Arm', 'Webcam HD',
+    'Headphones Pro', 'Microphone Studio', 'Cable Organizer',
+    'Standing Desk', 'Office Chair', 'Notebook Set',
+    'Pen Holder', 'Phone Mount', 'Tablet Stand',
+    'External SSD', 'Power Bank', 'Wall Charger', 'Smart Plug',
   ];
 
   @override
@@ -208,14 +168,8 @@ class _SensorDataSource extends DataTableSource {
 class _RequestDataSource extends DataTableSource {
   static const _methods = <String>['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
   static const _paths = <String>[
-    '/api/users',
-    '/api/orders',
-    '/api/products',
-    '/api/auth',
-    '/api/cart',
-    '/api/checkout',
-    '/api/inventory',
-    '/api/reports',
+    '/api/users', '/api/orders', '/api/products', '/api/auth',
+    '/api/cart', '/api/checkout', '/api/inventory', '/api/reports',
   ];
 
   @override
@@ -223,11 +177,7 @@ class _RequestDataSource extends DataTableSource {
     if (index >= rowCount) return null;
     final method = _methods[index % _methods.length];
     final path = _paths[index % _paths.length];
-    final code = (index % 5 == 0)
-        ? 500
-        : (index % 3 == 0)
-        ? 404
-        : 200;
+    final code = (index % 5 == 0) ? 500 : (index % 3 == 0) ? 404 : 200;
     final ms = 12 + (index * 7) % 280;
     return DataRow.byIndex(
       index: index,
@@ -300,18 +250,9 @@ class _InvoiceDataSource extends DataTableSource {
   _InvoiceDataSource(this._selected, this._onChanged);
 
   static const _customers = <String>[
-    'Acme Corp',
-    'Globex Inc',
-    'Initech LLC',
-    'Umbrella Co',
-    'Stark Industries',
-    'Wayne Ent',
-    'Wonka Ltd',
-    'Soylent SA',
-    'Tyrell Corp',
-    'Cyberdyne',
-    'Nakatomi',
-    'Oscorp',
+    'Acme Corp', 'Globex Inc', 'Initech LLC', 'Umbrella Co',
+    'Stark Industries', 'Wayne Ent', 'Wonka Ltd', 'Soylent SA',
+    'Tyrell Corp', 'Cyberdyne', 'Nakatomi', 'Oscorp',
   ];
 
   @override
@@ -347,34 +288,20 @@ class _InvoiceDataSource extends DataTableSource {
 // =============================================================================
 class _TaskDataSource extends DataTableSource {
   static const _titles = <String>[
-    'Design landing page',
-    'Refactor auth flow',
-    'Write release notes',
-    'Fix login bug',
-    'Update dependencies',
-    'Plan Q2 roadmap',
-    'Review PR #482',
-    'Migrate database',
-    'Optimize images',
-    'Deploy staging',
-    'Triage backlog',
-    'Pair on payment',
-    'Document API',
-    'Onboard new hire',
-    'Investigate timeout',
+    'Design landing page', 'Refactor auth flow', 'Write release notes',
+    'Fix login bug', 'Update dependencies', 'Plan Q2 roadmap',
+    'Review PR #482', 'Migrate database', 'Optimize images',
+    'Deploy staging', 'Triage backlog', 'Pair on payment',
+    'Document API', 'Onboard new hire', 'Investigate timeout',
   ];
 
   @override
   DataRow? getRow(int index) {
     if (index >= rowCount) return null;
     final t = _titles[index];
-    final priority = (index % 4 == 0)
-        ? 'High'
-        : (index % 4 == 1)
-        ? 'Medium'
-        : (index % 4 == 2)
-        ? 'Low'
-        : 'Critical';
+    final priority = (index % 4 == 0) ? 'High'
+        : (index % 4 == 1) ? 'Medium'
+            : (index % 4 == 2) ? 'Low' : 'Critical';
     final assignee = 'Dev ${(index % 6) + 1}';
     return DataRow.byIndex(
       index: index,
@@ -476,8 +403,7 @@ dynamic build(BuildContext context) {
               // INTRO CARD - When to use what
               // ================================================================
               _SectionCard(
-                title:
-                    'When to use PaginatedDataTable vs DataTable vs DataTable2',
+                title: 'When to use PaginatedDataTable vs DataTable vs DataTable2',
                 description:
                     'Pick the table widget that matches the dataset size and the '
                     'feature surface you actually need.',
@@ -659,38 +585,23 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 12.0),
                     Text(
                       '• GlobalKey<PaginatedDataTableState> exposes pageTo() and firstRowIndex',
-                      style: TextStyle(
-                        color: Color(0xFFE8EAF6),
-                        fontSize: 13.0,
-                      ),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 13.0),
                     ),
                     Text(
                       '• rowsPerPage + availableRowsPerPage + onRowsPerPageChanged drive page sizing',
-                      style: TextStyle(
-                        color: Color(0xFFE8EAF6),
-                        fontSize: 13.0,
-                      ),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 13.0),
                     ),
                     Text(
                       '• onPageChanged fires every time the user navigates',
-                      style: TextStyle(
-                        color: Color(0xFFE8EAF6),
-                        fontSize: 13.0,
-                      ),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 13.0),
                     ),
                     Text(
                       '• sortColumnIndex + sortAscending + DataColumn.onSort enable sortable columns',
-                      style: TextStyle(
-                        color: Color(0xFFE8EAF6),
-                        fontSize: 13.0,
-                      ),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 13.0),
                     ),
                     Text(
                       '• DataRow.byIndex(selected: ..., onSelectChanged: ...) enables checkbox selection',
-                      style: TextStyle(
-                        color: Color(0xFFE8EAF6),
-                        fontSize: 13.0,
-                      ),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 13.0),
                     ),
                     SizedBox(height: 12.0),
                     Text(
@@ -786,7 +697,10 @@ class _PageToSectionState extends State<_PageToSection> {
               'Tracked first row index: $_firstRow  ·  '
               'page ${(_firstRow ~/ _perPage) + 1} of '
               '${(total / _perPage).ceil()}',
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12.0,
+              ),
             ),
           ),
           const SizedBox(height: 12.0),
@@ -795,7 +709,8 @@ class _PageToSectionState extends State<_PageToSection> {
             header: const Text('Transactions (60 rows)'),
             rowsPerPage: _perPage,
             showCheckboxColumn: false,
-            onPageChanged: (firstRow) => setState(() => _firstRow = firstRow),
+            onPageChanged: (firstRow) =>
+                setState(() => _firstRow = firstRow),
             columns: const [
               DataColumn(label: Text('TX')),
               DataColumn(label: Text('Date')),
@@ -869,7 +784,9 @@ class _CustomIndicatorSectionState extends State<_CustomIndicatorSection> {
                   child: LinearProgressIndicator(
                     value: pageCount == 0 ? 0.0 : pageNumber / pageCount,
                     backgroundColor: const Color(0xFFFFFFFF),
-                    valueColor: const AlwaysStoppedAnimation(Color(0xFF8E24AA)),
+                    valueColor: const AlwaysStoppedAnimation(
+                      Color(0xFF8E24AA),
+                    ),
                     minHeight: 8.0,
                   ),
                 ),
@@ -897,7 +814,8 @@ class _CustomIndicatorSectionState extends State<_CustomIndicatorSection> {
             header: const Text('Products'),
             rowsPerPage: _perPage,
             showCheckboxColumn: false,
-            onPageChanged: (firstRow) => setState(() => _firstRow = firstRow),
+            onPageChanged: (firstRow) =>
+                setState(() => _firstRow = firstRow),
             columns: const [
               DataColumn(label: Text('SKU')),
               DataColumn(label: Text('Item')),
@@ -1109,11 +1027,8 @@ class _SortableSectionState extends State<_SortableSection> {
     const _ScoreRow('Lex', 2740, 'Kraken'),
   ];
 
-  void _sortBy<T extends Comparable<T>>(
-    T Function(_ScoreRow r) getter,
-    int columnIndex,
-    bool ascending,
-  ) {
+  void _sortBy<T extends Comparable<T>>(T Function(_ScoreRow r) getter,
+      int columnIndex, bool ascending) {
     _rows.sort((a, b) {
       final ax = getter(a);
       final bx = getter(b);
@@ -1228,9 +1143,9 @@ class _SelectableSectionState extends State<_SelectableSection> {
           ),
           const SizedBox(height: 12.0),
           PaginatedDataTable(
-            header: Text(
-              _selected.isEmpty ? 'Invoices' : '${_selected.length} selected',
-            ),
+            header: Text(_selected.isEmpty
+                ? 'Invoices'
+                : '${_selected.length} selected'),
             actions: _selected.isEmpty
                 ? null
                 : [
@@ -1403,8 +1318,11 @@ class _ActionButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         foregroundColor: const Color(0xFFFFFFFF),
-        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        padding:
+            const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
       ),
       onPressed: onPressed,
       child: Text(label),
@@ -1441,7 +1359,9 @@ class _PageDot extends StatelessWidget {
           style: TextStyle(
             fontSize: 11.0,
             fontWeight: FontWeight.bold,
-            color: active ? const Color(0xFFFFFFFF) : const Color(0xFF8E24AA),
+            color: active
+                ? const Color(0xFFFFFFFF)
+                : const Color(0xFF8E24AA),
           ),
         ),
       ),

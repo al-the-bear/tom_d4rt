@@ -265,7 +265,9 @@ dynamic build(BuildContext context) {
     final color = data['color'] as Color;
     final bit = data['bit'] as int;
     final indexValue = 1 << bit;
-    print('SemanticsAction.${action.name} index=$indexValue bit=$bit');
+    print(
+      'SemanticsAction.${action.name} index=$indexValue bit=$bit',
+    );
 
     actionCards.add(
       Container(
@@ -587,7 +589,8 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: BorderRadius.circular(4.0),
@@ -605,7 +608,8 @@ dynamic build(BuildContext context) {
                 SizedBox(width: 8.0),
                 Text(
                   '${actionsInCategory.length} action${actionsInCategory.length == 1 ? '' : 's'}',
-                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+                  style:
+                      TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
                 ),
               ],
             ),
@@ -654,14 +658,8 @@ dynamic build(BuildContext context) {
 
   // Render mock phone screens demonstrating the four scroll directions plus
   // tap and long-press as visual hints.
-  Widget gestureMock(
-    String label,
-    IconData icon,
-    Color color,
-    double dx,
-    double dy,
-    ui.SemanticsAction action,
-  ) {
+  Widget gestureMock(String label, IconData icon, Color color, double dx,
+      double dy, ui.SemanticsAction action) {
     return Container(
       width: 130.0,
       margin: EdgeInsets.all(8.0),
@@ -703,7 +701,10 @@ dynamic build(BuildContext context) {
                   margin: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [color.withValues(alpha: 0.20), Colors.black],
+                      colors: [
+                        color.withValues(alpha: 0.20),
+                        Colors.black,
+                      ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -723,7 +724,10 @@ dynamic build(BuildContext context) {
                     height: 4.0,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [color.withValues(alpha: 0.0), color],
+                        colors: [
+                          color.withValues(alpha: 0.0),
+                          color,
+                        ],
                       ),
                       borderRadius: BorderRadius.circular(2.0),
                     ),
@@ -755,86 +759,26 @@ dynamic build(BuildContext context) {
   }
 
   final gestureMocks = <Widget>[
-    gestureMock(
-      'Tap',
-      Icons.fiber_manual_record,
-      Colors.blue,
-      0.0,
-      0.0,
-      ui.SemanticsAction.tap,
-    ),
-    gestureMock(
-      'Long Press',
-      Icons.fiber_smart_record,
-      Colors.indigo,
-      0.0,
-      0.0,
-      ui.SemanticsAction.longPress,
-    ),
-    gestureMock(
-      'Scroll Left',
-      Icons.arrow_back,
-      Colors.cyan,
-      -20.0,
-      0.0,
-      ui.SemanticsAction.scrollLeft,
-    ),
-    gestureMock(
-      'Scroll Right',
-      Icons.arrow_forward,
-      Colors.cyan,
-      20.0,
-      0.0,
-      ui.SemanticsAction.scrollRight,
-    ),
-    gestureMock(
-      'Scroll Up',
-      Icons.arrow_upward,
-      Colors.lightBlue,
-      0.0,
-      -20.0,
-      ui.SemanticsAction.scrollUp,
-    ),
-    gestureMock(
-      'Scroll Down',
-      Icons.arrow_downward,
-      Colors.lightBlue,
-      0.0,
-      20.0,
-      ui.SemanticsAction.scrollDown,
-    ),
-    gestureMock(
-      'Increase',
-      Icons.add,
-      Colors.green,
-      0.0,
-      -20.0,
-      ui.SemanticsAction.increase,
-    ),
-    gestureMock(
-      'Decrease',
-      Icons.remove,
-      Colors.green,
-      0.0,
-      20.0,
-      ui.SemanticsAction.decrease,
-    ),
-    gestureMock(
-      'Dismiss',
-      Icons.close,
-      Colors.red,
-      0.0,
-      0.0,
-      ui.SemanticsAction.dismiss,
-    ),
-    gestureMock(
-      'Show On Screen',
-      Icons.center_focus_strong,
-      Colors.teal,
-      0.0,
-      0.0,
-      ui.SemanticsAction.showOnScreen,
-    ),
+    gestureMock('Tap', Icons.fiber_manual_record, Colors.blue, 0.0, 0.0,
+        ui.SemanticsAction.tap),
+    gestureMock('Long Press', Icons.fiber_smart_record, Colors.indigo, 0.0,
+        0.0, ui.SemanticsAction.longPress),
+    gestureMock('Scroll Left', Icons.arrow_back, Colors.cyan, -20.0, 0.0,
+        ui.SemanticsAction.scrollLeft),
+    gestureMock('Scroll Right', Icons.arrow_forward, Colors.cyan, 20.0, 0.0,
+        ui.SemanticsAction.scrollRight),
+    gestureMock('Scroll Up', Icons.arrow_upward, Colors.lightBlue, 0.0,
+        -20.0, ui.SemanticsAction.scrollUp),
+    gestureMock('Scroll Down', Icons.arrow_downward, Colors.lightBlue, 0.0,
+        20.0, ui.SemanticsAction.scrollDown),
+    gestureMock('Increase', Icons.add, Colors.green, 0.0, -20.0,
+        ui.SemanticsAction.increase),
+    gestureMock('Decrease', Icons.remove, Colors.green, 0.0, 20.0,
+        ui.SemanticsAction.decrease),
+    gestureMock('Dismiss', Icons.close, Colors.red, 0.0, 0.0,
+        ui.SemanticsAction.dismiss),
+    gestureMock('Show On Screen', Icons.center_focus_strong, Colors.teal,
+        0.0, 0.0, ui.SemanticsAction.showOnScreen),
   ];
 
   final gestureSection = Container(
@@ -937,9 +881,7 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 6.0,
-                        vertical: 2.0,
-                      ),
+                          horizontal: 6.0, vertical: 2.0),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(3.0),
@@ -954,17 +896,12 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(width: 6.0),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: 12.0,
-                      color: Colors.grey.shade500,
-                    ),
+                    Icon(Icons.arrow_forward,
+                        size: 12.0, color: Colors.grey.shade500),
                     SizedBox(width: 6.0),
                     Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 6.0,
-                        vertical: 2.0,
-                      ),
+                          horizontal: 6.0, vertical: 2.0),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(3.0),
@@ -1013,11 +950,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.text_fields,
-              color: Colors.deepPurple.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.text_fields,
+                color: Colors.deepPurple.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Text & Cursor Actions',
@@ -1160,7 +1094,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.swap_horiz, color: Colors.orange.shade800, size: 22.0),
+            Icon(Icons.swap_horiz,
+                color: Colors.orange.shade800, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Clipboard Pipeline',
@@ -1176,26 +1111,16 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            pipelineNode(
-              'Cut',
-              Icons.cut,
-              Colors.deepOrange,
-              ui.SemanticsAction.cut,
-            ),
-            Icon(Icons.arrow_forward, color: Colors.grey.shade500, size: 24.0),
-            pipelineNode(
-              'Copy',
-              Icons.copy,
-              Colors.orange,
-              ui.SemanticsAction.copy,
-            ),
-            Icon(Icons.arrow_forward, color: Colors.grey.shade500, size: 24.0),
-            pipelineNode(
-              'Paste',
-              Icons.content_paste,
-              Colors.amber,
-              ui.SemanticsAction.paste,
-            ),
+            pipelineNode('Cut', Icons.cut, Colors.deepOrange,
+                ui.SemanticsAction.cut),
+            Icon(Icons.arrow_forward,
+                color: Colors.grey.shade500, size: 24.0),
+            pipelineNode('Copy', Icons.copy, Colors.orange,
+                ui.SemanticsAction.copy),
+            Icon(Icons.arrow_forward,
+                color: Colors.grey.shade500, size: 24.0),
+            pipelineNode('Paste', Icons.content_paste, Colors.amber,
+                ui.SemanticsAction.paste),
           ],
         ),
         SizedBox(height: 16.0),
@@ -1239,7 +1164,10 @@ dynamic build(BuildContext context) {
         gradient: LinearGradient(
           colors: isFocused
               ? [color, color.withValues(alpha: 0.6)]
-              : [Colors.grey.shade300, Colors.grey.shade400],
+              : [
+                  Colors.grey.shade300,
+                  Colors.grey.shade400,
+                ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1258,11 +1186,9 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Icon(
-            icon,
-            color: isFocused ? Colors.white : Colors.grey.shade700,
-            size: 32.0,
-          ),
+          Icon(icon,
+              color: isFocused ? Colors.white : Colors.grey.shade700,
+              size: 32.0),
           SizedBox(height: 6.0),
           Text(
             label,
@@ -1301,11 +1227,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.accessibility_new,
-              color: Colors.lightGreen.shade800,
-              size: 22.0,
-            ),
+            Icon(Icons.accessibility_new,
+                color: Colors.lightGreen.shade800, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Accessibility Focus Lifecycle',
@@ -1330,43 +1253,36 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            focusStateNode('Idle', Colors.grey, Icons.blur_off, false),
+            focusStateNode(
+                'Idle', Colors.grey, Icons.blur_off, false),
             Column(
               children: [
-                Icon(Icons.arrow_forward, color: Colors.lightGreen, size: 20.0),
+                Icon(Icons.arrow_forward,
+                    color: Colors.lightGreen, size: 20.0),
                 Text(
                   'didGain',
                   style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.lightGreen.shade800,
-                  ),
+                      fontSize: 9.0, color: Colors.lightGreen.shade800),
                 ),
               ],
             ),
             focusStateNode(
-              'A11y Focus',
-              Colors.lightGreen,
-              Icons.center_focus_weak,
-              true,
-            ),
+                'A11y Focus', Colors.lightGreen, Icons.center_focus_weak,
+                true),
             Column(
               children: [
-                Icon(Icons.arrow_forward, color: Colors.blueGrey, size: 20.0),
+                Icon(Icons.arrow_forward,
+                    color: Colors.blueGrey, size: 20.0),
                 Text(
                   'focus',
                   style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.blueGrey.shade800,
-                  ),
+                      fontSize: 9.0, color: Colors.blueGrey.shade800),
                 ),
               ],
             ),
             focusStateNode(
-              'Input Focus',
-              Colors.blueGrey,
-              Icons.center_focus_strong,
-              true,
-            ),
+                'Input Focus', Colors.blueGrey, Icons.center_focus_strong,
+                true),
           ],
         ),
         SizedBox(height: 16.0),
@@ -1403,12 +1319,7 @@ dynamic build(BuildContext context) {
     ['scrollRight', 'ACTION_SCROLL_RIGHT', 'scrollRight', 'wheel'],
     ['scrollUp', 'ACTION_SCROLL_UP', 'scrollUp', 'wheel'],
     ['scrollDown', 'ACTION_SCROLL_DOWN', 'scrollDown', 'wheel'],
-    [
-      'scrollToOffset',
-      'ACTION_SCROLL_TO_POSITION',
-      'scrollToVisible',
-      '\u2014',
-    ],
+    ['scrollToOffset', 'ACTION_SCROLL_TO_POSITION', 'scrollToVisible', '\u2014'],
     ['increase', 'ACTION_SCROLL_FORWARD', 'increment', 'aria-valuenow+'],
     ['decrease', 'ACTION_SCROLL_BACKWARD', 'decrement', 'aria-valuenow-'],
     ['copy', 'ACTION_COPY', 'copy', 'copy'],
@@ -1455,52 +1366,50 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               gradient: i == 0
                   ? LinearGradient(
-                      colors: [Colors.indigo.shade100, Colors.indigo.shade50],
+                      colors: [
+                        Colors.indigo.shade100,
+                        Colors.indigo.shade50,
+                      ],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     )
                   : null,
               color: i == 0
                   ? null
-                  : (i.isEven ? Colors.grey.shade50 : Colors.white),
+                  : (i.isEven
+                      ? Colors.grey.shade50
+                      : Colors.white),
               border: Border(
-                bottom: BorderSide(color: Colors.grey.shade300, width: 0.5),
+                bottom: BorderSide(
+                  color: Colors.grey.shade300,
+                  width: 0.5,
+                ),
               ),
             ),
             padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
             child: Row(
               children: [
-                _platformCell(
-                  platformRows[i][0],
-                  140.0,
-                  bold: i == 0,
-                  color: i == 0
-                      ? Colors.indigo.shade900
-                      : Colors.deepPurple.shade700,
-                  monospace: i != 0,
-                ),
-                _platformCell(
-                  platformRows[i][1],
-                  160.0,
-                  bold: i == 0,
-                  color: i == 0
-                      ? Colors.indigo.shade900
-                      : Colors.green.shade700,
-                ),
-                _platformCell(
-                  platformRows[i][2],
-                  110.0,
-                  bold: i == 0,
-                  color: i == 0 ? Colors.indigo.shade900 : Colors.blue.shade700,
-                ),
-                _platformCell(
-                  platformRows[i][3],
-                  130.0,
-                  bold: i == 0,
-                  color: i == 0
-                      ? Colors.indigo.shade900
-                      : Colors.orange.shade700,
-                ),
+                _platformCell(platformRows[i][0], 140.0,
+                    bold: i == 0,
+                    color: i == 0
+                        ? Colors.indigo.shade900
+                        : Colors.deepPurple.shade700,
+                    monospace: i != 0),
+                _platformCell(platformRows[i][1], 160.0,
+                    bold: i == 0,
+                    color: i == 0
+                        ? Colors.indigo.shade900
+                        : Colors.green.shade700),
+                _platformCell(platformRows[i][2], 110.0,
+                    bold: i == 0,
+                    color: i == 0
+                        ? Colors.indigo.shade900
+                        : Colors.blue.shade700),
+                _platformCell(platformRows[i][3], 130.0,
+                    bold: i == 0,
+                    color: i == 0
+                        ? Colors.indigo.shade900
+                        : Colors.orange.shade700),
               ],
             ),
           ),
@@ -1694,7 +1603,11 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(24.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.deepPurple, Colors.indigo, Colors.blue],
+                  colors: [
+                    Colors.deepPurple,
+                    Colors.indigo,
+                    Colors.blue,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1709,11 +1622,8 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  Icon(
-                    Icons.accessibility_new,
-                    size: 56.0,
-                    color: Colors.white,
-                  ),
+                  Icon(Icons.accessibility_new,
+                      size: 56.0, color: Colors.white),
                   SizedBox(height: 8.0),
                   Text(
                     'SemanticsAction',
@@ -1725,7 +1635,10 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     'dart:ui accessibility action constants',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white70),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white70,
+                    ),
                   ),
                 ],
               ),
@@ -1735,7 +1648,8 @@ dynamic build(BuildContext context) {
             // Section 1
             Text(
               '1. Action Catalogue',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
             Wrap(alignment: WrapAlignment.center, children: actionCards),
@@ -1744,7 +1658,8 @@ dynamic build(BuildContext context) {
             // Section 2
             Text(
               '2. 32-bit Bitmask Visualisation',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             bitGrid,
             SizedBox(height: 32.0),
@@ -1752,7 +1667,8 @@ dynamic build(BuildContext context) {
             // Section 3
             Text(
               '3. Action Categories',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             categoryMatrix,
             SizedBox(height: 32.0),
@@ -1760,7 +1676,8 @@ dynamic build(BuildContext context) {
             // Section 4
             Text(
               '4. Gesture Mock-ups',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             gestureSection,
             SizedBox(height: 32.0),
@@ -1768,7 +1685,8 @@ dynamic build(BuildContext context) {
             // Section 5
             Text(
               '5. Text & Cursor Actions',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             textSection,
             SizedBox(height: 32.0),
@@ -1776,7 +1694,8 @@ dynamic build(BuildContext context) {
             // Section 6
             Text(
               '6. Clipboard Pipeline',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             clipboardPipeline,
             SizedBox(height: 32.0),
@@ -1784,7 +1703,8 @@ dynamic build(BuildContext context) {
             // Section 7
             Text(
               '7. Accessibility Focus Lifecycle',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             focusLifecycle,
             SizedBox(height: 32.0),
@@ -1792,7 +1712,8 @@ dynamic build(BuildContext context) {
             // Section 8
             Text(
               '8. Platform Mapping',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             platformTable,
             SizedBox(height: 32.0),
@@ -1800,7 +1721,8 @@ dynamic build(BuildContext context) {
             // Section 9
             Text(
               '9. Code Examples',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             codeExamples,
             SizedBox(height: 32.0),
@@ -1808,7 +1730,8 @@ dynamic build(BuildContext context) {
             // Section 10
             Text(
               '10. Summary',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             summaryFooter,
           ],
@@ -1889,7 +1812,13 @@ Widget _summaryStat(String value, String label) {
           ),
         ),
         SizedBox(height: 2.0),
-        Text(label, style: TextStyle(fontSize: 10.0, color: Colors.white70)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10.0,
+            color: Colors.white70,
+          ),
+        ),
       ],
     ),
   );

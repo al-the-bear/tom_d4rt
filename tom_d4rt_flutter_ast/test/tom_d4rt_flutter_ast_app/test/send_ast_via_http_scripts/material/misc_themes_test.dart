@@ -155,7 +155,10 @@ dynamic build(BuildContext context) {
       runSpacing: 8.0,
       alignment: WrapAlignment.center,
       children: <Widget>[
-        Chip(avatar: Icon(Icons.tag, size: 18.0), label: Text('Chip')),
+        Chip(
+          avatar: Icon(Icons.tag, size: 18.0),
+          label: Text('Chip'),
+        ),
         ActionChip(
           avatar: Icon(Icons.bolt, size: 18.0),
           label: Text('Action'),
@@ -167,7 +170,10 @@ dynamic build(BuildContext context) {
           selected: true,
           onSelected: (_) {},
         ),
-        InputChip(label: Text('Disabled'), onPressed: null),
+        InputChip(
+          label: Text('Disabled'),
+          onPressed: null,
+        ),
       ],
     );
   }
@@ -217,26 +223,15 @@ dynamic build(BuildContext context) {
         ),
         Badge(
           label: Text('99+'),
-          child: Icon(
-            Icons.notifications,
-            size: 36.0,
-            color: Colors.grey.shade700,
-          ),
+          child: Icon(Icons.notifications, size: 36.0, color: Colors.grey.shade700),
         ),
         Badge.count(
           count: 12,
-          child: Icon(
-            Icons.shopping_cart,
-            size: 36.0,
-            color: Colors.grey.shade700,
-          ),
+          child: Icon(Icons.shopping_cart, size: 36.0, color: Colors.grey.shade700),
         ),
         Badge(
-          child: Icon(
-            Icons.chat_bubble_outline,
-            size: 36.0,
-            color: Colors.grey.shade700,
-          ),
+          child: Icon(Icons.chat_bubble_outline,
+              size: 36.0, color: Colors.grey.shade700),
         ),
       ],
     );
@@ -266,10 +261,7 @@ dynamic build(BuildContext context) {
     selectedColor: Colors.deepPurple.shade900,
     textColor: Colors.deepPurple.shade900,
     titleTextStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.0),
-    subtitleTextStyle: TextStyle(
-      fontSize: 12.0,
-      color: Colors.deepPurple.shade400,
-    ),
+    subtitleTextStyle: TextStyle(fontSize: 12.0, color: Colors.deepPurple.shade400),
     contentPadding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 4.0),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     horizontalTitleGap: 12.0,
@@ -279,21 +271,9 @@ dynamic build(BuildContext context) {
   print('ListTileThemeData built — tileColor: ${listTileThemeData.tileColor}');
 
   final tileItems = <Map<String, dynamic>>[
-    {
-      'icon': Icons.cloud_outlined,
-      'title': 'Cloud sync',
-      'sub': 'Last synced 2m ago',
-    },
-    {
-      'icon': Icons.lock_outline,
-      'title': 'Security',
-      'sub': 'Passcode enabled',
-    },
-    {
-      'icon': Icons.notifications_none,
-      'title': 'Notifications',
-      'sub': 'Push & email',
-    },
+    {'icon': Icons.cloud_outlined, 'title': 'Cloud sync', 'sub': 'Last synced 2m ago'},
+    {'icon': Icons.lock_outline, 'title': 'Security', 'sub': 'Passcode enabled'},
+    {'icon': Icons.notifications_none, 'title': 'Notifications', 'sub': 'Push & email'},
     {'icon': Icons.language, 'title': 'Language', 'sub': 'English (US)'},
   ];
 
@@ -305,13 +285,13 @@ dynamic build(BuildContext context) {
         Material(
           type: MaterialType.transparency,
           child: ListTile(
-            leading: Icon(it['icon'] as IconData),
-            title: Text(it['title'] as String),
-            subtitle: Text(it['sub'] as String),
-            trailing: Icon(Icons.chevron_right),
-            selected: selectIndex2 && i == 1,
-            onTap: () {},
-          ),
+          leading: Icon(it['icon'] as IconData),
+          title: Text(it['title'] as String),
+          subtitle: Text(it['sub'] as String),
+          trailing: Icon(Icons.chevron_right),
+          selected: selectIndex2 && i == 1,
+          onTap: () {},
+        ),
         ),
       );
       if (i != tileItems.length - 1) {
@@ -356,17 +336,13 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Linear @ ${(value * 100).toInt()}%',
-            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
-          ),
+          Text('Linear @ ${(value * 100).toInt()}%',
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
           SizedBox(height: 6.0),
           LinearProgressIndicator(value: value),
           SizedBox(height: 12.0),
-          Text(
-            'Linear indeterminate',
-            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
-          ),
+          Text('Linear indeterminate',
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
           SizedBox(height: 6.0),
           LinearProgressIndicator(),
           SizedBox(height: 12.0),
@@ -376,10 +352,7 @@ dynamic build(BuildContext context) {
               SizedBox(
                 width: 40.0,
                 height: 40.0,
-                child: CircularProgressIndicator(
-                  value: value,
-                  strokeWidth: 4.0,
-                ),
+                child: CircularProgressIndicator(value: value, strokeWidth: 4.0),
               ),
               SizedBox(
                 width: 40.0,
@@ -495,10 +468,8 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        Icon(
-          Icons.arrow_drop_up,
-          color: themed ? Colors.brown.shade600 : Colors.grey.shade800,
-        ),
+        Icon(Icons.arrow_drop_up,
+            color: themed ? Colors.brown.shade600 : Colors.grey.shade800),
       ],
     );
   }
@@ -525,14 +496,17 @@ dynamic build(BuildContext context) {
     elevation: WidgetStateProperty.all(2.0),
     shadowColor: WidgetStateProperty.all(Colors.cyan.shade200),
     surfaceTintColor: WidgetStateProperty.all(Colors.cyan.shade100),
-    overlayColor: WidgetStateProperty.all(Colors.cyan.withValues(alpha: 0.12)),
+    overlayColor:
+        WidgetStateProperty.all(Colors.cyan.withValues(alpha: 0.12)),
     side: WidgetStateProperty.all(
       BorderSide(color: Colors.cyan.shade400, width: 1.0),
     ),
     shape: WidgetStateProperty.all(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
     ),
-    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 16.0)),
+    padding: WidgetStateProperty.all(
+      EdgeInsets.symmetric(horizontal: 16.0),
+    ),
     textStyle: WidgetStateProperty.all(
       TextStyle(fontSize: 14.0, color: Colors.cyan.shade900),
     ),
@@ -603,16 +577,8 @@ dynamic build(BuildContext context) {
       child: SegmentedButton<int>(
         segments: const <ButtonSegment<int>>[
           ButtonSegment(value: 0, label: Text('Day'), icon: Icon(Icons.today)),
-          ButtonSegment(
-            value: 1,
-            label: Text('Week'),
-            icon: Icon(Icons.view_week),
-          ),
-          ButtonSegment(
-            value: 2,
-            label: Text('Month'),
-            icon: Icon(Icons.calendar_month),
-          ),
+          ButtonSegment(value: 1, label: Text('Week'), icon: Icon(Icons.view_week)),
+          ButtonSegment(value: 2, label: Text('Month'), icon: Icon(Icons.calendar_month)),
         ],
         selected: const <int>{1},
         onSelectionChanged: (_) {},
@@ -777,40 +743,25 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        _summaryItem(
-          Icons.layers_outlined,
-          'Theme.copyWith preserves rest',
-          'Always copy from a base ThemeData so unrelated theming stays consistent.',
-          Colors.indigo,
-        ),
+        _summaryItem(Icons.layers_outlined, 'Theme.copyWith preserves rest',
+            'Always copy from a base ThemeData so unrelated theming stays consistent.',
+            Colors.indigo),
         SizedBox(height: 8.0),
-        _summaryItem(
-          Icons.tune,
-          'Scoped Theme widgets',
-          'Wrap a sub-tree in Theme(data: …) to apply only locally.',
-          Colors.teal,
-        ),
+        _summaryItem(Icons.tune, 'Scoped Theme widgets',
+            'Wrap a sub-tree in Theme(data: …) to apply only locally.',
+            Colors.teal),
         SizedBox(height: 8.0),
-        _summaryItem(
-          Icons.brush_outlined,
-          'WidgetStateProperty for stateful theming',
-          'SearchBar / SegmentedButton expose state-resolved properties.',
-          Colors.orange,
-        ),
+        _summaryItem(Icons.brush_outlined, 'WidgetStateProperty for stateful theming',
+            'SearchBar / SegmentedButton expose state-resolved properties.',
+            Colors.orange),
         SizedBox(height: 8.0),
-        _summaryItem(
-          Icons.bug_report_outlined,
-          'Lesser-known but powerful',
-          'Tooltip, Badge, ProgressIndicator themes are easy to overlook.',
-          Colors.red,
-        ),
+        _summaryItem(Icons.bug_report_outlined, 'Lesser-known but powerful',
+            'Tooltip, Badge, ProgressIndicator themes are easy to overlook.',
+            Colors.red),
         SizedBox(height: 8.0),
-        _summaryItem(
-          Icons.check_circle_outline,
-          'Material 3 ready',
-          'All theme data classes work seamlessly with useMaterial3: true.',
-          Colors.green,
-        ),
+        _summaryItem(Icons.check_circle_outline, 'Material 3 ready',
+            'All theme data classes work seamlessly with useMaterial3: true.',
+            Colors.green),
       ],
     ),
   );
@@ -1012,7 +963,11 @@ Widget _beforeAfter({
             );
           }
           return Column(
-            children: <Widget>[beforeCard, SizedBox(height: 12.0), afterCard],
+            children: <Widget>[
+              beforeCard,
+              SizedBox(height: 12.0),
+              afterCard,
+            ],
           );
         },
       ),
@@ -1033,7 +988,9 @@ Widget _comparisonCard({
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(
-        color: isDefault ? Colors.grey.shade300 : accent.withValues(alpha: 0.6),
+        color: isDefault
+            ? Colors.grey.shade300
+            : accent.withValues(alpha: 0.6),
         width: 1.5,
       ),
       boxShadow: <BoxShadow>[
@@ -1093,7 +1050,10 @@ Widget _comparisonCard({
             ],
           ),
         ),
-        Padding(padding: EdgeInsets.all(12.0), child: child),
+        Padding(
+          padding: EdgeInsets.all(12.0),
+          child: child,
+        ),
       ],
     ),
   );
@@ -1154,7 +1114,12 @@ Widget _codeBlock({
   );
 }
 
-Widget _summaryItem(IconData icon, String title, String desc, Color color) {
+Widget _summaryItem(
+  IconData icon,
+  String title,
+  String desc,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(

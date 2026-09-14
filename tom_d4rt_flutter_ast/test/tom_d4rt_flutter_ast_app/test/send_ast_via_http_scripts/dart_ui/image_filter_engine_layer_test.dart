@@ -14,12 +14,10 @@ class _ImageFilterEngineLayerDemo extends StatefulWidget {
   const _ImageFilterEngineLayerDemo();
 
   @override
-  State<_ImageFilterEngineLayerDemo> createState() =>
-      _ImageFilterEngineLayerDemoState();
+  State<_ImageFilterEngineLayerDemo> createState() => _ImageFilterEngineLayerDemoState();
 }
 
-class _ImageFilterEngineLayerDemoState
-    extends State<_ImageFilterEngineLayerDemo> {
+class _ImageFilterEngineLayerDemoState extends State<_ImageFilterEngineLayerDemo> {
   double _sigmaX = 6;
   double _sigmaY = 6;
   double _matrixStrength = 0.25;
@@ -34,21 +32,9 @@ class _ImageFilterEngineLayerDemoState
   final List<String> _failed = <String>[];
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0F172A),
-      const Color(0xFF1E293B),
-      const Color(0xFF38BDF8),
-    ],
-    <Color>[
-      const Color(0xFF4C1D95),
-      const Color(0xFF6D28D9),
-      const Color(0xFFC4B5FD),
-    ],
-    <Color>[
-      const Color(0xFF0B3D2E),
-      const Color(0xFF166534),
-      const Color(0xFF86EFAC),
-    ],
+    <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
+    <Color>[const Color(0xFF4C1D95), const Color(0xFF6D28D9), const Color(0xFFC4B5FD)],
+    <Color>[const Color(0xFF0B3D2E), const Color(0xFF166534), const Color(0xFF86EFAC)],
   ];
 
   @override
@@ -67,41 +53,21 @@ class _ImageFilterEngineLayerDemoState
   }
 
   ui.ImageFilter _dilateFilter() {
-    return ui.ImageFilter.dilate(
-      radiusX: (_sigmaX / 3).clamp(0.1, 6),
-      radiusY: (_sigmaY / 3).clamp(0.1, 6),
-    );
+    return ui.ImageFilter.dilate(radiusX: (_sigmaX / 3).clamp(0.1, 6), radiusY: (_sigmaY / 3).clamp(0.1, 6));
   }
 
   ui.ImageFilter _erodeFilter() {
-    return ui.ImageFilter.erode(
-      radiusX: (_sigmaX / 4).clamp(0.1, 4),
-      radiusY: (_sigmaY / 4).clamp(0.1, 4),
-    );
+    return ui.ImageFilter.erode(radiusX: (_sigmaX / 4).clamp(0.1, 4), radiusY: (_sigmaY / 4).clamp(0.1, 4));
   }
 
   ui.ImageFilter _matrixFilter() {
     final double s = _matrixStrength;
-    return ui.ImageFilter.matrix(
-      Float64List.fromList(<double>[
-        1,
-        s,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-      ]),
-    );
+    return ui.ImageFilter.matrix(Float64List.fromList(<double>[
+      1, s, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1,
+    ]));
   }
 
   void _record(String label, bool value) {
@@ -118,10 +84,7 @@ class _ImageFilterEngineLayerDemoState
 
     try {
       final ui.ImageFilter blur = _blurFilter();
-      _record(
-        'ImageFilter.blur creation',
-        blur.runtimeType.toString().contains('ImageFilter'),
-      );
+      _record('ImageFilter.blur creation', blur.runtimeType.toString().contains('ImageFilter'));
     } catch (_) {
       _record('ImageFilter.blur creation', false);
     }
@@ -130,31 +93,22 @@ class _ImageFilterEngineLayerDemoState
       final ui.SceneBuilder b = ui.SceneBuilder();
       final ui.ImageFilterEngineLayer layer = b.pushImageFilter(_blurFilter());
       b.pop();
-      _record(
-        'SceneBuilder.pushImageFilter returns engine layer',
-        layer.runtimeType == ui.ImageFilterEngineLayer,
-      );
+      _record('SceneBuilder.pushImageFilter returns engine layer',
+          layer.runtimeType == ui.ImageFilterEngineLayer);
     } catch (_) {
       _record('SceneBuilder.pushImageFilter returns engine layer', false);
     }
 
     try {
       final ui.SceneBuilder one = ui.SceneBuilder();
-      final ui.ImageFilterEngineLayer oldLayer = one.pushImageFilter(
-        _blurFilter(),
-      );
+      final ui.ImageFilterEngineLayer oldLayer = one.pushImageFilter(_blurFilter());
       one.pop();
 
       final ui.SceneBuilder two = ui.SceneBuilder();
-      final ui.ImageFilterEngineLayer reused = two.pushImageFilter(
-        _dilateFilter(),
-        oldLayer: oldLayer,
-      );
+      final ui.ImageFilterEngineLayer reused =
+          two.pushImageFilter(_dilateFilter(), oldLayer: oldLayer);
       two.pop();
-      _record(
-        'oldLayer reuse path works',
-        reused.runtimeType.toString().contains('ImageFilterEngineLayer'),
-      );
+      _record('oldLayer reuse path works', reused.runtimeType.toString().contains('ImageFilterEngineLayer'));
     } catch (_) {
       _record('oldLayer reuse path works', false);
     }
@@ -172,25 +126,15 @@ class _ImageFilterEngineLayerDemoState
 
     try {
       final ui.SceneBuilder b = ui.SceneBuilder();
-      final ui.ImageFilterEngineLayer layer = b.pushImageFilter(
-        _matrixFilter(),
-      );
+      final ui.ImageFilterEngineLayer layer = b.pushImageFilter(_matrixFilter());
       b.pop();
-      _record(
-        'Matrix filter pushes engine layer',
-        layer.runtimeType.toString().contains('ImageFilterEngineLayer'),
-      );
+      _record('Matrix filter pushes engine layer', layer.runtimeType.toString().contains('ImageFilterEngineLayer'));
     } catch (_) {
       _record('Matrix filter pushes engine layer', false);
     }
   }
 
-  Widget _sectionTitle(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color accent,
-  ) {
+  Widget _sectionTitle(String title, String subtitle, IconData icon, Color accent) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 14, 16, 8),
       padding: const EdgeInsets.all(12),
@@ -214,10 +158,7 @@ class _ImageFilterEngineLayerDemoState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.w700, color: accent),
-                ),
+                Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: accent)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -249,11 +190,7 @@ class _ImageFilterEngineLayerDemoState
         children: <Widget>[
           Text(
             'ImageFilterEngineLayer',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Text(
@@ -287,9 +224,7 @@ class _ImageFilterEngineLayerDemoState
             ),
           ),
           if (_showGrid)
-            const Positioned.fill(
-              child: CustomPaint(painter: _FilterGridPainter()),
-            ),
+            const Positioned.fill(child: CustomPaint(painter: _FilterGridPainter())),
           Positioned(
             left: 18,
             top: 16,
@@ -354,7 +289,10 @@ class _ImageFilterEngineLayerDemoState
             const SizedBox(height: 8),
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: ImageFiltered(imageFilter: filter, child: _baseVisual()),
+              child: ImageFiltered(
+                imageFilter: filter,
+                child: _baseVisual(),
+              ),
             ),
           ],
         ),
@@ -412,10 +350,7 @@ class _ImageFilterEngineLayerDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Interactive filter lab',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Interactive filter lab', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Text('Sigma X: ${_sigmaX.toStringAsFixed(1)}'),
           Slider(
@@ -533,10 +468,7 @@ class _ImageFilterEngineLayerDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Animated filtered viewport',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Animated filtered viewport', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Center(
             child: Transform.translate(
@@ -572,10 +504,7 @@ class _ImageFilterEngineLayerDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Layered filter composition',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Layered filter composition', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 10),
           SizedBox(
             width: 310,
@@ -588,10 +517,7 @@ class _ImageFilterEngineLayerDemoState
                   top: 20,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: ImageFiltered(
-                      imageFilter: _dilateFilter(),
-                      child: _baseVisual(),
-                    ),
+                    child: ImageFiltered(imageFilter: _dilateFilter(), child: _baseVisual()),
                   ),
                 ),
                 Positioned(
@@ -601,10 +527,7 @@ class _ImageFilterEngineLayerDemoState
                     opacity: 0.86,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: ImageFiltered(
-                        imageFilter: _blurFilter(),
-                        child: _baseVisual(),
-                      ),
+                      child: ImageFiltered(imageFilter: _blurFilter(), child: _baseVisual()),
                     ),
                   ),
                 ),
@@ -615,10 +538,7 @@ class _ImageFilterEngineLayerDemoState
                     opacity: 0.78,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: ImageFiltered(
-                        imageFilter: _matrixFilter(),
-                        child: _baseVisual(),
-                      ),
+                      child: ImageFiltered(imageFilter: _matrixFilter(), child: _baseVisual()),
                     ),
                   ),
                 ),
@@ -650,18 +570,13 @@ class _ImageFilterEngineLayerDemoState
             children: <Widget>[
               Icon(icon, color: Colors.white),
               const SizedBox(height: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text(title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  )),
               const SizedBox(height: 4),
-              Text(
-                desc,
-                style: const TextStyle(color: Colors.white, fontSize: 12),
-              ),
+              Text(desc, style: const TextStyle(color: Colors.white, fontSize: 12)),
             ],
           ),
         ),
@@ -697,9 +612,7 @@ class _ImageFilterEngineLayerDemoState
 
   Widget _buildProbeDashboard() {
     Widget line(String text, bool ok) {
-      final Color color = ok
-          ? const Color(0xFF15803D)
-          : const Color(0xFFB91C1C);
+      final Color color = ok ? const Color(0xFF15803D) : const Color(0xFFB91C1C);
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 3),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -710,11 +623,7 @@ class _ImageFilterEngineLayerDemoState
         ),
         child: Row(
           children: <Widget>[
-            Icon(
-              ok ? Icons.check_circle : Icons.cancel,
-              color: color,
-              size: 18,
-            ),
+            Icon(ok ? Icons.check_circle : Icons.cancel, color: color, size: 18),
             const SizedBox(width: 8),
             Expanded(child: Text(text, style: const TextStyle(fontSize: 12.2))),
           ],
@@ -733,10 +642,7 @@ class _ImageFilterEngineLayerDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'SceneBuilder probe dashboard',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('SceneBuilder probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
           const SizedBox(height: 8),

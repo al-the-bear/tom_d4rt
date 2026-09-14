@@ -71,21 +71,9 @@ dynamic build(BuildContext context) {
       body: Center(
         child: _MultiChildHostWidget(
           children: <Widget>[
-            SizedBox(
-              width: 80,
-              height: 24,
-              child: ColoredBox(color: Colors.indigo),
-            ),
-            SizedBox(
-              width: 60,
-              height: 24,
-              child: ColoredBox(color: Colors.teal),
-            ),
-            SizedBox(
-              width: 100,
-              height: 24,
-              child: ColoredBox(color: Colors.orange),
-            ),
+            SizedBox(width: 80, height: 24, child: ColoredBox(color: Colors.indigo)),
+            SizedBox(width: 60, height: 24, child: ColoredBox(color: Colors.teal)),
+            SizedBox(width: 100, height: 24, child: ColoredBox(color: Colors.orange)),
           ],
         ),
       ),

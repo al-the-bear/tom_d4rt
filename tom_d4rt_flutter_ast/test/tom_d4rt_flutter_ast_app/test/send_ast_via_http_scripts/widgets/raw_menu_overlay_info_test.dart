@@ -18,12 +18,10 @@ import 'package:flutter/material.dart';
 
 // ── Top-level ValueNotifiers (stateless-safe shared state) ──
 
-final ValueNotifier<Offset> _demoAnchorOffset = ValueNotifier<Offset>(
-  const Offset(120, 220),
-);
-final ValueNotifier<Size> _demoOverlaySize = ValueNotifier<Size>(
-  const Size(400, 700),
-);
+final ValueNotifier<Offset> _demoAnchorOffset =
+    ValueNotifier<Offset>(const Offset(120, 220));
+final ValueNotifier<Size> _demoOverlaySize =
+    ValueNotifier<Size>(const Size(400, 700));
 final ValueNotifier<int> _alignmentIndex = ValueNotifier<int>(0);
 
 // ── Public entry point ──
@@ -65,7 +63,10 @@ class _RawMenuOverlayInfoDemo extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('RawMenuOverlayInfo'),
-          bottom: const TabBar(isScrollable: true, tabs: _tabs),
+          bottom: const TabBar(
+            isScrollable: true,
+            tabs: _tabs,
+          ),
         ),
         body: const TabBarView(
           children: <Widget>[
@@ -119,9 +120,9 @@ class _HeroTab extends StatelessWidget {
                 Text(
                   'RawMenuOverlayInfo',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: cs.onPrimaryContainer,
-                  ),
+                        fontWeight: FontWeight.bold,
+                        color: cs.onPrimaryContainer,
+                      ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -239,8 +240,7 @@ class _HeroTab extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 _CodeBlock(
-                  code:
-                      'const info1 = RawMenuOverlayInfo(\n'
+                  code: 'const info1 = RawMenuOverlayInfo(\n'
                       '  anchorRect: Rect.fromLTWH(10, 20, 80, 40),\n'
                       '  overlaySize: Size(400, 700),\n'
                       '  tapRegionGroupId: #myMenu,\n'
@@ -305,36 +305,39 @@ class _LiveMenuTab extends StatelessWidget {
                 Center(
                   child: RawMenuAnchor(
                     controller: ctrl1,
-                    overlayBuilder:
-                        (BuildContext ctx, RawMenuOverlayInfo info) {
-                          final double left = info.anchorRect.left;
-                          final double top = info.anchorRect.bottom + 4;
-                          return Positioned(
-                            left: left,
-                            top: top,
-                            child: TapRegion(
-                              groupId: info.tapRegionGroupId,
-                              onTapOutside: (_) => ctrl1.close(),
-                              child: _SimpleMenuPanel(
-                                items: const <String>[
-                                  'New File',
-                                  'Open…',
-                                  'Save',
-                                  'Quit',
-                                ],
-                                onSelected: (_) => ctrl1.close(),
-                              ),
-                            ),
-                          );
-                        },
-                    builder:
-                        (BuildContext ctx, MenuController c, Widget? child) {
-                          return FilledButton.icon(
-                            onPressed: () => c.isOpen ? c.close() : c.open(),
-                            icon: const Icon(Icons.menu),
-                            label: const Text('File Menu'),
-                          );
-                        },
+                    overlayBuilder: (BuildContext ctx, RawMenuOverlayInfo info) {
+                      final double left = info.anchorRect.left;
+                      final double top = info.anchorRect.bottom + 4;
+                      return Positioned(
+                        left: left,
+                        top: top,
+                        child: TapRegion(
+                          groupId: info.tapRegionGroupId,
+                          onTapOutside: (_) => ctrl1.close(),
+                          child: _SimpleMenuPanel(
+                            items: const <String>[
+                              'New File',
+                              'Open…',
+                              'Save',
+                              'Quit',
+                            ],
+                            onSelected: (_) => ctrl1.close(),
+                          ),
+                        ),
+                      );
+                    },
+                    builder: (
+                      BuildContext ctx,
+                      MenuController c,
+                      Widget? child,
+                    ) {
+                      return FilledButton.icon(
+                        onPressed: () =>
+                            c.isOpen ? c.close() : c.open(),
+                        icon: const Icon(Icons.menu),
+                        label: const Text('File Menu'),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -356,41 +359,45 @@ class _LiveMenuTab extends StatelessWidget {
                 Center(
                   child: RawMenuAnchor(
                     controller: ctrl2,
-                    overlayBuilder:
-                        (BuildContext ctx, RawMenuOverlayInfo info) {
-                          const double panelWidth = 200;
-                          final double right = info.anchorRect.right;
-                          final double left = (right - panelWidth).clamp(
-                            0,
-                            info.overlaySize.width - panelWidth,
-                          );
-                          final double top = info.anchorRect.bottom + 4;
-                          return Positioned(
-                            left: left,
-                            top: top,
-                            width: panelWidth,
-                            child: TapRegion(
-                              groupId: info.tapRegionGroupId,
-                              onTapOutside: (_) => ctrl2.close(),
-                              child: _SimpleMenuPanel(
-                                items: const <String>[
-                                  'Profile',
-                                  'Settings',
-                                  'Sign out',
-                                ],
-                                onSelected: (_) => ctrl2.close(),
-                              ),
-                            ),
-                          );
-                        },
-                    builder:
-                        (BuildContext ctx, MenuController c, Widget? child) {
-                          return OutlinedButton.icon(
-                            onPressed: () => c.isOpen ? c.close() : c.open(),
-                            icon: const Icon(Icons.account_circle),
-                            label: const Text('Account'),
-                          );
-                        },
+                    overlayBuilder: (
+                      BuildContext ctx,
+                      RawMenuOverlayInfo info,
+                    ) {
+                      const double panelWidth = 200;
+                      final double right = info.anchorRect.right;
+                      final double left =
+                          (right - panelWidth).clamp(0, info.overlaySize.width - panelWidth);
+                      final double top = info.anchorRect.bottom + 4;
+                      return Positioned(
+                        left: left,
+                        top: top,
+                        width: panelWidth,
+                        child: TapRegion(
+                          groupId: info.tapRegionGroupId,
+                          onTapOutside: (_) => ctrl2.close(),
+                          child: _SimpleMenuPanel(
+                            items: const <String>[
+                              'Profile',
+                              'Settings',
+                              'Sign out',
+                            ],
+                            onSelected: (_) => ctrl2.close(),
+                          ),
+                        ),
+                      );
+                    },
+                    builder: (
+                      BuildContext ctx,
+                      MenuController c,
+                      Widget? child,
+                    ) {
+                      return OutlinedButton.icon(
+                        onPressed: () =>
+                            c.isOpen ? c.close() : c.open(),
+                        icon: const Icon(Icons.account_circle),
+                        label: const Text('Account'),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -413,53 +420,58 @@ class _LiveMenuTab extends StatelessWidget {
                 Center(
                   child: RawMenuAnchor(
                     controller: ctrl3,
-                    overlayBuilder:
-                        (BuildContext ctx, RawMenuOverlayInfo info) {
-                          final Offset base = info.anchorRect.topLeft;
-                          final Offset tap = info.position ?? Offset.zero;
-                          final double left = (base.dx + tap.dx).clamp(
-                            0,
-                            info.overlaySize.width - 160,
-                          );
-                          final double top = (base.dy + tap.dy).clamp(
-                            0,
-                            info.overlaySize.height - 120,
-                          );
-                          return Positioned(
-                            left: left,
-                            top: top,
-                            child: TapRegion(
-                              groupId: info.tapRegionGroupId,
-                              onTapOutside: (_) => ctrl3.close(),
-                              child: _SimpleMenuPanel(
-                                items: const <String>['Cut', 'Copy', 'Paste'],
-                                onSelected: (_) => ctrl3.close(),
-                              ),
-                            ),
-                          );
-                        },
-                    builder:
-                        (BuildContext ctx, MenuController c, Widget? child) {
-                          return GestureDetector(
-                            onSecondaryTapDown: (TapDownDetails d) =>
-                                c.open(position: d.localPosition),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 14,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.amber.shade100,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Colors.amber),
-                              ),
-                              child: const Text(
-                                'Right-click / two-finger tap here',
-                                style: TextStyle(fontSize: 13),
-                              ),
-                            ),
-                          );
-                        },
+                    overlayBuilder: (
+                      BuildContext ctx,
+                      RawMenuOverlayInfo info,
+                    ) {
+                      final Offset base = info.anchorRect.topLeft;
+                      final Offset tap = info.position ?? Offset.zero;
+                      final double left = (base.dx + tap.dx)
+                          .clamp(0, info.overlaySize.width - 160);
+                      final double top = (base.dy + tap.dy)
+                          .clamp(0, info.overlaySize.height - 120);
+                      return Positioned(
+                        left: left,
+                        top: top,
+                        child: TapRegion(
+                          groupId: info.tapRegionGroupId,
+                          onTapOutside: (_) => ctrl3.close(),
+                          child: _SimpleMenuPanel(
+                            items: const <String>[
+                              'Cut',
+                              'Copy',
+                              'Paste',
+                            ],
+                            onSelected: (_) => ctrl3.close(),
+                          ),
+                        ),
+                      );
+                    },
+                    builder: (
+                      BuildContext ctx,
+                      MenuController c,
+                      Widget? child,
+                    ) {
+                      return GestureDetector(
+                        onSecondaryTapDown: (TapDownDetails d) =>
+                            c.open(position: d.localPosition),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 14,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.amber.shade100,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.amber),
+                          ),
+                          child: const Text(
+                            'Right-click / two-finger tap here',
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -528,8 +540,7 @@ class _OverlayInfoTab extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 _CodeBlock(
-                  code:
-                      '// Clamp a menu so it fits below the anchor\n'
+                  code: '// Clamp a menu so it fits below the anchor\n'
                       'final double left = info.anchorRect.left.clamp(\n'
                       '  0,\n'
                       '  info.overlaySize.width - menuWidth,\n'
@@ -549,7 +560,10 @@ class _OverlayInfoTab extends StatelessWidget {
                   ),
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.info_outline, color: cs.onTertiaryContainer),
+                      Icon(
+                        Icons.info_outline,
+                        color: cs.onTertiaryContainer,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -586,8 +600,7 @@ class _OverlayInfoTab extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 _CodeBlock(
-                  code:
-                      '// Context menu: use tap location\n'
+                  code: '// Context menu: use tap location\n'
                       'GestureDetector(\n'
                       '  onSecondaryTapDown: (d) =>\n'
                       '      controller.open(position: d.localPosition),\n'
@@ -619,8 +632,7 @@ class _OverlayInfoTab extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 _CodeBlock(
-                  code:
-                      'overlayBuilder: (ctx, info) {\n'
+                  code: 'overlayBuilder: (ctx, info) {\n'
                       '  return Positioned(\n'
                       '    left: info.anchorRect.left,\n'
                       '    top: info.anchorRect.bottom,\n'
@@ -693,7 +705,8 @@ class _ArchitectureTab extends StatelessWidget {
                 ),
                 _BulletRow(
                   icon: Icons.looks_3,
-                  text: 'The overlay\'s RenderBox provides overlaySize.',
+                  text:
+                      'The overlay\'s RenderBox provides overlaySize.',
                 ),
                 _BulletRow(
                   icon: Icons.looks_4,
@@ -824,8 +837,7 @@ class _AlignmentTab extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 _CodeBlock(
-                  code:
-                      'final bool hasSpaceBelow =\n'
+                  code: 'final bool hasSpaceBelow =\n'
                       '    info.overlaySize.height -\n'
                       '        info.anchorRect.bottom >= menuHeight;\n'
                       'final double top = hasSpaceBelow\n'
@@ -907,77 +919,74 @@ class _CascadeTab extends StatelessWidget {
                               // ── Submenu trigger ──
                               RawMenuAnchor(
                                 controller: subCtrl,
-                                overlayBuilder:
-                                    (
-                                      BuildContext subCtx,
-                                      RawMenuOverlayInfo subInfo,
-                                    ) {
-                                      return Positioned(
-                                        left: subInfo.anchorRect.right + 4,
-                                        top: subInfo.anchorRect.top,
-                                        child: TapRegion(
-                                          groupId: subInfo.tapRegionGroupId,
-                                          onTapOutside: (_) => subCtrl.close(),
-                                          child: Material(
-                                            elevation: 6,
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                            child: SizedBox(
-                                              width: 160,
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  ListTile(
-                                                    dense: true,
-                                                    title: const Text(
-                                                      'Export PDF',
-                                                    ),
-                                                    onTap: () {
-                                                      subCtrl.close();
-                                                      parentCtrl.close();
-                                                    },
-                                                  ),
-                                                  ListTile(
-                                                    dense: true,
-                                                    title: const Text(
-                                                      'Export PNG',
-                                                    ),
-                                                    onTap: () {
-                                                      subCtrl.close();
-                                                      parentCtrl.close();
-                                                    },
-                                                  ),
-                                                  ListTile(
-                                                    dense: true,
-                                                    title: const Text(
-                                                      'Export CSV',
-                                                    ),
-                                                    onTap: () {
-                                                      subCtrl.close();
-                                                      parentCtrl.close();
-                                                    },
-                                                  ),
-                                                ],
+                                overlayBuilder: (
+                                  BuildContext subCtx,
+                                  RawMenuOverlayInfo subInfo,
+                                ) {
+                                  return Positioned(
+                                    left: subInfo.anchorRect.right + 4,
+                                    top: subInfo.anchorRect.top,
+                                    child: TapRegion(
+                                      groupId: subInfo.tapRegionGroupId,
+                                      onTapOutside: (_) => subCtrl.close(),
+                                      child: Material(
+                                        elevation: 6,
+                                        borderRadius:
+                                            BorderRadius.circular(8),
+                                        child: SizedBox(
+                                          width: 160,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              ListTile(
+                                                dense: true,
+                                                title: const Text(
+                                                  'Export PDF',
+                                                ),
+                                                onTap: () {
+                                                  subCtrl.close();
+                                                  parentCtrl.close();
+                                                },
                                               ),
-                                            ),
+                                              ListTile(
+                                                dense: true,
+                                                title: const Text(
+                                                  'Export PNG',
+                                                ),
+                                                onTap: () {
+                                                  subCtrl.close();
+                                                  parentCtrl.close();
+                                                },
+                                              ),
+                                              ListTile(
+                                                dense: true,
+                                                title: const Text(
+                                                  'Export CSV',
+                                                ),
+                                                onTap: () {
+                                                  subCtrl.close();
+                                                  parentCtrl.close();
+                                                },
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      );
-                                    },
-                                builder:
-                                    (
-                                      BuildContext subCtx,
-                                      MenuController sc,
-                                      Widget? _,
-                                    ) {
-                                      return ListTile(
-                                        dense: true,
-                                        title: const Text('Export ▶'),
-                                        onTap: () =>
-                                            sc.isOpen ? sc.close() : sc.open(),
-                                      );
-                                    },
+                                      ),
+                                    ),
+                                  );
+                                },
+                                builder: (
+                                  BuildContext subCtx,
+                                  MenuController sc,
+                                  Widget? _,
+                                ) {
+                                  return ListTile(
+                                    dense: true,
+                                    title: const Text('Export ▶'),
+                                    onTap: () =>
+                                        sc.isOpen ? sc.close() : sc.open(),
+                                  );
+                                },
                               ),
                               ListTile(
                                 dense: true,
@@ -994,7 +1003,11 @@ class _CascadeTab extends StatelessWidget {
                     ),
                   );
                 },
-                builder: (BuildContext ctx, MenuController c, Widget? child) {
+                builder: (
+                  BuildContext ctx,
+                  MenuController c,
+                  Widget? child,
+                ) {
                   return FilledButton.tonal(
                     onPressed: () => c.isOpen ? c.close() : c.open(),
                     child: const Text('File  (tap Export ▶)'),
@@ -1018,8 +1031,7 @@ class _CascadeTab extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 _CodeBlock(
-                  code:
-                      '// Submenu opens to the right of the parent item\n'
+                  code: '// Submenu opens to the right of the parent item\n'
                       'left: subInfo.anchorRect.right + 4,\n'
                       'top:  subInfo.anchorRect.top,\n\n'
                       '// Flip left if not enough space on right\n'
@@ -1080,8 +1092,7 @@ class _ContextMenuTab extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 _CodeBlock(
-                  code:
-                      'final Offset menuOrigin = info.position != null\n'
+                  code: 'final Offset menuOrigin = info.position != null\n'
                       '    ? info.anchorRect.topLeft + info.position!\n'
                       '    : info.anchorRect.bottomLeft;\n\n'
                       '// Clamp to overlay\n'
@@ -1106,8 +1117,7 @@ class _ContextMenuTab extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 _CodeBlock(
-                  code:
-                      'onPressed: () =>\n'
+                  code: 'onPressed: () =>\n'
                       '    controller.isOpen\n'
                       '        ? controller.close()\n'
                       '        : controller.open(position: offset),',
@@ -1127,9 +1137,18 @@ class _ContextMenuTab extends StatelessWidget {
                       'controller.open() — no arg',
                       'null → use anchorRect.bottomLeft',
                     ],
-                    ['controller.open(position: p)', 'p (anchor-local offset)'],
-                    ['Right-click at local (30, 50)', 'Offset(30, 50)'],
-                    ['Long-press at local (80, 120)', 'Offset(80, 120)'],
+                    [
+                      'controller.open(position: p)',
+                      'p (anchor-local offset)',
+                    ],
+                    [
+                      'Right-click at local (30, 50)',
+                      'Offset(30, 50)',
+                    ],
+                    [
+                      'Long-press at local (80, 120)',
+                      'Offset(80, 120)',
+                    ],
                   ],
                 ),
               ],
@@ -1167,8 +1186,7 @@ class _PitfallsTab extends StatelessWidget {
                 'Placing the menu at anchorRect.bottomLeft without clamping '
                 'to overlaySize causes the panel to render outside the visible '
                 'area on small screens or when the anchor is near an edge.',
-            fix:
-                '// Always clamp:\n'
+            fix: '// Always clamp:\n'
                 'left: info.anchorRect.left.clamp(\n'
                 '    0, info.overlaySize.width - panelWidth),\n'
                 'top: info.anchorRect.bottom.clamp(\n'
@@ -1183,8 +1201,7 @@ class _PitfallsTab extends StatelessWidget {
                 'Omitting TapRegion(groupId: info.tapRegionGroupId) means '
                 'outside taps are never reported to onTapOutside, so the menu '
                 'stays open when the user clicks elsewhere.',
-            fix:
-                'TapRegion(\n'
+            fix: 'TapRegion(\n'
                 '  groupId: info.tapRegionGroupId,\n'
                 '  onTapOutside: (_) => controller.close(),\n'
                 '  child: menuPanel,\n'
@@ -1199,8 +1216,7 @@ class _PitfallsTab extends StatelessWidget {
                 'When useRootOverlay is false the menu is rendered in the '
                 'nearest Overlay ancestor, which may be below SnackBars, '
                 'dialogs, or other overlays using the root Overlay.',
-            fix:
-                '// Use root overlay for always-on-top menus:\n'
+            fix: '// Use root overlay for always-on-top menus:\n'
                 'RawMenuAnchor(\n'
                 '  useRootOverlay: true,\n'
                 '  ...\n'
@@ -1215,8 +1231,7 @@ class _PitfallsTab extends StatelessWidget {
                 'Without a shared TapRegion groupId, tapping a submenu item '
                 'may trigger onTapOutside on the parent menu, closing it '
                 'before the submenu action fires.',
-            fix:
-                '// Ensure parent and submenu share the same groupId:\n'
+            fix: '// Ensure parent and submenu share the same groupId:\n'
                 'TapRegion(\n'
                 '  groupId: parentInfo.tapRegionGroupId,  // same group\n'
                 '  child: submenuPanel,\n'
@@ -1232,8 +1247,7 @@ class _PitfallsTab extends StatelessWidget {
                 'Scrollable ancestor scrolls. If you bypass this (custom '
                 'implementation), anchorRect will be stale and the menu '
                 'will float at the wrong position.',
-            fix:
-                '// Let RawMenuAnchor manage scroll-close automatically.\n'
+            fix: '// Let RawMenuAnchor manage scroll-close automatically.\n'
                 '// If custom: re-open with updated position on scroll.',
             color: const Color(0xFF4A148C),
           ),
@@ -1246,8 +1260,7 @@ class _PitfallsTab extends StatelessWidget {
                 'StatelessWidget creates a new controller on every rebuild, '
                 'detaching any open menu. Use a top-level or field-level '
                 'controller.',
-            fix:
-                '// Correct: top-level or field\n'
+            fix: '// Correct: top-level or field\n'
                 'final MenuController _ctrl = MenuController();\n\n'
                 '// Wrong: inside build\n'
                 'Widget build(ctx) {\n'
@@ -1276,7 +1289,10 @@ class _UseCasesTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text('Use Cases', style: Theme.of(context).textTheme.titleLarge),
+          Text(
+            'Use Cases',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
           const SizedBox(height: 8),
           const Text(
             'Six scenarios where RawMenuAnchor + RawMenuOverlayInfo '
@@ -1357,7 +1373,11 @@ class _UseCasesTab extends StatelessWidget {
                       'Rect',
                       'Anchor bounding box in overlay coords',
                     ],
-                    ['overlaySize', 'Size', 'Full size of containing Overlay'],
+                    [
+                      'overlaySize',
+                      'Size',
+                      'Full size of containing Overlay',
+                    ],
                     [
                       'position',
                       'Offset?',
@@ -1390,8 +1410,14 @@ class _UseCasesTab extends StatelessWidget {
                       'consumeOutsideTaps',
                       'Whether outside taps are swallowed',
                     ],
-                    ['onOpenRequested', 'Intercept open; trigger animations'],
-                    ['onCloseRequested', 'Intercept close; finish animations'],
+                    [
+                      'onOpenRequested',
+                      'Intercept open; trigger animations',
+                    ],
+                    [
+                      'onCloseRequested',
+                      'Intercept close; finish animations',
+                    ],
                   ],
                 ),
               ],
@@ -1472,10 +1498,7 @@ class _FieldCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  summary,
-                  style: const TextStyle(fontSize: 13, height: 1.4),
-                ),
+                Text(summary, style: const TextStyle(fontSize: 13, height: 1.4)),
               ],
             ),
           ),
@@ -1506,9 +1529,10 @@ class _SectionBox extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: Theme.of(
-              context,
-            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           child,
@@ -1534,10 +1558,7 @@ class _BulletRow extends StatelessWidget {
           Icon(icon, size: 18, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(fontSize: 13, height: 1.4),
-            ),
+            child: Text(text, style: const TextStyle(fontSize: 13, height: 1.4)),
           ),
         ],
       ),
@@ -1573,7 +1594,10 @@ class _CodeBlock extends StatelessWidget {
 }
 
 class _SimpleMenuPanel extends StatelessWidget {
-  const _SimpleMenuPanel({required this.items, required this.onSelected});
+  const _SimpleMenuPanel({
+    required this.items,
+    required this.onSelected,
+  });
 
   final List<String> items;
   final ValueChanged<String> onSelected;
@@ -1616,19 +1640,13 @@ class _AnchorRectSimulator extends StatelessWidget {
           valueListenable: _demoOverlaySize,
           builder: (BuildContext ctx2, Size overlaySize, _) {
             const Size anchorSize = Size(120, 44);
-            final Rect anchorRect = Rect.fromLTWH(
-              anchorOffset.dx,
-              anchorOffset.dy,
-              anchorSize.width,
-              anchorSize.height,
-            );
+            final Rect anchorRect =
+                Rect.fromLTWH(anchorOffset.dx, anchorOffset.dy, anchorSize.width, anchorSize.height);
             // Simulate a menu panel below
             const double panelW = 140;
             const double panelH = 100;
-            final double menuLeft = anchorRect.left.clamp(
-              0,
-              overlaySize.width - panelW,
-            );
+            final double menuLeft =
+                anchorRect.left.clamp(0, overlaySize.width - panelW);
             final double menuTop = anchorRect.bottom + 6;
             return Column(
               children: <Widget>[
@@ -1696,12 +1714,7 @@ class _AnchorSimPainter extends CustomPainter {
 
     // Overlay background
     canvas.drawRect(
-      Rect.fromLTWH(
-        0,
-        0,
-        overlaySize.width * scale,
-        overlaySize.height * scale,
-      ),
+      Rect.fromLTWH(0, 0, overlaySize.width * scale, overlaySize.height * scale),
       Paint()..color = const Color(0xFFEEEEEE),
     );
 
@@ -1716,13 +1729,7 @@ class _AnchorSimPainter extends CustomPainter {
       RRect.fromRectAndRadius(scaledAnchor, const Radius.circular(4)),
       Paint()..color = const Color(0xFF1565C0),
     );
-    _drawLabel(
-      canvas,
-      scaledAnchor.center,
-      'Anchor',
-      const Color(0xFFFFFFFF),
-      10,
-    );
+    _drawLabel(canvas, scaledAnchor.center, 'Anchor', const Color(0xFFFFFFFF), 10);
 
     // Menu panel
     final Rect scaledMenu = Rect.fromLTWH(
@@ -1754,10 +1761,7 @@ class _AnchorSimPainter extends CustomPainter {
 
     // Arrow
     final Offset arrowStart = scaledAnchor.bottomCenter;
-    final Offset arrowEnd = Offset(
-      scaledMenu.left + scaledMenu.width / 2,
-      scaledMenu.top - 2,
-    );
+    final Offset arrowEnd = Offset(scaledMenu.left + scaledMenu.width / 2, scaledMenu.top - 2);
     canvas.drawLine(
       arrowStart,
       arrowEnd,
@@ -1769,12 +1773,7 @@ class _AnchorSimPainter extends CustomPainter {
 
     // Overlay border
     canvas.drawRect(
-      Rect.fromLTWH(
-        0,
-        0,
-        overlaySize.width * scale,
-        overlaySize.height * scale,
-      ),
+      Rect.fromLTWH(0, 0, overlaySize.width * scale, overlaySize.height * scale),
       Paint()
         ..color = const Color(0xFF9E9E9E)
         ..style = PaintingStyle.stroke
@@ -1881,19 +1880,47 @@ class _ArchitecturePainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     // box0 → box1
-    canvas.drawLine(Offset(cx, 58), Offset(cx, 102), linePaint);
+    canvas.drawLine(
+      Offset(cx, 58),
+      Offset(cx, 102),
+      linePaint,
+    );
     // box1 → box2
-    canvas.drawLine(Offset(cx, 138), Offset(cx - 100, 182), linePaint);
+    canvas.drawLine(
+      Offset(cx, 138),
+      Offset(cx - 100, 182),
+      linePaint,
+    );
     // box1 → box3
-    canvas.drawLine(Offset(cx, 138), Offset(cx + 100, 182), linePaint);
+    canvas.drawLine(
+      Offset(cx, 138),
+      Offset(cx + 100, 182),
+      linePaint,
+    );
     // box2 → box4
-    canvas.drawLine(Offset(cx - 100, 218), Offset(cx - 40, 268), linePaint);
+    canvas.drawLine(
+      Offset(cx - 100, 218),
+      Offset(cx - 40, 268),
+      linePaint,
+    );
     // box3 → box4
-    canvas.drawLine(Offset(cx + 100, 218), Offset(cx + 40, 268), linePaint);
+    canvas.drawLine(
+      Offset(cx + 100, 218),
+      Offset(cx + 40, 268),
+      linePaint,
+    );
     // box4 → box5
-    canvas.drawLine(Offset(cx, 312), Offset(cx, 362), linePaint);
+    canvas.drawLine(
+      Offset(cx, 312),
+      Offset(cx, 362),
+      linePaint,
+    );
     // box5 → box6
-    canvas.drawLine(Offset(cx, 398), Offset(cx, 432), linePaint);
+    canvas.drawLine(
+      Offset(cx, 398),
+      Offset(cx, 432),
+      linePaint,
+    );
   }
 
   void _drawCentredText(
@@ -1975,11 +2002,8 @@ class _AlignmentPainter extends CustomPainter {
     );
 
     // Anchor rect centred
-    final Rect anchor = Rect.fromCenter(
-      center: Offset(cx, cy),
-      width: aw,
-      height: ah,
-    );
+    final Rect anchor =
+        Rect.fromCenter(center: Offset(cx, cy), width: aw, height: ah);
     canvas.drawRRect(
       RRect.fromRectAndRadius(anchor, const Radius.circular(4)),
       Paint()..color = const Color(0xFF1565C0),
@@ -2054,10 +2078,7 @@ class _AlignmentPainter extends CustomPainter {
 
   void _label(Canvas c, Offset o, String t, Color col, double sz) {
     final TextPainter tp = TextPainter(
-      text: TextSpan(
-        text: t,
-        style: TextStyle(color: col, fontSize: sz),
-      ),
+      text: TextSpan(text: t, style: TextStyle(color: col, fontSize: sz)),
       textDirection: TextDirection.ltr,
     )..layout();
     tp.paint(c, Offset(o.dx - tp.width / 2, o.dy - tp.height / 2));
@@ -2108,14 +2129,10 @@ class _ContextMenuDemo extends StatelessWidget {
           overlayBuilder: (BuildContext ctx, RawMenuOverlayInfo info) {
             final Offset tap = info.position ?? Offset.zero;
             final Offset base = info.anchorRect.topLeft;
-            final double left = (base.dx + tap.dx).clamp(
-              0,
-              info.overlaySize.width - 160,
-            );
-            final double top = (base.dy + tap.dy).clamp(
-              0,
-              info.overlaySize.height - 130,
-            );
+            final double left =
+                (base.dx + tap.dx).clamp(0, info.overlaySize.width - 160);
+            final double top =
+                (base.dy + tap.dy).clamp(0, info.overlaySize.height - 130);
             return Positioned(
               left: left,
               top: top,

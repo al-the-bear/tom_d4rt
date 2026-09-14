@@ -118,7 +118,10 @@ class _InfoCard extends StatelessWidget {
       color: color ?? cs.surfaceContainerLow,
       margin: const EdgeInsets.symmetric(vertical: 6),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(padding: const EdgeInsets.all(16), child: child),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: child,
+      ),
     );
   }
 }
@@ -257,9 +260,9 @@ class _TabHero extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Inherited widgets propagate upward',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 8),
               const Text(
@@ -320,19 +323,13 @@ class _TabHero extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _buildRow2Badge(
-                'DevTools / Widget Inspector',
-                'Subtrees rendered outside normal position',
-                cs,
-              ),
+              _buildRow2Badge('DevTools / Widget Inspector',
+                  'Subtrees rendered outside normal position', cs),
               const SizedBox(height: 10),
               _buildRow2Badge('Widget Testing', 'Isolated test subtrees', cs),
               const SizedBox(height: 10),
-              _buildRow2Badge(
-                'Design System Sandboxes',
-                'Components previewed in isolation',
-                cs,
-              ),
+              _buildRow2Badge('Design System Sandboxes',
+                  'Components previewed in isolation', cs),
             ],
           ),
         ),
@@ -372,11 +369,10 @@ Widget _buildRow2Badge(String label, String sub, ColorScheme cs) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
-            Text(
-              sub,
-              style: const TextStyle(fontSize: 13, color: Colors.black54),
-            ),
+            Text(label,
+                style: const TextStyle(fontWeight: FontWeight.w600)),
+            Text(sub,
+                style: const TextStyle(fontSize: 13, color: Colors.black54)),
           ],
         ),
       ),
@@ -462,9 +458,8 @@ class _ComparisonPanel extends StatelessWidget {
       borderColor: useBoundary ? cs.error : cs.primary,
     );
 
-    final Widget content = useBoundary
-        ? LookupBoundary(child: innerPanel)
-        : innerPanel;
+    final Widget content =
+        useBoundary ? LookupBoundary(child: innerPanel) : innerPanel;
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -486,7 +481,10 @@ class _ComparisonPanel extends StatelessWidget {
               ),
             ),
           ),
-          Padding(padding: const EdgeInsets.all(16), child: content),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: content,
+          ),
         ],
       ),
     );
@@ -505,7 +503,8 @@ class _InnerComparisonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // Demonstrate boundary-aware vs normal lookup.
     final MediaQuery? blockedMQ = useBoundary
-        ? LookupBoundary.dependOnInheritedWidgetOfExactType<MediaQuery>(context)
+        ? LookupBoundary.dependOnInheritedWidgetOfExactType<MediaQuery>(
+            context)
         : null;
     final bool isBlocked = useBoundary && blockedMQ == null;
 
@@ -543,10 +542,10 @@ class _InnerComparisonWidget extends StatelessWidget {
           Text(
             isBlocked
                 ? 'LookupBoundary.dependOnInheritedWidgetOfExactType'
-                      '<MediaQuery>(context) → null\n'
-                      'Fallback used: width = "unknown"'
+                    '<MediaQuery>(context) → null\n'
+                    'Fallback used: width = "unknown"'
                 : 'Outer Theme seed: '
-                      '${outerTheme.colorScheme.primary}',
+                    '${outerTheme.colorScheme.primary}',
             style: TextStyle(
               fontSize: 13,
               fontFamily: 'monospace',
@@ -602,17 +601,14 @@ class _TabDiagram extends StatelessWidget {
             children: <Widget>[
               _DiagramLegendRow(color: cs.primary, label: 'Normal ancestors'),
               const SizedBox(height: 8),
-              _DiagramLegendRow(color: cs.error, label: 'LookupBoundary node'),
+              _DiagramLegendRow(
+                  color: cs.error, label: 'LookupBoundary node'),
               const SizedBox(height: 8),
               _DiagramLegendRow(
-                color: cs.tertiary,
-                label: 'ChildWidget (lookup origin)',
-              ),
+                  color: cs.tertiary, label: 'ChildWidget (lookup origin)'),
               const SizedBox(height: 8),
               _DiagramLegendRow(
-                color: Colors.orange,
-                label: 'Arrow = lookup walk',
-              ),
+                  color: Colors.orange, label: 'Arrow = lookup walk'),
               const SizedBox(height: 8),
               const Text(
                 '✗ at LookupBoundary = walk is intercepted and null is '
@@ -724,7 +720,10 @@ class _TreeDiagramPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    xPainter.paint(canvas, Offset(cx + 34, centres[2].dy + nodeH / 2 + 8));
+    xPainter.paint(
+      canvas,
+      Offset(cx + 34, centres[2].dy + nodeH / 2 + 8),
+    );
 
     // Draw nodes
     for (int i = 0; i < centres.length; i++) {
@@ -733,11 +732,11 @@ class _TreeDiagramPainter extends CustomPainter {
         width: nodeW,
         height: nodeH,
       );
-      final RRect rRect = RRect.fromRectAndRadius(
-        rect,
-        const Radius.circular(10),
+      final RRect rRect = RRect.fromRectAndRadius(rect, const Radius.circular(10));
+      canvas.drawRRect(
+        rRect,
+        Paint()..color = boxColors[i].withAlpha(230),
       );
-      canvas.drawRRect(rRect, Paint()..color = boxColors[i].withAlpha(230));
       canvas.drawRRect(
         rRect,
         Paint()
@@ -776,7 +775,10 @@ class _TreeDiagramPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    legendPainter.paint(canvas, Offset(cx + 38, centres[3].dy - 6));
+    legendPainter.paint(
+      canvas,
+      Offset(cx + 38, centres[3].dy - 6),
+    );
   }
 
   void _drawDashedArrow(
@@ -797,7 +799,8 @@ class _TreeDiagramPainter extends CustomPainter {
       final double end = (walked + seg).clamp(0, dist);
       if (drawing) {
         canvas.drawLine(
-          Offset(from.dx + dx * walked / dist, from.dy + dy * walked / dist),
+          Offset(from.dx + dx * walked / dist,
+              from.dy + dy * walked / dist),
           Offset(from.dx + dx * end / dist, from.dy + dy * end / dist),
           paint,
         );
@@ -810,12 +813,14 @@ class _TreeDiagramPainter extends CustomPainter {
     final double angle = (to - from).direction;
     canvas.drawLine(
       to,
-      to + Offset(headLen * (angle - 2.6).cos, headLen * (angle - 2.6).sin),
+      to +
+          Offset(headLen * (angle - 2.6).cos, headLen * (angle - 2.6).sin),
       paint,
     );
     canvas.drawLine(
       to,
-      to + Offset(headLen * (angle + 2.6).cos, headLen * (angle + 2.6).sin),
+      to +
+          Offset(headLen * (angle + 2.6).cos, headLen * (angle + 2.6).sin),
       paint,
     );
   }
@@ -876,11 +881,8 @@ class _TabOfVsMaybeOf extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.warning_amber_rounded,
-                    color: cs.onErrorContainer,
-                    size: 22,
-                  ),
+                  Icon(Icons.warning_amber_rounded,
+                      color: cs.onErrorContainer, size: 22),
                   const SizedBox(width: 8),
                   Text(
                     'Theme.of(context) — dangerous inside boundary',
@@ -922,11 +924,8 @@ class _TabOfVsMaybeOf extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.check_circle_outline,
-                    color: cs.onPrimaryContainer,
-                    size: 22,
-                  ),
+                  Icon(Icons.check_circle_outline,
+                      color: cs.onPrimaryContainer, size: 22),
                   const SizedBox(width: 8),
                   Text(
                     'Theme.maybeOf(context) — safe fallback',
@@ -962,9 +961,9 @@ class _TabOfVsMaybeOf extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Boundary-aware pattern (recommended in isolation)',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 10),
               _CodeBlock(
@@ -989,9 +988,9 @@ class _TabOfVsMaybeOf extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Guard pattern for widgets used in both contexts',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 10),
               _CodeBlock(
@@ -1026,10 +1025,8 @@ class _TabDebugCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     // Demonstrate the debug check inside and outside a boundary.
-    final bool isHidingMediaQuery =
-        LookupBoundary.debugIsHidingAncestorWidgetOfExactType<MediaQuery>(
-          context,
-        );
+    final bool isHidingMediaQuery = LookupBoundary
+        .debugIsHidingAncestorWidgetOfExactType<MediaQuery>(context);
     // Should be false at this level (no LookupBoundary between us and root).
 
     return ListView(
@@ -1102,10 +1099,8 @@ class _TabDebugCheck extends StatelessWidget {
         LookupBoundary(
           child: Builder(
             builder: (BuildContext innerCtx) {
-              final bool hidden =
-                  LookupBoundary.debugIsHidingAncestorWidgetOfExactType<
-                    MediaQuery
-                  >(innerCtx);
+              final bool hidden = LookupBoundary
+                  .debugIsHidingAncestorWidgetOfExactType<MediaQuery>(innerCtx);
               return _InfoCard(
                 color: cs.errorContainer,
                 child: Column(
@@ -1156,14 +1151,11 @@ class _TabDebugCheck extends StatelessWidget {
             children: <Widget>[
               const _Bullet('Debug-only: stripped in release mode.'),
               const _Bullet(
-                'Use in assert() statements, not in widget build logic.',
-              ),
+                  'Use in assert() statements, not in widget build logic.'),
               const _Bullet(
-                'Ideal for library authors to guard against misuse.',
-              ),
+                  'Ideal for library authors to guard against misuse.'),
               const _Bullet(
-                'Returns false when no LookupBoundary is present at all.',
-              ),
+                  'Returns false when no LookupBoundary is present at all.'),
             ],
           ),
         ),
@@ -1288,7 +1280,10 @@ class _IsolatedWidgetSimulation extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
-            _Badge('${outerCs.primary}', color: outerCs.primary),
+            _Badge(
+              '${outerCs.primary}',
+              color: outerCs.primary,
+            ),
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 12),
@@ -1304,7 +1299,9 @@ class _IsolatedWidgetSimulation extends StatelessWidget {
               child: Theme(
                 data: innerTheme,
                 child: MediaQuery(
-                  data: const MediaQueryData(size: Size(400, 800)),
+                  data: const MediaQueryData(
+                    size: Size(400, 800),
+                  ),
                   child: Builder(
                     builder: (BuildContext innerCtx) {
                       final ThemeData t = Theme.of(innerCtx);
@@ -1373,7 +1370,10 @@ class _OuterInnerThemeDemo extends StatelessWidget {
                 Text(
                   'Purple seed\nambient',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 12, color: cs.onPrimaryContainer),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: cs.onPrimaryContainer,
+                  ),
                 ),
               ],
             ),
@@ -1459,17 +1459,13 @@ class _TabDependOn extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Method',
-                      style: TextStyle(fontWeight: FontWeight.w700),
-                    ),
+                    child: Text('Method',
+                        style: TextStyle(fontWeight: FontWeight.w700)),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Stops at\nboundary?',
-                      style: TextStyle(fontWeight: FontWeight.w700),
-                    ),
+                    child: Text('Stops at\nboundary?',
+                        style: TextStyle(fontWeight: FontWeight.w700)),
                   ),
                 ],
               ),
@@ -1478,15 +1474,12 @@ class _TabDependOn extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(
-                      'context.dependOnInheritedWidgetOfExactType<T>()',
-                    ),
+                        'context.dependOnInheritedWidgetOfExactType<T>()'),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text(
-                      'No — walks to root',
-                      style: TextStyle(color: Colors.red),
-                    ),
+                    child: Text('No — walks to root',
+                        style: TextStyle(color: Colors.red)),
                   ),
                 ],
               ),
@@ -1495,15 +1488,12 @@ class _TabDependOn extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(
-                      'LookupBoundary.dependOnInheritedWidgetOfExactType<T>(ctx)',
-                    ),
+                        'LookupBoundary.dependOnInheritedWidgetOfExactType<T>(ctx)'),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Yes — returns null',
-                      style: TextStyle(color: Colors.green),
-                    ),
+                    child: Text('Yes — returns null',
+                        style: TextStyle(color: Colors.green)),
                   ),
                 ],
               ),
@@ -1512,15 +1502,12 @@ class _TabDependOn extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(
-                      'LookupBoundary.getInheritedWidgetOfExactType<T>(ctx)',
-                    ),
+                        'LookupBoundary.getInheritedWidgetOfExactType<T>(ctx)'),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Yes — no rebuild',
-                      style: TextStyle(color: Colors.green),
-                    ),
+                    child: Text('Yes — no rebuild',
+                        style: TextStyle(color: Colors.green)),
                   ),
                 ],
               ),
@@ -1571,10 +1558,8 @@ class _TabDependOn extends StatelessWidget {
         LookupBoundary(
           child: Builder(
             builder: (BuildContext innerCtx) {
-              final MediaQuery? mq =
-                  LookupBoundary.dependOnInheritedWidgetOfExactType<MediaQuery>(
-                    innerCtx,
-                  );
+              final MediaQuery? mq = LookupBoundary
+                  .dependOnInheritedWidgetOfExactType<MediaQuery>(innerCtx);
               return _InfoCard(
                 color: cs.tertiaryContainer,
                 child: Column(
@@ -1708,10 +1693,9 @@ class _NestedLiveDemo extends StatelessWidget {
     return LookupBoundary(
       child: Builder(
         builder: (BuildContext outerBoundaryCtx) {
-          final MediaQuery? outerMQ =
-              LookupBoundary.dependOnInheritedWidgetOfExactType<MediaQuery>(
-                outerBoundaryCtx,
-              );
+          final MediaQuery? outerMQ = LookupBoundary
+              .dependOnInheritedWidgetOfExactType<MediaQuery>(
+                  outerBoundaryCtx);
           return _InfoCard(
             color: cs.secondaryContainer,
             child: Column(
@@ -1736,10 +1720,9 @@ class _NestedLiveDemo extends StatelessWidget {
                 LookupBoundary(
                   child: Builder(
                     builder: (BuildContext innerBoundaryCtx) {
-                      final MediaQuery? innerMQ =
-                          LookupBoundary.dependOnInheritedWidgetOfExactType<
-                            MediaQuery
-                          >(innerBoundaryCtx);
+                      final MediaQuery? innerMQ = LookupBoundary
+                          .dependOnInheritedWidgetOfExactType<MediaQuery>(
+                              innerBoundaryCtx);
                       return Container(
                         margin: const EdgeInsets.only(left: 16, top: 8),
                         padding: const EdgeInsets.all(12),
@@ -1771,7 +1754,8 @@ class _NestedLiveDemo extends StatelessWidget {
                               innerMQ == null
                                   ? 'BLOCKED at inner boundary'
                                   : 'FOUND',
-                              color: innerMQ == null ? cs.error : Colors.green,
+                              color:
+                                  innerMQ == null ? cs.error : Colors.green,
                             ),
                           ],
                         ),
@@ -1834,11 +1818,9 @@ class _NestedDiagramPainter extends CustomPainter {
 
     for (int i = 0; i < centres.length; i++) {
       final Rect rect = Rect.fromCenter(
-        center: centres[i],
-        width: nodeW,
-        height: nodeH,
-      );
-      final RRect rr = RRect.fromRectAndRadius(rect, const Radius.circular(8));
+          center: centres[i], width: nodeW, height: nodeH);
+      final RRect rr =
+          RRect.fromRectAndRadius(rect, const Radius.circular(8));
       canvas.drawRRect(rr, Paint()..color = colors[i].withAlpha(210));
       canvas.drawRRect(
         rr,
@@ -1851,18 +1833,13 @@ class _NestedDiagramPainter extends CustomPainter {
         text: TextSpan(
           text: labels[i],
           style: const TextStyle(
-            color: Colors.white,
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-          ),
+              color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
         ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       )..layout(maxWidth: nodeW - 8);
-      tp.paint(
-        canvas,
-        Offset(centres[i].dx - tp.width / 2, centres[i].dy - tp.height / 2),
-      );
+      tp.paint(canvas,
+          Offset(centres[i].dx - tp.width / 2, centres[i].dy - tp.height / 2));
     }
   }
 
@@ -1893,8 +1870,7 @@ class _TabPitfalls extends StatelessWidget {
               'Scaffold.of(context) or Navigator.of(context) will cause '
               'those lookups to fail at runtime because the boundary blocks '
               'the walk to the ancestor Scaffold/Navigator.',
-          badCode:
-              '// Accidentally blocking Scaffold:\n'
+          badCode: '// Accidentally blocking Scaffold:\n'
               'LookupBoundary(\n'
               '  child: Builder(\n'
               '    builder: (ctx) {\n'
@@ -1918,14 +1894,12 @@ class _TabPitfalls extends StatelessWidget {
               'If you block an inherited widget and then call the non-null '
               '.of() variant, your app crashes or asserts in debug mode. '
               'Always pair LookupBoundary usage with null-safe lookups.',
-          badCode:
-              '// Inside LookupBoundary — Theme.of will throw:\n'
+          badCode: '// Inside LookupBoundary — Theme.of will throw:\n'
               'final color = Theme.of(context).colorScheme.primary;\n\n'
               '// Safe version:\n'
               'final color = Theme.maybeOf(context)\n'
               '    ?.colorScheme.primary ?? Colors.purple;',
-          fixNote:
-              'Always use maybeOf / null-aware access when inside or '
+          fixNote: 'Always use maybeOf / null-aware access when inside or '
               'near a LookupBoundary.',
           cs: cs,
         ),
@@ -1938,16 +1912,14 @@ class _TabPitfalls extends StatelessWidget {
               'The debug check is stripped in release mode. Using it to '
               'drive conditional widget logic means the behaviour differs '
               'between debug and release builds.',
-          badCode:
-              '// WRONG — release mode always takes the else branch:\n'
+          badCode: '// WRONG — release mode always takes the else branch:\n'
               'if (LookupBoundary\n'
               '    .debugIsHidingAncestorWidgetOfExactType<Theme>(\n'
               '        context)) {\n'
               '  return const FallbackWidget();\n'
               '}\n'
               'return const NormalWidget();',
-          fixNote:
-              'Use debugIsHidingAncestor only inside assert() or '
+          fixNote: 'Use debugIsHidingAncestor only inside assert() or '
               'inside #if debug/#if release guards.',
           cs: cs,
         ),
@@ -1961,16 +1933,14 @@ class _TabPitfalls extends StatelessWidget {
               'in production widget trees to "hide" an inherited widget is '
               'fragile — it may block lookups you did not intend to block, '
               'including framework-internal ones.',
-          badCode:
-              '// Fragile production usage:\n'
+          badCode: '// Fragile production usage:\n'
               'LookupBoundary(\n'
               '  // Trying to prevent child from reading app Theme...\n'
               '  child: MyProductionWidget(),\n'
               ');\n'
               '// MyProductionWidget internally calls Navigator.of(),\n'
               '// DefaultTabController.of(), etc. — all blocked!',
-          fixNote:
-              'For production theme overrides use Theme(...) or '
+          fixNote: 'For production theme overrides use Theme(...) or '
               'MediaQuery(...) widgets instead.',
           cs: cs,
         ),
@@ -1983,8 +1953,7 @@ class _TabPitfalls extends StatelessWidget {
               'The standard BuildContext.dependOnInheritedWidgetOfExactType '
               'does NOT stop at LookupBoundary. You must use the static '
               'LookupBoundary.dependOnInheritedWidgetOfExactType.',
-          badCode:
-              '// Does NOT respect boundary:\n'
+          badCode: '// Does NOT respect boundary:\n'
               'final mq = context\n'
               '    .dependOnInheritedWidgetOfExactType<MediaQuery>();\n\n'
               '// DOES respect boundary:\n'
@@ -2082,19 +2051,14 @@ class _PitfallCard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const Icon(
-                        Icons.lightbulb_outline,
-                        color: Colors.green,
-                        size: 18,
-                      ),
+                      const Icon(Icons.lightbulb_outline,
+                          color: Colors.green, size: 18),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           'Fix: $fixNote',
                           style: const TextStyle(
-                            height: 1.45,
-                            color: Colors.green,
-                          ),
+                              height: 1.45, color: Colors.green),
                         ),
                       ),
                     ],
@@ -2144,8 +2108,7 @@ class _TabApiCheatSheet extends StatelessWidget {
           cs: cs,
           entries: const <_ApiEntry>[
             _ApiEntry(
-              name:
-                  'dependOnInheritedWidgetOfExactType<T>(\n'
+              name: 'dependOnInheritedWidgetOfExactType<T>(\n'
                   '    BuildContext context, {Object? aspect})',
               description:
                   'Boundary-aware dependOn. Walks upward from context '
@@ -2154,8 +2117,7 @@ class _TabApiCheatSheet extends StatelessWidget {
               returnType: 'T?',
             ),
             _ApiEntry(
-              name:
-                  'getInheritedWidgetOfExactType<T>(\n'
+              name: 'getInheritedWidgetOfExactType<T>(\n'
                   '    BuildContext context)',
               description:
                   'Boundary-aware getInherited. Same walk as dependOn but '
@@ -2163,8 +2125,7 @@ class _TabApiCheatSheet extends StatelessWidget {
               returnType: 'T?',
             ),
             _ApiEntry(
-              name:
-                  'debugIsHidingAncestorWidgetOfExactType<T>(\n'
+              name: 'debugIsHidingAncestorWidgetOfExactType<T>(\n'
                   '    BuildContext context)',
               description:
                   'Returns true if a LookupBoundary between context and '
@@ -2181,12 +2142,10 @@ class _TabApiCheatSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const _Bullet(
-                'Package: package:flutter/widgets.dart (included in package:flutter/material.dart)',
-              ),
+                  'Package: package:flutter/widgets.dart (included in package:flutter/material.dart)'),
               const _Bullet('Available: Flutter 3.7.0+'),
               const _Bullet(
-                'Category: Framework internals / Testing and Tooling',
-              ),
+                  'Category: Framework internals / Testing and Tooling'),
             ],
           ),
         ),
@@ -2204,23 +2163,16 @@ class _TabApiCheatSheet extends StatelessWidget {
             children: <Widget>[
               _buildQuickRow('Constructor', 'LookupBoundary(child: …)', cs),
               const Divider(height: 20),
-              _buildQuickRow(
-                'Block + rebuild dep.',
-                'LookupBoundary.dependOnInheritedWidgetOfExactType<T>(ctx)',
-                cs,
-              ),
+              _buildQuickRow('Block + rebuild dep.',
+                  'LookupBoundary.dependOnInheritedWidgetOfExactType<T>(ctx)',
+                  cs),
               const Divider(height: 20),
-              _buildQuickRow(
-                'Block, no rebuild dep.',
-                'LookupBoundary.getInheritedWidgetOfExactType<T>(ctx)',
-                cs,
-              ),
+              _buildQuickRow('Block, no rebuild dep.',
+                  'LookupBoundary.getInheritedWidgetOfExactType<T>(ctx)', cs),
               const Divider(height: 20),
-              _buildQuickRow(
-                'Debug check',
-                'LookupBoundary.debugIsHidingAncestorWidgetOfExactType<T>(ctx)',
-                cs,
-              ),
+              _buildQuickRow('Debug check',
+                  'LookupBoundary.debugIsHidingAncestorWidgetOfExactType<T>(ctx)',
+                  cs),
             ],
           ),
         ),
@@ -2235,32 +2187,22 @@ class _TabApiCheatSheet extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 12),
-              _FlowStep('1. Wrap subtree with LookupBoundary(child: …)', cs, 0),
               _FlowStep(
-                '2. Inside subtree — use boundary-aware static methods',
-                cs,
-                1,
-              ),
+                  '1. Wrap subtree with LookupBoundary(child: …)', cs, 0),
               _FlowStep(
-                '3. Use dependOn if widget should rebuild on changes',
-                cs,
-                2,
-              ),
+                  '2. Inside subtree — use boundary-aware static methods', cs,
+                  1),
               _FlowStep(
-                '4. Use getInherited for one-shot reads (no rebuild)',
-                cs,
-                2,
-              ),
+                  '3. Use dependOn if widget should rebuild on changes', cs,
+                  2),
               _FlowStep(
-                '5. Use maybeOf / null-safe access for any .of() calls',
-                cs,
-                1,
-              ),
+                  '4. Use getInherited for one-shot reads (no rebuild)', cs, 2),
               _FlowStep(
-                '6. Use debugIsHidingAncestor in assert() for guard checks',
-                cs,
-                1,
-              ),
+                  '5. Use maybeOf / null-safe access for any .of() calls', cs,
+                  1),
+              _FlowStep(
+                  '6. Use debugIsHidingAncestor in assert() for guard checks',
+                  cs, 1),
             ],
           ),
         ),
@@ -2337,10 +2279,8 @@ class _ApiEntryCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              entry.description,
-              style: const TextStyle(height: 1.45, fontSize: 13),
-            ),
+            Text(entry.description,
+                style: const TextStyle(height: 1.45, fontSize: 13)),
           ],
         ),
       ),
@@ -2354,10 +2294,9 @@ Widget _buildQuickRow(String label, String code, ColorScheme cs) {
     children: <Widget>[
       SizedBox(
         width: 120,
-        child: Text(
-          label,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-        ),
+        child: Text(label,
+            style: const TextStyle(
+                fontWeight: FontWeight.w600, fontSize: 12)),
       ),
       const SizedBox(width: 10),
       Expanded(
@@ -2389,7 +2328,9 @@ class _FlowStep extends StatelessWidget {
         children: <Widget>[
           Icon(Icons.arrow_right, color: cs.primary, size: 18),
           const SizedBox(width: 4),
-          Expanded(child: Text(text, style: const TextStyle(height: 1.4))),
+          Expanded(
+            child: Text(text, style: const TextStyle(height: 1.4)),
+          ),
         ],
       ),
     );

@@ -171,10 +171,7 @@ class _ScrollStatePainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     tp.layout(maxWidth: 70);
-    tp.paint(
-      canvas,
-      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
-    );
+    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height / 2));
   }
 
   void _drawArrow(Canvas canvas, Offset from, Offset to, String label) {
@@ -187,15 +184,11 @@ class _ScrollStatePainter extends CustomPainter {
     final double angle = math.atan2(to.dy - from.dy, to.dx - from.dx);
     final double ah = 6.0;
     final Path arrow = Path()
-      ..moveTo(
-        to.dx - ah * math.cos(angle - math.pi / 6),
-        to.dy - ah * math.sin(angle - math.pi / 6),
-      )
+      ..moveTo(to.dx - ah * math.cos(angle - math.pi / 6),
+          to.dy - ah * math.sin(angle - math.pi / 6))
       ..lineTo(to.dx, to.dy)
-      ..lineTo(
-        to.dx - ah * math.cos(angle + math.pi / 6),
-        to.dy - ah * math.sin(angle + math.pi / 6),
-      );
+      ..lineTo(to.dx - ah * math.cos(angle + math.pi / 6),
+          to.dy - ah * math.sin(angle + math.pi / 6));
     canvas.drawPath(arrow, edgePaint);
 
     final Offset mid = Offset((from.dx + to.dx) / 2, (from.dy + to.dy) / 2 - 8);
@@ -225,24 +218,12 @@ class _ScrollStatePainter extends CustomPainter {
     _drawState(canvas, drag, 'drag\ntrue', activeColor, edgeColor);
     _drawState(canvas, ballistic, 'fling\ntrue', activeColor, edgeColor);
 
-    _drawArrow(
-      canvas,
-      idle + const Offset(28, -10),
-      drag + const Offset(-28, 10),
-      'beginDrag',
-    );
-    _drawArrow(
-      canvas,
-      drag + const Offset(28, 10),
-      ballistic + const Offset(-28, -10),
-      'endDrag',
-    );
-    _drawArrow(
-      canvas,
-      ballistic + const Offset(-20, 20),
-      idle + const Offset(20, 20),
-      'settle',
-    );
+    _drawArrow(canvas, idle + const Offset(28, -10),
+        drag + const Offset(-28, 10), 'beginDrag');
+    _drawArrow(canvas, drag + const Offset(28, 10),
+        ballistic + const Offset(-28, -10), 'endDrag');
+    _drawArrow(canvas, ballistic + const Offset(-20, 20),
+        idle + const Offset(20, 20), 'settle');
   }
 
   @override
@@ -418,13 +399,10 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget infoCard(
-    String heading,
-    Widget content, {
-    List<Color>? headerGradient,
-    Color? bodyColor,
-  }) {
-    final List<Color> gradient = headerGradient ?? <Color>[tealDeep, teal];
+  Widget infoCard(String heading, Widget content,
+      {List<Color>? headerGradient, Color? bodyColor}) {
+    final List<Color> gradient =
+        headerGradient ?? <Color>[tealDeep, teal];
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
@@ -457,9 +435,8 @@ dynamic build(BuildContext context) {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Text(
               heading,
@@ -522,7 +499,11 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         label,
-        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: fg),
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          color: fg,
+        ),
       ),
     );
   }
@@ -556,9 +537,8 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             decoration: BoxDecoration(
               color: a.withValues(alpha: 0.20),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Row(
               children: <Widget>[
@@ -648,7 +628,10 @@ dynamic build(BuildContext context) {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(color: fg, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: fg,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 8),
               Text(
@@ -1040,7 +1023,11 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 10),
-          Row(children: <Widget>[child]),
+          Row(
+            children: <Widget>[
+              child,
+            ],
+          ),
         ],
       ),
     );
@@ -1139,7 +1126,10 @@ dynamic build(BuildContext context) {
             width: 24,
             height: 24,
             margin: const EdgeInsets.only(right: 10, top: 1),
-            decoration: BoxDecoration(color: tealDeep, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: tealDeep,
+              shape: BoxShape.circle,
+            ),
             child: Center(
               child: Text(
                 '$n',
@@ -1217,7 +1207,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6),
           Text(
             body,
-            style: const TextStyle(fontSize: 12, color: slate, height: 1.5),
+            style: const TextStyle(
+              fontSize: 12,
+              color: slate,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -1233,10 +1227,11 @@ dynamic build(BuildContext context) {
         heroSection,
 
         // ── Section 1: What is the pattern? ──
-        sectionBanner('1', 'What is the scrolling-pill pattern?', const <Color>[
-          tealDeep,
-          teal,
-        ]),
+        sectionBanner(
+          '1',
+          'What is the scrolling-pill pattern?',
+          const <Color>[tealDeep, teal],
+        ),
         proseBox(
           'A "scrolling pill" is a tiny indicator widget that listens to a '
           'ValueListenable<bool> and re-renders whenever its boolean value '
@@ -1267,10 +1262,7 @@ dynamic build(BuildContext context) {
               dataRow('Return type', 'ValueListenable<bool>'),
               dataRow('True when', 'drag / fling / animateTo active'),
               dataRow('False when', 'position settled, no activity'),
-              dataRow(
-                'Lifecycle',
-                'tied to ScrollPosition (recycled on attach)',
-              ),
+              dataRow('Lifecycle', 'tied to ScrollPosition (recycled on attach)'),
             ],
           ),
         ),
@@ -1286,10 +1278,11 @@ dynamic build(BuildContext context) {
         ),
 
         // ── Section 2: Anatomy of the loop ──
-        sectionBanner('2', 'Anatomy: listener → emit → rebuild', const <Color>[
-          indigoDeep,
-          indigo,
-        ]),
+        sectionBanner(
+          '2',
+          'Anatomy: listener → emit → rebuild',
+          const <Color>[indigoDeep, indigo],
+        ),
         proseBox(
           'The data flow is a five-node chain. The ScrollPosition owns an '
           'internal ValueNotifier<bool> exposed as isScrollingNotifier. Each '
@@ -1324,10 +1317,11 @@ dynamic build(BuildContext context) {
         ),
 
         // ── Section 3: Pill variants gallery ──
-        sectionBanner('3', 'A gallery of pill shapes', const <Color>[
-          teal,
-          indigo,
-        ]),
+        sectionBanner(
+          '3',
+          'A gallery of pill shapes',
+          const <Color>[teal, indigo],
+        ),
         proseBox(
           'The same ValueListenableBuilder<bool> can render any visual '
           'shape. Below: eight distinct pill styles, each receiving the '
@@ -1338,103 +1332,63 @@ dynamic build(BuildContext context) {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: galleryCell(
-                'Classic (active)',
-                classicPill(activeNotifier),
-              ),
-            ),
+            Expanded(child: galleryCell('Classic (active)', classicPill(activeNotifier))),
             const SizedBox(width: 10),
-            Expanded(
-              child: galleryCell('Classic (idle)', classicPill(idleNotifier)),
-            ),
+            Expanded(child: galleryCell('Classic (idle)', classicPill(idleNotifier))),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: galleryCell('Badge (active)', badgePill(activeNotifier)),
-            ),
+            Expanded(child: galleryCell('Badge (active)', badgePill(activeNotifier))),
             const SizedBox(width: 10),
-            Expanded(
-              child: galleryCell('Badge (idle)', badgePill(idleNotifier)),
-            ),
+            Expanded(child: galleryCell('Badge (idle)', badgePill(idleNotifier))),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: galleryCell('Ribbon (active)', ribbonPill(activeNotifier)),
-            ),
+            Expanded(child: galleryCell('Ribbon (active)', ribbonPill(activeNotifier))),
             const SizedBox(width: 10),
-            Expanded(
-              child: galleryCell('Ribbon (idle)', ribbonPill(idleNotifier)),
-            ),
+            Expanded(child: galleryCell('Ribbon (idle)', ribbonPill(idleNotifier))),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: galleryCell(
-                'Icon-chip (active)',
-                iconChipPill(activeNotifier),
-              ),
-            ),
+            Expanded(child: galleryCell('Icon-chip (active)', iconChipPill(activeNotifier))),
             const SizedBox(width: 10),
-            Expanded(
-              child: galleryCell(
-                'Icon-chip (idle)',
-                iconChipPill(idleNotifier),
-              ),
-            ),
+            Expanded(child: galleryCell('Icon-chip (idle)', iconChipPill(idleNotifier))),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: galleryCell('Sonar (active)', sonarPill(activeNotifier)),
-            ),
+            Expanded(child: galleryCell('Sonar (active)', sonarPill(activeNotifier))),
             const SizedBox(width: 10),
-            Expanded(
-              child: galleryCell('Sonar (idle)', sonarPill(idleNotifier)),
-            ),
+            Expanded(child: galleryCell('Sonar (idle)', sonarPill(idleNotifier))),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: galleryCell(
-                'Stacked (active)',
-                stackedPill(activeNotifier),
-              ),
-            ),
+            Expanded(child: galleryCell('Stacked (active)', stackedPill(activeNotifier))),
             const SizedBox(width: 10),
-            Expanded(
-              child: galleryCell('Stacked (idle)', stackedPill(idleNotifier)),
-            ),
+            Expanded(child: galleryCell('Stacked (idle)', stackedPill(idleNotifier))),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: galleryCell('Strip (active)', stripPill(activeNotifier)),
-            ),
+            Expanded(child: galleryCell('Strip (active)', stripPill(activeNotifier))),
             const SizedBox(width: 10),
-            Expanded(
-              child: galleryCell('Strip (idle)', stripPill(idleNotifier)),
-            ),
+            Expanded(child: galleryCell('Strip (idle)', stripPill(idleNotifier))),
           ],
         ),
         const SizedBox(height: 14),
@@ -1473,10 +1427,11 @@ dynamic build(BuildContext context) {
         ),
 
         // ── Section 5: Mock state gallery ──
-        sectionBanner('5', 'Side-by-side state preview', const <Color>[
-          teal,
-          tealDeep,
-        ]),
+        sectionBanner(
+          '5',
+          'Side-by-side state preview',
+          const <Color>[teal, tealDeep],
+        ),
         proseBox(
           'The gallery below pairs each pill in both states. Because we own '
           'the source notifiers directly and they are static '
@@ -1522,10 +1477,11 @@ dynamic build(BuildContext context) {
         ),
 
         // ── Section 6: Lifecycle steps ──
-        sectionBanner('6', 'Lifecycle: from mount to dispose', const <Color>[
-          indigoDeep,
-          indigo,
-        ]),
+        sectionBanner(
+          '6',
+          'Lifecycle: from mount to dispose',
+          const <Color>[indigoDeep, indigo],
+        ),
         proseBox(
           'A live scrolling pill wires up to a real ScrollController. The '
           'six steps below trace the full path from widget mount to '
@@ -1590,10 +1546,11 @@ dynamic build(BuildContext context) {
         ),
 
         // ── Section 7: Pitfalls ──
-        sectionBanner('7', 'Pitfalls and footguns', const <Color>[
-          Color(0xFFB91C1C),
-          rose,
-        ]),
+        sectionBanner(
+          '7',
+          'Pitfalls and footguns',
+          const <Color>[Color(0xFFB91C1C), rose],
+        ),
         proseBox(
           'The pill pattern is small but surprisingly easy to get wrong. The '
           'four cards below cover the highest-traffic mistakes — every one '
@@ -1637,10 +1594,11 @@ dynamic build(BuildContext context) {
         ),
 
         // ── Section 8: Comparative code ──
-        sectionBanner('8', 'Two flavours of the same pattern', const <Color>[
-          tealDeep,
-          teal,
-        ]),
+        sectionBanner(
+          '8',
+          'Two flavours of the same pattern',
+          const <Color>[tealDeep, teal],
+        ),
         proseBox(
           'The bare-minimum pill (left) and a more defensive variant '
           '(right) differ only in the `hasClients` guard. Both compile '
@@ -1819,10 +1777,11 @@ dynamic build(BuildContext context) {
         ),
 
         // ── Section 10: Mounting points — header / footer / sidebar ──
-        sectionBanner('10', 'Where pills go in the layout', const <Color>[
-          tealDeep,
-          teal,
-        ]),
+        sectionBanner(
+          '10',
+          'Where pills go in the layout',
+          const <Color>[tealDeep, teal],
+        ),
         proseBox(
           'Pills can live above a scrollable (as a status header), inside '
           'a sticky footer, in a sidebar next to a horizontally-scrolling '
@@ -1836,7 +1795,11 @@ dynamic build(BuildContext context) {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(children: <Widget>[bannerPill(headerNotifier)]),
+              Row(
+                children: <Widget>[
+                  bannerPill(headerNotifier),
+                ],
+              ),
               const SizedBox(height: 8),
               Container(
                 height: 80,
@@ -1938,7 +1901,11 @@ dynamic build(BuildContext context) {
         ),
 
         // ── Section 11: Summary card ──
-        sectionBanner('11', 'Takeaways', const <Color>[tealDeep, indigoDeep]),
+        sectionBanner(
+          '11',
+          'Takeaways',
+          const <Color>[tealDeep, indigoDeep],
+        ),
         infoCard(
           'Cheat-sheet',
           Column(
@@ -1947,10 +1914,7 @@ dynamic build(BuildContext context) {
               dataRow('Pattern', 'ValueListenableBuilder<bool>'),
               dataRow('Real source', 'ScrollPosition.isScrollingNotifier'),
               dataRow('Mock source', 'ValueNotifier<bool>(true|false)'),
-              dataRow(
-                'Required guard',
-                'controller.hasClients before .position',
-              ),
+              dataRow('Required guard', 'controller.hasClients before .position'),
               dataRow('Builder param 1', 'BuildContext'),
               dataRow('Builder param 2', 'bool isScrolling'),
               dataRow('Builder param 3', 'Widget? child (optimisation)'),
@@ -1983,7 +1947,11 @@ dynamic build(BuildContext context) {
     debugShowCheckedModeBanner: false,
     home: Scaffold(
       backgroundColor: paper,
-      body: SafeArea(child: SingleChildScrollView(child: content)),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: content,
+        ),
+      ),
     ),
   );
 }

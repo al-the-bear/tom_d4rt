@@ -213,7 +213,10 @@ class _SectionFrame extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: <Color>[accent, accent.withValues(alpha: 0.55)],
+                    colors: <Color>[
+                      accent,
+                      accent.withValues(alpha: 0.55),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
@@ -351,7 +354,10 @@ class _CodeDot extends StatelessWidget {
     return Container(
       width: 10,
       height: 10,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }
@@ -570,8 +576,7 @@ class _ThreeTreesSection extends StatelessWidget {
     return _SectionFrame(
       tag: '02 · MENTAL MODEL',
       title: 'The Three Trees',
-      subtitle:
-          'Every Flutter app maintains three parallel trees that talk '
+      subtitle: 'Every Flutter app maintains three parallel trees that talk '
           'to each other. The Widget tree is a recipe; the Element tree is '
           'the running instance; the RenderObject tree does the layout, '
           'painting and hit-testing.',
@@ -592,7 +597,12 @@ class _ThreeTreesSection extends StatelessWidget {
                   'just data — no state',
                 ],
                 rootLabel: 'MaterialApp',
-                children: <String>['Scaffold', 'Padding', 'Center', 'Text'],
+                children: <String>[
+                  'Scaffold',
+                  'Padding',
+                  'Center',
+                  'Text',
+                ],
               ),
             ),
             SizedBox(width: 14),
@@ -642,8 +652,7 @@ class _ThreeTreesSection extends StatelessWidget {
         const SizedBox(height: 22),
         _CodeBlock(
           caption: 'three_trees.dart',
-          code:
-              'Widget       → just a description (createElement → ...)\n'
+          code: 'Widget       → just a description (createElement → ...)\n'
               'Element      → manages lifecycle (mount, update, unmount)\n'
               'RenderObject → does the work (layout, paint, hitTest)\n'
               '\n'
@@ -815,7 +824,9 @@ class _MiniTreeNode extends StatelessWidget {
             ? color.withValues(alpha: 0.22)
             : color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: color.withValues(alpha: isRoot ? 0.55 : 0.3)),
+        border: Border.all(
+          color: color.withValues(alpha: isRoot ? 0.55 : 0.3),
+        ),
       ),
       child: Text(
         label,
@@ -842,8 +853,7 @@ class _RenderObjectAnatomySection extends StatelessWidget {
     return _SectionFrame(
       tag: '03 · ANATOMY',
       title: 'RenderObject Lifecycle',
-      subtitle:
-          'Every RenderObject moves through six well-defined stages '
+      subtitle: 'Every RenderObject moves through six well-defined stages '
           'between construction and disposal. Each stage has a contract; '
           'each contract has invariants that the framework enforces with '
           'assertions in debug mode.',
@@ -855,12 +865,10 @@ class _RenderObjectAnatomySection extends StatelessWidget {
               index: '01',
               name: 'attach',
               color: Color(0xFF60A5FA),
-              summary:
-                  'Object is added to a PipelineOwner. '
+              summary: 'Object is added to a PipelineOwner. '
                   'owner != null. The object can now schedule layout, '
                   'paint, and semantics updates.',
-              snippet:
-                  'void attach(PipelineOwner owner) {\n'
+              snippet: 'void attach(PipelineOwner owner) {\n'
                   '  super.attach(owner);\n'
                   '  // walk children, attach each, register with owner\n'
                   '}',
@@ -869,13 +877,11 @@ class _RenderObjectAnatomySection extends StatelessWidget {
               index: '02',
               name: 'layout',
               color: Color(0xFFA78BFA),
-              summary:
-                  'Parent calls child.layout(constraints, '
+              summary: 'Parent calls child.layout(constraints, '
                   'parentUsesSize: bool). Child computes its size and may '
                   'call layout on its own children. Constraints flow DOWN; '
                   'sizes flow UP.',
-              snippet:
-                  'void layout(Constraints constraints,\n'
+              snippet: 'void layout(Constraints constraints,\n'
                   '            { bool parentUsesSize = false }) {\n'
                   '  // performResize / performLayout (RenderBox)\n'
                   '}',
@@ -884,12 +890,10 @@ class _RenderObjectAnatomySection extends StatelessWidget {
               index: '03',
               name: 'paint',
               color: Color(0xFFF472B6),
-              summary:
-                  'PaintingContext walks the tree and asks each render '
+              summary: 'PaintingContext walks the tree and asks each render '
                   'object to paint(context, offset). Painting is in screen '
                   'space; the offset is relative to the parent layer.',
-              snippet:
-                  'void paint(PaintingContext context, Offset offset) {\n'
+              snippet: 'void paint(PaintingContext context, Offset offset) {\n'
                   '  // context.canvas.draw...\n'
                   '  // context.paintChild(child, offset + childOffset)\n'
                   '}',
@@ -898,12 +902,10 @@ class _RenderObjectAnatomySection extends StatelessWidget {
               index: '04',
               name: 'semantics',
               color: Color(0xFFFBBF24),
-              summary:
-                  'A separate semantics tree is built for screen '
+              summary: 'A separate semantics tree is built for screen '
                   'readers. Each RenderObject contributes via '
                   'describeSemanticsConfiguration / visitChildrenForSemantics.',
-              snippet:
-                  'void describeSemanticsConfiguration(\n'
+              snippet: 'void describeSemanticsConfiguration(\n'
                   '    SemanticsConfiguration config) {\n'
                   '  config.label = "...";\n'
                   '  config.isButton = true;\n'
@@ -913,13 +915,11 @@ class _RenderObjectAnatomySection extends StatelessWidget {
               index: '05',
               name: 'hitTest',
               color: Color(0xFFFB923C),
-              summary:
-                  'When a pointer event lands, the framework walks the '
+              summary: 'When a pointer event lands, the framework walks the '
                   'tree from root to leaves calling hitTest(result, '
                   'position). Render objects that report a hit get the '
                   'gesture.',
-              snippet:
-                  'bool hitTest(BoxHitTestResult result,\n'
+              snippet: 'bool hitTest(BoxHitTestResult result,\n'
                   '             { required Offset position }) {\n'
                   '  // check children first, then self\n'
                   '  return /* hit? */ false;\n'
@@ -929,12 +929,10 @@ class _RenderObjectAnatomySection extends StatelessWidget {
               index: '06',
               name: 'detach',
               color: Color(0xFF34D399),
-              summary:
-                  'Object is removed from the pipeline. owner becomes '
+              summary: 'Object is removed from the pipeline. owner becomes '
                   'null. Layers are released. The render object can later '
                   'be re-attached to a new tree.',
-              snippet:
-                  'void detach() {\n'
+              snippet: 'void detach() {\n'
                   '  // walk children, detach each\n'
                   '  super.detach();\n'
                   '}',
@@ -990,7 +988,10 @@ class _LifecycleRow extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: <Color>[color, color.withValues(alpha: 0.65)],
+                  colors: <Color>[
+                    color,
+                    color.withValues(alpha: 0.65),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: <BoxShadow>[
@@ -1081,8 +1082,7 @@ class _ConstraintsFlowSection extends StatelessWidget {
     return _SectionFrame(
       tag: '04 · PROTOCOL',
       title: 'Constraints go down. Sizes go up. Parent positions.',
-      subtitle:
-          'The first sentence of every Flutter layout talk. The parent '
+      subtitle: 'The first sentence of every Flutter layout talk. The parent '
           'hands the child a BoxConstraints. The child returns a Size that '
           'fits inside those constraints. The parent then assigns each '
           'child an Offset — not the child itself.',
@@ -1093,7 +1093,10 @@ class _ConstraintsFlowSection extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFFF0F9FF), Color(0xFFEFF6FF)],
+              colors: <Color>[
+                Color(0xFFF0F9FF),
+                Color(0xFFEFF6FF),
+              ],
             ),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: const Color(0xFFBAE6FD)),
@@ -1134,8 +1137,7 @@ class _ConstraintsFlowSection extends StatelessWidget {
         const SizedBox(height: 18),
         _CodeBlock(
           caption: 'layout_protocol.dart',
-          code:
-              '// Pseudo-code, taken from the BOX layout contract:\n'
+          code: '// Pseudo-code, taken from the BOX layout contract:\n'
               '\n'
               'void performLayout() {\n'
               '  final BoxConstraints incoming = constraints;\n'
@@ -1159,8 +1161,7 @@ class _ConstraintsFlowSection extends StatelessWidget {
                 title: 'Tight constraints',
                 color: Color(0xFF2563EB),
                 example: 'min == max',
-                explanation:
-                    'Child has no choice. Used by SizedBox, '
+                explanation: 'Child has no choice. Used by SizedBox, '
                     'ConstrainedBox(BoxConstraints.tight(...)), and the '
                     'inside of a flex item with Expanded.',
               ),
@@ -1171,8 +1172,7 @@ class _ConstraintsFlowSection extends StatelessWidget {
                 title: 'Loose constraints',
                 color: Color(0xFF7C3AED),
                 example: 'min == 0, max > 0',
-                explanation:
-                    'Child can be any size up to max. Used by '
+                explanation: 'Child can be any size up to max. Used by '
                     'Padding, Center, Align, and the inside of a Stack '
                     'unless StackFit.expand is set.',
               ),
@@ -1183,8 +1183,7 @@ class _ConstraintsFlowSection extends StatelessWidget {
                 title: 'Unbounded',
                 color: Color(0xFFE11D48),
                 example: 'max == infinity',
-                explanation:
-                    'Common in scroll views. The child must shrink-'
+                explanation: 'Common in scroll views. The child must shrink-'
                     'wrap or the layout asserts. Trying to render an '
                     'infinite-height Column inside a ListView is the '
                     'canonical mistake.',
@@ -1277,7 +1276,11 @@ class _FlowArrow extends StatelessWidget {
       child: Row(
         children: <Widget>[
           const SizedBox(width: 24),
-          Container(width: 2, height: 26, color: color.withValues(alpha: 0.4)),
+          Container(
+            width: 2,
+            height: 26,
+            color: color.withValues(alpha: 0.4),
+          ),
           const SizedBox(width: 10),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -1407,8 +1410,7 @@ class _RenderProxyBoxSection extends StatelessWidget {
     return _SectionFrame(
       tag: '05 · RENDERPROXYBOX',
       title: 'RenderProxyBox — single-child, same constraints',
-      subtitle:
-          'A RenderProxyBox holds exactly one child and forwards the '
+      subtitle: 'A RenderProxyBox holds exactly one child and forwards the '
           'constraints to it unchanged. Its size becomes the child\'s size. '
           'Almost every "decorator" RenderObject (Opacity, ClipRect, '
           'ColorFiltered, BackdropFilter, RotatedBox\'s wrapper…) extends '
@@ -1417,8 +1419,7 @@ class _RenderProxyBoxSection extends StatelessWidget {
       children: <Widget>[
         _CodeBlock(
           caption: 'render_proxy_box.dart',
-          code:
-              'abstract class RenderProxyBox extends RenderBox\n'
+          code: 'abstract class RenderProxyBox extends RenderBox\n'
               '    with RenderObjectWithChildMixin<RenderBox>,\n'
               '         RenderProxyBoxMixin {\n'
               '\n'
@@ -1450,8 +1451,7 @@ class _RenderProxyBoxSection extends StatelessWidget {
                 widgetForm: 'Opacity(opacity: ...)',
                 color: Color(0xFF22D3EE),
                 gradient: <Color>[Color(0xFFCFFAFE), Color(0xFFE0F2FE)],
-                summary:
-                    'Wraps child in an OpacityLayer when alpha is in '
+                summary: 'Wraps child in an OpacityLayer when alpha is in '
                     '(0, 1). Skips paint entirely when alpha == 0.',
               ),
             ),
@@ -1462,8 +1462,7 @@ class _RenderProxyBoxSection extends StatelessWidget {
                 widgetForm: 'Transform(transform: M)',
                 color: Color(0xFF34D399),
                 gradient: <Color>[Color(0xFFD1FAE5), Color(0xFFECFDF5)],
-                summary:
-                    'Pushes a TransformLayer with a 4×4 matrix. '
+                summary: 'Pushes a TransformLayer with a 4×4 matrix. '
                     'Constraints are still forwarded as-is to the child.',
               ),
             ),
@@ -1474,8 +1473,7 @@ class _RenderProxyBoxSection extends StatelessWidget {
                 widgetForm: 'ClipRect()',
                 color: Color(0xFFA78BFA),
                 gradient: <Color>[Color(0xFFEDE9FE), Color(0xFFF5F3FF)],
-                summary:
-                    'Applies a ClipRectLayer at paint time. Layout is '
+                summary: 'Applies a ClipRectLayer at paint time. Layout is '
                     'unchanged — clipping is purely a paint-side concern.',
               ),
             ),
@@ -1608,8 +1606,7 @@ class _RenderConstrainedBoxSection extends StatelessWidget {
     return _SectionFrame(
       tag: '06 · RENDERCONSTRAINEDBOX',
       title: 'RenderConstrainedBox — tighten or loosen, then delegate',
-      subtitle:
-          'RenderConstrainedBox holds an additional `additionalConstraints` '
+      subtitle: 'RenderConstrainedBox holds an additional `additionalConstraints` '
           'field. At layout time it intersects the incoming constraints '
           'with this field, then asks the child to lay out under the '
           'narrower constraints. SizedBox, ConstrainedBox, and Container '
@@ -1618,8 +1615,7 @@ class _RenderConstrainedBoxSection extends StatelessWidget {
       children: <Widget>[
         _CodeBlock(
           caption: 'render_constrained_box.dart',
-          code:
-              'class RenderConstrainedBox extends RenderProxyBox {\n'
+          code: 'class RenderConstrainedBox extends RenderProxyBox {\n'
               '  RenderConstrainedBox({ required BoxConstraints additional });\n'
               '\n'
               '  BoxConstraints additionalConstraints;\n'
@@ -1680,8 +1676,7 @@ class _RenderConstrainedBoxSection extends StatelessWidget {
         // RenderConstrainedBox.
         _DemoCard(
           title: 'A SizedBox tightens both axes',
-          subtitle:
-              'The blue box below is a SizedBox(width: 200, height: 80). '
+          subtitle: 'The blue box below is a SizedBox(width: 200, height: 80). '
               'The text inside has loose constraints from its parent Center '
               'but tight constraints from the SizedBox.',
           color: _Palette.accent,
@@ -1693,7 +1688,10 @@ class _RenderConstrainedBoxSection extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: <Color>[Color(0xFF3B82F6), Color(0xFF2563EB)],
+                  colors: <Color>[
+                    Color(0xFF3B82F6),
+                    Color(0xFF2563EB),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: <BoxShadow>[
@@ -1745,7 +1743,11 @@ class _ConstraintChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(tight ? Icons.lock : Icons.lock_open, size: 14, color: color),
+          Icon(
+            tight ? Icons.lock : Icons.lock_open,
+            size: 14,
+            color: color,
+          ),
           const SizedBox(width: 6),
           Text(
             label,
@@ -1856,8 +1858,7 @@ class _RenderPaddingSection extends StatelessWidget {
     return _SectionFrame(
       tag: '07 · RENDERPADDING',
       title: 'RenderPadding — first taste of RenderShiftedBox',
-      subtitle:
-          'RenderPadding is the canonical RenderShiftedBox. It '
+      subtitle: 'RenderPadding is the canonical RenderShiftedBox. It '
           'subtracts the inset from the incoming constraints, lays out the '
           'child under those tighter constraints, then offsets the child '
           'by (left, top). Its own size is child.size + horizontal + '
@@ -1866,8 +1867,7 @@ class _RenderPaddingSection extends StatelessWidget {
       children: <Widget>[
         _CodeBlock(
           caption: 'render_padding.dart',
-          code:
-              'class RenderPadding extends RenderShiftedBox {\n'
+          code: 'class RenderPadding extends RenderShiftedBox {\n'
               '  EdgeInsets get padding => _resolvedPadding!;\n'
               '\n'
               '  @override\n'
@@ -1892,8 +1892,7 @@ class _RenderPaddingSection extends StatelessWidget {
         const SizedBox(height: 18),
         _DemoCard(
           title: 'Padding(EdgeInsets.all(20))',
-          subtitle:
-              'The inner pink box gets constraints of '
+          subtitle: 'The inner pink box gets constraints of '
               'parentMax - 40 on each axis. RenderPadding then sets the '
               'child\'s parentData.offset to (20, 20) so it visually '
               'sits inside the orange frame.',
@@ -1903,7 +1902,10 @@ class _RenderPaddingSection extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[Color(0xFFFFEDD5), Color(0xFFFED7AA)],
+                colors: <Color>[
+                  Color(0xFFFFEDD5),
+                  Color(0xFFFED7AA),
+                ],
               ),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: const Color(0xFFFB923C)),
@@ -1915,7 +1917,10 @@ class _RenderPaddingSection extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: <Color>[Color(0xFFEC4899), Color(0xFFDB2777)],
+                  colors: <Color>[
+                    Color(0xFFEC4899),
+                    Color(0xFFDB2777),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: <BoxShadow>[
@@ -2027,8 +2032,7 @@ class _RenderShiftedBoxFamilySection extends StatelessWidget {
     return _SectionFrame(
       tag: '08 · RENDERSHIFTEDBOX',
       title: 'RenderShiftedBox — the family with one shifted child',
-      subtitle:
-          'RenderShiftedBox is the abstract base for RenderObjects '
+      subtitle: 'RenderShiftedBox is the abstract base for RenderObjects '
           'that have one child whose origin may differ from (0, 0). '
           'Subclasses include RenderPadding, RenderPositionedBox (Center, '
           'Align), RenderBaseline, and RenderAligningShiftedBox.',
@@ -2036,8 +2040,7 @@ class _RenderShiftedBoxFamilySection extends StatelessWidget {
       children: <Widget>[
         _CodeBlock(
           caption: 'render_shifted_box.dart',
-          code:
-              'abstract class RenderShiftedBox extends RenderBox\n'
+          code: 'abstract class RenderShiftedBox extends RenderBox\n'
               '    with RenderObjectWithChildMixin<RenderBox> {\n'
               '\n'
               '  @override\n'
@@ -2073,8 +2076,7 @@ class _RenderShiftedBoxFamilySection extends StatelessWidget {
                 title: 'Center',
                 renderType: 'RenderPositionedBox',
                 color: Color(0xFFE11D48),
-                description:
-                    'alignment = Alignment.center. Loosens '
+                description: 'alignment = Alignment.center. Loosens '
                     'constraints, lays out child, then offsets the child to '
                     'the geometric center of the available space.',
               ),
@@ -2085,8 +2087,7 @@ class _RenderShiftedBoxFamilySection extends StatelessWidget {
                 title: 'Align',
                 renderType: 'RenderPositionedBox',
                 color: Color(0xFF9333EA),
-                description:
-                    'Same RenderObject as Center, but with a '
+                description: 'Same RenderObject as Center, but with a '
                     'configurable Alignment. Resolves AlignmentDirectional '
                     'with the ambient TextDirection.',
               ),
@@ -2097,8 +2098,7 @@ class _RenderShiftedBoxFamilySection extends StatelessWidget {
                 title: 'Padding',
                 renderType: 'RenderPadding',
                 color: Color(0xFFF97316),
-                description:
-                    'Already covered above. Uses the same '
+                description: 'Already covered above. Uses the same '
                     'BoxParentData.offset slot for its child to flow '
                     'through.',
               ),
@@ -2108,8 +2108,7 @@ class _RenderShiftedBoxFamilySection extends StatelessWidget {
         const SizedBox(height: 18),
         _DemoCard(
           title: 'Center inside a 240×120 box',
-          subtitle:
-              'Center receives the parent\'s constraints, loosens them '
+          subtitle: 'Center receives the parent\'s constraints, loosens them '
               'to (0…240, 0…120), lays out the inner pill, then sets the '
               'child\'s offset to ((240 - childW)/2, (120 - childH)/2).',
           color: _Palette.warm2,
@@ -2124,7 +2123,10 @@ class _RenderShiftedBoxFamilySection extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: <Color>[Color(0xFFF43F5E), Color(0xFFE11D48)],
+                    colors: <Color>[
+                      Color(0xFFF43F5E),
+                      Color(0xFFE11D48),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(999),
                   boxShadow: <BoxShadow>[
@@ -2238,8 +2240,7 @@ class _RenderTransformSection extends StatelessWidget {
     return _SectionFrame(
       tag: '09 · RENDERTRANSFORM',
       title: 'RenderTransform — paint a 4×4 matrix',
-      subtitle:
-          'RenderTransform is a RenderProxyBox that applies a 4×4 '
+      subtitle: 'RenderTransform is a RenderProxyBox that applies a 4×4 '
           'transformation matrix during paint. The transform does not '
           'affect layout: the child is laid out as if no transform existed, '
           'and the matrix only changes how the resulting pixels are placed.',
@@ -2247,8 +2248,7 @@ class _RenderTransformSection extends StatelessWidget {
       children: <Widget>[
         _CodeBlock(
           caption: 'render_transform.dart',
-          code:
-              'class RenderTransform extends RenderProxyBox {\n'
+          code: 'class RenderTransform extends RenderProxyBox {\n'
               '  Matrix4 transform;\n'
               '  Offset? origin;\n'
               '  AlignmentGeometry? alignment;\n'
@@ -2320,8 +2320,7 @@ class _RenderTransformSection extends StatelessWidget {
         const SizedBox(height: 18),
         _DemoCard(
           title: 'Transform.rotate(angle: 0.18)',
-          subtitle:
-              'The teal card below is rotated visually but its '
+          subtitle: 'The teal card below is rotated visually but its '
               'layout slot is still axis-aligned. A sibling laid out next '
               'to it would not see the rotation in its constraints.',
           color: _Palette.mint,
@@ -2335,7 +2334,10 @@ class _RenderTransformSection extends StatelessWidget {
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: <Color>[Color(0xFF14B8A6), Color(0xFF0F766E)],
+                    colors: <Color>[
+                      Color(0xFF14B8A6),
+                      Color(0xFF0F766E),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(14),
                   boxShadow: <BoxShadow>[
@@ -2451,8 +2453,7 @@ class _RenderOpacitySection extends StatelessWidget {
     return _SectionFrame(
       tag: '10 · RENDEROPACITY',
       title: 'RenderOpacity — saveLayer when needed, otherwise nothing',
-      subtitle:
-          'RenderOpacity is a RenderProxyBox that paints an '
+      subtitle: 'RenderOpacity is a RenderProxyBox that paints an '
           'OpacityLayer when alpha is strictly between 0 and 255. At alpha '
           '== 0 it skips paint entirely. At alpha == 255 (fully opaque) it '
           'just delegates to the child without a layer.',
@@ -2460,8 +2461,7 @@ class _RenderOpacitySection extends StatelessWidget {
       children: <Widget>[
         _CodeBlock(
           caption: 'render_opacity.dart',
-          code:
-              'class RenderOpacity extends RenderProxyBox {\n'
+          code: 'class RenderOpacity extends RenderProxyBox {\n'
               '  double opacity;\n'
               '  bool alwaysIncludeSemantics;\n'
               '\n'
@@ -2579,8 +2579,8 @@ class _OpacitySwatch extends StatelessWidget {
             opacity == 1.0
                 ? 'no layer'
                 : opacity == 0.0
-                ? 'paint skipped'
-                : 'OpacityLayer',
+                    ? 'paint skipped'
+                    : 'OpacityLayer',
             style: const TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -2606,8 +2606,7 @@ class _ParentDataSection extends StatelessWidget {
     return _SectionFrame(
       tag: '11 · PARENTDATA',
       title: 'parentData — the slot the parent owns on each child',
-      subtitle:
-          'Every RenderObject has a `parentData` field, set by the '
+      subtitle: 'Every RenderObject has a `parentData` field, set by the '
           'parent in setupParentData(). It is how a parent stores per-child '
           'layout state without subclassing the child. RenderBox children '
           'use BoxParentData (just an offset). Stack uses '
@@ -2616,8 +2615,7 @@ class _ParentDataSection extends StatelessWidget {
       children: <Widget>[
         _CodeBlock(
           caption: 'parent_data.dart',
-          code:
-              '// Base RenderObject API:\n'
+          code: '// Base RenderObject API:\n'
               'abstract class RenderObject {\n'
               '  ParentData? parentData;\n'
               '\n'
@@ -2646,8 +2644,7 @@ class _ParentDataSection extends StatelessWidget {
         const SizedBox(height: 18),
         _DemoCard(
           title: 'Stack with two Positioned children',
-          subtitle:
-              'Each Positioned widget writes into its child '
+          subtitle: 'Each Positioned widget writes into its child '
               'RenderBox\'s StackParentData. RenderStack reads those fields '
               'during performLayout to compute offsets.',
           color: const Color(0xFF9333EA),
@@ -2658,7 +2655,10 @@ class _ParentDataSection extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: <Color>[Color(0xFFEDE9FE), Color(0xFFF5F3FF)],
+                      colors: <Color>[
+                        Color(0xFFEDE9FE),
+                        Color(0xFFF5F3FF),
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -2742,7 +2742,10 @@ class _StackBadge extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[color, color.withValues(alpha: 0.7)],
+          colors: <Color>[
+            color,
+            color.withValues(alpha: 0.7),
+          ],
         ),
         borderRadius: BorderRadius.circular(999),
         boxShadow: <BoxShadow>[
@@ -2778,16 +2781,14 @@ class _LayoutProtocolSection extends StatelessWidget {
     return _SectionFrame(
       tag: '12 · LAYOUT',
       title: 'The full layout protocol, in pseudo-code',
-      subtitle:
-          'Reading this as a single sequence makes the contract '
+      subtitle: 'Reading this as a single sequence makes the contract '
           'click. Note where parentUsesSize matters and where '
           'computeDryLayout / computeMaxIntrinsicWidth come into play.',
       accent: _Palette.accent,
       children: <Widget>[
         _CodeBlock(
           caption: 'layout_pseudo.dart',
-          code:
-              '// PARENT, in performLayout:\n'
+          code: '// PARENT, in performLayout:\n'
               'final BoxConstraints incoming = constraints;\n'
               'BoxConstraints childConstraints = ...; // tighten/loose/shift\n'
               'child.layout(childConstraints, parentUsesSize: true);\n'
@@ -2857,8 +2858,7 @@ class _PaintPhaseSection extends StatelessWidget {
     return _SectionFrame(
       tag: '13 · PAINT',
       title: 'The paint phase — context, canvas, layers',
-      subtitle:
-          'Once layout is complete, the framework walks the tree and '
+      subtitle: 'Once layout is complete, the framework walks the tree and '
           'asks each RenderObject to paint(PaintingContext, Offset). The '
           'context exposes a Canvas for raster ops and a set of pushXxx '
           'helpers for compositing layers. RenderObjects that need a '
@@ -2867,8 +2867,7 @@ class _PaintPhaseSection extends StatelessWidget {
       children: <Widget>[
         _CodeBlock(
           caption: 'paint_phase.dart',
-          code:
-              'void paint(PaintingContext context, Offset offset) {\n'
+          code: 'void paint(PaintingContext context, Offset offset) {\n'
               '  // Direct draw (no compositing layer):\n'
               '  context.canvas.drawRect(\n'
               '    offset & size,\n'
@@ -2896,8 +2895,7 @@ class _PaintPhaseSection extends StatelessWidget {
               child: _PaintMethodCard(
                 method: 'paintChild',
                 color: Color(0xFF2563EB),
-                description:
-                    'Recursive walk. Forwards to the child\'s '
+                description: 'Recursive walk. Forwards to the child\'s '
                     'paint method. No compositing cost. Used by every '
                     'container-style RenderObject.',
               ),
@@ -2907,8 +2905,7 @@ class _PaintPhaseSection extends StatelessWidget {
               child: _PaintMethodCard(
                 method: 'pushOpacity',
                 color: Color(0xFF22D3EE),
-                description:
-                    'Pushes an OpacityLayer. Forces a saveLayer in '
+                description: 'Pushes an OpacityLayer. Forces a saveLayer in '
                     'the engine and an offscreen buffer. Always sets '
                     'needsCompositing.',
               ),
@@ -2918,8 +2915,7 @@ class _PaintPhaseSection extends StatelessWidget {
               child: _PaintMethodCard(
                 method: 'pushTransform',
                 color: Color(0xFF34D399),
-                description:
-                    'Pushes a TransformLayer with a 4×4 matrix. '
+                description: 'Pushes a TransformLayer with a 4×4 matrix. '
                     'Used by Transform and RotatedBox. Hit-tests are also '
                     'transformed when transformHitTests is true.',
               ),
@@ -2929,8 +2925,7 @@ class _PaintPhaseSection extends StatelessWidget {
               child: _PaintMethodCard(
                 method: 'pushClipRect',
                 color: Color(0xFFA78BFA),
-                description:
-                    'Pushes a ClipRectLayer — cheap on the GPU, '
+                description: 'Pushes a ClipRectLayer — cheap on the GPU, '
                     'but still a layer. ClipRRect / ClipPath cost more '
                     'because the engine must rasterize the path.',
               ),
@@ -3008,8 +3003,7 @@ class _MarkNeedsSection extends StatelessWidget {
     return _SectionFrame(
       tag: '14 · INVALIDATION',
       title: 'markNeedsLayout vs markNeedsPaint',
-      subtitle:
-          'When a property changes, a custom RenderObject must tell '
+      subtitle: 'When a property changes, a custom RenderObject must tell '
           'the pipeline. markNeedsLayout schedules a relayout that may '
           'propagate to the parent if the size could change. '
           'markNeedsPaint is cheaper — it only re-runs paint().',
@@ -3061,8 +3055,7 @@ class _MarkNeedsSection extends StatelessWidget {
         const SizedBox(height: 18),
         _CodeBlock(
           caption: 'invalidation.dart',
-          code:
-              'class RenderMyBox extends RenderProxyBox {\n'
+          code: 'class RenderMyBox extends RenderProxyBox {\n'
               '  Color _color;\n'
               '  set color(Color value) {\n'
               '    if (_color == value) return;\n'
@@ -3149,8 +3142,7 @@ class _PitfallsSection extends StatelessWidget {
     return _SectionFrame(
       tag: '15 · PITFALLS',
       title: 'Common pitfalls when reasoning about RenderObjects',
-      subtitle:
-          'A short list of mistakes that come up in real codebases. '
+      subtitle: 'A short list of mistakes that come up in real codebases. '
           'Most of them stem from forgetting that constraints are pushed '
           'down and sizes are pulled up — never the other way around.',
       accent: _Palette.warm2,
@@ -3159,8 +3151,7 @@ class _PitfallsSection extends StatelessWidget {
           number: 1,
           title: 'Reading child.size without parentUsesSize: true',
           color: const Color(0xFFE11D48),
-          body:
-              'The framework only re-lays out a parent when a child '
+          body: 'The framework only re-lays out a parent when a child '
               'resizes if the parent declared dependency on the size. '
               'Skipping `parentUsesSize: true` will look fine the first '
               'frame and silently break on the next rebuild.',
@@ -3169,8 +3160,7 @@ class _PitfallsSection extends StatelessWidget {
           number: 2,
           title: 'Wrapping in Opacity for animation',
           color: const Color(0xFFF97316),
-          body:
-              'Opacity forces a saveLayer. For animated fades, prefer '
+          body: 'Opacity forces a saveLayer. For animated fades, prefer '
               'AnimatedOpacity inside a RepaintBoundary, or use '
               'FadeTransition with an explicit alpha-only animation. The '
               'expensive offscreen buffer is the same in both cases, but '
@@ -3180,8 +3170,7 @@ class _PitfallsSection extends StatelessWidget {
           number: 3,
           title: 'Confusing Padding with margin',
           color: const Color(0xFFF59E0B),
-          body:
-              'Flutter has no margin. Padding is always inside the '
+          body: 'Flutter has no margin. Padding is always inside the '
               'RenderObject\'s size — it inflates the render box itself. '
               'Container\'s `margin:` is a separate Padding wrapped '
               'around the decorated child.',
@@ -3190,8 +3179,7 @@ class _PitfallsSection extends StatelessWidget {
           number: 4,
           title: 'Transform without alignment',
           color: const Color(0xFF34D399),
-          body:
-              'Transform with no alignment uses the top-left corner as '
+          body: 'Transform with no alignment uses the top-left corner as '
               'the origin. Transform.scale and Transform.rotate offer '
               'shortcut alignment parameters that make the transform '
               'apply around the center.',
@@ -3200,8 +3188,7 @@ class _PitfallsSection extends StatelessWidget {
           number: 5,
           title: 'Stack with no constraints',
           color: const Color(0xFF7C3AED),
-          body:
-              'A Stack inside an unbounded parent (Column, ListView…) '
+          body: 'A Stack inside an unbounded parent (Column, ListView…) '
               'will not stretch by default. You either provide a '
               'SizedBox.expand around it, or pass `fit: StackFit.passthrough` '
               'and rely on the children to size the stack.',
@@ -3210,8 +3197,7 @@ class _PitfallsSection extends StatelessWidget {
           number: 6,
           title: 'markNeedsPaint when layout actually changed',
           color: const Color(0xFF0EA5E9),
-          body:
-              'If your custom RenderObject\'s new property could change '
+          body: 'If your custom RenderObject\'s new property could change '
               'size, you must call markNeedsLayout. markNeedsPaint will '
               'leave the old size cached and the next frame will look '
               'correct only by accident.',
@@ -3220,8 +3206,7 @@ class _PitfallsSection extends StatelessWidget {
           number: 7,
           title: 'Forgetting setupParentData',
           color: const Color(0xFFEC4899),
-          body:
-              'A custom container RenderObject must override '
+          body: 'A custom container RenderObject must override '
               'setupParentData if it expects a richer ParentData type than '
               'BoxParentData. Forgetting it makes the cast inside '
               'performLayout throw.',
@@ -3271,7 +3256,10 @@ class _PitfallCard extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[color, color.withValues(alpha: 0.7)],
+                  colors: <Color>[
+                    color,
+                    color.withValues(alpha: 0.7),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: <BoxShadow>[
@@ -3336,8 +3324,7 @@ class _LegendSection extends StatelessWidget {
     return _SectionFrame(
       tag: '16 · LEGEND',
       title: 'Class map at a glance',
-      subtitle:
-          'Single source of truth for the eight classes covered in '
+      subtitle: 'Single source of truth for the eight classes covered in '
           'this file, with a one-line summary and the widget that produces '
           'each one in idiomatic Flutter code.',
       accent: _Palette.mint,
@@ -3400,7 +3387,10 @@ class _LegendSection extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFF0F172A), Color(0xFF1E293B)],
+              colors: <Color>[
+                Color(0xFF0F172A),
+                Color(0xFF1E293B),
+              ],
             ),
             borderRadius: BorderRadius.circular(16),
             boxShadow: <BoxShadow>[
@@ -3496,7 +3486,10 @@ class _LegendRow extends StatelessWidget {
                 color: color,
                 shape: BoxShape.circle,
                 boxShadow: <BoxShadow>[
-                  BoxShadow(color: color.withValues(alpha: 0.6), blurRadius: 6),
+                  BoxShadow(
+                    color: color.withValues(alpha: 0.6),
+                    blurRadius: 6,
+                  ),
                 ],
               ),
             ),

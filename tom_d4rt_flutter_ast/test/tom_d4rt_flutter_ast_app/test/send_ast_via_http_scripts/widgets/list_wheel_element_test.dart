@@ -16,7 +16,8 @@ dynamic build(BuildContext context) {
   const highlightAmber = Color(0xFFFFC107);
 
   // ── Helpers ────────────────────────────────────────────────────────
-  Widget sectionBanner(String title, String subtitle, Color bg, Color fg) {
+  Widget sectionBanner(
+      String title, String subtitle, Color bg, Color fg) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 20, bottom: 8),
@@ -32,24 +33,17 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -78,20 +72,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 180,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 13, color: deepCobalt),
-            ),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: deepCobalt)),
           ),
         ],
       ),
@@ -111,11 +100,7 @@ dynamic build(BuildContext context) {
   }
 
   Widget apiCard(
-    String name,
-    String returns,
-    String description,
-    Color accent,
-  ) {
+      String name, String returns, String description, Color accent) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -131,21 +116,19 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Expanded(
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: deepCobalt,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                child: Text(name,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: deepCobalt,
+                        fontFamily: 'monospace')),
               ),
               tag(returns, accent.withValues(alpha: 0.15), accent),
             ],
           ),
           const SizedBox(height: 4),
-          Text(description, style: TextStyle(fontSize: 12, color: vivid)),
+          Text(description,
+              style: TextStyle(fontSize: 12, color: vivid)),
         ],
       ),
     );
@@ -170,30 +153,25 @@ dynamic build(BuildContext context) {
               color: deepCobalt,
               borderRadius: BorderRadius.circular(13),
             ),
-            child: Text(
-              '$number',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$number',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: deepCobalt,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: deepCobalt)),
                 const SizedBox(height: 2),
-                Text(detail, style: TextStyle(fontSize: 12, color: vivid)),
+                Text(detail,
+                    style: TextStyle(fontSize: 12, color: vivid)),
               ],
             ),
           ),
@@ -273,42 +251,31 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'ListWheelElement',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              const Text('ListWheelElement',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)),
               const SizedBox(height: 6),
-              Text(
-                'The element that manages children for ListWheelViewport',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 14,
-                ),
-              ),
+              Text('The element that manages children for ListWheelViewport',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 14)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  tag('Element', steel, Colors.white),
-                  tag('ChildManager', cerulean, Colors.white),
-                  tag('Lazy Building', skyLight, deepCobalt),
-                  tag('Internal', periwinkle, deepCobalt),
-                ],
-              ),
+              Wrap(children: [
+                tag('Element', steel, Colors.white),
+                tag('ChildManager', cerulean, Colors.white),
+                tag('Lazy Building', skyLight, deepCobalt),
+                tag('Internal', periwinkle, deepCobalt),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner(
-          '1 \u00b7 What Is ListWheelElement',
-          'The bridge between widget tree and render tree for wheel views',
-          deepCobalt,
-          Colors.white,
-        ),
+        sectionBanner('1 \u00b7 What Is ListWheelElement',
+            'The bridge between widget tree and render tree for wheel views',
+            deepCobalt, Colors.white),
         noteBox(
           'ListWheelElement is a RenderObjectElement that serves as the '
           'element for ListWheelViewport. It implements the '
@@ -326,12 +293,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. ListWheelChildManager interface ───────────────────────
-        sectionBanner(
-          '2 \u00b7 ListWheelChildManager Interface',
-          'The contract between element and render object',
-          royalBlue,
-          Colors.white,
-        ),
+        sectionBanner('2 \u00b7 ListWheelChildManager Interface',
+            'The contract between element and render object',
+            royalBlue, Colors.white),
         noteBox(
           'ListWheelChildManager is the abstract interface that '
           'RenderListWheelViewport uses to communicate child needs back '
@@ -344,36 +308,33 @@ dynamic build(BuildContext context) {
           'childCount',
           'int?',
           'Returns the number of children, or null if infinite '
-              '(e.g. looping delegate). The render object uses this to '
-              'know when to stop requesting children.',
+          '(e.g. looping delegate). The render object uses this to '
+          'know when to stop requesting children.',
           deepCobalt,
         ),
         apiCard(
           'createChild(int index, {RenderBox? after})',
           'void',
           'Creates and inserts a child element at the given index. '
-              'The element uses delegate.build() to get the widget. Called '
-              'by the render object during layout when a new child scrolls '
-              'into the visible window.',
+          'The element uses delegate.build() to get the widget. Called '
+          'by the render object during layout when a new child scrolls '
+          'into the visible window.',
           royalBlue,
         ),
         apiCard(
           'removeChild(RenderBox child)',
           'void',
           'Removes and deactivates a child render object. Called when '
-              'the child scrolls out of the visible window and is no longer '
-              'needed. The element handles unmounting the child widget tree.',
+          'the child scrolls out of the visible window and is no longer '
+          'needed. The element handles unmounting the child widget tree.',
           vivid,
         ),
         const SizedBox(height: 14),
 
         // ── 4. Element tree position ─────────────────────────────────
-        sectionBanner(
-          '3 \u00b7 Position in the Widget Tree',
-          'Where ListWheelElement sits in the architecture',
-          vivid,
-          Colors.white,
-        ),
+        sectionBanner('3 \u00b7 Position in the Widget Tree',
+            'Where ListWheelElement sits in the architecture',
+            vivid, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -397,15 +358,13 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    line.$1,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      fontWeight: line.$3 ? FontWeight.bold : FontWeight.normal,
-                      color: line.$3 ? deepCobalt : steel,
-                    ),
-                  ),
+                  child: Text(line.$1,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight:
+                              line.$3 ? FontWeight.bold : FontWeight.normal,
+                          color: line.$3 ? deepCobalt : steel)),
                 ),
             ],
           ),
@@ -420,69 +379,39 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Lazy child lifecycle ──────────────────────────────────
-        sectionBanner(
-          '4 \u00b7 Lazy Child Lifecycle',
-          'Children are created on scroll and removed when off-screen',
-          steel,
-          Colors.white,
-        ),
-        flowStep(
-          1,
-          'Scroll begins',
-          'User drags or flings the wheel. Physics update the scroll offset.',
-          frostBlue,
-        ),
-        flowStep(
-          2,
-          'Layout triggered',
-          'RenderListWheelViewport.performLayout() recalculates visible range.',
-          iceLavender,
-        ),
-        flowStep(
-          3,
-          'Request new children',
-          'Render object calls createChild(index) for newly visible indices.',
-          frostBlue,
-        ),
-        flowStep(
-          4,
-          'Element builds from delegate',
-          'ListWheelElement calls delegate.build(context, index) to get the widget.',
-          iceLavender,
-        ),
-        flowStep(
-          5,
-          'Inflate child element',
-          'The widget is inflated into an element and its render object is inserted.',
-          frostBlue,
-        ),
-        flowStep(
-          6,
-          'Remove old children',
-          'Render object calls removeChild() for indices that scrolled out of view.',
-          iceLavender,
-        ),
-        flowStep(
-          7,
-          'Element deactivates child',
-          'The child element is deactivated and its render object detached.',
-          frostBlue,
-        ),
-        flowStep(
-          8,
-          'Steady state',
-          'Only ~5-7 children exist at any moment, regardless of list size.',
-          iceLavender,
-        ),
+        sectionBanner('4 \u00b7 Lazy Child Lifecycle',
+            'Children are created on scroll and removed when off-screen',
+            steel, Colors.white),
+        flowStep(1, 'Scroll begins',
+            'User drags or flings the wheel. Physics update the scroll offset.',
+            frostBlue),
+        flowStep(2, 'Layout triggered',
+            'RenderListWheelViewport.performLayout() recalculates visible range.',
+            iceLavender),
+        flowStep(3, 'Request new children',
+            'Render object calls createChild(index) for newly visible indices.',
+            frostBlue),
+        flowStep(4, 'Element builds from delegate',
+            'ListWheelElement calls delegate.build(context, index) to get the widget.',
+            iceLavender),
+        flowStep(5, 'Inflate child element',
+            'The widget is inflated into an element and its render object is inserted.',
+            frostBlue),
+        flowStep(6, 'Remove old children',
+            'Render object calls removeChild() for indices that scrolled out of view.',
+            iceLavender),
+        flowStep(7, 'Element deactivates child',
+            'The child element is deactivated and its render object detached.',
+            frostBlue),
+        flowStep(8, 'Steady state',
+            'Only ~5-7 children exist at any moment, regardless of list size.',
+            iceLavender),
         const SizedBox(height: 14),
 
         // ── 6. childCount behavior ───────────────────────────────────
-        sectionBanner(
-          '5 \u00b7 childCount — Bounded vs Unbounded',
-          'How the element reports child count to the render object',
-          deepCobalt,
-          Colors.white,
-        ),
+        sectionBanner('5 \u00b7 childCount — Bounded vs Unbounded',
+            'How the element reports child count to the render object',
+            deepCobalt, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -502,36 +431,27 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'Delegate',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('Delegate',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'childCount',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('childCount',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'Meaning',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('Meaning',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                 ],
               ),
@@ -544,32 +464,24 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: deepCobalt,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: deepCobalt)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: vivid,
-                        ),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: vivid)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(fontSize: 11, color: steel),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(fontSize: 11, color: steel)),
                     ),
                   ],
                 ),
@@ -586,12 +498,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Live wheel with inspector ─────────────────────────────
-        sectionBanner(
-          '6 \u00b7 Live Wheel — See the Element at Work',
-          'A working wheel that demonstrates lazy child management',
-          royalBlue,
-          Colors.white,
-        ),
+        sectionBanner('6 \u00b7 Live Wheel — See the Element at Work',
+            'A working wheel that demonstrates lazy child management',
+            royalBlue, Colors.white),
         Container(
           height: 200,
           decoration: BoxDecoration(
@@ -611,28 +520,19 @@ dynamic build(BuildContext context) {
                     Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 2,
-                      ),
+                          horizontal: 12, vertical: 2),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Color.lerp(
-                              deepCobalt,
-                              cerulean,
-                              i / 20,
-                            )!.withValues(alpha: 0.12),
-                            Color.lerp(
-                              deepCobalt,
-                              cerulean,
-                              i / 20,
-                            )!.withValues(alpha: 0.05),
+                            Color.lerp(deepCobalt, cerulean, i / 20)!
+                                .withValues(alpha: 0.12),
+                            Color.lerp(deepCobalt, cerulean, i / 20)!
+                                .withValues(alpha: 0.05),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: cerulean.withValues(alpha: 0.2),
-                        ),
+                            color: cerulean.withValues(alpha: 0.2)),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -645,29 +545,22 @@ dynamic build(BuildContext context) {
                               color: Color.lerp(deepCobalt, cerulean, i / 20),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: Text(
-                              '${i + 1}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: Text('${i + 1}',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold)),
                           ),
                           const SizedBox(width: 12),
-                          Text(
-                            'Item ${i + 1}',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: deepCobalt,
-                            ),
-                          ),
+                          Text('Item ${i + 1}',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: deepCobalt)),
                           const SizedBox(width: 8),
-                          Text(
-                            '(child element)',
-                            style: TextStyle(fontSize: 11, color: skyLight),
-                          ),
+                          Text('(child element)',
+                              style: TextStyle(
+                                  fontSize: 11, color: skyLight)),
                         ],
                       ),
                     ),
@@ -697,12 +590,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Element vs RenderObject ───────────────────────────────
-        sectionBanner(
-          '7 \u00b7 Element vs RenderObject Responsibilities',
-          'Clear separation of concerns in the rendering pipeline',
-          vivid,
-          Colors.white,
-        ),
+        sectionBanner('7 \u00b7 Element vs RenderObject Responsibilities',
+            'Clear separation of concerns in the rendering pipeline',
+            vivid, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -722,85 +612,57 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'Aspect',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('Aspect',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'ListWheelElement',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('ListWheelElement',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'RenderListWheelViewport',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text('RenderListWheelViewport',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11)),
                   ),
                 ],
               ),
               for (final row in [
-                (
-                  'Child creation',
-                  'Creates child elements',
-                  'Requests via createChild()',
-                ),
-                (
-                  'Child removal',
-                  'Deactivates elements',
-                  'Requests via removeChild()',
-                ),
+                ('Child creation', 'Creates child elements', 'Requests via createChild()'),
+                ('Child removal', 'Deactivates elements', 'Requests via removeChild()'),
                 ('Layout', 'Delegates to render', 'Cylindrical layout math'),
                 ('Painting', 'Not involved', 'Transforms + paints items'),
                 ('Hit testing', 'Not involved', 'Cylindrical hit detection'),
-                (
-                  'Delegate access',
-                  'Calls delegate.build()',
-                  'Calls childManager',
-                ),
+                ('Delegate access', 'Calls delegate.build()', 'Calls childManager'),
               ])
                 TableRow(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: deepCobalt,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: deepCobalt)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(fontSize: 11, color: vivid),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(fontSize: 11, color: vivid)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(fontSize: 11, color: steel),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(fontSize: 11, color: steel)),
                     ),
                   ],
                 ),
@@ -810,12 +672,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Render pipeline ───────────────────────────────────────
-        sectionBanner(
-          '8 \u00b7 The Render Pipeline',
-          'How scroll events flow through the system',
-          steel,
-          Colors.white,
-        ),
+        sectionBanner('8 \u00b7 The Render Pipeline',
+            'How scroll events flow through the system',
+            steel, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -826,37 +685,13 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                (
-                  'User scrolls',
-                  Icons.touch_app,
-                  'Gesture detector captures drag',
-                ),
+                ('User scrolls', Icons.touch_app, 'Gesture detector captures drag'),
                 ('ScrollController', Icons.swap_vert, 'Updates scroll offset'),
-                (
-                  'ViewportOffset',
-                  Icons.straighten,
-                  'Notifies viewport of new position',
-                ),
-                (
-                  'RenderListWheelViewport',
-                  Icons.view_carousel,
-                  'Recalculates visible range',
-                ),
-                (
-                  'ListWheelElement',
-                  Icons.account_tree,
-                  'Creates/removes child elements',
-                ),
-                (
-                  'Delegate.build()',
-                  Icons.build,
-                  'Supplies widget for each index',
-                ),
-                (
-                  'RenderBox children',
-                  Icons.crop_square,
-                  'Paint with cylindrical transform',
-                ),
+                ('ViewportOffset', Icons.straighten, 'Notifies viewport of new position'),
+                ('RenderListWheelViewport', Icons.view_carousel, 'Recalculates visible range'),
+                ('ListWheelElement', Icons.account_tree, 'Creates/removes child elements'),
+                ('Delegate.build()', Icons.build, 'Supplies widget for each index'),
+                ('RenderBox children', Icons.crop_square, 'Paint with cylindrical transform'),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -871,20 +706,15 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 10),
                       SizedBox(
                         width: 140,
-                        child: Text(
-                          step.$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: deepCobalt,
-                          ),
-                        ),
+                        child: Text(step.$1,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: deepCobalt)),
                       ),
                       Expanded(
-                        child: Text(
-                          step.$3,
-                          style: TextStyle(fontSize: 11, color: vivid),
-                        ),
+                        child: Text(step.$3,
+                            style: TextStyle(fontSize: 11, color: vivid)),
                       ),
                     ],
                   ),
@@ -895,12 +725,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Memory model ─────────────────────────────────────────
-        sectionBanner(
-          '9 \u00b7 Memory Management',
-          'How ListWheelElement keeps memory usage constant',
-          deepCobalt,
-          Colors.white,
-        ),
+        sectionBanner('9 \u00b7 Memory Management',
+            'How ListWheelElement keeps memory usage constant',
+            deepCobalt, Colors.white),
         noteBox(
           'Unlike a regular ListView\'s SliverList, ListWheelViewport '
           'pre-computes the cylindrical positions and only asks the '
@@ -935,20 +762,15 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 140,
-                        child: Text(
-                          fact.$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: deepCobalt,
-                          ),
-                        ),
+                        child: Text(fact.$1,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: deepCobalt)),
                       ),
                       Expanded(
-                        child: Text(
-                          fact.$2,
-                          style: TextStyle(fontSize: 12, color: vivid),
-                        ),
+                        child: Text(fact.$2,
+                            style: TextStyle(fontSize: 12, color: vivid)),
                       ),
                     ],
                   ),
@@ -959,12 +781,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Three-layer architecture ─────────────────────────────
-        sectionBanner(
-          '10 \u00b7 Three-Layer Architecture',
-          'Widget \u2192 Element \u2192 RenderObject',
-          royalBlue,
-          Colors.white,
-        ),
+        sectionBanner('10 \u00b7 Three-Layer Architecture',
+            'Widget \u2192 Element \u2192 RenderObject',
+            royalBlue, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -975,27 +794,12 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final layer in [
-                (
-                  'ListWheelViewport',
-                  'Widget',
-                  'Configuration',
-                  deepCobalt,
-                  Icons.widgets,
-                ),
-                (
-                  'ListWheelElement',
-                  'Element',
-                  'Child management',
-                  royalBlue,
-                  Icons.account_tree,
-                ),
-                (
-                  'RenderListWheelViewport',
-                  'RenderObject',
-                  'Layout & paint',
-                  vivid,
-                  Icons.brush,
-                ),
+                ('ListWheelViewport', 'Widget', 'Configuration',
+                    deepCobalt, Icons.widgets),
+                ('ListWheelElement', 'Element', 'Child management',
+                    royalBlue, Icons.account_tree),
+                ('RenderListWheelViewport', 'RenderObject', 'Layout & paint',
+                    vivid, Icons.brush),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1003,7 +807,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: layer.$4.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: layer.$4.withValues(alpha: 0.3)),
+                    border: Border.all(
+                        color: layer.$4.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     children: [
@@ -1015,27 +820,20 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  layer.$1,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                    color: deepCobalt,
-                                  ),
-                                ),
+                                Text(layer.$1,
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                        color: deepCobalt)),
                                 const SizedBox(width: 8),
-                                tag(
-                                  layer.$2,
-                                  layer.$4.withValues(alpha: 0.15),
-                                  layer.$4,
-                                ),
+                                tag(layer.$2, layer.$4.withValues(alpha: 0.15),
+                                    layer.$4),
                               ],
                             ),
                             const SizedBox(height: 2),
-                            Text(
-                              layer.$3,
-                              style: TextStyle(fontSize: 12, color: vivid),
-                            ),
+                            Text(layer.$3,
+                                style: TextStyle(
+                                    fontSize: 12, color: vivid)),
                           ],
                         ),
                       ),
@@ -1048,12 +846,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Looping behavior in element ──────────────────────────
-        sectionBanner(
-          '11 \u00b7 Looping Delegate Interaction',
-          'How element handles infinite children',
-          vivid,
-          Colors.white,
-        ),
+        sectionBanner('11 \u00b7 Looping Delegate Interaction',
+            'How element handles infinite children',
+            vivid, Colors.white),
         noteBox(
           'When the delegate is a LoopingListDelegate, childCount returns '
           'null. The render object then knows it can scroll indefinitely. '
@@ -1079,17 +874,14 @@ dynamic build(BuildContext context) {
                   Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 2,
-                    ),
+                        horizontal: 20, vertical: 2),
                     decoration: BoxDecoration(
                       color: iceLavender,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
-                      emoji,
-                      style: TextStyle(fontSize: 24, color: deepCobalt),
-                    ),
+                    child: Text(emoji,
+                        style: TextStyle(
+                            fontSize: 24, color: deepCobalt)),
                   ),
               ],
             ),
@@ -1104,12 +896,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. When does element rebuild ────────────────────────────
-        sectionBanner(
-          '12 \u00b7 When Does the Element Rebuild?',
-          'Triggers for child re-creation',
-          steel,
-          Colors.white,
-        ),
+        sectionBanner('12 \u00b7 When Does the Element Rebuild?',
+            'Triggers for child re-creation',
+            steel, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1121,59 +910,35 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (final trigger in [
-                (
-                  '\u2022',
-                  'Scroll position changes',
-                  'New children enter visible range',
-                ),
+                ('\u2022', 'Scroll position changes', 'New children enter visible range'),
                 ('\u2022', 'Delegate replaced', 'shouldRebuild returns true'),
-                (
-                  '\u2022',
-                  'Parent rebuilds',
-                  'ListWheelViewport updateRenderObject',
-                ),
-                (
-                  '\u2022',
-                  'Global key moved',
-                  'Child with GlobalKey reparented',
-                ),
-                (
-                  '\u2717',
-                  'Same delegate',
-                  'shouldRebuild returns false \u2192 skip',
-                ),
+                ('\u2022', 'Parent rebuilds', 'ListWheelViewport updateRenderObject'),
+                ('\u2022', 'Global key moved', 'Child with GlobalKey reparented'),
+                ('\u2717', 'Same delegate', 'shouldRebuild returns false \u2192 skip'),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '${trigger.$1}  ',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: trigger.$1 == '\u2717'
-                              ? highlightAmber
-                              : deepCobalt,
-                        ),
-                      ),
+                      Text('${trigger.$1}  ',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: trigger.$1 == '\u2717'
+                                  ? highlightAmber
+                                  : deepCobalt)),
                       SizedBox(
                         width: 140,
-                        child: Text(
-                          trigger.$2,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: deepCobalt,
-                          ),
-                        ),
+                        child: Text(trigger.$2,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: deepCobalt)),
                       ),
                       Expanded(
-                        child: Text(
-                          trigger.$3,
-                          style: TextStyle(fontSize: 12, color: vivid),
-                        ),
+                        child: Text(trigger.$3,
+                            style: TextStyle(fontSize: 12, color: vivid)),
                       ),
                     ],
                   ),
@@ -1184,12 +949,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Inheritance hierarchy ────────────────────────────────
-        sectionBanner(
-          '13 \u00b7 Inheritance Hierarchy',
-          'Class relationships',
-          cerulean,
-          deepCobalt,
-        ),
+        sectionBanner('13 \u00b7 Inheritance Hierarchy',
+            'Class relationships', cerulean, deepCobalt),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1209,17 +970,16 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    line,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      fontWeight: line.contains('\u2605')
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: line.contains('\u2605') ? deepCobalt : steel,
-                    ),
-                  ),
+                  child: Text(line,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: line.contains('\u2605')
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: line.contains('\u2605')
+                              ? deepCobalt
+                              : steel)),
                 ),
             ],
           ),
@@ -1232,12 +992,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Practical considerations ─────────────────────────────
-        sectionBanner(
-          '14 \u00b7 Practical Considerations',
-          'What developers should know',
-          deepCobalt,
-          Colors.white,
-        ),
+        sectionBanner('14 \u00b7 Practical Considerations',
+            'What developers should know', deepCobalt, Colors.white),
         noteBox(
           'You almost never interact with ListWheelElement directly. '
           'Understanding it helps debug scroll performance, child '
@@ -1269,20 +1025,15 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 130,
-                        child: Text(
-                          tip.$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: deepCobalt,
-                          ),
-                        ),
+                        child: Text(tip.$1,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: deepCobalt)),
                       ),
                       Expanded(
-                        child: Text(
-                          tip.$2,
-                          style: TextStyle(fontSize: 12, color: vivid),
-                        ),
+                        child: Text(tip.$2,
+                            style: TextStyle(fontSize: 12, color: vivid)),
                       ),
                     ],
                   ),
@@ -1293,12 +1044,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepCobalt,
-          Colors.white,
-        ),
+        sectionBanner('15 \u00b7 Summary',
+            'Key takeaways', deepCobalt, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1328,19 +1075,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: highlightAmber,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: highlightAmber,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
+                        child: Text(point,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

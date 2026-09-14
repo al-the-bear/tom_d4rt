@@ -191,7 +191,10 @@ Widget _cardTitle(
       ),
       if (subtitle != null) ...<Widget>[
         const SizedBox(height: 2.0),
-        Text(subtitle, style: TextStyle(fontSize: 12.5, color: subtitleColor)),
+        Text(
+          subtitle,
+          style: TextStyle(fontSize: 12.5, color: subtitleColor),
+        ),
       ],
     ],
   );
@@ -333,9 +336,7 @@ Widget _checkerboard({
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          CustomPaint(
-            painter: _CheckerPainter(tile: tile, a: a, b: b),
-          ),
+          CustomPaint(painter: _CheckerPainter(tile: tile, a: a, b: b)),
           Positioned.fill(child: child),
         ],
       ),
@@ -345,7 +346,11 @@ Widget _checkerboard({
 
 // Painter for the chequer board backdrop.
 class _CheckerPainter extends CustomPainter {
-  const _CheckerPainter({required this.tile, required this.a, required this.b});
+  const _CheckerPainter({
+    required this.tile,
+    required this.a,
+    required this.b,
+  });
 
   final double tile;
   final Color a;
@@ -363,14 +368,19 @@ class _CheckerPainter extends CustomPainter {
         if ((x + y) % 2 == 0) {
           continue;
         }
-        canvas.drawRect(Rect.fromLTWH(x * tile, y * tile, tile, tile), pb);
+        canvas.drawRect(
+          Rect.fromLTWH(x * tile, y * tile, tile, tile),
+          pb,
+        );
       }
     }
   }
 
   @override
   bool shouldRepaint(covariant _CheckerPainter oldDelegate) {
-    return oldDelegate.tile != tile || oldDelegate.a != a || oldDelegate.b != b;
+    return oldDelegate.tile != tile ||
+        oldDelegate.a != a ||
+        oldDelegate.b != b;
   }
 }
 
@@ -413,7 +423,10 @@ class _PipelinePainter extends CustomPainter {
         laneH - 12.0,
       );
       final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(10.0));
-      canvas.drawRRect(rr, Paint()..color = laneColours[i].withOpacity(0.06));
+      canvas.drawRRect(
+        rr,
+        Paint()..color = laneColours[i].withOpacity(0.06),
+      );
       canvas.drawRRect(rr, hairline);
       final TextPainter tp = TextPainter(
         text: TextSpan(
@@ -493,7 +506,10 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF6750A4), Color(0xFF1976D2)],
+        colors: <Color>[
+          Color(0xFF6750A4),
+          Color(0xFF1976D2),
+        ],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -560,7 +576,11 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 16.0),
         Row(
           children: const <Widget>[
-            Icon(Icons.lightbulb_outline, color: Color(0xFFFFFFFF), size: 18.0),
+            Icon(
+              Icons.lightbulb_outline,
+              color: Color(0xFFFFFFFF),
+              size: 18.0,
+            ),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -714,7 +734,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.gradient, color: _kAccent, size: 20.0),
+            const Icon(
+              Icons.gradient,
+              color: _kAccent,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'Opacity gallery',
@@ -725,7 +749,9 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 12.0),
-        Wrap(children: opacityCells),
+        Wrap(
+          children: opacityCells,
+        ),
         const SizedBox(height: 12.0),
         const Text(
           'All eleven instances share the same widget subtree - only the '
@@ -819,7 +845,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.animation, color: _kAccentBlue, size: 20.0),
+            const Icon(
+              Icons.animation,
+              color: _kAccentBlue,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'AnimatedOpacity',
@@ -938,7 +968,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.movie_filter, color: _kAccentTeal, size: 20.0),
+            const Icon(
+              Icons.movie_filter,
+              color: _kAccentTeal,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'FadeTransition reel',
@@ -949,7 +983,9 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 12.0),
-        Wrap(children: fadeCells),
+        Wrap(
+          children: fadeCells,
+        ),
         const SizedBox(height: 12.0),
         const Text(
           'FadeTransition consumes an Animation<double> instead of a raw '
@@ -1028,7 +1064,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.view_list, color: _kAccentIndigo, size: 20.0),
+            const Icon(
+              Icons.view_list,
+              color: _kAccentIndigo,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'SliverOpacity',
@@ -1182,7 +1222,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.compare_arrows, color: _kAccentGreen, size: 20.0),
+            const Icon(
+              Icons.compare_arrows,
+              color: _kAccentGreen,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'Fast vs slow alpha',
@@ -1215,7 +1259,12 @@ dynamic build(BuildContext context) {
   // invisible, not non-existent. Six pitfall cards walk through the most
   // common consequences for accessibility and gesture handling.
   // -------------------------------------------------------------------------
-  Widget _pitfallCard(IconData icon, String title, String body, Color colour) {
+  Widget _pitfallCard(
+    IconData icon,
+    String title,
+    String body,
+    Color colour,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6.0),
       padding: const EdgeInsets.all(12.0),
@@ -1273,7 +1322,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.report_problem, color: _kAccentOrange, size: 20.0),
+            const Icon(
+              Icons.report_problem,
+              color: _kAccentOrange,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'Hit-testing & semantics',
@@ -1288,52 +1341,52 @@ dynamic build(BuildContext context) {
           Icons.touch_app,
           'Opacity(0.0) still hit-tests',
           'A child wrapped in Opacity(opacity: 0.0) is invisible but still '
-              'absorbs taps. Wrap it in IgnorePointer or use Visibility(visible: '
-              'false) when you also want to remove the hit region.',
+          'absorbs taps. Wrap it in IgnorePointer or use Visibility(visible: '
+          'false) when you also want to remove the hit region.',
           _kAccentRed,
         ),
         _pitfallCard(
           Icons.accessibility_new,
           'alwaysIncludeSemantics: false (the default)',
           'By default an invisible Opacity drops its child\'s semantics, so '
-              'screen readers won\'t announce it. Pass '
-              '`alwaysIncludeSemantics: true` to keep the subtree accessible '
-              'even when alpha is zero.',
+          'screen readers won\'t announce it. Pass '
+          '`alwaysIncludeSemantics: true` to keep the subtree accessible '
+          'even when alpha is zero.',
           _kAccentOrange,
         ),
         _pitfallCard(
           Icons.speed,
           'AnimatedOpacity churn',
           'Wrapping a frequently-rebuilt subtree in AnimatedOpacity means '
-              'the child relayouts every tick. If the child is a heavy widget, '
-              'consider memoizing it via const constructors or extracting it '
-              'above AnimatedOpacity.',
+          'the child relayouts every tick. If the child is a heavy widget, '
+          'consider memoizing it via const constructors or extracting it '
+          'above AnimatedOpacity.',
           _kAccentIndigo,
         ),
         _pitfallCard(
           Icons.layers,
           'Per-tile vs per-list opacity',
           'Wrapping every list item in an Opacity allocates one saveLayer '
-              'per tile. Prefer a single SliverOpacity around the SliverList - '
-              'or an Opacity around the parent box for a fixed list - to share '
-              'one layer.',
+          'per tile. Prefer a single SliverOpacity around the SliverList - '
+          'or an Opacity around the parent box for a fixed list - to share '
+          'one layer.',
           _kAccentTeal,
         ),
         _pitfallCard(
           Icons.image,
           'Image + Opacity = double cost',
           'An Image already has its own paint pass; wrapping it in an '
-              'Opacity adds a second. For static fades, use '
-              'Image(opacity: AlwaysStoppedAnimation<double>(t)) or '
-              'ColorFilter.matrix to bake the alpha into the existing pass.',
+          'Opacity adds a second. For static fades, use '
+          'Image(opacity: AlwaysStoppedAnimation<double>(t)) or '
+          'ColorFilter.matrix to bake the alpha into the existing pass.',
           _kAccentSecondary,
         ),
         _pitfallCard(
           Icons.warning,
           'opacity must be in [0.0, 1.0]',
           'Both Opacity and FadeTransition assert their input is finite and '
-              'inside [0, 1]. Clamp computed values with .clamp(0.0, 1.0) before '
-              'feeding them in; NaN or Infinity will crash debug builds.',
+          'inside [0, 1]. Clamp computed values with .clamp(0.0, 1.0) before '
+          'feeding them in; NaN or Infinity will crash debug builds.',
           _kAccentRed,
         ),
       ],
@@ -1430,7 +1483,9 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
       decoration: BoxDecoration(
         color: zebra ? _kCanvas : _kCardBg,
-        border: const Border(bottom: BorderSide(color: _kHairline)),
+        border: const Border(
+          bottom: BorderSide(color: _kHairline),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1462,14 +1517,20 @@ dynamic build(BuildContext context) {
             width: 80.0,
             child: Text(
               animates,
-              style: const TextStyle(fontSize: 11.5, color: _kInkSecondary),
+              style: const TextStyle(
+                fontSize: 11.5,
+                color: _kInkSecondary,
+              ),
             ),
           ),
           SizedBox(
             width: 95.0,
             child: Text(
               saveLayer,
-              style: const TextStyle(fontSize: 11.5, color: _kInkSecondary),
+              style: const TextStyle(
+                fontSize: 11.5,
+                color: _kInkSecondary,
+              ),
             ),
           ),
           Expanded(
@@ -1496,7 +1557,11 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.fromLTRB(18.0, 16.0, 18.0, 8.0),
           child: Row(
             children: <Widget>[
-              const Icon(Icons.table_chart, color: _kAccentBlue, size: 20.0),
+              const Icon(
+                Icons.table_chart,
+                color: _kAccentBlue,
+                size: 20.0,
+              ),
               const SizedBox(width: 6.0),
               _cardTitle(
                 'Comparison',
@@ -1649,7 +1714,11 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             children: <Widget>[
-              const Icon(Icons.code, color: _kAccent, size: 20.0),
+              const Icon(
+                Icons.code,
+                color: _kAccent,
+                size: 20.0,
+              ),
               const SizedBox(width: 6.0),
               _cardTitle(
                 'Idiomatic snippets',
@@ -1693,7 +1762,11 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 6.0),
-          Wrap(spacing: 6.0, runSpacing: 6.0, children: chips),
+          Wrap(
+            spacing: 6.0,
+            runSpacing: 6.0,
+            children: chips,
+          ),
         ],
       ),
     );
@@ -1759,11 +1832,7 @@ dynamic build(BuildContext context) {
         _chipGroup('Semantics', <Widget>[
           _chip('alwaysIncludeSemantics', Icons.accessibility, _kAccentBlue),
           _chip('IgnorePointer for alpha 0', Icons.touch_app, _kAccentRed),
-          _chip(
-            'Visibility(visible: false)',
-            Icons.visibility_off,
-            _kAccentIndigo,
-          ),
+          _chip('Visibility(visible: false)', Icons.visibility_off, _kAccentIndigo),
           _chip('clamp [0, 1]', Icons.code, _kAccentOrange),
         ]),
         const SizedBox(height: 14.0),
@@ -1776,7 +1845,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: const <Widget>[
-              Icon(Icons.info_outline, color: Color(0xFFFFD60A), size: 18.0),
+              Icon(
+                Icons.info_outline,
+                color: Color(0xFFFFD60A),
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(

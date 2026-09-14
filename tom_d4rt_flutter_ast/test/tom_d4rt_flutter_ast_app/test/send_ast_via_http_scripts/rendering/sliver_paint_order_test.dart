@@ -58,189 +58,205 @@ const Color _poPaper = Color(0xFFFAFAFA);
 
 // ─── text helpers ─────────────────────────────────────────────────
 Widget _poTitle(String t) => Padding(
-  padding: const EdgeInsets.symmetric(vertical: 14),
-  child: Text(
-    t,
-    style: const TextStyle(
-      fontSize: 22,
-      fontWeight: FontWeight.w800,
-      color: _poTeal,
-      letterSpacing: 0.3,
-    ),
-  ),
-);
+      padding: const EdgeInsets.symmetric(vertical: 14),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+          color: _poTeal,
+          letterSpacing: 0.3,
+        ),
+      ),
+    );
 
 Widget _poSection(String t) => Padding(
-  padding: const EdgeInsets.only(top: 22, bottom: 6),
-  child: Text(
-    t,
-    style: const TextStyle(
-      fontSize: 19,
-      fontWeight: FontWeight.w700,
-      color: _poTeal,
-      letterSpacing: 0.2,
-    ),
-  ),
-);
+      padding: const EdgeInsets.only(top: 22, bottom: 6),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontSize: 19,
+          fontWeight: FontWeight.w700,
+          color: _poTeal,
+          letterSpacing: 0.2,
+        ),
+      ),
+    );
 
 // ignore: unused_element
 Widget _poSubtitle(String t) => Padding(
-  padding: const EdgeInsets.only(top: 12, bottom: 4),
-  child: Text(
-    t,
-    style: const TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w700,
-      color: _poAccent,
-    ),
-  ),
-);
+      padding: const EdgeInsets.only(top: 12, bottom: 4),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: _poAccent,
+        ),
+      ),
+    );
 
 Widget _poBody(String t) => Padding(
-  padding: const EdgeInsets.symmetric(vertical: 3),
-  child: Text(
-    t,
-    style: const TextStyle(fontSize: 13.5, color: Colors.black87, height: 1.45),
-  ),
-);
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontSize: 13.5,
+          color: Colors.black87,
+          height: 1.45,
+        ),
+      ),
+    );
 
 Widget _poBullet(String t) => Padding(
-  padding: const EdgeInsets.fromLTRB(14, 2, 0, 2),
-  child: Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Padding(
-        padding: EdgeInsets.only(top: 6),
-        child: Icon(Icons.circle, size: 6, color: _poAccent),
+      padding: const EdgeInsets.fromLTRB(14, 2, 0, 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 6),
+            child: Icon(Icons.circle, size: 6, color: _poAccent),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              t,
+              style: const TextStyle(fontSize: 13.5, color: Colors.black87),
+            ),
+          ),
+        ],
       ),
-      const SizedBox(width: 8),
-      Expanded(
-        child: Text(
-          t,
-          style: const TextStyle(fontSize: 13.5, color: Colors.black87),
-        ),
-      ),
-    ],
-  ),
-);
+    );
 
 Widget _poCode(String t) => Container(
-  width: double.infinity,
-  margin: const EdgeInsets.symmetric(vertical: 6),
-  padding: const EdgeInsets.all(12),
-  decoration: BoxDecoration(
-    color: _poDark,
-    borderRadius: BorderRadius.circular(8),
-  ),
-  child: Text(
-    t,
-    style: const TextStyle(
-      fontFamily: 'monospace',
-      fontSize: 12.5,
-      color: _poMint,
-      height: 1.4,
-    ),
-  ),
-);
-
-Widget _poNote(String t) => Container(
-  width: double.infinity,
-  margin: const EdgeInsets.symmetric(vertical: 8),
-  padding: const EdgeInsets.all(12),
-  decoration: BoxDecoration(
-    color: _poMint,
-    borderRadius: BorderRadius.circular(10),
-    border: Border.all(color: _poAccent, width: 1.2),
-  ),
-  child: Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Icon(Icons.info_outline, color: _poTeal, size: 18),
-      const SizedBox(width: 10),
-      Expanded(
-        child: Text(
-          t,
-          style: const TextStyle(fontSize: 13, color: _poDark, height: 1.4),
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: _poDark,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        t,
+        style: const TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 12.5,
+          color: _poMint,
+          height: 1.4,
         ),
       ),
-    ],
-  ),
-);
+    );
+
+Widget _poNote(String t) => Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: _poMint,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: _poAccent, width: 1.2),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.info_outline, color: _poTeal, size: 18),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              t,
+              style: const TextStyle(
+                fontSize: 13,
+                color: _poDark,
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
 
 // ignore: unused_element
 Widget _poWarning(String t) => Container(
-  width: double.infinity,
-  margin: const EdgeInsets.symmetric(vertical: 8),
-  padding: const EdgeInsets.all(12),
-  decoration: BoxDecoration(
-    color: const Color(0xFFFFF3E0),
-    borderRadius: BorderRadius.circular(10),
-    border: Border.all(color: _poWarn, width: 1.2),
-  ),
-  child: Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Icon(Icons.warning_amber_rounded, color: _poWarn, size: 18),
-      const SizedBox(width: 10),
-      Expanded(
-        child: Text(
-          t,
-          style: const TextStyle(fontSize: 13, color: _poDark, height: 1.4),
-        ),
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFF3E0),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: _poWarn, width: 1.2),
       ),
-    ],
-  ),
-);
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.warning_amber_rounded, color: _poWarn, size: 18),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              t,
+              style: const TextStyle(
+                fontSize: 13,
+                color: _poDark,
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
 
 Widget _poDivider() => const Padding(
-  padding: EdgeInsets.symmetric(vertical: 18),
-  child: Divider(color: _poAccent, thickness: 1.2, height: 0),
-);
+      padding: EdgeInsets.symmetric(vertical: 18),
+      child: Divider(color: _poAccent, thickness: 1.2, height: 0),
+    );
 
 // ─── small reusable card frame ────────────────────────────────────
 Widget _poCard(String label, Widget child, {Color? color}) => Container(
-  margin: const EdgeInsets.symmetric(vertical: 6),
-  padding: const EdgeInsets.all(12),
-  decoration: BoxDecoration(
-    color: color ?? Colors.white,
-    borderRadius: BorderRadius.circular(12),
-    border: Border.all(color: _poAccent.withOpacity(0.4)),
-    boxShadow: const [
-      BoxShadow(color: Color(0x14000000), blurRadius: 6, offset: Offset(0, 3)),
-    ],
-  ),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        label,
-        style: const TextStyle(
-          fontWeight: FontWeight.w700,
-          color: _poTeal,
-          fontSize: 14,
-        ),
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color ?? Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _poAccent.withOpacity(0.4)),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x14000000),
+            blurRadius: 6,
+            offset: Offset(0, 3),
+          ),
+        ],
       ),
-      const SizedBox(height: 8),
-      child,
-    ],
-  ),
-);
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              color: _poTeal,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 8),
+          child,
+        ],
+      ),
+    );
 
 Widget _poChip(String text, Color color) => Container(
-  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-  decoration: BoxDecoration(
-    color: color,
-    borderRadius: BorderRadius.circular(20),
-  ),
-  child: Text(
-    text,
-    style: const TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.w700,
-      fontSize: 12,
-    ),
-  ),
-);
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 12,
+        ),
+      ),
+    );
 
 // =====================================================================
 // SECTION 1 — INTRO
@@ -449,11 +465,7 @@ class _PoStickyDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => height;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: color.withOpacity(0.95),
       alignment: Alignment.centerLeft,
@@ -924,11 +936,7 @@ class _PoShadowedHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => height;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       decoration: BoxDecoration(
         color: color,
@@ -944,7 +952,10 @@ class _PoShadowedHeaderDelegate extends SliverPersistentHeaderDelegate {
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: Text(
         title,
-        style: TextStyle(color: textColor, fontWeight: FontWeight.w800),
+        style: TextStyle(
+          color: textColor,
+          fontWeight: FontWeight.w800,
+        ),
       ),
     );
   }
@@ -1045,7 +1056,8 @@ class _PoMixedSliversDemoState extends State<_PoMixedSliversDemo> {
                     ),
                     childCount: 12,
                   ),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     childAspectRatio: 1.4,
                   ),
@@ -1237,11 +1249,12 @@ Widget _poSection9Recipes() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _poSection('9 · Recipe gallery — when to pick which paint order'),
-      _poBody('Four small recipes with a recommended paintOrder for each.'),
+      _poBody(
+        'Four small recipes with a recommended paintOrder for each.',
+      ),
       _PoRecipeCard(
         title: 'Sticky filter overlay',
-        intent:
-            'A pinned filter bar must sit visually ABOVE all '
+        intent: 'A pinned filter bar must sit visually ABOVE all '
             'section headers, regardless of how many sections there '
             'are.',
         recommended: SliverPaintOrder.lastIsTop,
@@ -1257,8 +1270,10 @@ Widget _poSection9Recipes() {
             ),
             SliverList.builder(
               itemCount: 6,
-              itemBuilder: (_, i) =>
-                  ListTile(dense: true, title: Text('section $s · row $i')),
+              itemBuilder: (_, i) => ListTile(
+                dense: true,
+                title: Text('section $s · row $i'),
+              ),
             ),
           ],
           // Filter bar last → on top.
@@ -1275,8 +1290,7 @@ Widget _poSection9Recipes() {
       ),
       _PoRecipeCard(
         title: 'Z-stacked tabs',
-        intent:
-            'Tabs sit at the top of the slivers list and must stay '
+        intent: 'Tabs sit at the top of the slivers list and must stay '
             'in front of the section headers. firstIsTop places the '
             'first sliver on top — exactly what we want.',
         recommended: SliverPaintOrder.firstIsTop,
@@ -1301,16 +1315,17 @@ Widget _poSection9Recipes() {
             ),
             SliverList.builder(
               itemCount: 5,
-              itemBuilder: (_, i) =>
-                  ListTile(dense: true, title: Text('s$s row $i')),
+              itemBuilder: (_, i) => ListTile(
+                dense: true,
+                title: Text('s$s row $i'),
+              ),
             ),
           ],
         ],
       ),
       _PoRecipeCard(
         title: 'Shadowed sticky search',
-        intent:
-            'A search bar with a strong drop shadow at the top. '
+        intent: 'A search bar with a strong drop shadow at the top. '
             'Section headers should slide UNDER it. firstIsTop again, '
             'because the search bar is the first sliver.',
         recommended: SliverPaintOrder.firstIsTop,
@@ -1334,16 +1349,17 @@ Widget _poSection9Recipes() {
             ),
             SliverList.builder(
               itemCount: 6,
-              itemBuilder: (_, i) =>
-                  ListTile(dense: true, title: Text('s$s · $i')),
+              itemBuilder: (_, i) => ListTile(
+                dense: true,
+                title: Text('s$s · $i'),
+              ),
             ),
           ],
         ],
       ),
       _PoRecipeCard(
         title: 'Promo banner takeover',
-        intent:
-            'A floating promo banner declared at the bottom of the '
+        intent: 'A floating promo banner declared at the bottom of the '
             'slivers list takes over the entire top edge. lastIsTop '
             'lifts the banner above all other slivers.',
         recommended: SliverPaintOrder.lastIsTop,
@@ -1359,8 +1375,10 @@ Widget _poSection9Recipes() {
             ),
             SliverList.builder(
               itemCount: 6,
-              itemBuilder: (_, i) =>
-                  ListTile(dense: true, title: Text('s$s · $i')),
+              itemBuilder: (_, i) => ListTile(
+                dense: true,
+                title: Text('s$s · $i'),
+              ),
             ),
           ],
           SliverPersistentHeader(
@@ -1408,7 +1426,9 @@ class _PoRecipeCard extends StatelessWidget {
               ),
               _poChip(
                 recommended.name,
-                recommended == SliverPaintOrder.firstIsTop ? _poTeal : _poRose,
+                recommended == SliverPaintOrder.firstIsTop
+                    ? _poTeal
+                    : _poRose,
               ),
             ],
           ),
@@ -1741,11 +1761,7 @@ class _PoHorizontalHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 80;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: color,
       alignment: Alignment.center,
@@ -1753,7 +1769,10 @@ class _PoHorizontalHeaderDelegate extends SliverPersistentHeaderDelegate {
         quarterTurns: -1,
         child: Text(
           title,
-          style: const TextStyle(color: _poOnTeal, fontWeight: FontWeight.w800),
+          style: const TextStyle(
+            color: _poOnTeal,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       ),
     );
@@ -1822,8 +1841,10 @@ class _PoSliverAppBarStackState extends State<_PoSliverAppBarStack> {
                 ),
                 SliverList.builder(
                   itemCount: 30,
-                  itemBuilder: (_, i) =>
-                      ListTile(dense: true, title: Text('content row $i')),
+                  itemBuilder: (_, i) => ListTile(
+                    dense: true,
+                    title: Text('content row $i'),
+                  ),
                 ),
                 SliverPersistentHeader(
                   pinned: true,
@@ -1896,8 +1917,10 @@ class _PoHitTestDemoState extends State<_PoHitTestDemo> {
                 ),
                 SliverList.builder(
                   itemCount: 30,
-                  itemBuilder: (_, i) =>
-                      ListTile(dense: true, title: Text('content $i')),
+                  itemBuilder: (_, i) => ListTile(
+                    dense: true,
+                    title: Text('content $i'),
+                  ),
                 ),
                 SliverPersistentHeader(
                   pinned: true,
@@ -1939,11 +1962,7 @@ class _PoTapHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => height;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -2090,7 +2109,8 @@ Widget _poSection16Diagnostic() {
                   width: 14,
                   height: 14,
                   decoration: BoxDecoration(
-                    color: v == SliverPaintOrder.firstIsTop ? _poTeal : _poRose,
+                    color:
+                        v == SliverPaintOrder.firstIsTop ? _poTeal : _poRose,
                     borderRadius: BorderRadius.circular(3),
                   ),
                 ),

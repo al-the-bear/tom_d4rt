@@ -153,7 +153,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 8.0),
                   Text(
                     'horizontal + textColor + margin',
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFFBF360C)),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Color(0xFFBF360C),
+                    ),
                   ),
                 ],
               ),
@@ -236,7 +239,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Container(width: 180.0, height: 60.0, decoration: deco),
+            Container(
+              width: 180.0,
+              height: 60.0,
+              decoration: deco,
+            ),
             SizedBox(height: 10.0),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -373,7 +380,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Container(width: size, height: size, decoration: deco),
+            Container(
+              width: size,
+              height: size,
+              decoration: deco,
+            ),
             SizedBox(height: 8.0),
             Text(
               '${size.toInt()} px',
@@ -429,8 +440,11 @@ dynamic build(BuildContext context) {
           ),
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(
-            color:
-                Color.lerp(Color(0xFF42A5F5), Color(0xFFE53935), t) ??
+            color: Color.lerp(
+                  Color(0xFF42A5F5),
+                  Color(0xFFE53935),
+                  t,
+                ) ??
                 Color(0xFF42A5F5),
             width: 1.5,
           ),
@@ -444,7 +458,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Container(width: 110.0, height: 70.0, decoration: lerped ?? lerpA),
+            Container(
+              width: 110.0,
+              height: 70.0,
+              decoration: lerped ?? lerpA,
+            ),
             SizedBox(height: 8.0),
             Text(
               't = ${t.toStringAsFixed(2)}',
@@ -558,7 +576,10 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ),
-            Wrap(alignment: WrapAlignment.start, children: cells),
+            Wrap(
+              alignment: WrapAlignment.start,
+              children: cells,
+            ),
           ],
         ),
       ),
@@ -624,7 +645,10 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Powered by',
-          style: TextStyle(fontSize: 14.0, color: Color(0xFF424242)),
+          style: TextStyle(
+            fontSize: 14.0,
+            color: Color(0xFF424242),
+          ),
         ),
         SizedBox(width: 10.0),
         Container(
@@ -1021,11 +1045,7 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.all(24.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Color(0xFF0D47A1),
-                  Color(0xFF1976D2),
-                  Color(0xFF42A5F5),
-                ],
+                colors: [Color(0xFF0D47A1), Color(0xFF1976D2), Color(0xFF42A5F5)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -1328,7 +1348,10 @@ Widget _buildFootgun(String title, String body) {
           ],
         ),
         SizedBox(height: 4.0),
-        Text(body, style: TextStyle(fontSize: 10.5, color: Color(0xFF424242))),
+        Text(
+          body,
+          style: TextStyle(fontSize: 10.5, color: Color(0xFF424242)),
+        ),
       ],
     ),
   );
@@ -1373,7 +1396,9 @@ Widget _buildMatrixRow(String prop, String type, String defaultValue) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8.0),
     decoration: BoxDecoration(
-      border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1.0)),
+      border: Border(
+        bottom: BorderSide(color: Color(0xFFE0E0E0), width: 1.0),
+      ),
     ),
     child: Row(
       children: [

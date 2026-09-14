@@ -370,8 +370,8 @@ class _WsctHomeState extends State<_WsctHome>
         description:
             'Compound expression — OR fused with an AND NOT. Focus or hover,'
             ' but never in error.',
-        constraint:
-            (WidgetState.focused | WidgetState.hovered) & ~WidgetState.error,
+        constraint: (WidgetState.focused | WidgetState.hovered) &
+            ~WidgetState.error,
         participatingStates: const <WidgetState>[
           WidgetState.focused,
           WidgetState.hovered,
@@ -619,11 +619,8 @@ class _WsctHomeState extends State<_WsctHome>
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  const Icon(
-                    Icons.toggle_on_outlined,
-                    color: _WsctTheme.accent,
-                    size: 22,
-                  ),
+                  const Icon(Icons.toggle_on_outlined,
+                      color: _WsctTheme.accent, size: 22),
                   const SizedBox(width: 10),
                   const Text(
                     'Active widget states',
@@ -819,39 +816,31 @@ class _WsctHomeState extends State<_WsctHome>
     final resolved = color.resolve(_current);
     final entries = <_WsctMapEntry>[
       _WsctMapEntry(
-        expression: 'WidgetState.disabled',
-        color: _WsctTheme.lampIdle,
-        satisfied: WidgetState.disabled.isSatisfiedBy(_current),
-      ),
+          expression: 'WidgetState.disabled',
+          color: _WsctTheme.lampIdle,
+          satisfied: WidgetState.disabled.isSatisfiedBy(_current)),
       _WsctMapEntry(
-        expression: 'WidgetState.error',
-        color: _WsctTheme.lampOff,
-        satisfied: WidgetState.error.isSatisfiedBy(_current),
-      ),
+          expression: 'WidgetState.error',
+          color: _WsctTheme.lampOff,
+          satisfied: WidgetState.error.isSatisfiedBy(_current)),
       _WsctMapEntry(
-        expression: 'pressed & ~disabled',
-        color: _WsctTheme.accent,
-        satisfied: (WidgetState.pressed & ~WidgetState.disabled).isSatisfiedBy(
-          _current,
-        ),
-      ),
+          expression: 'pressed & ~disabled',
+          color: _WsctTheme.accent,
+          satisfied: (WidgetState.pressed & ~WidgetState.disabled)
+              .isSatisfiedBy(_current)),
       _WsctMapEntry(
-        expression: 'hovered | focused',
-        color: _WsctTheme.wire,
-        satisfied: (WidgetState.hovered | WidgetState.focused).isSatisfiedBy(
-          _current,
-        ),
-      ),
+          expression: 'hovered | focused',
+          color: _WsctTheme.wire,
+          satisfied: (WidgetState.hovered | WidgetState.focused)
+              .isSatisfiedBy(_current)),
       _WsctMapEntry(
-        expression: 'WidgetState.selected',
-        color: _WsctTheme.accentCool,
-        satisfied: WidgetState.selected.isSatisfiedBy(_current),
-      ),
+          expression: 'WidgetState.selected',
+          color: _WsctTheme.accentCool,
+          satisfied: WidgetState.selected.isSatisfiedBy(_current)),
       _WsctMapEntry(
-        expression: 'WidgetState.any',
-        color: _WsctTheme.inkMute,
-        satisfied: WidgetState.any.isSatisfiedBy(_current),
-      ),
+          expression: 'WidgetState.any',
+          color: _WsctTheme.inkMute,
+          satisfied: WidgetState.any.isSatisfiedBy(_current)),
     ];
     return _WsctSection(
       index: 6,
@@ -958,17 +947,22 @@ class _WsctHomeState extends State<_WsctHome>
               Row(
                 children: <Widget>[
                   _WsctAction(
-                    label: _flippedMapOrder ? 'Use Map A' : 'Use Map B',
+                    label: _flippedMapOrder
+                        ? 'Use Map A'
+                        : 'Use Map B',
                     icon: Icons.swap_horiz,
-                    onTap: () =>
-                        setState(() => _flippedMapOrder = !_flippedMapOrder),
+                    onTap: () => setState(
+                        () => _flippedMapOrder = !_flippedMapOrder),
                   ),
                   const SizedBox(width: 12),
                   const Flexible(
                     child: Text(
                       'The first constraint whose isSatisfiedBy returns true'
                       ' wins. Put specific cases first and `any` last.',
-                      style: TextStyle(color: _WsctTheme.inkSoft, fontSize: 12),
+                      style: TextStyle(
+                        color: _WsctTheme.inkSoft,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
@@ -1061,13 +1055,13 @@ class _WsctHomeState extends State<_WsctHome>
     final recipes = <_WsctRecipe>[
       _WsctRecipe(
         title: 'Focused-and-not-disabled ring',
-        expression: 'WidgetState.focused & ~WidgetState.disabled',
+        expression:
+            'WidgetState.focused & ~WidgetState.disabled',
         body:
             'A classic a11y ring: draw only when the control is focused AND'
             ' still interactive.',
-        satisfied: (WidgetState.focused & ~WidgetState.disabled).isSatisfiedBy(
-          _current,
-        ),
+        satisfied: (WidgetState.focused & ~WidgetState.disabled)
+            .isSatisfiedBy(_current),
       ),
       _WsctRecipe(
         title: 'Hovered-or-selected highlight',
@@ -1075,9 +1069,8 @@ class _WsctHomeState extends State<_WsctHome>
         body:
             'One color for "currently attracting attention" — hovered or'
             ' already selected.',
-        satisfied: (WidgetState.hovered | WidgetState.selected).isSatisfiedBy(
-          _current,
-        ),
+        satisfied: (WidgetState.hovered | WidgetState.selected)
+            .isSatisfiedBy(_current),
       ),
       _WsctRecipe(
         title: 'Error-suppressing dimmer',
@@ -1085,9 +1078,8 @@ class _WsctHomeState extends State<_WsctHome>
         body:
             'Neutral state: useful as a base when both error and disabled'
             ' take priority over it.',
-        satisfied: (~WidgetState.error & ~WidgetState.disabled).isSatisfiedBy(
-          _current,
-        ),
+        satisfied: (~WidgetState.error & ~WidgetState.disabled)
+            .isSatisfiedBy(_current),
       ),
       _WsctRecipe(
         title: 'Pressed-and-selected deeper variant',
@@ -1095,9 +1087,8 @@ class _WsctHomeState extends State<_WsctHome>
         body:
             'The "double-down" visual — a selected chip is being pressed,'
             ' pick a deeper tone.',
-        satisfied: (WidgetState.pressed & WidgetState.selected).isSatisfiedBy(
-          _current,
-        ),
+        satisfied: (WidgetState.pressed & WidgetState.selected)
+            .isSatisfiedBy(_current),
       ),
       _WsctRecipe(
         title: 'Any fallback',
@@ -1113,9 +1104,8 @@ class _WsctHomeState extends State<_WsctHome>
         body:
             'Visual feedback only when a press is actually allowed. Prevents'
             ' press visuals from appearing on disabled controls.',
-        satisfied: (WidgetState.pressed & ~WidgetState.disabled).isSatisfiedBy(
-          _current,
-        ),
+        satisfied: (WidgetState.pressed & ~WidgetState.disabled)
+            .isSatisfiedBy(_current),
       ),
       _WsctRecipe(
         title: 'Scrolled-under tint',
@@ -1582,7 +1572,10 @@ class _WsctOperatorTableRow extends StatelessWidget {
         Expanded(
           child: Text(
             description,
-            style: const TextStyle(color: _WsctTheme.inkSoft, fontSize: 12.5),
+            style: const TextStyle(
+              color: _WsctTheme.inkSoft,
+              fontSize: 12.5,
+            ),
           ),
         ),
       ],
@@ -1767,7 +1760,10 @@ class _WsctToggle extends StatelessWidget {
         const SizedBox(width: 6),
         Text(
           label,
-          style: const TextStyle(color: _WsctTheme.inkSoft, fontSize: 13),
+          style: const TextStyle(
+            color: _WsctTheme.inkSoft,
+            fontSize: 13,
+          ),
         ),
       ],
     );
@@ -1908,10 +1904,10 @@ class _WsctTruthTable extends StatelessWidget {
                         color: r == 0
                             ? _WsctTheme.accent
                             : (cell == '1'
-                                  ? _WsctTheme.good
-                                  : (cell == '0'
-                                        ? _WsctTheme.inkMute
-                                        : _WsctTheme.ink)),
+                                ? _WsctTheme.good
+                                : (cell == '0'
+                                    ? _WsctTheme.inkMute
+                                    : _WsctTheme.ink)),
                         fontSize: 12.5,
                       ),
                     ),
@@ -2108,7 +2104,9 @@ class _WsctGateRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final satisfied = gate.constraint.isSatisfiedBy(current);
-    final glow = satisfied ? 0.5 + 0.5 * math.sin(pulse * 2 * math.pi) : 0.0;
+    final glow = satisfied
+        ? 0.5 + 0.5 * math.sin(pulse * 2 * math.pi)
+        : 0.0;
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
       child: Row(
@@ -2142,10 +2140,8 @@ class _WsctGateRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: _WsctTheme.benchDeep,
                     borderRadius: BorderRadius.circular(6),
@@ -2190,7 +2186,9 @@ class _WsctGateRow extends StatelessWidget {
               child: Text(
                 satisfied ? 'true' : 'false',
                 style: TextStyle(
-                  color: satisfied ? _WsctTheme.benchDeep : _WsctTheme.bench,
+                  color: satisfied
+                      ? _WsctTheme.benchDeep
+                      : _WsctTheme.bench,
                   fontWeight: FontWeight.w900,
                   fontSize: 12,
                   fontFamily: 'monospace',
@@ -2244,9 +2242,7 @@ class _WsctLamp extends StatelessWidget {
         border: Border.all(color: color, width: 2),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: color.withValues(
-              alpha: satisfied ? 0.25 + 0.55 * glow : 0.25,
-            ),
+            color: color.withValues(alpha: satisfied ? 0.25 + 0.55 * glow : 0.25),
             blurRadius: satisfied ? 8 + 14 * glow : 6,
             spreadRadius: satisfied ? 1 + 2 * glow : 0.5,
           ),
@@ -2403,11 +2399,8 @@ class _WsctMapShowcase extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(
-                Icons.map_outlined,
-                color: _WsctTheme.accent,
-                size: 20,
-              ),
+              const Icon(Icons.map_outlined,
+                  color: _WsctTheme.accent, size: 20),
               const SizedBox(width: 8),
               const Text(
                 'WidgetStateColor.fromMap',
@@ -2458,7 +2451,8 @@ class _WsctMapRow extends StatelessWidget {
             ),
             alignment: Alignment.center,
             child: entry.satisfied
-                ? const Icon(Icons.check, size: 13, color: _WsctTheme.benchDeep)
+                ? const Icon(Icons.check,
+                    size: 13, color: _WsctTheme.benchDeep)
                 : const SizedBox.shrink(),
           ),
           const SizedBox(width: 10),
@@ -2645,11 +2639,8 @@ class _WsctOrderedMap extends StatelessWidget {
                     ),
                     alignment: Alignment.center,
                     child: entries[i].satisfied
-                        ? const Icon(
-                            Icons.check,
-                            size: 12,
-                            color: _WsctTheme.benchDeep,
-                          )
+                        ? const Icon(Icons.check,
+                            size: 12, color: _WsctTheme.benchDeep)
                         : null,
                   ),
                   const SizedBox(width: 6),
@@ -2694,7 +2685,8 @@ class _WsctCustomDemo extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.functions, color: _WsctTheme.accent, size: 18),
+              const Icon(Icons.functions,
+                  color: _WsctTheme.accent, size: 18),
               const SizedBox(width: 8),
               const Text(
                 'Live custom evaluation',
@@ -2706,10 +2698,8 @@ class _WsctCustomDemo extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
                   color: _WsctTheme.benchDeep,
                   borderRadius: BorderRadius.circular(6),
@@ -2741,7 +2731,10 @@ class _WsctCustomDemo extends StatelessWidget {
             children: <Widget>[
               const Text(
                 'Resolved color in map: ',
-                style: TextStyle(color: _WsctTheme.inkSoft, fontSize: 12.5),
+                style: TextStyle(
+                  color: _WsctTheme.inkSoft,
+                  fontSize: 12.5,
+                ),
               ),
               _WsctSwatch(color: resolved, label: null),
               const SizedBox(width: 8),
@@ -2854,13 +2847,15 @@ class _WsctRecipeCard extends StatelessWidget {
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                    color: recipe.satisfied
-                        ? _WsctTheme.good
-                        : _WsctTheme.lampOff,
+                    color:
+                        recipe.satisfied ? _WsctTheme.good : _WsctTheme.lampOff,
                     borderRadius: BorderRadius.circular(5),
                     boxShadow: recipe.satisfied
                         ? const <BoxShadow>[
-                            BoxShadow(color: Color(0x884BE07A), blurRadius: 6),
+                            BoxShadow(
+                              color: Color(0x884BE07A),
+                              blurRadius: 6,
+                            ),
                           ]
                         : null,
                   ),

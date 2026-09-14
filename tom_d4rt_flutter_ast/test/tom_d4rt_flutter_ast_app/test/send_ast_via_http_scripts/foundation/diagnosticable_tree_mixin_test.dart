@@ -387,7 +387,10 @@ class _PrivateSectionHeader extends StatelessWidget {
 }
 
 class _PrivateBadge extends StatelessWidget {
-  const _PrivateBadge({required this.label, this.color = _privateAccent});
+  const _PrivateBadge({
+    required this.label,
+    this.color = _privateAccent,
+  });
 
   final String label;
   final Color color;
@@ -415,7 +418,10 @@ class _PrivateBadge extends StatelessWidget {
 }
 
 class _PrivateConsole extends StatelessWidget {
-  const _PrivateConsole({required this.lines, this.title = 'console'});
+  const _PrivateConsole({
+    required this.lines,
+    this.title = 'console',
+  });
 
   final List<String> lines;
   final String title;
@@ -509,7 +515,10 @@ class _PrivateHeroCard extends StatelessWidget {
             children: <Widget>[
               _PrivateBadge(label: 'foundation.dart'),
               SizedBox(width: 8),
-              _PrivateBadge(label: 'mixin', color: _privateAccentAlt),
+              _PrivateBadge(
+                label: 'mixin',
+                color: _privateAccentAlt,
+              ),
               SizedBox(width: 8),
               _PrivateBadge(
                 label: 'tree-aware diagnostics',
@@ -564,7 +573,12 @@ class _PrivateHeroTreeGraphic extends StatelessWidget {
       padding: EdgeInsets.all(20),
       child: Column(
         children: <Widget>[
-          _privateTreeNodeBubble('AppShell', 'Root', _privateAccent, big: true),
+          _privateTreeNodeBubble(
+            'AppShell',
+            'Root',
+            _privateAccent,
+            big: true,
+          ),
           _privateConnector(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -772,7 +786,10 @@ class _PrivateAnatomyCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8),
-          Text(row[2], style: _privateSubtitle.copyWith(fontSize: 13)),
+          Text(
+            row[2],
+            style: _privateSubtitle.copyWith(fontSize: 13),
+          ),
         ],
       ),
     );
@@ -817,7 +834,10 @@ class _PrivateLiveClassCard extends StatelessWidget {
           SizedBox(height: 16),
           _privateClassListing(),
           SizedBox(height: 16),
-          _PrivateConsole(title: 'AppShell.toStringDeep()', lines: deepLines),
+          _PrivateConsole(
+            title: 'AppShell.toStringDeep()',
+            lines: deepLines,
+          ),
           SizedBox(height: 12),
           Container(
             padding: EdgeInsets.all(12),
@@ -828,7 +848,8 @@ class _PrivateLiveClassCard extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                Icon(Icons.info_outline, color: _privateAccent, size: 18),
+                Icon(Icons.info_outline,
+                    color: _privateAccent, size: 18),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1007,12 +1028,19 @@ class _PrivatePropertyGalleryCard extends StatelessWidget {
     for (int i = 0; i < shapes.length; i++) {
       children.add(_buildItem(shapes[i]));
     }
-    return Wrap(spacing: 12, runSpacing: 12, children: children);
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: children,
+    );
   }
 
   Widget _buildItem(_PrivatePropertyShape shape) {
     return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 280, maxWidth: 360),
+      constraints: BoxConstraints(
+        minWidth: 280,
+        maxWidth: 360,
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -1058,10 +1086,8 @@ class _PrivatePropertyGalleryCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10),
-            Text(
-              shape.summary,
-              style: _privateSubtitle.copyWith(fontSize: 12.5),
-            ),
+            Text(shape.summary,
+                style: _privateSubtitle.copyWith(fontSize: 12.5)),
             SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
@@ -1182,7 +1208,11 @@ class _PrivateTreeStyleCard extends StatelessWidget {
             color: _privateAmber,
           ),
           SizedBox(height: 14),
-          Wrap(spacing: 12, runSpacing: 12, children: tiles),
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: tiles,
+          ),
         ],
       ),
     );
@@ -1204,7 +1234,8 @@ class _PrivateTreeStyleCard extends StatelessWidget {
             Row(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: shape.color,
                     borderRadius: BorderRadius.circular(999),
@@ -1360,7 +1391,10 @@ class _PrivateBuilderFlowCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 4),
-                Text(step[2], style: _privateSubtitle.copyWith(fontSize: 12.5)),
+                Text(
+                  step[2],
+                  style: _privateSubtitle.copyWith(fontSize: 12.5),
+                ),
               ],
             ),
           ),
@@ -1487,7 +1521,9 @@ class _PrivateComparisonCard extends StatelessWidget {
 
   Widget _buildRow(_PrivateMatrixRow row, bool alt) {
     return Container(
-      decoration: BoxDecoration(color: alt ? _privatePaperAlt : Colors.white),
+      decoration: BoxDecoration(
+        color: alt ? _privatePaperAlt : Colors.white,
+      ),
       padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1539,29 +1575,45 @@ class _PrivateInspectorDiagramCard extends StatelessWidget {
             color: _privateRose,
           ),
           SizedBox(height: 16),
-          _privateLane('IDE / DevTools', <String>[
-            'tree panel renders',
-            'requests diagnostics for selection',
-            'serialises to JSON RPC',
-          ], _privateAccent),
+          _privateLane(
+            'IDE / DevTools',
+            <String>[
+              'tree panel renders',
+              'requests diagnostics for selection',
+              'serialises to JSON RPC',
+            ],
+            _privateAccent,
+          ),
           _privateArrow(),
-          _privateLane('VM service / extension', <String>[
-            'ext.flutter.inspector.getRootWidget',
-            'ext.flutter.inspector.getChildren',
-            'ext.flutter.inspector.getProperties',
-          ], _privateAccentAlt),
+          _privateLane(
+            'VM service / extension',
+            <String>[
+              'ext.flutter.inspector.getRootWidget',
+              'ext.flutter.inspector.getChildren',
+              'ext.flutter.inspector.getProperties',
+            ],
+            _privateAccentAlt,
+          ),
           _privateArrow(),
-          _privateLane('Flutter framework', <String>[
-            'Element.toDiagnosticsNode()',
-            'Element.debugDescribeChildren()',
-            'Element.debugFillProperties()',
-          ], _privateMint),
+          _privateLane(
+            'Flutter framework',
+            <String>[
+              'Element.toDiagnosticsNode()',
+              'Element.debugDescribeChildren()',
+              'Element.debugFillProperties()',
+            ],
+            _privateMint,
+          ),
           _privateArrow(),
-          _privateLane('Your widgets', <String>[
-            'override debugFillProperties',
-            'add DiagnosticsProperty<T> entries',
-            'optionally override debugDescribeChildren',
-          ], _privateAmber),
+          _privateLane(
+            'Your widgets',
+            <String>[
+              'override debugFillProperties',
+              'add DiagnosticsProperty<T> entries',
+              'optionally override debugDescribeChildren',
+            ],
+            _privateAmber,
+          ),
         ],
       ),
     );
@@ -1580,7 +1632,10 @@ class _PrivateInspectorDiagramCard extends StatelessWidget {
                 margin: EdgeInsets.only(top: 6),
                 width: 6,
                 height: 6,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               SizedBox(width: 8),
               Expanded(
@@ -1712,7 +1767,10 @@ class _PrivateRecipeCard extends StatelessWidget {
             color: _privateMint,
           ),
           SizedBox(height: 16),
-          _PrivateConsole(title: 'graph_node.dart', lines: snippet),
+          _PrivateConsole(
+            title: 'graph_node.dart',
+            lines: snippet,
+          ),
         ],
       ),
     );
@@ -1773,11 +1831,16 @@ class _PrivatePitfallsCard extends StatelessWidget {
           _PrivateSectionHeader(
             tag: 'PITFALLS',
             title: 'Things that bite you in code reviews',
-            subtitle: 'Six recurring mistakes worth a sticker on your monitor.',
+            subtitle:
+                'Six recurring mistakes worth a sticker on your monitor.',
             color: _privateRose,
           ),
           SizedBox(height: 14),
-          Wrap(spacing: 12, runSpacing: 12, children: tiles),
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: tiles,
+          ),
         ],
       ),
     );
@@ -1799,11 +1862,8 @@ class _PrivatePitfallsCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(
-                  Icons.warning_amber_rounded,
-                  color: _privateRose,
-                  size: 18,
-                ),
+                Icon(Icons.warning_amber_rounded,
+                    color: _privateRose, size: 18),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1818,7 +1878,8 @@ class _PrivatePitfallsCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 8),
-            Text(entry[1], style: _privateSubtitle.copyWith(fontSize: 12.5)),
+            Text(entry[1],
+                style: _privateSubtitle.copyWith(fontSize: 12.5)),
           ],
         ),
       ),
@@ -1844,7 +1905,8 @@ class _PrivateFooter extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.account_tree_rounded, color: Colors.white, size: 22),
+              Icon(Icons.account_tree_rounded,
+                  color: Colors.white, size: 22),
               SizedBox(width: 10),
               Text(
                 'DiagnosticableTreeMixin -- visual deep demo',
@@ -1962,11 +2024,15 @@ dynamic build(BuildContext context) {
     theme: ThemeData(
       scaffoldBackgroundColor: _privatePaper,
       useMaterial3: true,
-      textTheme: TextTheme(bodyMedium: TextStyle(color: _privateInk)),
+      textTheme: TextTheme(
+        bodyMedium: TextStyle(color: _privateInk),
+      ),
     ),
     home: Scaffold(
       backgroundColor: _privatePaper,
-      body: SingleChildScrollView(child: _privateBuildPage(context)),
+      body: SingleChildScrollView(
+        child: _privateBuildPage(context),
+      ),
     ),
   );
 }

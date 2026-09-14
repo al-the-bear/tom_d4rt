@@ -100,8 +100,8 @@ dynamic build(BuildContext context) {
         _wnInfoBox(
           'Platform Binding',
           'This controller is only instantiated on Windows. The factory '
-              'in DialogWindowController detects Platform.isWindows and '
-              'returns a DialogWindowControllerWin32 instance.',
+          'in DialogWindowController detects Platform.isWindows and '
+          'returns a DialogWindowControllerWin32 instance.',
         ),
         const SizedBox(height: 24),
 
@@ -471,12 +471,17 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [_wnCopper.withValues(alpha: 0.08), _wnCream],
+              colors: [
+                _wnCopper.withValues(alpha: 0.08),
+                _wnCream,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: _wnCopper.withValues(alpha: 0.25)),
+            border: Border.all(
+              color: _wnCopper.withValues(alpha: 0.25),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -512,8 +517,14 @@ dynamic build(BuildContext context) {
                 'COM Model',
                 'IFileOpenDialog / IFileSaveDialog (STA)',
               ),
-              _wnSummaryRow('HWND Source', 'Flutter embedder window handle'),
-              _wnSummaryRow('Error Model', 'HRESULT → DialogPlatformException'),
+              _wnSummaryRow(
+                'HWND Source',
+                'Flutter embedder window handle',
+              ),
+              _wnSummaryRow(
+                'Error Model',
+                'HRESULT → DialogPlatformException',
+              ),
               _wnSummaryRow(
                 'Cleanup',
                 'COM Release + native free + CoUninitialize',
@@ -559,7 +570,11 @@ Widget _wnLabel(String text) {
 Widget _wnBody(String text) {
   return Text(
     text,
-    style: TextStyle(color: _wnBlack, fontSize: 15, height: 1.6),
+    style: TextStyle(
+      color: _wnBlack,
+      fontSize: 15,
+      height: 1.6,
+    ),
   );
 }
 
@@ -601,6 +616,7 @@ Widget _wnChip(String text, {Color? bg, Color? fg}) {
   );
 }
 
+
 Widget _wnInfoBox(String title, String content) {
   return Container(
     width: double.infinity,
@@ -630,7 +646,11 @@ Widget _wnInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(color: _wnBlack, fontSize: 14, height: 1.5),
+          style: TextStyle(
+            color: _wnBlack,
+            fontSize: 14,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -657,7 +677,11 @@ Widget _wnSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: _wnBlack, fontSize: 13, height: 1.4),
+            style: TextStyle(
+              color: _wnBlack,
+              fontSize: 13,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -723,7 +747,10 @@ Widget _buildWin32StackDiagram() {
               const SizedBox(height: 2),
               Text(
                 layers[i]['sub'] as String,
-                style: TextStyle(color: _wnMuted, fontSize: 12),
+                style: TextStyle(
+                  color: _wnMuted,
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
@@ -731,7 +758,8 @@ Widget _buildWin32StackDiagram() {
         if (i < layers.length - 1)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Icon(Icons.arrow_downward, color: _wnDivider, size: 18),
+            child: Icon(Icons.arrow_downward,
+                color: _wnDivider, size: 18),
           ),
       ],
     ],
@@ -742,11 +770,7 @@ Widget _buildComInterfaceTable() {
   final interfaces = <List<String>>[
     ['IFileOpenDialog', 'Open file picker', 'Multi-select, filter'],
     ['IFileSaveDialog', 'Save file picker', 'Default name, overwrite'],
-    [
-      'IFileDialogEvents',
-      'Dialog callbacks',
-      'Selection change, folder change',
-    ],
+    ['IFileDialogEvents', 'Dialog callbacks', 'Selection change, folder change'],
     ['IShellItem', 'Result item', 'Path extraction, attributes'],
     ['IShellItemArray', 'Multi-result', 'Iteration, count'],
     ['IFileDialogCustomize', 'Custom controls', 'Buttons, combos, checkboxes'],
@@ -765,42 +789,26 @@ Widget _buildComInterfaceTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _wnCopper.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(9),
+            ),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 3,
-                child: Text(
-                  'Interface',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Interface', style: TextStyle(
+                  color: _wnCopper, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 3,
-                child: Text(
-                  'Purpose',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Purpose', style: TextStyle(
+                  color: _wnCopper, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 3,
-                child: Text(
-                  'Features',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Features', style: TextStyle(
+                  color: _wnCopper, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -816,29 +824,19 @@ Widget _buildComInterfaceTable() {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    row[0],
-                    style: TextStyle(
-                      color: _wnDarkCopper,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  child: Text(row[0], style: TextStyle(
+                    color: _wnDarkCopper, fontSize: 12,
+                    fontWeight: FontWeight.w600, fontFamily: 'monospace')),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    row[1],
-                    style: TextStyle(color: _wnBlack, fontSize: 12),
-                  ),
+                  child: Text(row[1], style: TextStyle(
+                    color: _wnBlack, fontSize: 12)),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    row[2],
-                    style: TextStyle(color: _wnMuted, fontSize: 12),
-                  ),
+                  child: Text(row[2], style: TextStyle(
+                    color: _wnMuted, fontSize: 12)),
                 ),
               ],
             ),
@@ -892,7 +890,11 @@ Widget _buildHwndFlowDiagram() {
               Expanded(
                 child: Text(
                   steps[i]['label']!,
-                  style: TextStyle(color: _wnBlack, fontSize: 13, height: 1.4),
+                  style: TextStyle(
+                    color: _wnBlack,
+                    fontSize: 13,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ],
@@ -925,42 +927,26 @@ Widget _buildFilterMappingTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _wnCopper.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(9),
+            ),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 3,
-                child: Text(
-                  'FileFilter.label',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('FileFilter.label', style: TextStyle(
+                  color: _wnCopper, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 3,
-                child: Text(
-                  'Extensions',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Extensions', style: TextStyle(
+                  color: _wnCopper, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 3,
-                child: Text(
-                  'Win32 pszSpec',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Win32 pszSpec', style: TextStyle(
+                  color: _wnCopper, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -976,32 +962,18 @@ Widget _buildFilterMappingTable() {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    row[0],
-                    style: TextStyle(color: _wnBlack, fontSize: 12),
-                  ),
+                  child: Text(row[0], style: TextStyle(
+                    color: _wnBlack, fontSize: 12)),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    row[1],
-                    style: TextStyle(
-                      color: _wnMuted,
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  child: Text(row[1], style: TextStyle(
+                    color: _wnMuted, fontSize: 12, fontFamily: 'monospace')),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    row[2],
-                    style: TextStyle(
-                      color: _wnDarkCopper,
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  child: Text(row[2], style: TextStyle(
+                    color: _wnDarkCopper, fontSize: 12, fontFamily: 'monospace')),
                 ),
               ],
             ),
@@ -1077,11 +1049,8 @@ Widget _buildMessageBoxTypesGrid() {
             children: [
               Row(
                 children: [
-                  Icon(
-                    t['icon'] as IconData,
-                    color: t['color'] as Color,
-                    size: 18,
-                  ),
+                  Icon(t['icon'] as IconData,
+                      color: t['color'] as Color, size: 18),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -1132,25 +1101,13 @@ Widget _buildFolderPickerComparison() {
                 children: [
                   Icon(Icons.history, color: _wnError, size: 16),
                   const SizedBox(width: 6),
-                  Text(
-                    'Legacy',
-                    style: TextStyle(
-                      color: _wnError,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text('Legacy', style: TextStyle(
+                    color: _wnError, fontSize: 13, fontWeight: FontWeight.bold)),
                 ],
               ),
               const SizedBox(height: 8),
-              Text(
-                'SHBrowseForFolder',
-                style: TextStyle(
-                  color: _wnBlack,
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text('SHBrowseForFolder', style: TextStyle(
+                color: _wnBlack, fontSize: 12, fontFamily: 'monospace')),
               const SizedBox(height: 4),
               Text(
                 'Basic folder tree view. No path bar. '
@@ -1177,25 +1134,13 @@ Widget _buildFolderPickerComparison() {
                 children: [
                   Icon(Icons.star, color: _wnSuccess, size: 16),
                   const SizedBox(width: 6),
-                  Text(
-                    'Modern',
-                    style: TextStyle(
-                      color: _wnSuccess,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text('Modern', style: TextStyle(
+                    color: _wnSuccess, fontSize: 13, fontWeight: FontWeight.bold)),
                 ],
               ),
               const SizedBox(height: 8),
-              Text(
-                'IFileDialog + FOS',
-                style: TextStyle(
-                  color: _wnBlack,
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text('IFileDialog + FOS', style: TextStyle(
+                color: _wnBlack, fontSize: 12, fontFamily: 'monospace')),
               const SizedBox(height: 4),
               Text(
                 'Full Explorer-style UI. Path bar, favorites, '
@@ -1213,12 +1158,7 @@ Widget _buildFolderPickerComparison() {
 Widget _buildResultMappingTable() {
   final mappings = <List<String>>[
     ['S_OK', '0x00000000', 'DialogResult.ok', 'User confirmed'],
-    [
-      'HRESULT_FROM_WIN32(ERROR_CANCELLED)',
-      '0x800704C7',
-      'DialogResult.cancelled',
-      'User cancelled',
-    ],
+    ['HRESULT_FROM_WIN32(ERROR_CANCELLED)', '0x800704C7', 'DialogResult.cancelled', 'User cancelled'],
     ['E_FAIL', '0x80004005', 'DialogPlatformException', 'General failure'],
     ['E_OUTOFMEMORY', '0x8007000E', 'DialogPlatformException', 'Out of memory'],
     ['IDYES', '6', 'DialogResult.yes', 'MessageBox Yes'],
@@ -1240,53 +1180,31 @@ Widget _buildResultMappingTable() {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
             color: _wnCopper.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(9),
+            ),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 4,
-                child: Text(
-                  'Win32 Constant',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Win32 Constant', style: TextStyle(
+                  color: _wnCopper, fontSize: 11, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 2,
-                child: Text(
-                  'Value',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Value', style: TextStyle(
+                  color: _wnCopper, fontSize: 11, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 4,
-                child: Text(
-                  'Dart Mapping',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Dart Mapping', style: TextStyle(
+                  color: _wnCopper, fontSize: 11, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 3,
-                child: Text(
-                  'Meaning',
-                  style: TextStyle(
-                    color: _wnCopper,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Meaning', style: TextStyle(
+                  color: _wnCopper, fontSize: 11, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -1302,40 +1220,24 @@ Widget _buildResultMappingTable() {
               children: [
                 Expanded(
                   flex: 4,
-                  child: Text(
-                    row[0],
-                    style: TextStyle(
-                      color: _wnDarkCopper,
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text(row[0], style: TextStyle(
+                    color: _wnDarkCopper, fontSize: 11,
+                    fontFamily: 'monospace', fontWeight: FontWeight.w600)),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(
-                    row[1],
-                    style: TextStyle(
-                      color: _wnMuted,
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  child: Text(row[1], style: TextStyle(
+                    color: _wnMuted, fontSize: 11, fontFamily: 'monospace')),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(
-                    row[2],
-                    style: TextStyle(color: _wnBlack, fontSize: 11),
-                  ),
+                  child: Text(row[2], style: TextStyle(
+                    color: _wnBlack, fontSize: 11)),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    row[3],
-                    style: TextStyle(color: _wnMuted, fontSize: 11),
-                  ),
+                  child: Text(row[3], style: TextStyle(
+                    color: _wnMuted, fontSize: 11)),
                 ),
               ],
             ),
@@ -1350,8 +1252,7 @@ Widget _buildErrorHandlingScenarios() {
     {
       'error': 'COM Initialization Failure',
       'code': 'RPC_E_CHANGED_MODE',
-      'handling':
-          'Retry with compatible apartment model; '
+      'handling': 'Retry with compatible apartment model; '
           'fall back to legacy dialog API if COM unavailable.',
       'icon': Icons.settings,
       'color': _wnError,
@@ -1359,8 +1260,7 @@ Widget _buildErrorHandlingScenarios() {
     {
       'error': 'HWND Not Found',
       'code': 'FindWindow returns 0',
-      'handling':
-          'Enumerate top-level windows by process ID; '
+      'handling': 'Enumerate top-level windows by process ID; '
           'use GetForegroundWindow as last resort.',
       'icon': Icons.desktop_windows,
       'color': _wnLightCopper,
@@ -1368,8 +1268,7 @@ Widget _buildErrorHandlingScenarios() {
     {
       'error': 'Access Denied',
       'code': 'E_ACCESSDENIED (0x80070005)',
-      'handling':
-          'Check folder permissions; inform user that '
+      'handling': 'Check folder permissions; inform user that '
           'the selected path requires elevation.',
       'icon': Icons.lock,
       'color': _wnAccent,
@@ -1377,8 +1276,7 @@ Widget _buildErrorHandlingScenarios() {
     {
       'error': 'Memory Allocation Failure',
       'code': 'E_OUTOFMEMORY',
-      'handling':
-          'Free cached allocations and retry once; '
+      'handling': 'Free cached allocations and retry once; '
           'throw with resource cleanup on second failure.',
       'icon': Icons.memory,
       'color': _wnDarkCopper,
@@ -1403,11 +1301,8 @@ Widget _buildErrorHandlingScenarios() {
             children: [
               Row(
                 children: [
-                  Icon(
-                    scenarios[i]['icon'] as IconData,
-                    color: scenarios[i]['color'] as Color,
-                    size: 18,
-                  ),
+                  Icon(scenarios[i]['icon'] as IconData,
+                      color: scenarios[i]['color'] as Color, size: 18),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -1426,7 +1321,11 @@ Widget _buildErrorHandlingScenarios() {
               const SizedBox(height: 8),
               Text(
                 scenarios[i]['handling'] as String,
-                style: TextStyle(color: _wnBlack, fontSize: 13, height: 1.5),
+                style: TextStyle(
+                  color: _wnBlack,
+                  fontSize: 13,
+                  height: 1.5,
+                ),
               ),
             ],
           ),
@@ -1441,11 +1340,7 @@ Widget _buildThreadSafetyDiagram() {
   final zones = <Map<String, dynamic>>[
     {
       'label': 'UI Thread (STA)',
-      'items': [
-        'Flutter rendering',
-        'Platform channel handlers',
-        'COM dialog calls',
-      ],
+      'items': ['Flutter rendering', 'Platform channel handlers', 'COM dialog calls'],
       'color': _wnSuccess,
     },
     {
@@ -1455,11 +1350,7 @@ Widget _buildThreadSafetyDiagram() {
     },
     {
       'label': 'Platform Channel Bridge',
-      'items': [
-        'Marshals calls to UI thread',
-        'Returns results to isolate',
-        'Thread-safe boundary',
-      ],
+      'items': ['Marshals calls to UI thread', 'Returns results to isolate', 'Thread-safe boundary'],
       'color': _wnInfo,
     },
   ];
@@ -1505,7 +1396,10 @@ Widget _buildThreadSafetyDiagram() {
                       const SizedBox(width: 8),
                       Text(
                         item,
-                        style: TextStyle(color: _wnBlack, fontSize: 13),
+                        style: TextStyle(
+                          color: _wnBlack,
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),
@@ -1571,7 +1465,8 @@ Widget _buildCleanupChecklist() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(items[i]['icon'] as IconData, color: _wnCopper, size: 20),
+              Icon(items[i]['icon'] as IconData,
+                  color: _wnCopper, size: 20),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1742,7 +1637,11 @@ Widget _buildNativeFilePickerScenario() {
           if (i < steps.length - 1)
             Padding(
               padding: const EdgeInsets.only(left: 13, top: 4, bottom: 4),
-              child: Container(width: 2, height: 12, color: _wnDivider),
+              child: Container(
+                width: 2,
+                height: 12,
+                color: _wnDivider,
+              ),
             ),
         ],
       ],

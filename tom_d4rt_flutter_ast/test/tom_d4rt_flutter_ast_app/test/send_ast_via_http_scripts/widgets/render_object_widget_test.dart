@@ -23,20 +23,19 @@ import 'dart:math' as math;
 /// 8. Debug diagnostics protocol
 
 // ─── palette ───────────────────────────────────────────────
-const _kTeal = Color(0xFF009688);
-const _kTealLight = Color(0xFFB2DFDB);
-const _kTealDark = Color(0xFF004D40);
-const _kAmber = Color(0xFFFFC107);
+const _kTeal       = Color(0xFF009688);
+const _kTealLight  = Color(0xFFB2DFDB);
+const _kTealDark   = Color(0xFF004D40);
+const _kAmber      = Color(0xFFFFC107);
 const _kAmberLight = Color(0xFFFFF8E1);
-const _kAmberDark = Color(0xFFFF6F00);
-const _kSurface = Color(0xFFFAFAFA);
-const _kDivider = Color(0xFFE0E0E0);
-const _kTextDark = Color(0xFF212121);
-const _kTextMuted = Color(0xFF757575);
+const _kAmberDark  = Color(0xFFFF6F00);
+const _kSurface    = Color(0xFFFAFAFA);
+const _kDivider    = Color(0xFFE0E0E0);
+const _kTextDark   = Color(0xFF212121);
+const _kTextMuted  = Color(0xFF757575);
 
 // ─── 1. What is RenderObjectWidget ─────────────────────────
-const _kWhatIs =
-    'RenderObjectWidget is an abstract Widget subclass. Unlike '
+const _kWhatIs = 'RenderObjectWidget is an abstract Widget subclass. Unlike '
     'StatelessWidget or StatefulWidget — which compose other widgets — a '
     'RenderObjectWidget creates a RenderObject: the actual low-level node '
     'in the render tree that performs layout, painting, and hit testing. '
@@ -56,35 +55,22 @@ const _kSubclasses = <_Subclass>[
   _Subclass(
     'LeafRenderObjectWidget',
     'Has zero children. Used for terminal visual nodes that paint something '
-        'but do not contain other widgets. The simplest to implement.',
+    'but do not contain other widgets. The simplest to implement.',
     ['RichText', 'RawImage', 'Texture', 'ErrorWidget', 'SizedBox (when empty)'],
     Icons.spa_outlined,
   ),
   _Subclass(
     'SingleChildRenderObjectWidget',
     'Has exactly one child widget. Used for wrappers that transform, clip, '
-        'pad, or decorate a single child. The child field is managed automatically.',
-    [
-      'Padding',
-      'Align',
-      'ClipRect',
-      'Opacity',
-      'DecoratedBox',
-      'SizedBox (with child)',
-    ],
+    'pad, or decorate a single child. The child field is managed automatically.',
+    ['Padding', 'Align', 'ClipRect', 'Opacity', 'DecoratedBox', 'SizedBox (with child)'],
     Icons.filter_1_outlined,
   ),
   _Subclass(
     'MultiChildRenderObjectWidget',
     'Has a List<Widget> of children. Used for layout containers that arrange '
-        'multiple children according to a layout protocol. Uses ContainerRenderObjectMixin.',
-    [
-      'Flex (Row/Column)',
-      'Stack',
-      'Wrap',
-      'Flow',
-      'RichText (with InlineSpans)',
-    ],
+    'multiple children according to a layout protocol. Uses ContainerRenderObjectMixin.',
+    ['Flex (Row/Column)', 'Stack', 'Wrap', 'Flow', 'RichText (with InlineSpans)'],
     Icons.grid_view_outlined,
   ),
 ];
@@ -102,27 +88,27 @@ const _kLifecycleSteps = <_LifecycleStep>[
     'createElement()',
     'Widget first inflated into the element tree',
     'Returns a RenderObjectElement (Leaf, SingleChild, or MultiChild variant). '
-        'The framework calls this automatically — you override it by choosing the '
-        'right subclass.',
+    'The framework calls this automatically — you override it by choosing the '
+    'right subclass.',
   ),
   _LifecycleStep(
     'createRenderObject(context)',
     'Element mounted into the tree',
     'Creates and returns a new RenderObject, configured from the widget\'s fields. '
-        'Called once per Element lifecycle. Should NOT configure children.',
+    'Called once per Element lifecycle. Should NOT configure children.',
   ),
   _LifecycleStep(
     'updateRenderObject(context, renderObject)',
     'Widget rebuilt with new configuration',
     'Copies changed properties from the widget to the existing RenderObject. '
-        'Called on every rebuild where the widget changed. Must be idempotent.',
+    'Called on every rebuild where the widget changed. Must be idempotent.',
   ),
   _LifecycleStep(
     'didUnmountRenderObject(renderObject)',
     'Element removed from the tree permanently',
     'Cleanup callback. Releases resources (listeners, controllers, etc.) that '
-        'the RenderObject holds. Not called on temporary deactivation — only on '
-        'final unmount.',
+    'the RenderObject holds. Not called on temporary deactivation — only on '
+    'final unmount.',
   ),
 ];
 
@@ -136,16 +122,16 @@ const _kElementPairs = <String, String>{
 // ─── 8. Debug protocol ─────────────────────────────────────
 const _kDebugSteps = <String, String>{
   'debugFillProperties':
-      'Override on your RenderObject to describe configuration in DevTools. '
-      'add(StringProperty("color", ...)), add(DoubleProperty("radius", ...)).',
+    'Override on your RenderObject to describe configuration in DevTools. '
+    'add(StringProperty("color", ...)), add(DoubleProperty("radius", ...)).',
   'debugDescribeChildren':
-      'Override to describe child structure. The default is fine for single/multi '
-      'child; custom layouts may want labeled children.',
+    'Override to describe child structure. The default is fine for single/multi '
+    'child; custom layouts may want labeled children.',
   'toStringShort / toStringDeep':
-      'Produce human-readable dump of the render tree. Used in error messages.',
+    'Produce human-readable dump of the render tree. Used in error messages.',
   'debugPaintSizeEnabled':
-      'Set globally to paint blue outlines around every RenderBox. Helps see '
-      'layout boundaries during development.',
+    'Set globally to paint blue outlines around every RenderBox. Helps see '
+    'layout boundaries during development.',
 };
 
 // ─── helpers ───────────────────────────────────────────────
@@ -161,15 +147,9 @@ Widget _sectionHeader(String title, IconData icon) {
         Icon(icon, color: Colors.white, size: 22),
         SizedBox(width: 12),
         Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.4,
-            ),
-          ),
+          child: Text(title,
+              style: TextStyle(color: Colors.white, fontSize: 16,
+                  fontWeight: FontWeight.w700, letterSpacing: 0.4)),
         ),
       ],
     ),
@@ -184,40 +164,22 @@ Widget _card({required Widget child}) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.04),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
-      ],
+      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 6, offset: Offset(0, 2))],
     ),
     child: child,
   );
 }
 
 Widget _label(String text) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontSize: 11,
-      color: _kTextMuted,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.6,
-    ),
-  );
+  return Text(text,
+      style: TextStyle(fontSize: 11, color: _kTextMuted,
+          fontWeight: FontWeight.w600, letterSpacing: 0.6));
 }
 
 Widget _mono(String text, {Color? color}) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontFamily: 'monospace',
-      fontSize: 12.5,
-      color: color ?? _kTextDark,
-      height: 1.45,
-    ),
-  );
+  return Text(text,
+      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5,
+          color: color ?? _kTextDark, height: 1.45));
 }
 
 Widget _bullet(String text) {
@@ -226,19 +188,11 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 7),
-          width: 5,
-          height: 5,
-          decoration: BoxDecoration(color: _kTeal, shape: BoxShape.circle),
-        ),
+        Container(margin: EdgeInsets.only(top: 7), width: 5, height: 5,
+            decoration: BoxDecoration(color: _kTeal, shape: BoxShape.circle)),
         SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-          ),
-        ),
+        Expanded(child: Text(text,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
       ],
     ),
   );
@@ -256,20 +210,13 @@ class _DemoColorSwatch extends LeafRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    print(
-      '[LeafROW] createRenderObject: hue=${hue.toStringAsFixed(0)}, radius=${radius.toStringAsFixed(0)}',
-    );
+    print('[LeafROW] createRenderObject: hue=${hue.toStringAsFixed(0)}, radius=${radius.toStringAsFixed(0)}');
     return _RenderColorSwatch(hue: hue, radius: radius);
   }
 
   @override
-  void updateRenderObject(
-    BuildContext context,
-    covariant _RenderColorSwatch renderObject,
-  ) {
-    print(
-      '[LeafROW] updateRenderObject: hue=${hue.toStringAsFixed(0)}, radius=${radius.toStringAsFixed(0)}',
-    );
+  void updateRenderObject(BuildContext context, covariant _RenderColorSwatch renderObject) {
+    print('[LeafROW] updateRenderObject: hue=${hue.toStringAsFixed(0)}, radius=${radius.toStringAsFixed(0)}');
     renderObject
       ..hue = hue
       ..radius = radius;
@@ -283,8 +230,8 @@ class _DemoColorSwatch extends LeafRenderObjectWidget {
 
 class _RenderColorSwatch extends RenderBox {
   _RenderColorSwatch({required double hue, required double radius})
-    : _hue = hue,
-      _radius = radius;
+      : _hue = hue,
+        _radius = radius;
 
   double _hue;
   set hue(double value) {
@@ -315,32 +262,23 @@ class _RenderColorSwatch extends RenderBox {
     // Outer ring — 12 hue segments
     for (int i = 0; i < 12; i++) {
       final segHue = (i * 30.0 + _hue) % 360;
-      final paint = Paint()
-        ..color = HSVColor.fromAHSV(1, segHue, 0.7, 0.9).toColor();
+      final paint = Paint()..color = HSVColor.fromAHSV(1, segHue, 0.7, 0.9).toColor();
       final startAngle = i * math.pi / 6 - math.pi / 2;
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: r),
-        startAngle,
-        math.pi / 6,
-        true,
-        paint,
+        startAngle, math.pi / 6, true, paint,
       );
     }
 
     // Inner circle — current hue, full saturation
-    final innerPaint = Paint()
-      ..color = HSVColor.fromAHSV(1, _hue, 1, 1).toColor();
+    final innerPaint = Paint()..color = HSVColor.fromAHSV(1, _hue, 1, 1).toColor();
     canvas.drawCircle(center, r * 0.45, innerPaint);
 
     // Label
     final tp = TextPainter(
       text: TextSpan(
         text: '${_hue.toInt()}°',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: r * 0.28,
-          fontWeight: FontWeight.w800,
-        ),
+        style: TextStyle(color: Colors.white, fontSize: r * 0.28, fontWeight: FontWeight.w800),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -350,30 +288,20 @@ class _RenderColorSwatch extends RenderBox {
 
 // ── 5. SingleChildRenderObjectWidget: Rounded inset ────────
 class _DemoRoundedInset extends SingleChildRenderObjectWidget {
-  const _DemoRoundedInset({
-    required this.inset,
-    required this.borderColor,
-    required Widget child,
-  }) : super(child: child);
+  const _DemoRoundedInset({required this.inset, required this.borderColor, required Widget child})
+      : super(child: child);
   final double inset;
   final Color borderColor;
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    print(
-      '[SingleChildROW] createRenderObject: inset=${inset.toStringAsFixed(0)}',
-    );
+    print('[SingleChildROW] createRenderObject: inset=${inset.toStringAsFixed(0)}');
     return _RenderRoundedInset(inset: inset, borderColor: borderColor);
   }
 
   @override
-  void updateRenderObject(
-    BuildContext context,
-    covariant _RenderRoundedInset renderObject,
-  ) {
-    print(
-      '[SingleChildROW] updateRenderObject: inset=${inset.toStringAsFixed(0)}',
-    );
+  void updateRenderObject(BuildContext context, covariant _RenderRoundedInset renderObject) {
+    print('[SingleChildROW] updateRenderObject: inset=${inset.toStringAsFixed(0)}');
     renderObject
       ..inset = inset
       ..borderColor = borderColor;
@@ -381,13 +309,10 @@ class _DemoRoundedInset extends SingleChildRenderObjectWidget {
 }
 
 class _RenderRoundedInset extends RenderShiftedBox {
-  _RenderRoundedInset({
-    required double inset,
-    required Color borderColor,
-    RenderBox? child,
-  }) : _inset = inset,
-       _borderColor = borderColor,
-       super(child);
+  _RenderRoundedInset({required double inset, required Color borderColor, RenderBox? child})
+      : _inset = inset,
+        _borderColor = borderColor,
+        super(child);
 
   double _inset;
   set inset(double value) {
@@ -408,9 +333,10 @@ class _RenderRoundedInset extends RenderShiftedBox {
     final innerConstraints = constraints.deflate(EdgeInsets.all(_inset));
     child?.layout(innerConstraints, parentUsesSize: true);
     final childSize = child?.size ?? Size.zero;
-    size = constraints.constrain(
-      Size(childSize.width + _inset * 2, childSize.height + _inset * 2),
-    );
+    size = constraints.constrain(Size(
+      childSize.width + _inset * 2,
+      childSize.height + _inset * 2,
+    ));
     final childParentData = child?.parentData as BoxParentData?;
     childParentData?.offset = Offset(_inset, _inset);
   }
@@ -422,13 +348,10 @@ class _RenderRoundedInset extends RenderShiftedBox {
       Radius.circular(_inset * 0.6),
     );
     // Border
-    context.canvas.drawRRect(
-      rrect,
-      Paint()
-        ..color = _borderColor
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.5,
-    );
+    context.canvas.drawRRect(rrect, Paint()
+      ..color = _borderColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.5);
     // Child
     if (child != null) {
       final childParentData = child!.parentData as BoxParentData;
@@ -443,30 +366,19 @@ class _DemoRadialFanParentData extends ContainerBoxParentData<RenderBox> {
 }
 
 class _DemoRadialFan extends MultiChildRenderObjectWidget {
-  const _DemoRadialFan({
-    required this.spread,
-    required this.fanRadius,
-    required super.children,
-  });
+  const _DemoRadialFan({required this.spread, required this.fanRadius, required super.children});
   final double spread;
   final double fanRadius;
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    print(
-      '[MultiChildROW] createRenderObject: spread=${spread.toStringAsFixed(1)}, radius=${fanRadius.toStringAsFixed(0)}',
-    );
+    print('[MultiChildROW] createRenderObject: spread=${spread.toStringAsFixed(1)}, radius=${fanRadius.toStringAsFixed(0)}');
     return _RenderRadialFan(spread: spread, fanRadius: fanRadius);
   }
 
   @override
-  void updateRenderObject(
-    BuildContext context,
-    covariant _RenderRadialFan renderObject,
-  ) {
-    print(
-      '[MultiChildROW] updateRenderObject: spread=${spread.toStringAsFixed(1)}',
-    );
+  void updateRenderObject(BuildContext context, covariant _RenderRadialFan renderObject) {
+    print('[MultiChildROW] updateRenderObject: spread=${spread.toStringAsFixed(1)}');
     renderObject
       ..spread = spread
       ..fanRadius = fanRadius;
@@ -474,12 +386,11 @@ class _DemoRadialFan extends MultiChildRenderObjectWidget {
 }
 
 class _RenderRadialFan extends RenderBox
-    with
-        ContainerRenderObjectMixin<RenderBox, _DemoRadialFanParentData>,
-        RenderBoxContainerDefaultsMixin<RenderBox, _DemoRadialFanParentData> {
+    with ContainerRenderObjectMixin<RenderBox, _DemoRadialFanParentData>,
+         RenderBoxContainerDefaultsMixin<RenderBox, _DemoRadialFanParentData> {
   _RenderRadialFan({required double spread, required double fanRadius})
-    : _spread = spread,
-      _fanRadius = fanRadius;
+      : _spread = spread,
+        _fanRadius = fanRadius;
 
   double _spread;
   set spread(double value) {
@@ -504,9 +415,7 @@ class _RenderRadialFan extends RenderBox
 
   @override
   void performLayout() {
-    size = constraints.constrain(
-      Size(_fanRadius * 2 + 60, _fanRadius * 2 + 60),
-    );
+    size = constraints.constrain(Size(_fanRadius * 2 + 60, _fanRadius * 2 + 60));
     final center = Offset(size.width / 2, size.height / 2);
     var child = firstChild;
     int index = 0;
@@ -533,17 +442,10 @@ class _RenderRadialFan extends RenderBox
     var child = firstChild;
     while (child != null) {
       final pd = child.parentData as _DemoRadialFanParentData;
-      final childCenter =
-          pd.offset +
-          offset +
-          Offset(child.size.width / 2, child.size.height / 2);
-      context.canvas.drawLine(
-        center,
-        childCenter,
-        Paint()
-          ..color = _kTealLight
-          ..strokeWidth = 1.5,
-      );
+      final childCenter = pd.offset + offset + Offset(child.size.width / 2, child.size.height / 2);
+      context.canvas.drawLine(center, childCenter, Paint()
+        ..color = _kTealLight
+        ..strokeWidth = 1.5);
       child = pd.nextSibling;
     }
     // Paint children on top of lines
@@ -566,28 +468,15 @@ class _FanChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 36,
-      height: 36,
+      width: 36, height: 36,
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.4),
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: color.withOpacity(0.4), blurRadius: 4, offset: Offset(0, 2))],
       ),
       alignment: Alignment.center,
-      child: Text(
-        '${index + 1}',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w800,
-          fontSize: 13,
-        ),
-      ),
+      child: Text('${index + 1}',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 13)),
     );
   }
 }
@@ -602,10 +491,7 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: _kTeal,
-        brightness: Brightness.light,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: _kTeal, brightness: Brightness.light),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: Scaffold(
@@ -644,17 +530,10 @@ class _BodyState extends State<_Body> {
       padding: EdgeInsets.only(bottom: 40),
       children: [
         // ── Section 1: What is it ──
-        _sectionHeader(
-          '1 · What Is RenderObjectWidget?',
-          Icons.widgets_outlined,
-        ),
+        _sectionHeader('1 · What Is RenderObjectWidget?', Icons.widgets_outlined),
         SizedBox(height: 8),
-        _card(
-          child: Text(
-            _kWhatIs,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-          ),
-        ),
+        _card(child: Text(_kWhatIs,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -675,118 +554,73 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 2: Subclasses ──
-        _sectionHeader(
-          '2 · Three Subclass Categories',
-          Icons.account_tree_outlined,
-        ),
+        _sectionHeader('2 · Three Subclass Categories', Icons.account_tree_outlined),
         SizedBox(height: 8),
-        ..._kSubclasses.map(
-          (s) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(s.icon, color: _kTealDark, size: 20),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        s.name,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                          color: _kTealDark,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 6),
-                Text(
-                  s.description,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
+        ..._kSubclasses.map((s) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(s.icon, color: _kTealDark, size: 20),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(s.name,
+                        style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                            fontSize: 13, color: _kTealDark)),
                   ),
-                ),
-                SizedBox(height: 8),
-                _label('FRAMEWORK EXAMPLES'),
-                SizedBox(height: 4),
-                Wrap(
-                  spacing: 6,
-                  runSpacing: 4,
-                  children: s.examples
-                      .map(
-                        (e) => Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 3,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _kAmberLight,
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(color: _kAmber.withOpacity(0.4)),
-                          ),
-                          child: Text(
-                            e,
-                            style: TextStyle(
-                              fontFamily: 'monospace',
-                              fontSize: 11,
-                              color: _kAmberDark,
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ],
-            ),
+                ],
+              ),
+              SizedBox(height: 6),
+              Text(s.description,
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+              SizedBox(height: 8),
+              _label('FRAMEWORK EXAMPLES'),
+              SizedBox(height: 4),
+              Wrap(
+                spacing: 6, runSpacing: 4,
+                children: s.examples.map((e) => Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: _kAmberLight,
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: _kAmber.withOpacity(0.4)),
+                  ),
+                  child: Text(e,
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: _kAmberDark)),
+                )).toList(),
+              ),
+            ],
           ),
-        ),
+        )),
 
         SizedBox(height: 12),
 
         // ── Section 3: Lifecycle ──
         _sectionHeader('3 · Lifecycle Methods', Icons.loop),
         SizedBox(height: 8),
-        ..._kLifecycleSteps.map(
-          (s) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _kTealLight,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    s.method,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                      color: _kTealDark,
-                    ),
-                  ),
+        ..._kLifecycleSteps.map((s) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _kTealLight,
+                  borderRadius: BorderRadius.circular(6),
                 ),
-                SizedBox(height: 6),
-                _label(s.when.toUpperCase()),
-                SizedBox(height: 4),
-                Text(
-                  s.what,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
-                  ),
-                ),
-              ],
-            ),
+                child: Text(s.method,
+                    style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                        fontSize: 12, color: _kTealDark)),
+              ),
+              SizedBox(height: 6),
+              _label(s.when.toUpperCase()),
+              SizedBox(height: 4),
+              Text(s.what,
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+            ],
           ),
-        ),
+        )),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -831,24 +665,17 @@ class _BodyState extends State<_Body> {
               SizedBox(height: 12),
               _label('HUE'),
               Slider(
-                value: _hue,
-                min: 0,
-                max: 360,
+                value: _hue, min: 0, max: 360,
                 activeColor: _kTealDark,
                 onChanged: (v) => setState(() => _hue = v),
               ),
               _label('RADIUS'),
               Slider(
-                value: _swatchRadius,
-                min: 30,
-                max: 100,
+                value: _swatchRadius, min: 30, max: 100,
                 activeColor: _kAmberDark,
                 onChanged: (v) => setState(() => _swatchRadius = v),
               ),
-              _mono(
-                'hue: ${_hue.toInt()}°  radius: ${_swatchRadius.toInt()}px',
-                color: _kTextMuted,
-              ),
+              _mono('hue: ${_hue.toInt()}°  radius: ${_swatchRadius.toInt()}px', color: _kTextMuted),
             ],
           ),
         ),
@@ -856,10 +683,7 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 5: Live SingleChild demo ──
-        _sectionHeader(
-          '5 · Live: SingleChildRenderObjectWidget',
-          Icons.filter_1_outlined,
-        ),
+        _sectionHeader('5 · Live: SingleChildRenderObjectWidget', Icons.filter_1_outlined),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -876,35 +700,23 @@ class _BodyState extends State<_Body> {
               Center(
                 child: _DemoRoundedInset(
                   inset: _inset,
-                  borderColor: Color.lerp(
-                    _kTeal,
-                    _kAmberDark,
-                    (_inset / 40).clamp(0, 1),
-                  )!,
+                  borderColor: Color.lerp(_kTeal, _kAmberDark, (_inset / 40).clamp(0, 1))!,
                   child: Container(
-                    width: 120,
-                    height: 80,
+                    width: 120, height: 80,
                     decoration: BoxDecoration(
                       color: _kTealLight,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'Child',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: _kTealDark,
-                      ),
-                    ),
+                    child: Text('Child',
+                        style: TextStyle(fontWeight: FontWeight.w700, color: _kTealDark)),
                   ),
                 ),
               ),
               SizedBox(height: 12),
               _label('INSET'),
               Slider(
-                value: _inset,
-                min: 0,
-                max: 40,
+                value: _inset, min: 0, max: 40,
                 activeColor: _kTealDark,
                 onChanged: (v) => setState(() => _inset = v),
               ),
@@ -916,10 +728,7 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 6: Live MultiChild demo ──
-        _sectionHeader(
-          '6 · Live: MultiChildRenderObjectWidget',
-          Icons.grid_view_outlined,
-        ),
+        _sectionHeader('6 · Live: MultiChildRenderObjectWidget', Icons.grid_view_outlined),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -937,52 +746,37 @@ class _BodyState extends State<_Body> {
                 child: _DemoRadialFan(
                   spread: _fanSpread,
                   fanRadius: _fanRadius,
-                  children: List.generate(
-                    _fanChildCount,
-                    (i) => _FanChild(
-                      index: i,
-                      color: HSVColor.fromAHSV(
-                        1,
-                        (i * 360 / _fanChildCount) % 360,
-                        0.75,
-                        0.85,
-                      ).toColor(),
-                    ),
-                  ),
+                  children: List.generate(_fanChildCount, (i) => _FanChild(
+                    index: i,
+                    color: HSVColor.fromAHSV(
+                      1, (i * 360 / _fanChildCount) % 360, 0.75, 0.85,
+                    ).toColor(),
+                  )),
                 ),
               ),
               SizedBox(height: 12),
               _label('SPREAD (RADIANS)'),
               Slider(
-                value: _fanSpread,
-                min: 0.5,
-                max: 5.5,
+                value: _fanSpread, min: 0.5, max: 5.5,
                 activeColor: _kTealDark,
                 onChanged: (v) => setState(() => _fanSpread = v),
               ),
               _label('FAN RADIUS'),
               Slider(
-                value: _fanRadius,
-                min: 40,
-                max: 120,
+                value: _fanRadius, min: 40, max: 120,
                 activeColor: _kAmberDark,
                 onChanged: (v) => setState(() => _fanRadius = v),
               ),
               _label('CHILD COUNT'),
               Slider(
-                value: _fanChildCount.toDouble(),
-                min: 3,
-                max: 12,
+                value: _fanChildCount.toDouble(), min: 3, max: 12,
                 divisions: 9,
                 activeColor: _kTeal,
                 onChanged: (v) => setState(() => _fanChildCount = v.toInt()),
               ),
-              _mono(
-                'spread: ${_fanSpread.toStringAsFixed(1)} rad  '
-                'radius: ${_fanRadius.toInt()}px  '
-                'children: $_fanChildCount',
-                color: _kTextMuted,
-              ),
+              _mono('spread: ${_fanSpread.toStringAsFixed(1)} rad  '
+                  'radius: ${_fanRadius.toInt()}px  '
+                  'children: $_fanChildCount', color: _kTextMuted),
             ],
           ),
         ),
@@ -1003,65 +797,37 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
               ),
               SizedBox(height: 12),
-              ..._kElementPairs.entries.map(
-                (e) => Padding(
-                  padding: EdgeInsets.only(bottom: 6),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _kTealLight,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(
-                            e.key,
-                            style: TextStyle(
-                              fontFamily: 'monospace',
-                              fontSize: 11,
-                              color: _kTealDark,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+              ..._kElementPairs.entries.map((e) => Padding(
+                padding: EdgeInsets.only(bottom: 6),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: _kTealLight, borderRadius: BorderRadius.circular(6)),
+                        child: Text(e.key,
+                            style: TextStyle(fontFamily: 'monospace', fontSize: 11,
+                                color: _kTealDark, fontWeight: FontWeight.w600)),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Icon(
-                          Icons.arrow_forward,
-                          size: 16,
-                          color: _kAmberDark,
-                        ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Icon(Icons.arrow_forward, size: 16, color: _kAmberDark),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: _kAmberLight, borderRadius: BorderRadius.circular(6)),
+                        child: Text(e.value,
+                            style: TextStyle(fontFamily: 'monospace', fontSize: 11,
+                                color: _kAmberDark, fontWeight: FontWeight.w600)),
                       ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _kAmberLight,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(
-                            e.value,
-                            style: TextStyle(
-                              fontFamily: 'monospace',
-                              fontSize: 11,
-                              color: _kAmberDark,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
+              )),
             ],
           ),
         ),
@@ -1074,9 +840,7 @@ class _BodyState extends State<_Body> {
               _bullet('Calls createRenderObject() during mount.'),
               _bullet('Calls updateRenderObject() when widget config changes.'),
               _bullet('Manages child elements (insert, move, remove, update).'),
-              _bullet(
-                'Attaches/detaches render objects to/from the render tree.',
-              ),
+              _bullet('Attaches/detaches render objects to/from the render tree.'),
               _bullet('Calls didUnmountRenderObject() on permanent removal.'),
             ],
           ),
@@ -1085,38 +849,21 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 8: Debug ──
-        _sectionHeader(
-          '8 · Debug & Diagnostics Protocol',
-          Icons.bug_report_outlined,
-        ),
+        _sectionHeader('8 · Debug & Diagnostics Protocol', Icons.bug_report_outlined),
         SizedBox(height: 8),
-        ..._kDebugSteps.entries.map(
-          (e) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  e.key,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
-                    color: _kAmberDark,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  e.value,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
-                  ),
-                ),
-              ],
-            ),
+        ..._kDebugSteps.entries.map((e) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(e.key,
+                  style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
+                      fontSize: 13, color: _kAmberDark)),
+              SizedBox(height: 4),
+              Text(e.value,
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+            ],
           ),
-        ),
+        )),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

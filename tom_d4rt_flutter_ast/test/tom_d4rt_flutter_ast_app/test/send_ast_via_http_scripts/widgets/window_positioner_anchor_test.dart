@@ -11,16 +11,8 @@ const List<_AnchorPoint> _anchorPoints = <_AnchorPoint>[
   _AnchorPoint('left', Alignment.centerLeft, 'Parent left edge midpoint.'),
   _AnchorPoint('center', Alignment.center, 'Parent rectangle center point.'),
   _AnchorPoint('right', Alignment.centerRight, 'Parent right edge midpoint.'),
-  _AnchorPoint(
-    'bottomLeft',
-    Alignment.bottomLeft,
-    'Parent bottom-left corner.',
-  ),
-  _AnchorPoint(
-    'bottom',
-    Alignment.bottomCenter,
-    'Parent bottom edge midpoint.',
-  ),
+  _AnchorPoint('bottomLeft', Alignment.bottomLeft, 'Parent bottom-left corner.'),
+  _AnchorPoint('bottom', Alignment.bottomCenter, 'Parent bottom edge midpoint.'),
   _AnchorPoint(
     'bottomRight',
     Alignment.bottomRight,
@@ -340,67 +332,59 @@ Widget _buildAnchorControlPanel({
         third: offsetX,
         fourth: offsetY,
         fifth: snapOffset,
-        builder:
-            (
-              BuildContext context,
-              int parent,
-              int child,
-              double dx,
-              double dy,
-              bool snap,
-            ) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    'Anchor Controls',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-                  ),
-                  const SizedBox(height: 10),
-                  _AnchorDropdown(
-                    title: 'Parent anchor',
-                    value: parent,
-                    onChanged: (int value) =>
-                        selectedParentAnchor.value = value,
-                  ),
-                  const SizedBox(height: 8),
-                  _AnchorDropdown(
-                    title: 'Child anchor',
-                    value: child,
-                    onChanged: (int value) => selectedChildAnchor.value = value,
-                  ),
-                  const SizedBox(height: 10),
-                  SwitchListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Snap offsets to 2px increments'),
-                    value: snap,
-                    onChanged: (bool next) => snapOffset.value = next,
-                  ),
-                  const SizedBox(height: 6),
-                  Text('Offset X: ${dx.toStringAsFixed(1)}'),
-                  Slider(
-                    min: -40,
-                    max: 40,
-                    value: dx,
-                    divisions: 80,
-                    onChanged: (double v) {
-                      offsetX.value = snap ? _snap(v, 2) : v;
-                    },
-                  ),
-                  Text('Offset Y: ${dy.toStringAsFixed(1)}'),
-                  Slider(
-                    min: -40,
-                    max: 40,
-                    value: dy,
-                    divisions: 80,
-                    onChanged: (double v) {
-                      offsetY.value = snap ? _snap(v, 2) : v;
-                    },
-                  ),
-                ],
-              );
-            },
+        builder: (BuildContext context, int parent, int child, double dx,
+            double dy, bool snap) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Anchor Controls',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+              ),
+              const SizedBox(height: 10),
+              _AnchorDropdown(
+                title: 'Parent anchor',
+                value: parent,
+                onChanged: (int value) => selectedParentAnchor.value = value,
+              ),
+              const SizedBox(height: 8),
+              _AnchorDropdown(
+                title: 'Child anchor',
+                value: child,
+                onChanged: (int value) => selectedChildAnchor.value = value,
+              ),
+              const SizedBox(height: 10),
+              SwitchListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Snap offsets to 2px increments'),
+                value: snap,
+                onChanged: (bool next) => snapOffset.value = next,
+              ),
+              const SizedBox(height: 6),
+              Text('Offset X: ${dx.toStringAsFixed(1)}'),
+              Slider(
+                min: -40,
+                max: 40,
+                value: dx,
+                divisions: 80,
+                onChanged: (double v) {
+                  offsetX.value = snap ? _snap(v, 2) : v;
+                },
+              ),
+              Text('Offset Y: ${dy.toStringAsFixed(1)}'),
+              Slider(
+                min: -40,
+                max: 40,
+                value: dy,
+                divisions: 80,
+                onChanged: (double v) {
+                  offsetY.value = snap ? _snap(v, 2) : v;
+                },
+              ),
+            ],
+          );
+        },
       ),
     ),
   );
@@ -425,54 +409,43 @@ Widget _buildGeometryCanvas({
         second: selectedChildAnchor,
         third: offsetX,
         fourth: offsetY,
-        builder:
-            (
-              BuildContext context,
-              int parent,
-              int child,
-              double dx,
-              double dy,
-            ) {
-              final _AnchorPoint parentAnchor = _anchorPoints[parent];
-              final _AnchorPoint childAnchor = _anchorPoints[child];
-              final String summary = _buildSummary(
-                parentAnchor,
-                childAnchor,
-                dx,
-                dy,
-              );
+        builder: (BuildContext context, int parent, int child, double dx,
+            double dy) {
+          final _AnchorPoint parentAnchor = _anchorPoints[parent];
+          final _AnchorPoint childAnchor = _anchorPoints[child];
+          final String summary = _buildSummary(parentAnchor, childAnchor, dx, dy);
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    'Geometry Canvas',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Geometry Canvas',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+              ),
+              const SizedBox(height: 10),
+              AspectRatio(
+                aspectRatio: 1.7,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: const Color(0xFFD1DEE5)),
+                    color: const Color(0xFFF9FCFE),
                   ),
-                  const SizedBox(height: 10),
-                  AspectRatio(
-                    aspectRatio: 1.7,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: const Color(0xFFD1DEE5)),
-                        color: const Color(0xFFF9FCFE),
-                      ),
-                      child: CustomPaint(
-                        painter: _AnchorGeometryPainter(
-                          parentAlignment: parentAnchor.alignment,
-                          childAlignment: childAnchor.alignment,
-                          offset: Offset(dx, dy),
-                        ),
-                        child: const SizedBox.expand(),
-                      ),
+                  child: CustomPaint(
+                    painter: _AnchorGeometryPainter(
+                      parentAlignment: parentAnchor.alignment,
+                      childAlignment: childAnchor.alignment,
+                      offset: Offset(dx, dy),
                     ),
+                    child: const SizedBox.expand(),
                   ),
-                  const SizedBox(height: 10),
-                  Text(summary),
-                ],
-              );
-            },
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(summary),
+            ],
+          );
+        },
       ),
     ),
   );
@@ -487,13 +460,13 @@ String _buildSummary(
   final String horizontal = dx == 0
       ? 'no horizontal translation'
       : dx > 0
-      ? 'shift right by ${dx.toStringAsFixed(1)}px'
-      : 'shift left by ${dx.abs().toStringAsFixed(1)}px';
+          ? 'shift right by ${dx.toStringAsFixed(1)}px'
+          : 'shift left by ${dx.abs().toStringAsFixed(1)}px';
   final String vertical = dy == 0
       ? 'no vertical translation'
       : dy > 0
-      ? 'shift down by ${dy.toStringAsFixed(1)}px'
-      : 'shift up by ${dy.abs().toStringAsFixed(1)}px';
+          ? 'shift down by ${dy.toStringAsFixed(1)}px'
+          : 'shift up by ${dy.abs().toStringAsFixed(1)}px';
   return 'Attach child ${child.name} to parent ${parent.name}, then apply '
       '$horizontal and $vertical.';
 }
@@ -502,20 +475,17 @@ Widget _buildPracticalCases() {
   const List<_CaseNote> cases = <_CaseNote>[
     _CaseNote(
       title: 'Desktop context menus',
-      detail:
-          'Anchor to pointer hotspot and use topLeft child anchor to grow down.',
+      detail: 'Anchor to pointer hotspot and use topLeft child anchor to grow down.',
       warning: 'Apply constraint adjustment when near screen bounds.',
     ),
     _CaseNote(
       title: 'Hover tooltips',
-      detail:
-          'Anchor tooltip bottomCenter to control topCenter for balanced display.',
+      detail: 'Anchor tooltip bottomCenter to control topCenter for balanced display.',
       warning: 'Flip vertically when there is no room above.',
     ),
     _CaseNote(
       title: 'Multi-level menus',
-      detail:
-          'Anchor child centerLeft to parent centerRight for seamless flyouts.',
+      detail: 'Anchor child centerLeft to parent centerRight for seamless flyouts.',
       warning: 'Track viewport edges to avoid clipping deep chains.',
     ),
   ];
@@ -772,19 +742,14 @@ class _AnchorGeometryPainter extends CustomPainter {
     );
     final Size childSize = Size(size.width * 0.26, size.height * 0.26);
 
-    final Offset parentAnchorPoint = _alignmentToPoint(
-      parentRect,
-      parentAlignment,
-    );
+    final Offset parentAnchorPoint = _alignmentToPoint(parentRect, parentAlignment);
     final Rect provisionalChildRect = Rect.fromCenter(
       center: parentAnchorPoint,
       width: childSize.width,
       height: childSize.height,
     );
-    final Offset childAnchorPoint = _alignmentToPoint(
-      provisionalChildRect,
-      childAlignment,
-    );
+    final Offset childAnchorPoint =
+        _alignmentToPoint(provisionalChildRect, childAlignment);
     final Offset translation = parentAnchorPoint - childAnchorPoint + offset;
     final Rect childRect = provisionalChildRect.shift(translation);
 
@@ -822,10 +787,7 @@ class _AnchorGeometryPainter extends CustomPainter {
       childBorder,
     );
 
-    final Offset resolvedChildAnchor = _alignmentToPoint(
-      childRect,
-      childAlignment,
-    );
+    final Offset resolvedChildAnchor = _alignmentToPoint(childRect, childAlignment);
 
     final Paint guidePaint = Paint()
       ..color = const Color(0xFF6C7F8A)
@@ -846,7 +808,10 @@ class _AnchorGeometryPainter extends CustomPainter {
     final TextPainter parentLabel = TextPainter(
       text: const TextSpan(
         text: 'P',
-        style: TextStyle(color: Color(0xFF1D6D8B), fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: Color(0xFF1D6D8B),
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -855,7 +820,10 @@ class _AnchorGeometryPainter extends CustomPainter {
     final TextPainter childLabel = TextPainter(
       text: const TextSpan(
         text: 'C',
-        style: TextStyle(color: Color(0xFFAA4E0A), fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: Color(0xFFAA4E0A),
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1028,10 +996,9 @@ class ValueListenableBuilder5<A, B, C, D, E> extends StatelessWidget {
                   builder: (BuildContext context, D d, Widget? finalChild) {
                     return ValueListenableBuilder<E>(
                       valueListenable: fifth,
-                      builder:
-                          (BuildContext context, E e, Widget? terminalChild) {
-                            return builder(context, a, b, c, d, e);
-                          },
+                      builder: (BuildContext context, E e, Widget? terminalChild) {
+                        return builder(context, a, b, c, d, e);
+                      },
                     );
                   },
                 );

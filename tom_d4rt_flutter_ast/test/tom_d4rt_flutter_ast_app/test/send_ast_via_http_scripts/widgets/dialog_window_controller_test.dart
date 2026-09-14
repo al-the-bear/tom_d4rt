@@ -32,10 +32,7 @@ Widget _dcSection(String title, List<Widget> children) {
       border: Border.all(color: _dcLightIndigo, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x15303F9F),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x15303F9F), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -47,14 +44,11 @@ Widget _dcSection(String title, List<Widget> children) {
             color: _dcIndigo,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _dcWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _dcWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -66,24 +60,20 @@ Widget _dcSection(String title, List<Widget> children) {
 Widget _dcLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _dcDarkIndigo,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _dcDarkIndigo,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _dcBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _dcDarkText, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _dcDarkText, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -97,15 +87,12 @@ Widget _dcCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _dcLightIndigo.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _dcDarkIndigo,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _dcDarkIndigo,
+            height: 1.45)),
   );
 }
 
@@ -117,10 +104,9 @@ Widget _dcChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -142,14 +128,9 @@ Widget _dcInfoBox(String text, Color color) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: color,
-        fontSize: 11.5,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: color, fontSize: 11.5, fontWeight: FontWeight.w500)),
   );
 }
 
@@ -174,10 +155,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'DialogWindowController',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: const Text('DialogWindowController',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -206,48 +185,28 @@ dynamic build(BuildContext context) {
                       color: _dcWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.web_asset,
-                      color: _dcWhite,
-                      size: 32,
-                    ),
+                    child: const Icon(Icons.web_asset,
+                        color: _dcWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'DialogWindowController',
-                    style: TextStyle(
-                      color: _dcWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('DialogWindowController',
+                      style: TextStyle(
+                          color: _dcWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
                   Text(
-                    'Abstract base for cross-platform dialog management',
-                    style: TextStyle(
-                      color: _dcWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                      'Abstract base for cross-platform dialog management',
+                      style: TextStyle(
+                          color: _dcWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _dcChip(
-                        'Abstract',
-                        _dcWhite.withValues(alpha: 0.25),
-                        _dcWhite,
-                      ),
-                      _dcChip(
-                        'Cross-Platform',
-                        _dcWhite.withValues(alpha: 0.25),
-                        _dcWhite,
-                      ),
-                      _dcChip(
-                        'Dialogs',
-                        _dcWhite.withValues(alpha: 0.25),
-                        _dcWhite,
-                      ),
+                      _dcChip('Abstract', _dcWhite.withValues(alpha: 0.25), _dcWhite),
+                      _dcChip('Cross-Platform', _dcWhite.withValues(alpha: 0.25), _dcWhite),
+                      _dcChip('Dialogs', _dcWhite.withValues(alpha: 0.25), _dcWhite),
                     ],
                   ),
                 ],
@@ -431,30 +390,12 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _dcSummaryRow(
-                      Icons.web_asset,
-                      'Abstract base defining the dialog contract',
-                    ),
-                    _dcSummaryRow(
-                      Icons.device_hub,
-                      'Platform dispatch via factory pattern',
-                    ),
-                    _dcSummaryRow(
-                      Icons.computer,
-                      'Linux (GTK), macOS (AppKit), Windows (Win32)',
-                    ),
-                    _dcSummaryRow(
-                      Icons.settings,
-                      'Common configuration across platforms',
-                    ),
-                    _dcSummaryRow(
-                      Icons.loop,
-                      'Unified lifecycle: create → show → collect → destroy',
-                    ),
-                    _dcSummaryRow(
-                      Icons.extension,
-                      'Delegate pattern for event callbacks',
-                    ),
+                    _dcSummaryRow(Icons.web_asset, 'Abstract base defining the dialog contract'),
+                    _dcSummaryRow(Icons.device_hub, 'Platform dispatch via factory pattern'),
+                    _dcSummaryRow(Icons.computer, 'Linux (GTK), macOS (AppKit), Windows (Win32)'),
+                    _dcSummaryRow(Icons.settings, 'Common configuration across platforms'),
+                    _dcSummaryRow(Icons.loop, 'Unified lifecycle: create → show → collect → destroy'),
+                    _dcSummaryRow(Icons.extension, 'Delegate pattern for event callbacks'),
                   ],
                 ),
               ),
@@ -471,41 +412,11 @@ dynamic build(BuildContext context) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildControllerHierarchy() {
   final nodes = <Map<String, dynamic>>[
-    {
-      'name': 'DialogWindowController',
-      'desc': 'Abstract base (defines API)',
-      'color': _dcIndigo,
-      'indent': 0,
-      'highlight': true,
-    },
-    {
-      'name': 'DialogWindowControllerLinux',
-      'desc': 'GTK3/GTK4 dialogs',
-      'color': _dcAccentGreen,
-      'indent': 1,
-      'highlight': false,
-    },
-    {
-      'name': 'DialogWindowControllerMacOS',
-      'desc': 'AppKit/Cocoa panels & alerts',
-      'color': _dcAccentCyan,
-      'indent': 1,
-      'highlight': false,
-    },
-    {
-      'name': 'DialogWindowControllerWin32',
-      'desc': 'Win32 API IFileDialog, MessageBox',
-      'color': _dcAccentOrange,
-      'indent': 1,
-      'highlight': false,
-    },
-    {
-      'name': 'DialogWindowControllerDelegate',
-      'desc': 'Lifecycle callback interface',
-      'color': _dcAccentPurple,
-      'indent': 0,
-      'highlight': false,
-    },
+    {'name': 'DialogWindowController', 'desc': 'Abstract base (defines API)', 'color': _dcIndigo, 'indent': 0, 'highlight': true},
+    {'name': 'DialogWindowControllerLinux', 'desc': 'GTK3/GTK4 dialogs', 'color': _dcAccentGreen, 'indent': 1, 'highlight': false},
+    {'name': 'DialogWindowControllerMacOS', 'desc': 'AppKit/Cocoa panels & alerts', 'color': _dcAccentCyan, 'indent': 1, 'highlight': false},
+    {'name': 'DialogWindowControllerWin32', 'desc': 'Win32 API IFileDialog, MessageBox', 'color': _dcAccentOrange, 'indent': 1, 'highlight': false},
+    {'name': 'DialogWindowControllerDelegate', 'desc': 'Lifecycle callback interface', 'color': _dcAccentPurple, 'indent': 0, 'highlight': false},
   ];
 
   return Column(
@@ -519,9 +430,8 @@ Widget _buildControllerHierarchy() {
           color: (n['color'] as Color).withValues(alpha: isHigh ? 0.12 : 0.06),
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
-            color: (n['color'] as Color).withValues(alpha: isHigh ? 0.5 : 0.3),
-            width: isHigh ? 2 : 1,
-          ),
+              color: (n['color'] as Color).withValues(alpha: isHigh ? 0.5 : 0.3),
+              width: isHigh ? 2 : 1),
         ),
         child: Row(
           children: [
@@ -530,21 +440,16 @@ Widget _buildControllerHierarchy() {
                 margin: const EdgeInsets.only(right: 6),
                 child: const Icon(Icons.star, color: _dcIndigo, size: 14),
               ),
-            Text(
-              n['name'] as String,
-              style: TextStyle(
-                color: n['color'] as Color,
-                fontSize: 11,
-                fontWeight: isHigh ? FontWeight.w800 : FontWeight.w600,
-                fontFamily: 'monospace',
-              ),
-            ),
+            Text(n['name'] as String,
+                style: TextStyle(
+                    color: n['color'] as Color,
+                    fontSize: 11,
+                    fontWeight: isHigh ? FontWeight.w800 : FontWeight.w600,
+                    fontFamily: 'monospace')),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                n['desc'] as String,
-                style: const TextStyle(color: _dcDarkText, fontSize: 10),
-              ),
+              child: Text(n['desc'] as String,
+                  style: const TextStyle(color: _dcDarkText, fontSize: 10)),
             ),
           ],
         ),
@@ -558,42 +463,12 @@ Widget _buildControllerHierarchy() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildInterfaceMethods() {
   final methods = <Map<String, dynamic>>[
-    {
-      'name': 'showOpenDialog()',
-      'desc': 'Present a file/folder open dialog',
-      'ret': 'Future<List<String>?>',
-      'color': _dcAccentGreen,
-    },
-    {
-      'name': 'showSaveDialog()',
-      'desc': 'Present a file save dialog',
-      'ret': 'Future<String?>',
-      'color': _dcAccentCyan,
-    },
-    {
-      'name': 'showMessageDialog()',
-      'desc': 'Present a message/alert dialog',
-      'ret': 'Future<DialogResult>',
-      'color': _dcAccentOrange,
-    },
-    {
-      'name': 'showConfirmDialog()',
-      'desc': 'Present a yes/no confirmation',
-      'ret': 'Future<bool>',
-      'color': _dcAccentAmber,
-    },
-    {
-      'name': 'dismiss()',
-      'desc': 'Programmatically close the current dialog',
-      'ret': 'void',
-      'color': _dcAccentRed,
-    },
-    {
-      'name': 'dispose()',
-      'desc': 'Release all native resources',
-      'ret': 'void',
-      'color': _dcAccentPurple,
-    },
+    {'name': 'showOpenDialog()', 'desc': 'Present a file/folder open dialog', 'ret': 'Future<List<String>?>', 'color': _dcAccentGreen},
+    {'name': 'showSaveDialog()', 'desc': 'Present a file save dialog', 'ret': 'Future<String?>', 'color': _dcAccentCyan},
+    {'name': 'showMessageDialog()', 'desc': 'Present a message/alert dialog', 'ret': 'Future<DialogResult>', 'color': _dcAccentOrange},
+    {'name': 'showConfirmDialog()', 'desc': 'Present a yes/no confirmation', 'ret': 'Future<bool>', 'color': _dcAccentAmber},
+    {'name': 'dismiss()', 'desc': 'Programmatically close the current dialog', 'ret': 'void', 'color': _dcAccentRed},
+    {'name': 'dispose()', 'desc': 'Release all native resources', 'ret': 'void', 'color': _dcAccentPurple},
   ];
 
   return Column(
@@ -604,36 +479,28 @@ Widget _buildInterfaceMethods() {
         decoration: BoxDecoration(
           color: (m['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: (m['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (m['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
             Expanded(
               flex: 3,
-              child: Text(
-                m['name'] as String,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  color: m['color'] as Color,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text(m['name'] as String,
+                  style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                      color: m['color'] as Color,
+                      fontWeight: FontWeight.w700)),
             ),
             Expanded(
               flex: 4,
-              child: Text(
-                m['desc'] as String,
-                style: const TextStyle(color: _dcDarkText, fontSize: 10.5),
-              ),
+              child: Text(m['desc'] as String,
+                  style: const TextStyle(
+                      color: _dcDarkText, fontSize: 10.5)),
             ),
-            _dcChip(
-              m['ret'] as String,
-              (m['color'] as Color).withValues(alpha: 0.1),
-              m['color'] as Color,
-            ),
+            _dcChip(m['ret'] as String,
+                (m['color'] as Color).withValues(alpha: 0.1),
+                m['color'] as Color),
           ],
         ),
       );
@@ -646,42 +513,12 @@ Widget _buildInterfaceMethods() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildResultTypes() {
   final results = <Map<String, dynamic>>[
-    {
-      'dialog': 'File Open',
-      'result': 'List<String>?',
-      'example': '["/home/user/doc.dart"]',
-      'color': _dcAccentGreen,
-    },
-    {
-      'dialog': 'File Save',
-      'result': 'String?',
-      'example': '"/home/user/export.csv"',
-      'color': _dcAccentCyan,
-    },
-    {
-      'dialog': 'Folder Select',
-      'result': 'String?',
-      'example': '"/home/user/projects"',
-      'color': _dcAccentOrange,
-    },
-    {
-      'dialog': 'Message/Alert',
-      'result': 'DialogResult',
-      'example': 'DialogResult.ok',
-      'color': _dcAccentAmber,
-    },
-    {
-      'dialog': 'Confirmation',
-      'result': 'bool',
-      'example': 'true (user confirmed)',
-      'color': _dcAccentPurple,
-    },
-    {
-      'dialog': 'Cancelled',
-      'result': 'null / false',
-      'example': 'null (user cancelled)',
-      'color': _dcAccentRed,
-    },
+    {'dialog': 'File Open', 'result': 'List<String>?', 'example': '["/home/user/doc.dart"]', 'color': _dcAccentGreen},
+    {'dialog': 'File Save', 'result': 'String?', 'example': '"/home/user/export.csv"', 'color': _dcAccentCyan},
+    {'dialog': 'Folder Select', 'result': 'String?', 'example': '"/home/user/projects"', 'color': _dcAccentOrange},
+    {'dialog': 'Message/Alert', 'result': 'DialogResult', 'example': 'DialogResult.ok', 'color': _dcAccentAmber},
+    {'dialog': 'Confirmation', 'result': 'bool', 'example': 'true (user confirmed)', 'color': _dcAccentPurple},
+    {'dialog': 'Cancelled', 'result': 'null / false', 'example': 'null (user cancelled)', 'color': _dcAccentRed},
   ];
 
   return Column(
@@ -692,22 +529,17 @@ Widget _buildResultTypes() {
         decoration: BoxDecoration(
           color: (r['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: (r['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (r['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
             SizedBox(
               width: 80,
-              child: Text(
-                r['dialog'] as String,
-                style: TextStyle(
-                  color: r['color'] as Color,
-                  fontSize: 10.5,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text(r['dialog'] as String,
+                  style: TextStyle(
+                      color: r['color'] as Color,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w700)),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -715,25 +547,19 @@ Widget _buildResultTypes() {
                 color: _dcPearl,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                r['result'] as String,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                  color: r['color'] as Color,
-                ),
-              ),
+              child: Text(r['result'] as String,
+                  style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 10,
+                      color: r['color'] as Color)),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                r['example'] as String,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  color: _dcDarkText,
-                  fontSize: 9.5,
-                ),
-              ),
+              child: Text(r['example'] as String,
+                  style: const TextStyle(
+                      fontFamily: 'monospace',
+                      color: _dcDarkText,
+                      fontSize: 9.5)),
             ),
           ],
         ),
@@ -783,15 +609,12 @@ Widget _buildFactoryPattern() {
                 borderRadius: BorderRadius.circular(6),
               ),
               child: const Center(
-                child: Text(
-                  'DialogWindowController.create()',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    color: _dcWhite,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: Text('DialogWindowController.create()',
+                    style: TextStyle(
+                        fontFamily: 'monospace',
+                        color: _dcWhite,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
               ),
             ),
             const SizedBox(height: 8),
@@ -800,13 +623,9 @@ Widget _buildFactoryPattern() {
               children: [
                 Expanded(child: _dcPlatformBox('Linux', 'GTK', _dcAccentGreen)),
                 const SizedBox(width: 6),
-                Expanded(
-                  child: _dcPlatformBox('macOS', 'AppKit', _dcAccentCyan),
-                ),
+                Expanded(child: _dcPlatformBox('macOS', 'AppKit', _dcAccentCyan)),
                 const SizedBox(width: 6),
-                Expanded(
-                  child: _dcPlatformBox('Windows', 'Win32', _dcAccentOrange),
-                ),
+                Expanded(child: _dcPlatformBox('Windows', 'Win32', _dcAccentOrange)),
               ],
             ),
           ],
@@ -826,22 +645,14 @@ Widget _dcPlatformBox(String platform, String toolkit, Color color) {
     ),
     child: Column(
       children: [
-        Text(
-          platform,
-          style: TextStyle(
-            color: color,
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        Text(
-          toolkit,
-          style: TextStyle(
-            fontFamily: 'monospace',
-            color: color.withValues(alpha: 0.7),
-            fontSize: 9,
-          ),
-        ),
+        Text(platform,
+            style: TextStyle(
+                color: color, fontSize: 11, fontWeight: FontWeight.w700)),
+        Text(toolkit,
+            style: TextStyle(
+                fontFamily: 'monospace',
+                color: color.withValues(alpha: 0.7),
+                fontSize: 9)),
       ],
     ),
   );
@@ -852,36 +663,12 @@ Widget _dcPlatformBox(String platform, String toolkit, Color color) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildPlatformDispatch() {
   final steps = <Map<String, dynamic>>[
-    {
-      'icon': Icons.touch_app,
-      'label': 'App calls showOpenDialog()',
-      'color': _dcIndigo,
-    },
-    {
-      'icon': Icons.device_hub,
-      'label': 'Base controller validates config',
-      'color': _dcMedIndigo,
-    },
-    {
-      'icon': Icons.send,
-      'label': 'Dispatches to platform implementation',
-      'color': _dcAccentCyan,
-    },
-    {
-      'icon': Icons.desktop_windows,
-      'label': 'Platform creates native dialog',
-      'color': _dcAccentGreen,
-    },
-    {
-      'icon': Icons.check_circle,
-      'label': 'User interacts, dialog closes',
-      'color': _dcAccentOrange,
-    },
-    {
-      'icon': Icons.arrow_back,
-      'label': 'Platform-neutral result returned',
-      'color': _dcAccentPurple,
-    },
+    {'icon': Icons.touch_app, 'label': 'App calls showOpenDialog()', 'color': _dcIndigo},
+    {'icon': Icons.device_hub, 'label': 'Base controller validates config', 'color': _dcMedIndigo},
+    {'icon': Icons.send, 'label': 'Dispatches to platform implementation', 'color': _dcAccentCyan},
+    {'icon': Icons.desktop_windows, 'label': 'Platform creates native dialog', 'color': _dcAccentGreen},
+    {'icon': Icons.check_circle, 'label': 'User interacts, dialog closes', 'color': _dcAccentOrange},
+    {'icon': Icons.arrow_back, 'label': 'Platform-neutral result returned', 'color': _dcAccentPurple},
   ];
 
   return Column(
@@ -893,9 +680,7 @@ Widget _buildPlatformDispatch() {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: (s['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -917,26 +702,20 @@ Widget _buildPlatformDispatch() {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Text(
-                  '${entry.key + 1}',
-                  style: const TextStyle(
-                    color: _dcIndigo,
-                    fontSize: 9,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: Text('${entry.key + 1}',
+                    style: const TextStyle(
+                        color: _dcIndigo,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700)),
               ),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                s['label'] as String,
-                style: TextStyle(
-                  color: s['color'] as Color,
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: Text(s['label'] as String,
+                  style: TextStyle(
+                      color: s['color'] as Color,
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w600)),
             ),
           ],
         ),
@@ -950,42 +729,12 @@ Widget _buildPlatformDispatch() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildConfigOptions() {
   final opts = <Map<String, dynamic>>[
-    {
-      'opt': 'title',
-      'type': 'String',
-      'desc': 'Dialog window title text',
-      'color': _dcAccentCyan,
-    },
-    {
-      'opt': 'initialDirectory',
-      'type': 'String?',
-      'desc': 'Starting directory for file dialogs',
-      'color': _dcAccentGreen,
-    },
-    {
-      'opt': 'allowedExtensions',
-      'type': 'List<String>?',
-      'desc': 'File type filter (e.g., ["dart", "yaml"])',
-      'color': _dcAccentOrange,
-    },
-    {
-      'opt': 'allowMultiple',
-      'type': 'bool',
-      'desc': 'Allow selecting multiple files',
-      'color': _dcAccentAmber,
-    },
-    {
-      'opt': 'confirmButtonText',
-      'type': 'String?',
-      'desc': 'Custom text for confirm button',
-      'color': _dcAccentPurple,
-    },
-    {
-      'opt': 'parentWindow',
-      'type': 'Window?',
-      'desc': 'Parent window for modal attachment',
-      'color': _dcIndigo,
-    },
+    {'opt': 'title', 'type': 'String', 'desc': 'Dialog window title text', 'color': _dcAccentCyan},
+    {'opt': 'initialDirectory', 'type': 'String?', 'desc': 'Starting directory for file dialogs', 'color': _dcAccentGreen},
+    {'opt': 'allowedExtensions', 'type': 'List<String>?', 'desc': 'File type filter (e.g., ["dart", "yaml"])', 'color': _dcAccentOrange},
+    {'opt': 'allowMultiple', 'type': 'bool', 'desc': 'Allow selecting multiple files', 'color': _dcAccentAmber},
+    {'opt': 'confirmButtonText', 'type': 'String?', 'desc': 'Custom text for confirm button', 'color': _dcAccentPurple},
+    {'opt': 'parentWindow', 'type': 'Window?', 'desc': 'Parent window for modal attachment', 'color': _dcIndigo},
   ];
 
   return Container(
@@ -1001,39 +750,9 @@ Widget _buildConfigOptions() {
           color: _dcIndigo,
           child: const Row(
             children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Option',
-                  style: TextStyle(
-                    color: _dcWhite,
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Type',
-                  style: TextStyle(
-                    color: _dcWhite,
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 4,
-                child: Text(
-                  'Description',
-                  style: TextStyle(
-                    color: _dcWhite,
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
+              Expanded(flex: 2, child: Text('Option', style: TextStyle(color: _dcWhite, fontSize: 10.5, fontWeight: FontWeight.w700))),
+              Expanded(flex: 2, child: Text('Type', style: TextStyle(color: _dcWhite, fontSize: 10.5, fontWeight: FontWeight.w700))),
+              Expanded(flex: 4, child: Text('Description', style: TextStyle(color: _dcWhite, fontSize: 10.5, fontWeight: FontWeight.w700))),
             ],
           ),
         ),
@@ -1046,33 +765,26 @@ Widget _buildConfigOptions() {
               children: [
                 Expanded(
                   flex: 2,
-                  child: Text(
-                    o['opt'] as String,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: o['color'] as Color,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: Text(o['opt'] as String,
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: o['color'] as Color,
+                          fontWeight: FontWeight.w700)),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(
-                    o['type'] as String,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: _dcDarkText,
-                    ),
-                  ),
+                  child: Text(o['type'] as String,
+                      style: const TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: _dcDarkText)),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(
-                    o['desc'] as String,
-                    style: const TextStyle(fontSize: 10, color: _dcDarkText),
-                  ),
+                  child: Text(o['desc'] as String,
+                      style: const TextStyle(
+                          fontSize: 10, color: _dcDarkText)),
                 ),
               ],
             ),
@@ -1088,41 +800,13 @@ Widget _buildConfigOptions() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildLifecycleDiagram() {
   final phases = <Map<String, dynamic>>[
-    {
-      'phase': 'Idle',
-      'desc': 'Controller created, no dialog shown',
-      'color': _dcMedIndigo,
-    },
-    {
-      'phase': 'Configuring',
-      'desc': 'Setting title, filters, options',
-      'color': _dcAccentCyan,
-    },
-    {
-      'phase': 'Presenting',
-      'desc': 'Native dialog being displayed',
-      'color': _dcAccentGreen,
-    },
-    {
-      'phase': 'Active',
-      'desc': 'User interacting with dialog',
-      'color': _dcAccentOrange,
-    },
-    {
-      'phase': 'Collecting',
-      'desc': 'Gathering user selection/response',
-      'color': _dcAccentAmber,
-    },
-    {
-      'phase': 'Completing',
-      'desc': 'Returning result to Flutter',
-      'color': _dcAccentPurple,
-    },
-    {
-      'phase': 'Disposed',
-      'desc': 'Native resources released',
-      'color': _dcAccentRed,
-    },
+    {'phase': 'Idle', 'desc': 'Controller created, no dialog shown', 'color': _dcMedIndigo},
+    {'phase': 'Configuring', 'desc': 'Setting title, filters, options', 'color': _dcAccentCyan},
+    {'phase': 'Presenting', 'desc': 'Native dialog being displayed', 'color': _dcAccentGreen},
+    {'phase': 'Active', 'desc': 'User interacting with dialog', 'color': _dcAccentOrange},
+    {'phase': 'Collecting', 'desc': 'Gathering user selection/response', 'color': _dcAccentAmber},
+    {'phase': 'Completing', 'desc': 'Returning result to Flutter', 'color': _dcAccentPurple},
+    {'phase': 'Disposed', 'desc': 'Native resources released', 'color': _dcAccentRed},
   ];
 
   return Column(
@@ -1142,14 +826,11 @@ Widget _buildLifecycleDiagram() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text(
-                      '${entry.key + 1}',
-                      style: const TextStyle(
-                        color: _dcWhite,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text('${entry.key + 1}',
+                        style: const TextStyle(
+                            color: _dcWhite,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700)),
                   ),
                 ),
                 if (entry.key < phases.length - 1)
@@ -1159,46 +840,31 @@ Widget _buildLifecycleDiagram() {
             const SizedBox(width: 8),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: (p['color'] as Color).withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                    color: (p['color'] as Color).withValues(alpha: 0.3),
-                  ),
+                  border: Border.all(color: (p['color'] as Color).withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: p['color'] as Color,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
-                        p['phase'] as String,
-                        style: const TextStyle(
-                          color: _dcWhite,
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text(p['phase'] as String,
+                          style: const TextStyle(
+                              color: _dcWhite,
+                              fontSize: 9.5,
+                              fontWeight: FontWeight.w700)),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(
-                        p['desc'] as String,
-                        style: const TextStyle(
-                          color: _dcDarkText,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(p['desc'] as String,
+                          style: const TextStyle(
+                              color: _dcDarkText, fontSize: 10)),
                     ),
                   ],
                 ),
@@ -1216,26 +882,10 @@ Widget _buildLifecycleDiagram() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildDelegateFlow() {
   final callbacks = <Map<String, dynamic>>[
-    {
-      'cb': 'dialogWillShow',
-      'when': 'Before dialog becomes visible',
-      'color': _dcAccentCyan,
-    },
-    {
-      'cb': 'dialogDidShow',
-      'when': 'After dialog is on screen',
-      'color': _dcAccentGreen,
-    },
-    {
-      'cb': 'dialogWillDismiss',
-      'when': 'Before dialog starts closing',
-      'color': _dcAccentOrange,
-    },
-    {
-      'cb': 'dialogDidDismiss',
-      'when': 'After dialog fully closed, with result',
-      'color': _dcAccentPurple,
-    },
+    {'cb': 'dialogWillShow', 'when': 'Before dialog becomes visible', 'color': _dcAccentCyan},
+    {'cb': 'dialogDidShow', 'when': 'After dialog is on screen', 'color': _dcAccentGreen},
+    {'cb': 'dialogWillDismiss', 'when': 'Before dialog starts closing', 'color': _dcAccentOrange},
+    {'cb': 'dialogDidDismiss', 'when': 'After dialog fully closed, with result', 'color': _dcAccentPurple},
   ];
 
   return Column(
@@ -1246,9 +896,7 @@ Widget _buildDelegateFlow() {
         decoration: BoxDecoration(
           color: (c['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: (c['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (c['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -1258,22 +906,18 @@ Widget _buildDelegateFlow() {
                 color: c['color'] as Color,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                c['cb'] as String,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  color: _dcWhite,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text(c['cb'] as String,
+                  style: const TextStyle(
+                      fontFamily: 'monospace',
+                      color: _dcWhite,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700)),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                c['when'] as String,
-                style: const TextStyle(color: _dcDarkText, fontSize: 10.5),
-              ),
+              child: Text(c['when'] as String,
+                  style: const TextStyle(
+                      color: _dcDarkText, fontSize: 10.5)),
             ),
           ],
         ),
@@ -1321,9 +965,7 @@ Widget _buildErrorScenarios() {
         decoration: BoxDecoration(
           color: (e['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: (e['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (e['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1332,30 +974,22 @@ Widget _buildErrorScenarios() {
               children: [
                 Icon(Icons.warning_amber, size: 14, color: e['color'] as Color),
                 const SizedBox(width: 6),
-                Text(
-                  e['error'] as String,
-                  style: TextStyle(
-                    color: e['color'] as Color,
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(e['error'] as String,
+                    style: TextStyle(
+                        color: e['color'] as Color,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w700)),
               ],
             ),
             const SizedBox(height: 4),
-            Text(
-              e['desc'] as String,
-              style: const TextStyle(color: _dcDarkText, fontSize: 10.5),
-            ),
+            Text(e['desc'] as String,
+                style: const TextStyle(color: _dcDarkText, fontSize: 10.5)),
             const SizedBox(height: 2),
-            Text(
-              e['handling'] as String,
-              style: TextStyle(
-                color: (e['color'] as Color).withValues(alpha: 0.8),
-                fontSize: 10,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
+            Text(e['handling'] as String,
+                style: TextStyle(
+                    color: (e['color'] as Color).withValues(alpha: 0.8),
+                    fontSize: 10,
+                    fontStyle: FontStyle.italic)),
           ],
         ),
       );
@@ -1422,9 +1056,7 @@ Widget _buildCrossPlatformScenario() {
           decoration: BoxDecoration(
             color: (p['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: (p['color'] as Color).withValues(alpha: 0.3),
-            ),
+            border: Border.all(color: (p['color'] as Color).withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
@@ -1442,22 +1074,16 @@ Widget _buildCrossPlatformScenario() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      p['platform'] as String,
-                      style: TextStyle(
-                        color: p['color'] as Color,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Text(
-                      '${p['impl']}  →  ${p['native']}',
-                      style: const TextStyle(
-                        fontFamily: 'monospace',
-                        color: _dcDarkText,
-                        fontSize: 9.5,
-                      ),
-                    ),
+                    Text(p['platform'] as String,
+                        style: TextStyle(
+                            color: p['color'] as Color,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700)),
+                    Text('${p['impl']}  →  ${p['native']}',
+                        style: const TextStyle(
+                            fontFamily: 'monospace',
+                            color: _dcDarkText,
+                            fontSize: 9.5)),
                   ],
                 ),
               ),
@@ -1480,13 +1106,9 @@ Widget _dcSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _dcWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _dcWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _dcWhite.withValues(alpha: 0.95), fontSize: 12.5)),
         ),
       ],
     ),

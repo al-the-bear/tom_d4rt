@@ -14,11 +14,7 @@ Widget _buildSectionHeader(String title) {
     ),
     child: Text(
       title,
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
     ),
   );
 }
@@ -34,16 +30,10 @@ Widget _buildInfoCard(String label, String value) {
     ),
     child: Row(
       children: [
-        Text(
-          label,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         SizedBox(width: 8),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-          ),
+          child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700)),
         ),
       ],
     ),
@@ -62,14 +52,8 @@ Widget _buildBasicEndDrawerIcon() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Default EndDrawerButtonIcon',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: Colors.brown.shade800,
-          ),
-        ),
+        Text('Default EndDrawerButtonIcon',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.brown.shade800)),
         SizedBox(height: 12),
         Row(
           children: [
@@ -87,19 +71,11 @@ Widget _buildBasicEndDrawerIcon() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'EndDrawerButtonIcon()',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.brown.shade700,
-                    ),
-                  ),
+                  Text('EndDrawerButtonIcon()',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.brown.shade700)),
                   SizedBox(height: 4),
-                  Text(
-                    'The default menu icon shown for end drawer actions',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                  ),
+                  Text('The default menu icon shown for end drawer actions',
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
                 ],
               ),
             ),
@@ -128,14 +104,8 @@ Widget _buildInAppBarDemo() {
             children: [
               Icon(Icons.arrow_back, color: Colors.white, size: 24),
               SizedBox(width: 12),
-              Text(
-                'AppBar with End Drawer',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
+              Text('AppBar with End Drawer',
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white)),
               Expanded(child: SizedBox()),
               Icon(Icons.search, color: Colors.white, size: 24),
               SizedBox(width: 8),
@@ -154,10 +124,8 @@ Widget _buildInAppBarDemo() {
           height: 120,
           color: Colors.grey.shade100,
           alignment: Alignment.center,
-          child: Text(
-            'Page Content Area',
-            style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
-          ),
+          child: Text('Page Content Area',
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade500)),
         ),
       ],
     ),
@@ -189,19 +157,15 @@ Widget _buildSizeComparison() {
                 child: SizedBox(
                   width: sz,
                   height: sz,
-                  child: FittedBox(child: EndDrawerButtonIcon()),
+                  child: FittedBox(
+                    child: EndDrawerButtonIcon(),
+                  ),
                 ),
               ),
             ),
             SizedBox(width: 12),
-            Text(
-              '${sz.toInt()} x ${sz.toInt()}',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Colors.brown.shade700,
-              ),
-            ),
+            Text('${sz.toInt()} x ${sz.toInt()}',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.brown.shade700)),
             SizedBox(width: 8),
             Container(
               width: sz,
@@ -227,19 +191,11 @@ Widget _buildSizeComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Size Variations',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.brown.shade800,
-          ),
-        ),
+        Text('Size Variations',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.brown.shade800)),
         SizedBox(height: 4),
-        Text(
-          'EndDrawerButtonIcon rendered at different sizes using FittedBox',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
+        Text('EndDrawerButtonIcon rendered at different sizes using FittedBox',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
         SizedBox(height: 8),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: items),
       ],
@@ -249,25 +205,10 @@ Widget _buildSizeComparison() {
 
 Widget _buildColorVariations() {
   debugPrint('Building color variations');
-  List<String> colorNames = [
-    'Brown',
-    'Blue',
-    'Green',
-    'Red',
-    'Purple',
-    'Orange',
-    'Teal',
-    'Pink',
-  ];
+  List<String> colorNames = ['Brown', 'Blue', 'Green', 'Red', 'Purple', 'Orange', 'Teal', 'Pink'];
   List<Color> bgColors = [
-    Colors.brown.shade700,
-    Colors.blue.shade700,
-    Colors.green.shade700,
-    Colors.red.shade700,
-    Colors.purple.shade700,
-    Colors.orange.shade700,
-    Colors.teal.shade700,
-    Colors.pink.shade700,
+    Colors.brown.shade700, Colors.blue.shade700, Colors.green.shade700, Colors.red.shade700,
+    Colors.purple.shade700, Colors.orange.shade700, Colors.teal.shade700, Colors.pink.shade700,
   ];
 
   List<Widget> items = [];
@@ -292,10 +233,8 @@ Widget _buildColorVariations() {
               ),
             ),
             SizedBox(height: 4),
-            Text(
-              colorNames[i],
-              style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
-            ),
+            Text(colorNames[i],
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
           ],
         ),
       ),
@@ -312,19 +251,11 @@ Widget _buildColorVariations() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Color Themes',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.brown.shade800,
-          ),
-        ),
+        Text('Color Themes',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.brown.shade800)),
         SizedBox(height: 4),
-        Text(
-          'EndDrawerButtonIcon with IconTheme in different colored backgrounds',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
+        Text('EndDrawerButtonIcon with IconTheme in different colored backgrounds',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
         SizedBox(height: 12),
         Wrap(children: items),
       ],
@@ -344,14 +275,8 @@ Widget _buildCompareDrawerIcons() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'DrawerButtonIcon vs EndDrawerButtonIcon',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.brown.shade800,
-          ),
-        ),
+        Text('DrawerButtonIcon vs EndDrawerButtonIcon',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.brown.shade800)),
         SizedBox(height: 12),
         Row(
           children: [
@@ -377,22 +302,11 @@ Widget _buildCompareDrawerIcons() {
                       ),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      'DrawerButtonIcon',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.blue.shade700,
-                      ),
-                    ),
+                    Text('DrawerButtonIcon',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.blue.shade700)),
                     SizedBox(height: 4),
-                    Text(
-                      'Leading side (start)',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
+                    Text('Leading side (start)',
+                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
                   ],
                 ),
               ),
@@ -420,22 +334,11 @@ Widget _buildCompareDrawerIcons() {
                       ),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      'EndDrawerButtonIcon',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.brown.shade700,
-                      ),
-                    ),
+                    Text('EndDrawerButtonIcon',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.brown.shade700)),
                     SizedBox(height: 4),
-                    Text(
-                      'Trailing side (end)',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
+                    Text('Trailing side (end)',
+                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
                   ],
                 ),
               ),
@@ -455,10 +358,8 @@ Widget _buildCompareDrawerIcons() {
               Icon(Icons.info_outline, size: 16, color: Colors.amber.shade800),
               SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  'DrawerButtonIcon is for the leading drawer, EndDrawerButtonIcon is for the trailing end drawer',
-                  style: TextStyle(fontSize: 11, color: Colors.amber.shade900),
-                ),
+                child: Text('DrawerButtonIcon is for the leading drawer, EndDrawerButtonIcon is for the trailing end drawer',
+                  style: TextStyle(fontSize: 11, color: Colors.amber.shade900)),
               ),
             ],
           ),
@@ -471,12 +372,7 @@ Widget _buildCompareDrawerIcons() {
 Widget _buildAppBarContexts() {
   debugPrint('Building different AppBar contexts');
 
-  Widget buildMockAppBar(
-    String title,
-    Color appBarColor,
-    bool showLeading,
-    bool showEnd,
-  ) {
+  Widget buildMockAppBar(String title, Color appBarColor, bool showLeading, bool showEnd) {
     List<Widget> leftItems = [];
     if (showLeading) {
       leftItems.add(
@@ -491,14 +387,7 @@ Widget _buildAppBarContexts() {
     }
     leftItems.add(SizedBox(width: 8));
     leftItems.add(
-      Text(
-        title,
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
-      ),
+      Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white)),
     );
 
     List<Widget> rightItems = [];
@@ -542,28 +431,15 @@ Widget _buildAppBarContexts() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'AppBar Context Demos',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.brown.shade800,
-          ),
-        ),
+        Text('AppBar Context Demos',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.brown.shade800)),
         SizedBox(height: 4),
-        Text(
-          'EndDrawerButtonIcon in various AppBar configurations',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
+        Text('EndDrawerButtonIcon in various AppBar configurations',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
         SizedBox(height: 12),
         buildMockAppBar('Both drawers', Colors.brown.shade700, true, true),
         buildMockAppBar('End drawer only', Colors.blue.shade700, false, true),
-        buildMockAppBar(
-          'Start drawer only',
-          Colors.green.shade700,
-          true,
-          false,
-        ),
+        buildMockAppBar('Start drawer only', Colors.green.shade700, true, false),
         buildMockAppBar('No drawers', Colors.grey.shade700, false, false),
       ],
     ),
@@ -582,14 +458,8 @@ Widget _buildStandaloneShowcase() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Standalone Display',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.brown.shade800,
-          ),
-        ),
+        Text('Standalone Display',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.brown.shade800)),
         SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -603,13 +473,12 @@ Widget _buildStandaloneShowcase() {
                     color: Colors.brown.shade100,
                     shape: BoxShape.circle,
                   ),
-                  child: Center(child: EndDrawerButtonIcon()),
+                  child: Center(
+                    child: EndDrawerButtonIcon(),
+                  ),
                 ),
                 SizedBox(height: 4),
-                Text(
-                  'Circle',
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                ),
+                Text('Circle', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
               ],
             ),
             Column(
@@ -621,13 +490,12 @@ Widget _buildStandaloneShowcase() {
                     color: Colors.brown.shade100,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Center(child: EndDrawerButtonIcon()),
+                  child: Center(
+                    child: EndDrawerButtonIcon(),
+                  ),
                 ),
                 SizedBox(height: 4),
-                Text(
-                  'Rounded',
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                ),
+                Text('Rounded', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
               ],
             ),
             Column(
@@ -635,14 +503,15 @@ Widget _buildStandaloneShowcase() {
                 Container(
                   width: 64,
                   height: 64,
-                  decoration: BoxDecoration(color: Colors.brown.shade100),
-                  child: Center(child: EndDrawerButtonIcon()),
+                  decoration: BoxDecoration(
+                    color: Colors.brown.shade100,
+                  ),
+                  child: Center(
+                    child: EndDrawerButtonIcon(),
+                  ),
                 ),
                 SizedBox(height: 4),
-                Text(
-                  'Square',
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                ),
+                Text('Square', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
               ],
             ),
             Column(
@@ -654,13 +523,12 @@ Widget _buildStandaloneShowcase() {
                     border: Border.all(color: Colors.brown.shade300, width: 2),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Center(child: EndDrawerButtonIcon()),
+                  child: Center(
+                    child: EndDrawerButtonIcon(),
+                  ),
                 ),
                 SizedBox(height: 4),
-                Text(
-                  'Outlined',
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                ),
+                Text('Outlined', style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
               ],
             ),
           ],
@@ -682,19 +550,11 @@ Widget _buildRtlComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'LTR vs RTL Layout',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.brown.shade800,
-          ),
-        ),
+        Text('LTR vs RTL Layout',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.brown.shade800)),
         SizedBox(height: 4),
-        Text(
-          'End drawer icon position changes with text direction',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
+        Text('End drawer icon position changes with text direction',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.all(12),
@@ -706,14 +566,8 @@ Widget _buildRtlComparison() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'LTR (Left-to-Right)',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.blue.shade700,
-                ),
-              ),
+              Text('LTR (Left-to-Right)',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.blue.shade700)),
               SizedBox(height: 8),
               Container(
                 height: 44,
@@ -729,15 +583,9 @@ Widget _buildRtlComparison() {
                       child: DrawerButtonIcon(),
                     ),
                     SizedBox(width: 8),
-                    Text(
-                      'Title',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
+                    Text('Title', style: TextStyle(color: Colors.white, fontSize: 14)),
                     Expanded(child: SizedBox()),
-                    Text(
-                      'end ->',
-                      style: TextStyle(color: Colors.white70, fontSize: 10),
-                    ),
+                    Text('end ->', style: TextStyle(color: Colors.white70, fontSize: 10)),
                     SizedBox(width: 4),
                     IconTheme(
                       data: IconThemeData(color: Colors.white, size: 20),
@@ -760,14 +608,8 @@ Widget _buildRtlComparison() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'RTL (Right-to-Left)',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.green.shade700,
-                ),
-              ),
+              Text('RTL (Right-to-Left)',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.green.shade700)),
               SizedBox(height: 8),
               Directionality(
                 textDirection: TextDirection.rtl,
@@ -785,15 +627,9 @@ Widget _buildRtlComparison() {
                         child: DrawerButtonIcon(),
                       ),
                       SizedBox(width: 8),
-                      Text(
-                        'العنوان',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
+                      Text('العنوان', style: TextStyle(color: Colors.white, fontSize: 14)),
                       Expanded(child: SizedBox()),
-                      Text(
-                        '<- end',
-                        style: TextStyle(color: Colors.white70, fontSize: 10),
-                      ),
+                      Text('<- end', style: TextStyle(color: Colors.white70, fontSize: 10)),
                       SizedBox(width: 4),
                       IconTheme(
                         data: IconThemeData(color: Colors.white, size: 20),
@@ -823,14 +659,8 @@ Widget _buildThemedContexts() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Themed Contexts',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.brown.shade800,
-          ),
-        ),
+        Text('Themed Contexts',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.brown.shade800)),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.all(12),
@@ -846,10 +676,8 @@ Widget _buildThemedContexts() {
                 child: EndDrawerButtonIcon(),
               ),
               SizedBox(width: 12),
-              Text(
-                'Light theme (dark icon on light bg)',
-                style: TextStyle(fontSize: 13, color: Colors.grey.shade800),
-              ),
+              Text('Light theme (dark icon on light bg)',
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade800)),
             ],
           ),
         ),
@@ -868,10 +696,8 @@ Widget _buildThemedContexts() {
                 child: EndDrawerButtonIcon(),
               ),
               SizedBox(width: 12),
-              Text(
-                'Dark theme (light icon on dark bg)',
-                style: TextStyle(fontSize: 13, color: Colors.grey.shade300),
-              ),
+              Text('Dark theme (light icon on dark bg)',
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade300)),
             ],
           ),
         ),
@@ -890,10 +716,8 @@ Widget _buildThemedContexts() {
                 child: EndDrawerButtonIcon(),
               ),
               SizedBox(width: 12),
-              Text(
-                'Custom theme (amber icon on amber bg)',
-                style: TextStyle(fontSize: 13, color: Colors.amber.shade900),
-              ),
+              Text('Custom theme (amber icon on amber bg)',
+                style: TextStyle(fontSize: 13, color: Colors.amber.shade900)),
             ],
           ),
         ),
@@ -912,10 +736,8 @@ Widget _buildThemedContexts() {
                 child: EndDrawerButtonIcon(),
               ),
               SizedBox(width: 12),
-              Text(
-                'High contrast theme',
-                style: TextStyle(fontSize: 13, color: Colors.cyan.shade200),
-              ),
+              Text('High contrast theme',
+                style: TextStyle(fontSize: 13, color: Colors.cyan.shade200)),
             ],
           ),
         ),
@@ -968,18 +790,9 @@ dynamic build(BuildContext context) {
             SizedBox(height: 32),
             _buildInfoCard('Widget', 'EndDrawerButtonIcon'),
             _buildInfoCard('Package', 'package:flutter/material.dart'),
-            _buildInfoCard(
-              'Purpose',
-              'Icon for opening the end drawer (trailing side)',
-            ),
-            _buildInfoCard(
-              'Comparison',
-              'DrawerButtonIcon (leading) vs EndDrawerButtonIcon (trailing)',
-            ),
-            _buildInfoCard(
-              'Usage',
-              'Typically placed in AppBar actions for end drawer access',
-            ),
+            _buildInfoCard('Purpose', 'Icon for opening the end drawer (trailing side)'),
+            _buildInfoCard('Comparison', 'DrawerButtonIcon (leading) vs EndDrawerButtonIcon (trailing)'),
+            _buildInfoCard('Usage', 'Typically placed in AppBar actions for end drawer access'),
             SizedBox(height: 32),
           ],
         ),

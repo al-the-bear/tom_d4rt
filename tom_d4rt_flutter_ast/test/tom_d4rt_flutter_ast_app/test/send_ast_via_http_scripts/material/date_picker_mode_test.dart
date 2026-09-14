@@ -19,18 +19,10 @@ import 'package:flutter/material.dart';
 /// - DatePickerEntryMode: Controls HOW users interact (calendar vs text input)
 
 dynamic build(BuildContext context) {
-  print(
-    '╔═══════════════════════════════════════════════════════════════════╗',
-  );
-  print(
-    '║              DatePickerMode Deep Demonstration                     ║',
-  );
-  print(
-    '║       Exploring Calendar View Modes: Day Grid vs Year             ║',
-  );
-  print(
-    '╚═══════════════════════════════════════════════════════════════════╝',
-  );
+  print('╔═══════════════════════════════════════════════════════════════════╗');
+  print('║              DatePickerMode Deep Demonstration                     ║');
+  print('║       Exploring Calendar View Modes: Day Grid vs Year             ║');
+  print('╚═══════════════════════════════════════════════════════════════════╝');
 
   print('\n📋 DatePickerMode enum values:');
   for (final mode in DatePickerMode.values) {
@@ -194,7 +186,10 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                     SizedBox(height: 4),
                     Text(
                       'Calendar View Selection',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
                     ),
                   ],
                 ),
@@ -213,7 +208,11 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
               'opening a date picker: the day grid for selecting specific days, '
               'or the year selector for quickly navigating to a different year. '
               'Choose wisely based on how far from current date users typically select.',
-              style: TextStyle(color: Colors.white, fontSize: 14, height: 1.5),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -297,7 +296,10 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
       padding: const EdgeInsets.only(left: 16, top: 2),
       child: RichText(
         text: TextSpan(
-          style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 13,
+          ),
           children: [
             TextSpan(
               text: name,
@@ -454,21 +456,16 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
 
                 // Visual description
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
                     color: _DemoColors.slate100,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.visibility,
-                        size: 16,
-                        color: _DemoColors.slate600,
-                      ),
+                      const Icon(Icons.visibility,
+                          size: 16, color: _DemoColors.slate600),
                       const SizedBox(width: 8),
                       Text(
                         visualDescription,
@@ -493,28 +490,27 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                ...bestFor.map(
-                  (item) => Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.check_circle, size: 14, color: color),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            item,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: _DemoColors.slate600,
-                              height: 1.3,
+                ...bestFor.map((item) => Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.check_circle,
+                              size: 14, color: color),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              item,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: _DemoColors.slate600,
+                                height: 1.3,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                        ],
+                      ),
+                    )),
               ],
             ),
           ),
@@ -597,11 +593,8 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
           // Results display
           Row(
             children: [
-              const Icon(
-                Icons.info_outline,
-                size: 16,
-                color: _DemoColors.slate600,
-              ),
+              const Icon(Icons.info_outline,
+                  size: 16, color: _DemoColors.slate600),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -661,9 +654,8 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                 style: TextStyle(
                   fontSize: 11,
                   color: selectedDate != null ? color : _DemoColors.slate600,
-                  fontWeight: selectedDate != null
-                      ? FontWeight.w600
-                      : FontWeight.w400,
+                  fontWeight:
+                      selectedDate != null ? FontWeight.w600 : FontWeight.w400,
                 ),
               ),
             ],
@@ -798,11 +790,8 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        Icons.chevron_left,
-                        size: 14,
-                        color: _DemoColors.emerald700,
-                      ),
+                      Icon(Icons.chevron_left,
+                          size: 14, color: _DemoColors.emerald700),
                       Text(
                         'March 2026',
                         style: TextStyle(
@@ -811,11 +800,8 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                           color: _DemoColors.emerald700,
                         ),
                       ),
-                      Icon(
-                        Icons.chevron_right,
-                        size: 14,
-                        color: _DemoColors.emerald700,
-                      ),
+                      Icon(Icons.chevron_right,
+                          size: 14, color: _DemoColors.emerald700),
                     ],
                   ),
                 ),
@@ -824,57 +810,54 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-                      .map(
-                        (d) => SizedBox(
-                          width: 20,
-                          child: Text(
-                            d,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                              color: _DemoColors.slate600,
+                      .map((d) => SizedBox(
+                            width: 20,
+                            child: Text(
+                              d,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                                color: _DemoColors.slate600,
+                              ),
                             ),
-                          ),
-                        ),
-                      )
+                          ))
                       .toList(),
                 ),
                 const SizedBox(height: 6),
                 // Day grid (simplified)
                 ...List.generate(
-                  4,
-                  (row) => Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: List.generate(7, (col) {
-                        final day = row * 7 + col + 1;
-                        final isSelected = day == 25;
-                        return Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? _DemoColors.emerald600
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(10),
+                    4,
+                    (row) => Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: List.generate(7, (col) {
+                              final day = row * 7 + col + 1;
+                              final isSelected = day == 25;
+                              return Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? _DemoColors.emerald600
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  day <= 31 ? '$day' : '',
+                                  style: TextStyle(
+                                    fontSize: 9,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : _DemoColors.slate700,
+                                  ),
+                                ),
+                              );
+                            }),
                           ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            day <= 31 ? '$day' : '',
-                            style: TextStyle(
-                              fontSize: 9,
-                              color: isSelected
-                                  ? Colors.white
-                                  : _DemoColors.slate700,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                ),
+                        )),
               ],
             ),
           ),
@@ -926,60 +909,51 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.keyboard_arrow_up,
-                      size: 14,
-                      color: _DemoColors.slate400,
-                    ),
+                    Icon(Icons.keyboard_arrow_up,
+                        size: 14, color: _DemoColors.slate400),
                   ],
                 ),
                 const SizedBox(height: 4),
                 ...List.generate(
-                  4,
-                  (row) => Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(3, (col) {
-                        final year = 2020 + row * 3 + col;
-                        final isSelected = year == 2026;
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
+                    4,
+                    (row) => Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(3, (col) {
+                              final year = 2020 + row * 3 + col;
+                              final isSelected = year == 2026;
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? _DemoColors.amber600
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  '$year',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: isSelected
+                                        ? FontWeight.bold
+                                        : FontWeight.w500,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : _DemoColors.slate700,
+                                  ),
+                                ),
+                              );
+                            }),
                           ),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? _DemoColors.amber600
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            '$year',
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.w500,
-                              color: isSelected
-                                  ? Colors.white
-                                  : _DemoColors.slate700,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                ),
+                        )),
                 const SizedBox(height: 4),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      size: 14,
-                      color: _DemoColors.slate400,
-                    ),
+                    Icon(Icons.keyboard_arrow_down,
+                        size: 14, color: _DemoColors.slate400),
                   ],
                 ),
               ],
@@ -1101,9 +1075,7 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                     const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: color,
                         borderRadius: BorderRadius.circular(4),
@@ -1164,7 +1136,10 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
           const SizedBox(height: 16),
           const Text(
             'These enums serve different purposes and are often confused:',
-            style: TextStyle(fontSize: 13, color: _DemoColors.slate700),
+            style: TextStyle(
+              fontSize: 13,
+              color: _DemoColors.slate700,
+            ),
           ),
           const SizedBox(height: 16),
 
@@ -1224,26 +1199,10 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
                     ],
                   ),
                 ),
-                _buildComparisonRow(
-                  'Controls',
-                  'Calendar VIEW',
-                  'INPUT METHOD',
-                ),
-                _buildComparisonRow(
-                  'Values',
-                  'day, year',
-                  'calendar, input, calendarOnly, inputOnly',
-                ),
-                _buildComparisonRow(
-                  'Question',
-                  'Which grid to show?',
-                  'Calendar or text field?',
-                ),
-                _buildComparisonRow(
-                  'Parameter',
-                  'initialDatePickerMode',
-                  'initialEntryMode',
-                ),
+                _buildComparisonRow('Controls', 'Calendar VIEW', 'INPUT METHOD'),
+                _buildComparisonRow('Values', 'day, year', 'calendar, input, calendarOnly, inputOnly'),
+                _buildComparisonRow('Question', 'Which grid to show?', 'Calendar or text field?'),
+                _buildComparisonRow('Parameter', 'initialDatePickerMode', 'initialEntryMode'),
               ],
             ),
           ),
@@ -1256,7 +1215,9 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: _DemoColors.slate100)),
+        border: Border(
+          bottom: BorderSide(color: _DemoColors.slate100),
+        ),
       ),
       child: Row(
         children: [
@@ -1322,16 +1283,21 @@ class _DatePickerModeShowcaseState extends State<DatePickerModeShowcase> {
             ],
           ),
           const SizedBox(height: 20),
-          _buildCodeBlock('Default Day Mode (most common)', '''
+          _buildCodeBlock(
+            'Default Day Mode (most common)',
+            '''
 final DateTime? picked = await showDatePicker(
   context: context,
   initialDate: DateTime.now(),
   firstDate: DateTime.now(),
   lastDate: DateTime.now().add(Duration(days: 365)),
   initialDatePickerMode: DatePickerMode.day,
-);'''),
+);''',
+          ),
           const SizedBox(height: 16),
-          _buildCodeBlock('Year Mode for Birth Date', '''
+          _buildCodeBlock(
+            'Year Mode for Birth Date',
+            '''
 final DateTime? birthDate = await showDatePicker(
   context: context,
   initialDate: DateTime(2000, 1, 1),
@@ -1339,9 +1305,12 @@ final DateTime? birthDate = await showDatePicker(
   lastDate: DateTime.now(),
   initialDatePickerMode: DatePickerMode.year,
   helpText: 'Select your birth year first',
-);'''),
+);''',
+          ),
           const SizedBox(height: 16),
-          _buildCodeBlock('Combining Both Mode Parameters', '''
+          _buildCodeBlock(
+            'Combining Both Mode Parameters',
+            '''
 // Year mode for calendar VIEW, calendar for INPUT method
 final DateTime? date = await showDatePicker(
   context: context,
@@ -1350,7 +1319,8 @@ final DateTime? date = await showDatePicker(
   lastDate: DateTime.now(),
   initialDatePickerMode: DatePickerMode.year,
   initialEntryMode: DatePickerEntryMode.calendar,
-);'''),
+);''',
+          ),
         ],
       ),
     );
@@ -1514,11 +1484,7 @@ final DateTime? date = await showDatePicker(
         children: [
           const Row(
             children: [
-              Icon(
-                Icons.accessibility_new,
-                color: _DemoColors.sky500,
-                size: 22,
-              ),
+              Icon(Icons.accessibility_new, color: _DemoColors.sky500, size: 22),
               SizedBox(width: 10),
               Text(
                 'Accessibility Notes',
@@ -1631,29 +1597,25 @@ final DateTime? date = await showDatePicker(
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: DatePickerMode.values
-                .map(
-                  (mode) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: mode == DatePickerMode.day
-                          ? _DemoColors.emerald600
-                          : _DemoColors.amber600,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      mode.name,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                .map((mode) => Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: mode == DatePickerMode.day
+                            ? _DemoColors.emerald600
+                            : _DemoColors.amber600,
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                    ),
-                  ),
-                )
+                      child: Text(
+                        mode.name,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ))
                 .toList(),
           ),
         ],

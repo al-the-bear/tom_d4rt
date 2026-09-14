@@ -35,11 +35,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF003B46),
-          Color(0xFF07575B),
-          Color(0xFF66A5AD),
-        ],
+        colors: <Color>[Color(0xFF003B46), Color(0xFF07575B), Color(0xFF66A5AD)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -76,11 +72,7 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          child: const Icon(
-            Icons.screen_rotation,
-            size: 64.0,
-            color: Colors.white,
-          ),
+          child: const Icon(Icons.screen_rotation, size: 64.0, color: Colors.white),
         ),
         const SizedBox(height: 14.0),
         const Text(
@@ -185,10 +177,7 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(width: 12.0),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 3.0,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: Colors.white12,
                     borderRadius: BorderRadius.circular(4.0),
@@ -273,8 +262,7 @@ dynamic build(BuildContext context) {
     _OrientationSpec(
       orientation: DeviceOrientation.landscapeRight,
       title: 'LANDSCAPE RIGHT',
-      caption:
-          'Top points right. Mirror of landscapeLeft, picked by sensor side.',
+      caption: 'Top points right. Mirror of landscapeLeft, picked by sensor side.',
       turns: 0.25,
       accent: Colors.teal,
       icon: Icons.screen_lock_landscape,
@@ -331,7 +319,9 @@ dynamic build(BuildContext context) {
         SizedBox(
           width: 260.0,
           height: 260.0,
-          child: CustomPaint(painter: _CompassPainter()),
+          child: CustomPaint(
+            painter: _CompassPainter(),
+          ),
         ),
         const SizedBox(height: 8.0),
         Text(
@@ -539,11 +529,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.red.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.red.shade700, size: 22.0),
             const SizedBox(width: 8.0),
             Text(
               'Pitfalls and platform quirks',
@@ -657,12 +644,16 @@ dynamic build(BuildContext context) {
                     'Each orientation is mocked at its real rotation - '
                     'rendered with AlwaysStoppedAnimation, no ticker required.',
               ),
-              Wrap(alignment: WrapAlignment.center, children: frameCards),
+              Wrap(
+                alignment: WrapAlignment.center,
+                children: frameCards,
+              ),
               const SizedBox(height: 16.0),
               const _SectionHeader(
                 index: '4',
                 title: 'Compass Rose',
-                subtitle: 'Cardinal mapping painted by a CustomPainter.',
+                subtitle:
+                    'Cardinal mapping painted by a CustomPainter.',
               ),
               compass,
               const _SectionHeader(
@@ -675,13 +666,15 @@ dynamic build(BuildContext context) {
               const _SectionHeader(
                 index: '6',
                 title: 'Recipes',
-                subtitle: 'Five copy-paste-ready SystemChrome calls.',
+                subtitle:
+                    'Five copy-paste-ready SystemChrome calls.',
               ),
               ...recipeCards,
               const _SectionHeader(
                 index: '7',
                 title: 'Pitfalls',
-                subtitle: 'What breaks on tablets, web, desktop and foldables.',
+                subtitle:
+                    'What breaks on tablets, web, desktop and foldables.',
               ),
               pitfallList,
               const _SectionHeader(
@@ -775,7 +768,9 @@ Widget _buildOrientationCard(_OrientationSpec spec) {
   final Widget device = SizedBox(
     width: 150.0,
     height: 230.0,
-    child: CustomPaint(painter: _DevicePainter(accent: spec.accent)),
+    child: CustomPaint(
+      painter: _DevicePainter(accent: spec.accent),
+    ),
   );
 
   return Container(
@@ -820,9 +815,7 @@ Widget _buildOrientationCard(_OrientationSpec spec) {
             ),
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 2.0,
-              ),
+                  horizontal: 6.0, vertical: 2.0),
               decoration: BoxDecoration(
                 color: spec.accent.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(4.0),
@@ -843,12 +836,16 @@ Widget _buildOrientationCard(_OrientationSpec spec) {
           width: 240.0,
           height: 240.0,
           child: Center(
-            child: RotationTransition(turns: turns, child: device),
+            child: RotationTransition(
+              turns: turns,
+              child: device,
+            ),
           ),
         ),
         const SizedBox(height: 10.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 8.0, vertical: 4.0),
           decoration: BoxDecoration(
             color: spec.accent.withValues(alpha: 0.18),
             borderRadius: BorderRadius.circular(4.0),
@@ -882,9 +879,8 @@ Widget _buildBarRow(_OrientationSpec spec) {
   // orientations we swap the ordering to highlight the change.
   final bool isLandscape =
       spec.orientation == DeviceOrientation.landscapeLeft ||
-      spec.orientation == DeviceOrientation.landscapeRight;
-  final bool isFlipped =
-      spec.orientation == DeviceOrientation.portraitDown ||
+          spec.orientation == DeviceOrientation.landscapeRight;
+  final bool isFlipped = spec.orientation == DeviceOrientation.portraitDown ||
       spec.orientation == DeviceOrientation.landscapeRight;
 
   final Widget statusBar = Container(
@@ -1058,10 +1054,7 @@ Widget _buildRecipeCard(_Recipe r) {
         const SizedBox(height: 4.0),
         Text(
           r.subtitle,
-          style: TextStyle(
-            fontSize: 11.0,
-            color: r.tint.withValues(alpha: 0.85),
-          ),
+          style: TextStyle(fontSize: 11.0, color: r.tint.withValues(alpha: 0.85)),
         ),
         const SizedBox(height: 10.0),
         Container(
@@ -1219,7 +1212,10 @@ class _SectionHeader extends StatelessWidget {
                 const SizedBox(height: 2.0),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
               ],
             ),
@@ -1291,34 +1287,18 @@ class _CompassPainter extends CustomPainter {
     canvas.drawCircle(center, 6.0, hub);
 
     // Labels at the four cardinal points.
-    _drawLabel(
-      canvas,
-      center.translate(0, -radius - 4),
-      'portraitUp',
-      Colors.indigo.shade800,
-      anchor: _LabelAnchor.bottom,
-    );
-    _drawLabel(
-      canvas,
-      center.translate(0, radius + 4),
-      'portraitDown',
-      Colors.purple.shade800,
-      anchor: _LabelAnchor.top,
-    );
-    _drawLabel(
-      canvas,
-      center.translate(-radius - 4, 0),
-      'landscapeLeft',
-      Colors.deepOrange.shade800,
-      anchor: _LabelAnchor.right,
-    );
-    _drawLabel(
-      canvas,
-      center.translate(radius + 4, 0),
-      'landscapeRight',
-      Colors.teal.shade800,
-      anchor: _LabelAnchor.left,
-    );
+    _drawLabel(canvas, center.translate(0, -radius - 4),
+        'portraitUp', Colors.indigo.shade800,
+        anchor: _LabelAnchor.bottom);
+    _drawLabel(canvas, center.translate(0, radius + 4),
+        'portraitDown', Colors.purple.shade800,
+        anchor: _LabelAnchor.top);
+    _drawLabel(canvas, center.translate(-radius - 4, 0),
+        'landscapeLeft', Colors.deepOrange.shade800,
+        anchor: _LabelAnchor.right);
+    _drawLabel(canvas, center.translate(radius + 4, 0),
+        'landscapeRight', Colors.teal.shade800,
+        anchor: _LabelAnchor.left);
   }
 
   void _drawLabel(

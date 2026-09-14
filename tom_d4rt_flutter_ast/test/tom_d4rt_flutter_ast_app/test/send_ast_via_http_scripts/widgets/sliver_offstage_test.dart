@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility_off,
       'title': 'What Is SliverOffstage?',
-      'body':
-          'SliverOffstage wraps a child sliver and can hide it from the '
+      'body': 'SliverOffstage wraps a child sliver and can hide it from the '
           'layout entirely. When offstage is true, the child occupies zero '
           'scroll extent, is not painted, and does not participate in hit '
           'testing. But it remains in the widget tree — state is preserved.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'Offstage vs Removing from Tree',
-      'body':
-          'If you conditionally omit a sliver from the slivers list, '
+      'body': 'If you conditionally omit a sliver from the slivers list, '
           'its State is destroyed. SliverOffstage keeps the child mounted '
           'so StatefulWidget state, animations, and controllers survive '
           'the hide/show cycle.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility,
       'title': 'Offstage vs Visibility',
-      'body':
-          'Visibility(visible: false) still takes space even though it '
+      'body': 'Visibility(visible: false) still takes space even though it '
           'is invisible. SliverOffstage(offstage: true) removes the sliver '
           'from layout — it takes no space at all. Similar to Offstage for '
           'box widgets, but operating in sliver coordinates.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.flag,
       'title': 'Typical Use Cases',
-      'body':
-          'Feature flags — hide experimental sections without removing '
+      'body': 'Feature flags — hide experimental sections without removing '
           'from tree. Admin-only sections that appear when toggled. '
           'Conditional content that maintains state between toggles. '
           'Progressive disclosure in complex scrolling views.',
@@ -124,8 +120,7 @@ dynamic build(BuildContext context) {
       'type': 'bool',
       'required': false,
       'defaultVal': 'true',
-      'desc':
-          'Whether the child sliver is hidden from layout and painting. '
+      'desc': 'Whether the child sliver is hidden from layout and painting. '
           'When true, the sliver occupies zero extent and is invisible. '
           'When false, the sliver renders normally.',
     },
@@ -134,8 +129,7 @@ dynamic build(BuildContext context) {
       'type': 'Widget?',
       'required': false,
       'defaultVal': 'null',
-      'desc':
-          'The child sliver to show or hide. Can be any sliver widget: '
+      'desc': 'The child sliver to show or hide. Can be any sliver widget: '
           'SliverList, SliverGrid, SliverToBoxAdapter, etc.',
     },
     {
@@ -354,11 +348,7 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.star_border,
-                    color: Colors.green,
-                    size: 20.0,
-                  ),
+                  const Icon(Icons.star_border, color: Colors.green, size: 20.0),
                   const SizedBox(width: 8.0),
                   Text(
                     'Standard Content',
@@ -754,7 +744,9 @@ dynamic build(BuildContext context) {
         offstage: !enabled,
         sliver: SliverToBoxAdapter(
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0),
+            margin: const EdgeInsets.symmetric(
+              horizontal: 14.0, vertical: 4.0,
+            ),
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.06),
@@ -770,7 +762,11 @@ dynamic build(BuildContext context) {
                     color: color.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: Icon(f['icon'] as IconData, color: color, size: 22.0),
+                  child: Icon(
+                    f['icon'] as IconData,
+                    color: color,
+                    size: 22.0,
+                  ),
                 ),
                 const SizedBox(width: 14.0),
                 Expanded(
@@ -798,8 +794,7 @@ dynamic build(BuildContext context) {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
+                    horizontal: 8.0, vertical: 4.0,
                   ),
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.1),
@@ -961,16 +956,10 @@ dynamic build(BuildContext context) {
       Icons.visibility_off,
       Colors.indigo,
       [
-        {
-          'label': 'Layout',
-          'desc': 'Zero extent when offstage — no space taken',
-        },
+        {'label': 'Layout', 'desc': 'Zero extent when offstage — no space taken'},
         {'label': 'Painting', 'desc': 'Not painted when offstage'},
         {'label': 'State', 'desc': 'Preserved — widget tree stays mounted'},
-        {
-          'label': 'Context',
-          'desc': 'Sliver-only — use inside CustomScrollView',
-        },
+        {'label': 'Context', 'desc': 'Sliver-only — use inside CustomScrollView'},
       ],
       'SliverOffstage(\n  offstage: true,\n  sliver: mySliverList,\n)',
     ),
@@ -993,14 +982,8 @@ dynamic build(BuildContext context) {
       Icons.remove_red_eye,
       Colors.orange,
       [
-        {
-          'label': 'Layout',
-          'desc': 'Maintains size — takes space even when invisible',
-        },
-        {
-          'label': 'Painting',
-          'desc': 'Optionally hidden via maintainSize/maintainAnimation',
-        },
+        {'label': 'Layout', 'desc': 'Maintains size — takes space even when invisible'},
+        {'label': 'Painting', 'desc': 'Optionally hidden via maintainSize/maintainAnimation'},
         {'label': 'State', 'desc': 'Preserved — tree stays mounted'},
         {'label': 'Context', 'desc': 'Box-only — more control than Offstage'},
       ],
@@ -1029,8 +1012,7 @@ dynamic build(BuildContext context) {
   final announcements = <Map<String, dynamic>>[
     {
       'title': 'System Maintenance',
-      'body':
-          'Scheduled maintenance on July 15th from 2:00-4:00 AM UTC. '
+      'body': 'Scheduled maintenance on July 15th from 2:00-4:00 AM UTC. '
           'All services will be temporarily unavailable.',
       'icon': Icons.build,
       'color': Colors.orange,
@@ -1039,8 +1021,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'New Feature: Dark Mode',
-      'body':
-          'Dark mode is now available! Go to Settings → Appearance '
+      'body': 'Dark mode is now available! Go to Settings → Appearance '
           'to try it out.',
       'icon': Icons.dark_mode,
       'color': Colors.purple,
@@ -1049,8 +1030,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Staff Only: Q3 Planning',
-      'body':
-          'Internal planning session for Q3 roadmap. Check your calendar '
+      'body': 'Internal planning session for Q3 roadmap. Check your calendar '
           'for the meeting invite.',
       'icon': Icons.lock,
       'color': Colors.red,
@@ -1059,8 +1039,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Holiday Hours',
-      'body':
-          'Support hours will be reduced during the holiday period. '
+      'body': 'Support hours will be reduced during the holiday period. '
           'Emergency support remains available 24/7.',
       'icon': Icons.event,
       'color': Colors.teal,
@@ -1069,8 +1048,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Beta Testers Wanted',
-      'body':
-          'Join our beta program to preview upcoming features before '
+      'body': 'Join our beta program to preview upcoming features before '
           'they launch. Sign up in your account settings.',
       'icon': Icons.science,
       'color': Colors.blue,
@@ -1124,7 +1102,9 @@ dynamic build(BuildContext context) {
         offstage: isHidden,
         sliver: SliverToBoxAdapter(
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 5.0),
+            margin: const EdgeInsets.symmetric(
+              horizontal: 14.0, vertical: 5.0,
+            ),
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.05),
@@ -1162,8 +1142,7 @@ dynamic build(BuildContext context) {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 3.0,
+                        horizontal: 8.0, vertical: 3.0,
                       ),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.1),
@@ -1264,8 +1243,7 @@ dynamic build(BuildContext context) {
     },
     {
       'icon': Icons.warning_amber,
-      'text':
-          'Offstage children still mount and run build() — they cost memory',
+      'text': 'Offstage children still mount and run build() — they cost memory',
       'color': Colors.orange,
     },
     {
@@ -1419,7 +1397,10 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 6.0),
                 Text(
                   'SliverOffstage controls visibility with a single boolean.',
-                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
                 const SizedBox(height: 16.0),
                 ...paramWidgets,
@@ -1451,7 +1432,10 @@ dynamic build(BuildContext context) {
                 Text(
                   'Different strategies for hiding content, each with '
                   'different trade-offs.',
-                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
                 const SizedBox(height: 16.0),
                 ...compPanels,
@@ -1509,7 +1493,11 @@ dynamic build(BuildContext context) {
 // ============================================================
 // HELPER: Build content items for sections
 // ============================================================
-List<Widget> _sosBuildContentItems(String prefix, Color color, int count) {
+List<Widget> _sosBuildContentItems(
+  String prefix,
+  Color color,
+  int count,
+) {
   final items = <Widget>[];
   for (var i = 0; i < count; i++) {
     items.add(
@@ -1543,7 +1531,10 @@ List<Widget> _sosBuildContentItems(String prefix, Color color, int count) {
             const SizedBox(width: 10.0),
             Text(
               '$prefix item ${i + 1}',
-              style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 13.0,
+                color: Colors.grey.shade700,
+              ),
             ),
           ],
         ),
@@ -1576,7 +1567,10 @@ Widget _sosRefRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+            ),
           ),
         ),
       ],

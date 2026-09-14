@@ -49,11 +49,7 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildBasicSelectionArea(
-  String label,
-  String content,
-  Color highlightColor,
-) {
+Widget buildBasicSelectionArea(String label, String content, Color highlightColor) {
   print('Building basic selection area: $label');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -85,28 +81,23 @@ Widget buildBasicSelectionArea(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: highlightColor.withAlpha(60)),
             ),
-            child: Text(content, style: TextStyle(fontSize: 14, height: 1.5)),
+            child: Text(
+              content,
+              style: TextStyle(fontSize: 14, height: 1.5),
+            ),
           ),
         ),
         SizedBox(height: 8),
         Text(
           'Try selecting the text above',
-          style: TextStyle(
-            fontSize: 11,
-            color: Colors.grey.shade500,
-            fontStyle: FontStyle.italic,
-          ),
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade500, fontStyle: FontStyle.italic),
         ),
       ],
     ),
   );
 }
 
-Widget buildTextWrapperDemo(
-  String title,
-  List<String> paragraphs,
-  MaterialColor themeColor,
-) {
+Widget buildTextWrapperDemo(String title, List<String> paragraphs, MaterialColor themeColor) {
   print('Building text wrapper demo: $title');
   List<Widget> textWidgets = [];
   int idx = 0;
@@ -116,11 +107,7 @@ Widget buildTextWrapperDemo(
         padding: EdgeInsets.only(bottom: 8),
         child: Text(
           paragraphs[idx],
-          style: TextStyle(
-            fontSize: 14,
-            height: 1.6,
-            color: Colors.grey.shade800,
-          ),
+          style: TextStyle(fontSize: 14, height: 1.6, color: Colors.grey.shade800),
         ),
       ),
     );
@@ -186,11 +173,7 @@ Widget buildRichTextSelectionDemo(String label, MaterialColor accentColor) {
                 color: accentColor.shade100,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Icon(
-                Icons.format_color_text,
-                color: accentColor.shade700,
-                size: 18,
-              ),
+              child: Icon(Icons.format_color_text, color: accentColor.shade700, size: 18),
             ),
             SizedBox(width: 10),
             Text(
@@ -203,35 +186,22 @@ Widget buildRichTextSelectionDemo(String label, MaterialColor accentColor) {
         SelectionArea(
           child: RichText(
             text: TextSpan(
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey.shade800,
-                height: 1.6,
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade800, height: 1.6),
               children: [
                 TextSpan(text: 'SelectionArea '),
                 TextSpan(
                   text: 'enables text selection ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: accentColor.shade700,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: accentColor.shade700),
                 ),
                 TextSpan(text: 'across multiple '),
                 TextSpan(
                   text: 'Text ',
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    color: Colors.purple.shade600,
-                  ),
+                  style: TextStyle(fontStyle: FontStyle.italic, color: Colors.purple.shade600),
                 ),
                 TextSpan(text: 'and '),
                 TextSpan(
                   text: 'RichText ',
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    color: Colors.teal.shade600,
-                  ),
+                  style: TextStyle(fontStyle: FontStyle.italic, color: Colors.teal.shade600),
                 ),
                 TextSpan(text: 'widgets. Users can '),
                 TextSpan(
@@ -319,8 +289,7 @@ Widget buildStyledRichTextDemo() {
                 ),
                 TextSpan(text: '\n\n'),
                 TextSpan(
-                  text:
-                      'SelectionArea provides a powerful way to enable text selection ',
+                  text: 'SelectionArea provides a powerful way to enable text selection ',
                 ),
                 TextSpan(
                   text: 'across widget boundaries. ',
@@ -329,18 +298,12 @@ Widget buildStyledRichTextDemo() {
                 TextSpan(text: 'This feature is essential for '),
                 TextSpan(
                   text: 'accessibility ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade700,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue.shade700),
                 ),
                 TextSpan(text: 'and '),
                 TextSpan(
                   text: 'usability.',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green.shade700,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade700),
                 ),
               ],
             ),
@@ -351,12 +314,7 @@ Widget buildStyledRichTextDemo() {
   );
 }
 
-Widget buildContextMenuExample(
-  String title,
-  String description,
-  IconData icon,
-  MaterialColor color,
-) {
+Widget buildContextMenuExample(String title, String description, IconData icon, MaterialColor color) {
   print('Building context menu example: $title');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -401,35 +359,27 @@ Widget buildContextMenuExample(
         ),
         SizedBox(height: 12),
         SelectionArea(
-          contextMenuBuilder:
-              (
-                BuildContext context,
-                SelectableRegionState selectableRegionState,
-              ) {
-                return AdaptiveTextSelectionToolbar.buttonItems(
-                  anchors: selectableRegionState.contextMenuAnchors,
-                  buttonItems: [
-                    ContextMenuButtonItem(
-                      onPressed: () {
-                        selectableRegionState.copySelection(
-                          SelectionChangedCause.toolbar,
-                        );
-                        print('Custom copy action triggered');
-                      },
-                      type: ContextMenuButtonType.copy,
-                    ),
-                    ContextMenuButtonItem(
-                      onPressed: () {
-                        selectableRegionState.selectAll(
-                          SelectionChangedCause.toolbar,
-                        );
-                        print('Custom select all action triggered');
-                      },
-                      type: ContextMenuButtonType.selectAll,
-                    ),
-                  ],
-                );
-              },
+          contextMenuBuilder: (BuildContext context, SelectableRegionState selectableRegionState) {
+            return AdaptiveTextSelectionToolbar.buttonItems(
+              anchors: selectableRegionState.contextMenuAnchors,
+              buttonItems: [
+                ContextMenuButtonItem(
+                  onPressed: () {
+                    selectableRegionState.copySelection(SelectionChangedCause.toolbar);
+                    print('Custom copy action triggered');
+                  },
+                  type: ContextMenuButtonType.copy,
+                ),
+                ContextMenuButtonItem(
+                  onPressed: () {
+                    selectableRegionState.selectAll(SelectionChangedCause.toolbar);
+                    print('Custom select all action triggered');
+                  },
+                  type: ContextMenuButtonType.selectAll,
+                ),
+              ],
+            );
+          },
           child: Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -495,11 +445,7 @@ Widget buildSelectionControlsDemo() {
                 color: controlColors[c].shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                controlIcons[c],
-                color: controlColors[c].shade700,
-                size: 24,
-              ),
+              child: Icon(controlIcons[c], color: controlColors[c].shade700, size: 24),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -526,11 +472,7 @@ Widget buildSelectionControlsDemo() {
               ),
               child: Text(
                 'v${c + 1}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -588,11 +530,7 @@ Widget buildOnSelectionChangedDemo() {
                 color: Colors.teal.shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                Icons.event_note,
-                color: Colors.teal.shade700,
-                size: 20,
-              ),
+              child: Icon(Icons.event_note, color: Colors.teal.shade700, size: 20),
             ),
             SizedBox(width: 10),
             Column(
@@ -647,11 +585,7 @@ Widget buildOnSelectionChangedDemo() {
               Expanded(
                 child: Text(
                   'onSelectionChanged: (content) => print(content?.plainText)',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'monospace',
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 12, fontFamily: 'monospace', color: Colors.grey.shade700),
                 ),
               ),
             ],
@@ -714,11 +648,7 @@ Widget buildSelectionEventsList() {
                 color: eventColors[e].shade100,
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                eventIcons[e],
-                color: eventColors[e].shade700,
-                size: 16,
-              ),
+              child: Icon(eventIcons[e], color: eventColors[e].shade700, size: 16),
             ),
             SizedBox(width: 10),
             Expanded(
@@ -801,11 +731,7 @@ Widget buildFocusNodeDemo() {
                 color: Colors.deepPurple.shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                Icons.center_focus_strong,
-                color: Colors.deepPurple.shade700,
-                size: 20,
-              ),
+              child: Icon(Icons.center_focus_strong, color: Colors.deepPurple.shade700, size: 20),
             ),
             SizedBox(width: 10),
             Expanded(
@@ -855,19 +781,11 @@ Widget buildFocusNodeDemo() {
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.keyboard,
-                      color: Colors.deepPurple.shade700,
-                      size: 20,
-                    ),
+                    Icon(Icons.keyboard, color: Colors.deepPurple.shade700, size: 20),
                     SizedBox(height: 4),
                     Text(
                       'Keyboard Nav',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple.shade800,
-                      ),
+                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800),
                     ),
                   ],
                 ),
@@ -883,19 +801,11 @@ Widget buildFocusNodeDemo() {
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.accessibility_new,
-                      color: Colors.deepPurple.shade700,
-                      size: 20,
-                    ),
+                    Icon(Icons.accessibility_new, color: Colors.deepPurple.shade700, size: 20),
                     SizedBox(height: 4),
                     Text(
                       'Accessibility',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple.shade800,
-                      ),
+                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800),
                     ),
                   ],
                 ),
@@ -911,19 +821,11 @@ Widget buildFocusNodeDemo() {
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.code,
-                      color: Colors.deepPurple.shade700,
-                      size: 20,
-                    ),
+                    Icon(Icons.code, color: Colors.deepPurple.shade700, size: 20),
                     SizedBox(height: 4),
                     Text(
                       'Programmatic',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple.shade800,
-                      ),
+                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800),
                     ),
                   ],
                 ),
@@ -952,7 +854,13 @@ Widget buildFocusNodeMethods() {
     'Check if this node has primary focus',
     'Check if focus can be requested',
   ];
-  List<String> methodReturns = ['void', 'void', 'bool', 'bool', 'bool'];
+  List<String> methodReturns = [
+    'void',
+    'void',
+    'bool',
+    'bool',
+    'bool',
+  ];
 
   List<Widget> methodItems = [];
   int m = 0;
@@ -972,11 +880,7 @@ Widget buildFocusNodeMethods() {
               flex: 2,
               child: Text(
                 methodNames[m],
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'monospace',
-                ),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, fontFamily: 'monospace'),
               ),
             ),
             Container(
@@ -1031,12 +935,7 @@ Widget buildFocusNodeMethods() {
   );
 }
 
-Widget buildChildLayoutCard(
-  String title,
-  String description,
-  Widget child,
-  MaterialColor color,
-) {
+Widget buildChildLayoutCard(String title, String description, Widget child, MaterialColor color) {
   print('Building child layout card: $title');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -1066,11 +965,7 @@ Widget buildChildLayoutCard(
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: color.shade800,
-                    ),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: color.shade800),
                   ),
                   Text(
                     description,
@@ -1152,11 +1047,7 @@ Widget buildRowLayoutDemo() {
               children: [
                 Text(
                   'Column A',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green.shade800,
-                  ),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.green.shade800),
                 ),
                 SizedBox(height: 4),
                 Text(
@@ -1179,11 +1070,7 @@ Widget buildRowLayoutDemo() {
               children: [
                 Text(
                   'Column B',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green.shade800,
-                  ),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.green.shade800),
                 ),
                 SizedBox(height: 4),
                 Text(
@@ -1206,11 +1093,7 @@ Widget buildRowLayoutDemo() {
               children: [
                 Text(
                   'Column C',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green.shade800,
-                  ),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.green.shade800),
                 ),
                 SizedBox(height: 4),
                 Text(
@@ -1249,7 +1132,10 @@ Widget buildNestedLayoutDemo() {
           child: Row(
             children: [
               Expanded(
-                child: Text('Author: John Doe', style: TextStyle(fontSize: 12)),
+                child: Text(
+                  'Author: John Doe',
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               Text(
                 'Date: 2026-03-21',
@@ -1343,11 +1229,7 @@ Widget buildWrapLayoutDemo() {
         SizedBox(height: 10),
         Text(
           'Each tag above contains selectable text. Users can select across multiple tags in a single selection gesture.',
-          style: TextStyle(
-            fontSize: 12,
-            height: 1.4,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 12, height: 1.4, color: Colors.grey.shade700),
         ),
       ],
     ),
@@ -1397,22 +1279,14 @@ Widget buildPropertySummary() {
               flex: 2,
               child: Text(
                 propNames[p],
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'monospace',
-                ),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, fontFamily: 'monospace'),
               ),
             ),
             Expanded(
               flex: 2,
               child: Text(
                 propTypes[p],
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.blue.shade700,
-                  fontFamily: 'monospace',
-                ),
+                style: TextStyle(fontSize: 11, color: Colors.blue.shade700, fontFamily: 'monospace'),
               ),
             ),
             Expanded(
@@ -1453,11 +1327,7 @@ Widget buildPropertySummary() {
               SizedBox(width: 8),
               Text(
                 'SelectionArea Properties',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.indigo.shade800,
-                ),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
               ),
             ],
           ),
@@ -1469,24 +1339,15 @@ Widget buildPropertySummary() {
             children: [
               Expanded(
                 flex: 2,
-                child: Text(
-                  'Property',
-                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                ),
+                child: Text('Property', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 2,
-                child: Text(
-                  'Type',
-                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                ),
+                child: Text('Type', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 3,
-                child: Text(
-                  'Description',
-                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                ),
+                child: Text('Description', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -1516,48 +1377,50 @@ dynamic build(BuildContext context) {
         children: [
           buildInfoCard('Widget', 'SelectionArea'),
           buildInfoCard('Package', 'package:flutter/material.dart'),
-          buildInfoCard(
-            'Purpose',
-            'Enables text selection for child widget subtree',
-          ),
-
+          buildInfoCard('Purpose', 'Enables text selection for child widget subtree'),
+          
           buildSectionHeader('SelectionArea Widget Basics'),
           buildBasicSelectionArea(
             'Simple Text Selection',
             'SelectionArea is a widget that enables text selection for its descendant Text and RichText widgets. '
-                'When wrapped in a SelectionArea, users can tap and drag to select text, then use the context menu to copy. '
-                'This is essential for creating accessible and user-friendly text content.',
+            'When wrapped in a SelectionArea, users can tap and drag to select text, then use the context menu to copy. '
+            'This is essential for creating accessible and user-friendly text content.',
             Colors.blue,
           ),
           buildBasicSelectionArea(
             'Multi-line Selection',
             'SelectionArea handles multi-line text elegantly. Users can begin selecting on one line and extend '
-                'to multiple subsequent lines. The selection highlight follows the text flow naturally, wrapping '
-                'at line breaks and respecting text direction. This behavior works consistently across platforms.',
+            'to multiple subsequent lines. The selection highlight follows the text flow naturally, wrapping '
+            'at line breaks and respecting text direction. This behavior works consistently across platforms.',
             Colors.green,
           ),
           buildPropertySummary(),
-
+          
           buildSectionHeader('Wrapping Text Widgets'),
-          buildTextWrapperDemo('Article Content', [
-            'The SelectionArea widget was introduced to simplify text selection in Flutter applications.',
-            'Before SelectionArea, developers had to use SelectableText for each individual Text widget, which was cumbersome for complex layouts.',
-            'With SelectionArea, a single wrapper enables selection for entire widget subtrees, making it much more convenient.',
-            'This approach also ensures consistent selection behavior across all wrapped text elements.',
-          ], Colors.teal),
-          buildTextWrapperDemo('Documentation Example', [
-            'To use SelectionArea, simply wrap your content with the SelectionArea widget.',
-            'All descendant Text and RichText widgets become selectable automatically.',
-            'The selection extends seamlessly across widget boundaries within the SelectionArea.',
-          ], Colors.amber),
-
-          buildSectionHeader('Wrapping RichText'),
-          buildRichTextSelectionDemo(
-            'Formatted Text Selection',
-            Colors.deepPurple,
+          buildTextWrapperDemo(
+            'Article Content',
+            [
+              'The SelectionArea widget was introduced to simplify text selection in Flutter applications.',
+              'Before SelectionArea, developers had to use SelectableText for each individual Text widget, which was cumbersome for complex layouts.',
+              'With SelectionArea, a single wrapper enables selection for entire widget subtrees, making it much more convenient.',
+              'This approach also ensures consistent selection behavior across all wrapped text elements.',
+            ],
+            Colors.teal,
           ),
+          buildTextWrapperDemo(
+            'Documentation Example',
+            [
+              'To use SelectionArea, simply wrap your content with the SelectionArea widget.',
+              'All descendant Text and RichText widgets become selectable automatically.',
+              'The selection extends seamlessly across widget boundaries within the SelectionArea.',
+            ],
+            Colors.amber,
+          ),
+          
+          buildSectionHeader('Wrapping RichText'),
+          buildRichTextSelectionDemo('Formatted Text Selection', Colors.deepPurple),
           buildStyledRichTextDemo(),
-
+          
           buildSectionHeader('contextMenuBuilder'),
           buildContextMenuExample(
             'Custom Copy Menu',
@@ -1571,24 +1434,24 @@ dynamic build(BuildContext context) {
             Icons.more_horiz,
             Colors.green,
           ),
-
+          
           buildSectionHeader('selectionControls'),
           buildSelectionControlsDemo(),
-
+          
           buildSectionHeader('onSelectionChanged'),
           buildOnSelectionChangedDemo(),
           buildSelectionEventsList(),
-
+          
           buildSectionHeader('focusNode Usage'),
           buildFocusNodeDemo(),
           buildFocusNodeMethods(),
-
+          
           buildSectionHeader('Child Layout Variants'),
           buildColumnLayoutDemo(),
           buildRowLayoutDemo(),
           buildNestedLayoutDemo(),
           buildWrapLayoutDemo(),
-
+          
           SizedBox(height: 24),
           Container(
             padding: EdgeInsets.all(16),
@@ -1603,11 +1466,7 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     'SelectionArea deep demo completed successfully',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],

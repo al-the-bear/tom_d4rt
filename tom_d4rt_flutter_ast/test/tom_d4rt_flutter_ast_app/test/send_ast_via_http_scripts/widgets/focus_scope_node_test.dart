@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'A Scope in the Focus Tree',
-      'body':
-          'FocusScopeNode is a special FocusNode that acts as '
+      'body': 'FocusScopeNode is a special FocusNode that acts as '
           'a scope — a group that contains other FocusNodes and '
           'potentially other FocusScopeNodes. It is the "folder" '
           'in Flutter\'s focus tree, while regular FocusNodes '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.keyboard,
       'title': 'Keyboard Navigation Container',
-      'body':
-          'When the user presses Tab or arrow keys, focus '
+      'body': 'When the user presses Tab or arrow keys, focus '
           'traverses within a scope before leaving it. FocusScopeNode '
           'defines the boundary: focus cycles through its children '
           'before escaping to the parent scope.',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.star,
       'title': 'Manages Autofocus',
-      'body':
-          'FocusScopeNode tracks which child should receive '
+      'body': 'FocusScopeNode tracks which child should receive '
           'focus automatically when the scope gains focus. The '
           'autofocus property on child FocusNodes registers with '
           'their enclosing FocusScopeNode.',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Backed by FocusScope Widget',
-      'body':
-          'The FocusScope widget creates and manages a '
+      'body': 'The FocusScope widget creates and manages a '
           'FocusScopeNode. Most developers interact with the '
           'widget; the node is the lower-level API for programmatic '
           'focus management.',
@@ -72,8 +68,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.child_care,
       'color': Colors.deepOrange[600]!,
       'bgColor': Colors.deepOrange[50]!,
-      'description':
-          'The descendant FocusNode that currently has '
+      'description': 'The descendant FocusNode that currently has '
           'focus within this scope (or null if none). This is the '
           '"active" element in the scope — the one receiving '
           'keyboard events.',
@@ -84,8 +79,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.visibility,
       'color': Colors.brown[600]!,
       'bgColor': Colors.brown[50]!,
-      'description':
-          'True if this scope or any descendant has focus. '
+      'description': 'True if this scope or any descendant has focus. '
           'A scope "has focus" even if the actual focused node is '
           'a deeply nested child. Useful for highlighting the '
           'entire scope when any child is focused.',
@@ -96,8 +90,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.filter_center_focus,
       'color': Colors.deepOrange[700]!,
       'bgColor': Colors.deepOrange[50]!,
-      'description':
-          'True only if THIS scope node itself is the '
+      'description': 'True only if THIS scope node itself is the '
           'primary focused node (rare). Usually false because focus '
           'passes through scopes to leaf FocusNodes.',
     },
@@ -107,8 +100,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.lock_open,
       'color': Colors.brown[500]!,
       'bgColor': Colors.brown[50]!,
-      'description':
-          'Whether this scope (and its descendants) can '
+      'description': 'Whether this scope (and its descendants) can '
           'receive focus. Set to false to disable an entire section '
           'of the UI. All children become unfocusable.',
     },
@@ -118,8 +110,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.swap_vert,
       'color': Colors.deepOrange[500]!,
       'bgColor': Colors.orange[50]!,
-      'description':
-          'The ordered list of focusable children for '
+      'description': 'The ordered list of focusable children for '
           'traversal (Tab key). The order is determined by the '
           'FocusTraversalPolicy attached to this scope.',
     },
@@ -129,8 +120,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.touch_app,
       'color': Colors.brown[700]!,
       'bgColor': Colors.brown[50]!,
-      'description':
-          'Requests focus for a specific child, or for '
+      'description': 'Requests focus for a specific child, or for '
           'the scope\'s remembered focused child, or for the first '
           'autofocus child. The most common method for programmatic '
           'focus changes.',
@@ -141,8 +131,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.blur_off,
       'color': Colors.deepOrange[800]!,
       'bgColor': Colors.deepOrange[50]!,
-      'description':
-          'Removes focus from this scope. Depending on '
+      'description': 'Removes focus from this scope. Depending on '
           'the disposition parameter, focus either moves to the '
           'nearest ancestor scope or to the root scope.',
     },
@@ -152,8 +141,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.first_page,
       'color': Colors.brown[600]!,
       'bgColor': Colors.brown[50]!,
-      'description':
-          'Makes a child scope the first-focused scope. '
+      'description': 'Makes a child scope the first-focused scope. '
           'When this parent scope gains focus, it will delegate '
           'to the specified child scope first.',
     },
@@ -172,8 +160,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.foundation,
       'color': Colors.deepOrange[800]!,
       'depth': 0,
-      'description':
-          'Created by WidgetsBinding. The topmost scope '
+      'description': 'Created by WidgetsBinding. The topmost scope '
           'in the entire application. Every other scope is a '
           'descendant of this root.',
     },
@@ -182,8 +169,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.web,
       'color': Colors.deepOrange[700]!,
       'depth': 1,
-      'description':
-          'MaterialApp creates a FocusScope. Routes and '
+      'description': 'MaterialApp creates a FocusScope. Routes and '
           'overlays attach their scopes under this.',
     },
     {
@@ -191,8 +177,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.web_stories,
       'color': Colors.deepOrange[600]!,
       'depth': 2,
-      'description':
-          'Each Route (page) gets its own FocusScopeNode. '
+      'description': 'Each Route (page) gets its own FocusScopeNode. '
           'When navigating, the new route\'s scope gains focus. The '
           'old route\'s scope becomes unfocused but remembers which '
           'child had focus.',
@@ -202,8 +187,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.picture_in_picture,
       'color': Colors.brown[500]!,
       'depth': 3,
-      'description':
-          'Dialogs and bottom sheets create their own '
+      'description': 'Dialogs and bottom sheets create their own '
           'scopes. Focus is trapped within the dialog until it closes '
           '(focus trap pattern).',
     },
@@ -212,8 +196,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.text_fields,
       'color': Colors.brown[600]!,
       'depth': 3,
-      'description':
-          'Developers add custom FocusScope widgets to '
+      'description': 'Developers add custom FocusScope widgets to '
           'group related inputs (e.g., a login form). Tab traversal '
           'stays within the form before leaving.',
     },
@@ -222,8 +205,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.radio_button_unchecked,
       'color': Colors.grey[600]!,
       'depth': 4,
-      'description':
-          'Individual focusable widgets. They receive '
+      'description': 'Individual focusable widgets. They receive '
           'keyboard events when focused. They register with the '
           'nearest ancestor FocusScopeNode.',
     },
@@ -241,8 +223,7 @@ dynamic build(BuildContext context) {
       'name': 'Basic FocusScope',
       'icon': Icons.crop_free,
       'color': Colors.deepOrange[600]!,
-      'code':
-          'FocusScope(\n'
+      'code': 'FocusScope(\n'
           '  autofocus: true,\n'
           '  child: Column(\n'
           '    children: [\n'
@@ -252,8 +233,7 @@ dynamic build(BuildContext context) {
           '    ],\n'
           '  ),\n'
           ')',
-      'description':
-          'The most common usage. Wraps a group of '
+      'description': 'The most common usage. Wraps a group of '
           'focusable widgets. autofocus: true means the first '
           'focusable child gets focus when the scope appears.',
     },
@@ -261,14 +241,12 @@ dynamic build(BuildContext context) {
       'name': 'Accessing the Node',
       'icon': Icons.search,
       'color': Colors.brown[600]!,
-      'code':
-          '// Inside build():\n'
+      'code': '// Inside build():\n'
           'final scope = FocusScope.of(context);\n'
           'scope.requestFocus(myNode);\n'
           'scope.unfocus();\n'
           'print(scope.hasFocus);',
-      'description':
-          'FocusScope.of(context) returns the nearest '
+      'description': 'FocusScope.of(context) returns the nearest '
           'FocusScopeNode. Use it for programmatic focus control. '
           'This is the bridge from widget to node.',
     },
@@ -276,8 +254,7 @@ dynamic build(BuildContext context) {
       'name': 'Focus Trap (Dialog)',
       'icon': Icons.lock,
       'color': Colors.deepOrange[700]!,
-      'code':
-          'showDialog(\n'
+      'code': 'showDialog(\n'
           '  ...\n'
           '  builder: (_) => FocusScope(\n'
           '    autofocus: true,\n'
@@ -287,8 +264,7 @@ dynamic build(BuildContext context) {
           '    ),\n'
           '  ),\n'
           ')',
-      'description':
-          'Dialog creates a FocusScope. Tab traversal '
+      'description': 'Dialog creates a FocusScope. Tab traversal '
           'is trapped: pressing Tab cycles through the dialog\'s '
           'focusable children without escaping to the background.',
     },
@@ -296,8 +272,7 @@ dynamic build(BuildContext context) {
       'name': 'Disabling a Section',
       'icon': Icons.not_interested,
       'color': Colors.brown[700]!,
-      'code':
-          'FocusScope(\n'
+      'code': 'FocusScope(\n'
           '  canRequestFocus: false,\n'
           '  child: Column(\n'
           '    children: [\n'
@@ -306,8 +281,7 @@ dynamic build(BuildContext context) {
           '    ],\n'
           '  ),\n'
           ')',
-      'description':
-          'Setting canRequestFocus to false on the scope '
+      'description': 'Setting canRequestFocus to false on the scope '
           'disables all children. No child can receive focus. '
           'Useful for grayed-out form sections.',
     },
@@ -325,8 +299,7 @@ dynamic build(BuildContext context) {
       'name': 'ReadingOrderTraversalPolicy',
       'icon': Icons.format_textdirection_l_to_r,
       'color': Colors.deepOrange[500]!,
-      'description':
-          'Default policy. Traverses in reading order '
+      'description': 'Default policy. Traverses in reading order '
           '(top-to-bottom, left-to-right in LTR, right-to-left in '
           'RTL). Matches how users visually scan the page.',
     },
@@ -334,8 +307,7 @@ dynamic build(BuildContext context) {
       'name': 'OrderedTraversalPolicy',
       'icon': Icons.sort,
       'color': Colors.brown[500]!,
-      'description':
-          'Traverses children by explicit order numbers. '
+      'description': 'Traverses children by explicit order numbers. '
           'Each FocusNode is wrapped with FocusTraversalOrder and '
           'given a NumericFocusOrder(n). Lower n gets focus first.',
     },
@@ -343,8 +315,7 @@ dynamic build(BuildContext context) {
       'name': 'WidgetOrderTraversalPolicy',
       'icon': Icons.list,
       'color': Colors.deepOrange[600]!,
-      'description':
-          'Traverses in the order widgets appear in the '
+      'description': 'Traverses in the order widgets appear in the '
           'widget tree. Simplest policy — the first child in the '
           'Column/Row gets focus first.',
     },
@@ -352,8 +323,7 @@ dynamic build(BuildContext context) {
       'name': 'DirectionalFocusTraversalPolicyMixin',
       'icon': Icons.arrow_circle_up,
       'color': Colors.brown[600]!,
-      'description':
-          'Enables arrow-key navigation. Focus moves in '
+      'description': 'Enables arrow-key navigation. Focus moves in '
           'the direction of the pressed arrow key to the nearest '
           'focusable widget in that direction.',
     },
@@ -372,28 +342,28 @@ dynamic build(BuildContext context) {
       'scope': 'Groups and manages children',
       'node': 'Represents one focusable widget',
     },
-    {'aspect': 'Widget', 'scope': 'FocusScope widget', 'node': 'Focus widget'},
+    {
+      'aspect': 'Widget',
+      'scope': 'FocusScope widget',
+      'node': 'Focus widget',
+    },
     {
       'aspect': 'Has children?',
-      'scope':
-          'Yes — contains FocusNodes and '
+      'scope': 'Yes — contains FocusNodes and '
           'child FocusScopeNodes',
       'node': 'No — it\'s a leaf in the focus tree',
     },
     {
       'aspect': 'focusedChild',
-      'scope':
-          'Returns the currently focused '
+      'scope': 'Returns the currently focused '
           'descendant',
       'node': 'N/A (not a scope)',
     },
     {
       'aspect': 'Traversal',
-      'scope':
-          'Defines traversal boundary — Tab '
+      'scope': 'Defines traversal boundary — Tab '
           'stays within before leaving',
-      'node':
-          'Participates in traversal as a '
+      'node': 'Participates in traversal as a '
           'stop point',
     },
     {
@@ -420,8 +390,7 @@ dynamic build(BuildContext context) {
       'title': 'Form Tab Order',
       'icon': Icons.tab,
       'color': Colors.deepOrange[600]!,
-      'body':
-          'Wrap form fields in a FocusScope. Tab moves through '
+      'body': 'Wrap form fields in a FocusScope. Tab moves through '
           'fields in order. After the last field, Tab moves to the '
           'submit button. Pressing Shift+Tab goes backward.',
     },
@@ -429,8 +398,7 @@ dynamic build(BuildContext context) {
       'title': 'Focus on Route Push',
       'icon': Icons.arrow_forward,
       'color': Colors.brown[600]!,
-      'body':
-          'When a new route is pushed, its FocusScopeNode steals '
+      'body': 'When a new route is pushed, its FocusScopeNode steals '
           'focus. The previous route remembers its focused child. '
           'When the user pops back, focus restores automatically.',
     },
@@ -438,8 +406,7 @@ dynamic build(BuildContext context) {
       'title': 'Search Field Autofocus',
       'icon': Icons.search,
       'color': Colors.deepOrange[500]!,
-      'body':
-          'Set autofocus: true on the search TextField. When '
+      'body': 'Set autofocus: true on the search TextField. When '
           'the scope appears (drawer opens, dialog shows), the '
           'search field receives focus immediately — the keyboard '
           'opens on mobile.',
@@ -448,8 +415,7 @@ dynamic build(BuildContext context) {
       'title': 'Focus Restoration',
       'icon': Icons.restore,
       'color': Colors.brown[500]!,
-      'body':
-          'FocusScopeNode remembers which child had focus. '
+      'body': 'FocusScopeNode remembers which child had focus. '
           'Use the restorationId parameter on FocusScope to '
           'persist this across app restarts via the restoration '
           'framework.',
@@ -458,8 +424,7 @@ dynamic build(BuildContext context) {
       'title': 'Skip Navigation to Content',
       'icon': Icons.skip_next,
       'color': Colors.deepOrange[700]!,
-      'body':
-          'Accessibility pattern: a hidden "Skip to content" '
+      'body': 'Accessibility pattern: a hidden "Skip to content" '
           'button is the first focusable item. Pressing Enter '
           'calls scope.requestFocus(contentNode) to jump past '
           'navigation elements.',
@@ -478,8 +443,7 @@ dynamic build(BuildContext context) {
       'name': 'Focus + onKeyEvent',
       'icon': Icons.keyboard,
       'color': Colors.deepOrange[600]!,
-      'description':
-          'FocusScopeNode inherits onKeyEvent from '
+      'description': 'FocusScopeNode inherits onKeyEvent from '
           'FocusNode. Set it to intercept keyboard events for the '
           'entire scope. Return KeyEventResult.handled to consume '
           'the event, .ignored to pass it on.',
@@ -488,8 +452,7 @@ dynamic build(BuildContext context) {
       'name': 'Shortcuts Widget',
       'icon': Icons.shortcut,
       'color': Colors.brown[600]!,
-      'description':
-          'The Shortcuts widget sits above a FocusScope '
+      'description': 'The Shortcuts widget sits above a FocusScope '
           'and maps key combinations to Intents. The Actions widget '
           'below handles those Intents. Focus must be within the '
           'scope for shortcuts to fire.',
@@ -498,8 +461,7 @@ dynamic build(BuildContext context) {
       'name': 'CallbackShortcuts',
       'icon': Icons.bolt,
       'color': Colors.deepOrange[500]!,
-      'description':
-          'Simpler alternative — CallbackShortcuts maps '
+      'description': 'Simpler alternative — CallbackShortcuts maps '
           'key combinations directly to callbacks. No Intent/Action '
           'ceremony. Must be below a FocusScope.',
     },
@@ -507,8 +469,7 @@ dynamic build(BuildContext context) {
       'name': 'FocusableActionDetector',
       'icon': Icons.ads_click,
       'color': Colors.brown[500]!,
-      'description':
-          'Combines Focus, Actions, Shortcuts, and '
+      'description': 'Combines Focus, Actions, Shortcuts, and '
           'MouseRegion into one widget. Automatically manages hover '
           'and focus states. Used extensively in Material widgets.',
     },
@@ -525,8 +486,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'FocusScope.of Finds the Nearest Scope',
-      'body':
-          'FocusScope.of(context) returns the nearest ANCESTOR '
+      'body': 'FocusScope.of(context) returns the nearest ANCESTOR '
           'FocusScopeNode. If your widget IS a FocusScope, calling '
           'FocusScope.of(context) inside its builder returns the '
           'PARENT scope, not its own scope. Use the node parameter '
@@ -536,8 +496,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Every Route Has Its Own Scope',
-      'body':
-          'Navigator creates a FocusScopeNode per Route. When '
+      'body': 'Navigator creates a FocusScopeNode per Route. When '
           'you push a new page, the new scope steals focus. Pop and '
           'focus returns to the previous route\'s scope. You rarely '
           'need to manage this manually.',
@@ -546,8 +505,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Prefer Focus Widget Over Raw FocusNode',
-      'body':
-          'Instead of creating and managing FocusScopeNode '
+      'body': 'Instead of creating and managing FocusScopeNode '
           'directly, use the FocusScope widget. It handles node '
           'lifecycle, attachment, and disposal. Direct node usage '
           'is for advanced scenarios only.',
@@ -556,8 +514,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'debugFocusChanges for Debugging',
-      'body':
-          'Set debugFocusChanges = true to see focus changes '
+      'body': 'Set debugFocusChanges = true to see focus changes '
           'logged to the console. Extremely helpful when Tab '
           'traversal doesn\'t go where you expect or focus seems '
           'to "disappear".',
@@ -566,8 +523,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Focus and Semantics',
-      'body':
-          'Focus nodes automatically contribute to the semantics '
+      'body': 'Focus nodes automatically contribute to the semantics '
           'tree for accessibility. Screen readers use the focus tree '
           'to navigate. Proper FocusScope structure improves '
           'accessibility for keyboard and screen reader users.',
@@ -576,8 +532,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Don\'t Fight the Framework',
-      'body':
-          'Many focus issues come from fighting the default '
+      'body': 'Many focus issues come from fighting the default '
           'behavior. Before adding custom focus management, check '
           'if autofocus, FocusTraversalGroup, and the default '
           'policies already do what you need. They usually do.',
@@ -650,94 +605,77 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _heading('1', 'What is FocusScopeNode?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: card['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: card['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          card['icon'] as IconData,
-                          color: card['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(card['icon'] as IconData,
+                            color: card['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            card['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(card['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      card['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(card['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Properties ──
           _heading('2', 'Properties & Methods'),
           SizedBox(height: 12),
-          ...properties.map(
-            (prop) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: prop['bgColor'] as Color,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: (prop['color'] as Color).withOpacity(0.4),
+          ...properties.map((prop) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: prop['bgColor'] as Color,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                        color: (prop['color'] as Color).withOpacity(0.4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
                         Container(
                           width: 32,
                           height: 32,
@@ -745,260 +683,205 @@ dynamic build(BuildContext context) {
                             color: prop['color'] as Color,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Icon(
-                            prop['icon'] as IconData,
-                            color: Colors.white,
-                            size: 18,
-                          ),
+                          child: Icon(prop['icon'] as IconData,
+                              color: Colors.white, size: 18),
                         ),
                         SizedBox(width: 10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '.${prop['name']}',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'monospace',
-                                  color: prop['color'] as Color,
-                                ),
-                              ),
-                              Text(
-                                prop['type'] as String,
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
+                              Text('.${prop['name']}',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'monospace',
+                                      color: prop['color'] as Color)),
+                              Text(prop['type'] as String,
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.grey[600])),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      prop['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(prop['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[800],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 3: Focus Tree ──
           _heading('3', 'The Focus Tree Structure'),
           SizedBox(height: 12),
-          ...treeNodes.map(
-            (node) => Padding(
-              padding: EdgeInsets.only(bottom: 6),
-              child: Padding(
-                padding: EdgeInsets.only(left: (node['depth'] as int) * 16.0),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      left: BorderSide(color: node['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 2,
-                        offset: Offset(0, 1),
+          ...treeNodes.map((node) => Padding(
+                padding: EdgeInsets.only(bottom: 6),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: (node['depth'] as int) * 16.0),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border(
+                        left: BorderSide(
+                            color: node['color'] as Color, width: 4),
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            node['icon'] as IconData,
-                            color: node['color'] as Color,
-                            size: 18,
-                          ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 2,
+                            offset: Offset(0, 1))
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          Icon(node['icon'] as IconData,
+                              color: node['color'] as Color, size: 18),
                           SizedBox(width: 8),
                           Expanded(
-                            child: Text(
-                              node['name'] as String,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                              ),
-                            ),
+                            child: Text(node['name'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13)),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        node['description'] as String,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[700],
-                          height: 1.3,
-                        ),
-                      ),
-                    ],
+                        ]),
+                        SizedBox(height: 4),
+                        Text(node['description'] as String,
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[700],
+                                height: 1.3)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 4: Widget Usage ──
           _heading('4', 'FocusScope Widget Usage'),
           SizedBox(height: 12),
-          ...widgetUsages.map(
-            (wu) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: wu['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...widgetUsages.map((wu) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: wu['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          wu['icon'] as IconData,
-                          color: wu['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(wu['icon'] as IconData,
+                            color: wu['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            wu['name'] as String,
+                          child: Text(wu['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                        ),
+                      ]),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: (wu['color'] as Color).withOpacity(0.06),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(wu['code'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: (wu['color'] as Color).withOpacity(0.06),
-                        borderRadius: BorderRadius.circular(6),
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: Colors.grey[700],
+                                height: 1.4)),
                       ),
-                      child: Text(
-                        wu['code'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: Colors.grey[700],
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      wu['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      SizedBox(height: 8),
+                      Text(wu['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: Traversal Policies ──
           _heading('5', 'Focus Traversal Policies'),
           SizedBox(height: 12),
-          ...policies.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...policies.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          p['icon'] as IconData,
-                          color: p['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(p['icon'] as IconData,
+                            color: p['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            p['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                            ),
-                          ),
+                          child: Text(p['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  fontFamily: 'monospace')),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      p['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 6),
+                      Text(p['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1012,54 +895,45 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.deepOrange[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
+            child: Column(children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
+                ),
+                child: Row(children: [
+                  _tcell('Aspect', bold: true, white: true, flex: 2),
+                  _tcell('FocusScopeNode', bold: true, white: true, flex: 3),
+                  _tcell('FocusNode', bold: true, white: true, flex: 3),
+                ]),
+              ),
+              ...comparison.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final row = entry.value;
+                return Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _tcell('Aspect', bold: true, white: true, flex: 2),
-                      _tcell(
-                        'FocusScopeNode',
-                        bold: true,
-                        white: true,
-                        flex: 3,
-                      ),
-                      _tcell('FocusNode', bold: true, white: true, flex: 3),
+                      _tcell(row['aspect']!, bold: true, flex: 2),
+                      _tcell(row['scope']!, flex: 3),
+                      _tcell(row['node']!, flex: 3),
                     ],
                   ),
-                ),
-                ...comparison.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final row = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _tcell(row['aspect']!, bold: true, flex: 2),
-                        _tcell(row['scope']!, flex: 3),
-                        _tcell(row['node']!, flex: 3),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -1067,124 +941,98 @@ dynamic build(BuildContext context) {
           // ── Section 7: Common Patterns ──
           _heading('7', 'Common Patterns'),
           SizedBox(height: 12),
-          ...patterns.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...patterns.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          p['icon'] as IconData,
-                          color: p['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(p['icon'] as IconData,
+                            color: p['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            p['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(p['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      p['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(p['body'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 8: Keyboard Shortcuts ──
           _heading('8', 'Keyboard Shortcuts Integration'),
           SizedBox(height: 12),
-          ...shortcuts.map(
-            (s) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: s['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...shortcuts.map((s) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: s['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          s['icon'] as IconData,
-                          color: s['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(s['icon'] as IconData,
+                            color: s['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            s['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                          ),
+                          child: Text(s['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      s['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 6),
+                      Text(s['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1216,41 +1064,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1291,26 +1127,20 @@ Widget _heading(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1319,12 +1149,8 @@ Widget _heading(String number, String title) {
 // ──────────────────────────────────────────────────────────
 // Helper: Table cell
 // ──────────────────────────────────────────────────────────
-Widget _tcell(
-  String text, {
-  bool bold = false,
-  bool white = false,
-  int flex = 1,
-}) {
+Widget _tcell(String text,
+    {bool bold = false, bool white = false, int flex = 1}) {
   return Expanded(
     flex: flex,
     child: Text(

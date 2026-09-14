@@ -473,10 +473,7 @@ Widget _heroBanner() {
             _pill('AutofillClient', colour: const Color(0xFFA7F3D0)),
             _pill('AutofillHints', colour: const Color(0xFFFBCFE8)),
             _pill('AutofillContextAction', colour: const Color(0xFFDDD6FE)),
-            _pill(
-              'TextInput.finishAutofillContext',
-              colour: const Color(0xFFFCA5A5),
-            ),
+            _pill('TextInput.finishAutofillContext', colour: const Color(0xFFFCA5A5)),
           ],
         ),
       ],
@@ -600,10 +597,7 @@ class _AnatomyDiagramPainter extends CustomPainter {
       clientLabel.layout();
       clientLabel.paint(
         canvas,
-        Offset(
-          clientLeft + 10.0,
-          y + (clientHeight - clientLabel.height) / 2.0,
-        ),
+        Offset(clientLeft + 10.0, y + (clientHeight - clientLabel.height) / 2.0),
       );
 
       // Arrow from this client to the platform bridge
@@ -709,10 +703,7 @@ Widget _anatomyDiagram() {
           runSpacing: 6.0,
           children: <Widget>[
             _pill('AutofillScope.attach', colour: _kAccent),
-            _pill(
-              'AutofillClient.textInputConfiguration',
-              colour: _kAccentTeal,
-            ),
+            _pill('AutofillClient.textInputConfiguration', colour: _kAccentTeal),
             _pill('AutofillScope.autofillClients', colour: _kAccentViolet),
             _pill('TextInput.attach', colour: _kAccentBlue),
           ],
@@ -921,41 +912,21 @@ const List<_FieldRow> _kPersonalGroup = <_FieldRow>[
 ];
 
 const List<_FieldRow> _kAddressGroup = <_FieldRow>[
-  _FieldRow(
-    'Address line 1',
-    '12 Marlborough Place',
-    'streetAddressLine1',
-    _kAccentAmber,
-  ),
+  _FieldRow('Address line 1', '12 Marlborough Place', 'streetAddressLine1', _kAccentAmber),
   _FieldRow('City', 'London', 'addressCity', _kAccentAmber),
   _FieldRow('Postal code', 'NW8 0PT', 'postalCode', _kAccentAmber),
   _FieldRow('Country', 'United Kingdom', 'countryName', _kAccentAmber),
 ];
 
 const List<_FieldRow> _kPaymentGroup = <_FieldRow>[
-  _FieldRow(
-    'Card number',
-    '4242 4242 4242 4242',
-    'creditCardNumber',
-    _kAccentRose,
-  ),
-  _FieldRow(
-    'Expiry MM/YY',
-    '04 / 28',
-    'creditCardExpirationDate',
-    _kAccentRose,
-  ),
+  _FieldRow('Card number', '4242 4242 4242 4242', 'creditCardNumber', _kAccentRose),
+  _FieldRow('Expiry MM/YY', '04 / 28', 'creditCardExpirationDate', _kAccentRose),
   _FieldRow('CVV', '737', 'creditCardSecurityCode', _kAccentRose),
 ];
 
 const List<_FieldRow> _kAuthGroup = <_FieldRow>[
   _FieldRow('Username', 'ada.lovelace', 'newUsername', _kAccentViolet),
-  _FieldRow(
-    'Password',
-    '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022',
-    'newPassword',
-    _kAccentViolet,
-  ),
+  _FieldRow('Password', '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022', 'newPassword', _kAccentViolet),
   _FieldRow('SMS code', '123456', 'oneTimeCode', _kAccentViolet),
 ];
 
@@ -1131,10 +1102,7 @@ Widget _commitColumn() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 3.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
               decoration: BoxDecoration(
                 color: _kAccentGreen,
                 borderRadius: BorderRadius.circular(6.0),
@@ -1192,10 +1160,7 @@ Widget _cancelColumn() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 3.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
               decoration: BoxDecoration(
                 color: _kAccentRose,
                 borderRadius: BorderRadius.circular(6.0),
@@ -1301,16 +1266,8 @@ Widget _commitCancelLegend() {
           ),
         ),
         const SizedBox(height: 6.0),
-        _kvRow(
-          'commit',
-          'Persist captured values into the platform vault.',
-          valueColour: _kAccentGreen,
-        ),
-        _kvRow(
-          'cancel',
-          'Discard captured values; suppress save prompt.',
-          valueColour: _kAccentRose,
-        ),
+        _kvRow('commit', 'Persist captured values into the platform vault.', valueColour: _kAccentGreen),
+        _kvRow('cancel', 'Discard captured values; suppress save prompt.', valueColour: _kAccentRose),
       ],
     ),
   );
@@ -1320,14 +1277,7 @@ Widget _commitCancelLegend() {
 // SECTION 6 - PLATFORM COMPARISON MATRIX
 // ---------------------------------------------------------------------------
 class _PlatformRow {
-  const _PlatformRow(
-    this.name,
-    this.backend,
-    this.identity,
-    this.address,
-    this.creditCard,
-    this.oneTimeCode,
-  );
+  const _PlatformRow(this.name, this.backend, this.identity, this.address, this.creditCard, this.oneTimeCode);
   final String name;
   final String backend;
   final String identity;
@@ -1337,46 +1287,11 @@ class _PlatformRow {
 }
 
 const List<_PlatformRow> _kPlatformRows = <_PlatformRow>[
-  _PlatformRow(
-    'iOS',
-    'Keychain Services',
-    'full',
-    'full',
-    'full',
-    'SMS / OS share-sheet',
-  ),
-  _PlatformRow(
-    'Android',
-    'AutofillManager (>=O)',
-    'full',
-    'full',
-    'full',
-    'SMS Retriever API',
-  ),
-  _PlatformRow(
-    'Web',
-    'autocomplete attribute',
-    'full',
-    'full',
-    'partial',
-    'browser-driven',
-  ),
-  _PlatformRow(
-    'Windows',
-    'Credential Manager',
-    'partial',
-    'limited',
-    'limited',
-    'not supported',
-  ),
-  _PlatformRow(
-    'macOS',
-    'Keychain Services',
-    'full',
-    'full',
-    'full',
-    'SMS via Continuity',
-  ),
+  _PlatformRow('iOS', 'Keychain Services', 'full', 'full', 'full', 'SMS / OS share-sheet'),
+  _PlatformRow('Android', 'AutofillManager (>=O)', 'full', 'full', 'full', 'SMS Retriever API'),
+  _PlatformRow('Web', 'autocomplete attribute', 'full', 'full', 'partial', 'browser-driven'),
+  _PlatformRow('Windows', 'Credential Manager', 'partial', 'limited', 'limited', 'not supported'),
+  _PlatformRow('macOS', 'Keychain Services', 'full', 'full', 'full', 'SMS via Continuity'),
   _PlatformRow('Linux', 'no-op', 'none', 'none', 'none', 'none'),
 ];
 
@@ -1431,7 +1346,9 @@ List<Widget> _matrixBodyRows() {
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
         decoration: BoxDecoration(
           color: rowBg,
-          border: const Border(bottom: BorderSide(color: _kHairline)),
+          border: const Border(
+            bottom: BorderSide(color: _kHairline),
+          ),
         ),
         child: Row(
           children: <Widget>[
@@ -1449,12 +1366,7 @@ List<Widget> _matrixBodyRows() {
   return out;
 }
 
-Widget _matrixCell(
-  String label, {
-  int flex = 1,
-  bool onDark = false,
-  bool bold = false,
-}) {
+Widget _matrixCell(String label, {int flex = 1, bool onDark = false, bool bold = false}) {
   return Expanded(
     flex: flex,
     child: Text(
@@ -1619,45 +1531,27 @@ Widget _cheatSheet() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Cheat sheet', style: _kTitleStyle.copyWith(color: _kInkOnDark)),
+        Text(
+          'Cheat sheet',
+          style: _kTitleStyle.copyWith(color: _kInkOnDark),
+        ),
         const SizedBox(height: 4.0),
         const Text(
           'API surface of the autofill subsystem, packed into a single card.',
-          style: TextStyle(color: _kInkOnDarkSecondary, fontSize: 13.0),
+          style: TextStyle(
+            color: _kInkOnDarkSecondary,
+            fontSize: 13.0,
+          ),
         ),
         const SizedBox(height: 14.0),
-        _darkKv(
-          'AutofillGroup',
-          'StatefulWidget. Acts as an AutofillScope; children with autofillHints register as clients.',
-        ),
-        _darkKv(
-          'AutofillGroupState',
-          'State<AutofillGroup>. Implements AutofillScope. Holds registered AutofillClient list.',
-        ),
-        _darkKv(
-          'AutofillScope',
-          'Mixin-style interface. Exposes attach(client) and autofillClients getter.',
-        ),
-        _darkKv(
-          'AutofillClient',
-          'Interface implemented by EditableTextState. Provides textInputConfiguration, autofillId.',
-        ),
-        _darkKv(
-          'AutofillHints',
-          'Class of const String tokens. NOT an enum - safe to extend in user code.',
-        ),
-        _darkKv(
-          'AutofillContextAction',
-          'enum { commit, cancel }. Maps to TextInput.finishAutofillContext.shouldSave.',
-        ),
-        _darkKv(
-          'TextInput.finishAutofillContext',
-          'static. Closes the active autofill context and tells the platform whether to save.',
-        ),
-        _darkKv(
-          'AutofillGroup.onDisposeAction',
-          'Defaults to AutofillContextAction.commit. Fires when the group is removed from the tree.',
-        ),
+        _darkKv('AutofillGroup', 'StatefulWidget. Acts as an AutofillScope; children with autofillHints register as clients.'),
+        _darkKv('AutofillGroupState', 'State<AutofillGroup>. Implements AutofillScope. Holds registered AutofillClient list.'),
+        _darkKv('AutofillScope', 'Mixin-style interface. Exposes attach(client) and autofillClients getter.'),
+        _darkKv('AutofillClient', 'Interface implemented by EditableTextState. Provides textInputConfiguration, autofillId.'),
+        _darkKv('AutofillHints', 'Class of const String tokens. NOT an enum - safe to extend in user code.'),
+        _darkKv('AutofillContextAction', 'enum { commit, cancel }. Maps to TextInput.finishAutofillContext.shouldSave.'),
+        _darkKv('TextInput.finishAutofillContext', 'static. Closes the active autofill context and tells the platform whether to save.'),
+        _darkKv('AutofillGroup.onDisposeAction', 'Defaults to AutofillContextAction.commit. Fires when the group is removed from the tree.'),
       ],
     ),
   );

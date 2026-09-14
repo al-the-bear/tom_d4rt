@@ -101,7 +101,10 @@ Widget _buildMainHeader() {
         SizedBox(height: 8),
         Text(
           'Enum for how OverflowBox sizes its child',
-          style: TextStyle(fontSize: 16, color: Colors.white.withAlpha(220)),
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white.withAlpha(220),
+          ),
         ),
         SizedBox(height: 20),
         Row(
@@ -253,7 +256,10 @@ Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: valueColor ?? _kSlate600, fontSize: 13),
+            style: TextStyle(
+              color: valueColor ?? _kSlate600,
+              fontSize: 13,
+            ),
           ),
         ),
       ],
@@ -281,12 +287,7 @@ Widget _buildCodeSnippet(String code, {Color? bgColor}) {
   );
 }
 
-Widget _buildDiagramBox(
-  String label,
-  Color color, {
-  IconData? icon,
-  double size = 80,
-}) {
+Widget _buildDiagramBox(String label, Color color, {IconData? icon, double size = 80}) {
   return Container(
     width: size,
     height: size,
@@ -354,11 +355,7 @@ Widget _buildOverviewSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader(
-          'OverflowBoxFit Overview',
-          Icons.info_outline,
-          _kPrimary600,
-        ),
+        _buildSectionHeader('OverflowBoxFit Overview', Icons.info_outline, _kPrimary600),
         Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -404,11 +401,7 @@ Widget _buildOverviewSection() {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.lightbulb_outline,
-                          color: _kPrimary600,
-                          size: 20,
-                        ),
+                        Icon(Icons.lightbulb_outline, color: _kPrimary600, size: 20),
                         SizedBox(width: 10),
                         Text(
                           'Key Concept',
@@ -426,11 +419,7 @@ Widget _buildOverviewSection() {
                       'the OverflowBox to its child. With "max", the child is '
                       'encouraged to fill all available space. With "deferToChild", '
                       'the child sizes itself according to its natural dimensions.',
-                      style: TextStyle(
-                        color: _kSlate600,
-                        fontSize: 13,
-                        height: 1.5,
-                      ),
+                      style: TextStyle(color: _kSlate600, fontSize: 13, height: 1.5),
                     ),
                   ],
                 ),
@@ -465,12 +454,7 @@ Widget _buildOverviewSection() {
   );
 }
 
-Widget _buildValueSummaryTile(
-  String value,
-  String description,
-  IconData icon,
-  Color color,
-) {
+Widget _buildValueSummaryTile(String value, String description, IconData icon, Color color) {
   return Container(
     padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -500,7 +484,10 @@ Widget _buildValueSummaryTile(
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(color: _kSlate600, fontSize: 11),
+          style: TextStyle(
+            color: _kSlate600,
+            fontSize: 11,
+          ),
           textAlign: TextAlign.center,
         ),
       ],
@@ -528,11 +515,7 @@ Widget _buildMaxValueSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader(
-          'OverflowBoxFit.max Demo',
-          Icons.fullscreen,
-          _kSecondary600,
-        ),
+        _buildSectionHeader('OverflowBoxFit.max Demo', Icons.fullscreen, _kSecondary600),
         Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -620,7 +603,10 @@ Widget _buildBehaviorItem(String text, IconData icon, Color color) {
         ),
         SizedBox(width: 12),
         Expanded(
-          child: Text(text, style: TextStyle(color: _kSlate700, fontSize: 13)),
+          child: Text(
+            text,
+            style: TextStyle(color: _kSlate700, fontSize: 13),
+          ),
         ),
       ],
     ),
@@ -657,11 +643,7 @@ Widget _buildMaxVisualDemo() {
                   decoration: BoxDecoration(
                     color: _kSlate200,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: _kSlate400,
-                      width: 2,
-                      style: BorderStyle.solid,
-                    ),
+                    border: Border.all(color: _kSlate400, width: 2, style: BorderStyle.solid),
                   ),
                   child: Center(
                     child: Text(
@@ -672,10 +654,7 @@ Widget _buildMaxVisualDemo() {
                   ),
                 ),
                 SizedBox(height: 8),
-                Text(
-                  'Before',
-                  style: TextStyle(color: _kSlate500, fontSize: 11),
-                ),
+                Text('Before', style: TextStyle(color: _kSlate500, fontSize: 11)),
               ],
             ),
             SizedBox(width: 20),
@@ -694,24 +673,13 @@ Widget _buildMaxVisualDemo() {
                   child: Center(
                     child: Text(
                       'Child fills\n120x100',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ),
                 SizedBox(height: 8),
-                Text(
-                  'With fit: max',
-                  style: TextStyle(
-                    color: _kSecondary600,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text('With fit: max', style: TextStyle(color: _kSecondary600, fontSize: 11, fontWeight: FontWeight.bold)),
               ],
             ),
           ],
@@ -754,11 +722,7 @@ Widget _buildDeferToChildSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader(
-          'OverflowBoxFit.deferToChild Demo',
-          Icons.child_care,
-          _kAccent600,
-        ),
+        _buildSectionHeader('OverflowBoxFit.deferToChild Demo', Icons.child_care, _kAccent600),
         Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -863,11 +827,7 @@ Widget _buildDeferToChildVisualDemo() {
                   decoration: BoxDecoration(
                     color: _kSlate200,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: _kSlate400,
-                      width: 2,
-                      style: BorderStyle.solid,
-                    ),
+                    border: Border.all(color: _kSlate400, width: 2, style: BorderStyle.solid),
                   ),
                   child: Center(
                     child: Text(
@@ -878,10 +838,7 @@ Widget _buildDeferToChildVisualDemo() {
                   ),
                 ),
                 SizedBox(height: 8),
-                Text(
-                  'Before',
-                  style: TextStyle(color: _kSlate500, fontSize: 11),
-                ),
+                Text('Before', style: TextStyle(color: _kSlate500, fontSize: 11)),
               ],
             ),
             SizedBox(width: 20),
@@ -908,25 +865,14 @@ Widget _buildDeferToChildVisualDemo() {
                       child: Center(
                         child: Text(
                           '60x45',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(height: 8),
-                Text(
-                  'With deferToChild',
-                  style: TextStyle(
-                    color: _kAccent600,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text('With deferToChild', style: TextStyle(color: _kAccent600, fontSize: 11, fontWeight: FontWeight.bold)),
               ],
             ),
           ],
@@ -1017,22 +963,14 @@ Widget _buildComparisonTable() {
                 flex: 2,
                 child: Text(
                   'Property',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: _kPrimary700,
-                    fontSize: 13,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: _kPrimary700, fontSize: 13),
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: Text(
                   'max',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: _kSecondary600,
-                    fontSize: 13,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: _kSecondary600, fontSize: 13),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -1040,11 +978,7 @@ Widget _buildComparisonTable() {
                 flex: 3,
                 child: Text(
                   'deferToChild',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: _kAccent600,
-                    fontSize: 13,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: _kAccent600, fontSize: 13),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -1061,26 +995,19 @@ Widget _buildComparisonTable() {
   );
 }
 
-Widget _buildTableRow(
-  String property,
-  String maxValue,
-  String deferValue,
-  bool alternate,
-) {
+Widget _buildTableRow(String property, String maxValue, String deferValue, bool alternate) {
   return Container(
     padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(color: alternate ? _kSlate100 : Colors.white),
+    decoration: BoxDecoration(
+      color: alternate ? _kSlate100 : Colors.white,
+    ),
     child: Row(
       children: [
         Expanded(
           flex: 2,
           child: Text(
             property,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: _kSlate700,
-              fontSize: 12,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w500, color: _kSlate700, fontSize: 12),
           ),
         ),
         Expanded(
@@ -1115,11 +1042,7 @@ Widget _buildSideBySideVisualization() {
       children: [
         Text(
           'Side-by-Side Visual Comparison',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: _kSlate700,
-            fontSize: 15,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: _kSlate700, fontSize: 15),
         ),
         SizedBox(height: 16),
         Row(
@@ -1138,11 +1061,7 @@ Widget _buildSideBySideVisualization() {
                   child: Center(
                     child: Text(
                       'max\nFILLS',
-                      style: TextStyle(
-                        color: _kSecondary700,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(color: _kSecondary700, fontSize: 11, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -1156,11 +1075,7 @@ Widget _buildSideBySideVisualization() {
                   ),
                   child: Text(
                     'OverflowBoxFit.max',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -1186,11 +1101,7 @@ Widget _buildSideBySideVisualization() {
                       child: Center(
                         child: Text(
                           'defer',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -1205,11 +1116,7 @@ Widget _buildSideBySideVisualization() {
                   ),
                   child: Text(
                     'deferToChild',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -1229,24 +1136,14 @@ Widget _buildConstraintFlowDiagram() {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildDiagramBox(
-              'Parent\nConstraints',
-              _kPrimary600,
-              icon: Icons.dashboard,
-              size: 90,
-            ),
+            _buildDiagramBox('Parent\nConstraints', _kPrimary600, icon: Icons.dashboard, size: 90),
           ],
         ),
         _buildArrowDown(_kPrimary400),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildDiagramBox(
-              'OverflowBox\n(fit)',
-              _kPrimary500,
-              icon: Icons.open_in_full,
-              size: 90,
-            ),
+            _buildDiagramBox('OverflowBox\n(fit)', _kPrimary500, icon: Icons.open_in_full, size: 90),
           ],
         ),
         SizedBox(height: 8),
@@ -1295,11 +1192,7 @@ Widget _buildUsageExamplesSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader(
-          'OverflowBox Usage Examples',
-          Icons.code,
-          _kSuccess600,
-        ),
+        _buildSectionHeader('OverflowBox Usage Examples', Icons.code, _kSuccess600),
         Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -1557,11 +1450,7 @@ Widget _buildVisualSizingSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader(
-          'Visual Sizing Demonstration',
-          Icons.aspect_ratio,
-          _kPrimary700,
-        ),
+        _buildSectionHeader('Visual Sizing Demonstration', Icons.aspect_ratio, _kPrimary700),
         Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -1595,18 +1484,28 @@ Widget _buildSizingScenario1() {
       children: [
         Text(
           'Parent: 150x100 | Child prefers: 80x60',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: _kSlate700,
-            fontSize: 13,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w500, color: _kSlate700, fontSize: 13),
         ),
         SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildSizingDemoBox('fit: max', 150, 100, 150, 100, _kSecondary500),
-            _buildSizingDemoBox('deferToChild', 150, 100, 80, 60, _kAccent500),
+            _buildSizingDemoBox(
+              'fit: max',
+              150,
+              100,
+              150,
+              100,
+              _kSecondary500,
+            ),
+            _buildSizingDemoBox(
+              'deferToChild',
+              150,
+              100,
+              80,
+              60,
+              _kAccent500,
+            ),
           ],
         ),
         SizedBox(height: 12),
@@ -1656,11 +1555,7 @@ Widget _buildSizingScenario2() {
       children: [
         Text(
           'Parent: unbounded | Child prefers: 100x75',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: _kSlate700,
-            fontSize: 13,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w500, color: _kSlate700, fontSize: 13),
         ),
         SizedBox(height: 16),
         Row(
@@ -1672,11 +1567,7 @@ Widget _buildSizingScenario2() {
                   width: 130,
                   height: 90,
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: _kSlate300,
-                      width: 2,
-                      style: BorderStyle.solid,
-                    ),
+                    border: Border.all(color: _kSlate300, width: 2, style: BorderStyle.solid),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
@@ -1690,21 +1581,14 @@ Widget _buildSizingScenario2() {
                       child: Center(
                         child: Text(
                           '100x75',
-                          style: TextStyle(
-                            color: _kSecondary700,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(color: _kSecondary700, fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(height: 6),
-                Text(
-                  'max (uses child size)',
-                  style: TextStyle(color: _kSecondary600, fontSize: 10),
-                ),
+                Text('max (uses child size)', style: TextStyle(color: _kSecondary600, fontSize: 10)),
               ],
             ),
             Column(
@@ -1713,11 +1597,7 @@ Widget _buildSizingScenario2() {
                   width: 130,
                   height: 90,
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: _kSlate300,
-                      width: 2,
-                      style: BorderStyle.solid,
-                    ),
+                    border: Border.all(color: _kSlate300, width: 2, style: BorderStyle.solid),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
@@ -1731,21 +1611,14 @@ Widget _buildSizingScenario2() {
                       child: Center(
                         child: Text(
                           '100x75',
-                          style: TextStyle(
-                            color: _kAccent700,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(color: _kAccent700, fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(height: 6),
-                Text(
-                  'deferToChild',
-                  style: TextStyle(color: _kAccent600, fontSize: 10),
-                ),
+                Text('deferToChild', style: TextStyle(color: _kAccent600, fontSize: 10)),
               ],
             ),
           ],
@@ -1776,11 +1649,7 @@ Widget _buildSizingScenario3() {
       children: [
         Text(
           'Parent: 100x80 | Child prefers: 200x150',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: _kSlate700,
-            fontSize: 13,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w500, color: _kSlate700, fontSize: 13),
         ),
         SizedBox(height: 16),
         Row(
@@ -1810,21 +1679,14 @@ Widget _buildSizingScenario3() {
                       child: Center(
                         child: Text(
                           'Overflows',
-                          style: TextStyle(
-                            color: _kSecondary700,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(color: _kSecondary700, fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 6),
-                Text(
-                  'max: fills max',
-                  style: TextStyle(color: _kSecondary600, fontSize: 10),
-                ),
+                Text('max: fills max', style: TextStyle(color: _kSecondary600, fontSize: 10)),
               ],
             ),
             Column(
@@ -1851,21 +1713,14 @@ Widget _buildSizingScenario3() {
                       child: Center(
                         child: Text(
                           'Natural size',
-                          style: TextStyle(
-                            color: _kAccent700,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(color: _kAccent700, fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 6),
-                Text(
-                  'defer: 200x150',
-                  style: TextStyle(color: _kAccent600, fontSize: 10),
-                ),
+                Text('defer: 200x150', style: TextStyle(color: _kAccent600, fontSize: 10)),
               ],
             ),
           ],
@@ -1928,14 +1783,7 @@ Widget _buildSizingDemoBox(
         ),
       ),
       SizedBox(height: 6),
-      Text(
-        label,
-        style: TextStyle(
-          color: color,
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      Text(label, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold)),
     ],
   );
 }
@@ -1994,11 +1842,7 @@ Widget _buildSizingSummary() {
           child: Text(
             'Choose "max" when child should fill space, '
             '"deferToChild" when child should size itself.',
-            style: TextStyle(
-              color: _kSlate600,
-              fontSize: 12,
-              fontStyle: FontStyle.italic,
-            ),
+            style: TextStyle(color: _kSlate600, fontSize: 12, fontStyle: FontStyle.italic),
             textAlign: TextAlign.center,
           ),
         ),
@@ -2007,12 +1851,7 @@ Widget _buildSizingSummary() {
   );
 }
 
-Widget _buildSummaryRow(
-  IconData icon,
-  String value,
-  String description,
-  Color color,
-) {
+Widget _buildSummaryRow(IconData icon, String value, String description, Color color) {
   return Row(
     children: [
       Container(
@@ -2032,11 +1871,7 @@ Widget _buildSummaryRow(
         ),
         child: Text(
           value,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
         ),
       ),
       SizedBox(width: 10),
@@ -2150,7 +1985,11 @@ Widget _buildFooterBadge(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        color: color,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }

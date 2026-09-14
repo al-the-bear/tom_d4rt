@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.text_fields,
       'title': 'What is TextFieldTapRegion?',
-      'body':
-          'TextFieldTapRegion is a subclass of TapRegion that provides '
+      'body': 'TextFieldTapRegion is a subclass of TapRegion that provides '
           'a shared implicit groupId for all text-field-related widgets. '
           'When you wrap a TextField in TextFieldTapRegion, it joins an '
           'automatic group. Tapping between fields does not trigger '
@@ -30,8 +29,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.link,
       'title': 'Automatic Grouping',
-      'body':
-          'All TextFieldTapRegion instances share the same groupId '
+      'body': 'All TextFieldTapRegion instances share the same groupId '
           'under the hood: TextFieldTapRegion.groupId (a static const). '
           'This means all TextFields wrapped in TextFieldTapRegion are '
           'considered "inside" each other\'s region for tap detection.',
@@ -40,8 +38,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb,
       'title': 'Why Not Just TapRegion?',
-      'body':
-          'Plain TapRegion requires manual groupId management. On a '
+      'body': 'Plain TapRegion requires manual groupId management. On a '
           'form with 10 fields, you would need the same groupId on all '
           'of them. TextFieldTapRegion solves this automatically — every '
           'text field is in the same group by default.',
@@ -50,8 +47,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.code,
       'title': 'Built Into TextField',
-      'body':
-          'Flutter\'s TextField already wraps its content with '
+      'body': 'Flutter\'s TextField already wraps its content with '
           'TextFieldTapRegion internally. This demo explores the widget '
           'in isolation — useful when building custom text inputs or '
           'adding non-field content to the text-field group.',
@@ -130,52 +126,45 @@ dynamic build(BuildContext context) {
     {
       'name': 'child',
       'type': 'Widget?',
-      'desc':
-          'The text input widget (or any widget) to include in the '
+      'desc': 'The text input widget (or any widget) to include in the '
           'text-field tap group. Typically a custom text input or '
           'helper content that should be grouped with text fields.',
     },
     {
       'name': 'onTapOutside',
       'type': 'TapRegionCallback?',
-      'desc':
-          'Called when tapping outside ALL TextFieldTapRegion widgets. '
+      'desc': 'Called when tapping outside ALL TextFieldTapRegion widgets. '
           'The implicit grouping means this only fires when the tap is '
           'outside every text field on screen.',
     },
     {
       'name': 'onTapInside',
       'type': 'TapRegionCallback?',
-      'desc':
-          'Called when tapping inside THIS specific region (not the '
+      'desc': 'Called when tapping inside THIS specific region (not the '
           'group). Useful for focus management or analytics.',
     },
     {
       'name': 'consumeOutsideTaps',
       'type': 'bool',
-      'desc':
-          'Inherited from TapRegion. When true, outside taps are '
+      'desc': 'Inherited from TapRegion. When true, outside taps are '
           'consumed and not delivered to other widgets.',
     },
     {
       'name': 'enabled',
       'type': 'bool',
-      'desc':
-          'Inherited from TapRegion. When false, the widget unregisters '
+      'desc': 'Inherited from TapRegion. When false, the widget unregisters '
           'from the surface and callbacks are inactive.',
     },
     {
       'name': 'behavior',
       'type': 'HitTestBehavior?',
-      'desc':
-          'Inherited from TapRegion. Controls how the region bounds '
+      'desc': 'Inherited from TapRegion. Controls how the region bounds '
           'interact with hit testing — deferToChild vs opaque.',
     },
     {
       'name': 'groupId (static)',
       'type': 'Object',
-      'desc':
-          'A static constant that acts as the shared group identifier. '
+      'desc': 'A static constant that acts as the shared group identifier. '
           'Overriding groupId is not exposed — all TextFieldTapRegion '
           'widgets unconditionally share this one group.',
     },
@@ -264,12 +253,10 @@ dynamic build(BuildContext context) {
   final formExamples = <Map<String, dynamic>>[
     {
       'title': 'Single TextField',
-      'desc':
-          'A single TextField already uses TextFieldTapRegion internally. '
+      'desc': 'A single TextField already uses TextFieldTapRegion internally. '
           'Tapping outside the field triggers onTapOutside, which Flutter '
           'uses to unfocus the field by default.',
-      'code':
-          'TextField(\n'
+      'code': 'TextField(\n'
           '  decoration: InputDecoration(\n'
           '    labelText: "Email",\n'
           '    border: OutlineInputBorder(),\n'
@@ -279,12 +266,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-Field Form',
-      'desc':
-          'With multiple TextFields, tapping from one to another does '
+      'desc': 'With multiple TextFields, tapping from one to another does '
           'NOT fire onTapOutside because both are in the same group. '
           'Only tapping truly outside all fields unfocuses.',
-      'code':
-          'Column(\n'
+      'code': 'Column(\n'
           '  children: [\n'
           '    TextField(decoration: ...),  // Group A\n'
           '    SizedBox(height: 16),\n'
@@ -297,12 +282,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Input in Group',
-      'desc':
-          'Wrap a custom widget in TextFieldTapRegion to add it to '
+      'desc': 'Wrap a custom widget in TextFieldTapRegion to add it to '
           'the shared text-field group. Now tapping the button is '
           'considered "inside" and does not unfocus fields.',
-      'code':
-          'TextFieldTapRegion(\n'
+      'code': 'TextFieldTapRegion(\n'
           '  child: ElevatedButton(\n'
           '    onPressed: () => insertEmoji(),\n'
           '    child: Text("Insert Emoji"),\n'
@@ -405,8 +388,7 @@ dynamic build(BuildContext context) {
   final focusItems = <Map<String, dynamic>>[
     {
       'title': 'Default Focus Management',
-      'desc':
-          'When a TextField receives an onTapOutside event, it calls '
+      'desc': 'When a TextField receives an onTapOutside event, it calls '
           'FocusNode.unfocus(). This is the built-in behavior. The '
           'TextFieldTapRegion grouping ensures this only happens when '
           'tapping outside ALL text fields.',
@@ -415,8 +397,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Focus Stays Between Fields',
-      'desc':
-          'Tapping from "Email" to "Password" moves focus without '
+      'desc': 'Tapping from "Email" to "Password" moves focus without '
           'any onTapOutside event. The group treats both fields as '
           'a single region. Focus transfer is smooth and uninterrupted.',
       'icon': Icons.swap_horiz,
@@ -424,8 +405,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom onTapOutside on TextField',
-      'desc':
-          'TextField accepts its own onTapOutside callback. This fires '
+      'desc': 'TextField accepts its own onTapOutside callback. This fires '
           'only when tapping outside the entire group. Override it to '
           'prevent default unfocus or add custom behavior.',
       'icon': Icons.edit,
@@ -433,8 +413,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Preventing Unfocus',
-      'desc':
-          'Pass an empty callback to onTapOutside on the TextField to '
+      'desc': 'Pass an empty callback to onTapOutside on the TextField to '
           'prevent automatic unfocus. The field stays focused even when '
           'tapping elsewhere, which can be useful for search bars.',
       'icon': Icons.lock,
@@ -470,7 +449,11 @@ dynamic build(BuildContext context) {
                   color: fiColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(fi['icon'] as IconData, color: fiColor, size: 22),
+                child: Icon(
+                  fi['icon'] as IconData,
+                  color: fiColor,
+                  size: 22,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -512,12 +495,10 @@ dynamic build(BuildContext context) {
   final customExamples = <Map<String, dynamic>>[
     {
       'title': 'Emoji Toolbar in Text-Field Group',
-      'desc':
-          'An emoji picker bar should not unfocus the text field. Wrap '
+      'desc': 'An emoji picker bar should not unfocus the text field. Wrap '
           'the toolbar in TextFieldTapRegion so tapping an emoji button '
           'is considered "inside" the text-field group.',
-      'code':
-          'Row(\n'
+      'code': 'Row(\n'
           '  children: [\n'
           '    Expanded(\n'
           '      child: TextField(controller: ctrl),\n'
@@ -538,12 +519,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Formatting Toolbar',
-      'desc':
-          'Bold/italic/underline buttons next to a rich text editor. '
+      'desc': 'Bold/italic/underline buttons next to a rich text editor. '
           'TextFieldTapRegion keeps the text field focused when the '
           'user toggles formatting.',
-      'code':
-          'Column(\n'
+      'code': 'Column(\n'
           '  children: [\n'
           '    TextFieldTapRegion(\n'
           '      child: Row(\n'
@@ -561,12 +540,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Suggestion Chip Bar',
-      'desc':
-          'Autocomplete chips displayed below a search input. Tapping '
+      'desc': 'Autocomplete chips displayed below a search input. Tapping '
           'a chip should insert text, not unfocus the search. Wrapping '
           'the chip bar in TextFieldTapRegion handles this.',
-      'code':
-          'Column(\n'
+      'code': 'Column(\n'
           '  children: [\n'
           '    TextField(decoration: searchDecoration),\n'
           '    TextFieldTapRegion(\n'
@@ -795,8 +772,7 @@ dynamic build(BuildContext context) {
   final edgeCaseItems = <Map<String, dynamic>>[
     {
       'title': 'Overlays and Text Fields',
-      'desc':
-          'Overlay entries like autocomplete dropdowns are NOT '
+      'desc': 'Overlay entries like autocomplete dropdowns are NOT '
           'automatically in the TextFieldTapRegion group. You must '
           'wrap overlay content in TextFieldTapRegion explicitly, '
           'or tapping the dropdown will unfocus the text field.',
@@ -805,8 +781,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No TapRegionSurface',
-      'desc':
-          'TextFieldTapRegion (like TapRegion) requires a '
+      'desc': 'TextFieldTapRegion (like TapRegion) requires a '
           'TapRegionSurface ancestor. MaterialApp includes one '
           'via WidgetsApp. Without it, callbacks never fire.',
       'severity': 'Prerequisite',
@@ -814,8 +789,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Mixed Groups',
-      'desc':
-          'Wrapping a menu trigger in TextFieldTapRegion joins it '
+      'desc': 'Wrapping a menu trigger in TextFieldTapRegion joins it '
           'to the text-field group. If you want a separate group for '
           'the menu, use plain TapRegion with a custom groupId.',
       'severity': 'Design Choice',
@@ -823,8 +797,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Disabled State',
-      'desc':
-          'When enabled=false, the widget no longer participates in '
+      'desc': 'When enabled=false, the widget no longer participates in '
           'the group. Other text fields still form a group, but this '
           'one is excluded. Tapping on it IS "outside" the group.',
       'severity': 'Gotcha',
@@ -832,8 +805,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Hot Reload Stability',
-      'desc':
-          'TapRegionSurface tracks registered regions via '
+      'desc': 'TapRegionSurface tracks registered regions via '
           'RenderObject tree. Hot reload preserves these registrations, '
           'but keys changing can cause re-registration. Groups may '
           'briefly become empty during hot reload.',
@@ -916,38 +888,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.text_fields,
-      'text':
-          'TextFieldTapRegion extends TapRegion with an implicit '
+      'text': 'TextFieldTapRegion extends TapRegion with an implicit '
           'shared groupId for all text fields.',
     },
     {
       'icon': Icons.link,
-      'text':
-          'All TextFieldTapRegion instances are automatically in the '
+      'text': 'All TextFieldTapRegion instances are automatically in the '
           'same group — no manual groupId needed.',
     },
     {
       'icon': Icons.swap_horiz,
-      'text':
-          'Tapping between text fields does not trigger onTapOutside; '
+      'text': 'Tapping between text fields does not trigger onTapOutside; '
           'only taps outside ALL fields fire it.',
     },
     {
       'icon': Icons.code,
-      'text':
-          'TextField and CupertinoTextField use TextFieldTapRegion '
+      'text': 'TextField and CupertinoTextField use TextFieldTapRegion '
           'internally — it powers the tap-to-unfocus behavior.',
     },
     {
       'icon': Icons.extension,
-      'text':
-          'Wrap non-field widgets (toolbars, chips) in '
+      'text': 'Wrap non-field widgets (toolbars, chips) in '
           'TextFieldTapRegion to include them in the group.',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'Overlay entries (autocomplete, suggestions) must be '
+      'text': 'Overlay entries (autocomplete, suggestions) must be '
           'wrapped explicitly — they are NOT auto-grouped.',
     },
   ];
@@ -974,7 +940,11 @@ dynamic build(BuildContext context) {
                 color: Colors.cyan.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(sp['icon'] as IconData, color: Colors.cyan, size: 20),
+              child: Icon(
+                sp['icon'] as IconData,
+                color: Colors.cyan,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(

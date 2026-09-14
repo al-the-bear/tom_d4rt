@@ -24,8 +24,7 @@ class _DirectionalityDemoPage extends StatefulWidget {
   const _DirectionalityDemoPage();
 
   @override
-  State<_DirectionalityDemoPage> createState() =>
-      _DirectionalityDemoPageState();
+  State<_DirectionalityDemoPage> createState() => _DirectionalityDemoPageState();
 }
 
 class _DirectionalityDemoPageState extends State<_DirectionalityDemoPage> {
@@ -60,10 +59,7 @@ class _DirectionalityDemoPageState extends State<_DirectionalityDemoPage> {
                 _globalRtl
                     ? 'Global scope: Right-to-left (RTL)'
                     : 'Global scope: Left-to-right (LTR)',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
               ),
             ],
           ),
@@ -78,13 +74,10 @@ class _DirectionalityDemoPageState extends State<_DirectionalityDemoPage> {
                 compactCards: _compactCards,
                 showGuides: _showGuides,
                 alignmentBias: _alignmentBias,
-                onDirectionChanged: (value) =>
-                    setState(() => _globalRtl = value),
-                onCompactChanged: (value) =>
-                    setState(() => _compactCards = value),
+                onDirectionChanged: (value) => setState(() => _globalRtl = value),
+                onCompactChanged: (value) => setState(() => _compactCards = value),
                 onGuidesChanged: (value) => setState(() => _showGuides = value),
-                onBiasChanged: (value) =>
-                    setState(() => _alignmentBias = value),
+                onBiasChanged: (value) => setState(() => _alignmentBias = value),
               ),
               const SizedBox(height: 12),
               const _SceneSection(
@@ -135,8 +128,7 @@ class _DirectionalityDemoPageState extends State<_DirectionalityDemoPage> {
                 child: _InteractiveLabScene(
                   compactCards: _compactCards,
                   selectedToolbarIndex: _selectedToolbarIndex,
-                  onSelectToolbarIndex: (index) =>
-                      setState(() => _selectedToolbarIndex = index),
+                  onSelectToolbarIndex: (index) => setState(() => _selectedToolbarIndex = index),
                 ),
               ),
               const SizedBox(height: 12),
@@ -209,11 +201,7 @@ class _HeroDirectionBanner extends StatelessWidget {
           const SizedBox(height: 8),
           const Text(
             'Defines ambient text direction for a subtree. Widgets using start/end semantics resolve layout based on this inherited value.',
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFFF5F8FF),
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 13, color: Color(0xFFF5F8FF), height: 1.45),
           ),
           const SizedBox(height: 12),
           Row(
@@ -224,13 +212,7 @@ class _HeroDirectionBanner extends StatelessWidget {
                   onChanged: onDirectionChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Global RTL',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  title: const Text('Global RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
               ),
               const SizedBox(width: 8),
@@ -240,13 +222,7 @@ class _HeroDirectionBanner extends StatelessWidget {
                   onChanged: onCompactChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Compact cards',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  title: const Text('Compact cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
               ),
               const SizedBox(width: 8),
@@ -256,24 +232,14 @@ class _HeroDirectionBanner extends StatelessWidget {
                   onChanged: onGuidesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Show guides',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  title: const Text('Show guides', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
               ),
             ],
           ),
           Text(
             'Directional alignment bias: ${alignmentBias.toStringAsFixed(2)}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
           ),
           Slider(
             value: alignmentBias,
@@ -318,11 +284,7 @@ class _BannerChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-        ),
+        style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
       ),
     );
   }
@@ -372,20 +334,13 @@ class _SceneSection extends StatelessWidget {
                   color: accent.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  '$index',
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w900),
-                ),
+                child: Text('$index', style: TextStyle(color: accent, fontWeight: FontWeight.w900)),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
-                    color: accent,
-                    fontSize: 19,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: TextStyle(color: accent, fontSize: 19, fontWeight: FontWeight.w800),
                 ),
               ),
             ],
@@ -393,11 +348,7 @@ class _SceneSection extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              height: 1.45,
-              color: accent.withValues(alpha: 0.84),
-            ),
+            style: TextStyle(fontSize: 12, height: 1.45, color: accent.withValues(alpha: 0.84)),
           ),
           const SizedBox(height: 12),
           child,
@@ -423,18 +374,9 @@ class _AmbientInspectorScene extends StatelessWidget {
           spacing: 10,
           runSpacing: 10,
           children: const [
-            _AmbientProbeCard(
-              title: 'Ambient from current subtree',
-              direction: null,
-            ),
-            _AmbientProbeCard(
-              title: 'Forced local LTR scope',
-              direction: TextDirection.ltr,
-            ),
-            _AmbientProbeCard(
-              title: 'Forced local RTL scope',
-              direction: TextDirection.rtl,
-            ),
+            _AmbientProbeCard(title: 'Ambient from current subtree', direction: null),
+            _AmbientProbeCard(title: 'Forced local LTR scope', direction: TextDirection.ltr),
+            _AmbientProbeCard(title: 'Forced local RTL scope', direction: TextDirection.rtl),
           ],
         ),
         const SizedBox(height: 10),
@@ -460,7 +402,10 @@ class _AmbientInspectorScene extends StatelessWidget {
 }
 
 class _AmbientProbeCard extends StatelessWidget {
-  const _AmbientProbeCard({required this.title, required this.direction});
+  const _AmbientProbeCard({
+    required this.title,
+    required this.direction,
+  });
 
   final String title;
   final TextDirection? direction;
@@ -471,12 +416,8 @@ class _AmbientProbeCard extends StatelessWidget {
       builder: (context) {
         final strict = Directionality.of(context);
         final soft = Directionality.maybeOf(context);
-        final startLabel = strict == TextDirection.rtl
-            ? 'Start -> right'
-            : 'Start -> left';
-        final endLabel = strict == TextDirection.rtl
-            ? 'End -> left'
-            : 'End -> right';
+        final startLabel = strict == TextDirection.rtl ? 'Start -> right' : 'Start -> left';
+        final endLabel = strict == TextDirection.rtl ? 'End -> left' : 'End -> right';
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -514,11 +455,7 @@ class _AmbientProbeCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w800,
-                color: Color(0xFF255070),
-                fontSize: 13,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w800, color: Color(0xFF255070), fontSize: 13),
             ),
             const SizedBox(height: 8),
             body,
@@ -543,12 +480,7 @@ class _DirectionLane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsetsDirectional.only(
-        start: 10,
-        end: 10,
-        top: 8,
-        bottom: 8,
-      ),
+      padding: const EdgeInsetsDirectional.only(start: 10, end: 10, top: 8, bottom: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: accent.withValues(alpha: 0.08),
@@ -556,12 +488,7 @@ class _DirectionLane extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(
-            child: Text(
-              leftText,
-              style: TextStyle(color: accent, fontSize: 11),
-            ),
-          ),
+          Expanded(child: Text(leftText, style: TextStyle(color: accent, fontSize: 11))),
           Expanded(
             child: Text(
               rightText,
@@ -628,20 +555,11 @@ class _DirectionalRenderCard extends StatelessWidget {
             children: [
               Text(
                 '$title (${direction.name})',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 13,
-                  color: accent,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: accent),
               ),
               const SizedBox(height: 8),
               Container(
-                padding: const EdgeInsetsDirectional.only(
-                  start: 16,
-                  end: 4,
-                  top: 8,
-                  bottom: 8,
-                ),
+                padding: const EdgeInsetsDirectional.only(start: 16, end: 4, top: 8, bottom: 8),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
@@ -662,9 +580,7 @@ class _DirectionalRenderCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: accent.withValues(alpha: 0.2),
-                        ),
+                        border: Border.all(color: accent.withValues(alpha: 0.2)),
                       ),
                     ),
                     PositionedDirectional(
@@ -707,14 +623,7 @@ class _Tag extends StatelessWidget {
         color: accent,
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
+      child: Text(text, style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700)),
     );
   }
 }
@@ -787,11 +696,7 @@ class _NestedScopeCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                color: accent,
-                fontSize: 13,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 13),
             ),
             const SizedBox(height: 8),
             _MiniMessageBubble(
@@ -824,10 +729,7 @@ class _NestedScopeCard extends StatelessWidget {
               child: Text(
                 'Directionality.of inside island: ${localDirection.name}\n'
                 'Directionality.of outside island: ${parentDirection.name}',
-                style: TextStyle(
-                  fontSize: 10.2,
-                  color: accent.withValues(alpha: 0.85),
-                ),
+                style: TextStyle(fontSize: 10.2, color: accent.withValues(alpha: 0.85)),
               ),
             ),
           ],
@@ -854,19 +756,12 @@ class _MiniMessageBubble extends StatelessWidget {
     final isRtl = direction == TextDirection.rtl;
 
     return Row(
-      mainAxisAlignment: isRtl
-          ? MainAxisAlignment.start
-          : MainAxisAlignment.end,
+      mainAxisAlignment: isRtl ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 260),
           child: Container(
-            padding: const EdgeInsetsDirectional.only(
-              start: 10,
-              end: 10,
-              top: 8,
-              bottom: 8,
-            ),
+            padding: const EdgeInsetsDirectional.only(start: 10, end: 10, top: 8, bottom: 8),
             decoration: BoxDecoration(
               color: emphasized ? accent : Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -876,9 +771,7 @@ class _MiniMessageBubble extends StatelessWidget {
               text,
               style: TextStyle(
                 fontSize: 11.2,
-                color: emphasized
-                    ? Colors.white
-                    : accent.withValues(alpha: 0.86),
+                color: emphasized ? Colors.white : accent.withValues(alpha: 0.86),
               ),
             ),
           ),
@@ -889,7 +782,10 @@ class _MiniMessageBubble extends StatelessWidget {
 }
 
 class _ToolkitScene extends StatelessWidget {
-  const _ToolkitScene({required this.showGuides, required this.alignmentBias});
+  const _ToolkitScene({
+    required this.showGuides,
+    required this.alignmentBias,
+  });
 
   final bool showGuides;
   final double alignmentBias;
@@ -953,14 +849,7 @@ class _ToolkitCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: accent,
-                fontWeight: FontWeight.w800,
-                fontSize: 13,
-              ),
-            ),
+            Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13)),
             const SizedBox(height: 8),
             child,
           ],
@@ -997,12 +886,7 @@ class _OneDirectionPadding extends StatelessWidget {
     return Directionality(
       textDirection: direction,
       child: Container(
-        padding: const EdgeInsetsDirectional.only(
-          start: 18,
-          end: 4,
-          top: 6,
-          bottom: 6,
-        ),
+        padding: const EdgeInsetsDirectional.only(start: 18, end: 4, top: 6, bottom: 6),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -1010,10 +894,7 @@ class _OneDirectionPadding extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Text(
-              direction.name.toUpperCase(),
-              style: TextStyle(fontSize: 10, color: accent),
-            ),
+            Text(direction.name.toUpperCase(), style: TextStyle(fontSize: 10, color: accent)),
             const SizedBox(width: 8),
             const Expanded(
               child: Text(
@@ -1030,10 +911,7 @@ class _OneDirectionPadding extends StatelessWidget {
 }
 
 class _AlignmentDirectionalVisual extends StatelessWidget {
-  const _AlignmentDirectionalVisual({
-    required this.alignmentBias,
-    required this.showGuides,
-  });
+  const _AlignmentDirectionalVisual({required this.alignmentBias, required this.showGuides});
 
   final double alignmentBias;
   final bool showGuides;
@@ -1047,19 +925,14 @@ class _AlignmentDirectionalVisual extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: const Color(0xFF9A496D).withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: const Color(0xFF9A496D).withValues(alpha: 0.2)),
       ),
       child: Stack(
         children: [
           if (showGuides)
             Align(
               alignment: Alignment.center,
-              child: Container(
-                width: 1,
-                color: const Color(0xFF9A496D).withValues(alpha: 0.25),
-              ),
+              child: Container(width: 1, color: const Color(0xFF9A496D).withValues(alpha: 0.25)),
             ),
           AnimatedAlign(
             duration: const Duration(milliseconds: 300),
@@ -1071,9 +944,7 @@ class _AlignmentDirectionalVisual extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFF9A496D).withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: const Color(0xFF9A496D).withValues(alpha: 0.45),
-                ),
+                border: Border.all(color: const Color(0xFF9A496D).withValues(alpha: 0.45)),
               ),
               child: const Center(
                 child: Text(
@@ -1102,20 +973,14 @@ class _PositionedDirectionalVisual extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: const Color(0xFF9A496D).withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: const Color(0xFF9A496D).withValues(alpha: 0.2)),
       ),
       child: Stack(
         children: [
           if (showGuides)
             Positioned.fill(
               child: IgnorePointer(
-                child: CustomPaint(
-                  painter: _GuidePainter(
-                    color: const Color(0xFF9A496D).withValues(alpha: 0.18),
-                  ),
-                ),
+                child: CustomPaint(painter: _GuidePainter(color: const Color(0xFF9A496D).withValues(alpha: 0.18))),
               ),
             ),
           PositionedDirectional(
@@ -1146,16 +1011,8 @@ class _GuidePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
     canvas.drawRect(Offset.zero & size, paint);
-    canvas.drawLine(
-      Offset(size.width / 2, 0),
-      Offset(size.width / 2, size.height),
-      paint,
-    );
-    canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      paint,
-    );
+    canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), paint);
+    canvas.drawLine(Offset(0, size.height / 2), Offset(size.width, size.height / 2), paint);
   }
 
   @override
@@ -1201,14 +1058,7 @@ class _DirectionRow extends StatelessWidget {
         children: [
           Icon(Icons.arrow_back, color: accent, size: 16),
           const SizedBox(width: 6),
-          Text(
-            direction.name.toUpperCase(),
-            style: TextStyle(
-              fontSize: 10.5,
-              color: accent,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(direction.name.toUpperCase(), style: TextStyle(fontSize: 10.5, color: accent, fontWeight: FontWeight.w700)),
           const Spacer(),
           Icon(Icons.arrow_forward, color: accent, size: 16),
         ],
@@ -1253,13 +1103,7 @@ class _InteractiveLabScene extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Toolbar (direction-aware order)',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF5A57A6),
-                ),
-              ),
+              const Text('Toolbar (direction-aware order)', style: TextStyle(fontWeight: FontWeight.w800, color: Color(0xFF5A57A6))),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -1322,9 +1166,7 @@ class _ToolbarButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: selected ? const Color(0xFF5A57A6) : Colors.white,
-          border: Border.all(
-            color: const Color(0xFF5A57A6).withValues(alpha: 0.22),
-          ),
+          border: Border.all(color: const Color(0xFF5A57A6).withValues(alpha: 0.22)),
         ),
         child: Text(
           label,
@@ -1351,11 +1193,7 @@ class _SelectedPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final labels = ['Home stream', 'Project board', 'Insight digest'];
-    final accents = [
-      const Color(0xFF5A57A6),
-      const Color(0xFF3E7E74),
-      const Color(0xFF8A5C34),
-    ];
+    final accents = [const Color(0xFF5A57A6), const Color(0xFF3E7E74), const Color(0xFF8A5C34)];
     final accent = accents[selectedToolbarIndex];
     final itemHeight = compactCards ? 34.0 : 44.0;
 
@@ -1370,32 +1208,13 @@ class _SelectedPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            labels[selectedToolbarIndex],
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              color: accent,
-              fontSize: 13,
-            ),
-          ),
+          Text(labels[selectedToolbarIndex], style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 13)),
           const SizedBox(height: 8),
-          _PanelListItem(
-            title: 'Primary tile',
-            height: itemHeight,
-            accent: accent,
-          ),
+          _PanelListItem(title: 'Primary tile', height: itemHeight, accent: accent),
           const SizedBox(height: 6),
-          _PanelListItem(
-            title: 'Secondary tile',
-            height: itemHeight,
-            accent: accent,
-          ),
+          _PanelListItem(title: 'Secondary tile', height: itemHeight, accent: accent),
           const SizedBox(height: 6),
-          _PanelListItem(
-            title: 'Context tile',
-            height: itemHeight,
-            accent: accent,
-          ),
+          _PanelListItem(title: 'Context tile', height: itemHeight, accent: accent),
         ],
       ),
     );
@@ -1436,12 +1255,7 @@ class _PanelListItem extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-            ),
-          ),
+          Expanded(child: Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700))),
           Padding(
             padding: const EdgeInsetsDirectional.only(end: 8),
             child: Icon(Icons.chevron_right_rounded, color: accent),
@@ -1453,10 +1267,7 @@ class _PanelListItem extends StatelessWidget {
 }
 
 class _PracticalPatternsScene extends StatelessWidget {
-  const _PracticalPatternsScene({
-    required this.compactCards,
-    required this.showGuides,
-  });
+  const _PracticalPatternsScene({required this.compactCards, required this.showGuides});
 
   final bool compactCards;
   final bool showGuides;
@@ -1519,14 +1330,7 @@ class _PatternCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-                color: accent,
-              ),
-            ),
+            Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: accent)),
             const SizedBox(height: 8),
             child,
           ],
@@ -1585,9 +1389,7 @@ class _ChatRow extends StatelessWidget {
     final accent = const Color(0xFF6C5A2B);
 
     return Row(
-      mainAxisAlignment: incoming
-          ? MainAxisAlignment.start
-          : MainAxisAlignment.end,
+      mainAxisAlignment: incoming ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 260),
@@ -1653,28 +1455,12 @@ class _ActionStripPattern extends StatelessWidget {
           Align(
             alignment: AlignmentDirectional.bottomCenter,
             child: Padding(
-              padding: const EdgeInsetsDirectional.only(
-                start: 10,
-                end: 10,
-                bottom: 10,
-              ),
+              padding: const EdgeInsetsDirectional.only(start: 10, end: 10, bottom: 10),
               child: Row(
                 children: [
-                  Expanded(
-                    child: _StripButton(
-                      text: 'Cancel',
-                      accent: accent,
-                      filled: false,
-                    ),
-                  ),
+                  Expanded(child: _StripButton(text: 'Cancel', accent: accent, filled: false)),
                   const SizedBox(width: 8),
-                  Expanded(
-                    child: _StripButton(
-                      text: 'Apply',
-                      accent: accent,
-                      filled: true,
-                    ),
-                  ),
+                  Expanded(child: _StripButton(text: 'Apply', accent: accent, filled: true)),
                 ],
               ),
             ),
@@ -1686,11 +1472,7 @@ class _ActionStripPattern extends StatelessWidget {
 }
 
 class _StripButton extends StatelessWidget {
-  const _StripButton({
-    required this.text,
-    required this.accent,
-    required this.filled,
-  });
+  const _StripButton({required this.text, required this.accent, required this.filled});
 
   final String text;
   final Color accent;
@@ -1728,26 +1510,11 @@ class _MetricsPattern extends StatelessWidget {
 
     return Column(
       children: [
-        _MetricStrip(
-          label: 'Completion',
-          value: '92%',
-          accent: accent,
-          compact: compact,
-        ),
+        _MetricStrip(label: 'Completion', value: '92%', accent: accent, compact: compact),
         const SizedBox(height: 6),
-        _MetricStrip(
-          label: 'Cycle Time',
-          value: '2.1d',
-          accent: accent,
-          compact: compact,
-        ),
+        _MetricStrip(label: 'Cycle Time', value: '2.1d', accent: accent, compact: compact),
         const SizedBox(height: 6),
-        _MetricStrip(
-          label: 'Open Risks',
-          value: '3',
-          accent: accent,
-          compact: compact,
-        ),
+        _MetricStrip(label: 'Open Risks', value: '3', accent: accent, compact: compact),
       ],
     );
   }
@@ -1789,14 +1556,7 @@ class _MetricStrip extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w700, color: accent),
             ),
           ),
-          Text(
-            value,
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              color: accent,
-              fontSize: 16,
-            ),
-          ),
+          Text(value, style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 16)),
         ],
       ),
     );
@@ -1825,11 +1585,7 @@ class _WrapUpCard extends StatelessWidget {
         children: [
           Text(
             'Deep Demo Recap',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 16,
-              color: Color(0xFF324A5C),
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: Color(0xFF324A5C)),
           ),
           SizedBox(height: 8),
           Text(

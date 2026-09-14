@@ -492,7 +492,11 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          child: const Icon(Icons.stop_circle, color: Colors.white, size: 38),
+          child: const Icon(
+            Icons.stop_circle,
+            color: Colors.white,
+            size: 38,
+          ),
         ),
         const SizedBox(width: 18),
         Expanded(
@@ -611,11 +615,20 @@ dynamic build(BuildContext context) {
                 runSpacing: 6,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: const <Widget>[
-                  _ChainNode(label: 'Object', color: Color(0xFF94A3B8)),
+                  _ChainNode(
+                    label: 'Object',
+                    color: Color(0xFF94A3B8),
+                  ),
                   Icon(Icons.chevron_right, color: Color(0xFF94A3B8)),
-                  _ChainNode(label: 'Diagnosticable', color: Color(0xFF64748B)),
+                  _ChainNode(
+                    label: 'Diagnosticable',
+                    color: Color(0xFF64748B),
+                  ),
                   Icon(Icons.chevron_right, color: Color(0xFF94A3B8)),
-                  _ChainNode(label: 'PointerEvent', color: Color(0xFF6366F1)),
+                  _ChainNode(
+                    label: 'PointerEvent',
+                    color: Color(0xFF6366F1),
+                  ),
                   Icon(Icons.chevron_right, color: Color(0xFF7C3AED)),
                   _ChainNode(
                     label: 'PointerPanZoomEndEvent',
@@ -845,7 +858,9 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.12),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -971,7 +986,10 @@ dynamic build(BuildContext context) {
                 Text('  device: 0,'),
                 Text('  position: const Offset(120, 80),'),
                 Text('  embedderId: 0,'),
-                Text(');', style: TextStyle(color: Color(0xFF93C5FD))),
+                Text(
+                  ');',
+                  style: TextStyle(color: Color(0xFF93C5FD)),
+                ),
               ],
             ),
           ),
@@ -982,10 +1000,7 @@ dynamic build(BuildContext context) {
           spacing: 10,
           runSpacing: 10,
           children: <Widget>[
-            _ReadoutCard(
-              label: 'runtimeType',
-              value: '${sampleEvent.runtimeType}',
-            ),
+            _ReadoutCard(label: 'runtimeType', value: '${sampleEvent.runtimeType}'),
             _ReadoutCard(label: 'timeStamp', value: '${sampleEvent.timeStamp}'),
             _ReadoutCard(label: 'pointer', value: '${sampleEvent.pointer}'),
             _ReadoutCard(label: 'device', value: '${sampleEvent.device}'),
@@ -1081,7 +1096,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(Icons.touch_app, color: Color(0xFF0E7490), size: 22),
+            Icon(
+              Icons.touch_app,
+              color: Color(0xFF0E7490),
+              size: 22,
+            ),
             SizedBox(width: 8),
             Text(
               'Trackpad simulator (static)',
@@ -1118,7 +1137,10 @@ dynamic build(BuildContext context) {
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: <Color>[Color(0xFF1E293B), Color(0xFF0F172A)],
+                        colors: <Color>[
+                          Color(0xFF1E293B),
+                          Color(0xFF0F172A),
+                        ],
                       ),
                       borderRadius: BorderRadius.circular(18),
                       border: Border.all(
@@ -1142,7 +1164,9 @@ dynamic build(BuildContext context) {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0x22FFFFFF)),
+                        border: Border.all(
+                          color: const Color(0x22FFFFFF),
+                        ),
                       ),
                     ),
                   ),
@@ -1177,7 +1201,10 @@ dynamic build(BuildContext context) {
                     height: 3,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
-                        colors: <Color>[Color(0xFF3B82F6), Color(0xFFEF4444)],
+                        colors: <Color>[
+                          Color(0xFF3B82F6),
+                          Color(0xFFEF4444),
+                        ],
                       ),
                       borderRadius: BorderRadius.circular(2),
                     ),
@@ -1195,7 +1222,9 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: const Color(0x33A855F7),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: const Color(0x55A855F7)),
+                      border: Border.all(
+                        color: const Color(0x55A855F7),
+                      ),
                     ),
                     child: const Text(
                       'final scale: 1.42',
@@ -1231,7 +1260,11 @@ dynamic build(BuildContext context) {
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Icon(Icons.stop_circle, color: Colors.white, size: 14),
+                        Icon(
+                          Icons.stop_circle,
+                          color: Colors.white,
+                          size: 14,
+                        ),
                         SizedBox(width: 4),
                         Text(
                           'END EVENT',
@@ -1587,7 +1620,10 @@ class _FieldCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 5,
+            ),
             decoration: BoxDecoration(
               color: const Color(0xFFF1F5F9),
               borderRadius: BorderRadius.circular(6),
@@ -1785,7 +1821,11 @@ class _CompareCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(Icons.check_circle, color: card.color, size: 14),
+                  Icon(
+                    Icons.check_circle,
+                    color: card.color,
+                    size: 14,
+                  ),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -2021,7 +2061,11 @@ class _Bullet extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.chevron_right, color: Color(0xFFFCA5A5), size: 18),
+          const Icon(
+            Icons.chevron_right,
+            color: Color(0xFFFCA5A5),
+            size: 18,
+          ),
           const SizedBox(width: 6),
           Expanded(
             child: Text(

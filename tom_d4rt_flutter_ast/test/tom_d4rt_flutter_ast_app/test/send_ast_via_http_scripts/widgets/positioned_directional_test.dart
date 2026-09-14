@@ -234,9 +234,13 @@ dynamic build(BuildContext context) {
   // Side by side: same PositionedDirectional layout in LTR and RTL
   final ltrRtlComparison = Row(
     children: [
-      Expanded(child: _buildDirectionalStack(TextDirection.ltr)),
+      Expanded(
+        child: _buildDirectionalStack(TextDirection.ltr),
+      ),
       SizedBox(width: 12.0),
-      Expanded(child: _buildDirectionalStack(TextDirection.rtl)),
+      Expanded(
+        child: _buildDirectionalStack(TextDirection.rtl),
+      ),
     ],
   );
 
@@ -568,11 +572,7 @@ dynamic build(BuildContext context) {
                         PositionedDirectional(
                           start: 10.0,
                           top: 10.0,
-                          child: _buildPosLabel(
-                            'start:10',
-                            Colors.green,
-                            'LTR',
-                          ),
+                          child: _buildPosLabel('start:10', Colors.green, 'LTR'),
                         ),
                       ],
                     ),
@@ -595,11 +595,7 @@ dynamic build(BuildContext context) {
                         PositionedDirectional(
                           start: 10.0,
                           top: 10.0,
-                          child: _buildPosLabel(
-                            'start:10',
-                            Colors.green,
-                            'RTL',
-                          ),
+                          child: _buildPosLabel('start:10', Colors.green, 'RTL'),
                         ),
                       ],
                     ),
@@ -801,7 +797,10 @@ dynamic build(BuildContext context) {
                 'Directionality-aware Positioned for Stack layouts. '
                 'Uses start/end instead of left/right for automatic '
                 'RTL support in internationalized applications.',
-                style: TextStyle(fontSize: 13.0, color: Colors.orange.shade100),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.orange.shade100,
+                ),
               ),
             ],
           ),
@@ -844,9 +843,7 @@ Widget _buildDirectionalStack(TextDirection direction) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              isLtr
-                  ? Icons.format_textdirection_l_to_r
-                  : Icons.format_textdirection_r_to_l,
+              isLtr ? Icons.format_textdirection_l_to_r : Icons.format_textdirection_r_to_l,
               size: 16.0,
               color: labelColor.shade700,
             ),
@@ -1120,7 +1117,10 @@ Widget _buildPosLabel(String text, MaterialColor color, String dir) {
             color: color.shade900,
           ),
         ),
-        Text(dir, style: TextStyle(fontSize: 8.0, color: color.shade600)),
+        Text(
+          dir,
+          style: TextStyle(fontSize: 8.0, color: color.shade600),
+        ),
       ],
     ),
   );
@@ -1166,7 +1166,10 @@ Widget _buildDashboardCard() {
               SizedBox(width: 6.0),
               Text(
                 'Online',
-                style: TextStyle(fontSize: 10.0, color: Colors.greenAccent),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: Colors.greenAccent,
+                ),
               ),
             ],
           ),
@@ -1194,7 +1197,10 @@ Widget _buildDashboardCard() {
               ),
               Text(
                 'Total Revenue',
-                style: TextStyle(fontSize: 11.0, color: Colors.white54),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.white54,
+                ),
               ),
             ],
           ),

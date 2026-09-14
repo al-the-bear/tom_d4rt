@@ -103,10 +103,7 @@ const List<_IconEntry> _systemIcons = [
   _IconEntry('settings', CupertinoIcons.settings),
   _IconEntry('gear', CupertinoIcons.gear),
   _IconEntry('info', CupertinoIcons.info),
-  _IconEntry(
-    'exclamationmark_triangle',
-    CupertinoIcons.exclamationmark_triangle,
-  ),
+  _IconEntry('exclamationmark_triangle', CupertinoIcons.exclamationmark_triangle),
   _IconEntry('checkmark', CupertinoIcons.checkmark),
   _IconEntry('xmark', CupertinoIcons.xmark),
   _IconEntry('bell', CupertinoIcons.bell),
@@ -253,7 +250,11 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: [Color(0xFF0A84FF), Color(0xFF5E5CE6), Color(0xFFBF5AF2)],
+        colors: [
+          Color(0xFF0A84FF),
+          Color(0xFF5E5CE6),
+          Color(0xFFBF5AF2),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -433,10 +434,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              CupertinoIcons.square_split_2x1,
-              color: Colors.deepPurple.shade700,
-            ),
+            Icon(CupertinoIcons.square_split_2x1, color: Colors.deepPurple.shade700),
             const SizedBox(width: 8.0),
             Text(
               'Cupertino vs Material side-by-side',
@@ -452,16 +450,8 @@ dynamic build(BuildContext context) {
         Row(
           children: [
             _compareHeader('Concept', Colors.deepPurple.shade900, flex: 2),
-            _compareHeader(
-              'CupertinoIcons',
-              Colors.deepPurple.shade900,
-              flex: 3,
-            ),
-            _compareHeader(
-              'Material Icons',
-              Colors.deepPurple.shade900,
-              flex: 3,
-            ),
+            _compareHeader('CupertinoIcons', Colors.deepPurple.shade900, flex: 3),
+            _compareHeader('Material Icons', Colors.deepPurple.shade900, flex: 3),
           ],
         ),
         const SizedBox(height: 6.0),
@@ -547,10 +537,7 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 4.0),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 2.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
               decoration: BoxDecoration(
                 color: variant.fg.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(4.0),
@@ -586,10 +573,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12.0),
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: sizeTiles,
-        ),
+        Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: sizeTiles),
       ],
     ),
   );
@@ -740,20 +724,14 @@ dynamic build(BuildContext context) {
     child: Column(
       children: const [
         CupertinoListTile(
-          leading: Icon(
-            CupertinoIcons.bell_fill,
-            color: CupertinoColors.activeOrange,
-          ),
+          leading: Icon(CupertinoIcons.bell_fill, color: CupertinoColors.activeOrange),
           title: Text('Notifications'),
           subtitle: Text('Sounds, banners and badges'),
           trailing: Icon(CupertinoIcons.chevron_right),
         ),
         Divider(height: 1),
         CupertinoListTile(
-          leading: Icon(
-            CupertinoIcons.lock_fill,
-            color: CupertinoColors.systemGrey,
-          ),
+          leading: Icon(CupertinoIcons.lock_fill, color: CupertinoColors.systemGrey),
           title: Text('Privacy'),
           subtitle: Text('Location, photos and camera'),
           trailing: Icon(CupertinoIcons.chevron_right),
@@ -767,10 +745,7 @@ dynamic build(BuildContext context) {
         ),
         Divider(height: 1),
         CupertinoListTile(
-          leading: Icon(
-            CupertinoIcons.airplane,
-            color: CupertinoColors.activeOrange,
-          ),
+          leading: Icon(CupertinoIcons.airplane, color: CupertinoColors.activeOrange),
           title: Text('Airplane mode'),
           subtitle: Text('Disable all radios'),
           trailing: Icon(CupertinoIcons.chevron_right),
@@ -806,10 +781,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              CupertinoIcons.hand_point_right_fill,
-              color: Colors.orange.shade700,
-            ),
+            Icon(CupertinoIcons.hand_point_right_fill, color: Colors.orange.shade700),
             const SizedBox(width: 8.0),
             Text(
               'Icons inside interactive widgets',
@@ -838,16 +810,14 @@ dynamic build(BuildContext context) {
   final recipes = <_Recipe>[
     _Recipe(
       title: 'Centered glyph',
-      code:
-          'const Icon(CupertinoIcons.heart_fill,\n'
+      code: 'const Icon(CupertinoIcons.heart_fill,\n'
           '            size: 32, color: Colors.pink);',
       color: Colors.pink,
       glyph: CupertinoIcons.heart_fill,
     ),
     _Recipe(
       title: 'Tappable circular avatar',
-      code:
-          'CircleAvatar(\n'
+      code: 'CircleAvatar(\n'
           '  backgroundColor: Colors.indigo,\n'
           '  child: Icon(CupertinoIcons.person_fill,\n'
           '              color: Colors.white),\n'
@@ -857,8 +827,7 @@ dynamic build(BuildContext context) {
     ),
     _Recipe(
       title: 'IconButton with tooltip',
-      code:
-          'IconButton(\n'
+      code: 'IconButton(\n'
           '  icon: const Icon(CupertinoIcons.bell_fill),\n'
           '  tooltip: "Alerts",\n'
           '  onPressed: () {},\n'
@@ -868,8 +837,7 @@ dynamic build(BuildContext context) {
     ),
     _Recipe(
       title: 'Cupertino nav-bar trailing action',
-      code:
-          'CupertinoNavigationBar(\n'
+      code: 'CupertinoNavigationBar(\n'
           '  middle: Text("Inbox"),\n'
           '  trailing: Icon(CupertinoIcons.square_pencil),\n'
           ');',
@@ -878,16 +846,14 @@ dynamic build(BuildContext context) {
     ),
     _Recipe(
       title: 'Filled vs outlined variants',
-      code:
-          'const Icon(CupertinoIcons.bookmark);       // outline\n'
+      code: 'const Icon(CupertinoIcons.bookmark);       // outline\n'
           'const Icon(CupertinoIcons.bookmark_fill);  // filled',
       color: Colors.deepPurple,
       glyph: CupertinoIcons.bookmark_fill,
     ),
     _Recipe(
       title: 'Slashed-state toggle',
-      code:
-          'final muted = true;\n'
+      code: 'final muted = true;\n'
           'Icon(muted ? CupertinoIcons.volume_off\n'
           '           : CupertinoIcons.volume_up);',
       color: Colors.teal,
@@ -1048,27 +1014,18 @@ dynamic build(BuildContext context) {
       children: [
         headerBanner,
         introCard,
-        const _SectionTitle(
-          '1. Categorized icon grids',
-          CupertinoIcons.square_grid_2x2,
-        ),
+        const _SectionTitle('1. Categorized icon grids', CupertinoIcons.square_grid_2x2),
         ...categorySections,
-        const _SectionTitle(
-          '2. CupertinoIcons vs Material Icons',
-          CupertinoIcons.square_split_2x1,
-        ),
+        const _SectionTitle('2. CupertinoIcons vs Material Icons',
+            CupertinoIcons.square_split_2x1),
         compareSection,
         const _SectionTitle('3. Size ramp', CupertinoIcons.textformat_size),
         sizeSection,
-        const _SectionTitle(
-          '4. Color variations (Material 3)',
-          CupertinoIcons.paintbrush_fill,
-        ),
+        const _SectionTitle('4. Color variations (Material 3)',
+            CupertinoIcons.paintbrush_fill),
         colorSection,
-        const _SectionTitle(
-          '5. Interaction wrappers',
-          CupertinoIcons.hand_point_right_fill,
-        ),
+        const _SectionTitle('5. Interaction wrappers',
+            CupertinoIcons.hand_point_right_fill),
         interactionSection,
         const _SectionTitle('6. Recipes', CupertinoIcons.book),
         recipesSection,
@@ -1499,7 +1456,11 @@ class CupertinoIconsDemoApp extends StatelessWidget {
           leading: const Icon(CupertinoIcons.app_badge),
         ),
         body: SingleChildScrollView(
-          child: Column(children: [Builder(builder: (ctx) => build(ctx))]),
+          child: Column(
+            children: [
+              Builder(builder: (ctx) => build(ctx)),
+            ],
+          ),
         ),
       ),
     );

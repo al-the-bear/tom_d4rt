@@ -218,7 +218,10 @@ class _SectionFrame extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: <Color>[accent, accent.withValues(alpha: 0.55)],
+                    colors: <Color>[
+                      accent,
+                      accent.withValues(alpha: 0.55),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
@@ -424,7 +427,10 @@ class _MiniHeading extends StatelessWidget {
           Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 8),
           Text(
@@ -561,7 +567,9 @@ class _HeroSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.10),
+              ),
             ),
             child: Text(
               'A RenderBox is a RenderObject that uses BoxConstraints (min/max '
@@ -642,8 +650,7 @@ class _ConstraintsFlowSection extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'BoxConstraints — the data class that flows DOWN',
-          code:
-              'class BoxConstraints extends Constraints {\n'
+          code: 'class BoxConstraints extends Constraints {\n'
               '  const BoxConstraints({\n'
               '    this.minWidth  = 0.0,\n'
               '    this.maxWidth  = double.infinity,\n'
@@ -665,8 +672,7 @@ class _ConstraintsFlowSection extends StatelessWidget {
         const SizedBox(height: 16),
         const _CodeBlock(
           caption: 'Size — the data class that flows UP',
-          code:
-              'class Size extends OffsetBase {\n'
+          code: 'class Size extends OffsetBase {\n'
               '  const Size(double width, double height);\n'
               '  double get width;\n'
               '  double get height;\n'
@@ -676,28 +682,22 @@ class _ConstraintsFlowSection extends StatelessWidget {
         const SizedBox(height: 22),
         _ConstraintsFlowDiagram(),
         const SizedBox(height: 22),
-        const _MiniHeading(
-          label: 'WHAT EACH ARROW MEANS',
-          color: _Palette.indigo,
-        ),
+        const _MiniHeading(label: 'WHAT EACH ARROW MEANS', color: _Palette.indigo),
         const _Bullet(
           color: _Palette.blue,
-          text:
-              'DOWN arrow: parent invokes child.layout(constraints, '
+          text: 'DOWN arrow: parent invokes child.layout(constraints, '
               'parentUsesSize: …). The child stores the incoming '
               'BoxConstraints in its `constraints` getter.',
         ),
         const _Bullet(
           color: _Palette.mint,
-          text:
-              'UP arrow: after performLayout(), the child sets `size = …` '
+          text: 'UP arrow: after performLayout(), the child sets `size = …` '
               '(must satisfy `constraints.isSatisfiedBy(size)`). The parent '
               'reads `child.size` to know the result.',
         ),
         const _Bullet(
           color: _Palette.amber,
-          text:
-              'SIDE arrow: the parent then writes `(child.parentData as '
+          text: 'SIDE arrow: the parent then writes `(child.parentData as '
               'BoxParentData).offset = …` to position the child in its own '
               'coordinate space. The child never knows its absolute offset.',
         ),
@@ -715,30 +715,24 @@ class _ConstraintsFlowDiagram extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Color(0xFFF8FAFF), Color(0xFFEFF2FE)],
+          colors: <Color>[
+            Color(0xFFF8FAFF),
+            Color(0xFFEFF2FE),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: _Palette.line),
       ),
       child: Column(
         children: <Widget>[
-          _flowNode(
-            'Parent RenderBox',
-            _Palette.indigo,
-            'computes BoxConstraints for child',
-          ),
+          _flowNode('Parent RenderBox', _Palette.indigo,
+              'computes BoxConstraints for child'),
           _arrow(downLabel: 'constraints', up: false),
-          _flowNode(
-            'Child RenderBox',
-            _Palette.blue,
-            'performLayout() → sets size',
-          ),
+          _flowNode('Child RenderBox', _Palette.blue,
+              'performLayout() → sets size'),
           _arrow(downLabel: 'size', up: true),
-          _flowNode(
-            'Parent (again)',
-            _Palette.purple,
-            'reads child.size, writes child.parentData.offset',
-          ),
+          _flowNode('Parent (again)', _Palette.purple,
+              'reads child.size, writes child.parentData.offset'),
         ],
       ),
     );
@@ -867,8 +861,7 @@ class _RenderBoxAnatomySection extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'RenderBox — relevant interface (sketch)',
-          code:
-              'abstract class RenderBox extends RenderObject {\n'
+          code: 'abstract class RenderBox extends RenderObject {\n'
               '  // Layout output:\n'
               '  Size get size; // valid AFTER performLayout()\n'
               '\n'
@@ -942,27 +935,23 @@ class _RenderBoxAnatomySection extends StatelessWidget {
         const _MiniHeading(label: 'INVARIANTS', color: _Palette.blue),
         const _Bullet(
           color: _Palette.blue,
-          text:
-              'After layout, `size` is non-null and lies inside the '
+          text: 'After layout, `size` is non-null and lies inside the '
               'incoming `constraints`. Reading `size` before layout asserts.',
         ),
         const _Bullet(
           color: _Palette.blue,
-          text:
-              'A RenderBox must NOT depend on its parent\'s size during '
+          text: 'A RenderBox must NOT depend on its parent\'s size during '
               'its own layout. The only input is `constraints`.',
         ),
         const _Bullet(
           color: _Palette.blue,
-          text:
-              'Coordinates are local. The origin (0,0) is always the '
+          text: 'Coordinates are local. The origin (0,0) is always the '
               'top-left of THIS render box. Children store their offset '
               'relative to it on `BoxParentData.offset`.',
         ),
         const _Bullet(
           color: _Palette.blue,
-          text:
-              'Hit testing is symmetrical: paint draws child at offset, '
+          text: 'Hit testing is symmetrical: paint draws child at offset, '
               'hit-test subtracts the same offset before recursing.',
         ),
       ],
@@ -1184,8 +1173,7 @@ class _RenderProxyBoxCard extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'class signature & layout',
-          code:
-              'class RenderProxyBox extends RenderBox\n'
+          code: 'class RenderProxyBox extends RenderBox\n'
               '    with RenderObjectWithChildMixin<RenderBox>,\n'
               '         RenderProxyBoxMixin {\n'
               '  RenderProxyBox([RenderBox? child]) { this.child = child; }\n'
@@ -1208,22 +1196,19 @@ class _RenderProxyBoxCard extends StatelessWidget {
         const _MiniHeading(label: 'WHEN USED', color: _Palette.blue),
         const _Bullet(
           color: _Palette.blue,
-          text:
-              'Whenever a widget needs to MUTATE PAINT (apply a filter, '
+          text: 'Whenever a widget needs to MUTATE PAINT (apply a filter, '
               'transform, clip, opacity) without changing layout. The widget '
               'wraps a single child of the same size.',
         ),
         const _Bullet(
           color: _Palette.blue,
-          text:
-              'Examples: Opacity, AnimatedOpacity, Transform, '
+          text: 'Examples: Opacity, AnimatedOpacity, Transform, '
               'FractionalTranslation, ClipRect, ClipRRect, ClipOval, ClipPath, '
               'ColoredBox, DecoratedBox, ShaderMask, BackdropFilter.',
         ),
         const _Bullet(
           color: _Palette.blue,
-          text:
-              'paint() typically pushes a Layer (OpacityLayer, '
+          text: 'paint() typically pushes a Layer (OpacityLayer, '
               'TransformLayer, ClipRectLayer) and recurses. Layout is a no-op '
               'pass-through.',
         ),
@@ -1253,8 +1238,7 @@ class _RenderShiftedBoxCard extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'class signature',
-          code:
-              'abstract class RenderShiftedBox extends RenderBox\n'
+          code: 'abstract class RenderShiftedBox extends RenderBox\n'
               '    with RenderObjectWithChildMixin<RenderBox> {\n'
               '  RenderShiftedBox(RenderBox? child) { this.child = child; }\n'
               '\n'
@@ -1272,28 +1256,22 @@ class _RenderShiftedBoxCard extends StatelessWidget {
               '}',
         ),
         const SizedBox(height: 16),
-        const _MiniHeading(
-          label: 'KEY DIFFERENCE FROM PROXY',
-          color: _Palette.cyan,
-        ),
+        const _MiniHeading(label: 'KEY DIFFERENCE FROM PROXY', color: _Palette.cyan),
         const _Bullet(
           color: _Palette.cyan,
-          text:
-              'RenderProxyBox forces child.size == this.size. '
+          text: 'RenderProxyBox forces child.size == this.size. '
               'RenderShiftedBox lets `this.size` be DIFFERENT and stores the '
               'translation in child.parentData.offset.',
         ),
         const _Bullet(
           color: _Palette.cyan,
-          text:
-              'Subclasses override performLayout() to (a) layout the child '
+          text: 'Subclasses override performLayout() to (a) layout the child '
               'with adjusted constraints, (b) set this.size, (c) compute and '
               'write child.parentData.offset.',
         ),
         const _Bullet(
           color: _Palette.cyan,
-          text:
-              'Concrete subclasses: RenderPadding, RenderAligningShiftedBox, '
+          text: 'Concrete subclasses: RenderPadding, RenderAligningShiftedBox, '
               'RenderPositionedBox (Align/Center), RenderConstrainedOverflowBox, '
               'RenderSizedOverflowBox, RenderFittedBox, RenderBaseline.',
         ),
@@ -1322,8 +1300,7 @@ class _RenderConstrainedBoxCard extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'how it modifies constraints',
-          code:
-              'class RenderConstrainedBox extends RenderProxyBox {\n'
+          code: 'class RenderConstrainedBox extends RenderProxyBox {\n'
               '  RenderConstrainedBox({\n'
               '    RenderBox? child,\n'
               '    required BoxConstraints additionalConstraints,\n'
@@ -1353,21 +1330,18 @@ class _RenderConstrainedBoxCard extends StatelessWidget {
         ),
         const _Bullet(
           color: _Palette.teal,
-          text:
-              'SizedBox(width: w, height: h) — uses '
+          text: 'SizedBox(width: w, height: h) — uses '
               '`BoxConstraints.tightFor(width: w, height: h)` so width and '
               'height become forced if specified.',
         ),
         const _Bullet(
           color: _Palette.teal,
-          text:
-              'LimitedBox — applies maxWidth/maxHeight ONLY when the '
+          text: 'LimitedBox — applies maxWidth/maxHeight ONLY when the '
               'incoming axis is unbounded (used inside ListView items).',
         ),
         const _Bullet(
           color: _Palette.teal,
-          text:
-              '`enforce()` is intersection: result is no looser than '
+          text: '`enforce()` is intersection: result is no looser than '
               'parent constraints AND no looser than `additionalConstraints`.',
         ),
       ],
@@ -1396,8 +1370,7 @@ class _RenderAnimatedSizeCard extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'simplified contract',
-          code:
-              'class RenderAnimatedSize extends RenderAligningShiftedBox {\n'
+          code: 'class RenderAnimatedSize extends RenderAligningShiftedBox {\n'
               '  RenderAnimatedSize({\n'
               '    required TickerProvider vsync,\n'
               '    required Duration duration,\n'
@@ -1429,15 +1402,13 @@ class _RenderAnimatedSizeCard extends StatelessWidget {
         ),
         const _Bullet(
           color: _Palette.mint,
-          text:
-              'unstable — child keeps changing during animation: '
+          text: 'unstable — child keeps changing during animation: '
               'RenderAnimatedSize falls back to following the child instantly '
               'and emits a "size is unstable" debug warning.',
         ),
         const _Bullet(
           color: _Palette.mint,
-          text:
-              'This is one of the few RenderBoxes that owns a Ticker — '
+          text: 'This is one of the few RenderBoxes that owns a Ticker — '
               'AnimatedSize provides the TickerProvider via SingleTickerProviderStateMixin.',
         ),
       ],
@@ -1465,8 +1436,7 @@ class _RenderAspectRatioCard extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'sizing algorithm',
-          code:
-              'class RenderAspectRatio extends RenderProxyBox {\n'
+          code: 'class RenderAspectRatio extends RenderProxyBox {\n'
               '  RenderAspectRatio({required double aspectRatio,\n'
               '                     RenderBox? child})\n'
               '      : _aspectRatio = aspectRatio,\n'
@@ -1496,20 +1466,17 @@ class _RenderAspectRatioCard extends StatelessWidget {
         const _MiniHeading(label: 'EDGE CASES', color: _Palette.amber),
         const _Bullet(
           color: _Palette.amber,
-          text:
-              'Both axes unbounded → asserts: AspectRatio cannot pick a '
+          text: 'Both axes unbounded → asserts: AspectRatio cannot pick a '
               'size when neither constraint is finite.',
         ),
         const _Bullet(
           color: _Palette.amber,
-          text:
-              'Tight constraints → ignores the aspect ratio entirely; '
+          text: 'Tight constraints → ignores the aspect ratio entirely; '
               'returns `constraints.smallest` (which equals largest when tight).',
         ),
         const _Bullet(
           color: _Palette.amber,
-          text:
-              'Layout always succeeds within parent constraints — the '
+          text: 'Layout always succeeds within parent constraints — the '
               'aspect ratio bends to fit, never the other way around.',
         ),
       ],
@@ -1534,13 +1501,11 @@ class _RenderFlexCard extends StatelessWidget {
           'layout: first measure inflexible children, then distribute leftover '
           'space to flex children proportionally to their flex value.',
       accent: _Palette.orange,
-      parentClass:
-          'RenderBox with ContainerRenderObjectMixin<…, FlexParentData>',
+      parentClass: 'RenderBox with ContainerRenderObjectMixin<…, FlexParentData>',
       children: <Widget>[
         const _CodeBlock(
           caption: 'parent data + main fields',
-          code:
-              'class FlexParentData extends ContainerBoxParentData<RenderBox> {\n'
+          code: 'class FlexParentData extends ContainerBoxParentData<RenderBox> {\n'
               '  int? flex;       // Expanded.flex / Flexible.flex\n'
               '  FlexFit? fit;    // FlexFit.tight / FlexFit.loose\n'
               '}\n'
@@ -1561,8 +1526,7 @@ class _RenderFlexCard extends StatelessWidget {
         const SizedBox(height: 16),
         const _CodeBlock(
           caption: 'two-pass performLayout (sketch)',
-          code:
-              'void performLayout() {\n'
+          code: 'void performLayout() {\n'
               '  // PASS 1 — inflexible children (flex == 0 / null)\n'
               '  double totalFlex = 0;\n'
               '  double allocated = 0;\n'
@@ -1598,26 +1562,20 @@ class _RenderFlexCard extends StatelessWidget {
               '}',
         ),
         const SizedBox(height: 16),
-        const _MiniHeading(
-          label: 'IMPLEMENTATION HIGHLIGHTS',
-          color: _Palette.orange,
-        ),
+        const _MiniHeading(label: 'IMPLEMENTATION HIGHLIGHTS', color: _Palette.orange),
         const _Bullet(
           color: _Palette.orange,
-          text:
-              'CrossAxisAlignment.stretch makes children TIGHT on the '
+          text: 'CrossAxisAlignment.stretch makes children TIGHT on the '
               'cross axis; CrossAxisAlignment.baseline forces baseline metrics.',
         ),
         const _Bullet(
           color: _Palette.orange,
-          text:
-              'MainAxisSize.min sets this.size = sum of children on main '
+          text: 'MainAxisSize.min sets this.size = sum of children on main '
               'axis; MainAxisSize.max takes the parent\'s max on that axis.',
         ),
         const _Bullet(
           color: _Palette.orange,
-          text:
-              'Asserts on unbounded main-axis with flex children: '
+          text: 'Asserts on unbounded main-axis with flex children: '
               '"RenderFlex children have non-zero flex but incoming … '
               'constraints are unbounded".',
         ),
@@ -1643,13 +1601,11 @@ class _RenderStackCard extends StatelessWidget {
           'positioned (top/right/bottom/left given) or non-positioned '
           '(sized to the stack and aligned by `alignment`).',
       accent: _Palette.rose,
-      parentClass:
-          'RenderBox with ContainerRenderObjectMixin<…, StackParentData>',
+      parentClass: 'RenderBox with ContainerRenderObjectMixin<…, StackParentData>',
       children: <Widget>[
         const _CodeBlock(
           caption: 'parent data',
-          code:
-              'class StackParentData extends ContainerBoxParentData<RenderBox> {\n'
+          code: 'class StackParentData extends ContainerBoxParentData<RenderBox> {\n'
               '  double? top;\n'
               '  double? right;\n'
               '  double? bottom;\n'
@@ -1666,8 +1622,7 @@ class _RenderStackCard extends StatelessWidget {
         const SizedBox(height: 16),
         const _CodeBlock(
           caption: 'two-pass layout',
-          code:
-              'void performLayout() {\n'
+          code: 'void performLayout() {\n'
               '  // PASS 1: lay out NON-positioned children with `constraints`\n'
               '  // (or loosened, depending on StackFit). Track the largest size.\n'
               '  Size biggest = constraints.smallest;\n'
@@ -1706,20 +1661,17 @@ class _RenderStackCard extends StatelessWidget {
         const _MiniHeading(label: 'STACKFIT MODES', color: _Palette.rose),
         const _Bullet(
           color: _Palette.rose,
-          text:
-              'loose — non-positioned children may be smaller than the '
+          text: 'loose — non-positioned children may be smaller than the '
               'stack; the stack sizes itself to the biggest child.',
         ),
         const _Bullet(
           color: _Palette.rose,
-          text:
-              'expand — non-positioned children are forced TIGHT to the '
+          text: 'expand — non-positioned children are forced TIGHT to the '
               'stack\'s constraints; everyone is the same size.',
         ),
         const _Bullet(
           color: _Palette.rose,
-          text:
-              'passthrough — incoming constraints are forwarded unchanged; '
+          text: 'passthrough — incoming constraints are forwarded unchanged; '
               'the parent must size the stack tightly.',
         ),
       ],
@@ -1743,13 +1695,11 @@ class _RenderWrapCard extends StatelessWidget {
           'Multi-child box that lays out along the main axis until space '
           'runs out, then breaks to a new line on the cross axis. Powers Wrap.',
       accent: _Palette.purple,
-      parentClass:
-          'RenderBox with ContainerRenderObjectMixin<…, WrapParentData>',
+      parentClass: 'RenderBox with ContainerRenderObjectMixin<…, WrapParentData>',
       children: <Widget>[
         const _CodeBlock(
           caption: 'parent data + main fields',
-          code:
-              'class WrapParentData extends ContainerBoxParentData<RenderBox> {\n'
+          code: 'class WrapParentData extends ContainerBoxParentData<RenderBox> {\n'
               '  int _runIndex = 0; // which "line" the child belongs to\n'
               '}\n'
               '\n'
@@ -1770,8 +1720,7 @@ class _RenderWrapCard extends StatelessWidget {
         const SizedBox(height: 16),
         const _CodeBlock(
           caption: 'algorithm sketch',
-          code:
-              'void performLayout() {\n'
+          code: 'void performLayout() {\n'
               '  // 1. Walk children in order. For each, layout LOOSE on main\n'
               '  //    axis (so it reports its preferred size).\n'
               '  // 2. If currentRunMain + childMain + spacing > maxMain,\n'
@@ -1787,20 +1736,17 @@ class _RenderWrapCard extends StatelessWidget {
         const _MiniHeading(label: 'INTRINSIC NOTES', color: _Palette.purple),
         const _Bullet(
           color: _Palette.purple,
-          text:
-              'RenderWrap reports finite intrinsic widths and heights — '
+          text: 'RenderWrap reports finite intrinsic widths and heights — '
               'safe to place inside Wrap-of-Wraps unlike RenderFlex.',
         ),
         const _Bullet(
           color: _Palette.purple,
-          text:
-              'WrapCrossAlignment.start/end/center positions each child '
+          text: 'WrapCrossAlignment.start/end/center positions each child '
               'within its own run\'s cross extent.',
         ),
         const _Bullet(
           color: _Palette.purple,
-          text:
-              'A single run with no overflow degrades to a Flex-like '
+          text: 'A single run with no overflow degrades to a Flex-like '
               'layout; Wrap is therefore a strict superset of a one-line Flex '
               'in shape, but with different intrinsic semantics.',
         ),
@@ -1825,13 +1771,11 @@ class _RenderListBodyCard extends StatelessWidget {
           'Lays children one after another along a single axis using the '
           'FULL cross-axis extent. The non-scrolling cousin of SliverList.',
       accent: _Palette.pink,
-      parentClass:
-          'RenderBox with ContainerRenderObjectMixin<…, ListBodyParentData>',
+      parentClass: 'RenderBox with ContainerRenderObjectMixin<…, ListBodyParentData>',
       children: <Widget>[
         const _CodeBlock(
           caption: 'parent data + layout',
-          code:
-              'class ListBodyParentData\n'
+          code: 'class ListBodyParentData\n'
               '    extends ContainerBoxParentData<RenderBox> {}\n'
               '\n'
               'class RenderListBody extends RenderBox\n'
@@ -1863,21 +1807,18 @@ class _RenderListBodyCard extends StatelessWidget {
         const _MiniHeading(label: 'WHEN TO REACH FOR IT', color: _Palette.pink),
         const _Bullet(
           color: _Palette.pink,
-          text:
-              'You want a vertical list with NO scrolling — useful inside '
+          text: 'You want a vertical list with NO scrolling — useful inside '
               'a SingleChildScrollView when items are heterogeneous and you '
               'do not want SliverList\'s viewport semantics.',
         ),
         const _Bullet(
           color: _Palette.pink,
-          text:
-              'Children must report a finite extent on the main axis; '
+          text: 'Children must report a finite extent on the main axis; '
               'asserts otherwise.',
         ),
         const _Bullet(
           color: _Palette.pink,
-          text:
-              'AxisDirection.up / .left reverse the iteration order on the '
+          text: 'AxisDirection.up / .left reverse the iteration order on the '
               'paint axis without re-ordering the underlying children list.',
         ),
       ],
@@ -1906,8 +1847,7 @@ class _RenderViewportCard extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'class signature',
-          code:
-              'class RenderViewport extends RenderViewportBase<\n'
+          code: 'class RenderViewport extends RenderViewportBase<\n'
               '        SliverPhysicalContainerParentData> {\n'
               '  RenderViewport({\n'
               '    required AxisDirection axisDirection,\n'
@@ -1923,8 +1863,7 @@ class _RenderViewportCard extends StatelessWidget {
         const SizedBox(height: 16),
         const _CodeBlock(
           caption: 'box-to-sliver translation',
-          code:
-              'void performLayout() {\n'
+          code: 'void performLayout() {\n'
               '  size = constraints.biggest;\n'
               '  // For each sliver, build a SliverConstraints from this size,\n'
               '  // the current scroll offset, axis direction, and remaining\n'
@@ -1934,28 +1873,22 @@ class _RenderViewportCard extends StatelessWidget {
               '}',
         ),
         const SizedBox(height: 16),
-        const _MiniHeading(
-          label: 'WHY IT MATTERS HERE',
-          color: _Palette.indigo,
-        ),
+        const _MiniHeading(label: 'WHY IT MATTERS HERE', color: _Palette.indigo),
         const _Bullet(
           color: _Palette.indigo,
-          text:
-              'It is included in the box family because, from its parent\'s '
+          text: 'It is included in the box family because, from its parent\'s '
               'perspective, it is a normal RenderBox — it consumes '
               'BoxConstraints and produces a Size.',
         ),
         const _Bullet(
           color: _Palette.indigo,
-          text:
-              'From its children\'s perspective it is a sliver host — '
+          text: 'From its children\'s perspective it is a sliver host — '
               'children consume SliverConstraints and produce SliverGeometry. '
               'The viewport translates between the two universes.',
         ),
         const _Bullet(
           color: _Palette.indigo,
-          text:
-              'See the sliver demo file for the full sliver-side protocol; '
+          text: 'See the sliver demo file for the full sliver-side protocol; '
               'this card only documents the box-side surface.',
         ),
       ],

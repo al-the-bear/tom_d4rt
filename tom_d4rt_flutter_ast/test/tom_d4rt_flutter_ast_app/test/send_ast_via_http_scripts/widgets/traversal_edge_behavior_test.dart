@@ -106,11 +106,7 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.exit_to_app,
-                size: 28.0,
-                color: Colors.purple.shade700,
-              ),
+              Icon(Icons.exit_to_app, size: 28.0, color: Colors.purple.shade700),
               SizedBox(width: 8.0),
               Text(
                 'leaveFlutterView',
@@ -363,11 +359,7 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.exit_to_app,
-                size: 20.0,
-                color: Colors.purple.shade700,
-              ),
+              Icon(Icons.exit_to_app, size: 20.0, color: Colors.purple.shade700),
               SizedBox(width: 8.0),
               Text(
                 'leaveFlutterView — tab escapes to host',
@@ -620,7 +612,10 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
+          border: Border.all(
+            color: color.withValues(alpha: 0.5),
+            width: 1.5,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1224,15 +1219,21 @@ dynamic build(BuildContext context) {
             ),
             Expanded(
               flex: 1,
-              child: Center(child: _buildBoolIndicator(row['stays'] as bool)),
+              child: Center(
+                child: _buildBoolIndicator(row['stays'] as bool),
+              ),
             ),
             Expanded(
               flex: 1,
-              child: Center(child: _buildBoolIndicator(row['wraps'] as bool)),
+              child: Center(
+                child: _buildBoolIndicator(row['wraps'] as bool),
+              ),
             ),
             Expanded(
               flex: 1,
-              child: Center(child: _buildBoolIndicator(row['escapes'] as bool)),
+              child: Center(
+                child: _buildBoolIndicator(row['escapes'] as bool),
+              ),
             ),
           ],
         ),
@@ -1253,7 +1254,9 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Column(children: [tableHeader, ...tableRows]),
+    child: Column(
+      children: [tableHeader, ...tableRows],
+    ),
   );
 
   print('Built comparison table with ${tableRows.length} rows');
@@ -1358,7 +1361,11 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  Icon(Icons.keyboard_tab, size: 56.0, color: Colors.white),
+                  Icon(
+                    Icons.keyboard_tab,
+                    size: 56.0,
+                    color: Colors.white,
+                  ),
                   SizedBox(height: 8.0),
                   Text(
                     'TraversalEdgeBehavior',
@@ -1445,11 +1452,7 @@ dynamic build(BuildContext context) {
 }
 
 // Helper: A focus node circle with optional active state
-Widget _buildFocusNode(
-  String label,
-  MaterialColor color, {
-  bool active = false,
-}) {
+Widget _buildFocusNode(String label, MaterialColor color, {bool active = false}) {
   return Container(
     width: 36.0,
     height: 36.0,

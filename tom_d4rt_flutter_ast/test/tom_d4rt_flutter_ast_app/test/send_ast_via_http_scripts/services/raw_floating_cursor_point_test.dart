@@ -180,7 +180,11 @@ TextStyle _codeStyle({Color color = cVellum, double size = 12.5}) {
 }
 
 TextStyle _captionStyle({Color color = cSmoke, double size = 11}) {
-  return TextStyle(color: color, fontSize: size, fontStyle: FontStyle.italic);
+  return TextStyle(
+    color: color,
+    fontSize: size,
+    fontStyle: FontStyle.italic,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -233,7 +237,10 @@ Widget _hatchStrip({
   }
   return SizedBox(
     height: height,
-    child: Row(mainAxisSize: MainAxisSize.min, children: bars),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: bars,
+    ),
   );
 }
 
@@ -269,7 +276,9 @@ Widget _sectionHeader(String index, String title, {Color? accent}) {
               ),
             ),
             const SizedBox(width: 10),
-            Expanded(child: Text(title, style: _titleStyle(size: 18))),
+            Expanded(
+              child: Text(title, style: _titleStyle(size: 18)),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -325,15 +334,23 @@ Widget _bulletList(List<String> bullets, {Color dot = cCinder}) {
               margin: const EdgeInsets.only(top: 6, right: 8),
               width: 7,
               height: 7,
-              decoration: BoxDecoration(color: dot, shape: BoxShape.rectangle),
+              decoration: BoxDecoration(
+                color: dot,
+                shape: BoxShape.rectangle,
+              ),
             ),
-            Expanded(child: Text(bullets[i], style: _bodyStyle())),
+            Expanded(
+              child: Text(bullets[i], style: _bodyStyle()),
+            ),
           ],
         ),
       ),
     );
   }
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: rows,
+  );
 }
 
 Widget _kvRow(String key, String value, {Color? keyColor}) {
@@ -346,10 +363,15 @@ Widget _kvRow(String key, String value, {Color? keyColor}) {
           width: 180,
           child: Text(
             key,
-            style: _subtitleStyle(color: keyColor ?? cCinder, size: 13),
+            style: _subtitleStyle(
+              color: keyColor ?? cCinder,
+              size: 13,
+            ),
           ),
         ),
-        Expanded(child: Text(value, style: _bodyStyle(size: 13))),
+        Expanded(
+          child: Text(value, style: _bodyStyle(size: 13)),
+        ),
       ],
     ),
   );
@@ -382,7 +404,10 @@ Widget _codeCard(String title, String code, {Color? accent}) {
             Container(
               width: 9,
               height: 9,
-              decoration: BoxDecoration(color: cAsh, shape: BoxShape.rectangle),
+              decoration: BoxDecoration(
+                color: cAsh,
+                shape: BoxShape.rectangle,
+              ),
             ),
             const SizedBox(width: 6),
             Container(
@@ -600,7 +625,10 @@ Widget _samplePencilCard({
         left: 0,
         right: 0,
         top: y,
-        child: Container(height: 0.6, color: cMist.withValues(alpha: 0.7)),
+        child: Container(
+          height: 0.6,
+          color: cMist.withValues(alpha: 0.7),
+        ),
       ),
     );
   }
@@ -612,7 +640,10 @@ Widget _samplePencilCard({
         top: 0,
         bottom: 0,
         left: x,
-        child: Container(width: 0.6, color: cMist.withValues(alpha: 0.7)),
+        child: Container(
+          width: 0.6,
+          color: cMist.withValues(alpha: 0.7),
+        ),
       ),
     );
   }
@@ -622,7 +653,10 @@ Widget _samplePencilCard({
       left: 0,
       right: 0,
       top: centerY,
-      child: Container(height: 0.8, color: cAsh.withValues(alpha: 0.85)),
+      child: Container(
+        height: 0.8,
+        color: cAsh.withValues(alpha: 0.85),
+      ),
     ),
   );
   gridLines.add(
@@ -630,7 +664,10 @@ Widget _samplePencilCard({
       top: 0,
       bottom: 0,
       left: centerX,
-      child: Container(width: 0.8, color: cAsh.withValues(alpha: 0.85)),
+      child: Container(
+        width: 0.8,
+        color: cAsh.withValues(alpha: 0.85),
+      ),
     ),
   );
   // The marker.
@@ -649,7 +686,10 @@ Widget _samplePencilCard({
             shape: BoxShape.circle,
             border: Border.all(color: cInk, width: 1.0),
             boxShadow: <BoxShadow>[
-              BoxShadow(color: accent.withValues(alpha: 0.5), blurRadius: 5),
+              BoxShadow(
+                color: accent.withValues(alpha: 0.5),
+                blurRadius: 5,
+              ),
             ],
           ),
         ),
@@ -718,7 +758,9 @@ Widget _samplePencilCard({
             const SizedBox(width: 8),
             _stateBadge(state),
             const SizedBox(width: 8),
-            Expanded(child: Text(caption, style: _subtitleStyle(size: 13))),
+            Expanded(
+              child: Text(caption, style: _subtitleStyle(size: 13)),
+            ),
           ],
         ),
         const SizedBox(height: 10),
@@ -754,14 +796,18 @@ Widget _samplePencilCard({
           decoration: BoxDecoration(
             color: cSlateWash,
             borderRadius: BorderRadius.circular(4),
-            border: Border(left: BorderSide(color: cSlateBlue, width: 2.5)),
+            border: Border(
+              left: BorderSide(color: cSlateBlue, width: 2.5),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Icon(Icons.edit_note, color: cSlateBlue, size: 16),
               const SizedBox(width: 6),
-              Expanded(child: Text(narrative, style: _marginStyle())),
+              Expanded(
+                child: Text(narrative, style: _marginStyle()),
+              ),
             ],
           ),
         ),
@@ -972,7 +1018,9 @@ Widget _sessionTimelineCard({
               ),
             ),
             const SizedBox(width: 8),
-            Expanded(child: Text(title, style: _subtitleStyle(size: 14))),
+            Expanded(
+              child: Text(title, style: _subtitleStyle(size: 14)),
+            ),
             Text(
               '${session.length} samples',
               style: _captionStyle(color: cCinder, size: 11),
@@ -1119,7 +1167,10 @@ Widget _editorCanvas({
         shape: BoxShape.circle,
         border: Border.all(color: cInk, width: 1.0),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: cursorColor.withValues(alpha: 0.55), blurRadius: 6),
+          BoxShadow(
+            color: cursorColor.withValues(alpha: 0.55),
+            blurRadius: 6,
+          ),
         ],
       ),
     ),
@@ -1154,7 +1205,9 @@ Widget _editorCanvas({
           children: <Widget>[
             Icon(Icons.edit_document, color: cCinder, size: 18),
             const SizedBox(width: 8),
-            Expanded(child: Text(title, style: _subtitleStyle(size: 14))),
+            Expanded(
+              child: Text(title, style: _subtitleStyle(size: 14)),
+            ),
             _stateBadge(s),
           ],
         ),
@@ -1168,7 +1221,13 @@ Widget _editorCanvas({
             border: Border.all(color: cMist),
           ),
           child: Stack(
-            children: <Widget>[...hatch, ...lineWidgets, glow, caret, dot],
+            children: <Widget>[
+              ...hatch,
+              ...lineWidgets,
+              glow,
+              caret,
+              dot,
+            ],
           ),
         ),
         const SizedBox(height: 8),
@@ -1176,7 +1235,10 @@ Widget _editorCanvas({
         const SizedBox(height: 6),
         Row(
           children: <Widget>[
-            Text('cursor at ', style: _captionStyle(color: cSmoke, size: 11)),
+            Text(
+              'cursor at ',
+              style: _captionStyle(color: cSmoke, size: 11),
+            ),
             Text(
               '(${cursorX.toStringAsFixed(1)}, ${cursorY.toStringAsFixed(1)})',
               style: TextStyle(
@@ -1187,7 +1249,10 @@ Widget _editorCanvas({
               ),
             ),
             const SizedBox(width: 10),
-            Text('offset ', style: _captionStyle(color: cSmoke, size: 11)),
+            Text(
+              'offset ',
+              style: _captionStyle(color: cSmoke, size: 11),
+            ),
             Text(
               _formatOffset(point.offset),
               style: TextStyle(
@@ -1319,7 +1384,9 @@ Widget _scenarioCard({
               ),
             ),
             const SizedBox(width: 8),
-            Expanded(child: Text(steps[i], style: _bodyStyle(size: 12.5))),
+            Expanded(
+              child: Text(steps[i], style: _bodyStyle(size: 12.5)),
+            ),
           ],
         ),
       ),
@@ -1340,7 +1407,9 @@ Widget _scenarioCard({
           children: <Widget>[
             Icon(icon, color: accent, size: 18),
             const SizedBox(width: 8),
-            Expanded(child: Text(name, style: _subtitleStyle(size: 14))),
+            Expanded(
+              child: Text(name, style: _subtitleStyle(size: 14)),
+            ),
             Text(
               '${steps.length} steps',
               style: _captionStyle(color: cSmoke, size: 11),
@@ -1350,7 +1419,10 @@ Widget _scenarioCard({
         const SizedBox(height: 6),
         Text(description, style: _bodyStyle(size: 12.5)),
         const SizedBox(height: 8),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: rows,
+        ),
       ],
     ),
   );
@@ -1424,10 +1496,8 @@ Widget _channelTrace({
 dynamic build(BuildContext context) {
   print('=== Stylus Cinder notebook for RawFloatingCursorPoint ===');
   print('Step 1: minting palette and helper widgets.');
-  print(
-    'Step 2: constructing twelve illustrative RawFloatingCursorPoint '
-    'instances.',
-  );
+  print('Step 2: constructing twelve illustrative RawFloatingCursorPoint '
+      'instances.');
 
   // ------------------------------------------------------------------------
   // Twelve illustrative RawFloatingCursorPoint instances. The first three
@@ -1500,16 +1570,8 @@ dynamic build(BuildContext context) {
   final RawFloatingCursorPoint sA8 = RawFloatingCursorPoint(
     state: FloatingCursorDragState.End,
   );
-  final List<RawFloatingCursorPoint> sessionA = <RawFloatingCursorPoint>[
-    sA1,
-    sA2,
-    sA3,
-    sA4,
-    sA5,
-    sA6,
-    sA7,
-    sA8,
-  ];
+  final List<RawFloatingCursorPoint> sessionA =
+      <RawFloatingCursorPoint>[sA1, sA2, sA3, sA4, sA5, sA6, sA7, sA8];
 
   // Session B: a drag with an overshoot that comes back. Eleven samples:
   // Start, Updates that go right, peak, two Updates back, End.
@@ -1552,17 +1614,8 @@ dynamic build(BuildContext context) {
   final RawFloatingCursorPoint sB9 = RawFloatingCursorPoint(
     state: FloatingCursorDragState.End,
   );
-  final List<RawFloatingCursorPoint> sessionB = <RawFloatingCursorPoint>[
-    sB1,
-    sB2,
-    sB3,
-    sB4,
-    sB5,
-    sB6,
-    sB7,
-    sB8,
-    sB9,
-  ];
+  final List<RawFloatingCursorPoint> sessionB =
+      <RawFloatingCursorPoint>[sB1, sB2, sB3, sB4, sB5, sB6, sB7, sB8, sB9];
 
   // The complete catalogue of the 12 named samples for Section 4.
   final List<RawFloatingCursorPoint> catalogue = <RawFloatingCursorPoint>[
@@ -1580,10 +1633,8 @@ dynamic build(BuildContext context) {
     sB9,
   ];
 
-  print(
-    'Step 3: minted ${catalogue.length} catalogue entries plus sessions '
-    'A (${sessionA.length}) and B (${sessionB.length}).',
-  );
+  print('Step 3: minted ${catalogue.length} catalogue entries plus sessions '
+      'A (${sessionA.length}) and B (${sessionB.length}).');
   print('Step 4: building title block.');
 
   // ------------------------------------------------------------------------
@@ -1773,22 +1824,22 @@ dynamic build(BuildContext context) {
       _doAvoid(
         'Treat the offset as a delta',
         'Update.offset is measured from the anchor captured at Start, '
-            'not from the previous sample. Cumulating Update offsets yields '
-            'the wrong path.',
+        'not from the previous sample. Cumulating Update offsets yields '
+        'the wrong path.',
         isDo: true,
       ),
       _doAvoid(
         'Do not assume offset is non-null on Start',
         'iOS often sends Start with offset = (0, 0), but framework '
-            'implementations that defensively read offset must still tolerate '
-            'a null. The contract simply says "may be present".',
+        'implementations that defensively read offset must still tolerate '
+        'a null. The contract simply says "may be present".',
         isDo: true,
       ),
       _doAvoid(
         'Do not commit selection on Update',
         'Updating the underlying TextEditingValue.selection on every '
-            'Update sample causes flicker. Only the final End should commit; '
-            'Updates only paint the floating-cursor visual.',
+        'Update sample causes flicker. Only the final End should commit; '
+        'Updates only paint the floating-cursor visual.',
         isDo: false,
       ),
     ],
@@ -1819,8 +1870,7 @@ dynamic build(BuildContext context) {
             label: 'IDLE',
             color: cSmoke,
             icon: Icons.pause_circle,
-            description:
-                'No active session. RenderEditable shows the '
+            description: 'No active session. RenderEditable shows the '
                 'normal caret. Listening for Start.',
           ),
           _arrowConnector('long-press space'),
@@ -1828,8 +1878,7 @@ dynamic build(BuildContext context) {
             label: 'START',
             color: cAccentSage,
             icon: Icons.play_arrow,
-            description:
-                'iOS captured an anchor. Cache the anchor caret '
+            description: 'iOS captured an anchor. Cache the anchor caret '
                 'offset and the editor-local point; show floating cursor.',
           ),
           _arrowConnector('finger drags'),
@@ -1837,8 +1886,7 @@ dynamic build(BuildContext context) {
             label: 'UPDATE',
             color: cSlateBlue,
             icon: Icons.swap_horiz,
-            description:
-                'A new sample arrives every frame. Recompute '
+            description: 'A new sample arrives every frame. Recompute '
                 'cursor = anchor + offset; redraw the floating cursor.',
           ),
           _arrowConnector('finger lifts'),
@@ -1846,8 +1894,7 @@ dynamic build(BuildContext context) {
             label: 'END',
             color: cAccentRust,
             icon: Icons.stop,
-            description:
-                'Hide the floating cursor visual. Commit the '
+            description: 'Hide the floating cursor visual. Commit the '
                 'projected caret as the new selection. Return to idle.',
           ),
         ],
@@ -1888,19 +1935,15 @@ dynamic build(BuildContext context) {
         'the Update target in the next frame.',
       ),
       _kvRow('FloatingCursorDragState.values', 'length 3'),
-      _kvRow(
-        'FloatingCursorDragState.Start.name',
-        '"Start" -- a literal capitalised label',
-      ),
+      _kvRow('FloatingCursorDragState.Start.name',
+          '"Start" -- a literal capitalised label'),
       _kvRow('FloatingCursorDragState.Update.name', '"Update"'),
       _kvRow('FloatingCursorDragState.End.name', '"End"'),
     ],
   );
 
-  print(
-    'Step 7: assembling Section 4 -- Constructor patterns and field '
-    'semantics with the catalogue cards.',
-  );
+  print('Step 7: assembling Section 4 -- Constructor patterns and field '
+      'semantics with the catalogue cards.');
 
   // ------------------------------------------------------------------------
   // SECTION 4 -- Constructor patterns and field semantics.
@@ -1922,40 +1965,40 @@ dynamic build(BuildContext context) {
   ];
   final List<String> catalogueNarratives = <String>[
     'On a Start sample iOS commonly sends offset = (0, 0). The anchor '
-        'lives in startLocation. The editor caches both pieces and shows '
-        'a translucent floating cursor at the anchor.',
+    'lives in startLocation. The editor caches both pieces and shows '
+    'a translucent floating cursor at the anchor.',
     'On Update, offset is the only field that matters. It is a delta '
-        'from the anchor, not from the previous Update. The framework adds '
-        'this delta to the cached anchor to find the floating-cursor pos.',
+    'from the anchor, not from the previous Update. The framework adds '
+    'this delta to the cached anchor to find the floating-cursor pos.',
     'End is a notification, not a measurement. Both offset and '
-        'startLocation are typically null. The framework hides the floating '
-        'cursor and commits the projected caret to TextEditingValue.',
+    'startLocation are typically null. The framework hides the floating '
+    'cursor and commits the projected caret to TextEditingValue.',
     'The first sample in Session A. Anchor caret is at offset 5 in '
-        'the document, downstream affinity. iOS clears any prior selection '
-        'before showing the floating cursor.',
+    'the document, downstream affinity. iOS clears any prior selection '
+    'before showing the floating cursor.',
     'A middle Update from Session A; finger has travelled 36 points '
-        'from the anchor. The floating cursor is drawn at anchor + this '
-        'delta.',
+    'from the anchor. The floating cursor is drawn at anchor + this '
+    'delta.',
     'The closing End for Session A. The framework reads the last '
-        'Update offset (110, 0) and commits the caret roughly 110 points '
-        'right of the anchor.',
+    'Update offset (110, 0) and commits the caret roughly 110 points '
+    'right of the anchor.',
     'Session B opens deeper in the document; the anchor is at offset '
-        '144 with upstream affinity, indicating the user pressed near the '
-        'end of a soft-wrapped line.',
+    '144 with upstream affinity, indicating the user pressed near the '
+    'end of a soft-wrapped line.',
     'Mid-drag in Session B. Notice that offset is now both x AND y '
-        'because the user is dragging diagonally toward a target on the '
-        'next line.',
+    'because the user is dragging diagonally toward a target on the '
+    'next line.',
     'The peak of Session B. The user briefly overshoots the intended '
-        'caret position before bringing the finger back. Editors that '
-        'live-update the projected caret will paint this overshoot.',
+    'caret position before bringing the finger back. Editors that '
+    'live-update the projected caret will paint this overshoot.',
     'A return Update; the offset has shrunk relative to the peak, so '
-        'the floating cursor is now drifting back toward the anchor.',
+    'the floating cursor is now drifting back toward the anchor.',
     'A second return Update, very close to the original anchor. iOS '
-        'often emits these "settling" samples to give the visual time to '
-        'animate back.',
+    'often emits these "settling" samples to give the visual time to '
+    'animate back.',
     'The End that closes Session B. The framework commits the caret '
-        'at a point computed from the last Update; the brief overshoot is '
-        'discarded.',
+    'at a point computed from the last Update; the brief overshoot is '
+    'discarded.',
   ];
 
   for (int i = 0; i < catalogue.length; i++) {
@@ -2048,8 +2091,7 @@ dynamic build(BuildContext context) {
       ),
       _sessionTimelineCard(
         title: 'Session A -- horizontal drag, eight samples',
-        subtitle:
-            'Anchor at offset 5; finger travels 110 points right '
+        subtitle: 'Anchor at offset 5; finger travels 110 points right '
             'before lifting. No vertical motion.',
         session: sessionA,
         accent: cSlateBlue,
@@ -2062,8 +2104,7 @@ dynamic build(BuildContext context) {
       ),
       _sessionTimelineCard(
         title: 'Session B -- diagonal drag with overshoot',
-        subtitle:
-            'Anchor at offset 144 with upstream affinity. The drag '
+        subtitle: 'Anchor at offset 144 with upstream affinity. The drag '
             'goes diagonally, peaks at sample #6, then returns.',
         session: sessionB,
         accent: cAccentRust,
@@ -2127,8 +2168,7 @@ dynamic build(BuildContext context) {
       ),
       _channelTrace(
         name: 'Start sample',
-        json:
-            '{\n'
+        json: '{\n'
             '  "method": "TextInputClient.updateFloatingCursor",\n'
             '  "args": [\n'
             '    1,                       // textInputClient id\n'
@@ -2139,8 +2179,7 @@ dynamic build(BuildContext context) {
             '    }\n'
             '  ]\n'
             '}',
-        decoded:
-            'RawFloatingCursorPoint(\n'
+        decoded: 'RawFloatingCursorPoint(\n'
             '  state: FloatingCursorDragState.Start,\n'
             '  offset: Offset(0.0, 0.0),\n'
             '  startLocation: (Offset(120, 64),\n'
@@ -2149,8 +2188,7 @@ dynamic build(BuildContext context) {
       ),
       _channelTrace(
         name: 'Update sample',
-        json:
-            '{\n'
+        json: '{\n'
             '  "method": "TextInputClient.updateFloatingCursor",\n'
             '  "args": [\n'
             '    1,\n'
@@ -2161,8 +2199,7 @@ dynamic build(BuildContext context) {
             '    }\n'
             '  ]\n'
             '}',
-        decoded:
-            'RawFloatingCursorPoint(\n'
+        decoded: 'RawFloatingCursorPoint(\n'
             '  state: FloatingCursorDragState.Update,\n'
             '  offset: Offset(48.0, 0.0),\n'
             '  startLocation: null,\n'
@@ -2170,8 +2207,7 @@ dynamic build(BuildContext context) {
       ),
       _channelTrace(
         name: 'End sample',
-        json:
-            '{\n'
+        json: '{\n'
             '  "method": "TextInputClient.updateFloatingCursor",\n'
             '  "args": [\n'
             '    1,\n'
@@ -2179,8 +2215,7 @@ dynamic build(BuildContext context) {
             '    {}\n'
             '  ]\n'
             '}',
-        decoded:
-            'RawFloatingCursorPoint(\n'
+        decoded: 'RawFloatingCursorPoint(\n'
             '  state: FloatingCursorDragState.End,\n'
             '  offset: null,\n'
             '  startLocation: null,\n'
@@ -2223,32 +2258,28 @@ dynamic build(BuildContext context) {
       _editorCanvas(
         title: 'Snapshot at sample #4 (Session A, sA4)',
         point: sA4,
-        description:
-            'Mid-drag horizontal Update. The floating cursor '
+        description: 'Mid-drag horizontal Update. The floating cursor '
             'sits roughly 36 points right of the anchor. The base caret '
             'is unchanged; it would only commit on End.',
       ),
       _editorCanvas(
         title: 'Snapshot at sample #6 (Session B peak, sB6)',
         point: sB6,
-        description:
-            'The peak of the diagonal drag. The cursor has '
+        description: 'The peak of the diagonal drag. The cursor has '
             'moved 120 points right and 22 down. RenderEditable\'s '
             'caret position projection would land on a different line.',
       ),
       _editorCanvas(
         title: 'Snapshot at sample #1 (Session A start, sA1)',
         point: sA1,
-        description:
-            'A Start sample. The cursor is placed at the '
+        description: 'A Start sample. The cursor is placed at the '
             'anchor itself; offset is (0, 0). The sage colouring marks '
             'the beginning of the session.',
       ),
       _editorCanvas(
         title: 'Snapshot at sample #9 (Session B end, sB9)',
         point: sB9,
-        description:
-            'The End sample. With offset null, our visualisation '
+        description: 'The End sample. With offset null, our visualisation '
             'draws the cursor at the anchor; in practice the framework '
             'commits the caret at the last Update target rather than the '
             'anchor.',
@@ -2278,8 +2309,7 @@ dynamic build(BuildContext context) {
       ),
       _scenarioCard(
         name: 'Single tap (degenerate session)',
-        description:
-            'User briefly presses spacebar and lifts. iOS may '
+        description: 'User briefly presses spacebar and lifts. iOS may '
             'emit a Start immediately followed by an End with no Update '
             'between. The editor should treat this as a no-op.',
         steps: <String>[
@@ -2291,8 +2321,7 @@ dynamic build(BuildContext context) {
       ),
       _scenarioCard(
         name: 'Short horizontal drag',
-        description:
-            'User wants to nudge the caret two or three '
+        description: 'User wants to nudge the caret two or three '
             'characters left or right. Single Start, three or four '
             'Updates, single End.',
         steps: <String>[
@@ -2307,8 +2336,7 @@ dynamic build(BuildContext context) {
       ),
       _scenarioCard(
         name: 'Long horizontal drag (Session A shape)',
-        description:
-            'User drags across most of a paragraph. Eight or '
+        description: 'User drags across most of a paragraph. Eight or '
             'more Updates, monotonic dx growth.',
         steps: <String>[
           'Start: anchor captured.',
@@ -2323,8 +2351,7 @@ dynamic build(BuildContext context) {
       ),
       _scenarioCard(
         name: 'Drag with overshoot (Session B shape)',
-        description:
-            'User drags past the intended target then comes '
+        description: 'User drags past the intended target then comes '
             'back. Updates climb then recede; final End is past the '
             'recede point.',
         steps: <String>[
@@ -2340,8 +2367,7 @@ dynamic build(BuildContext context) {
       ),
       _scenarioCard(
         name: 'Lift-and-replace',
-        description:
-            'User lifts the finger briefly and presses again '
+        description: 'User lifts the finger briefly and presses again '
             'within the spacebar gesture. iOS emits one full session '
             '(Start..End), then another full session immediately after.',
         steps: <String>[
@@ -2357,8 +2383,7 @@ dynamic build(BuildContext context) {
       ),
       _scenarioCard(
         name: 'Diagonal drag across line break',
-        description:
-            'User drags both horizontally and vertically; the '
+        description: 'User drags both horizontally and vertically; the '
             'projected caret crosses a line boundary.',
         steps: <String>[
           'Start: anchor on line N.',
@@ -2390,98 +2415,78 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       _sectionHeader('S9', 'Glossary and best-practice checklist'),
-      _glossaryItem(
-        'floating cursor',
-        'An iOS-only translucent caret visual that follows the user\'s '
-            'finger during a long-press-spacebar gesture. Independent of '
-            'the underlying caret until commit.',
-      ),
-      _glossaryItem(
-        'anchor',
-        'The (Offset, TextPosition) pair captured at Start. All '
-            'subsequent Update offsets are deltas from this anchor.',
-      ),
-      _glossaryItem(
-        'TextPosition',
-        'A logical caret position inside the document: an integer '
-            'offset plus an affinity (upstream/downstream) for resolving '
-            'positions at line wraps.',
-      ),
-      _glossaryItem(
-        'TextAffinity.upstream',
-        'When a TextPosition sits at a line boundary, upstream means '
-            '"end of the previous line" rather than "start of the next".',
-      ),
-      _glossaryItem(
-        'TextAffinity.downstream',
-        'The default; positions resolve to the start of the next line '
-            'at a line boundary.',
-      ),
-      _glossaryItem(
-        'RenderEditable.setFloatingCursor',
-        'The framework hook that paints the floating-cursor visual '
-            'and projects the underlying caret while a session is active.',
-      ),
-      _glossaryItem(
-        'TextInputClient.updateFloatingCursor',
-        'The Dart-side entry point invoked by TextInput when the '
-            'platform sends an updateFloatingCursor channel call.',
-      ),
-      _glossaryItem(
-        'FloatingCursorDragState',
-        'The companion enum carrying three constants: Start, Update, '
-            'End. Used as the .state field of every sample.',
-      ),
-      _glossaryItem(
-        'Offset?',
-        'Nullable Offset. On Update samples this carries the delta '
-            'from the anchor; on Start it is typically Offset.zero; on '
-            'End it is null.',
-      ),
-      _glossaryItem(
-        'startLocation',
-        'A (Offset, TextPosition) record present on Start samples. '
-            'Identifies where the anchor lives in the editor canvas and '
-            'in the document.',
-      ),
+      _glossaryItem('floating cursor',
+          'An iOS-only translucent caret visual that follows the user\'s '
+          'finger during a long-press-spacebar gesture. Independent of '
+          'the underlying caret until commit.'),
+      _glossaryItem('anchor',
+          'The (Offset, TextPosition) pair captured at Start. All '
+          'subsequent Update offsets are deltas from this anchor.'),
+      _glossaryItem('TextPosition',
+          'A logical caret position inside the document: an integer '
+          'offset plus an affinity (upstream/downstream) for resolving '
+          'positions at line wraps.'),
+      _glossaryItem('TextAffinity.upstream',
+          'When a TextPosition sits at a line boundary, upstream means '
+          '"end of the previous line" rather than "start of the next".'),
+      _glossaryItem('TextAffinity.downstream',
+          'The default; positions resolve to the start of the next line '
+          'at a line boundary.'),
+      _glossaryItem('RenderEditable.setFloatingCursor',
+          'The framework hook that paints the floating-cursor visual '
+          'and projects the underlying caret while a session is active.'),
+      _glossaryItem('TextInputClient.updateFloatingCursor',
+          'The Dart-side entry point invoked by TextInput when the '
+          'platform sends an updateFloatingCursor channel call.'),
+      _glossaryItem('FloatingCursorDragState',
+          'The companion enum carrying three constants: Start, Update, '
+          'End. Used as the .state field of every sample.'),
+      _glossaryItem('Offset?',
+          'Nullable Offset. On Update samples this carries the delta '
+          'from the anchor; on Start it is typically Offset.zero; on '
+          'End it is null.'),
+      _glossaryItem('startLocation',
+          'A (Offset, TextPosition) record present on Start samples. '
+          'Identifies where the anchor lives in the editor canvas and '
+          'in the document.'),
       _doAvoid(
         'Do switch on point.state',
         'A simple switch on the three enum constants is the canonical '
-            'shape of an updateFloatingCursor handler. It documents the '
-            'protocol at a glance.',
+        'shape of an updateFloatingCursor handler. It documents the '
+        'protocol at a glance.',
         isDo: true,
       ),
       _doAvoid(
         'Do null-check offset and startLocation',
         'Both fields are nullable. End samples have both as null; '
-            'Update samples have startLocation as null. Always guard.',
+        'Update samples have startLocation as null. Always guard.',
         isDo: true,
       ),
       _doAvoid(
         'Do treat End as authoritative',
         'A floating session may emit settling Updates after the user '
-            'visually lifts the finger. Trust the End to mean "commit and '
-            'stop"; do not synthesise your own.',
+        'visually lifts the finger. Trust the End to mean "commit and '
+        'stop"; do not synthesise your own.',
         isDo: true,
       ),
       _doAvoid(
         'Avoid mutating the enum',
         'FloatingCursorDragState has exactly three values. Do not add '
-            'a fourth via inheritance hacks; the framework will not know '
-            'how to dispatch it.',
+        'a fourth via inheritance hacks; the framework will not know '
+        'how to dispatch it.',
         isDo: false,
       ),
       _doAvoid(
         'Avoid relying on offset on End',
         'iOS sends End with offset = null. Reading point.offset! on '
-            'End throws. Cache the most recent Update offset if you need it.',
+        'End throws. Cache the most recent Update offset if you need it.',
         isDo: false,
       ),
       _doAvoid(
         'Avoid blocking work in the handler',
         'updateFloatingCursor runs on the platform-message dispatch '
-            'path. Heavy work here will choke the message pump and stall '
-            'the gesture; defer to a microtask or Tick.',
+        'path. Heavy work here will choke the message pump and stall '
+        'the gesture; defer to a microtask or Tick.',
         isDo: false,
       ),
       const SizedBox(height: 12),
@@ -2534,11 +2539,9 @@ dynamic build(BuildContext context) {
   );
 
   print('Step 13: composing the final scrollable notebook.');
-  print(
-    'Notebook contains ${catalogue.length} catalogue cards plus two '
-    'traced sessions of ${sessionA.length} and ${sessionB.length} '
-    'samples respectively.',
-  );
+  print('Notebook contains ${catalogue.length} catalogue cards plus two '
+      'traced sessions of ${sessionA.length} and ${sessionB.length} '
+      'samples respectively.');
   print('=== Stylus Cinder notebook assembled ===');
 
   // ------------------------------------------------------------------------

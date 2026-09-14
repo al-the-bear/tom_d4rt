@@ -94,7 +94,10 @@ const TextStyle _kInlineMonoStyle = TextStyle(
 // -----------------------------------------------------------------------------
 
 String _hexDump(ByteData data, {int maxBytes = 256}) {
-  final list = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  final list = data.buffer.asUint8List(
+    data.offsetInBytes,
+    data.lengthInBytes,
+  );
   final clipped = list.length > maxBytes ? list.sublist(0, maxBytes) : list;
   final sb = StringBuffer();
   for (var i = 0; i < clipped.length; i++) {
@@ -112,7 +115,10 @@ String _hexDump(ByteData data, {int maxBytes = 256}) {
 }
 
 String _asciiDump(ByteData data, {int maxBytes = 256}) {
-  final list = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  final list = data.buffer.asUint8List(
+    data.offsetInBytes,
+    data.lengthInBytes,
+  );
   final clipped = list.length > maxBytes ? list.sublist(0, maxBytes) : list;
   final sb = StringBuffer();
   for (final b in clipped) {
@@ -175,8 +181,12 @@ Widget _buildSection({
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             color: accent.withOpacity(0.08),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-            border: Border(bottom: BorderSide(color: accent.withOpacity(0.25))),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(10),
+            ),
+            border: Border(
+              bottom: BorderSide(color: accent.withOpacity(0.25)),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,7 +259,9 @@ Widget _kvRow(String key, String value, {Color? color}) {
             ),
           ),
         ),
-        Expanded(child: Text(value, style: _kInlineMonoStyle)),
+        Expanded(
+          child: Text(value, style: _kInlineMonoStyle),
+        ),
       ],
     ),
   );
@@ -265,15 +277,19 @@ Widget _chip(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: color),
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+        color: color,
+      ),
     ),
   );
 }
 
 Widget _divider() => const Padding(
-  padding: EdgeInsets.symmetric(vertical: 10),
-  child: Divider(height: 1, thickness: 1, color: _kBorderColor),
-);
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Divider(height: 1, thickness: 1, color: _kBorderColor),
+    );
 
 Widget _paragraph(String text) {
   return Padding(
@@ -372,38 +388,10 @@ List<_SampleCall> _sampleCalls() {
       call: MethodCall(
         'uploadImage',
         Uint8List.fromList(<int>[
-          0x89,
-          0x50,
-          0x4E,
-          0x47,
-          0x0D,
-          0x0A,
-          0x1A,
-          0x0A,
-          0x00,
-          0x00,
-          0x00,
-          0x0D,
-          0x49,
-          0x48,
-          0x44,
-          0x52,
-          0xDE,
-          0xAD,
-          0xBE,
-          0xEF,
-          0xCA,
-          0xFE,
-          0xBA,
-          0xBE,
-          0x01,
-          0x02,
-          0x03,
-          0x04,
-          0x05,
-          0x06,
-          0x07,
-          0x08,
+          0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
+          0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52,
+          0xDE, 0xAD, 0xBE, 0xEF, 0xCA, 0xFE, 0xBA, 0xBE,
+          0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
         ]),
       ),
       purpose: 'Binary buffer (Uint8List) - Standard only.',
@@ -471,9 +459,13 @@ Widget _section1Intro() {
         'serialized into raw bytes, and how response envelopes from the host '
         'platform are deserialized back into Dart values (or exceptions).',
       ),
-      _paragraph('A typical platform call follows four stages:'),
+      _paragraph(
+        'A typical platform call follows four stages:',
+      ),
       _bullet('1) Dart constructs a MethodCall(method, arguments).'),
-      _bullet('2) The codec encodes the call to a ByteData buffer.'),
+      _bullet(
+        '2) The codec encodes the call to a ByteData buffer.',
+      ),
       _bullet(
         '3) The host platform decodes the call, runs handler logic, and '
         'replies with either a success or an error envelope.',
@@ -537,12 +529,10 @@ class _EncoderPanel extends StatefulWidget {
 }
 
 class _EncoderPanelState extends State<_EncoderPanel> {
-  final TextEditingController _methodCtrl = TextEditingController(
-    text: 'getBatteryLevel',
-  );
-  final TextEditingController _argsCtrl = TextEditingController(
-    text: '{"accuracy":"high","timeoutMs":5000}',
-  );
+  final TextEditingController _methodCtrl =
+      TextEditingController(text: 'getBatteryLevel');
+  final TextEditingController _argsCtrl =
+      TextEditingController(text: '{"accuracy":"high","timeoutMs":5000}');
 
   String _codecChoice = 'Standard';
 
@@ -643,10 +633,9 @@ class _EncoderPanelState extends State<_EncoderPanel> {
             _kvRow('args', _safeArgsToString(args)),
             _divider(),
             if (encodeErr != null) ...[
-              Text(
-                'Encode error',
-                style: _kSubTitleStyle.copyWith(color: _kAccentRed),
-              ),
+              Text('Encode error', style: _kSubTitleStyle.copyWith(
+                color: _kAccentRed,
+              )),
               _codeBlock(encodeErr, accent: _kAccentRed),
             ] else ...[
               _kvRow('byteLength', '${_byteLength(bytes!)} bytes'),
@@ -656,22 +645,16 @@ class _EncoderPanelState extends State<_EncoderPanel> {
               _codeBlock(_asciiDump(bytes), accent: _kAccentTeal),
               _divider(),
               if (decodeErr != null) ...[
-                Text(
-                  'Decode error',
-                  style: _kSubTitleStyle.copyWith(color: _kAccentRed),
-                ),
+                Text('Decode error', style: _kSubTitleStyle.copyWith(
+                  color: _kAccentRed,
+                )),
                 _codeBlock(decodeErr, accent: _kAccentRed),
               ] else ...[
-                Text(
-                  'Decoded MethodCall',
-                  style: _kSubTitleStyle.copyWith(color: _kAccentGreen),
-                ),
+                Text('Decoded MethodCall',
+                    style: _kSubTitleStyle.copyWith(color: _kAccentGreen)),
                 _kvRow('method', decoded!.method),
                 _kvRow('arguments', _safeArgsToString(decoded.arguments)),
-                _kvRow(
-                  'round-trip',
-                  decoded.method == method ? 'OK' : 'MISMATCH',
-                ),
+                _kvRow('round-trip', decoded.method == method ? 'OK' : 'MISMATCH'),
               ],
             ],
           ],
@@ -687,7 +670,9 @@ Widget _section2EncodeMethodCall() {
     subtitle:
         'Pick a codec, type a method name and JSON args; observe bytes and the round-tripped call.',
     accent: _kAccentBlue,
-    children: const [_EncoderPanel()],
+    children: const [
+      _EncoderPanel(),
+    ],
   );
 }
 
@@ -702,42 +687,38 @@ Widget _section3Standard() {
   for (final s in _sampleCalls()) {
     final r = _tryEncode(codec, 'Standard', s.call);
     results.add(_divider());
-    results.add(
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Text(
-              'MethodCall("${s.call.method}", ${_safeArgsToString(s.call.arguments)})',
-              style: _kSubTitleStyle,
-            ),
+    results.add(Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(
+            'MethodCall("${s.call.method}", ${_safeArgsToString(s.call.arguments)})',
+            style: _kSubTitleStyle,
           ),
-          if (s.jsonCompatible)
-            _chip('JSON-OK', _kAccentTeal)
-          else
-            _chip('Standard-only', _kAccentOrange),
-        ],
-      ),
-    );
+        ),
+        if (s.jsonCompatible) _chip('JSON-OK', _kAccentTeal)
+        else _chip('Standard-only', _kAccentOrange),
+      ],
+    ));
     results.add(const SizedBox(height: 4));
     results.add(Text(s.purpose, style: _kSecondaryStyle));
     if (r.error != null) {
-      results.add(_codeBlock('encode error: ${r.error}', accent: _kAccentRed));
+      results.add(_codeBlock('encode error: ${r.error}',
+          accent: _kAccentRed));
     } else {
       results.add(_kvRow('byteLength', '${_byteLength(r.bytes!)} bytes'));
       results.add(Text('Hex', style: _kSecondaryStyle));
-      results.add(
-        _codeBlock(_hexDump(r.bytes!, maxBytes: 96), accent: _kAccentBlue),
-      );
+      results.add(_codeBlock(_hexDump(r.bytes!, maxBytes: 96),
+          accent: _kAccentBlue));
       if (r.decoded != null) {
         results.add(_kvRow('decoded.method', r.decoded!.method));
-        results.add(
-          _kvRow('decoded.arguments', _safeArgsToString(r.decoded!.arguments)),
-        );
+        results.add(_kvRow(
+          'decoded.arguments',
+          _safeArgsToString(r.decoded!.arguments),
+        ));
       } else {
-        results.add(
-          _codeBlock('decode error: ${r.decodeError}', accent: _kAccentRed),
-        );
+        results.add(_codeBlock('decode error: ${r.decodeError}',
+            accent: _kAccentRed));
       }
     }
   }
@@ -776,96 +757,93 @@ Widget _section4Json() {
     }
 
     widgets.add(_divider());
-    widgets.add(Text('${s.call.method}', style: _kSubTitleStyle));
+    widgets.add(Text(
+      '${s.call.method}',
+      style: _kSubTitleStyle,
+    ));
     widgets.add(Text(s.purpose, style: _kSecondaryStyle));
     widgets.add(const SizedBox(height: 6));
 
-    final stdLen = std.bytes != null ? '${_byteLength(std.bytes!)} bytes' : '—';
+    final stdLen =
+        std.bytes != null ? '${_byteLength(std.bytes!)} bytes' : '—';
     final jsonLen = json?.bytes != null
         ? '${_byteLength(json!.bytes!)} bytes'
         : (json == null ? 'incompatible' : '—');
 
-    widgets.add(
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: _kAccentTeal.withOpacity(0.06),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: _kAccentTeal.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+    widgets.add(Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: _kAccentTeal.withOpacity(0.06),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: _kAccentTeal.withOpacity(0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Standard',
+                    style: _kSubTitleStyle.copyWith(color: _kAccentTeal)),
+                _kvRow('size', stdLen),
+                if (std.bytes != null)
                   Text(
-                    'Standard',
-                    style: _kSubTitleStyle.copyWith(color: _kAccentTeal),
+                    _hexDump(std.bytes!, maxBytes: 64),
+                    style: _kInlineMonoStyle.copyWith(fontSize: 11),
                   ),
-                  _kvRow('size', stdLen),
-                  if (std.bytes != null)
-                    Text(
-                      _hexDump(std.bytes!, maxBytes: 64),
-                      style: _kInlineMonoStyle.copyWith(fontSize: 11),
-                    ),
-                ],
-              ),
+              ],
             ),
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: _kAccentOrange.withOpacity(0.06),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: _kAccentOrange.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: _kAccentOrange.withOpacity(0.06),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: _kAccentOrange.withOpacity(0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('JSON',
+                    style: _kSubTitleStyle.copyWith(color: _kAccentOrange)),
+                _kvRow('size', jsonLen),
+                if (json?.bytes != null)
                   Text(
-                    'JSON',
-                    style: _kSubTitleStyle.copyWith(color: _kAccentOrange),
-                  ),
-                  _kvRow('size', jsonLen),
-                  if (json?.bytes != null)
-                    Text(
-                      _asciiDump(json!.bytes!, maxBytes: 96),
-                      style: _kInlineMonoStyle.copyWith(fontSize: 11),
-                    )
-                  else if (json == null)
-                    Text(
-                      'Skipped: not JSON-compatible (binary buffer)',
-                      style: _kInlineMonoStyle.copyWith(
-                        color: _kAccentRed,
-                        fontSize: 11,
-                      ),
-                    )
-                  else if (json.error != null)
-                    Text(
-                      'Error: ${json.error}',
-                      style: _kInlineMonoStyle.copyWith(
-                        color: _kAccentRed,
-                        fontSize: 11,
-                      ),
+                    _asciiDump(json!.bytes!, maxBytes: 96),
+                    style: _kInlineMonoStyle.copyWith(fontSize: 11),
+                  )
+                else if (json == null)
+                  Text(
+                    'Skipped: not JSON-compatible (binary buffer)',
+                    style: _kInlineMonoStyle.copyWith(
+                      color: _kAccentRed,
+                      fontSize: 11,
                     ),
-                ],
-              ),
+                  )
+                else if (json.error != null)
+                  Text(
+                    'Error: ${json.error}',
+                    style: _kInlineMonoStyle.copyWith(
+                      color: _kAccentRed,
+                      fontSize: 11,
+                    ),
+                  ),
+              ],
             ),
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ));
 
     if (std.bytes != null && json?.bytes != null) {
       final stdBytes = _byteLength(std.bytes!);
       final jsonBytes = _byteLength(json!.bytes!);
-      final ratio = jsonBytes == 0
-          ? 0.0
-          : (jsonBytes / stdBytes).toStringAsFixed(2);
+      final ratio =
+          jsonBytes == 0 ? 0.0 : (jsonBytes / stdBytes).toStringAsFixed(2);
       widgets.add(_kvRow('JSON / Standard', '${ratio}x'));
     }
   }
@@ -915,15 +893,12 @@ Widget _section5SuccessEnvelope() {
     try {
       final bytes = stdCodec.encodeSuccessEnvelope(r);
       final decoded = stdCodec.decodeEnvelope(bytes);
-      widgets.add(
-        _kvRow(
-          'Standard',
-          '${_byteLength(bytes)} B  -> ${decoded.runtimeType}: $decoded',
-        ),
-      );
-      widgets.add(
-        _codeBlock(_hexDump(bytes, maxBytes: 96), accent: _kAccentTeal),
-      );
+      widgets.add(_kvRow(
+        'Standard',
+        '${_byteLength(bytes)} B  -> ${decoded.runtimeType}: $decoded',
+      ));
+      widgets.add(_codeBlock(_hexDump(bytes, maxBytes: 96),
+          accent: _kAccentTeal));
     } catch (e) {
       widgets.add(_codeBlock('Standard error: $e', accent: _kAccentRed));
     }
@@ -932,15 +907,12 @@ Widget _section5SuccessEnvelope() {
     try {
       final bytes = jsonCodec.encodeSuccessEnvelope(r);
       final decoded = jsonCodec.decodeEnvelope(bytes);
-      widgets.add(
-        _kvRow(
-          'JSON',
-          '${_byteLength(bytes)} B  -> ${decoded.runtimeType}: $decoded',
-        ),
-      );
-      widgets.add(
-        _codeBlock(_asciiDump(bytes, maxBytes: 96), accent: _kAccentOrange),
-      );
+      widgets.add(_kvRow(
+        'JSON',
+        '${_byteLength(bytes)} B  -> ${decoded.runtimeType}: $decoded',
+      ));
+      widgets.add(_codeBlock(_asciiDump(bytes, maxBytes: 96),
+          accent: _kAccentOrange));
     } catch (e) {
       widgets.add(_codeBlock('JSON error: $e', accent: _kAccentRed));
     }
@@ -992,20 +964,17 @@ Widget _section6ErrorEnvelope() {
 
   for (final c in cases) {
     widgets.add(_divider());
-    widgets.add(
-      Row(
-        children: [
-          const Icon(Icons.error_outline, color: _kAccentRed, size: 20),
-          const SizedBox(width: 6),
-          Expanded(
-            child: Text(
-              c.code,
-              style: _kSubTitleStyle.copyWith(color: _kAccentRed),
-            ),
-          ),
-        ],
-      ),
-    );
+    widgets.add(Row(
+      children: [
+        const Icon(Icons.error_outline, color: _kAccentRed, size: 20),
+        const SizedBox(width: 6),
+        Expanded(
+          child: Text(c.code, style: _kSubTitleStyle.copyWith(
+            color: _kAccentRed,
+          )),
+        ),
+      ],
+    ));
     widgets.add(_kvRow('message', c.message ?? '(none)'));
     widgets.add(_kvRow('details', _safeArgsToString(c.details)));
 
@@ -1016,49 +985,44 @@ Widget _section6ErrorEnvelope() {
         message: c.message,
         details: c.details,
       );
-      widgets.add(_kvRow('Standard env size', '${_byteLength(bytes)} bytes'));
-      widgets.add(
-        _codeBlock(_hexDump(bytes, maxBytes: 96), accent: _kAccentRed),
-      );
+      widgets.add(_kvRow(
+        'Standard env size',
+        '${_byteLength(bytes)} bytes',
+      ));
+      widgets.add(_codeBlock(_hexDump(bytes, maxBytes: 96),
+          accent: _kAccentRed));
       try {
         final v = stdCodec.decodeEnvelope(bytes);
-        widgets.add(
-          _codeBlock(
-            'unexpected: decodeEnvelope returned $v',
-            accent: _kAccentOrange,
-          ),
-        );
+        widgets.add(_codeBlock(
+          'unexpected: decodeEnvelope returned $v',
+          accent: _kAccentOrange,
+        ));
       } catch (e) {
         // Bridged native `PlatformException` is wrapped by d4rt in
         // `RuntimeD4rtException`, so the typed `on PlatformException`
         // filter does not match. Catch generically and display the
         // native `toString` (which includes code/message/details).
-        widgets.add(
-          Container(
-            padding: const EdgeInsets.all(8),
-            margin: const EdgeInsets.symmetric(vertical: 4),
-            decoration: BoxDecoration(
-              color: _kAccentRed.withOpacity(0.06),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: _kAccentRed.withOpacity(0.3)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Caught error from decodeEnvelope',
-                  style: _kSubTitleStyle.copyWith(color: _kAccentRed),
-                ),
-                _codeBlock('$e', accent: _kAccentRed),
-              ],
-            ),
+        widgets.add(Container(
+          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.symmetric(vertical: 4),
+          decoration: BoxDecoration(
+            color: _kAccentRed.withOpacity(0.06),
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: _kAccentRed.withOpacity(0.3)),
           ),
-        );
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Caught error from decodeEnvelope',
+                  style: _kSubTitleStyle.copyWith(color: _kAccentRed)),
+              _codeBlock('$e', accent: _kAccentRed),
+            ],
+          ),
+        ));
       }
     } catch (e) {
-      widgets.add(
-        _codeBlock('Standard envelope error: $e', accent: _kAccentRed),
-      );
+      widgets.add(_codeBlock('Standard envelope error: $e',
+          accent: _kAccentRed));
     }
 
     // JSON
@@ -1069,45 +1033,42 @@ Widget _section6ErrorEnvelope() {
           message: c.message,
           details: c.details,
         );
-        widgets.add(_kvRow('JSON env size', '${_byteLength(bytes)} bytes'));
-        widgets.add(
-          _codeBlock(_asciiDump(bytes, maxBytes: 96), accent: _kAccentOrange),
-        );
+        widgets.add(_kvRow(
+          'JSON env size',
+          '${_byteLength(bytes)} bytes',
+        ));
+        widgets.add(_codeBlock(_asciiDump(bytes, maxBytes: 96),
+            accent: _kAccentOrange));
         try {
           final v = jsonCodec.decodeEnvelope(bytes);
-          widgets.add(
-            _codeBlock(
-              'unexpected: decodeEnvelope returned $v',
-              accent: _kAccentOrange,
-            ),
-          );
+          widgets.add(_codeBlock(
+            'unexpected: decodeEnvelope returned $v',
+            accent: _kAccentOrange,
+          ));
         } catch (e) {
           // See comment above on the Standard branch — PlatformException
           // is wrapped by d4rt; catch generically and display via toString.
-          widgets.add(
-            Container(
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.symmetric(vertical: 4),
-              decoration: BoxDecoration(
-                color: _kAccentOrange.withOpacity(0.06),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: _kAccentOrange.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Caught error from decodeEnvelope (JSON)',
-                    style: _kSubTitleStyle.copyWith(color: _kAccentOrange),
-                  ),
-                  _codeBlock('$e', accent: _kAccentOrange),
-                ],
-              ),
+          widgets.add(Container(
+            padding: const EdgeInsets.all(8),
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            decoration: BoxDecoration(
+              color: _kAccentOrange.withOpacity(0.06),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: _kAccentOrange.withOpacity(0.3)),
             ),
-          );
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Caught error from decodeEnvelope (JSON)',
+                    style: _kSubTitleStyle.copyWith(color: _kAccentOrange)),
+                _codeBlock('$e', accent: _kAccentOrange),
+              ],
+            ),
+          ));
         }
       } catch (e) {
-        widgets.add(_codeBlock('JSON envelope error: $e', accent: _kAccentRed));
+        widgets.add(_codeBlock('JSON envelope error: $e',
+            accent: _kAccentRed));
       }
     }
   }
@@ -1246,41 +1207,21 @@ Widget _section7WireFormat() {
 // Section 8: Comparison table
 // -----------------------------------------------------------------------------
 
-Widget _comparisonRow(
-  String left,
-  String mid,
-  String right, {
-  bool header = false,
-}) {
-  final style = header ? _kSubTitleStyle : _kBodyStyle;
+Widget _comparisonRow(String left, String mid, String right,
+    {bool header = false}) {
+  final style = header
+      ? _kSubTitleStyle
+      : _kBodyStyle;
   final cellPadding = const EdgeInsets.symmetric(horizontal: 8, vertical: 6);
   final divider = const VerticalDivider(width: 1, color: _kBorderColor);
   return IntrinsicHeight(
     child: Row(
       children: [
-        Expanded(
-          flex: 2,
-          child: Padding(
-            padding: cellPadding,
-            child: Text(left, style: style),
-          ),
-        ),
+        Expanded(flex: 2, child: Padding(padding: cellPadding, child: Text(left, style: style))),
         divider,
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: cellPadding,
-            child: Text(mid, style: style),
-          ),
-        ),
+        Expanded(flex: 3, child: Padding(padding: cellPadding, child: Text(mid, style: style))),
         divider,
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: cellPadding,
-            child: Text(right, style: style),
-          ),
-        ),
+        Expanded(flex: 3, child: Padding(padding: cellPadding, child: Text(right, style: style))),
       ],
     ),
   );
@@ -1306,50 +1247,35 @@ Widget _section8Comparison() {
                   top: Radius.circular(6),
                 ),
               ),
-              child: _comparisonRow('Aspect', 'Standard', 'JSON', header: true),
+              child: _comparisonRow('Aspect', 'Standard', 'JSON',
+                  header: true),
             ),
             const Divider(height: 1, color: _kBorderColor),
-            _comparisonRow(
-              'Format',
-              'Binary, length-prefixed',
-              'UTF-8 JSON text',
-            ),
+            _comparisonRow('Format', 'Binary, length-prefixed',
+                'UTF-8 JSON text'),
             const Divider(height: 1, color: _kBorderColor),
-            _comparisonRow(
-              'Supported types',
-              'null, bool, int, double, String, Uint8List, Int32List, Int64List, Float64List, List, Map',
-              'null, bool, num, String, List, Map (no binary, no NaN/Infinity)',
-            ),
+            _comparisonRow('Supported types',
+                'null, bool, int, double, String, Uint8List, Int32List, Int64List, Float64List, List, Map',
+                'null, bool, num, String, List, Map (no binary, no NaN/Infinity)'),
             const Divider(height: 1, color: _kBorderColor),
-            _comparisonRow(
-              'Byte size',
-              'Compact, especially for binary',
-              'Larger; quotes, commas, base10 numbers',
-            ),
+            _comparisonRow('Byte size', 'Compact, especially for binary',
+                'Larger; quotes, commas, base10 numbers'),
             const Divider(height: 1, color: _kBorderColor),
-            _comparisonRow(
-              'Performance',
-              'Fast: no string parsing, direct typed-data',
-              'Slower: jsonEncode/jsonDecode + UTF-8',
-            ),
+            _comparisonRow('Performance',
+                'Fast: no string parsing, direct typed-data',
+                'Slower: jsonEncode/jsonDecode + UTF-8'),
             const Divider(height: 1, color: _kBorderColor),
-            _comparisonRow(
-              'Debuggability',
-              'Bytes; needs hex dump',
-              'Plain text - readable in logs',
-            ),
+            _comparisonRow('Debuggability',
+                'Bytes; needs hex dump',
+                'Plain text - readable in logs'),
             const Divider(height: 1, color: _kBorderColor),
-            _comparisonRow(
-              'Use when',
-              'You ship a Flutter plugin for iOS/Android and want the default; you transfer images/audio/buffers',
-              'You bridge to a JS layer or REST/JSON gateway and want symmetry',
-            ),
+            _comparisonRow('Use when',
+                'You ship a Flutter plugin for iOS/Android and want the default; you transfer images/audio/buffers',
+                'You bridge to a JS layer or REST/JSON gateway and want symmetry'),
             const Divider(height: 1, color: _kBorderColor),
-            _comparisonRow(
-              'Avoid when',
-              'You need human-readable logs over the wire',
-              'You need to send binary blobs or NaN/Infinity',
-            ),
+            _comparisonRow('Avoid when',
+                'You need human-readable logs over the wire',
+                'You need to send binary blobs or NaN/Infinity'),
           ],
         ),
       ),
@@ -1387,7 +1313,11 @@ class _RoundTripPanelState extends State<_RoundTripPanel> {
   final List<Object?> _results = const <Object?>[
     null,
     true,
-    <String, Object?>{'lat': 37.42, 'lng': -122.08, 'accuracy': 8.0},
+    <String, Object?>{
+      'lat': 37.42,
+      'lng': -122.08,
+      'accuracy': 8.0,
+    },
     <Object?>['device-1', 'device-2', 'device-3'],
   ];
 
@@ -1440,9 +1370,7 @@ class _RoundTripPanelState extends State<_RoundTripPanel> {
                     child: Text(
                       '$n',
                       style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -1450,7 +1378,8 @@ class _RoundTripPanelState extends State<_RoundTripPanel> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(title, style: _kSubTitleStyle.copyWith(color: c)),
+                        Text(title,
+                            style: _kSubTitleStyle.copyWith(color: c)),
                         Text(detail, style: _kSecondaryStyle),
                       ],
                     ),
@@ -1465,97 +1394,83 @@ class _RoundTripPanelState extends State<_RoundTripPanel> {
       );
     }
 
-    children.add(
-      step(
-        1,
-        'Build call',
-        'MethodCall(method, arguments) on Dart side',
-        _kAccentBlue,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _kvRow('method', call.method),
-            _kvRow('arguments', _safeArgsToString(call.arguments)),
-          ],
-        ),
+    children.add(step(
+      1,
+      'Build call',
+      'MethodCall(method, arguments) on Dart side',
+      _kAccentBlue,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _kvRow('method', call.method),
+          _kvRow('arguments', _safeArgsToString(call.arguments)),
+        ],
       ),
-    );
-    children.add(
-      step(
-        2,
-        'Encode',
-        'codec.encodeMethodCall(call) -> ByteData',
-        _kAccentTeal,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _kvRow('byteLength', '${_byteLength(encodedCall)} bytes'),
-            _codeBlock(
-              _hexDump(encodedCall, maxBytes: 96),
-              accent: _kAccentTeal,
-            ),
-          ],
-        ),
+    ));
+    children.add(step(
+      2,
+      'Encode',
+      'codec.encodeMethodCall(call) -> ByteData',
+      _kAccentTeal,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _kvRow('byteLength', '${_byteLength(encodedCall)} bytes'),
+          _codeBlock(_hexDump(encodedCall, maxBytes: 96),
+              accent: _kAccentTeal),
+        ],
       ),
-    );
-    children.add(
-      step(
-        3,
-        'Decode (host emulation)',
-        'codec.decodeMethodCall(bytes) - host receives the call',
-        _kAccentPurple,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _kvRow('decoded.method', decodedCall.method),
-            _kvRow(
-              'decoded.arguments',
-              _safeArgsToString(decodedCall.arguments),
-            ),
-          ],
-        ),
+    ));
+    children.add(step(
+      3,
+      'Decode (host emulation)',
+      'codec.decodeMethodCall(bytes) - host receives the call',
+      _kAccentPurple,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _kvRow('decoded.method', decodedCall.method),
+          _kvRow(
+            'decoded.arguments',
+            _safeArgsToString(decodedCall.arguments),
+          ),
+        ],
       ),
-    );
-    children.add(
-      step(
-        4,
-        'Encode success envelope',
-        'host: codec.encodeSuccessEnvelope(result)',
-        _kAccentGreen,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _kvRow('result', _safeArgsToString(result)),
-            _kvRow('byteLength', '${_byteLength(successEnv)} bytes'),
-            _codeBlock(
-              _hexDump(successEnv, maxBytes: 96),
-              accent: _kAccentGreen,
-            ),
-          ],
-        ),
+    ));
+    children.add(step(
+      4,
+      'Encode success envelope',
+      'host: codec.encodeSuccessEnvelope(result)',
+      _kAccentGreen,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _kvRow('result', _safeArgsToString(result)),
+          _kvRow('byteLength', '${_byteLength(successEnv)} bytes'),
+          _codeBlock(_hexDump(successEnv, maxBytes: 96),
+              accent: _kAccentGreen),
+        ],
       ),
-    );
-    children.add(
-      step(
-        5,
-        'Decode envelope (Dart side)',
-        'codec.decodeEnvelope(envelope) returns the result',
-        _kAccentBlue,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _kvRow(
-              'decoded',
-              '${decodedSuccess?.runtimeType ?? 'Null'}: $decodedSuccess',
-            ),
-            _kvRow(
-              'matchesOriginal',
-              '${decodedSuccess?.toString() == result?.toString()}',
-            ),
-          ],
-        ),
+    ));
+    children.add(step(
+      5,
+      'Decode envelope (Dart side)',
+      'codec.decodeEnvelope(envelope) returns the result',
+      _kAccentBlue,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _kvRow(
+            'decoded',
+            '${decodedSuccess?.runtimeType ?? 'Null'}: $decodedSuccess',
+          ),
+          _kvRow(
+            'matchesOriginal',
+            '${decodedSuccess?.toString() == result?.toString()}',
+          ),
+        ],
       ),
-    );
+    ));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1570,7 +1485,9 @@ Widget _section9RoundTrip() {
     subtitle:
         'Five-step stepper: build -> encode -> decode -> respond -> decode response.',
     accent: _kAccentBlue,
-    children: const [_RoundTripPanel()],
+    children: const [
+      _RoundTripPanel(),
+    ],
   );
 }
 
@@ -1584,7 +1501,8 @@ Widget _section10ErrorPaths() {
 
   String tryEncodeStd(Object? args) {
     try {
-      final bytes = stdCodec.encodeMethodCall(MethodCall('test', args));
+      final bytes =
+          stdCodec.encodeMethodCall(MethodCall('test', args));
       return 'OK (${_byteLength(bytes)} bytes)';
     } catch (e) {
       return 'EX: $e';
@@ -1593,7 +1511,8 @@ Widget _section10ErrorPaths() {
 
   String tryEncodeJson(Object? args) {
     try {
-      final bytes = jsonCodec.encodeMethodCall(MethodCall('test', args));
+      final bytes =
+          jsonCodec.encodeMethodCall(MethodCall('test', args));
       return 'OK (${_byteLength(bytes)} bytes)';
     } catch (e) {
       return 'EX: $e';
@@ -1677,10 +1596,8 @@ Widget _recipeCard({
             Icon(icon, color: accent, size: 22),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                title,
-                style: _kSubTitleStyle.copyWith(color: accent),
-              ),
+              child: Text(title,
+                  style: _kSubTitleStyle.copyWith(color: accent)),
             ),
           ],
         ),
@@ -1711,7 +1628,8 @@ print('battery: \$level');''',
       ),
       _recipeCard(
         title: 'Settings via JSON',
-        summary: 'Use JSONMethodCodec when you bridge to a JS or HTTP layer.',
+        summary:
+            'Use JSONMethodCodec when you bridge to a JS or HTTP layer.',
         code: '''const channel = MethodChannel(
   'settings',
   JSONMethodCodec(),
@@ -1725,7 +1643,8 @@ final result = await channel.invokeMethod<Map<String, Object?>>(
       ),
       _recipeCard(
         title: 'Image upload with Uint8List (Standard)',
-        summary: 'Send binary data without base64 round-trips. Standard only.',
+        summary:
+            'Send binary data without base64 round-trips. Standard only.',
         code: '''const channel = MethodChannel('upload');
 final Uint8List bytes = await readImageBytes();
 final receiptId = await channel.invokeMethod<String>(
@@ -1770,14 +1689,17 @@ ByteData handle(ByteData input) {
 // -----------------------------------------------------------------------------
 
 Widget _refRow(List<String> cells, {bool header = false}) {
-  final style = header ? _kSubTitleStyle.copyWith(fontSize: 14) : _kBodyStyle;
+  final style = header
+      ? _kSubTitleStyle.copyWith(fontSize: 14)
+      : _kBodyStyle;
   return IntrinsicHeight(
     child: Row(
       children: [
         for (var i = 0; i < cells.length; i++) ...[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 8, vertical: 6),
               child: Text(cells[i], style: style),
             ),
           ),
@@ -1810,12 +1732,10 @@ Widget _section12ReferenceTable() {
                   top: Radius.circular(6),
                 ),
               ),
-              child: _refRow(<String>[
-                'Dart codec',
-                'Supported value types',
-                'Envelope',
-                'Pair on host',
-              ], header: true),
+              child: _refRow(
+                <String>['Dart codec', 'Supported value types', 'Envelope', 'Pair on host'],
+                header: true,
+              ),
             ),
             const Divider(height: 1, color: _kBorderColor),
             _refRow(<String>[
@@ -1879,13 +1799,11 @@ dynamic build(BuildContext context) {
   final stdEnc = stdCodec.encodeMethodCall(stdCall);
   final stdDec = stdCodec.decodeMethodCall(stdEnc);
   print(
-    'Standard encodeMethodCall -> ${_byteLength(stdEnc)} bytes; decode method=${stdDec.method}',
-  );
+      'Standard encodeMethodCall -> ${_byteLength(stdEnc)} bytes; decode method=${stdDec.method}');
 
   final stdSucc = stdCodec.encodeSuccessEnvelope('ready');
   print(
-    'Standard encodeSuccessEnvelope -> ${_byteLength(stdSucc)} bytes; decode=${stdCodec.decodeEnvelope(stdSucc)}',
-  );
+      'Standard encodeSuccessEnvelope -> ${_byteLength(stdSucc)} bytes; decode=${stdCodec.decodeEnvelope(stdSucc)}');
 
   final stdErr = stdCodec.encodeErrorEnvelope(
     code: 'BOOT_FAIL',
@@ -1911,13 +1829,11 @@ dynamic build(BuildContext context) {
   final jsonEnc = jsonCodec.encodeMethodCall(jsonCall);
   final jsonDec = jsonCodec.decodeMethodCall(jsonEnc);
   print(
-    'JSON encodeMethodCall -> ${_byteLength(jsonEnc)} bytes; decode method=${jsonDec.method}',
-  );
+      'JSON encodeMethodCall -> ${_byteLength(jsonEnc)} bytes; decode method=${jsonDec.method}');
 
   final jsonSucc = jsonCodec.encodeSuccessEnvelope('ready');
   print(
-    'JSON encodeSuccessEnvelope -> ${_byteLength(jsonSucc)} bytes; decode=${jsonCodec.decodeEnvelope(jsonSucc)}',
-  );
+      'JSON encodeSuccessEnvelope -> ${_byteLength(jsonSucc)} bytes; decode=${jsonCodec.decodeEnvelope(jsonSucc)}');
 
   final jsonErrEnv = jsonCodec.encodeErrorEnvelope(
     code: 'BOOT_FAIL',

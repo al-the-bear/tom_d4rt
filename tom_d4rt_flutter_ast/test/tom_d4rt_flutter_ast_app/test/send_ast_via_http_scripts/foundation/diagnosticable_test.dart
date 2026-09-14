@@ -87,104 +87,101 @@ dynamic build(BuildContext context) {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 24, 20, 60),
-          child: Column(
-            children: const <Widget>[
-              _HeroCard(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '01',
-                title: 'Class hierarchy',
-                subtitle: 'Where Diagnosticable sits in the foundation tower',
-                accent: _kPrimary,
-              ),
-              SizedBox(height: 16),
-              _HierarchyDiagram(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '02',
-                title: 'Anatomy of debugFillProperties',
-                subtitle: 'The one method every Diagnosticable overrides',
-                accent: _kTeal,
-              ),
-              SizedBox(height: 16),
-              _AnatomyCard(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '03',
-                title: 'DiagnosticsProperty<T> subtypes',
-                subtitle: 'Typed property wrappers shipped by foundation',
-                accent: _kAmber,
-              ),
-              SizedBox(height: 16),
-              _PropertyTypeGrid(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '04',
-                title: 'DiagnosticLevel — the visibility axis',
-                subtitle:
-                    'Nine levels controlling how (or whether) a property shows',
-                accent: _kAccent,
-              ),
-              SizedBox(height: 16),
-              _LevelList(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '05',
-                title: 'toString variants',
-                subtitle: 'Four entry points into the same property graph',
-                accent: _kForest,
-              ),
-              SizedBox(height: 16),
-              _ToStringVariantsCard(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '06',
-                title: 'DevTools-style property table',
-                subtitle: 'A visual mock of the Flutter Inspector pane',
-                accent: _kSlate,
-              ),
-              SizedBox(height: 16),
-              _DevToolsMock(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '07',
-                title: 'Custom Diagnosticable — FooConfig',
-                subtitle: 'A small idiomatic implementation, line by line',
-                accent: _kPrimaryDark,
-              ),
-              SizedBox(height: 16),
-              _CustomImplementationCard(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '08',
-                title: 'defaultValue & showName interactions',
-                subtitle: 'Two flags, four combined behaviors',
-                accent: _kTeal,
-              ),
-              SizedBox(height: 16),
-              _DefaultShowNameMatrix(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '09',
-                title: 'Use cases',
-                subtitle: 'Where Diagnosticable pays off in real life',
-                accent: _kForest,
-              ),
-              SizedBox(height: 16),
-              _UseCasesGrid(),
-              SizedBox(height: 28),
-              _SectionHeader(
-                index: '10',
-                title: 'Pitfalls',
-                subtitle: 'Things to avoid when overriding debugFillProperties',
-                accent: _kAccent,
-              ),
-              SizedBox(height: 16),
-              _PitfallsList(),
-              SizedBox(height: 32),
-              _Footer(),
-            ],
-          ),
+          child: Column(children: const <Widget>[
+            _HeroCard(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '01',
+              title: 'Class hierarchy',
+              subtitle: 'Where Diagnosticable sits in the foundation tower',
+              accent: _kPrimary,
+            ),
+            SizedBox(height: 16),
+            _HierarchyDiagram(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '02',
+              title: 'Anatomy of debugFillProperties',
+              subtitle: 'The one method every Diagnosticable overrides',
+              accent: _kTeal,
+            ),
+            SizedBox(height: 16),
+            _AnatomyCard(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '03',
+              title: 'DiagnosticsProperty<T> subtypes',
+              subtitle: 'Typed property wrappers shipped by foundation',
+              accent: _kAmber,
+            ),
+            SizedBox(height: 16),
+            _PropertyTypeGrid(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '04',
+              title: 'DiagnosticLevel — the visibility axis',
+              subtitle: 'Nine levels controlling how (or whether) a property shows',
+              accent: _kAccent,
+            ),
+            SizedBox(height: 16),
+            _LevelList(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '05',
+              title: 'toString variants',
+              subtitle: 'Four entry points into the same property graph',
+              accent: _kForest,
+            ),
+            SizedBox(height: 16),
+            _ToStringVariantsCard(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '06',
+              title: 'DevTools-style property table',
+              subtitle: 'A visual mock of the Flutter Inspector pane',
+              accent: _kSlate,
+            ),
+            SizedBox(height: 16),
+            _DevToolsMock(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '07',
+              title: 'Custom Diagnosticable — FooConfig',
+              subtitle: 'A small idiomatic implementation, line by line',
+              accent: _kPrimaryDark,
+            ),
+            SizedBox(height: 16),
+            _CustomImplementationCard(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '08',
+              title: 'defaultValue & showName interactions',
+              subtitle: 'Two flags, four combined behaviors',
+              accent: _kTeal,
+            ),
+            SizedBox(height: 16),
+            _DefaultShowNameMatrix(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '09',
+              title: 'Use cases',
+              subtitle: 'Where Diagnosticable pays off in real life',
+              accent: _kForest,
+            ),
+            SizedBox(height: 16),
+            _UseCasesGrid(),
+            SizedBox(height: 28),
+            _SectionHeader(
+              index: '10',
+              title: 'Pitfalls',
+              subtitle: 'Things to avoid when overriding debugFillProperties',
+              accent: _kAccent,
+            ),
+            SizedBox(height: 16),
+            _PitfallsList(),
+            SizedBox(height: 32),
+            _Footer(),
+          ]),
         ),
       ),
     ),
@@ -283,17 +280,15 @@ class _HeroCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 18),
-          Row(
-            children: const <Widget>[
-              _HeroPill(label: 'mixin', accent: Color(0xFFFFD9A8)),
-              SizedBox(width: 8),
-              _HeroPill(label: 'foundation', accent: Color(0xFFA8E0FF)),
-              SizedBox(width: 8),
-              _HeroPill(label: 'debug-only output', accent: Color(0xFFFFB4AB)),
-              SizedBox(width: 8),
-              _HeroPill(label: 'used by Inspector', accent: Color(0xFFB6F2C5)),
-            ],
-          ),
+          Row(children: const <Widget>[
+            _HeroPill(label: 'mixin', accent: Color(0xFFFFD9A8)),
+            SizedBox(width: 8),
+            _HeroPill(label: 'foundation', accent: Color(0xFFA8E0FF)),
+            SizedBox(width: 8),
+            _HeroPill(label: 'debug-only output', accent: Color(0xFFFFB4AB)),
+            SizedBox(width: 8),
+            _HeroPill(label: 'used by Inspector', accent: Color(0xFFB6F2C5)),
+          ]),
         ],
       ),
     );
@@ -312,7 +307,10 @@ class _HeroPill extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: accent.withValues(alpha: 0.55), width: 1.0),
+        border: Border.all(
+          color: accent.withValues(alpha: 0.55),
+          width: 1.0,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -370,7 +368,9 @@ class _SectionHeader extends StatelessWidget {
             accent.withValues(alpha: 0.04),
           ],
         ),
-        border: Border(left: BorderSide(color: accent, width: 4)),
+        border: Border(
+          left: BorderSide(color: accent, width: 4),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -496,11 +496,14 @@ class _HierarchyDiagram extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: _kPrimaryTint.withValues(alpha: 0.45),
-              border: Border.all(color: _kPrimary.withValues(alpha: 0.18)),
+              border: Border.all(
+                color: _kPrimary.withValues(alpha: 0.18),
+              ),
             ),
             child: Row(
               children: const <Widget>[
-                Icon(Icons.info_outline, color: _kPrimaryDark, size: 18),
+                Icon(Icons.info_outline,
+                    color: _kPrimaryDark, size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -654,36 +657,29 @@ class _AnatomyCard extends StatelessWidget {
           _CodeBlock(
             lines: const <_CodeLine>[
               _CodeLine(text: '@override', kind: _LineKind.annotation),
+              _CodeLine(text: 'void debugFillProperties(', kind: _LineKind.code),
               _CodeLine(
-                text: 'void debugFillProperties(',
-                kind: _LineKind.code,
-              ),
-              _CodeLine(
-                text: '    DiagnosticPropertiesBuilder properties,',
-                kind: _LineKind.code,
-              ),
+                  text: '    DiagnosticPropertiesBuilder properties,',
+                  kind: _LineKind.code),
               _CodeLine(text: ') {', kind: _LineKind.code),
               _CodeLine(
-                text: '  // 1. delegate up the chain — required.',
-                kind: _LineKind.comment,
-              ),
+                  text: '  // 1. delegate up the chain — required.',
+                  kind: _LineKind.comment),
               _CodeLine(
-                text: '  super.debugFillProperties(properties);',
-                kind: _LineKind.code,
-              ),
+                  text: '  super.debugFillProperties(properties);',
+                  kind: _LineKind.code),
               _CodeLine(text: '', kind: _LineKind.code),
               _CodeLine(
-                text: '  // 2. add one entry per visible property.',
-                kind: _LineKind.comment,
-              ),
+                  text: '  // 2. add one entry per visible property.',
+                  kind: _LineKind.comment),
               _CodeLine(
-                text: "  properties.add(StringProperty('name', name));",
-                kind: _LineKind.code,
-              ),
+                  text:
+                      "  properties.add(StringProperty('name', name));",
+                  kind: _LineKind.code),
               _CodeLine(
-                text: "  properties.add(IntProperty('retries', retries));",
-                kind: _LineKind.code,
-              ),
+                  text:
+                      "  properties.add(IntProperty('retries', retries));",
+                  kind: _LineKind.code),
               _CodeLine(text: '}', kind: _LineKind.code),
             ],
           ),
@@ -815,159 +811,149 @@ class _PropertyTypeGrid extends StatelessWidget {
     return _Card(
       child: Column(
         children: const <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'StringProperty',
-                  accent: _kPrimary,
-                  kind: 'String',
-                  ctor:
-                      "StringProperty('name', name, quoted: false, ifEmpty: '<empty>')",
-                  blurb:
-                      'Optional quoting; collapses to placeholder when blank.',
-                ),
+          Row(children: <Widget>[
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'StringProperty',
+                accent: _kPrimary,
+                kind: 'String',
+                ctor:
+                    "StringProperty('name', name, quoted: false, ifEmpty: '<empty>')",
+                blurb: 'Optional quoting; collapses to placeholder when blank.',
               ),
-              SizedBox(width: 12),
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'IntProperty',
-                  accent: _kTeal,
-                  kind: 'int',
-                  ctor:
-                      "IntProperty('count', count, defaultValue: 0, ifNull: '?')",
-                  blurb: 'Numeric format. Honors defaultValue.',
-                ),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'IntProperty',
+                accent: _kTeal,
+                kind: 'int',
+                ctor:
+                    "IntProperty('count', count, defaultValue: 0, ifNull: '?')",
+                blurb: 'Numeric format. Honors defaultValue.',
               ),
-            ],
-          ),
+            ),
+          ]),
           SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'DoubleProperty',
-                  accent: _kAmber,
-                  kind: 'double',
-                  ctor:
-                      "DoubleProperty('size', size, unit: 'px', tolerance: 0.01)",
-                  blurb: 'Optional unit suffix and equality tolerance.',
-                ),
+          Row(children: <Widget>[
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'DoubleProperty',
+                accent: _kAmber,
+                kind: 'double',
+                ctor:
+                    "DoubleProperty('size', size, unit: 'px', tolerance: 0.01)",
+                blurb: 'Optional unit suffix and equality tolerance.',
               ),
-              SizedBox(width: 12),
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'FlagProperty',
-                  accent: _kAccent,
-                  kind: 'bool',
-                  ctor:
-                      "FlagProperty('sticky', value: v, ifTrue: 'sticky', ifFalse: 'loose')",
-                  blurb: 'Renders the flag *name*, not the literal true/false.',
-                ),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'FlagProperty',
+                accent: _kAccent,
+                kind: 'bool',
+                ctor:
+                    "FlagProperty('sticky', value: v, ifTrue: 'sticky', ifFalse: 'loose')",
+                blurb: 'Renders the flag *name*, not the literal true/false.',
               ),
-            ],
-          ),
+            ),
+          ]),
           SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'EnumProperty',
-                  accent: _kForest,
-                  kind: 'enum',
-                  ctor:
-                      "EnumProperty<Axis>('axis', axis, defaultValue: Axis.horizontal)",
-                  blurb: 'Strips the Type. prefix. Generic over the enum.',
-                ),
+          Row(children: <Widget>[
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'EnumProperty',
+                accent: _kForest,
+                kind: 'enum',
+                ctor:
+                    "EnumProperty<Axis>('axis', axis, defaultValue: Axis.horizontal)",
+                blurb: 'Strips the Type. prefix. Generic over the enum.',
               ),
-              SizedBox(width: 12),
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'IterableProperty',
-                  accent: _kSlate,
-                  kind: 'Iterable<T>',
-                  ctor: "IterableProperty<int>('ids', ids, ifEmpty: '<none>')",
-                  blurb: 'Truncates long lists; respects DiagnosticsTreeStyle.',
-                ),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'IterableProperty',
+                accent: _kSlate,
+                kind: 'Iterable<T>',
+                ctor:
+                    "IterableProperty<int>('ids', ids, ifEmpty: '<none>')",
+                blurb: 'Truncates long lists; respects DiagnosticsTreeStyle.',
               ),
-            ],
-          ),
+            ),
+          ]),
           SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'ObjectFlagProperty',
-                  accent: _kPrimaryDark,
-                  kind: 'T?',
-                  ctor:
-                      "ObjectFlagProperty<VoidCallback>('onTap', onTap, ifNull: 'disabled')",
-                  blurb:
-                      'Best for callbacks — shows presence, not the closure.',
-                ),
+          Row(children: <Widget>[
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'ObjectFlagProperty',
+                accent: _kPrimaryDark,
+                kind: 'T?',
+                ctor:
+                    "ObjectFlagProperty<VoidCallback>('onTap', onTap, ifNull: 'disabled')",
+                blurb: 'Best for callbacks — shows presence, not the closure.',
               ),
-              SizedBox(width: 12),
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'MessageProperty',
-                  accent: _kAmber,
-                  kind: 'String',
-                  ctor: "MessageProperty('mode', 'opt-in beta')",
-                  blurb: 'No name/value pair — emits a freeform tag line.',
-                ),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'MessageProperty',
+                accent: _kAmber,
+                kind: 'String',
+                ctor:
+                    "MessageProperty('mode', 'opt-in beta')",
+                blurb: 'No name/value pair — emits a freeform tag line.',
               ),
-            ],
-          ),
+            ),
+          ]),
           SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'ColorProperty',
-                  accent: _kPrimary,
-                  kind: 'Color',
-                  ctor:
-                      "ColorProperty('tint', tint, defaultValue: Colors.purple)",
-                  blurb: 'Prints Color(0x…ARGB) with a swatch in DevTools.',
-                ),
+          Row(children: <Widget>[
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'ColorProperty',
+                accent: _kPrimary,
+                kind: 'Color',
+                ctor:
+                    "ColorProperty('tint', tint, defaultValue: Colors.purple)",
+                blurb: 'Prints Color(0x…ARGB) with a swatch in DevTools.',
               ),
-              SizedBox(width: 12),
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'IconDataProperty',
-                  accent: _kTeal,
-                  kind: 'IconData',
-                  ctor: "IconDataProperty('icon', icon, ifNull: '<no icon>')",
-                  blurb: 'Material/Cupertino-aware. Used by Icon.',
-                ),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'IconDataProperty',
+                accent: _kTeal,
+                kind: 'IconData',
+                ctor:
+                    "IconDataProperty('icon', icon, ifNull: '<no icon>')",
+                blurb: 'Material/Cupertino-aware. Used by Icon.',
               ),
-            ],
-          ),
+            ),
+          ]),
           SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'PercentProperty',
-                  accent: _kForest,
-                  kind: 'double',
-                  ctor: "PercentProperty('progress', 0.42, showName: true)",
-                  blurb: 'Formats 0..1 doubles as e.g. 42.0%.',
-                ),
+          Row(children: <Widget>[
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'PercentProperty',
+                accent: _kForest,
+                kind: 'double',
+                ctor:
+                    "PercentProperty('progress', 0.42, showName: true)",
+                blurb: 'Formats 0..1 doubles as e.g. 42.0%.',
               ),
-              SizedBox(width: 12),
-              Expanded(
-                child: _PropertyTypeCard(
-                  name: 'DiagnosticsProperty<T>',
-                  accent: _kInkMuted,
-                  kind: 'T',
-                  ctor:
-                      "DiagnosticsProperty<MyType>('it', it, description: '…')",
-                  blurb: 'Generic fallback when no specialized subclass fits.',
-                ),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: _PropertyTypeCard(
+                name: 'DiagnosticsProperty<T>',
+                accent: _kInkMuted,
+                kind: 'T',
+                ctor:
+                    "DiagnosticsProperty<MyType>('it', it, description: '…')",
+                blurb: 'Generic fallback when no specialized subclass fits.',
               ),
-            ],
-          ),
+            ),
+          ]),
         ],
       ),
     );
@@ -1021,7 +1007,8 @@ class _PropertyTypeCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 7, vertical: 2),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(999),
@@ -1193,7 +1180,8 @@ class _LevelRow extends StatelessWidget {
         children: <Widget>[
           Container(
             width: 92,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               gradient: LinearGradient(
@@ -1233,16 +1221,15 @@ class _LevelRow extends StatelessWidget {
                 const SizedBox(height: 4),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
+                      horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.bookmark_outline, color: color, size: 13),
+                      Icon(Icons.bookmark_outline,
+                          color: color, size: 13),
                       const SizedBox(width: 6),
                       Expanded(
                         child: Text(
@@ -1282,8 +1269,7 @@ class _ToStringVariantsCard extends StatelessWidget {
             blurb:
                 'One-line, info-level properties. Default Object.toString '
                 'override; cheap and safe to call in production.',
-            output:
-                "FooConfig(name: \"alpha\", retries: 5, tint: Color(0xFF6750A4))",
+            output: "FooConfig(name: \"alpha\", retries: 5, tint: Color(0xFF6750A4))",
             color: _kPrimary,
           ),
           SizedBox(height: 12),
@@ -1359,7 +1345,8 @@ class _VariantRow extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(6),
@@ -1375,7 +1362,8 @@ class _VariantRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              const Icon(Icons.arrow_forward, color: _kInkMuted, size: 14),
+              const Icon(Icons.arrow_forward,
+                  color: _kInkMuted, size: 14),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1412,7 +1400,8 @@ class _VariantRow extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
               children: <Widget>[
-                Icon(Icons.subdirectory_arrow_right, size: 14, color: color),
+                Icon(Icons.subdirectory_arrow_right,
+                    size: 14, color: color),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -1447,7 +1436,10 @@ class _DevToolsMock extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[Color(0xFF2A2235), Color(0xFF1B1726)],
+          colors: <Color>[
+            Color(0xFF2A2235),
+            Color(0xFF1B1726),
+          ],
         ),
         border: Border.all(color: const Color(0xFF3F3550)),
       ),
@@ -1455,10 +1447,12 @@ class _DevToolsMock extends StatelessWidget {
         children: <Widget>[
           // window chrome
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: const BoxDecoration(
               color: Color(0xFF120F1B),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(14)),
+              borderRadius:
+                  BorderRadius.vertical(top: Radius.circular(14)),
             ),
             child: Row(
               children: <Widget>[
@@ -1466,9 +1460,7 @@ class _DevToolsMock extends StatelessWidget {
                 const SizedBox(width: 10),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
+                      horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: const Color(0xFF2A2138),
                     borderRadius: BorderRadius.circular(999),
@@ -1483,13 +1475,15 @@ class _DevToolsMock extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                const Icon(Icons.refresh, color: Color(0xFF8A85B6), size: 14),
+                const Icon(Icons.refresh,
+                    color: Color(0xFF8A85B6), size: 14),
               ],
             ),
           ),
           // header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -1746,11 +1740,13 @@ class _MockRow extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 7, vertical: 2),
                 decoration: BoxDecoration(
                   color: levelColor.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(color: levelColor.withValues(alpha: 0.5)),
+                  border:
+                      Border.all(color: levelColor.withValues(alpha: 0.5)),
                 ),
                 child: Text(
                   level,
@@ -1801,75 +1797,82 @@ class _CustomImplementationCard extends StatelessWidget {
         children: <Widget>[
           const Text(
             'A complete, idiomatic Diagnosticable subclass:',
-            style: TextStyle(color: _kInkSoft, fontSize: 13, height: 1.45),
+            style: TextStyle(
+              color: _kInkSoft,
+              fontSize: 13,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 12),
           _CodeBlock(
             lines: const <_CodeLine>[
               _CodeLine(
-                text: '// Mixin Diagnosticable on a plain value class.',
-                kind: _LineKind.comment,
-              ),
+                  text: '// Mixin Diagnosticable on a plain value class.',
+                  kind: _LineKind.comment),
               _CodeLine(
-                text: 'class FooConfig with Diagnosticable {',
-                kind: _LineKind.code,
-              ),
-              _CodeLine(text: '  final String name;', kind: _LineKind.code),
-              _CodeLine(text: '  final int retries;', kind: _LineKind.code),
-              _CodeLine(text: '  final bool sticky;', kind: _LineKind.code),
+                  text: 'class FooConfig with Diagnosticable {',
+                  kind: _LineKind.code),
               _CodeLine(
-                text: '  final double timeoutSeconds;',
-                kind: _LineKind.code,
-              ),
-              _CodeLine(text: '  final Color tint;', kind: _LineKind.code),
+                  text: '  final String name;', kind: _LineKind.code),
+              _CodeLine(
+                  text: '  final int retries;', kind: _LineKind.code),
+              _CodeLine(
+                  text: '  final bool sticky;', kind: _LineKind.code),
+              _CodeLine(
+                  text: '  final double timeoutSeconds;',
+                  kind: _LineKind.code),
+              _CodeLine(
+                  text: '  final Color tint;', kind: _LineKind.code),
               _CodeLine(text: '', kind: _LineKind.code),
-              _CodeLine(text: '  const FooConfig({', kind: _LineKind.code),
-              _CodeLine(text: '    required this.name,', kind: _LineKind.code),
-              _CodeLine(text: '    this.retries = 3,', kind: _LineKind.code),
-              _CodeLine(text: '    this.sticky = false,', kind: _LineKind.code),
               _CodeLine(
-                text: '    this.timeoutSeconds = 30.0,',
-                kind: _LineKind.code,
-              ),
+                  text: '  const FooConfig({',
+                  kind: _LineKind.code),
               _CodeLine(
-                text: "    this.tint = const Color(0xFF6750A4),",
-                kind: _LineKind.code,
-              ),
+                  text: '    required this.name,',
+                  kind: _LineKind.code),
+              _CodeLine(
+                  text: '    this.retries = 3,', kind: _LineKind.code),
+              _CodeLine(
+                  text: '    this.sticky = false,',
+                  kind: _LineKind.code),
+              _CodeLine(
+                  text: '    this.timeoutSeconds = 30.0,',
+                  kind: _LineKind.code),
+              _CodeLine(
+                  text:
+                      "    this.tint = const Color(0xFF6750A4),",
+                  kind: _LineKind.code),
               _CodeLine(text: '  });', kind: _LineKind.code),
               _CodeLine(text: '', kind: _LineKind.code),
               _CodeLine(text: '  @override', kind: _LineKind.annotation),
               _CodeLine(
-                text:
-                    '  void debugFillProperties(DiagnosticPropertiesBuilder properties) {',
-                kind: _LineKind.code,
-              ),
+                  text:
+                      '  void debugFillProperties(DiagnosticPropertiesBuilder properties) {',
+                  kind: _LineKind.code),
               _CodeLine(
-                text: '    super.debugFillProperties(properties);',
-                kind: _LineKind.code,
-              ),
+                  text:
+                      '    super.debugFillProperties(properties);',
+                  kind: _LineKind.code),
               _CodeLine(
-                text: "    properties.add(StringProperty('name', name));",
-                kind: _LineKind.code,
-              ),
+                  text:
+                      "    properties.add(StringProperty('name', name));",
+                  kind: _LineKind.code),
               _CodeLine(
-                text:
-                    "    properties.add(IntProperty('retries', retries, defaultValue: 3));",
-                kind: _LineKind.code,
-              ),
+                  text:
+                      "    properties.add(IntProperty('retries', retries, defaultValue: 3));",
+                  kind: _LineKind.code),
               _CodeLine(
-                text:
-                    "    properties.add(FlagProperty('sticky', value: sticky, ifTrue: 'sticky'));",
-                kind: _LineKind.code,
-              ),
+                  text:
+                      "    properties.add(FlagProperty('sticky', value: sticky, ifTrue: 'sticky'));",
+                  kind: _LineKind.code),
               _CodeLine(
-                text:
-                    "    properties.add(DoubleProperty('timeoutSeconds', timeoutSeconds));",
-                kind: _LineKind.code,
-              ),
+                  text:
+                      "    properties.add(DoubleProperty('timeoutSeconds', timeoutSeconds));",
+                  kind: _LineKind.code),
               _CodeLine(
-                text: "    properties.add(ColorProperty('tint', tint));",
-                kind: _LineKind.code,
-              ),
+                  text:
+                      "    properties.add(ColorProperty('tint', tint));",
+                  kind: _LineKind.code),
               _CodeLine(text: '  }', kind: _LineKind.code),
               _CodeLine(text: '}', kind: _LineKind.code),
             ],
@@ -1887,7 +1890,9 @@ class _CustomImplementationCard extends StatelessWidget {
                   _kTeal.withValues(alpha: 0.06),
                 ],
               ),
-              border: Border.all(color: _kPrimary.withValues(alpha: 0.25)),
+              border: Border.all(
+                color: _kPrimary.withValues(alpha: 0.25),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1984,13 +1989,17 @@ class _DefaultShowNameMatrix extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               gradient: const LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: <Color>[Color(0xFFEADDFF), Color(0xFFCFE8E8)],
+                colors: <Color>[
+                  Color(0xFFEADDFF),
+                  Color(0xFFCFE8E8),
+                ],
               ),
             ),
             child: Row(
@@ -2032,11 +2041,14 @@ class _DefaultShowNameMatrix extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: _kAmber.withValues(alpha: 0.10),
-              border: Border.all(color: _kAmber.withValues(alpha: 0.30)),
+              border: Border.all(
+                color: _kAmber.withValues(alpha: 0.30),
+              ),
             ),
             child: Row(
               children: const <Widget>[
-                Icon(Icons.warning_amber_rounded, color: _kAmber, size: 18),
+                Icon(Icons.warning_amber_rounded,
+                    color: _kAmber, size: 18),
                 SizedBox(width: 9),
                 Expanded(
                   child: Text(
@@ -2120,7 +2132,8 @@ class _MxRow extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 7, vertical: 4),
               decoration: BoxDecoration(
                 color: _kCodeBg,
                 borderRadius: BorderRadius.circular(6),
@@ -2140,7 +2153,8 @@ class _MxRow extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 gradient: LinearGradient(
@@ -2179,61 +2193,57 @@ class _UseCasesGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: _UseCaseCard(
-                icon: Icons.error_outline,
-                title: 'Error messages',
-                body:
-                    'FlutterError appends the full property dump of the '
-                    'offending object to the failure header — turning "build '
-                    'failed" into a debuggable scene.',
-                accent: _kAccent,
-              ),
+        Row(children: <Widget>[
+          Expanded(
+            child: _UseCaseCard(
+              icon: Icons.error_outline,
+              title: 'Error messages',
+              body:
+                  'FlutterError appends the full property dump of the '
+                  'offending object to the failure header — turning "build '
+                  'failed" into a debuggable scene.',
+              accent: _kAccent,
             ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _UseCaseCard(
-                icon: Icons.dvr_outlined,
-                title: 'DevTools Inspector',
-                body:
-                    'Each Widget/RenderObject row is rendered from its '
-                    'DiagnosticsNode. Typed properties drive the proper '
-                    'edit affordance.',
-                accent: _kPrimary,
-              ),
+          ),
+          SizedBox(width: 12),
+          Expanded(
+            child: _UseCaseCard(
+              icon: Icons.dvr_outlined,
+              title: 'DevTools Inspector',
+              body:
+                  'Each Widget/RenderObject row is rendered from its '
+                  'DiagnosticsNode. Typed properties drive the proper '
+                  'edit affordance.',
+              accent: _kPrimary,
             ),
-          ],
-        ),
+          ),
+        ]),
         SizedBox(height: 12),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: _UseCaseCard(
-                icon: Icons.local_fire_department_outlined,
-                title: 'Hot-reload preservation',
-                body:
-                    'Frameworks compare diagnostics across reload boundaries '
-                    'to detect intent. Stable property names help reload do '
-                    'the right thing.',
-                accent: _kAmber,
-              ),
+        Row(children: <Widget>[
+          Expanded(
+            child: _UseCaseCard(
+              icon: Icons.local_fire_department_outlined,
+              title: 'Hot-reload preservation',
+              body:
+                  'Frameworks compare diagnostics across reload boundaries '
+                  'to detect intent. Stable property names help reload do '
+                  'the right thing.',
+              accent: _kAmber,
             ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _UseCaseCard(
-                icon: Icons.science_outlined,
-                title: 'Post-mortem debugging',
-                body:
-                    'Stack traces enriched with property dumps make crash '
-                    'reports actionable without re-running the app to '
-                    'reproduce the state.',
-                accent: _kForest,
-              ),
+          ),
+          SizedBox(width: 12),
+          Expanded(
+            child: _UseCaseCard(
+              icon: Icons.science_outlined,
+              title: 'Post-mortem debugging',
+              body:
+                  'Stack traces enriched with property dumps make crash '
+                  'reports actionable without re-running the app to '
+                  'reproduce the state.',
+              accent: _kForest,
             ),
-          ],
-        ),
+          ),
+        ]),
       ],
     );
   }
@@ -2386,7 +2396,10 @@ class _Pitfall extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: <Color>[Color(0xFFFFEFEE), Color(0xFFFFF6F1)],
+          colors: <Color>[
+            Color(0xFFFFEFEE),
+            Color(0xFFFFF6F1),
+          ],
         ),
         border: Border.all(color: _kAccent.withValues(alpha: 0.30)),
       ),
@@ -2460,7 +2473,10 @@ class _Footer extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: <Color>[Color(0xFF1B1B1F), Color(0xFF2A2335)],
+          colors: <Color>[
+            Color(0xFF1B1B1F),
+            Color(0xFF2A2335),
+          ],
         ),
       ),
       child: Row(
@@ -2479,11 +2495,14 @@ class _Footer extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(999),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.18),
+              ),
             ),
             child: const Text(
               'v1 · static snapshot',
@@ -2550,7 +2569,10 @@ class _CodeBlock extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Color(0xFF1E1B2E), Color(0xFF13101D)],
+          colors: <Color>[
+            Color(0xFF1E1B2E),
+            Color(0xFF13101D),
+          ],
         ),
         border: Border.all(color: const Color(0xFF3F3550)),
       ),
@@ -2597,7 +2619,8 @@ class _CodeBlock extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          for (int i = 0; i < lines.length; i++) _renderLine(i + 1, lines[i]),
+          for (int i = 0; i < lines.length; i++)
+            _renderLine(i + 1, lines[i]),
         ],
       ),
     );

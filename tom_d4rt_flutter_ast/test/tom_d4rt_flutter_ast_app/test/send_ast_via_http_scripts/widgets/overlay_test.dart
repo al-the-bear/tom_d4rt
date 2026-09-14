@@ -309,7 +309,10 @@ Widget buildHeroBadge(String text) {
     decoration: BoxDecoration(
       color: kHeroStripe,
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: kPaper.withValues(alpha: 0.30), width: 1.0),
+      border: Border.all(
+        color: kPaper.withValues(alpha: 0.30),
+        width: 1.0,
+      ),
     ),
     child: Text(
       text,
@@ -339,8 +342,7 @@ Widget buildAnatomySection() {
         buildAnatomyParamRow(
           name: 'initialEntries',
           type: 'List<OverlayEntry>',
-          desc:
-              'Seed entries inserted in order on first build. Bottom of '
+          desc: 'Seed entries inserted in order on first build. Bottom of '
               'the visual stack is index 0.',
           colorChip: kAccentBlue,
         ),
@@ -348,8 +350,7 @@ Widget buildAnatomySection() {
         buildAnatomyParamRow(
           name: 'clipBehavior',
           type: 'Clip',
-          desc:
-              'How children are clipped to the overlay\'s box. '
+          desc: 'How children are clipped to the overlay\'s box. '
               'Defaults to Clip.hardEdge.',
           colorChip: kAccentGreen,
         ),
@@ -357,8 +358,7 @@ Widget buildAnatomySection() {
         buildAnatomyParamRow(
           name: 'onWillRemove',
           type: 'WillRemoveOverlayEntryCallback?',
-          desc:
-              'Optional veto callback invoked before an entry is '
+          desc: 'Optional veto callback invoked before an entry is '
               'removed. Used by Navigator integration.',
           colorChip: kAccentAmber,
         ),
@@ -419,7 +419,10 @@ Widget buildAnatomyParamRow({
           width: 10.0,
           height: 10.0,
           margin: const EdgeInsets.only(top: 5.0),
-          decoration: BoxDecoration(color: colorChip, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: colorChip,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 10.0),
         SizedBox(
@@ -476,49 +479,29 @@ Widget buildEntryFieldPanel() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: buildEntryFieldCard(
-                'builder',
-                'WidgetBuilder',
+            Expanded(child: buildEntryFieldCard('builder', 'WidgetBuilder',
                 'Returns the widget shown in this layer. Called every '
-                    'time the entry is marked dirty. The builder receives '
-                    'the BuildContext of the OverlayState.',
-              ),
-            ),
+                'time the entry is marked dirty. The builder receives '
+                'the BuildContext of the OverlayState.')),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: buildEntryFieldCard(
-                'opaque',
-                'bool',
+            Expanded(child: buildEntryFieldCard('opaque', 'bool',
                 'When true, the entry fully covers entries below it; '
-                    'their builders are skipped during paint. Defaults to '
-                    'false.',
-              ),
-            ),
+                'their builders are skipped during paint. Defaults to '
+                'false.')),
           ],
         ),
         const SizedBox(height: 12.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: buildEntryFieldCard(
-                'maintainState',
-                'bool',
+            Expanded(child: buildEntryFieldCard('maintainState', 'bool',
                 'When true, the entry is kept in the element tree even '
-                    'when fully covered by an opaque entry above it. '
-                    'Default is false (state thrown away on cover).',
-              ),
-            ),
+                'when fully covered by an opaque entry above it. '
+                'Default is false (state thrown away on cover).')),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: buildEntryFieldCard(
-                'mounted',
-                'bool',
+            Expanded(child: buildEntryFieldCard('mounted', 'bool',
                 'Read-only. True between insert() and remove(). '
-                    'OverlayEntry is itself a Listenable on this state.',
-              ),
-            ),
+                'OverlayEntry is itself a Listenable on this state.')),
           ],
         ),
       ],
@@ -777,8 +760,7 @@ class LifecyclePainter extends CustomPainter {
 Widget buildScenesSection() {
   return buildPaperCard(
     title: 'Four overlay scenes',
-    subtitle:
-        'simulated, non-interactive — these would normally live in '
+    subtitle: 'simulated, non-interactive — these would normally live in '
         'the overlay',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1373,25 +1355,21 @@ Widget buildRearrangeDiagram() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: buildRearrangeColumn('before', <RearrangeEntry>[
-                RearrangeEntry('A', kAccentBlue),
-                RearrangeEntry('B', kAccentGreen),
-                RearrangeEntry('C', kAccentAmber),
-                RearrangeEntry('D', kAccentRed),
-              ]),
-            ),
+            Expanded(child: buildRearrangeColumn('before', <RearrangeEntry>[
+              RearrangeEntry('A', kAccentBlue),
+              RearrangeEntry('B', kAccentGreen),
+              RearrangeEntry('C', kAccentAmber),
+              RearrangeEntry('D', kAccentRed),
+            ])),
             const SizedBox(width: 12.0),
             buildRearrangeArrow(),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: buildRearrangeColumn('after', <RearrangeEntry>[
-                RearrangeEntry('A', kAccentBlue),
-                RearrangeEntry('C', kAccentAmber),
-                RearrangeEntry('B', kAccentGreen),
-                RearrangeEntry('D', kAccentRed),
-              ]),
-            ),
+            Expanded(child: buildRearrangeColumn('after', <RearrangeEntry>[
+              RearrangeEntry('A', kAccentBlue),
+              RearrangeEntry('C', kAccentAmber),
+              RearrangeEntry('B', kAccentGreen),
+              RearrangeEntry('D', kAccentRed),
+            ])),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -1459,7 +1437,10 @@ Widget buildRearrangeArrow() {
     child: SizedBox(
       width: 36.0,
       height: 32.0,
-      child: CustomPaint(size: const Size(36.0, 32.0), painter: ArrowPainter()),
+      child: CustomPaint(
+        size: const Size(36.0, 32.0),
+        painter: ArrowPainter(),
+      ),
     ),
   );
 }
@@ -1516,22 +1497,19 @@ Widget buildLookupVariantsSection() {
       children: <Widget>[
         buildLookupRow(
           codeLine: 'Overlay.of(context)',
-          summary:
-              'returns the nearest enclosing OverlayState. '
+          summary: 'returns the nearest enclosing OverlayState. '
               'Throws (in debug) if there is no Overlay ancestor.',
           accent: kAccentBlue,
         ),
         buildLookupRow(
           codeLine: 'Navigator.of(context).overlay',
-          summary:
-              'returns the OverlayState owned by the nearest '
+          summary: 'returns the OverlayState owned by the nearest '
               'Navigator. Useful for entries scoped to a route stack.',
           accent: kAccentGreen,
         ),
         buildLookupRow(
           codeLine: 'context.findAncestorStateOfType<OverlayState>()',
-          summary:
-              'low-level lookup. Returns null if there is no '
+          summary: 'low-level lookup. Returns null if there is no '
               'overlay above. Avoid except in framework code.',
           accent: kAccentAmber,
         ),
@@ -1817,37 +1795,37 @@ Widget buildPitfallsSection() {
       children: <Widget>[
         buildPitfallRow(
           'Calling Overlay.of from a context that has no Overlay '
-          'ancestor throws. Always anchor lookups to a widget below '
-          'MaterialApp / WidgetsApp.',
+              'ancestor throws. Always anchor lookups to a widget below '
+              'MaterialApp / WidgetsApp.',
           kAccentRed,
         ),
         buildPitfallRow(
           'OverlayEntry is owned by the caller — except for entries '
-          'you inserted via Route.install, which the Navigator '
-          'manages. Manually-inserted entries leak if you forget '
-          'remove() and dispose().',
+              'you inserted via Route.install, which the Navigator '
+              'manages. Manually-inserted entries leak if you forget '
+              'remove() and dispose().',
           kAccentRed,
         ),
         buildPitfallRow(
           'opaque: true is a paint optimisation only; tap targets '
-          'below still work via hit-testing if maintainState is '
-          'true. Do not use opaque to disable input.',
+              'below still work via hit-testing if maintainState is '
+              'true. Do not use opaque to disable input.',
           kAccentAmber,
         ),
         buildPitfallRow(
           'rearrange does not call remove on entries that vanish — '
-          'they must be removed first or you assert in debug.',
+              'they must be removed first or you assert in debug.',
           kAccentAmber,
         ),
         buildPitfallRow(
           'Inserting the same OverlayEntry instance into two overlays '
-          'asserts. An entry is single-use.',
+              'asserts. An entry is single-use.',
           kAccentAmber,
         ),
         buildPitfallRow(
           'Tooltips, popups, autocomplete and snackbars all share the '
-          'same overlay. Their stacking order is the ordering of '
-          'their underlying entries.',
+              'same overlay. Their stacking order is the ordering of '
+              'their underlying entries.',
           kAccentBlue,
         ),
       ],

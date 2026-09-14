@@ -58,10 +58,8 @@ class _RestorableEnumDemoState extends State<_RestorableEnumDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text(
-          'RestorableEnum',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-        ),
+        title: Text('RestorableEnum',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -79,7 +77,11 @@ class _RestorableEnumDemoState extends State<_RestorableEnumDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [_TheoryTab(), _PlaygroundTab(), _RestorationLabTab()],
+        children: [
+          _TheoryTab(),
+          _PlaygroundTab(),
+          _RestorationLabTab(),
+        ],
       ),
     );
   }
@@ -106,7 +108,8 @@ class _TheoryTab extends StatelessWidget {
                 'example when Android kills a background activity. It '
                 'serializes the enum by its index and deserializes it back '
                 'when the framework restores the widget tree.',
-                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(
+                    color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -135,7 +138,7 @@ class _TheoryTab extends StatelessWidget {
                 'defaultValue',
                 'T',
                 'The enum value used when no restoration data exists. This is '
-                    'the initial value on first launch.',
+                'the initial value on first launch.',
                 _kAccent,
               ),
               SizedBox(height: 8),
@@ -143,7 +146,7 @@ class _TheoryTab extends StatelessWidget {
                 'values',
                 'List<T>',
                 'The complete list of enum values (T.values). Used to map the '
-                    'stored index back to the correct enum member.',
+                'stored index back to the correct enum member.',
                 _kPrimary,
               ),
             ],
@@ -167,7 +170,8 @@ class _TheoryTab extends StatelessWidget {
                 'the value getter/setter. RestorableProperty provides the '
                 'serialization protocol (toPrimitives/fromPrimitives) that the '
                 'restoration framework uses.',
-                style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
+                style: TextStyle(
+                    fontSize: 12, color: _kDarkText, height: 1.4),
               ),
             ],
           ),
@@ -180,45 +184,25 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _workflowStep(
-                1,
-                'Declare',
-                'Create a RestorableEnum field in your State class.',
-                Icons.create,
-                _kPrimary,
-              ),
+              _workflowStep(1, 'Declare',
+                  'Create a RestorableEnum field in your State class.',
+                  Icons.create, _kPrimary),
               SizedBox(height: 6),
-              _workflowStep(
-                2,
-                'Register',
-                'Call registerForRestoration() in restoreState().',
-                Icons.app_registration,
-                _kAccent,
-              ),
+              _workflowStep(2, 'Register',
+                  'Call registerForRestoration() in restoreState().',
+                  Icons.app_registration, _kAccent),
               SizedBox(height: 6),
-              _workflowStep(
-                3,
-                'Use',
-                'Read/write .value in build() and event handlers.',
-                Icons.play_arrow,
-                Color(0xFF388E3C),
-              ),
+              _workflowStep(3, 'Use',
+                  'Read/write .value in build() and event handlers.',
+                  Icons.play_arrow, Color(0xFF388E3C)),
               SizedBox(height: 6),
-              _workflowStep(
-                4,
-                'Serialize',
-                'Framework calls toPrimitives() → int index.',
-                Icons.save,
-                Color(0xFFE65100),
-              ),
+              _workflowStep(4, 'Serialize',
+                  'Framework calls toPrimitives() → int index.',
+                  Icons.save, Color(0xFFE65100)),
               SizedBox(height: 6),
-              _workflowStep(
-                5,
-                'Restore',
-                'Framework calls fromPrimitives() → enum from index.',
-                Icons.restore,
-                Color(0xFF7B1FA2),
-              ),
+              _workflowStep(5, 'Restore',
+                  'Framework calls fromPrimitives() → enum from index.',
+                  Icons.restore, Color(0xFF7B1FA2)),
               SizedBox(height: 12),
               _codeBlock(
                 'class _MyState extends State<MyWidget>\n'
@@ -258,11 +242,9 @@ class _TheoryTab extends StatelessWidget {
               2: FlexColumnWidth(3),
             },
             children: [
-              _tableRow([
-                'Aspect',
-                'RestorableEnum',
-                'RestorableEnumN',
-              ], isHeader: true),
+              _tableRow(
+                  ['Aspect', 'RestorableEnum', 'RestorableEnumN'],
+                  isHeader: true),
               _tableRow([
                 'Nullability',
                 'Non-null — always has a value',
@@ -294,32 +276,22 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _bp(
-                true,
-                'Always pass T.values as the values parameter — it '
-                'guarantees correct deserialization.',
-              ),
-              _bp(
-                true,
-                'Dispose RestorableEnum in State.dispose() if you '
-                'add listeners to it.',
-              ),
-              _bp(
-                true,
-                'Choose a stable restorationId that does not change '
-                'between builds.',
-              ),
-              _bp(
-                false,
-                'Do NOT reorder enum members after data has been '
-                'persisted — the index will point to wrong values.',
-              ),
-              _bp(
-                false,
-                'Do NOT remove enum members from the middle — use '
-                'deprecation and keep the value for backward '
-                'compatibility.',
-              ),
+              _bp(true,
+                  'Always pass T.values as the values parameter — it '
+                  'guarantees correct deserialization.'),
+              _bp(true,
+                  'Dispose RestorableEnum in State.dispose() if you '
+                  'add listeners to it.'),
+              _bp(true,
+                  'Choose a stable restorationId that does not change '
+                  'between builds.'),
+              _bp(false,
+                  'Do NOT reorder enum members after data has been '
+                  'persisted — the index will point to wrong values.'),
+              _bp(false,
+                  'Do NOT remove enum members from the middle — use '
+                  'deprecation and keep the value for backward '
+                  'compatibility.'),
             ],
           ),
         ),
@@ -416,21 +388,15 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            _seasonIcon(_season),
-                            color: Colors.white,
-                            size: 32,
-                          ),
+                          Icon(_seasonIcon(_season),
+                              color: Colors.white, size: 32),
                           SizedBox(height: 4),
-                          Text(
-                            _season.name.toUpperCase(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 16,
-                              letterSpacing: 2,
-                            ),
-                          ),
+                          Text(_season.name.toUpperCase(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16,
+                                  letterSpacing: 2)),
                         ],
                       ),
                     ),
@@ -458,16 +424,15 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                                   ),
                                 ),
                                 alignment: Alignment.center,
-                                child: Text(
-                                  s.name,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: sel
-                                        ? FontWeight.w700
-                                        : FontWeight.w400,
-                                    color: sel ? Colors.white : _kDarkText,
-                                  ),
-                                ),
+                                child: Text(s.name,
+                                    style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: sel
+                                            ? FontWeight.w700
+                                            : FontWeight.w400,
+                                        color: sel
+                                            ? Colors.white
+                                            : _kDarkText)),
                               ),
                             ),
                           ),
@@ -499,7 +464,9 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                               height: sel ? 64 : 40,
                               margin: EdgeInsets.symmetric(horizontal: 2),
                               decoration: BoxDecoration(
-                                color: sel ? color : color.withOpacity(0.15),
+                                color: sel
+                                    ? color
+                                    : color.withOpacity(0.15),
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                   color: color,
@@ -512,19 +479,17 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                                 children: [
                                   Icon(
                                     _priorityIcon(p),
-                                    color: sel ? Colors.white : color,
+                                    color:
+                                        sel ? Colors.white : color,
                                     size: sel ? 20 : 16,
                                   ),
                                   if (sel) ...[
                                     SizedBox(height: 2),
-                                    Text(
-                                      p.name,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
+                                    Text(p.name,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w700)),
                                   ],
                                 ],
                               ),
@@ -568,11 +533,11 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                           onTap: () => _onLayoutChanged(l),
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
+                                horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
-                              color: sel ? _kAccent : Colors.grey.shade100,
+                              color: sel
+                                  ? _kAccent
+                                  : Colors.grey.shade100,
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
                                 color: sel ? _kAccent : Colors.grey.shade300,
@@ -581,22 +546,20 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
-                                  _layoutIcon(l),
-                                  size: 14,
-                                  color: sel ? Colors.white : _kMuted,
-                                ),
+                                Icon(_layoutIcon(l),
+                                    size: 14,
+                                    color:
+                                        sel ? Colors.white : _kMuted),
                                 SizedBox(width: 4),
-                                Text(
-                                  l.name,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: sel
-                                        ? FontWeight.w700
-                                        : FontWeight.w400,
-                                    color: sel ? Colors.white : _kDarkText,
-                                  ),
-                                ),
+                                Text(l.name,
+                                    style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: sel
+                                            ? FontWeight.w700
+                                            : FontWeight.w400,
+                                        color: sel
+                                            ? Colors.white
+                                            : _kDarkText)),
                               ],
                             ),
                           ),
@@ -616,25 +579,17 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                 Column(
                   children: [
                     _inspRow('season.value', _season.name, _kPrimary),
-                    _inspRow(
-                      'season.toPrimitives()',
-                      '${_season.index}',
-                      _kPrimary,
-                    ),
+                    _inspRow('season.toPrimitives()',
+                        '${_season.index}', _kPrimary),
                     Divider(height: 10),
                     _inspRow('priority.value', _priority.name, _kAccent),
-                    _inspRow(
-                      'priority.toPrimitives()',
-                      '${_priority.index}',
-                      _kAccent,
-                    ),
+                    _inspRow('priority.toPrimitives()',
+                        '${_priority.index}', _kAccent),
                     Divider(height: 10),
-                    _inspRow('layout.value', _layout.name, Color(0xFF6D4C41)),
                     _inspRow(
-                      'layout.toPrimitives()',
-                      '${_layout.index}',
-                      Color(0xFF6D4C41),
-                    ),
+                        'layout.value', _layout.name, Color(0xFF6D4C41)),
+                    _inspRow('layout.toPrimitives()',
+                        '${_layout.index}', Color(0xFF6D4C41)),
                   ],
                 ),
               ),
@@ -660,29 +615,24 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                   children: [
                     Icon(Icons.history, size: 16, color: _kPrimary),
                     SizedBox(width: 6),
-                    Text(
-                      'Change Log',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    Text('Change Log',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13,
+                            color: _kDarkText)),
                     Spacer(),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: _kAccent,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text(
-                        '$_changeCount',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text('$_changeCount',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w700)),
                     ),
                   ],
                 ),
@@ -690,22 +640,22 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
               Expanded(
                 child: _changes.isEmpty
                     ? Center(
-                        child: Text(
-                          'Change enum values\nto see log',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: _kMuted, fontSize: 12),
-                        ),
+                        child: Text('Change enum values\nto see log',
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: _kMuted, fontSize: 12)),
                       )
                     : ListView.builder(
                         padding: EdgeInsets.all(6),
                         itemCount: _changes.length,
                         itemBuilder: (_, i) {
                           final c = _changes[i];
-                          final color = c.property == 'season'
-                              ? _kPrimary
-                              : c.property == 'priority'
-                              ? _kAccent
-                              : Color(0xFF6D4C41);
+                          final color =
+                              c.property == 'season'
+                                  ? _kPrimary
+                                  : c.property == 'priority'
+                                      ? _kAccent
+                                      : Color(0xFF6D4C41);
                           return Padding(
                             padding: EdgeInsets.only(bottom: 4),
                             child: Container(
@@ -714,87 +664,69 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                                 color: color.withOpacity(0.04),
                                 borderRadius: BorderRadius.circular(6),
                                 border: Border.all(
-                                  color: color.withOpacity(0.15),
-                                ),
+                                    color: color.withOpacity(0.15)),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                          horizontal: 4,
-                                          vertical: 1,
-                                        ),
+                                            horizontal: 4, vertical: 1),
                                         decoration: BoxDecoration(
                                           color: color.withOpacity(0.1),
-                                          borderRadius: BorderRadius.circular(
-                                            3,
-                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(3),
                                         ),
-                                        child: Text(
-                                          '#${c.id}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 9,
-                                            color: color,
-                                          ),
-                                        ),
+                                        child: Text('#${c.id}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 9,
+                                                color: color)),
                                       ),
                                       SizedBox(width: 4),
-                                      Text(
-                                        c.property,
-                                        style: TextStyle(
-                                          fontFamily: 'monospace',
-                                          fontSize: 10,
-                                          color: color,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
+                                      Text(c.property,
+                                          style: TextStyle(
+                                              fontFamily: 'monospace',
+                                              fontSize: 10,
+                                              color: color,
+                                              fontWeight:
+                                                  FontWeight.w600)),
                                       Spacer(),
                                       Text(
                                         '${c.time.hour.toString().padLeft(2, '0')}:'
                                         '${c.time.minute.toString().padLeft(2, '0')}:'
                                         '${c.time.second.toString().padLeft(2, '0')}',
                                         style: TextStyle(
-                                          fontSize: 8,
-                                          color: _kMuted,
-                                        ),
+                                            fontSize: 8, color: _kMuted),
                                       ),
                                     ],
                                   ),
                                   SizedBox(height: 3),
                                   Row(
                                     children: [
-                                      Text(
-                                        '→ ${c.value}',
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          color: _kDarkText,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
+                                      Text('→ ${c.value}',
+                                          style: TextStyle(
+                                              fontSize: 11,
+                                              color: _kDarkText,
+                                              fontWeight:
+                                                  FontWeight.w600)),
                                       SizedBox(width: 6),
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                          horizontal: 4,
-                                          vertical: 1,
-                                        ),
+                                            horizontal: 4, vertical: 1),
                                         decoration: BoxDecoration(
                                           color: Colors.grey.shade100,
-                                          borderRadius: BorderRadius.circular(
-                                            3,
-                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(3),
                                         ),
-                                        child: Text(
-                                          'idx:${c.index}',
-                                          style: TextStyle(
-                                            fontFamily: 'monospace',
-                                            fontSize: 9,
-                                            color: _kMuted,
-                                          ),
-                                        ),
+                                        child: Text('idx:${c.index}',
+                                            style: TextStyle(
+                                                fontFamily: 'monospace',
+                                                fontSize: 9,
+                                                color: _kMuted)),
                                       ),
                                     ],
                                   ),
@@ -824,47 +756,35 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
         children: [
           Icon(Icons.data_object, size: 14, color: _kPrimary),
           SizedBox(width: 6),
-          Text(
-            '$name:',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: _kMuted,
-            ),
-          ),
+          Text('$name:',
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: _kMuted)),
           SizedBox(width: 4),
-          Text(
-            value,
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 11,
-              color: _kDarkText,
-            ),
-          ),
+          Text(value,
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11,
+                  color: _kDarkText)),
           Spacer(),
-          Text(
-            'toPrimitives() → ',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kMuted,
-            ),
-          ),
+          Text('toPrimitives() → ',
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: _kMuted)),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: _kAccent.withOpacity(0.1),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              '$index',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w700,
-                fontSize: 11,
-                color: _kAccent,
-              ),
-            ),
+            child: Text('$index',
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                    color: _kAccent)),
           ),
         ],
       ),
@@ -879,28 +799,23 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+                color: color, shape: BoxShape.circle),
           ),
           SizedBox(width: 6),
           Expanded(
-            child: Text(
-              label,
+            child: Text(label,
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 10,
+                    color: _kMuted)),
+          ),
+          Text(value,
               style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10,
-                color: _kMuted,
-              ),
-            ),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: _kDarkText,
-            ),
-          ),
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: _kDarkText)),
         ],
       ),
     );
@@ -989,10 +904,9 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                 ),
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 8),
-                child: Text(
-                  'Row ${i + 1}',
-                  style: TextStyle(fontSize: 10, color: _kDarkText),
-                ),
+                child: Text('Row ${i + 1}',
+                    style: TextStyle(
+                        fontSize: 10, color: _kDarkText)),
               ),
             ),
           ),
@@ -1008,22 +922,16 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
             (i) => Container(
               decoration: BoxDecoration(
                 color: HSLColor.fromAHSL(
-                  1,
-                  (i * 50).toDouble(),
-                  0.4,
-                  0.8,
-                ).toColor(),
+                        1, (i * 50).toDouble(), 0.4, 0.8)
+                    .toColor(),
                 borderRadius: BorderRadius.circular(6),
               ),
               alignment: Alignment.center,
-              child: Text(
-                '${i + 1}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: _kDarkText,
-                ),
-              ),
+              child: Text('${i + 1}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: _kDarkText)),
             ),
           ),
         );
@@ -1041,10 +949,8 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                 borderRadius: BorderRadius.circular(3),
               ),
               alignment: Alignment.center,
-              child: Text(
-                '${i + 1}',
-                style: TextStyle(fontSize: 9, color: _kDarkText),
-              ),
+              child: Text('${i + 1}',
+                  style: TextStyle(fontSize: 9, color: _kDarkText)),
             ),
           ),
         );
@@ -1071,7 +977,8 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       alignment: Alignment.center,
-                      child: Icon(Icons.image, size: 18, color: _kAccent),
+                      child: Icon(Icons.image,
+                          size: 18, color: _kAccent),
                     ),
                     SizedBox(width: 8),
                     Expanded(
@@ -1079,18 +986,14 @@ class _PlaygroundTabState extends State<_PlaygroundTab> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Item ${i + 1}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 11,
-                              color: _kDarkText,
-                            ),
-                          ),
-                          Text(
-                            'Detailed description',
-                            style: TextStyle(fontSize: 9, color: _kMuted),
-                          ),
+                          Text('Item ${i + 1}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 11,
+                                  color: _kDarkText)),
+                          Text('Detailed description',
+                              style: TextStyle(
+                                  fontSize: 9, color: _kMuted)),
                         ],
                       ),
                     ),
@@ -1159,10 +1062,8 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
         ),
       );
     });
-    print(
-      'State saved: season=${_season.index}, '
-      'priority=${_priority.index}, layout=${_layout.index}',
-    );
+    print('State saved: season=${_season.index}, '
+        'priority=${_priority.index}, layout=${_layout.index}');
   }
 
   void _restoreState() {
@@ -1183,10 +1084,8 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
         ),
       );
     });
-    print(
-      'State restored: season=${_season.name}, '
-      'priority=${_priority.name}, layout=${_layout.name}',
-    );
+    print('State restored: season=${_season.name}, '
+        'priority=${_priority.name}, layout=${_layout.name}');
   }
 
   void _clearBucket() {
@@ -1210,8 +1109,8 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
 
   void _randomize() {
     setState(() {
-      _season =
-          _Season.values[DateTime.now().microsecond % _Season.values.length];
+      _season = _Season
+          .values[DateTime.now().microsecond % _Season.values.length];
       _priority = _Priority
           .values[DateTime.now().microsecond % _Priority.values.length];
       _layout = _ViewLayout
@@ -1247,28 +1146,16 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                 Column(
                   children: [
                     _enumStateRow(
-                      'Season',
-                      _season.name,
-                      _season.index,
-                      Icons.park,
-                      _kPrimary,
-                    ),
+                        'Season', _season.name, _season.index,
+                        Icons.park, _kPrimary),
                     SizedBox(height: 6),
                     _enumStateRow(
-                      'Priority',
-                      _priority.name,
-                      _priority.index,
-                      Icons.flag,
-                      _kAccent,
-                    ),
+                        'Priority', _priority.name, _priority.index,
+                        Icons.flag, _kAccent),
                     SizedBox(height: 6),
                     _enumStateRow(
-                      'Layout',
-                      _layout.name,
-                      _layout.index,
-                      Icons.dashboard,
-                      Color(0xFF6D4C41),
-                    ),
+                        'Layout', _layout.name, _layout.index,
+                        Icons.dashboard, Color(0xFF6D4C41)),
                   ],
                 ),
               ),
@@ -1280,72 +1167,54 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Season:',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    Text('Season:',
+                        style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: _kDarkText)),
                     SizedBox(height: 4),
                     Wrap(
                       spacing: 4,
                       children: _Season.values
-                          .map(
-                            (s) => _enumChip(
+                          .map((s) => _enumChip(
                               s.name,
                               s == _season,
                               _kPrimary,
-                              () => setState(() => _season = s),
-                            ),
-                          )
+                              () => setState(() => _season = s)))
                           .toList(),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      'Priority:',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    Text('Priority:',
+                        style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: _kDarkText)),
                     SizedBox(height: 4),
                     Wrap(
                       spacing: 4,
                       children: _Priority.values
-                          .map(
-                            (p) => _enumChip(
+                          .map((p) => _enumChip(
                               p.name,
                               p == _priority,
                               _kAccent,
-                              () => setState(() => _priority = p),
-                            ),
-                          )
+                              () => setState(() => _priority = p)))
                           .toList(),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      'Layout:',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    Text('Layout:',
+                        style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: _kDarkText)),
                     SizedBox(height: 4),
                     Wrap(
                       spacing: 4,
                       children: _ViewLayout.values
-                          .map(
-                            (l) => _enumChip(
+                          .map((l) => _enumChip(
                               l.name,
                               l == _layout,
                               Color(0xFF6D4C41),
-                              () => setState(() => _layout = l),
-                            ),
-                          )
+                              () => setState(() => _layout = l)))
                           .toList(),
                     ),
                   ],
@@ -1358,33 +1227,17 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                 'Restoration Actions',
                 Row(
                   children: [
-                    _actionBtn(
-                      'Save',
-                      Icons.save,
-                      Color(0xFF2E7D32),
-                      _saveState,
-                    ),
+                    _actionBtn('Save', Icons.save, Color(0xFF2E7D32),
+                        _saveState),
                     SizedBox(width: 6),
-                    _actionBtn(
-                      'Restore',
-                      Icons.restore,
-                      _kAccent,
-                      _hasSavedState ? _restoreState : null,
-                    ),
+                    _actionBtn('Restore', Icons.restore, _kAccent,
+                        _hasSavedState ? _restoreState : null),
                     SizedBox(width: 6),
-                    _actionBtn(
-                      'Randomize',
-                      Icons.shuffle,
-                      Color(0xFF7B1FA2),
-                      _randomize,
-                    ),
+                    _actionBtn('Randomize', Icons.shuffle,
+                        Color(0xFF7B1FA2), _randomize),
                     SizedBox(width: 6),
-                    _actionBtn(
-                      'Clear',
-                      Icons.delete_sweep,
-                      _kBad,
-                      _hasSavedState ? _clearBucket : null,
-                    ),
+                    _actionBtn('Clear', Icons.delete_sweep, _kBad,
+                        _hasSavedState ? _clearBucket : null),
                   ],
                 ),
               ),
@@ -1396,23 +1249,20 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                 _hasSavedState
                     ? Column(
                         children: [
-                          _bucketRow(
-                            'season',
-                            _bucket['season'] ?? 0,
-                            _Season.values[_bucket['season'] ?? 0].name,
-                          ),
+                          _bucketRow('season', _bucket['season'] ?? 0,
+                              _Season.values[_bucket['season'] ?? 0].name),
                           SizedBox(height: 4),
                           _bucketRow(
-                            'priority',
-                            _bucket['priority'] ?? 0,
-                            _Priority.values[_bucket['priority'] ?? 0].name,
-                          ),
+                              'priority',
+                              _bucket['priority'] ?? 0,
+                              _Priority
+                                  .values[_bucket['priority'] ?? 0].name),
                           SizedBox(height: 4),
                           _bucketRow(
-                            'layout',
-                            _bucket['layout'] ?? 0,
-                            _ViewLayout.values[_bucket['layout'] ?? 0].name,
-                          ),
+                              'layout',
+                              _bucket['layout'] ?? 0,
+                              _ViewLayout
+                                  .values[_bucket['layout'] ?? 0].name),
                           SizedBox(height: 10),
                           // JSON visualization
                           Container(
@@ -1422,8 +1272,7 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                               color: _kCodeBg,
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                color: _kAccent.withOpacity(0.2),
-                              ),
+                                  color: _kAccent.withOpacity(0.2)),
                             ),
                             child: Text(
                               '{\n'
@@ -1432,11 +1281,10 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                               '  "layout": ${_bucket['layout']}\n'
                               '}',
                               style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 12,
-                                color: _kDarkText,
-                                height: 1.5,
-                              ),
+                                  fontFamily: 'monospace',
+                                  fontSize: 12,
+                                  color: _kDarkText,
+                                  height: 1.5),
                             ),
                           ),
                         ],
@@ -1446,20 +1294,15 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                         alignment: Alignment.center,
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.inventory_2_outlined,
-                              size: 32,
-                              color: _kMuted,
-                            ),
+                            Icon(Icons.inventory_2_outlined,
+                                size: 32, color: _kMuted),
                             SizedBox(height: 6),
-                            Text(
-                              'Bucket is empty',
-                              style: TextStyle(color: _kMuted, fontSize: 12),
-                            ),
-                            Text(
-                              'Press Save to store current state',
-                              style: TextStyle(color: _kMuted, fontSize: 10),
-                            ),
+                            Text('Bucket is empty',
+                                style: TextStyle(
+                                    color: _kMuted, fontSize: 12)),
+                            Text('Press Save to store current state',
+                                style: TextStyle(
+                                    color: _kMuted, fontSize: 10)),
                           ],
                         ),
                       ),
@@ -1472,48 +1315,46 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                   'State Match',
                   Column(
                     children: [
-                      _matchRow(
-                        'Season',
-                        _season.index == (_bucket['season'] ?? -1),
-                      ),
-                      _matchRow(
-                        'Priority',
-                        _priority.index == (_bucket['priority'] ?? -1),
-                      ),
-                      _matchRow(
-                        'Layout',
-                        _layout.index == (_bucket['layout'] ?? -1),
-                      ),
+                      _matchRow('Season',
+                          _season.index == (_bucket['season'] ?? -1)),
+                      _matchRow('Priority',
+                          _priority.index == (_bucket['priority'] ?? -1)),
+                      _matchRow('Layout',
+                          _layout.index == (_bucket['layout'] ?? -1)),
                       SizedBox(height: 8),
                       Container(
                         padding: EdgeInsets.all(8),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color:
-                              (_season.index == (_bucket['season'] ?? -1) &&
+                          color: (_season.index ==
+                                      (_bucket['season'] ?? -1) &&
                                   _priority.index ==
                                       (_bucket['priority'] ?? -1) &&
-                                  _layout.index == (_bucket['layout'] ?? -1))
+                                  _layout.index ==
+                                      (_bucket['layout'] ?? -1))
                               ? _kGood.withOpacity(0.06)
                               : _kBad.withOpacity(0.06),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          (_season.index == (_bucket['season'] ?? -1) &&
+                          (_season.index ==
+                                      (_bucket['season'] ?? -1) &&
                                   _priority.index ==
                                       (_bucket['priority'] ?? -1) &&
-                                  _layout.index == (_bucket['layout'] ?? -1))
+                                  _layout.index ==
+                                      (_bucket['layout'] ?? -1))
                               ? 'All values match saved state'
                               : 'Values differ from saved state — press Restore to sync',
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
-                            color:
-                                (_season.index == (_bucket['season'] ?? -1) &&
+                            color: (_season.index ==
+                                        (_bucket['season'] ?? -1) &&
                                     _priority.index ==
                                         (_bucket['priority'] ?? -1) &&
-                                    _layout.index == (_bucket['layout'] ?? -1))
+                                    _layout.index ==
+                                        (_bucket['layout'] ?? -1))
                                 ? _kGood
                                 : _kBad,
                           ),
@@ -1544,14 +1385,11 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                   children: [
                     Icon(Icons.receipt_long, size: 16, color: _kAccent),
                     SizedBox(width: 6),
-                    Text(
-                      'Restore Events',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    Text('Restore Events',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13,
+                            color: _kDarkText)),
                   ],
                 ),
               ),
@@ -1561,7 +1399,8 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                         child: Text(
                           'Save/restore state\nto see events',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: _kMuted, fontSize: 12),
+                          style:
+                              TextStyle(color: _kMuted, fontSize: 12),
                         ),
                       )
                     : ListView.builder(
@@ -1575,40 +1414,35 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
                               padding: EdgeInsets.all(6),
                               decoration: BoxDecoration(
                                 color: e.color.withOpacity(0.05),
-                                borderRadius: BorderRadius.circular(6),
+                                borderRadius:
+                                    BorderRadius.circular(6),
                                 border: Border.all(
-                                  color: e.color.withOpacity(0.15),
-                                ),
+                                    color:
+                                        e.color.withOpacity(0.15)),
                               ),
                               child: Row(
                                 children: [
                                   Container(
                                     padding: EdgeInsets.symmetric(
-                                      horizontal: 5,
-                                      vertical: 1,
-                                    ),
+                                        horizontal: 5, vertical: 1),
                                     decoration: BoxDecoration(
                                       color: e.color,
-                                      borderRadius: BorderRadius.circular(4),
+                                      borderRadius:
+                                          BorderRadius.circular(4),
                                     ),
-                                    child: Text(
-                                      e.action,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 8,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                    child: Text(e.action,
+                                        style: TextStyle(
+                                            fontWeight:
+                                                FontWeight.w700,
+                                            fontSize: 8,
+                                            color: Colors.white)),
                                   ),
                                   SizedBox(width: 6),
                                   Expanded(
-                                    child: Text(
-                                      e.detail,
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: _kDarkText,
-                                      ),
-                                    ),
+                                    child: Text(e.detail,
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color: _kDarkText)),
                                   ),
                                 ],
                               ),
@@ -1624,13 +1458,8 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
     );
   }
 
-  Widget _enumStateRow(
-    String name,
-    String value,
-    int index,
-    IconData icon,
-    Color color,
-  ) {
+  Widget _enumStateRow(String name, String value, int index,
+      IconData icon, Color color) {
     return Container(
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -1642,24 +1471,18 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
         children: [
           Icon(icon, size: 18, color: color),
           SizedBox(width: 8),
-          Text(
-            name,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
-              color: _kDarkText,
-            ),
-          ),
+          Text(name,
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                  color: _kDarkText)),
           Spacer(),
-          Text(
-            value,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-              color: color,
-            ),
-          ),
+          Text(value,
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                  color: color)),
           SizedBox(width: 8),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
@@ -1667,14 +1490,11 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
               color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              'idx:$index',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 9,
-                color: _kMuted,
-              ),
-            ),
+            child: Text('idx:$index',
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 9,
+                    color: _kMuted)),
           ),
         ],
       ),
@@ -1682,11 +1502,7 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
   }
 
   Widget _enumChip(
-    String label,
-    bool selected,
-    Color color,
-    VoidCallback onTap,
-  ) {
+      String label, bool selected, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -1694,26 +1510,22 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
         decoration: BoxDecoration(
           color: selected ? color : Colors.grey.shade100,
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: selected ? color : Colors.grey.shade300),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
-            color: selected ? Colors.white : _kDarkText,
+          border: Border.all(
+            color: selected ? color : Colors.grey.shade300,
           ),
         ),
+        child: Text(label,
+            style: TextStyle(
+                fontSize: 10,
+                fontWeight:
+                    selected ? FontWeight.w700 : FontWeight.w400,
+                color: selected ? Colors.white : _kDarkText)),
       ),
     );
   }
 
   Widget _actionBtn(
-    String label,
-    IconData icon,
-    Color color,
-    VoidCallback? onTap,
-  ) {
+      String label, IconData icon, Color color, VoidCallback? onTap) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -1730,20 +1542,17 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
           ),
           child: Column(
             children: [
-              Icon(
-                icon,
-                size: 18,
-                color: onTap != null ? color : Colors.grey.shade400,
-              ),
+              Icon(icon,
+                  size: 18,
+                  color: onTap != null ? color : Colors.grey.shade400),
               SizedBox(height: 2),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: onTap != null ? color : Colors.grey.shade400,
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: onTap != null
+                          ? color
+                          : Colors.grey.shade400)),
             ],
           ),
         ),
@@ -1761,16 +1570,14 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
       ),
       child: Row(
         children: [
-          Text(
-            '"$key"',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: _kAccent,
-            ),
-          ),
+          Text('"$key"',
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: _kAccent)),
           SizedBox(width: 6),
-          Text(':', style: TextStyle(color: _kMuted, fontSize: 11)),
+          Text(':',
+              style: TextStyle(color: _kMuted, fontSize: 11)),
           SizedBox(width: 6),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
@@ -1778,27 +1585,21 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
               color: _kAccent.withOpacity(0.1),
               borderRadius: BorderRadius.circular(3),
             ),
-            child: Text(
-              '$index',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w700,
-                fontSize: 11,
-                color: _kAccent,
-              ),
-            ),
+            child: Text('$index',
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                    color: _kAccent)),
           ),
           Spacer(),
           Icon(Icons.arrow_forward, size: 12, color: _kMuted),
           SizedBox(width: 4),
-          Text(
-            resolvedName,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 11,
-              color: _kDarkText,
-            ),
-          ),
+          Text(resolvedName,
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 11,
+                  color: _kDarkText)),
         ],
       ),
     );
@@ -1815,16 +1616,14 @@ class _RestorationLabTabState extends State<_RestorationLabTab> {
             color: matches ? _kGood : _kBad,
           ),
           SizedBox(width: 6),
-          Text(name, style: TextStyle(fontSize: 12, color: _kDarkText)),
+          Text(name,
+              style: TextStyle(fontSize: 12, color: _kDarkText)),
           Spacer(),
-          Text(
-            matches ? 'Matches' : 'Differs',
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: matches ? _kGood : _kBad,
-            ),
-          ),
+          Text(matches ? 'Matches' : 'Differs',
+              style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: matches ? _kGood : _kBad)),
         ],
       ),
     );
@@ -1873,14 +1672,11 @@ Widget _sectionCard(String title, Widget child) {
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 15,
-                  color: _kDarkText,
-                ),
-              ),
+              child: Text(title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 15,
+                      color: _kDarkText)),
             ),
           ],
         ),
@@ -1900,15 +1696,12 @@ Widget _codeBlock(String code) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _kAccent.withOpacity(0.2)),
     ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 12,
-        color: _kDarkText,
-        height: 1.5,
-      ),
-    ),
+    child: Text(code,
+        style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: _kDarkText,
+            height: 1.5)),
   );
 }
 
@@ -1931,32 +1724,25 @@ Widget _paramRow(String name, String type, String desc, Color color) {
                 color: color.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                name,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                  color: color,
-                ),
-              ),
+              child: Text(name,
+                  style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: color)),
             ),
             SizedBox(width: 8),
-            Text(
-              type,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                color: _kMuted,
-              ),
-            ),
+            Text(type,
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: _kMuted)),
           ],
         ),
         SizedBox(height: 4),
-        Text(
-          desc,
-          style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.3),
-        ),
+        Text(desc,
+            style: TextStyle(
+                fontSize: 12, color: _kDarkText, height: 1.3)),
       ],
     ),
   );
@@ -1968,7 +1754,11 @@ Widget _hierarchyRow(int indent, String name, Color color) {
     child: Row(
       children: [
         if (indent > 0) ...[
-          Container(width: 12, height: 2, color: color.withOpacity(0.3)),
+          Container(
+            width: 12,
+            height: 2,
+            color: color.withOpacity(0.3),
+          ),
           SizedBox(width: 4),
         ],
         Container(
@@ -1978,15 +1768,12 @@ Widget _hierarchyRow(int indent, String name, Color color) {
             borderRadius: BorderRadius.circular(6),
             border: Border.all(color: color.withOpacity(0.3)),
           ),
-          child: Text(
-            name,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          child: Text(name,
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: color)),
         ),
       ],
     ),
@@ -1994,12 +1781,7 @@ Widget _hierarchyRow(int indent, String name, Color color) {
 }
 
 Widget _workflowStep(
-  int step,
-  String title,
-  String desc,
-  IconData icon,
-  Color color,
-) {
+    int step, String title, String desc, IconData icon, Color color) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -2017,32 +1799,25 @@ Widget _workflowStep(
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
-          child: Text(
-            '$step',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
-              color: color,
-            ),
-          ),
+          child: Text('$step',
+              style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 13,
+                  color: color)),
         ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _kDarkText,
-                ),
-              ),
-              Text(
-                desc,
-                style: TextStyle(fontSize: 11, color: _kMuted, height: 1.3),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: _kDarkText)),
+              Text(desc,
+                  style: TextStyle(
+                      fontSize: 11, color: _kMuted, height: 1.3)),
             ],
           ),
         ),
@@ -2060,14 +1835,12 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
     children: cells.map((c) {
       return Padding(
         padding: EdgeInsets.all(8),
-        child: Text(
-          c,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-            color: isHeader ? _kPrimary : _kDarkText,
-          ),
-        ),
+        child: Text(c,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight:
+                    isHeader ? FontWeight.w700 : FontWeight.w400,
+                color: isHeader ? _kPrimary : _kDarkText)),
       );
     }).toList(),
   );
@@ -2075,7 +1848,8 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
 
 Widget _bp(bool isGood, String text) {
   final color = isGood ? Color(0xFF2E7D32) : Color(0xFFC62828);
-  final icon = isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
+  final icon =
+      isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
   return Padding(
     padding: EdgeInsets.only(bottom: 6),
     child: Row(
@@ -2084,10 +1858,9 @@ Widget _bp(bool isGood, String text) {
         Icon(icon, color: color, size: 18),
         SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  fontSize: 12, color: _kDarkText, height: 1.4)),
         ),
       ],
     ),

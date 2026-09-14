@@ -181,7 +181,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12.0),
               Text(
                 'Elevation, shadow, tint, shape, clip, margin, semantics — '
-                'every Card knob in one scrollable canvas.',
+                    'every Card knob in one scrollable canvas.',
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.85),
                   fontSize: 13.5,
@@ -263,8 +263,12 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12.0),
           const Text(
             'A Card is a Material surface with elevation, an optional '
-            'tinted overlay, and a clipped shape.',
-            style: TextStyle(fontSize: 13.0, color: slate600, height: 1.4),
+                'tinted overlay, and a clipped shape.',
+            style: TextStyle(
+              fontSize: 13.0,
+              color: slate600,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -300,7 +304,8 @@ dynamic build(BuildContext context) {
         Positioned(
           left: 12.0,
           bottom: 28.0,
-          child: _calloutLabel('shape', rose600, Icons.rounded_corner_rounded),
+          child:
+              _calloutLabel('shape', rose600, Icons.rounded_corner_rounded),
         ),
         Positioned(
           right: 12.0,
@@ -316,7 +321,11 @@ dynamic build(BuildContext context) {
           right: 0.0,
           bottom: 4.0,
           child: Center(
-            child: _calloutLabel('margin', slate700, Icons.crop_free_rounded),
+            child: _calloutLabel(
+              'margin',
+              slate700,
+              Icons.crop_free_rounded,
+            ),
           ),
         ),
         Positioned(
@@ -324,7 +333,11 @@ dynamic build(BuildContext context) {
           right: 0.0,
           top: 6.0,
           child: Center(
-            child: _calloutLabel('child', slate800, Icons.account_tree_rounded),
+            child: _calloutLabel(
+              'child',
+              slate800,
+              Icons.account_tree_rounded,
+            ),
           ),
         ),
       ],
@@ -346,7 +359,10 @@ dynamic build(BuildContext context) {
     body: const Card(
       elevation: 2.0,
       margin: EdgeInsets.zero,
-      child: Padding(padding: EdgeInsets.all(16.0), child: _ProjectAurora()),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: _ProjectAurora(),
+      ),
     ),
     note: 'Elevated surface, theme-tinted background, soft drop shadow.',
   );
@@ -356,7 +372,10 @@ dynamic build(BuildContext context) {
     accent: cobalt600,
     body: const Card.filled(
       margin: EdgeInsets.zero,
-      child: Padding(padding: EdgeInsets.all(16.0), child: _ProjectAurora()),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: _ProjectAurora(),
+      ),
     ),
     note: 'Filled with secondaryContainer color; near-zero elevation.',
   );
@@ -366,7 +385,10 @@ dynamic build(BuildContext context) {
     accent: rose600,
     body: const Card.outlined(
       margin: EdgeInsets.zero,
-      child: Padding(padding: EdgeInsets.all(16.0), child: _ProjectAurora()),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: _ProjectAurora(),
+      ),
     ),
     note: 'Zero elevation, hairline outline; flat, low-emphasis surface.',
   );
@@ -438,7 +460,9 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _shapeTile(
           'radius 0',
-          const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
         ),
         _shapeTile(
           'radius 4',
@@ -536,7 +560,9 @@ dynamic build(BuildContext context) {
         const SizedBox(width: 14.0),
         Expanded(child: _clipTile('Clip.hardEdge', Clip.hardEdge, slate600)),
         const SizedBox(width: 14.0),
-        Expanded(child: _clipTile('Clip.antiAlias', Clip.antiAlias, slate600)),
+        Expanded(
+          child: _clipTile('Clip.antiAlias', Clip.antiAlias, slate600),
+        ),
       ],
     ),
   );
@@ -597,7 +623,11 @@ dynamic build(BuildContext context) {
             ),
           ),
           child: const Center(
-            child: Icon(Icons.terrain_rounded, color: Colors.white, size: 46.0),
+            child: Icon(
+              Icons.terrain_rounded,
+              color: Colors.white,
+              size: 46.0,
+            ),
           ),
         ),
         Padding(
@@ -623,10 +653,7 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   OutlinedButton.icon(
                     onPressed: () {},
-                    icon: const Icon(
-                      Icons.bookmark_outline_rounded,
-                      size: 16.0,
-                    ),
+                    icon: const Icon(Icons.bookmark_outline_rounded, size: 16.0),
                     label: const Text('Save'),
                   ),
                   const SizedBox(width: 8.0),
@@ -1049,15 +1076,15 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _footerBullet(
           'Pick the variant by emphasis: Card for emphasis, Card.filled '
-          'for low-emphasis grouping, Card.outlined for hairline lists.',
+              'for low-emphasis grouping, Card.outlined for hairline lists.',
         ),
         _footerBullet(
           'Theme once, reuse everywhere: most Card knobs respect '
-          'CardTheme. Set defaults globally, override locally.',
+              'CardTheme. Set defaults globally, override locally.',
         ),
         _footerBullet(
           'Card is a surface, not a button. Add InkWell inside for taps; '
-          'add Semantics for accessibility tweaks.',
+              'add Semantics for accessibility tweaks.',
         ),
         const SizedBox(height: 14.0),
         Text(
@@ -1149,7 +1176,10 @@ Widget _heroChip(String label, Color dotColor) {
         Container(
           width: 8.0,
           height: 8.0,
-          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: dotColor,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 8.0),
         Text(
@@ -1211,7 +1241,10 @@ Widget _sectionShell({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(18.0),
-      border: Border.all(color: const Color(0xFFE2E8F0), width: 1.0),
+      border: Border.all(
+        color: const Color(0xFFE2E8F0),
+        width: 1.0,
+      ),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: Colors.black.withValues(alpha: 0.03),
@@ -1458,7 +1491,10 @@ Widget _shadowTile(String label, Color color) {
               child: Container(
                 width: 18.0,
                 height: 18.0,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
           ),
@@ -1725,13 +1761,21 @@ Widget _comparisonColumn(
   );
 }
 
-Widget _caveatTile(IconData icon, Color accent, String title, String body) {
+Widget _caveatTile(
+  IconData icon,
+  Color accent,
+  String title,
+  String body,
+) {
   return Container(
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       color: accent.withValues(alpha: 0.06),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.0),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.35),
+        width: 1.0,
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,

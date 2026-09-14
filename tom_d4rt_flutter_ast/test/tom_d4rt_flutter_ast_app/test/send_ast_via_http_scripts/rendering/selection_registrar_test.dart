@@ -52,7 +52,9 @@ Widget _rgSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_rgCrimson, _rgDarkCrimson]),
+      gradient: LinearGradient(
+        colors: [_rgCrimson, _rgDarkCrimson],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,11 +235,7 @@ Widget _rgBuildOverview() {
             const SizedBox(height: 14),
             _rgMethodRow('add()', 'Selectable → void', 'Register a selectable'),
             const SizedBox(height: 4),
-            _rgMethodRow(
-              'remove()',
-              'Selectable → void',
-              'Unregister a selectable',
-            ),
+            _rgMethodRow('remove()', 'Selectable → void', 'Unregister a selectable'),
           ],
         ),
       ),
@@ -271,8 +269,7 @@ Widget _rgMethodRow(String name, String sig, String desc) {
     child: Row(
       children: [
         Container(
-          width: 6,
-          height: 6,
+          width: 6, height: 6,
           decoration: const BoxDecoration(
             color: _rgCrimson,
             shape: BoxShape.circle,
@@ -305,7 +302,10 @@ Widget _rgMethodRow(String name, String sig, String desc) {
         Expanded(
           child: Text(
             desc,
-            style: const TextStyle(color: _rgCharcoal, fontSize: 11),
+            style: const TextStyle(
+              color: _rgCharcoal,
+              fontSize: 11,
+            ),
           ),
         ),
       ],
@@ -388,11 +388,7 @@ Widget _rgBuildComparison() {
                   children: [
                     Row(
                       children: [
-                        const Icon(
-                          Icons.app_registration,
-                          color: _rgViolet,
-                          size: 20,
-                        ),
+                        const Icon(Icons.app_registration, color: _rgViolet, size: 20),
                         const SizedBox(width: 6),
                         const Text(
                           'SelectionRegistrant',
@@ -486,7 +482,10 @@ Widget _rgCompareItem(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: const TextStyle(color: _rgCharcoal, fontSize: 10),
+            style: const TextStyle(
+              color: _rgCharcoal,
+              fontSize: 10,
+            ),
           ),
         ),
       ],
@@ -625,7 +624,10 @@ Widget _rgArchLayer(String title, String desc, Color color, IconData icon) {
               ),
               Text(
                 desc,
-                style: const TextStyle(color: _rgCharcoal, fontSize: 10),
+                style: const TextStyle(
+                  color: _rgCharcoal,
+                  fontSize: 10,
+                ),
               ),
             ],
           ),
@@ -678,17 +680,9 @@ Widget _rgBuildEventFlow() {
             _rgFlowArrow(),
             _rgFlowStep(2, 'GestureRecognizer fires onDragUpdate', _rgBlue),
             _rgFlowArrow(),
-            _rgFlowStep(
-              3,
-              'Registrar creates SelectionEdgeUpdateEvent',
-              _rgCrimson,
-            ),
+            _rgFlowStep(3, 'Registrar creates SelectionEdgeUpdateEvent', _rgCrimson),
             _rgFlowArrow(),
-            _rgFlowStep(
-              4,
-              'Dispatches to all registered selectables',
-              _rgCrimson,
-            ),
+            _rgFlowStep(4, 'Dispatches to all registered selectables', _rgCrimson),
             _rgFlowArrow(),
             _rgFlowStep(5, 'Each selectable updates its geometry', _rgViolet),
             _rgFlowArrow(),
@@ -722,9 +716,11 @@ Widget _rgFlowStep(int num, String text, Color color) {
   return Row(
     children: [
       Container(
-        width: 24,
-        height: 24,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        width: 24, height: 24,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
         child: Center(
           child: Text(
             '$num',
@@ -801,7 +797,7 @@ Widget _rgBuildCollection() {
             _rgOperationCard(
               'add(selectable)',
               'Appends to the list.  Order typically matches paint order '
-                  '(top-to-bottom, left-to-right in LTR).',
+              '(top-to-bottom, left-to-right in LTR).',
               Icons.add_circle,
               _rgMint,
             ),
@@ -809,7 +805,7 @@ Widget _rgBuildCollection() {
             _rgOperationCard(
               'remove(selectable)',
               'Removes from the list.  Also removes the listener that '
-                  'tracked geometry changes.',
+              'tracked geometry changes.',
               Icons.remove_circle,
               _rgFlame,
             ),
@@ -817,7 +813,7 @@ Widget _rgBuildCollection() {
             _rgOperationCard(
               'iterate for dispatch',
               'Events are dispatched in list order.  Each selectable '
-                  'reports back whether it handled the event.',
+              'reports back whether it handled the event.',
               Icons.loop,
               _rgBlue,
             ),
@@ -825,7 +821,7 @@ Widget _rgBuildCollection() {
             _rgOperationCard(
               'geometry merge',
               'The registrar reads each selectable\'s geometry and '
-                  'computes the combined selection bounds.',
+              'computes the combined selection bounds.',
               Icons.merge_type,
               _rgViolet,
             ),
@@ -916,12 +912,9 @@ Widget _rgOperationCard(String title, String desc, IconData icon, Color color) {
 
 Widget _rgSelectableBox(String label, Color color, bool isSelected) {
   return Container(
-    width: 50,
-    height: 40,
+    width: 50, height: 40,
     decoration: BoxDecoration(
-      color: isSelected
-          ? color.withValues(alpha: 0.15)
-          : _rgSlate.withValues(alpha: 0.08),
+      color: isSelected ? color.withValues(alpha: 0.15) : _rgSlate.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(6),
       border: Border.all(
         color: isSelected ? color : _rgSlate.withValues(alpha: 0.3),
@@ -997,25 +990,10 @@ Widget _rgBuildMaybeOf() {
             ),
             const SizedBox(height: 14),
             _rgLookupLevel('SelectionArea', 'Creates registrar', _rgTeal, true),
-            _rgLookupLevel(
-              'SelectionContainer',
-              'InheritedWidget',
-              _rgBlue,
-              false,
-            ),
-            _rgLookupLevel(
-              'Column / Padding / etc.',
-              'Passes through',
-              _rgSlate,
-              false,
-            ),
+            _rgLookupLevel('SelectionContainer', 'InheritedWidget', _rgBlue, false),
+            _rgLookupLevel('Column / Padding / etc.', 'Passes through', _rgSlate, false),
             _rgLookupLevel('Text widget', 'Calls maybeOf()', _rgViolet, false),
-            _rgLookupLevel(
-              'RenderParagraph',
-              'Sets registrar property',
-              _rgCrimson,
-              true,
-            ),
+            _rgLookupLevel('RenderParagraph', 'Sets registrar property', _rgCrimson, true),
           ],
         ),
       ),
@@ -1045,8 +1023,7 @@ Widget _rgLookupLevel(String label, String desc, Color color, bool isKey) {
     child: Row(
       children: [
         Container(
-          width: 8,
-          height: 8,
+          width: 8, height: 8,
           decoration: BoxDecoration(
             color: color,
             shape: isKey ? BoxShape.rectangle : BoxShape.circle,
@@ -1067,7 +1044,13 @@ Widget _rgLookupLevel(String label, String desc, Color color, bool isKey) {
                 ),
               ),
               const SizedBox(width: 8),
-              Text(desc, style: const TextStyle(color: _rgSlate, fontSize: 10)),
+              Text(
+                desc,
+                style: const TextStyle(
+                  color: _rgSlate,
+                  fontSize: 10,
+                ),
+              ),
             ],
           ),
         ),
@@ -1240,11 +1223,7 @@ Widget _rgBuildScoping() {
                       child: const Text(
                         'Registrar A',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11),
                       ),
                     ),
                     SelectionArea(
@@ -1287,11 +1266,7 @@ Widget _rgBuildScoping() {
                       child: const Text(
                         'Registrar B',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11),
                       ),
                     ),
                     SelectionArea(
@@ -1321,8 +1296,7 @@ Widget _rgBuildScoping() {
 
 Widget _rgMiniBox(String label, Color color) {
   return Container(
-    width: 28,
-    height: 22,
+    width: 28, height: 22,
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(4),
@@ -1331,11 +1305,7 @@ Widget _rgMiniBox(String label, Color color) {
     child: Center(
       child: Text(
         label,
-        style: TextStyle(
-          color: color,
-          fontSize: 8,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.bold),
       ),
     ),
   );
@@ -1393,8 +1363,8 @@ Widget _rgBuildCustom() {
             _rgUseCaseCard(
               'FilteredRegistrar',
               'Only registers selectables that match a predicate.  '
-                  'Useful for making certain elements non-selectable '
-                  'without removing them from the tree.',
+              'Useful for making certain elements non-selectable '
+              'without removing them from the tree.',
               Icons.filter_list,
               _rgBlue,
             ),
@@ -1402,7 +1372,7 @@ Widget _rgBuildCustom() {
             _rgUseCaseCard(
               'ReadOnlyRegistrar',
               'Prevents modification of the selection.  Accepts '
-                  'registrations but ignores update events.',
+              'registrations but ignores update events.',
               Icons.lock,
               _rgViolet,
             ),
@@ -1410,7 +1380,7 @@ Widget _rgBuildCustom() {
             _rgUseCaseCard(
               'AnalyticsRegistrar',
               'Tracks which content gets selected most often.  '
-                  'Useful for understanding user reading patterns.',
+              'Useful for understanding user reading patterns.',
               Icons.analytics,
               _rgMint,
             ),
@@ -1505,32 +1475,14 @@ Widget _rgBuildSummary() {
               ],
             ),
             const SizedBox(height: 12),
-            _rgSummaryItem(
-              'Interface',
-              'Abstract class with just add() and remove().',
-            ),
-            _rgSummaryItem(
-              'Role',
-              'Server side — manages registered selectables.',
-            ),
-            _rgSummaryItem(
-              'Implementation',
-              'RenderSelectableRegion implements it.',
-            ),
+            _rgSummaryItem('Interface', 'Abstract class with just add() and remove().'),
+            _rgSummaryItem('Role', 'Server side — manages registered selectables.'),
+            _rgSummaryItem('Implementation', 'RenderSelectableRegion implements it.'),
             _rgSummaryItem('Collection', 'Ordered list of Selectable objects.'),
-            _rgSummaryItem(
-              'Dispatching',
-              'Sends selection events to all registrants.',
-            ),
+            _rgSummaryItem('Dispatching', 'Sends selection events to all registrants.'),
             _rgSummaryItem('Access', 'SelectionContainer.maybeOf(context).'),
-            _rgSummaryItem(
-              'Scoping',
-              'Each SelectionArea has its own registrar.',
-            ),
-            _rgSummaryItem(
-              'Extensible',
-              'Custom implementations for filtering, logging.',
-            ),
+            _rgSummaryItem('Scoping', 'Each SelectionArea has its own registrar.'),
+            _rgSummaryItem('Extensible', 'Custom implementations for filtering, logging.'),
           ],
         ),
       ),
@@ -1546,37 +1498,31 @@ Widget _rgSummaryItem(String title, String desc) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 6,
-          height: 6,
+          width: 6, height: 6,
           margin: const EdgeInsets.only(top: 5),
-          decoration: const BoxDecoration(
-            color: _rgGold,
-            shape: BoxShape.circle,
-          ),
+          decoration: const BoxDecoration(color: _rgGold, shape: BoxShape.circle),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '$title — ',
-                  style: const TextStyle(
-                    color: _rgCoral,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+            text: TextSpan(children: [
+              TextSpan(
+                text: '$title — ',
+                style: const TextStyle(
+                  color: _rgCoral,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
                 ),
-                TextSpan(
-                  text: desc,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.9),
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+              ),
+              TextSpan(
+                text: desc,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 12,
+                  height: 1.4,
                 ),
-              ],
-            ),
+              ),
+            ]),
           ),
         ),
       ],

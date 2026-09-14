@@ -68,8 +68,7 @@ class FlutterViewLike {
   final double devicePixelRatio;
 
   @override
-  String toString() =>
-      'FlutterViewLike(viewId: $viewId, dpr: $devicePixelRatio)';
+  String toString() => 'FlutterViewLike(viewId: $viewId, dpr: $devicePixelRatio)';
 }
 
 /// Mirror of `BaseWindowController` (SDK line 66).
@@ -180,8 +179,7 @@ class WindowingOwnerMacOS extends WindowingOwner {
   final Size simulatedScreenSize;
 
   /// Mirror of the SDK field `_activeControllers` (line 137).
-  final List<BaseWindowController> _activeControllers =
-      <BaseWindowController>[];
+  final List<BaseWindowController> _activeControllers = <BaseWindowController>[];
   List<BaseWindowController> get activeControllers =>
       List<BaseWindowController>.unmodifiable(_activeControllers);
 
@@ -205,14 +203,13 @@ class WindowingOwnerMacOS extends WindowingOwner {
     BoxConstraints? preferredConstraints,
     String? title,
   }) {
-    final RegularWindowControllerMacOS controller =
-        RegularWindowControllerMacOS(
-          owner: this,
-          delegate: delegate,
-          preferredSize: preferredSize ?? const Size(800, 600),
-          preferredConstraints: preferredConstraints,
-          title: title,
-        );
+    final RegularWindowControllerMacOS controller = RegularWindowControllerMacOS(
+      owner: this,
+      delegate: delegate,
+      preferredSize: preferredSize ?? const Size(800, 600),
+      preferredConstraints: preferredConstraints,
+      title: title,
+    );
     _activeControllers.add(controller);
     _record(
       WindowingEvent.spawn(
@@ -256,13 +253,9 @@ class WindowingOwnerMacOS extends WindowingOwner {
   void _removeController(BaseWindowController controller) {
     _activeControllers.remove(controller);
     if (controller is RegularWindowControllerMacOS) {
-      _record(
-        WindowingEvent.destroyed(controller.rootView.viewId, controller.title),
-      );
+      _record(WindowingEvent.destroyed(controller.rootView.viewId, controller.title));
     } else if (controller is DialogWindowControllerMacOS) {
-      _record(
-        WindowingEvent.destroyed(controller.rootView.viewId, controller.title),
-      );
+      _record(WindowingEvent.destroyed(controller.rootView.viewId, controller.title));
     }
   }
 
@@ -285,71 +278,64 @@ class WindowingEvent {
     required this.timestamp,
   });
 
-  factory WindowingEvent.spawn({
-    required int viewId,
-    required String title,
-    required Size size,
-  }) => WindowingEvent._(
-    viewId: viewId,
-    kind: WindowingEventKind.spawn,
-    detail:
-        '"$title" @ ${size.width.toStringAsFixed(0)}x${size.height.toStringAsFixed(0)}',
-    timestamp: DateTime.now(),
-  );
+  factory WindowingEvent.spawn({required int viewId, required String title, required Size size}) =>
+      WindowingEvent._(
+        viewId: viewId,
+        kind: WindowingEventKind.spawn,
+        detail: '"$title" @ ${size.width.toStringAsFixed(0)}x${size.height.toStringAsFixed(0)}',
+        timestamp: DateTime.now(),
+      );
 
   factory WindowingEvent.resize(int viewId, Size size) => WindowingEvent._(
-    viewId: viewId,
-    kind: WindowingEventKind.resize,
-    detail:
-        '${size.width.toStringAsFixed(0)}x${size.height.toStringAsFixed(0)}',
-    timestamp: DateTime.now(),
-  );
+        viewId: viewId,
+        kind: WindowingEventKind.resize,
+        detail: '${size.width.toStringAsFixed(0)}x${size.height.toStringAsFixed(0)}',
+        timestamp: DateTime.now(),
+      );
 
   factory WindowingEvent.activate(int viewId) => WindowingEvent._(
-    viewId: viewId,
-    kind: WindowingEventKind.activate,
-    detail: 'window became key',
-    timestamp: DateTime.now(),
-  );
+        viewId: viewId,
+        kind: WindowingEventKind.activate,
+        detail: 'window became key',
+        timestamp: DateTime.now(),
+      );
 
   factory WindowingEvent.deactivate(int viewId) => WindowingEvent._(
-    viewId: viewId,
-    kind: WindowingEventKind.deactivate,
-    detail: 'window resigned key',
-    timestamp: DateTime.now(),
-  );
+        viewId: viewId,
+        kind: WindowingEventKind.deactivate,
+        detail: 'window resigned key',
+        timestamp: DateTime.now(),
+      );
 
   factory WindowingEvent.fullscreen(int viewId, bool on) => WindowingEvent._(
-    viewId: viewId,
-    kind: WindowingEventKind.fullscreen,
-    detail: on ? 'entered full screen' : 'exited full screen',
-    timestamp: DateTime.now(),
-  );
+        viewId: viewId,
+        kind: WindowingEventKind.fullscreen,
+        detail: on ? 'entered full screen' : 'exited full screen',
+        timestamp: DateTime.now(),
+      );
 
   factory WindowingEvent.maximized(int viewId, bool on) => WindowingEvent._(
-    viewId: viewId,
-    kind: WindowingEventKind.maximized,
-    detail: on ? 'zoomed' : 'restored from zoom',
-    timestamp: DateTime.now(),
-  );
+        viewId: viewId,
+        kind: WindowingEventKind.maximized,
+        detail: on ? 'zoomed' : 'restored from zoom',
+        timestamp: DateTime.now(),
+      );
 
   factory WindowingEvent.minimized(int viewId, bool on) => WindowingEvent._(
-    viewId: viewId,
-    kind: WindowingEventKind.minimized,
-    detail: on ? 'minimized to Dock' : 'restored from Dock',
-    timestamp: DateTime.now(),
-  );
+        viewId: viewId,
+        kind: WindowingEventKind.minimized,
+        detail: on ? 'minimized to Dock' : 'restored from Dock',
+        timestamp: DateTime.now(),
+      );
 
-  factory WindowingEvent.closeRequested(int viewId, String reason) =>
-      WindowingEvent._(
+  factory WindowingEvent.closeRequested(int viewId, String reason) => WindowingEvent._(
         viewId: viewId,
         kind: WindowingEventKind.closeRequested,
         detail: reason,
         timestamp: DateTime.now(),
       );
 
-  factory WindowingEvent.destroyed(int viewId, String title) =>
-      WindowingEvent._(
+  factory WindowingEvent.destroyed(int viewId, String title) => WindowingEvent._(
         viewId: viewId,
         kind: WindowingEventKind.destroyed,
         detail: '"$title" destroyed',
@@ -393,26 +379,23 @@ class RegularWindowControllerMacOS extends RegularWindowController {
     required Size preferredSize,
     BoxConstraints? preferredConstraints,
     String? title,
-  }) : _owner = owner,
-       _delegate = delegate,
-       _contentSize = preferredSize,
-       _minSize = preferredConstraints == null
-           ? const Size(280, 180)
-           : Size(
-               preferredConstraints.minWidth,
-               preferredConstraints.minHeight,
-             ),
-       _maxSize = preferredConstraints == null
-           ? const Size(4096, 2304)
-           : Size(
-               preferredConstraints.maxWidth.isFinite
-                   ? preferredConstraints.maxWidth
-                   : 4096,
-               preferredConstraints.maxHeight.isFinite
-                   ? preferredConstraints.maxHeight
-                   : 2304,
-             ),
-       _title = title ?? 'Untitled' {
+  })  : _owner = owner,
+        _delegate = delegate,
+        _contentSize = preferredSize,
+        _minSize = preferredConstraints == null
+            ? const Size(280, 180)
+            : Size(preferredConstraints.minWidth, preferredConstraints.minHeight),
+        _maxSize = preferredConstraints == null
+            ? const Size(4096, 2304)
+            : Size(
+                preferredConstraints.maxWidth.isFinite
+                    ? preferredConstraints.maxWidth
+                    : 4096,
+                preferredConstraints.maxHeight.isFinite
+                    ? preferredConstraints.maxHeight
+                    : 2304,
+              ),
+        _title = title ?? 'Untitled' {
     rootView = FlutterViewLike(viewId: owner._generateViewId());
   }
 
@@ -494,14 +477,10 @@ class RegularWindowControllerMacOS extends RegularWindowController {
   void setConstraints(BoxConstraints constraints) {
     _ensureNotDestroyed();
     setMinimumSize(Size(constraints.minWidth, constraints.minHeight));
-    setMaximumSize(
-      Size(
-        constraints.maxWidth.isFinite ? constraints.maxWidth : _maxSize.width,
-        constraints.maxHeight.isFinite
-            ? constraints.maxHeight
-            : _maxSize.height,
-      ),
-    );
+    setMaximumSize(Size(
+      constraints.maxWidth.isFinite ? constraints.maxWidth : _maxSize.width,
+      constraints.maxHeight.isFinite ? constraints.maxHeight : _maxSize.height,
+    ));
   }
 
   @override
@@ -609,11 +588,11 @@ class DialogWindowControllerMacOS extends DialogWindowController {
     required Size preferredSize,
     BaseWindowController? parent,
     String? title,
-  }) : _owner = owner,
-       _delegate = delegate,
-       _contentSize = preferredSize,
-       _parent = parent,
-       _title = title ?? 'Dialog' {
+  })  : _owner = owner,
+        _delegate = delegate,
+        _contentSize = preferredSize,
+        _parent = parent,
+        _title = title ?? 'Dialog' {
     rootView = FlutterViewLike(viewId: owner._generateViewId());
   }
 
@@ -650,18 +629,10 @@ class DialogWindowControllerMacOS extends DialogWindowController {
   @override
   void setConstraints(BoxConstraints constraints) {
     _contentSize = Size(
-      _contentSize.width.clamp(
-        constraints.minWidth,
-        constraints.maxWidth.isFinite
-            ? constraints.maxWidth
-            : _contentSize.width,
-      ),
-      _contentSize.height.clamp(
-        constraints.minHeight,
-        constraints.maxHeight.isFinite
-            ? constraints.maxHeight
-            : _contentSize.height,
-      ),
+      _contentSize.width.clamp(constraints.minWidth,
+          constraints.maxWidth.isFinite ? constraints.maxWidth : _contentSize.width),
+      _contentSize.height.clamp(constraints.minHeight,
+          constraints.maxHeight.isFinite ? constraints.maxHeight : _contentSize.height),
     );
     notifyListeners();
   }
@@ -738,11 +709,7 @@ const _Palette _palette = _Palette(
 );
 
 class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({
-    required this.index,
-    required this.title,
-    required this.subtitle,
-  });
+  const _SectionHeader({required this.index, required this.title, required this.subtitle});
 
   final int index;
   final String title;
@@ -853,9 +820,7 @@ class _MacChrome extends StatelessWidget {
           height: height.clamp(140.0, 800.0),
           decoration: BoxDecoration(
             color: _palette.surface,
-            borderRadius: BorderRadius.circular(
-              controller.isFullscreen ? 0 : 12,
-            ),
+            borderRadius: BorderRadius.circular(controller.isFullscreen ? 0 : 12),
             border: Border.all(
               color: dim ? _palette.outline.withOpacity(0.4) : _palette.outline,
             ),
@@ -868,30 +833,20 @@ class _MacChrome extends StatelessWidget {
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(
-              controller.isFullscreen ? 0 : 12,
-            ),
+            borderRadius: BorderRadius.circular(controller.isFullscreen ? 0 : 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 _Titlebar(controller: controller),
-                Expanded(
-                  child: _ContentArea(controller: controller, dim: dim),
-                ),
+                Expanded(child: _ContentArea(controller: controller, dim: dim)),
                 if (showShortcutHint)
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     color: _palette.surfaceAlt,
                     child: Row(
                       children: <Widget>[
-                        Icon(
-                          Icons.keyboard_alt_outlined,
-                          size: 13,
-                          color: _palette.muted,
-                        ),
+                        Icon(Icons.keyboard_alt_outlined,
+                            size: 13, color: _palette.muted),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
@@ -946,8 +901,7 @@ class _Titlebar extends StatelessWidget {
           _TrafficLight(
             color: dim ? const Color(0xFFD0CDC8) : const Color(0xFFFF5F57),
             tooltip: 'Close',
-            onTap: () =>
-                controller.requestClose(reason: 'red traffic light tapped'),
+            onTap: () => controller.requestClose(reason: 'red traffic light tapped'),
           ),
           const SizedBox(width: 6),
           _TrafficLight(
@@ -982,11 +936,7 @@ class _Titlebar extends StatelessWidget {
 }
 
 class _TrafficLight extends StatelessWidget {
-  const _TrafficLight({
-    required this.color,
-    required this.tooltip,
-    required this.onTap,
-  });
+  const _TrafficLight({required this.color, required this.tooltip, required this.onTap});
 
   final Color color;
   final String tooltip;
@@ -1021,31 +971,17 @@ class _ContentArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> badges = <Widget>[
-      _StateBadge(
-        label: 'active',
-        on: controller.isActivated,
-        color: _palette.ok,
-      ),
-      _StateBadge(
-        label: 'fullscreen',
-        on: controller.isFullscreen,
-        color: _palette.accent,
-      ),
-      _StateBadge(
-        label: 'maximized',
-        on: controller.isMaximized,
-        color: _palette.accent,
-      ),
-      _StateBadge(
-        label: 'minimized',
-        on: controller.isMinimized,
-        color: _palette.warn,
-      ),
+      _StateBadge(label: 'active', on: controller.isActivated, color: _palette.ok),
+      _StateBadge(label: 'fullscreen', on: controller.isFullscreen, color: _palette.accent),
+      _StateBadge(label: 'maximized', on: controller.isMaximized, color: _palette.accent),
+      _StateBadge(label: 'minimized', on: controller.isMinimized, color: _palette.warn),
     ];
 
     return Container(
       padding: const EdgeInsets.all(12),
-      color: dim ? _palette.surfaceAlt.withOpacity(0.4) : _palette.surface,
+      color: dim
+          ? _palette.surfaceAlt.withOpacity(0.4)
+          : _palette.surface,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -1085,11 +1021,7 @@ class _ContentArea extends StatelessWidget {
 }
 
 class _StateBadge extends StatelessWidget {
-  const _StateBadge({
-    required this.label,
-    required this.on,
-    required this.color,
-  });
+  const _StateBadge({required this.label, required this.on, required this.color});
 
   final String label;
   final bool on;
@@ -1345,10 +1277,7 @@ class _DemoRootState extends State<_DemoRoot> {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: _palette.accent.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(6),
@@ -1461,16 +1390,14 @@ class _DemoRootState extends State<_DemoRoot> {
       _AnatomyEntry(
         kind: 'class',
         signature: 'class WindowingOwnerMacOS extends WindowingOwner',
-        notes:
-            'Concrete owner — declared @internal in the SDK so user code '
+        notes: 'Concrete owner — declared @internal in the SDK so user code '
             'cannot import it. The mirror in this demo extends the same '
             'abstract WindowingOwner so generic call sites compile.',
       ),
       _AnatomyEntry(
         kind: 'ctor',
         signature: 'WindowingOwnerMacOS()',
-        notes:
-            'Throws UnsupportedError unless isWindowingEnabled is true and '
+        notes: 'Throws UnsupportedError unless isWindowingEnabled is true and '
             'Platform.isMacOS is true. Asserts the engine has been '
             'initialised so it can read engineId.',
       ),
@@ -1479,45 +1406,39 @@ class _DemoRootState extends State<_DemoRoot> {
         signature:
             'createRegularWindowController({delegate, preferredSize, '
             'preferredConstraints, title}) → RegularWindowController',
-        notes:
-            'Builds a RegularWindowControllerMacOS, registers it in '
+        notes: 'Builds a RegularWindowControllerMacOS, registers it in '
             '_activeControllers, returns the controller for callers to wire '
             'up to a RegularWindow widget.',
       ),
       _AnatomyEntry(
         kind: 'method',
         signature: 'createDialogWindowController(...)',
-        notes:
-            'Same shape as the regular factory but returns a '
+        notes: 'Same shape as the regular factory but returns a '
             'DialogWindowControllerMacOS. May supply a parent for modal '
             'behaviour.',
       ),
       _AnatomyEntry(
         kind: 'method',
         signature: 'createTooltipWindowController(...)',
-        notes:
-            'Throws UnimplementedError on macOS today (line 122 of the SDK '
+        notes: 'Throws UnimplementedError on macOS today (line 122 of the SDK '
             'source). Tooltip windows are not yet wired to NSWindow.',
       ),
       _AnatomyEntry(
         kind: 'method',
         signature: 'createPopupWindowController(...)',
-        notes:
-            'Throws UnimplementedError on macOS today (line 134 of the '
+        notes: 'Throws UnimplementedError on macOS today (line 134 of the '
             'SDK source).',
       ),
       _AnatomyEntry(
         kind: 'static',
         signature: 'getWindowHandle(FlutterView view) → Pointer<Void>',
-        notes:
-            'Returns the underlying NSWindow* handle. Used by the controller '
+        notes: 'Returns the underlying NSWindow* handle. Used by the controller '
             'to drive InternalFlutter_Window_* FFI symbols.',
       ),
       _AnatomyEntry(
         kind: 'field',
         signature: 'List<BaseWindowController> _activeControllers',
-        notes:
-            'Tracks the live windows so the engine can notify the framework '
+        notes: 'Tracks the live windows so the engine can notify the framework '
             'when a window dies. Populated by the create* methods, drained '
             'by _handleOnWillClose.',
       ),
@@ -1556,8 +1477,7 @@ class _DemoRootState extends State<_DemoRoot> {
           ),
           const SizedBox(height: 8),
           _CodeBlock(
-            code:
-                'final WindowingOwnerMacOS owner = WindowingOwnerMacOS(\n'
+            code: 'final WindowingOwnerMacOS owner = WindowingOwnerMacOS(\n'
                 '  simulatedScreenSize: const Size(2560, 1440),\n'
                 ');',
           ),
@@ -1565,21 +1485,16 @@ class _DemoRootState extends State<_DemoRoot> {
           Row(
             children: <Widget>[
               _Stat(
-                label: 'simulatedScreenSize',
-                value:
-                    '${owner.simulatedScreenSize.width.toStringAsFixed(0)} × '
-                    '${owner.simulatedScreenSize.height.toStringAsFixed(0)}',
-              ),
+                  label: 'simulatedScreenSize',
+                  value:
+                      '${owner.simulatedScreenSize.width.toStringAsFixed(0)} × '
+                      '${owner.simulatedScreenSize.height.toStringAsFixed(0)}'),
               const SizedBox(width: 16),
               _Stat(
-                label: 'active controllers',
-                value: owner.activeControllers.length.toString(),
-              ),
+                  label: 'active controllers',
+                  value: owner.activeControllers.length.toString()),
               const SizedBox(width: 16),
-              _Stat(
-                label: 'events recorded',
-                value: owner.events.length.toString(),
-              ),
+              _Stat(label: 'events recorded', value: owner.events.length.toString()),
             ],
           ),
           const SizedBox(height: 16),
@@ -1646,67 +1561,29 @@ class _DemoRootState extends State<_DemoRoot> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                _LifecycleStep(
-                  index: 1,
-                  label: 'create',
-                  detail: 'owner.createRegularWindowController(...)',
-                ),
-                _LifecycleStep(
-                  index: 2,
-                  label: 'activate',
-                  detail: 'controller.activate()',
-                ),
-                _LifecycleStep(
-                  index: 3,
-                  label: 'mutate',
-                  detail: 'setSize, setTitle, setFullScreen, ...',
-                ),
-                _LifecycleStep(
-                  index: 4,
-                  label: 'deactivate',
-                  detail: 'controller.deactivate()',
-                ),
-                _LifecycleStep(
-                  index: 5,
-                  label: 'requestClose',
-                  detail: 'delegate.onWindowCloseRequested(...)',
-                ),
-                _LifecycleStep(
-                  index: 6,
-                  label: 'destroy',
-                  detail: 'controller.destroy() → onWindowDestroyed()',
-                ),
+                _LifecycleStep(index: 1, label: 'create', detail: 'owner.createRegularWindowController(...)'),
+                _LifecycleStep(index: 2, label: 'activate', detail: 'controller.activate()'),
+                _LifecycleStep(index: 3, label: 'mutate', detail: 'setSize, setTitle, setFullScreen, ...'),
+                _LifecycleStep(index: 4, label: 'deactivate', detail: 'controller.deactivate()'),
+                _LifecycleStep(index: 5, label: 'requestClose', detail: 'delegate.onWindowCloseRequested(...)'),
+                _LifecycleStep(index: 6, label: 'destroy', detail: 'controller.destroy() → onWindowDestroyed()'),
                 const SizedBox(height: 14),
                 Wrap(
                   spacing: 6,
                   runSpacing: 6,
                   children: <Widget>[
-                    _ChipAction(
-                      label: 'activate',
-                      onTap: () => setState(chromeWindow.activate),
-                    ),
-                    _ChipAction(
-                      label: 'deactivate',
-                      onTap: () => setState(chromeWindow.deactivate),
-                    ),
+                    _ChipAction(label: 'activate', onTap: () => setState(chromeWindow.activate)),
+                    _ChipAction(label: 'deactivate', onTap: () => setState(chromeWindow.deactivate)),
                     _ChipAction(
                       label: 'set title',
                       onTap: () {
-                        setState(
-                          () => chromeWindow.setTitle(
-                            'Lifecycle · t=${DateTime.now().second}',
-                          ),
-                        );
+                        setState(() => chromeWindow.setTitle('Lifecycle · t=${DateTime.now().second}'));
                       },
                     ),
                     _ChipAction(
                       label: 'request close',
                       onTap: () {
-                        setState(
-                          () => chromeWindow.requestClose(
-                            reason: 'demo button pressed',
-                          ),
-                        );
+                        setState(() => chromeWindow.requestClose(reason: 'demo button pressed'));
                       },
                     ),
                     _ChipAction(
@@ -1789,9 +1666,7 @@ class _DemoRootState extends State<_DemoRoot> {
             onChanged: (double v) {
               setState(() {
                 _playMinWidth = v;
-                resizeWindow.setMinimumSize(
-                  Size(_playMinWidth, _playMinHeight),
-                );
+                resizeWindow.setMinimumSize(Size(_playMinWidth, _playMinHeight));
               });
             },
           ),
@@ -1803,9 +1678,7 @@ class _DemoRootState extends State<_DemoRoot> {
             onChanged: (double v) {
               setState(() {
                 _playMinHeight = v;
-                resizeWindow.setMinimumSize(
-                  Size(_playMinWidth, _playMinHeight),
-                );
+                resizeWindow.setMinimumSize(Size(_playMinWidth, _playMinHeight));
               });
             },
           ),
@@ -1818,9 +1691,7 @@ class _DemoRootState extends State<_DemoRoot> {
             onChanged: (double v) {
               setState(() {
                 _playMaxWidth = v;
-                resizeWindow.setMaximumSize(
-                  Size(_playMaxWidth, _playMaxHeight),
-                );
+                resizeWindow.setMaximumSize(Size(_playMaxWidth, _playMaxHeight));
               });
             },
           ),
@@ -1832,9 +1703,7 @@ class _DemoRootState extends State<_DemoRoot> {
             onChanged: (double v) {
               setState(() {
                 _playMaxHeight = v;
-                resizeWindow.setMaximumSize(
-                  Size(_playMaxWidth, _playMaxHeight),
-                );
+                resizeWindow.setMaximumSize(Size(_playMaxWidth, _playMaxHeight));
               });
             },
           ),
@@ -1859,21 +1728,15 @@ class _DemoRootState extends State<_DemoRoot> {
             runSpacing: 10,
             children: <Widget>[
               _ChipAction(
-                label: heroWindow.isFullscreen
-                    ? 'exit full screen'
-                    : 'enter full screen',
+                label: heroWindow.isFullscreen ? 'exit full screen' : 'enter full screen',
                 onTap: () {
-                  setState(
-                    () => heroWindow.setFullScreen(!heroWindow.isFullscreen),
-                  );
+                  setState(() => heroWindow.setFullScreen(!heroWindow.isFullscreen));
                 },
               ),
               _ChipAction(
                 label: heroWindow.isMaximized ? 'unzoom' : 'zoom (maximize)',
                 onTap: () {
-                  setState(
-                    () => heroWindow.setMaximized(!heroWindow.isMaximized),
-                  );
+                  setState(() => heroWindow.setMaximized(!heroWindow.isMaximized));
                 },
               ),
               _ChipAction(
@@ -1919,11 +1782,9 @@ class _DemoRootState extends State<_DemoRoot> {
   Widget _buildMinimizeRibbon() {
     final List<RegularWindowControllerMacOS> minimizedSamples =
         <RegularWindowControllerMacOS>[
-          minimizedWindow,
-          ...gridWindows.where(
-            (RegularWindowControllerMacOS c) => c.isMinimized,
-          ),
-        ];
+      minimizedWindow,
+      ...gridWindows.where((RegularWindowControllerMacOS c) => c.isMinimized),
+    ];
 
     return _Card(
       child: Column(
@@ -1945,11 +1806,7 @@ class _DemoRootState extends State<_DemoRoot> {
                     ? 'restore from Dock'
                     : 'send to Dock',
                 onTap: () {
-                  setState(
-                    () => minimizedWindow.setMinimized(
-                      !minimizedWindow.isMinimized,
-                    ),
-                  );
+                  setState(() => minimizedWindow.setMinimized(!minimizedWindow.isMinimized));
                 },
               ),
             ],
@@ -1974,8 +1831,7 @@ class _DemoRootState extends State<_DemoRoot> {
                 : ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: minimizedSamples.length,
-                    separatorBuilder: (BuildContext _, int _) =>
-                        const SizedBox(width: 12),
+                    separatorBuilder: (BuildContext _, int _) => const SizedBox(width: 12),
                     itemBuilder: (BuildContext context, int index) {
                       return _DockTile(controller: minimizedSamples[index]);
                     },
@@ -2034,17 +1890,14 @@ class _DemoRootState extends State<_DemoRoot> {
                   setState(() {
                     _showVetoDialog = false;
                     _vetoOnClose = false;
-                    vetoWindow.requestClose(
-                      reason: 'user confirmed close in dialog',
-                    );
+                    vetoWindow.requestClose(reason: 'user confirmed close in dialog');
                   });
                 },
               ),
             ),
           const SizedBox(height: 12),
           _CodeBlock(
-            code:
-                'class _VetoDelegate extends RegularWindowControllerDelegate {\n'
+            code: 'class _VetoDelegate extends RegularWindowControllerDelegate {\n'
                 '  _VetoDelegate({required this.shouldVeto, required this.onVetoed});\n'
                 '  final bool Function() shouldVeto;\n'
                 '  final VoidCallback onVetoed;\n\n'
@@ -2098,9 +1951,7 @@ class _DemoRootState extends State<_DemoRoot> {
                 onTap: () {
                   setState(() {
                     for (int i = 0; i < gridWindows.length; i++) {
-                      gridWindows[i].setTitle(
-                        'Cascade ${i + 1} of ${gridWindows.length}',
-                      );
+                      gridWindows[i].setTitle('Cascade ${i + 1} of ${gridWindows.length}');
                     }
                   });
                 },
@@ -2110,9 +1961,7 @@ class _DemoRootState extends State<_DemoRoot> {
                 onTap: () {
                   setState(() {
                     for (int i = 0; i < gridWindows.length; i++) {
-                      gridWindows[i].setSize(
-                        Size(360 + i * 30.0, 240 + ((i * 53) % 180)),
-                      );
+                      gridWindows[i].setSize(Size(360 + i * 30.0, 240 + ((i * 53) % 180)));
                     }
                   });
                 },
@@ -2132,11 +1981,7 @@ class _DemoRootState extends State<_DemoRoot> {
                       width: (constraints.maxWidth - 12 * (cols - 1)) / cols,
                       child: Column(
                         children: <Widget>[
-                          _MacChrome(
-                            controller: w,
-                            scale: 0.45,
-                            showShortcutHint: false,
-                          ),
+                          _MacChrome(controller: w, scale: 0.45, showShortcutHint: false),
                           const SizedBox(height: 6),
                           Text(
                             'view #${w.rootView.viewId}',
@@ -2167,8 +2012,7 @@ class _DemoRootState extends State<_DemoRoot> {
       _Recipe(
         title: 'Settings window',
         body: 'Modeless, non-resizable, lives until user closes it.',
-        snippet:
-            'owner.createRegularWindowController(\n'
+        snippet: 'owner.createRegularWindowController(\n'
             '  delegate: RegularWindowControllerDelegate(),\n'
             '  preferredSize: const Size(640, 480),\n'
             '  preferredConstraints: const BoxConstraints.tightFor(\n'
@@ -2179,8 +2023,7 @@ class _DemoRootState extends State<_DemoRoot> {
       _Recipe(
         title: 'About window',
         body: 'Small, fixed-size window summoned by the menu.',
-        snippet:
-            'owner.createRegularWindowController(\n'
+        snippet: 'owner.createRegularWindowController(\n'
             '  delegate: RegularWindowControllerDelegate(),\n'
             '  preferredSize: const Size(360, 240),\n'
             '  title: "About MyApp",\n'
@@ -2189,8 +2032,7 @@ class _DemoRootState extends State<_DemoRoot> {
       _Recipe(
         title: 'Preview window',
         body: 'Document preview that prefers a 4:3 aspect on launch.',
-        snippet:
-            'owner.createRegularWindowController(\n'
+        snippet: 'owner.createRegularWindowController(\n'
             '  delegate: RegularWindowControllerDelegate(),\n'
             '  preferredSize: const Size(960, 720),\n'
             '  preferredConstraints: const BoxConstraints(\n'
@@ -2201,8 +2043,7 @@ class _DemoRootState extends State<_DemoRoot> {
       _Recipe(
         title: 'Modal dialog',
         body: 'Dialog parented to the hero window — modal to its parent.',
-        snippet:
-            'owner.createDialogWindowController(\n'
+        snippet: 'owner.createDialogWindowController(\n'
             '  delegate: DialogWindowControllerDelegate(),\n'
             '  parent: heroWindow,\n'
             '  preferredSize: const Size(420, 240),\n'
@@ -2233,8 +2074,7 @@ class _DemoRootState extends State<_DemoRoot> {
       _Pitfall(
         severity: _Severity.high,
         title: 'Constructor throws unless windowing is enabled',
-        body:
-            'WindowingOwnerMacOS() throws UnsupportedError when '
+        body: 'WindowingOwnerMacOS() throws UnsupportedError when '
             'isWindowingEnabled is false (line 64 of _window_macos.dart). '
             'Until the experimental flag is on at engine boot, attempting '
             'to instantiate the class will crash the app.',
@@ -2242,39 +2082,34 @@ class _DemoRootState extends State<_DemoRoot> {
       _Pitfall(
         severity: _Severity.high,
         title: 'Constructor throws on non-macOS hosts',
-        body:
-            'Line 67-69 guards on Platform.isMacOS — if you ship the same '
+        body: 'Line 67-69 guards on Platform.isMacOS — if you ship the same '
             'binary to Linux or Windows, you must select the corresponding '
             'WindowingOwnerLinux or WindowingOwnerWin32 instead.',
       ),
       _Pitfall(
         severity: _Severity.medium,
         title: 'Tooltip and popup factories throw UnimplementedError',
-        body:
-            'createTooltipWindowController and createPopupWindowController '
+        body: 'createTooltipWindowController and createPopupWindowController '
             'throw at runtime on macOS today (lines 122 and 134). Treat '
             'these as build-but-not-call APIs.',
       ),
       _Pitfall(
         severity: _Severity.medium,
         title: 'Class is @internal, not exported',
-        body:
-            'WindowingOwnerMacOS is reserved for the Flutter team. Public '
+        body: 'WindowingOwnerMacOS is reserved for the Flutter team. Public '
             'consumers must talk to the abstract WindowingOwner via '
             'WidgetsBinding.instance.windowingOwner instead.',
       ),
       _Pitfall(
         severity: _Severity.low,
         title: 'destroy() is idempotent but mandatory',
-        body:
-            'The controller will not auto-destroy when its widget is '
+        body: 'The controller will not auto-destroy when its widget is '
             'unmounted. Always call destroy() in your widget\'s dispose().',
       ),
       _Pitfall(
         severity: _Severity.low,
         title: 'Native callbacks live until destroy',
-        body:
-            'NativeCallable instances (_onShouldClose, _onWillClose, '
+        body: 'NativeCallable instances (_onShouldClose, _onWillClose, '
             '_onResize) are closed in _handleOnWillClose. Skipping destroy '
             'leaks isolate-local function pointers.',
       ),
@@ -2299,67 +2134,19 @@ class _DemoRootState extends State<_DemoRoot> {
 
   Widget _buildReferenceTable() {
     final List<_ReferenceEntry> rows = <_ReferenceEntry>[
-      _ReferenceEntry(
-        '@internal',
-        'class WindowingOwnerMacOS extends WindowingOwner',
-        'platform owner',
-      ),
-      _ReferenceEntry(
-        '@internal',
-        'WindowingOwnerMacOS()',
-        'constructor (gated)',
-      ),
-      _ReferenceEntry(
-        '@override',
-        'createRegularWindowController(...) → RegularWindowController',
-        'spawn regular window',
-      ),
-      _ReferenceEntry(
-        '@override',
-        'createDialogWindowController(...) → DialogWindowController',
-        'spawn dialog window',
-      ),
-      _ReferenceEntry(
-        '@internal @override',
-        'createTooltipWindowController(...) → TooltipWindowController',
-        'throws UnimplementedError',
-      ),
-      _ReferenceEntry(
-        '@internal @override',
-        'createPopupWindowController(...) → PopupWindowController',
-        'throws UnimplementedError',
-      ),
-      _ReferenceEntry(
-        'static',
-        'getWindowHandle(FlutterView) → Pointer<Void>',
-        'NSWindow* handle',
-      ),
-      _ReferenceEntry(
-        'field',
-        '_activeControllers : List<BaseWindowController>',
-        'live tracking list',
-      ),
-      _ReferenceEntry(
-        '—',
-        'RegularWindowControllerMacOS extends RegularWindowController',
-        'companion controller',
-      ),
-      _ReferenceEntry(
-        '@override',
-        'setSize(Size) / setConstraints(BoxConstraints)',
-        'resize requests',
-      ),
+      _ReferenceEntry('@internal', 'class WindowingOwnerMacOS extends WindowingOwner', 'platform owner'),
+      _ReferenceEntry('@internal', 'WindowingOwnerMacOS()', 'constructor (gated)'),
+      _ReferenceEntry('@override', 'createRegularWindowController(...) → RegularWindowController', 'spawn regular window'),
+      _ReferenceEntry('@override', 'createDialogWindowController(...) → DialogWindowController', 'spawn dialog window'),
+      _ReferenceEntry('@internal @override', 'createTooltipWindowController(...) → TooltipWindowController', 'throws UnimplementedError'),
+      _ReferenceEntry('@internal @override', 'createPopupWindowController(...) → PopupWindowController', 'throws UnimplementedError'),
+      _ReferenceEntry('static', 'getWindowHandle(FlutterView) → Pointer<Void>', 'NSWindow* handle'),
+      _ReferenceEntry('field', '_activeControllers : List<BaseWindowController>', 'live tracking list'),
+      _ReferenceEntry('—', 'RegularWindowControllerMacOS extends RegularWindowController', 'companion controller'),
+      _ReferenceEntry('@override', 'setSize(Size) / setConstraints(BoxConstraints)', 'resize requests'),
       _ReferenceEntry('@override', 'setTitle(String)', 'titlebar text'),
-      _ReferenceEntry(
-        '@override',
-        'activate() / setMaximized(bool) / setMinimized(bool)',
-        'window state',
-      ),
-      _ReferenceEntry(
-        '@override',
-        'setFullscreen(bool, {Display?}) — note SDK uses setFullscreen',
-        'native fullscreen',
-      ),
+      _ReferenceEntry('@override', 'activate() / setMaximized(bool) / setMinimized(bool)', 'window state'),
+      _ReferenceEntry('@override', 'setFullscreen(bool, {Display?}) — note SDK uses setFullscreen', 'native fullscreen'),
       _ReferenceEntry('@override', 'destroy()', 'idempotent teardown'),
     ];
     return _Card(
@@ -2370,9 +2157,7 @@ class _DemoRootState extends State<_DemoRoot> {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: _palette.surfaceAlt,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(14),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(14)),
             ),
             child: Row(
               children: <Widget>[
@@ -2386,9 +2171,7 @@ class _DemoRootState extends State<_DemoRoot> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
-                color: i.isEven
-                    ? _palette.surface
-                    : _palette.surfaceAlt.withOpacity(0.4),
+                color: i.isEven ? _palette.surface : _palette.surfaceAlt.withOpacity(0.4),
                 border: Border(
                   bottom: BorderSide(color: _palette.outline.withOpacity(0.3)),
                 ),
@@ -2396,12 +2179,7 @@ class _DemoRootState extends State<_DemoRoot> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _RefCell(
-                    text: rows[i].tag,
-                    flex: 2,
-                    mono: true,
-                    color: _palette.accent,
-                  ),
+                  _RefCell(text: rows[i].tag, flex: 2, mono: true, color: _palette.accent),
                   _RefCell(text: rows[i].signature, flex: 7, mono: true),
                   _RefCell(text: rows[i].role, flex: 3),
                 ],
@@ -2563,11 +2341,7 @@ class _ChipAction extends StatelessWidget {
 }
 
 class _AnatomyEntry {
-  _AnatomyEntry({
-    required this.kind,
-    required this.signature,
-    required this.notes,
-  });
+  _AnatomyEntry({required this.kind, required this.signature, required this.notes});
   final String kind;
   final String signature;
   final String notes;
@@ -2614,11 +2388,7 @@ class _AnatomyTile extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 entry.notes,
-                style: TextStyle(
-                  color: _palette.muted,
-                  fontSize: 12,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: _palette.muted, fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -2689,11 +2459,7 @@ class _Stat extends StatelessWidget {
 }
 
 class _LifecycleStep extends StatelessWidget {
-  const _LifecycleStep({
-    required this.index,
-    required this.label,
-    required this.detail,
-  });
+  const _LifecycleStep({required this.index, required this.label, required this.detail});
 
   final int index;
   final String label;
@@ -2778,11 +2544,7 @@ class _SliderRow extends StatelessWidget {
             width: 110,
             child: Text(
               label,
-              style: TextStyle(
-                color: _palette.ink,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(color: _palette.ink, fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ),
           Expanded(
@@ -2814,11 +2576,7 @@ class _SliderRow extends StatelessWidget {
 }
 
 class _RuleStrip extends StatelessWidget {
-  const _RuleStrip({
-    required this.isOn,
-    required this.onLabel,
-    required this.offLabel,
-  });
+  const _RuleStrip({required this.isOn, required this.onLabel, required this.offLabel});
 
   final bool isOn;
   final String onLabel;
@@ -2891,10 +2649,7 @@ class _DockTile extends StatelessWidget {
                   height: 18,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: <Color>[
-                        _palette.accent.withOpacity(0.7),
-                        _palette.accent.withOpacity(0.4),
-                      ],
+                      colors: <Color>[_palette.accent.withOpacity(0.7), _palette.accent.withOpacity(0.4)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -2944,10 +2699,7 @@ class _DestroyedPlaceholder extends StatelessWidget {
       decoration: BoxDecoration(
         color: _palette.surfaceAlt,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: _palette.outline.withOpacity(0.4),
-          style: BorderStyle.solid,
-        ),
+        border: Border.all(color: _palette.outline.withOpacity(0.4), style: BorderStyle.solid),
       ),
       alignment: Alignment.center,
       child: Column(
@@ -3118,11 +2870,7 @@ class _PitfallTile extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 pitfall.body,
-                style: TextStyle(
-                  color: _palette.muted,
-                  fontSize: 12,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: _palette.muted, fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -3163,12 +2911,7 @@ class _RefHeaderCell extends StatelessWidget {
 }
 
 class _RefCell extends StatelessWidget {
-  const _RefCell({
-    required this.text,
-    required this.flex,
-    this.mono = false,
-    this.color,
-  });
+  const _RefCell({required this.text, required this.flex, this.mono = false, this.color});
 
   final String text;
   final int flex;

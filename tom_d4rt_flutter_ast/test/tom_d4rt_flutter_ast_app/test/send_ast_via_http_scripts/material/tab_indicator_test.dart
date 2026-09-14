@@ -334,7 +334,11 @@ Widget buildAnatomySection() {
                 child: const Text(
                   'Notation:  (a) full tab cell width  /  (b) the bar  /  '
                   '(c) the divider line  /  (d) padding around the bar.',
-                  style: TextStyle(color: kSlate, fontSize: 12.5, height: 1.45),
+                  style: TextStyle(
+                    color: kSlate,
+                    fontSize: 12.5,
+                    height: 1.45,
+                  ),
                 ),
               ),
             ],
@@ -1382,36 +1386,24 @@ Widget buildCodeCard() {
           buildCodeLine('  controller: controller,', Colors.white),
           buildCodeLine('  indicator: BoxDecoration(', kAmberSoft),
           buildCodeLine('    color: const Color(0xFFFFB703),', Colors.white),
-          buildCodeLine(
-            '    borderRadius: BorderRadius.circular(24),',
-            Colors.white,
-          ),
+          buildCodeLine('    borderRadius: BorderRadius.circular(24),', Colors.white),
           buildCodeLine('    border: Border.all(', Colors.white),
           buildCodeLine('      color: const Color(0xFF0B132B),', Colors.white),
           buildCodeLine('      width: 1.2,', Colors.white),
           buildCodeLine('    ),', Colors.white),
           buildCodeLine('  ),', kAmberSoft),
           buildCodeLine('  indicatorSize: TabBarIndicatorSize.label,', kSand),
-          buildCodeLine(
-            '  indicatorPadding: const EdgeInsets.symmetric(',
-            kSand,
-          ),
+          buildCodeLine('  indicatorPadding: const EdgeInsets.symmetric(', kSand),
           buildCodeLine('    horizontal: 8,', Colors.white),
           buildCodeLine('    vertical: 6,', Colors.white),
           buildCodeLine('  ),', kSand),
           buildCodeLine('  labelColor: const Color(0xFF0B132B),', Colors.white),
-          buildCodeLine(
-            '  unselectedLabelColor: const Color(0xFF8794A8),',
-            Colors.white,
-          ),
+          buildCodeLine('  unselectedLabelColor: const Color(0xFF8794A8),', Colors.white),
           buildCodeLine('  labelStyle: const TextStyle(', Colors.white),
           buildCodeLine('    fontSize: 14,', Colors.white),
           buildCodeLine('    fontWeight: FontWeight.w700,', Colors.white),
           buildCodeLine('  ),', Colors.white),
-          buildCodeLine(
-            '  dividerColor: const Color(0xFFD9DEE7),',
-            Colors.white,
-          ),
+          buildCodeLine('  dividerColor: const Color(0xFFD9DEE7),', Colors.white),
           buildCodeLine('  dividerHeight: 1,', Colors.white),
           buildCodeLine('  tabs: const <Widget>[', kSky),
           buildCodeLine('    Tab(text: "Daily"),', Colors.white),
@@ -1462,7 +1454,8 @@ Widget buildCodeLine(String text, Color color) {
 Widget buildPitfallsSection() {
   return buildSectionCard(
     title: '12. Pitfalls',
-    subtitle: 'Five sharp edges to watch when wiring up TabBar indicators.',
+    subtitle:
+        'Five sharp edges to watch when wiring up TabBar indicators.',
     accent: kCoral,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1746,7 +1739,11 @@ Widget buildSectionCard({
           padding: const EdgeInsets.only(left: 17),
           child: Text(
             subtitle,
-            style: const TextStyle(color: kSlate, fontSize: 13, height: 1.45),
+            style: const TextStyle(
+              color: kSlate,
+              fontSize: 13,
+              height: 1.45,
+            ),
           ),
         ),
         const SizedBox(height: 16),
@@ -1861,7 +1858,11 @@ Widget buildMockTabStrip({
     children: <Widget>[
       Row(children: labelCells),
       Row(children: indicatorTrack),
-      if (showDivider) Container(height: 1, color: dividerColor),
+      if (showDivider)
+        Container(
+          height: 1,
+          color: dividerColor,
+        ),
     ],
   );
 }

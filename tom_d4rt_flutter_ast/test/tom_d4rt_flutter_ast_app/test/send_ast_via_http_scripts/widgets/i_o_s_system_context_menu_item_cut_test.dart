@@ -138,7 +138,10 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: _Palette.crimsonDeep,
                   borderRadius: BorderRadius.circular(4),
@@ -197,7 +200,11 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 13, color: _Palette.ink, height: 1.4),
+        style: const TextStyle(
+          fontSize: 13,
+          color: _Palette.ink,
+          height: 1.4,
+        ),
       ),
     );
   }
@@ -269,7 +276,10 @@ dynamic build(BuildContext context) {
       helperStyle: const TextStyle(fontSize: 11, color: _Palette.muted),
       filled: true,
       fillColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 12,
+      ),
       suffixIcon: suffix,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
@@ -471,14 +481,17 @@ dynamic build(BuildContext context) {
         TextField(
           controller: readonlyCtrl,
           readOnly: true,
-          decoration: deco('Read-only', helper: 'Cut is intentionally absent.'),
+          decoration: deco(
+            'Read-only',
+            helper: 'Cut is intentionally absent.',
+          ),
           contextMenuBuilder: (BuildContext ctx, EditableTextState state) {
             // Build list dynamically: never include cut for readOnly fields.
             final List<IOSSystemContextMenuItem> items =
                 <IOSSystemContextMenuItem>[
-                  const IOSSystemContextMenuItemCopy(),
-                  const IOSSystemContextMenuItemSelectAll(),
-                ];
+              const IOSSystemContextMenuItemCopy(),
+              const IOSSystemContextMenuItemSelectAll(),
+            ];
             return SystemContextMenu.editableText(
               editableTextState: state,
               items: items,
@@ -717,7 +730,8 @@ dynamic build(BuildContext context) {
                 IOSSystemContextMenuItemCustom(
                   title: 'Snip to scratchpad',
                   onPressed: () {
-                    final TextSelection sel = state.textEditingValue.selection;
+                    final TextSelection sel =
+                        state.textEditingValue.selection;
                     if (!sel.isValid || sel.isCollapsed) {
                       return;
                     }
@@ -726,8 +740,11 @@ dynamic build(BuildContext context) {
                     scratchpadCtrl.text = snipped;
                     state.userUpdateTextEditingValue(
                       TextEditingValue(
-                        text: sel.textBefore(text) + sel.textAfter(text),
-                        selection: TextSelection.collapsed(offset: sel.start),
+                        text:
+                            sel.textBefore(text) + sel.textAfter(text),
+                        selection: TextSelection.collapsed(
+                          offset: sel.start,
+                        ),
                       ),
                       SelectionChangedCause.toolbar,
                     );
@@ -745,8 +762,7 @@ dynamic build(BuildContext context) {
           maxLines: 3,
           decoration: deco(
             'Scratchpad',
-            helper:
-                'The Snip command writes here without touching the clipboard.',
+            helper: 'The Snip command writes here without touching the clipboard.',
           ),
         ),
         const SizedBox(height: 8),
@@ -877,29 +893,32 @@ dynamic build(BuildContext context) {
         'Pitfalls and gotchas',
         'Common mistakes when wiring IOSSystemContextMenuItemCut.',
       ),
-      infoCard(<Widget>[
-        bullet(
-          'Including IOSSystemContextMenuItemCut in a read-only field violates user expectation; iOS may render it but the action will be a no-op.',
-        ),
-        bullet(
-          'Forgetting to provide a paste destination after cut leads to confused users — the data has been removed but they cannot restore it without undo.',
-        ),
-        bullet(
-          'Using SystemContextMenu on non-iOS platforms silently degrades to the Flutter toolbar. Test on both iOS simulator AND a non-iOS host.',
-        ),
-        bullet(
-          'IOSSystemContextMenuItemCut has no title parameter — you cannot localize its label from Dart. Use the platform localization.',
-        ),
-        bullet(
-          'When mixing IOSSystemContextMenuItemCut with IOSSystemContextMenuItemCustom, ensure the custom callback hides the toolbar with state.hideToolbar() — otherwise the menu may persist.',
-        ),
-        bullet(
-          'Cut on an empty selection is a no-op. iOS hides the button; Flutter does not surface anything when the system menu is unavailable.',
-        ),
-        bullet(
-          'On non-iOS, IOSSystemContextMenuItemCut is constructed but its data is never consumed. That is fine — the constructor is cheap and produces a const value.',
-        ),
-      ], bg: const Color(0xFFFFF8E1)),
+      infoCard(
+        <Widget>[
+          bullet(
+            'Including IOSSystemContextMenuItemCut in a read-only field violates user expectation; iOS may render it but the action will be a no-op.',
+          ),
+          bullet(
+            'Forgetting to provide a paste destination after cut leads to confused users — the data has been removed but they cannot restore it without undo.',
+          ),
+          bullet(
+            'Using SystemContextMenu on non-iOS platforms silently degrades to the Flutter toolbar. Test on both iOS simulator AND a non-iOS host.',
+          ),
+          bullet(
+            'IOSSystemContextMenuItemCut has no title parameter — you cannot localize its label from Dart. Use the platform localization.',
+          ),
+          bullet(
+            'When mixing IOSSystemContextMenuItemCut with IOSSystemContextMenuItemCustom, ensure the custom callback hides the toolbar with state.hideToolbar() — otherwise the menu may persist.',
+          ),
+          bullet(
+            'Cut on an empty selection is a no-op. iOS hides the button; Flutter does not surface anything when the system menu is unavailable.',
+          ),
+          bullet(
+            'On non-iOS, IOSSystemContextMenuItemCut is constructed but its data is never consumed. That is fine — the constructor is cheap and produces a const value.',
+          ),
+        ],
+        bg: const Color(0xFFFFF8E1),
+      ),
     ],
   );
 
@@ -915,42 +934,15 @@ dynamic build(BuildContext context) {
         'Quick reference for every IOSSystemContextMenuItem subclass.',
       ),
       infoCard(<Widget>[
-        _refRow(
-          'IOSSystemContextMenuItemCut',
-          'Removes selection, writes to clipboard. THIS demo focuses here.',
-        ),
-        _refRow(
-          'IOSSystemContextMenuItemCopy',
-          'Copies selection without removing it.',
-        ),
-        _refRow(
-          'IOSSystemContextMenuItemPaste',
-          'Inserts clipboard content at the caret.',
-        ),
-        _refRow(
-          'IOSSystemContextMenuItemSelectAll',
-          'Selects every character in the field.',
-        ),
-        _refRow(
-          'IOSSystemContextMenuItemLookUp',
-          'Opens iOS Look Up dictionary; takes optional title.',
-        ),
-        _refRow(
-          'IOSSystemContextMenuItemSearchWeb',
-          'Forwards selection to the web search engine; optional title.',
-        ),
-        _refRow(
-          'IOSSystemContextMenuItemShare',
-          'Hands selection to the iOS share sheet; optional title.',
-        ),
-        _refRow(
-          'IOSSystemContextMenuItemLiveText',
-          'Triggers the iOS Live Text camera scanner.',
-        ),
-        _refRow(
-          'IOSSystemContextMenuItemCustom',
-          'Application-defined item; required title and onPressed.',
-        ),
+        _refRow('IOSSystemContextMenuItemCut', 'Removes selection, writes to clipboard. THIS demo focuses here.'),
+        _refRow('IOSSystemContextMenuItemCopy', 'Copies selection without removing it.'),
+        _refRow('IOSSystemContextMenuItemPaste', 'Inserts clipboard content at the caret.'),
+        _refRow('IOSSystemContextMenuItemSelectAll', 'Selects every character in the field.'),
+        _refRow('IOSSystemContextMenuItemLookUp', 'Opens iOS Look Up dictionary; takes optional title.'),
+        _refRow('IOSSystemContextMenuItemSearchWeb', 'Forwards selection to the web search engine; optional title.'),
+        _refRow('IOSSystemContextMenuItemShare', 'Hands selection to the iOS share sheet; optional title.'),
+        _refRow('IOSSystemContextMenuItemLiveText', 'Triggers the iOS Live Text camera scanner.'),
+        _refRow('IOSSystemContextMenuItemCustom', 'Application-defined item; required title and onPressed.'),
       ]),
     ],
   );
@@ -966,30 +958,29 @@ dynamic build(BuildContext context) {
         'Closing notes',
         'Summary of every cut variant exercised by this demo.',
       ),
-      infoCard(<Widget>[
-        bullet('Section 3 — single-item cut menu (live).'),
-        bullet('Section 4 — cut alongside copy/paste/selectAll (live).'),
-        bullet('Section 5 — read-only suppression (cut omitted from items).'),
-        bullet('Section 6 — password suppression (cut omitted from items).'),
-        bullet(
-          'Section 7 — multi-line cut + paste round-trip across two fields.',
-        ),
-        bullet('Section 8 — cut + UndoHistoryController for undo/redo.'),
-        bullet('Section 9 — conditionally enabled cut driven by checkbox.'),
-        bullet(
-          'Section 10 — cut + custom IOSSystemContextMenuItemCustom companion.',
-        ),
-        bullet('Section 11 — recipe gallery: 5 distinct cut configurations.'),
-        const SizedBox(height: 8),
-        const Text(
-          'Total live constructions of IOSSystemContextMenuItemCut: 12+ across distinct contextMenuBuilder closures.',
-          style: TextStyle(
-            fontSize: 12,
-            fontStyle: FontStyle.italic,
-            color: _Palette.muted,
+      infoCard(
+        <Widget>[
+          bullet('Section 3 — single-item cut menu (live).'),
+          bullet('Section 4 — cut alongside copy/paste/selectAll (live).'),
+          bullet('Section 5 — read-only suppression (cut omitted from items).'),
+          bullet('Section 6 — password suppression (cut omitted from items).'),
+          bullet('Section 7 — multi-line cut + paste round-trip across two fields.'),
+          bullet('Section 8 — cut + UndoHistoryController for undo/redo.'),
+          bullet('Section 9 — conditionally enabled cut driven by checkbox.'),
+          bullet('Section 10 — cut + custom IOSSystemContextMenuItemCustom companion.'),
+          bullet('Section 11 — recipe gallery: 5 distinct cut configurations.'),
+          const SizedBox(height: 8),
+          const Text(
+            'Total live constructions of IOSSystemContextMenuItemCut: 12+ across distinct contextMenuBuilder closures.',
+            style: TextStyle(
+              fontSize: 12,
+              fontStyle: FontStyle.italic,
+              color: _Palette.muted,
+            ),
           ),
-        ),
-      ], bg: _Palette.blush),
+        ],
+        bg: _Palette.blush,
+      ),
     ],
   );
 
@@ -1007,7 +998,8 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: _Palette.crimsonDeep,
                   borderRadius: BorderRadius.circular(3),
@@ -1270,7 +1262,11 @@ dynamic build(BuildContext context) {
   Widget section18Glossary = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionTitle('18', 'Glossary', 'Terms that appear throughout this demo.'),
+      sectionTitle(
+        '18',
+        'Glossary',
+        'Terms that appear throughout this demo.',
+      ),
       infoCard(<Widget>[
         glossaryRow(
           'IOSSystemContextMenuItem',
@@ -1368,8 +1364,7 @@ dynamic build(BuildContext context) {
           controller: edgeFullCtrl,
           decoration: deco(
             'Select all then cut',
-            helper:
-                'Selecting everything is fine — cut just empties the field.',
+            helper: 'Selecting everything is fine — cut just empties the field.',
           ),
           contextMenuBuilder: (BuildContext ctx, EditableTextState state) {
             return SystemContextMenu.editableText(
@@ -1455,38 +1450,41 @@ dynamic build(BuildContext context) {
         'Production checklist',
         'Walk through this checklist before shipping a feature that wires IOSSystemContextMenuItemCut into a custom contextMenuBuilder.',
       ),
-      infoCard(<Widget>[
-        checklistRow(
-          'Cut is omitted from items when the field is read-only or disabled.',
-        ),
-        checklistRow(
-          'Cut is omitted from items when obscureText is true (password fields).',
-        ),
-        checklistRow(
-          'Cut appears together with paste somewhere in the same workflow so users can complete the round-trip.',
-        ),
-        checklistRow(
-          'Undo is reachable — either via UndoHistoryController, three-finger gesture, or a visible undo button.',
-        ),
-        checklistRow(
-          'Items list is built from a const literal whenever possible (cheaper, fewer allocations).',
-        ),
-        checklistRow(
-          'A non-iOS fallback toolbar has been smoke-tested in widget tests.',
-        ),
-        checklistRow(
-          'Cut is gated by domain rules (locked drafts, signed forms) where appropriate.',
-        ),
-        checklistRow(
-          'Custom companions (IOSSystemContextMenuItemCustom) call state.hideToolbar() inside onPressed.',
-        ),
-        checklistRow(
-          'Localization smoke-test: cut label appears in the device language.',
-        ),
-        checklistRow(
-          'Accessibility audit: VoiceOver announces "Cut" when the user lands on the menu entry.',
-        ),
-      ], bg: _Palette.blush),
+      infoCard(
+        <Widget>[
+          checklistRow(
+            'Cut is omitted from items when the field is read-only or disabled.',
+          ),
+          checklistRow(
+            'Cut is omitted from items when obscureText is true (password fields).',
+          ),
+          checklistRow(
+            'Cut appears together with paste somewhere in the same workflow so users can complete the round-trip.',
+          ),
+          checklistRow(
+            'Undo is reachable — either via UndoHistoryController, three-finger gesture, or a visible undo button.',
+          ),
+          checklistRow(
+            'Items list is built from a const literal whenever possible (cheaper, fewer allocations).',
+          ),
+          checklistRow(
+            'A non-iOS fallback toolbar has been smoke-tested in widget tests.',
+          ),
+          checklistRow(
+            'Cut is gated by domain rules (locked drafts, signed forms) where appropriate.',
+          ),
+          checklistRow(
+            'Custom companions (IOSSystemContextMenuItemCustom) call state.hideToolbar() inside onPressed.',
+          ),
+          checklistRow(
+            'Localization smoke-test: cut label appears in the device language.',
+          ),
+          checklistRow(
+            'Accessibility audit: VoiceOver announces "Cut" when the user lands on the menu entry.',
+          ),
+        ],
+        bg: _Palette.blush,
+      ),
     ],
   );
 
@@ -1626,7 +1624,9 @@ dynamic build(BuildContext context) {
         seedColor: _Palette.crimson,
         brightness: Brightness.light,
       ),
-      textTheme: const TextTheme(bodyMedium: TextStyle(color: _Palette.ink)),
+      textTheme: const TextTheme(
+        bodyMedium: TextStyle(color: _Palette.ink),
+      ),
     ),
     home: Scaffold(
       appBar: AppBar(
@@ -1755,16 +1755,17 @@ class _ConditionalCutSection extends StatefulWidget {
   final bool cutEnabled;
   final TextEditingController controller;
   final InputDecoration Function(String hint, {String? helper, Widget? suffix})
-  decoBuilder;
+      decoBuilder;
   final Widget Function(String text) labelBuilder;
   final Widget Function(String text) bulletBuilder;
   final Widget Function(String number, String title, String summary)
-  sectionTitleBuilder;
+      sectionTitleBuilder;
   final Widget Function(List<Widget> body, {Color? bg}) infoCardBuilder;
   final Widget Function(String text) bodyTextBuilder;
 
   @override
-  State<_ConditionalCutSection> createState() => _ConditionalCutSectionState();
+  State<_ConditionalCutSection> createState() =>
+      _ConditionalCutSectionState();
 }
 
 class _ConditionalCutSectionState extends State<_ConditionalCutSection> {
@@ -1808,14 +1809,15 @@ class _ConditionalCutSectionState extends State<_ConditionalCutSection> {
               helper:
                   'On long-press, the menu reflects the current value of the checkbox.',
             ),
-            contextMenuBuilder: (BuildContext ctx, EditableTextState state) {
+            contextMenuBuilder:
+                (BuildContext ctx, EditableTextState state) {
               final List<IOSSystemContextMenuItem> items =
                   <IOSSystemContextMenuItem>[
-                    if (_cutEnabled) const IOSSystemContextMenuItemCut(),
-                    const IOSSystemContextMenuItemCopy(),
-                    const IOSSystemContextMenuItemPaste(),
-                    const IOSSystemContextMenuItemSelectAll(),
-                  ];
+                if (_cutEnabled) const IOSSystemContextMenuItemCut(),
+                const IOSSystemContextMenuItemCopy(),
+                const IOSSystemContextMenuItemPaste(),
+                const IOSSystemContextMenuItemSelectAll(),
+              ];
               return SystemContextMenu.editableText(
                 editableTextState: state,
                 items: items,

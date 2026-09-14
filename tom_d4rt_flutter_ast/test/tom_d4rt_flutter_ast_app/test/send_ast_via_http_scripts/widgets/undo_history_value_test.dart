@@ -246,11 +246,7 @@ Widget _uhValInkRule() {
   );
 }
 
-Widget _uhValAllowedDeniedTag(
-  bool allowed,
-  String allowedText,
-  String deniedText,
-) {
+Widget _uhValAllowedDeniedTag(bool allowed, String allowedText, String deniedText) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
     decoration: BoxDecoration(
@@ -415,8 +411,7 @@ class _UhValParchmentBackgroundPainter extends CustomPainter {
       ).createShader(rect);
     canvas.drawRect(rect, base);
 
-    final speckle = Paint()
-      ..color = _uhValParchmentDeep.withValues(alpha: 0.08);
+    final speckle = Paint()..color = _uhValParchmentDeep.withValues(alpha: 0.08);
     for (int i = 0; i < 260; i++) {
       final seed = i * 6271 + 17;
       final x = (seed % 997) / 997 * size.width;
@@ -550,9 +545,7 @@ class _UhValCombinationBadge extends StatelessWidget {
                 const SizedBox(height: 6),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                      horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: _uhValParchment,
                     borderRadius: BorderRadius.circular(4),
@@ -682,8 +675,7 @@ class _UhValLiveReadoutState extends State<_UhValLiveReadout> {
                   backgroundColor: _uhValWax,
                   foregroundColor: _uhValParchment,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
+                      borderRadius: BorderRadius.circular(4)),
                 ),
                 icon: const Icon(Icons.undo, size: 16),
                 label: const Text('Undo'),
@@ -697,8 +689,7 @@ class _UhValLiveReadoutState extends State<_UhValLiveReadout> {
                   backgroundColor: _uhValInk,
                   foregroundColor: _uhValParchment,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
+                      borderRadius: BorderRadius.circular(4)),
                 ),
                 icon: const Icon(Icons.redo, size: 16),
                 label: const Text('Redo'),
@@ -744,16 +735,10 @@ class _UhValLiveReadoutState extends State<_UhValLiveReadout> {
                   Row(
                     children: [
                       _uhValAllowedDeniedTag(
-                        value.canUndo,
-                        'canUndo = true',
-                        'canUndo = false',
-                      ),
+                          value.canUndo, 'canUndo = true', 'canUndo = false'),
                       const SizedBox(width: 6),
                       _uhValAllowedDeniedTag(
-                        value.canRedo,
-                        'canRedo = true',
-                        'canRedo = false',
-                      ),
+                          value.canRedo, 'canRedo = true', 'canRedo = false'),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -819,7 +804,11 @@ class _UhValEmissionStrip extends StatelessWidget {
     }
     return SizedBox(
       height: 34,
-      child: Row(children: [for (final v in values) _UhValStripCell(value: v)]),
+      child: Row(
+        children: [
+          for (final v in values) _UhValStripCell(value: v),
+        ],
+      ),
     );
   }
 }
@@ -847,7 +836,9 @@ class _UhValStripCell extends StatelessWidget {
           ),
           Container(height: 1, color: _uhValInk),
           Expanded(
-            child: Container(color: value.canRedo ? _uhValHintA : _uhValDenied),
+            child: Container(
+              color: value.canRedo ? _uhValHintA : _uhValDenied,
+            ),
           ),
         ],
       ),
@@ -1003,10 +994,7 @@ class _UhValEqualityInspectorState extends State<_UhValEqualityInspector> {
               ),
               const SizedBox(height: 6),
               _uhValKeyValueRow('Original A', a.toString()),
-              _uhValKeyValueRow(
-                'copyWith(canRedo: true)',
-                aWithRedo.toString(),
-              ),
+              _uhValKeyValueRow('copyWith(canRedo: true)', aWithRedo.toString()),
               _uhValKeyValueRow(
                 'original untouched',
                 'a.canRedo still ${a.canRedo}',
@@ -1231,8 +1219,7 @@ class _UhValTimelineVisualiserState extends State<_UhValTimelineVisualiser> {
                   backgroundColor: _uhValWax,
                   foregroundColor: _uhValParchment,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
+                      borderRadius: BorderRadius.circular(4)),
                 ),
                 icon: const Icon(Icons.playlist_add, size: 16),
                 label: const Text('Push next value'),
@@ -1246,8 +1233,7 @@ class _UhValTimelineVisualiserState extends State<_UhValTimelineVisualiser> {
                   foregroundColor: _uhValInk,
                   side: const BorderSide(color: _uhValInk, width: 1.2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
+                      borderRadius: BorderRadius.circular(4)),
                 ),
                 icon: const Icon(Icons.refresh, size: 16),
                 label: const Text('Reset timeline'),
@@ -1289,24 +1275,18 @@ class _UhValTimelineVisualiserState extends State<_UhValTimelineVisualiser> {
                   const SizedBox(height: 8),
                   Wrap(
                     children: [
-                      _uhValSmallChip(
-                        'green top = canUndo true',
-                        bg: _uhValAllowedLight,
-                        fg: _uhValAllowed,
-                        border: _uhValAllowed,
-                      ),
-                      _uhValSmallChip(
-                        'blue bottom = canRedo true',
-                        bg: const Color(0xFFD4DEF0),
-                        fg: _uhValHintA,
-                        border: _uhValHintA,
-                      ),
-                      _uhValSmallChip(
-                        'crimson = false',
-                        bg: _uhValDeniedLight,
-                        fg: _uhValDenied,
-                        border: _uhValDenied,
-                      ),
+                      _uhValSmallChip('green top = canUndo true',
+                          bg: _uhValAllowedLight,
+                          fg: _uhValAllowed,
+                          border: _uhValAllowed),
+                      _uhValSmallChip('blue bottom = canRedo true',
+                          bg: const Color(0xFFD4DEF0),
+                          fg: _uhValHintA,
+                          border: _uhValHintA),
+                      _uhValSmallChip('crimson = false',
+                          bg: _uhValDeniedLight,
+                          fg: _uhValDenied,
+                          border: _uhValDenied),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -1337,7 +1317,10 @@ class _UhValTimelinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Background
     final bg = Paint()..color = _uhValInkSoft;
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), bg);
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      bg,
+    );
 
     if (log.isEmpty) return;
 
@@ -1472,13 +1455,9 @@ class _UhValRecipeCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '• ',
-                    style: TextStyle(
-                      color: _uhValWaxDeep,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  const Text('• ',
+                      style: TextStyle(
+                          color: _uhValWaxDeep, fontWeight: FontWeight.bold)),
                   Expanded(
                     child: Text(
                       n,
@@ -1509,10 +1488,10 @@ dynamic build(BuildContext context) {
       'canRedo': false,
       'interp':
           'UndoHistoryValue.empty — the freshly initialised state. No edits '
-          'have been recorded, so there is nothing to rewind or replay.',
+              'have been recorded, so there is nothing to rewind or replay.',
       'analogy':
           'A virgin page. The quill has touched no ink; no strokes to '
-          'unwrite, no strokes to re-write.',
+              'unwrite, no strokes to re-write.',
       'featured': true,
     },
     <String, Object>{
@@ -1521,11 +1500,11 @@ dynamic build(BuildContext context) {
       'canRedo': false,
       'interp':
           'The common case while typing forward: history has grown, so undo '
-          'is available, but no branch has been rolled back, so redo is '
-          'unavailable.',
+              'is available, but no branch has been rolled back, so redo is '
+              'unavailable.',
       'analogy':
           'A scribe mid-sentence — they can erase the last stroke, but the '
-          'future pages are still blank.',
+              'future pages are still blank.',
       'featured': true,
     },
     <String, Object>{
@@ -1534,10 +1513,10 @@ dynamic build(BuildContext context) {
       'canRedo': true,
       'interp':
           'The user is sitting mid-history: something behind them, something '
-          'ahead of them. Both arrows light up.',
+              'ahead of them. Both arrows light up.',
       'analogy':
           'A reader leafing between chapters — pages before and pages after, '
-          'both accessible.',
+              'both accessible.',
       'featured': true,
     },
     <String, Object>{
@@ -1546,10 +1525,10 @@ dynamic build(BuildContext context) {
       'canRedo': true,
       'interp':
           'All edits have been undone. The past is exhausted, but the redo '
-          'stack still remembers every step that was rolled back.',
+              'stack still remembers every step that was rolled back.',
       'analogy':
           'A film reel rewound to the start — no more footage to reverse, '
-          'but plenty to play forward.',
+              'but plenty to play forward.',
       'featured': false,
     },
   ];
@@ -1563,535 +1542,483 @@ dynamic build(BuildContext context) {
       child: ListView(
         padding: const EdgeInsets.fromLTRB(18, 12, 18, 28),
         children: [
-          // ── Header ──────────────────────────────────────────────────
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(top: 10, bottom: 4),
-            padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-            decoration: BoxDecoration(
-              color: _uhValInk,
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: _uhValWaxDeep, width: 1.4),
+            // ── Header ──────────────────────────────────────────────────
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(top: 10, bottom: 4),
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+              decoration: BoxDecoration(
+                color: _uhValInk,
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: _uhValWaxDeep, width: 1.4),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 64,
+                    height: 64,
+                    child: CustomPaint(
+                      painter: _UhValWaxSealPainter(glyph: 'U', rotation: -0.1),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'UndoHistoryValue',
+                          style: TextStyle(
+                            color: _uhValParchment,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 22,
+                            letterSpacing: 0.6,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'The immutable record of undo / redo availability.',
+                          style: TextStyle(
+                            color: Color(0xFFE2D1A4),
+                            fontSize: 13,
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+
+            // ── §1 Preamble ─────────────────────────────────────────────
+            _uhValSectionBanner(
+              'I',
+              'Preamble — what it is and where it lives',
+              'A two-bool value class sealed @immutable, returned by '
+                  'UndoHistoryController.value and distributed via '
+                  'ValueListenableBuilder.',
+            ),
+            _uhValParchmentCard(
+              heading: 'Definition at a glance',
               children: [
-                SizedBox(
-                  width: 64,
-                  height: 64,
-                  child: CustomPaint(
-                    painter: _UhValWaxSealPainter(glyph: 'U', rotation: -0.1),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'UndoHistoryValue',
-                        style: TextStyle(
-                          color: _uhValParchment,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 22,
-                          letterSpacing: 0.6,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        'The immutable record of undo / redo availability.',
-                        style: TextStyle(
-                          color: Color(0xFFE2D1A4),
-                          fontSize: 13,
-                          height: 1.4,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                _uhValKeyValueRow('library',
+                    'package:flutter/widgets.dart → src/widgets/undo_history.dart'),
+                _uhValKeyValueRow('annotation', '@immutable'),
+                _uhValKeyValueRow(
+                    'constructor',
+                    'const UndoHistoryValue({\n'
+                        '  this.canUndo = false,\n'
+                        '  this.canRedo = false,\n'
+                        '})'),
+                _uhValKeyValueRow(
+                    'fields',
+                    'final bool canUndo\n'
+                        'final bool canRedo'),
+                _uhValKeyValueRow('sentinel',
+                    'static const UndoHistoryValue empty = UndoHistoryValue();'),
+                _uhValKeyValueRow(
+                    'equality',
+                    'structural on (canUndo, canRedo);\n'
+                        'identical() shortcut first'),
+                _uhValKeyValueRow(
+                    'hashCode',
+                    'Object.hash(canUndo.hashCode, canRedo.hashCode) — '
+                        'consistent with ==.'),
+                _uhValKeyValueRow(
+                    'toString',
+                    'UndoHistoryValue(canUndo: \$canUndo, canRedo: \$canRedo)'),
+                _uhValKeyValueRow('copyWith',
+                    'not defined on the SDK type — see §VI for recipes'),
               ],
             ),
-          ),
-
-          // ── §1 Preamble ─────────────────────────────────────────────
-          _uhValSectionBanner(
-            'I',
-            'Preamble — what it is and where it lives',
-            'A two-bool value class sealed @immutable, returned by '
-                'UndoHistoryController.value and distributed via '
-                'ValueListenableBuilder.',
-          ),
-          _uhValParchmentCard(
-            heading: 'Definition at a glance',
-            children: [
-              _uhValKeyValueRow(
-                'library',
-                'package:flutter/widgets.dart → src/widgets/undo_history.dart',
-              ),
-              _uhValKeyValueRow('annotation', '@immutable'),
-              _uhValKeyValueRow(
-                'constructor',
-                'const UndoHistoryValue({\n'
-                    '  this.canUndo = false,\n'
-                    '  this.canRedo = false,\n'
-                    '})',
-              ),
-              _uhValKeyValueRow(
-                'fields',
-                'final bool canUndo\n'
-                    'final bool canRedo',
-              ),
-              _uhValKeyValueRow(
-                'sentinel',
-                'static const UndoHistoryValue empty = UndoHistoryValue();',
-              ),
-              _uhValKeyValueRow(
-                'equality',
-                'structural on (canUndo, canRedo);\n'
-                    'identical() shortcut first',
-              ),
-              _uhValKeyValueRow(
-                'hashCode',
-                'Object.hash(canUndo.hashCode, canRedo.hashCode) — '
-                    'consistent with ==.',
-              ),
-              _uhValKeyValueRow(
-                'toString',
-                'UndoHistoryValue(canUndo: \$canUndo, canRedo: \$canRedo)',
-              ),
-              _uhValKeyValueRow(
-                'copyWith',
-                'not defined on the SDK type — see §VI for recipes',
-              ),
-            ],
-          ),
-          _uhValParchmentCard(
-            heading: 'Why a dedicated value class?',
-            children: [
-              _uhValProse(
-                'Flutter could have exposed canUndo and canRedo as two '
-                'separate ValueNotifiers. Packaging them into one value '
-                'object buys three things at once:',
-              ),
-              _uhValProse(
-                '  1. Atomic updates — listeners receive exactly one '
-                'emission per state transition, never a torn view of '
-                'two flags mid-flight.',
-              ),
-              _uhValProse(
-                '  2. Structural equality — rebuilds can be skipped when '
-                'the pair of booleans is unchanged, even if a new '
-                'instance arrives.',
-              ),
-              _uhValProse(
-                '  3. Future-proof shape — additional fields (e.g. '
-                'number of steps) could be added without breaking the '
-                'listener API.',
-              ),
-            ],
-          ),
-          _uhValParchmentCard(
-            heading: 'Where it is produced',
-            children: [
-              _uhValProse(
-                'The canonical producer is UndoHistoryController, which '
-                'extends ValueNotifier<UndoHistoryValue>. Any code that '
-                'mutates the undo stack — typically via UndoHistory / '
-                'UndoHistoryState inside EditableText — calls into the '
-                'controller, which emits a fresh UndoHistoryValue.',
-              ),
-              _uhValProse(
-                'Consumers rarely construct UndoHistoryValue themselves; '
-                'they listen to the controller and read value.canUndo / '
-                'value.canRedo. Direct construction is useful for tests '
-                'and for synthetic timelines — exactly the scenarios '
-                'demonstrated in this demo.',
-              ),
-            ],
-          ),
-
-          // ── §2 Badge gallery ───────────────────────────────────────
-          _uhValSectionBanner(
-            'II',
-            'Badge gallery — every (canUndo, canRedo) combination',
-            'Four quadrants of a simple truth table, each with a physical '
-                'analogy and a printed toString representation.',
-          ),
-          _uhValParchmentCard(
-            heading: 'Reading the badges',
-            children: [
-              _uhValProse(
-                'Featured badges (the first three below) carry a hand-painted '
-                'wax seal; the last is shown without seal to emphasise that '
-                'it is the asymmetric twin of the Classic case. Each card '
-                'prints the toString() you would observe in a debug log.',
-              ),
-              const SizedBox(height: 6),
-              Wrap(
-                children: [
-                  _uhValSmallChip('wax seal = featured state'),
-                  _uhValSmallChip('green tag = flag allowed'),
-                  _uhValSmallChip('crimson tag = flag denied'),
-                  _uhValSmallChip('mono line = toString()'),
-                ],
-              ),
-            ],
-          ),
-          for (final c in combinations)
-            _UhValCombinationBadge(
-              canUndo: c['canUndo'] as bool,
-              canRedo: c['canRedo'] as bool,
-              label: c['label'] as String,
-              interpretation: c['interp'] as String,
-              analogy: c['analogy'] as String,
-              featured: c['featured'] as bool,
-            ),
-          _uhValParchmentCard(
-            heading: 'Truth table',
-            children: [
-              _uhValKeyValueRow(
-                '(false, false)',
-                'empty — fresh or exhausted in both directions',
-              ),
-              _uhValKeyValueRow(
-                '(true , false)',
-                'classic forward typing — undo available, redo gone',
-              ),
-              _uhValKeyValueRow(
-                '(true , true )',
-                'mid-history — both arrows armed',
-              ),
-              _uhValKeyValueRow(
-                '(false, true )',
-                'fully rewound — redo still holds the future',
-              ),
-              _uhValInkRule(),
-              _uhValProse(
-                'Because every field is a bool, there are exactly four '
-                'reachable values. The ValueNotifier never has to emit '
-                'more than one of each in sequence — a tight invariant '
-                'you can lean on when writing rebuild heuristics.',
-              ),
-            ],
-          ),
-
-          // ── §3 Live readout ────────────────────────────────────────
-          _uhValSectionBanner(
-            'III',
-            'Live readout — ValueListenableBuilder<UndoHistoryValue>',
-            'A real UndoHistoryController attached to a TextField. Every '
-                'emission paints the current value and pushes into a '
-                'history ribbon.',
-          ),
-          _uhValParchmentCard(
-            heading: 'Interactive demo',
-            children: const [_UhValLiveReadout()],
-          ),
-          _uhValParchmentCard(
-            heading: 'What to notice',
-            children: [
-              _uhValProse(
-                'Initially the value is UndoHistoryValue.empty. The '
-                'first keystroke flips canUndo to true; pressing the '
-                'Undo button rewinds and flips canRedo to true as well.',
-              ),
-              _uhValProse(
-                'The ribbon only records the four reachable states — '
-                'see §II. Consecutive emissions carrying the same '
-                'booleans still come through because UndoHistoryController '
-                'is ValueNotifier-based, and ValueNotifier suppresses '
-                'notifications only when the value is equal and you '
-                'assign .value directly. Listeners on top still fire '
-                'when the controller calls notifyListeners() internally.',
-              ),
-              _uhValProse(
-                'If you want to filter consecutive duplicates yourself, '
-                'wrap the controller with a DistinctValueListenable — a '
-                'pattern shown in §VI.',
-              ),
-            ],
-          ),
-
-          // ── §4 Equality inspector ──────────────────────────────────
-          _uhValSectionBanner(
-            'IV',
-            'Equality inspector — two values under the microscope',
-            'Build two values from independent switches. Observe ==, '
-                'identical(), hashCode and a hand-written copyWith.',
-          ),
-          _uhValParchmentCard(
-            heading: 'Side-by-side inspector',
-            children: const [_UhValEqualityInspector()],
-          ),
-          _uhValParchmentCard(
-            heading: 'Guarantees of the == contract',
-            children: [
-              _uhValKeyValueRow('reflexive', 'a == a is always true'),
-              _uhValKeyValueRow(
-                'symmetric',
-                'a == b ⇔ b == a (both branches structural)',
-              ),
-              _uhValKeyValueRow(
-                'transitive',
-                'if a == b and b == c then a == c',
-              ),
-              _uhValKeyValueRow(
-                'hash consistent',
-                'a == b ⇒ a.hashCode == b.hashCode (Object.hash composes)',
-              ),
-              _uhValKeyValueRow(
-                'identity shortcut',
-                'identical(a, b) short-circuits without field reads',
-              ),
-            ],
-          ),
-
-          // ── §5 Timeline visualiser ────────────────────────────────
-          _uhValSectionBanner(
-            'V',
-            'Timeline visualiser — transitions over time',
-            'A ValueNotifier<UndoHistoryValue> driven by a deterministic '
-                'cycle. CustomPainter draws the canUndo / canRedo ribbons.',
-          ),
-          _uhValParchmentCard(
-            heading: 'Synthetic ribbon',
-            children: const [_UhValTimelineVisualiser()],
-          ),
-          _uhValParchmentCard(
-            heading: 'Interpreting the ribbon',
-            children: [
-              _uhValProse(
-                'The painter splits each column into two bands — the '
-                'top shows canUndo, the bottom canRedo. Because the '
-                'cycle visits every quadrant of the truth table at '
-                'least once, you can watch the ribbon produce each of '
-                'the four reachable UndoHistoryValue instances.',
-              ),
-              _uhValProse(
-                'The Reset button clears the log and snaps the '
-                'notifier back to UndoHistoryValue.empty — a cheap way '
-                'to show that const sentinel values retain their '
-                'identity across resets.',
-              ),
-            ],
-          ),
-
-          // ── §6 Copy / with / compose recipes ──────────────────────
-          _uhValSectionBanner(
-            'VI',
-            'copyWith & composition recipes',
-            'UndoHistoryValue is tiny on purpose. Here are three '
-                'conventional ways to produce a new value or observe it '
-                'through different lenses.',
-          ),
-          _uhValParchmentCard(
-            heading: 'Recipes',
-            children: [
-              _UhValRecipeCard(
-                title: 'Recipe A — manual copyWith',
-                accent: _uhValWax,
-                intent:
-                    'The SDK does not provide copyWith. Write one as a '
-                    'free function; keep it const-friendly.',
-                code:
-                    'UndoHistoryValue copyWith(\n'
-                    '  UndoHistoryValue src, {\n'
-                    '  bool? canUndo,\n'
-                    '  bool? canRedo,\n'
-                    '}) => UndoHistoryValue(\n'
-                    '      canUndo: canUndo ?? src.canUndo,\n'
-                    '      canRedo: canRedo ?? src.canRedo,\n'
-                    '    );',
-                notes: <String>[
-                  'Returns a new instance; the original is untouched — '
-                      'exactly what an @immutable value class expects.',
-                  'Nullability pattern mirrors Flutter\'s own ThemeData.copyWith.',
-                  'Because both fields are non-nullable bool, null here '
-                      'legitimately means "unchanged", not "unset".',
-                ],
-              ),
-              _UhValRecipeCard(
-                title: 'Recipe B — distinct listener wrapper',
-                accent: _uhValInk,
-                intent:
-                    'Only fire onChanged when the value actually differs. '
-                    'Useful when upstream controllers notify on every '
-                    'keystroke.',
-                code:
-                    'class DistinctUhvListener extends ValueNotifier<UndoHistoryValue> {\n'
-                    '  DistinctUhvListener(super.initial);\n'
-                    '  @override\n'
-                    '  set value(UndoHistoryValue next) {\n'
-                    '    if (next == value) return;\n'
-                    '    super.value = next;\n'
-                    '  }\n'
-                    '}',
-                notes: <String>[
-                  'ValueNotifier already suppresses equal values by default; '
-                      'this override is only needed when wrapping a source '
-                      'that notifies without changing .value.',
-                  'Pair it with an addListener that forwards from the '
-                      'original controller.',
-                ],
-              ),
-              _UhValRecipeCard(
-                title: 'Recipe C — compose with another ValueNotifier',
-                accent: _uhValWaxDeep,
-                intent:
-                    'Surface "anyChange" from two UndoHistoryControllers '
-                    '(e.g. a title field and a body field) as a single '
-                    'combined ValueListenable<bool>.',
-                code:
-                    'class EitherCanUndo extends ValueNotifier<bool> {\n'
-                    '  final UndoHistoryController a;\n'
-                    '  final UndoHistoryController b;\n'
-                    '  EitherCanUndo(this.a, this.b) : super(false) {\n'
-                    '    a.addListener(_tick);\n'
-                    '    b.addListener(_tick);\n'
-                    '  }\n'
-                    '  void _tick() {\n'
-                    '    value = a.value.canUndo || b.value.canUndo;\n'
-                    '  }\n'
-                    '  @override void dispose() {\n'
-                    '    a.removeListener(_tick);\n'
-                    '    b.removeListener(_tick);\n'
-                    '    super.dispose();\n'
-                    '  }\n'
-                    '}',
-                notes: <String>[
-                  'Combine values as booleans to power a single "Undo" '
-                      'toolbar button that toggles the union of both fields.',
-                  'Remember to remove the listeners you added to avoid '
-                      'post-dispose notifications.',
-                ],
-              ),
-            ],
-          ),
-
-          // ── §7 Epilogue ────────────────────────────────────────────
-          _uhValSectionBanner(
-            'VII',
-            'Epilogue — patterns and debugging',
-            'When to subclass, when to compose, when to rebuild, when to '
-                'leave the notifier alone.',
-          ),
-          _uhValParchmentCard(
-            heading: 'Subclass vs compose',
-            children: [
-              _uhValProse(
-                'UndoHistoryValue is annotated @immutable and is '
-                'designed to be final in spirit. Flutter itself does '
-                'not subclass it. Prefer composition (a wrapping '
-                'ValueNotifier or an EitherCanUndo as above) when you '
-                'need to derive new signals.',
-              ),
-              _uhValProse(
-                'A legitimate reason to wrap is stream adaptation: if '
-                'you need an async Stream<UndoHistoryValue>, bridge via '
-                'a StreamController in an addListener — do not extend '
-                'UndoHistoryValue itself.',
-              ),
-            ],
-          ),
-          _uhValParchmentCard(
-            heading: 'When to rebuild',
-            children: [
-              _uhValProse(
-                'ValueListenableBuilder will rebuild on any '
-                'notification; it does not re-compare its builder '
-                'arguments. If your builder is expensive, short-circuit '
-                'with a Selector-like wrapper:',
-              ),
-              _uhValProse(
-                '  ValueListenableBuilder<UndoHistoryValue>(\n'
-                '    valueListenable: controller,\n'
-                '    builder: (_, v, child) {\n'
-                '      if (!v.canUndo && !v.canRedo) return child!;\n'
-                '      return ExpensiveBar(v);\n'
-                '    },\n'
-                '    child: const SizedBox.shrink(),\n'
-                '  );',
-              ),
-              _uhValProse(
-                'The `child` slot lets you reuse a prebuilt subtree for '
-                'the idle (empty) state without rebuilding it on every '
-                'emission.',
-              ),
-            ],
-          ),
-          _uhValParchmentCard(
-            heading: 'Debugging checklist',
-            children: [
-              _uhValKeyValueRow(
-                'no emissions',
-                'Check that the TextField has `undoController: …` wired.',
-              ),
-              _uhValKeyValueRow(
-                'too many rebuilds',
-                'Wrap the controller with a distinct listener (Recipe B).',
-              ),
-              _uhValKeyValueRow(
-                'empty never reached',
-                'Remember: clearing the text still retains redo. Force '
-                    'controller.value = UndoHistoryValue.empty to reset.',
-              ),
-              _uhValKeyValueRow(
-                'testing',
-                'Construct values directly; they are const-friendly and '
-                    'cheap to compare in expect() matchers.',
-              ),
-              _uhValKeyValueRow(
-                'instrumenting',
-                'Log with toString(); the output already includes both '
-                    'fields and the class name prefix.',
-              ),
-            ],
-          ),
-          _uhValParchmentCard(
-            heading: 'Summary',
-            children: [
-              _uhValProse(
-                'UndoHistoryValue is a disciplined, two-field, '
-                'immutable record. The entire public surface is a '
-                'constructor, two booleans, a sentinel, toString, == '
-                'and hashCode. Everything else — copyWith, composition, '
-                'filtering — lives in your code, exactly the way '
-                'Flutter prefers it.',
-              ),
-              _uhValInkRule(),
-              _uhValProse(
-                'Scroll back up and try the TextField in §III; note '
-                'how the wax seals and ribbons are only there to make '
-                'a very small value class feel as memorable as it '
-                'deserves to be.',
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          Center(
-            child: Column(
+            _uhValParchmentCard(
+              heading: 'Why a dedicated value class?',
               children: [
-                SizedBox(
-                  width: 48,
-                  height: 48,
-                  child: CustomPaint(
-                    painter: _UhValWaxSealPainter(glyph: 'V', rotation: 0.2),
-                  ),
+                _uhValProse(
+                  'Flutter could have exposed canUndo and canRedo as two '
+                  'separate ValueNotifiers. Packaging them into one value '
+                  'object buys three things at once:',
+                ),
+                _uhValProse(
+                    '  1. Atomic updates — listeners receive exactly one '
+                    'emission per state transition, never a torn view of '
+                    'two flags mid-flight.'),
+                _uhValProse(
+                    '  2. Structural equality — rebuilds can be skipped when '
+                    'the pair of booleans is unchanged, even if a new '
+                    'instance arrives.'),
+                _uhValProse(
+                    '  3. Future-proof shape — additional fields (e.g. '
+                    'number of steps) could be added without breaking the '
+                    'listener API.'),
+              ],
+            ),
+            _uhValParchmentCard(
+              heading: 'Where it is produced',
+              children: [
+                _uhValProse(
+                    'The canonical producer is UndoHistoryController, which '
+                    'extends ValueNotifier<UndoHistoryValue>. Any code that '
+                    'mutates the undo stack — typically via UndoHistory / '
+                    'UndoHistoryState inside EditableText — calls into the '
+                    'controller, which emits a fresh UndoHistoryValue.'),
+                _uhValProse(
+                    'Consumers rarely construct UndoHistoryValue themselves; '
+                    'they listen to the controller and read value.canUndo / '
+                    'value.canRedo. Direct construction is useful for tests '
+                    'and for synthetic timelines — exactly the scenarios '
+                    'demonstrated in this demo.'),
+              ],
+            ),
+
+            // ── §2 Badge gallery ───────────────────────────────────────
+            _uhValSectionBanner(
+              'II',
+              'Badge gallery — every (canUndo, canRedo) combination',
+              'Four quadrants of a simple truth table, each with a physical '
+                  'analogy and a printed toString representation.',
+            ),
+            _uhValParchmentCard(
+              heading: 'Reading the badges',
+              children: [
+                _uhValProse(
+                  'Featured badges (the first three below) carry a hand-painted '
+                  'wax seal; the last is shown without seal to emphasise that '
+                  'it is the asymmetric twin of the Classic case. Each card '
+                  'prints the toString() you would observe in a debug log.',
                 ),
                 const SizedBox(height: 6),
-                const Text(
-                  '— fin —',
-                  style: TextStyle(
-                    color: _uhValInkFaded,
-                    fontSize: 12,
-                    fontStyle: FontStyle.italic,
-                    letterSpacing: 2,
-                  ),
+                Wrap(
+                  children: [
+                    _uhValSmallChip('wax seal = featured state'),
+                    _uhValSmallChip('green tag = flag allowed'),
+                    _uhValSmallChip('crimson tag = flag denied'),
+                    _uhValSmallChip('mono line = toString()'),
+                  ],
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 16),
+            for (final c in combinations)
+              _UhValCombinationBadge(
+                canUndo: c['canUndo'] as bool,
+                canRedo: c['canRedo'] as bool,
+                label: c['label'] as String,
+                interpretation: c['interp'] as String,
+                analogy: c['analogy'] as String,
+                featured: c['featured'] as bool,
+              ),
+            _uhValParchmentCard(
+              heading: 'Truth table',
+              children: [
+                _uhValKeyValueRow('(false, false)',
+                    'empty — fresh or exhausted in both directions'),
+                _uhValKeyValueRow('(true , false)',
+                    'classic forward typing — undo available, redo gone'),
+                _uhValKeyValueRow('(true , true )',
+                    'mid-history — both arrows armed'),
+                _uhValKeyValueRow('(false, true )',
+                    'fully rewound — redo still holds the future'),
+                _uhValInkRule(),
+                _uhValProse(
+                    'Because every field is a bool, there are exactly four '
+                    'reachable values. The ValueNotifier never has to emit '
+                    'more than one of each in sequence — a tight invariant '
+                    'you can lean on when writing rebuild heuristics.'),
+              ],
+            ),
+
+            // ── §3 Live readout ────────────────────────────────────────
+            _uhValSectionBanner(
+              'III',
+              'Live readout — ValueListenableBuilder<UndoHistoryValue>',
+              'A real UndoHistoryController attached to a TextField. Every '
+                  'emission paints the current value and pushes into a '
+                  'history ribbon.',
+            ),
+            _uhValParchmentCard(
+              heading: 'Interactive demo',
+              children: const [
+                _UhValLiveReadout(),
+              ],
+            ),
+            _uhValParchmentCard(
+              heading: 'What to notice',
+              children: [
+                _uhValProse(
+                    'Initially the value is UndoHistoryValue.empty. The '
+                    'first keystroke flips canUndo to true; pressing the '
+                    'Undo button rewinds and flips canRedo to true as well.'),
+                _uhValProse(
+                    'The ribbon only records the four reachable states — '
+                    'see §II. Consecutive emissions carrying the same '
+                    'booleans still come through because UndoHistoryController '
+                    'is ValueNotifier-based, and ValueNotifier suppresses '
+                    'notifications only when the value is equal and you '
+                    'assign .value directly. Listeners on top still fire '
+                    'when the controller calls notifyListeners() internally.'),
+                _uhValProse(
+                    'If you want to filter consecutive duplicates yourself, '
+                    'wrap the controller with a DistinctValueListenable — a '
+                    'pattern shown in §VI.'),
+              ],
+            ),
+
+            // ── §4 Equality inspector ──────────────────────────────────
+            _uhValSectionBanner(
+              'IV',
+              'Equality inspector — two values under the microscope',
+              'Build two values from independent switches. Observe ==, '
+                  'identical(), hashCode and a hand-written copyWith.',
+            ),
+            _uhValParchmentCard(
+              heading: 'Side-by-side inspector',
+              children: const [
+                _UhValEqualityInspector(),
+              ],
+            ),
+            _uhValParchmentCard(
+              heading: 'Guarantees of the == contract',
+              children: [
+                _uhValKeyValueRow('reflexive', 'a == a is always true'),
+                _uhValKeyValueRow(
+                    'symmetric', 'a == b ⇔ b == a (both branches structural)'),
+                _uhValKeyValueRow(
+                    'transitive', 'if a == b and b == c then a == c'),
+                _uhValKeyValueRow('hash consistent',
+                    'a == b ⇒ a.hashCode == b.hashCode (Object.hash composes)'),
+                _uhValKeyValueRow('identity shortcut',
+                    'identical(a, b) short-circuits without field reads'),
+              ],
+            ),
+
+            // ── §5 Timeline visualiser ────────────────────────────────
+            _uhValSectionBanner(
+              'V',
+              'Timeline visualiser — transitions over time',
+              'A ValueNotifier<UndoHistoryValue> driven by a deterministic '
+                  'cycle. CustomPainter draws the canUndo / canRedo ribbons.',
+            ),
+            _uhValParchmentCard(
+              heading: 'Synthetic ribbon',
+              children: const [
+                _UhValTimelineVisualiser(),
+              ],
+            ),
+            _uhValParchmentCard(
+              heading: 'Interpreting the ribbon',
+              children: [
+                _uhValProse(
+                    'The painter splits each column into two bands — the '
+                    'top shows canUndo, the bottom canRedo. Because the '
+                    'cycle visits every quadrant of the truth table at '
+                    'least once, you can watch the ribbon produce each of '
+                    'the four reachable UndoHistoryValue instances.'),
+                _uhValProse(
+                    'The Reset button clears the log and snaps the '
+                    'notifier back to UndoHistoryValue.empty — a cheap way '
+                    'to show that const sentinel values retain their '
+                    'identity across resets.'),
+              ],
+            ),
+
+            // ── §6 Copy / with / compose recipes ──────────────────────
+            _uhValSectionBanner(
+              'VI',
+              'copyWith & composition recipes',
+              'UndoHistoryValue is tiny on purpose. Here are three '
+                  'conventional ways to produce a new value or observe it '
+                  'through different lenses.',
+            ),
+            _uhValParchmentCard(
+              heading: 'Recipes',
+              children: [
+                _UhValRecipeCard(
+                  title: 'Recipe A — manual copyWith',
+                  accent: _uhValWax,
+                  intent:
+                      'The SDK does not provide copyWith. Write one as a '
+                      'free function; keep it const-friendly.',
+                  code: 'UndoHistoryValue copyWith(\n'
+                      '  UndoHistoryValue src, {\n'
+                      '  bool? canUndo,\n'
+                      '  bool? canRedo,\n'
+                      '}) => UndoHistoryValue(\n'
+                      '      canUndo: canUndo ?? src.canUndo,\n'
+                      '      canRedo: canRedo ?? src.canRedo,\n'
+                      '    );',
+                  notes: <String>[
+                    'Returns a new instance; the original is untouched — '
+                        'exactly what an @immutable value class expects.',
+                    'Nullability pattern mirrors Flutter\'s own ThemeData.copyWith.',
+                    'Because both fields are non-nullable bool, null here '
+                        'legitimately means "unchanged", not "unset".',
+                  ],
+                ),
+                _UhValRecipeCard(
+                  title: 'Recipe B — distinct listener wrapper',
+                  accent: _uhValInk,
+                  intent:
+                      'Only fire onChanged when the value actually differs. '
+                      'Useful when upstream controllers notify on every '
+                      'keystroke.',
+                  code: 'class DistinctUhvListener extends ValueNotifier<UndoHistoryValue> {\n'
+                      '  DistinctUhvListener(super.initial);\n'
+                      '  @override\n'
+                      '  set value(UndoHistoryValue next) {\n'
+                      '    if (next == value) return;\n'
+                      '    super.value = next;\n'
+                      '  }\n'
+                      '}',
+                  notes: <String>[
+                    'ValueNotifier already suppresses equal values by default; '
+                        'this override is only needed when wrapping a source '
+                        'that notifies without changing .value.',
+                    'Pair it with an addListener that forwards from the '
+                        'original controller.',
+                  ],
+                ),
+                _UhValRecipeCard(
+                  title: 'Recipe C — compose with another ValueNotifier',
+                  accent: _uhValWaxDeep,
+                  intent:
+                      'Surface "anyChange" from two UndoHistoryControllers '
+                      '(e.g. a title field and a body field) as a single '
+                      'combined ValueListenable<bool>.',
+                  code: 'class EitherCanUndo extends ValueNotifier<bool> {\n'
+                      '  final UndoHistoryController a;\n'
+                      '  final UndoHistoryController b;\n'
+                      '  EitherCanUndo(this.a, this.b) : super(false) {\n'
+                      '    a.addListener(_tick);\n'
+                      '    b.addListener(_tick);\n'
+                      '  }\n'
+                      '  void _tick() {\n'
+                      '    value = a.value.canUndo || b.value.canUndo;\n'
+                      '  }\n'
+                      '  @override void dispose() {\n'
+                      '    a.removeListener(_tick);\n'
+                      '    b.removeListener(_tick);\n'
+                      '    super.dispose();\n'
+                      '  }\n'
+                      '}',
+                  notes: <String>[
+                    'Combine values as booleans to power a single "Undo" '
+                        'toolbar button that toggles the union of both fields.',
+                    'Remember to remove the listeners you added to avoid '
+                        'post-dispose notifications.',
+                  ],
+                ),
+              ],
+            ),
+
+            // ── §7 Epilogue ────────────────────────────────────────────
+            _uhValSectionBanner(
+              'VII',
+              'Epilogue — patterns and debugging',
+              'When to subclass, when to compose, when to rebuild, when to '
+                  'leave the notifier alone.',
+            ),
+            _uhValParchmentCard(
+              heading: 'Subclass vs compose',
+              children: [
+                _uhValProse(
+                    'UndoHistoryValue is annotated @immutable and is '
+                    'designed to be final in spirit. Flutter itself does '
+                    'not subclass it. Prefer composition (a wrapping '
+                    'ValueNotifier or an EitherCanUndo as above) when you '
+                    'need to derive new signals.'),
+                _uhValProse(
+                    'A legitimate reason to wrap is stream adaptation: if '
+                    'you need an async Stream<UndoHistoryValue>, bridge via '
+                    'a StreamController in an addListener — do not extend '
+                    'UndoHistoryValue itself.'),
+              ],
+            ),
+            _uhValParchmentCard(
+              heading: 'When to rebuild',
+              children: [
+                _uhValProse(
+                    'ValueListenableBuilder will rebuild on any '
+                    'notification; it does not re-compare its builder '
+                    'arguments. If your builder is expensive, short-circuit '
+                    'with a Selector-like wrapper:'),
+                _uhValProse(
+                    '  ValueListenableBuilder<UndoHistoryValue>(\n'
+                    '    valueListenable: controller,\n'
+                    '    builder: (_, v, child) {\n'
+                    '      if (!v.canUndo && !v.canRedo) return child!;\n'
+                    '      return ExpensiveBar(v);\n'
+                    '    },\n'
+                    '    child: const SizedBox.shrink(),\n'
+                    '  );'),
+                _uhValProse(
+                    'The `child` slot lets you reuse a prebuilt subtree for '
+                    'the idle (empty) state without rebuilding it on every '
+                    'emission.'),
+              ],
+            ),
+            _uhValParchmentCard(
+              heading: 'Debugging checklist',
+              children: [
+                _uhValKeyValueRow('no emissions',
+                    'Check that the TextField has `undoController: …` wired.'),
+                _uhValKeyValueRow('too many rebuilds',
+                    'Wrap the controller with a distinct listener (Recipe B).'),
+                _uhValKeyValueRow('empty never reached',
+                    'Remember: clearing the text still retains redo. Force '
+                        'controller.value = UndoHistoryValue.empty to reset.'),
+                _uhValKeyValueRow('testing',
+                    'Construct values directly; they are const-friendly and '
+                        'cheap to compare in expect() matchers.'),
+                _uhValKeyValueRow('instrumenting',
+                    'Log with toString(); the output already includes both '
+                        'fields and the class name prefix.'),
+              ],
+            ),
+            _uhValParchmentCard(
+              heading: 'Summary',
+              children: [
+                _uhValProse(
+                    'UndoHistoryValue is a disciplined, two-field, '
+                    'immutable record. The entire public surface is a '
+                    'constructor, two booleans, a sentinel, toString, == '
+                    'and hashCode. Everything else — copyWith, composition, '
+                    'filtering — lives in your code, exactly the way '
+                    'Flutter prefers it.'),
+                _uhValInkRule(),
+                _uhValProse(
+                    'Scroll back up and try the TextField in §III; note '
+                    'how the wax seals and ribbons are only there to make '
+                    'a very small value class feel as memorable as it '
+                    'deserves to be.'),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Center(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 48,
+                    height: 48,
+                    child: CustomPaint(
+                      painter: _UhValWaxSealPainter(glyph: 'V', rotation: 0.2),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    '— fin —',
+                    style: TextStyle(
+                      color: _uhValInkFaded,
+                      fontSize: 12,
+                      fontStyle: FontStyle.italic,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
         ],
       ),
     ),
@@ -2102,7 +2029,9 @@ dynamic build(BuildContext context) {
     theme: ThemeData(
       scaffoldBackgroundColor: _uhValParchment,
       useMaterial3: false,
-      textTheme: const TextTheme(bodyMedium: TextStyle(color: _uhValInk)),
+      textTheme: const TextTheme(
+        bodyMedium: TextStyle(color: _uhValInk),
+      ),
     ),
     home: Scaffold(
       backgroundColor: _uhValParchment,
@@ -2112,7 +2041,10 @@ dynamic build(BuildContext context) {
         elevation: 0,
         title: const Text(
           'UndoHistoryValue — the immutable undo/redo witness',
-          style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.5),
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.5,
+          ),
         ),
       ),
       body: body,

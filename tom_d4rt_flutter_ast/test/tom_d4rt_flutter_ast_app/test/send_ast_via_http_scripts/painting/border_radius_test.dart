@@ -78,7 +78,12 @@ dynamic build(BuildContext context) {
   // HELPER BUILDERS — pure functions, no state.
   // ---------------------------------------------------------------------
 
-  Widget sectionHeader(String number, String title, IconData icon, Color tint) {
+  Widget sectionHeader(
+    String number,
+    String title,
+    IconData icon,
+    Color tint,
+  ) {
     return Container(
       margin: const EdgeInsets.only(top: 30.0, bottom: 14.0),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -209,14 +214,21 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget cardFrame({required Widget child, EdgeInsets? padding, Color? color}) {
+  Widget cardFrame({
+    required Widget child,
+    EdgeInsets? padding,
+    Color? color,
+  }) {
     return Container(
       padding: padding ?? const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: color ?? cardSurface,
         borderRadius: BorderRadius.circular(14.0),
         boxShadow: <BoxShadow>[shadowPeach],
-        border: Border.all(color: roseSoft.withValues(alpha: 0.55), width: 1.0),
+        border: Border.all(
+          color: roseSoft.withValues(alpha: 0.55),
+          width: 1.0,
+        ),
       ),
       child: child,
     );
@@ -248,7 +260,10 @@ dynamic build(BuildContext context) {
               end: Alignment.bottomRight,
             ),
             borderRadius: radius is BorderRadius ? radius : null,
-            border: Border.all(color: tint.withValues(alpha: 0.85), width: 1.5),
+            border: Border.all(
+              color: tint.withValues(alpha: 0.85),
+              width: 1.5,
+            ),
             boxShadow: <BoxShadow>[shadowPeach],
           ),
           child: Center(
@@ -434,7 +449,10 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10.0),
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 6.0,
+            ),
             decoration: BoxDecoration(
               color: codeBg,
               borderRadius: BorderRadius.circular(6.0),
@@ -1727,35 +1745,35 @@ dynamic build(BuildContext context) {
         takeaway(
           Icons.check_circle,
           'BorderRadius is a 4-corner geometry primitive built on Radius; '
-          'every constructor is a convenience over BorderRadius.only.',
+              'every constructor is a convenience over BorderRadius.only.',
           roseDeep,
         ),
         takeaway(
           Icons.check_circle,
           'Prefer BorderRadiusDirectional whenever the visual depends on '
-          'reading direction; resolve(TextDirection) materialises it into '
-          'an absolute BorderRadius.',
+              'reading direction; resolve(TextDirection) materialises it into '
+              'an absolute BorderRadius.',
           coralDeep,
         ),
         takeaway(
           Icons.check_circle,
           'BorderRadius.lerp drives all radius animations (AnimatedContainer, '
-          'PhysicalShape, decoration tweens); it interpolates each corner '
-          'independently.',
+              'PhysicalShape, decoration tweens); it interpolates each corner '
+              'independently.',
           peachDeep,
         ),
         takeaway(
           Icons.check_circle,
           'Operators (+, -, *, /) come from BorderRadiusGeometry; combining '
-          'absolute and directional radii returns a Geometry that must be '
-          'resolved before painting.',
+              'absolute and directional radii returns a Geometry that must be '
+              'resolved before painting.',
           roseMid,
         ),
         takeaway(
           Icons.check_circle,
           'BorderRadius only rounds painting — clip children separately with '
-          'ClipRRect or Material(clipBehavior: hardEdge) to avoid overflow '
-          'past the corners.',
+              'ClipRRect or Material(clipBehavior: hardEdge) to avoid overflow '
+              'past the corners.',
           coralMid,
         ),
       ],
@@ -1800,7 +1818,12 @@ dynamic build(BuildContext context) {
               coralDeep,
             ),
             ellipticalShowcase,
-            sectionHeader('07', 'BorderRadius.lerp', Icons.gradient, peachDeep),
+            sectionHeader(
+              '07',
+              'BorderRadius.lerp',
+              Icons.gradient,
+              peachDeep,
+            ),
             lerpShowcase,
             sectionHeader('08', 'Directional', Icons.swap_horiz, roseMid),
             directionalShowcase,

@@ -14,9 +14,7 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('showDialog deep visual demo executing');
-  print(
-    'Palette: Curtain Velvet / Stagelight Saffron / Plum Modal / Theatrical Cream',
-  );
+  print('Palette: Curtain Velvet / Stagelight Saffron / Plum Modal / Theatrical Cream');
 
   // ------------------------------------------------------------------
   // Palette constants. All colors live as const Color values so we
@@ -49,16 +47,8 @@ dynamic build(BuildContext context) {
     <String>['Curtain Velvet Deep', '#24101F', 'Barrier scrim, deep shadow'],
     <String>['Curtain Velvet Soft', '#55334A', 'Hover, secondary frame'],
     <String>['Stagelight Saffron', '#E9B44C', 'Accent, primary action button'],
-    <String>[
-      'Stagelight Saffron Deep',
-      '#C8911F',
-      'Pressed accent, focus ring',
-    ],
-    <String>[
-      'Stagelight Saffron Glow',
-      '#F6D58A',
-      'Hover accent, soft highlight',
-    ],
+    <String>['Stagelight Saffron Deep', '#C8911F', 'Pressed accent, focus ring'],
+    <String>['Stagelight Saffron Glow', '#F6D58A', 'Hover accent, soft highlight'],
     <String>['Plum Modal', '#6B4669', 'Header band, title region'],
     <String>['Plum Modal Deep', '#4A2D49', 'Header shadow, divider'],
     <String>['Plum Modal Soft', '#8E6B8C', 'Disabled, helper text'],
@@ -96,268 +86,81 @@ dynamic build(BuildContext context) {
   // showDialog API surface. Each entry: parameter, type, default, note.
   // ------------------------------------------------------------------
   final List<List<String>> showDialogApi = <List<String>>[
-    <String>[
-      'context',
-      'BuildContext',
-      'required',
-      'Locates Navigator and Theme; must outlive call.',
-    ],
-    <String>[
-      'builder',
-      'WidgetBuilder',
-      'required',
-      'Builds the dialog widget; receives a fresh context.',
-    ],
-    <String>[
-      'barrierDismissible',
-      'bool',
-      'true',
-      'Tapping outside the dialog dismisses it.',
-    ],
-    <String>[
-      'barrierColor',
-      'Color?',
-      'Colors.black54',
-      'Scrim color drawn behind the dialog.',
-    ],
-    <String>[
-      'barrierLabel',
-      'String?',
-      'null',
-      'Semantics label for screen readers.',
-    ],
-    <String>[
-      'useSafeArea',
-      'bool',
-      'true',
-      'Insets the dialog within the safe area.',
-    ],
-    <String>[
-      'useRootNavigator',
-      'bool',
-      'true',
-      'Pushes onto the root Navigator vs nearest.',
-    ],
-    <String>[
-      'routeSettings',
-      'RouteSettings?',
-      'null',
-      'Name and arguments for the dialog route.',
-    ],
-    <String>[
-      'anchorPoint',
-      'Offset?',
-      'null',
-      'Disambiguates which display the dialog uses.',
-    ],
-    <String>[
-      'traversalEdgeBehavior',
-      'TraversalEdge',
-      'parentScope',
-      'Focus traversal at the edge of the dialog.',
-    ],
+    <String>['context', 'BuildContext', 'required', 'Locates Navigator and Theme; must outlive call.'],
+    <String>['builder', 'WidgetBuilder', 'required', 'Builds the dialog widget; receives a fresh context.'],
+    <String>['barrierDismissible', 'bool', 'true', 'Tapping outside the dialog dismisses it.'],
+    <String>['barrierColor', 'Color?', 'Colors.black54', 'Scrim color drawn behind the dialog.'],
+    <String>['barrierLabel', 'String?', 'null', 'Semantics label for screen readers.'],
+    <String>['useSafeArea', 'bool', 'true', 'Insets the dialog within the safe area.'],
+    <String>['useRootNavigator', 'bool', 'true', 'Pushes onto the root Navigator vs nearest.'],
+    <String>['routeSettings', 'RouteSettings?', 'null', 'Name and arguments for the dialog route.'],
+    <String>['anchorPoint', 'Offset?', 'null', 'Disambiguates which display the dialog uses.'],
+    <String>['traversalEdgeBehavior', 'TraversalEdge', 'parentScope', 'Focus traversal at the edge of the dialog.'],
   ];
 
   // ------------------------------------------------------------------
   // Dialog-type catalog. Used to render visual mocks side-by-side.
   // ------------------------------------------------------------------
   final List<List<String>> dialogTypes = <List<String>>[
-    <String>[
-      'AlertDialog',
-      'Title + content + actions row.',
-      'Confirmations, alerts, simple choices.',
-    ],
-    <String>[
-      'SimpleDialog',
-      'Title + list of SimpleDialogOption children.',
-      'Pick-one choice from a small list.',
-    ],
-    <String>[
-      'Dialog',
-      'Bare modal surface; you supply the layout.',
-      'Custom modal panels, forms, media.',
-    ],
-    <String>[
-      'DialogTheme',
-      'Inherited theming for dialogs in subtree.',
-      'Centralized look-and-feel.',
-    ],
-    <String>[
-      'AboutDialog',
-      'Pre-built app metadata dialog.',
-      'About screens, license listing.',
-    ],
+    <String>['AlertDialog', 'Title + content + actions row.', 'Confirmations, alerts, simple choices.'],
+    <String>['SimpleDialog', 'Title + list of SimpleDialogOption children.', 'Pick-one choice from a small list.'],
+    <String>['Dialog', 'Bare modal surface; you supply the layout.', 'Custom modal panels, forms, media.'],
+    <String>['DialogTheme', 'Inherited theming for dialogs in subtree.', 'Centralized look-and-feel.'],
+    <String>['AboutDialog', 'Pre-built app metadata dialog.', 'About screens, license listing.'],
   ];
 
   // ------------------------------------------------------------------
   // Barrier color comparison gallery data.
   // ------------------------------------------------------------------
   final List<List<dynamic>> barrierGallery = <List<dynamic>>[
-    <dynamic>[
-      'Default scrim',
-      barrierShadow.withValues(alpha: 0.54),
-      'Colors.black54 (default)',
-    ],
-    <dynamic>[
-      'Velvet veil',
-      curtainVelvet.withValues(alpha: 0.62),
-      'Brand-tinted dim',
-    ],
-    <dynamic>[
-      'Plum hush',
-      plumModalDeep.withValues(alpha: 0.70),
-      'Deep modal feel',
-    ],
-    <dynamic>[
-      'Saffron wash',
-      stagelightSaffronDeep.withValues(alpha: 0.30),
-      'Warm, soft dim',
-    ],
-    <dynamic>[
-      'Spotlight bloom',
-      spotlightCyan.withValues(alpha: 0.28),
-      'Cool info accent',
-    ],
-    <dynamic>[
-      'Ember warn',
-      warningEmber.withValues(alpha: 0.40),
-      'Destructive context',
-    ],
-    <dynamic>[
-      'Transparent',
-      Color(0x00000000),
-      'No scrim - rare, accessibility risk',
-    ],
-    <dynamic>[
-      'Pure black',
-      Color(0xFF000000).withValues(alpha: 0.85),
-      'Heavy theatrical blackout',
-    ],
+    <dynamic>['Default scrim', barrierShadow.withValues(alpha: 0.54), 'Colors.black54 (default)'],
+    <dynamic>['Velvet veil', curtainVelvet.withValues(alpha: 0.62), 'Brand-tinted dim'],
+    <dynamic>['Plum hush', plumModalDeep.withValues(alpha: 0.70), 'Deep modal feel'],
+    <dynamic>['Saffron wash', stagelightSaffronDeep.withValues(alpha: 0.30), 'Warm, soft dim'],
+    <dynamic>['Spotlight bloom', spotlightCyan.withValues(alpha: 0.28), 'Cool info accent'],
+    <dynamic>['Ember warn', warningEmber.withValues(alpha: 0.40), 'Destructive context'],
+    <dynamic>['Transparent', Color(0x00000000), 'No scrim - rare, accessibility risk'],
+    <dynamic>['Pure black', Color(0xFF000000).withValues(alpha: 0.85), 'Heavy theatrical blackout'],
   ];
 
   // ------------------------------------------------------------------
   // Button-action patterns table. Each entry: pattern, snippet, note.
   // ------------------------------------------------------------------
   final List<List<String>> actionPatterns = <List<String>>[
-    <String>[
-      'Cancel/Confirm pair',
-      'TextButton(Cancel) + ElevatedButton(Confirm)',
-      'Most common AlertDialog pattern.',
-    ],
-    <String>[
-      'Destructive confirm',
-      'TextButton(Cancel) + filled ember Delete',
-      'Make destructive action stand out.',
-    ],
-    <String>[
-      'Single OK',
-      'TextButton(OK) only',
-      'Pure information; no choice.',
-    ],
+    <String>['Cancel/Confirm pair', 'TextButton(Cancel) + ElevatedButton(Confirm)', 'Most common AlertDialog pattern.'],
+    <String>['Destructive confirm', 'TextButton(Cancel) + filled ember Delete', 'Make destructive action stand out.'],
+    <String>['Single OK', 'TextButton(OK) only', 'Pure information; no choice.'],
     <String>['Three-way', 'Cancel / Discard / Save', 'Editor exit prompts.'],
-    <String>[
-      'Pick-one list',
-      'SimpleDialogOption per choice',
-      'No explicit OK/Cancel.',
-    ],
-    <String>[
-      'Custom layout',
-      'Dialog with bespoke children',
-      'Forms, pickers, embedded widgets.',
-    ],
-    <String>[
-      'Async result',
-      'Navigator.pop(ctx, result)',
-      'Pass selection back to caller.',
-    ],
-    <String>[
-      'Dismiss only',
-      'Navigator.pop(ctx)',
-      'No result; unit-typed dialog.',
-    ],
+    <String>['Pick-one list', 'SimpleDialogOption per choice', 'No explicit OK/Cancel.'],
+    <String>['Custom layout', 'Dialog with bespoke children', 'Forms, pickers, embedded widgets.'],
+    <String>['Async result', 'Navigator.pop(ctx, result)', 'Pass selection back to caller.'],
+    <String>['Dismiss only', 'Navigator.pop(ctx)', 'No result; unit-typed dialog.'],
   ];
 
   // ------------------------------------------------------------------
   // Comparison: Dialog vs ModalBottomSheet vs Snackbar vs Banner vs Popup
   // ------------------------------------------------------------------
   final List<List<String>> comparisonRows = <List<String>>[
-    <String>[
-      'Dialog',
-      'Center, modal',
-      'Yes (barrier)',
-      'Critical decision',
-      'Tap barrier or action',
-    ],
-    <String>[
-      'ModalBottomSheet',
-      'Bottom, modal',
-      'Yes (barrier)',
-      'Action menu, picker',
-      'Drag down, tap barrier',
-    ],
-    <String>[
-      'BottomSheet (persistent)',
-      'Bottom, non-modal',
-      'No',
-      'Contextual extra info',
-      'Drag, swipe',
-    ],
-    <String>[
-      'SnackBar',
-      'Bottom edge, brief',
-      'No',
-      'Transient feedback',
-      'Auto-dismiss, swipe',
-    ],
-    <String>[
-      'MaterialBanner',
-      'Top, persistent',
-      'No',
-      'Status, prompts in flow',
-      'Action button',
-    ],
-    <String>[
-      'Popup menu',
-      'Anchored to widget',
-      'Light barrier',
-      'Quick choices',
-      'Tap option or outside',
-    ],
-    <String>[
-      'Tooltip',
-      'Anchored, hover/long-press',
-      'No',
-      'Hint text',
-      'Release, timeout',
-    ],
-    <String>[
-      'Toast (third-party)',
-      'Floating, brief',
-      'No',
-      'Tiny notice',
-      'Auto-dismiss',
-    ],
+    <String>['Dialog', 'Center, modal', 'Yes (barrier)', 'Critical decision', 'Tap barrier or action'],
+    <String>['ModalBottomSheet', 'Bottom, modal', 'Yes (barrier)', 'Action menu, picker', 'Drag down, tap barrier'],
+    <String>['BottomSheet (persistent)', 'Bottom, non-modal', 'No', 'Contextual extra info', 'Drag, swipe'],
+    <String>['SnackBar', 'Bottom edge, brief', 'No', 'Transient feedback', 'Auto-dismiss, swipe'],
+    <String>['MaterialBanner', 'Top, persistent', 'No', 'Status, prompts in flow', 'Action button'],
+    <String>['Popup menu', 'Anchored to widget', 'Light barrier', 'Quick choices', 'Tap option or outside'],
+    <String>['Tooltip', 'Anchored, hover/long-press', 'No', 'Hint text', 'Release, timeout'],
+    <String>['Toast (third-party)', 'Floating, brief', 'No', 'Tiny notice', 'Auto-dismiss'],
   ];
 
   // ------------------------------------------------------------------
   // Glossary entries.
   // ------------------------------------------------------------------
   final List<List<String>> glossary = <List<String>>[
-    <String>[
-      'Modal',
-      'Blocks interaction with content beneath until dismissed.',
-    ],
+    <String>['Modal', 'Blocks interaction with content beneath until dismissed.'],
     <String>['Barrier', 'The dim scrim drawn behind a modal route.'],
-    <String>[
-      'Barrier dismissible',
-      'Whether a tap on the scrim closes the dialog.',
-    ],
+    <String>['Barrier dismissible', 'Whether a tap on the scrim closes the dialog.'],
     <String>['Route', 'A push/pop entry on the Navigator stack.'],
     <String>['Builder', 'Callback that returns the widget for the new route.'],
-    <String>[
-      'Focus trap',
-      'Confining keyboard focus to the dialog while open.',
-    ],
+    <String>['Focus trap', 'Confining keyboard focus to the dialog while open.'],
     <String>['Safe area', 'Region not covered by notches or system UI.'],
     <String>['Root navigator', 'The topmost Navigator at app level.'],
     <String>['Anchor point', 'Used to choose display in multi-screen setups.'],
@@ -365,10 +168,7 @@ dynamic build(BuildContext context) {
     <String>['Scrim opacity', 'Alpha channel of the barrier color.'],
     <String>['Modality', 'How forcefully a UI demands attention.'],
     <String>['Pop result', 'Value returned via Navigator.pop(ctx, value).'],
-    <String>[
-      'Theme override',
-      'Local Theme/DialogTheme above showDialog call.',
-    ],
+    <String>['Theme override', 'Local Theme/DialogTheme above showDialog call.'],
     <String>['Dismissal', 'The act of closing a dialog (tap, escape, action).'],
   ];
 
@@ -376,65 +176,26 @@ dynamic build(BuildContext context) {
   // Pitfalls.
   // ------------------------------------------------------------------
   final List<List<String>> pitfalls = <List<String>>[
-    <String>[
-      'Using context after dismiss',
-      'After Navigator.pop, the builder context is dead. Capture state earlier.',
-    ],
-    <String>[
-      'Awaiting in disposed widget',
-      'If parent unmounts before await, do not call setState.',
-    ],
-    <String>[
-      'Nested dialogs',
-      'Stacking too many barriers confuses users; prefer a single decision.',
-    ],
-    <String>[
-      'Barrier dismiss for destructive',
-      'Tap-outside should not delete data; set barrierDismissible: false.',
-    ],
-    <String>[
-      'Long content w/o scroll',
-      'Content can overflow; wrap in SingleChildScrollView.',
-    ],
-    <String>[
-      'Wrong navigator',
-      'useRootNavigator: false routes onto a nested navigator; pick deliberately.',
-    ],
-    <String>[
-      'No semantics label',
-      'Screen readers do not know the barrier role; provide barrierLabel.',
-    ],
-    <String>[
-      'Hidden actions on small screens',
-      'AlertDialog stacks actions vertically below a width threshold.',
-    ],
-    <String>[
-      'Dialog within Dialog',
-      'Reaching for context in inner dialog can pop the outer one.',
-    ],
-    <String>[
-      'Theme drift',
-      'Relying on default DialogTheme yields inconsistent look across screens.',
-    ],
+    <String>['Using context after dismiss', 'After Navigator.pop, the builder context is dead. Capture state earlier.'],
+    <String>['Awaiting in disposed widget', 'If parent unmounts before await, do not call setState.'],
+    <String>['Nested dialogs', 'Stacking too many barriers confuses users; prefer a single decision.'],
+    <String>['Barrier dismiss for destructive', 'Tap-outside should not delete data; set barrierDismissible: false.'],
+    <String>['Long content w/o scroll', 'Content can overflow; wrap in SingleChildScrollView.'],
+    <String>['Wrong navigator', 'useRootNavigator: false routes onto a nested navigator; pick deliberately.'],
+    <String>['No semantics label', 'Screen readers do not know the barrier role; provide barrierLabel.'],
+    <String>['Hidden actions on small screens', 'AlertDialog stacks actions vertically below a width threshold.'],
+    <String>['Dialog within Dialog', 'Reaching for context in inner dialog can pop the outer one.'],
+    <String>['Theme drift', 'Relying on default DialogTheme yields inconsistent look across screens.'],
   ];
 
   // ------------------------------------------------------------------
   // Scenario panels: confirm-delete, info, choice list, error.
   // ------------------------------------------------------------------
   final List<List<String>> scenarios = <List<String>>[
-    <String>[
-      'Confirm Delete',
-      'Destructive action. barrierDismissible: false. Two buttons: Cancel + Delete (ember).',
-    ],
+    <String>['Confirm Delete', 'Destructive action. barrierDismissible: false. Two buttons: Cancel + Delete (ember).'],
     <String>['Info', 'Single OK. Light scrim. Friendly tone, neutral palette.'],
-    <String>[
-      'Choice List',
-      'SimpleDialog with 3-6 SimpleDialogOption children, each pops with a key.',
-    ],
-    <String>[
-      'Error',
-      'AlertDialog with warning ember icon, technical detail collapsed below summary.',
-    ],
+    <String>['Choice List', 'SimpleDialog with 3-6 SimpleDialogOption children, each pops with a key.'],
+    <String>['Error', 'AlertDialog with warning ember icon, technical detail collapsed below summary.'],
     <String>['Form', 'Custom Dialog with TextField rows, Save/Cancel actions.'],
     <String>['Picker', 'Custom Dialog hosting a date or color picker.'],
   ];
@@ -499,7 +260,9 @@ dynamic build(BuildContext context) {
     alertDialogMock = AlertDialog(
       backgroundColor: theatricalCream,
       elevation: 12.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18.0),
+      ),
       titlePadding: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 12.0),
       contentPadding: EdgeInsets.fromLTRB(24.0, 0.0, 24.0, 12.0),
       actionsPadding: EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 12.0),
@@ -541,7 +304,11 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             'This action removes the selected item from the catalog. It cannot be undone from this screen.',
-            style: TextStyle(color: curtainVelvet, fontSize: 14.0, height: 1.4),
+            style: TextStyle(
+              color: curtainVelvet,
+              fontSize: 14.0,
+              height: 1.4,
+            ),
           ),
           SizedBox(height: 10.0),
           Container(
@@ -657,7 +424,9 @@ dynamic build(BuildContext context) {
     simpleDialogMock = SimpleDialog(
       backgroundColor: theatricalCream,
       elevation: 10.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18.0),
+      ),
       titlePadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 12.0),
       contentPadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 12.0),
       title: Text(
@@ -688,7 +457,9 @@ dynamic build(BuildContext context) {
       backgroundColor: theatricalCream,
       elevation: 14.0,
       insetPadding: EdgeInsets.all(16.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
       child: Container(
         padding: EdgeInsets.all(20.0),
         constraints: BoxConstraints(maxWidth: 360.0),
@@ -735,11 +506,7 @@ dynamic build(BuildContext context) {
               height: 80.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[
-                    stagelightSaffronGlow,
-                    stagelightSaffron,
-                    stagelightSaffronDeep,
-                  ],
+                  colors: <Color>[stagelightSaffronGlow, stagelightSaffron, stagelightSaffronDeep],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -762,7 +529,10 @@ dynamic build(BuildContext context) {
                   onPressed: () {
                     print('Dialog mock: Cancel');
                   },
-                  child: Text('Cancel', style: TextStyle(color: curtainVelvet)),
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(color: curtainVelvet),
+                  ),
                 ),
                 SizedBox(width: 8.0),
                 Container(
@@ -770,10 +540,7 @@ dynamic build(BuildContext context) {
                     color: stagelightSaffron,
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 10.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
                   child: Text(
                     'Save',
                     style: TextStyle(
@@ -806,17 +573,21 @@ dynamic build(BuildContext context) {
     final DialogTheme dt = DialogTheme(
       backgroundColor: theatricalCream,
       elevation: 12.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18.0),
+      ),
       alignment: Alignment.center,
       titleTextStyle: TextStyle(
         color: curtainVelvetDeep,
         fontWeight: FontWeight.w800,
         fontSize: 18.0,
       ),
-      contentTextStyle: TextStyle(color: curtainVelvet, fontSize: 14.0),
+      contentTextStyle: TextStyle(
+        color: curtainVelvet,
+        fontSize: 14.0,
+      ),
     );
-    dialogThemeSummary =
-        'DialogTheme constructed: bg=cream, elev=${dt.elevation}, alignment=center';
+    dialogThemeSummary = 'DialogTheme constructed: bg=cream, elev=${dt.elevation}, alignment=center';
   } catch (e) {
     print('DialogTheme error: $e');
     dialogThemeSummary = 'DialogTheme failed: $e';
@@ -1024,7 +795,10 @@ dynamic build(BuildContext context) {
               flex: 5,
               child: Text(
                 paletteRows[i][2],
-                style: TextStyle(color: curtainVelvet, fontSize: 11.0),
+                style: TextStyle(
+                  color: curtainVelvet,
+                  fontSize: 11.0,
+                ),
               ),
             ),
           ],
@@ -1143,7 +917,10 @@ dynamic build(BuildContext context) {
               flex: 6,
               child: Text(
                 showDialogApi[i][3],
-                style: TextStyle(color: curtainVelvet, fontSize: 11.0),
+                style: TextStyle(
+                  color: curtainVelvet,
+                  fontSize: 11.0,
+                ),
               ),
             ),
           ],
@@ -1179,10 +956,7 @@ dynamic build(BuildContext context) {
             Row(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 4.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: stagelightSaffron,
                     borderRadius: BorderRadius.circular(999.0),
@@ -1255,23 +1029,11 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    height: 10.0,
-                    width: 90.0,
-                    color: curtainVelvet.withValues(alpha: 0.3),
-                  ),
+                  Container(height: 10.0, width: 90.0, color: curtainVelvet.withValues(alpha: 0.3)),
                   SizedBox(height: 6.0),
-                  Container(
-                    height: 8.0,
-                    width: 160.0,
-                    color: curtainVelvet.withValues(alpha: 0.18),
-                  ),
+                  Container(height: 8.0, width: 160.0, color: curtainVelvet.withValues(alpha: 0.18)),
                   SizedBox(height: 6.0),
-                  Container(
-                    height: 8.0,
-                    width: 130.0,
-                    color: curtainVelvet.withValues(alpha: 0.18),
-                  ),
+                  Container(height: 8.0, width: 130.0, color: curtainVelvet.withValues(alpha: 0.18)),
                 ],
               ),
             ),
@@ -1417,61 +1179,11 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: Text(
-              'Surface',
-              style: TextStyle(
-                color: stagelightSaffronGlow,
-                fontWeight: FontWeight.w800,
-                fontSize: 11.0,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              'Position',
-              style: TextStyle(
-                color: stagelightSaffronGlow,
-                fontWeight: FontWeight.w800,
-                fontSize: 11.0,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              'Modal',
-              style: TextStyle(
-                color: stagelightSaffronGlow,
-                fontWeight: FontWeight.w800,
-                fontSize: 11.0,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Text(
-              'Use',
-              style: TextStyle(
-                color: stagelightSaffronGlow,
-                fontWeight: FontWeight.w800,
-                fontSize: 11.0,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Text(
-              'Dismiss',
-              style: TextStyle(
-                color: stagelightSaffronGlow,
-                fontWeight: FontWeight.w800,
-                fontSize: 11.0,
-              ),
-            ),
-          ),
+          Expanded(flex: 3, child: Text('Surface', style: TextStyle(color: stagelightSaffronGlow, fontWeight: FontWeight.w800, fontSize: 11.0))),
+          Expanded(flex: 3, child: Text('Position', style: TextStyle(color: stagelightSaffronGlow, fontWeight: FontWeight.w800, fontSize: 11.0))),
+          Expanded(flex: 2, child: Text('Modal', style: TextStyle(color: stagelightSaffronGlow, fontWeight: FontWeight.w800, fontSize: 11.0))),
+          Expanded(flex: 4, child: Text('Use', style: TextStyle(color: stagelightSaffronGlow, fontWeight: FontWeight.w800, fontSize: 11.0))),
+          Expanded(flex: 4, child: Text('Dismiss', style: TextStyle(color: stagelightSaffronGlow, fontWeight: FontWeight.w800, fontSize: 11.0))),
         ],
       ),
     ),
@@ -1499,28 +1211,40 @@ dynamic build(BuildContext context) {
               flex: 3,
               child: Text(
                 comparisonRows[i][1],
-                style: TextStyle(color: plumModalDeep, fontSize: 11.0),
+                style: TextStyle(
+                  color: plumModalDeep,
+                  fontSize: 11.0,
+                ),
               ),
             ),
             Expanded(
               flex: 2,
               child: Text(
                 comparisonRows[i][2],
-                style: TextStyle(color: curtainVelvet, fontSize: 11.0),
+                style: TextStyle(
+                  color: curtainVelvet,
+                  fontSize: 11.0,
+                ),
               ),
             ),
             Expanded(
               flex: 4,
               child: Text(
                 comparisonRows[i][3],
-                style: TextStyle(color: curtainVelvet, fontSize: 11.0),
+                style: TextStyle(
+                  color: curtainVelvet,
+                  fontSize: 11.0,
+                ),
               ),
             ),
             Expanded(
               flex: 4,
               child: Text(
                 comparisonRows[i][4],
-                style: TextStyle(color: curtainVelvet, fontSize: 11.0),
+                style: TextStyle(
+                  color: curtainVelvet,
+                  fontSize: 11.0,
+                ),
               ),
             ),
           ],
@@ -1607,7 +1331,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: theatricalCreamSoft,
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(left: BorderSide(color: warningEmber, width: 4.0)),
+          border: Border(
+            left: BorderSide(color: warningEmber, width: 4.0),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1733,14 +1459,10 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.only(bottom: 4.0),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
         decoration: BoxDecoration(
-          color: isQuestion
-              ? plumModal.withValues(alpha: 0.15)
-              : theatricalCreamSoft,
+          color: isQuestion ? plumModal.withValues(alpha: 0.15) : theatricalCreamSoft,
           borderRadius: BorderRadius.circular(6.0),
           border: Border.all(
-            color: isQuestion
-                ? plumModal.withValues(alpha: 0.5)
-                : borderInk.withValues(alpha: 0.15),
+            color: isQuestion ? plumModal.withValues(alpha: 0.5) : borderInk.withValues(alpha: 0.15),
           ),
         ),
         child: Text(
@@ -1768,7 +1490,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: theatricalCreamDeep,
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(left: BorderSide(color: confirmMoss, width: 4.0)),
+          border: Border(
+            left: BorderSide(color: confirmMoss, width: 4.0),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1810,7 +1534,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: theatricalCreamSoft,
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(left: BorderSide(color: spotlightCyan, width: 4.0)),
+          border: Border(
+            left: BorderSide(color: spotlightCyan, width: 4.0),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1961,35 +1687,15 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      height: 12.0,
-                      width: 110.0,
-                      color: curtainVelvet.withValues(alpha: 0.4),
-                    ),
+                    Container(height: 12.0, width: 110.0, color: curtainVelvet.withValues(alpha: 0.4)),
                     SizedBox(height: 8.0),
-                    Container(
-                      height: 8.0,
-                      width: 220.0,
-                      color: curtainVelvet.withValues(alpha: 0.22),
-                    ),
+                    Container(height: 8.0, width: 220.0, color: curtainVelvet.withValues(alpha: 0.22)),
                     SizedBox(height: 6.0),
-                    Container(
-                      height: 8.0,
-                      width: 180.0,
-                      color: curtainVelvet.withValues(alpha: 0.22),
-                    ),
+                    Container(height: 8.0, width: 180.0, color: curtainVelvet.withValues(alpha: 0.22)),
                     SizedBox(height: 6.0),
-                    Container(
-                      height: 8.0,
-                      width: 200.0,
-                      color: curtainVelvet.withValues(alpha: 0.22),
-                    ),
+                    Container(height: 8.0, width: 200.0, color: curtainVelvet.withValues(alpha: 0.22)),
                     SizedBox(height: 6.0),
-                    Container(
-                      height: 8.0,
-                      width: 90.0,
-                      color: curtainVelvet.withValues(alpha: 0.22),
-                    ),
+                    Container(height: 8.0, width: 90.0, color: curtainVelvet.withValues(alpha: 0.22)),
                   ],
                 ),
               ),
@@ -2036,19 +1742,10 @@ dynamic build(BuildContext context) {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Text(
-                            'Cancel',
-                            style: TextStyle(
-                              color: curtainVelvet,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          Text('Cancel', style: TextStyle(color: curtainVelvet, fontWeight: FontWeight.w700)),
                           SizedBox(width: 14.0),
                           Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 12.0,
-                              vertical: 6.0,
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                             decoration: BoxDecoration(
                               color: stagelightSaffron,
                               borderRadius: BorderRadius.circular(6.0),
@@ -2102,12 +1799,7 @@ dynamic build(BuildContext context) {
 
   body.add(heroCard);
 
-  body.add(
-    sectionHeader(
-      'Palette',
-      'Theatrical greens, warm cream, and saffron stagelight.',
-    ),
-  );
+  body.add(sectionHeader('Palette', 'Theatrical greens, warm cream, and saffron stagelight.'));
   body.add(
     Container(
       decoration: BoxDecoration(
@@ -2119,20 +1811,15 @@ dynamic build(BuildContext context) {
     ),
   );
 
+  body.add(sectionHeader('Palette swatch strip', 'Quick-glance ribbon of every named hue.'));
   body.add(
-    sectionHeader(
-      'Palette swatch strip',
-      'Quick-glance ribbon of every named hue.',
+    SizedBox(
+      height: 48.0,
+      child: Row(children: swatchStrip),
     ),
   );
-  body.add(SizedBox(height: 48.0, child: Row(children: swatchStrip)));
 
-  body.add(
-    sectionHeader(
-      'showDialog API surface',
-      'Every parameter that shapes the modal route.',
-    ),
-  );
+  body.add(sectionHeader('showDialog API surface', 'Every parameter that shapes the modal route.'));
   body.add(
     Container(
       decoration: BoxDecoration(
@@ -2144,20 +1831,10 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  body.add(
-    sectionHeader(
-      'Dialog-type catalog',
-      'AlertDialog, SimpleDialog, Dialog, DialogTheme, AboutDialog.',
-    ),
-  );
+  body.add(sectionHeader('Dialog-type catalog', 'AlertDialog, SimpleDialog, Dialog, DialogTheme, AboutDialog.'));
   body.add(Column(children: dialogTypeCards));
 
-  body.add(
-    sectionHeader(
-      'AlertDialog mock preview',
-      'Title + content + actions; the workhorse confirmation pattern.',
-    ),
-  );
+  body.add(sectionHeader('AlertDialog mock preview', 'Title + content + actions; the workhorse confirmation pattern.'));
   body.add(
     Container(
       padding: EdgeInsets.all(16.0),
@@ -2174,12 +1851,7 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  body.add(
-    sectionHeader(
-      'SimpleDialog mock preview',
-      'Title + SimpleDialogOption rows for pick-one choices.',
-    ),
-  );
+  body.add(sectionHeader('SimpleDialog mock preview', 'Title + SimpleDialogOption rows for pick-one choices.'));
   body.add(
     Container(
       padding: EdgeInsets.all(16.0),
@@ -2196,12 +1868,7 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  body.add(
-    sectionHeader(
-      'Custom Dialog mock preview',
-      'Bare modal surface with bespoke layout.',
-    ),
-  );
+  body.add(sectionHeader('Custom Dialog mock preview', 'Bare modal surface with bespoke layout.'));
   body.add(
     Container(
       padding: EdgeInsets.all(16.0),
@@ -2213,28 +1880,16 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  body.add(
-    sectionHeader(
-      'Barrier color comparison',
-      'Same dialog, eight different scrims.',
-    ),
-  );
+  body.add(sectionHeader('Barrier color comparison', 'Same dialog, eight different scrims.'));
   body.add(Column(children: barrierGalleryTiles));
 
-  body.add(
-    sectionHeader('Button-action patterns', 'How to lay out the actions row.'),
-  );
+  body.add(sectionHeader('Button-action patterns', 'How to lay out the actions row.'));
   body.add(Column(children: actionPatternRows));
 
   body.add(sectionHeader('Accessibility', 'Make modals work for everyone.'));
   body.add(Column(children: accessibilityTiles));
 
-  body.add(
-    sectionHeader(
-      'Comparison',
-      'Dialog vs ModalBottomSheet vs SnackBar vs Banner vs Popup.',
-    ),
-  );
+  body.add(sectionHeader('Comparison', 'Dialog vs ModalBottomSheet vs SnackBar vs Banner vs Popup.'));
   body.add(
     Container(
       decoration: BoxDecoration(
@@ -2246,59 +1901,31 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  body.add(
-    sectionHeader(
-      'Scenario panels',
-      'Confirm-delete, info, choice list, error, form, picker.',
-    ),
-  );
+  body.add(sectionHeader('Scenario panels', 'Confirm-delete, info, choice list, error, form, picker.'));
   body.add(Column(children: scenarioPanels));
 
-  body.add(
-    sectionHeader('Pitfalls', 'Mistakes that bite when shipping dialogs.'),
-  );
+  body.add(sectionHeader('Pitfalls', 'Mistakes that bite when shipping dialogs.'));
   body.add(Column(children: pitfallTiles));
 
-  body.add(
-    sectionHeader(
-      'Decision flowchart',
-      'Dialog vs sheet vs banner: pick the right modality.',
-    ),
-  );
+  body.add(sectionHeader('Decision flowchart', 'Dialog vs sheet vs banner: pick the right modality.'));
   body.add(Column(children: decisionTiles));
 
-  body.add(
-    sectionHeader(
-      'Theming notes',
-      'Make every dialog feel like the same family.',
-    ),
-  );
+  body.add(sectionHeader('Theming notes', 'Make every dialog feel like the same family.'));
   body.add(Column(children: themingTiles));
 
   body.add(sectionHeader('Glossary', 'Vocabulary for talking about modal UI.'));
   body.add(Column(children: glossaryTiles));
 
-  body.add(
-    sectionHeader(
-      'Closing prose',
-      'Why this sample dodges real showDialog calls.',
-    ),
-  );
-  body.add(
-    proseCard(
-      'showDialog returns Future<T?>. The d4rt harness in this test forbids Future usage, so this file deliberately renders mock dialog widgets in-line. The constructors of AlertDialog, SimpleDialog, Dialog, DialogTheme, and SimpleDialogOption are still exercised - they are wrapped in try/catch blocks - so the bridge surface is covered without ever pushing a route. A separate integration test that runs in a normal Flutter harness can call the actual showDialog for end-to-end verification.',
-    ),
-  );
-  body.add(
-    proseCard(
-      'When you do invoke showDialog in production code, treat it like any other navigation: capture the result, handle the null case, do not assume the caller widget is still mounted. Wrapping the call in a small helper - confirmDestructive(BuildContext, String) -> Future<bool> - keeps your call sites tidy.',
-    ),
-  );
-  body.add(
-    proseCard(
-      'Finally, dialogs are interruptions. Every confirm screen is a place the user must stop, read, and decide. Use them only for decisions that genuinely warrant interrupting flow. For everything else, prefer SnackBars, Banners, inline UI, or anchored popups. A theatrical curtain only earns its drama when it falls at the right moment.',
-    ),
-  );
+  body.add(sectionHeader('Closing prose', 'Why this sample dodges real showDialog calls.'));
+  body.add(proseCard(
+    'showDialog returns Future<T?>. The d4rt harness in this test forbids Future usage, so this file deliberately renders mock dialog widgets in-line. The constructors of AlertDialog, SimpleDialog, Dialog, DialogTheme, and SimpleDialogOption are still exercised - they are wrapped in try/catch blocks - so the bridge surface is covered without ever pushing a route. A separate integration test that runs in a normal Flutter harness can call the actual showDialog for end-to-end verification.',
+  ));
+  body.add(proseCard(
+    'When you do invoke showDialog in production code, treat it like any other navigation: capture the result, handle the null case, do not assume the caller widget is still mounted. Wrapping the call in a small helper - confirmDestructive(BuildContext, String) -> Future<bool> - keeps your call sites tidy.',
+  ));
+  body.add(proseCard(
+    'Finally, dialogs are interruptions. Every confirm screen is a place the user must stop, read, and decide. Use them only for decisions that genuinely warrant interrupting flow. For everything else, prefer SnackBars, Banners, inline UI, or anchored popups. A theatrical curtain only earns its drama when it falls at the right moment.',
+  ));
 
   body.add(SizedBox(height: 32.0));
 

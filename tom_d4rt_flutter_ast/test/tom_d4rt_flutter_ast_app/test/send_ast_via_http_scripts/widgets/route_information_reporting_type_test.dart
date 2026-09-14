@@ -154,7 +154,11 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
       path: '/settings',
       icon: Icons.settings_outlined,
     ),
-    _PresetLink(label: 'Profile', path: '/profile', icon: Icons.person_outline),
+    _PresetLink(
+      label: 'Profile',
+      path: '/profile',
+      icon: Icons.person_outline,
+    ),
     _PresetLink(label: 'About', path: '/about', icon: Icons.info_outline),
   ];
 
@@ -215,7 +219,9 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
         actionDescription: 'mode set to ${_modeName(next)}',
       ),
     );
-    debugPrint('[UrlBarBehaviourLab] mode changed to ${_modeName(next)}');
+    debugPrint(
+      '[UrlBarBehaviourLab] mode changed to ${_modeName(next)}',
+    );
   }
 
   void _onLinkTapped(_PresetLink link) {
@@ -332,7 +338,9 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
       ),
     );
     _flashUrlBar('(reloading ${_history[_cursor].path}…)');
-    debugPrint('[UrlBarBehaviourLab] reload ${_history[_cursor].path}');
+    debugPrint(
+      '[UrlBarBehaviourLab] reload ${_history[_cursor].path}',
+    );
   }
 
   void _onResetPressed() {
@@ -515,7 +523,9 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
           topLeft: Radius.circular(18),
           topRight: Radius.circular(18),
         ),
-        border: Border(bottom: BorderSide(color: _LabPalette.chromeBorder)),
+        border: Border(
+          bottom: BorderSide(color: _LabPalette.chromeBorder),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       child: Row(
@@ -563,7 +573,9 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: const BoxDecoration(
         color: _LabPalette.card,
-        border: Border(bottom: BorderSide(color: _LabPalette.chromeBorder)),
+        border: Border(
+          bottom: BorderSide(color: _LabPalette.chromeBorder),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -637,7 +649,9 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
         color: _LabPalette.chromeUrlBar,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: flashing ? _colorForMode(_mode) : _LabPalette.chromeBorder,
+          color: flashing
+              ? _colorForMode(_mode)
+              : _LabPalette.chromeBorder,
           width: flashing ? 1.5 : 1,
         ),
       ),
@@ -646,7 +660,9 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
           Icon(
             flashing ? Icons.info_outline : Icons.lock_outline,
             size: 14,
-            color: flashing ? _colorForMode(_mode) : _LabPalette.chromeMutedInk,
+            color: flashing
+                ? _colorForMode(_mode)
+                : _LabPalette.chromeMutedInk,
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -655,7 +671,9 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
               style: TextStyle(
                 fontFamily: 'monospace',
                 fontSize: 13,
-                color: flashing ? _colorForMode(_mode) : _LabPalette.chromeInk,
+                color: flashing
+                    ? _colorForMode(_mode)
+                    : _LabPalette.chromeInk,
                 fontStyle: flashing ? FontStyle.italic : FontStyle.normal,
               ),
               overflow: TextOverflow.ellipsis,
@@ -746,7 +764,11 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
           const Spacer(),
           Row(
             children: <Widget>[
-              Icon(Icons.schedule, size: 14, color: _LabPalette.chromeMutedInk),
+              Icon(
+                Icons.schedule,
+                size: 14,
+                color: _LabPalette.chromeMutedInk,
+              ),
               const SizedBox(width: 6),
               Text(
                 'created ${_formatTime(_active.timestamp)} via '
@@ -846,7 +868,10 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(_modeSymbol(mode), style: const TextStyle(fontSize: 22)),
+                Text(
+                  _modeSymbol(mode),
+                  style: const TextStyle(fontSize: 22),
+                ),
                 const SizedBox(width: 10),
                 Text(
                   _modeName(mode),
@@ -1101,7 +1126,8 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
             ],
           ),
           const SizedBox(height: 10),
-          for (int i = 0; i < _history.length; i++) _buildHistoryEntryTile(i),
+          for (int i = 0; i < _history.length; i++)
+            _buildHistoryEntryTile(i),
         ],
       ),
     );
@@ -1145,13 +1171,19 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
                       : _LabPalette.card,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: isActive ? modeColor : _LabPalette.chromeBorder,
+                    color: isActive
+                        ? modeColor
+                        : _LabPalette.chromeBorder,
                     width: isActive ? 2.0 : 1.0,
                   ),
                 ),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.link, size: 14, color: modeColor),
+                    Icon(
+                      Icons.link,
+                      size: 14,
+                      color: modeColor,
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Column(
@@ -1261,10 +1293,7 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
           ),
           const SizedBox(height: 14),
           _buildDiagramBox('Router', c),
-          _buildDiagramArrow(
-            'routeInformationReportingType = ${lastMode == null ? '—' : _modeName(lastMode)}',
-            c,
-          ),
+          _buildDiagramArrow('routeInformationReportingType = ${lastMode == null ? '—' : _modeName(lastMode)}', c),
           _buildDiagramBox('RouteInformationProvider', c),
           _buildDiagramArrow('URL bar: $urlArrowText', c),
           _buildDiagramBox('Platform URL bar', c),
@@ -1289,7 +1318,10 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: c, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: c,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -1312,7 +1344,11 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 14),
       child: Row(
         children: <Widget>[
-          Container(width: 2, height: 18, color: c.withValues(alpha: 0.6)),
+          Container(
+            width: 2,
+            height: 18,
+            color: c.withValues(alpha: 0.6),
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -1408,10 +1444,8 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
             ),
           ),
           const SizedBox(width: 10),
-          Text(
-            '·',
-            style: TextStyle(color: _LabPalette.chromeMutedInk, fontSize: 12),
-          ),
+          Text('·',
+              style: TextStyle(color: _LabPalette.chromeMutedInk, fontSize: 12)),
           const SizedBox(width: 10),
           Text(
             'mode=${_modeName(entry.mode)}',
@@ -1422,10 +1456,8 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
             ),
           ),
           const SizedBox(width: 10),
-          Text(
-            '·',
-            style: TextStyle(color: _LabPalette.chromeMutedInk, fontSize: 12),
-          ),
+          Text('·',
+              style: TextStyle(color: _LabPalette.chromeMutedInk, fontSize: 12)),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -1437,7 +1469,10 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Text(_modeSymbol(entry.mode), style: const TextStyle(fontSize: 14)),
+          Text(
+            _modeSymbol(entry.mode),
+            style: const TextStyle(fontSize: 14),
+          ),
         ],
       ),
     );
@@ -1786,7 +1821,10 @@ class _UrlBarBehaviourLabDemoState extends State<UrlBarBehaviourLabDemo> {
             margin: const EdgeInsets.only(top: 4),
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: c, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: c,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 10),
           Container(

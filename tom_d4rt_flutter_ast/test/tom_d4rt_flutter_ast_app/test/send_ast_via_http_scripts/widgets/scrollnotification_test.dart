@@ -389,11 +389,7 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF0C4A6E),
-          Color(0xFF0284C7),
-          Color(0xFF06B6D4),
-        ],
+        colors: <Color>[Color(0xFF0C4A6E), Color(0xFF0284C7), Color(0xFF06B6D4)],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -517,7 +513,11 @@ Widget _heroIntroCard() {
             'cancel further propagation. The notification carries .metrics '
             '(a ScrollMetrics snapshot), .depth (how many nested Scrollables '
             'have been crossed), and a .context to the dispatching element.',
-            style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInk),
+            style: TextStyle(
+              fontSize: 13.5,
+              height: 1.5,
+              color: _kInk,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -578,15 +578,8 @@ class _HierarchyPainter extends CustomPainter {
       width: 180.0,
       height: 38.0,
     );
-    _drawBox(
-      canvas,
-      notif,
-      accentFill,
-      stroke,
-      'Notification',
-      _kAccentDeep,
-      bold: true,
-    );
+    _drawBox(canvas, notif, accentFill, stroke, 'Notification', _kAccentDeep,
+        bold: true);
 
     // Row 2: LayoutChangedNotification
     final Rect layoutChanged = Rect.fromCenter(
@@ -594,20 +587,10 @@ class _HierarchyPainter extends CustomPainter {
       width: 240.0,
       height: 38.0,
     );
-    _drawBox(
-      canvas,
-      layoutChanged,
-      boxFill,
-      stroke,
-      'LayoutChangedNotification',
-      _kInk,
-    );
-    _drawArrow(
-      canvas,
-      Offset(notif.center.dx, notif.bottom),
-      Offset(layoutChanged.center.dx, layoutChanged.top),
-      stroke,
-    );
+    _drawBox(canvas, layoutChanged, boxFill, stroke,
+        'LayoutChangedNotification', _kInk);
+    _drawArrow(canvas, Offset(notif.center.dx, notif.bottom),
+        Offset(layoutChanged.center.dx, layoutChanged.top), stroke);
 
     // Row 3a: ScrollNotification (left branch)
     final Rect scrollNotif = Rect.fromCenter(
@@ -615,21 +598,13 @@ class _HierarchyPainter extends CustomPainter {
       width: 200.0,
       height: 38.0,
     );
-    _drawBox(
-      canvas,
-      scrollNotif,
-      accentFill,
-      stroke,
-      'ScrollNotification',
-      _kAccentDeep,
-      bold: true,
-    );
+    _drawBox(canvas, scrollNotif, accentFill, stroke, 'ScrollNotification',
+        _kAccentDeep, bold: true);
     _drawArrow(
-      canvas,
-      Offset(layoutChanged.left + 60.0, layoutChanged.bottom),
-      Offset(scrollNotif.center.dx, scrollNotif.top),
-      stroke,
-    );
+        canvas,
+        Offset(layoutChanged.left + 60.0, layoutChanged.bottom),
+        Offset(scrollNotif.center.dx, scrollNotif.top),
+        stroke);
 
     // Row 3b: ScrollMetricsNotification (right branch, sibling of
     // ScrollNotification but extends LayoutChangedNotification directly).
@@ -638,21 +613,13 @@ class _HierarchyPainter extends CustomPainter {
       width: 240.0,
       height: 38.0,
     );
-    _drawBox(
-      canvas,
-      metricsNotif,
-      subtypeFill,
-      stroke,
-      'ScrollMetricsNotification',
-      _kAccentAmber,
-      bold: true,
-    );
+    _drawBox(canvas, metricsNotif, subtypeFill, stroke,
+        'ScrollMetricsNotification', _kAccentAmber, bold: true);
     _drawArrow(
-      canvas,
-      Offset(layoutChanged.right - 60.0, layoutChanged.bottom),
-      Offset(metricsNotif.center.dx, metricsNotif.top),
-      stroke,
-    );
+        canvas,
+        Offset(layoutChanged.right - 60.0, layoutChanged.bottom),
+        Offset(metricsNotif.center.dx, metricsNotif.top),
+        stroke);
 
     // Subtype lane (5 boxes below ScrollNotification).
     const List<String> kSubtypes = <String>[
@@ -908,15 +875,13 @@ class _TimelinePainter extends CustomPainter {
     final Paint axis = Paint()
       ..color = _kInkTertiary
       ..strokeWidth = 1.4;
-    canvas.drawLine(
-      Offset(padLeft, axisY),
-      Offset(size.width - padRight, axisY),
-      axis,
-    );
+    canvas.drawLine(Offset(padLeft, axisY),
+        Offset(size.width - padRight, axisY), axis);
 
     // Tick marks every 10%.
     for (int i = 0; i <= 10; i++) {
-      final double x = padLeft + (size.width - padLeft - padRight) * (i / 10.0);
+      final double x = padLeft +
+          (size.width - padLeft - padRight) * (i / 10.0);
       canvas.drawLine(
         Offset(x, axisY - 4.0),
         Offset(x, axisY + 4.0),
@@ -937,9 +902,12 @@ class _TimelinePainter extends CustomPainter {
     }
 
     // Drag-region shaded band (the period during which finger is down).
-    final double dragStart = padLeft + (size.width - padLeft - padRight) * 0.08;
-    final double dragEnd = padLeft + (size.width - padLeft - padRight) * 0.84;
-    final Paint bandFill = Paint()..color = _kAccent.withOpacity(0.08);
+    final double dragStart = padLeft +
+        (size.width - padLeft - padRight) * 0.08;
+    final double dragEnd =
+        padLeft + (size.width - padLeft - padRight) * 0.84;
+    final Paint bandFill = Paint()
+      ..color = _kAccent.withOpacity(0.08);
     canvas.drawRect(
       Rect.fromLTRB(dragStart, laneTop - 6.0, dragEnd, axisY - 6.0),
       bandFill,
@@ -964,12 +932,14 @@ class _TimelinePainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    dragLabel.paint(canvas, Offset(dragStart + 6.0, laneTop - 6.0 + 4.0));
+    dragLabel.paint(canvas,
+        Offset(dragStart + 6.0, laneTop - 6.0 + 4.0));
 
     // Event markers.
     for (int i = 0; i < _kEvents.length; i++) {
       final _TimelineEvent ev = _kEvents[i];
-      final double x = padLeft + (size.width - padLeft - padRight) * ev.t;
+      final double x = padLeft +
+          (size.width - padLeft - padRight) * ev.t;
       // Vertical stem from axis to label-lane.
       canvas.drawLine(
         Offset(x, axisY),
@@ -998,10 +968,8 @@ class _TimelinePainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      sym.paint(
-        canvas,
-        Offset(x - sym.width / 2.0, axisY - 40.0 - sym.height / 2.0),
-      );
+      sym.paint(canvas,
+          Offset(x - sym.width / 2.0, axisY - 40.0 - sym.height / 2.0));
 
       // Slanted label above marker.
       final TextPainter label = TextPainter(
@@ -1017,7 +985,8 @@ class _TimelinePainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       )..layout();
       // Stagger vertically by index parity to avoid overlap.
-      final double labelY = axisY - 60.0 - (i.isEven ? 0.0 : 22.0);
+      final double labelY =
+          axisY - 60.0 - (i.isEven ? 0.0 : 22.0);
       label.paint(canvas, Offset(x - label.width / 2.0, labelY));
     }
   }
@@ -1098,8 +1067,7 @@ Widget _metricsAnatomyCard() {
               _MetricRow(
                 name: 'pixels',
                 type: 'double',
-                desc:
-                    'Current scroll offset; range [minScrollExtent, '
+                desc: 'Current scroll offset; range [minScrollExtent, '
                     'maxScrollExtent] when in-range.',
               ),
               _MetricRow(
@@ -1135,8 +1103,7 @@ Widget _metricsAnatomyCard() {
               _MetricRow(
                 name: 'outOfRange',
                 type: 'bool',
-                desc:
-                    'pixels < minScrollExtent || pixels > maxScrollExtent; '
+                desc: 'pixels < minScrollExtent || pixels > maxScrollExtent; '
                     'true during overscroll on bouncing physics.',
               ),
               _MetricRow(
@@ -1215,7 +1182,11 @@ class _MetricRow extends StatelessWidget {
           Expanded(
             child: Text(
               desc,
-              style: const TextStyle(fontSize: 12.5, height: 1.4, color: _kInk),
+              style: const TextStyle(
+                fontSize: 12.5,
+                height: 1.4,
+                color: _kInk,
+              ),
             ),
           ),
         ],
@@ -1238,7 +1209,8 @@ class _OverscrollPainter extends CustomPainter {
     final double viewportTop = 60.0;
     final double viewportBottom = size.height - 70.0;
 
-    final Paint viewportFill = Paint()..color = const Color(0xFFF8FAFC);
+    final Paint viewportFill = Paint()
+      ..color = const Color(0xFFF8FAFC);
     final Paint viewportStroke = Paint()
       ..color = _kInkSecondary
       ..style = PaintingStyle.stroke
@@ -1263,12 +1235,9 @@ class _OverscrollPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     )..layout();
     vpLabel.paint(
-      canvas,
-      Offset(
-        (viewportLeft + viewportRight) / 2.0 - vpLabel.width / 2.0,
-        (viewportTop + viewportBottom) / 2.0 - vpLabel.height / 2.0,
-      ),
-    );
+        canvas,
+        Offset((viewportLeft + viewportRight) / 2.0 - vpLabel.width / 2.0,
+            (viewportTop + viewportBottom) / 2.0 - vpLabel.height / 2.0));
 
     // Leading edge (top) - arrow pointing up out of viewport.
     final Paint leadingPaint = Paint()
@@ -1279,16 +1248,11 @@ class _OverscrollPainter extends CustomPainter {
       Offset(mid, viewportTop - 30.0),
       leadingPaint,
     );
-    _arrowHead(
-      canvas,
-      Offset(mid, viewportTop - 30.0),
-      _kEdgeLeading,
-      pointingUp: true,
-    );
+    _arrowHead(canvas, Offset(mid, viewportTop - 30.0),
+        _kEdgeLeading, pointingUp: true);
     final TextPainter leadLbl = TextPainter(
       text: const TextSpan(
-        text:
-            'leading edge\n'
+        text: 'leading edge\n'
             'pixels < minScrollExtent\n'
             'overscroll = pixels - minScrollExtent (negative)',
         style: TextStyle(
@@ -1300,7 +1264,9 @@ class _OverscrollPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: 220.0);
-    leadLbl.paint(canvas, Offset(mid + 20.0, viewportTop - 36.0));
+    leadLbl.paint(
+        canvas,
+        Offset(mid + 20.0, viewportTop - 36.0));
 
     // Trailing edge (bottom).
     final Paint trailingPaint = Paint()
@@ -1311,16 +1277,11 @@ class _OverscrollPainter extends CustomPainter {
       Offset(mid, viewportBottom + 30.0),
       trailingPaint,
     );
-    _arrowHead(
-      canvas,
-      Offset(mid, viewportBottom + 30.0),
-      _kEdgeTrailing,
-      pointingUp: false,
-    );
+    _arrowHead(canvas, Offset(mid, viewportBottom + 30.0),
+        _kEdgeTrailing, pointingUp: false);
     final TextPainter trailLbl = TextPainter(
       text: const TextSpan(
-        text:
-            'trailing edge\n'
+        text: 'trailing edge\n'
             'pixels > maxScrollExtent\n'
             'overscroll = pixels - maxScrollExtent (positive)',
         style: TextStyle(
@@ -1332,13 +1293,13 @@ class _OverscrollPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: 220.0);
-    trailLbl.paint(canvas, Offset(mid + 20.0, viewportBottom + 14.0));
+    trailLbl.paint(canvas,
+        Offset(mid + 20.0, viewportBottom + 14.0));
 
     // ScrollDirection wedge labels on left.
     final TextPainter dirLbl = TextPainter(
       text: const TextSpan(
-        text:
-            'ScrollDirection\n'
+        text: 'ScrollDirection\n'
             '  idle\n'
             '  forward\n'
             '  reverse',
@@ -1358,7 +1319,8 @@ class _OverscrollPainter extends CustomPainter {
       ..color = _kInkTertiary
       ..strokeWidth = 1.0;
     for (int i = 0; i <= 4; i++) {
-      final double y = viewportTop + (viewportBottom - viewportTop) * (i / 4.0);
+      final double y = viewportTop +
+          (viewportBottom - viewportTop) * (i / 4.0);
       canvas.drawLine(
         Offset(viewportLeft - 4.0, y),
         Offset(viewportLeft + 4.0, y),
@@ -1367,12 +1329,8 @@ class _OverscrollPainter extends CustomPainter {
     }
   }
 
-  void _arrowHead(
-    Canvas canvas,
-    Offset tip,
-    Color colour, {
-    required bool pointingUp,
-  }) {
+  void _arrowHead(Canvas canvas, Offset tip, Color colour,
+      {required bool pointingUp}) {
     final Path p = Path()..moveTo(tip.dx, tip.dy);
     if (pointingUp) {
       p
@@ -1416,27 +1374,21 @@ Widget _overscrollCard() {
         const SizedBox(height: 12.0),
         Row(
           children: <Widget>[
-            Expanded(
-              child: _physicsBadge(
-                title: 'ClampingScrollPhysics',
-                subtitle:
-                    'Android default. Overscroll absorbed as glow. '
-                    'metrics.pixels stays in range; OverscrollNotification still '
-                    'fires with the unconsumed delta.',
-                colour: _kAccentGreen,
-              ),
-            ),
+            Expanded(child: _physicsBadge(
+              title: 'ClampingScrollPhysics',
+              subtitle: 'Android default. Overscroll absorbed as glow. '
+                  'metrics.pixels stays in range; OverscrollNotification still '
+                  'fires with the unconsumed delta.',
+              colour: _kAccentGreen,
+            )),
             const SizedBox(width: 10.0),
-            Expanded(
-              child: _physicsBadge(
-                title: 'BouncingScrollPhysics',
-                subtitle:
-                    'iOS default. pixels leaves [min, max]; outOfRange '
-                    'becomes true; OverscrollNotification reports the moment '
-                    'of leaving range.',
-                colour: _kAccentBlue,
-              ),
-            ),
+            Expanded(child: _physicsBadge(
+              title: 'BouncingScrollPhysics',
+              subtitle: 'iOS default. pixels leaves [min, max]; outOfRange '
+                  'becomes true; OverscrollNotification reports the moment '
+                  'of leaving range.',
+              colour: _kAccentBlue,
+            )),
           ],
         ),
       ],
@@ -1606,8 +1558,7 @@ class _DispatchPainter extends CustomPainter {
     // Depth annotation on the right side.
     final TextPainter depthTp = TextPainter(
       text: const TextSpan(
-        text:
-            'bubbles up\n'
+        text: 'bubbles up\n'
             'depth++ at each\n'
             'enclosing Scrollable',
         style: TextStyle(
@@ -1860,10 +1811,10 @@ class _ComparisonRow extends StatelessWidget {
   }) : _isHeader = false;
 
   const _ComparisonRow.header()
-    : axis = 'Axis',
-      controller = 'ScrollController',
-      notification = 'ScrollNotification',
-      _isHeader = true;
+      : axis = 'Axis',
+        controller = 'ScrollController',
+        notification = 'ScrollNotification',
+        _isHeader = true;
 
   final String axis;
   final String controller;
@@ -1888,7 +1839,10 @@ class _ComparisonRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(width: 140.0, child: Text(axis, style: base)),
+          SizedBox(
+            width: 140.0,
+            child: Text(axis, style: base),
+          ),
           Expanded(
             child: Text(
               controller,
@@ -1925,64 +1879,56 @@ Widget _pitfallsCard() {
             _PitfallEntry(
               colour: _kAccentRose,
               title: 'Forgot the depth==0 guard',
-              body:
-                  'A NotificationListener high in the tree captures all '
+              body: 'A NotificationListener high in the tree captures all '
                   'nested Scrollables too. Inner ListView updates fire the '
                   'outer page-tracker. Fix: filter by n.depth == 0.',
             ),
             _PitfallEntry(
               colour: _kAccentAmber,
               title: 'PrimaryScrollController collision',
-              body:
-                  'A Scaffold body and a SliverList both adopt the ambient '
+              body: 'A Scaffold body and a SliverList both adopt the ambient '
                   'PrimaryScrollController, both dispatch notifications. The '
                   'outer listener sees interleaved frames from two emitters.',
             ),
             _PitfallEntry(
               colour: _kAccentBlue,
               title: 'Returning true accidentally',
-              body:
-                  'onNotification: (n) { someWork(); return true; } cancels '
+              body: 'onNotification: (n) { someWork(); return true; } cancels '
                   'bubbling. A higher listener (e.g. SliverAppBar\'s) goes '
                   'silent. Return false unless absorption is intentional.',
             ),
             _PitfallEntry(
               colour: _kAccentTeal,
               title: 'setState during ScrollUpdate',
-              body:
-                  'Calling setState in onScrollUpdate triggers a rebuild '
+              body: 'Calling setState in onScrollUpdate triggers a rebuild '
                   'every frame of the gesture. Route via ValueNotifier or '
                   'an AnimatedBuilder instead.',
             ),
             _PitfallEntry(
               colour: _kAccentViolet,
               title: 'Reading metrics later',
-              body:
-                  'metrics is captured at dispatch time. Storing the '
+              body: 'metrics is captured at dispatch time. Storing the '
                   'notification reference and reading n.metrics.pixels in a '
                   'microtask still gives the snapshot, not the live value.',
             ),
             _PitfallEntry(
               colour: _kAccentGreen,
               title: 'Mistaking OverscrollNotification for ScrollEnd',
-              body:
-                  'OverscrollNotification fires during a drag too; it is '
+              body: 'OverscrollNotification fires during a drag too; it is '
                   'not an end-of-gesture signal. Pair it with a ScrollEnd '
                   'listener if you care about gesture completion.',
             ),
             _PitfallEntry(
               colour: _kAccentDeep,
               title: 'Listening for type erased to ScrollNotification',
-              body:
-                  'NotificationListener<Notification> catches the type but '
+              body: 'NotificationListener<Notification> catches the type but '
                   'loses the static guarantees. Always pick the narrowest '
                   'type that satisfies the use-case.',
             ),
             _PitfallEntry(
               colour: _kInkSecondary,
               title: 'UserScrollNotification fires twice',
-              body:
-                  'Once at the very start of a drag (forward / reverse) '
+              body: 'Once at the very start of a drag (forward / reverse) '
                   'and once again at the end (idle). If you want only the '
                   'start, gate on direction != ScrollDirection.idle.',
             ),
@@ -2025,7 +1971,8 @@ class _PitfallEntry extends StatelessWidget {
               color: colour.withOpacity(0.2),
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Icon(Icons.warning_amber_rounded, color: colour, size: 16.0),
+            child: Icon(Icons.warning_amber_rounded,
+                color: colour, size: 16.0),
           ),
           const SizedBox(width: 10.0),
           Expanded(
@@ -2072,7 +2019,10 @@ Widget _cheatSheetFooter() {
         const SizedBox(height: 4.0),
         const Text(
           'Surface area of the ScrollNotification family at a glance.',
-          style: TextStyle(color: _kInkOnDarkSecondary, fontSize: 12.5),
+          style: TextStyle(
+            color: _kInkOnDarkSecondary,
+            fontSize: 12.5,
+          ),
         ),
         const SizedBox(height: 12.0),
         _cheatGroup('subtypes', const <String>[
@@ -2216,7 +2166,11 @@ Widget _scrollNotificationPoster() {
           ),
           _dispatchCard(),
           _sectionDivider(),
-          _sectionHeader(7, 'Code recipes', 'Six idioms, copy-paste ready.'),
+          _sectionHeader(
+            7,
+            'Code recipes',
+            'Six idioms, copy-paste ready.',
+          ),
           _codeSnippetsSection(),
           _sectionDivider(),
           _sectionHeader(

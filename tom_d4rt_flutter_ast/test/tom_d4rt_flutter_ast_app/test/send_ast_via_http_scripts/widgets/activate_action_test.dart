@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'What is ActivateAction?',
-      'body':
-          'ActivateAction is the built-in Action<ActivateIntent> '
+      'body': 'ActivateAction is the built-in Action<ActivateIntent> '
           'that Flutter registers globally. When a user presses '
           'Enter or Space on a focused widget (or triggers '
           'ActivateIntent programmatically), ActivateAction '
@@ -31,8 +30,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.keyboard,
       'title': 'Keyboard Accessibility',
-      'body':
-          'ActivateAction is a cornerstone of keyboard '
+      'body': 'ActivateAction is a cornerstone of keyboard '
           'accessibility in Flutter. Without it, users who '
           'navigate via Tab/Shift+Tab could focus buttons '
           'but never press them. ActivateAction bridges '
@@ -42,8 +40,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'Actions / Intents / Shortcuts',
-      'body':
-          'Flutter\'s action system has three layers:\n'
+      'body': 'Flutter\'s action system has three layers:\n'
           '• Shortcuts — map key combos to Intents\n'
           '• Intents — describe what should happen\n'
           '• Actions — implement the behavior\n'
@@ -55,8 +52,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Scope & Override',
-      'body':
-          'Like all Actions, ActivateAction can be overridden '
+      'body': 'Like all Actions, ActivateAction can be overridden '
           'at any point in the widget tree by wrapping a subtree '
           'in an Actions widget that maps ActivateIntent to your '
           'own custom Action. This lets you intercept activations '
@@ -74,16 +70,15 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
+        border: Border.all(
+          color: (card['accent'] as Color).withOpacity(0.3),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            card['icon'] as IconData,
-            color: card['accent'] as Color,
-            size: 32,
-          ),
+          Icon(card['icon'] as IconData,
+              color: card['accent'] as Color, size: 32),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -173,7 +168,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.indigo.withOpacity(0.05),
         borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: Colors.indigo, width: 4)),
+        border: Border(
+          left: BorderSide(color: Colors.indigo, width: 4),
+        ),
       ),
       child: Row(
         children: [
@@ -201,7 +198,10 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   item['detail']!,
-                  style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.grey[600],
+                  ),
                 ),
               ],
             ),
@@ -222,64 +222,56 @@ dynamic build(BuildContext context) {
     {
       'widget': 'ElevatedButton',
       'icon': Icons.smart_button,
-      'description':
-          'Pressing Enter/Space while focused triggers '
+      'description': 'Pressing Enter/Space while focused triggers '
           'onPressed callback via ActivateAction',
       'color': Colors.blue,
     },
     {
       'widget': 'TextButton',
       'icon': Icons.text_fields,
-      'description':
-          'Same activation path — ActivateIntent dispatched '
+      'description': 'Same activation path — ActivateIntent dispatched '
           'when button has keyboard focus',
       'color': Colors.green,
     },
     {
       'widget': 'IconButton',
       'icon': Icons.radio_button_checked,
-      'description':
-          'IconButton registers its own action handler that '
+      'description': 'IconButton registers its own action handler that '
           'responds to ActivateIntent',
       'color': Colors.orange,
     },
     {
       'widget': 'Checkbox',
       'icon': Icons.check_box,
-      'description':
-          'Toggle state is triggered by ActivateAction '
+      'description': 'Toggle state is triggered by ActivateAction '
           'when the checkbox has focus',
       'color': Colors.purple,
     },
     {
       'widget': 'Switch',
       'icon': Icons.toggle_on,
-      'description':
-          'Switch responds to ActivateIntent to toggle '
+      'description': 'Switch responds to ActivateIntent to toggle '
           'its on/off state via keyboard',
       'color': Colors.teal,
     },
     {
       'widget': 'Radio',
       'icon': Icons.radio_button_on,
-      'description':
-          'Radio selection changes on ActivateAction when '
+      'description': 'Radio selection changes on ActivateAction when '
           'the radio button has keyboard focus',
       'color': Colors.red,
     },
     {
       'widget': 'PopupMenuButton',
       'icon': Icons.more_vert,
-      'description':
-          'Opens the popup menu overlay when activated '
+      'description': 'Opens the popup menu overlay when activated '
           'via keyboard with ActivateIntent',
       'color': Colors.amber,
     },
     {
       'widget': 'InkWell / GestureDetector',
       'icon': Icons.touch_app,
-      'description':
-          'When wrapped in Focus, can respond to activation '
+      'description': 'When wrapped in Focus, can respond to activation '
           'via keyboard Enter/Space',
       'color': Colors.cyan,
     },
@@ -294,7 +286,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (path['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (path['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (path['color'] as Color).withOpacity(0.25),
+        ),
       ),
       child: Row(
         children: [
@@ -305,11 +299,8 @@ dynamic build(BuildContext context) {
               color: (path['color'] as Color).withOpacity(0.15),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              path['icon'] as IconData,
-              color: path['color'] as Color,
-              size: 22,
-            ),
+            child: Icon(path['icon'] as IconData,
+                color: path['color'] as Color, size: 22),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -402,9 +393,7 @@ dynamic build(BuildContext context) {
     ),
   ];
 
-  print(
-    '  Created ${liveButtons.where((w) => w is! SizedBox).length} live buttons for activation demo',
-  );
+  print('  Created ${liveButtons.where((w) => w is! SizedBox).length} live buttons for activation demo');
 
   // ============================================================
   // SECTION 5: Custom ActivateAction Override
@@ -433,8 +422,7 @@ dynamic build(BuildContext context) {
   final overrideUseCases = <Map<String, dynamic>>[
     {
       'title': 'Logging Activation',
-      'detail':
-          'Wrap your app in an Actions widget that maps '
+      'detail': 'Wrap your app in an Actions widget that maps '
           'ActivateIntent to a custom action which logs every '
           'activation event before delegating to the default behavior.',
       'icon': Icons.description,
@@ -442,8 +430,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Permission Gating',
-      'detail':
-          'Override ActivateAction to check whether the user has '
+      'detail': 'Override ActivateAction to check whether the user has '
           'permission to perform the activation. If not, show a '
           'snackbar or dialog instead of performing the action.',
       'icon': Icons.lock,
@@ -451,8 +438,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Analytics Tracking',
-      'detail':
-          'Every keyboard-driven activation passes through '
+      'detail': 'Every keyboard-driven activation passes through '
           'ActivateAction, so a global override is a single point '
           'to capture analytics for keyboard accessibility usage.',
       'icon': Icons.analytics,
@@ -460,8 +446,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Undo/Redo Integration',
-      'detail':
-          'Capture the activation event and push it onto an '
+      'detail': 'Capture the activation event and push it onto an '
           'undo stack before performing the action, enabling '
           'undo support for keyboard activations.',
       'icon': Icons.undo,
@@ -478,7 +463,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (uc['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (uc['color'] as Color).withOpacity(0.3)),
+        border: Border.all(
+          color: (uc['color'] as Color).withOpacity(0.3),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -539,10 +526,7 @@ dynamic build(BuildContext context) {
                   'Keyboard activation here logs to console instead of '
                   'default button activation.',
                   style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.amber[800],
-                    height: 1.3,
-                  ),
+                      fontSize: 12, color: Colors.amber[800], height: 1.3),
                 ),
               ),
             ],
@@ -580,8 +564,7 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'label': 'Shortcuts Widget',
-      'detail':
-          'WidgetsApp registers default shortcuts mapping '
+      'detail': 'WidgetsApp registers default shortcuts mapping '
           'Enter and Space to ActivateIntent',
       'icon': Icons.route,
       'color': Colors.indigo[700]!,
@@ -589,8 +572,7 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'label': 'ActivateIntent Created',
-      'detail':
-          'The Shortcuts widget creates an ActivateIntent '
+      'detail': 'The Shortcuts widget creates an ActivateIntent '
           'instance and dispatches it',
       'icon': Icons.send,
       'color': Colors.indigo[600]!,
@@ -598,8 +580,7 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'label': 'Actions Widget Lookup',
-      'detail':
-          'Flutter walks up the widget tree looking for an '
+      'detail': 'Flutter walks up the widget tree looking for an '
           'Actions widget with a handler for ActivateIntent',
       'icon': Icons.search,
       'color': Colors.indigo[500]!,
@@ -607,8 +588,7 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'label': 'ActivateAction Found',
-      'detail':
-          'The nearest Actions widget that maps ActivateIntent '
+      'detail': 'The nearest Actions widget that maps ActivateIntent '
           'provides the ActivateAction (or a custom override)',
       'icon': Icons.check_circle_outline,
       'color': Colors.indigo[400]!,
@@ -616,8 +596,7 @@ dynamic build(BuildContext context) {
     {
       'step': '6',
       'label': 'invoke() Called',
-      'detail':
-          'ActivateAction.invoke(intent) is called, which '
+      'detail': 'ActivateAction.invoke(intent) is called, which '
           'activates the focused widget (same as tapping it)',
       'icon': Icons.play_circle_fill,
       'color': Colors.green[600]!,
@@ -658,7 +637,10 @@ dynamic build(BuildContext context) {
                 color: (step['color'] as Color).withOpacity(0.08),
                 borderRadius: BorderRadius.circular(8),
                 border: Border(
-                  left: BorderSide(color: step['color'] as Color, width: 3),
+                  left: BorderSide(
+                    color: step['color'] as Color,
+                    width: 3,
+                  ),
                 ),
               ),
               child: Column(
@@ -666,11 +648,8 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        step['icon'] as IconData,
-                        size: 16,
-                        color: step['color'] as Color,
-                      ),
+                      Icon(step['icon'] as IconData,
+                          size: 16, color: step['color'] as Color),
                       const SizedBox(width: 6),
                       Text(
                         step['label'] as String,
@@ -753,42 +732,32 @@ dynamic build(BuildContext context) {
       children: [
         SizedBox(
           width: 100,
-          child: Text(
-            'Aspect',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
+          child: Text('Aspect',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
         ),
         Expanded(
-          child: Text(
-            'ActivateAction',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
+          child: Text('ActivateAction',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
         ),
         Expanded(
-          child: Text(
-            'ButtonActivate',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
+          child: Text('ButtonActivate',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
         ),
       ],
     ),
   );
 
-  final comparisonRowWidgets = comparisonRows.asMap().entries.map<Widget>((
-    entry,
-  ) {
+  final comparisonRowWidgets =
+      comparisonRows.asMap().entries.map<Widget>((entry) {
     final idx = entry.key;
     final row = entry.value;
     return Container(
@@ -805,16 +774,17 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 100,
-            child: Text(
-              row['aspect']!,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-            ),
+            child: Text(row['aspect']!,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600, fontSize: 12)),
           ),
           Expanded(
-            child: Text(row['activate']!, style: const TextStyle(fontSize: 12)),
+            child: Text(row['activate']!,
+                style: const TextStyle(fontSize: 12)),
           ),
           Expanded(
-            child: Text(row['button']!, style: const TextStyle(fontSize: 12)),
+            child: Text(row['button']!,
+                style: const TextStyle(fontSize: 12)),
           ),
         ],
       ),
@@ -960,10 +930,7 @@ dynamic build(BuildContext context) {
               child: Text(
                 item['note'] as String,
                 style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey[700],
-                  height: 1.3,
-                ),
+                    fontSize: 11, color: Colors.grey[700], height: 1.3),
               ),
             ),
           ),
@@ -985,8 +952,7 @@ dynamic build(BuildContext context) {
   final disabledScenarios = <Map<String, dynamic>>[
     {
       'title': 'Null onPressed',
-      'description':
-          'When a button\'s onPressed is null, the button '
+      'description': 'When a button\'s onPressed is null, the button '
           'is disabled. ActivateAction will not invoke because '
           'the underlying widget reports isEnabled = false.',
       'color': Colors.grey,
@@ -998,8 +964,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom isEnabled Override',
-      'description':
-          'You can subclass Action<ActivateIntent> and override '
+      'description': 'You can subclass Action<ActivateIntent> and override '
           'isEnabled(covariant ActivateIntent intent) to '
           'conditionally gate activation based on app state.',
       'color': Colors.orange,
@@ -1022,8 +987,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Actions.maybeFind Check',
-      'description':
-          'Use Actions.maybeFind<ActivateIntent>(context) '
+      'description': 'Use Actions.maybeFind<ActivateIntent>(context) '
           'to discover if an ActivateAction is available in the '
           'current scope. Returns null if no handler is registered.',
       'color': Colors.blue,
@@ -1064,11 +1028,8 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Icon(
-                scenario['icon'] as IconData,
-                color: scenario['color'] as Color,
-                size: 22,
-              ),
+              Icon(scenario['icon'] as IconData,
+                  color: scenario['color'] as Color, size: 22),
               const SizedBox(width: 8),
               Text(
                 scenario['title'] as String,
@@ -1098,36 +1059,12 @@ dynamic build(BuildContext context) {
   print('=== Section 10: Summary Dashboard ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {
-      'label': 'Activation paths documented',
-      'value': '${defaultActivationPaths.length}',
-      'icon': Icons.route,
-    },
-    {
-      'label': 'Shortcut chain steps',
-      'value': '${chainSteps.length}',
-      'icon': Icons.link,
-    },
-    {
-      'label': 'Override use cases',
-      'value': '${overrideUseCases.length}',
-      'icon': Icons.settings,
-    },
-    {
-      'label': 'Showcase widgets',
-      'value': '${activationShowcase.length}',
-      'icon': Icons.widgets,
-    },
-    {
-      'label': 'Disabled scenarios',
-      'value': '${disabledScenarios.length}',
-      'icon': Icons.block,
-    },
-    {
-      'label': 'Comparison aspects',
-      'value': '${comparisonRows.length}',
-      'icon': Icons.compare,
-    },
+    {'label': 'Activation paths documented', 'value': '${defaultActivationPaths.length}', 'icon': Icons.route},
+    {'label': 'Shortcut chain steps', 'value': '${chainSteps.length}', 'icon': Icons.link},
+    {'label': 'Override use cases', 'value': '${overrideUseCases.length}', 'icon': Icons.settings},
+    {'label': 'Showcase widgets', 'value': '${activationShowcase.length}', 'icon': Icons.widgets},
+    {'label': 'Disabled scenarios', 'value': '${disabledScenarios.length}', 'icon': Icons.block},
+    {'label': 'Comparison aspects', 'value': '${comparisonRows.length}', 'icon': Icons.compare},
   ];
 
   print('  Summary: ${summaryItems.length} metrics');
@@ -1183,7 +1120,9 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.only(top: 28, bottom: 14),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [Colors.indigo, Colors.indigo[300]!]),
+        gradient: LinearGradient(
+          colors: [Colors.indigo, Colors.indigo[300]!],
+        ),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -1386,12 +1325,16 @@ dynamic build(BuildContext context) {
             ),
             clipBehavior: Clip.antiAlias,
             child: Column(
-              children: [comparisonHeader, ...comparisonRowWidgets],
+              children: [
+                comparisonHeader,
+                ...comparisonRowWidgets,
+              ],
             ),
           ),
 
           // Section 8: Multi-Widget Showcase
-          sectionHeader('8', 'Widget Activation Showcase', Icons.grid_view),
+          sectionHeader(
+              '8', 'Widget Activation Showcase', Icons.grid_view),
           ...showcaseWidgets,
 
           // Section 9: Disabled States

@@ -140,19 +140,11 @@ dynamic build(BuildContext context) {
   final defaultPainter = CupertinoThumbPainter();
   final defaultSwitch = CupertinoThumbPainter.switchThumb();
   final bluePainter = CupertinoThumbPainter(color: CupertinoColors.activeBlue);
-  final indigoPainter = CupertinoThumbPainter(
-    color: CupertinoColors.systemIndigo,
-  );
+  final indigoPainter = CupertinoThumbPainter(color: CupertinoColors.systemIndigo);
   final pinkPainter = CupertinoThumbPainter(color: CupertinoColors.systemPink);
-  final greenPainter = CupertinoThumbPainter(
-    color: CupertinoColors.systemGreen,
-  );
-  final greySwitch = CupertinoThumbPainter.switchThumb(
-    color: CupertinoColors.systemGrey,
-  );
-  final tealSwitch = CupertinoThumbPainter.switchThumb(
-    color: CupertinoColors.systemTeal,
-  );
+  final greenPainter = CupertinoThumbPainter(color: CupertinoColors.systemGreen);
+  final greySwitch = CupertinoThumbPainter.switchThumb(color: CupertinoColors.systemGrey);
+  final tealSwitch = CupertinoThumbPainter.switchThumb(color: CupertinoColors.systemTeal);
   final noShadowPainter = CupertinoThumbPainter(
     color: CupertinoColors.white,
     shadows: <BoxShadow>[],
@@ -160,41 +152,21 @@ dynamic build(BuildContext context) {
   final heavyShadowPainter = CupertinoThumbPainter(
     color: CupertinoColors.white,
     shadows: <BoxShadow>[
-      BoxShadow(
-        color: Color(0x66000000),
-        offset: Offset(0, 6),
-        blurRadius: 12.0,
-      ),
-      BoxShadow(
-        color: Color(0x33000000),
-        offset: Offset(0, 12),
-        blurRadius: 22.0,
-      ),
+      BoxShadow(color: Color(0x66000000), offset: Offset(0, 6), blurRadius: 12.0),
+      BoxShadow(color: Color(0x33000000), offset: Offset(0, 12), blurRadius: 22.0),
     ],
   );
   final twoShadowPainter = CupertinoThumbPainter(
     color: CupertinoColors.white,
     shadows: <BoxShadow>[
-      BoxShadow(
-        color: Color(0x33000000),
-        offset: Offset(0, 4),
-        blurRadius: 6.0,
-      ),
-      BoxShadow(
-        color: Color(0x1A000000),
-        offset: Offset(0, 2),
-        blurRadius: 2.0,
-      ),
+      BoxShadow(color: Color(0x33000000), offset: Offset(0, 4), blurRadius: 6.0),
+      BoxShadow(color: Color(0x1A000000), offset: Offset(0, 2), blurRadius: 2.0),
     ],
   );
   final singleShadowPainter = CupertinoThumbPainter(
     color: CupertinoColors.white,
     shadows: <BoxShadow>[
-      BoxShadow(
-        color: Color(0x40000000),
-        offset: Offset(0, 3),
-        blurRadius: 5.0,
-      ),
+      BoxShadow(color: Color(0x40000000), offset: Offset(0, 3), blurRadius: 5.0),
     ],
   );
 
@@ -295,7 +267,10 @@ Widget _buildIntroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFFEFF6FF), Color(0xFFFDF4FF)],
+        colors: <Color>[
+          Color(0xFFEFF6FF),
+          Color(0xFFFDF4FF),
+        ],
       ),
       borderRadius: BorderRadius.circular(_kCardRadius + 4.0),
       border: Border.all(color: const Color(0xFFE0E7FF), width: 1.0),
@@ -315,13 +290,21 @@ Widget _buildIntroBanner() {
         SizedBox(height: _kGapXs),
         Text(
           'The iOS-style thumb primitive that powers CupertinoSlider and CupertinoSwitch.',
-          style: TextStyle(fontSize: 14.0, color: _kInkSecondary, height: 1.4),
+          style: TextStyle(
+            fontSize: 14.0,
+            color: _kInkSecondary,
+            height: 1.4,
+          ),
         ),
         SizedBox(height: _kGapMd),
         Text(
           'This walkthrough renders the painter directly via CustomPaint and through '
           'its host widgets, with annotated diagrams, color matrices, and shadow ablations.',
-          style: TextStyle(fontSize: 13.0, color: _kInkTertiary, height: 1.45),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: _kInkTertiary,
+            height: 1.45,
+          ),
         ),
       ],
     ),
@@ -354,7 +337,11 @@ Widget _buildOutroBanner() {
           'class is `const`-friendly, ships with two factories, and has only two '
           'configurable parameters (color, shadows). Compose it inside CustomPaint '
           'when you want pixel-exact iOS thumbs in custom widgets.',
-          style: TextStyle(fontSize: 13.0, color: _kInkSecondary, height: 1.5),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: _kInkSecondary,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -394,22 +381,10 @@ Widget _buildAnatomySection() {
           ),
         ),
         const SizedBox(height: _kGapMd),
-        _buildLegendRow(
-          'Shadows',
-          'List<BoxShadow> drawn below the thumb shape.',
-        ),
-        _buildLegendRow(
-          'Border',
-          'Color(0x0A000000) — barely visible on white backgrounds.',
-        ),
-        _buildLegendRow(
-          'Fill',
-          'The `color` parameter; default = CupertinoColors.white.',
-        ),
-        _buildLegendRow(
-          'Radius',
-          'rect.shortestSide / 2 — always a true circle when rect is square.',
-        ),
+        _buildLegendRow('Shadows', 'List<BoxShadow> drawn below the thumb shape.'),
+        _buildLegendRow('Border', 'Color(0x0A000000) — barely visible on white backgrounds.'),
+        _buildLegendRow('Fill', 'The `color` parameter; default = CupertinoColors.white.'),
+        _buildLegendRow('Radius', 'rect.shortestSide / 2 — always a true circle when rect is square.'),
       ],
     ),
   );
@@ -725,12 +700,16 @@ Widget _buildPainterCatalogSection() {
     _PainterSample(
       label: 'Slider default shadows',
       caption: '3 BoxShadows — slider preset',
-      painter: const CupertinoThumbPainter(shadows: _kReferenceSliderShadows),
+      painter: const CupertinoThumbPainter(
+        shadows: _kReferenceSliderShadows,
+      ),
     ),
     _PainterSample(
       label: 'Switch default shadows',
       caption: '2 BoxShadows — switch preset',
-      painter: const CupertinoThumbPainter(shadows: _kReferenceSwitchShadows),
+      painter: const CupertinoThumbPainter(
+        shadows: _kReferenceSwitchShadows,
+      ),
     ),
   ];
 
@@ -745,7 +724,9 @@ Widget _buildPainterCatalogSection() {
         'Twelve distinct CupertinoThumbPainter configurations rendered via CustomPaint. '
         'Each tile shows the native 28 px thumb on the left and a 2× enlargement on '
         'the right so subtle shadow stacking differences are visible.',
-    body: Column(children: tiles),
+    body: Column(
+      children: tiles,
+    ),
   );
 }
 
@@ -934,7 +915,10 @@ Widget _buildKeyValueRow(String key, String value, String trailing) {
         Expanded(
           child: Text(
             trailing,
-            style: const TextStyle(fontSize: 13.0, color: _kInkSecondary),
+            style: const TextStyle(
+              fontSize: 13.0,
+              color: _kInkSecondary,
+            ),
           ),
         ),
       ],
@@ -958,10 +942,7 @@ class _SizingReferencePainter extends CustomPainter {
 
     // 1× native circle
     {
-      final Rect rect = Rect.fromCircle(
-        center: Offset(centers[0], midY),
-        radius: r,
-      );
+      final Rect rect = Rect.fromCircle(center: Offset(centers[0], midY), radius: r);
       painter.paint(canvas, rect);
       _ruler(canvas, rect.left, rect.right, midY + r + 18.0, '28 px');
       _label(canvas, '1× resting', centers[0] - 28.0, midY - r - 26.0);
@@ -993,13 +974,7 @@ class _SizingReferencePainter extends CustomPainter {
     }
   }
 
-  void _ruler(
-    Canvas canvas,
-    double left,
-    double right,
-    double y,
-    String label,
-  ) {
+  void _ruler(Canvas canvas, double left, double right, double y, String label) {
     final Paint p = Paint()
       ..color = const Color(0xFF6B7280)
       ..strokeWidth = 1.0;
@@ -1140,7 +1115,9 @@ Widget _buildSliderRow(_SliderSnapshot s) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: _kGapSm),
     decoration: const BoxDecoration(
-      border: Border(bottom: BorderSide(color: _kPaperDeep, width: 0.5)),
+      border: Border(
+        bottom: BorderSide(color: _kPaperDeep, width: 0.5),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1204,11 +1181,7 @@ Widget _buildSwitchGallerySection() {
       value: false,
       trackColor: CupertinoColors.systemGrey4,
     ),
-    _SwitchSnapshot(
-      label: 'OFF — disabled (onChanged null)',
-      value: false,
-      disabled: true,
-    ),
+    _SwitchSnapshot(label: 'OFF — disabled (onChanged null)', value: false, disabled: true),
   ];
 
   final List<Widget> rows = <Widget>[];
@@ -1248,7 +1221,9 @@ Widget _buildSwitchRow(_SwitchSnapshot s) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: _kGapSm, horizontal: _kGapXs),
     decoration: const BoxDecoration(
-      border: Border(bottom: BorderSide(color: _kPaperDeep, width: 0.5)),
+      border: Border(
+        bottom: BorderSide(color: _kPaperDeep, width: 0.5),
+      ),
     ),
     child: Row(
       children: <Widget>[
@@ -1300,8 +1275,7 @@ Widget _buildShadowAblationSection() {
           blurRadius: 5.0,
         ),
       ],
-      summary:
-          'A single soft drop. Cheap and effective for hover/menu surfaces.',
+      summary: 'A single soft drop. Cheap and effective for hover/menu surfaces.',
     ),
     const _AblationColumn(
       title: '2 shadows (switch preset)',
@@ -1343,9 +1317,7 @@ class _AblationColumn {
 }
 
 Widget _buildAblationColumn(_AblationColumn col) {
-  final CupertinoThumbPainter painter = CupertinoThumbPainter(
-    shadows: col.shadows,
-  );
+  final CupertinoThumbPainter painter = CupertinoThumbPainter(shadows: col.shadows);
   final List<Color> backgrounds = const <Color>[
     Color(0xFFFFFFFF),
     Color(0xFFEDEDF0),
@@ -1368,7 +1340,9 @@ Widget _buildAblationColumn(_AblationColumn col) {
         child: Stack(
           children: <Widget>[
             Positioned.fill(
-              child: CustomPaint(painter: _SinglePainterAdapter(painter, 1.0)),
+              child: CustomPaint(
+                painter: _SinglePainterAdapter(painter, 1.0),
+              ),
             ),
             Positioned(
               left: 4.0,
@@ -1377,7 +1351,9 @@ Widget _buildAblationColumn(_AblationColumn col) {
                 bgLabels[i],
                 style: TextStyle(
                   fontSize: 9.0,
-                  color: i == 2 ? CupertinoColors.systemGrey3 : _kInkTertiary,
+                  color: i == 2
+                      ? CupertinoColors.systemGrey3
+                      : _kInkTertiary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -1440,12 +1416,8 @@ Widget _buildColorThemeMatrixSection() {
     final Color accent = _kAccentPalette[i];
     final String name = _kAccentNames[i];
     final CupertinoThumbPainter defaultP = CupertinoThumbPainter(color: accent);
-    final CupertinoThumbPainter switchP = CupertinoThumbPainter.switchThumb(
-      color: accent,
-    );
-    defaultRow.add(
-      _buildMatrixCell(defaultP, accent, 'CupertinoThumbPainter', name),
-    );
+    final CupertinoThumbPainter switchP = CupertinoThumbPainter.switchThumb(color: accent);
+    defaultRow.add(_buildMatrixCell(defaultP, accent, 'CupertinoThumbPainter', name));
     switchRow.add(_buildMatrixCell(switchP, accent, 'switchThumb', name));
   }
 
@@ -1517,7 +1489,9 @@ Widget _buildMatrixCell(
         SizedBox(
           width: 56.0,
           height: 56.0,
-          child: CustomPaint(painter: _SinglePainterAdapter(painter, 1.0)),
+          child: CustomPaint(
+            painter: _SinglePainterAdapter(painter, 1.0),
+          ),
         ),
         const SizedBox(height: _kGapXs),
         Text(
@@ -1532,7 +1506,10 @@ Widget _buildMatrixCell(
         ),
         Text(
           kind,
-          style: const TextStyle(fontSize: 9.0, color: _kInkSecondary),
+          style: const TextStyle(
+            fontSize: 9.0,
+            color: _kInkSecondary,
+          ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -1565,20 +1542,20 @@ Widget _buildFamilyContextSection() {
       children: <Widget>[
         _buildFamilyRow(
           name: 'CupertinoSlider',
-          caption:
-              'Track + thumb. Thumb uses CupertinoThumbPainter (slider preset).',
-          child: CupertinoSlider(value: 0.42, onChanged: (v) {}),
+          caption: 'Track + thumb. Thumb uses CupertinoThumbPainter (slider preset).',
+          child: CupertinoSlider(
+            value: 0.42,
+            onChanged: (v) {},
+          ),
         ),
         _buildFamilyRow(
           name: 'CupertinoSwitch',
-          caption:
-              'Track + thumb. Thumb uses CupertinoThumbPainter.switchThumb().',
+          caption: 'Track + thumb. Thumb uses CupertinoThumbPainter.switchThumb().',
           child: CupertinoSwitch(value: true, onChanged: (_) {}),
         ),
         _buildFamilyRow(
           name: 'CupertinoButton.filled',
-          caption:
-              'Solid pill button. No thumb, but shares the same border-radius family.',
+          caption: 'Solid pill button. No thumb, but shares the same border-radius family.',
           child: CupertinoButton.filled(
             onPressed: () {},
             child: const Text('Confirm'),
@@ -1596,9 +1573,11 @@ Widget _buildFamilyContextSection() {
         ),
         _buildFamilyRow(
           name: 'CupertinoButton (plain)',
-          caption:
-              'Text-only Cupertino button. Often paired with a switch row.',
-          child: CupertinoButton(onPressed: () {}, child: const Text('Cancel')),
+          caption: 'Text-only Cupertino button. Often paired with a switch row.',
+          child: CupertinoButton(
+            onPressed: () {},
+            child: const Text('Cancel'),
+          ),
         ),
       ],
     ),
@@ -1641,9 +1620,7 @@ Widget _buildFamilyRow({
           ),
         ),
         const SizedBox(width: _kGapMd),
-        Expanded(
-          child: Align(alignment: Alignment.centerLeft, child: child),
-        ),
+        Expanded(child: Align(alignment: Alignment.centerLeft, child: child)),
       ],
     ),
   );
@@ -1685,7 +1662,10 @@ Widget _buildMockSettingsSection() {
               activeColor: CupertinoColors.activeBlue,
             ),
             _buildSettingsDivider(),
-            _buildSettingsSwitchRow(label: 'Change with buttons', value: true),
+            _buildSettingsSwitchRow(
+              label: 'Change with buttons',
+              value: true,
+            ),
           ],
         ),
         const SizedBox(height: _kGapMd),
@@ -1694,15 +1674,9 @@ Widget _buildMockSettingsSection() {
           children: <Widget>[
             _buildSettingsSwitchRow(label: 'System haptics', value: true),
             _buildSettingsDivider(),
-            _buildSettingsSwitchRow(
-              label: 'Play haptics in ring mode',
-              value: true,
-            ),
+            _buildSettingsSwitchRow(label: 'Play haptics in ring mode', value: true),
             _buildSettingsDivider(),
-            _buildSettingsSwitchRow(
-              label: 'Play haptics in silent mode',
-              value: false,
-            ),
+            _buildSettingsSwitchRow(label: 'Play haptics in silent mode', value: false),
           ],
         ),
         const SizedBox(height: _kGapMd),
@@ -1730,15 +1704,15 @@ Widget _buildMockSettingsSection() {
                 SizedBox(width: _kGapSm),
                 Text(
                   'Syncing preferences…',
-                  style: TextStyle(fontSize: 12.0, color: _kInkSecondary),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: _kInkSecondary,
+                  ),
                 ),
               ],
             ),
             CupertinoButton.filled(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-                vertical: 10.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
               onPressed: () {},
               child: const Text('Apply'),
             ),
@@ -1783,7 +1757,10 @@ Widget _buildSettingsGroup({
 Widget _buildSettingsDivider() {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0),
-    child: Container(height: 0.5, color: _kPaperDeep),
+    child: Container(
+      height: 0.5,
+      color: _kPaperDeep,
+    ),
   );
 }
 
@@ -1816,7 +1793,10 @@ Widget _buildSettingsSliderRow({
   );
 }
 
-Widget _buildSettingsSwitchRow({required String label, required bool value}) {
+Widget _buildSettingsSwitchRow({
+  required String label,
+  required bool value,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
     child: Row(
@@ -1824,10 +1804,16 @@ Widget _buildSettingsSwitchRow({required String label, required bool value}) {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(fontSize: 14.0, color: _kInkPrimary),
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: _kInkPrimary,
+            ),
           ),
         ),
-        CupertinoSwitch(value: value, onChanged: (_) {}),
+        CupertinoSwitch(
+          value: value,
+          onChanged: (_) {},
+        ),
       ],
     ),
   );

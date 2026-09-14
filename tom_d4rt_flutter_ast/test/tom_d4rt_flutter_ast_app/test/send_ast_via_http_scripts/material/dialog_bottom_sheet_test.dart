@@ -43,7 +43,11 @@ const TextStyle _h3 = TextStyle(
   fontWeight: FontWeight.w700,
   color: _plum,
 );
-const TextStyle _body = TextStyle(fontSize: 14, color: _charcoal, height: 1.45);
+const TextStyle _body = TextStyle(
+  fontSize: 14,
+  color: _charcoal,
+  height: 1.45,
+);
 const TextStyle _caption = TextStyle(
   fontSize: 12,
   color: _slate,
@@ -302,7 +306,11 @@ Widget _section1HeroHeader() {
             'A modal interrupts. A bottom sheet invites. A dialog confirms. '
             'They share scrim, focus trap, and route, but speak different '
             'tones to the user.',
-            style: TextStyle(fontSize: 13.5, color: _cream, height: 1.5),
+            style: TextStyle(
+              fontSize: 13.5,
+              color: _cream,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -358,58 +366,50 @@ Widget _section2Concept() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _conceptCard(
-                icon: Icons.lock_outline,
-                title: 'Modal',
-                body:
-                    'Blocks all interaction underneath. Has a scrim. Must be '
-                    'dismissed (tap outside, system back, action button) before '
-                    'work resumes.',
-                tint: _plum,
-              ),
-            ),
+            Expanded(child: _conceptCard(
+              icon: Icons.lock_outline,
+              title: 'Modal',
+              body:
+                  'Blocks all interaction underneath. Has a scrim. Must be '
+                  'dismissed (tap outside, system back, action button) before '
+                  'work resumes.',
+              tint: _plum,
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _conceptCard(
-                icon: Icons.lock_open_outlined,
-                title: 'Non-modal',
-                body:
-                    'User can still interact with content underneath. '
-                    'Persistent bottom sheets are the canonical example. No '
-                    'scrim, no focus trap.',
-                tint: _slate,
-              ),
-            ),
+            Expanded(child: _conceptCard(
+              icon: Icons.lock_open_outlined,
+              title: 'Non-modal',
+              body:
+                  'User can still interact with content underneath. '
+                  'Persistent bottom sheets are the canonical example. No '
+                  'scrim, no focus trap.',
+              tint: _slate,
+            )),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _conceptCard(
-                icon: Icons.gradient,
-                title: 'Scrim',
-                body:
-                    'Translucent veil between modal and page. Communicates '
-                    '"the rest is inert" and absorbs taps that should dismiss '
-                    'the modal.',
-                tint: _info,
-              ),
-            ),
+            Expanded(child: _conceptCard(
+              icon: Icons.gradient,
+              title: 'Scrim',
+              body:
+                  'Translucent veil between modal and page. Communicates '
+                  '"the rest is inert" and absorbs taps that should dismiss '
+                  'the modal.',
+              tint: _info,
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _conceptCard(
-                icon: Icons.route,
-                title: 'Route',
-                body:
-                    'showDialog and showModalBottomSheet push a fullscreen '
-                    'PopupRoute. The modal lives inside the navigator stack; '
-                    'system back pops it.',
-                tint: _warning,
-              ),
-            ),
+            Expanded(child: _conceptCard(
+              icon: Icons.route,
+              title: 'Route',
+              body:
+                  'showDialog and showModalBottomSheet push a fullscreen '
+                  'PopupRoute. The modal lives inside the navigator stack; '
+                  'system back pops it.',
+              tint: _warning,
+            )),
           ],
         ),
         const SizedBox(height: 20),
@@ -477,7 +477,10 @@ Widget _section3AlertDialogAnatomy() {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _stage(height: 360, child: _anatomyAlertMock()),
+        _stage(
+          height: 360,
+          child: _anatomyAlertMock(),
+        ),
         const SizedBox(height: 18),
         Wrap(
           spacing: 8,
@@ -534,7 +537,10 @@ Widget _anatomyAlertMock() {
           ),
           actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: <Widget>[
-            TextButton(onPressed: () {}, child: const Text('Cancel')),
+            TextButton(
+              onPressed: () {},
+              child: const Text('Cancel'),
+            ),
             FilledButton(
               onPressed: () {},
               style: FilledButton.styleFrom(backgroundColor: _plum),
@@ -559,7 +565,10 @@ Widget _section4BottomSheetAnatomy() {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _stage(height: 380, child: _anatomyBottomSheetMock()),
+        _stage(
+          height: 380,
+          child: _anatomyBottomSheetMock(),
+        ),
         const SizedBox(height: 18),
         Wrap(
           spacing: 8,
@@ -574,20 +583,12 @@ Widget _section4BottomSheetAnatomy() {
           ],
         ),
         const SizedBox(height: 18),
-        _bullet(
-          'A · drag handle: 32x4 dp pill, 8dp top margin, theme outline.',
-        ),
+        _bullet('A · drag handle: 32x4 dp pill, 8dp top margin, theme outline.'),
         _bullet('B · content: any widget. Often ListView/Column of ListTiles.'),
         _bullet('C · sheet edge: 16dp top radius, 0dp bottom radius.'),
-        _bullet(
-          'D · scrim: same as Dialog. Tap-outside dismisses (modal only).',
-        ),
-        _bullet(
-          'E · top radius: customizable via shape: RoundedRectangleBorder.',
-        ),
-        _bullet(
-          'F · safe area: SafeArea(top: false) keeps content above gestures.',
-        ),
+        _bullet('D · scrim: same as Dialog. Tap-outside dismisses (modal only).'),
+        _bullet('E · top radius: customizable via shape: RoundedRectangleBorder.'),
+        _bullet('F · safe area: SafeArea(top: false) keeps content above gestures.'),
       ],
     ),
   );
@@ -709,7 +710,11 @@ Widget _galleryDialog(Widget dialog, String tag) {
       children: <Widget>[
         Container(color: Color.fromRGBO(0, 0, 0, 0.45)),
         Center(child: dialog),
-        Positioned(left: 8, top: 8, child: _label(tag, _plum)),
+        Positioned(
+          left: 8,
+          top: 8,
+          child: _label(tag, _plum),
+        ),
       ],
     ),
   );
@@ -909,10 +914,22 @@ Widget _simpleLanguage() {
         backgroundColor: Colors.white,
         title: const Text('Language'),
         children: <Widget>[
-          SimpleDialogOption(onPressed: () {}, child: const Text('English')),
-          SimpleDialogOption(onPressed: () {}, child: const Text('Français')),
-          SimpleDialogOption(onPressed: () {}, child: const Text('Deutsch')),
-          SimpleDialogOption(onPressed: () {}, child: const Text('Español')),
+          SimpleDialogOption(
+            onPressed: () {},
+            child: const Text('English'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {},
+            child: const Text('Français'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {},
+            child: const Text('Deutsch'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {},
+            child: const Text('Español'),
+          ),
         ],
       ),
     ),
@@ -930,47 +947,35 @@ Widget _simpleAccount() {
         children: <Widget>[
           SimpleDialogOption(
             onPressed: () {},
-            child: Row(
-              children: const <Widget>[
-                CircleAvatar(
-                  radius: 12,
-                  backgroundColor: _plum,
-                  child: Text(
-                    'A',
-                    style: TextStyle(color: _cream, fontSize: 11),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Text('alice@example'),
-              ],
-            ),
+            child: Row(children: const <Widget>[
+              CircleAvatar(
+                radius: 12,
+                backgroundColor: _plum,
+                child: Text('A', style: TextStyle(color: _cream, fontSize: 11)),
+              ),
+              SizedBox(width: 10),
+              Text('alice@example'),
+            ]),
           ),
           SimpleDialogOption(
             onPressed: () {},
-            child: Row(
-              children: const <Widget>[
-                CircleAvatar(
-                  radius: 12,
-                  backgroundColor: _info,
-                  child: Text(
-                    'B',
-                    style: TextStyle(color: _cream, fontSize: 11),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Text('bob@example'),
-              ],
-            ),
+            child: Row(children: const <Widget>[
+              CircleAvatar(
+                radius: 12,
+                backgroundColor: _info,
+                child: Text('B', style: TextStyle(color: _cream, fontSize: 11)),
+              ),
+              SizedBox(width: 10),
+              Text('bob@example'),
+            ]),
           ),
           SimpleDialogOption(
             onPressed: () {},
-            child: Row(
-              children: const <Widget>[
-                Icon(Icons.add, color: _slate, size: 22),
-                SizedBox(width: 10),
-                Text('Add account…'),
-              ],
-            ),
+            child: Row(children: const <Widget>[
+              Icon(Icons.add, color: _slate, size: 22),
+              SizedBox(width: 10),
+              Text('Add account…'),
+            ]),
           ),
         ],
       ),
@@ -989,33 +994,27 @@ Widget _simpleTheme() {
         children: <Widget>[
           SimpleDialogOption(
             onPressed: () {},
-            child: Row(
-              children: const <Widget>[
-                Icon(Icons.brightness_5, color: _warning),
-                SizedBox(width: 10),
-                Text('Light'),
-              ],
-            ),
+            child: Row(children: const <Widget>[
+              Icon(Icons.brightness_5, color: _warning),
+              SizedBox(width: 10),
+              Text('Light'),
+            ]),
           ),
           SimpleDialogOption(
             onPressed: () {},
-            child: Row(
-              children: const <Widget>[
-                Icon(Icons.brightness_2, color: _info),
-                SizedBox(width: 10),
-                Text('Dark'),
-              ],
-            ),
+            child: Row(children: const <Widget>[
+              Icon(Icons.brightness_2, color: _info),
+              SizedBox(width: 10),
+              Text('Dark'),
+            ]),
           ),
           SimpleDialogOption(
             onPressed: () {},
-            child: Row(
-              children: const <Widget>[
-                Icon(Icons.brightness_auto, color: _slate),
-                SizedBox(width: 10),
-                Text('System'),
-              ],
-            ),
+            child: Row(children: const <Widget>[
+              Icon(Icons.brightness_auto, color: _slate),
+              SizedBox(width: 10),
+              Text('System'),
+            ]),
           ),
         ],
       ),
@@ -1032,14 +1031,8 @@ Widget _simpleSort() {
         backgroundColor: Colors.white,
         title: const Text('Sort by'),
         children: <Widget>[
-          SimpleDialogOption(
-            onPressed: () {},
-            child: const Text('Name (A → Z)'),
-          ),
-          SimpleDialogOption(
-            onPressed: () {},
-            child: const Text('Date (newest)'),
-          ),
+          SimpleDialogOption(onPressed: () {}, child: const Text('Name (A → Z)')),
+          SimpleDialogOption(onPressed: () {}, child: const Text('Date (newest)')),
           SimpleDialogOption(onPressed: () {}, child: const Text('Size')),
           SimpleDialogOption(onPressed: () {}, child: const Text('Type')),
         ],
@@ -1064,47 +1057,41 @@ Widget _section7DialogVsAlertVsSimple() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _compareCard(
-                title: 'Dialog',
-                icon: Icons.crop_square,
-                tint: _slate,
-                points: const <String>[
-                  'Base class — arbitrary child',
-                  'You own the layout',
-                  'No assumptions about content',
-                  'Use when nothing else fits',
-                ],
-              ),
-            ),
+            Expanded(child: _compareCard(
+              title: 'Dialog',
+              icon: Icons.crop_square,
+              tint: _slate,
+              points: const <String>[
+                'Base class — arbitrary child',
+                'You own the layout',
+                'No assumptions about content',
+                'Use when nothing else fits',
+              ],
+            )),
             const SizedBox(width: 10),
-            Expanded(
-              child: _compareCard(
-                title: 'AlertDialog',
-                icon: Icons.warning_amber_rounded,
-                tint: _danger,
-                points: const <String>[
-                  'Title + content + actions',
-                  'Right-aligned buttons',
-                  'Optional icon header',
-                  'Use for confirmations',
-                ],
-              ),
-            ),
+            Expanded(child: _compareCard(
+              title: 'AlertDialog',
+              icon: Icons.warning_amber_rounded,
+              tint: _danger,
+              points: const <String>[
+                'Title + content + actions',
+                'Right-aligned buttons',
+                'Optional icon header',
+                'Use for confirmations',
+              ],
+            )),
             const SizedBox(width: 10),
-            Expanded(
-              child: _compareCard(
-                title: 'SimpleDialog',
-                icon: Icons.list_alt,
-                tint: _info,
-                points: const <String>[
-                  'Title + list of options',
-                  'Each tap = confirm',
-                  'No primary button',
-                  'Use for choose-one lists',
-                ],
-              ),
-            ),
+            Expanded(child: _compareCard(
+              title: 'SimpleDialog',
+              icon: Icons.list_alt,
+              tint: _info,
+              points: const <String>[
+                'Title + list of options',
+                'Each tap = confirm',
+                'No primary button',
+                'Use for choose-one lists',
+              ],
+            )),
           ],
         ),
         const SizedBox(height: 18),
@@ -1183,27 +1170,23 @@ Widget _section8BottomSheetModes() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _modeCard(
-                title: 'Modal',
-                caption:
-                    'Pushed via showModalBottomSheet — fullscreen route, '
-                    'scrim, focus trap, tap-outside dismisses.',
-                tint: _plum,
-                stage: _modalSheetMock(),
-              ),
-            ),
+            Expanded(child: _modeCard(
+              title: 'Modal',
+              caption:
+                  'Pushed via showModalBottomSheet — fullscreen route, '
+                  'scrim, focus trap, tap-outside dismisses.',
+              tint: _plum,
+              stage: _modalSheetMock(),
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _modeCard(
-                title: 'Persistent',
-                caption:
-                    'Hosted by Scaffold.bottomSheet — no scrim, page stays '
-                    'interactive. Lives between content and FAB.',
-                tint: _info,
-                stage: _persistentSheetMock(),
-              ),
-            ),
+            Expanded(child: _modeCard(
+              title: 'Persistent',
+              caption:
+                  'Hosted by Scaffold.bottomSheet — no scrim, page stays '
+                  'interactive. Lives between content and FAB.',
+              tint: _info,
+              stage: _persistentSheetMock(),
+            )),
           ],
         ),
         const SizedBox(height: 14),
@@ -1369,42 +1352,34 @@ Widget _section9BottomSheetSizing() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _sizingCard(
-                title: 'fitContent',
-                caption: 'Height = intrinsic content height.',
-                stage: _sizingStage(height: 110),
-              ),
-            ),
+            Expanded(child: _sizingCard(
+              title: 'fitContent',
+              caption: 'Height = intrinsic content height.',
+              stage: _sizingStage(height: 110),
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _sizingCard(
-                title: 'expanded',
-                caption: 'Fills available space (up to ~50%).',
-                stage: _sizingStage(height: 180),
-              ),
-            ),
+            Expanded(child: _sizingCard(
+              title: 'expanded',
+              caption: 'Fills available space (up to ~50%).',
+              stage: _sizingStage(height: 180),
+            )),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _sizingCard(
-                title: 'isScrollControlled: false',
-                caption: 'Maximum height capped at ~50% of screen.',
-                stage: _sizingStage(height: 130),
-              ),
-            ),
+            Expanded(child: _sizingCard(
+              title: 'isScrollControlled: false',
+              caption: 'Maximum height capped at ~50% of screen.',
+              stage: _sizingStage(height: 130),
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _sizingCard(
-                title: 'isScrollControlled: true',
-                caption: 'Can grow up to full screen height.',
-                stage: _sizingStage(height: 220),
-              ),
-            ),
+            Expanded(child: _sizingCard(
+              title: 'isScrollControlled: true',
+              caption: 'Can grow up to full screen height.',
+              stage: _sizingStage(height: 220),
+            )),
           ],
         ),
         const SizedBox(height: 16),
@@ -1513,21 +1488,17 @@ Widget _section10DragHandle() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _dragHandleCard(
-                title: 'showDragHandle: true',
-                tint: _success,
-                stage: _dragHandleStage(showHandle: true),
-              ),
-            ),
+            Expanded(child: _dragHandleCard(
+              title: 'showDragHandle: true',
+              tint: _success,
+              stage: _dragHandleStage(showHandle: true),
+            )),
             const SizedBox(width: 12),
-            Expanded(
-              child: _dragHandleCard(
-                title: 'showDragHandle: false',
-                tint: _danger,
-                stage: _dragHandleStage(showHandle: false),
-              ),
-            ),
+            Expanded(child: _dragHandleCard(
+              title: 'showDragHandle: false',
+              tint: _danger,
+              stage: _dragHandleStage(showHandle: false),
+            )),
           ],
         ),
         const SizedBox(height: 14),
@@ -1613,7 +1584,10 @@ Widget _dragHandleStage({required bool showHandle}) {
                 if (showHandle) const SizedBox(height: 10),
                 const Text('Title', style: _h3),
                 const SizedBox(height: 6),
-                const Text('Drag this surface to dismiss.', style: _body),
+                const Text(
+                  'Drag this surface to dismiss.',
+                  style: _body,
+                ),
               ],
             ),
           ),
@@ -1639,45 +1613,37 @@ Widget _section11ModalBottomSheetShape() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _shapeCard(
-                title: 'Rounded',
-                code: 'Radius.circular(16)',
-                radius: const BorderRadius.vertical(top: Radius.circular(16)),
-              ),
-            ),
+            Expanded(child: _shapeCard(
+              title: 'Rounded',
+              code: 'Radius.circular(16)',
+              radius: const BorderRadius.vertical(top: Radius.circular(16)),
+            )),
             const SizedBox(width: 10),
-            Expanded(
-              child: _shapeCard(
-                title: 'Pill-top',
-                code: 'Radius.circular(28)',
-                radius: const BorderRadius.vertical(top: Radius.circular(28)),
-              ),
-            ),
+            Expanded(child: _shapeCard(
+              title: 'Pill-top',
+              code: 'Radius.circular(28)',
+              radius: const BorderRadius.vertical(top: Radius.circular(28)),
+            )),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _shapeCard(
-                title: 'Square',
-                code: 'Radius.zero',
-                radius: BorderRadius.zero,
-              ),
-            ),
+            Expanded(child: _shapeCard(
+              title: 'Square',
+              code: 'Radius.zero',
+              radius: BorderRadius.zero,
+            )),
             const SizedBox(width: 10),
-            Expanded(
-              child: _shapeCard(
-                title: 'Asymmetric',
-                code: 'L: 24, R: 4',
-                radius: const BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(4),
-                ),
+            Expanded(child: _shapeCard(
+              title: 'Asymmetric',
+              code: 'L: 24, R: 4',
+              radius: const BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(4),
               ),
-            ),
+            )),
           ],
         ),
       ],
@@ -1923,7 +1889,10 @@ Widget _shareTarget(IconData icon, String label) {
       Container(
         width: 48,
         height: 48,
-        decoration: BoxDecoration(color: _creamDeep, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: _creamDeep,
+          shape: BoxShape.circle,
+        ),
         child: Icon(icon, color: _plum, size: 22),
       ),
       const SizedBox(height: 6),
@@ -2004,13 +1973,7 @@ Widget _section13ComparisonTable() {
         children: <Widget>[
           _tableHeaderRow(),
           _tableRow('Dialog', 'Center', 'Yes', 'No', 'Tap-out / button'),
-          _tableRow(
-            'BottomSheet',
-            'Bottom',
-            'Modal yes',
-            'Yes',
-            'Drag / scrim',
-          ),
+          _tableRow('BottomSheet', 'Bottom', 'Modal yes', 'Yes', 'Drag / scrim'),
           _tableRow('SnackBar', 'Bottom', 'No', 'No', 'Auto / swipe'),
           _tableRow('PopupMenu', 'Anchored', 'No', 'No', 'Tap-out'),
           _tableRow('Drawer', 'Side', 'Yes', 'Yes', 'Tap-out / drag'),
@@ -2097,7 +2060,10 @@ Widget _section14Glossary() {
       ),
       child: Column(
         children: <Widget>[
-          _glossaryRow('Scrim', 'Translucent veil between modal and page.'),
+          _glossaryRow(
+            'Scrim',
+            'Translucent veil between modal and page.',
+          ),
           _glossaryRow(
             'Modal',
             'Blocks interaction underneath. Must be dismissed first.',
@@ -2142,7 +2108,10 @@ Widget _section14Glossary() {
             'SimpleDialog',
             'Title + list of SimpleDialogOption items.',
           ),
-          _glossaryRow('Dialog', 'Bare base — host any child you want.'),
+          _glossaryRow(
+            'Dialog',
+            'Bare base — host any child you want.',
+          ),
           _glossaryRow(
             'surfaceTintColor',
             'M3 elevation tint applied on top of backgroundColor.',
@@ -2216,7 +2185,11 @@ Widget _section15Epilogue() {
           'tiny interruptions that change the meaning of the surrounding '
           'sentence. Use them sparingly, dress them consistently, and let '
           'their tone match the gravity of the question.',
-          style: TextStyle(color: _cream, fontSize: 14, height: 1.55),
+          style: TextStyle(
+            color: _cream,
+            fontSize: 14,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 18),
         Container(

@@ -6,7 +6,10 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return MaterialApp(debugShowCheckedModeBanner: false, home: const _Page());
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: const _Page(),
+  );
 }
 
 class _Page extends StatefulWidget {
@@ -71,8 +74,10 @@ class _Lane extends StatelessWidget {
           child: ListView.builder(
             controller: controller,
             itemCount: 50,
-            itemBuilder: (BuildContext c, int i) =>
-                SizedBox(height: 40, child: Center(child: Text('$i'))),
+            itemBuilder: (BuildContext c, int i) => SizedBox(
+              height: 40,
+              child: Center(child: Text('$i')),
+            ),
           ),
         ),
       ],

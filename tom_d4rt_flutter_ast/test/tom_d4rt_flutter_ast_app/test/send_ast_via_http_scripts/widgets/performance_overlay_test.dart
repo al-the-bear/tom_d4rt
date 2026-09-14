@@ -63,7 +63,10 @@ class _PerformanceOverlayDemo extends StatelessWidget {
         appBar: AppBar(
           title: const Text('PerformanceOverlay Deep Demo'),
           centerTitle: true,
-          bottom: const TabBar(isScrollable: true, tabs: _tabs),
+          bottom: const TabBar(
+            isScrollable: true,
+            tabs: _tabs,
+          ),
         ),
         body: const TabBarView(
           children: <Widget>[
@@ -124,9 +127,7 @@ class _HeroBannerTab extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 'Real-time frame-timing graphs painted directly on top of your running Flutter app.',
-                style: tt.bodyLarge?.copyWith(
-                  color: cs.onPrimary.withAlpha(220),
-                ),
+                style: tt.bodyLarge?.copyWith(color: cs.onPrimary.withAlpha(220)),
               ),
             ],
           ),
@@ -163,28 +164,23 @@ class _HeroBannerTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _BulletItem(
-                text:
-                    'Every visible stutter erodes user trust and perceived quality.',
+                text: 'Every visible stutter erodes user trust and perceived quality.',
                 icon: Icons.sentiment_dissatisfied_outlined,
               ),
               _BulletItem(
-                text:
-                    'Two threads drive rendering: UI thread (Dart) and Raster thread (GPU/Skia).',
+                text: 'Two threads drive rendering: UI thread (Dart) and Raster thread (GPU/Skia).',
                 icon: Icons.device_hub,
               ),
               _BulletItem(
-                text:
-                    'PerformanceOverlay exposes both thread timelines simultaneously.',
+                text: 'PerformanceOverlay exposes both thread timelines simultaneously.',
                 icon: Icons.bar_chart,
               ),
               _BulletItem(
-                text:
-                    'Spike detection is instant — no DevTools connection needed.',
+                text: 'Spike detection is instant — no DevTools connection needed.',
                 icon: Icons.bolt_outlined,
               ),
               _BulletItem(
-                text:
-                    'Must be used in profile or release builds for accurate numbers.',
+                text: 'Must be used in profile or release builds for accurate numbers.',
                 icon: Icons.build_outlined,
               ),
             ],
@@ -198,8 +194,7 @@ class _HeroBannerTab extends StatelessWidget {
           color: cs.tertiaryContainer,
           iconColor: cs.tertiary,
           child: _MonoBox(
-            text:
-                'PerformanceOverlay({\n'
+            text: 'PerformanceOverlay({\n'
                 '  Key? key,\n'
                 '  int optionsMask = 0,\n'
                 '})',
@@ -222,8 +217,7 @@ class _HeroBannerTab extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               _MonoBox(
-                text:
-                    'Stack(\n'
+                text: 'Stack(\n'
                     '  children: [\n'
                     '    MyApp(),\n'
                     '    PerformanceOverlay(optionsMask: ...) // on top\n'
@@ -262,16 +256,10 @@ class _BudgetRow extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             label,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontFamily: 'monospace',
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w600, fontFamily: 'monospace'),
           ),
           const SizedBox(width: 8),
-          Text(
-            '$ms ms per frame',
-            style: TextStyle(color: color, fontWeight: FontWeight.w700),
-          ),
+          Text('$ms ms per frame', style: TextStyle(color: color, fontWeight: FontWeight.w700)),
         ],
       ),
     );
@@ -316,11 +304,7 @@ class _RealApiTab extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        Icons.play_arrow_outlined,
-                        size: 40,
-                        color: cs.primary,
-                      ),
+                      Icon(Icons.play_arrow_outlined, size: 40, color: cs.primary),
                       const SizedBox(height: 8),
                       Text(
                         'App content layer',
@@ -328,9 +312,7 @@ class _RealApiTab extends StatelessWidget {
                       ),
                       Text(
                         'PerformanceOverlay renders above this',
-                        style: tt.bodySmall?.copyWith(
-                          color: cs.onSurfaceVariant,
-                        ),
+                        style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
                       ),
                     ],
                   ),
@@ -424,10 +406,7 @@ class _RealApiTab extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: <Widget>[
-                      const Text(
-                        'optionsMask = ',
-                        style: TextStyle(fontFamily: 'monospace'),
-                      ),
+                      const Text('optionsMask = ', style: TextStyle(fontFamily: 'monospace')),
                       Text(
                         '$mask  (0x${mask.toRadixString(16).toUpperCase().padLeft(2, "0")})',
                         style: TextStyle(
@@ -486,14 +465,9 @@ class _ConstantRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
-                  ),
-                ),
+                Text(name,
+                    style: const TextStyle(
+                        fontFamily: 'monospace', fontWeight: FontWeight.w600, fontSize: 12)),
                 Text(description, style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
@@ -521,10 +495,7 @@ class _MaskToggle extends StatelessWidget {
     final bool active = (mask & bit) != 0;
     return SwitchListTile(
       dense: true,
-      title: Text(
-        label,
-        style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-      ),
+      title: Text(label, style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
       subtitle: Text('bit value: $bit'),
       value: active,
       onChanged: (bool v) => onChanged(v ? mask | bit : mask & ~bit),
@@ -560,36 +531,10 @@ class _FrameGraphTab extends StatelessWidget {
           color: cs.tertiary,
           budgetColor: cs.error,
           frameTimes: const <double>[
-            4.2,
-            5.1,
-            6.3,
-            14.8,
-            18.2,
-            5.6,
-            7.1,
-            4.9,
-            6.2,
-            22.4,
-            5.3,
-            4.8,
-            6.9,
-            7.2,
-            5.1,
-            4.5,
-            13.1,
-            6.4,
-            5.8,
-            5.0,
-            4.7,
-            6.1,
-            7.3,
-            19.5,
-            5.2,
-            4.9,
-            6.0,
-            5.7,
-            4.3,
-            5.5,
+            4.2, 5.1, 6.3, 14.8, 18.2, 5.6, 7.1, 4.9,
+            6.2, 22.4, 5.3, 4.8, 6.9, 7.2, 5.1, 4.5,
+            13.1, 6.4, 5.8, 5.0, 4.7, 6.1, 7.3, 19.5,
+            5.2, 4.9, 6.0, 5.7, 4.3, 5.5,
           ],
         ),
         const SizedBox(height: 16),
@@ -599,36 +544,10 @@ class _FrameGraphTab extends StatelessWidget {
           color: cs.secondary,
           budgetColor: cs.error,
           frameTimes: const <double>[
-            3.1,
-            3.8,
-            4.2,
-            3.9,
-            4.5,
-            12.3,
-            3.7,
-            4.0,
-            3.5,
-            4.1,
-            20.1,
-            3.9,
-            3.6,
-            4.3,
-            4.0,
-            3.8,
-            4.2,
-            3.5,
-            3.9,
-            4.6,
-            3.7,
-            4.0,
-            3.8,
-            11.2,
-            3.6,
-            4.1,
-            3.9,
-            4.4,
-            3.8,
-            4.0,
+            3.1, 3.8, 4.2, 3.9, 4.5, 12.3, 3.7, 4.0,
+            3.5, 4.1, 20.1, 3.9, 3.6, 4.3, 4.0, 3.8,
+            4.2, 3.5, 3.9, 4.6, 3.7, 4.0, 3.8, 11.2,
+            3.6, 4.1, 3.9, 4.4, 3.8, 4.0,
           ],
         ),
         const SizedBox(height: 20),
@@ -642,14 +561,8 @@ class _FrameGraphTab extends StatelessWidget {
             children: <Widget>[
               _LegendRow(color: cs.tertiary, label: 'GPU/Raster thread bar'),
               _LegendRow(color: cs.secondary, label: 'UI thread bar'),
-              _LegendRow(
-                color: cs.error,
-                label: '16.6 ms budget line (60 fps)',
-              ),
-              _LegendRow(
-                color: cs.error.withAlpha(80),
-                label: 'Bars above budget line = jank!',
-              ),
+              _LegendRow(color: cs.error, label: '16.6 ms budget line (60 fps)'),
+              _LegendRow(color: cs.error.withAlpha(80), label: 'Bars above budget line = jank!'),
             ],
           ),
         ),
@@ -675,13 +588,11 @@ class _FrameGraphTab extends StatelessWidget {
                 icon: Icons.warning_amber_outlined,
               ),
               _BulletItem(
-                text:
-                    'Both threads must finish within 16.6 ms for a smooth frame.',
+                text: 'Both threads must finish within 16.6 ms for a smooth frame.',
                 icon: Icons.timer_outlined,
               ),
               _BulletItem(
-                text:
-                    'Occasional spikes are normal; sustained spikes need investigation.',
+                text: 'Occasional spikes are normal; sustained spikes need investigation.',
                 icon: Icons.trending_up,
               ),
             ],
@@ -717,13 +628,11 @@ class _GraphCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: color,
-            ),
-          ),
+          Text(title,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(fontWeight: FontWeight.w700, color: color)),
           const SizedBox(height: 8),
           SizedBox(
             height: 100,
@@ -774,9 +683,7 @@ class _FrameBarPainter extends CustomPainter {
       final double y = size.height - barHeight;
       final bool overBudget = frameTimes[i] > budgetMs;
       final Paint barPaint = Paint()
-        ..color = overBudget
-            ? budgetColor.withAlpha(200)
-            : barColor.withAlpha(200)
+        ..color = overBudget ? budgetColor.withAlpha(200) : barColor.withAlpha(200)
         ..style = PaintingStyle.fill;
       canvas.drawRRect(
         RRect.fromRectAndRadius(
@@ -827,18 +734,9 @@ class _LegendRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         children: <Widget>[
-          Container(
-            width: 16,
-            height: 16,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(3),
-            ),
-          ),
+          Container(width: 16, height: 16, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3))),
           const SizedBox(width: 10),
-          Expanded(
-            child: Text(label, style: Theme.of(context).textTheme.bodySmall),
-          ),
+          Expanded(child: Text(label, style: Theme.of(context).textTheme.bodySmall)),
         ],
       ),
     );
@@ -871,8 +769,7 @@ class _FlagsTab extends StatelessWidget {
           constant: 'kDisplayRasterizerStatistics',
           value: _kDisplayRasterizerStatistics,
           hex: '0x01',
-          enables:
-              'Numeric text display for the GPU/Raster thread. Shows the 90th and 99th percentile frame times in milliseconds.',
+          enables: 'Numeric text display for the GPU/Raster thread. Shows the 90th and 99th percentile frame times in milliseconds.',
           color: cs.primaryContainer,
           iconColor: cs.primary,
         ),
@@ -881,8 +778,7 @@ class _FlagsTab extends StatelessWidget {
           constant: 'kVisualizeRasterizerStatistics',
           value: _kVisualizeRasterizerStatistics,
           hex: '0x02',
-          enables:
-              'Bar graph visualization for the GPU/Raster thread. Each bar represents one frame rendered to the GPU.',
+          enables: 'Bar graph visualization for the GPU/Raster thread. Each bar represents one frame rendered to the GPU.',
           color: cs.secondaryContainer,
           iconColor: cs.secondary,
         ),
@@ -891,8 +787,7 @@ class _FlagsTab extends StatelessWidget {
           constant: 'kDisplayEngineStatistics',
           value: _kDisplayEngineStatistics,
           hex: '0x04',
-          enables:
-              'Numeric text display for the UI/Engine thread. Shows how long Dart code and layout took for each frame.',
+          enables: 'Numeric text display for the UI/Engine thread. Shows how long Dart code and layout took for each frame.',
           color: cs.tertiaryContainer,
           iconColor: cs.tertiary,
         ),
@@ -901,8 +796,7 @@ class _FlagsTab extends StatelessWidget {
           constant: 'kVisualizeEngineStatistics',
           value: _kVisualizeEngineStatistics,
           hex: '0x08',
-          enables:
-              'Bar graph visualization for the UI/Engine thread. Mirrors the raster graph but for Dart/layout work.',
+          enables: 'Bar graph visualization for the UI/Engine thread. Mirrors the raster graph but for Dart/layout work.',
           color: cs.errorContainer,
           iconColor: cs.error,
         ),
@@ -947,10 +841,7 @@ class _FlagsTab extends StatelessWidget {
                     style: tt.bodySmall,
                   ),
                   const SizedBox(height: 8),
-                  _MonoBox(
-                    text:
-                        'optionsMask:\n  $expr\n= $mask (0x${mask.toRadixString(16).toUpperCase().padLeft(2, "0")})',
-                  ),
+                  _MonoBox(text: 'optionsMask:\n  $expr\n= $mask (0x${mask.toRadixString(16).toUpperCase().padLeft(2, "0")})'),
                 ],
               );
             },
@@ -966,30 +857,23 @@ class _FlagsTab extends StatelessWidget {
             children: <Widget>[
               _PresetRow(
                 label: 'Everything (text + graphs)',
-                mask:
-                    _kDisplayRasterizerStatistics |
+                mask: _kDisplayRasterizerStatistics |
                     _kVisualizeRasterizerStatistics |
                     _kDisplayEngineStatistics |
                     _kVisualizeEngineStatistics,
               ),
               _PresetRow(
                 label: 'Text stats only',
-                mask: _kDisplayRasterizerStatistics | _kDisplayEngineStatistics,
+                mask: _kDisplayRasterizerStatistics |
+                    _kDisplayEngineStatistics,
               ),
               _PresetRow(
                 label: 'Graphs only',
-                mask:
-                    _kVisualizeRasterizerStatistics |
+                mask: _kVisualizeRasterizerStatistics |
                     _kVisualizeEngineStatistics,
               ),
-              _PresetRow(
-                label: 'GPU raster only',
-                mask: _kDisplayRasterizerStatistics,
-              ),
-              _PresetRow(
-                label: 'UI thread only',
-                mask: _kDisplayEngineStatistics,
-              ),
+              _PresetRow(label: 'GPU raster only', mask: _kDisplayRasterizerStatistics),
+              _PresetRow(label: 'UI thread only', mask: _kDisplayEngineStatistics),
               const _PresetRow(label: 'Off / no overlay', mask: 0),
             ],
           ),
@@ -1036,10 +920,7 @@ class _FlagCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: iconColor,
                   borderRadius: BorderRadius.circular(8),
@@ -1097,9 +978,7 @@ class _PresetRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Expanded(
-            child: Text(label, style: Theme.of(context).textTheme.bodySmall),
-          ),
+          Expanded(child: Text(label, style: Theme.of(context).textTheme.bodySmall)),
         ],
       ),
     );
@@ -1119,10 +998,7 @@ class _ShowOverlayTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        _HeaderChip(
-          label: 'MaterialApp.showPerformanceOverlay',
-          icon: Icons.toggle_on_outlined,
-        ),
+        _HeaderChip(label: 'MaterialApp.showPerformanceOverlay', icon: Icons.toggle_on_outlined),
         const SizedBox(height: 12),
         Text(
           'The easiest way to enable PerformanceOverlay globally is via the MaterialApp '
@@ -1137,8 +1013,7 @@ class _ShowOverlayTab extends StatelessWidget {
           color: cs.primaryContainer,
           iconColor: cs.primary,
           child: _MonoBox(
-            text:
-                'MaterialApp(\n'
+            text: 'MaterialApp(\n'
                 '  title: \'My App\',\n'
                 '  showPerformanceOverlay: true, // <-- enable\n'
                 '  theme: ThemeData(useMaterial3: true),\n'
@@ -1162,8 +1037,7 @@ class _ShowOverlayTab extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               _MonoBox(
-                text:
-                    '// top-level\n'
+                text: '// top-level\n'
                     'final ValueNotifier<bool> showOverlay =\n'
                     '    ValueNotifier(false);\n\n'
                     '// in your build\n'
@@ -1192,11 +1066,7 @@ class _ShowOverlayTab extends StatelessWidget {
                 children: <Widget>[
                   SwitchListTile(
                     title: const Text('showPerformanceOverlay'),
-                    subtitle: Text(
-                      show
-                          ? 'enabled — overlay active'
-                          : 'disabled — overlay hidden',
-                    ),
+                    subtitle: Text(show ? 'enabled — overlay active' : 'disabled — overlay hidden'),
                     value: show,
                     onChanged: (bool v) => _showOverlay.value = v,
                   ),
@@ -1256,34 +1126,26 @@ class _ShowOverlayTab extends StatelessWidget {
                   _TableCell(text: 'Manual Stack', header: true),
                 ],
               ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'Scope'),
-                  _TableCell(text: 'Entire app'),
-                  _TableCell(text: 'Specific subtree'),
-                ],
-              ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'optionsMask'),
-                  _TableCell(text: 'All flags enabled'),
-                  _TableCell(text: 'Fully customizable'),
-                ],
-              ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'Use case'),
-                  _TableCell(text: 'Quick global check'),
-                  _TableCell(text: 'Targeted debugging'),
-                ],
-              ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'Lines of code'),
-                  _TableCell(text: '1 param'),
-                  _TableCell(text: '~5 lines'),
-                ],
-              ),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'Scope'),
+                _TableCell(text: 'Entire app'),
+                _TableCell(text: 'Specific subtree'),
+              ]),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'optionsMask'),
+                _TableCell(text: 'All flags enabled'),
+                _TableCell(text: 'Fully customizable'),
+              ]),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'Use case'),
+                _TableCell(text: 'Quick global check'),
+                _TableCell(text: 'Targeted debugging'),
+              ]),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'Lines of code'),
+                _TableCell(text: '1 param'),
+                _TableCell(text: '~5 lines'),
+              ]),
             ],
           ),
         ),
@@ -1304,8 +1166,8 @@ class _TableCell extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-          fontWeight: header ? FontWeight.w700 : FontWeight.normal,
-        ),
+              fontWeight: header ? FontWeight.w700 : FontWeight.normal,
+            ),
       ),
     );
   }
@@ -1355,8 +1217,8 @@ class _BudgetDiagramTab extends StatelessWidget {
                           color: ms > 33.3
                               ? cs.error
                               : ms > 16.6
-                              ? cs.secondary
-                              : cs.tertiary,
+                                  ? cs.secondary
+                                  : cs.tertiary,
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -1364,11 +1226,9 @@ class _BudgetDiagramTab extends StatelessWidget {
                         ms > 33.3
                             ? '(sub 30fps — very janky!)'
                             : ms > 16.6
-                            ? '(30–60fps — somewhat janky)'
-                            : '(60fps — smooth!)',
-                        style: tt.bodySmall?.copyWith(
-                          fontStyle: FontStyle.italic,
-                        ),
+                                ? '(30–60fps — somewhat janky)'
+                                : '(60fps — smooth!)',
+                        style: tt.bodySmall?.copyWith(fontStyle: FontStyle.italic),
                       ),
                     ],
                   ),
@@ -1425,8 +1285,7 @@ class _BudgetDiagramTab extends StatelessWidget {
                 icon: Icons.phone_android,
               ),
               _BulletItem(
-                text:
-                    'High-end phones (ProMotion, LTPO): up to 120 Hz → 8.3 ms budget.',
+                text: 'High-end phones (ProMotion, LTPO): up to 120 Hz → 8.3 ms budget.',
                 icon: Icons.phone_iphone,
               ),
               _BulletItem(
@@ -1448,42 +1307,12 @@ class _BudgetDiagramTab extends StatelessWidget {
           iconColor: cs.tertiary,
           child: Column(
             children: <Widget>[
-              _PipelineStep(
-                step: '1',
-                label: 'Vsync signal',
-                ms: '~0 ms',
-                color: cs.primary,
-              ),
-              _PipelineStep(
-                step: '2',
-                label: 'Build (Dart widgets)',
-                ms: '~2–4 ms',
-                color: cs.secondary,
-              ),
-              _PipelineStep(
-                step: '3',
-                label: 'Layout (constraints)',
-                ms: '~1–3 ms',
-                color: cs.tertiary,
-              ),
-              _PipelineStep(
-                step: '4',
-                label: 'Paint (layer tree)',
-                ms: '~1–2 ms',
-                color: cs.primary,
-              ),
-              _PipelineStep(
-                step: '5',
-                label: 'Composite & rasterize',
-                ms: '~4–8 ms',
-                color: cs.secondary,
-              ),
-              _PipelineStep(
-                step: '6',
-                label: 'GPU submit & display',
-                ms: '~1–2 ms',
-                color: cs.tertiary,
-              ),
+              _PipelineStep(step: '1', label: 'Vsync signal', ms: '~0 ms', color: cs.primary),
+              _PipelineStep(step: '2', label: 'Build (Dart widgets)', ms: '~2–4 ms', color: cs.secondary),
+              _PipelineStep(step: '3', label: 'Layout (constraints)', ms: '~1–3 ms', color: cs.tertiary),
+              _PipelineStep(step: '4', label: 'Paint (layer tree)', ms: '~1–2 ms', color: cs.primary),
+              _PipelineStep(step: '5', label: 'Composite & rasterize', ms: '~4–8 ms', color: cs.secondary),
+              _PipelineStep(step: '6', label: 'GPU submit & display', ms: '~1–2 ms', color: cs.tertiary),
             ],
           ),
         ),
@@ -1525,8 +1354,8 @@ class _BudgetTimelinePainter extends CustomPainter {
     final Color fillColor = currentMs > 33.3
         ? colorScheme.error
         : currentMs > 16.6
-        ? colorScheme.secondary
-        : colorScheme.tertiary;
+            ? colorScheme.secondary
+            : colorScheme.tertiary;
     final Paint fillPaint = Paint()
       ..color = fillColor.withAlpha(180)
       ..style = PaintingStyle.fill;
@@ -1557,11 +1386,7 @@ class _BudgetTimelinePainter extends CustomPainter {
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: text,
-          style: TextStyle(
-            color: color,
-            fontSize: 9,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.w700),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
@@ -1578,11 +1403,7 @@ class _BudgetTimelinePainter extends CustomPainter {
       ..strokeWidth = 1.0;
     for (int t = 0; t <= 40; t += 10) {
       final double x = size.width * (t / maxMs);
-      canvas.drawLine(
-        Offset(x, trackY + trackH / 2),
-        Offset(x, trackY + trackH / 2 + 6),
-        tickPaint,
-      );
+      canvas.drawLine(Offset(x, trackY + trackH / 2), Offset(x, trackY + trackH / 2 + 6), tickPaint);
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: '${t}ms',
@@ -1602,11 +1423,7 @@ class _BudgetTimelinePainter extends CustomPainter {
 }
 
 class _FrameRateRow extends StatelessWidget {
-  const _FrameRateRow({
-    required this.fps,
-    required this.ms,
-    required this.color,
-  });
+  const _FrameRateRow({required this.fps, required this.ms, required this.color});
   final int fps;
   final double ms;
   final Color color;
@@ -1676,11 +1493,7 @@ class _PipelineStep extends StatelessWidget {
             backgroundColor: color,
             child: Text(
               step,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-              ),
+              style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
             ),
           ),
           const SizedBox(width: 10),
@@ -1710,10 +1523,7 @@ class _JankSimTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        _HeaderChip(
-          label: 'Jank Simulation',
-          icon: Icons.warning_amber_outlined,
-        ),
+        _HeaderChip(label: 'Jank Simulation', icon: Icons.warning_amber_outlined),
         const SizedBox(height: 12),
         Text(
           'A deliberately heavy CustomPainter simulates the kind of work that causes frame drops. '
@@ -1729,11 +1539,9 @@ class _JankSimTab extends StatelessWidget {
               children: <Widget>[
                 SwitchListTile.adaptive(
                   title: const Text('Enable jank simulation'),
-                  subtitle: Text(
-                    janky
-                        ? 'Heavy painter active — expect spikes'
-                        : 'Light painter — smooth frames',
-                  ),
+                  subtitle: Text(janky
+                      ? 'Heavy painter active — expect spikes'
+                      : 'Light painter — smooth frames'),
                   value: janky,
                   onChanged: (bool v) => _jankEnabled.value = v,
                 ),
@@ -1785,32 +1593,15 @@ class _JankSimTab extends StatelessWidget {
           iconColor: cs.primary,
           child: Column(
             children: <Widget>[
-              Text(
-                'Smooth — all bars below 16.6ms budget line:',
-                style: tt.labelMedium,
-              ),
+              Text('Smooth — all bars below 16.6ms budget line:', style: tt.labelMedium),
               const SizedBox(height: 6),
               SizedBox(
                 height: 70,
                 child: CustomPaint(
                   painter: _FrameBarPainter(
                     frameTimes: const <double>[
-                      3.1,
-                      3.8,
-                      4.2,
-                      3.9,
-                      4.5,
-                      3.7,
-                      4.0,
-                      3.5,
-                      4.1,
-                      3.9,
-                      3.6,
-                      4.3,
-                      4.0,
-                      3.8,
-                      4.2,
-                      3.5,
+                      3.1, 3.8, 4.2, 3.9, 4.5, 3.7, 4.0, 3.5,
+                      4.1, 3.9, 3.6, 4.3, 4.0, 3.8, 4.2, 3.5,
                     ],
                     barColor: cs.tertiary,
                     budgetColor: cs.error,
@@ -1821,32 +1612,15 @@ class _JankSimTab extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
-                'Janky — multiple bars exceed budget:',
-                style: tt.labelMedium,
-              ),
+              Text('Janky — multiple bars exceed budget:', style: tt.labelMedium),
               const SizedBox(height: 6),
               SizedBox(
                 height: 70,
                 child: CustomPaint(
                   painter: _FrameBarPainter(
                     frameTimes: const <double>[
-                      3.8,
-                      4.2,
-                      24.1,
-                      4.5,
-                      3.9,
-                      32.5,
-                      4.0,
-                      3.5,
-                      18.3,
-                      4.1,
-                      3.9,
-                      28.4,
-                      4.0,
-                      3.8,
-                      4.2,
-                      22.7,
+                      3.8, 4.2, 24.1, 4.5, 3.9, 32.5, 4.0, 3.5,
+                      18.3, 4.1, 3.9, 28.4, 4.0, 3.8, 4.2, 22.7,
                     ],
                     barColor: cs.tertiary,
                     budgetColor: cs.error,
@@ -1936,10 +1710,7 @@ class _JankPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(
-        canvas,
-        Offset(size.width / 2 - tp.width / 2, size.height / 2 - tp.height / 2),
-      );
+      tp.paint(canvas, Offset(size.width / 2 - tp.width / 2, size.height / 2 - tp.height / 2));
     } else {
       final Paint p = Paint()
         ..color = colorScheme.tertiaryContainer
@@ -1956,10 +1727,7 @@ class _JankPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(
-        canvas,
-        Offset(size.width / 2 - tp.width / 2, size.height / 2 - tp.height / 2),
-      );
+      tp.paint(canvas, Offset(size.width / 2 - tp.width / 2, size.height / 2 - tp.height / 2));
     }
   }
 
@@ -1998,10 +1766,8 @@ class _ThreadsTab extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: <Widget>[
-              Text(
-                'Frame Rendering Pipeline — Two-Thread Model',
-                style: tt.labelLarge?.copyWith(fontWeight: FontWeight.w700),
-              ),
+              Text('Frame Rendering Pipeline — Two-Thread Model',
+                  style: tt.labelLarge?.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 16),
               SizedBox(
                 height: 160,
@@ -2023,32 +1789,14 @@ class _ThreadsTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _BulletItem(
-                text: 'Runs all Dart code: build(), layout, paint calls.',
-                icon: Icons.terminal,
-              ),
-              _BulletItem(
-                text: 'Executes setState, notifyListeners, streams.',
-                icon: Icons.refresh,
-              ),
-              _BulletItem(
-                text: 'Produces a layer tree (RenderObject scene).',
-                icon: Icons.account_tree_outlined,
-              ),
-              _BulletItem(
-                text: 'Sends scene to raster thread when done.',
-                icon: Icons.send_outlined,
-              ),
-              _BulletItem(
-                text: 'Blocked by: heavy Dart computation, synchronous I/O.',
-                icon: Icons.block_outlined,
-              ),
+              _BulletItem(text: 'Runs all Dart code: build(), layout, paint calls.', icon: Icons.terminal),
+              _BulletItem(text: 'Executes setState, notifyListeners, streams.', icon: Icons.refresh),
+              _BulletItem(text: 'Produces a layer tree (RenderObject scene).', icon: Icons.account_tree_outlined),
+              _BulletItem(text: 'Sends scene to raster thread when done.', icon: Icons.send_outlined),
+              _BulletItem(text: 'Blocked by: heavy Dart computation, synchronous I/O.', icon: Icons.block_outlined),
               const SizedBox(height: 8),
-              _MonoBox(
-                text:
-                    '// PerformanceOverlay top row = UI thread\n'
-                    'kDisplayEngineStatistics\nkVisualizeEngineStatistics',
-              ),
+              _MonoBox(text: '// PerformanceOverlay top row = UI thread\n'
+                  'kDisplayEngineStatistics\nkVisualizeEngineStatistics'),
             ],
           ),
         ),
@@ -2062,33 +1810,14 @@ class _ThreadsTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _BulletItem(
-                text: 'Receives scene from UI thread.',
-                icon: Icons.download_outlined,
-              ),
-              _BulletItem(
-                text: 'Runs Skia (or Impeller) rasterization commands.',
-                icon: Icons.brush_outlined,
-              ),
-              _BulletItem(
-                text: 'Uploads textures and issues draw calls to GPU.',
-                icon: Icons.graphic_eq,
-              ),
-              _BulletItem(
-                text:
-                    'Blocked by: shader compilation, heavy paint, big images.',
-                icon: Icons.block_outlined,
-              ),
-              _BulletItem(
-                text: 'Shader jank: first frame after cold start often spikes.',
-                icon: Icons.bolt_outlined,
-              ),
+              _BulletItem(text: 'Receives scene from UI thread.', icon: Icons.download_outlined),
+              _BulletItem(text: 'Runs Skia (or Impeller) rasterization commands.', icon: Icons.brush_outlined),
+              _BulletItem(text: 'Uploads textures and issues draw calls to GPU.', icon: Icons.graphic_eq),
+              _BulletItem(text: 'Blocked by: shader compilation, heavy paint, big images.', icon: Icons.block_outlined),
+              _BulletItem(text: 'Shader jank: first frame after cold start often spikes.', icon: Icons.bolt_outlined),
               const SizedBox(height: 8),
-              _MonoBox(
-                text:
-                    '// PerformanceOverlay bottom row = raster thread\n'
-                    'kDisplayRasterizerStatistics\nkVisualizeRasterizerStatistics',
-              ),
+              _MonoBox(text: '// PerformanceOverlay bottom row = raster thread\n'
+                  'kDisplayRasterizerStatistics\nkVisualizeRasterizerStatistics'),
             ],
           ),
         ),
@@ -2109,8 +1838,7 @@ class _ThreadsTab extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               _MonoBox(
-                text:
-                    'frame_time = max(ui_thread_time, raster_thread_time)\n'
+                text: 'frame_time = max(ui_thread_time, raster_thread_time)\n'
                     'smooth     = frame_time < 16.6ms',
               ),
             ],
@@ -2127,18 +1855,15 @@ class _ThreadsTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _BulletItem(
-                text:
-                    'Skia: classic GPU backend, requires runtime shader compilation.',
+                text: 'Skia: classic GPU backend, requires runtime shader compilation.',
                 icon: Icons.layers_outlined,
               ),
               _BulletItem(
-                text:
-                    'Impeller: Flutter\'s new backend, pre-compiles shaders at build time → no jank spikes.',
+                text: 'Impeller: Flutter\'s new backend, pre-compiles shaders at build time → no jank spikes.',
                 icon: Icons.rocket_launch_outlined,
               ),
               _BulletItem(
-                text:
-                    'Impeller is default on iOS (Flutter 3.10+), opt-in on Android.',
+                text: 'Impeller is default on iOS (Flutter 3.10+), opt-in on Android.',
                 icon: Icons.phone_iphone,
               ),
               _BulletItem(
@@ -2173,17 +1898,11 @@ class _ThreadDiagramPainter extends CustomPainter {
       ..color = colorScheme.tertiary.withAlpha(40)
       ..style = PaintingStyle.fill;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, uiY, size.width, rowH),
-        const Radius.circular(8),
-      ),
+      RRect.fromRectAndRadius(Rect.fromLTWH(0, uiY, size.width, rowH), const Radius.circular(8)),
       uiPaint,
     );
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(0, rasterY, size.width, rowH),
-        const Radius.circular(8),
-      ),
+      RRect.fromRectAndRadius(Rect.fromLTWH(0, rasterY, size.width, rowH), const Radius.circular(8)),
       rasterPaint,
     );
 
@@ -2192,11 +1911,7 @@ class _ThreadDiagramPainter extends CustomPainter {
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: label,
-          style: TextStyle(
-            color: color,
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
@@ -2211,22 +1926,14 @@ class _ThreadDiagramPainter extends CustomPainter {
     double x = 120;
     for (final double w in blockWidths) {
       if (x + w > size.width - 8) break;
-      final Paint uiBlock = Paint()
-        ..color = colorScheme.secondary.withAlpha(180);
-      final Paint rasterBlock = Paint()
-        ..color = colorScheme.tertiary.withAlpha(180);
+      final Paint uiBlock = Paint()..color = colorScheme.secondary.withAlpha(180);
+      final Paint rasterBlock = Paint()..color = colorScheme.tertiary.withAlpha(180);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(x + 2, uiY + 4, w - 4, rowH - 8),
-          const Radius.circular(4),
-        ),
+        RRect.fromRectAndRadius(Rect.fromLTWH(x + 2, uiY + 4, w - 4, rowH - 8), const Radius.circular(4)),
         uiBlock,
       );
       canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(x + 2, rasterY + 4, w - 4, rowH - 8),
-          const Radius.circular(4),
-        ),
+        RRect.fromRectAndRadius(Rect.fromLTWH(x + 2, rasterY + 4, w - 4, rowH - 8), const Radius.circular(4)),
         rasterBlock,
       );
       // Arrow from UI to Raster
@@ -2284,8 +1991,7 @@ class _CheatSheetTab extends StatelessWidget {
           color: cs.primaryContainer,
           iconColor: cs.primary,
           child: _MonoBox(
-            text:
-                'displayRasterizerStatistics  (mask bit 0) = $_kDisplayRasterizerStatistics\n'
+            text: 'displayRasterizerStatistics  (mask bit 0) = $_kDisplayRasterizerStatistics\n'
                 'visualizeRasterizerStatistics (mask bit 1) = $_kVisualizeRasterizerStatistics\n'
                 'displayEngineStatistics       (mask bit 2) = $_kDisplayEngineStatistics\n'
                 'visualizeEngineStatistics     (mask bit 3) = $_kVisualizeEngineStatistics',
@@ -2302,8 +2008,7 @@ class _CheatSheetTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _MonoBox(
-                text:
-                    '// Show everything\n'
+                text: '// Show everything\n'
                     'PerformanceOverlay(\n'
                     '  optionsMask:\n'
                     '    _kDisplayRasterizerStatistics\n'
@@ -2314,8 +2019,7 @@ class _CheatSheetTab extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               _MonoBox(
-                text:
-                    '// Text stats only (no bar graphs)\n'
+                text: '// Text stats only (no bar graphs)\n'
                     'PerformanceOverlay(\n'
                     '  optionsMask:\n'
                     '    _kDisplayRasterizerStatistics  // 1\n'
@@ -2324,8 +2028,7 @@ class _CheatSheetTab extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               _MonoBox(
-                text:
-                    '// Via MaterialApp (all flags, full app)\n'
+                text: '// Via MaterialApp (all flags, full app)\n'
                     'MaterialApp(\n'
                     '  showPerformanceOverlay: true,\n'
                     '  ...\n'
@@ -2357,41 +2060,31 @@ class _CheatSheetTab extends StatelessWidget {
                   _TableCell(text: 'PerformanceOverlay', header: true),
                 ],
               ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'Build type'),
-                  _TableCell(text: 'Profile build'),
-                  _TableCell(text: 'Any (accurate in profile)'),
-                ],
-              ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'Graphs shown'),
-                  _TableCell(text: 'Yes, in overlay'),
-                  _TableCell(text: 'Yes (if flags set)'),
-                ],
-              ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'DevTools'),
-                  _TableCell(text: 'Enabled'),
-                  _TableCell(text: 'Not required'),
-                ],
-              ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'Accuracy'),
-                  _TableCell(text: 'Near-production'),
-                  _TableCell(text: 'Profile: accurate. Debug: low'),
-                ],
-              ),
-              const TableRow(
-                children: <Widget>[
-                  _TableCell(text: 'Use case'),
-                  _TableCell(text: 'Full perf audit'),
-                  _TableCell(text: 'Quick on-device check'),
-                ],
-              ),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'Build type'),
+                _TableCell(text: 'Profile build'),
+                _TableCell(text: 'Any (accurate in profile)'),
+              ]),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'Graphs shown'),
+                _TableCell(text: 'Yes, in overlay'),
+                _TableCell(text: 'Yes (if flags set)'),
+              ]),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'DevTools'),
+                _TableCell(text: 'Enabled'),
+                _TableCell(text: 'Not required'),
+              ]),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'Accuracy'),
+                _TableCell(text: 'Near-production'),
+                _TableCell(text: 'Profile: accurate. Debug: low'),
+              ]),
+              const TableRow(children: <Widget>[
+                _TableCell(text: 'Use case'),
+                _TableCell(text: 'Full perf audit'),
+                _TableCell(text: 'Quick on-device check'),
+              ]),
             ],
           ),
         ),
@@ -2407,43 +2100,37 @@ class _CheatSheetTab extends StatelessWidget {
               _WorkflowCard(
                 step: '1',
                 title: 'flutter run --profile',
-                body:
-                    'Build and run in profile mode. Dart AOT-compiled, DevTools socket open, minimal overhead.',
+                body: 'Build and run in profile mode. Dart AOT-compiled, DevTools socket open, minimal overhead.',
                 color: cs.primary,
               ),
               _WorkflowCard(
                 step: '2',
                 title: 'DevTools Timeline',
-                body:
-                    'Connect via flutter pub global run devtools. Flame chart shows each frame\'s build/layout/paint/composite.',
+                body: 'Connect via flutter pub global run devtools. Flame chart shows each frame\'s build/layout/paint/composite.',
                 color: cs.secondary,
               ),
               _WorkflowCard(
                 step: '3',
                 title: 'CPU Profiler',
-                body:
-                    'Sample CPU call stacks. Identify hot paths in Dart code consuming UI thread time.',
+                body: 'Sample CPU call stacks. Identify hot paths in Dart code consuming UI thread time.',
                 color: cs.tertiary,
               ),
               _WorkflowCard(
                 step: '4',
                 title: 'Memory Profiler',
-                body:
-                    'Detect allocation storms and leaks. Excessive GC can cause UI thread pauses.',
+                body: 'Detect allocation storms and leaks. Excessive GC can cause UI thread pauses.',
                 color: cs.primary,
               ),
               _WorkflowCard(
                 step: '5',
                 title: 'Widget Rebuilds',
-                body:
-                    'Enable debugPrintRebuildDirtyWidgets or use DevTools\'s widget inspector rebuild counter.',
+                body: 'Enable debugPrintRebuildDirtyWidgets or use DevTools\'s widget inspector rebuild counter.',
                 color: cs.secondary,
               ),
               _WorkflowCard(
                 step: '6',
                 title: 'Repaint Rainbows',
-                body:
-                    'Set debugRepaintRainbowEnabled = true. Widgets that repaint flash random colors — spot unnecessary repaints instantly.',
+                body: 'Set debugRepaintRainbowEnabled = true. Widgets that repaint flash random colors — spot unnecessary repaints instantly.',
                 color: cs.tertiary,
               ),
             ],
@@ -2460,33 +2147,15 @@ class _CheatSheetTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _QuickRefRow(label: 'Widget class', value: 'PerformanceOverlay'),
-              _QuickRefRow(
-                label: 'Package',
-                value: 'package:flutter/widgets.dart',
-              ),
-              _QuickRefRow(
-                label: 'Constructor param',
-                value: 'optionsMask: int',
-              ),
+              _QuickRefRow(label: 'Package', value: 'package:flutter/widgets.dart'),
+              _QuickRefRow(label: 'Constructor param', value: 'optionsMask: int'),
               _QuickRefRow(label: 'All flags OR', value: 'optionsMask: 15'),
-              _QuickRefRow(
-                label: 'MaterialApp param',
-                value: 'showPerformanceOverlay: bool',
-              ),
-              _QuickRefRow(
-                label: 'Profile build cmd',
-                value: 'flutter run --profile',
-              ),
+              _QuickRefRow(label: 'MaterialApp param', value: 'showPerformanceOverlay: bool'),
+              _QuickRefRow(label: 'Profile build cmd', value: 'flutter run --profile'),
               _QuickRefRow(label: 'Budget (60fps)', value: '16.6 ms per frame'),
               _QuickRefRow(label: 'Budget (120fps)', value: '8.3 ms per frame'),
-              _QuickRefRow(
-                label: 'GPU thread flag',
-                value: 'kDisplayRasterizerStatistics',
-              ),
-              _QuickRefRow(
-                label: 'UI thread flag',
-                value: 'kDisplayEngineStatistics',
-              ),
+              _QuickRefRow(label: 'GPU thread flag', value: 'kDisplayRasterizerStatistics'),
+              _QuickRefRow(label: 'UI thread flag', value: 'kDisplayEngineStatistics'),
             ],
           ),
         ),
@@ -2559,11 +2228,7 @@ class _WorkflowCard extends StatelessWidget {
             backgroundColor: color,
             child: Text(
               step,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
             ),
           ),
           const SizedBox(width: 10),
@@ -2571,13 +2236,11 @@ class _WorkflowCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: color,
-                  ),
-                ),
+                Text(title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium
+                        ?.copyWith(fontWeight: FontWeight.w700, color: color)),
                 Text(body, style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
@@ -2604,19 +2267,16 @@ class _QuickRefRow extends StatelessWidget {
             width: 140,
             child: Text(
               label,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ),
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.w600),
             ),
           ),
         ],
@@ -2757,9 +2417,7 @@ class _BulletItem extends StatelessWidget {
         children: <Widget>[
           Icon(icon, size: 16, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(text, style: Theme.of(context).textTheme.bodySmall),
-          ),
+          Expanded(child: Text(text, style: Theme.of(context).textTheme.bodySmall)),
         ],
       ),
     );

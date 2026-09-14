@@ -83,11 +83,7 @@ Widget buildConceptCard(String title, String description, Color accentColor) {
         SizedBox(height: 10),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.grey.shade700,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700, height: 1.4),
         ),
       ],
     ),
@@ -213,24 +209,22 @@ Widget buildMenuEntryTypeCard(
           ],
         ),
         SizedBox(height: 12),
-        ...features.map(
-          (feature) => Padding(
-            padding: EdgeInsets.only(bottom: 4),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.check_circle, size: 16, color: color),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    feature,
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-                  ),
+        ...features.map((feature) => Padding(
+          padding: EdgeInsets.only(bottom: 4),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.check_circle, size: 16, color: color),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  feature,
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
+        )),
       ],
     ),
   );
@@ -294,7 +288,9 @@ Widget buildSimulatedMenuItem(
 ) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    decoration: BoxDecoration(color: backgroundColor ?? Colors.transparent),
+    decoration: BoxDecoration(
+      color: backgroundColor ?? Colors.transparent,
+    ),
     child: Row(
       children: [
         if (leadingIcon != null) ...[
@@ -315,7 +311,8 @@ Widget buildSimulatedMenuItem(
             ),
           ),
         ),
-        if (!enabled) Icon(Icons.block, size: 14, color: Colors.grey.shade400),
+        if (!enabled)
+          Icon(Icons.block, size: 14, color: Colors.grey.shade400),
       ],
     ),
   );
@@ -430,7 +427,7 @@ Widget buildHeightDemoCard(
 
 Widget buildRepresentsSection() {
   print('Building represents property section');
-
+  
   List<Map<String, dynamic>> representsExamples = [
     {
       'type': 'bool',
@@ -475,7 +472,7 @@ Widget buildRepresentsSection() {
       'color': Colors.grey,
     },
   ];
-
+  
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -487,95 +484,90 @@ Widget buildRepresentsSection() {
       buildConceptCard(
         'What does represents mean?',
         'The represents property in PopupMenuEntry indicates what value will be '
-            'returned when this menu entry is selected. For items like PopupMenuItem, '
-            'this is the generic type T. For dividers, represents returns null since '
-            'they cannot be selected.',
+        'returned when this menu entry is selected. For items like PopupMenuItem, '
+        'this is the generic type T. For dividers, represents returns null since '
+        'they cannot be selected.',
         Colors.deepPurple,
       ),
       SizedBox(height: 8),
-      ...representsExamples.map(
-        (example) => Container(
-          margin: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: (example['color'] as Color).withValues(alpha: 0.06),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: (example['color'] as Color).withValues(alpha: 0.2),
-            ),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: (example['color'] as Color).withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(
-                  example['icon'] as IconData,
-                  color: example['color'] as Color,
-                  size: 22,
-                ),
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: example['color'] as Color,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            example['type'] as String,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          example['label'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      example['example'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      ...representsExamples.map((example) => Container(
+        margin: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: (example['color'] as Color).withValues(alpha: 0.06),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: (example['color'] as Color).withValues(alpha: 0.2),
           ),
         ),
-      ),
+        child: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: (example['color'] as Color).withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                example['icon'] as IconData,
+                color: example['color'] as Color,
+                size: 22,
+              ),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: example['color'] as Color,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          example['type'] as String,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        example['label'] as String,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    example['example'] as String,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
     ],
   );
 }
 
 Widget buildHeightPropertySection() {
   print('Building height property section');
-
+  
   List<Map<String, dynamic>> heightExamples = [
     {
       'label': 'Default PopupMenuItem',
@@ -614,35 +606,37 @@ Widget buildHeightPropertySection() {
       'description': 'Larger height for icon + subtitle content',
     },
   ];
-
+  
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader('The height Property', Icons.height, Colors.indigo),
+      buildSectionHeader(
+        'The height Property',
+        Icons.height,
+        Colors.indigo,
+      ),
       buildConceptCard(
         'Why height matters in PopupMenuEntry',
         'The height property defines the vertical size of each popup menu entry. '
-            'Different entry types have different default heights. PopupMenuItem uses '
-            'kMinInteractiveDimension (48.0), while PopupMenuDivider defaults to 16.0. '
-            'Custom heights help create visual hierarchy and improve readability.',
+        'Different entry types have different default heights. PopupMenuItem uses '
+        'kMinInteractiveDimension (48.0), while PopupMenuDivider defaults to 16.0. '
+        'Custom heights help create visual hierarchy and improve readability.',
         Colors.indigo,
       ),
       SizedBox(height: 8),
-      ...heightExamples.map(
-        (example) => buildHeightDemoCard(
-          example['label'] as String,
-          example['height'] as double,
-          example['color'] as Color,
-          example['description'] as String,
-        ),
-      ),
+      ...heightExamples.map((example) => buildHeightDemoCard(
+        example['label'] as String,
+        example['height'] as double,
+        example['color'] as Color,
+        example['description'] as String,
+      )),
     ],
   );
 }
 
 Widget buildPopupMenuItemSection() {
   print('Building PopupMenuItem implementation section');
-
+  
   List<Map<String, dynamic>> menuItems = [
     {
       'text': 'Copy',
@@ -680,7 +674,7 @@ Widget buildPopupMenuItemSection() {
       'color': Colors.purple,
     },
   ];
-
+  
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -692,9 +686,9 @@ Widget buildPopupMenuItemSection() {
       buildConceptCard(
         'The standard menu item widget',
         'PopupMenuItem<T> is the most common implementation of PopupMenuEntry. It '
-            'represents a single selectable menu item with a generic value T. When tapped, '
-            'it returns its value to the PopupMenuButton. Supports custom child widgets, '
-            'enabled state, and optional padding.',
+        'represents a single selectable menu item with a generic value T. When tapped, '
+        'it returns its value to the PopupMenuButton. Supports custom child widgets, '
+        'enabled state, and optional padding.',
         Colors.blue,
       ),
       buildPropertyCard(
@@ -725,51 +719,47 @@ Widget buildPopupMenuItemSection() {
       buildSimulatedPopupMenu(
         'Edit Actions',
         Colors.blue,
-        menuItems
-            .map(
-              (item) => Container(
-                margin: EdgeInsets.symmetric(vertical: 1, horizontal: 4),
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                decoration: BoxDecoration(
-                  color: item['enabled'] as bool
-                      ? Colors.transparent
-                      : Colors.grey.shade50,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      item['icon'] as IconData,
-                      size: 20,
-                      color: item['enabled'] as bool
-                          ? (item['color'] as Color)
-                          : Colors.grey.shade400,
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        item['text'] as String,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: item['enabled'] as bool
-                              ? Colors.black87
-                              : Colors.grey.shade400,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      item['shortcut'] as String,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
+        menuItems.map((item) => Container(
+          margin: EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          decoration: BoxDecoration(
+            color: item['enabled'] as bool
+                ? Colors.transparent
+                : Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                item['icon'] as IconData,
+                size: 20,
+                color: item['enabled'] as bool
+                    ? (item['color'] as Color)
+                    : Colors.grey.shade400,
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  item['text'] as String,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: item['enabled'] as bool
+                        ? Colors.black87
+                        : Colors.grey.shade400,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-            )
-            .toList(),
+              Text(
+                item['shortcut'] as String,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.grey.shade500,
+                ),
+              ),
+            ],
+          ),
+        )).toList(),
       ),
     ],
   );
@@ -777,7 +767,7 @@ Widget buildPopupMenuItemSection() {
 
 Widget buildPopupMenuDividerSection() {
   print('Building PopupMenuDivider section');
-
+  
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -789,9 +779,9 @@ Widget buildPopupMenuDividerSection() {
       buildConceptCard(
         'Visual separator for menu groups',
         'PopupMenuDivider is a horizontal line that creates visual separation between '
-            'groups of menu items. It extends PopupMenuEntry but cannot be selected. The '
-            'represents property always returns null. Height defaults to 16.0 but can be '
-            'customized via the height parameter.',
+        'groups of menu items. It extends PopupMenuEntry but cannot be selected. The '
+        'represents property always returns null. Height defaults to 16.0 but can be '
+        'customized via the height parameter.',
         Colors.grey.shade700,
       ),
       buildPropertyCard(
@@ -805,87 +795,30 @@ Widget buildPopupMenuDividerSection() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child:
-                buildSimulatedPopupMenu('With Dividers', Colors.grey.shade700, [
-                  buildSimulatedMenuItem(
-                    'New File',
-                    Icons.add,
-                    true,
-                    Colors.black87,
-                    null,
-                  ),
-                  buildSimulatedMenuItem(
-                    'Open',
-                    Icons.folder_open,
-                    true,
-                    Colors.black87,
-                    null,
-                  ),
-                  buildSimulatedDivider(1, Colors.grey.shade300),
-                  buildSimulatedMenuItem(
-                    'Save',
-                    Icons.save,
-                    true,
-                    Colors.black87,
-                    null,
-                  ),
-                  buildSimulatedMenuItem(
-                    'Save As',
-                    Icons.save_as,
-                    true,
-                    Colors.black87,
-                    null,
-                  ),
-                  buildSimulatedDivider(1, Colors.grey.shade300),
-                  buildSimulatedMenuItem(
-                    'Export',
-                    Icons.upload,
-                    false,
-                    Colors.black87,
-                    null,
-                  ),
-                ]),
+            child: buildSimulatedPopupMenu(
+              'With Dividers',
+              Colors.grey.shade700,
+              [
+                buildSimulatedMenuItem('New File', Icons.add, true, Colors.black87, null),
+                buildSimulatedMenuItem('Open', Icons.folder_open, true, Colors.black87, null),
+                buildSimulatedDivider(1, Colors.grey.shade300),
+                buildSimulatedMenuItem('Save', Icons.save, true, Colors.black87, null),
+                buildSimulatedMenuItem('Save As', Icons.save_as, true, Colors.black87, null),
+                buildSimulatedDivider(1, Colors.grey.shade300),
+                buildSimulatedMenuItem('Export', Icons.upload, false, Colors.black87, null),
+              ],
+            ),
           ),
           Expanded(
             child: buildSimulatedPopupMenu(
               'Without Dividers',
               Colors.grey.shade700,
               [
-                buildSimulatedMenuItem(
-                  'New File',
-                  Icons.add,
-                  true,
-                  Colors.black87,
-                  null,
-                ),
-                buildSimulatedMenuItem(
-                  'Open',
-                  Icons.folder_open,
-                  true,
-                  Colors.black87,
-                  null,
-                ),
-                buildSimulatedMenuItem(
-                  'Save',
-                  Icons.save,
-                  true,
-                  Colors.black87,
-                  null,
-                ),
-                buildSimulatedMenuItem(
-                  'Save As',
-                  Icons.save_as,
-                  true,
-                  Colors.black87,
-                  null,
-                ),
-                buildSimulatedMenuItem(
-                  'Export',
-                  Icons.upload,
-                  false,
-                  Colors.black87,
-                  null,
-                ),
+                buildSimulatedMenuItem('New File', Icons.add, true, Colors.black87, null),
+                buildSimulatedMenuItem('Open', Icons.folder_open, true, Colors.black87, null),
+                buildSimulatedMenuItem('Save', Icons.save, true, Colors.black87, null),
+                buildSimulatedMenuItem('Save As', Icons.save_as, true, Colors.black87, null),
+                buildSimulatedMenuItem('Export', Icons.upload, false, Colors.black87, null),
               ],
             ),
           ),
@@ -897,7 +830,7 @@ Widget buildPopupMenuDividerSection() {
 
 Widget buildCheckedPopupMenuItemSection() {
   print('Building CheckedPopupMenuItem section');
-
+  
   List<Map<String, dynamic>> settingsItems = [
     {'text': 'Auto-save', 'checked': true, 'enabled': true},
     {'text': 'Dark mode', 'checked': true, 'enabled': true},
@@ -905,17 +838,21 @@ Widget buildCheckedPopupMenuItemSection() {
     {'text': 'Sync (Premium)', 'checked': false, 'enabled': false},
     {'text': 'Analytics', 'checked': true, 'enabled': true},
   ];
-
+  
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader('CheckedPopupMenuItem', Icons.check_box, Colors.green),
+      buildSectionHeader(
+        'CheckedPopupMenuItem',
+        Icons.check_box,
+        Colors.green,
+      ),
       buildConceptCard(
         'Menu item with checkmark indicator',
         'CheckedPopupMenuItem<T> displays a leading checkmark when checked is true. '
-            'Ideal for toggle settings or multi-selection scenarios. Inherits from '
-            'PopupMenuItem and adds the checked property to show/hide the check icon. '
-            'Text shifts right to make room for the checkmark column.',
+        'Ideal for toggle settings or multi-selection scenarios. Inherits from '
+        'PopupMenuItem and adds the checked property to show/hide the check icon. '
+        'Text shifts right to make room for the checkmark column.',
         Colors.green,
       ),
       buildPropertyCard(
@@ -934,16 +871,12 @@ Widget buildCheckedPopupMenuItemSection() {
       buildSimulatedPopupMenu(
         'Settings',
         Colors.green,
-        settingsItems
-            .map(
-              (item) => buildSimulatedCheckedItem(
-                item['text'] as String,
-                item['checked'] as bool,
-                item['enabled'] as bool,
-                Colors.green,
-              ),
-            )
-            .toList(),
+        settingsItems.map((item) => buildSimulatedCheckedItem(
+          item['text'] as String,
+          item['checked'] as bool,
+          item['enabled'] as bool,
+          Colors.green,
+        )).toList(),
       ),
     ],
   );
@@ -951,7 +884,7 @@ Widget buildCheckedPopupMenuItemSection() {
 
 Widget buildCustomMenuEntriesSection() {
   print('Building custom menu entries section');
-
+  
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -963,9 +896,9 @@ Widget buildCustomMenuEntriesSection() {
       buildConceptCard(
         'Extending PopupMenuEntry for custom layouts',
         'PopupMenuEntry is an abstract class that can be extended to create custom '
-            'menu items with unique layouts. Common customizations include icon+text '
-            'combinations, subtitle text, color indicators, avatar entries, and complex '
-            'multi-line content. The child widget of PopupMenuItem accepts any widget.',
+        'menu items with unique layouts. Common customizations include icon+text '
+        'combinations, subtitle text, color indicators, avatar entries, and complex '
+        'multi-line content. The child widget of PopupMenuItem accepts any widget.',
         Colors.deepOrange,
       ),
       SizedBox(height: 8),
@@ -1032,7 +965,7 @@ Widget buildCustomMenuEntriesSection() {
 
 Widget buildCustomEntryExamples() {
   print('Building custom entry visual examples');
-
+  
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 8),
     child: Column(
@@ -1047,18 +980,26 @@ Widget buildCustomEntryExamples() {
           ),
         ),
         SizedBox(height: 8),
-        buildSimulatedPopupMenu('User Selection', Colors.purple, [
-          buildAvatarMenuItem('John Smith', 'Online', Colors.green),
-          buildAvatarMenuItem('Jane Doe', 'Away', Colors.orange),
-          buildAvatarMenuItem('Bob Wilson', 'Offline', Colors.grey),
-        ]),
+        buildSimulatedPopupMenu(
+          'User Selection',
+          Colors.purple,
+          [
+            buildAvatarMenuItem('John Smith', 'Online', Colors.green),
+            buildAvatarMenuItem('Jane Doe', 'Away', Colors.orange),
+            buildAvatarMenuItem('Bob Wilson', 'Offline', Colors.grey),
+          ],
+        ),
         SizedBox(height: 8),
-        buildSimulatedPopupMenu('Theme Colors', Colors.orange, [
-          buildColorSwatchItem('Ocean Blue', Colors.blue),
-          buildColorSwatchItem('Forest Green', Colors.green),
-          buildColorSwatchItem('Sunset Orange', Colors.orange),
-          buildColorSwatchItem('Royal Purple', Colors.purple),
-        ]),
+        buildSimulatedPopupMenu(
+          'Theme Colors',
+          Colors.orange,
+          [
+            buildColorSwatchItem('Ocean Blue', Colors.blue),
+            buildColorSwatchItem('Forest Green', Colors.green),
+            buildColorSwatchItem('Sunset Orange', Colors.orange),
+            buildColorSwatchItem('Royal Purple', Colors.purple),
+          ],
+        ),
       ],
     ),
   );
@@ -1105,9 +1046,18 @@ Widget buildAvatarMenuItem(String name, String status, Color statusColor) {
             children: [
               Text(
                 name,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              Text(status, style: TextStyle(fontSize: 11, color: statusColor)),
+              Text(
+                status,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: statusColor,
+                ),
+              ),
             ],
           ),
         ),
@@ -1134,10 +1084,17 @@ Widget buildColorSwatchItem(String colorName, Color color) {
         Expanded(
           child: Text(
             colorName,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-        Icon(Icons.check, size: 18, color: color),
+        Icon(
+          Icons.check,
+          size: 18,
+          color: color,
+        ),
       ],
     ),
   );
@@ -1145,7 +1102,7 @@ Widget buildColorSwatchItem(String colorName, Color color) {
 
 Widget buildPopupMenuEntryConcept() {
   print('Building PopupMenuEntry concept section');
-
+  
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -1157,24 +1114,24 @@ Widget buildPopupMenuEntryConcept() {
       buildConceptCard(
         'Abstract Base Class for Popup Menus',
         'PopupMenuEntry<T> is an abstract class that serves as the base for all items '
-            'displayed in a popup menu. It extends StatefulWidget and defines the contract that '
-            'all menu entries must implement: a height property and a represents getter. '
-            'This enables the popup menu to calculate layout and handle selection uniformly.',
+        'displayed in a popup menu. It extends StatefulWidget and defines the contract that '
+        'all menu entries must implement: a height property and a represents getter. '
+        'This enables the popup menu to calculate layout and handle selection uniformly.',
         Colors.indigo,
       ),
       buildConceptCard(
         'Generic Type T',
         'The generic type T defines what value type the menu entry represents. When '
-            'a PopupMenuItem<T> is selected, it returns its value of type T. This allows '
-            'type-safe handling of menu selections. For example, PopupMenuItem<String> '
-            'returns a String value, while PopupMenuItem<int> returns an integer.',
+        'a PopupMenuItem<T> is selected, it returns its value of type T. This allows '
+        'type-safe handling of menu selections. For example, PopupMenuItem<String> '
+        'returns a String value, while PopupMenuItem<int> returns an integer.',
         Colors.green,
       ),
       buildConceptCard(
         'Key Properties',
         'Every PopupMenuEntry must define: (1) height - the vertical size of the entry '
-            'in logical pixels, and (2) represents - the value this entry represents when '
-            'selected, or null if not selectable (like dividers).',
+        'in logical pixels, and (2) represents - the value this entry represents when '
+        'selected, or null if not selectable (like dividers).',
         Colors.orange,
       ),
       SizedBox(height: 12),
@@ -1220,7 +1177,7 @@ Widget buildPopupMenuEntryConcept() {
 
 Widget buildLivePopupMenuDemo() {
   print('Building live popup menu demo');
-
+  
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -1232,9 +1189,9 @@ Widget buildLivePopupMenuDemo() {
       buildConceptCard(
         'Interactive Popup Menu',
         'This section shows how PopupMenuButton integrates with various '
-            'PopupMenuEntry types to create a functional dropdown menu. The menu '
-            'combines PopupMenuItem, PopupMenuDivider, and CheckedPopupMenuItem '
-            'in a single cohesive menu structure.',
+        'PopupMenuEntry types to create a functional dropdown menu. The menu '
+        'combines PopupMenuItem, PopupMenuDivider, and CheckedPopupMenuItem '
+        'in a single cohesive menu structure.',
         Colors.teal,
       ),
       SizedBox(height: 12),
@@ -1256,7 +1213,10 @@ Widget buildLivePopupMenuDemo() {
             children: [
               Text(
                 'Tap the button to open menu',
-                style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade600,
+                ),
               ),
               SizedBox(height: 16),
               PopupMenuButton<String>(
@@ -1352,7 +1312,7 @@ Widget buildLivePopupMenuDemo() {
 Widget buildApp() {
   print('=== PopupMenuEntry Deep Demo ===');
   print('Building comprehensive PopupMenuEntry showcase');
-
+  
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'PopupMenuEntry Demo',
@@ -1437,11 +1397,9 @@ Widget buildApp() {
 dynamic build(BuildContext context) {
   print('Starting PopupMenuEntry demonstration');
   print('PopupMenuEntry is the abstract base for popup menu items');
-
+  
   print('Application built successfully');
-  print(
-    'Demonstrated: concept, PopupMenuItem, PopupMenuDivider, CheckedPopupMenuItem',
-  );
+  print('Demonstrated: concept, PopupMenuItem, PopupMenuDivider, CheckedPopupMenuItem');
   print('Demonstrated: represents property, height property, custom entries');
   return buildApp();
 }

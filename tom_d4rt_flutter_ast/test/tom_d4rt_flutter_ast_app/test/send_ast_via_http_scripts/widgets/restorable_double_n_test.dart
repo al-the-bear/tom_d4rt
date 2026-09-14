@@ -53,7 +53,8 @@ class WeightLogDemo extends StatefulWidget {
   State<WeightLogDemo> createState() => _WeightLogDemoState();
 }
 
-class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
+class _WeightLogDemoState extends State<WeightLogDemo>
+    with RestorationMixin {
   // ---------------------------------------------------------------------------
   // Restorable state — all nullable doubles.
   // Each represents a measurement that may or may not have been logged.
@@ -134,15 +135,8 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
   // ---------------------------------------------------------------------------
 
   /// Map the seven day slots to a list, preserving order.
-  List<RestorableDoubleN> get _allDays => <RestorableDoubleN>[
-    _day0,
-    _day1,
-    _day2,
-    _day3,
-    _day4,
-    _day5,
-    _day6,
-  ];
+  List<RestorableDoubleN> get _allDays =>
+      <RestorableDoubleN>[_day0, _day1, _day2, _day3, _day4, _day5, _day6];
 
   /// Normalize a weight into [0, 1] for vertical scaling between
   /// `_minDisplay` and `_maxDisplay`.
@@ -303,7 +297,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
                 ),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
               ],
             ),
@@ -344,7 +341,9 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
             duration: const Duration(milliseconds: 320),
             switchInCurve: Curves.easeOut,
             switchOutCurve: Curves.easeIn,
-            child: value != null ? _buildHeroFilled(value) : _buildHeroEmpty(),
+            child: value != null
+                ? _buildHeroFilled(value)
+                : _buildHeroEmpty(),
           ),
           const SizedBox(height: 8),
           _buildHeroControls(),
@@ -356,9 +355,8 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
   Widget _buildHeroFilled(double value) {
     final double delta = value - _targetWeight;
     final bool onTarget = delta.abs() <= 1.0;
-    final Color deltaColor = onTarget
-        ? Colors.green.shade600
-        : Colors.amber.shade800;
+    final Color deltaColor =
+        onTarget ? Colors.green.shade600 : Colors.amber.shade800;
     final String deltaLabel = delta >= 0
         ? '+${delta.toStringAsFixed(1)} kg'
         : '${delta.toStringAsFixed(1)} kg';
@@ -444,9 +442,7 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
                     border: Border.all(color: deltaColor, width: 1),
                   ),
                   child: Text(
-                    onTarget
-                        ? 'On target: $deltaLabel'
-                        : 'Off target: $deltaLabel',
+                    onTarget ? 'On target: $deltaLabel' : 'Off target: $deltaLabel',
                     style: TextStyle(
                       color: deltaColor,
                       fontWeight: FontWeight.w700,
@@ -477,7 +473,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
       children: <Widget>[
         Text(
           _maxDisplay.toStringAsFixed(0),
-          style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+          style: TextStyle(
+            fontSize: 11,
+            color: Colors.grey.shade500,
+          ),
         ),
         const SizedBox(height: 4),
         SizedBox(
@@ -517,7 +516,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
                 bottom: gaugeHeight * _normalize(_targetWeight),
                 left: 0,
                 right: 0,
-                child: Container(height: 2, color: Colors.green.shade700),
+                child: Container(
+                  height: 2,
+                  color: Colors.green.shade700,
+                ),
               ),
               // Current-value indicator dot
               Positioned(
@@ -528,7 +530,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.orange.shade900, width: 2),
+                    border: Border.all(
+                      color: Colors.orange.shade900,
+                      width: 2,
+                    ),
                     boxShadow: <BoxShadow>[
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.12),
@@ -545,7 +550,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         const SizedBox(height: 4),
         Text(
           _minDisplay.toStringAsFixed(0),
-          style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+          style: TextStyle(
+            fontSize: 11,
+            color: Colors.grey.shade500,
+          ),
         ),
       ],
     );
@@ -564,7 +572,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
       child: _DashedRectFrame(
         color: Colors.grey.shade400,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 28,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -696,7 +707,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
             children: <Widget>[
               const Text(
                 'This week',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -755,7 +769,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
     );
   }
 
-  Widget _buildDayBar({required String label, required double? value}) {
+  Widget _buildDayBar({
+    required String label,
+    required double? value,
+  }) {
     const double maxBarHeight = 140.0;
 
     return Expanded(
@@ -834,7 +851,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          colors: <Color>[Colors.orange.shade300, topColor],
+          colors: <Color>[
+            Colors.orange.shade300,
+            topColor,
+          ],
         ),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -850,7 +870,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           for (int i = 0; i < 3; i++) ...<Widget>[
-            Container(height: 2, color: Colors.grey.shade400),
+            Container(
+              height: 2,
+              color: Colors.grey.shade400,
+            ),
             if (i < 2) const SizedBox(height: 3),
           ],
         ],
@@ -892,7 +915,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         const SizedBox(width: 6),
         Text(
           label,
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey.shade700,
+          ),
         ),
       ],
     );
@@ -921,11 +947,17 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.show_chart, color: Colors.orange.shade700),
+              Icon(
+                Icons.show_chart,
+                color: Colors.orange.shade700,
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Weekly trend',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),
@@ -978,7 +1010,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
             right: 0,
             child: Text(
               '75',
-              style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.grey.shade600,
+              ),
             ),
           ),
           Positioned(
@@ -998,7 +1033,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
             right: 0,
             child: Text(
               '65',
-              style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.grey.shade600,
+              ),
             ),
           ),
         ],
@@ -1056,7 +1094,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
           left: 0,
           right: 0,
           top: chartHeight * t,
-          child: Container(height: 1, color: Colors.grey.shade200),
+          child: Container(
+            height: 1,
+            color: Colors.grey.shade200,
+          ),
         ),
       );
     }
@@ -1075,7 +1116,9 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
               Expanded(
                 child: Container(
                   height: 1,
-                  color: i.isEven ? Colors.green.shade400 : Colors.transparent,
+                  color: i.isEven
+                      ? Colors.green.shade400
+                      : Colors.transparent,
                 ),
               ),
           ],
@@ -1091,13 +1134,11 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         overlay.add(_buildLineSegment(a, b));
       } else {
         // Dotted gap: a column of small dots between slot centers.
-        overlay.add(
-          _buildDottedGap(
-            x1: slotWidth * (i + 0.5),
-            x2: slotWidth * (i + 1.5),
-            y: chartHeight / 2,
-          ),
-        );
+        overlay.add(_buildDottedGap(
+          x1: slotWidth * (i + 0.5),
+          x2: slotWidth * (i + 1.5),
+          y: chartHeight / 2,
+        ));
       }
     }
 
@@ -1116,7 +1157,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white, width: 2),
                 boxShadow: <BoxShadow>[
-                  BoxShadow(color: Colors.orange.shade200, blurRadius: 4),
+                  BoxShadow(
+                    color: Colors.orange.shade200,
+                    blurRadius: 4,
+                  ),
                 ],
               ),
             ),
@@ -1128,7 +1172,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
     return SizedBox(
       width: chartWidth,
       height: chartHeight,
-      child: Stack(clipBehavior: Clip.hardEdge, children: overlay),
+      child: Stack(
+        clipBehavior: Clip.hardEdge,
+        children: overlay,
+      ),
     );
   }
 
@@ -1148,7 +1195,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[Colors.orange.shade400, Colors.orange.shade700],
+              colors: <Color>[
+                Colors.orange.shade400,
+                Colors.orange.shade700,
+              ],
             ),
             borderRadius: BorderRadius.circular(2),
           ),
@@ -1284,11 +1334,17 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.tune, color: Colors.orange.shade700),
+              Icon(
+                Icons.tune,
+                color: Colors.orange.shade700,
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Adjust and commit',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),
@@ -1511,7 +1567,9 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
                 icon: Icons.trending_up,
                 accent: Colors.green,
                 title: 'Average',
-                valueText: avg == null ? '—' : '${avg.toStringAsFixed(2)} kg',
+                valueText: avg == null
+                    ? '—'
+                    : '${avg.toStringAsFixed(2)} kg',
                 subtitle: avg == null
                     ? 'no logged days'
                     : 'across $logged logged days',
@@ -1598,7 +1656,9 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
                       ),
                       Container(
                         width: skippedWidth,
-                        decoration: BoxDecoration(color: Colors.grey.shade300),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                        ),
                         alignment: Alignment.center,
                         child: skippedWidth > 40
                             ? Text(
@@ -1691,7 +1751,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.grey.shade600,
+            ),
           ),
         ],
       ),
@@ -1725,7 +1788,11 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.info_outline, size: 18, color: Colors.grey.shade700),
+              Icon(
+                Icons.info_outline,
+                size: 18,
+                color: Colors.grey.shade700,
+              ),
               const SizedBox(width: 6),
               Text(
                 'Serialized values',
@@ -1794,7 +1861,10 @@ class _WeightLogDemoState extends State<WeightLogDemo> with RestorationMixin {
 // =============================================================================
 
 class _DashedRectFrame extends StatelessWidget {
-  const _DashedRectFrame({required this.color, required this.child});
+  const _DashedRectFrame({
+    required this.color,
+    required this.child,
+  });
 
   final Color color;
   final Widget child;
@@ -1853,10 +1923,8 @@ class _HorizontalDashStrip extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints c) {
         const double dashLen = _DashedRectFrame._dashLen;
         const double dashGap = _DashedRectFrame._dashGap;
-        final int count = (c.maxWidth / (dashLen + dashGap)).floor().clamp(
-          1,
-          200,
-        );
+        final int count =
+            (c.maxWidth / (dashLen + dashGap)).floor().clamp(1, 200);
         return SizedBox(
           height: _DashedRectFrame._stroke,
           child: Row(
@@ -1887,10 +1955,8 @@ class _VerticalDashStrip extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints c) {
         const double dashLen = _DashedRectFrame._dashLen;
         const double dashGap = _DashedRectFrame._dashGap;
-        final int count = (c.maxHeight / (dashLen + dashGap)).floor().clamp(
-          1,
-          200,
-        );
+        final int count =
+            (c.maxHeight / (dashLen + dashGap)).floor().clamp(1, 200);
         return SizedBox(
           width: _DashedRectFrame._stroke,
           child: Column(

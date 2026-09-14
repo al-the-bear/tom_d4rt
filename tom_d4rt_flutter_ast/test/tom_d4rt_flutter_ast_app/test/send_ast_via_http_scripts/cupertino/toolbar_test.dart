@@ -131,7 +131,7 @@ dynamic build(BuildContext context) {
     onPressed: () => print('Paste pressed'),
   );
 
-  print('CupertinoTextSelectionToolbarButton.text: [${textButton.hashCode}]');
+  print('CupertinoTextSelectionToolbarButton.text: [${textButton.hashCode }]');
   print('  • text: "Paste" (String parameter)');
   print('  • Automatically creates styled Text widget');
   print('  • Standard iOS toolbar text styling');
@@ -173,7 +173,7 @@ dynamic build(BuildContext context) {
     child: Text('Paste'),
   );
 
-  print('Disabled button configuration: [${disabledButton.hashCode}]');
+  print('Disabled button configuration: [${disabledButton.hashCode }]');
   print('  • onPressed: null');
   print('  • Visual: Dimmed/grayed text');
   print('  • Tap: No response');
@@ -385,7 +385,7 @@ dynamic build(BuildContext context) {
     onPressed: () => print('Look Up pressed'),
   );
 
-  print('Desktop button .text constructor: [${desktopTextButton.hashCode}]');
+  print('Desktop button .text constructor: [${desktopTextButton.hashCode }]');
   print('  • text: "Look Up" (String)');
   print('  • Same convenience as mobile');
   print('');

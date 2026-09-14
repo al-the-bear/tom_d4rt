@@ -8,33 +8,23 @@ Widget buildSectionHeader(String title, IconData icon, Color color) {
     margin: EdgeInsets.fromLTRB(8, 16, 8, 8),
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [color, color.withValues(alpha: 0.7)]),
+      gradient: LinearGradient(
+        colors: [color, color.withValues(alpha: 0.7)],
+      ),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Row(
       children: [
         Icon(icon, color: Colors.white, size: 20),
         SizedBox(width: 8),
-        Text(
-          title,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(title, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
       ],
     ),
   );
 }
 
 // Helper for close button visual with different sizes
-Widget buildCloseButtonSized(
-  double size,
-  Color iconColor,
-  Color bgColor,
-  String label,
-) {
+Widget buildCloseButtonSized(double size, Color iconColor, Color bgColor, String label) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
     child: Column(
@@ -42,40 +32,31 @@ Widget buildCloseButtonSized(
         Container(
           width: size + 16,
           height: size + 16,
-          decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: bgColor,
+            shape: BoxShape.circle,
+          ),
           child: Center(
             child: Icon(Icons.close, size: size, color: iconColor),
           ),
         ),
         SizedBox(height: 4),
         Text(label, style: TextStyle(fontSize: 9, color: Colors.grey)),
-        Text(
-          '${size.toInt()}px',
-          style: TextStyle(fontSize: 9, color: Colors.grey.shade400),
-        ),
+        Text('${size.toInt()}px', style: TextStyle(fontSize: 9, color: Colors.grey.shade400)),
       ],
     ),
   );
 }
 
 // Helper for close button in context
-Widget buildCloseButtonContext(
-  String context_,
-  Color headerColor,
-  Color closeColor,
-  String description,
-) {
+Widget buildCloseButtonContext(String context_, Color headerColor, Color closeColor, String description) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.06),
-          blurRadius: 4,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 4, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -92,14 +73,7 @@ Widget buildCloseButtonContext(
           ),
           child: Row(
             children: [
-              Text(
-                context_,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                ),
-              ),
+              Text(context_, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
               Spacer(),
               Container(
                 width: 28,
@@ -115,10 +89,7 @@ Widget buildCloseButtonContext(
         ),
         Container(
           padding: EdgeInsets.all(12),
-          child: Text(
-            description,
-            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-          ),
+          child: Text(description, style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
         ),
       ],
     ),
@@ -126,12 +97,7 @@ Widget buildCloseButtonContext(
 }
 
 // Helper for color variation card
-Widget buildColorVariationCard(
-  String label,
-  Color iconColor,
-  Color bgColor,
-  Color containerColor,
-) {
+Widget buildColorVariationCard(String label, Color iconColor, Color bgColor, Color containerColor) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -145,7 +111,10 @@ Widget buildColorVariationCard(
         Container(
           width: 36,
           height: 36,
-          decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: bgColor,
+            shape: BoxShape.circle,
+          ),
           child: Icon(Icons.close, size: 20, color: iconColor),
         ),
         SizedBox(width: 12),
@@ -153,20 +122,13 @@ Widget buildColorVariationCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'icon: $iconColor / bg: $bgColor',
-                style: TextStyle(fontSize: 10, color: Colors.grey),
-              ),
+              Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+              Text('icon: $iconColor / bg: $bgColor', style: TextStyle(fontSize: 10, color: Colors.grey)),
             ],
           ),
         ),
         Container(
-          width: 20,
-          height: 20,
+          width: 20, height: 20,
           decoration: BoxDecoration(
             color: iconColor,
             borderRadius: BorderRadius.circular(4),
@@ -174,8 +136,7 @@ Widget buildColorVariationCard(
         ),
         SizedBox(width: 4),
         Container(
-          width: 20,
-          height: 20,
+          width: 20, height: 20,
           decoration: BoxDecoration(
             color: bgColor,
             borderRadius: BorderRadius.circular(4),
@@ -188,22 +149,14 @@ Widget buildColorVariationCard(
 }
 
 // Helper for dialog close button visual
-Widget buildDialogCloseVisual(
-  String title,
-  Color bgColor,
-  Color closeIconColor,
-) {
+Widget buildDialogCloseVisual(String title, Color bgColor, Color closeIconColor) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
     decoration: BoxDecoration(
       color: bgColor,
       borderRadius: BorderRadius.circular(12),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.1),
-          blurRadius: 8,
-          offset: Offset(0, 4),
-        ),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 8, offset: Offset(0, 4)),
       ],
     ),
     child: Column(
@@ -214,10 +167,7 @@ Widget buildDialogCloseVisual(
           child: Row(
             children: [
               Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
+                child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               ),
               IconButton(
                 icon: Icon(Icons.close, color: closeIconColor),
@@ -258,19 +208,17 @@ Widget buildPositionDemo(String label, Alignment alignment, Color color) {
       ),
       child: Stack(
         children: [
-          Center(
-            child: Text(
-              label,
-              style: TextStyle(fontSize: 9, color: Colors.grey),
-            ),
-          ),
+          Center(child: Text(label, style: TextStyle(fontSize: 9, color: Colors.grey))),
           Align(
             alignment: alignment,
             child: Container(
               margin: EdgeInsets.all(4),
               width: 24,
               height: 24,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
               child: Icon(Icons.close, size: 14, color: Colors.white),
             ),
           ),
@@ -323,19 +271,15 @@ Widget buildBadgeCloseVisual(String label, Color chipColor, Color closeColor) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Text(label, style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w500)),
         SizedBox(width: 4),
         Container(
           width: 20,
           height: 20,
-          decoration: BoxDecoration(color: closeColor, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: closeColor,
+            shape: BoxShape.circle,
+          ),
           child: Icon(Icons.close, size: 12, color: Colors.white),
         ),
       ],
@@ -384,173 +328,45 @@ dynamic build(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  buildCloseButtonSized(
-                    12,
-                    Colors.grey.shade700,
-                    Colors.grey.shade200,
-                    'Tiny',
-                  ),
-                  buildCloseButtonSized(
-                    16,
-                    Colors.grey.shade700,
-                    Colors.grey.shade200,
-                    'Small',
-                  ),
-                  buildCloseButtonSized(
-                    20,
-                    Colors.grey.shade700,
-                    Colors.grey.shade200,
-                    'Default',
-                  ),
-                  buildCloseButtonSized(
-                    24,
-                    Colors.grey.shade700,
-                    Colors.grey.shade200,
-                    'Medium',
-                  ),
-                  buildCloseButtonSized(
-                    32,
-                    Colors.grey.shade700,
-                    Colors.grey.shade200,
-                    'Large',
-                  ),
-                  buildCloseButtonSized(
-                    40,
-                    Colors.grey.shade700,
-                    Colors.grey.shade200,
-                    'XLarge',
-                  ),
+                  buildCloseButtonSized(12, Colors.grey.shade700, Colors.grey.shade200, 'Tiny'),
+                  buildCloseButtonSized(16, Colors.grey.shade700, Colors.grey.shade200, 'Small'),
+                  buildCloseButtonSized(20, Colors.grey.shade700, Colors.grey.shade200, 'Default'),
+                  buildCloseButtonSized(24, Colors.grey.shade700, Colors.grey.shade200, 'Medium'),
+                  buildCloseButtonSized(32, Colors.grey.shade700, Colors.grey.shade200, 'Large'),
+                  buildCloseButtonSized(40, Colors.grey.shade700, Colors.grey.shade200, 'XLarge'),
                 ],
               ),
             ),
 
             // Section 2: Color Variations
-            buildSectionHeader(
-              'Color Variations',
-              Icons.palette,
-              Colors.purple,
-            ),
-            buildColorVariationCard(
-              'Default (grey on light)',
-              Colors.grey.shade700,
-              Colors.grey.shade200,
-              Colors.white,
-            ),
-            buildColorVariationCard(
-              'Red on pink',
-              Colors.red,
-              Colors.red.shade100,
-              Colors.white,
-            ),
-            buildColorVariationCard(
-              'White on dark',
-              Colors.white,
-              Colors.grey.shade800,
-              Colors.grey.shade100,
-            ),
-            buildColorVariationCard(
-              'Blue on light blue',
-              Colors.blue,
-              Colors.blue.shade100,
-              Colors.white,
-            ),
-            buildColorVariationCard(
-              'Green on mint',
-              Colors.green.shade700,
-              Colors.green.shade100,
-              Colors.white,
-            ),
-            buildColorVariationCard(
-              'Orange on yellow',
-              Colors.orange,
-              Colors.orange.shade100,
-              Colors.white,
-            ),
-            buildColorVariationCard(
-              'Black on white',
-              Colors.black,
-              Colors.white,
-              Colors.grey.shade100,
-            ),
-            buildColorVariationCard(
-              'Purple on lavender',
-              Colors.purple,
-              Colors.purple.shade100,
-              Colors.white,
-            ),
-            buildColorVariationCard(
-              'Teal on light teal',
-              Colors.teal,
-              Colors.teal.shade100,
-              Colors.white,
-            ),
-            buildColorVariationCard(
-              'Pink on light pink',
-              Colors.pink,
-              Colors.pink.shade100,
-              Colors.white,
-            ),
+            buildSectionHeader('Color Variations', Icons.palette, Colors.purple),
+            buildColorVariationCard('Default (grey on light)', Colors.grey.shade700, Colors.grey.shade200, Colors.white),
+            buildColorVariationCard('Red on pink', Colors.red, Colors.red.shade100, Colors.white),
+            buildColorVariationCard('White on dark', Colors.white, Colors.grey.shade800, Colors.grey.shade100),
+            buildColorVariationCard('Blue on light blue', Colors.blue, Colors.blue.shade100, Colors.white),
+            buildColorVariationCard('Green on mint', Colors.green.shade700, Colors.green.shade100, Colors.white),
+            buildColorVariationCard('Orange on yellow', Colors.orange, Colors.orange.shade100, Colors.white),
+            buildColorVariationCard('Black on white', Colors.black, Colors.white, Colors.grey.shade100),
+            buildColorVariationCard('Purple on lavender', Colors.purple, Colors.purple.shade100, Colors.white),
+            buildColorVariationCard('Teal on light teal', Colors.teal, Colors.teal.shade100, Colors.white),
+            buildColorVariationCard('Pink on light pink', Colors.pink, Colors.pink.shade100, Colors.white),
 
             // Section 3: In Context - Dialogs
-            buildSectionHeader(
-              'Dialog Close Buttons',
-              Icons.open_in_new,
-              Colors.blue,
-            ),
-            buildDialogCloseVisual(
-              'Alert Dialog',
-              Colors.white,
-              Colors.grey.shade600,
-            ),
-            buildDialogCloseVisual(
-              'Settings Panel',
-              Colors.grey.shade50,
-              Colors.blue,
-            ),
-            buildDialogCloseVisual(
-              'Error Dialog',
-              Colors.red.shade50,
-              Colors.red,
-            ),
-            buildDialogCloseVisual(
-              'Info Sheet',
-              Colors.blue.shade50,
-              Colors.blue.shade700,
-            ),
+            buildSectionHeader('Dialog Close Buttons', Icons.open_in_new, Colors.blue),
+            buildDialogCloseVisual('Alert Dialog', Colors.white, Colors.grey.shade600),
+            buildDialogCloseVisual('Settings Panel', Colors.grey.shade50, Colors.blue),
+            buildDialogCloseVisual('Error Dialog', Colors.red.shade50, Colors.red),
+            buildDialogCloseVisual('Info Sheet', Colors.blue.shade50, Colors.blue.shade700),
 
             // Section 4: In Context - Headers and Panels
             buildSectionHeader('Panel Close Buttons', Icons.web, Colors.green),
-            buildCloseButtonContext(
-              'Navigation Drawer',
-              Colors.blue.shade700,
-              Colors.white,
-              'Close button in navigation drawer header to dismiss the panel.',
-            ),
-            buildCloseButtonContext(
-              'Bottom Sheet',
-              Colors.green.shade700,
-              Colors.white,
-              'Close button in a bottom sheet header with drag handle alternative.',
-            ),
-            buildCloseButtonContext(
-              'Snackbar',
-              Colors.grey.shade800,
-              Colors.white,
-              'Dismiss button for a snackbar or toast notification.',
-            ),
-            buildCloseButtonContext(
-              'Search Bar',
-              Colors.teal.shade700,
-              Colors.white,
-              'Clear/close button in a search bar to dismiss search mode.',
-            ),
+            buildCloseButtonContext('Navigation Drawer', Colors.blue.shade700, Colors.white, 'Close button in navigation drawer header to dismiss the panel.'),
+            buildCloseButtonContext('Bottom Sheet', Colors.green.shade700, Colors.white, 'Close button in a bottom sheet header with drag handle alternative.'),
+            buildCloseButtonContext('Snackbar', Colors.grey.shade800, Colors.white, 'Dismiss button for a snackbar or toast notification.'),
+            buildCloseButtonContext('Search Bar', Colors.teal.shade700, Colors.white, 'Clear/close button in a search bar to dismiss search mode.'),
 
             // Section 5: Positions
-            buildSectionHeader(
-              'Button Positions',
-              Icons.grid_on,
-              Colors.orange,
-            ),
+            buildSectionHeader('Button Positions', Icons.grid_on, Colors.orange),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -563,21 +379,9 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: [
                   buildPositionDemo('Top Left', Alignment.topLeft, Colors.red),
-                  buildPositionDemo(
-                    'Top Right',
-                    Alignment.topRight,
-                    Colors.blue,
-                  ),
-                  buildPositionDemo(
-                    'Bot Left',
-                    Alignment.bottomLeft,
-                    Colors.green,
-                  ),
-                  buildPositionDemo(
-                    'Bot Right',
-                    Alignment.bottomRight,
-                    Colors.orange,
-                  ),
+                  buildPositionDemo('Top Right', Alignment.topRight, Colors.blue),
+                  buildPositionDemo('Bot Left', Alignment.bottomLeft, Colors.green),
+                  buildPositionDemo('Bot Right', Alignment.bottomRight, Colors.orange),
                 ],
               ),
             ),
@@ -585,17 +389,9 @@ dynamic build(BuildContext context) {
               margin: EdgeInsets.all(8),
               child: Row(
                 children: [
-                  buildPositionDemo(
-                    'Top Center',
-                    Alignment.topCenter,
-                    Colors.purple,
-                  ),
+                  buildPositionDemo('Top Center', Alignment.topCenter, Colors.purple),
                   buildPositionDemo('Center', Alignment.center, Colors.pink),
-                  buildPositionDemo(
-                    'Bot Center',
-                    Alignment.bottomCenter,
-                    Colors.teal,
-                  ),
+                  buildPositionDemo('Bot Center', Alignment.bottomCenter, Colors.teal),
                 ],
               ),
             ),
@@ -609,11 +405,7 @@ dynamic build(BuildContext context) {
             buildTooltipCloseButton('Close panel', Colors.green),
 
             // Section 7: Badge/Chip Delete Buttons
-            buildSectionHeader(
-              'Delete in Chips/Badges',
-              Icons.label,
-              Colors.indigo,
-            ),
+            buildSectionHeader('Delete in Chips/Badges', Icons.label, Colors.indigo),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
@@ -632,66 +424,22 @@ dynamic build(BuildContext context) {
                 spacing: 6,
                 runSpacing: 6,
                 children: [
-                  buildBadgeCloseVisual(
-                    'Flutter',
-                    Colors.blue,
-                    Colors.blue.shade800,
-                  ),
-                  buildBadgeCloseVisual(
-                    'Dart',
-                    Colors.green,
-                    Colors.green.shade800,
-                  ),
-                  buildBadgeCloseVisual(
-                    'Material',
-                    Colors.purple,
-                    Colors.purple.shade800,
-                  ),
-                  buildBadgeCloseVisual(
-                    'Widget',
-                    Colors.orange,
-                    Colors.orange.shade800,
-                  ),
-                  buildBadgeCloseVisual(
-                    'Theme',
-                    Colors.teal,
-                    Colors.teal.shade800,
-                  ),
-                  buildBadgeCloseVisual(
-                    'Style',
-                    Colors.red,
-                    Colors.red.shade800,
-                  ),
-                  buildBadgeCloseVisual(
-                    'Design',
-                    Colors.indigo,
-                    Colors.indigo.shade800,
-                  ),
-                  buildBadgeCloseVisual(
-                    'Layout',
-                    Colors.pink,
-                    Colors.pink.shade800,
-                  ),
-                  buildBadgeCloseVisual(
-                    'State',
-                    Colors.amber.shade700,
-                    Colors.amber.shade900,
-                  ),
-                  buildBadgeCloseVisual(
-                    'Build',
-                    Colors.cyan,
-                    Colors.cyan.shade800,
-                  ),
+                  buildBadgeCloseVisual('Flutter', Colors.blue, Colors.blue.shade800),
+                  buildBadgeCloseVisual('Dart', Colors.green, Colors.green.shade800),
+                  buildBadgeCloseVisual('Material', Colors.purple, Colors.purple.shade800),
+                  buildBadgeCloseVisual('Widget', Colors.orange, Colors.orange.shade800),
+                  buildBadgeCloseVisual('Theme', Colors.teal, Colors.teal.shade800),
+                  buildBadgeCloseVisual('Style', Colors.red, Colors.red.shade800),
+                  buildBadgeCloseVisual('Design', Colors.indigo, Colors.indigo.shade800),
+                  buildBadgeCloseVisual('Layout', Colors.pink, Colors.pink.shade800),
+                  buildBadgeCloseVisual('State', Colors.amber.shade700, Colors.amber.shade900),
+                  buildBadgeCloseVisual('Build', Colors.cyan, Colors.cyan.shade800),
                 ],
               ),
             ),
 
             // Section 8: Background Contrast Grid
-            buildSectionHeader(
-              'Background Contrast',
-              Icons.contrast,
-              Colors.blueGrey,
-            ),
+            buildSectionHeader('Background Contrast', Icons.contrast, Colors.blueGrey),
             Container(
               margin: EdgeInsets.all(8),
               child: Column(
@@ -707,13 +455,7 @@ dynamic build(BuildContext context) {
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.grey.shade300),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.black, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -724,13 +466,7 @@ dynamic build(BuildContext context) {
                             color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.grey.shade700,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.grey.shade700, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -741,13 +477,7 @@ dynamic build(BuildContext context) {
                             color: Colors.grey.shade500,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -758,13 +488,7 @@ dynamic build(BuildContext context) {
                             color: Colors.grey.shade800,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                     ],
@@ -779,13 +503,7 @@ dynamic build(BuildContext context) {
                             color: Colors.red,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -796,13 +514,7 @@ dynamic build(BuildContext context) {
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -813,13 +525,7 @@ dynamic build(BuildContext context) {
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -830,13 +536,7 @@ dynamic build(BuildContext context) {
                             color: Colors.purple,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                     ],
@@ -851,13 +551,7 @@ dynamic build(BuildContext context) {
                             color: Colors.yellow,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.black, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -868,13 +562,7 @@ dynamic build(BuildContext context) {
                             color: Colors.orange,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -885,13 +573,7 @@ dynamic build(BuildContext context) {
                             color: Colors.teal,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                       Expanded(
@@ -902,13 +584,7 @@ dynamic build(BuildContext context) {
                             color: Colors.pink,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
+                          child: Center(child: Icon(Icons.close, color: Colors.white, size: 24)),
                         ),
                       ),
                     ],
@@ -918,11 +594,7 @@ dynamic build(BuildContext context) {
             ),
 
             // Section 9: AppBar Close Buttons
-            buildSectionHeader(
-              'AppBar Close Buttons',
-              Icons.close,
-              Colors.brown,
-            ),
+            buildSectionHeader('AppBar Close Buttons', Icons.close, Colors.brown),
             Container(
               margin: EdgeInsets.all(8),
               child: Column(
@@ -931,30 +603,17 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.blue,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8),
-                      ),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                     ),
                     child: Row(
                       children: [
                         Icon(Icons.close, color: Colors.white, size: 22),
                         SizedBox(width: 12),
-                        Text(
-                          'Full Screen Dialog',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
+                        Text('Full Screen Dialog', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
                         Spacer(),
                         TextButton(
                           onPressed: () {},
-                          child: Text(
-                            'SAVE',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                          child: Text('SAVE', style: TextStyle(color: Colors.white)),
                         ),
                       ],
                     ),
@@ -963,17 +622,9 @@ dynamic build(BuildContext context) {
                     height: 50,
                     decoration: BoxDecoration(
                       color: Colors.blue.shade50,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(8),
-                        bottomRight: Radius.circular(8),
-                      ),
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Dialog content area',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ),
+                    child: Center(child: Text('Dialog content area', style: TextStyle(fontSize: 12, color: Colors.grey))),
                   ),
                 ],
               ),
@@ -986,34 +637,20 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8),
-                      ),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                       border: Border.all(color: Colors.grey.shade300),
                     ),
                     child: Row(
                       children: [
-                        Text(
-                          'Filter Panel',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
+                        Text('Filter Panel', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                         Spacer(),
                         Container(
-                          width: 30,
-                          height: 30,
+                          width: 30, height: 30,
                           decoration: BoxDecoration(
                             color: Colors.grey.shade300,
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(
-                            Icons.close,
-                            size: 18,
-                            color: Colors.grey.shade700,
-                          ),
+                          child: Icon(Icons.close, size: 18, color: Colors.grey.shade700),
                         ),
                       ],
                     ),
@@ -1022,22 +659,14 @@ dynamic build(BuildContext context) {
                     height: 50,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(8),
-                        bottomRight: Radius.circular(8),
-                      ),
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
                       border: Border(
                         left: BorderSide(color: Colors.grey.shade300),
                         right: BorderSide(color: Colors.grey.shade300),
                         bottom: BorderSide(color: Colors.grey.shade300),
                       ),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Filter content area',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ),
+                    child: Center(child: Text('Filter content area', style: TextStyle(fontSize: 12, color: Colors.grey))),
                   ),
                 ],
               ),
@@ -1056,54 +685,21 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Features Demonstrated:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  Text('Features Demonstrated:', style: TextStyle(fontWeight: FontWeight.bold)),
                   SizedBox(height: 6),
                   Wrap(
                     spacing: 6,
                     runSpacing: 6,
                     children: [
-                      Chip(
-                        label: Text('sizes', style: TextStyle(fontSize: 10)),
-                        backgroundColor: Colors.red.shade100,
-                      ),
-                      Chip(
-                        label: Text('colors', style: TextStyle(fontSize: 10)),
-                        backgroundColor: Colors.purple.shade100,
-                      ),
-                      Chip(
-                        label: Text('dialogs', style: TextStyle(fontSize: 10)),
-                        backgroundColor: Colors.blue.shade100,
-                      ),
-                      Chip(
-                        label: Text('panels', style: TextStyle(fontSize: 10)),
-                        backgroundColor: Colors.green.shade100,
-                      ),
-                      Chip(
-                        label: Text(
-                          'positions',
-                          style: TextStyle(fontSize: 10),
-                        ),
-                        backgroundColor: Colors.orange.shade100,
-                      ),
-                      Chip(
-                        label: Text('tooltips', style: TextStyle(fontSize: 10)),
-                        backgroundColor: Colors.teal.shade100,
-                      ),
-                      Chip(
-                        label: Text('chips', style: TextStyle(fontSize: 10)),
-                        backgroundColor: Colors.indigo.shade100,
-                      ),
-                      Chip(
-                        label: Text('contrast', style: TextStyle(fontSize: 10)),
-                        backgroundColor: Colors.grey.shade200,
-                      ),
-                      Chip(
-                        label: Text('appBars', style: TextStyle(fontSize: 10)),
-                        backgroundColor: Colors.brown.shade100,
-                      ),
+                      Chip(label: Text('sizes', style: TextStyle(fontSize: 10)), backgroundColor: Colors.red.shade100),
+                      Chip(label: Text('colors', style: TextStyle(fontSize: 10)), backgroundColor: Colors.purple.shade100),
+                      Chip(label: Text('dialogs', style: TextStyle(fontSize: 10)), backgroundColor: Colors.blue.shade100),
+                      Chip(label: Text('panels', style: TextStyle(fontSize: 10)), backgroundColor: Colors.green.shade100),
+                      Chip(label: Text('positions', style: TextStyle(fontSize: 10)), backgroundColor: Colors.orange.shade100),
+                      Chip(label: Text('tooltips', style: TextStyle(fontSize: 10)), backgroundColor: Colors.teal.shade100),
+                      Chip(label: Text('chips', style: TextStyle(fontSize: 10)), backgroundColor: Colors.indigo.shade100),
+                      Chip(label: Text('contrast', style: TextStyle(fontSize: 10)), backgroundColor: Colors.grey.shade200),
+                      Chip(label: Text('appBars', style: TextStyle(fontSize: 10)), backgroundColor: Colors.brown.shade100),
                     ],
                   ),
                 ],

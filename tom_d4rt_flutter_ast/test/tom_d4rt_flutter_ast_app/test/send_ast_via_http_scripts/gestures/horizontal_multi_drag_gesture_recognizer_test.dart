@@ -125,7 +125,11 @@ dynamic build(BuildContext context) {
             ),
             child: Text(
               index,
-              style: ts(size: 12, weight: FontWeight.w800, color: tone),
+              style: ts(
+                size: 12,
+                weight: FontWeight.w800,
+                color: tone,
+              ),
             ),
           ),
           const SizedBox(width: 10),
@@ -142,7 +146,13 @@ dynamic build(BuildContext context) {
                     letterSpacing: 0.2,
                   ),
                 ),
-                Text(subtitle, style: ts(size: 11, color: cParchmentDim)),
+                Text(
+                  subtitle,
+                  style: ts(
+                    size: 11,
+                    color: cParchmentDim,
+                  ),
+                ),
               ],
             ),
           ),
@@ -176,7 +186,10 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 152,
-            child: Text(key, style: ts(size: 11, color: cParchmentDim)),
+            child: Text(
+              key,
+              style: ts(size: 11, color: cParchmentDim),
+            ),
           ),
           Expanded(
             child: Text(
@@ -364,65 +377,64 @@ dynamic build(BuildContext context) {
       final double t = markers <= 1 ? 0.0 : i / (markers - 1);
       final double x = x0 + dx * t;
       final double a = 0.25 + 0.65 * t;
-      trail.add(
-        Positioned(
-          left: x - 5,
-          top: 22,
-          child: Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              color: tone.withValues(alpha: a),
-              border: Border.all(color: tone, width: 1),
-              borderRadius: BorderRadius.circular(2),
-            ),
+      trail.add(Positioned(
+        left: x - 5,
+        top: 22,
+        child: Container(
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(
+            color: tone.withValues(alpha: a),
+            border: Border.all(color: tone, width: 1),
+            borderRadius: BorderRadius.circular(2),
           ),
         ),
-      );
+      ));
     }
     // Head (current finger).
-    trail.add(
-      Positioned(
-        left: x1 - 9,
-        top: 18,
-        child: Container(
-          width: 18,
-          height: 18,
-          decoration: BoxDecoration(
-            color: tone,
-            border: Border.all(color: cParchment, width: 1.5),
-            borderRadius: BorderRadius.circular(9),
-            boxShadow: [
-              BoxShadow(
-                color: tone.withValues(alpha: 0.6),
-                blurRadius: 8,
-                spreadRadius: 1,
-              ),
-            ],
-          ),
+    trail.add(Positioned(
+      left: x1 - 9,
+      top: 18,
+      child: Container(
+        width: 18,
+        height: 18,
+        decoration: BoxDecoration(
+          color: tone,
+          border: Border.all(color: cParchment, width: 1.5),
+          borderRadius: BorderRadius.circular(9),
+          boxShadow: [
+            BoxShadow(
+              color: tone.withValues(alpha: 0.6),
+              blurRadius: 8,
+              spreadRadius: 1,
+            ),
+          ],
         ),
       ),
-    );
+    ));
     // Track line.
-    trail.add(
-      Positioned(
-        left: 0,
-        right: 0,
-        top: 26,
-        child: Container(height: 1, color: cInkLine.withValues(alpha: 0.7)),
+    trail.add(Positioned(
+      left: 0,
+      right: 0,
+      top: 26,
+      child: Container(
+        height: 1,
+        color: cInkLine.withValues(alpha: 0.7),
       ),
-    );
+    ));
     // Direction arrow text.
-    trail.add(
-      Positioned(
-        left: x1 + 14,
-        top: yLabel,
-        child: Text(
-          dx >= 0 ? '→' : '←',
-          style: ts(size: 18, weight: FontWeight.w800, color: tone),
+    trail.add(Positioned(
+      left: x1 + 14,
+      top: yLabel,
+      child: Text(
+        dx >= 0 ? '→' : '←',
+        style: ts(
+          size: 18,
+          weight: FontWeight.w800,
+          color: tone,
         ),
       ),
-    );
+    ));
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: Stack(
@@ -432,7 +444,10 @@ dynamic build(BuildContext context) {
             height: 54,
             decoration: BoxDecoration(
               color: cInk.withValues(alpha: 0.4),
-              border: Border.all(color: tone.withValues(alpha: 0.4), width: 1),
+              border: Border.all(
+                color: tone.withValues(alpha: 0.4),
+                width: 1,
+              ),
               borderRadius: BorderRadius.circular(6),
             ),
           ),
@@ -574,10 +589,12 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 6),
           arenaCell('Tap', cAmber, wins: winner == 'Tap'),
           const SizedBox(width: 10),
-          Text(
-            '→ winner: $winner',
-            style: ts(size: 10, weight: FontWeight.w700, color: cParchment),
-          ),
+          Text('→ winner: $winner',
+              style: ts(
+                size: 10,
+                weight: FontWeight.w700,
+                color: cParchment,
+              )),
         ],
       ),
     );
@@ -654,28 +671,33 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8),
             Text(
               'RawGestureDetector registration',
-              style: ts(size: 12, weight: FontWeight.w800, color: cParchment),
+              style: ts(
+                size: 12,
+                weight: FontWeight.w800,
+                color: cParchment,
+              ),
             ),
           ],
         ),
         const SizedBox(height: 10),
         codeLine('RawGestureDetector(', tone: cParchmentDim),
+        codeLine('  gestures: <Type, GestureRecognizerFactory>{',
+            tone: cParchmentDim),
         codeLine(
-          '  gestures: <Type, GestureRecognizerFactory>{',
-          tone: cParchmentDim,
-        ),
-        codeLine('    HorizontalMultiDragGestureRecognizer:', tone: cTeal),
-        codeLine('      GestureRecognizerFactoryWithHandlers<', tone: cTeal),
-        codeLine('        HorizontalMultiDragGestureRecognizer>(', tone: cTeal),
+            '    HorizontalMultiDragGestureRecognizer:',
+            tone: cTeal),
         codeLine(
-          '        () => HorizontalMultiDragGestureRecognizer(),',
-          tone: cAmber,
-        ),
+            '      GestureRecognizerFactoryWithHandlers<',
+            tone: cTeal),
         codeLine(
-          '        (HorizontalMultiDragGestureRecognizer r) {',
-          tone: cAmber,
-        ),
-        codeLine('          r.onStart = (Offset p) => MyDrag(p);', tone: cMint),
+            '        HorizontalMultiDragGestureRecognizer>(',
+            tone: cTeal),
+        codeLine('        () => HorizontalMultiDragGestureRecognizer(),',
+            tone: cAmber),
+        codeLine('        (HorizontalMultiDragGestureRecognizer r) {',
+            tone: cAmber),
+        codeLine('          r.onStart = (Offset p) => MyDrag(p);',
+            tone: cMint),
         codeLine('        },', tone: cAmber),
         codeLine('      ),', tone: cTeal),
         codeLine('  },', tone: cParchmentDim),
@@ -695,11 +717,7 @@ dynamic build(BuildContext context) {
   // 5. DRAG INTERFACE CARD
   // ============================================================
   Widget dragMethodRow(
-    String name,
-    String signature,
-    String description,
-    Color tone,
-  ) {
+      String name, String signature, String description, Color tone) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -730,7 +748,11 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   signature,
-                  style: ts(size: 10, color: cAmber, family: 'monospace'),
+                  style: ts(
+                    size: 10,
+                    color: cAmber,
+                    family: 'monospace',
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
@@ -808,7 +830,10 @@ dynamic build(BuildContext context) {
             child: Container(
               width: 18,
               height: 18,
-              decoration: BoxDecoration(color: cTeal, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: cTeal,
+                shape: BoxShape.circle,
+              ),
             ),
           ),
           Positioned(
@@ -817,7 +842,10 @@ dynamic build(BuildContext context) {
             child: Container(
               width: 18,
               height: 18,
-              decoration: BoxDecoration(color: cAmber, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: cAmber,
+                shape: BoxShape.circle,
+              ),
             ),
           ),
           Positioned(
@@ -825,7 +853,11 @@ dynamic build(BuildContext context) {
             top: 36,
             child: Text(
               '→  →',
-              style: ts(size: 14, color: cParchment, weight: FontWeight.w800),
+              style: ts(
+                size: 14,
+                color: cParchment,
+                weight: FontWeight.w800,
+              ),
             ),
           ),
           Positioned(
@@ -880,18 +912,14 @@ dynamic build(BuildContext context) {
           Positioned(
             left: 12,
             bottom: 24,
-            child: Text(
-              'finger A drags PiP →',
-              style: ts(size: 9, color: cParchment),
-            ),
+            child: Text('finger A drags PiP →',
+                style: ts(size: 9, color: cParchment)),
           ),
           Positioned(
             left: 12,
             bottom: 8,
-            child: Text(
-              'finger B scrolls feed →',
-              style: ts(size: 9, color: cMint),
-            ),
+            child: Text('finger B scrolls feed →',
+                style: ts(size: 9, color: cMint)),
           ),
         ],
       ),
@@ -902,30 +930,28 @@ dynamic build(BuildContext context) {
     final List<Color> rows = <Color>[cTeal, cAmber, cCoral, cMint];
     final List<Widget> rowWidgets = <Widget>[];
     for (int i = 0; i < rows.length; i++) {
-      rowWidgets.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 1.5),
-          child: Container(
-            height: 12,
-            decoration: BoxDecoration(
-              color: rows[i].withValues(alpha: 0.3),
-              border: Border.all(color: rows[i], width: 1),
-              borderRadius: BorderRadius.circular(2),
-            ),
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.only(right: 4),
-            child: Text(
-              i.isEven ? '→' : '←',
-              style: ts(
-                size: 10,
-                weight: FontWeight.w800,
-                color: rows[i],
-                height: 1.0,
-              ),
+      rowWidgets.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 1.5),
+        child: Container(
+          height: 12,
+          decoration: BoxDecoration(
+            color: rows[i].withValues(alpha: 0.3),
+            border: Border.all(color: rows[i], width: 1),
+            borderRadius: BorderRadius.circular(2),
+          ),
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.only(right: 4),
+          child: Text(
+            i.isEven ? '→' : '←',
+            style: ts(
+              size: 10,
+              weight: FontWeight.w800,
+              color: rows[i],
+              height: 1.0,
             ),
           ),
         ),
-      );
+      ));
     }
     return Container(
       height: 96,
@@ -938,15 +964,13 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'multi-row reorder',
-            style: ts(
-              size: 9,
-              weight: FontWeight.w700,
-              color: cCoral,
-              letterSpacing: 0.5,
-            ),
-          ),
+          Text('multi-row reorder',
+              style: ts(
+                size: 9,
+                weight: FontWeight.w700,
+                color: cCoral,
+                letterSpacing: 0.5,
+              )),
           const SizedBox(height: 4),
           ...rowWidgets,
         ],
@@ -988,22 +1012,14 @@ dynamic build(BuildContext context) {
           spacing: 14,
           runSpacing: 6,
           children: [
-            Text(
-              '• two-finger horizontal pan map',
-              style: ts(size: 10, color: cParchmentDim),
-            ),
-            Text(
-              '• picture-in-picture w/ scrolling content',
-              style: ts(size: 10, color: cParchmentDim),
-            ),
-            Text(
-              '• per-row swipe-to-action lists',
-              style: ts(size: 10, color: cParchmentDim),
-            ),
-            Text(
-              '• sortable chip cloud',
-              style: ts(size: 10, color: cParchmentDim),
-            ),
+            Text('• two-finger horizontal pan map',
+                style: ts(size: 10, color: cParchmentDim)),
+            Text('• picture-in-picture w/ scrolling content',
+                style: ts(size: 10, color: cParchmentDim)),
+            Text('• per-row swipe-to-action lists',
+                style: ts(size: 10, color: cParchmentDim)),
+            Text('• sortable chip cloud',
+                style: ts(size: 10, color: cParchmentDim)),
           ],
         ),
       ],
@@ -1018,7 +1034,9 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
       decoration: BoxDecoration(
         color: cTealDeep.withValues(alpha: 0.45),
-        border: Border(bottom: BorderSide(color: cTeal, width: 1.5)),
+        border: Border(
+          bottom: BorderSide(color: cTeal, width: 1.5),
+        ),
       ),
       child: Text(
         text,
@@ -1037,7 +1055,10 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: cInkLine.withValues(alpha: 0.6), width: 1),
+          bottom: BorderSide(
+            color: cInkLine.withValues(alpha: 0.6),
+            width: 1,
+          ),
         ),
       ),
       child: Text(
@@ -1050,9 +1071,10 @@ dynamic build(BuildContext context) {
   Widget cmpRow(List<String> cells, List<Color> tones) {
     final List<Widget> kids = <Widget>[];
     for (int i = 0; i < cells.length; i++) {
-      kids.add(
-        Expanded(flex: i == 0 ? 3 : 2, child: cmpCell(cells[i], tones[i])),
-      );
+      kids.add(Expanded(
+        flex: i == 0 ? 3 : 2,
+        child: cmpCell(cells[i], tones[i]),
+      ));
     }
     // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #22, P1):
     // stretch-Row inside the unbounded SingleChildScrollView propagated
@@ -1074,14 +1096,17 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.fromLTRB(14, 12, 14, 10),
           decoration: BoxDecoration(
             color: cInk.withValues(alpha: 0.5),
-            border: Border(bottom: BorderSide(color: cInkLine, width: 1)),
+            border: Border(
+              bottom: BorderSide(color: cInkLine, width: 1),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Recognizer comparison',
-                style: ts(size: 13, weight: FontWeight.w800, color: cParchment),
+                style:
+                    ts(size: 13, weight: FontWeight.w800, color: cParchment),
               ),
               const SizedBox(height: 2),
               Text(
@@ -1204,26 +1229,21 @@ dynamic build(BuildContext context) {
           Expanded(
             child: LayoutBuilder(
               builder: (BuildContext c, BoxConstraints cs) {
-                final double w = cs.maxWidth
-                    .clamp(0.0, double.infinity)
-                    .toDouble();
+                final double w =
+                    cs.maxWidth.clamp(0.0, double.infinity).toDouble();
                 final double bar = w * magnitude.clamp(0.0, 1.0);
                 final List<Widget> arrow = <Widget>[];
                 final int notches = math.max(3, (bar / 18).round());
                 for (int i = 0; i < notches; i++) {
-                  arrow.add(
-                    Container(
-                      width: 14,
-                      height: 6,
-                      margin: const EdgeInsets.symmetric(horizontal: 1),
-                      decoration: BoxDecoration(
-                        color: tone.withValues(
-                          alpha: 0.3 + 0.6 * (i / notches),
-                        ),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
+                  arrow.add(Container(
+                    width: 14,
+                    height: 6,
+                    margin: const EdgeInsets.symmetric(horizontal: 1),
+                    decoration: BoxDecoration(
+                      color: tone.withValues(alpha: 0.3 + 0.6 * (i / notches)),
+                      borderRadius: BorderRadius.circular(2),
                     ),
-                  );
+                  ));
                 }
                 return Row(
                   mainAxisAlignment: toRight
@@ -1231,26 +1251,16 @@ dynamic build(BuildContext context) {
                       : MainAxisAlignment.end,
                   children: [
                     if (!toRight)
-                      Text(
-                        '◀',
-                        style: ts(
-                          size: 14,
-                          weight: FontWeight.w800,
-                          color: tone,
-                        ),
-                      ),
+                      Text('◀',
+                          style: ts(size: 14, weight: FontWeight.w800,
+                              color: tone)),
                     if (!toRight) const SizedBox(width: 4),
                     ...arrow,
                     if (toRight) const SizedBox(width: 4),
                     if (toRight)
-                      Text(
-                        '▶',
-                        style: ts(
-                          size: 14,
-                          weight: FontWeight.w800,
-                          color: tone,
-                        ),
-                      ),
+                      Text('▶',
+                          style: ts(size: 14, weight: FontWeight.w800,
+                              color: tone)),
                   ],
                 );
               },
@@ -1261,7 +1271,11 @@ dynamic build(BuildContext context) {
             width: 96,
             child: Text(
               '${(magnitude * 1800).round()} px/s',
-              style: ts(size: 10, color: cParchmentDim, family: 'monospace'),
+              style: ts(
+                size: 10,
+                color: cParchmentDim,
+                family: 'monospace',
+              ),
             ),
           ),
         ],
@@ -1284,20 +1298,26 @@ dynamic build(BuildContext context) {
           style: ts(size: 11, color: cParchmentDim),
         ),
         const SizedBox(height: 10),
-        velocityArrow(label: 'P1', magnitude: 0.45, tone: cTeal, toRight: true),
         velocityArrow(
-          label: 'P2',
-          magnitude: 0.78,
-          tone: cAmber,
-          toRight: false,
-        ),
+            label: 'P1',
+            magnitude: 0.45,
+            tone: cTeal,
+            toRight: true),
         velocityArrow(
-          label: 'P3',
-          magnitude: 0.22,
-          tone: cCoral,
-          toRight: true,
-        ),
-        velocityArrow(label: 'P4', magnitude: 0.95, tone: cIris, toRight: true),
+            label: 'P2',
+            magnitude: 0.78,
+            tone: cAmber,
+            toRight: false),
+        velocityArrow(
+            label: 'P3',
+            magnitude: 0.22,
+            tone: cCoral,
+            toRight: true),
+        velocityArrow(
+            label: 'P4',
+            magnitude: 0.95,
+            tone: cIris,
+            toRight: true),
       ],
     ),
   );
@@ -1333,7 +1353,10 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 6),
-          Text(body, style: ts(size: 11, color: cParchmentDim, height: 1.45)),
+          Text(
+            body,
+            style: ts(size: 11, color: cParchmentDim, height: 1.45),
+          ),
         ],
       ),
     );
@@ -1404,23 +1427,15 @@ dynamic build(BuildContext context) {
           style: ts(size: 13, weight: FontWeight.w800, color: cTeal),
         ),
         const SizedBox(height: 8),
-        kvRow(
-          'construction',
-          recognizerStatus,
-          recognizerStatus == 'ok' ? cMint : cCoral,
-        ),
+        kvRow('construction', recognizerStatus,
+            recognizerStatus == 'ok' ? cMint : cCoral),
         kvRow('runtime type', recognizerType, cParchment),
         kvRow('debug owner', recognizerOwner, cAmber),
-        kvRow(
-          'onStart attached',
-          startCallbackAttached.toString(),
-          startCallbackAttached ? cMint : cCoral,
-        ),
-        kvRow(
-          'parent abstract',
-          'MultiDragGestureRecognizer<MultiDragPointerState>',
-          cIris,
-        ),
+        kvRow('onStart attached',
+            startCallbackAttached.toString(),
+            startCallbackAttached ? cMint : cCoral),
+        kvRow('parent abstract',
+            'MultiDragGestureRecognizer<MultiDragPointerState>', cIris),
         kvRow('axis lock', 'horizontal (left or right)', cTeal),
         kvRow('max simultaneous', 'unbounded', cParchment),
         kvRow('returns', 'Drag? per pointer (null = refuse)', cAmber),
@@ -1506,68 +1521,32 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             hero,
-            sectionTitle(
-              '1',
-              'Pointer timeline',
-              'Three pointers, three Drag instances.',
-              cTeal,
-            ),
+            sectionTitle('1', 'Pointer timeline',
+                'Three pointers, three Drag instances.', cTeal),
             pointerTimeline,
-            sectionTitle(
-              '2',
-              'Gesture arena',
-              'Per-pointer competition with vertical & tap.',
-              cIris,
-            ),
+            sectionTitle('2', 'Gesture arena',
+                'Per-pointer competition with vertical & tap.', cIris),
             arenaSchematic,
-            sectionTitle(
-              '3',
-              'Registration code',
-              'Wiring the recognizer in RawGestureDetector.',
-              cTeal,
-            ),
+            sectionTitle('3', 'Registration code',
+                'Wiring the recognizer in RawGestureDetector.', cTeal),
             codeCard,
-            sectionTitle(
-              '4',
-              'The Drag interface',
-              'update / end / cancel — the three callbacks.',
-              cAmber,
-            ),
+            sectionTitle('4', 'The Drag interface',
+                'update / end / cancel — the three callbacks.', cAmber),
             dragInterface,
-            sectionTitle(
-              '5',
-              'Real-world examples',
-              'Where multi-pointer horizontal dragging lives.',
-              cMint,
-            ),
+            sectionTitle('5', 'Real-world examples',
+                'Where multi-pointer horizontal dragging lives.', cMint),
             gallery,
-            sectionTitle(
-              '6',
-              'Recognizer comparison',
-              'Single vs multi, horizontal vs vertical vs pan.',
-              cParchment,
-            ),
+            sectionTitle('6', 'Recognizer comparison',
+                'Single vs multi, horizontal vs vertical vs pan.', cParchment),
             comparison,
-            sectionTitle(
-              '7',
-              'Velocity at end',
-              'Per-pointer fling vectors.',
-              cAmber,
-            ),
+            sectionTitle('7', 'Velocity at end',
+                'Per-pointer fling vectors.', cAmber),
             velocityCard,
-            sectionTitle(
-              '8',
-              'Edge cases',
-              'Behaviors that surprise newcomers.',
-              cCoral,
-            ),
+            sectionTitle('8', 'Edge cases',
+                'Behaviors that surprise newcomers.', cCoral),
             edgeCases,
-            sectionTitle(
-              '9',
-              'Diagnostics',
-              'Runtime values harvested from a real instance.',
-              cTeal,
-            ),
+            sectionTitle('9', 'Diagnostics',
+                'Runtime values harvested from a real instance.', cTeal),
             diagnostics,
             const SizedBox(height: 20),
             footer,

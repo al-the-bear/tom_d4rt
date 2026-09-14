@@ -12,33 +12,31 @@ dynamic build(BuildContext context) {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20.0, 24.0, 20.0, 60.0),
-          child: Column(
-            children: const <Widget>[
-              _HeroCard(),
-              SizedBox(height: 24.0),
-              _SectionModel(),
-              SizedBox(height: 24.0),
-              _SectionApi(),
-              SizedBox(height: 24.0),
-              _SectionVelocityVsEstimate(),
-              SizedBox(height: 24.0),
-              _SectionConfidence(),
-              SizedBox(height: 24.0),
-              _SectionVariants(),
-              SizedBox(height: 24.0),
-              _SectionMagnitudeChart(),
-              SizedBox(height: 24.0),
-              _SectionCoordinateSystem(),
-              SizedBox(height: 24.0),
-              _SectionUseCases(),
-              SizedBox(height: 24.0),
-              _SectionCodeBlock(),
-              SizedBox(height: 24.0),
-              _SectionPitfalls(),
-              SizedBox(height: 24.0),
-              _SectionFooter(),
-            ],
-          ),
+          child: Column(children: const <Widget>[
+            _HeroCard(),
+            SizedBox(height: 24.0),
+            _SectionModel(),
+            SizedBox(height: 24.0),
+            _SectionApi(),
+            SizedBox(height: 24.0),
+            _SectionVelocityVsEstimate(),
+            SizedBox(height: 24.0),
+            _SectionConfidence(),
+            SizedBox(height: 24.0),
+            _SectionVariants(),
+            SizedBox(height: 24.0),
+            _SectionMagnitudeChart(),
+            SizedBox(height: 24.0),
+            _SectionCoordinateSystem(),
+            SizedBox(height: 24.0),
+            _SectionUseCases(),
+            SizedBox(height: 24.0),
+            _SectionCodeBlock(),
+            SizedBox(height: 24.0),
+            _SectionPitfalls(),
+            SizedBox(height: 24.0),
+            _SectionFooter(),
+          ]),
         ),
       ),
     ),
@@ -271,9 +269,7 @@ class _SectionHeader extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 7.0,
-                        vertical: 2.0,
-                      ),
+                          horizontal: 7.0, vertical: 2.0),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.30),
                         borderRadius: BorderRadius.circular(6.0),
@@ -377,7 +373,11 @@ class _SectionModel extends StatelessWidget {
                 'A VelocityTracker collects (time, position) samples from pointer '
                 'events. When asked for a velocity it fits a line through the '
                 'recent samples and reports its slope in pixels per second.',
-                style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInkSoft),
+                style: TextStyle(
+                  fontSize: 13.5,
+                  height: 1.5,
+                  color: _kInkSoft,
+                ),
               ),
               const SizedBox(height: 16.0),
               Container(
@@ -386,7 +386,10 @@ class _SectionModel extends StatelessWidget {
                   gradient: const LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: <Color>[Color(0xFFF7FAFF), Color(0xFFE8EFFF)],
+                    colors: <Color>[
+                      Color(0xFFF7FAFF),
+                      Color(0xFFE8EFFF),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(12.0),
                   border: Border.all(
@@ -394,7 +397,9 @@ class _SectionModel extends StatelessWidget {
                     width: 1.0,
                   ),
                 ),
-                child: CustomPaint(painter: _SampleTimelinePainter()),
+                child: CustomPaint(
+                  painter: _SampleTimelinePainter(),
+                ),
               ),
               const SizedBox(height: 14.0),
               Row(
@@ -435,7 +440,10 @@ class _LegendDot extends StatelessWidget {
             shape: BoxShape.circle,
             border: Border.all(color: Colors.white, width: 1.5),
             boxShadow: <BoxShadow>[
-              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 4.0),
+              BoxShadow(
+                color: color.withValues(alpha: 0.4),
+                blurRadius: 4.0,
+              ),
             ],
           ),
         ),
@@ -563,30 +571,10 @@ class _SampleTimelinePainter extends CustomPainter {
 
     // Sample data: 11 samples roughly along a slope (~700 px/s)
     final List<double> times = <double>[
-      0.0,
-      16.0,
-      32.0,
-      48.0,
-      64.0,
-      80.0,
-      96.0,
-      112.0,
-      128.0,
-      144.0,
-      160.0,
+      0.0, 16.0, 32.0, 48.0, 64.0, 80.0, 96.0, 112.0, 128.0, 144.0, 160.0,
     ];
     final List<double> positions = <double>[
-      6.0,
-      16.0,
-      24.0,
-      38.0,
-      50.0,
-      64.0,
-      72.0,
-      86.0,
-      100.0,
-      112.0,
-      124.0,
+      6.0, 16.0, 24.0, 38.0, 50.0, 64.0, 72.0, 86.0, 100.0, 112.0, 124.0,
     ];
 
     Offset toPixel(double t, double p) {
@@ -629,29 +617,13 @@ class _SampleTimelinePainter extends CustomPainter {
       );
     }
     // Y-axis labels
-    _drawText(
-      canvas,
-      'pos',
-      Offset(6.0, padT - 4.0),
-      const Color(0xFF52606D),
-      10.0,
-    );
-    _drawText(
-      canvas,
-      'time →',
-      Offset(w - 56.0, h - 14.0),
-      const Color(0xFF52606D),
-      10.0,
-    );
+    _drawText(canvas, 'pos', Offset(6.0, padT - 4.0),
+        const Color(0xFF52606D), 10.0);
+    _drawText(canvas, 'time →', Offset(w - 56.0, h - 14.0),
+        const Color(0xFF52606D), 10.0);
   }
 
-  void _drawText(
-    Canvas canvas,
-    String text,
-    Offset pos,
-    Color color,
-    double size,
-  ) {
+  void _drawText(Canvas canvas, String text, Offset pos, Color color, double size) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
@@ -703,11 +675,8 @@ class _SectionApi extends StatelessWidget {
                     'Creates a tracker tuned for the given device kind. '
                     'Touch and stylus use different sample weighting than mouse.',
                 params: <_Param>[
-                  _Param(
-                    'kind',
-                    'PointerDeviceKind',
-                    'touch, mouse, stylus, trackpad, invertedStylus',
-                  ),
+                  _Param('kind', 'PointerDeviceKind',
+                      'touch, mouse, stylus, trackpad, invertedStylus'),
                 ],
                 accent: _kAccent,
               ),
@@ -720,16 +689,10 @@ class _SectionApi extends StatelessWidget {
                     'monotonically non-decreasing. Typically called from '
                     'PointerEvent.timeStamp / localPosition.',
                 params: <_Param>[
-                  _Param(
-                    'time',
-                    'Duration',
-                    'Engine timestamp of the pointer event',
-                  ),
-                  _Param(
-                    'position',
-                    'Offset',
-                    'Pointer position in local coordinates',
-                  ),
+                  _Param('time', 'Duration',
+                      'Engine timestamp of the pointer event'),
+                  _Param('position', 'Offset',
+                      'Pointer position in local coordinates'),
                 ],
                 accent: _kMint,
               ),
@@ -832,9 +795,7 @@ class _ApiCard extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 3.0,
-                ),
+                    horizontal: 8.0, vertical: 3.0),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(6.0),
@@ -887,7 +848,8 @@ class _ParamRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: const Color(0xFFF1F4F8),
               borderRadius: BorderRadius.circular(4.0),
@@ -957,12 +919,12 @@ class _SectionVelocityVsEstimate extends StatelessWidget {
               _CompareTable(
                 rows: <_CompareRow>[
                   _CompareRow('pixelsPerSecond', 'Offset', 'Offset'),
-                  _CompareRow('confidence', '—', 'double (0..1)'),
-                  _CompareRow('duration', '—', 'Duration'),
-                  _CompareRow('offset', '—', 'Offset (Δ pos)'),
-                  _CompareRow('clampMagnitude', 'Velocity', '—'),
-                  _CompareRow('null on low data', 'no', 'yes'),
-                  _CompareRow('zero default', 'Velocity.zero', 'null'),
+                  _CompareRow('confidence',      '—',      'double (0..1)'),
+                  _CompareRow('duration',        '—',      'Duration'),
+                  _CompareRow('offset',          '—',      'Offset (Δ pos)'),
+                  _CompareRow('clampMagnitude',  'Velocity', '—'),
+                  _CompareRow('null on low data','no',     'yes'),
+                  _CompareRow('zero default',    'Velocity.zero', 'null'),
                 ],
               ),
               SizedBox(height: 12.0),
@@ -1002,14 +964,15 @@ class _CompareTable extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 10.0,
-            ),
+                horizontal: 12.0, vertical: 10.0),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: <Color>[Color(0xFFFCEFF2), Color(0xFFF6E1E6)],
+                colors: <Color>[
+                  Color(0xFFFCEFF2),
+                  Color(0xFFF6E1E6),
+                ],
               ),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
             ),
@@ -1024,12 +987,12 @@ class _CompareTable extends StatelessWidget {
           for (int i = 0; i < rows.length; i++)
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 9.0,
-              ),
+                  horizontal: 12.0, vertical: 9.0),
               decoration: BoxDecoration(
                 color: i.isEven ? _kCard : const Color(0xFFFAF6F2),
-                border: Border(top: BorderSide(color: _kBorder, width: 0.6)),
+                border: Border(
+                  top: BorderSide(color: _kBorder, width: 0.6),
+                ),
               ),
               child: Row(
                 children: <Widget>[
@@ -1098,11 +1061,8 @@ class _CompareNote extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(
-            Icons.info_outline_rounded,
-            size: 18.0,
-            color: _kCoralDark,
-          ),
+          const Icon(Icons.info_outline_rounded,
+              size: 18.0, color: _kCoralDark),
           const SizedBox(width: 8.0),
           Expanded(
             child: Text(
@@ -1149,7 +1109,11 @@ class _SectionConfidence extends StatelessWidget {
                 'A VelocityTracker reports how confident it is in the line '
                 'fit. Tight, monotonic samples → confidence near 1.0. '
                 'Scattered or contradictory samples → confidence near 0.',
-                style: TextStyle(fontSize: 13.0, height: 1.5, color: _kInkSoft),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  height: 1.5,
+                  color: _kInkSoft,
+                ),
               ),
               const SizedBox(height: 14.0),
               Row(
@@ -1226,7 +1190,10 @@ class _ConfidenceMini extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.0),
+        border: Border.all(
+          color: accent.withValues(alpha: 0.35),
+          width: 1.0,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1278,9 +1245,7 @@ class _ConfidenceMini extends StatelessWidget {
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 7.0,
-                    vertical: 2.0,
-                  ),
+                      horizontal: 7.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: accent.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(6.0),
@@ -1406,7 +1371,10 @@ class _ConfidenceBar extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: <Color>[Color(0xFFFCE9D0), Color(0xFFF6D8A8)],
+          colors: <Color>[
+            Color(0xFFFCE9D0),
+            Color(0xFFF6D8A8),
+          ],
         ),
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: const Color(0xFFE9C58A), width: 1.0),
@@ -1414,11 +1382,8 @@ class _ConfidenceBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(
-            Icons.tips_and_updates_outlined,
-            size: 18.0,
-            color: _kAmberDark,
-          ),
+          const Icon(Icons.tips_and_updates_outlined,
+              size: 18.0, color: _kAmberDark),
           const SizedBox(width: 8.0),
           Expanded(
             child: Text(
@@ -1654,7 +1619,11 @@ class _SectionMagnitudeChart extends StatelessWidget {
                 'Velocity magnitudes are reported in pixels per second. '
                 'Most apps cap them via clampMagnitude(min, max) before '
                 'feeding them into scroll physics.',
-                style: TextStyle(fontSize: 13.0, height: 1.5, color: _kInkSoft),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  height: 1.5,
+                  color: _kInkSoft,
+                ),
               ),
               const SizedBox(height: 14.0),
               const _MagnitudeBar(
@@ -1717,18 +1686,13 @@ class _SectionMagnitudeChart extends StatelessWidget {
                   color: const Color(0xFFEFF4FB),
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
-                    color: const Color(0xFFCFD9F2),
-                    width: 1.0,
-                  ),
+                      color: const Color(0xFFCFD9F2), width: 1.0),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Icon(
-                      Icons.shield_outlined,
-                      size: 18.0,
-                      color: _kAccentDark,
-                    ),
+                    const Icon(Icons.shield_outlined,
+                        size: 18.0, color: _kAccentDark),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
@@ -1860,7 +1824,11 @@ class _SectionCoordinateSystem extends StatelessWidget {
                 'to the right yields a positive dx velocity; a drag down '
                 'yields positive dy. Upward swipes therefore have a '
                 'negative dy.',
-                style: TextStyle(fontSize: 13.0, height: 1.5, color: _kInkSoft),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  height: 1.5,
+                  color: _kInkSoft,
+                ),
               ),
               const SizedBox(height: 16.0),
               Container(
@@ -1869,7 +1837,10 @@ class _SectionCoordinateSystem extends StatelessWidget {
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: <Color>[Color(0xFFE9F8F1), Color(0xFFD3F0E1)],
+                    colors: <Color>[
+                      Color(0xFFE9F8F1),
+                      Color(0xFFD3F0E1),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(12.0),
                   border: Border.all(
@@ -1964,7 +1935,13 @@ class _AxisLegendCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2.0),
-          Text(desc, style: const TextStyle(fontSize: 11.0, color: _kInkSoft)),
+          Text(
+            desc,
+            style: const TextStyle(
+              fontSize: 11.0,
+              color: _kInkSoft,
+            ),
+          ),
         ],
       ),
     );
@@ -1995,75 +1972,57 @@ class _AxisDiagramPainter extends CustomPainter {
     _arrowhead(canvas, Offset(origin.dx, origin.dy + yLen), 90.0, axis);
 
     // Labels
-    _drawText(
-      canvas,
-      '(0, 0)',
-      Offset(origin.dx - 36.0, origin.dy - 14.0),
-      const Color(0xFF1B8F6A),
-      11.0,
-    );
-    _drawText(
-      canvas,
-      '+x  (dx > 0)',
-      Offset(origin.dx + xLen - 70.0, origin.dy - 18.0),
-      const Color(0xFF1B8F6A),
-      12.0,
-    );
-    _drawText(
-      canvas,
-      '+y  (dy > 0)',
-      Offset(origin.dx - 8.0, origin.dy + yLen + 6.0),
-      const Color(0xFF1B8F6A),
-      12.0,
-    );
+    _drawText(canvas, '(0, 0)', Offset(origin.dx - 36.0, origin.dy - 14.0),
+        const Color(0xFF1B8F6A), 11.0);
+    _drawText(canvas, '+x  (dx > 0)',
+        Offset(origin.dx + xLen - 70.0, origin.dy - 18.0),
+        const Color(0xFF1B8F6A), 12.0);
+    _drawText(canvas, '+y  (dy > 0)',
+        Offset(origin.dx - 8.0, origin.dy + yLen + 6.0),
+        const Color(0xFF1B8F6A), 12.0);
 
     // Sample velocity vector
     final Paint vec = Paint()
       ..color = const Color(0xFF2F6BFF)
       ..strokeWidth = 3.0
       ..strokeCap = StrokeCap.round;
-    final Offset vEnd = Offset(
-      origin.dx + xLen * 0.55,
-      origin.dy + yLen * 0.45,
-    );
+    final Offset vEnd = Offset(origin.dx + xLen * 0.55,
+        origin.dy + yLen * 0.45);
     canvas.drawLine(origin, vEnd, vec);
     _arrowhead(canvas, vEnd, 38.0, vec);
-    _drawText(
-      canvas,
-      'v = (+ , +)',
-      Offset(vEnd.dx + 6.0, vEnd.dy - 4.0),
-      const Color(0xFF1746B3),
-      11.5,
-    );
+    _drawText(canvas, 'v = (+ , +)',
+        Offset(vEnd.dx + 6.0, vEnd.dy - 4.0),
+        const Color(0xFF1746B3), 11.5);
 
     // Negative dy vector (upward swipe)
     final Paint vecUp = Paint()
       ..color = const Color(0xFFB23A52)
       ..strokeWidth = 3.0
       ..strokeCap = StrokeCap.round;
-    final Offset vUpEnd = Offset(
-      origin.dx + xLen * 0.30,
-      origin.dy - yLen * 0.22,
-    );
+    final Offset vUpEnd = Offset(origin.dx + xLen * 0.30,
+        origin.dy - yLen * 0.22);
     canvas.drawLine(origin, vUpEnd, vecUp);
     _arrowhead(canvas, vUpEnd, -38.0, vecUp);
-    _drawText(
-      canvas,
-      'v = (+ , −)',
-      Offset(vUpEnd.dx + 6.0, vUpEnd.dy - 14.0),
-      const Color(0xFFB23A52),
-      11.5,
-    );
+    _drawText(canvas, 'v = (+ , −)',
+        Offset(vUpEnd.dx + 6.0, vUpEnd.dy - 14.0),
+        const Color(0xFFB23A52), 11.5);
   }
 
   void _arrowhead(Canvas canvas, Offset tip, double angleDeg, Paint paint) {
     final double rad = angleDeg * 3.141592653589793 / 180.0;
     final double size = 8.0;
     final double back = 12.0;
-    final double bx = tip.dx - back * (rad == 0.0 ? 1.0 : _cos(rad));
+    final double bx = tip.dx -
+        back * (rad == 0.0 ? 1.0 : _cos(rad));
     final double by = tip.dy - back * _sin(rad);
-    final Offset wing1 = Offset(bx + size * _sin(rad), by - size * _cos(rad));
-    final Offset wing2 = Offset(bx - size * _sin(rad), by + size * _cos(rad));
+    final Offset wing1 = Offset(
+      bx + size * _sin(rad),
+      by - size * _cos(rad),
+    );
+    final Offset wing2 = Offset(
+      bx - size * _sin(rad),
+      by + size * _cos(rad),
+    );
     final Path path = Path()
       ..moveTo(tip.dx, tip.dy)
       ..lineTo(wing1.dx, wing1.dy)
@@ -2106,12 +2065,7 @@ class _AxisDiagramPainter extends CustomPainter {
   }
 
   void _drawText(
-    Canvas canvas,
-    String text,
-    Offset pos,
-    Color color,
-    double size,
-  ) {
+      Canvas canvas, String text, Offset pos, Color color, double size) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
@@ -2359,7 +2313,10 @@ class _SectionCodeBlock extends StatelessWidget {
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: <Color>[Color(0xFF1F2933), Color(0xFF111820)],
+                    colors: <Color>[
+                      Color(0xFF1F2933),
+                      Color(0xFF111820),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(12.0),
                   border: Border.all(
@@ -2426,7 +2383,10 @@ class _Tag extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(6.0),
-        border: Border.all(color: color.withValues(alpha: 0.40), width: 1.0),
+        border: Border.all(
+          color: color.withValues(alpha: 0.40),
+          width: 1.0,
+        ),
       ),
       child: Text(
         text,
@@ -2537,7 +2497,10 @@ class _PitfallRow extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[Color(0xFFF6A623), Color(0xFFB6791A)],
+                colors: <Color>[
+                  Color(0xFFF6A623),
+                  Color(0xFFB6791A),
+                ],
               ),
               borderRadius: BorderRadius.circular(8.0),
             ),
@@ -2597,7 +2560,10 @@ class _SectionFooter extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Color(0xFF2C3A45), Color(0xFF1F2933)],
+          colors: <Color>[
+            Color(0xFF2C3A45),
+            Color(0xFF1F2933),
+          ],
         ),
         borderRadius: BorderRadius.circular(16.0),
       ),
@@ -2646,7 +2612,8 @@ class _SectionFooter extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 9.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.14),
               borderRadius: BorderRadius.circular(8.0),

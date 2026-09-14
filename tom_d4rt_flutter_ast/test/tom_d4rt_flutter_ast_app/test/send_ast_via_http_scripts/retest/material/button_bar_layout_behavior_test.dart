@@ -478,9 +478,9 @@ Widget _buildButtonBarSpecimens(BuildContext context) {
   final cs = Theme.of(context).colorScheme;
 
   List<Widget> sampleButtons() => <Widget>[
-    TextButton(onPressed: () {}, child: const Text('CANCEL')),
-    TextButton(onPressed: () {}, child: const Text('CONFIRM')),
-  ];
+        TextButton(onPressed: () {}, child: const Text('CANCEL')),
+        TextButton(onPressed: () {}, child: const Text('CONFIRM')),
+      ];
 
   final constrainedSpecimen = _specimenFrame(
     context,
@@ -683,7 +683,9 @@ Widget _specimenFrame(
           decoration: BoxDecoration(
             color: cs.surface,
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: accent.withValues(alpha: 0.25)),
+            border: Border.all(
+              color: accent.withValues(alpha: 0.25),
+            ),
           ),
           child: child,
         ),
@@ -908,30 +910,30 @@ Widget _buildComparisonTable(BuildContext context) {
   ];
 
   Widget headerCell(String label, Color tint) => Container(
-    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-    color: tint.withValues(alpha: 0.18),
-    child: Text(
-      label,
-      style: TextStyle(
-        fontSize: 12.5,
-        fontWeight: FontWeight.bold,
-        color: cs.onSurface,
-      ),
-    ),
-  );
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+        color: tint.withValues(alpha: 0.18),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12.5,
+            fontWeight: FontWeight.bold,
+            color: cs.onSurface,
+          ),
+        ),
+      );
 
   Widget bodyCell(String label, {bool isFirst = false}) => Container(
-    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-    child: Text(
-      label,
-      style: TextStyle(
-        fontSize: 12.0,
-        fontWeight: isFirst ? FontWeight.w600 : FontWeight.normal,
-        color: isFirst ? cs.onSurface : cs.onSurfaceVariant,
-        height: 1.3,
-      ),
-    ),
-  );
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: isFirst ? FontWeight.w600 : FontWeight.normal,
+            color: isFirst ? cs.onSurface : cs.onSurfaceVariant,
+            height: 1.3,
+          ),
+        ),
+      );
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1009,8 +1011,7 @@ Widget _buildMigrationRecipes(BuildContext context) {
   final recipes = <_Recipe>[
     _Recipe(
       title: 'Recipe 1: dialog footer (constrained -> ConstrainedBox)',
-      before:
-          '// Legacy dialog action row\n'
+      before: '// Legacy dialog action row\n'
           'ButtonBar(\n'
           '  alignment: MainAxisAlignment.end,\n'
           '  layoutBehavior: ButtonBarLayoutBehavior.constrained,\n'
@@ -1020,8 +1021,7 @@ Widget _buildMigrationRecipes(BuildContext context) {
           '    FilledButton(onPressed: confirm, child: Text(\'OK\')),\n'
           '  ],\n'
           ');',
-      after:
-          '// Modern Material 3 replacement\n'
+      after: '// Modern Material 3 replacement\n'
           'ConstrainedBox(\n'
           '  constraints: const BoxConstraints(minHeight: 52.0),\n'
           '  child: OverflowBar(\n'
@@ -1036,8 +1036,7 @@ Widget _buildMigrationRecipes(BuildContext context) {
     ),
     _Recipe(
       title: 'Recipe 2: inline card footer (padded -> Padding)',
-      before:
-          '// Legacy card footer\n'
+      before: '// Legacy card footer\n'
           'ButtonBar(\n'
           '  alignment: MainAxisAlignment.end,\n'
           '  layoutBehavior: ButtonBarLayoutBehavior.padded,\n'
@@ -1046,8 +1045,7 @@ Widget _buildMigrationRecipes(BuildContext context) {
           '    FilledButton(onPressed: act, child: Text(\'OPEN\')),\n'
           '  ],\n'
           ');',
-      after:
-          '// Modern replacement\n'
+      after: '// Modern replacement\n'
           'Padding(\n'
           '  padding: const EdgeInsets.all(8.0),\n'
           '  child: OverflowBar(\n'
@@ -1062,8 +1060,7 @@ Widget _buildMigrationRecipes(BuildContext context) {
     ),
     _Recipe(
       title: 'Recipe 3: AlertDialog actions (built-in OverflowBar)',
-      before:
-          '// AlertDialog historically wrapped actions in ButtonBar.\n'
+      before: '// AlertDialog historically wrapped actions in ButtonBar.\n'
           'AlertDialog(\n'
           '  title: Text(\'Heads up\'),\n'
           '  content: Text(\'Body\'),\n'
@@ -1071,8 +1068,7 @@ Widget _buildMigrationRecipes(BuildContext context) {
           '    TextButton(onPressed: dismiss, child: Text(\'OK\')),\n'
           '  ],\n'
           ');',
-      after:
-          '// In Material 3, AlertDialog uses OverflowBar internally.\n'
+      after: '// In Material 3, AlertDialog uses OverflowBar internally.\n'
           '// Tune the visual height via actionsPadding rather than enum.\n'
           'AlertDialog(\n'
           '  title: Text(\'Heads up\'),\n'
@@ -1292,7 +1288,9 @@ Widget _buildDecisionMatrix(BuildContext context) {
               decoration: BoxDecoration(
                 color: cs.surfaceContainer,
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: step.tint.withValues(alpha: 0.4)),
+                border: Border.all(
+                  color: step.tint.withValues(alpha: 0.4),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

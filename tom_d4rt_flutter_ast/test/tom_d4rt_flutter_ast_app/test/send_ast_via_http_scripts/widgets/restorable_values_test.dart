@@ -283,7 +283,10 @@ class _RoundTripPainter extends CustomPainter {
       tl.layout(maxWidth: endX - startX);
       tl.paint(
         canvas,
-        Offset(startX + ((endX - startX) - tl.width) / 2, cy - 18),
+        Offset(
+          startX + ((endX - startX) - tl.width) / 2,
+          cy - 18,
+        ),
       );
     }
   }
@@ -358,10 +361,8 @@ dynamic build(BuildContext context) {
   final RestorableString restString = RestorableString(_vString);
   final RestorableNum<num> restNum = RestorableNum<num>(_vNum);
   final RestorableDateTime restDateTime = RestorableDateTime(_vDateTime);
-  final RestorableEnum<Brightness> restMood = RestorableEnum<Brightness>(
-    _vMood,
-    values: Brightness.values,
-  );
+  final RestorableEnum<Brightness> restMood =
+      RestorableEnum<Brightness>(_vMood, values: Brightness.values);
 
   final RestorableIntN restIntN = RestorableIntN(_vIntN);
   final RestorableDoubleN restDoubleN = RestorableDoubleN(_vDoubleN);
@@ -370,30 +371,24 @@ dynamic build(BuildContext context) {
   final RestorableNumN<num?> restNumN = RestorableNumN<num?>(_vNumN);
   final RestorableDateTimeN restDateTimeN = RestorableDateTimeN(_vDateTimeN);
   final RestorableEnumN<Brightness> restMoodN = RestorableEnumN<Brightness>(
-    _vMoodN,
-    values: Brightness.values,
-  );
+      _vMoodN,
+      values: Brightness.values);
 
   // A second `RestorableEnum<Brightness>` used in the spotlight card to
   // show that two RestorableValues of the same type can coexist with
   // different defaults — each will be registered under its own
   // RestorationId.
   final RestorableEnum<Brightness> restMoodCalm = RestorableEnum<Brightness>(
-    _vMoodCalm,
-    values: Brightness.values,
-  );
+      _vMoodCalm,
+      values: Brightness.values);
 
-  print(
-    'restInt=$_vInt restDouble=$_vDouble '
-    'restBool=$_vBool restString=$_vString '
-    'restNum=$_vNum restMood=$_vMood',
-  );
-  print(
-    'restDateTime=$_vDateTime '
-    'nullables: $_vIntN $_vDoubleN '
-    '$_vBoolN $_vStringN $_vNumN '
-    '$_vDateTimeN $_vMoodN',
-  );
+  print('restInt=$_vInt restDouble=$_vDouble '
+      'restBool=$_vBool restString=$_vString '
+      'restNum=$_vNum restMood=$_vMood');
+  print('restDateTime=$_vDateTime '
+      'nullables: $_vIntN $_vDoubleN '
+      '$_vBoolN $_vStringN $_vNumN '
+      '$_vDateTimeN $_vMoodN');
   // `RestorableProperty.isRegistered` is `@protected`; outside a subclass
   // it can only be observed indirectly. In this static demo no property
   // has been wired to a `RestorationMixin`, so every inspector card below
@@ -478,9 +473,8 @@ dynamic build(BuildContext context) {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Text(
               heading,
@@ -541,7 +535,11 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         label,
-        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: fg),
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          color: fg,
+        ),
       ),
     );
   }
@@ -563,9 +561,8 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             decoration: BoxDecoration(
               color: a.withValues(alpha: 0.20),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(9),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
             child: Text(
               '● ● ●    $title',
@@ -615,7 +612,11 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(width: 6),
-          Container(width: 1, height: 12, color: fg.withValues(alpha: 0.30)),
+          Container(
+            width: 1,
+            height: 12,
+            color: fg.withValues(alpha: 0.30),
+          ),
           const SizedBox(width: 6),
           Text(
             value,
@@ -735,9 +736,9 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                dataRow('typeName', typeName),
-                dataRow('value', valueText),
-                dataRow('runtimeType', runtimeType),
+                dataRow('typeName',     typeName),
+                dataRow('value',        valueText),
+                dataRow('runtimeType',  runtimeType),
                 dataRow('isRegistered', isRegistered.toString()),
               ],
             ),
@@ -828,7 +829,9 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 8),
         decoration: BoxDecoration(
           color: color ?? Colors.white,
-          border: Border(bottom: BorderSide(color: slateLight, width: 0.8)),
+          border: Border(
+            bottom: BorderSide(color: slateLight, width: 0.8),
+          ),
         ),
         child: Text(
           text,
@@ -941,13 +944,7 @@ dynamic build(BuildContext context) {
                     if (j > 0) const SizedBox(width: 4),
                     tableBodyCell(
                       rows[i][j],
-                      width: <double>[
-                        wType,
-                        wDefault,
-                        wPrim,
-                        wNullable,
-                        wEx,
-                      ][j],
+                      width: <double>[wType, wDefault, wPrim, wNullable, wEx][j],
                       color: i.isEven ? Colors.white : indigoLight,
                     ),
                   ],
@@ -959,7 +956,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget pitfallCard(String title, String body, IconData icon, Color accent) {
+  Widget pitfallCard(
+    String title,
+    String body,
+    IconData icon,
+    Color accent,
+  ) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 10),
@@ -1041,23 +1043,13 @@ dynamic build(BuildContext context) {
           Wrap(
             children: <Widget>[
               for (final String n in const <String>[
-                'Int',
-                'Double',
-                'Bool',
-                'String',
-                'Num',
-                'DateTime',
-                'Enum<E>',
+                'Int', 'Double', 'Bool', 'String',
+                'Num', 'DateTime', 'Enum<E>',
               ])
                 chipTag(n, indigoLight, indigoDeep),
               for (final String n in const <String>[
-                'IntN',
-                'DoubleN',
-                'BoolN',
-                'StringN',
-                'NumN',
-                'DateTimeN',
-                'EnumN<E?>',
+                'IntN', 'DoubleN', 'BoolN', 'StringN',
+                'NumN', 'DateTimeN', 'EnumN<E?>',
               ])
                 chipTag(n, tealLight, tealDeep),
             ],
@@ -1342,7 +1334,10 @@ dynamic build(BuildContext context) {
             ),
           ),
         ),
-        roundTripDiagram('2026-05-11', '${_vDateTime.microsecondsSinceEpoch}'),
+        roundTripDiagram(
+          '2026-05-11',
+          '${_vDateTime.microsecondsSinceEpoch}',
+        ),
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
@@ -1376,7 +1371,8 @@ dynamic build(BuildContext context) {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: tealDeep,
                   borderRadius: BorderRadius.circular(6),
@@ -1425,11 +1421,11 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 8),
           dataRow('values.length', Brightness.values.length.toString()),
-          dataRow('current', _vMood.toString()),
+          dataRow('current',       _vMood.toString()),
           dataRow('current.index', _vMood.index.toString()),
-          dataRow('current.name', _vMood.name),
-          dataRow('alt (calm)', _vMoodCalm.toString()),
-          dataRow('nullable (N)', _vMoodN?.toString() ?? 'null'),
+          dataRow('current.name',  _vMood.name),
+          dataRow('alt (calm)',    _vMoodCalm.toString()),
+          dataRow('nullable (N)',  _vMoodN?.toString() ?? 'null'),
         ],
       ),
     );
@@ -1441,43 +1437,43 @@ dynamic build(BuildContext context) {
         pitfallCard(
           'Forgetting to register the property',
           'Calling registerForRestoration() outside restoreState() leaves '
-              'the property unregistered. Reads still return the default; '
-              'writes silently bypass the bucket. The diagnostic '
-              'isRegistered == false is the first thing to check.',
+          'the property unregistered. Reads still return the default; '
+          'writes silently bypass the bucket. The diagnostic '
+          'isRegistered == false is the first thing to check.',
           Icons.power_off_outlined,
           rose,
         ),
         pitfallCard(
           'RestorationId clashes',
           'Two RestorableValues registered under the same id on the same '
-              'bucket throw at register time. Conventionally, prefix the id '
-              'with the State class name and field name (e.g. "_counter").',
+          'bucket throw at register time. Conventionally, prefix the id '
+          'with the State class name and field name (e.g. "_counter").',
           Icons.error_outline,
           amber,
         ),
         pitfallCard(
           'Mismatched defaultValue types',
           'RestorableEnum<E> must be given the same values list across '
-              'launches; renaming an enum constant or removing one will '
-              'cause fromPrimitives() to fall back to the default. Treat the '
-              'enum names as schema, not implementation detail.',
+          'launches; renaming an enum constant or removing one will '
+          'cause fromPrimitives() to fall back to the default. Treat the '
+          'enum names as schema, not implementation detail.',
           Icons.warning_amber_outlined,
           indigo,
         ),
         pitfallCard(
           'Listener leaks',
           'RestorableValue extends ChangeNotifier. Each addListener() must '
-              'be paired with removeListener() in dispose(). The mixin disposes '
-              'its registered properties for you — anything you keep outside '
-              'the mixin is on you.',
+          'be paired with removeListener() in dispose(). The mixin disposes '
+          'its registered properties for you — anything you keep outside '
+          'the mixin is on you.',
           Icons.battery_alert_outlined,
           teal,
         ),
         pitfallCard(
           'Non-primitive values',
           'toPrimitives() must return one of: bool, num, String, List, Map '
-              'of those, or null. Custom encoders should compress to JSON-safe '
-              'types — anything else triggers an assert when persisting.',
+          'of those, or null. Custom encoders should compress to JSON-safe '
+          'types — anything else triggers an assert when persisting.',
           Icons.dangerous_outlined,
           rose,
         ),
@@ -1571,20 +1567,10 @@ void restoreState(RestorationBucket? old, bool initial) {
 
   Widget summaryFooter() {
     final int registered = <RestorableProperty<Object?>>[
-      restInt,
-      restDouble,
-      restBool,
-      restString,
-      restNum,
-      restDateTime,
-      restMood,
-      restIntN,
-      restDoubleN,
-      restBoolN,
-      restStringN,
-      restNumN,
-      restDateTimeN,
-      restMoodN,
+      restInt, restDouble, restBool, restString,
+      restNum, restDateTime, restMood,
+      restIntN, restDoubleN, restBoolN, restStringN,
+      restNumN, restDateTimeN, restMoodN,
     ].where((RestorableProperty<Object?> p) => kIsRegistered).length;
     final int total = 14;
     return Column(
@@ -1633,15 +1619,17 @@ void restoreState(RestorationBucket? old, bool initial) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               heroBanner(),
-              sectionBanner('1', 'What is state restoration?', const <Color>[
-                indigoDeep,
-                indigo,
-              ]),
+              sectionBanner(
+                '1',
+                'What is state restoration?',
+                const <Color>[indigoDeep, indigo],
+              ),
               introBody(),
-              sectionBanner('2', 'Restoration anatomy diagram', const <Color>[
-                indigo,
-                teal,
-              ]),
+              sectionBanner(
+                '2',
+                'Restoration anatomy diagram',
+                const <Color>[indigo, teal],
+              ),
               infoCard(
                 'RestorationScope → … → fromPrimitives()',
                 anatomyDiagram(),
@@ -1656,10 +1644,11 @@ void restoreState(RestorationBucket? old, bool initial) {
                 bg: indigoLight,
                 border: indigo.withValues(alpha: 0.25),
               ),
-              sectionBanner('3', 'Subclass table', const <Color>[
-                indigoDeep,
-                teal,
-              ]),
+              sectionBanner(
+                '3',
+                'Subclass table',
+                const <Color>[indigoDeep, teal],
+              ),
               subclassTable(),
               proseBox(
                 'The "Primitive" column is what toPrimitives() returns. '
@@ -1676,15 +1665,17 @@ void restoreState(RestorationBucket? old, bool initial) {
                 const <Color>[teal, tealDeep],
               ),
               inspectorGallery(),
-              sectionBanner('6', 'Inspector ribbons (typed)', const <Color>[
-                indigo,
-                indigoDeep,
-              ]),
+              sectionBanner(
+                '6',
+                'Inspector ribbons (typed)',
+                const <Color>[indigo, indigoDeep],
+              ),
               ribbonGallery(),
-              sectionBanner('7', 'Nullable variants pill row', const <Color>[
-                amber,
-                Color(0xFF92400E),
-              ]),
+              sectionBanner(
+                '7',
+                'Nullable variants pill row',
+                const <Color>[amber, Color(0xFF92400E)],
+              ),
               infoCard(
                 'RestorableXN — value or null',
                 Wrap(children: <Widget>[nullablePillRow()]),
@@ -1699,10 +1690,11 @@ void restoreState(RestorationBucket? old, bool initial) {
                 bg: amberLight,
                 border: amber.withValues(alpha: 0.25),
               ),
-              sectionBanner('8', 'Primitives round-trip', const <Color>[
-                indigoDeep,
-                indigo,
-              ]),
+              sectionBanner(
+                '8',
+                'Primitives round-trip',
+                const <Color>[indigoDeep, indigo],
+              ),
               infoCard(
                 'value → toPrimitives() → bucket → fromPrimitives() → value',
                 primitiveRoundTripGallery(),
@@ -1724,17 +1716,23 @@ void restoreState(RestorationBucket? old, bool initial) {
                 bg: tealLight,
                 border: teal.withValues(alpha: 0.30),
               ),
-              sectionBanner('10', 'Idiomatic code samples', const <Color>[
-                slateDeep,
-                indigo,
-              ]),
+              sectionBanner(
+                '10',
+                'Idiomatic code samples',
+                const <Color>[slateDeep, indigo],
+              ),
               codeSamples(),
-              sectionBanner('11', 'Pitfalls', const <Color>[
-                rose,
-                Color(0xFF881337),
-              ]),
+              sectionBanner(
+                '11',
+                'Pitfalls',
+                const <Color>[rose, Color(0xFF881337)],
+              ),
               pitfallsList(),
-              sectionBanner('12', 'Summary', const <Color>[indigoDeep, teal]),
+              sectionBanner(
+                '12',
+                'Summary',
+                const <Color>[indigoDeep, teal],
+              ),
               summaryFooter(),
               const SizedBox(height: 18),
               Container(

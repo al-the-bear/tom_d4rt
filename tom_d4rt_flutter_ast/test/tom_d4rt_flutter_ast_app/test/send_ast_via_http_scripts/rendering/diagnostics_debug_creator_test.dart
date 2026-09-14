@@ -149,16 +149,16 @@ class _SectionCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               subtitle,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: cs.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 12),
             child,
@@ -204,7 +204,10 @@ class _PropRow extends StatelessWidget {
           ),
           Expanded(
             flex: 5,
-            child: Text(value, style: Theme.of(context).textTheme.bodySmall),
+            child: Text(
+              value,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           ),
         ],
       ),
@@ -282,7 +285,10 @@ class _BulletPoint extends StatelessWidget {
             child: Icon(leading, size: 16, color: cs.primary),
           ),
           Expanded(
-            child: Text(text, style: Theme.of(context).textTheme.bodySmall),
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           ),
         ],
       ),
@@ -330,12 +336,15 @@ class _ConceptTile extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 4),
-                Text(body, style: Theme.of(context).textTheme.bodySmall),
+                Text(
+                  body,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ],
             ),
           ),
@@ -482,30 +491,26 @@ class _HeroTab extends StatelessWidget {
                 _ConceptTile(
                   icon: Icons.share_outlined,
                   label: 'Pipeline',
-                  body:
-                      'Widget → Element → RenderObject → '
+                  body: 'Widget → Element → RenderObject → '
                       'DiagnosticsDebugCreator → FlutterErrorDetails → '
                       'dumped error message.',
                 ),
                 _ConceptTile(
                   icon: Icons.widgets_outlined,
                   label: 'Struct',
-                  body:
-                      'Wraps a DebugCreator payload with `element` '
+                  body: 'Wraps a DebugCreator payload with `element` '
                       '(and therefore `widget`, `debugGetCreatorChain`, …).',
                 ),
                 _ConceptTile(
                   icon: Icons.report_gmailerrorred_outlined,
                   label: 'Error message',
-                  body:
-                      'Contrast: without the node you only see render '
+                  body: 'Contrast: without the node you only see render '
                       'types; with it you see the widget name and file.',
                 ),
                 _ConceptTile(
                   icon: Icons.build_outlined,
                   label: 'Framework internals',
-                  body:
-                      'RenderObjectElement sets '
+                  body: 'RenderObjectElement sets '
                       '`renderObject.debugCreator = DebugCreator(this)` '
                       'during `_firstBuild` / `mount`.',
                 ),
@@ -553,15 +558,13 @@ class _PipelineTab extends StatelessWidget {
                 _StageDetail(
                   n: 1,
                   label: 'Widget',
-                  body:
-                      'You write `MyWidget(...)` in your build method. '
+                  body: 'You write `MyWidget(...)` in your build method. '
                       'A Widget is a lightweight, immutable configuration.',
                 ),
                 _StageDetail(
                   n: 2,
                   label: 'Element',
-                  body:
-                      'The framework inflates the Widget into an Element '
+                  body: 'The framework inflates the Widget into an Element '
                       '(e.g. StatelessElement, StatefulElement, '
                       'RenderObjectElement). This is the live node in the '
                       'tree.',
@@ -569,16 +572,14 @@ class _PipelineTab extends StatelessWidget {
                 _StageDetail(
                   n: 3,
                   label: 'RenderObject',
-                  body:
-                      'A RenderObjectElement creates and owns a '
+                  body: 'A RenderObjectElement creates and owns a '
                       'RenderObject (e.g. RenderFlex). This is where '
                       'layout, paint and hit-testing happen.',
                 ),
                 _StageDetail(
                   n: 4,
                   label: 'DebugCreator attached',
-                  body:
-                      'In debug mode the Element assigns '
+                  body: 'In debug mode the Element assigns '
                       '`renderObject.debugCreator = DebugCreator(this)`. '
                       'Internally, the diagnostics system wraps that in a '
                       '`DiagnosticsDebugCreator` node.',
@@ -586,8 +587,7 @@ class _PipelineTab extends StatelessWidget {
                 _StageDetail(
                   n: 5,
                   label: 'Error occurs',
-                  body:
-                      'Layout throws (overflow), paint asserts, '
+                  body: 'Layout throws (overflow), paint asserts, '
                       'constraints mismatch, etc. The RenderObject adds '
                       'its diagnostics to the FlutterErrorDetails context, '
                       'including the DiagnosticsDebugCreator node.',
@@ -595,8 +595,7 @@ class _PipelineTab extends StatelessWidget {
                 _StageDetail(
                   n: 6,
                   label: 'Formatter renders it',
-                  body:
-                      'ErrorDescription / debugTransformDebugCreator '
+                  body: 'ErrorDescription / debugTransformDebugCreator '
                       'reads the node, extracts widget+creation-stack, and '
                       'prints the "The relevant error-causing widget was: …" '
                       'block with a clickable file:line reference.',
@@ -677,9 +676,9 @@ class _StageDetail extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(body, style: Theme.of(context).textTheme.bodySmall),
@@ -706,42 +705,12 @@ class _PipelinePainter extends CustomPainter {
     );
 
     final stages = <(String, String, Color, Color)>[
-      (
-        'Widget',
-        'MyCard(...)',
-        scheme.primaryContainer,
-        scheme.onPrimaryContainer,
-      ),
-      (
-        'Element',
-        'CardElement',
-        scheme.secondaryContainer,
-        scheme.onSecondaryContainer,
-      ),
-      (
-        'RenderObject',
-        'RenderFlex',
-        scheme.tertiaryContainer,
-        scheme.onTertiaryContainer,
-      ),
-      (
-        'DebugCreator',
-        'element + widget',
-        scheme.surfaceContainer,
-        scheme.onSurface,
-      ),
-      (
-        'Error',
-        'FlutterErrorDetails',
-        scheme.errorContainer,
-        scheme.onErrorContainer,
-      ),
-      (
-        'Formatter',
-        'error-causing widget',
-        scheme.inversePrimary,
-        scheme.onPrimaryContainer,
-      ),
+      ('Widget',           'MyCard(...)',          scheme.primaryContainer,    scheme.onPrimaryContainer),
+      ('Element',          'CardElement',          scheme.secondaryContainer,  scheme.onSecondaryContainer),
+      ('RenderObject',     'RenderFlex',           scheme.tertiaryContainer,   scheme.onTertiaryContainer),
+      ('DebugCreator',     'element + widget',     scheme.surfaceContainer,    scheme.onSurface),
+      ('Error',            'FlutterErrorDetails',  scheme.errorContainer,      scheme.onErrorContainer),
+      ('Formatter',        'error-causing widget', scheme.inversePrimary,      scheme.onPrimaryContainer),
     ];
 
     const n = 6;
@@ -777,7 +746,10 @@ class _PipelinePainter extends CustomPainter {
       )..layout(maxWidth: boxW - 8);
       titlePainter.paint(
         canvas,
-        Offset(x + (boxW - titlePainter.width) / 2, top + 12),
+        Offset(
+          x + (boxW - titlePainter.width) / 2,
+          top + 12,
+        ),
       );
 
       final valuePainter = TextPainter(
@@ -796,7 +768,10 @@ class _PipelinePainter extends CustomPainter {
       )..layout(maxWidth: boxW - 8);
       valuePainter.paint(
         canvas,
-        Offset(x + (boxW - valuePainter.width) / 2, top + 40),
+        Offset(
+          x + (boxW - valuePainter.width) / 2,
+          top + 40,
+        ),
       );
 
       // Index pill
@@ -818,10 +793,8 @@ class _PipelinePainter extends CustomPainter {
       )..layout();
       pillText.paint(
         canvas,
-        Offset(
-          x + 6 + (18 - pillText.width) / 2,
-          top + 6 + (18 - pillText.height) / 2,
-        ),
+        Offset(x + 6 + (18 - pillText.width) / 2,
+            top + 6 + (18 - pillText.height) / 2),
       );
 
       if (i < n - 1) {
@@ -872,7 +845,8 @@ class _PipelinePainter extends CustomPainter {
     // Bottom caption
     final caption = TextPainter(
       text: TextSpan(
-        text: 'User code  ──  Framework  ──────────────  DevTools / console',
+        text:
+            'User code  ──  Framework  ──────────────  DevTools / console',
         style: TextStyle(
           color: scheme.onSurfaceVariant,
           fontSize: 11,
@@ -912,7 +886,9 @@ class _StructTab extends StatelessWidget {
             child: SizedBox(
               height: 280,
               child: CustomPaint(
-                painter: _StructPainter(scheme: Theme.of(context).colorScheme),
+                painter: _StructPainter(
+                  scheme: Theme.of(context).colorScheme,
+                ),
               ),
             ),
           ),
@@ -922,26 +898,11 @@ class _StructTab extends StatelessWidget {
                 'DebugCreator holds just an Element reference; DiagnosticsDebugCreator is the DiagnosticsNode layer',
             child: Column(
               children: const [
-                _PropRow(
-                  'DebugCreator.element',
-                  'Element — the live tree node',
-                ),
-                _PropRow(
-                  'DebugCreator.widget',
-                  'Element.widget — implicit, via .element',
-                ),
-                _PropRow(
-                  'debugCreator (field)',
-                  'Object? on every RenderObject',
-                ),
-                _PropRow(
-                  'DiagnosticsDebugCreator.value',
-                  'DebugCreator (the payload)',
-                ),
-                _PropRow(
-                  'DiagnosticsDebugCreator.name',
-                  'usually "debugCreator"',
-                ),
+                _PropRow('DebugCreator.element', 'Element — the live tree node'),
+                _PropRow('DebugCreator.widget',  'Element.widget — implicit, via .element'),
+                _PropRow('debugCreator (field)', 'Object? on every RenderObject'),
+                _PropRow('DiagnosticsDebugCreator.value', 'DebugCreator (the payload)'),
+                _PropRow('DiagnosticsDebugCreator.name',  'usually "debugCreator"'),
                 _PropRow('style', 'DiagnosticsTreeStyle.dense / hidden'),
                 _PropRow('showName', 'false — hidden in default dumps'),
               ],
@@ -949,8 +910,7 @@ class _StructTab extends StatelessWidget {
           ),
           _SectionCard(
             title: 'Why a DiagnosticsNode wrapper at all?',
-            subtitle:
-                'Diagnostics nodes are the currency of the error pipeline',
+            subtitle: 'Diagnostics nodes are the currency of the error pipeline',
             child: Column(
               children: const [
                 _BulletPoint(
@@ -1058,7 +1018,10 @@ class _StructPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: field.width - 20);
-    fieldLabel.paint(canvas, Offset(field.left + 10, field.top + 10));
+    fieldLabel.paint(
+      canvas,
+      Offset(field.left + 10, field.top + 10),
+    );
     final fieldSub = TextPainter(
       text: TextSpan(
         text: 'populated by RenderObjectElement.mount() in debug mode only',
@@ -1069,7 +1032,10 @@ class _StructPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: field.width - 20);
-    fieldSub.paint(canvas, Offset(field.left + 10, field.top + 32));
+    fieldSub.paint(
+      canvas,
+      Offset(field.left + 10, field.top + 32),
+    );
 
     // DebugCreator payload
     final payload = Rect.fromLTWH(
@@ -1093,7 +1059,10 @@ class _StructPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    payloadLabel.paint(canvas, Offset(payload.left + 10, payload.top + 8));
+    payloadLabel.paint(
+      canvas,
+      Offset(payload.left + 10, payload.top + 8),
+    );
 
     // Element / Widget sub-boxes
     final elemBox = Rect.fromLTWH(
@@ -1307,11 +1276,7 @@ class _ModeButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                size: 18,
-                color: selected ? cs.primary : cs.onSurfaceVariant,
-              ),
+              Icon(icon, size: 18, color: selected ? cs.primary : cs.onSurfaceVariant),
               const SizedBox(width: 6),
               Text(
                 label,
@@ -1611,11 +1576,11 @@ class _DebugOnlyTab extends StatelessWidget {
             subtitle: 'Running in a widget-test environment',
             child: Column(
               children: const [
-                _PropRow('kDebugMode', 'true (asserts are enabled)'),
+                _PropRow('kDebugMode',           'true (asserts are enabled)'),
                 _PropRow('debugCreator present', 'yes — every RenderObject'),
                 _PropRow('debugTransformDebugCreator', 'wired via WidgetsApp'),
-                _PropRow('widget-inspector', 'available, captures stacks'),
-                _PropRow('error pipeline', 'renders "error-causing widget"'),
+                _PropRow('widget-inspector',    'available, captures stacks'),
+                _PropRow('error pipeline',      'renders "error-causing widget"'),
               ],
             ),
           ),
@@ -1642,19 +1607,10 @@ class _DebugModePanel extends StatelessWidget {
             (Icons.check_circle, 'DevTools shows widget source mapping'),
           ]
         : const <(IconData, String)>[
-            (
-              Icons.remove_circle_outline,
-              'Asserts stripped — DebugCreator never set',
-            ),
-            (
-              Icons.remove_circle_outline,
-              'debugTransformDebugCreator is a no-op',
-            ),
+            (Icons.remove_circle_outline, 'Asserts stripped — DebugCreator never set'),
+            (Icons.remove_circle_outline, 'debugTransformDebugCreator is a no-op'),
             (Icons.remove_circle_outline, 'No creation-stack captured'),
-            (
-              Icons.remove_circle_outline,
-              'Errors surface only RenderObject types',
-            ),
+            (Icons.remove_circle_outline, 'Errors surface only RenderObject types'),
           ];
     return Container(
       padding: const EdgeInsets.all(14),
@@ -1662,7 +1618,9 @@ class _DebugModePanel extends StatelessWidget {
         color: (isDebug ? cs.primaryContainer : cs.surfaceContainerHighest)
             .withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: isDebug ? cs.primary : cs.outlineVariant),
+        border: Border.all(
+          color: isDebug ? cs.primary : cs.outlineVariant,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1676,9 +1634,9 @@ class _DebugModePanel extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 title,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
@@ -1874,7 +1832,9 @@ class _UseCaseChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected ? cs.primaryContainer : cs.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: selected ? cs.primary : cs.outlineVariant),
+          border: Border.all(
+            color: selected ? cs.primary : cs.outlineVariant,
+          ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -1888,7 +1848,9 @@ class _UseCaseChip extends StatelessWidget {
             Text(
               data.title,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: selected ? cs.onPrimaryContainer : cs.onSurfaceVariant,
+                color: selected
+                    ? cs.onPrimaryContainer
+                    : cs.onSurfaceVariant,
                 fontWeight: selected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -1923,14 +1885,17 @@ class _UseCaseDetail extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 data.title,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 4),
-          Text(data.short, style: Theme.of(context).textTheme.bodySmall),
+          Text(
+            data.short,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
           const SizedBox(height: 10),
           Text(
             'Rendering-library error line',
@@ -1943,7 +1908,10 @@ class _UseCaseDetail extends StatelessWidget {
           const SizedBox(height: 4),
           SelectableText(
             data.rendering,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+            ),
           ),
           const SizedBox(height: 10),
           Text(
@@ -1964,7 +1932,10 @@ class _UseCaseDetail extends StatelessWidget {
             ),
             child: SelectableText(
               'The relevant error-causing widget was:\n  ${data.widgetLine}',
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+              ),
             ),
           ),
         ],
@@ -2020,7 +1991,8 @@ class _CompareTab extends StatelessWidget {
         children: [
           _SectionCard(
             title: 'Sibling concepts — side-by-side',
-            subtitle: 'Easy to mix these up; each has a distinct role',
+            subtitle:
+                'Easy to mix these up; each has a distinct role',
             child: Column(
               children: [
                 ValueListenableBuilder<int>(
@@ -2107,12 +2079,16 @@ class _CompareRowTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected ? cs.primaryContainer : cs.surfaceContainerHigh,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: selected ? cs.primary : cs.outlineVariant),
+          border: Border.all(
+            color: selected ? cs.primary : cs.outlineVariant,
+          ),
         ),
         child: Row(
           children: [
             Icon(
-              selected ? Icons.radio_button_checked : Icons.radio_button_off,
+              selected
+                  ? Icons.radio_button_checked
+                  : Icons.radio_button_off,
               size: 18,
               color: selected ? cs.primary : cs.onSurfaceVariant,
             ),
@@ -2126,14 +2102,16 @@ class _CompareRowTile extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'monospace',
                       fontWeight: FontWeight.bold,
-                      color: selected ? cs.onPrimaryContainer : cs.onSurface,
+                      color: selected
+                          ? cs.onPrimaryContainer
+                          : cs.onSurface,
                     ),
                   ),
                   Text(
                     row.role,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: cs.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),
@@ -2164,15 +2142,17 @@ class _CompareDetail extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outlineVariant,
+        ),
       ),
       child: Column(
         children: [
-          _PropRow('type', row.type, highlight: true),
-          _PropRow('role', row.role),
-          _PropRow('where it lives', row.where),
+          _PropRow('type',            row.type,     highlight: true),
+          _PropRow('role',            row.role),
+          _PropRow('where it lives',  row.where),
           _PropRow('holds / payload', row.holds),
-          _PropRow('release-strip', row.stripped),
+          _PropRow('release-strip',   row.stripped),
         ],
       ),
     );
@@ -2201,8 +2181,7 @@ class _CheatsheetTab extends StatelessWidget {
                 _PitfallTile(
                   icon: Icons.do_not_disturb_on_outlined,
                   title: 'Assuming it works in release',
-                  body:
-                      'DiagnosticsDebugCreator is wrapped in an '
+                  body: 'DiagnosticsDebugCreator is wrapped in an '
                       'assert — release builds will never populate it. Do '
                       'not rely on it for crash analytics in production; '
                       'use Sentry / Crashlytics + your own widget labels.',
@@ -2210,8 +2189,7 @@ class _CheatsheetTab extends StatelessWidget {
                 _PitfallTile(
                   icon: Icons.report_outlined,
                   title: 'Overwriting debugCreator on a render object',
-                  body:
-                      'Setting `renderObject.debugCreator = anything` '
+                  body: 'Setting `renderObject.debugCreator = anything` '
                       'outside an assert compiles but breaks '
                       'debugTransformDebugCreator. Worse, setting it to a '
                       'String or Widget hides the element reference.',
@@ -2219,8 +2197,7 @@ class _CheatsheetTab extends StatelessWidget {
                 _PitfallTile(
                   icon: Icons.memory_outlined,
                   title: 'Holding DebugCreator across rebuilds',
-                  body:
-                      'DebugCreator stores an Element. If you cache it '
+                  body: 'DebugCreator stores an Element. If you cache it '
                       'in a Map or a long-lived list, you keep dead '
                       'elements alive. Always re-read from '
                       '`renderObject.debugCreator` at the moment you need it.',
@@ -2233,38 +2210,22 @@ class _CheatsheetTab extends StatelessWidget {
             subtitle: 'Key members you will actually touch',
             child: Column(
               children: const [
-                _PropRow(
-                  'RenderObject.debugCreator',
-                  'Object? — the DebugCreator payload set by the framework',
-                ),
-                _PropRow(
-                  'DebugCreator(this)',
-                  'Constructor used inside RenderObjectElement.mount',
-                ),
-                _PropRow(
-                  'DebugCreator.element',
-                  'Element — use element.widget / runtimeType for messages',
-                ),
-                _PropRow(
-                  'DiagnosticsDebugCreator(value)',
-                  'DiagnosticsNode wrapper, usually never built by you',
-                ),
-                _PropRow(
-                  'debugTransformDebugCreator',
-                  'List<DiagnosticsNode> → list with widget-aware entries',
-                ),
-                _PropRow(
-                  'FlutterErrorDetails.context',
-                  'Typically the RenderObject that hosts debugCreator',
-                ),
-                _PropRow(
-                  'WidgetsBinding.instance.debugCreator',
-                  'Not a real field — debugCreator lives per RenderObject',
-                ),
-                _PropRow(
-                  'kDebugMode',
-                  'Compile-time constant; false strips all DebugCreator wiring',
-                ),
+                _PropRow('RenderObject.debugCreator',
+                    'Object? — the DebugCreator payload set by the framework'),
+                _PropRow('DebugCreator(this)',
+                    'Constructor used inside RenderObjectElement.mount'),
+                _PropRow('DebugCreator.element',
+                    'Element — use element.widget / runtimeType for messages'),
+                _PropRow('DiagnosticsDebugCreator(value)',
+                    'DiagnosticsNode wrapper, usually never built by you'),
+                _PropRow('debugTransformDebugCreator',
+                    'List<DiagnosticsNode> → list with widget-aware entries'),
+                _PropRow('FlutterErrorDetails.context',
+                    'Typically the RenderObject that hosts debugCreator'),
+                _PropRow('WidgetsBinding.instance.debugCreator',
+                    'Not a real field — debugCreator lives per RenderObject'),
+                _PropRow('kDebugMode',
+                    'Compile-time constant; false strips all DebugCreator wiring'),
               ],
             ),
           ),
@@ -2392,12 +2353,15 @@ class _PitfallTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 3),
-                Text(body, style: Theme.of(context).textTheme.bodySmall),
+                Text(
+                  body,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ],
             ),
           ),

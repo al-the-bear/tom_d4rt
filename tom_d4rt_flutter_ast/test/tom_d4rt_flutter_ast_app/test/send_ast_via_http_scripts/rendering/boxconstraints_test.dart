@@ -169,10 +169,7 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.08),
-              color.withValues(alpha: 0.20),
-            ],
+            colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.20)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -197,11 +194,7 @@ dynamic build(BuildContext context) {
                     color: color.withValues(alpha: 0.18),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    entry['icon'] as IconData,
-                    color: color,
-                    size: 20.0,
-                  ),
+                  child: Icon(entry['icon'] as IconData, color: color, size: 20.0),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
@@ -239,10 +232,26 @@ dynamic build(BuildContext context) {
   print('=== Section 2: Boolean Property Inspector ===');
 
   final propSamples = <Map<String, dynamic>>[
-    {'name': 'tight(200x100)', 'c': tightConstraints, 'color': Colors.indigo},
-    {'name': 'loose(180x120)', 'c': looseConstraints, 'color': Colors.orange},
-    {'name': 'expand()', 'c': expandAllConstraints, 'color': Colors.teal},
-    {'name': 'default()', 'c': defaultConstraints, 'color': Colors.blueGrey},
+    {
+      'name': 'tight(200x100)',
+      'c': tightConstraints,
+      'color': Colors.indigo,
+    },
+    {
+      'name': 'loose(180x120)',
+      'c': looseConstraints,
+      'color': Colors.orange,
+    },
+    {
+      'name': 'expand()',
+      'c': expandAllConstraints,
+      'color': Colors.teal,
+    },
+    {
+      'name': 'default()',
+      'c': defaultConstraints,
+      'color': Colors.blueGrey,
+    },
     {
       'name': 'full(50..200, 30..150)',
       'c': fullConstraints,
@@ -266,16 +275,20 @@ dynamic build(BuildContext context) {
   for (final s in propSamples) {
     final c = s['c'] as BoxConstraints;
     propertyTable.add(
-      _buildPropTableRow(s['name'] as String, s['color'] as Color, <bool>[
-        c.isTight,
-        c.isNormalized,
-        c.hasBoundedWidth,
-        c.hasBoundedHeight,
-        c.hasInfiniteWidth,
-        c.hasInfiniteHeight,
-        c.hasTightWidth,
-        c.hasTightHeight,
-      ]),
+      _buildPropTableRow(
+        s['name'] as String,
+        s['color'] as Color,
+        <bool>[
+          c.isTight,
+          c.isNormalized,
+          c.hasBoundedWidth,
+          c.hasBoundedHeight,
+          c.hasInfiniteWidth,
+          c.hasInfiniteHeight,
+          c.hasTightWidth,
+          c.hasTightHeight,
+        ],
+      ),
     );
   }
   print('Created property inspector table with ${propertyTable.length} rows');
@@ -457,10 +470,7 @@ dynamic build(BuildContext context) {
   final deflated = fullConstraints.deflate(const EdgeInsets.all(10.0));
   final widened = transformBase.copyWith(minWidth: 80.0, maxWidth: 140.0);
   final heightened = transformBase.heightenSafe(120.0);
-  final normalized = BoxConstraints(
-    minWidth: 120.0,
-    maxWidth: 50.0,
-  ).normalize();
+  final normalized = BoxConstraints(minWidth: 120.0, maxWidth: 50.0).normalize();
   final flipped = transformBase.flipped;
 
   print('enforce: $enforced');
@@ -535,10 +545,7 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.05),
-              color.withValues(alpha: 0.12),
-            ],
+            colors: [color.withValues(alpha: 0.05), color.withValues(alpha: 0.12)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -570,7 +577,9 @@ dynamic build(BuildContext context) {
                   child: _buildConstraintsCard('before', before, Colors.grey),
                 ),
                 Icon(Icons.arrow_forward, color: color),
-                Expanded(child: _buildConstraintsCard('after', after, color)),
+                Expanded(
+                  child: _buildConstraintsCard('after', after, color),
+                ),
               ],
             ),
           ],
@@ -829,10 +838,8 @@ dynamic build(BuildContext context) {
   final lerpWidgets = <Widget>[];
   for (final t in lerpSteps) {
     final l = BoxConstraints.lerp(lerpStart, lerpEnd, t)!;
-    print(
-      'lerp(t=$t): minW=${l.minWidth}, maxW=${l.maxWidth}, '
-      'minH=${l.minHeight}, maxH=${l.maxHeight}',
-    );
+    print('lerp(t=$t): minW=${l.minWidth}, maxW=${l.maxWidth}, '
+        'minH=${l.minHeight}, maxH=${l.maxHeight}');
     final barWidth = (l.maxWidth - l.minWidth) / 200.0 * 160.0;
     final color = Color.lerp(Colors.blue, Colors.pink, t)!;
 
@@ -883,7 +890,10 @@ dynamic build(BuildContext context) {
                     width: barWidth,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [color.withValues(alpha: 0.5), color],
+                        colors: [
+                          color.withValues(alpha: 0.5),
+                          color,
+                        ],
                       ),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -912,11 +922,10 @@ dynamic build(BuildContext context) {
   final looseConstrainResult = BoxConstraints.loose(
     const Size(200.0, 100.0),
   ).constrain(const Size(300.0, 80.0));
-  final equalityCheck =
-      const BoxConstraints(minWidth: 50.0, maxWidth: 100.0) ==
+  final equalityCheck = const BoxConstraints(minWidth: 50.0, maxWidth: 100.0) ==
       const BoxConstraints(minWidth: 50.0, maxWidth: 100.0);
-  final hashCheck =
-      const BoxConstraints(minWidth: 50.0, maxWidth: 100.0).hashCode ==
+  final hashCheck = const BoxConstraints(minWidth: 50.0, maxWidth: 100.0)
+          .hashCode ==
       const BoxConstraints(minWidth: 50.0, maxWidth: 100.0).hashCode;
 
   print('tight(200,100).constrainWidth(50)=$tightConstrainWidthResult');
@@ -931,7 +940,11 @@ dynamic build(BuildContext context) {
       color: Colors.grey.shade900,
       borderRadius: BorderRadius.circular(12.0),
       boxShadow: const [
-        BoxShadow(color: Colors.black26, blurRadius: 6.0, offset: Offset(0, 3)),
+        BoxShadow(
+          color: Colors.black26,
+          blurRadius: 6.0,
+          offset: Offset(0, 3),
+        ),
       ],
     ),
     child: Column(
@@ -1125,7 +1138,11 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: const [
-                  Icon(Icons.aspect_ratio, size: 56.0, color: Colors.white),
+                  Icon(
+                    Icons.aspect_ratio,
+                    size: 56.0,
+                    color: Colors.white,
+                  ),
                   SizedBox(height: 8.0),
                   Text(
                     'BoxConstraints',
@@ -1167,25 +1184,19 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 32.0),
 
             // 3. Constrain operations
-            const _SectionHeader(
-              '3. constrain / constrainWidth / Height / aspect',
-            ),
+            const _SectionHeader('3. constrain / constrainWidth / Height / aspect'),
             const SizedBox(height: 12.0),
             ...constrainWidgets,
             const SizedBox(height: 32.0),
 
             // 4. Transform operations
-            const _SectionHeader(
-              '4. enforce / tighten / loosen / deflate / widen / normalize / flipped',
-            ),
+            const _SectionHeader('4. enforce / tighten / loosen / deflate / widen / normalize / flipped'),
             const SizedBox(height: 12.0),
             ...transformWidgets,
             const SizedBox(height: 32.0),
 
             // 5. Visual constraint examples
-            const _SectionHeader(
-              '5. ConstrainedBox / UnconstrainedBox / SizedBox',
-            ),
+            const _SectionHeader('5. ConstrainedBox / UnconstrainedBox / SizedBox'),
             const SizedBox(height: 12.0),
             Wrap(alignment: WrapAlignment.center, children: visualSamples),
             const SizedBox(height: 32.0),

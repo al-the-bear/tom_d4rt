@@ -187,11 +187,7 @@ class _SmbaeHeroHeader extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: <Color>[_smbaeObsidianSoft, _smbaeObsidian],
         ),
-        border: Border.all(
-          color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-            alpha: 0.18,
-          ),
-        ),
+        border: Border.all(color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.18)),
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
@@ -238,15 +234,9 @@ class _SmbaeHeroTitleBlock extends StatelessWidget {
           width: 52,
           height: 52,
           decoration: BoxDecoration(
-            color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-              alpha: 0.12,
-            ),
+            color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-                alpha: 0.5,
-              ),
-            ),
+            border: Border.all(color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
           ),
           alignment: Alignment.center,
           child: const Icon(Icons.radar, color: _smbaePhosphor, size: 28),
@@ -298,9 +288,7 @@ class _SmbaeHeroBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-          color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.5),
-        ),
+        border: Border.all(color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
       ),
       child: Text(
         label,
@@ -328,15 +316,9 @@ class _SmbaeHeroLegend extends StatelessWidget {
         final double p = 0.4 + 0.6 * pulse.value;
         return Row(
           children: <Widget>[
-            _legendDot(
-              (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: p),
-              'mounted',
-            ),
+            _legendDot((_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: p), 'mounted'),
             const SizedBox(width: 18),
-            _legendDot(
-              (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: p),
-              'cached',
-            ),
+            _legendDot((_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: p), 'cached'),
             const SizedBox(width: 18),
             _legendDot(_smbaeInkFaint, 'forgotten'),
             const Spacer(),
@@ -416,17 +398,13 @@ class _SmbaeRadarPainter extends CustomPainter {
     final Offset center = Offset(size.width * 0.78, size.height * 0.58);
     final Paint ring = Paint()
       ..style = PaintingStyle.stroke
-      ..color = (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-        alpha: 0.28,
-      )
+      ..color = (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.28)
       ..strokeWidth = 1.1;
     for (int i = 1; i <= 4; i++) {
       canvas.drawCircle(center, i * 26.0, ring);
     }
     final Paint crosshair = Paint()
-      ..color = (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-        alpha: 0.4,
-      )
+      ..color = (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.4)
       ..strokeWidth = 0.8;
     canvas.drawLine(
       Offset(center.dx - 110, center.dy),
@@ -459,16 +437,10 @@ class _SmbaeRadarPainter extends CustomPainter {
           cellH - 4,
         );
         final Color fill = seed < 0.18
-            ? (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-                alpha: 0.35 + 0.25 * pulse,
-              )
+            ? (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.35 + 0.25 * pulse)
             : seed < 0.62
-            ? (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-                alpha: 0.22 + 0.28 * pulse * seed,
-              )
-            : (_smbaeInkFaint ?? const Color(0xFF000000)).withValues(
-                alpha: 0.12,
-              );
+                ? (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.22 + 0.28 * pulse * seed)
+                : (_smbaeInkFaint ?? const Color(0xFF000000)).withValues(alpha: 0.12);
         final Paint p = Paint()..color = fill;
         canvas.drawRRect(
           RRect.fromRectAndRadius(cell, const Radius.circular(2)),
@@ -509,10 +481,8 @@ class _SmbaeRadarPainter extends CustomPainter {
       ..strokeWidth = 1.4;
     canvas.drawLine(
       center,
-      Offset(
-        center.dx + math.cos(angle) * 108,
-        center.dy + math.sin(angle) * 108,
-      ),
+      Offset(center.dx + math.cos(angle) * 108,
+          center.dy + math.sin(angle) * 108),
       sweepLine,
     );
   }
@@ -650,9 +620,7 @@ class _SmbaeRingBufferBand extends StatelessWidget {
       decoration: BoxDecoration(
         color: _smbaeObsidian,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.35),
-        ),
+        border: Border.all(color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.35)),
       ),
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
       child: Column(
@@ -729,20 +697,17 @@ class _SmbaeRingRow extends StatelessWidget {
     return AnimatedBuilder(
       animation: pulse,
       builder: (BuildContext context, Widget? child) {
-        final double t = ((pulse.value + index * 0.17) % 1.0).clamp(0.0, 1.0);
+        final double t =
+            ((pulse.value + index * 0.17) % 1.0).clamp(0.0, 1.0);
         final double blink = entry.fresh ? (0.35 + 0.65 * t) : 0.35;
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            color: (tone ?? const Color(0xFF000000)).withValues(
-              alpha: 0.06 + 0.10 * blink,
-            ),
+            color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.06 + 0.10 * blink),
             borderRadius: BorderRadius.circular(4),
             border: Border(
               left: BorderSide(
-                color: (tone ?? const Color(0xFF000000)).withValues(
-                  alpha: blink,
-                ),
+                color: (tone ?? const Color(0xFF000000)).withValues(alpha: blink),
                 width: 2,
               ),
             ),
@@ -771,14 +736,10 @@ class _SmbaeRingRow extends StatelessWidget {
               ),
               if (entry.fresh)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 5,
-                    vertical: 1,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                   decoration: BoxDecoration(
-                    color: (tone ?? const Color(0xFF000000)).withValues(
-                      alpha: 0.22,
-                    ),
+                    color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.22),
                     borderRadius: BorderRadius.circular(3),
                   ),
                   child: Text(
@@ -793,13 +754,10 @@ class _SmbaeRingRow extends StatelessWidget {
                 )
               else
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 5,
-                    vertical: 1,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                   decoration: BoxDecoration(
-                    color: (_smbaeInkFaint ?? const Color(0xFF000000))
-                        .withValues(alpha: 0.18),
+                    color: (_smbaeInkFaint ?? const Color(0xFF000000)).withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(3),
                   ),
                   child: const Text(
@@ -846,7 +804,10 @@ class _SmbaeRingLegend extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
-        Text(label, style: const TextStyle(color: _smbaeInkSoft, fontSize: 11)),
+        Text(
+          label,
+          style: const TextStyle(color: _smbaeInkSoft, fontSize: 11),
+        ),
       ],
     );
   }
@@ -962,9 +923,7 @@ class _SmbaeSignatureEntry extends StatelessWidget {
       decoration: BoxDecoration(
         color: _smbaeObsidian,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.35),
-        ),
+        border: Border.all(color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -972,17 +931,12 @@ class _SmbaeSignatureEntry extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: (tone ?? const Color(0xFF000000)).withValues(
-                    alpha: 0.15,
-                  ),
+                  color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(3),
-                  border: Border.all(
-                    color: (tone ?? const Color(0xFF000000)).withValues(
-                      alpha: 0.5,
-                    ),
-                  ),
+                  border: Border.all(color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
                 ),
                 child: Text(
                   tag.toUpperCase(),
@@ -1080,7 +1034,11 @@ class _SmbaeKeyedCacheVisualisation extends StatelessWidget {
                         );
                       },
                     ),
-                    Positioned.fill(child: _SmbaeCacheHitSurface(onTap: onTap)),
+                    Positioned.fill(
+                      child: _SmbaeCacheHitSurface(
+                        onTap: onTap,
+                      ),
+                    ),
                   ],
                 );
               },
@@ -1135,45 +1093,15 @@ class _SmbaeCacheGridPainter extends CustomPainter {
   final double pulse;
 
   static const List<String> _keys = <String>[
-    'k:row-0',
-    'k:row-1',
-    'k:row-2',
-    'k:row-3',
-    'k:row-4',
-    'k:row-5',
-    'k:row-6',
-    'k:row-7',
-    'k:row-8',
-    'k:row-9',
-    'k:row-10',
-    'k:row-11',
-    'k:row-12',
-    'k:row-13',
-    'k:row-14',
-    'k:row-15',
-    'k:row-16',
-    'k:row-17',
+    'k:row-0', 'k:row-1', 'k:row-2', 'k:row-3', 'k:row-4', 'k:row-5',
+    'k:row-6', 'k:row-7', 'k:row-8', 'k:row-9', 'k:row-10', 'k:row-11',
+    'k:row-12', 'k:row-13', 'k:row-14', 'k:row-15', 'k:row-16', 'k:row-17',
   ];
 
   static const List<bool> _cached = <bool>[
-    true,
-    true,
-    false,
-    true,
-    false,
-    true,
-    false,
-    true,
-    true,
-    false,
-    true,
-    false,
-    true,
-    false,
-    true,
-    true,
-    false,
-    true,
+    true, true, false, true, false, true,
+    false, true, true, false, true, false,
+    true, false, true, true, false, true,
   ];
 
   @override
@@ -1202,9 +1130,7 @@ class _SmbaeCacheGridPainter extends CustomPainter {
       final Paint border = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = isSelected ? 1.8 : 1.0
-        ..color = (tone ?? const Color(0xFF000000)).withValues(
-          alpha: isSelected ? 0.95 : 0.35 * fade,
-        );
+        ..color = (tone ?? const Color(0xFF000000)).withValues(alpha: isSelected ? 0.95 : 0.35 * fade);
       canvas.drawRRect(
         RRect.fromRectAndRadius(rect, const Radius.circular(6)),
         fill,
@@ -1259,10 +1185,7 @@ class _SmbaeCacheGridPainter extends CustomPainter {
     )..layout();
     stPainter.paint(
       canvas,
-      Offset(
-        rect.right - stPainter.width - 8,
-        rect.bottom - stPainter.height - 6,
-      ),
+      Offset(rect.right - stPainter.width - 8, rect.bottom - stPainter.height - 6),
     );
   }
 
@@ -1286,11 +1209,7 @@ class _SmbaeCacheSelectionInfo extends StatelessWidget {
       decoration: BoxDecoration(
         color: _smbaeObsidian,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-            alpha: 0.3,
-          ),
-        ),
+        border: Border.all(color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: <Widget>[
@@ -1323,11 +1242,7 @@ BoxDecoration _smbaePanelDecoration() {
   return BoxDecoration(
     color: _smbaeObsidianSoft,
     borderRadius: BorderRadius.circular(_smbaeCardRadius),
-    border: Border.all(
-      color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-        alpha: 0.18,
-      ),
-    ),
+    border: Border.all(color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.18)),
   );
 }
 
@@ -1409,15 +1324,9 @@ class _SmbaeStageDivider extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
-              color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-                alpha: 0.12,
-              ),
+              color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(3),
-              border: Border.all(
-                color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-                  alpha: 0.5,
-                ),
-              ),
+              border: Border.all(color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
             ),
             child: Text(
               label,
@@ -1430,7 +1339,9 @@ class _SmbaeStageDivider extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          const Expanded(child: Divider(color: _smbaeGrid, height: 1)),
+          const Expanded(
+            child: Divider(color: _smbaeGrid, height: 1),
+          ),
         ],
       ),
     );
@@ -1511,9 +1422,7 @@ class _SmbaeRulerPainter extends CustomPainter {
     final Paint bg = Paint()..color = _smbaeObsidian;
     canvas.drawRect(Offset.zero & size, bg);
     final Paint rail = Paint()
-      ..color = (_smbaePhosphorDim ?? const Color(0xFF000000)).withValues(
-        alpha: 0.6,
-      )
+      ..color = (_smbaePhosphorDim ?? const Color(0xFF000000)).withValues(alpha: 0.6)
       ..strokeWidth = 1.0;
     canvas.drawLine(
       Offset(size.width - 6, 0),
@@ -1564,27 +1473,12 @@ class _SmbaeRulerListSliver extends StatelessWidget {
 
   static const List<_SmbaeListRow> _rows = <_SmbaeListRow>[
     _SmbaeListRow(0, 'Element#0', 'mounted at viewport top', _smbaePhosphor),
-    _SmbaeListRow(
-      1,
-      'Element#1',
-      'laid out — stable across frames',
-      _smbaePhosphor,
-    ),
+    _SmbaeListRow(1, 'Element#1', 'laid out — stable across frames', _smbaePhosphor),
     _SmbaeListRow(2, 'Element#2', 'reused key k:row-2', _smbaeAmber),
     _SmbaeListRow(3, 'Element#3', 'new createChild this frame', _smbaePhosphor),
     _SmbaeListRow(4, 'Element#4', 'retained via keyed cache', _smbaeAmber),
-    _SmbaeListRow(
-      5,
-      'Element#5',
-      'marked for garbage collection',
-      _smbaeInkFaint,
-    ),
-    _SmbaeListRow(
-      6,
-      'Element#6',
-      'delegate returned null (out of range)',
-      _smbaeInkFaint,
-    ),
+    _SmbaeListRow(5, 'Element#5', 'marked for garbage collection', _smbaeInkFaint),
+    _SmbaeListRow(6, 'Element#6', 'delegate returned null (out of range)', _smbaeInkFaint),
   ];
 
   @override
@@ -1646,9 +1540,7 @@ class _SmbaeListRowCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: _smbaeObsidianSoft,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: (row.tone ?? const Color(0xFF000000)).withValues(alpha: 0.35),
-        ),
+        border: Border.all(color: (row.tone ?? const Color(0xFF000000)).withValues(alpha: 0.35)),
       ),
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
       child: Row(
@@ -1658,9 +1550,7 @@ class _SmbaeListRowCard extends StatelessWidget {
             height: 32,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: (row.tone ?? const Color(0xFF000000)).withValues(
-                alpha: 0.15,
-              ),
+              color: (row.tone ?? const Color(0xFF000000)).withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
@@ -1725,7 +1615,11 @@ class _SmbaeRulerGridSliver extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const _SmbaeRulerGutter(topOffset: 0, height: 240, ticks: 6),
+              const _SmbaeRulerGutter(
+                topOffset: 0,
+                height: 240,
+                ticks: 6,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: GridView.builder(
@@ -1733,7 +1627,8 @@ class _SmbaeRulerGridSliver extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 9,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     mainAxisSpacing: 8,
                     crossAxisSpacing: 8,
@@ -1765,9 +1660,7 @@ class _SmbaeGridCell extends StatelessWidget {
       decoration: BoxDecoration(
         color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.45),
-        ),
+        border: Border.all(color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
       ),
       padding: const EdgeInsets.all(8),
       child: Column(
@@ -1816,7 +1709,11 @@ class _SmbaeRulerFixedExtentSliver extends StatelessWidget {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              _SmbaeRulerGutter(topOffset: index * 54.0, height: 54, ticks: 2),
+              _SmbaeRulerGutter(
+                topOffset: index * 54.0,
+                height: 54,
+                ticks: 2,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Container(
@@ -1825,8 +1722,7 @@ class _SmbaeRulerFixedExtentSliver extends StatelessWidget {
                     color: _smbaeObsidianHigh,
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: (_smbaePhosphor ?? const Color(0xFF000000))
-                          .withValues(alpha: 0.3),
+                      color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.3),
                     ),
                   ),
                   alignment: Alignment.centerLeft,
@@ -1863,11 +1759,7 @@ class _SmbaePitfallCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: _smbaeObsidianSoft,
         borderRadius: BorderRadius.circular(_smbaeCardRadius),
-        border: Border.all(
-          color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-            alpha: 0.5,
-          ),
-        ),
+        border: Border.all(color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
       ),
       padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
       child: Column(
@@ -1880,14 +1772,10 @@ class _SmbaePitfallCard extends StatelessWidget {
                 height: 34,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-                    alpha: 0.15,
-                  ),
+                  color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
-                    color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-                      alpha: 0.6,
-                    ),
+                    color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.6),
                   ),
                 ),
                 child: const Icon(
@@ -1953,11 +1841,7 @@ class _SmbaePitfallCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: _smbaeObsidian,
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-                  alpha: 0.3,
-                ),
-              ),
+              border: Border.all(color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.3)),
             ),
             child: const Text(
               '// Correct usage: construct a subclass WIDGET and let the \n'
@@ -1996,9 +1880,7 @@ class _SmbaePitfallBullet extends StatelessWidget {
             height: 20,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-                alpha: 0.15,
-              ),
+              color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
@@ -2108,19 +1990,15 @@ class _SmbaeTimelinePainter extends CustomPainter {
       final Color tone = i < 3
           ? _smbaePhosphor
           : i < 5
-          ? _smbaeAmber
-          : _smbaeInkFaint;
+              ? _smbaeAmber
+              : _smbaeInkFaint;
       final Paint ringOuter = Paint()
         ..style = PaintingStyle.stroke
-        ..color = (tone ?? const Color(0xFF000000)).withValues(
-          alpha: active ? 1.0 : 0.5,
-        )
+        ..color = (tone ?? const Color(0xFF000000)).withValues(alpha: active ? 1.0 : 0.5)
         ..strokeWidth = active ? 2.2 : 1.4;
       canvas.drawCircle(Offset(cx, centerY), 13, ringOuter);
       final Paint fill = Paint()
-        ..color = (tone ?? const Color(0xFF000000)).withValues(
-          alpha: active ? 0.4 : 0.12,
-        );
+        ..color = (tone ?? const Color(0xFF000000)).withValues(alpha: active ? 0.4 : 0.12);
       canvas.drawCircle(Offset(cx, centerY), 9, fill);
 
       // Label above.
@@ -2158,9 +2036,7 @@ class _SmbaeTimelinePainter extends CustomPainter {
         final double arrowStart = cx + 13;
         final double arrowEnd = slotW * (i + 1.5) - 13;
         final Paint arrowPaint = Paint()
-          ..color = (_smbaeInkFaint ?? const Color(0xFF000000)).withValues(
-            alpha: 0.9,
-          )
+          ..color = (_smbaeInkFaint ?? const Color(0xFF000000)).withValues(alpha: 0.9)
           ..strokeWidth = 1.1;
         canvas.drawLine(
           Offset(arrowStart, centerY),
@@ -2177,17 +2053,14 @@ class _SmbaeTimelinePainter extends CustomPainter {
     }
 
     // Traveling marker.
-    final double markerX = slotW * 0.5 + progress * (size.width - slotW);
+    final double markerX = slotW * 0.5 +
+        progress * (size.width - slotW);
     final Paint marker = Paint()
-      ..color = (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-        alpha: 0.85,
-      );
+      ..color = (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.85);
     canvas.drawCircle(Offset(markerX, centerY), 4.5, marker);
     final Paint markerRing = Paint()
       ..style = PaintingStyle.stroke
-      ..color = (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-        alpha: 0.5,
-      )
+      ..color = (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.5)
       ..strokeWidth = 1.2;
     canvas.drawCircle(Offset(markerX, centerY), 9, markerRing);
   }
@@ -2220,17 +2093,11 @@ class _SmbaeTimelineLegend extends StatelessWidget {
       decoration: BoxDecoration(
         color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-          color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.45),
-        ),
+        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
       ),
       child: Text(
         label,
-        style: TextStyle(
-          color: color,
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -2251,11 +2118,7 @@ class _SmbaeFooterBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: _smbaeObsidianSoft,
         borderRadius: BorderRadius.circular(_smbaeCardRadius),
-        border: Border.all(
-          color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(
-            alpha: 0.18,
-          ),
-        ),
+        border: Border.all(color: (_smbaePhosphor ?? const Color(0xFF000000)).withValues(alpha: 0.18)),
       ),
       child: Row(
         children: <Widget>[
@@ -2270,15 +2133,9 @@ class _SmbaeFooterBar extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
-              color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-                alpha: 0.12,
-              ),
+              color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(3),
-              border: Border.all(
-                color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(
-                  alpha: 0.45,
-                ),
-              ),
+              border: Border.all(color: (_smbaeAmber ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
             ),
             child: const Text(
               'TIER 2 / ELEMENT',

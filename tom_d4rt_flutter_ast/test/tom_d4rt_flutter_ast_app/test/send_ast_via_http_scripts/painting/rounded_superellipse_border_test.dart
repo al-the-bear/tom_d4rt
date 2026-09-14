@@ -66,7 +66,11 @@ dynamic build(BuildContext context) {
             ),
           ),
           child: Center(
-            child: Icon(Icons.rounded_corner, size: 56.0, color: _iosBlue),
+            child: Icon(
+              Icons.rounded_corner,
+              size: 56.0,
+              color: _iosBlue,
+            ),
           ),
         ),
         SizedBox(height: 16.0),
@@ -578,7 +582,10 @@ dynamic build(BuildContext context) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: _iosPurple.withValues(alpha: 0.30), width: 1.0),
+      border: Border.all(
+        color: _iosPurple.withValues(alpha: 0.30),
+        width: 1.0,
+      ),
       boxShadow: [
         BoxShadow(
           color: _iosPurple.withValues(alpha: 0.10),
@@ -613,9 +620,7 @@ dynamic build(BuildContext context) {
     width: 120.0,
     height: 120.0,
     decoration: ShapeDecoration(
-      shape: RoundedSuperellipseBorder(
-        borderRadius: BorderRadius.circular(28.0),
-      ),
+      shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(28.0)),
       gradient: LinearGradient(
         colors: [_iosBlue, _iosPurple],
         begin: Alignment.topLeft,
@@ -629,7 +634,9 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Center(child: Icon(Icons.cloud, color: Colors.white, size: 56.0)),
+    child: Center(
+      child: Icon(Icons.cloud, color: Colors.white, size: 56.0),
+    ),
   );
 
   // 8b — Settings card
@@ -668,9 +675,7 @@ dynamic build(BuildContext context) {
   final alertDialog = Container(
     width: 280.0,
     decoration: ShapeDecoration(
-      shape: RoundedSuperellipseBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
+      shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20.0)),
       color: Colors.white,
       shadows: [
         BoxShadow(
@@ -755,9 +760,7 @@ dynamic build(BuildContext context) {
   final switchContainer = Container(
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     decoration: ShapeDecoration(
-      shape: RoundedSuperellipseBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
+      shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(16.0)),
       color: Colors.white,
       shadows: [
         BoxShadow(
@@ -817,9 +820,7 @@ dynamic build(BuildContext context) {
   // 8e — Action button
   final actionButton = Container(
     decoration: ShapeDecoration(
-      shape: RoundedSuperellipseBorder(
-        borderRadius: BorderRadius.circular(14.0),
-      ),
+      shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(14.0)),
       gradient: LinearGradient(
         colors: [_iosOrange, _iosRed],
         begin: Alignment.topLeft,
@@ -1559,7 +1560,10 @@ Widget _settingsRow(IconData icon, String label, String value, Color color) {
             style: TextStyle(fontSize: 14.0, color: _iosLabel),
           ),
         ),
-        Text(value, style: TextStyle(fontSize: 13.0, color: _iosGray)),
+        Text(
+          value,
+          style: TextStyle(fontSize: 13.0, color: _iosGray),
+        ),
         SizedBox(width: 4.0),
         Icon(Icons.chevron_right, color: _iosGray2, size: 18.0),
       ],
@@ -1735,11 +1739,7 @@ Widget _recapBullet(String label, String body, Color color) {
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: TextStyle(
-                fontSize: 12.5,
-                color: Colors.white,
-                height: 1.4,
-              ),
+              style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.4),
               children: [
                 TextSpan(
                   text: '$label — ',

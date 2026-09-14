@@ -271,12 +271,18 @@ Widget _buildHeroSection() {
             ),
             Expanded(
               child: Center(
-                child: Text('H', style: TextStyle(fontWeight: FontWeight.bold)),
+                child: Text(
+                  'H',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             Expanded(
               child: Center(
-                child: Text('h', style: TextStyle(fontWeight: FontWeight.bold)),
+                child: Text(
+                  'h',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],
@@ -701,7 +707,11 @@ Widget _buildHourSweep() {
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
         child: Text(
           s,
-          style: TextStyle(fontFamily: 'monospace', fontSize: 13, color: color),
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 13,
+            color: color,
+          ),
         ),
       ),
     );
@@ -720,7 +730,11 @@ Widget _buildHourSweep() {
             bodyCell(_formatHourFromInt(h, HourFormat.HH), tone),
             bodyCell(_formatHourFromInt(h, HourFormat.H), tone),
             bodyCell(_formatHourFromInt(h, HourFormat.h), tone),
-            bodyCell(h < 12 ? 'AM' : 'PM', tone, flex: 0.7),
+            bodyCell(
+              h < 12 ? 'AM' : 'PM',
+              tone,
+              flex: 0.7,
+            ),
           ],
         ),
       ),
@@ -1058,7 +1072,10 @@ Widget _buildCalendarRecipe() {
                 Container(
                   width: 10,
                   height: 10,
-                  decoration: BoxDecoration(color: col, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: col,
+                    shape: BoxShape.circle,
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -1182,8 +1199,8 @@ Widget _buildDial(HourFormat fmt) {
 
   // Dial hand pointing at 9 (or 9 AM equivalent).
   const handAngleHour = 9;
-  final handAngle =
-      (handAngleHour / count) * 2 * 3.141592653589793 - (3.141592653589793 / 2);
+  final handAngle = (handAngleHour / count) * 2 * 3.141592653589793
+      - (3.141592653589793 / 2);
   positioned.add(
     Positioned(
       left: dialSize / 2 - 1,
@@ -1191,7 +1208,11 @@ Widget _buildDial(HourFormat fmt) {
       child: Transform.rotate(
         angle: handAngle + 3.141592653589793 / 2,
         alignment: Alignment.bottomCenter,
-        child: Container(width: 2, height: radius * 0.7, color: tickColor),
+        child: Container(
+          width: 2,
+          height: radius * 0.7,
+          color: tickColor,
+        ),
       ),
     ),
   );
@@ -1558,7 +1579,11 @@ Widget _buildReferenceCard() {
       children: [
         Row(
           children: [
-            Container(width: 4, height: 22, color: ribbon),
+            Container(
+              width: 4,
+              height: 22,
+              color: ribbon,
+            ),
             const SizedBox(width: 8),
             const Text(
               '8. Reference card',
@@ -1589,7 +1614,10 @@ Widget _buildReferenceCard() {
             children: const [
               Text(
                 'Quick formula',
-                style: TextStyle(color: ribbon, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: ribbon,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4),
               Text(

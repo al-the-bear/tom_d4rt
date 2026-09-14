@@ -34,11 +34,15 @@ import 'package:flutter/material.dart';
 
 const Color _kSeed = Color(0xFF3E63DD);
 
-ColorScheme _scheme() =>
-    ColorScheme.fromSeed(seedColor: _kSeed, brightness: Brightness.light);
+ColorScheme _scheme() => ColorScheme.fromSeed(
+  seedColor: _kSeed,
+  brightness: Brightness.light,
+);
 
-ColorScheme _schemeDark() =>
-    ColorScheme.fromSeed(seedColor: _kSeed, brightness: Brightness.dark);
+ColorScheme _schemeDark() => ColorScheme.fromSeed(
+  seedColor: _kSeed,
+  brightness: Brightness.dark,
+);
 
 void _noop() {}
 
@@ -128,7 +132,11 @@ class _HeaderBanner extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24.0, 28.0, 24.0, 28.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primary, scheme.tertiary, scheme.secondary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.tertiary,
+            scheme.secondary,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -363,29 +371,32 @@ class _SectionAccessibilityMinimum extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16.0),
-          _factBox(scheme, <_Fact>[
-            const _Fact(
-              Icons.straighten,
-              '48 logical pixels is approximately 9mm on a typical mobile '
-              'display.',
-            ),
-            const _Fact(
-              Icons.touch_app,
-              'Approximates the average adult finger pad contact area '
-              '(Henze et al. 2011: 8 to 10mm).',
-            ),
-            const _Fact(
-              Icons.rule,
-              'WCAG 2.5.5 (AAA) requires at least 44 CSS pixels; Material '
-              'uses 48 to give a small safety margin.',
-            ),
-            const _Fact(
-              Icons.warning_amber_outlined,
-              'Tap targets below ~40dp produce a measurable spike in '
-              'mis-tap rates, especially in motion or for users with '
-              'tremor.',
-            ),
-          ]),
+          _factBox(
+            scheme,
+            <_Fact>[
+              const _Fact(
+                Icons.straighten,
+                '48 logical pixels is approximately 9mm on a typical mobile '
+                'display.',
+              ),
+              const _Fact(
+                Icons.touch_app,
+                'Approximates the average adult finger pad contact area '
+                '(Henze et al. 2011: 8 to 10mm).',
+              ),
+              const _Fact(
+                Icons.rule,
+                'WCAG 2.5.5 (AAA) requires at least 44 CSS pixels; Material '
+                'uses 48 to give a small safety margin.',
+              ),
+              const _Fact(
+                Icons.warning_amber_outlined,
+                'Tap targets below ~40dp produce a measurable spike in '
+                'mis-tap rates, especially in motion or for users with '
+                'tremor.',
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -680,7 +691,10 @@ class _HitRegionDiagram extends StatelessWidget {
             bottom: 0.0,
             child: Text(
               showHitRegion ? 'hit: 96 (scaled view of 48)' : 'hit: 48 (raw)',
-              style: TextStyle(fontSize: 10.5, color: scheme.onSurfaceVariant),
+              style: TextStyle(
+                fontSize: 10.5,
+                color: scheme.onSurfaceVariant,
+              ),
             ),
           ),
         ],
@@ -1218,7 +1232,11 @@ class _SectionThemeOverride extends StatelessWidget {
                     children: <Widget>[
                       Checkbox(value: true, onChanged: (_) {}),
                       Switch(value: false, onChanged: (_) {}),
-                      Radio<int>(value: 1, groupValue: 1, onChanged: (_) {}),
+                      Radio<int>(
+                        value: 1,
+                        groupValue: 1,
+                        onChanged: (_) {},
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10.0),
@@ -1284,9 +1302,15 @@ class _SectionRecipes extends StatelessWidget {
                 children: <Widget>[
                   IconButton(onPressed: _noop, icon: const Icon(Icons.menu)),
                   const Spacer(),
-                  Text('Inbox', style: Theme.of(context).textTheme.titleMedium),
+                  Text(
+                    'Inbox',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                   const Spacer(),
-                  IconButton(onPressed: _noop, icon: const Icon(Icons.search)),
+                  IconButton(
+                    onPressed: _noop,
+                    icon: const Icon(Icons.search),
+                  ),
                   IconButton(
                     onPressed: _noop,
                     icon: const Icon(Icons.more_vert),
@@ -1368,7 +1392,10 @@ class _SectionRecipes extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(child: Text(label)),
-          Switch(value: value, onChanged: (_) {}),
+          Switch(
+            value: value,
+            onChanged: (_) {},
+          ),
         ],
       ),
     );
@@ -1532,7 +1559,11 @@ class _SectionAccessibilityHeatmap extends StatelessWidget {
 
   Widget _heatBar(_HeatRow r, ColorScheme scheme) {
     final double fraction = (r.errorPercent / 40.0).clamp(0.0, 1.0);
-    final Color barColor = Color.lerp(scheme.tertiary, scheme.error, fraction)!;
+    final Color barColor = Color.lerp(
+      scheme.tertiary,
+      scheme.error,
+      fraction,
+    )!;
     return Row(
       children: <Widget>[
         SizedBox(
@@ -1587,7 +1618,10 @@ class _SectionAccessibilityHeatmap extends StatelessWidget {
           width: 110.0,
           child: Text(
             r.note,
-            style: TextStyle(fontSize: 11.0, color: scheme.onSurfaceVariant),
+            style: TextStyle(
+              fontSize: 11.0,
+              color: scheme.onSurfaceVariant,
+            ),
           ),
         ),
       ],
@@ -1846,7 +1880,8 @@ class _SectionAntipatterns extends StatelessWidget {
       ),
       _AntiPattern(
         bad: 'Using shrinkWrap on Checkbox in a settings page.',
-        good: 'Settings tables are touched while distracted; keep them padded.',
+        good:
+            'Settings tables are touched while distracted; keep them padded.',
       ),
       _AntiPattern(
         bad: 'Relying on Container padding alone to satisfy accessibility.',
@@ -1895,7 +1930,11 @@ class _SectionAntipatterns extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.close_rounded, size: 18.0, color: scheme.error),
+                Icon(
+                  Icons.close_rounded,
+                  size: 18.0,
+                  color: scheme.error,
+                ),
                 const SizedBox(width: 8.0),
                 Expanded(
                   child: Text(
@@ -1915,7 +1954,11 @@ class _SectionAntipatterns extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.check_rounded, size: 18.0, color: scheme.primary),
+                Icon(
+                  Icons.check_rounded,
+                  size: 18.0,
+                  color: scheme.primary,
+                ),
                 const SizedBox(width: 8.0),
                 Expanded(
                   child: Text(
@@ -2289,7 +2332,11 @@ class _Footer extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Icon(Icons.menu_book_outlined, size: 18.0, color: scheme.primary),
+          Icon(
+            Icons.menu_book_outlined,
+            size: 18.0,
+            color: scheme.primary,
+          ),
           const SizedBox(width: 10.0),
           Expanded(
             child: Text(

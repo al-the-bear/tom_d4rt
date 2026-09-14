@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.engineering,
       'title': 'The Build Pipeline Manager',
-      'body':
-          'BuildOwner is the central coordinator that manages '
+      'body': 'BuildOwner is the central coordinator that manages '
           'the build lifecycle of the widget tree. Every Element '
           'in the tree is owned by a single BuildOwner. When an '
           'element is marked dirty (e.g., via setState()), the '
@@ -30,8 +29,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.schedule,
       'title': 'Scheduling Builds',
-      'body':
-          'When setState() is called on a State, it ultimately '
+      'body': 'When setState() is called on a State, it ultimately '
           'calls element.markNeedsBuild(), which adds the element '
           'to the BuildOwner\'s dirty list. The BuildOwner then '
           'calls onBuildScheduled to request a new frame from the '
@@ -42,8 +40,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'One Per Tree (Usually)',
-      'body':
-          'Typically there is one BuildOwner per widget tree, '
+      'body': 'Typically there is one BuildOwner per widget tree, '
           'created and owned by WidgetsBinding. However, you can '
           'create additional BuildOwners for off-screen rendering, '
           'testing, or specialized build pipelines. Each operates '
@@ -53,8 +50,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lock,
       'title': 'lockState & Assert Safety',
-      'body':
-          'BuildOwner.lockState() prevents state changes during '
+      'body': 'BuildOwner.lockState() prevents state changes during '
           'sensitive phases. During build and layout, calling '
           'setState() would corrupt the tree. lockState sets a flag '
           'so that markNeedsBuild() asserts if called during a '
@@ -76,8 +72,7 @@ dynamic build(BuildContext context) {
       'role': 'Dirty Element Tracking',
       'icon': Icons.playlist_add_check,
       'color': Colors.indigo[700]!,
-      'detail':
-          'Maintains an internal _dirtyElements list. When '
+      'detail': 'Maintains an internal _dirtyElements list. When '
           'element.markNeedsBuild() is called, the element is added '
           'to this list. During buildScope(), elements are sorted '
           'by depth (shallow first) and rebuilt in order.',
@@ -86,8 +81,7 @@ dynamic build(BuildContext context) {
       'role': 'Build Scope Execution',
       'icon': Icons.play_circle_filled,
       'color': Colors.blue[600]!,
-      'detail':
-          'buildScope() is the core method. It locks state, '
+      'detail': 'buildScope() is the core method. It locks state, '
           'sorts dirty elements by depth, then iterates calling '
           'element.rebuild() on each. If a rebuild creates new '
           'dirty elements (cascading rebuilds), they are added and '
@@ -97,8 +91,7 @@ dynamic build(BuildContext context) {
       'role': 'Frame Scheduling',
       'icon': Icons.timer,
       'color': Colors.indigo[500]!,
-      'detail':
-          'When an element is marked dirty for the first time '
+      'detail': 'When an element is marked dirty for the first time '
           'in a frame, BuildOwner calls onBuildScheduled callback, '
           'which WidgetsBinding uses to schedule a frame via '
           'scheduleFrame(). This ensures the build pass happens at '
@@ -108,8 +101,7 @@ dynamic build(BuildContext context) {
       'role': 'Tree Finalization',
       'icon': Icons.check_circle,
       'color': Colors.blue[500]!,
-      'detail':
-          'finalizeTree() is called at the end of each frame. '
+      'detail': 'finalizeTree() is called at the end of each frame. '
           'It unmounts elements that were deactivated during the '
           'build phase. Deactivated elements have one frame to be '
           'reinserted (via GlobalKey); if not, they are unmounted '
@@ -119,8 +111,7 @@ dynamic build(BuildContext context) {
       'role': 'Focus Management',
       'icon': Icons.center_focus_strong,
       'color': Colors.indigo[400]!,
-      'detail':
-          'BuildOwner holds the focusManager, which maintains '
+      'detail': 'BuildOwner holds the focusManager, which maintains '
           'the focus tree. After each build, the FocusManager '
           'reconciles focus state. The BuildOwner ensures focus '
           'changes are processed synchronously with builds.',
@@ -129,8 +120,7 @@ dynamic build(BuildContext context) {
       'role': 'GlobalKey Deduplication',
       'icon': Icons.vpn_key,
       'color': Colors.blue[400]!,
-      'detail':
-          'BuildOwner tracks all registered GlobalKeys and '
+      'detail': 'BuildOwner tracks all registered GlobalKeys and '
           'asserts that no two elements share the same GlobalKey '
           'simultaneously. This is checked during finalizeTree() '
           'and causes the famous "Multiple widgets used the same '
@@ -151,8 +141,7 @@ dynamic build(BuildContext context) {
       'returns': 'void',
       'color': Colors.indigo[700]!,
       'icon': Icons.schedule,
-      'desc':
-          'Adds an element to the dirty list and triggers '
+      'desc': 'Adds an element to the dirty list and triggers '
           'onBuildScheduled if this is the first dirty element '
           'since the last buildScope(). Called by '
           'Element.markNeedsBuild(). The element must be active '
@@ -163,8 +152,7 @@ dynamic build(BuildContext context) {
       'returns': 'void',
       'color': Colors.blue[600]!,
       'icon': Icons.loop,
-      'desc':
-          'Executes the build pass. Sorts dirty elements by '
+      'desc': 'Executes the build pass. Sorts dirty elements by '
           'depth, then rebuilds each. If callback is provided, '
           'it is called first (used for the initial build). After '
           'processing, the dirty list is cleared. This is the hot '
@@ -175,8 +163,7 @@ dynamic build(BuildContext context) {
       'returns': 'void',
       'color': Colors.indigo[500]!,
       'icon': Icons.delete_sweep,
-      'desc':
-          'Called at the end of each frame. Walks through all '
+      'desc': 'Called at the end of each frame. Walks through all '
           'deactivated elements. Those not reactivated are '
           'permanently unmounted. Also performs GlobalKey '
           'deduplication checks in debug mode.',
@@ -186,8 +173,7 @@ dynamic build(BuildContext context) {
       'returns': 'void',
       'color': Colors.blue[500]!,
       'icon': Icons.lock_outline,
-      'desc':
-          'Executes callback with state-change assertions '
+      'desc': 'Executes callback with state-change assertions '
           'enabled. If any element tries to call markNeedsBuild() '
           'during the callback, an assertion fires. Used during '
           'builds and layout to catch illegal state modifications.',
@@ -197,8 +183,7 @@ dynamic build(BuildContext context) {
       'returns': 'void',
       'color': Colors.indigo[400]!,
       'icon': Icons.refresh,
-      'desc':
-          'Triggers a full rebuild of the entire tree from root. '
+      'desc': 'Triggers a full rebuild of the entire tree from root. '
           'Called by the framework during hot reload. Marks every '
           'element as dirty and runs a complete build pass. Also '
           'calls State.reassemble() on every StatefulElement.',
@@ -217,8 +202,7 @@ dynamic build(BuildContext context) {
       'phase': 1,
       'name': 'setState() / markNeedsBuild()',
       'color': Colors.indigo[700]!,
-      'detail':
-          'User code calls setState(). The State\'s element '
+      'detail': 'User code calls setState(). The State\'s element '
           'calls markNeedsBuild(). This calls '
           'BuildOwner.scheduleBuildFor(this), which adds the '
           'element to _dirtyElements and calls onBuildScheduled.',
@@ -227,8 +211,7 @@ dynamic build(BuildContext context) {
       'phase': 2,
       'name': 'onBuildScheduled → scheduleFrame()',
       'color': Colors.blue[600]!,
-      'detail':
-          'WidgetsBinding sets onBuildScheduled to call '
+      'detail': 'WidgetsBinding sets onBuildScheduled to call '
           'ensureVisualUpdate(), which calls scheduleFrame(). '
           'This requests a vsync callback from the Flutter engine.',
     },
@@ -236,8 +219,7 @@ dynamic build(BuildContext context) {
       'phase': 3,
       'name': 'drawFrame() → buildScope()',
       'color': Colors.indigo[500]!,
-      'detail':
-          'When the vsync fires, WidgetsBinding.drawFrame() '
+      'detail': 'When the vsync fires, WidgetsBinding.drawFrame() '
           'calls buildOwner.buildScope(renderViewElement). This '
           'sorts _dirtyElements by depth and begins the rebuild.',
     },
@@ -245,8 +227,7 @@ dynamic build(BuildContext context) {
       'phase': 4,
       'name': 'element.rebuild() → performRebuild()',
       'color': Colors.blue[500]!,
-      'detail':
-          'Each dirty element is rebuilt. For ComponentElements, '
+      'detail': 'Each dirty element is rebuilt. For ComponentElements, '
           'performRebuild() calls build() to get a new child widget, '
           'then updateChild() to reconcile. New dirty elements from '
           'cascading changes are processed in the same pass.',
@@ -255,8 +236,7 @@ dynamic build(BuildContext context) {
       'phase': 5,
       'name': 'Layout & Paint',
       'color': Colors.indigo[400]!,
-      'detail':
-          'After buildScope() finishes, the rendering pipeline '
+      'detail': 'After buildScope() finishes, the rendering pipeline '
           'takes over. RenderObjects marked as needing layout are '
           'laid out, then those needing paint are painted. This is '
           'not part of BuildOwner but follows immediately.',
@@ -265,8 +245,7 @@ dynamic build(BuildContext context) {
       'phase': 6,
       'name': 'finalizeTree()',
       'color': Colors.blue[400]!,
-      'detail':
-          'At the end of the frame, finalizeTree() is called. '
+      'detail': 'At the end of the frame, finalizeTree() is called. '
           'Deactivated elements that were not re-inserted are '
           'permanently unmounted. GlobalKey checks are performed.',
     },
@@ -284,8 +263,7 @@ dynamic build(BuildContext context) {
       'title': 'Depth-First Ordering',
       'icon': Icons.sort,
       'color': Colors.indigo[700]!,
-      'body':
-          'Before processing, _dirtyElements is sorted by element '
+      'body': 'Before processing, _dirtyElements is sorted by element '
           'depth (ascending). Shallow elements are rebuilt first. '
           'This ensures parents are rebuilt before children, so a '
           'child won\'t be rebuilt with stale parent data.',
@@ -294,8 +272,7 @@ dynamic build(BuildContext context) {
       'title': 'Cascading Rebuilds',
       'icon': Icons.call_split,
       'color': Colors.blue[600]!,
-      'body':
-          'When a parent rebuild changes the child widget '
+      'body': 'When a parent rebuild changes the child widget '
           'configuration, the child element is also marked dirty. '
           'The build loop detects this and processes the new dirty '
           'element in the same pass (since it is deeper).',
@@ -304,8 +281,7 @@ dynamic build(BuildContext context) {
       'title': 'Deduplication',
       'icon': Icons.filter_list,
       'color': Colors.indigo[500]!,
-      'body':
-          'An element appears at most once in _dirtyElements. '
+      'body': 'An element appears at most once in _dirtyElements. '
           'Calling markNeedsBuild() on an already-dirty element '
           'is a no-op. The element tracks its dirty state via an '
           'internal _dirty flag.',
@@ -314,8 +290,7 @@ dynamic build(BuildContext context) {
       'title': 'Clean After Build',
       'icon': Icons.cleaning_services,
       'color': Colors.blue[500]!,
-      'body':
-          'After buildScope() completes, _dirtyElements is '
+      'body': 'After buildScope() completes, _dirtyElements is '
           'cleared. All processed elements have _dirty set to '
           'false. The BuildOwner is ready for the next frame\'s '
           'dirty elements.',
@@ -332,8 +307,7 @@ dynamic build(BuildContext context) {
   final callbackFacts = <Map<String, dynamic>>[
     {
       'title': 'The Bridge to the Engine',
-      'body':
-          'onBuildScheduled is a VoidCallback? property on '
+      'body': 'onBuildScheduled is a VoidCallback? property on '
           'BuildOwner. WidgetsBinding sets it during initialization '
           'to call _handleBuildScheduled(), which calls '
           'ensureVisualUpdate(). This is what connects widget state '
@@ -342,8 +316,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Called Once Per Batch',
-      'body':
-          'onBuildScheduled is only called when the first element '
+      'body': 'onBuildScheduled is only called when the first element '
           'in a frame becomes dirty. Subsequent elements dirtied '
           'before the next buildScope() are silently appended to '
           '_dirtyElements without re-triggering the callback.',
@@ -351,8 +324,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Build Owners',
-      'body':
-          'If you create your own BuildOwner (for off-screen '
+      'body': 'If you create your own BuildOwner (for off-screen '
           'rendering or testing), you must set onBuildScheduled '
           'to drive builds yourself. Without it, dirty elements '
           'will accumulate but never be processed.',
@@ -371,8 +343,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Accessing BuildOwner',
       'color': Colors.indigo[700]!,
-      'code':
-          '// Every Element has an owner:\n'
+      'code': '// Every Element has an owner:\n'
           '// element.owner  →  BuildOwner?\n'
           '//\n'
           '// From a BuildContext (which is an Element):\n'
@@ -391,8 +362,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'How setState() Reaches BuildOwner',
       'color': Colors.blue[600]!,
-      'code':
-          '// setState(() { _count++; })\n'
+      'code': '// setState(() { _count++; })\n'
           '//   ↓\n'
           '// State.setState:\n'
           '//   _element!.markNeedsBuild();\n'
@@ -413,8 +383,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Hot Reload via reassemble()',
       'color': Colors.indigo[500]!,
-      'code':
-          '// When hot reload triggers:\n'
+      'code': '// When hot reload triggers:\n'
           '//   WidgetsBinding.performReassemble()\n'
           '//   ↓\n'
           '//   buildOwner!.reassemble(\n'
@@ -432,8 +401,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Testing with Custom BuildOwner',
       'color': Colors.blue[500]!,
-      'code':
-          '// In widget tests, the test framework\n'
+      'code': '// In widget tests, the test framework\n'
           '// creates its own BuildOwner:\n'
           '//\n'
           '//   final owner = BuildOwner(\n'
@@ -458,29 +426,24 @@ dynamic build(BuildContext context) {
 
   final diagnostics = <Map<String, dynamic>>[
     {
-      'error':
-          'setState() or markNeedsBuild() '
+      'error': 'setState() or markNeedsBuild() '
           'called during build',
       'icon': Icons.error_outline,
       'color': Colors.red[600]!,
-      'cause':
-          'Code is modifying state inside a build() method. '
+      'cause': 'Code is modifying state inside a build() method. '
           'BuildOwner.lockState() is active during buildScope(), '
           'so markNeedsBuild() hits an assertion.',
-      'fix':
-          'Move state changes to event handlers, addPostFrameCallback, '
+      'fix': 'Move state changes to event handlers, addPostFrameCallback, '
           'or microtask. Never call setState inside build().',
     },
     {
       'error': 'Multiple widgets used the same GlobalKey',
       'icon': Icons.vpn_key,
       'color': Colors.orange[700]!,
-      'cause':
-          'BuildOwner.finalizeTree() detected two active '
+      'cause': 'BuildOwner.finalizeTree() detected two active '
           'elements with the same GlobalKey. GlobalKeys must be '
           'unique across the entire tree.',
-      'fix':
-          'Ensure each GlobalKey instance is used by exactly one '
+      'fix': 'Ensure each GlobalKey instance is used by exactly one '
           'widget. Don\'t share GlobalKeys across routes or create '
           'new ones in build().',
     },
@@ -488,12 +451,10 @@ dynamic build(BuildContext context) {
       'error': 'setState() called after dispose()',
       'icon': Icons.warning_amber,
       'color': Colors.amber[700]!,
-      'cause':
-          'An async operation completed after the widget was '
+      'cause': 'An async operation completed after the widget was '
           'unmounted and tries to call setState(). The element '
           'is no longer in the BuildOwner\'s tree.',
-      'fix':
-          'Check mounted before calling setState(). Cancel async '
+      'fix': 'Check mounted before calling setState(). Cancel async '
           'operations in dispose(). Use CancelableOperation or '
           'similar patterns.',
     },
@@ -501,12 +462,10 @@ dynamic build(BuildContext context) {
       'error': 'This widget has been unmounted',
       'icon': Icons.dangerous,
       'color': Colors.red[500]!,
-      'cause':
-          'Code is accessing an element or context after '
+      'cause': 'Code is accessing an element or context after '
           'finalizeTree() has unmounted it. The element\'s '
           'lifecycle is over.',
-      'fix':
-          'Don\'t store BuildContext references. Don\'t use context '
+      'fix': 'Don\'t store BuildContext references. Don\'t use context '
           'in callbacks that outlive the widget\'s lifecycle.',
     },
   ];
@@ -522,8 +481,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'BuildOwner Is Invisible',
-      'body':
-          'You almost never interact with BuildOwner directly '
+      'body': 'You almost never interact with BuildOwner directly '
           'in production code. It works behind the scenes, driven '
           'by WidgetsBinding. Understanding it helps you diagnose '
           'framework errors and write better widgets.',
@@ -532,8 +490,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Don\'t Fight the Build Order',
-      'body':
-          'BuildOwner rebuilds elements shallow-first. If you need '
+      'body': 'BuildOwner rebuilds elements shallow-first. If you need '
           'child state to update before parent, you\'re fighting '
           'the framework. Use InheritedWidget, callbacks, or '
           'ValueNotifier to propagate state in the right direction.',
@@ -542,8 +499,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Minimize Dirty Elements',
-      'body':
-          'Every dirty element costs time in buildScope(). Push '
+      'body': 'Every dirty element costs time in buildScope(). Push '
           'setState() as deep as possible in the tree. Use const '
           'constructors above the changing widget to prevent '
           'unnecessary parent rebuilds.',
@@ -552,8 +508,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'focusManager Lives on BuildOwner',
-      'body':
-          'BuildOwner holds the FocusManager as a property. '
+      'body': 'BuildOwner holds the FocusManager as a property. '
           'If you create a custom BuildOwner and forget to provide '
           'a FocusManager, focus operations will fail. Always '
           'initialize: BuildOwner(focusManager: FocusManager()).',
@@ -562,8 +517,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'addPostFrameCallback for Post-Build',
-      'body':
-          'If you need to read layout info after a build, use '
+      'body': 'If you need to read layout info after a build, use '
           'WidgetsBinding.instance.addPostFrameCallback(). This '
           'runs after buildScope(), layout, and paint — the '
           'safest point to inspect render objects.',
@@ -572,8 +526,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'BuildOwner ≠ BuildContext',
-      'body':
-          'BuildContext is the element (mutable node). BuildOwner '
+      'body': 'BuildContext is the element (mutable node). BuildOwner '
           'is the manager that processes all elements. Many '
           'developers confuse them. context.owner is the BuildOwner, '
           'but context itself is just one element in the tree.',
@@ -648,546 +601,446 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _boHead('1', 'What is BuildOwner?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (c) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: c['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((c) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: c['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          c['icon'] as IconData,
-                          color: c['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(c['icon'] as IconData,
+                            color: c['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            c['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(c['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      c['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(c['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Responsibilities ──
           _boHead('2', 'Key Responsibilities'),
           SizedBox(height: 12),
-          ...responsibilities.map(
-            (r) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: r['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...responsibilities.map((r) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: r['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          r['icon'] as IconData,
-                          color: r['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(r['icon'] as IconData,
+                            color: r['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            r['role'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(r['role'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      r['detail'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(r['detail'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 3: Key Methods ──
           _boHead('3', 'Key Methods'),
           SizedBox(height: 12),
-          ...methods.map(
-            (m) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: m['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...methods.map((m) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: m['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          m['icon'] as IconData,
-                          color: m['color'] as Color,
-                          size: 18,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(m['icon'] as IconData,
+                            color: m['color'] as Color, size: 18),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            m['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              fontFamily: 'monospace',
-                            ),
-                          ),
+                          child: Text(m['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  fontFamily: 'monospace')),
                         ),
-                        _boTag(m['returns'] as String, m['color'] as Color),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      m['desc'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                        _boTag(m['returns'] as String,
+                            m['color'] as Color),
+                      ]),
+                      SizedBox(height: 8),
+                      Text(m['desc'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 4: Build Cycle ──
           _boHead('4', 'Build Cycle Flow'),
           SizedBox(height: 12),
-          ...cycleSteps.map(
-            (cs) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: cs['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...cycleSteps.map((cs) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: cs['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: cs['color'] as Color,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${cs['phase']}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: cs['color'] as Color,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text('${cs['phase']}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            cs['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            cs['detail'] as String,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: [
+                            Text(cs['name'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'monospace')),
+                            SizedBox(height: 4),
+                            Text(cs['detail'] as String,
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey[700],
+                                    height: 1.3)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: Dirty List ──
           _boHead('5', 'The Dirty List'),
           SizedBox(height: 12),
-          ...dirtyListFacts.map(
-            (dl) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: dl['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...dirtyListFacts.map((dl) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: dl['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          dl['icon'] as IconData,
-                          color: dl['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(dl['icon'] as IconData,
+                            color: dl['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            dl['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                          ),
+                          child: Text(dl['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      dl['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(dl['body'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 6: onBuildScheduled ──
           _boHead('6', 'onBuildScheduled Callback'),
           SizedBox(height: 12),
-          ...callbackFacts.map(
-            (cf) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: (cf['color'] as Color).withOpacity(0.06),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: (cf['color'] as Color).withOpacity(0.3),
+          ...callbackFacts.map((cf) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: (cf['color'] as Color).withOpacity(0.06),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                        color: (cf['color'] as Color).withOpacity(0.3)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(cf['title'] as String,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: cf['color'] as Color)),
+                      SizedBox(height: 8),
+                      Text(cf['body'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      cf['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        color: cf['color'] as Color,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      cf['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 7: Code Patterns ──
           _boHead('7', 'Code Patterns'),
           SizedBox(height: 12),
-          ...patterns.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
+          ...patterns.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      p['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        p['code'] as String,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9,
-                          color: Colors.indigo[200],
-                          height: 1.4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(p['title'] as String,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[900],
+                          borderRadius: BorderRadius.circular(8),
                         ),
+                        child: Text(p['code'] as String,
+                            style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 9,
+                                color: Colors.indigo[200],
+                                height: 1.4)),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 8: Diagnostics ──
           _boHead('8', 'Common Errors'),
           SizedBox(height: 12),
-          ...diagnostics.map(
-            (d) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: d['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...diagnostics.map((d) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: d['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          d['icon'] as IconData,
-                          color: d['color'] as Color,
-                          size: 18,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(d['icon'] as IconData,
+                            color: d['color'] as Color, size: 18),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            d['error'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: d['color'] as Color,
-                            ),
-                          ),
+                          child: Text(d['error'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  fontFamily: 'monospace',
+                                  color: d['color'] as Color)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.red[50],
-                        borderRadius: BorderRadius.circular(6),
+                      ]),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.red[50],
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Cause:',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                    color: Colors.red[700])),
+                            Text(d['cause'] as String,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey[700],
+                                    height: 1.3)),
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Cause:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: Colors.red[700],
-                            ),
-                          ),
-                          Text(
-                            d['cause'] as String,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
+                      SizedBox(height: 6),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.green[50],
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Fix:',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                    color: Colors.green[700])),
+                            Text(d['fix'] as String,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey[700],
+                                    height: 1.3)),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 6),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.green[50],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Fix:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: Colors.green[700],
-                            ),
-                          ),
-                          Text(
-                            d['fix'] as String,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1219,41 +1072,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1292,26 +1133,20 @@ Widget _boHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1327,14 +1162,11 @@ Widget _boTag(String text, Color color) {
       color: color.withOpacity(0.12),
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: color,
-        fontSize: 9,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'monospace',
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: color,
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'monospace')),
   );
 }

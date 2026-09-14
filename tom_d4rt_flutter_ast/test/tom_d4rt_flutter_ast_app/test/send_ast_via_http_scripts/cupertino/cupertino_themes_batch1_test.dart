@@ -231,7 +231,11 @@ dynamic build(BuildContext context) {
       'color': CupertinoColors.systemPurple,
       'hex': '#AF52DE',
     },
-    {'name': 'systemRed', 'color': CupertinoColors.systemRed, 'hex': '#FF3B30'},
+    {
+      'name': 'systemRed',
+      'color': CupertinoColors.systemRed,
+      'hex': '#FF3B30',
+    },
     {
       'name': 'systemTeal',
       'color': CupertinoColors.systemTeal,
@@ -470,16 +474,16 @@ dynamic build(BuildContext context) {
   // System fills
   final fillEntries = <Map<String, dynamic>>[
     {'name': 'systemFill', 'color': CupertinoColors.systemFill},
-    {
-      'name': 'secondarySystemFill',
-      'color': CupertinoColors.secondarySystemFill,
-    },
+    {'name': 'secondarySystemFill', 'color': CupertinoColors.secondarySystemFill},
     {'name': 'tertiarySystemFill', 'color': CupertinoColors.tertiarySystemFill},
     {
       'name': 'quaternarySystemFill',
       'color': CupertinoColors.quaternarySystemFill,
     },
-    {'name': 'systemBackground', 'color': CupertinoColors.systemBackground},
+    {
+      'name': 'systemBackground',
+      'color': CupertinoColors.systemBackground,
+    },
     {
       'name': 'secondarySystemBackground',
       'color': CupertinoColors.secondarySystemBackground,
@@ -546,7 +550,11 @@ dynamic build(BuildContext context) {
       'light': Color(0x4D3C3C43),
       'dark': Color(0x995C5C5C),
     },
-    {'name': 'label', 'light': Color(0xFF000000), 'dark': Color(0xFFFFFFFF)},
+    {
+      'name': 'label',
+      'light': Color(0xFF000000),
+      'dark': Color(0xFFFFFFFF),
+    },
     {
       'name': 'secondaryLabel',
       'light': Color(0x993C3C43),
@@ -666,11 +674,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                 ),
-                Container(
-                  width: 1.0,
-                  height: 100.0,
-                  color: Colors.grey.shade300,
-                ),
+                Container(width: 1.0, height: 100.0, color: Colors.grey.shade300),
                 // Dark mode side
                 Expanded(
                   child: Container(
@@ -861,7 +865,10 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.blue.shade50,
                     borderRadius: BorderRadius.circular(4.0),
-                    border: Border.all(color: Colors.blue.shade200, width: 0.5),
+                    border: Border.all(
+                      color: Colors.blue.shade200,
+                      width: 0.5,
+                    ),
                   ),
                   child: Text(
                     s['label'] as String,
@@ -1073,11 +1080,7 @@ dynamic build(BuildContext context) {
   final cascadeFragments = <Widget>[
     buildMiniCupertinoFragment(baseTheme, 'Default Blue', Icons.bookmark),
     buildMiniCupertinoFragment(redVariant, 'Red Variant', Icons.favorite),
-    buildMiniCupertinoFragment(
-      greenVariant,
-      'Green Variant',
-      Icons.check_circle,
-    ),
+    buildMiniCupertinoFragment(greenVariant, 'Green Variant', Icons.check_circle),
     buildMiniCupertinoFragment(purpleVariant, 'Purple Variant', Icons.star),
     buildMiniCupertinoFragment(orangeVariant, 'Orange Variant', Icons.flag),
   ];
@@ -1152,7 +1155,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               'CupertinoIcons',
-              style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500),
+              style: TextStyle(
+                fontSize: 9.0,
+                color: Colors.grey.shade500,
+              ),
             ),
             Text(
               '.${entry['name']}',

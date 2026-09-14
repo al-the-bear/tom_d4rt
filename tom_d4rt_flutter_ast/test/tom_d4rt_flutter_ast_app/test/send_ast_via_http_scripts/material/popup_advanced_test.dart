@@ -71,7 +71,10 @@ Widget buildSectionHeader(
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.25),
                       borderRadius: BorderRadius.circular(6),
@@ -224,11 +227,10 @@ Widget buildMenuSurface({
           shadowColor: Colors.black.withValues(alpha: 0.35),
           shape:
               shape ??
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          child: Padding(
-            padding: padding,
-            child: Column(children: entries),
-          ),
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+          child: Padding(padding: padding, child: Column(children: entries)),
         ),
       ),
       if (floatingLabel != null)
@@ -284,7 +286,8 @@ Widget buildPopupMenuItemSnapshot({
     color: highlighted
         ? PopDemoPalette.primary.withValues(alpha: 0.08)
         : Colors.transparent,
-    padding: padding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    padding:
+        padding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     child: Row(
       children: [
         if (leading != null) ...[
@@ -456,16 +459,15 @@ Widget buildHeroCard() {
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.35)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.35),
+                ),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Icon(
-                    Icons.fiber_manual_record,
-                    color: PopDemoPalette.success,
-                    size: 10.0,
-                  ),
+                  Icon(Icons.fiber_manual_record,
+                      color: PopDemoPalette.success, size: 10.0),
                   SizedBox(width: 6.0),
                   Text(
                     'STATIC SNAPSHOT',
@@ -663,7 +665,10 @@ Widget buildAnatomySection() {
         SizedBox(height: 4.0),
         Text(
           'Anchored numbered callouts identify each part of the rendered menu.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade700,
+          ),
         ),
         SizedBox(height: 18.0),
         Container(
@@ -672,7 +677,10 @@ Widget buildAnatomySection() {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFFF3EEF8), Color(0xFFE8E0F0)],
+              colors: <Color>[
+                Color(0xFFF3EEF8),
+                Color(0xFFE8E0F0),
+              ],
             ),
             borderRadius: BorderRadius.circular(14.0),
             border: Border.all(color: PopDemoPalette.outlineVariant),
@@ -876,7 +884,10 @@ Widget buildVariantTile({
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFFF6F2FA), Color(0xFFEDE7F3)],
+              colors: <Color>[
+                Color(0xFFF6F2FA),
+                Color(0xFFEDE7F3),
+              ],
             ),
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: PopDemoPalette.outlineVariant),
@@ -1016,11 +1027,8 @@ Widget buildPopupItemVariantsSection() {
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Row(
               children: <Widget>[
-                Icon(
-                  Icons.delete_outline,
-                  size: 20.0,
-                  color: PopDemoPalette.danger,
-                ),
+                Icon(Icons.delete_outline,
+                    size: 20.0, color: PopDemoPalette.danger),
                 SizedBox(width: 12.0),
                 Text(
                   'Delete forever',
@@ -1050,11 +1058,8 @@ Widget buildPopupItemVariantsSection() {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(
-                  Icons.warning_amber_outlined,
-                  size: 20.0,
-                  color: PopDemoPalette.warning,
-                ),
+                Icon(Icons.warning_amber_outlined,
+                    size: 20.0, color: PopDemoPalette.warning),
                 SizedBox(width: 12.0),
                 Expanded(
                   child: Text(
@@ -1142,17 +1147,11 @@ Widget buildCheckedVariantsSection() {
               body: buildMenuSurface(
                 entries: <Widget>[
                   buildCheckedPopupMenuItemSnapshot(
-                    label: 'Word wrap',
-                    checked: true,
-                  ),
+                      label: 'Word wrap', checked: true),
                   buildCheckedPopupMenuItemSnapshot(
-                    label: 'Minimap',
-                    checked: false,
-                  ),
+                      label: 'Minimap', checked: false),
                   buildCheckedPopupMenuItemSnapshot(
-                    label: 'Line numbers',
-                    checked: true,
-                  ),
+                      label: 'Line numbers', checked: true),
                 ],
               ),
             ),
@@ -1166,19 +1165,15 @@ Widget buildCheckedVariantsSection() {
               body: buildMenuSurface(
                 entries: <Widget>[
                   buildCheckedPopupMenuItemSnapshot(
-                    label: 'Show whitespace',
-                    checked: false,
-                    enabled: false,
-                  ),
+                      label: 'Show whitespace',
+                      checked: false,
+                      enabled: false),
                   buildCheckedPopupMenuItemSnapshot(
-                    label: 'Auto-format',
-                    checked: true,
-                    enabled: false,
-                  ),
+                      label: 'Auto-format',
+                      checked: true,
+                      enabled: false),
                   buildCheckedPopupMenuItemSnapshot(
-                    label: 'Inline diff',
-                    checked: false,
-                  ),
+                      label: 'Inline diff', checked: false),
                 ],
               ),
             ),
@@ -1234,7 +1229,10 @@ Widget buildDividerShowcaseColumn(double h, Color accent) {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[Colors.white, accent.withValues(alpha: 0.06)],
+          colors: <Color>[
+            Colors.white,
+            accent.withValues(alpha: 0.06),
+          ],
         ),
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: PopDemoPalette.outlineVariant),
@@ -1245,7 +1243,8 @@ Widget buildDividerShowcaseColumn(double h, Color accent) {
           Row(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 8.0, vertical: 3.0),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(6.0),
@@ -1368,7 +1367,10 @@ Widget buildPhoneFrame({
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[Color(0xFFF4F1F8), Color(0xFFE7E0EC)],
+                colors: <Color>[
+                  Color(0xFFF4F1F8),
+                  Color(0xFFE7E0EC),
+                ],
               ),
               borderRadius: BorderRadius.circular(18.0),
               border: Border.all(
@@ -1433,7 +1435,11 @@ Widget buildAnchorOver() {
         align: Alignment.center,
         color: PopDemoPalette.overOpen,
       ),
-      Positioned(top: 110.0, left: 40.0, child: buildMiniPopup()),
+      Positioned(
+        top: 110.0,
+        left: 40.0,
+        child: buildMiniPopup(),
+      ),
       Positioned(
         top: 124.0,
         left: 124.0,
@@ -1457,7 +1463,11 @@ Widget buildAnchorUnder() {
         align: Alignment.topCenter,
         color: PopDemoPalette.underOpen,
       ),
-      Positioned(top: 56.0, left: 40.0, child: buildMiniPopup()),
+      Positioned(
+        top: 56.0,
+        left: 40.0,
+        child: buildMiniPopup(),
+      ),
     ],
   );
 }
@@ -1469,7 +1479,11 @@ Widget buildAnchorTopLeft() {
         align: Alignment.topRight,
         color: PopDemoPalette.tertiary,
       ),
-      Positioned(top: 8.0, left: 8.0, child: buildMiniPopup()),
+      Positioned(
+        top: 8.0,
+        left: 8.0,
+        child: buildMiniPopup(),
+      ),
     ],
   );
 }
@@ -1481,7 +1495,11 @@ Widget buildAnchorTopRight() {
         align: Alignment.topLeft,
         color: PopDemoPalette.warning,
       ),
-      Positioned(top: 8.0, right: 8.0, child: buildMiniPopup()),
+      Positioned(
+        top: 8.0,
+        right: 8.0,
+        child: buildMiniPopup(),
+      ),
     ],
   );
 }
@@ -1564,7 +1582,8 @@ Widget buildElevationCard({
           Row(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 8.0, vertical: 3.0),
                 decoration: BoxDecoration(
                   color: accent,
                   borderRadius: BorderRadius.circular(6.0),
@@ -1726,7 +1745,10 @@ Widget buildThemeTokenCard({
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFFFAF6FD), Color(0xFFEDE7F3)],
+              colors: <Color>[
+                Color(0xFFFAF6FD),
+                Color(0xFFEDE7F3),
+              ],
             ),
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: PopDemoPalette.outlineVariant),
@@ -1848,11 +1870,8 @@ Widget buildThemeSection() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Icon(
-              Icons.tips_and_updates_outlined,
-              color: PopDemoPalette.primary,
-              size: 22.0,
-            ),
+            Icon(Icons.tips_and_updates_outlined,
+                color: PopDemoPalette.primary, size: 22.0),
             SizedBox(width: 10.0),
             Expanded(
               child: Text(
@@ -1938,10 +1957,15 @@ Widget buildPitfallsSection() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFFFFFAF5), Color(0xFFFFF3E8)],
+        colors: <Color>[
+          Color(0xFFFFFAF5),
+          Color(0xFFFFF3E8),
+        ],
       ),
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: PopDemoPalette.warning.withValues(alpha: 0.35)),
+      border: Border.all(
+        color: PopDemoPalette.warning.withValues(alpha: 0.35),
+      ),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: PopDemoPalette.warning.withValues(alpha: 0.12),
@@ -1955,11 +1979,8 @@ Widget buildPitfallsSection() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.report_problem_outlined,
-              color: PopDemoPalette.warning,
-              size: 22.0,
-            ),
+            Icon(Icons.report_problem_outlined,
+                color: PopDemoPalette.warning, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Common pitfalls',
@@ -1974,7 +1995,10 @@ Widget buildPitfallsSection() {
         SizedBox(height: 4.0),
         Text(
           'Reading these once will save you a long debugging session later.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade700,
+          ),
         ),
         SizedBox(height: 8.0),
         buildPitfallBullet(
@@ -2036,7 +2060,9 @@ Widget buildCodeLine(String text, {Color? color, bool comment = false}) {
         fontFamily: 'monospace',
         fontSize: 12.5,
         height: 1.45,
-        color: comment ? Colors.grey.shade500 : (color ?? Color(0xFFEDE7F6)),
+        color: comment
+            ? Colors.grey.shade500
+            : (color ?? Color(0xFFEDE7F6)),
         fontWeight: FontWeight.w500,
       ),
     ),
@@ -2049,7 +2075,10 @@ Widget buildApiCodeSection() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF1E1B2E), Color(0xFF2A2342)],
+        colors: <Color>[
+          Color(0xFF1E1B2E),
+          Color(0xFF2A2342),
+        ],
       ),
       borderRadius: BorderRadius.circular(16.0),
       boxShadow: <BoxShadow>[
@@ -2072,7 +2101,9 @@ Widget buildApiCodeSection() {
               topRight: Radius.circular(16.0),
             ),
             border: Border(
-              bottom: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+              bottom: BorderSide(
+                color: Colors.white.withValues(alpha: 0.1),
+              ),
             ),
           ),
           child: Row(
@@ -2122,94 +2153,98 @@ Widget buildApiCodeSection() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               buildCodeLine('// Constructor signature', comment: true),
-              buildCodeLine('PopupMenuButton<T>({', color: Color(0xFFBA9DF5)),
-              buildCodeLine('  Key? key,', color: Color(0xFFEDE7F6)),
+              buildCodeLine('PopupMenuButton<T>({',
+                  color: Color(0xFFBA9DF5)),
               buildCodeLine(
-                '  required PopupMenuItemBuilder<T> itemBuilder,',
-                color: Color(0xFFEDE7F6),
-              ),
-              buildCodeLine('  T? initialValue,', color: Color(0xFFEDE7F6)),
+                  '  Key? key,',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '  PopupMenuItemSelected<T>? onSelected,',
-                color: Color(0xFFEDE7F6),
-              ),
+                  '  required PopupMenuItemBuilder<T> itemBuilder,',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '  PopupMenuCanceled? onCanceled,',
-                color: Color(0xFFEDE7F6),
-              ),
-              buildCodeLine('  String? tooltip,', color: Color(0xFFEDE7F6)),
-              buildCodeLine('  double? elevation,', color: Color(0xFFEDE7F6)),
-              buildCodeLine('  Color? color,', color: Color(0xFFEDE7F6)),
+                  '  T? initialValue,',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '  Color? surfaceTintColor,',
-                color: Color(0xFFEDE7F6),
-              ),
-              buildCodeLine('  ShapeBorder? shape,', color: Color(0xFFEDE7F6)),
+                  '  PopupMenuItemSelected<T>? onSelected,',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '  Offset offset = Offset.zero,',
-                color: Color(0xFFEDE7F6),
-              ),
+                  '  PopupMenuCanceled? onCanceled,',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '  PopupMenuPosition? position,',
-                color: Color(0xFFEDE7F6),
-              ),
-              buildCodeLine('  bool enabled = true,', color: Color(0xFFEDE7F6)),
+                  '  String? tooltip,',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine(
+                  '  double? elevation,',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine(
+                  '  Color? color,',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine(
+                  '  Color? surfaceTintColor,',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine(
+                  '  ShapeBorder? shape,',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine(
+                  '  Offset offset = Offset.zero,',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine(
+                  '  PopupMenuPosition? position,',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine(
+                  '  bool enabled = true,',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine('});', color: Color(0xFFBA9DF5)),
               SizedBox(height: 12.0),
               buildCodeLine('// Typical usage', comment: true),
               buildCodeLine(
-                'PopupMenuButton<String>(',
-                color: Color(0xFFBA9DF5),
-              ),
+                  'PopupMenuButton<String>(',
+                  color: Color(0xFFBA9DF5)),
               buildCodeLine(
-                '  tooltip: \'More actions\',',
-                color: Color(0xFFB5EAD7),
-              ),
+                  '  tooltip: \'More actions\',',
+                  color: Color(0xFFB5EAD7)),
               buildCodeLine(
-                '  position: PopupMenuPosition.under,',
-                color: Color(0xFFEDE7F6),
-              ),
+                  '  position: PopupMenuPosition.under,',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '  onSelected: (String value) => handle(value),',
-                color: Color(0xFFEDE7F6),
-              ),
+                  '  onSelected: (String value) => handle(value),',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '  itemBuilder: (BuildContext context) =>',
-                color: Color(0xFFEDE7F6),
-              ),
+                  '  itemBuilder: (BuildContext context) =>',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '      <PopupMenuEntry<String>>[',
-                color: Color(0xFFEDE7F6),
-              ),
+                  '      <PopupMenuEntry<String>>[',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '    const PopupMenuItem<String>(',
-                color: Color(0xFFEDE7F6),
-              ),
-              buildCodeLine('      value: \'edit\',', color: Color(0xFFB5EAD7)),
+                  '    const PopupMenuItem<String>(',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '      child: Text(\'Edit\'),',
-                color: Color(0xFFEDE7F6),
-              ),
-              buildCodeLine('    ),', color: Color(0xFFEDE7F6)),
+                  '      value: \'edit\',',
+                  color: Color(0xFFB5EAD7)),
               buildCodeLine(
-                '    const PopupMenuDivider(),',
-                color: Color(0xFFEDE7F6),
-              ),
+                  '      child: Text(\'Edit\'),',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine('    ),',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '    CheckedPopupMenuItem<String>(',
-                color: Color(0xFFEDE7F6),
-              ),
-              buildCodeLine('      value: \'wrap\',', color: Color(0xFFB5EAD7)),
+                  '    const PopupMenuDivider(),',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '      checked: wrapEnabled,',
-                color: Color(0xFFEDE7F6),
-              ),
+                  '    CheckedPopupMenuItem<String>(',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(
-                '      child: const Text(\'Word wrap\'),',
-                color: Color(0xFFEDE7F6),
-              ),
-              buildCodeLine('    ),', color: Color(0xFFEDE7F6)),
-              buildCodeLine('  ],', color: Color(0xFFEDE7F6)),
+                  '      value: \'wrap\',',
+                  color: Color(0xFFB5EAD7)),
+              buildCodeLine(
+                  '      checked: wrapEnabled,',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine(
+                  '      child: const Text(\'Word wrap\'),',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine('    ),',
+                  color: Color(0xFFEDE7F6)),
+              buildCodeLine('  ],',
+                  color: Color(0xFFEDE7F6)),
               buildCodeLine(');', color: Color(0xFFBA9DF5)),
             ],
           ),
@@ -2257,7 +2292,10 @@ Widget buildFooterCard() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFFEDE7F6), Color(0xFFE0D7F0)],
+        colors: <Color>[
+          Color(0xFFEDE7F6),
+          Color(0xFFE0D7F0),
+        ],
       ),
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: PopDemoPalette.outlineVariant),
@@ -2281,7 +2319,8 @@ Widget buildFooterCard() {
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: Icon(Icons.menu_open, color: Colors.white, size: 22.0),
+              child: Icon(Icons.menu_open,
+                  color: Colors.white, size: 22.0),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -2323,7 +2362,8 @@ Widget buildFooterCard() {
         Row(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 8.0, vertical: 3.0),
               decoration: BoxDecoration(
                 color: PopDemoPalette.primary.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(6.0),

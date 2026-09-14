@@ -80,9 +80,7 @@ Widget buildSliderWithTickMarks(
         SizedBox(height: 12),
         SliderTheme(
           data: SliderThemeData(
-            tickMarkShape: RoundSliderTickMarkShape(
-              tickMarkRadius: tickMarkRadius,
-            ),
+            tickMarkShape: RoundSliderTickMarkShape(tickMarkRadius: tickMarkRadius),
             activeTrackColor: activeColor,
             inactiveTrackColor: activeColor.withAlpha(60),
             activeTickMarkColor: Colors.white,
@@ -332,7 +330,11 @@ Widget buildSliderThemeShowcase(
   );
 }
 
-Widget buildTickMarkRadiusComparison(String label, double radius, Color color) {
+Widget buildTickMarkRadiusComparison(
+  String label,
+  double radius,
+  Color color,
+) {
   print('Building tick mark radius comparison: $radius');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -350,12 +352,18 @@ Widget buildTickMarkRadiusComparison(String label, double radius, Color color) {
             Container(
               width: radius * 4,
               height: radius * 4,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
             ),
             SizedBox(width: 8),
             Text(
               '$label (radius: $radius)',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -468,7 +476,10 @@ Widget buildColorSchemeSlider(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(name, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+        Text(
+          name,
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 8),
         Row(
           children: [
@@ -516,7 +527,10 @@ Widget buildColorDot(Color color, String label) {
         ),
       ),
       SizedBox(width: 4),
-      Text(label, style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+      Text(
+        label,
+        style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+      ),
     ],
   );
 }
@@ -656,9 +670,7 @@ Widget buildDisabledSliderWithTicks(
 
 Widget build(BuildContext context) {
   print('Building RoundSliderTickMarkShape demo');
-  print(
-    'RoundSliderTickMarkShape is the default tick mark shape for sliders with divisions',
-  );
+  print('RoundSliderTickMarkShape is the default tick mark shape for sliders with divisions');
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -914,30 +926,10 @@ Widget build(BuildContext context) {
               ),
 
               buildSectionHeader('8. Enabled vs Disabled States'),
-              buildDisabledSliderWithTicks(
-                'Enabled Slider',
-                Colors.teal,
-                10,
-                true,
-              ),
-              buildDisabledSliderWithTicks(
-                'Disabled Slider',
-                Colors.teal,
-                10,
-                false,
-              ),
-              buildDisabledSliderWithTicks(
-                'Enabled Blue Slider',
-                Colors.blue,
-                8,
-                true,
-              ),
-              buildDisabledSliderWithTicks(
-                'Disabled Blue Slider',
-                Colors.blue,
-                8,
-                false,
-              ),
+              buildDisabledSliderWithTicks('Enabled Slider', Colors.teal, 10, true),
+              buildDisabledSliderWithTicks('Disabled Slider', Colors.teal, 10, false),
+              buildDisabledSliderWithTicks('Enabled Blue Slider', Colors.blue, 8, true),
+              buildDisabledSliderWithTicks('Disabled Blue Slider', Colors.blue, 8, false),
 
               buildSectionHeader('9. Practical Use Cases'),
               buildSliderWithVariousDivisions(

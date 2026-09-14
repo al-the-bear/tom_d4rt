@@ -148,7 +148,8 @@ class _TwoDBuildHomeState extends State<_TwoDBuildHome> {
                 keepAlive: _keepAlives,
                 onRepaintChanged: (bool v) =>
                     setState(() => _repaintBoundaries = v),
-                onKeepAliveChanged: (bool v) => setState(() => _keepAlives = v),
+                onKeepAliveChanged: (bool v) =>
+                    setState(() => _keepAlives = v),
               ),
               const SizedBox(height: 24),
               const _TwoDBuildEpilogueCard(),
@@ -193,10 +194,7 @@ class _TwoDBuildSectionHeader extends StatelessWidget {
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: accent.withValues(alpha: 0.6),
-                width: 1.2,
-              ),
+              border: Border.all(color: accent.withValues(alpha: 0.6), width: 1.2),
             ),
             child: Text(
               number,
@@ -236,7 +234,10 @@ class _TwoDBuildSectionHeader extends StatelessWidget {
                   height: 2,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [accent, accent.withValues(alpha: 0.0)],
+                      colors: [
+                        accent,
+                        accent.withValues(alpha: 0.0),
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(2),
                   ),
@@ -254,7 +255,9 @@ class _TwoDBuildSectionHeader extends StatelessWidget {
 // Shared visual: surface container used by each scenario card.
 // ---------------------------------------------------------------------------
 class _TwoDBuildSurface extends StatelessWidget {
-  const _TwoDBuildSurface({required this.child});
+  const _TwoDBuildSurface({
+    required this.child,
+  });
 
   final Widget child;
   EdgeInsets get padding => const EdgeInsets.all(16);
@@ -295,31 +298,31 @@ class _TwoDBuildPreambleCard extends StatelessWidget {
         'label': 'Role',
         'body':
             'A lazy child-producing delegate for 2D scroll views. The builder '
-            'is invoked only for cells the viewport currently needs.',
+                'is invoked only for cells the viewport currently needs.',
       },
       <String, String>{
         'label': 'Signature',
         'body':
             'Widget? Function(BuildContext ctx, ChildVicinity vicinity). '
-            'Return null to skip; the viewport treats it as a hole.',
+                'Return null to skip; the viewport treats it as a hole.',
       },
       <String, String>{
         'label': 'Bounds',
         'body':
             'maxXIndex / maxYIndex cap the addressable space. Null means no '
-            'hard cap — the viewport decides when to stop asking.',
+                'hard cap — the viewport decides when to stop asking.',
       },
       <String, String>{
         'label': 'Wrapping',
         'body':
             'addRepaintBoundaries wraps every child in a RepaintBoundary. '
-            'addAutomaticKeepAlives uses AutomaticKeepAlive for state.',
+                'addAutomaticKeepAlives uses AutomaticKeepAlive for state.',
       },
       <String, String>{
         'label': 'vs. ChildListDelegate',
         'body':
             'The list delegate materialises every widget up front. The '
-            'builder delegate is the right tool for large or infinite grids.',
+                'builder delegate is the right tool for large or infinite grids.',
       },
     ];
 
@@ -649,7 +652,9 @@ class _TwoDBuildSelectedPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: _twoDBuildNavyDeep,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _twoDBuildGold.withValues(alpha: 0.35)),
+        border: Border.all(
+          color: _twoDBuildGold.withValues(alpha: 0.35),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -660,7 +665,9 @@ class _TwoDBuildSelectedPanel extends StatelessWidget {
             decoration: BoxDecoration(
               color: _twoDBuildGold.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: _twoDBuildGold.withValues(alpha: 0.55)),
+              border: Border.all(
+                color: _twoDBuildGold.withValues(alpha: 0.55),
+              ),
             ),
             child: const Icon(
               Icons.touch_app_outlined,
@@ -765,7 +772,9 @@ class _TwoDBuildSlidersScenario extends StatelessWidget {
                       min: 3,
                       max: 80,
                       accent: _twoDBuildGold,
-                      suffix: xInfinite ? 'null (no cap)' : maxX.toString(),
+                      suffix: xInfinite
+                          ? 'null (no cap)'
+                          : maxX.toString(),
                       disabled: xInfinite,
                       onChanged: onMaxXChanged,
                     ),
@@ -788,7 +797,9 @@ class _TwoDBuildSlidersScenario extends StatelessWidget {
                       min: 3,
                       max: 80,
                       accent: _twoDBuildGoldBright,
-                      suffix: yInfinite ? 'null (no cap)' : maxY.toString(),
+                      suffix: yInfinite
+                          ? 'null (no cap)'
+                          : maxY.toString(),
                       disabled: yInfinite,
                       onChanged: onMaxYChanged,
                     ),
@@ -864,12 +875,12 @@ class _TwoDBuildSlidersScenario extends StatelessWidget {
                 title: 'null semantics',
                 body: xInfinite || yInfinite
                     ? 'A null bound tells the viewport "I do not know the '
-                          'ceiling yet — keep asking until the builder returns '
-                          'null." Your custom layout is the one that decides '
-                          'when to stop.'
+                        'ceiling yet — keep asking until the builder returns '
+                        'null." Your custom layout is the one that decides '
+                        'when to stop.'
                     : 'With both bounds set, the delegate short-circuits '
-                          'out-of-range requests and the viewport can compute '
-                          'exact scroll extents.',
+                        'out-of-range requests and the viewport can compute '
+                        'exact scroll extents.',
               ),
             ],
           ),
@@ -927,7 +938,10 @@ class _TwoDBuildSliderTile extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: disabled ? 0.1 : 0.22),
                   borderRadius: BorderRadius.circular(8),
@@ -953,10 +967,10 @@ class _TwoDBuildSliderTile extends StatelessWidget {
               thumbColor: accent,
               overlayColor: accent.withValues(alpha: 0.2),
               valueIndicatorColor: accent,
-              disabledActiveTrackColor: _twoDBuildIvory.withValues(alpha: 0.2),
-              disabledInactiveTrackColor: _twoDBuildIvory.withValues(
-                alpha: 0.12,
-              ),
+              disabledActiveTrackColor:
+                  _twoDBuildIvory.withValues(alpha: 0.2),
+              disabledInactiveTrackColor:
+                  _twoDBuildIvory.withValues(alpha: 0.12),
               disabledThumbColor: _twoDBuildIvoryMuted.withValues(alpha: 0.3),
             ),
             child: Slider(
@@ -1108,7 +1122,11 @@ class _TwoDBuildColorfulCell extends StatelessWidget {
     // cobalt / gold so the grid still reads as the app's palette.
     final int hash = (vicinity.xIndex * 31) ^ (vicinity.yIndex * 17);
     final double mix = ((hash % 100) / 100.0).clamp(0.0, 1.0);
-    final Color base = Color.lerp(_twoDBuildCobalt, _twoDBuildGold, mix)!;
+    final Color base = Color.lerp(
+      _twoDBuildCobalt,
+      _twoDBuildGold,
+      mix,
+    )!;
     final bool accent =
         (vicinity.xIndex + vicinity.yIndex).isEven && (hash % 7 == 0);
     return Container(
@@ -1176,7 +1194,9 @@ class _TwoDBuildInfoStripe extends StatelessWidget {
       decoration: BoxDecoration(
         color: _twoDBuildNavyDeep,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _twoDBuildMint.withValues(alpha: 0.3)),
+        border: Border.all(
+          color: _twoDBuildMint.withValues(alpha: 0.3),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1263,9 +1283,8 @@ class _TwoDBuildInspectorScenario extends StatelessWidget {
                     child: SliderTheme(
                       data: SliderTheme.of(context).copyWith(
                         activeTrackColor: _twoDBuildMint,
-                        inactiveTrackColor: _twoDBuildMint.withValues(
-                          alpha: 0.22,
-                        ),
+                        inactiveTrackColor:
+                            _twoDBuildMint.withValues(alpha: 0.22),
                         thumbColor: _twoDBuildMint,
                         overlayColor: _twoDBuildMint.withValues(alpha: 0.2),
                       ),
@@ -1306,7 +1325,9 @@ class _TwoDBuildInspectorScenario extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              _TwoDBuildInspectorReadout(vicinity: vicinity),
+              _TwoDBuildInspectorReadout(
+                vicinity: vicinity,
+              ),
             ],
           ),
         ),
@@ -1327,7 +1348,8 @@ class _TwoDBuildInspectorCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Build a quilt pattern: stripes diagonally, emphasising the 2D layout.
-    final int stripe = ((vicinity.xIndex + vicinity.yIndex) % 5);
+    final int stripe =
+        ((vicinity.xIndex + vicinity.yIndex) % 5);
     final List<Color> stripeColors = <Color>[
       _twoDBuildNavyDeep,
       _twoDBuildNavyMid,
@@ -1374,14 +1396,20 @@ class _TwoDBuildInspectorReadout extends StatelessWidget {
       decoration: BoxDecoration(
         color: _twoDBuildNavyDeep,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _twoDBuildMint.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: _twoDBuildMint.withValues(alpha: 0.4),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.tag, color: _twoDBuildMint, size: 18),
+              const Icon(
+                Icons.tag,
+                color: _twoDBuildMint,
+                size: 18,
+              ),
               const SizedBox(width: 6),
               Text(
                 v == null ? 'No cell selected' : 'Live readout',
@@ -1407,8 +1435,14 @@ class _TwoDBuildInspectorReadout extends StatelessWidget {
               ),
             )
           else ...<Widget>[
-            _TwoDBuildReadoutRow(label: 'xIndex', value: '${v.xIndex}'),
-            _TwoDBuildReadoutRow(label: 'yIndex', value: '${v.yIndex}'),
+            _TwoDBuildReadoutRow(
+              label: 'xIndex',
+              value: '${v.xIndex}',
+            ),
+            _TwoDBuildReadoutRow(
+              label: 'yIndex',
+              value: '${v.yIndex}',
+            ),
             _TwoDBuildReadoutRow(
               label: 'A1 address',
               value: _twoDBuildAddress(v.xIndex, v.yIndex),
@@ -1422,8 +1456,8 @@ class _TwoDBuildInspectorReadout extends StatelessWidget {
               value: v.compareTo(const ChildVicinity(xIndex: 0, yIndex: 0)) > 0
                   ? 'after origin'
                   : v.compareTo(const ChildVicinity(xIndex: 0, yIndex: 0)) < 0
-                  ? 'before origin'
-                  : 'origin',
+                      ? 'before origin'
+                      : 'origin',
             ),
           ],
         ],
@@ -1515,9 +1549,9 @@ class _TwoDBuildRepaintScenario extends StatelessWidget {
                       value: repaint,
                       description: repaint
                           ? 'Each cell gets its own paint layer. Good for '
-                                'flickery content; costs extra raster layers.'
+                              'flickery content; costs extra raster layers.'
                           : 'No RepaintBoundary wrapper. Painting cascades '
-                                'through ancestors; cheaper layer count.',
+                              'through ancestors; cheaper layer count.',
                       activeColor: _twoDBuildGold,
                       onChanged: onRepaintChanged,
                     ),
@@ -1529,9 +1563,9 @@ class _TwoDBuildRepaintScenario extends StatelessWidget {
                       value: keepAlive,
                       description: keepAlive
                           ? 'AutomaticKeepAlive lets cells preserve state via '
-                                'KeepAliveNotification when requested.'
+                              'KeepAliveNotification when requested.'
                           : 'Cells lose state as they scroll out of view. '
-                                'Use when your cells are stateless.',
+                              'Use when your cells are stateless.',
                       activeColor: _twoDBuildCobaltBright,
                       onChanged: onKeepAliveChanged,
                     ),
@@ -1567,11 +1601,11 @@ class _TwoDBuildRepaintScenario extends StatelessWidget {
                 title: 'Trade-off',
                 body: repaint
                     ? 'RepaintBoundary isolates each cell during paint. If a '
-                          'cell changes, only that cell repaints. The cost is '
-                          'more compositor layers and slightly higher memory.'
+                        'cell changes, only that cell repaints. The cost is '
+                        'more compositor layers and slightly higher memory.'
                     : 'Without RepaintBoundary, a dirty cell can force the '
-                          'surrounding area to repaint. Fewer layers, but more '
-                          'work per change.',
+                        'surrounding area to repaint. Fewer layers, but more '
+                        'work per change.',
               ),
             ],
           ),
@@ -1631,7 +1665,8 @@ class _TwoDBuildFlagTile extends StatelessWidget {
                 activeThumbColor: activeColor,
                 activeTrackColor: activeColor.withValues(alpha: 0.5),
                 inactiveThumbColor: _twoDBuildIvoryMuted,
-                inactiveTrackColor: _twoDBuildCobalt.withValues(alpha: 0.35),
+                inactiveTrackColor:
+                    _twoDBuildCobalt.withValues(alpha: 0.35),
               ),
             ],
           ),
@@ -1712,35 +1747,35 @@ class _TwoDBuildEpilogueCard extends StatelessWidget {
         'title': 'Size cells explicitly',
         'body':
             'Your viewport decides cell dimensions. Make them explicit (fixed '
-            'or computed from constraints) — loose layout will starve the '
-            'builder or loop forever.',
+                'or computed from constraints) — loose layout will starve the '
+                'builder or loop forever.',
       },
       <String, String>{
         'title': 'Return null at the edge',
         'body':
             'Always return null for out-of-range vicinities. Returning a '
-            'placeholder "empty" widget defeats the lazy evaluation and '
-            'bloats the element tree.',
+                'placeholder "empty" widget defeats the lazy evaluation and '
+                'bloats the element tree.',
       },
       <String, String>{
         'title': 'Keep builders pure',
         'body':
             'The builder can be called many times during a single frame. '
-            'Avoid side effects. Hoist controllers and stream subscriptions.',
+                'Avoid side effects. Hoist controllers and stream subscriptions.',
       },
       <String, String>{
         'title': 'Bound if you know the answer',
         'body':
             'When you know the maximum, set maxXIndex / maxYIndex. It lets '
-            'the viewport compute exact scroll extents — smoother scrollbars '
-            'and proper overscroll behavior.',
+                'the viewport compute exact scroll extents — smoother scrollbars '
+                'and proper overscroll behavior.',
       },
       <String, String>{
         'title': 'Pair with a real viewport',
         'body':
             'The delegate only works inside a TwoDimensionalScrollView whose '
-            'viewport calls buildOrObtainChildFor. See this file for a '
-            'minimal, analyzer-clean reference implementation.',
+                'viewport calls buildOrObtainChildFor. See this file for a '
+                'minimal, analyzer-clean reference implementation.',
       },
     ];
     return Column(
@@ -1791,7 +1826,9 @@ class _TwoDBuildTipRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: _twoDBuildNavyDeep,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _twoDBuildMint.withValues(alpha: 0.35)),
+        border: Border.all(
+          color: _twoDBuildMint.withValues(alpha: 0.35),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1803,7 +1840,9 @@ class _TwoDBuildTipRow extends StatelessWidget {
             decoration: BoxDecoration(
               color: _twoDBuildMint.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: _twoDBuildMint.withValues(alpha: 0.55)),
+              border: Border.all(
+                color: _twoDBuildMint.withValues(alpha: 0.55),
+              ),
             ),
             child: Text(
               '$index',
@@ -1903,12 +1942,18 @@ class _TwoDBuildFooter extends StatelessWidget {
         decoration: BoxDecoration(
           color: _twoDBuildNavyMid,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: _twoDBuildGold.withValues(alpha: 0.4)),
+          border: Border.all(
+            color: _twoDBuildGold.withValues(alpha: 0.4),
+          ),
         ),
         child: const Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(Icons.auto_awesome, color: _twoDBuildGoldBright, size: 16),
+            Icon(
+              Icons.auto_awesome,
+              color: _twoDBuildGoldBright,
+              size: 16,
+            ),
             SizedBox(width: 8),
             Text(
               'TwoDimensionalChildBuilderDelegate — Deep Visual Demo',
@@ -1985,11 +2030,11 @@ class _TwoDBuildGridView extends TwoDimensionalScrollView {
     this.softXLimit,
     this.softYLimit,
   }) : super(
-         delegate: delegate,
-         diagonalDragBehavior: DiagonalDragBehavior.free,
-         dragStartBehavior: DragStartBehavior.start,
-         mainAxis: Axis.vertical,
-       );
+          delegate: delegate,
+          diagonalDragBehavior: DiagonalDragBehavior.free,
+          dragStartBehavior: DragStartBehavior.start,
+          mainAxis: Axis.vertical,
+        );
 
   final double cellSize;
   final int? softXLimit;
@@ -2093,10 +2138,10 @@ class _RenderTwoDBuildGridViewport extends RenderTwoDimensionalViewport {
     super.cacheExtent,
     super.cacheExtentStyle,
     super.clipBehavior = Clip.hardEdge,
-  }) : _cellSize = cellSize,
-       _softXLimit = softXLimit,
-       _softYLimit = softYLimit,
-       super(delegate: delegate);
+  })  : _cellSize = cellSize,
+        _softXLimit = softXLimit,
+        _softYLimit = softYLimit,
+        super(delegate: delegate);
 
   double _cellSize;
   double get cellSize => _cellSize;
@@ -2140,12 +2185,10 @@ class _RenderTwoDBuildGridViewport extends RenderTwoDimensionalViewport {
     // Effective upper bounds: prefer the delegate's explicit bound; otherwise
     // fall back to the soft demo cap; otherwise bail out at a safe ceiling
     // derived from the viewport extent so the sandbox never hangs.
-    final int maxColumnIndex =
-        builderDelegate.maxXIndex ??
+    final int maxColumnIndex = builderDelegate.maxXIndex ??
         softXLimit ??
         (((horizontalPixels + viewportWidth) / _cellSize).ceil() + 4);
-    final int maxRowIndex =
-        builderDelegate.maxYIndex ??
+    final int maxRowIndex = builderDelegate.maxYIndex ??
         softYLimit ??
         (((verticalPixels + viewportHeight) / _cellSize).ceil() + 4);
 
@@ -2153,7 +2196,10 @@ class _RenderTwoDBuildGridViewport extends RenderTwoDimensionalViewport {
       (horizontalPixels / _cellSize).floor(),
       0,
     );
-    final int leadingRow = math.max((verticalPixels / _cellSize).floor(), 0);
+    final int leadingRow = math.max(
+      (verticalPixels / _cellSize).floor(),
+      0,
+    );
     final int trailingColumn = math.min(
       ((horizontalPixels + viewportWidth) / _cellSize).ceil(),
       maxColumnIndex,
@@ -2166,21 +2212,18 @@ class _RenderTwoDBuildGridViewport extends RenderTwoDimensionalViewport {
     double xLayoutOffset =
         (leadingColumn * _cellSize) - horizontalOffset.pixels;
     for (int column = leadingColumn; column <= trailingColumn; column++) {
-      double yLayoutOffset = (leadingRow * _cellSize) - verticalOffset.pixels;
+      double yLayoutOffset =
+          (leadingRow * _cellSize) - verticalOffset.pixels;
       for (int row = leadingRow; row <= trailingRow; row++) {
-        final ChildVicinity vicinity = ChildVicinity(
-          xIndex: column,
-          yIndex: row,
-        );
+        final ChildVicinity vicinity =
+            ChildVicinity(xIndex: column, yIndex: row);
         final RenderBox? child = buildOrObtainChildFor(vicinity);
         if (child != null) {
           child.layout(
             constraints.tighten(width: _cellSize, height: _cellSize),
           );
-          parentDataOf(child).layoutOffset = Offset(
-            xLayoutOffset,
-            yLayoutOffset,
-          );
+          parentDataOf(child).layoutOffset =
+              Offset(xLayoutOffset, yLayoutOffset);
         }
         yLayoutOffset += _cellSize;
       }
@@ -2200,3 +2243,4 @@ class _RenderTwoDBuildGridViewport extends RenderTwoDimensionalViewport {
     );
   }
 }
+

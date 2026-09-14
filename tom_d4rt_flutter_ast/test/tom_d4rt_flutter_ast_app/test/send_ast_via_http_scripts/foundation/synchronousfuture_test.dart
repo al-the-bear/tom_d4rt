@@ -102,19 +102,15 @@ _Trace _traceSyncChained() {
   trace.log('A: start chain');
   SynchronousFuture<int>(1)
       .then<int>((int v) {
-        trace.log('B: first .then() got $v, returning SynchronousFuture(v+1)');
-        return SynchronousFuture<int>(v + 1);
-      })
-      .then<int>((int v) {
-        trace.log(
-          'C: second .then() got $v, returning SynchronousFuture(v*10)',
-        );
-        return SynchronousFuture<int>(v * 10);
-      })
-      .then<int>((int v) {
-        trace.log('D: third .then() got $v (final synchronous value)');
-        return SynchronousFuture<int>(v);
-      });
+    trace.log('B: first .then() got $v, returning SynchronousFuture(v+1)');
+    return SynchronousFuture<int>(v + 1);
+  }).then<int>((int v) {
+    trace.log('C: second .then() got $v, returning SynchronousFuture(v*10)');
+    return SynchronousFuture<int>(v * 10);
+  }).then<int>((int v) {
+    trace.log('D: third .then() got $v (final synchronous value)');
+    return SynchronousFuture<int>(v);
+  });
   trace.log('E: chain expression has returned to caller');
   return trace;
 }
@@ -122,15 +118,13 @@ _Trace _traceSyncChained() {
 _Trace _traceSyncThenReturnsAsync() {
   final _Trace trace = _Trace('SynchronousFuture.then returning a Future');
   trace.log('A: before chain');
-  SynchronousFuture<int>(7)
-      .then<int>((int v) {
-        trace.log('B: .then() got $v, returning Future.value(...)');
-        // Returning a non-Synchronous Future degrades the chain to async.
-        return Future<int>.value(v + 100);
-      })
-      .then((int v) {
-        trace.log('D: second .then() got $v (this fires asynchronously)');
-      });
+  SynchronousFuture<int>(7).then<int>((int v) {
+    trace.log('B: .then() got $v, returning Future.value(...)');
+    // Returning a non-Synchronous Future degrades the chain to async.
+    return Future<int>.value(v + 100);
+  }).then((int v) {
+    trace.log('D: second .then() got $v (this fires asynchronously)');
+  });
   trace.log('C: chain expression returned (microtask not yet drained)');
   return trace;
 }
@@ -181,26 +175,22 @@ _Trace _traceCatchError() {
   final _Trace trace = _Trace('SynchronousFuture.catchError pass-through');
   trace.log('A: start');
   final SynchronousFuture<int> sf = SynchronousFuture<int>(11);
-  sf
-      .catchError((Object e) {
-        trace.log('X: catchError invoked (should NOT happen for value future)');
-        return -1;
-      })
-      .then((int v) {
-        trace.log('B: .then() after catchError got $v');
-      });
+  sf.catchError((Object e) {
+    trace.log('X: catchError invoked (should NOT happen for value future)');
+    return -1;
+  }).then((int v) {
+    trace.log('B: .then() after catchError got $v');
+  });
   trace.log('C: end');
   return trace;
 }
 
 _Trace _traceImageProviderObtainKey() {
   // Simulates the pattern from ImageProvider.obtainKey() / AssetBundle.
-  final _Trace trace = _Trace(
-    'Fast-path: obtainKey returning SynchronousFuture',
-  );
+  final _Trace trace = _Trace('Fast-path: obtainKey returning SynchronousFuture');
   trace.log('A: caller invokes provider.obtainKey(config)');
-  final SynchronousFuture<_FakeImageKey> keyFuture = _FakeImageProvider()
-      .obtainKey(_FakeConfig('mango.png'));
+  final SynchronousFuture<_FakeImageKey> keyFuture =
+      _FakeImageProvider().obtainKey(_FakeConfig('mango.png'));
   trace.log('B: obtainKey returned (key available synchronously)');
   keyFuture.then((_FakeImageKey key) {
     trace.log('C: caller .then() observes key=${key.assetName}');
@@ -246,7 +236,9 @@ class _FakeImageProvider {
 }
 
 class _FakeCache {
-  final Map<String, String> _hot = <String, String>{'greeting': 'hello world'};
+  final Map<String, String> _hot = <String, String>{
+    'greeting': 'hello world',
+  };
 
   Future<String> loadOrFetch(String key) {
     final String? hit = _hot[key];
@@ -517,7 +509,8 @@ dynamic build(BuildContext context) {
           const _SectionHeader(
             number: '09',
             title: 'Flutter framework call sites',
-            subtitle: 'Where SynchronousFuture appears inside Flutter and why.',
+            subtitle:
+                'Where SynchronousFuture appears inside Flutter and why.',
           ),
           const _CallSiteList(),
           const SizedBox(height: 32),
@@ -890,10 +883,8 @@ class _TraceCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.12),
                   border: Border.all(color: color.withOpacity(0.45)),
@@ -935,7 +926,11 @@ class _TraceCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             explanation,
-            style: const TextStyle(fontSize: 13, color: _kMuted, height: 1.45),
+            style: const TextStyle(
+              fontSize: 13,
+              color: _kMuted,
+              height: 1.45,
+            ),
           ),
         ],
       ),
@@ -967,7 +962,10 @@ class _TraceStep extends StatelessWidget {
               Container(
                 width: 28,
                 height: 28,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
                 alignment: Alignment.center,
                 child: Text(
                   '$index',
@@ -980,7 +978,10 @@ class _TraceStep extends StatelessWidget {
               ),
               if (!isLast)
                 Expanded(
-                  child: Container(width: 2, color: color.withOpacity(0.4)),
+                  child: Container(
+                    width: 2,
+                    color: color.withOpacity(0.4),
+                  ),
                 ),
             ],
           ),
@@ -1650,7 +1651,9 @@ class _Callout extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
         color: color.withOpacity(0.08),
-        border: Border(left: BorderSide(color: color, width: 3)),
+        border: Border(
+          left: BorderSide(color: color, width: 3),
+        ),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(10),
           bottomRight: Radius.circular(10),

@@ -303,9 +303,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   // SECTION 3: LinearProgressIndicator indeterminate
   // ============================================================
-  print(
-    '=== Section 3: LinearProgressIndicator Indeterminate (value: null) ===',
-  );
+  print('=== Section 3: LinearProgressIndicator Indeterminate (value: null) ===');
 
   final indeterminateLinear = LinearProgressIndicator(
     backgroundColor: Colors.purple.shade50,
@@ -331,11 +329,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.all_inclusive,
-              color: Colors.purple.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.all_inclusive, color: Colors.purple.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Indeterminate frame (single still snapshot)',
@@ -1411,9 +1405,7 @@ dynamic build(BuildContext context) {
                 strokeWidth: 5.0,
                 strokeCap: StrokeCap.round,
                 backgroundColor: Colors.green.shade50,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Colors.green.shade600,
-                ),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.green.shade600),
               ),
             ),
             Text(
@@ -1438,7 +1430,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 '$uploadValue • estimated 4 minutes left',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
               SizedBox(height: 6.0),
               Container(
@@ -1491,7 +1486,10 @@ dynamic build(BuildContext context) {
             ),
             Text(
               'Step ${wizardStep + 1} of $wizardTotal',
-              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.grey.shade600,
+              ),
             ),
           ],
         ),

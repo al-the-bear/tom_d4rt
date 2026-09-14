@@ -412,19 +412,27 @@ class _AnchorWorkshopState extends State<_AnchorWorkshop> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: _anchorPicker(s, 'targetAnchor', _targetAnchorKey, (k) {
-                  setState(() => _targetAnchorKey = k);
-                  widget.log('targetAnchor → $k');
-                }),
+                child: _anchorPicker(
+                  s,
+                  'targetAnchor',
+                  _targetAnchorKey,
+                  (k) {
+                    setState(() => _targetAnchorKey = k);
+                    widget.log('targetAnchor → $k');
+                  },
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: _anchorPicker(s, 'followerAnchor', _followerAnchorKey, (
-                  k,
-                ) {
-                  setState(() => _followerAnchorKey = k);
-                  widget.log('followerAnchor → $k');
-                }),
+                child: _anchorPicker(
+                  s,
+                  'followerAnchor',
+                  _followerAnchorKey,
+                  (k) {
+                    setState(() => _followerAnchorKey = k);
+                    widget.log('followerAnchor → $k');
+                  },
+                ),
               ),
             ],
           ),
@@ -493,14 +501,9 @@ class _AnchorWorkshopState extends State<_AnchorWorkshop> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: s.ink,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                fontSize: 12, fontWeight: FontWeight.bold, color: s.ink)),
         const SizedBox(height: 4),
         Wrap(
           spacing: 4,
@@ -510,7 +513,8 @@ class _AnchorWorkshopState extends State<_AnchorWorkshop> {
             return GestureDetector(
               onTap: () => onChanged(k),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 decoration: BoxDecoration(
                   color: sel ? s.primary.withAlpha(40) : s.panel,
                   border: Border.all(
@@ -546,7 +550,8 @@ class _AnchorWorkshopState extends State<_AnchorWorkshop> {
       children: [
         SizedBox(
           width: 24,
-          child: Text(label, style: TextStyle(fontSize: 12, color: s.ink)),
+          child: Text(label,
+              style: TextStyle(fontSize: 12, color: s.ink)),
         ),
         Expanded(
           child: Slider(
@@ -633,11 +638,9 @@ class _FloatingInspectorState extends State<_FloatingInspector> {
                       });
                     },
                     onPanEnd: (_) {
-                      widget.log(
-                        'Inspector drag #$_moveCount '
-                        '→ (${_position.dx.toStringAsFixed(0)}, '
-                        '${_position.dy.toStringAsFixed(0)})',
-                      );
+                      widget.log('Inspector drag #$_moveCount '
+                          '→ (${_position.dx.toStringAsFixed(0)}, '
+                          '${_position.dy.toStringAsFixed(0)})');
                     },
                     child: CompositedTransformTarget(
                       link: _link,
@@ -659,15 +662,13 @@ class _FloatingInspectorState extends State<_FloatingInspector> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.open_with, size: 20, color: s.paper),
-                            Text(
-                              'DRAG ME',
-                              style: TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                color: s.paper,
-                              ),
-                            ),
+                            Icon(Icons.open_with,
+                                size: 20, color: s.paper),
+                            Text('DRAG ME',
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                    color: s.paper)),
                           ],
                         ),
                       ),
@@ -693,24 +694,20 @@ class _FloatingInspectorState extends State<_FloatingInspector> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Inspector HUD',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: s.paper,
-                          ),
-                        ),
+                        Text('Inspector HUD',
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: s.paper)),
                         const SizedBox(height: 4),
                         Text(
                           'x: ${_position.dx.toStringAsFixed(1)}\n'
                           'y: ${_position.dy.toStringAsFixed(1)}\n'
                           'moves: $_moveCount',
                           style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: s.paper.withAlpha(200),
-                          ),
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: s.paper.withAlpha(200)),
                         ),
                       ],
                     ),
@@ -832,11 +829,8 @@ class _ScrollLabState extends State<_ScrollLab> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.gps_fixed,
-                                size: 16,
-                                color: s.secondary,
-                              ),
+                              Icon(Icons.gps_fixed,
+                                  size: 16, color: s.secondary),
                               const SizedBox(width: 6),
                               Text(
                                 'TARGET (item #$i)',
@@ -859,10 +853,8 @@ class _ScrollLabState extends State<_ScrollLab> {
                       ),
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        'Item #$i',
-                        style: TextStyle(fontSize: 12, color: s.muted),
-                      ),
+                      child: Text('Item #$i',
+                          style: TextStyle(fontSize: 12, color: s.muted)),
                     );
                   },
                 ),
@@ -890,23 +882,18 @@ class _ScrollLabState extends State<_ScrollLab> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            'Follower',
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                              color: s.paper,
-                            ),
-                          ),
+                          Text('Follower',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: s.paper)),
                           const SizedBox(height: 4),
                           Text(
                             'scroll: ${_scrollOffset.toStringAsFixed(0)}\n'
                             'Tracks via\nLayerLink',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 9,
-                              color: s.paper.withAlpha(190),
-                            ),
+                                fontSize: 9, color: s.paper.withAlpha(190)),
                           ),
                         ],
                       ),
@@ -945,12 +932,7 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
   final LayerLink _dropdownLink = LayerLink();
   bool _dropdownOpen = false;
   String _dropdownValue = 'Option A';
-  static const _dropdownOptions = [
-    'Option A',
-    'Option B',
-    'Option C',
-    'Option D',
-  ];
+  static const _dropdownOptions = ['Option A', 'Option B', 'Option C', 'Option D'];
 
   // --- Tooltip state ---
   final LayerLink _tooltipLink = LayerLink();
@@ -971,15 +953,9 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
   bool _paletteOpen = false;
   Color _selectedColour = const Color(0xFF1778C8);
   static const _paletteColours = [
-    Color(0xFF1778C8),
-    Color(0xFF22876A),
-    Color(0xFFCB8520),
-    Color(0xFFA83890),
-    Color(0xFF6840B0),
-    Color(0xFFD06828),
-    Color(0xFF333333),
-    Color(0xFF888888),
-    Color(0xFFCC2244),
+    Color(0xFF1778C8), Color(0xFF22876A), Color(0xFFCB8520),
+    Color(0xFFA83890), Color(0xFF6840B0), Color(0xFFD06828),
+    Color(0xFF333333), Color(0xFF888888), Color(0xFFCC2244),
   ];
 
   @override
@@ -1013,9 +989,7 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() => _dropdownOpen = !_dropdownOpen);
-                        widget.log(
-                          'Dropdown ${_dropdownOpen ? "opened" : "closed"}',
-                        );
+                        widget.log('Dropdown ${_dropdownOpen ? "opened" : "closed"}');
                       },
                       child: Container(
                         width: 160,
@@ -1029,10 +1003,9 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                         child: Row(
                           children: [
                             Expanded(
-                              child: Text(
-                                _dropdownValue,
-                                style: TextStyle(fontSize: 13, color: s.ink),
-                              ),
+                              child: Text(_dropdownValue,
+                                  style: TextStyle(
+                                      fontSize: 13, color: s.ink)),
                             ),
                             Icon(
                               _dropdownOpen
@@ -1081,9 +1054,7 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                             child: Container(
                               width: double.infinity,
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 10,
-                              ),
+                                  horizontal: 12, vertical: 10),
                               color: selected
                                   ? s.primary.withAlpha(20)
                                   : Colors.transparent,
@@ -1122,27 +1093,20 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() => _tooltipVisible = !_tooltipVisible);
-                        widget.log(
-                          'Tooltip ${_tooltipVisible ? "shown" : "hidden"}',
-                        );
+                        widget.log('Tooltip ${_tooltipVisible ? "shown" : "hidden"}');
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
+                            horizontal: 16, vertical: 10),
                         decoration: BoxDecoration(
                           color: s.secondary,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: Text(
-                          'Tap for tooltip',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: s.paper,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Text('Tap for tooltip',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: s.paper,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ),
                   ),
@@ -1155,14 +1119,15 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                     offset: const Offset(0, -8),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
+                          horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
                         color: s.shell,
                         borderRadius: BorderRadius.circular(6),
                         boxShadow: [
-                          BoxShadow(color: s.ink.withAlpha(30), blurRadius: 8),
+                          BoxShadow(
+                            color: s.ink.withAlpha(30),
+                            blurRadius: 8,
+                          ),
                         ],
                       ),
                       child: Text(
@@ -1219,10 +1184,9 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                           Text(
                             'Step ${_coachStep + 1} / ${_coachMessages.length}',
                             style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: s.tertiary,
-                            ),
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: s.tertiary),
                           ),
                           const SizedBox(height: 4),
                           Text(
@@ -1235,11 +1199,11 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  if (_coachStep < _coachMessages.length - 1) {
+                                  if (_coachStep <
+                                      _coachMessages.length - 1) {
                                     setState(() => _coachStep++);
                                     widget.log(
-                                      'Coach step → ${_coachStep + 1}',
-                                    );
+                                        'Coach step → ${_coachStep + 1}');
                                   } else {
                                     setState(() {
                                       _coachActive = false;
@@ -1250,22 +1214,20 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 4,
-                                  ),
+                                      horizontal: 10, vertical: 4),
                                   decoration: BoxDecoration(
                                     color: s.tertiary,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(
-                                    _coachStep < _coachMessages.length - 1
+                                    _coachStep <
+                                            _coachMessages.length - 1
                                         ? 'Next'
                                         : 'Done',
                                     style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: s.paper,
-                                    ),
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        color: s.paper),
                                   ),
                                 ),
                               ),
@@ -1285,14 +1247,11 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                         _coachStep = 0;
                       });
                       widget.log(
-                        'Coach tour ${_coachActive ? "started" : "stopped"}',
-                      );
+                          'Coach tour ${_coachActive ? "started" : "stopped"}');
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
+                          horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
                         color: s.tertiary,
                         borderRadius: BorderRadius.circular(6),
@@ -1300,10 +1259,9 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                       child: Text(
                         _coachActive ? 'Stop tour' : 'Start tour',
                         style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold,
-                          color: s.paper,
-                        ),
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: s.paper),
                       ),
                     ),
                   ),
@@ -1328,8 +1286,7 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                       onTap: () {
                         setState(() => _paletteOpen = !_paletteOpen);
                         widget.log(
-                          'Palette ${_paletteOpen ? "opened" : "closed"}',
-                        );
+                            'Palette ${_paletteOpen ? "opened" : "closed"}');
                       },
                       child: Container(
                         width: 40,
@@ -1338,9 +1295,7 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                           color: _selectedColour,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: s.ink.withAlpha(40),
-                            width: 2,
-                          ),
+                              color: s.ink.withAlpha(40), width: 2),
                         ),
                       ),
                     ),
@@ -1359,7 +1314,10 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: s.muted.withAlpha(50)),
                         boxShadow: [
-                          BoxShadow(color: s.ink.withAlpha(15), blurRadius: 6),
+                          BoxShadow(
+                            color: s.ink.withAlpha(15),
+                            blurRadius: 6,
+                          ),
                         ],
                       ),
                       child: Wrap(
@@ -1374,8 +1332,7 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                                 _paletteOpen = false;
                               });
                               widget.log(
-                                'Colour → #${c.toARGB32().toRadixString(16).padLeft(8, '0').substring(2)}',
-                              );
+                                  'Colour → #${c.toARGB32().toRadixString(16).padLeft(8, '0').substring(2)}');
                             },
                             child: Container(
                               width: 28,
@@ -1384,7 +1341,9 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
                                 color: c,
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: selected ? s.ink : Colors.transparent,
+                                  color: selected
+                                      ? s.ink
+                                      : Colors.transparent,
                                   width: selected ? 2 : 0,
                                 ),
                               ),
@@ -1412,10 +1371,7 @@ class _PracticalPatternsState extends State<_PracticalPatterns> {
       child: Text(
         title,
         style: TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-          color: s.primary,
-        ),
+            fontSize: 13, fontWeight: FontWeight.bold, color: s.primary),
       ),
     );
   }
@@ -1523,33 +1479,25 @@ class _Compendium extends StatelessWidget {
           _groupTitle(s, 'Session Timeline'),
           const SizedBox(height: 6),
           if (timeline.isEmpty)
-            Text(
-              'No events recorded yet.',
-              style: TextStyle(fontSize: 12, color: s.muted),
-            )
+            Text('No events recorded yet.',
+                style: TextStyle(fontSize: 12, color: s.muted))
           else
-            ...timeline
-                .take(40)
-                .map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.only(bottom: 3),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '• ',
-                          style: TextStyle(fontSize: 12, color: s.primary),
-                        ),
-                        Expanded(
-                          child: Text(
-                            e,
-                            style: TextStyle(fontSize: 11, color: s.ink),
-                          ),
-                        ),
-                      ],
-                    ),
+            ...timeline.take(40).map((e) => Padding(
+                  padding: const EdgeInsets.only(bottom: 3),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('• ',
+                          style: TextStyle(
+                              fontSize: 12, color: s.primary)),
+                      Expanded(
+                        child: Text(e,
+                            style: TextStyle(
+                                fontSize: 11, color: s.ink)),
+                      ),
+                    ],
                   ),
-                ),
+                )),
         ],
       ),
     );
@@ -1583,7 +1531,8 @@ class _Compendium extends StatelessWidget {
           Icon(Icons.check_circle, size: 14, color: s.secondary),
           const SizedBox(width: 6),
           Expanded(
-            child: Text(label, style: TextStyle(fontSize: 12, color: s.ink)),
+            child: Text(label,
+                style: TextStyle(fontSize: 12, color: s.ink)),
           ),
         ],
       ),
@@ -1614,21 +1563,18 @@ class _Compendium extends StatelessWidget {
             color: isHeader ? s.primary.withAlpha(15) : null,
           ),
           children: e.value
-              .map(
-                (cell) => Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Text(
-                    cell,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: isHeader
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: isHeader ? s.primary : s.ink,
+              .map((cell) => Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Text(
+                      cell,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight:
+                            isHeader ? FontWeight.bold : FontWeight.normal,
+                        color: isHeader ? s.primary : s.ink,
+                      ),
                     ),
-                  ),
-                ),
-              )
+                  ))
               .toList(),
         );
       }).toList(),
@@ -1647,14 +1593,11 @@ class _Compendium extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: s.primary,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: s.primary)),
           const SizedBox(height: 4),
           Text(body, style: TextStyle(fontSize: 11, color: s.ink)),
         ],
@@ -1666,23 +1609,20 @@ class _Compendium extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: items
-          .map(
-            (t) => Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('• ', style: TextStyle(fontSize: 12, color: s.muted)),
-                  Expanded(
-                    child: Text(
-                      t,
-                      style: TextStyle(fontSize: 11, color: s.ink),
+          .map((t) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('• ',
+                        style: TextStyle(fontSize: 12, color: s.muted)),
+                    Expanded(
+                      child: Text(t,
+                          style: TextStyle(fontSize: 11, color: s.ink)),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          )
+                  ],
+                ),
+              ))
           .toList(),
     );
   }
@@ -1748,14 +1688,11 @@ Widget _infoCard(_Skin s, String title, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: s.primary,
-          ),
-        ),
+        Text(title,
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: s.primary)),
         const SizedBox(height: 6),
         Text(body, style: TextStyle(fontSize: 12, color: s.ink)),
       ],
@@ -1796,27 +1733,26 @@ Widget _readoutCard(_Skin s, List<String> lines) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: lines
-          .map(
-            (l) => Text(
-              l,
+          .map((l) => Text(l,
               style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                color: s.ink,
-              ),
-            ),
-          )
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: s.ink)))
           .toList(),
     ),
   );
 }
 
-Widget _chip(_Skin s, String label, bool value, ValueChanged<bool> onChanged) {
+Widget _chip(
+    _Skin s, String label, bool value, ValueChanged<bool> onChanged) {
   return FilterChip(
     label: Text(label),
     selected: value,
     selectedColor: s.primary.withAlpha(40),
-    labelStyle: TextStyle(fontSize: 11, color: value ? s.primary : s.ink),
+    labelStyle: TextStyle(
+      fontSize: 11,
+      color: value ? s.primary : s.ink,
+    ),
     onSelected: onChanged,
   );
 }
@@ -1871,14 +1807,17 @@ class _DashedGridPainter extends CustomPainter {
       ..strokeWidth = 0.5;
     const step = 24.0;
     for (double x = 0; x < size.width; x += step) {
-      _drawDashedLine(canvas, Offset(x, 0), Offset(x, size.height), paint);
+      _drawDashedLine(
+          canvas, Offset(x, 0), Offset(x, size.height), paint);
     }
     for (double y = 0; y < size.height; y += step) {
-      _drawDashedLine(canvas, Offset(0, y), Offset(size.width, y), paint);
+      _drawDashedLine(
+          canvas, Offset(0, y), Offset(size.width, y), paint);
     }
   }
 
-  void _drawDashedLine(Canvas canvas, Offset from, Offset to, Paint paint) {
+  void _drawDashedLine(
+      Canvas canvas, Offset from, Offset to, Paint paint) {
     const dashLen = 4.0;
     const gapLen = 4.0;
     final dx = to.dx - from.dx;

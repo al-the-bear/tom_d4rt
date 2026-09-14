@@ -30,9 +30,7 @@ dynamic build(BuildContext context) {
   print('Flutter Material RefreshProgressIndicator gallery: 12 sections.');
   print('Sections cover indeterminate, determinate, color, stroke, sizing,');
   print('elevation, RefreshIndicator embedding, displacement, edgeOffset,');
-  print(
-    'notificationPredicate, theme overrides, and CircularProgressIndicator',
-  );
+  print('notificationPredicate, theme overrides, and CircularProgressIndicator');
   print('comparison plus a final "when to use which" guidance card.');
 
   // Re-usable palette for section headers. Each section gets its own colour
@@ -179,7 +177,8 @@ dynamic build(BuildContext context) {
                       children: [
                         for (final step in const [0.0, 0.25, 0.5, 0.75, 1.0])
                           OutlinedButton(
-                            onPressed: () => setState(() => state.value = step),
+                            onPressed: () =>
+                                setState(() => state.value = step),
                             child: Text('jump to ${step.toStringAsFixed(2)}'),
                           ),
                       ],
@@ -229,7 +228,9 @@ dynamic build(BuildContext context) {
             ),
             _LabeledIndicator(
               label: 'bg: yellow',
-              child: RefreshProgressIndicator(backgroundColor: Colors.yellow),
+              child: RefreshProgressIndicator(
+                backgroundColor: Colors.yellow,
+              ),
             ),
             _LabeledIndicator(
               label: 'navy ring / sky disc',
@@ -250,7 +251,9 @@ dynamic build(BuildContext context) {
               label: 'magenta value (det)',
               child: RefreshProgressIndicator(
                 value: 0.66,
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFE91E63)),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Color(0xFFE91E63),
+                ),
                 backgroundColor: Color(0xFFFCE4EC),
               ),
             ),
@@ -558,7 +561,8 @@ dynamic build(BuildContext context) {
                 await Future.delayed(const Duration(milliseconds: 700));
                 setState(() => state.refreshOnce('D'));
               },
-              notificationPredicate: (notification) => notification.depth <= 1,
+              notificationPredicate: (notification) =>
+                  notification.depth <= 1,
               child: PageView(
                 children: [
                   _StaticListPage(
@@ -618,7 +622,9 @@ dynamic build(BuildContext context) {
               ),
               _LabeledIndicator(
                 label: 'theme override w/ explicit color',
-                child: RefreshProgressIndicator(color: Colors.deepOrange),
+                child: RefreshProgressIndicator(
+                  color: Colors.deepOrange,
+                ),
               ),
             ],
           ),
@@ -684,7 +690,9 @@ dynamic build(BuildContext context) {
                 SizedBox(
                   width: 60,
                   height: 60,
-                  child: Center(child: CircularProgressIndicator(value: 0.66)),
+                  child: Center(
+                    child: CircularProgressIndicator(value: 0.66),
+                  ),
                 ),
                 SizedBox(height: 8),
                 Text('Circular det. 0.66'),
@@ -699,7 +707,9 @@ dynamic build(BuildContext context) {
                 SizedBox(
                   width: 60,
                   height: 60,
-                  child: Center(child: RefreshProgressIndicator(value: 0.66)),
+                  child: Center(
+                    child: RefreshProgressIndicator(value: 0.66),
+                  ),
                 ),
                 SizedBox(height: 8),
                 Text('Refresh det. 0.66'),
@@ -766,8 +776,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 12),
             _GuidanceRow(
               icon: Icons.warning_amber,
-              headline:
-                  'Avoid manually wiring RefreshProgressIndicator '
+              headline: 'Avoid manually wiring RefreshProgressIndicator '
                   'into a list',
               detail:
                   'Re-implementing pull tracking is fiddly and platform '
@@ -871,13 +880,18 @@ class _SectionCard extends StatelessWidget {
     return Card(
       elevation: 2,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             color: headerColor,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 10,
+            ),
             child: Text(
               title,
               style: const TextStyle(
@@ -978,7 +992,9 @@ class _DisplacementCase extends StatelessWidget {
                 displacement: displacement,
                 edgeOffset: edgeOffset,
                 onRefresh: () async {
-                  await Future.delayed(const Duration(milliseconds: 800));
+                  await Future.delayed(
+                    const Duration(milliseconds: 800),
+                  );
                   setState(() => state.refreshOnce(tag));
                 },
                 child: ListView.separated(
@@ -1014,15 +1030,20 @@ class _StaticListPage extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           color: const Color(0xFFEEEEEE),
           width: double.infinity,
-          child: Text(label, style: const TextStyle(fontSize: 12)),
+          child: Text(
+            label,
+            style: const TextStyle(fontSize: 12),
+          ),
         ),
         Expanded(
           child: ListView.separated(
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: items.length,
             separatorBuilder: (_, _) => const Divider(height: 1),
-            itemBuilder: (context, i) =>
-                ListTile(dense: true, title: Text(items[i])),
+            itemBuilder: (context, i) => ListTile(
+              dense: true,
+              title: Text(items[i]),
+            ),
           ),
         ),
       ],
@@ -1133,7 +1154,10 @@ class _ScrubState {
 
 class _ListState {
   _ListState() {
-    items = List<String>.generate(8, (i) => 'Item ${i + 1} (gen 0)');
+    items = List<String>.generate(
+      8,
+      (i) => 'Item ${i + 1} (gen 0)',
+    );
   }
 
   late List<String> items;

@@ -214,7 +214,10 @@ Widget _buildIntroCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Color(0xFF0A84FF), Color(0xFF5E5CE6)],
+        colors: [
+          Color(0xFF0A84FF),
+          Color(0xFF5E5CE6),
+        ],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: const [
@@ -334,10 +337,7 @@ Widget _buildBasicTabBarSection() {
           '(default systemBlue), and inactive tabs use inactiveColor.',
         ),
         const SizedBox(height: 12),
-        _captionLabel(
-          '4-tab default (currentIndex: 0)',
-          const Color(0xFF0A84FF),
-        ),
+        _captionLabel('4-tab default (currentIndex: 0)', const Color(0xFF0A84FF)),
         _tabBarHost(
           child: CupertinoTabBar(
             currentIndex: 0,
@@ -362,10 +362,7 @@ Widget _buildBasicTabBarSection() {
             ],
           ),
         ),
-        _captionLabel(
-          '4-tab default (currentIndex: 2)',
-          const Color(0xFF0A84FF),
-        ),
+        _captionLabel('4-tab default (currentIndex: 2)', const Color(0xFF0A84FF)),
         _tabBarHost(
           child: CupertinoTabBar(
             currentIndex: 2,
@@ -390,10 +387,7 @@ Widget _buildBasicTabBarSection() {
             ],
           ),
         ),
-        _captionLabel(
-          '5-tab default (currentIndex: 4)',
-          const Color(0xFF34C759),
-        ),
+        _captionLabel('5-tab default (currentIndex: 4)', const Color(0xFF34C759)),
         _tabBarHost(
           child: CupertinoTabBar(
             currentIndex: 4,
@@ -449,10 +443,7 @@ Widget _buildIconAndLabelVariants() {
           'pair the same way Material BottomNavigationBar does.',
         ),
         const SizedBox(height: 12),
-        _captionLabel(
-          'Outlined when inactive, filled when active',
-          const Color(0xFFFF9500),
-        ),
+        _captionLabel('Outlined when inactive, filled when active', const Color(0xFFFF9500)),
         _tabBarHost(
           child: CupertinoTabBar(
             currentIndex: 1,
@@ -485,10 +476,7 @@ Widget _buildIconAndLabelVariants() {
             ],
           ),
         ),
-        _captionLabel(
-          'Icons only (label hidden via empty string)',
-          const Color(0xFFAF52DE),
-        ),
+        _captionLabel('Icons only (label hidden via empty string)', const Color(0xFFAF52DE)),
         _tabBarHost(
           child: CupertinoTabBar(
             currentIndex: 2,
@@ -514,10 +502,7 @@ Widget _buildIconAndLabelVariants() {
             ],
           ),
         ),
-        _captionLabel(
-          'Mixed: text-style label with custom icon widget',
-          const Color(0xFF5E5CE6),
-        ),
+        _captionLabel('Mixed: text-style label with custom icon widget', const Color(0xFF5E5CE6)),
         _tabBarHost(
           child: CupertinoTabBar(
             currentIndex: 0,
@@ -609,10 +594,7 @@ Widget _buildColorCustomizationSection() {
           'to match a brand palette or to provide a custom dark variant.',
         ),
         const SizedBox(height: 12),
-        _captionLabel(
-          'Brand palette: pink active, gray inactive',
-          const Color(0xFFFF2D55),
-        ),
+        _captionLabel('Brand palette: pink active, gray inactive', const Color(0xFFFF2D55)),
         _tabBarHost(
           child: CupertinoTabBar(
             currentIndex: 1,
@@ -640,10 +622,7 @@ Widget _buildColorCustomizationSection() {
             ],
           ),
         ),
-        _captionLabel(
-          'Mint active, soft mint background',
-          const Color(0xFF00C7BE),
-        ),
+        _captionLabel('Mint active, soft mint background', const Color(0xFF00C7BE)),
         _tabBarHost(
           child: CupertinoTabBar(
             currentIndex: 2,
@@ -671,10 +650,7 @@ Widget _buildColorCustomizationSection() {
             ],
           ),
         ),
-        _captionLabel(
-          'Dark variant (currentIndex: 3)',
-          const Color(0xFF1C1C1E),
-        ),
+        _captionLabel('Dark variant (currentIndex: 3)', const Color(0xFF1C1C1E)),
         _tabBarHost(
           background: const Color(0xFF1C1C1E),
           child: CupertinoTabBar(
@@ -707,10 +683,7 @@ Widget _buildColorCustomizationSection() {
             ],
           ),
         ),
-        _captionLabel(
-          'Custom border + custom height + iconSize',
-          const Color(0xFF5856D6),
-        ),
+        _captionLabel('Custom border + custom height + iconSize', const Color(0xFF5856D6)),
         _tabBarHost(
           height: 64,
           child: CupertinoTabBar(
@@ -1275,10 +1248,7 @@ Widget _buildScaffoldSurrogateSection() {
           'Stack so the tab bar visually persists below a fake tab body.',
         ),
         const SizedBox(height: 12),
-        _captionLabel(
-          'Tab 0 selected — "Home" CupertinoTabView body',
-          const Color(0xFF0A84FF),
-        ),
+        _captionLabel('Tab 0 selected — "Home" CupertinoTabView body', const Color(0xFF0A84FF)),
         _scaffoldSurrogate(
           activeIndex: 0,
           activeColor: const Color(0xFF0A84FF),
@@ -1305,10 +1275,7 @@ Widget _buildScaffoldSurrogateSection() {
             ),
           ],
         ),
-        _captionLabel(
-          'Tab 2 selected — "Alerts" CupertinoTabView body',
-          const Color(0xFFFF3B30),
-        ),
+        _captionLabel('Tab 2 selected — "Alerts" CupertinoTabView body', const Color(0xFFFF3B30)),
         _scaffoldSurrogate(
           activeIndex: 2,
           activeColor: const Color(0xFFFF3B30),
@@ -1367,11 +1334,8 @@ Widget _surrogateHomeBody() {
           ),
           child: const Row(
             children: <Widget>[
-              Icon(
-                CupertinoIcons.sparkles,
-                color: CupertinoColors.white,
-                size: 22,
-              ),
+              Icon(CupertinoIcons.sparkles,
+                  color: CupertinoColors.white, size: 22),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1387,17 +1351,9 @@ Widget _surrogateHomeBody() {
           ),
         ),
         const SizedBox(height: 10),
-        _surrogateListRow(
-          CupertinoIcons.calendar,
-          'Today, May 3',
-          '4 events scheduled',
-        ),
+        _surrogateListRow(CupertinoIcons.calendar, 'Today, May 3', '4 events scheduled'),
         _surrogateListRow(CupertinoIcons.cloud_sun, 'Weather', 'Sunny • 22°C'),
-        _surrogateListRow(
-          CupertinoIcons.chart_bar_alt_fill,
-          'Steps',
-          '6,432 of 10,000',
-        ),
+        _surrogateListRow(CupertinoIcons.chart_bar_alt_fill, 'Steps', '6,432 of 10,000'),
       ],
     ),
   );
@@ -1428,11 +1384,8 @@ Widget _surrogateAlertsBody() {
           ),
           child: const Row(
             children: <Widget>[
-              Icon(
-                CupertinoIcons.bell_fill,
-                color: CupertinoColors.white,
-                size: 22,
-              ),
+              Icon(CupertinoIcons.bell_fill,
+                  color: CupertinoColors.white, size: 22),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1448,21 +1401,12 @@ Widget _surrogateAlertsBody() {
           ),
         ),
         const SizedBox(height: 10),
-        _surrogateListRow(
-          CupertinoIcons.exclamationmark_triangle,
-          'Server warning',
-          'CPU at 87% on web-3',
-        ),
-        _surrogateListRow(
-          CupertinoIcons.envelope_badge,
-          'New mention',
-          '@team-builds replied to your thread',
-        ),
-        _surrogateListRow(
-          CupertinoIcons.calendar_badge_plus,
-          'Meeting',
-          'Sprint planning at 14:00',
-        ),
+        _surrogateListRow(CupertinoIcons.exclamationmark_triangle,
+            'Server warning', 'CPU at 87% on web-3'),
+        _surrogateListRow(CupertinoIcons.envelope_badge,
+            'New mention', '@team-builds replied to your thread'),
+        _surrogateListRow(CupertinoIcons.calendar_badge_plus,
+            'Meeting', 'Sprint planning at 14:00'),
       ],
     ),
   );
@@ -1504,16 +1448,16 @@ Widget _surrogateListRow(IconData icon, String title, String subtitle) {
               ),
               Text(
                 subtitle,
-                style: const TextStyle(fontSize: 11, color: Color(0xFF6E6E73)),
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF6E6E73),
+                ),
               ),
             ],
           ),
         ),
-        const Icon(
-          CupertinoIcons.chevron_right,
-          size: 14,
-          color: Color(0xFFC7C7CC),
-        ),
+        const Icon(CupertinoIcons.chevron_right,
+            size: 14, color: Color(0xFFC7C7CC)),
       ],
     ),
   );
@@ -1631,8 +1575,7 @@ Widget _tabViewApiPanel() {
         ),
         _ApiPropRow(
           name: 'onUnknownRoute',
-          desc:
-              'Fallback RouteFactory for routes onGenerateRoute returns null.',
+          desc: 'Fallback RouteFactory for routes onGenerateRoute returns null.',
         ),
         _ApiPropRow(
           name: 'restorationScopeId',
@@ -1800,11 +1743,7 @@ Widget _cupertinoMockColumn() {
         const SizedBox(height: 6),
         const Text(
           'Translucent bar, hairline border, monochrome active tint.',
-          style: TextStyle(
-            fontSize: 10.5,
-            color: Color(0xFF6E6E73),
-            height: 1.3,
-          ),
+          style: TextStyle(fontSize: 10.5, color: Color(0xFF6E6E73), height: 1.3),
         ),
       ],
     ),
@@ -1846,18 +1785,18 @@ Widget _materialMockColumn() {
             border: Border.all(color: const Color(0xFFE0D6F2)),
           ),
           alignment: Alignment.center,
-          child: const Icon(Icons.home, size: 36, color: Color(0xFF6750A4)),
+          child: const Icon(
+            Icons.home,
+            size: 36,
+            color: Color(0xFF6750A4),
+          ),
         ),
         const SizedBox(height: 8),
         _materialBottomBarMock(),
         const SizedBox(height: 6),
         const Text(
           'Indicator pill behind active icon, Material 3 ripple, no top border.',
-          style: TextStyle(
-            fontSize: 10.5,
-            color: Color(0xFF6E6E73),
-            height: 1.3,
-          ),
+          style: TextStyle(fontSize: 10.5, color: Color(0xFF6E6E73), height: 1.3),
         ),
       ],
     ),
@@ -1869,7 +1808,9 @@ Widget _materialBottomBarMock() {
     height: 60,
     decoration: const BoxDecoration(
       color: Color(0xFFFEFBFF),
-      border: Border(top: BorderSide(color: Color(0xFFE0D6F2), width: 0.5)),
+      border: Border(
+        top: BorderSide(color: Color(0xFFE0D6F2), width: 0.5),
+      ),
     ),
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -2105,11 +2046,8 @@ Widget _doColumn() {
       children: const <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              CupertinoIcons.check_mark_circled_solid,
-              color: Color(0xFF34C759),
-              size: 18,
-            ),
+            Icon(CupertinoIcons.check_mark_circled_solid,
+                color: Color(0xFF34C759), size: 18),
             SizedBox(width: 6),
             Text(
               'Do',
@@ -2156,11 +2094,8 @@ Widget _dontColumn() {
       children: const <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              CupertinoIcons.xmark_circle_fill,
-              color: Color(0xFFFF3B30),
-              size: 18,
-            ),
+            Icon(CupertinoIcons.xmark_circle_fill,
+                color: Color(0xFFFF3B30), size: 18),
             SizedBox(width: 6),
             Text(
               'Don\'t',
@@ -2196,11 +2131,8 @@ class _GuideBullet extends StatelessWidget {
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 5, right: 6),
-            child: Icon(
-              CupertinoIcons.circle_fill,
-              size: 5,
-              color: Color(0xFF1C1C1E),
-            ),
+            child: Icon(CupertinoIcons.circle_fill,
+                size: 5, color: Color(0xFF1C1C1E)),
           ),
           Expanded(
             child: Text(
@@ -2237,11 +2169,8 @@ Widget _codeRecipeCard() {
       children: const <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              CupertinoIcons.chevron_left_slash_chevron_right,
-              color: Color(0xFFA8E1FF),
-              size: 16,
-            ),
+            Icon(CupertinoIcons.chevron_left_slash_chevron_right,
+                color: Color(0xFFA8E1FF), size: 16),
             SizedBox(width: 6),
             Text(
               'Recipe — minimal CupertinoTabScaffold',
@@ -2258,17 +2187,14 @@ Widget _codeRecipeCard() {
         _CodeLine(text: '  tabBar: CupertinoTabBar('),
         _CodeLine(text: '    items: <BottomNavigationBarItem>['),
         _CodeLine(
-          text:
-              '      BottomNavigationBarItem(icon: Icon(CupertinoIcons.house), label: \'Home\'),',
-        ),
+            text:
+                '      BottomNavigationBarItem(icon: Icon(CupertinoIcons.house), label: \'Home\'),'),
         _CodeLine(
-          text:
-              '      BottomNavigationBarItem(icon: Icon(CupertinoIcons.search), label: \'Search\'),',
-        ),
+            text:
+                '      BottomNavigationBarItem(icon: Icon(CupertinoIcons.search), label: \'Search\'),'),
         _CodeLine(
-          text:
-              '      BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: \'Me\'),',
-        ),
+            text:
+                '      BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: \'Me\'),'),
         _CodeLine(text: '    ],'),
         _CodeLine(text: '  ),'),
         _CodeLine(text: '  tabBuilder: (context, index) {'),

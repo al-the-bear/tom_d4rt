@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.auto_mode,
       'title': 'Platform Autofill',
-      'body':
-          'Mobile and desktop platforms offer autofill services '
+      'body': 'Mobile and desktop platforms offer autofill services '
           'that remember usernames, passwords, addresses, and other '
           'form data. Flutter integrates with these services through '
           'AutofillGroup — a widget that coordinates autofill across '
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.commit,
       'title': 'AutofillContextAction',
-      'body':
-          'When an AutofillGroup disposes (user navigates away, '
+      'body': 'When an AutofillGroup disposes (user navigates away, '
           'form submits), it needs to tell the platform autofill '
           'service what happened. AutofillContextAction controls this: '
           'should the entered data be committed (saved) or cancelled '
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.save_alt,
       'title': 'Commit — Save the Data',
-      'body':
-          'AutofillContextAction.commit tells the platform to save '
+      'body': 'AutofillContextAction.commit tells the platform to save '
           'the autofill data. The user may see a "Save password?" '
           'prompt on supported platforms. Use this when the form '
           'submission was successful.',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.cancel_outlined,
       'title': 'Cancel — Discard the Data',
-      'body':
-          'AutofillContextAction.cancel tells the platform to '
+      'body': 'AutofillContextAction.cancel tells the platform to '
           'discard the data. No "Save password?" prompt appears. '
           'Use this when the user cancels the form or when the '
           'submission failed and data should not be remembered.',
@@ -67,16 +63,15 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
+        border: Border.all(
+          color: (card['accent'] as Color).withOpacity(0.3),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            card['icon'] as IconData,
-            color: card['accent'] as Color,
-            size: 32,
-          ),
+          Icon(card['icon'] as IconData,
+              color: card['accent'] as Color, size: 32),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -148,7 +143,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.green.withOpacity(0.05),
         borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: Colors.green[700]!, width: 4)),
+        border: Border(
+          left: BorderSide(color: Colors.green[700]!, width: 4),
+        ),
       ),
       child: Row(
         children: [
@@ -170,9 +167,7 @@ dynamic build(BuildContext context) {
                 Text(
                   item['value']!,
                   style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                      fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 Text(
                   item['detail']!,
@@ -194,8 +189,7 @@ dynamic build(BuildContext context) {
   final archComponents = <Map<String, dynamic>>[
     {
       'name': 'AutofillGroup',
-      'role':
-          'A widget that groups multiple TextFields for autofill. '
+      'role': 'A widget that groups multiple TextFields for autofill. '
           'When the group disposes, it sends the AutofillContextAction '
           'to the platform.',
       'icon': Icons.group_work,
@@ -203,8 +197,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'AutofillHints',
-      'role':
-          'String constants that tell the platform what kind of data '
+      'role': 'String constants that tell the platform what kind of data '
           'a field expects: username, password, email, street address, '
           'phone number, etc.',
       'icon': Icons.lightbulb_outline,
@@ -212,8 +205,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'TextInputConfiguration',
-      'role':
-          'Each TextField sends its autofillHints via '
+      'role': 'Each TextField sends its autofillHints via '
           'TextInputConfiguration to the text input channel. The '
           'platform reads these to populate suggestions.',
       'icon': Icons.settings,
@@ -221,8 +213,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Platform Autofill Service',
-      'role':
-          'The OS-level credential manager (Keychain on iOS, '
+      'role': 'The OS-level credential manager (Keychain on iOS, '
           'Autofill Service on Android, browser password manager on web). '
           'It reads hints and provides saved data.',
       'icon': Icons.phone_android,
@@ -230,8 +221,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'AutofillContextAction',
-      'role':
-          'The finalization signal sent to the platform when the '
+      'role': 'The finalization signal sent to the platform when the '
           'AutofillGroup is disposed. Determines whether data is '
           'saved (commit) or discarded (cancel).',
       'icon': Icons.flag,
@@ -247,7 +237,10 @@ dynamic build(BuildContext context) {
         color: (comp['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
         border: Border(
-          left: BorderSide(color: comp['color'] as Color, width: 4),
+          left: BorderSide(
+            color: comp['color'] as Color,
+            width: 4,
+          ),
         ),
       ),
       child: Row(
@@ -260,11 +253,8 @@ dynamic build(BuildContext context) {
               color: (comp['color'] as Color).withOpacity(0.12),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              comp['icon'] as IconData,
-              color: comp['color'] as Color,
-              size: 20,
-            ),
+            child: Icon(comp['icon'] as IconData,
+                color: comp['color'] as Color, size: 20),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -314,7 +304,10 @@ dynamic build(BuildContext context) {
           Container(
             width: 28,
             height: 28,
-            decoration: BoxDecoration(color: green, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: green,
+              shape: BoxShape.circle,
+            ),
             child: Center(
               child: Text(
                 step['step']!,
@@ -342,11 +335,8 @@ dynamic build(BuildContext context) {
           if (idx < 7)
             Padding(
               padding: const EdgeInsets.only(left: 8),
-              child: Icon(
-                Icons.arrow_downward,
-                size: 14,
-                color: Colors.green[300],
-              ),
+              child: Icon(Icons.arrow_downward,
+                  size: 14, color: Colors.green[300]),
             ),
         ],
       ),
@@ -513,7 +503,8 @@ dynamic build(BuildContext context) {
                     ),
                     Text(
                       subtitle,
-                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      style: TextStyle(
+                          fontSize: 12, color: Colors.grey[600]),
                     ),
                   ],
                 ),
@@ -521,24 +512,21 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 12),
-          ...bullets.map(
-            (b) => Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.arrow_right, size: 16, color: color),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      b,
-                      style: const TextStyle(fontSize: 12, height: 1.3),
+          ...bullets.map((b) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.arrow_right, size: 16, color: color),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(b,
+                          style:
+                              const TextStyle(fontSize: 12, height: 1.3)),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -572,8 +560,7 @@ dynamic build(BuildContext context) {
       'On iOS: interacts with Keychain via ASAuthorization',
       'On web: browser password manager may show save dialog',
     ],
-    codeSnippet:
-        'AutofillGroup(\n'
+    codeSnippet: 'AutofillGroup(\n'
         '  onDisposeAction: AutofillContextAction.commit,\n'
         '  child: Column(children: [\n'
         '    TextField(autofillHints: [AutofillHints.username]),\n'
@@ -596,8 +583,7 @@ dynamic build(BuildContext context) {
       'On iOS: no authorization storage interaction',
       'On web: browser password manager skips save',
     ],
-    codeSnippet:
-        'AutofillGroup(\n'
+    codeSnippet: 'AutofillGroup(\n'
         '  onDisposeAction: AutofillContextAction.cancel,\n'
         '  child: Column(children: [\n'
         '    TextField(autofillHints: [AutofillHints.email]),\n'
@@ -654,7 +640,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (step['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (step['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (step['color'] as Color).withOpacity(0.25),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -668,11 +656,8 @@ dynamic build(BuildContext context) {
                   color: (step['color'] as Color).withOpacity(0.15),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
-                  step['icon'] as IconData,
-                  color: step['color'] as Color,
-                  size: 20,
-                ),
+                child: Icon(step['icon'] as IconData,
+                    color: step['color'] as Color, size: 20),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -686,7 +671,8 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: step['action'] == 'commit'
                       ? Colors.green.withOpacity(0.15)
@@ -722,14 +708,16 @@ dynamic build(BuildContext context) {
             runSpacing: 4,
             children: (step['fields'] as List<String>).map<Widget>((f) {
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
                   f,
-                  style: const TextStyle(fontFamily: 'monospace', fontSize: 10),
+                  style: const TextStyle(
+                      fontFamily: 'monospace', fontSize: 10),
                 ),
               );
             }).toList(),
@@ -812,7 +800,9 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (cat['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (cat['color'] as Color).withOpacity(0.25),
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -824,11 +814,8 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: [
-                Icon(
-                  cat['icon'] as IconData,
-                  color: cat['color'] as Color,
-                  size: 18,
-                ),
+                Icon(cat['icon'] as IconData,
+                    color: cat['color'] as Color, size: 18),
                 const SizedBox(width: 8),
                 Text(
                   cat['category'] as String,
@@ -841,7 +828,8 @@ dynamic build(BuildContext context) {
                 const Spacer(),
                 Text(
                   '${hints.length} hints',
-                  style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                  style: TextStyle(
+                      fontSize: 11, color: Colors.grey[600]),
                 ),
               ],
             ),
@@ -850,7 +838,8 @@ dynamic build(BuildContext context) {
             final i = entry.key;
             final hint = entry.value;
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 color: i.isEven
                     ? Colors.transparent
@@ -871,7 +860,8 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Text(
                       hint['desc']!,
-                      style: TextStyle(fontSize: 11, color: Colors.grey[700]),
+                      style: TextStyle(
+                          fontSize: 11, color: Colors.grey[700]),
                     ),
                   ),
                 ],
@@ -892,8 +882,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Wrap login forms in AutofillGroup',
-      'detail':
-          'Always wrap related fields (username + password) in a '
+      'detail': 'Always wrap related fields (username + password) in a '
           'single AutofillGroup. The platform needs to see them as one '
           'credential set to offer proper autofill.',
       'icon': Icons.check_circle,
@@ -902,8 +891,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Use commit for successful submissions',
-      'detail':
-          'Set onDisposeAction to commit when the user successfully '
+      'detail': 'Set onDisposeAction to commit when the user successfully '
           'submits. This triggers the platform\'s "Save password?" prompt.',
       'icon': Icons.check_circle,
       'color': Colors.green,
@@ -911,8 +899,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Use cancel for multi-step intermediate pages',
-      'detail':
-          'In a wizard flow, use cancel for intermediate steps and '
+      'detail': 'In a wizard flow, use cancel for intermediate steps and '
           'only commit on the final step to avoid duplicate save prompts.',
       'icon': Icons.check_circle,
       'color': Colors.green,
@@ -920,8 +907,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Always provide autofillHints',
-      'detail':
-          'TextFields need autofillHints to participate in autofill. '
+      'detail': 'TextFields need autofillHints to participate in autofill. '
           'Without hints, the platform cannot identify what data to suggest.',
       'icon': Icons.check_circle,
       'color': Colors.green,
@@ -929,8 +915,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Multiple AutofillGroups for one credential',
-      'detail':
-          'Don\'t split username and password into separate '
+      'detail': 'Don\'t split username and password into separate '
           'AutofillGroups. The platform needs them in one group to '
           'correctly associate the credential pair.',
       'icon': Icons.warning_amber,
@@ -939,8 +924,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Committing on cancel button',
-      'detail':
-          'If the user presses Cancel, make sure to set the action '
+      'detail': 'If the user presses Cancel, make sure to set the action '
           'to cancel, not the default commit. Otherwise the platform may '
           'save incorrect partial data.',
       'icon': Icons.warning_amber,
@@ -949,8 +933,7 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Forgetting to call TextInput.finishAutofillContext',
-      'detail':
-          'In programmatic scenarios, you may need to manually call '
+      'detail': 'In programmatic scenarios, you may need to manually call '
           'TextInput.finishAutofillContext() to trigger the autofill '
           'finalization. AutofillGroup does this automatically on dispose.',
       'icon': Icons.error_outline,
@@ -966,17 +949,17 @@ dynamic build(BuildContext context) {
         color: (item['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
         border: Border(
-          left: BorderSide(color: item['color'] as Color, width: 4),
+          left: BorderSide(
+            color: item['color'] as Color,
+            width: 4,
+          ),
         ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            item['icon'] as IconData,
-            color: item['color'] as Color,
-            size: 20,
-          ),
+          Icon(item['icon'] as IconData,
+              color: item['color'] as Color, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -986,9 +969,7 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: (item['color'] as Color).withOpacity(0.15),
                         borderRadius: BorderRadius.circular(4),
@@ -1040,31 +1021,11 @@ dynamic build(BuildContext context) {
 
   final summaryItems = <Map<String, dynamic>>[
     {'label': 'Context actions', 'value': '2', 'icon': Icons.flag},
-    {
-      'label': 'Architecture parts',
-      'value': '${archComponents.length}',
-      'icon': Icons.architecture,
-    },
-    {
-      'label': 'Hint categories',
-      'value': '${hintCategories.length}',
-      'icon': Icons.category,
-    },
-    {
-      'label': 'Autofill hints',
-      'value': '$totalHints',
-      'icon': Icons.lightbulb,
-    },
-    {
-      'label': 'Wizard steps',
-      'value': '${wizardSteps.length}',
-      'icon': Icons.linear_scale,
-    },
-    {
-      'label': 'Patterns & pitfalls',
-      'value': '${patternsAndPitfalls.length}',
-      'icon': Icons.lightbulb_outline,
-    },
+    {'label': 'Architecture parts', 'value': '${archComponents.length}', 'icon': Icons.architecture},
+    {'label': 'Hint categories', 'value': '${hintCategories.length}', 'icon': Icons.category},
+    {'label': 'Autofill hints', 'value': '$totalHints', 'icon': Icons.lightbulb},
+    {'label': 'Wizard steps', 'value': '${wizardSteps.length}', 'icon': Icons.linear_scale},
+    {'label': 'Patterns & pitfalls', 'value': '${patternsAndPitfalls.length}', 'icon': Icons.lightbulb_outline},
   ];
 
   final summaryGrid = Wrap(
@@ -1227,11 +1188,7 @@ dynamic build(BuildContext context) {
           ...apiWidgets,
 
           // Section 3
-          afSectionHeader(
-            '3',
-            'AutofillGroup Architecture',
-            Icons.architecture,
-          ),
+          afSectionHeader('3', 'AutofillGroup Architecture', Icons.architecture),
           ...archWidgets,
           const SizedBox(height: 12),
           Container(

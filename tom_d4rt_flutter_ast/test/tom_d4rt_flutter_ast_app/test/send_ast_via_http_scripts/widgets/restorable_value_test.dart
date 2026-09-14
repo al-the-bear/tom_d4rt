@@ -215,13 +215,12 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
   // therefore survives the widget tree but not a full restoration roundtrip —
   // this is called out explicitly in the RestorationInspector card.
 
-  final _RestorableDuration _elapsed = _RestorableDuration(
-    const Duration(seconds: 47),
-  );
-  final _RestorableDuration _lapDuration = _RestorableDuration(Duration.zero);
-  final _RestorableOffset _pointerPosition = _RestorableOffset(
-    const Offset(120, 80),
-  );
+  final _RestorableDuration _elapsed =
+      _RestorableDuration(const Duration(seconds: 47));
+  final _RestorableDuration _lapDuration =
+      _RestorableDuration(Duration.zero);
+  final _RestorableOffset _pointerPosition =
+      _RestorableOffset(const Offset(120, 80));
   final RestorableBool _running = RestorableBool(false);
 
   final List<String> _laps = <String>[];
@@ -264,7 +263,10 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
   void _startTicker() {
     debugPrint('[RestorableValue demo] Starting 100ms ticker.');
     _tickTimer?.cancel();
-    _tickTimer = Timer.periodic(const Duration(milliseconds: 100), _onTick);
+    _tickTimer = Timer.periodic(
+      const Duration(milliseconds: 100),
+      _onTick,
+    );
   }
 
   void _stopTicker() {
@@ -328,12 +330,10 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
 
   void _handlePointerMove(Offset local, Size canvasSize) {
     // Clamp to the canvas so the crosshair never renders outside the box.
-    final double clampedX = local.dx
-        .clamp(0.0, canvasSize.width - 1)
-        .toDouble();
-    final double clampedY = local.dy
-        .clamp(0.0, canvasSize.height - 1)
-        .toDouble();
+    final double clampedX =
+        local.dx.clamp(0.0, canvasSize.width - 1).toDouble();
+    final double clampedY =
+        local.dy.clamp(0.0, canvasSize.height - 1).toDouble();
     _pointerPosition.value = Offset(clampedX, clampedY);
     setState(() {});
   }
@@ -480,7 +480,10 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
       decoration: _cardDecoration(),
       child: Column(
         children: <Widget>[
-          Text('Elapsed time', style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            'Elapsed time',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 20),
           SizedBox(
             height: 260,
@@ -569,8 +572,8 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
                 color: isActive
                     ? _kAmberTick
                     : (i % 5 == 0
-                          ? _kSoftCyan.withValues(alpha: 0.8)
-                          : _kSoftCyan.withValues(alpha: 0.3)),
+                        ? _kSoftCyan.withValues(alpha: 0.8)
+                        : _kSoftCyan.withValues(alpha: 0.3)),
                 borderRadius: BorderRadius.circular(1),
               ),
             ),
@@ -578,7 +581,11 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
         ),
       );
     }
-    return SizedBox(width: 260, height: 260, child: Stack(children: ticks));
+    return SizedBox(
+      width: 260,
+      height: 260,
+      child: Stack(children: ticks),
+    );
   }
 
   // ---- Section: lap history ---------------------------------------------
@@ -678,13 +685,10 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
       bucketColour = _kAmberTick;
     }
 
-    final double maxSplitMs = slowest.inMilliseconds
-        .toDouble()
-        .clamp(1, 1e9)
-        .toDouble();
-    final double widthFraction = (entry.split.inMilliseconds / maxSplitMs)
-        .clamp(0.04, 1.0)
-        .toDouble();
+    final double maxSplitMs =
+        slowest.inMilliseconds.toDouble().clamp(1, 1e9).toDouble();
+    final double widthFraction =
+        (entry.split.inMilliseconds / maxSplitMs).clamp(0.04, 1.0).toDouble();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
@@ -906,7 +910,10 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
           const SizedBox(width: 6),
           Text(
             v.toStringAsFixed(1),
-            style: const TextStyle(color: _kOffWhite, fontFamily: 'monospace'),
+            style: const TextStyle(
+              color: _kOffWhite,
+              fontFamily: 'monospace',
+            ),
           ),
         ],
       ),
@@ -957,8 +964,7 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
           ),
           _buildInspectorRow(
             label: '_pointerPosition',
-            live:
-                '(${_pointerPosition.value.dx.toStringAsFixed(1)}, '
+            live: '(${_pointerPosition.value.dx.toStringAsFixed(1)}, '
                 '${_pointerPosition.value.dy.toStringAsFixed(1)})',
             primitive: '${pointerPrim.runtimeType}: $pointerPrim',
           ),
@@ -1109,11 +1115,7 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
       children: <TableRow>[
         _headerRow(),
         _comparisonRow('Must implement createDefaultValue', true, true),
-        _comparisonRow(
-          'Must implement fromPrimitives / toPrimitives',
-          true,
-          true,
-        ),
+        _comparisonRow('Must implement fromPrimitives / toPrimitives', true, true),
         _comparisonRow('Must implement initWithValue yourself', false, true),
         _comparisonRow('didUpdateValue hook fires on set value', true, false),
         _comparisonRow('Ships a get value / set value for free', true, false),
@@ -1254,7 +1256,9 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
         backgroundColor: enabled ? colour : colour.withValues(alpha: 0.3),
         foregroundColor: _kMidnight,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         textStyle: const TextStyle(
           fontWeight: FontWeight.w700,
           letterSpacing: 1.2,
@@ -1282,7 +1286,9 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
       style: OutlinedButton.styleFrom(
         side: const BorderSide(color: _kSoftCyan),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
     );
   }
@@ -1293,7 +1299,10 @@ class _StopwatchPointerDemoState extends State<StopwatchPointerDemo>
     return BoxDecoration(
       color: _kNavyCard,
       borderRadius: BorderRadius.circular(14),
-      border: Border.all(color: _kNeonCyan.withValues(alpha: 0.25), width: 1),
+      border: Border.all(
+        color: _kNeonCyan.withValues(alpha: 0.25),
+        width: 1,
+      ),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: _kMidnight.withValues(alpha: 0.6),

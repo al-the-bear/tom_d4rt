@@ -56,9 +56,7 @@ const Color _sec9Primary = Color(0xFF1F5D7A); // Offstage - deep blue
 const Color _sec9Accent = Color(0xFF96BBCC);
 const Color _sec9Surface = Color(0xFFDDEAF1);
 
-const Color _sec10Primary = Color(
-  0xFFB04A3A,
-); // IgnorePointer/Absorb - terracotta
+const Color _sec10Primary = Color(0xFFB04A3A); // IgnorePointer/Absorb - terracotta
 const Color _sec10Accent = Color(0xFFE6A89A);
 const Color _sec10Surface = Color(0xFFF7DFD7);
 
@@ -95,7 +93,11 @@ Widget _label(
   );
 }
 
-Widget _heading(String text, {Color color = _galleryInk, double size = 22.0}) {
+Widget _heading(
+  String text, {
+  Color color = _galleryInk,
+  double size = 22.0,
+}) {
   return Text(
     text,
     style: TextStyle(
@@ -331,7 +333,10 @@ Widget _recipeCard({
               margin: const EdgeInsets.only(top: 6.0, right: 10.0),
               width: 6.0,
               height: 6.0,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
             Expanded(
               child: _body(b, color: _gallerySlate, size: 12.5, height: 1.5),
@@ -393,7 +398,9 @@ Widget _codeQuote(String title, String code, Color accent) {
       children: <Widget>[
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
-          decoration: BoxDecoration(color: accent.withOpacity(0.85)),
+          decoration: BoxDecoration(
+            color: accent.withOpacity(0.85),
+          ),
           child: Row(
             children: <Widget>[
               const Icon(Icons.code_rounded, color: Colors.white, size: 16.0),
@@ -621,7 +628,10 @@ Widget _captionedCard({
               Container(
                 width: 10.0,
                 height: 10.0,
-                decoration: BoxDecoration(color: tone, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: tone,
+                  shape: BoxShape.circle,
+                ),
               ),
               _wgap(10.0),
               Expanded(
@@ -961,8 +971,7 @@ Widget _section1(BuildContext context) {
   return _section(
     number: 1,
     title: 'Visibility Primitives',
-    subtitle:
-        'The toolbox: Visibility, Offstage, IgnorePointer, AbsorbPointer.',
+    subtitle: 'The toolbox: Visibility, Offstage, IgnorePointer, AbsorbPointer.',
     primary: _sec1Primary,
     accent: _sec1Accent,
     surface: _sec1Surface,
@@ -1007,7 +1016,9 @@ Widget _section1(BuildContext context) {
                   decoration: BoxDecoration(
                     color: _galleryFog,
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: _gallerySubtle.withOpacity(0.4)),
+                    border: Border.all(
+                      color: _gallerySubtle.withOpacity(0.4),
+                    ),
                   ),
                   height: 60.0,
                   alignment: Alignment.center,
@@ -1116,10 +1127,7 @@ Widget _section1(BuildContext context) {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: _subjectBox(
-                    'Decorative — not announced',
-                    _sec6Primary,
-                  ),
+                  child: _subjectBox('Decorative — not announced', _sec6Primary),
                 ),
               ],
             ),
@@ -1135,38 +1143,42 @@ Widget _section1(BuildContext context) {
           ],
           accent: _sec1Accent,
         ),
-        _kvTable('Primitive cheat sheet', <List<String>>[
-          <String>[
-            'Visibility',
-            'visible / maintain*',
-            'Single widget gates layout, paint, state, hit-test.',
+        _kvTable(
+          'Primitive cheat sheet',
+          <List<String>>[
+            <String>[
+              'Visibility',
+              'visible / maintain*',
+              'Single widget gates layout, paint, state, hit-test.',
+            ],
+            <String>[
+              'Offstage',
+              'offstage',
+              'Skips paint and hit-test; layout still measured.',
+            ],
+            <String>[
+              'IgnorePointer',
+              'ignoring',
+              'Skips hit-test for subtree; events pass to lower widgets.',
+            ],
+            <String>[
+              'AbsorbPointer',
+              'absorbing',
+              'Blocks events at this subtree; lower widgets do not see them.',
+            ],
+            <String>[
+              'ExcludeSemantics',
+              'excluding',
+              'Hides subtree from a11y tree without touching paint/layout.',
+            ],
+            <String>[
+              'SliverVisibility',
+              'visible / maintain*',
+              'Same idea as Visibility, but for sliver children.',
+            ],
           ],
-          <String>[
-            'Offstage',
-            'offstage',
-            'Skips paint and hit-test; layout still measured.',
-          ],
-          <String>[
-            'IgnorePointer',
-            'ignoring',
-            'Skips hit-test for subtree; events pass to lower widgets.',
-          ],
-          <String>[
-            'AbsorbPointer',
-            'absorbing',
-            'Blocks events at this subtree; lower widgets do not see them.',
-          ],
-          <String>[
-            'ExcludeSemantics',
-            'excluding',
-            'Hides subtree from a11y tree without touching paint/layout.',
-          ],
-          <String>[
-            'SliverVisibility',
-            'visible / maintain*',
-            'Same idea as Visibility, but for sliver children.',
-          ],
-        ], _sec1Accent),
+          _sec1Accent,
+        ),
       ],
     ),
   );
@@ -1188,11 +1200,7 @@ Widget _section2(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _heading(
-          'What "invisible" really means',
-          size: 16.0,
-          color: _sec2Primary,
-        ),
+        _heading('What "invisible" really means', size: 16.0, color: _sec2Primary),
         _gap(6.0),
         _body(
           'By default Visibility(visible: false) is equivalent to inserting a '
@@ -1315,20 +1323,28 @@ Widget _section2(BuildContext context) {
               ');',
           _sec2Primary,
         ),
-        _kvTable('visible flag effects (default flags)', <List<String>>[
-          <String>['visible', 'true', 'Renders child normally.'],
-          <String>[
-            'visible',
-            'false',
-            'Removes child entirely; slot collapses.',
+        _kvTable(
+          'visible flag effects (default flags)',
+          <List<String>>[
+            <String>['visible', 'true', 'Renders child normally.'],
+            <String>[
+              'visible',
+              'false',
+              'Removes child entirely; slot collapses.',
+            ],
+            <String>[
+              'reflow',
+              'implicit',
+              'Siblings move to fill freed space.',
+            ],
+            <String>[
+              'rebuild cost',
+              'O(1)',
+              'Only Visibility itself rebuilds; child subtree skipped.',
+            ],
           ],
-          <String>['reflow', 'implicit', 'Siblings move to fill freed space.'],
-          <String>[
-            'rebuild cost',
-            'O(1)',
-            'Only Visibility itself rebuilds; child subtree skipped.',
-          ],
-        ], _sec2Accent),
+          _sec2Accent,
+        ),
       ],
     ),
   );
@@ -1478,28 +1494,32 @@ Widget _section3(BuildContext context) {
               ');',
           _sec3Primary,
         ),
-        _kvTable('maintainState — effects', <List<String>>[
-          <String>[
-            'State alive',
-            'true',
-            'Element + State retained while invisible.',
+        _kvTable(
+          'maintainState — effects',
+          <List<String>>[
+            <String>[
+              'State alive',
+              'true',
+              'Element + State retained while invisible.',
+            ],
+            <String>[
+              'Layout',
+              'skipped',
+              'Layout/paint/hit-test still skipped — slot still collapses.',
+            ],
+            <String>[
+              'Memory',
+              'preserved',
+              'Subtree memory not freed; budget accordingly.',
+            ],
+            <String>[
+              'Rebuild',
+              'avoided',
+              'No mount/unmount thrash when toggling.',
+            ],
           ],
-          <String>[
-            'Layout',
-            'skipped',
-            'Layout/paint/hit-test still skipped — slot still collapses.',
-          ],
-          <String>[
-            'Memory',
-            'preserved',
-            'Subtree memory not freed; budget accordingly.',
-          ],
-          <String>[
-            'Rebuild',
-            'avoided',
-            'No mount/unmount thrash when toggling.',
-          ],
-        ], _sec3Accent),
+          _sec3Accent,
+        ),
       ],
     ),
   );
@@ -1654,28 +1674,32 @@ Widget _section4(BuildContext context) {
               ');',
           _sec4Primary,
         ),
-        _kvTable('maintainAnimation — effects', <List<String>>[
-          <String>[
-            'Requires',
-            'maintainState: true',
-            'Animations need their State to live.',
+        _kvTable(
+          'maintainAnimation — effects',
+          <List<String>>[
+            <String>[
+              'Requires',
+              'maintainState: true',
+              'Animations need their State to live.',
+            ],
+            <String>[
+              'Ticker',
+              'still running',
+              'AnimationControllers keep advancing.',
+            ],
+            <String>[
+              'Paint',
+              'skipped',
+              'Visual updates suppressed while invisible.',
+            ],
+            <String>[
+              'CPU',
+              'still spent',
+              'Animation logic still executes — be deliberate.',
+            ],
           ],
-          <String>[
-            'Ticker',
-            'still running',
-            'AnimationControllers keep advancing.',
-          ],
-          <String>[
-            'Paint',
-            'skipped',
-            'Visual updates suppressed while invisible.',
-          ],
-          <String>[
-            'CPU',
-            'still spent',
-            'Animation logic still executes — be deliberate.',
-          ],
-        ], _sec4Accent),
+          _sec4Accent,
+        ),
       ],
     ),
   );
@@ -1697,11 +1721,7 @@ Widget _section5(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _heading(
-          'Stop the layout from jumping',
-          size: 16.0,
-          color: _sec5Primary,
-        ),
+        _heading('Stop the layout from jumping', size: 16.0, color: _sec5Primary),
         _gap(6.0),
         _body(
           'maintainSize keeps the original layout slot. The child still occupies '
@@ -1819,24 +1839,28 @@ Widget _section5(BuildContext context) {
               ');',
           _sec5Primary,
         ),
-        _kvTable('maintainSize — effects', <List<String>>[
-          <String>[
-            'Requires',
-            'state + animation',
-            'Flag cascade — both must be true.',
+        _kvTable(
+          'maintainSize — effects',
+          <List<String>>[
+            <String>[
+              'Requires',
+              'state + animation',
+              'Flag cascade — both must be true.',
+            ],
+            <String>[
+              'Layout',
+              'preserved',
+              'Slot occupies the same area as if visible.',
+            ],
+            <String>['Paint', 'skipped', 'Child not drawn.'],
+            <String>[
+              'Hit-test',
+              'skipped',
+              'Unless maintainInteractivity is true.',
+            ],
           ],
-          <String>[
-            'Layout',
-            'preserved',
-            'Slot occupies the same area as if visible.',
-          ],
-          <String>['Paint', 'skipped', 'Child not drawn.'],
-          <String>[
-            'Hit-test',
-            'skipped',
-            'Unless maintainInteractivity is true.',
-          ],
-        ], _sec5Accent),
+          _sec5Accent,
+        ),
       ],
     ),
   );
@@ -1858,11 +1882,7 @@ Widget _section6(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _heading(
-          'Visible to screen readers, invisible to the eye',
-          size: 16.0,
-          color: _sec6Primary,
-        ),
+        _heading('Visible to screen readers, invisible to the eye', size: 16.0, color: _sec6Primary),
         _gap(6.0),
         _body(
           'maintainSemantics decouples accessibility from paint. The child is '
@@ -1984,20 +2004,28 @@ Widget _section6(BuildContext context) {
               ');',
           _sec6Primary,
         ),
-        _kvTable('maintainSemantics — effects', <List<String>>[
-          <String>[
-            'Requires',
-            'state + anim + size',
-            'Flag cascade for semantics-without-paint.',
+        _kvTable(
+          'maintainSemantics — effects',
+          <List<String>>[
+            <String>[
+              'Requires',
+              'state + anim + size',
+              'Flag cascade for semantics-without-paint.',
+            ],
+            <String>[
+              'A11y tree',
+              'preserved',
+              'Screen readers still announce.',
+            ],
+            <String>['Paint', 'skipped', 'Pixels invisible.'],
+            <String>[
+              'Focus',
+              'maintained',
+              'Reader focus order remains predictable.',
+            ],
           ],
-          <String>['A11y tree', 'preserved', 'Screen readers still announce.'],
-          <String>['Paint', 'skipped', 'Pixels invisible.'],
-          <String>[
-            'Focus',
-            'maintained',
-            'Reader focus order remains predictable.',
-          ],
-        ], _sec6Accent),
+          _sec6Accent,
+        ),
       ],
     ),
   );
@@ -2019,11 +2047,7 @@ Widget _section7(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _heading(
-          'Hit-test through invisible widgets',
-          size: 16.0,
-          color: _sec7Primary,
-        ),
+        _heading('Hit-test through invisible widgets', size: 16.0, color: _sec7Primary),
         _gap(6.0),
         _body(
           'maintainInteractivity lets the invisible child still respond to '
@@ -2052,11 +2076,7 @@ Widget _section7(BuildContext context) {
                 maintainState: true,
                 maintainAnimation: true,
                 maintainSize: true,
-                child: _subjectBox(
-                  'Overlay (hidden)',
-                  _sec7Accent,
-                  height: 60.0,
-                ),
+                child: _subjectBox('Overlay (hidden)', _sec7Accent, height: 60.0),
               ),
             ],
           ),
@@ -2077,11 +2097,7 @@ Widget _section7(BuildContext context) {
                 maintainAnimation: true,
                 maintainSize: true,
                 maintainInteractivity: true,
-                child: _subjectBox(
-                  'Overlay (tappable)',
-                  _sec7Accent,
-                  height: 60.0,
-                ),
+                child: _subjectBox('Overlay (tappable)', _sec7Accent, height: 60.0),
               ),
             ],
           ),
@@ -2094,7 +2110,9 @@ Widget _section7(BuildContext context) {
           tone: _sec7Primary,
           body: Row(
             children: <Widget>[
-              Expanded(child: _subjectBox('Control variant', _sec7Primary)),
+              Expanded(
+                child: _subjectBox('Control variant', _sec7Primary),
+              ),
               _wgap(8.0),
               Expanded(
                 child: Stack(
@@ -2106,7 +2124,9 @@ Widget _section7(BuildContext context) {
                       maintainAnimation: true,
                       maintainSize: true,
                       maintainInteractivity: true,
-                      child: Container(color: Colors.transparent),
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
                     ),
                   ],
                 ),
@@ -2136,24 +2156,28 @@ Widget _section7(BuildContext context) {
               ');',
           _sec7Primary,
         ),
-        _kvTable('maintainInteractivity — effects', <List<String>>[
-          <String>[
-            'Requires',
-            'maintainSize: true',
-            'Layout slot needed for hit testing.',
+        _kvTable(
+          'maintainInteractivity — effects',
+          <List<String>>[
+            <String>[
+              'Requires',
+              'maintainSize: true',
+              'Layout slot needed for hit testing.',
+            ],
+            <String>[
+              'Hit-test',
+              'enabled',
+              'Pointer events reach the (invisible) child.',
+            ],
+            <String>['Paint', 'skipped', 'No pixels rendered.'],
+            <String>[
+              'Risk',
+              'invisible affordance',
+              'Users cannot see the tap target — be careful.',
+            ],
           ],
-          <String>[
-            'Hit-test',
-            'enabled',
-            'Pointer events reach the (invisible) child.',
-          ],
-          <String>['Paint', 'skipped', 'No pixels rendered.'],
-          <String>[
-            'Risk',
-            'invisible affordance',
-            'Users cannot see the tap target — be careful.',
-          ],
-        ], _sec7Accent),
+          _sec7Accent,
+        ),
       ],
     ),
   );
@@ -2268,7 +2292,10 @@ Widget _section8(BuildContext context) {
                 child: _badge('DRAFT', _sec8Accent, fg: _galleryInk),
               ),
               _wgap(8.0),
-              _body(' ← invisible swap, visible original', size: 11.0),
+              _body(
+                ' ← invisible swap, visible original',
+                size: 11.0,
+              ),
             ],
           ),
         ),
@@ -2291,28 +2318,32 @@ Widget _section8(BuildContext context) {
               ');',
           _sec8Primary,
         ),
-        _kvTable('replacement — effects', <List<String>>[
-          <String>[
-            'Default',
-            'SizedBox.shrink()',
-            'Effectively collapses if you do not set it.',
+        _kvTable(
+          'replacement — effects',
+          <List<String>>[
+            <String>[
+              'Default',
+              'SizedBox.shrink()',
+              'Effectively collapses if you do not set it.',
+            ],
+            <String>[
+              'Custom',
+              'any Widget',
+              'Replaces child when visible is false.',
+            ],
+            <String>[
+              'maintain*',
+              'ignored',
+              'Flags apply to the child only — replacement is a new tree.',
+            ],
+            <String>[
+              'Use case',
+              'state swaps',
+              'Ready, loading, empty, error variants.',
+            ],
           ],
-          <String>[
-            'Custom',
-            'any Widget',
-            'Replaces child when visible is false.',
-          ],
-          <String>[
-            'maintain*',
-            'ignored',
-            'Flags apply to the child only — replacement is a new tree.',
-          ],
-          <String>[
-            'Use case',
-            'state swaps',
-            'Ready, loading, empty, error variants.',
-          ],
-        ], _sec8Accent),
+          _sec8Accent,
+        ),
       ],
     ),
   );
@@ -2334,11 +2365,7 @@ Widget _section9(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _heading(
-          'Offstage — the hidden rehearsal',
-          size: 16.0,
-          color: _sec9Primary,
-        ),
+        _heading('Offstage — the hidden rehearsal', size: 16.0, color: _sec9Primary),
         _gap(6.0),
         _body(
           'Offstage paints nothing and absorbs no input, but measures its child '
@@ -2453,20 +2480,24 @@ Widget _section9(BuildContext context) {
               ');',
           _sec9Primary,
         ),
-        _kvTable('Offstage — effects', <List<String>>[
-          <String>['offstage', 'true', 'No paint, no hit-test.'],
-          <String>['layout', 'still done', 'Child measured normally.'],
-          <String>[
-            'animations',
-            'tick by default',
-            'No need for maintain* flags.',
+        _kvTable(
+          'Offstage — effects',
+          <List<String>>[
+            <String>['offstage', 'true', 'No paint, no hit-test.'],
+            <String>['layout', 'still done', 'Child measured normally.'],
+            <String>[
+              'animations',
+              'tick by default',
+              'No need for maintain* flags.',
+            ],
+            <String>[
+              'intrinsic size',
+              'contributes',
+              'Useful for parent measurement.',
+            ],
           ],
-          <String>[
-            'intrinsic size',
-            'contributes',
-            'Useful for parent measurement.',
-          ],
-        ], _sec9Accent),
+          _sec9Accent,
+        ),
       ],
     ),
   );
@@ -2541,11 +2572,7 @@ Widget _section10(BuildContext context) {
           tone: _sec10Accent,
           body: Stack(
             children: <Widget>[
-              _subjectBox(
-                'Button below (BLOCKED)',
-                _sec10Primary,
-                height: 60.0,
-              ),
+              _subjectBox('Button below (BLOCKED)', _sec10Primary, height: 60.0),
               AbsorbPointer(
                 absorbing: true,
                 child: Container(
@@ -2630,24 +2657,32 @@ Widget _section10(BuildContext context) {
               ');',
           _sec10Primary,
         ),
-        _kvTable('IgnorePointer vs AbsorbPointer', <List<String>>[
-          <String>[
-            'IgnorePointer',
-            'pass-through',
-            'Events pass to widgets below in the Stack.',
+        _kvTable(
+          'IgnorePointer vs AbsorbPointer',
+          <List<String>>[
+            <String>[
+              'IgnorePointer',
+              'pass-through',
+              'Events pass to widgets below in the Stack.',
+            ],
+            <String>[
+              'AbsorbPointer',
+              'consume',
+              'Events stop here; lower widgets see nothing.',
+            ],
+            <String>[
+              'Paint',
+              'identical',
+              'Neither one changes pixel output.',
+            ],
+            <String>[
+              'Semantics',
+              'unchanged',
+              'Use ExcludeSemantics if you also want to hide a11y.',
+            ],
           ],
-          <String>[
-            'AbsorbPointer',
-            'consume',
-            'Events stop here; lower widgets see nothing.',
-          ],
-          <String>['Paint', 'identical', 'Neither one changes pixel output.'],
-          <String>[
-            'Semantics',
-            'unchanged',
-            'Use ExcludeSemantics if you also want to hide a11y.',
-          ],
-        ], _sec10Accent),
+          _sec10Accent,
+        ),
       ],
     ),
   );
@@ -2797,13 +2832,15 @@ Widget _section11(BuildContext context) {
                     child: _placeholderSlot('EMPTY STATE SLIVER', height: 80.0),
                   ),
                   sliver: SliverList(
-                    delegate: SliverChildListDelegate(<Widget>[
-                      _subjectBox('row 1', _sec11Primary),
-                      _gap(6.0),
-                      _subjectBox('row 2', _sec11Primary),
-                      _gap(6.0),
-                      _subjectBox('row 3', _sec11Primary),
-                    ]),
+                    delegate: SliverChildListDelegate(
+                      <Widget>[
+                        _subjectBox('row 1', _sec11Primary),
+                        _gap(6.0),
+                        _subjectBox('row 2', _sec11Primary),
+                        _gap(6.0),
+                        _subjectBox('row 3', _sec11Primary),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -2833,28 +2870,32 @@ Widget _section11(BuildContext context) {
               ');',
           _sec11Primary,
         ),
-        _kvTable('SliverVisibility — properties', <List<String>>[
-          <String>[
-            'sliver',
-            'required',
-            'The sliver shown when visible is true.',
+        _kvTable(
+          'SliverVisibility — properties',
+          <List<String>>[
+            <String>[
+              'sliver',
+              'required',
+              'The sliver shown when visible is true.',
+            ],
+            <String>[
+              'replacementSliver',
+              'optional',
+              'Sliver shown when visible is false (defaults to empty).',
+            ],
+            <String>[
+              'maintain* flags',
+              'identical',
+              'Same semantics as Visibility.',
+            ],
+            <String>[
+              'context',
+              'CustomScrollView',
+              'Must live inside a sliver host.',
+            ],
           ],
-          <String>[
-            'replacementSliver',
-            'optional',
-            'Sliver shown when visible is false (defaults to empty).',
-          ],
-          <String>[
-            'maintain* flags',
-            'identical',
-            'Same semantics as Visibility.',
-          ],
-          <String>[
-            'context',
-            'CustomScrollView',
-            'Must live inside a sliver host.',
-          ],
-        ], _sec11Accent),
+          _sec11Accent,
+        ),
       ],
     ),
   );
@@ -3008,33 +3049,37 @@ Widget _section12(BuildContext context) {
               ');',
           _sec12Primary,
         ),
-        _kvTable('Flag dependency rules', <List<String>>[
-          <String>[
-            'maintainState',
-            'standalone',
-            'Lowest of the chain — keeps state alive.',
+        _kvTable(
+          'Flag dependency rules',
+          <List<String>>[
+            <String>[
+              'maintainState',
+              'standalone',
+              'Lowest of the chain — keeps state alive.',
+            ],
+            <String>[
+              'maintainAnimation',
+              'needs state',
+              'Tickers cannot live without their State.',
+            ],
+            <String>[
+              'maintainSize',
+              'needs state + anim',
+              'Layout needs paintable subtree.',
+            ],
+            <String>[
+              'maintainSemantics',
+              'needs s+a+sz',
+              'Semantics rely on a placed render object.',
+            ],
+            <String>[
+              'maintainInteractivity',
+              'needs size',
+              'Hit-testing requires a measured slot.',
+            ],
           ],
-          <String>[
-            'maintainAnimation',
-            'needs state',
-            'Tickers cannot live without their State.',
-          ],
-          <String>[
-            'maintainSize',
-            'needs state + anim',
-            'Layout needs paintable subtree.',
-          ],
-          <String>[
-            'maintainSemantics',
-            'needs s+a+sz',
-            'Semantics rely on a placed render object.',
-          ],
-          <String>[
-            'maintainInteractivity',
-            'needs size',
-            'Hit-testing requires a measured slot.',
-          ],
-        ], _sec12Accent),
+          _sec12Accent,
+        ),
       ],
     ),
   );
@@ -3043,7 +3088,10 @@ Widget _section12(BuildContext context) {
 Widget _comboRow(String label, Color tone, Widget hiddenChild) {
   return Row(
     children: <Widget>[
-      SizedBox(width: 150.0, child: _chip(label, tone)),
+      SizedBox(
+        width: 150.0,
+        child: _chip(label, tone),
+      ),
       _wgap(10.0),
       Expanded(
         child: Container(
@@ -3076,7 +3124,10 @@ Widget _costRow(String tier, String label, Color tone) {
       ),
       Expanded(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 8.0,
+          ),
           decoration: BoxDecoration(
             color: tone.withOpacity(0.12),
             borderRadius: BorderRadius.circular(8.0),
@@ -3149,30 +3200,9 @@ Widget _comparisonTable() {
     <String>['Widget', 'Layout', 'Paint', 'Hit-test', 'Semantics', 'State'],
     <String>['Visibility (default)', 'collapse', 'no', 'no', 'no', 'lost'],
     <String>['Visibility + maintainSize', 'kept', 'no', 'no', 'no', 'kept'],
-    <String>[
-      'Visibility + maintainSemantics',
-      'kept',
-      'no',
-      'no',
-      'yes',
-      'kept',
-    ],
-    <String>[
-      'Visibility + maintainInteractivity',
-      'kept',
-      'no',
-      'yes',
-      'no',
-      'kept',
-    ],
-    <String>[
-      'Visibility.replacement',
-      'replacement',
-      'replacement',
-      'replacement',
-      'replacement',
-      'lost',
-    ],
+    <String>['Visibility + maintainSemantics', 'kept', 'no', 'no', 'yes', 'kept'],
+    <String>['Visibility + maintainInteractivity', 'kept', 'no', 'yes', 'no', 'kept'],
+    <String>['Visibility.replacement', 'replacement', 'replacement', 'replacement', 'replacement', 'lost'],
     <String>['Offstage', 'measured', 'no', 'no', 'no', 'kept'],
     <String>['IgnorePointer', 'kept', 'yes', 'pass-through', 'yes', 'kept'],
     <String>['AbsorbPointer', 'kept', 'yes', 'consume', 'yes', 'kept'],
@@ -3235,62 +3265,20 @@ Widget _comparisonTable() {
 
 Widget _glossary() {
   final List<List<String>> entries = <List<String>>[
-    <String>[
-      'Visibility',
-      'Single widget that gates a child by layout, paint, state, semantics, hit-test.',
-    ],
-    <String>[
-      'SliverVisibility',
-      'Sliver-aware analogue for use inside CustomScrollView.',
-    ],
-    <String>[
-      'Offstage',
-      'Lays out a child but skips paint and hit-test; cheap pre-warming.',
-    ],
-    <String>[
-      'IgnorePointer',
-      'Disables hit-testing for the subtree; events pass through.',
-    ],
-    <String>[
-      'AbsorbPointer',
-      'Disables hit-testing for the subtree; events are absorbed.',
-    ],
-    <String>[
-      'ExcludeSemantics',
-      'Drops the subtree from the semantics tree without affecting paint.',
-    ],
-    <String>[
-      'maintainState',
-      'Keeps the Element/State of the child alive while invisible.',
-    ],
-    <String>[
-      'maintainAnimation',
-      'Allows AnimationControllers to keep ticking while invisible.',
-    ],
-    <String>[
-      'maintainSize',
-      'Preserves the layout slot — siblings do not reflow.',
-    ],
-    <String>[
-      'maintainSemantics',
-      'Keeps the a11y nodes alive while paint is suppressed.',
-    ],
-    <String>[
-      'maintainInteractivity',
-      'Allows the invisible child to keep receiving pointer events.',
-    ],
-    <String>[
-      'replacement',
-      'Widget shown instead of the child when visible is false.',
-    ],
-    <String>[
-      'replacementSliver',
-      'SliverVisibility version of the replacement parameter.',
-    ],
-    <String>[
-      'AlwaysStoppedAnimation',
-      'A frozen Animation snapshot used to render transition states statically.',
-    ],
+    <String>['Visibility', 'Single widget that gates a child by layout, paint, state, semantics, hit-test.'],
+    <String>['SliverVisibility', 'Sliver-aware analogue for use inside CustomScrollView.'],
+    <String>['Offstage', 'Lays out a child but skips paint and hit-test; cheap pre-warming.'],
+    <String>['IgnorePointer', 'Disables hit-testing for the subtree; events pass through.'],
+    <String>['AbsorbPointer', 'Disables hit-testing for the subtree; events are absorbed.'],
+    <String>['ExcludeSemantics', 'Drops the subtree from the semantics tree without affecting paint.'],
+    <String>['maintainState', 'Keeps the Element/State of the child alive while invisible.'],
+    <String>['maintainAnimation', 'Allows AnimationControllers to keep ticking while invisible.'],
+    <String>['maintainSize', 'Preserves the layout slot — siblings do not reflow.'],
+    <String>['maintainSemantics', 'Keeps the a11y nodes alive while paint is suppressed.'],
+    <String>['maintainInteractivity', 'Allows the invisible child to keep receiving pointer events.'],
+    <String>['replacement', 'Widget shown instead of the child when visible is false.'],
+    <String>['replacementSliver', 'SliverVisibility version of the replacement parameter.'],
+    <String>['AlwaysStoppedAnimation', 'A frozen Animation snapshot used to render transition states statically.'],
   ];
   final List<Widget> rows = <Widget>[];
   for (final List<String> e in entries) {

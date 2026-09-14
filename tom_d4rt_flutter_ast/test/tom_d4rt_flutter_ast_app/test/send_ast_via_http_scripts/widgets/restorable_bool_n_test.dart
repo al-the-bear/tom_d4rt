@@ -135,22 +135,14 @@ class _OverviewTab extends StatelessWidget {
                 'distinct from both true and false:',
               ),
               const SizedBox(height: 8),
-              _BulletItem(
-                'Consent dialogs: user hasn\'t answered yet (null), '
-                'accepted (true), or declined (false)',
-              ),
-              _BulletItem(
-                'Permission state: not-requested (null), granted '
-                '(true), denied (false)',
-              ),
-              _BulletItem(
-                'Feature toggles: loading/unknown (null), '
-                'enabled (true), disabled (false)',
-              ),
-              _BulletItem(
-                'Dark mode preference: follow system (null), '
-                'always dark (true), always light (false)',
-              ),
+              _BulletItem('Consent dialogs: user hasn\'t answered yet (null), '
+                  'accepted (true), or declined (false)'),
+              _BulletItem('Permission state: not-requested (null), granted '
+                  '(true), denied (false)'),
+              _BulletItem('Feature toggles: loading/unknown (null), '
+                  'enabled (true), disabled (false)'),
+              _BulletItem('Dark mode preference: follow system (null), '
+                  'always dark (true), always light (false)'),
               const SizedBox(height: 8),
               const Text(
                 'If you collapsed null to false you would lose the ability to '
@@ -182,8 +174,7 @@ class _OverviewTab extends StatelessWidget {
         const SizedBox(height: 12),
         _InfoChip(
           icon: Icons.lightbulb,
-          text:
-              'RestorableBoolN is part of dart:ui / flutter/widgets.dart — '
+          text: 'RestorableBoolN is part of dart:ui / flutter/widgets.dart — '
               'no additional dependency needed.',
           color: Colors.teal.shade50,
         ),
@@ -374,15 +365,8 @@ class _ArchitecturePainter extends CustomPainter {
     // Draw normal boxes
     for (int i = 0; i < labels.length; i++) {
       final Rect rect = Rect.fromLTWH(
-        positions[i].dx,
-        positions[i].dy,
-        boxW,
-        boxH,
-      );
-      final RRect rRect = RRect.fromRectAndRadius(
-        rect,
-        const Radius.circular(8),
-      );
+          positions[i].dx, positions[i].dy, boxW, boxH);
+      final RRect rRect = RRect.fromRectAndRadius(rect, const Radius.circular(8));
       canvas.drawRRect(rRect, boxPaint);
       canvas.drawRRect(rRect, borderPaint);
       _drawLabel(canvas, labels[i], rect);
@@ -391,26 +375,15 @@ class _ArchitecturePainter extends CustomPainter {
     // Process restart box (red)
     final double killY = startY + (boxH + vGap) * 3 + boxH + vGap;
     final Rect killRect = Rect.fromLTWH(colX, killY, boxW, boxH);
-    final RRect killRRect = RRect.fromRectAndRadius(
-      killRect,
-      const Radius.circular(8),
-    );
+    final RRect killRRect = RRect.fromRectAndRadius(killRect, const Radius.circular(8));
     canvas.drawRRect(killRRect, killPaint);
     canvas.drawRRect(killRRect, killBorderPaint);
-    _drawLabelColor(
-      canvas,
-      'Process Restart\n(OS kills app)',
-      killRect,
-      Colors.red.shade900,
-    );
+    _drawLabelColor(canvas, 'Process Restart\n(OS kills app)', killRect, Colors.red.shade900);
 
     // Decoded / restored box
     final double restoreY = killY + boxH + vGap;
     final Rect restoreRect = Rect.fromLTWH(colX, restoreY, boxW, boxH);
-    final RRect restoreRRect = RRect.fromRectAndRadius(
-      restoreRect,
-      const Radius.circular(8),
-    );
+    final RRect restoreRRect = RRect.fromRectAndRadius(restoreRect, const Radius.circular(8));
     canvas.drawRRect(restoreRRect, boxPaint);
     canvas.drawRRect(restoreRRect, borderPaint);
     _drawLabel(canvas, 'Value decoded\n→ state restored', restoreRect);
@@ -576,10 +549,8 @@ class _NullableVsNonTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
-                'RestorableBoolN — three states:',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              const Text('RestorableBoolN — three states:',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 6),
               _MonoBox(
                 'final _consent = RestorableBoolN(null);\n'
@@ -595,10 +566,8 @@ class _NullableVsNonTab extends StatelessWidget {
                 '}',
               ),
               const SizedBox(height: 12),
-              const Text(
-                'RestorableBool — two states:',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              const Text('RestorableBool — two states:',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 6),
               _MonoBox(
                 'final _expanded = RestorableBool(false);\n'
@@ -617,8 +586,7 @@ class _NullableVsNonTab extends StatelessWidget {
         const SizedBox(height: 12),
         _InfoChip(
           icon: Icons.warning_amber,
-          text:
-              'Use RestorableBool when null is meaningless. Use '
+          text: 'Use RestorableBool when null is meaningless. Use '
               'RestorableBoolN when you need to distinguish "not set" '
               'from "explicitly false".',
           color: Colors.amber.shade50,
@@ -636,35 +604,31 @@ class _NullableVsNonTab extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(6),
-          child: Text(
-            boolN,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: boolN == 'null'
-                  ? Colors.grey.shade600
-                  : boolN == 'true'
-                  ? Colors.green.shade700
-                  : Colors.red.shade700,
-            ),
-          ),
+          child: Text(boolN,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: boolN == 'null'
+                    ? Colors.grey.shade600
+                    : boolN == 'true'
+                        ? Colors.green.shade700
+                        : Colors.red.shade700,
+              )),
         ),
         Padding(
           padding: const EdgeInsets.all(6),
-          child: Text(
-            bool_,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: bool_.startsWith('⚠')
-                  ? Colors.orange.shade700
-                  : bool_ == 'true'
-                  ? Colors.green.shade700
-                  : Colors.red.shade700,
-            ),
-          ),
+          child: Text(bool_,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: bool_.startsWith('⚠')
+                    ? Colors.orange.shade700
+                    : bool_ == 'true'
+                        ? Colors.green.shade700
+                        : Colors.red.shade700,
+              )),
         ),
       ],
     );
@@ -747,7 +711,10 @@ class _CycleWidget extends StatelessWidget {
               ValueListenableBuilder<bool?>(
                 valueListenable: _currentValue,
                 builder: (BuildContext context, bool? val, Widget? _) {
-                  return _ValueBadge(label: 'Current value', value: val);
+                  return _ValueBadge(
+                    label: 'Current value',
+                    value: val,
+                  );
                 },
               ),
             ],
@@ -835,11 +802,8 @@ class _CycleWidget extends StatelessWidget {
                           ),
                           child: Row(
                             children: <Widget>[
-                              Icon(
-                                Icons.warning,
-                                color: Colors.red.shade700,
-                                size: 18,
-                              ),
+                              Icon(Icons.warning,
+                                  color: Colors.red.shade700, size: 18),
                               const SizedBox(width: 8),
                               const Expanded(
                                 child: Text(
@@ -894,16 +858,17 @@ class _CycleWidget extends StatelessWidget {
                             label: const Text('Restore'),
                           ),
                           const SizedBox(height: 8),
-                          _ValueBadge(label: 'Restored value', value: current),
+                          _ValueBadge(
+                            label: 'Restored value',
+                            value: current,
+                          ),
                           if (saved == null)
                             Padding(
                               padding: const EdgeInsets.only(top: 8),
                               child: Text(
                                 'Nothing saved yet — save a value first.',
                                 style: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontSize: 12,
-                                ),
+                                    color: Colors.grey.shade600, fontSize: 12),
                               ),
                             ),
                         ],
@@ -993,7 +958,10 @@ class _RealInstanceTab extends StatelessWidget {
                 value: _restorable.value?.toString() ?? 'null',
               ),
               const SizedBox(height: 6),
-              _InfoRow(label: 'Enabled', value: _restorable.enabled.toString()),
+              _InfoRow(
+                label: 'Enabled',
+                value: _restorable.enabled.toString(),
+              ),
               const SizedBox(height: 6),
               const Text(
                 'Note: enabled is false because this instance is not registered '
@@ -1303,78 +1271,15 @@ class _ComparisonTab extends StatelessWidget {
                   _TableHeader('Best for'),
                 ],
               ),
-              _compRow(
-                'RestorableBoolN',
-                'Yes',
-                'true/false/null',
-                'Yes',
-                'Yes',
-                'Tri-state flags',
-              ),
-              _compRow(
-                'RestorableBool',
-                'No',
-                'true/false',
-                'Yes',
-                'Yes',
-                'Binary flags',
-              ),
-              _compRow(
-                'RestorableString',
-                'No',
-                'any string',
-                'Yes',
-                'Yes',
-                'Text values',
-              ),
-              _compRow(
-                'RestorableStringN',
-                'Yes',
-                'string/null',
-                'Yes',
-                'Yes',
-                'Optional text',
-              ),
-              _compRow(
-                'RestorableInt',
-                'No',
-                'integer',
-                'Yes',
-                'Yes',
-                'Counters/indices',
-              ),
-              _compRow(
-                'RestorableIntN',
-                'Yes',
-                'integer/null',
-                'Yes',
-                'Yes',
-                'Optional counts',
-              ),
-              _compRow(
-                'RestorableDouble',
-                'No',
-                'double',
-                'Yes',
-                'Yes',
-                'Numeric values',
-              ),
-              _compRow(
-                'ValueNotifier<bool?>',
-                'Yes',
-                'true/false/null',
-                'No',
-                'Yes',
-                'In-memory only',
-              ),
-              _compRow(
-                'SharedPreferences',
-                'Manual',
-                'any',
-                'Yes',
-                'No',
-                'Persistent settings',
-              ),
+              _compRow('RestorableBoolN', 'Yes', 'true/false/null', 'Yes', 'Yes', 'Tri-state flags'),
+              _compRow('RestorableBool', 'No', 'true/false', 'Yes', 'Yes', 'Binary flags'),
+              _compRow('RestorableString', 'No', 'any string', 'Yes', 'Yes', 'Text values'),
+              _compRow('RestorableStringN', 'Yes', 'string/null', 'Yes', 'Yes', 'Optional text'),
+              _compRow('RestorableInt', 'No', 'integer', 'Yes', 'Yes', 'Counters/indices'),
+              _compRow('RestorableIntN', 'Yes', 'integer/null', 'Yes', 'Yes', 'Optional counts'),
+              _compRow('RestorableDouble', 'No', 'double', 'Yes', 'Yes', 'Numeric values'),
+              _compRow('ValueNotifier<bool?>', 'Yes', 'true/false/null', 'No', 'Yes', 'In-memory only'),
+              _compRow('SharedPreferences', 'Manual', 'any', 'Yes', 'No', 'Persistent settings'),
             ],
           ),
         ),
@@ -1384,18 +1289,10 @@ class _ComparisonTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _BulletItem(
-                'Your app supports state restoration (restorationScopeId set on MaterialApp)',
-              ),
-              _BulletItem(
-                'The value must survive a process kill during backgrounding',
-              ),
-              _BulletItem(
-                'You are already using RestorationMixin in the State class',
-              ),
-              _BulletItem(
-                'You need the value to be part of the framework\'s serialisation tree',
-              ),
+              _BulletItem('Your app supports state restoration (restorationScopeId set on MaterialApp)'),
+              _BulletItem('The value must survive a process kill during backgrounding'),
+              _BulletItem('You are already using RestorationMixin in the State class'),
+              _BulletItem('You need the value to be part of the framework\'s serialisation tree'),
               const SizedBox(height: 8),
               const Text(
                 'If none of these apply, ValueNotifier<bool?> is simpler and '
@@ -1410,15 +1307,9 @@ class _ComparisonTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _BulletItem(
-                'State is ephemeral UI state, not long-term user settings',
-              ),
-              _BulletItem(
-                'You want framework-managed save/restore with no extra code',
-              ),
-              _BulletItem(
-                'You need change notification (ChangeNotifier is built in)',
-              ),
+              _BulletItem('State is ephemeral UI state, not long-term user settings'),
+              _BulletItem('You want framework-managed save/restore with no extra code'),
+              _BulletItem('You need change notification (ChangeNotifier is built in)'),
               _BulletItem('You are already using RestorationMixin'),
               const SizedBox(height: 8),
               const Text(
@@ -1472,27 +1363,17 @@ class _ComparisonTab extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(6),
-          child: Text(
-            type,
-            style: const TextStyle(
-              fontSize: 11,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(type,
+              style: const TextStyle(
+                  fontSize: 11, fontFamily: 'monospace', fontWeight: FontWeight.w600)),
         ),
         Padding(
           padding: const EdgeInsets.all(6),
-          child: Text(
-            nullable,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11,
-              color: nullable == 'Yes'
-                  ? Colors.green.shade700
-                  : Colors.grey.shade600,
-            ),
-          ),
+          child: Text(nullable,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 11,
+                  color: nullable == 'Yes' ? Colors.green.shade700 : Colors.grey.shade600)),
         ),
         Padding(
           padding: const EdgeInsets.all(6),
@@ -1500,29 +1381,19 @@ class _ComparisonTab extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(6),
-          child: Text(
-            survives,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11,
-              color: survives == 'Yes'
-                  ? Colors.green.shade700
-                  : Colors.red.shade700,
-            ),
-          ),
+          child: Text(survives,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 11,
+                  color: survives == 'Yes' ? Colors.green.shade700 : Colors.red.shade700)),
         ),
         Padding(
           padding: const EdgeInsets.all(6),
-          child: Text(
-            notifier,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11,
-              color: notifier == 'Yes'
-                  ? Colors.green.shade700
-                  : Colors.orange.shade700,
-            ),
-          ),
+          child: Text(notifier,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 11,
+                  color: notifier == 'Yes' ? Colors.green.shade700 : Colors.orange.shade700)),
         ),
         Padding(
           padding: const EdgeInsets.all(6),
@@ -1884,10 +1755,7 @@ class _PitfallsAndApiTab extends StatelessWidget {
               _QuickRefRow('RestorableDoubleN(double? d)', 'nullable double'),
               _QuickRefRow('RestorableStringN(String? d)', 'nullable String'),
               _QuickRefRow('RestorableEnumN<T>(T? d, values)', 'nullable Enum'),
-              _QuickRefRow(
-                'RestorableDateTimeN(DateTime? d)',
-                'nullable DateTime',
-              ),
+              _QuickRefRow('RestorableDateTimeN(DateTime? d)', 'nullable DateTime'),
             ],
           ),
         ),
@@ -2100,10 +1968,9 @@ class _NumberedStep extends StatelessWidget {
           child: Text(
             '$number',
             style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold),
           ),
         ),
         const SizedBox(width: 10),
@@ -2111,13 +1978,9 @@ class _NumberedStep extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                ),
-              ),
+              Text(title,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 13)),
               const SizedBox(height: 2),
               Text(description, style: const TextStyle(fontSize: 12)),
             ],
@@ -2159,27 +2022,20 @@ class _CompareCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              fontFamily: 'monospace',
-            ),
-          ),
-          Text(
-            subtitle,
-            style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
-          ),
+          Text(title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  fontFamily: 'monospace')),
+          Text(subtitle,
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade700)),
           const SizedBox(height: 8),
           Row(
             children: <Widget>[
               for (int i = 0; i < states.length; i++) ...<Widget>[
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: stateColors[i].withAlpha(30),
                     borderRadius: BorderRadius.circular(4),
@@ -2188,10 +2044,9 @@ class _CompareCard extends StatelessWidget {
                   child: Text(
                     states[i],
                     style: TextStyle(
-                      fontSize: 11,
-                      color: stateColors[i],
-                      fontFamily: 'monospace',
-                    ),
+                        fontSize: 11,
+                        color: stateColors[i],
+                        fontFamily: 'monospace'),
                   ),
                 ),
                 if (i < states.length - 1) const SizedBox(width: 4),
@@ -2207,8 +2062,7 @@ class _CompareCard extends StatelessWidget {
                 children: <Widget>[
                   const Text('• ', style: TextStyle(fontSize: 11)),
                   Expanded(
-                    child: Text(p, style: const TextStyle(fontSize: 11)),
-                  ),
+                      child: Text(p, style: const TextStyle(fontSize: 11))),
                 ],
               ),
             ),
@@ -2246,13 +2100,13 @@ class _ValueBadge extends StatelessWidget {
     final Color bg = value == null
         ? Colors.grey.shade200
         : value!
-        ? Colors.green.shade100
-        : Colors.red.shade100;
+            ? Colors.green.shade100
+            : Colors.red.shade100;
     final Color fg = value == null
         ? Colors.grey.shade700
         : value!
-        ? Colors.green.shade800
-        : Colors.red.shade800;
+            ? Colors.green.shade800
+            : Colors.red.shade800;
     final String display = value == null ? 'null' : value.toString();
     return Row(
       children: <Widget>[
@@ -2307,8 +2161,8 @@ class _StorageRow extends StatelessWidget {
             color: value == null
                 ? Colors.grey.shade600
                 : value!
-                ? Colors.green.shade700
-                : Colors.red.shade700,
+                    ? Colors.green.shade700
+                    : Colors.red.shade700,
           ),
         ),
       ],
@@ -2379,10 +2233,8 @@ class _InfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Text(
-          '$label: ',
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
-        ),
+        Text('$label: ',
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
         Expanded(
           child: Text(
             value,
@@ -2430,9 +2282,7 @@ class _UseCaseCard extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+                    fontWeight: FontWeight.bold, fontSize: 14),
               ),
             ],
           ),
@@ -2442,34 +2292,27 @@ class _UseCaseCard extends StatelessWidget {
               children: <Widget>[
                 Container(
                   width: 40,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 2,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                   decoration: BoxDecoration(
                     color: s.value == 'null'
                         ? Colors.grey.shade300
                         : s.value == 'true'
-                        ? Colors.green.shade200
-                        : Colors.red.shade200,
+                            ? Colors.green.shade200
+                            : Colors.red.shade200,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     s.value,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                    ),
+                        fontSize: 11, fontFamily: 'monospace'),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    s.description,
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                ),
+                    child: Text(s.description,
+                        style: const TextStyle(fontSize: 12))),
               ],
             ),
             const SizedBox(height: 4),
@@ -2529,10 +2372,9 @@ class _PitfallCard extends StatelessWidget {
                 child: Text(
                   '$number',
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(width: 8),
@@ -2540,9 +2382,7 @@ class _PitfallCard extends StatelessWidget {
                 child: Text(
                   title,
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
+                      fontWeight: FontWeight.bold, fontSize: 13),
                 ),
               ),
             ],
@@ -2550,25 +2390,19 @@ class _PitfallCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(description, style: const TextStyle(fontSize: 12)),
           const SizedBox(height: 10),
-          const Text(
-            'Wrong:',
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
+          const Text('Wrong:',
+              style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
           const SizedBox(height: 4),
           _MonoBox(wrong),
           const SizedBox(height: 8),
-          const Text(
-            'Correct:',
-            style: TextStyle(
-              color: Colors.green,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
+          const Text('Correct:',
+              style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
           const SizedBox(height: 4),
           _MonoBox(correct),
         ],

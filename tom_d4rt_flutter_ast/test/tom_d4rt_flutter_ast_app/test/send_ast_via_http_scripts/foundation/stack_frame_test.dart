@@ -146,7 +146,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.indigo.shade50,
           borderRadius: BorderRadius.circular(6.0),
-          border: Border(left: BorderSide(color: Colors.indigo, width: 4.0)),
+          border: Border(
+            left: BorderSide(color: Colors.indigo, width: 4.0),
+          ),
         ),
         child: Row(
           children: [
@@ -276,10 +278,8 @@ dynamic build(BuildContext context) {
   final handBuiltCards = <Widget>[];
   for (var i = 0; i < demoFrames.length; i++) {
     final f = demoFrames[i];
-    print(
-      '  frame #${f.number}: ${f.className}.${f.method} '
-      '(${f.packageScheme}:${f.package}/${f.packagePath}:${f.line}:${f.column})',
-    );
+    print('  frame #${f.number}: ${f.className}.${f.method} '
+        '(${f.packageScheme}:${f.package}/${f.packagePath}:${f.line}:${f.column})');
     handBuiltCards.add(_buildFrameCard(f, _schemeColor(f.packageScheme)));
   }
 
@@ -308,11 +308,9 @@ dynamic build(BuildContext context) {
     final parsed = StackFrame.fromStackTraceLine(raw);
     if (parsed != null) {
       parsedSingles.add(parsed);
-      print(
-        'parsed -> #${parsed.number} ${parsed.method} '
-        '@ ${parsed.packageScheme}:${parsed.package}/${parsed.packagePath}'
-        ':${parsed.line}:${parsed.column}',
-      );
+      print('parsed -> #${parsed.number} ${parsed.method} '
+          '@ ${parsed.packageScheme}:${parsed.package}/${parsed.packagePath}'
+          ':${parsed.line}:${parsed.column}');
     } else {
       print('parse failed for: $raw');
     }
@@ -698,7 +696,9 @@ dynamic build(BuildContext context) {
     children: [
       compareLeft,
       SizedBox(height: 12.0),
-      Center(child: Icon(Icons.arrow_downward, color: Colors.cyan, size: 30.0)),
+      Center(
+        child: Icon(Icons.arrow_downward, color: Colors.cyan, size: 30.0),
+      ),
       SizedBox(height: 12.0),
       compareRight,
     ],
@@ -853,16 +853,15 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.lightBlue.shade50,
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(left: BorderSide(color: Colors.lightBlue, width: 4.0)),
+          border: Border(
+            left: BorderSide(color: Colors.lightBlue, width: 4.0),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              Icons.tips_and_updates,
-              color: Colors.lightBlue.shade700,
-              size: 18.0,
-            ),
+            Icon(Icons.tips_and_updates,
+                color: Colors.lightBlue.shade700, size: 18.0),
             SizedBox(width: 10.0),
             Expanded(
               child: Column(
@@ -1172,7 +1171,10 @@ Widget _buildFrameCard(StackFrame f, Color accent) {
           width: 36.0,
           height: 36.0,
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: accent,
+            shape: BoxShape.circle,
+          ),
           child: Text(
             '#${f.number}',
             style: TextStyle(
@@ -1209,10 +1211,8 @@ Widget _buildFrameCard(StackFrame f, Color accent) {
                 Padding(
                   padding: EdgeInsets.only(top: 4.0),
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 2.0,
-                    ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                     decoration: BoxDecoration(
                       color: Colors.pink.shade100,
                       borderRadius: BorderRadius.circular(4.0),
@@ -1247,7 +1247,10 @@ Widget _sentinelCard({
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.25)],
+        colors: [
+          color.withValues(alpha: 0.10),
+          color.withValues(alpha: 0.25),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

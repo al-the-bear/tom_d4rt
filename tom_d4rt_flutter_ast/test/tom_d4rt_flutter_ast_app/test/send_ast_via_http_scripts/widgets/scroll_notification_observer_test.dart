@@ -37,7 +37,10 @@ dynamic build(BuildContext context) {
       scaffoldBackgroundColor: _cream,
       textTheme: const TextTheme(
         bodyMedium: TextStyle(color: _charcoal, height: 1.45),
-        titleLarge: TextStyle(color: _indigoDeep, fontWeight: FontWeight.w700),
+        titleLarge: TextStyle(
+          color: _indigoDeep,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     ),
     home: const _BroadcastHomePage(),
@@ -148,7 +151,9 @@ class _SectionHeroHeader extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Positioned.fill(
-            child: CustomPaint(painter: _BroadcastWavesPainter()),
+            child: CustomPaint(
+              painter: _BroadcastWavesPainter(),
+            ),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -168,7 +173,9 @@ class _SectionHeroHeader extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: _gold.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(999),
-                        border: Border.all(color: _gold.withValues(alpha: 0.5)),
+                        border: Border.all(
+                          color: _gold.withValues(alpha: 0.5),
+                        ),
                       ),
                       child: const Text(
                         'Flutter Widgets • Deep Dive',
@@ -606,7 +613,9 @@ class _SectionScaffoldLikeLayout extends StatelessWidget {
           'subscribe to ONE observer at the top of this panel.',
       child: SizedBox(
         height: 520,
-        child: ScrollNotificationObserver(child: _ScaffoldLikeShell()),
+        child: ScrollNotificationObserver(
+          child: _ScaffoldLikeShell(),
+        ),
       ),
     );
   }
@@ -633,7 +642,11 @@ class _ScaffoldLikeShell extends StatelessWidget {
                 const _ScrollStatusBar(),
               ],
             ),
-            const Positioned(right: 20, bottom: 60, child: _FloatingFabLike()),
+            const Positioned(
+              right: 20,
+              bottom: 60,
+              child: _FloatingFabLike(),
+            ),
           ],
         ),
       ),
@@ -1020,7 +1033,9 @@ class _SectionMultiScrollableSubtree extends StatelessWidget {
           'distinguishes them via axis and metrics hash.',
       child: SizedBox(
         height: 500,
-        child: ScrollNotificationObserver(child: const _MultiSourcePanel()),
+        child: ScrollNotificationObserver(
+          child: const _MultiSourcePanel(),
+        ),
       ),
     );
   }
@@ -1135,24 +1150,19 @@ class _HorizontalCarousel extends StatelessWidget {
               itemCount: 14,
               itemBuilder: (BuildContext c, int i) => Container(
                 width: 80,
-                margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 4,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: <Color>[
-                      HSVColor.fromAHSV(
-                        1,
-                        (i * 26) % 360.0,
-                        0.55,
-                        0.92,
-                      ).toColor(),
-                      HSVColor.fromAHSV(
-                        1,
-                        (i * 26 + 40) % 360.0,
-                        0.7,
-                        0.7,
-                      ).toColor(),
+                      HSVColor.fromAHSV(1, (i * 26) % 360.0, 0.55, 0.92)
+                          .toColor(),
+                      HSVColor.fromAHSV(1, (i * 26 + 40) % 360.0, 0.7, 0.7)
+                          .toColor(),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -1261,7 +1271,11 @@ class _AxisAwareLogState extends State<_AxisAwareLog> {
           const Text(
             'Scroll the inner lists — vertical AND horizontal — and watch '
             'both counters tick independently.',
-            style: TextStyle(color: _charcoalSoft, fontSize: 12, height: 1.4),
+            style: TextStyle(
+              color: _charcoalSoft,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1320,7 +1334,9 @@ class _SectionSubscriptionLifecycle extends StatelessWidget {
           'subscriber must removeListener in dispose to avoid leaks.',
       child: SizedBox(
         height: 430,
-        child: ScrollNotificationObserver(child: const _LifecyclePanel()),
+        child: ScrollNotificationObserver(
+          child: const _LifecyclePanel(),
+        ),
       ),
     );
   }
@@ -1602,7 +1618,9 @@ class _SectionEventLogPanel extends StatelessWidget {
           'fingerprint. This is what downstream code reacts to.',
       child: SizedBox(
         height: 500,
-        child: ScrollNotificationObserver(child: const _LogPanel()),
+        child: ScrollNotificationObserver(
+          child: const _LogPanel(),
+        ),
       ),
     );
   }
@@ -2218,14 +2236,12 @@ class _Check extends StatelessWidget {
         height: 28,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: (value ? _indigo : const Color(0xFFEF4444)).withValues(
-            alpha: 0.12,
-          ),
+          color: (value ? _indigo : const Color(0xFFEF4444))
+              .withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: (value ? _indigo : const Color(0xFFEF4444)).withValues(
-              alpha: 0.4,
-            ),
+            color: (value ? _indigo : const Color(0xFFEF4444))
+                .withValues(alpha: 0.4),
           ),
         ),
         child: Icon(

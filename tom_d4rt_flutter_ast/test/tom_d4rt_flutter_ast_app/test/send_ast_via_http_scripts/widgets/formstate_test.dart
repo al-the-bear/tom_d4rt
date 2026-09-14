@@ -413,7 +413,11 @@ Widget _buildWaxSeal({String label = 'NOTARISED'}) {
       ],
     ),
     child: Center(
-      child: Text(label, style: kDeedSealStyle, textAlign: TextAlign.center),
+      child: Text(
+        label,
+        style: kDeedSealStyle,
+        textAlign: TextAlign.center,
+      ),
     ),
   );
 }
@@ -479,7 +483,11 @@ Widget _deedFrame({
             ],
           ),
         ),
-        Positioned(right: 10, top: 10, child: _buildWaxSeal(label: sealLabel)),
+        Positioned(
+          right: 10,
+          top: 10,
+          child: _buildWaxSeal(label: sealLabel),
+        ),
       ],
     ),
   );
@@ -835,7 +843,8 @@ Widget _buildAnatomyCard({
                     const SizedBox(height: 6),
                     Text(body, style: kBodyStyle),
                     const SizedBox(height: 8),
-                    const Text('Principal members', style: kSmallLabelStyle),
+                    const Text('Principal members',
+                        style: kSmallLabelStyle),
                     ...memberWidgets,
                   ],
                 ),
@@ -866,10 +875,10 @@ Widget _buildAutovalidateTour() {
       'name': 'disabled',
       'tagline':
           'Validators run only when YOU call validate(). The default. '
-          'The form is silent until commanded.',
+              'The form is silent until commanded.',
       'whenToUse':
           'Long forms where premature errors would harass the user; '
-          'forms behind a "Submit" button.',
+              'forms behind a "Submit" button.',
       'mode': AutovalidateMode.disabled,
       'sealColour': cPewterDark,
     },
@@ -877,10 +886,10 @@ Widget _buildAutovalidateTour() {
       'name': 'always',
       'tagline':
           'Validators run on every build, including the first. Errors '
-          'appear before the user has typed anything.',
+              'appear before the user has typed anything.',
       'whenToUse':
           'Inline editors with no submit button; fields whose error '
-          'state is purely informational.',
+              'state is purely informational.',
       'mode': AutovalidateMode.always,
       'sealColour': cWarning,
     },
@@ -888,10 +897,10 @@ Widget _buildAutovalidateTour() {
       'name': 'onUserInteraction',
       'tagline':
           'Validators run after the user has touched the field once, '
-          'then on every change thereafter.',
+              'then on every change thereafter.',
       'whenToUse':
           'Most modern UX: forms where the first impression is clean '
-          'and feedback follows interaction.',
+              'and feedback follows interaction.',
       'mode': AutovalidateMode.onUserInteraction,
       'sealColour': cValid,
     },
@@ -899,10 +908,10 @@ Widget _buildAutovalidateTour() {
       'name': 'onUnfocus',
       'tagline':
           'Validators run when a field loses focus (Flutter 3.16+). '
-          'Quiet while you type; verdict on tab-out.',
+              'Quiet while you type; verdict on tab-out.',
       'whenToUse':
           'Forms where in-flight typing should not be interrupted; '
-          'long fields like addresses or bios.',
+              'long fields like addresses or bios.',
       'mode': AutovalidateMode.onUnfocus,
       'sealColour': cGiltDeep,
     },
@@ -1010,9 +1019,7 @@ Widget _buildAutovalidateTile(Map<String, Object> entry) {
                   decoration: const InputDecoration(
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 6,
-                    ),
+                        horizontal: 8, vertical: 6),
                     border: OutlineInputBorder(),
                     hintText: 'enter a value',
                   ),
@@ -1173,7 +1180,7 @@ Widget _buildValidatorCatalogue() {
       'name': 'vEmail',
       'rule':
           'Field is required, must contain "@", must contain a "." after the '
-          '"@", and must end with a top-level domain.',
+              '"@", and must end with a top-level domain.',
       'signature': 'String? vEmail(String? v)',
       'samples': const <List<String>>[
         <String>['', 'Email is required.'],
@@ -1185,8 +1192,7 @@ Widget _buildValidatorCatalogue() {
     },
     <String, Object>{
       'name': 'vPhone',
-      'rule':
-          'Field is required and must contain at least 7 digit '
+      'rule': 'Field is required and must contain at least 7 digit '
           'characters; non-digits (spaces, dashes, parentheses, plus '
           'signs) are tolerated and ignored.',
       'signature': 'String? vPhone(String? v)',
@@ -1201,7 +1207,7 @@ Widget _buildValidatorCatalogue() {
       'name': 'vMinLength',
       'rule':
           'Field must contain at least N characters (configurable through '
-          'the second argument). Passes on or above the threshold.',
+              'the second argument). Passes on or above the threshold.',
       'signature': 'String? vMinLength(String? v, int n)',
       'samples': const <List<String>>[
         <String>['short, n=8', 'Must be at least 8 characters.'],
@@ -1213,8 +1219,8 @@ Widget _buildValidatorCatalogue() {
       'name': 'vMatchesRegex',
       'rule':
           'Field must match the supplied RegExp; otherwise the supplied '
-          'message is returned. Empty input returns the standard '
-          '"required" message.',
+              'message is returned. Empty input returns the standard '
+              '"required" message.',
       'signature':
           'String? vMatchesRegex(String? v, RegExp re, String message)',
       'samples': const <List<String>>[
@@ -1225,8 +1231,7 @@ Widget _buildValidatorCatalogue() {
     },
     <String, Object>{
       'name': 'vConfirmsPrior',
-      'rule':
-          'Field must equal the prior value supplied. Used for password '
+      'rule': 'Field must equal the prior value supplied. Used for password '
           'confirmation and similar paired entries.',
       'signature': 'String? vConfirmsPrior(String? v, String prior)',
       'samples': const <List<String>>[
@@ -1501,10 +1506,8 @@ Widget _buildFormOfPattern() {
               initialValue: 'pliny@ostia.example',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -1514,14 +1517,10 @@ Widget _buildFormOfPattern() {
             Builder(
               builder: (innerCtx) {
                 final state = Form.maybeOf(innerCtx);
-                final type = state == null
-                    ? 'null'
-                    : state.runtimeType.toString();
+                final type = state == null ? 'null' : state.runtimeType.toString();
                 return Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                      horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: cFelt,
                     borderRadius: BorderRadius.circular(6),
@@ -1662,10 +1661,8 @@ Widget _buildGlobalKeyPattern() {
               initialValue: 'Quintus Aurelius',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2000,10 +1997,8 @@ Widget _buildDeedALogin() {
               initialValue: 'curator@library.example',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
                 hintText: 'name@example.com',
               ),
@@ -2019,10 +2014,8 @@ Widget _buildDeedALogin() {
               obscureText: true,
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
                 hintText: 'enter your password',
               ),
@@ -2062,10 +2055,8 @@ Widget _buildDeedBSignup() {
               initialValue: 'novice@library.example',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
@@ -2080,10 +2071,8 @@ Widget _buildDeedBSignup() {
               obscureText: true,
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
                 helperText: 'at least 8 characters',
               ),
@@ -2098,10 +2087,8 @@ Widget _buildDeedBSignup() {
               obscureText: true,
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2136,10 +2123,8 @@ Widget _buildDeedCProfile() {
               initialValue: 'Hadrian of Antioch',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2152,10 +2137,8 @@ Widget _buildDeedCProfile() {
               initialValue: '@hadrian',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
                 prefixText: '  ',
               ),
@@ -2179,10 +2162,8 @@ Widget _buildDeedCProfile() {
               minLines: 3,
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2216,10 +2197,8 @@ Widget _buildDeedDCheckout() {
               initialValue: 'Octavia Lentulus',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2232,10 +2211,8 @@ Widget _buildDeedDCheckout() {
               initialValue: '14 Vicus Patricius',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2256,9 +2233,7 @@ Widget _buildDeedDCheckout() {
                         decoration: const InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 6,
-                          ),
+                              horizontal: 8, vertical: 6),
                           border: OutlineInputBorder(),
                         ),
                         style: const TextStyle(fontSize: 12),
@@ -2280,9 +2255,7 @@ Widget _buildDeedDCheckout() {
                         decoration: const InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 6,
-                          ),
+                              horizontal: 8, vertical: 6),
                           border: OutlineInputBorder(),
                         ),
                         style: const TextStyle(fontSize: 12),
@@ -2304,10 +2277,8 @@ Widget _buildDeedDCheckout() {
               initialValue: '+39 06 6982 1234',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
                 hintText: '+CC AAA NNN NNNN',
               ),
@@ -2348,10 +2319,8 @@ Widget _buildDeedESettings() {
               initialValue: 'Hadrian',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2364,10 +2333,8 @@ Widget _buildDeedESettings() {
               initialValue: 'en-GB',
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2378,7 +2345,8 @@ Widget _buildDeedESettings() {
               ),
             ),
             const SizedBox(height: 12),
-            const Text('toggles (illustrative)', style: kDeedFieldLabelStyle),
+            const Text('toggles (illustrative)',
+                style: kDeedFieldLabelStyle),
             const SizedBox(height: 6),
             Row(
               children: <Widget>[
@@ -2469,10 +2437,8 @@ Widget _buildDeedFFeedback() {
               minLines: 2,
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
                 hintText: 'tell us what you thought',
               ),
@@ -2525,10 +2491,8 @@ Widget _buildDeedGResetPassword() {
               obscureText: true,
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2542,10 +2506,8 @@ Widget _buildDeedGResetPassword() {
               obscureText: true,
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
                 helperText: 'at least 8 characters',
               ),
@@ -2560,10 +2522,8 @@ Widget _buildDeedGResetPassword() {
               obscureText: true,
               decoration: const InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 6,
-                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 border: OutlineInputBorder(),
               ),
               style: const TextStyle(fontSize: 12),
@@ -2607,9 +2567,7 @@ Widget _buildDeedHOnboarding() {
                   decoration: const InputDecoration(
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 6,
-                    ),
+                        horizontal: 8, vertical: 6),
                     border: OutlineInputBorder(),
                   ),
                   style: const TextStyle(fontSize: 12),
@@ -2629,9 +2587,7 @@ Widget _buildDeedHOnboarding() {
                   decoration: const InputDecoration(
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 6,
-                    ),
+                        horizontal: 8, vertical: 6),
                     border: OutlineInputBorder(),
                   ),
                   style: const TextStyle(fontSize: 12),
@@ -2645,9 +2601,7 @@ Widget _buildDeedHOnboarding() {
                   decoration: const InputDecoration(
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 6,
-                    ),
+                        horizontal: 8, vertical: 6),
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.phone,
@@ -2672,9 +2626,7 @@ Widget _buildDeedHOnboarding() {
                   decoration: const InputDecoration(
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 6,
-                    ),
+                        horizontal: 8, vertical: 6),
                     border: OutlineInputBorder(),
                     helperText: 'three or more words separated by dashes',
                   ),
@@ -2805,7 +2757,8 @@ Widget _buildAccessibilitySection() {
     child: const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Assistive technologies and FormState', style: kSmallLabelStyle),
+        Text('Assistive technologies and FormState',
+            style: kSmallLabelStyle),
         SizedBox(height: 6),
         Text(
           'When validate() updates errorText on a FormFieldState, the '
@@ -2892,7 +2845,9 @@ Widget _buildAccessibilityCard({
               ),
             ),
             const SizedBox(width: 8),
-            Expanded(child: Text(title, style: kDeedTitleStyle)),
+            Expanded(
+              child: Text(title, style: kDeedTitleStyle),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -2921,50 +2876,50 @@ Widget _buildComparisonSection() {
       'lib': 'react-hook-form',
       'concept':
           'register() returns input bindings; handleSubmit(fn) wraps the '
-          'submit. Validation rules go on the register call.',
+              'submit. Validation rules go on the register call.',
       'analogue':
           'TextFormField + validator: + onSaved:. handleSubmit -> '
-          'state.validate() && state.save() inside an onPressed.',
+              'state.validate() && state.save() inside an onPressed.',
     },
     <String, String>{
       'lib': 'formik',
       'concept':
           'A <Formik> component with initialValues, validate() and '
-          'onSubmit. Field components read context for binding.',
+              'onSubmit. Field components read context for binding.',
       'analogue':
           'Form with autovalidateMode + initialValue per field. '
-          'Form.of(context) is the equivalent of Formik\'s context-bound '
-          'helper hooks.',
+              'Form.of(context) is the equivalent of Formik\'s context-bound '
+              'helper hooks.',
     },
     <String, String>{
       'lib': 'HTML5 native form validation',
       'concept':
           '<form> with <input required minlength pattern>. The browser '
-          'enforces validity before submit.',
+              'enforces validity before submit.',
       'analogue':
           'Flutter\'s autovalidateMode + validator: closures. Browsers '
-          'invoke validators on submit; FormState exposes the same '
-          'pattern through validate().',
+              'invoke validators on submit; FormState exposes the same '
+              'pattern through validate().',
     },
     <String, String>{
       'lib': 'flutter_form_builder (community)',
       'concept':
           'FormBuilder widget with FormBuilderTextField and a richer set '
-          'of field types out of the box.',
+              'of field types out of the box.',
       'analogue':
           'A thin wrapper over Form / FormState with named-field access '
-          'via FormBuilderState. Same validate()/save()/reset() '
-          'lifecycle; identical mental model.',
+              'via FormBuilderState. Same validate()/save()/reset() '
+              'lifecycle; identical mental model.',
     },
     <String, String>{
       'lib': 'reactive_forms (community)',
       'concept':
           'FormGroup / FormControl objects modelled on Angular\'s '
-          'reactive forms. Streams emit value and status.',
+              'reactive forms. Streams emit value and status.',
       'analogue':
           'Replaces FormState entirely with a stream-based controller '
-          'graph. Use when you need cross-field validation and live '
-          'value streams; otherwise plain FormState is simpler.',
+              'graph. Use when you need cross-field validation and live '
+              'value streams; otherwise plain FormState is simpler.',
     },
   ];
 
@@ -3185,7 +3140,10 @@ Widget _buildBulletRow(String text, Color bullet) {
           margin: const EdgeInsets.only(top: 5, right: 8),
           width: 6,
           height: 6,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: bullet),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: bullet,
+          ),
         ),
         Expanded(child: Text(text, style: kBodyStyle)),
       ],
@@ -3205,32 +3163,31 @@ Widget _buildGlossary() {
       'term': 'Form',
       'def':
           'A StatefulWidget that scopes a group of FormField descendants. '
-          'Has no visual chrome of its own.',
+              'Has no visual chrome of its own.',
     },
     <String, String>{
       'term': 'FormState',
       'def':
           'The State<Form> object that carries validate(), save() and '
-          'reset(). Reachable via Form.of(context) or '
-          'GlobalKey<FormState>.currentState.',
+              'reset(). Reachable via Form.of(context) or '
+              'GlobalKey<FormState>.currentState.',
     },
     <String, String>{
       'term': 'FormField<T>',
       'def':
           'The unit of work inside a Form: holds initialValue, validator, '
-          'onSaved and a builder closure. Sub-classed by '
-          'TextFormField, DropdownButtonFormField etc.',
+              'onSaved and a builder closure. Sub-classed by '
+              'TextFormField, DropdownButtonFormField etc.',
     },
     <String, String>{
       'term': 'FormFieldState<T>',
       'def':
           'The State<FormField<T>> that actually remembers value and '
-          'errorText, runs the validator, and emits errors.',
+              'errorText, runs the validator, and emits errors.',
     },
     <String, String>{
       'term': 'FormFieldValidator<T>',
-      'def':
-          'typedef String? Function(T? value). Returns null on success, '
+      'def': 'typedef String? Function(T? value). Returns null on success, '
           'an error message otherwise.',
     },
     <String, String>{
@@ -3241,55 +3198,55 @@ Widget _buildGlossary() {
       'term': 'FormFieldBuilder<T>',
       'def':
           'typedef Widget Function(FormFieldState<T> field). Used to '
-          'render custom FormFields.',
+              'render custom FormFields.',
     },
     <String, String>{
       'term': 'AutovalidateMode',
       'def':
           'Enum with disabled / always / onUserInteraction / onUnfocus. '
-          'Controls when validators run on their own.',
+              'Controls when validators run on their own.',
     },
     <String, String>{
       'term': 'GlobalKey<FormState>',
       'def':
           'Long-lived handle through which a widget OUTSIDE the Form '
-          'subtree can call validate() / save() / reset().',
+              'subtree can call validate() / save() / reset().',
     },
     <String, String>{
       'term': 'validate()',
       'def':
           'Method on FormState. Walks every field, runs the validator, '
-          'updates errorText, returns true iff every field passed.',
+              'updates errorText, returns true iff every field passed.',
     },
     <String, String>{
       'term': 'save()',
       'def':
           'Method on FormState. Walks every field and invokes its '
-          'onSaved callback. Does NOT validate.',
+              'onSaved callback. Does NOT validate.',
     },
     <String, String>{
       'term': 'reset()',
       'def':
           'Method on FormState. Walks every field, returns each to its '
-          'initialValue, clears all errorText.',
+              'initialValue, clears all errorText.',
     },
     <String, String>{
       'term': 'isValid',
       'def':
           'Property on FormState (Flutter 3.16+). Non-mutating check; '
-          'use when AutovalidateMode is already running validators.',
+              'use when AutovalidateMode is already running validators.',
     },
     <String, String>{
       'term': 'Form.of(context)',
       'def':
           'Static lookup that walks up the element tree from context to '
-          'find the nearest Form ancestor and returns its FormState.',
+              'find the nearest Form ancestor and returns its FormState.',
     },
     <String, String>{
       'term': 'Form.maybeOf(context)',
       'def':
           'Like Form.of but returns null when no Form ancestor exists '
-          '(rather than throwing).',
+              '(rather than throwing).',
     },
   ];
 
@@ -3305,7 +3262,10 @@ Widget _buildGlossary() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(width: 170, child: Text(term, style: kGlossaryTermStyle)),
+            SizedBox(
+              width: 170,
+              child: Text(term, style: kGlossaryTermStyle),
+            ),
             Expanded(child: Text(def, style: kGlossaryDefStyle)),
           ],
         ),
@@ -3415,7 +3375,11 @@ Widget _buildRecapFooter() {
           'build). Reach a FormState via Form.of(context) inside a '
           'descendant Builder, or via a GlobalKey<FormState> from outside '
           'the Form\'s subtree.',
-          style: TextStyle(fontSize: 13, height: 1.5, color: cParchment),
+          style: TextStyle(
+            fontSize: 13,
+            height: 1.5,
+            color: cParchment,
+          ),
         ),
         const SizedBox(height: 10),
         const Text(

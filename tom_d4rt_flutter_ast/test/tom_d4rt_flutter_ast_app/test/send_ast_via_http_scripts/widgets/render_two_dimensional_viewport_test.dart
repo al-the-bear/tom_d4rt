@@ -10,7 +10,10 @@ dynamic build(BuildContext context) {
   final ColorScheme cs = ColorScheme.fromSeed(seedColor: Colors.indigo);
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(useMaterial3: true, colorScheme: cs),
+    theme: ThemeData(
+      useMaterial3: true,
+      colorScheme: cs,
+    ),
     home: DefaultTabController(
       length: 9,
       child: Scaffold(
@@ -149,7 +152,10 @@ class _GradientBanner extends StatelessWidget {
           Text(
             'RenderTwoDimensionalViewport · TwoDimensionalScrollable\n'
             'ChildVicinity · TwoDimensionalChildBuilderDelegate',
-            style: TextStyle(color: cs.onPrimary.withAlpha(210), fontSize: 13),
+            style: TextStyle(
+              color: cs.onPrimary.withAlpha(210),
+              fontSize: 13,
+            ),
           ),
           const SizedBox(height: 20),
           Wrap(
@@ -183,7 +189,10 @@ class _TagChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: cs.onPrimary.withAlpha(80)),
       ),
-      child: Text(label, style: TextStyle(color: cs.onPrimary, fontSize: 11)),
+      child: Text(
+        label,
+        style: TextStyle(color: cs.onPrimary, fontSize: 11),
+      ),
     );
   }
 }
@@ -207,26 +216,21 @@ class _ClassHierarchyDiagram extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: entries.map((entry) {
         final (label, indent) = entry;
-        final isAbstract =
-            label.contains('abstract') || label == 'RenderObject';
+        final isAbstract = label.contains('abstract') || label == 'RenderObject';
         return Padding(
-          padding: EdgeInsets.only(left: 16.0 * indent, top: 3, bottom: 3),
+          padding: EdgeInsets.only(
+              left: 16.0 * indent, top: 3, bottom: 3),
           child: Row(
             children: [
               if (indent > 0) ...[
-                Icon(
-                  Icons.subdirectory_arrow_right,
-                  size: 14,
-                  color: cs.outline,
-                ),
+                Icon(Icons.subdirectory_arrow_right,
+                    size: 14, color: cs.outline),
                 const SizedBox(width: 4),
               ],
               Flexible(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: isAbstract
                         ? cs.errorContainer.withAlpha(120)
@@ -246,9 +250,8 @@ class _ClassHierarchyDiagram extends StatelessWidget {
                       color: isAbstract
                           ? cs.onErrorContainer
                           : cs.onPrimaryContainer,
-                      fontStyle: isAbstract
-                          ? FontStyle.italic
-                          : FontStyle.normal,
+                      fontStyle:
+                          isAbstract ? FontStyle.italic : FontStyle.normal,
                     ),
                   ),
                 ),
@@ -296,14 +299,11 @@ class _LiveGridTab extends StatelessWidget {
           height: _headerH,
           color: cs.primary,
           alignment: Alignment.center,
-          child: Text(
-            '#',
-            style: TextStyle(
-              color: cs.onPrimary,
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-            ),
-          ),
+          child: Text('#',
+              style: TextStyle(
+                  color: cs.onPrimary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13)),
         ),
         // Column headers
         for (int col = 1; col < _cols; col++)
@@ -312,14 +312,11 @@ class _LiveGridTab extends StatelessWidget {
             height: _headerH,
             color: cs.primaryContainer,
             alignment: Alignment.center,
-            child: Text(
-              'Col $col',
-              style: TextStyle(
-                color: cs.onPrimaryContainer,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
+            child: Text('Col $col',
+                style: TextStyle(
+                    color: cs.onPrimaryContainer,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12)),
           ),
       ],
     );
@@ -336,14 +333,11 @@ class _LiveGridTab extends StatelessWidget {
             height: _cellH,
             color: cs.secondaryContainer,
             alignment: Alignment.center,
-            child: Text(
-              'R$row',
-              style: TextStyle(
-                color: cs.onSecondaryContainer,
-                fontWeight: FontWeight.bold,
-                fontSize: 11,
-              ),
-            ),
+            child: Text('R$row',
+                style: TextStyle(
+                    color: cs.onSecondaryContainer,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11)),
           ),
           // Data cells
           for (int col = 1; col < _cols; col++)
@@ -354,7 +348,8 @@ class _LiveGridTab extends StatelessWidget {
                   ? _colColor(col)
                   : _colColor(col).withAlpha(120),
               alignment: Alignment.center,
-              child: Text('($col,$row)', style: const TextStyle(fontSize: 11)),
+              child: Text('($col,$row)',
+                  style: const TextStyle(fontSize: 11)),
             ),
         ],
       ),
@@ -368,8 +363,7 @@ class _LiveGridTab extends StatelessWidget {
         _InfoBanner(
           cs: cs,
           icon: Icons.table_chart,
-          text:
-              '$_cols columns × $_rows rows. Pinned header row + header column. '
+          text: '$_cols columns × $_rows rows. Pinned header row + header column. '
               'Scroll freely in both axes. Powered by nested SingleChildScrollViews '
               'with a sticky header implemented via Stack.',
         ),
@@ -393,7 +387,8 @@ class _LiveGridTab extends StatelessWidget {
             'Data cells scroll freely — analogous to TableView pinnedRowCount:1 '
             'pinnedColumnCount:1.',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 11, color: cs.onSurface.withAlpha(140)),
+            style: TextStyle(
+                fontSize: 11, color: cs.onSurface.withAlpha(140)),
           ),
         ),
       ],
@@ -435,7 +430,6 @@ class _StickyHeaderGrid extends StatelessWidget {
         hCtrlHeader.jumpTo(hCtrl.offset);
       }
     }
-
     hCtrl.addListener(syncHeaders);
 
     return Column(
@@ -506,19 +500,13 @@ class _DelegateTab extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'x:$x  y:$y',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text('x:$x  y:$y',
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold)),
               const SizedBox(height: 2),
-              Text(
-                'ChildVicinity\n(xIndex:$x, yIndex:$y)',
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 8),
-              ),
+              Text('ChildVicinity\n(xIndex:$x, yIndex:$y)',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 8)),
             ],
           ),
         );
@@ -534,8 +522,7 @@ class _DelegateTab extends StatelessWidget {
         _InfoBanner(
           cs: cs,
           icon: Icons.grid_on,
-          text:
-              'TwoDimensionalChildBuilderDelegate builds cells on demand via '
+          text: 'TwoDimensionalChildBuilderDelegate builds cells on demand via '
               'builder(context, ChildVicinity). maxXIndex=$maxX, maxYIndex=$maxY. '
               'Grid: ${maxX! + 1} cols × ${maxY! + 1} rows.',
         ),
@@ -551,7 +538,8 @@ class _DelegateTab extends StatelessWidget {
                 itemBuilder: (ctx, row) {
                   return Row(
                     children: List.generate(_xCount, (col) {
-                      final vicinity = ChildVicinity(xIndex: col, yIndex: row);
+                      final vicinity =
+                          ChildVicinity(xIndex: col, yIndex: row);
                       return delegate.builder(ctx, vicinity)!;
                     }),
                   );
@@ -582,22 +570,17 @@ class _DelegateCodeCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Usage',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-              color: cs.primary,
-            ),
-          ),
+          Text('Usage',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: cs.primary)),
           const SizedBox(height: 6),
           _CodeLine('final delegate = TwoDimensionalChildBuilderDelegate(', cs),
           _CodeLine('  maxXIndex: 9,  // 10 columns (0–9)', cs),
           _CodeLine('  maxYIndex: 19, // 20 rows    (0–19)', cs),
           _CodeLine(
-            '  builder: (BuildContext ctx, ChildVicinity vicinity) {',
-            cs,
-          ),
+              '  builder: (BuildContext ctx, ChildVicinity vicinity) {', cs),
           _CodeLine('    final x = vicinity.xIndex; // column', cs),
           _CodeLine('    final y = vicinity.yIndex; // row', cs),
           _CodeLine('    return Container(/* your cell widget */);', cs),
@@ -649,8 +632,7 @@ class _ChildVicinityTab extends StatelessWidget {
         _InfoBanner(
           cs: cs,
           icon: Icons.touch_app,
-          text:
-              'Tap any cell. ChildVicinity(xIndex: col, yIndex: row) uniquely '
+          text: 'Tap any cell. ChildVicinity(xIndex: col, yIndex: row) uniquely '
               'identifies each position in 2D scroll space. Selected cell is '
               'highlighted via ValueNotifier<ChildVicinity?>.',
         ),
@@ -660,22 +642,20 @@ class _ChildVicinityTab extends StatelessWidget {
             return Container(
               color: cs.secondaryContainer,
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: cs.onSecondaryContainer,
-                    size: 18,
-                  ),
+                  Icon(Icons.info_outline,
+                      color: cs.onSecondaryContainer, size: 18),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       selected == null
                           ? 'No cell selected — tap one'
                           : 'ChildVicinity(xIndex: ${selected.xIndex}, '
-                                'yIndex: ${selected.yIndex})  •  '
-                                'column ${selected.xIndex}, row ${selected.yIndex}',
+                              'yIndex: ${selected.yIndex})  •  '
+                              'column ${selected.xIndex}, row ${selected.yIndex}',
                       style: TextStyle(
                         color: cs.onSecondaryContainer,
                         fontWeight: FontWeight.w600,
@@ -699,7 +679,8 @@ class _ChildVicinityTab extends StatelessWidget {
                 itemBuilder: (ctx, row) {
                   return Row(
                     children: List.generate(_cols, (col) {
-                      final vicinity = ChildVicinity(xIndex: col, yIndex: row);
+                      final vicinity =
+                          ChildVicinity(xIndex: col, yIndex: row);
                       return _TappableCell(
                         vicinity: vicinity,
                         selectedNotifier: _selectedCell,
@@ -739,8 +720,9 @@ class _TappableCell extends StatelessWidget {
     return ValueListenableBuilder<ChildVicinity?>(
       valueListenable: selectedNotifier,
       builder: (ctx, selected, _) {
-        final isSelected =
-            selected != null && selected.xIndex == x && selected.yIndex == y;
+        final isSelected = selected != null &&
+            selected.xIndex == x &&
+            selected.yIndex == y;
         return GestureDetector(
           onTap: () {
             selectedNotifier.value = isSelected ? null : vicinity;
@@ -754,15 +736,20 @@ class _TappableCell extends StatelessWidget {
               color: isSelected
                   ? cs.primary
                   : (x + y) % 2 == 0
-                  ? cs.surfaceContainerHighest
-                  : cs.surfaceContainerLow,
+                      ? cs.surfaceContainerHighest
+                      : cs.surfaceContainerLow,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                color: isSelected ? cs.tertiary : cs.outline.withAlpha(80),
+                color:
+                    isSelected ? cs.tertiary : cs.outline.withAlpha(80),
                 width: isSelected ? 2.5 : 1,
               ),
               boxShadow: isSelected
-                  ? [BoxShadow(color: cs.primary.withAlpha(100), blurRadius: 6)]
+                  ? [
+                      BoxShadow(
+                          color: cs.primary.withAlpha(100),
+                          blurRadius: 6)
+                    ]
                   : null,
             ),
             child: Column(
@@ -777,7 +764,8 @@ class _TappableCell extends StatelessWidget {
                   ),
                 ),
                 if (isSelected)
-                  Icon(Icons.check_circle, size: 14, color: cs.onPrimary),
+                  Icon(Icons.check_circle,
+                      size: 14, color: cs.onPrimary),
               ],
             ),
           ),
@@ -802,10 +790,9 @@ class _ChildVicinityDiagram extends StatelessWidget {
           Text(
             'ChildVicinity coordinate model',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-              color: cs.onSurface,
-            ),
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                color: cs.onSurface),
           ),
           const SizedBox(height: 8),
           SizedBox(
@@ -838,16 +825,10 @@ class _VicinityDiagramPainter extends CustomPainter {
     const cellW = 64.0;
     const cellH = 36.0;
 
-    canvas.drawLine(
-      const Offset(originX, originY),
-      Offset(originX + axisLen, originY),
-      axisPaint,
-    );
-    canvas.drawLine(
-      const Offset(originX, originY),
-      Offset(originX, originY - 90),
-      axisPaint,
-    );
+    canvas.drawLine(const Offset(originX, originY),
+        Offset(originX + axisLen, originY), axisPaint);
+    canvas.drawLine(const Offset(originX, originY),
+        Offset(originX, originY - 90), axisPaint);
 
     // Axis arrowheads
     final arrowH = Paint()
@@ -869,9 +850,8 @@ class _VicinityDiagramPainter extends CustomPainter {
     void drawLabel(String text, Offset offset) {
       final tp = TextPainter(
         text: TextSpan(
-          text: text,
-          style: TextStyle(color: cs.onSurface, fontSize: 10),
-        ),
+            text: text,
+            style: TextStyle(color: cs.onSurface, fontSize: 10)),
         textDirection: TextDirection.ltr,
       )..layout();
       tp.paint(canvas, offset);
@@ -902,21 +882,19 @@ class _VicinityDiagramPainter extends CustomPainter {
           : cs.tertiaryContainer.withAlpha(180);
       borderPaint.color = cs.primary.withAlpha(140);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(rect, const Radius.circular(4)),
-        cellPaint,
-      );
+          RRect.fromRectAndRadius(rect, const Radius.circular(4)),
+          cellPaint);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(rect, const Radius.circular(4)),
-        borderPaint,
-      );
+          RRect.fromRectAndRadius(rect, const Radius.circular(4)),
+          borderPaint);
       final tp = TextPainter(
         text: TextSpan(
-          text: label,
-          style: TextStyle(color: cs.onSurface, fontSize: 9),
-        ),
+            text: label,
+            style: TextStyle(color: cs.onSurface, fontSize: 9)),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(canvas, Offset(rx + 4, ry + (cellH - 2) / 2 - tp.height / 2));
+      tp.paint(canvas,
+          Offset(rx + 4, ry + (cellH - 2) / 2 - tp.height / 2));
     }
   }
 
@@ -971,7 +949,8 @@ class _DiagonalTab extends StatelessWidget {
           child: Text(
             'D(x:$x, y:$y)\nshift: ${(y * _diagStep).toInt()}px',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+            style: const TextStyle(
+                fontSize: 10, fontWeight: FontWeight.w600),
           ),
         );
       },
@@ -985,8 +964,7 @@ class _DiagonalTab extends StatelessWidget {
         _InfoBanner(
           cs: cs,
           icon: Icons.deblur,
-          text:
-              'Diagonal layout: each row is offset by (yIndex × ${_diagStep.toInt()}px). '
+          text: 'Diagonal layout: each row is offset by (yIndex × ${_diagStep.toInt()}px). '
               'Demonstrates creative use of ChildVicinity-based layout beyond '
               'regular grids. TwoDimensionalChildBuilderDelegate: '
               'maxXIndex=${delegate.maxXIndex}, maxYIndex=${delegate.maxYIndex}.',
@@ -1003,12 +981,14 @@ class _DiagonalTab extends StatelessWidget {
                 itemBuilder: (ctx, row) {
                   final offset = row * _diagStep;
                   return Padding(
-                    padding: EdgeInsets.only(left: offset, top: 3, bottom: 3),
+                    padding:
+                        EdgeInsets.only(left: offset, top: 3, bottom: 3),
                     child: Row(
                       children: List.generate(_xCount, (col) {
                         final v = ChildVicinity(xIndex: col, yIndex: row);
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 2),
                           child: delegate.builder(ctx, v),
                         );
                       }),
@@ -1042,7 +1022,8 @@ class _DiagonalLegend extends StatelessWidget {
             child: Text(
               'Each row shifts right by ${diagStep.toInt()}px. '
               'Horizontal scroll reveals cells that start further right.',
-              style: TextStyle(fontSize: 12, color: cs.onTertiaryContainer),
+              style:
+                  TextStyle(fontSize: 12, color: cs.onTertiaryContainer),
             ),
           ),
         ],
@@ -1074,8 +1055,7 @@ class _PinnedTab extends StatelessWidget {
         _InfoBanner(
           cs: cs,
           icon: Icons.push_pin,
-          text:
-              'Simulates pinnedRowCount: 2 and pinnedColumnCount: 2. '
+          text: 'Simulates pinnedRowCount: 2 and pinnedColumnCount: 2. '
               'The first two rows and first two columns remain fixed. '
               'In the real TableView API, these are set directly on TableView.builder.',
         ),
@@ -1125,10 +1105,9 @@ class _PinnedGrid extends StatelessWidget {
       height: h,
       color: bg,
       alignment: Alignment.center,
-      child: Text(
-        text,
-        style: TextStyle(color: fg, fontWeight: FontWeight.bold, fontSize: 11),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              color: fg, fontWeight: FontWeight.bold, fontSize: 11)),
     );
   }
 
@@ -1145,40 +1124,16 @@ class _PinnedGrid extends StatelessWidget {
               _headerCell('#', cs.primary, cs.onPrimary, headerW, headerH),
               _headerCell('SEC', cs.primary, cs.onPrimary, headerW, headerH),
               for (int col = 2; col < cols; col++)
-                _headerCell(
-                  'Col$col',
-                  cs.primary,
-                  cs.onPrimary,
-                  cellW,
-                  headerH,
-                ),
+                _headerCell('Col$col', cs.primary, cs.onPrimary, cellW, headerH),
             ],
           ),
           // Row 1 (pinned header row 2)
           Row(
             children: [
-              _headerCell(
-                'ID',
-                cs.secondary,
-                cs.onSecondary,
-                headerW,
-                subHeaderH,
-              ),
-              _headerCell(
-                'GRP',
-                cs.secondary,
-                cs.onSecondary,
-                headerW,
-                subHeaderH,
-              ),
+              _headerCell('ID', cs.secondary, cs.onSecondary, headerW, subHeaderH),
+              _headerCell('GRP', cs.secondary, cs.onSecondary, headerW, subHeaderH),
               for (int col = 2; col < cols; col++)
-                _headerCell(
-                  'S$col',
-                  cs.secondary,
-                  cs.onSecondary,
-                  cellW,
-                  subHeaderH,
-                ),
+                _headerCell('S$col', cs.secondary, cs.onSecondary, cellW, subHeaderH),
             ],
           ),
         ],
@@ -1197,14 +1152,11 @@ class _PinnedGrid extends StatelessWidget {
             height: cellH,
             color: cs.primaryContainer,
             alignment: Alignment.center,
-            child: Text(
-              'R$row',
-              style: TextStyle(
-                color: cs.onPrimaryContainer,
-                fontWeight: FontWeight.bold,
-                fontSize: 11,
-              ),
-            ),
+            child: Text('R$row',
+                style: TextStyle(
+                    color: cs.onPrimaryContainer,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11)),
           ),
           // Pinned column 1
           Container(
@@ -1212,14 +1164,11 @@ class _PinnedGrid extends StatelessWidget {
             height: cellH,
             color: cs.secondaryContainer,
             alignment: Alignment.center,
-            child: Text(
-              'G${row % 5}',
-              style: TextStyle(
-                color: cs.onSecondaryContainer,
-                fontWeight: FontWeight.bold,
-                fontSize: 11,
-              ),
-            ),
+            child: Text('G${row % 5}',
+                style: TextStyle(
+                    color: cs.onSecondaryContainer,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11)),
           ),
           // Data cells
           for (int col = 2; col < cols; col++)
@@ -1230,10 +1179,8 @@ class _PinnedGrid extends StatelessWidget {
                   ? cs.surfaceContainerHighest
                   : cs.surfaceContainerLow,
               alignment: Alignment.center,
-              child: Text(
-                '$col×$row',
-                style: TextStyle(fontSize: 11, color: cs.onSurface),
-              ),
+              child: Text('$col×$row',
+                  style: TextStyle(fontSize: 11, color: cs.onSurface)),
             ),
         ],
       ),
@@ -1289,21 +1236,9 @@ class _PinnedLegendBar extends StatelessWidget {
         children: [
           _LegendItem(color: cs.primary, label: 'Pinned row 1', cs: cs),
           _LegendItem(color: cs.secondary, label: 'Pinned row 2', cs: cs),
-          _LegendItem(
-            color: cs.primaryContainer,
-            label: 'Pinned col 1',
-            cs: cs,
-          ),
-          _LegendItem(
-            color: cs.secondaryContainer,
-            label: 'Pinned col 2',
-            cs: cs,
-          ),
-          _LegendItem(
-            color: cs.surfaceContainerHighest,
-            label: 'Data cells',
-            cs: cs,
-          ),
+          _LegendItem(color: cs.primaryContainer, label: 'Pinned col 1', cs: cs),
+          _LegendItem(color: cs.secondaryContainer, label: 'Pinned col 2', cs: cs),
+          _LegendItem(color: cs.surfaceContainerHighest, label: 'Data cells', cs: cs),
         ],
       ),
     );
@@ -1311,11 +1246,7 @@ class _PinnedLegendBar extends StatelessWidget {
 }
 
 class _LegendItem extends StatelessWidget {
-  const _LegendItem({
-    required this.color,
-    required this.label,
-    required this.cs,
-  });
+  const _LegendItem({required this.color, required this.label, required this.cs});
   final Color color;
   final String label;
   final ColorScheme cs;
@@ -1329,10 +1260,9 @@ class _LegendItem extends StatelessWidget {
           width: 12,
           height: 12,
           decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.grey.shade400),
-          ),
+              color: color,
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.grey.shade400)),
         ),
         const SizedBox(width: 4),
         Text(label, style: TextStyle(fontSize: 11, color: cs.onSurface)),
@@ -1353,14 +1283,11 @@ class _PinnedApiNote extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'TableView API equivalent:',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              color: cs.primary,
-            ),
-          ),
+          Text('TableView API equivalent:',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: cs.primary)),
           const SizedBox(height: 4),
           _CodeLine('TableView.builder(', cs),
           _CodeLine('  pinnedRowCount: 2,    // keep rows 0–1 fixed', cs),
@@ -1408,8 +1335,7 @@ class _CellStylesTab extends StatelessWidget {
         _InfoBanner(
           cs: cs,
           icon: Icons.palette,
-          text:
-              'Cell styling variety: alternating rows, header row (y=0), '
+          text: 'Cell styling variety: alternating rows, header row (y=0), '
               'accent columns (x%4==0), tap-to-select highlight via '
               'ValueNotifier<ChildVicinity?>.',
         ),
@@ -1418,17 +1344,17 @@ class _CellStylesTab extends StatelessWidget {
           builder: (ctx, selected, _) => Container(
             color: cs.tertiaryContainer,
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: Text(
               selected == null
                   ? 'Tap a cell to highlight it'
                   : 'Selected: ChildVicinity(xIndex: ${selected.xIndex}, '
-                        'yIndex: ${selected.yIndex})',
+                      'yIndex: ${selected.yIndex})',
               style: TextStyle(
-                color: cs.onTertiaryContainer,
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-              ),
+                  color: cs.onTertiaryContainer,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13),
             ),
           ),
         ),
@@ -1493,13 +1419,13 @@ class _StyledCell extends StatelessWidget {
     return ValueListenableBuilder<ChildVicinity?>(
       valueListenable: selectedNotifier,
       builder: (ctx, selected, _) {
-        final isSelected =
-            selected != null && selected.xIndex == x && selected.yIndex == y;
+        final isSelected = selected != null &&
+            selected.xIndex == x &&
+            selected.yIndex == y;
         return GestureDetector(
           onTap: () {
-            selectedNotifier.value = isSelected
-                ? null
-                : ChildVicinity(xIndex: x, yIndex: y);
+            selectedNotifier.value =
+                isSelected ? null : ChildVicinity(xIndex: x, yIndex: y);
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 160),
@@ -1539,21 +1465,9 @@ class _CellStyleLegend extends StatelessWidget {
         runSpacing: 4,
         children: [
           _LegendItem(color: cs.primary, label: 'Header (y=0)', cs: cs),
-          _LegendItem(
-            color: cs.primaryContainer,
-            label: 'Accent col (x%4==0)',
-            cs: cs,
-          ),
-          _LegendItem(
-            color: cs.surfaceContainerHighest,
-            label: 'Odd rows',
-            cs: cs,
-          ),
-          _LegendItem(
-            color: cs.surfaceContainerLow,
-            label: 'Even rows',
-            cs: cs,
-          ),
+          _LegendItem(color: cs.primaryContainer, label: 'Accent col (x%4==0)', cs: cs),
+          _LegendItem(color: cs.surfaceContainerHighest, label: 'Odd rows', cs: cs),
+          _LegendItem(color: cs.surfaceContainerLow, label: 'Even rows', cs: cs),
           _LegendItem(color: cs.tertiary, label: 'Selected cell', cs: cs),
         ],
       ),
@@ -1597,8 +1511,7 @@ class _ScrollPosTab extends StatelessWidget {
         _InfoBanner(
           cs: cs,
           icon: Icons.my_location,
-          text:
-              'Two ScrollControllers track horizontal and vertical scroll '
+          text: 'Two ScrollControllers track horizontal and vertical scroll '
               'offsets independently. ValueNotifiers feed the HUD card '
               'with real-time position data.',
         ),
@@ -1611,9 +1524,7 @@ class _ScrollPosTab extends StatelessWidget {
                 return Container(
                   color: cs.primaryContainer,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 10,
-                  ),
+                      horizontal: 12, vertical: 10),
                   child: Row(
                     children: [
                       _ScrollHUDCard(
@@ -1655,17 +1566,18 @@ class _ScrollPosTab extends StatelessWidget {
                       Container(
                         width: _headerW,
                         height: isHeader ? _headerH : _cellH,
-                        color: isHeader ? cs.primary : cs.secondaryContainer,
+                        color: isHeader
+                            ? cs.primary
+                            : cs.secondaryContainer,
                         alignment: Alignment.center,
                         child: Text(
                           isHeader ? '#' : 'R$row',
                           style: TextStyle(
-                            color: isHeader
-                                ? cs.onPrimary
-                                : cs.onSecondaryContainer,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                          ),
+                              color: isHeader
+                                  ? cs.onPrimary
+                                  : cs.onSecondaryContainer,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11),
                         ),
                       ),
                       for (int col = 1; col < _cols; col++)
@@ -1675,20 +1587,19 @@ class _ScrollPosTab extends StatelessWidget {
                           color: isHeader
                               ? cs.primaryContainer
                               : (row % 2 == 0
-                                    ? cs.surfaceContainerHighest
-                                    : cs.surfaceContainerLow),
+                                  ? cs.surfaceContainerHighest
+                                  : cs.surfaceContainerLow),
                           alignment: Alignment.center,
                           child: Text(
                             isHeader ? 'Col $col' : '($col,$row)',
                             style: TextStyle(
-                              color: isHeader
-                                  ? cs.onPrimaryContainer
-                                  : cs.onSurface,
-                              fontWeight: isHeader
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              fontSize: 11,
-                            ),
+                                color: isHeader
+                                    ? cs.onPrimaryContainer
+                                    : cs.onSurface,
+                                fontWeight: isHeader
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                fontSize: 11),
                           ),
                         ),
                     ],
@@ -1729,10 +1640,9 @@ class _ScrollHUDCard extends StatelessWidget {
           border: Border.all(color: color.withAlpha(100)),
           boxShadow: [
             BoxShadow(
-              color: color.withAlpha(30),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
+                color: color.withAlpha(30),
+                blurRadius: 4,
+                offset: const Offset(0, 2)),
           ],
         ),
         child: Row(
@@ -1743,20 +1653,16 @@ class _ScrollHUDCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: cs.onSurface.withAlpha(140),
-                    ),
-                  ),
+                  Text(label,
+                      style: TextStyle(
+                          fontSize: 10,
+                          color: cs.onSurface.withAlpha(140))),
                   Text(
                     '${value.toStringAsFixed(1)} px',
                     style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: color),
                   ),
                 ],
               ),
@@ -1780,24 +1686,19 @@ class _ScrollApiNote extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'TableView / TwoDimensionalScrollView API:',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              color: cs.primary,
-            ),
-          ),
+          Text('TableView / TwoDimensionalScrollView API:',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: cs.primary)),
           const SizedBox(height: 4),
           _CodeLine('TableView.builder(', cs),
           _CodeLine(
-            '  horizontalDetails: ScrollableDetails.horizontal(controller: hCtrl),',
-            cs,
-          ),
+              '  horizontalDetails: ScrollableDetails.horizontal(controller: hCtrl),',
+              cs),
           _CodeLine(
-            '  verticalDetails: ScrollableDetails.vertical(controller: vCtrl),',
-            cs,
-          ),
+              '  verticalDetails: ScrollableDetails.vertical(controller: vCtrl),',
+              cs),
           _CodeLine('  // ...', cs),
           _CodeLine(')', cs),
         ],
@@ -1891,13 +1792,7 @@ class _ComparisonTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const headers = [
-      'Widget',
-      'Scroll Axes',
-      'Pinned',
-      'Cell Address',
-      'Best For',
-    ];
+    const headers = ['Widget', 'Scroll Axes', 'Pinned', 'Cell Address', 'Best For'];
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Table(
@@ -1957,7 +1852,8 @@ class _TCell extends StatelessWidget {
         style: TextStyle(
           fontSize: 12,
           fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-          color: isHeader ? cs.onPrimaryContainer : cs.onSurface,
+          color:
+              isHeader ? cs.onPrimaryContainer : cs.onSurface,
         ),
       ),
     );
@@ -1980,10 +1876,9 @@ class _ArchitecturePainterCard extends StatelessWidget {
         Text(
           'Architecture Diagram',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-            color: cs.onSurface,
-          ),
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: cs.onSurface),
         ),
         const SizedBox(height: 8),
         SizedBox(
@@ -2070,7 +1965,9 @@ class _ArchDiagramPainter extends CustomPainter {
       canvas.drawLine(from, to, arrowPaint);
       final dx = to.dx - from.dx;
       final dy = to.dy - from.dy;
-      final len = (dx * dx + dy * dy) != 0 ? (dx * dx + dy * dy) : 1.0;
+      final len = (dx * dx + dy * dy) != 0
+          ? (dx * dx + dy * dy)
+          : 1.0;
       final nx = dx / len * 8;
       final ny = dy / len * 8;
       final path = Path()
@@ -2084,20 +1981,14 @@ class _ArchDiagramPainter extends CustomPainter {
     for (int i = 0; i < 3; i++) {
       final from = nodes[i];
       final to = nodes[i + 1];
-      drawArrow(
-        Offset(from.x, from.y + from.h / 2),
-        Offset(to.x, to.y - to.h / 2),
-      );
+      drawArrow(Offset(from.x, from.y + from.h / 2),
+          Offset(to.x, to.y - to.h / 2));
     }
     // Side connections to node 3 (RenderTwoDimensionalViewport)
-    drawArrow(
-      Offset(nodes[3].x - nodes[3].w / 2, nodes[3].y),
-      Offset(nodes[4].x + nodes[4].w / 2, nodes[4].y),
-    );
-    drawArrow(
-      Offset(nodes[3].x + nodes[3].w / 2, nodes[3].y),
-      Offset(nodes[5].x - nodes[5].w / 2, nodes[5].y),
-    );
+    drawArrow(Offset(nodes[3].x - nodes[3].w / 2, nodes[3].y),
+        Offset(nodes[4].x + nodes[4].w / 2, nodes[4].y));
+    drawArrow(Offset(nodes[3].x + nodes[3].w / 2, nodes[3].y),
+        Offset(nodes[5].x - nodes[5].w / 2, nodes[5].y));
 
     // Draw boxes
     final boxPaint = Paint()..style = PaintingStyle.fill;
@@ -2107,33 +1998,27 @@ class _ArchDiagramPainter extends CustomPainter {
 
     for (final node in nodes) {
       final rect = Rect.fromCenter(
-        center: Offset(node.x, node.y),
-        width: node.w,
-        height: node.h,
-      );
+          center: Offset(node.x, node.y), width: node.w, height: node.h);
       boxPaint.color = node.color;
       borderPaint.color = node.textColor.withAlpha(120);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(rect, const Radius.circular(6)),
-        boxPaint,
-      );
+          RRect.fromRectAndRadius(rect, const Radius.circular(6)), boxPaint);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(rect, const Radius.circular(6)),
-        borderPaint,
-      );
+          RRect.fromRectAndRadius(rect, const Radius.circular(6)),
+          borderPaint);
       final tp = TextPainter(
         text: TextSpan(
           text: node.label,
           style: TextStyle(
-            color: node.textColor,
-            fontSize: 9,
-            fontWeight: FontWeight.w600,
-          ),
+              color: node.textColor,
+              fontSize: 9,
+              fontWeight: FontWeight.w600),
         ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       )..layout(maxWidth: node.w - 8);
-      tp.paint(canvas, Offset(node.x - tp.width / 2, node.y - tp.height / 2));
+      tp.paint(canvas,
+          Offset(node.x - tp.width / 2, node.y - tp.height / 2));
     }
   }
 
@@ -2220,8 +2105,7 @@ class _ApiCheatSheet extends StatelessWidget {
           'Abstract RenderObjectWidget that creates and manages a '
           'RenderTwoDimensionalViewport. Subclass this and its render '
           'object to build custom 2D layout engines.',
-      properties:
-          'verticalOffset, horizontalOffset, delegate, mainAxis, cacheExtent',
+      properties: 'verticalOffset, horizontalOffset, delegate, mainAxis, cacheExtent',
     ),
     _ApiEntry(
       name: 'DiagonalDragBehavior',
@@ -2278,12 +2162,12 @@ class _ApiCard extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: cs.primaryContainer,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(7),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(7)),
             ),
             child: Text(
               entry.name,
@@ -2300,10 +2184,8 @@ class _ApiCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  entry.description,
-                  style: TextStyle(fontSize: 12, color: cs.onSurface),
-                ),
+                Text(entry.description,
+                    style: TextStyle(fontSize: 12, color: cs.onSurface)),
                 const SizedBox(height: 6),
                 Text(
                   'Key properties: ${entry.properties}',
@@ -2401,28 +2283,23 @@ class _QuickDecisionGuide extends StatelessWidget {
                     Text(
                       e.condition,
                       style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: cs.onSurface,
-                      ),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: cs.onSurface),
                     ),
                     const SizedBox(height: 3),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.arrow_forward,
-                          size: 13,
-                          color: cs.secondary,
-                        ),
+                        Icon(Icons.arrow_forward,
+                            size: 13, color: cs.secondary),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
                             e.recommendation,
                             style: TextStyle(
-                              fontSize: 12,
-                              color: cs.onSurface.withAlpha(180),
-                            ),
+                                fontSize: 12,
+                                color: cs.onSurface.withAlpha(180)),
                           ),
                         ),
                       ],
@@ -2439,7 +2316,10 @@ class _QuickDecisionGuide extends StatelessWidget {
 }
 
 class _DecisionEntry {
-  const _DecisionEntry({required this.condition, required this.recommendation});
+  const _DecisionEntry({
+    required this.condition,
+    required this.recommendation,
+  });
   final String condition;
   final String recommendation;
 }
@@ -2468,10 +2348,9 @@ class _SectionCard extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: cs.primary,
-                ),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: cs.primary),
               ),
               const SizedBox(height: 12),
               child,
@@ -2484,7 +2363,11 @@ class _SectionCard extends StatelessWidget {
 }
 
 class _InfoBanner extends StatelessWidget {
-  const _InfoBanner({required this.cs, required this.icon, required this.text});
+  const _InfoBanner({
+    required this.cs,
+    required this.icon,
+    required this.text,
+  });
   final ColorScheme cs;
   final IconData icon;
   final String text;
@@ -2500,10 +2383,8 @@ class _InfoBanner extends StatelessWidget {
           Icon(icon, color: cs.primary, size: 20),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 12, color: cs.onSurface),
-            ),
+            child: Text(text,
+                style: TextStyle(fontSize: 12, color: cs.onSurface)),
           ),
         ],
       ),
@@ -2511,5 +2392,7 @@ class _InfoBanner extends StatelessWidget {
   }
 }
 
-Text _bodyText(String text) =>
-    Text(text, style: const TextStyle(fontSize: 13, height: 1.5));
+Text _bodyText(String text) => Text(
+      text,
+      style: const TextStyle(fontSize: 13, height: 1.5),
+    );

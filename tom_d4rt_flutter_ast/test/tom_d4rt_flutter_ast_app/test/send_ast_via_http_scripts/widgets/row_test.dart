@@ -268,7 +268,10 @@ Widget _privateRuler({required double width}) {
     padding: EdgeInsets.only(top: 4.0),
     child: Column(
       children: [
-        Row(crossAxisAlignment: CrossAxisAlignment.end, children: ticks),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: ticks,
+        ),
         SizedBox(height: 2.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,10 +280,8 @@ Widget _privateRuler({required double width}) {
             Text('25%', style: _privateMonoStyle(color: _kInkMuted, size: 9.5)),
             Text('50%', style: _privateMonoStyle(color: _kInkMuted, size: 9.5)),
             Text('75%', style: _privateMonoStyle(color: _kInkMuted, size: 9.5)),
-            Text(
-              '100%',
-              style: _privateMonoStyle(color: _kInkMuted, size: 9.5),
-            ),
+            Text('100%',
+                style: _privateMonoStyle(color: _kInkMuted, size: 9.5)),
           ],
         ),
       ],
@@ -333,10 +334,8 @@ Widget _privateCaptionedRow({
     children: [
       Row(
         children: [
-          Text(
-            caption,
-            style: _privateLabelStyle().copyWith(color: _kInkPrimary),
-          ),
+          Text(caption,
+              style: _privateLabelStyle().copyWith(color: _kInkPrimary)),
           SizedBox(width: 10.0),
           Expanded(
             child: Container(
@@ -409,23 +408,11 @@ Widget _privateHeroIllustration() {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _privateBox(
-              width: 70.0,
-              height: 50.0,
-              color: _kAccentRed,
-              label: 'A',
-            ),
+                width: 70.0, height: 50.0, color: _kAccentRed, label: 'A'),
             _privateBox(
-              width: 70.0,
-              height: 50.0,
-              color: _kAccentBlue,
-              label: 'B',
-            ),
+                width: 70.0, height: 50.0, color: _kAccentBlue, label: 'B'),
             _privateBox(
-              width: 70.0,
-              height: 50.0,
-              color: _kAccentGreen,
-              label: 'C',
-            ),
+                width: 70.0, height: 50.0, color: _kAccentGreen, label: 'C'),
           ],
         ),
       ],
@@ -477,11 +464,8 @@ Widget _privateHeroCard() {
                 color: _kAccentBlue.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: Icon(
-                Icons.view_week_rounded,
-                size: 34.0,
-                color: _kAccentBlue,
-              ),
+              child: Icon(Icons.view_week_rounded,
+                  size: 34.0, color: _kAccentBlue),
             ),
           ],
         ),
@@ -542,20 +526,15 @@ Widget _privateAnatomyDiagram() {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      Icons.arrow_upward,
-                      size: 14.0,
-                      color: _kAccentPink.withValues(alpha: 0.7),
-                    ),
-                    Text(
-                      'cross',
-                      style: _privateMonoStyle(color: _kAccentPink, size: 9.5),
-                    ),
-                    Icon(
-                      Icons.arrow_downward,
-                      size: 14.0,
-                      color: _kAccentPink.withValues(alpha: 0.7),
-                    ),
+                    Icon(Icons.arrow_upward,
+                        size: 14.0,
+                        color: _kAccentPink.withValues(alpha: 0.7)),
+                    Text('cross',
+                        style: _privateMonoStyle(
+                            color: _kAccentPink, size: 9.5)),
+                    Icon(Icons.arrow_downward,
+                        size: 14.0,
+                        color: _kAccentPink.withValues(alpha: 0.7)),
                   ],
                 ),
               ),
@@ -565,50 +544,41 @@ Widget _privateAnatomyDiagram() {
                   decoration: BoxDecoration(
                     color: _kPaperRaised,
                     border: Border.all(
-                      color: _kAccentBlue.withValues(alpha: 0.4),
-                      width: 1.5,
-                    ),
+                        color: _kAccentBlue.withValues(alpha: 0.4), width: 1.5),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   padding: EdgeInsets.all(10.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.arrow_back,
-                        size: 14.0,
-                        color: _kAccentBlue.withValues(alpha: 0.7),
-                      ),
+                      Icon(Icons.arrow_back,
+                          size: 14.0,
+                          color: _kAccentBlue.withValues(alpha: 0.7)),
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             _privateBox(
-                              width: 56.0,
-                              height: 90.0,
-                              color: _kAccentRed,
-                              label: '1',
-                            ),
+                                width: 56.0,
+                                height: 90.0,
+                                color: _kAccentRed,
+                                label: '1'),
                             _privateBox(
-                              width: 56.0,
-                              height: 60.0,
-                              color: _kAccentGreen,
-                              label: '2',
-                            ),
+                                width: 56.0,
+                                height: 60.0,
+                                color: _kAccentGreen,
+                                label: '2'),
                             _privateBox(
-                              width: 56.0,
-                              height: 75.0,
-                              color: _kAccentBlue,
-                              label: '3',
-                            ),
+                                width: 56.0,
+                                height: 75.0,
+                                color: _kAccentBlue,
+                                label: '3'),
                           ],
                         ),
                       ),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 14.0,
-                        color: _kAccentBlue.withValues(alpha: 0.7),
-                      ),
+                      Icon(Icons.arrow_forward,
+                          size: 14.0,
+                          color: _kAccentBlue.withValues(alpha: 0.7)),
                     ],
                   ),
                 ),
@@ -641,8 +611,7 @@ Widget _privateAnatomyCard() {
             Expanded(
               child: _privateCallout(
                 title: 'Main axis',
-                body:
-                    'Children are placed left-to-right '
+                body: 'Children are placed left-to-right '
                     '(or right-to-left if textDirection is rtl). '
                     'mainAxisAlignment + flex factors decide spacing.',
                 tint: _kAccentBlue,
@@ -653,8 +622,7 @@ Widget _privateAnatomyCard() {
             Expanded(
               child: _privateCallout(
                 title: 'Cross axis',
-                body:
-                    'Vertical placement of each child. '
+                body: 'Vertical placement of each child. '
                     'crossAxisAlignment chooses start, end, center, '
                     'stretch, or baseline.',
                 tint: _kAccentPink,
@@ -676,9 +644,12 @@ Widget _privateMainAxisRow(MainAxisAlignment alignment) {
   return Row(
     mainAxisAlignment: alignment,
     children: [
-      _privateBox(width: 54.0, height: 40.0, color: _kAccentRed, label: 'A'),
-      _privateBox(width: 54.0, height: 40.0, color: _kAccentBlue, label: 'B'),
-      _privateBox(width: 54.0, height: 40.0, color: _kAccentGreen, label: 'C'),
+      _privateBox(
+          width: 54.0, height: 40.0, color: _kAccentRed, label: 'A'),
+      _privateBox(
+          width: 54.0, height: 40.0, color: _kAccentBlue, label: 'B'),
+      _privateBox(
+          width: 54.0, height: 40.0, color: _kAccentGreen, label: 'C'),
     ],
   );
 }
@@ -740,8 +711,7 @@ Widget _privateMainAxisCard() {
         _privateDivider(),
         _privateCallout(
           title: 'spaceBetween vs spaceAround vs spaceEvenly',
-          body:
-              'spaceBetween puts no space at the ends. spaceAround puts '
+          body: 'spaceBetween puts no space at the ends. spaceAround puts '
               'half-gaps at the ends. spaceEvenly distributes one full gap '
               'at every position, including the ends.',
           tint: _kAccentIndigo,
@@ -766,42 +736,36 @@ Widget _privateCrossRow(CrossAxisAlignment alignment, {bool baseline = false}) {
           width: 70.0,
           color: _kAccentRed.withValues(alpha: 0.15),
           padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-          child: Text(
-            'Aa',
-            style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.w800,
-              color: _kAccentRed,
-            ),
-          ),
+          child: Text('Aa',
+              style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w800,
+                color: _kAccentRed,
+              )),
         ),
         SizedBox(width: 6.0),
         Container(
           width: 70.0,
           color: _kAccentBlue.withValues(alpha: 0.15),
           padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-          child: Text(
-            'Bb',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w800,
-              color: _kAccentBlue,
-            ),
-          ),
+          child: Text('Bb',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w800,
+                color: _kAccentBlue,
+              )),
         ),
         SizedBox(width: 6.0),
         Container(
           width: 70.0,
           color: _kAccentGreen.withValues(alpha: 0.15),
           padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-          child: Text(
-            'Cc',
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w800,
-              color: _kAccentGreen,
-            ),
-          ),
+          child: Text('Cc',
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w800,
+                color: _kAccentGreen,
+              )),
         ),
       ],
     );
@@ -809,11 +773,14 @@ Widget _privateCrossRow(CrossAxisAlignment alignment, {bool baseline = false}) {
   return Row(
     crossAxisAlignment: alignment,
     children: [
-      _privateBox(width: 50.0, height: 60.0, color: _kAccentRed, label: '60'),
+      _privateBox(
+          width: 50.0, height: 60.0, color: _kAccentRed, label: '60'),
       SizedBox(width: 8.0),
-      _privateBox(width: 50.0, height: 30.0, color: _kAccentBlue, label: '30'),
+      _privateBox(
+          width: 50.0, height: 30.0, color: _kAccentBlue, label: '30'),
       SizedBox(width: 8.0),
-      _privateBox(width: 50.0, height: 45.0, color: _kAccentGreen, label: '45'),
+      _privateBox(
+          width: 50.0, height: 45.0, color: _kAccentGreen, label: '45'),
     ],
   );
 }
@@ -904,7 +871,8 @@ Widget _privateCrossCard() {
             borderRadius: BorderRadius.circular(8.0),
           ),
           padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-          child: _privateCrossRow(CrossAxisAlignment.baseline, baseline: true),
+          child:
+              _privateCrossRow(CrossAxisAlignment.baseline, baseline: true),
         ),
       ],
     ),
@@ -936,9 +904,7 @@ Widget _privateSizePanel() {
               decoration: BoxDecoration(
                 color: _kPaper,
                 border: Border.all(
-                  color: _kAccentBlue.withValues(alpha: 0.6),
-                  width: 1.5,
-                ),
+                    color: _kAccentBlue.withValues(alpha: 0.6), width: 1.5),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               padding: EdgeInsets.all(8.0),
@@ -947,18 +913,16 @@ Widget _privateSizePanel() {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   _privateBox(
-                    width: 40.0,
-                    height: 40.0,
-                    color: _kAccentRed,
-                    label: 'A',
-                  ),
+                      width: 40.0,
+                      height: 40.0,
+                      color: _kAccentRed,
+                      label: 'A'),
                   SizedBox(width: 6.0),
                   _privateBox(
-                    width: 40.0,
-                    height: 40.0,
-                    color: _kAccentGreen,
-                    label: 'B',
-                  ),
+                      width: 40.0,
+                      height: 40.0,
+                      color: _kAccentGreen,
+                      label: 'B'),
                 ],
               ),
             ),
@@ -988,9 +952,7 @@ Widget _privateSizePanel() {
               decoration: BoxDecoration(
                 color: _kPaper,
                 border: Border.all(
-                  color: _kAccentPink.withValues(alpha: 0.6),
-                  width: 1.5,
-                ),
+                    color: _kAccentPink.withValues(alpha: 0.6), width: 1.5),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               padding: EdgeInsets.all(8.0),
@@ -999,18 +961,16 @@ Widget _privateSizePanel() {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   _privateBox(
-                    width: 40.0,
-                    height: 40.0,
-                    color: _kAccentRed,
-                    label: 'A',
-                  ),
+                      width: 40.0,
+                      height: 40.0,
+                      color: _kAccentRed,
+                      label: 'A'),
                   SizedBox(width: 6.0),
                   _privateBox(
-                    width: 40.0,
-                    height: 40.0,
-                    color: _kAccentGreen,
-                    label: 'B',
-                  ),
+                      width: 40.0,
+                      height: 40.0,
+                      color: _kAccentGreen,
+                      label: 'B'),
                 ],
               ),
             ),
@@ -1042,8 +1002,7 @@ Widget _privateSizeCard() {
         SizedBox(height: 14.0),
         _privateCallout(
           title: 'Common bug',
-          body:
-              'mainAxisSize.min combined with Expanded throws — Expanded '
+          body: 'mainAxisSize.min combined with Expanded throws — Expanded '
               'demands all leftover space, but min refuses to take any '
               'in the first place.',
           tint: _kAccentRed,
@@ -1090,10 +1049,8 @@ Widget _privateFlexCard() {
               'is proportional to the flex factor.',
         ),
         SizedBox(height: 18.0),
-        Text(
-          '1 : 1 : 1 — three Expanded children with default flex',
-          style: _privateLabelStyle(),
-        ),
+        Text('1 : 1 : 1 — three Expanded children with default flex',
+            style: _privateLabelStyle()),
         SizedBox(height: 6.0),
         _privateTrack(
           width: trackWidth,
@@ -1101,33 +1058,28 @@ Widget _privateFlexCard() {
             children: [
               Expanded(
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentRed,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentRed),
               ),
               Expanded(
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentBlue,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentBlue),
               ),
               Expanded(
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentGreen,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentGreen),
               ),
             ],
           ),
         ),
         SizedBox(height: 14.0),
-        Text(
-          '2 : 1 : 1 — first child is twice as wide',
-          style: _privateLabelStyle(),
-        ),
+        Text('2 : 1 : 1 — first child is twice as wide',
+            style: _privateLabelStyle()),
         SizedBox(height: 6.0),
         _privateTrack(
           width: trackWidth,
@@ -1136,24 +1088,21 @@ Widget _privateFlexCard() {
               Expanded(
                 flex: 2,
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentRed,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentRed),
               ),
               Expanded(
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentBlue,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentBlue),
               ),
               Expanded(
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentGreen,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentGreen),
               ),
             ],
           ),
@@ -1168,35 +1117,30 @@ Widget _privateFlexCard() {
               Expanded(
                 flex: 1,
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentRed,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentRed),
               ),
               Expanded(
                 flex: 2,
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentBlue,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentBlue),
               ),
               Expanded(
                 flex: 3,
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentGreen,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentGreen),
               ),
             ],
           ),
         ),
         SizedBox(height: 14.0),
-        Text(
-          'Fixed | Spacer | Fixed — useful for app bars',
-          style: _privateLabelStyle(),
-        ),
+        Text('Fixed | Spacer | Fixed — useful for app bars',
+            style: _privateLabelStyle()),
         SizedBox(height: 6.0),
         _privateTrack(
           width: trackWidth,
@@ -1204,27 +1148,23 @@ Widget _privateFlexCard() {
             children: [
               SizedBox(width: 6.0),
               _privateBox(
-                width: 60.0,
-                height: 44.0,
-                color: _kAccentRed,
-                label: 'L',
-              ),
+                  width: 60.0,
+                  height: 44.0,
+                  color: _kAccentRed,
+                  label: 'L'),
               Spacer(),
               _privateBox(
-                width: 60.0,
-                height: 44.0,
-                color: _kAccentGreen,
-                label: 'R',
-              ),
+                  width: 60.0,
+                  height: 44.0,
+                  color: _kAccentGreen,
+                  label: 'R'),
               SizedBox(width: 6.0),
             ],
           ),
         ),
         SizedBox(height: 14.0),
-        Text(
-          'Expanded(flex: 2) + plain SizedBox + Expanded',
-          style: _privateLabelStyle(),
-        ),
+        Text('Expanded(flex: 2) + plain SizedBox + Expanded',
+            style: _privateLabelStyle()),
         SizedBox(height: 6.0),
         _privateTrack(
           width: trackWidth,
@@ -1233,25 +1173,22 @@ Widget _privateFlexCard() {
               Expanded(
                 flex: 2,
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentRed,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentRed),
               ),
               SizedBox(
                 width: 80.0,
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentAmber,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentAmber),
               ),
               Expanded(
                 child: Container(
-                  height: 44.0,
-                  margin: EdgeInsets.all(4.0),
-                  color: _kAccentGreen,
-                ),
+                    height: 44.0,
+                    margin: EdgeInsets.all(4.0),
+                    color: _kAccentGreen),
               ),
             ],
           ),
@@ -1263,8 +1200,7 @@ Widget _privateFlexCard() {
             Expanded(
               child: _privateCallout(
                 title: 'Expanded',
-                body:
-                    'Forces the child to fill the available slice along '
+                body: 'Forces the child to fill the available slice along '
                     'the main axis. Equivalent to Flexible(fit: tight).',
                 tint: _kAccentBlue,
                 icon: Icons.unfold_more,
@@ -1274,8 +1210,7 @@ Widget _privateFlexCard() {
             Expanded(
               child: _privateCallout(
                 title: 'Flexible',
-                body:
-                    'Lets the child be smaller than its slice if its '
+                body: 'Lets the child be smaller than its slice if its '
                     'intrinsic width is smaller. Default fit is loose.',
                 tint: _kAccentTeal,
                 icon: Icons.linear_scale,
@@ -1285,8 +1220,7 @@ Widget _privateFlexCard() {
             Expanded(
               child: _privateCallout(
                 title: 'Spacer',
-                body:
-                    'A no-paint Expanded. Use it to push siblings apart '
+                body: 'A no-paint Expanded. Use it to push siblings apart '
                     'without rendering anything visible.',
                 tint: _kAccentViolet,
                 icon: Icons.space_bar,
@@ -1316,16 +1250,14 @@ Widget _privateDirectionDemo({required TextDirection direction}) {
       textDirection: direction,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _privateBox(width: 50.0, height: 50.0, color: _kAccentRed, label: '1'),
-        SizedBox(width: 6.0),
-        _privateBox(width: 50.0, height: 50.0, color: _kAccentBlue, label: '2'),
+        _privateBox(
+            width: 50.0, height: 50.0, color: _kAccentRed, label: '1'),
         SizedBox(width: 6.0),
         _privateBox(
-          width: 50.0,
-          height: 50.0,
-          color: _kAccentGreen,
-          label: '3',
-        ),
+            width: 50.0, height: 50.0, color: _kAccentBlue, label: '2'),
+        SizedBox(width: 6.0),
+        _privateBox(
+            width: 50.0, height: 50.0, color: _kAccentGreen, label: '3'),
       ],
     ),
   );
@@ -1350,10 +1282,8 @@ Widget _privateDirectionCard() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'TextDirection.ltr (default)',
-                    style: _privateLabelStyle(),
-                  ),
+                  Text('TextDirection.ltr (default)',
+                      style: _privateLabelStyle()),
                   SizedBox(height: 6.0),
                   _privateDirectionDemo(direction: TextDirection.ltr),
                   SizedBox(height: 6.0),
@@ -1385,8 +1315,7 @@ Widget _privateDirectionCard() {
         SizedBox(height: 14.0),
         _privateCallout(
           title: 'verticalDirection',
-          body:
-              'Affects which end is "start" along the cross axis. '
+          body: 'Affects which end is "start" along the cross axis. '
               'Defaults to VerticalDirection.down — top is the start.',
           tint: _kAccentSlate,
           icon: Icons.import_export,
@@ -1412,10 +1341,7 @@ Widget _privateBaselineCard() {
               'children on a chosen typographic baseline.',
         ),
         SizedBox(height: 18.0),
-        Text(
-          'Without baseline (default — center)',
-          style: _privateLabelStyle(),
-        ),
+        Text('Without baseline (default — center)', style: _privateLabelStyle()),
         SizedBox(height: 6.0),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
@@ -1427,28 +1353,25 @@ Widget _privateBaselineCard() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                '42',
-                style: TextStyle(
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.w800,
-                  color: _kInkPrimary,
-                ),
-              ),
+              Text('42',
+                  style: TextStyle(
+                    fontSize: 36.0,
+                    fontWeight: FontWeight.w800,
+                    color: _kInkPrimary,
+                  )),
               SizedBox(width: 6.0),
-              Text(
-                '°C',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                  color: _kInkSecondary,
-                ),
-              ),
+              Text('°C',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                    color: _kInkSecondary,
+                  )),
               SizedBox(width: 14.0),
-              Text(
-                'today',
-                style: TextStyle(fontSize: 12.0, color: _kInkMuted),
-              ),
+              Text('today',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: _kInkMuted,
+                  )),
             ],
           ),
         ),
@@ -1460,37 +1383,32 @@ Widget _privateBaselineCard() {
           decoration: BoxDecoration(
             color: _kAccentBlue.withValues(alpha: 0.05),
             border: Border.all(
-              color: _kAccentBlue.withValues(alpha: 0.4),
-              width: 1.0,
-            ),
+                color: _kAccentBlue.withValues(alpha: 0.4), width: 1.0),
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             children: [
-              Text(
-                '42',
-                style: TextStyle(
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.w800,
-                  color: _kInkPrimary,
-                ),
-              ),
+              Text('42',
+                  style: TextStyle(
+                    fontSize: 36.0,
+                    fontWeight: FontWeight.w800,
+                    color: _kInkPrimary,
+                  )),
               SizedBox(width: 6.0),
-              Text(
-                '°C',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                  color: _kInkSecondary,
-                ),
-              ),
+              Text('°C',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                    color: _kInkSecondary,
+                  )),
               SizedBox(width: 14.0),
-              Text(
-                'today',
-                style: TextStyle(fontSize: 12.0, color: _kInkMuted),
-              ),
+              Text('today',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: _kInkMuted,
+                  )),
             ],
           ),
         ),
@@ -1503,8 +1421,7 @@ Widget _privateBaselineCard() {
         SizedBox(height: 12.0),
         _privateCallout(
           title: 'Baseline only works with Text',
-          body:
-              'A widget reports a baseline only if it computes one (Text '
+          body: 'A widget reports a baseline only if it computes one (Text '
               'does, Container does not). Mixing non-Text children under '
               'CrossAxisAlignment.baseline produces unexpected results.',
           tint: _kAccentAmber,
@@ -1573,10 +1490,8 @@ Widget _privateOverflowCard() {
               'Flutter draws the trademark yellow-and-black stripes.',
         ),
         SizedBox(height: 18.0),
-        Text(
-          'A — children fit comfortably (no overflow)',
-          style: _privateLabelStyle(),
-        ),
+        Text('A — children fit comfortably (no overflow)',
+            style: _privateLabelStyle()),
         SizedBox(height: 6.0),
         _privateTrack(
           width: trackWidth,
@@ -1584,33 +1499,28 @@ Widget _privateOverflowCard() {
             children: [
               SizedBox(width: 6.0),
               _privateBox(
-                width: 90.0,
-                height: 44.0,
-                color: _kAccentRed,
-                label: '90',
-              ),
+                  width: 90.0,
+                  height: 44.0,
+                  color: _kAccentRed,
+                  label: '90'),
               SizedBox(width: 6.0),
               _privateBox(
-                width: 90.0,
-                height: 44.0,
-                color: _kAccentBlue,
-                label: '90',
-              ),
+                  width: 90.0,
+                  height: 44.0,
+                  color: _kAccentBlue,
+                  label: '90'),
               SizedBox(width: 6.0),
               _privateBox(
-                width: 90.0,
-                height: 44.0,
-                color: _kAccentGreen,
-                label: '90',
-              ),
+                  width: 90.0,
+                  height: 44.0,
+                  color: _kAccentGreen,
+                  label: '90'),
             ],
           ),
         ),
         SizedBox(height: 14.0),
-        Text(
-          'B — children too wide (simulated overflow)',
-          style: _privateLabelStyle(),
-        ),
+        Text('B — children too wide (simulated overflow)',
+            style: _privateLabelStyle()),
         SizedBox(height: 6.0),
         Container(
           width: trackWidth,
@@ -1628,25 +1538,22 @@ Widget _privateOverflowCard() {
                   child: Row(
                     children: [
                       _privateBox(
-                        width: 220.0,
-                        height: 44.0,
-                        color: _kAccentRed,
-                        label: '220',
-                      ),
+                          width: 220.0,
+                          height: 44.0,
+                          color: _kAccentRed,
+                          label: '220'),
                       SizedBox(width: 6.0),
                       _privateBox(
-                        width: 220.0,
-                        height: 44.0,
-                        color: _kAccentBlue,
-                        label: '220',
-                      ),
+                          width: 220.0,
+                          height: 44.0,
+                          color: _kAccentBlue,
+                          label: '220'),
                       SizedBox(width: 6.0),
                       _privateBox(
-                        width: 220.0,
-                        height: 44.0,
-                        color: _kAccentGreen,
-                        label: '220',
-                      ),
+                          width: 220.0,
+                          height: 44.0,
+                          color: _kAccentGreen,
+                          label: '220'),
                     ],
                   ),
                 ),
@@ -1656,7 +1563,9 @@ Widget _privateOverflowCard() {
                   bottom: 0.0,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [_privateStripes(width: 18.0)],
+                    children: [
+                      _privateStripes(width: 18.0),
+                    ],
                   ),
                 ),
               ],
@@ -1675,8 +1584,7 @@ Widget _privateOverflowCard() {
             Expanded(
               child: _privateCallout(
                 title: 'Fix 1 — Expanded / Flexible',
-                body:
-                    'Wrap one or more children in Expanded so they share '
+                body: 'Wrap one or more children in Expanded so they share '
                     'the available width instead of demanding their '
                     'intrinsic width.',
                 tint: _kAccentTeal,
@@ -1687,8 +1595,7 @@ Widget _privateOverflowCard() {
             Expanded(
               child: _privateCallout(
                 title: 'Fix 2 — Wrap',
-                body:
-                    'Replace Row with Wrap to push overflowing children '
+                body: 'Replace Row with Wrap to push overflowing children '
                     'onto a new line. Wrap supports horizontal and '
                     'vertical run direction.',
                 tint: _kAccentIndigo,
@@ -1699,8 +1606,7 @@ Widget _privateOverflowCard() {
             Expanded(
               child: _privateCallout(
                 title: 'Fix 3 — Scroll',
-                body:
-                    'Wrap the Row in a SingleChildScrollView with '
+                body: 'Wrap the Row in a SingleChildScrollView with '
                     'scrollDirection: Axis.horizontal to reveal '
                     'overflow on demand.',
                 tint: _kAccentBlue,
@@ -1800,8 +1706,7 @@ Widget _privateRecipeCard() {
         SizedBox(height: 12.0),
         _privateCallout(
           title: 'Why Expanded on the title?',
-          body:
-              'Without it, Text would shrink to its intrinsic width and '
+          body: 'Without it, Text would shrink to its intrinsic width and '
               'the trailing icons would crowd against the title. '
               'Expanded forces the title to absorb the leftover space, '
               'pinning the actions to the right.',
@@ -1850,14 +1755,12 @@ Widget _privatePitfallTile({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14.5,
-                  fontWeight: FontWeight.w700,
-                  color: _kInkPrimary,
-                ),
-              ),
+              Text(title,
+                  style: TextStyle(
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w700,
+                    color: _kInkPrimary,
+                  )),
               SizedBox(height: 4.0),
               Text(body, style: _privateBodyStyle()),
             ],
@@ -1881,8 +1784,7 @@ Widget _privatePitfallCard() {
         SizedBox(height: 16.0),
         _privatePitfallTile(
           title: 'Row inside an unconstrained-width parent',
-          body:
-              'A Row inside a Column whose parent has no bounded width '
+          body: 'A Row inside a Column whose parent has no bounded width '
               '(or inside an unconstrained Stack, ListView, etc.) gets '
               'infinite max width. mainAxisSize.max + Expanded then '
               'throws BoxConstraints forces an infinite width. Fix: '
@@ -1892,8 +1794,7 @@ Widget _privatePitfallCard() {
         ),
         _privatePitfallTile(
           title: 'mainAxisSize.min vs Expanded',
-          body:
-              'Expanded asks for "all leftover space", but mainAxisSize.'
+          body: 'Expanded asks for "all leftover space", but mainAxisSize.'
               'min refuses to claim leftover space. The two are mutually '
               'exclusive. Either drop Expanded, or switch to '
               'mainAxisSize.max.',
@@ -1902,8 +1803,7 @@ Widget _privatePitfallCard() {
         ),
         _privatePitfallTile(
           title: 'Baseline only works with Text',
-          body:
-              'CrossAxisAlignment.baseline expects each child to report '
+          body: 'CrossAxisAlignment.baseline expects each child to report '
               'a typographic baseline. Container, SizedBox and Image '
               'do not — only Text and a few Text-derivative widgets do. '
               'Mixing breaks alignment.',
@@ -1912,8 +1812,7 @@ Widget _privatePitfallCard() {
         ),
         _privatePitfallTile(
           title: 'IntrinsicWidth + flex children = O(N²) layout',
-          body:
-              'Wrapping a Row in IntrinsicWidth forces the Row to '
+          body: 'Wrapping a Row in IntrinsicWidth forces the Row to '
               'compute the intrinsic width of every flex child, which '
               'is expensive. Avoid in deep trees or long lists.',
           icon: Icons.speed,
@@ -1921,8 +1820,7 @@ Widget _privatePitfallCard() {
         ),
         _privatePitfallTile(
           title: 'Forgetting textDirection in widget tests',
-          body:
-              'A bare Row outside a Directionality (e.g. inside a '
+          body: 'A bare Row outside a Directionality (e.g. inside a '
               'widget test that does not pump a MaterialApp) throws. '
               'Either pass textDirection explicitly or wrap in '
               'Directionality.',
@@ -1931,8 +1829,7 @@ Widget _privatePitfallCard() {
         ),
         _privatePitfallTile(
           title: 'Row vs Wrap',
-          body:
-              'Row never wraps. If children must flow onto another '
+          body: 'Row never wraps. If children must flow onto another '
               'line when they would otherwise overflow, swap Row for '
               'Wrap. Wrap also offers spacing and runSpacing.',
           icon: Icons.wrap_text,
@@ -1965,25 +1862,20 @@ Widget _privateFooter() {
                 color: _kAccentBlue.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: Icon(
-                Icons.view_week_rounded,
-                color: _kAccentBlue,
-                size: 22.0,
-              ),
+              child: Icon(Icons.view_week_rounded,
+                  color: _kAccentBlue, size: 22.0),
             ),
             SizedBox(width: 12.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Row',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w800,
-                    color: _kInkPrimary,
-                  ),
-                ),
+                Text('Row',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w800,
+                      color: _kInkPrimary,
+                    )),
                 SizedBox(height: 2.0),
                 Text(
                   'package:flutter/widgets.dart · extends Flex',
@@ -1995,7 +1887,9 @@ Widget _privateFooter() {
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [_privateChip('end of demo', _kInkPrimary)],
+          children: [
+            _privateChip('end of demo', _kInkPrimary),
+          ],
         ),
       ],
     ),
@@ -2054,7 +1948,9 @@ dynamic build(BuildContext context) {
       colorScheme: ColorScheme.fromSeed(seedColor: _kAccentBlue),
       useMaterial3: true,
       scaffoldBackgroundColor: _kPaper,
-      textTheme: TextTheme(bodyMedium: TextStyle(color: _kInkPrimary)),
+      textTheme: TextTheme(
+        bodyMedium: TextStyle(color: _kInkPrimary),
+      ),
     ),
     home: Scaffold(
       backgroundColor: _kPaper,

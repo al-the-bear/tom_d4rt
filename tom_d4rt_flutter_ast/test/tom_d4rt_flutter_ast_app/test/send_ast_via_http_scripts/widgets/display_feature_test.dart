@@ -39,8 +39,7 @@ dynamic build(BuildContext context) {
   }
 
   print('--- DisplayFeatureState.values ---');
-  final List<ui.DisplayFeatureState> stateValues =
-      ui.DisplayFeatureState.values;
+  final List<ui.DisplayFeatureState> stateValues = ui.DisplayFeatureState.values;
   for (int i = 0; i < stateValues.length; i++) {
     print('  state[$i] = ${stateValues[i].name}');
   }
@@ -67,9 +66,7 @@ dynamic build(BuildContext context) {
       type: ui.DisplayFeatureType.hinge,
       state: ui.DisplayFeatureState.postureHalfOpened,
     );
-    print(
-      'Hinge feature: ${hingeFeature.bounds} type=${hingeFeature.type.name}',
-    );
+    print('Hinge feature: ${hingeFeature.bounds} type=${hingeFeature.type.name}');
   } catch (e) {
     print('Hinge construction failed: $e');
   }
@@ -116,11 +113,7 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         label,
-        style: TextStyle(
-          color: color,
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -133,7 +126,10 @@ dynamic build(BuildContext context) {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [paletteCard, paletteCardAlt.withValues(alpha: 0.7)],
+          colors: [
+            paletteCard,
+            paletteCardAlt.withValues(alpha: 0.7),
+          ],
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: paletteBorder),
@@ -476,11 +472,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10),
           Text(
             summary,
-            style: const TextStyle(
-              color: paletteMuted,
-              fontSize: 11,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: paletteMuted, fontSize: 11, height: 1.4),
           ),
         ],
       ),
@@ -653,24 +645,21 @@ dynamic build(BuildContext context) {
           tag: 'cutout',
           tagColor: paletteCutout,
           body: flatPhone,
-          summary:
-              'No fold, no hinge. May expose a cutout DisplayFeature for the front camera.',
+          summary: 'No fold, no hinge. May expose a cutout DisplayFeature for the front camera.',
         ),
         deviceMock(
           name: 'Surface Duo',
           tag: 'hinge',
           tagColor: paletteHinge,
           body: surfaceDuo,
-          summary:
-              'Two distinct displays separated by a physical hinge — content should not span it.',
+          summary: 'Two distinct displays separated by a physical hinge — content should not span it.',
         ),
         deviceMock(
           name: 'Galaxy Fold',
           tag: 'fold',
           tagColor: paletteFold,
           body: galaxyFold,
-          summary:
-              'One flexible display with a central fold — content can span but is bent at the crease.',
+          summary: 'One flexible display with a central fold — content can span but is bent at the crease.',
         ),
       ],
     ),
@@ -683,67 +672,69 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < typeValues.length; i++) {
     final ui.DisplayFeatureType t = typeValues[i];
     final Color tone = colorForType(t);
-    typeCards.add(
-      Container(
-        width: double.infinity,
-        margin: const EdgeInsets.symmetric(vertical: 6),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: paletteCardAlt,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: tone.withValues(alpha: 0.5)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: paletteScreen,
-                border: Border.all(color: paletteBorder),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Container(width: 40, height: 6, color: tone),
-              ),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'DisplayFeatureType.${t.name}',
-                        style: TextStyle(
-                          color: tone,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      chip('#$i', paletteAccent),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    descriptionForType(t),
-                    style: const TextStyle(
-                      color: paletteText,
-                      fontSize: 12,
-                      height: 1.4,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+    typeCards.add(Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: paletteCardAlt,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: tone.withValues(alpha: 0.5)),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: paletteScreen,
+              border: Border.all(color: paletteBorder),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Container(
+                width: 40,
+                height: 6,
+                color: tone,
+              ),
+            ),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'DisplayFeatureType.${t.name}',
+                      style: TextStyle(
+                        color: tone,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    chip('#$i', paletteAccent),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  descriptionForType(t),
+                  style: const TextStyle(
+                    color: paletteText,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // ============================================================
@@ -825,50 +816,48 @@ dynamic build(BuildContext context) {
       );
     }
 
-    stateCards.add(
-      Container(
-        width: double.infinity,
-        margin: const EdgeInsets.symmetric(vertical: 6),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: paletteCardAlt,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: paletteBorder),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            posture,
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'DisplayFeatureState.${s.name}',
-                    style: const TextStyle(
-                      color: paletteAccentSoft,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    descriptionForState(s),
-                    style: const TextStyle(
-                      color: paletteText,
-                      fontSize: 12,
-                      height: 1.4,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+    stateCards.add(Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: paletteCardAlt,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: paletteBorder),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          posture,
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'DisplayFeatureState.${s.name}',
+                  style: const TextStyle(
+                    color: paletteAccentSoft,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  descriptionForState(s),
+                  style: const TextStyle(
+                    color: paletteText,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   // ============================================================
@@ -996,12 +985,7 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        comparisonRow(
-          'DisplayFeature',
-          'SafeArea',
-          'MediaQuery.padding',
-          header: true,
-        ),
+        comparisonRow('DisplayFeature', 'SafeArea', 'MediaQuery.padding', header: true),
         comparisonRow(
           'Folds, hinges, cutouts',
           'System UI insets only',
@@ -1017,7 +1001,11 @@ dynamic build(BuildContext context) {
           'Pads child to fit',
           'Read by widgets directly',
         ),
-        comparisonRow('List<DisplayFeature>', 'Single Widget', 'EdgeInsets'),
+        comparisonRow(
+          'List<DisplayFeature>',
+          'Single Widget',
+          'EdgeInsets',
+        ),
       ],
     ),
   );
@@ -1038,16 +1026,8 @@ dynamic build(BuildContext context) {
         ),
       ),
       kv('bounds', 'Rect — area of the display in logical pixels', paletteText),
-      kv(
-        'type',
-        'DisplayFeatureType — fold / hinge / cutout / unknown',
-        paletteText,
-      ),
-      kv(
-        'state',
-        'DisplayFeatureState — posture flat / half / unknown',
-        paletteText,
-      ),
+      kv('type', 'DisplayFeatureType — fold / hinge / cutout / unknown', paletteText),
+      kv('state', 'DisplayFeatureState — posture flat / half / unknown', paletteText),
       const SizedBox(height: 14),
       const Text(
         'enum DisplayFeatureType',
@@ -1082,21 +1062,9 @@ dynamic build(BuildContext context) {
           fontFamily: 'monospace',
         ),
       ),
-      kv(
-        'displayFeatures',
-        'List<DisplayFeature> from MediaQuery',
-        paletteText,
-      ),
-      kv(
-        'anchorPoint',
-        'Offset? — picks which sub-screen receives child',
-        paletteText,
-      ),
-      kv(
-        'child',
-        'Widget — content rendered inside the chosen sub-screen',
-        paletteText,
-      ),
+      kv('displayFeatures', 'List<DisplayFeature> from MediaQuery', paletteText),
+      kv('anchorPoint', 'Offset? — picks which sub-screen receives child', paletteText),
+      kv('child', 'Widget — content rendered inside the chosen sub-screen', paletteText),
     ],
   );
 
@@ -1127,11 +1095,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               label,
-              style: TextStyle(
-                color: tone,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(color: tone, fontSize: 12, fontWeight: FontWeight.bold),
             ),
           ),
           Text(
@@ -1204,147 +1168,101 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         hero,
-        sectionTitle(
-          '01',
-          'Device gallery',
-          'Three reference shapes that motivate DisplayFeature.',
-        ),
+        sectionTitle('01', 'Device gallery', 'Three reference shapes that motivate DisplayFeature.'),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: deviceGallery,
         ),
-        sectionTitle(
-          '02',
-          'DisplayFeatureType',
-          'Each enum value has a distinct visual treatment.',
-        ),
+        sectionTitle('02', 'DisplayFeatureType', 'Each enum value has a distinct visual treatment.'),
         card(Column(children: typeCards)),
-        sectionTitle(
-          '03',
-          'DisplayFeatureState',
-          'Posture annotations describe how the device is held.',
-        ),
+        sectionTitle('03', 'DisplayFeatureState', 'Posture annotations describe how the device is held.'),
         card(Column(children: stateCards)),
-        sectionTitle(
-          '04',
-          'DisplayFeatureSubScreen mock',
-          'Layout helper routing children around hinges.',
-        ),
-        card(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Stack-based illustration (real helper requires a real DisplayFeature list):',
-                style: TextStyle(
-                  color: paletteMuted,
-                  fontSize: 11,
-                  height: 1.4,
-                ),
+        sectionTitle('04', 'DisplayFeatureSubScreen mock', 'Layout helper routing children around hinges.'),
+        card(Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Stack-based illustration (real helper requires a real DisplayFeature list):',
+              style: TextStyle(color: paletteMuted, fontSize: 11, height: 1.4),
+            ),
+            subScreenMock,
+            const SizedBox(height: 10),
+            const Text(
+              'Live attempt (wrapped in try/catch):',
+              style: TextStyle(color: paletteMuted, fontSize: 11),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 6),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: paletteScreen,
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color: paletteBorder),
               ),
-              subScreenMock,
-              const SizedBox(height: 10),
-              const Text(
-                'Live attempt (wrapped in try/catch):',
-                style: TextStyle(color: paletteMuted, fontSize: 11),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 6),
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: paletteScreen,
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: paletteBorder),
-                ),
-                child: sampleSubScreen,
-              ),
-            ],
-          ),
-        ),
-        sectionTitle(
-          '05',
-          'Code snippets',
-          'Common usage patterns for production apps.',
-        ),
-        card(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Read display features from the current MediaQuery:',
-                style: TextStyle(color: paletteText, fontSize: 12),
-              ),
-              codeBlock(
-                'final features = MediaQuery.displayFeaturesOf(context);\n'
-                'for (final f in features) {\n'
-                '  if (f.type == DisplayFeatureType.hinge) {\n'
-                '    // avoid crossing the hinge\n'
-                '  }\n'
-                '}',
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                'Wrap a dialog so it sits in one sub-screen:',
-                style: TextStyle(color: paletteText, fontSize: 12),
-              ),
-              codeBlock(
-                'showDialog(\n'
-                '  context: context,\n'
-                '  builder: (ctx) => DisplayFeatureSubScreen(\n'
-                '    anchorPoint: Offset.zero,\n'
-                '    child: AlertDialog(title: Text("Hi")),\n'
-                '  ),\n'
-                ');',
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                'Pick a sub-screen via anchorPoint:',
-                style: TextStyle(color: paletteText, fontSize: 12),
-              ),
-              codeBlock(
-                '// Top-left sub-screen\n'
-                'anchorPoint: Offset.zero;\n'
-                '\n'
-                '// Bottom-right sub-screen\n'
-                'anchorPoint: Offset(double.infinity, double.infinity);',
-              ),
-            ],
-          ),
-        ),
-        sectionTitle(
-          '06',
-          'Comparison',
-          'How DisplayFeature relates to neighbouring APIs.',
-        ),
+              child: sampleSubScreen,
+            ),
+          ],
+        )),
+        sectionTitle('05', 'Code snippets', 'Common usage patterns for production apps.'),
+        card(Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Read display features from the current MediaQuery:',
+              style: TextStyle(color: paletteText, fontSize: 12),
+            ),
+            codeBlock(
+              'final features = MediaQuery.displayFeaturesOf(context);\n'
+              'for (final f in features) {\n'
+              '  if (f.type == DisplayFeatureType.hinge) {\n'
+              '    // avoid crossing the hinge\n'
+              '  }\n'
+              '}',
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Wrap a dialog so it sits in one sub-screen:',
+              style: TextStyle(color: paletteText, fontSize: 12),
+            ),
+            codeBlock(
+              'showDialog(\n'
+              '  context: context,\n'
+              '  builder: (ctx) => DisplayFeatureSubScreen(\n'
+              '    anchorPoint: Offset.zero,\n'
+              '    child: AlertDialog(title: Text("Hi")),\n'
+              '  ),\n'
+              ');',
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Pick a sub-screen via anchorPoint:',
+              style: TextStyle(color: paletteText, fontSize: 12),
+            ),
+            codeBlock(
+              '// Top-left sub-screen\n'
+              'anchorPoint: Offset.zero;\n'
+              '\n'
+              '// Bottom-right sub-screen\n'
+              'anchorPoint: Offset(double.infinity, double.infinity);',
+            ),
+          ],
+        )),
+        sectionTitle('06', 'Comparison', 'How DisplayFeature relates to neighbouring APIs.'),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: comparisonTable,
         ),
-        sectionTitle(
-          '07',
-          'Field reference',
-          'Public surface of all four classes.',
-        ),
+        sectionTitle('07', 'Field reference', 'Public surface of all four classes.'),
         card(fieldReference),
-        sectionTitle(
-          '08',
-          'Sample feature status',
-          'Constructed in this build call.',
-        ),
-        card(
-          Column(
-            children: [
-              statusRow('Fold feature', foldFeature, paletteFold),
-              statusRow('Hinge feature', hingeFeature, paletteHinge),
-              statusRow('Cutout feature', cutoutFeature, paletteCutout),
-            ],
-          ),
-        ),
-        sectionTitle(
-          '09',
-          'Edge cases',
-          'Defensive coding around fragile inputs.',
-        ),
+        sectionTitle('08', 'Sample feature status', 'Constructed in this build call.'),
+        card(Column(
+          children: [
+            statusRow('Fold feature', foldFeature, paletteFold),
+            statusRow('Hinge feature', hingeFeature, paletteHinge),
+            statusRow('Cutout feature', cutoutFeature, paletteCutout),
+          ],
+        )),
+        sectionTitle('09', 'Edge cases', 'Defensive coding around fragile inputs.'),
         card(edgeCases),
         // ============================================================
         // FOOTER

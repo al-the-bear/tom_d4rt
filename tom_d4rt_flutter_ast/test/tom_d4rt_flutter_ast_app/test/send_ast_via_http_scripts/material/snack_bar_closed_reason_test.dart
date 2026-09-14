@@ -400,10 +400,8 @@ dynamic build(BuildContext context) {
   final stoppedFull = AlwaysStoppedAnimation<double>(1.0);
   final stoppedZero = AlwaysStoppedAnimation<double>(0.0);
   final zeroDuration = Duration.zero;
-  print(
-    'Frozen animation values: ${stoppedHalf.value}, ${stoppedFull.value}, '
-    '${stoppedZero.value} (Duration: $zeroDuration)',
-  );
+  print('Frozen animation values: ${stoppedHalf.value}, ${stoppedFull.value}, '
+      '${stoppedZero.value} (Duration: $zeroDuration)');
 
   final dismissMocks = <Widget>[];
   for (final reason in allReasons) {
@@ -576,7 +574,11 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 6.0),
                   Row(
                     children: [
-                      Icon(Icons.arrow_right_alt, color: color, size: 18.0),
+                      Icon(
+                        Icons.arrow_right_alt,
+                        color: color,
+                        size: 18.0,
+                      ),
                       SizedBox(width: 4.0),
                       Text(
                         'closed → ${reason.name}',
@@ -659,8 +661,13 @@ dynamic build(BuildContext context) {
               ('dismiss', Colors.orange),
               ('swipe', Colors.blue),
             ]),
-            _buildLaneItems([('hide', Colors.purple), ('remove', Colors.red)]),
-            _buildLaneItems([('timeout', Colors.teal)]),
+            _buildLaneItems([
+              ('hide', Colors.purple),
+              ('remove', Colors.red),
+            ]),
+            _buildLaneItems([
+              ('timeout', Colors.teal),
+            ]),
           ],
         ),
         SizedBox(height: 16.0),
@@ -702,11 +709,13 @@ dynamic build(BuildContext context) {
             for (final r in allReasons)
               Container(
                 margin: EdgeInsets.all(4.0),
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 6.0,
+                ),
                 decoration: BoxDecoration(
-                  color: (reasonMeta[r]!['color'] as Color).withValues(
-                    alpha: 0.18,
-                  ),
+                  color: (reasonMeta[r]!['color'] as Color)
+                      .withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(20.0),
                   border: Border.all(
                     color: reasonMeta[r]!['color'] as Color,
@@ -795,7 +804,11 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: [
-                _buildDataCell(r.name, 90.0, reasonMeta[r]!['color'] as Color),
+                _buildDataCell(
+                  r.name,
+                  90.0,
+                  reasonMeta[r]!['color'] as Color,
+                ),
                 _buildDataCell(
                   reasonMeta[r]!['origin'] as String,
                   70.0,
@@ -803,7 +816,11 @@ dynamic build(BuildContext context) {
                 ),
                 _buildBoolCell(_hasExitAnimation(r), 70.0),
                 _buildBoolCell(_isUserAck(r), 70.0),
-                _buildDataCell('${r.index}', 50.0, Colors.grey.shade700),
+                _buildDataCell(
+                  '${r.index}',
+                  50.0,
+                  Colors.grey.shade700,
+                ),
               ],
             ),
           ),
@@ -1328,7 +1345,9 @@ Widget _buildRecipeBlock(String title, String code, Color accent) {
     decoration: BoxDecoration(
       color: Colors.black.withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(left: BorderSide(color: accent, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: accent, width: 3.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,

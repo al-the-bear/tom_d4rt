@@ -128,10 +128,8 @@ class _RawKeyEventDataLinux {
 
   // GLFW modifier bitmask (mirrors the constants the demo cites):
   //   shift=0x0001, control=0x0002, alt=0x0004, super/meta=0x0008.
-  bool isModifierPressed(
-    _ModifierKey key, {
-    _KeyboardSide side = _KeyboardSide.any,
-  }) {
+  bool isModifierPressed(_ModifierKey key,
+      {_KeyboardSide side = _KeyboardSide.any}) {
     switch (key) {
       case _ModifierKey.shiftModifier:
         return (modifiers & 0x0001) != 0;
@@ -156,22 +154,26 @@ abstract class _RawKeyEvent {
   // scanCode for the physical hid-usage. A non-positive scalar value
   // falls back to a stable placeholder so `keyLabel` / `debugName`
   // remain printable.
-  LogicalKeyboardKey get logicalKey => LogicalKeyboardKey(
-    data.unicodeScalarValues == 0 ? 0x100000000 : data.unicodeScalarValues,
-  );
-  PhysicalKeyboardKey get physicalKey => PhysicalKeyboardKey(
-    data.scanCode == 0 ? 0x00070004 : 0x00070000 | data.scanCode,
-  );
+  LogicalKeyboardKey get logicalKey =>
+      LogicalKeyboardKey(data.unicodeScalarValues == 0
+          ? 0x100000000
+          : data.unicodeScalarValues);
+  PhysicalKeyboardKey get physicalKey =>
+      PhysicalKeyboardKey(data.scanCode == 0
+          ? 0x00070004
+          : 0x00070000 | data.scanCode);
 
   bool get repeat => false;
 
   // Event-level modifier getters forward to the platform data — same
   // shape the real RawKeyEvent superclass uses.
-  bool get isShiftPressed => data.isModifierPressed(_ModifierKey.shiftModifier);
+  bool get isShiftPressed =>
+      data.isModifierPressed(_ModifierKey.shiftModifier);
   bool get isControlPressed =>
       data.isModifierPressed(_ModifierKey.controlModifier);
   bool get isAltPressed => data.isModifierPressed(_ModifierKey.altModifier);
-  bool get isMetaPressed => data.isModifierPressed(_ModifierKey.metaModifier);
+  bool get isMetaPressed =>
+      data.isModifierPressed(_ModifierKey.metaModifier);
 }
 
 class _RawKeyDownEvent extends _RawKeyEvent {
@@ -316,7 +318,10 @@ Widget paperPanel({
             ),
           ),
         ),
-        Padding(padding: const EdgeInsets.all(12), child: child),
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: child,
+        ),
       ],
     ),
   );
@@ -396,7 +401,9 @@ Widget tableRow(List<String> cells, {bool header = false}) {
   return Container(
     decoration: BoxDecoration(
       color: header ? kKeyCapGray : Colors.transparent,
-      border: const Border(bottom: BorderSide(color: kBrassDark, width: 0.5)),
+      border: const Border(
+        bottom: BorderSide(color: kBrassDark, width: 0.5),
+      ),
     ),
     padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
     child: Row(
@@ -557,9 +564,7 @@ dynamic build(BuildContext context) {
   hr('SECTION 2 — RawKeyEvent anatomy');
   print('A RawKeyEvent has these conceptual fields:');
   bullet('character        — the printable text the keystroke produced');
-  bullet(
-    'logicalKey       — what the user *meant* (e.g. LogicalKeyboardKey.keyA)',
-  );
+  bullet('logicalKey       — what the user *meant* (e.g. LogicalKeyboardKey.keyA)');
   bullet('physicalKey      — which button on the keyboard chassis');
   bullet('data             — platform-specific RawKeyEventData subclass');
   bullet('repeat           — was this a key-repeat event?');
@@ -570,10 +575,7 @@ dynamic build(BuildContext context) {
   final List<List<String>> anatomyRows = <List<String>>[
     <String>['character', '${anchorDown.character}'],
     <String>['logicalKey', anchorDown.logicalKey.keyLabel],
-    <String>[
-      'logicalKey.id',
-      '0x${anchorDown.logicalKey.keyId.toRadixString(16)}',
-    ],
+    <String>['logicalKey.id', '0x${anchorDown.logicalKey.keyId.toRadixString(16)}'],
     <String>['physicalKey', anchorDown.physicalKey.debugName ?? '<unknown>'],
     <String>['data', anchorDown.data.runtimeType.toString()],
     <String>['repeat', '${anchorDown.repeat}'],
@@ -668,32 +670,24 @@ dynamic build(BuildContext context) {
     character: 'q',
   );
 
-  bullet(
-    'ev1 plain "b"     -> ${ev1.logicalKey.keyLabel} char=${ev1.character}',
-  );
-  bullet(
-    'ev2 Shift+C       -> shift=${ev2.isShiftPressed} char=${ev2.character}',
-  );
-  bullet(
-    'ev3 digit "1"     -> ${ev3.logicalKey.keyLabel} char=${ev3.character}',
-  );
-  bullet(
-    'ev4 Ctrl+S        -> ctrl=${ev4.isControlPressed} char=${ev4.character}',
-  );
+  bullet('ev1 plain "b"     -> ${ev1.logicalKey.keyLabel} char=${ev1.character}');
+  bullet('ev2 Shift+C       -> shift=${ev2.isShiftPressed} char=${ev2.character}');
+  bullet('ev3 digit "1"     -> ${ev3.logicalKey.keyLabel} char=${ev3.character}');
+  bullet('ev4 Ctrl+S        -> ctrl=${ev4.isControlPressed} char=${ev4.character}');
   bullet('ev5 Alt+Tab       -> alt=${ev5.isAltPressed} char=${ev5.character}');
-  bullet(
-    'ev6 Meta+Q        -> meta=${ev6.isMetaPressed} char=${ev6.character}',
-  );
+  bullet('ev6 Meta+Q        -> meta=${ev6.isMetaPressed} char=${ev6.character}');
 
   final List<_RawKeyDownEvent> gallery = <_RawKeyDownEvent>[
-    ev1,
-    ev2,
-    ev3,
-    ev4,
-    ev5,
-    ev6,
+    ev1, ev2, ev3, ev4, ev5, ev6,
   ];
-  final List<String> galleryLabels = <String>['B', '⇧C', '1', '⌃S', '⌥⇥', '⌘Q'];
+  final List<String> galleryLabels = <String>[
+    'B',
+    '⇧C',
+    '1',
+    '⌃S',
+    '⌥⇥',
+    '⌘Q',
+  ];
 
   print('Gallery size: ${gallery.length}');
 
@@ -713,9 +707,7 @@ dynamic build(BuildContext context) {
     timeStamp: Duration(milliseconds: 100),
     character: 'a',
   );
-  bullet(
-    'modern KeyDownEvent.physicalKey = ${modernDown.physicalKey.debugName}',
-  );
+  bullet('modern KeyDownEvent.physicalKey = ${modernDown.physicalKey.debugName}');
   bullet('modern KeyDownEvent.logicalKey  = ${modernDown.logicalKey.keyLabel}');
   bullet('modern KeyDownEvent.character   = ${modernDown.character}');
   bullet('modern KeyDownEvent.timeStamp   = ${modernDown.timeStamp}');
@@ -726,30 +718,18 @@ dynamic build(BuildContext context) {
   hr('SECTION 5 — RawKeyEventData subclasses');
   print('Each platform contributes its own RawKeyEventData subclass:');
   bullet('RawKeyEventDataAndroid  — keyCode/scanCode/metaState/flags');
-  bullet(
-    'RawKeyEventDataIos      — characters/charactersIgnoringModifiers/modifiers',
-  );
-  bullet(
-    'RawKeyEventDataLinux    — keyHelper (GTK or GLFW), keyCode, scanCode',
-  );
-  bullet(
-    'RawKeyEventDataMacOs    — characters/charactersIgnoringModifiers/keyCode',
-  );
+  bullet('RawKeyEventDataIos      — characters/charactersIgnoringModifiers/modifiers');
+  bullet('RawKeyEventDataLinux    — keyHelper (GTK or GLFW), keyCode, scanCode');
+  bullet('RawKeyEventDataMacOs    — characters/charactersIgnoringModifiers/keyCode');
   bullet('RawKeyEventDataWeb      — code, key, location, metaState');
-  bullet(
-    'RawKeyEventDataWindows  — keyCode, scanCode, characterCodePoint, modifiers',
-  );
+  bullet('RawKeyEventDataWindows  — keyCode, scanCode, characterCodePoint, modifiers');
 
   final List<List<String>> platformRows = <List<String>>[
     <String>['Platform', 'Subclass', 'Key fields'],
     <String>['Android', 'DataAndroid', 'keyCode, scanCode, metaState, flags'],
     <String>['iOS', 'DataIos', 'characters, charactersIgnoringMods, modifiers'],
     <String>['Linux', 'DataLinux', 'keyHelper, keyCode, scanCode, modifiers'],
-    <String>[
-      'macOS',
-      'DataMacOs',
-      'characters, charactersIgnoringMods, keyCode',
-    ],
+    <String>['macOS', 'DataMacOs', 'characters, charactersIgnoringMods, keyCode'],
     <String>['Web', 'DataWeb', 'code, key, location, metaState'],
     <String>['Windows', 'DataWindows', 'keyCode, scanCode, characterCodePoint'],
     <String>['Fuchsia', 'DataFuchsia', 'hidUsage, codePoint, modifiers'],
@@ -802,9 +782,7 @@ dynamic build(BuildContext context) {
   bullet('2. RawKeyUpEvent    (data.isDown = false)');
   bullet('repeat=true is set on intervening down events while held.');
   bullet('Listeners that count presses must NOT count repeats as new presses.');
-  bullet(
-    'Modern KeyEvent splits this into KeyDownEvent + KeyRepeatEvent + KeyUpEvent.',
-  );
+  bullet('Modern KeyEvent splits this into KeyDownEvent + KeyRepeatEvent + KeyUpEvent.');
 
   // -------------------------------------------------------------------
   //  SECTION 8 — Where you still meet RawKeyEvent in the wild.
@@ -825,14 +803,10 @@ dynamic build(BuildContext context) {
   bullet('1. Replace RawKeyboardListener with KeyboardListener.');
   bullet('2. Replace onKey: (RawKeyEvent e) -> onKeyEvent: (KeyEvent e).');
   bullet('3. Switch is RawKeyDownEvent -> is KeyDownEvent.');
-  bullet(
-    '4. Replace RawKeyboard.instance.keysPressed -> '
-    'HardwareKeyboard.instance.logicalKeysPressed.',
-  );
+  bullet('4. Replace RawKeyboard.instance.keysPressed -> '
+      'HardwareKeyboard.instance.logicalKeysPressed.');
   bullet('5. Replace addListener -> HardwareKeyboard.instance.addHandler.');
-  bullet(
-    '6. Drop platform-specific reads of event.data; use logicalKey instead.',
-  );
+  bullet('6. Drop platform-specific reads of event.data; use logicalKey instead.');
 
   // -------------------------------------------------------------------
   //  Final summary line.
@@ -863,768 +837,760 @@ dynamic build(BuildContext context) {
     ),
     child: SingleChildScrollView(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // -----------------------------------------------------------
-          //  SECTION 1 — Title banner.
-          // -----------------------------------------------------------
-          vintageHeader(
-            'RawKeyEvent — Deep Demo',
-            'Legacy keyboard API · vintage-typewriter theme',
-          ),
-          const SizedBox(height: 12),
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // -----------------------------------------------------------
+        //  SECTION 1 — Title banner.
+        // -----------------------------------------------------------
+        vintageHeader(
+          'RawKeyEvent — Deep Demo',
+          'Legacy keyboard API · vintage-typewriter theme',
+        ),
+        const SizedBox(height: 12),
 
-          // -----------------------------------------------------------
-          //  SECTION 0 — Anchor event card.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 0  ·  Anchor RawKeyDownEvent (Linux)',
-            stripColor: kRibbonRedDark,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    keyCap('a', width: 56, height: 56),
-                    const SizedBox(width: 14),
-                    Expanded(
+        // -----------------------------------------------------------
+        //  SECTION 0 — Anchor event card.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 0  ·  Anchor RawKeyDownEvent (Linux)',
+          stripColor: kRibbonRedDark,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  keyCap('a', width: 56, height: 56),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        labelValue('runtimeType',
+                            anchorDown.runtimeType.toString()),
+                        labelValue('character', '${anchorDown.character}'),
+                        labelValue('logicalKey',
+                            anchorDown.logicalKey.keyLabel),
+                        labelValue('physicalKey',
+                            anchorDown.physicalKey.debugName ?? '?'),
+                        labelValue('data',
+                            anchorDown.data.runtimeType.toString()),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: kInkBlack,
+                  borderRadius: BorderRadius.circular(4),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x66000000),
+                      offset: Offset(0, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  'character="${anchorDown.character}"  '
+                  'logical=0x${anchorDown.logicalKey.keyId.toRadixString(16)}  '
+                  'shift=${anchorDown.isShiftPressed}  '
+                  'ctrl=${anchorDown.isControlPressed}  '
+                  'alt=${anchorDown.isAltPressed}  '
+                  'meta=${anchorDown.isMetaPressed}',
+                  style: const TextStyle(
+                    color: kHighlight,
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // -----------------------------------------------------------
+        //  SECTION 2 — Anatomy diagram.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 2  ·  Anatomy of a RawKeyEvent',
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (int i = 0; i < anatomyRows.length; i++)
+                labelValue(anatomyRows[i][0], anatomyRows[i][1]),
+              const SizedBox(height: 10),
+              Stack(
+                children: [
+                  Container(
+                    height: 90,
+                    decoration: BoxDecoration(
+                      gradient: const RadialGradient(
+                        colors: [kAged, kPaperTan, kPaperCream],
+                        center: Alignment.center,
+                        radius: 0.9,
+                      ),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: kBrassDark),
+                    ),
+                  ),
+                  const Positioned(
+                    left: 10,
+                    top: 10,
+                    child: Text(
+                      'character',
+                      style: TextStyle(
+                        color: kRibbonRedDark,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                  const Positioned(
+                    right: 10,
+                    top: 10,
+                    child: Text(
+                      'logicalKey',
+                      style: TextStyle(
+                        color: kInkBlack,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                  const Positioned(
+                    left: 10,
+                    bottom: 10,
+                    child: Text(
+                      'physicalKey',
+                      style: TextStyle(
+                        color: kBrassDark,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                  const Positioned(
+                    right: 10,
+                    bottom: 10,
+                    child: Text(
+                      'modifiers',
+                      style: TextStyle(
+                        color: kKeyCapGray,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                  Positioned.fill(
+                    child: Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          width: 70,
+                          height: 36,
+                          alignment: Alignment.center,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [kInkBlack, kKeyCapGray],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          ),
+                          child: const Text(
+                            'RawKey',
+                            style: TextStyle(
+                              color: kHighlight,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              letterSpacing: 1.5,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        // -----------------------------------------------------------
+        //  SECTION 3 — Gallery of six events.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 3  ·  Gallery (6 events)',
+          stripColor: kBrassDark,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  for (int i = 0; i < gallery.length; i++)
+                    Container(
+                      width: 120,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [kPaperCream, kPaperTan],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0x44000000),
+                            offset: Offset(0, 2),
+                            blurRadius: 4,
+                          ),
+                        ],
+                        border: Border.all(color: kBrassDark, width: 0.7),
+                      ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          labelValue(
-                            'runtimeType',
-                            anchorDown.runtimeType.toString(),
+                          Row(
+                            children: [
+                              keyCap(
+                                galleryLabels[i],
+                                width: 36,
+                                height: 36,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  gallery[i].logicalKey.keyLabel,
+                                  style: const TextStyle(
+                                    color: kInkBlack,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
                           ),
-                          labelValue('character', '${anchorDown.character}'),
-                          labelValue(
-                            'logicalKey',
-                            anchorDown.logicalKey.keyLabel,
+                          const SizedBox(height: 6),
+                          Text(
+                            'char=${gallery[i].character ?? '∅'}',
+                            style: const TextStyle(
+                              color: kInkSoft,
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                            ),
                           ),
-                          labelValue(
-                            'physicalKey',
-                            anchorDown.physicalKey.debugName ?? '?',
+                          Text(
+                            'shift=${gallery[i].isShiftPressed}',
+                            style: const TextStyle(
+                              color: kInkSoft,
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                            ),
                           ),
-                          labelValue(
-                            'data',
-                            anchorDown.data.runtimeType.toString(),
+                          Text(
+                            'ctrl=${gallery[i].isControlPressed}',
+                            style: const TextStyle(
+                              color: kInkSoft,
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                            ),
+                          ),
+                          Text(
+                            'alt=${gallery[i].isAltPressed}',
+                            style: const TextStyle(
+                              color: kInkSoft,
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                            ),
+                          ),
+                          Text(
+                            'meta=${gallery[i].isMetaPressed}',
+                            style: const TextStyle(
+                              color: kInkSoft,
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: kInkBlack,
-                    borderRadius: BorderRadius.circular(4),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x66000000),
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    'character="${anchorDown.character}"  '
-                    'logical=0x${anchorDown.logicalKey.keyId.toRadixString(16)}  '
-                    'shift=${anchorDown.isShiftPressed}  '
-                    'ctrl=${anchorDown.isControlPressed}  '
-                    'alt=${anchorDown.isAltPressed}  '
-                    'meta=${anchorDown.isMetaPressed}',
-                    style: const TextStyle(
-                      color: kHighlight,
-                      fontFamily: 'monospace',
-                      fontSize: 11,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
+        ),
 
-          // -----------------------------------------------------------
-          //  SECTION 2 — Anatomy diagram.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 2  ·  Anatomy of a RawKeyEvent',
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (int i = 0; i < anatomyRows.length; i++)
-                  labelValue(anatomyRows[i][0], anatomyRows[i][1]),
-                const SizedBox(height: 10),
-                Stack(
-                  children: [
-                    Container(
-                      height: 90,
-                      decoration: BoxDecoration(
-                        gradient: const RadialGradient(
-                          colors: [kAged, kPaperTan, kPaperCream],
-                          center: Alignment.center,
-                          radius: 0.9,
-                        ),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: kBrassDark),
-                      ),
-                    ),
-                    const Positioned(
-                      left: 10,
-                      top: 10,
-                      child: Text(
-                        'character',
-                        style: TextStyle(
-                          color: kRibbonRedDark,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    const Positioned(
-                      right: 10,
-                      top: 10,
-                      child: Text(
-                        'logicalKey',
-                        style: TextStyle(
-                          color: kInkBlack,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    const Positioned(
-                      left: 10,
-                      bottom: 10,
-                      child: Text(
-                        'physicalKey',
-                        style: TextStyle(
-                          color: kBrassDark,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    const Positioned(
-                      right: 10,
-                      bottom: 10,
-                      child: Text(
-                        'modifiers',
-                        style: TextStyle(
-                          color: kKeyCapGray,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    Positioned.fill(
-                      child: Center(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Container(
-                            width: 70,
-                            height: 36,
-                            alignment: Alignment.center,
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [kInkBlack, kKeyCapGray],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                            ),
-                            child: const Text(
-                              'RawKey',
-                              style: TextStyle(
-                                color: kHighlight,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                letterSpacing: 1.5,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          // -----------------------------------------------------------
-          //  SECTION 3 — Gallery of six events.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 3  ·  Gallery (6 events)',
-            stripColor: kBrassDark,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: [
-                    for (int i = 0; i < gallery.length; i++)
-                      Container(
-                        width: 120,
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [kPaperCream, kPaperTan],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                          borderRadius: BorderRadius.circular(6),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color(0x44000000),
-                              offset: Offset(0, 2),
-                              blurRadius: 4,
-                            ),
-                          ],
-                          border: Border.all(color: kBrassDark, width: 0.7),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                keyCap(galleryLabels[i], width: 36, height: 36),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    gallery[i].logicalKey.keyLabel,
-                                    style: const TextStyle(
-                                      color: kInkBlack,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 11,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              'char=${gallery[i].character ?? '∅'}',
-                              style: const TextStyle(
-                                color: kInkSoft,
-                                fontFamily: 'monospace',
-                                fontSize: 10,
-                              ),
-                            ),
-                            Text(
-                              'shift=${gallery[i].isShiftPressed}',
-                              style: const TextStyle(
-                                color: kInkSoft,
-                                fontFamily: 'monospace',
-                                fontSize: 10,
-                              ),
-                            ),
-                            Text(
-                              'ctrl=${gallery[i].isControlPressed}',
-                              style: const TextStyle(
-                                color: kInkSoft,
-                                fontFamily: 'monospace',
-                                fontSize: 10,
-                              ),
-                            ),
-                            Text(
-                              'alt=${gallery[i].isAltPressed}',
-                              style: const TextStyle(
-                                color: kInkSoft,
-                                fontFamily: 'monospace',
-                                fontSize: 10,
-                              ),
-                            ),
-                            Text(
-                              'meta=${gallery[i].isMetaPressed}',
-                              style: const TextStyle(
-                                color: kInkSoft,
-                                fontFamily: 'monospace',
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          // -----------------------------------------------------------
-          //  SECTION 4 — Deprecation / migration card.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 4  ·  DEPRECATED — migrate to KeyEvent',
-            stripColor: kRibbonRed,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [kRibbonRedDark, kRibbonRed],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x55000000),
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
-                      ),
-                    ],
+        // -----------------------------------------------------------
+        //  SECTION 4 — Deprecation / migration card.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 4  ·  DEPRECATED — migrate to KeyEvent',
+          stripColor: kRibbonRed,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [kRibbonRedDark, kRibbonRed],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
                   ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.warning_amber, color: kHighlight, size: 18),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          'RawKeyEvent is deprecated. Use KeyEvent / '
-                          'HardwareKeyboard / KeyboardListener instead.',
-                          style: TextStyle(
-                            color: kPaperCream,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                migrationRow('RawKeyEvent', 'KeyEvent', 'abstract base class'),
-                migrationRow(
-                  'RawKeyDownEvent',
-                  'KeyDownEvent',
-                  'press lifecycle start',
-                ),
-                migrationRow(
-                  'RawKeyUpEvent',
-                  'KeyUpEvent',
-                  'press lifecycle end',
-                ),
-                migrationRow(
-                  'event.repeat',
-                  'KeyRepeatEvent',
-                  'repeats are now their own type',
-                ),
-                migrationRow(
-                  'RawKeyboard.instance',
-                  'HardwareKeyboard.instance',
-                  'authoritative state hub',
-                ),
-                migrationRow(
-                  'RawKeyboardListener',
-                  'KeyboardListener',
-                  'widget for global key handling',
-                ),
-                migrationRow(
-                  'event.data.modifiers',
-                  'event.logicalKey + state',
-                  'avoid platform-specific bitmasks',
-                ),
-                migrationRow(
-                  'isControlPressed',
-                  'HardwareKeyboard.isControlPressed',
-                  'query the global state',
-                ),
-              ],
-            ),
-          ),
-
-          // -----------------------------------------------------------
-          //  SECTION 5 — RawKeyEventData subclasses overview.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 5  ·  RawKeyEventData subclass family',
-            stripColor: kKeyCapGray,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (int i = 0; i < platformRows.length; i++)
-                        tableRow(platformRows[i], header: i == 0),
-                    ],
-                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x55000000),
+                      offset: Offset(0, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Note: portable code should not switch on these subclasses. '
-                  'Read logicalKey / physicalKey instead.',
+                child: const Row(
+                  children: [
+                    Icon(Icons.warning_amber, color: kHighlight, size: 18),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'RawKeyEvent is deprecated. Use KeyEvent / '
+                        'HardwareKeyboard / KeyboardListener instead.',
+                        style: TextStyle(
+                          color: kPaperCream,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              migrationRow(
+                'RawKeyEvent',
+                'KeyEvent',
+                'abstract base class',
+              ),
+              migrationRow(
+                'RawKeyDownEvent',
+                'KeyDownEvent',
+                'press lifecycle start',
+              ),
+              migrationRow(
+                'RawKeyUpEvent',
+                'KeyUpEvent',
+                'press lifecycle end',
+              ),
+              migrationRow(
+                'event.repeat',
+                'KeyRepeatEvent',
+                'repeats are now their own type',
+              ),
+              migrationRow(
+                'RawKeyboard.instance',
+                'HardwareKeyboard.instance',
+                'authoritative state hub',
+              ),
+              migrationRow(
+                'RawKeyboardListener',
+                'KeyboardListener',
+                'widget for global key handling',
+              ),
+              migrationRow(
+                'event.data.modifiers',
+                'event.logicalKey + state',
+                'avoid platform-specific bitmasks',
+              ),
+              migrationRow(
+                'isControlPressed',
+                'HardwareKeyboard.isControlPressed',
+                'query the global state',
+              ),
+            ],
+          ),
+        ),
+
+        // -----------------------------------------------------------
+        //  SECTION 5 — RawKeyEventData subclasses overview.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 5  ·  RawKeyEventData subclass family',
+          stripColor: kKeyCapGray,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (int i = 0; i < platformRows.length; i++)
+                      tableRow(platformRows[i], header: i == 0),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Note: portable code should not switch on these subclasses. '
+                'Read logicalKey / physicalKey instead.',
+                style: TextStyle(
+                  color: kInkSoft,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 11,
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // -----------------------------------------------------------
+        //  SECTION 6 — Modifier key handling.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 6  ·  Modifier-key handling',
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Convenience getters on RawKeyEvent:',
+                style: TextStyle(
+                  color: kInkBlack,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  keyCap('Shift', width: 70, height: 36),
+                  keyCap('Ctrl', width: 60, height: 36),
+                  keyCap('Alt', width: 56, height: 36),
+                  keyCap('Meta', width: 64, height: 36),
+                  keyCap('Fn', width: 50, height: 36),
+                  keyCap('CapsLk', width: 76, height: 36),
+                ],
+              ),
+              const SizedBox(height: 10),
+              labelValue('ev2 Shift+C',
+                  'isShiftPressed=${ev2.isShiftPressed}  any=$ev2ShiftAny'),
+              labelValue('ev4 Ctrl+S',
+                  'isControlPressed=${ev4.isControlPressed}  any=$ev4ControlAny'),
+              labelValue('ev5 Alt+Tab',
+                  'isAltPressed=${ev5.isAltPressed}  any=$ev5AltAny'),
+              labelValue('ev6 Meta+Q',
+                  'isMetaPressed=${ev6.isMetaPressed}  any=$ev6MetaAny'),
+              const SizedBox(height: 6),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [kPaperTan, kAged],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: const Text(
+                  'event.data.isModifierPressed(ModifierKey.shiftModifier, '
+                  'side: KeyboardSide.left) — query exact side.',
                   style: TextStyle(
-                    color: kInkSoft,
-                    fontStyle: FontStyle.italic,
+                    color: kInkBlack,
+                    fontFamily: 'monospace',
                     fontSize: 11,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+        ),
 
-          // -----------------------------------------------------------
-          //  SECTION 6 — Modifier key handling.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 6  ·  Modifier-key handling',
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Convenience getters on RawKeyEvent:',
-                  style: TextStyle(
-                    color: kInkBlack,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    keyCap('Shift', width: 70, height: 36),
-                    keyCap('Ctrl', width: 60, height: 36),
-                    keyCap('Alt', width: 56, height: 36),
-                    keyCap('Meta', width: 64, height: 36),
-                    keyCap('Fn', width: 50, height: 36),
-                    keyCap('CapsLk', width: 76, height: 36),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                labelValue(
-                  'ev2 Shift+C',
-                  'isShiftPressed=${ev2.isShiftPressed}  any=$ev2ShiftAny',
-                ),
-                labelValue(
-                  'ev4 Ctrl+S',
-                  'isControlPressed=${ev4.isControlPressed}  any=$ev4ControlAny',
-                ),
-                labelValue(
-                  'ev5 Alt+Tab',
-                  'isAltPressed=${ev5.isAltPressed}  any=$ev5AltAny',
-                ),
-                labelValue(
-                  'ev6 Meta+Q',
-                  'isMetaPressed=${ev6.isMetaPressed}  any=$ev6MetaAny',
-                ),
-                const SizedBox(height: 6),
-                Container(
+        // -----------------------------------------------------------
+        //  SECTION 7 — keyDown / keyUp lifecycle.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 7  ·  keyDown vs keyUp',
+          stripColor: kBrass,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(right: 6),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [kPaperTan, kAged],
+                      colors: [kPaperCream, kHighlight],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: kBrassDark),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'RawKeyDownEvent',
+                        style: TextStyle(
+                          color: kRibbonRedDark,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'data.isDown = true\n'
+                        'character may be present\n'
+                        'repeat=${anchorDown.repeat}',
+                        style: const TextStyle(
+                          color: kInkBlack,
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 6),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [kPaperCream, kAged],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: kBrassDark),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'RawKeyUpEvent',
+                        style: TextStyle(
+                          color: kInkBlack,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'data.isDown = false\n'
+                        'character usually null\n'
+                        'pair: ${anchorUp.runtimeType}',
+                        style: const TextStyle(
+                          color: kInkBlack,
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // -----------------------------------------------------------
+        //  SECTION 8 — Where you still see RawKeyEvent.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 8  ·  Where RawKeyEvent still appears',
+          stripColor: kKeyCapGray,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                '• Old plugins subclassing RawKeyboardListener.',
+                style: TextStyle(color: kInkBlack, fontSize: 11),
+              ),
+              SizedBox(height: 2),
+              Text(
+                '• Tutorials and SO answers from pre-Flutter-3.x.',
+                style: TextStyle(color: kInkBlack, fontSize: 11),
+              ),
+              SizedBox(height: 2),
+              Text(
+                '• Code reading RawKeyboard.instance.keysPressed.',
+                style: TextStyle(color: kInkBlack, fontSize: 11),
+              ),
+              SizedBox(height: 2),
+              Text(
+                '• Embedders that have not wired KeyData yet.',
+                style: TextStyle(color: kInkBlack, fontSize: 11),
+              ),
+              SizedBox(height: 2),
+              Text(
+                '• Tests asserting on legacy RawKeyEvent shapes.',
+                style: TextStyle(color: kInkBlack, fontSize: 11),
+              ),
+            ],
+          ),
+        ),
+
+        // -----------------------------------------------------------
+        //  SECTION 9 — Migration cheat-sheet.
+        // -----------------------------------------------------------
+        paperPanel(
+          heading: 'SECTION 9  ·  Migration cheat-sheet',
+          stripColor: kRibbonRedDark,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (int i = 0; i < 6; i++)
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 3),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [kPaperCream, kPaperTan],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
                     borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: kBrassDark, width: 0.7),
                   ),
-                  child: const Text(
-                    'event.data.isModifierPressed(ModifierKey.shiftModifier, '
-                    'side: KeyboardSide.left) — query exact side.',
-                    style: TextStyle(
-                      color: kInkBlack,
-                      fontFamily: 'monospace',
-                      fontSize: 11,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // -----------------------------------------------------------
-          //  SECTION 7 — keyDown / keyUp lifecycle.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 7  ·  keyDown vs keyUp',
-            stripColor: kBrass,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 6),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [kPaperCream, kHighlight],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: kBrassDark),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'RawKeyDownEvent',
-                          style: TextStyle(
-                            color: kRibbonRedDark,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 28,
+                        height: 28,
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(
+                            colors: [kBrass, kBrassDark],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x55000000),
+                              offset: Offset(0, 2),
+                              blurRadius: 3,
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          '${i + 1}',
+                          style: const TextStyle(
+                            color: kPaperCream,
                             fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          <String>[
+                            'Replace RawKeyboardListener with KeyboardListener.',
+                            'Switch onKey: (RawKeyEvent) to onKeyEvent: (KeyEvent).',
+                            'Pattern-match KeyDownEvent / KeyUpEvent / KeyRepeatEvent.',
+                            'Read HardwareKeyboard.instance.logicalKeysPressed.',
+                            'Use HardwareKeyboard.instance.addHandler for global hooks.',
+                            'Drop platform reads of event.data; use logicalKey.',
+                          ][i],
+                          style: const TextStyle(
+                            color: kInkBlack,
                             fontSize: 12,
                           ),
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'data.isDown = true\n'
-                          'character may be present\n'
-                          'repeat=${anchorDown.repeat}',
-                          style: const TextStyle(
-                            color: kInkBlack,
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 6),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [kPaperCream, kAged],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: kBrassDark),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'RawKeyUpEvent',
-                          style: TextStyle(
-                            color: kInkBlack,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'data.isDown = false\n'
-                          'character usually null\n'
-                          'pair: ${anchorUp.runtimeType}',
-                          style: const TextStyle(
-                            color: kInkBlack,
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // -----------------------------------------------------------
-          //  SECTION 8 — Where you still see RawKeyEvent.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 8  ·  Where RawKeyEvent still appears',
-            stripColor: kKeyCapGray,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  '• Old plugins subclassing RawKeyboardListener.',
-                  style: TextStyle(color: kInkBlack, fontSize: 11),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  '• Tutorials and SO answers from pre-Flutter-3.x.',
-                  style: TextStyle(color: kInkBlack, fontSize: 11),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  '• Code reading RawKeyboard.instance.keysPressed.',
-                  style: TextStyle(color: kInkBlack, fontSize: 11),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  '• Embedders that have not wired KeyData yet.',
-                  style: TextStyle(color: kInkBlack, fontSize: 11),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  '• Tests asserting on legacy RawKeyEvent shapes.',
-                  style: TextStyle(color: kInkBlack, fontSize: 11),
-                ),
-              ],
-            ),
-          ),
-
-          // -----------------------------------------------------------
-          //  SECTION 9 — Migration cheat-sheet.
-          // -----------------------------------------------------------
-          paperPanel(
-            heading: 'SECTION 9  ·  Migration cheat-sheet',
-            stripColor: kRibbonRedDark,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (int i = 0; i < 6; i++)
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 3),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [kPaperCream, kPaperTan],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: kBrassDark, width: 0.7),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 28,
-                          height: 28,
-                          alignment: Alignment.center,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: RadialGradient(
-                              colors: [kBrass, kBrassDark],
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x55000000),
-                                offset: Offset(0, 2),
-                                blurRadius: 3,
-                              ),
-                            ],
-                          ),
-                          child: Text(
-                            '${i + 1}',
-                            style: const TextStyle(
-                              color: kPaperCream,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            <String>[
-                              'Replace RawKeyboardListener with KeyboardListener.',
-                              'Switch onKey: (RawKeyEvent) to onKeyEvent: (KeyEvent).',
-                              'Pattern-match KeyDownEvent / KeyUpEvent / KeyRepeatEvent.',
-                              'Read HardwareKeyboard.instance.logicalKeysPressed.',
-                              'Use HardwareKeyboard.instance.addHandler for global hooks.',
-                              'Drop platform reads of event.data; use logicalKey.',
-                            ][i],
-                            style: const TextStyle(
-                              color: kInkBlack,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                const SizedBox(height: 6),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: kInkBlack,
-                    borderRadius: BorderRadius.circular(4),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x66000000),
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
                       ),
                     ],
                   ),
-                  child: const Text(
-                    '// Modern equivalent\n'
-                    'KeyboardListener(\n'
-                    '  focusNode: FocusNode(),\n'
-                    '  onKeyEvent: (KeyEvent e) {\n'
-                    '    if (e is KeyDownEvent) print(e.logicalKey);\n'
-                    '  },\n'
-                    '  child: child,\n'
-                    ');',
-                    style: TextStyle(
-                      color: kHighlight,
-                      fontFamily: 'monospace',
-                      fontSize: 11,
+                ),
+              const SizedBox(height: 6),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: kInkBlack,
+                  borderRadius: BorderRadius.circular(4),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x66000000),
+                      offset: Offset(0, 2),
+                      blurRadius: 4,
                     ),
+                  ],
+                ),
+                child: const Text(
+                  '// Modern equivalent\n'
+                  'KeyboardListener(\n'
+                  '  focusNode: FocusNode(),\n'
+                  '  onKeyEvent: (KeyEvent e) {\n'
+                  '    if (e is KeyDownEvent) print(e.logicalKey);\n'
+                  '  },\n'
+                  '  child: child,\n'
+                  ');',
+                  style: TextStyle(
+                    color: kHighlight,
+                    fontFamily: 'monospace',
+                    fontSize: 11,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+        ),
 
-          const SizedBox(height: 14),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [kBrassDark, kBrass, kBrassDark],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: BorderRadius.circular(4),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x88000000),
-                  offset: Offset(0, 3),
-                  blurRadius: 6,
-                ),
-              ],
+        const SizedBox(height: 14),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [kBrassDark, kBrass, kBrassDark],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
-            child: const Text(
-              'End of RawKeyEvent deep demo · '
-              'remember: prefer KeyEvent for new code.',
-              style: TextStyle(
-                color: kInkBlack,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                letterSpacing: 0.8,
+            borderRadius: BorderRadius.circular(4),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x88000000),
+                offset: Offset(0, 3),
+                blurRadius: 6,
               ),
-              textAlign: TextAlign.center,
-            ),
+            ],
           ),
-        ],
-      ),
+          child: const Text(
+            'End of RawKeyEvent deep demo · '
+            'remember: prefer KeyEvent for new code.',
+            style: TextStyle(
+              color: kInkBlack,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              letterSpacing: 0.8,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    ),
     ),
   );
 }

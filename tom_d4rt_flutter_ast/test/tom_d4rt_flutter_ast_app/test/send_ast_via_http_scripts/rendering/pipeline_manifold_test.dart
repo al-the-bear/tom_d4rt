@@ -397,9 +397,7 @@ Widget _buildMouseTrackerCapability() {
                           width: hovered[i] ? 150 : 130,
                           height: hovered[i] ? 110 : 100,
                           decoration: BoxDecoration(
-                            color: hovered[i]
-                                ? def.color.shade400
-                                : def.color.shade100,
+                            color: hovered[i] ? def.color.shade400 : def.color.shade100,
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
                               color: def.color.shade700,
@@ -843,14 +841,16 @@ class _SemanticsEnabledMonitorState extends State<_SemanticsEnabledMonitor> {
 
   void _onChanged() {
     setState(() {
-      _enabled = WidgetsBinding.instance.platformDispatcher.semanticsEnabled;
+      _enabled =
+          WidgetsBinding.instance.platformDispatcher.semanticsEnabled;
       _changes++;
     });
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.platformDispatcher.onSemanticsEnabledChanged = null;
+    WidgetsBinding.instance.platformDispatcher.onSemanticsEnabledChanged =
+        null;
     super.dispose();
   }
 
@@ -884,7 +884,10 @@ class _SemanticsEnabledMonitorState extends State<_SemanticsEnabledMonitor> {
                 ),
                 Text(
                   'Listener fire count: $_changes',
-                  style: TextStyle(fontSize: 12, color: Colors.cyan.shade800),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.cyan.shade800,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -1042,11 +1045,12 @@ class _LayoutVsPaintComparisonState extends State<_LayoutVsPaintComparison>
   @override
   void initState() {
     super.initState();
-    _ctrl =
-        AnimationController(vsync: this, duration: const Duration(seconds: 4))
-          ..addListener(() {
-            _paintOnly.value = _ctrl.value;
-          });
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    )..addListener(() {
+        _paintOnly.value = _ctrl.value;
+      });
     _ctrl.repeat();
   }
 
@@ -1465,7 +1469,10 @@ Widget _buildDecisionCard() {
             'Most application code never needs to know that PipelineManifold '
             'exists. The cases below show the rough decision tree for when '
             'a developer would interact with it directly.',
-            style: TextStyle(fontSize: 13.5, color: Colors.deepPurple.shade900),
+            style: TextStyle(
+              fontSize: 13.5,
+              color: Colors.deepPurple.shade900,
+            ),
           ),
           const SizedBox(height: 12),
           Column(
@@ -1534,7 +1541,8 @@ Widget _buildDecisionCard() {
 }
 
 class _DecisionRow {
-  const _DecisionRow(this.scenario, this.recommendation, this.note, this.color);
+  const _DecisionRow(
+      this.scenario, this.recommendation, this.note, this.color);
   final String scenario;
   final String recommendation;
   final String note;
@@ -1584,54 +1592,42 @@ Widget _buildReferenceTable() {
                   DataColumn(label: Text('Typical caller')),
                 ],
                 rows: const <DataRow>[
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('requestVisualUpdate()')),
-                      DataCell(Text('void')),
-                      DataCell(Text('Mark pipeline dirty for next frame')),
-                      DataCell(Text('PipelineOwner')),
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('mouseTracker')),
-                      DataCell(Text('MouseTracker')),
-                      DataCell(Text('Hit-test cursor / hover dispatcher')),
-                      DataCell(Text('MouseRegion / RenderMouseRegion')),
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('semanticsOwner')),
-                      DataCell(Text('SemanticsOwner?')),
-                      DataCell(Text('Aggregator of the semantics tree')),
-                      DataCell(Text('PipelineOwner')),
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('semanticsEnabled')),
-                      DataCell(Text('bool')),
-                      DataCell(Text('Whether semantics are currently active')),
-                      DataCell(Text('Custom semantics-aware render objects')),
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('addListener(...)')),
-                      DataCell(Text('void')),
-                      DataCell(Text('Subscribe to semanticsEnabled changes')),
-                      DataCell(Text('PipelineOwner / consumers')),
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text('removeListener(...)')),
-                      DataCell(Text('void')),
-                      DataCell(Text('Cancel subscription')),
-                      DataCell(Text('PipelineOwner / consumers')),
-                    ],
-                  ),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('requestVisualUpdate()')),
+                    DataCell(Text('void')),
+                    DataCell(Text('Mark pipeline dirty for next frame')),
+                    DataCell(Text('PipelineOwner')),
+                  ]),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('mouseTracker')),
+                    DataCell(Text('MouseTracker')),
+                    DataCell(Text('Hit-test cursor / hover dispatcher')),
+                    DataCell(Text('MouseRegion / RenderMouseRegion')),
+                  ]),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('semanticsOwner')),
+                    DataCell(Text('SemanticsOwner?')),
+                    DataCell(Text('Aggregator of the semantics tree')),
+                    DataCell(Text('PipelineOwner')),
+                  ]),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('semanticsEnabled')),
+                    DataCell(Text('bool')),
+                    DataCell(Text('Whether semantics are currently active')),
+                    DataCell(Text('Custom semantics-aware render objects')),
+                  ]),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('addListener(...)')),
+                    DataCell(Text('void')),
+                    DataCell(Text('Subscribe to semanticsEnabled changes')),
+                    DataCell(Text('PipelineOwner / consumers')),
+                  ]),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('removeListener(...)')),
+                    DataCell(Text('void')),
+                    DataCell(Text('Cancel subscription')),
+                    DataCell(Text('PipelineOwner / consumers')),
+                  ]),
                 ],
               ),
             ),
@@ -1675,7 +1671,10 @@ Widget _buildFooter() {
             'Closely related Flutter rendering surfaces — these are the '
             'classes you will actually subclass or instantiate when working '
             'around PipelineManifold:',
-            style: TextStyle(fontSize: 13, color: Colors.indigo.shade100),
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.indigo.shade100,
+            ),
           ),
           const SizedBox(height: 8),
           ..._footerItems().map(
@@ -1863,7 +1862,12 @@ class _MultiViewArchitecturePainter extends CustomPainter {
     final Paint linePaint = Paint()
       ..color = Colors.blue.shade700
       ..strokeWidth = 2;
-    final Rect manifoldRect = Rect.fromLTWH(size.width / 2 - 100, 20, 200, 54);
+    final Rect manifoldRect = Rect.fromLTWH(
+      size.width / 2 - 100,
+      20,
+      200,
+      54,
+    );
     canvas.drawRRect(
       RRect.fromRectAndRadius(manifoldRect, const Radius.circular(10)),
       Paint()..color = Colors.blue.shade800,
@@ -1916,13 +1920,8 @@ class _MultiViewArchitecturePainter extends CustomPainter {
         RRect.fromRectAndRadius(r, const Radius.circular(8)),
         Paint()..color = Colors.blue.shade300,
       );
-      _drawCenteredText(
-        canvas,
-        leafLabels[i],
-        r,
-        Colors.blue.shade900,
-        fontSize: 11,
-      );
+      _drawCenteredText(canvas, leafLabels[i], r, Colors.blue.shade900,
+          fontSize: 11);
       canvas.drawLine(
         Offset(x + ownerW / 2, leafY),
         Offset(x + ownerW / 2, ownerY + ownerH),
@@ -2009,7 +2008,8 @@ class _DotsPainter extends CustomPainter {
     final double t = _anim.value;
     for (int i = 0; i < count; i++) {
       final double phase = (i / count) * 6.283 + t * 6.283;
-      final double x = size.width * 0.5 + (size.width * 0.45) * _wave(phase, 0);
+      final double x =
+          size.width * 0.5 + (size.width * 0.45) * _wave(phase, 0);
       final double y =
           size.height * 0.5 + (size.height * 0.40) * _wave(phase, 1);
       final double radius = 2 + 4 * (0.5 + 0.5 * _wave(phase * 2, 2));
@@ -2062,8 +2062,13 @@ class _ClockPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Offset center = Offset(size.width / 2, size.height / 2);
-    final double radius = (size.shortestSide / 2) - 12;
-    canvas.drawCircle(center, radius, Paint()..color = Colors.pink.shade100);
+    final double radius =
+        (size.shortestSide / 2) - 12;
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()..color = Colors.pink.shade100,
+    );
     canvas.drawCircle(
       center,
       radius,
@@ -2074,8 +2079,8 @@ class _ClockPainter extends CustomPainter {
     );
     for (int i = 0; i < 12; i++) {
       final double a = i * 6.283 / 12;
-      final Offset p1 =
-          center + Offset(_cos(a) * (radius - 4), _sin(a) * (radius - 4));
+      final Offset p1 = center +
+          Offset(_cos(a) * (radius - 4), _sin(a) * (radius - 4));
       final Offset p2 =
           center + Offset(_cos(a) * (radius - 14), _sin(a) * (radius - 14));
       canvas.drawLine(
@@ -2088,8 +2093,7 @@ class _ClockPainter extends CustomPainter {
     }
     final double t = _anim.value;
     final double angle = t * 6.283 - 1.5707963;
-    final Offset hand =
-        center +
+    final Offset hand = center +
         Offset(_cos(angle) * (radius - 18), _sin(angle) * (radius - 18));
     canvas.drawLine(
       center,
@@ -2103,11 +2107,7 @@ class _ClockPainter extends CustomPainter {
     _drawCenteredText(
       canvas,
       'Ticker',
-      Rect.fromCenter(
-        center: center.translate(0, radius * 0.55),
-        width: 80,
-        height: 18,
-      ),
+      Rect.fromCenter(center: center.translate(0, radius * 0.55), width: 80, height: 18),
       Colors.pink.shade900,
       fontSize: 11,
     );

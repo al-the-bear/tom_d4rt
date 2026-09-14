@@ -144,10 +144,7 @@ Widget buildThemedButtonBarCard({
                 ),
               ),
               if (themeBadgeText != null)
-                buildThemeBadge(
-                  themeBadgeText,
-                  themeBadgeColor ?? Colors.indigo,
-                ),
+                buildThemeBadge(themeBadgeText, themeBadgeColor ?? Colors.indigo),
             ],
           ),
         ),
@@ -258,10 +255,7 @@ Widget buildPropertyRow(String prop, String outer, String inner) {
       children: [
         Expanded(
           flex: 2,
-          child: Text(
-            prop,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-          ),
+          child: Text(prop, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
         ),
         Expanded(
           child: Container(
@@ -270,10 +264,7 @@ Widget buildPropertyRow(String prop, String outer, String inner) {
               color: Colors.indigo.shade50,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              outer,
-              style: TextStyle(fontSize: 11, color: Colors.indigo),
-            ),
+            child: Text(outer, style: TextStyle(fontSize: 11, color: Colors.indigo)),
           ),
         ),
         SizedBox(width: 8),
@@ -284,10 +275,7 @@ Widget buildPropertyRow(String prop, String outer, String inner) {
               color: Colors.orange.shade50,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              inner,
-              style: TextStyle(fontSize: 11, color: Colors.orange.shade700),
-            ),
+            child: Text(inner, style: TextStyle(fontSize: 11, color: Colors.orange.shade700)),
           ),
         ),
       ],
@@ -347,9 +335,7 @@ dynamic build(BuildContext context) {
 
         // Section 1: Basic Theme Wrapping
         buildSectionTitle('1. Basic Theme Wrapping'),
-        buildDescription(
-          'ButtonBarTheme wrapping ButtonBars with different alignment',
-        ),
+        buildDescription('ButtonBarTheme wrapping ButtonBars with different alignment'),
 
         buildThemedButtonBarCard(
           title: 'Start-aligned Theme',
@@ -396,9 +382,7 @@ dynamic build(BuildContext context) {
 
         // Section 2: Nested Theme Inheritance
         buildSectionTitle('2. Nested Theme Inheritance'),
-        buildDescription(
-          'Inner ButtonBarTheme overrides outer theme properties',
-        ),
+        buildDescription('Inner ButtonBarTheme overrides outer theme properties'),
 
         buildNestedThemeCard(
           title: 'Alignment Override',
@@ -442,25 +426,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Expanded(flex: 2, child: SizedBox()),
                   Expanded(
-                    child: Text(
-                      'Outer',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo,
-                      ),
-                    ),
+                    child: Text('Outer', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.indigo)),
                   ),
                   SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      'Inner',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orange.shade700,
-                      ),
-                    ),
+                    child: Text('Inner', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.orange.shade700)),
                   ),
                 ],
               ),
@@ -497,9 +467,7 @@ dynamic build(BuildContext context) {
 
         // Section 3: Full ThemeData Integration
         buildSectionTitle('3. Full ThemeData Integration'),
-        buildDescription(
-          'Using ThemeData.buttonBarTheme for app-wide configuration',
-        ),
+        buildDescription('Using ThemeData.buttonBarTheme for app-wide configuration'),
 
         Container(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -507,11 +475,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
             ],
           ),
           child: Column(
@@ -524,11 +488,7 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Text(
                         'Theme Widget Integration',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.indigo.shade700,
-                        ),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.indigo.shade700),
                       ),
                     ),
                     buildThemeBadge('ThemeData', Colors.purple),
@@ -646,11 +606,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
             ],
           ),
           child: Column(
@@ -663,26 +619,10 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
               ),
-              _buildResolutionStep(
-                '1',
-                'Local ButtonBarTheme widget',
-                Colors.green,
-              ),
-              _buildResolutionStep(
-                '2',
-                'Parent ButtonBarTheme widget',
-                Colors.blue,
-              ),
-              _buildResolutionStep(
-                '3',
-                'ThemeData.buttonBarTheme',
-                Colors.orange,
-              ),
-              _buildResolutionStep(
-                '4',
-                'Default ButtonBarThemeData',
-                Colors.grey,
-              ),
+              _buildResolutionStep('1', 'Local ButtonBarTheme widget', Colors.green),
+              _buildResolutionStep('2', 'Parent ButtonBarTheme widget', Colors.blue),
+              _buildResolutionStep('3', 'ThemeData.buttonBarTheme', Colors.orange),
+              _buildResolutionStep('4', 'Default ButtonBarThemeData', Colors.grey),
               SizedBox(height: 16),
             ],
           ),
@@ -705,11 +645,7 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
                 child: Text(
                   'Dark Theme ButtonBar',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
                 ),
               ),
               Padding(
@@ -725,10 +661,7 @@ dynamic build(BuildContext context) {
                   children: [
                     TextButton(
                       onPressed: () {},
-                      child: Text(
-                        'Dismiss',
-                        style: TextStyle(color: Colors.grey.shade400),
-                      ),
+                      child: Text('Dismiss', style: TextStyle(color: Colors.grey.shade400)),
                     ),
                     ElevatedButton(
                       onPressed: () {},
@@ -760,14 +693,8 @@ dynamic build(BuildContext context) {
             alignment: MainAxisAlignment.end,
           ),
           buttons: [
-            TextButton(
-              onPressed: () {},
-              child: Text('No', style: TextStyle(fontSize: 12)),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Yes', style: TextStyle(fontSize: 12)),
-            ),
+            TextButton(onPressed: () {}, child: Text('No', style: TextStyle(fontSize: 12))),
+            ElevatedButton(onPressed: () {}, child: Text('Yes', style: TextStyle(fontSize: 12))),
           ],
           themeBadgeText: 'compact',
           themeBadgeColor: Colors.green,
@@ -839,20 +766,18 @@ Widget _buildResolutionStep(String number, String description, Color color) {
         Container(
           width: 24,
           height: 24,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
           child: Center(
-            child: Text(
-              number,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text(number, style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
           ),
         ),
         SizedBox(width: 12),
-        Expanded(child: Text(description, style: TextStyle(fontSize: 13))),
+        Expanded(
+          child: Text(description, style: TextStyle(fontSize: 13)),
+        ),
       ],
     ),
   );

@@ -178,8 +178,7 @@ class ColorSwatchFormField extends FormField<Color> {
                  spacing: 8.0,
                  runSpacing: 8.0,
                  children: options.map((Color option) {
-                   final bool selected =
-                       option.toARGB32() == current.toARGB32();
+                   final bool selected = option.toARGB32() == current.toARGB32();
                    return Container(
                      width: 32.0,
                      height: 32.0,
@@ -289,7 +288,10 @@ Widget _tagPill(String text, Color color) {
   );
 }
 
-Widget _galleryCard({required GalleryEntry entry, required Widget control}) {
+Widget _galleryCard({
+  required GalleryEntry entry,
+  required Widget control,
+}) {
   return Container(
     width: 220.0,
     padding: const EdgeInsets.all(14.0),
@@ -446,7 +448,12 @@ dynamic build(BuildContext context) {
 
   // Validation case tables visualize the validator contract without mutation.
   const List<ValidationCase> emailCases = <ValidationCase>[
-    ValidationCase(label: 'empty', input: '', error: 'Required', valid: false),
+    ValidationCase(
+      label: 'empty',
+      input: '',
+      error: 'Required',
+      valid: false,
+    ),
     ValidationCase(
       label: 'no at',
       input: 'noatsign.com',
@@ -495,7 +502,12 @@ dynamic build(BuildContext context) {
   ];
 
   const List<ValidationCase> ageCases = <ValidationCase>[
-    ValidationCase(label: 'empty', input: '', error: 'Required', valid: false),
+    ValidationCase(
+      label: 'empty',
+      input: '',
+      error: 'Required',
+      valid: false,
+    ),
     ValidationCase(
       label: 'text',
       input: 'twelve',
@@ -514,7 +526,12 @@ dynamic build(BuildContext context) {
       error: 'Must be 13..120',
       valid: false,
     ),
-    ValidationCase(label: 'okay', input: '32', error: null, valid: true),
+    ValidationCase(
+      label: 'okay',
+      input: '32',
+      error: null,
+      valid: true,
+    ),
   ];
 
   const List<AutovalidateRow> autovalidateRows = <AutovalidateRow>[
@@ -545,18 +562,15 @@ dynamic build(BuildContext context) {
   ];
 
   // Pre-computed enumeration rows for the AutovalidateMode demo.
-  final List<Map<String, Object>> autovalidateIndexed = autovalidateRows
-      .asMap()
-      .entries
-      .map((MapEntry<int, AutovalidateRow> e) {
-        return <String, Object>{
-          'index': e.key,
-          'headline': e.value.headline,
-          'detail': e.value.detail,
-          'name': e.value.mode.name,
-        };
-      })
-      .toList();
+  final List<Map<String, Object>> autovalidateIndexed =
+      autovalidateRows.asMap().entries.map((MapEntry<int, AutovalidateRow> e) {
+    return <String, Object>{
+      'index': e.key,
+      'headline': e.value.headline,
+      'detail': e.value.detail,
+      'name': e.value.mode.name,
+    };
+  }).toList();
 
   // ==========================================================================
   // SECTION 1: HEADER + TABLE OF CONTENTS
@@ -621,7 +635,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'Form, FormField, validators, AutovalidateMode',
-                    style: TextStyle(fontSize: 14.0, color: Color(0xFFC5CAE9)),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Color(0xFFC5CAE9),
+                    ),
                   ),
                 ],
               ),
@@ -688,7 +705,10 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     entry,
-                    style: const TextStyle(fontSize: 13.0, color: kPaletteInk),
+                    style: const TextStyle(
+                      fontSize: 13.0,
+                      color: kPaletteInk,
+                    ),
                   ),
                 ),
               ],
@@ -902,20 +922,23 @@ dynamic build(BuildContext context) {
 
   final InputDecoration decorDense = InputDecoration(
     isDense: true,
-    contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+    contentPadding: const EdgeInsets.symmetric(
+      horizontal: 12.0,
+      vertical: 8.0,
+    ),
     labelText: 'Dense',
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
   );
 
   final List<MapEntry<String, InputDecoration>> decorationTour =
       <MapEntry<String, InputDecoration>>[
-        MapEntry<String, InputDecoration>('Outlined', decorOutlined),
-        MapEntry<String, InputDecoration>('Filled', decorFilled),
-        MapEntry<String, InputDecoration>('Error', decorError),
-        MapEntry<String, InputDecoration>('Icons', decorIcons),
-        MapEntry<String, InputDecoration>('Prefix / suffix', decorPrefixSuffix),
-        MapEntry<String, InputDecoration>('Dense', decorDense),
-      ];
+    MapEntry<String, InputDecoration>('Outlined', decorOutlined),
+    MapEntry<String, InputDecoration>('Filled', decorFilled),
+    MapEntry<String, InputDecoration>('Error', decorError),
+    MapEntry<String, InputDecoration>('Icons', decorIcons),
+    MapEntry<String, InputDecoration>('Prefix / suffix', decorPrefixSuffix),
+    MapEntry<String, InputDecoration>('Dense', decorDense),
+  ];
 
   final Widget decorationSection = _sectionShell(
     title: '2. InputDecoration showcase',
@@ -975,7 +998,9 @@ dynamic build(BuildContext context) {
         decoration: InputDecoration(
           labelText: 'Destination',
           prefixIcon: const Icon(Icons.flight_takeoff),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
         ),
         items: destinationOptions.map((DropdownOption option) {
           return DropdownMenuItem<String>(
@@ -1021,22 +1046,23 @@ dynamic build(BuildContext context) {
         onChanged: (_) {},
       );
 
-  final DropdownButtonFormField<int> partySize = DropdownButtonFormField<int>(
-    initialValue: 2,
-    decoration: const InputDecoration(
-      labelText: 'Party size',
-      border: OutlineInputBorder(),
-      prefixIcon: Icon(Icons.group_outlined),
-    ),
-    items: List<DropdownMenuItem<int>>.generate(
-      8,
-      (int i) => DropdownMenuItem<int>(
-        value: i + 1,
-        child: Text('${i + 1} traveler${i == 0 ? '' : 's'}'),
-      ),
-    ),
-    onChanged: (_) {},
-  );
+  final DropdownButtonFormField<int> partySize =
+      DropdownButtonFormField<int>(
+        initialValue: 2,
+        decoration: const InputDecoration(
+          labelText: 'Party size',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(Icons.group_outlined),
+        ),
+        items: List<DropdownMenuItem<int>>.generate(
+          8,
+          (int i) => DropdownMenuItem<int>(
+            value: i + 1,
+            child: Text('${i + 1} traveler${i == 0 ? '' : 's'}'),
+          ),
+        ),
+        onChanged: (_) {},
+      );
 
   final Widget dropdownSection = _sectionShell(
     title: '3. DropdownButtonFormField',
@@ -1170,7 +1196,10 @@ dynamic build(BuildContext context) {
         const Radio<int>(value: 1),
         const Radio<int>(value: 2),
         const Radio<int>(value: 3, activeColor: kPaletteGreen),
-        Radio<int>(value: 4, fillColor: WidgetStateProperty.all(kPaletteAmber)),
+        Radio<int>(
+          value: 4,
+          fillColor: WidgetStateProperty.all(kPaletteAmber),
+        ),
         const Radio<int>(value: 5),
       ],
     ),
@@ -1261,7 +1290,10 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: kPaletteCloud, width: 1.0),
           ),
-          child: Material(type: MaterialType.transparency, child: radioTiles),
+          child: Material(
+            type: MaterialType.transparency,
+            child: radioTiles,
+          ),
         ),
       ],
     ),
@@ -1382,7 +1414,10 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: kPaletteCloud, width: 1.0),
           ),
-          child: Material(type: MaterialType.transparency, child: switchTiles),
+          child: Material(
+            type: MaterialType.transparency,
+            child: switchTiles,
+          ),
         ),
       ],
     ),
@@ -1910,8 +1945,10 @@ dynamic build(BuildContext context) {
         ),
         items: List<DropdownMenuItem<int>>.generate(
           8,
-          (int i) =>
-              DropdownMenuItem<int>(value: i + 1, child: Text('${i + 1}')),
+          (int i) => DropdownMenuItem<int>(
+            value: i + 1,
+            child: Text('${i + 1}'),
+          ),
         ),
         onChanged: (_) {},
       );
@@ -1925,30 +1962,30 @@ dynamic build(BuildContext context) {
     child: Material(
       type: MaterialType.transparency,
       child: Column(
-        children: <Widget>[
-          CheckboxListTile(
-            value: true,
-            onChanged: (_) {},
-            title: const Text('Checked baggage'),
-            subtitle: const Text('1 piece per traveler, up to 23 kg'),
-            activeColor: kPaletteIndigo,
-          ),
-          CheckboxListTile(
-            value: false,
-            onChanged: (_) {},
-            title: const Text('In-flight meals'),
-            subtitle: const Text('Add a hot meal on long-haul segments'),
-            activeColor: kPaletteAmber,
-          ),
-          CheckboxListTile(
-            value: true,
-            onChanged: (_) {},
-            title: const Text('Lounge access'),
-            subtitle: const Text('Star Alliance lounges where available'),
-            activeColor: kPaletteTeal,
-          ),
-        ],
-      ),
+      children: <Widget>[
+        CheckboxListTile(
+          value: true,
+          onChanged: (_) {},
+          title: const Text('Checked baggage'),
+          subtitle: const Text('1 piece per traveler, up to 23 kg'),
+          activeColor: kPaletteIndigo,
+        ),
+        CheckboxListTile(
+          value: false,
+          onChanged: (_) {},
+          title: const Text('In-flight meals'),
+          subtitle: const Text('Add a hot meal on long-haul segments'),
+          activeColor: kPaletteAmber,
+        ),
+        CheckboxListTile(
+          value: true,
+          onChanged: (_) {},
+          title: const Text('Lounge access'),
+          subtitle: const Text('Star Alliance lounges where available'),
+          activeColor: kPaletteTeal,
+        ),
+      ],
+    ),
     ),
   );
 
@@ -1961,31 +1998,31 @@ dynamic build(BuildContext context) {
     child: Material(
       type: MaterialType.transparency,
       child: RadioGroup<String>(
-        groupValue: 'standard',
-        onChanged: (_) {},
-        child: const Column(
-          children: <Widget>[
-            RadioListTile<String>(
-              value: 'standard',
-              title: Text('Standard refundable'),
-              subtitle: Text('Refundable up to 48h before travel'),
-              activeColor: kPaletteIndigo,
-            ),
-            RadioListTile<String>(
-              value: 'flex',
-              title: Text('Flex'),
-              subtitle: Text('Free changes any time'),
-              activeColor: kPaletteAmber,
-            ),
-            RadioListTile<String>(
-              value: 'basic',
-              title: Text('Basic'),
-              subtitle: Text('Non-refundable, lowest price'),
-              activeColor: kPaletteGreen,
-            ),
-          ],
-        ),
+      groupValue: 'standard',
+      onChanged: (_) {},
+      child: const Column(
+        children: <Widget>[
+          RadioListTile<String>(
+            value: 'standard',
+            title: Text('Standard refundable'),
+            subtitle: Text('Refundable up to 48h before travel'),
+            activeColor: kPaletteIndigo,
+          ),
+          RadioListTile<String>(
+            value: 'flex',
+            title: Text('Flex'),
+            subtitle: Text('Free changes any time'),
+            activeColor: kPaletteAmber,
+          ),
+          RadioListTile<String>(
+            value: 'basic',
+            title: Text('Basic'),
+            subtitle: Text('Non-refundable, lowest price'),
+            activeColor: kPaletteGreen,
+          ),
+        ],
       ),
+    ),
     ),
   );
 
@@ -1998,30 +2035,30 @@ dynamic build(BuildContext context) {
     child: Material(
       type: MaterialType.transparency,
       child: Column(
-        children: <Widget>[
-          SwitchListTile(
-            value: true,
-            onChanged: (_) {},
-            title: const Text('Email confirmations'),
-            subtitle: const Text('Booking, check-in, and gate updates'),
-            activeThumbColor: kPaletteIndigo,
-          ),
-          SwitchListTile(
-            value: true,
-            onChanged: (_) {},
-            title: const Text('SMS updates'),
-            subtitle: const Text('Carrier message charges may apply'),
-            activeThumbColor: kPaletteTeal,
-          ),
-          SwitchListTile(
-            value: false,
-            onChanged: (_) {},
-            title: const Text('Carbon offset'),
-            subtitle: const Text('Add an offset contribution to each leg'),
-            activeThumbColor: kPaletteGreen,
-          ),
-        ],
-      ),
+      children: <Widget>[
+        SwitchListTile(
+          value: true,
+          onChanged: (_) {},
+          title: const Text('Email confirmations'),
+          subtitle: const Text('Booking, check-in, and gate updates'),
+          activeThumbColor: kPaletteIndigo,
+        ),
+        SwitchListTile(
+          value: true,
+          onChanged: (_) {},
+          title: const Text('SMS updates'),
+          subtitle: const Text('Carrier message charges may apply'),
+          activeThumbColor: kPaletteTeal,
+        ),
+        SwitchListTile(
+          value: false,
+          onChanged: (_) {},
+          title: const Text('Carbon offset'),
+          subtitle: const Text('Add an offset contribution to each leg'),
+          activeThumbColor: kPaletteGreen,
+        ),
+      ],
+    ),
     ),
   );
 
@@ -2362,7 +2399,11 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 18.0),
         const Text(
           'Every control on this page is a fully-formed Material widget interpreted by D4rt at runtime — no compilation step. The complete booking form combines them under a single Form/FormState lifecycle.',
-          style: TextStyle(fontSize: 13.0, color: kPaletteWhite, height: 1.45),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: kPaletteWhite,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 10.0),
         Text(

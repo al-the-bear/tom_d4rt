@@ -238,9 +238,14 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'ActionListener Deep Demo',
-    theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
+    theme: ThemeData(
+      colorSchemeSeed: Colors.indigo,
+      useMaterial3: true,
+    ),
     home: Scaffold(
-      appBar: AppBar(title: const Text('ActionListener Deep Demo')),
+      appBar: AppBar(
+        title: const Text('ActionListener Deep Demo'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -315,7 +320,10 @@ class _SectionDivider extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -332,7 +340,10 @@ class _CardShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 1.5,
-      child: Padding(padding: const EdgeInsets.all(14), child: child),
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: child,
+      ),
     );
   }
 }
@@ -386,21 +397,18 @@ class _IntroSection extends StatelessWidget {
             'wiring listeners in initState/dispose.',
           ),
           SizedBox(height: 12),
-          Text('Why use it?', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Why use it?',
+              style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 6),
           _Bullet('Show a SnackBar after an action is invoked.'),
           _Bullet('Maintain a UI history (undo/redo, audit log).'),
           _Bullet('Telemetry: count how often actions fire.'),
           _Bullet('Reflect enabled/disabled state changes in the UI.'),
-          _Bullet(
-            'Coordinate side-effects from multiple call sites '
-            '(menu, button, keyboard) into a single observer.',
-          ),
+          _Bullet('Coordinate side-effects from multiple call sites '
+              '(menu, button, keyboard) into a single observer.'),
           SizedBox(height: 12),
-          Text(
-            'How is it different from calling Action.invoke directly?',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          Text('How is it different from calling Action.invoke directly?',
+              style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 6),
           Text(
             'Calling invoke runs the action, but only at that call-site. '
@@ -608,7 +616,9 @@ class _ShortcutSectionState extends State<_ShortcutSection> {
               saveShortcut: const _SaveIntent(),
             },
             child: Actions(
-              actions: <Type, Action<Intent>>{_SaveIntent: _save},
+              actions: <Type, Action<Intent>>{
+                _SaveIntent: _save,
+              },
               child: ActionListener(
                 action: _save,
                 listener: _onSave,
@@ -623,9 +633,9 @@ class _ShortcutSectionState extends State<_ShortcutSection> {
                       decoration: BoxDecoration(
                         color: _focus.hasFocus
                             ? Colors.indigo.withOpacity(0.10)
-                            : Theme.of(
-                                context,
-                              ).colorScheme.surfaceContainerHighest,
+                            : Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
                           color: _focus.hasFocus
@@ -641,8 +651,10 @@ class _ShortcutSectionState extends State<_ShortcutSection> {
                             _focus.hasFocus
                                 ? 'Focused — try ${isMac ? 'Cmd+S' : 'Ctrl+S'}'
                                 : 'Click to focus, then press '
-                                      '${isMac ? 'Cmd+S' : 'Ctrl+S'}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                                    '${isMac ? 'Cmd+S' : 'Ctrl+S'}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           Wrap(
@@ -660,7 +672,9 @@ class _ShortcutSectionState extends State<_ShortcutSection> {
                                 avatar: const Icon(Icons.schedule, size: 16),
                               ),
                               Chip(
-                                label: Text('listener fires: $_localFireCount'),
+                                label: Text(
+                                  'listener fires: $_localFireCount',
+                                ),
                                 avatar: const Icon(
                                   Icons.notifications_active,
                                   size: 16,
@@ -699,7 +713,10 @@ class _ShortcutSectionState extends State<_ShortcutSection> {
                 padding: const EdgeInsets.symmetric(vertical: 1),
                 child: Text(
                   s,
-                  style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  ),
                 ),
               ),
             )
@@ -859,7 +876,10 @@ class _ColoredFireBox extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, color: border),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: border,
+            ),
           ),
           const SizedBox(height: 6),
           Text('Fires: $fires'),
@@ -921,7 +941,8 @@ class _LifecycleSectionState extends State<_LifecycleSection> {
                   title: const Text('Listener A mounted'),
                   subtitle: Text('A fires: $_aFires'),
                   value: _listenerAEnabled,
-                  onChanged: (v) => setState(() => _listenerAEnabled = v),
+                  onChanged: (v) =>
+                      setState(() => _listenerAEnabled = v),
                 ),
               ),
               Expanded(
@@ -929,7 +950,8 @@ class _LifecycleSectionState extends State<_LifecycleSection> {
                   title: const Text('Listener B mounted'),
                   subtitle: Text('B fires: $_bFires'),
                   value: _listenerBEnabled,
-                  onChanged: (v) => setState(() => _listenerBEnabled = v),
+                  onChanged: (v) =>
+                      setState(() => _listenerBEnabled = v),
                 ),
               ),
             ],
@@ -1050,7 +1072,10 @@ class _EnabledStateSectionState extends State<_EnabledStateSection> {
             const SizedBox(height: 10),
             Row(
               children: <Widget>[
-                Switch(value: enabled, onChanged: (v) => _toggle.setEnabled(v)),
+                Switch(
+                  value: enabled,
+                  onChanged: (v) => _toggle.setEnabled(v),
+                ),
                 const SizedBox(width: 8),
                 Text(
                   enabled ? 'ENABLED' : 'DISABLED',
@@ -1062,7 +1087,8 @@ class _EnabledStateSectionState extends State<_EnabledStateSection> {
                 const Spacer(),
                 ElevatedButton(
                   onPressed: enabled
-                      ? () => _toggle.invoke(const _GreetIntent('toggle-demo'))
+                      ? () =>
+                          _toggle.invoke(const _GreetIntent('toggle-demo'))
                       : null,
                   child: const Text('Invoke'),
                 ),
@@ -1076,7 +1102,8 @@ class _EnabledStateSectionState extends State<_EnabledStateSection> {
               width: double.infinity,
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color:
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: _stateTransitions.isEmpty
@@ -1234,11 +1261,14 @@ class _UndoRedoSectionState extends State<_UndoRedoSection> {
                               _HistoryKind.undo => Colors.orange.shade100,
                               _HistoryKind.redo => Colors.blue.shade100,
                             },
-                            avatar: Icon(switch (h.kind) {
-                              _HistoryKind.push => Icons.add,
-                              _HistoryKind.undo => Icons.undo,
-                              _HistoryKind.redo => Icons.redo,
-                            }, size: 14),
+                            avatar: Icon(
+                              switch (h.kind) {
+                                _HistoryKind.push => Icons.add,
+                                _HistoryKind.undo => Icons.undo,
+                                _HistoryKind.redo => Icons.redo,
+                              },
+                              size: 14,
+                            ),
                           ),
                         )
                         .toList(),
@@ -1348,13 +1378,11 @@ class _TelemetrySectionState extends State<_TelemetrySection> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: entries
-                    .map(
-                      (e) => _BarRow(
-                        label: e.key,
-                        count: e.value,
-                        maxCount: maxCount,
-                      ),
-                    )
+                    .map((e) => _BarRow(
+                          label: e.key,
+                          count: e.value,
+                          maxCount: maxCount,
+                        ))
                     .toList(),
               ),
           ],
@@ -1660,12 +1688,13 @@ class _RecipeCardShortcutAuditState extends State<_RecipeCardShortcutAudit> {
       ),
       child: Shortcuts(
         shortcuts: const <ShortcutActivator, Intent>{
-          SingleActivator(LogicalKeyboardKey.keyG, control: true): _GreetIntent(
-            'keyboard',
-          ),
+          SingleActivator(LogicalKeyboardKey.keyG, control: true):
+              _GreetIntent('keyboard'),
         },
         child: Actions(
-          actions: <Type, Action<Intent>>{_GreetIntent: _greet},
+          actions: <Type, Action<Intent>>{
+            _GreetIntent: _greet,
+          },
           child: ActionListener(
             action: _greet,
             listener: _onGreet,
@@ -1743,7 +1772,8 @@ class _RecipeCardEnableObserverState extends State<_RecipeCardEnableObserver> {
   void _onChange(Action<Intent> action) {
     final t = action as _ToggleableAction;
     setState(() {
-      _status = t.isEnabled(const _GreetIntent('x')) ? 'enabled' : 'disabled';
+      _status =
+          t.isEnabled(const _GreetIntent('x')) ? 'enabled' : 'disabled';
     });
   }
 
@@ -1770,7 +1800,10 @@ class _RecipeCardEnableObserverState extends State<_RecipeCardEnableObserver> {
             const SizedBox(height: 6),
             Row(
               children: <Widget>[
-                Switch(value: enabled, onChanged: (v) => _action.setEnabled(v)),
+                Switch(
+                  value: enabled,
+                  onChanged: (v) => _action.setEnabled(v),
+                ),
                 const SizedBox(width: 8),
                 Text(
                   'observed status: $_status',
@@ -1813,14 +1846,18 @@ class _RecipeCardUndoRedoCoordinatorState
   void _onUndo(Action<Intent> action) {
     final u = action as _UndoAction;
     setState(() {
-      _lastEffect = u.lastUndo == null ? 'undo (no-op)' : 'undo: ${u.lastUndo}';
+      _lastEffect = u.lastUndo == null
+          ? 'undo (no-op)'
+          : 'undo: ${u.lastUndo}';
     });
   }
 
   void _onRedo(Action<Intent> action) {
     final r = action as _RedoAction;
     setState(() {
-      _lastEffect = r.lastRedo == null ? 'redo (no-op)' : 'redo: ${r.lastRedo}';
+      _lastEffect = r.lastRedo == null
+          ? 'redo (no-op)'
+          : 'redo: ${r.lastRedo}';
     });
   }
 
@@ -1852,7 +1889,10 @@ class _RecipeCardUndoRedoCoordinatorState
           const SizedBox(height: 6),
           Row(
             children: <Widget>[
-              ElevatedButton(onPressed: _push, child: const Text('Push edit')),
+              ElevatedButton(
+                onPressed: _push,
+                child: const Text('Push edit'),
+              ),
               const SizedBox(width: 8),
               ActionListener(
                 action: _undo,
@@ -1922,61 +1962,49 @@ class _ReferenceTable extends StatelessWidget {
                   _Cell('Description', bold: true),
                 ],
               ),
-              TableRow(
-                children: <Widget>[
-                  _Cell('Intent'),
-                  _Cell(
-                    'Marker class describing a desired operation. Carries '
-                    'parameters as fields. Subclassed for each user '
-                    '"intention".',
-                  ),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _Cell('Action'),
-                  _Cell(
-                    'Performs the work for an Intent. Defines invoke(), '
-                    'isEnabled(), and notifies ActionListeners.',
-                  ),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _Cell('Actions'),
-                  _Cell(
-                    'InheritedWidget that maps Intent types to Action '
-                    'instances for descendants.',
-                  ),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _Cell('Shortcuts'),
-                  _Cell(
-                    'InheritedWidget that maps key combinations to Intents. '
-                    'Pairs with Actions for keyboard-driven dispatch.',
-                  ),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _Cell('ActionListener'),
-                  _Cell(
-                    'Subscribes to an Action; calls onAction whenever the '
-                    'Action notifies listeners (invoke or state change).',
-                  ),
-                ],
-              ),
-              TableRow(
-                children: <Widget>[
-                  _Cell('ActionDispatcher'),
-                  _Cell(
-                    'Dispatches an Intent to an Action. Custom dispatchers '
-                    'allow logging, filtering, or async coordination.',
-                  ),
-                ],
-              ),
+              TableRow(children: <Widget>[
+                _Cell('Intent'),
+                _Cell(
+                  'Marker class describing a desired operation. Carries '
+                  'parameters as fields. Subclassed for each user '
+                  '"intention".',
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                _Cell('Action'),
+                _Cell(
+                  'Performs the work for an Intent. Defines invoke(), '
+                  'isEnabled(), and notifies ActionListeners.',
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                _Cell('Actions'),
+                _Cell(
+                  'InheritedWidget that maps Intent types to Action '
+                  'instances for descendants.',
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                _Cell('Shortcuts'),
+                _Cell(
+                  'InheritedWidget that maps key combinations to Intents. '
+                  'Pairs with Actions for keyboard-driven dispatch.',
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                _Cell('ActionListener'),
+                _Cell(
+                  'Subscribes to an Action; calls onAction whenever the '
+                  'Action notifies listeners (invoke or state change).',
+                ),
+              ]),
+              TableRow(children: <Widget>[
+                _Cell('ActionDispatcher'),
+                _Cell(
+                  'Dispatches an Intent to an Action. Custom dispatchers '
+                  'allow logging, filtering, or async coordination.',
+                ),
+              ]),
             ],
           ),
         ],
@@ -2024,24 +2052,23 @@ class _FooterNote extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Tips', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Tips',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 6),
           _Bullet(
-            'Always call notifyActionListeners() in custom Action.invoke '
-            'to wake up subscribers.',
-          ),
+              'Always call notifyActionListeners() in custom Action.invoke '
+              'to wake up subscribers.'),
           _Bullet(
-            'ActionListener auto-subscribes on mount and unsubscribes '
-            'on dispose — that lifecycle is the whole point.',
-          ),
+              'ActionListener auto-subscribes on mount and unsubscribes '
+              'on dispose — that lifecycle is the whole point.'),
           _Bullet(
-            'Multiple ActionListeners can listen to the same Action '
-            'concurrently and independently.',
-          ),
+              'Multiple ActionListeners can listen to the same Action '
+              'concurrently and independently.'),
           _Bullet(
-            'Use ActionListener for cross-cutting concerns: telemetry, '
-            'snackbars, audit logs, undo history, animations.',
-          ),
+              'Use ActionListener for cross-cutting concerns: telemetry, '
+              'snackbars, audit logs, undo history, animations.'),
         ],
       ),
     );

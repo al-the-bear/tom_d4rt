@@ -126,11 +126,12 @@ class _DemoTabBar extends StatelessWidget {
       isScrollable: true,
       tabAlignment: TabAlignment.start,
       labelColor: Theme.of(context).colorScheme.onPrimary,
-      unselectedLabelColor: Theme.of(
-        context,
-      ).colorScheme.onPrimary.withAlpha(153),
+      unselectedLabelColor:
+          Theme.of(context).colorScheme.onPrimary.withAlpha(153),
       indicatorColor: Theme.of(context).colorScheme.onPrimary,
-      tabs: _labels.map((String l) => Tab(text: l)).toList(),
+      tabs: _labels
+          .map((String l) => Tab(text: l))
+          .toList(),
     );
   }
 }
@@ -152,7 +153,10 @@ class _HeroTab extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.primary, scheme.tertiary],
+              colors: <Color>[
+                scheme.primary,
+                scheme.tertiary,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -211,8 +215,7 @@ class _HeroTab extends StatelessWidget {
         _InfoCard(
           icon: Icons.touch_app_rounded,
           title: 'Tap the camera glyph in the context menu',
-          body:
-              'When a user long-presses a Flutter TextField on a supported '
+          body: 'When a user long-presses a Flutter TextField on a supported '
               'Apple device, a small camera icon appears in the context menu '
               'alongside Cut / Copy / Paste. Tapping it launches the system '
               'Live Text overlay.',
@@ -221,8 +224,7 @@ class _HeroTab extends StatelessWidget {
         _InfoCard(
           icon: Icons.document_scanner_rounded,
           title: 'System OCR overlay activates',
-          body:
-              'The OS renders a camera viewfinder over the screen. As the '
+          body: 'The OS renders a camera viewfinder over the screen. As the '
               'user moves the camera, text is recognised in real time and '
               'highlighted with yellow bounding boxes.',
         ),
@@ -230,8 +232,7 @@ class _HeroTab extends StatelessWidget {
         _InfoCard(
           icon: Icons.keyboard_return_rounded,
           title: 'Text is inserted into the field',
-          body:
-              'Tapping highlighted text copies it into the text field at the '
+          body: 'Tapping highlighted text copies it into the text field at the '
               'cursor position, exactly as if the user had typed it. The '
               'Flutter app receives the text through the standard platform '
               'text-input channel.',
@@ -317,7 +318,9 @@ class _PlatformDiagramTab extends StatelessWidget {
         const SizedBox(height: 16),
         SizedBox(
           height: 340,
-          child: CustomPaint(painter: _PlatformMatrixPainter(scheme: scheme)),
+          child: CustomPaint(
+            painter: _PlatformMatrixPainter(scheme: scheme),
+          ),
         ),
         const SizedBox(height: 24),
         _SectionHeader(label: 'The Flutter Bridge'),
@@ -338,8 +341,7 @@ class _PlatformDiagramTab extends StatelessWidget {
         _BridgeStepCard(
           step: 1,
           title: 'TextField creates EditableText',
-          body:
-              'The TextField widget internally creates an EditableText, '
+          body: 'The TextField widget internally creates an EditableText, '
               'which manages focus, keyboard, and text-input connections.',
           scheme: scheme,
         ),
@@ -347,8 +349,7 @@ class _PlatformDiagramTab extends StatelessWidget {
         _BridgeStepCard(
           step: 2,
           title: 'EditableTextState attaches the notifier',
-          body:
-              'In initState / didChangeDependencies, EditableTextState '
+          body: 'In initState / didChangeDependencies, EditableTextState '
               'creates a LiveTextInputStatusNotifier and stores it as a '
               'static field accessible via '
               'LiveTextInputStatusNotifier.notifier.',
@@ -358,8 +359,7 @@ class _PlatformDiagramTab extends StatelessWidget {
         _BridgeStepCard(
           step: 3,
           title: 'Platform channel query',
-          body:
-              'The iOS/macOS engine plugin receives a method call asking '
+          body: 'The iOS/macOS engine plugin receives a method call asking '
               'whether Live Text is available. It checks OS version and '
               'device capabilities.',
           scheme: scheme,
@@ -368,8 +368,7 @@ class _PlatformDiagramTab extends StatelessWidget {
         _BridgeStepCard(
           step: 4,
           title: 'Notifier value updated',
-          body:
-              'The result arrives on the Flutter side; the notifier\'s '
+          body: 'The result arrives on the Flutter side; the notifier\'s '
               'value is set to LiveTextInputStatus.enabled or .disabled. '
               'Any widget listening to this notifier rebuilds.',
           scheme: scheme,
@@ -378,8 +377,7 @@ class _PlatformDiagramTab extends StatelessWidget {
         _BridgeStepCard(
           step: 5,
           title: 'contextMenuBuilder decides',
-          body:
-              'Your contextMenuBuilder callback reads the notifier value '
+          body: 'Your contextMenuBuilder callback reads the notifier value '
               'and conditionally inserts an AdaptiveTextSelectionToolbar '
               'button that triggers showLiveTextInput.',
           scheme: scheme,
@@ -439,7 +437,8 @@ class _PlatformMatrixPainter extends CustomPainter {
     final double rowH = size.height / _rows.length;
     final Paint bg = Paint()..color = scheme.surfaceContainerHighest;
     final Paint supportedPaint = Paint()..color = scheme.primary.withAlpha(30);
-    final Paint unsupportedPaint = Paint()..color = scheme.error.withAlpha(20);
+    final Paint unsupportedPaint = Paint()
+      ..color = scheme.error.withAlpha(20);
     final Paint checkPaint = Paint()
       ..color = scheme.primary
       ..style = PaintingStyle.fill;
@@ -453,7 +452,10 @@ class _PlatformMatrixPainter extends CustomPainter {
 
     // Background
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(16)),
+      RRect.fromRectAndRadius(
+        Offset.zero & size,
+        const Radius.circular(16),
+      ),
       bg,
     );
 
@@ -497,8 +499,7 @@ class _PlatformMatrixPainter extends CustomPainter {
     // Rows
     for (int i = 0; i < _rows.length; i++) {
       final Map<String, Object> row = _rows[i];
-      final double top =
-          rowH * 0.8 + i * ((size.height - rowH * 0.8) / _rows.length);
+      final double top = rowH * 0.8 + i * ((size.height - rowH * 0.8) / _rows.length);
       final double h = (size.height - rowH * 0.8) / _rows.length;
       final bool supported = row['supported'] as bool;
 
@@ -515,7 +516,8 @@ class _PlatformMatrixPainter extends CustomPainter {
       if (supported) {
         canvas.drawRect(Rect.fromLTWH(0, top, size.width, h), supportedPaint);
       } else {
-        canvas.drawRect(Rect.fromLTWH(0, top, size.width, h), unsupportedPaint);
+        canvas.drawRect(
+            Rect.fromLTWH(0, top, size.width, h), unsupportedPaint);
       }
 
       final double midY = top + h / 2;
@@ -533,7 +535,11 @@ class _PlatformMatrixPainter extends CustomPainter {
       final double symbolX = size.width * 0.58;
       if (supported) {
         // Draw a filled circle with a tick
-        canvas.drawCircle(Offset(symbolX, midY), 10, checkPaint);
+        canvas.drawCircle(
+          Offset(symbolX, midY),
+          10,
+          checkPaint,
+        );
         final Paint tickPaint = Paint()
           ..color = scheme.onPrimary
           ..strokeWidth = 2
@@ -665,8 +671,8 @@ class _OcrFlowTab extends StatelessWidget {
                   color: state == 'scanning'
                       ? scheme.primary
                       : state == 'detected'
-                      ? Colors.green
-                      : scheme.outline,
+                          ? Colors.green
+                          : scheme.outline,
                   width: 2,
                 ),
               ),
@@ -679,7 +685,10 @@ class _OcrFlowTab extends StatelessWidget {
                     Container(
                       decoration: const BoxDecoration(
                         gradient: RadialGradient(
-                          colors: <Color>[Color(0xFF1A1A2E), Color(0xFF000000)],
+                          colors: <Color>[
+                            Color(0xFF1A1A2E),
+                            Color(0xFF000000),
+                          ],
                         ),
                       ),
                     ),
@@ -690,8 +699,8 @@ class _OcrFlowTab extends StatelessWidget {
                         bracketColor: state == 'detected'
                             ? Colors.green
                             : state == 'scanning'
-                            ? scheme.primary
-                            : Colors.white54,
+                                ? scheme.primary
+                                : Colors.white54,
                       ),
                       child: const SizedBox.expand(),
                     ),
@@ -782,7 +791,9 @@ class _OcrFlowTab extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: FilledButton.icon(
-                    onPressed: state == 'idle' ? () => _startScan(ctx) : null,
+                    onPressed: state == 'idle'
+                        ? () => _startScan(ctx)
+                        : null,
                     icon: const Icon(Icons.camera_alt_rounded),
                     label: const Text('Scan'),
                   ),
@@ -858,7 +869,9 @@ class _OcrFlowTab extends StatelessWidget {
                 color: s.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: content.isNotEmpty ? s.primary : s.outlineVariant,
+                  color: content.isNotEmpty
+                      ? s.primary
+                      : s.outlineVariant,
                   width: content.isNotEmpty ? 2 : 1,
                 ),
               ),
@@ -867,7 +880,9 @@ class _OcrFlowTab extends StatelessWidget {
                 content.isEmpty ? '(empty)' : content,
                 style: TextStyle(
                   fontSize: 14,
-                  color: content.isEmpty ? s.onSurfaceVariant : s.onSurface,
+                  color: content.isEmpty
+                      ? s.onSurfaceVariant
+                      : s.onSurface,
                   fontStyle: content.isEmpty
                       ? FontStyle.italic
                       : FontStyle.normal,
@@ -889,7 +904,10 @@ class _OcrFlowTab extends StatelessWidget {
 }
 
 class _ViewfinderPainter extends CustomPainter {
-  const _ViewfinderPainter({required this.state, required this.bracketColor});
+  const _ViewfinderPainter({
+    required this.state,
+    required this.bracketColor,
+  });
 
   final String state;
   final Color bracketColor;
@@ -992,19 +1010,29 @@ class _ContextMenuTab extends StatelessWidget {
         const SizedBox(height: 10),
         _AnnotatedCodeBlock(
           lines: const <_CodeLine>[
-            _CodeLine(code: 'TextField(', annotation: null),
+            _CodeLine(
+              code: 'TextField(',
+              annotation: null,
+            ),
             _CodeLine(
               code: '  contextMenuBuilder: (ctx, editableTextState) {',
               annotation: '① Called when context menu opens',
             ),
-            _CodeLine(code: '    final notifier =', annotation: null),
+            _CodeLine(
+              code: '    final notifier =',
+              annotation: null,
+            ),
             _CodeLine(
               code: '      LiveTextInputStatusNotifier.notifier;',
               annotation: '② Static accessor — may be null',
             ),
-            _CodeLine(code: '    final bool liveTextOn =', annotation: null),
             _CodeLine(
-              code: '      notifier?.value == LiveTextInputStatus.enabled;',
+              code: '    final bool liveTextOn =',
+              annotation: null,
+            ),
+            _CodeLine(
+              code:
+                  '      notifier?.value == LiveTextInputStatus.enabled;',
               annotation: '③ Safe null-check + enum comparison',
             ),
             _CodeLine(
@@ -1015,35 +1043,77 @@ class _ContextMenuTab extends StatelessWidget {
               code: '      .contextMenuButtonItems;',
               annotation: '④ Existing Cut/Copy/Paste items',
             ),
-            _CodeLine(code: '    if (liveTextOn) {', annotation: null),
+            _CodeLine(
+              code: '    if (liveTextOn) {',
+              annotation: null,
+            ),
             _CodeLine(
               code: '      buttons.add(',
               annotation: '⑤ Add camera item only when enabled',
             ),
-            _CodeLine(code: '        ContextMenuButtonItem(', annotation: null),
-            _CodeLine(code: '          label: "Scan Text",', annotation: null),
-            _CodeLine(code: '          onPressed: () {', annotation: null),
             _CodeLine(
-              code: '            editableTextState.showLiveTextInput();',
+              code:
+                  '        ContextMenuButtonItem(',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: '          label: "Scan Text",',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: '          onPressed: () {',
+              annotation: null,
+            ),
+            _CodeLine(
+              code:
+                  '            editableTextState.showLiveTextInput();',
               annotation: '⑥ Trigger system OCR overlay',
             ),
-            _CodeLine(code: '          },', annotation: null),
-            _CodeLine(code: '        ),', annotation: null),
-            _CodeLine(code: '      );', annotation: null),
-            _CodeLine(code: '    }', annotation: null),
             _CodeLine(
-              code: '    return AdaptiveTextSelectionToolbar.buttonItems(',
+              code: '          },',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: '        ),',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: '      );',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: '    }',
+              annotation: null,
+            ),
+            _CodeLine(
+              code:
+                  '    return AdaptiveTextSelectionToolbar.buttonItems(',
               annotation: '⑦ Return complete toolbar',
             ),
             _CodeLine(
               code: '      anchors: editableTextState',
               annotation: null,
             ),
-            _CodeLine(code: '        .contextMenuAnchors,', annotation: null),
-            _CodeLine(code: '      buttonItems: buttons,', annotation: null),
-            _CodeLine(code: '    );', annotation: null),
-            _CodeLine(code: '  },', annotation: null),
-            _CodeLine(code: ')', annotation: null),
+            _CodeLine(
+              code: '        .contextMenuAnchors,',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: '      buttonItems: buttons,',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: '    );',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: '  },',
+              annotation: null,
+            ),
+            _CodeLine(
+              code: ')',
+              annotation: null,
+            ),
           ],
         ),
         const SizedBox(height: 24),
@@ -1118,7 +1188,9 @@ class _NotifierLifecycleTab extends StatelessWidget {
         const SizedBox(height: 16),
         SizedBox(
           height: 420,
-          child: CustomPaint(painter: _LifecyclePainter(scheme: scheme)),
+          child: CustomPaint(
+            painter: _LifecyclePainter(scheme: scheme),
+          ),
         ),
         const SizedBox(height: 24),
         _SectionHeader(label: 'Key lifecycle facts'),
@@ -1126,8 +1198,7 @@ class _NotifierLifecycleTab extends StatelessWidget {
         _InfoCard(
           icon: Icons.add_circle_outline_rounded,
           title: 'Created in EditableTextState.initState',
-          body:
-              'The notifier is instantiated once per EditableText instance '
+          body: 'The notifier is instantiated once per EditableText instance '
               'and stored as a static field so contextMenuBuilder callbacks '
               'can access it without a BuildContext.',
         ),
@@ -1135,8 +1206,7 @@ class _NotifierLifecycleTab extends StatelessWidget {
         _InfoCard(
           icon: Icons.link_rounded,
           title: 'Attached via platform channel',
-          body:
-              'Immediately after creation a platform message is sent to '
+          body: 'Immediately after creation a platform message is sent to '
               'query Live Text availability. The reply updates the notifier\'s '
               'value on the main isolate.',
         ),
@@ -1144,8 +1214,7 @@ class _NotifierLifecycleTab extends StatelessWidget {
         _InfoCard(
           icon: Icons.refresh_rounded,
           title: 'Updates on focus change',
-          body:
-              'Each time the EditableText receives or loses focus the '
+          body: 'Each time the EditableText receives or loses focus the '
               'platform is re-queried, so the notifier always reflects the '
               'current state of the focused field.',
         ),
@@ -1153,8 +1222,7 @@ class _NotifierLifecycleTab extends StatelessWidget {
         _InfoCard(
           icon: Icons.delete_outline_rounded,
           title: 'Disposed in dispose()',
-          body:
-              'EditableTextState.dispose() calls notifier.dispose() and '
+          body: 'EditableTextState.dispose() calls notifier.dispose() and '
               'sets the static field to null, preventing stale references '
               'after the widget is removed from the tree.',
         ),
@@ -1181,8 +1249,7 @@ class _LifecyclePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final double boxW = size.width * 0.78;
     final double boxH = 52.0;
-    final double gap =
-        (size.height - _stages.length * boxH) / (_stages.length + 1);
+    final double gap = (size.height - _stages.length * boxH) / (_stages.length + 1);
     final double boxX = (size.width - boxW) / 2;
 
     for (int i = 0; i < _stages.length; i++) {
@@ -1214,13 +1281,13 @@ class _LifecyclePainter extends CustomPainter {
       final Color boxColor = i == 0
           ? scheme.primaryContainer
           : i == _stages.length - 1
-          ? scheme.tertiaryContainer
-          : scheme.secondaryContainer;
+              ? scheme.tertiaryContainer
+              : scheme.secondaryContainer;
       final Color textColor = i == 0
           ? scheme.onPrimaryContainer
           : i == _stages.length - 1
-          ? scheme.onTertiaryContainer
-          : scheme.onSecondaryContainer;
+              ? scheme.onTertiaryContainer
+              : scheme.onSecondaryContainer;
 
       final RRect rr = RRect.fromRectAndRadius(
         Rect.fromLTWH(boxX, boxY, boxW, boxH),
@@ -1244,7 +1311,13 @@ class _LifecyclePainter extends CustomPainter {
       );
 
       // Stage text
-      _drawText(canvas, _stages[i], Offset(boxX + 44, boxY + 8), textColor, 12);
+      _drawText(
+        canvas,
+        _stages[i],
+        Offset(boxX + 44, boxY + 8),
+        textColor,
+        12,
+      );
     }
   }
 
@@ -1396,7 +1469,8 @@ class _StatusEnumTab extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: scheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: scheme.outlineVariant, width: 2),
+                  border:
+                      Border.all(color: scheme.outlineVariant, width: 2),
                 ),
                 padding: const EdgeInsets.all(18),
                 child: Column(
@@ -1600,9 +1674,9 @@ class _ToggleTab extends StatelessWidget {
                   Text(
                     enabled
                         ? 'The platform has confirmed Live Text is available. '
-                              'Your contextMenuBuilder should add the camera item.'
+                            'Your contextMenuBuilder should add the camera item.'
                         : 'Live Text is not available on this platform or OS '
-                              'version. Omit the camera item from the menu.',
+                            'version. Omit the camera item from the menu.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 13,
@@ -1636,17 +1710,22 @@ class _ToggleTab extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Context menu items:',
-                    style: text.labelMedium?.copyWith(
-                      color: s.onSurfaceVariant,
-                    ),
+                    style: text.labelMedium
+                        ?.copyWith(color: s.onSurfaceVariant),
                   ),
                   const SizedBox(height: 12),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
                     children: <Widget>[
-                      _ContextMenuChip(label: 'Cut', icon: Icons.content_cut),
-                      _ContextMenuChip(label: 'Copy', icon: Icons.copy_rounded),
+                      _ContextMenuChip(
+                        label: 'Cut',
+                        icon: Icons.content_cut,
+                      ),
+                      _ContextMenuChip(
+                        label: 'Copy',
+                        icon: Icons.copy_rounded,
+                      ),
                       _ContextMenuChip(
                         label: 'Paste',
                         icon: Icons.paste_rounded,
@@ -1722,8 +1801,7 @@ class _UseCasesTab extends StatelessWidget {
     _UseCase(
       icon: Icons.contact_page_rounded,
       title: 'Address Book Form',
-      body:
-          'User scans a business card and the name, address, and phone '
+      body: 'User scans a business card and the name, address, and phone '
           'number fields are populated from the camera in seconds — no '
           'manual typing required.',
       color: Color(0xFF6200EE),
@@ -1731,8 +1809,7 @@ class _UseCasesTab extends StatelessWidget {
     _UseCase(
       icon: Icons.receipt_long_rounded,
       title: 'Receipt Scanner',
-      body:
-          'Finance apps let employees scan expense receipts. Live Text '
+      body: 'Finance apps let employees scan expense receipts. Live Text '
           'captures vendor name, total, and date directly into the '
           'expense-report form.',
       color: Color(0xFF018786),
@@ -1740,8 +1817,7 @@ class _UseCasesTab extends StatelessWidget {
     _UseCase(
       icon: Icons.qr_code_rounded,
       title: 'Login via QR / Code',
-      body:
-          'One-time login codes printed on hardware tokens or displayed '
+      body: 'One-time login codes printed on hardware tokens or displayed '
           'on secondary screens can be scanned and pasted into password '
           'or OTP fields instantly.',
       color: Color(0xFFB00020),
@@ -1749,8 +1825,7 @@ class _UseCasesTab extends StatelessWidget {
     _UseCase(
       icon: Icons.description_rounded,
       title: 'Document Digitizer',
-      body:
-          'Legal and medical apps use Live Text to transcribe paper '
+      body: 'Legal and medical apps use Live Text to transcribe paper '
           'documents into editable text fields, eliminating manual data '
           'entry and OCR pre-processing pipelines.',
       color: Color(0xFF37474F),
@@ -1758,8 +1833,7 @@ class _UseCasesTab extends StatelessWidget {
     _UseCase(
       icon: Icons.draw_rounded,
       title: 'Handwriting to Text',
-      body:
-          'Note-taking apps allow handwritten notes on paper to be '
+      body: 'Note-taking apps allow handwritten notes on paper to be '
           'captured and stored as searchable plain text by pointing the '
           'camera at notebook pages.',
       color: Color(0xFFE65100),
@@ -1767,8 +1841,7 @@ class _UseCasesTab extends StatelessWidget {
     _UseCase(
       icon: Icons.present_to_all_rounded,
       title: 'Whiteboard Capture',
-      body:
-          'Meeting tools let attendees scan whiteboard text at the end '
+      body: 'Meeting tools let attendees scan whiteboard text at the end '
           'of a session, instantly creating typed action items and '
           'agendas without a dedicated scanner app.',
       color: Color(0xFF1B5E20),
@@ -1862,8 +1935,7 @@ class _PitfallsApiTab extends StatelessWidget {
         _PitfallTile(
           number: 1,
           title: 'Feature detection on older iOS',
-          body:
-              'Never assume Live Text is available just because the user is '
+          body: 'Never assume Live Text is available just because the user is '
               'on iOS. Devices running iOS 14 or earlier do not support it. '
               'Always guard with notifier?.value == '
               'LiveTextInputStatus.enabled rather than an OS version check '
@@ -1876,8 +1948,7 @@ class _PitfallsApiTab extends StatelessWidget {
         _PitfallTile(
           number: 2,
           title: 'Missing camera permission on iOS',
-          body:
-              'Even though Live Text is an OS-level feature, iOS still '
+          body: 'Even though Live Text is an OS-level feature, iOS still '
               'requires NSCameraUsageDescription in your Info.plist if your '
               'app triggers the Live Text overlay. Without this key the '
               'camera overlay fails silently or the app crashes on some iOS '
@@ -1889,8 +1960,7 @@ class _PitfallsApiTab extends StatelessWidget {
         _PitfallTile(
           number: 3,
           title: 'Forgetting existing items in contextMenuBuilder',
-          body:
-              'A common mistake is building the context menu from scratch '
+          body: 'A common mistake is building the context menu from scratch '
               'in contextMenuBuilder and only returning the Live Text button. '
               'This removes Cut, Copy, Paste, Select All, and any other '
               'standard buttons. Always start from '
@@ -1911,7 +1981,8 @@ class _PitfallsApiTab extends StatelessWidget {
             ),
             _CheatEntry(
               name: '.disabled',
-              description: 'Live Text unavailable; omit the camera item.',
+              description:
+                  'Live Text unavailable; omit the camera item.',
             ),
           ],
           scheme: scheme,
@@ -2032,9 +2103,9 @@ class _SectionHeader extends StatelessWidget {
     return Text(
       label,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-        fontWeight: FontWeight.w700,
-        color: scheme.primary,
-      ),
+            fontWeight: FontWeight.w700,
+            color: scheme.primary,
+          ),
     );
   }
 }
@@ -2336,9 +2407,8 @@ class _ContextMenuChip extends StatelessWidget {
           fontWeight: highlighted ? FontWeight.bold : FontWeight.normal,
         ),
       ),
-      backgroundColor: highlighted
-          ? scheme.primary
-          : scheme.surfaceContainerHighest,
+      backgroundColor:
+          highlighted ? scheme.primary : scheme.surfaceContainerHighest,
       side: BorderSide(
         color: highlighted ? scheme.primary : scheme.outlineVariant,
       ),
@@ -2461,10 +2531,8 @@ class _CheatSheetSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    constraints: const BoxConstraints(
-                      minWidth: 0,
-                      maxWidth: 180,
-                    ),
+                    constraints:
+                        const BoxConstraints(minWidth: 0, maxWidth: 180),
                     child: Text(
                       e.name,
                       style: TextStyle(

@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_column,
       'title': 'What Is SliverCrossAxisGroup?',
-      'body':
-          'SliverCrossAxisGroup arranges multiple child slivers '
+      'body': 'SliverCrossAxisGroup arranges multiple child slivers '
           'side-by-side along the cross axis. In a vertical '
           'CustomScrollView, this creates columns. All children scroll '
           'together as a single unit — there is one scroll position '
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.child_care,
       'title': 'Required Child Types',
-      'body':
-          'Each child must be either a SliverCrossAxisExpanded (which '
+      'body': 'Each child must be either a SliverCrossAxisExpanded (which '
           'takes a flex factor like Expanded in a Row) or a '
           'SliverConstrainedCrossAxis (which takes a fixed maxExtent). '
           'You cannot put raw slivers directly as children.',
@@ -37,8 +35,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.sync,
       'title': 'Synchronized Scrolling',
-      'body':
-          'Unlike having separate ScrollViews side-by-side (which '
+      'body': 'Unlike having separate ScrollViews side-by-side (which '
           'scroll independently), SliverCrossAxisGroup ensures all '
           'columns share a single scroll offset. Scrolling the '
           'viewport moves all columns simultaneously.',
@@ -46,8 +43,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.dashboard,
       'title': 'Common Use Cases',
-      'body':
-          'Multi-column layouts in scrollable content: sidebar + '
+      'body': 'Multi-column layouts in scrollable content: sidebar + '
           'content, newspaper-style columns, dashboard grids, split '
           'data views. Especially useful on tablets and desktops '
           'where horizontal space is abundant.',
@@ -55,8 +51,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'vs Row of ScrollViews',
-      'body':
-          'Row with independent ScrollViews: each scrolls separately. '
+      'body': 'Row with independent ScrollViews: each scrolls separately. '
           'SliverCrossAxisGroup in CustomScrollView: all columns share '
           'ONE scroll position. The group approach is what you want '
           'for coherent multi-column content.',
@@ -127,7 +122,12 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 2: Constructor ===');
 
-  Widget buildSCAGParam(String name, String type, String desc, bool required) {
+  Widget buildSCAGParam(
+    String name,
+    String type,
+    String desc,
+    bool required,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8.0),
       padding: const EdgeInsets.all(12.0),
@@ -373,7 +373,11 @@ dynamic build(BuildContext context) {
                             ),
                             child: Row(
                               children: [
-                                Icon(Icons.menu, size: 14.0, color: leftColor),
+                                Icon(
+                                  Icons.menu,
+                                  size: 14.0,
+                                  color: leftColor,
+                                ),
                                 const SizedBox(width: 6.0),
                                 Text(
                                   'Nav ${index + 1}',
@@ -440,13 +444,7 @@ dynamic build(BuildContext context) {
 
   final twoColDemos = [
     buildTwoColumnDemo('A) Equal Split', 1, 1, Colors.indigo, Colors.teal),
-    buildTwoColumnDemo(
-      'B) Sidebar + Content',
-      1,
-      3,
-      Colors.purple,
-      Colors.blue,
-    ),
+    buildTwoColumnDemo('B) Sidebar + Content', 1, 3, Colors.purple, Colors.blue),
     buildTwoColumnDemo('C) Wide Sidebar', 2, 3, Colors.orange, Colors.green),
   ];
 
@@ -527,19 +525,12 @@ dynamic build(BuildContext context) {
                     ),
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.info_outline,
-                          size: 16.0,
-                          color: Colors.teal.shade300,
-                        ),
+                        Icon(Icons.info_outline, size: 16.0, color: Colors.teal.shade300),
                         const SizedBox(width: 6.0),
                         const Expanded(
                           child: Text(
                             'Secondary content item',
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              color: Colors.teal,
-                            ),
+                            style: TextStyle(fontSize: 11.0, color: Colors.teal),
                           ),
                         ),
                       ],
@@ -554,21 +545,9 @@ dynamic build(BuildContext context) {
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   _buildColumnHeader('Details', Icons.info, Colors.deepOrange),
-                  _buildColumnItem(
-                    'Status: Active',
-                    Icons.circle,
-                    Colors.deepOrange,
-                  ),
-                  _buildColumnItem(
-                    'Priority: High',
-                    Icons.flag,
-                    Colors.deepOrange,
-                  ),
-                  _buildColumnItem(
-                    'Tags: UI, Core',
-                    Icons.label,
-                    Colors.deepOrange,
-                  ),
+                  _buildColumnItem('Status: Active', Icons.circle, Colors.deepOrange),
+                  _buildColumnItem('Priority: High', Icons.flag, Colors.deepOrange),
+                  _buildColumnItem('Tags: UI, Core', Icons.label, Colors.deepOrange),
                 ]),
               ),
             ),
@@ -581,16 +560,8 @@ dynamic build(BuildContext context) {
   // Three-column annotations
   final threeColAnnotations = <Widget>[
     _buildAnnotationRow('Left (flex: 1)', 'Navigation sidebar', Colors.indigo),
-    _buildAnnotationRow(
-      'Center (flex: 2)',
-      'Primary content area',
-      Colors.teal,
-    ),
-    _buildAnnotationRow(
-      'Right (flex: 1)',
-      'Details / inspector panel',
-      Colors.deepOrange,
-    ),
+    _buildAnnotationRow('Center (flex: 2)', 'Primary content area', Colors.teal),
+    _buildAnnotationRow('Right (flex: 1)', 'Details / inspector panel', Colors.deepOrange),
   ];
 
   print('Three-column demo built');
@@ -626,11 +597,7 @@ dynamic build(BuildContext context) {
                     color: Colors.purple.withValues(alpha: 0.1),
                     child: Column(
                       children: [
-                        const Icon(
-                          Icons.bookmark,
-                          color: Colors.purple,
-                          size: 20.0,
-                        ),
+                        const Icon(Icons.bookmark, color: Colors.purple, size: 20.0),
                         const SizedBox(height: 4.0),
                         Text(
                           'Fixed\n100px',
@@ -644,22 +611,17 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                   ),
-                  ...[1, 2, 3].map(
-                    (n) => Container(
-                      margin: const EdgeInsets.all(3.0),
-                      padding: const EdgeInsets.all(6.0),
-                      color: Colors.purple.withValues(alpha: 0.06),
-                      child: Center(
-                        child: Text(
-                          'Item $n',
-                          style: const TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.purple,
-                          ),
-                        ),
+                  ...[1, 2, 3].map((n) => Container(
+                    margin: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(6.0),
+                    color: Colors.purple.withValues(alpha: 0.06),
+                    child: Center(
+                      child: Text(
+                        'Item $n',
+                        style: const TextStyle(fontSize: 10.0, color: Colors.purple),
                       ),
                     ),
-                  ),
+                  )),
                 ]),
               ),
             ),
@@ -708,23 +670,18 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                   ),
-                  ...[1, 2, 3].map(
-                    (n) => Container(
-                      margin: const EdgeInsets.all(3.0),
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blue.withValues(alpha: 0.04),
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Text(
-                        'Content row $n — this area gets the remaining space',
-                        style: const TextStyle(
-                          fontSize: 11.0,
-                          color: Colors.blue,
-                        ),
-                      ),
+                  ...[1, 2, 3].map((n) => Container(
+                    margin: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withValues(alpha: 0.04),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
-                  ),
+                    child: Text(
+                      'Content row $n — this area gets the remaining space',
+                      style: const TextStyle(fontSize: 11.0, color: Colors.blue),
+                    ),
+                  )),
                 ]),
               ),
             ),
@@ -748,11 +705,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            const Icon(
-              Icons.lightbulb_outline,
-              color: Colors.amber,
-              size: 20.0,
-            ),
+            const Icon(Icons.lightbulb_outline, color: Colors.amber, size: 20.0),
             const SizedBox(width: 8.0),
             Text(
               'How Mixed Children Work',
@@ -823,49 +776,49 @@ dynamic build(BuildContext context) {
     buildSCAGBullet(
       Icons.check_circle_outline,
       'SliverCrossAxisGroup places multiple slivers side-by-side on '
-      'the cross axis within a single CustomScrollView.',
+          'the cross axis within a single CustomScrollView.',
       Colors.green,
     ),
     buildSCAGBullet(
       Icons.check_circle_outline,
       'Children must be SliverCrossAxisExpanded or '
-      'SliverConstrainedCrossAxis — no raw slivers.',
+          'SliverConstrainedCrossAxis — no raw slivers.',
       Colors.green,
     ),
     buildSCAGBullet(
       Icons.check_circle_outline,
       'All columns scroll together — one scroll position for the '
-      'entire group. No manual scroll synchronization needed.',
+          'entire group. No manual scroll synchronization needed.',
       Colors.green,
     ),
     buildSCAGBullet(
       Icons.check_circle_outline,
       'Mix fixed-width (Constrained) and flexible (Expanded) columns '
-      'for sidebar-plus-content patterns.',
+          'for sidebar-plus-content patterns.',
       Colors.green,
     ),
     buildSCAGBullet(
       Icons.check_circle_outline,
       'Use flex ratios to distribute space: flex 1:2:1 creates a '
-      'narrow-wide-narrow three-column layout.',
+          'narrow-wide-narrow three-column layout.',
       Colors.green,
     ),
     buildSCAGBullet(
       Icons.warning_amber,
       'Each column contributes to the overall scroll extent. The '
-      'group uses the MAXIMUM scroll extent of all children.',
+          'group uses the MAXIMUM scroll extent of all children.',
       Colors.orange,
     ),
     buildSCAGBullet(
       Icons.warning_amber,
       'Adding many columns on a narrow viewport can lead to unusable '
-      'column widths. Consider responsive breakpoints.',
+          'column widths. Consider responsive breakpoints.',
       Colors.orange,
     ),
     buildSCAGBullet(
       Icons.info_outline,
       'Combine with SliverMainAxisGroup for both cross-axis and main-axis '
-      'sliver grouping in complex layouts.',
+          'sliver grouping in complex layouts.',
       Colors.blue,
     ),
   ];
@@ -983,11 +936,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.build_circle,
-                        color: Colors.pink,
-                        size: 28.0,
-                      ),
+                      const Icon(Icons.build_circle, color: Colors.pink, size: 28.0),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Constructor & Child Types',
@@ -1037,29 +986,25 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(height: 8.0),
-                      ...[
-                        'Widget',
-                        '  └─ RenderObjectWidget',
-                        '      └─ MultiChildRenderObjectWidget',
-                        '          └─ SliverCrossAxisGroup',
-                      ].map(
-                        (line) => Padding(
-                          padding: const EdgeInsets.only(bottom: 2.0),
-                          child: Text(
-                            line,
-                            style: TextStyle(
-                              fontSize: 11.5,
-                              fontFamily: 'monospace',
-                              color: line.contains('SliverCrossAxisGroup')
-                                  ? Colors.pink
-                                  : Colors.grey.shade700,
-                              fontWeight: line.contains('SliverCrossAxisGroup')
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
+                      ...['Widget', '  └─ RenderObjectWidget',
+                          '      └─ MultiChildRenderObjectWidget',
+                          '          └─ SliverCrossAxisGroup']
+                          .map((line) => Padding(
+                            padding: const EdgeInsets.only(bottom: 2.0),
+                            child: Text(
+                              line,
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                fontFamily: 'monospace',
+                                color: line.contains('SliverCrossAxisGroup')
+                                    ? Colors.pink
+                                    : Colors.grey.shade700,
+                                fontWeight: line.contains('SliverCrossAxisGroup')
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
+                          )),
                       const SizedBox(height: 6.0),
                       Text(
                         'Unlike most slivers (single child), SliverCrossAxisGroup '
@@ -1093,11 +1038,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.splitscreen,
-                        color: Colors.pink,
-                        size: 28.0,
-                      ),
+                      const Icon(Icons.splitscreen, color: Colors.pink, size: 28.0),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Two-Column Layouts',
@@ -1141,11 +1082,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.view_week,
-                        color: Colors.pink,
-                        size: 28.0,
-                      ),
+                      const Icon(Icons.view_week, color: Colors.pink, size: 28.0),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Three-Column Dashboard',
@@ -1172,9 +1109,7 @@ dynamic build(BuildContext context) {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: Colors.pink.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: Colors.pink.withValues(alpha: 0.2)),
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: threeColDemo,
@@ -1237,11 +1172,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.compare_arrows,
-                        color: Colors.pink,
-                        size: 28.0,
-                      ),
+                      const Icon(Icons.compare_arrows, color: Colors.pink, size: 28.0),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Mixed Child Types',
@@ -1268,9 +1199,7 @@ dynamic build(BuildContext context) {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: Colors.pink.withValues(alpha: 0.2),
-                    ),
+                    border: Border.all(color: Colors.pink.withValues(alpha: 0.2)),
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: mixedDemo,
@@ -1350,11 +1279,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.check_circle,
-                        color: Colors.pink,
-                        size: 32.0,
-                      ),
+                      const Icon(Icons.check_circle, color: Colors.pink, size: 32.0),
                       const SizedBox(height: 10.0),
                       const Text(
                         'Summary',
@@ -1400,25 +1325,13 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(height: 10.0),
-                      _buildRefItem(
-                        'Type',
-                        'MultiChildRenderObjectWidget (sliver)',
-                      ),
+                      _buildRefItem('Type', 'MultiChildRenderObjectWidget (sliver)'),
                       _buildRefItem('Key param', 'slivers (list of children)'),
-                      _buildRefItem(
-                        'Children',
-                        'SliverCrossAxisExpanded or SliverConstrainedCrossAxis',
-                      ),
+                      _buildRefItem('Children', 'SliverCrossAxisExpanded or SliverConstrainedCrossAxis'),
                       _buildRefItem('Layout', 'Columns arranged on cross axis'),
-                      _buildRefItem(
-                        'Scrolling',
-                        'All columns share one scroll offset',
-                      ),
+                      _buildRefItem('Scrolling', 'All columns share one scroll offset'),
                       _buildRefItem('Scroll extent', 'Maximum of all children'),
-                      _buildRefItem(
-                        'Partner',
-                        'SliverMainAxisGroup (main-axis grouping)',
-                      ),
+                      _buildRefItem('Partner', 'SliverMainAxisGroup (main-axis grouping)'),
                     ],
                   ),
                 ),
@@ -1471,18 +1384,8 @@ class _SCAGLiveDemoState extends State<_SCAGLiveDemo> {
   Widget build(BuildContext context) {
     print('Live demo: columns=$_columnCount, items=$_itemsPerColumn');
 
-    final columnColors = [
-      Colors.blue,
-      Colors.teal,
-      Colors.orange,
-      Colors.purple,
-    ];
-    final columnIcons = [
-      Icons.looks_one,
-      Icons.looks_two,
-      Icons.looks_3,
-      Icons.looks_4,
-    ];
+    final columnColors = [Colors.blue, Colors.teal, Colors.orange, Colors.purple];
+    final columnIcons = [Icons.looks_one, Icons.looks_two, Icons.looks_3, Icons.looks_4];
 
     // Build column slivers
     final slivers = <Widget>[];
@@ -1503,11 +1406,8 @@ class _SCAGLiveDemoState extends State<_SCAGLiveDemo> {
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      columnIcons[c % columnIcons.length],
-                      size: 14.0,
-                      color: color,
-                    ),
+                    Icon(columnIcons[c % columnIcons.length],
+                        size: 14.0, color: color),
                     const SizedBox(width: 4.0),
                     Expanded(
                       child: Text(
@@ -1595,9 +1495,7 @@ class _SCAGLiveDemoState extends State<_SCAGLiveDemo> {
                               style: TextStyle(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.bold,
-                                color: selected
-                                    ? Colors.pink
-                                    : Colors.grey.shade600,
+                                color: selected ? Colors.pink : Colors.grey.shade600,
                               ),
                             ),
                           ),
@@ -1687,16 +1585,11 @@ class _SCAGLiveDemoState extends State<_SCAGLiveDemo> {
                             onTap: _flexValues[i] > 1
                                 ? () => setState(() => _flexValues[i]--)
                                 : null,
-                            child: Icon(
-                              Icons.remove_circle_outline,
-                              size: 16.0,
-                              color: color,
-                            ),
+                            child: Icon(Icons.remove_circle_outline,
+                                size: 16.0, color: color),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 4.0,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Text(
                               '${_flexValues[i]}',
                               style: TextStyle(
@@ -1711,11 +1604,8 @@ class _SCAGLiveDemoState extends State<_SCAGLiveDemo> {
                             onTap: _flexValues[i] < 5
                                 ? () => setState(() => _flexValues[i]++)
                                 : null,
-                            child: Icon(
-                              Icons.add_circle_outline,
-                              size: 16.0,
-                              color: color,
-                            ),
+                            child: Icon(Icons.add_circle_outline,
+                                size: 16.0, color: color),
                           ),
                         ],
                       ),
@@ -1735,7 +1625,9 @@ class _SCAGLiveDemoState extends State<_SCAGLiveDemo> {
               ),
               clipBehavior: Clip.antiAlias,
               child: CustomScrollView(
-                slivers: [SliverCrossAxisGroup(slivers: slivers)],
+                slivers: [
+                  SliverCrossAxisGroup(slivers: slivers),
+                ],
               ),
             ),
           ),
@@ -1831,7 +1723,10 @@ class _SCAGScrollSyncState extends State<_SCAGScrollSync> {
                   'All columns share a single scroll offset. '
                   'Scroll to see both columns move in lockstep.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
               ],
             ),
@@ -1839,10 +1734,7 @@ class _SCAGScrollSyncState extends State<_SCAGScrollSync> {
           const SizedBox(height: 12.0),
           // Scroll offset indicator
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 8.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(8.0),
@@ -1852,11 +1744,7 @@ class _SCAGScrollSyncState extends State<_SCAGScrollSync> {
               children: [
                 Row(
                   children: [
-                    const Icon(
-                      Icons.straighten,
-                      size: 16.0,
-                      color: Colors.pink,
-                    ),
+                    const Icon(Icons.straighten, size: 16.0, color: Colors.pink),
                     const SizedBox(width: 6.0),
                     Text(
                       'Scroll offset:',
@@ -1937,36 +1825,36 @@ class _SCAGScrollSyncState extends State<_SCAGScrollSync> {
                       SliverCrossAxisExpanded(
                         flex: 1,
                         sliver: SliverList(
-                          delegate: SliverChildBuilderDelegate((ctx, index) {
-                            final hue = (index * 18.0) % 360.0;
-                            final c = HSVColor.fromAHSV(
-                              1.0,
-                              hue,
-                              0.35,
-                              0.85,
-                            ).toColor();
-                            return Container(
-                              height: 50.0,
-                              margin: const EdgeInsets.all(2.0),
-                              decoration: BoxDecoration(
-                                color: c.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(4.0),
-                                border: Border.all(
-                                  color: c.withValues(alpha: 0.4),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Right #${index + 1}',
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: c,
+                          delegate: SliverChildBuilderDelegate(
+                            (ctx, index) {
+                              final hue = (index * 18.0) % 360.0;
+                              final c = HSVColor.fromAHSV(
+                                1.0, hue, 0.35, 0.85,
+                              ).toColor();
+                              return Container(
+                                height: 50.0,
+                                margin: const EdgeInsets.all(2.0),
+                                decoration: BoxDecoration(
+                                  color: c.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  border: Border.all(
+                                    color: c.withValues(alpha: 0.4),
                                   ),
                                 ),
-                              ),
-                            );
-                          }, childCount: 20),
+                                child: Center(
+                                  child: Text(
+                                    'Right #${index + 1}',
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: c,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            childCount: 20,
+                          ),
                         ),
                       ),
                     ],
@@ -2024,7 +1912,12 @@ class _SCAGScrollSyncState extends State<_SCAGScrollSync> {
 // HELPER FUNCTIONS
 // ================================================================
 
-Widget _buildChildTypeRow(String name, String param, String desc, Color color) {
+Widget _buildChildTypeRow(
+  String name,
+  String param,
+  String desc,
+  Color color,
+) {
   return Container(
     padding: const EdgeInsets.all(10.0),
     decoration: BoxDecoration(
@@ -2064,7 +1957,10 @@ Widget _buildChildTypeRow(String name, String param, String desc, Color color) {
               ),
               Text(
                 desc,
-                style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 10.5,
+                  color: Colors.grey.shade600,
+                ),
               ),
             ],
           ),
@@ -2108,7 +2004,10 @@ Widget _buildColumnItem(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 13.0, color: color.withValues(alpha: 0.6)),
         const SizedBox(width: 6.0),
-        Text(label, style: TextStyle(fontSize: 10.5, color: color)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 10.5, color: color),
+        ),
       ],
     ),
   );

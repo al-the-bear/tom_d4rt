@@ -110,7 +110,11 @@ dynamic build(BuildContext context) {
   const LinearGradient heroGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0xFFE8763A), Color(0xFFF2A65A), Color(0xFFE8C063)],
+    colors: <Color>[
+      Color(0xFFE8763A),
+      Color(0xFFF2A65A),
+      Color(0xFFE8C063),
+    ],
   );
 
   const LinearGradient cardGradient = LinearGradient(
@@ -247,87 +251,65 @@ dynamic build(BuildContext context) {
   // hold these in a StatefulWidget and dispose them.
   // ----------------------------------------------------------
 
-  final TextEditingController ctrlText = TextEditingController(
-    text: 'Hello, world. The cat sat on the mat.',
-  );
+  final TextEditingController ctrlText =
+      TextEditingController(text: 'Hello, world. The cat sat on the mat.');
   final TextEditingController ctrlMultiline = TextEditingController(
-    text:
-        'First line of a multiline note.\n'
+    text: 'First line of a multiline note.\n'
         'Second line, after a Return key press.\n'
         'Third and final line, deliberately long enough to wrap '
         'so we can see how the field handles soft-wrapping in '
         'addition to hard line breaks.',
   );
-  final TextEditingController ctrlNumber = TextEditingController(
-    text: '4815162342',
-  );
-  final TextEditingController ctrlNumberDecimal = TextEditingController(
-    text: '3.14159',
-  );
-  final TextEditingController ctrlNumberSigned = TextEditingController(
-    text: '-273',
-  );
-  final TextEditingController ctrlNumberBoth = TextEditingController(
-    text: '-98.6',
-  );
-  final TextEditingController ctrlPhone = TextEditingController(
-    text: '+1 (415) 555-0177',
-  );
-  final TextEditingController ctrlDatetime = TextEditingController(
-    text: '2026-05-10 14:30',
-  );
-  final TextEditingController ctrlEmail = TextEditingController(
-    text: 'alexis.kyaw@gmail.com',
-  );
-  final TextEditingController ctrlUrl = TextEditingController(
-    text: 'https://flutter.dev/docs',
-  );
-  final TextEditingController ctrlVisiblePassword = TextEditingController(
-    text: 'CorrectHorseBatteryStaple',
-  );
-  final TextEditingController ctrlOpaquePassword = TextEditingController(
-    text: 'CorrectHorseBatteryStaple',
-  );
-  final TextEditingController ctrlName = TextEditingController(
-    text: 'Ada Lovelace',
-  );
+  final TextEditingController ctrlNumber =
+      TextEditingController(text: '4815162342');
+  final TextEditingController ctrlNumberDecimal =
+      TextEditingController(text: '3.14159');
+  final TextEditingController ctrlNumberSigned =
+      TextEditingController(text: '-273');
+  final TextEditingController ctrlNumberBoth =
+      TextEditingController(text: '-98.6');
+  final TextEditingController ctrlPhone =
+      TextEditingController(text: '+1 (415) 555-0177');
+  final TextEditingController ctrlDatetime =
+      TextEditingController(text: '2026-05-10 14:30');
+  final TextEditingController ctrlEmail =
+      TextEditingController(text: 'alexis.kyaw@gmail.com');
+  final TextEditingController ctrlUrl =
+      TextEditingController(text: 'https://flutter.dev/docs');
+  final TextEditingController ctrlVisiblePassword =
+      TextEditingController(text: 'CorrectHorseBatteryStaple');
+  final TextEditingController ctrlOpaquePassword =
+      TextEditingController(text: 'CorrectHorseBatteryStaple');
+  final TextEditingController ctrlName =
+      TextEditingController(text: 'Ada Lovelace');
   final TextEditingController ctrlStreet = TextEditingController(
     text: '221B Baker Street\nMarylebone\nLondon NW1 6XE\nUnited Kingdom',
   );
-  final TextEditingController ctrlNone = TextEditingController(
-    text: 'no IME shown for this field',
-  );
-  final TextEditingController ctrlWebSearch = TextEditingController(
-    text: 'how does TextInputType.webSearch differ',
-  );
-  final TextEditingController ctrlTwitter = TextEditingController(
-    text: '@flutterdev #flutter is great',
-  );
+  final TextEditingController ctrlNone =
+      TextEditingController(text: 'no IME shown for this field');
+  final TextEditingController ctrlWebSearch =
+      TextEditingController(text: 'how does TextInputType.webSearch differ');
+  final TextEditingController ctrlTwitter =
+      TextEditingController(text: '@flutterdev #flutter is great');
 
   // composite registration form controllers
-  final TextEditingController formCtrlName = TextEditingController(
-    text: 'Grace Hopper',
-  );
-  final TextEditingController formCtrlEmail = TextEditingController(
-    text: 'grace@navy.example.mil',
-  );
-  final TextEditingController formCtrlPhone = TextEditingController(
-    text: '+1 (202) 555-0142',
-  );
+  final TextEditingController formCtrlName =
+      TextEditingController(text: 'Grace Hopper');
+  final TextEditingController formCtrlEmail =
+      TextEditingController(text: 'grace@navy.example.mil');
+  final TextEditingController formCtrlPhone =
+      TextEditingController(text: '+1 (202) 555-0142');
   final TextEditingController formCtrlAddress = TextEditingController(
     text: '4555 Overlook Avenue SW\nWashington, DC 20375\nUSA',
   );
-  final TextEditingController formCtrlPassword = TextEditingController(
-    text: 'COBOL-1959-Mark-I',
-  );
+  final TextEditingController formCtrlPassword =
+      TextEditingController(text: 'COBOL-1959-Mark-I');
 
   // single vs multiline contrast section controllers
-  final TextEditingController ctrlSingleNarrow = TextEditingController(
-    text: 'Concise. One line. No newline key.',
-  );
+  final TextEditingController ctrlSingleNarrow =
+      TextEditingController(text: 'Concise. One line. No newline key.');
   final TextEditingController ctrlMultiTall = TextEditingController(
-    text:
-        'In a multiline TextField the IME serves up a Return\n'
+    text: 'In a multiline TextField the IME serves up a Return\n'
         'key. Pressing it inserts a literal newline character\n'
         'into the controller value. The field grows as needed,\n'
         'or scrolls if you cap maxLines and content overflows.',
@@ -417,10 +399,8 @@ dynamic build(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 6,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                 decoration: BoxDecoration(
                   gradient: heroGradient,
                   borderRadius: BorderRadius.circular(20),
@@ -571,10 +551,8 @@ dynamic build(BuildContext context) {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   gradient: stamp,
                   borderRadius: BorderRadius.circular(12),
@@ -656,10 +634,8 @@ dynamic build(BuildContext context) {
         fillColor: inkDeep,
         hintText: hint,
         hintStyle: const TextStyle(color: parchmentDim),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 14,
-          vertical: 14,
-        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: cardBorder, width: 1),
           borderRadius: BorderRadius.circular(10),
@@ -681,12 +657,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'text',
       constructor: 'TextInputType.text',
-      description:
-          'The default. A standard alphanumeric keyboard with '
+      description: 'The default. A standard alphanumeric keyboard with '
           'autocorrect, autocapitalisation as configured, and the usual '
           'punctuation row. Use it whenever no other type fits.',
-      osBehavior:
-          'Standard QWERTY (or locale equivalent) with full row of '
+      osBehavior: 'Standard QWERTY (or locale equivalent) with full row of '
           'punctuation and an Enter key for submit.',
       stamp: heroGradient,
       stampShadows: stampShadow,
@@ -698,12 +672,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'multiline',
       constructor: 'TextInputType.multiline',
-      description:
-          'Replaces the IME submit key with a Return / newline '
+      description: 'Replaces the IME submit key with a Return / newline '
           'key, allowing the controller value to contain literal "\\n" '
           'characters. Pair with maxLines: null or a number > 1.',
-      osBehavior:
-          'Standard QWERTY with the action key replaced by a Return '
+      osBehavior: 'Standard QWERTY with the action key replaced by a Return '
           'key that inserts \\n into the field.',
       stamp: leafGradient,
       stampShadows: leafShadow,
@@ -716,12 +688,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'number',
       constructor: 'TextInputType.number',
-      description:
-          'A purely numeric pad. No decimal point, no minus sign. '
+      description: 'A purely numeric pad. No decimal point, no minus sign. '
           'Equivalent to TextInputType.numberWithOptions(signed: false, '
           'decimal: false).',
-      osBehavior:
-          '0–9 grid; on iOS often a 10-key calculator layout, on '
+      osBehavior: '0–9 grid; on iOS often a 10-key calculator layout, on '
           'Android a numeric pad with a Done key.',
       stamp: azureGradient,
       stampShadows: azureShadow,
@@ -733,12 +703,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'number(decimal)',
       constructor: 'numberWithOptions(decimal: true)',
-      description:
-          'Numeric pad WITH a decimal-point glyph (locale-aware: '
+      description: 'Numeric pad WITH a decimal-point glyph (locale-aware: '
           'a comma in many European locales). Use for currency, weights, '
           'distances, percentages.',
-      osBehavior:
-          '0–9 grid plus a decimal separator key; the actual glyph '
+      osBehavior: '0–9 grid plus a decimal separator key; the actual glyph '
           'is supplied by the locale, not by Flutter.',
       stamp: azureGradient,
       stampShadows: azureShadow,
@@ -750,12 +718,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'number(signed)',
       constructor: 'numberWithOptions(signed: true)',
-      description:
-          'Numeric pad WITH a minus / plus glyph for entering '
+      description: 'Numeric pad WITH a minus / plus glyph for entering '
           'negative numbers. Use for temperatures, deltas, GPS '
           'coordinates, accounting figures.',
-      osBehavior:
-          '0–9 grid plus a minus / plus-minus key. The OS may or '
+      osBehavior: '0–9 grid plus a minus / plus-minus key. The OS may or '
           'may not enforce that the sign appears only at the start.',
       stamp: azureGradient,
       stampShadows: azureShadow,
@@ -767,32 +733,26 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'number(both)',
       constructor: 'numberWithOptions(signed: true, decimal: true)',
-      description:
-          'Numeric pad with BOTH a sign glyph AND a decimal '
+      description: 'Numeric pad with BOTH a sign glyph AND a decimal '
           'separator. The richest of the four numeric variants. Default '
           'for most general-purpose numeric inputs.',
-      osBehavior:
-          '0–9 grid plus both decimal separator and minus / plus '
+      osBehavior: '0–9 grid plus both decimal separator and minus / plus '
           'glyphs.',
       stamp: azureGradient,
       stampShadows: azureShadow,
       field: readOnlyField(
         controller: ctrlNumberBoth,
-        keyboardType: const TextInputType.numberWithOptions(
-          signed: true,
-          decimal: true,
-        ),
+        keyboardType:
+            const TextInputType.numberWithOptions(signed: true, decimal: true),
       ),
     ),
     makeGalleryCard(
       typeName: 'phone',
       constructor: 'TextInputType.phone',
-      description:
-          'A telephony dialer layout: 0–9, plus a hash, asterisk, '
+      description: 'A telephony dialer layout: 0–9, plus a hash, asterisk, '
           'and (on Android) a dedicated plus key for international '
           'prefixes. Critically, NOT iOS-native — see pitfalls.',
-      osBehavior:
-          'Android: 12-key phone dialer with #, *, +. iOS: numeric '
+      osBehavior: 'Android: 12-key phone dialer with #, *, +. iOS: numeric '
           'pad with phone-friendly punctuation; no exclusive dialer.',
       stamp: violetGradient,
       stampShadows: stampShadow,
@@ -804,12 +764,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'datetime',
       constructor: 'TextInputType.datetime',
-      description:
-          'Hint that the value is a date and / or time. Platform '
+      description: 'Hint that the value is a date and / or time. Platform '
           'support is patchy: most platforms fall back to the default '
           'text keyboard. Prefer showDatePicker / showTimePicker.',
-      osBehavior:
-          'Android: numeric pad with colon and slash. iOS: same as '
+      osBehavior: 'Android: numeric pad with colon and slash. iOS: same as '
           'numeric. Web: usually defaults to text.',
       stamp: violetGradient,
       stampShadows: stampShadow,
@@ -821,12 +779,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'emailAddress',
       constructor: 'TextInputType.emailAddress',
-      description:
-          'Standard QWERTY with a prominent @ sign and . key on '
+      description: 'Standard QWERTY with a prominent @ sign and . key on '
           'the primary layer. Disables "Smart Punctuation" on iOS so the '
           'user does not get curly quotes inside an email.',
-      osBehavior:
-          'QWERTY with @ and . in primary positions. Often '
+      osBehavior: 'QWERTY with @ and . in primary positions. Often '
           'autocorrect off and autocapitalisation off.',
       stamp: heroGradient,
       stampShadows: stampShadow,
@@ -838,12 +794,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'url',
       constructor: 'TextInputType.url',
-      description:
-          'Standard QWERTY with prominent . / and (on iOS) a '
+      description: 'Standard QWERTY with prominent . / and (on iOS) a '
           '".com" key. Disables space (or replaces it with .) on some '
           'platforms because URLs cannot contain literal spaces.',
-      osBehavior:
-          'QWERTY with . and / promoted. iOS adds .com long-press '
+      osBehavior: 'QWERTY with . and / promoted. iOS adds .com long-press '
           'options. No autocorrect.',
       stamp: heroGradient,
       stampShadows: stampShadow,
@@ -855,12 +809,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'visiblePassword',
       constructor: 'TextInputType.visiblePassword',
-      description:
-          'Standard QWERTY but with autocorrect, '
+      description: 'Standard QWERTY but with autocorrect, '
           'autocapitalisation, and predictive text disabled. The text is '
           'still visible — obscureText is a SEPARATE flag.',
-      osBehavior:
-          'QWERTY with no auto-anything. Often the long-press for '
+      osBehavior: 'QWERTY with no auto-anything. Often the long-press for '
           'numbers / symbols is more accessible.',
       stamp: coralGradient,
       stampShadows: coralShadow,
@@ -872,12 +824,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'name',
       constructor: 'TextInputType.name',
-      description:
-          'A keyboard hint optimised for human names. Often '
+      description: 'A keyboard hint optimised for human names. Often '
           'enables word-level autocapitalisation and picks up the OS '
           'contacts dictionary for predictive text.',
-      osBehavior:
-          'QWERTY with autocapitalisation: words. Some platforms '
+      osBehavior: 'QWERTY with autocapitalisation: words. Some platforms '
           'enable contacts-based suggestions.',
       stamp: heroGradient,
       stampShadows: stampShadow,
@@ -889,12 +839,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'streetAddress',
       constructor: 'TextInputType.streetAddress',
-      description:
-          'A multi-line address layout. Pair with maxLines > 1. '
+      description: 'A multi-line address layout. Pair with maxLines > 1. '
           'Often integrates with platform autofill so the user can pick '
           'an address from their saved profile.',
-      osBehavior:
-          'QWERTY with newline support, autocapitalisation: words, '
+      osBehavior: 'QWERTY with newline support, autocapitalisation: words, '
           'and address-specific autofill suggestions.',
       stamp: heroGradient,
       stampShadows: stampShadow,
@@ -907,12 +855,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'none',
       constructor: 'TextInputType.none',
-      description:
-          'Explicitly suppresses the IME. Useful for fields that '
+      description: 'Explicitly suppresses the IME. Useful for fields that '
           'are populated programmatically — e.g. a barcode scanner, an '
           'NFC reader, a custom on-screen keypad.',
-      osBehavior:
-          'NO virtual keyboard appears. The field can still hold '
+      osBehavior: 'NO virtual keyboard appears. The field can still hold '
           'focus and accept programmatic text changes.',
       stamp: coralGradient,
       stampShadows: coralShadow,
@@ -924,12 +870,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'webSearch',
       constructor: 'TextInputType.webSearch',
-      description:
-          'A keyboard whose action key reads "Go" / "Search" / '
+      description: 'A keyboard whose action key reads "Go" / "Search" / '
           '"Suchen" / etc. instead of "Done". Pair with onSubmitted to '
           'kick off a search query.',
-      osBehavior:
-          'QWERTY with the IME action key replaced by a Search '
+      osBehavior: 'QWERTY with the IME action key replaced by a Search '
           'action.',
       stamp: heroGradient,
       stampShadows: stampShadow,
@@ -941,12 +885,10 @@ dynamic build(BuildContext context) {
     makeGalleryCard(
       typeName: 'twitter',
       constructor: 'TextInputType.twitter',
-      description:
-          'A QWERTY layout with @ and # promoted to the primary '
+      description: 'A QWERTY layout with @ and # promoted to the primary '
           'layer. Designed for short-form social posts. The OS does not '
           'enforce a 280-character limit — that is on you.',
-      osBehavior:
-          'QWERTY with @ and # in primary positions; no '
+      osBehavior: 'QWERTY with @ and # in primary positions; no '
           'autocapitalisation by default.',
       stamp: heroGradient,
       stampShadows: stampShadow,
@@ -975,10 +917,7 @@ dynamic build(BuildContext context) {
         ),
         const Padding(
           padding: EdgeInsets.fromLTRB(12, 0, 12, 6),
-          child: Text(
-            'Gallery — every TextInputType, on a card',
-            style: h2Style,
-          ),
+          child: Text('Gallery — every TextInputType, on a card', style: h2Style),
         ),
         const Padding(
           padding: EdgeInsets.fromLTRB(12, 4, 12, 16),
@@ -990,7 +929,10 @@ dynamic build(BuildContext context) {
             style: bodyStyle,
           ),
         ),
-        Wrap(alignment: WrapAlignment.start, children: galleryCards),
+        Wrap(
+          alignment: WrapAlignment.start,
+          children: galleryCards,
+        ),
       ],
     ),
   );
@@ -1037,14 +979,7 @@ dynamic build(BuildContext context) {
             child: Text(code, style: codeStyle),
           ),
           const SizedBox(height: 10),
-          Text(
-            summary,
-            style: const TextStyle(
-              color: parchment,
-              fontSize: 13,
-              height: 1.45,
-            ),
-          ),
+          Text(summary, style: const TextStyle(color: parchment, fontSize: 13, height: 1.45)),
           const SizedBox(height: 12),
           Container(
             decoration: BoxDecoration(
@@ -1076,7 +1011,10 @@ dynamic build(BuildContext context) {
         ),
         const Padding(
           padding: EdgeInsets.fromLTRB(12, 0, 12, 8),
-          child: Text('Number variants: signed × decimal', style: h2Style),
+          child: Text(
+            'Number variants: signed × decimal',
+            style: h2Style,
+          ),
         ),
         const Padding(
           padding: EdgeInsets.fromLTRB(12, 4, 12, 16),
@@ -1104,34 +1042,27 @@ dynamic build(BuildContext context) {
             numberVariantCard(
               label: 'signed',
               code: 'numberWithOptions(signed: true)',
-              summary:
-                  'Whole numbers, possibly negative — temperatures, '
+              summary: 'Whole numbers, possibly negative — temperatures, '
                   'deltas, balances.',
               field: readOnlyField(
                 controller: ctrlNumberSigned,
-                keyboardType: const TextInputType.numberWithOptions(
-                  signed: true,
-                ),
+                keyboardType: const TextInputType.numberWithOptions(signed: true),
               ),
             ),
             numberVariantCard(
               label: 'decimal',
               code: 'numberWithOptions(decimal: true)',
-              summary:
-                  'Fractional numbers, non-negative — weights, '
+              summary: 'Fractional numbers, non-negative — weights, '
                   'durations, percentages.',
               field: readOnlyField(
                 controller: ctrlNumberDecimal,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
               ),
             ),
             numberVariantCard(
               label: 'signed + decimal',
               code: 'numberWithOptions(signed: true, decimal: true)',
-              summary:
-                  'The richest variant — fractional, possibly '
+              summary: 'The richest variant — fractional, possibly '
                   'negative. Default for general numerics.',
               field: readOnlyField(
                 controller: ctrlNumberBoth,
@@ -1182,10 +1113,7 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'Single line — TextInputType.text',
-                    style: labelStyle,
-                  ),
+                  const Text('Single line — TextInputType.text', style: labelStyle),
                   const SizedBox(height: 8),
                   readOnlyField(
                     controller: ctrlSingleNarrow,
@@ -1205,10 +1133,7 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'Multi line — TextInputType.multiline',
-                    style: labelStyle,
-                  ),
+                  const Text('Multi line — TextInputType.multiline', style: labelStyle),
                   const SizedBox(height: 8),
                   readOnlyField(
                     controller: ctrlMultiTall,
@@ -1332,11 +1257,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           Text(
             detail,
-            style: const TextStyle(
-              color: parchment,
-              fontSize: 13,
-              height: 1.45,
-            ),
+            style: const TextStyle(color: parchment, fontSize: 13, height: 1.45),
           ),
           const SizedBox(height: 14),
           field,
@@ -1375,8 +1296,7 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             passwordCard(
               title: 'visible password',
-              detail:
-                  'keyboardType: visiblePassword, obscureText: false. '
+              detail: 'keyboardType: visiblePassword, obscureText: false. '
                   'IME suppresses autocorrect; user can read what they '
                   'type. Best for one-time codes or password-creation '
                   'flows where confirmation is helpful.',
@@ -1389,8 +1309,7 @@ dynamic build(BuildContext context) {
             ),
             passwordCard(
               title: 'obscure password',
-              detail:
-                  'keyboardType: text, obscureText: true. Glyphs '
+              detail: 'keyboardType: text, obscureText: true. Glyphs '
                   'rendered as dots. Standard sign-in flow. Note that '
                   'we do NOT use visiblePassword here — combining '
                   'them is allowed but uncommon.',
@@ -1476,81 +1395,39 @@ dynamic build(BuildContext context) {
               ),
               children: <TableRow>[
                 buildHeaderRow(),
-                buildRow(
-                  'text',
-                  'a–z A–Z 0–9 punctuation',
-                  'Same on all platforms',
-                ),
-                buildRow(
-                  'multiline',
-                  'a–z A–Z 0–9 punctuation + Return key',
-                  'Newline is just a normal char on desktop',
-                ),
-                buildRow(
-                  'number',
-                  '0–9',
-                  'Desktop: ordinary keyboard, app must validate',
-                ),
-                buildRow(
-                  'number(decimal:true)',
-                  '0–9 + locale decimal',
-                  'Desktop: same as text; rely on formatter',
-                ),
-                buildRow(
-                  'number(signed:true)',
-                  '0–9 + minus / plus',
-                  'Desktop: same as text; rely on formatter',
-                ),
-                buildRow(
-                  'phone',
-                  '0–9 # * +',
-                  'iOS: numeric; desktop: ordinary keyboard',
-                ),
-                buildRow(
-                  'datetime',
-                  '0–9 : / -',
-                  'Mostly falls back to text on iOS and web',
-                ),
-                buildRow(
-                  'emailAddress',
-                  'a–z 0–9 @ . _',
-                  'Desktop: ordinary keyboard; autofill helps',
-                ),
-                buildRow(
-                  'url',
-                  'a–z 0–9 . / : -',
-                  'Desktop: ordinary keyboard; autofill helps',
-                ),
-                buildRow(
-                  'visiblePassword',
-                  'a–z A–Z 0–9 punctuation, no autocorrect',
-                  'Desktop: ordinary keyboard, app suppresses autocorrect',
-                ),
-                buildRow(
-                  'name',
-                  'a–z A–Z, autocaps words',
-                  'Desktop: ordinary keyboard',
-                ),
-                buildRow(
-                  'streetAddress',
-                  'multi-line a–z 0–9 punctuation',
-                  'Desktop: ordinary keyboard, address autofill',
-                ),
-                buildRow(
-                  'none',
-                  '— (no IME shown)',
-                  'No effect on desktop; fields just receive focus',
-                ),
-                buildRow(
-                  'webSearch',
-                  'a–z 0–9 punctuation, action key = Search',
-                  'Desktop: action handled by your onSubmitted',
-                ),
-                buildRow(
-                  'twitter',
-                  'a–z 0–9 @ # promoted',
-                  'Desktop: ordinary keyboard',
-                ),
+                buildRow('text', 'a–z A–Z 0–9 punctuation',
+                    'Same on all platforms'),
+                buildRow('multiline',
+                    'a–z A–Z 0–9 punctuation + Return key',
+                    'Newline is just a normal char on desktop'),
+                buildRow('number', '0–9',
+                    'Desktop: ordinary keyboard, app must validate'),
+                buildRow('number(decimal:true)', '0–9 + locale decimal',
+                    'Desktop: same as text; rely on formatter'),
+                buildRow('number(signed:true)', '0–9 + minus / plus',
+                    'Desktop: same as text; rely on formatter'),
+                buildRow('phone', '0–9 # * +',
+                    'iOS: numeric; desktop: ordinary keyboard'),
+                buildRow('datetime', '0–9 : / -',
+                    'Mostly falls back to text on iOS and web'),
+                buildRow('emailAddress', 'a–z 0–9 @ . _',
+                    'Desktop: ordinary keyboard; autofill helps'),
+                buildRow('url', 'a–z 0–9 . / : -',
+                    'Desktop: ordinary keyboard; autofill helps'),
+                buildRow('visiblePassword',
+                    'a–z A–Z 0–9 punctuation, no autocorrect',
+                    'Desktop: ordinary keyboard, app suppresses autocorrect'),
+                buildRow('name', 'a–z A–Z, autocaps words',
+                    'Desktop: ordinary keyboard'),
+                buildRow('streetAddress', 'multi-line a–z 0–9 punctuation',
+                    'Desktop: ordinary keyboard, address autofill'),
+                buildRow('none', '— (no IME shown)',
+                    'No effect on desktop; fields just receive focus'),
+                buildRow('webSearch',
+                    'a–z 0–9 punctuation, action key = Search',
+                    'Desktop: action handled by your onSubmitted'),
+                buildRow('twitter', 'a–z 0–9 @ # promoted',
+                    'Desktop: ordinary keyboard'),
               ],
             ),
           ),
@@ -1641,8 +1518,7 @@ dynamic build(BuildContext context) {
             pitfallCallout(
               icon: Icons.warning_amber_outlined,
               title: 'A hint is not a validator',
-              body:
-                  'TextInputType.number(decimal: true) does NOT '
+              body: 'TextInputType.number(decimal: true) does NOT '
                   'validate the value. The user can paste literally '
                   'anything in there. Pair it with a TextInputFormatter '
                   '(e.g. FilteringTextInputFormatter) to actually '
@@ -1653,8 +1529,7 @@ dynamic build(BuildContext context) {
             pitfallCallout(
               icon: Icons.phone_android_outlined,
               title: 'iOS has no phone-only keyboard',
-              body:
-                  'TextInputType.phone summons a 12-key dialer on '
+              body: 'TextInputType.phone summons a 12-key dialer on '
                   'Android, but iOS surfaces a numeric pad with '
                   'phone-friendly punctuation — there is no '
                   'OS-level enforcement that the input is numeric.',
@@ -1664,8 +1539,7 @@ dynamic build(BuildContext context) {
             pitfallCallout(
               icon: Icons.computer_outlined,
               title: 'Desktop ignores most hints',
-              body:
-                  'There is no virtual keyboard to pop open on '
+              body: 'There is no virtual keyboard to pop open on '
                   'macOS, Windows, or Linux. TextInputType becomes a '
                   'best-effort autofill / accessibility hint and your '
                   'formatters / validators do all the real work.',
@@ -1675,8 +1549,7 @@ dynamic build(BuildContext context) {
             pitfallCallout(
               icon: Icons.language_outlined,
               title: 'Locale-aware decimal separator',
-              body:
-                  'In a Continental European locale, '
+              body: 'In a Continental European locale, '
                   'TextInputType.number(decimal: true) shows a comma, '
                   'not a dot. Your numeric parser must accept both — '
                   'or set the locale explicitly via NumberFormat.',
@@ -1686,8 +1559,7 @@ dynamic build(BuildContext context) {
             pitfallCallout(
               icon: Icons.visibility_off_outlined,
               title: 'visiblePassword is not obscureText',
-              body:
-                  'visiblePassword is an IME hint (no autocorrect). '
+              body: 'visiblePassword is an IME hint (no autocorrect). '
                   'obscureText is a renderer flag (dots instead of '
                   'glyphs). They are orthogonal — set them '
                   'independently to get the behaviour you want.',
@@ -1697,8 +1569,7 @@ dynamic build(BuildContext context) {
             pitfallCallout(
               icon: Icons.edit_off_outlined,
               title: 'TextInputType.none means NO keyboard',
-              body:
-                  'Use it deliberately for fields you populate '
+              body: 'Use it deliberately for fields you populate '
                   'programmatically (barcode, NFC, custom keypad). '
                   'On platforms with hardware keyboards the field can '
                   'still receive typed input — none only suppresses '
@@ -1750,10 +1621,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         const Text('CHAPTER NINE', style: subStyle),
         const SizedBox(height: 6),
-        const Text(
-          'A registration form, every type in its place',
-          style: h2Style,
-        ),
+        const Text('A registration form, every type in its place', style: h2Style),
         const SizedBox(height: 12),
         const Text(
           'A read-only mock of a typical sign-up screen. Each field '
@@ -1785,8 +1653,7 @@ dynamic build(BuildContext context) {
               ),
               formRow(
                 label: 'Email address',
-                hint:
-                    'TextInputType.emailAddress — @ and . promoted, no '
+                hint: 'TextInputType.emailAddress — @ and . promoted, no '
                     'autocorrect.',
                 field: readOnlyField(
                   controller: formCtrlEmail,
@@ -1796,8 +1663,7 @@ dynamic build(BuildContext context) {
               ),
               formRow(
                 label: 'Phone number',
-                hint:
-                    'TextInputType.phone — dialer on Android, numeric '
+                hint: 'TextInputType.phone — dialer on Android, numeric '
                     'pad on iOS.',
                 field: readOnlyField(
                   controller: formCtrlPhone,
@@ -1807,8 +1673,7 @@ dynamic build(BuildContext context) {
               ),
               formRow(
                 label: 'Mailing address',
-                hint:
-                    'TextInputType.streetAddress — multiline, address '
+                hint: 'TextInputType.streetAddress — multiline, address '
                     'autofill.',
                 field: readOnlyField(
                   controller: formCtrlAddress,
@@ -1819,8 +1684,7 @@ dynamic build(BuildContext context) {
               ),
               formRow(
                 label: 'Password',
-                hint:
-                    'TextInputType.visiblePassword + obscureText: true. '
+                hint: 'TextInputType.visiblePassword + obscureText: true. '
                     'No autocorrect, dots for the glyphs.',
                 field: readOnlyField(
                   controller: formCtrlPassword,
@@ -1851,7 +1715,8 @@ dynamic build(BuildContext context) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Icon(Icons.keyboard_outlined, color: Color(0xFF1A1A1A), size: 36),
+        const Icon(Icons.keyboard_outlined,
+            color: Color(0xFF1A1A1A), size: 36),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
@@ -1900,7 +1765,10 @@ dynamic build(BuildContext context) {
         secondary: accentAmber,
         surface: inkMid,
       ),
-      textTheme: const TextTheme(bodyMedium: bodyStyle, bodyLarge: bodyStyle),
+      textTheme: const TextTheme(
+        bodyMedium: bodyStyle,
+        bodyLarge: bodyStyle,
+      ),
     ),
     home: Scaffold(
       backgroundColor: inkDeep,
@@ -2009,31 +1877,17 @@ class _PrivateKeyboardGraphic extends StatelessWidget {
     }
 
     Widget row(List<Widget> caps) {
-      return Row(mainAxisAlignment: MainAxisAlignment.center, children: caps);
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: caps,
+      );
     }
 
     final List<String> r1 = <String>[
-      'q',
-      'w',
-      'e',
-      'r',
-      't',
-      'y',
-      'u',
-      'i',
-      'o',
-      'p',
+      'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'
     ];
     final List<String> r2 = <String>[
-      'a',
-      's',
-      'd',
-      'f',
-      'g',
-      'h',
-      'j',
-      'k',
-      'l',
+      'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'
     ];
     final List<String> r3 = <String>['z', 'x', 'c', 'v', 'b', 'n', 'm'];
 
@@ -2124,7 +1978,11 @@ class _PrivateAnatomyDiagram extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               body,
-              style: TextStyle(color: parchment, fontSize: 12, height: 1.4),
+              style: TextStyle(
+                color: parchment,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ],
         ),
@@ -2137,15 +1995,13 @@ class _PrivateAnatomyDiagram extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              label,
-              style: TextStyle(
-                color: parchmentDim,
-                fontSize: 11,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            Text(label,
+                style: TextStyle(
+                  color: parchmentDim,
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                )),
             const SizedBox(height: 4),
             Container(width: 60, height: 2, color: accent),
             Icon(Icons.arrow_right_alt, color: accent, size: 22),

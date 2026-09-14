@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.content_paste,
       'title': 'Clipboard State Enum',
-      'body':
-          'ClipboardStatus is a simple three-value enum that '
+      'body': 'ClipboardStatus is a simple three-value enum that '
           'tracks whether the system clipboard contains pasteable '
           'text data. It allows widgets to update their UI in response '
           'to clipboard state changes, such as enabling or disabling '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.help_outline,
       'title': 'Three Possible States',
-      'body':
-          'pasteable: Clipboard has text content that can be pasted. '
+      'body': 'pasteable: Clipboard has text content that can be pasted. '
           'notPasteable: Clipboard is empty or holds non-text data. '
           'unknown: The clipboard state has not been checked yet, or the '
           'platform does not provide this information.',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.notifications_active,
       'title': 'Used with ClipboardStatusNotifier',
-      'body':
-          'ClipboardStatusNotifier is a ValueNotifier<ClipboardStatus> '
+      'body': 'ClipboardStatusNotifier is a ValueNotifier<ClipboardStatus> '
           'that periodically polls the clipboard. When the status changes, '
           'listeners are notified. EditableText and SelectableText use this '
           'internally to show/hide the paste button in the selection menu.',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.timer,
       'title': 'Polling, Not Events',
-      'body':
-          'Most platforms do not fire clipboard-change events. '
+      'body': 'Most platforms do not fire clipboard-change events. '
           'ClipboardStatusNotifier polls the system clipboard at regular '
           'intervals. This means there can be a brief delay between '
           'copying text and the paste button becoming active.',
@@ -73,8 +69,7 @@ dynamic build(BuildContext context) {
       'bgColor': Colors.green[50]!,
       'meaning': 'The clipboard contains text data that can be pasted.',
       'uiEffect': 'Paste button enabled, full opacity, tap-active',
-      'scenario':
-          'User copied text from another app, selected text in '
+      'scenario': 'User copied text from another app, selected text in '
           'a TextField then copied it, or used Ctrl+C to copy content. '
           'The system clipboard now has text content.',
       'when': 'Clipboard.getData returns non-null text',
@@ -86,8 +81,7 @@ dynamic build(BuildContext context) {
       'bgColor': Colors.red[50]!,
       'meaning': 'The clipboard is empty or contains non-text data.',
       'uiEffect': 'Paste button disabled, reduced opacity, tap-ignored',
-      'scenario':
-          'User has not copied anything yet, copied an image, '
+      'scenario': 'User has not copied anything yet, copied an image, '
           'or the clipboard was cleared. No text data is available.',
       'when': 'Clipboard.getData returns null or throws',
     },
@@ -98,8 +92,7 @@ dynamic build(BuildContext context) {
       'bgColor': Colors.orange[50]!,
       'meaning': 'The clipboard state has not been determined yet.',
       'uiEffect': 'Paste button in loading/indeterminate state',
-      'scenario':
-          'Initial state before the first clipboard poll completes, '
+      'scenario': 'Initial state before the first clipboard poll completes, '
           'or the platform does not support clipboard status queries (e.g., '
           'some web browsers restrict clipboard access).',
       'when': 'Before first check or platform restriction',
@@ -228,84 +221,45 @@ dynamic build(BuildContext context) {
   final uiPatterns = <Map<String, dynamic>>[
     {
       'name': 'Toolbar Paste Button',
-      'description':
-          'A standard paste button in an editing toolbar. '
+      'description': 'A standard paste button in an editing toolbar. '
           'Disabled with reduced opacity when not pasteable, shown '
           'in accent color when pasteable, and with a subtle spinner '
           'when unknown.',
       'states': [
-        {
-          'status': 'pasteable',
-          'icon': Icons.content_paste,
-          'opacity': 1.0,
-          'color': Colors.blueGrey[700]!,
-        },
-        {
-          'status': 'notPasteable',
-          'icon': Icons.content_paste,
-          'opacity': 0.3,
-          'color': Colors.grey[400]!,
-        },
-        {
-          'status': 'unknown',
-          'icon': Icons.hourglass_empty,
-          'opacity': 0.5,
-          'color': Colors.orange[400]!,
-        },
+        {'status': 'pasteable', 'icon': Icons.content_paste, 'opacity': 1.0,
+          'color': Colors.blueGrey[700]!},
+        {'status': 'notPasteable', 'icon': Icons.content_paste, 'opacity': 0.3,
+          'color': Colors.grey[400]!},
+        {'status': 'unknown', 'icon': Icons.hourglass_empty, 'opacity': 0.5,
+          'color': Colors.orange[400]!},
       ],
     },
     {
       'name': 'Context Menu Action',
-      'description':
-          'The paste entry in a right-click or long-press '
+      'description': 'The paste entry in a right-click or long-press '
           'context menu. When not pasteable, the menu item is greyed '
           'out and non-interactive. Tapping it does nothing.',
       'states': [
-        {
-          'status': 'Paste available',
-          'icon': Icons.content_paste_go,
-          'opacity': 1.0,
-          'color': Colors.blueGrey[700]!,
-        },
-        {
-          'status': 'Paste disabled',
-          'icon': Icons.content_paste_off,
-          'opacity': 0.4,
-          'color': Colors.grey[500]!,
-        },
-        {
-          'status': 'Checking...',
-          'icon': Icons.more_horiz,
-          'opacity': 0.6,
-          'color': Colors.orange[400]!,
-        },
+        {'status': 'Paste available', 'icon': Icons.content_paste_go,
+          'opacity': 1.0, 'color': Colors.blueGrey[700]!},
+        {'status': 'Paste disabled', 'icon': Icons.content_paste_off,
+          'opacity': 0.4, 'color': Colors.grey[500]!},
+        {'status': 'Checking...', 'icon': Icons.more_horiz,
+          'opacity': 0.6, 'color': Colors.orange[400]!},
       ],
     },
     {
       'name': 'Clipboard Badge',
-      'description':
-          'A small indicator badge attached to a clipboard '
+      'description': 'A small indicator badge attached to a clipboard '
           'icon showing current state. Green dot for pasteable, red dot '
           'for not, amber dot for unknown. Good for status bars.',
       'states': [
-        {
-          'status': 'Has data',
-          'icon': Icons.circle,
-          'opacity': 1.0,
-          'color': Colors.green[500]!,
-        },
-        {
-          'status': 'Empty',
-          'icon': Icons.circle,
-          'opacity': 1.0,
-          'color': Colors.red[500]!,
-        },
-        {
-          'status': 'Unknown',
-          'icon': Icons.circle,
-          'opacity': 0.8,
-          'color': Colors.amber[500]!,
-        },
+        {'status': 'Has data', 'icon': Icons.circle,
+          'opacity': 1.0, 'color': Colors.green[500]!},
+        {'status': 'Empty', 'icon': Icons.circle,
+          'opacity': 1.0, 'color': Colors.red[500]!},
+        {'status': 'Unknown', 'icon': Icons.circle,
+          'opacity': 0.8, 'color': Colors.amber[500]!},
       ],
     },
   ];
@@ -367,8 +321,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Basic Notifier Setup',
       'color': Colors.blueGrey[700]!,
-      'code':
-          'class _MyWidgetState extends State<MyWidget> {\n'
+      'code': 'class _MyWidgetState extends State<MyWidget> {\n'
           '  late final ClipboardStatusNotifier _clipboard;\n'
           '\n'
           '  @override\n'
@@ -393,8 +346,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'ValueListenableBuilder Pattern',
       'color': Colors.cyan[700]!,
-      'code':
-          'ValueListenableBuilder<ClipboardStatus>(\n'
+      'code': 'ValueListenableBuilder<ClipboardStatus>(\n'
           '  valueListenable: _clipboard,\n'
           '  builder: (context, status, child) {\n'
           '    final canPaste =\n'
@@ -412,8 +364,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Switch on Status',
       'color': Colors.blueGrey[600]!,
-      'code':
-          'Widget buildPasteIndicator(ClipboardStatus status) {\n'
+      'code': 'Widget buildPasteIndicator(ClipboardStatus status) {\n'
           '  return switch (status) {\n'
           '    ClipboardStatus.pasteable => Icon(\n'
           '      Icons.content_paste_go,\n'
@@ -435,8 +386,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Force Update After Copy',
       'color': Colors.cyan[600]!,
-      'code':
-          'Future<void> _copyAndUpdate(String text) async {\n'
+      'code': 'Future<void> _copyAndUpdate(String text) async {\n'
           '  await Clipboard.setData(\n'
           '    ClipboardData(text: text),\n'
           '  );\n'
@@ -458,8 +408,7 @@ dynamic build(BuildContext context) {
       'name': 'Text Editor Toolbar',
       'icon': Icons.edit,
       'color': Colors.blueGrey[700]!,
-      'description':
-          'A rich text editor with cut/copy/paste buttons. The '
+      'description': 'A rich text editor with cut/copy/paste buttons. The '
           'paste button observes ClipboardStatus. Cut and copy are always '
           'enabled (when text is selected), but paste dynamically reflects '
           'the clipboard state.',
@@ -475,8 +424,7 @@ dynamic build(BuildContext context) {
       'name': 'Selection Toolbar',
       'icon': Icons.select_all,
       'color': Colors.cyan[700]!,
-      'description':
-          'The selection toolbar that appears when you long-press '
+      'description': 'The selection toolbar that appears when you long-press '
           'or double-tap text. Shows cut/copy/paste/select-all. On Android '
           'and iOS, there is special handling for the paste button visibility '
           'in the selection toolbar.',
@@ -492,8 +440,7 @@ dynamic build(BuildContext context) {
       'name': 'Password Manager',
       'icon': Icons.lock,
       'color': Colors.blueGrey[600]!,
-      'description':
-          'A password manager that auto-clears the clipboard '
+      'description': 'A password manager that auto-clears the clipboard '
           'after 30 seconds. The ClipboardStatus transitions from pasteable '
           'to notPasteable after the timer fires and clears the clipboard.',
       'flow': [
@@ -517,8 +464,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Don\'t Poll Too Frequently',
-      'body':
-          'The default polling interval is reasonable, but custom '
+      'body': 'The default polling interval is reasonable, but custom '
           'implementations should avoid polling more than once per second. '
           'Clipboard access on some platforms involves IPC and can be '
           'expensive. Use update() for one-off refreshes instead.',
@@ -527,8 +473,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Web Platform Limitations',
-      'body':
-          'On the web, clipboard access requires user gesture or '
+      'body': 'On the web, clipboard access requires user gesture or '
           'Permissions API. The status may remain "unknown" if the browser '
           'denies access. Always handle the unknown state gracefully — '
           'consider showing the paste button anyway on web.',
@@ -537,8 +482,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Combine with canPaste()',
-      'body':
-          'ClipboardStatus tells you if paste is available. But also '
+      'body': 'ClipboardStatus tells you if paste is available. But also '
           'check if the target field accepts paste (not readOnly, has focus, '
           'etc.). A paste button should be enabled only when both clipboard '
           'is pasteable AND the field can receive input.',
@@ -547,8 +491,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Dispose the Notifier',
-      'body':
-          'A forgotten ClipboardStatusNotifier continues polling in the '
+      'body': 'A forgotten ClipboardStatusNotifier continues polling in the '
           'background, wasting resources and potentially causing errors '
           'if the widget is disposed. Always call dispose() in your '
           'State.dispose() method.',
@@ -557,8 +500,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Enum Exhaustiveness',
-      'body':
-          'Dart\'s switch expression on an enum is exhaustive. Using '
+      'body': 'Dart\'s switch expression on an enum is exhaustive. Using '
           'switch(status) { ClipboardStatus.pasteable => ..., '
           'ClipboardStatus.notPasteable => ..., ClipboardStatus.unknown '
           '=> ... } guarantees all cases are handled at compile time.',
@@ -567,8 +509,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Accessibility Consideration',
-      'body':
-          'When the paste button is disabled due to notPasteable, '
+      'body': 'When the paste button is disabled due to notPasteable, '
           'provide a tooltip explaining why: "Nothing to paste" or '
           '"Clipboard is empty". Screen readers need this context to '
           'convey the button state to users.',
@@ -642,152 +583,120 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _csHead('1', 'What is ClipboardStatus?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (c) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: c['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((c) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: c['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          c['icon'] as IconData,
-                          color: c['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(c['icon'] as IconData,
+                            color: c['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            c['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(c['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      c['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(c['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Enum Values ──
           _csHead('2', 'The Three Values'),
           SizedBox(height: 12),
-          ...enumValues.map(
-            (ev) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: ev['bgColor'] as Color,
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border(
-                    left: BorderSide(color: ev['color'] as Color, width: 5),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...enumValues.map((ev) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: ev['bgColor'] as Color,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border(
+                      left: BorderSide(
+                          color: ev['color'] as Color, width: 5),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          ev['icon'] as IconData,
-                          color: ev['color'] as Color,
-                          size: 28,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(ev['icon'] as IconData,
+                            color: ev['color'] as Color, size: 28),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            ev['name'] as String,
+                          child: Text(ev['name'] as String,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900],
+                                  fontFamily: 'monospace')),
+                        ),
+                      ]),
+                      SizedBox(height: 10),
+                      _csChip('Meaning', ev['meaning'] as String,
+                          ev['color'] as Color),
+                      SizedBox(height: 6),
+                      _csChip('UI Effect', ev['uiEffect'] as String,
+                          ev['color'] as Color),
+                      SizedBox(height: 6),
+                      _csChip('When', ev['when'] as String,
+                          ev['color'] as Color),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                              color: (ev['color'] as Color).withOpacity(0.3)),
+                        ),
+                        child: Text(ev['scenario'] as String,
                             style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                              fontFamily: 'monospace',
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    _csChip(
-                      'Meaning',
-                      ev['meaning'] as String,
-                      ev['color'] as Color,
-                    ),
-                    SizedBox(height: 6),
-                    _csChip(
-                      'UI Effect',
-                      ev['uiEffect'] as String,
-                      ev['color'] as Color,
-                    ),
-                    SizedBox(height: 6),
-                    _csChip('When', ev['when'] as String, ev['color'] as Color),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: (ev['color'] as Color).withOpacity(0.3),
-                        ),
+                                fontSize: 11,
+                                color: Colors.grey[700],
+                                height: 1.4)),
                       ),
-                      child: Text(
-                        ev['scenario'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.grey[700],
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -802,91 +711,63 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 3,
-                  offset: Offset(0, 1),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 3,
+                    offset: Offset(0, 1))
               ],
             ),
             child: Column(
-              children: transitions
-                  .map(
-                    (t) => Padding(
-                      padding: EdgeInsets.only(bottom: 8),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 80,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: (t['fromColor'] as Color).withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(6),
-                              border: Border.all(
-                                color: t['fromColor'] as Color,
-                                width: 1,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                t['from'] as String,
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold,
-                                  color: t['fromColor'] as Color,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 6),
-                          Icon(
-                            t['icon'] as IconData,
-                            size: 16,
-                            color: Colors.blueGrey[400],
-                          ),
-                          SizedBox(width: 6),
-                          Container(
-                            width: 80,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: (t['toColor'] as Color).withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(6),
-                              border: Border.all(
-                                color: t['toColor'] as Color,
-                                width: 1,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                t['to'] as String,
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold,
-                                  color: t['toColor'] as Color,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              t['trigger'] as String,
+              children: transitions.map((t) => Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: Row(children: [
+                      Container(
+                        width: 80,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: (t['fromColor'] as Color).withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                              color: t['fromColor'] as Color, width: 1),
+                        ),
+                        child: Center(
+                          child: Text(t['from'] as String,
                               style: TextStyle(
-                                fontSize: 9,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ),
-                        ],
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: t['fromColor'] as Color)),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
+                      SizedBox(width: 6),
+                      Icon(t['icon'] as IconData,
+                          size: 16, color: Colors.blueGrey[400]),
+                      SizedBox(width: 6),
+                      Container(
+                        width: 80,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: (t['toColor'] as Color).withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                              color: t['toColor'] as Color, width: 1),
+                        ),
+                        child: Center(
+                          child: Text(t['to'] as String,
+                              style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: t['toColor'] as Color)),
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(t['trigger'] as String,
+                            style: TextStyle(
+                                fontSize: 9, color: Colors.grey[600])),
+                      ),
+                    ]),
+                  )).toList(),
             ),
           ),
 
@@ -895,158 +776,123 @@ dynamic build(BuildContext context) {
           // ── Section 4: Notifier Details ──
           _csHead('4', 'ClipboardStatusNotifier'),
           SizedBox(height: 12),
-          ...notifierDetails.map(
-            (nd) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: nd['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...notifierDetails.map((nd) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: nd['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          nd['icon'] as IconData,
-                          color: nd['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(nd['icon'] as IconData,
+                            color: nd['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            nd['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    ...(nd['items'] as List<String>).map(
-                      (item) => Padding(
-                        padding: EdgeInsets.only(bottom: 3),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '• ',
+                          child: Text(nd['title'] as String,
                               style: TextStyle(
-                                color: nd['color'] as Color,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey[700],
-                                  height: 1.3,
-                                ),
-                              ),
-                            ),
-                          ],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      ...(nd['items'] as List<String>).map((item) => Padding(
+                            padding: EdgeInsets.only(bottom: 3),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('• ',
+                                    style: TextStyle(
+                                        color: nd['color'] as Color,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
+                                Expanded(
+                                  child: Text(item,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[700],
+                                          height: 1.3)),
+                                ),
+                              ],
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: UI Patterns ──
           _csHead('5', 'UI Pattern Showcase'),
           SizedBox(height: 12),
-          ...uiPatterns.map(
-            (up) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
+          ...uiPatterns.map((up) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(up['name'] as String,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.grey[900])),
+                      SizedBox(height: 4),
+                      Text(up['description'] as String,
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[600],
+                              height: 1.3)),
+                      SizedBox(height: 10),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: (up['states']
+                                  as List<Map<String, dynamic>>)
+                              .map((s) => Column(children: [
+                                    Opacity(
+                                      opacity: s['opacity'] as double,
+                                      child: Icon(
+                                          s['icon'] as IconData,
+                                          color: s['color'] as Color,
+                                          size: 28),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(s['status'] as String,
+                                        style: TextStyle(
+                                            fontSize: 8,
+                                            color: Colors.grey[600])),
+                                  ]))
+                              .toList()),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      up['name'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.grey[900],
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      up['description'] as String,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[600],
-                        height: 1.3,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: (up['states'] as List<Map<String, dynamic>>)
-                          .map(
-                            (s) => Column(
-                              children: [
-                                Opacity(
-                                  opacity: s['opacity'] as double,
-                                  child: Icon(
-                                    s['icon'] as IconData,
-                                    color: s['color'] as Color,
-                                    size: 28,
-                                  ),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  s['status'] as String,
-                                  style: TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1060,122 +906,87 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 3,
-                  offset: Offset(0, 1),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 3,
+                    offset: Offset(0, 1))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
+            child: Column(children: [
+              Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.blueGrey[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
                   ),
+                ),
+                child: Row(children: [
+                  SizedBox(
+                      width: 55,
+                      child: Text('Aspect',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 9))),
+                  Expanded(
+                      child: Text('ClipboardStatus',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 9))),
+                  Expanded(
+                      child: Text('Clipboard.getData',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 9))),
+                  Expanded(
+                      child: Text('SystemClipboard',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 9))),
+                ]),
+              ),
+              ...apiComparisons.asMap().entries.map((entry) {
+                final r = entry.value;
+                final isEven = entry.key.isEven;
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 8, vertical: 6),
+                  color: isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 55,
-                        child: Text(
-                          'Aspect',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 9,
-                          ),
-                        ),
-                      ),
+                          width: 55,
+                          child: Text(r['aspect'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 8,
+                                  color: Colors.grey[800]))),
                       Expanded(
-                        child: Text(
-                          'ClipboardStatus',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 9,
-                          ),
-                        ),
-                      ),
+                          child: Text(r['clipboardStatus'] as String,
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.blueGrey[700]))),
                       Expanded(
-                        child: Text(
-                          'Clipboard.getData',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 9,
-                          ),
-                        ),
-                      ),
+                          child: Text(r['clipboardData'] as String,
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.grey[700]))),
                       Expanded(
-                        child: Text(
-                          'SystemClipboard',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 9,
-                          ),
-                        ),
-                      ),
+                          child: Text(r['systemClipboard'] as String,
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.grey[700]))),
                     ],
                   ),
-                ),
-                ...apiComparisons.asMap().entries.map((entry) {
-                  final r = entry.value;
-                  final isEven = entry.key.isEven;
-                  return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                    color: isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 55,
-                          child: Text(
-                            r['aspect'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 8,
-                              color: Colors.grey[800],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            r['clipboardStatus'] as String,
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.blueGrey[700],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            r['clipboardData'] as String,
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            r['systemClipboard'] as String,
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -1183,165 +994,142 @@ dynamic build(BuildContext context) {
           // ── Section 7: Code Patterns ──
           _csHead('7', 'Code Patterns'),
           SizedBox(height: 12),
-          ...codePatterns.map(
-            (cp) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: cp['color'] as Color, width: 4),
+          ...codePatterns.map((cp) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: cp['color'] as Color, width: 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      cp['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        cp['code'] as String,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9,
-                          color: Colors.cyan[200],
-                          height: 1.4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(cp['title'] as String,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[900],
+                          borderRadius: BorderRadius.circular(8),
                         ),
+                        child: Text(cp['code'] as String,
+                            style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 9,
+                                color: Colors.cyan[200],
+                                height: 1.4)),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 8: Scenarios ──
           _csHead('8', 'Real-World Scenarios'),
           SizedBox(height: 12),
-          ...scenarios.map(
-            (sc) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: sc['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...scenarios.map((sc) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: sc['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          sc['icon'] as IconData,
-                          color: sc['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(sc['icon'] as IconData,
+                            color: sc['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            sc['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(sc['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      sc['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    ...(sc['flow'] as List<String>).asMap().entries.map(
-                      (entry) => Padding(
-                        padding: EdgeInsets.only(bottom: 3),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 18,
-                              height: 18,
-                              decoration: BoxDecoration(
-                                color: Color.lerp(
-                                  Colors.blueGrey[300],
-                                  Colors.cyan[700],
-                                  entry.key / ((sc['flow'] as List).length - 1),
-                                )!,
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '${entry.key + 1}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 6),
-                            Expanded(
-                              child: Text(
-                                entry.value,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey[700],
-                                  height: 1.3,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 6),
+                      Text(sc['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                      SizedBox(height: 8),
+                      ...(sc['flow'] as List<String>).asMap().entries.map(
+                          (entry) => Padding(
+                                padding: EdgeInsets.only(bottom: 3),
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: 18,
+                                        height: 18,
+                                        decoration: BoxDecoration(
+                                          color: Color.lerp(
+                                              Colors.blueGrey[300],
+                                              Colors.cyan[700],
+                                              entry.key /
+                                                  ((sc['flow'] as List)
+                                                          .length -
+                                                      1))!,
+                                          borderRadius:
+                                              BorderRadius.circular(9),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                              '${entry.key + 1}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 8,
+                                                  fontWeight:
+                                                      FontWeight.bold)),
+                                        ),
+                                      ),
+                                      SizedBox(width: 6),
+                                      Expanded(
+                                        child: Text(entry.value,
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                color: Colors.grey[700],
+                                                height: 1.3)),
+                                      ),
+                                    ]),
+                              )),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1373,41 +1161,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1446,26 +1222,20 @@ Widget _csHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1484,21 +1254,17 @@ Widget _csChip(String label, String value, Color color) {
           color: color.withOpacity(0.15),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
+        child: Text(label,
+            style: TextStyle(
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+                color: color)),
       ),
       SizedBox(width: 6),
       Expanded(
-        child: Text(
-          value,
-          style: TextStyle(fontSize: 11, color: Colors.grey[700], height: 1.3),
-        ),
+        child: Text(value,
+            style: TextStyle(
+                fontSize: 11, color: Colors.grey[700], height: 1.3)),
       ),
     ],
   );

@@ -475,8 +475,7 @@ class _SrlsDojoHomeState extends State<_SrlsDojoHome>
       _SrlsLogEntry(
         timestamp: DateTime.now(),
         title: 'Dojo opened',
-        detail:
-            'Primary list is bound to GlobalKey<SliverReorderableListState>.',
+        detail: 'Primary list is bound to GlobalKey<SliverReorderableListState>.',
         tone: _SrlsLogTone.info,
       ),
     );
@@ -518,8 +517,7 @@ class _SrlsDojoHomeState extends State<_SrlsDojoHome>
       _SrlsLogEntry(
         timestamp: DateTime.now(),
         title: 'Reordered primary list',
-        detail:
-            '${_primaryOrder[newIndex].name} now at slot '
+        detail: '${_primaryOrder[newIndex].name} now at slot '
             '${newIndex + 1}/${_primaryOrder.length}.',
         tone: _SrlsLogTone.success,
       ),
@@ -649,12 +647,10 @@ class _SrlsDojoHomeState extends State<_SrlsDojoHome>
   /// The slivers that make up the primary CustomScrollView.
   List<Widget> _buildPrimarySlivers() {
     return <Widget>[
-      SliverToBoxAdapter(
-        child: _SrlsHeroHeader(
-          stripe: _stripeController,
-          breath: _breathController,
-        ),
-      ),
+      SliverToBoxAdapter(child: _SrlsHeroHeader(
+        stripe: _stripeController,
+        breath: _breathController,
+      )),
       const SliverToBoxAdapter(child: SizedBox(height: 12)),
       SliverToBoxAdapter(
         child: _SrlsControlBar(
@@ -1074,12 +1070,10 @@ class _SrlsMonPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
     for (int i = 0; i < 4; i++) {
       final double angle = (i * math.pi / 2) - (math.pi / 4);
-      final Offset petalCenter =
-          center +
-          Offset(
-            math.cos(angle) * radius * 0.55,
-            math.sin(angle) * radius * 0.55,
-          );
+      final Offset petalCenter = center + Offset(
+        math.cos(angle) * radius * 0.55,
+        math.sin(angle) * radius * 0.55,
+      );
       final Path path = Path();
       path.moveTo(petalCenter.dx, petalCenter.dy - radius * 0.3);
       path.quadraticBezierTo(
@@ -1210,7 +1204,11 @@ class _SrlsControlBar extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.handyman_outlined, color: _kCherry, size: 18),
+              const Icon(
+                Icons.handyman_outlined,
+                color: _kCherry,
+                size: 18,
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Imperative control bar',
@@ -1462,7 +1460,8 @@ class _SrlsRankTile extends StatelessWidget {
                           decoration: muted
                               ? TextDecoration.lineThrough
                               : TextDecoration.none,
-                          decorationColor: _kInkstone.withValues(alpha: 0.3),
+                          decorationColor:
+                              _kInkstone.withValues(alpha: 0.3),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -1497,7 +1496,10 @@ class _SrlsRankTile extends StatelessWidget {
     );
 
     if (draggableByRow) {
-      return ReorderableDelayedDragStartListener(index: index, child: card);
+      return ReorderableDelayedDragStartListener(
+        index: index,
+        child: card,
+      );
     }
     return card;
   }
@@ -1595,7 +1597,9 @@ class _SrlsBeltSwatch extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
         border: Border.all(color: color.withValues(alpha: 0.9), width: 1.2),
       ),
-      child: CustomPaint(painter: _SrlsBeltSwatchPainter(color: color)),
+      child: CustomPaint(
+        painter: _SrlsBeltSwatchPainter(color: color),
+      ),
     );
   }
 }
@@ -1728,10 +1732,7 @@ class _SrlsStateDiagramCard extends StatelessWidget {
                   painter: _SrlsStateDiagramPainter(
                     nodes: _kStateNodes,
                     edges: _kStateEdges,
-                    canvasSize: Size(
-                      constraints.maxWidth,
-                      constraints.maxHeight,
-                    ),
+                    canvasSize: Size(constraints.maxWidth, constraints.maxHeight),
                   ),
                   size: Size(constraints.maxWidth, constraints.maxHeight),
                 );
@@ -1772,10 +1773,7 @@ class _SrlsStateNodeChip extends StatelessWidget {
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: node.color,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: node.color),
           ),
           const SizedBox(width: 6),
           Text(
@@ -1887,7 +1885,12 @@ class _SrlsStateDiagramPainter extends CustomPainter {
     );
   }
 
-  void _paintEdge(Canvas canvas, Offset from, Offset to, _SrlsStateEdge edge) {
+  void _paintEdge(
+    Canvas canvas,
+    Offset from,
+    Offset to,
+    _SrlsStateEdge edge,
+  ) {
     final double radius = 30;
     final Offset delta = to - from;
     final double length = delta.distance;
@@ -1898,7 +1901,9 @@ class _SrlsStateDiagramPainter extends CustomPainter {
     final Offset start = from + unit * radius;
     final Offset end = to - unit * radius;
     final Paint stroke = Paint()
-      ..color = edge.emphasized ? _kCherry : _kInkstone.withValues(alpha: 0.6)
+      ..color = edge.emphasized
+          ? _kCherry
+          : _kInkstone.withValues(alpha: 0.6)
       ..strokeWidth = edge.emphasized ? 2.4 : 1.6
       ..style = PaintingStyle.stroke;
 
@@ -1930,7 +1935,9 @@ class _SrlsStateDiagramPainter extends CustomPainter {
       ..lineTo(right.dx, right.dy)
       ..close();
     final Paint arrowFill = Paint()
-      ..color = edge.emphasized ? _kCherry : _kInkstone.withValues(alpha: 0.7)
+      ..color = edge.emphasized
+          ? _kCherry
+          : _kInkstone.withValues(alpha: 0.7)
       ..style = PaintingStyle.fill;
     canvas.drawPath(arrow, arrowFill);
 
@@ -1939,7 +1946,9 @@ class _SrlsStateDiagramPainter extends CustomPainter {
       text: TextSpan(
         text: edge.label,
         style: TextStyle(
-          color: edge.emphasized ? _kCherry : _kInkstone.withValues(alpha: 0.8),
+          color: edge.emphasized
+              ? _kCherry
+              : _kInkstone.withValues(alpha: 0.8),
           fontSize: 11,
           fontWeight: edge.emphasized ? FontWeight.w800 : FontWeight.w600,
         ),
@@ -2017,50 +2026,42 @@ class _SrlsGestureChartCard extends StatelessWidget {
           rows: _kGestureRows.map((_SrlsGestureEntry row) {
             return DataRow(
               cells: <DataCell>[
-                DataCell(
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        width: 10,
-                        height: 10,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: _kCherry,
-                        ),
+                DataCell(Row(
+                  children: <Widget>[
+                    Container(
+                      width: 10,
+                      height: 10,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _kCherry,
                       ),
-                      const SizedBox(width: 6),
-                      Text(
-                        row.gesture,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                ),
-                DataCell(
-                  Text(
-                    row.listener,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
                     ),
-                  ),
-                ),
-                DataCell(
-                  Text(
-                    row.transition,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      color: _kBamboo,
-                      fontWeight: FontWeight.w700,
+                    const SizedBox(width: 6),
+                    Text(
+                      row.gesture,
+                      style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
+                  ],
+                )),
+                DataCell(Text(
+                  row.listener,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
                   ),
-                ),
-                DataCell(
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 360),
-                    child: Text(row.outcome),
+                )),
+                DataCell(Text(
+                  row.transition,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    color: _kBamboo,
+                    fontWeight: FontWeight.w700,
                   ),
-                ),
+                )),
+                DataCell(ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 360),
+                  child: Text(row.outcome),
+                )),
               ],
             );
           }).toList(),
@@ -2122,11 +2123,8 @@ class _SrlsRulesCard extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(
-                  Icons.tips_and_updates_outlined,
-                  color: _kCherry,
-                  size: 18,
-                ),
+                const Icon(Icons.tips_and_updates_outlined,
+                    color: _kCherry, size: 18),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -2253,7 +2251,10 @@ class _SrlsPitfallCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: tone.withValues(alpha: 0.55)),
         gradient: LinearGradient(
-          colors: <Color>[tone.withValues(alpha: 0.06), Colors.transparent],
+          colors: <Color>[
+            tone.withValues(alpha: 0.06),
+            Colors.transparent,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

@@ -160,10 +160,8 @@ dynamic build(BuildContext context) {
           runSpacing: 8,
           children: [
             _bannerChip('package: flutter/material', scheme.onPrimary),
-            _bannerChip(
-              'enum ScriptCategory { englishLike, dense, tall }',
-              scheme.onPrimary,
-            ),
+            _bannerChip('enum ScriptCategory { englishLike, dense, tall }',
+                scheme.onPrimary),
             _bannerChip('used by: Typography', scheme.onPrimary),
             _bannerChip('Material 3 / 2021 metrics', scheme.onPrimary),
           ],
@@ -225,16 +223,10 @@ dynamic build(BuildContext context) {
               _kvRow('values[0]', ScriptCategory.values[0].name, scheme),
               _kvRow('values[1]', ScriptCategory.values[1].name, scheme),
               _kvRow('values[2]', ScriptCategory.values[2].name, scheme),
-              _kvRow(
-                'runtimeType',
-                '${allCategories.first.runtimeType}',
-                scheme,
-              ),
-              _kvRow(
-                'declared in',
-                'package:flutter/material/typography.dart',
-                scheme,
-              ),
+              _kvRow('runtimeType', '${allCategories.first.runtimeType}',
+                  scheme),
+              _kvRow('declared in', 'package:flutter/material/typography.dart',
+                  scheme),
             ],
           ),
         ),
@@ -248,17 +240,16 @@ dynamic build(BuildContext context) {
                 color: categorySwatches[cat]!.bg.withValues(alpha: 0.55),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: categorySwatches[cat]!.accent.withValues(alpha: 0.4),
+                  color: categorySwatches[cat]!
+                      .accent
+                      .withValues(alpha: 0.4),
                 ),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    categorySwatches[cat]!.icon,
-                    size: 16,
-                    color: categorySwatches[cat]!.accent,
-                  ),
+                  Icon(categorySwatches[cat]!.icon,
+                      size: 16, color: categorySwatches[cat]!.accent),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Column(
@@ -299,8 +290,7 @@ dynamic build(BuildContext context) {
     scheme: scheme,
     number: 2,
     title: 'englishLike typography sample',
-    subtitle:
-        'Real text rendered using Typography.material2021().englishLike '
+    subtitle: 'Real text rendered using Typography.material2021().englishLike '
         'styles, scaled down for the demo.',
     child: _typographyShowcase(
       theme: englishLikeTheme,
@@ -341,10 +331,9 @@ dynamic build(BuildContext context) {
         _Sample('headline', 'Japanese: Konnichiwa Sekai'),
         _Sample('title', 'Korean: Annyeong Sesang'),
         _Sample(
-          'body',
-          'CJK body copy: square ideographs sit in a uniform em-box, so '
-              'letter spacing should be zero and line spacing tight.',
-        ),
+            'body',
+            'CJK body copy: square ideographs sit in a uniform em-box, so '
+                'letter spacing should be zero and line spacing tight.'),
         _Sample('label', 'CTA Dense'),
       ],
       tagline:
@@ -373,11 +362,10 @@ dynamic build(BuildContext context) {
         _Sample('headline', 'Tamil: Vanakkam Ulagam'),
         _Sample('title', 'Thai: Sawasdee Lok'),
         _Sample(
-          'body',
-          'Devanagari has shirorekha overlines, Tamil stacks reph marks, '
-              'Thai layers tone diacritics. They all benefit from extra '
-              'leading.',
-        ),
+            'body',
+            'Devanagari has shirorekha overlines, Tamil stacks reph marks, '
+                'Thai layers tone diacritics. They all benefit from extra '
+                'leading.'),
         _Sample('label', 'CTA Tall'),
       ],
       tagline:
@@ -440,8 +428,7 @@ dynamic build(BuildContext context) {
             color: scheme.surfaceContainerHigh,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: scheme.outlineVariant.withValues(alpha: 0.6),
-            ),
+                color: scheme.outlineVariant.withValues(alpha: 0.6)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -524,34 +511,20 @@ dynamic build(BuildContext context) {
               ),
               children: [
                 _tdCategory(cat, categorySwatches[cat]!, scheme),
-                _td(
-                  typographyMetrics[cat]!.displayLarge.toStringAsFixed(0),
-                  scheme,
-                ),
-                _td(
-                  typographyMetrics[cat]!.headlineLarge.toStringAsFixed(0),
-                  scheme,
-                ),
-                _td(
-                  typographyMetrics[cat]!.titleLarge.toStringAsFixed(0),
-                  scheme,
-                ),
-                _td(
-                  typographyMetrics[cat]!.bodyLarge.toStringAsFixed(0),
-                  scheme,
-                ),
-                _td(
-                  typographyMetrics[cat]!.labelLarge.toStringAsFixed(0),
-                  scheme,
-                ),
-                _td(
-                  typographyMetrics[cat]!.bodyLineHeight.toStringAsFixed(2),
-                  scheme,
-                ),
-                _td(
-                  typographyMetrics[cat]!.letterSpacing.toStringAsFixed(2),
-                  scheme,
-                ),
+                _td(typographyMetrics[cat]!.displayLarge.toStringAsFixed(0),
+                    scheme),
+                _td(typographyMetrics[cat]!.headlineLarge.toStringAsFixed(0),
+                    scheme),
+                _td(typographyMetrics[cat]!.titleLarge.toStringAsFixed(0),
+                    scheme),
+                _td(typographyMetrics[cat]!.bodyLarge.toStringAsFixed(0),
+                    scheme),
+                _td(typographyMetrics[cat]!.labelLarge.toStringAsFixed(0),
+                    scheme),
+                _td(typographyMetrics[cat]!.bodyLineHeight.toStringAsFixed(2),
+                    scheme),
+                _td(typographyMetrics[cat]!.letterSpacing.toStringAsFixed(2),
+                    scheme),
                 _tdFamily(typographyMetrics[cat]!.fontFamily, scheme),
               ],
             ),
@@ -624,11 +597,8 @@ dynamic build(BuildContext context) {
                     _td(localeRows[i].code, scheme),
                     _td(localeRows[i].language, scheme),
                     _td(localeRows[i].script, scheme),
-                    _localeCatCell(
-                      localeRows[i].category,
-                      categorySwatches[localeRows[i].category]!,
-                      scheme,
-                    ),
+                    _localeCatCell(localeRows[i].category,
+                        categorySwatches[localeRows[i].category]!, scheme),
                   ],
                 ),
             ],
@@ -723,7 +693,9 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: scheme.outlineVariant),
           ),
-          child: CustomPaint(painter: _ScriptHeightDiagram(scheme: scheme)),
+          child: CustomPaint(
+            painter: _ScriptHeightDiagram(scheme: scheme),
+          ),
         ),
         const SizedBox(height: 12),
         Container(
@@ -731,7 +703,9 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: scheme.errorContainer.withValues(alpha: 0.45),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: scheme.error.withValues(alpha: 0.4)),
+            border: Border.all(
+              color: scheme.error.withValues(alpha: 0.4),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -776,8 +750,7 @@ dynamic build(BuildContext context) {
     ),
     _Recipe(
       category: ScriptCategory.dense,
-      coverage:
-          'Simplified + Traditional Chinese, Japanese (Kanji/Kana), Korean Hangul',
+      coverage: 'Simplified + Traditional Chinese, Japanese (Kanji/Kana), Korean Hangul',
       defaultTheme: 'Typography.dense2021',
       lineHeight: '1.43 (body)',
       letterSpacing: '0.0 (body)',
@@ -805,7 +778,8 @@ dynamic build(BuildContext context) {
     scheme: scheme,
     number: 10,
     title: 'Recipes / glossary: when to use which',
-    subtitle: 'A reference card you can copy into your design-system docs.',
+    subtitle:
+        'A reference card you can copy into your design-system docs.',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -813,10 +787,7 @@ dynamic build(BuildContext context) {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: _recipeCard(
-              recipe,
-              categorySwatches[recipe.category]!,
-              scheme,
-            ),
+                recipe, categorySwatches[recipe.category]!, scheme),
           ),
         const SizedBox(height: 6),
         Container(
@@ -845,33 +816,19 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(height: 8),
               _cheatLine(
-                '1.',
-                'Resolve category via MaterialLocalizations.',
-                scheme,
-              ),
-              _cheatLine(
-                '2.',
-                'Pull TextTheme via Typography.material2021().<category>.',
-                scheme,
-              ),
-              _cheatLine(
-                '3.',
-                'Apply copyWith for app-specific brand changes, never resize '
-                    'the underlying metrics.',
-                scheme,
-              ),
-              _cheatLine(
-                '4.',
-                'Wrap layouts in IntrinsicHeight or use FittedBox in cells '
-                    'that must accept any of the three categories.',
-                scheme,
-              ),
-              _cheatLine(
-                '5.',
-                'Visual-regression test all three categories - the snapshot '
-                    'differences are real, not noise.',
-                scheme,
-              ),
+                  '1.', 'Resolve category via MaterialLocalizations.', scheme),
+              _cheatLine('2.',
+                  'Pull TextTheme via Typography.material2021().<category>.',
+                  scheme),
+              _cheatLine('3.',
+                  'Apply copyWith for app-specific brand changes, never resize '
+                  'the underlying metrics.', scheme),
+              _cheatLine('4.',
+                  'Wrap layouts in IntrinsicHeight or use FittedBox in cells '
+                  'that must accept any of the three categories.', scheme),
+              _cheatLine('5.',
+                  'Visual-regression test all three categories - the snapshot '
+                  'differences are real, not noise.', scheme),
             ],
           ),
         ),
@@ -1064,7 +1021,9 @@ Widget _sectionShell({
     decoration: BoxDecoration(
       color: scheme.surfaceContainerLow,
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: scheme.outlineVariant.withValues(alpha: 0.6)),
+      border: Border.all(
+        color: scheme.outlineVariant.withValues(alpha: 0.6),
+      ),
       boxShadow: [
         BoxShadow(
           color: scheme.shadow.withValues(alpha: 0.04),
@@ -1131,10 +1090,7 @@ Widget _sectionShell({
 }
 
 Widget _enumValueCard(
-  ScriptCategory cat,
-  _CategorySwatch swatch,
-  ColorScheme scheme,
-) {
+    ScriptCategory cat, _CategorySwatch swatch, ColorScheme scheme) {
   return Container(
     padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -1180,7 +1136,11 @@ Widget _enumValueCard(
         const SizedBox(height: 8),
         Text(
           _shortBlurb(cat),
-          style: TextStyle(color: swatch.fg, fontSize: 11.5, height: 1.4),
+          style: TextStyle(
+            color: swatch.fg,
+            fontSize: 11.5,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -1295,10 +1255,8 @@ Widget _typographyShowcase({
               children: [
                 Container(
                   width: 70,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   margin: const EdgeInsets.only(top: 4),
                   decoration: BoxDecoration(
                     color: swatch.accent.withValues(alpha: 0.15),
@@ -1453,10 +1411,7 @@ Widget _tdFamily(String text, ColorScheme scheme) {
 }
 
 Widget _tdCategory(
-  ScriptCategory cat,
-  _CategorySwatch swatch,
-  ColorScheme scheme,
-) {
+    ScriptCategory cat, _CategorySwatch swatch, ColorScheme scheme) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
     child: Row(
@@ -1487,10 +1442,7 @@ Widget _tdCategory(
 }
 
 Widget _localeCatCell(
-  ScriptCategory cat,
-  _CategorySwatch swatch,
-  ColorScheme scheme,
-) {
+    ScriptCategory cat, _CategorySwatch swatch, ColorScheme scheme) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
     child: Container(
@@ -1512,12 +1464,8 @@ Widget _localeCatCell(
   );
 }
 
-Widget _countPill(
-  ScriptCategory cat,
-  int count,
-  _CategorySwatch swatch,
-  ColorScheme scheme,
-) {
+Widget _countPill(ScriptCategory cat, int count, _CategorySwatch swatch,
+    ColorScheme scheme) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
@@ -1543,12 +1491,8 @@ Widget _countPill(
   );
 }
 
-Widget _scriptChipRow(
-  ScriptCategory cat,
-  _CategorySwatch swatch,
-  List<_ScriptChip> chips,
-  ColorScheme scheme,
-) {
+Widget _scriptChipRow(ScriptCategory cat, _CategorySwatch swatch,
+    List<_ScriptChip> chips, ColorScheme scheme) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1580,16 +1524,13 @@ Widget _scriptChipRow(
           children: [
             for (final chip in chips)
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: scheme.surface,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: swatch.accent.withValues(alpha: 0.35),
-                  ),
+                  border:
+                      Border.all(color: swatch.accent.withValues(alpha: 0.35)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1625,10 +1566,7 @@ Widget _recipeCard(_Recipe recipe, _CategorySwatch swatch, ColorScheme scheme) {
     decoration: BoxDecoration(
       color: scheme.surface,
       borderRadius: BorderRadius.circular(14),
-      border: Border.all(
-        color: swatch.accent.withValues(alpha: 0.5),
-        width: 1.2,
-      ),
+      border: Border.all(color: swatch.accent.withValues(alpha: 0.5), width: 1.2),
       boxShadow: [
         BoxShadow(
           color: swatch.accent.withValues(alpha: 0.08),
@@ -1690,7 +1628,11 @@ Widget _recipeCard(_Recipe recipe, _CategorySwatch swatch, ColorScheme scheme) {
           ),
           child: Text(
             recipe.whenToUse,
-            style: TextStyle(fontSize: 12, height: 1.45, color: swatch.fg),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.45,
+              color: swatch.fg,
+            ),
           ),
         ),
       ],
@@ -1799,17 +1741,12 @@ class _ScriptHeightDiagram extends CustomPainter {
       final right = (i + 1) * slotW - 12;
 
       // Baseline reference lines.
+      canvas.drawLine(Offset(left, baselineY),
+          Offset(right, baselineY), guidePaint);
       canvas.drawLine(
-        Offset(left, baselineY),
-        Offset(right, baselineY),
-        guidePaint,
-      );
-      canvas.drawLine(Offset(left, capY), Offset(right, capY), guideDash);
+          Offset(left, capY), Offset(right, capY), guideDash);
       canvas.drawLine(
-        Offset(left, xHeightY),
-        Offset(right, xHeightY),
-        guideDash,
-      );
+          Offset(left, xHeightY), Offset(right, xHeightY), guideDash);
 
       // Body em-box (same size in all three).
       final boxLeft = left + 8;
@@ -1823,13 +1760,10 @@ class _ScriptHeightDiagram extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.4;
       canvas.drawRRect(
-        RRect.fromRectAndRadius(boxRect, const Radius.circular(4)),
-        boxPaint,
-      );
+          RRect.fromRectAndRadius(boxRect, const Radius.circular(4)), boxPaint);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(boxRect, const Radius.circular(4)),
-        boxStroke,
-      );
+          RRect.fromRectAndRadius(boxRect, const Radius.circular(4)),
+          boxStroke);
 
       // Category-specific ornament.
       final ornament = Paint()
@@ -1839,45 +1773,25 @@ class _ScriptHeightDiagram extends CustomPainter {
         case 0:
           // englishLike: a tiny descender 'g' tail.
           final tail = Rect.fromLTWH(
-            (boxLeft + boxRight) / 2 - 4,
-            baselineY,
-            8,
-            descenderY - baselineY,
-          );
+              (boxLeft + boxRight) / 2 - 4, baselineY, 8, descenderY - baselineY);
           canvas.drawRect(tail, ornament);
           break;
         case 1:
           // dense: a full ideographic square that fills the em-box.
-          final block = Rect.fromLTRB(
-            boxLeft + 4,
-            capY + 4,
-            boxRight - 4,
-            baselineY - 4,
-          );
+          final block =
+              Rect.fromLTRB(boxLeft + 4, capY + 4, boxRight - 4, baselineY - 4);
           canvas.drawRect(block, ornament);
           break;
         case 2:
           // tall: shirorekha overline plus below-baseline mark.
-          final shiro = Rect.fromLTWH(
-            boxLeft + 4,
-            overlineY,
-            boxRight - boxLeft - 8,
-            3,
-          );
+          final shiro = Rect.fromLTWH(boxLeft + 4, overlineY,
+              boxRight - boxLeft - 8, 3);
           canvas.drawRect(shiro, ornament);
           final stem = Rect.fromLTWH(
-            boxLeft + 12,
-            overlineY + 3,
-            4,
-            capY - overlineY - 3,
-          );
+              boxLeft + 12, overlineY + 3, 4, capY - overlineY - 3);
           canvas.drawRect(stem, ornament);
           final dot = Rect.fromLTWH(
-            (boxLeft + boxRight) / 2 - 3,
-            baselineY + 6,
-            6,
-            6,
-          );
+              (boxLeft + boxRight) / 2 - 3, baselineY + 6, 6, 6);
           canvas.drawRect(dot, ornament);
           break;
       }
@@ -1894,10 +1808,8 @@ class _ScriptHeightDiagram extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(
-        canvas,
-        Offset((boxLeft + boxRight) / 2 - tp.width / 2, h - tp.height - 6),
-      );
+      tp.paint(canvas,
+          Offset((boxLeft + boxRight) / 2 - tp.width / 2, h - tp.height - 6));
 
       // Annotation pointer for tall.
       if (i == 2) {

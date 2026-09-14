@@ -152,11 +152,16 @@ Widget _heroSection() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(999),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.40)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.40),
+                ),
               ),
               child: const Text(
                 'flutter / material',
@@ -170,11 +175,16 @@ Widget _heroSection() {
             ),
             const SizedBox(width: 10),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(999),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.40)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.40),
+                ),
               ),
               child: const Text(
                 'controller · live · disposable',
@@ -385,7 +395,11 @@ Widget _argCard(String name, String type, String body, Color accent) {
         const SizedBox(height: 8),
         Text(
           body,
-          style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 13,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -485,8 +499,14 @@ Widget _viewportFrame({required String label, required double fraction}) {
             alignment: Alignment.centerLeft,
             maxWidth: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-              child: Row(mainAxisSize: MainAxisSize.min, children: pages),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 8,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: pages,
+              ),
             ),
           ),
         ),
@@ -501,15 +521,17 @@ Widget _mockPageBlock({
   required bool focused,
 }) {
   final Color base = focused ? _kIndigo : _kSlateSoft;
-  final Color borderColor = focused
-      ? _kIndigo
-      : _kSlate.withValues(alpha: 0.25);
+  final Color borderColor =
+      focused ? _kIndigo : _kSlate.withValues(alpha: 0.25);
   return Container(
     width: width,
     decoration: BoxDecoration(
       color: base.withValues(alpha: focused ? 0.18 : 0.55),
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: borderColor, width: focused ? 2.0 : 1.0),
+      border: Border.all(
+        color: borderColor,
+        width: focused ? 2.0 : 1.0,
+      ),
     ),
     child: Center(
       child: Column(
@@ -657,10 +679,13 @@ Widget _filmstripCell({required int index, required bool focused}) {
             Text(
               focused ? 'INITIAL' : 'page',
               style: TextStyle(
-                color: focused ? _kTeal : _kSlate.withValues(alpha: 0.65),
+                color: focused
+                    ? _kTeal
+                    : _kSlate.withValues(alpha: 0.65),
                 fontSize: 11,
                 letterSpacing: focused ? 1.4 : 0.4,
-                fontWeight: focused ? FontWeight.w800 : FontWeight.w500,
+                fontWeight:
+                    focused ? FontWeight.w800 : FontWeight.w500,
               ),
             ),
             if (focused) ...<Widget>[
@@ -756,7 +781,11 @@ Widget _calloutCard({
         const SizedBox(height: 8),
         Text(
           body,
-          style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 13,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -832,7 +861,10 @@ Widget _keepPanel({
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 3,
+              ),
               decoration: BoxDecoration(
                 color: tagSoft,
                 borderRadius: BorderRadius.circular(6),
@@ -893,7 +925,11 @@ Widget _bullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+            style: const TextStyle(
+              color: _kInkSoft,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -1049,7 +1085,11 @@ Widget _pageReadingCard({
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(color: _kInkSoft, fontSize: 12, height: 1.4),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 12,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -1116,31 +1156,16 @@ Widget _positionObjectSection() {
             ),
           ),
           const SizedBox(height: 10),
-          _kvRow(
-            'position.pixels',
-            'double',
-            'Current scroll offset in logical pixels.',
-          ),
-          _kvRow(
-            'position.minScrollExtent',
-            'double',
-            'Smallest valid pixel offset (usually 0.0).',
-          ),
-          _kvRow(
-            'position.maxScrollExtent',
-            'double',
-            'Largest valid pixel offset (depends on child count).',
-          ),
-          _kvRow(
-            'position.viewportDimension',
-            'double',
-            'Width (or height) of the visible viewport.',
-          ),
-          _kvRow(
-            'position.userScrollDirection',
-            'ScrollDirection',
-            'forward / reverse / idle as the user drags.',
-          ),
+          _kvRow('position.pixels', 'double',
+              'Current scroll offset in logical pixels.'),
+          _kvRow('position.minScrollExtent', 'double',
+              'Smallest valid pixel offset (usually 0.0).'),
+          _kvRow('position.maxScrollExtent', 'double',
+              'Largest valid pixel offset (depends on child count).'),
+          _kvRow('position.viewportDimension', 'double',
+              'Width (or height) of the visible viewport.'),
+          _kvRow('position.userScrollDirection', 'ScrollDirection',
+              'forward / reverse / idle as the user drags.'),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(12),
@@ -1152,7 +1177,11 @@ Widget _positionObjectSection() {
               'Tip: prefer the page getter for page-aware logic. '
               'Use position only when you need raw pixels (e.g. for a '
               'hero indicator that follows the drag).',
-              style: TextStyle(color: _kInkSoft, fontSize: 12, height: 1.5),
+              style: TextStyle(
+                color: _kInkSoft,
+                fontSize: 12,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -1193,7 +1222,11 @@ Widget _kvRow(String key, String type, String body) {
         Expanded(
           child: Text(
             body,
-            style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+            style: const TextStyle(
+              color: _kInkSoft,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -1220,8 +1253,7 @@ Widget _animateJumpSection() {
           icon: Icons.animation,
           accent: _kIndigo,
           name: 'animateToPage',
-          signature:
-              'Future<void> animateToPage(\n'
+          signature: 'Future<void> animateToPage(\n'
               '  int page, {\n'
               '  required Duration duration,\n'
               '  required Curve curve,\n'
@@ -1233,7 +1265,10 @@ Widget _animateJumpSection() {
           ],
         ),
         const SizedBox(height: 14),
-        _flowDiagram('page 0  ─►  page 3   (animated)', showCurve: true),
+        _flowDiagram(
+          'page 0  ─►  page 3   (animated)',
+          showCurve: true,
+        ),
         const SizedBox(height: 22),
         _signatureCard(
           icon: Icons.bolt,
@@ -1247,7 +1282,10 @@ Widget _animateJumpSection() {
           ],
         ),
         const SizedBox(height: 14),
-        _flowDiagram('page 0  ━►  page 3   (jump)', showCurve: false),
+        _flowDiagram(
+          'page 0  ━►  page 3   (jump)',
+          showCurve: false,
+        ),
       ],
     ),
   );
@@ -1390,7 +1428,10 @@ Widget _diagramBubble(String label, Color color) {
     width: 36,
     height: 36,
     alignment: Alignment.center,
-    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+    decoration: BoxDecoration(
+      color: color,
+      shape: BoxShape.circle,
+    ),
     child: Text(
       label,
       style: const TextStyle(
@@ -1424,8 +1465,7 @@ Widget _nextPreviousSection() {
             icon: Icons.arrow_forward_ios,
             accent: _kTeal,
             name: 'nextPage',
-            signature:
-                'Future<void> nextPage({\n'
+            signature: 'Future<void> nextPage({\n'
                 '  required Duration duration,\n'
                 '  required Curve curve,\n'
                 '})',
@@ -1441,8 +1481,7 @@ Widget _nextPreviousSection() {
             icon: Icons.arrow_back_ios_new,
             accent: _kRose,
             name: 'previousPage',
-            signature:
-                'Future<void> previousPage({\n'
+            signature: 'Future<void> previousPage({\n'
                 '  required Duration duration,\n'
                 '  required Curve curve,\n'
                 '})',
@@ -1541,7 +1580,11 @@ Widget _axisCard({required bool horizontal}) {
           horizontal
               ? 'Drag left ↔ right. Default axis.'
               : 'Drag up ↕ down. Common for stories / feeds.',
-          style: const TextStyle(color: _kInkSoft, fontSize: 12, height: 1.5),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 12,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -1641,15 +1684,11 @@ Widget _builderTimeline() {
         ),
         const SizedBox(height: 10),
         _timelineRow(
-          'attach',
-          'builds page 0 (and possibly cacheExtent neighbours).',
-        ),
+            'attach', 'builds page 0 (and possibly cacheExtent neighbours).'),
         _timelineRow('user drags →', 'builds page 1 just-in-time.'),
         _timelineRow('settles on 1', 'page 0 may be evicted.'),
-        _timelineRow(
-          'jumpToPage(42)',
-          'builds page 42 immediately, skipping the rest.',
-        ),
+        _timelineRow('jumpToPage(42)',
+            'builds page 42 immediately, skipping the rest.'),
       ],
     ),
   );
@@ -1676,7 +1715,11 @@ Widget _timelineRow(String when, String what) {
         Expanded(
           child: Text(
             what,
-            style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+            style: const TextStyle(
+              color: _kInkSoft,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -1759,22 +1802,19 @@ Widget _pitfallsSection() {
         _pitfall(
           icon: Icons.warning_amber_rounded,
           title: 'page is null before first attach',
-          body:
-              'Reading controller.page before the PageView has laid out '
+          body: 'Reading controller.page before the PageView has laid out '
               'returns null. Guard with `?? initialPage.toDouble()`.',
         ),
         _pitfall(
           icon: Icons.sync_problem_outlined,
           title: 'Animate during build = assertion',
-          body:
-              'Calling animateToPage / jumpToPage inside build() throws. '
+          body: 'Calling animateToPage / jumpToPage inside build() throws. '
               'Defer to a post-frame callback or a user-driven event.',
         ),
         _pitfall(
           icon: Icons.science_outlined,
           title: 'This file is a static demo',
-          body:
-              'No setState. No live PageController. The visuals above '
+          body: 'No setState. No live PageController. The visuals above '
               "mock the controller's behaviour with plain Containers so "
               'the file can render once and remain analyzer-clean.',
         ),
@@ -1959,7 +1999,10 @@ Widget _sectionShell({
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: accentSoft,
                 borderRadius: BorderRadius.circular(999),
@@ -1979,7 +2022,10 @@ Widget _sectionShell({
             Container(
               width: 6,
               height: 6,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
           ],
         ),

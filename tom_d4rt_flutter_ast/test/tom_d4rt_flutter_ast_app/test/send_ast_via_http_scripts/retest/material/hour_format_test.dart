@@ -212,11 +212,7 @@ dynamic build(BuildContext context) {
     }
   }
 
-  Widget sectionTitle({
-    required String title,
-    required String subtitle,
-    required IconData icon,
-  }) {
+  Widget sectionTitle({required String title, required String subtitle, required IconData icon}) {
     return Row(
       children: <Widget>[
         Container(
@@ -235,20 +231,12 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  color: Colors.blueGrey.shade700,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+              Text(subtitle,
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontWeight: FontWeight.w500,
+                  )),
             ],
           ),
         ),
@@ -344,34 +332,19 @@ dynamic build(BuildContext context) {
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
                         avatar: const Icon(Icons.schedule, color: Colors.white),
-                        label: Text(
-                          'Raw ${twoDigits(hour24)}:${twoDigits(minute)}',
-                          style: const TextStyle(color: Colors.white),
-                        ),
+                        label: Text('Raw ${twoDigits(hour24)}:${twoDigits(minute)}', style: const TextStyle(color: Colors.white)),
                       ),
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
-                        avatar: const Icon(
-                          Icons.translate,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          'Inferred ${inferred.name}',
-                          style: const TextStyle(color: Colors.white),
-                        ),
+                        avatar: const Icon(Icons.translate, color: Colors.white),
+                        label: Text('Inferred ${inferred.name}', style: const TextStyle(color: Colors.white)),
                       ),
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
-                        avatar: const Icon(
-                          Icons.wb_twilight,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          period.name.toUpperCase(),
-                          style: const TextStyle(color: Colors.white),
-                        ),
+                        avatar: const Icon(Icons.wb_twilight, color: Colors.white),
+                        label: Text(period.name.toUpperCase(), style: const TextStyle(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -381,8 +354,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Format Control Desk',
-              subtitle:
-                  'Manipulate hour/minute and TimeOfDayFormat to inspect HourFormat behavior.',
+              subtitle: 'Manipulate hour/minute and TimeOfDayFormat to inspect HourFormat behavior.',
               icon: Icons.tune,
             ),
             const SizedBox(height: 10),
@@ -405,14 +377,10 @@ dynamic build(BuildContext context) {
                         border: OutlineInputBorder(),
                         isDense: true,
                       ),
-                      items: TimeOfDayFormat.values.map((
-                        TimeOfDayFormat value,
-                      ) {
+                      items: TimeOfDayFormat.values.map((TimeOfDayFormat value) {
                         return DropdownMenuItem<TimeOfDayFormat>(
                           value: value,
-                          child: Text(
-                            '${value.name} -> ${hourFormat(of: value).name}',
-                          ),
+                          child: Text('${value.name} -> ${hourFormat(of: value).name}'),
                         );
                       }).toList(),
                       onChanged: (TimeOfDayFormat? value) {
@@ -427,13 +395,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    'Hour (24h)',
-                    style: TextStyle(
-                      color: Colors.blueGrey.shade700,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('Hour (24h)', style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w700)),
                   Slider(
                     value: hour24.toDouble(),
                     min: 0,
@@ -446,13 +408,7 @@ dynamic build(BuildContext context) {
                       });
                     },
                   ),
-                  Text(
-                    'Minute',
-                    style: TextStyle(
-                      color: Colors.blueGrey.shade700,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('Minute', style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w700)),
                   Slider(
                     value: minute.toDouble(),
                     min: 0,
@@ -472,20 +428,17 @@ dynamic build(BuildContext context) {
                       FilterChip(
                         label: const Text('Highlight padding'),
                         selected: highlightPadding,
-                        onSelected: (bool v) =>
-                            setState(() => highlightPadding = v),
+                        onSelected: (bool v) => setState(() => highlightPadding = v),
                       ),
                       FilterChip(
                         label: const Text('Highlight 12h wrap'),
                         selected: highlight12hWrap,
-                        onSelected: (bool v) =>
-                            setState(() => highlight12hWrap = v),
+                        onSelected: (bool v) => setState(() => highlight12hWrap = v),
                       ),
                       FilterChip(
                         label: const Text('Show schedule lane'),
                         selected: showSchedule,
-                        onSelected: (bool v) =>
-                            setState(() => showSchedule = v),
+                        onSelected: (bool v) => setState(() => showSchedule = v),
                       ),
                     ],
                   ),
@@ -496,8 +449,7 @@ dynamic build(BuildContext context) {
                     children: <Widget>[
                       FilledButton.icon(
                         onPressed: () {
-                          final String detail =
-                              'Raw ${twoDigits(hour24)}:${twoDigits(minute)} -> HH $hh | H $h | h $h12';
+                          final String detail = 'Raw ${twoDigits(hour24)}:${twoDigits(minute)} -> HH $hh | H $h | h $h12';
                           setState(() {
                             traces.insert(
                               0,
@@ -546,8 +498,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Direct Comparison Board',
-              subtitle:
-                  'See all three HourFormat outputs side-by-side for the same time.',
+              subtitle: 'See all three HourFormat outputs side-by-side for the same time.',
               icon: Icons.view_week,
             ),
             const SizedBox(height: 10),
@@ -557,59 +508,34 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 SizedBox(
                   width: 230,
-                  child: metricTile(
-                    'HourFormat.HH',
-                    hh,
-                    colorForFormat(HourFormat.HH),
-                  ),
+                  child: metricTile('HourFormat.HH', hh, colorForFormat(HourFormat.HH)),
                 ),
                 SizedBox(
                   width: 230,
-                  child: metricTile(
-                    'HourFormat.H',
-                    h,
-                    colorForFormat(HourFormat.H),
-                  ),
+                  child: metricTile('HourFormat.H', h, colorForFormat(HourFormat.H)),
                 ),
                 SizedBox(
                   width: 230,
-                  child: metricTile(
-                    'HourFormat.h',
-                    h12,
-                    colorForFormat(HourFormat.h),
-                  ),
+                  child: metricTile('HourFormat.h', h12, colorForFormat(HourFormat.h)),
                 ),
                 SizedBox(
                   width: 230,
-                  child: metricTile(
-                    'hourOfPeriod',
-                    hourOfPeriod(hour24).toString(),
-                    accent,
-                  ),
+                  child: metricTile('hourOfPeriod', hourOfPeriod(hour24).toString(), accent),
                 ),
                 SizedBox(
                   width: 230,
-                  child: metricTile(
-                    'period',
-                    period.name.toUpperCase(),
-                    accent,
-                  ),
+                  child: metricTile('period', period.name.toUpperCase(), accent),
                 ),
                 SizedBox(
                   width: 230,
-                  child: metricTile(
-                    'inferred via hourFormat()',
-                    inferred.name,
-                    accent,
-                  ),
+                  child: metricTile('inferred via hourFormat()', inferred.name, accent),
                 ),
               ],
             ),
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Dial And Digit Visualizer',
-              subtitle:
-                  'Visual explanation of padded/non-padded/12h rendering behavior.',
+              subtitle: 'Visual explanation of padded/non-padded/12h rendering behavior.',
               icon: Icons.watch_later,
             ),
             const SizedBox(height: 10),
@@ -637,15 +563,12 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Scenario Gallery',
-              subtitle:
-                  'Preset situations demonstrating practical formatting outcomes.',
+              subtitle: 'Preset situations demonstrating practical formatting outcomes.',
               icon: Icons.view_carousel,
             ),
             const SizedBox(height: 10),
             Column(
-              children: scenarios.asMap().entries.map((
-                MapEntry<int, _HourScenario> entry,
-              ) {
+              children: scenarios.asMap().entries.map((MapEntry<int, _HourScenario> entry) {
                 final _HourScenario item = entry.value;
                 final bool selected = selectedScenario == entry.key;
                 return Container(
@@ -749,8 +672,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 12),
             sectionTitle(
               title: 'TimeOfDayFormat Mapping Grid',
-              subtitle:
-                  'Complete mapping from TimeOfDayFormat values to inferred HourFormat.',
+              subtitle: 'Complete mapping from TimeOfDayFormat values to inferred HourFormat.',
               icon: Icons.grid_view,
             ),
             const SizedBox(height: 10),
@@ -813,8 +735,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Schedule Lane Comparison',
-              subtitle:
-                  'Render daily blocks with different hour formats to compare readability.',
+              subtitle: 'Render daily blocks with different hour formats to compare readability.',
               icon: Icons.calendar_month,
             ),
             const SizedBox(height: 10),
@@ -842,9 +763,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: item.color.withValues(alpha: 0.08),
-                            border: Border.all(
-                              color: item.color.withValues(alpha: 0.30),
-                            ),
+                            border: Border.all(color: item.color.withValues(alpha: 0.30)),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -857,24 +776,9 @@ dynamic build(BuildContext context) {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              Text(
-                                'HH: $hhRange',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Text(
-                                'H:  $hRange',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Text(
-                                'h:  $h12Range',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              Text('HH: $hhRange', style: const TextStyle(fontWeight: FontWeight.w600)),
+                              Text('H:  $hRange', style: const TextStyle(fontWeight: FontWeight.w600)),
+                              Text('h:  $h12Range', style: const TextStyle(fontWeight: FontWeight.w600)),
                             ],
                           ),
                         );
@@ -894,8 +798,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Conversion Timeline',
-              subtitle:
-                  'Recorded snapshots for hour-format transitions while testing.',
+              subtitle: 'Recorded snapshots for hour-format transitions while testing.',
               icon: Icons.timeline,
             ),
             const SizedBox(height: 10),
@@ -917,9 +820,7 @@ dynamic build(BuildContext context) {
                       ),
                     )
                   : Column(
-                      children: traces.asMap().entries.map((
-                        MapEntry<int, _TraceItem> entry,
-                      ) {
+                      children: traces.asMap().entries.map((MapEntry<int, _TraceItem> entry) {
                         final _TraceItem row = entry.value;
                         return Container(
                           margin: const EdgeInsets.only(bottom: 8),
@@ -927,9 +828,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: row.color.withValues(alpha: 0.08),
-                            border: Border.all(
-                              color: row.color.withValues(alpha: 0.30),
-                            ),
+                            border: Border.all(color: row.color.withValues(alpha: 0.30)),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -946,12 +845,7 @@ dynamic build(BuildContext context) {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      row.title,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
+                                    Text(row.title, style: const TextStyle(fontWeight: FontWeight.w700)),
                                     const SizedBox(height: 3),
                                     Text(
                                       row.detail,
@@ -986,28 +880,23 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   _GuideRow(
                     title: 'HourFormat.HH',
-                    detail:
-                        'Use when alignment matters (dashboards, tables, logs) and every hour should have two digits.',
+                    detail: 'Use when alignment matters (dashboards, tables, logs) and every hour should have two digits.',
                   ),
                   _GuideRow(
                     title: 'HourFormat.H',
-                    detail:
-                        'Use for compact 24-hour displays where leading zero is visually unnecessary.',
+                    detail: 'Use for compact 24-hour displays where leading zero is visually unnecessary.',
                   ),
                   _GuideRow(
                     title: 'HourFormat.h',
-                    detail:
-                        'Use for user-facing conversational time with AM/PM context in regions preferring 12-hour clocks.',
+                    detail: 'Use for user-facing conversational time with AM/PM context in regions preferring 12-hour clocks.',
                   ),
                   _GuideRow(
                     title: 'hourFormat(of: TimeOfDayFormat)',
-                    detail:
-                        'Map locale/style-specific TimeOfDayFormat values to core hour rendering behavior.',
+                    detail: 'Map locale/style-specific TimeOfDayFormat values to core hour rendering behavior.',
                   ),
                   _GuideRow(
                     title: 'Boundary cases',
-                    detail:
-                        'Test 00:xx and 12:xx carefully because these values often reveal wrapping and period bugs.',
+                    detail: 'Test 00:xx and 12:xx carefully because these values often reveal wrapping and period bugs.',
                   ),
                 ],
               ),
@@ -1015,8 +904,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Reference Snippet',
-              subtitle:
-                  'Typical helper pattern for rendering multiple hour styles from one source time.',
+              subtitle: 'Typical helper pattern for rendering multiple hour styles from one source time.',
               icon: Icons.code,
             ),
             const SizedBox(height: 10),
@@ -1046,8 +934,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Diagnostics Console',
-              subtitle:
-                  'Interaction log for reproducible format conversion sessions.',
+              subtitle: 'Interaction log for reproducible format conversion sessions.',
               icon: Icons.terminal,
             ),
             const SizedBox(height: 10),
@@ -1212,12 +1099,9 @@ class _HourFormatPainter extends CustomPainter {
 
     for (int i = 0; i < 12; i++) {
       final double angle = (math.pi * 2 / 12) * i - math.pi / 2;
-      final Offset outer =
-          dialCenter + Offset(math.cos(angle), math.sin(angle)) * radius;
+      final Offset outer = dialCenter + Offset(math.cos(angle), math.sin(angle)) * radius;
       final Offset inner =
-          dialCenter +
-          Offset(math.cos(angle), math.sin(angle)) *
-              (radius - (i % 3 == 0 ? 12 : 8));
+          dialCenter + Offset(math.cos(angle), math.sin(angle)) * (radius - (i % 3 == 0 ? 12 : 8));
       canvas.drawLine(
         inner,
         outer,
@@ -1228,13 +1112,11 @@ class _HourFormatPainter extends CustomPainter {
     }
 
     final double minuteAngle = (math.pi * 2) * (minute / 60) - math.pi / 2;
-    final double hourAngle =
-        (math.pi * 2) * (((hour24 % 12) + minute / 60) / 12) - math.pi / 2;
+    final double hourAngle = (math.pi * 2) * (((hour24 % 12) + minute / 60) / 12) - math.pi / 2;
 
     canvas.drawLine(
       dialCenter,
-      dialCenter +
-          Offset(math.cos(hourAngle), math.sin(hourAngle)) * (radius * 0.52),
+      dialCenter + Offset(math.cos(hourAngle), math.sin(hourAngle)) * (radius * 0.52),
       Paint()
         ..color = accent
         ..strokeWidth = 4
@@ -1242,9 +1124,7 @@ class _HourFormatPainter extends CustomPainter {
     );
     canvas.drawLine(
       dialCenter,
-      dialCenter +
-          Offset(math.cos(minuteAngle), math.sin(minuteAngle)) *
-              (radius * 0.74),
+      dialCenter + Offset(math.cos(minuteAngle), math.sin(minuteAngle)) * (radius * 0.74),
       Paint()
         ..color = const Color(0xFF263238)
         ..strokeWidth = 2.4

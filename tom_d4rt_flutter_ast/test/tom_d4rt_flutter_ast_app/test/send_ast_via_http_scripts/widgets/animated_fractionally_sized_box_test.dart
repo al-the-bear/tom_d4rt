@@ -55,11 +55,8 @@ BoxDecoration _panelDecoration({Color? color, double radius = 16.0}) {
   );
 }
 
-BoxDecoration _gradientHeader(
-  List<Color> colors, {
-  double radius = 14.0,
-  Color? shadow,
-}) {
+BoxDecoration _gradientHeader(List<Color> colors,
+    {double radius = 14.0, Color? shadow}) {
   return BoxDecoration(
     gradient: LinearGradient(
       colors: colors,
@@ -77,12 +74,8 @@ BoxDecoration _gradientHeader(
   );
 }
 
-Widget _sectionTitle(
-  String index,
-  String title,
-  String subtitle,
-  List<Color> gradient,
-) {
+Widget _sectionTitle(String index, String title, String subtitle,
+    List<Color> gradient) {
   return Container(
     margin: const EdgeInsets.only(bottom: 16),
     padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
@@ -143,18 +136,17 @@ Widget _prose(String text, {Color? color}) {
     padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
     child: Text(
       text,
-      style: TextStyle(color: color ?? kInk, fontSize: 13.5, height: 1.55),
+      style: TextStyle(
+        color: color ?? kInk,
+        fontSize: 13.5,
+        height: 1.55,
+      ),
     ),
   );
 }
 
-Widget _kvRow(
-  String key,
-  String value, {
-  Color? keyColor,
-  Color? valueColor,
-  double keyWidth = 140,
-}) {
+Widget _kvRow(String key, String value,
+    {Color? keyColor, Color? valueColor, double keyWidth = 140}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -282,11 +274,11 @@ Widget _buildIntroSection() {
       children: <Widget>[
         Container(
           padding: const EdgeInsets.all(20),
-          decoration: _gradientHeader(
-            <Color>[Color(0xFF0EA5E9), Color(0xFF6366F1), Color(0xFF8B5CF6)],
-            radius: 16,
-            shadow: Color(0x556366F1),
-          ),
+          decoration: _gradientHeader(<Color>[
+            Color(0xFF0EA5E9),
+            Color(0xFF6366F1),
+            Color(0xFF8B5CF6),
+          ], radius: 16, shadow: Color(0x556366F1)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -454,10 +446,9 @@ Widget _anatomyDiagram({
                 shape: BoxShape.circle,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: accent.withValues(alpha: 0.6),
-                    blurRadius: 8,
-                    offset: Offset(0, 0),
-                  ),
+                      color: accent.withValues(alpha: 0.6),
+                      blurRadius: 8,
+                      offset: Offset(0, 0)),
                 ],
               ),
             ),
@@ -484,10 +475,7 @@ Widget _anatomyDiagram({
                   decoration: BoxDecoration(
                     color: Color(0xFF0E1A30),
                     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    border: Border.all(
-                      color: accent.withValues(alpha: 0.7),
-                      width: 2,
-                    ),
+                    border: Border.all(color: accent.withValues(alpha: 0.7), width: 2),
                   ),
                 ),
               ),
@@ -518,7 +506,8 @@ Widget _anatomyDiagram({
                       decoration: BoxDecoration(
                         color: accent.withValues(alpha: 0.22),
                         borderRadius: BorderRadius.all(Radius.circular(6)),
-                        border: Border.all(color: accent, width: 1.4),
+                        border:
+                            Border.all(color: accent, width: 1.4),
                       ),
                       alignment: Alignment.center,
                       child: Text(
@@ -550,10 +539,9 @@ Widget _anatomyDiagram({
                         border: Border.all(color: accent, width: 2),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                            color: Color(0x99000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 1),
-                          ),
+                              color: Color(0x99000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 1)),
                         ],
                       ),
                     ),
@@ -682,10 +670,9 @@ Widget _widthLadderRow(double factor, Color accent) {
                 borderRadius: BorderRadius.all(Radius.circular(6)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: accent.withValues(alpha: 0.35),
-                    blurRadius: 6,
-                    offset: Offset(0, 2),
-                  ),
+                      color: accent.withValues(alpha: 0.35),
+                      blurRadius: 6,
+                      offset: Offset(0, 2)),
                 ],
               ),
               alignment: Alignment.centerRight,
@@ -754,11 +741,8 @@ Widget _buildHeightLadderSection() {
                 Positioned(
                   left: 6,
                   top: 6,
-                  child: _label(
-                    'parent height = 200px',
-                    color: kInkFaint,
-                    size: 10.5,
-                  ),
+                  child: _label('parent height = 200px',
+                      color: kInkFaint, size: 10.5),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -809,10 +793,9 @@ Widget _heightBar(double factor, String label, Color accent) {
                   ),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color: accent.withValues(alpha: 0.30),
-                      blurRadius: 4,
-                      offset: Offset(0, -2),
-                    ),
+                        color: accent.withValues(alpha: 0.30),
+                        blurRadius: 4,
+                        offset: Offset(0, -2)),
                   ],
                 ),
               ),
@@ -868,35 +851,35 @@ Widget _buildAlignmentGridSection() {
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
           child: Column(
             children: <Widget>[
-              _alignmentGridRow(
-                <Alignment>[
-                  Alignment.topLeft,
-                  Alignment.topCenter,
-                  Alignment.topRight,
-                ],
-                <String>['topLeft', 'topCenter', 'topRight'],
-                kAccentSky,
-              ),
+              _alignmentGridRow(<Alignment>[
+                Alignment.topLeft,
+                Alignment.topCenter,
+                Alignment.topRight,
+              ], <String>[
+                'topLeft',
+                'topCenter',
+                'topRight',
+              ], kAccentSky),
               const SizedBox(height: 10),
-              _alignmentGridRow(
-                <Alignment>[
-                  Alignment.centerLeft,
-                  Alignment.center,
-                  Alignment.centerRight,
-                ],
-                <String>['centerLeft', 'center', 'centerRight'],
-                kAccentLime,
-              ),
+              _alignmentGridRow(<Alignment>[
+                Alignment.centerLeft,
+                Alignment.center,
+                Alignment.centerRight,
+              ], <String>[
+                'centerLeft',
+                'center',
+                'centerRight',
+              ], kAccentLime),
               const SizedBox(height: 10),
-              _alignmentGridRow(
-                <Alignment>[
-                  Alignment.bottomLeft,
-                  Alignment.bottomCenter,
-                  Alignment.bottomRight,
-                ],
-                <String>['bottomLeft', 'bottomCenter', 'bottomRight'],
-                kAccentRose,
-              ),
+              _alignmentGridRow(<Alignment>[
+                Alignment.bottomLeft,
+                Alignment.bottomCenter,
+                Alignment.bottomRight,
+              ], <String>[
+                'bottomLeft',
+                'bottomCenter',
+                'bottomRight',
+              ], kAccentRose),
             ],
           ),
         ),
@@ -906,10 +889,7 @@ Widget _buildAlignmentGridSection() {
 }
 
 Widget _alignmentGridRow(
-  List<Alignment> aligns,
-  List<String> names,
-  Color accent,
-) {
+    List<Alignment> aligns, List<String> names, Color accent) {
   return Row(
     children: <Widget>[
       Expanded(child: _alignmentCell(aligns[0], names[0], accent)),
@@ -943,10 +923,9 @@ Widget _alignmentCell(Alignment a, String name, Color accent) {
               borderRadius: BorderRadius.all(Radius.circular(6)),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: accent.withValues(alpha: 0.45),
-                  blurRadius: 6,
-                  offset: Offset(0, 2),
-                ),
+                    color: accent.withValues(alpha: 0.45),
+                    blurRadius: 6,
+                    offset: Offset(0, 2)),
               ],
             ),
           ),
@@ -1173,47 +1152,34 @@ Widget _buildCurvesShowcaseSection() {
             child: Column(
               children: <Widget>[
                 _curveHeaderRow(),
+                _curveTableRow('Curves.linear',
+                    'Constant velocity. Mechanical, indicators, metronomes.',
+                    kAccentSky),
+                _curveTableRow('Curves.easeIn',
+                    'Slow start, fast finish. Things leaving the screen.',
+                    kAccentTeal),
+                _curveTableRow('Curves.easeOut',
+                    'Fast start, slow finish. Things arriving on screen.',
+                    kAccentLime),
                 _curveTableRow(
-                  'Curves.linear',
-                  'Constant velocity. Mechanical, indicators, metronomes.',
-                  kAccentSky,
-                ),
+                    'Curves.easeInOut',
+                    'Symmetric. The default for most resize transitions.',
+                    kAccentAmber),
                 _curveTableRow(
-                  'Curves.easeIn',
-                  'Slow start, fast finish. Things leaving the screen.',
-                  kAccentTeal,
-                ),
+                    'Curves.fastOutSlowIn',
+                    'Material standard easing. Use for deliberate motion.',
+                    kAccentCoral),
+                _curveTableRow('Curves.bounceOut',
+                    'Playful settle. Onboarding flourishes, success states.',
+                    kAccentRose),
                 _curveTableRow(
-                  'Curves.easeOut',
-                  'Fast start, slow finish. Things arriving on screen.',
-                  kAccentLime,
-                ),
-                _curveTableRow(
-                  'Curves.easeInOut',
-                  'Symmetric. The default for most resize transitions.',
-                  kAccentAmber,
-                ),
-                _curveTableRow(
-                  'Curves.fastOutSlowIn',
-                  'Material standard easing. Use for deliberate motion.',
-                  kAccentCoral,
-                ),
-                _curveTableRow(
-                  'Curves.bounceOut',
-                  'Playful settle. Onboarding flourishes, success states.',
-                  kAccentRose,
-                ),
-                _curveTableRow(
-                  'Curves.elasticOut',
-                  'Overshoot + settle. Use sparingly — easy to overdo.',
-                  kAccentMag,
-                ),
-                _curveTableRow(
-                  'Curves.decelerate',
-                  'Inertial finish. Paginated lists, scrollers.',
-                  kAccentViolet,
-                  isLast: true,
-                ),
+                    'Curves.elasticOut',
+                    'Overshoot + settle. Use sparingly — easy to overdo.',
+                    kAccentMag),
+                _curveTableRow('Curves.decelerate',
+                    'Inertial finish. Paginated lists, scrollers.',
+                    kAccentViolet,
+                    isLast: true),
               ],
             ),
           ),
@@ -1282,18 +1248,16 @@ Widget _curveHeaderRow() {
   );
 }
 
-Widget _curveTableRow(
-  String name,
-  String note,
-  Color accent, {
-  bool isLast = false,
-}) {
+Widget _curveTableRow(String name, String note, Color accent,
+    {bool isLast = false}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     decoration: BoxDecoration(
       border: isLast
           ? null
-          : Border(bottom: BorderSide(color: Color(0xFF26324F), width: 1)),
+          : Border(
+              bottom: BorderSide(color: Color(0xFF26324F), width: 1),
+            ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1302,7 +1266,10 @@ Widget _curveTableRow(
           width: 8,
           height: 8,
           margin: const EdgeInsets.only(top: 5, right: 8),
-          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: accent,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(
           width: 138,
@@ -1319,7 +1286,11 @@ Widget _curveTableRow(
         Expanded(
           child: Text(
             note,
-            style: TextStyle(color: kInk, fontSize: 12, height: 1.4),
+            style: TextStyle(
+              color: kInk,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -1410,60 +1381,56 @@ Widget _buildComparisonSection() {
           // the Row gets a finite cross-axis size from the tallest card.
           child: IntrinsicHeight(
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(
-                  child: _comparisonCard(
-                    title: 'FractionallySizedBox',
-                    badge: 'snaps',
-                    badgeColor: kAccentAmber,
-                    summary:
-                        'Pure layout. No tween. Cheap. Use when the factor '
-                        'never changes after first build.',
-                    widget: FractionallySizedBox(
-                      widthFactor: 0.7,
-                      heightFactor: 1.0,
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[kAccentAmber, kAccentCoral],
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(6)),
-                        ),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(child: _comparisonCard(
+                title: 'FractionallySizedBox',
+                badge: 'snaps',
+                badgeColor: kAccentAmber,
+                summary:
+                    'Pure layout. No tween. Cheap. Use when the factor '
+                    'never changes after first build.',
+                widget: FractionallySizedBox(
+                  widthFactor: 0.7,
+                  heightFactor: 1.0,
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[kAccentAmber, kAccentCoral],
                       ),
+                      borderRadius: BorderRadius.all(Radius.circular(6)),
                     ),
-                    accent: kAccentAmber,
                   ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _comparisonCard(
-                    title: 'AnimatedFractionallySizedBox',
-                    badge: 'tweens',
-                    badgeColor: kAccentTeal,
-                    summary:
-                        'Implicit tween. Pass new factors and the change is '
-                        'animated over duration:.',
-                    widget: AnimatedFractionallySizedBox(
-                      duration: Duration.zero,
-                      widthFactor: 0.7,
-                      heightFactor: 1.0,
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[kAccentTeal, kAccentSky],
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(6)),
-                        ),
+                accent: kAccentAmber,
+              )),
+              const SizedBox(width: 12),
+              Expanded(child: _comparisonCard(
+                title: 'AnimatedFractionallySizedBox',
+                badge: 'tweens',
+                badgeColor: kAccentTeal,
+                summary:
+                    'Implicit tween. Pass new factors and the change is '
+                    'animated over duration:.',
+                widget: AnimatedFractionallySizedBox(
+                  duration: Duration.zero,
+                  widthFactor: 0.7,
+                  heightFactor: 1.0,
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[kAccentTeal, kAccentSky],
                       ),
+                      borderRadius: BorderRadius.all(Radius.circular(6)),
                     ),
-                    accent: kAccentTeal,
                   ),
                 ),
-              ],
-            ),
+                accent: kAccentTeal,
+              )),
+            ],
+          ),
           ),
         ),
         Padding(
@@ -1480,21 +1447,15 @@ Widget _buildComparisonSection() {
               children: <Widget>[
                 _label('Decision rule', color: kAccentSky, size: 12),
                 const SizedBox(height: 6),
-                _kvRow(
-                  'static fraction',
-                  'FractionallySizedBox — no controller, no rebuild.',
-                  keyWidth: 130,
-                ),
-                _kvRow(
-                  'reactive fraction',
-                  'AnimatedFractionallySizedBox — let setState drive the tween.',
-                  keyWidth: 130,
-                ),
-                _kvRow(
-                  'frame-perfect control',
-                  'FractionallySizedBox + your own AnimationController.',
-                  keyWidth: 130,
-                ),
+                _kvRow('static fraction',
+                    'FractionallySizedBox — no controller, no rebuild.',
+                    keyWidth: 130),
+                _kvRow('reactive fraction',
+                    'AnimatedFractionallySizedBox — let setState drive the tween.',
+                    keyWidth: 130),
+                _kvRow('frame-perfect control',
+                    'FractionallySizedBox + your own AnimationController.',
+                    keyWidth: 130),
               ],
             ),
           ),
@@ -1542,7 +1503,11 @@ Widget _comparisonCard({
         const SizedBox(height: 8),
         Text(
           summary,
-          style: TextStyle(color: kInkDim, fontSize: 11.5, height: 1.4),
+          style: TextStyle(
+            color: kInkDim,
+            fontSize: 11.5,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 10),
         Container(
@@ -1656,10 +1621,9 @@ Widget _recipeCard({
       border: Border.all(color: accent.withValues(alpha: 0.45), width: 1.2),
       boxShadow: <BoxShadow>[
         BoxShadow(
-          color: accent.withValues(alpha: 0.18),
-          blurRadius: 16,
-          offset: Offset(0, 6),
-        ),
+            color: accent.withValues(alpha: 0.18),
+            blurRadius: 16,
+            offset: Offset(0, 6)),
       ],
     ),
     padding: const EdgeInsets.all(14),
@@ -1684,7 +1648,11 @@ Widget _recipeCard({
         const SizedBox(height: 8),
         Text(
           description,
-          style: TextStyle(color: kInkDim, fontSize: 12.5, height: 1.5),
+          style: TextStyle(
+            color: kInkDim,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 12),
         preview,
@@ -1721,10 +1689,9 @@ Widget _recipeImageCapPreview() {
           borderRadius: BorderRadius.all(Radius.circular(8)),
           boxShadow: <BoxShadow>[
             BoxShadow(
-              color: Color(0x6622D3CC),
-              blurRadius: 14,
-              offset: Offset(0, 4),
-            ),
+                color: Color(0x6622D3CC),
+                blurRadius: 14,
+                offset: Offset(0, 4)),
           ],
         ),
         alignment: Alignment.center,
@@ -1760,31 +1727,28 @@ Widget _recipeBottomSheetPreview() {
               _label('page content behind sheet', color: kInkFaint),
               const SizedBox(height: 6),
               Container(
-                height: 8,
-                width: 180,
-                decoration: BoxDecoration(
-                  color: Color(0xFF26324F),
-                  borderRadius: BorderRadius.all(Radius.circular(3)),
-                ),
-              ),
+                  height: 8,
+                  width: 180,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF26324F),
+                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                  )),
               const SizedBox(height: 4),
               Container(
-                height: 8,
-                width: 140,
-                decoration: BoxDecoration(
-                  color: Color(0xFF26324F),
-                  borderRadius: BorderRadius.all(Radius.circular(3)),
-                ),
-              ),
+                  height: 8,
+                  width: 140,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF26324F),
+                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                  )),
               const SizedBox(height: 4),
               Container(
-                height: 8,
-                width: 220,
-                decoration: BoxDecoration(
-                  color: Color(0xFF26324F),
-                  borderRadius: BorderRadius.all(Radius.circular(3)),
-                ),
-              ),
+                  height: 8,
+                  width: 220,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF26324F),
+                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                  )),
             ],
           ),
         ),
@@ -1797,7 +1761,10 @@ Widget _recipeBottomSheetPreview() {
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[Color(0xFFFFB347), Color(0xFFFF8A65)],
+                colors: <Color>[
+                  Color(0xFFFFB347),
+                  Color(0xFFFF8A65),
+                ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -1807,10 +1774,9 @@ Widget _recipeBottomSheetPreview() {
               ),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: Color(0x66000000),
-                  blurRadius: 12,
-                  offset: Offset(0, -3),
-                ),
+                    color: Color(0x66000000),
+                    blurRadius: 12,
+                    offset: Offset(0, -3)),
               ],
             ),
             padding: const EdgeInsets.fromLTRB(14, 8, 14, 10),
@@ -1864,7 +1830,7 @@ Widget _recipeProgressPreview() {
       const SizedBox(height: 8),
       _progressMeterRow('Step 3', 0.85, kAccentLime),
       const SizedBox(height: 8),
-      _progressMeterRow('Done', 1.00, kAccentMag),
+      _progressMeterRow('Done',   1.00, kAccentMag),
     ],
   );
 }
@@ -2018,8 +1984,10 @@ Widget _buildFootgunSection() {
               const SizedBox(height: 14),
               _footgunCard(
                 title: 'B — unbounded parent constraints',
-                wrongLabel: 'inside a Row without Expanded → factor ignored',
-                rightLabel: 'wrap in Expanded / SizedBox to give bounded width',
+                wrongLabel:
+                    'inside a Row without Expanded → factor ignored',
+                rightLabel:
+                    'wrap in Expanded / SizedBox to give bounded width',
                 wrong: Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -2187,9 +2155,19 @@ Widget _footgunSlot({
       children: <Widget>[
         _chip(badge, badgeColor),
         const SizedBox(height: 6),
-        Text(label, style: TextStyle(color: kInk, fontSize: 11.5, height: 1.4)),
+        Text(
+          label,
+          style: TextStyle(
+            color: kInk,
+            fontSize: 11.5,
+            height: 1.4,
+          ),
+        ),
         const SizedBox(height: 8),
-        SizedBox(height: 36, child: child),
+        SizedBox(
+          height: 36,
+          child: child,
+        ),
       ],
     ),
   );
@@ -2231,56 +2209,23 @@ Widget _buildApiSummarySection() {
             child: Column(
               children: <Widget>[
                 _apiTableHeader(),
-                _apiTableRow(
-                  'widthFactor',
-                  'double?',
-                  'null',
-                  'Fraction of parent maxWidth.',
-                  kAccentTeal,
-                ),
-                _apiTableRow(
-                  'heightFactor',
-                  'double?',
-                  'null',
-                  'Fraction of parent maxHeight.',
-                  kAccentLime,
-                ),
-                _apiTableRow(
-                  'alignment',
-                  'AlignmentGeometry',
-                  'Alignment.center',
-                  'Anchor inside the parent.',
-                  kAccentAmber,
-                ),
-                _apiTableRow(
-                  'duration',
-                  'Duration',
-                  '— required',
-                  'Tween duration. Use Duration.zero for snapshots.',
-                  kAccentSky,
-                ),
-                _apiTableRow(
-                  'curve',
-                  'Curve',
-                  'Curves.linear',
-                  'Easing applied to the tween.',
-                  kAccentMag,
-                ),
-                _apiTableRow(
-                  'child',
-                  'Widget?',
-                  'null',
-                  'The widget being fractionally sized.',
-                  kAccentRose,
-                ),
-                _apiTableRow(
-                  'onEnd',
-                  'VoidCallback?',
-                  'null',
-                  'Fires once the tween settles.',
-                  kAccentViolet,
-                  isLast: true,
-                ),
+                _apiTableRow('widthFactor', 'double?', 'null',
+                    'Fraction of parent maxWidth.', kAccentTeal),
+                _apiTableRow('heightFactor', 'double?', 'null',
+                    'Fraction of parent maxHeight.', kAccentLime),
+                _apiTableRow('alignment', 'AlignmentGeometry',
+                    'Alignment.center',
+                    'Anchor inside the parent.', kAccentAmber),
+                _apiTableRow('duration', 'Duration', '— required',
+                    'Tween duration. Use Duration.zero for snapshots.',
+                    kAccentSky),
+                _apiTableRow('curve', 'Curve', 'Curves.linear',
+                    'Easing applied to the tween.', kAccentMag),
+                _apiTableRow('child', 'Widget?', 'null',
+                    'The widget being fractionally sized.', kAccentRose),
+                _apiTableRow('onEnd', 'VoidCallback?', 'null',
+                    'Fires once the tween settles.', kAccentViolet,
+                    isLast: true),
               ],
             ),
           ),
@@ -2304,69 +2249,58 @@ Widget _apiTableHeader() {
       children: <Widget>[
         SizedBox(
           width: 110,
-          child: Text(
-            'field',
-            style: TextStyle(
-              color: kInk,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text('field',
+              style: TextStyle(
+                color: kInk,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'monospace',
+              )),
         ),
         SizedBox(
           width: 100,
-          child: Text(
-            'type',
-            style: TextStyle(
-              color: kInk,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text('type',
+              style: TextStyle(
+                color: kInk,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'monospace',
+              )),
         ),
         SizedBox(
           width: 90,
-          child: Text(
-            'default',
-            style: TextStyle(
-              color: kInk,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text('default',
+              style: TextStyle(
+                color: kInk,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'monospace',
+              )),
         ),
         Expanded(
-          child: Text(
-            'purpose',
-            style: TextStyle(
-              color: kInk,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          child: Text('purpose',
+              style: TextStyle(
+                color: kInk,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+              )),
         ),
       ],
     ),
   );
 }
 
-Widget _apiTableRow(
-  String field,
-  String type,
-  String def,
-  String purpose,
-  Color accent, {
-  bool isLast = false,
-}) {
+Widget _apiTableRow(String field, String type, String def, String purpose,
+    Color accent,
+    {bool isLast = false}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     decoration: BoxDecoration(
       border: isLast
           ? null
-          : Border(bottom: BorderSide(color: Color(0xFF26324F), width: 1)),
+          : Border(
+              bottom: BorderSide(color: Color(0xFF26324F), width: 1),
+            ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2408,7 +2342,11 @@ Widget _apiTableRow(
         Expanded(
           child: Text(
             purpose,
-            style: TextStyle(color: kInk, fontSize: 12, height: 1.4),
+            style: TextStyle(
+              color: kInk,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -2436,10 +2374,9 @@ Widget _buildClosingSection() {
       borderRadius: BorderRadius.all(Radius.circular(16)),
       boxShadow: <BoxShadow>[
         BoxShadow(
-          color: Color(0x666D28D9),
-          blurRadius: 24,
-          offset: Offset(0, 10),
-        ),
+            color: Color(0x666D28D9),
+            blurRadius: 24,
+            offset: Offset(0, 10)),
       ],
     ),
     child: Column(
@@ -2462,23 +2399,17 @@ Widget _buildClosingSection() {
           ),
         ),
         const SizedBox(height: 12),
-        _closingPoint(
-          '1.',
-          'Width- and heightFactor are multipliers against the parent\'s '
-              'bounded constraints. Without bounded constraints there is '
-              'nothing to multiply.',
-        ),
-        _closingPoint(
-          '2.',
-          'Alignment is the anchor; pick it for the direction of growth, '
-              'not for where the child "ends up".',
-        ),
-        _closingPoint(
-          '3.',
-          'Use the implicit version when state changes drive the '
-              'fraction; reach for FractionallySizedBox + a controller when '
-              'you need frame-level control.',
-        ),
+        _closingPoint('1.',
+            'Width- and heightFactor are multipliers against the parent\'s '
+            'bounded constraints. Without bounded constraints there is '
+            'nothing to multiply.'),
+        _closingPoint('2.',
+            'Alignment is the anchor; pick it for the direction of growth, '
+            'not for where the child "ends up".'),
+        _closingPoint('3.',
+            'Use the implicit version when state changes drive the '
+            'fraction; reach for FractionallySizedBox + a controller when '
+            'you need frame-level control.'),
       ],
     ),
   );

@@ -28,11 +28,7 @@ Widget _hvSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _hvLightBrown, width: 1.5),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x1A000000),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Color(0x1A000000), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -44,14 +40,9 @@ Widget _hvSection(String title, List<Widget> children) {
             color: _hvTerracotta,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _hvWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _hvWhite, fontSize: 15, fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -63,24 +54,17 @@ Widget _hvSection(String title, List<Widget> children) {
 Widget _hvLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _hvDarkBrown,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _hvDarkBrown, fontSize: 13, fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _hvBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _hvMedBrown, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(color: _hvMedBrown, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -93,10 +77,8 @@ Widget _hvChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(
-      label,
-      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(label,
+        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -108,20 +90,15 @@ Widget _hvInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 140,
-          child: Text(
-            key,
-            style: const TextStyle(
-              color: _hvDarkBrown,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(key,
+              style: const TextStyle(
+                  color: _hvDarkBrown,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600)),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(color: _hvMedBrown, fontSize: 12),
-          ),
+          child: Text(value,
+              style: const TextStyle(color: _hvMedBrown, fontSize: 12)),
         ),
       ],
     ),
@@ -199,26 +176,17 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x40BF360C),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
+        BoxShadow(color: Color(0x40BF360C), blurRadius: 12, offset: Offset(0, 4)),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.android, size: 52, color: _hvWhite),
         const SizedBox(height: 12),
-        const Text(
-          'HybridAndroidViewController',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: _hvWhite,
-            fontSize: 22,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        const Text('HybridAndroidViewController',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: _hvWhite, fontSize: 22, fontWeight: FontWeight.w800)),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -284,9 +252,7 @@ Widget _buildWhatIsIt() {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 44),
-            child: _hvBody(
-              '├─ SurfaceAndroidViewController  (virtual display)',
-            ),
+            child: _hvBody('├─ SurfaceAndroidViewController  (virtual display)'),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 44),
@@ -295,8 +261,7 @@ Widget _buildWhatIsIt() {
           Padding(
             padding: const EdgeInsets.only(left: 44),
             child: _hvBody(
-              '└─ HybridAndroidViewController  (hybrid composition) ◄',
-            ),
+                '└─ HybridAndroidViewController  (hybrid composition) ◄'),
           ),
         ],
       ),
@@ -328,33 +293,26 @@ Widget _buildThreeCompositingModes() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Icon(Icons.monitor, size: 20, color: _hvVirtualPurple),
-              const SizedBox(width: 8),
-              const Text(
-                'Virtual Display',
+          Row(children: [
+            const Icon(Icons.monitor, size: 20, color: _hvVirtualPurple),
+            const SizedBox(width: 8),
+            const Text('Virtual Display',
                 style: TextStyle(
-                  color: _hvVirtualPurple,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
+                    color: _hvVirtualPurple,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700)),
+          ]),
           const SizedBox(height: 8),
           _hvBody(
             'Creates an off-screen VirtualDisplay and renders the native view '
             'into it. The pixels are then read back as a texture. This was the '
             'original Android platform view approach.',
           ),
-          Wrap(
-            children: [
-              _hvChip('Off-screen rendering', _hvVirtualPurple),
-              _hvChip('Texture readback', _hvVirtualPurple),
-              _hvChip('Accessibility issues', _hvVirtualPurple),
-            ],
-          ),
+          Wrap(children: [
+            _hvChip('Off-screen rendering', _hvVirtualPurple),
+            _hvChip('Texture readback', _hvVirtualPurple),
+            _hvChip('Accessibility issues', _hvVirtualPurple),
+          ]),
         ],
       ),
     ),
@@ -370,20 +328,15 @@ Widget _buildThreeCompositingModes() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Icon(Icons.texture, size: 20, color: _hvTextureBlue),
-              const SizedBox(width: 8),
-              const Text(
-                'Texture Layer',
+          Row(children: [
+            const Icon(Icons.texture, size: 20, color: _hvTextureBlue),
+            const SizedBox(width: 8),
+            const Text('Texture Layer',
                 style: TextStyle(
-                  color: _hvTextureBlue,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
+                    color: _hvTextureBlue,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700)),
+          ]),
           const SizedBox(height: 8),
           _hvBody(
             'Renders the native view into a Surface whose contents are '
@@ -391,13 +344,11 @@ Widget _buildThreeCompositingModes() {
             'part of its own rendering pipeline. Better than virtual display '
             'but still one frame behind.',
           ),
-          Wrap(
-            children: [
-              _hvChip('Surface → Texture', _hvTextureBlue),
-              _hvChip('One-frame latency', _hvTextureBlue),
-              _hvChip('Good z-ordering', _hvTextureBlue),
-            ],
-          ),
+          Wrap(children: [
+            _hvChip('Surface → Texture', _hvTextureBlue),
+            _hvChip('One-frame latency', _hvTextureBlue),
+            _hvChip('Good z-ordering', _hvTextureBlue),
+          ]),
         ],
       ),
     ),
@@ -413,20 +364,15 @@ Widget _buildThreeCompositingModes() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Icon(Icons.layers, size: 20, color: _hvTerracotta),
-              const SizedBox(width: 8),
-              const Text(
-                'Hybrid Composition ★',
+          Row(children: [
+            const Icon(Icons.layers, size: 20, color: _hvTerracotta),
+            const SizedBox(width: 8),
+            const Text('Hybrid Composition ★',
                 style: TextStyle(
-                  color: _hvTerracotta,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
+                    color: _hvTerracotta,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700)),
+          ]),
           const SizedBox(height: 8),
           _hvBody(
             'Composites the native Android View directly into the Flutter '
@@ -434,14 +380,12 @@ Widget _buildThreeCompositingModes() {
             'that synchronizes position, clip, and transform. This is the '
             'recommended approach since Flutter 3.0.',
           ),
-          Wrap(
-            children: [
-              _hvChip('Direct composition', _hvTerracotta),
-              _hvChip('No latency', _hvTerracotta),
-              _hvChip('Full accessibility', _hvTerracotta),
-              _hvChip('Recommended ★', _hvTerracotta),
-            ],
-          ),
+          Wrap(children: [
+            _hvChip('Direct composition', _hvTerracotta),
+            _hvChip('No latency', _hvTerracotta),
+            _hvChip('Full accessibility', _hvTerracotta),
+            _hvChip('Recommended ★', _hvTerracotta),
+          ]),
         ],
       ),
     ),
@@ -459,19 +403,10 @@ Widget _buildCreationParameters() {
       'several parameters control how the platform view is initialized:',
     ),
     _hvDivider(),
-    _hvInfoRow(
-      'viewType',
-      'String identifier registered with the platform view factory',
-    ),
+    _hvInfoRow('viewType', 'String identifier registered with the platform view factory'),
     _hvInfoRow('id', 'Unique integer ID for the platform view instance'),
-    _hvInfoRow(
-      'layoutDirection',
-      'TextDirection.ltr or TextDirection.rtl for the view',
-    ),
-    _hvInfoRow(
-      'creationParams',
-      'Opaque data passed to the native view factory',
-    ),
+    _hvInfoRow('layoutDirection', 'TextDirection.ltr or TextDirection.rtl for the view'),
+    _hvInfoRow('creationParams', 'Opaque data passed to the native view factory'),
     _hvInfoRow('creationParamsCodec', 'MessageCodec to encode creationParams'),
     _hvDivider(),
     _hvLabel('Factory Method'),
@@ -529,13 +464,7 @@ Widget _buildCreationParameters() {
 Widget _buildRenderingPipeline() {
   print('[Section 5] Rendering pipeline visualization');
 
-  Widget pipelineStep(
-    int step,
-    String label,
-    String detail,
-    IconData icon,
-    Color color,
-  ) {
+  Widget pipelineStep(int step, String label, String detail, IconData icon, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       child: Row(
@@ -543,27 +472,27 @@ Widget _buildRenderingPipeline() {
           Container(
             width: 40,
             height: 40,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-            child: Center(child: Icon(icon, size: 20, color: _hvWhite)),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Icon(icon, size: 20, color: _hvWhite),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Step $step: $label',
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Step $step: $label',
+                    style: TextStyle(
+                        color: color,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
-                Text(
-                  detail,
-                  style: const TextStyle(color: _hvMedBrown, fontSize: 11.5),
-                ),
+                Text(detail,
+                    style: const TextStyle(color: _hvMedBrown, fontSize: 11.5)),
               ],
             ),
           ),
@@ -579,65 +508,45 @@ Widget _buildRenderingPipeline() {
       'same view hierarchy as the Flutter engine surface.',
     ),
     _hvDivider(),
-    pipelineStep(
-      1,
-      'Create platform view',
-      'Flutter sends a create message to the platform with viewType and params',
-      Icons.add_circle_outline,
-      _hvTerracotta,
-    ),
+    pipelineStep(1, 'Create platform view',
+        'Flutter sends a create message to the platform with viewType and params',
+        Icons.add_circle_outline, _hvTerracotta),
     Container(
       margin: const EdgeInsets.only(left: 20, bottom: 8),
       height: 20,
       width: 2,
       color: _hvLightBrown,
     ),
-    pipelineStep(
-      2,
-      'Allocate FlutterMutatorView',
-      'The engine creates a FlutterMutatorView to host the native Android View',
-      Icons.view_in_ar,
-      _hvAccent,
-    ),
+    pipelineStep(2, 'Allocate FlutterMutatorView',
+        'The engine creates a FlutterMutatorView to host the native Android View',
+        Icons.view_in_ar, _hvAccent),
     Container(
       margin: const EdgeInsets.only(left: 20, bottom: 8),
       height: 20,
       width: 2,
       color: _hvLightBrown,
     ),
-    pipelineStep(
-      3,
-      'Sync transforms & clips',
-      'On each frame, Flutter sends matrix4 transforms and clip rects to the mutator view',
-      Icons.transform,
-      _hvPlatformGreen,
-    ),
+    pipelineStep(3, 'Sync transforms & clips',
+        'On each frame, Flutter sends matrix4 transforms and clip rects to the mutator view',
+        Icons.transform, _hvPlatformGreen),
     Container(
       margin: const EdgeInsets.only(left: 20, bottom: 8),
       height: 20,
       width: 2,
       color: _hvLightBrown,
     ),
-    pipelineStep(
-      4,
-      'Composite into scene',
-      'The Skia / Impeller compositor merges the native surface with Flutter layers',
-      Icons.layers,
-      _hvTextureBlue,
-    ),
+    pipelineStep(4, 'Composite into scene',
+        'The Skia / Impeller compositor merges the native surface with Flutter layers',
+        Icons.layers, _hvTextureBlue),
     Container(
       margin: const EdgeInsets.only(left: 20, bottom: 8),
       height: 20,
       width: 2,
       color: _hvLightBrown,
     ),
-    pipelineStep(
-      5,
-      'Display to screen',
-      'The final composited frame is presented to the Android SurfaceFlinger',
-      Icons.phone_android,
-      _hvVirtualPurple,
-    ),
+    pipelineStep(5, 'Display to screen',
+        'The final composited frame is presented to the Android SurfaceFlinger',
+        Icons.phone_android, _hvVirtualPurple),
     _hvDivider(),
     _hvBody(
       'The key advantage is that the native view never goes through a texture '
@@ -653,45 +562,41 @@ Widget _buildRenderingPipeline() {
 Widget _buildLifecycleStates() {
   print('[Section 6] Lifecycle state machine');
 
-  Widget stateBox(
-    String name,
-    String description,
-    Color color, {
-    bool isCurrent = false,
-  }) {
+  Widget stateBox(String name, String description, Color color, {bool isCurrent = false}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: color, width: isCurrent ? 2.5 : 1),
+        border: Border.all(
+          color: color,
+          width: isCurrent ? 2.5 : 1,
+        ),
       ),
       child: Row(
         children: [
           Container(
             width: 10,
             height: 10,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(name,
+                    style: TextStyle(
+                        color: color,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
-                Text(
-                  description,
-                  style: const TextStyle(color: _hvMedBrown, fontSize: 11.5),
-                ),
+                Text(description,
+                    style: const TextStyle(color: _hvMedBrown, fontSize: 11.5)),
               ],
             ),
           ),
@@ -702,14 +607,8 @@ Widget _buildLifecycleStates() {
                 color: color,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text(
-                'ACTIVE',
-                style: TextStyle(
-                  color: _hvWhite,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: const Text('ACTIVE',
+                  style: TextStyle(color: _hvWhite, fontSize: 9, fontWeight: FontWeight.w700)),
             ),
         ],
       ),
@@ -723,72 +622,44 @@ Widget _buildLifecycleStates() {
       'avoiding native memory leaks.',
     ),
     _hvDivider(),
-    stateBox(
-      'Uninitialized',
-      'Controller created but create() not yet called',
-      const Color(0xFF9E9E9E),
-    ),
+    stateBox('Uninitialized', 'Controller created but create() not yet called',
+        const Color(0xFF9E9E9E)),
     Row(
       children: [
         const SizedBox(width: 16),
         const Icon(Icons.arrow_downward, size: 16, color: _hvLightBrown),
         const SizedBox(width: 8),
-        Text(
-          'await controller.create()',
-          style: TextStyle(
-            color: _hvMedBrown.withValues(alpha: 0.7),
-            fontSize: 11,
-          ),
-        ),
+        Text('await controller.create()',
+            style: TextStyle(color: _hvMedBrown.withValues(alpha: 0.7), fontSize: 11)),
       ],
     ),
     const SizedBox(height: 4),
-    stateBox(
-      'Created',
-      'Native view exists, surface allocated, ready for compositing',
-      _hvPlatformGreen,
-      isCurrent: true,
-    ),
+    stateBox('Created', 'Native view exists, surface allocated, ready for compositing',
+        _hvPlatformGreen, isCurrent: true),
     Row(
       children: [
         const SizedBox(width: 16),
         const Icon(Icons.arrow_downward, size: 16, color: _hvLightBrown),
         const SizedBox(width: 8),
-        Text(
-          'controller.setSize(size)',
-          style: TextStyle(
-            color: _hvMedBrown.withValues(alpha: 0.7),
-            fontSize: 11,
-          ),
-        ),
+        Text('controller.setSize(size)',
+            style: TextStyle(color: _hvMedBrown.withValues(alpha: 0.7), fontSize: 11)),
       ],
     ),
     const SizedBox(height: 4),
-    stateBox(
-      'Sized',
-      'View has been given a layout size, ready to render',
-      _hvTextureBlue,
-    ),
+    stateBox('Sized', 'View has been given a layout size, ready to render',
+        _hvTextureBlue),
     Row(
       children: [
         const SizedBox(width: 16),
         const Icon(Icons.arrow_downward, size: 16, color: _hvLightBrown),
         const SizedBox(width: 8),
-        Text(
-          'await controller.dispose()',
-          style: TextStyle(
-            color: _hvMedBrown.withValues(alpha: 0.7),
-            fontSize: 11,
-          ),
-        ),
+        Text('await controller.dispose()',
+            style: TextStyle(color: _hvMedBrown.withValues(alpha: 0.7), fontSize: 11)),
       ],
     ),
     const SizedBox(height: 4),
-    stateBox(
-      'Disposed',
-      'Native view destroyed, surface released, controller inactive',
-      const Color(0xFFE53935),
-    ),
+    stateBox('Disposed', 'Native view destroyed, surface released, controller inactive',
+        const Color(0xFFE53935)),
     _hvDivider(),
     _hvBody(
       'In hybrid composition, the create() call allocates the FlutterMutatorView '
@@ -826,19 +697,14 @@ Widget _buildSurfaceManagement() {
               children: [
                 const Icon(Icons.texture, size: 28, color: _hvTextureBlue),
                 const SizedBox(height: 6),
-                const Text(
-                  'SurfaceTexture',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: _hvTextureBlue,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('SurfaceTexture',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: _hvTextureBlue,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
-                _hvBody(
-                  'Used by texture mode.\nGPU texture readback.\nOne frame latency.',
-                ),
+                _hvBody('Used by texture mode.\nGPU texture readback.\nOne frame latency.'),
               ],
             ),
           ),
@@ -856,19 +722,14 @@ Widget _buildSurfaceManagement() {
               children: [
                 const Icon(Icons.layers, size: 28, color: _hvTerracotta),
                 const SizedBox(height: 6),
-                const Text(
-                  'SurfaceView',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: _hvTerracotta,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('SurfaceView',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: _hvTerracotta,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
-                _hvBody(
-                  'Used by hybrid mode.\nDirect composition.\nZero frame latency.',
-                ),
+                _hvBody('Used by hybrid mode.\nDirect composition.\nZero frame latency.'),
               ],
             ),
           ),
@@ -877,10 +738,7 @@ Widget _buildSurfaceManagement() {
     ),
     _hvDivider(),
     _hvLabel('Surface Callbacks'),
-    _hvInfoRow(
-      'surfaceCreated',
-      'Called when the SurfaceView surface is available',
-    ),
+    _hvInfoRow('surfaceCreated', 'Called when the SurfaceView surface is available'),
     _hvInfoRow('surfaceChanged', 'Called when size or format changes'),
     _hvInfoRow('surfaceDestroyed', 'Called when surface is being released'),
     _hvDivider(),
@@ -923,18 +781,14 @@ Widget _buildTouchForwarding() {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _hvAccent.withValues(alpha: 0.3)),
             ),
-            child: Row(
-              children: [
-                const Icon(Icons.touch_app, size: 18, color: _hvAccent),
-                const SizedBox(width: 8),
-                const Expanded(
-                  child: Text(
-                    'User touches screen',
-                    style: TextStyle(color: _hvDarkBrown, fontSize: 12),
-                  ),
-                ),
-              ],
-            ),
+            child: Row(children: [
+              const Icon(Icons.touch_app, size: 18, color: _hvAccent),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text('User touches screen',
+                    style: TextStyle(color: _hvDarkBrown, fontSize: 12)),
+              ),
+            ]),
           ),
           const Icon(Icons.arrow_downward, size: 16, color: _hvLightBrown),
           // Step 2
@@ -945,22 +799,14 @@ Widget _buildTouchForwarding() {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _hvTerracotta.withValues(alpha: 0.3)),
             ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.filter_tilt_shift,
-                  size: 18,
-                  color: _hvTerracotta,
-                ),
-                const SizedBox(width: 8),
-                const Expanded(
-                  child: Text(
-                    'Flutter gesture arena decides ownership',
-                    style: TextStyle(color: _hvDarkBrown, fontSize: 12),
-                  ),
-                ),
-              ],
-            ),
+            child: Row(children: [
+              const Icon(Icons.filter_tilt_shift, size: 18, color: _hvTerracotta),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text('Flutter gesture arena decides ownership',
+                    style: TextStyle(color: _hvDarkBrown, fontSize: 12)),
+              ),
+            ]),
           ),
           const Icon(Icons.arrow_downward, size: 16, color: _hvLightBrown),
           // Step 3 — branch
@@ -972,23 +818,16 @@ Widget _buildTouchForwarding() {
                   decoration: BoxDecoration(
                     color: _hvPlatformGreen.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: _hvPlatformGreen.withValues(alpha: 0.3),
-                    ),
+                    border: Border.all(color: _hvPlatformGreen.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.check_circle_outline,
-                        size: 18,
-                        color: _hvPlatformGreen,
-                      ),
+                      const Icon(Icons.check_circle_outline,
+                          size: 18, color: _hvPlatformGreen),
                       const SizedBox(height: 4),
-                      const Text(
-                        'Forward to native view',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: _hvDarkBrown, fontSize: 11),
-                      ),
+                      const Text('Forward to native view',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: _hvDarkBrown, fontSize: 11)),
                     ],
                   ),
                 ),
@@ -1001,22 +840,16 @@ Widget _buildTouchForwarding() {
                     color: const Color(0xFFE53935).withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: const Color(0xFFE53935).withValues(alpha: 0.3),
-                    ),
+                        color: const Color(0xFFE53935).withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.cancel_outlined,
-                        size: 18,
-                        color: Color(0xFFE53935),
-                      ),
+                      const Icon(Icons.cancel_outlined,
+                          size: 18, color: Color(0xFFE53935)),
                       const SizedBox(height: 4),
-                      const Text(
-                        'Handle in Flutter',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: _hvDarkBrown, fontSize: 11),
-                      ),
+                      const Text('Handle in Flutter',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: _hvDarkBrown, fontSize: 11)),
                     ],
                   ),
                 ),
@@ -1028,15 +861,9 @@ Widget _buildTouchForwarding() {
     ),
     _hvDivider(),
     _hvLabel('Gesture Policies'),
-    _hvInfoRow(
-      'opaque',
-      'All gestures go to native view, Flutter gets nothing',
-    ),
+    _hvInfoRow('opaque', 'All gestures go to native view, Flutter gets nothing'),
     _hvInfoRow('translucent', 'Both Flutter and native view receive events'),
-    _hvInfoRow(
-      'eager',
-      'Flutter accepts immediately, native only if Flutter rejects',
-    ),
+    _hvInfoRow('eager', 'Flutter accepts immediately, native only if Flutter rejects'),
     _hvDivider(),
     _hvBody(
       'In hybrid mode, touch events are forwarded via the MotionEvent '
@@ -1081,15 +908,9 @@ Widget _buildZOrderingOverlays() {
               ),
               border: Border.all(color: _hvAccent),
             ),
-            child: const Text(
-              'Flutter Overlay Surface (AppBar, FAB, dialogs)',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: _hvAccent,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: const Text('Flutter Overlay Surface (AppBar, FAB, dialogs)',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: _hvAccent, fontSize: 12, fontWeight: FontWeight.w600)),
           ),
           // Platform view layer
           Container(
@@ -1099,15 +920,12 @@ Widget _buildZOrderingOverlays() {
               color: _hvPlatformGreen.withValues(alpha: 0.15),
               border: Border.all(color: _hvPlatformGreen),
             ),
-            child: const Text(
-              'Native Android View (MapView, WebView, etc.)',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: _hvPlatformGreen,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: const Text('Native Android View (MapView, WebView, etc.)',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: _hvPlatformGreen,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600)),
           ),
           // Bottom Flutter layer
           Container(
@@ -1121,15 +939,12 @@ Widget _buildZOrderingOverlays() {
               ),
               border: Border.all(color: _hvTextureBlue),
             ),
-            child: const Text(
-              'Flutter Main Surface (background, content below PV)',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: _hvTextureBlue,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: const Text('Flutter Main Surface (background, content below PV)',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: _hvTextureBlue,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600)),
           ),
         ],
       ),
@@ -1153,24 +968,17 @@ Widget _buildZOrderingOverlays() {
             decoration: BoxDecoration(
               color: _hvVirtualPurple.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: _hvVirtualPurple.withValues(alpha: 0.3),
-              ),
+              border: Border.all(color: _hvVirtualPurple.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Text(
-                  'Virtual Display',
-                  style: TextStyle(
-                    color: _hvVirtualPurple,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Virtual Display',
+                    style: TextStyle(
+                        color: _hvVirtualPurple,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
-                _hvBody(
-                  'Always behind Flutter.\nNo overlay needed.\nNo z-ordering issues.',
-                ),
+                _hvBody('Always behind Flutter.\nNo overlay needed.\nNo z-ordering issues.'),
               ],
             ),
           ),
@@ -1186,18 +994,13 @@ Widget _buildZOrderingOverlays() {
             ),
             child: Column(
               children: [
-                const Text(
-                  'Hybrid',
-                  style: TextStyle(
-                    color: _hvTerracotta,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Hybrid',
+                    style: TextStyle(
+                        color: _hvTerracotta,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
-                _hvBody(
-                  'Has real z-depth.\nOverlays needed.\nBetter fidelity.',
-                ),
+                _hvBody('Has real z-depth.\nOverlays needed.\nBetter fidelity.'),
               ],
             ),
           ),
@@ -1213,13 +1016,8 @@ Widget _buildZOrderingOverlays() {
 Widget _buildPerformanceTradeoffs() {
   print('[Section 10] Performance trade-offs');
 
-  Widget tradeoffCard(
-    String title,
-    String positive,
-    String negative,
-    IconData icon,
-    Color color,
-  ) {
+  Widget tradeoffCard(String title, String positive, String negative,
+      IconData icon, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
@@ -1231,20 +1029,13 @@ Widget _buildPerformanceTradeoffs() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(icon, size: 18, color: color),
-              const SizedBox(width: 8),
-              Text(
-                title,
+          Row(children: [
+            Icon(icon, size: 18, color: color),
+            const SizedBox(width: 8),
+            Text(title,
                 style: TextStyle(
-                  color: color,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
+                    color: color, fontSize: 13, fontWeight: FontWeight.w700)),
+          ]),
           const SizedBox(height: 6),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1252,13 +1043,8 @@ Widget _buildPerformanceTradeoffs() {
               const Icon(Icons.add_circle, size: 14, color: _hvPlatformGreen),
               const SizedBox(width: 4),
               Expanded(
-                child: Text(
-                  positive,
-                  style: const TextStyle(
-                    color: _hvPlatformGreen,
-                    fontSize: 11.5,
-                  ),
-                ),
+                child: Text(positive,
+                    style: const TextStyle(color: _hvPlatformGreen, fontSize: 11.5)),
               ),
             ],
           ),
@@ -1266,20 +1052,11 @@ Widget _buildPerformanceTradeoffs() {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
-                Icons.remove_circle,
-                size: 14,
-                color: Color(0xFFE53935),
-              ),
+              const Icon(Icons.remove_circle, size: 14, color: Color(0xFFE53935)),
               const SizedBox(width: 4),
               Expanded(
-                child: Text(
-                  negative,
-                  style: const TextStyle(
-                    color: Color(0xFFE53935),
-                    fontSize: 11.5,
-                  ),
-                ),
+                child: Text(negative,
+                    style: const TextStyle(color: Color(0xFFE53935), fontSize: 11.5)),
               ),
             ],
           ),
@@ -1298,36 +1075,31 @@ Widget _buildPerformanceTradeoffs() {
       'Frame Latency',
       'Zero additional frame delay — native content appears immediately',
       'Requires more GPU memory for overlay surfaces',
-      Icons.timer,
-      _hvTerracotta,
+      Icons.timer, _hvTerracotta,
     ),
     tradeoffCard(
       'Thread Coordination',
       'Native view renders on its own thread, no Flutter UI thread blocking',
       'Synchronizing transforms requires cross-thread signaling',
-      Icons.sync,
-      _hvTextureBlue,
+      Icons.sync, _hvTextureBlue,
     ),
     tradeoffCard(
       'Memory Overhead',
       'No texture copy needed, lower overall memory bandwidth',
       'Each overlay surface allocates its own GPU buffers',
-      Icons.memory,
-      _hvVirtualPurple,
+      Icons.memory, _hvVirtualPurple,
     ),
     tradeoffCard(
       'Accessibility',
       'Full native accessibility tree is preserved and merged with Flutter',
       'Slightly more complex accessibility merging logic',
-      Icons.accessibility,
-      _hvPlatformGreen,
+      Icons.accessibility, _hvPlatformGreen,
     ),
     tradeoffCard(
       'Animation Smoothness',
       'Native animations play at native refresh rate',
       'Flutter animations over platform views may have slight tearing',
-      Icons.animation,
-      _hvAccent,
+      Icons.animation, _hvAccent,
     ),
   ]);
 }
@@ -1370,14 +1142,8 @@ Widget _buildRealEmbeddingDemo() {
               children: [
                 const Icon(Icons.arrow_back, color: _hvWhite, size: 18),
                 const SizedBox(width: 8),
-                const Text(
-                  'Flutter AppBar (overlay above)',
-                  style: TextStyle(
-                    color: _hvWhite,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                const Text('Flutter AppBar (overlay above)',
+                    style: TextStyle(color: _hvWhite, fontSize: 13, fontWeight: FontWeight.w600)),
               ],
             ),
           ),
@@ -1390,10 +1156,8 @@ Widget _buildRealEmbeddingDemo() {
                 const Icon(Icons.info_outline, size: 14, color: _hvTextureBlue),
                 const SizedBox(width: 6),
                 const Expanded(
-                  child: Text(
-                    'Flutter content (main surface, below PV)',
-                    style: TextStyle(color: _hvTextureBlue, fontSize: 11),
-                  ),
+                  child: Text('Flutter content (main surface, below PV)',
+                      style: TextStyle(color: _hvTextureBlue, fontSize: 11)),
                 ),
               ],
             ),
@@ -1417,38 +1181,25 @@ Widget _buildRealEmbeddingDemo() {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(
-                          Icons.map,
-                          size: 48,
-                          color: _hvPlatformGreen,
-                        ),
+                        const Icon(Icons.map, size: 48, color: _hvPlatformGreen),
                         const SizedBox(height: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
+                              horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             color: _hvPlatformGreen.withValues(alpha: 0.9),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: const Text(
-                            'Native Android MapView',
-                            style: TextStyle(
-                              color: _hvWhite,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          child: const Text('Native Android MapView',
+                              style: TextStyle(
+                                  color: _hvWhite,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700)),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          '(Hybrid Composited)',
-                          style: TextStyle(
-                            color: _hvPlatformGreen,
-                            fontSize: 11,
-                          ),
-                        ),
+                        const Text('(Hybrid Composited)',
+                            style: TextStyle(
+                                color: _hvPlatformGreen, fontSize: 11)),
                       ],
                     ),
                   ),
@@ -1458,9 +1209,7 @@ Widget _buildRealEmbeddingDemo() {
                     right: 12,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: _hvAccent,
                         borderRadius: BorderRadius.circular(12),
@@ -1468,16 +1217,10 @@ Widget _buildRealEmbeddingDemo() {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
-                            Icons.touch_app,
-                            size: 12,
-                            color: _hvWhite,
-                          ),
+                          const Icon(Icons.touch_app, size: 12, color: _hvWhite),
                           const SizedBox(width: 4),
-                          const Text(
-                            'Touch forwarded',
-                            style: TextStyle(color: _hvWhite, fontSize: 10),
-                          ),
+                          const Text('Touch forwarded',
+                              style: TextStyle(color: _hvWhite, fontSize: 10)),
                         ],
                       ),
                     ),
@@ -1505,17 +1248,12 @@ Widget _buildRealEmbeddingDemo() {
                       ),
                     ],
                   ),
-                  child: const Icon(
-                    Icons.my_location,
-                    color: _hvWhite,
-                    size: 20,
-                  ),
+                  child: const Icon(Icons.my_location,
+                      color: _hvWhite, size: 20),
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  'Flutter FAB (overlay)',
-                  style: TextStyle(color: _hvMedBrown, fontSize: 11),
-                ),
+                const Text('Flutter FAB (overlay)',
+                    style: TextStyle(color: _hvMedBrown, fontSize: 11)),
               ],
             ),
           ),
@@ -1536,38 +1274,24 @@ Widget _buildRealEmbeddingDemo() {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(Icons.explore, color: _hvWhite, size: 16),
-                    const Text(
-                      'Explore',
-                      style: TextStyle(color: _hvWhite, fontSize: 10),
-                    ),
+                    const Text('Explore',
+                        style: TextStyle(color: _hvWhite, fontSize: 10)),
                   ],
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
-                      Icons.directions,
-                      color: _hvLightBrown,
-                      size: 16,
-                    ),
-                    const Text(
-                      'Directions',
-                      style: TextStyle(color: _hvLightBrown, fontSize: 10),
-                    ),
+                    const Icon(Icons.directions, color: _hvLightBrown, size: 16),
+                    const Text('Directions',
+                        style: TextStyle(color: _hvLightBrown, fontSize: 10)),
                   ],
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
-                      Icons.bookmark_outline,
-                      color: _hvLightBrown,
-                      size: 16,
-                    ),
-                    const Text(
-                      'Saved',
-                      style: TextStyle(color: _hvLightBrown, fontSize: 10),
-                    ),
+                    const Icon(Icons.bookmark_outline, color: _hvLightBrown, size: 16),
+                    const Text('Saved',
+                        style: TextStyle(color: _hvLightBrown, fontSize: 10)),
                   ],
                 ),
               ],
@@ -1613,14 +1337,10 @@ Widget _buildSummary() {
           _hvBody('✦ Uses direct surface composition (no texture readback)'),
           _hvBody('✦ Zero additional frame latency'),
           _hvBody('✦ Full native accessibility preserved'),
-          _hvBody(
-            '✦ FlutterMutatorView manages position, clip, and transforms',
-          ),
+          _hvBody('✦ FlutterMutatorView manages position, clip, and transforms'),
           _hvBody('✦ Overlays needed for Flutter content above platform views'),
           _hvBody('✦ Recommended since Flutter 3.0 for Android platform views'),
-          _hvBody(
-            '✦ Part of AndroidViewController hierarchy alongside Texture and Surface modes',
-          ),
+          _hvBody('✦ Part of AndroidViewController hierarchy alongside Texture and Surface modes'),
         ],
       ),
     ),
@@ -1661,20 +1381,17 @@ class _MapGridPainter extends CustomPainter {
       ..color = _hvPlatformGreen.withValues(alpha: 0.2)
       ..strokeWidth = 2;
     canvas.drawLine(
-      Offset(size.width * 0.2, 0),
-      Offset(size.width * 0.6, size.height),
-      roadPaint,
-    );
+        Offset(size.width * 0.2, 0),
+        Offset(size.width * 0.6, size.height),
+        roadPaint);
     canvas.drawLine(
-      Offset(0, size.height * 0.3),
-      Offset(size.width, size.height * 0.5),
-      roadPaint,
-    );
+        Offset(0, size.height * 0.3),
+        Offset(size.width, size.height * 0.5),
+        roadPaint);
     canvas.drawLine(
-      Offset(size.width * 0.7, 0),
-      Offset(size.width * 0.4, size.height),
-      roadPaint,
-    );
+        Offset(size.width * 0.7, 0),
+        Offset(size.width * 0.4, size.height),
+        roadPaint);
   }
 
   @override

@@ -295,8 +295,8 @@ class _SineWavePainter extends CustomPainter {
     final double midY = size.height / 2;
     for (double x = 0; x <= size.width; x += 1.0) {
       final double t = x / size.width;
-      final double y =
-          midY + amplitude * math.sin((2 * math.pi * frequency * t) + phase);
+      final double y = midY +
+          amplitude * math.sin((2 * math.pi * frequency * t) + phase);
       if (x == 0) {
         path.moveTo(x, y);
       } else {
@@ -353,8 +353,7 @@ class _StarBurstPainter extends CustomPainter {
     for (int i = 0; i < points * 2; i++) {
       final double r = i.isEven ? outerR : innerR;
       final double angle = (i * math.pi) / points - math.pi / 2;
-      final Offset p =
-          centre + Offset(math.cos(angle) * r, math.sin(angle) * r);
+      final Offset p = centre + Offset(math.cos(angle) * r, math.sin(angle) * r);
       if (i == 0) {
         star.moveTo(p.dx, p.dy);
       } else {
@@ -539,18 +538,10 @@ class _GaugePainter extends CustomPainter {
     for (int i = 0; i <= 4; i++) {
       final double t = i / 4.0;
       final double angle = math.pi + (math.pi * t);
-      final Offset p1 =
-          centre +
-          Offset(
-            math.cos(angle) * (radius - 4),
-            math.sin(angle) * (radius - 4),
-          );
-      final Offset p2 =
-          centre +
-          Offset(
-            math.cos(angle) * (radius - 14),
-            math.sin(angle) * (radius - 14),
-          );
+      final Offset p1 = centre +
+          Offset(math.cos(angle) * (radius - 4), math.sin(angle) * (radius - 4));
+      final Offset p2 = centre +
+          Offset(math.cos(angle) * (radius - 14), math.sin(angle) * (radius - 14));
       canvas.drawLine(p1, p2, tick);
 
       // Label.
@@ -562,8 +553,7 @@ class _GaugePainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      final Offset labelP =
-          centre +
+      final Offset labelP = centre +
           Offset(
             math.cos(angle) * (radius - 26) - tp.width / 2,
             math.sin(angle) * (radius - 26) - tp.height / 2,
@@ -575,12 +565,8 @@ class _GaugePainter extends CustomPainter {
     final double clamped = value.clamp(minValue, maxValue);
     final double t = (clamped - minValue) / (maxValue - minValue);
     final double angle = math.pi + (math.pi * t);
-    final Offset tip =
-        centre +
-        Offset(
-          math.cos(angle) * (radius - 18),
-          math.sin(angle) * (radius - 18),
-        );
+    final Offset tip = centre +
+        Offset(math.cos(angle) * (radius - 18), math.sin(angle) * (radius - 18));
     final Paint needle = Paint()
       ..color = needleColor
       ..strokeWidth = 3
@@ -702,10 +688,7 @@ class _ConfettiPainter extends CustomPainter {
       canvas.translate(cx, cy);
       canvas.rotate(angle);
       final Paint p = Paint()..color = c;
-      canvas.drawRect(
-        Rect.fromCenter(center: Offset.zero, width: w, height: h),
-        p,
-      );
+      canvas.drawRect(Rect.fromCenter(center: Offset.zero, width: w, height: h), p);
       canvas.restore();
     }
   }
@@ -817,7 +800,10 @@ class _SignaturePainter extends CustomPainter {
 // _AnimatedPulsePainter — a pulsing concentric ring, driven by a 0..1 value.
 // -----------------------------------------------------------------------------
 class _AnimatedPulsePainter extends CustomPainter {
-  const _AnimatedPulsePainter({required this.t, required this.color});
+  const _AnimatedPulsePainter({
+    required this.t,
+    required this.color,
+  });
 
   final double t; // 0..1
   final Color color;
@@ -929,7 +915,10 @@ class _FrugalPainter extends CustomPainter {
 // hit-testable in a non-rectangular way.
 // -----------------------------------------------------------------------------
 class _CircleHitPainter extends CustomPainter {
-  const _CircleHitPainter({required this.radius, required this.fillColor});
+  const _CircleHitPainter({
+    required this.radius,
+    required this.fillColor,
+  });
 
   final double radius;
   final Color fillColor;
@@ -1087,10 +1076,7 @@ Widget _card({required Color bg, required List<Widget> children}) {
 Widget _bodyText(String text, {required Color color, double fontSize = 13}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 2),
-    child: Text(
-      text,
-      style: TextStyle(color: color, fontSize: fontSize),
-    ),
+    child: Text(text, style: TextStyle(color: color, fontSize: fontSize)),
   );
 }
 
@@ -1099,7 +1085,11 @@ Widget _label(String text, {required Color color}) {
     padding: const EdgeInsets.only(top: 8, bottom: 4),
     child: Text(
       text,
-      style: TextStyle(color: color, fontWeight: FontWeight.w600, fontSize: 13),
+      style: TextStyle(
+        color: color,
+        fontWeight: FontWeight.w600,
+        fontSize: 13,
+      ),
     ),
   );
 }
@@ -1167,8 +1157,14 @@ dynamic build(BuildContext context) {
         color: _introInk,
       ),
       _label('paint() contract', color: _introInk),
-      _bodyText('  void paint(Canvas canvas, Size size)', color: _introInk),
-      _bodyText('  - canvas: the imperative drawing surface', color: _introInk),
+      _bodyText(
+        '  void paint(Canvas canvas, Size size)',
+        color: _introInk,
+      ),
+      _bodyText(
+        '  - canvas: the imperative drawing surface',
+        color: _introInk,
+      ),
       _bodyText(
         '  - size: the area Flutter has reserved for you',
         color: _introInk,
@@ -1552,10 +1548,7 @@ dynamic build(BuildContext context) {
                   Row(
                     children: <Widget>[
                       const SizedBox(width: 4),
-                      Text(
-                        'sides: $sides',
-                        style: TextStyle(color: _interactInk),
-                      ),
+                      Text('sides: $sides', style: TextStyle(color: _interactInk)),
                       Expanded(
                         child: Slider(
                           value: sides.toDouble(),
@@ -1652,7 +1645,8 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 6),
                         ValueListenableBuilder<int>(
                           valueListenable: wastefulCount,
-                          builder: (BuildContext c, int v, Widget? _) => Text(
+                          builder: (BuildContext c, int v, Widget? _) =>
+                              Text(
                             'paint() called: $v',
                             style: TextStyle(color: _repaintInk),
                           ),
@@ -1687,7 +1681,8 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 6),
                         ValueListenableBuilder<int>(
                           valueListenable: frugalCount,
-                          builder: (BuildContext c, int v, Widget? _) => Text(
+                          builder: (BuildContext c, int v, Widget? _) =>
+                              Text(
                             'paint() called: $v',
                             style: TextStyle(color: _repaintInk),
                           ),
@@ -1772,7 +1767,10 @@ dynamic build(BuildContext context) {
               Center(
                 child: Text(
                   message,
-                  style: TextStyle(color: _hitInk, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: _hitInk,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               const SizedBox(height: 6),
@@ -1815,9 +1813,8 @@ dynamic build(BuildContext context) {
             axisColor: _foreAccent,
             background: Color(0xFFECEFF1),
           ),
-          foregroundPainter: const _ForegroundCrossPainter(
-            color: Color(0x80B71C1C),
-          ),
+          foregroundPainter:
+              const _ForegroundCrossPainter(color: Color(0x80B71C1C)),
           child: const Center(
             child: Padding(
               padding: EdgeInsets.all(8),
@@ -1893,16 +1890,14 @@ dynamic build(BuildContext context) {
       Center(
         child: GestureDetector(
           onPanStart: (DragStartDetails d) {
-            final List<List<Offset>> current = List<List<Offset>>.from(
-              strokes.value,
-            );
+            final List<List<Offset>> current =
+                List<List<Offset>>.from(strokes.value);
             current.add(<Offset>[d.localPosition]);
             strokes.value = current;
           },
           onPanUpdate: (DragUpdateDetails d) {
-            final List<List<Offset>> current = List<List<Offset>>.from(
-              strokes.value,
-            );
+            final List<List<Offset>> current =
+                List<List<Offset>>.from(strokes.value);
             if (current.isEmpty) {
               current.add(<Offset>[]);
             }
@@ -1947,16 +1942,19 @@ dynamic build(BuildContext context) {
   final Widget decisionSection = _card(
     bg: _decisionBg,
     children: <Widget>[
-      _label(
-        'CustomPainter vs Container/DecoratedBox/Stack',
+      _label('CustomPainter vs Container/DecoratedBox/Stack', color: _decisionInk),
+      _bodyText(
+        'When to reach for CustomPainter:',
         color: _decisionInk,
       ),
-      _bodyText('When to reach for CustomPainter:', color: _decisionInk),
       _bodyText(
         '  - shapes that no built-in widget can render (stars, gauges, ',
         color: _decisionInk,
       ),
-      _bodyText('    polygons, signature paths, charts)', color: _decisionInk),
+      _bodyText(
+        '    polygons, signature paths, charts)',
+        color: _decisionInk,
+      ),
       _bodyText(
         '  - fine-grained pixel-accurate control of strokes, joins, caps',
         color: _decisionInk,
@@ -2004,132 +2002,80 @@ dynamic build(BuildContext context) {
     bg: _refBg,
     children: <Widget>[
       _label('Painter reference table', color: _refInk),
-      _bodyText(
-        'Painter                       Size        Repaint behaviour',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_GridPainter                  any         params equality',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_RadarSweepPainter            square      sweepAngle changes',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_SineWavePainter              any         params equality',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_StarBurstPainter             square      params equality',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_BarChartPainter              any         deep value compare',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_GaugePainter                 wide        value changes',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_PolygonPainter               square      sides + rotation',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_ConfettiPainter              any         seed/count change',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_DottedBackgroundPainter      any         spacing/colour',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_SignaturePainter             any         super(repaint:)',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_AnimatedPulsePainter         square      tween-driven',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_WastefulPainter              any         always true (bad)',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_FrugalPainter                any         params equality',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_CircleHitPainter             square      params equality',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_ForegroundCrossPainter       any         colour change',
-        color: _refInk,
-      ),
-      _bodyText(
-        '_CheckerPainter               any         cell/colour change',
-        color: _refInk,
-      ),
+      _bodyText('Painter                       Size        Repaint behaviour',
+          color: _refInk),
+      _bodyText('_GridPainter                  any         params equality',
+          color: _refInk),
+      _bodyText('_RadarSweepPainter            square      sweepAngle changes',
+          color: _refInk),
+      _bodyText('_SineWavePainter              any         params equality',
+          color: _refInk),
+      _bodyText('_StarBurstPainter             square      params equality',
+          color: _refInk),
+      _bodyText('_BarChartPainter              any         deep value compare',
+          color: _refInk),
+      _bodyText('_GaugePainter                 wide        value changes',
+          color: _refInk),
+      _bodyText('_PolygonPainter               square      sides + rotation',
+          color: _refInk),
+      _bodyText('_ConfettiPainter              any         seed/count change',
+          color: _refInk),
+      _bodyText('_DottedBackgroundPainter      any         spacing/colour',
+          color: _refInk),
+      _bodyText('_SignaturePainter             any         super(repaint:)',
+          color: _refInk),
+      _bodyText('_AnimatedPulsePainter         square      tween-driven',
+          color: _refInk),
+      _bodyText('_WastefulPainter              any         always true (bad)',
+          color: _refInk),
+      _bodyText('_FrugalPainter                any         params equality',
+          color: _refInk),
+      _bodyText('_CircleHitPainter             square      params equality',
+          color: _refInk),
+      _bodyText('_ForegroundCrossPainter       any         colour change',
+          color: _refInk),
+      _bodyText('_CheckerPainter               any         cell/colour change',
+          color: _refInk),
       const SizedBox(height: 12),
       _label('Canvas API quick tour', color: _refInk),
-      _bodyText(
-        '  drawLine(p1, p2, paint)            stroke a single segment',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  drawRect(rect, paint)              fill or stroke a rect',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  drawRRect(rrect, paint)            same but rounded',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  drawCircle(centre, r, paint)       fast disc/ring',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  drawArc(rect, start, sweep, ...)   slice of circle',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  drawPath(path, paint)              arbitrary closed/open path',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  drawOval(rect, paint)              ellipse fitted in rect',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  save() / restore()                 stack canvas transform',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  translate / rotate / scale         transform helpers',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  TextPainter(...).layout(); paint() draw text via TextPainter',
-        color: _refInk,
-      ),
+      _bodyText('  drawLine(p1, p2, paint)            stroke a single segment',
+          color: _refInk),
+      _bodyText('  drawRect(rect, paint)              fill or stroke a rect',
+          color: _refInk),
+      _bodyText('  drawRRect(rrect, paint)            same but rounded',
+          color: _refInk),
+      _bodyText('  drawCircle(centre, r, paint)       fast disc/ring',
+          color: _refInk),
+      _bodyText('  drawArc(rect, start, sweep, ...)   slice of circle',
+          color: _refInk),
+      _bodyText('  drawPath(path, paint)              arbitrary closed/open path',
+          color: _refInk),
+      _bodyText('  drawOval(rect, paint)              ellipse fitted in rect',
+          color: _refInk),
+      _bodyText('  save() / restore()                 stack canvas transform',
+          color: _refInk),
+      _bodyText('  translate / rotate / scale         transform helpers',
+          color: _refInk),
+      _bodyText('  TextPainter(...).layout(); paint() draw text via TextPainter',
+          color: _refInk),
       const SizedBox(height: 12),
       _label('Paint configuration', color: _refInk),
-      _bodyText('  Paint.style       fill (default) or stroke', color: _refInk),
-      _bodyText('  Paint.strokeWidth pixels', color: _refInk),
-      _bodyText('  Paint.strokeCap   butt / round / square', color: _refInk),
-      _bodyText('  Paint.strokeJoin  miter / round / bevel', color: _refInk),
-      _bodyText('  Paint.color       opaque colour', color: _refInk),
-      _bodyText('  Paint.shader      gradient or image shader', color: _refInk),
-      _bodyText(
-        '  Paint.isAntiAlias true (default) for smooth edges',
-        color: _refInk,
-      ),
-      _bodyText(
-        '  Paint.blendMode   how this paint composites onto target',
-        color: _refInk,
-      ),
+      _bodyText('  Paint.style       fill (default) or stroke',
+          color: _refInk),
+      _bodyText('  Paint.strokeWidth pixels',
+          color: _refInk),
+      _bodyText('  Paint.strokeCap   butt / round / square',
+          color: _refInk),
+      _bodyText('  Paint.strokeJoin  miter / round / bevel',
+          color: _refInk),
+      _bodyText('  Paint.color       opaque colour',
+          color: _refInk),
+      _bodyText('  Paint.shader      gradient or image shader',
+          color: _refInk),
+      _bodyText('  Paint.isAntiAlias true (default) for smooth edges',
+          color: _refInk),
+      _bodyText('  Paint.blendMode   how this paint composites onto target',
+          color: _refInk),
       const SizedBox(height: 12),
       _label('Performance tips', color: _refInk),
       _bodyText(
@@ -2189,12 +2135,8 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              _sectionHeader(
-                '1',
-                'Intro — paint() and shouldRepaint contract',
-                _introBg,
-                _introInk,
-              ),
+              _sectionHeader('1', 'Intro — paint() and shouldRepaint contract',
+                  _introBg, _introInk),
               introSection,
               _sectionHeader('2', '_GridPainter', _gridBg, _gridInk),
               gridSection,
@@ -2205,92 +2147,43 @@ dynamic build(BuildContext context) {
               _sectionHeader('5', '_StarBurstPainter', _starBg, _starInk),
               starSection,
               _sectionHeader(
-                '6',
-                '_BarChartPainter (data-viz recipe)',
-                _barBg,
-                _barInk,
-              ),
+                  '6', '_BarChartPainter (data-viz recipe)', _barBg, _barInk),
               barSection,
               _sectionHeader('7', '_GaugePainter', _gaugeBg, _gaugeInk),
               gaugeSection,
               _sectionHeader('8', '_PolygonPainter', _polyBg, _polyInk),
               polySection,
-              _sectionHeader(
-                '9',
-                '_ConfettiPainter',
-                _confettiBg,
-                _confettiInk,
-              ),
+              _sectionHeader('9', '_ConfettiPainter', _confettiBg, _confettiInk),
               confettiSection,
-              _sectionHeader(
-                '10',
-                '_DottedBackgroundPainter (background recipe)',
-                _dottedBg,
-                _dottedInk,
-              ),
+              _sectionHeader('10', '_DottedBackgroundPainter (background recipe)',
+                  _dottedBg, _dottedInk),
               dottedSection,
               _sectionHeader(
-                '11',
-                'Animated painter (TweenAnimationBuilder)',
-                _animBg,
-                _animInk,
-              ),
+                  '11', 'Animated painter (TweenAnimationBuilder)', _animBg, _animInk),
               animSection,
-              _sectionHeader(
-                '12',
-                'Interactive painter (slider-driven)',
-                _interactBg,
-                _interactInk,
-              ),
+              _sectionHeader('12', 'Interactive painter (slider-driven)',
+                  _interactBg, _interactInk),
               interactSection,
-              _sectionHeader(
-                '13',
-                'shouldRepaint — wasteful vs frugal',
-                _repaintBg,
-                _repaintInk,
-              ),
+              _sectionHeader('13', 'shouldRepaint — wasteful vs frugal',
+                  _repaintBg, _repaintInk),
               repaintSection,
-              _sectionHeader(
-                '14',
-                'Hit testing via hitTest(Offset)',
-                _hitBg,
-                _hitInk,
-              ),
+              _sectionHeader('14', 'Hit testing via hitTest(Offset)', _hitBg,
+                  _hitInk),
               hitSection,
-              _sectionHeader(
-                '15',
-                'foregroundPainter vs painter',
-                _foreBg,
-                _foreInk,
-              ),
+              _sectionHeader('15', 'foregroundPainter vs painter', _foreBg,
+                  _foreInk),
               foreSection,
-              _sectionHeader(
-                '16',
-                'Layered painters via Stack',
-                _layerBg,
-                _layerInk,
-              ),
+              _sectionHeader('16', 'Layered painters via Stack', _layerBg,
+                  _layerInk),
               layerSection,
               _sectionHeader(
-                '17',
-                'Signature pad (gesture recipe)',
-                _signatureBg,
-                _signatureInk,
-              ),
+                  '17', 'Signature pad (gesture recipe)', _signatureBg, _signatureInk),
               signatureSection,
-              _sectionHeader(
-                '18',
-                'Decision — CustomPainter vs alternatives',
-                _decisionBg,
-                _decisionInk,
-              ),
+              _sectionHeader('18', 'Decision — CustomPainter vs alternatives',
+                  _decisionBg, _decisionInk),
               decisionSection,
-              _sectionHeader(
-                '19',
-                'Painter reference + Canvas API tour',
-                _refBg,
-                _refInk,
-              ),
+              _sectionHeader('19', 'Painter reference + Canvas API tour',
+                  _refBg, _refInk),
               refSection,
               const SizedBox(height: 32),
             ],

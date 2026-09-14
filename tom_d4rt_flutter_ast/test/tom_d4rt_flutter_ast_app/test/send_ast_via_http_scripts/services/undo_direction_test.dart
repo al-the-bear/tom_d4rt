@@ -29,18 +29,14 @@ import 'package:flutter/services.dart';
 
 dynamic build(BuildContext context) {
   print('UndoDirection deep demo executing');
-  print(
-    'flutter/services UndoDirection enum has '
-    '${UndoDirection.values.length} values',
-  );
+  print('flutter/services UndoDirection enum has '
+      '${UndoDirection.values.length} values');
 
   for (final value in UndoDirection.values) {
     print('  UndoDirection.${value.name} (index=${value.index})');
   }
-  print(
-    'first=${UndoDirection.values.first.name} '
-    'last=${UndoDirection.values.last.name}',
-  );
+  print('first=${UndoDirection.values.first.name} '
+      'last=${UndoDirection.values.last.name}');
 
   // ============================================================
   // SECTION 1: Hero header
@@ -51,7 +47,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF311B92), Color(0xFF4A148C)],
+        colors: [
+          Color(0xFF1A237E),
+          Color(0xFF311B92),
+          Color(0xFF4A148C),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -252,15 +252,13 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text(
-              'cursor at S2',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12.0,
-                color: Color(0xFF4A148C),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('cursor at S2',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                  color: Color(0xFF4A148C),
+                  fontWeight: FontWeight.bold,
+                )),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
               decoration: BoxDecoration(
@@ -390,15 +388,13 @@ dynamic build(BuildContext context) {
     final op = mockOps[i];
     final isCursor = i == cursorAt;
     final isFuture = i > cursorAt;
-    mockChips.add(
-      _historyChip(
-        label: '${i + 1}. ${op['op']}',
-        color: op['color'] as Color,
-        icon: op['icon'] as IconData,
-        isCursor: isCursor,
-        isFuture: isFuture,
-      ),
-    );
+    mockChips.add(_historyChip(
+      label: '${i + 1}. ${op['op']}',
+      color: op['color'] as Color,
+      icon: op['icon'] as IconData,
+      isCursor: isCursor,
+      isFuture: isFuture,
+    ));
   }
 
   final historyStackVisual = Container(
@@ -453,7 +449,11 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 16.0),
-        Wrap(spacing: 10.0, runSpacing: 10.0, children: mockChips),
+        Wrap(
+          spacing: 10.0,
+          runSpacing: 10.0,
+          children: mockChips,
+        ),
         SizedBox(height: 16.0),
         Row(
           children: [
@@ -562,16 +562,14 @@ dynamic build(BuildContext context) {
   final flowFrameWidgets = <Widget>[];
   for (var i = 0; i < flowFrames.length; i++) {
     final f = flowFrames[i];
-    flowFrameWidgets.add(
-      _flowFrameCard(
-        step: i + 1,
-        label: f['label'] as String,
-        text: f['text'] as String,
-        cursor: f['cursor'] as int,
-        action: f['action'] as String,
-        note: f['note'] as String,
-      ),
-    );
+    flowFrameWidgets.add(_flowFrameCard(
+      step: i + 1,
+      label: f['label'] as String,
+      text: f['text'] as String,
+      cursor: f['cursor'] as int,
+      action: f['action'] as String,
+      note: f['note'] as String,
+    ));
   }
   print('Flow has ${flowFrames.length} frames');
 
@@ -619,7 +617,11 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
-        Wrap(spacing: 10.0, runSpacing: 10.0, children: flowFrameWidgets),
+        Wrap(
+          spacing: 10.0,
+          runSpacing: 10.0,
+          children: flowFrameWidgets,
+        ),
       ],
     ),
   );
@@ -669,11 +671,8 @@ dynamic build(BuildContext context) {
           'UndoHistory<T> wraps a ValueListenable<T> and tracks past/future '
           'snapshots. When the platform sends a UndoTextIntent containing an '
           'UndoDirection, an Action handler routes it to the right history.',
-          style: TextStyle(
-            color: Colors.white.withValues(alpha: 0.9),
-            fontSize: 13.0,
-            height: 1.4,
-          ),
+          style: TextStyle(color: Colors.white.withValues(alpha: 0.9),
+              fontSize: 13.0, height: 1.4),
         ),
         SizedBox(height: 14.0),
         _codeBlock(
@@ -727,8 +726,7 @@ dynamic build(BuildContext context) {
     icon: Icons.edit_note,
     accent: Color(0xFF1565C0),
     accentSoft: Color(0xFFBBDEFB),
-    body:
-        'Wrap the TextField in UndoHistory<TextEditingValue>. The platform '
+    body: 'Wrap the TextField in UndoHistory<TextEditingValue>. The platform '
         'will route ⌘Z / Ctrl+Z / shake-to-undo into UndoTextIntent with the '
         'right UndoDirection automatically.',
     mock: _mockTextEditor(),
@@ -744,8 +742,7 @@ dynamic build(BuildContext context) {
     icon: Icons.brush,
     accent: Color(0xFF6A1B9A),
     accentSoft: Color(0xFFE1BEE7),
-    body:
-        'Each stroke is a snapshot of List<Stroke>. UndoDirection.undo '
+    body: 'Each stroke is a snapshot of List<Stroke>. UndoDirection.undo '
         'pops the last stroke, redo pushes it back. For huge canvases, store '
         'reverse-deltas instead of full snapshots.',
     mock: _mockDrawingCanvas(),
@@ -761,8 +758,7 @@ dynamic build(BuildContext context) {
     icon: Icons.assignment_returned,
     accent: Color(0xFF2E7D32),
     accentSoft: Color(0xFFC8E6C9),
-    body:
-        'Snapshot the whole form model on each meaningful change. Hooking '
+    body: 'Snapshot the whole form model on each meaningful change. Hooking '
         'into the platform undo channel lets users rewind a form across '
         'multiple fields with a single ⌘Z, not just per-field.',
     mock: _mockFormRollback(),
@@ -817,24 +813,21 @@ dynamic build(BuildContext context) {
         _pitfallRow(
           icon: Icons.cleaning_services,
           title: 'Clearing history',
-          body:
-              'Calling UndoHistoryController.value = … or rebuilding the '
+          body: 'Calling UndoHistoryController.value = … or rebuilding the '
               'widget on a new key wipes the stack. Both undo and redo '
               'become no-ops until new edits arrive.',
         ),
         _pitfallRow(
           icon: Icons.delete_sweep,
           title: 'Redo invalidation after edit',
-          body:
-              'A fresh edit while cursor < length-1 truncates the future. '
+          body: 'A fresh edit while cursor < length-1 truncates the future. '
               'The user can no longer redo — make sure your UI greys out the '
               'redo affordance to match.',
         ),
         _pitfallRow(
           icon: Icons.layers_clear,
           title: 'Multi-controller scenarios',
-          body:
-              'Each TextField has its own UndoHistory. The platform sends '
+          body: 'Each TextField has its own UndoHistory. The platform sends '
               'the intent to the focused client only. If you swap focus '
               'between fields, the user effectively jumps between separate '
               'undo timelines — communicate this clearly.',
@@ -842,15 +835,13 @@ dynamic build(BuildContext context) {
         _pitfallRow(
           icon: Icons.devices_other,
           title: 'Platform inconsistency',
-          body:
-              'iOS shake-to-undo confirms via dialog; macOS sends without '
+          body: 'iOS shake-to-undo confirms via dialog; macOS sends without '
               'prompt; Android relies on IME. Do not assume a uniform UX.',
         ),
         _pitfallRow(
           icon: Icons.bolt,
           title: 'Snapshot cost',
-          body:
-              'Large editor states snapshotted on every keystroke can OOM. '
+          body: 'Large editor states snapshotted on every keystroke can OOM. '
               'Coalesce edits into idle windows or store reverse-deltas.',
         ),
       ],
@@ -960,66 +951,43 @@ dynamic build(BuildContext context) {
       children: [
         heroHeader,
         SizedBox(height: 24.0),
-        _sectionHeader(
-          '1. Conceptual model',
-          Icons.account_tree,
-          Color(0xFF3F51B5),
-        ),
+        _sectionHeader('1. Conceptual model', Icons.account_tree,
+            Color(0xFF3F51B5)),
         conceptDiagram,
         SizedBox(height: 20.0),
-        _sectionHeader(
-          '2. Per-value cards',
-          Icons.swap_horiz,
-          Color(0xFF6A1B9A),
-        ),
+        _sectionHeader('2. Per-value cards', Icons.swap_horiz,
+            Color(0xFF6A1B9A)),
         SizedBox(height: 8.0),
         undoCard,
         SizedBox(height: 12.0),
         redoCard,
         SizedBox(height: 20.0),
-        _sectionHeader(
-          '3. Mock history stack',
-          Icons.layers,
-          Color(0xFF00838F),
-        ),
+        _sectionHeader('3. Mock history stack', Icons.layers,
+            Color(0xFF00838F)),
         historyStackVisual,
         SizedBox(height: 20.0),
-        _sectionHeader(
-          '4. Worked example',
-          Icons.auto_stories,
-          Color(0xFFE65100),
-        ),
+        _sectionHeader('4. Worked example', Icons.auto_stories,
+            Color(0xFFE65100)),
         workedExample,
         SizedBox(height: 20.0),
-        _sectionHeader(
-          '5. UndoHistory + UndoTextIntent',
-          Icons.integration_instructions,
-          Color(0xFF1565C0),
-        ),
+        _sectionHeader('5. UndoHistory + UndoTextIntent',
+            Icons.integration_instructions, Color(0xFF1565C0)),
         integrationSketch,
         SizedBox(height: 20.0),
-        _sectionHeader(
-          '6. Recipe — Text editor',
-          Icons.edit_note,
-          Color(0xFF1565C0),
-        ),
+        _sectionHeader('6. Recipe — Text editor', Icons.edit_note,
+            Color(0xFF1565C0)),
         recipeTextEditor,
         SizedBox(height: 16.0),
-        _sectionHeader(
-          '7. Recipe — Drawing app',
-          Icons.brush,
-          Color(0xFF6A1B9A),
-        ),
+        _sectionHeader('7. Recipe — Drawing app', Icons.brush,
+            Color(0xFF6A1B9A)),
         recipeDrawingApp,
         SizedBox(height: 16.0),
-        _sectionHeader(
-          '8. Recipe — Form rollback',
-          Icons.assignment_returned,
-          Color(0xFF2E7D32),
-        ),
+        _sectionHeader('8. Recipe — Form rollback',
+            Icons.assignment_returned, Color(0xFF2E7D32)),
         recipeFormRollback,
         SizedBox(height: 20.0),
-        _sectionHeader('9. Pitfalls', Icons.warning_amber, Color(0xFFB71C1C)),
+        _sectionHeader('9. Pitfalls', Icons.warning_amber,
+            Color(0xFFB71C1C)),
         pitfalls,
         footer,
       ],
@@ -1144,7 +1112,11 @@ Widget _conceptTile(String label, Color color, bool isCursor) {
 Widget _conceptDash() {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 4.0),
-    child: Container(width: 16.0, height: 2.0, color: Color(0xFF7E57C2)),
+    child: Container(
+      width: 16.0,
+      height: 2.0,
+      color: Color(0xFF7E57C2),
+    ),
   );
 }
 
@@ -1249,7 +1221,10 @@ Widget _valueCard({
           ],
         ),
         SizedBox(height: 14.0),
-        Text(description, style: TextStyle(fontSize: 13.0, height: 1.45)),
+        Text(
+          description,
+          style: TextStyle(fontSize: 13.0, height: 1.45),
+        ),
         SizedBox(height: 14.0),
         // Semantics block
         Container(
@@ -1426,10 +1401,19 @@ Widget _legendDot(Color color, String label) {
       Container(
         width: 10.0,
         height: 10.0,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
       ),
       SizedBox(width: 6.0),
-      Text(label, style: TextStyle(color: Colors.white70, fontSize: 11.0)),
+      Text(
+        label,
+        style: TextStyle(
+          color: Colors.white70,
+          fontSize: 11.0,
+        ),
+      ),
     ],
   );
 }
@@ -1447,13 +1431,13 @@ Widget _flowFrameCard({
   final actionColor = isUndo
       ? Color(0xFFD32F2F)
       : isRedo
-      ? Color(0xFF388E3C)
-      : Color(0xFF1976D2);
+          ? Color(0xFF388E3C)
+          : Color(0xFF1976D2);
   final actionIcon = isUndo
       ? Icons.undo
       : isRedo
-      ? Icons.redo
-      : Icons.keyboard;
+          ? Icons.redo
+          : Icons.keyboard;
 
   return Container(
     width: 220.0,
@@ -1539,7 +1523,10 @@ Widget _flowFrameCard({
         SizedBox(height: 6.0),
         Text(
           'cursor at history index $cursor',
-          style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 10.0,
+            color: Colors.grey.shade700,
+          ),
         ),
         SizedBox(height: 6.0),
         Container(
@@ -1679,7 +1666,8 @@ Widget _mockTextEditor() {
             SizedBox(width: 6.0),
             Text(
               'TextField (focus)',
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF1565C0)),
+              style: TextStyle(
+                  fontSize: 10.0, color: Color(0xFF1565C0)),
             ),
             Spacer(),
             _mockChip('⌘Z', Color(0xFFD32F2F)),
@@ -1716,11 +1704,9 @@ Widget _mockDrawingCanvas() {
     child: Stack(
       children: [
         Positioned(
-          left: 12.0,
-          top: 14.0,
+          left: 12.0, top: 14.0,
           child: Container(
-            width: 50.0,
-            height: 4.0,
+            width: 50.0, height: 4.0,
             decoration: BoxDecoration(
               color: Color(0xFF6A1B9A),
               borderRadius: BorderRadius.circular(2.0),
@@ -1728,11 +1714,9 @@ Widget _mockDrawingCanvas() {
           ),
         ),
         Positioned(
-          left: 30.0,
-          top: 32.0,
+          left: 30.0, top: 32.0,
           child: Container(
-            width: 80.0,
-            height: 4.0,
+            width: 80.0, height: 4.0,
             decoration: BoxDecoration(
               color: Color(0xFFEC407A),
               borderRadius: BorderRadius.circular(2.0),
@@ -1740,11 +1724,9 @@ Widget _mockDrawingCanvas() {
           ),
         ),
         Positioned(
-          left: 60.0,
-          top: 50.0,
+          left: 60.0, top: 50.0,
           child: Container(
-            width: 30.0,
-            height: 4.0,
+            width: 30.0, height: 4.0,
             decoration: BoxDecoration(
               color: Color(0xFFEF5350).withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(2.0),
@@ -1752,8 +1734,7 @@ Widget _mockDrawingCanvas() {
           ),
         ),
         Positioned(
-          right: 8.0,
-          top: 6.0,
+          right: 8.0, top: 6.0,
           child: _mockChip('undoable: 3', Color(0xFF6A1B9A)),
         ),
       ],

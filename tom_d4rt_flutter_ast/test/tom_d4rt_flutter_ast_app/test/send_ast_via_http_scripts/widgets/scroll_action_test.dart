@@ -48,9 +48,8 @@ class _KeyboardShortcutScrollerHomeState
 
   // Focus nodes and scroll controllers for the two scrollers.
   final FocusNode _verticalFocus = FocusNode(debugLabel: 'vertical-scroller');
-  final FocusNode _horizontalFocus = FocusNode(
-    debugLabel: 'horizontal-scroller',
-  );
+  final FocusNode _horizontalFocus =
+      FocusNode(debugLabel: 'horizontal-scroller');
   final ScrollController _verticalController = ScrollController();
   final ScrollController _horizontalController = ScrollController();
 
@@ -80,7 +79,10 @@ class _KeyboardShortcutScrollerHomeState
     final String type = _labelFor(intent.type);
     final DateTime now = DateTime.now();
     setState(() {
-      _intentLog.insert(0, _IntentLogEntry(arrow: arrow, type: type, at: now));
+      _intentLog.insert(
+        0,
+        _IntentLogEntry(arrow: arrow, type: type, at: now),
+      );
       if (_intentLog.length > 6) {
         _intentLog.removeLast();
       }
@@ -190,10 +192,8 @@ class _KeyboardShortcutScrollerHomeState
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 4,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     color: const Color(0xFFF2B134).withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(999),
@@ -381,9 +381,15 @@ class _KeyboardShortcutScrollerHomeState
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Expanded(flex: 3, child: _buildVerticalScrollerCard()),
+              Expanded(
+                flex: 3,
+                child: _buildVerticalScrollerCard(),
+              ),
               const SizedBox(width: 20),
-              Expanded(flex: 2, child: _buildIntentHud()),
+              Expanded(
+                flex: 2,
+                child: _buildIntentHud(),
+              ),
             ],
           ),
         ],
@@ -487,7 +493,9 @@ class _KeyboardShortcutScrollerHomeState
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
       decoration: const BoxDecoration(
         color: Color(0xFFEFF6F1),
-        border: Border(bottom: BorderSide(color: Color(0xFFCFE8D8), width: 1)),
+        border: Border(
+          bottom: BorderSide(color: Color(0xFFCFE8D8), width: 1),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -680,11 +688,8 @@ class _KeyboardShortcutScrollerHomeState
             ),
             child: Row(
               children: <Widget>[
-                const Icon(
-                  Icons.bolt_rounded,
-                  color: Color(0xFFF2B134),
-                  size: 14,
-                ),
+                const Icon(Icons.bolt_rounded,
+                    color: Color(0xFFF2B134), size: 14),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -747,7 +752,10 @@ class _KeyboardShortcutScrollerHomeState
       decoration: BoxDecoration(
         color: const Color(0xFF1F3D2B).withValues(alpha: opacity),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFF2F5A40), width: 1),
+        border: Border.all(
+          color: const Color(0xFF2F5A40),
+          width: 1,
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -1134,7 +1142,9 @@ class _KeyboardShortcutScrollerHomeState
             borderRadius: BorderRadius.circular(6),
             gradient: LinearGradient(
               colors: <Color>[
-                glow ? const Color(0xFFF2B134).withValues(alpha: 0.35) : rim,
+                glow
+                    ? const Color(0xFFF2B134).withValues(alpha: 0.35)
+                    : rim,
                 rim,
               ],
               begin: Alignment.topCenter,
@@ -1145,7 +1155,9 @@ class _KeyboardShortcutScrollerHomeState
           child: Text(
             cap.glyph,
             style: TextStyle(
-              color: glow ? const Color(0xFFF2B134) : const Color(0xFFCFE8D8),
+              color: glow
+                  ? const Color(0xFFF2B134)
+                  : const Color(0xFFCFE8D8),
               fontFamily: 'monospace',
               fontSize: cap.glyph.length > 2 ? 13 : 20,
               fontWeight: FontWeight.w700,
@@ -1223,9 +1235,7 @@ class _KeyboardShortcutScrollerHomeState
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 12,
-                  ),
+                      horizontal: 18, vertical: 12),
                   decoration: const BoxDecoration(
                     color: Color(0xFFEFF6F1),
                     border: Border(
@@ -1267,13 +1277,14 @@ class _KeyboardShortcutScrollerHomeState
                   final _ActionRow r = rows[i];
                   return Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 14,
-                    ),
+                        horizontal: 18, vertical: 14),
                     decoration: BoxDecoration(
                       color: i.isEven ? Colors.white : const Color(0xFFF9FCFA),
                       border: const Border(
-                        bottom: BorderSide(color: Color(0xFFE6F0EA), width: 1),
+                        bottom: BorderSide(
+                          color: Color(0xFFE6F0EA),
+                          width: 1,
+                        ),
                       ),
                     ),
                     child: Row(
@@ -1358,11 +1369,8 @@ class _LoggingScrollAction extends ScrollAction {
               children: <Widget>[
                 Row(
                   children: const <Widget>[
-                    Icon(
-                      Icons.code_rounded,
-                      color: Color(0xFFF2B134),
-                      size: 16,
-                    ),
+                    Icon(Icons.code_rounded,
+                        color: Color(0xFFF2B134), size: 16),
                     SizedBox(width: 8),
                     Text(
                       'scroll_action_test.dart',
@@ -1428,8 +1436,7 @@ class _LoggingScrollAction extends ScrollAction {
           _buildSectionHeader(
             number: '07',
             title: 'Teaching panel',
-            subtitle:
-                'why Intents, how the Actions tree resolves, what '
+            subtitle: 'why Intents, how the Actions tree resolves, what '
                 'increment types mean',
           ),
           const SizedBox(height: 20),
@@ -1439,8 +1446,7 @@ class _LoggingScrollAction extends ScrollAction {
               Expanded(
                 child: _buildTeachingTile(
                   headline: 'ScrollIntent vs animateTo',
-                  body:
-                      'An Intent is an abstract command — it can be routed, '
+                  body: 'An Intent is an abstract command — it can be routed, '
                       'intercepted and tested without mocking a controller. '
                       'ScrollController.animateTo is a direct call; it '
                       'couples the caller to the specific scroll target and '
@@ -1452,8 +1458,7 @@ class _LoggingScrollAction extends ScrollAction {
               Expanded(
                 child: _buildTeachingTile(
                   headline: 'Actions.invoke walks the tree',
-                  body:
-                      'The Actions widget registers an Action<Intent> for a '
+                  body: 'The Actions widget registers an Action<Intent> for a '
                       'given Intent type. When the shortcut dispatches an '
                       'intent, the framework walks from the focus node '
                       'upward, asking each Actions ancestor whether it can '
@@ -1470,8 +1475,7 @@ class _LoggingScrollAction extends ScrollAction {
               Expanded(
                 child: _buildTeachingTile(
                   headline: 'ScrollIncrementType.line / page / …',
-                  body:
-                      'line ≈ 50 logical pixels, a sensible nudge for a '
+                  body: 'line ≈ 50 logical pixels, a sensible nudge for a '
                       'single arrow keystroke. page ≈ one viewport, the '
                       'natural unit for PgUp/PgDn. You can also drive raw '
                       'pixel scrolling by composing a custom Action — this '
@@ -1483,8 +1487,7 @@ class _LoggingScrollAction extends ScrollAction {
               Expanded(
                 child: _buildTeachingTile(
                   headline: 'PrimaryScrollController matters',
-                  body:
-                      'ScrollAction resolves the target by first checking '
+                  body: 'ScrollAction resolves the target by first checking '
                       'a Scrollable ancestor, then falling back to the '
                       'nearest PrimaryScrollController. In typical apps the '
                       'body ListView auto-registers as primary — that is why '
@@ -1583,8 +1586,7 @@ class _LoggingScrollAction extends ScrollAction {
                 child: _buildScenarioCard(
                   icon: Icons.laptop_chromebook_rounded,
                   title: 'Desktop power users',
-                  body:
-                      'Long tabular views where PgUp/PgDn and Home/End are '
+                  body: 'Long tabular views where PgUp/PgDn and Home/End are '
                       'muscle-memory. Binding them to ScrollIntent preserves '
                       'that ritual in Flutter desktop apps.',
                 ),
@@ -1594,8 +1596,7 @@ class _LoggingScrollAction extends ScrollAction {
                 child: _buildScenarioCard(
                   icon: Icons.accessibility_new_rounded,
                   title: 'Accessibility',
-                  body:
-                      'Users navigating with screen readers or switch '
+                  body: 'Users navigating with screen readers or switch '
                       'devices rely on keyboard intents. ScrollIntent lets '
                       'assistive tech trigger exactly the same path a mouse '
                       'wheel would.',
@@ -1606,8 +1607,7 @@ class _LoggingScrollAction extends ScrollAction {
                 child: _buildScenarioCard(
                   icon: Icons.auto_awesome_rounded,
                   title: 'Custom gestures',
-                  body:
-                      'Map a two-finger flick or a chorded modifier to a '
+                  body: 'Map a two-finger flick or a chorded modifier to a '
                       'ScrollIntent — no new controller plumbing needed, '
                       'and the existing Actions handler does the rest.',
                 ),
@@ -1708,11 +1708,8 @@ class _LoggingScrollAction extends ScrollAction {
                 color: const Color(0xFFF2B134).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Icon(
-                Icons.keyboard_alt_rounded,
-                color: Color(0xFFF2B134),
-                size: 28,
-              ),
+              child: const Icon(Icons.keyboard_alt_rounded,
+                  color: Color(0xFFF2B134), size: 28),
             ),
             const SizedBox(width: 18),
             Expanded(
@@ -1836,7 +1833,11 @@ class _LoggingScrollAction extends ScrollAction {
 // =====================================================================
 
 class _IntentLogEntry {
-  _IntentLogEntry({required this.arrow, required this.type, required this.at});
+  _IntentLogEntry({
+    required this.arrow,
+    required this.type,
+    required this.at,
+  });
 
   final String arrow;
   final String type;
@@ -1844,7 +1845,11 @@ class _IntentLogEntry {
 }
 
 class _KeyCap {
-  _KeyCap({required this.label, required this.glyph, required this.width});
+  _KeyCap({
+    required this.label,
+    required this.glyph,
+    required this.width,
+  });
 
   final String label;
   final String glyph;

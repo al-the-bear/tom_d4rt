@@ -190,11 +190,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.layers,
-                        size: 32,
-                        color: Colors.brown.shade700,
-                      ),
+                      Icon(Icons.layers, size: 32, color: Colors.brown.shade700),
                       const SizedBox(height: 8),
                       Text(
                         'Elevation: ${_basicElevation.toStringAsFixed(0)}',
@@ -215,31 +211,19 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
               runSpacing: 8,
               children: [
                 _buildActionButton('Flat', () {
-                  setState(() {
-                    _basicElevation = 0;
-                    _basicColor = Colors.grey.shade100;
-                  });
+                  setState(() { _basicElevation = 0; _basicColor = Colors.grey.shade100; });
                   print('Basic: flat, grey');
                 }),
                 _buildActionButton('Low', () {
-                  setState(() {
-                    _basicElevation = 2;
-                    _basicColor = Colors.white;
-                  });
+                  setState(() { _basicElevation = 2; _basicColor = Colors.white; });
                   print('Basic: low elevation');
                 }),
                 _buildActionButton('Medium', () {
-                  setState(() {
-                    _basicElevation = 8;
-                    _basicColor = Colors.blue.shade50;
-                  });
+                  setState(() { _basicElevation = 8; _basicColor = Colors.blue.shade50; });
                   print('Basic: medium elevation');
                 }),
                 _buildActionButton('High', () {
-                  setState(() {
-                    _basicElevation = 20;
-                    _basicColor = Colors.amber.shade50;
-                  });
+                  setState(() { _basicElevation = 20; _basicColor = Colors.amber.shade50; });
                   print('Basic: high elevation');
                 }),
               ],
@@ -279,12 +263,9 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                   children: [
                     AnimatedPhysicalModel(
                       shape: BoxShape.rectangle,
-                      elevation: _shape == BoxShape.rectangle
-                          ? _shapeElevation
-                          : 2,
+                      elevation: _shape == BoxShape.rectangle ? _shapeElevation : 2,
                       color: _shape == BoxShape.rectangle
-                          ? Colors.indigo.shade100
-                          : Colors.grey.shade200,
+                          ? Colors.indigo.shade100 : Colors.grey.shade200,
                       shadowColor: Colors.black,
                       borderRadius: BorderRadius.circular(8),
                       duration: const Duration(milliseconds: 400),
@@ -306,9 +287,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                     const SizedBox(height: 8),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          _shape = BoxShape.rectangle;
-                        });
+                        setState(() { _shape = BoxShape.rectangle; });
                         print('Shape: rectangle');
                       },
                       child: const Text('Select'),
@@ -321,12 +300,9 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                   children: [
                     AnimatedPhysicalModel(
                       shape: BoxShape.circle,
-                      elevation: _shape == BoxShape.circle
-                          ? _shapeElevation
-                          : 2,
+                      elevation: _shape == BoxShape.circle ? _shapeElevation : 2,
                       color: _shape == BoxShape.circle
-                          ? Colors.teal.shade100
-                          : Colors.grey.shade200,
+                          ? Colors.teal.shade100 : Colors.grey.shade200,
                       shadowColor: Colors.black,
                       duration: const Duration(milliseconds: 400),
                       child: Container(
@@ -347,9 +323,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                     const SizedBox(height: 8),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          _shape = BoxShape.circle;
-                        });
+                        setState(() { _shape = BoxShape.circle; });
                         print('Shape: circle');
                       },
                       child: const Text('Select'),
@@ -371,9 +345,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                     divisions: 24,
                     label: _shapeElevation.toStringAsFixed(0),
                     onChanged: (val) {
-                      setState(() {
-                        _shapeElevation = val;
-                      });
+                      setState(() { _shapeElevation = val; });
                       print('Shape elevation: $val');
                     },
                   ),
@@ -436,10 +408,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Interactive elevation
-            const Text(
-              'Interactive:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            const Text('Interactive:', style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Center(
               child: AnimatedPhysicalModel(
@@ -477,9 +446,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                     divisions: 24,
                     label: _elevationValue.toStringAsFixed(0),
                     onChanged: (val) {
-                      setState(() {
-                        _elevationValue = val;
-                      });
+                      setState(() { _elevationValue = val; });
                       print('Elevation: $val dp');
                     },
                   ),
@@ -635,10 +602,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
             ),
             const SizedBox(height: 16),
 
-            const Text(
-              'Shadow Color:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            const Text('Shadow Color:', style: TextStyle(fontWeight: FontWeight.bold)),
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -671,9 +635,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                     max: 24,
                     divisions: 24,
                     onChanged: (val) {
-                      setState(() {
-                        _shadowElevation = val;
-                      });
+                      setState(() { _shadowElevation = val; });
                       print('Shadow elevation: $val');
                     },
                   ),
@@ -725,18 +687,12 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                         width: 64,
                         height: 64,
                         child: Center(
-                          child: Text(
-                            '${r.toInt()}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          child: Text('${r.toInt()}', style: const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      'r=${r.toInt()}',
-                      style: const TextStyle(fontSize: 10),
-                    ),
+                    Text('r=${r.toInt()}', style: const TextStyle(fontSize: 10)),
                   ],
                 );
               }).toList(),
@@ -758,10 +714,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                   child: Center(
                     child: Text(
                       'r=${_borderRadius.toInt()}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   ),
                 ),
@@ -780,9 +733,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                     divisions: 60,
                     label: _borderRadius.toStringAsFixed(0),
                     onChanged: (val) {
-                      setState(() {
-                        _borderRadius = val;
-                      });
+                      setState(() { _borderRadius = val; });
                       print('Border radius: $val');
                     },
                   ),
@@ -800,9 +751,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                     max: 24,
                     divisions: 24,
                     onChanged: (val) {
-                      setState(() {
-                        _brElevation = val;
-                      });
+                      setState(() { _brElevation = val; });
                       print('Radius elevation: $val');
                     },
                   ),
@@ -841,9 +790,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
               child: AnimatedPhysicalModel(
                 shape: BoxShape.rectangle,
                 elevation: _animElevation,
-                color: _animElevation > 12
-                    ? Colors.amber.shade100
-                    : Colors.white,
+                color: _animElevation > 12 ? Colors.amber.shade100 : Colors.white,
                 shadowColor: Colors.black,
                 borderRadius: BorderRadius.circular(12),
                 duration: _animDuration,
@@ -857,13 +804,9 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                       children: [
                         Text(
                           '${_animDuration.inMilliseconds}ms',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                         ),
-                        Text(
-                          _animCurves[_curveIndex].key,
+                        Text(_animCurves[_curveIndex].key,
                           style: const TextStyle(fontSize: 12),
                         ),
                       ],
@@ -874,10 +817,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
             ),
             const SizedBox(height: 16),
 
-            const Text(
-              'Duration:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            const Text('Duration:', style: TextStyle(fontWeight: FontWeight.bold)),
             Wrap(
               spacing: 8,
               children: [100, 300, 600, 1000, 2000].map((ms) {
@@ -887,9 +827,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                   selected: isSelected,
                   onSelected: (selected) {
                     if (selected) {
-                      setState(() {
-                        _animDuration = Duration(milliseconds: ms);
-                      });
+                      setState(() { _animDuration = Duration(milliseconds: ms); });
                       print('Duration: ${ms}ms');
                     }
                   },
@@ -969,28 +907,19 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Use Case 1: Press effect card
-            const Text(
-              '1. Press Effect Card',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            const Text('1. Press Effect Card', style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             GestureDetector(
               onTapDown: (_) {
-                setState(() {
-                  _cardPressed = true;
-                });
+                setState(() { _cardPressed = true; });
                 print('Card pressed');
               },
               onTapUp: (_) {
-                setState(() {
-                  _cardPressed = false;
-                });
+                setState(() { _cardPressed = false; });
                 print('Card released');
               },
               onTapCancel: () {
-                setState(() {
-                  _cardPressed = false;
-                });
+                setState(() { _cardPressed = false; });
               },
               child: AnimatedPhysicalModel(
                 shape: BoxShape.rectangle,
@@ -1004,8 +933,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                   padding: const EdgeInsets.all(16),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.touch_app,
+                      Icon(Icons.touch_app,
                         color: _cardPressed ? Colors.grey : Colors.blue,
                       ),
                       const SizedBox(width: 12),
@@ -1020,10 +948,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Use Case 2: Selectable tiles
-            const Text(
-              '2. Selectable Tiles',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            const Text('2. Selectable Tiles', style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1033,17 +958,13 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                 final tileNames = ['Option A', 'Option B', 'Option C'];
                 return GestureDetector(
                   onTap: () {
-                    setState(() {
-                      _selectedTile = isSelected ? -1 : i;
-                    });
+                    setState(() { _selectedTile = isSelected ? -1 : i; });
                     print('Tile $i ${isSelected ? "deselected" : "selected"}');
                   },
                   child: AnimatedPhysicalModel(
                     shape: BoxShape.rectangle,
                     elevation: isSelected ? 12 : 2,
-                    color: isSelected
-                        ? tileColors[i].shade100
-                        : Colors.grey.shade100,
+                    color: isSelected ? tileColors[i].shade100 : Colors.grey.shade100,
                     shadowColor: isSelected ? tileColors[i] : Colors.black,
                     borderRadius: BorderRadius.circular(12),
                     duration: const Duration(milliseconds: 200),
@@ -1055,16 +976,11 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              isSelected
-                                  ? Icons.check_circle
-                                  : Icons.radio_button_unchecked,
+                              isSelected ? Icons.check_circle : Icons.radio_button_unchecked,
                               color: isSelected ? tileColors[i] : Colors.grey,
                             ),
                             const SizedBox(height: 4),
-                            Text(
-                              tileNames[i],
-                              style: const TextStyle(fontSize: 12),
-                            ),
+                            Text(tileNames[i], style: const TextStyle(fontSize: 12)),
                           ],
                         ),
                       ),
@@ -1076,10 +992,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Use Case 3: Material depth layers
-            const Text(
-              '3. Material Depth Layers',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            const Text('3. Material Depth Layers', style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Container(
               height: 140,
@@ -1092,56 +1005,30 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildDepthLayer(
-                    'Background',
-                    _layerDepth1,
-                    Colors.brown.shade100,
-                    () {
-                      setState(() {
-                        _layerDepth1 = _layerDepth1 == 2 ? 10 : 2;
-                      });
-                      print('Layer 1 depth: $_layerDepth1');
-                    },
-                  ),
-                  _buildDepthLayer(
-                    'Surface',
-                    _layerDepth2,
-                    Colors.brown.shade200,
-                    () {
-                      setState(() {
-                        _layerDepth2 = _layerDepth2 == 6 ? 16 : 6;
-                      });
-                      print('Layer 2 depth: $_layerDepth2');
-                    },
-                  ),
-                  _buildDepthLayer(
-                    'Foreground',
-                    _layerDepth3,
-                    Colors.brown.shade300,
-                    () {
-                      setState(() {
-                        _layerDepth3 = _layerDepth3 == 12 ? 24 : 12;
-                      });
-                      print('Layer 3 depth: $_layerDepth3');
-                    },
-                  ),
+                  _buildDepthLayer('Background', _layerDepth1, Colors.brown.shade100, () {
+                    setState(() { _layerDepth1 = _layerDepth1 == 2 ? 10 : 2; });
+                    print('Layer 1 depth: $_layerDepth1');
+                  }),
+                  _buildDepthLayer('Surface', _layerDepth2, Colors.brown.shade200, () {
+                    setState(() { _layerDepth2 = _layerDepth2 == 6 ? 16 : 6; });
+                    print('Layer 2 depth: $_layerDepth2');
+                  }),
+                  _buildDepthLayer('Foreground', _layerDepth3, Colors.brown.shade300, () {
+                    setState(() { _layerDepth3 = _layerDepth3 == 12 ? 24 : 12; });
+                    print('Layer 3 depth: $_layerDepth3');
+                  }),
                 ],
               ),
             ),
             const SizedBox(height: 24),
 
             // Use Case 4: FAB toggle
-            const Text(
-              '4. FAB State Toggle',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            const Text('4. FAB State Toggle', style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Center(
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    _fabExtended = !_fabExtended;
-                  });
+                  setState(() { _fabExtended = !_fabExtended; });
                   print('FAB ${_fabExtended ? "extended" : "collapsed"}');
                 },
                 child: AnimatedPhysicalModel(
@@ -1165,10 +1052,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
                           const SizedBox(width: 8),
                           const Text(
                             'Create',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ],
@@ -1183,12 +1067,7 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
     );
   }
 
-  Widget _buildDepthLayer(
-    String label,
-    double elevation,
-    Color color,
-    VoidCallback onTap,
-  ) {
+  Widget _buildDepthLayer(String label, double elevation, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedPhysicalModel(
@@ -1205,17 +1084,8 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  label,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  '${elevation.toInt()}dp',
-                  style: const TextStyle(fontSize: 12),
-                ),
+                Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                Text('${elevation.toInt()}dp', style: const TextStyle(fontSize: 12)),
               ],
             ),
           ),
@@ -1253,6 +1123,9 @@ class _AnimatedPhysicalModelDemoState extends State<AnimatedPhysicalModelDemo> {
   }
 
   Widget _buildActionButton(String label, VoidCallback onPressed) {
-    return ElevatedButton(onPressed: onPressed, child: Text(label));
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Text(label),
+    );
   }
 }

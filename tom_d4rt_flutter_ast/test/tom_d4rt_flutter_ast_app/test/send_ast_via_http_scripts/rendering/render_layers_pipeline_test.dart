@@ -399,11 +399,7 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF1E1B4B),
-          Color(0xFF6D28D9),
-          Color(0xFFDB2777),
-        ],
+        colors: <Color>[Color(0xFF1E1B4B), Color(0xFF6D28D9), Color(0xFFDB2777)],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -525,30 +521,30 @@ Widget _heroIntroCard() {
             '+ paint. Below the render tree sits the layer tree, which is '
             'what the engine actually rasterises into the GPU\'s back '
             'buffer.',
-            style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInk),
+            style: TextStyle(
+              fontSize: 13.5,
+              height: 1.5,
+              color: _kInk,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _bulletList(const <String>[
-                'Layer is a Listenable with a parent pointer.',
-                'ContainerLayer can hold a doubly-linked list of children.',
-                'OffsetLayer is the only layer that exposes toImage.',
-                'PictureLayer holds a recorded ui.Picture leaf.',
-              ]),
-            ),
+            Expanded(child: _bulletList(const <String>[
+              'Layer is a Listenable with a parent pointer.',
+              'ContainerLayer can hold a doubly-linked list of children.',
+              'OffsetLayer is the only layer that exposes toImage.',
+              'PictureLayer holds a recorded ui.Picture leaf.',
+            ])),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: _bulletList(const <String>[
-                'PipelineOwner drives flushLayout/Paint/Composite.',
-                'WidgetsBinding.drawFrame stitches the stages together.',
-                'RepaintBoundary forces an OffsetLayer carve-out.',
-                'AnnotatedRegionLayer<T> attaches hit-test annotations.',
-              ]),
-            ),
+            Expanded(child: _bulletList(const <String>[
+              'PipelineOwner drives flushLayout/Paint/Composite.',
+              'WidgetsBinding.drawFrame stitches the stages together.',
+              'RepaintBoundary forces an OffsetLayer carve-out.',
+              'AnnotatedRegionLayer<T> attaches hit-test annotations.',
+            ])),
           ],
         ),
       ],
@@ -578,105 +574,48 @@ class _LayerHierarchyPainter extends CustomPainter {
       ..color = const Color(0xFF94A3B8);
 
     final List<_LayerBox> boxes = const <_LayerBox>[
-      _LayerBox(
-        'Layer (abstract)',
-        Rect.fromLTWH(20, 12, 200, 36),
-        Color(0xFFE0E7FF),
-      ),
-      _LayerBox(
-        'ContainerLayer',
-        Rect.fromLTWH(20, 78, 200, 36),
-        Color(0xFFC7D2FE),
-      ),
-      _LayerBox(
-        'OffsetLayer',
-        Rect.fromLTWH(20, 144, 200, 36),
-        Color(0xFFBFDBFE),
-      ),
+      _LayerBox('Layer (abstract)', Rect.fromLTWH(20, 12, 200, 36),
+          Color(0xFFE0E7FF)),
+      _LayerBox('ContainerLayer', Rect.fromLTWH(20, 78, 200, 36),
+          Color(0xFFC7D2FE)),
+      _LayerBox('OffsetLayer', Rect.fromLTWH(20, 144, 200, 36),
+          Color(0xFFBFDBFE)),
       // Composition-effect layers (children of OffsetLayer/ContainerLayer)
-      _LayerBox(
-        'TransformLayer',
-        Rect.fromLTWH(260, 60, 180, 32),
-        Color(0xFFFDE68A),
-      ),
-      _LayerBox(
-        'ClipRectLayer',
-        Rect.fromLTWH(260, 100, 180, 32),
-        Color(0xFFFDE68A),
-      ),
-      _LayerBox(
-        'ClipRRectLayer',
-        Rect.fromLTWH(260, 140, 180, 32),
-        Color(0xFFFDE68A),
-      ),
-      _LayerBox(
-        'ClipPathLayer',
-        Rect.fromLTWH(260, 180, 180, 32),
-        Color(0xFFFDE68A),
-      ),
-      _LayerBox(
-        'OpacityLayer',
-        Rect.fromLTWH(460, 60, 180, 32),
-        Color(0xFFFCA5A5),
-      ),
-      _LayerBox(
-        'ColorFilterLayer',
-        Rect.fromLTWH(460, 100, 180, 32),
-        Color(0xFFFCA5A5),
-      ),
-      _LayerBox(
-        'ImageFilterLayer',
-        Rect.fromLTWH(460, 140, 180, 32),
-        Color(0xFFFCA5A5),
-      ),
-      _LayerBox(
-        'BackdropFilterLayer',
-        Rect.fromLTWH(460, 180, 180, 32),
-        Color(0xFFFCA5A5),
-      ),
-      _LayerBox(
-        'ShaderMaskLayer',
-        Rect.fromLTWH(460, 220, 180, 32),
-        Color(0xFFFCA5A5),
-      ),
+      _LayerBox('TransformLayer', Rect.fromLTWH(260, 60, 180, 32),
+          Color(0xFFFDE68A)),
+      _LayerBox('ClipRectLayer', Rect.fromLTWH(260, 100, 180, 32),
+          Color(0xFFFDE68A)),
+      _LayerBox('ClipRRectLayer', Rect.fromLTWH(260, 140, 180, 32),
+          Color(0xFFFDE68A)),
+      _LayerBox('ClipPathLayer', Rect.fromLTWH(260, 180, 180, 32),
+          Color(0xFFFDE68A)),
+      _LayerBox('OpacityLayer', Rect.fromLTWH(460, 60, 180, 32),
+          Color(0xFFFCA5A5)),
+      _LayerBox('ColorFilterLayer', Rect.fromLTWH(460, 100, 180, 32),
+          Color(0xFFFCA5A5)),
+      _LayerBox('ImageFilterLayer', Rect.fromLTWH(460, 140, 180, 32),
+          Color(0xFFFCA5A5)),
+      _LayerBox('BackdropFilterLayer', Rect.fromLTWH(460, 180, 180, 32),
+          Color(0xFFFCA5A5)),
+      _LayerBox('ShaderMaskLayer', Rect.fromLTWH(460, 220, 180, 32),
+          Color(0xFFFCA5A5)),
       // Leader/Follower for CompositedTransformFollower.
-      _LayerBox(
-        'LeaderLayer',
-        Rect.fromLTWH(260, 220, 180, 32),
-        Color(0xFFA7F3D0),
-      ),
-      _LayerBox(
-        'FollowerLayer',
-        Rect.fromLTWH(260, 260, 180, 32),
-        Color(0xFFA7F3D0),
-      ),
+      _LayerBox('LeaderLayer', Rect.fromLTWH(260, 220, 180, 32),
+          Color(0xFFA7F3D0)),
+      _LayerBox('FollowerLayer', Rect.fromLTWH(260, 260, 180, 32),
+          Color(0xFFA7F3D0)),
       // Annotation layer (hit-test only).
-      _LayerBox(
-        'AnnotatedRegionLayer<T>',
-        Rect.fromLTWH(460, 260, 200, 32),
-        Color(0xFFE9D5FF),
-      ),
+      _LayerBox('AnnotatedRegionLayer<T>',
+          Rect.fromLTWH(460, 260, 200, 32), Color(0xFFE9D5FF)),
       // Leaf layers - do NOT extend ContainerLayer.
-      _LayerBox(
-        'PictureLayer',
-        Rect.fromLTWH(20, 240, 200, 36),
-        Color(0xFFFBCFE8),
-      ),
-      _LayerBox(
-        'TextureLayer',
-        Rect.fromLTWH(20, 290, 200, 36),
-        Color(0xFFFBCFE8),
-      ),
-      _LayerBox(
-        'PlatformViewLayer',
-        Rect.fromLTWH(20, 340, 200, 36),
-        Color(0xFFFBCFE8),
-      ),
-      _LayerBox(
-        'PerformanceOverlayLayer',
-        Rect.fromLTWH(20, 390, 220, 36),
-        Color(0xFFFBCFE8),
-      ),
+      _LayerBox('PictureLayer', Rect.fromLTWH(20, 240, 200, 36),
+          Color(0xFFFBCFE8)),
+      _LayerBox('TextureLayer', Rect.fromLTWH(20, 290, 200, 36),
+          Color(0xFFFBCFE8)),
+      _LayerBox('PlatformViewLayer', Rect.fromLTWH(20, 340, 200, 36),
+          Color(0xFFFBCFE8)),
+      _LayerBox('PerformanceOverlayLayer',
+          Rect.fromLTWH(20, 390, 220, 36), Color(0xFFFBCFE8)),
     ];
 
     for (int i = 0; i < boxes.length; i++) {
@@ -716,14 +655,10 @@ class _LayerHierarchyPainter extends CustomPainter {
       const double tipLen = 7.0;
       final Path path = Path()
         ..moveTo(b.dx, b.dy)
-        ..lineTo(
-          b.dx - tipLen * math.cos(angle - math.pi / 7),
-          b.dy - tipLen * math.sin(angle - math.pi / 7),
-        )
-        ..lineTo(
-          b.dx - tipLen * math.cos(angle + math.pi / 7),
-          b.dy - tipLen * math.sin(angle + math.pi / 7),
-        )
+        ..lineTo(b.dx - tipLen * math.cos(angle - math.pi / 7),
+            b.dy - tipLen * math.sin(angle - math.pi / 7))
+        ..lineTo(b.dx - tipLen * math.cos(angle + math.pi / 7),
+            b.dy - tipLen * math.sin(angle + math.pi / 7))
         ..close();
       canvas.drawPath(path, Paint()..color = p.color);
     }
@@ -871,20 +806,14 @@ class _PipelineStagesPainter extends CustomPainter {
     for (int i = 0; i < stages.length; i++) {
       final _PipelineStage s = stages[i];
       final Rect r = Rect.fromLTWH(20, startY + i * rowH, cardW, rowH - 14);
-      final RRect rrect = RRect.fromRectAndRadius(
-        r,
-        const Radius.circular(10.0),
-      );
+      final RRect rrect =
+          RRect.fromRectAndRadius(r, const Radius.circular(10.0));
       canvas.drawRRect(rrect, Paint()..color = s.fill.withOpacity(0.35));
       canvas.drawRRect(rrect, border);
 
       // Big numeric badge on the left.
-      final Rect badge = Rect.fromLTWH(
-        r.left + pad,
-        r.top + pad,
-        44,
-        r.height - pad * 2,
-      );
+      final Rect badge =
+          Rect.fromLTWH(r.left + pad, r.top + pad, 44, r.height - pad * 2);
       canvas.drawRRect(
         RRect.fromRectAndRadius(badge, const Radius.circular(8.0)),
         Paint()..color = s.ring,
@@ -902,10 +831,8 @@ class _PipelineStagesPainter extends CustomPainter {
       )..layout();
       num.paint(
         canvas,
-        Offset(
-          badge.left + (badge.width - num.width) / 2,
-          badge.top + (badge.height - num.height) / 2,
-        ),
+        Offset(badge.left + (badge.width - num.width) / 2,
+            badge.top + (badge.height - num.height) / 2),
       );
 
       // Title.
@@ -1051,50 +978,24 @@ class _DirtyBitsPainter extends CustomPainter {
 
     // Render-tree spine.
     final List<_TreeNode> nodes = const <_TreeNode>[
-      _TreeNode(
-        'RenderView',
-        Rect.fromLTWH(40, 12, 170, 34),
-        Color(0xFFE0E7FF),
-        false,
-      ),
-      _TreeNode(
-        'RenderRepaintBoundary',
-        Rect.fromLTWH(40, 70, 230, 34),
-        Color(0xFFA7F3D0),
-        true,
-      ),
-      _TreeNode(
-        'RenderPositionedBox',
-        Rect.fromLTWH(40, 128, 200, 34),
-        Color(0xFFFEF3C7),
-        false,
-      ),
-      _TreeNode(
-        'RenderConstrainedBox',
-        Rect.fromLTWH(40, 186, 210, 34),
-        Color(0xFFFEF3C7),
-        false,
-      ),
-      _TreeNode(
-        'RenderFlex (Column)',
-        Rect.fromLTWH(40, 244, 200, 34),
-        Color(0xFFFEF3C7),
-        false,
-      ),
-      _TreeNode(
-        'RenderParagraph  <- markNeedsLayout',
-        Rect.fromLTWH(40, 302, 320, 34),
-        Color(0xFFFCA5A5),
-        false,
-      ),
+      _TreeNode('RenderView', Rect.fromLTWH(40, 12, 170, 34),
+          Color(0xFFE0E7FF), false),
+      _TreeNode('RenderRepaintBoundary', Rect.fromLTWH(40, 70, 230, 34),
+          Color(0xFFA7F3D0), true),
+      _TreeNode('RenderPositionedBox', Rect.fromLTWH(40, 128, 200, 34),
+          Color(0xFFFEF3C7), false),
+      _TreeNode('RenderConstrainedBox', Rect.fromLTWH(40, 186, 210, 34),
+          Color(0xFFFEF3C7), false),
+      _TreeNode('RenderFlex (Column)', Rect.fromLTWH(40, 244, 200, 34),
+          Color(0xFFFEF3C7), false),
+      _TreeNode('RenderParagraph  <- markNeedsLayout',
+          Rect.fromLTWH(40, 302, 320, 34), Color(0xFFFCA5A5), false),
     ];
 
     for (int i = 0; i < nodes.length; i++) {
       final _TreeNode n = nodes[i];
-      final RRect rrect = RRect.fromRectAndRadius(
-        n.rect,
-        const Radius.circular(8.0),
-      );
+      final RRect rrect =
+          RRect.fromRectAndRadius(n.rect, const Radius.circular(8.0));
       canvas.drawRRect(rrect, Paint()..color = n.fill);
       canvas.drawRRect(rrect, border);
       final TextPainter tp = TextPainter(
@@ -1110,9 +1011,9 @@ class _DirtyBitsPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: n.rect.width - 10.0);
       tp.paint(
-        canvas,
-        Offset(n.rect.left + 8, n.rect.top + (n.rect.height - tp.height) / 2),
-      );
+          canvas,
+          Offset(n.rect.left + 8,
+              n.rect.top + (n.rect.height - tp.height) / 2));
       if (n.isBoundary) {
         final TextPainter badge = TextPainter(
           text: const TextSpan(
@@ -1273,43 +1174,25 @@ class _RepaintBoundaryEffectPainter extends CustomPainter {
 
     // Render side (top).
     final List<_TreeNode> renderSide = <_TreeNode>[
-      const _TreeNode(
-        'RenderView',
-        Rect.fromLTWH(20, 10, 140, 26),
-        Color(0xFFE0E7FF),
-        false,
-      ),
-      const _TreeNode(
-        'RenderPositionedBox',
-        Rect.fromLTWH(20, 46, 180, 26),
-        Color(0xFFFEF3C7),
-        false,
-      ),
-      const _TreeNode(
-        'RenderFlex (Column)',
-        Rect.fromLTWH(20, 82, 180, 26),
-        Color(0xFFFEF3C7),
-        false,
-      ),
+      const _TreeNode('RenderView', Rect.fromLTWH(20, 10, 140, 26),
+          Color(0xFFE0E7FF), false),
+      const _TreeNode('RenderPositionedBox', Rect.fromLTWH(20, 46, 180, 26),
+          Color(0xFFFEF3C7), false),
+      const _TreeNode('RenderFlex (Column)', Rect.fromLTWH(20, 82, 180, 26),
+          Color(0xFFFEF3C7), false),
       _TreeNode(
         withBoundary ? 'RenderRepaintBoundary' : 'RenderConstrainedBox',
         const Rect.fromLTWH(20, 118, 200, 26),
         withBoundary ? const Color(0xFFA7F3D0) : const Color(0xFFFEF3C7),
         withBoundary,
       ),
-      const _TreeNode(
-        'CustomPainter (heavy)',
-        Rect.fromLTWH(20, 154, 200, 26),
-        Color(0xFFFCA5A5),
-        false,
-      ),
+      const _TreeNode('CustomPainter (heavy)', Rect.fromLTWH(20, 154, 200, 26),
+          Color(0xFFFCA5A5), false),
     ];
     for (int i = 0; i < renderSide.length; i++) {
       final _TreeNode n = renderSide[i];
-      final RRect rrect = RRect.fromRectAndRadius(
-        n.rect,
-        const Radius.circular(6.0),
-      );
+      final RRect rrect =
+          RRect.fromRectAndRadius(n.rect, const Radius.circular(6.0));
       canvas.drawRRect(rrect, Paint()..color = n.fill);
       canvas.drawRRect(rrect, border);
       final TextPainter tp = TextPainter(
@@ -1325,53 +1208,33 @@ class _RepaintBoundaryEffectPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: n.rect.width - 8.0);
       tp.paint(
-        canvas,
-        Offset(n.rect.left + 6, n.rect.top + (n.rect.height - tp.height) / 2),
-      );
+          canvas,
+          Offset(n.rect.left + 6,
+              n.rect.top + (n.rect.height - tp.height) / 2));
     }
 
     // Layer side (bottom).
     final List<_LayerBox> layerSide = withBoundary
         ? const <_LayerBox>[
-            _LayerBox(
-              'TransformLayer (root)',
-              Rect.fromLTWH(20, 220, 200, 26),
-              Color(0xFFBFDBFE),
-            ),
-            _LayerBox(
-              'OffsetLayer (RB)',
-              Rect.fromLTWH(20, 256, 200, 26),
-              Color(0xFFA7F3D0),
-            ),
-            _LayerBox(
-              'PictureLayer (heavy)',
-              Rect.fromLTWH(20, 292, 200, 26),
-              Color(0xFFFBCFE8),
-            ),
-            _LayerBox(
-              'PictureLayer (everything else)',
-              Rect.fromLTWH(20, 328, 240, 26),
-              Color(0xFFFBCFE8),
-            ),
+            _LayerBox('TransformLayer (root)',
+                Rect.fromLTWH(20, 220, 200, 26), Color(0xFFBFDBFE)),
+            _LayerBox('OffsetLayer (RB)', Rect.fromLTWH(20, 256, 200, 26),
+                Color(0xFFA7F3D0)),
+            _LayerBox('PictureLayer (heavy)',
+                Rect.fromLTWH(20, 292, 200, 26), Color(0xFFFBCFE8)),
+            _LayerBox('PictureLayer (everything else)',
+                Rect.fromLTWH(20, 328, 240, 26), Color(0xFFFBCFE8)),
           ]
         : const <_LayerBox>[
-            _LayerBox(
-              'TransformLayer (root)',
-              Rect.fromLTWH(20, 220, 200, 26),
-              Color(0xFFBFDBFE),
-            ),
-            _LayerBox(
-              'PictureLayer (single, the whole tree)',
-              Rect.fromLTWH(20, 256, 280, 26),
-              Color(0xFFFCA5A5),
-            ),
+            _LayerBox('TransformLayer (root)',
+                Rect.fromLTWH(20, 220, 200, 26), Color(0xFFBFDBFE)),
+            _LayerBox('PictureLayer (single, the whole tree)',
+                Rect.fromLTWH(20, 256, 280, 26), Color(0xFFFCA5A5)),
           ];
     for (int i = 0; i < layerSide.length; i++) {
       final _LayerBox b = layerSide[i];
-      final RRect rrect = RRect.fromRectAndRadius(
-        b.rect,
-        const Radius.circular(6.0),
-      );
+      final RRect rrect =
+          RRect.fromRectAndRadius(b.rect, const Radius.circular(6.0));
       canvas.drawRRect(rrect, Paint()..color = b.fill);
       canvas.drawRRect(rrect, border);
       final TextPainter tp = TextPainter(
@@ -1387,9 +1250,9 @@ class _RepaintBoundaryEffectPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: b.rect.width - 8.0);
       tp.paint(
-        canvas,
-        Offset(b.rect.left + 6, b.rect.top + (b.rect.height - tp.height) / 2),
-      );
+          canvas,
+          Offset(b.rect.left + 6,
+              b.rect.top + (b.rect.height - tp.height) / 2));
     }
 
     // Section labels.
@@ -1424,9 +1287,9 @@ class _RepaintBoundaryEffectPainter extends CustomPainter {
     // Verdict.
     final String verdict = withBoundary
         ? 'Heavy paint isolated in its own OffsetLayer\n'
-              '-> repaint cost = heavy painter only.'
+            '-> repaint cost = heavy painter only.'
         : 'Heavy paint sits in the same PictureLayer\n'
-              'as the entire tree -> any sibling repaint cost.';
+            'as the entire tree -> any sibling repaint cost.';
     final TextPainter v = TextPainter(
       text: TextSpan(
         text: verdict,
@@ -1474,8 +1337,7 @@ Widget _repaintBoundarySection() {
                     height: 410.0,
                     child: CustomPaint(
                       painter: const _RepaintBoundaryEffectPainter(
-                        withBoundary: false,
-                      ),
+                          withBoundary: false),
                       size: const Size(double.infinity, 410.0),
                     ),
                   ),
@@ -1493,8 +1355,7 @@ Widget _repaintBoundarySection() {
                     height: 410.0,
                     child: CustomPaint(
                       painter: const _RepaintBoundaryEffectPainter(
-                        withBoundary: true,
-                      ),
+                          withBoundary: true),
                       size: const Size(double.infinity, 410.0),
                     ),
                   ),
@@ -1533,54 +1394,28 @@ class _CompositionGraphPainter extends CustomPainter {
       ..color = _kAccent;
 
     final List<_LayerBox> nodes = const <_LayerBox>[
-      _LayerBox(
-        'TransformLayer (RenderView)',
-        Rect.fromLTWH(160, 12, 260, 34),
-        Color(0xFFE0E7FF),
-      ),
-      _LayerBox(
-        'OffsetLayer (RB)',
-        Rect.fromLTWH(180, 70, 220, 32),
-        Color(0xFFA7F3D0),
-      ),
-      _LayerBox(
-        'ClipRRectLayer',
-        Rect.fromLTWH(40, 130, 160, 32),
-        Color(0xFFFDE68A),
-      ),
-      _LayerBox(
-        'OpacityLayer (alpha=200)',
-        Rect.fromLTWH(220, 130, 200, 32),
-        Color(0xFFFCA5A5),
-      ),
-      _LayerBox(
-        'TransformLayer (scale)',
-        Rect.fromLTWH(440, 130, 180, 32),
-        Color(0xFFFDE68A),
-      ),
-      _LayerBox(
-        'PictureLayer (rounded image)',
-        Rect.fromLTWH(20, 190, 200, 32),
-        Color(0xFFFBCFE8),
-      ),
-      _LayerBox(
-        'PictureLayer (badge text)',
-        Rect.fromLTWH(240, 190, 200, 32),
-        Color(0xFFFBCFE8),
-      ),
-      _LayerBox(
-        'PictureLayer (sparkle)',
-        Rect.fromLTWH(460, 190, 180, 32),
-        Color(0xFFFBCFE8),
-      ),
+      _LayerBox('TransformLayer (RenderView)',
+          Rect.fromLTWH(160, 12, 260, 34), Color(0xFFE0E7FF)),
+      _LayerBox('OffsetLayer (RB)', Rect.fromLTWH(180, 70, 220, 32),
+          Color(0xFFA7F3D0)),
+      _LayerBox('ClipRRectLayer', Rect.fromLTWH(40, 130, 160, 32),
+          Color(0xFFFDE68A)),
+      _LayerBox('OpacityLayer (alpha=200)',
+          Rect.fromLTWH(220, 130, 200, 32), Color(0xFFFCA5A5)),
+      _LayerBox('TransformLayer (scale)',
+          Rect.fromLTWH(440, 130, 180, 32), Color(0xFFFDE68A)),
+      _LayerBox('PictureLayer (rounded image)',
+          Rect.fromLTWH(20, 190, 200, 32), Color(0xFFFBCFE8)),
+      _LayerBox('PictureLayer (badge text)',
+          Rect.fromLTWH(240, 190, 200, 32), Color(0xFFFBCFE8)),
+      _LayerBox('PictureLayer (sparkle)',
+          Rect.fromLTWH(460, 190, 180, 32), Color(0xFFFBCFE8)),
     ];
 
     for (int i = 0; i < nodes.length; i++) {
       final _LayerBox b = nodes[i];
-      final RRect rrect = RRect.fromRectAndRadius(
-        b.rect,
-        const Radius.circular(8.0),
-      );
+      final RRect rrect =
+          RRect.fromRectAndRadius(b.rect, const Radius.circular(8.0));
       canvas.drawRRect(rrect, Paint()..color = b.fill);
       canvas.drawRRect(rrect, border);
       final TextPainter tp = TextPainter(
@@ -1661,14 +1496,10 @@ Widget _compositionGraphSection() {
         _kvRow('OffsetLayer.offset', 'parent-relative origin (used by RB)'),
         _kvRow('ClipRRectLayer.clipRRect', 'scene-space rounded rectangle'),
         _kvRow('OpacityLayer.alpha', '0..255 - implemented via SaveLayer'),
-        _kvRow(
-          'TransformLayer.transform',
-          '4x4 Matrix4 multiplied into the scene',
-        ),
-        _kvRow(
-          'PictureLayer.picture',
-          'ui.Picture recorded by PaintingContext.canvas',
-        ),
+        _kvRow('TransformLayer.transform',
+            '4x4 Matrix4 multiplied into the scene'),
+        _kvRow('PictureLayer.picture',
+            'ui.Picture recorded by PaintingContext.canvas'),
       ],
     ),
   );
@@ -1695,7 +1526,10 @@ Widget _layerFieldRow(
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(width: 180.0, child: Text(name, style: _kMonoInlineStyle)),
+        SizedBox(
+          width: 180.0,
+          child: Text(name, style: _kMonoInlineStyle),
+        ),
         SizedBox(
           width: 150.0,
           child: Text(
@@ -1721,7 +1555,11 @@ Widget _layerFieldRow(
         Expanded(
           child: Text(
             role,
-            style: const TextStyle(fontSize: 12.0, color: _kInk, height: 1.35),
+            style: const TextStyle(
+              fontSize: 12.0,
+              color: _kInk,
+              height: 1.35,
+            ),
           ),
         ),
       ],
@@ -1793,132 +1631,57 @@ Widget _layerTableSection() {
           ],
         ),
         const SizedBox(height: 4.0),
-        _layerFieldRow(
-          'ContainerLayer',
-          'Layer',
-          'firstChild / lastChild',
-          'Owns a doubly-linked list of child layers and dispatches addToScene.',
-          _kAccentBlue,
-        ),
-        _layerFieldRow(
-          'OffsetLayer',
-          'ContainerLayer',
-          'Offset offset',
-          'Adds a translation; only layer that exposes toImage().',
-          _kAccentBlue,
-        ),
-        _layerFieldRow(
-          'TransformLayer',
-          'OffsetLayer',
-          'Matrix4 transform',
-          'Multiplies a 4x4 transform into the scene before drawing.',
-          _kAccentAmber,
-        ),
-        _layerFieldRow(
-          'ClipRectLayer',
-          'ContainerLayer',
-          'Rect clipRect',
-          'Hard/anti-aliased clip; sceneBuilder.pushClipRect.',
-          _kAccentAmber,
-        ),
-        _layerFieldRow(
-          'ClipRRectLayer',
-          'ContainerLayer',
-          'RRect clipRRect',
-          'Rounded-rectangle clip via sceneBuilder.pushClipRRect.',
-          _kAccentAmber,
-        ),
-        _layerFieldRow(
-          'ClipPathLayer',
-          'ContainerLayer',
-          'Path clipPath',
-          'Arbitrary path clip; the most expensive of the three.',
-          _kAccentAmber,
-        ),
-        _layerFieldRow(
-          'OpacityLayer',
-          'ContainerLayer',
-          'int alpha (0..255)',
-          'Performs an offscreen saveLayer; expensive for large subtrees.',
-          _kAccentRose,
-        ),
-        _layerFieldRow(
-          'ColorFilterLayer',
-          'ContainerLayer',
-          'ColorFilter colorFilter',
-          'Single-pixel filter applied as a saveLayer.',
-          _kAccentRose,
-        ),
-        _layerFieldRow(
-          'ImageFilterLayer',
-          'ContainerLayer',
-          'ImageFilter imageFilter',
-          'Convolution/blur applied to the child output.',
-          _kAccentRose,
-        ),
-        _layerFieldRow(
-          'BackdropFilterLayer',
-          'ContainerLayer',
-          'ImageFilter filter',
-          'Reads BEHIND the layer first; forces a compositing boundary.',
-          _kAccentRose,
-        ),
-        _layerFieldRow(
-          'ShaderMaskLayer',
-          'ContainerLayer',
-          'Shader shader',
-          'Multiplies child output by a shader (used for gradient masks).',
-          _kAccentRose,
-        ),
-        _layerFieldRow(
-          'LeaderLayer',
-          'ContainerLayer',
-          'LayerLink link',
-          'Publishes scene-space transform so FollowerLayer can read it.',
-          _kAccentGreen,
-        ),
-        _layerFieldRow(
-          'FollowerLayer',
-          'ContainerLayer',
-          'LayerLink link',
-          'Re-applies leader transform; basis for CompositedTransformFollower.',
-          _kAccentGreen,
-        ),
-        _layerFieldRow(
-          'AnnotatedRegionLayer<T>',
-          'ContainerLayer',
-          'T value, Size? size',
-          'Adds a hit-test annotation; powers SystemUiOverlayStyle, etc.',
-          _kAccentTeal,
-        ),
-        _layerFieldRow(
-          'PictureLayer',
-          'Layer',
-          'ui.Picture picture',
-          'Leaf layer holding the bytecode of canvas calls.',
-          _kAccentPink,
-        ),
-        _layerFieldRow(
-          'TextureLayer',
-          'Layer',
-          'int textureId',
-          'Leaf layer that displays an engine-owned texture.',
-          _kAccentPink,
-        ),
-        _layerFieldRow(
-          'PlatformViewLayer',
-          'Layer',
-          'int viewId',
-          'Embeds a native UIView/View into the scene.',
-          _kAccentPink,
-        ),
-        _layerFieldRow(
-          'PerformanceOverlayLayer',
-          'Layer',
-          'int optionsMask',
-          'Renders the engine\'s performance overlay HUD.',
-          _kAccentPink,
-        ),
+        _layerFieldRow('ContainerLayer', 'Layer', 'firstChild / lastChild',
+            'Owns a doubly-linked list of child layers and dispatches addToScene.',
+            _kAccentBlue),
+        _layerFieldRow('OffsetLayer', 'ContainerLayer', 'Offset offset',
+            'Adds a translation; only layer that exposes toImage().',
+            _kAccentBlue),
+        _layerFieldRow('TransformLayer', 'OffsetLayer', 'Matrix4 transform',
+            'Multiplies a 4x4 transform into the scene before drawing.',
+            _kAccentAmber),
+        _layerFieldRow('ClipRectLayer', 'ContainerLayer', 'Rect clipRect',
+            'Hard/anti-aliased clip; sceneBuilder.pushClipRect.', _kAccentAmber),
+        _layerFieldRow('ClipRRectLayer', 'ContainerLayer', 'RRect clipRRect',
+            'Rounded-rectangle clip via sceneBuilder.pushClipRRect.',
+            _kAccentAmber),
+        _layerFieldRow('ClipPathLayer', 'ContainerLayer', 'Path clipPath',
+            'Arbitrary path clip; the most expensive of the three.',
+            _kAccentAmber),
+        _layerFieldRow('OpacityLayer', 'ContainerLayer', 'int alpha (0..255)',
+            'Performs an offscreen saveLayer; expensive for large subtrees.',
+            _kAccentRose),
+        _layerFieldRow('ColorFilterLayer', 'ContainerLayer',
+            'ColorFilter colorFilter',
+            'Single-pixel filter applied as a saveLayer.', _kAccentRose),
+        _layerFieldRow('ImageFilterLayer', 'ContainerLayer',
+            'ImageFilter imageFilter',
+            'Convolution/blur applied to the child output.', _kAccentRose),
+        _layerFieldRow('BackdropFilterLayer', 'ContainerLayer',
+            'ImageFilter filter',
+            'Reads BEHIND the layer first; forces a compositing boundary.',
+            _kAccentRose),
+        _layerFieldRow('ShaderMaskLayer', 'ContainerLayer', 'Shader shader',
+            'Multiplies child output by a shader (used for gradient masks).',
+            _kAccentRose),
+        _layerFieldRow('LeaderLayer', 'ContainerLayer', 'LayerLink link',
+            'Publishes scene-space transform so FollowerLayer can read it.',
+            _kAccentGreen),
+        _layerFieldRow('FollowerLayer', 'ContainerLayer', 'LayerLink link',
+            'Re-applies leader transform; basis for CompositedTransformFollower.',
+            _kAccentGreen),
+        _layerFieldRow('AnnotatedRegionLayer<T>', 'ContainerLayer',
+            'T value, Size? size',
+            'Adds a hit-test annotation; powers SystemUiOverlayStyle, etc.',
+            _kAccentTeal),
+        _layerFieldRow('PictureLayer', 'Layer', 'ui.Picture picture',
+            'Leaf layer holding the bytecode of canvas calls.', _kAccentPink),
+        _layerFieldRow('TextureLayer', 'Layer', 'int textureId',
+            'Leaf layer that displays an engine-owned texture.', _kAccentPink),
+        _layerFieldRow('PlatformViewLayer', 'Layer', 'int viewId',
+            'Embeds a native UIView/View into the scene.', _kAccentPink),
+        _layerFieldRow('PerformanceOverlayLayer', 'Layer', 'int optionsMask',
+            'Renders the engine\'s performance overlay HUD.', _kAccentPink),
       ],
     ),
   );
@@ -2064,53 +1827,47 @@ Widget _pitfallsSection() {
         ),
         const SizedBox(height: 6.0),
         _pitfall(
-          'P1',
-          'Forgetting markNeedsPaint after mutating render-object state.',
-          'A new field on a RenderBox that affects paint() but not '
-              'layout() still requires markNeedsPaint - otherwise the '
-              'PipelineOwner reuses the cached PictureLayer.',
-          _kAccentRose,
-        ),
+            'P1',
+            'Forgetting markNeedsPaint after mutating render-object state.',
+            'A new field on a RenderBox that affects paint() but not '
+                'layout() still requires markNeedsPaint - otherwise the '
+                'PipelineOwner reuses the cached PictureLayer.',
+            _kAccentRose),
         _pitfall(
-          'P2',
-          'Putting too many RepaintBoundaries on hot subtrees.',
-          'Each boundary materialises an OffsetLayer + at least one '
-              'PictureLayer, doubling the per-frame leaf count. Reach for '
-              'debugRepaintRainbowEnabled to spot churn.',
-          _kAccentAmber,
-        ),
+            'P2',
+            'Putting too many RepaintBoundaries on hot subtrees.',
+            'Each boundary materialises an OffsetLayer + at least one '
+                'PictureLayer, doubling the per-frame leaf count. Reach for '
+                'debugRepaintRainbowEnabled to spot churn.',
+            _kAccentAmber),
         _pitfall(
-          'P3',
-          'Treating Opacity as a free wrapper.',
-          'OpacityLayer triggers a saveLayer in the engine. For static '
-              'tints prefer ColorFiltered or withOpacity on a Paint.',
-          _kAccentBlue,
-        ),
+            'P3',
+            'Treating Opacity as a free wrapper.',
+            'OpacityLayer triggers a saveLayer in the engine. For static '
+                'tints prefer ColorFiltered or withOpacity on a Paint.',
+            _kAccentBlue),
         _pitfall(
-          'P4',
-          'BackdropFilter without a compositing boundary above it.',
-          'BackdropFilterLayer needs to read the back buffer; the engine '
-              'will introduce an implicit boundary, which can sneak in '
-              'unexpected raster cost.',
-          _kAccentIndigo,
-        ),
+            'P4',
+            'BackdropFilter without a compositing boundary above it.',
+            'BackdropFilterLayer needs to read the back buffer; the engine '
+                'will introduce an implicit boundary, which can sneak in '
+                'unexpected raster cost.',
+            _kAccentIndigo),
         _pitfall(
-          'P5',
-          'LeaderLayer / FollowerLayer lifecycle mismatch.',
-          'A LayerLink that is detached during paint silently drops '
-              'updates. Always rebuild the link in didUpdateWidget and '
-              'mark the follower dirty when the link changes.',
-          _kAccentTeal,
-        ),
+            'P5',
+            'LeaderLayer / FollowerLayer lifecycle mismatch.',
+            'A LayerLink that is detached during paint silently drops '
+                'updates. Always rebuild the link in didUpdateWidget and '
+                'mark the follower dirty when the link changes.',
+            _kAccentTeal),
         _pitfall(
-          'P6',
-          'PlatformViewLayer ordering.',
-          'On iOS, hybrid composition places native views above Flutter '
-              'layers. Putting a Flutter ColorFilterLayer above will not '
-              'tint the platform view - that has to happen on the native '
-              'side.',
-          _kAccentPink,
-        ),
+            'P6',
+            'PlatformViewLayer ordering.',
+            'On iOS, hybrid composition places native views above Flutter '
+                'layers. Putting a Flutter ColorFilterLayer above will not '
+                'tint the platform view - that has to happen on the native '
+                'side.',
+            _kAccentPink),
       ],
     ),
   );
@@ -2177,10 +1934,8 @@ Widget _cheatSheetFooter() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle(
-          'Cheat-sheet',
-          subtitle: 'A compact map of the rendering subsystem.',
-        ),
+        _cardTitle('Cheat-sheet',
+            subtitle: 'A compact map of the rendering subsystem.'),
         const SizedBox(height: 10.0),
         _chipGroup('container layers', const <String>[
           'ContainerLayer',
@@ -2262,74 +2017,44 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           _heroBanner(),
-          _sectionHeader(
-            1,
-            'Why the layer tree exists',
-            'A parallel tree that maps render objects to dart:ui Scene.',
-          ),
+          _sectionHeader(1, 'Why the layer tree exists',
+              'A parallel tree that maps render objects to dart:ui Scene.'),
           _heroIntroCard(),
           _sectionDivider(),
-          _sectionHeader(
-            2,
-            'Layer class hierarchy',
-            'From Layer to PictureLayer, with every effect in between.',
-          ),
+          _sectionHeader(2, 'Layer class hierarchy',
+              'From Layer to PictureLayer, with every effect in between.'),
           _layerHierarchySection(),
           _sectionDivider(),
-          _sectionHeader(
-            3,
-            'Pipeline stages',
-            'BUILD -> LAYOUT -> PAINT -> COMPOSITE, four owners.',
-          ),
+          _sectionHeader(3, 'Pipeline stages',
+              'BUILD -> LAYOUT -> PAINT -> COMPOSITE, four owners.'),
           _pipelineStagesSection(),
           _sectionDivider(),
-          _sectionHeader(
-            4,
-            'Dirty-bit propagation',
-            'markNeedsLayout / markNeedsPaint / markNeedsCompositingBitsUpdate.',
-          ),
+          _sectionHeader(4, 'Dirty-bit propagation',
+              'markNeedsLayout / markNeedsPaint / markNeedsCompositingBitsUpdate.'),
           _dirtyBitsSection(),
           _sectionDivider(),
-          _sectionHeader(
-            5,
-            'RepaintBoundary effect',
-            'Same render tree, two layer trees - measured by leaf count.',
-          ),
+          _sectionHeader(5, 'RepaintBoundary effect',
+              'Same render tree, two layer trees - measured by leaf count.'),
           _repaintBoundarySection(),
           _sectionDivider(),
-          _sectionHeader(
-            6,
-            'ContainerLayer composition',
-            'A rounded-avatar subtree drawn as a layer graph.',
-          ),
+          _sectionHeader(6, 'ContainerLayer composition',
+              'A rounded-avatar subtree drawn as a layer graph.'),
           _compositionGraphSection(),
           _sectionDivider(),
-          _sectionHeader(
-            7,
-            'Layer surface area',
-            'The fields the SceneBuilder actually reads.',
-          ),
+          _sectionHeader(7, 'Layer surface area',
+              'The fields the SceneBuilder actually reads.'),
           _layerTableSection(),
           _sectionDivider(),
-          _sectionHeader(
-            8,
-            'Code recipes',
-            'Six idiomatic snippets you will reach for again and again.',
-          ),
+          _sectionHeader(8, 'Code recipes',
+              'Six idiomatic snippets you will reach for again and again.'),
           _codeRecipesSection(),
           _sectionDivider(),
-          _sectionHeader(
-            9,
-            'Pitfalls',
-            'Six callouts that bite Flutter rendering work.',
-          ),
+          _sectionHeader(9, 'Pitfalls',
+              'Six callouts that bite Flutter rendering work.'),
           _pitfallsSection(),
           _sectionDivider(),
-          _sectionHeader(
-            10,
-            'Cheat-sheet',
-            'A compact map of the rendering pipeline.',
-          ),
+          _sectionHeader(10, 'Cheat-sheet',
+              'A compact map of the rendering pipeline.'),
           _cheatSheetFooter(),
         ],
       ),

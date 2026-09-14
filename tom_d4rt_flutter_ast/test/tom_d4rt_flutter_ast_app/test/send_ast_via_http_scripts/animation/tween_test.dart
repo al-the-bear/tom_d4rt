@@ -207,9 +207,7 @@ class SampleCard extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: 14.0,
-              vertical: 10.0,
-            ),
+                horizontal: 14.0, vertical: 10.0),
             decoration: BoxDecoration(
               color: band.withValues(alpha: 0.12),
               borderRadius: const BorderRadius.only(
@@ -283,7 +281,8 @@ class SampleColumn extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 8.0, vertical: 2.0),
           decoration: BoxDecoration(
             color: scheme.secondaryContainer,
             borderRadius: BorderRadius.circular(6.0),
@@ -444,7 +443,8 @@ class SectionDoubleAndInt extends StatelessWidget {
   Widget build(BuildContext context) {
     final Tween<double> dt = Tween<double>(begin: 0.0, end: 200.0);
     final IntTween it = IntTween(begin: 0, end: 100);
-    final Tween<double> reversed = Tween<double>(begin: 100.0, end: -50.0);
+    final Tween<double> reversed =
+        Tween<double>(begin: 100.0, end: -50.0);
 
     print('Tween<double>(0, 200) midpoint = ${dt.transform(0.5)}');
     print('IntTween(0, 100) at 0.27 = ${it.transform(0.27)}');
@@ -452,57 +452,54 @@ class SectionDoubleAndInt extends StatelessWidget {
     final List<Widget> dblColumns = <Widget>[];
     for (final double t in kSamples) {
       final double v = dt.transform(t);
-      dblColumns.add(
-        SampleColumn(
-          t: t,
-          label: v.toStringAsFixed(2),
-          scheme: scheme,
-          preview: _Bar(value: v / 200.0, color: scheme.primary),
-        ),
-      );
+      dblColumns.add(SampleColumn(
+        t: t,
+        label: v.toStringAsFixed(2),
+        scheme: scheme,
+        preview: _Bar(value: v / 200.0, color: scheme.primary),
+      ));
     }
 
     final List<Widget> intColumns = <Widget>[];
     for (final double t in kSamples) {
       final int v = it.transform(t);
-      intColumns.add(
-        SampleColumn(
-          t: t,
-          label: v.toString(),
-          scheme: scheme,
-          preview: Container(
-            width: 56.0,
-            height: 56.0,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: scheme.tertiaryContainer,
-              border: Border.all(color: scheme.tertiary, width: 1.5),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Text(
-              '$v',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: scheme.onTertiaryContainer,
-              ),
+      intColumns.add(SampleColumn(
+        t: t,
+        label: v.toString(),
+        scheme: scheme,
+        preview: Container(
+          width: 56.0,
+          height: 56.0,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: scheme.tertiaryContainer,
+            border: Border.all(color: scheme.tertiary, width: 1.5),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Text(
+            '$v',
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: scheme.onTertiaryContainer,
             ),
           ),
         ),
-      );
+      ));
     }
 
     final List<Widget> reversedColumns = <Widget>[];
     for (final double t in kSamples) {
       final double v = reversed.transform(t);
-      reversedColumns.add(
-        SampleColumn(
-          t: t,
-          label: v.toStringAsFixed(1),
-          scheme: scheme,
-          preview: _Bar(value: (v + 50.0) / 150.0, color: scheme.error),
+      reversedColumns.add(SampleColumn(
+        t: t,
+        label: v.toStringAsFixed(1),
+        scheme: scheme,
+        preview: _Bar(
+          value: (v + 50.0) / 150.0,
+          color: scheme.error,
         ),
-      );
+      ));
     }
 
     return Column(
@@ -582,7 +579,11 @@ class _Bar extends StatelessWidget {
 }
 
 class _NoteBox extends StatelessWidget {
-  const _NoteBox({required this.icon, required this.color, required this.text});
+  const _NoteBox({
+    required this.icon,
+    required this.color,
+    required this.text,
+  });
   final IconData icon;
   final Color color;
   final String text;
@@ -603,7 +604,10 @@ class _NoteBox extends StatelessWidget {
           Icon(icon, color: color, size: 20.0),
           const SizedBox(width: 10.0),
           Expanded(
-            child: Text(text, style: TextStyle(fontSize: 12.0, color: color)),
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 12.0, color: color),
+            ),
           ),
         ],
       ),
@@ -629,98 +633,90 @@ class SectionColorTween extends StatelessWidget {
 
     final List<Widget> cards = <Widget>[];
     for (int i = 0; i < palettes.length; i++) {
-      final ColorTween ct = ColorTween(
-        begin: palettes[i][0],
-        end: palettes[i][1],
-      );
+      final ColorTween ct =
+          ColorTween(begin: palettes[i][0], end: palettes[i][1]);
       print('ColorTween palette $i: ${palettes[i][0]} -> ${palettes[i][1]}');
       final List<Widget> cols = <Widget>[];
       for (final double t in kSamples) {
         final Color c = ct.transform(t) ?? const Color(0x00000000);
-        cols.add(
-          SampleColumn(
-            t: t,
-            label: _hex(c),
-            scheme: scheme,
-            preview: Container(
-              width: 64.0,
-              height: 64.0,
-              decoration: BoxDecoration(
-                color: c,
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(
-                  color: scheme.outline.withValues(alpha: 0.5),
-                  width: 1.0,
-                ),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: c.withValues(alpha: 0.45),
-                    blurRadius: 6.0,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }
-
-      final Color a = palettes[i][0];
-      final Color b = palettes[i][1];
-      cards.add(
-        SampleCard(
-          title: 'ColorTween (palette ${i + 1})',
-          beginLabel: _hex(a),
-          endLabel: _hex(b),
-          scheme: scheme,
-          accent: a,
-          children: cols,
-        ),
-      );
-    }
-
-    // Null-handling demonstration.
-    final ColorTween nullTween = ColorTween(
-      begin: null,
-      end: const Color(0xFF10B981),
-    );
-    final List<Widget> nullCols = <Widget>[];
-    for (final double t in kSamples) {
-      final Color? c = nullTween.transform(t);
-      nullCols.add(
-        SampleColumn(
+        cols.add(SampleColumn(
           t: t,
-          label: c == null ? 'null' : _hex(c),
+          label: _hex(c),
           scheme: scheme,
           preview: Container(
             width: 64.0,
             height: 64.0,
             decoration: BoxDecoration(
-              color: c ?? Colors.transparent,
+              color: c,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
-                color: scheme.outline,
-                width: c == null ? 2.0 : 1.0,
+                color: scheme.outline.withValues(alpha: 0.5),
+                width: 1.0,
               ),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: c.withValues(alpha: 0.45),
+                  blurRadius: 6.0,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-            alignment: Alignment.center,
-            child: c == null
-                ? Icon(Icons.block, color: scheme.error, size: 28.0)
-                : null,
           ),
-        ),
-      );
-    }
-    cards.add(
-      SampleCard(
-        title: 'ColorTween(begin: null, end: 0xFF10B981)',
-        beginLabel: 'null',
-        endLabel: '#10B981',
+        ));
+      }
+
+      final Color a = palettes[i][0];
+      final Color b = palettes[i][1];
+      cards.add(SampleCard(
+        title: 'ColorTween (palette ${i + 1})',
+        beginLabel: _hex(a),
+        endLabel: _hex(b),
         scheme: scheme,
-        accent: scheme.error,
-        children: nullCols,
-      ),
-    );
+        accent: a,
+        children: cols,
+      ));
+    }
+
+    // Null-handling demonstration.
+    final ColorTween nullTween =
+        ColorTween(begin: null, end: const Color(0xFF10B981));
+    final List<Widget> nullCols = <Widget>[];
+    for (final double t in kSamples) {
+      final Color? c = nullTween.transform(t);
+      nullCols.add(SampleColumn(
+        t: t,
+        label: c == null ? 'null' : _hex(c),
+        scheme: scheme,
+        preview: Container(
+          width: 64.0,
+          height: 64.0,
+          decoration: BoxDecoration(
+            color: c ?? Colors.transparent,
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+              color: scheme.outline,
+              width: c == null ? 2.0 : 1.0,
+            ),
+          ),
+          alignment: Alignment.center,
+          child: c == null
+              ? Icon(
+                  Icons.block,
+                  color: scheme.error,
+                  size: 28.0,
+                )
+              : null,
+        ),
+      ));
+    }
+    cards.add(SampleCard(
+      title: 'ColorTween(begin: null, end: 0xFF10B981)',
+      beginLabel: 'null',
+      endLabel: '#10B981',
+      scheme: scheme,
+      accent: scheme.error,
+      children: nullCols,
+    ));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -758,10 +754,8 @@ class SectionSizeAndRect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SizeTween st = SizeTween(
-      begin: const Size(20.0, 20.0),
-      end: const Size(96.0, 56.0),
-    );
+    final SizeTween st =
+        SizeTween(begin: const Size(20.0, 20.0), end: const Size(96.0, 56.0));
     final RectTween rt = RectTween(
       begin: const Rect.fromLTWH(0.0, 0.0, 30.0, 30.0),
       end: const Rect.fromLTWH(60.0, 20.0, 70.0, 50.0),
@@ -772,47 +766,43 @@ class SectionSizeAndRect extends StatelessWidget {
     final List<Widget> sizeCols = <Widget>[];
     for (final double t in kSamples) {
       final Size s = st.transform(t) ?? Size.zero;
-      sizeCols.add(
-        SampleColumn(
-          t: t,
-          label: '${s.width.toStringAsFixed(0)}x${s.height.toStringAsFixed(0)}',
-          scheme: scheme,
-          preview: SizedBox(
-            width: 100.0,
-            height: 70.0,
-            child: Center(
-              child: Container(
-                width: s.width,
-                height: s.height,
-                decoration: BoxDecoration(
-                  color: scheme.primary.withValues(alpha: 0.15),
-                  border: Border.all(color: scheme.primary, width: 2.0),
-                  borderRadius: BorderRadius.circular(6.0),
-                ),
+      sizeCols.add(SampleColumn(
+        t: t,
+        label: '${s.width.toStringAsFixed(0)}x${s.height.toStringAsFixed(0)}',
+        scheme: scheme,
+        preview: SizedBox(
+          width: 100.0,
+          height: 70.0,
+          child: Center(
+            child: Container(
+              width: s.width,
+              height: s.height,
+              decoration: BoxDecoration(
+                color: scheme.primary.withValues(alpha: 0.15),
+                border: Border.all(color: scheme.primary, width: 2.0),
+                borderRadius: BorderRadius.circular(6.0),
               ),
             ),
           ),
         ),
-      );
+      ));
     }
 
     final List<Widget> rectCols = <Widget>[];
     for (final double t in kSamples) {
       final Rect r = rt.transform(t) ?? Rect.zero;
-      rectCols.add(
-        SampleColumn(
-          t: t,
-          label: 'L${r.left.toStringAsFixed(0)} T${r.top.toStringAsFixed(0)}',
-          scheme: scheme,
-          preview: SizedBox(
-            width: 130.0,
-            height: 80.0,
-            child: CustomPaint(
-              painter: _RectPainter(rect: r, color: scheme.secondary),
-            ),
+      rectCols.add(SampleColumn(
+        t: t,
+        label: 'L${r.left.toStringAsFixed(0)} T${r.top.toStringAsFixed(0)}',
+        scheme: scheme,
+        preview: SizedBox(
+          width: 130.0,
+          height: 80.0,
+          child: CustomPaint(
+            painter: _RectPainter(rect: r, color: scheme.secondary),
           ),
         ),
-      );
+      ));
     }
 
     return Column(
@@ -894,58 +884,52 @@ class SectionAlignmentTween extends StatelessWidget {
 
     final List<Widget> cards = <Widget>[];
     for (int i = 0; i < pairs.length; i++) {
-      final AlignmentTween at = AlignmentTween(
-        begin: pairs[i][0],
-        end: pairs[i][1],
-      );
+      final AlignmentTween at =
+          AlignmentTween(begin: pairs[i][0], end: pairs[i][1]);
       print('AlignmentTween $i mid = ${at.transform(0.5)}');
       final List<Widget> cols = <Widget>[];
       for (final double t in kSamples) {
         final Alignment a = at.transform(t);
-        cols.add(
-          SampleColumn(
-            t: t,
-            label: '(${a.x.toStringAsFixed(2)}, ${a.y.toStringAsFixed(2)})',
-            scheme: scheme,
-            preview: Container(
-              width: 72.0,
-              height: 72.0,
-              decoration: BoxDecoration(
-                color: scheme.surfaceContainerHighest,
-                border: Border.all(color: scheme.outline, width: 1.0),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Align(
-                alignment: a,
-                child: Container(
-                  width: 14.0,
-                  height: 14.0,
-                  decoration: BoxDecoration(
-                    color: scheme.tertiary,
-                    shape: BoxShape.circle,
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: scheme.tertiary.withValues(alpha: 0.5),
-                        blurRadius: 4.0,
-                      ),
-                    ],
-                  ),
+        cols.add(SampleColumn(
+          t: t,
+          label: '(${a.x.toStringAsFixed(2)}, ${a.y.toStringAsFixed(2)})',
+          scheme: scheme,
+          preview: Container(
+            width: 72.0,
+            height: 72.0,
+            decoration: BoxDecoration(
+              color: scheme.surfaceContainerHighest,
+              border: Border.all(color: scheme.outline, width: 1.0),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Align(
+              alignment: a,
+              child: Container(
+                width: 14.0,
+                height: 14.0,
+                decoration: BoxDecoration(
+                  color: scheme.tertiary,
+                  shape: BoxShape.circle,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: scheme.tertiary.withValues(alpha: 0.5),
+                      blurRadius: 4.0,
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        );
+        ));
       }
-      cards.add(
-        SampleCard(
-          title: 'AlignmentTween pair ${i + 1}',
-          beginLabel: _aLabel(pairs[i][0]),
-          endLabel: _aLabel(pairs[i][1]),
-          scheme: scheme,
-          accent: scheme.tertiary,
-          children: cols,
-        ),
-      );
+      cards.add(SampleCard(
+        title: 'AlignmentTween pair ${i + 1}',
+        beginLabel: _aLabel(pairs[i][0]),
+        endLabel: _aLabel(pairs[i][1]),
+        scheme: scheme,
+        accent: scheme.tertiary,
+        children: cols,
+      ));
     }
 
     return Column(
@@ -996,50 +980,47 @@ class SectionEdgeAndRadius extends StatelessWidget {
     final List<Widget> eiCols = <Widget>[];
     for (final double t in kSamples) {
       final EdgeInsets e = eit.transform(t);
-      eiCols.add(
-        SampleColumn(
-          t: t,
-          label:
-              'L${e.left.toStringAsFixed(0)} '
-              'B${e.bottom.toStringAsFixed(0)}',
-          scheme: scheme,
-          preview: Container(
-            width: 76.0,
-            height: 76.0,
+      eiCols.add(SampleColumn(
+        t: t,
+        label: 'L${e.left.toStringAsFixed(0)} '
+            'B${e.bottom.toStringAsFixed(0)}',
+        scheme: scheme,
+        preview: Container(
+          width: 76.0,
+          height: 76.0,
+          decoration: BoxDecoration(
+            color: scheme.primary.withValues(alpha: 0.10),
+            border: Border.all(color: scheme.primary.withValues(alpha: 0.4)),
+            borderRadius: BorderRadius.circular(6.0),
+          ),
+          padding: e,
+          child: Container(
             decoration: BoxDecoration(
-              color: scheme.primary.withValues(alpha: 0.10),
-              border: Border.all(color: scheme.primary.withValues(alpha: 0.4)),
-              borderRadius: BorderRadius.circular(6.0),
-            ),
-            padding: e,
-            child: Container(
-              decoration: BoxDecoration(
-                color: scheme.primary,
-                borderRadius: BorderRadius.circular(4.0),
-              ),
+              color: scheme.primary,
+              borderRadius: BorderRadius.circular(4.0),
             ),
           ),
         ),
-      );
+      ));
     }
 
     final List<Widget> brCols = <Widget>[];
     for (final double t in kSamples) {
       final BorderRadius b = brt.transform(t) ?? BorderRadius.zero;
-      brCols.add(
-        SampleColumn(
-          t: t,
-          label:
-              'TL ${b.topLeft.x.toStringAsFixed(0)} '
-              'BR ${b.bottomRight.x.toStringAsFixed(0)}',
-          scheme: scheme,
-          preview: Container(
-            width: 76.0,
-            height: 60.0,
-            decoration: BoxDecoration(color: scheme.secondary, borderRadius: b),
+      brCols.add(SampleColumn(
+        t: t,
+        label: 'TL ${b.topLeft.x.toStringAsFixed(0)} '
+            'BR ${b.bottomRight.x.toStringAsFixed(0)}',
+        scheme: scheme,
+        preview: Container(
+          width: 76.0,
+          height: 60.0,
+          decoration: BoxDecoration(
+            color: scheme.secondary,
+            borderRadius: b,
           ),
         ),
-      );
+      ));
     }
 
     return Column(
@@ -1116,69 +1097,65 @@ class SectionBorderTextStyleMatrix extends StatelessWidget {
     final List<Widget> borderCols = <Widget>[];
     for (final double t in kSamples) {
       final Border b = bt.transform(t) ?? const Border();
-      borderCols.add(
-        SampleColumn(
-          t: t,
-          label: 'w ${b.top.width.toStringAsFixed(1)}',
-          scheme: scheme,
-          preview: Container(
-            width: 64.0,
-            height: 64.0,
-            decoration: BoxDecoration(
-              color: scheme.surface,
-              border: b,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+      borderCols.add(SampleColumn(
+        t: t,
+        label: 'w ${b.top.width.toStringAsFixed(1)}',
+        scheme: scheme,
+        preview: Container(
+          width: 64.0,
+          height: 64.0,
+          decoration: BoxDecoration(
+            color: scheme.surface,
+            border: b,
+            borderRadius: BorderRadius.circular(8.0),
           ),
         ),
-      );
+      ));
     }
 
     final List<Widget> styleCols = <Widget>[];
     for (final double t in kSamples) {
       final TextStyle s = tst.transform(t);
-      styleCols.add(
-        SampleColumn(
-          t: t,
-          label: '${s.fontSize?.toStringAsFixed(0) ?? '-'} pt',
-          scheme: scheme,
-          preview: SizedBox(
-            width: 96.0,
-            height: 56.0,
-            child: Center(child: Text('Tween', style: s)),
+      styleCols.add(SampleColumn(
+        t: t,
+        label: '${s.fontSize?.toStringAsFixed(0) ?? '-'} pt',
+        scheme: scheme,
+        preview: SizedBox(
+          width: 96.0,
+          height: 56.0,
+          child: Center(
+            child: Text('Tween', style: s),
           ),
         ),
-      );
+      ));
     }
 
     final List<Widget> matrixCols = <Widget>[];
     for (final double t in kSamples) {
       final Matrix4 m = m4t.transform(t);
-      matrixCols.add(
-        SampleColumn(
-          t: t,
-          label: 'mat[0,0]=${m.entry(0, 0).toStringAsFixed(2)}',
-          scheme: scheme,
-          preview: SizedBox(
-            width: 80.0,
-            height: 80.0,
-            child: Center(
-              child: Transform(
-                alignment: Alignment.center,
-                transform: m,
-                child: Container(
-                  width: 36.0,
-                  height: 36.0,
-                  decoration: BoxDecoration(
-                    color: scheme.tertiary,
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
+      matrixCols.add(SampleColumn(
+        t: t,
+        label: 'mat[0,0]=${m.entry(0, 0).toStringAsFixed(2)}',
+        scheme: scheme,
+        preview: SizedBox(
+          width: 80.0,
+          height: 80.0,
+          child: Center(
+            child: Transform(
+              alignment: Alignment.center,
+              transform: m,
+              child: Container(
+                width: 36.0,
+                height: 36.0,
+                decoration: BoxDecoration(
+                  color: scheme.tertiary,
+                  borderRadius: BorderRadius.circular(6.0),
                 ),
               ),
             ),
           ),
         ),
-      );
+      ));
     }
 
     return Column(
@@ -1238,59 +1215,49 @@ class SectionConstantReverseCurve extends StatelessWidget {
     final CurveTween easeOut = CurveTween(curve: Curves.easeOut);
     final CurveTween elasticOut = CurveTween(curve: Curves.elasticOut);
 
-    print(
-      'ConstantTween at every t: ${kt.transform(0.0)} '
-      '${kt.transform(0.5)} ${kt.transform(1.0)}',
-    );
-    print(
-      'ReverseTween at 0.0 = ${rt.transform(0.0)} '
-      '/ at 1.0 = ${rt.transform(1.0)}',
-    );
+    print('ConstantTween at every t: ${kt.transform(0.0)} '
+        '${kt.transform(0.5)} ${kt.transform(1.0)}');
+    print('ReverseTween at 0.0 = ${rt.transform(0.0)} '
+        '/ at 1.0 = ${rt.transform(1.0)}');
 
     final List<Widget> constCols = <Widget>[];
     for (final double t in kSamples) {
       final double v = kt.transform(t);
-      constCols.add(
-        SampleColumn(
-          t: t,
-          label: v.toStringAsFixed(2),
-          scheme: scheme,
-          preview: _Bar(value: v, color: scheme.primary),
-        ),
-      );
+      constCols.add(SampleColumn(
+        t: t,
+        label: v.toStringAsFixed(2),
+        scheme: scheme,
+        preview: _Bar(value: v, color: scheme.primary),
+      ));
     }
 
     final List<Widget> revCols = <Widget>[];
     for (final double t in kSamples) {
       final double v = rt.transform(t);
-      revCols.add(
-        SampleColumn(
-          t: t,
-          label: v.toStringAsFixed(0),
-          scheme: scheme,
-          preview: _Bar(value: v / 100.0, color: scheme.error),
-        ),
-      );
+      revCols.add(SampleColumn(
+        t: t,
+        label: v.toStringAsFixed(0),
+        scheme: scheme,
+        preview: _Bar(value: v / 100.0, color: scheme.error),
+      ));
     }
 
     Widget curveCard(CurveTween c, String name, Color colour) {
       final List<Widget> cols = <Widget>[];
       for (final double t in kSamples) {
         final double v = c.transform(t);
-        cols.add(
-          SampleColumn(
-            t: t,
-            label: v.toStringAsFixed(2),
-            scheme: scheme,
-            preview: SizedBox(
-              width: 64.0,
-              height: 64.0,
-              child: CustomPaint(
-                painter: _CurveDotPainter(value: v, color: colour),
-              ),
+        cols.add(SampleColumn(
+          t: t,
+          label: v.toStringAsFixed(2),
+          scheme: scheme,
+          preview: SizedBox(
+            width: 64.0,
+            height: 64.0,
+            child: CustomPaint(
+              painter: _CurveDotPainter(value: v, color: colour),
             ),
           ),
-        );
+        ));
       }
       return SampleCard(
         title: 'CurveTween(curve: $name)',
@@ -1356,16 +1323,14 @@ class _CurveDotPainter extends CustomPainter {
       ..color = color.withValues(alpha: 0.25)
       ..strokeWidth = 1.0;
     canvas.drawLine(
-      Offset(0, size.height),
-      Offset(size.width, size.height),
-      axis,
-    );
+        Offset(0, size.height), Offset(size.width, size.height), axis);
     canvas.drawLine(const Offset(0, 0), Offset(0, size.height), axis);
 
     final Paint diag = Paint()
       ..color = color.withValues(alpha: 0.35)
       ..strokeWidth = 1.0;
-    canvas.drawLine(Offset(0, size.height), Offset(size.width, 0), diag);
+    canvas.drawLine(
+        Offset(0, size.height), Offset(size.width, 0), diag);
 
     final double x = value * size.width;
     final double y = size.height - (value * size.height);
@@ -1389,40 +1354,36 @@ class SectionChainAndAnimate extends StatelessWidget {
   Widget build(BuildContext context) {
     // .chain() composes the LHS with another Animatable on the RHS.
     final Tween<double> valueTween = Tween<double>(begin: 0.0, end: 100.0);
-    final Animatable<double> chained = valueTween.chain(
-      CurveTween(curve: Curves.easeInOutCubic),
-    );
+    final Animatable<double> chained =
+        valueTween.chain(CurveTween(curve: Curves.easeInOutCubic));
     print('chained value at 0.5 = ${chained.transform(0.5)}');
 
     final List<Widget> chainCols = <Widget>[];
     for (final double t in kSamples) {
       final double linear = valueTween.transform(t);
       final double curved = chained.transform(t);
-      chainCols.add(
-        SampleColumn(
-          t: t,
-          label:
-              'lin ${linear.toStringAsFixed(0)} / cur '
-              '${curved.toStringAsFixed(0)}',
-          scheme: scheme,
-          preview: SizedBox(
-            width: 88.0,
-            height: 80.0,
-            child: Stack(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: _Bar(value: linear / 100.0, color: scheme.primary),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: _Bar(value: curved / 100.0, color: scheme.tertiary),
-                ),
-              ],
-            ),
+      chainCols.add(SampleColumn(
+        t: t,
+        label: 'lin ${linear.toStringAsFixed(0)} / cur '
+            '${curved.toStringAsFixed(0)}',
+        scheme: scheme,
+        preview: SizedBox(
+          width: 88.0,
+          height: 80.0,
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: _Bar(value: linear / 100.0, color: scheme.primary),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: _Bar(value: curved / 100.0, color: scheme.tertiary),
+              ),
+            ],
           ),
         ),
-      );
+      ));
     }
 
     return Column(
@@ -1431,7 +1392,8 @@ class SectionChainAndAnimate extends StatelessWidget {
         SectionHeader(
           number: 8,
           title: '.chain() and .animate()',
-          subtitle: 'Compose tweens and bind them to an Animation<double>.',
+          subtitle:
+              'Compose tweens and bind them to an Animation<double>.',
           icon: Icons.account_tree_outlined,
           scheme: scheme,
         ),
@@ -1511,38 +1473,32 @@ class _PipelineRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < steps.length; i++) {
-      children.add(
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 10.0,
-            ),
-            decoration: BoxDecoration(
-              color: scheme.primary.withValues(alpha: 0.12),
-              border: Border.all(color: scheme.primary),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Text(
-              steps[i],
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'monospace',
-                color: scheme.primary,
-              ),
+      children.add(Expanded(
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 8.0, vertical: 10.0),
+          decoration: BoxDecoration(
+            color: scheme.primary.withValues(alpha: 0.12),
+            border: Border.all(color: scheme.primary),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Text(
+            steps[i],
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'monospace',
+              color: scheme.primary,
             ),
           ),
         ),
-      );
+      ));
       if (i != steps.length - 1) {
-        children.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: Icon(Icons.arrow_forward, color: scheme.primary, size: 18.0),
-          ),
-        );
+        children.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+          child: Icon(Icons.arrow_forward, color: scheme.primary, size: 18.0),
+        ));
       }
     }
     return Row(children: children);
@@ -1562,43 +1518,37 @@ class SectionRecipesAndGlossary extends StatelessWidget {
       const _Recipe(
         icon: Icons.opacity,
         title: 'Cross-fade colours',
-        body:
-            'Wrap a ColorTween(begin: a, end: b) in .animate(controller) '
+        body: 'Wrap a ColorTween(begin: a, end: b) in .animate(controller) '
             'and feed result into AnimatedBuilder.',
       ),
       const _Recipe(
         icon: Icons.zoom_out_map,
         title: 'Hero-like resize',
-        body:
-            'Combine SizeTween and EdgeInsetsTween in parallel via two '
+        body: 'Combine SizeTween and EdgeInsetsTween in parallel via two '
             'AnimatedBuilders sharing one controller.',
       ),
       const _Recipe(
         icon: Icons.rotate_90_degrees_ccw,
         title: 'Spin and grow',
-        body:
-            'Matrix4Tween rotating + scaling identity to a target matrix '
+        body: 'Matrix4Tween rotating + scaling identity to a target matrix '
             'gives a single composed transform for AnimatedBuilder.',
       ),
       const _Recipe(
         icon: Icons.compare_arrows,
         title: 'Reverse without flipping the controller',
-        body:
-            'Wrap any Tween in ReverseTween to keep controller forward but '
+        body: 'Wrap any Tween in ReverseTween to keep controller forward but '
             'swap begin/end semantics.',
       ),
       const _Recipe(
         icon: Icons.timer,
         title: 'Hold a static value mid-animation',
-        body:
-            'Use ConstantTween<T>(v) when one segment of a TweenSequence '
+        body: 'Use ConstantTween<T>(v) when one segment of a TweenSequence '
             'should be motionless.',
       ),
       const _Recipe(
         icon: Icons.show_chart,
         title: 'Curve the value, not the time',
-        body:
-            'tween.chain(CurveTween(curve: easeOutCubic)) applies the curve '
+        body: 'tween.chain(CurveTween(curve: easeOutCubic)) applies the curve '
             'in value-space, leaving the controller linear.',
       ),
     ];
@@ -1748,7 +1698,11 @@ class SectionRecipesAndGlossary extends StatelessWidget {
 }
 
 class _Recipe {
-  const _Recipe({required this.icon, required this.title, required this.body});
+  const _Recipe({
+    required this.icon,
+    required this.title,
+    required this.body,
+  });
   final IconData icon;
   final String title;
   final String body;

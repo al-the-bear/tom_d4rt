@@ -18,7 +18,9 @@ dynamic build(BuildContext context) {
   for (final v in ButtonBarLayoutBehavior.values) {
     print('  - index=${v.index}  name=${v.name}');
   }
-  print('padded   keeps natural button widths and adds standardised padding.');
+  print(
+    'padded   keeps natural button widths and adds standardised padding.',
+  );
   print(
     'constrained enforces a 64dp minimum width so tiny buttons line up tidily.',
   );
@@ -667,8 +669,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
         dialogMock(
           title: 'Discard draft? (constrained)',
-          body:
-              'Same dialog, but the footer uses '
+          body: 'Same dialog, but the footer uses '
               'ButtonBarLayoutBehavior.constrained — see the wider Yes/No.',
           behavior: ButtonBarLayoutBehavior.constrained,
           actions: const [
@@ -679,8 +680,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
         dialogMock(
           title: 'Save changes',
-          body:
-              'Choose where to save the document — the original location, '
+          body: 'Choose where to save the document — the original location, '
               'or as a new copy.',
           behavior: ButtonBarLayoutBehavior.padded,
           actions: const [
@@ -702,8 +702,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
         dialogMock(
           title: 'Many actions overflow',
-          body:
-              'When the dialog has too many actions to fit on one row, the '
+          body: 'When the dialog has too many actions to fit on one row, the '
               'ButtonBar wraps onto multiple lines. constrained still '
               'enforces a minimum button width on each row.',
           behavior: ButtonBarLayoutBehavior.constrained,
@@ -739,11 +738,14 @@ dynamic build(BuildContext context) {
     // ButtonBarLayoutBehavior value the single visible differentiator
     // between the two columns rendered side by side.
     final double rowHeight = 40;
-    final double? minWidth = behavior == ButtonBarLayoutBehavior.constrained
-        ? 80
-        : null;
+    final double? minWidth =
+        behavior == ButtonBarLayoutBehavior.constrained ? 80 : null;
     Widget shape(Widget kid) {
-      return SizedBox(height: rowHeight, width: minWidth, child: kid);
+      return SizedBox(
+        height: rowHeight,
+        width: minWidth,
+        child: kid,
+      );
     }
 
     Widget bar(List<Widget> kids) {
@@ -928,7 +930,10 @@ dynamic build(BuildContext context) {
             spacing: 8,
             runSpacing: 6,
             children: <Widget>[
-              const TextButton(onPressed: null, child: Text('Maybe later')),
+              const TextButton(
+                onPressed: null,
+                child: Text('Maybe later'),
+              ),
               const OutlinedButton(
                 onPressed: null,
                 child: Text('Read the privacy notice'),
@@ -1394,11 +1399,13 @@ dynamic build(BuildContext context) {
             'Are you sure you want to permanently remove "Q3 forecast.xlsx"?',
             style: TextStyle(color: galleryText, height: 1.35),
           ),
-          footer:
-              galleryFooter(ButtonBarLayoutBehavior.constrained, const <Widget>[
-                TextButton(onPressed: null, child: Text('No')),
-                ElevatedButton(onPressed: null, child: Text('Yes')),
-              ]),
+          footer: galleryFooter(
+            ButtonBarLayoutBehavior.constrained,
+            const <Widget>[
+              TextButton(onPressed: null, child: Text('No')),
+              ElevatedButton(onPressed: null, child: Text('Yes')),
+            ],
+          ),
         ),
         const SizedBox(height: 14),
         galleryCard(
@@ -1409,11 +1416,14 @@ dynamic build(BuildContext context) {
             'You changed the notification preferences but have not saved yet.',
             style: TextStyle(color: galleryText, height: 1.35),
           ),
-          footer: galleryFooter(ButtonBarLayoutBehavior.padded, const <Widget>[
-            TextButton(onPressed: null, child: Text('Discard')),
-            OutlinedButton(onPressed: null, child: Text('Keep editing')),
-            ElevatedButton(onPressed: null, child: Text('Save')),
-          ]),
+          footer: galleryFooter(
+            ButtonBarLayoutBehavior.padded,
+            const <Widget>[
+              TextButton(onPressed: null, child: Text('Discard')),
+              OutlinedButton(onPressed: null, child: Text('Keep editing')),
+              ElevatedButton(onPressed: null, child: Text('Save')),
+            ],
+          ),
         ),
         const SizedBox(height: 14),
         galleryCard(
@@ -1425,14 +1435,16 @@ dynamic build(BuildContext context) {
             'you are happy with the contents.',
             style: TextStyle(color: galleryText, height: 1.35),
           ),
-          footer:
-              galleryFooter(ButtonBarLayoutBehavior.constrained, const <Widget>[
-                TextButton(onPressed: null, child: Text('Help')),
-                TextButton(onPressed: null, child: Text('Cancel')),
-                OutlinedButton(onPressed: null, child: Text('Reset')),
-                OutlinedButton(onPressed: null, child: Text('Draft')),
-                ElevatedButton(onPressed: null, child: Text('Send')),
-              ]),
+          footer: galleryFooter(
+            ButtonBarLayoutBehavior.constrained,
+            const <Widget>[
+              TextButton(onPressed: null, child: Text('Help')),
+              TextButton(onPressed: null, child: Text('Cancel')),
+              OutlinedButton(onPressed: null, child: Text('Reset')),
+              OutlinedButton(onPressed: null, child: Text('Draft')),
+              ElevatedButton(onPressed: null, child: Text('Send')),
+            ],
+          ),
         ),
         const SizedBox(height: 14),
         Container(

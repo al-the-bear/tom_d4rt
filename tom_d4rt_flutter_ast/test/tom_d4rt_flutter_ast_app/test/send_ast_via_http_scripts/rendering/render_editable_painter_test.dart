@@ -42,8 +42,7 @@ final TextEditingController _selCtrlD = TextEditingController(
 )..selection = const TextSelection(baseOffset: 5, extentOffset: 22);
 
 final TextEditingController _selCtrlE = TextEditingController(
-  text:
-      'Selection rects are computed by RenderEditable and drawn by the painter.',
+  text: 'Selection rects are computed by RenderEditable and drawn by the painter.',
 )..selection = const TextSelection(baseOffset: 0, extentOffset: 16);
 
 final TextEditingController _selCtrlF = TextEditingController(
@@ -70,8 +69,7 @@ final TextEditingController _curCtrlF = TextEditingController(
 );
 
 final TextEditingController _overlayCtrl = TextEditingController(
-  text:
-      'A foreground CustomPaint can simulate what RenderEditablePainter does.',
+  text: 'A foreground CustomPaint can simulate what RenderEditablePainter does.',
 );
 
 final TextEditingController _composingCtrl = TextEditingController(
@@ -182,7 +180,10 @@ class _CaretBlinkPainter extends CustomPainter {
       width,
       height,
     );
-    canvas.drawRRect(RRect.fromRectAndRadius(rect, Radius.circular(radius)), p);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(rect, Radius.circular(radius)),
+      p,
+    );
   }
 
   @override
@@ -290,7 +291,10 @@ class _DebugGridPainter extends CustomPainter {
 /// RenderEditablePainter would paint after `getBoxesForSelection` returned
 /// per-line rects.
 class _MultiLineSelectionPainter extends CustomPainter {
-  _MultiLineSelectionPainter({required this.lineRects, required this.color});
+  _MultiLineSelectionPainter({
+    required this.lineRects,
+    required this.color,
+  });
 
   final List<Rect> lineRects;
   final Color color;
@@ -299,7 +303,10 @@ class _MultiLineSelectionPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint p = Paint()..color = color;
     for (final Rect r in lineRects) {
-      canvas.drawRRect(RRect.fromRectAndRadius(r, const Radius.circular(3)), p);
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(r, const Radius.circular(3)),
+        p,
+      );
     }
   }
 
@@ -333,7 +340,10 @@ class _PainterStackDiagram extends CustomPainter {
         layerHeight - 2,
       );
       final Paint p = Paint()..color = layers[i].color;
-      canvas.drawRRect(RRect.fromRectAndRadius(r, const Radius.circular(6)), p);
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(r, const Radius.circular(6)),
+        p,
+      );
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: layers[i].label,
@@ -575,7 +585,10 @@ class _AnatomyRow extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(description, style: const TextStyle(fontSize: 12.5)),
+                Text(
+                  description,
+                  style: const TextStyle(fontSize: 12.5),
+                ),
               ],
             ),
           ),
@@ -809,7 +822,10 @@ Widget _cursorTile(_CursorTile t) {
         children: <Widget>[
           Text(
             t.label,
-            style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600),
+            style: const TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           const SizedBox(height: 6),
           TextField(
@@ -1579,7 +1595,9 @@ Widget _referenceTable() {
                 ),
               ),
               DataCell(
-                Text('Drives RenderEditable.markNeedsPaint() without layout.'),
+                Text(
+                  'Drives RenderEditable.markNeedsPaint() without layout.',
+                ),
               ),
             ],
           ),
@@ -1696,7 +1714,9 @@ dynamic build(BuildContext context) {
       useMaterial3: true,
     ),
     home: Scaffold(
-      appBar: AppBar(title: const Text('RenderEditablePainter — Deep Demo')),
+      appBar: AppBar(
+        title: const Text('RenderEditablePainter — Deep Demo'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),

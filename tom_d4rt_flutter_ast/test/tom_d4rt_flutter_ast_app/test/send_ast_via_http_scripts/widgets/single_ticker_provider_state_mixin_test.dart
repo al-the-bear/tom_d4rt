@@ -265,9 +265,10 @@ class _WorkshopSubtitle extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'One Ticker, one controller, zero ceremony.',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleMedium?.copyWith(color: _kPaper),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(color: _kPaper),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -331,10 +332,8 @@ class _TickDialHeroState extends State<_TickDialHero>
 
   @override
   void dispose() {
-    debugPrint(
-      '[TickDialHero] dispose — disposing AnimationController '
-      '(Ticker is unregistered from the SchedulerBinding)',
-    );
+    debugPrint('[TickDialHero] dispose — disposing AnimationController '
+        '(Ticker is unregistered from the SchedulerBinding)');
     _hand.dispose();
     super.dispose();
   }
@@ -345,8 +344,7 @@ class _TickDialHeroState extends State<_TickDialHero>
       index: 1,
       tag: 'Hero',
       title: 'Analog Tick Dial',
-      blurb:
-          'A single AnimationController drives a CustomPainter that '
+      blurb: 'A single AnimationController drives a CustomPainter that '
           'rotates the gold second-hand once per minute. The Ticker lives '
           'for the lifetime of _TickDialHeroState and is torn down in '
           'dispose().',
@@ -510,7 +508,8 @@ class _TickDialPainter extends CustomPainter {
     // Minute hand (drives at 1/60 the rate — we approximate it here with
     // progress / 60 to hint at multi-level timing even though only the
     // single controller is in play).
-    final double minuteAngle = (progress / 60.0) * 2 * math.pi - math.pi / 2;
+    final double minuteAngle =
+        (progress / 60.0) * 2 * math.pi - math.pi / 2;
     final Offset minuteTip = Offset(
       center.dx + math.cos(minuteAngle) * (radius - 40),
       center.dy + math.sin(minuteAngle) * (radius - 40),
@@ -607,7 +606,10 @@ class _DialSidebar extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             'value = $framePct %',
-            style: TextStyle(color: _kInk.withValues(alpha: 0.7), fontSize: 12),
+            style: TextStyle(
+              color: _kInk.withValues(alpha: 0.7),
+              fontSize: 12,
+            ),
           ),
           const SizedBox(height: 14),
           Container(
@@ -719,10 +721,8 @@ class _PulsingBlobCardState extends State<_PulsingBlobCard>
   @override
   void initState() {
     super.initState();
-    debugPrint(
-      '[PulsingBlob] initState — AnimationController 1600ms, '
-      'Curves.easeInOutCubic, reverse=true',
-    );
+    debugPrint('[PulsingBlob] initState — AnimationController 1600ms, '
+        'Curves.easeInOutCubic, reverse=true');
     _pulse = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1600),
@@ -743,8 +743,7 @@ class _PulsingBlobCardState extends State<_PulsingBlobCard>
       index: 2,
       tag: 'Curve',
       title: 'Pulsing Blob',
-      blurb:
-          'One AnimationController, one Ticker, one derived '
+      blurb: 'One AnimationController, one Ticker, one derived '
           'CurvedAnimation. The curve reshapes the 0-1 value without '
           'asking for a second vsync.',
       child: SizedBox(
@@ -880,10 +879,7 @@ class _BlobStats extends StatelessWidget {
           const Divider(color: _kMist, height: 22),
           _StatRow(label: 'min', value: '${minR.toStringAsFixed(0)} px'),
           _StatRow(label: 'max', value: '${maxR.toStringAsFixed(0)} px'),
-          _StatRow(
-            label: 'delta',
-            value: '${(maxR - minR).toStringAsFixed(0)} px',
-          ),
+          _StatRow(label: 'delta', value: '${(maxR - minR).toStringAsFixed(0)} px'),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -990,10 +986,8 @@ class _ControllerPlaygroundState extends State<_ControllerPlayground>
       _speed = v;
       _ctrl.duration = Duration(milliseconds: (_baseMs / v).round());
     });
-    debugPrint(
-      '[Playground] speed=${v.toStringAsFixed(2)}x '
-      'duration=${_ctrl.duration?.inMilliseconds}ms',
-    );
+    debugPrint('[Playground] speed=${v.toStringAsFixed(2)}x '
+        'duration=${_ctrl.duration?.inMilliseconds}ms');
   }
 
   void _play() {
@@ -1024,8 +1018,7 @@ class _ControllerPlaygroundState extends State<_ControllerPlayground>
       index: 3,
       tag: 'Playground',
       title: 'Controller Playground',
-      blurb:
-          'Mutate AnimationController while its Ticker keeps running. '
+      blurb: 'Mutate AnimationController while its Ticker keeps running. '
           'Changing duration does NOT allocate a new Ticker — the same '
           'vsync is reused until dispose().',
       child: Padding(
@@ -1251,8 +1244,7 @@ class _SingleVsMultiCompare extends StatelessWidget {
       index: 4,
       tag: 'Compare',
       title: 'Why SingleTicker vs TickerProvider',
-      blurb:
-          'The two panes below host identical visuals; only the mixin '
+      blurb: 'The two panes below host identical visuals; only the mixin '
           'differs. SingleTickerProviderStateMixin stores a lone `Ticker?` '
           'field; TickerProviderStateMixin manages a `Set<Ticker>`. Same '
           'animation, slightly lighter bookkeeping.',
@@ -1506,7 +1498,9 @@ class _CompareMatrix extends StatelessWidget {
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: <TableRow>[
               TableRow(
-                decoration: BoxDecoration(color: _kMist.withValues(alpha: 0.6)),
+                decoration: BoxDecoration(
+                  color: _kMist.withValues(alpha: 0.6),
+                ),
                 children: const <Widget>[
                   _MatrixHeader(label: 'Aspect'),
                   _MatrixHeader(label: 'Single'),
@@ -1607,8 +1601,7 @@ class _PitfallCard extends StatelessWidget {
       index: 5,
       tag: 'Pitfall',
       title: 'What if I need two controllers?',
-      blurb:
-          'SingleTickerProviderStateMixin asserts on the SECOND Ticker '
+      blurb: 'SingleTickerProviderStateMixin asserts on the SECOND Ticker '
           'request. This card shows the exact assertion text — it is '
           'rendered statically, never triggered at runtime, so the AST '
           'harness stays green.',
@@ -1686,19 +1679,13 @@ class _PitfallCodeSnippet extends StatelessWidget {
       height: 1.45,
       fontFeatures: const <FontFeature>[FontFeature.tabularFigures()],
     );
-    final TextStyle kw = base.copyWith(
-      color: _kGold,
-      fontWeight: FontWeight.w700,
-    );
-    final TextStyle cls = base.copyWith(
-      color: _kGoldSoft,
-      fontWeight: FontWeight.w600,
-    );
+    final TextStyle kw =
+        base.copyWith(color: _kGold, fontWeight: FontWeight.w700);
+    final TextStyle cls =
+        base.copyWith(color: _kGoldSoft, fontWeight: FontWeight.w600);
     final TextStyle mut = base.copyWith(color: _kDanger);
-    final TextStyle cmt = base.copyWith(
-      color: _kSubtle,
-      fontStyle: FontStyle.italic,
-    );
+    final TextStyle cmt =
+        base.copyWith(color: _kSubtle, fontStyle: FontStyle.italic);
 
     return SelectionArea(
       child: RichText(
@@ -1893,10 +1880,8 @@ class _LifecycleLogState extends State<_LifecycleLog>
 
   @override
   void dispose() {
-    debugPrint(
-      '[LifecycleLog] dispose — removing listener, disposing '
-      'controller, unregistering Ticker (total approx ticks: $_ticks)',
-    );
+    debugPrint('[LifecycleLog] dispose — removing listener, disposing '
+        'controller, unregistering Ticker (total approx ticks: $_ticks)');
     _heartbeat.removeListener(_onTick);
     _heartbeat.dispose();
     super.dispose();
@@ -1917,8 +1902,7 @@ class _LifecycleLogState extends State<_LifecycleLog>
       index: 6,
       tag: 'Log',
       title: 'Lifecycle Log',
-      blurb:
-          'A synthetic but realistic trace of what happens when a '
+      blurb: 'A synthetic but realistic trace of what happens when a '
           'SingleTickerProviderStateMixin is born, runs, and dies. Raw '
           'Ticker.tickCount is not public — we approximate it.',
       child: Padding(
@@ -1939,8 +1923,7 @@ class _LifecycleLogState extends State<_LifecycleLog>
                   _LogRow(
                     time: _fmtTime(_createdAt),
                     tag: 'initState',
-                    message:
-                        'createTicker() — mixin installs single '
+                    message: 'createTicker() — mixin installs single '
                         'Ticker for vsync',
                     color: _kGold,
                   ),
@@ -1949,8 +1932,7 @@ class _LifecycleLogState extends State<_LifecycleLog>
                       _createdAt.add(const Duration(milliseconds: 1)),
                     ),
                     tag: 'new',
-                    message:
-                        'AnimationController(duration=1s) bound '
+                    message: 'AnimationController(duration=1s) bound '
                         'to vsync: this',
                     color: _kGoldSoft,
                   ),
@@ -1959,29 +1941,30 @@ class _LifecycleLogState extends State<_LifecycleLog>
                       _createdAt.add(const Duration(milliseconds: 3)),
                     ),
                     tag: 'repeat',
-                    message:
-                        'Controller.repeat() — Ticker starts '
+                    message: 'Controller.repeat() — Ticker starts '
                         'firing 60 Hz frame callbacks',
                     color: _kPaper,
                   ),
                   _LogRow(
                     time: _fmtTime(DateTime.now()),
                     tag: 'tick',
-                    message:
-                        'value=${_heartbeat.value.toStringAsFixed(3)}  '
+                    message: 'value=${_heartbeat.value.toStringAsFixed(3)}  '
                         'approx ticks total: $_ticks',
                     color: _kSuccess,
                   ),
                   _LogRow(
                     time: '— in dispose —',
                     tag: 'dispose',
-                    message:
-                        'Controller.dispose() → Ticker.dispose() '
+                    message: 'Controller.dispose() → Ticker.dispose() '
                         '→ unregistered from SchedulerBinding',
                     color: _kDanger,
                   ),
                   const SizedBox(height: 10),
-                  _LogFooter(age: age, ticks: _ticks, fps: 60),
+                  _LogFooter(
+                    age: age,
+                    ticks: _ticks,
+                    fps: 60,
+                  ),
                 ],
               );
             },
@@ -2019,7 +2002,9 @@ class _LogRow extends StatelessWidget {
               style: TextStyle(
                 color: _kPaper.withValues(alpha: 0.55),
                 fontSize: 11.5,
-                fontFeatures: const <FontFeature>[FontFeature.tabularFigures()],
+                fontFeatures: const <FontFeature>[
+                  FontFeature.tabularFigures()
+                ],
               ),
             ),
           ),
@@ -2060,7 +2045,11 @@ class _LogRow extends StatelessWidget {
 }
 
 class _LogFooter extends StatelessWidget {
-  const _LogFooter({required this.age, required this.ticks, required this.fps});
+  const _LogFooter({
+    required this.age,
+    required this.ticks,
+    required this.fps,
+  });
 
   final Duration age;
   final int ticks;
@@ -2131,7 +2120,10 @@ class _LogFooterChip extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           '$label ',
-          style: TextStyle(color: _kPaper.withValues(alpha: 0.6), fontSize: 11),
+          style: TextStyle(
+            color: _kPaper.withValues(alpha: 0.6),
+            fontSize: 11,
+          ),
         ),
         Text(
           value,
@@ -2158,45 +2150,38 @@ class _FieldReferencePanel extends StatelessWidget {
   static const List<_RefEntry> _entries = <_RefEntry>[
     _RefEntry(
       symbol: 'TickerProvider',
-      description:
-          'Interface declaring createTicker(TickerCallback). '
+      description: 'Interface declaring createTicker(TickerCallback). '
           'Both Single- and multi-ticker mixins implement this interface.',
     ),
     _RefEntry(
       symbol: 'Ticker',
-      description:
-          'Registers a per-frame callback with the '
+      description: 'Registers a per-frame callback with the '
           'SchedulerBinding. Exposes start(), stop(), muted, isActive, '
           'and dispose().',
     ),
     _RefEntry(
       symbol: 'AnimationController',
-      description:
-          'Consumer of a TickerProvider. Wraps a Ticker that '
+      description: 'Consumer of a TickerProvider. Wraps a Ticker that '
           'advances a Duration-based value between lower and upper bounds.',
     ),
     _RefEntry(
       symbol: 'createTicker(onTick)',
-      description:
-          'Called once per controller. Returns a Ticker that '
+      description: 'Called once per controller. Returns a Ticker that '
           'fires onTick with a cumulative elapsed Duration each frame.',
     ),
     _RefEntry(
       symbol: 'SingleTicker.dispose',
-      description:
-          'State.dispose() asserts the Ticker has been disposed. '
+      description: 'State.dispose() asserts the Ticker has been disposed. '
           'Always call controller.dispose() before super.dispose().',
     ),
     _RefEntry(
       symbol: 'TickerMode',
-      description:
-          'Inherited widget. When false, all descendant Tickers '
+      description: 'Inherited widget. When false, all descendant Tickers '
           'are muted (stop firing frame callbacks, preserve state).',
     ),
     _RefEntry(
       symbol: 'Scheduler muting',
-      description:
-          'When the widget tree is hidden (offscreen, app in '
+      description: 'When the widget tree is hidden (offscreen, app in '
           'background) the mixin applies muting automatically.',
     ),
   ];
@@ -2207,8 +2192,7 @@ class _FieldReferencePanel extends StatelessWidget {
       index: 7,
       tag: 'Reference',
       title: 'Field reference',
-      blurb:
-          'The handful of types you need to understand to use '
+      blurb: 'The handful of types you need to understand to use '
           'SingleTickerProviderStateMixin with confidence.',
       child: Padding(
         padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
@@ -2281,7 +2265,11 @@ class _RefEntryRow extends StatelessWidget {
           Expanded(
             child: Text(
               entry.description,
-              style: const TextStyle(color: _kInk, fontSize: 12, height: 1.4),
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -2316,15 +2304,13 @@ class _DecisionTreePanel extends StatelessWidget {
               answers: <_DecisionAnswer>[
                 _DecisionAnswer(
                   label: 'Zero',
-                  detail:
-                      'Use ImplicitlyAnimatedWidget or a Tween animate '
+                  detail: 'Use ImplicitlyAnimatedWidget or a Tween animate '
                       'pattern — no mixin needed.',
                   accent: _kSubtle,
                 ),
                 _DecisionAnswer(
                   label: 'Exactly one',
-                  detail:
-                      'SingleTickerProviderStateMixin — the cheapest '
+                  detail: 'SingleTickerProviderStateMixin — the cheapest '
                       'option, asserts mistakes.',
                   accent: _kGold,
                 ),
@@ -2341,15 +2327,13 @@ class _DecisionTreePanel extends StatelessWidget {
               answers: <_DecisionAnswer>[
                 _DecisionAnswer(
                   label: 'Lives with the State',
-                  detail:
-                      'Create in initState(), dispose in dispose(). '
+                  detail: 'Create in initState(), dispose in dispose(). '
                       'This is the default Single pattern.',
                   accent: _kGold,
                 ),
                 _DecisionAnswer(
                   label: 'Shared across many widgets',
-                  detail:
-                      'Promote the controller to an InheritedWidget or '
+                  detail: 'Promote the controller to an InheritedWidget or '
                       'a Provider and give the owning State the mixin.',
                   accent: _kGoldSoft,
                 ),
@@ -2361,15 +2345,13 @@ class _DecisionTreePanel extends StatelessWidget {
               answers: <_DecisionAnswer>[
                 _DecisionAnswer(
                   label: 'Yes — must keep ticking',
-                  detail:
-                      'Use TickerMode(enabled: true) explicitly to '
+                  detail: 'Use TickerMode(enabled: true) explicitly to '
                       'override auto-muting.',
                   accent: _kSuccess,
                 ),
                 _DecisionAnswer(
                   label: 'No — ok to pause',
-                  detail:
-                      'Default behaviour: muted when offscreen, '
+                  detail: 'Default behaviour: muted when offscreen, '
                       'resumes on visibility.',
                   accent: _kSubtle,
                 ),
@@ -2638,8 +2620,7 @@ class _WorkshopFooter extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text:
-                        'reach for SingleTickerProviderStateMixin '
+                    text: 'reach for SingleTickerProviderStateMixin '
                         'whenever the State owns exactly one '
                         'AnimationController. Upgrade to '
                         'TickerProviderStateMixin the moment a second '

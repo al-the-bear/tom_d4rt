@@ -139,20 +139,20 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // PALETTE :: fourteen colours, navy / beacon / fog / charcoal / brass.
   // -------------------------------------------------------------------------
-  final Color seaDeep = Color(0xFF0B1F3A); // open ocean at dusk
-  final Color seaSwell = Color(0xFF14315B); // mid-water swell
-  final Color seaFoam = Color(0xFFB8CFE3); // foam at the rocks
-  final Color fogPale = Color(0xFFEFEAD8); // page-fog parchment
-  final Color fogMist = Color(0xFFD8D2BD); // older parchment
-  final Color beaconCore = Color(0xFFF7C948); // lamp core, hottest
-  final Color beaconFlare = Color(0xFFFFE08A); // outer halo
-  final Color brassFitting = Color(0xFF8C6E2A); // tarnished brass
-  final Color brassPolished = Color(0xFFC8A24B); // polished brass
-  final Color charcoalInk = Color(0xFF161616); // typeset ink
-  final Color stormGray = Color(0xFF4A4A4A); // overcast gray
-  final Color rustEmber = Color(0xFFB23A1C); // warning ember
-  final Color mossGreen = Color(0xFF2E5D3A); // safe-harbour green
-  final Color tealCipher = Color(0xFF207A7A); // signal teal
+  final Color seaDeep = Color(0xFF0B1F3A);          // open ocean at dusk
+  final Color seaSwell = Color(0xFF14315B);         // mid-water swell
+  final Color seaFoam = Color(0xFFB8CFE3);          // foam at the rocks
+  final Color fogPale = Color(0xFFEFEAD8);          // page-fog parchment
+  final Color fogMist = Color(0xFFD8D2BD);          // older parchment
+  final Color beaconCore = Color(0xFFF7C948);       // lamp core, hottest
+  final Color beaconFlare = Color(0xFFFFE08A);      // outer halo
+  final Color brassFitting = Color(0xFF8C6E2A);     // tarnished brass
+  final Color brassPolished = Color(0xFFC8A24B);    // polished brass
+  final Color charcoalInk = Color(0xFF161616);      // typeset ink
+  final Color stormGray = Color(0xFF4A4A4A);        // overcast gray
+  final Color rustEmber = Color(0xFFB23A1C);        // warning ember
+  final Color mossGreen = Color(0xFF2E5D3A);        // safe-harbour green
+  final Color tealCipher = Color(0xFF207A7A);       // signal teal
 
   print('[lighthouse-beacon] palette resolved (14 swatches).');
 
@@ -170,42 +170,24 @@ dynamic build(BuildContext context) {
   // platform view id; for our snapshot we use 0 (the default flutter view).
   // In a live app you would pass `View.of(context).viewId`.
   const int viewIdMain = 0;
-  final AnnounceSemanticsEvent announceBeaconRotating = AnnounceSemanticsEvent(
-    'Beacon rotating',
-    TextDirection.ltr,
-    viewIdMain,
-  );
-  final AnnounceSemanticsEvent announceFogHorn = AnnounceSemanticsEvent(
-    'Fog horn engaged',
-    TextDirection.ltr,
-    viewIdMain,
-  );
+  final AnnounceSemanticsEvent announceBeaconRotating =
+      AnnounceSemanticsEvent('Beacon rotating', TextDirection.ltr, viewIdMain);
+  final AnnounceSemanticsEvent announceFogHorn =
+      AnnounceSemanticsEvent('Fog horn engaged', TextDirection.ltr, viewIdMain);
   final AnnounceSemanticsEvent announceVesselApproaching =
-      AnnounceSemanticsEvent(
-        'Vessel approaching from the south-east',
-        TextDirection.ltr,
-        viewIdMain,
-      );
+      AnnounceSemanticsEvent('Vessel approaching from the south-east',
+          TextDirection.ltr, viewIdMain);
   final AnnounceSemanticsEvent announceKeeperOnDuty = AnnounceSemanticsEvent(
-    'Lighthouse keeper on duty',
-    TextDirection.ltr,
-    viewIdMain,
-  );
+      'Lighthouse keeper on duty', TextDirection.ltr, viewIdMain);
   final AnnounceSemanticsEvent announceAllClear = AnnounceSemanticsEvent(
-    'All clear, harbour open',
-    TextDirection.ltr,
-    viewIdMain,
-  );
+      'All clear, harbour open', TextDirection.ltr, viewIdMain);
 
-  final TooltipSemanticsEvent tooltipLamp = TooltipSemanticsEvent(
-    'Rotate the beacon lamp',
-  );
-  final TooltipSemanticsEvent tooltipFog = TooltipSemanticsEvent(
-    'Engage the fog horn',
-  );
-  final TooltipSemanticsEvent tooltipLog = TooltipSemanticsEvent(
-    'Open the keeper\'s log',
-  );
+  final TooltipSemanticsEvent tooltipLamp =
+      TooltipSemanticsEvent('Rotate the beacon lamp');
+  final TooltipSemanticsEvent tooltipFog =
+      TooltipSemanticsEvent('Engage the fog horn');
+  final TooltipSemanticsEvent tooltipLog =
+      TooltipSemanticsEvent('Open the keeper\'s log');
 
   final TapSemanticEvent tapBeacon = TapSemanticEvent();
   final TapSemanticEvent tapHorn = TapSemanticEvent();
@@ -243,11 +225,11 @@ dynamic build(BuildContext context) {
   // by the `type` string.
   // -------------------------------------------------------------------------
 
-  final Map<String, dynamic> mapAnnounceBeaconRotating = announceBeaconRotating
-      .toMap();
+  final Map<String, dynamic> mapAnnounceBeaconRotating =
+      announceBeaconRotating.toMap();
   final Map<String, dynamic> mapAnnounceFogHorn = announceFogHorn.toMap();
-  final Map<String, dynamic> mapAnnounceVessel = announceVesselApproaching
-      .toMap();
+  final Map<String, dynamic> mapAnnounceVessel =
+      announceVesselApproaching.toMap();
   final Map<String, dynamic> mapAnnounceKeeper = announceKeeperOnDuty.toMap();
   final Map<String, dynamic> mapAnnounceAllClear = announceAllClear.toMap();
   final Map<String, dynamic> mapTooltipLamp = tooltipLamp.toMap();
@@ -380,12 +362,8 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget keyValueRow(
-    String key,
-    String value, {
-    Color? keyColour,
-    Color? valueColour,
-  }) {
+  Widget keyValueRow(String key, String value,
+      {Color? keyColour, Color? valueColour}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
@@ -541,7 +519,11 @@ dynamic build(BuildContext context) {
           'identifying the event kind on the wire) and toMap (a serialiser '
           'that returns the payload). The keeper rotates the lamp, the ship '
           'reads the pulses; that is the contract.',
-          style: TextStyle(color: fogPale, fontSize: 13.5, height: 1.55),
+          style: TextStyle(
+            color: fogPale,
+            fontSize: 13.5,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 16),
         Row(
@@ -625,46 +607,22 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 6),
-              proseLine(
-                'IS:  abstract base; subclasses are sealed family.',
-                size: 12.5,
-                colour: charcoalInk,
-              ),
-              proseLine(
-                'IS:  serialised by toMap() to Map<String, dynamic>.',
-                size: 12.5,
-                colour: charcoalInk,
-              ),
-              proseLine(
-                'IS:  dispatched by SemanticsOwner.sendSemanticsEvent.',
-                size: 12.5,
-                colour: charcoalInk,
-              ),
-              proseLine(
-                'IS:  consumed by host AT (TalkBack / VoiceOver / etc).',
-                size: 12.5,
-                colour: charcoalInk,
-              ),
-              proseLine(
-                'IS NOT: a SemanticsAction (those flow IN to Flutter).',
-                size: 12.5,
-                colour: rustEmber,
-              ),
-              proseLine(
-                'IS NOT: a SemanticsConfiguration (state, not pulse).',
-                size: 12.5,
-                colour: rustEmber,
-              ),
-              proseLine(
-                'IS NOT: persistent (no replay, no buffer).',
-                size: 12.5,
-                colour: rustEmber,
-              ),
-              proseLine(
-                'IS NOT: a substitute for proper semantic labels.',
-                size: 12.5,
-                colour: rustEmber,
-              ),
+              proseLine('IS:  abstract base; subclasses are sealed family.',
+                  size: 12.5, colour: charcoalInk),
+              proseLine('IS:  serialised by toMap() to Map<String, dynamic>.',
+                  size: 12.5, colour: charcoalInk),
+              proseLine('IS:  dispatched by SemanticsOwner.sendSemanticsEvent.',
+                  size: 12.5, colour: charcoalInk),
+              proseLine('IS:  consumed by host AT (TalkBack / VoiceOver / etc).',
+                  size: 12.5, colour: charcoalInk),
+              proseLine('IS NOT: a SemanticsAction (those flow IN to Flutter).',
+                  size: 12.5, colour: rustEmber),
+              proseLine('IS NOT: a SemanticsConfiguration (state, not pulse).',
+                  size: 12.5, colour: rustEmber),
+              proseLine('IS NOT: persistent (no replay, no buffer).',
+                  size: 12.5, colour: rustEmber),
+              proseLine('IS NOT: a substitute for proper semantic labels.',
+                  size: 12.5, colour: rustEmber),
             ],
           ),
         ),
@@ -849,7 +807,8 @@ dynamic build(BuildContext context) {
               'Read a tooltip aloud out-of-band. Largely superseded by the '
               'SemanticsProperties.tooltip field, but still available for '
               'cases where a tooltip is rendered without a Tooltip widget.',
-          sampleCall: 'SemanticsService.tooltip("Rotate the beacon lamp");',
+          sampleCall:
+              'SemanticsService.tooltip("Rotate the beacon lamp");',
           sampleMap: mapTooltipLamp,
           accent: seaSwell,
         ),
@@ -927,46 +886,48 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              width: 64,
-              decoration: BoxDecoration(
-                color: band,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(7),
-                  bottomLeft: Radius.circular(7),
-                ),
-              ),
-              child: Center(child: Icon(icon, color: fogPale, size: 28)),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      label,
-                      style: TextStyle(
-                        color: charcoalInk,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 14,
-                        letterSpacing: 0.4,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      body,
-                      style: TextStyle(
-                        color: charcoalInk,
-                        fontSize: 13,
-                        height: 1.45,
-                      ),
-                    ),
-                  ],
-                ),
+          Container(
+            width: 64,
+            decoration: BoxDecoration(
+              color: band,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(7),
+                bottomLeft: Radius.circular(7),
               ),
             ),
-          ],
+            child: Center(
+              child: Icon(icon, color: fogPale, size: 28),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: charcoalInk,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14,
+                      letterSpacing: 0.4,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    body,
+                    style: TextStyle(
+                      color: charcoalInk,
+                      fontSize: 13,
+                      height: 1.45,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
         ),
       ),
     );
@@ -1091,7 +1052,10 @@ dynamic build(BuildContext context) {
                 colors: [beaconFlare, glow, charcoalInk],
               ),
               boxShadow: [
-                BoxShadow(color: glow.withValues(alpha: 0.55), blurRadius: 18),
+                BoxShadow(
+                  color: glow.withValues(alpha: 0.55),
+                  blurRadius: 18,
+                ),
               ],
             ),
             child: Center(
@@ -1127,15 +1091,9 @@ dynamic build(BuildContext context) {
                   children: [
                     bandedLabel('type: ${event.type}', beaconCore, charcoalInk),
                     bandedLabel(
-                      'direction: $direction',
-                      brassPolished,
-                      charcoalInk,
-                    ),
-                    bandedLabel(
-                      'assertiveness: $assertiveness',
-                      seaFoam,
-                      charcoalInk,
-                    ),
+                        'direction: $direction', brassPolished, charcoalInk),
+                    bandedLabel('assertiveness: $assertiveness',
+                        seaFoam, charcoalInk),
                   ],
                 ),
               ],
@@ -1211,9 +1169,7 @@ dynamic build(BuildContext context) {
   // SemanticsEvents over its lifetime: tooltip on hover, tap on activation,
   // longPress on extended activation.
   // -------------------------------------------------------------------------
-  print(
-    '[lighthouse-beacon] composing section 06 :: tooltip / tap / longpress.',
-  );
+  print('[lighthouse-beacon] composing section 06 :: tooltip / tap / longpress.');
 
   Widget sequenceRow({
     required String stage,
@@ -1240,7 +1196,9 @@ dynamic build(BuildContext context) {
               color: accent,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Center(child: Icon(icon, color: fogPale, size: 24)),
+            child: Center(
+              child: Icon(icon, color: fogPale, size: 24),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -1397,7 +1355,8 @@ dynamic build(BuildContext context) {
               label,
               style: TextStyle(
                 color: isCursor ? fogPale : charcoalInk,
-                fontWeight: isCursor ? FontWeight.w800 : FontWeight.w500,
+                fontWeight:
+                    isCursor ? FontWeight.w800 : FontWeight.w500,
                 fontSize: 14,
               ),
             ),
@@ -1459,8 +1418,8 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8),
                     focusItem('Lamp control', '/lamp', true, seaDeep),
-                    focusItem('Fog horn', '/fog', false, seaDeep),
-                    focusItem('Keeper log', '/log', false, seaDeep),
+                    focusItem('Fog horn',     '/fog',  false, seaDeep),
+                    focusItem('Keeper log',   '/log',  false, seaDeep),
                   ],
                 ),
               ),
@@ -1495,8 +1454,8 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8),
                     focusItem('Lamp control', '/lamp', false, seaDeep),
-                    focusItem('Fog horn', '/fog', false, seaDeep),
-                    focusItem('Keeper log', '/log', true, mossGreen),
+                    focusItem('Fog horn',     '/fog',  false, seaDeep),
+                    focusItem('Keeper log',   '/log',  true, mossGreen),
                   ],
                 ),
               ),
@@ -1545,12 +1504,8 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   print('[lighthouse-beacon] composing section 08 :: toMap inspector.');
 
-  Widget toMapTable(
-    String title,
-    String typeStr,
-    Map<String, dynamic> map,
-    Color accent,
-  ) {
+  Widget toMapTable(String title, String typeStr, Map<String, dynamic> map,
+      Color accent) {
     final List<MapEntry<String, dynamic>> entries = map.entries.toList();
     final List<Widget> rows = [];
     for (var i = 0; i < entries.length; i++) {
@@ -1558,19 +1513,17 @@ dynamic build(BuildContext context) {
       rows.add(keyValueRow(entry.key, entry.value.toString()));
     }
     if (rows.isEmpty) {
-      rows.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            '(empty map; the type field is sufficient)',
-            style: TextStyle(
-              color: stormGray,
-              fontStyle: FontStyle.italic,
-              fontSize: 12.5,
-            ),
+      rows.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Text(
+          '(empty map; the type field is sufficient)',
+          style: TextStyle(
+            color: stormGray,
+            fontStyle: FontStyle.italic,
+            fontSize: 12.5,
           ),
         ),
-      );
+      ));
     }
     return Container(
       width: double.infinity,
@@ -1640,54 +1593,26 @@ dynamic build(BuildContext context) {
           'alone is sufficient to identify them.',
         ),
         const SizedBox(height: 10),
-        toMapTable(
-          'announceBeaconRotating',
-          announceBeaconRotating.type,
-          mapAnnounceBeaconRotating,
-          seaDeep,
-        ),
-        toMapTable(
-          'announceFogHorn',
-          announceFogHorn.type,
-          mapAnnounceFogHorn,
-          rustEmber,
-        ),
-        toMapTable(
-          'announceVesselApproaching',
-          announceVesselApproaching.type,
-          mapAnnounceVessel,
-          tealCipher,
-        ),
-        toMapTable(
-          'announceKeeperOnDuty',
-          announceKeeperOnDuty.type,
-          mapAnnounceKeeper,
-          mossGreen,
-        ),
-        toMapTable(
-          'announceAllClear',
-          announceAllClear.type,
-          mapAnnounceAllClear,
-          beaconFlare,
-        ),
+        toMapTable('announceBeaconRotating', announceBeaconRotating.type,
+            mapAnnounceBeaconRotating, seaDeep),
+        toMapTable('announceFogHorn', announceFogHorn.type,
+            mapAnnounceFogHorn, rustEmber),
+        toMapTable('announceVesselApproaching',
+            announceVesselApproaching.type, mapAnnounceVessel, tealCipher),
+        toMapTable('announceKeeperOnDuty', announceKeeperOnDuty.type,
+            mapAnnounceKeeper, mossGreen),
+        toMapTable('announceAllClear', announceAllClear.type,
+            mapAnnounceAllClear, beaconFlare),
         toMapTable('tooltipLamp', tooltipLamp.type, mapTooltipLamp, seaSwell),
         toMapTable('tooltipFog', tooltipFog.type, mapTooltipFog, seaSwell),
         toMapTable('tooltipLog', tooltipLog.type, mapTooltipLog, seaSwell),
         toMapTable('tapBeacon', tapBeacon.type, mapTapBeacon, beaconCore),
         toMapTable('tapHorn', tapHorn.type, mapTapHorn, beaconCore),
         toMapTable('tapLog', tapLog.type, mapTapLog, beaconCore),
-        toMapTable(
-          'longPressBeacon',
-          longPressBeacon.type,
-          mapLongPressBeacon,
-          rustEmber,
-        ),
-        toMapTable(
-          'longPressFog',
-          longPressFog.type,
-          mapLongPressFog,
-          rustEmber,
-        ),
+        toMapTable('longPressBeacon', longPressBeacon.type,
+            mapLongPressBeacon, rustEmber),
+        toMapTable('longPressFog', longPressFog.type, mapLongPressFog,
+            rustEmber),
         toMapTable('focusToLamp', focusToLamp.type, mapFocusToLamp, mossGreen),
         toMapTable('focusToFog', focusToFog.type, mapFocusToFog, mossGreen),
         toMapTable('focusToLog', focusToLog.type, mapFocusToLog, mossGreen),
@@ -1733,31 +1658,33 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: TextStyle(color: charcoalInk, fontSize: 11.5, height: 1.3),
+        style: TextStyle(
+          color: charcoalInk,
+          fontSize: 11.5,
+          height: 1.3,
+        ),
       ),
     );
   }
 
   TableRow routingRow(String label, List<String> cells, Color rowAccent) {
     final List<Widget> children = [];
-    children.add(
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        decoration: BoxDecoration(
-          color: rowAccent,
-          border: Border.all(color: charcoalInk.withValues(alpha: 0.15)),
-        ),
-        alignment: Alignment.centerLeft,
-        child: Text(
-          label,
-          style: TextStyle(
-            color: fogPale,
-            fontWeight: FontWeight.w800,
-            fontSize: 11.5,
-          ),
+    children.add(Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      decoration: BoxDecoration(
+        color: rowAccent,
+        border: Border.all(color: charcoalInk.withValues(alpha: 0.15)),
+      ),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        label,
+        style: TextStyle(
+          color: fogPale,
+          fontWeight: FontWeight.w800,
+          fontSize: 11.5,
         ),
       ),
-    );
+    ));
     for (var i = 0; i < cells.length; i++) {
       children.add(routingCell(cells[i]));
     }
@@ -1796,15 +1723,13 @@ dynamic build(BuildContext context) {
               4: FlexColumnWidth(2),
             },
             children: [
-              TableRow(
-                children: [
-                  routingHeaderCell('Event', seaDeep, fogPale),
-                  routingHeaderCell('iOS / VoiceOver', seaSwell, fogPale),
-                  routingHeaderCell('Android / TalkBack', seaSwell, fogPale),
-                  routingHeaderCell('Web / ARIA', seaSwell, fogPale),
-                  routingHeaderCell('Desktop AT', seaSwell, fogPale),
-                ],
-              ),
+              TableRow(children: [
+                routingHeaderCell('Event', seaDeep, fogPale),
+                routingHeaderCell('iOS / VoiceOver', seaSwell, fogPale),
+                routingHeaderCell('Android / TalkBack', seaSwell, fogPale),
+                routingHeaderCell('Web / ARIA', seaSwell, fogPale),
+                routingHeaderCell('Desktop AT', seaSwell, fogPale),
+              ]),
               routingRow('announce', [
                 'UIAccessibility.post(notification: .announcement)',
                 'AccessibilityManager.interrupt then announce',
@@ -1850,12 +1775,8 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   print('[lighthouse-beacon] composing section 10 :: accessibility checklist.');
 
-  Widget checkBullet(
-    String text,
-    IconData icon,
-    Color accent, {
-    Color? textColour,
-  }) {
+  Widget checkBullet(String text, IconData icon, Color accent,
+      {Color? textColour}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
@@ -1920,41 +1841,35 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8),
                     checkBullet(
-                      'Use SemanticsService.announce for ephemeral '
-                      'state changes that have no natural focus target.',
-                      Icons.check_circle,
-                      mossGreen,
-                    ),
+                        'Use SemanticsService.announce for ephemeral '
+                        'state changes that have no natural focus target.',
+                        Icons.check_circle,
+                        mossGreen),
                     checkBullet(
-                      'Pair every visible toast with an announcement so '
-                      'sighted and non-sighted users see the same event.',
-                      Icons.check_circle,
-                      mossGreen,
-                    ),
+                        'Pair every visible toast with an announcement so '
+                        'sighted and non-sighted users see the same event.',
+                        Icons.check_circle,
+                        mossGreen),
                     checkBullet(
-                      'Provide a TextDirection for every announcement so '
-                      'the AT can pick a correct voice profile.',
-                      Icons.check_circle,
-                      mossGreen,
-                    ),
+                        'Provide a TextDirection for every announcement so '
+                        'the AT can pick a correct voice profile.',
+                        Icons.check_circle,
+                        mossGreen),
                     checkBullet(
-                      'Use Assertiveness.assertive sparingly: it '
-                      'interrupts the user\'s current reading.',
-                      Icons.check_circle,
-                      mossGreen,
-                    ),
+                        'Use Assertiveness.assertive sparingly: it '
+                        'interrupts the user\'s current reading.',
+                        Icons.check_circle,
+                        mossGreen),
                     checkBullet(
-                      'Test announcements with the actual AT, not just '
-                      'with the SemanticsDebugger.',
-                      Icons.check_circle,
-                      mossGreen,
-                    ),
+                        'Test announcements with the actual AT, not just '
+                        'with the SemanticsDebugger.',
+                        Icons.check_circle,
+                        mossGreen),
                     checkBullet(
-                      'Keep messages short (one sentence, no jargon, no '
-                      'emoji).',
-                      Icons.check_circle,
-                      mossGreen,
-                    ),
+                        'Keep messages short (one sentence, no jargon, no '
+                        'emoji).',
+                        Icons.check_circle,
+                        mossGreen),
                   ],
                 ),
               ),
@@ -1982,41 +1897,35 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8),
                     checkBullet(
-                      'Spamming announcements every frame; the AT cannot '
-                      'queue them and they overlap into noise.',
-                      Icons.cancel,
-                      rustEmber,
-                    ),
+                        'Spamming announcements every frame; the AT cannot '
+                        'queue them and they overlap into noise.',
+                        Icons.cancel,
+                        rustEmber),
                     checkBullet(
-                      'Using FocusSemanticEvent to forcibly steal cursor '
-                      'attention without a corresponding visual cue.',
-                      Icons.cancel,
-                      rustEmber,
-                    ),
+                        'Using FocusSemanticEvent to forcibly steal cursor '
+                        'attention without a corresponding visual cue.',
+                        Icons.cancel,
+                        rustEmber),
                     checkBullet(
-                      'Embedding emoji or rich punctuation in '
-                      'announcements; many AT engines mispronounce them.',
-                      Icons.cancel,
-                      rustEmber,
-                    ),
+                        'Embedding emoji or rich punctuation in '
+                        'announcements; many AT engines mispronounce them.',
+                        Icons.cancel,
+                        rustEmber),
                     checkBullet(
-                      'Sending TapSemanticEvent when a native InkWell or '
-                      'GestureDetector has already produced one.',
-                      Icons.cancel,
-                      rustEmber,
-                    ),
+                        'Sending TapSemanticEvent when a native InkWell or '
+                        'GestureDetector has already produced one.',
+                        Icons.cancel,
+                        rustEmber),
                     checkBullet(
-                      'Treating SemanticsEvent as a substitute for proper '
-                      'semantic labelling on widgets.',
-                      Icons.cancel,
-                      rustEmber,
-                    ),
+                        'Treating SemanticsEvent as a substitute for proper '
+                        'semantic labelling on widgets.',
+                        Icons.cancel,
+                        rustEmber),
                     checkBullet(
-                      'Forgetting to localise announcement strings; the '
-                      'AT speaks them verbatim.',
-                      Icons.cancel,
-                      rustEmber,
-                    ),
+                        'Forgetting to localise announcement strings; the '
+                        'AT speaks them verbatim.',
+                        Icons.cancel,
+                        rustEmber),
                   ],
                 ),
               ),
@@ -2059,7 +1968,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 3),
           Text(
             definition,
-            style: TextStyle(color: charcoalInk, fontSize: 12.5, height: 1.4),
+            style: TextStyle(
+              color: charcoalInk,
+              fontSize: 12.5,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -2078,88 +1991,58 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         sectionHeader('11', 'Glossary', brassPolished),
-        proseLine('Sixteen terms a new keeper learns in their first watch.'),
+        proseLine(
+          'Sixteen terms a new keeper learns in their first watch.',
+        ),
         const SizedBox(height: 10),
-        glossaryEntry(
-          'SemanticsEvent',
-          'Abstract base class for accessibility events emitted from the '
-              'Flutter engine to the host AT.',
-        ),
-        glossaryEntry(
-          'AnnounceSemanticsEvent',
-          'A SemanticsEvent that carries a string the AT should speak '
-              'immediately. Maps to UIAccessibility.announcement on iOS.',
-        ),
-        glossaryEntry(
-          'TooltipSemanticsEvent',
-          'A SemanticsEvent that requests the AT speak a tooltip string '
-              'out-of-band. Largely superseded by SemanticsProperties.tooltip.',
-        ),
-        glossaryEntry(
-          'TapSemanticEvent',
-          'Synthetic acknowledgement that "this widget was just tapped". '
-              'Useful with custom gesture pipelines.',
-        ),
-        glossaryEntry(
-          'LongPressSemanticsEvent',
-          'Synthetic acknowledgement that "this widget was just '
-              'long-pressed". Distinct audio cue on most ATs.',
-        ),
-        glossaryEntry(
-          'FocusSemanticEvent',
-          'Moves the AT cursor to a target SemanticsNode without changing '
-              'input focus.',
-        ),
-        glossaryEntry(
-          'SemanticsOwner',
-          'Owns the semantics tree for a single render layer. Exposes '
-              'sendSemanticsEvent(int nodeId, SemanticsEvent event).',
-        ),
-        glossaryEntry(
-          'SemanticsNode',
-          'A node in the semantics tree, mirroring (a subset of) the '
-              'render tree. Each node has an id used to dispatch events.',
-        ),
-        glossaryEntry(
-          'SemanticsService',
-          'Convenience facade with announce(...) and tooltip(...) helpers '
-              'that wrap the underlying SemanticsEvent dispatch.',
-        ),
-        glossaryEntry(
-          'SemanticsAction',
-          'IN-bound counterpart to SemanticsEvent: the AT telling Flutter '
-              '"the user tapped this node".',
-        ),
-        glossaryEntry(
-          'SemanticsConfiguration',
-          'The bag of properties a widget exposes to the semantics tree '
-              '(label, value, hint, flags, actions). Persistent state.',
-        ),
-        glossaryEntry(
-          'Assertiveness',
-          'Enum with .polite and .assertive, controlling whether an '
-              'announcement interrupts the user\'s current reading.',
-        ),
-        glossaryEntry(
-          'TextDirection',
-          'LTR or RTL. Affects voice profile selection for announcements '
-              'and reading order on bidirectional content.',
-        ),
-        glossaryEntry(
-          'Accessibility channel',
-          'The flutter/accessibility platform channel over which '
-              'SemanticsEvent serialisations travel.',
-        ),
-        glossaryEntry(
-          'AT (Assistive Technology)',
-          'Software that consumes accessibility events: TalkBack, '
-              'VoiceOver, NVDA, JAWS, ChromeVox, Orca, etc.',
-        ),
-        glossaryEntry(
-          'SemanticsBinding',
-          'The binding that wires the engine\'s accessibility surface to '
-              'the framework\'s SemanticsOwner instances.',
-        ),
+        glossaryEntry('SemanticsEvent',
+            'Abstract base class for accessibility events emitted from the '
+                'Flutter engine to the host AT.'),
+        glossaryEntry('AnnounceSemanticsEvent',
+            'A SemanticsEvent that carries a string the AT should speak '
+                'immediately. Maps to UIAccessibility.announcement on iOS.'),
+        glossaryEntry('TooltipSemanticsEvent',
+            'A SemanticsEvent that requests the AT speak a tooltip string '
+                'out-of-band. Largely superseded by SemanticsProperties.tooltip.'),
+        glossaryEntry('TapSemanticEvent',
+            'Synthetic acknowledgement that "this widget was just tapped". '
+                'Useful with custom gesture pipelines.'),
+        glossaryEntry('LongPressSemanticsEvent',
+            'Synthetic acknowledgement that "this widget was just '
+                'long-pressed". Distinct audio cue on most ATs.'),
+        glossaryEntry('FocusSemanticEvent',
+            'Moves the AT cursor to a target SemanticsNode without changing '
+                'input focus.'),
+        glossaryEntry('SemanticsOwner',
+            'Owns the semantics tree for a single render layer. Exposes '
+                'sendSemanticsEvent(int nodeId, SemanticsEvent event).'),
+        glossaryEntry('SemanticsNode',
+            'A node in the semantics tree, mirroring (a subset of) the '
+                'render tree. Each node has an id used to dispatch events.'),
+        glossaryEntry('SemanticsService',
+            'Convenience facade with announce(...) and tooltip(...) helpers '
+                'that wrap the underlying SemanticsEvent dispatch.'),
+        glossaryEntry('SemanticsAction',
+            'IN-bound counterpart to SemanticsEvent: the AT telling Flutter '
+                '"the user tapped this node".'),
+        glossaryEntry('SemanticsConfiguration',
+            'The bag of properties a widget exposes to the semantics tree '
+                '(label, value, hint, flags, actions). Persistent state.'),
+        glossaryEntry('Assertiveness',
+            'Enum with .polite and .assertive, controlling whether an '
+                'announcement interrupts the user\'s current reading.'),
+        glossaryEntry('TextDirection',
+            'LTR or RTL. Affects voice profile selection for announcements '
+                'and reading order on bidirectional content.'),
+        glossaryEntry('Accessibility channel',
+            'The flutter/accessibility platform channel over which '
+                'SemanticsEvent serialisations travel.'),
+        glossaryEntry('AT (Assistive Technology)',
+            'Software that consumes accessibility events: TalkBack, '
+                'VoiceOver, NVDA, JAWS, ChromeVox, Orca, etc.'),
+        glossaryEntry('SemanticsBinding',
+            'The binding that wires the engine\'s accessibility surface to '
+                'the framework\'s SemanticsOwner instances.'),
       ],
     ),
   );
@@ -2205,7 +2088,11 @@ dynamic build(BuildContext context) {
           'promise. Build them deliberately, dispatch them sparingly, '
           'localise them honestly, and the harbour will stay open through '
           'every fog.',
-          style: TextStyle(color: fogPale, fontSize: 14, height: 1.6),
+          style: TextStyle(
+            color: fogPale,
+            fontSize: 14,
+            height: 1.6,
+          ),
         ),
         const SizedBox(height: 14),
         Container(height: 1, color: brassPolished),

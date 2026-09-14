@@ -51,27 +51,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: sage, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -88,14 +82,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: mint),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: deepForest.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: deepForest.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -128,16 +119,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: deepForest,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: deepForest)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -148,19 +139,18 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? forest.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(bottom: BorderSide(color: sage.withValues(alpha: 0.3))),
+        border: Border(
+          bottom: BorderSide(color: sage.withValues(alpha: 0.3)),
+        ),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? deepForest : forest,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? deepForest : forest)),
           );
         }).toList(),
       ),
@@ -177,23 +167,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? pine : deepForest,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.arrow_forward, size: 12, color: emerald),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.arrow_forward, size: 12, color: emerald),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -221,13 +206,8 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            psFlow([
-              'Flutter widget',
-              'PlatformViewsService',
-              'Engine channel',
-              'Native view factory',
-              'OS view',
-            ]),
+            psFlow(['Flutter widget', 'PlatformViewsService', 'Engine channel',
+                'Native view factory', 'OS view']),
             const SizedBox(height: 10),
             _psRoleBadge('Creates', 'Sends creation request to engine', pine),
             _psRoleBadge('Manages', 'Tracks viewId lifecycle', deepForest),
@@ -286,10 +266,7 @@ dynamic build(BuildContext context) {
               _psCodeLine('  creationParams: <String, dynamic>{', deepForest),
               _psCodeLine('    "apiKey": "xxx",', emerald),
               _psCodeLine('  },', deepForest),
-              _psCodeLine(
-                '  creationParamsCodec: StandardMessageCodec(),',
-                deepForest,
-              ),
+              _psCodeLine('  creationParamsCodec: StandardMessageCodec(),', deepForest),
               _psCodeLine(')', pine),
             ],
           ),
@@ -317,36 +294,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _psCompareRow(
-              'Keyboard',
-              Icons.check_circle,
-              'Full support',
-              forest,
-            ),
-            _psCompareRow(
-              'Accessibility',
-              Icons.check_circle,
-              'Full support',
-              forest,
-            ),
-            _psCompareRow(
-              'Text input',
-              Icons.check_circle,
-              'Works natively',
-              forest,
-            ),
-            _psCompareRow(
-              'Clipping',
-              Icons.warning,
-              'May have issues',
-              emerald,
-            ),
-            _psCompareRow(
-              'Z-ordering',
-              Icons.warning,
-              'Complex layering',
-              emerald,
-            ),
+            _psCompareRow('Keyboard', Icons.check_circle, 'Full support', forest),
+            _psCompareRow('Accessibility', Icons.check_circle, 'Full support', forest),
+            _psCompareRow('Text input', Icons.check_circle, 'Works natively', forest),
+            _psCompareRow('Clipping', Icons.warning, 'May have issues', emerald),
+            _psCompareRow('Z-ordering', Icons.warning, 'Complex layering', emerald),
             _psCompareRow('Performance', Icons.info, 'Thread sync cost', moss),
           ],
         ),
@@ -431,11 +383,7 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             psRow(['Codec', 'Format', 'Best For'], isHeader: true),
-            psRow([
-              'StandardMessageCodec',
-              'Binary platform',
-              'Maps + primitives',
-            ]),
+            psRow(['StandardMessageCodec', 'Binary platform', 'Maps + primitives']),
             psRow(['JSONMessageCodec', 'JSON string', 'Web interop']),
             psRow(['StringCodec', 'UTF-8 string', 'Simple config']),
             psRow(['BinaryCodec', 'Raw bytes', 'Protobuf / custom']),
@@ -526,26 +474,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            psFlow([
-              'PointerDown',
-              'Hit test',
-              'Platform view?',
-              'Forward to native',
-              'Native handles',
-            ]),
+            psFlow(['PointerDown', 'Hit test', 'Platform view?',
+                'Forward to native', 'Native handles']),
             const SizedBox(height: 10),
             _psEventRow('PointerDownEvent', 'ACTION_DOWN / touchesBegan', pine),
-            _psEventRow(
-              'PointerMoveEvent',
-              'ACTION_MOVE / touchesMoved',
-              deepForest,
-            ),
+            _psEventRow('PointerMoveEvent', 'ACTION_MOVE / touchesMoved', deepForest),
             _psEventRow('PointerUpEvent', 'ACTION_UP / touchesEnded', emerald),
-            _psEventRow(
-              'PointerCancelEvent',
-              'ACTION_CANCEL / touchesCancelled',
-              forest,
-            ),
+            _psEventRow('PointerCancelEvent', 'ACTION_CANCEL / touchesCancelled', forest),
           ],
         ),
       ),
@@ -570,16 +505,8 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             psRow(['Scenario', 'Action', 'Result'], isHeader: true),
-            psRow([
-              'Tap native field',
-              'Native claims focus',
-              'Keyboard shows',
-            ]),
-            psRow([
-              'Tap Flutter field',
-              'clearFocus sent',
-              'Native loses focus',
-            ]),
+            psRow(['Tap native field', 'Native claims focus', 'Keyboard shows']),
+            psRow(['Tap Flutter field', 'clearFocus sent', 'Native loses focus']),
             psRow(['Back pressed', 'Both lose focus', 'Keyboard hides']),
             psRow(['Tab navigation', 'Focus moves', 'Coordinated switch']),
           ],
@@ -637,12 +564,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _psIdPhase(0, 'Next ID allocated', 'Auto-increment', pine),
-            _psIdPhase(
-              1,
-              'Sent in create message',
-              'Engine stores mapping',
-              deepForest,
-            ),
+            _psIdPhase(1, 'Sent in create message', 'Engine stores mapping', deepForest),
             _psIdPhase(2, 'Used for all ops', 'resize, touch, focus', emerald),
             _psIdPhase(3, 'Released on dispose', 'Not reused', forest),
           ],
@@ -669,16 +591,8 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             psRow(['Callback', 'Purpose', 'Returns'], isHeader: true),
-            psRow([
-              'surfaceFactory',
-              'Create surface widget',
-              'AndroidViewSurface',
-            ]),
-            psRow([
-              'onCreatePlatformView',
-              'Init controller',
-              'PlatformViewController',
-            ]),
+            psRow(['surfaceFactory', 'Create surface widget', 'AndroidViewSurface']),
+            psRow(['onCreatePlatformView', 'Init controller', 'PlatformViewController']),
             psRow(['viewType', 'Identify view factory', 'String']),
           ],
         ),
@@ -734,23 +648,11 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             psRow(['Symptom', 'Likely Cause', 'Fix'], isHeader: true),
-            psRow([
-              'Blank view',
-              'Factory not registered',
-              'Register on native',
-            ]),
-            psRow([
-              'No touch',
-              'Pointer dispatch off',
-              'Check gestureRecognizers',
-            ]),
+            psRow(['Blank view', 'Factory not registered', 'Register on native']),
+            psRow(['No touch', 'Pointer dispatch off', 'Check gestureRecognizers']),
             psRow(['No keyboard', 'Virtual display mode', 'Switch to hybrid']),
             psRow(['Crash on dispose', 'Double dispose', 'Guard with flag']),
-            psRow([
-              'Size mismatch',
-              'Layout not forwarded',
-              'Check resize channel',
-            ]),
+            psRow(['Size mismatch', 'Layout not forwarded', 'Check resize channel']),
           ],
         ),
       ),
@@ -813,14 +715,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'PlatformViewsService — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('PlatformViewsService — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From singleton architecture through Android rendering modes, '
@@ -852,22 +751,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -895,20 +782,13 @@ Widget _psRoleBadge(String role, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 70,
-          child: Text(
-            role,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(role,
+              style: TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -918,15 +798,12 @@ Widget _psRoleBadge(String role, String desc, Color color) {
 Widget _psCodeLine(String text, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 2),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 10,
-        fontFamily: 'monospace',
-        color: color,
-        height: 1.3,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            fontSize: 10,
+            fontFamily: 'monospace',
+            color: color,
+            height: 1.3)),
   );
 }
 
@@ -939,20 +816,13 @@ Widget _psCompareRow(String label, IconData icon, String detail, Color color) {
         const SizedBox(width: 6),
         SizedBox(
           width: 90,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
         ),
         Expanded(
-          child: Text(
-            detail,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(detail,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -975,24 +845,15 @@ Widget _psEventRow(String flutterEvent, String nativeMapping, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 110,
-          child: Text(
-            flutterEvent,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          child: Text(flutterEvent,
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
         ),
         Expanded(
-          child: Text(
-            nativeMapping,
-            style: TextStyle(
-              fontSize: 9,
-              fontFamily: 'monospace',
-              color: color.withValues(alpha: 0.7),
-            ),
-          ),
+          child: Text(nativeMapping,
+              style: TextStyle(
+                  fontSize: 9, fontFamily: 'monospace',
+                  color: color.withValues(alpha: 0.7))),
         ),
       ],
     ),
@@ -1010,7 +871,8 @@ Widget _psCheckItem(String label, bool done, Color color) {
           color: color,
         ),
         const SizedBox(width: 6),
-        Text(label, style: TextStyle(fontSize: 10, color: color)),
+        Text(label,
+            style: TextStyle(fontSize: 10, color: color)),
       ],
     ),
   );
@@ -1029,14 +891,9 @@ Widget _psIdPhase(int num, String phase, String detail, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 8),
@@ -1044,21 +901,12 @@ Widget _psIdPhase(int num, String phase, String detail, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                phase,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                detail,
-                style: TextStyle(
-                  fontSize: 9,
-                  color: color.withValues(alpha: 0.7),
-                ),
-              ),
+              Text(phase,
+                  style: TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+              Text(detail,
+                  style: TextStyle(
+                      fontSize: 9, color: color.withValues(alpha: 0.7))),
             ],
           ),
         ),

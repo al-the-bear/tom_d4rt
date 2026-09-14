@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.pan_tool,
       'title': 'Stopping a Scroll in Progress',
-      'body':
-          'HoldScrollActivity is the ScrollActivity that '
+      'body': 'HoldScrollActivity is the ScrollActivity that '
           'takes over when a user places their finger on a '
           'scrollable that is currently animating (flinging). '
           'Touching the screen during a fling cancels the ballistic '
@@ -31,8 +30,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Between Fling and Drag',
-      'body':
-          'HoldScrollActivity is a transitional state. It '
+      'body': 'HoldScrollActivity is a transitional state. It '
           'exists in the gap between "the fling just stopped" and '
           '"the user starts a new drag". If the user lifts their '
           'finger without dragging, the hold is cancelled and the '
@@ -43,8 +41,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.memory,
       'title': 'ScrollActivity Subclass',
-      'body':
-          'HoldScrollActivity extends ScrollActivity and '
+      'body': 'HoldScrollActivity extends ScrollActivity and '
           'implements ScrollHoldController. It\'s part of the '
           'scroll activity system that manages how a ScrollPosition '
           'changes over time — idle, drag, ballistic, or hold. '
@@ -55,8 +52,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.stacked_line_chart,
       'title': 'How It\'s Created',
-      'body':
-          'When ScrollPositionWithSingleContext detects a '
+      'body': 'When ScrollPositionWithSingleContext detects a '
           'pointer-down during a ballistic animation, it calls '
           'hold(). This method creates a HoldScrollActivity, calls '
           'beginActivity() to swap from BallisticScrollActivity, '
@@ -79,8 +75,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.pause_circle_outline,
       'color': Colors.grey[500]!,
       'isSubject': false,
-      'description':
-          'The scroll position is at rest. No animation, '
+      'description': 'The scroll position is at rest. No animation, '
           'no user gesture. This is the default state when nothing '
           'is happening with the scrollable.',
     },
@@ -89,8 +84,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.swipe,
       'color': Colors.blue[600]!,
       'isSubject': false,
-      'description':
-          'The user is actively dragging their finger. '
+      'description': 'The user is actively dragging their finger. '
           'ScrollPosition updates frame-by-frame based on the '
           'drag delta. Pixels moved = pointer delta * physics factor.',
     },
@@ -99,8 +93,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.speed,
       'color': Colors.orange[600]!,
       'isSubject': false,
-      'description':
-          'The user has released their finger with velocity. '
+      'description': 'The user has released their finger with velocity. '
           'A simulation (ClampingScrollSimulation or '
           'BouncingScrollSimulation) drives the position with '
           'deceleration until it stops.',
@@ -110,8 +103,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.pan_tool,
       'color': Colors.red[700]!,
       'isSubject': true,
-      'description':
-          'The user placed their finger on a scrollable '
+      'description': 'The user placed their finger on a scrollable '
           'that was flinging. The ballistic animation is cancelled. '
           'The position is "held" at the current offset until the '
           'user lifts or starts dragging.',
@@ -121,8 +113,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.code,
       'color': Colors.purple[600]!,
       'isSubject': false,
-      'description':
-          'A programmatic animation drives the scroll '
+      'description': 'A programmatic animation drives the scroll '
           'position. Created by ScrollPosition.animateTo(). Uses '
           'an AnimationController with the specified duration and '
           'curve. The user cannot interrupt it by default.',
@@ -224,8 +215,7 @@ dynamic build(BuildContext context) {
       'kind': 'constructor',
       'icon': Icons.build,
       'color': Colors.red[700]!,
-      'description':
-          'Creates a hold activity. The delegate is the '
+      'description': 'Creates a hold activity. The delegate is the '
           'ScrollActivityDelegate (typically ScrollPosition). '
           'onHoldCanceled is a VoidCallback invoked when the hold '
           'ends — either by starting a drag or by lifting the finger.',
@@ -235,8 +225,7 @@ dynamic build(BuildContext context) {
       'kind': 'method',
       'icon': Icons.cancel,
       'color': Colors.pink[600]!,
-      'description':
-          'Cancels the hold. Called when the user starts '
+      'description': 'Cancels the hold. Called when the user starts '
           'a new drag gesture. Invokes the onHoldCanceled callback '
           'passed to the constructor. After this, a new '
           'DragScrollActivity takes over.',
@@ -246,8 +235,7 @@ dynamic build(BuildContext context) {
       'kind': 'method',
       'icon': Icons.delete,
       'color': Colors.red[600]!,
-      'description':
-          'Cleans up the activity. Calls onHoldCanceled '
+      'description': 'Cleans up the activity. Calls onHoldCanceled '
           'if it hasn\'t been called yet (i.e., if dispose is called '
           'without cancel). This ensures the callback always fires.',
     },
@@ -256,8 +244,7 @@ dynamic build(BuildContext context) {
       'kind': 'property',
       'icon': Icons.visibility_off,
       'color': Colors.pink[500]!,
-      'description':
-          'Returns false — during a hold, the scrollable '
+      'description': 'Returns false — during a hold, the scrollable '
           'should NOT ignore pointer events. The user\'s finger is '
           'on the screen and future gestures (drag, lift) need to '
           'be recognized.',
@@ -267,8 +254,7 @@ dynamic build(BuildContext context) {
       'kind': 'property',
       'icon': Icons.speed,
       'color': Colors.red[500]!,
-      'description':
-          'Returns false — the scroll is held still, not '
+      'description': 'Returns false — the scroll is held still, not '
           'actively moving. This distinguishes hold from ballistic '
           'and drag (which return true).',
     },
@@ -277,8 +263,7 @@ dynamic build(BuildContext context) {
       'kind': 'property',
       'icon': Icons.speed,
       'color': Colors.pink[700]!,
-      'description':
-          'Returns 0.0 — the held position has zero '
+      'description': 'Returns 0.0 — the held position has zero '
           'velocity. Contrast with BallisticScrollActivity which '
           'reports the current simulation velocity.',
     },
@@ -296,8 +281,7 @@ dynamic build(BuildContext context) {
       'name': 'cancel()',
       'icon': Icons.cancel,
       'color': Colors.red[700]!,
-      'description':
-          'Signals the hold to cancel. The user started '
+      'description': 'Signals the hold to cancel. The user started '
           'a drag gesture and the hold is no longer needed. The '
           'gesture recognizer calls this when transitioning from '
           'hold to drag.',
@@ -306,8 +290,7 @@ dynamic build(BuildContext context) {
       'name': 'Purpose',
       'icon': Icons.architecture,
       'color': Colors.pink[600]!,
-      'description':
-          'ScrollHoldController is the interface that '
+      'description': 'ScrollHoldController is the interface that '
           'the gesture system uses to communicate with the hold '
           'activity. When ScrollPosition.hold() returns, it returns '
           'a ScrollHoldController. The Scrollable\'s gesture layer '
@@ -317,8 +300,7 @@ dynamic build(BuildContext context) {
       'name': 'Lifecycle',
       'icon': Icons.loop,
       'color': Colors.red[600]!,
-      'description':
-          '1. User touches → Scrollable calls '
+      'description': '1. User touches → Scrollable calls '
           'position.hold() → returns ScrollHoldController. '
           '2. If user drags → gesture system calls controller.cancel(). '
           '3. If user lifts without dragging → hold activity is '
@@ -339,8 +321,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.compare_arrows,
       'color': Colors.red[700]!,
       'bgColor': Colors.red[50]!,
-      'body':
-          'ClampingScrollPhysics (Android-style) and '
+      'body': 'ClampingScrollPhysics (Android-style) and '
           'BouncingScrollPhysics (iOS-style) both support hold. '
           'On Android, touching a flinging list immediately stops '
           'it. On iOS, touching stops the fling but may allow a '
@@ -351,8 +332,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.science,
       'color': Colors.pink[600]!,
       'bgColor': Colors.pink[50]!,
-      'body':
-          'When a drag ends with velocity, ScrollPosition calls '
+      'body': 'When a drag ends with velocity, ScrollPosition calls '
           'physics.createBallisticSimulation(). This returns a '
           'Simulation that drives BallisticScrollActivity. When '
           'the user then touches, HoldScrollActivity replaces it. '
@@ -364,8 +344,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.warning_amber,
       'color': Colors.red[600]!,
       'bgColor': Colors.red[50]!,
-      'body':
-          'If a ballistic fling overshoots (iOS bounce), '
+      'body': 'If a ballistic fling overshoots (iOS bounce), '
           'touching during the bounce-back creates a hold at the '
           'overscrolled position. The physics will NOT snap it back '
           'during the hold. Only when the hold ends and a new '
@@ -376,8 +355,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.tune,
       'color': Colors.pink[700]!,
       'bgColor': Colors.pink[50]!,
-      'body':
-          'If you implement custom ScrollPhysics, the hold '
+      'body': 'If you implement custom ScrollPhysics, the hold '
           'mechanism works unchanged — it\'s handled by '
           'ScrollPosition, not by ScrollPhysics. Your custom '
           'physics only affect how the fling simulation behaves '
@@ -449,8 +427,7 @@ dynamic build(BuildContext context) {
       'name': 'Stopping a Fast Fling',
       'icon': Icons.pan_tool,
       'color': Colors.red[700]!,
-      'description':
-          'When a user flings a long list and then taps '
+      'description': 'When a user flings a long list and then taps '
           'to stop, the hold activity is what makes it stop instantly. '
           'Without it, the fling would continue under the finger. '
           'This behavior is familiar to all mobile users and happens '
@@ -460,8 +437,7 @@ dynamic build(BuildContext context) {
       'name': 'Scroll-to-Stop-to-Drag Pattern',
       'icon': Icons.touch_app,
       'color': Colors.pink[600]!,
-      'description':
-          'Users often: (1) fling to scroll quickly, '
+      'description': 'Users often: (1) fling to scroll quickly, '
           '(2) tap to stop at interesting content, (3) start a new '
           'slow drag to fine-tune position. The hold activity bridges '
           'steps 2 and 3. Without it, the transition from ballistic '
@@ -471,8 +447,7 @@ dynamic build(BuildContext context) {
       'name': 'Custom ScrollPosition',
       'icon': Icons.code,
       'color': Colors.red[600]!,
-      'description':
-          'If you implement a custom ScrollPosition and '
+      'description': 'If you implement a custom ScrollPosition and '
           'override hold(), you can customize what happens when the '
           'user touches during a fling. You might add haptic '
           'feedback, trigger an animation, or log analytics. The '
@@ -483,8 +458,7 @@ dynamic build(BuildContext context) {
       'name': 'Refreshing During Scroll',
       'icon': Icons.refresh,
       'color': Colors.pink[700]!,
-      'description':
-          'Some apps let users tap-to-stop a scroll and '
+      'description': 'Some apps let users tap-to-stop a scroll and '
           'then pull to refresh. The hold activity is the state '
           'between the fling stopping and the pull gesture starting. '
           'Without correct hold handling, RefreshIndicator might '
@@ -503,8 +477,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Hold Is Usually Transparent',
-      'body':
-          'Most developers never interact with HoldScrollActivity '
+      'body': 'Most developers never interact with HoldScrollActivity '
           'directly. It\'s managed internally by ScrollPosition '
           'and Scrollable. You only need to know about it when '
           'implementing custom scroll physics or custom '
@@ -514,8 +487,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'onHoldCanceled Fires Once',
-      'body':
-          'The onHoldCanceled callback fires exactly once — '
+      'body': 'The onHoldCanceled callback fires exactly once — '
           'either via cancel() (user started dragging) or via '
           'dispose() (hold activity replaced). It will NOT fire '
           'twice. If you depend on this callback, know that it\'s '
@@ -525,8 +497,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'isScrolling=false During Hold',
-      'body':
-          'Notification listeners checking if scrolling is '
+      'body': 'Notification listeners checking if scrolling is '
           'happening will see isScrolling=false during a hold. '
           'This is correct — the user has stopped the scroll. '
           'If you\'re building a "scroll to hide" toolbar, it '
@@ -536,8 +507,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Don\'t Create HoldScrollActivity Manually',
-      'body':
-          'HoldScrollActivity is designed to be created by '
+      'body': 'HoldScrollActivity is designed to be created by '
           'ScrollPosition.hold(). Don\'t instantiate it yourself '
           'unless you\'re building a fully custom scroll system. '
           'The constructor requires a proper ScrollActivityDelegate.',
@@ -546,8 +516,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Hold Duration Is Typically Very Short',
-      'body':
-          'In practice, HoldScrollActivity lasts milliseconds '
+      'body': 'In practice, HoldScrollActivity lasts milliseconds '
           'to a few hundred ms. The user either starts dragging '
           '(replacing hold with drag) or lifts their finger '
           '(replacing hold with idle). It\'s a transient state, '
@@ -557,8 +526,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Debugging Scroll Activities',
-      'body':
-          'To see activity transitions, listen to '
+      'body': 'To see activity transitions, listen to '
           'ScrollPosition\'s notifyListeners and check '
           'position.activity.runtimeType. Or use '
           'debugPrintScrollNotifications to log all scroll '
@@ -603,17 +571,17 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.pan_tool, color: Colors.white, size: 36),
-                    SizedBox(width: 12),
-                    Icon(Icons.speed, color: Colors.white70, size: 24),
-                    SizedBox(width: 4),
-                    Icon(Icons.arrow_forward, color: Colors.white54, size: 16),
-                    SizedBox(width: 4),
-                    Icon(Icons.stop_circle, color: Colors.white70, size: 24),
-                  ],
-                ),
+                Row(children: [
+                  Icon(Icons.pan_tool, color: Colors.white, size: 36),
+                  SizedBox(width: 12),
+                  Icon(Icons.speed, color: Colors.white70, size: 24),
+                  SizedBox(width: 4),
+                  Icon(Icons.arrow_forward,
+                      color: Colors.white54, size: 16),
+                  SizedBox(width: 4),
+                  Icon(Icons.stop_circle,
+                      color: Colors.white70, size: 24),
+                ]),
                 SizedBox(height: 14),
                 Text(
                   'HoldScrollActivity',
@@ -644,361 +612,289 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _scrollHead('1', 'What is HoldScrollActivity?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: card['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: card['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          card['icon'] as IconData,
-                          color: card['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(card['icon'] as IconData,
+                            color: card['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            card['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(card['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      card['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(card['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Activity Types ──
           _scrollHead('2', 'Scroll Activity Types'),
           SizedBox(height: 12),
-          ...activityTypes.map(
-            (at) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: at['isSubject'] == true
-                      ? Colors.red[50]
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: at['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
+          ...activityTypes.map((at) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: at['isSubject'] == true
+                        ? Colors.red[50]
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: at['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          at['icon'] as IconData,
-                          color: at['color'] as Color,
-                          size: 18,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(at['icon'] as IconData,
+                            color: at['color'] as Color, size: 18),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            at['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              fontFamily: 'monospace',
-                              color: at['color'] as Color,
-                            ),
-                          ),
+                          child: Text(at['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  fontFamily: 'monospace',
+                                  color: at['color'] as Color)),
                         ),
                         if (at['isSubject'] == true)
                           _actBadge('THIS DEMO', Colors.red[700]!),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      at['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 4),
+                      Text(at['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 3: State Machine ──
           _scrollHead('3', 'Activity State Transitions'),
           SizedBox(height: 12),
-          ...transitions.map(
-            (tr) => Padding(
-              padding: EdgeInsets.only(bottom: 6),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: (tr['to'] == 'Hold' || tr['from'] == 'Hold')
-                      ? Colors.red[50]
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    _actBadge(tr['from'] as String, tr['fromColor'] as Color),
-                    SizedBox(width: 6),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: 14,
-                      color: Colors.grey[400],
-                    ),
-                    SizedBox(width: 6),
-                    _actBadge(tr['to'] as String, tr['toColor'] as Color),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        tr['trigger'] as String,
-                        style: TextStyle(fontSize: 11, color: Colors.grey[700]),
+          ...transitions.map((tr) => Padding(
+                padding: EdgeInsets.only(bottom: 6),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: (tr['to'] == 'Hold' || tr['from'] == 'Hold')
+                        ? Colors.red[50]
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      _actBadge(
+                          tr['from'] as String, tr['fromColor'] as Color),
+                      SizedBox(width: 6),
+                      Icon(Icons.arrow_forward,
+                          size: 14, color: Colors.grey[400]),
+                      SizedBox(width: 6),
+                      _actBadge(
+                          tr['to'] as String, tr['toColor'] as Color),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Text(tr['trigger'] as String,
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey[700])),
                       ),
-                    ),
-                    Icon(
-                      tr['icon'] as IconData,
-                      size: 14,
-                      color: Colors.grey[500],
-                    ),
-                  ],
+                      Icon(tr['icon'] as IconData,
+                          size: 14, color: Colors.grey[500]),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 4: API ──
           _scrollHead('4', 'HoldScrollActivity API'),
           SizedBox(height: 12),
-          ...apiMembers.map(
-            (api) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: api['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
+          ...apiMembers.map((api) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: api['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          api['icon'] as IconData,
-                          color: api['color'] as Color,
-                          size: 16,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(api['icon'] as IconData,
+                            color: api['color'] as Color, size: 16),
                         SizedBox(width: 6),
                         Expanded(
-                          child: Text(
-                            api['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'monospace',
-                              fontSize: 11,
-                              color: api['color'] as Color,
-                            ),
-                          ),
+                          child: Text(api['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'monospace',
+                                  fontSize: 11,
+                                  color: api['color'] as Color)),
                         ),
-                        _actBadge(api['kind'] as String, Colors.grey[500]!),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      api['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                        _actBadge(
+                            api['kind'] as String, Colors.grey[500]!),
+                      ]),
+                      SizedBox(height: 4),
+                      Text(api['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: ScrollHoldController ──
           _scrollHead('5', 'ScrollHoldController Interface'),
           SizedBox(height: 12),
-          ...holdController.map(
-            (hc) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.red[50],
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: (hc['color'] as Color).withOpacity(0.3),
+          ...holdController.map((hc) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.red[50],
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                        color: (hc['color'] as Color).withOpacity(0.3)),
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          hc['icon'] as IconData,
-                          color: hc['color'] as Color,
-                          size: 20,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(hc['icon'] as IconData,
+                            color: hc['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            hc['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: hc['color'] as Color,
-                            ),
-                          ),
+                          child: Text(hc['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  color: hc['color'] as Color)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      hc['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 6),
+                      Text(hc['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 6: Physics Integration ──
           _scrollHead('6', 'Physics Integration'),
           SizedBox(height: 12),
-          ...physicsDetails.map(
-            (pd) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: pd['bgColor'] as Color,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: (pd['color'] as Color).withOpacity(0.3),
+          ...physicsDetails.map((pd) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: pd['bgColor'] as Color,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                        color:
+                            (pd['color'] as Color).withOpacity(0.3)),
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          pd['icon'] as IconData,
-                          color: pd['color'] as Color,
-                          size: 20,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(pd['icon'] as IconData,
+                            color: pd['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            pd['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: pd['color'] as Color,
-                            ),
-                          ),
+                          child: Text(pd['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  color: pd['color'] as Color)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      pd['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(pd['body'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1012,149 +908,106 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.red[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
+            child: Column(children: [
+              Container(
+                padding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                decoration: BoxDecoration(
+                  color: Colors.red[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
+                ),
+                child: Row(children: [
+                  Expanded(
+                      flex: 3,
+                      child: Text('Aspect',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                  Expanded(
+                      flex: 2,
+                      child: Text('Idle',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                  Expanded(
+                      flex: 2,
+                      child: Text('Drag',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                  Expanded(
+                      flex: 2,
+                      child: Text('Ballistic',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                  Expanded(
+                      flex: 2,
+                      child: Text('Hold',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10))),
+                ]),
+              ),
+              ...actComparison.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final row = entry.value;
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 6, horizontal: 8),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        flex: 3,
-                        child: Text(
-                          'Aspect',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 3,
+                          child: Text(row['aspect']!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10))),
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Idle',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 2,
+                          child: Text(row['idle']!,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey[700]))),
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Drag',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 2,
+                          child: Text(row['drag']!,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey[700]))),
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Ballistic',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 2,
+                          child: Text(row['ballistic']!,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey[700]))),
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Hold',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+                          flex: 2,
+                          child: Text(row['hold']!,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.red[800],
+                                  fontWeight: FontWeight.bold))),
                     ],
                   ),
-                ),
-                ...actComparison.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final row = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Text(
-                            row['aspect']!,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            row['idle']!,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            row['drag']!,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            row['ballistic']!,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            row['hold']!,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.red[800],
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -1162,62 +1015,49 @@ dynamic build(BuildContext context) {
           // ── Section 8: Real-World ──
           _scrollHead('8', 'Real-World Implications'),
           SizedBox(height: 12),
-          ...realWorld.map(
-            (rw) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: rw['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...realWorld.map((rw) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: rw['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          rw['icon'] as IconData,
-                          color: rw['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(rw['icon'] as IconData,
+                            color: rw['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            rw['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                          ),
+                          child: Text(rw['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      rw['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(rw['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1249,41 +1089,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1324,26 +1152,20 @@ Widget _scrollHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1359,13 +1181,10 @@ Widget _actBadge(String text, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 9,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 9,
+            fontWeight: FontWeight.bold)),
   );
 }

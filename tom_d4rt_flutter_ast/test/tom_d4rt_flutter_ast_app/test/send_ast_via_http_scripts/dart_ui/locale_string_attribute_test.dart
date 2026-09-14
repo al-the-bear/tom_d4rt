@@ -13,12 +13,10 @@ class _LocaleStringAttributeDeepDemoPage extends StatefulWidget {
   const _LocaleStringAttributeDeepDemoPage();
 
   @override
-  State<_LocaleStringAttributeDeepDemoPage> createState() =>
-      _LocaleStringAttributeDeepDemoPageState();
+  State<_LocaleStringAttributeDeepDemoPage> createState() => _LocaleStringAttributeDeepDemoPageState();
 }
 
-class _LocaleStringAttributeDeepDemoPageState
-    extends State<_LocaleStringAttributeDeepDemoPage> {
+class _LocaleStringAttributeDeepDemoPageState extends State<_LocaleStringAttributeDeepDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<String> _notes = <String>[];
@@ -39,54 +37,17 @@ class _LocaleStringAttributeDeepDemoPageState
   double _animValue = 0.0;
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0B132B),
-      const Color(0xFF1C2541),
-      const Color(0xFF5BC0BE),
-    ],
-    <Color>[
-      const Color(0xFF3F1D38),
-      const Color(0xFF7B2D5E),
-      const Color(0xFFFF7AA2),
-    ],
-    <Color>[
-      const Color(0xFF064E3B),
-      const Color(0xFF047857),
-      const Color(0xFF34D399),
-    ],
+    <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
+    <Color>[const Color(0xFF3F1D38), const Color(0xFF7B2D5E), const Color(0xFFFF7AA2)],
+    <Color>[const Color(0xFF064E3B), const Color(0xFF047857), const Color(0xFF34D399)],
   ];
 
   final List<_LocaleProfile> _profiles = const <_LocaleProfile>[
-    _LocaleProfile(
-      'English (US)',
-      Locale('en', 'US'),
-      Color(0xFF2563EB),
-      Icons.language,
-    ),
-    _LocaleProfile(
-      'French (FR)',
-      Locale('fr', 'FR'),
-      Color(0xFF7C3AED),
-      Icons.translate,
-    ),
-    _LocaleProfile(
-      'German (DE)',
-      Locale('de', 'DE'),
-      Color(0xFF0F766E),
-      Icons.g_translate,
-    ),
-    _LocaleProfile(
-      'Japanese (JP)',
-      Locale('ja', 'JP'),
-      Color(0xFFEA580C),
-      Icons.text_fields,
-    ),
-    _LocaleProfile(
-      'Arabic (EG)',
-      Locale('ar', 'EG'),
-      Color(0xFFBE123C),
-      Icons.format_align_right,
-    ),
+    _LocaleProfile('English (US)', Locale('en', 'US'), Color(0xFF2563EB), Icons.language),
+    _LocaleProfile('French (FR)', Locale('fr', 'FR'), Color(0xFF7C3AED), Icons.translate),
+    _LocaleProfile('German (DE)', Locale('de', 'DE'), Color(0xFF0F766E), Icons.g_translate),
+    _LocaleProfile('Japanese (JP)', Locale('ja', 'JP'), Color(0xFFEA580C), Icons.text_fields),
+    _LocaleProfile('Arabic (EG)', Locale('ar', 'EG'), Color(0xFFBE123C), Icons.format_align_right),
   ];
 
   final List<_SampleText> _texts = const <_SampleText>[
@@ -210,9 +171,7 @@ class _LocaleStringAttributeDeepDemoPageState
     int cursor = 0;
     for (int i = 0; i < _profiles.length; i++) {
       final int start = cursor;
-      final int end = i == _profiles.length - 1
-          ? text.length
-          : (cursor + segment).clamp(0, text.length);
+      final int end = i == _profiles.length - 1 ? text.length : (cursor + segment).clamp(0, text.length);
       cursor = end;
       final _LocaleProfile p = _profiles[i];
       _entries.add(
@@ -227,9 +186,7 @@ class _LocaleStringAttributeDeepDemoPageState
         ),
       );
     }
-    _emit(
-      'Generated document-wide locale segmentation plan (${_entries.length} attributes).',
-    );
+    _emit('Generated document-wide locale segmentation plan (${_entries.length} attributes).');
     setState(() {});
   }
 
@@ -246,46 +203,26 @@ class _LocaleStringAttributeDeepDemoPageState
     }
 
     final ui.LocaleStringAttribute attr = _currentAttribute();
-    probe(
-      'LocaleStringAttribute is constructible',
-      attr.runtimeType == ui.LocaleStringAttribute,
-    );
-    probe(
-      'range start/end are preserved',
-      attr.range.start == _startInt() && attr.range.end == _endInt(),
-    );
+    probe('LocaleStringAttribute is constructible', attr.runtimeType == ui.LocaleStringAttribute);
+    probe('range start/end are preserved', attr.range.start == _startInt() && attr.range.end == _endInt());
     probe('locale is preserved', attr.locale == _profile().locale);
 
-    final ui.StringAttribute copied = attr.copy(
-      range: const ui.TextRange(start: 1, end: 4),
-    );
-    probe(
-      'copy produces updated range',
-      copied.range.start == 1 && copied.range.end == 4,
-    );
-    probe(
-      'copy keeps locale semantics',
-      copied.toString().contains(_profile().locale.languageCode),
-    );
+    final ui.StringAttribute copied = attr.copy(range: const ui.TextRange(start: 1, end: 4));
+    probe('copy produces updated range', copied.range.start == 1 && copied.range.end == 4);
+    probe('copy keeps locale semantics', copied.toString().contains(_profile().locale.languageCode));
 
     final ui.LocaleStringAttribute alt = ui.LocaleStringAttribute(
       range: const ui.TextRange(start: 0, end: 3),
       locale: const Locale('fr', 'FR'),
     );
-    probe(
-      'different locale values are supported',
-      alt.locale == const Locale('fr', 'FR'),
-    );
+    probe('different locale values are supported', alt.locale == const Locale('fr', 'FR'));
 
     final ui.LocaleStringAttribute wide = ui.LocaleStringAttribute(
       range: ui.TextRange(start: 0, end: _textLength()),
       locale: const Locale('de'),
     );
     probe('full-length ranges are supported', wide.range.end == _textLength());
-    probe(
-      'summary text can be generated',
-      '${_passed.length + _failed.length} checks'.endsWith('checks'),
-    );
+    probe('summary text can be generated', '${_passed.length + _failed.length} checks'.endsWith('checks'));
 
     setState(() {});
   }
@@ -299,11 +236,7 @@ class _LocaleStringAttributeDeepDemoPageState
         gradient: LinearGradient(colors: colors),
         borderRadius: BorderRadius.circular(18),
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: colors[1].withAlpha(92),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
+          BoxShadow(color: colors[1].withAlpha(92), blurRadius: 16, offset: const Offset(0, 8)),
         ],
       ),
       child: const Column(
@@ -311,11 +244,7 @@ class _LocaleStringAttributeDeepDemoPageState
         children: <Widget>[
           Text(
             'LocaleStringAttribute Annotation Studio',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 23.5,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 23.5, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Text(
@@ -353,10 +282,7 @@ class _LocaleStringAttributeDeepDemoPageState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-                ),
+                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -383,10 +309,7 @@ class _LocaleStringAttributeDeepDemoPageState
             children: <Widget>[
               Icon(icon, color: color),
               const SizedBox(height: 8),
-              Text(
-                title,
-                style: TextStyle(color: color, fontWeight: FontWeight.w700),
-              ),
+              Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
               Text(body, style: const TextStyle(fontSize: 12)),
             ],
@@ -399,30 +322,14 @@ class _LocaleStringAttributeDeepDemoPageState
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          card(
-            'Range-based tagging',
-            'Assign locale metadata only where needed.',
-            Icons.select_all,
-            const Color(0xFF2563EB),
-          ),
-          card(
-            'Script shaping',
-            'Guide engines toward locale-appropriate glyph behavior.',
-            Icons.format_shapes,
-            const Color(0xFF7C3AED),
-          ),
-          card(
-            'Fallback control',
-            'Improve matching for language-specific rendering.',
-            Icons.tune,
-            const Color(0xFF0F766E),
-          ),
-          card(
-            'Mixed content',
-            'Support multilingual runs in one paragraph.',
-            Icons.language,
-            const Color(0xFFB45309),
-          ),
+          card('Range-based tagging', 'Assign locale metadata only where needed.', Icons.select_all,
+              const Color(0xFF2563EB)),
+          card('Script shaping', 'Guide engines toward locale-appropriate glyph behavior.',
+              Icons.format_shapes, const Color(0xFF7C3AED)),
+          card('Fallback control', 'Improve matching for language-specific rendering.', Icons.tune,
+              const Color(0xFF0F766E)),
+          card('Mixed content', 'Support multilingual runs in one paragraph.', Icons.language,
+              const Color(0xFFB45309)),
         ],
       ),
     );
@@ -441,10 +348,7 @@ class _LocaleStringAttributeDeepDemoPageState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Locale range builder',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Locale range builder', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -472,9 +376,7 @@ class _LocaleStringAttributeDeepDemoPageState
                 setState(() {
                   _activeText = value;
                   _start = 0;
-                  _end = (_textLength() * 0.2)
-                      .clamp(4, _textLength())
-                      .toDouble();
+                  _end = (_textLength() * 0.2).clamp(4, _textLength()).toDouble();
                   _clampRange();
                 });
                 _emit('Text sample switched to ${_sample().label}.');
@@ -482,8 +384,7 @@ class _LocaleStringAttributeDeepDemoPageState
             },
             items: List<DropdownMenuItem<int>>.generate(
               _texts.length,
-              (int i) =>
-                  DropdownMenuItem<int>(value: i, child: Text(_texts[i].label)),
+              (int i) => DropdownMenuItem<int>(value: i, child: Text(_texts[i].label)),
             ),
           ),
           const SizedBox(height: 8),
@@ -642,10 +543,8 @@ class _LocaleStringAttributeDeepDemoPageState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Localized text preview: ${_sample().label}',
-            style: const TextStyle(fontWeight: FontWeight.w700),
-          ),
+          Text('Localized text preview: ${_sample().label}',
+              style: const TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -657,11 +556,7 @@ class _LocaleStringAttributeDeepDemoPageState
             ),
             child: RichText(
               text: TextSpan(
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Color(0xFF0F172A),
-                  height: 1.4,
-                ),
+                style: const TextStyle(fontSize: 15, color: Color(0xFF0F172A), height: 1.4),
                 children: <InlineSpan>[
                   TextSpan(text: a),
                   TextSpan(
@@ -682,10 +577,7 @@ class _LocaleStringAttributeDeepDemoPageState
             spacing: 8,
             runSpacing: 8,
             children: <Widget>[
-              _kv(
-                'locale',
-                '${_profile().locale.languageCode}-${_profile().locale.countryCode ?? ''}',
-              ),
+              _kv('locale', '${_profile().locale.languageCode}-${_profile().locale.countryCode ?? ''}'),
               _kv('range', '$s-$e'),
               _kv('length', '${e - s} chars'),
               _kv('priority', _priority.toStringAsFixed(2)),
@@ -721,10 +613,7 @@ class _LocaleStringAttributeDeepDemoPageState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Coverage heatmap',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Coverage heatmap', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -765,10 +654,7 @@ class _LocaleStringAttributeDeepDemoPageState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Attribute timeline',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Attribute timeline', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           SizedBox(
             height: 220,
@@ -776,19 +662,14 @@ class _LocaleStringAttributeDeepDemoPageState
                 ? const Center(
                     child: Text(
                       'No attributes yet. Add one in the builder panel.',
-                      style: TextStyle(
-                        fontSize: 12.2,
-                        color: Color(0xFF64748B),
-                      ),
+                      style: TextStyle(fontSize: 12.2, color: Color(0xFF64748B)),
                     ),
                   )
                 : ListView.builder(
                     itemCount: _entries.length,
                     itemBuilder: (BuildContext context, int index) {
                       final _LocaleRangeEntry e = _entries[index];
-                      final double frac = e.textLength == 0
-                          ? 0
-                          : (e.range.end - e.range.start) / e.textLength;
+                      final double frac = e.textLength == 0 ? 0 : (e.range.end - e.range.start) / e.textLength;
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         padding: const EdgeInsets.all(9),
@@ -806,17 +687,8 @@ class _LocaleStringAttributeDeepDemoPageState
                                   width: 24,
                                   height: 24,
                                   alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: e.color,
-                                  ),
-                                  child: Text(
-                                    '${index + 1}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 11,
-                                    ),
-                                  ),
+                                  decoration: BoxDecoration(shape: BoxShape.circle, color: e.color),
+                                  child: Text('${index + 1}', style: const TextStyle(color: Colors.white, fontSize: 11)),
                                 ),
                                 const SizedBox(width: 8),
                                 Expanded(
@@ -834,9 +706,7 @@ class _LocaleStringAttributeDeepDemoPageState
                               child: LinearProgressIndicator(
                                 value: frac,
                                 minHeight: 8,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  e.color,
-                                ),
+                                valueColor: AlwaysStoppedAnimation<Color>(e.color),
                                 backgroundColor: const Color(0xFFE2E8F0),
                               ),
                             ),
@@ -866,18 +736,9 @@ class _LocaleStringAttributeDeepDemoPageState
             children: <Widget>[
               Icon(icon, color: Colors.white),
               const SizedBox(height: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
-              Text(
-                body,
-                style: const TextStyle(color: Colors.white, fontSize: 12),
-              ),
+              Text(body, style: const TextStyle(color: Colors.white, fontSize: 12)),
             ],
           ),
         ),
@@ -888,24 +749,12 @@ class _LocaleStringAttributeDeepDemoPageState
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          card(
-            'Localized subtitles',
-            'Assign locale per segment to improve subtitle shaping.',
-            Icons.subtitles,
-            const <Color>[Color(0xFF2563EB), Color(0xFF60A5FA)],
-          ),
-          card(
-            'Mixed-script copy',
-            'Blend Latin, kana, and Arabic runs with precise locale hints.',
-            Icons.font_download,
-            const <Color>[Color(0xFF7C3AED), Color(0xFFA78BFA)],
-          ),
-          card(
-            'Commerce content',
-            'Tag product names and legal text by regional language.',
-            Icons.store,
-            const <Color>[Color(0xFF0F766E), Color(0xFF2DD4BF)],
-          ),
+          card('Localized subtitles', 'Assign locale per segment to improve subtitle shaping.', Icons.subtitles,
+              const <Color>[Color(0xFF2563EB), Color(0xFF60A5FA)]),
+          card('Mixed-script copy', 'Blend Latin, kana, and Arabic runs with precise locale hints.',
+              Icons.font_download, const <Color>[Color(0xFF7C3AED), Color(0xFFA78BFA)]),
+          card('Commerce content', 'Tag product names and legal text by regional language.', Icons.store,
+              const <Color>[Color(0xFF0F766E), Color(0xFF2DD4BF)]),
         ],
       ),
     );
@@ -943,10 +792,7 @@ class _LocaleStringAttributeDeepDemoPageState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Runtime probe dashboard',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
           const SizedBox(height: 8),
@@ -969,10 +815,7 @@ class _LocaleStringAttributeDeepDemoPageState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Operational notes',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Operational notes', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Container(
             height: 180,
@@ -986,14 +829,8 @@ class _LocaleStringAttributeDeepDemoPageState
               itemCount: _notes.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    _notes[index],
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Text(_notes[index], style: const TextStyle(fontSize: 12)),
                 );
               },
             ),
@@ -1170,18 +1007,9 @@ class _CoveragePainter extends CustomPainter {
       }
     }
 
-    final Rect track = Rect.fromLTWH(
-      20,
-      size.height * 0.22,
-      size.width - 40,
-      size.height * 0.56,
-    );
-    final Paint trackPaint = Paint()
-      ..color = const Color(0xFFCBD5E1).withAlpha(130);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(track, const Radius.circular(8)),
-      trackPaint,
-    );
+    final Rect track = Rect.fromLTWH(20, size.height * 0.22, size.width - 40, size.height * 0.56);
+    final Paint trackPaint = Paint()..color = const Color(0xFFCBD5E1).withAlpha(130);
+    canvas.drawRRect(RRect.fromRectAndRadius(track, const Radius.circular(8)), trackPaint);
 
     for (int i = 0; i < entries.length && i < 18; i++) {
       final _LocaleRangeEntry e = entries[i];
@@ -1200,10 +1028,7 @@ class _CoveragePainter extends CustomPainter {
       );
     }
 
-    final Offset pulseDot = Offset(
-      track.left + pulse * track.width,
-      track.bottom + 12,
-    );
+    final Offset pulseDot = Offset(track.left + pulse * track.width, track.bottom + 12);
     canvas.drawCircle(pulseDot, 5, Paint()..color = const Color(0xFF22D3EE));
 
     if (showIndices) {

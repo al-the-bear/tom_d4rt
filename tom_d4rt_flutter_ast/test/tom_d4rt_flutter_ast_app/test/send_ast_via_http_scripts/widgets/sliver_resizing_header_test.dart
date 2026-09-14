@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.height,
       'title': 'What Is SliverResizingHeader?',
-      'body':
-          'SliverResizingHeader is a sliver that displays a single child '
+      'body': 'SliverResizingHeader is a sliver that displays a single child '
           'widget which smoothly resizes between a minimum and maximum extent '
           'as the user scrolls. Unlike SliverPersistentHeader, it does not '
           'require a delegate — you just provide a child widget directly.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Simpler Than SliverPersistentHeader',
-      'body':
-          'SliverPersistentHeader requires you to subclass '
+      'body': 'SliverPersistentHeader requires you to subclass '
           'SliverPersistentHeaderDelegate and override build(), minExtent, '
           'and maxExtent. SliverResizingHeader removes that boilerplate: '
           'pass a child and the extents are computed from the child itself.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Smooth Resizing',
-      'body':
-          'As the user scrolls, the header smoothly shrinks from its '
+      'body': 'As the user scrolls, the header smoothly shrinks from its '
           'natural size (max extent) to its minimum extent. The child is '
           'given the current available extent via layout constraints. '
           'The transition is continuous, not stepped.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.push_pin,
       'title': 'Pinning Behavior',
-      'body':
-          'SliverResizingHeader always pins at the top of the viewport '
+      'body': 'SliverResizingHeader always pins at the top of the viewport '
           'at its minimum extent. It never scrolls completely off-screen. '
           'This makes it ideal for collapsible headers that should always '
           'remain partially visible.',
@@ -128,8 +124,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'child',
       'type': 'Widget',
-      'desc':
-          'Required. The widget displayed in the header. It will be sized '
+      'desc': 'Required. The widget displayed in the header. It will be sized '
           'between its intrinsic min/max extents as the user scrolls. '
           'The child should be able to handle varying constraints.',
     },
@@ -285,27 +280,30 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-            final icons = [
-              Icons.inbox,
-              Icons.star,
-              Icons.send,
-              Icons.drafts,
-              Icons.delete,
-              Icons.label,
-              Icons.folder,
-              Icons.archive,
-            ];
-            return ListTile(
-              leading: Icon(
-                icons[index % icons.length],
-                color: Colors.pink.shade300,
-              ),
-              title: Text('Dashboard item ${index + 1}'),
-              subtitle: Text('Category ${(index % 4) + 1}'),
-              trailing: const Icon(Icons.chevron_right),
-            );
-          }, childCount: 25),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext ctx, int index) {
+              final icons = [
+                Icons.inbox,
+                Icons.star,
+                Icons.send,
+                Icons.drafts,
+                Icons.delete,
+                Icons.label,
+                Icons.folder,
+                Icons.archive,
+              ];
+              return ListTile(
+                leading: Icon(
+                  icons[index % icons.length],
+                  color: Colors.pink.shade300,
+                ),
+                title: Text('Dashboard item ${index + 1}'),
+                subtitle: Text('Category ${(index % 4) + 1}'),
+                trailing: const Icon(Icons.chevron_right),
+              );
+            },
+            childCount: 25,
+          ),
         ),
       ],
     ),
@@ -393,39 +391,45 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-            final tracks = [
-              'Midnight Serenade',
-              'Crystal Waves',
-              'Electric Dreams',
-              'Sunset Boulevard',
-              'Ocean Breeze',
-              'Mountain Echo',
-              'City Lights',
-              'Dancing Stars',
-              'Velvet Moon',
-              'Golden Hour',
-            ];
-            final artists = ['Luna', 'Cascade', 'Neon', 'Azure', 'Coral'];
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.pink.shade100,
-                child: Text(
-                  '${index + 1}',
-                  style: TextStyle(
-                    color: Colors.pink.shade700,
-                    fontWeight: FontWeight.bold,
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext ctx, int index) {
+              final tracks = [
+                'Midnight Serenade',
+                'Crystal Waves',
+                'Electric Dreams',
+                'Sunset Boulevard',
+                'Ocean Breeze',
+                'Mountain Echo',
+                'City Lights',
+                'Dancing Stars',
+                'Velvet Moon',
+                'Golden Hour',
+              ];
+              final artists = [
+                'Luna',
+                'Cascade',
+                'Neon',
+                'Azure',
+                'Coral',
+              ];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.pink.shade100,
+                  child: Text(
+                    '${index + 1}',
+                    style: TextStyle(
+                      color: Colors.pink.shade700,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              title: Text(tracks[index % tracks.length]),
-              subtitle: Text(artists[index % artists.length]),
-              trailing: Icon(
-                Icons.play_circle_fill,
-                color: Colors.pink.shade300,
-              ),
-            );
-          }, childCount: 20),
+                title: Text(tracks[index % tracks.length]),
+                subtitle: Text(artists[index % artists.length]),
+                trailing: Icon(Icons.play_circle_fill, color: Colors.pink.shade300),
+              );
+            },
+            childCount: 20,
+          ),
         ),
       ],
     ),
@@ -470,7 +474,9 @@ dynamic build(BuildContext context) {
           width: double.infinity,
           decoration: BoxDecoration(
             color: sColor.withOpacity(0.1),
-            border: Border(bottom: BorderSide(color: sColor.withOpacity(0.3))),
+            border: Border(
+              bottom: BorderSide(color: sColor.withOpacity(0.3)),
+            ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
@@ -488,7 +494,10 @@ dynamic build(BuildContext context) {
               const Spacer(),
               Text(
                 '${items.length} files',
-                style: TextStyle(fontSize: 12, color: sColor.withOpacity(0.7)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: sColor.withOpacity(0.7),
+                ),
               ),
             ],
           ),
@@ -498,16 +507,16 @@ dynamic build(BuildContext context) {
 
     multiSlices.add(
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-          return ListTile(
-            leading: Icon(
-              Icons.insert_drive_file,
-              color: sColor.withOpacity(0.6),
-            ),
-            title: Text(items[index]),
-            trailing: const Icon(Icons.more_vert, size: 18),
-          );
-        }, childCount: items.length),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext ctx, int index) {
+            return ListTile(
+              leading: Icon(Icons.insert_drive_file, color: sColor.withOpacity(0.6)),
+              title: Text(items[index]),
+              trailing: const Icon(Icons.more_vert, size: 18),
+            );
+          },
+          childCount: items.length,
+        ),
       ),
     );
   }
@@ -610,11 +619,7 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(14),
               child: Column(
                 children: [
-                  _srhRefRow(
-                    'Simplicity',
-                    comp['simplicity'] as String,
-                    cColor,
-                  ),
+                  _srhRefRow('Simplicity', comp['simplicity'] as String, cColor),
                   _srhRefRow('Flexibility', comp['flex'] as String, cColor),
                   _srhRefRow('Pinning', comp['pinning'] as String, cColor),
                   _srhRefRow('Use when', comp['use'] as String, cColor),
@@ -635,8 +640,7 @@ dynamic build(BuildContext context) {
   final behaviorNotes = <Map<String, dynamic>>[
     {
       'title': 'Child-Driven Extents',
-      'body':
-          'The min and max extents are derived from the child itself. '
+      'body': 'The min and max extents are derived from the child itself. '
           'The child is laid out once with unbounded constraints to find '
           'its natural (max) size, and once with zero height to find its '
           'minimum size. These become the resize bounds.',
@@ -645,8 +649,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Always Pinned',
-      'body':
-          'Unlike SliverPersistentHeader (where pinning is optional), '
+      'body': 'Unlike SliverPersistentHeader (where pinning is optional), '
           'SliverResizingHeader always pins. It stays at the top of the '
           'viewport at its minimum extent as the user scrolls further.',
       'icon': Icons.push_pin,
@@ -654,8 +657,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Smooth Transition',
-      'body':
-          'As the user scrolls, the header linearly interpolates '
+      'body': 'As the user scrolls, the header linearly interpolates '
           'between min and max extent. There is no snap or overshoot — '
           'just a continuous resize proportional to scroll offset. This '
           'gives a clean, predictable animation.',
@@ -664,8 +666,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Layout Rebuild',
-      'body':
-          'The child is re-laid-out when the available extent changes '
+      'body': 'The child is re-laid-out when the available extent changes '
           'during scrolling. If the child uses its constraints (e.g., '
           'ConstrainedBox or Flexible), it will smoothly adapt its layout '
           'as the header resizes.',
@@ -674,8 +675,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No Stretch Support',
-      'body':
-          'SliverResizingHeader does not support the overscroll stretch '
+      'body': 'SliverResizingHeader does not support the overscroll stretch '
           'effect that SliverAppBar provides via stretchModes. If you need '
           'the header to grow beyond its max extent on overscroll, use '
           'SliverAppBar instead.',
@@ -748,38 +748,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.height,
-      'text':
-          'SliverResizingHeader smoothly resizes its child between '
+      'text': 'SliverResizingHeader smoothly resizes its child between '
           'min and max extents as the user scrolls.',
     },
     {
       'icon': Icons.child_care,
-      'text':
-          'Min/max extents are derived from the child widget itself — '
+      'text': 'Min/max extents are derived from the child widget itself — '
           'no explicit pixel values or delegate needed.',
     },
     {
       'icon': Icons.push_pin,
-      'text':
-          'Always pins at the top of the viewport at its minimum '
+      'text': 'Always pins at the top of the viewport at its minimum '
           'extent; cannot be configured to not pin.',
     },
     {
       'icon': Icons.compare,
-      'text':
-          'Simpler than SliverPersistentHeader (no delegate) and less '
+      'text': 'Simpler than SliverPersistentHeader (no delegate) and less '
           'feature-rich than SliverAppBar (no stretch, actions, etc.).',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'Multiple SliverResizingHeaders can coexist in one '
+      'text': 'Multiple SliverResizingHeaders can coexist in one '
           'CustomScrollView, each pinning independently.',
     },
     {
       'icon': Icons.animation,
-      'text':
-          'Resizing is continuous and proportional to scroll offset, '
+      'text': 'Resizing is continuous and proportional to scroll offset, '
           'giving a smooth, predictable visual effect.',
     },
   ];

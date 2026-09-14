@@ -347,10 +347,7 @@ Widget _conceptOverview() {
               style: _kBody,
             ),
             const SizedBox(height: 14),
-            const Text(
-              'Painting order inside one decoration:',
-              style: _kSubsection,
-            ),
+            const Text('Painting order inside one decoration:', style: _kSubsection),
             const SizedBox(height: 8),
             _paintingOrderRow(),
             const SizedBox(height: 14),
@@ -395,14 +392,12 @@ Widget _paintingOrderRow() {
           // instead of overflowing.
           child: Row(
             children: <Widget>[
-              Text(
-                s.number,
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 18,
-                  color: s.color,
-                ),
-              ),
+              Text(s.number,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18,
+                    color: s.color,
+                  )),
               const SizedBox(width: 10),
               Flexible(
                 child: Text(s.label, style: _kSubsection, softWrap: true),
@@ -446,118 +441,102 @@ Widget _anatomyOfBoxDecoration() {
           spacing: 22,
           runSpacing: 22,
           children: <Widget>[
-            _anatomySlot(
-              'color',
-              'Solid fill applied behind everything else.',
-              Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  color: _dustyRose,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-            _anatomySlot(
-              'gradient',
-              'Overrides color when both are set — paints linear/radial/sweep.',
-              Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: <Color>[_amber, _claret],
+            _anatomySlot('color',
+                'Solid fill applied behind everything else.',
+                Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    color: _dustyRose,
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-            _anatomySlot(
-              'image',
-              'DecorationImage — paints above color/gradient.',
-              Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  color: _verdigris,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                alignment: Alignment.center,
-                child: const Icon(Icons.image, color: _porcelain, size: 36),
-              ),
-            ),
-            _anatomySlot(
-              'border',
-              'Stroked outline drawn last; supports per-side configuration.',
-              Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  color: _cream,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _charcoal, width: 4),
-                ),
-              ),
-            ),
-            _anatomySlot(
-              'borderRadius',
-              'Only valid for rectangle shape; rounds each corner.',
-              Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  color: _ochre,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(28),
-                    bottomRight: Radius.circular(28),
-                  ),
-                ),
-              ),
-            ),
-            _anatomySlot(
-              'boxShadow',
-              'A list — each shadow layered, painted before the box.',
-              Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  color: _porcelain,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: const <BoxShadow>[
-                    BoxShadow(
-                      color: Color(0x44000000),
-                      blurRadius: 14,
-                      offset: Offset(0, 6),
+                )),
+            _anatomySlot('gradient',
+                'Overrides color when both are set — paints linear/radial/sweep.',
+                Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: <Color>[_amber, _claret],
                     ),
-                  ],
-                ),
-              ),
-            ),
-            _anatomySlot(
-              'shape',
-              'BoxShape.rectangle (default) or circle.',
-              Container(
-                width: 88,
-                height: 88,
-                decoration: const BoxDecoration(
-                  color: _sage,
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
-            _anatomySlot(
-              'backgroundBlendMode',
-              'How the color/gradient blends with anything beneath.',
-              Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  color: _claret.withOpacity(0.85),
-                  backgroundBlendMode: BlendMode.multiply,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                )),
+            _anatomySlot('image',
+                'DecorationImage — paints above color/gradient.',
+                Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    color: _verdigris,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  alignment: Alignment.center,
+                  child: const Icon(Icons.image, color: _porcelain, size: 36),
+                )),
+            _anatomySlot('border',
+                'Stroked outline drawn last; supports per-side configuration.',
+                Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    color: _cream,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: _charcoal, width: 4),
+                  ),
+                )),
+            _anatomySlot('borderRadius',
+                'Only valid for rectangle shape; rounds each corner.',
+                Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    color: _ochre,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(28),
+                      bottomRight: Radius.circular(28),
+                    ),
+                  ),
+                )),
+            _anatomySlot('boxShadow',
+                'A list — each shadow layered, painted before the box.',
+                Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    color: _porcelain,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: const <BoxShadow>[
+                      BoxShadow(
+                        color: Color(0x44000000),
+                        blurRadius: 14,
+                        offset: Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                )),
+            _anatomySlot('shape',
+                'BoxShape.rectangle (default) or circle.',
+                Container(
+                  width: 88,
+                  height: 88,
+                  decoration: const BoxDecoration(
+                    color: _sage,
+                    shape: BoxShape.circle,
+                  ),
+                )),
+            _anatomySlot('backgroundBlendMode',
+                'How the color/gradient blends with anything beneath.',
+                Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    color: _claret.withOpacity(0.85),
+                    backgroundBlendMode: BlendMode.multiply,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                )),
           ],
         ),
       ),
@@ -626,8 +605,7 @@ Widget _colorSlotShowcase() {
             for (final _ColorSwatch s in swatches)
               _specimenTile(
                 label: s.name,
-                caption:
-                    '0x${s.color.value.toRadixString(16).padLeft(8, '0').toUpperCase()}',
+                caption: '0x${s.color.value.toRadixString(16).padLeft(8, '0').toUpperCase()}',
                 swatch: Container(
                   width: 96,
                   height: 96,
@@ -1317,7 +1295,10 @@ Widget _radiusSpecimen(String name, BorderRadius radius, String caption) {
         Container(
           width: 130,
           height: 80,
-          decoration: BoxDecoration(color: _dustyRose, borderRadius: radius),
+          decoration: BoxDecoration(
+            color: _dustyRose,
+            borderRadius: radius,
+          ),
         ),
         const SizedBox(height: 10),
         Text(name, style: _kLabel, textAlign: TextAlign.center),
@@ -1376,15 +1357,21 @@ Widget _shapeBorderGallery() {
             ),
             _shapeSpecimen(
               'StadiumBorder',
-              const StadiumBorder(side: BorderSide(color: _charcoal, width: 2)),
+              const StadiumBorder(
+                side: BorderSide(color: _charcoal, width: 2),
+              ),
             ),
             _shapeSpecimen(
               'CircleBorder',
-              const CircleBorder(side: BorderSide(color: _charcoal, width: 2)),
+              const CircleBorder(
+                side: BorderSide(color: _charcoal, width: 2),
+              ),
             ),
             _shapeSpecimen(
               'OvalBorder',
-              const OvalBorder(side: BorderSide(color: _charcoal, width: 2)),
+              const OvalBorder(
+                side: BorderSide(color: _charcoal, width: 2),
+              ),
             ),
           ],
         ),
@@ -1429,60 +1416,48 @@ Widget _decorationImageShowcase() {
   // in a property table card. The synthetic ImageProvider trick is honest:
   // we construct the DecorationImage objects, then describe them.
   final List<_ImageRow> rows = <_ImageRow>[
-    _ImageRow(
-      'fit: cover',
-      'BoxFit.cover',
-      'fills entirely, may clip',
-      BoxFit.cover,
-      Alignment.center,
-      ImageRepeat.noRepeat,
-      null,
-    ),
-    _ImageRow(
-      'fit: contain',
-      'BoxFit.contain',
-      'fits inside, letterboxes',
-      BoxFit.contain,
-      Alignment.center,
-      ImageRepeat.noRepeat,
-      null,
-    ),
-    _ImageRow(
-      'fit: fitWidth',
-      'BoxFit.fitWidth',
-      'matches width, may overflow vertically',
-      BoxFit.fitWidth,
-      Alignment.topCenter,
-      ImageRepeat.noRepeat,
-      null,
-    ),
-    _ImageRow(
-      'fit: fitHeight',
-      'BoxFit.fitHeight',
-      'matches height, may overflow horizontally',
-      BoxFit.fitHeight,
-      Alignment.centerLeft,
-      ImageRepeat.noRepeat,
-      null,
-    ),
-    _ImageRow(
-      'colorFilter',
-      'ColorFilter.mode(claret, modulate)',
-      'tints the image during paint',
-      BoxFit.cover,
-      Alignment.center,
-      ImageRepeat.noRepeat,
-      const ColorFilter.mode(_claret, BlendMode.modulate),
-    ),
-    _ImageRow(
-      'repeatX',
-      'ImageRepeat.repeatX',
-      'tiles only along the X axis',
-      BoxFit.none,
-      Alignment.topLeft,
-      ImageRepeat.repeatX,
-      null,
-    ),
+    _ImageRow('fit: cover',
+        'BoxFit.cover',
+        'fills entirely, may clip',
+        BoxFit.cover,
+        Alignment.center,
+        ImageRepeat.noRepeat,
+        null),
+    _ImageRow('fit: contain',
+        'BoxFit.contain',
+        'fits inside, letterboxes',
+        BoxFit.contain,
+        Alignment.center,
+        ImageRepeat.noRepeat,
+        null),
+    _ImageRow('fit: fitWidth',
+        'BoxFit.fitWidth',
+        'matches width, may overflow vertically',
+        BoxFit.fitWidth,
+        Alignment.topCenter,
+        ImageRepeat.noRepeat,
+        null),
+    _ImageRow('fit: fitHeight',
+        'BoxFit.fitHeight',
+        'matches height, may overflow horizontally',
+        BoxFit.fitHeight,
+        Alignment.centerLeft,
+        ImageRepeat.noRepeat,
+        null),
+    _ImageRow('colorFilter',
+        'ColorFilter.mode(claret, modulate)',
+        'tints the image during paint',
+        BoxFit.cover,
+        Alignment.center,
+        ImageRepeat.noRepeat,
+        const ColorFilter.mode(_claret, BlendMode.modulate)),
+    _ImageRow('repeatX',
+        'ImageRepeat.repeatX',
+        'tiles only along the X axis',
+        BoxFit.none,
+        Alignment.topLeft,
+        ImageRepeat.repeatX,
+        null),
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1527,15 +1502,8 @@ class _ImageRow {
   final Alignment alignment;
   final ImageRepeat repeat;
   final ColorFilter? colorFilter;
-  const _ImageRow(
-    this.name,
-    this.slot,
-    this.description,
-    this.fit,
-    this.alignment,
-    this.repeat,
-    this.colorFilter,
-  );
+  const _ImageRow(this.name, this.slot, this.description, this.fit,
+      this.alignment, this.repeat, this.colorFilter);
 }
 
 Widget _imageRow(_ImageRow r) {
@@ -1550,7 +1518,10 @@ Widget _imageRow(_ImageRow r) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(width: 130, child: Text(r.name, style: _kLabel)),
+        SizedBox(
+          width: 130,
+          child: Text(r.name, style: _kLabel),
+        ),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1794,7 +1765,10 @@ Widget _compositeLuxuryCard() {
                   stops: <double>[0.0, 0.6, 1.0],
                 ),
                 borderRadius: BorderRadius.circular(22),
-                border: Border.all(color: _amber.withOpacity(0.5), width: 1.2),
+                border: Border.all(
+                  color: _amber.withOpacity(0.5),
+                  width: 1.2,
+                ),
                 boxShadow: const <BoxShadow>[
                   BoxShadow(
                     color: Color(0x33000000),
@@ -1833,7 +1807,10 @@ Widget _compositeLuxuryCard() {
                             colors: <Color>[_amber, _claret],
                           ),
                           boxShadow: const <BoxShadow>[
-                            BoxShadow(color: Color(0x55E3A857), blurRadius: 8),
+                            BoxShadow(
+                              color: Color(0x55E3A857),
+                              blurRadius: 8,
+                            ),
                           ],
                         ),
                       ),
@@ -1909,11 +1886,17 @@ Widget _lerpAndTween() {
     border: Border.all(color: _charcoal, width: 1),
   );
   final BoxDecoration b = BoxDecoration(
-    gradient: const LinearGradient(colors: <Color>[_midnight, _claret]),
+    gradient: const LinearGradient(
+      colors: <Color>[_midnight, _claret],
+    ),
     borderRadius: BorderRadius.circular(34),
     border: Border.all(color: _amber, width: 3),
     boxShadow: const <BoxShadow>[
-      BoxShadow(color: Color(0x55000000), blurRadius: 14, offset: Offset(0, 6)),
+      BoxShadow(
+        color: Color(0x55000000),
+        blurRadius: 14,
+        offset: Offset(0, 6),
+      ),
     ],
   );
   final List<double> ts = <double>[0.0, 0.25, 0.5, 0.75, 1.0];
@@ -2047,13 +2030,13 @@ Widget _recipeSoftElevatedCard() {
     'Two-layer shadow — close + far — for a Material-like float.',
     specimen,
     'BoxDecoration(\n'
-        '  color: porcelain,\n'
-        '  borderRadius: BorderRadius.circular(14),\n'
-        '  boxShadow: [\n'
-        '    BoxShadow(blurRadius: 6, offset: Offset(0, 2)),\n'
-        '    BoxShadow(blurRadius: 18, offset: Offset(0, 10)),\n'
-        '  ],\n'
-        ')',
+    '  color: porcelain,\n'
+    '  borderRadius: BorderRadius.circular(14),\n'
+    '  boxShadow: [\n'
+    '    BoxShadow(blurRadius: 6, offset: Offset(0, 2)),\n'
+    '    BoxShadow(blurRadius: 18, offset: Offset(0, 10)),\n'
+    '  ],\n'
+    ')',
   );
 }
 
@@ -2079,10 +2062,10 @@ Widget _recipeInkStampChip() {
     'Bold 2px border + low radius + uppercase letterforms.',
     specimen,
     'BoxDecoration(\n'
-        '  color: cream,\n'
-        '  borderRadius: BorderRadius.circular(4),\n'
-        '  border: Border.all(color: claret, width: 2),\n'
-        ')',
+    '  color: cream,\n'
+    '  borderRadius: BorderRadius.circular(4),\n'
+    '  border: Border.all(color: claret, width: 2),\n'
+    ')',
   );
 }
 
@@ -2121,13 +2104,13 @@ Widget _recipeNeumorphicButton() {
     'Paired light + dark shadow on each side conjures the soft 3D look.',
     specimen,
     'BoxDecoration(\n'
-        '  color: cream,\n'
-        '  borderRadius: BorderRadius.circular(14),\n'
-        '  boxShadow: [\n'
-        '    BoxShadow(color: 0xFFFFFFFF, offset: (-4,-4), blur: 10),\n'
-        '    BoxShadow(color: 0x33000000, offset: (4,4), blur: 10),\n'
-        '  ],\n'
-        ')',
+    '  color: cream,\n'
+    '  borderRadius: BorderRadius.circular(14),\n'
+    '  boxShadow: [\n'
+    '    BoxShadow(color: 0xFFFFFFFF, offset: (-4,-4), blur: 10),\n'
+    '    BoxShadow(color: 0x33000000, offset: (4,4), blur: 10),\n'
+    '  ],\n'
+    ')',
   );
 }
 
@@ -2154,12 +2137,12 @@ Widget _recipeGradientProgressBg() {
     'A horizontal LinearGradient mapped onto a tall, narrow rounded box.',
     specimen,
     'BoxDecoration(\n'
-        '  gradient: LinearGradient(\n'
-        '    colors: [amber, claret, midnight],\n'
-        '  ),\n'
-        '  borderRadius: BorderRadius.circular(8),\n'
-        '  boxShadow: [BoxShadow(blurRadius: 4, offset: Offset(0, 2))],\n'
-        ')',
+    '  gradient: LinearGradient(\n'
+    '    colors: [amber, claret, midnight],\n'
+    '  ),\n'
+    '  borderRadius: BorderRadius.circular(8),\n'
+    '  boxShadow: [BoxShadow(blurRadius: 4, offset: Offset(0, 2))],\n'
+    ')',
   );
 }
 
@@ -2183,14 +2166,14 @@ Widget _recipeStainedGlassPanel() {
     'Heavy black "leaded" border + radial gradient with off-center focal.',
     specimen,
     'BoxDecoration(\n'
-        '  gradient: RadialGradient(\n'
-        '    center: Alignment(-0.3, -0.2),\n'
-        '    radius: 0.9,\n'
-        '    colors: [amber, claret, midnight],\n'
-        '  ),\n'
-        '  borderRadius: BorderRadius.circular(6),\n'
-        '  border: Border.all(color: ink, width: 4),\n'
-        ')',
+    '  gradient: RadialGradient(\n'
+    '    center: Alignment(-0.3, -0.2),\n'
+    '    radius: 0.9,\n'
+    '    colors: [amber, claret, midnight],\n'
+    '  ),\n'
+    '  borderRadius: BorderRadius.circular(6),\n'
+    '  border: Border.all(color: ink, width: 4),\n'
+    ')',
   );
 }
 
@@ -2218,11 +2201,11 @@ Widget _recipeHairlineDividerShadow() {
     'A 1px divider that still casts a soft shadow — useful for sticky headers.',
     specimen,
     'BoxDecoration(\n'
-        '  color: charcoal,\n'
-        '  boxShadow: [\n'
-        '    BoxShadow(blurRadius: 4, offset: Offset(0, 2)),\n'
-        '  ],\n'
-        ')',
+    '  color: charcoal,\n'
+    '  boxShadow: [\n'
+    '    BoxShadow(blurRadius: 4, offset: Offset(0, 2)),\n'
+    '  ],\n'
+    ')',
   );
 }
 
@@ -2282,15 +2265,16 @@ Widget _comparisonTable() {
           children: <Widget>[
             for (int i = 0; i < rows.length; i++)
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 decoration: BoxDecoration(
-                  color: i == 0 ? _charcoal : (i.isEven ? _cream : _porcelain),
+                  color: i == 0
+                      ? _charcoal
+                      : (i.isEven ? _cream : _porcelain),
                   border: i == 0
                       ? null
-                      : const Border(bottom: BorderSide(color: _creamDeep)),
+                      : const Border(
+                          bottom: BorderSide(color: _creamDeep),
+                        ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -2332,25 +2316,25 @@ Widget _pitfalls() {
     const _Pitfall(
       'shape: circle + borderRadius',
       'Asserts at runtime — BoxShape.circle does not accept a borderRadius. '
-          'Use BoxShape.rectangle with BorderRadius, or switch to ShapeDecoration '
-          'with CircleBorder.',
+      'Use BoxShape.rectangle with BorderRadius, or switch to ShapeDecoration '
+      'with CircleBorder.',
     ),
     const _Pitfall(
       'DecorationImage vs Image widget',
       'BoxFit on DecorationImage paints at the box bounds and clips with '
-          'the decoration\'s shape. The Image widget instead sizes itself to '
-          'its parent constraints — different sizing math.',
+      'the decoration\'s shape. The Image widget instead sizes itself to '
+      'its parent constraints — different sizing math.',
     ),
     const _Pitfall(
       'Shadow ordering',
       'BoxShadows paint in list order, beneath the box. Later entries paint '
-          'on top of earlier ones — important when stacking near and far layers.',
+      'on top of earlier ones — important when stacking near and far layers.',
     ),
     const _Pitfall(
       'ColorFilter on image vs ColorFiltered widget',
       'DecorationImage.colorFilter affects only the image during decoration '
-          'paint. ColorFiltered wraps any widget subtree — broader scope but '
-          'extra paint pass.',
+      'paint. ColorFiltered wraps any widget subtree — broader scope but '
+      'extra paint pass.',
     ),
   ];
   return Column(
@@ -2370,7 +2354,9 @@ Widget _pitfalls() {
           border: Border.all(color: _creamDeep),
         ),
         child: Column(
-          children: <Widget>[for (final _Pitfall p in items) _pitfallCard(p)],
+          children: <Widget>[
+            for (final _Pitfall p in items) _pitfallCard(p),
+          ],
         ),
       ),
     ],
@@ -2390,7 +2376,9 @@ Widget _pitfallCard(_Pitfall p) {
     decoration: BoxDecoration(
       color: const Color(0xFFFFF5F1),
       borderRadius: BorderRadius.circular(8),
-      border: const Border(left: BorderSide(color: _claret, width: 4)),
+      border: const Border(
+        left: BorderSide(color: _claret, width: 4),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2409,45 +2397,21 @@ Widget _pitfallCard(_Pitfall p) {
 
 Widget _glossary() {
   final List<List<String>> entries = <List<String>>[
-    <String>[
-      'Decoration',
-      'Abstract base class for what paints inside a DecoratedBox.',
-    ],
+    <String>['Decoration', 'Abstract base class for what paints inside a DecoratedBox.'],
     <String>['BoxDecoration', 'Paints inside a rectangular (or circular) box.'],
     <String>['ShapeDecoration', 'Delegates the outline to a ShapeBorder.'],
-    <String>[
-      'ShapeBorder',
-      'Describes a closed shape; can be lerped between siblings.',
-    ],
-    <String>[
-      'BoxShape',
-      'rectangle or circle — restricts BoxDecoration outline.',
-    ],
-    <String>[
-      'BoxShadow',
-      'Color + blur + spread + offset, painted under the box.',
-    ],
+    <String>['ShapeBorder', 'Describes a closed shape; can be lerped between siblings.'],
+    <String>['BoxShape', 'rectangle or circle — restricts BoxDecoration outline.'],
+    <String>['BoxShadow', 'Color + blur + spread + offset, painted under the box.'],
     <String>['BoxBorder', 'Base of Border and BorderDirectional.'],
     <String>['BorderRadius', 'Per-corner Radius values for rectangle shapes.'],
-    <String>[
-      'BorderRadiusDirectional',
-      'start/end variant for RTL-aware layouts.',
-    ],
-    <String>[
-      'Gradient',
-      'Abstract — Linear, Radial, Sweep are concrete subclasses.',
-    ],
+    <String>['BorderRadiusDirectional', 'start/end variant for RTL-aware layouts.'],
+    <String>['Gradient', 'Abstract — Linear, Radial, Sweep are concrete subclasses.'],
     <String>['TileMode', 'How gradients extend past their start/end stops.'],
     <String>['DecorationImage', 'Image painted as part of a decoration.'],
     <String>['BoxFit', 'How DecorationImage scales inside its box.'],
-    <String>[
-      'DecorationTween',
-      'Linearly interpolates between two Decorations.',
-    ],
-    <String>[
-      'BlendMode',
-      'How background paint composites with what is beneath.',
-    ],
+    <String>['DecorationTween', 'Linearly interpolates between two Decorations.'],
+    <String>['BlendMode', 'How background paint composites with what is beneath.'],
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -2469,10 +2433,7 @@ Widget _glossary() {
           children: <Widget>[
             for (int i = 0; i < entries.length; i++)
               Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 10,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                 decoration: BoxDecoration(
                   color: i.isEven ? _cream : _porcelain,
                   borderRadius: BorderRadius.circular(4),
@@ -2485,7 +2446,9 @@ Widget _glossary() {
                       width: 200,
                       child: Text(entries[i][0], style: _kLabel),
                     ),
-                    Expanded(child: Text(entries[i][1], style: _kBody)),
+                    Expanded(
+                      child: Text(entries[i][1], style: _kBody),
+                    ),
                   ],
                 ),
               ),
@@ -2514,7 +2477,10 @@ Widget _colophon() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Colophon', style: _kSection.copyWith(color: _porcelain)),
+        Text(
+          'Colophon',
+          style: _kSection.copyWith(color: _porcelain),
+        ),
         const SizedBox(height: 8),
         const Text(
           'Set in the workspace cream + claret palette. Specimens hand-arranged '
@@ -2522,7 +2488,11 @@ Widget _colophon() {
           'swatch is a real Container with a real Decoration so the painter\'s '
           'intent can be inspected at rest. Like a fabric sample book on the '
           'cutting table, ready for the next garment to be drawn from.',
-          style: TextStyle(color: _porcelain, fontSize: 13, height: 1.55),
+          style: TextStyle(
+            color: _porcelain,
+            fontSize: 13,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 12),
         Container(

@@ -30,10 +30,7 @@ Widget _ppSection(String title, List<Widget> children) {
       border: Border.all(color: _ppLightRose, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x1A880E4F),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x1A880E4F), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -45,14 +42,11 @@ Widget _ppSection(String title, List<Widget> children) {
             color: _ppBurgundy,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _ppWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _ppWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -64,24 +58,19 @@ Widget _ppSection(String title, List<Widget> children) {
 Widget _ppLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _ppDarkBurgundy,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _ppDarkBurgundy,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _ppBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _ppGray, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(color: _ppGray, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -95,15 +84,12 @@ Widget _ppCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _ppLightRose.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _ppDarkBurgundy,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _ppDarkBurgundy,
+            height: 1.45)),
   );
 }
 
@@ -115,10 +101,9 @@ Widget _ppChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -151,10 +136,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'AutocompletePreviousPageOptionIntent',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
-        ),
+        title: const Text('AutocompletePreviousPageOptionIntent',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -183,48 +166,27 @@ dynamic build(BuildContext context) {
                       color: _ppWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.keyboard_double_arrow_up_rounded,
-                      color: _ppWhite,
-                      size: 32,
-                    ),
+                    child: const Icon(Icons.keyboard_double_arrow_up_rounded,
+                        color: _ppWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'PreviousPageOptionIntent',
-                    style: TextStyle(
-                      color: _ppWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('PreviousPageOptionIntent',
+                      style: TextStyle(
+                          color: _ppWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
-                  Text(
-                    'Jump backward by one page in autocomplete options',
-                    style: TextStyle(
-                      color: _ppWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text('Jump backward by one page in autocomplete options',
+                      style: TextStyle(
+                          color: _ppWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _ppChip(
-                        'Intent',
-                        _ppWhite.withValues(alpha: 0.25),
-                        _ppWhite,
-                      ),
-                      _ppChip(
-                        'Page Up',
-                        _ppWhite.withValues(alpha: 0.25),
-                        _ppWhite,
-                      ),
-                      _ppChip(
-                        'Backward',
-                        _ppWhite.withValues(alpha: 0.25),
-                        _ppWhite,
-                      ),
+                      _ppChip('Intent', _ppWhite.withValues(alpha: 0.25), _ppWhite),
+                      _ppChip('Page Up', _ppWhite.withValues(alpha: 0.25), _ppWhite),
+                      _ppChip('Backward', _ppWhite.withValues(alpha: 0.25), _ppWhite),
                     ],
                   ),
                 ],
@@ -431,30 +393,12 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _ppSummaryRow(
-                      Icons.keyboard_double_arrow_up,
-                      'Page-jump backward navigation',
-                    ),
-                    _ppSummaryRow(
-                      Icons.calculate,
-                      'Page size = viewport / item height',
-                    ),
-                    _ppSummaryRow(
-                      Icons.keyboard,
-                      'Mapped to Page Up by default',
-                    ),
-                    _ppSummaryRow(
-                      Icons.swap_vert,
-                      'Mirror of NextPageOptionIntent',
-                    ),
-                    _ppSummaryRow(
-                      Icons.vertical_align_top,
-                      'Clamps at boundary index 0',
-                    ),
-                    _ppSummaryRow(
-                      Icons.speed,
-                      'Essential for long lists (100+ items)',
-                    ),
+                    _ppSummaryRow(Icons.keyboard_double_arrow_up, 'Page-jump backward navigation'),
+                    _ppSummaryRow(Icons.calculate, 'Page size = viewport / item height'),
+                    _ppSummaryRow(Icons.keyboard, 'Mapped to Page Up by default'),
+                    _ppSummaryRow(Icons.swap_vert, 'Mirror of NextPageOptionIntent'),
+                    _ppSummaryRow(Icons.vertical_align_top, 'Clamps at boundary index 0'),
+                    _ppSummaryRow(Icons.speed, 'Essential for long lists (100+ items)'),
                   ],
                 ),
               ),
@@ -492,25 +436,20 @@ Widget _buildViewportDiagram() {
                 final inVp = e.key >= vpStart && e.key < vpEnd;
                 return Container(
                   margin: const EdgeInsets.only(bottom: 2),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: inVp ? _ppBurgundy.withValues(alpha: 0.1) : _ppWhite,
                     borderRadius: BorderRadius.circular(3),
                     border: Border.all(
-                      color: inVp ? _ppBurgundy : _ppLightRose,
-                    ),
+                        color: inVp ? _ppBurgundy : _ppLightRose),
                   ),
-                  child: Text(
-                    e.value,
-                    style: TextStyle(
-                      color: inVp ? _ppBurgundy : _ppGray,
-                      fontSize: 9,
-                      fontWeight: inVp ? FontWeight.w700 : FontWeight.w400,
-                    ),
-                  ),
+                  child: Text(e.value,
+                      style: TextStyle(
+                          color: inVp ? _ppBurgundy : _ppGray,
+                          fontSize: 9,
+                          fontWeight:
+                              inVp ? FontWeight.w700 : FontWeight.w400)),
                 );
               }),
             ],
@@ -535,41 +474,35 @@ Widget _buildViewportDiagram() {
                       .asMap()
                       .entries
                       .map((e) {
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 4),
-                          padding: const EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                            color: _ppBurgundy.withValues(alpha: 0.08),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            allItems[vpStart + e.key],
-                            style: const TextStyle(
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 4),
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: _ppBurgundy.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(allItems[vpStart + e.key],
+                          style: const TextStyle(
                               color: _ppDarkBurgundy,
                               fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        );
-                      })
-                      .toList(),
+                              fontWeight: FontWeight.w600)),
+                    );
+                  }).toList(),
                 ),
               ),
               const SizedBox(height: 6),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: _ppBurgundy.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text(
-                  'pageSize = 4',
-                  style: TextStyle(
-                    color: _ppBurgundy,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: const Text('pageSize = 4',
+                    style: TextStyle(
+                        color: _ppBurgundy,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700)),
               ),
             ],
           ),
@@ -601,49 +534,33 @@ Widget _buildJumpArithmetic() {
         Row(
           children: [
             const Expanded(
-              flex: 2,
-              child: Text(
-                'From',
-                style: TextStyle(
-                  color: _ppDarkBurgundy,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
+                flex: 2,
+                child: Text('From',
+                    style: TextStyle(
+                        color: _ppDarkBurgundy,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700))),
             const Expanded(
-              flex: 2,
-              child: Text(
-                'Jump',
-                style: TextStyle(
-                  color: _ppDarkBurgundy,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
+                flex: 2,
+                child: Text('Jump',
+                    style: TextStyle(
+                        color: _ppDarkBurgundy,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700))),
             const Expanded(
-              flex: 2,
-              child: Text(
-                'To',
-                style: TextStyle(
-                  color: _ppDarkBurgundy,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
+                flex: 2,
+                child: Text('To',
+                    style: TextStyle(
+                        color: _ppDarkBurgundy,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700))),
             Expanded(
-              flex: 4,
-              child: Text(
-                'Calculation',
-                style: TextStyle(
-                  color: _ppDarkBurgundy.withValues(alpha: 0.7),
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
+                flex: 4,
+                child: Text('Calculation',
+                    style: TextStyle(
+                        color: _ppDarkBurgundy.withValues(alpha: 0.7),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700))),
           ],
         ),
         _ppDivider(),
@@ -654,57 +571,43 @@ Widget _buildJumpArithmetic() {
             padding: const EdgeInsets.symmetric(vertical: 6),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: _ppLightRose.withValues(alpha: 0.4)),
-              ),
+                  bottom: BorderSide(
+                      color: _ppLightRose.withValues(alpha: 0.4))),
             ),
             child: Row(
               children: [
                 Expanded(
-                  flex: 2,
-                  child: Text(
-                    '#${j['from']}',
-                    style: const TextStyle(
-                      color: _ppBurgundy,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+                    flex: 2,
+                    child: Text('#${j['from']}',
+                        style: const TextStyle(
+                            color: _ppBurgundy,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700))),
                 Expanded(
-                  flex: 2,
-                  child: Text(
-                    '-${j['page']}',
-                    style: const TextStyle(
-                      color: _ppAccentOrange,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+                    flex: 2,
+                    child: Text('-${j['page']}',
+                        style: const TextStyle(
+                            color: _ppAccentOrange,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700))),
                 Expanded(
-                  flex: 2,
-                  child: Text(
-                    '#${j['to']}',
-                    style: TextStyle(
-                      color: isClamped ? _ppAccentOrange : _ppAccentGreen,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+                    flex: 2,
+                    child: Text('#${j['to']}',
+                        style: TextStyle(
+                            color: isClamped
+                                ? _ppAccentOrange
+                                : _ppAccentGreen,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700))),
                 Expanded(
-                  flex: 4,
-                  child: Text(
-                    j['note'] as String,
-                    style: TextStyle(
-                      color: isClamped
-                          ? _ppAccentOrange
-                          : _ppGray.withValues(alpha: 0.7),
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
-                ),
+                    flex: 4,
+                    child: Text(j['note'] as String,
+                        style: TextStyle(
+                            color: isClamped
+                                ? _ppAccentOrange
+                                : _ppGray.withValues(alpha: 0.7),
+                            fontSize: 10,
+                            fontFamily: 'monospace'))),
               ],
             ),
           );
@@ -732,14 +635,11 @@ Widget _buildJumpVisualBar(int total, List<int> positions) {
             ),
             alignment: Alignment.center,
             child: isPos
-                ? Text(
-                    '${posIdx + 1}',
+                ? Text('${posIdx + 1}',
                     style: const TextStyle(
-                      color: _ppWhite,
-                      fontSize: 8,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  )
+                        color: _ppWhite,
+                        fontSize: 8,
+                        fontWeight: FontWeight.w700))
                 : null,
           ),
         );
@@ -782,14 +682,11 @@ Widget _buildBackwardComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Goal: index 18 → index 3 (backward 15 positions)',
-          style: TextStyle(
-            color: _ppDarkBurgundy,
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        const Text('Goal: index 18 → index 3 (backward 15 positions)',
+            style: TextStyle(
+                color: _ppDarkBurgundy,
+                fontSize: 11,
+                fontWeight: FontWeight.w700)),
         const SizedBox(height: 10),
         ...strategies.map((s) {
           final maxKeys = 15;
@@ -810,14 +707,11 @@ Widget _buildBackwardComparison() {
                       ),
                     ),
                     const SizedBox(width: 6),
-                    Text(
-                      s['name'] as String,
-                      style: TextStyle(
-                        color: s['color'] as Color,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text(s['name'] as String,
+                        style: TextStyle(
+                            color: s['color'] as Color,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700)),
                   ],
                 ),
                 const SizedBox(height: 4),
@@ -840,25 +734,18 @@ Widget _buildBackwardComparison() {
                         ),
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.only(left: 6),
-                        child: Text(
-                          '${s['keys']} keystrokes',
-                          style: TextStyle(
-                            color: s['color'] as Color,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        child: Text('${s['keys']} keystrokes',
+                            style: TextStyle(
+                                color: s['color'] as Color,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w700)),
                       ),
                     ),
                   ],
                 ),
-                Text(
-                  s['desc'] as String,
-                  style: TextStyle(
-                    color: _ppGray.withValues(alpha: 0.7),
-                    fontSize: 10,
-                  ),
-                ),
+                Text(s['desc'] as String,
+                    style: TextStyle(
+                        color: _ppGray.withValues(alpha: 0.7), fontSize: 10)),
               ],
             ),
           );
@@ -891,40 +778,29 @@ Widget _buildBoundaryVisual() {
                 decoration: BoxDecoration(
                   color: _ppAccentGreen.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: _ppAccentGreen.withValues(alpha: 0.3),
-                  ),
+                  border: Border.all(color: _ppAccentGreen.withValues(alpha: 0.3)),
                 ),
                 child: const Column(
                   children: [
-                    Icon(
-                      Icons.vertical_align_top,
-                      color: _ppAccentGreen,
-                      size: 24,
-                    ),
+                    Icon(Icons.vertical_align_top,
+                        color: _ppAccentGreen, size: 24),
                     SizedBox(height: 4),
-                    Text(
-                      'Clamp Strategy',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: _ppAccentGreen,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('Clamp Strategy',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: _ppAccentGreen,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700)),
                     SizedBox(height: 2),
-                    Text(
-                      '→ index 0',
-                      style: TextStyle(
-                        color: _ppAccentGreen,
-                        fontSize: 10,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                    Text(
-                      'Stops at top',
-                      style: TextStyle(color: _ppAccentGreen, fontSize: 9),
-                    ),
+                    Text('→ index 0',
+                        style: TextStyle(
+                            color: _ppAccentGreen,
+                            fontSize: 10,
+                            fontFamily: 'monospace')),
+                    Text('Stops at top',
+                        style: TextStyle(
+                            color: _ppAccentGreen,
+                            fontSize: 9)),
                   ],
                 ),
               ),
@@ -936,36 +812,28 @@ Widget _buildBoundaryVisual() {
                 decoration: BoxDecoration(
                   color: _ppAccentOrange.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: _ppAccentOrange.withValues(alpha: 0.3),
-                  ),
+                  border: Border.all(color: _ppAccentOrange.withValues(alpha: 0.3)),
                 ),
                 child: const Column(
                   children: [
                     Icon(Icons.loop, color: _ppAccentOrange, size: 24),
                     SizedBox(height: 4),
-                    Text(
-                      'Wrap Strategy',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: _ppAccentOrange,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('Wrap Strategy',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: _ppAccentOrange,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700)),
                     SizedBox(height: 2),
-                    Text(
-                      '→ index 17',
-                      style: TextStyle(
-                        color: _ppAccentOrange,
-                        fontSize: 10,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                    Text(
-                      'Cycles to end',
-                      style: TextStyle(color: _ppAccentOrange, fontSize: 9),
-                    ),
+                    Text('→ index 17',
+                        style: TextStyle(
+                            color: _ppAccentOrange,
+                            fontSize: 10,
+                            fontFamily: 'monospace')),
+                    Text('Cycles to end',
+                        style: TextStyle(
+                            color: _ppAccentOrange,
+                            fontSize: 9)),
                   ],
                 ),
               ),
@@ -982,30 +850,10 @@ Widget _buildBoundaryVisual() {
 // ─────────────────────────────────────────────────────────────
 List<Widget> _buildPlatformBindingsCards() {
   final platforms = <Map<String, dynamic>>[
-    {
-      'platform': 'macOS',
-      'key': 'Fn+↑ (Page Up)',
-      'alt': 'Ctrl+Shift+P',
-      'icon': Icons.desktop_mac,
-    },
-    {
-      'platform': 'Windows',
-      'key': 'Page Up',
-      'alt': '—',
-      'icon': Icons.desktop_windows,
-    },
-    {
-      'platform': 'Linux',
-      'key': 'Page Up',
-      'alt': 'Ctrl+Shift+P',
-      'icon': Icons.computer,
-    },
-    {
-      'platform': 'Web',
-      'key': 'Page Up',
-      'alt': 'Follows host OS',
-      'icon': Icons.language,
-    },
+    {'platform': 'macOS', 'key': 'Fn+↑ (Page Up)', 'alt': 'Ctrl+Shift+P', 'icon': Icons.desktop_mac},
+    {'platform': 'Windows', 'key': 'Page Up', 'alt': '—', 'icon': Icons.desktop_windows},
+    {'platform': 'Linux', 'key': 'Page Up', 'alt': 'Ctrl+Shift+P', 'icon': Icons.computer},
+    {'platform': 'Web', 'key': 'Page Up', 'alt': 'Follows host OS', 'icon': Icons.language},
   ];
   return platforms.map((p) {
     return Container(
@@ -1024,28 +872,21 @@ List<Widget> _buildPlatformBindingsCards() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  p['platform'] as String,
-                  style: const TextStyle(
-                    color: _ppDarkBurgundy,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(p['platform'] as String,
+                    style: const TextStyle(
+                        color: _ppDarkBurgundy,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
                 Row(
                   children: [
-                    Text(
-                      'Primary: ${p['key']}',
-                      style: const TextStyle(color: _ppGray, fontSize: 10),
-                    ),
+                    Text('Primary: ${p['key']}',
+                        style: const TextStyle(
+                            color: _ppGray, fontSize: 10)),
                     const SizedBox(width: 10),
-                    Text(
-                      'Alt: ${p['alt']}',
-                      style: TextStyle(
-                        color: _ppGray.withValues(alpha: 0.7),
-                        fontSize: 10,
-                      ),
-                    ),
+                    Text('Alt: ${p['alt']}',
+                        style: TextStyle(
+                            color: _ppGray.withValues(alpha: 0.7),
+                            fontSize: 10)),
                   ],
                 ),
               ],
@@ -1093,41 +934,30 @@ Widget _buildScrollSyncDiagram() {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    'Highlight: #15',
-                    style: TextStyle(
-                      color: _ppBurgundy,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  const Text('Highlight: #15',
+                      style: TextStyle(
+                          color: _ppBurgundy,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
             Column(
               children: [
-                const Icon(
-                  Icons.keyboard_double_arrow_up,
-                  color: _ppBurgundy,
-                  size: 20,
-                ),
+                const Icon(Icons.keyboard_double_arrow_up,
+                    color: _ppBurgundy, size: 20),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: _ppBurgundy.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
-                    'PgUp',
-                    style: TextStyle(
-                      color: _ppBurgundy,
-                      fontSize: 9,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: const Text('PgUp',
+                      style: TextStyle(
+                          color: _ppBurgundy,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w700)),
                 ),
               ],
             ),
@@ -1152,14 +982,11 @@ Widget _buildScrollSyncDiagram() {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    'Highlight: #11',
-                    style: TextStyle(
-                      color: _ppAccentGreen,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  const Text('Highlight: #11',
+                      style: TextStyle(
+                          color: _ppAccentGreen,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
@@ -1186,14 +1013,12 @@ Widget _buildScrollItem(String label, bool isHighlighted) {
       color: isHighlighted ? _ppBurgundy : _ppRoseMist,
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(
-      label,
-      style: TextStyle(
-        color: isHighlighted ? _ppWhite : _ppDarkBurgundy,
-        fontSize: 10,
-        fontWeight: isHighlighted ? FontWeight.w700 : FontWeight.w400,
-      ),
-    ),
+    child: Text(label,
+        style: TextStyle(
+            color: isHighlighted ? _ppWhite : _ppDarkBurgundy,
+            fontSize: 10,
+            fontWeight:
+                isHighlighted ? FontWeight.w700 : FontWeight.w400)),
   );
 }
 
@@ -1222,27 +1047,24 @@ Widget _buildFullMatrix() {
           color: isHeader
               ? _ppBurgundy
               : rowEntry.key.isEven
-              ? _ppRoseMist
-              : _ppWhite,
+                  ? _ppRoseMist
+                  : _ppWhite,
           child: Row(
             children: row.asMap().entries.map((colEntry) {
               final isStarred = colEntry.value.contains('★');
               return Expanded(
                 flex: colEntry.key == 0 ? 2 : 3,
-                child: Text(
-                  colEntry.value,
-                  style: TextStyle(
-                    color: isHeader
-                        ? _ppWhite
-                        : isStarred
-                        ? _ppBurgundy
-                        : _ppGray,
-                    fontSize: 11,
-                    fontWeight: isHeader || isStarred
-                        ? FontWeight.w700
-                        : FontWeight.w400,
-                  ),
-                ),
+                child: Text(colEntry.value,
+                    style: TextStyle(
+                        color: isHeader
+                            ? _ppWhite
+                            : isStarred
+                                ? _ppBurgundy
+                                : _ppGray,
+                        fontSize: 11,
+                        fontWeight: isHeader || isStarred
+                            ? FontWeight.w700
+                            : FontWeight.w400)),
               );
             }).toList(),
           ),
@@ -1257,21 +1079,11 @@ Widget _buildFullMatrix() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildTimezonePickerDemo() {
   final zones = [
-    'Africa/Cairo',
-    'Africa/Lagos',
-    'America/Chicago',
-    'America/Denver',
-    'America/Los_Angeles',
-    'America/New_York',
-    'Asia/Dubai',
-    'Asia/Kolkata',
-    'Asia/Shanghai',
-    'Asia/Tokyo',
-    'Europe/Berlin',
-    'Europe/London',
-    'Europe/Paris',
-    'Pacific/Auckland',
-    'Pacific/Honolulu',
+    'Africa/Cairo', 'Africa/Lagos', 'America/Chicago',
+    'America/Denver', 'America/Los_Angeles', 'America/New_York',
+    'Asia/Dubai', 'Asia/Kolkata', 'Asia/Shanghai',
+    'Asia/Tokyo', 'Europe/Berlin', 'Europe/London',
+    'Europe/Paris', 'Pacific/Auckland', 'Pacific/Honolulu',
   ];
   const hlIdx = 5; // After PgDn + PgDn, then PgUp back to New_York
 
@@ -1294,29 +1106,24 @@ Widget _buildTimezonePickerDemo() {
               const Icon(Icons.schedule, color: _ppBurgundy, size: 18),
               const SizedBox(width: 8),
               const Expanded(
-                child: Text(
-                  'Select timezone: America|',
-                  style: TextStyle(
-                    color: _ppDarkBurgundy,
-                    fontSize: 12,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                child: Text('Select timezone: America|',
+                    style: TextStyle(
+                        color: _ppDarkBurgundy,
+                        fontSize: 12,
+                        fontFamily: 'monospace')),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: _ppBurgundy.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text(
-                  'PgDn×2 PgUp×1',
-                  style: TextStyle(
-                    color: _ppBurgundy,
-                    fontSize: 9,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: const Text('PgDn×2 PgUp×1',
+                    style: TextStyle(
+                        color: _ppBurgundy,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700)),
               ),
             ],
           ),
@@ -1330,46 +1137,39 @@ Widget _buildTimezonePickerDemo() {
               final isHl = i == hlIdx;
               return Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 8,
-                ),
+                    horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
                   color: isHl ? _ppBurgundy : _ppWhite,
                   border: Border(
-                    bottom: BorderSide(
-                      color: _ppLightRose.withValues(alpha: 0.3),
-                    ),
-                  ),
+                      bottom: BorderSide(
+                          color: _ppLightRose.withValues(alpha: 0.3))),
                 ),
                 child: Row(
                   children: [
                     Container(
                       width: 24,
                       alignment: Alignment.center,
-                      child: Text(
-                        '${i + 1}',
-                        style: TextStyle(
-                          color: isHl
-                              ? _ppWhite.withValues(alpha: 0.7)
-                              : _ppGray.withValues(alpha: 0.5),
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      child: Text('${i + 1}',
+                          style: TextStyle(
+                              color: isHl
+                                  ? _ppWhite.withValues(alpha: 0.7)
+                                  : _ppGray.withValues(alpha: 0.5),
+                              fontSize: 9,
+                              fontWeight: FontWeight.w600)),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(
-                        zones[i],
-                        style: TextStyle(
-                          color: isHl ? _ppWhite : _ppDarkBurgundy,
-                          fontSize: 12,
-                          fontWeight: isHl ? FontWeight.w700 : FontWeight.w400,
-                        ),
-                      ),
+                      child: Text(zones[i],
+                          style: TextStyle(
+                              color: isHl ? _ppWhite : _ppDarkBurgundy,
+                              fontSize: 12,
+                              fontWeight: isHl
+                                  ? FontWeight.w700
+                                  : FontWeight.w400)),
                     ),
                     if (isHl)
-                      const Icon(Icons.check_circle, size: 14, color: _ppWhite),
+                      const Icon(Icons.check_circle,
+                          size: 14, color: _ppWhite),
                   ],
                 ),
               );
@@ -1383,14 +1183,12 @@ Widget _buildTimezonePickerDemo() {
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
           child: const Text(
-            'PgDn jumped to Asia group, PgUp returned to America',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: _ppBurgundy,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+              'PgDn jumped to Asia group, PgUp returned to America',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: _ppBurgundy,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       ],
     ),
@@ -1402,22 +1200,10 @@ Widget _buildTimezonePickerDemo() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildFontBrowserDemo() {
   final fonts = [
-    'Abril Fatface',
-    'Bebas Neue',
-    'Crimson Text',
-    'Dancing Script',
-    'EB Garamond',
-    'Fira Code',
-    'Garamond Premier',
-    'Helvetica Neue',
-    'Inconsolata',
-    'JetBrains Mono',
-    'Karla',
-    'Lato',
-    'Merriweather',
-    'Noto Sans',
-    'Open Sans',
-    'Playfair Display',
+    'Abril Fatface', 'Bebas Neue', 'Crimson Text', 'Dancing Script',
+    'EB Garamond', 'Fira Code', 'Garamond Premier', 'Helvetica Neue',
+    'Inconsolata', 'JetBrains Mono', 'Karla', 'Lato',
+    'Merriweather', 'Noto Sans', 'Open Sans', 'Playfair Display',
   ];
   const hlIdx = 5; // After PgDn past monospace group, PgUp back
 
@@ -1439,14 +1225,11 @@ Widget _buildFontBrowserDemo() {
             children: [
               Icon(Icons.text_fields, color: _ppBurgundy, size: 18),
               SizedBox(width: 8),
-              Text(
-                'Font family: F|',
-                style: TextStyle(
-                  color: _ppDarkBurgundy,
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text('Font family: F|',
+                  style: TextStyle(
+                      color: _ppDarkBurgundy,
+                      fontSize: 12,
+                      fontFamily: 'monospace')),
             ],
           ),
         ),
@@ -1454,69 +1237,60 @@ Widget _buildFontBrowserDemo() {
           final actualIdx = e.key + 3;
           final isHl = actualIdx == hlIdx;
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: isHl ? _ppBurgundy.withValues(alpha: 0.1) : _ppWhite,
               border: Border(
-                bottom: BorderSide(color: _ppLightRose.withValues(alpha: 0.3)),
-              ),
+                  bottom: BorderSide(
+                      color: _ppLightRose.withValues(alpha: 0.3))),
             ),
             child: Row(
               children: [
                 SizedBox(
                   width: 24,
-                  child: Text(
-                    '${actualIdx + 1}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: isHl
-                          ? _ppBurgundy
-                          : _ppGray.withValues(alpha: 0.5),
-                      fontSize: 9,
-                    ),
-                  ),
+                  child: Text('${actualIdx + 1}',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: isHl
+                              ? _ppBurgundy
+                              : _ppGray.withValues(alpha: 0.5),
+                          fontSize: 9)),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        fonts[actualIdx],
-                        style: TextStyle(
-                          color: isHl ? _ppBurgundy : _ppDarkBurgundy,
-                          fontSize: 13,
-                          fontWeight: isHl ? FontWeight.w700 : FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        'The quick brown fox jumps over the lazy dog',
-                        style: TextStyle(
-                          color: _ppGray.withValues(alpha: 0.5),
-                          fontSize: 10,
-                        ),
-                      ),
+                      Text(fonts[actualIdx],
+                          style: TextStyle(
+                              color: isHl
+                                  ? _ppBurgundy
+                                  : _ppDarkBurgundy,
+                              fontSize: 13,
+                              fontWeight: isHl
+                                  ? FontWeight.w700
+                                  : FontWeight.w500)),
+                      Text('The quick brown fox jumps over the lazy dog',
+                          style: TextStyle(
+                              color: _ppGray.withValues(alpha: 0.5),
+                              fontSize: 10)),
                     ],
                   ),
                 ),
                 if (isHl)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
+                        horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: _ppBurgundy,
                       borderRadius: BorderRadius.circular(3),
                     ),
-                    child: const Text(
-                      '◄ PgUp',
-                      style: TextStyle(
-                        color: _ppWhite,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: const Text('◄ PgUp',
+                        style: TextStyle(
+                            color: _ppWhite,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700)),
                   ),
               ],
             ),
@@ -1558,24 +1332,21 @@ Widget _ppKeyHint(String key, String label) {
           border: Border.all(color: _ppLightRose),
           boxShadow: const [
             BoxShadow(
-              color: Color(0x0F880E4F),
-              blurRadius: 2,
-              offset: Offset(0, 1),
-            ),
+                color: Color(0x0F880E4F),
+                blurRadius: 2,
+                offset: Offset(0, 1)),
           ],
         ),
-        child: Text(
-          key,
-          style: const TextStyle(
-            color: _ppDarkBurgundy,
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-            fontFamily: 'monospace',
-          ),
-        ),
+        child: Text(key,
+            style: const TextStyle(
+                color: _ppDarkBurgundy,
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'monospace')),
       ),
       const SizedBox(width: 4),
-      Text(label, style: const TextStyle(color: _ppGray, fontSize: 9.5)),
+      Text(label,
+          style: const TextStyle(color: _ppGray, fontSize: 9.5)),
     ],
   );
 }
@@ -1605,14 +1376,11 @@ Widget _buildEfficiencyChart() {
             children: [
               SizedBox(
                 width: 85,
-                child: Text(
-                  m['name'] as String,
-                  style: TextStyle(
-                    color: m['color'] as Color,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text(m['name'] as String,
+                    style: TextStyle(
+                        color: m['color'] as Color,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600)),
               ),
               Expanded(
                 child: Stack(
@@ -1629,21 +1397,19 @@ Widget _buildEfficiencyChart() {
                       child: Container(
                         height: 22,
                         decoration: BoxDecoration(
-                          color: (m['color'] as Color).withValues(alpha: 0.25),
+                          color:
+                              (m['color'] as Color).withValues(alpha: 0.25),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                            color: (m['color'] as Color).withValues(alpha: 0.5),
-                          ),
+                              color: (m['color'] as Color)
+                                  .withValues(alpha: 0.5)),
                         ),
                         alignment: Alignment.center,
-                        child: Text(
-                          '${m['keys']} keys',
-                          style: TextStyle(
-                            color: m['color'] as Color,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        child: Text('${m['keys']} keys',
+                            style: TextStyle(
+                                color: m['color'] as Color,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w700)),
                       ),
                     ),
                   ],
@@ -1668,13 +1434,10 @@ Widget _ppSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _ppWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _ppWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _ppWhite.withValues(alpha: 0.95),
+                  fontSize: 12.5)),
         ),
       ],
     ),

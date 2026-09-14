@@ -771,13 +771,15 @@ class _FormSectionTitle extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 8),
-        Expanded(
-          child: Container(height: 1, color: _slate.withValues(alpha: 0.12)),
-        ),
+        Expanded(child: Container(height: 1, color: _slate.withValues(alpha: 0.12))),
         const SizedBox(width: 8),
         Text(
           suffix,
-          style: const TextStyle(fontFamily: _mono, fontSize: 11, color: _ash),
+          style: const TextStyle(
+            fontFamily: _mono,
+            fontSize: 11,
+            color: _ash,
+          ),
         ),
       ],
     );
@@ -825,7 +827,10 @@ class _LabeledSlider extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(6),
@@ -900,7 +905,10 @@ class _CalculatorOutput extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: _mint.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(6),
@@ -953,10 +961,7 @@ class _CalculatorOutput extends StatelessWidget {
             label: 'metrics.extentAfter',
             value: metrics.extentAfter.toStringAsFixed(1),
           ),
-          _ReadoutRow(
-            label: 'metrics.atEdge',
-            value: metrics.atEdge.toString(),
-          ),
+          _ReadoutRow(label: 'metrics.atEdge', value: metrics.atEdge.toString()),
           const SizedBox(height: 14),
           Container(height: 1, color: _paper.withValues(alpha: 0.08)),
           const SizedBox(height: 14),
@@ -1004,7 +1009,10 @@ class _ReadoutRow extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Container(height: 1, color: _paper.withValues(alpha: 0.05)),
+            child: Container(
+              height: 1,
+              color: _paper.withValues(alpha: 0.05),
+            ),
           ),
           const SizedBox(width: 8),
           Text(
@@ -1368,8 +1376,7 @@ class _CustomCalculatorDemoSectionState
         _lastType = details.type;
         _lastDelta = delta;
         _eventCount++;
-        _lastEvent =
-            '#$_eventCount · type=${details.type.name} · '
+        _lastEvent = '#$_eventCount · type=${details.type.name} · '
             'viewport=${m.viewportDimension.toStringAsFixed(0)} · '
             'pixels=${m.pixels.toStringAsFixed(0)} · '
             'Δ=${delta.toStringAsFixed(1)}px';
@@ -1441,12 +1448,10 @@ class _CustomCalculatorDemoSectionState
             height: 260,
             child: Shortcuts(
               shortcuts: const <ShortcutActivator, Intent>{
-                SingleActivator(LogicalKeyboardKey.arrowDown): ScrollIntent(
-                  direction: AxisDirection.down,
-                ),
-                SingleActivator(LogicalKeyboardKey.arrowUp): ScrollIntent(
-                  direction: AxisDirection.up,
-                ),
+                SingleActivator(LogicalKeyboardKey.arrowDown):
+                    ScrollIntent(direction: AxisDirection.down),
+                SingleActivator(LogicalKeyboardKey.arrowUp):
+                    ScrollIntent(direction: AxisDirection.up),
                 SingleActivator(LogicalKeyboardKey.pageDown): ScrollIntent(
                   direction: AxisDirection.down,
                   type: ScrollIncrementType.page,
@@ -1532,15 +1537,12 @@ class _LoggingScrollAction extends ScrollAction {
     );
     final details = ScrollIncrementDetails(type: intent.type, metrics: metrics);
     final base = calculator(details);
-    final signed =
-        intent.direction == AxisDirection.up ||
+    final signed = intent.direction == AxisDirection.up ||
             intent.direction == AxisDirection.left
         ? -base
         : base;
-    final target = (position.pixels + signed).clamp(
-      position.minScrollExtent,
-      position.maxScrollExtent,
-    );
+    final target = (position.pixels + signed)
+        .clamp(position.minScrollExtent, position.maxScrollExtent);
     position.animateTo(
       target,
       duration: const Duration(milliseconds: 220),
@@ -1571,7 +1573,9 @@ class _ScrollTargetPanel extends StatelessWidget {
         color: _slate,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: focused ? _mint : _paper.withValues(alpha: 0.08),
+          color: focused
+              ? _mint
+              : _paper.withValues(alpha: 0.08),
           width: focused ? 2 : 1,
         ),
       ),
@@ -1582,13 +1586,15 @@ class _ScrollTargetPanel extends StatelessWidget {
           controller: controller,
           itemCount: 60,
           itemBuilder: (context, i) {
-            final isLastLine = lastType == ScrollIncrementType.line && i == 0;
-            final isLastPage = lastType == ScrollIncrementType.page && i == 0;
+            final isLastLine =
+                lastType == ScrollIncrementType.line && i == 0;
+            final isLastPage =
+                lastType == ScrollIncrementType.page && i == 0;
             final tileColor = isLastLine
                 ? _mint.withValues(alpha: 0.22)
                 : isLastPage
-                ? _sun.withValues(alpha: 0.22)
-                : _ink.withValues(alpha: 0.4);
+                    ? _sun.withValues(alpha: 0.22)
+                    : _ink.withValues(alpha: 0.4);
             return Container(
               height: 44,
               margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
@@ -1596,7 +1602,9 @@ class _ScrollTargetPanel extends StatelessWidget {
               decoration: BoxDecoration(
                 color: tileColor,
                 borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: _paper.withValues(alpha: 0.05)),
+                border: Border.all(
+                  color: _paper.withValues(alpha: 0.05),
+                ),
               ),
               child: Row(
                 children: [
@@ -2282,7 +2290,10 @@ class _FooterSummaryCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [_slate, _slate.withValues(alpha: 0.88)],
+          colors: [
+            _slate,
+            _slate.withValues(alpha: 0.88),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
       ),

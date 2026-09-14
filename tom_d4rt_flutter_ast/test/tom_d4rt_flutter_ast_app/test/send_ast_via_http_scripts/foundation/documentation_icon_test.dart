@@ -182,22 +182,22 @@ import 'package:flutter/material.dart';
 // keys; chart-paper cream is the substrate. Every value here is a const Color
 // so the script can compose without re-allocating in inner loops.
 // -----------------------------------------------------------------------------
-const Color irisCream = Color(0xFFF2EBD8); // chart paper
-const Color irisLinen = Color(0xFFEFE7C9); // aged chart paper
-const Color irisChalk = Color(0xFFFAF4E2); // light chalk highlight
-const Color irisLavender = Color(0xFFB5A6D5); // pale lavender wash
-const Color irisLavSoft = Color(0xFFCABFE3); // lighter lavender
-const Color irisViolet = Color(0xFF7E6DAA); // mid violet panel
-const Color irisIndigo = Color(0xFF5B4F8C); // indigo title bar
-const Color irisInk = Color(0xFF332B57); // deep indigo ink
-const Color irisCharcoal = Color(0xFF231C40); // near-black indigo
-const Color irisCopper = Color(0xFF9C5526); // copper legend key
-const Color irisRust = Color(0xFFB97044); // rust accent
-const Color irisAmber = Color(0xFFC98F45); // amber highlight
-const Color irisOlive = Color(0xFF6B6B33); // olive marginalia
-const Color irisSage = Color(0xFF6F8F73); // sage tint
-const Color irisDust = Color(0xFF8B8068); // chart-dust grey
-const Color irisStone = Color(0xFF55503F); // stone-grey caption
+const Color irisCream      = Color(0xFFF2EBD8); // chart paper
+const Color irisLinen      = Color(0xFFEFE7C9); // aged chart paper
+const Color irisChalk      = Color(0xFFFAF4E2); // light chalk highlight
+const Color irisLavender   = Color(0xFFB5A6D5); // pale lavender wash
+const Color irisLavSoft    = Color(0xFFCABFE3); // lighter lavender
+const Color irisViolet     = Color(0xFF7E6DAA); // mid violet panel
+const Color irisIndigo     = Color(0xFF5B4F8C); // indigo title bar
+const Color irisInk        = Color(0xFF332B57); // deep indigo ink
+const Color irisCharcoal   = Color(0xFF231C40); // near-black indigo
+const Color irisCopper     = Color(0xFF9C5526); // copper legend key
+const Color irisRust       = Color(0xFFB97044); // rust accent
+const Color irisAmber      = Color(0xFFC98F45); // amber highlight
+const Color irisOlive      = Color(0xFF6B6B33); // olive marginalia
+const Color irisSage       = Color(0xFF6F8F73); // sage tint
+const Color irisDust       = Color(0xFF8B8068); // chart-dust grey
+const Color irisStone      = Color(0xFF55503F); // stone-grey caption
 
 // -----------------------------------------------------------------------------
 // TYPOGRAPHY HELPERS
@@ -207,46 +207,40 @@ const Color irisStone = Color(0xFF55503F); // stone-grey caption
 // engraver's slab for the codepoint registry.
 // -----------------------------------------------------------------------------
 TextStyle _displayStyle(double size, Color color) => TextStyle(
-  fontSize: size,
-  fontWeight: FontWeight.w800,
-  color: color,
-  letterSpacing: 0.5,
-  height: 1.15,
-);
+      fontSize: size,
+      fontWeight: FontWeight.w800,
+      color: color,
+      letterSpacing: 0.5,
+      height: 1.15,
+    );
 
 TextStyle _titleStyle(double size, Color color) => TextStyle(
-  fontSize: size,
-  fontWeight: FontWeight.w700,
-  color: color,
-  letterSpacing: 0.3,
-  height: 1.2,
-);
+      fontSize: size,
+      fontWeight: FontWeight.w700,
+      color: color,
+      letterSpacing: 0.3,
+      height: 1.2,
+    );
 
-TextStyle _bodyStyle(
-  Color color, {
-  double size = 13,
-  FontWeight w = FontWeight.w400,
-}) => TextStyle(fontSize: size, color: color, fontWeight: w, height: 1.5);
+TextStyle _bodyStyle(Color color, {double size = 13, FontWeight w = FontWeight.w400}) =>
+    TextStyle(fontSize: size, color: color, fontWeight: w, height: 1.5);
 
 TextStyle _captionStyle(Color color, {double size = 11}) => TextStyle(
-  fontSize: size,
-  color: color,
-  fontWeight: FontWeight.w500,
-  letterSpacing: 0.4,
-  height: 1.3,
-);
+      fontSize: size,
+      color: color,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.4,
+      height: 1.3,
+    );
 
-TextStyle _monoStyle(
-  Color color, {
-  double size = 11,
-  FontWeight w = FontWeight.w400,
-}) => TextStyle(
-  fontFamily: 'monospace',
-  fontSize: size,
-  color: color,
-  height: 1.4,
-  fontWeight: w,
-);
+TextStyle _monoStyle(Color color, {double size = 11, FontWeight w = FontWeight.w400}) =>
+    TextStyle(
+      fontFamily: 'monospace',
+      fontSize: size,
+      color: color,
+      height: 1.4,
+      fontWeight: w,
+    );
 
 // -----------------------------------------------------------------------------
 // SURFACE DECORATIONS
@@ -256,26 +250,26 @@ TextStyle _monoStyle(
 // title-bar gradient.
 // -----------------------------------------------------------------------------
 BoxDecoration _chartSurface() => BoxDecoration(
-  color: irisCream,
-  borderRadius: BorderRadius.circular(10),
-  border: Border.all(color: irisCopper.withValues(alpha: 0.55), width: 1.0),
-);
+      color: irisCream,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: irisCopper.withValues(alpha: 0.55), width: 1.0),
+    );
 
 BoxDecoration _legendSurface() => BoxDecoration(
-  color: irisLavender.withValues(alpha: 0.32),
-  borderRadius: BorderRadius.circular(10),
-  border: Border.all(color: irisIndigo.withValues(alpha: 0.55), width: 1.0),
-);
+      color: irisLavender.withValues(alpha: 0.32),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: irisIndigo.withValues(alpha: 0.55), width: 1.0),
+    );
 
 BoxDecoration _indigoSurface() => BoxDecoration(
-  gradient: LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [irisCharcoal, irisInk, irisIndigo, irisViolet],
-  ),
-  borderRadius: BorderRadius.circular(12),
-  border: Border.all(color: irisCopper.withValues(alpha: 0.7), width: 1.2),
-);
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [irisCharcoal, irisInk, irisIndigo, irisViolet],
+      ),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: irisCopper.withValues(alpha: 0.7), width: 1.2),
+    );
 
 // -----------------------------------------------------------------------------
 // SMALL UI HELPERS
@@ -318,7 +312,12 @@ Widget _propRow(String name, String value, {Color? accent}) {
           ),
         ),
         const SizedBox(width: 8),
-        Expanded(child: Text(value, style: _bodyStyle(irisCharcoal, size: 12))),
+        Expanded(
+          child: Text(
+            value,
+            style: _bodyStyle(irisCharcoal, size: 12),
+          ),
+        ),
       ],
     ),
   );
@@ -351,26 +350,22 @@ Widget _legendKey(String marker, String description) {
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(description, style: _bodyStyle(irisCharcoal, size: 12)),
+          child: Text(
+            description,
+            style: _bodyStyle(irisCharcoal, size: 12),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _proseCard({
-  required String title,
-  required List<String> paragraphs,
-  Color? titleColor,
-  BoxDecoration? surface,
-}) {
+Widget _proseCard({required String title, required List<String> paragraphs, Color? titleColor, BoxDecoration? surface}) {
   final List<Widget> children = <Widget>[];
   children.add(Text(title, style: _titleStyle(15, titleColor ?? irisInk)));
   children.add(_verticalGap(8));
   for (int i = 0; i < paragraphs.length; i++) {
-    children.add(
-      Text(paragraphs[i], style: _bodyStyle(irisCharcoal, size: 12)),
-    );
+    children.add(Text(paragraphs[i], style: _bodyStyle(irisCharcoal, size: 12)));
     if (i < paragraphs.length - 1) {
       children.add(_verticalGap(8));
     }
@@ -378,10 +373,7 @@ Widget _proseCard({
   return Container(
     padding: const EdgeInsets.all(14),
     decoration: surface ?? _chartSurface(),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: children,
-    ),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: children),
   );
 }
 
@@ -406,10 +398,7 @@ Widget _sectionHeader(String index, String title, String subtitle) {
             color: irisCopper,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            index,
-            style: _monoStyle(irisCream, size: 12, w: FontWeight.w800),
-          ),
+          child: Text(index, style: _monoStyle(irisCream, size: 12, w: FontWeight.w800)),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -594,10 +583,10 @@ class _AnatomyPainter extends CustomPainter {
     // Anchor positions (where label boxes sit) and the corresponding edge
     // attach point on the center rectangle.
     final List<Offset> labelCenters = <Offset>[
-      Offset(w / 2, h * 0.10), // top
-      Offset(w * 0.88, h / 2), // right
-      Offset(w / 2, h * 0.90), // bottom
-      Offset(w * 0.12, h / 2), // left
+      Offset(w / 2, h * 0.10),  // top
+      Offset(w * 0.88, h / 2),  // right
+      Offset(w / 2, h * 0.90),  // bottom
+      Offset(w * 0.12, h / 2),  // left
     ];
 
     final List<Offset> attach = <Offset>[
@@ -627,10 +616,7 @@ class _AnatomyPainter extends CustomPainter {
         width: tp.width + 14,
         height: tp.height + 8,
       );
-      final RRect lrr = RRect.fromRectAndRadius(
-        labelBox,
-        const Radius.circular(6),
-      );
+      final RRect lrr = RRect.fromRectAndRadius(labelBox, const Radius.circular(6));
       final Paint labelFill = Paint()
         ..color = irisLinen
         ..style = PaintingStyle.fill;
@@ -640,7 +626,10 @@ class _AnatomyPainter extends CustomPainter {
         ..strokeWidth = 1.0;
       canvas.drawRRect(lrr, labelFill);
       canvas.drawRRect(lrr, labelStroke);
-      tp.paint(canvas, Offset(labelBox.left + 7, labelBox.top + 4));
+      tp.paint(
+        canvas,
+        Offset(labelBox.left + 7, labelBox.top + 4),
+      );
 
       // Arrow from labelBox edge -> attach point.
       Offset arrowStart;
@@ -663,10 +652,7 @@ class _AnatomyPainter extends CustomPainter {
       final double mag = len <= 0 ? 1.0 : len;
       // Without sqrt: approximate a normalized arrowhead by scaling 6/length.
       final double inv = 6.0 / (mag > 36 ? mag / 6 : 6);
-      final Offset back = Offset(
-        arrowEnd.dx - dx * inv,
-        arrowEnd.dy - dy * inv,
-      );
+      final Offset back = Offset(arrowEnd.dx - dx * inv, arrowEnd.dy - dy * inv);
       final Path head = Path();
       head.moveTo(arrowEnd.dx, arrowEnd.dy);
       head.lineTo(back.dx + dy * inv * 0.5, back.dy - dx * inv * 0.5);
@@ -705,18 +691,18 @@ dynamic build(BuildContext context) {
   // ---------------------------------------------------------------------------
   print('Cataloging twelve legend entries...');
 
-  final IconData icMap = Icons.map;
-  final IconData icExplore = Icons.explore;
-  final IconData icCompass = Icons.explore_outlined;
-  final IconData icAnchor = Icons.anchor;
-  final IconData icArrowFwd = Icons.arrow_forward;
-  final IconData icArrowBack = Icons.arrow_back;
-  final IconData icSettings = Icons.settings;
-  final IconData icSearch = Icons.search;
-  final IconData icFlag = Icons.flag;
-  final IconData icLandmark = Icons.account_balance;
-  final IconData icRoom = Icons.room;
-  final IconData icTerrain = Icons.terrain;
+  final IconData icMap         = Icons.map;
+  final IconData icExplore     = Icons.explore;
+  final IconData icCompass     = Icons.explore_outlined;
+  final IconData icAnchor      = Icons.anchor;
+  final IconData icArrowFwd    = Icons.arrow_forward;
+  final IconData icArrowBack   = Icons.arrow_back;
+  final IconData icSettings    = Icons.settings;
+  final IconData icSearch      = Icons.search;
+  final IconData icFlag        = Icons.flag;
+  final IconData icLandmark    = Icons.account_balance;
+  final IconData icRoom        = Icons.room;
+  final IconData icTerrain     = Icons.terrain;
 
   // A hand-built IconData that mirrors when in RTL Directionality.
   final IconData icRtlArrow = IconData(
@@ -737,33 +723,15 @@ dynamic build(BuildContext context) {
   // The twelve plates arranged in a fixed order. This list and the parallel
   // lists below are accessed only via indexed for-loops (no for-in).
   final List<IconData> plates = <IconData>[
-    icMap,
-    icExplore,
-    icCompass,
-    icAnchor,
-    icArrowFwd,
-    icArrowBack,
-    icSettings,
-    icSearch,
-    icFlag,
-    icLandmark,
-    icRoom,
-    icTerrain,
+    icMap, icExplore, icCompass, icAnchor,
+    icArrowFwd, icArrowBack, icSettings, icSearch,
+    icFlag, icLandmark, icRoom, icTerrain,
   ];
 
   final List<String> plateNames = <String>[
-    'Icons.map',
-    'Icons.explore',
-    'Icons.explore_outlined',
-    'Icons.anchor',
-    'Icons.arrow_forward',
-    'Icons.arrow_back',
-    'Icons.settings',
-    'Icons.search',
-    'Icons.flag',
-    'Icons.account_balance',
-    'Icons.room',
-    'Icons.terrain',
+    'Icons.map', 'Icons.explore', 'Icons.explore_outlined', 'Icons.anchor',
+    'Icons.arrow_forward', 'Icons.arrow_back', 'Icons.settings', 'Icons.search',
+    'Icons.flag', 'Icons.account_balance', 'Icons.room', 'Icons.terrain',
   ];
 
   final List<String> plateMeanings = <String>[
@@ -782,14 +750,10 @@ dynamic build(BuildContext context) {
   ];
 
   print('Plates assembled: ${plates.length} legend entries.');
-  print(
-    'First plate:  ${plateNames[0]}  -> codePoint = 0x'
-    '${plates[0].codePoint.toRadixString(16)}',
-  );
-  print(
-    'Last plate:   ${plateNames[plates.length - 1]}  -> codePoint = 0x'
-    '${plates[plates.length - 1].codePoint.toRadixString(16)}',
-  );
+  print('First plate:  ${plateNames[0]}  -> codePoint = 0x'
+      '${plates[0].codePoint.toRadixString(16)}');
+  print('Last plate:   ${plateNames[plates.length - 1]}  -> codePoint = 0x'
+      '${plates[plates.length - 1].codePoint.toRadixString(16)}');
 
   // ===========================================================================
   // SECTION 1 :: TITLE HERO
@@ -820,11 +784,7 @@ dynamic build(BuildContext context) {
                   _verticalGap(4),
                   Text(
                     'A cartographer\'s legend room for IconData & IconDataProperty',
-                    style: _bodyStyle(
-                      irisLavSoft,
-                      size: 14,
-                      w: FontWeight.w500,
-                    ),
+                    style: _bodyStyle(irisLavSoft, size: 14, w: FontWeight.w500),
                   ),
                 ],
               ),
@@ -945,36 +905,18 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Property dictionary :: IconData',
-          style: _titleStyle(15, irisInk),
-        ),
+        Text('Property dictionary :: IconData', style: _titleStyle(15, irisInk)),
         _verticalGap(6),
         Text(
           'Each row maps one IconData constructor argument to its purpose.',
           style: _bodyStyle(irisStone, size: 11),
         ),
         _verticalGap(10),
-        _propRow(
-          'codePoint',
-          'int (required) - the Unicode codepoint of the glyph in the icon font.',
-        ),
-        _propRow(
-          'fontFamily',
-          'String? - the font family name; null falls back to the inherited family.',
-        ),
-        _propRow(
-          'fontPackage',
-          'String? - the package name when the font lives in a Dart package.',
-        ),
-        _propRow(
-          'matchTextDirection',
-          'bool - mirror the glyph horizontally in RTL Directionality.',
-        ),
-        _propRow(
-          'fontFamilyFallback',
-          'List<String>? - additional family names tried if codepoint is absent.',
-        ),
+        _propRow('codePoint', 'int (required) - the Unicode codepoint of the glyph in the icon font.'),
+        _propRow('fontFamily', 'String? - the font family name; null falls back to the inherited family.'),
+        _propRow('fontPackage', 'String? - the package name when the font lives in a Dart package.'),
+        _propRow('matchTextDirection', 'bool - mirror the glyph horizontally in RTL Directionality.'),
+        _propRow('fontFamilyFallback', 'List<String>? - additional family names tried if codepoint is absent.'),
         _verticalGap(8),
         Text('Equality semantics', style: _titleStyle(13, irisIndigo)),
         _verticalGap(4),
@@ -1047,14 +989,8 @@ dynamic build(BuildContext context) {
           Text(meaning, style: _bodyStyle(irisStone, size: 10)),
           _verticalGap(4),
           Text('codePoint  $hex', style: _monoStyle(irisCopper, size: 10)),
-          Text(
-            'fontFamily $fontFamily',
-            style: _monoStyle(irisIndigo, size: 10),
-          ),
-          Text(
-            'package    $fontPackage',
-            style: _monoStyle(irisIndigo, size: 10),
-          ),
+          Text('fontFamily $fontFamily', style: _monoStyle(irisIndigo, size: 10)),
+          Text('package    $fontPackage', style: _monoStyle(irisIndigo, size: 10)),
           Text('matchTD    $matchTd', style: _monoStyle(irisIndigo, size: 10)),
         ],
       ),
@@ -1076,7 +1012,11 @@ dynamic build(BuildContext context) {
       Container(
         padding: const EdgeInsets.all(14),
         decoration: _chartSurface(),
-        child: Wrap(spacing: 10, runSpacing: 10, children: plateWidgets),
+        child: Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: plateWidgets,
+        ),
       ),
     ],
   );
@@ -1096,37 +1036,18 @@ dynamic build(BuildContext context) {
   print('Section 4 :: building IconDataProperty demonstrations.');
 
   final List<IconData> demoIcons = <IconData>[
-    icMap,
-    icExplore,
-    icArrowFwd,
-    icSettings,
-    icSearch,
-    icCustomFont,
+    icMap, icExplore, icArrowFwd, icSettings, icSearch, icCustomFont,
   ];
   final List<String> demoNames = <String>[
-    'icMap',
-    'icExplore',
-    'icArrowFwd',
-    'icSettings',
-    'icSearch',
-    'icCustomFont',
+    'icMap', 'icExplore', 'icArrowFwd', 'icSettings', 'icSearch', 'icCustomFont',
   ];
   final List<String> demoSemantic = <String>[
-    'world map',
-    'compass rose',
-    'forward navigation',
-    'preferences',
-    'search lookup',
-    'atlas iris brand mark',
+    'world map', 'compass rose', 'forward navigation',
+    'preferences', 'search lookup', 'atlas iris brand mark',
   ];
   final List<double> demoSizes = <double>[24.0, 32.0, 28.0, 24.0, 24.0, 36.0];
   final List<Color> demoColors = <Color>[
-    irisIndigo,
-    irisViolet,
-    irisCopper,
-    irisInk,
-    irisRust,
-    irisCharcoal,
+    irisIndigo, irisViolet, irisCopper, irisInk, irisRust, irisCharcoal,
   ];
   final List<bool> demoIncluded = <bool>[true, true, true, false, true, true];
 
@@ -1144,44 +1065,34 @@ dynamic build(BuildContext context) {
     builder.add(StringProperty('semanticLabel', semantic, quoted: true));
     builder.add(DoubleProperty('size', sz, defaultValue: 24.0));
     builder.add(ColorProperty('color', col, defaultValue: null));
-    builder.add(
-      FlagProperty(
-        'included',
-        value: included,
-        ifTrue: 'visible',
-        ifFalse: 'hidden',
-      ),
-    );
-    builder.add(
-      StringProperty('runtimeType', d.runtimeType.toString(), quoted: false),
-    );
+    builder.add(FlagProperty('included',
+        value: included, ifTrue: 'visible', ifFalse: 'hidden'));
+    builder.add(StringProperty('runtimeType', d.runtimeType.toString(), quoted: false));
 
     final List<DiagnosticsNode> props = builder.properties;
     final List<Widget> propLines = <Widget>[];
     for (int j = 0; j < props.length; j++) {
       final DiagnosticsNode node = props[j];
       final String rendered = node.toString();
-      propLines.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 22,
-                padding: const EdgeInsets.only(top: 1),
-                child: Text(
-                  '${j + 1}.',
-                  style: _monoStyle(irisCopper, size: 11, w: FontWeight.w700),
-                ),
+      propLines.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 22,
+              padding: const EdgeInsets.only(top: 1),
+              child: Text(
+                '${j + 1}.',
+                style: _monoStyle(irisCopper, size: 11, w: FontWeight.w700),
               ),
-              Expanded(
-                child: Text(rendered, style: _monoStyle(irisInk, size: 11)),
-              ),
-            ],
-          ),
+            ),
+            Expanded(
+              child: Text(rendered, style: _monoStyle(irisInk, size: 11)),
+            ),
+          ],
         ),
-      );
+      ));
     }
 
     final Widget card = Container(
@@ -1199,20 +1110,15 @@ dynamic build(BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('demo[$i] $n', style: _titleStyle(13, irisInk)),
-                    Text(
-                      'codePoint 0x${d.codePoint.toRadixString(16)}',
-                      style: _monoStyle(irisCopper, size: 10),
-                    ),
+                    Text('codePoint 0x${d.codePoint.toRadixString(16)}',
+                        style: _monoStyle(irisCopper, size: 10)),
                   ],
                 ),
               ),
             ],
           ),
           _verticalGap(8),
-          Text(
-            'builder.properties:',
-            style: _captionStyle(irisIndigo, size: 11),
-          ),
+          Text('builder.properties:', style: _captionStyle(irisIndigo, size: 11)),
           _verticalGap(4),
           Container(
             padding: const EdgeInsets.all(8),
@@ -1259,7 +1165,11 @@ dynamic build(BuildContext context) {
         ],
       ),
       _verticalGap(10),
-      Wrap(spacing: 10, runSpacing: 10, children: demoCards),
+      Wrap(
+        spacing: 10,
+        runSpacing: 10,
+        children: demoCards,
+      ),
     ],
   );
 
@@ -1273,83 +1183,36 @@ dynamic build(BuildContext context) {
   print('Section 5 :: cataloging the codepoint encyclopedia.');
 
   final List<IconData> registryIcons = <IconData>[
-    Icons.home,
-    Icons.search,
-    Icons.settings,
-    Icons.menu,
-    Icons.close,
-    Icons.add,
-    Icons.remove,
-    Icons.check,
-    Icons.star,
-    Icons.favorite,
-    Icons.map,
-    Icons.explore,
-    Icons.flag,
-    Icons.anchor,
-    Icons.terrain,
-    Icons.account_balance,
-    Icons.room,
-    Icons.compare_arrows,
+    Icons.home, Icons.search, Icons.settings, Icons.menu, Icons.close,
+    Icons.add, Icons.remove, Icons.check, Icons.star, Icons.favorite,
+    Icons.map, Icons.explore, Icons.flag, Icons.anchor, Icons.terrain,
+    Icons.account_balance, Icons.room, Icons.compare_arrows,
   ];
   final List<String> registryNames = <String>[
-    'Icons.home',
-    'Icons.search',
-    'Icons.settings',
-    'Icons.menu',
-    'Icons.close',
-    'Icons.add',
-    'Icons.remove',
-    'Icons.check',
-    'Icons.star',
-    'Icons.favorite',
-    'Icons.map',
-    'Icons.explore',
-    'Icons.flag',
-    'Icons.anchor',
-    'Icons.terrain',
-    'Icons.account_balance',
-    'Icons.room',
-    'Icons.compare_arrows',
+    'Icons.home', 'Icons.search', 'Icons.settings', 'Icons.menu', 'Icons.close',
+    'Icons.add', 'Icons.remove', 'Icons.check', 'Icons.star', 'Icons.favorite',
+    'Icons.map', 'Icons.explore', 'Icons.flag', 'Icons.anchor', 'Icons.terrain',
+    'Icons.account_balance', 'Icons.room', 'Icons.compare_arrows',
   ];
 
   final List<Widget> registryRows = <Widget>[];
   // Header row.
-  registryRows.add(
-    Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        color: irisIndigo,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 38,
-            child: Text('glyph', style: _captionStyle(irisCream, size: 11)),
-          ),
-          SizedBox(
-            width: 158,
-            child: Text('name', style: _captionStyle(irisCream, size: 11)),
-          ),
-          SizedBox(
-            width: 86,
-            child: Text('hex', style: _captionStyle(irisCream, size: 11)),
-          ),
-          SizedBox(
-            width: 76,
-            child: Text('decimal', style: _captionStyle(irisCream, size: 11)),
-          ),
-          Expanded(
-            child: Text(
-              'fontFamily',
-              style: _captionStyle(irisCream, size: 11),
-            ),
-          ),
-        ],
-      ),
+  registryRows.add(Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    decoration: BoxDecoration(
+      color: irisIndigo,
+      borderRadius: BorderRadius.circular(4),
     ),
-  );
+    child: Row(
+      children: [
+        SizedBox(width: 38, child: Text('glyph', style: _captionStyle(irisCream, size: 11))),
+        SizedBox(width: 158, child: Text('name', style: _captionStyle(irisCream, size: 11))),
+        SizedBox(width: 86, child: Text('hex', style: _captionStyle(irisCream, size: 11))),
+        SizedBox(width: 76, child: Text('decimal', style: _captionStyle(irisCream, size: 11))),
+        Expanded(child: Text('fontFamily', style: _captionStyle(irisCream, size: 11))),
+      ],
+    ),
+  ));
   for (int i = 0; i < registryIcons.length; i++) {
     final IconData d = registryIcons[i];
     final String n = registryNames[i];
@@ -1357,43 +1220,35 @@ dynamic build(BuildContext context) {
     final String dec = d.codePoint.toString();
     final String family = d.fontFamily ?? '<inherited>';
     final Color rowBg = i % 2 == 0 ? irisCream : irisLinen;
-    registryRows.add(
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        decoration: BoxDecoration(
-          color: rowBg,
-          border: Border(
-            bottom: BorderSide(
-              color: irisCopper.withValues(alpha: 0.25),
-              width: 0.6,
-            ),
-          ),
-        ),
-        child: Row(
-          children: [
-            SizedBox(width: 38, child: Icon(d, size: 22, color: irisIndigo)),
-            SizedBox(
-              width: 158,
-              child: Text(
-                n,
-                style: _monoStyle(irisInk, size: 11, w: FontWeight.w600),
-              ),
-            ),
-            SizedBox(
-              width: 86,
-              child: Text(hex, style: _monoStyle(irisCopper, size: 11)),
-            ),
-            SizedBox(
-              width: 76,
-              child: Text(dec, style: _monoStyle(irisStone, size: 11)),
-            ),
-            Expanded(
-              child: Text(family, style: _monoStyle(irisIndigo, size: 11)),
-            ),
-          ],
+    registryRows.add(Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: rowBg,
+        border: Border(
+          bottom: BorderSide(color: irisCopper.withValues(alpha: 0.25), width: 0.6),
         ),
       ),
-    );
+      child: Row(
+        children: [
+          SizedBox(width: 38, child: Icon(d, size: 22, color: irisIndigo)),
+          SizedBox(
+            width: 158,
+            child: Text(n, style: _monoStyle(irisInk, size: 11, w: FontWeight.w600)),
+          ),
+          SizedBox(
+            width: 86,
+            child: Text(hex, style: _monoStyle(irisCopper, size: 11)),
+          ),
+          SizedBox(
+            width: 76,
+            child: Text(dec, style: _monoStyle(irisStone, size: 11)),
+          ),
+          Expanded(
+            child: Text(family, style: _monoStyle(irisIndigo, size: 11)),
+          ),
+        ],
+      ),
+    ));
   }
 
   final Widget section5Header = _sectionHeader(
@@ -1431,46 +1286,14 @@ dynamic build(BuildContext context) {
   // ===========================================================================
   print('Section 6 :: building the matchTextDirection demo.');
 
-  final IconData mtdFalse = IconData(
-    0xe5c8,
-    fontFamily: 'MaterialIcons',
-    matchTextDirection: false,
-  );
-  final IconData mtdTrue = IconData(
-    0xe5c8,
-    fontFamily: 'MaterialIcons',
-    matchTextDirection: true,
-  );
+  final IconData mtdFalse = IconData(0xe5c8, fontFamily: 'MaterialIcons', matchTextDirection: false);
+  final IconData mtdTrue  = IconData(0xe5c8, fontFamily: 'MaterialIcons', matchTextDirection: true);
 
   final List<List<dynamic>> mtdCells = <List<dynamic>>[
-    <dynamic>[
-      mtdFalse,
-      TextDirection.ltr,
-      'matchTextDirection: false',
-      'Directionality: LTR',
-      'glyph drawn as designed',
-    ],
-    <dynamic>[
-      mtdFalse,
-      TextDirection.rtl,
-      'matchTextDirection: false',
-      'Directionality: RTL',
-      'glyph not mirrored (flag is false)',
-    ],
-    <dynamic>[
-      mtdTrue,
-      TextDirection.ltr,
-      'matchTextDirection: true',
-      'Directionality: LTR',
-      'glyph drawn as designed (LTR is default)',
-    ],
-    <dynamic>[
-      mtdTrue,
-      TextDirection.rtl,
-      'matchTextDirection: true',
-      'Directionality: RTL',
-      'glyph mirrored horizontally (the contract!)',
-    ],
+    <dynamic>[mtdFalse, TextDirection.ltr, 'matchTextDirection: false', 'Directionality: LTR', 'glyph drawn as designed'],
+    <dynamic>[mtdFalse, TextDirection.rtl, 'matchTextDirection: false', 'Directionality: RTL', 'glyph not mirrored (flag is false)'],
+    <dynamic>[mtdTrue,  TextDirection.ltr, 'matchTextDirection: true',  'Directionality: LTR', 'glyph drawn as designed (LTR is default)'],
+    <dynamic>[mtdTrue,  TextDirection.rtl, 'matchTextDirection: true',  'Directionality: RTL', 'glyph mirrored horizontally (the contract!)'],
   ];
 
   final List<Widget> mtdCards = <Widget>[];
@@ -1482,9 +1305,7 @@ dynamic build(BuildContext context) {
     final String f2 = row[3] as String;
     final String desc = row[4] as String;
 
-    final Color border = i == 3
-        ? irisCopper
-        : irisIndigo.withValues(alpha: 0.5);
+    final Color border = i == 3 ? irisCopper : irisIndigo.withValues(alpha: 0.5);
 
     final Widget card = Container(
       width: 220,
@@ -1544,7 +1365,11 @@ dynamic build(BuildContext context) {
       Container(
         padding: const EdgeInsets.all(12),
         decoration: _chartSurface(),
-        child: Wrap(spacing: 10, runSpacing: 10, children: mtdCards),
+        child: Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: mtdCards,
+        ),
       ),
     ],
   );
@@ -1572,11 +1397,7 @@ dynamic build(BuildContext context) {
     fontPackage: 'atlas_iris_icons',
   );
 
-  final List<IconData> fpEntries = <IconData>[
-    fpMaterial,
-    fpCupertino,
-    fpCustom,
-  ];
+  final List<IconData> fpEntries = <IconData>[fpMaterial, fpCupertino, fpCustom];
   final List<String> fpHeaders = <String>[
     'Material Icons (built-in)',
     'Cupertino Icons (package)',
@@ -1651,7 +1472,11 @@ dynamic build(BuildContext context) {
       Container(
         padding: const EdgeInsets.all(12),
         decoration: _chartSurface(),
-        child: Wrap(spacing: 10, runSpacing: 10, children: fpCards),
+        child: Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: fpCards,
+        ),
       ),
     ],
   );
@@ -1690,12 +1515,10 @@ dynamic build(BuildContext context) {
 
   final List<Widget> deepLineWidgets = <Widget>[];
   for (int i = 0; i < deepLines.length; i++) {
-    deepLineWidgets.add(
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 1),
-        child: Text(deepLines[i], style: _monoStyle(irisInk, size: 11)),
-      ),
-    );
+    deepLineWidgets.add(Padding(
+      padding: const EdgeInsets.symmetric(vertical: 1),
+      child: Text(deepLines[i], style: _monoStyle(irisInk, size: 11)),
+    ));
   }
 
   final Widget section8 = Column(
@@ -1716,18 +1539,13 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: irisCharcoal,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: irisCopper.withValues(alpha: 0.7),
-            width: 1.2,
-          ),
+          border: Border.all(color: irisCopper.withValues(alpha: 0.7), width: 1.2),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'toStringDeep()  (paste-ready)',
-              style: _monoStyle(irisAmber, size: 11, w: FontWeight.w700),
-            ),
+            Text('toStringDeep()  (paste-ready)',
+                style: _monoStyle(irisAmber, size: 11, w: FontWeight.w700)),
             _verticalGap(6),
             DefaultTextStyle(
               style: _monoStyle(irisCream, size: 11),
@@ -1791,22 +1609,10 @@ dynamic build(BuildContext context) {
       children: [
         Text('Stage explanations', style: _titleStyle(15, irisInk)),
         _verticalGap(8),
-        _legendKey(
-          '1',
-          'IconData.  An immutable value (codePoint, fontFamily, fontPackage, matchTextDirection). The legend entry.',
-        ),
-        _legendKey(
-          '2',
-          'IconDataProperty.  Wraps the IconData in a DiagnosticsProperty so it can join a property list.',
-        ),
-        _legendKey(
-          '3',
-          'DiagnosticsNode.  The wrapped value joins a tree of nodes returned by toDiagnosticsNode().',
-        ),
-        _legendKey(
-          '4',
-          'toJsonMap.  The node serializes to JSON; valueProperties.codePoint preserves the numeric codepoint.',
-        ),
+        _legendKey('1', 'IconData.  An immutable value (codePoint, fontFamily, fontPackage, matchTextDirection). The legend entry.'),
+        _legendKey('2', 'IconDataProperty.  Wraps the IconData in a DiagnosticsProperty so it can join a property list.'),
+        _legendKey('3', 'DiagnosticsNode.  The wrapped value joins a tree of nodes returned by toDiagnosticsNode().'),
+        _legendKey('4', 'toJsonMap.  The node serializes to JSON; valueProperties.codePoint preserves the numeric codepoint.'),
       ],
     ),
   );
@@ -1833,87 +1639,43 @@ dynamic build(BuildContext context) {
   print('Section 10 :: writing the icon glossary.');
 
   final List<List<String>> glossary = <List<String>>[
-    <String>[
-      'codePoint',
-      'A Unicode integer identifying a glyph in a font; for icon fonts usually in the U+E000-U+F8FF private-use range.',
-    ],
-    <String>[
-      'fontFamily',
-      'The name of the font that contains the glyph. Material Icons, CupertinoIcons, FontAwesome, etc.',
-    ],
-    <String>[
-      'fontPackage',
-      'The Dart package the font lives in. null for the framework-bundled MaterialIcons font.',
-    ],
-    <String>[
-      'glyph',
-      'A specific shape drawn for a codepoint by a font. The same codepoint can have different glyphs in different fonts.',
-    ],
-    <String>[
-      'baseline',
-      'The horizontal line that letters and glyphs sit on. Icons in a font are drawn relative to the baseline.',
-    ],
-    <String>[
-      'ascender',
-      'The portion of a glyph that rises above the x-height (or for icons, above the visual centerline).',
-    ],
-    <String>[
-      'descender',
-      'The portion of a glyph that drops below the baseline.',
-    ],
-    <String>[
-      'ligature',
-      'A composite glyph formed when a font replaces a specific letter sequence (e.g. \'home\') with a single icon glyph.',
-    ],
-    <String>[
-      'matchTextDirection',
-      'Boolean flag on IconData; mirrors the glyph horizontally inside an RTL Directionality.',
-    ],
-    <String>[
-      'IconData',
-      'The value class that records (codePoint, fontFamily, fontPackage, matchTextDirection); pure metadata.',
-    ],
-    <String>[
-      'IconDataProperty',
-      'DiagnosticsProperty<IconData> that adds valueProperties.codePoint when serialized to JSON.',
-    ],
-    <String>[
-      'DiagnosticsNode',
-      'Abstract base for a node in a diagnostics tree; carries a name, a value, and a list of children.',
-    ],
-    <String>[
-      'DiagnosticPropertiesBuilder',
-      'Mutable builder used by debugFillProperties to accumulate DiagnosticsNode entries.',
-    ],
-    <String>[
-      'valueProperties',
-      'A reserved JSON key in the toJsonMap output that records value-specific data; for IconData it carries codePoint.',
-    ],
+    <String>['codePoint', 'A Unicode integer identifying a glyph in a font; for icon fonts usually in the U+E000-U+F8FF private-use range.'],
+    <String>['fontFamily', 'The name of the font that contains the glyph. Material Icons, CupertinoIcons, FontAwesome, etc.'],
+    <String>['fontPackage', 'The Dart package the font lives in. null for the framework-bundled MaterialIcons font.'],
+    <String>['glyph', 'A specific shape drawn for a codepoint by a font. The same codepoint can have different glyphs in different fonts.'],
+    <String>['baseline', 'The horizontal line that letters and glyphs sit on. Icons in a font are drawn relative to the baseline.'],
+    <String>['ascender', 'The portion of a glyph that rises above the x-height (or for icons, above the visual centerline).'],
+    <String>['descender', 'The portion of a glyph that drops below the baseline.'],
+    <String>['ligature', 'A composite glyph formed when a font replaces a specific letter sequence (e.g. \'home\') with a single icon glyph.'],
+    <String>['matchTextDirection', 'Boolean flag on IconData; mirrors the glyph horizontally inside an RTL Directionality.'],
+    <String>['IconData', 'The value class that records (codePoint, fontFamily, fontPackage, matchTextDirection); pure metadata.'],
+    <String>['IconDataProperty', 'DiagnosticsProperty<IconData> that adds valueProperties.codePoint when serialized to JSON.'],
+    <String>['DiagnosticsNode', 'Abstract base for a node in a diagnostics tree; carries a name, a value, and a list of children.'],
+    <String>['DiagnosticPropertiesBuilder', 'Mutable builder used by debugFillProperties to accumulate DiagnosticsNode entries.'],
+    <String>['valueProperties', 'A reserved JSON key in the toJsonMap output that records value-specific data; for IconData it carries codePoint.'],
   ];
 
   final List<Widget> glossaryCards = <Widget>[];
   for (int i = 0; i < glossary.length; i++) {
     final String term = glossary[i][0];
     final String defn = glossary[i][1];
-    glossaryCards.add(
-      Container(
-        width: 250,
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: i % 2 == 0 ? irisCream : irisLinen,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: irisCopper.withValues(alpha: 0.45)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(term, style: _titleStyle(12, irisIndigo)),
-            _verticalGap(4),
-            Text(defn, style: _bodyStyle(irisCharcoal, size: 11)),
-          ],
-        ),
+    glossaryCards.add(Container(
+      width: 250,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: i % 2 == 0 ? irisCream : irisLinen,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: irisCopper.withValues(alpha: 0.45)),
       ),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(term, style: _titleStyle(12, irisIndigo)),
+          _verticalGap(4),
+          Text(defn, style: _bodyStyle(irisCharcoal, size: 11)),
+        ],
+      ),
+    ));
   }
 
   final Widget section10Header = _sectionHeader(
@@ -1930,7 +1692,11 @@ dynamic build(BuildContext context) {
       Container(
         padding: const EdgeInsets.all(12),
         decoration: _chartSurface(),
-        child: Wrap(spacing: 10, runSpacing: 10, children: glossaryCards),
+        child: Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: glossaryCards,
+        ),
       ),
     ],
   );
@@ -1943,99 +1709,50 @@ dynamic build(BuildContext context) {
   print('Section 11 :: laying out the field reference table.');
 
   final List<List<String>> fields = <List<String>>[
-    <String>[
-      'codePoint',
-      'int',
-      'The Unicode codepoint of the glyph in the icon font. Required.',
-    ],
-    <String>[
-      'fontFamily',
-      'String?',
-      'The name of the icon font containing the glyph; null falls back to the inherited family from IconTheme.',
-    ],
-    <String>[
-      'fontPackage',
-      'String?',
-      'The package that ships the font asset; null for the framework-bundled MaterialIcons font.',
-    ],
-    <String>[
-      'matchTextDirection',
-      'bool',
-      'When true, the Icon widget mirrors the glyph horizontally inside RTL Directionality. Default: false.',
-    ],
-    <String>[
-      'fontFamilyFallback',
-      'List<String>?',
-      'Additional font family names tried in order if the primary family does not contain the codepoint.',
-    ],
+    <String>['codePoint', 'int', 'The Unicode codepoint of the glyph in the icon font. Required.'],
+    <String>['fontFamily', 'String?', 'The name of the icon font containing the glyph; null falls back to the inherited family from IconTheme.'],
+    <String>['fontPackage', 'String?', 'The package that ships the font asset; null for the framework-bundled MaterialIcons font.'],
+    <String>['matchTextDirection', 'bool', 'When true, the Icon widget mirrors the glyph horizontally inside RTL Directionality. Default: false.'],
+    <String>['fontFamilyFallback', 'List<String>?', 'Additional font family names tried in order if the primary family does not contain the codepoint.'],
   ];
 
   final List<Widget> fieldRows = <Widget>[];
-  fieldRows.add(
-    Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        color: irisIndigo,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 160,
-            child: Text('field', style: _captionStyle(irisCream, size: 11)),
-          ),
-          SizedBox(
-            width: 110,
-            child: Text('type', style: _captionStyle(irisCream, size: 11)),
-          ),
-          Expanded(
-            child: Text(
-              'description',
-              style: _captionStyle(irisCream, size: 11),
-            ),
-          ),
-        ],
-      ),
+  fieldRows.add(Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    decoration: BoxDecoration(
+      color: irisIndigo,
+      borderRadius: BorderRadius.circular(4),
     ),
-  );
+    child: Row(
+      children: [
+        SizedBox(width: 160, child: Text('field', style: _captionStyle(irisCream, size: 11))),
+        SizedBox(width: 110, child: Text('type', style: _captionStyle(irisCream, size: 11))),
+        Expanded(child: Text('description', style: _captionStyle(irisCream, size: 11))),
+      ],
+    ),
+  ));
   for (int i = 0; i < fields.length; i++) {
     final List<String> row = fields[i];
     final String field = row[0];
     final String type = row[1];
     final String desc = row[2];
-    fieldRows.add(
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        decoration: BoxDecoration(
-          color: i % 2 == 0 ? irisCream : irisLinen,
-          border: Border(
-            bottom: BorderSide(
-              color: irisCopper.withValues(alpha: 0.25),
-              width: 0.6,
-            ),
-          ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 160,
-              child: Text(
-                field,
-                style: _monoStyle(irisInk, size: 11, w: FontWeight.w700),
-              ),
-            ),
-            SizedBox(
-              width: 110,
-              child: Text(type, style: _monoStyle(irisCopper, size: 11)),
-            ),
-            Expanded(
-              child: Text(desc, style: _bodyStyle(irisCharcoal, size: 11)),
-            ),
-          ],
+    fieldRows.add(Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: i % 2 == 0 ? irisCream : irisLinen,
+        border: Border(
+          bottom: BorderSide(color: irisCopper.withValues(alpha: 0.25), width: 0.6),
         ),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(width: 160, child: Text(field, style: _monoStyle(irisInk, size: 11, w: FontWeight.w700))),
+          SizedBox(width: 110, child: Text(type, style: _monoStyle(irisCopper, size: 11))),
+          Expanded(child: Text(desc, style: _bodyStyle(irisCharcoal, size: 11))),
+        ],
+      ),
+    ));
   }
 
   final Widget section11Header = _sectionHeader(
@@ -2109,10 +1826,7 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Marginalia :: DocumentationIcon',
-                style: _titleStyle(13, irisIndigo),
-              ),
+              Text('Marginalia :: DocumentationIcon', style: _titleStyle(13, irisIndigo)),
               _verticalGap(4),
               Text(
                 'package:flutter/foundation.dart also exposes a small '
@@ -2125,14 +1839,10 @@ dynamic build(BuildContext context) {
                 style: _bodyStyle(irisCharcoal, size: 11),
               ),
               _verticalGap(6),
-              Text(
-                '  const di = DocumentationIcon(\'https://flutter.dev/icon.png\');',
-                style: _monoStyle(irisCopper, size: 10),
-              ),
-              Text(
-                '  print(di.url);  // -> https://flutter.dev/icon.png',
-                style: _monoStyle(irisCopper, size: 10),
-              ),
+              Text('  const di = DocumentationIcon(\'https://flutter.dev/icon.png\');',
+                  style: _monoStyle(irisCopper, size: 10)),
+              Text('  print(di.url);  // -> https://flutter.dev/icon.png',
+                  style: _monoStyle(irisCopper, size: 10)),
             ],
           ),
         ),
@@ -2162,14 +1872,12 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < plates.length; i++) {
     final IconData d = plates[i];
     final String name = plateNames[i];
-    print(
-      'plate ${(i + 1).toString().padLeft(2, " ")}.  '
-      '$name  =>  codePoint = 0x'
-      '${d.codePoint.toRadixString(16)}, '
-      'fontFamily = ${d.fontFamily ?? "<inherited>"}, '
-      'fontPackage = ${d.fontPackage ?? "<none>"}, '
-      'matchTextDirection = ${d.matchTextDirection}',
-    );
+    print('plate ${(i + 1).toString().padLeft(2, " ")}.  '
+        '$name  =>  codePoint = 0x'
+        '${d.codePoint.toRadixString(16)}, '
+        'fontFamily = ${d.fontFamily ?? "<inherited>"}, '
+        'fontPackage = ${d.fontPackage ?? "<none>"}, '
+        'matchTextDirection = ${d.matchTextDirection}');
   }
   print('----------------------------------------------------------------');
   print('IconDataProperty demonstrations:');
@@ -2193,20 +1901,20 @@ dynamic build(BuildContext context) {
   // thin copper-tinted line.
   // ===========================================================================
   Widget _divider() => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Container(
-      height: 1,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            irisCopper.withValues(alpha: 0.0),
-            irisCopper.withValues(alpha: 0.6),
-            irisCopper.withValues(alpha: 0.0),
-          ],
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Container(
+          height: 1,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                irisCopper.withValues(alpha: 0.0),
+                irisCopper.withValues(alpha: 0.6),
+                irisCopper.withValues(alpha: 0.0),
+              ],
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
 
   return SingleChildScrollView(
     child: Container(

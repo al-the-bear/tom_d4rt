@@ -172,16 +172,8 @@ Widget _buildHeroSection() {
       gradient: _kGradientHero,
       borderRadius: BorderRadius.circular(18),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x6634D8FF),
-          blurRadius: 36,
-          offset: Offset(0, 12),
-        ),
-        BoxShadow(
-          color: Color(0x33000000),
-          blurRadius: 24,
-          offset: Offset(0, 4),
-        ),
+        BoxShadow(color: Color(0x6634D8FF), blurRadius: 36, offset: Offset(0, 12)),
+        BoxShadow(color: Color(0x33000000), blurRadius: 24, offset: Offset(0, 4)),
       ],
     ),
     padding: const EdgeInsets.fromLTRB(28, 28, 28, 28),
@@ -244,16 +236,8 @@ Widget _buildHeroSection() {
           runSpacing: 10,
           children: [
             _buildHeroChip('StringAttribute', 'abstract base', _kAccentCyan),
-            _buildHeroChip(
-              'SpellOutStringAttribute',
-              'sealed shape, no extra fields',
-              _kAccentGold,
-            ),
-            _buildHeroChip(
-              'LocaleStringAttribute',
-              'adds a Locale field',
-              _kAccentRose,
-            ),
+            _buildHeroChip('SpellOutStringAttribute', 'sealed shape, no extra fields', _kAccentGold),
+            _buildHeroChip('LocaleStringAttribute', 'adds a Locale field', _kAccentRose),
           ],
         ),
       ],
@@ -270,11 +254,7 @@ Widget _buildLogoBadge() {
       borderRadius: BorderRadius.circular(18),
       border: Border.all(color: _kAccentCyan, width: 1.5),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x6634D8FF),
-          blurRadius: 18,
-          offset: Offset(0, 6),
-        ),
+        BoxShadow(color: Color(0x6634D8FF), blurRadius: 18, offset: Offset(0, 6)),
       ],
     ),
     alignment: Alignment.center,
@@ -322,11 +302,7 @@ Widget _buildHeroChip(String title, String subtitle, Color accent) {
             const SizedBox(height: 2),
             Text(
               subtitle,
-              style: const TextStyle(
-                color: _kInkSoft,
-                fontSize: 11,
-                height: 1.2,
-              ),
+              style: const TextStyle(color: _kInkSoft, fontSize: 11, height: 1.2),
             ),
           ],
         ),
@@ -358,10 +334,8 @@ Widget _buildAnatomySection() {
 
   final String spellRtType = anatomySpell.runtimeType.toString();
   final String localeRtType = anatomyLocale.runtimeType.toString();
-  final String anatomyRange1 =
-      '[${anatomySpell.range.start}..${anatomySpell.range.end})';
-  final String anatomyRange2 =
-      '[${anatomyLocale.range.start}..${anatomyLocale.range.end})';
+  final String anatomyRange1 = '[${anatomySpell.range.start}..${anatomySpell.range.end})';
+  final String anatomyRange2 = '[${anatomyLocale.range.start}..${anatomyLocale.range.end})';
   final String anatomyLocaleStr = anatomyLocale.locale.toString();
 
   return _buildSectionShell(
@@ -423,8 +397,7 @@ Widget _buildAnatomySection() {
                   '})',
                 ],
                 liveRuntimeType: localeRtType,
-                liveDetail:
-                    'instance #2 covers $anatomyRange2 with locale $anatomyLocaleStr',
+                liveDetail: 'instance #2 covers $anatomyRange2 with locale $anatomyLocaleStr',
               ),
             ),
           ],
@@ -445,11 +418,7 @@ Widget _buildAnatomyTopBox() {
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: _kAccentCyan, width: 1.4),
         boxShadow: const [
-          BoxShadow(
-            color: Color(0x4434D8FF),
-            blurRadius: 22,
-            offset: Offset(0, 8),
-          ),
+          BoxShadow(color: Color(0x4434D8FF), blurRadius: 22, offset: Offset(0, 8)),
         ],
       ),
       child: Column(
@@ -687,11 +656,7 @@ Widget _buildSectionShell({
       borderRadius: BorderRadius.circular(20),
       border: Border.all(color: const Color(0x2234D8FF)),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x55000000),
-          blurRadius: 18,
-          offset: Offset(0, 6),
-        ),
+        BoxShadow(color: Color(0x55000000), blurRadius: 18, offset: Offset(0, 6)),
       ],
     ),
     clipBehavior: Clip.antiAlias,
@@ -757,9 +722,7 @@ Widget _buildSectionShell({
             crossAxisAlignment: CrossAxisAlignment.start,
             children: List<Widget>.generate(paragraphs.length, (int i) {
               return Padding(
-                padding: EdgeInsets.only(
-                  bottom: i == paragraphs.length - 1 ? 0 : 10,
-                ),
+                padding: EdgeInsets.only(bottom: i == paragraphs.length - 1 ? 0 : 10),
                 child: Text(
                   paragraphs[i],
                   style: const TextStyle(
@@ -1051,8 +1014,7 @@ Widget _buildSpellOutShowcaseSection() {
       sample: 'NASA',
       attribute: spell1,
       caption: 'Acronym',
-      reasoning:
-          'Without SpellOut a US English voice may say "NASS-uh" '
+      reasoning: 'Without SpellOut a US English voice may say "NASS-uh" '
           'as if it were a word. SpellOut forces "N-A-S-A".',
       icon: Icons.rocket_launch,
     ),
@@ -1060,8 +1022,7 @@ Widget _buildSpellOutShowcaseSection() {
       sample: 'FBI',
       attribute: spell2,
       caption: 'Initialism',
-      reasoning:
-          'Three-letter initialism that almost everyone says letter '
+      reasoning: 'Three-letter initialism that almost everyone says letter '
           'by letter — make the engine do the same explicitly.',
       icon: Icons.shield,
     ),
@@ -1069,8 +1030,7 @@ Widget _buildSpellOutShowcaseSection() {
       sample: 'TM-42-Q',
       attribute: spell3,
       caption: 'Product code',
-      reasoning:
-          'Internal SKUs and serial numbers should always be spelt '
+      reasoning: 'Internal SKUs and serial numbers should always be spelt '
           'out so listeners can write them down character by character.',
       icon: Icons.qr_code_2,
     ),
@@ -1078,8 +1038,7 @@ Widget _buildSpellOutShowcaseSection() {
       sample: '555-0123-99',
       attribute: spell4,
       caption: 'Phone number',
-      reasoning:
-          'Phone numbers vary wildly in chunking conventions. '
+      reasoning: 'Phone numbers vary wildly in chunking conventions. '
           'Spelling each digit is the safest cross-locale strategy.',
       icon: Icons.call,
     ),
@@ -1087,8 +1046,7 @@ Widget _buildSpellOutShowcaseSection() {
       sample: 'x',
       attribute: spell5,
       caption: 'Single math letter',
-      reasoning:
-          'In a math expression the variable "x" is read "ex" — '
+      reasoning: 'In a math expression the variable "x" is read "ex" — '
           'spelling out keeps it from blending into surrounding words.',
       icon: Icons.functions,
     ),
@@ -1142,11 +1100,7 @@ Widget _buildSpellCard({
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: _kAccentGold.withValues(alpha: 0.45)),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x44FFD27A),
-          blurRadius: 16,
-          offset: Offset(0, 6),
-        ),
+        BoxShadow(color: Color(0x44FFD27A), blurRadius: 16, offset: Offset(0, 6)),
       ],
     ),
     child: Column(
@@ -1206,11 +1160,7 @@ Widget _buildSpellCard({
         const SizedBox(height: 10),
         Text(
           reasoning,
-          style: const TextStyle(
-            color: _kInkSoft,
-            fontSize: 12.5,
-            height: 1.45,
-          ),
+          style: const TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.45),
         ),
       ],
     ),
@@ -1265,8 +1215,7 @@ Widget _buildLocaleShowcaseSection() {
       base: 'She said: bon appétit before the meal.',
       attribute: locale1,
       title: 'French inline phrase',
-      reason:
-          'Without the locale switch, an English voice will mangle the '
+      reason: 'Without the locale switch, an English voice will mangle the '
           'accented word into something close to "bon ap-uh-teet".',
       gradient: const LinearGradient(
         colors: [Color(0xFF1B3A5E), Color(0xFFFF7A9A)],
@@ -1276,8 +1225,7 @@ Widget _buildLocaleShowcaseSection() {
       base: 'Their motto is "Vorsprung durch Technik" still.',
       attribute: locale2,
       title: 'German technical term',
-      reason:
-          'German has hard t/k consonants and stressed first syllables; '
+      reason: 'German has hard t/k consonants and stressed first syllables; '
           'the de_DE voice handles the cluster naturally.',
       gradient: const LinearGradient(
         colors: [Color(0xFF132A44), Color(0xFFFFD27A)],
@@ -1287,8 +1235,7 @@ Widget _buildLocaleShowcaseSection() {
       base: 'I love mañana, no te preocupes phrasing.',
       attribute: locale3,
       title: 'Spanish quote',
-      reason:
-          'Spanish nasal "ñ" and stressed syllables fall flat in '
+      reason: 'Spanish nasal "ñ" and stressed syllables fall flat in '
           'an English voice — switch locale for the run.',
       gradient: const LinearGradient(
         colors: [Color(0xFF1B3A5E), Color(0xFF65F1B6)],
@@ -1298,8 +1245,7 @@ Widget _buildLocaleShowcaseSection() {
       base: 'A polite アリガトウ ends every email.',
       attribute: locale4,
       title: 'Japanese loanword',
-      reason:
-          'Katakana "arigatou" must be voiced by a Japanese engine; '
+      reason: 'Katakana "arigatou" must be voiced by a Japanese engine; '
           'an English voice cannot map katakana to phonemes.',
       gradient: const LinearGradient(
         colors: [Color(0xFF132A44), Color(0xFFB89BFF)],
@@ -1309,8 +1255,7 @@ Widget _buildLocaleShowcaseSection() {
       base: 'A friendly спасибо works wonders today.',
       attribute: locale5,
       title: 'Russian Cyrillic',
-      reason:
-          'Cyrillic letters carry stress marks the English voice cannot '
+      reason: 'Cyrillic letters carry stress marks the English voice cannot '
           'infer; the ru_RU voice handles the soft-sign and "и" cleanly.',
       gradient: const LinearGradient(
         colors: [Color(0xFF132A44), Color(0xFFFF9966)],
@@ -1367,11 +1312,7 @@ Widget _buildLocaleCard({
       gradient: gradient,
       borderRadius: BorderRadius.circular(14),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x44000000),
-          blurRadius: 16,
-          offset: Offset(0, 6),
-        ),
+        BoxShadow(color: Color(0x44000000), blurRadius: 16, offset: Offset(0, 6)),
       ],
     ),
     child: Column(
@@ -1402,7 +1343,11 @@ Widget _buildLocaleCard({
           ),
           child: RichText(
             text: TextSpan(
-              style: const TextStyle(color: _kInk, fontSize: 14, height: 1.4),
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 14,
+                height: 1.4,
+              ),
               children: [
                 TextSpan(text: pre),
                 TextSpan(
@@ -1466,11 +1411,10 @@ Widget _buildTextRangeUtilitiesSection() {
 
   // Wrap each range in a SpellOutStringAttribute so the table is
   // honest about how attributes interact with TextRange properties.
-  final List<ui.SpellOutStringAttribute> wrappers =
-      List<ui.SpellOutStringAttribute>.generate(
-        ranges.length,
-        (int i) => ui.SpellOutStringAttribute(range: ranges[i]),
-      );
+  final List<ui.SpellOutStringAttribute> wrappers = List<ui.SpellOutStringAttribute>.generate(
+    ranges.length,
+    (int i) => ui.SpellOutStringAttribute(range: ranges[i]),
+  );
 
   final List<String> notes = [
     'Healthy 4-char span at the start of a string.',
@@ -1485,8 +1429,7 @@ Widget _buildTextRangeUtilitiesSection() {
     gradient: _kGradientRange,
     sectionNumber: '05',
     title: 'TextRange properties cheat-sheet',
-    subtitle:
-        'isValid, isCollapsed, isNormalized — what they mean for attributes',
+    subtitle: 'isValid, isCollapsed, isNormalized — what they mean for attributes',
     paragraphs: const [
       'StringAttribute inherits exactly one field from its abstract base: range. That range '
           'is a TextRange — the same value type used elsewhere in Flutter for selection and '
@@ -1536,61 +1479,11 @@ Widget _buildRangeTableHeader() {
     ),
     child: Row(
       children: const [
-        Expanded(
-          flex: 3,
-          child: Text(
-            'Range',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'valid',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'collapsed',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'normalized',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 5,
-          child: Text(
-            'Note',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
+        Expanded(flex: 3, child: Text('Range', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
+        Expanded(flex: 2, child: Text('valid', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
+        Expanded(flex: 2, child: Text('collapsed', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
+        Expanded(flex: 2, child: Text('normalized', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
+        Expanded(flex: 5, child: Text('Note', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
       ],
     ),
   );
@@ -1718,10 +1611,8 @@ Widget _buildAccessibilityRecipeSection() {
           child: _buildRecipeCard(
             title: 'Localised error message',
             sentence: 'Network error: connexion expirée',
-            symptom:
-                'Default English voice mispronounces "connexion expirée" as gibberish.',
-            recipeText:
-                'Wrap "connexion expirée" with LocaleStringAttribute(fr_FR).',
+            symptom: 'Default English voice mispronounces "connexion expirée" as gibberish.',
+            recipeText: 'Wrap "connexion expirée" with LocaleStringAttribute(fr_FR).',
             attributes: [recipeLocaleErr],
             color: _kAccentRose,
           ),
@@ -1743,8 +1634,7 @@ Widget _buildAccessibilityRecipeSection() {
             title: 'Multilingual address block',
             sentence: 'Mailing to: München, Germany',
             symptom: 'Both city and country names need German voicing.',
-            recipeText:
-                'Two LocaleStringAttribute(de_DE) covering the city and the country.',
+            recipeText: 'Two LocaleStringAttribute(de_DE) covering the city and the country.',
             attributes: [recipeAddrCity, recipeAddrCountry],
             color: _kAccentLilac,
           ),
@@ -1773,15 +1663,16 @@ Widget _buildRecipeCard({
   required List<ui.StringAttribute> attributes,
   required Color color,
 }) {
-  final List<String> descriptions = List<String>.generate(attributes.length, (
-    int i,
-  ) {
-    final ui.StringAttribute a = attributes[i];
-    if (a is ui.LocaleStringAttribute) {
-      return 'Locale(${a.locale}) over [${a.range.start}..${a.range.end})';
-    }
-    return 'SpellOut over [${a.range.start}..${a.range.end})';
-  });
+  final List<String> descriptions = List<String>.generate(
+    attributes.length,
+    (int i) {
+      final ui.StringAttribute a = attributes[i];
+      if (a is ui.LocaleStringAttribute) {
+        return 'Locale(${a.locale}) over [${a.range.start}..${a.range.end})';
+      }
+      return 'SpellOut over [${a.range.start}..${a.range.end})';
+    },
+  );
   return Container(
     padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -1938,32 +1829,28 @@ Widget _buildFootgunSection() {
       children: [
         _buildFootgunRow(
           title: 'Overlapping spell-out ranges',
-          description:
-              'Two SpellOuts share characters 3..5. The engine may '
+          description: 'Two SpellOuts share characters 3..5. The engine may '
               'collapse them or pick one arbitrarily.',
           attributes: [fgOverA, fgOverB],
           sample: 'OverLap',
         ),
         _buildFootgunRow(
           title: 'Off-by-one (end exclusive)',
-          description:
-              'TextRange end is exclusive. To cover "NASA" use '
+          description: 'TextRange end is exclusive. To cover "NASA" use '
               'end=4 not end=5; otherwise the trailing space is included.',
           attributes: [fgOff],
           sample: 'NASA team',
         ),
         _buildFootgunRow(
           title: 'Range past the string length',
-          description:
-              'A range that stretches beyond the base string will '
+          description: 'A range that stretches beyond the base string will '
               'be clamped or rejected. Defensive code must verify length.',
           attributes: [fgPast],
           sample: 'short',
         ),
         _buildFootgunRow(
           title: 'Conflicting locale on identical range',
-          description:
-              'Two LocaleStringAttribute objects on the same range '
+          description: 'Two LocaleStringAttribute objects on the same range '
               'with different locales — the engine will choose unpredictably.',
           attributes: [fgConflictA, fgConflictB],
           sample: 'Hello!',
@@ -1979,15 +1866,16 @@ Widget _buildFootgunRow({
   required List<ui.StringAttribute> attributes,
   required String sample,
 }) {
-  final List<String> descriptions = List<String>.generate(attributes.length, (
-    int i,
-  ) {
-    final ui.StringAttribute a = attributes[i];
-    if (a is ui.LocaleStringAttribute) {
-      return 'Locale(${a.locale}) over [${a.range.start}..${a.range.end})';
-    }
-    return 'SpellOut over [${a.range.start}..${a.range.end})';
-  });
+  final List<String> descriptions = List<String>.generate(
+    attributes.length,
+    (int i) {
+      final ui.StringAttribute a = attributes[i];
+      if (a is ui.LocaleStringAttribute) {
+        return 'Locale(${a.locale}) over [${a.range.start}..${a.range.end})';
+      }
+      return 'SpellOut over [${a.range.start}..${a.range.end})';
+    },
+  );
   return Container(
     margin: const EdgeInsets.only(bottom: 12),
     padding: const EdgeInsets.all(14),
@@ -2016,11 +1904,7 @@ Widget _buildFootgunRow({
         const SizedBox(height: 8),
         Text(
           description,
-          style: const TextStyle(
-            color: _kInkSoft,
-            fontSize: 12.5,
-            height: 1.45,
-          ),
+          style: const TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.45),
         ),
         const SizedBox(height: 10),
         Container(
@@ -2143,27 +2027,17 @@ Widget _buildInlineSpanColumn() {
         const SizedBox(height: 12),
         RichText(
           text: const TextSpan(
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 16,
-              fontFamily: 'monospace',
-            ),
+            style: TextStyle(color: _kInk, fontSize: 16, fontFamily: 'monospace'),
             children: [
               TextSpan(text: 'Call '),
               TextSpan(
                 text: 'NASA',
-                style: TextStyle(
-                  color: _kAccentGold,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: TextStyle(color: _kAccentGold, fontWeight: FontWeight.w800),
               ),
               TextSpan(text: ' before 8 PM in '),
               TextSpan(
                 text: 'Paris.',
-                style: TextStyle(
-                  color: _kAccentRose,
-                  fontStyle: FontStyle.italic,
-                ),
+                style: TextStyle(color: _kAccentRose, fontStyle: FontStyle.italic),
               ),
             ],
           ),
@@ -2248,36 +2122,11 @@ Widget _buildAttributeColumn({
 
 Widget _buildApiSummaryTableSection() {
   final List<List<String>> rows = const [
-    [
-      'StringAttribute',
-      'abstract',
-      'final TextRange range',
-      '— (cannot be instantiated)',
-    ],
-    [
-      'SpellOutStringAttribute',
-      'concrete',
-      'range',
-      'SpellOutStringAttribute({required TextRange range})',
-    ],
-    [
-      'LocaleStringAttribute',
-      'concrete',
-      'range, locale',
-      'LocaleStringAttribute({required TextRange range, required Locale locale})',
-    ],
-    [
-      'TextRange (range field)',
-      'value',
-      'start, end, isValid, isCollapsed, isNormalized',
-      'TextRange(start: int, end: int)',
-    ],
-    [
-      'Locale (locale field)',
-      'value',
-      'languageCode, countryCode, scriptCode',
-      "Locale('en', 'US')",
-    ],
+    ['StringAttribute', 'abstract', 'final TextRange range', '— (cannot be instantiated)'],
+    ['SpellOutStringAttribute', 'concrete', 'range', 'SpellOutStringAttribute({required TextRange range})'],
+    ['LocaleStringAttribute', 'concrete', 'range, locale', 'LocaleStringAttribute({required TextRange range, required Locale locale})'],
+    ['TextRange (range field)', 'value', 'start, end, isValid, isCollapsed, isNormalized', 'TextRange(start: int, end: int)'],
+    ['Locale (locale field)', 'value', 'languageCode, countryCode, scriptCode', "Locale('en', 'US')"],
   ];
 
   return _buildSectionShell(
@@ -2326,50 +2175,10 @@ Widget _buildApiSummaryHeader() {
     ),
     child: Row(
       children: const [
-        Expanded(
-          flex: 4,
-          child: Text(
-            'Type',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            'Kind',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 4,
-          child: Text(
-            'Fields',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: Text(
-            'Constructor',
-            style: TextStyle(
-              color: _kInk,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ),
+        Expanded(flex: 4, child: Text('Type', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
+        Expanded(flex: 2, child: Text('Kind', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
+        Expanded(flex: 4, child: Text('Fields', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
+        Expanded(flex: 7, child: Text('Constructor', style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12))),
       ],
     ),
   );
@@ -2465,14 +2274,13 @@ Widget _buildLocaleCheatSheetSection() {
     'Brazilian Portuguese; nasal vowels differ from pt_PT.',
   ];
 
-  final List<ui.LocaleStringAttribute> demos =
-      List<ui.LocaleStringAttribute>.generate(
-        locales.length,
-        (int i) => ui.LocaleStringAttribute(
-          range: const TextRange(start: 0, end: 1),
-          locale: locales[i],
-        ),
-      );
+  final List<ui.LocaleStringAttribute> demos = List<ui.LocaleStringAttribute>.generate(
+    locales.length,
+    (int i) => ui.LocaleStringAttribute(
+      range: const TextRange(start: 0, end: 1),
+      locale: locales[i],
+    ),
+  );
 
   return _buildSectionShell(
     gradient: _kGradientCheatsheet,
@@ -2574,11 +2382,7 @@ Widget _buildClosingNotesSection() {
       ),
       borderRadius: BorderRadius.circular(18),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x6634D8FF),
-          blurRadius: 24,
-          offset: Offset(0, 8),
-        ),
+        BoxShadow(color: Color(0x6634D8FF), blurRadius: 24, offset: Offset(0, 8)),
       ],
     ),
     padding: const EdgeInsets.all(22),

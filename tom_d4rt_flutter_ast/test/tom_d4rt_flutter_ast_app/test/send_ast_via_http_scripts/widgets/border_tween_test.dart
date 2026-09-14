@@ -93,8 +93,7 @@ class _BorderTweenDeepDemoHome extends StatelessWidget {
               _SectionHeader(
                 index: 1,
                 title: 'Color morph',
-                subtitle:
-                    'Uniform Border.all → Border.all with different color.',
+                subtitle: 'Uniform Border.all → Border.all with different color.',
               ),
               _ColorMorph(),
               SizedBox(height: 24),
@@ -122,8 +121,7 @@ class _BorderTweenDeepDemoHome extends StatelessWidget {
               _SectionHeader(
                 index: 5,
                 title: 'Coordinated multi-card',
-                subtitle:
-                    'One controller, four BorderTweens, staggered intervals.',
+                subtitle: 'One controller, four BorderTweens, staggered intervals.',
               ),
               _MultiCardMorph(),
               SizedBox(height: 24),
@@ -238,7 +236,10 @@ class _SectionHeader extends StatelessWidget {
           const SizedBox(height: 4),
           Padding(
             padding: const EdgeInsets.only(left: 38),
-            child: Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+            child: Text(
+              subtitle,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           ),
         ],
       ),
@@ -1241,7 +1242,9 @@ class _StateMorphState extends State<_StateMorph>
                   height: 80,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: _selected ? const Color(0xFFE8EAF6) : Colors.white,
+                    color: _selected
+                        ? const Color(0xFFE8EAF6)
+                        : Colors.white,
                     border: _border.value,
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -1484,7 +1487,8 @@ class _SelectionFeedbackRecipeState extends State<_SelectionFeedbackRecipe>
 class _ValidationErrorRecipe extends StatefulWidget {
   const _ValidationErrorRecipe();
   @override
-  State<_ValidationErrorRecipe> createState() => _ValidationErrorRecipeState();
+  State<_ValidationErrorRecipe> createState() =>
+      _ValidationErrorRecipeState();
 }
 
 class _ValidationErrorRecipeState extends State<_ValidationErrorRecipe>
@@ -1544,7 +1548,9 @@ class _ValidationErrorRecipeState extends State<_ValidationErrorRecipe>
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                _hasError ? 'Required (tap to clear)' : 'Tap to mark invalid',
+                _hasError
+                    ? 'Required (tap to clear)'
+                    : 'Tap to mark invalid',
                 style: TextStyle(
                   color: _hasError ? Colors.red : Colors.black54,
                 ),
@@ -1828,7 +1834,10 @@ class _PitfallCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(body, style: const TextStyle(fontSize: 12, height: 1.35)),
+                Text(
+                  body,
+                  style: const TextStyle(fontSize: 12, height: 1.35),
+                ),
               ],
             ),
           ),

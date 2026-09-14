@@ -439,7 +439,10 @@ Widget _layerCard({
             ],
           ),
           const SizedBox(height: 8),
-          Text(subtitle, style: const TextStyle(fontSize: 12.5, height: 1.4)),
+          Text(
+            subtitle,
+            style: const TextStyle(fontSize: 12.5, height: 1.4),
+          ),
           const Divider(),
           ...bullets.map<Widget>(
             (String b) => Padding(
@@ -680,8 +683,7 @@ Widget _section4HybridVsTexture(BuildContext context) {
             ),
             _BulletItem(
               icon: Icons.warning_amber_rounded,
-              text:
-                  'Slightly higher per-frame cost when many views are visible',
+              text: 'Slightly higher per-frame cost when many views are visible',
             ),
           ],
           codecs: const <String>[
@@ -786,7 +788,10 @@ Widget _compositionCard({
             ],
           ),
           const SizedBox(height: 8),
-          Text(summary, style: const TextStyle(fontSize: 13, height: 1.4)),
+          Text(
+            summary,
+            style: const TextStyle(fontSize: 13, height: 1.4),
+          ),
           const Divider(),
           ...bullets.map<Widget>(
             (_BulletItem b) => Padding(
@@ -1116,7 +1121,11 @@ Widget _touchFlowDiagram() {
                     color: steps[i].color,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(steps[i].icon, color: Colors.white, size: 20),
+                  child: Icon(
+                    steps[i].icon,
+                    color: Colors.white,
+                    size: 20,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -1416,8 +1425,7 @@ Widget _section8CommonPitfalls(BuildContext context) {
     ),
     _Pitfall(
       title: 'Missing platform channel handler',
-      cause:
-          'The PlatformViewFactory was never registered in AppDelegate.swift',
+      cause: 'The PlatformViewFactory was never registered in AppDelegate.swift',
       fix:
           'Call `registrar.register(YourFactory(messenger: ...), withId: ...)` '
           'before runApp on iOS.',
@@ -1542,11 +1550,7 @@ Widget _pitfallCard(_Pitfall p) {
 Widget _kvRow(String key, String value, Color color) {
   return RichText(
     text: TextSpan(
-      style: const TextStyle(
-        fontSize: 12.5,
-        color: Colors.black87,
-        height: 1.4,
-      ),
+      style: const TextStyle(fontSize: 12.5, color: Colors.black87, height: 1.4),
       children: <InlineSpan>[
         TextSpan(
           text: '$key: ',
@@ -1775,7 +1779,13 @@ Widget _section10ReferenceTable(BuildContext context) {
               height: 50,
             ),
             _refRow(
-              labels: const <String>['HtmlElementView', '—', '—', '—', 'yes'],
+              labels: const <String>[
+                'HtmlElementView',
+                '—',
+                '—',
+                '—',
+                'yes',
+              ],
               height: 50,
             ),
             _refRow(
@@ -1805,7 +1815,9 @@ Widget _refRow({
     child: DecoratedBox(
       decoration: BoxDecoration(
         color: isHeader ? const Color(0x140A84FF) : null,
-        border: const Border(bottom: BorderSide(color: Color(0x40CCCCCC))),
+        border: const Border(
+          bottom: BorderSide(color: Color(0x40CCCCCC)),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -1844,7 +1856,10 @@ Widget _refHeaderCell(String label) {
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
     child: Text(
       label,
-      style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 12.5),
+      style: const TextStyle(
+        fontWeight: FontWeight.w800,
+        fontSize: 12.5,
+      ),
     ),
   );
 }
@@ -2012,7 +2027,11 @@ Widget _bottomTrailer(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
         children: <Widget>[
-          const Icon(Icons.apple, size: 32, color: Color(0xFF8E8E93)),
+          const Icon(
+            Icons.apple,
+            size: 32,
+            color: Color(0xFF8E8E93),
+          ),
           const SizedBox(height: 6),
           Text(
             'End of RenderUiKitView deep demo',
@@ -2025,7 +2044,10 @@ Widget _bottomTrailer(BuildContext context) {
           const SizedBox(height: 2),
           Text(
             'Hand-authored — distinct content per section',
-            style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.grey.shade500,
+            ),
           ),
         ],
       ),

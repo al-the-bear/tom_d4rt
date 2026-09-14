@@ -150,10 +150,7 @@ dynamic build(BuildContext context) {
     _PropEntry(label: 'duration (ms)', property: pMillis),
     _PropEntry(label: 'volume (dB, negative)', property: pDecibel),
     _PropEntry(label: 'size (null with ifNull)', property: pNull),
-    _PropEntry(
-      label: 'flex (matches default → demoted)',
-      property: pDefaultMatch,
-    ),
+    _PropEntry(label: 'flex (matches default → demoted)', property: pDefaultMatch),
     _PropEntry(label: 'flex (differs from default)', property: pDefaultDiffer),
     _PropEntry(label: 'internalIndex (hidden level)', property: pHidden),
   ];
@@ -330,8 +327,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Hide values that match their default',
       snippet: "IntProperty('flex', 1, defaultValue: 1)",
-      explanation:
-          'Level is demoted to fine — value is filtered out by inspector.',
+      explanation: 'Level is demoted to fine — value is filtered out by inspector.',
     ),
     _Recipe(
       title: 'Show a friendly placeholder for null',
@@ -360,8 +356,7 @@ dynamic build(BuildContext context) {
     ),
     _Recipe(
       title: 'Promote a critical value',
-      snippet:
-          "IntProperty('overflowCount', 999, level: DiagnosticLevel.error)",
+      snippet: "IntProperty('overflowCount', 999, level: DiagnosticLevel.error)",
       explanation: 'Inspector renders it with the error palette.',
     ),
   ];
@@ -766,7 +761,10 @@ Widget _buildDossier(List<String> lines) {
                     ),
                   ),
                   Expanded(
-                    child: Text(line, style: const TextStyle(fontSize: 13.5)),
+                    child: Text(
+                      line,
+                      style: const TextStyle(fontSize: 13.5),
+                    ),
                   ),
                 ],
               ),
@@ -916,7 +914,9 @@ class _AnatomyRow extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: Text(role, style: const TextStyle(fontSize: 12.5))),
+          Expanded(
+            child: Text(role, style: const TextStyle(fontSize: 12.5)),
+          ),
         ],
       ),
     );
@@ -926,9 +926,7 @@ class _AnatomyRow extends StatelessWidget {
 Widget _buildGallery(List<_PropEntry> entries) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: <Widget>[
-      for (final entry in entries) _InspectorCard(entry: entry),
-    ],
+    children: <Widget>[for (final entry in entries) _InspectorCard(entry: entry)],
   );
 }
 
@@ -1120,7 +1118,10 @@ Widget _buildTree(List<String> lines) {
               padding: const EdgeInsets.symmetric(vertical: 1.5),
               child: Text(
                 l,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12.5,
+                ),
               ),
             ),
         ],

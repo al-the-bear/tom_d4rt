@@ -30,7 +30,8 @@ dynamic build(BuildContext context) {
   final List<Widget> stateCatalog = <Widget>[];
   for (final SelectableRegionSelectionStatus status
       in SelectableRegionSelectionStatus.values) {
-    print('Building catalog card for ${status.name} (index=${status.index})');
+    print(
+        'Building catalog card for ${status.name} (index=${status.index})');
     stateCatalog.add(_buildStatusCatalogCard(status, isMobilePlatform));
   }
 
@@ -56,9 +57,8 @@ dynamic build(BuildContext context) {
   final Widget equalityHeader = Row(
     children: <Widget>[
       _buildEqLabel(''),
-      ...SelectableRegionSelectionStatus.values.map(
-        (SelectableRegionSelectionStatus s) => _buildEqLabel(s.name),
-      ),
+      ...SelectableRegionSelectionStatus.values
+          .map((SelectableRegionSelectionStatus s) => _buildEqLabel(s.name)),
     ],
   );
 
@@ -93,16 +93,10 @@ dynamic build(BuildContext context) {
   for (final SelectableRegionSelectionStatus status
       in SelectableRegionSelectionStatus.values) {
     final Widget icon = switch (status) {
-      SelectableRegionSelectionStatus.changing => const Icon(
-        Icons.gesture,
-        color: Colors.orange,
-        size: 28.0,
-      ),
-      SelectableRegionSelectionStatus.finalized => const Icon(
-        Icons.check_circle,
-        color: Colors.green,
-        size: 28.0,
-      ),
+      SelectableRegionSelectionStatus.changing =>
+        const Icon(Icons.gesture, color: Colors.orange, size: 28.0),
+      SelectableRegionSelectionStatus.finalized =>
+        const Icon(Icons.check_circle, color: Colors.green, size: 28.0),
     };
 
     final String headline = switch (status) {
@@ -113,12 +107,10 @@ dynamic build(BuildContext context) {
     };
 
     final Color background = switch (status) {
-      SelectableRegionSelectionStatus.changing => Colors.orange.withValues(
-        alpha: 0.07,
-      ),
-      SelectableRegionSelectionStatus.finalized => Colors.green.withValues(
-        alpha: 0.07,
-      ),
+      SelectableRegionSelectionStatus.changing =>
+        Colors.orange.withValues(alpha: 0.07),
+      SelectableRegionSelectionStatus.finalized =>
+        Colors.green.withValues(alpha: 0.07),
     };
 
     final double progress = switch (status) {
@@ -127,8 +119,7 @@ dynamic build(BuildContext context) {
     };
 
     print(
-      'Switch sample for ${status.name}: progress=$progress headline="$headline"',
-    );
+        'Switch sample for ${status.name}: progress=$progress headline="$headline"');
 
     switchSamples.add(
       Container(
@@ -157,13 +148,9 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   const SizedBox(height: 4.0),
-                  Text(
-                    headline,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: Colors.grey.shade800,
-                    ),
-                  ),
+                  Text(headline,
+                      style: TextStyle(
+                          fontSize: 12.5, color: Colors.grey.shade800)),
                   const SizedBox(height: 6.0),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4.0),
@@ -194,8 +181,7 @@ dynamic build(BuildContext context) {
   for (final SelectableRegionSelectionStatus status
       in SelectableRegionSelectionStatus.values) {
     print(
-      'Introspection ${status.name} index=${status.index} toString=$status',
-    );
+        'Introspection ${status.name} index=${status.index} toString=$status');
     introspectionRows.add(
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
@@ -209,18 +195,14 @@ dynamic build(BuildContext context) {
               child: Text(
                 status.index.toString(),
                 style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w700,
-                ),
+                    fontFamily: 'monospace', fontWeight: FontWeight.w700),
               ),
             ),
             Expanded(
               child: Text(
                 status.name,
                 style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w600,
-                ),
+                    fontFamily: 'monospace', fontWeight: FontWeight.w600),
               ),
             ),
             Expanded(
@@ -249,34 +231,31 @@ dynamic build(BuildContext context) {
     child: Column(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(9.0),
-            ),
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(9.0)),
           ),
           child: Row(
             children: const <Widget>[
               SizedBox(
                 width: 60.0,
-                child: Text(
-                  'index',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.0),
-                ),
+                child: Text('index',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 12.0)),
               ),
               Expanded(
-                child: Text(
-                  'name',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.0),
-                ),
+                child: Text('name',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 12.0)),
               ),
               Expanded(
                 flex: 2,
-                child: Text(
-                  'toString()',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.0),
-                ),
+                child: Text('toString()',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 12.0)),
               ),
             ],
           ),
@@ -303,43 +282,31 @@ dynamic build(BuildContext context) {
       in SelectableRegionSelectionStatus.values) {
     final List<_ReactionEntry> entries = switch (status) {
       SelectableRegionSelectionStatus.changing => const <_ReactionEntry>[
-        _ReactionEntry(
-          ui: 'Selection handles',
-          detail: 'Visible at drag endpoints',
-        ),
-        _ReactionEntry(
-          ui: 'Highlight',
-          detail: 'Expanding/contracting in real time',
-        ),
-        _ReactionEntry(ui: 'Toolbar', detail: 'Hidden while gesture is active'),
-        _ReactionEntry(
-          ui: 'Cursor',
-          detail: 'May change to selection cursor on desktop',
-        ),
-        _ReactionEntry(
-          ui: 'Listeners',
-          detail: 'Receive intermediate ChangeNotifier ticks',
-        ),
-      ],
+          _ReactionEntry(
+              ui: 'Selection handles', detail: 'Visible at drag endpoints'),
+          _ReactionEntry(
+              ui: 'Highlight', detail: 'Expanding/contracting in real time'),
+          _ReactionEntry(
+              ui: 'Toolbar', detail: 'Hidden while gesture is active'),
+          _ReactionEntry(
+              ui: 'Cursor',
+              detail: 'May change to selection cursor on desktop'),
+          _ReactionEntry(
+              ui: 'Listeners',
+              detail: 'Receive intermediate ChangeNotifier ticks'),
+        ],
       SelectableRegionSelectionStatus.finalized => const <_ReactionEntry>[
-        _ReactionEntry(
-          ui: 'Selection handles',
-          detail: 'Stable, draggable for resize',
-        ),
-        _ReactionEntry(
-          ui: 'Highlight',
-          detail: 'Stationary on the selected text',
-        ),
-        _ReactionEntry(
-          ui: 'Toolbar',
-          detail: 'Visible with copy / share actions',
-        ),
-        _ReactionEntry(ui: 'Cursor', detail: 'Returns to default text cursor'),
-        _ReactionEntry(
-          ui: 'Listeners',
-          detail: 'Receive a final settled value',
-        ),
-      ],
+          _ReactionEntry(
+              ui: 'Selection handles', detail: 'Stable, draggable for resize'),
+          _ReactionEntry(
+              ui: 'Highlight', detail: 'Stationary on the selected text'),
+          _ReactionEntry(
+              ui: 'Toolbar', detail: 'Visible with copy / share actions'),
+          _ReactionEntry(
+              ui: 'Cursor', detail: 'Returns to default text cursor'),
+          _ReactionEntry(
+              ui: 'Listeners', detail: 'Receive a final settled value'),
+        ],
     };
 
     final Color accent = switch (status) {
@@ -359,25 +326,20 @@ dynamic build(BuildContext context) {
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 8.0,
-              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.1),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(9.0),
-                ),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(9.0)),
               ),
               child: Row(
                 children: <Widget>[
                   Container(
                     width: 10.0,
                     height: 10.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: accent,
-                    ),
+                    decoration:
+                        BoxDecoration(shape: BoxShape.circle, color: accent),
                   ),
                   const SizedBox(width: 8.0),
                   Text(
@@ -391,43 +353,34 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            ...entries.map(
-              (_ReactionEntry e) => Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 7.0,
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey.shade100),
+            ...entries.map((_ReactionEntry e) => Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 7.0),
+                  decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(color: Colors.grey.shade100)),
                   ),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        e.ui,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w600,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          e.ui,
+                          style: const TextStyle(
+                              fontSize: 12.0, fontWeight: FontWeight.w600),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        e.detail,
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade700,
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          e.detail,
+                          style: TextStyle(
+                              fontSize: 12.0, color: Colors.grey.shade700),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                    ],
+                  ),
+                )),
           ],
         ),
       ),
@@ -471,16 +424,16 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < transitions.length; i++) {
     final _StatusTransition t = transitions[i];
 
-    final Color fromColor = t.from == SelectableRegionSelectionStatus.changing
-        ? Colors.orange
-        : Colors.green;
+    final Color fromColor =
+        t.from == SelectableRegionSelectionStatus.changing
+            ? Colors.orange
+            : Colors.green;
     final Color toColor = t.to == SelectableRegionSelectionStatus.changing
         ? Colors.orange
         : Colors.green;
 
     print(
-      'Transition ${i + 1}: ${t.from.name} -> ${t.to.name} via "${t.trigger}"',
-    );
+        'Transition ${i + 1}: ${t.from.name} -> ${t.to.name} via "${t.trigger}"');
 
     transitionTiles.add(
       Container(
@@ -530,17 +483,11 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _bigStateBubble(
-              SelectableRegionSelectionStatus.finalized,
-              Colors.green,
-              Icons.check_circle_outline,
-            ),
+            _bigStateBubble(SelectableRegionSelectionStatus.finalized,
+                Colors.green, Icons.check_circle_outline),
             const Icon(Icons.swap_horiz, color: Colors.grey, size: 24.0),
-            _bigStateBubble(
-              SelectableRegionSelectionStatus.changing,
-              Colors.orange,
-              Icons.gesture,
-            ),
+            _bigStateBubble(SelectableRegionSelectionStatus.changing,
+                Colors.orange, Icons.gesture),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -571,7 +518,8 @@ dynamic build(BuildContext context) {
   final List<Widget> patternHelperCards = <Widget>[];
   for (final SelectableRegionSelectionStatus status
       in SelectableRegionSelectionStatus.values) {
-    final bool isChanging = status == SelectableRegionSelectionStatus.changing;
+    final bool isChanging =
+        status == SelectableRegionSelectionStatus.changing;
     final bool isFinalized =
         status == SelectableRegionSelectionStatus.finalized;
     final String guardSummary = switch (status) {
@@ -585,8 +533,7 @@ dynamic build(BuildContext context) {
     };
 
     print(
-      'Pattern helpers for ${status.name}: isChanging=$isChanging isFinalized=$isFinalized',
-    );
+        'Pattern helpers for ${status.name}: isChanging=$isChanging isFinalized=$isFinalized');
 
     patternHelperCards.add(
       Container(
@@ -702,7 +649,8 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.deepPurple.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.2)),
+          border: Border.all(
+              color: Colors.deepPurple.withValues(alpha: 0.2)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -720,19 +668,17 @@ dynamic build(BuildContext context) {
             Text(
               a['values']!,
               style: TextStyle(
-                fontSize: 11.5,
-                fontFamily: 'monospace',
-                color: Colors.grey.shade700,
-              ),
+                  fontSize: 11.5,
+                  fontFamily: 'monospace',
+                  color: Colors.grey.shade700),
             ),
             const SizedBox(height: 4.0),
             Text(
               a['parallel']!,
               style: TextStyle(
-                fontSize: 11.5,
-                fontStyle: FontStyle.italic,
-                color: Colors.deepPurple.shade700,
-              ),
+                  fontSize: 11.5,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.deepPurple.shade700),
             ),
           ],
         ),
@@ -779,9 +725,7 @@ dynamic build(BuildContext context) {
             Text(
               'Platform: ${platform.name}',
               style: const TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 13.0,
-              ),
+                  fontWeight: FontWeight.w800, fontSize: 13.0),
             ),
           ],
         ),
@@ -789,10 +733,7 @@ dynamic build(BuildContext context) {
         Text(
           platformAdvice,
           style: TextStyle(
-            fontSize: 12.5,
-            color: Colors.grey.shade800,
-            height: 1.35,
-          ),
+              fontSize: 12.5, color: Colors.grey.shade800, height: 1.35),
         ),
       ],
     ),
@@ -827,8 +768,7 @@ dynamic build(BuildContext context) {
     };
 
     print(
-      'Extension row ${status.name}: short=$shortLabel emoji=$emoji weight=$weight',
-    );
+        'Extension row ${status.name}: short=$shortLabel emoji=$emoji weight=$weight');
 
     extensionRows.add(
       Container(
@@ -846,9 +786,7 @@ dynamic build(BuildContext context) {
               child: Text(
                 status.name,
                 style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w700,
-                ),
+                    fontFamily: 'monospace', fontWeight: FontWeight.w700),
               ),
             ),
             _smallChip('short', shortLabel),
@@ -914,10 +852,7 @@ dynamic build(BuildContext context) {
               child: Text(
                 s['text'] as String,
                 style: TextStyle(
-                  fontSize: 12.5,
-                  color: Colors.grey.shade800,
-                  height: 1.3,
-                ),
+                    fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
               ),
             ),
           ],
@@ -934,7 +869,10 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'SelectableRegionSelectionStatus Deep Demo',
-    theme: ThemeData(colorSchemeSeed: Colors.deepPurple, useMaterial3: true),
+    theme: ThemeData(
+      colorSchemeSeed: Colors.deepPurple,
+      useMaterial3: true,
+    ),
     home: Scaffold(
       appBar: AppBar(
         title: const Text('SelectableRegionSelectionStatus'),
@@ -948,106 +886,89 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _sectionHeader(
-                '1. State catalog',
-                'Each enum value rendered with switch-expression-driven '
-                    'icon, headline, color, and progress.',
-              ),
+                  '1. State catalog',
+                  'Each enum value rendered with switch-expression-driven '
+                      'icon, headline, color, and progress.'),
               ...stateCatalog,
               const SizedBox(height: 24.0),
-              _sectionHeader(
-                '2. Equality matrix',
-                'Pair-wise == comparisons across SelectableRegionSelectionStatus.values.',
-              ),
+              _sectionHeader('2. Equality matrix',
+                  'Pair-wise == comparisons across SelectableRegionSelectionStatus.values.'),
               equalityMatrix,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '3. Switch expression demo',
-                'Switch expressions returning concrete widgets per enum '
-                    'value.',
-              ),
+                  '3. Switch expression demo',
+                  'Switch expressions returning concrete widgets per enum '
+                      'value.'),
               ...switchSamples,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '4. Enum introspection',
-                '.index, .name, and .toString() for every value, plus '
-                    'SelectableRegionSelectionStatus.values listing.',
-              ),
+                  '4. Enum introspection',
+                  '.index, .name, and .toString() for every value, plus '
+                      'SelectableRegionSelectionStatus.values listing.'),
               introspectionTable,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '5. ValueNotifier demo',
-                'A live ValueNotifier<SelectableRegionSelectionStatus> '
-                    'with a listener that branches on every value.',
-              ),
+                  '5. ValueNotifier demo',
+                  'A live ValueNotifier<SelectableRegionSelectionStatus> '
+                      'with a listener that branches on every value.'),
               notifierDemo,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '6. UI reactions',
-                'Per-status table of how surrounding widgets react when '
-                    'the notifier changes.',
-              ),
+                  '6. UI reactions',
+                  'Per-status table of how surrounding widgets react when '
+                      'the notifier changes.'),
               ...reactionCards,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '7. State machine',
-                'Transitions between changing and finalized, with the '
-                    'self-loops the notifier permits.',
-              ),
+                  '7. State machine',
+                  'Transitions between changing and finalized, with the '
+                      'self-loops the notifier permits.'),
               stateMachineDiagram,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '8. Toggle simulator',
-                'Tap to flip between changing and finalized; UI reacts '
-                    'live to each value.',
-              ),
+                  '8. Toggle simulator',
+                  'Tap to flip between changing and finalized; UI reacts '
+                      'live to each value.'),
               toggleSimulator,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '9. Listener event log',
-                'A multi-tick listener that records every status emission '
-                    'into a scrolling log.',
-              ),
+                  '9. Listener event log',
+                  'A multi-tick listener that records every status emission '
+                      'into a scrolling log.'),
               listenerDemo,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '10. Pattern matching helpers',
-                'isChanging / isFinalized predicates and switch '
-                    'when-clauses.',
-              ),
+                  '10. Pattern matching helpers',
+                  'isChanging / isFinalized predicates and switch '
+                      'when-clauses.'),
               ...patternHelperCards,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '11. Code patterns',
-                'Idiomatic snippets showing switch expressions and '
-                    'listener wiring with scope.',
-              ),
+                  '11. Code patterns',
+                  'Idiomatic snippets showing switch expressions and '
+                      'listener wiring with scope.'),
               codeBlocks,
               const SizedBox(height: 24.0),
-              _sectionHeader(
-                '12. Related enums',
-                'How the two-value enum compares to other Flutter status enums.',
-              ),
+              _sectionHeader('12. Related enums',
+                  'How the two-value enum compares to other Flutter status enums.'),
               ...analogyCards,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '13. Platform-aware advice',
-                'Different gesture sources emit changing/finalized at '
-                    'different cadences.',
-              ),
+                  '13. Platform-aware advice',
+                  'Different gesture sources emit changing/finalized at '
+                      'different cadences.'),
               platformCard,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '14. Multi-listener fan-out',
-                'Several independent listeners each branching on the '
-                    'enum value.',
-              ),
+                  '14. Multi-listener fan-out',
+                  'Several independent listeners each branching on the '
+                      'enum value.'),
               multiListenerDemo,
               const SizedBox(height: 24.0),
               _sectionHeader(
-                '15. Extension-style helpers',
-                'Hypothetical short label, mark, and weight derived from '
-                    'each enum value.',
-              ),
+                  '15. Extension-style helpers',
+                  'Hypothetical short label, mark, and weight derived from '
+                      'each enum value.'),
               ...extensionRows,
               const SizedBox(height: 24.0),
               _sectionHeader('16. Summary', 'Key facts about the enum.'),
@@ -1056,8 +977,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
-                    color: Colors.deepPurple.withValues(alpha: 0.2),
-                  ),
+                      color: Colors.deepPurple.withValues(alpha: 0.2)),
                   gradient: LinearGradient(
                     colors: <Color>[
                       Colors.deepPurple.withValues(alpha: 0.04),
@@ -1087,9 +1007,7 @@ dynamic build(BuildContext context) {
 /// live switch on the value. Every branch produces real Widgets compiled into
 /// the program.
 Widget _buildStatusCatalogCard(
-  SelectableRegionSelectionStatus status,
-  bool isMobile,
-) {
+    SelectableRegionSelectionStatus status, bool isMobile) {
   final IconData icon = switch (status) {
     SelectableRegionSelectionStatus.changing => Icons.gesture,
     SelectableRegionSelectionStatus.finalized => Icons.check_circle_outline,
@@ -1145,12 +1063,12 @@ Widget _buildStatusCatalogCard(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.1),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(11.0),
-            ),
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(11.0)),
           ),
           child: Row(
             children: <Widget>[
@@ -1172,18 +1090,15 @@ Widget _buildStatusCatalogCard(
                     Text(
                       subtitle,
                       style: TextStyle(
-                        fontSize: 11.5,
-                        color: color.withValues(alpha: 0.85),
-                      ),
+                          fontSize: 11.5,
+                          color: color.withValues(alpha: 0.85)),
                     ),
                   ],
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 3.0,
-                ),
+                    horizontal: 8.0, vertical: 3.0),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(20.0),
@@ -1209,18 +1124,15 @@ Widget _buildStatusCatalogCard(
               Text(
                 description,
                 style: TextStyle(
-                  fontSize: 12.5,
-                  color: Colors.grey.shade800,
-                  height: 1.4,
-                ),
+                    fontSize: 12.5,
+                    color: Colors.grey.shade800,
+                    height: 1.4),
               ),
               if (mobileNote.isNotEmpty) ...<Widget>[
                 const SizedBox(height: 8.0),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                      horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6.0),
@@ -1228,10 +1140,9 @@ Widget _buildStatusCatalogCard(
                   child: Text(
                     mobileNote,
                     style: TextStyle(
-                      fontSize: 11.0,
-                      color: color,
-                      fontStyle: FontStyle.italic,
-                    ),
+                        fontSize: 11.0,
+                        color: color,
+                        fontStyle: FontStyle.italic),
                   ),
                 ),
               ],
@@ -1271,9 +1182,13 @@ Widget _buildEqCell(bool same) {
     height: 32.0,
     margin: const EdgeInsets.all(2.0),
     decoration: BoxDecoration(
-      color: same ? Colors.green.withValues(alpha: 0.18) : Colors.grey.shade100,
+      color: same
+          ? Colors.green.withValues(alpha: 0.18)
+          : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(4.0),
-      border: Border.all(color: same ? Colors.green : Colors.grey.shade300),
+      border: Border.all(
+        color: same ? Colors.green : Colors.grey.shade300,
+      ),
     ),
     alignment: Alignment.center,
     child: Text(
@@ -1309,10 +1224,7 @@ Widget _statusBadge(SelectableRegionSelectionStatus status, Color color) {
 }
 
 Widget _bigStateBubble(
-  SelectableRegionSelectionStatus status,
-  Color color,
-  IconData icon,
-) {
+    SelectableRegionSelectionStatus status, Color color, IconData icon) {
   return Column(
     children: <Widget>[
       Container(
@@ -1351,7 +1263,11 @@ Widget _booleanChip(String label, bool value) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Icon(value ? Icons.check : Icons.close, size: 12.0, color: color),
+        Icon(
+          value ? Icons.check : Icons.close,
+          size: 12.0,
+          color: color,
+        ),
         const SizedBox(width: 4.0),
         Text(
           label,
@@ -1415,10 +1331,9 @@ Widget _codeBlock(String title, List<String> lines, Color accent) {
               '${i + 1}',
               textAlign: TextAlign.right,
               style: TextStyle(
-                fontSize: 10.0,
-                fontFamily: 'monospace',
-                color: Colors.grey.shade400,
-              ),
+                  fontSize: 10.0,
+                  fontFamily: 'monospace',
+                  color: Colors.grey.shade400),
             ),
           ),
           const SizedBox(width: 8.0),
@@ -1433,8 +1348,10 @@ Widget _codeBlock(String title, List<String> lines, Color accent) {
                 style: TextStyle(
                   fontSize: 11.5,
                   fontFamily: 'monospace',
-                  color: isKey ? accent : Colors.grey.shade800,
-                  fontWeight: isKey ? FontWeight.w800 : FontWeight.normal,
+                  color:
+                      isKey ? accent : Colors.grey.shade800,
+                  fontWeight:
+                      isKey ? FontWeight.w800 : FontWeight.normal,
                 ),
               ),
             ),
@@ -1461,10 +1378,7 @@ Widget _codeBlock(String title, List<String> lines, Color accent) {
             Text(
               title,
               style: TextStyle(
-                fontWeight: FontWeight.w800,
-                color: accent,
-                fontSize: 13.0,
-              ),
+                  fontWeight: FontWeight.w800, color: accent, fontSize: 13.0),
             ),
           ],
         ),
@@ -1484,8 +1398,7 @@ Widget _sectionHeader(String title, String body) {
         color: Colors.deepPurple.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(8.0),
         border: const Border(
-          left: BorderSide(color: Colors.deepPurple, width: 3.0),
-        ),
+            left: BorderSide(color: Colors.deepPurple, width: 3.0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1493,20 +1406,18 @@ Widget _sectionHeader(String title, String body) {
           Text(
             title,
             style: const TextStyle(
-              fontSize: 15.0,
-              fontWeight: FontWeight.w800,
-              color: Colors.deepPurple,
-            ),
+                fontSize: 15.0,
+                fontWeight: FontWeight.w800,
+                color: Colors.deepPurple),
           ),
           if (body.isNotEmpty) ...<Widget>[
             const SizedBox(height: 4.0),
             Text(
               body,
               style: TextStyle(
-                fontSize: 12.5,
-                color: Colors.grey.shade700,
-                height: 1.4,
-              ),
+                  fontSize: 12.5,
+                  color: Colors.grey.shade700,
+                  height: 1.4),
             ),
           ],
         ],
@@ -1594,111 +1505,97 @@ class _StatusNotifierDemoState extends State<_StatusNotifierDemo> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<SelectableRegionSelectionStatus>(
       valueListenable: _notifier,
-      builder:
-          (
-            BuildContext context,
-            SelectableRegionSelectionStatus value,
-            Widget? _,
-          ) {
-            // Live switch in the build method.
-            final Color color = switch (value) {
-              SelectableRegionSelectionStatus.changing => Colors.orange,
-              SelectableRegionSelectionStatus.finalized => Colors.green,
-            };
-            final IconData icon = switch (value) {
-              SelectableRegionSelectionStatus.changing => Icons.gesture,
-              SelectableRegionSelectionStatus.finalized => Icons.check_circle,
-            };
-            final String narration = switch (value) {
-              SelectableRegionSelectionStatus.changing =>
-                'Listeners receive intermediate ticks while the gesture is alive.',
-              SelectableRegionSelectionStatus.finalized =>
-                'Listeners receive a settled value - safe to compute toolbars.',
-            };
+      builder: (BuildContext context, SelectableRegionSelectionStatus value,
+          Widget? _) {
+        // Live switch in the build method.
+        final Color color = switch (value) {
+          SelectableRegionSelectionStatus.changing => Colors.orange,
+          SelectableRegionSelectionStatus.finalized => Colors.green,
+        };
+        final IconData icon = switch (value) {
+          SelectableRegionSelectionStatus.changing => Icons.gesture,
+          SelectableRegionSelectionStatus.finalized => Icons.check_circle,
+        };
+        final String narration = switch (value) {
+          SelectableRegionSelectionStatus.changing =>
+            'Listeners receive intermediate ticks while the gesture is alive.',
+          SelectableRegionSelectionStatus.finalized =>
+            'Listeners receive a settled value - safe to compute toolbars.',
+        };
 
-            return Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: color.withValues(alpha: 0.4)),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: color.withValues(alpha: 0.4)),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Icon(icon, color: color, size: 28.0),
-                      const SizedBox(width: 10.0),
-                      Expanded(
-                        child: Text(
-                          'Notifier value: ${value.name}',
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w800,
-                            fontSize: 14.0,
-                            color: color,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 3.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Text(
-                          'changes: $_changes',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    narration,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: Colors.grey.shade800,
-                      height: 1.35,
+                  Icon(icon, color: color, size: 28.0),
+                  const SizedBox(width: 10.0),
+                  Expanded(
+                    child: Text(
+                      'Notifier value: ${value.name}',
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w800,
+                          fontSize: 14.0,
+                          color: color),
                     ),
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    'Last transition: $_lastTransitionLabel',
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: Colors.grey.shade500,
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 3.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  Row(
-                    children: <Widget>[
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.gesture),
-                        label: const Text('Push changing'),
-                        onPressed: () =>
-                            _push(SelectableRegionSelectionStatus.changing),
-                      ),
-                      const SizedBox(width: 8.0),
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.check),
-                        label: const Text('Push finalized'),
-                        onPressed: () =>
-                            _push(SelectableRegionSelectionStatus.finalized),
-                      ),
-                    ],
+                    child: Text(
+                      'changes: $_changes',
+                      style: TextStyle(
+                          fontSize: 11.0, color: Colors.grey.shade700),
+                    ),
                   ),
                 ],
               ),
-            );
-          },
+              const SizedBox(height: 8.0),
+              Text(
+                narration,
+                style: TextStyle(
+                    fontSize: 12.5, color: Colors.grey.shade800, height: 1.35),
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                'Last transition: $_lastTransitionLabel',
+                style: TextStyle(
+                    fontSize: 11.5, color: Colors.grey.shade500),
+              ),
+              const SizedBox(height: 12.0),
+              Row(
+                children: <Widget>[
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.gesture),
+                    label: const Text('Push changing'),
+                    onPressed: () =>
+                        _push(SelectableRegionSelectionStatus.changing),
+                  ),
+                  const SizedBox(width: 8.0),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.check),
+                    label: const Text('Push finalized'),
+                    onPressed: () =>
+                        _push(SelectableRegionSelectionStatus.finalized),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -1711,7 +1608,8 @@ class _StatusToggleSimulator extends StatefulWidget {
   const _StatusToggleSimulator();
 
   @override
-  State<_StatusToggleSimulator> createState() => _StatusToggleSimulatorState();
+  State<_StatusToggleSimulator> createState() =>
+      _StatusToggleSimulatorState();
 }
 
 class _StatusToggleSimulatorState extends State<_StatusToggleSimulator> {
@@ -1759,29 +1657,29 @@ class _StatusToggleSimulatorState extends State<_StatusToggleSimulator> {
 
     final List<Widget> reactiveButtons = switch (_status) {
       SelectableRegionSelectionStatus.changing => <Widget>[
-        OutlinedButton(
-          onPressed: null,
-          child: const Text('Copy (disabled while changing)'),
-        ),
-        const SizedBox(width: 8.0),
-        OutlinedButton(
-          onPressed: null,
-          child: const Text('Share (disabled while changing)'),
-        ),
-      ],
+          OutlinedButton(
+            onPressed: null,
+            child: const Text('Copy (disabled while changing)'),
+          ),
+          const SizedBox(width: 8.0),
+          OutlinedButton(
+            onPressed: null,
+            child: const Text('Share (disabled while changing)'),
+          ),
+        ],
       SelectableRegionSelectionStatus.finalized => <Widget>[
-        OutlinedButton.icon(
-          icon: const Icon(Icons.copy),
-          label: const Text('Copy'),
-          onPressed: () => print('Copy pressed (status=finalized)'),
-        ),
-        const SizedBox(width: 8.0),
-        OutlinedButton.icon(
-          icon: const Icon(Icons.share),
-          label: const Text('Share'),
-          onPressed: () => print('Share pressed (status=finalized)'),
-        ),
-      ],
+          OutlinedButton.icon(
+            icon: const Icon(Icons.copy),
+            label: const Text('Copy'),
+            onPressed: () => print('Copy pressed (status=finalized)'),
+          ),
+          const SizedBox(width: 8.0),
+          OutlinedButton.icon(
+            icon: const Icon(Icons.share),
+            label: const Text('Share'),
+            onPressed: () => print('Share pressed (status=finalized)'),
+          ),
+        ],
     };
 
     return Container(
@@ -1826,7 +1724,10 @@ class _StatusToggleSimulatorState extends State<_StatusToggleSimulator> {
             runSpacing: 8.0,
             alignment: WrapAlignment.center,
             children: <Widget>[
-              ElevatedButton(onPressed: _flip, child: const Text('Flip')),
+              ElevatedButton(
+                onPressed: _flip,
+                child: const Text('Flip'),
+              ),
               OutlinedButton(
                 onPressed: () =>
                     _setExplicit(SelectableRegionSelectionStatus.changing),
@@ -1853,13 +1754,16 @@ class _StatusToggleSimulatorState extends State<_StatusToggleSimulator> {
                 Text(
                   reactiveBody,
                   style: TextStyle(
-                    fontSize: 12.5,
-                    color: color.withValues(alpha: 0.95),
-                    height: 1.35,
-                  ),
+                      fontSize: 12.5,
+                      color: color.withValues(alpha: 0.95),
+                      height: 1.35),
                 ),
                 const SizedBox(height: 8.0),
-                Wrap(spacing: 8.0, runSpacing: 8.0, children: reactiveButtons),
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: reactiveButtons,
+                ),
               ],
             ),
           ),
@@ -1912,14 +1816,20 @@ class _StatusListenerLogState extends State<_StatusListenerLog> {
     setState(() {
       _seq++;
       _log.insert(
-        0,
-        _LogEntry(seq: _seq, value: value, tag: tag, icon: icon, color: color),
-      );
+          0,
+          _LogEntry(
+            seq: _seq,
+            value: value,
+            tag: tag,
+            icon: icon,
+            color: color,
+          ));
       while (_log.length > 12) {
         _log.removeLast();
       }
     });
-    print('StatusListenerLog tick #$_seq tag=$tag value=${value.name}');
+    print(
+        'StatusListenerLog tick #$_seq tag=$tag value=${value.name}');
   }
 
   @override
@@ -1966,7 +1876,8 @@ class _StatusListenerLogState extends State<_StatusListenerLog> {
               const SizedBox(width: 8.0),
               const Text(
                 'Listener event log',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5),
+                style:
+                    TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5),
               ),
               const Spacer(),
               ElevatedButton.icon(
@@ -1980,7 +1891,8 @@ class _StatusListenerLogState extends State<_StatusListenerLog> {
           if (_log.isEmpty)
             Text(
               'No events yet. Tap "Simulate gesture" to push values.',
-              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
+              style: TextStyle(
+                  fontSize: 12.0, color: Colors.grey.shade500),
             )
           else
             Column(
@@ -1988,13 +1900,12 @@ class _StatusListenerLogState extends State<_StatusListenerLog> {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 4.0),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 6.0,
-                  ),
+                      horizontal: 10.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: e.color.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(6.0),
-                    border: Border.all(color: e.color.withValues(alpha: 0.25)),
+                    border: Border.all(
+                        color: e.color.withValues(alpha: 0.25)),
                   ),
                   child: Row(
                     children: <Widget>[
@@ -2013,9 +1924,7 @@ class _StatusListenerLogState extends State<_StatusListenerLog> {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0,
-                          vertical: 2.0,
-                        ),
+                            horizontal: 6.0, vertical: 2.0),
                         decoration: BoxDecoration(
                           color: e.color.withValues(alpha: 0.18),
                           borderRadius: BorderRadius.circular(3.0),
@@ -2023,11 +1932,10 @@ class _StatusListenerLogState extends State<_StatusListenerLog> {
                         child: Text(
                           e.tag,
                           style: TextStyle(
-                            fontSize: 10.5,
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w700,
-                            color: e.color,
-                          ),
+                              fontSize: 10.5,
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.w700,
+                              color: e.color),
                         ),
                       ),
                       const SizedBox(width: 8.0),
@@ -2035,10 +1943,9 @@ class _StatusListenerLogState extends State<_StatusListenerLog> {
                         child: Text(
                           e.value.name,
                           style: TextStyle(
-                            fontSize: 11.5,
-                            fontFamily: 'monospace',
-                            color: e.color,
-                          ),
+                              fontSize: 11.5,
+                              fontFamily: 'monospace',
+                              color: e.color),
                         ),
                       ),
                     ],
@@ -2172,9 +2079,7 @@ class _MultiListenerSimulatorState extends State<_MultiListenerSimulator> {
               Text(
                 'Three listeners on one notifier (current: ${_notifier.value.name})',
                 style: const TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 13.0,
-                ),
+                    fontWeight: FontWeight.w800, fontSize: 13.0),
               ),
             ],
           ),

@@ -61,9 +61,8 @@ class _WisvHome extends StatefulWidget {
 }
 
 class _WisvHomeState extends State<_WisvHome> {
-  final ValueNotifier<String?> _selectedNode = ValueNotifier<String?>(
-    'RootMaterialApp',
-  );
+  final ValueNotifier<String?> _selectedNode =
+      ValueNotifier<String?>('RootMaterialApp');
   final ValueNotifier<int> _activeGroupCount = ValueNotifier<int>(3);
   int _activeCardIndex = 0;
 
@@ -125,7 +124,10 @@ class _WisvHomeState extends State<_WisvHome> {
 // APP BAR — brass rail with title and tab dots
 // ============================================================
 class _WisvAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _WisvAppBar({required this.activeCardIndex, required this.onCardTap});
+  const _WisvAppBar({
+    required this.activeCardIndex,
+    required this.onCardTap,
+  });
 
   final int activeCardIndex;
   final ValueChanged<int> onCardTap;
@@ -207,7 +209,10 @@ class _WisvAppBar extends StatelessWidget implements PreferredSizeWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: active ? _WisvInk.brass : _WisvInk.paperDark,
-                      border: Border.all(color: _WisvInk.brassDark, width: 1),
+                      border: Border.all(
+                        color: _WisvInk.brassDark,
+                        width: 1,
+                      ),
                     ),
                   ),
                 ),
@@ -441,7 +446,11 @@ class _WisvWaxSeal extends StatelessWidget {
           stops: const [0.1, 0.55, 1.0],
         ),
         boxShadow: const [
-          BoxShadow(color: Colors.black54, offset: Offset(0, 2), blurRadius: 4),
+          BoxShadow(
+            color: Colors.black54,
+            offset: Offset(0, 2),
+            blurRadius: 4,
+          ),
         ],
       ),
       child: const Center(
@@ -686,7 +695,11 @@ class _WisvFolio extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: _WisvInk.brassDark, width: 2),
         boxShadow: const [
-          BoxShadow(color: Colors.black38, offset: Offset(0, 4), blurRadius: 8),
+          BoxShadow(
+            color: Colors.black38,
+            offset: Offset(0, 4),
+            blurRadius: 8,
+          ),
         ],
       ),
       child: Column(
@@ -697,9 +710,7 @@ class _WisvFolio extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                    horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: _WisvInk.brass,
                   borderRadius: BorderRadius.circular(2),
@@ -898,7 +909,10 @@ class _WisvInstanceReadout extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          _WisvFieldRow(label: 'runtimeType', value: probe.runtimeTypeName),
+          _WisvFieldRow(
+            label: 'runtimeType',
+            value: probe.runtimeTypeName,
+          ),
           _WisvFieldRow(
             label: 'hashCode',
             value: probe.available
@@ -1247,7 +1261,11 @@ class _WisvSelectionNarrative extends StatelessWidget {
         'service extension; the on-device WidgetInspector widget writes '
         'to it from a hit-test on user tap. Readers see a SelectableNotifier '
         'change and repaint the highlight overlay.',
-        style: TextStyle(fontSize: 12, color: _WisvInk.inkFaded, height: 1.5),
+        style: TextStyle(
+          fontSize: 12,
+          color: _WisvInk.inkFaded,
+          height: 1.5,
+        ),
       ),
     );
   }
@@ -1280,27 +1298,21 @@ class _WisvSelectionGrid extends StatelessWidget {
             if (k >= specimens.length) {
               rowItems.add(SizedBox(width: cellW));
             } else {
-              rowItems.add(
-                SizedBox(
-                  width: cellW,
-                  child: _WisvSelectionTile(
-                    specimen: specimens[k],
-                    selected: selected,
-                    onSelect: onSelect,
-                  ),
+              rowItems.add(SizedBox(
+                width: cellW,
+                child: _WisvSelectionTile(
+                  specimen: specimens[k],
+                  selected: selected,
+                  onSelect: onSelect,
                 ),
-              );
+              ));
             }
             if (j != perRow - 1) rowItems.add(const SizedBox(width: 10));
           }
-          rows.add(
-            Padding(
-              padding: EdgeInsets.only(
-                bottom: i + perRow < specimens.length ? 10 : 0,
-              ),
-              child: Row(children: rowItems),
-            ),
-          );
+          rows.add(Padding(
+            padding: EdgeInsets.only(bottom: i + perRow < specimens.length ? 10 : 0),
+            child: Row(children: rowItems),
+          ));
         }
 
         return Column(
@@ -1355,13 +1367,13 @@ class _WisvSelectionTile extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: specimen.tint.withOpacity(0.22),
                             borderRadius: BorderRadius.circular(4),
-                            border: Border.all(color: specimen.tint, width: 1),
+                            border: Border.all(
+                              color: specimen.tint,
+                              width: 1,
+                            ),
                           ),
-                          child: Icon(
-                            specimen.icon,
-                            size: 18,
-                            color: specimen.tint,
-                          ),
+                          child:
+                              Icon(specimen.icon, size: 18, color: specimen.tint),
                         ),
                         const SizedBox(width: 8),
                         Expanded(
@@ -1399,7 +1411,9 @@ class _WisvSelectionTile extends StatelessWidget {
               ),
               if (isSelected)
                 Positioned.fill(
-                  child: IgnorePointer(child: _WisvPulsingHalo()),
+                  child: IgnorePointer(
+                    child: _WisvPulsingHalo(),
+                  ),
                 ),
             ],
           ),
@@ -1464,11 +1478,8 @@ class _WisvSelectionReadout extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const Icon(
-                Icons.center_focus_strong,
-                color: _WisvInk.brassLight,
-                size: 20,
-              ),
+              const Icon(Icons.center_focus_strong,
+                  color: _WisvInk.brassLight, size: 20),
               const SizedBox(width: 10),
               const Text(
                 'selection →',
@@ -1511,7 +1522,8 @@ class _WisvSelectionCaveat extends StatelessWidget {
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.report_outlined, color: _WisvInk.crimsonDeep, size: 20),
+          Icon(Icons.report_outlined,
+              color: _WisvInk.crimsonDeep, size: 20),
           SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -1722,8 +1734,7 @@ class _WisvTreePainter extends CustomPainter {
       for (final childId in node.children) {
         final to = positions[childId];
         if (to == null) continue;
-        final onPath =
-            _isOnParentChain(childId, selectedId) ||
+        final onPath = _isOnParentChain(childId, selectedId) ||
             _isOnChildSubtree(childId, selectedId);
         final p = onPath ? edgeHiPaint : edgePaint;
         final cp1 = Offset((from.dx + to.dx) / 2, from.dy);
@@ -1745,16 +1756,16 @@ class _WisvTreePainter extends CustomPainter {
         ..color = selected
             ? _WisvInk.crimson.withOpacity(0.28)
             : onChain
-            ? _WisvInk.brass.withOpacity(0.22)
-            : _WisvInk.linen;
+                ? _WisvInk.brass.withOpacity(0.22)
+                : _WisvInk.linen;
       final borderPaint = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = selected ? 2.4 : 1.4
         ..color = selected
             ? _WisvInk.crimson
             : onChain
-            ? _WisvInk.brassDark
-            : _WisvInk.inkFaded;
+                ? _WisvInk.brassDark
+                : _WisvInk.inkFaded;
 
       final rr = RRect.fromRectAndRadius(
         Rect.fromCenter(center: center, width: 88, height: 36),
@@ -1846,47 +1857,45 @@ class _WisvTreePanels extends StatelessWidget {
 
     final props = _mockPropsFor(sel?.label);
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final wide = constraints.maxWidth > 620;
-        final a = _WisvPanel(
-          title: 'parent chain',
-          icon: Icons.arrow_upward,
-          accent: _WisvInk.brassDark,
-          items: parentChain,
-        );
-        final b = _WisvPanel(
-          title: 'children',
-          icon: Icons.arrow_downward,
-          accent: _WisvInk.feltDark,
-          items: children,
-        );
-        final c = _WisvPropsPanel(props: props);
+    return LayoutBuilder(builder: (context, constraints) {
+      final wide = constraints.maxWidth > 620;
+      final a = _WisvPanel(
+        title: 'parent chain',
+        icon: Icons.arrow_upward,
+        accent: _WisvInk.brassDark,
+        items: parentChain,
+      );
+      final b = _WisvPanel(
+        title: 'children',
+        icon: Icons.arrow_downward,
+        accent: _WisvInk.feltDark,
+        items: children,
+      );
+      final c = _WisvPropsPanel(props: props);
 
-        if (wide) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child: a),
-              const SizedBox(width: 10),
-              Expanded(child: b),
-              const SizedBox(width: 10),
-              Expanded(flex: 2, child: c),
-            ],
-          );
-        }
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+      if (wide) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            a,
-            const SizedBox(height: 10),
-            b,
-            const SizedBox(height: 10),
-            c,
+            Expanded(child: a),
+            const SizedBox(width: 10),
+            Expanded(child: b),
+            const SizedBox(width: 10),
+            Expanded(flex: 2, child: c),
           ],
         );
-      },
-    );
+      }
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          a,
+          const SizedBox(height: 10),
+          b,
+          const SizedBox(height: 10),
+          c,
+        ],
+      );
+    });
   }
 
   List<MapEntry<String, String>> _mockPropsFor(String? label) {
@@ -1936,7 +1945,9 @@ class _WisvTreePanels extends StatelessWidget {
           MapEntry('color', '0xFFF4E9CE'),
         ];
       case 'Padding':
-        return const [MapEntry('padding', 'EdgeInsets.all(14)')];
+        return const [
+          MapEntry('padding', 'EdgeInsets.all(14)'),
+        ];
       case 'Text':
         return const [
           MapEntry('data', 'A surveyor\'s note.'),
@@ -1999,19 +2010,17 @@ class _WisvPanel extends StatelessWidget {
               ),
             )
           else
-            ...items.map(
-              (line) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
-                child: Text(
-                  '• $line',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: _WisvInk.ink,
-                    fontFamily: 'monospace',
+            ...items.map((line) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Text(
+                    '• $line',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: _WisvInk.ink,
+                      fontFamily: 'monospace',
+                    ),
                   ),
-                ),
-              ),
-            ),
+                )),
         ],
       ),
     );
@@ -2037,7 +2046,8 @@ class _WisvPropsPanel extends StatelessWidget {
         children: [
           Row(
             children: const [
-              Icon(Icons.list_alt, color: _WisvInk.crimsonDeep, size: 16),
+              Icon(Icons.list_alt,
+                  color: _WisvInk.crimsonDeep, size: 16),
               SizedBox(width: 6),
               Text(
                 'PROPERTIES',
@@ -2051,37 +2061,35 @@ class _WisvPropsPanel extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          ...props.map(
-            (e) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 110,
-                    child: Text(
-                      e.key,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: _WisvInk.inkFaded,
-                        fontWeight: FontWeight.w700,
+          ...props.map((e) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 110,
+                      child: Text(
+                        e.key,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: _WisvInk.inkFaded,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      e.value,
-                      style: const TextStyle(
-                        fontSize: 11.5,
-                        color: _WisvInk.ink,
-                        fontFamily: 'monospace',
+                    Expanded(
+                      child: Text(
+                        e.value,
+                        style: const TextStyle(
+                          fontSize: 11.5,
+                          color: _WisvInk.ink,
+                          fontFamily: 'monospace',
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -2305,12 +2313,9 @@ class _WisvRoutingDiagramPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final left = Rect.fromLTWH(4, 14, 150, size.height - 28);
     final middle = Rect.fromLTWH(
-      (size.width - 150) / 2,
-      14,
-      150,
-      size.height - 28,
-    );
-    final right = Rect.fromLTWH(size.width - 154, 14, 150, size.height - 28);
+        (size.width - 150) / 2, 14, 150, size.height - 28);
+    final right = Rect.fromLTWH(
+        size.width - 154, 14, 150, size.height - 28);
 
     void drawBox(Rect r, String head, String sub, Color tint) {
       final fill = Paint()..color = tint.withOpacity(0.16);
@@ -2327,26 +2332,24 @@ class _WisvRoutingDiagramPainter extends CustomPainter {
         border,
       );
       final tp = TextPainter(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: '$head\n',
-              style: TextStyle(
-                color: tint,
-                fontSize: 12.5,
-                fontWeight: FontWeight.w900,
-              ),
+        text: TextSpan(children: [
+          TextSpan(
+            text: '$head\n',
+            style: TextStyle(
+              color: tint,
+              fontSize: 12.5,
+              fontWeight: FontWeight.w900,
             ),
-            TextSpan(
-              text: sub,
-              style: const TextStyle(
-                color: _WisvInk.inkFaded,
-                fontSize: 10.5,
-                fontStyle: FontStyle.italic,
-              ),
+          ),
+          TextSpan(
+            text: sub,
+            style: const TextStyle(
+              color: _WisvInk.inkFaded,
+              fontSize: 10.5,
+              fontStyle: FontStyle.italic,
             ),
-          ],
-        ),
+          ),
+        ]),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       )..layout(maxWidth: r.width - 10);
@@ -2358,17 +2361,9 @@ class _WisvRoutingDiagramPainter extends CustomPainter {
 
     drawBox(left, 'DevTools', 'callServiceExtension', _WisvInk.feltDark);
     drawBox(
-      middle,
-      'VM Service',
-      'ext.flutter.inspector.*',
-      _WisvInk.brassDark,
-    );
-    drawBox(
-      right,
-      'WidgetInspectorService',
-      'method dispatch',
-      _WisvInk.crimsonDeep,
-    );
+        middle, 'VM Service', 'ext.flutter.inspector.*', _WisvInk.brassDark);
+    drawBox(right, 'WidgetInspectorService',
+        'method dispatch', _WisvInk.crimsonDeep);
 
     final arrow = Paint()
       ..color = _WisvInk.ink
@@ -2480,7 +2475,8 @@ class _WisvGroupDiagram extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.group_work, color: _WisvInk.brassDark, size: 18),
+              const Icon(Icons.group_work,
+                  color: _WisvInk.brassDark, size: 18),
               const SizedBox(width: 8),
               const Text(
                 'GROUPS',
@@ -2493,7 +2489,8 @@ class _WisvGroupDiagram extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _WisvInk.brass,
                   borderRadius: BorderRadius.circular(10),
@@ -2547,7 +2544,9 @@ class _WisvGroupCard extends StatelessWidget {
       width: 180,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: alive ? _WisvInk.feltLight.withOpacity(0.18) : _WisvInk.linen,
+        color: alive
+            ? _WisvInk.feltLight.withOpacity(0.18)
+            : _WisvInk.linen,
         border: Border.all(color: color, width: 1.2),
         borderRadius: BorderRadius.circular(4),
       ),
@@ -2588,32 +2587,31 @@ class _WisvGroupCard extends StatelessWidget {
             spacing: 4,
             runSpacing: 4,
             children: group.ids
-                .map(
-                  (id) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      color: alive
-                          ? _WisvInk.brass.withOpacity(0.22)
-                          : _WisvInk.paperDark,
-                      borderRadius: BorderRadius.circular(2),
-                      border: Border.all(color: _WisvInk.inkGhost, width: 0.6),
-                    ),
-                    child: Text(
-                      id,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'monospace',
-                        color: alive ? _WisvInk.seal : _WisvInk.inkFaded,
-                        decoration: alive
-                            ? TextDecoration.none
-                            : TextDecoration.lineThrough,
+                .map((id) => Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: alive
+                            ? _WisvInk.brass.withOpacity(0.22)
+                            : _WisvInk.paperDark,
+                        borderRadius: BorderRadius.circular(2),
+                        border: Border.all(
+                            color: _WisvInk.inkGhost, width: 0.6),
                       ),
-                    ),
-                  ),
-                )
+                      child: Text(
+                        id,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: alive
+                              ? _WisvInk.seal
+                              : _WisvInk.inkFaded,
+                          decoration: alive
+                              ? TextDecoration.none
+                              : TextDecoration.lineThrough,
+                        ),
+                      ),
+                    ))
                 .toList(),
           ),
         ],
@@ -3200,7 +3198,8 @@ class _WisvGlossaryEpilogue extends StatelessWidget {
     return _WisvFolio(
       plate: 'Folio IX',
       title: 'Glossary & Epilogue',
-      subtitle: 'Margin terms, neatly labelled. Close the notebook when done.',
+      subtitle:
+          'Margin terms, neatly labelled. Close the notebook when done.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -3208,10 +3207,10 @@ class _WisvGlossaryEpilogue extends StatelessWidget {
             spacing: 10,
             runSpacing: 10,
             children: entries
-                .map(
-                  (e) =>
-                      SizedBox(width: 320, child: _WisvGlossaryCard(entry: e)),
-                )
+                .map((e) => SizedBox(
+                      width: 320,
+                      child: _WisvGlossaryCard(entry: e),
+                    ))
                 .toList(),
           ),
           const SizedBox(height: 14),

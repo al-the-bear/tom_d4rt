@@ -30,22 +30,16 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: ixOnMauve,
-            ),
-          ),
+          Text(title,
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: ixOnMauve)),
           const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              color: ixOnMauve.withValues(alpha: 0.85),
-            ),
-          ),
+          Text(subtitle,
+              style: TextStyle(
+                  fontSize: 12,
+                  color: ixOnMauve.withValues(alpha: 0.85))),
         ],
       ),
     );
@@ -67,25 +61,20 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: ixMauve.withValues(alpha: 0.07),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(10)),
             ),
-            child: Text(
-              heading,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: ixMauve,
-              ),
-            ),
+            child: Text(heading,
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: ixMauve)),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(14, 8, 14, 12),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: children,
-            ),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children),
           ),
         ],
       ),
@@ -98,16 +87,12 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('▸ ', style: TextStyle(color: ixAccent, fontSize: 11)),
+          const Text('▸ ',
+              style: TextStyle(color: ixAccent, fontSize: 11)),
           Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 12,
-                color: ixTextDark,
-                height: 1.4,
-              ),
-            ),
+            child: Text(text,
+                style: const TextStyle(
+                    fontSize: 12, color: ixTextDark, height: 1.4)),
           ),
         ],
       ),
@@ -123,15 +108,12 @@ dynamic build(BuildContext context) {
         color: const Color(0xFF1A0025),
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Text(
-        code,
-        style: const TextStyle(
-          fontSize: 11,
-          fontFamily: 'monospace',
-          color: ixBlush,
-          height: 1.5,
-        ),
-      ),
+      child: Text(code,
+          style: const TextStyle(
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: ixBlush,
+              height: 1.5)),
     );
   }
 
@@ -143,20 +125,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 140,
-            child: Text(
-              key,
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: ixDark,
-              ),
-            ),
+            child: Text(key,
+                style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: ixDark)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 11, color: ixTextDark),
-            ),
+            child: Text(value,
+                style: const TextStyle(fontSize: 11, color: ixTextDark)),
           ),
         ],
       ),
@@ -173,15 +150,12 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: ixAccent.withValues(alpha: 0.2)),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 11,
-          fontStyle: FontStyle.italic,
-          color: ixDark,
-          height: 1.4,
-        ),
-      ),
+      child: Text(text,
+          style: const TextStyle(
+              fontSize: 11,
+              fontStyle: FontStyle.italic,
+              color: ixDark,
+              height: 1.4)),
     );
   }
 
@@ -211,34 +185,27 @@ dynamic build(BuildContext context) {
               color: accent.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              '$index',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: accent,
-              ),
-            ),
+            child: Text('$index',
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: accent)),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'IndexedSlot<Element?>($index, ...)',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w600,
-                    color: accent,
-                  ),
-                ),
+                Text('IndexedSlot<Element?>($index, ...)',
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.w600,
+                        color: accent)),
                 const SizedBox(height: 2),
-                Text(
-                  valueDesc,
-                  style: const TextStyle(fontSize: 10, color: ixTextDark),
-                ),
+                Text(valueDesc,
+                    style: const TextStyle(
+                        fontSize: 10, color: ixTextDark)),
               ],
             ),
           ),
@@ -267,17 +234,15 @@ dynamic build(BuildContext context) {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: '$label: ',
-                    style: const TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: ixDark,
-                    ),
-                  ),
+                      text: '$label: ',
+                      style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: ixDark)),
                   TextSpan(
-                    text: desc,
-                    style: const TextStyle(fontSize: 11, color: ixTextDark),
-                  ),
+                      text: desc,
+                      style: const TextStyle(
+                          fontSize: 11, color: ixTextDark)),
                 ],
               ),
             ),
@@ -300,26 +265,19 @@ dynamic build(BuildContext context) {
               color: ixMauve.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(
-              icon,
-              style: const TextStyle(fontSize: 12, color: ixMauve),
-            ),
+            child: Text(icon,
+                style: const TextStyle(fontSize: 12, color: ixMauve)),
           ),
           const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: ixDark,
-            ),
-          ),
+          Text(label,
+              style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: ixDark)),
           const SizedBox(width: 6),
           Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 11, color: ixTextDark),
-            ),
+            child: Text(value,
+                style: const TextStyle(fontSize: 11, color: ixTextDark)),
           ),
         ],
       ),
@@ -350,132 +308,105 @@ dynamic build(BuildContext context) {
             ixKeyValue('Constructor', 'const IndexedSlot(index, value)'),
             ixDivider(),
             ixBullet(
-              'IndexedSlot is a tiny, immutable data class. It pairs an '
-              'integer index with an optional Element value, tracking '
-              'both the position of a child in a multi-child layout and '
-              'its previous sibling.',
-            ),
+                'IndexedSlot is a tiny, immutable data class. It pairs an '
+                'integer index with an optional Element value, tracking '
+                'both the position of a child in a multi-child layout and '
+                'its previous sibling.'),
             ixBullet(
-              'The @immutable annotation ensures both fields are final '
-              'and the constructor is const-eligible.',
-            ),
+                'The @immutable annotation ensures both fields are final '
+                'and the constructor is const-eligible.'),
           ]),
 
           // ── 2. source code ──
           ixSection('2 · Complete Source Code', [
             ixHighlight(
-              'IndexedSlot is one of the simplest classes in Flutter. '
-              'Its entire implementation fits in a few lines.',
-            ),
+                'IndexedSlot is one of the simplest classes in Flutter. '
+                'Its entire implementation fits in a few lines.'),
             ixCodeBlock(
-              '// The full implementation:\n'
-              '@immutable\n'
-              'class IndexedSlot<T extends Element?> {\n'
-              '  const IndexedSlot(this.index, this.value);\n'
-              '\n'
-              '  final T value;\n'
-              '  final int index;\n'
-              '\n'
-              '  @override\n'
-              '  bool operator ==(Object other) {\n'
-              '    if (other.runtimeType != runtimeType) return false;\n'
-              '    return other is IndexedSlot\n'
-              '        && index == other.index\n'
-              '        && value == other.value;\n'
-              '  }\n'
-              '\n'
-              '  @override\n'
-              '  int get hashCode => Object.hash(index, value);\n'
-              '}',
-            ),
+                '// The full implementation:\n'
+                '@immutable\n'
+                'class IndexedSlot<T extends Element?> {\n'
+                '  const IndexedSlot(this.index, this.value);\n'
+                '\n'
+                '  final T value;\n'
+                '  final int index;\n'
+                '\n'
+                '  @override\n'
+                '  bool operator ==(Object other) {\n'
+                '    if (other.runtimeType != runtimeType) return false;\n'
+                '    return other is IndexedSlot\n'
+                '        && index == other.index\n'
+                '        && value == other.value;\n'
+                '  }\n'
+                '\n'
+                '  @override\n'
+                '  int get hashCode => Object.hash(index, value);\n'
+                '}'),
           ]),
 
           // ── 3. the two fields ──
           ixSection('3 · The Two Fields', [
-            ixKeyValue(
-              'index (int)',
-              'Zero-based position in the parent child list',
-            ),
-            ixKeyValue(
-              'value (T)',
-              'The previous sibling Element, or null for the first child',
-            ),
+            ixKeyValue('index (int)',
+                'Zero-based position in the parent child list'),
+            ixKeyValue('value (T)',
+                'The previous sibling Element, or null for the first child'),
             ixDivider(),
             ixCodeBlock(
-              '// For a Column with 3 children:\n'
-              '// Child 0: IndexedSlot(0, null)       ← no previous\n'
-              '// Child 1: IndexedSlot(1, element_0)   ← after child 0\n'
-              '// Child 2: IndexedSlot(2, element_1)   ← after child 1',
-            ),
+                '// For a Column with 3 children:\n'
+                '// Child 0: IndexedSlot(0, null)       ← no previous\n'
+                '// Child 1: IndexedSlot(1, element_0)   ← after child 0\n'
+                '// Child 2: IndexedSlot(2, element_1)   ← after child 1'),
             ixBullet(
-              'The index tells the child its position. The value lets '
-              'the element tree know which sibling comes before it, '
-              'which is needed for efficient child list updates.',
-            ),
+                'The index tells the child its position. The value lets '
+                'the element tree know which sibling comes before it, '
+                'which is needed for efficient child list updates.'),
           ]),
 
           // ── 4. visual: child list slots ──
           ixSection('4 · Visual: Multi-Child Slot Layout', [
-            ixSlotCard(
-              0,
-              'value = null (first child, no predecessor)',
-              const Color(0xFF6A1B9A),
-            ),
-            ixSlotCard(
-              1,
-              'value = element[0] (previous sibling)',
-              const Color(0xFF0277BD),
-            ),
-            ixSlotCard(
-              2,
-              'value = element[1] (previous sibling)',
-              const Color(0xFF1B5E20),
-            ),
-            ixSlotCard(
-              3,
-              'value = element[2] (previous sibling)',
-              const Color(0xFFE65100),
-            ),
+            ixSlotCard(0, 'value = null (first child, no predecessor)',
+                const Color(0xFF6A1B9A)),
+            ixSlotCard(1, 'value = element[0] (previous sibling)',
+                const Color(0xFF0277BD)),
+            ixSlotCard(2, 'value = element[1] (previous sibling)',
+                const Color(0xFF1B5E20)),
+            ixSlotCard(3, 'value = element[2] (previous sibling)',
+                const Color(0xFFE65100)),
             ixDivider(),
             ixBullet(
-              'Each child gets a slot. The slot says: "I am child #N, '
-              'and the child before me is element X." This is how '
-              'Flutter maintains the correct order.',
-            ),
+                'Each child gets a slot. The slot says: "I am child #N, '
+                'and the child before me is element X." This is how '
+                'Flutter maintains the correct order.'),
           ]),
 
           // ── 5. where it is used ──
           ixSection('5 · Usage in MultiChildRenderObjectElement', [
             ixBullet(
-              'MultiChildRenderObjectElement calls updateChildren() '
-              'to diff old and new child widget lists.',
-            ),
+                'MultiChildRenderObjectElement calls updateChildren() '
+                'to diff old and new child widget lists.'),
             ixBullet(
-              'Each child Element is inflated with an IndexedSlot as '
-              'its slot argument, so the render object can insert it '
-              'at the correct position.',
-            ),
+                'Each child Element is inflated with an IndexedSlot as '
+                'its slot argument, so the render object can insert it '
+                'at the correct position.'),
             ixCodeBlock(
-              '// Inside MultiChildRenderObjectElement:\n'
-              'Element inflateWidget(Widget newWidget, Object? slot) {\n'
-              '  // slot is an IndexedSlot<Element?>\n'
-              '  final element = newWidget.createElement();\n'
-              '  element.mount(this, slot);\n'
-              '  return element;\n'
-              '}\n'
-              '\n'
-              '// The render object uses slot.index to know\n'
-              '// WHERE to insert the child in its child list,\n'
-              '// and slot.value to know AFTER WHICH sibling.',
-            ),
+                '// Inside MultiChildRenderObjectElement:\n'
+                'Element inflateWidget(Widget newWidget, Object? slot) {\n'
+                '  // slot is an IndexedSlot<Element?>\n'
+                '  final element = newWidget.createElement();\n'
+                '  element.mount(this, slot);\n'
+                '  return element;\n'
+                '}\n'
+                '\n'
+                '// The render object uses slot.index to know\n'
+                '// WHERE to insert the child in its child list,\n'
+                '// and slot.value to know AFTER WHICH sibling.'),
           ]),
 
           // ── 6. updateChildren algorithm ──
           ixSection('6 · The updateChildren Algorithm', [
             ixBullet(
-              'updateChildren is a linear reconciliation algorithm '
-              'that diffs old children against new widgets.',
-            ),
+                'updateChildren is a linear reconciliation algorithm '
+                'that diffs old children against new widgets.'),
             ixInfoRow('1', 'Top scan:', 'Match from start until mismatch'),
             ixInfoRow('2', 'Bottom scan:', 'Match from end until mismatch'),
             ixInfoRow('3', 'Middle:', 'Key-based matching of remaining'),
@@ -483,70 +414,63 @@ dynamic build(BuildContext context) {
             ixInfoRow('5', 'Insert:', 'Inflate new widgets with slots'),
             ixDivider(),
             ixCodeBlock(
-              '// Slot assignment during updateChildren:\n'
-              '// After reconciliation, each surviving/new element\n'
-              '// gets an IndexedSlot:\n'
-              '//\n'
-              '// for (int i = 0; i < newChildren.length; i++) {\n'
-              '//   final previousChild = i > 0 ? newChildren[i-1] : null;\n'
-              '//   final slot = IndexedSlot(i, previousChild);\n'
-              '//   newChildren[i].slot = slot;\n'
-              '// }',
-            ),
+                '// Slot assignment during updateChildren:\n'
+                '// After reconciliation, each surviving/new element\n'
+                '// gets an IndexedSlot:\n'
+                '//\n'
+                '// for (int i = 0; i < newChildren.length; i++) {\n'
+                '//   final previousChild = i > 0 ? newChildren[i-1] : null;\n'
+                '//   final slot = IndexedSlot(i, previousChild);\n'
+                '//   newChildren[i].slot = slot;\n'
+                '// }'),
           ]),
 
           // ── 7. equality semantics ──
           ixSection('7 · Equality & hashCode', [
             ixBullet(
-              'Two IndexedSlots are equal when they have the same '
-              'runtimeType, same index, and same value.',
-            ),
+                'Two IndexedSlots are equal when they have the same '
+                'runtimeType, same index, and same value.'),
             ixBullet(
-              'hashCode uses Object.hash(index, value) for consistent '
-              'hash distribution.',
-            ),
+                'hashCode uses Object.hash(index, value) for consistent '
+                'hash distribution.'),
             ixCodeBlock(
-              '// Equality contract:\n'
-              '// IndexedSlot(0, null) == IndexedSlot(0, null)  → true\n'
-              '// IndexedSlot(0, null) == IndexedSlot(1, null)  → false\n'
-              '// IndexedSlot(0, elemA) == IndexedSlot(0, elemB) → false\n'
-              '//   (unless elemA == elemB)\n'
-              '\n'
-              '// Hash code:\n'
-              '// Object.hash(index, value)\n'
-              '// ≡ Jenkins hash of (index, value)',
-            ),
+                '// Equality contract:\n'
+                '// IndexedSlot(0, null) == IndexedSlot(0, null)  → true\n'
+                '// IndexedSlot(0, null) == IndexedSlot(1, null)  → false\n'
+                '// IndexedSlot(0, elemA) == IndexedSlot(0, elemB) → false\n'
+                '//   (unless elemA == elemB)\n'
+                '\n'
+                '// Hash code:\n'
+                '// Object.hash(index, value)\n'
+                '// ≡ Jenkins hash of (index, value)'),
             ixDivider(),
             ixHighlight(
-              'Equality is critical because the framework compares '
-              'old and new slots to determine whether a child needs '
-              'to be moved. If the slot changes, the render object '
-              'repositions the child.',
-            ),
+                'Equality is critical because the framework compares '
+                'old and new slots to determine whether a child needs '
+                'to be moved. If the slot changes, the render object '
+                'repositions the child.'),
           ]),
 
           // ── 8. const canonicalization ──
           ixSection('8 · Const Canonicalization', [
             ixBullet(
-              'Because IndexedSlot has a const constructor and both '
-              'fields are final, identical const instances share the '
-              'same memory.',
-            ),
+                'Because IndexedSlot has a const constructor and both '
+                'fields are final, identical const instances share the '
+                'same memory.'),
             ixCodeBlock(
-              '// Const canonicalization:\n'
-              'const a = IndexedSlot<Element?>(0, null);\n'
-              'const b = IndexedSlot<Element?>(0, null);\n'
-              '\n'
-              'identical(a, b)  // true  — same const instance\n'
-              'a == b           // true  — equal by value\n'
-              'a.hashCode == b.hashCode  // true\n'
-              '\n'
-              '// Non-const:\n'
-              'final c = IndexedSlot<Element?>(0, null);\n'
-              'final d = IndexedSlot<Element?>(0, null);\n'
-              'identical(c, d)  // false — different instances\n'
-              'c == d           // true  — equal by value',
-            ),
+                '// Const canonicalization:\n'
+                'const a = IndexedSlot<Element?>(0, null);\n'
+                'const b = IndexedSlot<Element?>(0, null);\n'
+                '\n'
+                'identical(a, b)  // true  — same const instance\n'
+                'a == b           // true  — equal by value\n'
+                'a.hashCode == b.hashCode  // true\n'
+                '\n'
+                '// Non-const:\n'
+                'final c = IndexedSlot<Element?>(0, null);\n'
+                'final d = IndexedSlot<Element?>(0, null);\n'
+                'identical(c, d)  // false — different instances\n'
+                'c == d           // true  — equal by value'),
           ]),
 
           // ── 9. generic type parameter ──
@@ -555,179 +479,157 @@ dynamic build(BuildContext context) {
             ixKeyValue('Typical usage', 'IndexedSlot<Element?>'),
             ixDivider(),
             ixBullet(
-              'The type parameter T constrains the value field to be '
-              'an Element? (or a more specific nullable Element subtype).',
-            ),
+                'The type parameter T constrains the value field to be '
+                'an Element? (or a more specific nullable Element subtype).'),
             ixBullet(
-              'In practice, T is almost always Element? because the '
-              'value represents the previous sibling Element, which '
-              'may or may not exist.',
-            ),
+                'In practice, T is almost always Element? because the '
+                'value represents the previous sibling Element, which '
+                'may or may not exist.'),
             ixCodeBlock(
-              '// Type parameter usage:\n'
-              '// class IndexedSlot<T extends Element?>\n'
-              '//\n'
-              '// Typical: IndexedSlot<Element?>\n'
-              '// The bound ensures value is always Element-compatible.\n'
-              '//\n'
-              '// The null case represents "no previous sibling"\n'
-              '// (i.e., first child in the list).',
-            ),
+                '// Type parameter usage:\n'
+                '// class IndexedSlot<T extends Element?>\n'
+                '//\n'
+                '// Typical: IndexedSlot<Element?>\n'
+                '// The bound ensures value is always Element-compatible.\n'
+                '//\n'
+                '// The null case represents "no previous sibling"\n'
+                '// (i.e., first child in the list).'),
           ]),
 
           // ── 10. render object integration ──
           ixSection('10 · Render Object insertRenderObjectChild', [
             ixBullet(
-              'When an Element mounts with an IndexedSlot, it calls '
-              'insertRenderObjectChild on the parent render object.',
-            ),
+                'When an Element mounts with an IndexedSlot, it calls '
+                'insertRenderObjectChild on the parent render object.'),
             ixCodeBlock(
-              '// In a MultiChildRenderObjectElement:\n'
-              '@override\n'
-              'void insertRenderObjectChild(\n'
-              '  RenderObject child, IndexedSlot<Element?> slot,\n'
-              ') {\n'
-              '  final parentData = child.parentData;\n'
-              '  final renderParent = renderObject\n'
-              '      as ContainerRenderObjectMixin;\n'
-              '  // Insert after the render object of slot.value\n'
-              '  renderParent.insert(\n'
-              '    child,\n'
-              '    after: slot.value?.renderObject as RenderBox?,\n'
-              '  );\n'
-              '}',
-            ),
+                '// In a MultiChildRenderObjectElement:\n'
+                '@override\n'
+                'void insertRenderObjectChild(\n'
+                '  RenderObject child, IndexedSlot<Element?> slot,\n'
+                ') {\n'
+                '  final parentData = child.parentData;\n'
+                '  final renderParent = renderObject\n'
+                '      as ContainerRenderObjectMixin;\n'
+                '  // Insert after the render object of slot.value\n'
+                '  renderParent.insert(\n'
+                '    child,\n'
+                '    after: slot.value?.renderObject as RenderBox?,\n'
+                '  );\n'
+                '}'),
             ixDivider(),
             ixBullet(
-              'The slot.value (previous sibling Element) gives the '
-              'render object a reference point for positioning. '
-              'slot.value?.renderObject is the render object to insert '
-              'after.',
-            ),
+                'The slot.value (previous sibling Element) gives the '
+                'render object a reference point for positioning. '
+                'slot.value?.renderObject is the render object to insert '
+                'after.'),
           ]),
 
           // ── 11. moveRenderObjectChild ──
           ixSection('11 · Moving Children', [
             ixBullet(
-              'When a child moves (different index but same key), '
-              'moveRenderObjectChild is called with the new IndexedSlot.',
-            ),
+                'When a child moves (different index but same key), '
+                'moveRenderObjectChild is called with the new IndexedSlot.'),
             ixCodeBlock(
-              '// Move uses the new slot to reposition:\n'
-              '@override\n'
-              'void moveRenderObjectChild(\n'
-              '  RenderObject child,\n'
-              '  IndexedSlot<Element?> oldSlot,\n'
-              '  IndexedSlot<Element?> newSlot,\n'
-              ') {\n'
-              '  final renderParent = renderObject\n'
-              '      as ContainerRenderObjectMixin;\n'
-              '  renderParent.move(\n'
-              '    child,\n'
-              '    after: newSlot.value?.renderObject as RenderBox?,\n'
-              '  );\n'
-              '}',
-            ),
+                '// Move uses the new slot to reposition:\n'
+                '@override\n'
+                'void moveRenderObjectChild(\n'
+                '  RenderObject child,\n'
+                '  IndexedSlot<Element?> oldSlot,\n'
+                '  IndexedSlot<Element?> newSlot,\n'
+                ') {\n'
+                '  final renderParent = renderObject\n'
+                '      as ContainerRenderObjectMixin;\n'
+                '  renderParent.move(\n'
+                '    child,\n'
+                '    after: newSlot.value?.renderObject as RenderBox?,\n'
+                '  );\n'
+                '}'),
             ixDivider(),
             ixBullet(
-              'The old slot says where the child was; the new slot '
-              'says where it should go. The render object moves '
-              'the child in its linked list accordingly.',
-            ),
+                'The old slot says where the child was; the new slot '
+                'says where it should go. The render object moves '
+                'the child in its linked list accordingly.'),
           ]),
 
           // ── 12. widget tree to element tree ──
           ixSection('12 · Widget → Element → RenderObject Flow', [
             ixCodeBlock(
-              '// Column (MultiChildRenderObjectWidget)\n'
-              '//   ├─ Text("A")     widget[0]\n'
-              '//   ├─ Text("B")     widget[1]\n'
-              '//   └─ Text("C")     widget[2]\n'
-              '//\n'
-              '// Element tree (MultiChildRenderObjectElement):\n'
-              '//   ├─ TextElement   slot=IndexedSlot(0, null)\n'
-              '//   ├─ TextElement   slot=IndexedSlot(1, elem[0])\n'
-              '//   └─ TextElement   slot=IndexedSlot(2, elem[1])\n'
-              '//\n'
-              '// Render tree (RenderFlex):\n'
-              '//   ├─ RenderParagraph  (position 0)\n'
-              '//   ├─ RenderParagraph  (position 1)\n'
-              '//   └─ RenderParagraph  (position 2)',
-            ),
+                '// Column (MultiChildRenderObjectWidget)\n'
+                '//   ├─ Text("A")     widget[0]\n'
+                '//   ├─ Text("B")     widget[1]\n'
+                '//   └─ Text("C")     widget[2]\n'
+                '//\n'
+                '// Element tree (MultiChildRenderObjectElement):\n'
+                '//   ├─ TextElement   slot=IndexedSlot(0, null)\n'
+                '//   ├─ TextElement   slot=IndexedSlot(1, elem[0])\n'
+                '//   └─ TextElement   slot=IndexedSlot(2, elem[1])\n'
+                '//\n'
+                '// Render tree (RenderFlex):\n'
+                '//   ├─ RenderParagraph  (position 0)\n'
+                '//   ├─ RenderParagraph  (position 1)\n'
+                '//   └─ RenderParagraph  (position 2)'),
           ]),
 
           // ── 13. comparison with other slot types ──
           ixSection('13 · Comparison with Other Slot Types', [
-            ixCompare(
-              'IndexedSlot',
-              'Multi-child: pairs index with previous sibling',
-            ),
-            ixCompare(
-              'null slot',
-              'Single-child elements use null as the slot',
-            ),
-            ixCompare('String slot', 'Named slots in custom elements (rare)'),
+            ixCompare('IndexedSlot',
+                'Multi-child: pairs index with previous sibling'),
+            ixCompare('null slot',
+                'Single-child elements use null as the slot'),
+            ixCompare('String slot',
+                'Named slots in custom elements (rare)'),
             ixDivider(),
             ixBullet(
-              'The slot system is generic — any Object? can be a slot. '
-              'IndexedSlot is the standard convention for ordered '
-              'multi-child containers like Column, Row, Stack, Wrap.',
-            ),
+                'The slot system is generic — any Object? can be a slot. '
+                'IndexedSlot is the standard convention for ordered '
+                'multi-child containers like Column, Row, Stack, Wrap.'),
             ixBullet(
-              'SingleChildRenderObjectElement always passes null as '
-              'the slot since there is only one child.',
-            ),
+                'SingleChildRenderObjectElement always passes null as '
+                'the slot since there is only one child.'),
           ]),
 
           // ── 14. reordering with keys ──
           ixSection('14 · Key-Based Reordering', [
             ixBullet(
-              'When children have keys, updateChildren can reorder '
-              'them rather than destroy and recreate.',
-            ),
+                'When children have keys, updateChildren can reorder '
+                'them rather than destroy and recreate.'),
             ixCodeBlock(
-              '// Before: [A(key:1), B(key:2), C(key:3)]\n'
-              '//   slots: [IS(0,null), IS(1,A), IS(2,B)]\n'
-              '//\n'
-              '// After:  [C(key:3), A(key:1), B(key:2)]\n'
-              '//   slots: [IS(0,null), IS(1,C), IS(2,A)]\n'
-              '//\n'
-              '// C moves from index 2 to 0 (new slot)\n'
-              '// A moves from index 0 to 1 (new slot)\n'
-              '// B moves from index 1 to 2 (new slot)\n'
-              '//\n'
-              '// Elements are reused — only slots change.',
-            ),
+                '// Before: [A(key:1), B(key:2), C(key:3)]\n'
+                '//   slots: [IS(0,null), IS(1,A), IS(2,B)]\n'
+                '//\n'
+                '// After:  [C(key:3), A(key:1), B(key:2)]\n'
+                '//   slots: [IS(0,null), IS(1,C), IS(2,A)]\n'
+                '//\n'
+                '// C moves from index 2 to 0 (new slot)\n'
+                '// A moves from index 0 to 1 (new slot)\n'
+                '// B moves from index 1 to 2 (new slot)\n'
+                '//\n'
+                '// Elements are reused — only slots change.'),
             ixDivider(),
             ixHighlight(
-              'Reordering is why IndexedSlot tracks the previous '
-              'sibling and not just the index — the render object '
-              'needs to know after which child to insert, and the '
-              'linked list structure uses sibling references.',
-            ),
+                'Reordering is why IndexedSlot tracks the previous '
+                'sibling and not just the index — the render object '
+                'needs to know after which child to insert, and the '
+                'linked list structure uses sibling references.'),
           ]),
 
           // ── 15. performance notes ──
           ixSection('15 · Performance Characteristics', [
             ixBullet(
-              'IndexedSlot is allocation-lightweight — two fields, '
-              'no collections, no callbacks.',
-            ),
+                'IndexedSlot is allocation-lightweight — two fields, '
+                'no collections, no callbacks.'),
             ixBullet(
-              'Const slots are free (canonicalized by the compiler). '
-              'Non-const slots are transient (created during update, '
-              'not cached).',
-            ),
+                'Const slots are free (canonicalized by the compiler). '
+                'Non-const slots are transient (created during update, '
+                'not cached).'),
             ixBullet(
-              'The equality check is O(1) — just compare two ints '
-              'and two object references.',
-            ),
+                'The equality check is O(1) — just compare two ints '
+                'and two object references.'),
             ixDivider(),
             ixBullet(
-              'For a Column with N children, N IndexedSlot instances '
-              'are created on each updateChildren pass. Since they are '
-              'small and short-lived, GC pressure is minimal.',
-            ),
+                'For a Column with N children, N IndexedSlot instances '
+                'are created on each updateChildren pass. Since they are '
+                'small and short-lived, GC pressure is minimal.'),
           ]),
 
           // ── 16. quick reference ──
@@ -740,15 +642,14 @@ dynamic build(BuildContext context) {
             ixKeyValue('hashCode', 'Object.hash(index, value)'),
             ixDivider(),
             ixCodeBlock(
-              '// Summary:\n'
-              '// IndexedSlot is a simple (index, value) pair.\n'
-              '// index = child position (0, 1, 2, ...)\n'
-              '// value = previous sibling Element (or null)\n'
-              '//\n'
-              '// Used by MultiChildRenderObjectElement to\n'
-              '// track child ordering and enable efficient\n'
-              '// insertions, removals, and reorderings.',
-            ),
+                '// Summary:\n'
+                '// IndexedSlot is a simple (index, value) pair.\n'
+                '// index = child position (0, 1, 2, ...)\n'
+                '// value = previous sibling Element (or null)\n'
+                '//\n'
+                '// Used by MultiChildRenderObjectElement to\n'
+                '// track child ordering and enable efficient\n'
+                '// insertions, removals, and reorderings.'),
           ]),
 
           // ── footer ──
@@ -760,10 +661,9 @@ dynamic build(BuildContext context) {
               'IndexedSlot · Mauve Deep Demo',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 10,
-                color: ixMuted,
-                fontStyle: FontStyle.italic,
-              ),
+                  fontSize: 10,
+                  color: ixMuted,
+                  fontStyle: FontStyle.italic),
             ),
           ),
         ],

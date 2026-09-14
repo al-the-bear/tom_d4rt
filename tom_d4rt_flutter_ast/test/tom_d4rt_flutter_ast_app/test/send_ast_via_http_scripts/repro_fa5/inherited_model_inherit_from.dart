@@ -203,7 +203,10 @@ class _AspectModel extends InheritedModel<String> {
   }
 
   @override
-  bool updateShouldNotifyDependent(_AspectModel old, Set<String> aspects) {
+  bool updateShouldNotifyDependent(
+    _AspectModel old,
+    Set<String> aspects,
+  ) {
     if (aspects.contains(aspectColorTone) && colorTone != old.colorTone) {
       return true;
     }
@@ -344,7 +347,10 @@ Widget heroBanner() {
         SizedBox(width: 24),
         Expanded(
           flex: 4,
-          child: AspectRatio(aspectRatio: 1.25, child: heroSurgeryGraphic()),
+          child: AspectRatio(
+            aspectRatio: 1.25,
+            child: heroSurgeryGraphic(),
+          ),
         ),
       ],
     ),
@@ -422,21 +428,13 @@ Widget heroSurgeryGraphic() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: heroSubscriber('Header', 'colorTone', labTealSoft, true),
-            ),
+            Expanded(child: heroSubscriber('Header', 'colorTone', labTealSoft, true)),
             SizedBox(width: 6),
-            Expanded(
-              child: heroSubscriber('Title', 'fontScale', labOcherSoft, true),
-            ),
+            Expanded(child: heroSubscriber('Title', 'fontScale', labOcherSoft, true)),
             SizedBox(width: 6),
-            Expanded(
-              child: heroSubscriber('Card', 'density', labMossSoft, false),
-            ),
+            Expanded(child: heroSubscriber('Card', 'density', labMossSoft, false)),
             SizedBox(width: 6),
-            Expanded(
-              child: heroSubscriber('Cta', 'isAccent', labBerrySoft, true),
-            ),
+            Expanded(child: heroSubscriber('Cta', 'isAccent', labBerrySoft, true)),
           ],
         ),
       ],
@@ -476,14 +474,7 @@ Widget heroSubscriber(String name, String aspect, Color tone, bool rebuilt) {
           child: Text(aspect, style: styleAspectTag),
         ),
         SizedBox(height: 4),
-        Text(
-          name,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            color: labInk,
-          ),
-        ),
+        Text(name, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: labInk)),
         SizedBox(height: 2),
         Container(
           width: 28,
@@ -516,8 +507,7 @@ Widget anatomySection() {
   return sectionContainer(
     label: 'ANATOMY',
     title: 'The static API: inheritFrom<T>(context, {aspect})',
-    lead:
-        'It looks like a normal lookup, but it does two things: register the '
+    lead: 'It looks like a normal lookup, but it does two things: register the '
         'caller as a dependent of T (just like dependOnInheritedWidgetOfExact'
         'Type), and tag that registration with an aspect token. The model '
         'later inspects those tokens to decide who really needs to rebuild.',
@@ -558,26 +548,11 @@ Widget anatomySection() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: anatomyBullet(
-                'aspect',
-                'Anything Object?. By convention a String, an enum, or a record. Equality matters: aspects are stored in a Set keyed by ==.',
-              ),
-            ),
+            Expanded(child: anatomyBullet('aspect', 'Anything Object?. By convention a String, an enum, or a record. Equality matters: aspects are stored in a Set keyed by ==.')),
             SizedBox(width: 12),
-            Expanded(
-              child: anatomyBullet(
-                'Set<A>',
-                'A is the type parameter on InheritedModel<A>. The same dependent\'s aspects pile up into one Set<A>; the model gets the union on update.',
-              ),
-            ),
+            Expanded(child: anatomyBullet('Set<A>', 'A is the type parameter on InheritedModel<A>. The same dependent\'s aspects pile up into one Set<A>; the model gets the union on update.')),
             SizedBox(width: 12),
-            Expanded(
-              child: anatomyBullet(
-                'return T?',
-                'Null when no matching ancestor was found. inheritFrom does NOT throw — be ready for null at call sites.',
-              ),
-            ),
+            Expanded(child: anatomyBullet('return T?', 'Null when no matching ancestor was found. inheritFrom does NOT throw — be ready for null at call sites.')),
           ],
         ),
       ],
@@ -612,8 +587,7 @@ Widget sampleModelSection() {
   return sectionContainer(
     label: 'SAMPLE MODEL',
     title: 'A four-aspect _AspectModel',
-    lead:
-        'A typical InheritedModel carries multiple, *independent* slices of '
+    lead: 'A typical InheritedModel carries multiple, *independent* slices of '
         'state. Here we use four: colorTone (a Color), fontScale (a double), '
         'density (a double), and isAccent (a bool). Every descendant subscribes '
         'to exactly the slice it actually reads.',
@@ -662,41 +636,13 @@ Widget sampleModelSection() {
         SizedBox(height: 16),
         Row(
           children: <Widget>[
-            Expanded(
-              child: aspectFieldCard(
-                'colorTone',
-                'Color',
-                'painted backgrounds, dividers, glyphs',
-                labTealSoft,
-              ),
-            ),
+            Expanded(child: aspectFieldCard('colorTone', 'Color', 'painted backgrounds, dividers, glyphs', labTealSoft)),
             SizedBox(width: 10),
-            Expanded(
-              child: aspectFieldCard(
-                'fontScale',
-                'double',
-                'multiplier on Text.style.fontSize',
-                labOcherSoft,
-              ),
-            ),
+            Expanded(child: aspectFieldCard('fontScale', 'double', 'multiplier on Text.style.fontSize', labOcherSoft)),
             SizedBox(width: 10),
-            Expanded(
-              child: aspectFieldCard(
-                'density',
-                'double',
-                'padding/spacing scale (compact vs roomy)',
-                labMossSoft,
-              ),
-            ),
+            Expanded(child: aspectFieldCard('density', 'double', 'padding/spacing scale (compact vs roomy)', labMossSoft)),
             SizedBox(width: 10),
-            Expanded(
-              child: aspectFieldCard(
-                'isAccent',
-                'bool',
-                'whether to render the accent stripe',
-                labBerrySoft,
-              ),
-            ),
+            Expanded(child: aspectFieldCard('isAccent', 'bool', 'whether to render the accent stripe', labBerrySoft)),
           ],
         ),
       ],
@@ -717,15 +663,7 @@ Widget aspectFieldCard(String name, String type, String role, Color tone) {
       children: <Widget>[
         Text(name, style: styleAspectTag),
         SizedBox(height: 4),
-        Text(
-          type,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            color: labInk,
-            fontFamily: 'monospace',
-          ),
-        ),
+        Text(type, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: labInk, fontFamily: 'monospace')),
         SizedBox(height: 6),
         Text(role, style: styleBodySoft),
       ],
@@ -741,8 +679,7 @@ Widget aspectSubscribersSection() {
   return sectionContainer(
     label: 'SUBSCRIBERS',
     title: 'Two descendants, two aspects',
-    lead:
-        'Same ancestor model, two different consumers. The left widget reads '
+    lead: 'Same ancestor model, two different consumers. The left widget reads '
         'only colorTone; the right widget reads only fontScale. When colorTone '
         'changes, only the left widget rebuilds. When fontScale changes, only '
         'the right one. This is the entire selling point.',
@@ -773,8 +710,7 @@ Widget aspectSubscribersSection() {
               '  }',
               '}',
             ],
-            footer:
-                'Reads colorTone only. Will skip rebuilds when fontScale, '
+            footer: 'Reads colorTone only. Will skip rebuilds when fontScale, '
                 'density or isAccent change.',
           ),
         ),
@@ -800,8 +736,7 @@ Widget aspectSubscribersSection() {
               '  }',
               '}',
             ],
-            footer:
-                'Reads fontScale only. Skips rebuilds when colorTone, '
+            footer: 'Reads fontScale only. Skips rebuilds when colorTone, '
                 'density or isAccent change.',
           ),
         ),
@@ -866,8 +801,7 @@ Widget propagationDiagramSection() {
   return sectionContainer(
     label: 'PROPAGATION',
     title: 'Who rebuilds when which aspect changes',
-    lead:
-        'Mentally trace each row: the ancestor mutated one slice, the framework '
+    lead: 'Mentally trace each row: the ancestor mutated one slice, the framework '
         'consults updateShouldNotifyDependent for every registered subscriber, '
         'and only those whose Set<String> contains the changed aspect rebuild. '
         'A single mutation never causes a cascade beyond the subscribers that '
@@ -984,14 +918,7 @@ Widget legendDot(Color c, String label) {
         decoration: BoxDecoration(color: c, shape: BoxShape.circle),
       ),
       SizedBox(width: 6),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-          color: labInkSoft,
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: labInkSoft)),
     ],
   );
 }
@@ -1028,15 +955,7 @@ Widget propagationRow({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'CHANGED',
-                style: TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1,
-                  color: labInk,
-                ),
-              ),
+              Text('CHANGED', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800, letterSpacing: 1, color: labInk)),
               SizedBox(height: 2),
               Text(changed, style: styleAspectTag),
             ],
@@ -1060,9 +979,7 @@ Widget propagationRow({
 
 Widget propagationCell(SubFlag flag) {
   final Color bg = flag.rebuilt ? labMossSoft : labCreamDeep;
-  final Color bar = flag.rebuilt
-      ? labMoss
-      : labInkFaint.withValues(alpha: 0.35);
+  final Color bar = flag.rebuilt ? labMoss : labInkFaint.withValues(alpha: 0.35);
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
     decoration: BoxDecoration(
@@ -1073,23 +990,9 @@ Widget propagationCell(SubFlag flag) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          flag.name,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            color: labInk,
-          ),
-        ),
+        Text(flag.name, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: labInk)),
         SizedBox(height: 2),
-        Text(
-          'aspect: ${flag.aspect}',
-          style: TextStyle(
-            fontSize: 10,
-            color: labInkSoft,
-            fontFamily: 'monospace',
-          ),
-        ),
+        Text('aspect: ${flag.aspect}', style: TextStyle(fontSize: 10, color: labInkSoft, fontFamily: 'monospace')),
         SizedBox(height: 6),
         Container(
           height: 4,
@@ -1120,10 +1023,8 @@ Widget propagationCell(SubFlag flag) {
 Widget compareWithInheritedWidgetSection() {
   return sectionContainer(
     label: 'COMPARE',
-    title:
-        'dependOnInheritedWidgetOfExactType vs InheritedModel.inheritFrom<T>',
-    lead:
-        'They look almost identical at the call site. Their semantics — the '
+    title: 'dependOnInheritedWidgetOfExactType vs InheritedModel.inheritFrom<T>',
+    lead: 'They look almost identical at the call site. Their semantics — the '
         'volume of rebuilds they trigger — could not be more different.',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1136,22 +1037,13 @@ Widget compareWithInheritedWidgetSection() {
                 accent: labSlate,
                 accentSoft: labSlateSoft,
                 rows: <List<String>>[
-                  <String>[
-                    'Lookup',
-                    'context.dependOnInheritedWidgetOfExactType<T>()',
-                  ],
-                  <String>[
-                    'Granularity',
-                    'all-or-nothing — one bit per ancestor',
-                  ],
+                  <String>['Lookup', 'context.dependOnInheritedWidgetOfExactType<T>()'],
+                  <String>['Granularity', 'all-or-nothing — one bit per ancestor'],
                   <String>['Gate', 'updateShouldNotify(oldWidget) -> bool'],
                   <String>['Per-dependent', 'none — every dependent rebuilds'],
                   <String>['Aspect concept', 'absent'],
                   <String>['Best for', 'small, single-purpose contexts'],
-                  <String>[
-                    'Worst for',
-                    'fat models with many fields and readers',
-                  ],
+                  <String>['Worst for', 'fat models with many fields and readers'],
                 ],
               ),
             ),
@@ -1162,30 +1054,12 @@ Widget compareWithInheritedWidgetSection() {
                 accent: labTealDeep,
                 accentSoft: labTealSoft,
                 rows: <List<String>>[
-                  <String>[
-                    'Lookup',
-                    'InheritedModel.inheritFrom<T>(context, aspect: x)',
-                  ],
-                  <String>[
-                    'Granularity',
-                    'per-aspect — many bits per ancestor',
-                  ],
-                  <String>[
-                    'Gate 1',
-                    'updateShouldNotify(old) -> bool (model-wide)',
-                  ],
-                  <String>[
-                    'Gate 2',
-                    'updateShouldNotifyDependent(old, Set<A>) -> bool',
-                  ],
-                  <String>[
-                    'Aspect concept',
-                    'first-class — Set<A> per dependent',
-                  ],
-                  <String>[
-                    'Best for',
-                    'fat models read by specialised consumers',
-                  ],
+                  <String>['Lookup', 'InheritedModel.inheritFrom<T>(context, aspect: x)'],
+                  <String>['Granularity', 'per-aspect — many bits per ancestor'],
+                  <String>['Gate 1', 'updateShouldNotify(old) -> bool (model-wide)'],
+                  <String>['Gate 2', 'updateShouldNotifyDependent(old, Set<A>) -> bool'],
+                  <String>['Aspect concept', 'first-class — Set<A> per dependent'],
+                  <String>['Best for', 'fat models read by specialised consumers'],
                   <String>['Worst for', 'tiny single-field state'],
                 ],
               ),
@@ -1288,8 +1162,7 @@ Widget updateShouldNotifyDependentSection() {
   return sectionContainer(
     label: 'GATE 2',
     title: 'updateShouldNotifyDependent(old, Set<A> aspects)',
-    lead:
-        'This is the per-subscriber gate. The framework calls it once per '
+    lead: 'This is the per-subscriber gate. The framework calls it once per '
         'dependent context, passing the Set<A> of aspects that context '
         'previously requested. Return true to schedule that dependent for '
         'rebuild; false to leave it at peace.',
@@ -1311,26 +1184,11 @@ Widget updateShouldNotifyDependentSection() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: dependentBullet(
-                'one call per dependent',
-                'If five widgets subscribed, this method runs five times — but each call gets only that widget\'s aspects, not the union.',
-              ),
-            ),
+            Expanded(child: dependentBullet('one call per dependent', 'If five widgets subscribed, this method runs five times — but each call gets only that widget\'s aspects, not the union.')),
             SizedBox(width: 12),
-            Expanded(
-              child: dependentBullet(
-                'aspects is a Set<A>',
-                'A is the type parameter on InheritedModel<A>. We chose String, but enums or sealed-class tokens are usually a better idea in production.',
-              ),
-            ),
+            Expanded(child: dependentBullet('aspects is a Set<A>', 'A is the type parameter on InheritedModel<A>. We chose String, but enums or sealed-class tokens are usually a better idea in production.')),
             SizedBox(width: 12),
-            Expanded(
-              child: dependentBullet(
-                'aspects can be empty',
-                'Empty set means the dependent registered with `aspect: null` — i.e. "subscribe to everything". By contract you should treat that as "all aspects matter".',
-              ),
-            ),
+            Expanded(child: dependentBullet('aspects can be empty', 'Empty set means the dependent registered with `aspect: null` — i.e. "subscribe to everything". By contract you should treat that as "all aspects matter".')),
           ],
         ),
         SizedBox(height: 14),
@@ -1413,8 +1271,7 @@ Widget updateShouldNotifySection() {
   return sectionContainer(
     label: 'GATE 1',
     title: 'updateShouldNotify(old) — the model-wide cutoff',
-    lead:
-        'Before consulting per-subscriber aspects, the framework asks the '
+    lead: 'Before consulting per-subscriber aspects, the framework asks the '
         'model itself: "did anything I should care about move?". If this '
         'returns false, the framework stops there — updateShouldNotifyDependent '
         'is not called for anyone, and the dependent set keeps its current build.',
@@ -1435,29 +1292,11 @@ Widget updateShouldNotifySection() {
         SizedBox(height: 12),
         Row(
           children: <Widget>[
-            Expanded(
-              child: gateCard(
-                'false  ->  zero rebuilds',
-                'No dependent is touched, even those subscribed to every aspect. Useful when the model has fields that are NOT aspects (e.g. caches, debug-only data).',
-                labMossSoft,
-              ),
-            ),
+            Expanded(child: gateCard('false  ->  zero rebuilds', 'No dependent is touched, even those subscribed to every aspect. Useful when the model has fields that are NOT aspects (e.g. caches, debug-only data).', labMossSoft)),
             SizedBox(width: 12),
-            Expanded(
-              child: gateCard(
-                'true  ->  ask each dependent',
-                'updateShouldNotifyDependent runs once per registered context. Each dependent then individually returns rebuild/skip.',
-                labTealSoft,
-              ),
-            ),
+            Expanded(child: gateCard('true  ->  ask each dependent', 'updateShouldNotifyDependent runs once per registered context. Each dependent then individually returns rebuild/skip.', labTealSoft)),
             SizedBox(width: 12),
-            Expanded(
-              child: gateCard(
-                'always-true (return true)',
-                'Skips Gate 1 entirely and forces the per-aspect gate to do all filtering. Acceptable, but you lose a cheap early-out.',
-                labOcherSoft,
-              ),
-            ),
+            Expanded(child: gateCard('always-true (return true)', 'Skips Gate 1 entirely and forces the per-aspect gate to do all filtering. Acceptable, but you lose a cheap early-out.', labOcherSoft)),
           ],
         ),
         SizedBox(height: 12),
@@ -1492,15 +1331,7 @@ Widget gateCard(String title, String body, Color tone) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
-            color: labInk,
-            fontFamily: 'monospace',
-          ),
-        ),
+        Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: labInk, fontFamily: 'monospace')),
         SizedBox(height: 6),
         Text(body, style: styleBodySoft),
       ],
@@ -1516,8 +1347,7 @@ Widget aspectIdentitySection() {
   return sectionContainer(
     label: 'IDENTITY',
     title: 'How aspects are compared',
-    lead:
-        'Aspects live inside a Set<A>. Set membership uses == and hashCode. '
+    lead: 'Aspects live inside a Set<A>. Set membership uses == and hashCode. '
         'If two distinct objects compare equal, they collapse into one aspect. '
         'If two equal-looking objects do NOT compare equal, they live as two '
         'aspects and either may trigger a rebuild — usually not what you want.',
@@ -1537,8 +1367,7 @@ Widget aspectIdentitySection() {
                   '// Same constant string, canonicalised.',
                   '// Set has 1 element. Safe.',
                 ],
-                comment:
-                    'String constants are canonical — perfect aspect tokens.',
+                comment: 'String constants are canonical — perfect aspect tokens.',
               ),
             ),
             SizedBox(width: 12),
@@ -1569,8 +1398,7 @@ Widget aspectIdentitySection() {
                   '// Two instances, identity equality.',
                   '// Set has 2 elements. Confusing rebuilds.',
                 ],
-                comment:
-                    'Always override == and hashCode on a custom aspect type.',
+                comment: 'Always override == and hashCode on a custom aspect type.',
               ),
             ),
           ],
@@ -1664,16 +1492,14 @@ Widget pitfallsSection() {
   return sectionContainer(
     label: 'PITFALLS',
     title: 'Things that go wrong on the way',
-    lead:
-        'A short list of failure modes that are very obvious in hindsight '
+    lead: 'A short list of failure modes that are very obvious in hindsight '
         'and very subtle while you are writing them.',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         pitfall(
           title: 'Forgetting to override updateShouldNotifyDependent',
-          body:
-              'The default behaviour of InheritedModel\'s parent class is '
+          body: 'The default behaviour of InheritedModel\'s parent class is '
               'still InheritedWidget — meaning every dependent rebuilds on any '
               'change. The performance gain only materialises when you '
               'override the per-aspect gate.',
@@ -1681,8 +1507,7 @@ Widget pitfallsSection() {
         ),
         pitfall(
           title: 'Aspect stored in a State field',
-          body:
-              'If a State recomputes its aspect on every build, '
+          body: 'If a State recomputes its aspect on every build, '
               '`maybeOf(context, freshObjectThatChangesEachBuild)` registers a '
               'new aspect on every build. The Set<A> grows, then leaks until '
               'the dependent unmounts. Always use stable, canonical aspect '
@@ -1691,8 +1516,7 @@ Widget pitfallsSection() {
         ),
         pitfall(
           title: 'Mutating fields in the model',
-          body:
-              'InheritedModel is supposed to be immutable. If you mutate '
+          body: 'InheritedModel is supposed to be immutable. If you mutate '
               'colorTone in place and rebuild a fresh _AspectModel, '
               'updateShouldNotifyDependent will compare the mutated value '
               'against itself and return false. No rebuild. Always allocate '
@@ -1701,8 +1525,7 @@ Widget pitfallsSection() {
         ),
         pitfall(
           title: 'Reading aspects you did not subscribe to',
-          body:
-              'A descendant that calls inheritFrom with aspect: \'colorTone\' '
+          body: 'A descendant that calls inheritFrom with aspect: \'colorTone\' '
               'and then reads model.fontScale will appear to work — but it '
               'will not rebuild when fontScale changes. The compiler cannot '
               'protect you. Discipline: one subscription per aspect read.',
@@ -1710,8 +1533,7 @@ Widget pitfallsSection() {
         ),
         pitfall(
           title: 'A null InheritedModel ancestor',
-          body:
-              'inheritFrom<T> returns T? — it is null when no ancestor T '
+          body: 'inheritFrom<T> returns T? — it is null when no ancestor T '
               'exists. Don\'t bang it (`!`); have a sensible default at the '
               'call site, or assert at the model boundary so the failure '
               'mode is explicit.',
@@ -1719,8 +1541,7 @@ Widget pitfallsSection() {
         ),
         pitfall(
           title: 'Aspects with mutable equality',
-          body:
-              'If your aspect type implements == in terms of fields that '
+          body: 'If your aspect type implements == in terms of fields that '
               'change after the object is added to the Set<A>, the Set\'s '
               'internal hash bucket points to a stale entry. The aspect '
               'becomes unfindable. Aspects must be value-stable.',
@@ -1728,8 +1549,7 @@ Widget pitfallsSection() {
         ),
         pitfall(
           title: 'Calling inheritFrom from outside build',
-          body:
-              'Like dependOnInheritedWidgetOfExactType, this method is only '
+          body: 'Like dependOnInheritedWidgetOfExactType, this method is only '
               'safe during build (or didChangeDependencies). Calling it from '
               'initState fails the framework\'s assertion. Move the call '
               'into build, or use the static getElementForInheritedWidgetOf'
@@ -1738,8 +1558,7 @@ Widget pitfallsSection() {
         ),
         pitfall(
           title: 'Mixing aspect:null with named aspects',
-          body:
-              'On the same context, a no-aspect registration is treated as '
+          body: 'On the same context, a no-aspect registration is treated as '
               '"all aspects" by most updateShouldNotifyDependent implementations '
               '— and an additional named aspect on the same context becomes '
               'redundant. Pick one mode per context.',
@@ -1750,11 +1569,7 @@ Widget pitfallsSection() {
   );
 }
 
-Widget pitfall({
-  required String title,
-  required String body,
-  required Color tone,
-}) {
+Widget pitfall({required String title, required String body, required Color tone}) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(14),
@@ -1791,8 +1606,7 @@ Widget performanceReasoningSection() {
   return sectionContainer(
     label: 'WHY IT IS FASTER',
     title: 'Counting the rebuilds you avoid',
-    lead:
-        'A back-of-envelope calculation. Imagine a screen with 200 leaf '
+    lead: 'A back-of-envelope calculation. Imagine a screen with 200 leaf '
         'widgets, each one reading exactly one of four aspects. With a plain '
         'InheritedWidget, every aspect mutation rebuilds all 200. With an '
         'InheritedModel, only the ~50 that subscribed to that aspect rebuild. '
@@ -1825,33 +1639,13 @@ Widget performanceReasoningSection() {
             children: <Widget>[
               perfBar('InheritedWidget', 1.00, labSlate, '200 / 200 rebuild'),
               SizedBox(height: 6),
-              perfBar(
-                'InheritedModel — colorTone changed',
-                0.25,
-                labTeal,
-                '50 / 200 rebuild',
-              ),
+              perfBar('InheritedModel — colorTone changed', 0.25, labTeal, '50 / 200 rebuild'),
               SizedBox(height: 6),
-              perfBar(
-                'InheritedModel — fontScale changed',
-                0.25,
-                labOcher,
-                '50 / 200 rebuild',
-              ),
+              perfBar('InheritedModel — fontScale changed', 0.25, labOcher, '50 / 200 rebuild'),
               SizedBox(height: 6),
-              perfBar(
-                'InheritedModel — density changed',
-                0.25,
-                labMoss,
-                '50 / 200 rebuild',
-              ),
+              perfBar('InheritedModel — density changed', 0.25, labMoss, '50 / 200 rebuild'),
               SizedBox(height: 6),
-              perfBar(
-                'InheritedModel — isAccent changed',
-                0.25,
-                labBerry,
-                '50 / 200 rebuild',
-              ),
+              perfBar('InheritedModel — isAccent changed', 0.25, labBerry, '50 / 200 rebuild'),
             ],
           ),
         ),
@@ -1907,14 +1701,7 @@ Widget perfBar(String label, double fraction, Color color, String trailing) {
     children: <Widget>[
       SizedBox(
         width: 200,
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: labInk,
-          ),
-        ),
+        child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: labInk)),
       ),
       SizedBox(width: 8),
       Expanded(
@@ -1947,11 +1734,7 @@ Widget perfBar(String label, double fraction, Color color, String trailing) {
         child: Text(
           trailing,
           textAlign: TextAlign.right,
-          style: TextStyle(
-            fontSize: 11,
-            fontFamily: 'monospace',
-            color: labInkSoft,
-          ),
+          style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: labInkSoft),
         ),
       ),
     ],
@@ -1974,7 +1757,10 @@ Widget footerSection() {
         Container(
           width: 36,
           height: 36,
-          decoration: BoxDecoration(color: labTeal, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: labTeal,
+            shape: BoxShape.circle,
+          ),
           alignment: Alignment.center,
           child: Icon(Icons.hub_outlined, color: Colors.white, size: 20),
         ),
@@ -1985,20 +1771,12 @@ Widget footerSection() {
             children: <Widget>[
               Text(
                 'InheritedModel.inheritFrom<T> — aspect-scoped dependency at the framework level.',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14),
               ),
               SizedBox(height: 2),
               Text(
                 'Two gates (updateShouldNotify, updateShouldNotifyDependent) and a Set<A> per dependent — that\'s the whole machine.',
-                style: TextStyle(
-                  color: Color(0xFFB6BFCB),
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Color(0xFFB6BFCB), fontWeight: FontWeight.w400, fontSize: 12),
               ),
             ],
           ),
@@ -2009,15 +1787,7 @@ Widget footerSection() {
             color: Color(0x33FFFFFF),
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            'flutter / widgets',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1,
-            ),
-          ),
+          child: Text('flutter / widgets', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 1)),
         ),
       ],
     ),

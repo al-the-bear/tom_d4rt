@@ -71,7 +71,8 @@ dynamic build(BuildContext context) {
   // We read the *current* scheduler phase exactly once, purely for display.
   // Reading is side-effect-free: it is a property getter on the singleton
   // SchedulerBinding. We never *write* anything to the binding.
-  final SchedulerPhase observedPhase = SchedulerBinding.instance.schedulerPhase;
+  final SchedulerPhase observedPhase =
+      SchedulerBinding.instance.schedulerPhase;
   print('observedPhase = $observedPhase');
 
   // Snapshot a few binding properties for the diagnostic card later. Doing
@@ -108,10 +109,8 @@ dynamic build(BuildContext context) {
   final Widget glossarySection = _buildGlossary();
   print('section 8 (glossary) built');
 
-  final Widget diagnosticsSection = _buildDiagnostics(
-    observedPhase,
-    observedFrameTimeStamp,
-  );
+  final Widget diagnosticsSection =
+      _buildDiagnostics(observedPhase, observedFrameTimeStamp);
   print('section 9 (diagnostics) built');
 
   // Final assembly. Scaffold > ListView so the user can scroll through ~10
@@ -169,8 +168,7 @@ Duration? _safeFrameTimeStamp() {
   // We only read inside persistentCallbacks/postFrameCallbacks where the
   // value is defined. Outside of that, return null.
   final SchedulerPhase phase = SchedulerBinding.instance.schedulerPhase;
-  final bool ok =
-      phase == SchedulerPhase.persistentCallbacks ||
+  final bool ok = phase == SchedulerPhase.persistentCallbacks ||
       phase == SchedulerPhase.postFrameCallbacks ||
       phase == SchedulerPhase.transientCallbacks ||
       phase == SchedulerPhase.midFrameMicrotasks;
@@ -224,7 +222,11 @@ Widget _bodyText(String s, {double size = 13, Color? color}) {
     padding: const EdgeInsets.symmetric(vertical: 2),
     child: Text(
       s,
-      style: TextStyle(fontSize: size, color: color ?? kFgStrong, height: 1.35),
+      style: TextStyle(
+        fontSize: size,
+        color: color ?? kFgStrong,
+        height: 1.35,
+      ),
     ),
   );
 }
@@ -326,7 +328,11 @@ Widget _chip(String text, Color bg, Color fg) {
     ),
     child: Text(
       text,
-      style: TextStyle(fontSize: 11, color: fg, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        fontSize: 11,
+        color: fg,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -427,14 +433,12 @@ Widget _buildTickerAnatomy() {
   // can only be read by Ticker subclasses. We describe them in the diagram
   // below but do not read them from outside.
 
-  print(
-    'probe ticker constructed: '
-    'label=$probeDebugLabel '
-    'isActive=$probeIsActive '
-    'isTicking=$probeIsTicking '
-    'muted=$probeMuted '
-    'runtimeType=$probeRuntime',
-  );
+  print('probe ticker constructed: '
+      'label=$probeDebugLabel '
+      'isActive=$probeIsActive '
+      'isTicking=$probeIsTicking '
+      'muted=$probeMuted '
+      'runtimeType=$probeRuntime');
 
   return _card(
     child: Column(
@@ -467,47 +471,17 @@ Widget _buildTickerAnatomy() {
                 ),
               ),
               const SizedBox(height: 6),
-              _kvRow(
-                'constructor',
-                'Ticker(TickerCallback onTick, {String? debugLabel})',
-              ),
-              _kvRow(
-                'start()',
-                'TickerFuture — schedules the ticker, returns the future',
-              ),
-              _kvRow(
-                'stop({canceled})',
-                'void — settles the future (cancel=true throws TickerCanceled)',
-              ),
+              _kvRow('constructor', 'Ticker(TickerCallback onTick, {String? debugLabel})'),
+              _kvRow('start()', 'TickerFuture — schedules the ticker, returns the future'),
+              _kvRow('stop({canceled})', 'void — settles the future (cancel=true throws TickerCanceled)'),
               _kvRow('dispose()', 'void — permanently releases the ticker'),
-              _kvRow(
-                'isActive',
-                'bool — was start() called and stop() not yet?',
-              ),
-              _kvRow(
-                'isTicking',
-                'bool — active AND not muted AND a tick is scheduled',
-              ),
-              _kvRow(
-                'muted',
-                'bool — settable; muted tickers stay active but skip ticks',
-              ),
-              _kvRow(
-                'scheduled',
-                'bool — true if a tick is currently pending with the binding',
-              ),
-              _kvRow(
-                'shouldScheduleTick',
-                'bool — protected helper used by subclasses',
-              ),
-              _kvRow(
-                'debugLabel',
-                'String? — appears in diagnostics, e.g. "AnimationController"',
-              ),
-              _kvRow(
-                'runtimeType',
-                'Ticker (or subclass like _DisposingTicker)',
-              ),
+              _kvRow('isActive', 'bool — was start() called and stop() not yet?'),
+              _kvRow('isTicking', 'bool — active AND not muted AND a tick is scheduled'),
+              _kvRow('muted', 'bool — settable; muted tickers stay active but skip ticks'),
+              _kvRow('scheduled', 'bool — true if a tick is currently pending with the binding'),
+              _kvRow('shouldScheduleTick', 'bool — protected helper used by subclasses'),
+              _kvRow('debugLabel', 'String? — appears in diagnostics, e.g. "AnimationController"'),
+              _kvRow('runtimeType', 'Ticker (or subclass like _DisposingTicker)'),
             ],
           ),
         ),
@@ -535,10 +509,8 @@ Widget _buildTickerAnatomy() {
               _kvRow('isTicking', probeIsTicking.toString()),
               _kvRow('muted', probeMuted.toString()),
               _kvRow('scheduled', '@protected — readable only inside subclass'),
-              _kvRow(
-                'shouldScheduleTick',
-                '@protected — readable only inside subclass',
-              ),
+              _kvRow('shouldScheduleTick',
+                  '@protected — readable only inside subclass'),
             ],
           ),
         ),
@@ -596,9 +568,7 @@ Widget _buildTickerAnatomy() {
 Widget _buildTickerFutureLifecycle() {
   // A pre-completed TickerFuture is the only safe shape we can build.
   final TickerFuture preCompleted = TickerFuture.complete();
-  print(
-    'preCompleted = $preCompleted (runtimeType=${preCompleted.runtimeType})',
-  );
+  print('preCompleted = $preCompleted (runtimeType=${preCompleted.runtimeType})');
 
   // Attach a whenCompleteOrCancel handler. This fires immediately because
   // the future is already complete.
@@ -669,30 +639,12 @@ Widget _buildTickerFutureLifecycle() {
                 ),
               ),
               const SizedBox(height: 6),
-              _kvRow(
-                'TickerFuture.complete()',
-                'Returns a pre-resolved TickerFuture (testing shortcut)',
-              ),
-              _kvRow(
-                'orCancel',
-                'Future<void> — throws TickerCanceled if the ticker was canceled',
-              ),
-              _kvRow(
-                'whenCompleteOrCancel(fn)',
-                'Runs fn once on either terminal state',
-              ),
-              _kvRow(
-                'whenComplete(fn)',
-                'Inherited Future API; runs only on normal completion',
-              ),
-              _kvRow(
-                'then(...)',
-                'Inherited Future API; canceled futures skip then() handlers',
-              ),
-              _kvRow(
-                'catchError(...)',
-                'Inherited; catches TickerCanceled when chained off orCancel',
-              ),
+              _kvRow('TickerFuture.complete()', 'Returns a pre-resolved TickerFuture (testing shortcut)'),
+              _kvRow('orCancel', 'Future<void> — throws TickerCanceled if the ticker was canceled'),
+              _kvRow('whenCompleteOrCancel(fn)', 'Runs fn once on either terminal state'),
+              _kvRow('whenComplete(fn)', 'Inherited Future API; runs only on normal completion'),
+              _kvRow('then(...)', 'Inherited Future API; canceled futures skip then() handlers'),
+              _kvRow('catchError(...)', 'Inherited; catches TickerCanceled when chained off orCancel'),
             ],
           ),
         ),
@@ -713,15 +665,9 @@ Widget _buildTickerFutureLifecycle() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _kvRow(
-                'preCompleted.runtimeType',
-                preCompleted.runtimeType.toString(),
-              ),
+              _kvRow('preCompleted.runtimeType', preCompleted.runtimeType.toString()),
               _kvRow('preCompleted.orCancel.runtimeType', orCancelType),
-              _kvRow(
-                'TickerCanceled().runtimeType',
-                canceled.runtimeType.toString(),
-              ),
+              _kvRow('TickerCanceled().runtimeType', canceled.runtimeType.toString()),
               _kvRow('TickerCanceled.toString()', canceled.toString()),
             ],
           ),
@@ -954,9 +900,7 @@ Widget _buildPhaseTile(_PhaseRow row, int index, bool isObserved) {
                   if (isObserved)
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: kGreen,
                         borderRadius: BorderRadius.circular(4),
@@ -1050,22 +994,10 @@ Widget _buildFrameTimingExplainer() {
               const SizedBox(height: 6),
               _kvRow('vsyncOverhead', 'engine wake to first build start'),
               _kvRow('buildDuration', 'build phase elapsed on the UI thread'),
-              _kvRow(
-                'rasterDuration',
-                'raster phase elapsed on the raster thread',
-              ),
-              _kvRow(
-                'totalSpan',
-                'vsync target to raster finish — must fit budget',
-              ),
-              _kvRow(
-                'frameNumber',
-                'monotonic counter, useful for joining traces',
-              ),
-              _kvRow(
-                'frameInterval',
-                'measured interval between adjacent vsyncs',
-              ),
+              _kvRow('rasterDuration', 'raster phase elapsed on the raster thread'),
+              _kvRow('totalSpan', 'vsync target to raster finish — must fit budget'),
+              _kvRow('frameNumber', 'monotonic counter, useful for joining traces'),
+              _kvRow('frameInterval', 'measured interval between adjacent vsyncs'),
               _kvRow('rasterStats', 'detailed raster sub-phase timings'),
             ],
           ),
@@ -1282,10 +1214,7 @@ Widget _buildCallbackTypeComparison() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _kvRow('Priority.idle.value', Priority.idle.value.toString()),
-              _kvRow(
-                'Priority.animation.value',
-                Priority.animation.value.toString(),
-              ),
+              _kvRow('Priority.animation.value', Priority.animation.value.toString()),
               _kvRow('Priority.touch.value', Priority.touch.value.toString()),
               _kvRow('Priority.kMaxOffset', Priority.kMaxOffset.toString()),
             ],
@@ -1614,7 +1543,10 @@ Widget _vsyncColumn(String label, int index) {
           const SizedBox(height: 2),
           Text(
             _elapsedLabelForIndex(index),
-            style: const TextStyle(fontSize: 9, color: kFgDim),
+            style: const TextStyle(
+              fontSize: 9,
+              color: kFgDim,
+            ),
           ),
         ],
       ),
@@ -1644,9 +1576,7 @@ Widget _buildTimeDilationCard() {
 
   // For the visual scale we map a dilation of 1.0 to the middle of the bar.
   // Anything > 1.0 stretches; anything between 0 and 1 compresses.
-  final double clamped = dilation < 0.0
-      ? 0.0
-      : (dilation > 5.0 ? 5.0 : dilation);
+  final double clamped = dilation < 0.0 ? 0.0 : (dilation > 5.0 ? 5.0 : dilation);
   final double frac = clamped / 5.0;
 
   return _card(
@@ -1717,9 +1647,7 @@ Widget _buildTimeDilationCard() {
           ],
         ),
         const SizedBox(height: 12),
-        _bullet(
-          '0.0 < timeDilation < 1.0 — animations run FASTER. Used in tests.',
-        ),
+        _bullet('0.0 < timeDilation < 1.0 — animations run FASTER. Used in tests.'),
         _bullet('timeDilation == 1.0 — production default. No scaling.'),
         _bullet('1.0 < timeDilation < 5.0 — animations slow down visibly.'),
         _bullet('timeDilation >= 5.0 — devtools "slow animations" preset.'),
@@ -1833,7 +1761,8 @@ Widget _buildGlossary() {
     ),
     _GlossaryEntry(
       term: 'scheduleTask',
-      gloss: 'Run a function lazily during idle time, gated by Priority.',
+      gloss:
+          'Run a function lazily during idle time, gated by Priority.',
     ),
     _GlossaryEntry(
       term: 'vsync',
@@ -1898,9 +1827,8 @@ Widget _buildDiagnostics(SchedulerPhase phase, Duration? frameStamp) {
   // A small card that prints the diagnostics from this run. Useful for
   // debugging mismatches between test driver and demo.
   final String phaseStr = phase.name;
-  final String stampStr = frameStamp == null
-      ? '(not available outside frame)'
-      : frameStamp.toString();
+  final String stampStr =
+      frameStamp == null ? '(not available outside frame)' : frameStamp.toString();
 
   return _card(
     background: kBgMutedCard,
@@ -1915,10 +1843,8 @@ Widget _buildDiagnostics(SchedulerPhase phase, Duration? frameStamp) {
         _kvRow('Priority.animation.value', Priority.animation.value.toString()),
         _kvRow('Priority.touch.value', Priority.touch.value.toString()),
         _kvRow('Priority.kMaxOffset', Priority.kMaxOffset.toString()),
-        _kvRow(
-          'SchedulerPhase.values.length',
-          SchedulerPhase.values.length.toString(),
-        ),
+        _kvRow('SchedulerPhase.values.length',
+            SchedulerPhase.values.length.toString()),
         const SizedBox(height: 6),
         _bodyText(
           'These values are read once at build() time. They reflect the '

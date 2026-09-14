@@ -68,7 +68,11 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(Icons.layers_outlined, size: 44.0, color: amber300),
+              child: Icon(
+                Icons.layers_outlined,
+                size: 44.0,
+                color: amber300,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -109,7 +113,11 @@ dynamic build(BuildContext context) {
           child: Text(
             'Singleton id-allocator that hands Flutter widgets unique '
             'integer handles for native (Android / iOS / web) views.',
-            style: TextStyle(color: slate100, fontSize: 13.5, height: 1.4),
+            style: TextStyle(
+              color: slate100,
+              fontSize: 13.5,
+              height: 1.4,
+            ),
           ),
         ),
         SizedBox(height: 12.0),
@@ -289,7 +297,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 14.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Icon(Icons.south, color: cyan600, size: 28.0)],
+          children: [
+            Icon(Icons.south, color: cyan600, size: 28.0),
+          ],
         ),
         SizedBox(height: 12.0),
         Container(
@@ -623,12 +633,36 @@ dynamic build(BuildContext context) {
   print('=== Section 6: Hybrid vs virtual displays ===');
   final List<List<String>> hybridRows = [
     ['Mode', 'Hybrid composition', 'Virtual display'],
-    ['Default in', 'AndroidView (newer)', 'AndroidView (legacy)'],
-    ['Rendering', 'Native view in same window', 'Off-screen virtual display'],
-    ['Input', 'Direct, native gestures', 'Synthesized, may drop events'],
-    ['Performance', 'Higher CPU overhead', 'Lower CPU, GPU texture'],
-    ['Accessibility', 'Native a11y tree merged', 'Limited a11y bridging'],
-    ['Text input', 'Native IME works', 'Often broken / lossy'],
+    [
+      'Default in',
+      'AndroidView (newer)',
+      'AndroidView (legacy)',
+    ],
+    [
+      'Rendering',
+      'Native view in same window',
+      'Off-screen virtual display',
+    ],
+    [
+      'Input',
+      'Direct, native gestures',
+      'Synthesized, may drop events',
+    ],
+    [
+      'Performance',
+      'Higher CPU overhead',
+      'Lower CPU, GPU texture',
+    ],
+    [
+      'Accessibility',
+      'Native a11y tree merged',
+      'Limited a11y bridging',
+    ],
+    [
+      'Text input',
+      'Native IME works',
+      'Often broken / lossy',
+    ],
   ];
   final Widget hybridTable = Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0),
@@ -688,7 +722,9 @@ dynamic build(BuildContext context) {
                     style: TextStyle(
                       color: i == 0 ? amber300 : slate900,
                       fontSize: 12.0,
-                      fontWeight: i == 0 ? FontWeight.bold : FontWeight.w600,
+                      fontWeight: i == 0
+                          ? FontWeight.bold
+                          : FontWeight.w600,
                     ),
                   ),
                 ),
@@ -829,8 +865,7 @@ dynamic build(BuildContext context) {
     {
       'n': '1',
       'title': 'Allocate id',
-      'body':
-          'Widget calls platformViewsRegistry.getNextPlatformViewId() '
+      'body': 'Widget calls platformViewsRegistry.getNextPlatformViewId() '
           'to obtain a fresh integer handle.',
       'icon': Icons.confirmation_number_outlined,
       'tint': cyan500,
@@ -838,8 +873,7 @@ dynamic build(BuildContext context) {
     {
       'n': '2',
       'title': 'Create',
-      'body':
-          'Engine sends the id + viewType + creationParams to the '
+      'body': 'Engine sends the id + viewType + creationParams to the '
           'native side, which builds the native view. '
           'onPlatformViewCreated(id) fires.',
       'icon': Icons.add_circle_outline,
@@ -848,8 +882,7 @@ dynamic build(BuildContext context) {
     {
       'n': '3',
       'title': 'Update',
-      'body':
-          'Subsequent layout / param updates target the same id; '
+      'body': 'Subsequent layout / param updates target the same id; '
           'controllers (e.g. WebViewController) keep the binding alive.',
       'icon': Icons.sync,
       'tint': amber500,
@@ -857,8 +890,7 @@ dynamic build(BuildContext context) {
     {
       'n': '4',
       'title': 'Dispose',
-      'body':
-          'Widget unmounts -> engine instructs native side to dispose '
+      'body': 'Widget unmounts -> engine instructs native side to dispose '
           'the view for that id. The id is permanently retired (never reused).',
       'icon': Icons.delete_outline,
       'tint': rose,
@@ -999,8 +1031,7 @@ dynamic build(BuildContext context) {
       'title': 'Ids leak across hot reload',
       'icon': Icons.local_fire_department,
       'tint': rose,
-      'body':
-          'Hot reload keeps the same Dart isolate, so the registry '
+      'body': 'Hot reload keeps the same Dart isolate, so the registry '
           'counter keeps climbing. Native views from before reload may '
           'still be alive — orphaned by ids your widgets no longer '
           'remember.',
@@ -1009,8 +1040,7 @@ dynamic build(BuildContext context) {
       'title': 'Never recycle ids manually',
       'icon': Icons.recycling,
       'tint': amber500,
-      'body':
-          'You must NOT pass an old id back into a new platform view. '
+      'body': 'You must NOT pass an old id back into a new platform view. '
           'The engine assumes ids are unique forever; reusing one '
           'corrupts the platform-side registry and may crash the engine.',
     },
@@ -1018,8 +1048,7 @@ dynamic build(BuildContext context) {
       'title': 'Null / missing id',
       'icon': Icons.help_outline,
       'tint': cyan600,
-      'body':
-          'Building an AndroidView/UiKitView yourself without going '
+      'body': 'Building an AndroidView/UiKitView yourself without going '
           'through the registry yields no id at all — the platform '
           'factory cannot match a creation request to a widget.',
     },
@@ -1027,8 +1056,7 @@ dynamic build(BuildContext context) {
       'title': 'Lost listeners',
       'icon': Icons.headset_off,
       'tint': slate700,
-      'body':
-          'Forgetting to wire onPlatformViewCreated leaves the '
+      'body': 'Forgetting to wire onPlatformViewCreated leaves the '
           'controller (e.g. MapController) unbound — the native view '
           'exists but cannot be driven from Dart.',
     },
@@ -1036,8 +1064,7 @@ dynamic build(BuildContext context) {
       'title': 'Web vs mobile semantics',
       'icon': Icons.public_off,
       'tint': emerald,
-      'body':
-          'On web the id is matched to a registered HtmlElement via '
+      'body': 'On web the id is matched to a registered HtmlElement via '
           'platformViewRegistry.registerViewFactory; on mobile, the id is '
           'matched to a PlatformViewFactory. The two sides are NOT '
           'interchangeable.',
@@ -1232,7 +1259,12 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8.0),
           realWorldMock,
           SizedBox(height: 28.0),
-          _sectionHeader('7. Lifecycle', Icons.timeline, slate900, amber500),
+          _sectionHeader(
+            '7. Lifecycle',
+            Icons.timeline,
+            slate900,
+            amber500,
+          ),
           SizedBox(height: 8.0),
           ...lifecycleCards,
           SizedBox(height: 28.0),
@@ -1254,7 +1286,12 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8.0),
           ...footgunCards,
           SizedBox(height: 28.0),
-          _sectionHeader('10. Recap', Icons.bookmark, slate900, amber500),
+          _sectionHeader(
+            '10. Recap',
+            Icons.bookmark,
+            slate900,
+            amber500,
+          ),
           recapCard,
           SizedBox(height: 24.0),
         ],
@@ -1475,7 +1512,10 @@ Widget _widgetSpecCard(
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(6.0),
@@ -1533,7 +1573,10 @@ Widget _widgetSpecCard(
               ),
               SizedBox(height: 10.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: tint.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(4.0),
@@ -1689,7 +1732,10 @@ Widget _embeddedMockCard(
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: amber.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(6.0),
@@ -1739,7 +1785,10 @@ Widget _embeddedMockCard(
           ),
         ),
         SizedBox(height: 8.0),
-        Text(detail, style: TextStyle(color: slateLight, fontSize: 11.5)),
+        Text(
+          detail,
+          style: TextStyle(color: slateLight, fontSize: 11.5),
+        ),
       ],
     ),
   );
@@ -1901,7 +1950,10 @@ Widget _footgunCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [tint.withValues(alpha: 0.18), tint.withValues(alpha: 0.05)],
+        colors: [
+          tint.withValues(alpha: 0.18),
+          tint.withValues(alpha: 0.05),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1977,7 +2029,11 @@ Widget _recapBullet(String text, Color textColor, Color bulletColor) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: textColor, fontSize: 13.0, height: 1.45),
+            style: TextStyle(
+              color: textColor,
+              fontSize: 13.0,
+              height: 1.45,
+            ),
           ),
         ),
       ],

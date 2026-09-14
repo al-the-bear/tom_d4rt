@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.camera_alt,
       'title': 'What is SnapshotWidget?',
-      'body':
-          'SnapshotWidget is the widget-level entry point for Flutter\'s '
+      'body': 'SnapshotWidget is the widget-level entry point for Flutter\'s '
           'snapshotting system. It wraps a child widget tree, captures its '
           'visual output as a rasterized image (ui.Image), and hands that '
           'image to a SnapshotPainter for custom rendering.',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'How It Works',
-      'body':
-          'When snapshotting is active, the child tree is painted once '
+      'body': 'When snapshotting is active, the child tree is painted once '
           'to an offscreen surface. On subsequent frames, the cached image '
           'is drawn by the SnapshotPainter instead of repainting the '
           'entire subtree. The child tree stays in the widget and element '
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.speed,
       'title': 'When to Use',
-      'body':
-          'SnapshotWidget shines when a complex child tree needs to '
+      'body': 'SnapshotWidget shines when a complex child tree needs to '
           'animate but its content does not change during the animation. '
           'Page transitions, drawer overlays, and drag previews are '
           'ideal use cases.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Limitations',
-      'body':
-          'Platform views, texture widgets, and certain render objects '
+      'body': 'Platform views, texture widgets, and certain render objects '
           'cannot be rasterized. SnapshotWidget may fall back to normal '
           'painting in those cases depending on the SnapshotMode.',
       'accent': Colors.orange,
@@ -127,16 +123,14 @@ dynamic build(BuildContext context) {
     {
       'param': 'painter',
       'type': 'SnapshotPainter',
-      'desc':
-          'The painter that handles rendering. Its paintSnapshot method '
+      'desc': 'The painter that handles rendering. Its paintSnapshot method '
           'is called with the cached image. Its paint method is called when '
           'snapshotting is not active.',
     },
     {
       'param': 'mode',
       'type': 'SnapshotMode',
-      'desc':
-          'Controls snapshot behavior. SnapshotMode.normal tries to '
+      'desc': 'Controls snapshot behavior. SnapshotMode.normal tries to '
           'snapshot and falls back to normal paint on failure. '
           'SnapshotMode.forced always snapshots (throws on failure). '
           'SnapshotMode.permissive skips un-rasterizable children.',
@@ -144,23 +138,20 @@ dynamic build(BuildContext context) {
     {
       'param': 'autoresize',
       'type': 'bool',
-      'desc':
-          'When true (default), the snapshot is automatically '
+      'desc': 'When true (default), the snapshot is automatically '
           'recaptured when the child changes size. When false, the old '
           'image is stretched to the new size.',
     },
     {
       'param': 'child',
       'type': 'Widget',
-      'desc':
-          'The widget tree to snapshot. Can be any widget — the '
+      'desc': 'The widget tree to snapshot. Can be any widget — the '
           'entire subtree is rasterized as one image.',
     },
     {
       'param': 'controller',
       'type': 'SnapshotController',
-      'desc':
-          'Controls when snapshotting is active. Call '
+      'desc': 'Controls when snapshotting is active. Call '
           'controller.allowSnapshotting = true/false to toggle.',
     },
   ];
@@ -250,16 +241,14 @@ dynamic build(BuildContext context) {
   final simStates = <Map<String, dynamic>>[
     {
       'label': 'Child Tree (Normal Paint)',
-      'desc':
-          'When snapshotting is inactive, the child tree is painted '
+      'desc': 'When snapshotting is inactive, the child tree is painted '
           'normally. Every widget in the tree runs its paint method.',
       'isSnapshot': false,
       'color': Colors.teal,
     },
     {
       'label': 'Snapshot Active (Cached Image)',
-      'desc':
-          'When snapshotting is active, the cached image is drawn. '
+      'desc': 'When snapshotting is active, the cached image is drawn. '
           'The visual output looks identical but the painting cost is '
           'just one drawImage call.',
       'isSnapshot': true,
@@ -329,11 +318,7 @@ dynamic build(BuildContext context) {
                           CircleAvatar(
                             radius: 18,
                             backgroundColor: Colors.white.withOpacity(0.3),
-                            child: const Icon(
-                              Icons.person,
-                              color: Colors.white,
-                              size: 20,
-                            ),
+                            child: const Icon(Icons.person, color: Colors.white, size: 20),
                           ),
                           const SizedBox(width: 10),
                           Column(
@@ -448,8 +433,7 @@ dynamic build(BuildContext context) {
   final modes = <Map<String, dynamic>>[
     {
       'name': 'SnapshotMode.normal',
-      'behavior':
-          'Attempts to snapshot. If the child tree contains widgets '
+      'behavior': 'Attempts to snapshot. If the child tree contains widgets '
           'that cannot be rasterized (e.g., platform views), falls back to '
           'normal painting transparently. No error thrown.',
       'icon': Icons.auto_mode,
@@ -458,8 +442,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'SnapshotMode.forced',
-      'behavior':
-          'Always captures a snapshot. If the child tree cannot be '
+      'behavior': 'Always captures a snapshot. If the child tree cannot be '
           'rasterized, throws an exception. Use when you need to guarantee '
           'the performance benefit of snapshotting.',
       'icon': Icons.lock,
@@ -468,8 +451,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'SnapshotMode.permissive',
-      'behavior':
-          'Captures what it can, skips what it cannot. '
+      'behavior': 'Captures what it can, skips what it cannot. '
           'Un-rasterizable children are drawn directly on top of the '
           'snapshot. Useful when most of the tree is cacheable.',
       'icon': Icons.tune,
@@ -532,7 +514,10 @@ dynamic build(BuildContext context) {
                           ),
                           child: Text(
                             'Fallback: ${m['fallback']}',
-                            style: TextStyle(fontSize: 10, color: mColor),
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: mColor,
+                            ),
                           ),
                         ),
                       ],
@@ -564,8 +549,7 @@ dynamic build(BuildContext context) {
   final resizeCases = <Map<String, dynamic>>[
     {
       'title': 'autoresize: true (default)',
-      'desc':
-          'When the child changes size, the snapshot is automatically '
+      'desc': 'When the child changes size, the snapshot is automatically '
           'recaptured at the new dimensions. This adds a one-frame cost '
           'but produces pixel-perfect output.',
       'visual': 'Fresh capture at new size',
@@ -574,8 +558,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'autoresize: false',
-      'desc':
-          'The old snapshot image is stretched to fill the new size. '
+      'desc': 'The old snapshot image is stretched to fill the new size. '
           'No recapture cost, but the image may look blurry or distorted '
           'if the size change is significant.',
       'visual': 'Stretched old image',
@@ -635,7 +618,10 @@ dynamic build(BuildContext context) {
                         child: Text(
                           'Original\n200x60',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 10, color: rcColor),
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: rcColor,
+                          ),
                         ),
                       ),
                     ),
@@ -705,29 +691,25 @@ dynamic build(BuildContext context) {
   final integrationFlow = <Map<String, dynamic>>[
     {
       'label': 'Create Painter',
-      'code':
-          'final painter = MySnapshotPainter(\n  tintColor: Colors.blue,\n);',
+      'code': 'final painter = MySnapshotPainter(\n  tintColor: Colors.blue,\n);',
       'note': 'Subclass SnapshotPainter. Store visual parameters.',
       'color': Colors.teal,
     },
     {
       'label': 'Wrap with SnapshotWidget',
-      'code':
-          'SnapshotWidget(\n  painter: painter,\n  child: complexContent,\n)',
+      'code': 'SnapshotWidget(\n  painter: painter,\n  child: complexContent,\n)',
       'note': 'Pass the painter to SnapshotWidget. The child is rasterized.',
       'color': Colors.blue,
     },
     {
       'label': 'paintSnapshot receives image',
-      'code':
-          'void paintSnapshot(\n  context, offset, size,\n  image, sourceSize, pixelRatio,\n) {\n  context.canvas.drawImage(image, offset, Paint());\n}',
+      'code': 'void paintSnapshot(\n  context, offset, size,\n  image, sourceSize, pixelRatio,\n) {\n  context.canvas.drawImage(image, offset, Paint());\n}',
       'note': 'Your painter gets the cached image. Draw it with effects.',
       'color': Colors.purple,
     },
     {
       'label': 'Update painter state',
-      'code':
-          'painter.tintColor = Colors.red;\n// notifyListeners() called internally',
+      'code': 'painter.tintColor = Colors.red;\n// notifyListeners() called internally',
       'note': 'Change visual state. notifyListeners triggers repaint.',
       'color': Colors.orange,
     },
@@ -827,8 +809,7 @@ dynamic build(BuildContext context) {
       'title': 'Without Snapshot',
       'widgets': 47,
       'paintMs': '8.2ms',
-      'desc':
-          'Complex card with avatar, gradient, 3 text fields, 5 icons, '
+      'desc': 'Complex card with avatar, gradient, 3 text fields, 5 icons, '
           'action buttons. All 47 widgets repainted every frame during '
           'animation.',
       'color': Colors.red,
@@ -838,8 +819,7 @@ dynamic build(BuildContext context) {
       'title': 'With Snapshot',
       'widgets': 1,
       'paintMs': '0.4ms',
-      'desc':
-          'Same visual output. One drawImage call. The 47 widgets '
+      'desc': 'Same visual output. One drawImage call. The 47 widgets '
           'were painted once to the cache. 20x faster paint on each '
           'subsequent frame.',
       'color': Colors.green,
@@ -877,7 +857,10 @@ dynamic build(BuildContext context) {
                 const Spacer(),
                 Text(
                   '${pc['widgets']} widget paints',
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.grey.shade500,
+                  ),
                 ),
               ],
             ),
@@ -942,38 +925,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.camera_alt,
-      'text':
-          'SnapshotWidget captures its child tree as a rasterized image '
+      'text': 'SnapshotWidget captures its child tree as a rasterized image '
           'and delegates painting to a SnapshotPainter.',
     },
     {
       'icon': Icons.auto_mode,
-      'text':
-          'SnapshotMode.normal (fallback), .forced (throw on failure), '
+      'text': 'SnapshotMode.normal (fallback), .forced (throw on failure), '
           'and .permissive (skip un-rasterizable) control behavior.',
     },
     {
       'icon': Icons.aspect_ratio,
-      'text':
-          'autoresize: true recaptures when the child resizes. '
+      'text': 'autoresize: true recaptures when the child resizes. '
           'false stretches the cached image (faster but may blur).',
     },
     {
       'icon': Icons.speed,
-      'text':
-          'Dramatic paint performance improvement for complex trees. '
+      'text': 'Dramatic paint performance improvement for complex trees. '
           'One drawImage call replaces dozens of widget paints.',
     },
     {
       'icon': Icons.warning_amber,
-      'text':
-          'Platform views and texture widgets cannot be rasterized. '
+      'text': 'Platform views and texture widgets cannot be rasterized. '
           'Use permissive mode to handle mixed content gracefully.',
     },
     {
       'icon': Icons.architecture,
-      'text':
-          'SnapshotWidget + SnapshotPainter form a pair. The widget '
+      'text': 'SnapshotWidget + SnapshotPainter form a pair. The widget '
           'manages capture, the painter handles rendering effects.',
     },
   ];

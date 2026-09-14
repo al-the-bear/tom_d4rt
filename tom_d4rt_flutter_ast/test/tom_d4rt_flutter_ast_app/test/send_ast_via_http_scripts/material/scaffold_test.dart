@@ -502,7 +502,10 @@ class AnatomyDiagram extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: const Icon(Icons.add, color: Colors.white),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         const Positioned(
@@ -764,15 +767,9 @@ class TabsMiniScaffold extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            Center(
-              child: Text('Inbox', style: TextStyle(color: kInk)),
-            ),
-            Center(
-              child: Text('Sent', style: TextStyle(color: kInk)),
-            ),
-            Center(
-              child: Text('Spam', style: TextStyle(color: kInk)),
-            ),
+            Center(child: Text('Inbox', style: TextStyle(color: kInk))),
+            Center(child: Text('Sent', style: TextStyle(color: kInk))),
+            Center(child: Text('Spam', style: TextStyle(color: kInk))),
           ],
         ),
       ),
@@ -1322,11 +1319,14 @@ class BottomSheetShowcase extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
-                BulletLine(text: 'Now Playing bars in music apps.'),
-                BulletLine(text: 'Persistent disclaimer footers.'),
                 BulletLine(
-                  text:
-                      'Inline form drafts that should always be '
+                  text: 'Now Playing bars in music apps.',
+                ),
+                BulletLine(
+                  text: 'Persistent disclaimer footers.',
+                ),
+                BulletLine(
+                  text: 'Inline form drafts that should always be '
                       'visible.',
                 ),
                 SizedBox(height: 8),
@@ -1496,196 +1496,196 @@ class DrawerScrimDiagram extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: kBorder),
       ),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              width: 220,
-              height: 320,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: kPaper,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: kBorder),
-                      ),
+      child: IntrinsicHeight(child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            width: 220,
+            height: 320,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: kPaper,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: kBorder),
                     ),
                   ),
-                  // The drawer (open, half-width).
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: 130,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
+                ),
+                // The drawer (open, half-width).
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: 130,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x33000000),
+                          blurRadius: 12,
+                          offset: Offset(2, 0),
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x33000000),
-                            blurRadius: 12,
-                            offset: Offset(2, 0),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(12),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Drawer',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              color: kInk,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            '- Account',
-                            style: TextStyle(color: kInk, fontSize: 12),
-                          ),
-                          Text(
-                            '- Privacy',
-                            style: TextStyle(color: kInk, fontSize: 12),
-                          ),
-                          Text(
-                            '- About',
-                            style: TextStyle(color: kInk, fontSize: 12),
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
-                  ),
-                  // The scrim over the still-visible body.
-                  Positioned(
-                    left: 130,
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: kInk.withValues(alpha: 0.55),
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text(
-                          'scrim\n(drawerScrimColor)',
-                          textAlign: TextAlign.center,
+                    padding: const EdgeInsets.all(12),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Drawer',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
+                            color: kInk,
                           ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '- Account',
+                          style: TextStyle(color: kInk, fontSize: 12),
+                        ),
+                        Text(
+                          '- Privacy',
+                          style: TextStyle(color: kInk, fontSize: 12),
+                        ),
+                        Text(
+                          '- About',
+                          style: TextStyle(color: kInk, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // The scrim over the still-visible body.
+                Positioned(
+                  left: 130,
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: kInk.withValues(alpha: 0.55),
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        'scrim\n(drawerScrimColor)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
                         ),
                       ),
                     ),
                   ),
-                  // Edge drag width band.
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: 18,
-                    child: Container(color: kAccent.withValues(alpha: 0.4)),
+                ),
+                // Edge drag width band.
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: 18,
+                  child: Container(
+                    color: kAccent.withValues(alpha: 0.4),
                   ),
-                  const Positioned(
-                    left: 22,
-                    top: 6,
-                    child: Text(
-                      'drag\nedge',
-                      style: TextStyle(
-                        color: kInk,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                      ),
+                ),
+                const Positioned(
+                  left: 22,
+                  top: 6,
+                  child: Text(
+                    'drag\nedge',
+                    style: TextStyle(
+                      color: kInk,
+                      fontSize: 9,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(width: 16),
-            const Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'drawerScrimColor',
-                    style: TextStyle(
-                      color: kInk,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                    ),
+          ),
+          const SizedBox(width: 16),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'drawerScrimColor',
+                  style: TextStyle(
+                    color: kInk,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    'Color used to dim the body while the drawer is open. '
-                    'Defaults to a translucent black; usually fine to leave '
-                    'alone.',
-                    style: TextStyle(
-                      color: Color(0xFF455A64),
-                      fontSize: 12,
-                      height: 1.35,
-                    ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Color used to dim the body while the drawer is open. '
+                  'Defaults to a translucent black; usually fine to leave '
+                  'alone.',
+                  style: TextStyle(
+                    color: Color(0xFF455A64),
+                    fontSize: 12,
+                    height: 1.35,
                   ),
-                  SizedBox(height: 12),
-                  Text(
-                    'drawerEdgeDragWidth',
-                    style: TextStyle(
-                      color: kInk,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                    ),
+                ),
+                SizedBox(height: 12),
+                Text(
+                  'drawerEdgeDragWidth',
+                  style: TextStyle(
+                    color: kInk,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    'Width of the screen-edge gesture region that opens the '
-                    'drawer when the user drags from the edge. Set to a '
-                    'larger value on devices with system back gestures so '
-                    'they coexist.',
-                    style: TextStyle(
-                      color: Color(0xFF455A64),
-                      fontSize: 12,
-                      height: 1.35,
-                    ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Width of the screen-edge gesture region that opens the '
+                  'drawer when the user drags from the edge. Set to a '
+                  'larger value on devices with system back gestures so '
+                  'they coexist.',
+                  style: TextStyle(
+                    color: Color(0xFF455A64),
+                    fontSize: 12,
+                    height: 1.35,
                   ),
-                  SizedBox(height: 12),
-                  Text(
-                    'drawerEnableOpenDragGesture',
-                    style: TextStyle(
-                      color: kInk,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                    ),
+                ),
+                SizedBox(height: 12),
+                Text(
+                  'drawerEnableOpenDragGesture',
+                  style: TextStyle(
+                    color: kInk,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    'If false, the drawer can only be opened programmatically '
-                    '(via Scaffold.of(context).openDrawer()). The same flag '
-                    'exists for the end drawer.',
-                    style: TextStyle(
-                      color: Color(0xFF455A64),
-                      fontSize: 12,
-                      height: 1.35,
-                    ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'If false, the drawer can only be opened programmatically '
+                  '(via Scaffold.of(context).openDrawer()). The same flag '
+                  'exists for the end drawer.',
+                  style: TextStyle(
+                    color: Color(0xFF455A64),
+                    fontSize: 12,
+                    height: 1.35,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )),
     );
   }
 }
@@ -1897,7 +1897,10 @@ class SettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: kDeepBlue),
-      title: Text(label, style: const TextStyle(fontSize: 13, color: kInk)),
+      title: Text(
+        label,
+        style: const TextStyle(fontSize: 13, color: kInk),
+      ),
       trailing: const Icon(Icons.chevron_right, color: kBorder),
       dense: true,
     );
@@ -1976,7 +1979,10 @@ class ChatBubble extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(color: mine ? Colors.white : kInk, fontSize: 12),
+          style: TextStyle(
+            color: mine ? Colors.white : kInk,
+            fontSize: 12,
+          ),
         ),
       ),
     );
@@ -2200,7 +2206,10 @@ class ScaffoldDemoChip extends StatelessWidget {
           ),
           const Expanded(
             child: Center(
-              child: Text('Body', style: TextStyle(color: kInk, fontSize: 10)),
+              child: Text(
+                'Body',
+                style: TextStyle(color: kInk, fontSize: 10),
+              ),
             ),
           ),
           Container(
@@ -2239,12 +2248,18 @@ class CupertinoDemoChip extends StatelessWidget {
             alignment: Alignment.center,
             child: const Text(
               'CupertinoNavigationBar',
-              style: TextStyle(color: CupertinoColors.activeBlue, fontSize: 9),
+              style: TextStyle(
+                color: CupertinoColors.activeBlue,
+                fontSize: 9,
+              ),
             ),
           ),
           const Expanded(
             child: Center(
-              child: Text('Body', style: TextStyle(color: kInk, fontSize: 10)),
+              child: Text(
+                'Body',
+                style: TextStyle(color: kInk, fontSize: 10),
+              ),
             ),
           ),
         ],
@@ -2453,28 +2468,23 @@ class FooterSection extends StatelessWidget {
           ),
           SizedBox(height: 10),
           FooterTakeaway(
-            text:
-                'Scaffold is a layout contract: each named slot has '
+            text: 'Scaffold is a layout contract: each named slot has '
                 'a defined region, padding rule, and z-order.',
           ),
           FooterTakeaway(
-            text:
-                'Use extendBody / extendBodyBehindAppBar for translucent '
+            text: 'Use extendBody / extendBodyBehindAppBar for translucent '
                 'bars, never to push the body around.',
           ),
           FooterTakeaway(
-            text:
-                'persistentFooterButtons is the right place for wizard '
+            text: 'persistentFooterButtons is the right place for wizard '
                 'navigation; bottomSheet is for always-on chrome.',
           ),
           FooterTakeaway(
-            text:
-                'Drawer state lives on Scaffold.of(context). Pass a '
+            text: 'Drawer state lives on Scaffold.of(context). Pass a '
                 'restorationId if you want it to survive process death.',
           ),
           FooterTakeaway(
-            text:
-                'For non-Material surfaces or full-bleed pages, drop '
+            text: 'For non-Material surfaces or full-bleed pages, drop '
                 'down to Material or CupertinoPageScaffold instead.',
           ),
         ],

@@ -159,23 +159,13 @@ dynamic build(BuildContext context) {
             SizedBox(width: 24.0),
             Column(
               children: [
-                Text(
-                  'top',
-                  style: TextStyle(
-                    color: amber700,
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text('top',
+                    style: TextStyle(
+                        color: amber700, fontSize: 11.0, fontWeight: FontWeight.bold)),
                 anatomyBox,
-                Text(
-                  'bottom',
-                  style: TextStyle(
-                    color: rose500,
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text('bottom',
+                    style: TextStyle(
+                        color: rose500, fontSize: 11.0, fontWeight: FontWeight.bold)),
               ],
             ),
           ],
@@ -228,15 +218,13 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(color: teal200, border: b),
             ),
             SizedBox(height: 8.0),
-            Text(
-              'width: $w',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12.0,
-                color: teal700,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('width: $w',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                  color: teal700,
+                  fontWeight: FontWeight.bold,
+                )),
           ],
         ),
       ),
@@ -251,25 +239,13 @@ dynamic build(BuildContext context) {
 
   final solidBorder = Border.all(color: amber700, width: 4.0);
   final noneBorder = Border.all(
-    color: amber700,
-    width: 4.0,
-    style: BorderStyle.none,
-  );
+      color: amber700, width: 4.0, style: BorderStyle.none);
   final insideBorder = Border.all(
-    color: teal700,
-    width: 6.0,
-    strokeAlign: BorderSide.strokeAlignInside,
-  );
+      color: teal700, width: 6.0, strokeAlign: BorderSide.strokeAlignInside);
   final centerBorder = Border.all(
-    color: teal700,
-    width: 6.0,
-    strokeAlign: BorderSide.strokeAlignCenter,
-  );
+      color: teal700, width: 6.0, strokeAlign: BorderSide.strokeAlignCenter);
   final outsideBorder = Border.all(
-    color: teal700,
-    width: 6.0,
-    strokeAlign: BorderSide.strokeAlignOutside,
-  );
+      color: teal700, width: 6.0, strokeAlign: BorderSide.strokeAlignOutside);
 
   print('solid uniform=${solidBorder.isUniform}');
   print('none uniform=${noneBorder.isUniform} style=${noneBorder.top.style}');
@@ -432,14 +408,12 @@ dynamic build(BuildContext context) {
       height: 90.0,
       decoration: BoxDecoration(color: slate100, border: dirBorder),
       alignment: Alignment.center,
-      child: Text(
-        'LTR',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: slate900,
-          fontSize: 16.0,
-        ),
-      ),
+      child: Text('LTR',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: slate900,
+            fontSize: 16.0,
+          )),
     ),
   );
   final rtlBox = Directionality(
@@ -449,14 +423,12 @@ dynamic build(BuildContext context) {
       height: 90.0,
       decoration: BoxDecoration(color: slate100, border: dirBorder),
       alignment: Alignment.center,
-      child: Text(
-        'RTL',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: slate900,
-          fontSize: 16.0,
-        ),
-      ),
+      child: Text('RTL',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: slate900,
+            fontSize: 16.0,
+          )),
     ),
   );
 
@@ -494,38 +466,26 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Column(
-              children: [
-                Text('LTR', style: TextStyle(fontSize: 11.0, color: slate500)),
-                SizedBox(height: 4.0),
-                ltrBox,
-                SizedBox(height: 4.0),
-                Text(
-                  'start = left',
+            Column(children: [
+              Text('LTR',
+                  style: TextStyle(fontSize: 11.0, color: slate500)),
+              SizedBox(height: 4.0),
+              ltrBox,
+              SizedBox(height: 4.0),
+              Text('start = left',
                   style: TextStyle(
-                    fontSize: 10.0,
-                    color: amber700,
-                    fontFamily: 'monospace',
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Text('RTL', style: TextStyle(fontSize: 11.0, color: slate500)),
-                SizedBox(height: 4.0),
-                rtlBox,
-                SizedBox(height: 4.0),
-                Text(
-                  'start = right',
+                      fontSize: 10.0, color: amber700, fontFamily: 'monospace')),
+            ]),
+            Column(children: [
+              Text('RTL',
+                  style: TextStyle(fontSize: 11.0, color: slate500)),
+              SizedBox(height: 4.0),
+              rtlBox,
+              SizedBox(height: 4.0),
+              Text('start = right',
                   style: TextStyle(
-                    fontSize: 10.0,
-                    color: amber700,
-                    fontFamily: 'monospace',
-                  ),
-                ),
-              ],
-            ),
+                      fontSize: 10.0, color: amber700, fontFamily: 'monospace')),
+            ]),
           ],
         ),
       ],
@@ -567,26 +527,25 @@ dynamic build(BuildContext context) {
             Container(
               width: 70.0,
               height: 50.0,
-              decoration: BoxDecoration(color: slate100, border: blended),
+              decoration: BoxDecoration(
+                color: slate100,
+                border: blended,
+              ),
             ),
             SizedBox(height: 8.0),
-            Text(
-              't = $t',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11.0,
-                fontWeight: FontWeight.bold,
-                color: slate900,
-              ),
-            ),
-            Text(
-              'w=${width.toStringAsFixed(2)}',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10.0,
-                color: slate500,
-              ),
-            ),
+            Text('t = $t',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.bold,
+                  color: slate900,
+                )),
+            Text('w=${width.toStringAsFixed(2)}',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10.0,
+                  color: slate500,
+                )),
           ],
         ),
       ),
@@ -598,10 +557,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          amber200.withValues(alpha: 0.3),
-          teal200.withValues(alpha: 0.4),
-        ],
+        colors: [amber200.withValues(alpha: 0.3), teal200.withValues(alpha: 0.4)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -626,7 +582,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        Wrap(alignment: WrapAlignment.center, children: lerpCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: lerpCards,
+        ),
       ],
     ),
   );
@@ -679,48 +638,34 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Column(
-              children: [
-                Container(
-                  width: 100.0,
-                  height: 70.0,
-                  decoration: BoxDecoration(
-                    color: amber200,
-                    border: mixedColorBorder,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                Text(
-                  'uniform 4px',
+            Column(children: [
+              Container(
+                width: 100.0,
+                height: 70.0,
+                decoration:
+                    BoxDecoration(color: amber200, border: mixedColorBorder),
+              ),
+              SizedBox(height: 6.0),
+              Text('uniform 4px',
                   style: TextStyle(
-                    fontSize: 10.0,
-                    color: slate500,
-                    fontFamily: 'monospace',
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 100.0,
-                  height: 70.0,
-                  decoration: BoxDecoration(
-                    color: slate100,
-                    border: mixedWidthBorder,
-                  ),
-                ),
-                SizedBox(height: 6.0),
-                Text(
-                  'top/bot 8 - sides 2',
+                      fontSize: 10.0,
+                      color: slate500,
+                      fontFamily: 'monospace')),
+            ]),
+            Column(children: [
+              Container(
+                width: 100.0,
+                height: 70.0,
+                decoration:
+                    BoxDecoration(color: slate100, border: mixedWidthBorder),
+              ),
+              SizedBox(height: 6.0),
+              Text('top/bot 8 - sides 2',
                   style: TextStyle(
-                    fontSize: 10.0,
-                    color: slate500,
-                    fontFamily: 'monospace',
-                  ),
-                ),
-              ],
-            ),
+                      fontSize: 10.0,
+                      color: slate500,
+                      fontFamily: 'monospace')),
+            ]),
           ],
         ),
         SizedBox(height: 10.0),
@@ -730,9 +675,7 @@ dynamic build(BuildContext context) {
             color: rose500.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
-              color: rose500.withValues(alpha: 0.4),
-              width: 1.0,
-            ),
+                color: rose500.withValues(alpha: 0.4), width: 1.0),
           ),
           child: Text(
             'Caveat: BorderRadius and shape:circle require a uniform border. '
@@ -759,13 +702,12 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(8.0),
       border: Border.all(color: slate300, width: 1.0),
     ),
-    child: Row(
-      children: [
-        Icon(Icons.search, color: slate500, size: 18.0),
-        SizedBox(width: 8.0),
-        Text('search', style: TextStyle(color: slate500, fontSize: 13.0)),
-      ],
-    ),
+    child: Row(children: [
+      Icon(Icons.search, color: slate500, size: 18.0),
+      SizedBox(width: 8.0),
+      Text('search',
+          style: TextStyle(color: slate500, fontSize: 13.0)),
+    ]),
   );
   final inputFocused = Container(
     width: 220.0,
@@ -782,13 +724,12 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Row(
-      children: [
-        Icon(Icons.search, color: teal700, size: 18.0),
-        SizedBox(width: 8.0),
-        Text('search', style: TextStyle(color: slate900, fontSize: 13.0)),
-      ],
-    ),
+    child: Row(children: [
+      Icon(Icons.search, color: teal700, size: 18.0),
+      SizedBox(width: 8.0),
+      Text('search',
+          style: TextStyle(color: slate900, fontSize: 13.0)),
+    ]),
   );
 
   // Card frame
@@ -810,28 +751,24 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Container(
-              width: 28.0,
-              height: 28.0,
-              decoration: BoxDecoration(
-                color: amber500,
-                border: Border.all(color: amber700, width: 1.0),
-                shape: BoxShape.circle,
-              ),
+        Row(children: [
+          Container(
+            width: 28.0,
+            height: 28.0,
+            decoration: BoxDecoration(
+              color: amber500,
+              border: Border.all(color: amber700, width: 1.0),
+              shape: BoxShape.circle,
             ),
-            SizedBox(width: 8.0),
-            Text(
-              'Profile card',
+          ),
+          SizedBox(width: 8.0),
+          Text('Profile card',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: slate900,
                 fontSize: 13.0,
-              ),
-            ),
-          ],
-        ),
+              )),
+        ]),
         SizedBox(height: 10.0),
         Text(
           'Border.all + boxShadow gives a soft elevated frame.',
@@ -879,14 +816,11 @@ dynamic build(BuildContext context) {
       ],
     ),
     alignment: Alignment.center,
-    child: Text(
-      '99+',
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        color: amber700,
-        fontSize: 14.0,
-      ),
-    ),
+    child: Text('99+',
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: amber700,
+            fontSize: 14.0)),
   );
 
   // Tab indicator - bottom border only
@@ -933,62 +867,36 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 14.0),
-        Text(
-          'Input field - idle / focused',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: slate500,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text('Input field - idle / focused',
+            style: TextStyle(
+                fontSize: 12.0, color: slate500, fontStyle: FontStyle.italic)),
         SizedBox(height: 6.0),
-        Wrap(
-          spacing: 12.0,
-          runSpacing: 12.0,
-          children: [inputIdle, inputFocused],
-        ),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: [
+          inputIdle,
+          inputFocused,
+        ]),
         SizedBox(height: 16.0),
-        Text(
-          'Card frame',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: slate500,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text('Card frame',
+            style: TextStyle(
+                fontSize: 12.0, color: slate500, fontStyle: FontStyle.italic)),
         SizedBox(height: 6.0),
         cardFrame,
         SizedBox(height: 16.0),
-        Text(
-          'Divider strip (top + bottom only)',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: slate500,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text('Divider strip (top + bottom only)',
+            style: TextStyle(
+                fontSize: 12.0, color: slate500, fontStyle: FontStyle.italic)),
         SizedBox(height: 6.0),
         dividerStrip,
         SizedBox(height: 16.0),
-        Text(
-          'Badge ring (circular)',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: slate500,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text('Badge ring (circular)',
+            style: TextStyle(
+                fontSize: 12.0, color: slate500, fontStyle: FontStyle.italic)),
         SizedBox(height: 6.0),
         badgeRing,
         SizedBox(height: 16.0),
-        Text(
-          'Tab indicator (bottom side only)',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: slate500,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text('Tab indicator (bottom side only)',
+            style: TextStyle(
+                fontSize: 12.0, color: slate500, fontStyle: FontStyle.italic)),
         SizedBox(height: 6.0),
         tabIndicator,
       ],
@@ -1003,32 +911,27 @@ dynamic build(BuildContext context) {
   final footguns = <Map<String, String>>[
     {
       'title': 'Mixed colours need uniform width',
-      'body':
-          'Border with different colours per side requires equal widths. '
+      'body': 'Border with different colours per side requires equal widths. '
           'Mixing colours and widths can produce visual seams at the corners.',
     },
     {
       'title': 'BoxBorder.lerp restrictions',
-      'body':
-          'BoxBorder.lerp only blends Border <-> Border or BorderDirectional '
+      'body': 'BoxBorder.lerp only blends Border <-> Border or BorderDirectional '
           '<-> BorderDirectional. Crossing families snaps from a to b at t=0.5.',
     },
     {
       'title': 'isUniform is strict',
-      'body':
-          'isUniform requires identical color, width, style and strokeAlign '
+      'body': 'isUniform requires identical color, width, style and strokeAlign '
           'across all sides. Any difference flips it to false.',
     },
     {
       'title': 'BorderDirectional needs Directionality',
-      'body':
-          'BorderDirectional resolves start/end via the inherited '
+      'body': 'BorderDirectional resolves start/end via the inherited '
           'Directionality. Without one in the tree, painting will assert.',
     },
     {
       'title': 'strokeAlign affects layout',
-      'body':
-          'strokeAlignOutside paints outside the box, ignoring layout space. '
+      'body': 'strokeAlignOutside paints outside the box, ignoring layout space. '
           'Use it for emphasis but expect overflow over neighbouring widgets.',
     },
   ];
@@ -1051,7 +954,9 @@ dynamic build(BuildContext context) {
     footgunCards.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: IntrinsicHeight(
@@ -1072,26 +977,21 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.warning_amber_rounded,
-                              color: rose500,
-                              size: 18.0,
-                            ),
-                            SizedBox(width: 6.0),
-                            Expanded(
-                              child: Text(
-                                f['title'] as String,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: slate900,
-                                  fontSize: 13.0,
-                                ),
+                        Row(children: [
+                          Icon(Icons.warning_amber_rounded,
+                              color: rose500, size: 18.0),
+                          SizedBox(width: 6.0),
+                          Expanded(
+                            child: Text(
+                              f['title'] as String,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: slate900,
+                                fontSize: 13.0,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ]),
                         SizedBox(height: 6.0),
                         Text(
                           f['body'] as String,
@@ -1118,8 +1018,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 12: Recap ===');
 
-  final allBorderCount =
-      widthCards.length +
+  final allBorderCount = widthCards.length +
       colorCards.length +
       factoryCards.length +
       lerpCards.length +
@@ -1148,24 +1047,18 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(Icons.check_circle, color: amber500, size: 22.0),
-            SizedBox(width: 8.0),
-            Text(
-              'Recap',
+        Row(children: [
+          Icon(Icons.check_circle, color: amber500, size: 22.0),
+          SizedBox(width: 8.0),
+          Text('Recap',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
-              ),
-            ),
-          ],
-        ),
+              )),
+        ]),
         SizedBox(height: 10.0),
-        _recapLine(
-          'BoxBorder is abstract; concrete: Border, BorderDirectional',
-        ),
+        _recapLine('BoxBorder is abstract; concrete: Border, BorderDirectional'),
         _recapLine('Properties: top, bottom, isUniform, dimensions'),
         _recapLine('Border.all / fromBorderSide / symmetric for ergonomics'),
         _recapLine('BoxBorder.lerp blends within the same family'),
@@ -1245,14 +1138,12 @@ Widget _legend(String label, Color color) {
           ),
         ),
         SizedBox(width: 8.0),
-        Text(
-          label,
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12.0,
-            color: Color(0xFF0F172A),
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12.0,
+              color: Color(0xFF0F172A),
+            )),
       ],
     ),
   );
@@ -1284,24 +1175,20 @@ Widget _styleCard(String label, Border border, Color fill, String descr) {
           decoration: BoxDecoration(color: fill, border: border),
         ),
         SizedBox(height: 8.0),
-        Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF0F172A),
-            fontSize: 12.0,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF0F172A),
+              fontSize: 12.0,
+            )),
         SizedBox(height: 2.0),
-        Text(
-          descr,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 9.5,
-            color: Color(0xFF64748B),
-          ),
-        ),
+        Text(descr,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 9.5,
+              color: Color(0xFF64748B),
+            )),
       ],
     ),
   );
@@ -1336,15 +1223,13 @@ Widget _factoryCard(String label, Border border, Color fill) {
           decoration: BoxDecoration(color: fill, border: border),
         ),
         SizedBox(height: 8.0),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.0,
-            color: Color(0xFF334155),
-          ),
-        ),
+        Text(label,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11.0,
+              color: Color(0xFF334155),
+            )),
       ],
     ),
   );

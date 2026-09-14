@@ -53,7 +53,11 @@ dynamic build(BuildContext context) {
                 color: Colors.green.shade600,
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.logout, color: Colors.white, size: 28.0),
+              child: Icon(
+                Icons.logout,
+                color: Colors.white,
+                size: 28.0,
+              ),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -138,7 +142,11 @@ dynamic build(BuildContext context) {
                 color: Colors.deepOrange.shade600,
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.block, color: Colors.white, size: 28.0),
+              child: Icon(
+                Icons.block,
+                color: Colors.white,
+                size: 28.0,
+              ),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -209,9 +217,8 @@ dynamic build(BuildContext context) {
     required AppExitResponse noResponse,
     required Color accent,
   }) {
-    Color colorFor(AppExitResponse r) => r == AppExitResponse.exit
-        ? Colors.green.shade600
-        : Colors.deepOrange.shade600;
+    Color colorFor(AppExitResponse r) =>
+        r == AppExitResponse.exit ? Colors.green.shade600 : Colors.deepOrange.shade600;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       padding: EdgeInsets.all(14.0),
@@ -303,7 +310,10 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: colorFor(noResponse).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: colorFor(noResponse), width: 1.0),
+                    border: Border.all(
+                      color: colorFor(noResponse),
+                      width: 1.0,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -677,7 +687,11 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 5: Sequence Diagram ===');
 
-  Widget buildSequenceLane(String actor, Color color, IconData icon) {
+  Widget buildSequenceLane(
+    String actor,
+    Color color,
+    IconData icon,
+  ) {
     return Container(
       width: 90.0,
       padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -724,14 +738,20 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: tint.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: tint.withValues(alpha: 0.4), width: 1.0),
+        border: Border.all(
+          color: tint.withValues(alpha: 0.4),
+          width: 1.0,
+        ),
       ),
       child: Row(
         children: [
           Container(
             width: 28.0,
             height: 28.0,
-            decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: tint,
+              shape: BoxShape.circle,
+            ),
             child: Center(
               child: Text(
                 '$stepNumber',
@@ -760,7 +780,9 @@ dynamic build(BuildContext context) {
                     ),
                     SizedBox(width: 6.0),
                     Icon(
-                      isReturn ? Icons.arrow_back : Icons.arrow_forward,
+                      isReturn
+                          ? Icons.arrow_back
+                          : Icons.arrow_forward,
                       color: tint,
                       size: 14.0,
                     ),
@@ -778,7 +800,10 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   message,
-                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey.shade800,
+                  ),
                 ),
               ],
             ),
@@ -875,7 +900,9 @@ dynamic build(BuildContext context) {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
         decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey.shade300)),
+          border: Border(
+            top: BorderSide(color: Colors.grey.shade300),
+          ),
         ),
         child: Text(
           text,
@@ -1048,7 +1075,9 @@ dynamic build(BuildContext context) {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
               decoration: BoxDecoration(
-                color: calls ? Colors.green.shade600 : Colors.grey.shade500,
+                color: calls
+                    ? Colors.green.shade600
+                    : Colors.grey.shade500,
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: Row(
@@ -1061,7 +1090,9 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(width: 4.0),
                   Text(
-                    calls ? 'onExitRequested fires' : 'never fires',
+                    calls
+                        ? 'onExitRequested fires'
+                        : 'never fires',
                     style: TextStyle(
                       fontSize: 9.5,
                       fontWeight: FontWeight.bold,
@@ -1074,7 +1105,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               note,
-              style: TextStyle(fontSize: 10.5, color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 10.5,
+                color: Colors.grey.shade700,
+              ),
             ),
           ],
         ),
@@ -1176,7 +1210,10 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(24.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFFD32F2F), Color(0xFFFF7043)],
+                    colors: [
+                      Color(0xFFD32F2F),
+                      Color(0xFFFF7043),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1191,7 +1228,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.exit_to_app, size: 56.0, color: Colors.white),
+                    Icon(
+                      Icons.exit_to_app,
+                      size: 56.0,
+                      color: Colors.white,
+                    ),
                     SizedBox(height: 10.0),
                     Text(
                       'AppExitResponse',
@@ -1265,7 +1306,10 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 10.0),
-              Wrap(alignment: WrapAlignment.center, children: scenarioWidgets),
+              Wrap(
+                alignment: WrapAlignment.center,
+                children: scenarioWidgets,
+              ),
               SizedBox(height: 28.0),
 
               // Section 4 header
@@ -1321,7 +1365,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 10.0),
                     sequenceLanes,
                     SizedBox(height: 14.0),
-                    Container(height: 1.0, color: Colors.white24),
+                    Container(
+                      height: 1.0,
+                      color: Colors.white24,
+                    ),
                     SizedBox(height: 10.0),
                     Text(
                       'Messages',
@@ -1375,7 +1422,10 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 10.0),
-              Wrap(alignment: WrapAlignment.center, children: platformTiles),
+              Wrap(
+                alignment: WrapAlignment.center,
+                children: platformTiles,
+              ),
               SizedBox(height: 28.0),
 
               // Section 8 header
@@ -1450,7 +1500,10 @@ Widget _summaryRow(IconData icon, String title, String detail, Color color) {
               SizedBox(height: 2.0),
               Text(
                 detail,
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ],
           ),

@@ -19,16 +19,16 @@ import 'package:flutter/material.dart';
 /// 7. Best practices
 
 // ─── palette ───────────────────────────────────────────────
-const _kTeal = Color(0xFF009688);
-const _kTealLight = Color(0xFFB2DFDB);
-const _kTealDark = Color(0xFF004D40);
-const _kPink = Color(0xFFE91E63);
-const _kPinkLight = Color(0xFFFCE4EC);
-const _kPinkDark = Color(0xFF880E4F);
-const _kSurface = Color(0xFFFBFBFD);
-const _kDivider = Color(0xFFE0E0E0);
-const _kTextDark = Color(0xFF212121);
-const _kTextMuted = Color(0xFF757575);
+const _kTeal       = Color(0xFF009688);
+const _kTealLight  = Color(0xFFB2DFDB);
+const _kTealDark   = Color(0xFF004D40);
+const _kPink       = Color(0xFFE91E63);
+const _kPinkLight  = Color(0xFFFCE4EC);
+const _kPinkDark   = Color(0xFF880E4F);
+const _kSurface    = Color(0xFFFBFBFD);
+const _kDivider    = Color(0xFFE0E0E0);
+const _kTextDark   = Color(0xFF212121);
+const _kTextMuted  = Color(0xFF757575);
 
 // ─── enum value details ────────────────────────────────────
 class _EnumDetail {
@@ -44,39 +44,38 @@ const _kEnumValues = <_EnumDetail>[
     'ScrollbarOrientation.left',
     Icons.arrow_back,
     'Places the scrollbar on the left side of the scroll view. '
-        'Used with vertical scroll directions.',
+    'Used with vertical scroll directions.',
     'RTL layouts where the scrollbar should appear on the leading edge, '
-        'or custom layouts where left-side scrollbar is preferred.',
+    'or custom layouts where left-side scrollbar is preferred.',
   ),
   _EnumDetail(
     'ScrollbarOrientation.right',
     Icons.arrow_forward,
     'Places the scrollbar on the right side of the scroll view. '
-        'This is the default for vertical scrolling.',
+    'This is the default for vertical scrolling.',
     'Standard LTR vertical scroll views. Most common orientation. '
-        'No explicit setting needed when using default Material Scrollbar.',
+    'No explicit setting needed when using default Material Scrollbar.',
   ),
   _EnumDetail(
     'ScrollbarOrientation.top',
     Icons.arrow_upward,
     'Places the scrollbar at the top of the scroll view. '
-        'Used with horizontal scroll directions.',
+    'Used with horizontal scroll directions.',
     'Horizontal carousels, image galleries, or timeline views where '
-        'the scrollbar should appear above the content.',
+    'the scrollbar should appear above the content.',
   ),
   _EnumDetail(
     'ScrollbarOrientation.bottom',
     Icons.arrow_downward,
     'Places the scrollbar at the bottom of the scroll view. '
-        'Used with horizontal scroll directions.',
+    'Used with horizontal scroll directions.',
     'Standard horizontal scroll views. Most common for horizontal '
-        'scrolling when a scrollbar indicator is needed.',
+    'scrolling when a scrollbar indicator is needed.',
   ),
 ];
 
 // ─── theory content ────────────────────────────────────────
-const _kOverview =
-    'ScrollbarOrientation is a simple enum with four values '
+const _kOverview = 'ScrollbarOrientation is a simple enum with four values '
     'that tells the scrollbar framework where to draw the track and thumb. '
     'By default, vertical scroll views use right and horizontal scroll views '
     'use bottom. Override this via the scrollbarOrientation parameter on '
@@ -85,11 +84,8 @@ const _kOverview =
     'unconventional scrollbar placement.';
 
 class _DirectionMapping {
-  const _DirectionMapping(
-    this.scrollDirection,
-    this.defaultOrientation,
-    this.alternateOrientation,
-  );
+  const _DirectionMapping(this.scrollDirection, this.defaultOrientation,
+      this.alternateOrientation);
   final String scrollDirection;
   final String defaultOrientation;
   final String alternateOrientation;
@@ -97,15 +93,11 @@ class _DirectionMapping {
 
 const _kDirectionMappings = <_DirectionMapping>[
   _DirectionMapping(
-    'Axis.vertical',
-    'ScrollbarOrientation.right',
-    'ScrollbarOrientation.left',
-  ),
+      'Axis.vertical', 'ScrollbarOrientation.right',
+      'ScrollbarOrientation.left'),
   _DirectionMapping(
-    'Axis.horizontal',
-    'ScrollbarOrientation.bottom',
-    'ScrollbarOrientation.top',
-  ),
+      'Axis.horizontal', 'ScrollbarOrientation.bottom',
+      'ScrollbarOrientation.top'),
 ];
 
 const _kPractices = <String, String>{
@@ -142,15 +134,9 @@ Widget _sectionHeader(String title, IconData icon) {
         Icon(icon, color: Colors.white, size: 22),
         SizedBox(width: 12),
         Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.4,
-            ),
-          ),
+          child: Text(title,
+              style: TextStyle(color: Colors.white, fontSize: 16,
+                  fontWeight: FontWeight.w700, letterSpacing: 0.4)),
         ),
       ],
     ),
@@ -165,40 +151,23 @@ Widget _card({required Widget child}) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.04),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
-      ],
+      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04),
+          blurRadius: 6, offset: Offset(0, 2))],
     ),
     child: child,
   );
 }
 
 Widget _label(String text) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontSize: 11,
-      color: _kTextMuted,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.6,
-    ),
-  );
+  return Text(text,
+      style: TextStyle(fontSize: 11, color: _kTextMuted,
+          fontWeight: FontWeight.w600, letterSpacing: 0.6));
 }
 
 Widget _mono(String text, {Color? color}) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontFamily: 'monospace',
-      fontSize: 12.5,
-      color: color ?? _kTextDark,
-      height: 1.45,
-    ),
-  );
+  return Text(text,
+      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5,
+          color: color ?? _kTextDark, height: 1.45));
 }
 
 Widget _bullet(String text) {
@@ -207,19 +176,11 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 7),
-          width: 5,
-          height: 5,
-          decoration: BoxDecoration(color: _kTeal, shape: BoxShape.circle),
-        ),
+        Container(margin: EdgeInsets.only(top: 7), width: 5, height: 5,
+            decoration: BoxDecoration(color: _kTeal, shape: BoxShape.circle)),
         SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-          ),
-        ),
+        Expanded(child: Text(text,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
       ],
     ),
   );
@@ -235,10 +196,7 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: _kTeal,
-        brightness: Brightness.light,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: _kTeal, brightness: Brightness.light),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: _DemoScaffold(),
@@ -271,14 +229,8 @@ class _DemoScaffoldState extends State<_DemoScaffold> {
         selectedItemColor: _kTealDark,
         onTap: (i) => setState(() => _tabIndex = i),
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school_outlined),
-            label: 'Theory',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.swap_horiz),
-            label: 'Switcher',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.school_outlined), label: 'Theory'),
+          BottomNavigationBarItem(icon: Icon(Icons.swap_horiz), label: 'Switcher'),
           BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Grid'),
         ],
       ),
@@ -297,12 +249,8 @@ class _TheoryPage extends StatelessWidget {
       children: [
         _sectionHeader('1 · What Is ScrollbarOrientation?', Icons.info_outline),
         SizedBox(height: 8),
-        _card(
-          child: Text(
-            _kOverview,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-          ),
-        ),
+        _card(child: Text(_kOverview,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,14 +264,10 @@ class _TheoryPage extends StatelessWidget {
               _mono('  child: ListView(...),'),
               _mono(')'),
               SizedBox(height: 8),
-              _bullet(
-                'Pass scrollbarOrientation to RawScrollbar, Scrollbar, '
-                'or CupertinoScrollbar.',
-              ),
-              _bullet(
-                'The orientation must match the scroll axis — vertical '
-                'scroll → left/right, horizontal scroll → top/bottom.',
-              ),
+              _bullet('Pass scrollbarOrientation to RawScrollbar, Scrollbar, '
+                  'or CupertinoScrollbar.'),
+              _bullet('The orientation must match the scroll axis — vertical '
+                  'scroll → left/right, horizontal scroll → top/bottom.'),
             ],
           ),
         ),
@@ -331,85 +275,62 @@ class _TheoryPage extends StatelessWidget {
         SizedBox(height: 12),
         _sectionHeader('2 · Enum Values', Icons.list_alt),
         SizedBox(height: 8),
-        ..._kEnumValues.map(
-          (v) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 32,
-                      height: 32,
+        ..._kEnumValues.map((v) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 32, height: 32,
+                    decoration: BoxDecoration(
+                      color: _kTealLight, shape: BoxShape.circle),
+                    alignment: Alignment.center,
+                    child: Icon(v.icon, color: _kTealDark, size: 18),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: _kTealLight,
-                        shape: BoxShape.circle,
+                        color: _kPinkLight,
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      alignment: Alignment.center,
-                      child: Icon(v.icon, color: _kTealDark, size: 18),
+                      child: Text(v.name,
+                          style: TextStyle(fontFamily: 'monospace',
+                              fontWeight: FontWeight.w700, fontSize: 11,
+                              color: _kPinkDark)),
                     ),
-                    SizedBox(width: 10),
+                  ),
+                ],
+              ),
+              SizedBox(height: 6),
+              Text(v.description,
+                  style: TextStyle(fontSize: 12.5, color: _kTextDark,
+                      height: 1.35)),
+              SizedBox(height: 4),
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _kTealLight.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.lightbulb_outline, size: 14, color: _kTeal),
+                    SizedBox(width: 6),
                     Expanded(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: _kPinkLight,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          v.name,
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                            color: _kPinkDark,
-                          ),
-                        ),
-                      ),
+                      child: Text(v.useCase,
+                          style: TextStyle(fontSize: 11.5, color: _kTextDark,
+                              height: 1.3)),
                     ),
                   ],
                 ),
-                SizedBox(height: 6),
-                Text(
-                  v.description,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: _kTealLight.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(Icons.lightbulb_outline, size: 14, color: _kTeal),
-                      SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          v.useCase,
-                          style: TextStyle(
-                            fontSize: 11.5,
-                            color: _kTextDark,
-                            height: 1.3,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
+        )),
 
         SizedBox(height: 12),
         _sectionHeader('3 · Scroll Direction Mapping', Icons.compare_arrows),
@@ -431,48 +352,25 @@ class _TheoryPage extends StatelessWidget {
                 children: [
                   TableRow(
                     decoration: BoxDecoration(
-                      color: _kTealLight.withOpacity(0.5),
-                    ),
-                    children: ['Scroll Dir', 'Default', 'Alternate']
-                        .map(
-                          (h) => Padding(
-                            padding: EdgeInsets.all(6),
-                            child: Text(
-                              h,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 10.5,
-                                color: _kTealDark,
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
+                        color: _kTealLight.withOpacity(0.5)),
+                    children: ['Scroll Dir', 'Default', 'Alternate'].map((h) =>
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text(h, style: TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 10.5,
+                              color: _kTealDark)),
+                        )).toList(),
                   ),
-                  ..._kDirectionMappings.map(
-                    (d) => TableRow(
-                      children:
-                          [
-                                d.scrollDirection,
-                                d.defaultOrientation,
-                                d.alternateOrientation,
-                              ]
-                              .map(
-                                (c) => Padding(
-                                  padding: EdgeInsets.all(6),
-                                  child: Text(
-                                    c,
-                                    style: TextStyle(
-                                      fontFamily: 'monospace',
-                                      fontSize: 9.5,
-                                      color: _kTextDark,
-                                    ),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                    ),
-                  ),
+                  ..._kDirectionMappings.map((d) => TableRow(
+                    children: [d.scrollDirection, d.defaultOrientation,
+                        d.alternateOrientation].map((c) =>
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text(c, style: TextStyle(
+                              fontFamily: 'monospace', fontSize: 9.5,
+                              color: _kTextDark)),
+                        )).toList(),
+                  )),
                 ],
               ),
             ],
@@ -482,44 +380,32 @@ class _TheoryPage extends StatelessWidget {
         SizedBox(height: 12),
         _sectionHeader('7 · Best Practices', Icons.lightbulb_outlined),
         SizedBox(height: 8),
-        ..._kPractices.entries.map(
-          (e) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.check_circle_outline, color: _kTeal, size: 18),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        e.key,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
-                          color: _kTealDark,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 4),
-                Padding(
-                  padding: EdgeInsets.only(left: 26),
-                  child: Text(
-                    e.value,
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      color: _kTextDark,
-                      height: 1.35,
-                    ),
+        ..._kPractices.entries.map((e) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.check_circle_outline, color: _kTeal, size: 18),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(e.key,
+                        style: TextStyle(fontWeight: FontWeight.w600,
+                            fontSize: 13, color: _kTealDark)),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+              SizedBox(height: 4),
+              Padding(
+                padding: EdgeInsets.only(left: 26),
+                child: Text(e.value,
+                    style: TextStyle(fontSize: 12.5, color: _kTextDark,
+                        height: 1.35)),
+              ),
+            ],
           ),
-        ),
+        )),
       ],
     );
   }
@@ -566,26 +452,15 @@ class _SwitcherPageState extends State<_SwitcherPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ORIENTATION SWITCHER',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6,
-                ),
-              ),
+              Text('ORIENTATION SWITCHER',
+                  style: TextStyle(color: Colors.white70, fontSize: 11,
+                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
               SizedBox(height: 4),
-              Text(
-                'Switch between the four ScrollbarOrientation values. '
-                'The scrollbar moves to the selected edge. Left/Right use '
-                'vertical scroll, Top/Bottom use horizontal scroll.',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 10.5,
-                  height: 1.3,
-                ),
-              ),
+              Text('Switch between the four ScrollbarOrientation values. '
+                  'The scrollbar moves to the selected edge. Left/Right use '
+                  'vertical scroll, Top/Bottom use horizontal scroll.',
+                  style: TextStyle(color: Colors.white70, fontSize: 10.5,
+                      height: 1.3)),
               SizedBox(height: 8),
               Row(
                 children: _kOrientations.entries.map((e) {
@@ -602,18 +477,13 @@ class _SwitcherPageState extends State<_SwitcherPage> {
                               : Colors.white.withOpacity(0.08),
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
-                            color: selected ? _kPink : Colors.white24,
-                          ),
+                              color: selected ? _kPink : Colors.white24),
                         ),
                         alignment: Alignment.center,
-                        child: Text(
-                          e.value,
-                          style: TextStyle(
-                            color: selected ? Colors.white : Colors.white54,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        child: Text(e.value,
+                            style: TextStyle(
+                                color: selected ? Colors.white : Colors.white54,
+                                fontSize: 11, fontWeight: FontWeight.w700)),
                       ),
                     ),
                   );
@@ -622,27 +492,19 @@ class _SwitcherPageState extends State<_SwitcherPage> {
               SizedBox(height: 8),
               Row(
                 children: [
-                  Text(
-                    'Thickness: ',
-                    style: TextStyle(color: Colors.white70, fontSize: 10),
-                  ),
+                  Text('Thickness: ', style: TextStyle(
+                      color: Colors.white70, fontSize: 10)),
                   Expanded(
                     child: Slider(
-                      value: _thickness,
-                      min: 4,
-                      max: 20,
+                      value: _thickness, min: 4, max: 20,
                       activeColor: _kPink,
-                      onChanged: (v) => setState(() => _thickness = v),
+                      onChanged: (v) =>
+                          setState(() => _thickness = v),
                     ),
                   ),
-                  Text(
-                    '${_thickness.toInt()}px',
-                    style: TextStyle(
-                      color: _kPink,
-                      fontFamily: 'monospace',
-                      fontSize: 11,
-                    ),
-                  ),
+                  Text('${_thickness.toInt()}px',
+                      style: TextStyle(color: _kPink,
+                          fontFamily: 'monospace', fontSize: 11)),
                 ],
               ),
               Row(
@@ -651,21 +513,15 @@ class _SwitcherPageState extends State<_SwitcherPage> {
                     onTap: () => setState(() => _alwaysShow = !_alwaysShow),
                     child: Row(
                       children: [
-                        Icon(
-                          _alwaysShow
-                              ? Icons.check_box
-                              : Icons.check_box_outline_blank,
-                          color: _alwaysShow ? _kPink : Colors.white54,
-                          size: 18,
-                        ),
+                        Icon(_alwaysShow
+                            ? Icons.check_box
+                            : Icons.check_box_outline_blank,
+                            color: _alwaysShow ? _kPink : Colors.white54,
+                            size: 18),
                         SizedBox(width: 6),
-                        Text(
-                          'Always visible',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 10.5,
-                          ),
-                        ),
+                        Text('Always visible',
+                            style: TextStyle(color: Colors.white70,
+                                fontSize: 10.5)),
                       ],
                     ),
                   ),
@@ -677,13 +533,9 @@ class _SwitcherPageState extends State<_SwitcherPage> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      'Axis: ${_isVertical ? "vertical" : "horizontal"}',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontFamily: 'monospace',
-                        fontSize: 10,
-                      ),
-                    ),
+                        'Axis: ${_isVertical ? "vertical" : "horizontal"}',
+                        style: TextStyle(color: Colors.white70,
+                            fontFamily: 'monospace', fontSize: 10)),
                   ),
                 ],
               ),
@@ -732,40 +584,23 @@ class _SwitcherPageState extends State<_SwitcherPage> {
         child: Row(
           children: [
             Container(
-              width: 30,
-              height: 30,
+              width: 30, height: 30,
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.7),
-                shape: BoxShape.circle,
-              ),
+                shape: BoxShape.circle),
               alignment: Alignment.center,
-              child: Text(
-                '${index + 1}',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                  color: _kTextDark,
-                ),
-              ),
+              child: Text('${index + 1}',
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800,
+                      color: _kTextDark)),
             ),
             SizedBox(width: 12),
-            Text(
-              'Scroll item ${index + 1}',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: _kTextDark,
-              ),
-            ),
+            Text('Scroll item ${index + 1}',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600,
+                    color: _kTextDark)),
             Spacer(),
-            Text(
-              '${hue.toInt()}°',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10,
-                color: _kTextMuted,
-              ),
-            ),
+            Text('${hue.toInt()}°',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 10,
+                    color: _kTextMuted)),
           ],
         ),
       );
@@ -782,22 +617,12 @@ class _SwitcherPageState extends State<_SwitcherPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            '${index + 1}',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
-              color: _kTextDark,
-            ),
-          ),
-          Text(
-            '${hue.toInt()}°',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kTextMuted,
-            ),
-          ),
+          Text('${index + 1}',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800,
+                  color: _kTextDark)),
+          Text('${hue.toInt()}°',
+              style: TextStyle(fontFamily: 'monospace', fontSize: 10,
+                  color: _kTextMuted)),
         ],
       ),
     );
@@ -819,26 +644,15 @@ class _GridPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ALL FOUR ORIENTATIONS',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6,
-                ),
-              ),
+              Text('ALL FOUR ORIENTATIONS',
+                  style: TextStyle(color: Colors.white70, fontSize: 11,
+                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
               SizedBox(height: 4),
-              Text(
-                'See all four ScrollbarOrientation values side by side. '
-                'Left/Right scrollbars on vertical lists, Top/Bottom on '
-                'horizontal lists.',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 10.5,
-                  height: 1.3,
-                ),
-              ),
+              Text('See all four ScrollbarOrientation values side by side. '
+                  'Left/Right scrollbars on vertical lists, Top/Bottom on '
+                  'horizontal lists.',
+                  style: TextStyle(color: Colors.white70, fontSize: 10.5,
+                      height: 1.3)),
             ],
           ),
         ),
@@ -945,15 +759,9 @@ class _OrientedPanelState extends State<_OrientedPanel> {
             padding: EdgeInsets.symmetric(vertical: 6),
             color: widget.color.withOpacity(0.15),
             alignment: Alignment.center,
-            child: Text(
-              widget.label,
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w800,
-                color: widget.color,
-                letterSpacing: 1,
-              ),
-            ),
+            child: Text(widget.label,
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w800,
+                    color: widget.color, letterSpacing: 1)),
           ),
           Expanded(
             child: RawScrollbar(
@@ -973,23 +781,15 @@ class _OrientedPanelState extends State<_OrientedPanel> {
                           margin: EdgeInsets.all(2),
                           height: 32,
                           decoration: BoxDecoration(
-                            color: HSVColor.fromAHSV(
-                              1,
-                              shade,
-                              0.12,
-                              0.97,
-                            ).toColor(),
+                            color: HSVColor.fromAHSV(1, shade, 0.12, 0.97)
+                                .toColor(),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           alignment: Alignment.center,
-                          child: Text(
-                            '${i + 1}',
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              color: _kTextMuted,
-                            ),
-                          ),
+                          child: Text('${i + 1}',
+                              style: TextStyle(fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: _kTextMuted)),
                         );
                       },
                     )
@@ -1003,23 +803,15 @@ class _OrientedPanelState extends State<_OrientedPanel> {
                           margin: EdgeInsets.all(2),
                           width: 40,
                           decoration: BoxDecoration(
-                            color: HSVColor.fromAHSV(
-                              1,
-                              shade,
-                              0.12,
-                              0.97,
-                            ).toColor(),
+                            color: HSVColor.fromAHSV(1, shade, 0.12, 0.97)
+                                .toColor(),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           alignment: Alignment.center,
-                          child: Text(
-                            '${i + 1}',
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              color: _kTextMuted,
-                            ),
-                          ),
+                          child: Text('${i + 1}',
+                              style: TextStyle(fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: _kTextMuted)),
                         );
                       },
                     ),

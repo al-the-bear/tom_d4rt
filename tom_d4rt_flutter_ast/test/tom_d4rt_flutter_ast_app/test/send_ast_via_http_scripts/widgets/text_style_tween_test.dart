@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.text_fields,
       'title': 'Text Style Interpolation',
-      'body':
-          'TextStyleTween extends Tween<TextStyle> and uses '
+      'body': 'TextStyleTween extends Tween<TextStyle> and uses '
           'TextStyle.lerp to smoothly transition between a begin '
           'and end style. Every numeric property interpolates linearly; '
           'colors blend through their color space.',
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Animation-Ready',
-      'body':
-          'Designed to work with AnimationController and animation '
+      'body': 'Designed to work with AnimationController and animation '
           'widgets like DefaultTextStyleTransition and '
           'AnimatedDefaultTextStyle. Calling lerp(t) returns the '
           'exact intermediate TextStyle at time t.',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'Tween Hierarchy',
-      'body':
-          'TextStyleTween → Tween<TextStyle> → Animatable<TextStyle>. '
+      'body': 'TextStyleTween → Tween<TextStyle> → Animatable<TextStyle>. '
           'Inherits transform(), animate(), chain() methods. The '
           'only override is lerp(double t) which delegates to '
           'TextStyle.lerp(begin, end, t).',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.palette,
       'title': 'Rich Interpolation',
-      'body':
-          'Numeric properties (fontSize, letterSpacing, wordSpacing, '
+      'body': 'Numeric properties (fontSize, letterSpacing, wordSpacing, '
           'height, decorationThickness) interpolate linearly. Colors '
           'blend smoothly. FontWeight steps through its 9 weights. '
           'Non-numeric properties switch at t=0.5.',
@@ -83,10 +79,8 @@ dynamic build(BuildContext context) {
   final lerpPoints = <double>[0.0, 0.25, 0.5, 0.75, 1.0];
   final lerpStyles = lerpPoints.map((t) {
     final s = styleTween.lerp(t);
-    print(
-      '  t=$t: fontSize=${s.fontSize?.toStringAsFixed(1)}, '
-      'weight=${s.fontWeight}, letterSpacing=${s.letterSpacing?.toStringAsFixed(1)}',
-    );
+    print('  t=$t: fontSize=${s.fontSize?.toStringAsFixed(1)}, '
+        'weight=${s.fontWeight}, letterSpacing=${s.letterSpacing?.toStringAsFixed(1)}');
     return {'t': t, 'style': s};
   }).toList();
 
@@ -171,24 +165,21 @@ dynamic build(BuildContext context) {
   final nonInterpolable = <Map<String, dynamic>>[
     {
       'name': 'fontFamily',
-      'behavior':
-          'Switches at t > 0.5 from begin to end value. '
+      'behavior': 'Switches at t > 0.5 from begin to end value. '
           'There is no smooth transition between font families.',
       'icon': Icons.font_download,
       'color': Colors.deepPurple[800]!,
     },
     {
       'name': 'fontFeatures',
-      'behavior':
-          'Feature sets switch at t > 0.5. Individual '
+      'behavior': 'Feature sets switch at t > 0.5. Individual '
           'OpenType features cannot be partially applied.',
       'icon': Icons.tune,
       'color': Colors.amber[800]!,
     },
     {
       'name': 'decoration',
-      'behavior':
-          'TextDecoration switches at t > 0.5 (e.g., '
+      'behavior': 'TextDecoration switches at t > 0.5 (e.g., '
           'underline to line-through). The decoration type '
           'itself does not interpolate.',
       'icon': Icons.format_underlined,
@@ -196,8 +187,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'fontStyle',
-      'behavior':
-          'Normal vs italic switches at t > 0.5. There '
+      'behavior': 'Normal vs italic switches at t > 0.5. There '
           'is no "partial italic" in fonts.',
       'icon': Icons.format_italic,
       'color': Colors.amber[700]!,
@@ -244,12 +234,10 @@ dynamic build(BuildContext context) {
   final usagePatterns = <Map<String, dynamic>>[
     {
       'title': 'DefaultTextStyleTransition',
-      'description':
-          'Animates the DefaultTextStyle of a subtree. Wraps '
+      'description': 'Animates the DefaultTextStyle of a subtree. Wraps '
           'children and transitions the text style used by all Text '
           'widgets without explicit style.',
-      'code':
-          'DefaultTextStyleTransition(\n'
+      'code': 'DefaultTextStyleTransition(\n'
           '  style: textStyleTween.animate(controller),\n'
           '  child: Text(\'Hello\'),\n'
           ')',
@@ -257,12 +245,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'AnimatedDefaultTextStyle',
-      'description':
-          'Implicit animation version — just change the style '
+      'description': 'Implicit animation version — just change the style '
           'property and it transitions automatically over the given '
           'duration using a curve.',
-      'code':
-          'AnimatedDefaultTextStyle(\n'
+      'code': 'AnimatedDefaultTextStyle(\n'
           '  style: isLarge ? bigStyle : smallStyle,\n'
           '  duration: Duration(milliseconds: 300),\n'
           '  child: Text(\'Hello\'),\n'
@@ -271,12 +257,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'AnimatedBuilder + TextStyleTween',
-      'description':
-          'Manual control: create the tween, animate it, and '
+      'description': 'Manual control: create the tween, animate it, and '
           'use the interpolated style in a builder for maximum '
           'flexibility.',
-      'code':
-          'AnimatedBuilder(\n'
+      'code': 'AnimatedBuilder(\n'
           '  animation: controller,\n'
           '  builder: (ctx, _) {\n'
           '    final style = tween.evaluate(controller);\n'
@@ -287,11 +271,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'TweenAnimationBuilder',
-      'description':
-          'Stateless implicit animation that uses the tween '
+      'description': 'Stateless implicit animation that uses the tween '
           'directly without needing an AnimationController.',
-      'code':
-          'TweenAnimationBuilder<TextStyle>(\n'
+      'code': 'TweenAnimationBuilder<TextStyle>(\n'
           '  tween: TextStyleTween(\n'
           '    begin: style1, end: style2,\n'
           '  ),\n'
@@ -313,8 +295,7 @@ dynamic build(BuildContext context) {
   final edgeCases = <Map<String, dynamic>>[
     {
       'title': 'Null Begin Field',
-      'detail':
-          'If begin has fontSize but end does not, the result at '
+      'detail': 'If begin has fontSize but end does not, the result at '
           't>0 uses end\'s null. TextStyle.lerp handles this by '
           'lerping from the value to null (effectively disappearing).',
       'icon': Icons.warning_amber,
@@ -322,8 +303,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Mismatched Decorations',
-      'detail':
-          'Decoration switches at t > 0.5. Going from underline '
+      'detail': 'Decoration switches at t > 0.5. Going from underline '
           'to line-through will show underline for the first half '
           'and line-through for the second.',
       'icon': Icons.swap_horiz,
@@ -331,8 +311,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Inherit Property',
-      'detail':
-          'If inherit is true in one style and false in another, '
+      'detail': 'If inherit is true in one style and false in another, '
           'the switched value at t > 0.5 determines whether the '
           'intermediate style inherits from the DefaultTextStyle.',
       'icon': Icons.merge_type,
@@ -340,8 +319,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Both Null',
-      'detail':
-          'If both begin and end are null, lerp returns null. '
+      'detail': 'If both begin and end are null, lerp returns null. '
           'The TextStyleTween constructor requires non-null begin '
           'and end, but individual properties can be null.',
       'icon': Icons.block,
@@ -444,67 +422,42 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24),
 
         // ---- Section 1: Concept ----
-        _sectionHeader(
-          '1. Concept',
-          Icons.info_outline,
-          Colors.deepPurple[800]!,
-        ),
+        _sectionHeader('1. Concept', Icons.info_outline, Colors.deepPurple[800]!),
         SizedBox(height: 10),
-        ...conceptCards.map(
-          (c) => Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: (c['accent'] as Color).withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(12),
-                border: Border(
-                  left: BorderSide(color: c['accent'] as Color, width: 4),
+        ...conceptCards.map((c) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: (c['accent'] as Color).withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(left: BorderSide(color: c['accent'] as Color, width: 4)),
+                ),
+                padding: EdgeInsets.all(14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(c['icon'] as IconData, color: c['accent'] as Color, size: 28),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(c['title'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: c['accent'] as Color)),
+                          SizedBox(height: 4),
+                          Text(c['body'] as String, style: TextStyle(fontSize: 13)),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.all(14),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    c['icon'] as IconData,
-                    color: c['accent'] as Color,
-                    size: 28,
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          c['title'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: c['accent'] as Color,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          c['body'] as String,
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 2: Lerp Showcase ----
-        _sectionHeader(
-          '2. Visual Lerp Showcase',
-          Icons.gradient,
-          Colors.amber[800]!,
-        ),
+        _sectionHeader('2. Visual Lerp Showcase', Icons.gradient, Colors.amber[800]!),
         SizedBox(height: 10),
         Text(
           'Each row shows text rendered at a different interpolation point. '
@@ -538,25 +491,17 @@ dynamic build(BuildContext context) {
                         color: Colors.deepPurple[100],
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
-                        't=${t.toStringAsFixed(2)}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('t=${t.toStringAsFixed(2)}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 10, fontFamily: 'monospace', fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(width: 12),
-                    Expanded(child: Text('TextStyleTween', style: style)),
+                    Expanded(
+                      child: Text('TextStyleTween', style: style),
+                    ),
                     Text(
                       '${style.fontSize?.toStringAsFixed(0)}px',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey[500],
-                        fontFamily: 'monospace',
-                      ),
+                      style: TextStyle(fontSize: 10, color: Colors.grey[500], fontFamily: 'monospace'),
                     ),
                   ],
                 ),
@@ -568,156 +513,93 @@ dynamic build(BuildContext context) {
         SizedBox(height: 20),
 
         // ---- Section 3: Property Details ----
-        _sectionHeader(
-          '3. Interpolable Properties',
-          Icons.tune,
-          Colors.deepPurple[800]!,
-        ),
+        _sectionHeader('3. Interpolable Properties', Icons.tune, Colors.deepPurple[800]!),
         SizedBox(height: 10),
-        ...properties.map(
-          (p) => Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey[300]!),
-              ),
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Icon(
-                    p['icon'] as IconData,
-                    color: p['color'] as Color,
-                    size: 20,
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      p['name'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        fontFamily: 'monospace',
-                        color: p['color'] as Color,
+        ...properties.map((p) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey[300]!),
+                ),
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    Icon(p['icon'] as IconData, color: p['color'] as Color, size: 20),
+                    SizedBox(width: 10),
+                    Expanded(
+                      flex: 2,
+                      child: Text(p['name'] as String,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, fontFamily: 'monospace', color: p['color'] as Color)),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _propertyChip(p['begin'] as String, Colors.deepPurple[100]!),
+                          Icon(Icons.arrow_forward, size: 12, color: Colors.grey[400]),
+                          _propertyChip(p['mid'] as String, Colors.grey[200]!),
+                          Icon(Icons.arrow_forward, size: 12, color: Colors.grey[400]),
+                          _propertyChip(p['end'] as String, Colors.amber[100]!),
+                        ],
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _propertyChip(
-                          p['begin'] as String,
-                          Colors.deepPurple[100]!,
-                        ),
-                        Icon(
-                          Icons.arrow_forward,
-                          size: 12,
-                          color: Colors.grey[400],
-                        ),
-                        _propertyChip(p['mid'] as String, Colors.grey[200]!),
-                        Icon(
-                          Icons.arrow_forward,
-                          size: 12,
-                          color: Colors.grey[400],
-                        ),
-                        _propertyChip(p['end'] as String, Colors.amber[100]!),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 6),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: (p['color'] as Color).withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      p['type'] as String,
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w600,
-                        color: p['color'] as Color,
+                    SizedBox(width: 6),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: (p['color'] as Color).withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(4),
                       ),
+                      child: Text(p['type'] as String,
+                          style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: p['color'] as Color)),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 4: Non-Interpolable Properties ----
-        _sectionHeader(
-          '4. Non-Interpolable (Switch at t > 0.5)',
-          Icons.swap_horiz,
-          Colors.amber[800]!,
-        ),
+        _sectionHeader('4. Non-Interpolable (Switch at t > 0.5)', Icons.swap_horiz, Colors.amber[800]!),
         SizedBox(height: 10),
-        ...nonInterpolable.map(
-          (p) => Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                color: (p['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(10),
-                border: Border(
-                  left: BorderSide(color: p['color'] as Color, width: 4),
+        ...nonInterpolable.map((p) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: (p['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border(left: BorderSide(color: p['color'] as Color, width: 4)),
+                ),
+                padding: EdgeInsets.all(12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(p['icon'] as IconData, color: p['color'] as Color, size: 22),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(p['name'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'monospace', color: p['color'] as Color)),
+                          SizedBox(height: 3),
+                          Text(p['behavior'] as String, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.all(12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    p['icon'] as IconData,
-                    color: p['color'] as Color,
-                    size: 22,
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          p['name'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: 'monospace',
-                            color: p['color'] as Color,
-                          ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          p['behavior'] as String,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 5: Multi-Property Rich Samples ----
-        _sectionHeader(
-          '5. Multi-Property Transition',
-          Icons.auto_awesome,
-          Colors.deepPurple[800]!,
-        ),
+        _sectionHeader('5. Multi-Property Transition', Icons.auto_awesome, Colors.deepPurple[800]!),
         SizedBox(height: 10),
         Text(
           'A rich tween with fontSize, color, weight, letterSpacing, '
@@ -751,10 +633,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2),
                             gradient: LinearGradient(
-                              colors: [
-                                Colors.deepPurple[800]!,
-                                Colors.amber[700]!,
-                              ],
+                              colors: [Colors.deepPurple[800]!, Colors.amber[700]!],
                               stops: [0, 1],
                             ),
                           ),
@@ -770,21 +649,12 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8),
-                        Text(
-                          '$pct%',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: Colors.grey[500],
-                          ),
-                        ),
+                        Text('$pct%',
+                            style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: Colors.grey[500])),
                       ],
                     ),
                     SizedBox(height: 2),
-                    Text(
-                      'The quick brown fox jumps over the lazy dog',
-                      style: style,
-                    ),
+                    Text('The quick brown fox jumps over the lazy dog', style: style),
                     Divider(height: 12, color: Colors.grey[200]),
                   ],
                 ),
@@ -798,121 +668,81 @@ dynamic build(BuildContext context) {
         // ---- Section 6: Usage Patterns ----
         _sectionHeader('6. Usage Patterns', Icons.code, Colors.amber[800]!),
         SizedBox(height: 10),
-        ...usagePatterns.map(
-          (u) => Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: (u['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(12),
-                border: Border(
-                  left: BorderSide(color: u['color'] as Color, width: 4),
+        ...usagePatterns.map((u) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: (u['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(left: BorderSide(color: u['color'] as Color, width: 4)),
+                ),
+                padding: EdgeInsets.all(14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(u['title'] as String,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: u['color'] as Color)),
+                    SizedBox(height: 4),
+                    Text(u['description'] as String, style: TextStyle(fontSize: 13)),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(u['code'] as String,
+                          style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Colors.greenAccent[200])),
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.all(14),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    u['title'] as String,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: u['color'] as Color,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    u['description'] as String,
-                    style: TextStyle(fontSize: 13),
-                  ),
-                  SizedBox(height: 8),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[900],
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Text(
-                      u['code'] as String,
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 11,
-                        color: Colors.greenAccent[200],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 7: Edge Cases ----
-        _sectionHeader(
-          '7. Edge Cases & Gotchas',
-          Icons.warning_amber,
-          Colors.deepPurple[800]!,
-        ),
+        _sectionHeader('7. Edge Cases & Gotchas', Icons.warning_amber, Colors.deepPurple[800]!),
         SizedBox(height: 10),
-        ...edgeCases.map(
-          (e) => Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey[300]!),
+        ...edgeCases.map((e) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey[300]!),
+                ),
+                padding: EdgeInsets.all(12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 34,
+                      height: 34,
+                      decoration: BoxDecoration(
+                        color: (e['color'] as Color).withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(e['icon'] as IconData, color: e['color'] as Color, size: 18),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(e['title'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: e['color'] as Color)),
+                          SizedBox(height: 3),
+                          Text(e['detail'] as String,
+                              style: TextStyle(fontSize: 12, color: Colors.grey[700])),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              padding: EdgeInsets.all(12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 34,
-                    height: 34,
-                    decoration: BoxDecoration(
-                      color: (e['color'] as Color).withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                      e['icon'] as IconData,
-                      color: e['color'] as Color,
-                      size: 18,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          e['title'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: e['color'] as Color,
-                          ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          e['detail'] as String,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
@@ -932,50 +762,10 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                 child: Row(
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        'Tween',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Type',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Lerp Via',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        'Use Case',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
+                    Expanded(flex: 3, child: Text('Tween', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+                    Expanded(flex: 2, child: Text('Type', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+                    Expanded(flex: 2, child: Text('Lerp Via', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+                    Expanded(flex: 3, child: Text('Use Case', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
                   ],
                 ),
               ),
@@ -988,40 +778,20 @@ dynamic build(BuildContext context) {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: Text(
-                          c['tween'] as String,
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: i == 0
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text(c['tween'] as String,
+                            style: TextStyle(fontSize: 11, fontWeight: i == 0 ? FontWeight.bold : FontWeight.normal, fontFamily: 'monospace')),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          c['type'] as String,
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text(c['type'] as String, style: TextStyle(fontSize: 11, fontFamily: 'monospace')),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          c['method'] as String,
-                          style: TextStyle(fontSize: 11),
-                        ),
+                        child: Text(c['method'] as String, style: TextStyle(fontSize: 11)),
                       ),
                       Expanded(
                         flex: 3,
-                        child: Text(
-                          c['use'] as String,
-                          style: TextStyle(fontSize: 11),
-                        ),
+                        child: Text(c['use'] as String, style: TextStyle(fontSize: 11)),
                       ),
                     ],
                   ),
@@ -1067,14 +837,7 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
     children: [
       Icon(icon, color: color, size: 22),
       SizedBox(width: 8),
-      Text(
-        title,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: color,
-        ),
-      ),
+      Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
     ],
   );
 }

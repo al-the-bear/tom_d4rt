@@ -223,14 +223,10 @@ dynamic build(BuildContext context) {
     );
   }
 
-  TextSpan kw(String s) => TextSpan(
-    text: s,
-    style: const TextStyle(color: codeKw),
-  );
-  TextSpan num0(String s) => TextSpan(
-    text: s,
-    style: const TextStyle(color: codeNum),
-  );
+  TextSpan kw(String s) =>
+      TextSpan(text: s, style: const TextStyle(color: codeKw));
+  TextSpan num0(String s) =>
+      TextSpan(text: s, style: const TextStyle(color: codeNum));
   TextSpan cmt(String s) => TextSpan(
     text: s,
     style: const TextStyle(color: codeCmt, fontStyle: FontStyle.italic),
@@ -275,7 +271,9 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(14.0),
-        border: border != null ? Border.all(color: border, width: 1.4) : null,
+        border: border != null
+            ? Border.all(color: border, width: 1.4)
+            : null,
         boxShadow: shadows,
       ),
       child: child,
@@ -578,8 +576,16 @@ dynamic build(BuildContext context) {
             plain('();'),
           ]),
           codeLine([cmt('// Both start at 0')]),
-          codeLine([plain('print(a.value); '), cmt('// '), num0('0')]),
-          codeLine([plain('print(b.value); '), cmt('// '), num0('0')]),
+          codeLine([
+            plain('print(a.value); '),
+            cmt('// '),
+            num0('0'),
+          ]),
+          codeLine([
+            plain('print(b.value); '),
+            cmt('// '),
+            num0('0'),
+          ]),
         ]),
         const SizedBox(height: 6.0),
         Row(
@@ -657,7 +663,11 @@ dynamic build(BuildContext context) {
       chainNodes.add(
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.0),
-          child: Icon(Icons.east, color: amberDeep, size: 22.0),
+          child: Icon(
+            Icons.east,
+            color: amberDeep,
+            size: 22.0,
+          ),
         ),
       );
     }
@@ -689,7 +699,9 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: amberDeep.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: amberDeep.withValues(alpha: 0.40)),
+            border: Border.all(
+              color: amberDeep.withValues(alpha: 0.40),
+            ),
           ),
           child: Text(
             'Final value after applying $chainAddends: ${chainAcc.value}',
@@ -1163,7 +1175,12 @@ dynamic build(BuildContext context) {
 
   final Widget snippetBasic = codeBlock([
     codeLine([cmt('// 1. basic usage')]),
-    codeLine([kw('final '), plain('a = '), kw('Accumulator'), plain('();')]),
+    codeLine([
+      kw('final '),
+      plain('a = '),
+      kw('Accumulator'),
+      plain('();'),
+    ]),
     codeLine([plain('a.increment('), num0('1'), plain(');')]),
     codeLine([plain('a.increment('), num0('4'), plain(');')]),
     codeLine([plain('a.increment('), num0('9'), plain(');')]),
@@ -1210,7 +1227,12 @@ dynamic build(BuildContext context) {
 
   final Widget snippetReuse = codeBlock([
     codeLine([cmt('// 3. reuse the same Accumulator across passes')]),
-    codeLine([kw('final '), plain('a = '), kw('Accumulator'), plain('();')]),
+    codeLine([
+      kw('final '),
+      plain('a = '),
+      kw('Accumulator'),
+      plain('();'),
+    ]),
     codeLine([plain('a.increment('), num0('5'), plain(');')]),
     codeLine([plain('print(a.value); '), cmt('// '), num0('5')]),
     codeLine([plain('a.increment('), num0('5'), plain(');')]),
@@ -1405,10 +1427,7 @@ dynamic build(BuildContext context) {
     <String, String>{'k': 'Mutability', 'v': 'mutable, reference-typed'},
     <String, String>{'k': 'Reactivity', 'v': 'none — not a ChangeNotifier'},
     <String, String>{'k': 'Reset?', 'v': 'no — allocate a new instance'},
-    <String, String>{
-      'k': 'Negative addends',
-      'v': 'rejected (addend >= 0 assert)',
-    },
+    <String, String>{'k': 'Negative addends', 'v': 'rejected (addend >= 0 assert)'},
     <String, String>{'k': 'Typical caller', 'v': 'TextPainter / InlineSpan'},
   ];
 
@@ -1461,7 +1480,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            const Icon(Icons.fact_check_outlined, color: amberDeep, size: 22.0),
+            const Icon(
+              Icons.fact_check_outlined,
+              color: amberDeep,
+              size: 22.0,
+            ),
             const SizedBox(width: 6.0),
             const Text(
               'Quick reference',

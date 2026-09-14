@@ -125,7 +125,8 @@ dynamic build(BuildContext context) {
   // once the tree is wrapped in CupertinoTheme.
   // ===========================================================================
 
-  final List<Map<String, dynamic>> programmaticSummary = <Map<String, dynamic>>[
+  final List<Map<String, dynamic>> programmaticSummary =
+      <Map<String, dynamic>>[
     <String, dynamic>{
       'scenario': '1. Default light',
       'brightness': lightTheme.brightness.toString(),
@@ -515,7 +516,10 @@ Widget _scenarioCard({
             borderRadius: BorderRadius.circular(10.0),
             child: Container(
               color: bodyBackground,
-              child: CupertinoTheme(data: themeData, child: _miniTree()),
+              child: CupertinoTheme(
+                data: themeData,
+                child: _miniTree(),
+              ),
             ),
           ),
         ),
@@ -528,9 +532,8 @@ Widget _scenarioCard({
             data: themeData,
             child: Builder(
               builder: (BuildContext builderContext) {
-                final CupertinoThemeData resolved = CupertinoTheme.of(
-                  builderContext,
-                );
+                final CupertinoThemeData resolved =
+                    CupertinoTheme.of(builderContext);
                 return _resolvedFooter(resolved);
               },
             ),
@@ -621,9 +624,8 @@ Widget _nestedScenarioCard({
                       padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4.0),
                       child: Builder(
                         builder: (BuildContext outerCtx) {
-                          final CupertinoThemeData outer = CupertinoTheme.of(
-                            outerCtx,
-                          );
+                          final CupertinoThemeData outer =
+                              CupertinoTheme.of(outerCtx);
                           return Text(
                             'OUTER (dark) - primary='
                             '${outer.primaryColor}',
@@ -695,9 +697,8 @@ Widget _nestedScenarioCard({
             data: outerTheme,
             child: Builder(
               builder: (BuildContext outerCtx) {
-                final CupertinoThemeData outerResolved = CupertinoTheme.of(
-                  outerCtx,
-                );
+                final CupertinoThemeData outerResolved =
+                    CupertinoTheme.of(outerCtx);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -814,9 +815,8 @@ Widget _readbackScenarioCard({
               data: entry.value,
               child: Builder(
                 builder: (BuildContext readbackCtx) {
-                  final CupertinoThemeData resolved = CupertinoTheme.of(
-                    readbackCtx,
-                  );
+                  final CupertinoThemeData resolved =
+                      CupertinoTheme.of(readbackCtx);
                   return Container(
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
@@ -922,7 +922,10 @@ Widget _miniTree() {
             const CupertinoSwitch(value: true, onChanged: _noopBool),
             const SizedBox(width: 12.0),
             Expanded(
-              child: CupertinoSlider(value: 0.5, onChanged: _noopDouble),
+              child: CupertinoSlider(
+                value: 0.5,
+                onChanged: _noopDouble,
+              ),
             ),
           ],
         ),

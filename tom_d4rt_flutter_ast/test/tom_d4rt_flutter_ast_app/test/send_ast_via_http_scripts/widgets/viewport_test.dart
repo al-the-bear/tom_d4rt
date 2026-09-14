@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.crop_free,
       'title': 'What is Viewport?',
-      'body':
-          'Viewport is a render object widget that displays a '
+      'body': 'Viewport is a render object widget that displays a '
           'subset of its children in a scrollable region. Only '
           'the visible portion plus a cache extent is laid out '
           'and painted. It is the core of ListView, GridView, '
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_list,
       'title': 'Sliver Protocol',
-      'body':
-          'Viewport\u0027s children are not regular widgets — they '
+      'body': 'Viewport\u0027s children are not regular widgets — they '
           'are slivers. Slivers use a special layout protocol '
           '(SliverConstraints / SliverGeometry) optimized for '
           'lazy, scroll-aware layout. Each sliver reports how '
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.memory,
       'title': 'Efficient Rendering',
-      'body':
-          'The viewport only builds, lays out, and paints slivers '
+      'body': 'The viewport only builds, lays out, and paints slivers '
           'that are visible or within the cacheExtent. Off-screen '
           'slivers are garbage collected. This makes lists of '
           'thousands of items performant.',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_vert,
       'title': 'Scroll Offset',
-      'body':
-          'The viewport receives its current scroll position from '
+      'body': 'The viewport receives its current scroll position from '
           'a ViewportOffset (usually a ScrollPosition). As the '
           'user scrolls, the offset changes and the viewport '
           're-lays out slivers that enter or leave the visible '
@@ -130,63 +126,55 @@ dynamic build(BuildContext context) {
     {
       'name': 'axisDirection',
       'type': 'AxisDirection',
-      'desc':
-          'The direction in which slivers are laid out. Typically '
+      'desc': 'The direction in which slivers are laid out. Typically '
           'AxisDirection.down for vertical scrolling or '
           'AxisDirection.right for horizontal.',
     },
     {
       'name': 'offset',
       'type': 'ViewportOffset',
-      'desc':
-          'The scroll position that determines which portion of '
+      'desc': 'The scroll position that determines which portion of '
           'the sliver list is visible. Usually comes from a '
           'ScrollController\u0027s ScrollPosition.',
     },
     {
       'name': 'anchor',
       'type': 'double',
-      'desc':
-          'A value between 0.0 and 1.0 that determines where the '
+      'desc': 'A value between 0.0 and 1.0 that determines where the '
           'zero scroll offset sits. 0.0 means the start, 0.5 '
           'means the center, 1.0 means the end of the viewport.',
     },
     {
       'name': 'center',
       'type': 'Key?',
-      'desc':
-          'The key of the sliver that sits at the anchor point '
+      'desc': 'The key of the sliver that sits at the anchor point '
           'when the scroll offset is zero. Slivers before center '
           'grow in the reverse direction.',
     },
     {
       'name': 'cacheExtent',
       'type': 'double?',
-      'desc':
-          'The distance beyond the visible area for which slivers '
+      'desc': 'The distance beyond the visible area for which slivers '
           'are pre-built. Defaults to 250 logical pixels. Larger '
           'values reduce jank but increase memory use.',
     },
     {
       'name': 'cacheExtentStyle',
       'type': 'CacheExtentStyle',
-      'desc':
-          'Whether cacheExtent is measured in pixels or as a '
+      'desc': 'Whether cacheExtent is measured in pixels or as a '
           'viewport fraction. Default is pixel-based.',
     },
     {
       'name': 'slivers',
       'type': 'List<Widget>',
-      'desc':
-          'The sliver children inside the viewport. Each must be '
+      'desc': 'The sliver children inside the viewport. Each must be '
           'a RenderSliver (SliverList, SliverGrid, SliverAppBar, '
           'SliverToBoxAdapter, etc.).',
     },
     {
       'name': 'clipBehavior',
       'type': 'Clip',
-      'desc':
-          'How to clip content that overflows the viewport bounds. '
+      'desc': 'How to clip content that overflows the viewport bounds. '
           'Defaults to Clip.hardEdge. Use Clip.none for debugging.',
     },
   ];
@@ -274,8 +262,7 @@ dynamic build(BuildContext context) {
   final layoutSteps = <Map<String, dynamic>>[
     {
       'step': '1. Receive Constraints',
-      'desc':
-          'The viewport receives BoxConstraints from its parent. '
+      'desc': 'The viewport receives BoxConstraints from its parent. '
           'It uses these to determine its own size (the visible '
           'scrollable area).',
       'icon': Icons.settings_overscan,
@@ -283,8 +270,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Create SliverConstraints',
-      'desc':
-          'For each sliver child, the viewport creates '
+      'desc': 'For each sliver child, the viewport creates '
           'SliverConstraints with: scrollOffset, remainingPaintExtent, '
           'crossAxisExtent, overlap, and cacheExtent.',
       'icon': Icons.rule,
@@ -292,8 +278,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Layout Slivers',
-      'desc':
-          'Slivers are laid out in order. Each returns '
+      'desc': 'Slivers are laid out in order. Each returns '
           'SliverGeometry with: scrollExtent (total size), '
           'paintExtent (visible portion), layoutExtent, '
           'maxPaintExtent, and cacheExtent consumed.',
@@ -302,8 +287,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Accumulate Offsets',
-      'desc':
-          'The viewport tracks remaining paint extent. After each '
+      'desc': 'The viewport tracks remaining paint extent. After each '
           'sliver\u0027s paintExtent, remaining is reduced. When '
           'remaining hits zero, further slivers get zero paint '
           'extent (off-screen).',
@@ -312,8 +296,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Report to Offset',
-      'desc':
-          'The viewport reports total scrollExtent and viewport '
+      'desc': 'The viewport reports total scrollExtent and viewport '
           'dimension to the ViewportOffset. This allows the '
           'scroll position to know min/max scroll range.',
       'icon': Icons.straighten,
@@ -321,8 +304,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '6. Paint Visible',
-      'desc':
-          'During paint, only slivers with non-zero paintExtent '
+      'desc': 'During paint, only slivers with non-zero paintExtent '
           'are painted. They are clipped to the viewport bounds '
           'based on clipBehavior.',
       'icon': Icons.brush,
@@ -349,7 +331,11 @@ dynamic build(BuildContext context) {
                     color: lsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(ls['icon'] as IconData, color: lsColor, size: 18),
+                  child: Icon(
+                    ls['icon'] as IconData,
+                    color: lsColor,
+                    size: 18,
+                  ),
                 ),
                 if (i < layoutSteps.length - 1)
                   Container(
@@ -406,24 +392,21 @@ dynamic build(BuildContext context) {
   final sliverTypes = <Map<String, dynamic>>[
     {
       'name': 'SliverList',
-      'desc':
-          'A sliver that places children in a linear list along '
+      'desc': 'A sliver that places children in a linear list along '
           'the main axis. Supports delegates for lazy building.',
       'icon': Icons.list,
       'color': Colors.brown,
     },
     {
       'name': 'SliverGrid',
-      'desc':
-          'A sliver that places children in a 2D grid. Uses grid '
+      'desc': 'A sliver that places children in a 2D grid. Uses grid '
           'delegates to determine column count and aspect ratio.',
       'icon': Icons.grid_view,
       'color': Colors.blue,
     },
     {
       'name': 'SliverAppBar',
-      'desc':
-          'A Material Design app bar that integrates with '
+      'desc': 'A Material Design app bar that integrates with '
           'CustomScrollView. Supports floating, pinned, and snap '
           'behaviors.',
       'icon': Icons.web_asset,
@@ -431,8 +414,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'SliverToBoxAdapter',
-      'desc':
-          'Wraps a regular box widget as a sliver. Use for fixed '
+      'desc': 'Wraps a regular box widget as a sliver. Use for fixed '
           'headers, banners, or any non-scrollable content inside '
           'a CustomScrollView.',
       'icon': Icons.transform,
@@ -440,16 +422,14 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'SliverFillRemaining',
-      'desc':
-          'A sliver that fills the remaining space in the viewport. '
+      'desc': 'A sliver that fills the remaining space in the viewport. '
           'Useful for making content expand to fill the screen.',
       'icon': Icons.fullscreen,
       'color': Colors.red,
     },
     {
       'name': 'SliverPersistentHeader',
-      'desc':
-          'A sliver with a header that shrinks/grows as the user '
+      'desc': 'A sliver with a header that shrinks/grows as the user '
           'scrolls. Can be pinned to stay visible or floating.',
       'icon': Icons.vertical_align_top,
       'color': Colors.purple,
@@ -522,12 +502,10 @@ dynamic build(BuildContext context) {
     {
       'anchor': 0.0,
       'center': 'None',
-      'desc':
-          'Default. Zero scroll offset is at the start edge. All '
+      'desc': 'Default. Zero scroll offset is at the start edge. All '
           'slivers grow downward (or rightward). Standard '
           'scrolling behavior.',
-      'diagram':
-          '[ Start ]\n'
+      'diagram': '[ Start ]\n'
           '  sliver0\n'
           '  sliver1\n'
           '  sliver2\n'
@@ -537,12 +515,10 @@ dynamic build(BuildContext context) {
     {
       'anchor': 0.5,
       'center': 'Key(center)',
-      'desc':
-          'Zero scroll offset is in the middle. The center sliver '
+      'desc': 'Zero scroll offset is in the middle. The center sliver '
           'sits at 50% of the viewport. Slivers before it grow '
           'upward (reverse), slivers after grow downward.',
-      'diagram':
-          '  ... (scroll up)\n'
+      'diagram': '  ... (scroll up)\n'
           '  sliver_before_2\n'
           '  sliver_before_1\n'
           '[ Center sliver at 50% ]\n'
@@ -554,12 +530,10 @@ dynamic build(BuildContext context) {
     {
       'anchor': 1.0,
       'center': 'Key(center)',
-      'desc':
-          'Zero scroll offset at the end. Content grows upward. '
+      'desc': 'Zero scroll offset at the end. Content grows upward. '
           'Used for chat-like interfaces where new content '
           'appears at the bottom.',
-      'diagram':
-          '  ... (scroll up)\n'
+      'diagram': '  ... (scroll up)\n'
           '  sliver2\n'
           '  sliver1\n'
           '  sliver0\n'
@@ -670,8 +644,7 @@ dynamic build(BuildContext context) {
   final cacheRows = <Map<String, dynamic>>[
     {
       'value': 'Default (250px)',
-      'desc':
-          'Slivers within 250 logical pixels of the visible area '
+      'desc': 'Slivers within 250 logical pixels of the visible area '
           'are built. Provides smooth scrolling for most cases.',
       'pros': 'Good balance of performance and smoothness.',
       'cons': 'May have brief jank on very fast scrolling.',
@@ -679,8 +652,7 @@ dynamic build(BuildContext context) {
     },
     {
       'value': 'Large (1000px)',
-      'desc':
-          'Pre-builds a larger area. Reduces jank when scrolling '
+      'desc': 'Pre-builds a larger area. Reduces jank when scrolling '
           'quickly through complex item widgets.',
       'pros': 'Very smooth scrolling, fewer rebuilds.',
       'cons': 'Higher memory usage, longer initial layout.',
@@ -688,8 +660,7 @@ dynamic build(BuildContext context) {
     },
     {
       'value': 'Zero (0px)',
-      'desc':
-          'Only the visible area is built. Items appear the '
+      'desc': 'Only the visible area is built. Items appear the '
           'instant they enter the viewport.',
       'pros': 'Minimum memory usage.',
       'cons': 'Visible pop-in, janky scrolling on complex items.',
@@ -697,8 +668,7 @@ dynamic build(BuildContext context) {
     },
     {
       'value': 'Double.infinity',
-      'desc':
-          'All slivers are always built. The viewport is not lazy. '
+      'desc': 'All slivers are always built. The viewport is not lazy. '
           'Only use for short lists where all items fit in memory.',
       'pros': 'No rebuilds, instant scroll to any position.',
       'cons': 'All items in memory. Defeats purpose of viewport.',
@@ -725,7 +695,10 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: crColor.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(6),
@@ -830,11 +803,9 @@ dynamic build(BuildContext context) {
   final csvExamples = <Map<String, dynamic>>[
     {
       'title': 'Basic List',
-      'desc':
-          'A CustomScrollView with a single SliverList. Equivalent '
+      'desc': 'A CustomScrollView with a single SliverList. Equivalent '
           'to a basic ListView but using the sliver protocol.',
-      'diagram':
-          'CustomScrollView(\n'
+      'diagram': 'CustomScrollView(\n'
           '  slivers: [\n'
           '    SliverList(\n'
           '      delegate: SliverChildBuilderDelegate(\n'
@@ -848,11 +819,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'AppBar + List + Grid',
-      'desc':
-          'Combines multiple sliver types in one scrollable: a '
+      'desc': 'Combines multiple sliver types in one scrollable: a '
           'collapsing app bar, a list section, and a grid section.',
-      'diagram':
-          'CustomScrollView(\n'
+      'diagram': 'CustomScrollView(\n'
           '  slivers: [\n'
           '    SliverAppBar(\n'
           '      expandedHeight: 200,\n'
@@ -866,11 +835,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Fill Remaining',
-      'desc':
-          'A sliver that expands to fill all remaining space. '
+      'desc': 'A sliver that expands to fill all remaining space. '
           'Useful for "no results" messages that should center.',
-      'diagram':
-          'CustomScrollView(\n'
+      'diagram': 'CustomScrollView(\n'
           '  slivers: [\n'
           '    SliverAppBar(...),\n'
           '    SliverFillRemaining(\n'
@@ -885,11 +852,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Persistent Header',
-      'desc':
-          'Section headers that stick to the top as the user '
+      'desc': 'Section headers that stick to the top as the user '
           'scrolls past them. Classic "contact list" pattern.',
-      'diagram':
-          'CustomScrollView(\n'
+      'diagram': 'CustomScrollView(\n'
           '  slivers: [\n'
           '    SliverPersistentHeader(\n'
           '      pinned: true,\n'
@@ -975,38 +940,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.crop_free,
-      'text':
-          'Viewport displays a subset of sliver children based on '
+      'text': 'Viewport displays a subset of sliver children based on '
           'a scroll offset. It is the core of all scrollable widgets.',
     },
     {
       'icon': Icons.view_list,
-      'text':
-          'Children use the sliver protocol (SliverConstraints / '
+      'text': 'Children use the sliver protocol (SliverConstraints / '
           'SliverGeometry), not box layout.',
     },
     {
       'icon': Icons.memory,
-      'text':
-          'Only visible slivers plus cacheExtent are built. '
+      'text': 'Only visible slivers plus cacheExtent are built. '
           'Off-screen slivers are garbage collected for efficiency.',
     },
     {
       'icon': Icons.anchor,
-      'text':
-          'The anchor property controls where scroll offset zero '
+      'text': 'The anchor property controls where scroll offset zero '
           'sits. Combined with center for bidirectional scrolling.',
     },
     {
       'icon': Icons.speed,
-      'text':
-          'cacheExtent trades memory for scroll smoothness. Default '
+      'text': 'cacheExtent trades memory for scroll smoothness. Default '
           '250px suits most cases; tune for your content.',
     },
     {
       'icon': Icons.dashboard_customize,
-      'text':
-          'CustomScrollView wraps Viewport with ScrollController. '
+      'text': 'CustomScrollView wraps Viewport with ScrollController. '
           'Combine SliverList, SliverGrid, SliverAppBar freely.',
     },
   ];

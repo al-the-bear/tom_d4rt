@@ -33,12 +33,10 @@ class _MagnifierDecorationDeepDemoPage extends StatefulWidget {
   const _MagnifierDecorationDeepDemoPage();
 
   @override
-  State<_MagnifierDecorationDeepDemoPage> createState() =>
-      _MagnifierDecorationDeepDemoPageState();
+  State<_MagnifierDecorationDeepDemoPage> createState() => _MagnifierDecorationDeepDemoPageState();
 }
 
-class _MagnifierDecorationDeepDemoPageState
-    extends State<_MagnifierDecorationDeepDemoPage> {
+class _MagnifierDecorationDeepDemoPageState extends State<_MagnifierDecorationDeepDemoPage> {
   bool _compact = false;
   bool _guide = true;
   bool _notes = true;
@@ -60,11 +58,7 @@ class _MagnifierDecorationDeepDemoPageState
               const Text('MagnifierDecoration Deep Demo'),
               Text(
                 'lens style design | shape and shadow tuning | focal geometry | practical magnifier compositions',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.85),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -93,12 +87,7 @@ class _MagnifierDecorationDeepDemoPageState
                 title: 'Decoration Fundamentals Studio',
                 subtitle:
                     'Tune MagnifierDecoration opacity, shape, border style, and shadow stack on a live RawMagnifier stage.',
-                child: _FundamentalsScene(
-                  compact: _compact,
-                  guide: _guide,
-                  notes: _notes,
-                  scale: _scale,
-                ),
+                child: _FundamentalsScene(compact: _compact, guide: _guide, notes: _notes, scale: _scale),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -107,11 +96,7 @@ class _MagnifierDecorationDeepDemoPageState
                 title: 'Shape Gallery',
                 subtitle:
                     'Visual compare of rounded, continuous, beveled, stadium, and circle shape borders with lens-specific recommendations.',
-                child: _ShapeGalleryScene(
-                  compact: _compact,
-                  guide: _guide,
-                  notes: _notes,
-                ),
+                child: _ShapeGalleryScene(compact: _compact, guide: _guide, notes: _notes),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -120,11 +105,7 @@ class _MagnifierDecorationDeepDemoPageState
                 title: 'Shadow Dynamics Lab',
                 subtitle:
                     'Build depth with layered BoxShadow presets and custom controls while tracking readability and emphasis.',
-                child: _ShadowScene(
-                  compact: _compact,
-                  guide: _guide,
-                  notes: _notes,
-                ),
+                child: _ShadowScene(compact: _compact, guide: _guide, notes: _notes),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -133,11 +114,7 @@ class _MagnifierDecorationDeepDemoPageState
                 title: 'Focal Geometry Lab',
                 subtitle:
                     'Combine decoration with magnificationScale, focalPointOffset, clip behavior, and lens size for precise output.',
-                child: _GeometryScene(
-                  compact: _compact,
-                  guide: _guide,
-                  notes: _notes,
-                ),
+                child: _GeometryScene(compact: _compact, guide: _guide, notes: _notes),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -146,11 +123,7 @@ class _MagnifierDecorationDeepDemoPageState
                 title: 'Practical Lens Console',
                 subtitle:
                     'Three application layouts show how MagnifierDecoration can align with product-specific visual language.',
-                child: _PracticalScene(
-                  compact: _compact,
-                  guide: _guide,
-                  notes: _notes,
-                ),
+                child: _PracticalScene(compact: _compact, guide: _guide, notes: _notes),
               ),
               const SizedBox(height: 12),
               const _RecapPanel(),
@@ -195,12 +168,7 @@ class _ControlDeck extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF173953),
-            Color(0xFF275E80),
-            Color(0xFF3B7B67),
-            Color(0xFF625FB0),
-          ],
+          colors: [Color(0xFF173953), Color(0xFF275E80), Color(0xFF3B7B67), Color(0xFF625FB0)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -210,11 +178,7 @@ class _ControlDeck extends StatelessWidget {
         children: [
           const Text(
             'Magnifier Style Deck',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 30,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 30),
           ),
           const SizedBox(height: 6),
           const Text(
@@ -231,99 +195,56 @@ class _ControlDeck extends StatelessWidget {
           LayoutBuilder(
             builder: (context, constraints) {
               final tileWidth = (constraints.maxWidth / 2).clamp(220.0, 340.0);
-              SizedBox tile(Widget child) =>
-                  SizedBox(width: tileWidth, child: child);
+              SizedBox tile(Widget child) => SizedBox(width: tileWidth, child: child);
               return Wrap(
                 spacing: 8,
                 runSpacing: 4,
                 children: [
-                  tile(
-                    Material(
-                      type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        value: compact,
-                        onChanged: onCompactChanged,
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text(
-                          'Compact scenes',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
+                  tile(Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      value: compact,
+                      onChanged: onCompactChanged,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Compact scenes', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                     ),
-                  ),
-                  tile(
-                    Material(
-                      type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        value: guide,
-                        onChanged: onGuideChanged,
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text(
-                          'Guide overlays',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
+                  )),
+                  tile(Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      value: guide,
+                      onChanged: onGuideChanged,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Guide overlays', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                     ),
-                  ),
-                  tile(
-                    Material(
-                      type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        value: notes,
-                        onChanged: onNotesChanged,
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text(
-                          'Instruction notes',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
+                  )),
+                  tile(Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      value: notes,
+                      onChanged: onNotesChanged,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Instruction notes', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                     ),
-                  ),
-                  tile(
-                    Material(
-                      type: MaterialType.transparency,
-                      child: SwitchListTile(
-                        value: rtl,
-                        onChanged: onRtlChanged,
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text(
-                          'RTL mode',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
+                  )),
+                  tile(Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      value: rtl,
+                      onChanged: onRtlChanged,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('RTL mode', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                     ),
-                  ),
+                  )),
                 ],
               );
             },
           ),
-          Text(
-            'Global scale: ${scale.toStringAsFixed(2)}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text('Global scale: ${scale.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
           Slider(
             value: scale,
             min: 0.8,
@@ -361,11 +282,7 @@ class _SceneShell extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 15,
-            offset: const Offset(0, 7),
-          ),
+          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 15, offset: const Offset(0, 7)),
         ],
       ),
       child: Padding(
@@ -380,32 +297,16 @@ class _SceneShell extends StatelessWidget {
                   radius: 14,
                   backgroundColor: tone,
                   foregroundColor: Colors.white,
-                  child: Text(
-                    '$index',
-                    style: const TextStyle(fontWeight: FontWeight.w800),
-                  ),
+                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: tone,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 19,
-                        ),
-                      ),
+                      Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 19)),
                       const SizedBox(height: 4),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(
-                          color: Color(0xFF3A4E62),
-                          height: 1.34,
-                        ),
-                      ),
+                      Text(subtitle, style: const TextStyle(color: Color(0xFF3A4E62), height: 1.34)),
                     ],
                   ),
                 ),
@@ -420,19 +321,30 @@ class _SceneShell extends StatelessWidget {
   }
 }
 
-enum _ShapeKind { rounded, continuous, beveled, stadium, circle }
+enum _ShapeKind {
+  rounded,
+  continuous,
+  beveled,
+  stadium,
+  circle,
+}
 
-enum _ShadowPreset { subtle, balanced, dramatic, neon }
+enum _ShadowPreset {
+  subtle,
+  balanced,
+  dramatic,
+  neon,
+}
 
-enum _ClipMode { none, hardEdge, antiAlias, antiAliasWithSaveLayer }
+enum _ClipMode {
+  none,
+  hardEdge,
+  antiAlias,
+  antiAliasWithSaveLayer,
+}
 
 class _FundamentalsScene extends StatefulWidget {
-  const _FundamentalsScene({
-    required this.compact,
-    required this.guide,
-    required this.notes,
-    required this.scale,
-  });
+  const _FundamentalsScene({required this.compact, required this.guide, required this.notes, required this.scale});
 
   final bool compact;
   final bool guide;
@@ -479,49 +391,20 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Decoration controls',
-                        style: TextStyle(fontWeight: FontWeight.w800),
-                      ),
+                      const Text('Decoration controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
                       DropdownButtonFormField<_ShapeKind>(
                         initialValue: _shape,
-                        decoration: const InputDecoration(
-                          labelText: 'Shape profile',
-                          border: OutlineInputBorder(),
-                        ),
+                        decoration: const InputDecoration(labelText: 'Shape profile', border: OutlineInputBorder()),
                         items: _ShapeKind.values
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.name),
-                              ),
-                            )
+                            .map((e) => DropdownMenuItem(value: e, child: Text(e.name)))
                             .toList(),
                         onChanged: (v) => setState(() => _shape = v ?? _shape),
                       ),
                       const SizedBox(height: 8),
-                      _SliderLine(
-                        label: 'Corner radius',
-                        value: _radius,
-                        min: 0,
-                        max: 42,
-                        onChanged: (v) => setState(() => _radius = v),
-                      ),
-                      _SliderLine(
-                        label: 'Border width',
-                        value: _borderWidth,
-                        min: 0,
-                        max: 6,
-                        onChanged: (v) => setState(() => _borderWidth = v),
-                      ),
-                      _SliderLine(
-                        label: 'Opacity',
-                        value: _opacity,
-                        min: 0.2,
-                        max: 1,
-                        onChanged: (v) => setState(() => _opacity = v),
-                      ),
+                      _SliderLine(label: 'Corner radius', value: _radius, min: 0, max: 42, onChanged: (v) => setState(() => _radius = v)),
+                      _SliderLine(label: 'Border width', value: _borderWidth, min: 0, max: 6, onChanged: (v) => setState(() => _borderWidth = v)),
+                      _SliderLine(label: 'Opacity', value: _opacity, min: 0.2, max: 1, onChanged: (v) => setState(() => _opacity = v)),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
@@ -552,15 +435,9 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         rows: [
                           _DataRowItem('shape', _shape.name),
                           _DataRowItem('radius', _radius.toStringAsFixed(1)),
-                          _DataRowItem(
-                            'border width',
-                            _borderWidth.toStringAsFixed(1),
-                          ),
+                          _DataRowItem('border width', _borderWidth.toStringAsFixed(1)),
                           _DataRowItem('opacity', _opacity.toStringAsFixed(2)),
-                          _DataRowItem(
-                            'shadows',
-                            _shadowsOn ? 'enabled' : 'disabled',
-                          ),
+                          _DataRowItem('shadows', _shadowsOn ? 'enabled' : 'disabled'),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -611,11 +488,7 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
 }
 
 class _ShapeGalleryScene extends StatefulWidget {
-  const _ShapeGalleryScene({
-    required this.compact,
-    required this.guide,
-    required this.notes,
-  });
+  const _ShapeGalleryScene({required this.compact, required this.guide, required this.notes});
 
   final bool compact;
   final bool guide;
@@ -647,10 +520,7 @@ class _ShapeGallerySceneState extends State<_ShapeGalleryScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Shape selector',
-                        style: TextStyle(fontWeight: FontWeight.w800),
-                      ),
+                      const Text('Shape selector', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
@@ -660,8 +530,7 @@ class _ShapeGallerySceneState extends State<_ShapeGalleryScene> {
                               (s) => ChoiceChip(
                                 selected: _selected == s,
                                 label: Text(s.name),
-                                onSelected: (_) =>
-                                    setState(() => _selected = s),
+                                onSelected: (_) => setState(() => _selected = s),
                               ),
                             )
                             .toList(),
@@ -675,10 +544,7 @@ class _ShapeGallerySceneState extends State<_ShapeGalleryScene> {
                       _DataTableCard(
                         rows: [
                           _DataRowItem('selected shape', _selected.name),
-                          _DataRowItem(
-                            'recommended use',
-                            _shapeUseCase(_selected),
-                          ),
+                          _DataRowItem('recommended use', _shapeUseCase(_selected)),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -710,36 +576,11 @@ class _ShapeGallerySceneState extends State<_ShapeGalleryScene> {
                   mainAxisSpacing: 10,
                   childAspectRatio: 1.07,
                   children: [
-                    _shapeCard(
-                      _ShapeKind.rounded,
-                      _green,
-                      _selected == _ShapeKind.rounded,
-                      _revision,
-                    ),
-                    _shapeCard(
-                      _ShapeKind.continuous,
-                      _blue,
-                      _selected == _ShapeKind.continuous,
-                      _revision,
-                    ),
-                    _shapeCard(
-                      _ShapeKind.beveled,
-                      _amber,
-                      _selected == _ShapeKind.beveled,
-                      _revision,
-                    ),
-                    _shapeCard(
-                      _ShapeKind.stadium,
-                      _rose,
-                      _selected == _ShapeKind.stadium,
-                      _revision,
-                    ),
-                    _shapeCard(
-                      _ShapeKind.circle,
-                      _violet,
-                      _selected == _ShapeKind.circle,
-                      _revision,
-                    ),
+                    _shapeCard(_ShapeKind.rounded, _green, _selected == _ShapeKind.rounded, _revision),
+                    _shapeCard(_ShapeKind.continuous, _blue, _selected == _ShapeKind.continuous, _revision),
+                    _shapeCard(_ShapeKind.beveled, _amber, _selected == _ShapeKind.beveled, _revision),
+                    _shapeCard(_ShapeKind.stadium, _rose, _selected == _ShapeKind.stadium, _revision),
+                    _shapeCard(_ShapeKind.circle, _violet, _selected == _ShapeKind.circle, _revision),
                   ],
                 ),
               ),
@@ -766,18 +607,12 @@ class _ShapeGallerySceneState extends State<_ShapeGalleryScene> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: tone.withValues(alpha: selected ? 0.75 : 0.35),
-          width: selected ? 2 : 1.2,
-        ),
+        border: Border.all(color: tone.withValues(alpha: selected ? 0.75 : 0.35), width: selected ? 2 : 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            shape.name,
-            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
-          ),
+          Text(shape.name, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
           Expanded(
             child: _MagnifierStage(
@@ -793,10 +628,7 @@ class _ShapeGallerySceneState extends State<_ShapeGalleryScene> {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            _shapeUseCase(shape),
-            style: const TextStyle(fontSize: 12, color: Color(0xFF3A4F61)),
-          ),
+          Text(_shapeUseCase(shape), style: const TextStyle(fontSize: 12, color: Color(0xFF3A4F61))),
         ],
       ),
     );
@@ -804,11 +636,7 @@ class _ShapeGallerySceneState extends State<_ShapeGalleryScene> {
 }
 
 class _ShadowScene extends StatefulWidget {
-  const _ShadowScene({
-    required this.compact,
-    required this.guide,
-    required this.notes,
-  });
+  const _ShadowScene({required this.compact, required this.guide, required this.notes});
 
   final bool compact;
   final bool guide;
@@ -866,50 +694,20 @@ class _ShadowSceneState extends State<_ShadowScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Shadow controls',
-                        style: TextStyle(fontWeight: FontWeight.w800),
-                      ),
+                      const Text('Shadow controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
                       DropdownButtonFormField<_ShadowPreset>(
                         initialValue: _preset,
-                        decoration: const InputDecoration(
-                          labelText: 'Preset',
-                          border: OutlineInputBorder(),
-                        ),
+                        decoration: const InputDecoration(labelText: 'Preset', border: OutlineInputBorder()),
                         items: _ShadowPreset.values
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.name),
-                              ),
-                            )
+                            .map((e) => DropdownMenuItem(value: e, child: Text(e.name)))
                             .toList(),
-                        onChanged: (v) =>
-                            setState(() => _preset = v ?? _preset),
+                        onChanged: (v) => setState(() => _preset = v ?? _preset),
                       ),
                       const SizedBox(height: 8),
-                      _SliderLine(
-                        label: 'Lens opacity',
-                        value: _opacity,
-                        min: 0.2,
-                        max: 1,
-                        onChanged: (v) => setState(() => _opacity = v),
-                      ),
-                      _SliderLine(
-                        label: 'Blur boost',
-                        value: _blurBoost,
-                        min: 0,
-                        max: 20,
-                        onChanged: (v) => setState(() => _blurBoost = v),
-                      ),
-                      _SliderLine(
-                        label: 'Vertical offset',
-                        value: _offsetY,
-                        min: -2,
-                        max: 20,
-                        onChanged: (v) => setState(() => _offsetY = v),
-                      ),
+                      _SliderLine(label: 'Lens opacity', value: _opacity, min: 0.2, max: 1, onChanged: (v) => setState(() => _opacity = v)),
+                      _SliderLine(label: 'Blur boost', value: _blurBoost, min: 0, max: 20, onChanged: (v) => setState(() => _blurBoost = v)),
+                      _SliderLine(label: 'Vertical offset', value: _offsetY, min: -2, max: 20, onChanged: (v) => setState(() => _offsetY = v)),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
@@ -931,10 +729,7 @@ class _ShadowSceneState extends State<_ShadowScene> {
                           _DataRowItem('preset', _preset.name),
                           _DataRowItem('enabled', _enabled ? 'yes' : 'no'),
                           _DataRowItem('opacity', _opacity.toStringAsFixed(2)),
-                          _DataRowItem(
-                            'blur boost',
-                            _blurBoost.toStringAsFixed(1),
-                          ),
+                          _DataRowItem('blur boost', _blurBoost.toStringAsFixed(1)),
                           _DataRowItem('offset y', _offsetY.toStringAsFixed(1)),
                         ],
                       ),
@@ -1010,11 +805,7 @@ class _ShadowSceneState extends State<_ShadowScene> {
 }
 
 class _GeometryScene extends StatefulWidget {
-  const _GeometryScene({
-    required this.compact,
-    required this.guide,
-    required this.notes,
-  });
+  const _GeometryScene({required this.compact, required this.guide, required this.notes});
 
   final bool compact;
   final bool guide;
@@ -1062,78 +853,24 @@ class _GeometrySceneState extends State<_GeometryScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Geometry controls',
-                        style: TextStyle(fontWeight: FontWeight.w800),
-                      ),
+                      const Text('Geometry controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
-                      _SliderLine(
-                        label: 'Magnification scale',
-                        value: _magnification,
-                        min: 1,
-                        max: 3,
-                        onChanged: (v) => setState(() => _magnification = v),
-                      ),
-                      _SliderLine(
-                        label: 'Lens width',
-                        value: _sizeW,
-                        min: 120,
-                        max: 320,
-                        onChanged: (v) => setState(() => _sizeW = v),
-                      ),
-                      _SliderLine(
-                        label: 'Lens height',
-                        value: _sizeH,
-                        min: 80,
-                        max: 240,
-                        onChanged: (v) => setState(() => _sizeH = v),
-                      ),
-                      _SliderLine(
-                        label: 'Focal X',
-                        value: _focalX,
-                        min: -80,
-                        max: 80,
-                        onChanged: (v) => setState(() => _focalX = v),
-                      ),
-                      _SliderLine(
-                        label: 'Focal Y',
-                        value: _focalY,
-                        min: -80,
-                        max: 80,
-                        onChanged: (v) => setState(() => _focalY = v),
-                      ),
+                      _SliderLine(label: 'Magnification scale', value: _magnification, min: 1, max: 3, onChanged: (v) => setState(() => _magnification = v)),
+                      _SliderLine(label: 'Lens width', value: _sizeW, min: 120, max: 320, onChanged: (v) => setState(() => _sizeW = v)),
+                      _SliderLine(label: 'Lens height', value: _sizeH, min: 80, max: 240, onChanged: (v) => setState(() => _sizeH = v)),
+                      _SliderLine(label: 'Focal X', value: _focalX, min: -80, max: 80, onChanged: (v) => setState(() => _focalX = v)),
+                      _SliderLine(label: 'Focal Y', value: _focalY, min: -80, max: 80, onChanged: (v) => setState(() => _focalY = v)),
                       DropdownButtonFormField<_ClipMode>(
                         initialValue: _clipMode,
-                        decoration: const InputDecoration(
-                          labelText: 'Clip mode',
-                          border: OutlineInputBorder(),
-                        ),
-                        items: _ClipMode.values
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.name),
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (v) =>
-                            setState(() => _clipMode = v ?? _clipMode),
+                        decoration: const InputDecoration(labelText: 'Clip mode', border: OutlineInputBorder()),
+                        items: _ClipMode.values.map((e) => DropdownMenuItem(value: e, child: Text(e.name))).toList(),
+                        onChanged: (v) => setState(() => _clipMode = v ?? _clipMode),
                       ),
                       const SizedBox(height: 8),
                       DropdownButtonFormField<_ShapeKind>(
                         initialValue: _shape,
-                        decoration: const InputDecoration(
-                          labelText: 'Decoration shape',
-                          border: OutlineInputBorder(),
-                        ),
-                        items: _ShapeKind.values
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.name),
-                              ),
-                            )
-                            .toList(),
+                        decoration: const InputDecoration(labelText: 'Decoration shape', border: OutlineInputBorder()),
+                        items: _ShapeKind.values.map((e) => DropdownMenuItem(value: e, child: Text(e.name))).toList(),
                         onChanged: (v) => setState(() => _shape = v ?? _shape),
                       ),
                       const SizedBox(height: 8),
@@ -1144,18 +881,9 @@ class _GeometrySceneState extends State<_GeometryScene> {
                       const SizedBox(height: 8),
                       _DataTableCard(
                         rows: [
-                          _DataRowItem(
-                            'magnification',
-                            _magnification.toStringAsFixed(2),
-                          ),
-                          _DataRowItem(
-                            'size',
-                            '${_sizeW.toStringAsFixed(0)} x ${_sizeH.toStringAsFixed(0)}',
-                          ),
-                          _DataRowItem(
-                            'focal',
-                            '(${_focalX.toStringAsFixed(1)}, ${_focalY.toStringAsFixed(1)})',
-                          ),
+                          _DataRowItem('magnification', _magnification.toStringAsFixed(2)),
+                          _DataRowItem('size', '${_sizeW.toStringAsFixed(0)} x ${_sizeH.toStringAsFixed(0)}'),
+                          _DataRowItem('focal', '(${_focalX.toStringAsFixed(1)}, ${_focalY.toStringAsFixed(1)})'),
                           _DataRowItem('clip', _clipMode.name),
                           _DataRowItem('shape', _shape.name),
                         ],
@@ -1204,11 +932,7 @@ class _GeometrySceneState extends State<_GeometryScene> {
 }
 
 class _PracticalScene extends StatefulWidget {
-  const _PracticalScene({
-    required this.compact,
-    required this.guide,
-    required this.notes,
-  });
+  const _PracticalScene({required this.compact, required this.guide, required this.notes});
 
   final bool compact;
   final bool guide;
@@ -1256,10 +980,7 @@ class _PracticalSceneState extends State<_PracticalScene> {
                         FilledButton.tonal(
                           onPressed: () {
                             setState(() {
-                              _events.insert(
-                                0,
-                                '${_clock()} | baseline snapshot captured',
-                              );
+                              _events.insert(0, '${_clock()} | baseline snapshot captured');
                               if (_events.length > 30) {
                                 _events.removeRange(30, _events.length);
                               }
@@ -1350,22 +1071,13 @@ class _PracticalSceneState extends State<_PracticalScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Practical notes',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                    const Text('Practical notes', style: TextStyle(fontWeight: FontWeight.w800)),
                     const SizedBox(height: 8),
                     _DataTableCard(
                       rows: [
                         _DataRowItem('revision', '$_revision'),
-                        _DataRowItem(
-                          'overlay',
-                          _overlay ? 'visible' : 'hidden',
-                        ),
-                        _DataRowItem(
-                          'active layouts',
-                          'document / timeline / map',
-                        ),
+                        _DataRowItem('overlay', _overlay ? 'visible' : 'hidden'),
+                        _DataRowItem('active layouts', 'document / timeline / map'),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -1379,10 +1091,7 @@ class _PracticalSceneState extends State<_PracticalScene> {
                         ],
                       ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Event log',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                    const Text('Event log', style: TextStyle(fontWeight: FontWeight.w800)),
                     const SizedBox(height: 6),
                     Expanded(child: _LogCard(lines: _events)),
                   ],
@@ -1445,10 +1154,7 @@ class _PracticalLensCardState extends State<_PracticalLensCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.title,
-            style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800),
-          ),
+          Text(widget.title, style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
           Expanded(
             child: _MagnifierStage(
@@ -1464,32 +1170,12 @@ class _PracticalLensCardState extends State<_PracticalLensCard> {
             ),
           ),
           const SizedBox(height: 6),
-          _MiniSlider(
-            label: 'X',
-            value: _x,
-            min: -60,
-            max: 60,
-            onChanged: (v) => setState(() => _x = v),
-          ),
-          _MiniSlider(
-            label: 'Y',
-            value: _y,
-            min: -60,
-            max: 60,
-            onChanged: (v) => setState(() => _y = v),
-          ),
-          _MiniSlider(
-            label: 'Scale',
-            value: _scale,
-            min: 1,
-            max: 2.5,
-            onChanged: (v) => setState(() => _scale = v),
-          ),
+          _MiniSlider(label: 'X', value: _x, min: -60, max: 60, onChanged: (v) => setState(() => _x = v)),
+          _MiniSlider(label: 'Y', value: _y, min: -60, max: 60, onChanged: (v) => setState(() => _y = v)),
+          _MiniSlider(label: 'Scale', value: _scale, min: 1, max: 2.5, onChanged: (v) => setState(() => _scale = v)),
           const SizedBox(height: 4),
           FilledButton.tonal(
-            onPressed: () => widget.onEvent(
-              'focus=(${_x.toStringAsFixed(1)}, ${_y.toStringAsFixed(1)}), scale=${_scale.toStringAsFixed(2)}',
-            ),
+            onPressed: () => widget.onEvent('focus=(${_x.toStringAsFixed(1)}, ${_y.toStringAsFixed(1)}), scale=${_scale.toStringAsFixed(2)}'),
             child: const Text('Record lens setting'),
           ),
         ],
@@ -1499,11 +1185,7 @@ class _PracticalLensCardState extends State<_PracticalLensCard> {
 }
 
 class _CompareCard extends StatelessWidget {
-  const _CompareCard({
-    required this.title,
-    required this.tone,
-    required this.child,
-  });
+  const _CompareCard({required this.title, required this.tone, required this.child});
 
   final String title;
   final Color tone;
@@ -1521,10 +1203,7 @@ class _CompareCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
-          ),
+          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
           Expanded(child: child),
         ],
@@ -1560,9 +1239,7 @@ class _MagnifierStage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned.fill(
-          child: _PatternCanvas(tone: tone, revision: revision, label: label),
-        ),
+        Positioned.fill(child: _PatternCanvas(tone: tone, revision: revision, label: label)),
         Align(
           alignment: Alignment.center,
           child: RawMagnifier(
@@ -1571,11 +1248,7 @@ class _MagnifierStage extends StatelessWidget {
             focalPointOffset: focalPointOffset,
             clipBehavior: clip,
             size: size,
-            child: _PatternCanvas(
-              tone: tone,
-              revision: revision,
-              label: '$label lens',
-            ),
+            child: _PatternCanvas(tone: tone, revision: revision, label: '$label lens'),
           ),
         ),
         if (overlay)
@@ -1586,10 +1259,7 @@ class _MagnifierStage extends StatelessWidget {
                 height: size.height + 10,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                    color: tone.withValues(alpha: 0.28),
-                    width: 2,
-                  ),
+                  border: Border.all(color: tone.withValues(alpha: 0.28), width: 2),
                 ),
               ),
             ),
@@ -1600,11 +1270,7 @@ class _MagnifierStage extends StatelessWidget {
 }
 
 class _PatternCanvas extends StatelessWidget {
-  const _PatternCanvas({
-    required this.tone,
-    required this.revision,
-    required this.label,
-  });
+  const _PatternCanvas({required this.tone, required this.revision, required this.label});
 
   final Color tone;
   final int revision;
@@ -1616,11 +1282,7 @@ class _PatternCanvas extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            tone.withValues(alpha: 0.12),
-            Colors.white,
-            tone.withValues(alpha: 0.08),
-          ],
+          colors: [tone.withValues(alpha: 0.12), Colors.white, tone.withValues(alpha: 0.08)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1645,14 +1307,7 @@ class _PatternCanvas extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 6),
-              Text(
-                'rev $revision',
-                style: TextStyle(
-                  color: tone.withValues(alpha: 0.75),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ),
-              ),
+              Text('rev $revision', style: TextStyle(color: tone.withValues(alpha: 0.75), fontWeight: FontWeight.w600, fontSize: 12)),
             ],
           ),
           const SizedBox(height: 8),
@@ -1671,13 +1326,7 @@ class _PatternCanvas extends StatelessWidget {
                         border: Border.all(color: tone.withValues(alpha: 0.30)),
                       ),
                       child: Center(
-                        child: Text(
-                          chip,
-                          style: TextStyle(
-                            color: tone.withValues(alpha: 0.9),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        child: Text(chip, style: TextStyle(color: tone.withValues(alpha: 0.9), fontWeight: FontWeight.w700)),
                       ),
                     ),
                   )
@@ -1776,10 +1425,7 @@ class _DataTableCard extends StatelessWidget {
                       child: Text(
                         r.label,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                     ),
                     const SizedBox(width: 6),
@@ -1802,13 +1448,7 @@ class _DataTableCard extends StatelessWidget {
 }
 
 class _SliderLine extends StatelessWidget {
-  const _SliderLine({
-    required this.label,
-    required this.value,
-    required this.min,
-    required this.max,
-    required this.onChanged,
-  });
+  const _SliderLine({required this.label, required this.value, required this.min, required this.max, required this.onChanged});
 
   final String label;
   final double value;
@@ -1821,10 +1461,7 @@ class _SliderLine extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$label: ${value.toStringAsFixed(2)}',
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
-        ),
+        Text('$label: ${value.toStringAsFixed(2)}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ],
     );
@@ -1832,13 +1469,7 @@ class _SliderLine extends StatelessWidget {
 }
 
 class _MiniSlider extends StatelessWidget {
-  const _MiniSlider({
-    required this.label,
-    required this.value,
-    required this.min,
-    required this.max,
-    required this.onChanged,
-  });
+  const _MiniSlider({required this.label, required this.value, required this.min, required this.max, required this.onChanged});
 
   final String label;
   final double value;
@@ -1850,16 +1481,8 @@ class _MiniSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
-          width: 38,
-          child: Text(
-            label,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
-          ),
-        ),
-        Expanded(
-          child: Slider(value: value, min: min, max: max, onChanged: onChanged),
-        ),
+        SizedBox(width: 38, child: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
+        Expanded(child: Slider(value: value, min: min, max: max, onChanged: onChanged)),
       ],
     );
   }
@@ -1876,10 +1499,7 @@ class _InstructionCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: tone.withValues(alpha: 0.95),
-        borderRadius: BorderRadius.circular(10),
-      ),
+      decoration: BoxDecoration(color: tone.withValues(alpha: 0.95), borderRadius: BorderRadius.circular(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: lines
@@ -1891,22 +1511,10 @@ class _InstructionCard extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(
-                        Icons.circle,
-                        size: 7,
-                        color: Color(0xFFC0E4FF),
-                      ),
+                      child: Icon(Icons.circle, size: 7, color: Color(0xFFC0E4FF)),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        line,
-                        style: const TextStyle(
-                          color: Color(0xFFEAF6FF),
-                          height: 1.35,
-                        ),
-                      ),
-                    ),
+                    Expanded(child: Text(line, style: const TextStyle(color: Color(0xFFEAF6FF), height: 1.35))),
                   ],
                 ),
               ),
@@ -1932,22 +1540,13 @@ class _LogCard extends StatelessWidget {
         border: Border.all(color: const Color(0xFFCFDEEC)),
       ),
       child: lines.isEmpty
-          ? const Text(
-              'No events yet.',
-              style: TextStyle(color: Color(0xFF62798D)),
-            )
+          ? const Text('No events yet.', style: TextStyle(color: Color(0xFF62798D)))
           : ListView.builder(
               itemCount: lines.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 3),
-                  child: Text(
-                    lines[index],
-                    style: const TextStyle(
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  child: Text(lines[index], style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
                 );
               },
             ),
@@ -1969,14 +1568,7 @@ class _RecapPanel extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Recap: MagnifierDecoration',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
-          ),
+          Text('Recap: MagnifierDecoration', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
           SizedBox(height: 8),
           Text(
             'MagnifierDecoration defines the visual identity of a lens surface: shape silhouette, optical frame opacity, and depth cues via shadows. '
@@ -2000,41 +1592,20 @@ MagnifierDecoration _buildDecoration({
   double blurBoost = 0,
   double yOffset = 6,
 }) {
-  final border = BorderSide(
-    color: tone.withValues(alpha: 0.72),
-    width: borderWidth,
-  );
+  final border = BorderSide(color: tone.withValues(alpha: 0.72), width: borderWidth);
   final shapeBorder = switch (shape) {
-    _ShapeKind.rounded => RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(radius),
-      side: border,
-    ),
-    _ShapeKind.continuous => ContinuousRectangleBorder(
-      borderRadius: BorderRadius.circular(radius),
-      side: border,
-    ),
-    _ShapeKind.beveled => BeveledRectangleBorder(
-      borderRadius: BorderRadius.circular(radius),
-      side: border,
-    ),
+    _ShapeKind.rounded => RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius), side: border),
+    _ShapeKind.continuous => ContinuousRectangleBorder(borderRadius: BorderRadius.circular(radius), side: border),
+    _ShapeKind.beveled => BeveledRectangleBorder(borderRadius: BorderRadius.circular(radius), side: border),
     _ShapeKind.stadium => StadiumBorder(side: border),
     _ShapeKind.circle => CircleBorder(side: border),
   };
 
   final shadows = shadowsOn
-      ? _buildShadows(
-          preset: shadowPreset,
-          tone: tone,
-          blurBoost: blurBoost,
-          yOffset: yOffset,
-        )
+      ? _buildShadows(preset: shadowPreset, tone: tone, blurBoost: blurBoost, yOffset: yOffset)
       : null;
 
-  return MagnifierDecoration(
-    opacity: opacity,
-    shadows: shadows,
-    shape: shapeBorder,
-  );
+  return MagnifierDecoration(opacity: opacity, shadows: shadows, shape: shapeBorder);
 }
 
 List<BoxShadow> _buildShadows({
@@ -2046,53 +1617,22 @@ List<BoxShadow> _buildShadows({
   switch (preset) {
     case _ShadowPreset.subtle:
       return [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.10),
-          blurRadius: 8 + blurBoost,
-          offset: Offset(0, yOffset * 0.35),
-        ),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.10), blurRadius: 8 + blurBoost, offset: Offset(0, yOffset * 0.35)),
       ];
     case _ShadowPreset.balanced:
       return [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.16),
-          blurRadius: 10 + blurBoost,
-          offset: Offset(0, yOffset * 0.45),
-        ),
-        BoxShadow(
-          color: tone.withValues(alpha: 0.20),
-          blurRadius: 22 + blurBoost,
-          spreadRadius: 1,
-          offset: Offset(0, yOffset),
-        ),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.16), blurRadius: 10 + blurBoost, offset: Offset(0, yOffset * 0.45)),
+        BoxShadow(color: tone.withValues(alpha: 0.20), blurRadius: 22 + blurBoost, spreadRadius: 1, offset: Offset(0, yOffset)),
       ];
     case _ShadowPreset.dramatic:
       return [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.26),
-          blurRadius: 14 + blurBoost,
-          offset: Offset(0, yOffset),
-        ),
-        BoxShadow(
-          color: tone.withValues(alpha: 0.28),
-          blurRadius: 32 + blurBoost,
-          spreadRadius: 2,
-          offset: Offset(0, yOffset + 3),
-        ),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.26), blurRadius: 14 + blurBoost, offset: Offset(0, yOffset)),
+        BoxShadow(color: tone.withValues(alpha: 0.28), blurRadius: 32 + blurBoost, spreadRadius: 2, offset: Offset(0, yOffset + 3)),
       ];
     case _ShadowPreset.neon:
       return [
-        BoxShadow(
-          color: tone.withValues(alpha: 0.45),
-          blurRadius: 24 + blurBoost,
-          spreadRadius: 2,
-          offset: Offset(0, yOffset * 0.4),
-        ),
-        BoxShadow(
-          color: Colors.white.withValues(alpha: 0.35),
-          blurRadius: 8 + blurBoost * 0.4,
-          offset: const Offset(0, 0),
-        ),
+        BoxShadow(color: tone.withValues(alpha: 0.45), blurRadius: 24 + blurBoost, spreadRadius: 2, offset: Offset(0, yOffset * 0.4)),
+        BoxShadow(color: Colors.white.withValues(alpha: 0.35), blurRadius: 8 + blurBoost * 0.4, offset: const Offset(0, 0)),
       ];
   }
 }

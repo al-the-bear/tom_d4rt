@@ -52,10 +52,8 @@ class _RequestFocusActionDemoState extends State<_RequestFocusActionDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text(
-          'RequestFocusAction',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: Text('RequestFocusAction',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -73,7 +71,11 @@ class _RequestFocusActionDemoState extends State<_RequestFocusActionDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [_TheoryTab(), _FocusRingTab(), _MultiNodeTab()],
+        children: [
+          _TheoryTab(),
+          _FocusRingTab(),
+          _MultiNodeTab(),
+        ],
       ),
     );
   }
@@ -100,7 +102,8 @@ class _TheoryTab extends StatelessWidget {
                 'registered by default in every WidgetsApp (and therefore '
                 'MaterialApp), so you can invoke it from anywhere in the '
                 'widget tree without additional setup.',
-                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(
+                    color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -128,7 +131,8 @@ class _TheoryTab extends StatelessWidget {
                 'it calls focusNode.requestFocus(), but you can provide '
                 'a custom requestFocusCallback to change that behavior '
                 '(e.g., to request only the primary focus tree).',
-                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(
+                    color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -145,19 +149,14 @@ class _TheoryTab extends StatelessWidget {
                 '}',
               ),
               SizedBox(height: 12),
-              _paramRow(
-                'focusNode',
-                'FocusNode',
-                'The node that should receive focus',
-                _kPrimary,
-              ),
+              _paramRow('focusNode', 'FocusNode',
+                  'The node that should receive focus', _kPrimary),
               SizedBox(height: 6),
               _paramRow(
-                'requestFocusCallback',
-                'ValueChanged<FocusNode>?',
-                'Custom callback, defaults to node.requestFocus()',
-                _kAccent,
-              ),
+                  'requestFocusCallback',
+                  'ValueChanged<FocusNode>?',
+                  'Custom callback, defaults to node.requestFocus()',
+                  _kAccent),
             ],
           ),
         ),
@@ -171,8 +170,7 @@ class _TheoryTab extends StatelessWidget {
             children: [
               _dispatchMethod(
                 title: 'Method 1: Actions.invoke()',
-                code:
-                    'Actions.invoke(\n'
+                code: 'Actions.invoke(\n'
                     '  context,\n'
                     '  RequestFocusIntent(myNode),\n'
                     ');',
@@ -183,8 +181,7 @@ class _TheoryTab extends StatelessWidget {
               SizedBox(height: 12),
               _dispatchMethod(
                 title: 'Method 2: Actions.maybeInvoke()',
-                code:
-                    'Actions.maybeInvoke<RequestFocusIntent>(\n'
+                code: 'Actions.maybeInvoke<RequestFocusIntent>(\n'
                     '  context,\n'
                     '  RequestFocusIntent(myNode),\n'
                     ');',
@@ -203,8 +200,7 @@ class _TheoryTab extends StatelessWidget {
               SizedBox(height: 12),
               _dispatchMethod(
                 title: 'Method 4: Keyboard shortcut binding',
-                code:
-                    'Shortcuts(\n'
+                code: 'Shortcuts(\n'
                     '  shortcuts: {\n'
                     '    LogicalKeySet(LogicalKeyboardKey.f2):\n'
                     '        RequestFocusIntent(searchNode),\n'
@@ -232,7 +228,8 @@ class _TheoryTab extends StatelessWidget {
                 'intercept or modify focus requests — for example, to add '
                 'logging, animate focus transitions, or conditionally deny '
                 'focus.',
-                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(
+                    color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -349,7 +346,10 @@ class _FocusRingTabState extends State<_FocusRingTab> {
 
   void _requestFocusViaAction(int index) {
     if (index >= 0 && index < _nodes.length) {
-      Actions.invoke(context, RequestFocusIntent(_nodes[index]));
+      Actions.invoke(
+        context,
+        RequestFocusIntent(_nodes[index]),
+      );
       print('RequestFocusAction invoked for tile $index');
     }
   }
@@ -364,11 +364,9 @@ class _FocusRingTabState extends State<_FocusRingTab> {
           color: _kPrimary.withOpacity(0.06),
           child: Row(
             children: [
-              _statBadge(
-                'Focused',
-                _focusedIndex >= 0 ? 'Tile $_focusedIndex' : 'None',
-                _kAccent,
-              ),
+              _statBadge('Focused', _focusedIndex >= 0
+                  ? 'Tile $_focusedIndex'
+                  : 'None', _kAccent),
               SizedBox(width: 10),
               _statBadge('Requests', '$_totalFocusRequests', _kPrimary),
               Spacer(),
@@ -409,36 +407,31 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                         'Click a tile to focus it via RequestFocusAction, '
                         'or use the buttons below to focus programmatically.',
                         style: TextStyle(
-                          fontSize: 12,
-                          color: _kMuted,
-                          height: 1.4,
-                        ),
+                            fontSize: 12, color: _kMuted, height: 1.4),
                       ),
                       SizedBox(height: 12),
                       Expanded(
                         child: GridView.builder(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 4,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                                childAspectRatio: 1.2,
-                              ),
+                            crossAxisCount: 4,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 1.2,
+                          ),
                           itemCount: _tileCount,
-                          itemBuilder: (_, i) => _buildFocusableTile(i),
+                          itemBuilder: (_, i) =>
+                              _buildFocusableTile(i),
                         ),
                       ),
                       SizedBox(height: 12),
 
                       // Quick-focus buttons
-                      Text(
-                        'Quick Focus:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                          color: _kDarkText,
-                        ),
-                      ),
+                      Text('Quick Focus:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13,
+                              color: _kDarkText)),
                       SizedBox(height: 6),
                       Wrap(
                         spacing: 6,
@@ -463,7 +456,8 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                               _requestFocusViaAction(next);
                             },
                             icon: Icon(Icons.arrow_forward, size: 16),
-                            label: Text('Next', style: TextStyle(fontSize: 12)),
+                            label: Text('Next',
+                                style: TextStyle(fontSize: 12)),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _kAccent,
                               foregroundColor: Colors.white,
@@ -477,7 +471,8 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                               _requestFocusViaAction(prev);
                             },
                             icon: Icon(Icons.arrow_back, size: 16),
-                            label: Text('Prev', style: TextStyle(fontSize: 12)),
+                            label: Text('Prev',
+                                style: TextStyle(fontSize: 12)),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _kPrimary,
                               foregroundColor: Colors.white,
@@ -488,14 +483,12 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                             onPressed: () {
                               final random =
                                   DateTime.now().millisecondsSinceEpoch %
-                                  _tileCount;
+                                      _tileCount;
                               _requestFocusViaAction(random);
                             },
                             icon: Icon(Icons.shuffle, size: 16),
-                            label: Text(
-                              'Random',
-                              style: TextStyle(fontSize: 12),
-                            ),
+                            label: Text('Random',
+                                style: TextStyle(fontSize: 12)),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFF6D4C41),
                               foregroundColor: Colors.white,
@@ -513,7 +506,8 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                 width: 220,
                 decoration: BoxDecoration(
                   color: _kCardBg,
-                  border: Border(left: BorderSide(color: Colors.grey.shade300)),
+                  border: Border(
+                      left: BorderSide(color: Colors.grey.shade300)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -523,27 +517,22 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                       color: _kPrimary.withOpacity(0.08),
                       child: Row(
                         children: [
-                          Icon(Icons.history, size: 16, color: _kPrimary),
+                          Icon(Icons.history,
+                              size: 16, color: _kPrimary),
                           SizedBox(width: 6),
-                          Text(
-                            'Focus Log',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13,
-                              color: _kDarkText,
-                            ),
-                          ),
+                          Text('Focus Log',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13,
+                                  color: _kDarkText)),
                           Spacer(),
                           GestureDetector(
                             onTap: () => setState(() {
                               _focusLog.clear();
                               _totalFocusRequests = 0;
                             }),
-                            child: Icon(
-                              Icons.delete_sweep,
-                              size: 16,
-                              color: _kMuted,
-                            ),
+                            child: Icon(Icons.delete_sweep,
+                                size: 16, color: _kMuted),
                           ),
                         ],
                       ),
@@ -551,38 +540,36 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                     Expanded(
                       child: _focusLog.isEmpty
                           ? Center(
-                              child: Text(
-                                'Click tiles to start',
-                                style: TextStyle(color: _kMuted, fontSize: 12),
-                              ),
+                              child: Text('Click tiles to start',
+                                  style: TextStyle(
+                                      color: _kMuted, fontSize: 12)),
                             )
                           : ListView.builder(
                               padding: EdgeInsets.all(6),
                               itemCount: _focusLog.length,
                               itemBuilder: (_, i) {
                                 final entry = _focusLog[i];
-                                final isUnfocus = entry.startsWith('Unfocus');
+                                final isUnfocus =
+                                    entry.startsWith('Unfocus');
                                 return Padding(
                                   padding: EdgeInsets.only(bottom: 3),
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
-                                    ),
+                                        horizontal: 8, vertical: 4),
                                     decoration: BoxDecoration(
                                       color: isUnfocus
                                           ? _kError.withOpacity(0.06)
                                           : _kAccent.withOpacity(0.06),
-                                      borderRadius: BorderRadius.circular(4),
+                                      borderRadius:
+                                          BorderRadius.circular(4),
                                     ),
-                                    child: Text(
-                                      entry,
-                                      style: TextStyle(
-                                        fontFamily: 'monospace',
-                                        fontSize: 11,
-                                        color: isUnfocus ? _kError : _kDarkText,
-                                      ),
-                                    ),
+                                    child: Text(entry,
+                                        style: TextStyle(
+                                            fontFamily: 'monospace',
+                                            fontSize: 11,
+                                            color: isUnfocus
+                                                ? _kError
+                                                : _kDarkText)),
                                   ),
                                 );
                               },
@@ -601,18 +588,10 @@ class _FocusRingTabState extends State<_FocusRingTab> {
   Widget _buildFocusableTile(int index) {
     final isFocused = _focusedIndex == index;
     final colors = [
-      Color(0xFF1E88E5),
-      Color(0xFF43A047),
-      Color(0xFFFB8C00),
-      Color(0xFF8E24AA),
-      Color(0xFFE53935),
-      Color(0xFF00ACC1),
-      Color(0xFF3949AB),
-      Color(0xFF7CB342),
-      Color(0xFFD81B60),
-      Color(0xFF546E7A),
-      Color(0xFFF4511E),
-      Color(0xFF00897B),
+      Color(0xFF1E88E5), Color(0xFF43A047), Color(0xFFFB8C00),
+      Color(0xFF8E24AA), Color(0xFFE53935), Color(0xFF00ACC1),
+      Color(0xFF3949AB), Color(0xFF7CB342), Color(0xFFD81B60),
+      Color(0xFF546E7A), Color(0xFFF4511E), Color(0xFF00897B),
     ];
     final tileColor = colors[index % colors.length];
 
@@ -623,7 +602,9 @@ class _FocusRingTabState extends State<_FocusRingTab> {
         child: AnimatedContainer(
           duration: Duration(milliseconds: 250),
           decoration: BoxDecoration(
-            color: isFocused ? _kFocused.withOpacity(0.2) : _kCardBg,
+            color: isFocused
+                ? _kFocused.withOpacity(0.2)
+                : _kCardBg,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: isFocused ? _kFocused : tileColor.withOpacity(0.3),
@@ -651,14 +632,17 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: isFocused ? tileColor : tileColor.withOpacity(0.15),
+                  color: isFocused
+                      ? tileColor
+                      : tileColor.withOpacity(0.15),
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
                 child: Text(
                   '$index',
                   style: TextStyle(
-                    color: isFocused ? Colors.white : tileColor,
+                    color:
+                        isFocused ? Colors.white : tileColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
@@ -669,7 +653,9 @@ class _FocusRingTabState extends State<_FocusRingTab> {
                 isFocused ? 'FOCUSED' : 'Tile $index',
                 style: TextStyle(
                   fontSize: 10,
-                  fontWeight: isFocused ? FontWeight.w800 : FontWeight.w400,
+                  fontWeight: isFocused
+                      ? FontWeight.w800
+                      : FontWeight.w400,
                   color: isFocused ? _kPrimary : _kMuted,
                 ),
               ),
@@ -705,22 +691,16 @@ class _FocusRingTabState extends State<_FocusRingTab> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            '$label: ',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text('$label: ',
+              style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500)),
+          Text(value,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -773,13 +753,13 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
   }
 
   List<_FieldEntry> get _allFields => [
-    _FieldEntry('Name', _nameNode, Icons.person),
-    _FieldEntry('Email', _emailNode, Icons.email),
-    _FieldEntry('Phone', _phoneNode, Icons.phone),
-    _FieldEntry('Address', _addressNode, Icons.location_on),
-    _FieldEntry('Notes', _notesNode, Icons.note),
-    _FieldEntry('Submit', _submitNode, Icons.send),
-  ];
+        _FieldEntry('Name', _nameNode, Icons.person),
+        _FieldEntry('Email', _emailNode, Icons.email),
+        _FieldEntry('Phone', _phoneNode, Icons.phone),
+        _FieldEntry('Address', _addressNode, Icons.location_on),
+        _FieldEntry('Notes', _notesNode, Icons.note),
+        _FieldEntry('Submit', _submitNode, Icons.send),
+      ];
 
   @override
   void dispose() {
@@ -815,20 +795,15 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                   color: _kAccent,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Text(
-                  _lastAction,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text(_lastAction,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600)),
               ),
               Spacer(),
-              Text(
-                'Intercept:',
-                style: TextStyle(fontSize: 12, color: _kMuted),
-              ),
+              Text('Intercept:',
+                  style: TextStyle(fontSize: 12, color: _kMuted)),
               SizedBox(width: 6),
               Switch(
                 value: _interceptEnabled,
@@ -838,19 +813,17 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
               if (_interceptEnabled)
                 Container(
                   margin: EdgeInsets.only(left: 4),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: _kError.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text(
-                    '$_interceptCount blocked',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: _kError,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text('$_interceptCount blocked',
+                      style: TextStyle(
+                          fontSize: 11,
+                          color: _kError,
+                          fontWeight: FontWeight.w600)),
                 ),
             ],
           ),
@@ -872,11 +845,13 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                       decoration: BoxDecoration(
                         color: _kHighlight,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: _kAccent.withOpacity(0.3)),
+                        border: Border.all(
+                            color: _kAccent.withOpacity(0.3)),
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.info_outline, color: _kAccent, size: 20),
+                          Icon(Icons.info_outline,
+                              color: _kAccent, size: 20),
                           SizedBox(width: 10),
                           Expanded(
                             child: Text(
@@ -885,10 +860,9 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                               'Toggle "Intercept" to see a custom Action '
                               'override that blocks focus changes.',
                               style: TextStyle(
-                                fontSize: 12,
-                                color: _kDarkText,
-                                height: 1.4,
-                              ),
+                                  fontSize: 12,
+                                  color: _kDarkText,
+                                  height: 1.4),
                             ),
                           ),
                         ],
@@ -912,10 +886,7 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                             'via Actions.invoke(). When "Intercept" is on, '
                             'a custom CallbackAction blocks the request.',
                             style: TextStyle(
-                              fontSize: 12,
-                              color: _kMuted,
-                              height: 1.4,
-                            ),
+                                fontSize: 12, color: _kMuted, height: 1.4),
                           ),
                           SizedBox(height: 10),
                           Wrap(
@@ -928,18 +899,15 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                                 child: ElevatedButton.icon(
                                   onPressed: () => _focusField(f.node),
                                   icon: Icon(f.icon, size: 14),
-                                  label: Text(
-                                    f.label,
-                                    style: TextStyle(fontSize: 11),
-                                  ),
+                                  label: Text(f.label,
+                                      style: TextStyle(fontSize: 11)),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: isFocused
                                         ? _kAccent
                                         : _kPrimary,
                                     foregroundColor: Colors.white,
                                     padding: EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
+                                        horizontal: 10),
                                   ),
                                 ),
                               );
@@ -952,31 +920,26 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                                 onPressed: () {
                                   // Sequential focus: name → email → phone → ...
                                   final current = fields.indexWhere(
-                                    (f) => f.node.hasFocus,
-                                  );
-                                  final next = (current + 1) % fields.length;
+                                      (f) => f.node.hasFocus);
+                                  final next =
+                                      (current + 1) % fields.length;
                                   _focusField(fields[next].node);
                                 },
-                                child: Text(
-                                  'Tab Forward →',
-                                  style: TextStyle(fontSize: 11),
-                                ),
+                                child: Text('Tab Forward →',
+                                    style: TextStyle(fontSize: 11)),
                               ),
                               SizedBox(width: 8),
                               OutlinedButton(
                                 onPressed: () {
                                   final current = fields.indexWhere(
-                                    (f) => f.node.hasFocus,
-                                  );
-                                  final prev =
-                                      (current - 1 + fields.length) %
+                                      (f) => f.node.hasFocus);
+                                  final prev = (current - 1 +
+                                          fields.length) %
                                       fields.length;
                                   _focusField(fields[prev].node);
                                 },
-                                child: Text(
-                                  '← Tab Back',
-                                  style: TextStyle(fontSize: 11),
-                                ),
+                                child: Text('← Tab Back',
+                                    style: TextStyle(fontSize: 11)),
                               ),
                             ],
                           ),
@@ -993,7 +956,8 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                 width: 210,
                 decoration: BoxDecoration(
                   color: _kCardBg,
-                  border: Border(left: BorderSide(color: Colors.grey.shade300)),
+                  border: Border(
+                      left: BorderSide(color: Colors.grey.shade300)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1003,24 +967,20 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                       color: _kAccent.withOpacity(0.08),
                       child: Row(
                         children: [
-                          Icon(Icons.timeline, size: 16, color: _kAccent),
+                          Icon(Icons.timeline,
+                              size: 16, color: _kAccent),
                           SizedBox(width: 6),
-                          Text(
-                            'Focus Timeline',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13,
-                              color: _kDarkText,
-                            ),
-                          ),
+                          Text('Focus Timeline',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13,
+                                  color: _kDarkText)),
                           Spacer(),
                           GestureDetector(
-                            onTap: () => setState(() => _events.clear()),
-                            child: Icon(
-                              Icons.delete_sweep,
-                              size: 16,
-                              color: _kMuted,
-                            ),
+                            onTap: () =>
+                                setState(() => _events.clear()),
+                            child: Icon(Icons.delete_sweep,
+                                size: 16, color: _kMuted),
                           ),
                         ],
                       ),
@@ -1031,7 +991,8 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                               child: Text(
                                 'Focus a field\nto see events',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: _kMuted, fontSize: 12),
+                                style: TextStyle(
+                                    color: _kMuted, fontSize: 12),
                               ),
                             )
                           : ListView.builder(
@@ -1040,32 +1001,35 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                               itemBuilder: (_, i) {
                                 final e = _events[i];
                                 return Padding(
-                                  padding: EdgeInsets.only(bottom: 3),
+                                  padding:
+                                      EdgeInsets.only(bottom: 3),
                                   child: Container(
                                     padding: EdgeInsets.all(6),
                                     decoration: BoxDecoration(
-                                      color: _kAccent.withOpacity(0.06),
-                                      borderRadius: BorderRadius.circular(4),
+                                      color: _kAccent
+                                          .withOpacity(0.06),
+                                      borderRadius:
+                                          BorderRadius.circular(4),
                                       border: Border.all(
-                                        color: _kAccent.withOpacity(0.15),
-                                      ),
+                                          color: _kAccent
+                                              .withOpacity(0.15)),
                                     ),
                                     child: Row(
                                       children: [
-                                        Icon(
-                                          Icons.adjust,
-                                          size: 12,
-                                          color: _kAccent,
-                                        ),
+                                        Icon(Icons.adjust,
+                                            size: 12,
+                                            color: _kAccent),
                                         SizedBox(width: 6),
                                         Expanded(
                                           child: Text(
                                             e.field,
                                             style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w600,
-                                              color: _kDarkText,
-                                            ),
+                                                fontSize: 11,
+                                                fontWeight:
+                                                    FontWeight
+                                                        .w600,
+                                                color:
+                                                    _kDarkText),
                                           ),
                                         ),
                                         Text(
@@ -1073,9 +1037,8 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                                           '${e.time.minute.toString().padLeft(2, '0')}:'
                                           '${e.time.second.toString().padLeft(2, '0')}',
                                           style: TextStyle(
-                                            fontSize: 9,
-                                            color: _kMuted,
-                                          ),
+                                              fontSize: 9,
+                                              color: _kMuted),
                                         ),
                                       ],
                                     ),
@@ -1097,15 +1060,16 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
     if (_interceptEnabled) {
       content = Actions(
         actions: {
-          RequestFocusIntent: CallbackAction<RequestFocusIntent>(
+          RequestFocusIntent:
+              CallbackAction<RequestFocusIntent>(
             onInvoke: (intent) {
               setState(() {
                 _interceptCount++;
-                _lastAction = 'BLOCKED focus on ${intent.focusNode.debugLabel}';
+                _lastAction =
+                    'BLOCKED focus on ${intent.focusNode.debugLabel}';
               });
               print(
-                'Intercepted: focus request to ${intent.focusNode.debugLabel}',
-              );
+                  'Intercepted: focus request to ${intent.focusNode.debugLabel}');
               return null; // do NOT forward
             },
           ),
@@ -1125,7 +1089,9 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
         duration: Duration(milliseconds: 200),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: hasFocus ? _kFocused.withOpacity(0.08) : _kCardBg,
+          color: hasFocus
+              ? _kFocused.withOpacity(0.08)
+              : _kCardBg,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: hasFocus ? _kFocused : Colors.grey.shade300,
@@ -1147,29 +1113,26 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: hasFocus ? _kAccent : _kPrimary.withOpacity(0.1),
+                color: hasFocus
+                    ? _kAccent
+                    : _kPrimary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               alignment: Alignment.center,
-              child: Icon(
-                entry.icon,
-                size: 18,
-                color: hasFocus ? Colors.white : _kPrimary,
-              ),
+              child: Icon(entry.icon,
+                  size: 18,
+                  color: hasFocus ? Colors.white : _kPrimary),
             ),
             SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    entry.label,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                      color: _kDarkText,
-                    ),
-                  ),
+                  Text(entry.label,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                          color: _kDarkText)),
                   SizedBox(height: 4),
                   SizedBox(
                     height: 36,
@@ -1178,21 +1141,20 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
+                          borderSide: BorderSide(
+                              color: Colors.grey.shade300),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(color: _kAccent, width: 2),
+                          borderSide:
+                              BorderSide(color: _kAccent, width: 2),
                         ),
                         contentPadding: EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 6,
-                        ),
+                            horizontal: 8, vertical: 6),
                         hintText: 'Enter ${entry.label.toLowerCase()}',
                         hintStyle: TextStyle(
-                          fontSize: 12,
-                          color: _kMuted.withOpacity(0.5),
-                        ),
+                            fontSize: 12,
+                            color: _kMuted.withOpacity(0.5)),
                         isDense: true,
                       ),
                       style: TextStyle(fontSize: 12),
@@ -1214,7 +1176,8 @@ class _MultiNodeTabState extends State<_MultiNodeTab> {
                 hasFocus ? 'FOCUSED' : 'idle',
                 style: TextStyle(
                   fontSize: 10,
-                  fontWeight: hasFocus ? FontWeight.w800 : FontWeight.w400,
+                  fontWeight:
+                      hasFocus ? FontWeight.w800 : FontWeight.w400,
                   color: hasFocus ? _kAccent : _kMuted,
                 ),
               ),
@@ -1271,14 +1234,11 @@ Widget _sectionCard(String title, Widget child) {
               ),
             ),
             SizedBox(width: 8),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 15,
-                color: _kDarkText,
-              ),
-            ),
+            Text(title,
+                style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15,
+                    color: _kDarkText)),
           ],
         ),
         SizedBox(height: 12),
@@ -1297,19 +1257,17 @@ Widget _codeBlock(String code) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _kPrimary.withOpacity(0.15)),
     ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 12,
-        color: _kDarkText,
-        height: 1.5,
-      ),
-    ),
+    child: Text(code,
+        style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: _kDarkText,
+            height: 1.5)),
   );
 }
 
-Widget _paramRow(String name, String type, String desc, Color color) {
+Widget _paramRow(
+    String name, String type, String desc, Color color) {
   return Container(
     padding: EdgeInsets.all(8),
     decoration: BoxDecoration(
@@ -1326,30 +1284,26 @@ Widget _paramRow(String name, String type, String desc, Color color) {
             color: _kCodeBg,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            name,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          child: Text(name,
+              style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: color)),
         ),
         SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                type,
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                  color: _kMuted,
-                ),
-              ),
-              Text(desc, style: TextStyle(fontSize: 11, color: _kDarkText)),
+              Text(type,
+                  style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 10,
+                      color: _kMuted)),
+              Text(desc,
+                  style: TextStyle(
+                      fontSize: 11, color: _kDarkText)),
             ],
           ),
         ),
@@ -1373,21 +1327,17 @@ Widget _dispatchMethod({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 13,
-            color: _kPrimary,
-          ),
-        ),
+        Text(title,
+            style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 13,
+                color: _kPrimary)),
         SizedBox(height: 6),
         _codeBlock(code),
         SizedBox(height: 6),
-        Text(
-          description,
-          style: TextStyle(fontSize: 12, color: _kMuted, height: 1.4),
-        ),
+        Text(description,
+            style: TextStyle(
+                fontSize: 12, color: _kMuted, height: 1.4)),
       ],
     ),
   );
@@ -1407,10 +1357,9 @@ Widget _bestPractice({
         Icon(icon, color: color, size: 18),
         SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  fontSize: 12, color: _kDarkText, height: 1.4)),
         ),
       ],
     ),

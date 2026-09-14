@@ -87,61 +87,36 @@ dynamic build(BuildContext context) {
 
   final paramCards = Column(
     children: [
-      _buildParamCard(
-        'value',
-        'T',
-        'The value this radio represents. '
-            'When groupValue == value, this radio is selected.',
-      ),
+      _buildParamCard('value', 'T', 'The value this radio represents. '
+          'When groupValue == value, this radio is selected.'),
       const SizedBox(height: 8),
-      _buildParamCard(
-        'mouseCursor',
-        'WidgetStateProperty<MouseCursor>',
-        'Resolves cursor for states: selected, hovered, focused, disabled.',
-      ),
+      _buildParamCard('mouseCursor', 'WidgetStateProperty<MouseCursor>',
+          'Resolves cursor for states: selected, hovered, focused, disabled.'),
       const SizedBox(height: 8),
-      _buildParamCard(
-        'toggleable',
-        'bool',
-        'When true, re-tapping selected radio sets groupValue to null. '
-            'When false, once selected it can only be deselected by selecting '
-            'another radio.',
-      ),
+      _buildParamCard('toggleable', 'bool',
+          'When true, re-tapping selected radio sets groupValue to null. '
+          'When false, once selected it can only be deselected by selecting '
+          'another radio.'),
       const SizedBox(height: 8),
-      _buildParamCard(
-        'focusNode',
-        'FocusNode',
-        'Focus node for keyboard navigation and focus state tracking.',
-      ),
+      _buildParamCard('focusNode', 'FocusNode',
+          'Focus node for keyboard navigation and focus state tracking.'),
       const SizedBox(height: 8),
-      _buildParamCard(
-        'autofocus',
-        'bool',
-        'Whether this radio requests focus on first build.',
-      ),
+      _buildParamCard('autofocus', 'bool',
+          'Whether this radio requests focus on first build.'),
       const SizedBox(height: 8),
-      _buildParamCard(
-        'groupRegistry',
-        'RadioGroupRegistry<T>?',
-        'The registry from the ancestor RadioGroup. Required when enabled. '
-            'Get via RadioGroup.maybeOf<T>(context). Tracks groupValue and '
-            'onChanged callback.',
-      ),
+      _buildParamCard('groupRegistry', 'RadioGroupRegistry<T>?',
+          'The registry from the ancestor RadioGroup. Required when enabled. '
+          'Get via RadioGroup.maybeOf<T>(context). Tracks groupValue and '
+          'onChanged callback.'),
       const SizedBox(height: 8),
-      _buildParamCard(
-        'enabled',
-        'bool',
-        'Whether the radio is interactive. When false, it ignores taps and '
-            'shows the disabled mouse cursor.',
-      ),
+      _buildParamCard('enabled', 'bool',
+          'Whether the radio is interactive. When false, it ignores taps and '
+          'shows the disabled mouse cursor.'),
       const SizedBox(height: 8),
-      _buildParamCard(
-        'builder',
-        'RadioBuilder',
-        'Widget Function(BuildContext, ToggleableStateMixin state)\n'
-            'Builds the visual. Use state.position for animation, '
-            'state.value for selection, state.isFocused/isHovered for visual feedback.',
-      ),
+      _buildParamCard('builder', 'RadioBuilder',
+          'Widget Function(BuildContext, ToggleableStateMixin state)\n'
+          'Builds the visual. Use state.position for animation, '
+          'state.value for selection, state.isFocused/isHovered for visual feedback.'),
     ],
   );
 
@@ -189,27 +164,11 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12),
         _buildTreeLine('RadioGroup<T>', 0, const Color(0xFFE65100)),
         _buildTreeLine('├─ groupValue: T?', 1, const Color(0xFF757575)),
-        _buildTreeLine(
-          '├─ onChanged: ValueChanged<T?>',
-          1,
-          const Color(0xFF757575),
-        ),
+        _buildTreeLine('├─ onChanged: ValueChanged<T?>', 1, const Color(0xFF757575)),
         _buildTreeLine('└─ child:', 1, const Color(0xFF757575)),
-        _buildTreeLine(
-          '   ├─ RawRadio<T>(value: \'a\', ...)',
-          2,
-          const Color(0xFF2E7D32),
-        ),
-        _buildTreeLine(
-          '   ├─ RawRadio<T>(value: \'b\', ...)',
-          2,
-          const Color(0xFF2E7D32),
-        ),
-        _buildTreeLine(
-          '   └─ RawRadio<T>(value: \'c\', ...)',
-          2,
-          const Color(0xFF2E7D32),
-        ),
+        _buildTreeLine('   ├─ RawRadio<T>(value: \'a\', ...)', 2, const Color(0xFF2E7D32)),
+        _buildTreeLine('   ├─ RawRadio<T>(value: \'b\', ...)', 2, const Color(0xFF2E7D32)),
+        _buildTreeLine('   └─ RawRadio<T>(value: \'c\', ...)', 2, const Color(0xFF2E7D32)),
         const SizedBox(height: 14),
         Container(
           padding: const EdgeInsets.all(10),
@@ -270,36 +229,24 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12),
-        _buildStateRow(
-          'position',
-          'CurvedAnimation',
-          '0.0 → 1.0 animation. Drives smooth transition between '
-              'unselected (0.0) and selected (1.0). Use for custom painting.',
-          const Color(0xFF1565C0),
-        ),
+        _buildStateRow('position', 'CurvedAnimation',
+            '0.0 → 1.0 animation. Drives smooth transition between '
+            'unselected (0.0) and selected (1.0). Use for custom painting.',
+            const Color(0xFF1565C0)),
         const SizedBox(height: 8),
-        _buildStateRow(
-          'value',
-          'bool?',
-          'true = selected, false = unselected, null = tristate '
-              '(when toggleable is true and deselected).',
-          const Color(0xFF2E7D32),
-        ),
+        _buildStateRow('value', 'bool?',
+            'true = selected, false = unselected, null = tristate '
+            '(when toggleable is true and deselected).',
+            const Color(0xFF2E7D32)),
         const SizedBox(height: 8),
-        _buildStateRow(
-          'states',
-          'Set<WidgetState>',
-          'Contains hovered, focused, selected, disabled. Check with '
-              'states.contains(WidgetState.hovered) etc.',
-          const Color(0xFFE65100),
-        ),
+        _buildStateRow('states', 'Set<WidgetState>',
+            'Contains hovered, focused, selected, disabled. Check with '
+            'states.contains(WidgetState.hovered) etc.',
+            const Color(0xFFE65100)),
         const SizedBox(height: 8),
-        _buildStateRow(
-          'isInteractive',
-          'bool',
-          'Whether the radio is enabled and can be tapped.',
-          const Color(0xFFC62828),
-        ),
+        _buildStateRow('isInteractive', 'bool',
+            'Whether the radio is enabled and can be tapped.',
+            const Color(0xFFC62828)),
       ],
     ),
   );
@@ -360,11 +307,7 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.radio_button_checked,
-                    color: Color(0xFF2E7D32),
-                    size: 20,
-                  ),
+                  const Icon(Icons.radio_button_checked, color: Color(0xFF2E7D32), size: 20),
                   const SizedBox(width: 6),
                   const Text(
                     'false (default)',
@@ -404,11 +347,7 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.toggle_on,
-                    color: Color(0xFFE65100),
-                    size: 20,
-                  ),
+                  const Icon(Icons.toggle_on, color: Color(0xFFE65100), size: 20),
                   const SizedBox(width: 6),
                   const Text(
                     'true',
@@ -471,29 +410,17 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12),
-        _buildSemanticRow(
-          'inMutuallyExclusiveGroup',
-          'true',
-          'Tells screen reader this is part of a radio group',
-        ),
+        _buildSemanticRow('inMutuallyExclusiveGroup', 'true',
+            'Tells screen reader this is part of a radio group'),
         const SizedBox(height: 6),
-        _buildSemanticRow(
-          'checked',
-          'value (Android/Linux/Win)',
-          'Reports selection via checked property',
-        ),
+        _buildSemanticRow('checked', 'value (Android/Linux/Win)',
+            'Reports selection via checked property'),
         const SizedBox(height: 6),
-        _buildSemanticRow(
-          'selected',
-          'value (iOS/macOS)',
-          'Reports selection via selected property',
-        ),
+        _buildSemanticRow('selected', 'value (iOS/macOS)',
+            'Reports selection via selected property'),
         const SizedBox(height: 6),
-        _buildSemanticRow(
-          'hint',
-          'radioButtonUnselectedLabel',
-          'iOS/macOS: provided only when unselected',
-        ),
+        _buildSemanticRow('hint', 'radioButtonUnselectedLabel',
+            'iOS/macOS: provided only when unselected'),
         const SizedBox(height: 14),
         Container(
           padding: const EdgeInsets.all(10),
@@ -549,8 +476,8 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Circle Dot (Material-style)',
           'Outer circle always visible. Inner dot scales with '
-              'state.position.value (0.0 → 1.0). Color changes on '
-              'selected/disabled.',
+          'state.position.value (0.0 → 1.0). Color changes on '
+          'selected/disabled.',
           Icons.radio_button_checked,
           const Color(0xFF1565C0),
         ),
@@ -558,8 +485,8 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Checkmark (Custom)',
           'Container with rounded corners. When state.value == true, '
-              'show a checkmark icon. Background color lerps with '
-              'position.value.',
+          'show a checkmark icon. Background color lerps with '
+          'position.value.',
           Icons.check_circle,
           const Color(0xFF2E7D32),
         ),
@@ -567,8 +494,8 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Segmented Chip (Custom)',
           'Styled container with text label. Selected state adds '
-              'colored border and fill. Use state.isFocused for focus '
-              'ring, state.isHovered for hover effect.',
+          'colored border and fill. Use state.isFocused for focus '
+          'ring, state.isHovered for hover effect.',
           Icons.smart_button,
           const Color(0xFFE65100),
         ),
@@ -640,33 +567,13 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12),
         _buildComparisonHeader(),
         _buildComparisonRow('Layer', 'widgets', 'material', 'cupertino'),
-        _buildComparisonRow(
-          'Visual',
-          'Custom builder',
-          'MD circle dot',
-          'iOS gradient dot',
-        ),
+        _buildComparisonRow('Visual', 'Custom builder', 'MD circle dot', 'iOS gradient dot'),
         _buildComparisonRow('Theming', 'None', 'RadioTheme', 'CupertinoTheme'),
         _buildComparisonRow('Ink Splash', 'Manual', 'Built-in', 'None'),
-        _buildComparisonRow(
-          'Size',
-          'Custom',
-          '48×48 (touch)',
-          '20×20 (visual)',
-        ),
-        _buildComparisonRow(
-          'Animation',
-          'position curve',
-          'Radial + paint',
-          'Scale animation',
-        ),
+        _buildComparisonRow('Size', 'Custom', '48×48 (touch)', '20×20 (visual)'),
+        _buildComparisonRow('Animation', 'position curve', 'Radial + paint', 'Scale animation'),
         _buildComparisonRow('Colors', 'Custom', 'activeColor', 'activeColor'),
-        _buildComparisonRow(
-          'Use Case',
-          'Fully custom',
-          'Standard MD',
-          'iOS style',
-        ),
+        _buildComparisonRow('Use Case', 'Fully custom', 'Standard MD', 'iOS style'),
       ],
     ),
   );
@@ -1006,12 +913,7 @@ Widget _buildTreeLine(String text, int depth, Color color) {
 // ============================================================
 // Helper: State property row
 // ============================================================
-Widget _buildStateRow(
-  String name,
-  String type,
-  String description,
-  Color color,
-) {
+Widget _buildStateRow(String name, String type, String description, Color color) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1143,7 +1045,10 @@ Widget _buildPatternCard(
               const SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(fontSize: 11, color: color.withOpacity(0.8)),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: color.withOpacity(0.8),
+                ),
               ),
             ],
           ),
@@ -1220,12 +1125,7 @@ Widget _buildComparisonHeader() {
 // ============================================================
 // Helper: Comparison row (4 columns)
 // ============================================================
-Widget _buildComparisonRow(
-  String aspect,
-  String rawVal,
-  String matVal,
-  String cupVal,
-) {
+Widget _buildComparisonRow(String aspect, String rawVal, String matVal, String cupVal) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
     decoration: const BoxDecoration(
@@ -1246,24 +1146,15 @@ Widget _buildComparisonRow(
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            rawVal,
-            style: const TextStyle(fontSize: 10, color: Color(0xFF616161)),
-          ),
+          child: Text(rawVal, style: const TextStyle(fontSize: 10, color: Color(0xFF616161))),
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            matVal,
-            style: const TextStyle(fontSize: 10, color: Color(0xFF616161)),
-          ),
+          child: Text(matVal, style: const TextStyle(fontSize: 10, color: Color(0xFF616161))),
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            cupVal,
-            style: const TextStyle(fontSize: 10, color: Color(0xFF616161)),
-          ),
+          child: Text(cupVal, style: const TextStyle(fontSize: 10, color: Color(0xFF616161))),
         ),
       ],
     ),
@@ -1349,53 +1240,48 @@ class _LiveRadioGroupDemoState extends State<_LiveRadioGroupDemo> {
                       children: [
                         RawRadio<String>(
                           value: value,
-                          mouseCursor: WidgetStateProperty.resolveWith((
-                            Set<WidgetState> states,
-                          ) {
-                            if (states.contains(WidgetState.disabled)) {
-                              return SystemMouseCursors.forbidden;
-                            }
-                            return SystemMouseCursors.click;
-                          }),
+                          mouseCursor: WidgetStateProperty.resolveWith(
+                            (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.disabled)) {
+                                return SystemMouseCursors.forbidden;
+                              }
+                              return SystemMouseCursors.click;
+                            },
+                          ),
                           toggleable: false,
                           focusNode: FocusNode(),
                           autofocus: false,
                           groupRegistry: registry,
                           enabled: true,
-                          builder:
-                              (BuildContext ctx, ToggleableStateMixin state) {
-                                final selected = state.value == true;
-                                final t = state.position.value;
-                                final hovered = state.states.contains(
-                                  WidgetState.hovered,
-                                );
-                                return Container(
-                                  width: 28,
-                                  height: 28,
+                          builder: (BuildContext ctx, ToggleableStateMixin state) {
+                            final selected = state.value == true;
+                            final t = state.position.value;
+                            final hovered = state.states.contains(WidgetState.hovered);
+                            return Container(
+                              width: 28,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: selected ? color : const Color(0xFFBDBDBD),
+                                  width: 2,
+                                ),
+                                color: hovered
+                                    ? color.withOpacity(0.08)
+                                    : Colors.transparent,
+                              ),
+                              child: Center(
+                                child: Container(
+                                  width: 14 * t,
+                                  height: 14 * t,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: selected
-                                          ? color
-                                          : const Color(0xFFBDBDBD),
-                                      width: 2,
-                                    ),
-                                    color: hovered
-                                        ? color.withOpacity(0.08)
-                                        : Colors.transparent,
+                                    color: color.withOpacity(t),
                                   ),
-                                  child: Center(
-                                    child: Container(
-                                      width: 14 * t,
-                                      height: 14 * t,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: color.withOpacity(t),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         const SizedBox(width: 10),
                         Icon(icon, size: 18, color: color),
@@ -1429,7 +1315,10 @@ class _LiveRadioGroupDemoState extends State<_LiveRadioGroupDemo> {
           ),
           child: Text(
             'Selected: ${_selectedFruit ?? 'None'}',
-            style: const TextStyle(fontSize: 12, color: Color(0xFF4527A0)),
+            style: const TextStyle(
+              fontSize: 12,
+              color: Color(0xFF4527A0),
+            ),
           ),
         ),
         const SizedBox(height: 12),
@@ -1447,9 +1336,7 @@ class _LiveRadioGroupDemoState extends State<_LiveRadioGroupDemo> {
           children: [
             RawRadio<String>(
               value: 'disabled_example',
-              mouseCursor: WidgetStateProperty.all(
-                SystemMouseCursors.forbidden,
-              ),
+              mouseCursor: WidgetStateProperty.all(SystemMouseCursors.forbidden),
               toggleable: false,
               focusNode: FocusNode(),
               autofocus: false,

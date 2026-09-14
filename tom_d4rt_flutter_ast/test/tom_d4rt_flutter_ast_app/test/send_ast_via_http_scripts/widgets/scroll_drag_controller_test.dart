@@ -147,7 +147,10 @@ class _PedagogicalDrag {
     debugPrint('PedagogicalDrag.cancel');
     onFinalize(
       this,
-      const _DragOutcome(kind: _DragOutcomeKind.idle, velocity: Offset.zero),
+      const _DragOutcome(
+        kind: _DragOutcomeKind.idle,
+        velocity: Offset.zero,
+      ),
     );
   }
 }
@@ -443,12 +446,17 @@ class _DecorativeFinger extends StatelessWidget {
               ),
             ),
           ),
-          Positioned.fill(child: CustomPaint(painter: _HeroArrowPainter())),
+          Positioned.fill(
+            child: CustomPaint(painter: _HeroArrowPainter()),
+          ),
           Positioned(
             right: 6,
             top: 8,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: _kIndigo,
                 borderRadius: BorderRadius.circular(8),
@@ -558,7 +566,10 @@ class _LiveDragCanvasSectionState extends State<_LiveDragCanvasSection> {
       _path.clear();
       _path.add(details.localPosition);
       _fingerPosition = details.localPosition;
-      _logAdd('onPanStart local=${_fmt(details.localPosition)}', _kIndigo);
+      _logAdd(
+        'onPanStart local=${_fmt(details.localPosition)}',
+        _kIndigo,
+      );
     });
   }
 
@@ -566,7 +577,10 @@ class _LiveDragCanvasSectionState extends State<_LiveDragCanvasSection> {
     setState(() {
       _path.add(details.localPosition);
       _fingerPosition = details.localPosition;
-      _logAdd('onPanUpdate delta=${_fmt(details.delta)}', _kAmberDeep);
+      _logAdd(
+        'onPanUpdate delta=${_fmt(details.delta)}',
+        _kAmberDeep,
+      );
     });
   }
 
@@ -812,7 +826,8 @@ class _FingerPathPainter extends CustomPainter {
           ..strokeWidth = 5
           ..style = PaintingStyle.stroke
           ..strokeCap = StrokeCap.round;
-        final tail = Path()..moveTo(path[tailStart].dx, path[tailStart].dy);
+        final tail = Path()
+          ..moveTo(path[tailStart].dx, path[tailStart].dy);
         for (int i = tailStart + 1; i < path.length; i++) {
           tail.lineTo(path[i].dx, path[i].dy);
         }
@@ -828,7 +843,11 @@ class _FingerPathPainter extends CustomPainter {
         14,
         Paint()..color = _kAmber.withValues(alpha: 0.35),
       );
-      canvas.drawCircle(f, 7, Paint()..color = _kAmber);
+      canvas.drawCircle(
+        f,
+        7,
+        Paint()..color = _kAmber,
+      );
       canvas.drawCircle(
         f,
         7,
@@ -864,8 +883,7 @@ class _LifecycleDiagramSection extends StatelessWidget {
       const _LifecyclePhase(
         tag: 'a',
         title: 'ScrollPosition.drag()',
-        body:
-            'A scroll gesture begins. ScrollPositionWithSingle'
+        body: 'A scroll gesture begins. ScrollPositionWithSingle'
             'Context.drag(DragStartDetails, onCancel) constructs a '
             'ScrollDragController, attaches itself as the delegate '
             'and returns the controller to the scroll recognizer.',
@@ -874,8 +892,7 @@ class _LifecycleDiagramSection extends StatelessWidget {
       const _LifecyclePhase(
         tag: 'b',
         title: 'update → applyUserOffset',
-        body:
-            'The recognizer feeds DragUpdateDetails into '
+        body: 'The recognizer feeds DragUpdateDetails into '
             'ScrollDragController.update(). The controller tweaks '
             'the delta (direction, carried momentum) and forwards '
             'it to ScrollPosition.applyUserOffset(delta).',
@@ -884,8 +901,7 @@ class _LifecycleDiagramSection extends StatelessWidget {
       const _LifecyclePhase(
         tag: 'c',
         title: 'end → goBallistic',
-        body:
-            'When the finger lifts, the recognizer calls '
+        body: 'When the finger lifts, the recognizer calls '
             'ScrollDragController.end(DragEndDetails). The controller '
             'asks the position to goBallistic(velocity). A '
             'BallisticScrollActivity takes over with a decelerating '
@@ -895,8 +911,7 @@ class _LifecycleDiagramSection extends StatelessWidget {
       const _LifecyclePhase(
         tag: 'd',
         title: 'cancel → goIdle',
-        body:
-            'If the gesture is interrupted (scroll accepted by a '
+        body: 'If the gesture is interrupted (scroll accepted by a '
             'different recognizer, pointer cancelled), ScrollDrag'
             'Controller.cancel() fires. The position transitions to '
             'an IdleScrollActivity and the drag object is disposed.',
@@ -1013,7 +1028,11 @@ class _LifecycleArrowPainter extends CustomPainter {
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
     // Decorative vertical guide just inside the left edge.
-    canvas.drawLine(const Offset(22, 0), Offset(22, size.height), paint);
+    canvas.drawLine(
+      const Offset(22, 0),
+      Offset(22, size.height),
+      paint,
+    );
   }
 
   @override
@@ -1050,8 +1069,7 @@ class _RealListViewTelemetrySectionState
           0,
           _Telemetry(
             label: 'ScrollStart',
-            detail:
-                'ScrollDragController created · '
+            detail: 'ScrollDragController created · '
                 'pixels=${n.metrics.pixels.toStringAsFixed(1)}',
             color: _kIndigo,
           ),
@@ -1062,8 +1080,7 @@ class _RealListViewTelemetrySectionState
           0,
           _Telemetry(
             label: 'ScrollUpdate',
-            detail:
-                'applyUserOffset · '
+            detail: 'applyUserOffset · '
                 'delta=${(n.scrollDelta ?? 0).toStringAsFixed(1)} · '
                 'pixels=${n.metrics.pixels.toStringAsFixed(1)}',
             color: _kAmberDeep,
@@ -1075,8 +1092,7 @@ class _RealListViewTelemetrySectionState
           0,
           _Telemetry(
             label: 'ScrollEnd',
-            detail:
-                'drag.end / ballistic lifted · '
+            detail: 'drag.end / ballistic lifted · '
                 'pixels=${n.metrics.pixels.toStringAsFixed(1)}',
             color: Colors.green.shade700,
           ),
@@ -1119,7 +1135,11 @@ class _RealListViewTelemetrySectionState
           const SizedBox(height: 12),
           Row(
             children: <Widget>[
-              _CounterChip(label: 'start', value: _startCount, color: _kIndigo),
+              _CounterChip(
+                label: 'start',
+                value: _startCount,
+                color: _kIndigo,
+              ),
               const SizedBox(width: 8),
               _CounterChip(
                 label: 'update',
@@ -1160,7 +1180,9 @@ class _RealListViewTelemetrySectionState
                             vertical: 10,
                           ),
                           decoration: BoxDecoration(
-                            color: i.isEven ? Colors.white : _kCream,
+                            color: i.isEven
+                                ? Colors.white
+                                : _kCream,
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: _kLine),
                           ),
@@ -1226,7 +1248,8 @@ class _RealListViewTelemetrySectionState
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 6),
                               child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Container(
                                     padding: const EdgeInsets.symmetric(
@@ -1428,7 +1451,10 @@ class _PedagogicalDragSectionState extends State<_PedagogicalDragSection> {
                     decoration: BoxDecoration(
                       color: _kCream,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: _kAmber, width: 1.8),
+                      border: Border.all(
+                        color: _kAmber,
+                        width: 1.8,
+                      ),
                     ),
                     child: CustomPaint(
                       painter: _PedagogicalPainter(active: _active),
@@ -1450,7 +1476,10 @@ class _PedagogicalDragSectionState extends State<_PedagogicalDragSection> {
           const SizedBox(height: 14),
           const Text(
             'Finalized drags (last 6):',
-            style: TextStyle(color: _kIndigoDark, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              color: _kIndigoDark,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 8),
           if (_history.isEmpty)
@@ -1512,8 +1541,8 @@ class _PedagogicalPainter extends CustomPainter {
       final c = s.kind == _DragSampleKind.start
           ? _kIndigo
           : s.kind == _DragSampleKind.update
-          ? _kAmber
-          : Colors.green;
+              ? _kAmber
+              : Colors.green;
       canvas.drawCircle(s.offset, 3, Paint()..color = c);
     }
     canvas.drawCircle(
@@ -1521,7 +1550,11 @@ class _PedagogicalPainter extends CustomPainter {
       10,
       Paint()..color = _kAmber.withValues(alpha: 0.35),
     );
-    canvas.drawCircle(d.currentPosition, 5, Paint()..color = _kAmberDeep);
+    canvas.drawCircle(
+      d.currentPosition,
+      5,
+      Paint()..color = _kAmberDeep,
+    );
   }
 
   @override
@@ -1670,10 +1703,13 @@ class _OutcomeBanner extends StatelessWidget {
             child: Text(
               isBallistic
                   ? 'Last drag ended. Position would goBallistic'
-                        '(${outcome.velocity.dx.toStringAsFixed(1)}, '
-                        '${outcome.velocity.dy.toStringAsFixed(1)} px/s).'
+                    '(${outcome.velocity.dx.toStringAsFixed(1)}, '
+                    '${outcome.velocity.dy.toStringAsFixed(1)} px/s).'
                   : 'Last drag was cancelled. Position would goIdle().',
-              style: TextStyle(color: color, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -1801,7 +1837,10 @@ class _DetailsInspectorSectionState extends State<_DetailsInspectorSection> {
                   title: 'DragUpdateDetails',
                   color: _kIndigo,
                   rows: <_DetailsRow>[
-                    _DetailsRow('delta', _fmtOffset(_lastUpdate?.delta)),
+                    _DetailsRow(
+                      'delta',
+                      _fmtOffset(_lastUpdate?.delta),
+                    ),
                     _DetailsRow(
                       'primaryDelta',
                       _fmtDouble(_lastUpdate?.primaryDelta),
@@ -2137,7 +2176,11 @@ class _BallisticCurvePainter extends CustomPainter {
     for (int i = 0; i <= steps; i++) {
       final t = i / steps;
       final seconds = t * lane.duration;
-      final y = h - amplitude * h * 0.9 * _exp(-kDecay * seconds);
+      final y = h -
+          amplitude *
+              h *
+              0.9 *
+              _exp(-kDecay * seconds);
       p.lineTo(t * w, y);
     }
     p.lineTo(w, h);
@@ -2148,7 +2191,11 @@ class _BallisticCurvePainter extends CustomPainter {
     for (int i = 0; i <= steps; i++) {
       final t = i / steps;
       final seconds = t * lane.duration;
-      final y = h - amplitude * h * 0.9 * _exp(-kDecay * seconds);
+      final y = h -
+          amplitude *
+              h *
+              0.9 *
+              _exp(-kDecay * seconds);
       if (i == 0) {
         stroked.moveTo(0, y);
       } else {
@@ -2207,8 +2254,7 @@ class _TeachingPanelSection extends StatelessWidget {
       const _TeachingTile(
         icon: Icons.do_not_disturb_on_outlined,
         title: "don't instantiate it yourself",
-        body:
-            'ScrollDragController has package-private constructor '
+        body: 'ScrollDragController has package-private constructor '
             'arguments. Only a ScrollPosition can meaningfully build '
             'one. Reach for it only when implementing custom '
             'ScrollPosition/ScrollActivityDelegate pairs.',
@@ -2217,8 +2263,7 @@ class _TeachingPanelSection extends StatelessWidget {
       _TeachingTile(
         icon: Icons.view_module,
         title: 'interact via ScrollController / notifications',
-        body:
-            'In almost every app, ScrollController and '
+        body: 'In almost every app, ScrollController and '
             'NotificationListener<ScrollNotification> are enough. '
             'They expose the observable side of the Drag controller '
             'without requiring you to implement Drag yourself.',
@@ -2227,8 +2272,7 @@ class _TeachingPanelSection extends StatelessWidget {
       _TeachingTile(
         icon: Icons.build_circle,
         title: 'custom drag? use a recognizer + applyUserOffset',
-        body:
-            'If you need a hand-rolled drag gesture (e.g. a custom '
+        body: 'If you need a hand-rolled drag gesture (e.g. a custom '
             'dismissible row), pair a VerticalDragGestureRecognizer '
             'with ScrollPosition.applyUserOffset — far simpler than '
             'owning a ScrollDragController.',
@@ -2237,8 +2281,7 @@ class _TeachingPanelSection extends StatelessWidget {
       const _TeachingTile(
         icon: Icons.call_split,
         title: 'Drag is one of many activities',
-        body:
-            'ScrollDragController drives a DragScrollActivity. When '
+        body: 'ScrollDragController drives a DragScrollActivity. When '
             'the finger lifts, control passes to a BallisticScroll'
             'Activity, and finally IdleScrollActivity. Learn the set '
             'instead of the individual controller.',
@@ -2356,20 +2399,17 @@ class _ReferenceCardSection extends StatelessWidget {
     final entries = <_ReferenceEntry>[
       const _ReferenceEntry(
         signature: 'void update(DragUpdateDetails details)',
-        summary:
-            'Called once per pointer move while the drag is '
+        summary: 'Called once per pointer move while the drag is '
             'active. Forwards the delta to applyUserOffset.',
       ),
       const _ReferenceEntry(
         signature: 'void end(DragEndDetails details)',
-        summary:
-            'Called when the finger lifts. Triggers '
+        summary: 'Called when the finger lifts. Triggers '
             'goBallistic(velocity) on the ScrollPosition.',
       ),
       const _ReferenceEntry(
         signature: 'void cancel()',
-        summary:
-            'Called when the gesture is rejected or interrupted. '
+        summary: 'Called when the gesture is rejected or interrupted. '
             'Transitions the position to idle.',
       ),
     ];
@@ -2491,7 +2531,11 @@ class _FooterSummaryCard extends StatelessWidget {
               color: _kAmber.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: const Icon(Icons.pan_tool_alt, color: _kAmber, size: 28),
+            child: const Icon(
+              Icons.pan_tool_alt,
+              color: _kAmber,
+              size: 28,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(

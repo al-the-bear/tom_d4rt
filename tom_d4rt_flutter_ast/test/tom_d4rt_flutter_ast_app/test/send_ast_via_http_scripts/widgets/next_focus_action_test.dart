@@ -32,24 +32,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -66,7 +57,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 13, color: darkBrown)),
+      child: Text(text,
+          style: TextStyle(fontSize: 13, color: darkBrown)),
     );
   }
 
@@ -78,20 +70,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 13, color: darkBrown),
-            ),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: darkBrown)),
           ),
         ],
       ),
@@ -161,45 +148,34 @@ dynamic build(BuildContext context) {
                   Icon(Icons.tab, size: 28, color: paleTangerine),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      'NextFocusAction',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('NextFocusAction',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'Action<NextFocusIntent> — moves keyboard focus to the next focusable widget in traversal order',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 13,
-                ),
-              ),
+              Text('Action<NextFocusIntent> — moves keyboard focus to the next focusable widget in traversal order',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 13)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  tag('Action', apricot, Colors.white),
-                  tag('NextFocusIntent', softTangerine, darkBrown),
-                  tag('Tab key', lightApricot, darkBrown),
-                  tag('Focus traversal', paleTangerine, darkBrown),
-                ],
-              ),
+              Wrap(children: [
+                tag('Action', apricot, Colors.white),
+                tag('NextFocusIntent', softTangerine, darkBrown),
+                tag('Tab key', lightApricot, darkBrown),
+                tag('Focus traversal', paleTangerine, darkBrown),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner(
-          '1 \u00b7 What Is NextFocusAction',
-          'An Action that advances focus through widget tree',
-          deepTangerine,
-          Colors.white,
-        ),
+        sectionBanner('1 \u00b7 What Is NextFocusAction',
+            'An Action that advances focus through widget tree',
+            deepTangerine, Colors.white),
         noteBox(
           'NextFocusAction is a concrete Action<NextFocusIntent> registered '
           'by default in WidgetsApp. When invoked (typically by pressing Tab), '
@@ -218,12 +194,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Action / Intent pattern ───────────────────────────────
-        sectionBanner(
-          '2 \u00b7 The Action / Intent Pattern',
-          'How Actions and Intents work together in Flutter',
-          tangerine,
-          Colors.white,
-        ),
+        sectionBanner('2 \u00b7 The Action / Intent Pattern',
+            'How Actions and Intents work together in Flutter',
+            tangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -245,29 +218,22 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.chat_bubble_outline,
-                      size: 20,
-                      color: accentIndigo,
-                    ),
+                    Icon(Icons.chat_bubble_outline, size: 20,
+                        color: accentIndigo),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'NextFocusIntent',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: accentIndigo,
-                            ),
-                          ),
-                          Text(
-                            'Describes the intent: "move focus forward"',
-                            style: TextStyle(fontSize: 10, color: darkBrown),
-                          ),
+                          Text('NextFocusIntent',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  fontFamily: 'monospace',
+                                  color: accentIndigo)),
+                          Text('Describes the intent: "move focus forward"',
+                              style: TextStyle(
+                                  fontSize: 10, color: darkBrown)),
                         ],
                       ),
                     ),
@@ -279,10 +245,8 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     Icon(Icons.arrow_downward, size: 16, color: apricot),
-                    Text(
-                      'dispatched to',
-                      style: TextStyle(fontSize: 8, color: apricot),
-                    ),
+                    Text('dispatched to',
+                        style: TextStyle(fontSize: 8, color: apricot)),
                   ],
                 ),
               ),
@@ -297,25 +261,22 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.play_circle_fill, size: 20, color: tangerine),
+                    Icon(Icons.play_circle_fill, size: 20,
+                        color: tangerine),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'NextFocusAction',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: tangerine,
-                            ),
-                          ),
-                          Text(
-                            'Executes: primaryFocus!.nextFocus()',
-                            style: TextStyle(fontSize: 10, color: darkBrown),
-                          ),
+                          Text('NextFocusAction',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  fontFamily: 'monospace',
+                                  color: tangerine)),
+                          Text('Executes: primaryFocus!.nextFocus()',
+                              style: TextStyle(
+                                  fontSize: 10, color: darkBrown)),
                         ],
                       ),
                     ),
@@ -327,7 +288,8 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     Icon(Icons.arrow_downward, size: 16, color: apricot),
-                    Text('uses', style: TextStyle(fontSize: 8, color: apricot)),
+                    Text('uses',
+                        style: TextStyle(fontSize: 8, color: apricot)),
                   ],
                 ),
               ),
@@ -342,29 +304,22 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.center_focus_strong,
-                      size: 20,
-                      color: accentGreen,
-                    ),
+                    Icon(Icons.center_focus_strong, size: 20,
+                        color: accentGreen),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'FocusTraversalPolicy',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: accentGreen,
-                            ),
-                          ),
-                          Text(
-                            'Determines the next focusable node',
-                            style: TextStyle(fontSize: 10, color: darkBrown),
-                          ),
+                          Text('FocusTraversalPolicy',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  fontFamily: 'monospace',
+                                  color: accentGreen)),
+                          Text('Determines the next focusable node',
+                              style: TextStyle(
+                                  fontSize: 10, color: darkBrown)),
                         ],
                       ),
                     ),
@@ -377,12 +332,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. invoke() method detail ────────────────────────────────
-        sectionBanner(
-          '3 \u00b7 The invoke() Method',
-          'What happens when the action is invoked',
-          apricot,
-          Colors.white,
-        ),
+        sectionBanner('3 \u00b7 The invoke() Method',
+            'What happens when the action is invoked',
+            apricot, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -400,20 +352,17 @@ dynamic build(BuildContext context) {
                   color: deepTangerine.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: deepTangerine.withValues(alpha: 0.3),
-                  ),
+                      color: deepTangerine.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  '@override\n'
-                  'bool invoke(NextFocusIntent intent) {\n'
-                  '  return primaryFocus!.nextFocus();\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepTangerine,
-                  ),
-                ),
+                    '@override\n'
+                    'bool invoke(NextFocusIntent intent) {\n'
+                    '  return primaryFocus!.nextFocus();\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepTangerine)),
               ),
               const SizedBox(height: 8),
               Row(
@@ -429,24 +378,17 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Icon(
-                            Icons.check_circle,
-                            size: 22,
-                            color: accentGreen,
-                          ),
-                          Text(
-                            'returns true',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: accentGreen,
-                            ),
-                          ),
-                          Text(
-                            'Focus moved to\nthe next widget',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: darkBrown),
-                          ),
+                          Icon(Icons.check_circle, size: 22,
+                              color: accentGreen),
+                          Text('returns true',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: accentGreen)),
+                          Text('Focus moved to\nthe next widget',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 10, color: darkBrown)),
                         ],
                       ),
                     ),
@@ -459,30 +401,21 @@ dynamic build(BuildContext context) {
                         color: Color(0xFFE53935).withValues(alpha: 0.06),
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(
-                          color: const Color(0xFFE53935),
-                          width: 2,
-                        ),
+                            color: const Color(0xFFE53935), width: 2),
                       ),
                       child: Column(
                         children: [
-                          Icon(
-                            Icons.last_page,
-                            size: 22,
-                            color: const Color(0xFFE53935),
-                          ),
-                          Text(
-                            'returns false',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: const Color(0xFFE53935),
-                            ),
-                          ),
-                          Text(
-                            'End of traversal\nNo next focusable',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: darkBrown),
-                          ),
+                          Icon(Icons.last_page, size: 22,
+                              color: const Color(0xFFE53935)),
+                          Text('returns false',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: const Color(0xFFE53935))),
+                          Text('End of traversal\nNo next focusable',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 10, color: darkBrown)),
                         ],
                       ),
                     ),
@@ -495,12 +428,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. toKeyEventResult ──────────────────────────────────────
-        sectionBanner(
-          '4 \u00b7 toKeyEventResult()',
-          'Converting invoke result to key event handling',
-          deepTangerine,
-          Colors.white,
-        ),
+        sectionBanner('4 \u00b7 toKeyEventResult()',
+            'Converting invoke result to key event handling',
+            deepTangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -518,39 +448,29 @@ dynamic build(BuildContext context) {
                   color: deepTangerine.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: deepTangerine.withValues(alpha: 0.3),
-                  ),
+                      color: deepTangerine.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  '@override\n'
-                  'KeyEventResult toKeyEventResult(\n'
-                  '    NextFocusIntent intent,\n'
-                  '    bool invokeResult) {\n'
-                  '  return invokeResult\n'
-                  '      ? KeyEventResult.handled\n'
-                  '      : KeyEventResult.skipRemainingHandlers;\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepTangerine,
-                  ),
-                ),
+                    '@override\n'
+                    'KeyEventResult toKeyEventResult(\n'
+                    '    NextFocusIntent intent,\n'
+                    '    bool invokeResult) {\n'
+                    '  return invokeResult\n'
+                    '      ? KeyEventResult.handled\n'
+                    '      : KeyEventResult.skipRemainingHandlers;\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepTangerine)),
               ),
               const SizedBox(height: 8),
               for (final result in [
-                (
-                  'true \u2192 handled',
-                  'Focus moved. Tab key consumed.',
-                  accentGreen,
-                  Icons.check,
-                ),
-                (
-                  'false \u2192 skipRemainingHandlers',
-                  'At end of scope. Don\'t consume — let platform handle.',
-                  tangerine,
-                  Icons.skip_next,
-                ),
+                ('true \u2192 handled', 'Focus moved. Tab key consumed.',
+                    accentGreen, Icons.check),
+                ('false \u2192 skipRemainingHandlers',
+                    'At end of scope. Don\'t consume — let platform handle.',
+                    tangerine, Icons.skip_next),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -559,8 +479,7 @@ dynamic build(BuildContext context) {
                     color: result.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
                     border: Border(
-                      left: BorderSide(color: result.$3, width: 3),
-                    ),
+                        left: BorderSide(color: result.$3, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -570,19 +489,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              result.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: result.$3,
-                              ),
-                            ),
-                            Text(
-                              result.$2,
-                              style: TextStyle(fontSize: 10, color: darkBrown),
-                            ),
+                            Text(result.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                    fontFamily: 'monospace',
+                                    color: result.$3)),
+                            Text(result.$2,
+                                style: TextStyle(
+                                    fontSize: 10, color: darkBrown)),
                           ],
                         ),
                       ),
@@ -595,12 +510,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Live demo: focus traversal chain ──────────────────────
-        sectionBanner(
-          '5 \u00b7 Live Demo: Focus Traversal Chain',
-          'Multiple focusable widgets showing Tab traversal order',
-          tangerine,
-          Colors.white,
-        ),
+        sectionBanner('5 \u00b7 Live Demo: Focus Traversal Chain',
+            'Multiple focusable widgets showing Tab traversal order',
+            tangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -624,17 +536,15 @@ dynamic build(BuildContext context) {
                           color: tangerine,
                           borderRadius: BorderRadius.circular(14),
                         ),
-                        child: Text(
-                          '${i + 1}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Text('${i + 1}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold)),
                       ),
                       const SizedBox(width: 8),
-                      Icon(Icons.arrow_forward, size: 14, color: lightApricot),
+                      Icon(Icons.arrow_forward, size: 14,
+                          color: lightApricot),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Material(
@@ -643,23 +553,16 @@ dynamic build(BuildContext context) {
                             onTap: () {},
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
-                              ),
+                                  horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 color: tangerine.withValues(alpha: 0.06),
                                 borderRadius: BorderRadius.circular(6),
                                 border: Border.all(
-                                  color: tangerine.withValues(alpha: 0.3),
-                                ),
+                                    color: tangerine.withValues(alpha: 0.3)),
                               ),
-                              child: Text(
-                                'Focusable field ${i + 1}',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: darkBrown,
-                                ),
-                              ),
+                              child: Text('Focusable field ${i + 1}',
+                                  style: TextStyle(
+                                      fontSize: 12, color: darkBrown)),
                             ),
                           ),
                         ),
@@ -682,12 +585,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Tab key binding ───────────────────────────────────────
-        sectionBanner(
-          '6 \u00b7 Default Tab Key Binding',
-          'How WidgetsApp registers the action',
-          apricot,
-          Colors.white,
-        ),
+        sectionBanner('6 \u00b7 Default Tab Key Binding',
+            'How WidgetsApp registers the action',
+            apricot, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -704,33 +604,32 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: apricot.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: apricot.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: apricot.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  '// In WidgetsApp (simplified)\n'
-                  'Shortcuts(\n'
-                  '  shortcuts: {\n'
-                  '    LogicalKeySet(LogicalKeyboardKey.tab):\n'
-                  '        NextFocusIntent(),\n'
-                  '    LogicalKeySet(\n'
-                  '      LogicalKeyboardKey.tab,\n'
-                  '      LogicalKeyboardKey.shift,\n'
-                  '    ): PreviousFocusIntent(),\n'
-                  '  },\n'
-                  '  child: Actions(\n'
-                  '    actions: {\n'
-                  '      NextFocusIntent: NextFocusAction(),\n'
-                  '      PreviousFocusIntent: PreviousFocusAction(),\n'
-                  '    },\n'
-                  '    child: ...,\n'
-                  '  ),\n'
-                  ')',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepTangerine,
-                  ),
-                ),
+                    '// In WidgetsApp (simplified)\n'
+                    'Shortcuts(\n'
+                    '  shortcuts: {\n'
+                    '    LogicalKeySet(LogicalKeyboardKey.tab):\n'
+                    '        NextFocusIntent(),\n'
+                    '    LogicalKeySet(\n'
+                    '      LogicalKeyboardKey.tab,\n'
+                    '      LogicalKeyboardKey.shift,\n'
+                    '    ): PreviousFocusIntent(),\n'
+                    '  },\n'
+                    '  child: Actions(\n'
+                    '    actions: {\n'
+                    '      NextFocusIntent: NextFocusAction(),\n'
+                    '      PreviousFocusIntent: PreviousFocusAction(),\n'
+                    '    },\n'
+                    '    child: ...,\n'
+                    '  ),\n'
+                    ')',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepTangerine)),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -747,12 +646,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Focus traversal policies ──────────────────────────────
-        sectionBanner(
-          '7 \u00b7 Focus Traversal Policies',
-          'How the action determines traversal order',
-          deepTangerine,
-          Colors.white,
-        ),
+        sectionBanner('7 \u00b7 Focus Traversal Policies',
+            'How the action determines traversal order',
+            deepTangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -763,34 +659,19 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final policy in [
-                (
-                  'ReadingOrderTraversalPolicy',
-                  'Default. Follows reading '
-                      'order (left-to-right, top-to-bottom for LTR locales).',
-                  Icons.menu_book,
-                  tangerine,
-                ),
-                (
-                  'OrderedTraversalPolicy',
-                  'Uses explicit FocusOrder '
-                      'values for precise control over traversal sequence.',
-                  Icons.sort,
-                  apricot,
-                ),
-                (
-                  'WidgetOrderTraversalPolicy',
-                  'Follows widget build '
-                      'order. Simplest but doesn\'t account for visual layout.',
-                  Icons.list,
-                  softTangerine,
-                ),
-                (
-                  'DirectionalFocusTraversalPolicyMixin',
-                  'For directional (arrow key) navigation. Used by '
-                      'DirectionalFocusAction, not NextFocusAction.',
-                  Icons.arrow_circle_right,
-                  lightApricot,
-                ),
+                ('ReadingOrderTraversalPolicy', 'Default. Follows reading '
+                    'order (left-to-right, top-to-bottom for LTR locales).',
+                    Icons.menu_book, tangerine),
+                ('OrderedTraversalPolicy', 'Uses explicit FocusOrder '
+                    'values for precise control over traversal sequence.',
+                    Icons.sort, apricot),
+                ('WidgetOrderTraversalPolicy', 'Follows widget build '
+                    'order. Simplest but doesn\'t account for visual layout.',
+                    Icons.list, softTangerine),
+                ('DirectionalFocusTraversalPolicyMixin',
+                    'For directional (arrow key) navigation. Used by '
+                    'DirectionalFocusAction, not NextFocusAction.',
+                    Icons.arrow_circle_right, lightApricot),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -799,8 +680,7 @@ dynamic build(BuildContext context) {
                     color: policy.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: policy.$4, width: 3),
-                    ),
+                        left: BorderSide(color: policy.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -811,19 +691,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              policy.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: policy.$4,
-                              ),
-                            ),
-                            Text(
-                              policy.$2,
-                              style: TextStyle(fontSize: 10, color: darkBrown),
-                            ),
+                            Text(policy.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                    fontFamily: 'monospace',
+                                    color: policy.$4)),
+                            Text(policy.$2,
+                                style: TextStyle(
+                                    fontSize: 10, color: darkBrown)),
                           ],
                         ),
                       ),
@@ -836,12 +712,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Live demo: form with Tab navigation ───────────────────
-        sectionBanner(
-          '8 \u00b7 Live Demo: Form Fields',
-          'Tab-navigable form using NextFocusAction under the hood',
-          tangerine,
-          Colors.white,
-        ),
+        sectionBanner('8 \u00b7 Live Demo: Form Fields',
+            'Tab-navigable form using NextFocusAction under the hood',
+            tangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -870,14 +743,11 @@ dynamic build(BuildContext context) {
                           color: tangerine,
                           borderRadius: BorderRadius.circular(11),
                         ),
-                        child: Text(
-                          '${field.$3}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Text('${field.$3}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold)),
                       ),
                       const SizedBox(width: 8),
                       Icon(field.$2, size: 18, color: apricot),
@@ -887,9 +757,7 @@ dynamic build(BuildContext context) {
                           decoration: InputDecoration(
                             labelText: field.$1,
                             labelStyle: TextStyle(
-                              fontSize: 12,
-                              color: tangerine,
-                            ),
+                                fontSize: 12, color: tangerine),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6),
                               borderSide: BorderSide(color: lightApricot),
@@ -897,17 +765,14 @@ dynamic build(BuildContext context) {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6),
                               borderSide: BorderSide(
-                                color: tangerine,
-                                width: 2,
-                              ),
+                                  color: tangerine, width: 2),
                             ),
                             contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
-                            ),
+                                horizontal: 10, vertical: 8),
                             isDense: true,
                           ),
-                          style: TextStyle(fontSize: 12, color: darkBrown),
+                          style: TextStyle(
+                              fontSize: 12, color: darkBrown),
                         ),
                       ),
                     ],
@@ -927,12 +792,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Comparison with related actions ──────────────────────
-        sectionBanner(
-          '9 \u00b7 Related Focus Actions',
-          'NextFocusAction in the family of focus actions',
-          apricot,
-          Colors.white,
-        ),
+        sectionBanner('9 \u00b7 Related Focus Actions',
+            'NextFocusAction in the family of focus actions',
+            apricot, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -953,14 +815,11 @@ dynamic build(BuildContext context) {
                   for (final h in ['Action', 'Key', 'Direction'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        h,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
                     ),
                 ],
               ),
@@ -973,38 +832,34 @@ dynamic build(BuildContext context) {
               ])
                 TableRow(
                   decoration: row.$1 == 'NextFocusAction'
-                      ? BoxDecoration(color: tangerine.withValues(alpha: 0.08))
+                      ? BoxDecoration(
+                          color: tangerine.withValues(alpha: 0.08))
                       : null,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          fontWeight: row.$1 == 'NextFocusAction'
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: row.$1 == 'NextFocusAction'
-                              ? tangerine
-                              : darkBrown,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              fontWeight: row.$1 == 'NextFocusAction'
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: row.$1 == 'NextFocusAction'
+                                  ? tangerine
+                                  : darkBrown)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(fontSize: 10, color: darkBrown),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 10, color: darkBrown)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(fontSize: 10, color: darkBrown),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(
+                              fontSize: 10, color: darkBrown)),
                     ),
                   ],
                 ),
@@ -1014,12 +869,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Overriding the action ────────────────────────────────
-        sectionBanner(
-          '10 \u00b7 Overriding NextFocusAction',
-          'How to customize Tab behavior',
-          deepTangerine,
-          Colors.white,
-        ),
+        sectionBanner('10 \u00b7 Overriding NextFocusAction',
+            'How to customize Tab behavior',
+            deepTangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1037,28 +889,25 @@ dynamic build(BuildContext context) {
                   color: deepTangerine.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: deepTangerine.withValues(alpha: 0.3),
-                  ),
+                      color: deepTangerine.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'Actions(\n'
-                  '  actions: {\n'
-                  '    NextFocusIntent: CallbackAction(\n'
-                  '      onInvoke: (intent) {\n'
-                  '        // Custom logic before focus move\n'
-                  '        print("Tab pressed!");\n'
-                  '        return primaryFocus?.nextFocus();\n'
-                  '      },\n'
-                  '    ),\n'
-                  '  },\n'
-                  '  child: myWidget,\n'
-                  ')',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepTangerine,
-                  ),
-                ),
+                    'Actions(\n'
+                    '  actions: {\n'
+                    '    NextFocusIntent: CallbackAction(\n'
+                    '      onInvoke: (intent) {\n'
+                    '        // Custom logic before focus move\n'
+                    '        print("Tab pressed!");\n'
+                    '        return primaryFocus?.nextFocus();\n'
+                    '      },\n'
+                    '    ),\n'
+                    '  },\n'
+                    '  child: myWidget,\n'
+                    ')',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepTangerine)),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -1075,12 +924,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. FocusScope boundaries ────────────────────────────────
-        sectionBanner(
-          '11 \u00b7 FocusScope Boundaries',
-          'How focus scopes affect NextFocusAction traversal',
-          tangerine,
-          Colors.white,
-        ),
+        sectionBanner('11 \u00b7 FocusScope Boundaries',
+            'How focus scopes affect NextFocusAction traversal',
+            tangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1100,21 +946,19 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'FocusScope (form)',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: tangerine,
-                      ),
-                    ),
+                    Text('FocusScope (form)',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: tangerine)),
                     const SizedBox(height: 6),
                     Row(
                       children: [
                         for (final n in ['A', 'B', 'C'])
                           Expanded(
                             child: Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 2),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 2),
                               padding: const EdgeInsets.all(6),
                               decoration: BoxDecoration(
                                 color: accentGreen.withValues(alpha: 0.08),
@@ -1122,27 +966,20 @@ dynamic build(BuildContext context) {
                                 border: Border.all(color: accentGreen),
                               ),
                               child: Center(
-                                child: Text(
-                                  'Field $n',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: darkBrown,
-                                  ),
-                                ),
+                                child: Text('Field $n',
+                                    style: TextStyle(
+                                        fontSize: 10, color: darkBrown)),
                               ),
                             ),
                           ),
                       ],
                     ),
                     const SizedBox(height: 6),
-                    Text(
-                      'Tab: A \u2192 B \u2192 C \u2192 A (wraps)',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontStyle: FontStyle.italic,
-                        color: darkBrown,
-                      ),
-                    ),
+                    Text('Tab: A \u2192 B \u2192 C \u2192 A (wraps)',
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontStyle: FontStyle.italic,
+                            color: darkBrown)),
                   ],
                 ),
               ),
@@ -1160,12 +997,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Accessibility benefits ───────────────────────────────
-        sectionBanner(
-          '12 \u00b7 Accessibility Benefits',
-          'Why NextFocusAction matters for keyboard users',
-          apricot,
-          Colors.white,
-        ),
+        sectionBanner('12 \u00b7 Accessibility Benefits',
+            'Why NextFocusAction matters for keyboard users',
+            apricot, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1176,35 +1010,19 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final benefit in [
-                (
-                  'Keyboard navigation',
-                  'Users who cannot use a mouse rely on '
-                      'Tab to navigate between interactive elements.',
-                  Icons.keyboard,
-                  tangerine,
-                ),
-                (
-                  'Screen readers',
-                  'Focus order determines announcement '
-                      'sequence. NextFocusAction follows the correct policy.',
-                  Icons.record_voice_over,
-                  apricot,
-                ),
-                (
-                  'Motor impairments',
-                  'Switch devices and mouth sticks '
-                      'often use Tab-equivalent input. Consistent focus traversal '
-                      'is essential.',
-                  Icons.accessibility_new,
-                  softTangerine,
-                ),
-                (
-                  'Web embedding',
-                  'Flutter web apps must support Tab '
-                      'navigation to match web accessibility standards (WCAG 2.1).',
-                  Icons.web,
-                  accentIndigo,
-                ),
+                ('Keyboard navigation', 'Users who cannot use a mouse rely on '
+                    'Tab to navigate between interactive elements.',
+                    Icons.keyboard, tangerine),
+                ('Screen readers', 'Focus order determines announcement '
+                    'sequence. NextFocusAction follows the correct policy.',
+                    Icons.record_voice_over, apricot),
+                ('Motor impairments', 'Switch devices and mouth sticks '
+                    'often use Tab-equivalent input. Consistent focus traversal '
+                    'is essential.',
+                    Icons.accessibility_new, softTangerine),
+                ('Web embedding', 'Flutter web apps must support Tab '
+                    'navigation to match web accessibility standards (WCAG 2.1).',
+                    Icons.web, accentIndigo),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1213,8 +1031,7 @@ dynamic build(BuildContext context) {
                     color: benefit.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: benefit.$4, width: 3),
-                    ),
+                        left: BorderSide(color: benefit.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1225,18 +1042,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              benefit.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: darkBrown,
-                              ),
-                            ),
-                            Text(
-                              benefit.$2,
-                              style: TextStyle(fontSize: 11, color: darkBrown),
-                            ),
+                            Text(benefit.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: darkBrown)),
+                            Text(benefit.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkBrown)),
                           ],
                         ),
                       ),
@@ -1249,12 +1062,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Class hierarchy ──────────────────────────────────────
-        sectionBanner(
-          '13 \u00b7 Class Hierarchy',
-          'Inheritance chain',
-          deepTangerine,
-          Colors.white,
-        ),
+        sectionBanner('13 \u00b7 Class Hierarchy',
+            'Inheritance chain', deepTangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1272,17 +1081,14 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Text(
-                    level.$1,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      fontWeight: level.$1.contains('NextFocusAction')
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: level.$2,
-                    ),
-                  ),
+                  child: Text(level.$1,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: level.$1.contains('NextFocusAction')
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: level.$2)),
                 ),
             ],
           ),
@@ -1290,12 +1096,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Class definition ─────────────────────────────────────
-        sectionBanner(
-          '14 \u00b7 Class Definition',
-          'The SDK implementation',
-          tangerine,
-          Colors.white,
-        ),
+        sectionBanner('14 \u00b7 Class Definition',
+            'The SDK implementation', tangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1309,43 +1111,38 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: deepTangerine.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: deepTangerine.withValues(alpha: 0.3)),
+              border: Border.all(
+                  color: deepTangerine.withValues(alpha: 0.3)),
             ),
             child: Text(
-              'class NextFocusAction\n'
-              '    extends Action<NextFocusIntent> {\n'
-              '  @override\n'
-              '  bool invoke(NextFocusIntent intent) {\n'
-              '    return primaryFocus!.nextFocus();\n'
-              '  }\n'
-              '\n'
-              '  @override\n'
-              '  KeyEventResult toKeyEventResult(\n'
-              '      NextFocusIntent intent,\n'
-              '      bool invokeResult) {\n'
-              '    return invokeResult\n'
-              '        ? KeyEventResult.handled\n'
-              '        : KeyEventResult\n'
-              '            .skipRemainingHandlers;\n'
-              '  }\n'
-              '}',
-              style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: deepTangerine,
-              ),
-            ),
+                'class NextFocusAction\n'
+                '    extends Action<NextFocusIntent> {\n'
+                '  @override\n'
+                '  bool invoke(NextFocusIntent intent) {\n'
+                '    return primaryFocus!.nextFocus();\n'
+                '  }\n'
+                '\n'
+                '  @override\n'
+                '  KeyEventResult toKeyEventResult(\n'
+                '      NextFocusIntent intent,\n'
+                '      bool invokeResult) {\n'
+                '    return invokeResult\n'
+                '        ? KeyEventResult.handled\n'
+                '        : KeyEventResult\n'
+                '            .skipRemainingHandlers;\n'
+                '  }\n'
+                '}',
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepTangerine)),
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepTangerine,
-          Colors.white,
-        ),
+        sectionBanner('15 \u00b7 Summary',
+            'Key takeaways', deepTangerine, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1377,19 +1174,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: lightApricot,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: lightApricot,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
+                        child: Text(point,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

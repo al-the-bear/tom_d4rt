@@ -180,7 +180,10 @@ const Set<String> _kProfilingNames = <String>{
   'trackRepaintWidgets',
   'widgetLocationIdMap',
 };
-const Set<String> _kToggleNames = <String>{'structuredErrors', 'show'};
+const Set<String> _kToggleNames = <String>{
+  'structuredErrors',
+  'show',
+};
 
 _CallBucket _bucketFor(WidgetInspectorServiceExtensions ext) {
   final String n = ext.name;
@@ -591,11 +594,7 @@ class _HeaderBanner extends StatelessWidget {
                 const Spacer(),
                 _CountBadge(label: 'total', value: total),
                 const SizedBox(width: 8),
-                _CountBadge(
-                  label: 'mutators',
-                  value: mutators,
-                  accent: _kOxblood,
-                ),
+                _CountBadge(label: 'mutators', value: mutators, accent: _kOxblood),
                 const SizedBox(width: 8),
                 _CountBadge(label: 'readers', value: readers, accent: _kBrass),
               ],
@@ -688,7 +687,11 @@ class _CountBadge extends StatelessWidget {
           ),
           Text(
             label.toUpperCase(),
-            style: TextStyle(color: accent, fontSize: 9, letterSpacing: 1.2),
+            style: TextStyle(
+              color: accent,
+              fontSize: 9,
+              letterSpacing: 1.2,
+            ),
           ),
         ],
       ),
@@ -714,8 +717,7 @@ class _LiveRosterSection extends StatelessWidget {
         <WidgetInspectorServiceExtensions>[];
     for (final WidgetInspectorServiceExtensions e
         in List<WidgetInspectorServiceExtensions>.from(
-          WidgetInspectorServiceExtensions.values,
-        )) {
+            WidgetInspectorServiceExtensions.values)) {
       values.add(e);
     }
     // Insertion-sort on `name` to avoid relying on `.sort` semantics.
@@ -740,7 +742,11 @@ class _LiveRosterSection extends StatelessWidget {
           'Read directly from `WidgetInspectorServiceExtensions.values`. '
           'Every chip carries the live `.name` string.',
       accent: _kBlueprint,
-      child: Wrap(spacing: 8, runSpacing: 8, children: chips),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: chips,
+      ),
     );
   }
 }
@@ -773,18 +779,14 @@ class _RosterChip extends StatelessWidget {
               fontWeight: FontWeight.w700,
               color: deprecated ? _kOxbloodDeep : _kInk,
               fontSize: 12.5,
-              decoration: deprecated
-                  ? TextDecoration.lineThrough
-                  : TextDecoration.none,
+              decoration:
+                  deprecated ? TextDecoration.lineThrough : TextDecoration.none,
             ),
           ),
           if (deprecated) ...<Widget>[
             const SizedBox(width: 6),
-            const Icon(
-              Icons.warning_amber_rounded,
-              size: 13,
-              color: _kOxbloodDeep,
-            ),
+            const Icon(Icons.warning_amber_rounded,
+                size: 13, color: _kOxbloodDeep),
           ],
         ],
       ),
@@ -809,14 +811,9 @@ class _BucketGridSection extends StatelessWidget {
     // — the enum's iterable adapter responds to `.from()` correctly.
     for (final WidgetInspectorServiceExtensions ext
         in List<WidgetInspectorServiceExtensions>.from(
-          WidgetInspectorServiceExtensions.values,
-        )) {
-      grouped
-          .putIfAbsent(
-            _bucketFor(ext),
-            () => <WidgetInspectorServiceExtensions>[],
-          )
-          .add(ext);
+            WidgetInspectorServiceExtensions.values)) {
+      grouped.putIfAbsent(_bucketFor(ext),
+          () => <WidgetInspectorServiceExtensions>[]).add(ext);
     }
 
     return _Card(
@@ -830,11 +827,7 @@ class _BucketGridSection extends StatelessWidget {
         runSpacing: 12,
         children: <Widget>[
           for (final _CallBucket bucket in _CallBucket.values)
-            _BucketTile(
-              bucket: bucket,
-              members:
-                  grouped[bucket] ?? const <WidgetInspectorServiceExtensions>[],
-            ),
+            _BucketTile(bucket: bucket, members: grouped[bucket] ?? const <WidgetInspectorServiceExtensions>[]),
         ],
       ),
     );
@@ -876,7 +869,8 @@ class _BucketTile extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
                 decoration: BoxDecoration(
                   color: bucket.accent,
                   borderRadius: BorderRadius.circular(20),
@@ -898,11 +892,8 @@ class _BucketTile extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Row(
                 children: <Widget>[
-                  const Icon(
-                    Icons.chevron_right,
-                    size: 14,
-                    color: _kGraphiteSoft,
-                  ),
+                  const Icon(Icons.chevron_right,
+                      size: 14, color: _kGraphiteSoft),
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
@@ -918,13 +909,11 @@ class _BucketTile extends StatelessWidget {
                     ),
                   ),
                   if (_isMutator(ext))
-                    const Icon(Icons.edit_note, size: 13, color: _kOxblood)
+                    const Icon(Icons.edit_note,
+                        size: 13, color: _kOxblood)
                   else
-                    const Icon(
-                      Icons.visibility_outlined,
-                      size: 13,
-                      color: _kBlueprint,
-                    ),
+                    const Icon(Icons.visibility_outlined,
+                        size: 13, color: _kBlueprint),
                 ],
               ),
             ),
@@ -959,11 +948,7 @@ class _Card extends StatelessWidget {
         border: Border.all(color: _kIvoryEdge, width: 1.4),
         borderRadius: BorderRadius.circular(6),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Color(0x1A000000),
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
+          BoxShadow(color: Color(0x1A000000), blurRadius: 6, offset: Offset(0, 3)),
         ],
       ),
       child: Column(
@@ -972,9 +957,8 @@ class _Card extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: accent,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(5),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(5)),
             ),
             padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
             child: Column(
@@ -1081,12 +1065,9 @@ class _LifecyclePanelState extends State<_LifecyclePanel> {
     // the real Dart `List`.
     final List<WidgetInspectorServiceExtensions> mine =
         List<WidgetInspectorServiceExtensions>.from(
-              WidgetInspectorServiceExtensions.values,
-            )
-            .where(
-              (WidgetInspectorServiceExtensions e) =>
-                  _bucketFor(e) == _CallBucket.lifecycle,
-            )
+                WidgetInspectorServiceExtensions.values)
+            .where((WidgetInspectorServiceExtensions e) =>
+                _bucketFor(e) == _CallBucket.lifecycle)
             .toList();
     return _Card(
       title: 'LIFECYCLE & OBJECT GROUPS',
@@ -1107,10 +1088,8 @@ class _LifecyclePanelState extends State<_LifecyclePanel> {
                   label: _statusLabel(ext),
                   onPressed: () {
                     if (ext == WidgetInspectorServiceExtensions.disposeGroup) {
-                      _trigger(
-                        ext,
-                        _activeGroups.isNotEmpty ? _activeGroups.first : null,
-                      );
+                      _trigger(ext,
+                          _activeGroups.isNotEmpty ? _activeGroups.first : null);
                     } else if (ext ==
                         WidgetInspectorServiceExtensions.disposeId) {
                       _trigger(ext, 'inspector-12:42');
@@ -1293,10 +1272,8 @@ class _WireRow extends StatelessWidget {
               ),
               if (stream)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: _kBlueprint,
                     borderRadius: BorderRadius.circular(2),
@@ -1314,10 +1291,8 @@ class _WireRow extends StatelessWidget {
               if (_isMutator(ext)) ...<Widget>[
                 const SizedBox(width: 4),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: _kOxbloodDeep,
                     borderRadius: BorderRadius.circular(2),
@@ -1378,8 +1353,7 @@ List<WidgetInspectorServiceExtensions> _membersOf(_CallBucket bucket) {
       <WidgetInspectorServiceExtensions>[];
   for (final WidgetInspectorServiceExtensions e
       in List<WidgetInspectorServiceExtensions>.from(
-        WidgetInspectorServiceExtensions.values,
-      )) {
+          WidgetInspectorServiceExtensions.values)) {
     if (_bucketFor(e) == bucket) {
       out.add(e);
     }
@@ -1399,7 +1373,10 @@ class _PubRootsPanel extends StatefulWidget {
 }
 
 class _PubRootsPanelState extends State<_PubRootsPanel> {
-  final List<String> _roots = <String>['/srv/app/lib', '/srv/app/lib/foo'];
+  final List<String> _roots = <String>[
+    '/srv/app/lib',
+    '/srv/app/lib/foo',
+  ];
 
   void _apply(WidgetInspectorServiceExtensions ext) {
     setState(() {
@@ -1432,9 +1409,8 @@ class _PubRootsPanelState extends State<_PubRootsPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final List<WidgetInspectorServiceExtensions> mine = _membersOf(
-      _CallBucket.pubRoots,
-    );
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.pubRoots);
     return _Card(
       title: 'PUB ROOT DIRECTORIES',
       subtitle:
@@ -1528,9 +1504,8 @@ class _TreeWalkPanel extends StatelessWidget {
     // Hand-rolled insertion sort into a fresh accumulator and use that.
     final List<WidgetInspectorServiceExtensions> mine =
         <WidgetInspectorServiceExtensions>[];
-    for (final WidgetInspectorServiceExtensions e in _membersOf(
-      _CallBucket.treeWalk,
-    )) {
+    for (final WidgetInspectorServiceExtensions e
+        in _membersOf(_CallBucket.treeWalk)) {
       mine.add(e);
     }
     for (int i = 1; i < mine.length; i++) {
@@ -1647,9 +1622,8 @@ class _SelectionPanelState extends State<_SelectionPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final List<WidgetInspectorServiceExtensions> mine = _membersOf(
-      _CallBucket.selection,
-    );
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.selection);
     return _Card(
       title: 'SELECTION PROBES',
       subtitle:
@@ -1666,8 +1640,7 @@ class _SelectionPanelState extends State<_SelectionPanel> {
               for (final WidgetInspectorServiceExtensions ext in mine)
                 _CallButton(
                   ext: ext,
-                  label:
-                      ext == WidgetInspectorServiceExtensions.setSelectionById
+                  label: ext == WidgetInspectorServiceExtensions.setSelectionById
                       ? 'set'
                       : 'read',
                   onPressed: () => setState(() => _last = ext),
@@ -1762,9 +1735,8 @@ class _RenderingPanel extends StatelessWidget {
     // The rendering bucket only contains `screenshot` today, but we still walk
     // the bucket through the live enum filter so adding new values lights up
     // automatically.
-    final List<WidgetInspectorServiceExtensions> mine = _membersOf(
-      _CallBucket.rendering,
-    );
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.rendering);
     return _Card(
       title: 'RENDERING & SCREENSHOT',
       subtitle:
@@ -1783,11 +1755,8 @@ class _RenderingPanel extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                const Icon(
-                  Icons.camera_alt_outlined,
-                  size: 18,
-                  color: _kOxbloodDeep,
-                ),
+                const Icon(Icons.camera_alt_outlined,
+                    size: 18, color: _kOxbloodDeep),
                 const SizedBox(width: 8),
                 Text(
                   'CALLS IN BUCKET: ${mine.length}',
@@ -1822,48 +1791,44 @@ class _RenderingPanel extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   // Switch over the live enum value to render bucket-specific UI.
-                  Builder(
-                    builder: (BuildContext _) {
-                      switch (ext) {
-                        case WidgetInspectorServiceExtensions.screenshot:
-                          return Container(
-                            width: double.infinity,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: <Color>[
-                                  _kBlueprintPale,
-                                  _kIvory,
-                                  _kOxbloodPale,
-                                ],
-                              ),
-                              border: Border.all(color: _kInk, width: 1),
+                  Builder(builder: (BuildContext _) {
+                    switch (ext) {
+                      case WidgetInspectorServiceExtensions.screenshot:
+                        return Container(
+                          width: double.infinity,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: <Color>[
+                                _kBlueprintPale,
+                                _kIvory,
+                                _kOxbloodPale
+                              ],
                             ),
-                            alignment: Alignment.center,
-                            child: const Text(
-                              '<base64-png placeholder>',
-                              style: TextStyle(
-                                color: _kInk,
-                                fontFamily: 'monospace',
-                                fontSize: 11,
-                                letterSpacing: 1,
-                              ),
+                            border: Border.all(color: _kInk, width: 1),
+                          ),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            '<base64-png placeholder>',
+                            style: TextStyle(
+                              color: _kInk,
+                              fontFamily: 'monospace',
+                              fontSize: 11,
+                              letterSpacing: 1,
                             ),
-                          );
-                        // ignore: no_default_cases
-                        default:
-                          return Text(
-                            _summaryFor(ext),
-                            style: const TextStyle(
-                              color: _kGraphite,
-                              fontSize: 12,
-                            ),
-                          );
-                      }
-                    },
-                  ),
+                          ),
+                        );
+                      // ignore: no_default_cases
+                      default:
+                        return Text(
+                          _summaryFor(ext),
+                          style:
+                              const TextStyle(color: _kGraphite, fontSize: 12),
+                        );
+                    }
+                  }),
                   const SizedBox(height: 6),
                   Text(
                     'reply: ${_responseFor(ext)}',
@@ -1891,9 +1856,8 @@ class _LayoutExplorerPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<WidgetInspectorServiceExtensions> mine = _membersOf(
-      _CallBucket.layoutExplorer,
-    );
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.layoutExplorer);
     return _Card(
       title: 'LAYOUT EXPLORER',
       subtitle:
@@ -1918,9 +1882,8 @@ class _LayoutExplorerPanel extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Icon(
-                        ext ==
-                                WidgetInspectorServiceExtensions
-                                    .getLayoutExplorerNode
+                        ext == WidgetInspectorServiceExtensions
+                                .getLayoutExplorerNode
                             ? Icons.account_tree_outlined
                             : Icons.tune,
                         size: 16,
@@ -1939,9 +1902,7 @@ class _LayoutExplorerPanel extends StatelessWidget {
                       const Spacer(),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: _isMutator(ext) ? _kOxbloodDeep : _kBlueprint,
                           borderRadius: BorderRadius.circular(2),
@@ -2002,9 +1963,8 @@ class _ProfilingPanelState extends State<_ProfilingPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final List<WidgetInspectorServiceExtensions> mine = _membersOf(
-      _CallBucket.profiling,
-    );
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.profiling);
     return _Card(
       title: 'PROFILING STREAMS',
       subtitle:
@@ -2062,14 +2022,13 @@ class _ProfilingPanelState extends State<_ProfilingPanel> {
                     Switch(
                       value: _streamOn[ext] ?? false,
                       activeColor: _kBlueprint,
-                      onChanged: (bool v) => setState(() => _streamOn[ext] = v),
+                      onChanged: (bool v) =>
+                          setState(() => _streamOn[ext] = v),
                     )
                   else
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 3,
-                      ),
+                          horizontal: 6, vertical: 3),
                       decoration: BoxDecoration(
                         color: _kInk,
                         borderRadius: BorderRadius.circular(2),
@@ -2117,11 +2076,11 @@ class _TogglesPanelState extends State<_TogglesPanel> {
     // where/toList chain operates on a real Dart list.
     final List<WidgetInspectorServiceExtensions> toggles =
         List<WidgetInspectorServiceExtensions>.from(
-          WidgetInspectorServiceExtensions.values,
-        ).where(_isStreamToggle).toList();
-    final List<WidgetInspectorServiceExtensions> mine = _membersOf(
-      _CallBucket.toggles,
-    );
+                WidgetInspectorServiceExtensions.values)
+            .where(_isStreamToggle)
+            .toList();
+    final List<WidgetInspectorServiceExtensions> mine =
+        _membersOf(_CallBucket.toggles);
     return _Card(
       title: 'DIAGNOSTIC TOGGLES',
       subtitle:
@@ -2224,8 +2183,7 @@ class _ByNameLookupPanelState extends State<_ByNameLookupPanel> {
     // map/where/take/toList chain runs against a real Dart list.
     final List<String> suggestions =
         List<WidgetInspectorServiceExtensions>.from(
-              WidgetInspectorServiceExtensions.values,
-            )
+                WidgetInspectorServiceExtensions.values)
             .map((WidgetInspectorServiceExtensions e) => e.name)
             .where((String n) => n.toLowerCase().contains(_query.toLowerCase()))
             .take(6)
@@ -2253,7 +2211,10 @@ class _ByNameLookupPanelState extends State<_ByNameLookupPanel> {
                 labelStyle: TextStyle(color: _kBlueprintDeep),
                 border: OutlineInputBorder(),
               ),
-              style: const TextStyle(fontFamily: 'monospace', color: _kInk),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                color: _kInk,
+              ),
               controller: TextEditingController(text: _query)
                 ..selection = TextSelection.collapsed(offset: _query.length),
               onChanged: (String v) => setState(() => _query = v),
@@ -2322,13 +2283,13 @@ class _DevToolsTimelineSection extends StatelessWidget {
     // We model that as a fixed sequence over the live enum values.
     const List<WidgetInspectorServiceExtensions> openingSequence =
         <WidgetInspectorServiceExtensions>[
-          WidgetInspectorServiceExtensions.isWidgetTreeReady,
-          WidgetInspectorServiceExtensions.isWidgetCreationTracked,
-          WidgetInspectorServiceExtensions.getPubRootDirectories,
-          WidgetInspectorServiceExtensions.structuredErrors,
-          WidgetInspectorServiceExtensions.getRootWidgetSummaryTree,
-          WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets,
-        ];
+      WidgetInspectorServiceExtensions.isWidgetTreeReady,
+      WidgetInspectorServiceExtensions.isWidgetCreationTracked,
+      WidgetInspectorServiceExtensions.getPubRootDirectories,
+      WidgetInspectorServiceExtensions.structuredErrors,
+      WidgetInspectorServiceExtensions.getRootWidgetSummaryTree,
+      WidgetInspectorServiceExtensions.trackRebuildDirtyWidgets,
+    ];
     return _Card(
       title: 'DEVTOOLS OPENING SEQUENCE',
       subtitle:
@@ -2426,9 +2387,8 @@ class _StatsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int total = WidgetInspectorServiceExtensions.values.length;
-    final int mutators = WidgetInspectorServiceExtensions.values
-        .where(_isMutator)
-        .length;
+    final int mutators =
+        WidgetInspectorServiceExtensions.values.where(_isMutator).length;
     final int streams = WidgetInspectorServiceExtensions.values
         .where(_isStreamToggle)
         .length;
@@ -2454,22 +2414,10 @@ class _StatsRow extends StatelessWidget {
           runSpacing: 12,
           children: <Widget>[
             _StatTile(label: 'total', value: total, accent: _kBlueprintDeep),
-            _StatTile(
-              label: 'mutators',
-              value: mutators,
-              accent: _kOxbloodDeep,
-            ),
-            _StatTile(
-              label: 'readers',
-              value: total - mutators,
-              accent: _kBlueprint,
-            ),
+            _StatTile(label: 'mutators', value: mutators, accent: _kOxbloodDeep),
+            _StatTile(label: 'readers', value: total - mutators, accent: _kBlueprint),
             _StatTile(label: 'streams', value: streams, accent: _kGraphite),
-            _StatTile(
-              label: 'deprecated',
-              value: deprecated,
-              accent: _kOxblood,
-            ),
+            _StatTile(label: 'deprecated', value: deprecated, accent: _kOxblood),
             _StatTile(label: 'tree-walks', value: treeWalks, accent: _kMoss),
           ],
         ),

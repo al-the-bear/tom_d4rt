@@ -72,10 +72,7 @@ class _TwoDListMosaicApp extends StatelessWidget {
         titleLarge: TextStyle(color: _kInk, fontWeight: FontWeight.w700),
         titleMedium: TextStyle(color: _kInk, fontWeight: FontWeight.w600),
         bodyMedium: TextStyle(color: _kInkSoft, height: 1.45),
-        labelMedium: TextStyle(
-          color: _kGlazeTealDeep,
-          fontWeight: FontWeight.w600,
-        ),
+        labelMedium: TextStyle(color: _kGlazeTealDeep, fontWeight: FontWeight.w600),
       ),
     );
     return MaterialApp(
@@ -127,8 +124,7 @@ const List<_PatternSpec> _kPatternCatalog = <_PatternSpec>[
     primary: _kTerracotta,
     secondary: _kCeramic,
     accent: _kGlazeTeal,
-    synopsis:
-        'Interlocking hexagons with a six-petal rosette centerpiece — '
+    synopsis: 'Interlocking hexagons with a six-petal rosette centerpiece — '
         'each tile a miniature garden, repeated across the plaster wall.',
   ),
   _PatternSpec(
@@ -140,8 +136,7 @@ const List<_PatternSpec> _kPatternCatalog = <_PatternSpec>[
     primary: _kGlazeTeal,
     secondary: _kCeramic,
     accent: _kGold,
-    synopsis:
-        'Eight-pointed stars lock into crosses, woven by a strict '
+    synopsis: 'Eight-pointed stars lock into crosses, woven by a strict '
         'ruler-and-compass geometry into infinite zellij lattices.',
   ),
   _PatternSpec(
@@ -153,8 +148,7 @@ const List<_PatternSpec> _kPatternCatalog = <_PatternSpec>[
     primary: _kCobalt,
     secondary: _kCeramicWarm,
     accent: _kGold,
-    synopsis:
-        'Dense gold-leaf tesserae framing a cobalt cross, echoing the '
+    synopsis: 'Dense gold-leaf tesserae framing a cobalt cross, echoing the '
         'apses of Hagia Sophia and Ravenna.',
   ),
   _PatternSpec(
@@ -166,8 +160,7 @@ const List<_PatternSpec> _kPatternCatalog = <_PatternSpec>[
     primary: _kTerracottaDeep,
     secondary: _kGold,
     accent: _kGlazeTealDeep,
-    synopsis:
-        'Sunburst chevrons stepping out from a lacquered medallion, '
+    synopsis: 'Sunburst chevrons stepping out from a lacquered medallion, '
         'machined symmetry for the jazz age.',
   ),
 ];
@@ -338,7 +331,9 @@ class _MosaicAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ],
                 ),
-                child: CustomPaint(painter: _AppBarCrestPainter(spec: spec)),
+                child: CustomPaint(
+                  painter: _AppBarCrestPainter(spec: spec),
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -410,7 +405,8 @@ class _AppBarCrestPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = spec.primary;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(14)),
+      RRect.fromRectAndRadius(
+          Offset.zero & size, const Radius.circular(14)),
       bg,
     );
     final Paint petal = Paint()..color = spec.secondary;
@@ -486,10 +482,8 @@ class _BulletLine extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            glyph,
-            style: const TextStyle(color: _kTerracotta, fontSize: 18),
-          ),
+          Text(glyph,
+              style: const TextStyle(color: _kTerracotta, fontSize: 18)),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -551,7 +545,9 @@ class _PatternChip extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
-          color: selected ? spec.primary : _kInkSoft.withValues(alpha: 0.25),
+          color: selected
+              ? spec.primary
+              : _kInkSoft.withValues(alpha: 0.25),
           width: 1.2,
         ),
       ),
@@ -570,7 +566,9 @@ class _PatternChip extends StatelessWidget {
                   color: spec.secondary,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: CustomPaint(painter: _ChipGlyphPainter(spec: spec)),
+                child: CustomPaint(
+                  painter: _ChipGlyphPainter(spec: spec),
+                ),
               ),
               const SizedBox(width: 10),
               Column(
@@ -624,13 +622,9 @@ class _ChipGlyphPainter extends CustomPainter {
         final Path star = Path();
         for (int i = 0; i < 8; i++) {
           final double a = i * math.pi / 4;
-          final double r = (i.isEven
-              ? size.shortestSide * 0.42
-              : size.shortestSide * 0.2);
-          final Offset pt = Offset(
-            c.dx + r * math.cos(a),
-            c.dy + r * math.sin(a),
-          );
+          final double r =
+              (i.isEven ? size.shortestSide * 0.42 : size.shortestSide * 0.2);
+          final Offset pt = Offset(c.dx + r * math.cos(a), c.dy + r * math.sin(a));
           if (i == 0) {
             star.moveTo(pt.dx, pt.dy);
           } else {
@@ -641,16 +635,10 @@ class _ChipGlyphPainter extends CustomPainter {
         canvas.drawPath(star, p);
         break;
       case _MosaicPattern.byzantine:
-        canvas.drawLine(
-          Offset(c.dx, size.height * 0.15),
-          Offset(c.dx, size.height * 0.85),
-          p,
-        );
-        canvas.drawLine(
-          Offset(size.width * 0.15, c.dy),
-          Offset(size.width * 0.85, c.dy),
-          p,
-        );
+        canvas.drawLine(Offset(c.dx, size.height * 0.15),
+            Offset(c.dx, size.height * 0.85), p);
+        canvas.drawLine(Offset(size.width * 0.15, c.dy),
+            Offset(size.width * 0.85, c.dy), p);
         break;
       case _MosaicPattern.artDeco:
         for (int i = 0; i < 3; i++) {
@@ -810,10 +798,10 @@ class _MosaicWallPanel extends StatelessWidget {
     );
     final TwoDimensionalChildListDelegate delegate =
         TwoDimensionalChildListDelegate(
-          addRepaintBoundaries: addRepaintBoundaries,
-          addAutomaticKeepAlives: addAutomaticKeepAlives,
-          children: matrix,
-        );
+      addRepaintBoundaries: addRepaintBoundaries,
+      addAutomaticKeepAlives: addAutomaticKeepAlives,
+      children: matrix,
+    );
     return _SectionShell(
       title: 'Primary mosaic wall',
       subtitle:
@@ -946,7 +934,10 @@ class _InspectorPanel extends StatelessWidget {
           const SizedBox(height: 14),
           _InspectorStat(label: 'Rows in children[]', value: '$rows'),
           _InspectorStat(label: 'Cols in children[y][]', value: '$cols'),
-          _InspectorStat(label: 'Total cells', value: '${rows * cols}'),
+          _InspectorStat(
+            label: 'Total cells',
+            value: '${rows * cols}',
+          ),
           _InspectorStat(
             label: 'Delegate contract',
             value: 'children[yIndex][xIndex]',
@@ -1025,7 +1016,10 @@ class _InspectorFilled extends StatelessWidget {
                   ),
                   Text(
                     '${info.patternLabel} · ${info.widgetTypeName}',
-                    style: const TextStyle(color: _kInkSoft, fontSize: 12),
+                    style: const TextStyle(
+                      color: _kInkSoft,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
@@ -1117,8 +1111,7 @@ class _DimensionsPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionShell(
       title: 'Grid dimensions',
-      subtitle:
-          'Each change rebuilds children[][] — delegate shouldRebuild: true',
+      subtitle: 'Each change rebuilds children[][] — delegate shouldRebuild: true',
       child: Column(
         children: <Widget>[
           _DimensionSlider(
@@ -1196,7 +1189,10 @@ class _DimensionSlider extends StatelessWidget {
           child: Text(
             value.round().toString(),
             textAlign: TextAlign.right,
-            style: const TextStyle(color: _kInk, fontWeight: FontWeight.w800),
+            style: const TextStyle(
+              color: _kInk,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
       ],
@@ -1239,10 +1235,10 @@ class _FlagsPanel extends StatelessWidget {
             onChanged: onRepaint,
             narration: addRepaintBoundaries
                 ? 'ON — each tile is wrapped in a RepaintBoundary. Scroll '
-                      'repaints stay local; heavy tile painters do not invalidate '
-                      'neighbours.'
+                    'repaints stay local; heavy tile painters do not invalidate '
+                    'neighbours.'
                 : 'OFF — no RepaintBoundary per tile. Animations in one tile '
-                      'can force repainting of the whole visible window.',
+                    'can force repainting of the whole visible window.',
             activeColor: _kGlazeTeal,
           ),
           _FlagRow(
@@ -1251,9 +1247,9 @@ class _FlagsPanel extends StatelessWidget {
             onChanged: onKeepAlive,
             narration: addAutomaticKeepAlives
                 ? 'ON — scrolled-off tiles with keep-alive clients (e.g. '
-                      'Checkboxes, text fields) retain state across rebuilds.'
+                    'Checkboxes, text fields) retain state across rebuilds.'
                 : 'OFF — children are disposed the moment they exit the '
-                      'visible area. Local state in a scrolled-off tile is gone.',
+                    'visible area. Local state in a scrolled-off tile is gone.',
             activeColor: _kTerracotta,
           ),
           _FlagRow(
@@ -1262,7 +1258,7 @@ class _FlagsPanel extends StatelessWidget {
             onChanged: onShowCoords,
             narration: showCoords
                 ? 'ON — each tile prints its (x, y) vicinity. Handy for '
-                      'debugging how the delegate maps children[y][x].'
+                    'debugging how the delegate maps children[y][x].'
                 : 'OFF — the wall shows only the decorative motif.',
             activeColor: _kCobalt,
           ),
@@ -1348,8 +1344,7 @@ class _ComparisonStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionShell(
       title: 'Pattern comparison strip',
-      subtitle:
-          'Four independent TwoDimensionalChildListDelegate instances, '
+      subtitle: 'Four independent TwoDimensionalChildListDelegate instances, '
           'one mini viewport each — purely for eyeballing the motifs',
       child: SizedBox(
         height: 220,
@@ -1377,10 +1372,10 @@ class _MiniViewportCard extends StatelessWidget {
     final List<List<Widget>> matrix = _buildMiniMatrix(spec);
     final TwoDimensionalChildListDelegate delegate =
         TwoDimensionalChildListDelegate(
-          addRepaintBoundaries: true,
-          addAutomaticKeepAlives: false,
-          children: matrix,
-        );
+      addRepaintBoundaries: true,
+      addAutomaticKeepAlives: false,
+      children: matrix,
+    );
     return Container(
       width: 220,
       decoration: BoxDecoration(
@@ -1395,9 +1390,8 @@ class _MiniViewportCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: spec.primary.withValues(alpha: 0.15),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(14),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
             child: Row(
               children: <Widget>[
@@ -1419,9 +1413,8 @@ class _MiniViewportCard extends StatelessWidget {
           ),
           Expanded(
             child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(14),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(14)),
               child: _TwoDListTableView(
                 delegate: delegate,
                 background: spec.secondary,
@@ -1826,7 +1819,9 @@ class _MosaicTile extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           color: spec.secondary,
-          border: Border.all(color: spec.primary.withValues(alpha: 0.25)),
+          border: Border.all(
+            color: spec.primary.withValues(alpha: 0.25),
+          ),
         ),
         child: Stack(
           fit: StackFit.expand,
@@ -1846,9 +1841,7 @@ class _MosaicTile extends StatelessWidget {
                 top: 4,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 2,
-                  ),
+                      horizontal: 4, vertical: 2),
                   decoration: BoxDecoration(
                     color: _kInk.withValues(alpha: 0.55),
                     borderRadius: BorderRadius.circular(4),
@@ -1968,7 +1961,8 @@ class _MotifPainter extends CustomPainter {
   void _paintMoroccan(Canvas canvas, Size size) {
     final Offset c = size.center(Offset.zero);
     final double r = size.shortestSide * 0.44;
-    final Paint fill = Paint()..color = spec.primary.withValues(alpha: 0.85);
+    final Paint fill = Paint()
+      ..color = spec.primary.withValues(alpha: 0.85);
     final Paint outline = Paint()
       ..color = spec.accent
       ..style = PaintingStyle.stroke
@@ -1976,7 +1970,8 @@ class _MotifPainter extends CustomPainter {
     final Path star = Path();
     for (int i = 0; i < 16; i++) {
       final double angle = i * math.pi / 8;
-      final double radius = (i.isEven ? r : r * 0.45);
+      final double radius =
+          (i.isEven ? r : r * 0.45);
       final Offset p = Offset(
         c.dx + radius * math.cos(angle),
         c.dy + radius * math.sin(angle),
@@ -2013,15 +2008,11 @@ class _MotifPainter extends CustomPainter {
           ..color = onCross
               ? spec.primary
               : (dist < w * 0.25
-                    ? spec.accent.withValues(alpha: 0.85)
-                    : spec.secondary.withValues(alpha: 0.9))
+                  ? spec.accent.withValues(alpha: 0.85)
+                  : spec.secondary.withValues(alpha: 0.9))
           ..style = PaintingStyle.fill;
         canvas.drawRect(
-          Rect.fromCenter(
-            center: Offset(px, py),
-            width: w / grid * 0.78,
-            height: h / grid * 0.78,
-          ),
+          Rect.fromCenter(center: Offset(px, py), width: w / grid * 0.78, height: h / grid * 0.78),
           p,
         );
       }
@@ -2082,14 +2073,14 @@ class _TwoDListTableView extends TwoDimensionalScrollView {
     required TwoDimensionalChildListDelegate super.delegate,
     required this.background,
   }) : super(
-         diagonalDragBehavior: DiagonalDragBehavior.weightedEvent,
-         dragStartBehavior: DragStartBehavior.start,
-         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
-         verticalDetails: const ScrollableDetails.vertical(),
-         horizontalDetails: const ScrollableDetails.horizontal(),
-         mainAxis: Axis.vertical,
-         clipBehavior: Clip.hardEdge,
-       );
+          diagonalDragBehavior: DiagonalDragBehavior.weightedEvent,
+          dragStartBehavior: DragStartBehavior.start,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+          verticalDetails: const ScrollableDetails.vertical(),
+          horizontalDetails: const ScrollableDetails.horizontal(),
+          mainAxis: Axis.vertical,
+          clipBehavior: Clip.hardEdge,
+        );
 
   final Color background;
 
@@ -2179,8 +2170,8 @@ class _TwoDListTableRender extends RenderTwoDimensionalViewport {
     super.cacheExtent,
     super.cacheExtentStyle,
     super.clipBehavior,
-  }) : _background = background,
-       super(delegate: delegate);
+  })  : _background = background,
+        super(delegate: delegate);
 
   static const double kTileSize = 52.0;
 
@@ -2194,7 +2185,10 @@ class _TwoDListTableRender extends RenderTwoDimensionalViewport {
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    context.canvas.drawRect(offset & size, Paint()..color = _background);
+    context.canvas.drawRect(
+      offset & size,
+      Paint()..color = _background,
+    );
     super.paint(context, offset);
   }
 
@@ -2213,11 +2207,10 @@ class _TwoDListTableRender extends RenderTwoDimensionalViewport {
     }
     final int columnCount = listDelegate.children.first.length;
 
-    final int leadingColumn = math.max(
-      (horizontalPixels / kTileSize).floor(),
-      0,
-    );
-    final int leadingRow = math.max((verticalPixels / kTileSize).floor(), 0);
+    final int leadingColumn =
+        math.max((horizontalPixels / kTileSize).floor(), 0);
+    final int leadingRow =
+        math.max((verticalPixels / kTileSize).floor(), 0);
     final int trailingColumn = math.min(
       ((horizontalPixels + viewportDimension.width) / kTileSize).ceil(),
       columnCount - 1,
@@ -2230,12 +2223,11 @@ class _TwoDListTableRender extends RenderTwoDimensionalViewport {
     double xLayoutOffset =
         (leadingColumn * kTileSize) - horizontalOffset.pixels;
     for (int column = leadingColumn; column <= trailingColumn; column++) {
-      double yLayoutOffset = (leadingRow * kTileSize) - verticalOffset.pixels;
+      double yLayoutOffset =
+          (leadingRow * kTileSize) - verticalOffset.pixels;
       for (int row = leadingRow; row <= trailingRow; row++) {
-        final ChildVicinity vicinity = ChildVicinity(
-          xIndex: column,
-          yIndex: row,
-        );
+        final ChildVicinity vicinity =
+            ChildVicinity(xIndex: column, yIndex: row);
         final RenderBox? child = buildOrObtainChildFor(vicinity);
         if (child == null) {
           yLayoutOffset += kTileSize;

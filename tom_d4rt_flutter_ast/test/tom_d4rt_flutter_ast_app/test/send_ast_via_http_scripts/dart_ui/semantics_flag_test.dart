@@ -412,7 +412,10 @@ dynamic build(BuildContext context) {
               ],
             ),
             SizedBox(height: 8.0),
-            Text(desc, style: TextStyle(fontSize: 11.0, color: Colors.black87)),
+            Text(
+              desc,
+              style: TextStyle(fontSize: 11.0, color: Colors.black87),
+            ),
             SizedBox(height: 8.0),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
@@ -466,12 +469,7 @@ dynamic build(BuildContext context) {
       'widget': 'Checkbox(value: false)',
       'icon': Icons.check_box_outline_blank,
       'color': Colors.grey,
-      'flags': [
-        'hasCheckedState',
-        'hasEnabledState',
-        'isEnabled',
-        'isFocusable',
-      ],
+      'flags': ['hasCheckedState', 'hasEnabledState', 'isEnabled', 'isFocusable'],
     },
     {
       'widget': 'Switch(value: true)',
@@ -707,7 +705,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.grey.shade900, color.withValues(alpha: 0.5)],
+            colors: [
+              Colors.grey.shade900,
+              color.withValues(alpha: 0.5),
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -729,11 +730,7 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                Icons.record_voice_over,
-                color: Colors.white,
-                size: 22.0,
-              ),
+              child: Icon(Icons.record_voice_over, color: Colors.white, size: 22.0),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1089,7 +1086,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(left: BorderSide(color: color, width: 4.0)),
+          border: Border(
+            left: BorderSide(color: color, width: 4.0),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1098,7 +1097,10 @@ dynamic build(BuildContext context) {
               width: 22.0,
               height: 22.0,
               alignment: Alignment.center,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
               child: Text(
                 '${i + 1}',
                 style: TextStyle(
@@ -1166,7 +1168,7 @@ dynamic build(BuildContext context) {
       'title': 'Flag without label',
       'detail':
           'Setting button: true but no label means screen readers say only '
-          '"button". Always pair with a label.',
+              '"button". Always pair with a label.',
       'icon': Icons.warning_amber,
       'color': Colors.red,
     },
@@ -1174,7 +1176,7 @@ dynamic build(BuildContext context) {
       'title': 'Confusing flags vs actions',
       'detail':
           'isButton describes the node — onTap registers a SemanticsAction. '
-          'You typically need both for tappable widgets.',
+              'You typically need both for tappable widgets.',
       'icon': Icons.compare_arrows,
       'color': Colors.orange,
     },
@@ -1182,7 +1184,7 @@ dynamic build(BuildContext context) {
       'title': 'Stacking redundant flags',
       'detail':
           'Wrapping a Checkbox in Semantics(checked: true) duplicates state '
-          'tracking. Prefer the inner widget unless overriding.',
+              'tracking. Prefer the inner widget unless overriding.',
       'icon': Icons.layers_clear,
       'color': Colors.deepOrange,
     },
@@ -1190,7 +1192,7 @@ dynamic build(BuildContext context) {
       'title': 'Hiding interactive nodes',
       'detail':
           'Using ExcludeSemantics on a button removes it from the AT tree. '
-          'Use only for purely decorative widgets.',
+              'Use only for purely decorative widgets.',
       'icon': Icons.visibility_off,
       'color': Colors.purple,
     },
@@ -1198,7 +1200,7 @@ dynamic build(BuildContext context) {
       'title': 'Toggle vs Check confusion',
       'detail':
           'Switch → hasToggledState/isToggled. Checkbox → '
-          'hasCheckedState/isChecked. Mixing them confuses users.',
+              'hasCheckedState/isChecked. Mixing them confuses users.',
       'icon': Icons.swap_horiz,
       'color': Colors.indigo,
     },
@@ -1247,7 +1249,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     detail,
-                    style: TextStyle(fontSize: 11.0, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.black87,
+                    ),
                   ),
                 ],
               ),
@@ -1370,7 +1375,11 @@ dynamic build(BuildContext context) {
           'in dart:ui',
           Icons.flag,
         ),
-        _statCell('${widgetCombinations.length}', 'combos', Icons.merge_type),
+        _statCell(
+          '${widgetCombinations.length}',
+          'combos',
+          Icons.merge_type,
+        ),
         _statCell('${announcements.length}', 'spoken', Icons.record_voice_over),
       ],
     ),
@@ -1508,7 +1517,10 @@ Widget _statCell(String value, String label, IconData icon) {
           fontWeight: FontWeight.bold,
         ),
       ),
-      Text(label, style: TextStyle(color: Colors.white70, fontSize: 11.0)),
+      Text(
+        label,
+        style: TextStyle(color: Colors.white70, fontSize: 11.0),
+      ),
     ],
   );
 }

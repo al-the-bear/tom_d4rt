@@ -209,12 +209,8 @@ Widget _buildAnchorAboveSection() {
               children: <Widget>[
                 _backgroundGrid(Colors.teal.shade50),
                 _anchorMarker(left: 140, top: 150, color: Colors.deepPurple),
-                _anchorDot(
-                  left: 152,
-                  top: 110,
-                  color: Colors.teal,
-                  label: 'above',
-                ),
+                _anchorDot(left: 152, top: 110, color: Colors.teal,
+                    label: 'above'),
                 Positioned(
                   left: 50,
                   top: 30,
@@ -301,12 +297,8 @@ Widget _buildAnchorBelowSection() {
               children: <Widget>[
                 _backgroundGrid(Colors.orange.shade50),
                 _anchorMarker(left: 140, top: 30, color: Colors.deepPurple),
-                _anchorDot(
-                  left: 152,
-                  top: 70,
-                  color: Colors.orange,
-                  label: 'below',
-                ),
+                _anchorDot(left: 152, top: 70, color: Colors.orange,
+                    label: 'below'),
                 Positioned(
                   left: 60,
                   top: 90,
@@ -382,13 +374,18 @@ Widget _buildVariableChildCounts() {
           _toolbarRow(
             label: '1 child',
             offset: const Offset(80, 60),
-            children: <Widget>[_tbButton('Copy')],
+            children: <Widget>[
+              _tbButton('Copy'),
+            ],
           ),
           const SizedBox(height: 12),
           _toolbarRow(
             label: '2 children',
             offset: const Offset(80, 60),
-            children: <Widget>[_tbButton('Copy'), _tbButton('Paste')],
+            children: <Widget>[
+              _tbButton('Copy'),
+              _tbButton('Paste'),
+            ],
           ),
           const SizedBox(height: 12),
           _toolbarRow(
@@ -848,7 +845,10 @@ Widget _anatomyBox({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               Text(description, style: const TextStyle(fontSize: 12)),
             ],
           ),
@@ -914,33 +914,29 @@ Widget _buildComparisonWithCupertino() {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Expanded(
-                child: _platformCard(
-                  title: 'Material',
-                  accent: Colors.purple,
-                  lines: <String>[
-                    'Pill with rounded square corners',
-                    'Surface tone matches M3 theme',
-                    'Elevation produces faint shadow',
-                    'Buttons use ButtonStyle.text',
-                    'Overflow uses chevron icon',
-                  ],
-                ),
-              ),
+              Expanded(child: _platformCard(
+                title: 'Material',
+                accent: Colors.purple,
+                lines: <String>[
+                  'Pill with rounded square corners',
+                  'Surface tone matches M3 theme',
+                  'Elevation produces faint shadow',
+                  'Buttons use ButtonStyle.text',
+                  'Overflow uses chevron icon',
+                ],
+              )),
               const SizedBox(width: 12),
-              Expanded(
-                child: _platformCard(
-                  title: 'Cupertino',
-                  accent: Colors.blue,
-                  lines: <String>[
-                    'Capsule with full rounded ends',
-                    'Translucent vibrancy backdrop',
-                    'No elevation; uses platform blur',
-                    'Buttons use SF Pro typography',
-                    'Overflow uses arrow paginator',
-                  ],
-                ),
-              ),
+              Expanded(child: _platformCard(
+                title: 'Cupertino',
+                accent: Colors.blue,
+                lines: <String>[
+                  'Capsule with full rounded ends',
+                  'Translucent vibrancy backdrop',
+                  'No elevation; uses platform blur',
+                  'Buttons use SF Pro typography',
+                  'Overflow uses arrow paginator',
+                ],
+              )),
             ],
           ),
           const SizedBox(height: 16),
@@ -965,7 +961,11 @@ Widget _buildComparisonWithCupertino() {
                     ],
                   ),
                 ),
-                Positioned(left: 30, top: 110, child: _fakeCupertinoToolbar()),
+                Positioned(
+                  left: 30,
+                  top: 110,
+                  child: _fakeCupertinoToolbar(),
+                ),
               ],
             ),
           ),
@@ -1037,9 +1037,7 @@ Widget _platformBullet(List<String> lines, int index) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text('• ', style: TextStyle(fontWeight: FontWeight.bold)),
-        Expanded(
-          child: Text(lines[index], style: const TextStyle(fontSize: 12)),
-        ),
+        Expanded(child: Text(lines[index], style: const TextStyle(fontSize: 12))),
       ],
     ),
   );

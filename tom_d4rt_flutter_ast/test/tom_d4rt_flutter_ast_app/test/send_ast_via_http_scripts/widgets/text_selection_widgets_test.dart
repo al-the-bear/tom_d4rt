@@ -91,9 +91,8 @@ dynamic build(BuildContext context) {
 
   // Plumbed via Theme.of(context).textSelectionTheme — read current.
   try {
-    final TextSelectionThemeData inherited = Theme.of(
-      context,
-    ).textSelectionTheme;
+    final TextSelectionThemeData inherited =
+        Theme.of(context).textSelectionTheme;
     print('  inherited cursor: ${inherited.cursorColor}');
   } catch (e) {
     print('  ERR inherited: $e');
@@ -138,7 +137,8 @@ dynamic build(BuildContext context) {
 
   Widget chip(String label, Color bg, Color fg) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+      padding:
+          const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(99.0),
@@ -257,7 +257,8 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(width: 6.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: paperBg,
               border: Border.all(color: hairline, width: 1.0),
@@ -311,9 +312,7 @@ dynamic build(BuildContext context) {
                 child: Container(
                   height: 60.0,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 10.0,
-                  ),
+                      horizontal: 12.0, vertical: 10.0),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFFDF7),
                     border: Border.all(color: hairline, width: 1.2),
@@ -394,11 +393,10 @@ dynamic build(BuildContext context) {
               ),
               annotated('cursorColor', accentSaffron, 200.0, 6.0),
               annotated(
-                'selectionColor',
-                accentSaffron.withValues(alpha: 0.32),
-                20.0,
-                6.0,
-              ),
+                  'selectionColor',
+                  accentSaffron.withValues(alpha: 0.32),
+                  20.0,
+                  6.0),
               annotated('selectionHandleColor', accentSaffron, 60.0, 130.0),
             ],
           ),
@@ -409,14 +407,8 @@ dynamic build(BuildContext context) {
 
   // ---- Field card factory --------------------------------------------------
 
-  Widget fieldCard(
-    String title,
-    String hint,
-    Color cursor,
-    Color sel,
-    Color handle,
-    Color accent,
-  ) {
+  Widget fieldCard(String title, String hint, Color cursor, Color sel,
+      Color handle, Color accent) {
     final TextSelectionThemeData local = TextSelectionThemeData(
       cursorColor: cursor,
       selectionColor: sel.withValues(alpha: 0.34),
@@ -443,9 +435,7 @@ dynamic build(BuildContext context) {
             ),
             isDense: true,
             contentPadding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 10.0,
-            ),
+                horizontal: 10.0, vertical: 10.0),
           ),
         ),
       );
@@ -467,10 +457,7 @@ dynamic build(BuildContext context) {
               Container(
                 width: 8.0,
                 height: 8.0,
-                decoration: BoxDecoration(
-                  color: accent,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
               ),
               const SizedBox(width: 6.0),
               Text(
@@ -503,78 +490,24 @@ dynamic build(BuildContext context) {
 
   // 9-card grid of palettes
   final List<Widget> fieldCards = <Widget>[
-    fieldCard(
-      'Saffron',
-      'lorem ipsum',
-      accentSaffron,
-      accentSaffron,
-      accentSaffron,
-      accentSaffron,
-    ),
-    fieldCard(
-      'Rose',
-      'dolor sit amet',
-      accentRose,
-      accentRose,
-      accentRose,
-      accentRose,
-    ),
-    fieldCard(
-      'Teal',
-      'consectetur',
-      accentTeal,
-      accentTeal,
-      accentTeal,
-      accentTeal,
-    ),
-    fieldCard(
-      'Indigo',
-      'adipiscing',
-      accentIndigo,
-      accentIndigo,
-      accentIndigo,
-      accentIndigo,
-    ),
-    fieldCard(
-      'Forest',
-      'elit sed do',
-      accentForest,
-      accentForest,
-      accentForest,
-      accentForest,
-    ),
-    fieldCard(
-      'Plum',
-      'eiusmod tempor',
-      accentPlum,
-      accentPlum,
-      accentPlum,
-      accentPlum,
-    ),
-    fieldCard(
-      'Slate',
-      'incididunt ut',
-      accentSlate,
-      accentSlate,
-      accentSlate,
-      accentSlate,
-    ),
-    fieldCard(
-      'Mixed A',
-      'cursor=rose, sel=teal',
-      accentRose,
-      accentTeal,
-      accentIndigo,
-      accentRose,
-    ),
-    fieldCard(
-      'Mixed B',
-      'handles=plum',
-      accentForest,
-      accentSaffron,
-      accentPlum,
-      accentForest,
-    ),
+    fieldCard('Saffron', 'lorem ipsum', accentSaffron, accentSaffron,
+        accentSaffron, accentSaffron),
+    fieldCard('Rose', 'dolor sit amet', accentRose, accentRose, accentRose,
+        accentRose),
+    fieldCard('Teal', 'consectetur', accentTeal, accentTeal, accentTeal,
+        accentTeal),
+    fieldCard('Indigo', 'adipiscing', accentIndigo, accentIndigo,
+        accentIndigo, accentIndigo),
+    fieldCard('Forest', 'elit sed do', accentForest, accentForest,
+        accentForest, accentForest),
+    fieldCard('Plum', 'eiusmod tempor', accentPlum, accentPlum, accentPlum,
+        accentPlum),
+    fieldCard('Slate', 'incididunt ut', accentSlate, accentSlate,
+        accentSlate, accentSlate),
+    fieldCard('Mixed A', 'cursor=rose, sel=teal', accentRose, accentTeal,
+        accentIndigo, accentRose),
+    fieldCard('Mixed B', 'handles=plum', accentForest, accentSaffron,
+        accentPlum, accentForest),
   ];
 
   final List<Widget> gridRows = <Widget>[];
@@ -587,9 +520,10 @@ dynamic build(BuildContext context) {
         rowChildren.add(const SizedBox(width: 10.0));
       }
     }
-    gridRows.add(
-      Row(crossAxisAlignment: CrossAxisAlignment.start, children: rowChildren),
-    );
+    gridRows.add(Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: rowChildren,
+    ));
     if (r < 2) {
       gridRows.add(const SizedBox(height: 10.0));
     }
@@ -660,57 +594,55 @@ dynamic build(BuildContext context) {
   final List<Widget> handleCards = <Widget>[];
   for (int i = 0; i < handleTypes.length; i++) {
     final TextSelectionHandleType t = handleTypes[i];
-    handleCards.add(
-      Container(
-        padding: const EdgeInsets.all(14.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: hairline, width: 1.0),
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                // mini caret
-                Container(width: 2.0, height: 22.0, color: accentTeal),
-                const SizedBox(width: 6.0),
-                handleGlyph(t, accentTeal),
-                const SizedBox(width: 10.0),
-                Text(
-                  'TextSelectionHandleType.${t.name}',
-                  style: const TextStyle(
-                    fontSize: 12.5,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w800,
-                    color: paperFg,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              handleDesc(t),
-              style: const TextStyle(
-                fontSize: 12.0,
-                color: paperFg,
-                height: 1.35,
-              ),
-            ),
-            const SizedBox(height: 6.0),
-            Text(
-              'index = ${t.index}',
-              style: TextStyle(
-                fontSize: 10.5,
-                color: paperFg.withValues(alpha: 0.55),
-                fontFamily: 'monospace',
-              ),
-            ),
-          ],
-        ),
+    handleCards.add(Container(
+      padding: const EdgeInsets.all(14.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: hairline, width: 1.0),
+        borderRadius: BorderRadius.circular(8.0),
       ),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              // mini caret
+              Container(width: 2.0, height: 22.0, color: accentTeal),
+              const SizedBox(width: 6.0),
+              handleGlyph(t, accentTeal),
+              const SizedBox(width: 10.0),
+              Text(
+                'TextSelectionHandleType.${t.name}',
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w800,
+                  color: paperFg,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8.0),
+          Text(
+            handleDesc(t),
+            style: const TextStyle(
+              fontSize: 12.0,
+              color: paperFg,
+              height: 1.35,
+            ),
+          ),
+          const SizedBox(height: 6.0),
+          Text(
+            'index = ${t.index}',
+            style: TextStyle(
+              fontSize: 10.5,
+              color: paperFg.withValues(alpha: 0.55),
+              fontFamily: 'monospace',
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   final Widget handlesGallery = Container(
@@ -802,23 +734,14 @@ dynamic build(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 toolbarButton('Cut'),
-                Container(
-                  width: 1.0,
-                  height: 22.0,
-                  color: inkFg.withValues(alpha: 0.18),
-                ),
+                Container(width: 1.0, height: 22.0,
+                    color: inkFg.withValues(alpha: 0.18)),
                 toolbarButton('Copy'),
-                Container(
-                  width: 1.0,
-                  height: 22.0,
-                  color: inkFg.withValues(alpha: 0.18),
-                ),
+                Container(width: 1.0, height: 22.0,
+                    color: inkFg.withValues(alpha: 0.18)),
                 toolbarButton('Paste'),
-                Container(
-                  width: 1.0,
-                  height: 22.0,
-                  color: inkFg.withValues(alpha: 0.18),
-                ),
+                Container(width: 1.0, height: 22.0,
+                    color: inkFg.withValues(alpha: 0.18)),
                 toolbarButton('Select All'),
               ],
             ),
@@ -862,7 +785,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               right,
-              style: TextStyle(color: rColor, fontSize: 12.5, height: 1.4),
+              style: TextStyle(
+                color: rColor,
+                fontSize: 12.5,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -891,36 +818,21 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 8.0),
-        compareRow(
-          'TextStyle.color',
-          'Glyph color of the *characters*. Has nothing to do with cursor or selection.',
-          accentIndigo,
-          paperFg,
-        ),
-        compareRow(
-          'TextSelectionThemeData.cursorColor',
-          'The blinking caret bar. Plumbed via Theme.of(context).textSelectionTheme.',
-          accentSaffron,
-          paperFg,
-        ),
-        compareRow(
-          'TextSelectionThemeData.selectionColor',
-          'Background highlight rectangle behind selected glyphs.',
-          accentRose,
-          paperFg,
-        ),
-        compareRow(
-          'TextSelectionThemeData.selectionHandleColor',
-          'Color of the left/right teardrop handles and the collapsed dot.',
-          accentTeal,
-          paperFg,
-        ),
-        compareRow(
-          'CursorTheme',
-          'Does not exist as a separate widget — cursor color lives inside TextSelectionThemeData.',
-          accentPlum,
-          paperFg,
-        ),
+        compareRow('TextStyle.color',
+            'Glyph color of the *characters*. Has nothing to do with cursor or selection.',
+            accentIndigo, paperFg),
+        compareRow('TextSelectionThemeData.cursorColor',
+            'The blinking caret bar. Plumbed via Theme.of(context).textSelectionTheme.',
+            accentSaffron, paperFg),
+        compareRow('TextSelectionThemeData.selectionColor',
+            'Background highlight rectangle behind selected glyphs.',
+            accentRose, paperFg),
+        compareRow('TextSelectionThemeData.selectionHandleColor',
+            'Color of the left/right teardrop handles and the collapsed dot.',
+            accentTeal, paperFg),
+        compareRow('CursorTheme',
+            'Does not exist as a separate widget — cursor color lives inside TextSelectionThemeData.',
+            accentPlum, paperFg),
       ],
     ),
   );
@@ -939,9 +851,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 6.0,
-            ),
+                horizontal: 12.0, vertical: 6.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.85),
               borderRadius: const BorderRadius.only(
@@ -983,37 +893,34 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         codeCard(
-          'APP-LEVEL THEME',
-          'MaterialApp(\n'
-              '  theme: ThemeData(\n'
-              '    textSelectionTheme: TextSelectionThemeData(\n'
-              '      cursorColor: Colors.amber,\n'
-              '      selectionColor: Colors.amber.withOpacity(0.32),\n'
-              '      selectionHandleColor: Colors.amber,\n'
-              '    ),\n'
-              '  ),\n'
-              '  home: ...,\n'
-              ');',
-          accentSaffron,
-        ),
+            'APP-LEVEL THEME',
+            'MaterialApp(\n'
+                '  theme: ThemeData(\n'
+                '    textSelectionTheme: TextSelectionThemeData(\n'
+                '      cursorColor: Colors.amber,\n'
+                '      selectionColor: Colors.amber.withOpacity(0.32),\n'
+                '      selectionHandleColor: Colors.amber,\n'
+                '    ),\n'
+                '  ),\n'
+                '  home: ...,\n'
+                ');',
+            accentSaffron),
         codeCard(
-          'LOCAL OVERRIDE',
-          'TextSelectionTheme(\n'
-              '  data: const TextSelectionThemeData(\n'
-              '    cursorColor: Color(0xFFC2185B),\n'
-              '  ),\n'
-              '  child: TextField(),\n'
-              ');',
-          accentRose,
-        ),
+            'LOCAL OVERRIDE',
+            'TextSelectionTheme(\n'
+                '  data: const TextSelectionThemeData(\n'
+                '    cursorColor: Color(0xFFC2185B),\n'
+                '  ),\n'
+                '  child: TextField(),\n'
+                ');',
+            accentRose),
         codeCard(
-          'EDGE CASE: TRANSPARENT SELECTION',
-          'const TextSelectionThemeData(\n'
-              '  selectionColor: Color(0x00000000),\n'
-              ');\n'
-              '// Selection still works, just invisible.',
-          accentSlate,
-        ),
+            'EDGE CASE: TRANSPARENT SELECTION',
+            'const TextSelectionThemeData(\n'
+                '  selectionColor: Color(0x00000000),\n'
+                ');\n'
+                '// Selection still works, just invisible.',
+            accentSlate),
       ],
     ),
   );
@@ -1023,89 +930,90 @@ dynamic build(BuildContext context) {
   final List<List<String>> refs = <List<String>>[
     <String>[
       'TextSelectionThemeData',
-      'Holds cursorColor, selectionColor, selectionHandleColor.',
+      'Holds cursorColor, selectionColor, selectionHandleColor.'
     ],
     <String>[
       'TextSelectionTheme',
-      'InheritedWidget that scopes a TextSelectionThemeData.',
+      'InheritedWidget that scopes a TextSelectionThemeData.'
     ],
-    <String>['TextSelectionHandleType', 'Enum: left, right, collapsed.'],
+    <String>[
+      'TextSelectionHandleType',
+      'Enum: left, right, collapsed.'
+    ],
     <String>[
       'TextSelectionToolbar',
-      'Default Material toolbar (Cut/Copy/Paste/Select All).',
+      'Default Material toolbar (Cut/Copy/Paste/Select All).'
     ],
     <String>[
       'TextSelectionControls',
-      'Abstract: how to paint handles + toolbar (do not subclass here).',
+      'Abstract: how to paint handles + toolbar (do not subclass here).'
     ],
     <String>[
       'TextSelectionDelegate',
-      'Bridge to the editing state during selection gestures.',
+      'Bridge to the editing state during selection gestures.'
     ],
     <String>[
       'TextSelectionPoint',
-      'A point describing one end of a selection.',
+      'A point describing one end of a selection.'
     ],
     <String>[
       'SelectionRegistrar',
-      'Registers Selectables for cross-widget selection.',
+      'Registers Selectables for cross-widget selection.'
     ],
     <String>[
       'EditableText',
-      'Lower-level field that reads the TextSelectionTheme.',
+      'Lower-level field that reads the TextSelectionTheme.'
     ],
   ];
 
   final List<Widget> refRows = <Widget>[];
   for (int i = 0; i < refs.length; i++) {
     final List<String> r = refs[i];
-    refRows.add(
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-        decoration: BoxDecoration(
-          color: i.isEven ? Colors.white : paperBg.withValues(alpha: 0.5),
-          border: Border(bottom: BorderSide(color: hairline, width: 0.6)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: 28.0,
-              child: Text(
-                '${i + 1}',
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: paperFg.withValues(alpha: 0.5),
-                  fontFamily: 'monospace',
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 200.0,
-              child: Text(
-                r[0],
-                style: const TextStyle(
-                  fontSize: 12.5,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w800,
-                  color: accentIndigo,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                r[1],
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  color: paperFg,
-                  height: 1.35,
-                ),
-              ),
-            ),
-          ],
-        ),
+    refRows.add(Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+      decoration: BoxDecoration(
+        color: i.isEven ? Colors.white : paperBg.withValues(alpha: 0.5),
+        border: Border(bottom: BorderSide(color: hairline, width: 0.6)),
       ),
-    );
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: 28.0,
+            child: Text(
+              '${i + 1}',
+              style: TextStyle(
+                fontSize: 11.0,
+                color: paperFg.withValues(alpha: 0.5),
+                fontFamily: 'monospace',
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 200.0,
+            child: Text(
+              r[0],
+              style: const TextStyle(
+                fontSize: 12.5,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w800,
+                color: accentIndigo,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              r[1],
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: paperFg,
+                height: 1.35,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   final Widget references = Container(
@@ -1148,10 +1056,9 @@ dynamic build(BuildContext context) {
             chip('END OF DEMO', accentSaffron, inkBg),
             const SizedBox(width: 8.0),
             chip(
-              'handles=${handleTypes.length}',
-              inkFg.withValues(alpha: 0.15),
-              inkFg,
-            ),
+                'handles=${handleTypes.length}',
+                inkFg.withValues(alpha: 0.15),
+                inkFg),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -1176,27 +1083,26 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         hero,
-        sectionHeader(
-          'SECTION 01',
-          'The three colors at a glance',
-          accentSaffron,
-        ),
+        sectionHeader('SECTION 01', 'The three colors at a glance',
+            accentSaffron),
         schematic,
-        sectionHeader('SECTION 02', 'Live TextField palette grid', accentRose),
+        sectionHeader('SECTION 02', 'Live TextField palette grid',
+            accentRose),
         fieldGrid,
-        sectionHeader(
-          'SECTION 03',
-          'TextSelectionHandleType gallery',
-          accentTeal,
-        ),
+        sectionHeader('SECTION 03', 'TextSelectionHandleType gallery',
+            accentTeal),
         handlesGallery,
-        sectionHeader('SECTION 04', 'TextSelectionToolbar mock', accentPlum),
+        sectionHeader('SECTION 04', 'TextSelectionToolbar mock',
+            accentPlum),
         toolbarMock,
-        sectionHeader('SECTION 05', 'Theme vs TextStyle', accentForest),
+        sectionHeader('SECTION 05', 'Theme vs TextStyle',
+            accentForest),
         comparison,
-        sectionHeader('SECTION 06', 'How to apply it', accentIndigo),
+        sectionHeader('SECTION 06', 'How to apply it',
+            accentIndigo),
         codeBlock,
-        sectionHeader('SECTION 07', 'Related types', accentSlate),
+        sectionHeader('SECTION 07', 'Related types',
+            accentSlate),
         references,
         footer,
       ],

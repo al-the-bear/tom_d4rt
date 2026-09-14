@@ -248,7 +248,8 @@ dynamic build(BuildContext context) {
   }) {
     return StatefulBuilder(
       builder: (BuildContext sbContext, StateSetter setState) {
-        final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+        final GlobalKey<ScaffoldState> scaffoldKey =
+            GlobalKey<ScaffoldState>();
         int selected = initialIndex;
         return SizedBox(
           height: height,
@@ -297,11 +298,14 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 12),
                       Text(
                         'Currently selected index: $selected',
-                        style: const TextStyle(fontWeight: FontWeight.w600),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       ElevatedButton.icon(
-                        onPressed: () => scaffoldKey.currentState?.openDrawer(),
+                        onPressed: () =>
+                            scaffoldKey.currentState?.openDrawer(),
                         icon: const Icon(Icons.menu_open),
                         label: const Text('Open drawer'),
                       ),
@@ -330,7 +334,9 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Card(
         elevation: 1.5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -407,30 +413,30 @@ dynamic build(BuildContext context) {
     ),
     indicatorSize: const Size(248, 48),
     elevation: 2,
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: indigoSelectedFg,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          );
+        }
         return const TextStyle(
-          color: indigoSelectedFg,
-          fontWeight: FontWeight.w700,
+          color: indigoUnselectedFg,
+          fontWeight: FontWeight.w500,
           fontSize: 14,
         );
-      }
-      return const TextStyle(
-        color: indigoUnselectedFg,
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-      );
-    }),
-    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
-        return const IconThemeData(color: indigoSelectedFg, size: 24);
-      }
-      return const IconThemeData(color: indigoUnselectedFg, size: 22);
-    }),
+      },
+    ),
+    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: indigoSelectedFg, size: 24);
+        }
+        return const IconThemeData(color: indigoUnselectedFg, size: 22);
+      },
+    ),
   );
 
   final Widget section2 = sectionCard(
@@ -447,8 +453,7 @@ dynamic build(BuildContext context) {
       initialIndex: 0,
       paletteBackdrop: const Color(0xFFC5CAE9),
     ),
-    footer:
-        'Use the inherited-widget form when only part of the app needs '
+    footer: 'Use the inherited-widget form when only part of the app needs '
         'this look - e.g., a settings flow with a custom palette.',
   );
 
@@ -464,31 +469,31 @@ dynamic build(BuildContext context) {
     indicatorSize: const Size(252, 52),
     elevation: 8,
     shadowColor: purpleShadow,
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: purpleSelectedFg,
+            fontWeight: FontWeight.w800,
+            fontSize: 14,
+            letterSpacing: 0.4,
+          );
+        }
         return const TextStyle(
-          color: purpleSelectedFg,
-          fontWeight: FontWeight.w800,
+          color: purpleUnselectedFg,
+          fontWeight: FontWeight.w500,
           fontSize: 14,
-          letterSpacing: 0.4,
         );
-      }
-      return const TextStyle(
-        color: purpleUnselectedFg,
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-      );
-    }),
-    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
-        return const IconThemeData(color: purpleSelectedFg, size: 24);
-      }
-      return const IconThemeData(color: purpleUnselectedFg, size: 22);
-    }),
+      },
+    ),
+    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: purpleSelectedFg, size: 24);
+        }
+        return const IconThemeData(color: purpleUnselectedFg, size: 22);
+      },
+    ),
   );
 
   final Widget section3 = sectionCard(
@@ -504,8 +509,7 @@ dynamic build(BuildContext context) {
       initialIndex: 1,
       paletteBackdrop: purpleBg,
     ),
-    footer:
-        'shadowColor is composited at the configured elevation - lower '
+    footer: 'shadowColor is composited at the configured elevation - lower '
         'elevation values dampen the visible cast.',
   );
 
@@ -524,40 +528,40 @@ dynamic build(BuildContext context) {
     ),
     indicatorSize: const Size(256, 50),
     elevation: 1,
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.disabled)) {
-        return TextStyle(
-          color: Colors.grey.shade400,
-          fontStyle: FontStyle.italic,
-        );
-      }
-      if (states.contains(WidgetState.selected)) {
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
+          return TextStyle(
+            color: Colors.grey.shade400,
+            fontStyle: FontStyle.italic,
+          );
+        }
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: tealSelectedFg,
+            fontWeight: FontWeight.w800,
+            fontSize: 16,
+            letterSpacing: 0.3,
+          );
+        }
         return const TextStyle(
-          color: tealSelectedFg,
-          fontWeight: FontWeight.w800,
-          fontSize: 16,
-          letterSpacing: 0.3,
+          color: tealUnselectedFg,
+          fontWeight: FontWeight.w400,
+          fontSize: 14,
         );
-      }
-      return const TextStyle(
-        color: tealUnselectedFg,
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
-      );
-    }),
-    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.disabled)) {
-        return IconThemeData(color: Colors.grey.shade400, size: 20);
-      }
-      if (states.contains(WidgetState.selected)) {
-        return const IconThemeData(color: tealSelectedFg, size: 26);
-      }
-      return const IconThemeData(color: tealUnselectedFg, size: 22);
-    }),
+      },
+    ),
+    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
+          return IconThemeData(color: Colors.grey.shade400, size: 20);
+        }
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: tealSelectedFg, size: 26);
+        }
+        return const IconThemeData(color: tealUnselectedFg, size: 22);
+      },
+    ),
   );
 
   final Widget section4 = sectionCard(
@@ -574,8 +578,7 @@ dynamic build(BuildContext context) {
       initialIndex: 2,
       paletteBackdrop: const Color(0xFFB2DFDB),
     ),
-    footer:
-        'The same pattern is what NavigationBarTheme, NavigationRailTheme, '
+    footer: 'The same pattern is what NavigationBarTheme, NavigationRailTheme, '
         'and SegmentedButtonTheme use - learn it once, reuse it everywhere.',
   );
 
@@ -595,30 +598,30 @@ dynamic build(BuildContext context) {
     indicatorSize: const Size(260, 46),
     elevation: 4,
     tileHeight: 56,
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: bgBlueGreySelectedFg,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          );
+        }
         return const TextStyle(
-          color: bgBlueGreySelectedFg,
-          fontWeight: FontWeight.w700,
+          color: bgBlueGreyUnselectedFg,
+          fontWeight: FontWeight.w500,
           fontSize: 14,
         );
-      }
-      return const TextStyle(
-        color: bgBlueGreyUnselectedFg,
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-      );
-    }),
-    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
-        return const IconThemeData(color: bgBlueGreySelectedFg, size: 24);
-      }
-      return const IconThemeData(color: bgBlueGreyUnselectedFg, size: 22);
-    }),
+      },
+    ),
+    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: bgBlueGreySelectedFg, size: 24);
+        }
+        return const IconThemeData(color: bgBlueGreyUnselectedFg, size: 22);
+      },
+    ),
   );
 
   final Widget section5 = sectionCard(
@@ -634,8 +637,7 @@ dynamic build(BuildContext context) {
       label: 'Scaffold + themed drawer',
       appBarColor: bgBlueGreyIndicator,
     ),
-    footer:
-        'tileHeight overrides the default destination row height. Use '
+    footer: 'tileHeight overrides the default destination row height. Use '
         'larger values for accessibility, smaller for dense desktop UIs.',
   );
 
@@ -654,31 +656,31 @@ dynamic build(BuildContext context) {
     elevation: 6,
     shadowColor: brandShadow,
     tileHeight: 60,
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: brandSelectedFg,
+            fontWeight: FontWeight.w800,
+            fontSize: 15,
+            letterSpacing: 0.5,
+          );
+        }
         return const TextStyle(
-          color: brandSelectedFg,
-          fontWeight: FontWeight.w800,
-          fontSize: 15,
-          letterSpacing: 0.5,
+          color: brandUnselectedFg,
+          fontWeight: FontWeight.w600,
+          fontSize: 14,
         );
-      }
-      return const TextStyle(
-        color: brandUnselectedFg,
-        fontWeight: FontWeight.w600,
-        fontSize: 14,
-      );
-    }),
-    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
-        return const IconThemeData(color: brandSelectedFg, size: 26);
-      }
-      return const IconThemeData(color: brandUnselectedFg, size: 22);
-    }),
+      },
+    ),
+    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: brandSelectedFg, size: 26);
+        }
+        return const IconThemeData(color: brandUnselectedFg, size: 22);
+      },
+    ),
   );
 
   final Widget section6 = sectionCard(
@@ -692,8 +694,7 @@ dynamic build(BuildContext context) {
       initialIndex: 3,
       paletteBackdrop: const Color(0xFFFFE0B2),
     ),
-    footer:
-        'When the brand palette is reused across many widgets, define '
+    footer: 'When the brand palette is reused across many widgets, define '
         'the colors as static class constants and import them everywhere.',
   );
 
@@ -714,30 +715,30 @@ dynamic build(BuildContext context) {
       indicatorSize: const Size(248, 48),
       elevation: elev,
       shadowColor: forestShadow,
-      labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-        Set<WidgetState> states,
-      ) {
-        if (states.contains(WidgetState.selected)) {
+      labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.selected)) {
+            return const TextStyle(
+              color: forestSelectedFg,
+              fontWeight: FontWeight.w700,
+              fontSize: 14,
+            );
+          }
           return const TextStyle(
-            color: forestSelectedFg,
-            fontWeight: FontWeight.w700,
+            color: forestUnselectedFg,
+            fontWeight: FontWeight.w500,
             fontSize: 14,
           );
-        }
-        return const TextStyle(
-          color: forestUnselectedFg,
-          fontWeight: FontWeight.w500,
-          fontSize: 14,
-        );
-      }),
-      iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-        Set<WidgetState> states,
-      ) {
-        if (states.contains(WidgetState.selected)) {
-          return const IconThemeData(color: forestSelectedFg, size: 24);
-        }
-        return const IconThemeData(color: forestUnselectedFg, size: 22);
-      }),
+        },
+      ),
+      iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.selected)) {
+            return const IconThemeData(color: forestSelectedFg, size: 24);
+          }
+          return const IconThemeData(color: forestUnselectedFg, size: 22);
+        },
+      ),
     );
   }
 
@@ -751,7 +752,10 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.only(bottom: 6, left: 4),
             child: Text(
               'elevation: ${elev.toStringAsFixed(0)}',
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 13,
+              ),
             ),
           ),
           SizedBox(
@@ -791,8 +795,7 @@ dynamic build(BuildContext context) {
         ],
       ),
     ),
-    footer:
-        'In Material 3, surfaceTintColor blends with backgroundColor as '
+    footer: 'In Material 3, surfaceTintColor blends with backgroundColor as '
         'a function of elevation - higher elevation, more tint shows through.',
   );
 
@@ -810,30 +813,30 @@ dynamic build(BuildContext context) {
     ),
     indicatorSize: const Size(248, 48),
     elevation: 3,
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: roseSelectedFg,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          );
+        }
         return const TextStyle(
-          color: roseSelectedFg,
-          fontWeight: FontWeight.w700,
+          color: roseUnselectedFg,
+          fontWeight: FontWeight.w500,
           fontSize: 14,
         );
-      }
-      return const TextStyle(
-        color: roseUnselectedFg,
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-      );
-    }),
-    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
-        return const IconThemeData(color: roseSelectedFg, size: 24);
-      }
-      return const IconThemeData(color: roseUnselectedFg, size: 22);
-    }),
+      },
+    ),
+    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: roseSelectedFg, size: 24);
+        }
+        return const IconThemeData(color: roseUnselectedFg, size: 22);
+      },
+    ),
   );
 
   Widget inheritedLane = Column(
@@ -878,7 +881,10 @@ dynamic build(BuildContext context) {
         width: 320,
         height: 360,
         child: Theme(
-          data: ThemeData(useMaterial3: true, navigationDrawerTheme: roseTheme),
+          data: ThemeData(
+            useMaterial3: true,
+            navigationDrawerTheme: roseTheme,
+          ),
           child: Material(
             type: MaterialType.transparency,
             child: NavigationDrawer(
@@ -913,8 +919,7 @@ dynamic build(BuildContext context) {
         ],
       ),
     ),
-    footer:
-        'Use ThemeData.navigationDrawerTheme for app-wide defaults. Use '
+    footer: 'Use ThemeData.navigationDrawerTheme for app-wide defaults. Use '
         'NavigationDrawerTheme to override locally for one screen.',
   );
 
@@ -933,30 +938,30 @@ dynamic build(BuildContext context) {
     indicatorSize: const Size(252, 48),
     elevation: 2,
     tileHeight: 54,
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const TextStyle(
+            color: slateSelectedFg,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          );
+        }
         return const TextStyle(
-          color: slateSelectedFg,
-          fontWeight: FontWeight.w700,
+          color: slateUnselectedFg,
+          fontWeight: FontWeight.w500,
           fontSize: 14,
         );
-      }
-      return const TextStyle(
-        color: slateUnselectedFg,
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-      );
-    }),
-    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-      Set<WidgetState> states,
-    ) {
-      if (states.contains(WidgetState.selected)) {
-        return const IconThemeData(color: slateSelectedFg, size: 24);
-      }
-      return const IconThemeData(color: slateUnselectedFg, size: 22);
-    }),
+      },
+    ),
+    iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: slateSelectedFg, size: 24);
+        }
+        return const IconThemeData(color: slateUnselectedFg, size: 22);
+      },
+    ),
   );
 
   Widget readoutRow(String label, String value) {
@@ -979,7 +984,10 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+              ),
             ),
           ),
         ],
@@ -998,9 +1006,8 @@ dynamic build(BuildContext context) {
       data: slateTheme,
       child: Builder(
         builder: (BuildContext ctx) {
-          final NavigationDrawerThemeData resolved = NavigationDrawerTheme.of(
-            ctx,
-          );
+          final NavigationDrawerThemeData resolved =
+              NavigationDrawerTheme.of(ctx);
           return Container(
             decoration: BoxDecoration(
               color: const Color(0xFFF5F5F5),
@@ -1063,9 +1070,18 @@ dynamic build(BuildContext context) {
                           'indicatorSize',
                           '${resolved.indicatorSize}',
                         ),
-                        readoutRow('elevation', '${resolved.elevation}'),
-                        readoutRow('shadowColor', '${resolved.shadowColor}'),
-                        readoutRow('tileHeight', '${resolved.tileHeight}'),
+                        readoutRow(
+                          'elevation',
+                          '${resolved.elevation}',
+                        ),
+                        readoutRow(
+                          'shadowColor',
+                          '${resolved.shadowColor}',
+                        ),
+                        readoutRow(
+                          'tileHeight',
+                          '${resolved.tileHeight}',
+                        ),
                         readoutRow(
                           'labelTextStyle',
                           resolved.labelTextStyle == null
@@ -1088,8 +1104,7 @@ dynamic build(BuildContext context) {
         },
       ),
     ),
-    footer:
-        'Note: when you wrap with the inherited widget, .of(context) '
+    footer: 'Note: when you wrap with the inherited widget, .of(context) '
         'returns the inherited data verbatim. Without the wrapper it returns '
         'Theme.of(context).navigationDrawerTheme.',
   );
@@ -1217,10 +1232,8 @@ dynamic build(BuildContext context) {
   ];
 
   for (final Map<String, String> row in summary) {
-    print(
-      '  ${row['section']} -> palette=${row['palette']}, '
-      'elevation=${row['elevation']}, shape=${row['indicatorShape']}',
-    );
+    print('  ${row['section']} -> palette=${row['palette']}, '
+        'elevation=${row['elevation']}, shape=${row['indicatorShape']}');
   }
 
   // ===========================================================================
@@ -1248,7 +1261,10 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.fromLTRB(8, 8, 8, 4),
                 child: Text(
                   'NavigationDrawerTheme & NavigationDrawerThemeData',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               const Padding(

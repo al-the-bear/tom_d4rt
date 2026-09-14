@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.search,
       'title': 'What is MagnifierDecoration?',
-      'body':
-          'MagnifierDecoration is a data class that describes how a '
+      'body': 'MagnifierDecoration is a data class that describes how a '
           'text magnifier should look. It bundles shape, size, shadows, '
           'border, and opacity into one object. It does not render the '
           'magnifier itself — that is done by RawMagnifier.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'Mobile Text Selection',
-      'body':
-          'When a user long-presses on text and drags to select, '
+      'body': 'When a user long-presses on text and drags to select, '
           'a magnifier loupe appears above the finger to show the text '
           'underneath. Each platform has its own magnifier style '
           '(Material, Cupertino), both driven by MagnifierDecoration.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.palette,
       'title': 'Customization Points',
-      'body':
-          'MagnifierDecoration lets you control the outer shape '
+      'body': 'MagnifierDecoration lets you control the outer shape '
           '(via ShapeBorder), add shadows (list of BoxShadow), and '
           'adjust opacity. Combined with magnifierSize in the magnifier '
           'widget, you control every visual aspect of the loupe.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Relationship to Magnifier Widgets',
-      'body':
-          'TextMagnifier (adaptive) uses MagnifierDecoration internally. '
+      'body': 'TextMagnifier (adaptive) uses MagnifierDecoration internally. '
           'CupertinoTextMagnifier and MaterialMagnifier have pre-set '
           'decorations that match platform conventions. You can override '
           'them by providing your own MagnifierDecoration.',
@@ -128,8 +124,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'shape',
       'type': 'ShapeBorder',
-      'desc':
-          'Defines the outer border shape of the magnifier. Common '
+      'desc': 'Defines the outer border shape of the magnifier. Common '
           'choices: RoundedRectangleBorder for a card-like loupe, '
           'CircleBorder for a round loupe, or StadiumBorder for a '
           'pill shape. Defaults to a rounded rectangle in Material.',
@@ -137,16 +132,14 @@ dynamic build(BuildContext context) {
     {
       'name': 'shadows',
       'type': 'List<BoxShadow>',
-      'desc':
-          'Shadow(s) drawn beneath the magnifier. Material magnifiers '
+      'desc': 'Shadow(s) drawn beneath the magnifier. Material magnifiers '
           'typically have a soft elevation shadow. Cupertino uses no '
           'shadow (relying on border instead). Accepts multiple shadows.',
     },
     {
       'name': 'opacity',
       'type': 'double',
-      'desc':
-          'Overall opacity of the magnifier decoration, from 0.0 '
+      'desc': 'Overall opacity of the magnifier decoration, from 0.0 '
           '(invisible) to 1.0 (fully opaque). Defaults to 1.0. The '
           'magnified content behind the loupe is unaffected by this — '
           'it only controls the border/shadow layer.',
@@ -236,8 +229,7 @@ dynamic build(BuildContext context) {
   final shapeVariants = <Map<String, dynamic>>[
     {
       'name': 'Rounded Rectangle',
-      'desc':
-          'The Material default. Soft corners give a modern card look. '
+      'desc': 'The Material default. Soft corners give a modern card look. '
           'RoundedRectangleBorder with borderRadius: 12.',
       'borderRadius': 12.0,
       'isCircle': false,
@@ -245,8 +237,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Circle',
-      'desc':
-          'Classic magnifying-glass style. Good for small, precise '
+      'desc': 'Classic magnifying-glass style. Good for small, precise '
           'loupes. Use CircleBorder as the shape.',
       'borderRadius': 50.0,
       'isCircle': true,
@@ -254,8 +245,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Pill / Stadium',
-      'desc':
-          'Wider than a circle, narrower than a card. StadiumBorder '
+      'desc': 'Wider than a circle, narrower than a card. StadiumBorder '
           'gives fully rounded ends on a rectangular base.',
       'borderRadius': 30.0,
       'isCircle': false,
@@ -263,8 +253,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Sharp Rectangle',
-      'desc':
-          'No rounding at all. Gives a technical or utilitarian feel. '
+      'desc': 'No rounding at all. Gives a technical or utilitarian feel. '
           'RoundedRectangleBorder with borderRadius: 0.',
       'borderRadius': 0.0,
       'isCircle': false,
@@ -297,7 +286,9 @@ dynamic build(BuildContext context) {
             ),
           ],
         ),
-        child: Center(child: Icon(Icons.zoom_in, color: svColor, size: 24)),
+        child: Center(
+          child: Icon(Icons.zoom_in, color: svColor, size: 24),
+        ),
       );
     } else {
       preview = Container(
@@ -382,8 +373,7 @@ dynamic build(BuildContext context) {
   final shadowExamples = <Map<String, dynamic>>[
     {
       'title': 'Material Default Shadow',
-      'desc':
-          'A soft, wide blur below and to the right. Mimics elevation '
+      'desc': 'A soft, wide blur below and to the right. Mimics elevation '
           'on a physical card. Typically grey with 20-30% opacity and '
           'a blur radius of 8-16 pixels.',
       'shadow': BoxShadow(
@@ -395,8 +385,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Subtle Inner Glow',
-      'desc':
-          'A tight shadow with minimal offset creates a soft glow '
+      'desc': 'A tight shadow with minimal offset creates a soft glow '
           'effect around the magnifier edge. Useful for dark-mode '
           'interfaces where drop shadows disappear against the background.',
       'shadow': BoxShadow(
@@ -408,8 +397,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No Shadow (Cupertino Style)',
-      'desc':
-          'Cupertino magnifiers rely on a visible border instead of '
+      'desc': 'Cupertino magnifiers rely on a visible border instead of '
           'shadow. The loupe sits flat visually, with the border providing '
           'edges. Use an empty shadow list for this look.',
       'shadow': null,
@@ -417,8 +405,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dramatic Drop Shadow',
-      'desc':
-          'A large offset and high blur for a floating effect. The '
+      'desc': 'A large offset and high blur for a floating effect. The '
           'magnifier appears to hover well above the content. Best for '
           'presentation or educational contexts.',
       'shadow': BoxShadow(
@@ -510,14 +497,12 @@ dynamic build(BuildContext context) {
   final platformItems = <Map<String, dynamic>>[
     {
       'title': 'Material Magnifier',
-      'desc':
-          'Uses MagnifierDecoration with a RoundedRectangleBorder, '
+      'desc': 'Uses MagnifierDecoration with a RoundedRectangleBorder, '
           'soft elevation shadow, and full opacity. Size is typically '
           '90x48 logical pixels. The loupe floats above the finger '
           'with a shadow indicating depth.',
       'icon': Icons.android,
-      'specs':
-          'Shape: RoundedRect(28)\n'
+      'specs': 'Shape: RoundedRect(28)\n'
           'Shadow: Black26, blur:12, offset:(0,4)\n'
           'Size: 90 x 48\n'
           'Opacity: 1.0',
@@ -525,14 +510,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Cupertino Magnifier',
-      'desc':
-          'Uses MagnifierDecoration with a continuous rounded rect '
+      'desc': 'Uses MagnifierDecoration with a continuous rounded rect '
           'border, no drop shadow, and a thin grey border. The loupe '
           'sits close to the text with a distinct iOS feel. Size is '
           'carried over from the CupertinoMagnifier constants.',
       'icon': Icons.apple,
-      'specs':
-          'Shape: ContinuousRectangleBorder\n'
+      'specs': 'Shape: ContinuousRectangleBorder\n'
           'Shadow: None (border only)\n'
           'Border: 0.5px grey\n'
           'Opacity: 1.0',
@@ -540,13 +523,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Adaptive (TextMagnifier)',
-      'desc':
-          'TextMagnifier.adaptiveMagnifierConfiguration selects the '
+      'desc': 'TextMagnifier.adaptiveMagnifierConfiguration selects the '
           'platform-appropriate magnifier automatically. On Android '
           'it uses MaterialMagnifier; on iOS, CupertinoMagnifier.',
       'icon': Icons.auto_fix_high,
-      'specs':
-          'Delegates to platform style\n'
+      'specs': 'Delegates to platform style\n'
           'Detected via Theme.platform\n'
           'No manual config needed\n'
           'Most common approach',
@@ -554,13 +535,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Magnifier',
-      'desc':
-          'Build your own magnifier from RawMagnifier and provide a '
+      'desc': 'Build your own magnifier from RawMagnifier and provide a '
           'custom MagnifierDecoration. This gives full control over '
           'shape, shadows, opacity, and size.',
       'icon': Icons.palette,
-      'specs':
-          'Any ShapeBorder\n'
+      'specs': 'Any ShapeBorder\n'
           'Any BoxShadow list\n'
           'Any opacity 0.0–1.0\n'
           'Any Size',
@@ -659,12 +638,10 @@ dynamic build(BuildContext context) {
   final customExamples = <Map<String, dynamic>>[
     {
       'title': 'Brand-Colored Loupe',
-      'desc':
-          'Match the magnifier border to your app\'s brand color. '
+      'desc': 'Match the magnifier border to your app\'s brand color. '
           'Use a RoundedRectangleBorder with a side color matching '
           'your theme\'s primary.',
-      'code':
-          'MagnifierDecoration(\n'
+      'code': 'MagnifierDecoration(\n'
           '  shape: RoundedRectangleBorder(\n'
           '    borderRadius: BorderRadius.circular(16),\n'
           '    side: BorderSide(\n'
@@ -683,12 +660,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Ghost Magnifier (Low Opacity)',
-      'desc':
-          'Reduce decoration opacity for a subtle, non-distracting '
+      'desc': 'Reduce decoration opacity for a subtle, non-distracting '
           'loupe. The magnified content is still fully visible, but '
           'the border and shadow become faint.',
-      'code':
-          'MagnifierDecoration(\n'
+      'code': 'MagnifierDecoration(\n'
           '  opacity: 0.4,\n'
           '  shape: RoundedRectangleBorder(\n'
           '    borderRadius: BorderRadius.circular(12),\n'
@@ -700,12 +675,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-Shadow Glow',
-      'desc':
-          'Stack multiple BoxShadows for a glowing effect. An inner '
+      'desc': 'Stack multiple BoxShadows for a glowing effect. An inner '
           'tight glow plus an outer spread creates depth and draws '
           'attention to the magnifier.',
-      'code':
-          'MagnifierDecoration(\n'
+      'code': 'MagnifierDecoration(\n'
           '  shape: CircleBorder(\n'
           '    side: BorderSide(color: Colors.white, width: 1),\n'
           '  ),\n'
@@ -794,12 +767,10 @@ dynamic build(BuildContext context) {
   final integrationItems = <Map<String, dynamic>>[
     {
       'title': 'With magnifierBuilder on TextField',
-      'desc':
-          'TextField exposes a magnifierConfiguration parameter. '
+      'desc': 'TextField exposes a magnifierConfiguration parameter. '
           'Supply a TextMagnifierConfiguration with a custom builder '
           'that returns your styled magnifier.',
-      'code':
-          'TextField(\n'
+      'code': 'TextField(\n'
           '  magnifierConfiguration: TextMagnifierConfiguration(\n'
           '    magnifierBuilder: (context, controller, overlay) {\n'
           '      return RawMagnifier(\n'
@@ -821,12 +792,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'With EditableText',
-      'desc':
-          'EditableText also accepts magnifierConfiguration. This is '
+      'desc': 'EditableText also accepts magnifierConfiguration. This is '
           'the low-level text editing widget. Custom text editors that '
           'bypass TextField can still use MagnifierDecoration.',
-      'code':
-          'EditableText(\n'
+      'code': 'EditableText(\n'
           '  controller: textController,\n'
           '  focusNode: focusNode,\n'
           '  style: textStyle,\n'
@@ -842,12 +811,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Disable the Magnifier',
-      'desc':
-          'To completely hide the magnifier, return SizedBox.shrink '
+      'desc': 'To completely hide the magnifier, return SizedBox.shrink '
           'from the builder. Useful for desktop platforms or when the '
           'text is large enough to not need magnification.',
-      'code':
-          'TextField(\n'
+      'code': 'TextField(\n'
           '  magnifierConfiguration: TextMagnifierConfiguration(\n'
           '    magnifierBuilder: (_, __, ___) => SizedBox.shrink(),\n'
           '  ),\n'
@@ -949,38 +916,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.search,
-      'text':
-          'MagnifierDecoration defines shape, shadows, and opacity '
+      'text': 'MagnifierDecoration defines shape, shadows, and opacity '
           'of the text magnifier loupe.',
     },
     {
       'icon': Icons.shape_line,
-      'text':
-          'shape accepts any ShapeBorder — RoundedRectangleBorder, '
+      'text': 'shape accepts any ShapeBorder — RoundedRectangleBorder, '
           'CircleBorder, StadiumBorder, and more.',
     },
     {
       'icon': Icons.blur_on,
-      'text':
-          'shadows accepts a List<BoxShadow> for elevation effects. '
+      'text': 'shadows accepts a List<BoxShadow> for elevation effects. '
           'Empty list removes all shadows.',
     },
     {
       'icon': Icons.opacity,
-      'text':
-          'opacity controls the decoration transparency (0.0–1.0) '
+      'text': 'opacity controls the decoration transparency (0.0–1.0) '
           'without affecting the magnified content.',
     },
     {
       'icon': Icons.phone_android,
-      'text':
-          'Material and Cupertino magnifiers use different default '
+      'text': 'Material and Cupertino magnifiers use different default '
           'decorations. TextMagnifier selects adaptively.',
     },
     {
       'icon': Icons.build,
-      'text':
-          'Custom magnifiers: provide a magnifierBuilder on '
+      'text': 'Custom magnifiers: provide a magnifierBuilder on '
           'TextField or EditableText with a RawMagnifier.',
     },
   ];

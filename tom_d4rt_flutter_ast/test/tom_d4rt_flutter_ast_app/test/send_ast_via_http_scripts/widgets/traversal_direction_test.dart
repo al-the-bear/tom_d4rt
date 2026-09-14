@@ -17,8 +17,7 @@ class _TraversalDirectionDeepDemo extends StatefulWidget {
       _TraversalDirectionDeepDemoState();
 }
 
-class _TraversalDirectionDeepDemoState
-    extends State<_TraversalDirectionDeepDemo>
+class _TraversalDirectionDeepDemoState extends State<_TraversalDirectionDeepDemo>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
@@ -182,8 +181,7 @@ class _NavigationLabTabState extends State<_NavigationLabTab> {
                     FilterChip(
                       label: const Text('skip disabled'),
                       selected: _skipDisabled,
-                      onSelected: (value) =>
-                          setState(() => _skipDisabled = value),
+                      onSelected: (value) => setState(() => _skipDisabled = value),
                     ),
                   ],
                 ),
@@ -192,12 +190,11 @@ class _NavigationLabTabState extends State<_NavigationLabTab> {
                   height: 220,
                   child: GridView.builder(
                     itemCount: _rows * _cols,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: _cols,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                        ),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: _cols,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
                     itemBuilder: (context, index) {
                       final isActive = index == _activeIndex;
                       final isDisabled = _disabled.contains(index);
@@ -244,10 +241,7 @@ class _NavigationLabTabState extends State<_NavigationLabTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Event Stream',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
+                const Text('Event Stream', style: TextStyle(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 for (final event in _events)
                   Padding(
@@ -321,10 +315,7 @@ class _PolicyStrategiesTab extends StatelessWidget {
                   children: [
                     Text(
                       profile.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: profile.color,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w700, color: profile.color),
                     ),
                     const SizedBox(height: 8),
                     for (final bullet in profile.bullets)
@@ -357,10 +348,7 @@ class _InfoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
-            ),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
             const SizedBox(height: 8),
             Text(body),
           ],
@@ -381,25 +369,13 @@ class _DirectionDeck extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            _DirectionRow(
-              direction: TraversalDirection.up,
-              icon: Icons.keyboard_arrow_up,
-            ),
+            _DirectionRow(direction: TraversalDirection.up, icon: Icons.keyboard_arrow_up),
             const SizedBox(height: 6),
-            _DirectionRow(
-              direction: TraversalDirection.right,
-              icon: Icons.keyboard_arrow_right,
-            ),
+            _DirectionRow(direction: TraversalDirection.right, icon: Icons.keyboard_arrow_right),
             const SizedBox(height: 6),
-            _DirectionRow(
-              direction: TraversalDirection.down,
-              icon: Icons.keyboard_arrow_down,
-            ),
+            _DirectionRow(direction: TraversalDirection.down, icon: Icons.keyboard_arrow_down),
             const SizedBox(height: 6),
-            _DirectionRow(
-              direction: TraversalDirection.left,
-              icon: Icons.keyboard_arrow_left,
-            ),
+            _DirectionRow(direction: TraversalDirection.left, icon: Icons.keyboard_arrow_left),
           ],
         ),
       ),
@@ -419,18 +395,14 @@ class _DirectionRow extends StatelessWidget {
       children: [
         Icon(icon),
         const SizedBox(width: 8),
-        Expanded(child: Text('TraversalDirection.$direction')),
+        Expanded(child: Text('TraversalDirection.$direction')), 
       ],
     );
   }
 }
 
 class _TopicCard extends StatelessWidget {
-  const _TopicCard({
-    required this.title,
-    required this.bullets,
-    required this.color,
-  });
+  const _TopicCard({required this.title, required this.bullets, required this.color});
 
   final String title;
   final List<String> bullets;
@@ -447,10 +419,7 @@ class _TopicCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.w700, color: color),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
               const SizedBox(height: 8),
               for (final bullet in bullets)
                 Padding(
@@ -466,11 +435,7 @@ class _TopicCard extends StatelessWidget {
 }
 
 class _FocusNodeTile extends StatelessWidget {
-  const _FocusNodeTile({
-    required this.index,
-    required this.active,
-    required this.disabled,
-  });
+  const _FocusNodeTile({required this.index, required this.active, required this.disabled});
 
   final int index;
   final bool active;
@@ -481,16 +446,13 @@ class _FocusNodeTile extends StatelessWidget {
     final color = disabled
         ? const Color(0xFFCFD8DC)
         : active
-        ? const Color(0xFF7E57C2)
-        : const Color(0xFFD1C4E9);
+            ? const Color(0xFF7E57C2)
+            : const Color(0xFFD1C4E9);
     return Container(
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: active ? const Color(0xFF4A148C) : Colors.transparent,
-          width: 2,
-        ),
+        border: Border.all(color: active ? const Color(0xFF4A148C) : Colors.transparent, width: 2),
       ),
       child: Center(
         child: Text(
@@ -561,10 +523,7 @@ int _nextIndex({
       searchCol = (searchCol + cols) % cols;
     }
 
-    if (searchRow < 0 ||
-        searchRow >= rows ||
-        searchCol < 0 ||
-        searchCol >= cols) {
+    if (searchRow < 0 || searchRow >= rows || searchCol < 0 || searchCol >= cols) {
       return current;
     }
 
@@ -577,11 +536,7 @@ int _nextIndex({
 }
 
 class _PolicyProfile {
-  const _PolicyProfile({
-    required this.title,
-    required this.bullets,
-    required this.color,
-  });
+  const _PolicyProfile({required this.title, required this.bullets, required this.color});
 
   final String title;
   final List<String> bullets;

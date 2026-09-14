@@ -197,7 +197,11 @@ Widget _wsbsFrame({
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _wsbsCharcoal.withValues(alpha: 0.25)),
       boxShadow: const [
-        BoxShadow(color: _wsbsShadow, offset: Offset(0, 2), blurRadius: 6),
+        BoxShadow(
+          color: _wsbsShadow,
+          offset: Offset(0, 2),
+          blurRadius: 6,
+        ),
       ],
     ),
     child: Column(
@@ -211,7 +215,9 @@ Widget _wsbsFrame({
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(10),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,14 +337,10 @@ Widget _wsbsDossierCard1() {
         _wsbsDivider(),
         _wsbsBullet('Lives in package:flutter/src/widgets/widget_state.dart'),
         _wsbsBullet('Re-exported through widgets.dart and material.dart'),
-        _wsbsBullet(
-          'Consumed by ChipThemeData.side, OutlinedButton, '
-          'ToggleButtons.borderSide, and any stateful border surface.',
-        ),
-        _wsbsBullet(
-          'Returned values may be null — meaning "fall back to '
-          'the widget\'s default border for this state".',
-        ),
+        _wsbsBullet('Consumed by ChipThemeData.side, OutlinedButton, '
+            'ToggleButtons.borderSide, and any stateful border surface.'),
+        _wsbsBullet('Returned values may be null — meaning "fall back to '
+            'the widget\'s default border for this state".'),
       ],
     ),
   );
@@ -426,27 +428,23 @@ Widget _wsbsDossierCard4() {
           'first matching key.',
           style: _wsbsBody,
         ),
-        _wsbsCode(
-          'WidgetStateBorderSide.resolveWith(\n'
-          '  (Set<WidgetState> states) {\n'
-          '    if (states.contains(WidgetState.error)) {\n'
-          '      return const BorderSide(color: Colors.red, width: 2);\n'
-          '    }\n'
-          '    if (states.contains(WidgetState.pressed)) {\n'
-          '      return const BorderSide(color: Colors.black, width: 3);\n'
-          '    }\n'
-          '    return const BorderSide(color: Colors.grey);\n'
-          '  },\n'
-          ');',
-        ),
-        _wsbsCode(
-          'WidgetStateBorderSide.fromMap(<WidgetStatesConstraint,\n'
-          '    BorderSide?>{\n'
-          '  WidgetState.error: BorderSide(color: Colors.red, width: 2),\n'
-          '  WidgetState.pressed: BorderSide(color: Colors.black, width:3),\n'
-          '  WidgetState.any: BorderSide(color: Colors.grey),\n'
-          '});',
-        ),
+        _wsbsCode('WidgetStateBorderSide.resolveWith(\n'
+            '  (Set<WidgetState> states) {\n'
+            '    if (states.contains(WidgetState.error)) {\n'
+            '      return const BorderSide(color: Colors.red, width: 2);\n'
+            '    }\n'
+            '    if (states.contains(WidgetState.pressed)) {\n'
+            '      return const BorderSide(color: Colors.black, width: 3);\n'
+            '    }\n'
+            '    return const BorderSide(color: Colors.grey);\n'
+            '  },\n'
+            ');'),
+        _wsbsCode('WidgetStateBorderSide.fromMap(<WidgetStatesConstraint,\n'
+            '    BorderSide?>{\n'
+            '  WidgetState.error: BorderSide(color: Colors.red, width: 2),\n'
+            '  WidgetState.pressed: BorderSide(color: Colors.black, width:3),\n'
+            '  WidgetState.any: BorderSide(color: Colors.grey),\n'
+            '});'),
       ],
     ),
   );
@@ -469,10 +467,8 @@ Widget _wsbsDossierCard5() {
         _wsbsCode('BorderSide? resolve(Set<WidgetState> states);'),
         _wsbsBullet('Called on every relevant state transition.'),
         _wsbsBullet('Returning null means: use the widget\'s own fallback.'),
-        _wsbsBullet(
-          'Implementations must be cheap: no I/O, no allocations '
-          'beyond the returned BorderSide.',
-        ),
+        _wsbsBullet('Implementations must be cheap: no I/O, no allocations '
+            'beyond the returned BorderSide.'),
       ],
     ),
   );
@@ -487,15 +483,11 @@ Widget _wsbsDossierCard6() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _wsbsBullet('ChipThemeData.side — per-state chip outline.'),
-        _wsbsBullet(
-          'OutlinedButton.styleFrom / ButtonStyle.side — button '
-          'borders that react to hover, press, focus, disabled.',
-        ),
+        _wsbsBullet('OutlinedButton.styleFrom / ButtonStyle.side — button '
+            'borders that react to hover, press, focus, disabled.'),
         _wsbsBullet('ToggleButtons.borderSide (wrapped as state property).'),
-        _wsbsBullet(
-          'Any custom widget that stores a '
-          'WidgetStateProperty<BorderSide?> and calls resolve() itself.',
-        ),
+        _wsbsBullet('Any custom widget that stores a '
+            'WidgetStateProperty<BorderSide?> and calls resolve() itself.'),
         _wsbsDivider(),
         Text(
           'The pattern is always the same: the widget keeps its own '
@@ -549,48 +541,38 @@ Widget _wsbsAnatomyCard() {
           'and treat them uniformly.',
           style: _wsbsBody,
         ),
-        _wsbsCode(
-          'abstract class WidgetStateBorderSide\n'
-          '    extends BorderSide\n'
-          '    implements WidgetStateProperty<BorderSide?> {\n'
-          '  const WidgetStateBorderSide();\n'
-          '\n'
-          '  factory WidgetStateBorderSide.fromMap(\n'
-          '    WidgetStateMap<BorderSide?> map,\n'
-          '  ) = _WidgetStateBorderSideMapper;\n'
-          '\n'
-          '  factory WidgetStateBorderSide.resolveWith(\n'
-          '    WidgetPropertyResolver<BorderSide?> callback,\n'
-          '  ) = _WidgetStateBorderSide;\n'
-          '\n'
-          '  @override\n'
-          '  BorderSide? resolve(Set<WidgetState> states);\n'
-          '}',
-        ),
+        _wsbsCode('abstract class WidgetStateBorderSide\n'
+            '    extends BorderSide\n'
+            '    implements WidgetStateProperty<BorderSide?> {\n'
+            '  const WidgetStateBorderSide();\n'
+            '\n'
+            '  factory WidgetStateBorderSide.fromMap(\n'
+            '    WidgetStateMap<BorderSide?> map,\n'
+            '  ) = _WidgetStateBorderSideMapper;\n'
+            '\n'
+            '  factory WidgetStateBorderSide.resolveWith(\n'
+            '    WidgetPropertyResolver<BorderSide?> callback,\n'
+            '  ) = _WidgetStateBorderSide;\n'
+            '\n'
+            '  @override\n'
+            '  BorderSide? resolve(Set<WidgetState> states);\n'
+            '}'),
         _wsbsDivider(),
         Text(
           'A few points worth internalising:',
           style: _wsbsBody.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 6),
-        _wsbsBullet(
-          'It *is* a BorderSide, so you can assign one into any '
-          'API that expects BorderSide (thanks to the extends).',
-        ),
-        _wsbsBullet(
-          'It *is also* a WidgetStateProperty<BorderSide?>, so '
-          'any API that expects WidgetStateProperty<BorderSide?> also '
-          'accepts one.',
-        ),
-        _wsbsBullet(
-          'The two private factories (_WidgetStateBorderSide and '
-          '_WidgetStateBorderSideMapper) keep the class unsealed-looking '
-          'while still blocking arbitrary subclassing in practice.',
-        ),
-        _wsbsBullet(
-          'resolve() can (and often should) return null — null '
-          'is interpreted by consumers as "no opinion for this state".',
-        ),
+        _wsbsBullet('It *is* a BorderSide, so you can assign one into any '
+            'API that expects BorderSide (thanks to the extends).'),
+        _wsbsBullet('It *is also* a WidgetStateProperty<BorderSide?>, so '
+            'any API that expects WidgetStateProperty<BorderSide?> also '
+            'accepts one.'),
+        _wsbsBullet('The two private factories (_WidgetStateBorderSide and '
+            '_WidgetStateBorderSideMapper) keep the class unsealed-looking '
+            'while still blocking arbitrary subclassing in practice.'),
+        _wsbsBullet('resolve() can (and often should) return null — null '
+            'is interpreted by consumers as "no opinion for this state".'),
       ],
     ),
   );
@@ -629,36 +611,18 @@ Widget _wsbsStateTag(String name, bool active, {Color color = _wsbsBrass}) {
 Widget _wsbsStateRow(Set<WidgetState> states) {
   return Wrap(
     children: [
-      _wsbsStateTag(
-        'HOVERED',
-        states.contains(WidgetState.hovered),
-        color: _wsbsThreadGreen,
-      ),
-      _wsbsStateTag(
-        'FOCUSED',
-        states.contains(WidgetState.focused),
-        color: _wsbsChalkDeep,
-      ),
-      _wsbsStateTag(
-        'PRESSED',
-        states.contains(WidgetState.pressed),
-        color: _wsbsThreadRed,
-      ),
-      _wsbsStateTag(
-        'SELECTED',
-        states.contains(WidgetState.selected),
-        color: _wsbsThreadGold,
-      ),
-      _wsbsStateTag(
-        'DISABLED',
-        states.contains(WidgetState.disabled),
-        color: _wsbsChalkDeep,
-      ),
-      _wsbsStateTag(
-        'ERROR',
-        states.contains(WidgetState.error),
-        color: _wsbsThreadRed,
-      ),
+      _wsbsStateTag('HOVERED', states.contains(WidgetState.hovered),
+          color: _wsbsThreadGreen),
+      _wsbsStateTag('FOCUSED', states.contains(WidgetState.focused),
+          color: _wsbsChalkDeep),
+      _wsbsStateTag('PRESSED', states.contains(WidgetState.pressed),
+          color: _wsbsThreadRed),
+      _wsbsStateTag('SELECTED', states.contains(WidgetState.selected),
+          color: _wsbsThreadGold),
+      _wsbsStateTag('DISABLED', states.contains(WidgetState.disabled),
+          color: _wsbsChalkDeep),
+      _wsbsStateTag('ERROR', states.contains(WidgetState.error),
+          color: _wsbsThreadRed),
     ],
   );
 }
@@ -758,7 +722,7 @@ Widget _wsbsInteractiveSwatch({
                       resolved == null
                           ? 'resolve → null (fallback)'
                           : 'width: ${resolved.width.toStringAsFixed(1)}  '
-                                'style: ${resolved.style.name}',
+                              'style: ${resolved.style.name}',
                       style: _wsbsLabelSmall,
                     ),
                   ],
@@ -782,35 +746,38 @@ Widget _wsbsPlayground() {
       bool error = false;
 
       final WidgetStateBorderSide tailorSide =
-          WidgetStateBorderSide.resolveWith((Set<WidgetState> states) {
-            if (states.contains(WidgetState.disabled)) {
-              return BorderSide(
-                color: _wsbsChalkDeep.withValues(alpha: 0.35),
-                width: 1,
-                style: BorderStyle.solid,
-              );
-            }
-            if (states.contains(WidgetState.error)) {
-              return const BorderSide(color: _wsbsThreadRed, width: 2.6);
-            }
-            if (states.contains(WidgetState.pressed)) {
-              return const BorderSide(color: _wsbsInk, width: 3);
-            }
-            if (states.contains(WidgetState.focused)) {
-              return const BorderSide(color: _wsbsChalkDeep, width: 2.4);
-            }
-            if (states.contains(WidgetState.hovered)) {
-              return const BorderSide(color: _wsbsBrass, width: 2);
-            }
-            if (states.contains(WidgetState.selected)) {
-              return const BorderSide(color: _wsbsThreadGold, width: 2.2);
-            }
-            return const BorderSide(color: _wsbsCharcoal, width: 1);
-          });
+          WidgetStateBorderSide.resolveWith(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
+            return BorderSide(
+              color: _wsbsChalkDeep.withValues(alpha: 0.35),
+              width: 1,
+              style: BorderStyle.solid,
+            );
+          }
+          if (states.contains(WidgetState.error)) {
+            return const BorderSide(color: _wsbsThreadRed, width: 2.6);
+          }
+          if (states.contains(WidgetState.pressed)) {
+            return const BorderSide(color: _wsbsInk, width: 3);
+          }
+          if (states.contains(WidgetState.focused)) {
+            return const BorderSide(color: _wsbsChalkDeep, width: 2.4);
+          }
+          if (states.contains(WidgetState.hovered)) {
+            return const BorderSide(color: _wsbsBrass, width: 2);
+          }
+          if (states.contains(WidgetState.selected)) {
+            return const BorderSide(color: _wsbsThreadGold, width: 2.2);
+          }
+          return const BorderSide(color: _wsbsCharcoal, width: 1);
+        },
+      );
 
       return _wsbsFrame(
         title: 'Playground · live resolveWith',
-        subtitle: 'Hover, tap or toggle. Watch the border react to each state.',
+        subtitle:
+            'Hover, tap or toggle. Watch the border react to each state.',
         titleBar: _wsbsChalkDeep,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -938,7 +905,8 @@ Widget _wsbsComparePanel({
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: _wsbsSectionHead.copyWith(color: accent)),
+                Text(title,
+                    style: _wsbsSectionHead.copyWith(color: accent)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: _wsbsLabelSmall),
               ],
@@ -970,57 +938,57 @@ Widget _wsbsComparePanel({
 
 Widget _wsbsComparison() {
   // fromMap: declarative, evaluated in declaration order; first match wins.
-  final WidgetStateBorderSide mapSide = WidgetStateBorderSide.fromMap(
-    <WidgetStatesConstraint, BorderSide?>{
-      WidgetState.error: const BorderSide(color: _wsbsThreadRed, width: 2.4),
-      WidgetState.disabled: BorderSide(
-        color: _wsbsChalkDeep.withValues(alpha: 0.35),
-        width: 1,
-      ),
-      WidgetState.pressed: const BorderSide(color: _wsbsInk, width: 3),
-      WidgetState.focused: const BorderSide(color: _wsbsChalkDeep, width: 2.2),
-      WidgetState.hovered: const BorderSide(color: _wsbsBrass, width: 2),
-      WidgetState.selected: const BorderSide(color: _wsbsThreadGold, width: 2),
-      WidgetState.any: const BorderSide(color: _wsbsCharcoal, width: 1),
+  final WidgetStateBorderSide mapSide =
+      WidgetStateBorderSide.fromMap(<WidgetStatesConstraint, BorderSide?>{
+    WidgetState.error: const BorderSide(color: _wsbsThreadRed, width: 2.4),
+    WidgetState.disabled: BorderSide(
+      color: _wsbsChalkDeep.withValues(alpha: 0.35),
+      width: 1,
+    ),
+    WidgetState.pressed: const BorderSide(color: _wsbsInk, width: 3),
+    WidgetState.focused: const BorderSide(color: _wsbsChalkDeep, width: 2.2),
+    WidgetState.hovered: const BorderSide(color: _wsbsBrass, width: 2),
+    WidgetState.selected: const BorderSide(color: _wsbsThreadGold, width: 2),
+    WidgetState.any: const BorderSide(color: _wsbsCharcoal, width: 1),
+  });
+
+  // resolveWith: arbitrary function, can be non-linear / composite.
+  final WidgetStateBorderSide codeSide = WidgetStateBorderSide.resolveWith(
+    (Set<WidgetState> states) {
+      if (states.contains(WidgetState.error)) {
+        return const BorderSide(color: _wsbsThreadRed, width: 2.4);
+      }
+      if (states.contains(WidgetState.disabled)) {
+        return BorderSide(
+          color: _wsbsChalkDeep.withValues(alpha: 0.35),
+          width: 1,
+        );
+      }
+      // Composite: pressed + selected yields a thicker brass-gold band.
+      if (states.contains(WidgetState.pressed) &&
+          states.contains(WidgetState.selected)) {
+        return const BorderSide(color: _wsbsBrassDark, width: 3.4);
+      }
+      if (states.contains(WidgetState.pressed)) {
+        return const BorderSide(color: _wsbsInk, width: 3);
+      }
+      if (states.contains(WidgetState.focused)) {
+        return const BorderSide(color: _wsbsChalkDeep, width: 2.2);
+      }
+      if (states.contains(WidgetState.hovered)) {
+        return const BorderSide(color: _wsbsBrass, width: 2);
+      }
+      if (states.contains(WidgetState.selected)) {
+        return const BorderSide(color: _wsbsThreadGold, width: 2);
+      }
+      return const BorderSide(color: _wsbsCharcoal, width: 1);
     },
   );
 
-  // resolveWith: arbitrary function, can be non-linear / composite.
-  final WidgetStateBorderSide codeSide = WidgetStateBorderSide.resolveWith((
-    Set<WidgetState> states,
-  ) {
-    if (states.contains(WidgetState.error)) {
-      return const BorderSide(color: _wsbsThreadRed, width: 2.4);
-    }
-    if (states.contains(WidgetState.disabled)) {
-      return BorderSide(
-        color: _wsbsChalkDeep.withValues(alpha: 0.35),
-        width: 1,
-      );
-    }
-    // Composite: pressed + selected yields a thicker brass-gold band.
-    if (states.contains(WidgetState.pressed) &&
-        states.contains(WidgetState.selected)) {
-      return const BorderSide(color: _wsbsBrassDark, width: 3.4);
-    }
-    if (states.contains(WidgetState.pressed)) {
-      return const BorderSide(color: _wsbsInk, width: 3);
-    }
-    if (states.contains(WidgetState.focused)) {
-      return const BorderSide(color: _wsbsChalkDeep, width: 2.2);
-    }
-    if (states.contains(WidgetState.hovered)) {
-      return const BorderSide(color: _wsbsBrass, width: 2);
-    }
-    if (states.contains(WidgetState.selected)) {
-      return const BorderSide(color: _wsbsThreadGold, width: 2);
-    }
-    return const BorderSide(color: _wsbsCharcoal, width: 1);
-  });
-
   return _wsbsFrame(
     title: 'Comparison · fromMap  vs  resolveWith',
-    subtitle: 'Two factories, same visual result — choose by your ergonomics.',
+    subtitle:
+        'Two factories, same visual result — choose by your ergonomics.',
     titleBar: _wsbsBrassDark,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1040,8 +1008,7 @@ Widget _wsbsComparison() {
             _wsbsComparePanel(
               title: 'fromMap',
               subtitle: 'First matching constraint wins, top-down.',
-              codeBlob:
-                  'WidgetStateBorderSide.fromMap({\n'
+              codeBlob: 'WidgetStateBorderSide.fromMap({\n'
                   '  WidgetState.error:   BorderSide(red,   w:2.4),\n'
                   '  WidgetState.disabled:BorderSide(chalk, w:1.0),\n'
                   '  WidgetState.pressed: BorderSide(ink,   w:3.0),\n'
@@ -1056,8 +1023,7 @@ Widget _wsbsComparison() {
             _wsbsComparePanel(
               title: 'resolveWith',
               subtitle: 'Arbitrary logic — composites and computed widths.',
-              codeBlob:
-                  'WidgetStateBorderSide.resolveWith((states) {\n'
+              codeBlob: 'WidgetStateBorderSide.resolveWith((states) {\n'
                   '  if (states.contains(error)) return red;\n'
                   '  if (states.contains(disabled)) return faint;\n'
                   '  if (pressed && selected) return brassDark;\n'
@@ -1073,18 +1039,12 @@ Widget _wsbsComparison() {
           ],
         ),
         _wsbsDivider(),
-        _wsbsBullet(
-          'fromMap is easier to audit visually; reviewers can scan '
-          'the table of constraints.',
-        ),
-        _wsbsBullet(
-          'resolveWith handles *interactions* between states (e.g. '
-          'pressed AND selected) far more naturally.',
-        ),
-        _wsbsBullet(
-          'Pick fromMap when rules are mutually exclusive; pick '
-          'resolveWith when rules compose or depend on computed values.',
-        ),
+        _wsbsBullet('fromMap is easier to audit visually; reviewers can scan '
+            'the table of constraints.'),
+        _wsbsBullet('resolveWith handles *interactions* between states (e.g. '
+            'pressed AND selected) far more naturally.'),
+        _wsbsBullet('Pick fromMap when rules are mutually exclusive; pick '
+            'resolveWith when rules compose or depend on computed values.'),
       ],
     ),
   );
@@ -1107,7 +1067,10 @@ class _WsbsSwatchSpec {
   final Color backdrop;
 }
 
-Widget _wsbsSwatchCard(_WsbsSwatchSpec spec, WidgetStateBorderSide side) {
+Widget _wsbsSwatchCard(
+  _WsbsSwatchSpec spec,
+  WidgetStateBorderSide side,
+) {
   final BorderSide? resolved = side.resolve(spec.states);
   final BorderSide effective =
       resolved ?? const BorderSide(color: _wsbsCharcoal, width: 1);
@@ -1119,7 +1082,11 @@ Widget _wsbsSwatchCard(_WsbsSwatchSpec spec, WidgetStateBorderSide side) {
       borderRadius: BorderRadius.circular(8),
       border: Border.fromBorderSide(effective),
       boxShadow: const [
-        BoxShadow(color: _wsbsShadow, offset: Offset(0, 2), blurRadius: 4),
+        BoxShadow(
+          color: _wsbsShadow,
+          offset: Offset(0, 2),
+          blurRadius: 4,
+        ),
       ],
     ),
     child: Padding(
@@ -1127,7 +1094,8 @@ Widget _wsbsSwatchCard(_WsbsSwatchSpec spec, WidgetStateBorderSide side) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(spec.label, style: _wsbsSwatchName.copyWith(color: _wsbsInk)),
+          Text(spec.label,
+              style: _wsbsSwatchName.copyWith(color: _wsbsInk)),
           const SizedBox(height: 2),
           Text(spec.subtitle, style: _wsbsLabelSmall),
           const SizedBox(height: 8),
@@ -1137,9 +1105,7 @@ Widget _wsbsSwatchCard(_WsbsSwatchSpec spec, WidgetStateBorderSide side) {
             'w:${effective.width.toStringAsFixed(1)}  '
             'style:${effective.style.name}',
             style: _wsbsLabelSmall.copyWith(
-              color: _wsbsCharcoal,
-              fontWeight: FontWeight.w500,
-            ),
+                color: _wsbsCharcoal, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -1149,49 +1115,45 @@ Widget _wsbsSwatchCard(_WsbsSwatchSpec spec, WidgetStateBorderSide side) {
 
 Widget _wsbsSwatchBook() {
   // A single resolveWith shared by the entire swatch book.
-  final WidgetStateBorderSide book = WidgetStateBorderSide.resolveWith((
-    Set<WidgetState> states,
-  ) {
-    if (states.contains(WidgetState.error)) {
-      return const BorderSide(color: _wsbsThreadRed, width: 2.6);
-    }
-    if (states.contains(WidgetState.disabled)) {
-      return BorderSide(
-        color: _wsbsChalkDeep.withValues(alpha: 0.35),
-        width: 1,
-      );
-    }
-    if (states.contains(WidgetState.pressed) &&
-        states.contains(WidgetState.focused)) {
-      return const BorderSide(color: _wsbsInk, width: 3.5);
-    }
-    if (states.contains(WidgetState.pressed)) {
-      return const BorderSide(color: _wsbsInk, width: 3);
-    }
-    if (states.contains(WidgetState.hovered) &&
-        states.contains(WidgetState.selected)) {
-      return const BorderSide(color: _wsbsBrassDark, width: 2.8);
-    }
-    if (states.contains(WidgetState.selected)) {
-      return const BorderSide(color: _wsbsThreadGold, width: 2.2);
-    }
-    if (states.contains(WidgetState.hovered)) {
-      return const BorderSide(color: _wsbsBrass, width: 2);
-    }
-    if (states.contains(WidgetState.focused)) {
-      return const BorderSide(color: _wsbsChalkDeep, width: 2.4);
-    }
-    if (states.contains(WidgetState.dragged)) {
-      return const BorderSide(color: _wsbsThreadGreen, width: 2.0);
-    }
-    if (states.contains(WidgetState.scrolledUnder)) {
-      return BorderSide(
-        color: _wsbsCharcoal.withValues(alpha: 0.6),
-        width: 1.4,
-      );
-    }
-    return const BorderSide(color: _wsbsCharcoal, width: 1);
-  });
+  final WidgetStateBorderSide book = WidgetStateBorderSide.resolveWith(
+    (Set<WidgetState> states) {
+      if (states.contains(WidgetState.error)) {
+        return const BorderSide(color: _wsbsThreadRed, width: 2.6);
+      }
+      if (states.contains(WidgetState.disabled)) {
+        return BorderSide(
+            color: _wsbsChalkDeep.withValues(alpha: 0.35), width: 1);
+      }
+      if (states.contains(WidgetState.pressed) &&
+          states.contains(WidgetState.focused)) {
+        return const BorderSide(color: _wsbsInk, width: 3.5);
+      }
+      if (states.contains(WidgetState.pressed)) {
+        return const BorderSide(color: _wsbsInk, width: 3);
+      }
+      if (states.contains(WidgetState.hovered) &&
+          states.contains(WidgetState.selected)) {
+        return const BorderSide(color: _wsbsBrassDark, width: 2.8);
+      }
+      if (states.contains(WidgetState.selected)) {
+        return const BorderSide(color: _wsbsThreadGold, width: 2.2);
+      }
+      if (states.contains(WidgetState.hovered)) {
+        return const BorderSide(color: _wsbsBrass, width: 2);
+      }
+      if (states.contains(WidgetState.focused)) {
+        return const BorderSide(color: _wsbsChalkDeep, width: 2.4);
+      }
+      if (states.contains(WidgetState.dragged)) {
+        return const BorderSide(color: _wsbsThreadGreen, width: 2.0);
+      }
+      if (states.contains(WidgetState.scrolledUnder)) {
+        return BorderSide(
+            color: _wsbsCharcoal.withValues(alpha: 0.6), width: 1.4);
+      }
+      return const BorderSide(color: _wsbsCharcoal, width: 1);
+    },
+  );
 
   final List<_WsbsSwatchSpec> specs = <_WsbsSwatchSpec>[
     const _WsbsSwatchSpec(
@@ -1283,9 +1245,9 @@ Widget _wsbsSwatchBook() {
         ),
         const SizedBox(height: 8),
         Wrap(
-          children: specs
-              .map((_WsbsSwatchSpec s) => _wsbsSwatchCard(s, book))
-              .toList(),
+          children:
+              specs.map((_WsbsSwatchSpec s) => _wsbsSwatchCard(s, book))
+                  .toList(),
         ),
       ],
     ),
@@ -1316,25 +1278,20 @@ Widget _wsbsChipTheme() {
       final List<bool> picked = <bool>[false, true, false, true, false, false];
       bool disabled = false;
 
-      final WidgetStateBorderSide chipSide = WidgetStateBorderSide.fromMap(<
-        WidgetStatesConstraint,
-        BorderSide?
-      >{
+      final WidgetStateBorderSide chipSide =
+          WidgetStateBorderSide.fromMap(<WidgetStatesConstraint, BorderSide?>{
         WidgetState.disabled: BorderSide(
-          color: _wsbsChalkDeep.withValues(alpha: 0.3),
-          width: 1,
-        ),
-        WidgetState.selected & WidgetState.hovered: const BorderSide(
-          color: _wsbsBrassDark,
-          width: 2.6,
-        ),
-        WidgetState.selected: const BorderSide(
-          color: _wsbsThreadGold,
-          width: 2,
-        ),
-        WidgetState.hovered: const BorderSide(color: _wsbsBrass, width: 1.8),
-        WidgetState.focused: const BorderSide(color: _wsbsChalkDeep, width: 2),
-        WidgetState.any: const BorderSide(color: _wsbsCharcoal, width: 1),
+            color: _wsbsChalkDeep.withValues(alpha: 0.3), width: 1),
+        WidgetState.selected & WidgetState.hovered:
+            const BorderSide(color: _wsbsBrassDark, width: 2.6),
+        WidgetState.selected:
+            const BorderSide(color: _wsbsThreadGold, width: 2),
+        WidgetState.hovered:
+            const BorderSide(color: _wsbsBrass, width: 1.8),
+        WidgetState.focused:
+            const BorderSide(color: _wsbsChalkDeep, width: 2),
+        WidgetState.any:
+            const BorderSide(color: _wsbsCharcoal, width: 1),
       });
 
       final ChipThemeData chipTheme = ChipThemeData(
@@ -1353,7 +1310,8 @@ Widget _wsbsChipTheme() {
 
       return _wsbsFrame(
         title: 'Chip theme · ChipThemeData(side: WidgetStateBorderSide)',
-        subtitle: 'A single theme controls outlines for a whole row of chips.',
+        subtitle:
+            'A single theme controls outlines for a whole row of chips.',
         titleBar: _wsbsChalkDeep,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1383,7 +1341,8 @@ Widget _wsbsChipTheme() {
               child: Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: List<Widget>.generate(specs.length, (int idx) {
+                children: List<Widget>.generate(specs.length,
+                    (int idx) {
                   final _WsbsChipSpec spec = specs[idx];
                   return FilterChip(
                     label: Row(
@@ -1414,16 +1373,14 @@ Widget _wsbsChipTheme() {
               style: _wsbsBody,
             ),
             const SizedBox(height: 6),
-            Wrap(
-              children: <Widget>[
-                for (int i = 0; i < specs.length; i++)
-                  _wsbsChip(
-                    '${specs[i].label}: ${picked[i] ? "picked" : "plain"}',
-                    color: picked[i] ? _wsbsBrassDark : _wsbsCharcoal,
-                    filled: picked[i],
-                  ),
-              ],
-            ),
+            Wrap(children: <Widget>[
+              for (int i = 0; i < specs.length; i++)
+                _wsbsChip(
+                  '${specs[i].label}: ${picked[i] ? "picked" : "plain"}',
+                  color: picked[i] ? _wsbsBrassDark : _wsbsCharcoal,
+                  filled: picked[i],
+                ),
+            ]),
           ],
         ),
       );
@@ -1451,9 +1408,8 @@ Set<WidgetState> _wsbsLevelToStates(double level) {
 }
 
 Widget _wsbsAnimatedSweep() {
-  final WidgetStateBorderSide sweepSide = WidgetStateBorderSide.resolveWith((
-    Set<WidgetState> states,
-  ) {
+  final WidgetStateBorderSide sweepSide =
+      WidgetStateBorderSide.resolveWith((Set<WidgetState> states) {
     double width = 1;
     Color color = _wsbsCharcoal;
     BorderStyle style = BorderStyle.solid;
@@ -1531,15 +1487,11 @@ Widget _wsbsAnimatedSweep() {
           },
         ),
         _wsbsDivider(),
-        _wsbsBullet(
-          'Real apps would hand a real Set<WidgetState> to '
-          'resolve — this demo just fabricates one from a tween to make '
-          'the border\'s reaction visible without user interaction.',
-        ),
-        _wsbsBullet(
-          'Notice how width, colour and (optionally) style all '
-          'change as the state set grows.',
-        ),
+        _wsbsBullet('Real apps would hand a real Set<WidgetState> to '
+            'resolve — this demo just fabricates one from a tween to make '
+            'the border\'s reaction visible without user interaction.'),
+        _wsbsBullet('Notice how width, colour and (optionally) style all '
+            'change as the state set grows.'),
       ],
     ),
   );
@@ -1613,10 +1565,8 @@ Widget _wsbsRecipeCard({
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                title,
-                style: _wsbsSectionHead.copyWith(color: accent),
-              ),
+              child: Text(title,
+                  style: _wsbsSectionHead.copyWith(color: accent)),
             ),
           ],
         ),
@@ -1656,8 +1606,7 @@ Widget _wsbsRecipes() {
               'A thin charcoal seam that thickens on hover and darkens on '
               'press — the classic OutlinedButton feel, but explicit.',
           sample: const BorderSide(color: _wsbsCharcoal, width: 1),
-          code:
-              'WidgetStateBorderSide.resolveWith((s) {\n'
+          code: 'WidgetStateBorderSide.resolveWith((s) {\n'
               '  if (s.contains(WidgetState.pressed)) {\n'
               '    return const BorderSide(color: Colors.black, width:2);\n'
               '  }\n'
@@ -1674,8 +1623,7 @@ Widget _wsbsRecipes() {
               'Used on form fields — whenever WidgetState.error is present, '
               'clamp to a loud red border regardless of other states.',
           sample: const BorderSide(color: _wsbsThreadRed, width: 2.2),
-          code:
-              'WidgetStateBorderSide.fromMap({\n'
+          code: 'WidgetStateBorderSide.fromMap({\n'
               '  WidgetState.error:\n'
               '    BorderSide(color: Colors.red.shade700, width: 2),\n'
               '  WidgetState.focused:\n'
@@ -1692,8 +1640,7 @@ Widget _wsbsRecipes() {
               'selected AND hovered, thicken further to signal "about to '
               'act".',
           sample: const BorderSide(color: _wsbsThreadGold, width: 2.4),
-          code:
-              'WidgetStateBorderSide.fromMap({\n'
+          code: 'WidgetStateBorderSide.fromMap({\n'
               '  WidgetState.selected & WidgetState.hovered:\n'
               '    BorderSide(color: Colors.amber.shade800, width: 2.8),\n'
               '  WidgetState.selected:\n'
@@ -1709,8 +1656,7 @@ Widget _wsbsRecipes() {
               'A broad chalk-blue ring appears only on keyboard focus, '
               'satisfying accessibility without cluttering hover visuals.',
           sample: const BorderSide(color: _wsbsChalkDeep, width: 2.6),
-          code:
-              'WidgetStateBorderSide.resolveWith((s) =>\n'
+          code: 'WidgetStateBorderSide.resolveWith((s) =>\n'
               '  s.contains(WidgetState.focused)\n'
               '    ? const BorderSide(color: Colors.blue, width: 3)\n'
               '    : const BorderSide(color: Colors.grey, width: 1),\n'
@@ -1724,8 +1670,7 @@ Widget _wsbsRecipes() {
               'one by picking a distinct colour-on-press. (For true dashed '
               'strokes use a CustomPainter.)',
           sample: const BorderSide(color: _wsbsThreadGreen, width: 2),
-          code:
-              'WidgetStateBorderSide.resolveWith((s) {\n'
+          code: 'WidgetStateBorderSide.resolveWith((s) {\n'
               '  if (s.contains(WidgetState.dragged)) {\n'
               '    return const BorderSide(color: Colors.green, width: 2);\n'
               '  }\n'
@@ -1739,11 +1684,8 @@ Widget _wsbsRecipes() {
               'Even when other states would demand a loud seam, disabled '
               'always wins — always check it first in your resolver.',
           sample: BorderSide(
-            color: _wsbsChalkDeep.withValues(alpha: 0.35),
-            width: 1,
-          ),
-          code:
-              'WidgetStateBorderSide.resolveWith((s) {\n'
+              color: _wsbsChalkDeep.withValues(alpha: 0.35), width: 1),
+          code: 'WidgetStateBorderSide.resolveWith((s) {\n'
               '  if (s.contains(WidgetState.disabled)) {\n'
               '    return const BorderSide(color: Colors.black26);\n'
               '  }\n'
@@ -1872,31 +1814,24 @@ Widget _wsbsComparisonTable() {
           style: _wsbsBody,
         ),
         const SizedBox(height: 10),
-        Row(
-          children: <Widget>[
-            Expanded(child: _wsbsCompareHeader('Aspect')),
-            Expanded(child: _wsbsCompareHeader('BorderSide')),
-            Expanded(child: _wsbsCompareHeader('WidgetStateBorderSide')),
-            Expanded(child: _wsbsCompareHeader('MaterialStateBorderSide')),
-          ],
-        ),
+        Row(children: <Widget>[
+          Expanded(child: _wsbsCompareHeader('Aspect')),
+          Expanded(child: _wsbsCompareHeader('BorderSide')),
+          Expanded(child: _wsbsCompareHeader('WidgetStateBorderSide')),
+          Expanded(child: _wsbsCompareHeader('MaterialStateBorderSide')),
+        ]),
         for (final _WsbsTableRow row in rows)
           Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Expanded(
-                child: _wsbsCompareCell(
-                  row.aspect,
-                  strong: true,
-                  bg: _wsbsMuslin,
-                ),
+                child: _wsbsCompareCell(row.aspect,
+                    strong: true, bg: _wsbsMuslin),
               ),
               Expanded(child: _wsbsCompareCell(row.plain)),
               Expanded(
-                child: _wsbsCompareCell(
-                  row.wsbs,
-                  bg: _wsbsBrass.withValues(alpha: 0.12),
-                ),
+                child: _wsbsCompareCell(row.wsbs,
+                    bg: _wsbsBrass.withValues(alpha: 0.12)),
               ),
               Expanded(child: _wsbsCompareCell(row.material)),
             ],
@@ -1918,13 +1853,9 @@ Widget _wsbsGlossaryEntry(String term, String def) {
       children: [
         SizedBox(
           width: 150,
-          child: Text(
-            term,
-            style: _wsbsBody.copyWith(
-              fontWeight: FontWeight.w800,
-              color: _wsbsBrassDark,
-            ),
-          ),
+          child: Text(term,
+              style: _wsbsBody.copyWith(
+                  fontWeight: FontWeight.w800, color: _wsbsBrassDark)),
         ),
         Expanded(child: Text(def, style: _wsbsBody)),
       ],
@@ -1940,50 +1871,32 @@ Widget _wsbsGlossary() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _wsbsGlossaryEntry(
-          'BorderSide',
-          'A description of one edge of a border: colour, width, style, '
-              'stroke-align. The atomic unit.',
-        ),
-        _wsbsGlossaryEntry(
-          'WidgetState',
-          'An enum of interaction states (hovered, focused, pressed, '
-              'dragged, selected, scrolledUnder, disabled, error).',
-        ),
-        _wsbsGlossaryEntry(
-          'Set<WidgetState>',
-          'The set of states that are currently active on a widget. '
-              'Many can coexist (hovered + focused + selected, etc.).',
-        ),
-        _wsbsGlossaryEntry(
-          'WidgetStatesConstraint',
-          'A matcher over state sets. Each WidgetState is itself a '
-              'constraint; combine with & | ~ for composite rules.',
-        ),
-        _wsbsGlossaryEntry(
-          'WidgetStateMap<T>',
-          'A map from WidgetStatesConstraint to T. Scanned top-down; '
-              'first matching constraint wins.',
-        ),
-        _wsbsGlossaryEntry(
-          'WidgetStateProperty<T>',
-          'Anything that can resolve a Set<WidgetState> to a T.',
-        ),
-        _wsbsGlossaryEntry(
-          'WidgetStateBorderSide',
-          'A WidgetStateProperty<BorderSide?> that also IS a BorderSide '
-              '— the subject of this demo.',
-        ),
-        _wsbsGlossaryEntry(
-          'WidgetPropertyResolver<T>',
-          'typedef for T Function(Set<WidgetState>). The callback shape '
-              'consumed by resolveWith.',
-        ),
-        _wsbsGlossaryEntry(
-          'resolve(states)',
-          'The single contract method. Called by widgets to obtain the '
-              'BorderSide appropriate for the current state set.',
-        ),
+        _wsbsGlossaryEntry('BorderSide',
+            'A description of one edge of a border: colour, width, style, '
+                'stroke-align. The atomic unit.'),
+        _wsbsGlossaryEntry('WidgetState',
+            'An enum of interaction states (hovered, focused, pressed, '
+                'dragged, selected, scrolledUnder, disabled, error).'),
+        _wsbsGlossaryEntry('Set<WidgetState>',
+            'The set of states that are currently active on a widget. '
+                'Many can coexist (hovered + focused + selected, etc.).'),
+        _wsbsGlossaryEntry('WidgetStatesConstraint',
+            'A matcher over state sets. Each WidgetState is itself a '
+                'constraint; combine with & | ~ for composite rules.'),
+        _wsbsGlossaryEntry('WidgetStateMap<T>',
+            'A map from WidgetStatesConstraint to T. Scanned top-down; '
+                'first matching constraint wins.'),
+        _wsbsGlossaryEntry('WidgetStateProperty<T>',
+            'Anything that can resolve a Set<WidgetState> to a T.'),
+        _wsbsGlossaryEntry('WidgetStateBorderSide',
+            'A WidgetStateProperty<BorderSide?> that also IS a BorderSide '
+                '— the subject of this demo.'),
+        _wsbsGlossaryEntry('WidgetPropertyResolver<T>',
+            'typedef for T Function(Set<WidgetState>). The callback shape '
+                'consumed by resolveWith.'),
+        _wsbsGlossaryEntry('resolve(states)',
+            'The single contract method. Called by widgets to obtain the '
+                'BorderSide appropriate for the current state set.'),
         _wsbsDivider(),
         Text(
           'Epilogue. The tailor\'s workshop metaphor is deliberate: a '
@@ -2012,7 +1925,11 @@ Widget _wsbsMasthead() {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _wsbsInk, width: 1.2),
       boxShadow: const [
-        BoxShadow(color: _wsbsShadow, offset: Offset(0, 3), blurRadius: 10),
+        BoxShadow(
+          color: _wsbsShadow,
+          offset: Offset(0, 3),
+          blurRadius: 10,
+        ),
       ],
     ),
     child: ClipRRect(
@@ -2028,7 +1945,9 @@ Widget _wsbsMasthead() {
             ),
           ),
           Positioned.fill(
-            child: CustomPaint(painter: _WsbsChalkMarksPainter(density: 40)),
+            child: CustomPaint(
+              painter: _WsbsChalkMarksPainter(density: 40),
+            ),
           ),
           Positioned.fill(
             child: Container(
@@ -2068,11 +1987,8 @@ Widget _wsbsMasthead() {
                           ),
                         ],
                       ),
-                      child: const Icon(
-                        Icons.content_cut,
-                        color: _wsbsInk,
-                        size: 20,
-                      ),
+                      child: const Icon(Icons.content_cut,
+                          color: _wsbsInk, size: 20),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -2183,7 +2099,10 @@ class _WsbsHome extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'WidgetStateBorderSide · deep demo',
-          style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.5),
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.5,
+          ),
         ),
         backgroundColor: _wsbsCharcoal,
         foregroundColor: _wsbsIvory,

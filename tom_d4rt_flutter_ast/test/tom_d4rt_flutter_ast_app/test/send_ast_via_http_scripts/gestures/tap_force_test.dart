@@ -181,18 +181,10 @@ class _DragArrowPainter extends CustomPainter {
       final ux = dir.dx / len;
       final uy = dir.dy / len;
       const headLen = 12.0;
-      final head1 =
-          tip +
-          Offset(
-            -ux * headLen - uy * headLen * 0.5,
-            -uy * headLen + ux * headLen * 0.5,
-          );
-      final head2 =
-          tip +
-          Offset(
-            -ux * headLen + uy * headLen * 0.5,
-            -uy * headLen - ux * headLen * 0.5,
-          );
+      final head1 = tip + Offset(-ux * headLen - uy * headLen * 0.5,
+          -uy * headLen + ux * headLen * 0.5);
+      final head2 = tip + Offset(-ux * headLen + uy * headLen * 0.5,
+          -uy * headLen - ux * headLen * 0.5);
       final headPaint = Paint()..color = v.color;
       final path = Path()
         ..moveTo(tip.dx, tip.dy)
@@ -204,7 +196,8 @@ class _DragArrowPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _DragArrowPainter old) => old.vectors != vectors;
+  bool shouldRepaint(covariant _DragArrowPainter old) =>
+      old.vectors != vectors;
 }
 
 // CustomPainter for the force-press pressure ring.
@@ -325,8 +318,8 @@ class _ScaleCompassPainter extends CustomPainter {
     canvas.drawLine(center, tip, needle);
 
     // Focal point dot (offset from center as a fractional preview).
-    final focal =
-        center + Offset(snap.focalDelta.dx * 0.4, snap.focalDelta.dy * 0.4);
+    final focal = center + Offset(snap.focalDelta.dx * 0.4,
+        snap.focalDelta.dy * 0.4);
     final focalPaint = Paint()..color = snap.tint;
     canvas.drawCircle(focal, 6, focalPaint);
   }
@@ -467,27 +460,17 @@ dynamic build(BuildContext context) {
 
   for (int i = 0; i < tapDownSamples.length; i++) {
     final t = tapDownSamples[i];
-    print(
-      '  TapDown[$i] global=${t.globalPosition} local=${t.localPosition} '
-      'kind=${t.kind}',
-    );
+    print('  TapDown[$i] global=${t.globalPosition} local=${t.localPosition} '
+        'kind=${t.kind}');
   }
   for (int i = 0; i < tapUpSamples.length; i++) {
     final t = tapUpSamples[i];
-    print(
-      '  TapUp[$i]   global=${t.globalPosition} local=${t.localPosition} '
-      'kind=${t.kind}',
-    );
+    print('  TapUp[$i]   global=${t.globalPosition} local=${t.localPosition} '
+        'kind=${t.kind}');
   }
 
-  Widget tapInventoryRow(
-    int idx,
-    String type,
-    Offset global,
-    Offset local,
-    String kindLabel,
-    Color tint,
-  ) {
+  Widget tapInventoryRow(int idx, String type, Offset global, Offset local,
+      String kindLabel, Color tint) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -566,95 +549,33 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 13, color: Color(0xFF505060)),
           ),
           const SizedBox(height: 12),
-          tapInventoryRow(
-            0,
-            'TapDown',
-            tapDownTouch.globalPosition,
-            tapDownTouch.localPosition,
-            'touch',
-            const Color(0xFF1F6FEB),
-          ),
-          tapInventoryRow(
-            1,
-            'TapDown',
-            tapDownMouse.globalPosition,
-            tapDownMouse.localPosition,
-            'mouse',
-            const Color(0xFF7C5CFF),
-          ),
-          tapInventoryRow(
-            2,
-            'TapDown',
-            tapDownStylus.globalPosition,
-            tapDownStylus.localPosition,
-            'stylus',
-            const Color(0xFF1F9F73),
-          ),
-          tapInventoryRow(
-            3,
-            'TapDown',
-            tapDownNullKind.globalPosition,
-            tapDownNullKind.localPosition,
-            'null',
-            const Color(0xFFB02050),
-          ),
-          tapInventoryRow(
-            4,
-            'TapDown',
-            tapDownDefaults.globalPosition,
-            tapDownDefaults.localPosition,
-            'null',
-            const Color(0xFF555770),
-          ),
-          tapInventoryRow(
-            5,
-            'TapDown',
-            tapDownLocalDefault.globalPosition,
-            tapDownLocalDefault.localPosition,
-            'invertedStylus',
-            const Color(0xFFCC6F1F),
-          ),
+          tapInventoryRow(0, 'TapDown', tapDownTouch.globalPosition,
+              tapDownTouch.localPosition, 'touch', const Color(0xFF1F6FEB)),
+          tapInventoryRow(1, 'TapDown', tapDownMouse.globalPosition,
+              tapDownMouse.localPosition, 'mouse', const Color(0xFF7C5CFF)),
+          tapInventoryRow(2, 'TapDown', tapDownStylus.globalPosition,
+              tapDownStylus.localPosition, 'stylus', const Color(0xFF1F9F73)),
+          tapInventoryRow(3, 'TapDown', tapDownNullKind.globalPosition,
+              tapDownNullKind.localPosition, 'null', const Color(0xFFB02050)),
+          tapInventoryRow(4, 'TapDown', tapDownDefaults.globalPosition,
+              tapDownDefaults.localPosition, 'null',
+              const Color(0xFF555770)),
+          tapInventoryRow(5, 'TapDown', tapDownLocalDefault.globalPosition,
+              tapDownLocalDefault.localPosition, 'invertedStylus',
+              const Color(0xFFCC6F1F)),
           const SizedBox(height: 8),
-          tapInventoryRow(
-            0,
-            'TapUp',
-            tapUpTouch.globalPosition,
-            tapUpTouch.localPosition,
-            'touch',
-            const Color(0xFF1F6FEB),
-          ),
-          tapInventoryRow(
-            1,
-            'TapUp',
-            tapUpMouse.globalPosition,
-            tapUpMouse.localPosition,
-            'mouse',
-            const Color(0xFF7C5CFF),
-          ),
-          tapInventoryRow(
-            2,
-            'TapUp',
-            tapUpStylus.globalPosition,
-            tapUpStylus.localPosition,
-            'stylus',
-            const Color(0xFF1F9F73),
-          ),
-          tapInventoryRow(
-            3,
-            'TapUp',
-            tapUpTrackpad.globalPosition,
-            tapUpTrackpad.localPosition,
-            'trackpad',
-            const Color(0xFFB02050),
-          ),
-          tapInventoryRow(
-            4,
-            'TapUp',
-            tapUpUnknown.globalPosition,
-            tapUpUnknown.localPosition,
-            'unknown',
-            const Color(0xFF555770),
-          ),
+          tapInventoryRow(0, 'TapUp', tapUpTouch.globalPosition,
+              tapUpTouch.localPosition, 'touch', const Color(0xFF1F6FEB)),
+          tapInventoryRow(1, 'TapUp', tapUpMouse.globalPosition,
+              tapUpMouse.localPosition, 'mouse', const Color(0xFF7C5CFF)),
+          tapInventoryRow(2, 'TapUp', tapUpStylus.globalPosition,
+              tapUpStylus.localPosition, 'stylus', const Color(0xFF1F9F73)),
+          tapInventoryRow(3, 'TapUp', tapUpTrackpad.globalPosition,
+              tapUpTrackpad.localPosition, 'trackpad',
+              const Color(0xFFB02050)),
+          tapInventoryRow(4, 'TapUp', tapUpUnknown.globalPosition,
+              tapUpUnknown.localPosition, 'unknown',
+              const Color(0xFF555770)),
         ],
       ),
     ),
@@ -714,13 +635,12 @@ dynamic build(BuildContext context) {
 
   for (int i = 0; i < forceSamples.length; i++) {
     final f = forceSamples[i];
-    print(
-      '  ForcePress[$i] global=${f.globalPosition} '
-      'local=${f.localPosition} pressure=${f.pressure}',
-    );
+    print('  ForcePress[$i] global=${f.globalPosition} '
+        'local=${f.localPosition} pressure=${f.pressure}');
   }
 
-  Widget pressureCard(int idx, ForcePressDetails f, String label, Color tint) {
+  Widget pressureCard(int idx, ForcePressDetails f, String label,
+      Color tint) {
     return Container(
       width: 150,
       margin: const EdgeInsets.all(6),
@@ -769,7 +689,10 @@ dynamic build(BuildContext context) {
           SizedBox(
             height: 80,
             child: CustomPaint(
-              painter: _PressureRingPainter(pressure: f.pressure, tint: tint),
+              painter: _PressureRingPainter(
+                pressure: f.pressure,
+                tint: tint,
+              ),
               child: Center(
                 child: Text(
                   f.pressure.toStringAsFixed(2),
@@ -820,27 +743,18 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12),
           Wrap(
             children: <Widget>[
-              pressureCard(
-                0,
-                forceZero,
-                'zero pressure',
-                const Color(0xFF555770),
-              ),
-              pressureCard(1, forceLight, 'light tap', const Color(0xFF1F6FEB)),
-              pressureCard(
-                2,
-                forceMedium,
-                'medium press',
-                const Color(0xFF7C5CFF),
-              ),
-              pressureCard(
-                3,
-                forceLocalDefault,
-                'default local',
-                const Color(0xFF1F9F73),
-              ),
-              pressureCard(4, forceFirm, 'firm press', const Color(0xFFCC6F1F)),
-              pressureCard(5, forcePeak, 'peak (1.0)', const Color(0xFFB02050)),
+              pressureCard(0, forceZero, 'zero pressure',
+                  const Color(0xFF555770)),
+              pressureCard(1, forceLight, 'light tap',
+                  const Color(0xFF1F6FEB)),
+              pressureCard(2, forceMedium, 'medium press',
+                  const Color(0xFF7C5CFF)),
+              pressureCard(3, forceLocalDefault, 'default local',
+                  const Color(0xFF1F9F73)),
+              pressureCard(4, forceFirm, 'firm press',
+                  const Color(0xFFCC6F1F)),
+              pressureCard(5, forcePeak, 'peak (1.0)',
+                  const Color(0xFFB02050)),
             ],
           ),
         ],
@@ -911,27 +825,17 @@ dynamic build(BuildContext context) {
     velocity: Velocity(pixelsPerSecond: Offset(40, 800)),
   );
 
-  print(
-    '  LP start: ${lpStart1.globalPosition} / ${lpStart2.globalPosition} '
-    '/ ${lpStartDefault.globalPosition}',
-  );
-  print(
-    '  LP move small offset:  ${lpMoveSmall.offsetFromOrigin} '
-    'local=${lpMoveSmall.localOffsetFromOrigin}',
-  );
-  print(
-    '  LP move med offset:    ${lpMoveMed.offsetFromOrigin} '
-    'local=${lpMoveMed.localOffsetFromOrigin}',
-  );
-  print(
-    '  LP move far offset:    ${lpMoveFar.offsetFromOrigin} '
-    'local=${lpMoveFar.localOffsetFromOrigin}',
-  );
+  print('  LP start: ${lpStart1.globalPosition} / ${lpStart2.globalPosition} '
+      '/ ${lpStartDefault.globalPosition}');
+  print('  LP move small offset:  ${lpMoveSmall.offsetFromOrigin} '
+      'local=${lpMoveSmall.localOffsetFromOrigin}');
+  print('  LP move med offset:    ${lpMoveMed.offsetFromOrigin} '
+      'local=${lpMoveMed.localOffsetFromOrigin}');
+  print('  LP move far offset:    ${lpMoveFar.offsetFromOrigin} '
+      'local=${lpMoveFar.localOffsetFromOrigin}');
   print('  LP move default:       ${lpMoveDefaultOffsets.offsetFromOrigin}');
-  print(
-    '  LP end velocities:     ${lpEndStill.velocity} / '
-    '${lpEndFling.velocity} / ${lpEndDownward.velocity}',
-  );
+  print('  LP end velocities:     ${lpEndStill.velocity} / '
+      '${lpEndFling.velocity} / ${lpEndDownward.velocity}');
 
   Widget lpRow(String label, String detail, Color tint, IconData icon) {
     return Padding(
@@ -955,7 +859,10 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               detail,
-              style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
+              style: const TextStyle(
+                fontSize: 12,
+                fontFamily: 'monospace',
+              ),
             ),
           ),
         ],
@@ -983,103 +890,64 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 13, color: Color(0xFF505060)),
           ),
           const SizedBox(height: 12),
-          const Text(
-            'LongPressStartDetails',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
-              color: Color(0xFF1F6FEB),
-            ),
-          ),
-          lpRow(
-            'start@(80,120)',
-            'global=${lpStart1.globalPosition}  '
-                'local=${lpStart1.localPosition}',
-            const Color(0xFF1F6FEB),
-            Icons.touch_app,
-          ),
-          lpRow(
-            'start@(240,300)',
-            'global=${lpStart2.globalPosition}  '
-                'local=${lpStart2.localPosition}',
-            const Color(0xFF1F6FEB),
-            Icons.touch_app,
-          ),
-          lpRow(
-            'start default-local',
-            'global=${lpStartDefault.globalPosition}  '
-                'local=${lpStartDefault.localPosition}',
-            const Color(0xFF1F6FEB),
-            Icons.touch_app,
-          ),
+          const Text('LongPressStartDetails',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: Color(0xFF1F6FEB))),
+          lpRow('start@(80,120)',
+              'global=${lpStart1.globalPosition}  '
+              'local=${lpStart1.localPosition}',
+              const Color(0xFF1F6FEB), Icons.touch_app),
+          lpRow('start@(240,300)',
+              'global=${lpStart2.globalPosition}  '
+              'local=${lpStart2.localPosition}',
+              const Color(0xFF1F6FEB), Icons.touch_app),
+          lpRow('start default-local',
+              'global=${lpStartDefault.globalPosition}  '
+              'local=${lpStartDefault.localPosition}',
+              const Color(0xFF1F6FEB), Icons.touch_app),
           const Divider(height: 18),
-          const Text(
-            'LongPressMoveUpdateDetails',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
-              color: Color(0xFF7C5CFF),
-            ),
-          ),
-          lpRow(
-            'small drift',
-            'global=${lpMoveSmall.globalPosition} '
-                'offsetFromOrigin=${lpMoveSmall.offsetFromOrigin}',
-            const Color(0xFF7C5CFF),
-            Icons.timeline,
-          ),
-          lpRow(
-            'medium drift',
-            'global=${lpMoveMed.globalPosition} '
-                'offsetFromOrigin=${lpMoveMed.offsetFromOrigin} '
-                'localOFO=${lpMoveMed.localOffsetFromOrigin}',
-            const Color(0xFF7C5CFF),
-            Icons.timeline,
-          ),
-          lpRow(
-            'far drift',
-            'global=${lpMoveFar.globalPosition} '
-                'offsetFromOrigin=${lpMoveFar.offsetFromOrigin}',
-            const Color(0xFF7C5CFF),
-            Icons.timeline,
-          ),
-          lpRow(
-            'all-defaults move',
-            'global=${lpMoveDefaultOffsets.globalPosition} '
-                'offsetFromOrigin=${lpMoveDefaultOffsets.offsetFromOrigin}',
-            const Color(0xFF7C5CFF),
-            Icons.timeline,
-          ),
+          const Text('LongPressMoveUpdateDetails',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: Color(0xFF7C5CFF))),
+          lpRow('small drift',
+              'global=${lpMoveSmall.globalPosition} '
+              'offsetFromOrigin=${lpMoveSmall.offsetFromOrigin}',
+              const Color(0xFF7C5CFF), Icons.timeline),
+          lpRow('medium drift',
+              'global=${lpMoveMed.globalPosition} '
+              'offsetFromOrigin=${lpMoveMed.offsetFromOrigin} '
+              'localOFO=${lpMoveMed.localOffsetFromOrigin}',
+              const Color(0xFF7C5CFF), Icons.timeline),
+          lpRow('far drift',
+              'global=${lpMoveFar.globalPosition} '
+              'offsetFromOrigin=${lpMoveFar.offsetFromOrigin}',
+              const Color(0xFF7C5CFF), Icons.timeline),
+          lpRow('all-defaults move',
+              'global=${lpMoveDefaultOffsets.globalPosition} '
+              'offsetFromOrigin=${lpMoveDefaultOffsets.offsetFromOrigin}',
+              const Color(0xFF7C5CFF), Icons.timeline),
           const Divider(height: 18),
-          const Text(
-            'LongPressEndDetails',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
-              color: Color(0xFF1F9F73),
-            ),
-          ),
-          lpRow(
-            'end still',
-            'global=${lpEndStill.globalPosition} '
-                'velocity=${lpEndStill.velocity.pixelsPerSecond}',
-            const Color(0xFF1F9F73),
-            Icons.stop_circle_outlined,
-          ),
-          lpRow(
-            'end right-flick',
-            'global=${lpEndFling.globalPosition} '
-                'velocity=${lpEndFling.velocity.pixelsPerSecond}',
-            const Color(0xFF1F9F73),
-            Icons.east,
-          ),
-          lpRow(
-            'end downward',
-            'global=${lpEndDownward.globalPosition} '
-                'velocity=${lpEndDownward.velocity.pixelsPerSecond}',
-            const Color(0xFF1F9F73),
-            Icons.south,
-          ),
+          const Text('LongPressEndDetails',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: Color(0xFF1F9F73))),
+          lpRow('end still',
+              'global=${lpEndStill.globalPosition} '
+              'velocity=${lpEndStill.velocity.pixelsPerSecond}',
+              const Color(0xFF1F9F73), Icons.stop_circle_outlined),
+          lpRow('end right-flick',
+              'global=${lpEndFling.globalPosition} '
+              'velocity=${lpEndFling.velocity.pixelsPerSecond}',
+              const Color(0xFF1F9F73), Icons.east),
+          lpRow('end downward',
+              'global=${lpEndDownward.globalPosition} '
+              'velocity=${lpEndDownward.velocity.pixelsPerSecond}',
+              const Color(0xFF1F9F73), Icons.south),
         ],
       ),
     ),
@@ -1171,7 +1039,8 @@ dynamic build(BuildContext context) {
   final dragEndFlick = DragEndDetails(
     globalPosition: const Offset(240, 200),
     localPosition: const Offset(140, 80),
-    velocity: const Velocity(pixelsPerSecond: Offset(1200, -200)),
+    velocity:
+        const Velocity(pixelsPerSecond: Offset(1200, -200)),
   );
   final dragEndHorizPrimary = DragEndDetails(
     globalPosition: const Offset(240, 200),
@@ -1183,28 +1052,22 @@ dynamic build(BuildContext context) {
     velocity: const Velocity(pixelsPerSecond: Offset(0, -1500)),
     primaryVelocity: -1500,
   );
-  final dragEndStill = DragEndDetails(globalPosition: const Offset(100, 100));
+  final dragEndStill = DragEndDetails(
+    globalPosition: const Offset(100, 100),
+  );
 
-  print(
-    '  drag down: ${dragDown1.globalPosition} / '
-    '${dragDown2.globalPosition} / ${dragDownNoLocal.globalPosition}',
-  );
-  print(
-    '  drag start kinds: ${dragStart1.kind} / ${dragStartMouse.kind} / '
-    '${dragStartStylus.kind} / ${dragStartDefault.kind} / '
-    '${dragStartTrackpad.kind}',
-  );
-  print(
-    '  drag update deltas: ${dragUpdateXY.delta} / '
-    '${dragUpdateHorizPrimary.delta}(${dragUpdateHorizPrimary.primaryDelta})'
-    ' / ${dragUpdateVertPrimary.delta}'
-    '(${dragUpdateVertPrimary.primaryDelta})'
-    ' / ${dragUpdateMouse.delta} / ${dragUpdateNoDelta.delta}',
-  );
-  print(
-    '  drag end velocities: ${dragEndFlick.velocity.pixelsPerSecond}'
-    ' primary=${dragEndFlick.primaryVelocity}',
-  );
+  print('  drag down: ${dragDown1.globalPosition} / '
+      '${dragDown2.globalPosition} / ${dragDownNoLocal.globalPosition}');
+  print('  drag start kinds: ${dragStart1.kind} / ${dragStartMouse.kind} / '
+      '${dragStartStylus.kind} / ${dragStartDefault.kind} / '
+      '${dragStartTrackpad.kind}');
+  print('  drag update deltas: ${dragUpdateXY.delta} / '
+      '${dragUpdateHorizPrimary.delta}(${dragUpdateHorizPrimary.primaryDelta})'
+      ' / ${dragUpdateVertPrimary.delta}'
+      '(${dragUpdateVertPrimary.primaryDelta})'
+      ' / ${dragUpdateMouse.delta} / ${dragUpdateNoDelta.delta}');
+  print('  drag end velocities: ${dragEndFlick.velocity.pixelsPerSecond}'
+      ' primary=${dragEndFlick.primaryVelocity}');
   print('  drag end horiz primary: ${dragEndHorizPrimary.primaryVelocity}');
   print('  drag end vert  primary: ${dragEndVertPrimary.primaryVelocity}');
   print('  drag end still: ${dragEndStill.velocity.pixelsPerSecond}');
@@ -1326,142 +1189,90 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 13, color: Color(0xFF505060)),
           ),
           const SizedBox(height: 12),
-          dragRow(
-            0,
-            'DragDown',
-            'global=${dragDown1.globalPosition} '
-                'local=${dragDown1.localPosition}',
-            const Color(0xFF1F6FEB),
-          ),
-          dragRow(
-            1,
-            'DragDown',
-            'global=${dragDown2.globalPosition} '
-                'local=${dragDown2.localPosition}',
-            const Color(0xFF1F6FEB),
-          ),
-          dragRow(
-            2,
-            'DragDown',
-            'global=${dragDownNoLocal.globalPosition} '
-                'local=${dragDownNoLocal.localPosition} (default)',
-            const Color(0xFF1F6FEB),
-          ),
+          dragRow(0, 'DragDown',
+              'global=${dragDown1.globalPosition} '
+              'local=${dragDown1.localPosition}',
+              const Color(0xFF1F6FEB)),
+          dragRow(1, 'DragDown',
+              'global=${dragDown2.globalPosition} '
+              'local=${dragDown2.localPosition}',
+              const Color(0xFF1F6FEB)),
+          dragRow(2, 'DragDown',
+              'global=${dragDownNoLocal.globalPosition} '
+              'local=${dragDownNoLocal.localPosition} (default)',
+              const Color(0xFF1F6FEB)),
           const Divider(height: 14),
-          dragRow(
-            0,
-            'DragStart',
-            'global=${dragStart1.globalPosition} kind=${dragStart1.kind} '
-                'sourceTS=${dragStart1.sourceTimeStamp}',
-            const Color(0xFF7C5CFF),
-          ),
-          dragRow(
-            1,
-            'DragStart',
-            'global=${dragStartMouse.globalPosition} '
-                'kind=${dragStartMouse.kind} '
-                'sourceTS=${dragStartMouse.sourceTimeStamp}',
-            const Color(0xFF7C5CFF),
-          ),
-          dragRow(
-            2,
-            'DragStart',
-            'global=${dragStartStylus.globalPosition} '
-                'kind=${dragStartStylus.kind} '
-                'sourceTS=${dragStartStylus.sourceTimeStamp}',
-            const Color(0xFF7C5CFF),
-          ),
-          dragRow(
-            3,
-            'DragStart',
-            'global=${dragStartDefault.globalPosition} '
-                'kind=${dragStartDefault.kind} (all-defaults)',
-            const Color(0xFF7C5CFF),
-          ),
-          dragRow(
-            4,
-            'DragStart',
-            'global=${dragStartTrackpad.globalPosition} '
-                'kind=${dragStartTrackpad.kind}',
-            const Color(0xFF7C5CFF),
-          ),
+          dragRow(0, 'DragStart',
+              'global=${dragStart1.globalPosition} kind=${dragStart1.kind} '
+              'sourceTS=${dragStart1.sourceTimeStamp}',
+              const Color(0xFF7C5CFF)),
+          dragRow(1, 'DragStart',
+              'global=${dragStartMouse.globalPosition} '
+              'kind=${dragStartMouse.kind} '
+              'sourceTS=${dragStartMouse.sourceTimeStamp}',
+              const Color(0xFF7C5CFF)),
+          dragRow(2, 'DragStart',
+              'global=${dragStartStylus.globalPosition} '
+              'kind=${dragStartStylus.kind} '
+              'sourceTS=${dragStartStylus.sourceTimeStamp}',
+              const Color(0xFF7C5CFF)),
+          dragRow(3, 'DragStart',
+              'global=${dragStartDefault.globalPosition} '
+              'kind=${dragStartDefault.kind} (all-defaults)',
+              const Color(0xFF7C5CFF)),
+          dragRow(4, 'DragStart',
+              'global=${dragStartTrackpad.globalPosition} '
+              'kind=${dragStartTrackpad.kind}',
+              const Color(0xFF7C5CFF)),
           const Divider(height: 14),
-          dragRow(
-            0,
-            'DragUpdate',
-            'global=${dragUpdateXY.globalPosition} '
-                'delta=${dragUpdateXY.delta} primaryDelta='
-                '${dragUpdateXY.primaryDelta} kind=${dragUpdateXY.kind}',
-            const Color(0xFF1F9F73),
-          ),
-          dragRow(
-            1,
-            'DragUpdate',
-            'global=${dragUpdateHorizPrimary.globalPosition} '
-                'delta=${dragUpdateHorizPrimary.delta} primaryDelta='
-                '${dragUpdateHorizPrimary.primaryDelta}',
-            const Color(0xFF1F9F73),
-          ),
-          dragRow(
-            2,
-            'DragUpdate',
-            'global=${dragUpdateVertPrimary.globalPosition} '
-                'delta=${dragUpdateVertPrimary.delta} primaryDelta='
-                '${dragUpdateVertPrimary.primaryDelta}',
-            const Color(0xFF1F9F73),
-          ),
-          dragRow(
-            3,
-            'DragUpdate',
-            'global=${dragUpdateMouse.globalPosition} '
-                'delta=${dragUpdateMouse.delta} primaryDelta='
-                '${dragUpdateMouse.primaryDelta} kind=${dragUpdateMouse.kind}',
-            const Color(0xFF1F9F73),
-          ),
-          dragRow(
-            4,
-            'DragUpdate',
-            'global=${dragUpdateNoDelta.globalPosition} '
-                'delta=${dragUpdateNoDelta.delta} (zero)',
-            const Color(0xFF1F9F73),
-          ),
+          dragRow(0, 'DragUpdate',
+              'global=${dragUpdateXY.globalPosition} '
+              'delta=${dragUpdateXY.delta} primaryDelta='
+              '${dragUpdateXY.primaryDelta} kind=${dragUpdateXY.kind}',
+              const Color(0xFF1F9F73)),
+          dragRow(1, 'DragUpdate',
+              'global=${dragUpdateHorizPrimary.globalPosition} '
+              'delta=${dragUpdateHorizPrimary.delta} primaryDelta='
+              '${dragUpdateHorizPrimary.primaryDelta}',
+              const Color(0xFF1F9F73)),
+          dragRow(2, 'DragUpdate',
+              'global=${dragUpdateVertPrimary.globalPosition} '
+              'delta=${dragUpdateVertPrimary.delta} primaryDelta='
+              '${dragUpdateVertPrimary.primaryDelta}',
+              const Color(0xFF1F9F73)),
+          dragRow(3, 'DragUpdate',
+              'global=${dragUpdateMouse.globalPosition} '
+              'delta=${dragUpdateMouse.delta} primaryDelta='
+              '${dragUpdateMouse.primaryDelta} kind=${dragUpdateMouse.kind}',
+              const Color(0xFF1F9F73)),
+          dragRow(4, 'DragUpdate',
+              'global=${dragUpdateNoDelta.globalPosition} '
+              'delta=${dragUpdateNoDelta.delta} (zero)',
+              const Color(0xFF1F9F73)),
           const Divider(height: 14),
-          dragRow(
-            0,
-            'DragEnd',
-            'global=${dragEndFlick.globalPosition} '
-                'velocity=${dragEndFlick.velocity.pixelsPerSecond}',
-            const Color(0xFFCC6F1F),
-          ),
-          dragRow(
-            1,
-            'DragEnd',
-            'velocity=${dragEndHorizPrimary.velocity.pixelsPerSecond} '
-                'primaryVelocity=${dragEndHorizPrimary.primaryVelocity}',
-            const Color(0xFFCC6F1F),
-          ),
-          dragRow(
-            2,
-            'DragEnd',
-            'velocity=${dragEndVertPrimary.velocity.pixelsPerSecond} '
-                'primaryVelocity=${dragEndVertPrimary.primaryVelocity}',
-            const Color(0xFFCC6F1F),
-          ),
-          dragRow(
-            3,
-            'DragEnd',
-            'global=${dragEndStill.globalPosition} '
-                'velocity=${dragEndStill.velocity.pixelsPerSecond} (still)',
-            const Color(0xFFCC6F1F),
-          ),
+          dragRow(0, 'DragEnd',
+              'global=${dragEndFlick.globalPosition} '
+              'velocity=${dragEndFlick.velocity.pixelsPerSecond}',
+              const Color(0xFFCC6F1F)),
+          dragRow(1, 'DragEnd',
+              'velocity=${dragEndHorizPrimary.velocity.pixelsPerSecond} '
+              'primaryVelocity=${dragEndHorizPrimary.primaryVelocity}',
+              const Color(0xFFCC6F1F)),
+          dragRow(2, 'DragEnd',
+              'velocity=${dragEndVertPrimary.velocity.pixelsPerSecond} '
+              'primaryVelocity=${dragEndVertPrimary.primaryVelocity}',
+              const Color(0xFFCC6F1F)),
+          dragRow(3, 'DragEnd',
+              'global=${dragEndStill.globalPosition} '
+              'velocity=${dragEndStill.velocity.pixelsPerSecond} (still)',
+              const Color(0xFFCC6F1F)),
           const SizedBox(height: 12),
           const Text(
             'Drag-update delta vector showcase (CustomPaint, no animation):',
             style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF2A2A33),
-            ),
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF2A2A33)),
           ),
           const SizedBox(height: 6),
           SizedBox(
@@ -1588,24 +1399,23 @@ dynamic build(BuildContext context) {
   final scaleUpdates = <ScaleUpdateDetails>[];
   for (int i = 0; i < scaleSnapshots.length; i++) {
     final s = scaleSnapshots[i];
-    scaleUpdates.add(
-      ScaleUpdateDetails(
-        focalPoint: s.focalPoint,
-        localFocalPoint: s.focalPoint - const Offset(100, 100),
-        scale: s.scale,
-        horizontalScale: s.horizontal,
-        verticalScale: s.vertical,
-        rotation: s.rotation,
-        pointerCount: s.pointers,
-        focalPointDelta: s.focalDelta,
-        sourceTimeStamp: Duration(milliseconds: 60 + i * 16),
-      ),
-    );
+    scaleUpdates.add(ScaleUpdateDetails(
+      focalPoint: s.focalPoint,
+      localFocalPoint: s.focalPoint - const Offset(100, 100),
+      scale: s.scale,
+      horizontalScale: s.horizontal,
+      verticalScale: s.vertical,
+      rotation: s.rotation,
+      pointerCount: s.pointers,
+      focalPointDelta: s.focalDelta,
+      sourceTimeStamp: Duration(milliseconds: 60 + i * 16),
+    ));
   }
 
   final scaleEndStill = ScaleEndDetails();
   final scaleEndFling = ScaleEndDetails(
-    velocity: const Velocity(pixelsPerSecond: Offset(900, -300)),
+    velocity:
+        const Velocity(pixelsPerSecond: Offset(900, -300)),
     scaleVelocity: 2.4,
     pointerCount: 2,
   );
@@ -1619,44 +1429,30 @@ dynamic build(BuildContext context) {
     pointerCount: 3,
   );
 
-  print(
-    '  scaleStart twos: focalPoint=${scaleStartTwo.focalPoint} '
-    'pointerCount=${scaleStartTwo.pointerCount} kind=${scaleStartTwo.kind}',
-  );
-  print(
-    '  scaleStart threes: pointerCount=${scaleStartThree.pointerCount} '
-    'kind=${scaleStartThree.kind}',
-  );
+  print('  scaleStart twos: focalPoint=${scaleStartTwo.focalPoint} '
+      'pointerCount=${scaleStartTwo.pointerCount} kind=${scaleStartTwo.kind}');
+  print('  scaleStart threes: pointerCount=${scaleStartThree.pointerCount} '
+      'kind=${scaleStartThree.kind}');
   print('  scaleStart default: focalPoint=${scaleStartDefault.focalPoint}');
   print('  scaleStart trackpad: kind=${scaleStartTrackpad.kind}');
   for (int i = 0; i < scaleUpdates.length; i++) {
     final s = scaleUpdates[i];
-    print(
-      '  scaleUpdate[$i]: focal=${s.focalPoint} scale=${s.scale} '
-      'horiz=${s.horizontalScale} vert=${s.verticalScale} '
-      'rot=${s.rotation.toStringAsFixed(3)} '
-      'pointers=${s.pointerCount} focalDelta=${s.focalPointDelta} '
-      'ts=${s.sourceTimeStamp}',
-    );
+    print('  scaleUpdate[$i]: focal=${s.focalPoint} scale=${s.scale} '
+        'horiz=${s.horizontalScale} vert=${s.verticalScale} '
+        'rot=${s.rotation.toStringAsFixed(3)} '
+        'pointers=${s.pointerCount} focalDelta=${s.focalPointDelta} '
+        'ts=${s.sourceTimeStamp}');
   }
-  print(
-    '  scaleEnd still: vel=${scaleEndStill.velocity.pixelsPerSecond} '
-    'scaleVel=${scaleEndStill.scaleVelocity} '
-    'pointers=${scaleEndStill.pointerCount}',
-  );
-  print(
-    '  scaleEnd flick: vel=${scaleEndFling.velocity.pixelsPerSecond} '
-    'scaleVel=${scaleEndFling.scaleVelocity} '
-    'pointers=${scaleEndFling.pointerCount}',
-  );
-  print(
-    '  scaleEnd contracting: scaleVel=${scaleEndContracting.scaleVelocity}'
-    ' pointers=${scaleEndContracting.pointerCount}',
-  );
-  print(
-    '  scaleEnd 3-finger: vel=${scaleEndThreeFinger.velocity.pixelsPerSecond}'
-    ' pointers=${scaleEndThreeFinger.pointerCount}',
-  );
+  print('  scaleEnd still: vel=${scaleEndStill.velocity.pixelsPerSecond} '
+      'scaleVel=${scaleEndStill.scaleVelocity} '
+      'pointers=${scaleEndStill.pointerCount}');
+  print('  scaleEnd flick: vel=${scaleEndFling.velocity.pixelsPerSecond} '
+      'scaleVel=${scaleEndFling.scaleVelocity} '
+      'pointers=${scaleEndFling.pointerCount}');
+  print('  scaleEnd contracting: scaleVel=${scaleEndContracting.scaleVelocity}'
+      ' pointers=${scaleEndContracting.pointerCount}');
+  print('  scaleEnd 3-finger: vel=${scaleEndThreeFinger.velocity.pixelsPerSecond}'
+      ' pointers=${scaleEndThreeFinger.pointerCount}');
 
   Widget scaleSnapshotCard(int idx, _ScaleSnapshot s, ScaleUpdateDetails u) {
     return Container(
@@ -1681,14 +1477,12 @@ dynamic build(BuildContext context) {
                   color: s.tint,
                   borderRadius: BorderRadius.circular(11),
                 ),
-                child: Text(
-                  '$idx',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 11,
-                  ),
-                ),
+                child: Text('$idx',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                    )),
               ),
               const SizedBox(width: 6),
               Expanded(
@@ -1712,27 +1506,23 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            'focal=${u.focalPoint.dx.toStringAsFixed(0)},'
-            '${u.focalPoint.dy.toStringAsFixed(0)}',
-            style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
-          ),
-          Text(
-            'scale=${u.scale.toStringAsFixed(2)} '
-            'h=${u.horizontalScale.toStringAsFixed(2)} '
-            'v=${u.verticalScale.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
-          ),
-          Text(
-            'rot=${u.rotation.toStringAsFixed(3)} rad',
-            style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
-          ),
-          Text(
-            'pointers=${u.pointerCount} '
-            'fpDelta=${u.focalPointDelta.dx.toStringAsFixed(1)},'
-            '${u.focalPointDelta.dy.toStringAsFixed(1)}',
-            style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
-          ),
+          Text('focal=${u.focalPoint.dx.toStringAsFixed(0)},'
+              '${u.focalPoint.dy.toStringAsFixed(0)}',
+              style: const TextStyle(
+                  fontSize: 10, fontFamily: 'monospace')),
+          Text('scale=${u.scale.toStringAsFixed(2)} '
+              'h=${u.horizontalScale.toStringAsFixed(2)} '
+              'v=${u.verticalScale.toStringAsFixed(2)}',
+              style: const TextStyle(
+                  fontSize: 10, fontFamily: 'monospace')),
+          Text('rot=${u.rotation.toStringAsFixed(3)} rad',
+              style: const TextStyle(
+                  fontSize: 10, fontFamily: 'monospace')),
+          Text('pointers=${u.pointerCount} '
+              'fpDelta=${u.focalPointDelta.dx.toStringAsFixed(1)},'
+              '${u.focalPointDelta.dy.toStringAsFixed(1)}',
+              style: const TextStyle(
+                  fontSize: 10, fontFamily: 'monospace')),
         ],
       ),
     );
@@ -1768,10 +1558,9 @@ dynamic build(BuildContext context) {
           const Text(
             'ScaleStartDetails samples:',
             style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 13,
-              color: Color(0xFF1F6FEB),
-            ),
+                fontWeight: FontWeight.w700,
+                fontSize: 13,
+                color: Color(0xFF1F6FEB)),
           ),
           Text(
             '  twoPointer: focalPoint=${scaleStartTwo.focalPoint}  '
@@ -1802,10 +1591,9 @@ dynamic build(BuildContext context) {
           const Text(
             'ScaleEndDetails samples:',
             style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 13,
-              color: Color(0xFF1F9F73),
-            ),
+                fontWeight: FontWeight.w700,
+                fontSize: 13,
+                color: Color(0xFF1F9F73)),
           ),
           Text(
             '  still: velocity=${scaleEndStill.velocity.pixelsPerSecond} '
@@ -1904,8 +1692,7 @@ dynamic build(BuildContext context) {
     const _PointerSpec(
       name: 'PointerDownEvent',
       role: 'finger landed',
-      story:
-          'Carries initial pressure, pointer id, and device kind. '
+      story: 'Carries initial pressure, pointer id, and device kind. '
           'Recognizers route this through GestureBinding to compete.',
       color: Color(0xFF1F6FEB),
       icon: Icons.touch_app,
@@ -1913,8 +1700,7 @@ dynamic build(BuildContext context) {
     const _PointerSpec(
       name: 'PointerMoveEvent',
       role: 'finger moving (pressed)',
-      story:
-          'Carries `delta` (since last move). Drives drag-update '
+      story: 'Carries `delta` (since last move). Drives drag-update '
           'recognition and force-press normalization.',
       color: Color(0xFF7C5CFF),
       icon: Icons.swipe,
@@ -1922,8 +1708,7 @@ dynamic build(BuildContext context) {
     const _PointerSpec(
       name: 'PointerUpEvent',
       role: 'finger lifted',
-      story:
-          'pressure defaults to 0.0 but can be non-zero on some '
+      story: 'pressure defaults to 0.0 but can be non-zero on some '
           'platforms — see Flutter issue #31340.',
       color: Color(0xFF1F9F73),
       icon: Icons.touch_app_outlined,
@@ -1931,8 +1716,7 @@ dynamic build(BuildContext context) {
     const _PointerSpec(
       name: 'PointerHoverEvent',
       role: 'mouse/stylus moved (no buttons)',
-      story:
-          'No buttons pressed; carries `delta`. Recognizers usually '
+      story: 'No buttons pressed; carries `delta`. Recognizers usually '
           'ignore it but it drives MouseRegion and hover effects.',
       color: Color(0xFFCC6F1F),
       icon: Icons.mouse,
@@ -1940,34 +1724,23 @@ dynamic build(BuildContext context) {
     const _PointerSpec(
       name: 'PointerCancelEvent',
       role: 'gesture interrupted',
-      story:
-          'Platform took the gesture away (e.g. system alert, '
+      story: 'Platform took the gesture away (e.g. system alert, '
           'multitouch eviction). Recognizers MUST clean up.',
       color: Color(0xFFB02050),
       icon: Icons.cancel,
     ),
   ];
 
-  print(
-    '  PointerDownEvent: position=${pDown.position} pressure=${pDown.pressure}'
-    ' pointer=${pDown.pointer} kind=${pDown.kind} buttons=${pDown.buttons}'
-    ' radiusMajor=${pDown.radiusMajor} orientation=${pDown.orientation}',
-  );
-  print(
-    '  PointerMoveEvent: position=${pMove.position} delta=${pMove.delta} '
-    'pressure=${pMove.pressure} kind=${pMove.kind}',
-  );
-  print(
-    '  PointerUpEvent: position=${pUp.position} pressure=${pUp.pressure} '
-    'kind=${pUp.kind}',
-  );
-  print(
-    '  PointerHoverEvent: position=${pHover.position} delta=${pHover.delta}'
-    ' kind=${pHover.kind} buttons=${pHover.buttons}',
-  );
-  print(
-    '  PointerCancelEvent: position=${pCancel.position} kind=${pCancel.kind}',
-  );
+  print('  PointerDownEvent: position=${pDown.position} pressure=${pDown.pressure}'
+      ' pointer=${pDown.pointer} kind=${pDown.kind} buttons=${pDown.buttons}'
+      ' radiusMajor=${pDown.radiusMajor} orientation=${pDown.orientation}');
+  print('  PointerMoveEvent: position=${pMove.position} delta=${pMove.delta} '
+      'pressure=${pMove.pressure} kind=${pMove.kind}');
+  print('  PointerUpEvent: position=${pUp.position} pressure=${pUp.pressure} '
+      'kind=${pUp.kind}');
+  print('  PointerHoverEvent: position=${pHover.position} delta=${pHover.delta}'
+      ' kind=${pHover.kind} buttons=${pHover.buttons}');
+  print('  PointerCancelEvent: position=${pCancel.position} kind=${pCancel.kind}');
 
   Widget pointerSpecCard(int idx, _PointerSpec spec, String fieldsSummary) {
     return Container(
@@ -2016,28 +1789,16 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 6),
-          Text(
-            spec.role,
-            style: TextStyle(
-              color: spec.color,
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
-            ),
-          ),
+          Text(spec.role,
+              style: TextStyle(
+                  color: spec.color, fontWeight: FontWeight.w600, fontSize: 12)),
           const SizedBox(height: 4),
-          Text(
-            spec.story,
-            style: const TextStyle(fontSize: 11, color: Color(0xFF40404A)),
-          ),
+          Text(spec.story,
+              style: const TextStyle(fontSize: 11, color: Color(0xFF40404A))),
           const SizedBox(height: 8),
-          Text(
-            fieldsSummary,
-            style: const TextStyle(
-              fontSize: 10,
-              fontFamily: 'monospace',
-              color: Color(0xFF333344),
-            ),
-          ),
+          Text(fieldsSummary,
+              style: const TextStyle(
+                  fontSize: 10, fontFamily: 'monospace', color: Color(0xFF333344))),
         ],
       ),
     );
@@ -2065,56 +1826,41 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12),
           Wrap(
             children: <Widget>[
-              pointerSpecCard(
-                0,
-                pointerSpecs[0],
-                'position=${pDown.position}\n'
-                'pressure=${pDown.pressure} pmin=${pDown.pressureMin} '
-                'pmax=${pDown.pressureMax}\n'
-                'radiusMajor=${pDown.radiusMajor} '
-                'radiusMinor=${pDown.radiusMinor}\n'
-                'orientation=${pDown.orientation} tilt=${pDown.tilt}\n'
-                'pointer=${pDown.pointer} device=${pDown.device} '
-                'kind=${pDown.kind}\n'
-                'buttons=${pDown.buttons} ts=${pDown.timeStamp}',
-              ),
-              pointerSpecCard(
-                1,
-                pointerSpecs[1],
-                'position=${pMove.position}\n'
-                'delta=${pMove.delta}\n'
-                'pressure=${pMove.pressure}\n'
-                'pointer=${pMove.pointer} device=${pMove.device} '
-                'kind=${pMove.kind}\n'
-                'ts=${pMove.timeStamp}',
-              ),
-              pointerSpecCard(
-                2,
-                pointerSpecs[2],
-                'position=${pUp.position}\n'
-                'pressure=${pUp.pressure}\n'
-                'pointer=${pUp.pointer} device=${pUp.device} '
-                'kind=${pUp.kind}\n'
-                'ts=${pUp.timeStamp}',
-              ),
-              pointerSpecCard(
-                3,
-                pointerSpecs[3],
-                'position=${pHover.position}\n'
-                'delta=${pHover.delta}\n'
-                'buttons=${pHover.buttons} (no buttons pressed)\n'
-                'pointer=${pHover.pointer} device=${pHover.device} '
-                'kind=${pHover.kind}\n'
-                'ts=${pHover.timeStamp}',
-              ),
-              pointerSpecCard(
-                4,
-                pointerSpecs[4],
-                'position=${pCancel.position}\n'
-                'pointer=${pCancel.pointer} device=${pCancel.device} '
-                'kind=${pCancel.kind}\n'
-                'ts=${pCancel.timeStamp}',
-              ),
+              pointerSpecCard(0, pointerSpecs[0],
+                  'position=${pDown.position}\n'
+                  'pressure=${pDown.pressure} pmin=${pDown.pressureMin} '
+                  'pmax=${pDown.pressureMax}\n'
+                  'radiusMajor=${pDown.radiusMajor} '
+                  'radiusMinor=${pDown.radiusMinor}\n'
+                  'orientation=${pDown.orientation} tilt=${pDown.tilt}\n'
+                  'pointer=${pDown.pointer} device=${pDown.device} '
+                  'kind=${pDown.kind}\n'
+                  'buttons=${pDown.buttons} ts=${pDown.timeStamp}'),
+              pointerSpecCard(1, pointerSpecs[1],
+                  'position=${pMove.position}\n'
+                  'delta=${pMove.delta}\n'
+                  'pressure=${pMove.pressure}\n'
+                  'pointer=${pMove.pointer} device=${pMove.device} '
+                  'kind=${pMove.kind}\n'
+                  'ts=${pMove.timeStamp}'),
+              pointerSpecCard(2, pointerSpecs[2],
+                  'position=${pUp.position}\n'
+                  'pressure=${pUp.pressure}\n'
+                  'pointer=${pUp.pointer} device=${pUp.device} '
+                  'kind=${pUp.kind}\n'
+                  'ts=${pUp.timeStamp}'),
+              pointerSpecCard(3, pointerSpecs[3],
+                  'position=${pHover.position}\n'
+                  'delta=${pHover.delta}\n'
+                  'buttons=${pHover.buttons} (no buttons pressed)\n'
+                  'pointer=${pHover.pointer} device=${pHover.device} '
+                  'kind=${pHover.kind}\n'
+                  'ts=${pHover.timeStamp}'),
+              pointerSpecCard(4, pointerSpecs[4],
+                  'position=${pCancel.position}\n'
+                  'pointer=${pCancel.pointer} device=${pCancel.device} '
+                  'kind=${pCancel.kind}\n'
+                  'ts=${pCancel.timeStamp}'),
             ],
           ),
         ],
@@ -2160,8 +1906,7 @@ dynamic build(BuildContext context) {
     ),
     const _KindRow(
       kind: PointerDeviceKind.trackpad,
-      story:
-          'macOS trackpad gesture without an on-screen pointer. '
+      story: 'macOS trackpad gesture without an on-screen pointer. '
           'Scale-start events use this kind for trackpad pinch.',
       icon: Icons.touch_app_outlined,
       tint: Color(0xFFB02050),
@@ -2299,10 +2044,8 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < velSamples.length; i++) {
     final v = Velocity(pixelsPerSecond: velSamples[i].pxPerSec);
     velocities.add(v);
-    print(
-      '  Velocity[$i] ${velSamples[i].label}: '
-      'pixelsPerSecond=${v.pixelsPerSecond}',
-    );
+    print('  Velocity[$i] ${velSamples[i].label}: '
+        'pixelsPerSecond=${v.pixelsPerSecond}');
   }
 
   // Velocity arithmetic showcase. Velocity supports unary negation,
@@ -2312,11 +2055,9 @@ dynamic build(BuildContext context) {
   final velNeg = -velA;
   final velDiff = velA - velB;
   final velZero = Velocity.zero;
-  print(
-    '  Velocity arithmetic: -velA=${velNeg.pixelsPerSecond} '
-    'velA-velB=${velDiff.pixelsPerSecond} '
-    'Velocity.zero=${velZero.pixelsPerSecond}',
-  );
+  print('  Velocity arithmetic: -velA=${velNeg.pixelsPerSecond} '
+      'velA-velB=${velDiff.pixelsPerSecond} '
+      'Velocity.zero=${velZero.pixelsPerSecond}');
 
   final offsetPairSamples = <_OffsetPairSample>[
     const _OffsetPairSample(
@@ -2330,8 +2071,7 @@ dynamic build(BuildContext context) {
       label: 'nested widget tap',
       local: Offset(20, 16),
       global: Offset(180, 244),
-      story:
-          'Inside a deeply nested widget; local differs from global by '
+      story: 'Inside a deeply nested widget; local differs from global by '
           'the widget origin offset (160, 228).',
       tint: Color(0xFF1F6FEB),
     ),
@@ -2346,8 +2086,7 @@ dynamic build(BuildContext context) {
       label: 'transformed (scaled)',
       local: Offset(60, 40),
       global: Offset(120, 80),
-      story:
-          'A scale-2x transform between the screen and the widget '
+      story: 'A scale-2x transform between the screen and the widget '
           'doubles global vs local.',
       tint: Color(0xFF1F9F73),
     ),
@@ -2355,8 +2094,7 @@ dynamic build(BuildContext context) {
       label: 'delta accumulator',
       local: Offset(14, 0),
       global: Offset(14, 0),
-      story:
-          'Used as a per-event delta; the values are increments, not '
+      story: 'Used as a per-event delta; the values are increments, not '
           'absolute positions.',
       tint: Color(0xFFCC6F1F),
     ),
@@ -2374,38 +2112,28 @@ dynamic build(BuildContext context) {
     final s = offsetPairSamples[i];
     final pair = OffsetPair(local: s.local, global: s.global);
     offsetPairs.add(pair);
-    print(
-      '  OffsetPair[$i] ${s.label}: '
-      'local=${pair.local} global=${pair.global}',
-    );
+    print('  OffsetPair[$i] ${s.label}: '
+        'local=${pair.local} global=${pair.global}');
   }
 
   // OffsetPair has + and - operators (component-wise).
   final pairSum = offsetPairs[1] + offsetPairs[2];
   final pairDiff = offsetPairs[3] - offsetPairs[4];
-  print(
-    '  OffsetPair arithmetic: nested+edge='
-    'local=${pairSum.local} global=${pairSum.global} '
-    'transformed-delta='
-    'local=${pairDiff.local} global=${pairDiff.global}',
-  );
+  print('  OffsetPair arithmetic: nested+edge='
+      'local=${pairSum.local} global=${pairSum.global} '
+      'transformed-delta='
+      'local=${pairDiff.local} global=${pairDiff.global}');
 
   // OffsetPair.fromEventPosition — exercise the factory.
   final pairFromDown = OffsetPair.fromEventPosition(pDown);
   final pairFromHover = OffsetPair.fromEventPosition(pHover);
   final pairDeltaFromMove = OffsetPair.fromEventDelta(pMove);
-  print(
-    '  OffsetPair.fromEventPosition(down):  '
-    'local=${pairFromDown.local} global=${pairFromDown.global}',
-  );
-  print(
-    '  OffsetPair.fromEventPosition(hover): '
-    'local=${pairFromHover.local} global=${pairFromHover.global}',
-  );
-  print(
-    '  OffsetPair.fromEventDelta(move):     '
-    'local=${pairDeltaFromMove.local} global=${pairDeltaFromMove.global}',
-  );
+  print('  OffsetPair.fromEventPosition(down):  '
+      'local=${pairFromDown.local} global=${pairFromDown.global}');
+  print('  OffsetPair.fromEventPosition(hover): '
+      'local=${pairFromHover.local} global=${pairFromHover.global}');
+  print('  OffsetPair.fromEventDelta(move):     '
+      'local=${pairDeltaFromMove.local} global=${pairDeltaFromMove.global}');
 
   Widget velocityCard(int i, _VelocitySample s) {
     return Container(
@@ -2456,12 +2184,14 @@ dynamic build(BuildContext context) {
           Text(
             'pixelsPerSecond=${s.pxPerSec.dx.toStringAsFixed(0)},'
             '${s.pxPerSec.dy.toStringAsFixed(0)}',
-            style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
+            style: const TextStyle(
+                fontSize: 11, fontFamily: 'monospace'),
           ),
           const SizedBox(height: 4),
           Text(
             s.story,
-            style: const TextStyle(fontSize: 11, color: Color(0xFF40404A)),
+            style: const TextStyle(
+                fontSize: 11, color: Color(0xFF40404A)),
           ),
         ],
       ),
@@ -2517,17 +2247,20 @@ dynamic build(BuildContext context) {
           Text(
             'local =${s.local.dx.toStringAsFixed(0)},'
             '${s.local.dy.toStringAsFixed(0)}',
-            style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
+            style: const TextStyle(
+                fontSize: 11, fontFamily: 'monospace'),
           ),
           Text(
             'global=${s.global.dx.toStringAsFixed(0)},'
             '${s.global.dy.toStringAsFixed(0)}',
-            style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
+            style: const TextStyle(
+                fontSize: 11, fontFamily: 'monospace'),
           ),
           const SizedBox(height: 4),
           Text(
             s.story,
-            style: const TextStyle(fontSize: 11, color: Color(0xFF40404A)),
+            style: const TextStyle(
+                fontSize: 11, color: Color(0xFF40404A)),
           ),
         ],
       ),
@@ -2619,10 +2352,8 @@ dynamic build(BuildContext context) {
             'Factory results from real PointerEvent values (constructed in '
             'Section 6):',
             style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF40404A),
-            ),
+                fontSize: 12, fontWeight: FontWeight.w600,
+                color: Color(0xFF40404A)),
           ),
           Text(
             '  fromEventPosition(pDown):  local=${pairFromDown.local}  '
@@ -2637,10 +2368,8 @@ dynamic build(BuildContext context) {
           const Text(
             'OffsetPair arithmetic (component-wise on both local and global):',
             style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF40404A),
-            ),
+                fontSize: 12, fontWeight: FontWeight.w600,
+                color: Color(0xFF40404A)),
           ),
           Text(
             '  pair[1] + pair[2] = (local=${pairSum.local}, '
@@ -2807,7 +2536,10 @@ dynamic build(BuildContext context) {
                 'LongPress*, Drag* (Down/Start/Update/End), Scale* '
                 '(Start/Update/End), the PointerEvent family, '
                 'PointerDeviceKind, Velocity, and OffsetPair.',
-                style: TextStyle(color: Color(0xFFD0D6E2), fontSize: 13),
+                style: TextStyle(
+                  color: Color(0xFFD0D6E2),
+                  fontSize: 13,
+                ),
               ),
               SizedBox(height: 6),
               Text(

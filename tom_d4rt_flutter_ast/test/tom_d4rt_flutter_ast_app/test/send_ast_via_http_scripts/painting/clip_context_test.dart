@@ -146,24 +146,30 @@ Widget buildClipRectDemo(String title, Clip clipBehavior, Color color) {
 Widget buildClipRectSection() {
   print('Building ClipRect section');
   List<Widget> demos = [];
-
-  demos.add(
-    buildClipRectDemo('Hard Edge Clipping', Clip.hardEdge, Colors.blue),
-  );
-
-  demos.add(
-    buildClipRectDemo('Anti-Alias Clipping', Clip.antiAlias, Colors.green),
-  );
-
-  demos.add(
-    buildClipRectDemo(
-      'Anti-Alias With Save Layer',
-      Clip.antiAliasWithSaveLayer,
-      Colors.orange,
-    ),
-  );
-
-  demos.add(buildClipRectDemo('No Clipping', Clip.none, Colors.purple));
+  
+  demos.add(buildClipRectDemo(
+    'Hard Edge Clipping',
+    Clip.hardEdge,
+    Colors.blue,
+  ));
+  
+  demos.add(buildClipRectDemo(
+    'Anti-Alias Clipping',
+    Clip.antiAlias,
+    Colors.green,
+  ));
+  
+  demos.add(buildClipRectDemo(
+    'Anti-Alias With Save Layer',
+    Clip.antiAliasWithSaveLayer,
+    Colors.orange,
+  ));
+  
+  demos.add(buildClipRectDemo(
+    'No Clipping',
+    Clip.none,
+    Colors.purple,
+  ));
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -258,14 +264,14 @@ Widget buildClipPathDemo(
 
 class _CustomPathClipper extends CustomClipper<Path> {
   Path Function(Size size) pathBuilder;
-
+  
   _CustomPathClipper(this.pathBuilder);
-
+  
   @override
   Path getClip(Size size) {
     return pathBuilder(size);
   }
-
+  
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return false;
@@ -288,7 +294,7 @@ Path buildStarPath(Size size) {
   double outerRadius = size.width / 2.2;
   double innerRadius = outerRadius * 0.4;
   int points = 5;
-
+  
   int i = 0;
   for (i = 0; i < points * 2; i = i + 1) {
     double radius = (i % 2 == 0) ? outerRadius : innerRadius;
@@ -311,7 +317,7 @@ Path buildHexagonPath(Size size) {
   double centerY = size.height / 2;
   double radius = size.width / 2.5;
   int sides = 6;
-
+  
   int i = 0;
   for (i = 0; i < sides; i = i + 1) {
     double angle = (i * 2 * math.pi / sides) - (math.pi / 2);
@@ -350,45 +356,37 @@ Path buildWavePath(Size size) {
 
 Widget buildClipPathSection() {
   print('Building ClipPath section');
-
+  
   List<Widget> pathDemos = [];
-
-  pathDemos.add(
-    buildClipPathDemo(
-      'Triangle Clip',
-      buildTrianglePath,
-      Colors.teal,
-      'Uses moveTo and lineTo to create triangle path',
-    ),
-  );
-
-  pathDemos.add(
-    buildClipPathDemo(
-      'Star Clip',
-      buildStarPath,
-      Colors.amber,
-      'Alternating outer/inner points with angle calculations',
-    ),
-  );
-
-  pathDemos.add(
-    buildClipPathDemo(
-      'Hexagon Clip',
-      buildHexagonPath,
-      Colors.indigo,
-      'Regular hexagon using polar coordinates',
-    ),
-  );
-
-  pathDemos.add(
-    buildClipPathDemo(
-      'Wave Clip',
-      buildWavePath,
-      Colors.pink,
-      'Quadratic bezier curves creating wave effect',
-    ),
-  );
-
+  
+  pathDemos.add(buildClipPathDemo(
+    'Triangle Clip',
+    buildTrianglePath,
+    Colors.teal,
+    'Uses moveTo and lineTo to create triangle path',
+  ));
+  
+  pathDemos.add(buildClipPathDemo(
+    'Star Clip',
+    buildStarPath,
+    Colors.amber,
+    'Alternating outer/inner points with angle calculations',
+  ));
+  
+  pathDemos.add(buildClipPathDemo(
+    'Hexagon Clip',
+    buildHexagonPath,
+    Colors.indigo,
+    'Regular hexagon using polar coordinates',
+  ));
+  
+  pathDemos.add(buildClipPathDemo(
+    'Wave Clip',
+    buildWavePath,
+    Colors.pink,
+    'Quadratic bezier curves creating wave effect',
+  ));
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -508,63 +506,55 @@ Widget buildClipRRectDemo(
 
 Widget buildClipRRectSection() {
   print('Building ClipRRect section');
-
+  
   List<Widget> rrectDemos = [];
-
-  rrectDemos.add(
-    buildClipRRectDemo(
-      'Uniform Radius',
-      BorderRadius.circular(20),
-      Colors.blue,
+  
+  rrectDemos.add(buildClipRRectDemo(
+    'Uniform Radius',
+    BorderRadius.circular(20),
+    Colors.blue,
+  ));
+  
+  rrectDemos.add(buildClipRRectDemo(
+    'Top Corners Only',
+    BorderRadius.only(
+      topLeft: Radius.circular(30),
+      topRight: Radius.circular(30),
     ),
-  );
-
-  rrectDemos.add(
-    buildClipRRectDemo(
-      'Top Corners Only',
-      BorderRadius.only(
-        topLeft: Radius.circular(30),
-        topRight: Radius.circular(30),
-      ),
-      Colors.green,
+    Colors.green,
+  ));
+  
+  rrectDemos.add(buildClipRRectDemo(
+    'Diagonal Corners',
+    BorderRadius.only(
+      topLeft: Radius.circular(40),
+      bottomRight: Radius.circular(40),
     ),
-  );
-
-  rrectDemos.add(
-    buildClipRRectDemo(
-      'Diagonal Corners',
-      BorderRadius.only(
-        topLeft: Radius.circular(40),
-        bottomRight: Radius.circular(40),
-      ),
-      Colors.orange,
+    Colors.orange,
+  ));
+  
+  rrectDemos.add(buildClipRRectDemo(
+    'Elliptical Radius',
+    BorderRadius.all(Radius.elliptical(30, 15)),
+    Colors.purple,
+  ));
+  
+  rrectDemos.add(buildClipRRectDemo(
+    'Stadium Shape',
+    BorderRadius.circular(45),
+    Colors.red,
+  ));
+  
+  rrectDemos.add(buildClipRRectDemo(
+    'Mixed Corners',
+    BorderRadius.only(
+      topLeft: Radius.circular(10),
+      topRight: Radius.circular(25),
+      bottomLeft: Radius.circular(25),
+      bottomRight: Radius.circular(10),
     ),
-  );
-
-  rrectDemos.add(
-    buildClipRRectDemo(
-      'Elliptical Radius',
-      BorderRadius.all(Radius.elliptical(30, 15)),
-      Colors.purple,
-    ),
-  );
-
-  rrectDemos.add(
-    buildClipRRectDemo('Stadium Shape', BorderRadius.circular(45), Colors.red),
-  );
-
-  rrectDemos.add(
-    buildClipRRectDemo(
-      'Mixed Corners',
-      BorderRadius.only(
-        topLeft: Radius.circular(10),
-        topRight: Radius.circular(25),
-        bottomLeft: Radius.circular(25),
-        bottomRight: Radius.circular(10),
-      ),
-      Colors.cyan,
-    ),
-  );
+    Colors.cyan,
+  ));
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -593,12 +583,7 @@ Widget buildClipRRectSection() {
   );
 }
 
-Widget buildClipOvalDemo(
-  String title,
-  double width,
-  double height,
-  Color color,
-) {
+Widget buildClipOvalDemo(String title, double width, double height, Color color) {
   print('Building ClipOval demo: $title');
   double aspectRatio = width / height;
   String shapeDesc = '';
@@ -609,7 +594,7 @@ Widget buildClipOvalDemo(
   } else {
     shapeDesc = 'Vertical Ellipse';
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(12),
@@ -686,18 +671,43 @@ Widget buildClipOvalDemo(
 
 Widget buildClipOvalSection() {
   print('Building ClipOval section');
-
+  
   List<Widget> ovalDemos = [];
-
-  ovalDemos.add(buildClipOvalDemo('Perfect Circle', 100, 100, Colors.indigo));
-
-  ovalDemos.add(buildClipOvalDemo('Wide Ellipse', 160, 80, Colors.teal));
-
-  ovalDemos.add(buildClipOvalDemo('Tall Ellipse', 80, 120, Colors.deepOrange));
-
-  ovalDemos.add(buildClipOvalDemo('Small Circle', 60, 60, Colors.pink));
-
-  ovalDemos.add(buildClipOvalDemo('Extreme Wide', 180, 50, Colors.blue));
+  
+  ovalDemos.add(buildClipOvalDemo(
+    'Perfect Circle',
+    100,
+    100,
+    Colors.indigo,
+  ));
+  
+  ovalDemos.add(buildClipOvalDemo(
+    'Wide Ellipse',
+    160,
+    80,
+    Colors.teal,
+  ));
+  
+  ovalDemos.add(buildClipOvalDemo(
+    'Tall Ellipse',
+    80,
+    120,
+    Colors.deepOrange,
+  ));
+  
+  ovalDemos.add(buildClipOvalDemo(
+    'Small Circle',
+    60,
+    60,
+    Colors.pink,
+  ));
+  
+  ovalDemos.add(buildClipOvalDemo(
+    'Extreme Wide',
+    180,
+    50,
+    Colors.blue,
+  ));
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -735,12 +745,12 @@ Widget buildClipBehaviorCard(
   int qualityRating,
 ) {
   print('Building clip behavior card: $name');
-
+  
   List<Widget> perfStars = [];
   List<Widget> qualStars = [];
   int p = 0;
   int q = 0;
-
+  
   for (p = 0; p < 5; p = p + 1) {
     if (p < performanceRating) {
       perfStars.add(Icon(Icons.star, size: 14, color: Colors.amber));
@@ -748,7 +758,7 @@ Widget buildClipBehaviorCard(
       perfStars.add(Icon(Icons.star_border, size: 14, color: Colors.grey));
     }
   }
-
+  
   for (q = 0; q < 5; q = q + 1) {
     if (q < qualityRating) {
       qualStars.add(Icon(Icons.star, size: 14, color: Colors.green));
@@ -756,7 +766,7 @@ Widget buildClipBehaviorCard(
       qualStars.add(Icon(Icons.star_border, size: 14, color: Colors.grey));
     }
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(14),
@@ -841,52 +851,44 @@ Widget buildClipBehaviorCard(
 
 Widget buildClipBehaviorsSection() {
   print('Building clip behaviors section');
-
+  
   List<Widget> behaviorCards = [];
-
-  behaviorCards.add(
-    buildClipBehaviorCard(
-      'none',
-      'No clipping at all. Content can overflow bounds freely. Use when overflow is handled elsewhere or not possible.',
-      Icons.crop_free,
-      Colors.grey,
-      5,
-      1,
-    ),
-  );
-
-  behaviorCards.add(
-    buildClipBehaviorCard(
-      'hardEdge',
-      'Fast clipping with aliased edges. Best for rectangular clips where jagged edges are acceptable.',
-      Icons.crop_square,
-      Colors.blue,
-      4,
-      2,
-    ),
-  );
-
-  behaviorCards.add(
-    buildClipBehaviorCard(
-      'antiAlias',
-      'Smooth anti-aliased edges. Good balance of quality and performance for rounded shapes.',
-      Icons.blur_on,
-      Colors.green,
-      3,
-      4,
-    ),
-  );
-
-  behaviorCards.add(
-    buildClipBehaviorCard(
-      'antiAliasWithSaveLayer',
-      'Highest quality with save layer. Required for proper alpha blending but most expensive.',
-      Icons.layers,
-      Colors.purple,
-      1,
-      5,
-    ),
-  );
+  
+  behaviorCards.add(buildClipBehaviorCard(
+    'none',
+    'No clipping at all. Content can overflow bounds freely. Use when overflow is handled elsewhere or not possible.',
+    Icons.crop_free,
+    Colors.grey,
+    5,
+    1,
+  ));
+  
+  behaviorCards.add(buildClipBehaviorCard(
+    'hardEdge',
+    'Fast clipping with aliased edges. Best for rectangular clips where jagged edges are acceptable.',
+    Icons.crop_square,
+    Colors.blue,
+    4,
+    2,
+  ));
+  
+  behaviorCards.add(buildClipBehaviorCard(
+    'antiAlias',
+    'Smooth anti-aliased edges. Good balance of quality and performance for rounded shapes.',
+    Icons.blur_on,
+    Colors.green,
+    3,
+    4,
+  ));
+  
+  behaviorCards.add(buildClipBehaviorCard(
+    'antiAliasWithSaveLayer',
+    'Highest quality with save layer. Required for proper alpha blending but most expensive.',
+    Icons.layers,
+    Colors.purple,
+    1,
+    5,
+  ));
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -923,7 +925,7 @@ Widget buildClipBehaviorsSection() {
 
 Widget buildPushPopLayerDemo() {
   print('Building push/pop layer demo');
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -961,7 +963,7 @@ Widget buildPushPopLayerDemo() {
 
 Widget _buildLayerStackVisualization() {
   print('Building layer stack visualization');
-
+  
   List<Map<String, dynamic>> layers = [
     {'name': 'Root Canvas', 'color': Colors.grey.shade300, 'indent': 0},
     {'name': 'ClipRect (outer)', 'color': Colors.blue.shade100, 'indent': 1},
@@ -969,7 +971,7 @@ Widget _buildLayerStackVisualization() {
     {'name': 'ClipOval (inner)', 'color': Colors.orange.shade100, 'indent': 3},
     {'name': 'Content Paint', 'color': Colors.purple.shade100, 'indent': 4},
   ];
-
+  
   List<Widget> layerWidgets = [];
   int i = 0;
   for (i = 0; i < layers.length; i = i + 1) {
@@ -977,7 +979,7 @@ Widget _buildLayerStackVisualization() {
     int indent = layer['indent'] as int;
     Color color = layer['color'] as Color;
     String name = layer['name'] as String;
-
+    
     layerWidgets.add(
       Container(
         margin: EdgeInsets.only(left: indent * 20.0, top: 4, bottom: 4),
@@ -999,7 +1001,10 @@ Widget _buildLayerStackVisualization() {
               ),
             ),
             SizedBox(width: 6),
-            Text(name, style: TextStyle(fontSize: 13)),
+            Text(
+              name,
+              style: TextStyle(fontSize: 13),
+            ),
             SizedBox(width: 8),
             Icon(
               i < layers.length - 1 ? Icons.arrow_downward : Icons.brush,
@@ -1011,7 +1016,7 @@ Widget _buildLayerStackVisualization() {
       ),
     );
   }
-
+  
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1042,7 +1047,7 @@ Widget _buildLayerStackVisualization() {
 
 Widget _buildLayerExplanation() {
   print('Building layer explanation');
-
+  
   List<Map<String, String>> steps = [
     {
       'step': 'canvas.save()',
@@ -1052,13 +1057,16 @@ Widget _buildLayerExplanation() {
       'step': 'canvas.clipRect/Path/RRect',
       'desc': 'Applies the clipping region to canvas',
     },
-    {'step': 'paint operations', 'desc': 'Draw content within clipped area'},
+    {
+      'step': 'paint operations',
+      'desc': 'Draw content within clipped area',
+    },
     {
       'step': 'canvas.restore()',
       'desc': 'Restores previous canvas state, removes clip',
     },
   ];
-
+  
   List<Widget> stepWidgets = [];
   int s = 0;
   for (s = 0; s < steps.length; s = s + 1) {
@@ -1102,7 +1110,10 @@ Widget _buildLayerExplanation() {
                   ),
                   Text(
                     step['desc']!,
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
@@ -1112,7 +1123,7 @@ Widget _buildLayerExplanation() {
       ),
     );
   }
-
+  
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1140,7 +1151,7 @@ Widget _buildLayerExplanation() {
 
 Widget buildNestedClipDemo() {
   print('Building nested clip demo');
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1228,7 +1239,7 @@ Widget buildNestedClipDemo() {
 
 Widget buildClipUsageTable() {
   print('Building clip usage table');
-
+  
   List<Map<String, String>> usages = [
     {
       'widget': 'ClipRect',
@@ -1251,13 +1262,13 @@ Widget buildClipUsageTable() {
       'example': 'Waves, stars, polygons',
     },
   ];
-
+  
   List<Widget> rows = [];
   int u = 0;
   for (u = 0; u < usages.length; u = u + 1) {
     Map<String, String> usage = usages[u];
     Color rowColor = u % 2 == 0 ? Colors.grey.shade50 : Colors.white;
-
+    
     rows.add(
       Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
@@ -1277,13 +1288,19 @@ Widget buildClipUsageTable() {
             ),
             Expanded(
               flex: 3,
-              child: Text(usage['use']!, style: TextStyle(fontSize: 12)),
+              child: Text(
+                usage['use']!,
+                style: TextStyle(fontSize: 12),
+              ),
             ),
             Expanded(
               flex: 3,
               child: Text(
                 usage['example']!,
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey.shade600,
+                ),
               ),
             ),
           ],
@@ -1291,7 +1308,7 @@ Widget buildClipUsageTable() {
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     decoration: BoxDecoration(
@@ -1344,7 +1361,7 @@ Widget buildClipUsageTable() {
 
 Widget buildClipContextOverview() {
   print('Building ClipContext overview');
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1415,7 +1432,10 @@ Widget _buildFeatureChip(String label, IconData icon) {
         SizedBox(width: 6),
         Text(
           label,
-          style: TextStyle(fontSize: 12, color: Colors.deepPurple.shade700),
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.deepPurple.shade700,
+          ),
         ),
       ],
     ),
@@ -1424,7 +1444,7 @@ Widget _buildFeatureChip(String label, IconData icon) {
 
 Widget buildClipMethodsReference() {
   print('Building clip methods reference');
-
+  
   List<Map<String, String>> methods = [
     {
       'name': 'clipPathAndPaint',
@@ -1442,7 +1462,7 @@ Widget buildClipMethodsReference() {
       'desc': 'Clips to rectangle then invokes painter callback',
     },
   ];
-
+  
   List<Widget> methodCards = [];
   int m = 0;
   for (m = 0; m < methods.length; m = m + 1) {
@@ -1480,14 +1500,17 @@ Widget buildClipMethodsReference() {
             SizedBox(height: 6),
             Text(
               method['desc']!,
-              style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey.shade700,
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
+  
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1518,37 +1541,37 @@ Widget buildClipMethodsReference() {
 dynamic build(BuildContext context) {
   print('ClipContext deep demo test executing');
   print('Testing clipping paths and rects functionality');
-
+  
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildClipContextOverview(),
-
+        
         buildSectionHeader('ClipRect Examples'),
         buildClipRectSection(),
-
+        
         buildSectionHeader('ClipPath Examples'),
         buildClipPathSection(),
-
+        
         buildSectionHeader('ClipRRect Examples'),
         buildClipRRectSection(),
-
+        
         buildSectionHeader('ClipOval Examples'),
         buildClipOvalSection(),
-
+        
         buildSectionHeader('Push/Pop Clip Layers'),
         buildPushPopLayerDemo(),
         buildNestedClipDemo(),
-
+        
         buildSectionHeader('Clip Behaviors'),
         buildClipBehaviorsSection(),
-
+        
         buildSectionHeader('Quick Reference'),
         buildClipUsageTable(),
         buildClipMethodsReference(),
-
+        
         SizedBox(height: 24),
         Center(
           child: Text(

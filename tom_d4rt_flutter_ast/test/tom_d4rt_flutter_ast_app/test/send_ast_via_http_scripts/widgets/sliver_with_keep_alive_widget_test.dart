@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.pin_drop,
       'title': 'What is Keep-Alive?',
-      'body':
-          'When slivers build children lazily (SliverList, SliverGrid), '
+      'body': 'When slivers build children lazily (SliverList, SliverGrid), '
           'items that scroll off-screen are disposed to save memory. Their '
           'State objects are destroyed. Keep-alive prevents this — the '
           'widget stays in the tree even when not visible.',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.recycling,
       'title': 'The Problem',
-      'body':
-          'If a list item has a counter at 42 and scrolls off-screen, '
+      'body': 'If a list item has a counter at 42 and scrolls off-screen, '
           'the State is disposed. When scrolled back, a new State is created '
           'with the counter at 0. Text field input, animation progress, '
           'checkbox state — all lost without keep-alive.',
@@ -37,8 +35,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.push_pin,
       'title': 'KeepAlive / AutomaticKeepAlive',
-      'body':
-          'Flutter provides two mechanisms: KeepAlive wraps a child '
+      'body': 'Flutter provides two mechanisms: KeepAlive wraps a child '
           'widget directly with a keepAlive flag. AutomaticKeepAlive is '
           'inserted by SliverList/SliverGrid and listens for '
           'KeepAliveNotification from children using the mixin.',
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.code,
       'title': 'AutomaticKeepAliveClientMixin',
-      'body':
-          'The standard way to keep a list item alive: mix '
+      'body': 'The standard way to keep a list item alive: mix '
           'AutomaticKeepAliveClientMixin into the item\'s State, override '
           'wantKeepAlive to return true, and call super.build(context) in '
           'the build method. The sliver then preserves the item.',
@@ -127,8 +123,7 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'title': 'SliverList wraps children in AutomaticKeepAlive',
-      'body':
-          'Every child built by SliverList or SliverGrid is '
+      'body': 'Every child built by SliverList or SliverGrid is '
           'automatically wrapped in an AutomaticKeepAlive widget. This '
           'widget listens for KeepAliveNotifications from its subtree.',
       'icon': Icons.layers,
@@ -137,8 +132,7 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'title': 'Child mixes in AutomaticKeepAliveClientMixin',
-      'body':
-          'The child widget\'s State class uses '
+      'body': 'The child widget\'s State class uses '
           'AutomaticKeepAliveClientMixin and overrides wantKeepAlive. '
           'When wantKeepAlive returns true, a KeepAliveNotification is '
           'dispatched up the tree.',
@@ -148,8 +142,7 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'title': 'AutomaticKeepAlive catches the notification',
-      'body':
-          'The AutomaticKeepAlive widget receives the notification '
+      'body': 'The AutomaticKeepAlive widget receives the notification '
           'and wraps the child in a KeepAlive widget with keepAlive: true. '
           'This tells the sliver\'s render object to keep the child.',
       'icon': Icons.catching_pokemon,
@@ -158,8 +151,7 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'title': 'Render sliver preserves the child',
-      'body':
-          'When the child scrolls off-screen, the render sliver checks '
+      'body': 'When the child scrolls off-screen, the render sliver checks '
           'the KeepAlive flag. If true, it moves the child to a keep-alive '
           'bucket instead of disposing it. The State and Element persist.',
       'icon': Icons.save,
@@ -168,8 +160,7 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'title': 'Child scrolls back — instant restore',
-      'body':
-          'When the kept-alive child scrolls back into view, it is '
+      'body': 'When the kept-alive child scrolls back into view, it is '
           'moved from the bucket back to the active list. No rebuild, no '
           'state loss. It is the same widget instance with all state intact.',
       'icon': Icons.restore,
@@ -259,81 +250,84 @@ dynamic build(BuildContext context) {
           pinned: true,
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
-            final isKept = index.isEven;
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: isKept
-                    ? Colors.amber.withOpacity(0.08)
-                    : Colors.grey.withOpacity(0.04),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext ctx, int index) {
+              final isKept = index.isEven;
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
                   color: isKept
-                      ? Colors.amber.withOpacity(0.3)
-                      : Colors.grey.withOpacity(0.15),
-                ),
-              ),
-              child: ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
+                      ? Colors.amber.withOpacity(0.08)
+                      : Colors.grey.withOpacity(0.04),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
                     color: isKept
-                        ? Colors.amber.withOpacity(0.15)
-                        : Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    isKept ? Icons.push_pin : Icons.push_pin_outlined,
-                    color: isKept ? Colors.amber.shade700 : Colors.grey,
-                    size: 20,
+                        ? Colors.amber.withOpacity(0.3)
+                        : Colors.grey.withOpacity(0.15),
                   ),
                 ),
-                title: Text(
-                  'Item ${index + 1}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: isKept
-                        ? Colors.amber.shade800
-                        : Colors.grey.shade700,
-                  ),
-                ),
-                subtitle: Text(
-                  isKept
-                      ? 'keepAlive: true — state preserved'
-                      : 'keepAlive: false — state destroyed on scroll',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: isKept
-                        ? Colors.amber.shade600
-                        : Colors.grey.shade500,
-                  ),
-                ),
-                trailing: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isKept
-                        ? Colors.green.withOpacity(0.12)
-                        : Colors.red.withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    isKept ? 'KEPT' : 'DISPOSED',
-                    style: TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
+                child: ListTile(
+                  leading: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
                       color: isKept
-                          ? Colors.green.shade700
-                          : Colors.red.shade400,
+                          ? Colors.amber.withOpacity(0.15)
+                          : Colors.grey.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(
+                      isKept ? Icons.push_pin : Icons.push_pin_outlined,
+                      color: isKept ? Colors.amber.shade700 : Colors.grey,
+                      size: 20,
+                    ),
+                  ),
+                  title: Text(
+                    'Item ${index + 1}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: isKept
+                          ? Colors.amber.shade800
+                          : Colors.grey.shade700,
+                    ),
+                  ),
+                  subtitle: Text(
+                    isKept
+                        ? 'keepAlive: true — state preserved'
+                        : 'keepAlive: false — state destroyed on scroll',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: isKept
+                          ? Colors.amber.shade600
+                          : Colors.grey.shade500,
+                    ),
+                  ),
+                  trailing: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isKept
+                          ? Colors.green.withOpacity(0.12)
+                          : Colors.red.withOpacity(0.08),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      isKept ? 'KEPT' : 'DISPOSED',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                        color: isKept
+                            ? Colors.green.shade700
+                            : Colors.red.shade400,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          }, childCount: 20),
+              );
+            },
+            childCount: 20,
+          ),
         ),
       ],
     ),
@@ -347,48 +341,40 @@ dynamic build(BuildContext context) {
   final mixinSteps = <Map<String, dynamic>>[
     {
       'title': 'Step 1: Add the mixin',
-      'code':
-          'class _MyItemState extends State<MyItem>\n'
+      'code': 'class _MyItemState extends State<MyItem>\n'
           '    with AutomaticKeepAliveClientMixin {\n'
           '  ...\n'
           '}',
-      'note':
-          'The mixin provides the wantKeepAlive getter and the '
+      'note': 'The mixin provides the wantKeepAlive getter and the '
           'mechanism to dispatch KeepAliveNotification.',
       'color': Colors.amber,
     },
     {
       'title': 'Step 2: Override wantKeepAlive',
-      'code':
-          '@override\n'
+      'code': '@override\n'
           'bool get wantKeepAlive => true;',
-      'note':
-          'Return true to keep this widget alive. You can also make '
+      'note': 'Return true to keep this widget alive. You can also make '
           'it conditional: return _hasUnsavedData;',
       'color': Colors.blue,
     },
     {
       'title': 'Step 3: Call super.build in build()',
-      'code':
-          '@override\n'
+      'code': '@override\n'
           'Widget build(BuildContext context) {\n'
           '  super.build(context); // REQUIRED!\n'
           '  return YourWidget(...);\n'
           '}',
-      'note':
-          'This call triggers the KeepAliveNotification. Without it, '
+      'note': 'This call triggers the KeepAliveNotification. Without it, '
           'the mixin does not work and the child will be disposed.',
       'color': Colors.green,
     },
     {
       'title': 'Step 4: Dynamic keep-alive',
-      'code':
-          'void _onDataSaved() {\n'
+      'code': 'void _onDataSaved() {\n'
           '  _hasUnsavedData = false;\n'
           '  updateKeepAlive();\n'
           '}',
-      'note':
-          'Call updateKeepAlive() when the condition changes. This '
+      'note': 'Call updateKeepAlive() when the condition changes. This '
           're-evaluates wantKeepAlive and updates the KeepAlive widget.',
       'color': Colors.purple,
     },
@@ -462,8 +448,7 @@ dynamic build(BuildContext context) {
   final perfItems = <Map<String, dynamic>>[
     {
       'title': 'Memory Usage',
-      'body':
-          'Each kept-alive item retains its full widget subtree, Element, '
+      'body': 'Each kept-alive item retains its full widget subtree, Element, '
           'and State in memory. 100 kept-alive items with images will consume '
           'significantly more memory than 100 lazily-built items.',
       'severity': 'High',
@@ -472,8 +457,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Build Performance',
-      'body':
-          'Kept-alive items do not need to rebuild when scrolled back. '
+      'body': 'Kept-alive items do not need to rebuild when scrolled back. '
           'This is a performance win — no initState, no build overhead. '
           'The trade-off is memory for speed.',
       'severity': 'Positive',
@@ -482,8 +466,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Bucket Overhead',
-      'body':
-          'Kept-alive children move to an internal "keep-alive bucket" '
+      'body': 'Kept-alive children move to an internal "keep-alive bucket" '
           'in the render object. This is a lightweight operation but the '
           'render sliver tracks more children than it normally would.',
       'severity': 'Low',
@@ -492,8 +475,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Recommendation',
-      'body':
-          'Use keep-alive selectively. Good candidates: items with user '
+      'body': 'Use keep-alive selectively. Good candidates: items with user '
           'input (text fields, checkboxes), media players, items with '
           'expensive initialization. Bad: simple text tiles, static cards.',
       'severity': 'Guidance',
@@ -502,8 +484,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dynamic Control',
-      'body':
-          'Use conditional wantKeepAlive to keep alive only when needed. '
+      'body': 'Use conditional wantKeepAlive to keep alive only when needed. '
           'A form item might return true only while it has unsaved changes. '
           'Once saved, let it be disposed to free memory.',
       'severity': 'Best Practice',
@@ -537,7 +518,11 @@ dynamic build(BuildContext context) {
                     color: pColor.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(pi['icon'] as IconData, color: pColor, size: 22),
+                  child: Icon(
+                    pi['icon'] as IconData,
+                    color: pColor,
+                    size: 22,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -593,8 +578,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Form Fields in Lists',
-      'body':
-          'Long forms with many fields in a scrollable list. Users fill '
+      'body': 'Long forms with many fields in a scrollable list. Users fill '
           'in data and scroll to see more fields. Without keep-alive, '
           'scrolling back would erase their input.',
       'icon': Icons.edit_note,
@@ -603,8 +587,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Media Players',
-      'body':
-          'A feed with embedded video or audio players. Each player has '
+      'body': 'A feed with embedded video or audio players. Each player has '
           'playback state (position, playing/paused). Keep-alive preserves '
           'the playback position when scrolling away and back.',
       'icon': Icons.play_circle,
@@ -613,8 +596,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Counter and Toggle Widgets',
-      'body':
-          'Shopping carts with quantity counters, to-do lists with '
+      'body': 'Shopping carts with quantity counters, to-do lists with '
           'checkboxes. The user\'s selections persist across scrolling '
           'without needing external state management.',
       'icon': Icons.add_shopping_cart,
@@ -623,8 +605,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Animated Items',
-      'body':
-          'List items that run entrance animations or shimmer effects. '
+      'body': 'List items that run entrance animations or shimmer effects. '
           'Without keep-alive, scrolling back triggers the animation again. '
           'With keep-alive, you see the final state.',
       'icon': Icons.animation,
@@ -633,8 +614,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Expensive Initialization',
-      'body':
-          'Items that perform expensive computations in initState — '
+      'body': 'Items that perform expensive computations in initState — '
           'parsing data, loading resources, connecting to streams. '
           'Keep-alive avoids repeating that initialization.',
       'icon': Icons.data_object,
@@ -843,7 +823,9 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Colors.green.withOpacity(0.05),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: Colors.green.withOpacity(0.15)),
+                      border: Border.all(
+                        color: Colors.green.withOpacity(0.15),
+                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -884,38 +866,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.push_pin,
-      'text':
-          'KeepAlive / AutomaticKeepAlive prevent sliver list children '
+      'text': 'KeepAlive / AutomaticKeepAlive prevent sliver list children '
           'from being disposed when they scroll off-screen.',
     },
     {
       'icon': Icons.code,
-      'text':
-          'Use AutomaticKeepAliveClientMixin: mix it into State, override '
+      'text': 'Use AutomaticKeepAliveClientMixin: mix it into State, override '
           'wantKeepAlive, and call super.build(context).',
     },
     {
       'icon': Icons.memory,
-      'text':
-          'Kept-alive children consume memory. Use selectively for items '
+      'text': 'Kept-alive children consume memory. Use selectively for items '
           'with user state, not for static content.',
     },
     {
       'icon': Icons.toggle_on,
-      'text':
-          'Make wantKeepAlive conditional and call updateKeepAlive() when '
+      'text': 'Make wantKeepAlive conditional and call updateKeepAlive() when '
           'state changes — release memory when no longer needed.',
     },
     {
       'icon': Icons.speed,
-      'text':
-          'Kept-alive items restore instantly on scroll-back, no '
+      'text': 'Kept-alive items restore instantly on scroll-back, no '
           'initState or build overhead. Great for expensive widgets.',
     },
     {
       'icon': Icons.inventory_2,
-      'text':
-          'Off-screen kept-alive children live in the render object\'s '
+      'text': 'Off-screen kept-alive children live in the render object\'s '
           'keep-alive bucket — a lightweight holding pattern.',
     },
   ];

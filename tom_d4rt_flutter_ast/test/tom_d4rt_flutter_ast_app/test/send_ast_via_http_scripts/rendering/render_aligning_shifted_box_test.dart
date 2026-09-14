@@ -5,16 +5,14 @@ const List<_ThemePreset> _themePresets = <_ThemePreset>[
   _ThemePreset(
     id: 'atlas',
     name: 'Atlas Grid',
-    description:
-        'Technical board style with high readability for alignment diagnostics.',
+    description: 'Technical board style with high readability for alignment diagnostics.',
     seed: Color(0xFF0E7490),
     brightness: Brightness.light,
   ),
   _ThemePreset(
     id: 'ember',
     name: 'Ember Studio',
-    description:
-        'Warm accent profile useful in workshops and walkthrough sessions.',
+    description: 'Warm accent profile useful in workshops and walkthrough sessions.',
     seed: Color(0xFFB45309),
     brightness: Brightness.light,
   ),
@@ -28,8 +26,7 @@ const List<_ThemePreset> _themePresets = <_ThemePreset>[
   _ThemePreset(
     id: 'mint',
     name: 'Mint Diagram',
-    description:
-        'Calm profile for long teaching sessions and team review boards.',
+    description: 'Calm profile for long teaching sessions and team review boards.',
     seed: Color(0xFF047857),
     brightness: Brightness.light,
   ),
@@ -44,8 +41,7 @@ const List<_Scenario> _scenarios = <_Scenario>[
   _Scenario(
     id: 'factor-lab',
     title: 'Factor Laboratory',
-    subtitle:
-        'Explore widthFactor and heightFactor interactions with constraints.',
+    subtitle: 'Explore widthFactor and heightFactor interactions with constraints.',
   ),
   _Scenario(
     id: 'rtl-ltr',
@@ -55,68 +51,19 @@ const List<_Scenario> _scenarios = <_Scenario>[
   _Scenario(
     id: 'operations',
     title: 'Operations Console',
-    subtitle:
-        'Run integrated diagnostics with timeline, snapshots, and guide rails.',
+    subtitle: 'Run integrated diagnostics with timeline, snapshots, and guide rails.',
   ),
 ];
 
 const List<_PresetAlignment> _alignmentPresets = <_PresetAlignment>[
-  _PresetAlignment(
-    id: 'center',
-    label: 'Center',
-    x: 0,
-    y: 0,
-    note: 'Neutral placement for baseline checks.',
-  ),
-  _PresetAlignment(
-    id: 'tl',
-    label: 'Top Left',
-    x: -1,
-    y: -1,
-    note: 'Pins child to top-left corner.',
-  ),
-  _PresetAlignment(
-    id: 'tr',
-    label: 'Top Right',
-    x: 1,
-    y: -1,
-    note: 'Pins child to top-right corner.',
-  ),
-  _PresetAlignment(
-    id: 'bl',
-    label: 'Bottom Left',
-    x: -1,
-    y: 1,
-    note: 'Pins child to bottom-left corner.',
-  ),
-  _PresetAlignment(
-    id: 'br',
-    label: 'Bottom Right',
-    x: 1,
-    y: 1,
-    note: 'Pins child to bottom-right corner.',
-  ),
-  _PresetAlignment(
-    id: 'axisX',
-    label: 'Axis X',
-    x: 1,
-    y: 0,
-    note: 'Horizontal shift, vertical center.',
-  ),
-  _PresetAlignment(
-    id: 'axisY',
-    label: 'Axis Y',
-    x: 0,
-    y: 1,
-    note: 'Vertical shift, horizontal center.',
-  ),
-  _PresetAlignment(
-    id: 'diag',
-    label: 'Diagonal',
-    x: 0.68,
-    y: -0.42,
-    note: 'Mixed vector for nuanced studies.',
-  ),
+  _PresetAlignment(id: 'center', label: 'Center', x: 0, y: 0, note: 'Neutral placement for baseline checks.'),
+  _PresetAlignment(id: 'tl', label: 'Top Left', x: -1, y: -1, note: 'Pins child to top-left corner.'),
+  _PresetAlignment(id: 'tr', label: 'Top Right', x: 1, y: -1, note: 'Pins child to top-right corner.'),
+  _PresetAlignment(id: 'bl', label: 'Bottom Left', x: -1, y: 1, note: 'Pins child to bottom-left corner.'),
+  _PresetAlignment(id: 'br', label: 'Bottom Right', x: 1, y: 1, note: 'Pins child to bottom-right corner.'),
+  _PresetAlignment(id: 'axisX', label: 'Axis X', x: 1, y: 0, note: 'Horizontal shift, vertical center.'),
+  _PresetAlignment(id: 'axisY', label: 'Axis Y', x: 0, y: 1, note: 'Vertical shift, horizontal center.'),
+  _PresetAlignment(id: 'diag', label: 'Diagonal', x: 0.68, y: -0.42, note: 'Mixed vector for nuanced studies.'),
 ];
 
 const List<String> _introBullets = <String>[
@@ -154,11 +101,7 @@ class _ThemePreset {
 }
 
 class _Scenario {
-  const _Scenario({
-    required this.id,
-    required this.title,
-    required this.subtitle,
-  });
+  const _Scenario({required this.id, required this.title, required this.subtitle});
 
   final String id;
   final String title;
@@ -182,12 +125,7 @@ class _PresetAlignment {
 }
 
 class _Metric {
-  const _Metric({
-    required this.label,
-    required this.value,
-    required this.note,
-    required this.icon,
-  });
+  const _Metric({required this.label, required this.value, required this.note, required this.icon});
 
   final String label;
   final String value;
@@ -196,11 +134,7 @@ class _Metric {
 }
 
 class _TimelineEntry {
-  const _TimelineEntry({
-    required this.time,
-    required this.title,
-    required this.message,
-  });
+  const _TimelineEntry({required this.time, required this.title, required this.message});
 
   final DateTime time;
   final String title;
@@ -235,12 +169,10 @@ class _RenderAligningShiftedBoxStudio extends StatefulWidget {
   const _RenderAligningShiftedBoxStudio();
 
   @override
-  State<_RenderAligningShiftedBoxStudio> createState() =>
-      _RenderAligningShiftedBoxStudioState();
+  State<_RenderAligningShiftedBoxStudio> createState() => _RenderAligningShiftedBoxStudioState();
 }
 
-class _RenderAligningShiftedBoxStudioState
-    extends State<_RenderAligningShiftedBoxStudio> {
+class _RenderAligningShiftedBoxStudioState extends State<_RenderAligningShiftedBoxStudio> {
   final GlobalKey _hostKey = GlobalKey();
   final ScrollController _scrollController = ScrollController();
 
@@ -311,9 +243,7 @@ class _RenderAligningShiftedBoxStudioState
 
     final RenderBox? child = object.child;
     final BoxParentData? parentData = child?.parentData as BoxParentData?;
-    final Alignment resolved = object.alignment.resolve(
-      object.textDirection ?? TextDirection.ltr,
-    );
+    final Alignment resolved = object.alignment.resolve(object.textDirection ?? TextDirection.ltr);
     final _Snapshot data = _Snapshot(
       hostSize: object.size,
       childSize: child?.size ?? Size.zero,
@@ -393,78 +323,18 @@ class _RenderAligningShiftedBoxStudioState
         : '(${s.alignment.x.toStringAsFixed(2)}, ${s.alignment.y.toStringAsFixed(2)})';
 
     return <_Metric>[
-      _Metric(
-        label: 'Host Size',
-        value: host,
-        note: 'Final constrained size of host render box.',
-        icon: Icons.fit_screen,
-      ),
-      _Metric(
-        label: 'Child Size',
-        value: child,
-        note: 'Measured child size used for alignment.',
-        icon: Icons.crop_square,
-      ),
-      _Metric(
-        label: 'Child Offset',
-        value: offset,
-        note: 'BoxParentData offset written by alignChild().',
-        icon: Icons.open_with,
-      ),
-      _Metric(
-        label: 'Resolved',
-        value: resolved,
-        note: 'Resolved alignment after directionality processing.',
-        icon: Icons.my_location,
-      ),
-      _Metric(
-        label: 'Snapshots',
-        value: '$_snapshotCount',
-        note: 'Total render snapshots collected.',
-        icon: Icons.camera_alt_outlined,
-      ),
-      _Metric(
-        label: 'Preset Applies',
-        value: '$_applyCount',
-        note: 'How many preset applications were executed.',
-        icon: Icons.checklist_rtl_outlined,
-      ),
-      _Metric(
-        label: 'Toggles',
-        value: '$_toggleCount',
-        note: 'Count of reset/toggle operations.',
-        icon: Icons.tune,
-      ),
-      _Metric(
-        label: 'Theme',
-        value: _themePresets[_themeIndex].name,
-        note: 'Visual profile currently active.',
-        icon: Icons.palette_outlined,
-      ),
-      _Metric(
-        label: 'Scenario',
-        value: _scenarios[_scenarioIndex].title,
-        note: 'Narrative track currently selected.',
-        icon: Icons.dashboard_customize_outlined,
-      ),
-      _Metric(
-        label: 'Direction',
-        value: _rtl ? 'RTL' : 'LTR',
-        note: 'Direction that resolves directional alignment.',
-        icon: Icons.swap_horiz,
-      ),
-      _Metric(
-        label: 'Width Factor',
-        value: _useWidthFactor ? _widthFactor.toStringAsFixed(2) : 'disabled',
-        note: 'Host width scales with child width when enabled.',
-        icon: Icons.width_normal,
-      ),
-      _Metric(
-        label: 'Height Factor',
-        value: _useHeightFactor ? _heightFactor.toStringAsFixed(2) : 'disabled',
-        note: 'Host height scales with child height when enabled.',
-        icon: Icons.height,
-      ),
+      _Metric(label: 'Host Size', value: host, note: 'Final constrained size of host render box.', icon: Icons.fit_screen),
+      _Metric(label: 'Child Size', value: child, note: 'Measured child size used for alignment.', icon: Icons.crop_square),
+      _Metric(label: 'Child Offset', value: offset, note: 'BoxParentData offset written by alignChild().', icon: Icons.open_with),
+      _Metric(label: 'Resolved', value: resolved, note: 'Resolved alignment after directionality processing.', icon: Icons.my_location),
+      _Metric(label: 'Snapshots', value: '$_snapshotCount', note: 'Total render snapshots collected.', icon: Icons.camera_alt_outlined),
+      _Metric(label: 'Preset Applies', value: '$_applyCount', note: 'How many preset applications were executed.', icon: Icons.checklist_rtl_outlined),
+      _Metric(label: 'Toggles', value: '$_toggleCount', note: 'Count of reset/toggle operations.', icon: Icons.tune),
+      _Metric(label: 'Theme', value: _themePresets[_themeIndex].name, note: 'Visual profile currently active.', icon: Icons.palette_outlined),
+      _Metric(label: 'Scenario', value: _scenarios[_scenarioIndex].title, note: 'Narrative track currently selected.', icon: Icons.dashboard_customize_outlined),
+      _Metric(label: 'Direction', value: _rtl ? 'RTL' : 'LTR', note: 'Direction that resolves directional alignment.', icon: Icons.swap_horiz),
+      _Metric(label: 'Width Factor', value: _useWidthFactor ? _widthFactor.toStringAsFixed(2) : 'disabled', note: 'Host width scales with child width when enabled.', icon: Icons.width_normal),
+      _Metric(label: 'Height Factor', value: _useHeightFactor ? _heightFactor.toStringAsFixed(2) : 'disabled', note: 'Host height scales with child height when enabled.', icon: Icons.height),
     ];
   }
 
@@ -554,11 +424,7 @@ class _RenderAligningShiftedBoxStudioState
               spacing: 10,
               runSpacing: 8,
               children: <Widget>[
-                Icon(
-                  Icons.align_horizontal_left_rounded,
-                  color: scheme.primary,
-                  size: 24,
-                ),
+                Icon(Icons.align_horizontal_left_rounded, color: scheme.primary, size: 24),
                 Text(
                   'RenderAligningShiftedBox Deep Demo',
                   style: TextStyle(
@@ -568,20 +434,14 @@ class _RenderAligningShiftedBoxStudioState
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.primaryContainer,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
                     _scenarios[_scenarioIndex].title,
-                    style: TextStyle(
-                      color: scheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -606,21 +466,12 @@ class _RenderAligningShiftedBoxStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Profiles',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
+            Text('Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_themePresets.length, (
-                int index,
-              ) {
+              children: List<Widget>.generate(_themePresets.length, (int index) {
                 final _ThemePreset p = _themePresets[index];
                 final bool selected = index == _themeIndex;
                 return ChoiceChip(
@@ -641,14 +492,7 @@ class _RenderAligningShiftedBoxStudioState
               style: TextStyle(color: scheme.onSurfaceVariant),
             ),
             const SizedBox(height: 14),
-            Text(
-              'Scenarios',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
+            Text('Scenarios', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
@@ -710,11 +554,7 @@ class _RenderAligningShiftedBoxStudioState
           children: <Widget>[
             Text(
               'Render Host',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
+              style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18),
             ),
             const SizedBox(height: 6),
             Text(
@@ -734,24 +574,13 @@ class _RenderAligningShiftedBoxStudioState
                 ),
                 child: Stack(
                   children: <Widget>[
-                    if (_showGrid)
-                      Positioned.fill(
-                        child: CustomPaint(
-                          painter: _GridPainter(
-                            color: scheme.outlineVariant.withValues(
-                              alpha: 0.24,
-                            ),
-                          ),
-                        ),
-                      ),
+                    if (_showGrid) Positioned.fill(child: CustomPaint(painter: _GridPainter(color: scheme.outlineVariant.withValues(alpha: 0.24)))),
                     Positioned.fill(
                       child: Center(
                         child: _RenderAligningShiftedBoxHost(
                           key: _hostKey,
                           alignment: geometry,
-                          textDirection: _rtl
-                              ? TextDirection.rtl
-                              : TextDirection.ltr,
+                          textDirection: _rtl ? TextDirection.rtl : TextDirection.ltr,
                           widthFactor: _useWidthFactor ? _widthFactor : null,
                           heightFactor: _useHeightFactor ? _heightFactor : null,
                           child: _buildChildNode(scheme),
@@ -768,17 +597,10 @@ class _RenderAligningShiftedBoxStudioState
                           border: Border.all(color: scheme.outlineVariant),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                           child: Text(
                             _rtl ? 'Direction: RTL' : 'Direction: LTR',
-                            style: TextStyle(
-                              color: scheme.onSurfaceVariant,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
@@ -803,10 +625,7 @@ class _RenderAligningShiftedBoxStudioState
                       _rtl = !_rtl;
                       _toggleCount += 1;
                     });
-                    _addTimeline(
-                      'Direction Toggle',
-                      _rtl ? 'Switched to RTL.' : 'Switched to LTR.',
-                    );
+                    _addTimeline('Direction Toggle', _rtl ? 'Switched to RTL.' : 'Switched to LTR.');
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       _captureSnapshot('Captured after direction toggle.');
                     });
@@ -839,11 +658,7 @@ class _RenderAligningShiftedBoxStudioState
           end: Alignment.bottomRight,
         ),
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: scheme.primary.withValues(alpha: 0.22),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
+          BoxShadow(color: scheme.primary.withValues(alpha: 0.22), blurRadius: 16, offset: const Offset(0, 8)),
         ],
       ),
       child: Center(
@@ -854,10 +669,7 @@ class _RenderAligningShiftedBoxStudioState
             const SizedBox(height: 4),
             Text(
               '${_childWidth.toStringAsFixed(0)} x ${_childHeight.toStringAsFixed(0)}',
-              style: TextStyle(
-                color: scheme.onPrimaryContainer,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -888,14 +700,7 @@ class _RenderAligningShiftedBoxStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'Controls',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             Text(
               'Tune alignment, factors, host and child dimensions, and diagnostics overlays.',
@@ -1017,8 +822,7 @@ class _RenderAligningShiftedBoxStudioState
               max: 2.8,
               divisions: 48,
               enabled: _useHeightFactor,
-              onChanged: (double value) =>
-                  setState(() => _heightFactor = value),
+              onChanged: (double value) => setState(() => _heightFactor = value),
               onChangeEnd: (_) => _captureSnapshot('heightFactor changed.'),
             ),
             const Divider(height: 24),
@@ -1026,9 +830,7 @@ class _RenderAligningShiftedBoxStudioState
               contentPadding: EdgeInsets.zero,
               value: _directional,
               title: const Text('Use AlignmentDirectional'),
-              subtitle: const Text(
-                'Resolve horizontal meaning against TextDirection.',
-              ),
+              subtitle: const Text('Resolve horizontal meaning against TextDirection.'),
               onChanged: (bool? value) {
                 setState(() {
                   _directional = value ?? false;
@@ -1041,36 +843,31 @@ class _RenderAligningShiftedBoxStudioState
               contentPadding: EdgeInsets.zero,
               value: _showGrid,
               title: const Text('Show host grid'),
-              onChanged: (bool? value) =>
-                  setState(() => _showGrid = value ?? true),
+              onChanged: (bool? value) => setState(() => _showGrid = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showGuide,
               title: const Text('Show guide board'),
-              onChanged: (bool? value) =>
-                  setState(() => _showGuide = value ?? true),
+              onChanged: (bool? value) => setState(() => _showGuide = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showTimeline,
               title: const Text('Show timeline board'),
-              onChanged: (bool? value) =>
-                  setState(() => _showTimeline = value ?? true),
+              onChanged: (bool? value) => setState(() => _showTimeline = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showDiagnostics,
               title: const Text('Show diagnostics board'),
-              onChanged: (bool? value) =>
-                  setState(() => _showDiagnostics = value ?? true),
+              onChanged: (bool? value) => setState(() => _showDiagnostics = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _animatePulse,
               title: const Text('Pulse child node'),
-              onChanged: (bool? value) =>
-                  setState(() => _animatePulse = value ?? true),
+              onChanged: (bool? value) => setState(() => _animatePulse = value ?? true),
             ),
           ],
         ),
@@ -1089,9 +886,7 @@ class _RenderAligningShiftedBoxStudioState
     required ValueChanged<double> onChangeEnd,
     bool enabled = true,
   }) {
-    final TextStyle labelStyle = TextStyle(
-      color: enabled ? scheme.onSurface : scheme.onSurfaceVariant,
-    );
+    final TextStyle labelStyle = TextStyle(color: enabled ? scheme.onSurface : scheme.onSurfaceVariant);
     return Opacity(
       opacity: enabled ? 1 : 0.48,
       child: Column(
@@ -1100,10 +895,7 @@ class _RenderAligningShiftedBoxStudioState
           Row(
             children: <Widget>[
               Expanded(child: Text(label, style: labelStyle)),
-              Text(
-                value.toStringAsFixed(2),
-                style: TextStyle(color: scheme.onSurfaceVariant),
-              ),
+              Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
             ],
           ),
           Slider(
@@ -1128,14 +920,7 @@ class _RenderAligningShiftedBoxStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Alignment Presets',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Alignment Presets', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             Text(
               'Quick jumps for common render alignment vectors.',
@@ -1152,7 +937,7 @@ class _RenderAligningShiftedBoxStudioState
             Wrap(
               spacing: 10,
               runSpacing: 10,
-              children: _alignmentPresets.map((_PresetAlignment preset) {
+              children: _alignmentPresets.map(( _PresetAlignment preset) {
                 return ActionChip(
                   avatar: CircleAvatar(
                     radius: 12,
@@ -1164,11 +949,7 @@ class _RenderAligningShiftedBoxStudioState
                       // itself, and `.first` on a String fails. The labels
                       // here are ASCII so substring(0, 1) is equivalent.
                       preset.label.isEmpty ? '' : preset.label.substring(0, 1),
-                      style: TextStyle(
-                        color: scheme.onPrimaryContainer,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: TextStyle(color: scheme.onPrimaryContainer, fontSize: 11, fontWeight: FontWeight.w700),
                     ),
                   ),
                   label: Text(preset.label),
@@ -1192,24 +973,17 @@ class _RenderAligningShiftedBoxStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Metrics & Diagnostics',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Metrics & Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int count = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                    ? 3
-                    : constraints.maxWidth > 560
-                    ? 2
-                    : 1;
+                        ? 3
+                        : constraints.maxWidth > 560
+                            ? 2
+                            : 1;
                 return GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -1235,19 +1009,12 @@ class _RenderAligningShiftedBoxStudioState
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(
-                                  metric.icon,
-                                  color: scheme.primary,
-                                  size: 18,
-                                ),
+                                Icon(metric.icon, color: scheme.primary, size: 18),
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
                                     metric.label,
-                                    style: TextStyle(
-                                      color: scheme.onSurfaceVariant,
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700),
                                   ),
                                 ),
                               ],
@@ -1255,19 +1022,12 @@ class _RenderAligningShiftedBoxStudioState
                             const Spacer(),
                             Text(
                               metric.value,
-                              style: TextStyle(
-                                color: scheme.onSurface,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 16,
-                              ),
+                              style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 16),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               metric.note,
-                              style: TextStyle(
-                                color: scheme.onSurfaceVariant,
-                                fontSize: 12,
-                              ),
+                              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
                             ),
                           ],
                         ),
@@ -1290,12 +1050,12 @@ class _RenderAligningShiftedBoxStudioState
     final String primary = s == null
         ? 'Snapshot unavailable. Click Capture Snapshot after first frame.'
         : 'Host ${s.hostSize.width.toStringAsFixed(1)} x ${s.hostSize.height.toStringAsFixed(1)}  |  '
-              'Child ${s.childSize.width.toStringAsFixed(1)} x ${s.childSize.height.toStringAsFixed(1)}';
+            'Child ${s.childSize.width.toStringAsFixed(1)} x ${s.childSize.height.toStringAsFixed(1)}';
     final String secondary = s == null
         ? 'No render inspection data yet.'
         : 'Offset (${s.childOffset.dx.toStringAsFixed(2)}, ${s.childOffset.dy.toStringAsFixed(2)})  |  '
-              'Resolved (${s.alignment.x.toStringAsFixed(2)}, ${s.alignment.y.toStringAsFixed(2)})  |  '
-              'Direction ${s.direction.name.toUpperCase()}';
+            'Resolved (${s.alignment.x.toStringAsFixed(2)}, ${s.alignment.y.toStringAsFixed(2)})  |  '
+            'Direction ${s.direction.name.toUpperCase()}';
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -1312,13 +1072,7 @@ class _RenderAligningShiftedBoxStudioState
               children: <Widget>[
                 Icon(Icons.memory_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text(
-                  'Latest Snapshot',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Latest Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
               ],
             ),
             const SizedBox(height: 10),
@@ -1347,14 +1101,7 @@ class _RenderAligningShiftedBoxStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Guide',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
+            Text('Guide', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
             const SizedBox(height: 8),
             ..._introBullets.map((String entry) {
               return Padding(
@@ -1367,24 +1114,13 @@ class _RenderAligningShiftedBoxStudioState
                       child: Icon(Icons.circle, size: 8, color: scheme.primary),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        entry,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
-                    ),
+                    Expanded(child: Text(entry, style: TextStyle(color: scheme.onSurfaceVariant))),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            Text(
-              'Best Practices',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Best Practices', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             ..._bestPractices.map((String entry) {
               return Padding(
@@ -1394,19 +1130,10 @@ class _RenderAligningShiftedBoxStudioState
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 3),
-                      child: Icon(
-                        Icons.check_circle_outline,
-                        size: 14,
-                        color: scheme.secondary,
-                      ),
+                      child: Icon(Icons.check_circle_outline, size: 14, color: scheme.secondary),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        entry,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
-                    ),
+                    Expanded(child: Text(entry, style: TextStyle(color: scheme.onSurfaceVariant))),
                   ],
                 ),
               );
@@ -1428,14 +1155,7 @@ class _RenderAligningShiftedBoxStudioState
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'Timeline',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
+                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
                 const Spacer(),
                 TextButton.icon(
                   onPressed: () {
@@ -1471,7 +1191,7 @@ class _RenderAligningShiftedBoxStudioState
               )
             else
               Column(
-                children: _timeline.map((_TimelineEntry entry) {
+                children: _timeline.map(( _TimelineEntry entry) {
                   final String stamp =
                       '${entry.time.hour.toString().padLeft(2, '0')}:${entry.time.minute.toString().padLeft(2, '0')}:${entry.time.second.toString().padLeft(2, '0')}';
                   return Container(
@@ -1484,22 +1204,10 @@ class _RenderAligningShiftedBoxStudioState
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(
-                          stamp.substring(stamp.length - 2),
-                          style: TextStyle(color: scheme.onPrimaryContainer),
-                        ),
+                        child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
                       ),
-                      title: Text(
-                        entry.title,
-                        style: TextStyle(
-                          color: scheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      subtitle: Text(
-                        '$stamp  |  ${entry.message}',
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
+                      title: Text(entry.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      subtitle: Text('$stamp  |  ${entry.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
                     ),
                   );
                 }).toList(),
@@ -1534,16 +1242,8 @@ class _GridPainter extends CustomPainter {
     final Paint centerPaint = Paint()
       ..color = color.withValues(alpha: 0.8)
       ..strokeWidth = 1.8;
-    canvas.drawLine(
-      Offset(size.width / 2, 0),
-      Offset(size.width / 2, size.height),
-      centerPaint,
-    );
-    canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      centerPaint,
-    );
+    canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), centerPaint);
+    canvas.drawLine(Offset(0, size.height / 2), Offset(size.width, size.height / 2), centerPaint);
   }
 
   @override
@@ -1578,10 +1278,7 @@ class _RenderAligningShiftedBoxHost extends SingleChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(
-    BuildContext context,
-    _DemoRenderAligningShiftedBox renderObject,
-  ) {
+  void updateRenderObject(BuildContext context, _DemoRenderAligningShiftedBox renderObject) {
     renderObject
       ..alignment = alignment
       ..textDirection = textDirection
@@ -1596,8 +1293,8 @@ class _DemoRenderAligningShiftedBox extends RenderAligningShiftedBox {
     required super.textDirection,
     double? widthFactor,
     double? heightFactor,
-  }) : _widthFactor = widthFactor,
-       _heightFactor = heightFactor;
+  })  : _widthFactor = widthFactor,
+        _heightFactor = heightFactor;
 
   double? _widthFactor;
   double? _heightFactor;
@@ -1629,12 +1326,8 @@ class _DemoRenderAligningShiftedBox extends RenderAligningShiftedBox {
       return constraints.smallest;
     }
     final Size childSize = c.getDryLayout(constraints.loosen());
-    final double width = _widthFactor == null
-        ? childSize.width
-        : childSize.width * _widthFactor!;
-    final double height = _heightFactor == null
-        ? childSize.height
-        : childSize.height * _heightFactor!;
+    final double width = _widthFactor == null ? childSize.width : childSize.width * _widthFactor!;
+    final double height = _heightFactor == null ? childSize.height : childSize.height * _heightFactor!;
     return constraints.constrain(Size(width, height));
   }
 
@@ -1648,12 +1341,8 @@ class _DemoRenderAligningShiftedBox extends RenderAligningShiftedBox {
 
     c.layout(constraints.loosen(), parentUsesSize: true);
     final Size childSize = c.size;
-    final double width = _widthFactor == null
-        ? childSize.width
-        : childSize.width * _widthFactor!;
-    final double height = _heightFactor == null
-        ? childSize.height
-        : childSize.height * _heightFactor!;
+    final double width = _widthFactor == null ? childSize.width : childSize.width * _widthFactor!;
+    final double height = _heightFactor == null ? childSize.height : childSize.height * _heightFactor!;
     size = constraints.constrain(Size(width, height));
     alignChild();
   }

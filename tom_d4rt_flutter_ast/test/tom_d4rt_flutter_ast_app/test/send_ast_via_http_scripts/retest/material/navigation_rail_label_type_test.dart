@@ -28,9 +28,7 @@ dynamic build(BuildContext context) {
   print('  none == selected: ${nrNone == nrSelected}');
   print('  selected == all: ${nrSelected == nrAll}');
   print('  identical(none, values[0]): ${identical(nrNone, nrAllValues[0])}');
-  print(
-    '  identical(selected, values[1]): ${identical(nrSelected, nrAllValues[1])}',
-  );
+  print('  identical(selected, values[1]): ${identical(nrSelected, nrAllValues[1])}');
   print('  identical(all, values[2]): ${identical(nrAll, nrAllValues[2])}');
 
   // ──────────────────────────────────────────────
@@ -39,9 +37,7 @@ dynamic build(BuildContext context) {
   print('\n[3] Index arithmetic & round-trip');
   for (final v in nrAllValues) {
     final roundTrip = NavigationRailLabelType.values[v.index];
-    print(
-      '  ${v.name} -> index ${v.index} -> values[${v.index}] = ${roundTrip.name} (match: ${roundTrip == v})',
-    );
+    print('  ${v.name} -> index ${v.index} -> values[${v.index}] = ${roundTrip.name} (match: ${roundTrip == v})');
   }
   final nrMiddle = nrAllValues[nrAllValues.length ~/ 2];
   print('  Middle value: ${nrMiddle.name} at index ${nrMiddle.index}');
@@ -61,11 +57,9 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────
   print('\n[5] Sorting & ordering');
   print('  Natural: ${nrAllValues.map((v) => v.name).join(", ")}');
-  final nrAlpha = List<NavigationRailLabelType>.from(nrAllValues)
-    ..sort((a, b) => a.name.compareTo(b.name));
+  final nrAlpha = List<NavigationRailLabelType>.from(nrAllValues)..sort((a, b) => a.name.compareTo(b.name));
   print('  Alpha  : ${nrAlpha.map((v) => v.name).join(", ")}');
-  final nrRev = List<NavigationRailLabelType>.from(nrAllValues)
-    ..sort((a, b) => b.index.compareTo(a.index));
+  final nrRev = List<NavigationRailLabelType>.from(nrAllValues)..sort((a, b) => b.index.compareTo(a.index));
   print('  Reverse: ${nrRev.map((v) => v.name).join(", ")}');
 
   // ──────────────────────────────────────────────
@@ -101,12 +95,7 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────
   print('\n[8] Simulated label visibility');
   final nrDestNames = ['Home', 'Search', 'Library', 'Settings'];
-  final nrDestIcons = [
-    Icons.home,
-    Icons.search,
-    Icons.library_books,
-    Icons.settings,
-  ];
+  final nrDestIcons = [Icons.home, Icons.search, Icons.library_books, Icons.settings];
   const nrSelIdx = 1;
   for (final labelType in nrAllValues) {
     print('  labelType: ${labelType.name} (selected index: $nrSelIdx)');
@@ -147,9 +136,7 @@ dynamic build(BuildContext context) {
       ),
     );
     nrRails[labelType] = rail;
-    print(
-      '  Built NavigationRail(${labelType.name}): destinations=${nrDestNames.length}',
-    );
+    print('  Built NavigationRail(${labelType.name}): destinations=${nrDestNames.length}');
   }
 
   // ──────────────────────────────────────────────
@@ -168,8 +155,7 @@ dynamic build(BuildContext context) {
   // Conceptual mapping
   final nrMapping = <String, String>{
     'none -> alwaysHide': 'no labels in rail / no labels in bar',
-    'selected -> onlyShowSelected':
-        'selected only in rail / selected only in bar',
+    'selected -> onlyShowSelected': 'selected only in rail / selected only in bar',
     'all -> alwaysShow': 'all labels in rail / all labels in bar',
   };
   for (final entry in nrMapping.entries) {
@@ -182,9 +168,7 @@ dynamic build(BuildContext context) {
   print('\n[11] NavigationRailThemeData integration');
   for (final labelType in nrAllValues) {
     final themeData = NavigationRailThemeData(labelType: labelType);
-    print(
-      '  NavigationRailThemeData(${labelType.name}): labelType=${themeData.labelType}',
-    );
+    print('  NavigationRailThemeData(${labelType.name}): labelType=${themeData.labelType}');
   }
   final nrFullTheme = ThemeData(
     navigationRailTheme: const NavigationRailThemeData(
@@ -192,9 +176,7 @@ dynamic build(BuildContext context) {
     ),
     useMaterial3: true,
   );
-  print(
-    '  ThemeData.navigationRailTheme.labelType: ${nrFullTheme.navigationRailTheme.labelType}',
-  );
+  print('  ThemeData.navigationRailTheme.labelType: ${nrFullTheme.navigationRailTheme.labelType}');
 
   // ──────────────────────────────────────────────
   // 12. Set operations & grouping
@@ -204,9 +186,7 @@ dynamic build(BuildContext context) {
   final nrShowNone = {nrNone};
   print('  Shows some labels: ${nrShowAny.map((v) => v.name).join(", ")}');
   print('  Shows no labels  : ${nrShowNone.map((v) => v.name).join(", ")}');
-  print(
-    '  Union: ${nrShowAny.union(nrShowNone).map((v) => v.name).join(", ")}',
-  );
+  print('  Union: ${nrShowAny.union(nrShowNone).map((v) => v.name).join(", ")}');
 
   // ──────────────────────────────────────────────
   // 13. Accessibility scoring
@@ -229,17 +209,11 @@ dynamic build(BuildContext context) {
   const nrTeal = Color(0xFF00897B);
   const nrCyan = Color(0xFF00ACC1);
   const nrTealLight = Color(0xFFB2DFDB);
-  final nrColors = <String, Color>{
-    'teal': nrTeal,
-    'cyan': nrCyan,
-    'tealLight': nrTealLight,
-  };
+  final nrColors = <String, Color>{'teal': nrTeal, 'cyan': nrCyan, 'tealLight': nrTealLight};
   for (final entry in nrColors.entries) {
     final c = entry.value;
-    print(
-      '  ${entry.key}: a=${c.a.toStringAsFixed(2)}, r=${c.r.toStringAsFixed(2)}, '
-      'g=${c.g.toStringAsFixed(2)}, b=${c.b.toStringAsFixed(2)}',
-    );
+    print('  ${entry.key}: a=${c.a.toStringAsFixed(2)}, r=${c.r.toStringAsFixed(2)}, '
+        'g=${c.g.toStringAsFixed(2)}, b=${c.b.toStringAsFixed(2)}');
   }
 
   // ──────────────────────────────────────────────
@@ -277,40 +251,25 @@ dynamic build(BuildContext context) {
     return Container(
       width: 135,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(10),
-      ),
+      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, color: Colors.white, size: 26),
           const SizedBox(height: 6),
-          Text(
-            lt.name.toUpperCase(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
+          Text(lt.name.toUpperCase(),
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
           const SizedBox(height: 4),
-          Text(
-            nrDescMap[lt] ?? '',
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white70, fontSize: 9),
-          ),
+          Text(nrDescMap[lt] ?? '',
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.white70, fontSize: 9)),
         ],
       ),
     );
   }
 
   final nrCards = <Widget>[];
-  final nrCardColors = [
-    nrTeal,
-    nrCyan,
-    Color.lerp(nrTeal, Colors.black, 0.15)!,
-  ];
+  final nrCardColors = [nrTeal, nrCyan, Color.lerp(nrTeal, Colors.black, 0.15)!];
   for (var i = 0; i < nrAllValues.length; i++) {
     nrCards.add(nrBuildCard(nrAllValues[i], nrCardColors[i]));
   }
@@ -331,12 +290,7 @@ dynamic build(BuildContext context) {
           child: const Text(
             'NavigationRailLabelType\nDeep Demo',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              height: 1.3,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold, height: 1.3),
           ),
         ),
         const SizedBox(height: 16),
@@ -352,31 +306,12 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Enum Overview',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: nrTeal,
-                ),
-              ),
+              const Text('Enum Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: nrTeal)),
               const SizedBox(height: 8),
-              Text(
-                'Total values: ${nrAllValues.length}',
-                style: const TextStyle(fontSize: 13),
-              ),
-              Text(
-                'Type: ${nrNone.runtimeType}',
-                style: const TextStyle(fontSize: 13),
-              ),
-              const Text(
-                'Default: none (icons only)',
-                style: TextStyle(fontSize: 13),
-              ),
-              const Text(
-                'Purpose: Controls NavigationRail label visibility',
-                style: TextStyle(fontSize: 13),
-              ),
+              Text('Total values: ${nrAllValues.length}', style: const TextStyle(fontSize: 13)),
+              Text('Type: ${nrNone.runtimeType}', style: const TextStyle(fontSize: 13)),
+              const Text('Default: none (icons only)', style: TextStyle(fontSize: 13)),
+              const Text('Purpose: Controls NavigationRail label visibility', style: TextStyle(fontSize: 13)),
             ],
           ),
         ),
@@ -387,10 +322,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // Live NavigationRails side-by-side
-        const Text(
-          'Live NavigationRails',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        const Text('Live NavigationRails', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         const SizedBox(height: 8),
         SizedBox(
           height: 340,
@@ -402,14 +334,7 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.only(right: 8),
                   child: Column(
                     children: [
-                      Text(
-                        lt.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: nrTeal,
-                        ),
-                      ),
+                      Text(lt.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: nrTeal)),
                       const SizedBox(height: 4),
                       Expanded(child: nrRails[lt]!),
                     ],
@@ -431,10 +356,7 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Label Visibility (selected: Search)',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
+              const Text('Label Visibility (selected: Search)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 8),
               ...nrAllValues.map((lt) {
                 return Padding(
@@ -442,18 +364,12 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        lt.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                        ),
-                      ),
+                      Text(lt.name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
                       const SizedBox(height: 4),
                       Row(
                         children: List.generate(nrDestNames.length, (i) {
                           final isSel = i == nrSelIdx;
-                          // D4RT-LIMITATION: enum exhaustiveness
+                        // D4RT-LIMITATION: enum exhaustiveness
                           final showLabel = switch (lt) {
                             NavigationRailLabelType.none => false,
                             NavigationRailLabelType.selected => isSel,
@@ -463,19 +379,10 @@ dynamic build(BuildContext context) {
                           return Expanded(
                             child: Column(
                               children: [
-                                Icon(
-                                  nrDestIcons[i],
-                                  size: 20,
-                                  color: isSel ? nrTeal : Colors.grey,
-                                ),
+                                Icon(nrDestIcons[i], size: 20, color: isSel ? nrTeal : Colors.grey),
                                 if (showLabel)
-                                  Text(
-                                    nrDestNames[i],
-                                    style: TextStyle(
-                                      fontSize: 9,
-                                      color: isSel ? nrTeal : Colors.grey,
-                                    ),
-                                  ),
+                                  Text(nrDestNames[i],
+                                      style: TextStyle(fontSize: 9, color: isSel ? nrTeal : Colors.grey)),
                               ],
                             ),
                           );
@@ -500,44 +407,28 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Accessibility Score',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
+              const Text('Accessibility Score', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 8),
-              ...nrAccessScores.entries.map(
-                (entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 80,
-                        child: Text(
-                          entry.key.name,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
+              ...nrAccessScores.entries.map((entry) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 80, child: Text(entry.key.name,
+                            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600))),
+                        Expanded(
+                          child: Container(
+                            height: 14,
+                            decoration: BoxDecoration(
+                              color: nrTeal.withValues(alpha: entry.value / 100),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 14,
-                          decoration: BoxDecoration(
-                            color: nrTeal.withValues(alpha: entry.value / 100),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '${entry.value}%',
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                        const SizedBox(width: 8),
+                        Text('${entry.value}%', style: const TextStyle(fontSize: 12)),
+                      ],
+                    ),
+                  )),
             ],
           ),
         ),
@@ -553,44 +444,28 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Estimated Rail Width',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
+              const Text('Estimated Rail Width', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 8),
-              ...nrWidthEstimates.entries.map(
-                (entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 80,
-                        child: Text(
-                          entry.key.name,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
+              ...nrWidthEstimates.entries.map((entry) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 80, child: Text(entry.key.name,
+                            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600))),
+                        Expanded(
+                          child: Container(
+                            height: 14,
+                            decoration: BoxDecoration(
+                              color: nrCyan.withValues(alpha: entry.value / 100),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 14,
-                          decoration: BoxDecoration(
-                            color: nrCyan.withValues(alpha: entry.value / 100),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '~${entry.value.toStringAsFixed(0)}dp',
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                        const SizedBox(width: 8),
+                        Text('~${entry.value.toStringAsFixed(0)}dp', style: const TextStyle(fontSize: 12)),
+                      ],
+                    ),
+                  )),
             ],
           ),
         ),
@@ -606,20 +481,12 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'vs NavigationDestinationLabelBehavior',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-              ),
+              const Text('vs NavigationDestinationLabelBehavior', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
               const SizedBox(height: 8),
-              ...nrMapping.entries.map(
-                (entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    '${entry.key}: ${entry.value}',
-                    style: const TextStyle(fontSize: 11),
-                  ),
-                ),
-              ),
+              ...nrMapping.entries.map((entry) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Text('${entry.key}: ${entry.value}', style: const TextStyle(fontSize: 11)),
+                  )),
             ],
           ),
         ),

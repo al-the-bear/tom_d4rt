@@ -365,12 +365,7 @@ class _ShapeQuartetPainter extends CustomPainter {
       const Color(0xFF64B5F6),
       const Color(0xFFBA68C8),
     ];
-    final List<String> labels = <String>[
-      'rect',
-      'rrect',
-      'ellipse',
-      'squircle',
-    ];
+    final List<String> labels = <String>['rect', 'rrect', 'ellipse', 'squircle'];
 
     for (int i = 0; i < 4; i++) {
       final Rect r = Rect.fromLTWH(i * w + 8, 8, w - 16, h - 32);
@@ -403,8 +398,10 @@ class _ShapeQuartetPainter extends CustomPainter {
             final double sinT = math.sin(t);
             final double sx = cosT < 0 ? -1.0 : 1.0;
             final double sy = sinT < 0 ? -1.0 : 1.0;
-            final double x = a * sx * math.pow(cosT.abs(), exp2n).toDouble();
-            final double y = b * sy * math.pow(sinT.abs(), exp2n).toDouble();
+            final double x =
+                a * sx * math.pow(cosT.abs(), exp2n).toDouble();
+            final double y =
+                b * sy * math.pow(sinT.abs(), exp2n).toDouble();
             if (j == 0) {
               p.moveTo(cx + x, cy + y);
             } else {
@@ -437,8 +434,10 @@ class _ShapeQuartetPainter extends CustomPainter {
 }
 
 class _AnimatedSuperellipsePainter extends CustomPainter {
-  _AnimatedSuperellipsePainter({required this.animation, required this.color})
-    : super(repaint: animation);
+  _AnimatedSuperellipsePainter({
+    required this.animation,
+    required this.color,
+  }) : super(repaint: animation);
 
   final Animation<double> animation;
   final Color color;
@@ -550,7 +549,11 @@ class _CurveSinglePainter extends CustomPainter {
 
     final TextSpan span = TextSpan(
       text: 'n = ${n.toStringAsFixed(2)}',
-      style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700),
+      style: TextStyle(
+        color: color,
+        fontSize: 12,
+        fontWeight: FontWeight.w700,
+      ),
     );
     final TextPainter tp = TextPainter(
       text: span,
@@ -601,10 +604,7 @@ class _Section1HeroIntro extends StatelessWidget {
                 runSpacing: 8,
                 children: const <Widget>[
                   _Pill(text: 'rect = corners 90°', color: Color(0xFFE57373)),
-                  _Pill(
-                    text: 'rrect = circular arcs',
-                    color: Color(0xFF81C784),
-                  ),
+                  _Pill(text: 'rrect = circular arcs', color: Color(0xFF81C784)),
                   _Pill(text: 'ellipse = n=2', color: Color(0xFF64B5F6)),
                   _Pill(text: 'squircle = n≈4.5', color: Color(0xFFBA68C8)),
                 ],
@@ -1209,7 +1209,9 @@ class _Section7ClipComparison extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Expanded(child: ClipRect(child: gradientChild)),
+                      Expanded(
+                        child: ClipRect(child: gradientChild),
+                      ),
                       const Text('ClipRect', style: TextStyle(fontSize: 11)),
                     ],
                   ),
@@ -1226,7 +1228,9 @@ class _Section7ClipComparison extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      Expanded(child: ClipOval(child: gradientChild)),
+                      Expanded(
+                        child: ClipOval(child: gradientChild),
+                      ),
                       const Text('ClipOval', style: TextStyle(fontSize: 11)),
                     ],
                   ),
@@ -1238,10 +1242,8 @@ class _Section7ClipComparison extends StatelessWidget {
                           child: gradientChild,
                         ),
                       ),
-                      const Text(
-                        'ClipRSuperellipse',
-                        style: TextStyle(fontSize: 10.5),
-                      ),
+                      const Text('ClipRSuperellipse',
+                          style: TextStyle(fontSize: 10.5)),
                     ],
                   ),
                 ],
@@ -1265,18 +1267,12 @@ class _Section7ClipComparison extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 6),
-                    Text(
-                      '• ClipRect — strictly rectangular bounds.',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                    Text(
-                      '• ClipRRect — typical rounded rect, circular arcs.',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                    Text(
-                      '• ClipOval — perfect ellipse / circle.',
-                      style: TextStyle(fontSize: 12),
-                    ),
+                    Text('• ClipRect — strictly rectangular bounds.',
+                        style: TextStyle(fontSize: 12)),
+                    Text('• ClipRRect — typical rounded rect, circular arcs.',
+                        style: TextStyle(fontSize: 12)),
+                    Text('• ClipOval — perfect ellipse / circle.',
+                        style: TextStyle(fontSize: 12)),
                     Text(
                       '• ClipRSuperellipse — iOS-style continuous corners; '
                       'use when the radius is a substantial fraction of the '
@@ -1385,7 +1381,11 @@ class _Section8AppIconStyle extends StatelessWidget {
 }
 
 class _FakeIcon {
-  const _FakeIcon({required this.bg, required this.icon, required this.label});
+  const _FakeIcon({
+    required this.bg,
+    required this.icon,
+    required this.label,
+  });
   final List<Color> bg;
   final IconData icon;
   final String label;
@@ -1717,17 +1717,9 @@ class _Section12ReferenceTable extends StatelessWidget {
       _NRef(n: 2.5, label: 'Soft', note: 'Slightly squared ellipse.'),
       _NRef(n: 3.0, label: 'Soft squircle', note: 'Used in some Android UIs.'),
       _NRef(n: 4.0, label: 'Squircle', note: 'Lamé\'s original squircle.'),
-      _NRef(
-        n: 4.5,
-        label: 'iOS app icon',
-        note: 'SwiftUI .continuous default.',
-      ),
+      _NRef(n: 4.5, label: 'iOS app icon', note: 'SwiftUI .continuous default.'),
       _NRef(n: 5.0, label: 'Sharper iOS', note: 'Some Apple buttons.'),
-      _NRef(
-        n: 6.0,
-        label: 'Tight squircle',
-        note: 'Reads as “rounded square”.',
-      ),
+      _NRef(n: 6.0, label: 'Tight squircle', note: 'Reads as “rounded square”.'),
       _NRef(n: 8.0, label: 'Near-rect', note: 'Almost imperceptible curve.'),
       _NRef(n: 16.0, label: 'Effectively rect', note: 'Edge AA only.'),
     ];
@@ -1826,7 +1818,10 @@ class _Section13Footer extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Flutter SDK', style: TextStyle(fontWeight: FontWeight.w800)),
+          Text(
+            'Flutter SDK',
+            style: TextStyle(fontWeight: FontWeight.w800),
+          ),
           SizedBox(height: 4),
           Text(
             '• packages/flutter/lib/src/widgets/basic.dart → ClipRSuperellipse\n'
@@ -1836,7 +1831,10 @@ class _Section13Footer extends StatelessWidget {
             style: TextStyle(fontSize: 12, height: 1.4),
           ),
           SizedBox(height: 10),
-          Text('Math', style: TextStyle(fontWeight: FontWeight.w800)),
+          Text(
+            'Math',
+            style: TextStyle(fontWeight: FontWeight.w800),
+          ),
           SizedBox(height: 4),
           Text(
             '• Lamé curve, also called a superellipse (Piet Hein, 1959).\n'

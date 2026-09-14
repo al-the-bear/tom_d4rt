@@ -14,12 +14,10 @@ class _IsolateNameServerDeepDemo extends StatefulWidget {
   const _IsolateNameServerDeepDemo();
 
   @override
-  State<_IsolateNameServerDeepDemo> createState() =>
-      _IsolateNameServerDeepDemoState();
+  State<_IsolateNameServerDeepDemo> createState() => _IsolateNameServerDeepDemoState();
 }
 
-class _IsolateNameServerDeepDemoState
-    extends State<_IsolateNameServerDeepDemo> {
+class _IsolateNameServerDeepDemoState extends State<_IsolateNameServerDeepDemo> {
   static const String _channelA = 'demo_channel_alpha';
   static const String _channelB = 'demo_channel_beta';
   static const String _channelC = 'demo_channel_gamma';
@@ -47,21 +45,9 @@ class _IsolateNameServerDeepDemoState
   double _flowPulse = 0;
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0F172A),
-      const Color(0xFF1E293B),
-      const Color(0xFF38BDF8),
-    ],
-    <Color>[
-      const Color(0xFF3B0764),
-      const Color(0xFF6B21A8),
-      const Color(0xFFC084FC),
-    ],
-    <Color>[
-      const Color(0xFF064E3B),
-      const Color(0xFF047857),
-      const Color(0xFF34D399),
-    ],
+    <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
+    <Color>[const Color(0xFF3B0764), const Color(0xFF6B21A8), const Color(0xFFC084FC)],
+    <Color>[const Color(0xFF064E3B), const Color(0xFF047857), const Color(0xFF34D399)],
   ];
 
   @override
@@ -86,8 +72,7 @@ class _IsolateNameServerDeepDemoState
 
   void _log(String text) {
     final DateTime now = DateTime.now();
-    final String stamp =
-        '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}';
+    final String stamp = '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}';
     _events.insert(0, '[$stamp] $text');
     if (_events.length > 28) {
       _events.removeLast();
@@ -132,10 +117,7 @@ class _IsolateNameServerDeepDemoState
       }
     });
 
-    final bool ok = ui.IsolateNameServer.registerPortWithName(
-      rp.sendPort,
-      name,
-    );
+    final bool ok = ui.IsolateNameServer.registerPortWithName(rp.sendPort, name);
     if (ok) {
       if (name == _channelA) {
         _alphaSend = rp.sendPort;
@@ -194,40 +176,26 @@ class _IsolateNameServerDeepDemoState
 
     _recordProbe(
       'lookup unknown name returns null',
-      ui.IsolateNameServer.lookupPortByName(
-            'unknown_name_${DateTime.now().microsecondsSinceEpoch}',
-          ) ==
-          null,
+      ui.IsolateNameServer.lookupPortByName('unknown_name_${DateTime.now().microsecondsSinceEpoch}') == null,
     );
 
     final ReceivePort rp = ReceivePort();
     final String unique = 'probe_${DateTime.now().microsecondsSinceEpoch}';
-    final bool reg = ui.IsolateNameServer.registerPortWithName(
-      rp.sendPort,
-      unique,
-    );
+    final bool reg = ui.IsolateNameServer.registerPortWithName(rp.sendPort, unique);
     _recordProbe('registerPortWithName returns true for unique name', reg);
 
     final SendPort? found = ui.IsolateNameServer.lookupPortByName(unique);
     _recordProbe('lookupPortByName finds registered port', found != null);
 
     final ReceivePort rp2 = ReceivePort();
-    final bool dup = ui.IsolateNameServer.registerPortWithName(
-      rp2.sendPort,
-      unique,
-    );
+    final bool dup = ui.IsolateNameServer.registerPortWithName(rp2.sendPort, unique);
     _recordProbe('duplicate registration returns false', dup == false);
 
     final bool removed = ui.IsolateNameServer.removePortNameMapping(unique);
     _recordProbe('removePortNameMapping removes existing name', removed);
 
-    final bool removedAgain = ui.IsolateNameServer.removePortNameMapping(
-      unique,
-    );
-    _recordProbe(
-      'removePortNameMapping returns false when missing',
-      removedAgain == false,
-    );
+    final bool removedAgain = ui.IsolateNameServer.removePortNameMapping(unique);
+    _recordProbe('removePortNameMapping returns false when missing', removedAgain == false);
 
     rp.close();
     rp2.close();
@@ -236,12 +204,7 @@ class _IsolateNameServerDeepDemoState
     }
   }
 
-  Widget _sectionTitle(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color accent,
-  ) {
+  Widget _sectionTitle(String title, String subtitle, IconData icon, Color accent) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 14, 16, 8),
       padding: const EdgeInsets.all(12),
@@ -265,10 +228,7 @@ class _IsolateNameServerDeepDemoState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-                ),
+                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -288,11 +248,7 @@ class _IsolateNameServerDeepDemoState
         gradient: LinearGradient(colors: p),
         borderRadius: BorderRadius.circular(18),
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: p[1].withAlpha(95),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
+          BoxShadow(color: p[1].withAlpha(95), blurRadius: 16, offset: const Offset(0, 8)),
         ],
       ),
       child: const Column(
@@ -300,11 +256,7 @@ class _IsolateNameServerDeepDemoState
         children: <Widget>[
           Text(
             'IsolateNameServer',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Text(
@@ -333,10 +285,7 @@ class _IsolateNameServerDeepDemoState
           children: <Widget>[
             Icon(i, color: c),
             const SizedBox(height: 8),
-            Text(
-              t,
-              style: TextStyle(color: c, fontWeight: FontWeight.w700),
-            ),
+            Text(t, style: TextStyle(color: c, fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             Text(d, style: const TextStyle(fontSize: 11.8)),
           ],
@@ -350,30 +299,14 @@ class _IsolateNameServerDeepDemoState
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          _conceptCard(
-            'Register',
-            'Map a name to a SendPort.',
-            Icons.app_registration,
-            const Color(0xFF2563EB),
-          ),
-          _conceptCard(
-            'Lookup',
-            'Resolve a name to route messages.',
-            Icons.search,
-            const Color(0xFF0F766E),
-          ),
-          _conceptCard(
-            'Remove',
-            'Delete mappings when no longer needed.',
-            Icons.delete_outline,
-            const Color(0xFF7C3AED),
-          ),
-          _conceptCard(
-            'Global namespace',
-            'Avoid collisions with clear naming.',
-            Icons.public,
-            const Color(0xFFB45309),
-          ),
+          _conceptCard('Register', 'Map a name to a SendPort.', Icons.app_registration,
+              const Color(0xFF2563EB)),
+          _conceptCard('Lookup', 'Resolve a name to route messages.', Icons.search,
+              const Color(0xFF0F766E)),
+          _conceptCard('Remove', 'Delete mappings when no longer needed.', Icons.delete_outline,
+              const Color(0xFF7C3AED)),
+          _conceptCard('Global namespace', 'Avoid collisions with clear naming.', Icons.public,
+              const Color(0xFFB45309)),
         ],
       ),
     );
@@ -381,9 +314,7 @@ class _IsolateNameServerDeepDemoState
 
   Widget _channelStatus(String name, SendPort? send) {
     final bool active = send != null;
-    final Color color = active
-        ? const Color(0xFF16A34A)
-        : const Color(0xFF9CA3AF);
+    final Color color = active ? const Color(0xFF16A34A) : const Color(0xFF9CA3AF);
     return Expanded(
       child: Container(
         margin: const EdgeInsets.all(6),
@@ -396,15 +327,9 @@ class _IsolateNameServerDeepDemoState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              name,
-              style: TextStyle(color: color, fontWeight: FontWeight.w700),
-            ),
+            Text(name, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
-            Text(
-              active ? 'Registered' : 'Not registered',
-              style: const TextStyle(fontSize: 12),
-            ),
+            Text(active ? 'Registered' : 'Not registered', style: const TextStyle(fontSize: 12)),
           ],
         ),
       ),
@@ -423,10 +348,7 @@ class _IsolateNameServerDeepDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Messaging topology snapshot',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Messaging topology snapshot', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Row(
             children: <Widget>[
@@ -465,10 +387,7 @@ class _IsolateNameServerDeepDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Registry controls',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Registry controls', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Wrap(
             spacing: 10,
@@ -505,10 +424,7 @@ class _IsolateNameServerDeepDemoState
             items: const <DropdownMenuItem<int>>[
               DropdownMenuItem<int>(value: 0, child: Text('String payload')),
               DropdownMenuItem<int>(value: 1, child: Text('Map payload')),
-              DropdownMenuItem<int>(
-                value: 2,
-                child: Text('Integer list payload'),
-              ),
+              DropdownMenuItem<int>(value: 2, child: Text('Integer list payload')),
             ],
           ),
           Text('Packet density: ${_packetDensity.toStringAsFixed(2)}'),
@@ -558,14 +474,8 @@ class _IsolateNameServerDeepDemoState
               OutlinedButton(
                 onPressed: () {
                   final String name = _activeName();
-                  final SendPort? p = ui.IsolateNameServer.lookupPortByName(
-                    name,
-                  );
-                  _log(
-                    p == null
-                        ? 'Lookup failed for $name'
-                        : 'Lookup success for $name',
-                  );
+                  final SendPort? p = ui.IsolateNameServer.lookupPortByName(name);
+                  _log(p == null ? 'Lookup failed for $name' : 'Lookup success for $name');
                   setState(() {});
                 },
                 child: const Text('Lookup active'),
@@ -577,13 +487,8 @@ class _IsolateNameServerDeepDemoState
               OutlinedButton(
                 onPressed: () {
                   final String name = _activeName();
-                  final bool removed =
-                      ui.IsolateNameServer.removePortNameMapping(name);
-                  _log(
-                    removed
-                        ? 'Removed mapping $name'
-                        : 'No mapping to remove for $name',
-                  );
+                  final bool removed = ui.IsolateNameServer.removePortNameMapping(name);
+                  _log(removed ? 'Removed mapping $name' : 'No mapping to remove for $name');
                   if (name == _channelA) {
                     _alphaSend = null;
                     _alphaPort?.close();
@@ -646,13 +551,7 @@ class _IsolateNameServerDeepDemoState
           children: <Widget>[
             Icon(i, color: Colors.white),
             const SizedBox(height: 8),
-            Text(
-              t,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(t, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             Text(d, style: const TextStyle(color: Colors.white, fontSize: 12)),
           ],
@@ -721,10 +620,7 @@ class _IsolateNameServerDeepDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Runtime probe dashboard',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
           const SizedBox(height: 8),
@@ -747,10 +643,7 @@ class _IsolateNameServerDeepDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Event log',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Event log', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -764,14 +657,8 @@ class _IsolateNameServerDeepDemoState
               itemCount: _events.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    _events[index],
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Text(_events[index], style: const TextStyle(fontSize: 12)),
                 );
               },
             ),
@@ -930,21 +817,9 @@ class _TopologyPainter extends CustomPainter {
 
     drawNode(producer, 'Producer', const Color(0xFF38BDF8));
     drawNode(router, 'Registry', const Color(0xFF818CF8));
-    drawNode(
-      a,
-      'Alpha',
-      activeChannel == 0 ? const Color(0xFF22C55E) : const Color(0xFFA3A3A3),
-    );
-    drawNode(
-      b,
-      'Beta',
-      activeChannel == 1 ? const Color(0xFF22C55E) : const Color(0xFFA3A3A3),
-    );
-    drawNode(
-      c,
-      'Gamma',
-      activeChannel == 2 ? const Color(0xFF22C55E) : const Color(0xFFA3A3A3),
-    );
+    drawNode(a, 'Alpha', activeChannel == 0 ? const Color(0xFF22C55E) : const Color(0xFFA3A3A3));
+    drawNode(b, 'Beta', activeChannel == 1 ? const Color(0xFF22C55E) : const Color(0xFFA3A3A3));
+    drawNode(c, 'Gamma', activeChannel == 2 ? const Color(0xFF22C55E) : const Color(0xFFA3A3A3));
 
     if (animate) {
       final double t = pulse;
@@ -952,9 +827,7 @@ class _TopologyPainter extends CustomPainter {
       final Paint dot = Paint()..color = const Color(0xFF0EA5E9);
       canvas.drawCircle(p, 5, dot);
 
-      final Offset target = activeChannel == 0
-          ? a
-          : (activeChannel == 1 ? b : c);
+      final Offset target = activeChannel == 0 ? a : (activeChannel == 1 ? b : c);
       final Offset p2 = Offset.lerp(router, target, t) ?? router;
       final Paint dot2 = Paint()..color = const Color(0xFF22C55E);
       canvas.drawCircle(p2, 5, dot2);

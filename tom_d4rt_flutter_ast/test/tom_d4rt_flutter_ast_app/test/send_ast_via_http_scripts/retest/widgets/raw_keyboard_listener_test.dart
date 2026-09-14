@@ -85,7 +85,10 @@ class _KeyCap extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Colors.white, tint.withValues(alpha: 0.08)],
+          colors: [
+            Colors.white,
+            tint.withValues(alpha: 0.08),
+          ],
         ),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: tint.withValues(alpha: 0.35)),
@@ -125,7 +128,10 @@ class _Bullet extends StatelessWidget {
             margin: const EdgeInsets.only(top: 6, right: 10),
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: dot, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: dot,
+              shape: BoxShape.circle,
+            ),
           ),
           Expanded(
             child: Text(
@@ -167,7 +173,10 @@ class _SectionTitle extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [color, color.withValues(alpha: 0.55)],
+                colors: [
+                  color,
+                  color.withValues(alpha: 0.55),
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -276,9 +285,8 @@ class _CodeBlock extends StatelessWidget {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(12)),
             ),
             child: Row(
               children: [
@@ -328,7 +336,11 @@ class _HeroSection extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [_Palette.violet, _Palette.accent, _Palette.cool],
+          colors: [
+            _Palette.violet,
+            _Palette.accent,
+            _Palette.cool,
+          ],
           stops: const [0.0, 0.55, 1.0],
         ),
         borderRadius: BorderRadius.circular(20),
@@ -346,16 +358,13 @@ class _HeroSection extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.4),
-                  ),
+                  border:
+                      Border.all(color: Colors.white.withValues(alpha: 0.4)),
                 ),
                 child: const Text(
                   'flutter / widgets',
@@ -369,16 +378,13 @@ class _HeroSection extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.4),
-                  ),
+                  border:
+                      Border.all(color: Colors.white.withValues(alpha: 0.4)),
                 ),
                 child: const Text(
                   'deprecated',
@@ -509,8 +515,7 @@ class _AnatomySection extends StatelessWidget {
           const SizedBox(height: 16),
           const _CodeBlock(
             title: 'constructor.dart',
-            code:
-                'RawKeyboardListener({\n'
+            code: 'RawKeyboardListener({\n'
                 '  Key? key,\n'
                 '  required FocusNode focusNode,\n'
                 '  bool autofocus = false,\n'
@@ -736,8 +741,7 @@ class _HierarchyTree extends StatelessWidget {
           ),
           _TreeNode(
             label: 'RawKeyUpEvent',
-            description:
-                'Emitted when a key transitions to the released state.',
+            description: 'Emitted when a key transitions to the released state.',
             color: _Palette.ok,
             depth: 1,
           ),
@@ -755,22 +759,19 @@ class _HierarchyTree extends StatelessWidget {
           ),
           _TreeNode(
             label: 'RawKeyEventDataIos',
-            description:
-                'keyCode, modifiers, characters, charactersIgnoringModifiers.',
+            description: 'keyCode, modifiers, characters, charactersIgnoringModifiers.',
             color: _Palette.amber,
             depth: 1,
           ),
           _TreeNode(
             label: 'RawKeyEventDataMacOs',
-            description:
-                'keyCode, modifiers, characters, charactersIgnoringModifiers.',
+            description: 'keyCode, modifiers, characters, charactersIgnoringModifiers.',
             color: _Palette.amber,
             depth: 1,
           ),
           _TreeNode(
             label: 'RawKeyEventDataLinux',
-            description:
-                'toolkit, keyCode, scanCode, modifiers, unicodeScalarValues.',
+            description: 'toolkit, keyCode, scanCode, modifiers, unicodeScalarValues.',
             color: _Palette.amber,
             depth: 1,
           ),
@@ -1067,8 +1068,7 @@ class _LogicalPhysicalSection extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: _Palette.accent.withValues(alpha: 0.4),
-                    ),
+                        color: _Palette.accent.withValues(alpha: 0.4)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1115,8 +1115,7 @@ class _LogicalPhysicalSection extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: _Palette.accent2.withValues(alpha: 0.4),
-                    ),
+                        color: _Palette.accent2.withValues(alpha: 0.4)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1140,22 +1139,15 @@ class _LogicalPhysicalSection extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 10),
+                      _Bullet('PhysicalKeyboardKey.keyA -> A position',
+                          dot: _Palette.accent2),
+                      _Bullet('PhysicalKeyboardKey.enter -> Enter slot',
+                          dot: _Palette.accent2),
+                      _Bullet('PhysicalKeyboardKey.escape -> ESC slot',
+                          dot: _Palette.accent2),
                       _Bullet(
-                        'PhysicalKeyboardKey.keyA -> A position',
-                        dot: _Palette.accent2,
-                      ),
-                      _Bullet(
-                        'PhysicalKeyboardKey.enter -> Enter slot',
-                        dot: _Palette.accent2,
-                      ),
-                      _Bullet(
-                        'PhysicalKeyboardKey.escape -> ESC slot',
-                        dot: _Palette.accent2,
-                      ),
-                      _Bullet(
-                        'PhysicalKeyboardKey.shiftLeft -> Left shift slot',
-                        dot: _Palette.accent2,
-                      ),
+                          'PhysicalKeyboardKey.shiftLeft -> Left shift slot',
+                          dot: _Palette.accent2),
                     ],
                   ),
                 ),
@@ -1443,7 +1435,8 @@ class _ModifierSection extends StatelessWidget {
                 end: Alignment.centerRight,
               ),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _Palette.amber.withValues(alpha: 0.35)),
+              border:
+                  Border.all(color: _Palette.amber.withValues(alpha: 0.35)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1458,25 +1451,20 @@ class _ModifierSection extends StatelessWidget {
                 ),
                 SizedBox(height: 6),
                 _Bullet(
-                  'event.isShiftPressed - true if either left or right Shift is down.',
-                  dot: _Palette.amber,
-                ),
+                    'event.isShiftPressed - true if either left or right Shift is down.',
+                    dot: _Palette.amber),
                 _Bullet(
-                  'event.isControlPressed - true if either Control modifier is down.',
-                  dot: _Palette.amber,
-                ),
+                    'event.isControlPressed - true if either Control modifier is down.',
+                    dot: _Palette.amber),
                 _Bullet(
-                  'event.isAltPressed - true if Alt/Option is down.',
-                  dot: _Palette.amber,
-                ),
+                    'event.isAltPressed - true if Alt/Option is down.',
+                    dot: _Palette.amber),
                 _Bullet(
-                  'event.isMetaPressed - true if Cmd/Win/Meta is down.',
-                  dot: _Palette.amber,
-                ),
+                    'event.isMetaPressed - true if Cmd/Win/Meta is down.',
+                    dot: _Palette.amber),
                 _Bullet(
-                  'event.data.modifiers - integer bitmask for advanced inspection (platform-specific).',
-                  dot: _Palette.warn,
-                ),
+                    'event.data.modifiers - integer bitmask for advanced inspection (platform-specific).',
+                    dot: _Palette.warn),
               ],
             ),
           ),
@@ -1537,7 +1525,8 @@ class _ModifierBitRow extends StatelessWidget {
               return Container(
                 width: 64,
                 margin: const EdgeInsets.symmetric(horizontal: 4),
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                 decoration: BoxDecoration(
                   gradient: active
                       ? LinearGradient(
@@ -1549,12 +1538,19 @@ class _ModifierBitRow extends StatelessWidget {
                           end: Alignment.bottomRight,
                         )
                       : LinearGradient(
-                          colors: [_Palette.hairline, _Palette.bg],
+                          colors: [
+                            _Palette.hairline,
+                            _Palette.bg,
+                          ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: active ? c : _Palette.hairline),
+                  border: Border.all(
+                    color: active
+                        ? c
+                        : _Palette.hairline,
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -1617,8 +1613,7 @@ class _MigrationSection extends StatelessWidget {
                 _MigrationRow(
                   oldName: 'RawKeyboardListener',
                   newName: 'KeyboardListener',
-                  notes:
-                      'Same role: focus-aware wrapper around a key callback.',
+                  notes: 'Same role: focus-aware wrapper around a key callback.',
                 ),
                 _MigrationRow(
                   oldName: 'RawKeyEvent',
@@ -1661,8 +1656,7 @@ class _MigrationSection extends StatelessWidget {
           const SizedBox(height: 14),
           const _CodeBlock(
             title: 'before_rawkeyboardlistener.dart',
-            code:
-                'Widget build(BuildContext context) {\n'
+            code: 'Widget build(BuildContext context) {\n'
                 '  // legacy: deprecated in current Flutter.\n'
                 '  return RawKeyboardListener(\n'
                 '    focusNode: _focusNode,\n'
@@ -1679,8 +1673,7 @@ class _MigrationSection extends StatelessWidget {
           ),
           const _CodeBlock(
             title: 'after_keyboardlistener.dart',
-            code:
-                'Widget build(BuildContext context) {\n'
+            code: 'Widget build(BuildContext context) {\n'
                 '  // modern: replacement that handles repeats explicitly.\n'
                 '  return KeyboardListener(\n'
                 '    focusNode: _focusNode,\n'
@@ -1720,7 +1713,8 @@ class _MigrationHeader extends StatelessWidget {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+        borderRadius:
+            const BorderRadius.vertical(top: Radius.circular(12)),
       ),
       child: Row(
         children: const [
@@ -1851,8 +1845,7 @@ class _GallerySection extends StatelessWidget {
           ),
           _CodeBlock(
             title: 'snippet_basic_listener.dart',
-            code:
-                'class _LegacyGame extends StatefulWidget {\n'
+            code: 'class _LegacyGame extends StatefulWidget {\n'
                 '  @override\n'
                 '  State<_LegacyGame> createState() => _LegacyGameState();\n'
                 '}\n\n'
@@ -1879,8 +1872,7 @@ class _GallerySection extends StatelessWidget {
           ),
           _CodeBlock(
             title: 'snippet_modifier_check.dart',
-            code:
-                'void _handle(RawKeyEvent event) {\n'
+            code: 'void _handle(RawKeyEvent event) {\n'
                 '  if (event is! RawKeyDownEvent) return;\n'
                 '  final isSubmit = event.logicalKey == LogicalKeyboardKey.enter\n'
                 '      && event.isControlPressed;\n'
@@ -1897,8 +1889,7 @@ class _GallerySection extends StatelessWidget {
           ),
           _CodeBlock(
             title: 'snippet_repeat_handling.dart',
-            code:
-                'void _onKey(RawKeyEvent event) {\n'
+            code: 'void _onKey(RawKeyEvent event) {\n'
                 '  if (event is RawKeyDownEvent) {\n'
                 '    if (event.repeat) {\n'
                 '      // auto-repeat tick — used for continuous scroll / pan.\n'
@@ -1913,8 +1904,7 @@ class _GallerySection extends StatelessWidget {
           ),
           _CodeBlock(
             title: 'snippet_keycap_row.dart',
-            code:
-                '// Common debug visualization for pressed-key inspection.\n'
+            code: '// Common debug visualization for pressed-key inspection.\n'
                 'Row(\n'
                 '  children: const [\n'
                 '    _KeyCap("W"),\n'
@@ -2173,7 +2163,10 @@ class _FooterSection extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [_Palette.slate, _Palette.ink],
+          colors: [
+            _Palette.slate,
+            _Palette.ink,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -2197,17 +2190,17 @@ class _FooterSection extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [_Palette.accent, _Palette.cool],
+                    colors: [
+                      _Palette.accent,
+                      _Palette.cool,
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(
-                  Icons.keyboard,
-                  color: Colors.white,
-                  size: 20,
-                ),
+                child: const Icon(Icons.keyboard,
+                    color: Colors.white, size: 20),
               ),
               const SizedBox(width: 10),
               const Text(

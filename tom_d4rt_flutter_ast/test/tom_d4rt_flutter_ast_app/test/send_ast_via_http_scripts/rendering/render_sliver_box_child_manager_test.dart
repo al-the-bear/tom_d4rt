@@ -188,7 +188,10 @@ class _Explanation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Text(text, style: const TextStyle(fontSize: 14, height: 1.45)),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 14, height: 1.45),
+      ),
     );
   }
 }
@@ -335,7 +338,8 @@ class _ArchitectureDiagramPainter extends CustomPainter {
     canvas.clipRect(viewportRect);
     for (int i = 0; i < 12; i++) {
       final y = viewportRect.top + i * 30 - scrollOffset;
-      final isVisible = y + 28 >= viewportRect.top && y <= viewportRect.bottom;
+      final isVisible =
+          y + 28 >= viewportRect.top && y <= viewportRect.bottom;
       final color = isVisible
           ? const Color(0xFF1565C0).withOpacity(0.7)
           : const Color(0xFFB0BEC5);
@@ -390,13 +394,16 @@ class _ArchitectureDiagramPainter extends CustomPainter {
 
     final tp = TextPainter(
       text: const TextSpan(
-        text:
-            'RenderSliverBoxChildManager\n\n'
+        text: 'RenderSliverBoxChildManager\n\n'
             ' • createChild(index, after)\n'
             ' • removeChild(child)\n'
             ' • estimateMaxScrollOffset\n'
             ' • didStartLayout/didFinishLayout',
-        style: TextStyle(color: Color(0xFF424242), fontSize: 11, height: 1.4),
+        style: TextStyle(
+          color: Color(0xFF424242),
+          fontSize: 11,
+          height: 1.4,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: mgrRect.width - 16);
@@ -419,10 +426,7 @@ class _ArchitectureDiagramPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    viewportLabel.paint(
-      canvas,
-      Offset(viewportRect.left, viewportRect.top - 14),
-    );
+    viewportLabel.paint(canvas, Offset(viewportRect.left, viewportRect.top - 14));
   }
 
   @override
@@ -482,9 +486,8 @@ class _SectionBuilderBasicState extends State<_SectionBuilderBasic> {
                         delegate: SliverChildBuilderDelegate(
                           (context, index) => ListTile(
                             leading: CircleAvatar(
-                              backgroundColor: const Color(
-                                0xFF2E7D32,
-                              ).withOpacity(0.15),
+                              backgroundColor:
+                                  const Color(0xFF2E7D32).withOpacity(0.15),
                               child: Text('${index + 1}'),
                             ),
                             title: Text('Row ${index + 1}'),
@@ -571,7 +574,9 @@ class _SectionListDelegateBasicState extends State<_SectionListDelegateBasic> {
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: false,
                     slivers: <Widget>[
-                      SliverList(delegate: SliverChildListDelegate(children)),
+                      SliverList(
+                        delegate: SliverChildListDelegate(children),
+                      ),
                     ],
                   ),
                 ),
@@ -655,24 +660,26 @@ class _SectionInfiniteScrollState extends State<_SectionInfiniteScroll> {
                     shrinkWrap: false,
                     slivers: <Widget>[
                       SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          // Track the high-water mark of indices the
-                          // manager has asked the builder for.
-                          if (index > _highWater) {
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              if (!mounted) return;
-                              setState(() => _highWater = index);
-                            });
-                          }
-                          return ListTile(
-                            dense: true,
-                            leading: Text('#$index'),
-                            title: Text('Synthetic row $index'),
-                            subtitle: Text(
-                              'pretend this came from a paginated API',
-                            ),
-                          );
-                        }),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            // Track the high-water mark of indices the
+                            // manager has asked the builder for.
+                            if (index > _highWater) {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                if (!mounted) return;
+                                setState(() => _highWater = index);
+                              });
+                            }
+                            return ListTile(
+                              dense: true,
+                              leading: Text('#$index'),
+                              title: Text('Synthetic row $index'),
+                              subtitle: Text(
+                                'pretend this came from a paginated API',
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -704,8 +711,7 @@ class _SectionBuildCounterState extends State<_SectionBuildCounter> {
       builder: (context, setState) {
         return _SectionFrame(
           title: '5. Build counter — proof of laziness',
-          subtitle:
-              'Track which indices the box-child manager has materialized',
+          subtitle: 'Track which indices the box-child manager has materialized',
           color: const Color(0xFF00838F),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -734,30 +740,29 @@ class _SectionBuildCounterState extends State<_SectionBuildCounter> {
                           shrinkWrap: false,
                           slivers: <Widget>[
                             SliverList(
-                              delegate: SliverChildBuilderDelegate((
-                                context,
-                                index,
-                              ) {
-                                if (!_builtIndices.contains(index)) {
-                                  WidgetsBinding.instance.addPostFrameCallback((
-                                    _,
-                                  ) {
-                                    if (!mounted) return;
-                                    setState(() => _builtIndices.add(index));
-                                  });
-                                }
-                                return Container(
-                                  height: 56,
-                                  color: index.isEven
-                                      ? const Color(0xFFE0F7FA)
-                                      : Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('Index $index'),
-                                );
-                              }, childCount: 200),
+                              delegate: SliverChildBuilderDelegate(
+                                (context, index) {
+                                  if (!_builtIndices.contains(index)) {
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      if (!mounted) return;
+                                      setState(() => _builtIndices.add(index));
+                                    });
+                                  }
+                                  return Container(
+                                    height: 56,
+                                    color: index.isEven
+                                        ? const Color(0xFFE0F7FA)
+                                        : Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                    ),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text('Index $index'),
+                                  );
+                                },
+                                childCount: 200,
+                              ),
                             ),
                           ],
                         ),
@@ -794,8 +799,8 @@ class _SectionBuildCounterState extends State<_SectionBuildCounter> {
                               _builtIndices.isEmpty
                                   ? '(scroll the list to build more)'
                                   : (_builtIndices.toList()..sort())
-                                        .take(40)
-                                        .join(', '),
+                                      .take(40)
+                                      .join(', '),
                               style: const TextStyle(
                                 fontSize: 11,
                                 color: Color(0xFF424242),
@@ -866,21 +871,24 @@ class _SectionCacheExtentState extends State<_SectionCacheExtent>
           cacheExtent: cacheExtent,
           slivers: <Widget>[
             SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                if (!sink.contains(index)) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (!mounted) return;
-                    setState(() => sink.add(index));
-                  });
-                }
-                return Container(
-                  height: 48,
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  color: index.isEven ? Colors.white : color.withOpacity(0.05),
-                  child: Text('row $index'),
-                );
-              }, childCount: 100),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  if (!sink.contains(index)) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (!mounted) return;
+                      setState(() => sink.add(index));
+                    });
+                  }
+                  return Container(
+                    height: 48,
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    color: index.isEven ? Colors.white : color.withOpacity(0.05),
+                    child: Text('row $index'),
+                  );
+                },
+                childCount: 100,
+              ),
             ),
           ],
         ),
@@ -993,12 +1001,8 @@ class _CacheWindowPainter extends CustomPainter {
 
     final t = animation.value;
     final viewportLeft = 40 + t * 60;
-    final viewportRect = Rect.fromLTWH(
-      viewportLeft,
-      24,
-      size.width * 0.35,
-      size.height - 48,
-    );
+    final viewportRect =
+        Rect.fromLTWH(viewportLeft, 24, size.width * 0.35, size.height - 48);
 
     // Cache window around viewport.
     final cacheRect = Rect.fromLTWH(
@@ -1011,8 +1015,7 @@ class _CacheWindowPainter extends CustomPainter {
       ..color = const Color(0xFFFFA726).withOpacity(0.3);
     canvas.drawRect(cacheRect, cachePaint);
 
-    final viewportPaint = Paint()
-      ..color = const Color(0xFF1565C0).withOpacity(0.5);
+    final viewportPaint = Paint()..color = const Color(0xFF1565C0).withOpacity(0.5);
     canvas.drawRect(viewportRect, viewportPaint);
 
     final tp1 = TextPainter(
@@ -1031,10 +1034,7 @@ class _CacheWindowPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    tp2.paint(
-      canvas,
-      Offset(viewportRect.left + 4, viewportRect.center.dy - 6),
-    );
+    tp2.paint(canvas, Offset(viewportRect.left + 4, viewportRect.center.dy - 6));
 
     final tp3 = TextPainter(
       text: const TextSpan(
@@ -1213,9 +1213,8 @@ class _SectionFixedExtentListState extends State<_SectionFixedExtentList> {
                             child: Row(
                               children: <Widget>[
                                 CircleAvatar(
-                                  backgroundColor: const Color(
-                                    0xFF4527A0,
-                                  ).withOpacity(0.2),
+                                  backgroundColor:
+                                      const Color(0xFF4527A0).withOpacity(0.2),
                                   radius: 16,
                                   child: Text('${index % 10}'),
                                 ),
@@ -1349,20 +1348,22 @@ class _SectionAddRemoveItemsState extends State<_SectionAddRemoveItems> {
                     shrinkWrap: false,
                     slivers: <Widget>[
                       SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          final id = _ids[index];
-                          return ListTile(
-                            key: ValueKey<int>(id),
-                            leading: CircleAvatar(
-                              backgroundColor: const Color(
-                                0xFF00695C,
-                              ).withOpacity(0.2),
-                              child: Text('$id'),
-                            ),
-                            title: Text('Item with id #$id'),
-                            subtitle: Text('Position $index in the list'),
-                          );
-                        }, childCount: _ids.length),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            final id = _ids[index];
+                            return ListTile(
+                              key: ValueKey<int>(id),
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    const Color(0xFF00695C).withOpacity(0.2),
+                                child: Text('$id'),
+                              ),
+                              title: Text('Item with id #$id'),
+                              subtitle: Text('Position $index in the list'),
+                            );
+                          },
+                          childCount: _ids.length,
+                        ),
                       ),
                     ],
                   ),
@@ -1426,33 +1427,35 @@ class _SectionHeterogeneousState extends State<_SectionHeterogeneous> {
                     shrinkWrap: false,
                     slivers: <Widget>[
                       SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          if (index.isEven) {
-                            return Container(
-                              height: 36,
-                              color: const Color(0xFFFFF3E0),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                              ),
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Header for group ${index ~/ 2 + 1}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFFEF6C00),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            if (index.isEven) {
+                              return Container(
+                                height: 36,
+                                color: const Color(0xFFFFF3E0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Header for group ${index ~/ 2 + 1}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFEF6C00),
+                                  ),
                                 ),
+                              );
+                            }
+                            return ListTile(
+                              dense: true,
+                              leading: const Icon(Icons.subdirectory_arrow_right),
+                              title: Text('Row body #${index ~/ 2 + 1}'),
+                              subtitle: const Text(
+                                'lives between two header rows',
                               ),
                             );
-                          }
-                          return ListTile(
-                            dense: true,
-                            leading: const Icon(Icons.subdirectory_arrow_right),
-                            title: Text('Row body #${index ~/ 2 + 1}'),
-                            subtitle: const Text(
-                              'lives between two header rows',
-                            ),
-                          );
-                        }, childCount: 60),
+                          },
+                          childCount: 60,
+                        ),
                       ),
                     ],
                   ),
@@ -1484,10 +1487,8 @@ class _SectionScrollToIndex extends StatefulWidget {
 class _SectionScrollToIndexState extends State<_SectionScrollToIndex> {
   static const int _count = 60;
   final ScrollController _controller = ScrollController();
-  final List<GlobalKey> _keys = List<GlobalKey>.generate(
-    _count,
-    (i) => GlobalKey(),
-  );
+  final List<GlobalKey> _keys =
+      List<GlobalKey>.generate(_count, (i) => GlobalKey());
 
   @override
   void dispose() {
@@ -1683,15 +1684,13 @@ class _SectionPitfalls extends StatelessWidget {
         children: <Widget>[
           _PitfallCard(
             title: 'SliverChildListDelegate for huge lists',
-            body:
-                'It builds every child up front. For more than ~100 items '
+            body: 'It builds every child up front. For more than ~100 items '
                 'always switch to SliverChildBuilderDelegate so the '
                 'box-child manager can do its job lazily.',
           ),
           _PitfallCard(
             title: 'Forgetting addAutomaticKeepAlives: false',
-            body:
-                'By default both delegates wrap children with '
+            body: 'By default both delegates wrap children with '
                 'AutomaticKeepAlive. If your children never call '
                 'updateKeepAlive(true), this is harmless overhead; if they '
                 'do, scrolling away will not destroy them and the manager '
@@ -1699,23 +1698,20 @@ class _SectionPitfalls extends StatelessWidget {
           ),
           _PitfallCard(
             title: 'Forgetting addRepaintBoundaries: false',
-            body:
-                'Each child gets a RepaintBoundary by default. Usually '
+            body: 'Each child gets a RepaintBoundary by default. Usually '
                 'good, but if your children are trivially cheap to paint '
                 'the boundaries can themselves cost more than they save. '
                 'Profile before disabling.',
           ),
           _PitfallCard(
             title: 'Unkeyed children plus reordering',
-            body:
-                'Without keys, removing item #3 forces every child after '
+            body: 'Without keys, removing item #3 forces every child after '
                 'it to be torn down and rebuilt — losing animation phase, '
                 'TextField cursor, video player position, etc.',
           ),
           _PitfallCard(
             title: 'Variable extents in long lists',
-            body:
-                'A 50,000-row SliverList with variable heights pays a '
+            body: 'A 50,000-row SliverList with variable heights pays a '
                 'real layout cost every scroll because the manager must '
                 'inflate each child to measure it. Use '
                 'SliverFixedExtentList or SliverPrototypeExtentList '
@@ -1723,8 +1719,7 @@ class _SectionPitfalls extends StatelessWidget {
           ),
           _PitfallCard(
             title: 'Wrapping a CustomScrollView in another scroller',
-            body:
-                'A SingleChildScrollView containing a shrinkWrapped '
+            body: 'A SingleChildScrollView containing a shrinkWrapped '
                 'CustomScrollView forces the inner sliver to lay out all '
                 'its children to compute its own intrinsic size — '
                 'completely defeating lazy materialization. Constrain '
@@ -1789,8 +1784,7 @@ class _SectionDecisionCard extends StatelessWidget {
         children: <Widget>[
           _DecisionRow(
             choice: 'SliverChildBuilderDelegate',
-            when:
-                'Long, scrolling list. Default choice. Pair with SliverList, '
+            when: 'Long, scrolling list. Default choice. Pair with SliverList, '
                 'SliverGrid, or SliverFixedExtentList.',
           ),
           _DecisionRow(
@@ -1803,14 +1797,12 @@ class _SectionDecisionCard extends StatelessWidget {
           ),
           _DecisionRow(
             choice: 'SliverFixedExtentList',
-            when:
-                'Every child has the same main-axis extent. Big perf win '
+            when: 'Every child has the same main-axis extent. Big perf win '
                 'over SliverList.',
           ),
           _DecisionRow(
             choice: 'SliverPrototypeExtentList',
-            when:
-                'Same extent for all children, but the value is hard to '
+            when: 'Same extent for all children, but the value is hard to '
                 'compute manually — supply a prototype widget instead.',
           ),
           _DecisionRow(
@@ -1819,8 +1811,7 @@ class _SectionDecisionCard extends StatelessWidget {
           ),
           _DecisionRow(
             choice: 'Custom RenderSliverBoxChildManager',
-            when:
-                'Almost never. Reach for it only if you are building a '
+            when: 'Almost never. Reach for it only if you are building a '
                 'novel sliver primitive (e.g. a varying-grid).',
           ),
         ],
@@ -1859,10 +1850,7 @@ class _DecisionRow extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              when,
-              style: const TextStyle(fontSize: 13, height: 1.4),
-            ),
+            child: Text(when, style: const TextStyle(fontSize: 13, height: 1.4)),
           ),
         ],
       ),
@@ -1988,18 +1976,9 @@ class _LayersPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final boxW = size.width / 3 - 12;
     final widgetRect = Rect.fromLTWH(8, 24, boxW, size.height - 48);
-    final elementRect = Rect.fromLTWH(
-      8 + boxW + 12,
-      24,
-      boxW,
-      size.height - 48,
-    );
-    final renderRect = Rect.fromLTWH(
-      8 + (boxW + 12) * 2,
-      24,
-      boxW,
-      size.height - 48,
-    );
+    final elementRect = Rect.fromLTWH(8 + boxW + 12, 24, boxW, size.height - 48);
+    final renderRect =
+        Rect.fromLTWH(8 + (boxW + 12) * 2, 24, boxW, size.height - 48);
 
     _drawBox(
       canvas,
@@ -2035,8 +2014,16 @@ class _LayersPainter extends CustomPainter {
     void drawArrow(Offset from, Offset to, double phase) {
       canvas.drawLine(from, to, arrowPaint);
       final headSize = 5.0;
-      canvas.drawLine(to, to + Offset(-headSize, -headSize), arrowPaint);
-      canvas.drawLine(to, to + Offset(-headSize, headSize), arrowPaint);
+      canvas.drawLine(
+        to,
+        to + Offset(-headSize, -headSize),
+        arrowPaint,
+      );
+      canvas.drawLine(
+        to,
+        to + Offset(-headSize, headSize),
+        arrowPaint,
+      );
       // Animated dot moving along the line.
       final dotT = (t + phase) % 1.0;
       final dot = Offset.lerp(from, to, dotT)!;
@@ -2091,71 +2078,51 @@ class _SectionReferenceTable extends StatelessWidget {
               DataColumn(label: Text('When called')),
             ],
             rows: const <DataRow>[
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('createChild(i, {after})')),
-                  DataCell(Text('Inflate child #i and insert after the given')),
-                  DataCell(
-                    Text('During layout, when sliver needs a new index'),
-                  ),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('removeChild(child)')),
-                  DataCell(Text('Tear down a RenderBox no longer needed')),
-                  DataCell(Text('When the cache window shrinks past it')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('estimateMaxScrollOffset(...)')),
-                  DataCell(Text('Guess total scroll extent from samples')),
-                  DataCell(Text('Each layout pass when childCount is null')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('childCount')),
-                  DataCell(Text('Total number of children, or null')),
-                  DataCell(Text('Read by sliver to bound iteration')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('didStartLayout()')),
-                  DataCell(Text('Notification: layout pass starting')),
-                  DataCell(Text('Beginning of every performLayout')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('didFinishLayout()')),
-                  DataCell(Text('Notification: layout pass complete')),
-                  DataCell(Text('End of every performLayout')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('setDidUnderflow(bool)')),
-                  DataCell(Text('Sliver tells manager it ran out of children')),
-                  DataCell(Text('Used to drive infinite-scroll fallback')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('SliverChildBuilderDelegate.build')),
-                  DataCell(Text('User-facing callback for index → widget')),
-                  DataCell(Text('Indirectly invoked from createChild')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('SliverChildListDelegate.build')),
-                  DataCell(Text('User-facing list-based child source')),
-                  DataCell(Text('Indirectly invoked from createChild')),
-                ],
-              ),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('createChild(i, {after})')),
+                DataCell(Text('Inflate child #i and insert after the given')),
+                DataCell(Text('During layout, when sliver needs a new index')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('removeChild(child)')),
+                DataCell(Text('Tear down a RenderBox no longer needed')),
+                DataCell(Text('When the cache window shrinks past it')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('estimateMaxScrollOffset(...)')),
+                DataCell(Text('Guess total scroll extent from samples')),
+                DataCell(Text('Each layout pass when childCount is null')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('childCount')),
+                DataCell(Text('Total number of children, or null')),
+                DataCell(Text('Read by sliver to bound iteration')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('didStartLayout()')),
+                DataCell(Text('Notification: layout pass starting')),
+                DataCell(Text('Beginning of every performLayout')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('didFinishLayout()')),
+                DataCell(Text('Notification: layout pass complete')),
+                DataCell(Text('End of every performLayout')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('setDidUnderflow(bool)')),
+                DataCell(Text('Sliver tells manager it ran out of children')),
+                DataCell(Text('Used to drive infinite-scroll fallback')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('SliverChildBuilderDelegate.build')),
+                DataCell(Text('User-facing callback for index → widget')),
+                DataCell(Text('Indirectly invoked from createChild')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('SliverChildListDelegate.build')),
+                DataCell(Text('User-facing list-based child source')),
+                DataCell(Text('Indirectly invoked from createChild')),
+              ]),
             ],
           ),
         ),
@@ -2204,10 +2171,8 @@ class _SectionFooter extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.menu_book),
-            title: Text(
-              'Flutter API: SliverList / SliverGrid / '
-              'SliverFixedExtentList / SliverPrototypeExtentList',
-            ),
+            title: Text('Flutter API: SliverList / SliverGrid / '
+                'SliverFixedExtentList / SliverPrototypeExtentList'),
             subtitle: Text(
               'Concrete sliver widgets that consume a delegate and drive '
               'the box-child manager',
@@ -2215,9 +2180,7 @@ class _SectionFooter extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.menu_book),
-            title: Text(
-              'Flutter source: rendering/sliver_multi_box_adaptor.dart',
-            ),
+            title: Text('Flutter source: rendering/sliver_multi_box_adaptor.dart'),
             subtitle: Text(
               'Read-along for createChild, removeChild, estimateMaxScrollOffset',
             ),

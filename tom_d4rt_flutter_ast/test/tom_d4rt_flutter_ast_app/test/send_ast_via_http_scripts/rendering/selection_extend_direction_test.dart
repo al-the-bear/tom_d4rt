@@ -10,12 +10,10 @@ dynamic build(BuildContext context) {
   // ============================================================
   final AlwaysStoppedAnimation<double> animFull =
       AlwaysStoppedAnimation<double>(1.0);
-  final AlwaysStoppedAnimation<double> animMid = AlwaysStoppedAnimation<double>(
-    0.5,
-  );
-  final AlwaysStoppedAnimation<double> animLow = AlwaysStoppedAnimation<double>(
-    0.25,
-  );
+  final AlwaysStoppedAnimation<double> animMid =
+      AlwaysStoppedAnimation<double>(0.5);
+  final AlwaysStoppedAnimation<double> animLow =
+      AlwaysStoppedAnimation<double>(0.25);
   final Duration zeroDur = Duration.zero;
 
   // ============================================================
@@ -28,17 +26,13 @@ dynamic build(BuildContext context) {
       'glyph': '▲',
       'icon': Icons.keyboard_arrow_up,
       'arrow': Icons.north,
-      'palette': <Color>[
-        Color(0xFF4F46E5),
-        Color(0xFF7C3AED),
-        Color(0xFFA855F7),
-      ],
+      'palette': <Color>[Color(0xFF4F46E5), Color(0xFF7C3AED), Color(0xFFA855F7)],
       'softColor': Color(0xFFEDE9FE),
       'darkColor': Color(0xFF312E81),
       'tagline': 'Up one line',
       'detail':
           'Move one edge of the selection vertically to the previous adjacent line. '
-          'Considers both soft and hard line breaks. Pair with dx for horizontal target.',
+              'Considers both soft and hard line breaks. Pair with dx for horizontal target.',
       'shortcut': 'Shift + ↑',
       'axis': 'vertical',
       'flow': '— previous line ←',
@@ -49,17 +43,13 @@ dynamic build(BuildContext context) {
       'glyph': '▼',
       'icon': Icons.keyboard_arrow_down,
       'arrow': Icons.south,
-      'palette': <Color>[
-        Color(0xFF0EA5E9),
-        Color(0xFF06B6D4),
-        Color(0xFF14B8A6),
-      ],
+      'palette': <Color>[Color(0xFF0EA5E9), Color(0xFF06B6D4), Color(0xFF14B8A6)],
       'softColor': Color(0xFFE0F2FE),
       'darkColor': Color(0xFF0C4A6E),
       'tagline': 'Down one line',
       'detail':
           'Move one edge of the selection vertically to the next adjacent line. '
-          'Considers both soft and hard line breaks. dx defines the horizontal landing point.',
+              'Considers both soft and hard line breaks. dx defines the horizontal landing point.',
       'shortcut': 'Shift + ↓',
       'axis': 'vertical',
       'flow': '→ next line —',
@@ -70,18 +60,14 @@ dynamic build(BuildContext context) {
       'glyph': '▶',
       'icon': Icons.east,
       'arrow': Icons.arrow_forward,
-      'palette': <Color>[
-        Color(0xFF16A34A),
-        Color(0xFF22C55E),
-        Color(0xFF84CC16),
-      ],
+      'palette': <Color>[Color(0xFF16A34A), Color(0xFF22C55E), Color(0xFF84CC16)],
       'softColor': Color(0xFFDCFCE7),
       'darkColor': Color(0xFF14532D),
       'tagline': 'Forward in line',
       'detail':
           'Move the selection edges forward to a horizontal offset in the same line. '
-          'When there is no on-going selection, start at first line and select toward dx. '
-          'Receivers must return SelectionResult.end.',
+              'When there is no on-going selection, start at first line and select toward dx. '
+              'Receivers must return SelectionResult.end.',
       'shortcut': 'Shift + →',
       'axis': 'horizontal',
       'flow': '|====▶',
@@ -92,18 +78,14 @@ dynamic build(BuildContext context) {
       'glyph': '◀',
       'icon': Icons.west,
       'arrow': Icons.arrow_back,
-      'palette': <Color>[
-        Color(0xFFE11D48),
-        Color(0xFFF43F5E),
-        Color(0xFFF97316),
-      ],
+      'palette': <Color>[Color(0xFFE11D48), Color(0xFFF43F5E), Color(0xFFF97316)],
       'softColor': Color(0xFFFFE4E6),
       'darkColor': Color(0xFF881337),
       'tagline': 'Backward in line',
       'detail':
           'Move the selection edges backward to a horizontal offset in the same line. '
-          'When there is no on-going selection, start at last line and select backward toward dx. '
-          'Receivers must return SelectionResult.end.',
+              'When there is no on-going selection, start at last line and select backward toward dx. '
+              'Receivers must return SelectionResult.end.',
       'shortcut': 'Shift + ←',
       'axis': 'horizontal',
       'flow': '◀====|',
@@ -228,9 +210,7 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: <BoxShadow>[
                       BoxShadow(
-                        color: (d['palette'] as List<Color>).first.withValues(
-                          alpha: 0.5,
-                        ),
+                        color: (d['palette'] as List<Color>).first.withValues(alpha: 0.5),
                         blurRadius: 8.0,
                         offset: Offset(0.0, 4.0),
                       ),
@@ -313,31 +293,15 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _anatomyRow(
-                '1.',
-                'User input',
-                'Shift + arrow keys / IME / a11y',
-              ),
-              _anatomyRow(
-                '2.',
-                'Framework dispatch',
-                'DirectionallyExtendSelectionEvent(direction, dx, isEnd)',
-              ),
-              _anatomyRow(
-                '3.',
-                'Selectable visit',
-                'SelectionContainer routes to active Selectable',
-              ),
-              _anatomyRow(
-                '4.',
-                'Edge movement',
-                'Edge slides per SelectionExtendDirection value',
-              ),
-              _anatomyRow(
-                '5.',
-                'Result',
-                'SelectionResult.{pending, next, previous, end, none}',
-              ),
+              _anatomyRow('1.', 'User input', 'Shift + arrow keys / IME / a11y'),
+              _anatomyRow('2.', 'Framework dispatch',
+                  'DirectionallyExtendSelectionEvent(direction, dx, isEnd)'),
+              _anatomyRow('3.', 'Selectable visit',
+                  'SelectionContainer routes to active Selectable'),
+              _anatomyRow('4.', 'Edge movement',
+                  'Edge slides per SelectionExtendDirection value'),
+              _anatomyRow('5.', 'Result',
+                  'SelectionResult.{pending, next, previous, end, none}'),
             ],
           ),
         ),
@@ -388,10 +352,7 @@ dynamic build(BuildContext context) {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          border: Border.all(
-            color: palette.first.withValues(alpha: 0.45),
-            width: 1.5,
-          ),
+          border: Border.all(color: palette.first.withValues(alpha: 0.45), width: 1.5),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: palette.first.withValues(alpha: 0.25),
@@ -433,11 +394,7 @@ dynamic build(BuildContext context) {
                       border: Border.all(color: Colors.white, width: 2.0),
                     ),
                     alignment: Alignment.center,
-                    child: Icon(
-                      d['icon'] as IconData,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
+                    child: Icon(d['icon'] as IconData, color: Colors.white, size: 30.0),
                   ),
                   SizedBox(width: 14.0),
                   Expanded(
@@ -466,10 +423,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 6.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                     decoration: BoxDecoration(
                       color: Color(0x44FFFFFF),
                       borderRadius: BorderRadius.circular(20.0),
@@ -495,7 +449,11 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   Text(
                     d['detail'] as String,
-                    style: TextStyle(color: dark, fontSize: 13.0, height: 1.5),
+                    style: TextStyle(
+                      color: dark,
+                      fontSize: 13.0,
+                      height: 1.5,
+                    ),
                   ),
                   SizedBox(height: 14.0),
                   Row(
@@ -509,9 +467,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12.0),
-                            border: Border.all(
-                              color: palette.first.withValues(alpha: 0.4),
-                            ),
+                            border: Border.all(color: palette.first.withValues(alpha: 0.4)),
                             boxShadow: <BoxShadow>[
                               BoxShadow(
                                 color: palette.last.withValues(alpha: 0.18),
@@ -532,23 +488,11 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            _miniBadge(
-                              'axis',
-                              d['axis'] as String,
-                              palette.first,
-                            ),
+                            _miniBadge('axis', d['axis'] as String, palette.first),
                             SizedBox(height: 6.0),
-                            _miniBadge(
-                              'shortcut',
-                              d['shortcut'] as String,
-                              palette[1],
-                            ),
+                            _miniBadge('shortcut', d['shortcut'] as String, palette[1]),
                             SizedBox(height: 6.0),
-                            _miniBadge(
-                              'flow',
-                              d['flow'] as String,
-                              palette.last,
-                            ),
+                            _miniBadge('flow', d['flow'] as String, palette.last),
                             SizedBox(height: 6.0),
                             _miniBadge('glyph', d['glyph'] as String, dark),
                           ],
@@ -563,10 +507,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(
-                        color: palette.first.withValues(alpha: 0.6),
-                        width: 1.0,
-                      ),
+                      border: Border.all(color: palette.first.withValues(alpha: 0.6), width: 1.0),
                     ),
                     child: Text(
                       'DirectionallyExtendSelectionEvent(\n'
@@ -599,11 +540,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Color(0xFFE0F2FE),
-          Color(0xFFCFFAFE),
-          Color(0xFFCCFBF1),
-        ],
+        colors: <Color>[Color(0xFFE0F2FE), Color(0xFFCFFAFE), Color(0xFFCCFBF1)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -913,12 +850,8 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: <Color>[
-                      (d['palette'] as List<Color>).first.withValues(
-                        alpha: 0.25,
-                      ),
-                      (d['palette'] as List<Color>).last.withValues(
-                        alpha: 0.15,
-                      ),
+                      (d['palette'] as List<Color>).first.withValues(alpha: 0.25),
+                      (d['palette'] as List<Color>).last.withValues(alpha: 0.15),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -936,7 +869,10 @@ dynamic build(BuildContext context) {
                       children: <Widget>[
                         Text(
                           d['glyph'] as String,
-                          style: TextStyle(color: Colors.white, fontSize: 16.0),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                          ),
                         ),
                         SizedBox(width: 6.0),
                         Text(
@@ -1002,11 +938,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Color(0xFFFAF5FF),
-          Color(0xFFEDE9FE),
-          Color(0xFFE0E7FF),
-        ],
+        colors: <Color>[Color(0xFFFAF5FF), Color(0xFFEDE9FE), Color(0xFFE0E7FF)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1329,12 +1261,7 @@ Widget _verticalDiagram(SelectionExtendDirection v, List<Color> palette) {
     children: <Widget>[
       _diagramLine('Lorem ipsum dolor sit', palette, highlighted: up),
       SizedBox(height: 4.0),
-      _diagramLine(
-        'amet, consectetur adipiscing',
-        palette,
-        highlighted: false,
-        current: true,
-      ),
+      _diagramLine('amet, consectetur adipiscing', palette, highlighted: false, current: true),
       SizedBox(height: 4.0),
       _diagramLine('elit, sed do eiusmod tempor', palette, highlighted: !up),
       SizedBox(height: 6.0),
@@ -1367,9 +1294,7 @@ Widget _diagramLine(
               end: Alignment.centerRight,
             )
           : null,
-      color: highlighted
-          ? null
-          : (current ? Color(0xFFF1F5F9) : Colors.transparent),
+      color: highlighted ? null : (current ? Color(0xFFF1F5F9) : Colors.transparent),
       borderRadius: BorderRadius.circular(4.0),
       border: current
           ? Border.all(color: palette.last.withValues(alpha: 0.6), width: 1.0)
@@ -1503,7 +1428,12 @@ Widget _miniBadge(String label, String value, Color color) {
   );
 }
 
-Widget _recipeBlock(String title, String tag, Color accent, String code) {
+Widget _recipeBlock(
+  String title,
+  String tag,
+  Color accent,
+  String code,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6.0),
     decoration: BoxDecoration(

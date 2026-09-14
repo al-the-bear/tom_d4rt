@@ -29,24 +29,15 @@ void main() {
   tearDown(D4rt.debugResetPool);
 
   test('first SourceFlutterD4rt pools the package with lazy-thunk classes', () {
-    expect(
-      D4rt.debugPooledPackages,
-      isNot(contains(packageName)),
-      reason: 'pool should be clean before the first construction',
-    );
+    expect(D4rt.debugPooledPackages, isNot(contains(packageName)),
+        reason: 'pool should be clean before the first construction');
 
     SourceFlutterD4rt();
 
-    expect(
-      D4rt.debugPooledPackages,
-      contains(packageName),
-      reason: 'construction must pool the tom_d4rt_flutter bundle',
-    );
-    expect(
-      D4rt.debugPooledClassCount(packageName),
-      greaterThan(0),
-      reason: 'lazy bridge thunks must be pooled as bridged classes',
-    );
+    expect(D4rt.debugPooledPackages, contains(packageName),
+        reason: 'construction must pool the tom_d4rt_flutter bundle');
+    expect(D4rt.debugPooledClassCount(packageName), greaterThan(0),
+        reason: 'lazy bridge thunks must be pooled as bridged classes');
   });
 
   test('second SourceFlutterD4rt reuses the pool (registration skipped)', () {
@@ -57,32 +48,22 @@ void main() {
     SourceFlutterD4rt();
     final afterSecond = D4rt.debugPooledClassCount(packageName);
 
-    expect(
-      afterSecond,
-      equals(afterFirst),
-      reason:
-          're-registration must be skipped — the pooled class count '
-          'must not change when a second instance is constructed',
-    );
+    expect(afterSecond, equals(afterFirst),
+        reason: 're-registration must be skipped — the pooled class count '
+            'must not change when a second instance is constructed');
   });
 
-  test(
-    'providePackage returns true once the package is pooled (skip signal)',
-    () {
-      // Prime the pool through the public entry point.
-      SourceFlutterD4rt();
+  test('providePackage returns true once the package is pooled (skip signal)',
+      () {
+    // Prime the pool through the public entry point.
+    SourceFlutterD4rt();
 
-      // A fresh, independent interpreter sees the package as already pooled and
-      // is told to skip its own registration block — exactly the branch the
-      // guard in _registerBridges relies on.
-      final fresh = D4rt();
-      expect(
-        fresh.providePackage(packageName),
-        isTrue,
-        reason:
-            'an already-pooled package must report true so the caller '
-            'skips the expensive register* block',
-      );
-    },
-  );
+    // A fresh, independent interpreter sees the package as already pooled and
+    // is told to skip its own registration block — exactly the branch the
+    // guard in _registerBridges relies on.
+    final fresh = D4rt();
+    expect(fresh.providePackage(packageName), isTrue,
+        reason: 'an already-pooled package must report true so the caller '
+            'skips the expensive register* block');
+  });
 }

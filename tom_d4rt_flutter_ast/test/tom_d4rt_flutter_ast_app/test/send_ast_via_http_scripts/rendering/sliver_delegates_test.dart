@@ -105,26 +105,66 @@ const List<Map<String, dynamic>> _workshopCatalog = <Map<String, dynamic>>[
     'weight': 0.61,
     'tag': 'L',
   },
-  {'title': 'Forge B1', 'subtitle': 'copper rivet', 'weight': 0.83, 'tag': 'F'},
-  {'title': 'Forge B2', 'subtitle': 'iron hinge', 'weight': 0.27, 'tag': 'F'},
-  {'title': 'Bench C1', 'subtitle': 'oak plank', 'weight': 0.55, 'tag': 'B'},
-  {'title': 'Bench C2', 'subtitle': 'birch shelf', 'weight': 0.34, 'tag': 'B'},
+  {
+    'title': 'Forge B1',
+    'subtitle': 'copper rivet',
+    'weight': 0.83,
+    'tag': 'F',
+  },
+  {
+    'title': 'Forge B2',
+    'subtitle': 'iron hinge',
+    'weight': 0.27,
+    'tag': 'F',
+  },
+  {
+    'title': 'Bench C1',
+    'subtitle': 'oak plank',
+    'weight': 0.55,
+    'tag': 'B',
+  },
+  {
+    'title': 'Bench C2',
+    'subtitle': 'birch shelf',
+    'weight': 0.34,
+    'tag': 'B',
+  },
   {
     'title': 'Quarry D1',
     'subtitle': 'tumbled stone',
     'weight': 0.72,
     'tag': 'Q',
   },
-  {'title': 'Quarry D2', 'subtitle': 'slate slab', 'weight': 0.19, 'tag': 'Q'},
+  {
+    'title': 'Quarry D2',
+    'subtitle': 'slate slab',
+    'weight': 0.19,
+    'tag': 'Q',
+  },
   {
     'title': 'Press E1',
     'subtitle': 'letterpress tray',
     'weight': 0.66,
     'tag': 'P',
   },
-  {'title': 'Press E2', 'subtitle': 'foil block', 'weight': 0.48, 'tag': 'P'},
-  {'title': 'Atelier F1', 'subtitle': 'paint jar', 'weight': 0.91, 'tag': 'A'},
-  {'title': 'Atelier F2', 'subtitle': 'brush set', 'weight': 0.38, 'tag': 'A'},
+  {
+    'title': 'Press E2',
+    'subtitle': 'foil block',
+    'weight': 0.48,
+    'tag': 'P',
+  },
+  {
+    'title': 'Atelier F1',
+    'subtitle': 'paint jar',
+    'weight': 0.91,
+    'tag': 'A',
+  },
+  {
+    'title': 'Atelier F2',
+    'subtitle': 'brush set',
+    'weight': 0.38,
+    'tag': 'A',
+  },
 ];
 
 const List<String> _glossaryEntries = <String>[
@@ -144,11 +184,7 @@ const List<String> _glossaryEntries = <String>[
 // HELPERS
 // ============================================================================
 
-Widget _sectionBanner(
-  String label,
-  String number,
-  Map<String, dynamic> palette,
-) {
+Widget _sectionBanner(String label, String number, Map<String, dynamic> palette) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
@@ -388,11 +424,7 @@ Widget _miniTag(String text, Color background, Color foreground) {
   );
 }
 
-Widget _itemTile(
-  int index,
-  Map<String, dynamic> palette, {
-  String label = 'item',
-}) {
+Widget _itemTile(int index, Map<String, dynamic> palette, {String label = 'item'}) {
   final Map<String, dynamic> entry =
       _workshopCatalog[index % _workshopCatalog.length];
   return Container(
@@ -772,11 +804,8 @@ dynamic build(BuildContext context) {
   // SECTION 1: SliverChildBuilderDelegate Patterns
   // ==========================================================================
   final Map<String, dynamic> palette1 = _workshopPalettes[0];
-  final Widget section1Banner = _sectionBanner(
-    'SliverChildBuilderDelegate Patterns',
-    '1',
-    palette1,
-  );
+  final Widget section1Banner =
+      _sectionBanner('SliverChildBuilderDelegate Patterns', '1', palette1);
 
   final Widget section1Caption1 = _captionCard(
     'Bounded builder, childCount = 12',
@@ -787,9 +816,12 @@ dynamic build(BuildContext context) {
     physics: const NeverScrollableScrollPhysics(),
     slivers: <Widget>[
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _itemTile(index, palette1, label: 'builder');
-        }, childCount: 12),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _itemTile(index, palette1, label: 'builder');
+          },
+          childCount: 12,
+        ),
       ),
     ],
   );
@@ -825,12 +857,14 @@ dynamic build(BuildContext context) {
     physics: const NeverScrollableScrollPhysics(),
     slivers: <Widget>[
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          if (index >= 14) {
-            return null;
-          }
-          return _itemTile(index, _workshopPalettes[2], label: 'lazy');
-        }),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            if (index >= 14) {
+              return null;
+            }
+            return _itemTile(index, _workshopPalettes[2], label: 'lazy');
+          },
+        ),
       ),
     ],
   );
@@ -838,8 +872,8 @@ dynamic build(BuildContext context) {
   final Widget section1Recipe = _recipeCard(
     'Builder delegate, recipe',
     'SliverList(\n  delegate: SliverChildBuilderDelegate(\n'
-        '    (ctx, i) => Tile(i),\n    childCount: 12,\n'
-        '    addAutomaticKeepAlives: false,\n  ),\n)',
+    '    (ctx, i) => Tile(i),\n    childCount: 12,\n'
+    '    addAutomaticKeepAlives: false,\n  ),\n)',
     palette1,
   );
 
@@ -847,11 +881,8 @@ dynamic build(BuildContext context) {
   // SECTION 2: SliverChildListDelegate Catalog
   // ==========================================================================
   final Map<String, dynamic> palette2 = _workshopPalettes[1];
-  final Widget section2Banner = _sectionBanner(
-    'SliverChildListDelegate Catalog',
-    '2',
-    palette2,
-  );
+  final Widget section2Banner =
+      _sectionBanner('SliverChildListDelegate Catalog', '2', palette2);
 
   final Widget section2Caption1 = _captionCard(
     'List delegate with eager children',
@@ -921,7 +952,7 @@ dynamic build(BuildContext context) {
   final Widget section2Recipe = _recipeCard(
     'List delegate, recipe',
     'SliverList(\n  delegate: SliverChildListDelegate(<Widget>[\n'
-        '    Tile(0), Tile(1), Tile(2),\n  ]),\n)',
+    '    Tile(0), Tile(1), Tile(2),\n  ]),\n)',
     palette2,
   );
 
@@ -929,11 +960,8 @@ dynamic build(BuildContext context) {
   // SECTION 3: SliverFixedExtentList Strips
   // ==========================================================================
   final Map<String, dynamic> palette3 = _workshopPalettes[2];
-  final Widget section3Banner = _sectionBanner(
-    'SliverFixedExtentList Strips',
-    '3',
-    palette3,
-  );
+  final Widget section3Banner =
+      _sectionBanner('SliverFixedExtentList Strips', '3', palette3);
 
   final Widget section3Caption1 = _captionCard(
     'itemExtent: 44 - identical row height',
@@ -945,9 +973,12 @@ dynamic build(BuildContext context) {
     slivers: <Widget>[
       SliverFixedExtentList(
         itemExtent: 44.0,
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _stripCell(index, palette3);
-        }, childCount: 14),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _stripCell(index, palette3);
+          },
+          childCount: 14,
+        ),
       ),
     ],
   );
@@ -962,9 +993,12 @@ dynamic build(BuildContext context) {
     slivers: <Widget>[
       SliverFixedExtentList(
         itemExtent: 64.0,
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _stripCell(index + 4, _workshopPalettes[8]);
-        }, childCount: 10),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _stripCell(index + 4, _workshopPalettes[8]);
+          },
+          childCount: 10,
+        ),
       ),
     ],
   );
@@ -998,8 +1032,8 @@ dynamic build(BuildContext context) {
   final Widget section3Recipe = _recipeCard(
     'Fixed extent, recipe',
     'SliverFixedExtentList(\n  itemExtent: 44.0,\n'
-        '  delegate: SliverChildBuilderDelegate(\n'
-        '    (ctx, i) => StripCell(i),\n    childCount: 14,\n  ),\n)',
+    '  delegate: SliverChildBuilderDelegate(\n'
+    '    (ctx, i) => StripCell(i),\n    childCount: 14,\n  ),\n)',
     palette3,
   );
 
@@ -1007,11 +1041,8 @@ dynamic build(BuildContext context) {
   // SECTION 4: SliverPrototypeExtentList
   // ==========================================================================
   final Map<String, dynamic> palette4 = _workshopPalettes[3];
-  final Widget section4Banner = _sectionBanner(
-    'SliverPrototypeExtentList',
-    '4',
-    palette4,
-  );
+  final Widget section4Banner =
+      _sectionBanner('SliverPrototypeExtentList', '4', palette4);
 
   final Widget section4Caption1 = _captionCard(
     'Prototype is a 56-px chunky tile',
@@ -1027,9 +1058,12 @@ dynamic build(BuildContext context) {
     slivers: <Widget>[
       SliverPrototypeExtentList(
         prototypeItem: prototypeChunky,
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _stripCell(index, palette4);
-        }, childCount: 12),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _stripCell(index, palette4);
+          },
+          childCount: 12,
+        ),
       ),
     ],
   );
@@ -1048,9 +1082,12 @@ dynamic build(BuildContext context) {
     slivers: <Widget>[
       SliverPrototypeExtentList(
         prototypeItem: prototypeSlim,
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _stripCell(index, _workshopPalettes[9]);
-        }, childCount: 16),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _stripCell(index, _workshopPalettes[9]);
+          },
+          childCount: 16,
+        ),
       ),
     ],
   );
@@ -1058,8 +1095,8 @@ dynamic build(BuildContext context) {
   final Widget section4Recipe = _recipeCard(
     'Prototype extent, recipe',
     'SliverPrototypeExtentList(\n  prototypeItem: SizedBox(height: 56),\n'
-        '  delegate: SliverChildBuilderDelegate(\n'
-        '    (ctx, i) => StripCell(i),\n    childCount: 12,\n  ),\n)',
+    '  delegate: SliverChildBuilderDelegate(\n'
+    '    (ctx, i) => StripCell(i),\n    childCount: 12,\n  ),\n)',
     palette4,
   );
 
@@ -1067,11 +1104,8 @@ dynamic build(BuildContext context) {
   // SECTION 5: SliverGridDelegateWithFixedCrossAxisCount Grids
   // ==========================================================================
   final Map<String, dynamic> palette5 = _workshopPalettes[4];
-  final Widget section5Banner = _sectionBanner(
-    'FixedCrossAxisCount Grids',
-    '5',
-    palette5,
-  );
+  final Widget section5Banner =
+      _sectionBanner('FixedCrossAxisCount Grids', '5', palette5);
 
   final Widget section5Caption1 = _captionCard(
     'crossAxisCount: 2, square ratio',
@@ -1088,9 +1122,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 4.0,
           crossAxisSpacing: 4.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index, palette5);
-        }, childCount: 12),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index, palette5);
+          },
+          childCount: 12,
+        ),
       ),
     ],
   );
@@ -1110,9 +1147,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 6.0,
           crossAxisSpacing: 6.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index + 1, _workshopPalettes[5]);
-        }, childCount: 18),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index + 1, _workshopPalettes[5]);
+          },
+          childCount: 18,
+        ),
       ),
     ],
   );
@@ -1132,9 +1172,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 4.0,
           crossAxisSpacing: 4.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index + 2, _workshopPalettes[6]);
-        }, childCount: 16),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index + 2, _workshopPalettes[6]);
+          },
+          childCount: 16,
+        ),
       ),
     ],
   );
@@ -1154,9 +1197,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 3.0,
           crossAxisSpacing: 3.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index + 3, _workshopPalettes[9]);
-        }, childCount: 20),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index + 3, _workshopPalettes[9]);
+          },
+          childCount: 20,
+        ),
       ),
     ],
   );
@@ -1164,8 +1210,8 @@ dynamic build(BuildContext context) {
   final Widget section5Recipe = _recipeCard(
     'FixedCrossAxisCount, recipe',
     'SliverGrid(\n  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(\n'
-        '    crossAxisCount: 3,\n    childAspectRatio: 1.5,\n  ),\n'
-        '  delegate: SliverChildBuilderDelegate((ctx, i) => Cell(i)),\n)',
+    '    crossAxisCount: 3,\n    childAspectRatio: 1.5,\n  ),\n'
+    '  delegate: SliverChildBuilderDelegate((ctx, i) => Cell(i)),\n)',
     palette5,
   );
 
@@ -1173,11 +1219,8 @@ dynamic build(BuildContext context) {
   // SECTION 6: SliverGridDelegateWithMaxCrossAxisExtent Grids
   // ==========================================================================
   final Map<String, dynamic> palette6 = _workshopPalettes[5];
-  final Widget section6Banner = _sectionBanner(
-    'MaxCrossAxisExtent Grids',
-    '6',
-    palette6,
-  );
+  final Widget section6Banner =
+      _sectionBanner('MaxCrossAxisExtent Grids', '6', palette6);
 
   final Widget section6Caption1 = _captionCard(
     'maxCrossAxisExtent: 80, ratio 1.0',
@@ -1194,9 +1237,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 4.0,
           crossAxisSpacing: 4.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index, palette6);
-        }, childCount: 18),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index, palette6);
+          },
+          childCount: 18,
+        ),
       ),
     ],
   );
@@ -1216,9 +1262,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 6.0,
           crossAxisSpacing: 6.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index + 1, _workshopPalettes[7]);
-        }, childCount: 12),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index + 1, _workshopPalettes[7]);
+          },
+          childCount: 12,
+        ),
       ),
     ],
   );
@@ -1238,9 +1287,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 3.0,
           crossAxisSpacing: 3.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index + 2, _workshopPalettes[1]);
-        }, childCount: 24),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index + 2, _workshopPalettes[1]);
+          },
+          childCount: 24,
+        ),
       ),
     ],
   );
@@ -1248,8 +1300,8 @@ dynamic build(BuildContext context) {
   final Widget section6Recipe = _recipeCard(
     'MaxCrossAxisExtent, recipe',
     'SliverGrid(\n  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(\n'
-        '    maxCrossAxisExtent: 120.0,\n    childAspectRatio: 1.4,\n  ),\n'
-        '  delegate: SliverChildBuilderDelegate((ctx, i) => Cell(i)),\n)',
+    '    maxCrossAxisExtent: 120.0,\n    childAspectRatio: 1.4,\n  ),\n'
+    '  delegate: SliverChildBuilderDelegate((ctx, i) => Cell(i)),\n)',
     palette6,
   );
 
@@ -1257,11 +1309,8 @@ dynamic build(BuildContext context) {
   // SECTION 7: Mixed Composition
   // ==========================================================================
   final Map<String, dynamic> palette7 = _workshopPalettes[6];
-  final Widget section7Banner = _sectionBanner(
-    'Mixed Composition',
-    '7',
-    palette7,
-  );
+  final Widget section7Banner =
+      _sectionBanner('Mixed Composition', '7', palette7);
 
   final Widget section7Caption1 = _captionCard(
     'List + Grid + List in one CustomScrollView',
@@ -1288,9 +1337,12 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _itemTile(index, palette7, label: 'mix');
-        }, childCount: 4),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _itemTile(index, palette7, label: 'mix');
+          },
+          childCount: 4,
+        ),
       ),
       SliverToBoxAdapter(
         child: Container(
@@ -1313,9 +1365,12 @@ dynamic build(BuildContext context) {
           crossAxisCount: 3,
           childAspectRatio: 1.2,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index, palette7);
-        }, childCount: 6),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index, palette7);
+          },
+          childCount: 6,
+        ),
       ),
     ],
   );
@@ -1333,15 +1388,21 @@ dynamic build(BuildContext context) {
           maxCrossAxisExtent: 100.0,
           childAspectRatio: 1.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index, _workshopPalettes[3]);
-        }, childCount: 6),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index, _workshopPalettes[3]);
+          },
+          childCount: 6,
+        ),
       ),
       SliverFixedExtentList(
         itemExtent: 40.0,
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _stripCell(index, _workshopPalettes[5]);
-        }, childCount: 6),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _stripCell(index, _workshopPalettes[5]);
+          },
+          childCount: 6,
+        ),
       ),
     ],
   );
@@ -1365,9 +1426,12 @@ dynamic build(BuildContext context) {
           crossAxisCount: 4,
           childAspectRatio: 1.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index, _workshopPalettes[8]);
-        }, childCount: 8),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index, _workshopPalettes[8]);
+          },
+          childCount: 8,
+        ),
       ),
       SliverList(
         delegate: SliverChildListDelegate(<Widget>[
@@ -1382,11 +1446,8 @@ dynamic build(BuildContext context) {
   // SECTION 8: SliverPadding / SliverFillRemaining
   // ==========================================================================
   final Map<String, dynamic> palette8 = _workshopPalettes[7];
-  final Widget section8Banner = _sectionBanner(
-    'SliverPadding / SliverFillRemaining',
-    '8',
-    palette8,
-  );
+  final Widget section8Banner =
+      _sectionBanner('SliverPadding / SliverFillRemaining', '8', palette8);
 
   final Widget section8Caption1 = _captionCard(
     'SliverPadding wraps another sliver',
@@ -1399,12 +1460,12 @@ dynamic build(BuildContext context) {
       SliverPadding(
         padding: const EdgeInsets.all(12.0),
         sliver: SliverList(
-          delegate: SliverChildBuilderDelegate((
-            BuildContext context,
-            int index,
-          ) {
-            return _itemTile(index, palette8, label: 'pad');
-          }, childCount: 6),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return _itemTile(index, palette8, label: 'pad');
+            },
+            childCount: 6,
+          ),
         ),
       ),
     ],
@@ -1469,12 +1530,12 @@ dynamic build(BuildContext context) {
             mainAxisSpacing: 6.0,
             crossAxisSpacing: 6.0,
           ),
-          delegate: SliverChildBuilderDelegate((
-            BuildContext context,
-            int index,
-          ) {
-            return _gridCell(index, palette8);
-          }, childCount: 9),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return _gridCell(index, palette8);
+            },
+            childCount: 9,
+          ),
         ),
       ),
     ],
@@ -1484,11 +1545,8 @@ dynamic build(BuildContext context) {
   // SECTION 9: SliverPersistentHeader patterns (visual)
   // ==========================================================================
   final Map<String, dynamic> palette9 = _workshopPalettes[8];
-  final Widget section9Banner = _sectionBanner(
-    'SliverPersistentHeader patterns',
-    '9',
-    palette9,
-  );
+  final Widget section9Banner =
+      _sectionBanner('SliverPersistentHeader patterns', '9', palette9);
 
   final Widget section9Caption1 = _captionCard(
     'SliverAppBar pinned - stays at top',
@@ -1520,9 +1578,12 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _itemTile(index, palette9, label: 'pinned');
-        }, childCount: 8),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _itemTile(index, palette9, label: 'pinned');
+          },
+          childCount: 8,
+        ),
       ),
     ],
   );
@@ -1544,9 +1605,12 @@ dynamic build(BuildContext context) {
         expandedHeight: 64.0,
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _itemTile(index + 2, _workshopPalettes[1], label: 'float');
-        }, childCount: 8),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _itemTile(index + 2, _workshopPalettes[1], label: 'float');
+          },
+          childCount: 8,
+        ),
       ),
     ],
   );
@@ -1585,9 +1649,12 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _itemTile(index + 4, palette9, label: 'static');
-        }, childCount: 8),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _itemTile(index + 4, palette9, label: 'static');
+          },
+          childCount: 8,
+        ),
       ),
     ],
   );
@@ -1596,11 +1663,8 @@ dynamic build(BuildContext context) {
   // SECTION 10: SliverGridDelegate comparisons
   // ==========================================================================
   final Map<String, dynamic> palette10 = _workshopPalettes[9];
-  final Widget section10Banner = _sectionBanner(
-    'SliverGridDelegate comparisons',
-    '10',
-    palette10,
-  );
+  final Widget section10Banner =
+      _sectionBanner('SliverGridDelegate comparisons', '10', palette10);
 
   final Widget section10Caption1 = _captionCard(
     'Side-by-side: Fixed (3 cols) vs Max (90px)',
@@ -1633,9 +1697,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 4.0,
           crossAxisSpacing: 4.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index, palette10);
-        }, childCount: 12),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index, palette10);
+          },
+          childCount: 12,
+        ),
       ),
     ],
   );
@@ -1665,9 +1732,12 @@ dynamic build(BuildContext context) {
           mainAxisSpacing: 4.0,
           crossAxisSpacing: 4.0,
         ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _gridCell(index, palette10);
-        }, childCount: 12),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _gridCell(index, palette10);
+          },
+          childCount: 12,
+        ),
       ),
     ],
   );
@@ -1697,9 +1767,12 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return _itemTile(index, palette10, label: 'builder');
-        }, childCount: 8),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return _itemTile(index, palette10, label: 'builder');
+          },
+          childCount: 8,
+        ),
       ),
     ],
   );
@@ -1741,11 +1814,8 @@ dynamic build(BuildContext context) {
   // SECTION 11: Comparison table
   // ==========================================================================
   final Map<String, dynamic> palette11 = _workshopPalettes[0];
-  final Widget section11Banner = _sectionBanner(
-    'Comparison Table',
-    '11',
-    palette11,
-  );
+  final Widget section11Banner =
+      _sectionBanner('Comparison Table', '11', palette11);
 
   final Widget comparisonTable = Container(
     margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
@@ -1884,7 +1954,8 @@ dynamic build(BuildContext context) {
   // SECTION 12: Glossary
   // ==========================================================================
   final Map<String, dynamic> palette12 = _workshopPalettes[3];
-  final Widget section12Banner = _sectionBanner('Glossary', '12', palette12);
+  final Widget section12Banner =
+      _sectionBanner('Glossary', '12', palette12);
 
   final List<Widget> glossaryItems = <Widget>[];
   for (int i = 0; i < _glossaryEntries.length; i++) {
@@ -2106,9 +2177,7 @@ dynamic build(BuildContext context) {
             section10Caption2,
             Row(
               children: <Widget>[
-                Expanded(
-                  child: _demoChromeBox(section10DemoBuilder, palette10),
-                ),
+                Expanded(child: _demoChromeBox(section10DemoBuilder, palette10)),
                 Expanded(child: _demoChromeBox(section10DemoList, palette10)),
               ],
             ),

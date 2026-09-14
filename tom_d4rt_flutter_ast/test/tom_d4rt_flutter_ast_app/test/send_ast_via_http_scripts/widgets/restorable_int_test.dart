@@ -53,7 +53,8 @@ class AppStateDemo extends StatefulWidget {
   State<AppStateDemo> createState() => _AppStateDemoState();
 }
 
-class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
+class _AppStateDemoState extends State<AppStateDemo>
+    with RestorationMixin {
   // Five `RestorableInt` properties, one per scenario. Each one owns its own
   // restoration key. The initial values below are the ones the user will see
   // on first launch, before any restoration has happened.
@@ -93,12 +94,8 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
 
   // Small helper so the five scenarios can share a title row without
   // duplicating decoration. Each scenario still draws its own body.
-  Widget _sectionHeader(
-    String number,
-    String title,
-    IconData icon,
-    Color color,
-  ) {
+  Widget _sectionHeader(String number, String title, IconData icon,
+      Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
@@ -114,7 +111,10 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
             alignment: Alignment.center,
             child: Text(
               number,
-              style: TextStyle(fontWeight: FontWeight.bold, color: color),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -123,7 +123,10 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -142,44 +145,24 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
         child: ListView(
           padding: const EdgeInsets.only(bottom: 32),
           children: [
-            _sectionHeader(
-              '1',
-              'Shopping cart badge',
-              Icons.shopping_cart,
-              Colors.red,
-            ),
+            _sectionHeader('1', 'Shopping cart badge',
+                Icons.shopping_cart, Colors.red),
             _buildCartSection(),
             const Divider(height: 32),
-            _sectionHeader(
-              '2',
-              'Multi-step wizard progress',
-              Icons.linear_scale,
-              Colors.blue,
-            ),
+            _sectionHeader('2', 'Multi-step wizard progress',
+                Icons.linear_scale, Colors.blue),
             _buildWizardSection(),
             const Divider(height: 32),
-            _sectionHeader(
-              '3',
-              'Image carousel selected index',
-              Icons.photo_library,
-              Colors.purple,
-            ),
+            _sectionHeader('3', 'Image carousel selected index',
+                Icons.photo_library, Colors.purple),
             _buildCarouselSection(),
             const Divider(height: 32),
-            _sectionHeader(
-              '4',
-              'Custom +/- 5 counter',
-              Icons.exposure,
-              Colors.orange,
-            ),
+            _sectionHeader('4', 'Custom +/- 5 counter',
+                Icons.exposure, Colors.orange),
             _buildCounterSection(),
             const Divider(height: 32),
-            _sectionHeader(
-              '5',
-              'Leaderboard ordinal rank',
-              Icons.emoji_events,
-              Colors.amber,
-            ),
+            _sectionHeader('5', 'Leaderboard ordinal rank',
+                Icons.emoji_events, Colors.amber),
             _buildLeaderboardSection(),
             const Divider(height: 32),
             _buildTeachingFooter(),
@@ -259,13 +242,12 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                         top: -6,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
+                              horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             color: Colors.red.shade600,
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.white, width: 2),
+                            border: Border.all(
+                                color: Colors.white, width: 2),
                           ),
                           child: Text(
                             count > 99 ? '99+' : '$count',
@@ -346,26 +328,14 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
               spacing: 8,
               runSpacing: 8,
               children: [
-                _cartQuickChip(
-                  '+1',
-                  Colors.red.shade400,
-                  () => _cartItems.value += 1,
-                ),
-                _cartQuickChip(
-                  '+5',
-                  Colors.red.shade500,
-                  () => _cartItems.value += 5,
-                ),
-                _cartQuickChip(
-                  '+10',
-                  Colors.red.shade600,
-                  () => _cartItems.value += 10,
-                ),
-                _cartQuickChip(
-                  'Clear',
-                  Colors.grey.shade700,
-                  () => _cartItems.value = 0,
-                ),
+                _cartQuickChip('+1', Colors.red.shade400,
+                    () => _cartItems.value += 1),
+                _cartQuickChip('+5', Colors.red.shade500,
+                    () => _cartItems.value += 5),
+                _cartQuickChip('+10', Colors.red.shade600,
+                    () => _cartItems.value += 10),
+                _cartQuickChip('Clear', Colors.grey.shade700,
+                    () => _cartItems.value = 0),
               ],
             ),
             const SizedBox(height: 16),
@@ -380,17 +350,12 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Colors.grey.shade300,
-                    style: BorderStyle.solid,
-                  ),
+                      color: Colors.grey.shade300, style: BorderStyle.solid),
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.remove_shopping_cart,
-                      color: Colors.grey.shade400,
-                      size: 32,
-                    ),
+                    Icon(Icons.remove_shopping_cart,
+                        color: Colors.grey.shade400, size: 32),
                     const SizedBox(height: 8),
                     Text(
                       'Your cart is empty',
@@ -435,9 +400,7 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                   if (overflow > 0)
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
+                          horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
                         color: Colors.red.shade700,
                         borderRadius: BorderRadius.circular(22),
@@ -636,8 +599,7 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
           iconColor: Colors.orange,
           title: 'Welcome',
           subtitle: "Let's get started",
-          body:
-              'This wizard shows how `RestorableInt` keeps your progress '
+          body: 'This wizard shows how `RestorableInt` keeps your progress '
               'even if the process is killed and restored.',
         );
       case 1:
@@ -646,8 +608,7 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
           iconColor: Colors.indigo,
           title: 'Enter your name',
           subtitle: 'Step 2 of 5',
-          body:
-              'Imagine a text field here. The wizard step index is stored '
+          body: 'Imagine a text field here. The wizard step index is stored '
               'as a plain int in the restoration bucket.',
         );
       case 2:
@@ -658,10 +619,9 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
               children: [
                 Icon(Icons.layers, color: Colors.teal),
                 SizedBox(width: 8),
-                Text(
-                  'Choose a plan',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+                Text('Choose a plan',
+                    style: TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
               ],
             ),
             const SizedBox(height: 12),
@@ -684,10 +644,9 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
               children: [
                 Icon(Icons.credit_card, color: Colors.deepPurple),
                 SizedBox(width: 8),
-                Text(
-                  'Payment details',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+                Text('Payment details',
+                    style: TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
               ],
             ),
             const SizedBox(height: 12),
@@ -709,31 +668,23 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'RESTORABLE BANK',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          letterSpacing: 2,
-                        ),
-                      ),
+                      Text('RESTORABLE BANK',
+                          style: TextStyle(
+                              color: Colors.white70,
+                              letterSpacing: 2)),
                       Icon(Icons.contactless, color: Colors.white70),
                     ],
                   ),
-                  Text(
-                    '**** **** **** 4242',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      letterSpacing: 3,
-                    ),
-                  ),
+                  Text('**** **** **** 4242',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          letterSpacing: 3)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'CARDHOLDER',
-                        style: TextStyle(color: Colors.white70),
-                      ),
+                      Text('CARDHOLDER',
+                          style: TextStyle(color: Colors.white70)),
                       Text('12/29', style: TextStyle(color: Colors.white70)),
                     ],
                   ),
@@ -748,8 +699,7 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
           iconColor: Colors.pink,
           title: 'All done!',
           subtitle: 'Thanks for walking through',
-          body:
-              "Your wizard step survived the entire flow — and it would "
+          body: "Your wizard step survived the entire flow — and it would "
               'survive a restart too thanks to `RestorableInt`.',
         );
       default:
@@ -777,14 +727,11 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(subtitle, style: TextStyle(color: Colors.grey.shade600)),
+              Text(title,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(subtitle,
+                  style: TextStyle(color: Colors.grey.shade600)),
               const SizedBox(height: 8),
               Text(body),
             ],
@@ -847,7 +794,10 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
             height: 180,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [theme.color.shade200, theme.color.shade600],
+                colors: [
+                  theme.color.shade200,
+                  theme.color.shade600,
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -888,14 +838,14 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                 for (int i = 0; i < count; i++)
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => setState(() => _carouselIndex.value = i),
+                      onTap: () =>
+                          setState(() => _carouselIndex.value = i),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 3),
                         child: Container(
                           decoration: BoxDecoration(
                             color: themes[i].color.shade300.withValues(
-                              alpha: i == index ? 1.0 : 0.4,
-                            ),
+                                alpha: i == index ? 1.0 : 0.4),
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                               color: i == index
@@ -908,30 +858,24 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                           child: Stack(
                             clipBehavior: Clip.none,
                             children: [
-                              Icon(
-                                themes[i].icon,
-                                color: Colors.white,
-                                size: 28,
-                              ),
+                              Icon(themes[i].icon,
+                                  color: Colors.white, size: 28),
                               if (i == index)
                                 Positioned(
                                   top: -10,
                                   right: -6,
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 6,
-                                      vertical: 2,
-                                    ),
+                                        horizontal: 6, vertical: 2),
                                     decoration: BoxDecoration(
                                       color: themes[i].color.shade900,
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius:
+                                          BorderRadius.circular(10),
                                     ),
                                     child: const Text(
                                       '●',
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                      ),
+                                          color: Colors.white, fontSize: 10),
                                     ),
                                   ),
                                 ),
@@ -951,9 +895,8 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton.filled(
-                onPressed: () => setState(
-                  () => _carouselIndex.value = (index - 1 + count) % count,
-                ),
+                onPressed: () => setState(() =>
+                    _carouselIndex.value = (index - 1 + count) % count),
                 icon: const Icon(Icons.chevron_left),
                 iconSize: 32,
               ),
@@ -977,8 +920,8 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                 ],
               ),
               IconButton.filled(
-                onPressed: () =>
-                    setState(() => _carouselIndex.value = (index + 1) % count),
+                onPressed: () => setState(
+                    () => _carouselIndex.value = (index + 1) % count),
                 icon: const Icon(Icons.chevron_right),
                 iconSize: 32,
               ),
@@ -1000,7 +943,8 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
   Widget _buildCounterSection() {
     final int value = _customCounter.value;
     // Halo size grows with magnitude but caps out so we don't explode.
-    final double haloSize = 100 + (value.abs().clamp(0, 200) * 0.5).toDouble();
+    final double haloSize =
+        100 + (value.abs().clamp(0, 200) * 0.5).toDouble();
 
     Color haloColor;
     if (value > 0) {
@@ -1046,7 +990,8 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.orange.shade50,
-                    border: Border.all(color: Colors.orange.shade400, width: 3),
+                    border: Border.all(
+                        color: Colors.orange.shade400, width: 3),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -1076,36 +1021,18 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
             crossAxisSpacing: 8,
             childAspectRatio: 2.2,
             children: [
-              _counterButton(
-                '-10',
-                Colors.red.shade700,
-                () => _customCounter.value -= 10,
-              ),
-              _counterButton(
-                '-5',
-                Colors.red.shade500,
-                () => _customCounter.value -= 5,
-              ),
-              _counterButton(
-                '-1',
-                Colors.red.shade300,
-                () => _customCounter.value -= 1,
-              ),
-              _counterButton(
-                '+1',
-                Colors.green.shade300,
-                () => _customCounter.value += 1,
-              ),
-              _counterButton(
-                '+5',
-                Colors.green.shade500,
-                () => _customCounter.value += 5,
-              ),
-              _counterButton(
-                '+10',
-                Colors.green.shade700,
-                () => _customCounter.value += 10,
-              ),
+              _counterButton('-10', Colors.red.shade700,
+                  () => _customCounter.value -= 10),
+              _counterButton('-5', Colors.red.shade500,
+                  () => _customCounter.value -= 5),
+              _counterButton('-1', Colors.red.shade300,
+                  () => _customCounter.value -= 1),
+              _counterButton('+1', Colors.green.shade300,
+                  () => _customCounter.value += 1),
+              _counterButton('+5', Colors.green.shade500,
+                  () => _customCounter.value += 5),
+              _counterButton('+10', Colors.green.shade700,
+                  () => _customCounter.value += 10),
             ],
           ),
           const SizedBox(height: 12),
@@ -1128,12 +1055,12 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      child: Text(
-        label,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      ),
+      child: Text(label,
+          style:
+              const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
     );
   }
 
@@ -1166,10 +1093,8 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
         children: [
           Icon(icon, size: 16, color: color),
           const SizedBox(width: 6),
-          Text(
-            label,
-            style: TextStyle(color: color, fontWeight: FontWeight.bold),
-          ),
+          Text(label,
+              style: TextStyle(color: color, fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -1195,7 +1120,9 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
               height: 22,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: i < lit ? Colors.orange.shade600 : Colors.grey.shade300,
+                color: i < lit
+                    ? Colors.orange.shade600
+                    : Colors.grey.shade300,
                 boxShadow: i < lit
                     ? [
                         BoxShadow(
@@ -1250,7 +1177,10 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
       gradient = [Colors.grey.shade300, Colors.blueGrey.shade500];
       medal = _medal(Icons.emoji_events, Colors.grey.shade600, 'Silver');
     } else if (rank == 3) {
-      gradient = [const Color(0xFFD7A16A), const Color(0xFF8B5A2B)];
+      gradient = [
+        const Color(0xFFD7A16A),
+        const Color(0xFF8B5A2B),
+      ];
       medal = _medal(Icons.emoji_events, const Color(0xFF8B5A2B), 'Bronze');
     } else if (rank >= 4 && rank <= 10) {
       gradient = [Colors.blue.shade200, Colors.indigo.shade500];
@@ -1280,7 +1210,8 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                 ),
               ],
             ),
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            padding:
+                const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
             child: Row(
               children: [
                 medal,
@@ -1317,15 +1248,12 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
+                      horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.25),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.6),
-                    ),
+                        color: Colors.white.withValues(alpha: 0.6)),
                   ),
                   child: Text(
                     '#$rank',
@@ -1367,13 +1295,9 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                 icon: const Icon(Icons.remove),
               ),
               const SizedBox(width: 16),
-              Text(
-                _ordinal(rank),
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              Text(_ordinal(rank),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w600)),
               const SizedBox(width: 16),
               IconButton.outlined(
                 onPressed: rank < 999
@@ -1430,12 +1354,11 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.amber.shade100,
         foregroundColor: Colors.amber.shade900,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        padding:
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       ),
-      child: Text(
-        'Set to $value',
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
+      child: Text('Set to $value',
+          style: const TextStyle(fontWeight: FontWeight.bold)),
     );
   }
 
@@ -1466,7 +1389,10 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
                 const SizedBox(width: 8),
                 const Text(
                   'About RestorableInt',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -1474,10 +1400,8 @@ class _AppStateDemoState extends State<AppStateDemo> with RestorationMixin {
             _bullet('Non-null: always has a value — no null-checks needed.'),
             _bullet('Serialised as a plain int in the restoration bucket.'),
             _bullet('Registered on a RestorationMixin with a unique id.'),
-            _bullet(
-              'Reads and writes go through `.value` like any '
-              'ValueListenable.',
-            ),
+            _bullet('Reads and writes go through `.value` like any '
+                'ValueListenable.'),
             const SizedBox(height: 8),
             Text(
               'Concrete use-cases in this demo:',

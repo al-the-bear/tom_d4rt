@@ -13,8 +13,7 @@ class _ClipRectEngineLayerDemo extends StatefulWidget {
   const _ClipRectEngineLayerDemo();
 
   @override
-  State<_ClipRectEngineLayerDemo> createState() =>
-      _ClipRectEngineLayerDemoState();
+  State<_ClipRectEngineLayerDemo> createState() => _ClipRectEngineLayerDemoState();
 }
 
 class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
@@ -34,21 +33,9 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
   final List<String> _probeFailed = <String>[];
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0F172A),
-      const Color(0xFF1E293B),
-      const Color(0xFF38BDF8),
-    ],
-    <Color>[
-      const Color(0xFF311B92),
-      const Color(0xFF512DA8),
-      const Color(0xFFB39DDB),
-    ],
-    <Color>[
-      const Color(0xFF0B3D2E),
-      const Color(0xFF1E5B46),
-      const Color(0xFF7CCBA2),
-    ],
+    <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
+    <Color>[const Color(0xFF311B92), const Color(0xFF512DA8), const Color(0xFFB39DDB)],
+    <Color>[const Color(0xFF0B3D2E), const Color(0xFF1E5B46), const Color(0xFF7CCBA2)],
   ];
 
   @override
@@ -135,12 +122,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
     });
   }
 
-  Widget _sectionTitle(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color color,
-  ) {
+  Widget _sectionTitle(String title, String subtitle, IconData icon, Color color) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       padding: const EdgeInsets.all(12),
@@ -164,10 +146,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.w700, color: color),
-                ),
+                Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.3)),
               ],
@@ -199,11 +178,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
         children: <Widget>[
           Text(
             'ClipRectEngineLayer',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 23,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Text(
@@ -236,9 +211,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
             ),
           ),
           if (_showGrid)
-            const Positioned.fill(
-              child: CustomPaint(painter: _RectGridPainter()),
-            ),
+            const Positioned.fill(child: CustomPaint(painter: _RectGridPainter())),
           Positioned(
             left: 8,
             top: 20,
@@ -297,13 +270,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.5,
-                ),
-              ),
+              Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5)),
               const SizedBox(height: 2),
               Text(note, style: const TextStyle(fontSize: 11.3)),
               const SizedBox(height: 8),
@@ -326,17 +293,9 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          card(
-            'Clip.none',
-            'No clipping. Overflow remains visible.',
-            Clip.none,
-          ),
+          card('Clip.none', 'No clipping. Overflow remains visible.', Clip.none),
           card('Clip.hardEdge', 'Fast, hard clipping border.', Clip.hardEdge),
-          card(
-            'Clip.antiAlias',
-            'Smoother clipped rectangle edge.',
-            Clip.antiAlias,
-          ),
+          card('Clip.antiAlias', 'Smoother clipped rectangle edge.', Clip.antiAlias),
         ],
       ),
     );
@@ -355,10 +314,8 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Interactive clip rectangle controls',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Interactive clip rectangle controls',
+              style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Text('Left: ${_left.toStringAsFixed(1)}'),
           Slider(
@@ -523,10 +480,8 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Animated clip window (reveal/crop behavior)',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Animated clip window (reveal/crop behavior)',
+              style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Row(
             children: <Widget>[
@@ -541,10 +496,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
                     }
                   });
                 },
-                icon: Icon(
-                  _animateWindow ? Icons.pause : Icons.play_arrow,
-                  size: 18,
-                ),
+                icon: Icon(_animateWindow ? Icons.pause : Icons.play_arrow, size: 18),
                 label: Text(_animateWindow ? 'Pause' : 'Play animation'),
               ),
               const SizedBox(width: 8),
@@ -563,11 +515,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
           Center(
             child: ClipRect(
               clipBehavior: _clipBehavior,
-              child: SizedBox(
-                width: 300,
-                height: 200,
-                child: _overflowCanvas(),
-              ),
+              child: SizedBox(width: 300, height: 200, child: _overflowCanvas()),
             ),
           ),
         ],
@@ -576,11 +524,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
   }
 
   Widget _nestedClipSection() {
-    Widget layerCard({
-      required String title,
-      required Color color,
-      required double inset,
-    }) {
+    Widget layerCard({required String title, required Color color, required double inset}) {
       return Positioned(
         left: inset,
         top: inset,
@@ -594,10 +538,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
               alignment: Alignment.center,
               child: Text(
                 title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -617,10 +558,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
         children: <Widget>[
           const Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              'Nested rectangular clips',
-              style: TextStyle(fontWeight: FontWeight.w700),
-            ),
+            child: Text('Nested rectangular clips', style: TextStyle(fontWeight: FontWeight.w700)),
           ),
           const SizedBox(height: 8),
           SizedBox(
@@ -628,21 +566,9 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
             height: 180,
             child: Stack(
               children: <Widget>[
-                layerCard(
-                  title: 'Layer 1',
-                  color: const Color(0xFF334155),
-                  inset: 0,
-                ),
-                layerCard(
-                  title: 'Layer 2',
-                  color: const Color(0xFF0EA5E9),
-                  inset: 18,
-                ),
-                layerCard(
-                  title: 'Layer 3',
-                  color: const Color(0xFF14B8A6),
-                  inset: 34,
-                ),
+                layerCard(title: 'Layer 1', color: const Color(0xFF334155), inset: 0),
+                layerCard(title: 'Layer 2', color: const Color(0xFF0EA5E9), inset: 18),
+                layerCard(title: 'Layer 3', color: const Color(0xFF14B8A6), inset: 34),
               ],
             ),
           ),
@@ -658,7 +584,12 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
   }
 
   Widget _practicalUseCases() {
-    Widget tile(IconData icon, String title, String text, List<Color> colors) {
+    Widget tile(
+      IconData icon,
+      String title,
+      String text,
+      List<Color> colors,
+    ) {
       return Expanded(
         child: Container(
           margin: const EdgeInsets.all(6),
@@ -683,10 +614,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    text,
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
-                  ),
+                  Text(text, style: const TextStyle(color: Colors.white, fontSize: 12)),
                 ],
               ),
             ),
@@ -724,9 +652,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
 
   Widget _probeDashboard() {
     Widget entry(String label, bool success) {
-      final Color color = success
-          ? const Color(0xFF1D8348)
-          : const Color(0xFFB03A2E);
+      final Color color = success ? const Color(0xFF1D8348) : const Color(0xFFB03A2E);
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -737,15 +663,9 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
         ),
         child: Row(
           children: <Widget>[
-            Icon(
-              success ? Icons.check_circle : Icons.error,
-              color: color,
-              size: 18,
-            ),
+            Icon(success ? Icons.check_circle : Icons.error, color: color, size: 18),
             const SizedBox(width: 8),
-            Expanded(
-              child: Text(label, style: const TextStyle(fontSize: 12.4)),
-            ),
+            Expanded(child: Text(label, style: const TextStyle(fontSize: 12.4))),
           ],
         ),
       );
@@ -762,14 +682,9 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'SceneBuilder probes',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('SceneBuilder probes', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
-          Text(
-            'Passed: ${_probePassed.length}, Failed: ${_probeFailed.length}',
-          ),
+          Text('Passed: ${_probePassed.length}, Failed: ${_probeFailed.length}'),
           const SizedBox(height: 6),
           ..._probePassed.map((String label) => entry(label, true)),
           ..._probeFailed.map((String label) => entry(label, false)),
@@ -787,9 +702,8 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
   }
 
   Widget _finalSummary() {
-    final String mode = _clipBehavior == Clip.hardEdge
-        ? 'performance-first'
-        : 'quality-first';
+    final String mode =
+        _clipBehavior == Clip.hardEdge ? 'performance-first' : 'quality-first';
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 8, 16, 20),
       padding: const EdgeInsets.all(12),

@@ -59,7 +59,11 @@ dynamic build(BuildContext context) {
     fontWeight: FontWeight.w800,
     letterSpacing: -0.6,
   );
-  const TextStyle tSub = TextStyle(color: cTextDim, fontSize: 14, height: 1.45);
+  const TextStyle tSub = TextStyle(
+    color: cTextDim,
+    fontSize: 14,
+    height: 1.45,
+  );
   const TextStyle tH2 = TextStyle(
     color: cAmber,
     fontSize: 20,
@@ -71,8 +75,16 @@ dynamic build(BuildContext context) {
     fontSize: 15,
     fontWeight: FontWeight.w700,
   );
-  const TextStyle tBody = TextStyle(color: cText, fontSize: 13, height: 1.5);
-  const TextStyle tDim = TextStyle(color: cTextDim, fontSize: 12, height: 1.45);
+  const TextStyle tBody = TextStyle(
+    color: cText,
+    fontSize: 13,
+    height: 1.5,
+  );
+  const TextStyle tDim = TextStyle(
+    color: cTextDim,
+    fontSize: 12,
+    height: 1.45,
+  );
   const TextStyle tFaint = TextStyle(
     color: cTextFaint,
     fontSize: 11,
@@ -219,10 +231,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.swap_vert, color: cAmber, size: 28),
             const SizedBox(width: 10),
-            Text(
-              'Scroll family — behavior, config, controllers, storage',
-              style: tHero,
-            ),
+            Text('Scroll family — behavior, config, controllers, storage',
+                style: tHero),
           ],
         ),
         const SizedBox(height: 8),
@@ -292,17 +302,11 @@ dynamic build(BuildContext context) {
 
   final Widget diagram = Column(
     children: <Widget>[
-      layerRow(
-        'ScrollConfiguration',
-        'InheritedWidget — exposes a behavior',
-        cAmber,
-      ),
+      layerRow('ScrollConfiguration', 'InheritedWidget — exposes a behavior',
+          cAmber),
       Center(child: Icon(Icons.south, color: cTextFaint, size: 18)),
-      layerRow(
-        'ScrollBehavior',
-        'Picks physics, scrollbar, overscroll, drag',
-        cTeal,
-      ),
+      layerRow('ScrollBehavior', 'Picks physics, scrollbar, overscroll, drag',
+          cTeal),
       Center(child: Icon(Icons.south, color: cTextFaint, size: 18)),
       layerRow('ScrollPhysics', 'BouncingScrollPhysics, Clamping…', cMauve),
       Center(child: Icon(Icons.south, color: cTextFaint, size: 18)),
@@ -318,12 +322,10 @@ dynamic build(BuildContext context) {
   Widget tableRow(List<String> cells, {bool head = false}) {
     final List<Widget> kids = <Widget>[];
     for (int i = 0; i < cells.length; i++) {
-      kids.add(
-        Expanded(
-          flex: i == 0 ? 2 : 3,
-          child: cell(cells[i], head: head),
-        ),
-      );
+      kids.add(Expanded(
+        flex: i == 0 ? 2 : 3,
+        child: cell(cells[i], head: head),
+      ));
     }
     // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #131, P1):
     // Row(crossAxisAlignment.stretch) + Expanded inside SCV-descended Column
@@ -344,12 +346,8 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: <Widget>[
-        tableRow(<String>[
-          'Platform',
-          'Physics',
-          'Overscroll',
-          'Drag devices',
-        ], head: true),
+        tableRow(<String>['Platform', 'Physics', 'Overscroll', 'Drag devices'],
+            head: true),
         tableRow(<String>[
           'Android',
           'ClampingScrollPhysics',
@@ -406,15 +404,13 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Icon(icon, size: 16, color: tint),
           const SizedBox(width: 8),
-          Text(
-            kind.toString().split('.').last,
-            style: TextStyle(
-              color: cText,
-              fontSize: 12,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          Text(kind.toString().split('.').last,
+              style: TextStyle(
+                color: cText,
+                fontSize: 12,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+              )),
         ],
       ),
     );
@@ -447,17 +443,15 @@ dynamic build(BuildContext context) {
   }) {
     final List<Widget> rows = <Widget>[];
     for (int i = 0; i < 4; i++) {
-      rows.add(
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 3),
-          height: 14,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: tint.withValues(alpha: 0.18 + i * 0.05),
-            borderRadius: BorderRadius.circular(4),
-          ),
+      rows.add(Container(
+        margin: const EdgeInsets.symmetric(vertical: 3),
+        height: 14,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: tint.withValues(alpha: 0.18 + i * 0.05),
+          borderRadius: BorderRadius.circular(4),
         ),
-      );
+      ));
     }
     return Container(
       padding: const EdgeInsets.all(12),
@@ -473,14 +467,12 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Icon(glyph, size: 16, color: tint),
               const SizedBox(width: 8),
-              Text(
-                title,
-                style: TextStyle(
-                  color: tint,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text(title,
+                  style: TextStyle(
+                    color: tint,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  )),
             ],
           ),
           const SizedBox(height: 6),
@@ -585,21 +577,17 @@ dynamic build(BuildContext context) {
   Widget previewList(String label) {
     final List<Widget> tiles = <Widget>[];
     for (int i = 0; i < 12; i++) {
-      tiles.add(
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-          decoration: BoxDecoration(
-            color: cSurface2,
-            border: Border.all(color: cBorder),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Text(
-            '$label · row #$i',
-            style: const TextStyle(color: cText, fontSize: 12),
-          ),
+      tiles.add(Container(
+        margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        decoration: BoxDecoration(
+          color: cSurface2,
+          border: Border.all(color: cBorder),
+          borderRadius: BorderRadius.circular(6),
         ),
-      );
+        child: Text('$label · row #$i',
+            style: const TextStyle(color: cText, fontSize: 12)),
+      ));
     }
     return ListView(
       shrinkWrap: true,
@@ -616,7 +604,10 @@ dynamic build(BuildContext context) {
         border: Border.all(color: tint.withValues(alpha: 0.5)),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: ScrollConfiguration(behavior: behavior, child: previewList(label)),
+      child: ScrollConfiguration(
+        behavior: behavior,
+        child: previewList(label),
+      ),
     );
   }
 
@@ -624,9 +615,8 @@ dynamic build(BuildContext context) {
   // instance — wrapped in try/catch in case the runtime rejects an option.
   Widget makeConfiguredPreview() {
     try {
-      final ScrollBehavior tweaked = const MaterialScrollBehavior().copyWith(
-        scrollbars: true,
-      );
+      final ScrollBehavior tweaked =
+          const MaterialScrollBehavior().copyWith(scrollbars: true);
       return previewBox('configured', tweaked, cTeal);
     } catch (e) {
       print('[scroll] configured preview failed: $e');
@@ -678,31 +668,26 @@ dynamic build(BuildContext context) {
   // build-scoped just to illustrate the wiring.
   final ScrollController explicitCtrl = ScrollController();
 
-  Widget primaryDemoList(String label, bool primary, {ScrollController? ctrl}) {
+  Widget primaryDemoList(String label, bool primary,
+      {ScrollController? ctrl}) {
     final List<Widget> tiles = <Widget>[];
     for (int i = 0; i < 20; i++) {
-      tiles.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          child: Row(
-            children: <Widget>[
-              Container(
-                width: 6,
-                height: 6,
-                decoration: BoxDecoration(
-                  color: primary ? cAmber : cTeal,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                '$label item #$i',
-                style: const TextStyle(color: cText, fontSize: 12),
-              ),
-            ],
-          ),
+      tiles.add(Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 6,
+              height: 6,
+              decoration: BoxDecoration(
+                  color: primary ? cAmber : cTeal, shape: BoxShape.circle),
+            ),
+            const SizedBox(width: 8),
+            Text('$label item #$i',
+                style: const TextStyle(color: cText, fontSize: 12)),
+          ],
         ),
-      );
+      ));
     }
     return ListView(
       primary: primary,
@@ -775,18 +760,11 @@ dynamic build(BuildContext context) {
   Widget storedList(String tag, Color tint) {
     final List<Widget> tiles = <Widget>[];
     for (int i = 0; i < 30; i++) {
-      tiles.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          child: Text(
-            '$tag · entry $i',
-            style: TextStyle(
-              color: cText.withValues(alpha: 0.95),
-              fontSize: 12,
-            ),
-          ),
-        ),
-      );
+      tiles.add(Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+        child: Text('$tag · entry $i',
+            style: TextStyle(color: cText.withValues(alpha: 0.95), fontSize: 12)),
+      ));
     }
     return Container(
       height: 170,
@@ -854,23 +832,21 @@ dynamic build(BuildContext context) {
       const SizedBox(height: 6),
     ];
     for (int i = 0; i < bullets.length; i++) {
-      kids.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 3),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(top: 5, right: 8),
-                width: 5,
-                height: 5,
-                decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
-              ),
-              Expanded(child: Text(bullets[i], style: tDim)),
-            ],
-          ),
+      kids.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(top: 5, right: 8),
+              width: 5,
+              height: 5,
+              decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
+            ),
+            Expanded(child: Text(bullets[i], style: tDim)),
+          ],
         ),
-      );
+      ));
     }
     return Expanded(
       child: Container(
@@ -881,10 +857,7 @@ dynamic build(BuildContext context) {
           border: Border.all(color: tint.withValues(alpha: 0.4)),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: kids,
-        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: kids),
       ),
     );
   }
@@ -895,27 +868,27 @@ dynamic build(BuildContext context) {
   // Wrap in IntrinsicHeight to bound the vertical extent.
   final Widget compareTable = IntrinsicHeight(
     child: Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        compareCol('ScrollBehavior', cAmber, <String>[
-          'Lives at the configuration level',
-          'Picks ScrollPhysics for the platform',
-          'Adds Scrollbar / Glow wrappers',
-          'Defines dragDevices set',
-        ]),
-        compareCol('ScrollPhysics', cTeal, <String>[
-          'The math of the throw / bounce',
-          'BouncingScrollPhysics, Clamping, …',
-          'Composed with .applyTo(parent)',
-          'Owned by the ScrollPosition',
-        ]),
-        compareCol('ScrollNotification', cMauve, <String>[
-          'Bubbles up the widget tree',
-          'Start, Update, End, Overscroll',
-          'Use NotificationListener<…>',
-          'Read-only — observe, do not control',
-        ]),
-      ],
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+      compareCol('ScrollBehavior', cAmber, <String>[
+        'Lives at the configuration level',
+        'Picks ScrollPhysics for the platform',
+        'Adds Scrollbar / Glow wrappers',
+        'Defines dragDevices set',
+      ]),
+      compareCol('ScrollPhysics', cTeal, <String>[
+        'The math of the throw / bounce',
+        'BouncingScrollPhysics, Clamping, …',
+        'Composed with .applyTo(parent)',
+        'Owned by the ScrollPosition',
+      ]),
+      compareCol('ScrollNotification', cMauve, <String>[
+        'Bubbles up the widget tree',
+        'Start, Update, End, Overscroll',
+        'Use NotificationListener<…>',
+        'Read-only — observe, do not control',
+      ]),
+    ],
     ),
   );
 
@@ -975,39 +948,29 @@ dynamic build(BuildContext context) {
   final Widget edgeCases = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      kv(
-        'No PrimaryScrollController',
-        'PrimaryScrollController.maybeOf(context) returns null. A '
-            'ListView with primary:true falls back to a controller that '
-            'is created on demand, but bucketed nesting fails silently.',
-        tint: cRose,
-      ),
-      kv(
-        'Conflicting buckets',
-        'Two PageStorage widgets with the SAME key in scope will '
-            'last-write-wins. Use unique PageStorageKey identifiers per '
-            'tab / route.',
-        tint: cAmber,
-      ),
-      kv(
-        'Nested scrollables',
-        'Two vertical ListViews under one PrimaryScrollController '
-            'cause assertion errors. Give one its own controller, or set '
-            'primary:false explicitly.',
-        tint: cMauve,
-      ),
-      kv(
-        'Horizontal Scrollables',
-        'Horizontal lists DO NOT auto-attach to PrimaryScrollController '
-            'because that one is reserved for the vertical body axis.',
-        tint: cTeal,
-      ),
-      kv(
-        'NeverScrollableScrollPhysics',
-        'Disables touch dragging, but programmatic '
-            'controller.jumpTo(...) still works.',
-        tint: cTealSoft,
-      ),
+      kv('No PrimaryScrollController',
+          'PrimaryScrollController.maybeOf(context) returns null. A '
+          'ListView with primary:true falls back to a controller that '
+          'is created on demand, but bucketed nesting fails silently.',
+          tint: cRose),
+      kv('Conflicting buckets',
+          'Two PageStorage widgets with the SAME key in scope will '
+          'last-write-wins. Use unique PageStorageKey identifiers per '
+          'tab / route.',
+          tint: cAmber),
+      kv('Nested scrollables',
+          'Two vertical ListViews under one PrimaryScrollController '
+          'cause assertion errors. Give one its own controller, or set '
+          'primary:false explicitly.',
+          tint: cMauve),
+      kv('Horizontal Scrollables',
+          'Horizontal lists DO NOT auto-attach to PrimaryScrollController '
+          'because that one is reserved for the vertical body axis.',
+          tint: cTeal),
+      kv('NeverScrollableScrollPhysics',
+          'Disables touch dragging, but programmatic '
+          'controller.jumpTo(...) still works.',
+          tint: cTealSoft),
     ],
   );
 
@@ -1057,32 +1020,19 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         physicsLadderRow(0, 'ScrollPhysics', 'abstract base', cAmber),
         physicsLadderRow(
-          1,
-          'BouncingScrollPhysics',
-          'rubber-band edges',
-          cTeal,
-        ),
-        physicsLadderRow(1, 'ClampingScrollPhysics', 'glow / hard stop', cTeal),
+            1, 'BouncingScrollPhysics', 'rubber-band edges', cTeal),
         physicsLadderRow(
-          1,
-          'AlwaysScrollableScrollPhysics',
-          'wraps a parent',
-          cMauve,
-        ),
-        physicsLadderRow(1, 'NeverScrollableScrollPhysics', 'opt-out', cMauve),
-        physicsLadderRow(1, 'PageScrollPhysics', 'page-snap', cRose),
+            1, 'ClampingScrollPhysics', 'glow / hard stop', cTeal),
         physicsLadderRow(
-          2,
-          'FixedExtentScrollPhysics',
-          'cupertino wheels',
-          cTealSoft,
-        ),
+            1, 'AlwaysScrollableScrollPhysics', 'wraps a parent', cMauve),
         physicsLadderRow(
-          1,
-          'RangeMaintainingScrollPhysics',
-          'preserves offset',
-          cAmberSoft,
-        ),
+            1, 'NeverScrollableScrollPhysics', 'opt-out', cMauve),
+        physicsLadderRow(
+            1, 'PageScrollPhysics', 'page-snap', cRose),
+        physicsLadderRow(
+            2, 'FixedExtentScrollPhysics', 'cupertino wheels', cTealSoft),
+        physicsLadderRow(
+            1, 'RangeMaintainingScrollPhysics', 'preserves offset', cAmberSoft),
       ],
     ),
   );
@@ -1107,15 +1057,13 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 Icon(glyph, size: 16, color: tint),
                 const SizedBox(width: 8),
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: tint,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                Text(label,
+                    style: TextStyle(
+                      color: tint,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      fontFamily: 'monospace',
+                    )),
               ],
             ),
             const SizedBox(height: 6),
@@ -1145,26 +1093,26 @@ dynamic build(BuildContext context) {
       // Wrap in IntrinsicHeight to bound the vertical extent.
       IntrinsicHeight(
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            kbCard(
-              'manual',
-              'Default. Once a soft keyboard is open, it stays open while '
-                  'the user scrolls. The app must call '
-                  'FocusManager.primaryFocus?.unfocus() itself.',
-              cAmber,
-              Icons.keyboard_hide,
-            ),
-            kbCard(
-              'onDrag',
-              'The keyboard collapses as soon as a drag gesture begins. '
-                  'Convenient for chat / form scaffolds where keyboards '
-                  'compete with content for vertical space.',
-              cTeal,
-              Icons.swipe_down,
-            ),
-          ],
-        ),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          kbCard(
+            'manual',
+            'Default. Once a soft keyboard is open, it stays open while '
+                'the user scrolls. The app must call '
+                'FocusManager.primaryFocus?.unfocus() itself.',
+            cAmber,
+            Icons.keyboard_hide,
+          ),
+          kbCard(
+            'onDrag',
+            'The keyboard collapses as soon as a drag gesture begins. '
+                'Convenient for chat / form scaffolds where keyboards '
+                'compete with content for vertical space.',
+            cTeal,
+            Icons.swipe_down,
+          ),
+        ],
+      ),
       ),
       const SizedBox(height: 10),
       Container(
@@ -1205,15 +1153,13 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 10),
           SizedBox(
             width: 220,
-            child: Text(
-              name,
-              style: TextStyle(
-                color: tint,
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-                fontFamily: 'monospace',
-              ),
-            ),
+            child: Text(name,
+                style: TextStyle(
+                  color: tint,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'monospace',
+                )),
           ),
           Expanded(child: Text(when, style: tDim)),
         ],
@@ -1231,31 +1177,17 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        notifRow(
-          'ScrollStartNotification',
-          'Drag, programmatic animateTo, or fling begins.',
-          cAmber,
-        ),
-        notifRow(
-          'ScrollUpdateNotification',
-          'Each frame the offset advances.',
-          cTeal,
-        ),
-        notifRow(
-          'OverscrollNotification',
-          'Beyond min/max — bounce or glow region.',
-          cMauve,
-        ),
-        notifRow(
-          'ScrollEndNotification',
-          'Activity finishes — settle, idle, ballistic done.',
-          cRose,
-        ),
-        notifRow(
-          'UserScrollNotification',
-          'Reports the ScrollDirection — forward, reverse, idle.',
-          cTealSoft,
-        ),
+        notifRow('ScrollStartNotification',
+            'Drag, programmatic animateTo, or fling begins.', cAmber),
+        notifRow('ScrollUpdateNotification',
+            'Each frame the offset advances.', cTeal),
+        notifRow('OverscrollNotification',
+            'Beyond min/max — bounce or glow region.', cMauve),
+        notifRow('ScrollEndNotification',
+            'Activity finishes — settle, idle, ballistic done.', cRose),
+        notifRow('UserScrollNotification',
+            'Reports the ScrollDirection — forward, reverse, idle.',
+            cTealSoft),
       ],
     ),
   );
@@ -1263,12 +1195,8 @@ dynamic build(BuildContext context) {
   // ====================================================================
   // SECTION: scrollbar / overscroll toggle preview
   // ====================================================================
-  Widget toggleCard(
-    String title,
-    bool scrollbars,
-    bool overscroll,
-    Color tint,
-  ) {
+  Widget toggleCard(String title, bool scrollbars, bool overscroll,
+      Color tint) {
     Widget body;
     try {
       final ScrollBehavior tweaked = const MaterialScrollBehavior().copyWith(
@@ -1330,26 +1258,22 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: Text(
-              fn,
-              style: TextStyle(
-                color: nullable ? cTealSoft : cAmber,
-                fontSize: 12,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            child: Text(fn,
+                style: TextStyle(
+                  color: nullable ? cTealSoft : cAmber,
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w800,
+                )),
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              returns,
-              style: const TextStyle(
-                color: cText,
-                fontSize: 12,
-                fontFamily: 'monospace',
-              ),
-            ),
+            child: Text(returns,
+                style: const TextStyle(
+                  color: cText,
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                )),
           ),
           Expanded(flex: 4, child: Text(when, style: tDim)),
         ],
@@ -1375,42 +1299,18 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        lookupRow(
-          'ScrollConfiguration.of(ctx)',
-          'ScrollBehavior',
-          'never null — defaults exist',
-          false,
-        ),
-        lookupRow(
-          'PrimaryScrollController.of(ctx)',
-          'ScrollController',
-          'asserts a controller is in scope',
-          false,
-        ),
-        lookupRow(
-          'PrimaryScrollController.maybeOf(ctx)',
-          'ScrollController?',
-          'returns null if absent',
-          true,
-        ),
-        lookupRow(
-          'PageStorage.of(ctx)',
-          'PageStorageBucket?',
-          'null if no PageStorage ancestor',
-          true,
-        ),
-        lookupRow(
-          'Scrollable.of(ctx)',
-          'ScrollableState',
-          'innermost Scrollable ancestor',
-          false,
-        ),
-        lookupRow(
-          'Scrollable.maybeOf(ctx)',
-          'ScrollableState?',
-          'nullable variant',
-          true,
-        ),
+        lookupRow('ScrollConfiguration.of(ctx)', 'ScrollBehavior',
+            'never null — defaults exist', false),
+        lookupRow('PrimaryScrollController.of(ctx)', 'ScrollController',
+            'asserts a controller is in scope', false),
+        lookupRow('PrimaryScrollController.maybeOf(ctx)', 'ScrollController?',
+            'returns null if absent', true),
+        lookupRow('PageStorage.of(ctx)', 'PageStorageBucket?',
+            'null if no PageStorage ancestor', true),
+        lookupRow('Scrollable.of(ctx)', 'ScrollableState',
+            'innermost Scrollable ancestor', false),
+        lookupRow('Scrollable.maybeOf(ctx)', 'ScrollableState?',
+            'nullable variant', true),
       ],
     ),
   );
@@ -1433,28 +1333,24 @@ dynamic build(BuildContext context) {
               border: Border.all(color: tint),
               shape: BoxShape.circle,
             ),
-            child: Text(
-              '$n',
-              style: TextStyle(
-                color: tint,
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            child: Text('$n',
+                style: TextStyle(
+                  color: tint,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                )),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: cText,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(
+                      color: cText,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                    )),
                 const SizedBox(height: 3),
                 Text(body, style: tDim),
               ],
@@ -1533,15 +1429,13 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           SizedBox(
             width: 200,
-            child: Text(
-              term,
-              style: TextStyle(
-                color: tint,
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-                fontFamily: 'monospace',
-              ),
-            ),
+            child: Text(term,
+                style: TextStyle(
+                  color: tint,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'monospace',
+                )),
           ),
           const SizedBox(width: 8),
           Expanded(child: Text(def, style: tBody)),
@@ -1558,46 +1452,28 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: <Widget>[
-        glossEntry(
-          'Scrollable',
-          'The widget that owns gesture detection and a viewport.',
-          cAmber,
-        ),
-        glossEntry(
-          'Viewport',
-          'The clip region; renders the slivers that intersect it.',
-          cTeal,
-        ),
-        glossEntry(
-          'Sliver',
-          'A scroll-aware piece of the viewport — list, grid, header.',
-          cMauve,
-        ),
-        glossEntry(
-          'ScrollPosition',
-          'The mutable state — offset, range, viewport metrics.',
-          cRose,
-        ),
-        glossEntry(
-          'ScrollController',
-          'Owns the position; lets you read/animate it from outside.',
-          cTealSoft,
-        ),
-        glossEntry(
-          'ScrollActivity',
-          'What the position is currently doing — drag, ballistic, idle.',
-          cAmberSoft,
-        ),
-        glossEntry(
-          'ScrollMetrics',
-          'A snapshot of position values at a moment in time.',
-          cAmber,
-        ),
-        glossEntry(
-          'OverscrollIndicator',
-          'The visual feedback when a user pushes beyond min/max.',
-          cTeal,
-        ),
+        glossEntry('Scrollable',
+            'The widget that owns gesture detection and a viewport.', cAmber),
+        glossEntry('Viewport',
+            'The clip region; renders the slivers that intersect it.',
+            cTeal),
+        glossEntry('Sliver',
+            'A scroll-aware piece of the viewport — list, grid, header.',
+            cMauve),
+        glossEntry('ScrollPosition',
+            'The mutable state — offset, range, viewport metrics.',
+            cRose),
+        glossEntry('ScrollController',
+            'Owns the position; lets you read/animate it from outside.',
+            cTealSoft),
+        glossEntry('ScrollActivity',
+            'What the position is currently doing — drag, ballistic, idle.',
+            cAmberSoft),
+        glossEntry('ScrollMetrics',
+            'A snapshot of position values at a moment in time.', cAmber),
+        glossEntry('OverscrollIndicator',
+            'The visual feedback when a user pushes beyond min/max.',
+            cTeal),
       ],
     ),
   );
@@ -1616,26 +1492,22 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           SizedBox(
             width: 130,
-            child: Text(
-              name,
-              style: const TextStyle(
-                color: cAmber,
-                fontSize: 12,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            child: Text(name,
+                style: const TextStyle(
+                  color: cAmber,
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w800,
+                )),
           ),
           SizedBox(
             width: 130,
-            child: Text(
-              type,
-              style: const TextStyle(
-                color: cTealSoft,
-                fontSize: 12,
-                fontFamily: 'monospace',
-              ),
-            ),
+            child: Text(type,
+                style: const TextStyle(
+                  color: cTealSoft,
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                )),
           ),
           Expanded(child: Text(def, style: tDim)),
         ],
@@ -1655,42 +1527,26 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
           child: Row(
             children: <Widget>[
-              SizedBox(width: 130, child: Text('parameter', style: tH3)),
+              SizedBox(
+                  width: 130,
+                  child: Text('parameter', style: tH3)),
               SizedBox(width: 130, child: Text('type', style: tH3)),
               Expanded(child: Text('what it does', style: tH3)),
             ],
           ),
         ),
-        paramRow(
-          'scrollbars',
-          'bool',
-          'Whether to wrap children in a Scrollbar.',
-        ),
-        paramRow(
-          'overscroll',
-          'bool',
-          'Whether to add the platform overscroll indicator (glow).',
-        ),
-        paramRow(
-          'physics',
-          'ScrollPhysics?',
-          'Override the default physics for descendants.',
-        ),
-        paramRow(
-          'platform',
-          'TargetPlatform?',
-          'Force a specific platform — useful for testing.',
-        ),
-        paramRow(
-          'dragDevices',
-          'Set<PointerDeviceKind>?',
-          'Override which input devices may drag.',
-        ),
-        paramRow(
-          'multitouchDragStrategy',
-          'MultitouchDragStrategy?',
-          'How to combine multiple finger drags into a single offset.',
-        ),
+        paramRow('scrollbars', 'bool',
+            'Whether to wrap children in a Scrollbar.'),
+        paramRow('overscroll', 'bool',
+            'Whether to add the platform overscroll indicator (glow).'),
+        paramRow('physics', 'ScrollPhysics?',
+            'Override the default physics for descendants.'),
+        paramRow('platform', 'TargetPlatform?',
+            'Force a specific platform — useful for testing.'),
+        paramRow('dragDevices', 'Set<PointerDeviceKind>?',
+            'Override which input devices may drag.'),
+        paramRow('multitouchDragStrategy', 'MultitouchDragStrategy?',
+            'How to combine multiple finger drags into a single offset.'),
       ],
     ),
   );
@@ -1701,31 +1557,19 @@ dynamic build(BuildContext context) {
   final Widget apiCheat = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      kv(
-        'ScrollBehavior.copyWith',
-        'Returns a derived behavior — toggle scrollbars, overscroll, '
-            'physics, dragDevices.',
-      ),
-      kv(
-        'ScrollConfiguration.of(context)',
-        'Looks up the nearest behavior in scope.',
-      ),
-      kv(
-        'PrimaryScrollController.of(context)',
-        'Asserts a controller exists. Use .maybeOf for nullable lookup.',
-      ),
-      kv(
-        'PageStorage.of(context)',
-        'Returns the nearest PageStorageBucket for read/writeState.',
-      ),
-      kv(
-        'PageStorageKey<T>',
-        'Use a stable identifier — string, int, custom value type.',
-      ),
-      kv(
-        'ScrollViewKeyboardDismissBehavior',
-        'manual = stays open · onDrag = dismisses on drag start.',
-      ),
+      kv('ScrollBehavior.copyWith',
+          'Returns a derived behavior — toggle scrollbars, overscroll, '
+          'physics, dragDevices.'),
+      kv('ScrollConfiguration.of(context)',
+          'Looks up the nearest behavior in scope.'),
+      kv('PrimaryScrollController.of(context)',
+          'Asserts a controller exists. Use .maybeOf for nullable lookup.'),
+      kv('PageStorage.of(context)',
+          'Returns the nearest PageStorageBucket for read/writeState.'),
+      kv('PageStorageKey<T>',
+          'Use a stable identifier — string, int, custom value type.'),
+      kv('ScrollViewKeyboardDismissBehavior',
+          'manual = stays open · onDrag = dismisses on drag start.'),
     ],
   );
 
@@ -1741,14 +1585,12 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Icon(Icons.layers, color: cAmber, size: 20),
           const SizedBox(width: 8),
-          Text(
-            'scroll family · ScrollBehavior · PageStorage',
-            style: TextStyle(
-              color: cText,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text('scroll family · ScrollBehavior · PageStorage',
+              style: TextStyle(
+                color: cText,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              )),
         ],
       ),
       bottom: PreferredSize(
@@ -1914,7 +1756,11 @@ dynamic build(BuildContext context) {
                 Center(
                   child: Column(
                     children: <Widget>[
-                      Container(width: 80, height: 2, color: cBorder),
+                      Container(
+                        width: 80,
+                        height: 2,
+                        color: cBorder,
+                      ),
                       const SizedBox(height: 8),
                       Text(
                         'ScrollBehavior · ScrollConfiguration · '
@@ -1924,10 +1770,8 @@ dynamic build(BuildContext context) {
                         style: tFaint,
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        'built without StatefulWidget — pure build()',
-                        style: tFaint,
-                      ),
+                      Text('built without StatefulWidget — pure build()',
+                          style: tFaint),
                     ],
                   ),
                 ),

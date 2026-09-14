@@ -45,20 +45,15 @@ Widget rnInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 130.0,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF8C3503),
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF8C3503))),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 12.0, color: Color(0xFF5A504A)),
-          ),
+          child: Text(value,
+              style: TextStyle(fontSize: 12.0, color: Color(0xFF5A504A))),
         ),
       ],
     ),
@@ -73,14 +68,9 @@ Widget rnCodeBlock(String code) {
       color: Color(0xFFFFF3EB),
       borderRadius: BorderRadius.circular(6.0),
     ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontSize: 10.0,
-        fontFamily: 'monospace',
-        color: Color(0xFF8C3503),
-      ),
-    ),
+    child: Text(code,
+        style: TextStyle(
+            fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF8C3503))),
   );
 }
 
@@ -96,18 +86,14 @@ Widget rnSizeBox(double w, double h, String label, Color accent) {
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: Center(
-          child: Text(
-            '${w.toInt()}x${h.toInt()}',
-            style: TextStyle(
-              fontSize: 9.0,
-              fontWeight: FontWeight.w600,
-              color: accent,
-            ),
-          ),
+          child: Text('${w.toInt()}x${h.toInt()}',
+              style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600,
+                  color: accent)),
         ),
       ),
       SizedBox(height: 4.0),
-      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+      Text(label,
+          style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
     ],
   );
 }
@@ -139,22 +125,18 @@ dynamic build(BuildContext context) {
             Icon(Icons.layers, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text(
-                'Rendering Package',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              child: Text('Rendering Package',
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
             ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text(
-          'Low-level rendering pipeline: layout, paint, compositing, hit-testing',
-          style: TextStyle(fontSize: 13.0, color: Color(0xFFFFD6BE)),
-        ),
+        Text('Low-level rendering pipeline: layout, paint, compositing, hit-testing',
+            style: TextStyle(fontSize: 13.0, color: Color(0xFFFFD6BE))),
         SizedBox(height: 8.0),
         Wrap(
           children: [
@@ -191,14 +173,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Size represents width and height dimensions',
-          style: TextStyle(
-            fontSize: 12.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8C3503),
-          ),
-        ),
+        Text('Size represents width and height dimensions',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
         SizedBox(height: 12.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -218,9 +195,7 @@ dynamic build(BuildContext context) {
         rnInfoRow('Shortest side:', '${s1.shortestSide}'),
         rnInfoRow('Longest side:', '${s1.longestSide}'),
         SizedBox(height: 8.0),
-        rnCodeBlock(
-          'Size(120.0, 80.0)\nSize.square(60.0)\nSize.fromRadius(30.0)',
-        ),
+        rnCodeBlock('Size(120.0, 80.0)\nSize.square(60.0)\nSize.fromRadius(30.0)'),
       ],
     ),
   );
@@ -246,14 +221,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Offset represents a point or displacement vector',
-          style: TextStyle(
-            fontSize: 12.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8C3503),
-          ),
-        ),
+        Text('Offset represents a point or displacement vector',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
         SizedBox(height: 10.0),
         Container(
           width: double.infinity,
@@ -266,11 +236,9 @@ dynamic build(BuildContext context) {
           child: Stack(
             children: [
               Positioned(
-                left: 10.0,
-                top: 10.0,
+                left: 10.0, top: 10.0,
                 child: Container(
-                  width: 8.0,
-                  height: 8.0,
+                  width: 8.0, height: 8.0,
                   decoration: BoxDecoration(
                     color: Color(0xFFD4520A),
                     shape: BoxShape.circle,
@@ -278,19 +246,14 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Positioned(
-                left: 14.0,
-                top: 4.0,
-                child: Text(
-                  'Origin(0,0)',
-                  style: TextStyle(fontSize: 8.0, color: Color(0xFF8C3503)),
-                ),
+                left: 14.0, top: 4.0,
+                child: Text('Origin(0,0)',
+                    style: TextStyle(fontSize: 8.0, color: Color(0xFF8C3503))),
               ),
               Positioned(
-                left: 40.0,
-                top: 50.0,
+                left: 40.0, top: 50.0,
                 child: Container(
-                  width: 8.0,
-                  height: 8.0,
+                  width: 8.0, height: 8.0,
                   decoration: BoxDecoration(
                     color: Color(0xFFE86B20),
                     shape: BoxShape.circle,
@@ -298,19 +261,14 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Positioned(
-                left: 50.0,
-                top: 47.0,
-                child: Text(
-                  'Offset(30,40)',
-                  style: TextStyle(fontSize: 8.0, color: Color(0xFFC75A15)),
-                ),
+                left: 50.0, top: 47.0,
+                child: Text('Offset(30,40)',
+                    style: TextStyle(fontSize: 8.0, color: Color(0xFFC75A15))),
               ),
               Positioned(
-                left: 50.0,
-                top: 70.0,
+                left: 50.0, top: 70.0,
                 child: Container(
-                  width: 8.0,
-                  height: 8.0,
+                  width: 8.0, height: 8.0,
                   decoration: BoxDecoration(
                     color: Color(0xFFAB4A0E),
                     shape: BoxShape.circle,
@@ -318,19 +276,14 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Positioned(
-                left: 60.0,
-                top: 67.0,
-                child: Text(
-                  '+ Offset(10,20) = (40,60)',
-                  style: TextStyle(fontSize: 8.0, color: Color(0xFFAB4A0E)),
-                ),
+                left: 60.0, top: 67.0,
+                child: Text('+ Offset(10,20) = (40,60)',
+                    style: TextStyle(fontSize: 8.0, color: Color(0xFFAB4A0E))),
               ),
               Positioned(
-                left: 70.0,
-                top: 90.0,
+                left: 70.0, top: 90.0,
                 child: Container(
-                  width: 8.0,
-                  height: 8.0,
+                  width: 8.0, height: 8.0,
                   decoration: BoxDecoration(
                     color: Color(0xFF8C3503),
                     shape: BoxShape.circle,
@@ -338,12 +291,9 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Positioned(
-                left: 80.0,
-                top: 87.0,
-                child: Text(
-                  '* 2.0 = (60,80)',
-                  style: TextStyle(fontSize: 8.0, color: Color(0xFF8C3503)),
-                ),
+                left: 80.0, top: 87.0,
+                child: Text('* 2.0 = (60,80)',
+                    style: TextStyle(fontSize: 8.0, color: Color(0xFF8C3503))),
               ),
             ],
           ),
@@ -371,36 +321,18 @@ dynamic build(BuildContext context) {
   print('  Constrain(500,500): ${cLoose.constrain(Size(500.0, 500.0))}');
 
   final constraintData = <Map<String, dynamic>>[
-    {
-      'label': 'Loose',
-      'constraint': cLoose,
-      'color': Color(0xFFE86B20),
-      'desc': 'min=0, max=given — child picks any size up to max',
-      'min':
-          'minW:${cLoose.minWidth.toInt()}, minH:${cLoose.minHeight.toInt()}',
-      'max':
-          'maxW:${cLoose.maxWidth.toInt()}, maxH:${cLoose.maxHeight.toInt()}',
-    },
-    {
-      'label': 'Tight',
-      'constraint': cTight,
-      'color': Color(0xFFC75A15),
-      'desc': 'min=max=given — child forced to exact size',
-      'min':
-          'minW:${cTight.minWidth.toInt()}, minH:${cTight.minHeight.toInt()}',
-      'max':
-          'maxW:${cTight.maxWidth.toInt()}, maxH:${cTight.maxHeight.toInt()}',
-    },
-    {
-      'label': 'Expand',
-      'constraint': cExpand,
-      'color': Color(0xFFAB4A0E),
-      'desc': 'min=max=fill — child fills all available space',
-      'min':
-          'minW:${cExpand.minWidth.toInt()}, minH:${cExpand.minHeight.toInt()}',
-      'max':
-          'maxW:${cExpand.maxWidth.toInt()}, maxH:${cExpand.maxHeight.toInt()}',
-    },
+    {'label': 'Loose', 'constraint': cLoose, 'color': Color(0xFFE86B20),
+     'desc': 'min=0, max=given — child picks any size up to max',
+     'min': 'minW:${cLoose.minWidth.toInt()}, minH:${cLoose.minHeight.toInt()}',
+     'max': 'maxW:${cLoose.maxWidth.toInt()}, maxH:${cLoose.maxHeight.toInt()}'},
+    {'label': 'Tight', 'constraint': cTight, 'color': Color(0xFFC75A15),
+     'desc': 'min=max=given — child forced to exact size',
+     'min': 'minW:${cTight.minWidth.toInt()}, minH:${cTight.minHeight.toInt()}',
+     'max': 'maxW:${cTight.maxWidth.toInt()}, maxH:${cTight.maxHeight.toInt()}'},
+    {'label': 'Expand', 'constraint': cExpand, 'color': Color(0xFFAB4A0E),
+     'desc': 'min=max=fill — child fills all available space',
+     'min': 'minW:${cExpand.minWidth.toInt()}, minH:${cExpand.minHeight.toInt()}',
+     'max': 'maxW:${cExpand.maxWidth.toInt()}, maxH:${cExpand.maxHeight.toInt()}'},
   ];
 
   final rnConstraintsSection = Container(
@@ -429,40 +361,21 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   rnChip(cd['label'] as String, cd['color'] as Color),
-                  Expanded(
-                    child: Text(
-                      'isTight: ${(cd['constraint'] as BoxConstraints).isTight}',
+                  Expanded(child: Text('isTight: ${(cd['constraint'] as BoxConstraints).isTight}',
                       textAlign: TextAlign.right,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Color(0xFF999999),
-                      ),
-                    ),
-                  ),
+                      style: TextStyle(fontSize: 10.0, color: Color(0xFF999999)))),
                 ],
               ),
               SizedBox(height: 4.0),
-              Text(
-                cd['desc'] as String,
-                style: TextStyle(fontSize: 11.0, color: Color(0xFF5A504A)),
-              ),
+              Text(cd['desc'] as String,
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF5A504A))),
               SizedBox(height: 4.0),
-              Text(
-                'min: ${cd['min']}',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  fontFamily: 'monospace',
-                  color: Color(0xFF8C3503),
-                ),
-              ),
-              Text(
-                'max: ${cd['max']}',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  fontFamily: 'monospace',
-                  color: Color(0xFF8C3503),
-                ),
-              ),
+              Text('min: ${cd['min']}',
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                      color: Color(0xFF8C3503))),
+              Text('max: ${cd['max']}',
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                      color: Color(0xFF8C3503))),
             ],
           ),
         );
@@ -478,30 +391,14 @@ dynamic build(BuildContext context) {
   print('  Parent positions child using offset');
 
   final flowSteps = <Map<String, dynamic>>[
-    {
-      'step': '1',
-      'title': 'Parent → Child',
-      'icon': Icons.arrow_downward,
-      'desc': 'Parent passes BoxConstraints (min/max width/height)',
-    },
-    {
-      'step': '2',
-      'title': 'Child determines size',
-      'icon': Icons.straighten,
-      'desc': 'Child picks a Size within the constraint bounds',
-    },
-    {
-      'step': '3',
-      'title': 'Child → Parent',
-      'icon': Icons.arrow_upward,
-      'desc': 'Child reports its chosen Size back to parent',
-    },
-    {
-      'step': '4',
-      'title': 'Parent positions',
-      'icon': Icons.open_with,
-      'desc': 'Parent sets child Offset via parentData',
-    },
+    {'step': '1', 'title': 'Parent → Child', 'icon': Icons.arrow_downward,
+     'desc': 'Parent passes BoxConstraints (min/max width/height)'},
+    {'step': '2', 'title': 'Child determines size', 'icon': Icons.straighten,
+     'desc': 'Child picks a Size within the constraint bounds'},
+    {'step': '3', 'title': 'Child → Parent', 'icon': Icons.arrow_upward,
+     'desc': 'Child reports its chosen Size back to parent'},
+    {'step': '4', 'title': 'Parent positions', 'icon': Icons.open_with,
+     'desc': 'Parent sets child Offset via parentData'},
   ];
 
   final rnFlowSection = Container(
@@ -524,43 +421,22 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFD4520A),
                   shape: BoxShape.circle,
                 ),
-                child: Center(
-                  child: Text(
-                    fs['step'] as String,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                    ),
-                  ),
-                ),
+                child: Center(child: Text(fs['step'] as String,
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,
+                        fontSize: 14.0))),
               ),
               SizedBox(width: 10.0),
-              Icon(
-                fs['icon'] as IconData,
-                color: Color(0xFFD4520A),
-                size: 20.0,
-              ),
+              Icon(fs['icon'] as IconData, color: Color(0xFFD4520A), size: 20.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      fs['title'] as String,
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF8C3503),
-                      ),
-                    ),
-                    Text(
-                      fs['desc'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        color: Color(0xFF5A504A),
-                      ),
-                    ),
+                    Text(fs['title'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                            color: Color(0xFF8C3503))),
+                    Text(fs['desc'] as String,
+                        style: TextStyle(fontSize: 11.0, color: Color(0xFF5A504A))),
                   ],
                 ),
               ),
@@ -582,48 +458,20 @@ dynamic build(BuildContext context) {
   print('    └── RenderSliver (scrolling)');
 
   final treeNodes = <Map<String, dynamic>>[
-    {
-      'name': 'RenderObject',
-      'depth': 0,
-      'color': Color(0xFFD4520A),
-      'desc': 'Base class for all render objects',
-    },
-    {
-      'name': 'RenderBox',
-      'depth': 1,
-      'color': Color(0xFFE86B20),
-      'desc': '2D cartesian layout with BoxConstraints',
-    },
-    {
-      'name': 'RenderFlex',
-      'depth': 2,
-      'color': Color(0xFFC75A15),
-      'desc': 'Flexible layout (Row/Column)',
-    },
-    {
-      'name': 'RenderStack',
-      'depth': 2,
-      'color': Color(0xFFC75A15),
-      'desc': 'Overlay layout (Stack)',
-    },
-    {
-      'name': 'RenderDecoratedBox',
-      'depth': 2,
-      'color': Color(0xFFC75A15),
-      'desc': 'Box with decoration (Container)',
-    },
-    {
-      'name': 'RenderParagraph',
-      'depth': 2,
-      'color': Color(0xFFC75A15),
-      'desc': 'Text rendering (Text widget)',
-    },
-    {
-      'name': 'RenderSliver',
-      'depth': 1,
-      'color': Color(0xFFAB4A0E),
-      'desc': 'Scrollable content layout',
-    },
+    {'name': 'RenderObject', 'depth': 0, 'color': Color(0xFFD4520A),
+     'desc': 'Base class for all render objects'},
+    {'name': 'RenderBox', 'depth': 1, 'color': Color(0xFFE86B20),
+     'desc': '2D cartesian layout with BoxConstraints'},
+    {'name': 'RenderFlex', 'depth': 2, 'color': Color(0xFFC75A15),
+     'desc': 'Flexible layout (Row/Column)'},
+    {'name': 'RenderStack', 'depth': 2, 'color': Color(0xFFC75A15),
+     'desc': 'Overlay layout (Stack)'},
+    {'name': 'RenderDecoratedBox', 'depth': 2, 'color': Color(0xFFC75A15),
+     'desc': 'Box with decoration (Container)'},
+    {'name': 'RenderParagraph', 'depth': 2, 'color': Color(0xFFC75A15),
+     'desc': 'Text rendering (Text widget)'},
+    {'name': 'RenderSliver', 'depth': 1, 'color': Color(0xFFAB4A0E),
+     'desc': 'Scrollable content layout'},
   ];
 
   final rnHierarchySection = Container(
@@ -636,21 +484,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'RenderObject class hierarchy',
-          style: TextStyle(
-            fontSize: 12.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8C3503),
-          ),
-        ),
+        Text('RenderObject class hierarchy',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
         SizedBox(height: 8.0),
         ...treeNodes.map((node) {
           return Padding(
             padding: EdgeInsets.only(
-              left: (node['depth'] as int) * 24.0,
-              bottom: 6.0,
-            ),
+                left: (node['depth'] as int) * 24.0, bottom: 6.0),
             child: Row(
               children: [
                 Container(
@@ -666,22 +507,11 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        node['name'] as String,
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'monospace',
-                          color: node['color'] as Color,
-                        ),
-                      ),
-                      Text(
-                        node['desc'] as String,
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: Color(0xFF5A504A),
-                        ),
-                      ),
+                      Text(node['name'] as String,
+                          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                              fontFamily: 'monospace', color: node['color'] as Color)),
+                      Text(node['desc'] as String,
+                          style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
                     ],
                   ),
                 ),
@@ -701,34 +531,18 @@ dynamic build(BuildContext context) {
   print('  Step 4: Size is determined');
 
   final pipelineStages = <Map<String, dynamic>>[
-    {
-      'stage': 'Layout',
-      'icon': Icons.straighten,
-      'color': Color(0xFFD4520A),
-      'method': 'performLayout()',
-      'desc': 'Receive constraints, compute size, layout children',
-    },
-    {
-      'stage': 'Paint',
-      'icon': Icons.brush,
-      'color': Color(0xFFE86B20),
-      'method': 'paint(context, offset)',
-      'desc': 'Draw visual content to the canvas at given offset',
-    },
-    {
-      'stage': 'Composite',
-      'icon': Icons.layers,
-      'color': Color(0xFFC75A15),
-      'method': 'compositeFrame()',
-      'desc': 'Merge paint layers into final scene for display',
-    },
-    {
-      'stage': 'Hit Test',
-      'icon': Icons.touch_app,
-      'color': Color(0xFFAB4A0E),
-      'method': 'hitTest(result, position)',
-      'desc': 'Determine which render object receives pointer events',
-    },
+    {'stage': 'Layout', 'icon': Icons.straighten, 'color': Color(0xFFD4520A),
+     'method': 'performLayout()',
+     'desc': 'Receive constraints, compute size, layout children'},
+    {'stage': 'Paint', 'icon': Icons.brush, 'color': Color(0xFFE86B20),
+     'method': 'paint(context, offset)',
+     'desc': 'Draw visual content to the canvas at given offset'},
+    {'stage': 'Composite', 'icon': Icons.layers, 'color': Color(0xFFC75A15),
+     'method': 'compositeFrame()',
+     'desc': 'Merge paint layers into final scene for display'},
+    {'stage': 'Hit Test', 'icon': Icons.touch_app, 'color': Color(0xFFAB4A0E),
+     'method': 'hitTest(result, position)',
+     'desc': 'Determine which render object receives pointer events'},
   ];
 
   final rnPipelineSection = Container(
@@ -747,9 +561,7 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(
-              color: (ps['color'] as Color).withValues(alpha: 0.3),
-            ),
+            border: Border.all(color: (ps['color'] as Color).withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
@@ -759,40 +571,21 @@ dynamic build(BuildContext context) {
                   color: (ps['color'] as Color).withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Icon(
-                  ps['icon'] as IconData,
-                  color: ps['color'] as Color,
-                  size: 24.0,
-                ),
+                child: Icon(ps['icon'] as IconData, color: ps['color'] as Color, size: 24.0),
               ),
               SizedBox(width: 10.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      ps['stage'] as String,
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w700,
-                        color: ps['color'] as Color,
-                      ),
-                    ),
-                    Text(
-                      ps['method'] as String,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Color(0xFF8C3503),
-                      ),
-                    ),
-                    Text(
-                      ps['desc'] as String,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Color(0xFF5A504A),
-                      ),
-                    ),
+                    Text(ps['stage'] as String,
+                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
+                            color: ps['color'] as Color)),
+                    Text(ps['method'] as String,
+                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                            color: Color(0xFF8C3503))),
+                    Text(ps['desc'] as String,
+                        style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
                   ],
                 ),
               ),
@@ -806,11 +599,7 @@ dynamic build(BuildContext context) {
   // ── Section 8: Rect ──────────────────────────────────────────
   print('\n[8] Rect — Axis-Aligned Rectangle');
   final r1 = Rect.fromLTWH(10.0, 20.0, 100.0, 60.0);
-  final r2 = Rect.fromCenter(
-    center: Offset(100.0, 60.0),
-    width: 80.0,
-    height: 40.0,
-  );
+  final r2 = Rect.fromCenter(center: Offset(100.0, 60.0), width: 80.0, height: 40.0);
   final r3 = Rect.fromCircle(center: Offset(50.0, 50.0), radius: 30.0);
   print('  fromLTWH(10,20,100,60): $r1');
   print('  fromCenter(100,60): $r2');
@@ -828,14 +617,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Rect creation methods and operations',
-          style: TextStyle(
-            fontSize: 12.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8C3503),
-          ),
-        ),
+        Text('Rect creation methods and operations',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -847,76 +631,52 @@ dynamic build(BuildContext context) {
           child: Stack(
             children: [
               Positioned(
-                left: 10.0,
-                top: 20.0,
+                left: 10.0, top: 20.0,
                 child: Container(
-                  width: 100.0,
-                  height: 60.0,
+                  width: 100.0, height: 60.0,
                   decoration: BoxDecoration(
                     color: Color(0xFFD4520A).withValues(alpha: 0.2),
                     border: Border.all(color: Color(0xFFD4520A), width: 2.0),
                   ),
-                  child: Center(
-                    child: Text(
-                      'fromLTWH',
-                      style: TextStyle(fontSize: 8.0, color: Color(0xFFD4520A)),
-                    ),
-                  ),
+                  child: Center(child: Text('fromLTWH',
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFFD4520A)))),
                 ),
               ),
               Positioned(
-                left: 60.0,
-                top: 40.0,
+                left: 60.0, top: 40.0,
                 child: Container(
-                  width: 80.0,
-                  height: 40.0,
+                  width: 80.0, height: 40.0,
                   decoration: BoxDecoration(
                     color: Color(0xFFE86B20).withValues(alpha: 0.2),
                     border: Border.all(color: Color(0xFFE86B20), width: 2.0),
                   ),
-                  child: Center(
-                    child: Text(
-                      'fromCenter',
-                      style: TextStyle(fontSize: 8.0, color: Color(0xFFE86B20)),
-                    ),
-                  ),
+                  child: Center(child: Text('fromCenter',
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFFE86B20)))),
                 ),
               ),
               Positioned(
-                left: 150.0,
-                top: 20.0,
+                left: 150.0, top: 20.0,
                 child: Container(
-                  width: 60.0,
-                  height: 60.0,
+                  width: 60.0, height: 60.0,
                   decoration: BoxDecoration(
                     color: Color(0xFFC75A15).withValues(alpha: 0.2),
                     border: Border.all(color: Color(0xFFC75A15), width: 2.0),
                     shape: BoxShape.circle,
                   ),
-                  child: Center(
-                    child: Text(
-                      'fromCircle',
-                      style: TextStyle(fontSize: 7.0, color: Color(0xFFC75A15)),
-                    ),
-                  ),
+                  child: Center(child: Text('fromCircle',
+                      style: TextStyle(fontSize: 7.0, color: Color(0xFFC75A15)))),
                 ),
               ),
               Positioned(
-                left: 230.0,
-                top: 10.0,
+                left: 230.0, top: 10.0,
                 child: Container(
-                  width: 70.0,
-                  height: 50.0,
+                  width: 70.0, height: 50.0,
                   decoration: BoxDecoration(
                     color: Color(0xFFAB4A0E).withValues(alpha: 0.2),
                     border: Border.all(color: Color(0xFFAB4A0E), width: 2.0),
                   ),
-                  child: Center(
-                    child: Text(
-                      'fromPoints',
-                      style: TextStyle(fontSize: 8.0, color: Color(0xFFAB4A0E)),
-                    ),
-                  ),
+                  child: Center(child: Text('fromPoints',
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFFAB4A0E)))),
                 ),
               ),
             ],
@@ -980,21 +740,14 @@ dynamic build(BuildContext context) {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(2.0),
                   ),
-                  child: Text(
-                    'Content inside padding',
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
-                  ),
+                  child: Text('Content inside padding',
+                      style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
                 ),
               ),
               SizedBox(height: 2.0),
-              Text(
-                'L:${ins.left} T:${ins.top} R:${ins.right} B:${ins.bottom}',
-                style: TextStyle(
-                  fontSize: 9.0,
-                  fontFamily: 'monospace',
-                  color: Color(0xFF8C3503),
-                ),
-              ),
+              Text('L:${ins.left} T:${ins.top} R:${ins.right} B:${ins.bottom}',
+                  style: TextStyle(fontSize: 9.0, fontFamily: 'monospace',
+                      color: Color(0xFF8C3503))),
             ],
           ),
         );
@@ -1007,50 +760,37 @@ dynamic build(BuildContext context) {
   print('  Color, gradient, border, borderRadius, boxShadow, shape');
 
   final decorations = <Map<String, dynamic>>[
-    {
-      'label': 'Solid Color + Radius',
-      'deco': BoxDecoration(
-        color: Color(0xFFD4520A).withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: Color(0xFFD4520A), width: 2.0),
-      ),
-    },
-    {
-      'label': 'Gradient + Shadow',
-      'deco': BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFD4520A), Color(0xFFE86B20)],
-        ),
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x44D4520A),
-            blurRadius: 8.0,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-    },
-    {
-      'label': 'Circle Shape',
-      'deco': BoxDecoration(
-        color: Color(0xFFAB4A0E).withValues(alpha: 0.2),
-        shape: BoxShape.circle,
-        border: Border.all(color: Color(0xFFAB4A0E), width: 2.0),
-      ),
-    },
-    {
-      'label': 'Thick Border + Color',
-      'deco': BoxDecoration(
-        color: Color(0xFFFFF3EB),
-        border: Border(
-          left: BorderSide(color: Color(0xFFD4520A), width: 6.0),
-          top: BorderSide(color: Color(0xFFE86B20), width: 2.0),
-          right: BorderSide(color: Color(0xFFC75A15), width: 6.0),
-          bottom: BorderSide(color: Color(0xFFAB4A0E), width: 2.0),
-        ),
-      ),
-    },
+    {'label': 'Solid Color + Radius',
+     'deco': BoxDecoration(
+       color: Color(0xFFD4520A).withValues(alpha: 0.15),
+       borderRadius: BorderRadius.circular(12.0),
+       border: Border.all(color: Color(0xFFD4520A), width: 2.0),
+     )},
+    {'label': 'Gradient + Shadow',
+     'deco': BoxDecoration(
+       gradient: LinearGradient(
+           colors: [Color(0xFFD4520A), Color(0xFFE86B20)]),
+       borderRadius: BorderRadius.circular(8.0),
+       boxShadow: [
+         BoxShadow(color: Color(0x44D4520A), blurRadius: 8.0, offset: Offset(0, 4)),
+       ],
+     )},
+    {'label': 'Circle Shape',
+     'deco': BoxDecoration(
+       color: Color(0xFFAB4A0E).withValues(alpha: 0.2),
+       shape: BoxShape.circle,
+       border: Border.all(color: Color(0xFFAB4A0E), width: 2.0),
+     )},
+    {'label': 'Thick Border + Color',
+     'deco': BoxDecoration(
+       color: Color(0xFFFFF3EB),
+       border: Border(
+         left: BorderSide(color: Color(0xFFD4520A), width: 6.0),
+         top: BorderSide(color: Color(0xFFE86B20), width: 2.0),
+         right: BorderSide(color: Color(0xFFC75A15), width: 6.0),
+         bottom: BorderSide(color: Color(0xFFAB4A0E), width: 2.0),
+       ),
+     )},
   ];
 
   final rnDecorationSection = Container(
@@ -1074,11 +814,9 @@ dynamic build(BuildContext context) {
                 decoration: d['deco'] as BoxDecoration,
               ),
               SizedBox(height: 4.0),
-              Text(
-                d['label'] as String,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
-              ),
+              Text(d['label'] as String,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
             ],
           ),
         );
@@ -1094,33 +832,12 @@ dynamic build(BuildContext context) {
   print('  Transforms applied for rotated/scaled boxes');
 
   final hitZones = <Map<String, dynamic>>[
-    {
-      'label': 'Zone A\n(Parent)',
-      'x': 10.0,
-      'y': 10.0,
-      'w': 280.0,
-      'h': 80.0,
-      'color': Color(0xFFD4520A),
-      'opacity': 0.1,
-    },
-    {
-      'label': 'Zone B\n(Child 1)',
-      'x': 20.0,
-      'y': 20.0,
-      'w': 120.0,
-      'h': 50.0,
-      'color': Color(0xFFE86B20),
-      'opacity': 0.2,
-    },
-    {
-      'label': 'Zone C\n(Child 2)',
-      'x': 160.0,
-      'y': 20.0,
-      'w': 120.0,
-      'h': 50.0,
-      'color': Color(0xFFC75A15),
-      'opacity': 0.2,
-    },
+    {'label': 'Zone A\n(Parent)', 'x': 10.0, 'y': 10.0, 'w': 280.0, 'h': 80.0,
+     'color': Color(0xFFD4520A), 'opacity': 0.1},
+    {'label': 'Zone B\n(Child 1)', 'x': 20.0, 'y': 20.0, 'w': 120.0, 'h': 50.0,
+     'color': Color(0xFFE86B20), 'opacity': 0.2},
+    {'label': 'Zone C\n(Child 2)', 'x': 160.0, 'y': 20.0, 'w': 120.0, 'h': 50.0,
+     'color': Color(0xFFC75A15), 'opacity': 0.2},
   ];
 
   final rnHitTestSection = Container(
@@ -1133,14 +850,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Touch events dispatched via hit-testing',
-          style: TextStyle(
-            fontSize: 12.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8C3503),
-          ),
-        ),
+        Text('Touch events dispatched via hit-testing',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -1159,21 +871,13 @@ dynamic build(BuildContext context) {
                   height: hz['h'] as double,
                   decoration: BoxDecoration(
                     color: (hz['color'] as Color).withValues(
-                      alpha: hz['opacity'] as double,
-                    ),
+                        alpha: hz['opacity'] as double),
                     border: Border.all(color: hz['color'] as Color, width: 1.5),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: Center(
-                    child: Text(
-                      hz['label'] as String,
+                  child: Center(child: Text(hz['label'] as String,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        color: hz['color'] as Color,
-                      ),
-                    ),
-                  ),
+                      style: TextStyle(fontSize: 9.0, color: hz['color'] as Color))),
                 ),
               );
             }).toList(),
@@ -1195,34 +899,22 @@ dynamic build(BuildContext context) {
   print('  StackParentData: top, right, bottom, left for Stack');
 
   final parentDataTypes = <Map<String, dynamic>>[
-    {
-      'name': 'ParentData',
-      'icon': Icons.account_tree,
-      'color': Color(0xFFD4520A),
-      'props': 'Base class — no properties',
-      'used': 'RenderObject',
-    },
-    {
-      'name': 'BoxParentData',
-      'icon': Icons.crop_free,
-      'color': Color(0xFFE86B20),
-      'props': 'offset: Offset',
-      'used': 'RenderBox children',
-    },
-    {
-      'name': 'FlexParentData',
-      'icon': Icons.view_column,
-      'color': Color(0xFFC75A15),
-      'props': 'flex: int?, fit: FlexFit?',
-      'used': 'Row, Column, Flex',
-    },
-    {
-      'name': 'StackParentData',
-      'icon': Icons.layers,
-      'color': Color(0xFFAB4A0E),
-      'props': 'top, right, bottom, left, width, height',
-      'used': 'Stack, Positioned',
-    },
+    {'name': 'ParentData', 'icon': Icons.account_tree,
+     'color': Color(0xFFD4520A),
+     'props': 'Base class — no properties',
+     'used': 'RenderObject'},
+    {'name': 'BoxParentData', 'icon': Icons.crop_free,
+     'color': Color(0xFFE86B20),
+     'props': 'offset: Offset',
+     'used': 'RenderBox children'},
+    {'name': 'FlexParentData', 'icon': Icons.view_column,
+     'color': Color(0xFFC75A15),
+     'props': 'flex: int?, fit: FlexFit?',
+     'used': 'Row, Column, Flex'},
+    {'name': 'StackParentData', 'icon': Icons.layers,
+     'color': Color(0xFFAB4A0E),
+     'props': 'top, right, bottom, left, width, height',
+     'used': 'Stack, Positioned'},
   ];
 
   final rnParentDataSection = Container(
@@ -1244,40 +936,20 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                pd['icon'] as IconData,
-                color: pd['color'] as Color,
-                size: 22.0,
-              ),
+              Icon(pd['icon'] as IconData, color: pd['color'] as Color, size: 22.0),
               SizedBox(width: 10.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      pd['name'] as String,
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'monospace',
-                        color: pd['color'] as Color,
-                      ),
-                    ),
-                    Text(
-                      'Properties: ${pd['props']}',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Color(0xFF5A504A),
-                      ),
-                    ),
-                    Text(
-                      'Used by: ${pd['used']}',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontStyle: FontStyle.italic,
-                        color: Color(0xFF8C3503),
-                      ),
-                    ),
+                    Text(pd['name'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                            fontFamily: 'monospace', color: pd['color'] as Color)),
+                    Text('Properties: ${pd['props']}',
+                        style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+                    Text('Used by: ${pd['used']}',
+                        style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
+                            color: Color(0xFF8C3503))),
                   ],
                 ),
               ),
@@ -1296,31 +968,16 @@ dynamic build(BuildContext context) {
   print('  Perspective: 3D depth effect');
 
   final transforms = <Map<String, dynamic>>[
-    {
-      'label': 'Identity',
-      'color': Color(0xFFD4520A),
-      'desc': 'No transform applied',
-    },
-    {
-      'label': 'Translate',
-      'color': Color(0xFFE86B20),
-      'desc': 'Move by (dx, dy, dz)',
-    },
-    {
-      'label': 'Scale',
-      'color': Color(0xFFC75A15),
-      'desc': 'Resize larger or smaller',
-    },
-    {
-      'label': 'Rotate',
-      'color': Color(0xFFAB4A0E),
-      'desc': 'Spin around an axis',
-    },
-    {
-      'label': 'Skew',
-      'color': Color(0xFF8C3503),
-      'desc': 'Shear along X or Y axis',
-    },
+    {'label': 'Identity', 'color': Color(0xFFD4520A),
+     'desc': 'No transform applied'},
+    {'label': 'Translate', 'color': Color(0xFFE86B20),
+     'desc': 'Move by (dx, dy, dz)'},
+    {'label': 'Scale', 'color': Color(0xFFC75A15),
+     'desc': 'Resize larger or smaller'},
+    {'label': 'Rotate', 'color': Color(0xFFAB4A0E),
+     'desc': 'Spin around an axis'},
+    {'label': 'Skew', 'color': Color(0xFF8C3503),
+     'desc': 'Shear along X or Y axis'},
   ];
 
   final rnTransformSection = Container(
@@ -1346,32 +1003,23 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(6.0),
                   ),
                   child: Center(
-                    child: Icon(
-                      Icons.transform,
-                      color: t['color'] as Color,
-                      size: 20.0,
-                    ),
+                    child: Icon(Icons.transform, color: t['color'] as Color, size: 20.0),
                   ),
                 ),
                 SizedBox(height: 4.0),
-                Text(
-                  t['label'] as String,
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    fontWeight: FontWeight.w600,
-                    color: t['color'] as Color,
-                  ),
-                ),
+                Text(t['label'] as String,
+                    style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600,
+                        color: t['color'] as Color)),
               ],
             );
           }).toList(),
         ),
         SizedBox(height: 10.0),
         rnCodeBlock(
-          'Matrix4.identity()\n'
-          'Matrix4.translationValues(10, 20, 0)\n'
-          'Matrix4.diagonal3Values(2, 2, 1)\n'
-          'Matrix4.rotationZ(0.5)',
+            'Matrix4.identity()\n'
+            'Matrix4.translationValues(10, 20, 0)\n'
+            'Matrix4.diagonal3Values(2, 2, 1)\n'
+            'Matrix4.rotationZ(0.5)',
         ),
       ],
     ),
@@ -1384,18 +1032,12 @@ dynamic build(BuildContext context) {
   print('  Canvas draws: rect, circle, line, path, text');
 
   final paintModes = <Map<String, dynamic>>[
-    {
-      'label': 'Fill',
-      'style': 'PaintingStyle.fill',
-      'color': Color(0xFFD4520A),
-      'desc': 'Interior is completely filled with color',
-    },
-    {
-      'label': 'Stroke',
-      'style': 'PaintingStyle.stroke',
-      'color': Color(0xFFE86B20),
-      'desc': 'Only the outline border is drawn',
-    },
+    {'label': 'Fill', 'style': 'PaintingStyle.fill',
+     'color': Color(0xFFD4520A),
+     'desc': 'Interior is completely filled with color'},
+    {'label': 'Stroke', 'style': 'PaintingStyle.stroke',
+     'color': Color(0xFFE86B20),
+     'desc': 'Only the outline border is drawn'},
   ];
 
   final rnPaintSection = Container(
@@ -1427,29 +1069,18 @@ dynamic build(BuildContext context) {
                             ? (pm['color'] as Color).withValues(alpha: 0.3)
                             : Colors.transparent,
                         border: Border.all(
-                          color: pm['color'] as Color,
-                          width: pm['label'] == 'Stroke' ? 3.0 : 1.0,
-                        ),
+                            color: pm['color'] as Color,
+                            width: pm['label'] == 'Stroke' ? 3.0 : 1.0),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                     SizedBox(height: 6.0),
-                    Text(
-                      pm['label'] as String,
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                        color: pm['color'] as Color,
-                      ),
-                    ),
-                    Text(
-                      pm['desc'] as String,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Color(0xFF5A504A),
-                      ),
-                    ),
+                    Text(pm['label'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                            color: pm['color'] as Color)),
+                    Text(pm['desc'] as String,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
                   ],
                 ),
               ),
@@ -1457,14 +1088,9 @@ dynamic build(BuildContext context) {
           }).toList(),
         ),
         SizedBox(height: 10.0),
-        Text(
-          'Canvas operations: drawRect, drawCircle, drawLine, drawPath, drawParagraph',
-          style: TextStyle(
-            fontSize: 10.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8C3503),
-          ),
-        ),
+        Text('Canvas operations: drawRect, drawCircle, drawLine, drawPath, drawParagraph',
+            style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
       ],
     ),
   );
@@ -1477,42 +1103,18 @@ dynamic build(BuildContext context) {
   print('  sizedByParent: child size determined only by constraints');
 
   final lifecycleEvents = <Map<String, dynamic>>[
-    {
-      'event': 'attach()',
-      'phase': 'Mounting',
-      'color': Color(0xFFD4520A),
-      'desc': 'RenderObject added to the render tree',
-    },
-    {
-      'event': 'markNeedsLayout()',
-      'phase': 'Dirty',
-      'color': Color(0xFFE86B20),
-      'desc': 'Schedule layout pass for this node',
-    },
-    {
-      'event': 'performLayout()',
-      'phase': 'Layout',
-      'color': Color(0xFFC75A15),
-      'desc': 'Compute size based on constraints',
-    },
-    {
-      'event': 'markNeedsPaint()',
-      'phase': 'Dirty',
-      'color': Color(0xFFAB4A0E),
-      'desc': 'Schedule repaint for this node',
-    },
-    {
-      'event': 'paint()',
-      'phase': 'Paint',
-      'color': Color(0xFF8C3503),
-      'desc': 'Draw visual representation to canvas',
-    },
-    {
-      'event': 'detach()',
-      'phase': 'Unmount',
-      'color': Color(0xFF6B2A05),
-      'desc': 'RenderObject removed from the tree',
-    },
+    {'event': 'attach()', 'phase': 'Mounting', 'color': Color(0xFFD4520A),
+     'desc': 'RenderObject added to the render tree'},
+    {'event': 'markNeedsLayout()', 'phase': 'Dirty', 'color': Color(0xFFE86B20),
+     'desc': 'Schedule layout pass for this node'},
+    {'event': 'performLayout()', 'phase': 'Layout', 'color': Color(0xFFC75A15),
+     'desc': 'Compute size based on constraints'},
+    {'event': 'markNeedsPaint()', 'phase': 'Dirty', 'color': Color(0xFFAB4A0E),
+     'desc': 'Schedule repaint for this node'},
+    {'event': 'paint()', 'phase': 'Paint', 'color': Color(0xFF8C3503),
+     'desc': 'Draw visual representation to canvas'},
+    {'event': 'detach()', 'phase': 'Unmount', 'color': Color(0xFF6B2A05),
+     'desc': 'RenderObject removed from the tree'},
   ];
 
   final rnLifecycleSection = Container(
@@ -1539,28 +1141,18 @@ dynamic build(BuildContext context) {
               SizedBox(width: 8.0),
               SizedBox(
                 width: 60.0,
-                child: Text(
-                  le['phase'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF999999)),
-                ),
+                child: Text(le['phase'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF999999))),
               ),
               SizedBox(
                 width: 100.0,
-                child: Text(
-                  le['event'] as String,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'monospace',
-                    color: le['color'] as Color,
-                  ),
-                ),
+                child: Text(le['event'] as String,
+                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
+                        fontFamily: 'monospace', color: le['color'] as Color)),
               ),
               Expanded(
-                child: Text(
-                  le['desc'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
-                ),
+                child: Text(le['desc'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
               ),
             ],
           ),
@@ -1571,9 +1163,7 @@ dynamic build(BuildContext context) {
 
   // ── Section 16: Summary Dashboard ────────────────────────────
   print('\n[16] Summary Dashboard');
-  print(
-    '  Key types: ${['Size', 'Offset', 'Rect', 'BoxConstraints'].join(', ')}',
-  );
+  print('  Key types: ${['Size', 'Offset', 'Rect', 'BoxConstraints'].join(', ')}');
   print('  Pipeline: Layout → Paint → Composite → Hit');
   print('  Tree: RenderObject → RenderBox → Specific renders');
 
@@ -1590,14 +1180,9 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text(
-          'Rendering Package Dashboard',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        Text('Rendering Package Dashboard',
+            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,
+                color: Colors.white)),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1605,37 +1190,25 @@ dynamic build(BuildContext context) {
             Column(
               children: [
                 Icon(Icons.straighten, color: Color(0xFFFFD6BE), size: 28.0),
-                Text(
-                  'Size',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE)),
-                ),
+                Text('Size', style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.crop_free, color: Color(0xFFFFD6BE), size: 28.0),
-                Text(
-                  'Constraints',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE)),
-                ),
+                Text('Constraints', style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.brush, color: Color(0xFFFFD6BE), size: 28.0),
-                Text(
-                  'Paint',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE)),
-                ),
+                Text('Paint', style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.touch_app, color: Color(0xFFFFD6BE), size: 28.0),
-                Text(
-                  'Hit Test',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE)),
-                ),
+                Text('Hit Test', style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE))),
               ],
             ),
           ],

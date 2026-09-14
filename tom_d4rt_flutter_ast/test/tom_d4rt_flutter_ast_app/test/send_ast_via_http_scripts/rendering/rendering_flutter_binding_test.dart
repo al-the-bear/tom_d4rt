@@ -50,7 +50,9 @@ Widget _rfSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_rfIndigo, _rfDarkIndigo]),
+      gradient: LinearGradient(
+        colors: [_rfIndigo, _rfDarkIndigo],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,11 +167,7 @@ Widget _rfBadge(String label, Color bg) {
     ),
     child: Text(
       label,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-      ),
+      style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
     ),
   );
 }
@@ -229,48 +227,13 @@ Widget _rfSection1Overview() {
 
 Widget _rfSection2Comparison() {
   final List<Map<String, dynamic>> mixins = [
-    {
-      'name': 'GestureBinding',
-      'rendering': true,
-      'widgets': true,
-      'icon': Icons.touch_app,
-    },
-    {
-      'name': 'SchedulerBinding',
-      'rendering': true,
-      'widgets': true,
-      'icon': Icons.schedule,
-    },
-    {
-      'name': 'ServicesBinding',
-      'rendering': true,
-      'widgets': true,
-      'icon': Icons.miscellaneous_services,
-    },
-    {
-      'name': 'PaintingBinding',
-      'rendering': true,
-      'widgets': true,
-      'icon': Icons.brush,
-    },
-    {
-      'name': 'SemanticsBinding',
-      'rendering': true,
-      'widgets': true,
-      'icon': Icons.accessibility_new,
-    },
-    {
-      'name': 'RendererBinding',
-      'rendering': true,
-      'widgets': true,
-      'icon': Icons.layers,
-    },
-    {
-      'name': 'WidgetsBinding',
-      'rendering': false,
-      'widgets': true,
-      'icon': Icons.widgets,
-    },
+    {'name': 'GestureBinding', 'rendering': true, 'widgets': true, 'icon': Icons.touch_app},
+    {'name': 'SchedulerBinding', 'rendering': true, 'widgets': true, 'icon': Icons.schedule},
+    {'name': 'ServicesBinding', 'rendering': true, 'widgets': true, 'icon': Icons.miscellaneous_services},
+    {'name': 'PaintingBinding', 'rendering': true, 'widgets': true, 'icon': Icons.brush},
+    {'name': 'SemanticsBinding', 'rendering': true, 'widgets': true, 'icon': Icons.accessibility_new},
+    {'name': 'RendererBinding', 'rendering': true, 'widgets': true, 'icon': Icons.layers},
+    {'name': 'WidgetsBinding', 'rendering': false, 'widgets': true, 'icon': Icons.widgets},
   ];
 
   return Column(
@@ -327,11 +290,7 @@ Widget _rfSection2Comparison() {
                     child: Text(
                       'Rendering\nBinding',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: _rfDarkIndigo,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: _rfDarkIndigo),
                     ),
                   ),
                   Expanded(
@@ -339,11 +298,7 @@ Widget _rfSection2Comparison() {
                     child: Text(
                       'Widgets\nBinding',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: _rfDarkIndigo,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: _rfDarkIndigo),
                     ),
                   ),
                 ],
@@ -355,16 +310,11 @@ Widget _rfSection2Comparison() {
               final isLast = entry.key == mixins.length - 1;
               final isWidgetsRow = m['name'] == 'WidgetsBinding';
               return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: isWidgetsRow
                       ? _rfGold.withValues(alpha: 0.08)
-                      : (entry.key.isEven
-                            ? Colors.white
-                            : _rfSoftLavender.withValues(alpha: 0.5)),
+                      : (entry.key.isEven ? Colors.white : _rfSoftLavender.withValues(alpha: 0.5)),
                   borderRadius: isLast
                       ? const BorderRadius.only(
                           bottomLeft: Radius.circular(9),
@@ -378,20 +328,16 @@ Widget _rfSection2Comparison() {
                       flex: 3,
                       child: Row(
                         children: [
-                          Icon(
-                            m['icon'] as IconData,
-                            size: 16,
-                            color: isWidgetsRow ? _rfGold : _rfLightIndigo,
-                          ),
+                          Icon(m['icon'] as IconData,
+                              size: 16,
+                              color: isWidgetsRow ? _rfGold : _rfLightIndigo),
                           const SizedBox(width: 6),
                           Flexible(
                             child: Text(
                               m['name'] as String,
                               style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: isWidgetsRow
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
+                                fontWeight: isWidgetsRow ? FontWeight.bold : FontWeight.normal,
                                 color: isWidgetsRow ? _rfGold : _rfSlate,
                               ),
                             ),
@@ -403,12 +349,8 @@ Widget _rfSection2Comparison() {
                       flex: 2,
                       child: Center(
                         child: Icon(
-                          (m['rendering'] as bool)
-                              ? Icons.check_circle
-                              : Icons.cancel,
-                          color: (m['rendering'] as bool)
-                              ? _rfTeal
-                              : Colors.red.shade300,
+                          (m['rendering'] as bool) ? Icons.check_circle : Icons.cancel,
+                          color: (m['rendering'] as bool) ? _rfTeal : Colors.red.shade300,
                           size: 18,
                         ),
                       ),
@@ -417,12 +359,8 @@ Widget _rfSection2Comparison() {
                       flex: 2,
                       child: Center(
                         child: Icon(
-                          (m['widgets'] as bool)
-                              ? Icons.check_circle
-                              : Icons.cancel,
-                          color: (m['widgets'] as bool)
-                              ? _rfTeal
-                              : Colors.red.shade300,
+                          (m['widgets'] as bool) ? Icons.check_circle : Icons.cancel,
+                          color: (m['widgets'] as bool) ? _rfTeal : Colors.red.shade300,
                           size: 18,
                         ),
                       ),
@@ -506,46 +444,14 @@ Widget _rfSection3Usage() {
               ),
             ),
             const SizedBox(height: 10),
-            _rfInitStep(
-              '1',
-              'BindingBase.initInstances()',
-              'Sets up platform channels',
-            ),
-            _rfInitStep(
-              '2',
-              'GestureBinding.initInstances()',
-              'Creates gesture arena',
-            ),
-            _rfInitStep(
-              '3',
-              'SchedulerBinding.initInstances()',
-              'Sets up frame callbacks',
-            ),
-            _rfInitStep(
-              '4',
-              'ServicesBinding.initInstances()',
-              'Registers system services',
-            ),
-            _rfInitStep(
-              '5',
-              'PaintingBinding.initInstances()',
-              'Creates image cache',
-            ),
-            _rfInitStep(
-              '6',
-              'SemanticsBinding.initInstances()',
-              'Sets up semantics owner',
-            ),
-            _rfInitStep(
-              '7',
-              'RendererBinding.initInstances()',
-              'Creates PipelineOwner + RenderView',
-            ),
-            _rfInitStep(
-              '8',
-              'Root RenderBox attached',
-              'Your render tree is now live!',
-            ),
+            _rfInitStep('1', 'BindingBase.initInstances()', 'Sets up platform channels'),
+            _rfInitStep('2', 'GestureBinding.initInstances()', 'Creates gesture arena'),
+            _rfInitStep('3', 'SchedulerBinding.initInstances()', 'Sets up frame callbacks'),
+            _rfInitStep('4', 'ServicesBinding.initInstances()', 'Registers system services'),
+            _rfInitStep('5', 'PaintingBinding.initInstances()', 'Creates image cache'),
+            _rfInitStep('6', 'SemanticsBinding.initInstances()', 'Sets up semantics owner'),
+            _rfInitStep('7', 'RendererBinding.initInstances()', 'Creates PipelineOwner + RenderView'),
+            _rfInitStep('8', 'Root RenderBox attached', 'Your render tree is now live!'),
           ],
         ),
       ),
@@ -663,11 +569,7 @@ Widget _rfSection4ManualTree() {
           children: [
             const Text(
               'Visual: Manual Render Tree',
-              style: TextStyle(
-                color: _rfGold,
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-              ),
+              style: TextStyle(color: _rfGold, fontWeight: FontWeight.bold, fontSize: 13),
             ),
             const SizedBox(height: 10),
             _rfTreeRow('RenderView', 0, Colors.white70),
@@ -705,7 +607,11 @@ Widget _rfTreeRow(String text, int depth, Color color) {
     padding: const EdgeInsets.symmetric(vertical: 2),
     child: Text(
       text,
-      style: TextStyle(color: color, fontFamily: 'monospace', fontSize: 12),
+      style: TextStyle(
+        color: color,
+        fontFamily: 'monospace',
+        fontSize: 12,
+      ),
     ),
   );
 }
@@ -723,8 +629,7 @@ Widget _rfSection5WhatYouLose() {
     },
     {
       'feature': 'InheritedWidget',
-      'explanation':
-          'No widget tree means no of() lookups or dependency injection',
+      'explanation': 'No widget tree means no of() lookups or dependency injection',
       'icon': Icons.link_off,
     },
     {
@@ -739,8 +644,7 @@ Widget _rfSection5WhatYouLose() {
     },
     {
       'feature': 'Keys & Diffing',
-      'explanation':
-          'Widget reconciliation (diffing) requires the widget layer',
+      'explanation': 'Widget reconciliation (diffing) requires the widget layer',
       'icon': Icons.vpn_key_off,
     },
     {
@@ -767,59 +671,53 @@ Widget _rfSection5WhatYouLose() {
         icon: Icons.warning,
       ),
       const SizedBox(height: 8),
-      ...lostFeatures.map(
-        (f) => Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.red.shade100),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: Colors.red.shade50,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  f['icon'] as IconData,
-                  color: Colors.red.shade400,
-                  size: 18,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      f['feature'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                        color: Colors.red.shade700,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      f['explanation'] as String,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: _rfSlate,
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...lostFeatures.map((f) => Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.red.shade100),
         ),
-      ),
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                f['icon'] as IconData,
+                color: Colors.red.shade400,
+                size: 18,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    f['feature'] as String,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: Colors.red.shade700,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    f['explanation'] as String,
+                    style: const TextStyle(fontSize: 12, color: _rfSlate, height: 1.3),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
       const SizedBox(height: 10),
     ],
   );
@@ -879,13 +777,7 @@ Widget _rfSection6WhenToUse() {
   );
 }
 
-Widget _rfUseCaseCard(
-  String title,
-  String desc,
-  IconData icon,
-  Color color,
-  bool recommended,
-) {
+Widget _rfUseCaseCard(String title, String desc, IconData icon, Color color, bool recommended) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
     padding: const EdgeInsets.all(12),
@@ -893,9 +785,7 @@ Widget _rfUseCaseCard(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
-        color: recommended
-            ? _rfTeal.withValues(alpha: 0.4)
-            : Colors.red.withValues(alpha: 0.3),
+        color: recommended ? _rfTeal.withValues(alpha: 0.4) : Colors.red.withValues(alpha: 0.3),
         width: 1.5,
       ),
     ),
@@ -937,11 +827,7 @@ Widget _rfUseCaseCard(
               const SizedBox(height: 4),
               Text(
                 desc,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: _rfSlate,
-                  height: 1.4,
-                ),
+                style: const TextStyle(fontSize: 12, color: _rfSlate, height: 1.4),
               ),
             ],
           ),
@@ -980,10 +866,7 @@ Widget _rfSection7VisualDemo() {
         decoration: BoxDecoration(
           color: _rfDarkIndigo,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: _rfPeriwinkle.withValues(alpha: 0.3),
-            width: 2,
-          ),
+          border: Border.all(color: _rfPeriwinkle.withValues(alpha: 0.3), width: 2),
         ),
         child: Stack(
           children: [
@@ -1028,16 +911,11 @@ Widget _rfSection7VisualDemo() {
                     // Centered content
                     Center(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 16,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: _rfPeriwinkle.withValues(alpha: 0.3),
-                          ),
+                          border: Border.all(color: _rfPeriwinkle.withValues(alpha: 0.3)),
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -1083,9 +961,7 @@ Widget _rfSection7VisualDemo() {
                             width: 50,
                             height: 30,
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                color: _rfTeal.withValues(alpha: 0.4),
-                              ),
+                              border: Border.all(color: _rfTeal.withValues(alpha: 0.4)),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: const Center(
@@ -1100,9 +976,7 @@ Widget _rfSection7VisualDemo() {
                             width: 50,
                             height: 30,
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                color: _rfGold.withValues(alpha: 0.4),
-                              ),
+                              border: Border.all(color: _rfGold.withValues(alpha: 0.4)),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: const Center(
@@ -1166,7 +1040,10 @@ Widget _rfSection8CommonRenderObjects() {
       'name': 'RenderPadding',
       'desc': 'Adds padding around a child (Padding widget)',
     },
-    {'name': 'RenderClipRRect', 'desc': 'Clips a child to a rounded rectangle'},
+    {
+      'name': 'RenderClipRRect',
+      'desc': 'Clips a child to a rounded rectangle',
+    },
     {
       'name': 'RenderImage',
       'desc': 'Displays an image (the render-layer Image widget)',
@@ -1297,26 +1174,16 @@ Widget _rfSection9Summary() {
               ),
             ),
             const SizedBox(height: 10),
-            _rfBestPractice(
-              'Use runApp() for apps',
-              'WidgetsFlutterBinding is almost always the right choice',
-            ),
-            _rfBestPractice(
-              'Use for learning',
-              'Great way to understand Flutter\'s render pipeline',
-            ),
-            _rfBestPractice(
-              'Use in tests',
-              'Flutter uses it internally to test render objects',
-            ),
-            _rfBestPractice(
-              'Mind the gap',
-              'Without widgets, you lose hot reload, state management, themes',
-            ),
-            _rfBestPractice(
-              'Pair with RenderObject knowledge',
-              'You need to understand constraints, layout, and painting',
-            ),
+            _rfBestPractice('Use runApp() for apps',
+                'WidgetsFlutterBinding is almost always the right choice'),
+            _rfBestPractice('Use for learning',
+                'Great way to understand Flutter\'s render pipeline'),
+            _rfBestPractice('Use in tests',
+                'Flutter uses it internally to test render objects'),
+            _rfBestPractice('Mind the gap',
+                'Without widgets, you lose hot reload, state management, themes'),
+            _rfBestPractice('Pair with RenderObject knowledge',
+                'You need to understand constraints, layout, and painting'),
           ],
         ),
       ),
@@ -1327,7 +1194,9 @@ Widget _rfSection9Summary() {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: [_rfIndigo, _rfDarkIndigo]),
+          gradient: const LinearGradient(
+            colors: [_rfIndigo, _rfDarkIndigo],
+          ),
           borderRadius: BorderRadius.circular(10),
         ),
         child: const Row(
@@ -1337,8 +1206,8 @@ Widget _rfSection9Summary() {
             Expanded(
               child: Text(
                 'RenderingFlutterBinding is Flutter\'s rendering layer, '
-                'exposed. It\'s the answer to "What if I just want to '
-                'paint pixels without building widgets?"',
+                    'exposed. It\'s the answer to "What if I just want to '
+                    'paint pixels without building widgets?"',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12.5,
@@ -1455,9 +1324,9 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 6),
                   Text(
                     'The concrete binding for rendering-only Flutter apps. '
-                    'All the GPU power, none of the widget layer. '
-                    'Understanding this class reveals how Flutter works '
-                    'beneath the widgets.',
+                        'All the GPU power, none of the widget layer. '
+                        'Understanding this class reveals how Flutter works '
+                        'beneath the widgets.',
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.85),
                       fontSize: 13,

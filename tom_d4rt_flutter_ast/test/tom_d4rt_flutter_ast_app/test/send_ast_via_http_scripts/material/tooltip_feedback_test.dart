@@ -77,11 +77,7 @@ TextStyle _privateSubtitle({double size = 15, Color color = _privateInkSoft}) =>
 
 TextStyle _privateBody({double size = 13, Color color = _privateInkSoft}) =>
     TextStyle(
-      fontSize: size,
-      fontWeight: FontWeight.w400,
-      color: color,
-      height: 1.45,
-    );
+        fontSize: size, fontWeight: FontWeight.w400, color: color, height: 1.45);
 
 TextStyle _privateCode({double size = 12.5, Color color = _privateInk}) =>
     TextStyle(
@@ -93,11 +89,11 @@ TextStyle _privateCode({double size = 12.5, Color color = _privateInk}) =>
     );
 
 TextStyle _privateChipText({Color color = _privateInk}) => TextStyle(
-  fontSize: 11.5,
-  fontWeight: FontWeight.w700,
-  color: color,
-  letterSpacing: 0.4,
-);
+      fontSize: 11.5,
+      fontWeight: FontWeight.w700,
+      color: color,
+      letterSpacing: 0.4,
+    );
 
 // -----------------------------------------------------------------------------
 //  Section scaffolding
@@ -167,8 +163,7 @@ Widget _privateCard({
       color: background,
       borderRadius: BorderRadius.circular(radius),
       border: Border.all(color: border, width: 1),
-      boxShadow:
-          shadow ??
+      boxShadow: shadow ??
           [
             BoxShadow(
               color: _privateInk.withValues(alpha: 0.04),
@@ -206,11 +201,8 @@ Widget _privateChip(
   );
 }
 
-Widget _privateLabeledRow(
-  String label,
-  String value, {
-  Color valueColor = _privateInk,
-}) {
+Widget _privateLabeledRow(String label, String value,
+    {Color valueColor = _privateInk}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -218,10 +210,8 @@ Widget _privateLabeledRow(
       children: [
         SizedBox(
           width: 160,
-          child: Text(
-            label,
-            style: _privateBody(size: 12.5, color: _privateSlate),
-          ),
+          child:
+              Text(label, style: _privateBody(size: 12.5, color: _privateSlate)),
         ),
         Expanded(
           child: Text(
@@ -314,16 +304,13 @@ Widget _privateHeroCard() {
               ),
               const SizedBox(height: 20),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.15),
-                  ),
+                      color: Colors.white.withValues(alpha: 0.15)),
                 ),
                 child: const Text(
                   'enableFeedback - excludeFromSemantics - triggerMode - enableTapToDismiss',
@@ -360,17 +347,13 @@ class _PrivateTooltipBubbleHero extends CustomPainter {
     final Paint glow = Paint()
       ..color = Colors.white.withValues(alpha: 0.05)
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(size.width * 0.65, size.height * 0.55), 110, glow);
+    canvas.drawCircle(
+        Offset(size.width * 0.65, size.height * 0.55), 110, glow);
     canvas.drawCircle(Offset(size.width * 0.4, size.height * 0.3), 70, glow);
 
     // Main bubble.
     final RRect bubble = RRect.fromRectAndRadius(
-      Rect.fromLTWH(
-        size.width * 0.18,
-        size.height * 0.20,
-        size.width * 0.66,
-        90,
-      ),
+      Rect.fromLTWH(size.width * 0.18, size.height * 0.20, size.width * 0.66, 90),
       const Radius.circular(18),
     );
     final Paint bubblePaint = Paint()
@@ -440,10 +423,8 @@ class _PrivateTooltipBubbleHero extends CustomPainter {
     )..layout();
     tp.paint(
       canvas,
-      Offset(
-        size.width * 0.40 + 30 - tp.width / 2,
-        size.height * 0.20 + 130 + 19 - tp.height / 2,
-      ),
+      Offset(size.width * 0.40 + 30 - tp.width / 2,
+          size.height * 0.20 + 130 + 19 - tp.height / 2),
     );
   }
 
@@ -484,10 +465,7 @@ Widget _privateAnatomyDiagram() {
           children: [
             _privateChip('1 - bubble', icon: Icons.chat_bubble_outline),
             _privateChip('2 - tail', icon: Icons.change_history),
-            _privateChip(
-              '3 - anchor / child',
-              icon: Icons.crop_square_outlined,
-            ),
+            _privateChip('3 - anchor / child', icon: Icons.crop_square_outlined),
             _privateChip('4 - vertical offset', icon: Icons.height),
             _privateChip('5 - margin', icon: Icons.crop_free),
           ],
@@ -587,11 +565,8 @@ class _PrivateAnatomyPainter extends CustomPainter {
     label('1  bubble', Offset(size.width * 0.66, 50));
     label('2  tail', Offset(size.width * 0.66, 110));
     label('3  anchor (child)', Offset(size.width * 0.66, 170));
-    label(
-      '4  verticalOffset',
-      Offset(offX + 8, 120),
-      color: _privateAccentDeep,
-    );
+    label('4  verticalOffset', Offset(offX + 8, 120),
+        color: _privateAccentDeep);
     label('5  margin', Offset(8, size.height - 26), color: _privateSlate);
 
     // Margin frame.
@@ -621,11 +596,8 @@ Widget _privateFeedbackPanel() {
           children: [
             _privateChip('enableFeedback', icon: Icons.vibration),
             const SizedBox(width: 8),
-            _privateChip(
-              'default: true',
-              background: _privateMutedBg,
-              foreground: _privateSlate,
-            ),
+            _privateChip('default: true',
+                background: _privateMutedBg, foreground: _privateSlate),
           ],
         ),
         const SizedBox(height: 12),
@@ -689,11 +661,11 @@ Widget _privateFeedbackVariant({required bool enabled}) {
         Text(
           enabled
               ? '- Long-press triggers a haptic tick.\n'
-                    '- A short click is played on Android.\n'
-                    '- Improves perceived responsiveness.'
+                  '- A short click is played on Android.\n'
+                  '- Improves perceived responsiveness.'
               : '- No haptic on long-press.\n'
-                    '- No system click sound.\n'
-                    '- Useful in silent / focus modes.',
+                  '- No system click sound.\n'
+                  '- Useful in silent / focus modes.',
           style: _privateBody(size: 12.5),
         ),
         const SizedBox(height: 10),
@@ -769,8 +741,7 @@ Widget _privateTriggerModePanel() {
                 title: 'manual',
                 icon: Icons.smart_toy_outlined,
                 accent: _privatePlum,
-                description:
-                    'Tooltip never auto-opens.\n'
+                description: 'Tooltip never auto-opens.\n'
                     'Code drives `ensureTooltipVisible`\n'
                     'via a GlobalKey<TooltipState>.',
                 tooltipTrigger: TooltipTriggerMode.manual,
@@ -783,8 +754,7 @@ Widget _privateTriggerModePanel() {
                 title: 'longPress',
                 icon: Icons.pan_tool_alt_outlined,
                 accent: _privateAccent,
-                description:
-                    'The default for touch.\n'
+                description: 'The default for touch.\n'
                     'User holds down for ~500ms\n'
                     'before the bubble appears.',
                 tooltipTrigger: TooltipTriggerMode.longPress,
@@ -797,8 +767,7 @@ Widget _privateTriggerModePanel() {
                 title: 'tap',
                 icon: Icons.touch_app_outlined,
                 accent: _privateMint,
-                description:
-                    'Single tap toggles bubble.\n'
+                description: 'Single tap toggles bubble.\n'
                     'Fast feedback, but conflicts\n'
                     'with button onPressed.',
                 tooltipTrigger: TooltipTriggerMode.tap,
@@ -864,7 +833,8 @@ Widget _privateTriggerModeCard({
             message: demoMessage,
             triggerMode: tooltipTrigger,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(8),
@@ -896,10 +866,8 @@ Widget _privateSemanticsPanel() {
       children: [
         Row(
           children: [
-            _privateChip(
-              'excludeFromSemantics',
-              icon: Icons.accessibility_new_outlined,
-            ),
+            _privateChip('excludeFromSemantics',
+                icon: Icons.accessibility_new_outlined),
             const SizedBox(width: 8),
             _privateChip(
               'default: false',
@@ -909,10 +877,8 @@ Widget _privateSemanticsPanel() {
           ],
         ),
         const SizedBox(height: 12),
-        Text(
-          'Should the message be announced?',
-          style: _privateSubtitle(size: 17),
-        ),
+        Text('Should the message be announced?',
+            style: _privateSubtitle(size: 17)),
         const SizedBox(height: 6),
         Text(
           'By default the tooltip message is exposed to assistive tech as the '
@@ -933,7 +899,10 @@ Widget _privateSemanticsPanel() {
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: _privateSemanticsCard(exclude: true, announced: 'Save'),
+              child: _privateSemanticsCard(
+                exclude: true,
+                announced: 'Save',
+              ),
             ),
           ],
         ),
@@ -942,10 +911,8 @@ Widget _privateSemanticsPanel() {
   );
 }
 
-Widget _privateSemanticsCard({
-  required bool exclude,
-  required String announced,
-}) {
+Widget _privateSemanticsCard(
+    {required bool exclude, required String announced}) {
   return Container(
     padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -960,9 +927,7 @@ Widget _privateSemanticsCard({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          exclude
-              ? 'excludeFromSemantics: true'
-              : 'excludeFromSemantics: false',
+          exclude ? 'excludeFromSemantics: true' : 'excludeFromSemantics: false',
           style: TextStyle(
             fontFamily: 'monospace',
             fontSize: 12.5,
@@ -981,11 +946,8 @@ Widget _privateSemanticsCard({
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
-                Icons.record_voice_over_outlined,
-                size: 18,
-                color: _privateAccentDeep,
-              ),
+              const Icon(Icons.record_voice_over_outlined,
+                  size: 18, color: _privateAccentDeep),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -1004,7 +966,8 @@ Widget _privateSemanticsCard({
             label: 'Save',
             button: true,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
                 color: _privateAccentDeep,
                 borderRadius: BorderRadius.circular(8),
@@ -1045,11 +1008,8 @@ Widget _privateFrozenFrames() {
           children: [
             _privateChip('placement', icon: Icons.open_in_full),
             const SizedBox(width: 8),
-            _privateChip(
-              'preferBelow / verticalOffset',
-              background: _privateMutedBg,
-              foreground: _privateSlate,
-            ),
+            _privateChip('preferBelow / verticalOffset',
+                background: _privateMutedBg, foreground: _privateSlate),
           ],
         ),
         const SizedBox(height: 12),
@@ -1222,9 +1182,7 @@ class _PrivateFramePainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     )..layout();
     tp.paint(
-      canvas,
-      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
-    );
+        canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height / 2));
   }
 
   @override
@@ -1244,11 +1202,8 @@ Widget _privateDecorationGallery() {
           children: [
             _privateChip('decoration', icon: Icons.style_outlined),
             const SizedBox(width: 8),
-            _privateChip(
-              'padding / margin / textStyle',
-              background: _privateMutedBg,
-              foreground: _privateSlate,
-            ),
+            _privateChip('padding / margin / textStyle',
+                background: _privateMutedBg, foreground: _privateSlate),
           ],
         ),
         const SizedBox(height: 12),
@@ -1273,9 +1228,7 @@ Widget _privateDecorationGallery() {
                   borderRadius: BorderRadius.all(Radius.circular(4)),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
+                    horizontal: 10, vertical: 6),
               ),
             ),
             const SizedBox(width: 10),
@@ -1290,9 +1243,7 @@ Widget _privateDecorationGallery() {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                    horizontal: 12, vertical: 8),
               ),
             ),
             const SizedBox(width: 10),
@@ -1305,9 +1256,7 @@ Widget _privateDecorationGallery() {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
-                ),
+                    horizontal: 14, vertical: 10),
               ),
             ),
           ],
@@ -1326,9 +1275,7 @@ Widget _privateDecorationGallery() {
                   border: Border.all(color: _privateAccent, width: 1.5),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                    horizontal: 12, vertical: 8),
               ),
             ),
             const SizedBox(width: 10),
@@ -1342,9 +1289,7 @@ Widget _privateDecorationGallery() {
                   border: Border.all(color: _privateLine, width: 1),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                    horizontal: 12, vertical: 8),
                 dark: false,
               ),
             ),
@@ -1407,7 +1352,8 @@ Widget _privateDecoCard({
             fontWeight: FontWeight.w600,
           ),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(6),
@@ -1439,11 +1385,8 @@ Widget _privateTimingPanel() {
             const SizedBox(width: 8),
             _privateChip('showDuration', icon: Icons.timelapse),
             const SizedBox(width: 8),
-            _privateChip(
-              'exitDuration',
-              background: _privateMutedBg,
-              foreground: _privateSlate,
-            ),
+            _privateChip('exitDuration',
+                background: _privateMutedBg, foreground: _privateSlate),
           ],
         ),
         const SizedBox(height: 12),
@@ -1469,21 +1412,12 @@ Widget _privateTimingPanel() {
           spacing: 10,
           runSpacing: 6,
           children: [
-            _privateChip(
-              'default waitDuration: 0ms (touch) / instant (mouse)',
-              background: _privateMutedBg,
-              foreground: _privateSlate,
-            ),
-            _privateChip(
-              'default showDuration: 1500ms (touch)',
-              background: _privateMutedBg,
-              foreground: _privateSlate,
-            ),
-            _privateChip(
-              'mouse hover: shows immediately',
-              background: _privateMutedBg,
-              foreground: _privateSlate,
-            ),
+            _privateChip('default waitDuration: 0ms (touch) / instant (mouse)',
+                background: _privateMutedBg, foreground: _privateSlate),
+            _privateChip('default showDuration: 1500ms (touch)',
+                background: _privateMutedBg, foreground: _privateSlate),
+            _privateChip('mouse hover: shows immediately',
+                background: _privateMutedBg, foreground: _privateSlate),
           ],
         ),
         const SizedBox(height: 14),
@@ -1712,12 +1646,10 @@ Widget _privateRecipeListing() {
       children: [
         Row(
           children: [
-            _privateChip(
-              'recipe',
-              icon: Icons.menu_book_outlined,
-              background: _privateAccent,
-              foreground: Colors.white,
-            ),
+            _privateChip('recipe',
+                icon: Icons.menu_book_outlined,
+                background: _privateAccent,
+                foreground: Colors.white),
             const SizedBox(width: 8),
             _privateChip(
               'full Tooltip(...) constructor',
@@ -1732,20 +1664,14 @@ Widget _privateRecipeListing() {
         _privateCodeLine('Tooltip(', _privateAccentSoft),
         _privateCodeLine("  message: 'Save document',", Colors.white),
         _privateCodeLine(
-          '  triggerMode: TooltipTriggerMode.longPress,',
-          _privateMint,
-        ),
+            '  triggerMode: TooltipTriggerMode.longPress,', _privateMint),
         _privateCodeLine('  enableFeedback: true,', _privatePeach),
         _privateCodeLine('  excludeFromSemantics: false,', Colors.white),
         _privateCodeLine('  enableTapToDismiss: true,', _privateAmber),
         _privateCodeLine(
-          '  waitDuration: Duration(milliseconds: 600),',
-          Colors.white,
-        ),
+            '  waitDuration: Duration(milliseconds: 600),', Colors.white),
         _privateCodeLine(
-          '  showDuration: Duration(milliseconds: 1800),',
-          Colors.white,
-        ),
+            '  showDuration: Duration(milliseconds: 1800),', Colors.white),
         _privateCodeLine('  preferBelow: false,', Colors.white),
         _privateCodeLine('  verticalOffset: 18,', Colors.white),
         _privateCodeLine('  padding: EdgeInsets.symmetric(', Colors.white),
@@ -1754,14 +1680,11 @@ Widget _privateRecipeListing() {
         _privateCodeLine('  decoration: BoxDecoration(', _privateAccentSoft),
         _privateCodeLine('    color: Color(0xFF0F1B2A),', Colors.white),
         _privateCodeLine(
-          '    borderRadius: BorderRadius.circular(8),',
-          Colors.white,
-        ),
+            '    borderRadius: BorderRadius.circular(8),', Colors.white),
         _privateCodeLine('  ),', _privateAccentSoft),
         _privateCodeLine(
-          '  textStyle: TextStyle(color: Colors.white, fontSize: 12),',
-          Colors.white,
-        ),
+            '  textStyle: TextStyle(color: Colors.white, fontSize: 12),',
+            Colors.white),
         _privateCodeLine('  textAlign: TextAlign.center,', Colors.white),
         _privateCodeLine('  child: IconButton(', Colors.white),
         _privateCodeLine('    icon: Icon(Icons.save_outlined),', Colors.white),
@@ -1789,7 +1712,8 @@ Widget _privateRecipeListing() {
           textStyle: const TextStyle(color: Colors.white, fontSize: 12),
           textAlign: TextAlign.center,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: _privateAccent,
               borderRadius: BorderRadius.circular(10),
@@ -1870,18 +1794,13 @@ Widget _privatePitfallsPanel() {
       children: [
         Row(
           children: [
-            _privateChip(
-              'pitfalls',
-              background: _privatePeach.withValues(alpha: 0.20),
-              foreground: _privatePeach,
-              icon: Icons.warning_amber_outlined,
-            ),
+            _privateChip('pitfalls',
+                background: _privatePeach.withValues(alpha: 0.20),
+                foreground: _privatePeach,
+                icon: Icons.warning_amber_outlined),
             const SizedBox(width: 8),
-            _privateChip(
-              'read before shipping',
-              background: Colors.white,
-              foreground: _privateInkSoft,
-            ),
+            _privateChip('read before shipping',
+                background: Colors.white, foreground: _privateInkSoft),
           ],
         ),
         const SizedBox(height: 12),
@@ -1939,11 +1858,8 @@ Widget _privatePropertyTable() {
           children: [
             _privateChip('reference', icon: Icons.list_alt),
             const SizedBox(width: 8),
-            _privateChip(
-              'full constructor surface',
-              background: _privateMutedBg,
-              foreground: _privateSlate,
-            ),
+            _privateChip('full constructor surface',
+                background: _privateMutedBg, foreground: _privateSlate),
           ],
         ),
         const SizedBox(height: 12),
@@ -1999,11 +1915,8 @@ Widget _privateFooter() {
             color: Colors.white.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(
-            Icons.tips_and_updates_outlined,
-            color: Colors.white,
-            size: 22,
-          ),
+          child: const Icon(Icons.tips_and_updates_outlined,
+              color: Colors.white, size: 22),
         ),
         const SizedBox(width: 14),
         Expanded(
@@ -2062,70 +1975,37 @@ dynamic build(BuildContext context) {
             children: [
               _privateHeroCard(),
               _privateSectionHeader(
-                2,
-                'Anatomy',
-                'How the bubble, tail and anchor relate.',
-              ),
+                  2, 'Anatomy', 'How the bubble, tail and anchor relate.'),
               _privateAnatomyDiagram(),
-              _privateSectionHeader(
-                3,
-                'enableFeedback',
-                'Haptic and click feedback on long-press.',
-              ),
+              _privateSectionHeader(3, 'enableFeedback',
+                  'Haptic and click feedback on long-press.'),
               _privateFeedbackPanel(),
-              _privateSectionHeader(
-                4,
-                'triggerMode',
-                'manual / longPress / tap - three live samples.',
-              ),
+              _privateSectionHeader(4, 'triggerMode',
+                  'manual / longPress / tap - three live samples.'),
               _privateTriggerModePanel(),
-              _privateSectionHeader(
-                5,
-                'excludeFromSemantics',
-                'Should the message reach assistive tech?',
-              ),
+              _privateSectionHeader(5, 'excludeFromSemantics',
+                  'Should the message reach assistive tech?'),
               _privateSemanticsPanel(),
-              _privateSectionHeader(
-                6,
-                'Placement frames',
-                'Frozen-frame bubble mockups in 4 directions.',
-              ),
+              _privateSectionHeader(6, 'Placement frames',
+                  'Frozen-frame bubble mockups in 4 directions.'),
               _privateFrozenFrames(),
-              _privateSectionHeader(
-                7,
-                'Decoration & padding',
-                'Five bubble looks with live Tooltip widgets.',
-              ),
+              _privateSectionHeader(7, 'Decoration & padding',
+                  'Five bubble looks with live Tooltip widgets.'),
               _privateDecorationGallery(),
-              _privateSectionHeader(
-                8,
-                'waitDuration & showDuration',
-                'Lifecycle timeline with live timed sample.',
-              ),
+              _privateSectionHeader(8, 'waitDuration & showDuration',
+                  'Lifecycle timeline with live timed sample.'),
               _privateTimingPanel(),
-              _privateSectionHeader(
-                9,
-                'richMessage',
-                'InlineSpan payload with mixed styling.',
-              ),
+              _privateSectionHeader(9, 'richMessage',
+                  'InlineSpan payload with mixed styling.'),
               _privateRichMessageExample(),
-              _privateSectionHeader(
-                10,
-                'Recipe',
-                'Full constructor + a real running instance.',
-              ),
+              _privateSectionHeader(10, 'Recipe',
+                  'Full constructor + a real running instance.'),
               _privateRecipeListing(),
-              _privateSectionHeader(
-                11,
-                'Pitfalls',
-                'Six gotchas to remember before shipping.',
-              ),
+              _privateSectionHeader(11, 'Pitfalls',
+                  'Six gotchas to remember before shipping.'),
               _privatePitfallsPanel(),
-              _privateSectionHeader(
-                12,
-                'Property reference',
-                "Tooltip's constructor surface at a glance.",
-              ),
+              _privateSectionHeader(12, 'Property reference',
+                  "Tooltip's constructor surface at a glance."),
               _privatePropertyTable(),
               _privateFooter(),
             ],

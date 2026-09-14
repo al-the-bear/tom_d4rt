@@ -37,11 +37,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              CupertinoIcons.sun_max_fill,
-              color: Color(0xFFFFC107),
-              size: 28.0,
-            ),
+            Icon(CupertinoIcons.sun_max_fill, color: Color(0xFFFFC107), size: 28.0),
             SizedBox(width: 8.0),
             Text(
               'Brightness.light',
@@ -108,11 +104,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              CupertinoIcons.moon_fill,
-              color: Color(0xFFBBDEFB),
-              size: 28.0,
-            ),
+            Icon(CupertinoIcons.moon_fill, color: Color(0xFFBBDEFB), size: 28.0),
             SizedBox(width: 8.0),
             Text(
               'Brightness.dark',
@@ -305,18 +297,10 @@ dynamic build(BuildContext context) {
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
   );
 
-  final mbLight = MaterialBasedCupertinoThemeData(
-    materialTheme: lightMaterialTheme,
-  );
-  final mbDark = MaterialBasedCupertinoThemeData(
-    materialTheme: darkMaterialTheme,
-  );
-  final mbPurple = MaterialBasedCupertinoThemeData(
-    materialTheme: customMaterialTheme,
-  );
-  final mbTeal = MaterialBasedCupertinoThemeData(
-    materialTheme: tealMaterialTheme,
-  );
+  final mbLight = MaterialBasedCupertinoThemeData(materialTheme: lightMaterialTheme);
+  final mbDark = MaterialBasedCupertinoThemeData(materialTheme: darkMaterialTheme);
+  final mbPurple = MaterialBasedCupertinoThemeData(materialTheme: customMaterialTheme);
+  final mbTeal = MaterialBasedCupertinoThemeData(materialTheme: tealMaterialTheme);
 
   print('MaterialBased(light) primary=${mbLight.primaryColor}');
   print('MaterialBased(dark) primary=${mbDark.primaryColor}');
@@ -356,33 +340,17 @@ dynamic build(BuildContext context) {
                 Text('Material', style: TextStyle(fontSize: 11.0)),
               ],
             ),
-            Icon(
-              CupertinoIcons.arrow_right_circle_fill,
-              color: Color(0xFFFF7043),
-              size: 24.0,
-            ),
+            Icon(CupertinoIcons.arrow_right_circle_fill, color: Color(0xFFFF7043), size: 24.0),
             Column(
               children: [
-                Icon(
-                  CupertinoIcons.cube_box_fill,
-                  color: Color(0xFFFF7043),
-                  size: 32.0,
-                ),
+                Icon(CupertinoIcons.cube_box_fill, color: Color(0xFFFF7043), size: 32.0),
                 Text('Bridge', style: TextStyle(fontSize: 11.0)),
               ],
             ),
-            Icon(
-              CupertinoIcons.arrow_right_circle_fill,
-              color: Color(0xFFFF7043),
-              size: 24.0,
-            ),
+            Icon(CupertinoIcons.arrow_right_circle_fill, color: Color(0xFFFF7043), size: 24.0),
             Column(
               children: [
-                Icon(
-                  CupertinoIcons.device_phone_portrait,
-                  color: Color(0xFF455A64),
-                  size: 32.0,
-                ),
+                Icon(CupertinoIcons.device_phone_portrait, color: Color(0xFF455A64), size: 32.0),
                 Text('Cupertino', style: TextStyle(fontSize: 11.0)),
               ],
             ),
@@ -421,7 +389,10 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 10.0, color: Color(0xFF616161)),
               ),
               SizedBox(height: 8.0),
-              CupertinoButton.filled(child: Text('Light'), onPressed: () {}),
+              CupertinoButton.filled(
+                child: Text('Light'),
+                onPressed: () {},
+              ),
             ],
           );
         },
@@ -458,7 +429,10 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 10.0, color: Color(0xFFBDBDBD)),
               ),
               SizedBox(height: 8.0),
-              CupertinoButton.filled(child: Text('Dark'), onPressed: () {}),
+              CupertinoButton.filled(
+                child: Text('Dark'),
+                onPressed: () {},
+              ),
             ],
           );
         },
@@ -495,7 +469,10 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 10.0, color: Color(0xFF512DA8)),
               ),
               SizedBox(height: 8.0),
-              CupertinoButton.filled(child: Text('Purple'), onPressed: () {}),
+              CupertinoButton.filled(
+                child: Text('Purple'),
+                onPressed: () {},
+              ),
             ],
           );
         },
@@ -532,7 +509,10 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontSize: 10.0, color: Color(0xFF00695C)),
               ),
               SizedBox(height: 8.0),
-              CupertinoButton.filled(child: Text('Teal'), onPressed: () {}),
+              CupertinoButton.filled(
+                child: Text('Teal'),
+                onPressed: () {},
+              ),
             ],
           );
         },
@@ -845,11 +825,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(width: 4.0),
-              Icon(
-                CupertinoIcons.arrow_right,
-                size: 16.0,
-                color: Color(0xFF3949AB),
-              ),
+              Icon(CupertinoIcons.arrow_right, size: 16.0, color: Color(0xFF3949AB)),
               SizedBox(width: 4.0),
               Container(
                 width: 24.0,
@@ -874,46 +850,14 @@ dynamic build(BuildContext context) {
 
   // 8 system colors x 2 brightness modes
   final systemColorEntries = <Map<String, dynamic>>[
-    {
-      'name': 'systemRed',
-      'light': Color(0xFFFF3B30),
-      'dark': Color(0xFFFF453A),
-    },
-    {
-      'name': 'systemOrange',
-      'light': Color(0xFFFF9500),
-      'dark': Color(0xFFFF9F0A),
-    },
-    {
-      'name': 'systemYellow',
-      'light': Color(0xFFFFCC00),
-      'dark': Color(0xFFFFD60A),
-    },
-    {
-      'name': 'systemGreen',
-      'light': Color(0xFF34C759),
-      'dark': Color(0xFF30D158),
-    },
-    {
-      'name': 'systemTeal',
-      'light': Color(0xFF30B0C7),
-      'dark': Color(0xFF40C8E0),
-    },
-    {
-      'name': 'systemBlue',
-      'light': Color(0xFF007AFF),
-      'dark': Color(0xFF0A84FF),
-    },
-    {
-      'name': 'systemIndigo',
-      'light': Color(0xFF5856D6),
-      'dark': Color(0xFF5E5CE6),
-    },
-    {
-      'name': 'systemPurple',
-      'light': Color(0xFFAF52DE),
-      'dark': Color(0xFFBF5AF2),
-    },
+    {'name': 'systemRed', 'light': Color(0xFFFF3B30), 'dark': Color(0xFFFF453A)},
+    {'name': 'systemOrange', 'light': Color(0xFFFF9500), 'dark': Color(0xFFFF9F0A)},
+    {'name': 'systemYellow', 'light': Color(0xFFFFCC00), 'dark': Color(0xFFFFD60A)},
+    {'name': 'systemGreen', 'light': Color(0xFF34C759), 'dark': Color(0xFF30D158)},
+    {'name': 'systemTeal', 'light': Color(0xFF30B0C7), 'dark': Color(0xFF40C8E0)},
+    {'name': 'systemBlue', 'light': Color(0xFF007AFF), 'dark': Color(0xFF0A84FF)},
+    {'name': 'systemIndigo', 'light': Color(0xFF5856D6), 'dark': Color(0xFF5E5CE6)},
+    {'name': 'systemPurple', 'light': Color(0xFFAF52DE), 'dark': Color(0xFFBF5AF2)},
   ];
 
   final systemColorRows = <Widget>[];
@@ -943,11 +887,7 @@ dynamic build(BuildContext context) {
             flex: 2,
             child: Row(
               children: [
-                Icon(
-                  CupertinoIcons.sun_max,
-                  color: Color(0xFFFFCC00),
-                  size: 14.0,
-                ),
+                Icon(CupertinoIcons.sun_max, color: Color(0xFFFFCC00), size: 14.0),
                 SizedBox(width: 4.0),
                 Text(
                   'Light',
@@ -1091,7 +1031,10 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 8.0),
-          CupertinoButton(child: Text('Tap me'), onPressed: () {}),
+          CupertinoButton(
+            child: Text('Tap me'),
+            onPressed: () {},
+          ),
           SizedBox(height: 4.0),
           Text(
             'inherits actionTextStyle\nfrom CupertinoTextThemeData',
@@ -1132,7 +1075,10 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 8.0),
-          CupertinoButton(child: Text('Tap me'), onPressed: () {}),
+          CupertinoButton(
+            child: Text('Tap me'),
+            onPressed: () {},
+          ),
           SizedBox(height: 4.0),
           Text(
             'actionTextStyle: 18pt w800\nsystemPurple',
@@ -1296,11 +1242,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         Padding(
           padding: EdgeInsets.only(left: 16.0),
-          child: Icon(
-            CupertinoIcons.arrow_down,
-            color: Color(0xFF388E3C),
-            size: 18.0,
-          ),
+          child: Icon(CupertinoIcons.arrow_down, color: Color(0xFF388E3C), size: 18.0),
         ),
         SizedBox(height: 4.0),
         Container(
@@ -1323,11 +1265,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         Padding(
           padding: EdgeInsets.only(left: 32.0),
-          child: Icon(
-            CupertinoIcons.arrow_down,
-            color: Color(0xFF388E3C),
-            size: 18.0,
-          ),
+          child: Icon(CupertinoIcons.arrow_down, color: Color(0xFF388E3C), size: 18.0),
         ),
         SizedBox(height: 4.0),
         Container(
@@ -1392,12 +1330,12 @@ dynamic build(BuildContext context) {
                     brightness: Brightness.light,
                   ),
                   child: CupertinoButton(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 6.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                     color: CupertinoColors.systemBlue,
-                    child: Text('iOS button', style: TextStyle(fontSize: 13.0)),
+                    child: Text(
+                      'iOS button',
+                      style: TextStyle(fontSize: 13.0),
+                    ),
                     onPressed: () {},
                   ),
                 ),
@@ -1432,11 +1370,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              CupertinoIcons.chevron_left_slash_chevron_right,
-              color: Color(0xFF4FC3F7),
-              size: 20.0,
-            ),
+            Icon(CupertinoIcons.chevron_left_slash_chevron_right, color: Color(0xFF4FC3F7), size: 20.0),
             SizedBox(width: 8.0),
             Text(
               'CupertinoTheme code patterns',
@@ -1644,17 +1578,9 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    CupertinoIcons.sun_max_fill,
-                    color: Color(0xFFFFD60A),
-                    size: 36.0,
-                  ),
+                  Icon(CupertinoIcons.sun_max_fill, color: Color(0xFFFFD60A), size: 36.0),
                   SizedBox(width: 8.0),
-                  Icon(
-                    CupertinoIcons.moon_stars_fill,
-                    color: Color(0xFF64D2FF),
-                    size: 36.0,
-                  ),
+                  Icon(CupertinoIcons.moon_stars_fill, color: Color(0xFF64D2FF), size: 36.0),
                 ],
               ),
               SizedBox(height: 8.0),
@@ -1733,7 +1659,10 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(alignment: WrapAlignment.center, children: partialOverrideCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: partialOverrideCards,
+        ),
         SizedBox(height: 32.0),
 
         // Section 5
@@ -1797,7 +1726,12 @@ dynamic build(BuildContext context) {
 }
 
 // Helper: build summary takeaway row
-Widget _buildTakeaway(IconData icon, String title, String desc, Color color) {
+Widget _buildTakeaway(
+  IconData icon,
+  String title,
+  String desc,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(

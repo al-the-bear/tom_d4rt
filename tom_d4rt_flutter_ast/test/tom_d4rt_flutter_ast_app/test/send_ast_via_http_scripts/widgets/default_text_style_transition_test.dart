@@ -396,23 +396,22 @@ class _IntroSectionState extends State<_IntroSection>
       vsync: this,
       duration: const Duration(seconds: 3),
     );
-    _styleAnimation =
-        TextStyleTween(
-          begin: const TextStyle(
-            fontSize: 16,
-            color: Color(0xFF263238),
-            fontWeight: FontWeight.w400,
-            letterSpacing: 0,
-          ),
-          end: const TextStyle(
-            fontSize: 18,
-            color: Color(0xFF1E88E5),
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.4,
-          ),
-        ).animate(
-          CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
-        );
+    _styleAnimation = TextStyleTween(
+      begin: const TextStyle(
+        fontSize: 16,
+        color: Color(0xFF263238),
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+      end: const TextStyle(
+        fontSize: 18,
+        color: Color(0xFF1E88E5),
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.4,
+      ),
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
+    );
     // Run a quick forward+reverse loop just so the intro shows life.
     _controller.repeat(reverse: true);
   }
@@ -682,8 +681,8 @@ class _ColorMorphDemoState extends State<_ColorMorphDemo>
           _Caption(label: 't', value: _controller.value.toStringAsFixed(3)),
           _Caption(
             label: 'current.color',
-            value:
-                '0x${(_styleTween.evaluate(_styleDriver).color?.value ?? 0).toRadixString(16).padLeft(8, '0')}',
+            value: '0x${(_styleTween.evaluate(_styleDriver).color?.value ?? 0)
+                .toRadixString(16).padLeft(8, '0')}',
           ),
           const _Caption(
             label: 'tween',
@@ -793,7 +792,7 @@ class _SizeMorphDemoState extends State<_SizeMorphDemo>
             label: 'fontSize',
             value:
                 _styleTween.evaluate(_curve).fontSize?.toStringAsFixed(2) ??
-                '?',
+                    '?',
           ),
           _Caption(label: 'curve', value: 'Curves.easeInOut'),
           _Caption(label: 't', value: _controller.value.toStringAsFixed(3)),
@@ -869,7 +868,9 @@ class _WeightMorphDemoState extends State<_WeightMorphDemo>
         children: <Widget>[
           DefaultTextStyleTransition(
             style: _styleAnimation,
-            child: const Text('The brown fox is feeling heavy today.'),
+            child: const Text(
+              'The brown fox is feeling heavy today.',
+            ),
           ),
           const SizedBox(height: 12),
           Slider(
@@ -896,10 +897,9 @@ class _WeightMorphDemoState extends State<_WeightMorphDemo>
               ),
               const SizedBox(width: 8),
               ElevatedButton.icon(
-                onPressed: () => _controller.repeat(
-                  reverse: true,
-                  period: const Duration(milliseconds: 2500),
-                ),
+                onPressed: () =>
+                    _controller.repeat(reverse: true, period:
+                        const Duration(milliseconds: 2500)),
                 icon: const Icon(Icons.loop),
                 label: const Text('loop'),
               ),
@@ -941,43 +941,41 @@ class _WeightLadder extends StatelessWidget {
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: ladder
-          .map((FontWeight w) {
-            final bool isActive = w == currentWeight;
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 48,
-                    child: Text(
-                      'w${w.value}',
-                      style: const TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: Color(0xFF6E7780),
-                      ),
-                    ),
+      children: ladder.map((FontWeight w) {
+        final bool isActive = w == currentWeight;
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2),
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                width: 48,
+                child: Text(
+                  'w${w.value}',
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF6E7780),
                   ),
-                  Expanded(
-                    child: Text(
-                      'Sample text',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: w,
-                        color: isActive
-                            ? const Color(0xFF1E88E5)
-                            : const Color(0xFF20262C),
-                      ),
-                    ),
-                  ),
-                  if (isActive)
-                    const Icon(Icons.arrow_left, color: Color(0xFF1E88E5)),
-                ],
+                ),
               ),
-            );
-          })
-          .toList(growable: false),
+              Expanded(
+                child: Text(
+                  'Sample text',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: w,
+                    color: isActive
+                        ? const Color(0xFF1E88E5)
+                        : const Color(0xFF20262C),
+                  ),
+                ),
+              ),
+              if (isActive)
+                const Icon(Icons.arrow_left, color: Color(0xFF1E88E5)),
+            ],
+          ),
+        );
+      }).toList(growable: false),
     );
   }
 }
@@ -1012,7 +1010,10 @@ class _MultiPropertyMorphDemoState extends State<_MultiPropertyMorphDemo>
       vsync: this,
       duration: const Duration(seconds: 4),
     );
-    _curve = CurvedAnimation(parent: _controller, curve: Curves.easeInOutQuart);
+    _curve = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOutQuart,
+    );
     _styleTween = TextStyleTween(
       begin: const TextStyle(
         fontSize: 14,
@@ -1078,10 +1079,8 @@ class _MultiPropertyMorphDemoState extends State<_MultiPropertyMorphDemo>
               ),
               const SizedBox(width: 8),
               ElevatedButton.icon(
-                onPressed: () => _controller.repeat(
-                  reverse: true,
-                  period: const Duration(seconds: 4),
-                ),
+                onPressed: () => _controller
+                    .repeat(reverse: true, period: const Duration(seconds: 4)),
                 icon: const Icon(Icons.loop),
                 label: const Text('loop'),
               ),
@@ -1093,8 +1092,8 @@ class _MultiPropertyMorphDemoState extends State<_MultiPropertyMorphDemo>
           ),
           _Caption(
             label: 'color',
-            value:
-                '0x${(s.color?.value ?? 0).toRadixString(16).padLeft(8, '0')}',
+            value: '0x${(s.color?.value ?? 0).toRadixString(16)
+                .padLeft(8, '0')}',
           ),
           _Caption(
             label: 'letterSpacing',
@@ -1150,7 +1149,9 @@ class _ReverseLoopDemoState extends State<_ReverseLoopDemo>
         color: Color(0xFFD81B60),
         fontWeight: FontWeight.w700,
       ),
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
     _controller.addStatusListener(_onStatus);
     _controller.repeat(reverse: true);
   }
@@ -1210,7 +1211,10 @@ class _ReverseLoopDemoState extends State<_ReverseLoopDemo>
             ],
           ),
           _Caption(label: 'state', value: _running ? 'running' : 'paused'),
-          _Caption(label: 'mode', value: 'controller.repeat(reverse: true)'),
+          _Caption(
+            label: 'mode',
+            value: 'controller.repeat(reverse: true)',
+          ),
         ],
       ),
     );
@@ -1258,7 +1262,9 @@ class _CoordinatedChildrenDemoState extends State<_CoordinatedChildrenDemo>
         height: 1.45,
         letterSpacing: 0.6,
       ),
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
     _controller.addListener(() => setState(() {}));
   }
 
@@ -1297,7 +1303,9 @@ class _CoordinatedChildrenDemoState extends State<_CoordinatedChildrenDemo>
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
-                  child: Text('A caption — same inherited style'),
+                  child: Text(
+                    'A caption — same inherited style',
+                  ),
                 ),
               ],
             ),
@@ -1374,8 +1382,8 @@ class _ComparisonDemoState extends State<_ComparisonDemo>
     );
     _styleAnimation = TextStyleTween(begin: _smallStyle, end: _bigStyle)
         .animate(
-          CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
-        );
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
+    );
     _controller.addListener(() => setState(() {}));
   }
 
@@ -1482,7 +1490,8 @@ class _HeroCoordinatedDemo extends StatefulWidget {
   const _HeroCoordinatedDemo();
 
   @override
-  State<_HeroCoordinatedDemo> createState() => _HeroCoordinatedDemoState();
+  State<_HeroCoordinatedDemo> createState() =>
+      _HeroCoordinatedDemoState();
 }
 
 class _HeroCoordinatedDemoState extends State<_HeroCoordinatedDemo>
@@ -1675,7 +1684,9 @@ class _HeaderPulseRecipeState extends State<_HeaderPulseRecipe>
         color: Color(0xFF1E88E5),
         fontWeight: FontWeight.w700,
       ),
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
     _controller.repeat(reverse: true);
   }
 
@@ -1769,7 +1780,9 @@ class _HoverGlowCaptionRecipeState extends State<_HoverGlowCaptionRecipe>
       onEnter: (_) => _setHover(true),
       onExit: (_) => _setHover(false),
       child: _DemoCard(
-        color: _hovered ? const Color(0xFFF3E5F5) : const Color(0xFFFFFFFF),
+        color: _hovered
+            ? const Color(0xFFF3E5F5)
+            : const Color(0xFFFFFFFF),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -1784,7 +1797,9 @@ class _HoverGlowCaptionRecipeState extends State<_HoverGlowCaptionRecipe>
             const SizedBox(height: 4),
             DefaultTextStyleTransition(
               style: _styleAnimation,
-              child: const Text('hover me to see the caption glow & tighten'),
+              child: const Text(
+                'hover me to see the caption glow & tighten',
+              ),
             ),
           ],
         ),
@@ -1801,7 +1816,8 @@ class _AttentionErrorLabelRecipe extends StatefulWidget {
       _AttentionErrorLabelRecipeState();
 }
 
-class _AttentionErrorLabelRecipeState extends State<_AttentionErrorLabelRecipe>
+class _AttentionErrorLabelRecipeState
+    extends State<_AttentionErrorLabelRecipe>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<TextStyle> _styleAnimation;
@@ -1825,7 +1841,9 @@ class _AttentionErrorLabelRecipeState extends State<_AttentionErrorLabelRecipe>
         color: Color(0xFFE53935),
         fontWeight: FontWeight.w800,
       ),
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
+    );
   }
 
   @override
@@ -1881,7 +1899,8 @@ class _BrandColorSweepRecipe extends StatefulWidget {
   const _BrandColorSweepRecipe();
 
   @override
-  State<_BrandColorSweepRecipe> createState() => _BrandColorSweepRecipeState();
+  State<_BrandColorSweepRecipe> createState() =>
+      _BrandColorSweepRecipeState();
 }
 
 class _BrandColorSweepRecipeState extends State<_BrandColorSweepRecipe>
@@ -2024,8 +2043,7 @@ class _PitfallsSection extends StatelessWidget {
         _PitfallCard(
           number: 1,
           title: 'Children must rely on inheritance',
-          body:
-              'If your child Text passes its own `style:` argument it '
+          body: 'If your child Text passes its own `style:` argument it '
               'will not pick up the animated DefaultTextStyle. Either '
               'omit style entirely, or use Text.rich with a TextSpan '
               'whose style is null.',
@@ -2034,8 +2052,7 @@ class _PitfallsSection extends StatelessWidget {
         _PitfallCard(
           number: 2,
           title: 'Curves apply to the whole TextStyle, not per-field',
-          body:
-              'TextStyleTween + Curves.easeInOut interpolates every '
+          body: 'TextStyleTween + Curves.easeInOut interpolates every '
               'field against the same t value. You cannot give fontSize '
               'one curve and color a different one without authoring '
               'multiple animations or using a custom Tween.',
@@ -2044,8 +2061,7 @@ class _PitfallsSection extends StatelessWidget {
         _PitfallCard(
           number: 3,
           title: 'FontWeight (and FontStyle) are stepwise',
-          body:
-              'TextStyle.lerp interpolates FontWeight by snapping to '
+          body: 'TextStyle.lerp interpolates FontWeight by snapping to '
               'the nearest defined weight. Do not expect smooth '
               '"in-between" weights at half-progress.',
         ),
@@ -2053,8 +2069,7 @@ class _PitfallsSection extends StatelessWidget {
         _PitfallCard(
           number: 4,
           title: 'softWrap, overflow, maxLines do NOT animate',
-          body:
-              'Those parameters are passed straight to the underlying '
+          body: 'Those parameters are passed straight to the underlying '
               'DefaultTextStyle once. If you need them to change you '
               'must rebuild a new DefaultTextStyleTransition with new '
               'values.',
@@ -2063,8 +2078,7 @@ class _PitfallsSection extends StatelessWidget {
         _PitfallCard(
           number: 5,
           title: 'Wrapping each list item in its own transition is wasteful',
-          body:
-              'If you have many rows that all animate together, wrap '
+          body: 'If you have many rows that all animate together, wrap '
               'the parent ONCE. For finer control over rebuild scope, '
               'consider ListenableBuilder around the controller and '
               'build only the dependent subtree.',
@@ -2226,7 +2240,9 @@ class _ReferenceRow extends StatelessWidget {
       decoration: BoxDecoration(
         border: isLast
             ? null
-            : const Border(bottom: BorderSide(color: Color(0xFFE2E7EE))),
+            : const Border(
+                bottom: BorderSide(color: Color(0xFFE2E7EE)),
+              ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

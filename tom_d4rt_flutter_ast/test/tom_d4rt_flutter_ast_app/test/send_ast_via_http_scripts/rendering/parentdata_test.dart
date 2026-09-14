@@ -120,19 +120,9 @@ const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 // All helpers are top-level functions returning `Widget`s. Keeping them as
 // plain functions (instead of StatelessWidget subclasses) makes the file
 // readable top-to-bottom without jumping between class definitions.
-Widget _sectionHeader(
-  int index,
-  String title,
-  String tagline, {
-  Color accent = _kLayout,
-}) {
+Widget _sectionHeader(int index, String title, String tagline, {Color accent = _kLayout}) {
   return Padding(
-    padding: const EdgeInsets.only(
-      top: 28.0,
-      bottom: 12.0,
-      left: 18.0,
-      right: 18.0,
-    ),
+    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -180,10 +170,7 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(
-    horizontal: 18.0,
-    vertical: 6.0,
-  ),
+  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
   Color? borderColour,
 }) {
   return Container(
@@ -205,14 +192,7 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(
-  String title, {
-  String? subtitle,
-  Color titleColor = _kInk,
-  Color subtitleColor = _kInkSecondary,
-  IconData? icon,
-  Color iconColor = _kLayout,
-}) {
+Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary, IconData? icon, Color iconColor = _kLayout}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -235,10 +215,7 @@ Widget _cardTitle(
             ),
             if (subtitle != null) ...<Widget>[
               const SizedBox(height: 2.0),
-              Text(
-                subtitle,
-                style: TextStyle(fontSize: 12.5, color: subtitleColor),
-              ),
+              Text(subtitle, style: TextStyle(fontSize: 12.5, color: subtitleColor)),
             ],
           ],
         ),
@@ -304,28 +281,19 @@ Widget _codeBlock(String code, {String? title}) {
               Container(
                 width: 10.0,
                 height: 10.0,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFFF5F56),
-                  shape: BoxShape.circle,
-                ),
+                decoration: const BoxDecoration(color: Color(0xFFFF5F56), shape: BoxShape.circle),
               ),
               const SizedBox(width: 6.0),
               Container(
                 width: 10.0,
                 height: 10.0,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFFFBD2E),
-                  shape: BoxShape.circle,
-                ),
+                decoration: const BoxDecoration(color: Color(0xFFFFBD2E), shape: BoxShape.circle),
               ),
               const SizedBox(width: 6.0),
               Container(
                 width: 10.0,
                 height: 10.0,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF27C93F),
-                  shape: BoxShape.circle,
-                ),
+                decoration: const BoxDecoration(color: Color(0xFF27C93F), shape: BoxShape.circle),
               ),
               const SizedBox(width: 10.0),
               Expanded(
@@ -357,12 +325,7 @@ Widget _sectionDivider() {
   );
 }
 
-Widget _kvRow(
-  String key,
-  String value, {
-  Color keyColour = _kInkTertiary,
-  Color valueColour = _kInk,
-}) {
+Widget _kvRow(String key, String value, {Color keyColour = _kInkTertiary, Color valueColour = _kInk}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 2.0),
     child: Row(
@@ -575,12 +538,7 @@ class _BoxAnatomyPainter extends CustomPainter {
     }
 
     // Parent rectangle - large outline.
-    final Rect parent = Rect.fromLTWH(
-      20.0,
-      24.0,
-      size.width - 40.0,
-      size.height - 48.0,
-    );
+    final Rect parent = Rect.fromLTWH(20.0, 24.0, size.width - 40.0, size.height - 48.0);
     final Paint parentBorder = Paint()
       ..color = _kLayout
       ..style = PaintingStyle.stroke
@@ -620,12 +578,7 @@ class _BoxAnatomyPainter extends CustomPainter {
     originLabel.paint(canvas, origin + const Offset(8.0, -6.0));
 
     // Child rectangle.
-    final Rect child = Rect.fromLTWH(
-      parent.left + 80.0,
-      parent.top + 80.0,
-      160.0,
-      70.0,
-    );
+    final Rect child = Rect.fromLTWH(parent.left + 80.0, parent.top + 80.0, 160.0, 70.0);
     final Paint childFill = Paint()..color = _kData.withOpacity(0.18);
     final Paint childBorder = Paint()
       ..color = _kData
@@ -724,7 +677,10 @@ class _BoxAnatomyPainter extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.0,
     );
-    offsetLabel.paint(canvas, Offset(bg.left + 5.0, bg.top + 3.0));
+    offsetLabel.paint(
+      canvas,
+      Offset(bg.left + 5.0, bg.top + 3.0),
+    );
   }
 
   @override
@@ -754,7 +710,10 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF2D6BFF), Color(0xFF8B5CF6)],
+        colors: <Color>[
+          Color(0xFF2D6BFF),
+          Color(0xFF8B5CF6),
+        ],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -849,62 +808,14 @@ dynamic build(BuildContext context) {
   // widths (we wrap the CustomPaint in a fixed-size SizedBox).
   // -------------------------------------------------------------------------
   const List<_HierarchyNode> hierarchyNodes = <_HierarchyNode>[
-    _HierarchyNode(
-      label: 'ParentData',
-      x: 285.0,
-      y: 6.0,
-      colour: _kInk,
-      width: 140.0,
-    ),
-    _HierarchyNode(
-      label: 'BoxParentData',
-      x: 60.0,
-      y: 96.0,
-      colour: _kLayout,
-      width: 160.0,
-    ),
-    _HierarchyNode(
-      label: 'SliverLogicalParentData',
-      x: 240.0,
-      y: 96.0,
-      colour: _kSliver,
-      width: 200.0,
-    ),
-    _HierarchyNode(
-      label: 'SliverPhysicalParentData',
-      x: 460.0,
-      y: 96.0,
-      colour: _kSliver,
-      width: 210.0,
-    ),
-    _HierarchyNode(
-      label: 'FlexParentData',
-      x: 0.0,
-      y: 196.0,
-      colour: _kFlex,
-      width: 150.0,
-    ),
-    _HierarchyNode(
-      label: 'StackParentData',
-      x: 160.0,
-      y: 196.0,
-      colour: _kStack,
-      width: 150.0,
-    ),
-    _HierarchyNode(
-      label: 'ContainerBoxParentData',
-      x: 320.0,
-      y: 196.0,
-      colour: _kMixin,
-      width: 200.0,
-    ),
-    _HierarchyNode(
-      label: 'MultiChildLayoutParentData',
-      x: 530.0,
-      y: 196.0,
-      colour: _kData,
-      width: 220.0,
-    ),
+    _HierarchyNode(label: 'ParentData', x: 285.0, y: 6.0, colour: _kInk, width: 140.0),
+    _HierarchyNode(label: 'BoxParentData', x: 60.0, y: 96.0, colour: _kLayout, width: 160.0),
+    _HierarchyNode(label: 'SliverLogicalParentData', x: 240.0, y: 96.0, colour: _kSliver, width: 200.0),
+    _HierarchyNode(label: 'SliverPhysicalParentData', x: 460.0, y: 96.0, colour: _kSliver, width: 210.0),
+    _HierarchyNode(label: 'FlexParentData', x: 0.0, y: 196.0, colour: _kFlex, width: 150.0),
+    _HierarchyNode(label: 'StackParentData', x: 160.0, y: 196.0, colour: _kStack, width: 150.0),
+    _HierarchyNode(label: 'ContainerBoxParentData', x: 320.0, y: 196.0, colour: _kMixin, width: 200.0),
+    _HierarchyNode(label: 'MultiChildLayoutParentData', x: 530.0, y: 196.0, colour: _kData, width: 220.0),
   ];
   const List<_HierarchyEdge> hierarchyEdges = <_HierarchyEdge>[
     _HierarchyEdge(from: 0, to: 1),
@@ -922,8 +833,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'Class hierarchy',
-          subtitle:
-              'ParentData -> BoxParentData / SliverLogicalParentData / SliverPhysicalParentData and beyond',
+          subtitle: 'ParentData -> BoxParentData / SliverLogicalParentData / SliverPhysicalParentData and beyond',
           icon: Icons.schema,
           iconColor: _kLayout,
         ),
@@ -952,10 +862,7 @@ dynamic build(BuildContext context) {
             _pill('sliver: SliverPhysicalParentData', colour: _kSliver),
             _pill('flex: FlexParentData', colour: _kFlex),
             _pill('stack: StackParentData', colour: _kStack),
-            _pill(
-              'container mixin: ContainerBoxParentData<T>',
-              colour: _kMixin,
-            ),
+            _pill('container mixin: ContainerBoxParentData<T>', colour: _kMixin),
           ],
         ),
         const SizedBox(height: 10.0),
@@ -1011,21 +918,9 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        const Icon(
-                          Icons.architecture,
-                          size: 16.0,
-                          color: _kLayout,
-                        ),
+                        const Icon(Icons.architecture, size: 16.0, color: _kLayout),
                         const SizedBox(width: 6.0),
-                        Text(
-                          'performLayout()',
-                          style: TextStyle(
-                            color: _kLayout,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12.5,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        Text('performLayout()', style: TextStyle(color: _kLayout, fontWeight: FontWeight.w700, fontSize: 12.5, fontFamily: 'monospace')),
                       ],
                     ),
                     const SizedBox(height: 6.0),
@@ -1052,21 +947,9 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        const Icon(
-                          Icons.format_paint,
-                          size: 16.0,
-                          color: _kPaint,
-                        ),
+                        const Icon(Icons.format_paint, size: 16.0, color: _kPaint),
                         const SizedBox(width: 6.0),
-                        Text(
-                          'paint()',
-                          style: TextStyle(
-                            color: _kPaint,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12.5,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        Text('paint()', style: TextStyle(color: _kPaint, fontWeight: FontWeight.w700, fontSize: 12.5, fontFamily: 'monospace')),
                       ],
                     ),
                     const SizedBox(height: 6.0),
@@ -1104,12 +987,7 @@ dynamic build(BuildContext context) {
   // we render annotation cards that list the resolved FlexParentData
   // fields (flex, fit) and the inherited `offset` field placeholder.
   // -------------------------------------------------------------------------
-  Widget _flexChild(
-    String label,
-    Color colour, {
-    required int flex,
-    required FlexFit fit,
-  }) {
+  Widget _flexChild(String label, Color colour, {required int flex, required FlexFit fit}) {
     final Widget body = Container(
       height: 56.0,
       alignment: Alignment.center,
@@ -1147,12 +1025,7 @@ dynamic build(BuildContext context) {
     return Flexible(flex: flex, fit: FlexFit.loose, child: body);
   }
 
-  Widget _flexAnnotation(
-    String label,
-    Color colour, {
-    required int flex,
-    required FlexFit fit,
-  }) {
+  Widget _flexAnnotation(String label, Color colour, {required int flex, required FlexFit fit}) {
     return Container(
       padding: const EdgeInsets.all(10.0),
       margin: const EdgeInsets.only(bottom: 8.0),
@@ -1166,32 +1039,14 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                width: 8.0,
-                height: 8.0,
-                decoration: BoxDecoration(
-                  color: colour,
-                  shape: BoxShape.circle,
-                ),
-              ),
+              Container(width: 8.0, height: 8.0, decoration: BoxDecoration(color: colour, shape: BoxShape.circle)),
               const SizedBox(width: 6.0),
-              Text(
-                label,
-                style: TextStyle(
-                  color: colour,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.5,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text(label, style: TextStyle(color: colour, fontWeight: FontWeight.w700, fontSize: 12.5, fontFamily: 'monospace')),
             ],
           ),
           const SizedBox(height: 4.0),
           _kvRow('flex', flex.toString()),
-          _kvRow(
-            'fit',
-            fit == FlexFit.tight ? 'FlexFit.tight' : 'FlexFit.loose',
-          ),
+          _kvRow('fit', fit == FlexFit.tight ? 'FlexFit.tight' : 'FlexFit.loose'),
           _kvRow('offset', '<computed by Row>'),
         ],
       ),
@@ -1220,8 +1075,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'FlexParentData gallery',
-          subtitle:
-              'Row with six children: three Expanded (tight) and three Flexible (loose)',
+          subtitle: 'Row with six children: three Expanded (tight) and three Flexible (loose)',
           icon: Icons.view_week,
           iconColor: _kFlex,
         ),
@@ -1235,24 +1089,9 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _flexAnnotation(
-                    'A: Expanded(flex: 1)',
-                    _kFlex,
-                    flex: 1,
-                    fit: FlexFit.tight,
-                  ),
-                  _flexAnnotation(
-                    'B: Expanded(flex: 2)',
-                    _kLayout,
-                    flex: 2,
-                    fit: FlexFit.tight,
-                  ),
-                  _flexAnnotation(
-                    'C: Expanded(flex: 3)',
-                    _kData,
-                    flex: 3,
-                    fit: FlexFit.tight,
-                  ),
+                  _flexAnnotation('A: Expanded(flex: 1)', _kFlex, flex: 1, fit: FlexFit.tight),
+                  _flexAnnotation('B: Expanded(flex: 2)', _kLayout, flex: 2, fit: FlexFit.tight),
+                  _flexAnnotation('C: Expanded(flex: 3)', _kData, flex: 3, fit: FlexFit.tight),
                 ],
               ),
             ),
@@ -1261,24 +1100,9 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _flexAnnotation(
-                    'D: Flexible(flex: 1)',
-                    _kPaint,
-                    flex: 1,
-                    fit: FlexFit.loose,
-                  ),
-                  _flexAnnotation(
-                    'E: Flexible(flex: 2)',
-                    _kMixin,
-                    flex: 2,
-                    fit: FlexFit.loose,
-                  ),
-                  _flexAnnotation(
-                    'F: Flexible(flex: 3)',
-                    _kStack,
-                    flex: 3,
-                    fit: FlexFit.loose,
-                  ),
+                  _flexAnnotation('D: Flexible(flex: 1)', _kPaint, flex: 1, fit: FlexFit.loose),
+                  _flexAnnotation('E: Flexible(flex: 2)', _kMixin, flex: 2, fit: FlexFit.loose),
+                  _flexAnnotation('F: Flexible(flex: 3)', _kStack, flex: 3, fit: FlexFit.loose),
                 ],
               ),
             ),
@@ -1327,11 +1151,7 @@ dynamic build(BuildContext context) {
         color: colour,
         borderRadius: BorderRadius.circular(6.0),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Color(0x22000000),
-            offset: Offset(0.0, 1.0),
-            blurRadius: 2.0,
-          ),
+          BoxShadow(color: Color(0x22000000), offset: Offset(0.0, 1.0), blurRadius: 2.0),
         ],
       ),
       child: Text(
@@ -1356,8 +1176,7 @@ dynamic build(BuildContext context) {
     double? height,
   }) {
     String fmt(double? v) => v == null ? 'null' : v.toStringAsFixed(1);
-    final bool positioned =
-        top != null ||
+    final bool positioned = top != null ||
         left != null ||
         right != null ||
         bottom != null ||
@@ -1376,24 +1195,9 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                width: 8.0,
-                height: 8.0,
-                decoration: BoxDecoration(
-                  color: colour,
-                  shape: BoxShape.circle,
-                ),
-              ),
+              Container(width: 8.0, height: 8.0, decoration: BoxDecoration(color: colour, shape: BoxShape.circle)),
               const SizedBox(width: 6.0),
-              Text(
-                label,
-                style: TextStyle(
-                  color: colour,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.5,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text(label, style: TextStyle(color: colour, fontWeight: FontWeight.w700, fontSize: 12.5, fontFamily: 'monospace')),
             ],
           ),
           const SizedBox(height: 4.0),
@@ -1403,11 +1207,7 @@ dynamic build(BuildContext context) {
           _kvRow('bottom', fmt(bottom)),
           _kvRow('width', fmt(width)),
           _kvRow('height', fmt(height)),
-          _kvRow(
-            'isPositioned',
-            positioned.toString(),
-            valueColour: positioned ? _kData : _kInkTertiary,
-          ),
+          _kvRow('isPositioned', positioned.toString(), valueColour: positioned ? _kData : _kInkTertiary),
         ],
       ),
     );
@@ -1423,42 +1223,15 @@ dynamic build(BuildContext context) {
     child: Stack(
       children: <Widget>[
         // P1 - top/left only.
-        Positioned(
-          top: 10.0,
-          left: 10.0,
-          child: _stackChip('P1 t=10 l=10', _kStack),
-        ),
+        Positioned(top: 10.0, left: 10.0, child: _stackChip('P1 t=10 l=10', _kStack)),
         // P2 - top/right with explicit width.
-        Positioned(
-          top: 10.0,
-          right: 10.0,
-          width: 90.0,
-          child: _stackChip('P2 t/r/w', _kLayout),
-        ),
+        Positioned(top: 10.0, right: 10.0, width: 90.0, child: _stackChip('P2 t/r/w', _kLayout)),
         // P3 - bottom/left with explicit width+height.
-        Positioned(
-          bottom: 14.0,
-          left: 12.0,
-          width: 110.0,
-          height: 36.0,
-          child: _stackChip('P3 b/l/w/h', _kData),
-        ),
+        Positioned(bottom: 14.0, left: 12.0, width: 110.0, height: 36.0, child: _stackChip('P3 b/l/w/h', _kData)),
         // P4 - centred via left+right (stretched).
-        Positioned(
-          top: 110.0,
-          left: 60.0,
-          right: 60.0,
-          height: 32.0,
-          child: _stackChip('P4 t/l/r stretch', _kPaint),
-        ),
+        Positioned(top: 110.0, left: 60.0, right: 60.0, height: 32.0, child: _stackChip('P4 t/l/r stretch', _kPaint)),
         // P5 - bottom+right + width + height (anchor bottom-right).
-        Positioned(
-          right: 16.0,
-          bottom: 16.0,
-          width: 100.0,
-          height: 36.0,
-          child: _stackChip('P5 br/w/h', _kMixin),
-        ),
+        Positioned(right: 16.0, bottom: 16.0, width: 100.0, height: 36.0, child: _stackChip('P5 br/w/h', _kMixin)),
       ],
     ),
   );
@@ -1469,8 +1242,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'StackParentData gallery',
-          subtitle:
-              'Five Positioned children with different anchor combinations',
+          subtitle: 'Five Positioned children with different anchor combinations',
           icon: Icons.layers,
           iconColor: _kStack,
         ),
@@ -1484,27 +1256,9 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _stackAnnotation(
-                    label: 'P1: top/left',
-                    colour: _kStack,
-                    top: 10.0,
-                    left: 10.0,
-                  ),
-                  _stackAnnotation(
-                    label: 'P2: top/right/width',
-                    colour: _kLayout,
-                    top: 10.0,
-                    right: 10.0,
-                    width: 90.0,
-                  ),
-                  _stackAnnotation(
-                    label: 'P3: bottom/left + size',
-                    colour: _kData,
-                    bottom: 14.0,
-                    left: 12.0,
-                    width: 110.0,
-                    height: 36.0,
-                  ),
+                  _stackAnnotation(label: 'P1: top/left', colour: _kStack, top: 10.0, left: 10.0),
+                  _stackAnnotation(label: 'P2: top/right/width', colour: _kLayout, top: 10.0, right: 10.0, width: 90.0),
+                  _stackAnnotation(label: 'P3: bottom/left + size', colour: _kData, bottom: 14.0, left: 12.0, width: 110.0, height: 36.0),
                 ],
               ),
             ),
@@ -1513,22 +1267,8 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _stackAnnotation(
-                    label: 'P4: t/l/r stretch',
-                    colour: _kPaint,
-                    top: 110.0,
-                    left: 60.0,
-                    right: 60.0,
-                    height: 32.0,
-                  ),
-                  _stackAnnotation(
-                    label: 'P5: br anchor',
-                    colour: _kMixin,
-                    right: 16.0,
-                    bottom: 16.0,
-                    width: 100.0,
-                    height: 36.0,
-                  ),
+                  _stackAnnotation(label: 'P4: t/l/r stretch', colour: _kPaint, top: 110.0, left: 60.0, right: 60.0, height: 32.0),
+                  _stackAnnotation(label: 'P5: br anchor', colour: _kMixin, right: 16.0, bottom: 16.0, width: 100.0, height: 36.0),
                   Container(
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
@@ -1560,12 +1300,7 @@ dynamic build(BuildContext context) {
   // Three annotation cards show what `SliverPhysicalParentData.paintOffset`
   // looks like for each sliver.
   // -------------------------------------------------------------------------
-  Widget _sliverAnnotation(
-    String label,
-    Color colour,
-    String paintOffset,
-    String constraints,
-  ) {
+  Widget _sliverAnnotation(String label, Color colour, String paintOffset, String constraints) {
     return Container(
       padding: const EdgeInsets.all(10.0),
       margin: const EdgeInsets.only(bottom: 8.0),
@@ -1579,24 +1314,9 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                width: 8.0,
-                height: 8.0,
-                decoration: BoxDecoration(
-                  color: colour,
-                  shape: BoxShape.circle,
-                ),
-              ),
+              Container(width: 8.0, height: 8.0, decoration: BoxDecoration(color: colour, shape: BoxShape.circle)),
               const SizedBox(width: 6.0),
-              Text(
-                label,
-                style: TextStyle(
-                  color: colour,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.5,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text(label, style: TextStyle(color: colour, fontWeight: FontWeight.w700, fontSize: 12.5, fontFamily: 'monospace')),
             ],
           ),
           const SizedBox(height: 4.0),
@@ -1626,11 +1346,7 @@ dynamic build(BuildContext context) {
             flexibleSpace: const FlexibleSpaceBar(
               title: Text(
                 'SliverAppBar',
-                style: TextStyle(
-                  color: Color(0xFFFFFFFF),
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 14.0, fontWeight: FontWeight.w700),
               ),
             ),
           ),
@@ -1639,10 +1355,7 @@ dynamic build(BuildContext context) {
               for (int i = 0; i < 3; i++)
                 Container(
                   height: 36.0,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
@@ -1652,11 +1365,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     'SliverList item $i',
-                    style: const TextStyle(
-                      color: _kInk,
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: const TextStyle(color: _kInk, fontSize: 12.5, fontWeight: FontWeight.w600),
                   ),
                 ),
             ]),
@@ -1668,23 +1377,23 @@ dynamic build(BuildContext context) {
               crossAxisSpacing: 6.0,
               childAspectRatio: 1.8,
             ),
-            delegate: SliverChildBuilderDelegate((BuildContext _, int i) {
-              return Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: _kData.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(6.0),
-                  border: Border.all(color: _kData.withOpacity(0.3)),
-                ),
-                child: Text(
-                  'G$i',
-                  style: const TextStyle(
-                    color: _kData,
-                    fontWeight: FontWeight.w700,
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext _, int i) {
+                return Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: _kData.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(6.0),
+                    border: Border.all(color: _kData.withOpacity(0.3)),
                   ),
-                ),
-              );
-            }, childCount: 6),
+                  child: Text(
+                    'G$i',
+                    style: const TextStyle(color: _kData, fontWeight: FontWeight.w700),
+                  ),
+                );
+              },
+              childCount: 6,
+            ),
           ),
         ],
       ),
@@ -1697,8 +1406,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'SliverPhysicalParentData gallery',
-          subtitle:
-              'CustomScrollView with SliverAppBar + SliverList + SliverGrid',
+          subtitle: 'CustomScrollView with SliverAppBar + SliverList + SliverGrid',
           icon: Icons.list_alt,
           iconColor: _kSliver,
         ),
@@ -1874,11 +1582,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(14.0),
         border: Border.all(color: _kHairline),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Color(0x0D000000),
-            offset: Offset(0.0, 1.0),
-            blurRadius: 3.0,
-          ),
+          BoxShadow(color: Color(0x0D000000), offset: Offset(0.0, 1.0), blurRadius: 3.0),
         ],
       ),
       child: Column(
@@ -1950,9 +1654,9 @@ dynamic build(BuildContext context) {
         'Extends ContainerBoxParentData<RenderBox> so the parent can keep a '
             'doubly linked list of children. Adds the custom `tag` field.',
         '// my_tag_parent_data.dart\n'
-            'class MyTagParentData extends ContainerBoxParentData<RenderBox> {\n'
-            '  String? tag; // custom per-child metadata.\n'
-            '}',
+        'class MyTagParentData extends ContainerBoxParentData<RenderBox> {\n'
+        '  String? tag; // custom per-child metadata.\n'
+        '}',
       ),
       _walkthroughCard(
         2,
@@ -1960,23 +1664,23 @@ dynamic build(BuildContext context) {
         'ParentDataWidget<MyTagParentData> that writes `tag` into the '
             'child\'s parent data and asks the parent to re-layout when changed.',
         '// my_tag.dart\n'
-            'class MyTag extends ParentDataWidget<MyTagParentData> {\n'
-            '  const MyTag({super.key, required this.tag, required super.child});\n'
-            '  final String tag;\n'
-            '\n'
-            '  @override\n'
-            '  void applyParentData(RenderObject renderObject) {\n'
-            '    final MyTagParentData pd =\n'
-            '        renderObject.parentData! as MyTagParentData;\n'
-            '    if (pd.tag != tag) {\n'
-            '      pd.tag = tag;\n'
-            '      (renderObject.parent as RenderObject?)?.markNeedsLayout();\n'
-            '    }\n'
-            '  }\n'
-            '\n'
-            '  @override\n'
-            '  Type get debugTypicalAncestorWidgetClass => MyTaggedRow;\n'
-            '}',
+        'class MyTag extends ParentDataWidget<MyTagParentData> {\n'
+        '  const MyTag({super.key, required this.tag, required super.child});\n'
+        '  final String tag;\n'
+        '\n'
+        '  @override\n'
+        '  void applyParentData(RenderObject renderObject) {\n'
+        '    final MyTagParentData pd =\n'
+        '        renderObject.parentData! as MyTagParentData;\n'
+        '    if (pd.tag != tag) {\n'
+        '      pd.tag = tag;\n'
+        '      (renderObject.parent as RenderObject?)?.markNeedsLayout();\n'
+        '    }\n'
+        '  }\n'
+        '\n'
+        '  @override\n'
+        '  Type get debugTypicalAncestorWidgetClass => MyTaggedRow;\n'
+        '}',
       ),
       _walkthroughCard(
         3,
@@ -1984,14 +1688,14 @@ dynamic build(BuildContext context) {
         'The widget layer counterpart of the custom RenderObject. It '
             'creates the parent RenderBox during `createRenderObject`.',
         '// my_tagged_row.dart\n'
-            'class MyTaggedRow extends MultiChildRenderObjectWidget {\n'
-            '  const MyTaggedRow({super.key, super.children = const <Widget>[]});\n'
-            '\n'
-            '  @override\n'
-            '  RenderMyTaggedRow createRenderObject(BuildContext context) {\n'
-            '    return RenderMyTaggedRow();\n'
-            '  }\n'
-            '}',
+        'class MyTaggedRow extends MultiChildRenderObjectWidget {\n'
+        '  const MyTaggedRow({super.key, super.children = const <Widget>[]});\n'
+        '\n'
+        '  @override\n'
+        '  RenderMyTaggedRow createRenderObject(BuildContext context) {\n'
+        '    return RenderMyTaggedRow();\n'
+        '  }\n'
+        '}',
       ),
       _walkthroughCard(
         4,
@@ -2000,31 +1704,31 @@ dynamic build(BuildContext context) {
             'RenderBoxContainerDefaultsMixin. Override `setupParentData` so '
             'each child receives a MyTagParentData on attach.',
         '// render_my_tagged_row.dart\n'
-            'class RenderMyTaggedRow extends RenderBox\n'
-            '    with ContainerRenderObjectMixin<RenderBox, MyTagParentData>,\n'
-            '         RenderBoxContainerDefaultsMixin<RenderBox, MyTagParentData> {\n'
-            '\n'
-            '  @override\n'
-            '  void setupParentData(RenderBox child) {\n'
-            '    if (child.parentData is! MyTagParentData) {\n'
-            '      child.parentData = MyTagParentData();\n'
-            '    }\n'
-            '  }\n'
-            '\n'
-            '  @override\n'
-            '  void performLayout() {\n'
-            '    double x = 0.0;\n'
-            '    RenderBox? c = firstChild;\n'
-            '    while (c != null) {\n'
-            '      c.layout(constraints.loosen(), parentUsesSize: true);\n'
-            '      final MyTagParentData pd = c.parentData! as MyTagParentData;\n'
-            '      pd.offset = Offset(x, 0.0);\n'
-            '      x += c.size.width;\n'
-            '      c = pd.nextSibling;\n'
-            '    }\n'
-            '    size = Size(x, constraints.maxHeight);\n'
-            '  }\n'
-            '}',
+        'class RenderMyTaggedRow extends RenderBox\n'
+        '    with ContainerRenderObjectMixin<RenderBox, MyTagParentData>,\n'
+        '         RenderBoxContainerDefaultsMixin<RenderBox, MyTagParentData> {\n'
+        '\n'
+        '  @override\n'
+        '  void setupParentData(RenderBox child) {\n'
+        '    if (child.parentData is! MyTagParentData) {\n'
+        '      child.parentData = MyTagParentData();\n'
+        '    }\n'
+        '  }\n'
+        '\n'
+        '  @override\n'
+        '  void performLayout() {\n'
+        '    double x = 0.0;\n'
+        '    RenderBox? c = firstChild;\n'
+        '    while (c != null) {\n'
+        '      c.layout(constraints.loosen(), parentUsesSize: true);\n'
+        '      final MyTagParentData pd = c.parentData! as MyTagParentData;\n'
+        '      pd.offset = Offset(x, 0.0);\n'
+        '      x += c.size.width;\n'
+        '      c = pd.nextSibling;\n'
+        '    }\n'
+        '    size = Size(x, constraints.maxHeight);\n'
+        '  }\n'
+        '}',
       ),
       _walkthroughCard(
         5,
@@ -2033,21 +1737,21 @@ dynamic build(BuildContext context) {
             'MyTagParentData, and tint a small overlay if the tag is set. '
             'This is the moment where parent-data round-trips into pixels.',
         '@override\n'
-            'void paint(PaintingContext context, Offset offset) {\n'
-            '  RenderBox? c = firstChild;\n'
-            '  while (c != null) {\n'
-            '    final MyTagParentData pd = c.parentData! as MyTagParentData;\n'
-            '    context.paintChild(c, offset + pd.offset);\n'
-            '\n'
-            '    if (pd.tag != null) {\n'
-            '      context.canvas.drawRect(\n'
-            '        (offset + pd.offset) & c.size,\n'
-            '        Paint()..color = const Color(0x33FF8A2A),\n'
-            '      );\n'
-            '    }\n'
-            '    c = pd.nextSibling;\n'
-            '  }\n'
-            '}',
+        'void paint(PaintingContext context, Offset offset) {\n'
+        '  RenderBox? c = firstChild;\n'
+        '  while (c != null) {\n'
+        '    final MyTagParentData pd = c.parentData! as MyTagParentData;\n'
+        '    context.paintChild(c, offset + pd.offset);\n'
+        '\n'
+        '    if (pd.tag != null) {\n'
+        '      context.canvas.drawRect(\n'
+        '        (offset + pd.offset) & c.size,\n'
+        '        Paint()..color = const Color(0x33FF8A2A),\n'
+        '      );\n'
+        '    }\n'
+        '    c = pd.nextSibling;\n'
+        '  }\n'
+        '}',
       ),
     ],
   );
@@ -2059,13 +1763,7 @@ dynamic build(BuildContext context) {
   // tile with a red accent and an icon. We deliberately overshoot a little
   // (5 cards) so the section reads like an "actual checklist".
   // -------------------------------------------------------------------------
-  Widget _pitfallCard(
-    int idx,
-    IconData icon,
-    String title,
-    String body,
-    String hint,
-  ) {
+  Widget _pitfallCard(int idx, IconData icon, String title, String body, String hint) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
       padding: const EdgeInsets.all(14.0),
@@ -2107,14 +1805,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         const SizedBox(width: 6.0),
-                        Container(
-                          width: 4.0,
-                          height: 4.0,
-                          decoration: const BoxDecoration(
-                            color: _kPitfall,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
+                        Container(width: 4.0, height: 4.0, decoration: const BoxDecoration(color: _kPitfall, shape: BoxShape.circle)),
                         const SizedBox(width: 6.0),
                         Expanded(
                           child: Text(
@@ -2288,13 +1979,7 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget _comparisonRow(
-    String key,
-    String a,
-    String b,
-    String c, {
-    bool isLast = false,
-  }) {
+  Widget _comparisonRow(String key, String a, String b, String c, {bool isLast = false}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
       decoration: BoxDecoration(
@@ -2339,60 +2024,20 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10.0),
       boxShadow: const <BoxShadow>[
-        BoxShadow(
-          color: Color(0x0D000000),
-          offset: Offset(0.0, 1.0),
-          blurRadius: 3.0,
-        ),
+        BoxShadow(color: Color(0x0D000000), offset: Offset(0.0, 1.0), blurRadius: 3.0),
       ],
     ),
     child: Column(
       children: <Widget>[
         _comparisonHeader(),
         _comparisonRow('protocol', 'box', 'sliver', 'box (custom)'),
-        _comparisonRow(
-          'extends',
-          'ParentData',
-          'ParentData',
-          'ContainerBoxParentData<RenderBox>',
-        ),
-        _comparisonRow(
-          'container?',
-          'no (use ContainerBoxParentData<T>)',
-          'no (use mixin)',
-          'yes (linked list)',
-        ),
-        _comparisonRow(
-          'main field',
-          'offset: Offset',
-          'paintOffset: Offset',
-          'tag: String?, plus offset',
-        ),
-        _comparisonRow(
-          'axis',
-          '2D (x, y)',
-          '1D scroll + 2D paint',
-          '2D (x, y)',
-        ),
-        _comparisonRow(
-          'written by',
-          'parent.performLayout',
-          'viewport.performLayout',
-          'parent.performLayout',
-        ),
-        _comparisonRow(
-          'read by',
-          'parent.paint',
-          'viewport.paint',
-          'parent.paint',
-        ),
-        _comparisonRow(
-          'typical use',
-          'flex / stack / align',
-          'CustomScrollView slivers',
-          'tagged group rendering',
-          isLast: true,
-        ),
+        _comparisonRow('extends', 'ParentData', 'ParentData', 'ContainerBoxParentData<RenderBox>'),
+        _comparisonRow('container?', 'no (use ContainerBoxParentData<T>)', 'no (use mixin)', 'yes (linked list)'),
+        _comparisonRow('main field', 'offset: Offset', 'paintOffset: Offset', 'tag: String?, plus offset'),
+        _comparisonRow('axis', '2D (x, y)', '1D scroll + 2D paint', '2D (x, y)'),
+        _comparisonRow('written by', 'parent.performLayout', 'viewport.performLayout', 'parent.performLayout'),
+        _comparisonRow('read by', 'parent.paint', 'viewport.paint', 'parent.paint'),
+        _comparisonRow('typical use', 'flex / stack / align', 'CustomScrollView slivers', 'tagged group rendering', isLast: true),
       ],
     ),
   );
@@ -2404,12 +2049,7 @@ dynamic build(BuildContext context) {
   // tagline at the bottom. Each group lives on a dark card so the chips
   // pop visually.
   // -------------------------------------------------------------------------
-  Widget _chipGroup(
-    String title,
-    List<Widget> chips,
-    IconData icon,
-    Color accent,
-  ) {
+  Widget _chipGroup(String title, List<Widget> chips, IconData icon, Color accent) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12.0),
       padding: const EdgeInsets.all(12.0),
@@ -2437,7 +2077,11 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 10.0),
-          Wrap(spacing: 6.0, runSpacing: 6.0, children: chips),
+          Wrap(
+            spacing: 6.0,
+            runSpacing: 6.0,
+            children: chips,
+          ),
         ],
       ),
     );
@@ -2568,64 +2212,24 @@ dynamic build(BuildContext context) {
   print('  building widget tree with 11 sections');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(
-      2,
-      'Class hierarchy',
-      'ParentData tree painted as a diagram',
-      accent: _kLayout,
-    ),
+    _sectionHeader(2, 'Class hierarchy', 'ParentData tree painted as a diagram', accent: _kLayout),
     hierarchyCard,
-    _sectionHeader(
-      3,
-      'BoxParentData anatomy',
-      'offset carries position from layout to paint',
-      accent: _kData,
-    ),
+    _sectionHeader(3, 'BoxParentData anatomy', 'offset carries position from layout to paint', accent: _kData),
     boxAnatomyCard,
-    _sectionHeader(
-      4,
-      'FlexParentData gallery',
-      'flex weights and FlexFit policies',
-      accent: _kFlex,
-    ),
+    _sectionHeader(4, 'FlexParentData gallery', 'flex weights and FlexFit policies', accent: _kFlex),
     flexGalleryCard,
-    _sectionHeader(
-      5,
-      'StackParentData gallery',
-      'Positioned anchors and stretch',
-      accent: _kStack,
-    ),
+    _sectionHeader(5, 'StackParentData gallery', 'Positioned anchors and stretch', accent: _kStack),
     stackGalleryCard,
-    _sectionHeader(
-      6,
-      'SliverPhysicalParentData',
-      'CustomScrollView with three slivers',
-      accent: _kSliver,
-    ),
+    _sectionHeader(6, 'SliverPhysicalParentData', 'CustomScrollView with three slivers', accent: _kSliver),
     sliverGalleryCard,
     _sectionDivider(),
-    _sectionHeader(
-      7,
-      'ParentDataWidget snippets',
-      'Expanded / Flexible / Positioned / Align',
-      accent: _kFlex,
-    ),
+    _sectionHeader(7, 'ParentDataWidget snippets', 'Expanded / Flexible / Positioned / Align', accent: _kFlex),
     parentDataWidgetSection,
-    _sectionHeader(
-      8,
-      'Custom ParentDataWidget',
-      'Walkthrough: MyTagParentData',
-      accent: _kMixin,
-    ),
+    _sectionHeader(8, 'Custom ParentDataWidget', 'Walkthrough: MyTagParentData', accent: _kMixin),
     walkthroughSection,
     _sectionHeader(9, 'Pitfalls', 'Five common mistakes', accent: _kPitfall),
     pitfallsSection,
-    _sectionHeader(
-      10,
-      'Comparison',
-      'Box vs Sliver vs custom',
-      accent: _kLayout,
-    ),
+    _sectionHeader(10, 'Comparison', 'Box vs Sliver vs custom', accent: _kLayout),
     comparisonTable,
     _sectionHeader(11, 'Cheat sheet', 'Vocabulary at a glance', accent: _kInk),
     cheatSheet,

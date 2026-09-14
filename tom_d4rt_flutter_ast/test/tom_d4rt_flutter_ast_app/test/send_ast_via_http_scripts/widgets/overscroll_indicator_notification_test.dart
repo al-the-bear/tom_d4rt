@@ -32,24 +32,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -66,7 +57,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 13, color: darkBrown)),
+      child: Text(text,
+          style: TextStyle(fontSize: 13, color: darkBrown)),
     );
   }
 
@@ -78,20 +70,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 13, color: darkBrown),
-            ),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: darkBrown)),
           ),
         ],
       ),
@@ -166,49 +153,38 @@ dynamic build(BuildContext context) {
                   Icon(Icons.swipe_down, size: 28, color: lightAmber),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      'OverscrollIndicatorNotification',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('OverscrollIndicatorNotification',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'A notification dispatched by overscroll indicator widgets '
-                '(GlowingOverscrollIndicator and StretchingOverscrollIndicator) '
-                'before they paint. Allows listeners to suppress or modify '
-                'the overscroll visual effect.',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 13,
-                ),
-              ),
+              Text('A notification dispatched by overscroll indicator widgets '
+                  '(GlowingOverscrollIndicator and StretchingOverscrollIndicator) '
+                  'before they paint. Allows listeners to suppress or modify '
+                  'the overscroll visual effect.',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 13)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  pill('extends Notification', copper, Colors.white),
-                  pill('ViewportNotificationMixin', amber, darkBrown),
-                  pill('leading', softAmber, darkBrown),
-                  pill('disallowIndicator()', lightAmber, darkBrown),
-                  pill('paintOffset', paleAmber, darkBrown),
-                ],
-              ),
+              Wrap(children: [
+                pill('extends Notification', copper, Colors.white),
+                pill('ViewportNotificationMixin', amber, darkBrown),
+                pill('leading', softAmber, darkBrown),
+                pill('disallowIndicator()', lightAmber, darkBrown),
+                pill('paintOffset', paleAmber, darkBrown),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionHeader(
-          '1 \u00b7 What Is OverscrollIndicatorNotification',
-          'Notification dispatched before overscroll effect paints',
-          deepCopper,
-          Colors.white,
-        ),
+        sectionHeader('1 \u00b7 What Is OverscrollIndicatorNotification',
+            'Notification dispatched before overscroll effect paints',
+            deepCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -225,27 +201,26 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepCopper.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: deepCopper.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: deepCopper.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'class OverscrollIndicatorNotification\n'
-                  '    extends Notification\n'
-                  '    with ViewportNotificationMixin {\n'
-                  '  OverscrollIndicatorNotification({\n'
-                  '    required this.leading,\n'
-                  '  });\n'
-                  '\n'
-                  '  final bool leading;\n'
-                  '  double paintOffset = 0.0;\n'
-                  '  bool accepted = true;\n'
-                  '  void disallowIndicator() { accepted = false; }\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepCopper,
-                  ),
-                ),
+                    'class OverscrollIndicatorNotification\n'
+                    '    extends Notification\n'
+                    '    with ViewportNotificationMixin {\n'
+                    '  OverscrollIndicatorNotification({\n'
+                    '    required this.leading,\n'
+                    '  });\n'
+                    '\n'
+                    '  final bool leading;\n'
+                    '  double paintOffset = 0.0;\n'
+                    '  bool accepted = true;\n'
+                    '  void disallowIndicator() { accepted = false; }\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepCopper)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -263,12 +238,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Class hierarchy ───────────────────────────────────────
-        sectionHeader(
-          '2 \u00b7 Class Hierarchy',
-          'Notification system with viewport awareness',
-          copper,
-          Colors.white,
-        ),
+        sectionHeader('2 \u00b7 Class Hierarchy',
+            'Notification system with viewport awareness',
+            copper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -280,53 +252,27 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final node in [
-                (
-                  0,
-                  'Notification',
-                  'Base for tree notifications',
-                  copper,
-                  true,
-                ),
-                (
-                  1,
-                  'ViewportNotificationMixin',
-                  'Tracks depth in nested viewports',
-                  amber,
-                  true,
-                ),
-                (
-                  2,
-                  'OverscrollIndicatorNotification',
-                  'Overscroll indicator control',
-                  deepCopper,
-                  true,
-                ),
+                (0, 'Notification', 'Base for tree notifications', copper, true),
+                (1, 'ViewportNotificationMixin', 'Tracks depth in nested viewports', amber, true),
+                (2, 'OverscrollIndicatorNotification', 'Overscroll indicator control', deepCopper, true),
               ])
                 Padding(
                   padding: EdgeInsets.only(
-                    left: node.$1 * 20.0,
-                    top: 4,
-                    bottom: 4,
-                  ),
+                      left: node.$1 * 20.0, top: 4, bottom: 4),
                   child: Row(
                     children: [
                       if (node.$1 > 0)
                         Padding(
                           padding: const EdgeInsets.only(right: 6),
-                          child: Text(
-                            '\u2514\u2500',
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: softAmber,
-                            ),
-                          ),
+                          child: Text('\u2514\u2500',
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: softAmber)),
                         ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
+                            horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
                           color: node.$4.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(6),
@@ -337,22 +283,16 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              node.$2,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                color: node.$4,
-                              ),
-                            ),
-                            Text(
-                              node.$3,
-                              style: TextStyle(
-                                fontSize: 9,
-                                fontStyle: FontStyle.italic,
-                                color: node.$4,
-                              ),
-                            ),
+                            Text(node.$2,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                    color: node.$4)),
+                            Text(node.$3,
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    fontStyle: FontStyle.italic,
+                                    color: node.$4)),
                           ],
                         ),
                       ),
@@ -375,12 +315,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Constructor fields ────────────────────────────────────
-        sectionHeader(
-          '3 \u00b7 Constructor and Fields',
-          'All properties of the notification',
-          deepCopper,
-          Colors.white,
-        ),
+        sectionHeader('3 \u00b7 Constructor and Fields',
+            'All properties of the notification',
+            deepCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -392,30 +329,15 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (final field in [
-                (
-                  'leading',
-                  'bool',
-                  'required',
-                  'True if the overscroll is at the '
-                      'leading edge (top for vertical, start for horizontal)',
-                  deepCopper,
-                ),
-                (
-                  'paintOffset',
-                  'double',
-                  '0.0',
-                  'Vertical offset where the '
-                      'indicator should paint, useful for pinned headers',
-                  copper,
-                ),
-                (
-                  'accepted',
-                  'bool',
-                  'true',
-                  'Whether the indicator should show. '
-                      'Set to false by disallowIndicator()',
-                  amber,
-                ),
+                ('leading', 'bool', 'required', 'True if the overscroll is at the '
+                    'leading edge (top for vertical, start for horizontal)',
+                    deepCopper),
+                ('paintOffset', 'double', '0.0', 'Vertical offset where the '
+                    'indicator should paint, useful for pinned headers',
+                    copper),
+                ('accepted', 'bool', 'true', 'Whether the indicator should show. '
+                    'Set to false by disallowIndicator()',
+                    amber),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -423,40 +345,31 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: field.$5.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: field.$5, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: field.$5, width: 3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Text(
-                            field.$1,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: field.$5,
-                            ),
-                          ),
+                          Text(field.$1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  color: field.$5)),
                           const SizedBox(width: 8),
-                          pill(
-                            field.$2,
-                            field.$5.withValues(alpha: 0.15),
-                            field.$5,
-                          ),
+                          pill(field.$2, field.$5.withValues(alpha: 0.15),
+                              field.$5),
                           const SizedBox(width: 4),
-                          pill(
-                            'default: ${field.$3}',
-                            field.$5.withValues(alpha: 0.1),
-                            field.$5,
-                          ),
+                          pill('default: ${field.$3}',
+                              field.$5.withValues(alpha: 0.1), field.$5),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        field.$4,
-                        style: TextStyle(fontSize: 11, color: darkBrown),
-                      ),
+                      Text(field.$4,
+                          style: TextStyle(
+                              fontSize: 11, color: darkBrown)),
                     ],
                   ),
                 ),
@@ -466,12 +379,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. leading property visual ───────────────────────────────
-        sectionHeader(
-          '4 \u00b7 The leading Property',
-          'Which edge triggered the overscroll',
-          copper,
-          Colors.white,
-        ),
+        sectionHeader('4 \u00b7 The leading Property',
+            'Which edge triggered the overscroll',
+            copper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -492,24 +402,21 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.arrow_upward, size: 28, color: accentTeal),
+                      Icon(Icons.arrow_upward,
+                          size: 28, color: accentTeal),
                       const SizedBox(height: 4),
-                      Text(
-                        'leading = true',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: accentTeal,
-                        ),
-                      ),
+                      Text('leading = true',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: accentTeal)),
                       const Divider(),
-                      Text(
-                        'Overscroll at the top (vertical) or '
-                        'start edge (horizontal). User pulled '
-                        'down past the beginning of content.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: darkBrown),
-                      ),
+                      Text('Overscroll at the top (vertical) or '
+                          'start edge (horizontal). User pulled '
+                          'down past the beginning of content.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10, color: darkBrown)),
                       const SizedBox(height: 6),
                       Container(
                         width: double.infinity,
@@ -536,19 +443,14 @@ dynamic build(BuildContext context) {
                                     end: Alignment.bottomCenter,
                                   ),
                                   borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(5),
-                                  ),
+                                      top: Radius.circular(5)),
                                 ),
                               ),
                             ),
                             Center(
-                              child: Text(
-                                'Content',
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  color: accentTeal,
-                                ),
-                              ),
+                              child: Text('Content',
+                                  style: TextStyle(
+                                      fontSize: 9, color: accentTeal)),
                             ),
                           ],
                         ),
@@ -568,24 +470,21 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.arrow_downward, size: 28, color: accentRed),
+                      Icon(Icons.arrow_downward,
+                          size: 28, color: accentRed),
                       const SizedBox(height: 4),
-                      Text(
-                        'leading = false',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: accentRed,
-                        ),
-                      ),
+                      Text('leading = false',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: accentRed)),
                       const Divider(),
-                      Text(
-                        'Overscroll at the bottom (vertical) or '
-                        'end edge (horizontal). User pulled '
-                        'up past the end of content.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: darkBrown),
-                      ),
+                      Text('Overscroll at the bottom (vertical) or '
+                          'end edge (horizontal). User pulled '
+                          'up past the end of content.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10, color: darkBrown)),
                       const SizedBox(height: 6),
                       Container(
                         width: double.infinity,
@@ -612,16 +511,14 @@ dynamic build(BuildContext context) {
                                     end: Alignment.bottomCenter,
                                   ),
                                   borderRadius: const BorderRadius.vertical(
-                                    bottom: Radius.circular(5),
-                                  ),
+                                      bottom: Radius.circular(5)),
                                 ),
                               ),
                             ),
                             Center(
-                              child: Text(
-                                'Content',
-                                style: TextStyle(fontSize: 9, color: accentRed),
-                              ),
+                              child: Text('Content',
+                                  style: TextStyle(
+                                      fontSize: 9, color: accentRed)),
                             ),
                           ],
                         ),
@@ -636,12 +533,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. disallowIndicator() ───────────────────────────────────
-        sectionHeader(
-          '5 \u00b7 disallowIndicator()',
-          'Suppressing the overscroll visual effect',
-          deepCopper,
-          Colors.white,
-        ),
+        sectionHeader('5 \u00b7 disallowIndicator()',
+            'Suppressing the overscroll visual effect',
+            deepCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -658,18 +552,17 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepCopper.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: deepCopper.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: deepCopper.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'void disallowIndicator() {\n'
-                  '  accepted = false;\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'monospace',
-                    color: deepCopper,
-                  ),
-                ),
+                    'void disallowIndicator() {\n'
+                    '  accepted = false;\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: deepCopper)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -686,42 +579,29 @@ dynamic build(BuildContext context) {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
+                      horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: [
-                      deepCopper,
-                      copper,
-                      amber,
-                      accentTeal,
-                    ][i].withValues(alpha: 0.1),
+                    color: [deepCopper, copper, amber, accentTeal][i]
+                        .withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: [deepCopper, copper, amber, accentTeal][i],
-                    ),
+                        color: [deepCopper, copper, amber, accentTeal][i]),
                   ),
-                  child: Text(
-                    [
-                      'Overscroll detected by ScrollPhysics',
-                      'Indicator dispatches OverscrollIndicatorNotification',
-                      'Listener calls notification.disallowIndicator()',
-                      'Indicator checks accepted, skips paint if false',
-                    ][i],
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: [deepCopper, copper, amber, accentTeal][i],
-                    ),
-                  ),
+                  child: Text([
+                    'Overscroll detected by ScrollPhysics',
+                    'Indicator dispatches OverscrollIndicatorNotification',
+                    'Listener calls notification.disallowIndicator()',
+                    'Indicator checks accepted, skips paint if false',
+                  ][i],
+                      style: TextStyle(
+                          fontSize: 11,
+                          color: [deepCopper, copper, amber, accentTeal][i])),
                 ),
                 if (i < 3)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 1),
-                    child: Icon(
-                      Icons.arrow_downward,
-                      size: 12,
-                      color: softAmber,
-                    ),
+                    child: Icon(Icons.arrow_downward,
+                        size: 12, color: softAmber),
                   ),
               ],
             ],
@@ -730,12 +610,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. paintOffset property ──────────────────────────────────
-        sectionHeader(
-          '6 \u00b7 paintOffset Property',
-          'Adjusting indicator painting position',
-          copper,
-          Colors.white,
-        ),
+        sectionHeader('6 \u00b7 paintOffset Property',
+            'Adjusting indicator painting position',
+            copper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -760,8 +637,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: copper.withValues(alpha: 0.03),
                           borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(7),
-                          ),
+                              left: Radius.circular(7)),
                         ),
                         child: Stack(
                           children: [
@@ -777,14 +653,11 @@ dynamic build(BuildContext context) {
                             Positioned(
                               top: 12,
                               left: 4,
-                              child: Text(
-                                'paintOffset = 0',
-                                style: TextStyle(
-                                  fontSize: 7,
-                                  fontWeight: FontWeight.bold,
-                                  color: copper,
-                                ),
-                              ),
+                              child: Text('paintOffset = 0',
+                                  style: TextStyle(
+                                      fontSize: 7,
+                                      fontWeight: FontWeight.bold,
+                                      color: copper)),
                             ),
                             Positioned(
                               top: 24,
@@ -798,13 +671,9 @@ dynamic build(BuildContext context) {
                                   borderRadius: BorderRadius.circular(3),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    'App Bar',
-                                    style: TextStyle(
-                                      fontSize: 7,
-                                      color: copper,
-                                    ),
-                                  ),
+                                  child: Text('App Bar',
+                                      style: TextStyle(
+                                          fontSize: 7, color: copper)),
                                 ),
                               ),
                             ),
@@ -812,10 +681,10 @@ dynamic build(BuildContext context) {
                               top: 50,
                               left: 4,
                               right: 4,
-                              child: Text(
-                                'Glow covers\nthe app bar',
-                                style: TextStyle(fontSize: 7, color: accentRed),
-                              ),
+                              child: Text('Glow covers\nthe app bar',
+                                  style: TextStyle(
+                                      fontSize: 7,
+                                      color: accentRed)),
                             ),
                           ],
                         ),
@@ -828,8 +697,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: accentTeal.withValues(alpha: 0.03),
                           borderRadius: const BorderRadius.horizontal(
-                            right: Radius.circular(7),
-                          ),
+                              right: Radius.circular(7)),
                         ),
                         child: Stack(
                           children: [
@@ -845,14 +713,11 @@ dynamic build(BuildContext context) {
                             Positioned(
                               top: 2,
                               left: 4,
-                              child: Text(
-                                'paintOffset = 56',
-                                style: TextStyle(
-                                  fontSize: 7,
-                                  fontWeight: FontWeight.bold,
-                                  color: accentTeal,
-                                ),
-                              ),
+                              child: Text('paintOffset = 56',
+                                  style: TextStyle(
+                                      fontSize: 7,
+                                      fontWeight: FontWeight.bold,
+                                      color: accentTeal)),
                             ),
                             Positioned(
                               top: 12,
@@ -866,13 +731,9 @@ dynamic build(BuildContext context) {
                                   borderRadius: BorderRadius.circular(3),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    'App Bar',
-                                    style: TextStyle(
-                                      fontSize: 7,
-                                      color: accentTeal,
-                                    ),
-                                  ),
+                                  child: Text('App Bar',
+                                      style: TextStyle(
+                                          fontSize: 7, color: accentTeal)),
                                 ),
                               ),
                             ),
@@ -880,13 +741,10 @@ dynamic build(BuildContext context) {
                               top: 50,
                               left: 4,
                               right: 4,
-                              child: Text(
-                                'Glow starts\nbelow app bar',
-                                style: TextStyle(
-                                  fontSize: 7,
-                                  color: accentTeal,
-                                ),
-                              ),
+                              child: Text('Glow starts\nbelow app bar',
+                                  style: TextStyle(
+                                      fontSize: 7,
+                                      color: accentTeal)),
                             ),
                           ],
                         ),
@@ -910,12 +768,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Indicator types ───────────────────────────────────────
-        sectionHeader(
-          '7 \u00b7 Indicator Widget Types',
-          'Glow vs Stretch overscroll effects',
-          deepCopper,
-          Colors.white,
-        ),
+        sectionHeader('7 \u00b7 Indicator Widget Types',
+            'Glow vs Stretch overscroll effects',
+            deepCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -938,22 +793,18 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.blur_on, size: 28, color: amber),
                       const SizedBox(height: 4),
-                      Text(
-                        'GlowingOverscroll\nIndicator',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: amber,
-                        ),
-                      ),
+                      Text('GlowingOverscroll\nIndicator',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: amber)),
                       const Divider(),
-                      Text(
-                        'Classic Material glow effect. Shows a '
-                        'colored arc at the overscroll edge. '
-                        'Used by default on Android before API 31.',
-                        style: TextStyle(fontSize: 10, color: darkBrown),
-                      ),
+                      Text('Classic Material glow effect. Shows a '
+                          'colored arc at the overscroll edge. '
+                          'Used by default on Android before API 31.',
+                          style: TextStyle(
+                              fontSize: 10, color: darkBrown)),
                       const SizedBox(height: 4),
                       pill('Material 2', amber, darkBrown),
                     ],
@@ -973,22 +824,18 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.open_with, size: 28, color: accentTeal),
                       const SizedBox(height: 4),
-                      Text(
-                        'StretchingOverscroll\nIndicator',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: accentTeal,
-                        ),
-                      ),
+                      Text('StretchingOverscroll\nIndicator',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: accentTeal)),
                       const Divider(),
-                      Text(
-                        'Material 3 stretch effect. Stretches the '
-                        'content at the edge with a rubber-band feel. '
-                        'Default on Android API 31+.',
-                        style: TextStyle(fontSize: 10, color: darkBrown),
-                      ),
+                      Text('Material 3 stretch effect. Stretches the '
+                          'content at the edge with a rubber-band feel. '
+                          'Default on Android API 31+.',
+                          style: TextStyle(
+                              fontSize: 10, color: darkBrown)),
                       const SizedBox(height: 4),
                       pill('Material 3', accentTeal, Colors.white),
                     ],
@@ -1001,12 +848,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. NotificationListener pattern ──────────────────────────
-        sectionHeader(
-          '8 \u00b7 NotificationListener Pattern',
-          'How to listen and respond to these notifications',
-          copper,
-          Colors.white,
-        ),
+        sectionHeader('8 \u00b7 NotificationListener Pattern',
+            'How to listen and respond to these notifications',
+            copper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1023,27 +867,26 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: copper.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: copper.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: copper.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'NotificationListener<\n'
-                  '  OverscrollIndicatorNotification\n'
-                  '>(\n'
-                  '  onNotification: (notification) {\n'
-                  '    // Suppress leading edge only\n'
-                  '    if (notification.leading) {\n'
-                  '      notification.disallowIndicator();\n'
-                  '    }\n'
-                  '    return false; // allow propagation\n'
-                  '  },\n'
-                  '  child: ListView(...),\n'
-                  ')',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: copper,
-                  ),
-                ),
+                    'NotificationListener<\n'
+                    '  OverscrollIndicatorNotification\n'
+                    '>(\n'
+                    '  onNotification: (notification) {\n'
+                    '    // Suppress leading edge only\n'
+                    '    if (notification.leading) {\n'
+                    '      notification.disallowIndicator();\n'
+                    '    }\n'
+                    '    return false; // allow propagation\n'
+                    '  },\n'
+                    '  child: ListView(...),\n'
+                    ')',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: copper)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -1059,12 +902,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Dispatch flow ────────────────────────────────────────
-        sectionHeader(
-          '9 \u00b7 Notification Dispatch Flow',
-          'From scroll physics to indicator paint',
-          deepCopper,
-          Colors.white,
-        ),
+        sectionHeader('9 \u00b7 Notification Dispatch Flow',
+            'From scroll physics to indicator paint',
+            deepCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1079,27 +919,13 @@ dynamic build(BuildContext context) {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
+                      horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
-                    color: [
-                      deepCopper,
-                      copper,
-                      amber,
-                      softAmber,
-                      accentTeal,
-                    ][i].withValues(alpha: 0.1),
+                    color: [deepCopper, copper, amber, softAmber, accentTeal][i]
+                        .withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: [
-                        deepCopper,
-                        copper,
-                        amber,
-                        softAmber,
-                        accentTeal,
-                      ][i],
-                    ),
+                        color: [deepCopper, copper, amber, softAmber, accentTeal][i]),
                   ),
                   child: Row(
                     children: [
@@ -1107,48 +933,30 @@ dynamic build(BuildContext context) {
                         width: 22,
                         height: 22,
                         decoration: BoxDecoration(
-                          color: [
-                            deepCopper,
-                            copper,
-                            amber,
-                            softAmber,
-                            accentTeal,
-                          ][i],
+                          color: [deepCopper, copper, amber, softAmber, accentTeal][i],
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: Text(
-                            '${i + 1}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                            ),
-                          ),
+                          child: Text('${i + 1}',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10)),
                         ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(
-                          [
-                            'User drags past scroll extent',
-                            'ScrollPhysics reports overscroll to ScrollPosition',
-                            'Overscroll indicator widget receives update',
-                            'Indicator creates and dispatches notification',
-                            'If accepted, indicator paints glow/stretch',
-                          ][i],
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                            color: [
-                              deepCopper,
-                              copper,
-                              amber,
-                              softAmber,
-                              accentTeal,
-                            ][i],
-                          ),
-                        ),
+                        child: Text([
+                          'User drags past scroll extent',
+                          'ScrollPhysics reports overscroll to ScrollPosition',
+                          'Overscroll indicator widget receives update',
+                          'Indicator creates and dispatches notification',
+                          'If accepted, indicator paints glow/stretch',
+                        ][i],
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
+                                color: [deepCopper, copper, amber, softAmber, accentTeal][i])),
                       ),
                     ],
                   ),
@@ -1156,11 +964,8 @@ dynamic build(BuildContext context) {
                 if (i < 4)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 1),
-                    child: Icon(
-                      Icons.arrow_downward,
-                      size: 12,
-                      color: softAmber,
-                    ),
+                    child: Icon(Icons.arrow_downward,
+                        size: 12, color: softAmber),
                   ),
               ],
             ],
@@ -1169,12 +974,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Common use cases ─────────────────────────────────────
-        sectionHeader(
-          '10 \u00b7 Common Use Cases',
-          'When to suppress or modify the indicator',
-          amber,
-          darkBrown,
-        ),
+        sectionHeader('10 \u00b7 Common Use Cases',
+            'When to suppress or modify the indicator',
+            amber, darkBrown),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1185,34 +987,18 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final useCase in [
-                (
-                  'Custom refresh header',
-                  'Suppress the default indicator '
-                      'when using a custom pull-to-refresh implementation',
-                  Icons.refresh,
-                  deepCopper,
-                ),
-                (
-                  'Nested scrollables',
-                  'Suppress inner scrollable overscroll '
-                      'to avoid confusing double-glow effects',
-                  Icons.view_stream,
-                  copper,
-                ),
-                (
-                  'Platform consistency',
-                  'Disable glow on Android to match '
-                      'iOS bounce behavior for cross-platform apps',
-                  Icons.phone_android,
-                  amber,
-                ),
-                (
-                  'Fixed headers',
-                  'Adjust paintOffset so the glow appears '
-                      'below a pinned app bar or sticky header',
-                  Icons.push_pin,
-                  softAmber,
-                ),
+                ('Custom refresh header', 'Suppress the default indicator '
+                    'when using a custom pull-to-refresh implementation',
+                    Icons.refresh, deepCopper),
+                ('Nested scrollables', 'Suppress inner scrollable overscroll '
+                    'to avoid confusing double-glow effects',
+                    Icons.view_stream, copper),
+                ('Platform consistency', 'Disable glow on Android to match '
+                    'iOS bounce behavior for cross-platform apps',
+                    Icons.phone_android, amber),
+                ('Fixed headers', 'Adjust paintOffset so the glow appears '
+                    'below a pinned app bar or sticky header',
+                    Icons.push_pin, softAmber),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1221,8 +1007,7 @@ dynamic build(BuildContext context) {
                     color: useCase.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: useCase.$4, width: 3),
-                    ),
+                        left: BorderSide(color: useCase.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1233,18 +1018,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              useCase.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: useCase.$4,
-                              ),
-                            ),
-                            Text(
-                              useCase.$2,
-                              style: TextStyle(fontSize: 11, color: darkBrown),
-                            ),
+                            Text(useCase.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: useCase.$4)),
+                            Text(useCase.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkBrown)),
                           ],
                         ),
                       ),
@@ -1257,12 +1038,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. ViewportNotificationMixin ─────────────────────────────
-        sectionHeader(
-          '11 \u00b7 ViewportNotificationMixin',
-          'Tracking notification depth in nested scrollables',
-          copper,
-          Colors.white,
-        ),
+        sectionHeader('11 \u00b7 ViewportNotificationMixin',
+            'Tracking notification depth in nested scrollables',
+            copper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1273,18 +1051,10 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              fieldRow(
-                'depth',
-                'Number of viewports the notification has '
-                    'passed through',
-                copper,
-              ),
-              fieldRow(
-                'Increments',
-                'Each time it crosses a '
-                    'ScrollNotificationObserver boundary',
-                amber,
-              ),
+              fieldRow('depth', 'Number of viewports the notification has '
+                  'passed through', copper),
+              fieldRow('Increments', 'Each time it crosses a '
+                  'ScrollNotificationObserver boundary', amber),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
@@ -1292,18 +1062,16 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: copper.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: copper.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: copper.withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'Nested viewport depth tracking',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                        color: copper,
-                      ),
-                    ),
+                    Text('Nested viewport depth tracking',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            color: copper)),
                     const SizedBox(height: 6),
                     for (final level in [
                       ('Outer ListView', 'depth = 0', copper),
@@ -1315,14 +1083,11 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: [
                             Expanded(
-                              child: Text(
-                                level.$1,
-                                style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 10,
-                                  color: level.$3,
-                                ),
-                              ),
+                              child: Text(level.$1,
+                                  style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 10,
+                                      color: level.$3)),
                             ),
                             pill(level.$2, level.$3, darkBrown),
                           ],
@@ -1337,12 +1102,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Relationship to ScrollNotification ──────────────────
-        sectionHeader(
-          '12 \u00b7 Relationship to Scroll Notifications',
-          'How overscroll notifications differ',
-          deepCopper,
-          Colors.white,
-        ),
+        sectionHeader('12 \u00b7 Relationship to Scroll Notifications',
+            'How overscroll notifications differ',
+            deepCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1354,22 +1116,14 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final cmp in [
-                (
-                  'OverscrollNotification',
-                  'Reports the overscroll amount. '
-                      'Part of the scroll notification lifecycle. '
-                      'Cannot suppress the indicator.',
-                  Icons.notifications,
-                  accentTeal,
-                ),
-                (
-                  'OverscrollIndicatorNotification',
-                  'Controls the visual '
-                      'indicator. Dispatched by the indicator widget itself. '
-                      'Can suppress via disallowIndicator().',
-                  Icons.format_paint,
-                  amber,
-                ),
+                ('OverscrollNotification', 'Reports the overscroll amount. '
+                    'Part of the scroll notification lifecycle. '
+                    'Cannot suppress the indicator.',
+                    Icons.notifications, accentTeal),
+                ('OverscrollIndicatorNotification', 'Controls the visual '
+                    'indicator. Dispatched by the indicator widget itself. '
+                    'Can suppress via disallowIndicator().',
+                    Icons.format_paint, amber),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1388,19 +1142,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              cmp.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                color: cmp.$4,
-                              ),
-                            ),
+                            Text(cmp.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                    color: cmp.$4)),
                             const SizedBox(height: 2),
-                            Text(
-                              cmp.$2,
-                              style: TextStyle(fontSize: 10, color: darkBrown),
-                            ),
+                            Text(cmp.$2,
+                                style: TextStyle(
+                                    fontSize: 10, color: darkBrown)),
                           ],
                         ),
                       ),
@@ -1422,12 +1172,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Platform behavior ────────────────────────────────────
-        sectionHeader(
-          '13 \u00b7 Platform Behavior',
-          'How different platforms handle overscroll indicators',
-          amber,
-          darkBrown,
-        ),
+        sectionHeader('13 \u00b7 Platform Behavior',
+            'How different platforms handle overscroll indicators',
+            amber, darkBrown),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1438,36 +1185,14 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final platform in [
-                (
-                  'Android (< API 31)',
-                  'GlowingOverscrollIndicator',
-                  'Shows a colored glow arc',
-                  Icons.blur_on,
-                  deepCopper,
-                ),
-                (
-                  'Android (>= API 31)',
-                  'StretchingOverscrollIndicator',
-                  'Shows a rubber-band stretch',
-                  Icons.open_with,
-                  copper,
-                ),
-                (
-                  'iOS',
-                  'No indicator',
-                  'Uses BouncingScrollPhysics '
-                      'bounce instead',
-                  Icons.phone_iphone,
-                  amber,
-                ),
-                (
-                  'Web / Desktop',
-                  'Depends on theme',
-                  'Follows the '
-                      'TargetPlatform setting',
-                  Icons.laptop,
-                  softAmber,
-                ),
+                ('Android (< API 31)', 'GlowingOverscrollIndicator',
+                    'Shows a colored glow arc', Icons.blur_on, deepCopper),
+                ('Android (>= API 31)', 'StretchingOverscrollIndicator',
+                    'Shows a rubber-band stretch', Icons.open_with, copper),
+                ('iOS', 'No indicator', 'Uses BouncingScrollPhysics '
+                    'bounce instead', Icons.phone_iphone, amber),
+                ('Web / Desktop', 'Depends on theme', 'Follows the '
+                    'TargetPlatform setting', Icons.laptop, softAmber),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
@@ -1476,8 +1201,7 @@ dynamic build(BuildContext context) {
                     color: platform.$5.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
                     border: Border(
-                      left: BorderSide(color: platform.$5, width: 3),
-                    ),
+                        left: BorderSide(color: platform.$5, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -1489,26 +1213,20 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  platform.$1,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10,
-                                    color: platform.$5,
-                                  ),
-                                ),
+                                Text(platform.$1,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 10,
+                                        color: platform.$5)),
                                 const SizedBox(width: 6),
-                                pill(
-                                  platform.$2,
-                                  platform.$5.withValues(alpha: 0.15),
-                                  platform.$5,
-                                ),
+                                pill(platform.$2,
+                                    platform.$5.withValues(alpha: 0.15),
+                                    platform.$5),
                               ],
                             ),
-                            Text(
-                              platform.$3,
-                              style: TextStyle(fontSize: 10, color: darkBrown),
-                            ),
+                            Text(platform.$3,
+                                style: TextStyle(
+                                    fontSize: 10, color: darkBrown)),
                           ],
                         ),
                       ),
@@ -1521,12 +1239,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. ScrollBehavior connection ─────────────────────────────
-        sectionHeader(
-          '14 \u00b7 ScrollBehavior Connection',
-          'How the theme controls which indicator is used',
-          copper,
-          Colors.white,
-        ),
+        sectionHeader('14 \u00b7 ScrollBehavior Connection',
+            'How the theme controls which indicator is used',
+            copper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1543,24 +1258,23 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: copper.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: copper.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: copper.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'ScrollBehavior\n'
-                  '  .buildOverscrollIndicator(\n'
-                  '    context, child, axisDirection\n'
-                  '  )\n'
-                  '\n'
-                  '// Returns either:\n'
-                  '// - GlowingOverscrollIndicator\n'
-                  '// - StretchingOverscrollIndicator\n'
-                  '// - child (no indicator)',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: copper,
-                  ),
-                ),
+                    'ScrollBehavior\n'
+                    '  .buildOverscrollIndicator(\n'
+                    '    context, child, axisDirection\n'
+                    '  )\n'
+                    '\n'
+                    '// Returns either:\n'
+                    '// - GlowingOverscrollIndicator\n'
+                    '// - StretchingOverscrollIndicator\n'
+                    '// - child (no indicator)',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: copper)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -1577,12 +1291,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionHeader(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepCopper,
-          Colors.white,
-        ),
+        sectionHeader('15 \u00b7 Summary',
+            'Key takeaways', deepCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1614,22 +1324,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: lightAmber,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: lightAmber,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                          ),
-                        ),
+                        child: Text(point,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

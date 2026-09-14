@@ -168,7 +168,11 @@ TextStyle _codeStyle({Color color = cParchment, double size = 12.5}) {
 }
 
 TextStyle _captionStyle({Color color = cSepiaInk, double size = 11}) {
-  return TextStyle(color: color, fontSize: size, fontStyle: FontStyle.italic);
+  return TextStyle(
+    color: color,
+    fontSize: size,
+    fontStyle: FontStyle.italic,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -226,7 +230,9 @@ Widget _sectionHeader(String index, String title, {Color? accent}) {
           ),
         ),
         const SizedBox(width: 10),
-        Expanded(child: Text(title, style: _titleStyle(size: 18))),
+        Expanded(
+          child: Text(title, style: _titleStyle(size: 18)),
+        ),
       ],
     ),
   );
@@ -278,15 +284,23 @@ Widget _bulletList(List<String> bullets, {Color dot = cTangerine}) {
               margin: const EdgeInsets.only(top: 6, right: 8),
               width: 8,
               height: 8,
-              decoration: BoxDecoration(color: dot, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: dot,
+                shape: BoxShape.circle,
+              ),
             ),
-            Expanded(child: Text(bullets[i], style: _bodyStyle())),
+            Expanded(
+              child: Text(bullets[i], style: _bodyStyle()),
+            ),
           ],
         ),
       ),
     );
   }
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: rows,
+  );
 }
 
 Widget _kvRow(String key, String value, {Color? keyColor}) {
@@ -299,10 +313,15 @@ Widget _kvRow(String key, String value, {Color? keyColor}) {
           width: 170,
           child: Text(
             key,
-            style: _subtitleStyle(color: keyColor ?? cTangerineDeep, size: 13),
+            style: _subtitleStyle(
+              color: keyColor ?? cTangerineDeep,
+              size: 13,
+            ),
           ),
         ),
-        Expanded(child: Text(value, style: _bodyStyle(size: 13))),
+        Expanded(
+          child: Text(value, style: _bodyStyle(size: 13)),
+        ),
       ],
     ),
   );
@@ -515,7 +534,11 @@ Widget _manuscriptPage({
             if (isTop)
               Padding(
                 padding: const EdgeInsets.only(right: 6),
-                child: Icon(Icons.check_circle, size: 14, color: Colors.white),
+                child: Icon(
+                  Icons.check_circle,
+                  size: 14,
+                  color: Colors.white,
+                ),
               ),
             Text(
               s,
@@ -555,10 +578,15 @@ Widget _manuscriptPage({
             Container(
               width: 12,
               height: 12,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 8),
-            Expanded(child: Text(label, style: _subtitleStyle(size: 14))),
+            Expanded(
+              child: Text(label, style: _subtitleStyle(size: 14)),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
@@ -585,7 +613,9 @@ Widget _manuscriptPage({
           decoration: BoxDecoration(
             color: cParchment,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: cMist),
+            border: Border.all(
+              color: cMist,
+            ),
           ),
           child: RichText(text: rich),
         ),
@@ -601,7 +631,8 @@ Widget _manuscriptPage({
             ),
             const SizedBox(width: 8),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: cTangerineWash,
                 borderRadius: BorderRadius.circular(4),
@@ -622,14 +653,18 @@ Widget _manuscriptPage({
           decoration: BoxDecoration(
             color: cPlumWash,
             borderRadius: BorderRadius.circular(6),
-            border: Border(left: BorderSide(color: cPlumMargin, width: 2.5)),
+            border: Border(
+              left: BorderSide(color: cPlumMargin, width: 2.5),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Icon(Icons.edit_note, color: cPlumMargin, size: 16),
               const SizedBox(width: 6),
-              Expanded(child: Text(marginNote, style: _marginStyle())),
+              Expanded(
+                child: Text(marginNote, style: _marginStyle()),
+              ),
             ],
           ),
         ),
@@ -650,7 +685,9 @@ Widget _suggestionTable(SuggestionSpan span, {Color accent = cTangerine}) {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.18),
-        border: Border(bottom: BorderSide(color: accent)),
+        border: Border(
+          bottom: BorderSide(color: accent),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -658,10 +695,13 @@ Widget _suggestionTable(SuggestionSpan span, {Color accent = cTangerine}) {
             width: 36,
             child: Text('#', style: _subtitleStyle(size: 12)),
           ),
-          Expanded(child: Text('suggestion', style: _subtitleStyle(size: 12))),
+          Expanded(
+            child: Text('suggestion', style: _subtitleStyle(size: 12)),
+          ),
           SizedBox(
             width: 110,
-            child: Text('illustrative score', style: _subtitleStyle(size: 12)),
+            child: Text('illustrative score',
+                style: _subtitleStyle(size: 12)),
           ),
         ],
       ),
@@ -678,7 +718,9 @@ Widget _suggestionTable(SuggestionSpan span, {Color accent = cTangerine}) {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         decoration: BoxDecoration(
           color: i.isEven ? cIvory : cParchment,
-          border: Border(bottom: BorderSide(color: cMist)),
+          border: Border(
+            bottom: BorderSide(color: cMist),
+          ),
         ),
         child: Row(
           children: <Widget>[
@@ -749,7 +791,9 @@ Widget _rangeAnatomyCard({
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: inside ? accent : cParchment,
-          border: Border.all(color: inside ? cTangerineDeep : cMist),
+          border: Border.all(
+            color: inside ? cTangerineDeep : cMist,
+          ),
           borderRadius: BorderRadius.circular(3),
         ),
         child: Text(
@@ -1000,7 +1044,8 @@ dynamic build(BuildContext context) {
   final Widget section2 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('02', 'Anatomy of a SuggestionSpan', accent: cTangerine),
+      _sectionHeader('02', 'Anatomy of a SuggestionSpan',
+          accent: cTangerine),
       _proseBlock(
         'A SuggestionSpan is one of the smallest types in the Flutter '
         'services layer. Its job is to bind together two pieces of data: '
@@ -1048,10 +1093,7 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             _kvRow('Type', 'SuggestionSpan'),
             _kvRow('Library', 'package:flutter/services.dart'),
-            _kvRow(
-              'Constructor',
-              'const SuggestionSpan(TextRange, List<String>)',
-            ),
+            _kvRow('Constructor', 'const SuggestionSpan(TextRange, List<String>)'),
             _kvRow('Field 1', 'final TextRange range'),
             _kvRow('Field 2', 'final List<String> suggestions'),
             _kvRow('Equality', 'value-based: same range AND same suggestions'),
@@ -1075,7 +1117,8 @@ dynamic build(BuildContext context) {
   final Widget section3 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('03', 'TextRange geometry', accent: cMarigoldRind),
+      _sectionHeader('03', 'TextRange geometry',
+          accent: cMarigoldRind),
       _proseBlock(
         'Every SuggestionSpan carries a TextRange, and a TextRange is one '
         'of those types whose semantics are subtle enough to deserve a '
@@ -1141,53 +1184,53 @@ dynamic build(BuildContext context) {
       _codeCard(
         'Recipe 1: a single misspelling with three alternatives',
         'const SuggestionSpan(\n'
-            '  TextRange(start: 7, end: 15),\n'
-            '  <String>[\'separate\', \'desperate\', \'seperated\'],\n'
-            ');',
+        '  TextRange(start: 7, end: 15),\n'
+        '  <String>[\'separate\', \'desperate\', \'seperated\'],\n'
+        ');',
         accent: cTangerine,
       ),
       _codeCard(
         'Recipe 2: empty suggestions (engine flagged but no fix)',
         'const SuggestionSpan(\n'
-            '  TextRange(start: 0, end: 11),\n'
-            '  <String>[],\n'
-            ');',
+        '  TextRange(start: 0, end: 11),\n'
+        '  <String>[],\n'
+        ');',
         accent: cMarigoldRind,
       ),
       _codeCard(
         'Recipe 3: a single best suggestion (high-confidence fix)',
         'const SuggestionSpan(\n'
-            '  TextRange(start: 4, end: 12),\n'
-            '  <String>[\'received\'],\n'
-            ');',
+        '  TextRange(start: 4, end: 12),\n'
+        '  <String>[\'received\'],\n'
+        ');',
         accent: cSageProof,
       ),
       _codeCard(
         'Recipe 4: collapsed range (rare, but legal)',
         '// A collapsed range marks a caret position; not what spell-check\n'
-            '// services normally emit, but useful for custom tooling.\n'
-            'const SuggestionSpan(\n'
-            '  TextRange.collapsed(12),\n'
-            '  <String>[\'note\'],\n'
-            ');',
+        '// services normally emit, but useful for custom tooling.\n'
+        'const SuggestionSpan(\n'
+        '  TextRange.collapsed(12),\n'
+        '  <String>[\'note\'],\n'
+        ');',
         accent: cPlumMargin,
       ),
       _codeCard(
         'Recipe 5: building from a substring search',
         'final int idx = text.indexOf(typo);\n'
-            'final SuggestionSpan span = SuggestionSpan(\n'
-            '  TextRange(start: idx, end: idx + typo.length),\n'
-            '  candidates,\n'
-            ');',
+        'final SuggestionSpan span = SuggestionSpan(\n'
+        '  TextRange(start: idx, end: idx + typo.length),\n'
+        '  candidates,\n'
+        ');',
         accent: cTerracotta,
       ),
       _codeCard(
         'Recipe 6: building a list of spans',
         'final List<SuggestionSpan> spans = <SuggestionSpan>[\n'
-            '  SuggestionSpan(TextRange(start:  0, end:  3), [\'This\']),\n'
-            '  SuggestionSpan(TextRange(start:  8, end: 12), [\'test\']),\n'
-            '];\n'
-            '// Then carry them in SpellCheckResults.suggestionSpans.',
+        '  SuggestionSpan(TextRange(start:  0, end:  3), [\'This\']),\n'
+        '  SuggestionSpan(TextRange(start:  8, end: 12), [\'test\']),\n'
+        '];\n'
+        '// Then carry them in SpellCheckResults.suggestionSpans.',
         accent: cMarigoldRind,
       ),
       _marginNote(
@@ -1254,17 +1297,16 @@ dynamic build(BuildContext context) {
             Text('Comparison ledger', style: _subtitleStyle()),
             const SizedBox(height: 8),
             _kvRow('eqA == eqB', '${eqA == eqB}  // identical fields'),
-            _kvRow('eqA == eqC', '${eqA == eqC}  // suggestions list differs'),
-            _kvRow('eqA == eqD', '${eqA == eqD}  // range differs'),
-            _kvRow(
-              'eqA.hashCode == eqB.hashCode',
-              '${eqA.hashCode == eqB.hashCode}',
-            ),
-            _kvRow(
-              'identical(eqA, eqB)',
-              '${identical(eqA, eqB)}  // const canonicalisation',
-            ),
-            _kvRow('identical(eqA, eqC)', '${identical(eqA, eqC)}'),
+            _kvRow('eqA == eqC',
+                '${eqA == eqC}  // suggestions list differs'),
+            _kvRow('eqA == eqD',
+                '${eqA == eqD}  // range differs'),
+            _kvRow('eqA.hashCode == eqB.hashCode',
+                '${eqA.hashCode == eqB.hashCode}'),
+            _kvRow('identical(eqA, eqB)',
+                '${identical(eqA, eqB)}  // const canonicalisation'),
+            _kvRow('identical(eqA, eqC)',
+                '${identical(eqA, eqC)}'),
           ],
         ),
       ),
@@ -1290,11 +1332,8 @@ dynamic build(BuildContext context) {
   final Widget section6 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(
-        '06',
-        'SpellCheckResults integration',
-        accent: cTerracotta,
-      ),
+      _sectionHeader('06', 'SpellCheckResults integration',
+          accent: cTerracotta),
       _proseBlock(
         'SuggestionSpan does not travel alone. It rides inside a '
         'SpellCheckResults envelope alongside the original String the '
@@ -1326,42 +1365,33 @@ dynamic build(BuildContext context) {
             Text('Envelope dump', style: _subtitleStyle()),
             const SizedBox(height: 8),
             _kvRow('runtimeType', '${sampleResults.runtimeType}'),
-            _kvRow('spellCheckedText', '"${sampleResults.spellCheckedText}"'),
-            _kvRow(
-              'suggestionSpans length',
-              '${sampleResults.suggestionSpans.length}',
-            ),
-            _kvRow(
-              'first span range',
-              '${sampleResults.suggestionSpans[0].range}',
-            ),
-            _kvRow(
-              'first span suggestions',
-              '${sampleResults.suggestionSpans[0].suggestions}',
-            ),
-            _kvRow(
-              'second span range',
-              '${sampleResults.suggestionSpans[1].range}',
-            ),
-            _kvRow(
-              'third span range',
-              '${sampleResults.suggestionSpans[2].range}',
-            ),
+            _kvRow('spellCheckedText',
+                '"${sampleResults.spellCheckedText}"'),
+            _kvRow('suggestionSpans length',
+                '${sampleResults.suggestionSpans.length}'),
+            _kvRow('first span range',
+                '${sampleResults.suggestionSpans[0].range}'),
+            _kvRow('first span suggestions',
+                '${sampleResults.suggestionSpans[0].suggestions}'),
+            _kvRow('second span range',
+                '${sampleResults.suggestionSpans[1].range}'),
+            _kvRow('third span range',
+                '${sampleResults.suggestionSpans[2].range}'),
           ],
         ),
       ),
       _codeCard(
         'How EditableText pulls SuggestionSpan out of the envelope',
         'final SpellCheckResults? results = state.spellCheckResults;\n'
-            'if (results == null) return;\n'
-            'if (results.spellCheckedText != controller.text) {\n'
-            '  // stale; ignore.\n'
-            '  return;\n'
-            '}\n'
-            'for (int i = 0; i < results.suggestionSpans.length; i++) {\n'
-            '  final SuggestionSpan span = results.suggestionSpans[i];\n'
-            '  paintSquiggleAt(span.range);\n'
-            '}',
+        'if (results == null) return;\n'
+        'if (results.spellCheckedText != controller.text) {\n'
+        '  // stale; ignore.\n'
+        '  return;\n'
+        '}\n'
+        'for (int i = 0; i < results.suggestionSpans.length; i++) {\n'
+        '  final SuggestionSpan span = results.suggestionSpans[i];\n'
+        '  paintSquiggleAt(span.range);\n'
+        '}',
         accent: cTangerineDeep,
       ),
       _marginNote(
@@ -1380,11 +1410,8 @@ dynamic build(BuildContext context) {
   final Widget section7 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(
-        '07',
-        'Manuscript pages (eight illustrative samples)',
-        accent: cTangerineDeep,
-      ),
+      _sectionHeader('07', 'Manuscript pages (eight illustrative samples)',
+          accent: cTangerineDeep),
       _proseBlock(
         'Each card below shows a sentence with one misspelling marked in '
         'tangerine, followed by the popover-styled list of corrections '
@@ -1493,7 +1520,8 @@ dynamic build(BuildContext context) {
   final Widget section8 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('08', 'Custom-paragraph rendering', accent: cMarigoldRind),
+      _sectionHeader('08', 'Custom-paragraph rendering',
+          accent: cMarigoldRind),
       _proseBlock(
         'Most apps never need to render SuggestionSpans by hand: '
         'EditableText, which sits underneath TextField, does it for '
@@ -1510,61 +1538,61 @@ dynamic build(BuildContext context) {
       _codeCard(
         'Recipe: split a String around a list of SuggestionSpans',
         'List<TextSpan> splitForSpellCheck(\n'
-            '  String text,\n'
-            '  List<SuggestionSpan> spans,\n'
-            ') {\n'
-            '  final List<TextSpan> out = <TextSpan>[];\n'
-            '  int cursor = 0;\n'
-            '  for (int i = 0; i < spans.length; i++) {\n'
-            '    final SuggestionSpan span = spans[i];\n'
-            '    if (span.range.start > cursor) {\n'
-            '      out.add(TextSpan(\n'
-            '        text: text.substring(cursor, span.range.start),\n'
-            '      ));\n'
-            '    }\n'
-            '    out.add(TextSpan(\n'
-            '      text: text.substring(span.range.start, span.range.end),\n'
-            '      style: TextStyle(\n'
-            '        decoration: TextDecoration.underline,\n'
-            '        decorationStyle: TextDecorationStyle.wavy,\n'
-            '        decorationColor: Colors.red,\n'
-            '      ),\n'
-            '    ));\n'
-            '    cursor = span.range.end;\n'
-            '  }\n'
-            '  if (cursor < text.length) {\n'
-            '    out.add(TextSpan(text: text.substring(cursor)));\n'
-            '  }\n'
-            '  return out;\n'
-            '}',
+        '  String text,\n'
+        '  List<SuggestionSpan> spans,\n'
+        ') {\n'
+        '  final List<TextSpan> out = <TextSpan>[];\n'
+        '  int cursor = 0;\n'
+        '  for (int i = 0; i < spans.length; i++) {\n'
+        '    final SuggestionSpan span = spans[i];\n'
+        '    if (span.range.start > cursor) {\n'
+        '      out.add(TextSpan(\n'
+        '        text: text.substring(cursor, span.range.start),\n'
+        '      ));\n'
+        '    }\n'
+        '    out.add(TextSpan(\n'
+        '      text: text.substring(span.range.start, span.range.end),\n'
+        '      style: TextStyle(\n'
+        '        decoration: TextDecoration.underline,\n'
+        '        decorationStyle: TextDecorationStyle.wavy,\n'
+        '        decorationColor: Colors.red,\n'
+        '      ),\n'
+        '    ));\n'
+        '    cursor = span.range.end;\n'
+        '  }\n'
+        '  if (cursor < text.length) {\n'
+        '    out.add(TextSpan(text: text.substring(cursor)));\n'
+        '  }\n'
+        '  return out;\n'
+        '}',
         accent: cTangerineDeep,
       ),
       _codeCard(
         'Recipe: tap-to-correct using SuggestionSpan.suggestions',
         'void onTapMisspelling(\n'
-            '  SuggestionSpan span,\n'
-            '  TextEditingController controller,\n'
-            ') {\n'
-            '  showMenu<String>(\n'
-            '    context: context,\n'
-            '    position: anchorRect,\n'
-            '    items: <PopupMenuEntry<String>>[\n'
-            '      for (int i = 0; i < span.suggestions.length; i++)\n'
-            '        PopupMenuItem<String>(\n'
-            '          value: span.suggestions[i],\n'
-            '          child: Text(span.suggestions[i]),\n'
-            '        ),\n'
-            '    ],\n'
-            '  ).then((String? choice) {\n'
-            '    if (choice == null) return;\n'
-            '    final String t = controller.text;\n'
-            '    controller.text = t.replaceRange(\n'
-            '      span.range.start,\n'
-            '      span.range.end,\n'
-            '      choice,\n'
-            '    );\n'
-            '  });\n'
-            '}',
+        '  SuggestionSpan span,\n'
+        '  TextEditingController controller,\n'
+        ') {\n'
+        '  showMenu<String>(\n'
+        '    context: context,\n'
+        '    position: anchorRect,\n'
+        '    items: <PopupMenuEntry<String>>[\n'
+        '      for (int i = 0; i < span.suggestions.length; i++)\n'
+        '        PopupMenuItem<String>(\n'
+        '          value: span.suggestions[i],\n'
+        '          child: Text(span.suggestions[i]),\n'
+        '        ),\n'
+        '    ],\n'
+        '  ).then((String? choice) {\n'
+        '    if (choice == null) return;\n'
+        '    final String t = controller.text;\n'
+        '    controller.text = t.replaceRange(\n'
+        '      span.range.start,\n'
+        '      span.range.end,\n'
+        '      choice,\n'
+        '    );\n'
+        '  });\n'
+        '}',
         accent: cSageProof,
       ),
       _marginNote(
@@ -1588,58 +1616,58 @@ dynamic build(BuildContext context) {
       _doAvoid(
         'DO treat SuggestionSpan as immutable',
         'Both fields are final. Build a new SuggestionSpan when the data '
-            'changes; never reach into the existing one.',
+        'changes; never reach into the existing one.',
         isDo: true,
       ),
       _doAvoid(
         'DO render the first suggestion as the recommended fix',
         'Spell-check engines list candidates in confidence order. The '
-            'first chip is what should pre-select on Enter / tab.',
+        'first chip is what should pre-select on Enter / tab.',
         isDo: true,
       ),
       _doAvoid(
         'DO compare incoming spans against the current text',
         'The platform service is asynchronous. Always validate that '
-            'spellCheckedText still matches the controller value before '
-            'painting squiggles based on stale ranges.',
+        'spellCheckedText still matches the controller value before '
+        'painting squiggles based on stale ranges.',
         isDo: true,
       ),
       _doAvoid(
         'DO handle empty suggestions gracefully',
         'It is legal for SuggestionSpan.suggestions to be empty. Show '
-            'the squiggle, but skip the popover or display "no suggestions".',
+        'the squiggle, but skip the popover or display "no suggestions".',
         isDo: true,
       ),
       _doAvoid(
         'AVOID storing SuggestionSpan in long-lived state',
         'Spans are recomputed every edit. Caching them across rebuilds '
-            'leads to misaligned squiggles when the user types.',
+        'leads to misaligned squiggles when the user types.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID building TextRange offsets from byte counts',
         'TextRange is in UTF-16 code units. Mixing in byte offsets '
-            'produces silently wrong ranges around emoji and CJK ideographs.',
+        'produces silently wrong ranges around emoji and CJK ideographs.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID assuming spans never overlap',
         'Most engines emit non-overlapping spans, but the type does not '
-            'enforce that. Defensive renderers should sort and merge before '
-            'painting.',
+        'enforce that. Defensive renderers should sort and merge before '
+        'painting.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID dropping suggestion order',
         'Equality is order-sensitive, and so is user expectation. Do '
-            'not sort suggestions alphabetically when surfacing them.',
+        'not sort suggestions alphabetically when surfacing them.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID using SuggestionSpan for non-spelling annotations',
         'It is a spell-check transport type. For grammar, style, or '
-            'inline notes, build your own annotation type rather than '
-            'overloading this one.',
+        'inline notes, build your own annotation type rather than '
+        'overloading this one.',
         isDo: false,
       ),
     ],
@@ -1653,24 +1681,28 @@ dynamic build(BuildContext context) {
   final Widget section10 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('10', 'Failure modes and edge cases', accent: cTerracotta),
+      _sectionHeader('10', 'Failure modes and edge cases',
+          accent: cTerracotta),
       _proseBlock(
         'A SuggestionSpan is small enough that the failure modes around '
         'it are mostly about how it is used, not about the type itself. '
         'Below are the patterns that bite real teams in production.',
       ),
-      _bulletList(<String>[
-        'Off-by-one ranges when computing offsets from byte counts.',
-        'Stale spans applied to text that has changed since the fetch.',
-        'Squiggles drawn outside the visible region after a scroll.',
-        'Suggestion popover anchored to the wrong rect after a wrap.',
-        'Equality-by-list comparing two lists of different identities.',
-        'Locale mismatches between the editor and the spell-check engine.',
-        'Duplicate suggestions from engines that aggregate dictionaries.',
-        'Empty suggestions surfaced as an empty popover with no help text.',
-        'Engine timeouts producing no spans even on misspelled words.',
-        'Spans crossing word boundaries due to engine tokenisation bugs.',
-      ], dot: cTerracotta),
+      _bulletList(
+        <String>[
+          'Off-by-one ranges when computing offsets from byte counts.',
+          'Stale spans applied to text that has changed since the fetch.',
+          'Squiggles drawn outside the visible region after a scroll.',
+          'Suggestion popover anchored to the wrong rect after a wrap.',
+          'Equality-by-list comparing two lists of different identities.',
+          'Locale mismatches between the editor and the spell-check engine.',
+          'Duplicate suggestions from engines that aggregate dictionaries.',
+          'Empty suggestions surfaced as an empty popover with no help text.',
+          'Engine timeouts producing no spans even on misspelled words.',
+          'Spans crossing word boundaries due to engine tokenisation bugs.',
+        ],
+        dot: cTerracotta,
+      ),
       _proseBlock(
         'Mitigation strategy: treat every span as advisory. Render it '
         'when the underlying text matches the snapshot the engine saw. '
@@ -1713,28 +1745,19 @@ dynamic build(BuildContext context) {
             _kvRow('iOS engine', 'UITextChecker via DefaultSpellCheckService'),
             _kvRow('iOS span order', 'left-to-right, deduplicated by engine'),
             _kvRow('iOS suggestion count', 'typically 3-5 per span'),
-            _kvRow(
-              'Android engine',
-              'Platform spell-checker session via SpellCheckerService',
-            ),
-            _kvRow(
-              'Android span order',
-              'left-to-right, may contain overlaps after dictionary merge',
-            ),
+            _kvRow('Android engine',
+                'Platform spell-checker session via SpellCheckerService'),
+            _kvRow('Android span order',
+                'left-to-right, may contain overlaps after dictionary merge'),
             _kvRow('Android suggestion count', 'typically 1-5 per span'),
-            _kvRow(
-              'Web engine',
-              'No default; supply a custom SpellCheckService or disable',
-            ),
-            _kvRow('Desktop engine', 'No default; same story as web'),
-            _kvRow(
-              'Locale source',
-              'TextField.spellCheckConfiguration.spellCheckSuggestionsToolbarBuilder',
-            ),
-            _kvRow(
-              'Async contract',
-              'fetchSpellCheckSuggestions returns Future<SpellCheckResults?>',
-            ),
+            _kvRow('Web engine',
+                'No default; supply a custom SpellCheckService or disable'),
+            _kvRow('Desktop engine',
+                'No default; same story as web'),
+            _kvRow('Locale source',
+                'TextField.spellCheckConfiguration.spellCheckSuggestionsToolbarBuilder'),
+            _kvRow('Async contract',
+                'fetchSpellCheckSuggestions returns Future<SpellCheckResults?>'),
           ],
         ),
       ),
@@ -1763,55 +1786,55 @@ dynamic build(BuildContext context) {
       _codeCard(
         'Recipe T1: equality and hashCode',
         'test(\'value-based equality\', () {\n'
-            '  const a = SuggestionSpan(\n'
-            '    TextRange(start: 0, end: 4),\n'
-            '    <String>[\'this\', \'thus\'],\n'
-            '  );\n'
-            '  const b = SuggestionSpan(\n'
-            '    TextRange(start: 0, end: 4),\n'
-            '    <String>[\'this\', \'thus\'],\n'
-            '  );\n'
-            '  expect(a, equals(b));\n'
-            '  expect(a.hashCode, equals(b.hashCode));\n'
-            '});',
+        '  const a = SuggestionSpan(\n'
+        '    TextRange(start: 0, end: 4),\n'
+        '    <String>[\'this\', \'thus\'],\n'
+        '  );\n'
+        '  const b = SuggestionSpan(\n'
+        '    TextRange(start: 0, end: 4),\n'
+        '    <String>[\'this\', \'thus\'],\n'
+        '  );\n'
+        '  expect(a, equals(b));\n'
+        '  expect(a.hashCode, equals(b.hashCode));\n'
+        '});',
         accent: cTangerine,
       ),
       _codeCard(
         'Recipe T2: round-trip through SpellCheckResults',
         'test(\'round-trip\', () {\n'
-            '  final span = SuggestionSpan(\n'
-            '    TextRange(start: 0, end: 4),\n'
-            '    <String>[\'this\'],\n'
-            '  );\n'
-            '  final results = SpellCheckResults(\'this is text\', [span]);\n'
-            '  expect(results.suggestionSpans.first, span);\n'
-            '});',
+        '  final span = SuggestionSpan(\n'
+        '    TextRange(start: 0, end: 4),\n'
+        '    <String>[\'this\'],\n'
+        '  );\n'
+        '  final results = SpellCheckResults(\'this is text\', [span]);\n'
+        '  expect(results.suggestionSpans.first, span);\n'
+        '});',
         accent: cMarigoldRind,
       ),
       _codeCard(
         'Recipe T3: stale-results detection',
         'bool isStale(SpellCheckResults r, String currentText) {\n'
-            '  return r.spellCheckedText != currentText;\n'
-            '}\n\n'
-            'test(\'detects staleness\', () {\n'
-            '  final r = SpellCheckResults(\'old\', <SuggestionSpan>[]);\n'
-            '  expect(isStale(r, \'new\'), isTrue);\n'
-            '});',
+        '  return r.spellCheckedText != currentText;\n'
+        '}\n\n'
+        'test(\'detects staleness\', () {\n'
+        '  final r = SpellCheckResults(\'old\', <SuggestionSpan>[]);\n'
+        '  expect(isStale(r, \'new\'), isTrue);\n'
+        '});',
         accent: cSageProof,
       ),
       _codeCard(
         'Recipe T4: replacement using span.range',
         'String applyChoice(\n'
-            '  String text,\n'
-            '  SuggestionSpan span,\n'
-            '  String choice,\n'
-            ') {\n'
-            '  return text.replaceRange(\n'
-            '    span.range.start,\n'
-            '    span.range.end,\n'
-            '    choice,\n'
-            '  );\n'
-            '}',
+        '  String text,\n'
+        '  SuggestionSpan span,\n'
+        '  String choice,\n'
+        ') {\n'
+        '  return text.replaceRange(\n'
+        '    span.range.start,\n'
+        '    span.range.end,\n'
+        '    choice,\n'
+        '  );\n'
+        '}',
         accent: cPlumMargin,
       ),
       _marginNote(
@@ -1831,81 +1854,51 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       _sectionHeader('13', 'Glossary', accent: cMarigoldRind),
-      _glossaryItem(
-        'SuggestionSpan',
-        'Pair of (TextRange, List<String>) describing one misspelling '
-            'and the engine\'s candidate corrections.',
-      ),
-      _glossaryItem(
-        'SpellCheckResults',
-        'Envelope of (String spellCheckedText, List<SuggestionSpan> '
-            'suggestionSpans) returned by a SpellCheckService.',
-      ),
-      _glossaryItem(
-        'SpellCheckService',
-        'Abstract interface with fetchSpellCheckSuggestions(Locale, '
-            'String) => Future<SpellCheckResults?>.',
-      ),
-      _glossaryItem(
-        'DefaultSpellCheckService',
-        'Concrete service that bridges to UITextChecker on iOS and to '
-            'the platform spell-checker session on Android.',
-      ),
-      _glossaryItem(
-        'SpellCheckConfiguration',
-        'Configuration object on TextField that turns spell-check on '
-            'and supplies the toolbar builder.',
-      ),
-      _glossaryItem(
-        'SpellCheckSuggestionsToolbar',
-        'Built-in popover-style toolbar that consumes SuggestionSpan '
-            'data and surfaces suggestions to the user.',
-      ),
-      _glossaryItem(
-        'TextRange',
-        'Half-open [start, end) interval of UTF-16 code units inside a '
-            'String, used by SuggestionSpan and the selection model.',
-      ),
-      _glossaryItem(
-        'TextEditingController',
-        'Mutable holder of the editing text and selection. Replacing '
-            'the text using SuggestionSpan ranges is the common use case.',
-      ),
-      _glossaryItem(
-        'EditableText',
-        'Workhorse widget under TextField. Reads SuggestionSpan lists '
-            'from results and paints squiggles plus the popover.',
-      ),
-      _glossaryItem(
-        'Squiggle',
-        'Wavy underline drawn beneath a misspelled span. Colour and '
-            'thickness are theme-driven.',
-      ),
-      _glossaryItem(
-        'Confidence order',
-        'Convention that the first element of suggestions is the most '
-            'likely intended spelling.',
-      ),
-      _glossaryItem(
-        'Stale result',
-        'Spell-check result whose spellCheckedText no longer matches '
-            'the current controller value; safely discarded.',
-      ),
-      _glossaryItem(
-        'Surrogate pair',
-        'Two UTF-16 code units that together encode one Unicode code '
-            'point. Common in emoji and certain CJK ideographs.',
-      ),
-      _glossaryItem(
-        'Half-open interval',
-        'Interval that includes the start but excludes the end. The '
-            'standard convention for text ranges in Flutter.',
-      ),
-      _glossaryItem(
-        'Quill',
-        'A feathered writing instrument; here, a metonym for the '
-            'proofreader\'s desk that gives the demo its theme.',
-      ),
+      _glossaryItem('SuggestionSpan',
+          'Pair of (TextRange, List<String>) describing one misspelling '
+          'and the engine\'s candidate corrections.'),
+      _glossaryItem('SpellCheckResults',
+          'Envelope of (String spellCheckedText, List<SuggestionSpan> '
+          'suggestionSpans) returned by a SpellCheckService.'),
+      _glossaryItem('SpellCheckService',
+          'Abstract interface with fetchSpellCheckSuggestions(Locale, '
+          'String) => Future<SpellCheckResults?>.'),
+      _glossaryItem('DefaultSpellCheckService',
+          'Concrete service that bridges to UITextChecker on iOS and to '
+          'the platform spell-checker session on Android.'),
+      _glossaryItem('SpellCheckConfiguration',
+          'Configuration object on TextField that turns spell-check on '
+          'and supplies the toolbar builder.'),
+      _glossaryItem('SpellCheckSuggestionsToolbar',
+          'Built-in popover-style toolbar that consumes SuggestionSpan '
+          'data and surfaces suggestions to the user.'),
+      _glossaryItem('TextRange',
+          'Half-open [start, end) interval of UTF-16 code units inside a '
+          'String, used by SuggestionSpan and the selection model.'),
+      _glossaryItem('TextEditingController',
+          'Mutable holder of the editing text and selection. Replacing '
+          'the text using SuggestionSpan ranges is the common use case.'),
+      _glossaryItem('EditableText',
+          'Workhorse widget under TextField. Reads SuggestionSpan lists '
+          'from results and paints squiggles plus the popover.'),
+      _glossaryItem('Squiggle',
+          'Wavy underline drawn beneath a misspelled span. Colour and '
+          'thickness are theme-driven.'),
+      _glossaryItem('Confidence order',
+          'Convention that the first element of suggestions is the most '
+          'likely intended spelling.'),
+      _glossaryItem('Stale result',
+          'Spell-check result whose spellCheckedText no longer matches '
+          'the current controller value; safely discarded.'),
+      _glossaryItem('Surrogate pair',
+          'Two UTF-16 code units that together encode one Unicode code '
+          'point. Common in emoji and certain CJK ideographs.'),
+      _glossaryItem('Half-open interval',
+          'Interval that includes the start but excludes the end. The '
+          'standard convention for text ranges in Flutter.'),
+      _glossaryItem('Quill',
+          'A feathered writing instrument; here, a metonym for the '
+          'proofreader\'s desk that gives the demo its theme.'),
     ],
   );
 
@@ -1943,20 +1936,26 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 10),
-        _bulletList(<String>[
-          'Two final fields: TextRange range, List<String> suggestions.',
-          'Const constructor; positional arguments; no factories.',
-          'Value-based equality, order-sensitive on suggestions.',
-          'Produced by SpellCheckService; consumed by EditableText.',
-          'Travels inside SpellCheckResults alongside the original String.',
-          'Suggestions are listed in engine confidence order.',
-          'Empty suggestion lists are legal and meaningful.',
-          'Always validate against the current text before applying a fix.',
-        ], dot: cMarigoldRind),
+        _bulletList(
+          <String>[
+            'Two final fields: TextRange range, List<String> suggestions.',
+            'Const constructor; positional arguments; no factories.',
+            'Value-based equality, order-sensitive on suggestions.',
+            'Produced by SpellCheckService; consumed by EditableText.',
+            'Travels inside SpellCheckResults alongside the original String.',
+            'Suggestions are listed in engine confidence order.',
+            'Empty suggestion lists are legal and meaningful.',
+            'Always validate against the current text before applying a fix.',
+          ],
+          dot: cMarigoldRind,
+        ),
         const SizedBox(height: 12),
         Text(
           'Quill Tangerine almanac complete.',
-          style: TextStyle(color: cTangerineSoft, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: cTangerineSoft,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -1997,37 +1996,28 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 10),
-        Text('s1Span.range            = ${s1Span.range}', style: _codeStyle()),
+        Text('s1Span.range            = ${s1Span.range}',
+            style: _codeStyle()),
+        Text('s1Span.suggestions      = ${s1Span.suggestions}',
+            style: _codeStyle()),
+        Text('s2Span.range            = ${s2Span.range}',
+            style: _codeStyle()),
+        Text('s4Span.suggestions[0]   = "${s4Span.suggestions[0]}"',
+            style: _codeStyle()),
+        Text('s7Span.suggestions.length = ${s7Span.suggestions.length}',
+            style: _codeStyle()),
+        Text('s9Span.suggestions.isEmpty = ${s9Span.suggestions.isEmpty}',
+            style: _codeStyle()),
+        Text('eqA == eqB              = ${eqA == eqB}',
+            style: _codeStyle()),
+        Text('identical(eqA, eqB)     = ${identical(eqA, eqB)}',
+            style: _codeStyle()),
         Text(
-          's1Span.suggestions      = ${s1Span.suggestions}',
-          style: _codeStyle(),
-        ),
-        Text('s2Span.range            = ${s2Span.range}', style: _codeStyle()),
+            'sampleResults.spellCheckedText.length = ${sampleResults.spellCheckedText.length}',
+            style: _codeStyle()),
         Text(
-          's4Span.suggestions[0]   = "${s4Span.suggestions[0]}"',
-          style: _codeStyle(),
-        ),
-        Text(
-          's7Span.suggestions.length = ${s7Span.suggestions.length}',
-          style: _codeStyle(),
-        ),
-        Text(
-          's9Span.suggestions.isEmpty = ${s9Span.suggestions.isEmpty}',
-          style: _codeStyle(),
-        ),
-        Text('eqA == eqB              = ${eqA == eqB}', style: _codeStyle()),
-        Text(
-          'identical(eqA, eqB)     = ${identical(eqA, eqB)}',
-          style: _codeStyle(),
-        ),
-        Text(
-          'sampleResults.spellCheckedText.length = ${sampleResults.spellCheckedText.length}',
-          style: _codeStyle(),
-        ),
-        Text(
-          'sampleResults.suggestionSpans.length  = ${sampleResults.suggestionSpans.length}',
-          style: _codeStyle(),
-        ),
+            'sampleResults.suggestionSpans.length  = ${sampleResults.suggestionSpans.length}',
+            style: _codeStyle()),
       ],
     ),
   );

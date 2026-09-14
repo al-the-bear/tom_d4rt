@@ -124,7 +124,11 @@ dynamic build(BuildContext context) {
     child: DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF455A64), Color(0xFF37474F), Color(0xFF263238)],
+          colors: [
+            Color(0xFF455A64),
+            Color(0xFF37474F),
+            Color(0xFF263238),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -144,7 +148,11 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(Icons.power_off_outlined, size: 56.0, color: Colors.white),
+                Icon(
+                  Icons.power_off_outlined,
+                  size: 56.0,
+                  color: Colors.white,
+                ),
                 SizedBox(width: 16.0),
                 Expanded(
                   child: Column(
@@ -179,7 +187,10 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 10.0,
+                ),
                 child: Text(
                   'Fired when a pointing device leaves the realm of the '
                   'framework — a mouse unplugged, a stylus uncradled, a '
@@ -468,7 +479,11 @@ dynamic build(BuildContext context) {
                   foreground: Color(0xFF263238),
                 ),
                 SizedBox(width: 6.0),
-                Icon(Icons.arrow_forward, size: 18.0, color: Color(0xFF455A64)),
+                Icon(
+                  Icons.arrow_forward,
+                  size: 18.0,
+                  color: Color(0xFF455A64),
+                ),
                 SizedBox(width: 6.0),
                 AnatomyBox(
                   label: 'PointerRemovedEvent',
@@ -905,7 +920,7 @@ dynamic build(BuildContext context) {
             'Clear hover decorations keyed by pointer id.',
             'Remove velocity trackers from your own gesture map.',
             'Forget last-known position so a reused pointer id is '
-                'not treated as a continuation.',
+            'not treated as a continuation.',
           ],
         ),
         HandlingPanel(
@@ -914,7 +929,7 @@ dynamic build(BuildContext context) {
           bullets: [
             'Free overlay layers used to draw a custom cursor.',
             'Drop offscreen surfaces backing per-pointer trails or '
-                'pressure-sensitive ink strokes.',
+            'pressure-sensitive ink strokes.',
             'Cancel any pointer-bound shader compilation jobs.',
           ],
         ),
@@ -923,9 +938,9 @@ dynamic build(BuildContext context) {
           title: 'Drop in-flight gesture recognisers',
           bullets: [
             'Treat the gesture as cancelled, not completed: do not '
-                'fire onTap or onDragEnd.',
+            'fire onTap or onDragEnd.',
             'Reject the recogniser via the gesture arena so siblings '
-                'can win.',
+            'can win.',
             'Restore visual state to the pre-gesture baseline.',
           ],
         ),
@@ -1027,7 +1042,11 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Icon(Icons.flag_outlined, size: 24.0, color: Colors.white),
+              Icon(
+                Icons.flag_outlined,
+                size: 24.0,
+                color: Colors.white,
+              ),
               SizedBox(width: 10.0),
               Text(
                 'Takeaways',
@@ -1137,7 +1156,10 @@ class LifecyclePill extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 2.0),
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12.0,
+        vertical: 8.0,
+      ),
       decoration: BoxDecoration(
         color: background,
         borderRadius: const BorderRadius.all(Radius.circular(20.0)),
@@ -1182,7 +1204,11 @@ class PillChevron extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 2.0),
-      child: Icon(Icons.chevron_right, size: 18.0, color: Color(0xFF607D8B)),
+      child: Icon(
+        Icons.chevron_right,
+        size: 18.0,
+        color: Color(0xFF607D8B),
+      ),
     );
   }
 }
@@ -1354,7 +1380,11 @@ class FieldCard extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
-                  child: Icon(icon, size: 18.0, color: const Color(0xFF263238)),
+                  child: Icon(
+                    icon,
+                    size: 18.0,
+                    color: const Color(0xFF263238),
+                  ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(

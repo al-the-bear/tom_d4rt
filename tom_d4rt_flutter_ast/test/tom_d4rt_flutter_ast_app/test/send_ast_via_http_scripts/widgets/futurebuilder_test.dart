@@ -27,10 +27,7 @@ const User kDemoUser = User('Ada Lovelace', 36, 'Mathematician');
 // It branches on connectionState/hasError/hasData, exactly the
 // way the FutureBuilder docs recommend.
 // ============================================================
-Widget _canonicalBuilder(
-  BuildContext context,
-  AsyncSnapshot<dynamic> snapshot,
-) {
+Widget _canonicalBuilder(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
   if (snapshot.hasError) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -108,7 +105,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF0D3B66), Color(0xFF0E6BA8), Color(0xFF1B998B)],
+        colors: [
+          Color(0xFF0D3B66),
+          Color(0xFF0E6BA8),
+          Color(0xFF1B998B),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -252,7 +253,9 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        Center(child: _buildAnatomyNode('Widget', Icons.widgets, Colors.green)),
+        Center(
+          child: _buildAnatomyNode('Widget', Icons.widgets, Colors.green),
+        ),
         SizedBox(height: 16.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -351,7 +354,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.shade50, color.shade100],
+            colors: [
+              color.shade50,
+              color.shade100,
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -389,7 +395,10 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               entry['desc'] as String,
-              style: TextStyle(fontSize: 11.0, color: Colors.blueGrey.shade800),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.blueGrey.shade800,
+              ),
             ),
             SizedBox(height: 10.0),
             Container(
@@ -433,14 +442,10 @@ dynamic build(BuildContext context) {
     },
     {
       'type': 'List<int>',
-      'snapshot': AsyncSnapshot<List<int>>.withData(ConnectionState.done, <int>[
-        1,
-        2,
-        3,
-        5,
-        8,
-        13,
-      ]),
+      'snapshot': AsyncSnapshot<List<int>>.withData(
+        ConnectionState.done,
+        <int>[1, 2, 3, 5, 8, 13],
+      ),
       'color': Colors.deepPurple,
       'icon': Icons.format_list_numbered,
     },
@@ -455,7 +460,10 @@ dynamic build(BuildContext context) {
     },
     {
       'type': 'User',
-      'snapshot': AsyncSnapshot<User>.withData(ConnectionState.done, kDemoUser),
+      'snapshot': AsyncSnapshot<User>.withData(
+        ConnectionState.done,
+        kDemoUser,
+      ),
       'color': Colors.green,
       'icon': Icons.person,
     },
@@ -603,7 +611,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(e['icon'] as IconData, color: Colors.red.shade700, size: 28.0),
+            Icon(
+              e['icon'] as IconData,
+              color: Colors.red.shade700,
+              size: 28.0,
+            ),
             SizedBox(width: 10.0),
             Expanded(
               child: Column(
@@ -778,7 +790,10 @@ dynamic build(BuildContext context) {
           height: 100.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blueGrey.shade100, Colors.blueGrey.shade300],
+              colors: [
+                Colors.blueGrey.shade100,
+                Colors.blueGrey.shade300,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -791,12 +806,16 @@ dynamic build(BuildContext context) {
                     children: [
                       CircularProgressIndicator(
                         strokeWidth: 2.5,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                       SizedBox(height: 6.0),
                       Text(
                         'loading image…',
-                        style: TextStyle(color: Colors.white, fontSize: 11.0),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11.0,
+                        ),
                       ),
                     ],
                   )
@@ -894,7 +913,10 @@ dynamic build(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 10.0,
+              ),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Colors.teal.shade400, Colors.teal.shade700],
@@ -988,19 +1010,10 @@ dynamic build(BuildContext context) {
         _buildComparisonRow('source', 'Future<T>', 'Stream<T>', 'Listenable'),
         _buildComparisonRow('emits', 'one value', 'many values', 'one value'),
         _buildComparisonRow('snapshot', 'AsyncSnapshot', 'AsyncSnapshot', 'T'),
-        _buildComparisonRow(
-          'errors',
-          'snapshot.error',
-          'snapshot.error',
-          'n/a',
-        ),
+        _buildComparisonRow('errors', 'snapshot.error', 'snapshot.error', 'n/a'),
         _buildComparisonRow('initial', 'initialData', 'initialData', 'value'),
-        _buildComparisonRow(
-          'rebuild',
-          'on completion',
-          'on each event',
-          'on notify',
-        ),
+        _buildComparisonRow('rebuild', 'on completion', 'on each event',
+            'on notify'),
       ],
     ),
   );
@@ -1016,8 +1029,8 @@ dynamic build(BuildContext context) {
       'title': 'Re-creating the future in build()',
       'desc':
           'Calling fetch() inline inside build() creates a new Future each\n'
-          'rebuild, retriggering the entire chain. Hoist the future to\n'
-          'a State field or initState.',
+              'rebuild, retriggering the entire chain. Hoist the future to\n'
+              'a State field or initState.',
       'icon': Icons.loop,
       'color': Colors.red,
     },
@@ -1025,7 +1038,7 @@ dynamic build(BuildContext context) {
       'title': 'No memoisation, parent rebuilds',
       'desc':
           'If the parent rebuilds, FutureBuilder receives a new builder/\n'
-          'future and may flash a spinner. Cache the future once.',
+              'future and may flash a spinner. Cache the future once.',
       'icon': Icons.cached,
       'color': Colors.orange,
     },
@@ -1033,7 +1046,7 @@ dynamic build(BuildContext context) {
       'title': 'Treating snapshot.data as non-null',
       'desc':
           'snapshot.data is T?, not T. Always guard with hasData or\n'
-          'connectionState == done before using ! or .data!.field.',
+              'connectionState == done before using ! or .data!.field.',
       'icon': Icons.dangerous,
       'color': Colors.deepOrange,
     },
@@ -1041,7 +1054,7 @@ dynamic build(BuildContext context) {
       'title': 'Ignoring stack traces',
       'desc':
           'snapshot.stackTrace is often dropped. Log it next to error\n'
-          'so production crashes are debuggable.',
+              'so production crashes are debuggable.',
       'icon': Icons.bug_report,
       'color': Colors.purple,
     },
@@ -1049,8 +1062,8 @@ dynamic build(BuildContext context) {
       'title': 'Disposed widget, orphan snapshot',
       'desc':
           'If the widget unmounts mid-flight, FutureBuilder ignores the\n'
-          'callback safely — but your own setState in side-channels\n'
-          'must still check `mounted`.',
+              'callback safely — but your own setState in side-channels\n'
+              'must still check `mounted`.',
       'icon': Icons.link_off,
       'color': Colors.blueGrey,
     },
@@ -1132,7 +1145,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF0D3B66), Color(0xFF1B998B)],
+        colors: [
+          Color(0xFF0D3B66),
+          Color(0xFF1B998B),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1209,7 +1225,10 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           // 3. ConnectionState gallery
-          _buildSectionHeader('2. ConnectionState Gallery', Icons.timeline),
+          _buildSectionHeader(
+            '2. ConnectionState Gallery',
+            Icons.timeline,
+          ),
           Wrap(alignment: WrapAlignment.center, children: stateGalleryCards),
           SizedBox(height: 24.0),
 
@@ -1276,7 +1295,9 @@ Widget _buildSectionHeader(String text, IconData icon) {
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: Color(0xFF0E6BA8), width: 4.0)),
+      border: Border(
+        left: BorderSide(color: Color(0xFF0E6BA8), width: 4.0),
+      ),
     ),
     child: Row(
       children: [
@@ -1402,7 +1423,12 @@ Widget _buildHeaderCell(String text, double width) {
 }
 
 // One row of the comparison table.
-Widget _buildComparisonRow(String aspect, String fb, String sb, String vlb) {
+Widget _buildComparisonRow(
+  String aspect,
+  String fb,
+  String sb,
+  String vlb,
+) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8.0),
     decoration: BoxDecoration(
@@ -1412,7 +1438,8 @@ Widget _buildComparisonRow(String aspect, String fb, String sb, String vlb) {
     ),
     child: Row(
       children: [
-        _buildBodyCell(aspect, 110.0, Colors.indigo.shade900, FontWeight.w600),
+        _buildBodyCell(aspect, 110.0, Colors.indigo.shade900,
+            FontWeight.w600),
         _buildBodyCell(fb, 100.0, Colors.indigo.shade700, FontWeight.normal),
         _buildBodyCell(sb, 100.0, Colors.teal.shade700, FontWeight.normal),
         _buildBodyCell(
@@ -1453,7 +1480,10 @@ Widget _buildSnapshotChips(AsyncSnapshot<dynamic> snap) {
     spacing: 4.0,
     runSpacing: 4.0,
     children: [
-      _buildChip('state=${snap.connectionState.name}', Colors.blue.shade700),
+      _buildChip(
+        'state=${snap.connectionState.name}',
+        Colors.blue.shade700,
+      ),
       _buildChip(
         'hasData=${snap.hasData}',
         snap.hasData ? Colors.green.shade700 : Colors.grey.shade600,
@@ -1561,7 +1591,9 @@ Widget _buildInitialDataCard({
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: accent.shade200),
           ),
-          child: Builder(builder: (BuildContext ctx) => builder(ctx, snap)),
+          child: Builder(
+            builder: (BuildContext ctx) => builder(ctx, snap),
+          ),
         ),
         SizedBox(height: 6.0),
         _buildSnapshotChips(snap),
@@ -1629,12 +1661,20 @@ Widget _buildRecapBullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.check_circle, color: Colors.tealAccent.shade100, size: 18.0),
+        Icon(
+          Icons.check_circle,
+          color: Colors.tealAccent.shade100,
+          size: 18.0,
+        ),
         SizedBox(width: 8.0),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.4),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13.0,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -1651,10 +1691,8 @@ String _inlineRepr(Object? data) {
     return '[$items]';
   }
   if (data is Map) {
-    final entries = data.entries
-        .take(4)
-        .map((e) => '${e.key}: ${e.value}')
-        .join(', ');
+    final entries =
+        data.entries.take(4).map((e) => '${e.key}: ${e.value}').join(', ');
     return '{$entries}';
   }
   return data.toString();

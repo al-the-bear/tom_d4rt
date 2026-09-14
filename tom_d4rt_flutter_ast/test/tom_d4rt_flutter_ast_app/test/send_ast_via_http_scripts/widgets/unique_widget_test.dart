@@ -16,8 +16,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.fingerprint,
       'title': 'What is UniqueWidget?',
-      'body':
-          'UniqueWidget is an abstract StatefulWidget that creates '
+      'body': 'UniqueWidget is an abstract StatefulWidget that creates '
           'and owns a GlobalKey. This key guarantees that only one '
           'instance of the widget exists in the widget tree at any '
           'time. If you try to insert two, Flutter throws.',
@@ -26,8 +25,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.vpn_key,
       'title': 'GlobalKey Mechanism',
-      'body':
-          'Each UniqueWidget subclass generates a GlobalKey tied '
+      'body': 'Each UniqueWidget subclass generates a GlobalKey tied '
           'to its State type. The framework uses this key to track '
           'the widget across builds and detect duplicates. The key '
           'is created once and reused across rebuilds.',
@@ -36,8 +34,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_horiz,
       'title': 'Reparenting',
-      'body':
-          'Because the widget has a GlobalKey, it can be moved '
+      'body': 'Because the widget has a GlobalKey, it can be moved '
           '(reparented) from one location in the tree to another '
           'without losing its state. The Element and State object '
           'travel with the key.',
@@ -46,8 +43,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Uniqueness Enforcement',
-      'body':
-          'Flutter\u0027s framework asserts that each GlobalKey appears '
+      'body': 'Flutter\u0027s framework asserts that each GlobalKey appears '
           'at most once. Inserting the same UniqueWidget in two places '
           'simultaneously causes a runtime error. This is by design '
           'to prevent ambiguous state references.',
@@ -126,48 +122,42 @@ dynamic build(BuildContext context) {
     {
       'name': 'UniqueWidget<T>',
       'type': 'abstract class',
-      'desc':
-          'An abstract StatefulWidget parameterized on its State type T. '
+      'desc': 'An abstract StatefulWidget parameterized on its State type T. '
           'Subclass this instead of StatefulWidget when you need a '
           'singleton widget with a persistent GlobalKey.',
     },
     {
       'name': 'key',
       'type': 'GlobalKey<T>',
-      'desc':
-          'Automatically created GlobalKey tied to the State type. '
+      'desc': 'Automatically created GlobalKey tied to the State type. '
           'This key is what makes the widget unique. You never pass '
           'a key to the constructor — it is generated internally.',
     },
     {
       'name': 'createState()',
       'type': 'T',
-      'desc':
-          'Returns the State object of type T. Same as regular '
+      'desc': 'Returns the State object of type T. Same as regular '
           'StatefulWidget but the State is guaranteed to persist '
           'across reparenting thanks to the GlobalKey.',
     },
     {
       'name': 'currentState',
       'type': 'T?',
-      'desc':
-          'Access the current State via key.currentState. Because '
+      'desc': 'Access the current State via key.currentState. Because '
           'UniqueWidget owns the GlobalKey, you can always reach '
           'the state from anywhere that has a reference to the widget.',
     },
     {
       'name': 'currentContext',
       'type': 'BuildContext?',
-      'desc':
-          'Access the current BuildContext via key.currentContext. '
+      'desc': 'Access the current BuildContext via key.currentContext. '
           'Returns null if the widget is not currently mounted in '
           'the tree. Useful for showing dialogs or overlays.',
     },
     {
       'name': 'currentWidget',
       'type': 'Widget?',
-      'desc':
-          'Access the current widget configuration via '
+      'desc': 'Access the current widget configuration via '
           'key.currentWidget. Returns the widget instance as it was '
           'last built by the framework.',
     },
@@ -256,8 +246,7 @@ dynamic build(BuildContext context) {
   final globalKeyTopics = <Map<String, dynamic>>[
     {
       'title': 'Key Identity',
-      'desc':
-          'A GlobalKey uniquely identifies an Element in the widget '
+      'desc': 'A GlobalKey uniquely identifies an Element in the widget '
           'tree. Unlike LocalKey (ValueKey, ObjectKey), it is unique '
           'across the entire tree, not just among siblings.',
       'icon': Icons.key,
@@ -265,8 +254,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Registration',
-      'desc':
-          'When a widget with a GlobalKey mounts, it registers in a '
+      'desc': 'When a widget with a GlobalKey mounts, it registers in a '
           'global table. If another widget tries to register with the '
           'same key, the framework throws a duplicate-key error.',
       'icon': Icons.app_registration,
@@ -274,8 +262,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'State Preservation',
-      'desc':
-          'GlobalKeys preserve state across reparenting. When a widget '
+      'desc': 'GlobalKeys preserve state across reparenting. When a widget '
           'moves from location A to B in the same build frame, the '
           'framework detaches the Element and reattaches it at B.',
       'icon': Icons.save,
@@ -283,8 +270,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Performance Cost',
-      'desc':
-          'Each GlobalKey adds overhead: global registration, '
+      'desc': 'Each GlobalKey adds overhead: global registration, '
           'deferred deactivation checks, and cross-tree lookups. '
           'Use sparingly — only when reparenting or external State '
           'access is genuinely needed.',
@@ -293,8 +279,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'vs ValueKey',
-      'desc':
-          'ValueKey identifies elements by a value and works within '
+      'desc': 'ValueKey identifies elements by a value and works within '
           'siblings. GlobalKey is across the entire tree. UniqueWidget '
           'uses GlobalKey because it needs tree-wide uniqueness.',
       'icon': Icons.compare_arrows,
@@ -326,7 +311,11 @@ dynamic build(BuildContext context) {
                   color: gkColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(gk['icon'] as IconData, color: gkColor, size: 20),
+                child: Icon(
+                  gk['icon'] as IconData,
+                  color: gkColor,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -369,8 +358,7 @@ dynamic build(BuildContext context) {
     {
       'scenario': 'Widget in One Place',
       'status': 'Valid',
-      'desc':
-          'The UniqueWidget exists at exactly one position in the '
+      'desc': 'The UniqueWidget exists at exactly one position in the '
           'tree. The GlobalKey is registered once. Everything works.',
       'visual': 'Tree: [A] \u2192 [B] \u2192 [UniqueWidget \u2714]',
       'statusColor': Colors.green,
@@ -378,19 +366,16 @@ dynamic build(BuildContext context) {
     {
       'scenario': 'Widget Moves',
       'status': 'Valid',
-      'desc':
-          'The widget is removed from position A and added to '
+      'desc': 'The widget is removed from position A and added to '
           'position B in the same build frame. The framework '
           'reparents the Element. State is preserved.',
-      'visual':
-          'Frame N: [A] \u2192 [UW]\nFrame N+1: [B] \u2192 [UW] (same State)',
+      'visual': 'Frame N: [A] \u2192 [UW]\nFrame N+1: [B] \u2192 [UW] (same State)',
       'statusColor': Colors.green,
     },
     {
       'scenario': 'Widget in Two Places',
       'status': 'Error',
-      'desc':
-          'Attempting to insert the widget at two positions in the '
+      'desc': 'Attempting to insert the widget at two positions in the '
           'same frame triggers a GlobalKey duplicate error. Flutter '
           'asserts the key appears at most once.',
       'visual': 'Tree: [A] \u2192 [UW] and [B] \u2192 [UW] \u2718 CRASH',
@@ -399,8 +384,7 @@ dynamic build(BuildContext context) {
     {
       'scenario': 'Widget Removed',
       'status': 'Valid',
-      'desc':
-          'When removed, the GlobalKey is unregistered. The State '
+      'desc': 'When removed, the GlobalKey is unregistered. The State '
           'goes through deactivate() and dispose(). The widget can '
           'later be reinserted, creating a fresh State.',
       'visual': 'Tree: [A] \u2192 [removed] \u2192 key unregistered',
@@ -497,8 +481,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Overlay Anchors',
-      'desc':
-          'A floating overlay panel that needs to persist its State '
+      'desc': 'A floating overlay panel that needs to persist its State '
           'as it moves between different locations in the tree. The '
           'UniqueWidget pattern lets you reparent the overlay while '
           'keeping its scroll position, animation state, and data.',
@@ -507,8 +490,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Draggable Tiles',
-      'desc':
-          'Dashboard tiles that can be dragged from one grid slot to '
+      'desc': 'Dashboard tiles that can be dragged from one grid slot to '
           'another. Each tile is a UniqueWidget so the State (form data, '
           'timers, scroll positions) survives the move between slots.',
       'icon': Icons.drag_indicator,
@@ -516,8 +498,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Focus Management',
-      'desc':
-          'A search field that appears in different parts of the UI '
+      'desc': 'A search field that appears in different parts of the UI '
           'depending on screen size. UniqueWidget ensures the focus '
           'state and text content persist across layout changes.',
       'icon': Icons.search,
@@ -525,8 +506,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Media Players',
-      'desc':
-          'A video player widget that can move between pip mode and '
+      'desc': 'A video player widget that can move between pip mode and '
           'full-screen without reinitializing the player. The State '
           'holds the playback position and buffered data.',
       'icon': Icons.play_circle,
@@ -534,8 +514,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Chat Bubbles',
-      'desc':
-          'A message composer that moves between conversation views. '
+      'desc': 'A message composer that moves between conversation views. '
           'The UniqueWidget retains the draft text, attachment state, '
           'and any pending animations without rebuilding.',
       'icon': Icons.chat,
@@ -567,7 +546,11 @@ dynamic build(BuildContext context) {
                   color: ucColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(uc['icon'] as IconData, color: ucColor, size: 22),
+                child: Icon(
+                  uc['icon'] as IconData,
+                  color: ucColor,
+                  size: 22,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -609,8 +592,7 @@ dynamic build(BuildContext context) {
   final reparentSteps = <Map<String, dynamic>>[
     {
       'step': '1. Widget at Position A',
-      'desc':
-          'The UniqueWidget is mounted at position A in the tree. '
+      'desc': 'The UniqueWidget is mounted at position A in the tree. '
           'Its GlobalKey is registered. The State is created and '
           'initState() has been called.',
       'icon': Icons.place,
@@ -618,8 +600,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Build Removes from A',
-      'desc':
-          'During a build, the widget is no longer at position A. '
+      'desc': 'During a build, the widget is no longer at position A. '
           'The framework marks the Element as potentially deactivated '
           'but does not dispose it yet.',
       'icon': Icons.remove_circle_outline,
@@ -627,8 +608,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Build Adds at Position B',
-      'desc':
-          'In the same build frame, the widget appears at position B. '
+      'desc': 'In the same build frame, the widget appears at position B. '
           'The framework finds the matching GlobalKey, detaches the '
           'Element from A, and reattaches it at B.',
       'icon': Icons.add_location,
@@ -636,8 +616,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. State Preserved',
-      'desc':
-          'The State object is the same instance. No dispose/initState '
+      'desc': 'The State object is the same instance. No dispose/initState '
           'cycle occurs. Only didChangeDependencies may fire if inherited '
           'widgets at B differ from those at A.',
       'icon': Icons.save,
@@ -645,8 +624,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Render Updated',
-      'desc':
-          'The RenderObject is re-inserted into the render tree at B\u0027s '
+      'desc': 'The RenderObject is re-inserted into the render tree at B\u0027s '
           'position. Layout and paint happen at the new location. '
           'The user sees the widget appear at B seamlessly.',
       'icon': Icons.brush,
@@ -673,7 +651,11 @@ dynamic build(BuildContext context) {
                     color: rsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(rs['icon'] as IconData, color: rsColor, size: 18),
+                  child: Icon(
+                    rs['icon'] as IconData,
+                    color: rsColor,
+                    size: 18,
+                  ),
                 ),
                 if (i < reparentSteps.length - 1)
                   Container(
@@ -796,7 +778,10 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Text(
                   f.value,
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade800),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.grey.shade800,
+                  ),
                 ),
               ),
             ],
@@ -818,7 +803,10 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 3,
+              ),
               decoration: BoxDecoration(
                 color: compColor.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(6),
@@ -848,38 +836,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.fingerprint,
-      'text':
-          'UniqueWidget is an abstract StatefulWidget with an '
+      'text': 'UniqueWidget is an abstract StatefulWidget with an '
           'auto-created GlobalKey ensuring tree-wide uniqueness.',
     },
     {
       'icon': Icons.vpn_key,
-      'text':
-          'The GlobalKey registers the widget globally. Inserting '
+      'text': 'The GlobalKey registers the widget globally. Inserting '
           'two instances simultaneously causes a runtime error.',
     },
     {
       'icon': Icons.swap_horiz,
-      'text':
-          'Reparenting is the primary use case: move the widget '
+      'text': 'Reparenting is the primary use case: move the widget '
           'between tree locations without losing State.',
     },
     {
       'icon': Icons.access_time,
-      'text':
-          'No dispose/initState cycle on reparent. Only '
+      'text': 'No dispose/initState cycle on reparent. Only '
           'didChangeDependencies may fire at the new location.',
     },
     {
       'icon': Icons.find_in_page,
-      'text':
-          'key.currentState, key.currentContext, and '
+      'text': 'key.currentState, key.currentContext, and '
           'key.currentWidget provide external access to internals.',
     },
     {
       'icon': Icons.warning_amber,
-      'text':
-          'Use sparingly. GlobalKeys have overhead. Prefer ValueKey '
+      'text': 'Use sparingly. GlobalKeys have overhead. Prefer ValueKey '
           'or ObjectKey when tree-wide identity is not needed.',
     },
   ];

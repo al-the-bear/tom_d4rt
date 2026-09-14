@@ -39,33 +39,33 @@ import 'package:flutter/foundation.dart';
 // Palette and typography tokens
 // ---------------------------------------------------------------------
 
-const Color _kSurface = Color(0xFFF8F7F4);
-const Color _kCard = Color(0xFFFFFFFF);
-const Color _kCardAlt = Color(0xFFFDFCF8);
-const Color _kInk = Color(0xFF1B1B1F);
-const Color _kInkSoft = Color(0xFF4A4A52);
-const Color _kInkMuted = Color(0xFF8A8A93);
-const Color _kDivider = Color(0xFFE7E4DC);
-const Color _kAccent = Color(0xFF2F6FED);
-const Color _kAccentSoft = Color(0xFFD9E4FB);
-const Color _kAccentDark = Color(0xFF173E91);
-const Color _kTeal = Color(0xFF0E9488);
-const Color _kTealSoft = Color(0xFFCFEAE6);
-const Color _kAmber = Color(0xFFD97706);
-const Color _kAmberSoft = Color(0xFFFCE8C8);
-const Color _kRose = Color(0xFFE11D48);
-const Color _kRoseSoft = Color(0xFFFBD5DD);
-const Color _kEmerald = Color(0xFF059669);
-const Color _kEmeraldSoft = Color(0xFFCDF1E1);
-const Color _kViolet = Color(0xFF7C3AED);
-const Color _kVioletSoft = Color(0xFFE4D7FC);
-const Color _kSlate = Color(0xFF334155);
-const Color _kSlateSoft = Color(0xFFDCE3EE);
-const Color _kDark = Color(0xFF0F172A);
-const Color _kDarkCard = Color(0xFF1E293B);
-const Color _kDarkInk = Color(0xFFE2E8F0);
-const Color _kDarkInkSoft = Color(0xFF94A3B8);
-const Color _kDarkDivider = Color(0xFF334155);
+const Color _kSurface       = Color(0xFFF8F7F4);
+const Color _kCard          = Color(0xFFFFFFFF);
+const Color _kCardAlt       = Color(0xFFFDFCF8);
+const Color _kInk           = Color(0xFF1B1B1F);
+const Color _kInkSoft       = Color(0xFF4A4A52);
+const Color _kInkMuted      = Color(0xFF8A8A93);
+const Color _kDivider       = Color(0xFFE7E4DC);
+const Color _kAccent        = Color(0xFF2F6FED);
+const Color _kAccentSoft    = Color(0xFFD9E4FB);
+const Color _kAccentDark    = Color(0xFF173E91);
+const Color _kTeal          = Color(0xFF0E9488);
+const Color _kTealSoft      = Color(0xFFCFEAE6);
+const Color _kAmber         = Color(0xFFD97706);
+const Color _kAmberSoft     = Color(0xFFFCE8C8);
+const Color _kRose          = Color(0xFFE11D48);
+const Color _kRoseSoft      = Color(0xFFFBD5DD);
+const Color _kEmerald       = Color(0xFF059669);
+const Color _kEmeraldSoft   = Color(0xFFCDF1E1);
+const Color _kViolet        = Color(0xFF7C3AED);
+const Color _kVioletSoft    = Color(0xFFE4D7FC);
+const Color _kSlate         = Color(0xFF334155);
+const Color _kSlateSoft     = Color(0xFFDCE3EE);
+const Color _kDark          = Color(0xFF0F172A);
+const Color _kDarkCard      = Color(0xFF1E293B);
+const Color _kDarkInk       = Color(0xFFE2E8F0);
+const Color _kDarkInkSoft   = Color(0xFF94A3B8);
+const Color _kDarkDivider   = Color(0xFF334155);
 
 const String _kMono = 'monospace';
 
@@ -266,9 +266,7 @@ class _Card extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: _kDivider)),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             ),
             child: Row(
               children: <Widget>[
@@ -306,11 +304,15 @@ class _Card extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (tag != null) _Pill(label: tag!, color: accent),
+                if (tag != null)
+                  _Pill(label: tag!, color: accent),
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.all(14), child: child),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: child,
+          ),
         ],
       ),
     );
@@ -355,7 +357,10 @@ class _Bullet extends StatelessWidget {
             child: Container(
               width: 6,
               height: 6,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: color,
+              ),
             ),
           ),
           Expanded(
@@ -428,7 +433,11 @@ class _KeyValueRow extends StatelessWidget {
           Expanded(
             child: Text(
               v,
-              style: const TextStyle(fontSize: 12, color: _kInk, height: 1.45),
+              style: const TextStyle(
+                fontSize: 12,
+                color: _kInk,
+                height: 1.45,
+              ),
             ),
           ),
         ],
@@ -574,14 +583,13 @@ class _SampleContent extends StatelessWidget {
               Expanded(
                 child: Text(
                   'row item #$i — sample scrollable content',
-                  style: const TextStyle(fontSize: 13, color: _kInk),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: _kInk,
+                  ),
                 ),
               ),
-              Icon(
-                Icons.chevron_right,
-                color: color.withValues(alpha: 0.6),
-                size: 18,
-              ),
+              Icon(Icons.chevron_right, color: color.withValues(alpha: 0.6), size: 18),
             ],
           ),
         );
@@ -637,9 +645,7 @@ class _DossierSection extends StatelessWidget {
                 ')',
               ),
               const SizedBox(height: 10),
-              const _Bullet(
-                'Always pair an explicit controller with the inner Scrollable when using thumbVisibility.',
-              ),
+              const _Bullet('Always pair an explicit controller with the inner Scrollable when using thumbVisibility.'),
               const _Bullet('On desktop/web the thumb is interactive (drag).'),
               const _Bullet('On mobile the thumb fades after scroll ends.'),
             ],
@@ -672,9 +678,7 @@ class _DossierSection extends StatelessWidget {
                 ')',
               ),
               const SizedBox(height: 10),
-              const _Bullet(
-                'Exposes every knob the Material/Cupertino wrappers hide.',
-              ),
+              const _Bullet('Exposes every knob the Material/Cupertino wrappers hide.'),
               const _Bullet('Subclass it for custom paint logic when needed.'),
             ],
           ),
@@ -707,12 +711,8 @@ class _DossierSection extends StatelessWidget {
                 ')',
               ),
               const SizedBox(height: 10),
-              const _Bullet(
-                'Most properties are WidgetStateProperty so they react to hover/drag.',
-              ),
-              const _Bullet(
-                'Apply at app level via ThemeData.scrollbarTheme for consistent style.',
-              ),
+              const _Bullet('Most properties are WidgetStateProperty so they react to hover/drag.'),
+              const _Bullet('Apply at app level via ThemeData.scrollbarTheme for consistent style.'),
             ],
           ),
         ),
@@ -734,9 +734,7 @@ class _DossierSection extends StatelessWidget {
               SizedBox(height: 10),
               _Bullet('left/right are valid for vertical scrolls only.'),
               _Bullet('top/bottom are valid for horizontal scrolls only.'),
-              _Bullet(
-                'Mixing axis and orientation throws an assertion at build time.',
-              ),
+              _Bullet('Mixing axis and orientation throws an assertion at build time.'),
             ],
           ),
         ),
@@ -858,36 +856,12 @@ class _AnatomyDiagram extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const <Widget>[
-                    _LabelDot(
-                      color: _kAccent,
-                      label: 'thumb',
-                      detail: 'visible draggable bar',
-                    ),
-                    _LabelDot(
-                      color: _kSlate,
-                      label: 'track',
-                      detail: 'background area',
-                    ),
-                    _LabelDot(
-                      color: _kInkMuted,
-                      label: 'extent',
-                      detail: 'viewport vs content ratio',
-                    ),
-                    _LabelDot(
-                      color: _kViolet,
-                      label: 'radius',
-                      detail: 'corner rounding',
-                    ),
-                    _LabelDot(
-                      color: _kAmber,
-                      label: 'thickness',
-                      detail: 'width across axis',
-                    ),
-                    _LabelDot(
-                      color: _kEmerald,
-                      label: 'orientation',
-                      detail: 'edge placement',
-                    ),
+                    _LabelDot(color: _kAccent, label: 'thumb', detail: 'visible draggable bar'),
+                    _LabelDot(color: _kSlate, label: 'track', detail: 'background area'),
+                    _LabelDot(color: _kInkMuted, label: 'extent', detail: 'viewport vs content ratio'),
+                    _LabelDot(color: _kViolet, label: 'radius', detail: 'corner rounding'),
+                    _LabelDot(color: _kAmber, label: 'thickness', detail: 'width across axis'),
+                    _LabelDot(color: _kEmerald, label: 'orientation', detail: 'edge placement'),
                   ],
                 ),
               ),
@@ -900,11 +874,7 @@ class _AnatomyDiagram extends StatelessWidget {
 }
 
 class _LabelDot extends StatelessWidget {
-  const _LabelDot({
-    required this.color,
-    required this.label,
-    required this.detail,
-  });
+  const _LabelDot({required this.color, required this.label, required this.detail});
   final Color color;
   final String label;
   final String detail;
@@ -939,11 +909,7 @@ class _LabelDot extends StatelessWidget {
                 ),
                 Text(
                   detail,
-                  style: const TextStyle(
-                    fontSize: 11,
-                    color: _kInkSoft,
-                    height: 1.3,
-                  ),
+                  style: const TextStyle(fontSize: 11, color: _kInkSoft, height: 1.3),
                 ),
               ],
             ),
@@ -963,8 +929,7 @@ class _AnatomySection extends StatelessWidget {
       children: <Widget>[
         const _SectionHeader(
           index: 'SECTION 02',
-          title:
-              'Anatomy — thumb, track, extent, radius, thickness, orientation',
+          title: 'Anatomy — thumb, track, extent, radius, thickness, orientation',
           subtitle:
               'Vocabulary for talking about scrollbar parts. Each token '
               'in ScrollbarThemeData maps to one of these concepts.',
@@ -982,51 +947,18 @@ class _AnatomySection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _KeyValueRow(
-                'thumb',
-                'The draggable indicator the user interacts with.',
-              ),
-              _KeyValueRow(
-                'track',
-                'Background under the thumb. May be invisible by default.',
-              ),
-              _KeyValueRow(
-                'extent',
-                'Computed from viewport / content; controls thumb length.',
-              ),
-              _KeyValueRow(
-                'thickness',
-                'Width across the scroll axis. Typical 6–10 logical px.',
-              ),
-              _KeyValueRow(
-                'radius',
-                'Corner rounding for thumb and (optionally) track.',
-              ),
-              _KeyValueRow(
-                'orientation',
-                'left/right for vertical, top/bottom for horizontal.',
-              ),
-              _KeyValueRow(
-                'minThumbLength',
-                'Hard floor on visible thumb size.',
-              ),
-              _KeyValueRow(
-                'crossAxisMargin',
-                'Spacing from the viewport edge to the track.',
-              ),
-              _KeyValueRow(
-                'mainAxisMargin',
-                'Spacing from viewport ends to track ends.',
-              ),
-              _KeyValueRow(
-                'fadeDuration',
-                'How long the thumb takes to fade out.',
-              ),
+              _KeyValueRow('thumb', 'The draggable indicator the user interacts with.'),
+              _KeyValueRow('track', 'Background under the thumb. May be invisible by default.'),
+              _KeyValueRow('extent', 'Computed from viewport / content; controls thumb length.'),
+              _KeyValueRow('thickness', 'Width across the scroll axis. Typical 6–10 logical px.'),
+              _KeyValueRow('radius', 'Corner rounding for thumb and (optionally) track.'),
+              _KeyValueRow('orientation', 'left/right for vertical, top/bottom for horizontal.'),
+              _KeyValueRow('minThumbLength', 'Hard floor on visible thumb size.'),
+              _KeyValueRow('crossAxisMargin', 'Spacing from the viewport edge to the track.'),
+              _KeyValueRow('mainAxisMargin', 'Spacing from viewport ends to track ends.'),
+              _KeyValueRow('fadeDuration', 'How long the thumb takes to fade out.'),
               _KeyValueRow('timeToFade', 'Idle time before fade begins.'),
-              _KeyValueRow(
-                'pressDuration',
-                'Hold time on the track before thumb activates.',
-              ),
+              _KeyValueRow('pressDuration', 'Hold time on the track before thumb activates.'),
             ],
           ),
         ),
@@ -1064,8 +996,10 @@ class _AnatomySection extends StatelessWidget {
 /// A small ScrollController owner that constructs its controller in the
 /// constructor so the Scrollbar can claim it without needing State.
 class _LocalScroll extends StatelessWidget {
-  _LocalScroll({required this.builder, double initialOffset = 0})
-    : controller = ScrollController(initialScrollOffset: initialOffset);
+  _LocalScroll({
+    required this.builder,
+    double initialOffset = 0,
+  }) : controller = ScrollController(initialScrollOffset: initialOffset);
 
   final ScrollController controller;
   final Widget Function(BuildContext, ScrollController) builder;
@@ -1119,11 +1053,7 @@ class _RecipeVerticalScrollbar extends StatelessWidget {
                 return Scrollbar(
                   controller: ctrl,
                   thumbVisibility: true,
-                  child: _SampleContent(
-                    itemCount: 28,
-                    color: _kAccent,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 28, color: _kAccent, controller: ctrl),
                 );
               },
             ),
@@ -1137,9 +1067,8 @@ class _RecipeVerticalScrollbar extends StatelessWidget {
             ')',
           ),
           const _Caption(
-            'thumbVisibility: true forces the thumb to stay visible. '
-            'Without it the thumb fades after the user stops interacting.',
-          ),
+              'thumbVisibility: true forces the thumb to stay visible. '
+              'Without it the thumb fades after the user stops interacting.'),
         ],
       ),
     );
@@ -1172,18 +1101,11 @@ class _RecipeHorizontalScrollbar extends StatelessWidget {
                     itemBuilder: (BuildContext c, int i) {
                       return Container(
                         width: 88,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 18,
-                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 18),
                         decoration: BoxDecoration(
-                          color: _kTeal.withValues(
-                            alpha: 0.10 + (i % 5) * 0.05,
-                          ),
+                          color: _kTeal.withValues(alpha: 0.10 + (i % 5) * 0.05),
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: _kTeal.withValues(alpha: 0.45),
-                          ),
+                          border: Border.all(color: _kTeal.withValues(alpha: 0.45)),
                         ),
                         alignment: Alignment.center,
                         child: Text(
@@ -1201,9 +1123,7 @@ class _RecipeHorizontalScrollbar extends StatelessWidget {
               },
             ),
           ),
-          const _Caption(
-            'Horizontal Scrollbar — orientation defaults to bottom.',
-          ),
+          const _Caption('Horizontal Scrollbar — orientation defaults to bottom.'),
         ],
       ),
     );
@@ -1227,9 +1147,7 @@ class _RecipeThemedScrollbar extends StatelessWidget {
               data: ScrollbarThemeData(
                 thumbColor: WidgetStateProperty.all(_kViolet),
                 trackColor: WidgetStateProperty.all(_kVioletSoft),
-                trackBorderColor: WidgetStateProperty.all(
-                  _kViolet.withValues(alpha: 0.4),
-                ),
+                trackBorderColor: WidgetStateProperty.all(_kViolet.withValues(alpha: 0.4)),
                 thickness: WidgetStateProperty.all(10),
                 radius: const Radius.circular(5),
                 thumbVisibility: WidgetStateProperty.all(true),
@@ -1239,11 +1157,7 @@ class _RecipeThemedScrollbar extends StatelessWidget {
                 builder: (BuildContext c, ScrollController ctrl) {
                   return Scrollbar(
                     controller: ctrl,
-                    child: _SampleContent(
-                      itemCount: 30,
-                      color: _kViolet,
-                      controller: ctrl,
-                    ),
+                    child: _SampleContent(itemCount: 30, color: _kViolet, controller: ctrl),
                   );
                 },
               ),
@@ -1290,19 +1204,14 @@ class _RecipeAlwaysShown extends StatelessWidget {
                   trackVisibility: true,
                   thickness: 10,
                   radius: const Radius.circular(4),
-                  child: _SampleContent(
-                    itemCount: 22,
-                    color: _kEmerald,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 22, color: _kEmerald, controller: ctrl),
                 );
               },
             ),
           ),
           const _Caption(
-            'Set thumbVisibility: true at the widget level for one-off '
-            'persistent thumbs, or use ThemeData for global behavior.',
-          ),
+              'Set thumbVisibility: true at the widget level for one-off '
+              'persistent thumbs, or use ThemeData for global behavior.'),
         ],
       ),
     );
@@ -1330,20 +1239,15 @@ class _RecipeInteractive extends StatelessWidget {
                   interactive: true,
                   thickness: 12,
                   radius: const Radius.circular(6),
-                  child: _SampleContent(
-                    itemCount: 26,
-                    color: _kAmber,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 26, color: _kAmber, controller: ctrl),
                 );
               },
             ),
           ),
           const _Caption(
-            'On desktop and web, interactive=true (the default for '
-            'Material Scrollbar) lets the user drag the thumb. On mobile '
-            'it is normally false unless explicitly requested.',
-          ),
+              'On desktop and web, interactive=true (the default for '
+              'Material Scrollbar) lets the user drag the thumb. On mobile '
+              'it is normally false unless explicitly requested.'),
         ],
       ),
     );
@@ -1371,20 +1275,15 @@ class _RecipeFatThumb extends StatelessWidget {
                   trackVisibility: true,
                   thickness: 18,
                   radius: const Radius.circular(9),
-                  child: _SampleContent(
-                    itemCount: 24,
-                    color: _kRose,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 24, color: _kRose, controller: ctrl),
                 );
               },
             ),
           ),
           const _Caption(
-            'Useful in dense data viewers where a small thumb would be '
-            'hard to grab. Pair with trackVisibility=true so users see '
-            'where they can press.',
-          ),
+              'Useful in dense data viewers where a small thumb would be '
+              'hard to grab. Pair with trackVisibility=true so users see '
+              'where they can press.'),
         ],
       ),
     );
@@ -1411,18 +1310,12 @@ class _RecipeThinThumb extends StatelessWidget {
                   thumbVisibility: true,
                   thickness: 4,
                   radius: const Radius.circular(2),
-                  child: _SampleContent(
-                    itemCount: 30,
-                    color: _kSlate,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 30, color: _kSlate, controller: ctrl),
                 );
               },
             ),
           ),
-          const _Caption(
-            'Great in reader apps where the scrollbar is feedback, not a tool.',
-          ),
+          const _Caption('Great in reader apps where the scrollbar is feedback, not a tool.'),
         ],
       ),
     );
@@ -1464,14 +1357,8 @@ class _RecipeDarkMode extends StatelessWidget {
                       itemCount: 26,
                       itemBuilder: (BuildContext c, int i) {
                         return Container(
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 6,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 10,
-                          ),
+                          margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                           decoration: BoxDecoration(
                             color: _kDarkCard,
                             borderRadius: BorderRadius.circular(8),
@@ -1493,9 +1380,7 @@ class _RecipeDarkMode extends StatelessWidget {
               ),
             ),
           ),
-          const _Caption(
-            'Use ThemeData.scrollbarTheme for app-wide dark adaptation.',
-          ),
+          const _Caption('Use ThemeData.scrollbarTheme for app-wide dark adaptation.'),
         ],
       ),
     );
@@ -1508,8 +1393,7 @@ class _RecipeOverride extends StatelessWidget {
   Widget build(BuildContext context) {
     return _Card(
       title: 'Recipe 9 — Local ScrollbarTheme override',
-      subtitle:
-          'One subtree gets a different style without affecting siblings.',
+      subtitle: 'One subtree gets a different style without affecting siblings.',
       accent: _kAccent,
       tag: 'override',
       child: Column(
@@ -1524,11 +1408,7 @@ class _RecipeOverride extends StatelessWidget {
                       return Scrollbar(
                         controller: ctrl,
                         thumbVisibility: true,
-                        child: _SampleContent(
-                          itemCount: 22,
-                          color: _kAccent,
-                          controller: ctrl,
-                        ),
+                        child: _SampleContent(itemCount: 22, color: _kAccent, controller: ctrl),
                       );
                     },
                   ),
@@ -1548,11 +1428,7 @@ class _RecipeOverride extends StatelessWidget {
                       builder: (BuildContext c, ScrollController ctrl) {
                         return Scrollbar(
                           controller: ctrl,
-                          child: _SampleContent(
-                            itemCount: 22,
-                            color: _kAmber,
-                            controller: ctrl,
-                          ),
+                          child: _SampleContent(itemCount: 22, color: _kAmber, controller: ctrl),
                         );
                       },
                     ),
@@ -1561,9 +1437,7 @@ class _RecipeOverride extends StatelessWidget {
               ],
             ),
           ),
-          const _Caption(
-            'Left list inherits ambient theme; right list overrides locally.',
-          ),
+          const _Caption('Left list inherits ambient theme; right list overrides locally.'),
         ],
       ),
     );
@@ -1637,10 +1511,7 @@ class _CupertinoComparisonSection extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         width: double.infinity,
                         color: _kAccent.withValues(alpha: 0.10),
                         child: const Text(
@@ -1660,11 +1531,7 @@ class _CupertinoComparisonSection extends StatelessWidget {
                               controller: ctrl,
                               thumbVisibility: true,
                               trackVisibility: true,
-                              child: _SampleContent(
-                                itemCount: 30,
-                                color: _kAccent,
-                                controller: ctrl,
-                              ),
+                              child: _SampleContent(itemCount: 30, color: _kAccent, controller: ctrl),
                             );
                           },
                         ),
@@ -1677,10 +1544,7 @@ class _CupertinoComparisonSection extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         width: double.infinity,
                         color: _kEmerald.withValues(alpha: 0.10),
                         child: const Text(
@@ -1703,11 +1567,7 @@ class _CupertinoComparisonSection extends StatelessWidget {
                               thicknessWhileDragging: 8,
                               radius: const Radius.circular(2),
                               radiusWhileDragging: const Radius.circular(4),
-                              child: _SampleContent(
-                                itemCount: 30,
-                                color: _kEmerald,
-                                controller: ctrl,
-                              ),
+                              child: _SampleContent(itemCount: 30, color: _kEmerald, controller: ctrl),
                             );
                           },
                         ),
@@ -1725,22 +1585,10 @@ class _CupertinoComparisonSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _KeyValueRow(
-                'default thickness',
-                'Material 6 dp · Cupertino 3 dp',
-              ),
-              _KeyValueRow(
-                'drag feedback',
-                'Material colors shift · Cupertino fattens',
-              ),
-              _KeyValueRow(
-                'default visibility',
-                'Material follows theme · Cupertino fades on scroll',
-              ),
-              _KeyValueRow(
-                'thumb color',
-                'Material from theme · Cupertino fixed translucent',
-              ),
+              _KeyValueRow('default thickness', 'Material 6 dp · Cupertino 3 dp'),
+              _KeyValueRow('drag feedback', 'Material colors shift · Cupertino fattens'),
+              _KeyValueRow('default visibility', 'Material follows theme · Cupertino fades on scroll'),
+              _KeyValueRow('thumb color', 'Material from theme · Cupertino fixed translucent'),
               _KeyValueRow('orientation', 'Both default right/bottom'),
               _KeyValueRow('engine', 'Both extend RawScrollbar'),
             ],
@@ -1753,12 +1601,8 @@ class _CupertinoComparisonSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
               _Bullet('thicknessWhileDragging — fatter thumb during drag'),
-              _Bullet(
-                'radiusWhileDragging — different corner radius during drag',
-              ),
-              _Bullet(
-                'No interactive flag — interaction is implicit per-platform.',
-              ),
+              _Bullet('radiusWhileDragging — different corner radius during drag'),
+              _Bullet('No interactive flag — interaction is implicit per-platform.'),
             ],
           ),
         ),
@@ -1801,11 +1645,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   trackVisibility: true,
                   trackColor: _kAmberSoft,
                   trackBorderColor: _kAmber.withValues(alpha: 0.5),
-                  child: _SampleContent(
-                    itemCount: 24,
-                    color: _kAmber,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 24, color: _kAmber, controller: ctrl),
                 );
               },
             ),
@@ -1823,11 +1663,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   thickness: 8,
                   thumbVisibility: true,
                   scrollbarOrientation: ScrollbarOrientation.left,
-                  child: _SampleContent(
-                    itemCount: 22,
-                    color: _kRose,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 22, color: _kRose, controller: ctrl),
                 );
               },
             ),
@@ -1853,18 +1689,11 @@ class _RawScrollbarSection extends StatelessWidget {
                     itemBuilder: (BuildContext c, int i) {
                       return Container(
                         width: 80,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                          vertical: 22,
-                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 22),
                         decoration: BoxDecoration(
-                          color: _kViolet.withValues(
-                            alpha: 0.10 + (i % 5) * 0.04,
-                          ),
+                          color: _kViolet.withValues(alpha: 0.10 + (i % 5) * 0.04),
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: _kViolet.withValues(alpha: 0.45),
-                          ),
+                          border: Border.all(color: _kViolet.withValues(alpha: 0.45)),
                         ),
                         alignment: Alignment.center,
                         child: Text(
@@ -1895,11 +1724,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   thickness: 8,
                   thumbVisibility: true,
                   minThumbLength: 80,
-                  child: _SampleContent(
-                    itemCount: 200,
-                    color: _kTeal,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 200, color: _kTeal, controller: ctrl),
                 );
               },
             ),
@@ -1917,11 +1742,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   thickness: 6,
                   fadeDuration: const Duration(milliseconds: 1200),
                   timeToFade: const Duration(milliseconds: 1500),
-                  child: _SampleContent(
-                    itemCount: 26,
-                    color: _kEmerald,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 26, color: _kEmerald, controller: ctrl),
                 );
               },
             ),
@@ -1943,11 +1764,7 @@ class _RawScrollbarSection extends StatelessWidget {
                   mainAxisMargin: 16,
                   crossAxisMargin: 6,
                   radius: const Radius.circular(4),
-                  child: _SampleContent(
-                    itemCount: 22,
-                    color: _kSlate,
-                    controller: ctrl,
-                  ),
+                  child: _SampleContent(itemCount: 22, color: _kSlate, controller: ctrl),
                 );
               },
             ),
@@ -2011,8 +1828,7 @@ class _PitfallsSection extends StatelessWidget {
           ),
         ),
         _Card(
-          title:
-              'Pitfall 2 — Multiple scrollables sharing PrimaryScrollController',
+          title: 'Pitfall 2 — Multiple scrollables sharing PrimaryScrollController',
           accent: _kRose,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -2037,9 +1853,7 @@ class _PitfallsSection extends StatelessWidget {
                 ')\n'
                 '// → Scrollbar above this column cannot pick one.',
               ),
-              const _Bullet(
-                'Give each ListView its own local ScrollController.',
-              ),
+              const _Bullet('Give each ListView its own local ScrollController.'),
               const _Bullet('Or set primary: false on all but one ListView.'),
             ],
           ),
@@ -2051,12 +1865,8 @@ class _PitfallsSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const _Bullet('NestedScrollView has its own coordination logic.'),
-              const _Bullet(
-                'Wrapping the outermost widget in Scrollbar may produce two thumbs.',
-              ),
-              const _Bullet(
-                'Prefer to wrap the inner body Scrollable instead.',
-              ),
+              const _Bullet('Wrapping the outermost widget in Scrollbar may produce two thumbs.'),
+              const _Bullet('Prefer to wrap the inner body Scrollable instead.'),
             ],
           ),
         ),
@@ -2066,32 +1876,21 @@ class _PitfallsSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _Bullet(
-                'A single Scrollbar can wrap an entire CustomScrollView.',
-              ),
+              _Bullet('A single Scrollbar can wrap an entire CustomScrollView.'),
               _Bullet('It tracks the unified scroll extent across slivers.'),
-              _Bullet(
-                'Make sure controller is passed to the CustomScrollView, not individual slivers.',
-              ),
+              _Bullet('Make sure controller is passed to the CustomScrollView, not individual slivers.'),
             ],
           ),
         ),
         _Card(
-          title:
-              'Pitfall 5 — Reusing one ScrollController across two scrollables',
+          title: 'Pitfall 5 — Reusing one ScrollController across two scrollables',
           accent: _kRose,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _Bullet(
-                'ScrollController.position requires exactly one client at a time.',
-              ),
-              _Bullet(
-                'If you must mirror scroll between two lists, use a CoupledScrollController pattern.',
-              ),
-              _Bullet(
-                'Otherwise the Scrollbar will attach to the wrong client and look frozen.',
-              ),
+              _Bullet('ScrollController.position requires exactly one client at a time.'),
+              _Bullet('If you must mirror scroll between two lists, use a CoupledScrollController pattern.'),
+              _Bullet('Otherwise the Scrollbar will attach to the wrong client and look frozen.'),
             ],
           ),
         ),
@@ -2101,15 +1900,9 @@ class _PitfallsSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _Bullet(
-                'ScrollbarOrientation.top with Axis.vertical content asserts.',
-              ),
-              _Bullet(
-                'ScrollbarOrientation.left with Axis.horizontal content asserts.',
-              ),
-              _Bullet(
-                'Default behavior is usually what you want — only override for RTL or design needs.',
-              ),
+              _Bullet('ScrollbarOrientation.top with Axis.vertical content asserts.'),
+              _Bullet('ScrollbarOrientation.left with Axis.horizontal content asserts.'),
+              _Bullet('Default behavior is usually what you want — only override for RTL or design needs.'),
             ],
           ),
         ),
@@ -2119,15 +1912,9 @@ class _PitfallsSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _Bullet(
-                'Set trackBorderColor when trackVisibility is true; otherwise it may look like a stray line.',
-              ),
-              _Bullet(
-                'Match thumb radius to track radius (or set track radius explicitly) to avoid visual jitter.',
-              ),
-              _Bullet(
-                'Use WidgetStateProperty.resolveWith for hover/drag transitions.',
-              ),
+              _Bullet('Set trackBorderColor when trackVisibility is true; otherwise it may look like a stray line.'),
+              _Bullet('Match thumb radius to track radius (or set track radius explicitly) to avoid visual jitter.'),
+              _Bullet('Use WidgetStateProperty.resolveWith for hover/drag transitions.'),
             ],
           ),
         ),
@@ -2160,100 +1947,34 @@ class _GlossarySection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _KeyValueRow(
-                'attach',
-                'Process of binding a Scrollbar to a ScrollPosition.',
-              ),
-              _KeyValueRow(
-                'axis',
-                'The direction the scrollable scrolls in (vertical/horizontal).',
-              ),
-              _KeyValueRow(
-                'client',
-                'A ScrollPosition currently registered with a ScrollController.',
-              ),
-              _KeyValueRow(
-                'content size',
-                'Total scrollable extent — usually bigger than viewport.',
-              ),
-              _KeyValueRow(
-                'crossAxisMargin',
-                'Distance from the viewport edge to the track.',
-              ),
-              _KeyValueRow(
-                'drag start',
-                'Pointer down on the thumb begins a drag gesture.',
-              ),
-              _KeyValueRow(
-                'fade',
-                'Process of fading the thumb out after inactivity.',
-              ),
-              _KeyValueRow(
-                'hover',
-                'Pointer over the thumb without pressing (desktop/web).',
-              ),
-              _KeyValueRow(
-                'interactive',
-                'Whether the thumb can be dragged to scroll.',
-              ),
+              _KeyValueRow('attach', 'Process of binding a Scrollbar to a ScrollPosition.'),
+              _KeyValueRow('axis', 'The direction the scrollable scrolls in (vertical/horizontal).'),
+              _KeyValueRow('client', 'A ScrollPosition currently registered with a ScrollController.'),
+              _KeyValueRow('content size', 'Total scrollable extent — usually bigger than viewport.'),
+              _KeyValueRow('crossAxisMargin', 'Distance from the viewport edge to the track.'),
+              _KeyValueRow('drag start', 'Pointer down on the thumb begins a drag gesture.'),
+              _KeyValueRow('fade', 'Process of fading the thumb out after inactivity.'),
+              _KeyValueRow('hover', 'Pointer over the thumb without pressing (desktop/web).'),
+              _KeyValueRow('interactive', 'Whether the thumb can be dragged to scroll.'),
               _KeyValueRow('main axis', 'Same direction as the scroll axis.'),
-              _KeyValueRow(
-                'mainAxisMargin',
-                'Distance from viewport ends to the track ends.',
-              ),
-              _KeyValueRow(
-                'minThumbLength',
-                'Hard floor on thumb size when content is huge.',
-              ),
-              _KeyValueRow(
-                'orientation',
-                'Which edge the scrollbar appears on.',
-              ),
-              _KeyValueRow(
-                'PrimaryScrollController',
-                'Ambient controller shared by widgets that opt-in.',
-              ),
+              _KeyValueRow('mainAxisMargin', 'Distance from viewport ends to the track ends.'),
+              _KeyValueRow('minThumbLength', 'Hard floor on thumb size when content is huge.'),
+              _KeyValueRow('orientation', 'Which edge the scrollbar appears on.'),
+              _KeyValueRow('PrimaryScrollController', 'Ambient controller shared by widgets that opt-in.'),
               _KeyValueRow('radius', 'Corner rounding for thumb (and track).'),
-              _KeyValueRow(
-                'RawScrollbar',
-                'Design-system-neutral scrollbar primitive.',
-              ),
-              _KeyValueRow(
-                'Scrollbar',
-                'Material wrapper around RawScrollbar.',
-              ),
-              _KeyValueRow(
-                'ScrollbarTheme',
-                'InheritedTheme injecting ScrollbarThemeData.',
-              ),
-              _KeyValueRow(
-                'ScrollbarThemeData',
-                'Bag of style tokens, mostly WidgetStateProperty.',
-              ),
-              _KeyValueRow(
-                'ScrollController',
-                'Listenable handle to a ScrollPosition.',
-              ),
+              _KeyValueRow('RawScrollbar', 'Design-system-neutral scrollbar primitive.'),
+              _KeyValueRow('Scrollbar', 'Material wrapper around RawScrollbar.'),
+              _KeyValueRow('ScrollbarTheme', 'InheritedTheme injecting ScrollbarThemeData.'),
+              _KeyValueRow('ScrollbarThemeData', 'Bag of style tokens, mostly WidgetStateProperty.'),
+              _KeyValueRow('ScrollController', 'Listenable handle to a ScrollPosition.'),
               _KeyValueRow('thickness', 'Cross-axis width of the scrollbar.'),
               _KeyValueRow('thumb', 'The visible draggable indicator.'),
-              _KeyValueRow(
-                'thumbVisibility',
-                'Whether the thumb is always shown vs faded.',
-              ),
+              _KeyValueRow('thumbVisibility', 'Whether the thumb is always shown vs faded.'),
               _KeyValueRow('track', 'Background area the thumb slides over.'),
               _KeyValueRow('trackVisibility', 'Whether the track is rendered.'),
-              _KeyValueRow(
-                'viewport',
-                'The visible window of scrollable content.',
-              ),
-              _KeyValueRow(
-                'WidgetState',
-                'Pseudo-states: hovered, dragged, focused, etc.',
-              ),
-              _KeyValueRow(
-                'WidgetStateProperty',
-                'Function from WidgetState set to value.',
-              ),
+              _KeyValueRow('viewport', 'The visible window of scrollable content.'),
+              _KeyValueRow('WidgetState', 'Pseudo-states: hovered, dragged, focused, etc.'),
+              _KeyValueRow('WidgetStateProperty', 'Function from WidgetState set to value.'),
             ],
           ),
         ),
@@ -2286,30 +2007,14 @@ class _RecapSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _Bullet(
-                'Single scrollable, Material app → Scrollbar(controller: ctrl, child: ...)',
-              ),
-              _Bullet(
-                'iOS look → CupertinoScrollbar(controller: ctrl, child: ...)',
-              ),
-              _Bullet(
-                'Need bespoke colors/sizing not in a design system → RawScrollbar',
-              ),
-              _Bullet(
-                'Global style → ThemeData(scrollbarTheme: ScrollbarThemeData(...))',
-              ),
-              _Bullet(
-                'Local override → ScrollbarTheme(data: ..., child: Scrollbar(...))',
-              ),
-              _Bullet(
-                'Left-side or top-edge thumb → RawScrollbar with scrollbarOrientation',
-              ),
-              _Bullet(
-                'Always show → thumbVisibility: true (+ explicit controller)',
-              ),
-              _Bullet(
-                'Drag to scroll → interactive: true (Scrollbar) or default Cupertino',
-              ),
+              _Bullet('Single scrollable, Material app → Scrollbar(controller: ctrl, child: ...)'),
+              _Bullet('iOS look → CupertinoScrollbar(controller: ctrl, child: ...)'),
+              _Bullet('Need bespoke colors/sizing not in a design system → RawScrollbar'),
+              _Bullet('Global style → ThemeData(scrollbarTheme: ScrollbarThemeData(...))'),
+              _Bullet('Local override → ScrollbarTheme(data: ..., child: Scrollbar(...))'),
+              _Bullet('Left-side or top-edge thumb → RawScrollbar with scrollbarOrientation'),
+              _Bullet('Always show → thumbVisibility: true (+ explicit controller)'),
+              _Bullet('Drag to scroll → interactive: true (Scrollbar) or default Cupertino'),
             ],
           ),
         ),
@@ -2319,22 +2024,13 @@ class _RecapSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _KeyValueRow(
-                'controller',
-                'Bind explicitly for thumbVisibility:true.',
-              ),
-              _KeyValueRow(
-                'thumbVisibility',
-                'Always-on thumb when content scrolls.',
-              ),
+              _KeyValueRow('controller', 'Bind explicitly for thumbVisibility:true.'),
+              _KeyValueRow('thumbVisibility', 'Always-on thumb when content scrolls.'),
               _KeyValueRow('trackVisibility', 'Show the track background.'),
               _KeyValueRow('thickness', 'Across-axis width.'),
               _KeyValueRow('radius', 'Corner rounding.'),
               _KeyValueRow('interactive', 'Allow drag-the-thumb-to-scroll.'),
-              _KeyValueRow(
-                'scrollbarOrientation',
-                'Edge placement; defaults are usually best.',
-              ),
+              _KeyValueRow('scrollbarOrientation', 'Edge placement; defaults are usually best.'),
             ],
           ),
         ),
@@ -2344,15 +2040,9 @@ class _RecapSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              _Bullet(
-                'Custom painted indicator → write a custom Scrollable + Listener.',
-              ),
-              _Bullet(
-                'Pull-to-refresh on top → RefreshIndicator + Scrollbar combo.',
-              ),
-              _Bullet(
-                'Overscroll glow → leave default; do not nest Scrollbar inside.',
-              ),
+              _Bullet('Custom painted indicator → write a custom Scrollable + Listener.'),
+              _Bullet('Pull-to-refresh on top → RefreshIndicator + Scrollbar combo.'),
+              _Bullet('Overscroll glow → leave default; do not nest Scrollbar inside.'),
             ],
           ),
         ),
@@ -2462,35 +2152,24 @@ class _AppShell extends StatelessWidget {
 
 dynamic build(BuildContext context) {
   if (kDebugMode) {
-    debugPrint(
-      '[scrollbar_layout_misc_test] Scrollbar deep visual demo loaded.',
-    );
+    debugPrint('[scrollbar_layout_misc_test] Scrollbar deep visual demo loaded.');
   }
-  print(
-    'Scrollbar / RawScrollbar / ScrollbarTheme / ScrollbarThemeData / '
-    'ScrollbarOrientation / CupertinoScrollbar — visual demo.',
-  );
+  print('Scrollbar / RawScrollbar / ScrollbarTheme / ScrollbarThemeData / '
+      'ScrollbarOrientation / CupertinoScrollbar — visual demo.');
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Scrollbar Deep Visual Demo',
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: _kAccent,
-        brightness: Brightness.light,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: _kAccent, brightness: Brightness.light),
       scaffoldBackgroundColor: _kSurface,
       scrollbarTheme: ScrollbarThemeData(
-        thumbColor: WidgetStateProperty.resolveWith<Color?>((
-          Set<WidgetState> s,
-        ) {
+        thumbColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> s) {
           if (s.contains(WidgetState.dragged)) return _kAccentDark;
           if (s.contains(WidgetState.hovered)) return _kAccent;
           return _kAccent.withValues(alpha: 0.65);
         }),
         trackColor: WidgetStateProperty.all(_kAccentSoft),
-        trackBorderColor: WidgetStateProperty.all(
-          _kAccent.withValues(alpha: 0.30),
-        ),
+        trackBorderColor: WidgetStateProperty.all(_kAccent.withValues(alpha: 0.30)),
         thickness: WidgetStateProperty.all(8),
         radius: const Radius.circular(4),
       ),

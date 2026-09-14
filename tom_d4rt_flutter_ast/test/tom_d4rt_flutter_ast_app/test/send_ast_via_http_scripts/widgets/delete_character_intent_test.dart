@@ -31,10 +31,7 @@ Widget _dcSection(String title, List<Widget> children) {
       border: Border.all(color: _dcLightCrimson, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x15AD1457),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x15AD1457), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -46,14 +43,11 @@ Widget _dcSection(String title, List<Widget> children) {
             color: _dcCrimson,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _dcWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _dcWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -65,24 +59,20 @@ Widget _dcSection(String title, List<Widget> children) {
 Widget _dcLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _dcDarkCrimson,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _dcDarkCrimson,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _dcBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _dcDarkText, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _dcDarkText, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -96,15 +86,12 @@ Widget _dcCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _dcLightCrimson.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _dcDarkCrimson,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _dcDarkCrimson,
+            height: 1.45)),
   );
 }
 
@@ -116,10 +103,9 @@ Widget _dcChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -152,10 +138,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'DeleteCharacterIntent',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: const Text('DeleteCharacterIntent',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -184,48 +168,27 @@ dynamic build(BuildContext context) {
                       color: _dcWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.backspace,
-                      color: _dcWhite,
-                      size: 32,
-                    ),
+                    child: const Icon(Icons.backspace,
+                        color: _dcWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'DeleteCharacterIntent',
-                    style: TextStyle(
-                      color: _dcWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('DeleteCharacterIntent',
+                      style: TextStyle(
+                          color: _dcWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
-                  Text(
-                    'Delete characters forward or backward at the cursor',
-                    style: TextStyle(
-                      color: _dcWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text('Delete characters forward or backward at the cursor',
+                      style: TextStyle(
+                          color: _dcWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _dcChip(
-                        'Backspace',
-                        _dcWhite.withValues(alpha: 0.25),
-                        _dcWhite,
-                      ),
-                      _dcChip(
-                        'Delete',
-                        _dcWhite.withValues(alpha: 0.25),
-                        _dcWhite,
-                      ),
-                      _dcChip(
-                        'Cursor',
-                        _dcWhite.withValues(alpha: 0.25),
-                        _dcWhite,
-                      ),
+                      _dcChip('Backspace', _dcWhite.withValues(alpha: 0.25), _dcWhite),
+                      _dcChip('Delete', _dcWhite.withValues(alpha: 0.25), _dcWhite),
+                      _dcChip('Cursor', _dcWhite.withValues(alpha: 0.25), _dcWhite),
                     ],
                   ),
                 ],
@@ -395,7 +358,9 @@ dynamic build(BuildContext context) {
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             // Section 11: Edge cases
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            _dcSection('11 · Edge Cases', [..._buildEdgeCases()]),
+            _dcSection('11 · Edge Cases', [
+              ..._buildEdgeCases(),
+            ]),
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             // Section 12: Summary
@@ -415,30 +380,12 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _dcSummaryRow(
-                      Icons.backspace,
-                      'Backspace = backward, Delete = forward',
-                    ),
-                    _dcSummaryRow(
-                      Icons.swap_horiz,
-                      'Direction controlled by forward property',
-                    ),
-                    _dcSummaryRow(
-                      Icons.select_all,
-                      'Selection mode: deletes entire selection',
-                    ),
-                    _dcSummaryRow(
-                      Icons.undo,
-                      'Every delete is undoable via Ctrl+Z',
-                    ),
-                    _dcSummaryRow(
-                      Icons.text_fields,
-                      'Works in all text editing widgets',
-                    ),
-                    _dcSummaryRow(
-                      Icons.emoji_symbols,
-                      'Handles emoji/grapheme clusters correctly',
-                    ),
+                    _dcSummaryRow(Icons.backspace, 'Backspace = backward, Delete = forward'),
+                    _dcSummaryRow(Icons.swap_horiz, 'Direction controlled by forward property'),
+                    _dcSummaryRow(Icons.select_all, 'Selection mode: deletes entire selection'),
+                    _dcSummaryRow(Icons.undo, 'Every delete is undoable via Ctrl+Z'),
+                    _dcSummaryRow(Icons.text_fields, 'Works in all text editing widgets'),
+                    _dcSummaryRow(Icons.emoji_symbols, 'Handles emoji/grapheme clusters correctly'),
                   ],
                 ),
               ),
@@ -469,32 +416,24 @@ Widget _buildDirectionComparison() {
             decoration: BoxDecoration(
               color: _dcAccentOrange.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _dcAccentOrange.withValues(alpha: 0.3)),
+              border: Border.all(
+                  color: _dcAccentOrange.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Icon(
-                  Icons.keyboard_backspace,
-                  color: _dcAccentOrange,
-                  size: 28,
-                ),
+                const Icon(Icons.keyboard_backspace,
+                    color: _dcAccentOrange, size: 28),
                 const SizedBox(height: 6),
-                const Text(
-                  'Backspace',
-                  style: TextStyle(
-                    color: _dcAccentOrange,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const Text(
-                  'forward: false',
-                  style: TextStyle(
-                    color: _dcAccentOrange,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                const Text('Backspace',
+                    style: TextStyle(
+                        color: _dcAccentOrange,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800)),
+                const Text('forward: false',
+                    style: TextStyle(
+                        color: _dcAccentOrange,
+                        fontSize: 10,
+                        fontFamily: 'monospace')),
                 _dcDivider(),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -504,35 +443,25 @@ Widget _buildDirectionComparison() {
                   ),
                   child: Column(
                     children: [
-                      const Text(
-                        'Hel|lo',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 13,
-                          color: _dcDarkText,
-                        ),
-                      ),
-                      const Icon(
-                        Icons.arrow_downward,
-                        size: 14,
-                        color: _dcAccentOrange,
-                      ),
-                      const Text(
-                        'He|lo',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 13,
-                          color: _dcDarkText,
-                        ),
-                      ),
+                      const Text('Hel|lo',
+                          style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 13,
+                              color: _dcDarkText)),
+                      const Icon(Icons.arrow_downward,
+                          size: 14, color: _dcAccentOrange),
+                      const Text('He|lo',
+                          style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 13,
+                              color: _dcDarkText)),
                     ],
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Deletes char BEFORE cursor',
-                  style: TextStyle(color: _dcAccentOrange, fontSize: 9),
-                ),
+                const Text('Deletes char BEFORE cursor',
+                    style: TextStyle(
+                        color: _dcAccentOrange, fontSize: 9)),
               ],
             ),
           ),
@@ -544,28 +473,24 @@ Widget _buildDirectionComparison() {
             decoration: BoxDecoration(
               color: _dcCrimson.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _dcCrimson.withValues(alpha: 0.3)),
+              border:
+                  Border.all(color: _dcCrimson.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Icon(Icons.delete, color: _dcCrimson, size: 28),
+                const Icon(Icons.delete,
+                    color: _dcCrimson, size: 28),
                 const SizedBox(height: 6),
-                const Text(
-                  'Delete',
-                  style: TextStyle(
-                    color: _dcCrimson,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const Text(
-                  'forward: true',
-                  style: TextStyle(
-                    color: _dcCrimson,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                const Text('Delete',
+                    style: TextStyle(
+                        color: _dcCrimson,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800)),
+                const Text('forward: true',
+                    style: TextStyle(
+                        color: _dcCrimson,
+                        fontSize: 10,
+                        fontFamily: 'monospace')),
                 _dcDivider(),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -575,35 +500,25 @@ Widget _buildDirectionComparison() {
                   ),
                   child: Column(
                     children: [
-                      const Text(
-                        'Hel|lo',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 13,
-                          color: _dcDarkText,
-                        ),
-                      ),
-                      const Icon(
-                        Icons.arrow_downward,
-                        size: 14,
-                        color: _dcCrimson,
-                      ),
-                      const Text(
-                        'Hel|o',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 13,
-                          color: _dcDarkText,
-                        ),
-                      ),
+                      const Text('Hel|lo',
+                          style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 13,
+                              color: _dcDarkText)),
+                      const Icon(Icons.arrow_downward,
+                          size: 14, color: _dcCrimson),
+                      const Text('Hel|o',
+                          style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 13,
+                              color: _dcDarkText)),
                     ],
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Deletes char AFTER cursor',
-                  style: TextStyle(color: _dcCrimson, fontSize: 9),
-                ),
+                const Text('Deletes char AFTER cursor',
+                    style: TextStyle(
+                        color: _dcCrimson, fontSize: 9)),
               ],
             ),
           ),
@@ -644,7 +559,8 @@ List<Widget> _buildDeleteChain() {
       decoration: BoxDecoration(
         color: (l['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (l['color'] as Color).withValues(alpha: 0.3)),
+        border: Border.all(
+            color: (l['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -655,25 +571,22 @@ List<Widget> _buildDeleteChain() {
               color: l['color'] as Color,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(l['icon'] as IconData, color: _dcWhite, size: 18),
+            child:
+                Icon(l['icon'] as IconData, color: _dcWhite, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l['title'] as String,
-                  style: TextStyle(
-                    color: l['color'] as Color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
-                Text(
-                  l['detail'] as String,
-                  style: const TextStyle(color: _dcDarkText, fontSize: 11),
-                ),
+                Text(l['title'] as String,
+                    style: TextStyle(
+                        color: l['color'] as Color,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12)),
+                Text(l['detail'] as String,
+                    style: const TextStyle(
+                        color: _dcDarkText, fontSize: 11)),
               ],
             ),
           ),
@@ -688,27 +601,9 @@ List<Widget> _buildDeleteChain() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildCursorPositionDemo() {
   final positions = <Map<String, dynamic>>[
-    {
-      'label': 'Start of text',
-      'text': '|Hello',
-      'backspace': 'No-op (nothing before cursor)',
-      'delete': '|ello',
-      'color': _dcAccentBlue,
-    },
-    {
-      'label': 'Middle of text',
-      'text': 'He|llo',
-      'backspace': 'H|llo',
-      'delete': 'He|lo',
-      'color': _dcCrimson,
-    },
-    {
-      'label': 'End of text',
-      'text': 'Hello|',
-      'backspace': 'Hell|',
-      'delete': 'No-op (nothing after cursor)',
-      'color': _dcAccentPurple,
-    },
+    {'label': 'Start of text', 'text': '|Hello', 'backspace': 'No-op (nothing before cursor)', 'delete': '|ello', 'color': _dcAccentBlue},
+    {'label': 'Middle of text', 'text': 'He|llo', 'backspace': 'H|llo', 'delete': 'He|lo', 'color': _dcCrimson},
+    {'label': 'End of text', 'text': 'Hello|', 'backspace': 'Hell|', 'delete': 'No-op (nothing after cursor)', 'color': _dcAccentPurple},
   ];
 
   return Column(
@@ -720,43 +615,33 @@ Widget _buildCursorPositionDemo() {
           color: (p['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: (p['color'] as Color).withValues(alpha: 0.3),
-          ),
+              color: (p['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Text(
-                  p['label'] as String,
-                  style: TextStyle(
-                    color: p['color'] as Color,
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(p['label'] as String,
+                    style: TextStyle(
+                        color: p['color'] as Color,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(width: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                      horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: _dcWhite,
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                      color: (p['color'] as Color).withValues(alpha: 0.3),
-                    ),
+                        color: (p['color'] as Color).withValues(alpha: 0.3)),
                   ),
-                  child: Text(
-                    p['text'] as String,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: _dcDarkText,
-                    ),
-                  ),
+                  child: Text(p['text'] as String,
+                      style: const TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                          color: _dcDarkText)),
                 ),
               ],
             ),
@@ -766,21 +651,15 @@ Widget _buildCursorPositionDemo() {
                 Expanded(
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.keyboard_backspace,
-                        size: 12,
-                        color: _dcAccentOrange,
-                      ),
+                      const Icon(Icons.keyboard_backspace,
+                          size: 12, color: _dcAccentOrange),
                       const SizedBox(width: 4),
                       Expanded(
-                        child: Text(
-                          p['backspace'] as String,
-                          style: const TextStyle(
-                            color: _dcDarkText,
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text(p['backspace'] as String,
+                            style: const TextStyle(
+                                color: _dcDarkText,
+                                fontSize: 10,
+                                fontFamily: 'monospace')),
                       ),
                     ],
                   ),
@@ -788,17 +667,15 @@ Widget _buildCursorPositionDemo() {
                 Expanded(
                   child: Row(
                     children: [
-                      const Icon(Icons.delete, size: 12, color: _dcCrimson),
+                      const Icon(Icons.delete,
+                          size: 12, color: _dcCrimson),
                       const SizedBox(width: 4),
                       Expanded(
-                        child: Text(
-                          p['delete'] as String,
-                          style: const TextStyle(
-                            color: _dcDarkText,
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text(p['delete'] as String,
+                            style: const TextStyle(
+                                color: _dcDarkText,
+                                fontSize: 10,
+                                fontFamily: 'monospace')),
                       ),
                     ],
                   ),
@@ -840,19 +717,18 @@ Widget _buildPlatformDeleteTable() {
           color: isHeader
               ? _dcCrimson
               : entry.key.isEven
-              ? _dcBlush
-              : _dcWhite,
+                  ? _dcBlush
+                  : _dcWhite,
           child: Row(
             children: entry.value.asMap().entries.map((col) {
               return Expanded(
-                child: Text(
-                  col.value,
-                  style: TextStyle(
-                    color: isHeader ? _dcWhite : _dcDarkText,
-                    fontSize: 10.5,
-                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-                  ),
-                ),
+                child: Text(col.value,
+                    style: TextStyle(
+                        color: isHeader ? _dcWhite : _dcDarkText,
+                        fontSize: 10.5,
+                        fontWeight: isHeader
+                            ? FontWeight.w700
+                            : FontWeight.w400)),
               );
             }).toList(),
           ),
@@ -881,31 +757,25 @@ Widget _buildWordDeleteDemo() {
             decoration: BoxDecoration(
               color: _dcCrimson.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _dcCrimson.withValues(alpha: 0.3)),
+              border:
+                  Border.all(color: _dcCrimson.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Text(
-                  'Character',
-                  style: TextStyle(
-                    color: _dcCrimson,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const Text(
-                  'Backspace',
-                  style: TextStyle(
-                    color: _dcCrimson,
-                    fontSize: 9,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                const Text('Character',
+                    style: TextStyle(
+                        color: _dcCrimson,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
+                const Text('Backspace',
+                    style: TextStyle(
+                        color: _dcCrimson,
+                        fontSize: 9,
+                        fontFamily: 'monospace')),
                 _dcDivider(),
-                const Text(
-                  'Removes 1 char',
-                  style: TextStyle(color: _dcDarkText, fontSize: 10),
-                ),
+                const Text('Removes 1 char',
+                    style: TextStyle(
+                        color: _dcDarkText, fontSize: 10)),
               ],
             ),
           ),
@@ -917,31 +787,25 @@ Widget _buildWordDeleteDemo() {
             decoration: BoxDecoration(
               color: _dcAccentPurple.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _dcAccentPurple.withValues(alpha: 0.3)),
+              border: Border.all(
+                  color: _dcAccentPurple.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Text(
-                  'Word',
-                  style: TextStyle(
-                    color: _dcAccentPurple,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const Text(
-                  'Ctrl+Backspace',
-                  style: TextStyle(
-                    color: _dcAccentPurple,
-                    fontSize: 9,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                const Text('Word',
+                    style: TextStyle(
+                        color: _dcAccentPurple,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
+                const Text('Ctrl+Backspace',
+                    style: TextStyle(
+                        color: _dcAccentPurple,
+                        fontSize: 9,
+                        fontFamily: 'monospace')),
                 _dcDivider(),
-                const Text(
-                  'Removes to word boundary',
-                  style: TextStyle(color: _dcDarkText, fontSize: 10),
-                ),
+                const Text('Removes to word boundary',
+                    style: TextStyle(
+                        color: _dcDarkText, fontSize: 10)),
               ],
             ),
           ),
@@ -953,31 +817,25 @@ Widget _buildWordDeleteDemo() {
             decoration: BoxDecoration(
               color: _dcAccentTeal.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _dcAccentTeal.withValues(alpha: 0.3)),
+              border: Border.all(
+                  color: _dcAccentTeal.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Text(
-                  'Line',
-                  style: TextStyle(
-                    color: _dcAccentTeal,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const Text(
-                  'Cmd+Backspace',
-                  style: TextStyle(
-                    color: _dcAccentTeal,
-                    fontSize: 9,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                const Text('Line',
+                    style: TextStyle(
+                        color: _dcAccentTeal,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
+                const Text('Cmd+Backspace',
+                    style: TextStyle(
+                        color: _dcAccentTeal,
+                        fontSize: 9,
+                        fontFamily: 'monospace')),
                 _dcDivider(),
-                const Text(
-                  'Removes to line start',
-                  style: TextStyle(color: _dcDarkText, fontSize: 10),
-                ),
+                const Text('Removes to line start',
+                    style: TextStyle(
+                        color: _dcDarkText, fontSize: 10)),
               ],
             ),
           ),
@@ -1041,31 +899,26 @@ Widget _buildSelectionDeleteVisual() {
           ),
           child: Column(
             children: [
-              const Text(
-                'Before: selection active',
-                style: TextStyle(
-                  color: _dcDarkCrimson,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              const Text('Before: selection active',
+                  style: TextStyle(
+                      color: _dcDarkCrimson,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               RichText(
                 text: TextSpan(
                   style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 14,
-                    color: _dcDarkText,
-                  ),
+                      fontFamily: 'monospace',
+                      fontSize: 14,
+                      color: _dcDarkText),
                   children: [
                     const TextSpan(text: 'He'),
                     TextSpan(
-                      text: 'llo Wo',
-                      style: TextStyle(
-                        backgroundColor: _dcMedCrimson.withValues(alpha: 0.3),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                        text: 'llo Wo',
+                        style: TextStyle(
+                            backgroundColor:
+                                _dcMedCrimson.withValues(alpha: 0.3),
+                            fontWeight: FontWeight.w700)),
                     const TextSpan(text: 'rld'),
                   ],
                 ),
@@ -1083,32 +936,22 @@ Widget _buildSelectionDeleteVisual() {
                   color: _dcAccentOrange.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
-                    color: _dcAccentOrange.withValues(alpha: 0.3),
-                  ),
+                      color: _dcAccentOrange.withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   children: [
-                    const Icon(
-                      Icons.keyboard_backspace,
-                      size: 16,
-                      color: _dcAccentOrange,
-                    ),
-                    const Text(
-                      'Backspace',
-                      style: TextStyle(
-                        color: _dcAccentOrange,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const Text(
-                      'He|rld',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 13,
-                        color: _dcDarkText,
-                      ),
-                    ),
+                    const Icon(Icons.keyboard_backspace,
+                        size: 16, color: _dcAccentOrange),
+                    const Text('Backspace',
+                        style: TextStyle(
+                            color: _dcAccentOrange,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600)),
+                    const Text('He|rld',
+                        style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                            color: _dcDarkText)),
                   ],
                 ),
               ),
@@ -1120,27 +963,23 @@ Widget _buildSelectionDeleteVisual() {
                 decoration: BoxDecoration(
                   color: _dcCrimson.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: _dcCrimson.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: _dcCrimson.withValues(alpha: 0.3)),
                 ),
                 child: const Column(
                   children: [
-                    Icon(Icons.delete, size: 16, color: _dcCrimson),
-                    Text(
-                      'Delete',
-                      style: TextStyle(
-                        color: _dcCrimson,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'He|rld',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 13,
-                        color: _dcDarkText,
-                      ),
-                    ),
+                    Icon(Icons.delete,
+                        size: 16, color: _dcCrimson),
+                    Text('Delete',
+                        style: TextStyle(
+                            color: _dcCrimson,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600)),
+                    Text('He|rld',
+                        style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                            color: _dcDarkText)),
                   ],
                 ),
               ),
@@ -1155,14 +994,12 @@ Widget _buildSelectionDeleteVisual() {
             borderRadius: BorderRadius.circular(4),
           ),
           child: const Text(
-            'Both keys produce identical result — selection is deleted',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: _dcCrimson,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+              'Both keys produce identical result — selection is deleted',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: _dcCrimson,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       ],
     ),
@@ -1198,8 +1035,7 @@ Widget _buildUndoFlow() {
             color: (s['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(6),
             border: Border.all(
-              color: (s['color'] as Color).withValues(alpha: 0.3),
-            ),
+                color: (s['color'] as Color).withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
@@ -1211,44 +1047,35 @@ Widget _buildUndoFlow() {
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: Text(
-                    '${entry.key + 1}',
-                    style: const TextStyle(
-                      color: _dcWhite,
-                      fontSize: 9,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: Text('${entry.key + 1}',
+                      style: const TextStyle(
+                          color: _dcWhite,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w700)),
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  s['step'] as String,
-                  style: TextStyle(
-                    color: s['color'] as Color,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text(s['step'] as String,
+                    style: TextStyle(
+                        color: s['color'] as Color,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600)),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _dcWhite,
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(
-                    color: (s['color'] as Color).withValues(alpha: 0.3),
-                  ),
+                      color: (s['color'] as Color).withValues(alpha: 0.3)),
                 ),
-                child: Text(
-                  s['state'] as String,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    color: _dcDarkText,
-                  ),
-                ),
+                child: Text(s['state'] as String,
+                    style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dcDarkText)),
               ),
             ],
           ),
@@ -1286,20 +1113,18 @@ Widget _buildDeleteSequenceDemo() {
             children: [
               Icon(Icons.text_fields, color: _dcWhite, size: 14),
               SizedBox(width: 8),
-              Text(
-                'Delete Sequence',
-                style: TextStyle(
-                  color: _dcWhite,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('Delete Sequence',
+                  style: TextStyle(
+                      color: _dcWhite,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700)),
             ],
           ),
         ),
         ...steps.asMap().entries.map((entry) {
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 12, vertical: 8),
             color: entry.key.isEven ? _dcBlush : _dcWhite,
             child: Row(
               children: [
@@ -1311,49 +1136,37 @@ Widget _buildDeleteSequenceDemo() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text(
-                      '${entry.key + 1}',
-                      style: const TextStyle(
-                        color: _dcCrimson,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text('${entry.key + 1}',
+                        style: const TextStyle(
+                            color: _dcCrimson,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700)),
                   ),
                 ),
                 const SizedBox(width: 8),
                 SizedBox(
                   width: 80,
-                  child: Text(
-                    entry.value['action']!,
-                    style: const TextStyle(
-                      color: _dcDarkCrimson,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text(entry.value['action']!,
+                      style: const TextStyle(
+                          color: _dcDarkCrimson,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600)),
                 ),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
+                        horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: _dcWhite,
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(
-                        color: _dcLightCrimson.withValues(alpha: 0.5),
-                      ),
+                          color: _dcLightCrimson.withValues(alpha: 0.5)),
                     ),
-                    child: Text(
-                      entry.value['field']!,
-                      style: const TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 11,
-                        color: _dcDarkText,
-                      ),
-                    ),
+                    child: Text(entry.value['field']!,
+                        style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                            color: _dcDarkText)),
                   ),
                 ),
               ],
@@ -1415,7 +1228,8 @@ List<Widget> _buildEdgeCases() {
       decoration: BoxDecoration(
         color: (c['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (c['color'] as Color).withValues(alpha: 0.3)),
+        border:
+            Border.all(color: (c['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -1426,25 +1240,22 @@ List<Widget> _buildEdgeCases() {
               color: c['color'] as Color,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Icon(c['icon'] as IconData, color: _dcWhite, size: 15),
+            child:
+                Icon(c['icon'] as IconData, color: _dcWhite, size: 15),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  c['case'] as String,
-                  style: TextStyle(
-                    color: c['color'] as Color,
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Text(
-                  c['desc'] as String,
-                  style: const TextStyle(color: _dcDarkText, fontSize: 10),
-                ),
+                Text(c['case'] as String,
+                    style: TextStyle(
+                        color: c['color'] as Color,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w700)),
+                Text(c['desc'] as String,
+                    style: const TextStyle(
+                        color: _dcDarkText, fontSize: 10)),
               ],
             ),
           ),
@@ -1465,13 +1276,10 @@ Widget _dcSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _dcWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _dcWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _dcWhite.withValues(alpha: 0.95),
+                  fontSize: 12.5)),
         ),
       ],
     ),

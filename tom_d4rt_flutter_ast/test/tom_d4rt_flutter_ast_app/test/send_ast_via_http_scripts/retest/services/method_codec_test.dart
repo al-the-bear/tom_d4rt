@@ -263,8 +263,20 @@ dynamic build(BuildContext context) {
           teal,
           slateLight,
         ),
-        _buildCompareRow('Byte size', 'compact', 'larger (text)', teal, amber),
-        _buildCompareRow('Performance', 'fast', 'slower', teal, amber),
+        _buildCompareRow(
+          'Byte size',
+          'compact',
+          'larger (text)',
+          teal,
+          amber,
+        ),
+        _buildCompareRow(
+          'Performance',
+          'fast',
+          'slower',
+          teal,
+          amber,
+        ),
         _buildCompareRow(
           'Numbers',
           'int / double',
@@ -279,7 +291,13 @@ dynamic build(BuildContext context) {
           teal,
           amber,
         ),
-        _buildCompareRow('Uint8List', 'native', 'as List<int>', teal, amber),
+        _buildCompareRow(
+          'Uint8List',
+          'native',
+          'as List<int>',
+          teal,
+          amber,
+        ),
         _buildCompareRow(
           'Readability',
           'opaque',
@@ -367,7 +385,10 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(14.0),
-          border: Border.all(color: amber.withValues(alpha: 0.5), width: 1.5),
+          border: Border.all(
+            color: amber.withValues(alpha: 0.5),
+            width: 1.5,
+          ),
           boxShadow: [
             BoxShadow(
               color: amber.withValues(alpha: 0.18),
@@ -451,11 +472,7 @@ dynamic build(BuildContext context) {
   final successResults = <Map<String, dynamic>>[
     {'label': '42', 'value': 42, 'icon': Icons.numbers},
     {'label': "'OK'", 'value': 'OK', 'icon': Icons.check_circle},
-    {
-      'label': '[1, 2, 3]',
-      'value': [1, 2, 3],
-      'icon': Icons.list,
-    },
+    {'label': '[1, 2, 3]', 'value': [1, 2, 3], 'icon': Icons.list},
     {
       'label': "{'ok': true}",
       'value': {'ok': true},
@@ -490,7 +507,10 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: teal.withValues(alpha: 0.6), width: 1.5),
+          border: Border.all(
+            color: teal.withValues(alpha: 0.6),
+            width: 1.5,
+          ),
           boxShadow: [
             BoxShadow(
               color: teal.withValues(alpha: 0.20),
@@ -542,7 +562,11 @@ dynamic build(BuildContext context) {
       'message': 'Resource missing',
       'details': 'path=/foo',
     },
-    {'code': 'ERR_AUTH', 'message': 'Token expired', 'details': null},
+    {
+      'code': 'ERR_AUTH',
+      'message': 'Token expired',
+      'details': null,
+    },
     {
       'code': 'ERR_NETWORK',
       'message': null,
@@ -649,7 +673,11 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(Icons.error_outline, color: Color(0xFFB91C1C), size: 22.0),
+                Icon(
+                  Icons.error_outline,
+                  color: Color(0xFFB91C1C),
+                  size: 22.0,
+                ),
                 SizedBox(width: 8.0),
                 Text(
                   code,
@@ -825,7 +853,11 @@ dynamic build(BuildContext context) {
             ),
             _buildBoundaryColumn(
               'Engine',
-              ['platform channel', '(opaque ByteData)', 'routes by name'],
+              [
+                'platform channel',
+                '(opaque ByteData)',
+                'routes by name',
+              ],
               Icons.memory,
               slate,
               slateDark,
@@ -966,36 +998,36 @@ dynamic build(BuildContext context) {
       'title': 'Standard ≠ any Dart object',
       'body':
           'StandardMethodCodec only encodes a curated type list: null, bool, '
-          'int, double, String, Uint8List, Int32List, Int64List, '
-          'Float32List, Float64List, List, Map. Custom classes throw.',
+              'int, double, String, Uint8List, Int32List, Int64List, '
+              'Float32List, Float64List, List, Map. Custom classes throw.',
     },
     {
       'title': 'JSON: null vs missing',
       'body':
           'JSON cannot distinguish a key whose value is null from a missing '
-          'key after round-trip. Use StandardMethodCodec when the '
-          'distinction matters.',
+              'key after round-trip. Use StandardMethodCodec when the '
+              'distinction matters.',
     },
     {
       'title': 'JSON requires String keys',
       'body':
           'Nested Map<dynamic,dynamic> with non-String keys is a runtime '
-          'error in JSONMethodCodec. StandardMethodCodec accepts any '
-          'allowed key type.',
+              'error in JSONMethodCodec. StandardMethodCodec accepts any '
+              'allowed key type.',
     },
     {
       'title': 'PlatformException details type-erased',
       'body':
           'PlatformException.details is typed dynamic. After codec '
-          'round-trip, custom payloads come back as Map/List/primitives — '
-          'not your original Dart class.',
+              'round-trip, custom payloads come back as Map/List/primitives — '
+              'not your original Dart class.',
     },
     {
       'title': 'ByteData length ≠ wire size',
       'body':
           'ByteData.lengthInBytes is the buffer size on the Dart heap. '
-          'Engine framing, channel overhead and platform encoding can '
-          'change the on-wire byte count.',
+              'Engine framing, channel overhead and platform encoding can '
+              'change the on-wire byte count.',
     },
   ];
 
@@ -1149,7 +1181,11 @@ dynamic build(BuildContext context) {
           ),
           boundaryDiagram,
           SizedBox(height: 28.0),
-          _buildSectionHeader('9. Custom Codec Sketch', Icons.build, slateDark),
+          _buildSectionHeader(
+            '9. Custom Codec Sketch',
+            Icons.build,
+            slateDark,
+          ),
           customCodecSketch,
           SizedBox(height: 28.0),
           _buildSectionHeader('10. Footguns', Icons.dangerous, slateDark),
@@ -1225,7 +1261,11 @@ Widget _buildAnatomyNode(
         Text(
           body,
           textAlign: TextAlign.center,
-          style: TextStyle(fontFamily: 'monospace', fontSize: 9.0, color: deep),
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 9.0,
+            color: deep,
+          ),
         ),
       ],
     ),
@@ -1239,7 +1279,11 @@ Widget _buildArrowLabel(String label, Color color) {
       SizedBox(height: 2.0),
       Text(
         label,
-        style: TextStyle(fontSize: 8.0, color: color, fontFamily: 'monospace'),
+        style: TextStyle(
+          fontSize: 8.0,
+          color: color,
+          fontFamily: 'monospace',
+        ),
       ),
     ],
   );
@@ -1271,7 +1315,12 @@ Widget _buildCompareRow(
   return Container(
     padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
     decoration: BoxDecoration(
-      border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1.0)),
+      border: Border(
+        bottom: BorderSide(
+          color: Color(0xFFE2E8F0),
+          width: 1.0,
+        ),
+      ),
     ),
     child: Row(
       children: [
@@ -1377,12 +1426,7 @@ Widget _buildByteBox(
   );
 }
 
-Widget _buildBytesBar(
-  int stdLen,
-  int jsonLen,
-  Color stdColor,
-  Color jsonColor,
-) {
+Widget _buildBytesBar(int stdLen, int jsonLen, Color stdColor, Color jsonColor) {
   final maxLen = stdLen > jsonLen ? stdLen : jsonLen;
   final stdRatio = maxLen == 0 ? 0.0 : stdLen / maxLen;
   final jsonRatio = maxLen == 0 ? 0.0 : jsonLen / maxLen;
@@ -1547,7 +1591,10 @@ Widget _buildCodeBlock(String code, Color textColor) {
     decoration: BoxDecoration(
       color: Color(0xFF0F172A),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: Color(0xFF334155), width: 1.0),
+      border: Border.all(
+        color: Color(0xFF334155),
+        width: 1.0,
+      ),
     ),
     child: Text(
       code,
@@ -1567,7 +1614,10 @@ Widget _buildFootgunCard(int index, String title, String body) {
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFFFFBEB), Color(0xFFFEF3C7)],
+        colors: [
+          Color(0xFFFFFBEB),
+          Color(0xFFFEF3C7),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

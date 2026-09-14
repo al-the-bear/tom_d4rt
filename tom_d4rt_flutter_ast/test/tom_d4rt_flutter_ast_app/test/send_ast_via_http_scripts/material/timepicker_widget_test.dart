@@ -149,7 +149,11 @@ dynamic build(BuildContext context) {
                 shape: BoxShape.circle,
                 border: Border.all(color: cParchment, width: 2.5),
               ),
-              child: const Icon(Icons.access_time, color: cInkDeep, size: 30),
+              child: const Icon(
+                Icons.access_time,
+                color: cInkDeep,
+                size: 30,
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -262,8 +266,7 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(
             height: 460,
-            child:
-                dialog ??
+            child: dialog ??
                 Container(
                   alignment: Alignment.center,
                   color: cInkSoft,
@@ -287,71 +290,72 @@ dynamic build(BuildContext context) {
     }
   }
 
-  final Widget? dlgBasic = safeDialog(
-    () => TimePickerDialog(initialTime: const TimeOfDay(hour: 10, minute: 30)),
-  );
-  final Widget? dlgHelp = safeDialog(
-    () => TimePickerDialog(
-      initialTime: const TimeOfDay(hour: 14, minute: 0),
-      helpText: 'Pick a meeting time',
-    ),
-  );
-  final Widget? dlgLabels = safeDialog(
-    () => TimePickerDialog(
-      initialTime: const TimeOfDay(hour: 8, minute: 15),
-      cancelText: 'Dismiss',
-      confirmText: 'Schedule',
-      hourLabelText: 'Hour',
-      minuteLabelText: 'Min',
-    ),
-  );
-  final Widget? dlgInput = safeDialog(
-    () => TimePickerDialog(
-      initialTime: const TimeOfDay(hour: 16, minute: 45),
-      initialEntryMode: TimePickerEntryMode.input,
-      helpText: 'Type the time',
-    ),
-  );
-  final Widget? dlgInputOnly = safeDialog(
-    () => TimePickerDialog(
-      initialTime: const TimeOfDay(hour: 23, minute: 59),
-      initialEntryMode: TimePickerEntryMode.inputOnly,
-      errorInvalidText: 'Out of range',
-    ),
-  );
-  final Widget? dlgDialOnly = safeDialog(
-    () => TimePickerDialog(
-      initialTime: const TimeOfDay(hour: 6, minute: 0),
-      initialEntryMode: TimePickerEntryMode.dialOnly,
-    ),
-  );
-  final Widget? dlgRestore = safeDialog(
-    () => TimePickerDialog(
-      initialTime: const TimeOfDay(hour: 12, minute: 0),
-      restorationId: 'demo-time-picker',
-    ),
-  );
-  final Widget? dlgErrorish = safeDialog(
-    () => TimePickerDialog(
-      initialTime: const TimeOfDay(hour: 9, minute: 0),
-      errorInvalidText: 'Invalid time entered',
-      hourLabelText: 'HH',
-      minuteLabelText: 'MM',
-    ),
-  );
+  final Widget? dlgBasic = safeDialog(() => TimePickerDialog(
+        initialTime: const TimeOfDay(hour: 10, minute: 30),
+      ));
+  final Widget? dlgHelp = safeDialog(() => TimePickerDialog(
+        initialTime: const TimeOfDay(hour: 14, minute: 0),
+        helpText: 'Pick a meeting time',
+      ));
+  final Widget? dlgLabels = safeDialog(() => TimePickerDialog(
+        initialTime: const TimeOfDay(hour: 8, minute: 15),
+        cancelText: 'Dismiss',
+        confirmText: 'Schedule',
+        hourLabelText: 'Hour',
+        minuteLabelText: 'Min',
+      ));
+  final Widget? dlgInput = safeDialog(() => TimePickerDialog(
+        initialTime: const TimeOfDay(hour: 16, minute: 45),
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Type the time',
+      ));
+  final Widget? dlgInputOnly = safeDialog(() => TimePickerDialog(
+        initialTime: const TimeOfDay(hour: 23, minute: 59),
+        initialEntryMode: TimePickerEntryMode.inputOnly,
+        errorInvalidText: 'Out of range',
+      ));
+  final Widget? dlgDialOnly = safeDialog(() => TimePickerDialog(
+        initialTime: const TimeOfDay(hour: 6, minute: 0),
+        initialEntryMode: TimePickerEntryMode.dialOnly,
+      ));
+  final Widget? dlgRestore = safeDialog(() => TimePickerDialog(
+        initialTime: const TimeOfDay(hour: 12, minute: 0),
+        restorationId: 'demo-time-picker',
+      ));
+  final Widget? dlgErrorish = safeDialog(() => TimePickerDialog(
+        initialTime: const TimeOfDay(hour: 9, minute: 0),
+        errorInvalidText: 'Invalid time entered',
+        hourLabelText: 'HH',
+        minuteLabelText: 'MM',
+      ));
 
   final Widget gallery = Wrap(
     alignment: WrapAlignment.center,
     children: [
-      buildDialogCard('Basic', 'initialTime: 10:30', dlgBasic, cBrass),
-      buildDialogCard('helpText', 'Custom prompt', dlgHelp, cTeal),
+      buildDialogCard(
+        'Basic',
+        'initialTime: 10:30',
+        dlgBasic,
+        cBrass,
+      ),
+      buildDialogCard(
+        'helpText',
+        'Custom prompt',
+        dlgHelp,
+        cTeal,
+      ),
       buildDialogCard(
         'Labels & buttons',
         'cancelText / confirmText / hourLabelText',
         dlgLabels,
         cVioletDawn,
       ),
-      buildDialogCard('Entry: input', 'Type-first 16:45', dlgInput, cCoral),
+      buildDialogCard(
+        'Entry: input',
+        'Type-first 16:45',
+        dlgInput,
+        cCoral,
+      ),
       buildDialogCard(
         'Entry: inputOnly',
         'Dial hidden, late 23:59',
@@ -548,7 +552,11 @@ dynamic build(BuildContext context) {
       ),
       digitalReadout(const TimeOfDay(hour: 6, minute: 30), 'DAWN', cTeal),
       digitalReadout(const TimeOfDay(hour: 12, minute: 0), 'NOON', cBrass),
-      digitalReadout(const TimeOfDay(hour: 18, minute: 45), 'EVENING', cCoral),
+      digitalReadout(
+        const TimeOfDay(hour: 18, minute: 45),
+        'EVENING',
+        cCoral,
+      ),
       digitalReadout(
         const TimeOfDay(hour: 23, minute: 59),
         'LATE NIGHT',
@@ -1076,12 +1084,10 @@ dynamic build(BuildContext context) {
       '  builder: (BuildContext ctx, Widget? child) => child!,\n'
       ');\n'
       'if (picked != null) {\n'
-      r'  print("user picked $picked");'
-      '\n'
+      r'  print("user picked $picked");' '\n'
       '}';
 
-  const String codeDialogDirect =
-      'showDialog<TimeOfDay>(\n'
+  const String codeDialogDirect = 'showDialog<TimeOfDay>(\n'
       '  context: context,\n'
       '  builder: (_) => TimePickerDialog(\n'
       '    initialTime: TimeOfDay(hour: 9, minute: 30),\n'
@@ -1097,7 +1103,10 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: cBrass.withValues(alpha: 0.25), width: 0.6),
+          bottom: BorderSide(
+            color: cBrass.withValues(alpha: 0.25),
+            width: 0.6,
+          ),
         ),
       ),
       child: Row(
@@ -1295,9 +1304,17 @@ dynamic build(BuildContext context) {
   final Widget edgeStrip = Wrap(
     alignment: WrapAlignment.center,
     children: [
-      edgeChip('MIDNIGHT', const TimeOfDay(hour: 0, minute: 0), cVioletDawn),
+      edgeChip(
+        'MIDNIGHT',
+        const TimeOfDay(hour: 0, minute: 0),
+        cVioletDawn,
+      ),
       edgeChip('NOON', const TimeOfDay(hour: 12, minute: 0), cBrass),
-      edgeChip('23:59', const TimeOfDay(hour: 23, minute: 59), cCoral),
+      edgeChip(
+        '23:59',
+        const TimeOfDay(hour: 23, minute: 59),
+        cCoral,
+      ),
       edgeChip(
         'REPLACE MINUTE',
         const TimeOfDay(hour: 9, minute: 15).replacing(minute: 45),
@@ -1423,8 +1440,16 @@ dynamic build(BuildContext context) {
             'How a real app wires the dialog with await and a builder',
             cTeal,
           ),
-          codeCard('await showTimePicker(...)', codeShowTimePicker, cTeal),
-          codeCard('showDialog<TimeOfDay>(...)', codeDialogDirect, cVioletDawn),
+          codeCard(
+            'await showTimePicker(...)',
+            codeShowTimePicker,
+            cTeal,
+          ),
+          codeCard(
+            'showDialog<TimeOfDay>(...)',
+            codeDialogDirect,
+            cVioletDawn,
+          ),
           sectionTitle(
             '8',
             'Parameter reference',
@@ -1495,10 +1520,8 @@ class _ClockFacePainter extends CustomPainter {
       final double angle = (i / markerCount) * 2 * math.pi - math.pi / 2;
       final double r1 = radius - 4;
       final double r2 = radius - (i % (is24Hour ? 6 : 3) == 0 ? 18 : 10);
-      final Offset p1 =
-          center + Offset(math.cos(angle) * r1, math.sin(angle) * r1);
-      final Offset p2 =
-          center + Offset(math.cos(angle) * r2, math.sin(angle) * r2);
+      final Offset p1 = center + Offset(math.cos(angle) * r1, math.sin(angle) * r1);
+      final Offset p2 = center + Offset(math.cos(angle) * r2, math.sin(angle) * r2);
       final Paint markerPaint = Paint()
         ..color = markerColor
         ..strokeWidth = i % (is24Hour ? 6 : 3) == 0 ? 2.4 : 1.2;
@@ -1510,8 +1533,7 @@ class _ClockFacePainter extends CustomPainter {
       for (int i = 1; i <= 12; i++) {
         final double angle = (i / 12.0) * 2 * math.pi - math.pi / 2;
         final double r = radius - 30;
-        final Offset p =
-            center + Offset(math.cos(angle) * r, math.sin(angle) * r);
+        final Offset p = center + Offset(math.cos(angle) * r, math.sin(angle) * r);
         final TextPainter tp = TextPainter(
           text: TextSpan(
             text: '$i',
@@ -1548,9 +1570,9 @@ class _ClockFacePainter extends CustomPainter {
     final int displayHour = is24Hour ? hour : hour % 12;
     final double hourAngle =
         ((displayHour + minute / 60.0) / (is24Hour ? 24.0 : 12.0)) *
-            2 *
-            math.pi -
-        math.pi / 2;
+                2 *
+                math.pi -
+            math.pi / 2;
     final Paint hourPaint = Paint()
       ..color = handHourColor
       ..strokeWidth = 4
@@ -1603,18 +1625,10 @@ class _MiniDialPainter extends CustomPainter {
 
     for (int i = 0; i < 12; i++) {
       final double angle = (i / 12.0) * 2 * math.pi - math.pi / 2;
-      final Offset p1 =
-          center +
-          Offset(
-            math.cos(angle) * (radius - 2),
-            math.sin(angle) * (radius - 2),
-          );
-      final Offset p2 =
-          center +
-          Offset(
-            math.cos(angle) * (radius - 8),
-            math.sin(angle) * (radius - 8),
-          );
+      final Offset p1 = center +
+          Offset(math.cos(angle) * (radius - 2), math.sin(angle) * (radius - 2));
+      final Offset p2 = center +
+          Offset(math.cos(angle) * (radius - 8), math.sin(angle) * (radius - 8));
       final Paint tickPaint = Paint()
         ..color = tickColor
         ..strokeWidth = i % 3 == 0 ? 2 : 1;

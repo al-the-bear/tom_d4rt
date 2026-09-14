@@ -41,7 +41,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.amber.shade600, Colors.deepOrange.shade700],
+        colors: [
+          Colors.amber.shade600,
+          Colors.deepOrange.shade700,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -57,7 +60,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(Icons.report_gmailerrorred, size: 64.0, color: Colors.white),
+        Icon(
+          Icons.report_gmailerrorred,
+          size: 64.0,
+          color: Colors.white,
+        ),
         SizedBox(height: 8.0),
         Text(
           'ErrorSpacer',
@@ -248,10 +255,17 @@ dynamic build(BuildContext context) {
         SizedBox(height: 10.0),
         Text(
           'No-arg constructor. Below: live values from the constructed instance.',
-          style: TextStyle(fontSize: 12.0, color: Colors.brown.shade800),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.brown.shade800,
+          ),
         ),
         SizedBox(height: 14.0),
-        Wrap(spacing: 8.0, runSpacing: 8.0, children: inspectionChips),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: inspectionChips,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -262,11 +276,8 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.info_outline,
-                size: 16.0,
-                color: Colors.brown.shade700,
-              ),
+              Icon(Icons.info_outline,
+                  size: 16.0, color: Colors.brown.shade700),
               SizedBox(width: 6.0),
               Expanded(
                 child: Text(
@@ -310,24 +321,19 @@ dynamic build(BuildContext context) {
       'When the exception was thrown, this was the stack:',
       Colors.amber.shade200,
     ),
-    _dumpLine(
-      '#0   _MyWidgetState.build (file://lib/my_widget.dart:42)',
-      Colors.grey.shade400,
-    ),
-    _dumpLine(
-      '#1   StatefulElement.build (framework.dart:5198)',
-      Colors.grey.shade400,
-    ),
-    _dumpLine(
-      '#2   ComponentElement.performRebuild (framework.dart:5089)',
-      Colors.grey.shade400,
-    ),
+    _dumpLine('#0   _MyWidgetState.build (file://lib/my_widget.dart:42)',
+        Colors.grey.shade400),
+    _dumpLine('#1   StatefulElement.build (framework.dart:5198)',
+        Colors.grey.shade400),
+    _dumpLine('#2   ComponentElement.performRebuild (framework.dart:5089)',
+        Colors.grey.shade400),
     _spacerDumpLine('ErrorSpacer #2'),
-    _dumpLine('The relevant error-causing widget was:', Colors.amber.shade200),
     _dumpLine(
-      '  MyWidget MyWidget:file://lib/main.dart:17:12',
-      Colors.cyan.shade300,
+      'The relevant error-causing widget was:',
+      Colors.amber.shade200,
     ),
+    _dumpLine('  MyWidget MyWidget:file://lib/main.dart:17:12',
+        Colors.cyan.shade300),
     _spacerDumpLine('ErrorSpacer #3'),
     _dumpLine(
       '═══════════════════════════════════════════════════════',
@@ -436,25 +442,19 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 6.0),
-        _tableRow(
-          'ErrorSummary',
-          'red bold one-liner',
-          'Headline of the error',
-        ),
-        _tableRow(
-          'ErrorDescription',
-          'plain text paragraph',
-          'Long form details',
-        ),
-        _tableRow('ErrorHint', 'italic suggestion', 'Suggested fix or hint'),
-        _tableRow(
-          'ErrorSpacer',
-          '(empty line)',
-          'Visually separates sections',
-          highlight: true,
-        ),
-        _tableRow('DiagnosticsProperty', 'name: value pair', 'Context object'),
-        _tableRow('DiagnosticsNode', 'base class', 'Generic tree node'),
+        _tableRow('ErrorSummary',
+            'red bold one-liner', 'Headline of the error'),
+        _tableRow('ErrorDescription',
+            'plain text paragraph', 'Long form details'),
+        _tableRow('ErrorHint',
+            'italic suggestion', 'Suggested fix or hint'),
+        _tableRow('ErrorSpacer',
+            '(empty line)', 'Visually separates sections',
+            highlight: true),
+        _tableRow('DiagnosticsProperty',
+            'name: value pair', 'Context object'),
+        _tableRow('DiagnosticsNode',
+            'base class', 'Generic tree node'),
       ],
     ),
   );
@@ -498,25 +498,22 @@ dynamic build(BuildContext context) {
     ),
     _spacerDumpLine('ErrorSpacer'),
     _dumpLine('The specific RenderFlex in question is:', Colors.amber.shade200),
-    _dumpLine(
-      '  RenderFlex#a1b2c relayoutBoundary=up3 OVERFLOWING',
-      Colors.cyan.shade300,
-    ),
-    _dumpLine(
-      '    creator: Row ← Padding ← ConstrainedBox ← …',
-      Colors.cyan.shade200,
-    ),
+    _dumpLine('  RenderFlex#a1b2c relayoutBoundary=up3 OVERFLOWING',
+        Colors.cyan.shade300),
+    _dumpLine('    creator: Row ← Padding ← ConstrainedBox ← …',
+        Colors.cyan.shade200),
     _dumpLine('    parentData: <none> (can use size)', Colors.cyan.shade200),
-    _dumpLine(
-      '    constraints: BoxConstraints(w=320.0, 0.0<=h<=Infinity)',
-      Colors.cyan.shade200,
-    ),
+    _dumpLine('    constraints: BoxConstraints(w=320.0, 0.0<=h<=Infinity)',
+        Colors.cyan.shade200),
     _dumpLine('    size: Size(320.0, 56.0)', Colors.cyan.shade200),
     _dumpLine('    direction: horizontal', Colors.cyan.shade200),
     _dumpLine('    mainAxisAlignment: start', Colors.cyan.shade200),
     _dumpLine('    crossAxisAlignment: center', Colors.cyan.shade200),
     _spacerDumpLine('ErrorSpacer'),
-    _dumpLine('◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤', Colors.amber.shade400),
+    _dumpLine(
+      '◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤',
+      Colors.amber.shade400,
+    ),
     _dumpLine(
       '═══════════════════════════════════════════════════════',
       Colors.red.shade300,
@@ -756,52 +753,24 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 14.0),
         _treeNode('FlutterError', 0, Colors.red.shade700, Icons.error_outline),
-        _treeNode(
-          'ErrorSummary("RenderFlex overflowed by 27px")',
-          1,
-          Colors.red.shade400,
-          Icons.summarize,
-        ),
+        _treeNode('ErrorSummary("RenderFlex overflowed by 27px")', 1,
+            Colors.red.shade400, Icons.summarize),
         _treeSpacerNode(1, 'ErrorSpacer  ← blank line'),
-        _treeNode(
-          'ErrorDescription("orientation = horizontal")',
-          1,
-          Colors.orange.shade600,
-          Icons.description,
-        ),
+        _treeNode('ErrorDescription("orientation = horizontal")', 1,
+            Colors.orange.shade600, Icons.description),
         _treeSpacerNode(1, 'ErrorSpacer  ← blank line'),
-        _treeNode(
-          'ErrorHint("apply a flex factor")',
-          1,
-          Colors.blue.shade500,
-          Icons.lightbulb,
-        ),
+        _treeNode('ErrorHint("apply a flex factor")', 1,
+            Colors.blue.shade500, Icons.lightbulb),
         _treeSpacerNode(1, 'ErrorSpacer  ← blank line'),
-        _treeNode(
-          'DiagnosticsProperty<RenderFlex>',
-          1,
-          Colors.purple.shade600,
-          Icons.account_tree,
-        ),
-        _treeNode(
-          'size: Size(320.0, 56.0)',
-          2,
-          Colors.purple.shade400,
-          Icons.straighten,
-        ),
-        _treeNode(
-          'direction: horizontal',
-          2,
-          Colors.purple.shade400,
-          Icons.swap_horiz,
-        ),
+        _treeNode('DiagnosticsProperty<RenderFlex>', 1,
+            Colors.purple.shade600, Icons.account_tree),
+        _treeNode('size: Size(320.0, 56.0)', 2,
+            Colors.purple.shade400, Icons.straighten),
+        _treeNode('direction: horizontal', 2,
+            Colors.purple.shade400, Icons.swap_horiz),
         _treeSpacerNode(1, 'ErrorSpacer  ← blank line'),
-        _treeNode(
-          'DiagnosticsStackTrace',
-          1,
-          Colors.brown.shade700,
-          Icons.layers,
-        ),
+        _treeNode('DiagnosticsStackTrace', 1, Colors.brown.shade700,
+            Icons.layers),
       ],
     ),
   );
@@ -866,11 +835,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.dangerous_outlined,
-              color: Colors.red.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.dangerous_outlined,
+                color: Colors.red.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Footguns',
@@ -926,7 +892,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.deepOrange.shade400, Colors.amber.shade700],
+        colors: [
+          Colors.deepOrange.shade400,
+          Colors.amber.shade700,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1004,63 +973,39 @@ dynamic build(BuildContext context) {
         children: [
           titleBanner,
           SizedBox(height: 24.0),
-          _sectionHeader(
-            '1. Anatomy of a FlutterError diagnostics tree',
-            Icons.account_tree,
-            amberDeep,
-          ),
+          _sectionHeader('1. Anatomy of a FlutterError diagnostics tree',
+              Icons.account_tree, amberDeep),
           anatomyCard,
           SizedBox(height: 16.0),
-          _sectionHeader(
-            '2. Constructor inspection',
-            Icons.construction,
-            amberDeep,
-          ),
+          _sectionHeader('2. Constructor inspection',
+              Icons.construction, amberDeep),
           constructorCard,
           SizedBox(height: 16.0),
-          _sectionHeader(
-            '3. Mock FlutterError dump with spacers',
-            Icons.terminal,
-            amberDeep,
-          ),
+          _sectionHeader('3. Mock FlutterError dump with spacers',
+              Icons.terminal, amberDeep),
           mockDumpCard,
           SizedBox(height: 16.0),
-          _sectionHeader(
-            '4. Comparison vs sibling diagnostic nodes',
-            Icons.compare_arrows,
-            amberDeep,
-          ),
+          _sectionHeader('4. Comparison vs sibling diagnostic nodes',
+              Icons.compare_arrows, amberDeep),
           comparisonTable,
           SizedBox(height: 16.0),
-          _sectionHeader(
-            '5. Real-world: RenderFlex overflowed',
-            Icons.warning_amber,
-            amberDeep,
-          ),
+          _sectionHeader('5. Real-world: RenderFlex overflowed',
+              Icons.warning_amber, amberDeep),
           renderFlexCard,
           SizedBox(height: 16.0),
-          _sectionHeader(
-            '6. Code snippet — FlutterError.fromParts',
-            Icons.code,
-            amberDeep,
-          ),
+          _sectionHeader('6. Code snippet — FlutterError.fromParts',
+              Icons.code, amberDeep),
           codeSnippetCard,
           SizedBox(height: 16.0),
           _sectionHeader('7. Use cases', Icons.work_outline, amberDeep),
           useCasesCard,
           SizedBox(height: 16.0),
-          _sectionHeader(
-            '8. DiagnosticsNode tree (with spacer slots)',
-            Icons.account_tree_outlined,
-            amberDeep,
-          ),
+          _sectionHeader('8. DiagnosticsNode tree (with spacer slots)',
+              Icons.account_tree_outlined, amberDeep),
           treeCard,
           SizedBox(height: 16.0),
-          _sectionHeader(
-            '9. Footguns',
-            Icons.dangerous_outlined,
-            Colors.red.shade700,
-          ),
+          _sectionHeader('9. Footguns', Icons.dangerous_outlined,
+              Colors.red.shade700),
           footgunsCard,
           SizedBox(height: 16.0),
           _sectionHeader('10. Recap', Icons.checklist, amberDeep),
@@ -1123,18 +1068,16 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
 }
 
 Widget _anatomyRow(
-  String name,
-  String description,
-  Color color,
-  IconData icon,
-) {
+    String name, String description, Color color, IconData icon) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4.0),
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.85),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
     ),
     child: Row(
       children: [
@@ -1185,11 +1128,8 @@ Widget _anatomySpacerRow() {
     ),
     child: Row(
       children: [
-        Icon(
-          Icons.format_line_spacing,
-          color: Colors.deepOrange.shade800,
-          size: 18.0,
-        ),
+        Icon(Icons.format_line_spacing,
+            color: Colors.deepOrange.shade800, size: 18.0),
         SizedBox(width: 10.0),
         SizedBox(
           width: 150.0,
@@ -1333,12 +1273,8 @@ Widget _tableCell(String text, {int flex = 1, bool bold = false}) {
   );
 }
 
-Widget _tableRow(
-  String cls,
-  String renders,
-  String purpose, {
-  bool highlight = false,
-}) {
+Widget _tableRow(String cls, String renders, String purpose,
+    {bool highlight = false}) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
     margin: EdgeInsets.symmetric(vertical: 2.0),
@@ -1390,7 +1326,10 @@ Widget _tableRow(
             padding: EdgeInsets.symmetric(horizontal: 4.0),
             child: Text(
               purpose,
-              style: TextStyle(fontSize: 11.0, color: Colors.brown.shade900),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.brown.shade900,
+              ),
             ),
           ),
         ),
@@ -1423,14 +1362,17 @@ Widget _codeBlock(String code, Color textColor) {
   );
 }
 
-Widget _useCaseCard(IconData icon, String title, String body, Color accent) {
+Widget _useCaseCard(
+    IconData icon, String title, String body, Color accent) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6.0),
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.85),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: accent, width: 5.0)),
+      border: Border(
+        left: BorderSide(color: accent, width: 5.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.18),
@@ -1482,7 +1424,11 @@ Widget _useCaseCard(IconData icon, String title, String body, Color accent) {
 
 Widget _treeNode(String label, int indent, Color color, IconData icon) {
   return Padding(
-    padding: EdgeInsets.only(left: indent * 22.0, top: 3.0, bottom: 3.0),
+    padding: EdgeInsets.only(
+      left: indent * 22.0,
+      top: 3.0,
+      bottom: 3.0,
+    ),
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       decoration: BoxDecoration(
@@ -1512,7 +1458,11 @@ Widget _treeNode(String label, int indent, Color color, IconData icon) {
 
 Widget _treeSpacerNode(int indent, String label) {
   return Padding(
-    padding: EdgeInsets.only(left: indent * 22.0, top: 3.0, bottom: 3.0),
+    padding: EdgeInsets.only(
+      left: indent * 22.0,
+      top: 3.0,
+      bottom: 3.0,
+    ),
     child: Container(
       height: 22.0,
       padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -1530,11 +1480,8 @@ Widget _treeSpacerNode(int indent, String label) {
       ),
       child: Row(
         children: [
-          Icon(
-            Icons.format_line_spacing,
-            color: Colors.deepOrange.shade900,
-            size: 14.0,
-          ),
+          Icon(Icons.format_line_spacing,
+              color: Colors.deepOrange.shade900, size: 14.0),
           SizedBox(width: 6.0),
           Text(
             label,
@@ -1552,14 +1499,18 @@ Widget _treeSpacerNode(int indent, String label) {
   );
 }
 
-Widget _footgunCard(IconData icon, String title, String body, Color accent) {
+Widget _footgunCard(
+    IconData icon, String title, String body, Color accent) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6.0),
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.9),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(color: accent.withValues(alpha: 0.7), width: 1.2),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.7),
+        width: 1.2,
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,

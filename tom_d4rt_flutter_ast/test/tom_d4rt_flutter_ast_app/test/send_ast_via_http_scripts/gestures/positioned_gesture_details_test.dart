@@ -309,7 +309,10 @@ const List<DetailsCardData> kDetailsCards = <DetailsCardData>[
   DetailsCardData(
     typeName: 'LongPressStartDetails',
     tagline: 'Press held past threshold',
-    fields: <String>['globalPosition: Offset', 'localPosition: Offset'],
+    fields: <String>[
+      'globalPosition: Offset',
+      'localPosition: Offset',
+    ],
     literal:
         'LongPressStartDetails(\n  globalPosition: Offset(220, 160),\n  localPosition: Offset(140, 100),\n)',
     accent: kAccentLong,
@@ -387,7 +390,10 @@ const List<DetailsCardData> kDetailsCards = <DetailsCardData>[
   DetailsCardData(
     typeName: 'DragDownDetails',
     tagline: 'Pointer down, drag may begin',
-    fields: <String>['globalPosition: Offset', 'localPosition: Offset'],
+    fields: <String>[
+      'globalPosition: Offset',
+      'localPosition: Offset',
+    ],
     literal:
         'DragDownDetails(\n  globalPosition: Offset(310, 268),\n  localPosition: Offset(230, 208),\n)',
     accent: kAccentDrag,
@@ -817,13 +823,8 @@ class FingerprintPainter extends CustomPainter {
         width: r * 2.0,
         height: r * 2.4,
       );
-      canvas.drawArc(
-        rect,
-        -2.6 - i * 0.04,
-        2.4 + i * 0.05,
-        false,
-        i.isEven ? stroke : dim,
-      );
+      canvas.drawArc(rect, -2.6 - i * 0.04, 2.4 + i * 0.05, false,
+          i.isEven ? stroke : dim);
     }
     final Paint dot = Paint()..color = tint;
     canvas.drawCircle(centre, 3.0, dot);
@@ -897,16 +898,10 @@ class AnatomyDiagramPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint screenBg = Paint()..color = kBgPanelAlt;
-    final Rect screenRect = Rect.fromLTWH(
-      8.0,
-      8.0,
-      size.width - 16.0,
-      size.height - 16.0,
-    );
+    final Rect screenRect =
+        Rect.fromLTWH(8.0, 8.0, size.width - 16.0, size.height - 16.0);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(screenRect, Radius.circular(8.0)),
-      screenBg,
-    );
+        RRect.fromRectAndRadius(screenRect, Radius.circular(8.0)), screenBg);
     final Paint widgetBg = Paint()..color = kBgCard;
     final Rect widgetRect = Rect.fromLTWH(
       screenRect.left + 60.0,
@@ -915,17 +910,13 @@ class AnatomyDiagramPainter extends CustomPainter {
       screenRect.height * 0.55,
     );
     canvas.drawRRect(
-      RRect.fromRectAndRadius(widgetRect, Radius.circular(6.0)),
-      widgetBg,
-    );
+        RRect.fromRectAndRadius(widgetRect, Radius.circular(6.0)), widgetBg);
     final Paint widgetEdge = Paint()
       ..color = kAccentTap
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.4;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(widgetRect, Radius.circular(6.0)),
-      widgetEdge,
-    );
+        RRect.fromRectAndRadius(widgetRect, Radius.circular(6.0)), widgetEdge);
     final Offset finger = Offset(
       widgetRect.left + widgetRect.width * 0.45,
       widgetRect.top + widgetRect.height * 0.55,
@@ -1020,7 +1011,10 @@ Widget sectionTitle(String index, String title, String subtitle, Color tint) {
                 ),
               ),
               SizedBox(height: 4.0),
-              Text(subtitle, style: TextStyle(color: kInkDim, fontSize: 13.0)),
+              Text(
+                subtitle,
+                style: TextStyle(color: kInkDim, fontSize: 13.0),
+              ),
             ],
           ),
         ),
@@ -1285,14 +1279,12 @@ Widget buildGallery() {
     // Stretch-Row in the 4x3 details-card gallery inside the unbounded
     // SingleChildScrollView — wrap in IntrinsicHeight so Expanded cells
     // share the tallest card's height with finite constraints.
-    rows.add(
-      IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: cells,
-        ),
+    rows.add(IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: cells,
       ),
-    );
+    ));
     if (r < 2) rows.add(SizedBox(height: 10.0));
   }
   return sectionPanel(
@@ -1749,86 +1741,78 @@ Widget buildVelocity() {
         // unbounded vertical viewport — wrap in IntrinsicHeight so both
         // Expanded columns receive a finite shared height.
         IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #28, P3):
-                // The half-width Expanded slot only holds ~336 px of inner
-                // content; the original 50-char monospace lines exceeded
-                // that, and Text could not soft-wrap them because they
-                // contain no breakable whitespace. Reformat to split at
-                // natural language boundaries so every line fits.
-                child: codeBlock(
-                  'class Velocity {\n'
-                  '  final Offset pixelsPerSecond;\n'
-                  '  const Velocity({\n'
-                  '    required this.pixelsPerSecond,\n'
-                  '  });\n'
-                  '  Velocity clampMagnitude(\n'
-                  '    double min,\n'
-                  '    double max,\n'
-                  '  );\n'
-                  '  static const Velocity zero =\n'
-                  '      Velocity(\n'
-                  '    pixelsPerSecond: Offset.zero,\n'
-                  '  );\n'
-                  '}',
-                  tint: kAccentDrag,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #28, P3):
+              // The half-width Expanded slot only holds ~336 px of inner
+              // content; the original 50-char monospace lines exceeded
+              // that, and Text could not soft-wrap them because they
+              // contain no breakable whitespace. Reformat to split at
+              // natural language boundaries so every line fits.
+              child: codeBlock(
+                'class Velocity {\n'
+                '  final Offset pixelsPerSecond;\n'
+                '  const Velocity({\n'
+                '    required this.pixelsPerSecond,\n'
+                '  });\n'
+                '  Velocity clampMagnitude(\n'
+                '    double min,\n'
+                '    double max,\n'
+                '  );\n'
+                '  static const Velocity zero =\n'
+                '      Velocity(\n'
+                '    pixelsPerSecond: Offset.zero,\n'
+                '  );\n'
+                '}',
+                tint: kAccentDrag,
+              ),
+            ),
+            SizedBox(width: 12.0),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: kBgCard,
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(color: kAccentDrag, width: 1.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'sample',
+                      style: TextStyle(
+                        color: kAccentDrag,
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    SizedBox(height: 6.0),
+                    Text(
+                      'Velocity(pixelsPerSecond: Offset(420, 180))',
+                      style: TextStyle(
+                        color: kInk,
+                        fontFamily: 'monospace',
+                        fontSize: 11.5,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    velocityRow('dx (px/s)',
+                        sample.pixelsPerSecond.dx.toStringAsFixed(1)),
+                    velocityRow('dy (px/s)',
+                        sample.pixelsPerSecond.dy.toStringAsFixed(1)),
+                    velocityRow('|v| (px/s)',
+                        sample.pixelsPerSecond.distance.toStringAsFixed(1)),
+                    velocityRow('direction (rad)',
+                        sample.pixelsPerSecond.direction.toStringAsFixed(2)),
+                  ],
                 ),
               ),
-              SizedBox(width: 12.0),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(12.0),
-                  decoration: BoxDecoration(
-                    color: kBgCard,
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: kAccentDrag, width: 1.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'sample',
-                        style: TextStyle(
-                          color: kAccentDrag,
-                          fontSize: 11.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      SizedBox(height: 6.0),
-                      Text(
-                        'Velocity(pixelsPerSecond: Offset(420, 180))',
-                        style: TextStyle(
-                          color: kInk,
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                        ),
-                      ),
-                      SizedBox(height: 10.0),
-                      velocityRow(
-                        'dx (px/s)',
-                        sample.pixelsPerSecond.dx.toStringAsFixed(1),
-                      ),
-                      velocityRow(
-                        'dy (px/s)',
-                        sample.pixelsPerSecond.dy.toStringAsFixed(1),
-                      ),
-                      velocityRow(
-                        '|v| (px/s)',
-                        sample.pixelsPerSecond.distance.toStringAsFixed(1),
-                      ),
-                      velocityRow(
-                        'direction (rad)',
-                        sample.pixelsPerSecond.direction.toStringAsFixed(2),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
+        ),
         ),
       ],
     ),
@@ -1975,91 +1959,91 @@ Widget buildRecipe() {
         // inside the unbounded vertical viewport — wrap in IntrinsicHeight
         // so both Expanded columns get a finite shared height.
         IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: kBgCard,
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: kAccentTap, width: 1.0),
-                  ),
-                  child: GestureDetector(
-                    onTapDown: (TapDownDetails details) {},
-                    onLongPressStart: (LongPressStartDetails details) {},
-                    onPanStart: (DragStartDetails details) {},
-                    child: Container(
-                      height: 140.0,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: kBgPanelAlt,
-                        borderRadius: BorderRadius.circular(6.0),
-                        border: Border.all(color: kAccentDrag, width: 1.0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(Icons.touch_app, color: kAccentTap, size: 32.0),
-                          SizedBox(height: 6.0),
-                          Text(
-                            'GestureDetector',
-                            style: TextStyle(
-                              color: kInk,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13.0,
-                            ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: kBgCard,
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(color: kAccentTap, width: 1.0),
+                ),
+                child: GestureDetector(
+                  onTapDown: (TapDownDetails details) {},
+                  onLongPressStart: (LongPressStartDetails details) {},
+                  onPanStart: (DragStartDetails details) {},
+                  child: Container(
+                    height: 140.0,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: kBgPanelAlt,
+                      borderRadius: BorderRadius.circular(6.0),
+                      border: Border.all(color: kAccentDrag, width: 1.0),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.touch_app, color: kAccentTap, size: 32.0),
+                        SizedBox(height: 6.0),
+                        Text(
+                          'GestureDetector',
+                          style: TextStyle(
+                            color: kInk,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13.0,
                           ),
-                          SizedBox(height: 2.0),
-                          Text(
-                            'onTapDown / onLongPressStart / onPanStart',
-                            style: TextStyle(
-                              color: kInkDim,
-                              fontSize: 10.5,
-                              fontFamily: 'monospace',
-                            ),
+                        ),
+                        SizedBox(height: 2.0),
+                        Text(
+                          'onTapDown / onLongPressStart / onPanStart',
+                          style: TextStyle(
+                            color: kInkDim,
+                            fontSize: 10.5,
+                            fontFamily: 'monospace',
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(width: 12.0),
-              Expanded(
-                flex: 2,
-                child: codeBlock(
-                  "GestureDetector(\n"
-                  "  onTapDown: (TapDownDetails d) {\n"
-                  "    // d.globalPosition - Offset, screen coords\n"
-                  "    // d.localPosition  - Offset, widget coords\n"
-                  "    // d.kind           - PointerDeviceKind\n"
-                  "  },\n"
-                  "  onLongPressStart: (LongPressStartDetails d) {\n"
-                  "    // d.globalPosition / d.localPosition\n"
-                  "  },\n"
-                  "  onPanStart: (DragStartDetails d) {\n"
-                  "    // d.globalPosition / d.localPosition\n"
-                  "    // d.sourceTimeStamp - Duration?\n"
-                  "    // d.kind            - PointerDeviceKind?\n"
-                  "  },\n"
-                  "  onPanUpdate: (DragUpdateDetails d) {\n"
-                  "    // d.delta          - Offset, per-frame translation\n"
-                  "    // d.primaryDelta   - double?, axis projection\n"
-                  "  },\n"
-                  "  onPanEnd: (DragEndDetails d) {\n"
-                  "    // d.velocity         - Velocity\n"
-                  "    // d.primaryVelocity  - double?\n"
-                  "  },\n"
-                  "  child: Container(/* ... */),\n"
-                  ");",
-                  tint: kAccentTap,
-                ),
+            ),
+            SizedBox(width: 12.0),
+            Expanded(
+              flex: 2,
+              child: codeBlock(
+                "GestureDetector(\n"
+                "  onTapDown: (TapDownDetails d) {\n"
+                "    // d.globalPosition - Offset, screen coords\n"
+                "    // d.localPosition  - Offset, widget coords\n"
+                "    // d.kind           - PointerDeviceKind\n"
+                "  },\n"
+                "  onLongPressStart: (LongPressStartDetails d) {\n"
+                "    // d.globalPosition / d.localPosition\n"
+                "  },\n"
+                "  onPanStart: (DragStartDetails d) {\n"
+                "    // d.globalPosition / d.localPosition\n"
+                "    // d.sourceTimeStamp - Duration?\n"
+                "    // d.kind            - PointerDeviceKind?\n"
+                "  },\n"
+                "  onPanUpdate: (DragUpdateDetails d) {\n"
+                "    // d.delta          - Offset, per-frame translation\n"
+                "    // d.primaryDelta   - double?, axis projection\n"
+                "  },\n"
+                "  onPanEnd: (DragEndDetails d) {\n"
+                "    // d.velocity         - Velocity\n"
+                "    // d.primaryVelocity  - double?\n"
+                "  },\n"
+                "  child: Container(/* ... */),\n"
+                ");",
+                tint: kAccentTap,
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
         ),
       ],
     ),
@@ -2196,7 +2180,9 @@ dynamic build(BuildContext context) {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: kBgDeep,
       primaryColor: kAccentTap,
-      textTheme: TextTheme(bodyMedium: TextStyle(color: kInk, fontSize: 13.0)),
+      textTheme: TextTheme(
+        bodyMedium: TextStyle(color: kInk, fontSize: 13.0),
+      ),
     ),
     home: Scaffold(
       backgroundColor: kBgDeep,

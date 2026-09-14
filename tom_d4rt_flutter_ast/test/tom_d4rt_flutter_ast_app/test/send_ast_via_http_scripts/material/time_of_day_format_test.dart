@@ -622,9 +622,7 @@ Widget _buildSideBySideTable() {
   for (int i = 0; i < _wideSampleTimes.length; i++) {
     final t = _wideSampleTimes[i];
     final bg = i.isEven ? evenRow : oddRow;
-    final tone = t.hour < 12
-        ? const Color(0xFF0D47A1)
-        : const Color(0xFFB71C1C);
+    final tone = t.hour < 12 ? const Color(0xFF0D47A1) : const Color(0xFFB71C1C);
     rows.add(
       Container(
         color: bg,
@@ -1061,7 +1059,10 @@ class _LivePickerBodyState extends State<_LivePickerBody> {
                 value: fmt,
                 label: Text(
                   _icuPattern(fmt),
-                  style: const TextStyle(fontFamily: 'monospace', fontSize: 10),
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 10,
+                  ),
                 ),
               ),
           ],
@@ -1461,8 +1462,8 @@ Widget _buildClockFace(TimeOfDayFormat fmt) {
 
   // Dial hand at 9 o'clock.
   const handTarget = 9;
-  final handAngle =
-      (handTarget / count) * 2 * 3.141592653589793 - (3.141592653589793 / 2);
+  final handAngle = (handTarget / count) * 2 * 3.141592653589793
+      - (3.141592653589793 / 2);
   positioned.add(
     Positioned(
       left: dialSize / 2 - 1,
@@ -1557,10 +1558,7 @@ Widget _buildAlarmListRecipe() {
     {'label': 'Sunrise stretch', 'time': const TimeOfDay(hour: 5, minute: 30)},
     {'label': 'Wake up', 'time': const TimeOfDay(hour: 6, minute: 30)},
     {'label': 'Standup', 'time': const TimeOfDay(hour: 9, minute: 0)},
-    {
-      'label': 'Mid-morning break',
-      'time': const TimeOfDay(hour: 10, minute: 30),
-    },
+    {'label': 'Mid-morning break', 'time': const TimeOfDay(hour: 10, minute: 30)},
   ];
   final eveningAlarms = <Map<String, Object>>[
     {'label': 'Wind down', 'time': const TimeOfDay(hour: 21, minute: 0)},
@@ -1613,10 +1611,7 @@ Widget _buildAlarmListRecipe() {
 
   return Container(
     padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(14),
-    ),
+    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(14)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1701,7 +1696,10 @@ Widget _buildAlarmRow(String label, TimeOfDay time, Color sectionColor) {
           children: [
             for (final fmt in TimeOfDayFormat.values)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: sectionColor.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(4),
@@ -1747,7 +1745,11 @@ Widget _buildAlwaysUse24HCard() {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: ink, fontSize: 12.5, height: 1.4),
+              style: const TextStyle(
+                color: ink,
+                fontSize: 12.5,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -1972,7 +1974,10 @@ Widget _buildDecisionRow(_DecisionEntry e) {
         Row(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 3,
+              ),
               decoration: BoxDecoration(
                 color: e.color,
                 borderRadius: BorderRadius.circular(20),
@@ -2164,7 +2169,10 @@ Widget _buildReferenceTable() {
             children: const [
               Text(
                 'Quick formula',
-                style: TextStyle(color: ribbon, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: ribbon,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 4),
               Text(

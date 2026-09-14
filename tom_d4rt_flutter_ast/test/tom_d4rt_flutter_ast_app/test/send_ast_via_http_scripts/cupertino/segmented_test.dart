@@ -30,56 +30,43 @@ Widget _heroHeader() {
                 color: Colors.white.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: Icon(
-                CupertinoIcons.square_split_2x1_fill,
-                color: Colors.white,
-                size: 32.0,
-              ),
+              child: Icon(CupertinoIcons.square_split_2x1_fill,
+                  color: Colors.white, size: 32.0),
             ),
             SizedBox(width: 16.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'iOS Segmented Selector Gallery',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.2,
-                    ),
-                  ),
+                  Text('iOS Segmented Selector Gallery',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.2)),
                   SizedBox(height: 4.0),
-                  Text(
-                    'A visual field guide to Cupertino segmented controls',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  Text('A visual field guide to Cupertino segmented controls',
+                      style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500)),
                 ],
               ),
             ),
           ],
         ),
         SizedBox(height: 20.0),
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: [
-            _heroChip('CupertinoSegmentedControl'),
-            _heroChip('CupertinoSlidingSegmentedControl'),
-            _heroChip('selectedColor'),
-            _heroChip('unselectedColor'),
-            _heroChip('borderColor'),
-            _heroChip('pressedColor'),
-            _heroChip('thumbColor'),
-            _heroChip('groupValue'),
-            _heroChip('onValueChanged'),
-          ],
-        ),
+        Wrap(spacing: 8.0, runSpacing: 8.0, children: [
+          _heroChip('CupertinoSegmentedControl'),
+          _heroChip('CupertinoSlidingSegmentedControl'),
+          _heroChip('selectedColor'),
+          _heroChip('unselectedColor'),
+          _heroChip('borderColor'),
+          _heroChip('pressedColor'),
+          _heroChip('thumbColor'),
+          _heroChip('groupValue'),
+          _heroChip('onValueChanged'),
+        ]),
       ],
     ),
   );
@@ -93,15 +80,12 @@ Widget _heroChip(String label) {
       borderRadius: BorderRadius.circular(20.0),
       border: Border.all(color: Colors.white.withOpacity(0.35), width: 1.0),
     ),
-    child: Text(
-      label,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 11.5,
-        fontWeight: FontWeight.w600,
-        fontFamily: 'monospace',
-      ),
-    ),
+    child: Text(label,
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 11.5,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'monospace')),
   );
 }
 
@@ -130,37 +114,28 @@ Widget _sectionBanner(int n, String title, String subtitle, Color accent) {
             borderRadius: BorderRadius.circular(12.0),
             border: Border.all(color: Colors.white, width: 1.5),
           ),
-          child: Text(
-            n.toString().padLeft(2, '0'),
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w900,
-              fontSize: 17.0,
-            ),
-          ),
+          child: Text(n.toString().padLeft(2, '0'),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 17.0)),
         ),
         SizedBox(width: 14.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w800)),
               SizedBox(height: 2.0),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.92),
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Text(subtitle,
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.92),
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w500)),
             ],
           ),
         ),
@@ -184,62 +159,35 @@ Widget _conceptOverview() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(
-              CupertinoIcons.info_circle_fill,
-              color: Color(0xFF0A84FF),
-              size: 22.0,
-            ),
-            SizedBox(width: 10.0),
-            Text(
-              'Concept Overview',
+        Row(children: [
+          Icon(CupertinoIcons.info_circle_fill,
+              color: Color(0xFF0A84FF), size: 22.0),
+          SizedBox(width: 10.0),
+          Text('Concept Overview',
               style: TextStyle(
-                color: Color(0xFF1C1C1E),
-                fontSize: 17.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
+                  color: Color(0xFF1C1C1E),
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w800)),
+        ]),
         SizedBox(height: 12.0),
         Text(
-          'Cupertino segmented controls offer two complementary flavors. The classic '
-          'CupertinoSegmentedControl mirrors iOS 12 styling: bordered pill, full-color '
-          'selected segment. The sliding variant mirrors iOS 13+ styling: rounded plate '
-          'with a floating thumb that animates between segments.',
-          style: TextStyle(
-            color: Color(0xFF3A3A3C),
-            fontSize: 13.5,
-            height: 1.45,
-          ),
-        ),
+            'Cupertino segmented controls offer two complementary flavors. The classic '
+            'CupertinoSegmentedControl mirrors iOS 12 styling: bordered pill, full-color '
+            'selected segment. The sliding variant mirrors iOS 13+ styling: rounded plate '
+            'with a floating thumb that animates between segments.',
+            style: TextStyle(
+                color: Color(0xFF3A3A3C), fontSize: 13.5, height: 1.45)),
         SizedBox(height: 14.0),
-        _bulletLine(
-          CupertinoIcons.circle_fill,
-          Color(0xFF0A84FF),
-          'children: Map<T, Widget> — at least two entries are required.',
-        ),
-        _bulletLine(
-          CupertinoIcons.circle_fill,
-          Color(0xFF30D158),
-          'groupValue: T? — currently selected key (null for none).',
-        ),
-        _bulletLine(
-          CupertinoIcons.circle_fill,
-          Color(0xFFFF9F0A),
-          'onValueChanged: ValueChanged<T> — invoked when a segment is tapped.',
-        ),
-        _bulletLine(
-          CupertinoIcons.circle_fill,
-          Color(0xFFBF5AF2),
-          'Classic adds selectedColor, unselectedColor, borderColor, pressedColor.',
-        ),
-        _bulletLine(
-          CupertinoIcons.circle_fill,
-          Color(0xFFFF375F),
-          'Sliding adds backgroundColor and thumbColor.',
-        ),
+        _bulletLine(CupertinoIcons.circle_fill, Color(0xFF0A84FF),
+            'children: Map<T, Widget> — at least two entries are required.'),
+        _bulletLine(CupertinoIcons.circle_fill, Color(0xFF30D158),
+            'groupValue: T? — currently selected key (null for none).'),
+        _bulletLine(CupertinoIcons.circle_fill, Color(0xFFFF9F0A),
+            'onValueChanged: ValueChanged<T> — invoked when a segment is tapped.'),
+        _bulletLine(CupertinoIcons.circle_fill, Color(0xFFBF5AF2),
+            'Classic adds selectedColor, unselectedColor, borderColor, pressedColor.'),
+        _bulletLine(CupertinoIcons.circle_fill, Color(0xFFFF375F),
+            'Sliding adds backgroundColor and thumbColor.'),
       ],
     ),
   );
@@ -257,15 +205,12 @@ Widget _bulletLine(IconData icon, Color color, String text) {
         ),
         SizedBox(width: 10.0),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Color(0xFF1C1C1E),
-              fontSize: 12.5,
-              height: 1.4,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: Color(0xFF1C1C1E),
+                  fontSize: 12.5,
+                  height: 1.4,
+                  fontWeight: FontWeight.w500)),
         ),
       ],
     ),
@@ -276,11 +221,7 @@ Widget _bulletLine(IconData icon, Color color, String text) {
 // HELPER: Recipe card
 // ============================================================================
 Widget _recipeCard(
-  String title,
-  String description,
-  List<String> snippet,
-  Color accent,
-) {
+    String title, String description, List<String> snippet, Color accent) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     decoration: BoxDecoration(
@@ -295,36 +236,30 @@ Widget _recipeCard(
           padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: accent.withOpacity(0.20),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(13.0)),
+            borderRadius:
+                BorderRadius.vertical(top: Radius.circular(13.0)),
           ),
-          child: Row(
-            children: [
-              Icon(CupertinoIcons.doc_text_fill, color: accent, size: 16.0),
-              SizedBox(width: 8.0),
-              Expanded(
-                child: Text(
-                  'Recipe: $title',
+          child: Row(children: [
+            Icon(CupertinoIcons.doc_text_fill,
+                color: accent, size: 16.0),
+            SizedBox(width: 8.0),
+            Expanded(
+              child: Text('Recipe: $title',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-            ],
-          ),
+                      color: Colors.white,
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w800)),
+            ),
+          ]),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-          child: Text(
-            description,
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 12.0,
-              height: 1.45,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          child: Text(description,
+              style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 12.0,
+                  height: 1.45,
+                  fontWeight: FontWeight.w500)),
         ),
         Container(
           margin: EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 14.0),
@@ -337,20 +272,15 @@ Widget _recipeCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: snippet
-                .map(
-                  (line) => Padding(
-                    padding: EdgeInsets.symmetric(vertical: 1.5),
-                    child: Text(
-                      line,
-                      style: TextStyle(
-                        color: accent.withOpacity(0.95),
-                        fontSize: 11.0,
-                        fontFamily: 'monospace',
-                        height: 1.35,
-                      ),
-                    ),
-                  ),
-                )
+                .map((line) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 1.5),
+                      child: Text(line,
+                          style: TextStyle(
+                              color: accent.withOpacity(0.95),
+                              fontSize: 11.0,
+                              fontFamily: 'monospace',
+                              height: 1.35)),
+                    ))
                 .toList(),
           ),
         ),
@@ -362,7 +292,8 @@ Widget _recipeCard(
 // ============================================================================
 // HELPER: Comparison table
 // ============================================================================
-Widget _comparisonTable(String title, List<List<String>> rows, Color accent) {
+Widget _comparisonTable(
+    String title, List<List<String>> rows, Color accent) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     decoration: BoxDecoration(
@@ -376,29 +307,26 @@ Widget _comparisonTable(String title, List<List<String>> rows, Color accent) {
           padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: accent.withOpacity(0.16),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(13.0)),
+            borderRadius:
+                BorderRadius.vertical(top: Radius.circular(13.0)),
           ),
-          child: Row(
-            children: [
-              Icon(CupertinoIcons.table, color: accent, size: 16.0),
-              SizedBox(width: 8.0),
-              Text(
-                title,
+          child: Row(children: [
+            Icon(CupertinoIcons.table, color: accent, size: 16.0),
+            SizedBox(width: 8.0),
+            Text(title,
                 style: TextStyle(
-                  color: Color(0xFF1C1C1E),
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ],
-          ),
+                    color: Color(0xFF1C1C1E),
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w800)),
+          ]),
         ),
         ...rows.asMap().entries.map((entry) {
           final idx = entry.key;
           final row = entry.value;
           final isHeader = idx == 0;
           return Container(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+            padding:
+                EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
             decoration: BoxDecoration(
               color: isHeader
                   ? accent.withOpacity(0.06)
@@ -409,21 +337,18 @@ Widget _comparisonTable(String title, List<List<String>> rows, Color accent) {
             ),
             child: Row(
               children: row
-                  .map(
-                    (cell) => Expanded(
-                      child: Text(
-                        cell,
-                        style: TextStyle(
-                          color: isHeader ? accent : Color(0xFF1C1C1E),
-                          fontSize: isHeader ? 11.5 : 11.5,
-                          fontWeight: isHeader
-                              ? FontWeight.w800
-                              : FontWeight.w500,
-                          fontFamily: isHeader ? null : 'monospace',
-                        ),
-                      ),
-                    ),
-                  )
+                  .map((cell) => Expanded(
+                        child: Text(cell,
+                            style: TextStyle(
+                                color: isHeader
+                                    ? accent
+                                    : Color(0xFF1C1C1E),
+                                fontSize: isHeader ? 11.5 : 11.5,
+                                fontWeight: isHeader
+                                    ? FontWeight.w800
+                                    : FontWeight.w500,
+                                fontFamily: isHeader ? null : 'monospace')),
+                      ))
                   .toList(),
             ),
           );
@@ -452,27 +377,22 @@ Widget _demoFrame(String caption, Color accent, Widget child) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Container(
-              width: 6.0,
-              height: 18.0,
-              decoration: BoxDecoration(
-                color: accent,
-                borderRadius: BorderRadius.circular(3.0),
-              ),
+        Row(children: [
+          Container(
+            width: 6.0,
+            height: 18.0,
+            decoration: BoxDecoration(
+              color: accent,
+              borderRadius: BorderRadius.circular(3.0),
             ),
-            SizedBox(width: 10.0),
-            Text(
-              caption,
+          ),
+          SizedBox(width: 10.0),
+          Text(caption,
               style: TextStyle(
-                color: Color(0xFF1C1C1E),
-                fontSize: 13.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
+                  color: Color(0xFF1C1C1E),
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w800)),
+        ]),
         SizedBox(height: 14.0),
         Container(
           width: double.infinity,
@@ -504,17 +424,14 @@ Widget _section1() {
   final basic = CupertinoSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Text('Day'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+          child: Text('Day')),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Text('Week'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+          child: Text('Week')),
       2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Text('Month'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+          child: Text('Month')),
     },
     groupValue: 1,
     onValueChanged: (v) {},
@@ -523,12 +440,8 @@ Widget _section1() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        1,
-        'Classic Segmented — Basic',
-        'CupertinoSegmentedControl with integer keys',
-        accent,
-      ),
+      _sectionBanner(1, 'Classic Segmented — Basic',
+          'CupertinoSegmentedControl with integer keys', accent),
       _demoFrame('Chart range picker (Day / Week / Month)', accent, basic),
       _recipeCard(
         'Integer-keyed segmented control',
@@ -547,16 +460,19 @@ Widget _section1() {
         ],
         accent,
       ),
-      _comparisonTable('Anatomy of the classic control', [
-        ['Property', 'Type', 'Used by section'],
-        ['children', 'Map<T, Widget>', '1, 2, 3, 7'],
-        ['groupValue', 'T?', '1, 2, 3, 7'],
-        ['onValueChanged', 'ValueChanged<T>', 'all sections'],
-        ['selectedColor', 'Color?', '2, 6'],
-        ['unselectedColor', 'Color?', '2, 6'],
-        ['borderColor', 'Color?', '2, 6'],
-        ['pressedColor', 'Color?', '2, 6'],
-      ], accent),
+      _comparisonTable(
+          'Anatomy of the classic control',
+          [
+            ['Property', 'Type', 'Used by section'],
+            ['children', 'Map<T, Widget>', '1, 2, 3, 7'],
+            ['groupValue', 'T?', '1, 2, 3, 7'],
+            ['onValueChanged', 'ValueChanged<T>', 'all sections'],
+            ['selectedColor', 'Color?', '2, 6'],
+            ['unselectedColor', 'Color?', '2, 6'],
+            ['borderColor', 'Color?', '2, 6'],
+            ['pressedColor', 'Color?', '2, 6'],
+          ],
+          accent),
     ],
   );
 }
@@ -570,17 +486,14 @@ Widget _section2() {
   final greenTheme = CupertinoSegmentedControl<String>(
     children: {
       'a': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Alpha'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Alpha')),
       'b': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Beta'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Beta')),
       'c': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Gamma'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Gamma')),
     },
     groupValue: 'a',
     onValueChanged: (v) {},
@@ -593,17 +506,14 @@ Widget _section2() {
   final orangeTheme = CupertinoSegmentedControl<String>(
     children: {
       'x': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Low'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Low')),
       'y': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Med'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Med')),
       'z': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('High'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('High')),
     },
     groupValue: 'y',
     onValueChanged: (v) {},
@@ -616,17 +526,14 @@ Widget _section2() {
   final pinkTheme = CupertinoSegmentedControl<String>(
     children: {
       '1': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Hearts'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Hearts')),
       '2': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Likes'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Likes')),
       '3': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Saves'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Saves')),
     },
     groupValue: '3',
     onValueChanged: (v) {},
@@ -640,22 +547,15 @@ Widget _section2() {
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       _sectionBanner(
-        2,
-        'Classic Segmented — Color Themes',
-        'selectedColor + unselectedColor + borderColor + pressedColor',
-        accent,
-      ),
+          2,
+          'Classic Segmented — Color Themes',
+          'selectedColor + unselectedColor + borderColor + pressedColor',
+          accent),
       _demoFrame('Green theme (Alpha / Beta / Gamma)', accent, greenTheme),
       _demoFrame(
-        'Orange theme (Low / Med / High)',
-        Color(0xFFFF9F0A),
-        orangeTheme,
-      ),
-      _demoFrame(
-        'Pink theme (Hearts / Likes / Saves)',
-        Color(0xFFFF375F),
-        pinkTheme,
-      ),
+          'Orange theme (Low / Med / High)', Color(0xFFFF9F0A), orangeTheme),
+      _demoFrame('Pink theme (Hearts / Likes / Saves)',
+          Color(0xFFFF375F), pinkTheme),
       _recipeCard(
         'Theming with the four color slots',
         'The classic control exposes four color knobs. Keep selectedColor '
@@ -674,13 +574,16 @@ Widget _section2() {
         ],
         accent,
       ),
-      _comparisonTable('Color slot semantics', [
-        ['Slot', 'When', 'Tip'],
-        ['selectedColor', 'fills the active segment', 'use brand hue'],
-        ['unselectedColor', 'fills inactive segments', 'usually white'],
-        ['borderColor', 'paints outer border', 'match selectedColor'],
-        ['pressedColor', 'tap feedback fill', 'use 20% selected'],
-      ], accent),
+      _comparisonTable(
+          'Color slot semantics',
+          [
+            ['Slot', 'When', 'Tip'],
+            ['selectedColor', 'fills the active segment', 'use brand hue'],
+            ['unselectedColor', 'fills inactive segments', 'usually white'],
+            ['borderColor', 'paints outer border', 'match selectedColor'],
+            ['pressedColor', 'tap feedback fill', 'use 20% selected'],
+          ],
+          accent),
     ],
   );
 }
@@ -696,7 +599,11 @@ Widget _section3() {
       padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [Icon(icon, size: 14.0), SizedBox(width: 6.0), Text(label)],
+        children: [
+          Icon(icon, size: 14.0),
+          SizedBox(width: 6.0),
+          Text(label),
+        ],
       ),
     );
   }
@@ -718,14 +625,11 @@ Widget _section3() {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'USD',
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.0),
-            ),
-            Text(
-              'Dollar',
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF8E8E93)),
-            ),
+            Text('USD',
+                style: TextStyle(
+                    fontWeight: FontWeight.w800, fontSize: 13.0)),
+            Text('Dollar',
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF8E8E93))),
           ],
         ),
       ),
@@ -734,14 +638,11 @@ Widget _section3() {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'EUR',
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.0),
-            ),
-            Text(
-              'Euro',
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF8E8E93)),
-            ),
+            Text('EUR',
+                style: TextStyle(
+                    fontWeight: FontWeight.w800, fontSize: 13.0)),
+            Text('Euro',
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF8E8E93))),
           ],
         ),
       ),
@@ -750,14 +651,11 @@ Widget _section3() {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'JPY',
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.0),
-            ),
-            Text(
-              'Yen',
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF8E8E93)),
-            ),
+            Text('JPY',
+                style: TextStyle(
+                    fontWeight: FontWeight.w800, fontSize: 13.0)),
+            Text('Yen',
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF8E8E93))),
           ],
         ),
       ),
@@ -773,14 +671,11 @@ Widget _section3() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        3,
-        'Classic Segmented — Rich Children',
-        'Icons, two-line text, and combinations',
-        accent,
-      ),
+      _sectionBanner(3, 'Classic Segmented — Rich Children',
+          'Icons, two-line text, and combinations', accent),
       _demoFrame('Icon + label cells', accent, richChildren),
-      _demoFrame('Two-line cells (code + name)', Color(0xFF5856D6), twoLine),
+      _demoFrame(
+          'Two-line cells (code + name)', Color(0xFF5856D6), twoLine),
       _recipeCard(
         'Building rich segment cells',
         'Wrap each child in Padding(symmetric horizontal: 12, vertical: 6). '
@@ -816,13 +711,11 @@ Widget _section4() {
   final calls = CupertinoSlidingSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Text('All'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+          child: Text('All')),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Text('Missed'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+          child: Text('Missed')),
     },
     groupValue: 0,
     onValueChanged: (v) {},
@@ -831,17 +724,14 @@ Widget _section4() {
   final tabs = CupertinoSlidingSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Posts'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Posts')),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Reels'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Reels')),
       2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Tags'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Tags')),
     },
     groupValue: 1,
     onValueChanged: (v) {},
@@ -850,12 +740,8 @@ Widget _section4() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        4,
-        'Sliding Segmented — Basic',
-        'CupertinoSlidingSegmentedControl iOS 13+ styling',
-        accent,
-      ),
+      _sectionBanner(4, 'Sliding Segmented — Basic',
+          'CupertinoSlidingSegmentedControl iOS 13+ styling', accent),
       _demoFrame('Two-segment recent-calls toggle', accent, calls),
       _demoFrame('Three-segment profile tabs', accent, tabs),
       _recipeCard(
@@ -887,17 +773,14 @@ Widget _section5() {
   final pinkBg = CupertinoSlidingSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Posts'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Posts')),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Reels'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Reels')),
       2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Tags'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Tags')),
     },
     groupValue: 1,
     onValueChanged: (v) {},
@@ -908,13 +791,11 @@ Widget _section5() {
   final tealBg = CupertinoSlidingSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Day'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Day')),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Night'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Night')),
     },
     groupValue: 1,
     onValueChanged: (v) {},
@@ -925,21 +806,17 @@ Widget _section5() {
   final indigoBg = CupertinoSlidingSegmentedControl<String>(
     children: {
       'small': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('S'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('S')),
       'medium': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('M'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('M')),
       'large': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('L'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('L')),
       'xlarge': Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('XL'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('XL')),
     },
     groupValue: 'medium',
     onValueChanged: (v) {},
@@ -950,12 +827,8 @@ Widget _section5() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        5,
-        'Sliding Segmented — Color Themes',
-        'backgroundColor + thumbColor combinations',
-        accent,
-      ),
+      _sectionBanner(5, 'Sliding Segmented — Color Themes',
+          'backgroundColor + thumbColor combinations', accent),
       _demoFrame('Pink plate, white thumb', accent, pinkBg),
       _demoFrame('Teal plate, teal thumb', Color(0xFF64D2FF), tealBg),
       _demoFrame('Indigo plate, size selector', Color(0xFF5E5CE6), indigoBg),
@@ -975,14 +848,17 @@ Widget _section5() {
         ],
         accent,
       ),
-      _comparisonTable('Classic vs Sliding color knobs', [
-        ['Aspect', 'Classic', 'Sliding'],
-        ['Plate background', 'unselectedColor', 'backgroundColor'],
-        ['Active segment', 'selectedColor', 'thumbColor'],
-        ['Border', 'borderColor', '(none)'],
-        ['Tap feedback', 'pressedColor', '(auto)'],
-        ['Number of knobs', '4', '2'],
-      ], accent),
+      _comparisonTable(
+          'Classic vs Sliding color knobs',
+          [
+            ['Aspect', 'Classic', 'Sliding'],
+            ['Plate background', 'unselectedColor', 'backgroundColor'],
+            ['Active segment', 'selectedColor', 'thumbColor'],
+            ['Border', 'borderColor', '(none)'],
+            ['Tap feedback', 'pressedColor', '(auto)'],
+            ['Number of knobs', '4', '2'],
+          ],
+          accent),
     ],
   );
 }
@@ -996,17 +872,14 @@ Widget _section6() {
   final iconOnly = CupertinoSlidingSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-        child: Icon(CupertinoIcons.list_bullet, size: 18.0),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+          child: Icon(CupertinoIcons.list_bullet, size: 18.0)),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-        child: Icon(CupertinoIcons.square_grid_2x2, size: 18.0),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+          child: Icon(CupertinoIcons.square_grid_2x2, size: 18.0)),
       2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-        child: Icon(CupertinoIcons.map, size: 18.0),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+          child: Icon(CupertinoIcons.map, size: 18.0)),
     },
     groupValue: 1,
     onValueChanged: (v) {},
@@ -1019,11 +892,8 @@ Widget _section6() {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              CupertinoIcons.sun_max_fill,
-              size: 14.0,
-              color: Color(0xFFFF9F0A),
-            ),
+            Icon(CupertinoIcons.sun_max_fill,
+                size: 14.0, color: Color(0xFFFF9F0A)),
             SizedBox(width: 6.0),
             Text('Light'),
           ],
@@ -1034,11 +904,8 @@ Widget _section6() {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              CupertinoIcons.moon_fill,
-              size: 14.0,
-              color: Color(0xFF5E5CE6),
-            ),
+            Icon(CupertinoIcons.moon_fill,
+                size: 14.0, color: Color(0xFF5E5CE6)),
             SizedBox(width: 6.0),
             Text('Dark'),
           ],
@@ -1049,11 +916,8 @@ Widget _section6() {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              CupertinoIcons.circle_lefthalf_fill,
-              size: 14.0,
-              color: Color(0xFF8E8E93),
-            ),
+            Icon(CupertinoIcons.circle_lefthalf_fill,
+                size: 14.0, color: Color(0xFF8E8E93)),
             SizedBox(width: 6.0),
             Text('Auto'),
           ],
@@ -1067,18 +931,11 @@ Widget _section6() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        6,
-        'Sliding Segmented — Compound Children',
-        'Icon-only and icon+label patterns',
-        accent,
-      ),
+      _sectionBanner(6, 'Sliding Segmented — Compound Children',
+          'Icon-only and icon+label patterns', accent),
       _demoFrame('Icon-only view switcher', accent, iconOnly),
-      _demoFrame(
-        'Icon + label appearance picker',
-        Color(0xFF5E5CE6),
-        iconLabel,
-      ),
+      _demoFrame('Icon + label appearance picker',
+          Color(0xFF5E5CE6), iconLabel),
       _recipeCard(
         'Icon-only segmented controls',
         'When using icon-only cells, give each one consistent horizontal '
@@ -1109,13 +966,11 @@ Widget _section7() {
   final boolToggle = CupertinoSlidingSegmentedControl<bool>(
     children: {
       true: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
-        child: Text('On'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+          child: Text('On')),
       false: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
-        child: Text('Off'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+          child: Text('Off')),
     },
     groupValue: true,
     onValueChanged: (v) {},
@@ -1124,13 +979,11 @@ Widget _section7() {
   final nullSelection = CupertinoSlidingSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('None'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('None')),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Selected'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Selected')),
     },
     groupValue: null,
     onValueChanged: (v) {},
@@ -1153,10 +1006,8 @@ Widget _section7() {
       for (var i = 0; i < 6; i++)
         i: Padding(
           padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-          child: Text(
-            '${i + 1}',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
+          child: Text('${i + 1}',
+              style: TextStyle(fontWeight: FontWeight.w600)),
         ),
     },
     groupValue: 3,
@@ -1166,20 +1017,15 @@ Widget _section7() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        7,
-        'Edge Cases',
-        'Booleans, null groupValue, many segments',
-        accent,
-      ),
+      _sectionBanner(7, 'Edge Cases',
+          'Booleans, null groupValue, many segments', accent),
       _demoFrame('Boolean on/off (sliding)', Color(0xFF30D158), boolToggle),
+      _demoFrame('Null groupValue — no selection',
+          Color(0xFF8E8E93), nullSelection),
       _demoFrame(
-        'Null groupValue — no selection',
-        Color(0xFF8E8E93),
-        nullSelection,
-      ),
-      _demoFrame('Five-segment classic', Color(0xFF0A84FF), manyClassic),
-      _demoFrame('Six-segment sliding rating', Color(0xFFFF9F0A), manySliding),
+          'Five-segment classic', Color(0xFF0A84FF), manyClassic),
+      _demoFrame(
+          'Six-segment sliding rating', Color(0xFFFF9F0A), manySliding),
       _recipeCard(
         'Booleans as the key type',
         'A boolean-keyed sliding control is a great alternative to '
@@ -1196,14 +1042,17 @@ Widget _section7() {
         ],
         accent,
       ),
-      _comparisonTable('Segment count guidance', [
-        ['Count', 'Use case', 'Caveat'],
-        ['2', 'Filter on/off, polarity', 'consider Switch'],
-        ['3', 'tab-like grouping', 'sweet spot'],
-        ['4', 'sizing S/M/L/XL', 'shrink labels'],
-        ['5–6', 'discrete scale', 'sliding only'],
-        ['>6', 'avoid', 'use a Picker'],
-      ], accent),
+      _comparisonTable(
+          'Segment count guidance',
+          [
+            ['Count', 'Use case', 'Caveat'],
+            ['2', 'Filter on/off, polarity', 'consider Switch'],
+            ['3', 'tab-like grouping', 'sweet spot'],
+            ['4', 'sizing S/M/L/XL', 'shrink labels'],
+            ['5–6', 'discrete scale', 'sliding only'],
+            ['>6', 'avoid', 'use a Picker'],
+          ],
+          accent),
     ],
   );
 }
@@ -1218,13 +1067,11 @@ Widget _section8() {
     child: CupertinoSlidingSegmentedControl<int>(
       children: {
         0: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-          child: Text('Map'),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+            child: Text('Map')),
         1: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-          child: Text('List'),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+            child: Text('List')),
       },
       groupValue: 0,
       onValueChanged: (v) {},
@@ -1233,31 +1080,28 @@ Widget _section8() {
 
   final inRow = Row(
     children: [
-      Icon(
-        CupertinoIcons.slider_horizontal_3,
-        color: Color(0xFF34C759),
-        size: 18.0,
-      ),
+      Icon(CupertinoIcons.slider_horizontal_3,
+          color: Color(0xFF34C759), size: 18.0),
       SizedBox(width: 12.0),
       Expanded(
         child: CupertinoSlidingSegmentedControl<int>(
           children: {
             0: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Off'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Off')),
             1: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Low'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Low')),
             2: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Med'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Med')),
             3: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('High'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('High')),
           },
           groupValue: 2,
           onValueChanged: (v) {},
@@ -1269,67 +1113,56 @@ Widget _section8() {
   final stacked = Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      Text(
-        'Sort by',
-        style: TextStyle(
-          color: Color(0xFF1C1C1E),
-          fontSize: 12.0,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
+      Text('Sort by',
+          style: TextStyle(
+              color: Color(0xFF1C1C1E),
+              fontSize: 12.0,
+              fontWeight: FontWeight.w700)),
       SizedBox(height: 8.0),
       CupertinoSlidingSegmentedControl<String>(
         children: {
           'recent': Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-            child: Text('Recent'),
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+              child: Text('Recent')),
           'name': Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-            child: Text('Name'),
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+              child: Text('Name')),
           'size': Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-            child: Text('Size'),
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+              child: Text('Size')),
         },
         groupValue: 'name',
         onValueChanged: (v) {},
       ),
       SizedBox(height: 14.0),
-      Text(
-        'Direction',
-        style: TextStyle(
-          color: Color(0xFF1C1C1E),
-          fontSize: 12.0,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
+      Text('Direction',
+          style: TextStyle(
+              color: Color(0xFF1C1C1E),
+              fontSize: 12.0,
+              fontWeight: FontWeight.w700)),
       SizedBox(height: 8.0),
       CupertinoSlidingSegmentedControl<String>(
         children: {
           'asc': Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(CupertinoIcons.arrow_up, size: 14.0),
-                SizedBox(width: 4.0),
-                Text('Asc'),
-              ],
-            ),
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(CupertinoIcons.arrow_up, size: 14.0),
+                  SizedBox(width: 4.0),
+                  Text('Asc'),
+                ],
+              )),
           'desc': Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(CupertinoIcons.arrow_down, size: 14.0),
-                SizedBox(width: 4.0),
-                Text('Desc'),
-              ],
-            ),
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(CupertinoIcons.arrow_down, size: 14.0),
+                  SizedBox(width: 4.0),
+                  Text('Desc'),
+                ],
+              )),
         },
         groupValue: 'asc',
         onValueChanged: (v) {},
@@ -1340,19 +1173,13 @@ Widget _section8() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        8,
-        'Layout Patterns',
-        'Row, column, centered, full-width contexts',
-        accent,
-      ),
+      _sectionBanner(8, 'Layout Patterns',
+          'Row, column, centered, full-width contexts', accent),
       _demoFrame('Centered in available space', accent, centered),
-      _demoFrame(
-        'Embedded in a Row with leading icon',
-        Color(0xFF30D158),
-        inRow,
-      ),
-      _demoFrame('Stacked filters in a Column', Color(0xFF64D2FF), stacked),
+      _demoFrame('Embedded in a Row with leading icon',
+          Color(0xFF30D158), inRow),
+      _demoFrame('Stacked filters in a Column',
+          Color(0xFF64D2FF), stacked),
       _recipeCard(
         'Embedding inside a Row',
         'Wrap the segmented control in Expanded when laid out beside an icon '
@@ -1390,17 +1217,17 @@ Widget _section9() {
     child: CupertinoSlidingSegmentedControl<int>(
       children: {
         0: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('Music', style: TextStyle(color: Color(0xFF1C1C1E))),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('Music',
+                style: TextStyle(color: Color(0xFF1C1C1E)))),
         1: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('Podcast', style: TextStyle(color: Color(0xFF1C1C1E))),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('Podcast',
+                style: TextStyle(color: Color(0xFF1C1C1E)))),
         2: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('Radio', style: TextStyle(color: Color(0xFF1C1C1E))),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('Radio',
+                style: TextStyle(color: Color(0xFF1C1C1E)))),
       },
       groupValue: 0,
       onValueChanged: (v) {},
@@ -1422,17 +1249,17 @@ Widget _section9() {
     child: CupertinoSlidingSegmentedControl<String>(
       children: {
         'red': Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('Red', style: TextStyle(color: Color(0xFF1C1C1E))),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('Red',
+                style: TextStyle(color: Color(0xFF1C1C1E)))),
         'green': Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('Green', style: TextStyle(color: Color(0xFF1C1C1E))),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('Green',
+                style: TextStyle(color: Color(0xFF1C1C1E)))),
         'blue': Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('Blue', style: TextStyle(color: Color(0xFF1C1C1E))),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('Blue',
+                style: TextStyle(color: Color(0xFF1C1C1E)))),
       },
       groupValue: 'green',
       onValueChanged: (v) {},
@@ -1450,21 +1277,17 @@ Widget _section9() {
     child: CupertinoSegmentedControl<int>(
       children: {
         0: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('1H'),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('1H')),
         1: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('1D'),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('1D')),
         2: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('1W'),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('1W')),
         3: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-          child: Text('1M'),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            child: Text('1M')),
       },
       groupValue: 1,
       onValueChanged: (v) {},
@@ -1478,19 +1301,13 @@ Widget _section9() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        9,
-        'Theming Surfaces',
-        'Sliding & classic on dark and gradient backdrops',
-        accent,
-      ),
+      _sectionBanner(9, 'Theming Surfaces',
+          'Sliding & classic on dark and gradient backdrops', accent),
       _demoFrame('Sliding on dark surface', Color(0xFF1C1C1E), onDark),
-      _demoFrame('Sliding on gradient backdrop', Color(0xFFFF375F), onGradient),
-      _demoFrame(
-        'Classic on black with yellow accent',
-        Color(0xFFFFD60A),
-        classicOnDark,
-      ),
+      _demoFrame('Sliding on gradient backdrop',
+          Color(0xFFFF375F), onGradient),
+      _demoFrame('Classic on black with yellow accent',
+          Color(0xFFFFD60A), classicOnDark),
       _recipeCard(
         'Adapting to dark surfaces',
         'On dark surfaces, prefer the sliding variant with a tinted dark '
@@ -1523,26 +1340,20 @@ Widget _section10() {
   final largeText = CupertinoSlidingSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
-        child: Text(
-          'Small',
-          style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
-        ),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
+          child: Text('Small',
+              style: TextStyle(
+                  fontSize: 17.0, fontWeight: FontWeight.w600))),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
-        child: Text(
-          'Medium',
-          style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
-        ),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
+          child: Text('Medium',
+              style: TextStyle(
+                  fontSize: 17.0, fontWeight: FontWeight.w600))),
       2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
-        child: Text(
-          'Large',
-          style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
-        ),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
+          child: Text('Large',
+              style: TextStyle(
+                  fontSize: 17.0, fontWeight: FontWeight.w600))),
     },
     groupValue: 1,
     onValueChanged: (v) {},
@@ -1551,17 +1362,17 @@ Widget _section10() {
   final highContrast = CupertinoSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Text('A', style: TextStyle(fontWeight: FontWeight.w800)),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+          child: Text('A',
+              style: TextStyle(fontWeight: FontWeight.w800))),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Text('B', style: TextStyle(fontWeight: FontWeight.w800)),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+          child: Text('B',
+              style: TextStyle(fontWeight: FontWeight.w800))),
       2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Text('C', style: TextStyle(fontWeight: FontWeight.w800)),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+          child: Text('C',
+              style: TextStyle(fontWeight: FontWeight.w800))),
     },
     groupValue: 0,
     onValueChanged: (v) {},
@@ -1574,22 +1385,12 @@ Widget _section10() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        10,
-        'Accessibility',
-        'Touch targets, contrast, dynamic type',
-        accent,
-      ),
-      _demoFrame(
-        'Larger text + roomy padding for dynamic type',
-        accent,
-        largeText,
-      ),
-      _demoFrame(
-        'Black-on-white for maximum contrast',
-        Color(0xFF000000),
-        highContrast,
-      ),
+      _sectionBanner(10, 'Accessibility',
+          'Touch targets, contrast, dynamic type', accent),
+      _demoFrame('Larger text + roomy padding for dynamic type',
+          accent, largeText),
+      _demoFrame('Black-on-white for maximum contrast',
+          Color(0xFF000000), highContrast),
       _recipeCard(
         'Accessibility checklist',
         'Cupertino segmented controls have a fixed minimum height. Inflate '
@@ -1610,14 +1411,17 @@ Widget _section10() {
         ],
         accent,
       ),
-      _comparisonTable('Accessibility quick check', [
-        ['Concern', 'Target', 'Lever'],
-        ['Touch height', '>= 44 pt', 'cell vertical padding'],
-        ['Color contrast', '4.5:1 text', 'selectedColor / thumb'],
-        ['Dynamic type', 'fontSize 17+', 'TextStyle.fontSize'],
-        ['Label weight', '600+', 'TextStyle.fontWeight'],
-        ['Segment count', '<=4 labels', 'reduce or use Picker'],
-      ], accent),
+      _comparisonTable(
+          'Accessibility quick check',
+          [
+            ['Concern', 'Target', 'Lever'],
+            ['Touch height', '>= 44 pt', 'cell vertical padding'],
+            ['Color contrast', '4.5:1 text', 'selectedColor / thumb'],
+            ['Dynamic type', 'fontSize 17+', 'TextStyle.fontSize'],
+            ['Label weight', '600+', 'TextStyle.fontWeight'],
+            ['Segment count', '<=4 labels', 'reduce or use Picker'],
+          ],
+          accent),
     ],
   );
 }
@@ -1631,17 +1435,14 @@ Widget _section11() {
   final classicSample = CupertinoSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Map'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Map')),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Sat'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Sat')),
       2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Trans'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Trans')),
     },
     groupValue: 1,
     onValueChanged: (v) {},
@@ -1650,17 +1451,14 @@ Widget _section11() {
   final slidingSample = CupertinoSlidingSegmentedControl<int>(
     children: {
       0: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Map'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Map')),
       1: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Sat'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Sat')),
       2: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
-        child: Text('Trans'),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+          child: Text('Trans')),
     },
     groupValue: 1,
     onValueChanged: (v) {},
@@ -1669,24 +1467,24 @@ Widget _section11() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        11,
-        'Classic vs Sliding',
-        'Same data, two visual languages',
-        accent,
-      ),
+      _sectionBanner(11, 'Classic vs Sliding',
+          'Same data, two visual languages', accent),
       _demoFrame('Classic (iOS 12 style)', accent, classicSample),
-      _demoFrame('Sliding (iOS 13+ style)', Color(0xFFBF5AF2), slidingSample),
-      _comparisonTable('Style comparison', [
-        ['Trait', 'Classic', 'Sliding'],
-        ['Visual era', 'iOS 12', 'iOS 13+'],
-        ['Outer border', 'yes', 'no'],
-        ['Active fill', 'segment', 'thumb'],
-        ['Tap feedback', 'pressedColor', 'thumb scale'],
-        ['Custom colors', '4 slots', '2 slots'],
-        ['Best for', 'forms', 'tab-like'],
-        ['Looks modern', 'classic', 'modern'],
-      ], accent),
+      _demoFrame('Sliding (iOS 13+ style)',
+          Color(0xFFBF5AF2), slidingSample),
+      _comparisonTable(
+          'Style comparison',
+          [
+            ['Trait', 'Classic', 'Sliding'],
+            ['Visual era', 'iOS 12', 'iOS 13+'],
+            ['Outer border', 'yes', 'no'],
+            ['Active fill', 'segment', 'thumb'],
+            ['Tap feedback', 'pressedColor', 'thumb scale'],
+            ['Custom colors', '4 slots', '2 slots'],
+            ['Best for', 'forms', 'tab-like'],
+            ['Looks modern', 'classic', 'modern'],
+          ],
+          accent),
       _recipeCard(
         'Picking between the two',
         'Reach for the sliding variant for tab-like top-of-screen filters. '
@@ -1720,56 +1518,48 @@ Widget _section12() {
       borderRadius: BorderRadius.circular(16.0),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.08),
-          blurRadius: 16.0,
-          offset: Offset(0.0, 4.0),
-        ),
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 16.0,
+            offset: Offset(0.0, 4.0))
       ],
       border: Border.all(color: Color(0xFFE5E5EA)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            Icon(
-              CupertinoIcons.chart_bar_fill,
-              color: Color(0xFFFF9F0A),
-              size: 22.0,
-            ),
-            SizedBox(width: 10.0),
-            Expanded(
-              child: Text(
-                'Activity',
+        Row(children: [
+          Icon(CupertinoIcons.chart_bar_fill,
+              color: Color(0xFFFF9F0A), size: 22.0),
+          SizedBox(width: 10.0),
+          Expanded(
+            child: Text('Activity',
                 style: TextStyle(
-                  color: Color(0xFF1C1C1E),
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ),
-            Icon(CupertinoIcons.ellipsis, color: Color(0xFF8E8E93), size: 18.0),
-          ],
-        ),
+                    color: Color(0xFF1C1C1E),
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w800)),
+          ),
+          Icon(CupertinoIcons.ellipsis,
+              color: Color(0xFF8E8E93), size: 18.0),
+        ]),
         SizedBox(height: 14.0),
         CupertinoSlidingSegmentedControl<int>(
           children: {
             0: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Day'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Day')),
             1: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Week'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Week')),
             2: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Month'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Month')),
             3: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Year'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Year')),
           },
           groupValue: 1,
           onValueChanged: (v) {},
@@ -1800,17 +1590,17 @@ Widget _section12() {
         CupertinoSegmentedControl<String>(
           children: {
             'steps': Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Steps'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Steps')),
             'cals': Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Cals'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Cals')),
             'dist': Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Text('Dist'),
-            ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text('Dist')),
           },
           groupValue: 'steps',
           onValueChanged: (v) {},
@@ -1826,12 +1616,8 @@ Widget _section12() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(
-        12,
-        'Real-World Composition',
-        'Card with two segmented controls (sliding + classic)',
-        accent,
-      ),
+      _sectionBanner(12, 'Real-World Composition',
+          'Card with two segmented controls (sliding + classic)', accent),
       _demoFrame('Activity widget', accent, card),
       _recipeCard(
         'Combining both styles in one card',
@@ -1887,28 +1673,22 @@ Widget _glossary() {
               borderRadius: BorderRadius.circular(6.0),
               border: Border.all(color: color.withOpacity(0.5)),
             ),
-            child: Text(
-              term,
-              style: TextStyle(
-                color: color,
-                fontSize: 10.0,
-                fontWeight: FontWeight.w800,
-                fontFamily: 'monospace',
-              ),
-              textAlign: TextAlign.center,
-            ),
+            child: Text(term,
+                style: TextStyle(
+                    color: color,
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'monospace'),
+                textAlign: TextAlign.center),
           ),
           SizedBox(width: 12.0),
           Expanded(
-            child: Text(
-              def,
-              style: TextStyle(
-                color: Color(0xFF1C1C1E),
-                fontSize: 12.0,
-                height: 1.4,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            child: Text(def,
+                style: TextStyle(
+                    color: Color(0xFF1C1C1E),
+                    fontSize: 12.0,
+                    height: 1.4,
+                    fontWeight: FontWeight.w500)),
           ),
         ],
       ),
@@ -1926,70 +1706,38 @@ Widget _glossary() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(
-              CupertinoIcons.book_fill,
-              color: Color(0xFF5E5CE6),
-              size: 22.0,
-            ),
-            SizedBox(width: 10.0),
-            Text(
-              'Glossary',
+        Row(children: [
+          Icon(CupertinoIcons.book_fill,
+              color: Color(0xFF5E5CE6), size: 22.0),
+          SizedBox(width: 10.0),
+          Text('Glossary',
               style: TextStyle(
-                color: Color(0xFF1C1C1E),
-                fontSize: 17.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
+                  color: Color(0xFF1C1C1E),
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w800)),
+        ]),
         SizedBox(height: 10.0),
-        entry(
-          'children',
-          'Map<T, Widget>; one entry per segment, min 2.',
-          Color(0xFF0A84FF),
-        ),
-        entry(
-          'groupValue',
-          'Currently selected key, or null for no selection.',
-          Color(0xFF30D158),
-        ),
-        entry(
-          'onValueChanged',
-          'ValueChanged<T> callback fired on segment tap.',
-          Color(0xFFFF9F0A),
-        ),
-        entry(
-          'selectedColor',
-          'Classic only — fill of the active segment.',
-          Color(0xFFBF5AF2),
-        ),
-        entry(
-          'unselectedColor',
-          'Classic only — fill of inactive segments.',
-          Color(0xFF5856D6),
-        ),
-        entry(
-          'borderColor',
-          'Classic only — color of the outer border.',
-          Color(0xFFFF375F),
-        ),
-        entry(
-          'pressedColor',
-          'Classic only — fill during tap feedback.',
-          Color(0xFF64D2FF),
-        ),
-        entry(
-          'backgroundColor',
-          'Sliding only — color of the rounded plate.',
-          Color(0xFF34C759),
-        ),
-        entry(
-          'thumbColor',
-          'Sliding only — color of the floating thumb.',
-          Color(0xFFFFD60A),
-        ),
+        entry('children', 'Map<T, Widget>; one entry per segment, min 2.',
+            Color(0xFF0A84FF)),
+        entry('groupValue',
+            'Currently selected key, or null for no selection.',
+            Color(0xFF30D158)),
+        entry('onValueChanged',
+            'ValueChanged<T> callback fired on segment tap.',
+            Color(0xFFFF9F0A)),
+        entry('selectedColor',
+            'Classic only — fill of the active segment.',
+            Color(0xFFBF5AF2)),
+        entry('unselectedColor',
+            'Classic only — fill of inactive segments.', Color(0xFF5856D6)),
+        entry('borderColor',
+            'Classic only — color of the outer border.', Color(0xFFFF375F)),
+        entry('pressedColor',
+            'Classic only — fill during tap feedback.', Color(0xFF64D2FF)),
+        entry('backgroundColor',
+            'Sliding only — color of the rounded plate.', Color(0xFF34C759)),
+        entry('thumbColor',
+            'Sliding only — color of the floating thumb.', Color(0xFFFFD60A)),
       ],
     ),
   );
@@ -2013,46 +1761,37 @@ Widget _epilogue() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(CupertinoIcons.sparkles, color: Colors.white, size: 26.0),
-            SizedBox(width: 10.0),
-            Text(
-              'Epilogue',
+        Row(children: [
+          Icon(CupertinoIcons.sparkles, color: Colors.white, size: 26.0),
+          SizedBox(width: 10.0),
+          Text('Epilogue',
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w800)),
+        ]),
         SizedBox(height: 14.0),
         Text(
-          'You have toured twelve segmented control patterns: from a plain '
-          'three-tab classic control to the iOS 13+ sliding flavor, through '
-          'color themes, rich children, layout contexts, accessibility '
-          'tuning, and a real-world activity card composing both styles.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-            height: 1.5,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+            'You have toured twelve segmented control patterns: from a plain '
+            'three-tab classic control to the iOS 13+ sliding flavor, through '
+            'color themes, rich children, layout contexts, accessibility '
+            'tuning, and a real-world activity card composing both styles.',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 14.0,
+                height: 1.5,
+                fontWeight: FontWeight.w500)),
         SizedBox(height: 12.0),
         Text(
-          'Treat the two variants as one design family: the classic gives '
-          'you the bordered, four-color theming control for dense forms; '
-          'the sliding gives you the modern, two-color thumb control for '
-          'tab-like switching. Pick one per surface and keep it consistent.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13.0,
-            height: 1.5,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+            'Treat the two variants as one design family: the classic gives '
+            'you the bordered, four-color theming control for dense forms; '
+            'the sliding gives you the modern, two-color thumb control for '
+            'tab-like switching. Pick one per surface and keep it consistent.',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 13.0,
+                height: 1.5,
+                fontWeight: FontWeight.w500)),
         SizedBox(height: 16.0),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
@@ -2062,14 +1801,12 @@ Widget _epilogue() {
             border: Border.all(color: Colors.white.withOpacity(0.4)),
           ),
           child: Text(
-            'End of gallery — CupertinoSegmentedControl & CupertinoSlidingSegmentedControl',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12.0,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'monospace',
-            ),
-          ),
+              'End of gallery — CupertinoSegmentedControl & CupertinoSlidingSegmentedControl',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace')),
         ),
       ],
     ),

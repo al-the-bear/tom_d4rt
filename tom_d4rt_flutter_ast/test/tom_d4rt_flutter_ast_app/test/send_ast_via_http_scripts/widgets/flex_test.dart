@@ -14,16 +14,13 @@ import 'package:flutter/material.dart';
 // Top-level state (consumed by stateless widgets via ValueListenableBuilder).
 // ═══════════════════════════════════════════════════════════════════════════
 
-final ValueNotifier<Axis> _directionNotifier = ValueNotifier<Axis>(
-  Axis.horizontal,
-);
+final ValueNotifier<Axis> _directionNotifier = ValueNotifier<Axis>(Axis.horizontal);
 final ValueNotifier<MainAxisAlignment> _mainSpotlight =
     ValueNotifier<MainAxisAlignment>(MainAxisAlignment.spaceBetween);
 final ValueNotifier<CrossAxisAlignment> _crossSpotlight =
     ValueNotifier<CrossAxisAlignment>(CrossAxisAlignment.center);
-final ValueNotifier<MainAxisSize> _sizeSpotlight = ValueNotifier<MainAxisSize>(
-  MainAxisSize.max,
-);
+final ValueNotifier<MainAxisSize> _sizeSpotlight =
+    ValueNotifier<MainAxisSize>(MainAxisSize.max);
 final ValueNotifier<TextDirection> _textDirectionNotifier =
     ValueNotifier<TextDirection>(TextDirection.ltr);
 final ValueNotifier<VerticalDirection> _verticalDirectionNotifier =
@@ -99,20 +96,11 @@ class _FlexDeepDemoHome extends StatelessWidget {
             tabs: <Tab>[
               Tab(icon: Icon(Icons.auto_awesome_outlined), text: 'Hero'),
               Tab(icon: Icon(Icons.swap_horiz_outlined), text: 'Direction'),
-              Tab(
-                icon: Icon(Icons.align_horizontal_left_outlined),
-                text: 'Main',
-              ),
-              Tab(
-                icon: Icon(Icons.align_vertical_center_outlined),
-                text: 'Cross',
-              ),
+              Tab(icon: Icon(Icons.align_horizontal_left_outlined), text: 'Main'),
+              Tab(icon: Icon(Icons.align_vertical_center_outlined), text: 'Cross'),
               Tab(icon: Icon(Icons.unfold_less_outlined), text: 'Size'),
               Tab(icon: Icon(Icons.view_stream_outlined), text: 'Expanded'),
-              Tab(
-                icon: Icon(Icons.swap_vert_outlined),
-                text: 'Direction Matrix',
-              ),
+              Tab(icon: Icon(Icons.swap_vert_outlined), text: 'Direction Matrix'),
               Tab(icon: Icon(Icons.text_fields_outlined), text: 'Baseline'),
               Tab(icon: Icon(Icons.menu_book_outlined), text: 'More'),
             ],
@@ -162,9 +150,7 @@ class _Section extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             subtitle,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: _muted),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: _muted),
           ),
           const SizedBox(height: 22),
           child,
@@ -222,9 +208,7 @@ class _InfoCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleMedium?.copyWith(color: foreground),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(color: foreground),
                 ),
                 const SizedBox(height: 4),
                 Text(body, style: TextStyle(color: foreground, height: 1.4)),
@@ -310,11 +294,7 @@ class _Box extends StatelessWidget {
 }
 
 class _FrameCard extends StatelessWidget {
-  const _FrameCard({
-    required this.title,
-    required this.note,
-    required this.child,
-  });
+  const _FrameCard({required this.title, required this.note, required this.child});
 
   final String title;
   final String note;
@@ -341,10 +321,7 @@ class _FrameCard extends StatelessWidget {
         children: <Widget>[
           Text(title, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 4),
-          Text(
-            note,
-            style: const TextStyle(fontSize: 12, color: _muted, height: 1.35),
-          ),
+          Text(note, style: const TextStyle(fontSize: 12, color: _muted, height: 1.35)),
           const SizedBox(height: 12),
           child,
         ],
@@ -392,11 +369,7 @@ class _HeroTab extends StatelessWidget {
                         color: Colors.white.withValues(alpha: 0.18),
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: const Icon(
-                        Icons.swap_horiz,
-                        color: Colors.white,
-                        size: 34,
-                      ),
+                      child: const Icon(Icons.swap_horiz, color: Colors.white, size: 34),
                     ),
                     const SizedBox(width: 14),
                     const Expanded(
@@ -431,57 +404,21 @@ class _HeroTab extends StatelessWidget {
                   'Flex(direction: Axis.horizontal); Column is Flex(direction: Axis.vertical). '
                   'Everything else (main/cross alignment, main size, text direction, vertical '
                   'direction, text baseline, clip behavior) applies identically.',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 15, height: 1.5),
                 ),
                 const SizedBox(height: 18),
                 Wrap(
                   spacing: 10,
                   runSpacing: 10,
                   children: const <Widget>[
-                    _Chip(
-                      label: 'direction: Axis',
-                      color: Colors.white,
-                      dark: false,
-                    ),
-                    _Chip(
-                      label: 'mainAxisAlignment',
-                      color: Colors.white,
-                      dark: false,
-                    ),
-                    _Chip(
-                      label: 'crossAxisAlignment',
-                      color: Colors.white,
-                      dark: false,
-                    ),
-                    _Chip(
-                      label: 'mainAxisSize',
-                      color: Colors.white,
-                      dark: false,
-                    ),
-                    _Chip(
-                      label: 'textDirection',
-                      color: Colors.white,
-                      dark: false,
-                    ),
-                    _Chip(
-                      label: 'verticalDirection',
-                      color: Colors.white,
-                      dark: false,
-                    ),
-                    _Chip(
-                      label: 'textBaseline',
-                      color: Colors.white,
-                      dark: false,
-                    ),
-                    _Chip(
-                      label: 'clipBehavior',
-                      color: Colors.white,
-                      dark: false,
-                    ),
+                    _Chip(label: 'direction: Axis', color: Colors.white, dark: false),
+                    _Chip(label: 'mainAxisAlignment', color: Colors.white, dark: false),
+                    _Chip(label: 'crossAxisAlignment', color: Colors.white, dark: false),
+                    _Chip(label: 'mainAxisSize', color: Colors.white, dark: false),
+                    _Chip(label: 'textDirection', color: Colors.white, dark: false),
+                    _Chip(label: 'verticalDirection', color: Colors.white, dark: false),
+                    _Chip(label: 'textBaseline', color: Colors.white, dark: false),
+                    _Chip(label: 'clipBehavior', color: Colors.white, dark: false),
                   ],
                 ),
               ],
@@ -570,9 +507,7 @@ class _DirectionTab extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   _FrameCard(
-                    title: direction == Axis.horizontal
-                        ? 'Flex (horizontal)'
-                        : 'Flex (vertical)',
+                    title: direction == Axis.horizontal ? 'Flex (horizontal)' : 'Flex (vertical)',
                     note: 'Same children. Only `direction:` changed.',
                     child: Container(
                       padding: const EdgeInsets.all(14),
@@ -714,32 +649,27 @@ class _MainAxisAlignmentTab extends StatelessWidget {
       _MainSample(
         value: MainAxisAlignment.start,
         title: 'MainAxisAlignment.start',
-        note:
-            'Children clustered at the leading edge. Free space sits after them.',
+        note: 'Children clustered at the leading edge. Free space sits after them.',
       ),
       _MainSample(
         value: MainAxisAlignment.end,
         title: 'MainAxisAlignment.end',
-        note:
-            'Children clustered at the trailing edge. Free space sits before them.',
+        note: 'Children clustered at the trailing edge. Free space sits before them.',
       ),
       _MainSample(
         value: MainAxisAlignment.center,
         title: 'MainAxisAlignment.center',
-        note:
-            'Children centered as a single group. Equal free space on each side.',
+        note: 'Children centered as a single group. Equal free space on each side.',
       ),
       _MainSample(
         value: MainAxisAlignment.spaceBetween,
         title: 'MainAxisAlignment.spaceBetween',
-        note:
-            'First and last pinned to the edges. Equal gaps between interior items.',
+        note: 'First and last pinned to the edges. Equal gaps between interior items.',
       ),
       _MainSample(
         value: MainAxisAlignment.spaceAround,
         title: 'MainAxisAlignment.spaceAround',
-        note:
-            'Equal gap around each child. Edge gaps are half of interior gaps.',
+        note: 'Equal gap around each child. Edge gaps are half of interior gaps.',
       ),
       _MainSample(
         value: MainAxisAlignment.spaceEvenly,
@@ -757,66 +687,40 @@ class _MainAxisAlignmentTab extends StatelessWidget {
         children: <Widget>[
           ValueListenableBuilder<MainAxisAlignment>(
             valueListenable: _mainSpotlight,
-            builder:
-                (
-                  BuildContext context,
-                  MainAxisAlignment spotlight,
-                  Widget? child,
-                ) {
-                  return _FrameCard(
-                    title: 'Spotlight: ${spotlight.name}',
-                    note:
-                        'Tap any card below to put it in the spotlight. The large preview uses '
-                        'that value so differences in gap size are easy to see at scale.',
-                    child: Container(
-                      height: 96,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 14,
-                      ),
-                      decoration: BoxDecoration(
-                        color: _paper,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: _frame),
-                      ),
-                      child: Flex(
-                        direction: Axis.horizontal,
-                        mainAxisAlignment: spotlight,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const <Widget>[
-                          _Box(
-                            label: '1',
-                            color: _accentA,
-                            width: 56,
-                            height: 56,
-                          ),
-                          _Box(
-                            label: '2',
-                            color: _accentB,
-                            width: 56,
-                            height: 56,
-                          ),
-                          _Box(
-                            label: '3',
-                            color: _accentC,
-                            width: 56,
-                            height: 56,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+            builder: (BuildContext context, MainAxisAlignment spotlight, Widget? child) {
+              return _FrameCard(
+                title: 'Spotlight: ${spotlight.name}',
+                note:
+                    'Tap any card below to put it in the spotlight. The large preview uses '
+                    'that value so differences in gap size are easy to see at scale.',
+                child: Container(
+                  height: 96,
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: _paper,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: _frame),
+                  ),
+                  child: Flex(
+                    direction: Axis.horizontal,
+                    mainAxisAlignment: spotlight,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const <Widget>[
+                      _Box(label: '1', color: _accentA, width: 56, height: 56),
+                      _Box(label: '2', color: _accentB, width: 56, height: 56),
+                      _Box(label: '3', color: _accentC, width: 56, height: 56),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
           const SizedBox(height: 20),
           LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-              final int columns = constraints.maxWidth > 720
-                  ? 3
-                  : (constraints.maxWidth > 440 ? 2 : 1);
+              final int columns = constraints.maxWidth > 720 ? 3 : (constraints.maxWidth > 440 ? 2 : 1);
               final double spacing = 14;
-              final double width =
-                  (constraints.maxWidth - spacing * (columns - 1)) / columns;
+              final double width = (constraints.maxWidth - spacing * (columns - 1)) / columns;
               return Wrap(
                 spacing: spacing,
                 runSpacing: spacing,
@@ -847,11 +751,7 @@ class _MainAxisAlignmentTab extends StatelessWidget {
 }
 
 class _MainSample {
-  const _MainSample({
-    required this.value,
-    required this.title,
-    required this.note,
-  });
+  const _MainSample({required this.value, required this.title, required this.note});
   final MainAxisAlignment value;
   final String title;
   final String note;
@@ -884,27 +784,9 @@ class _MainAxisCard extends StatelessWidget {
                 mainAxisAlignment: sample.value,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const <Widget>[
-                  _Box(
-                    label: '1',
-                    color: _accentA,
-                    width: 40,
-                    height: 40,
-                    fontSize: 12,
-                  ),
-                  _Box(
-                    label: '2',
-                    color: _accentB,
-                    width: 40,
-                    height: 40,
-                    fontSize: 12,
-                  ),
-                  _Box(
-                    label: '3',
-                    color: _accentC,
-                    width: 40,
-                    height: 40,
-                    fontSize: 12,
-                  ),
+                  _Box(label: '1', color: _accentA, width: 40, height: 40, fontSize: 12),
+                  _Box(label: '2', color: _accentB, width: 40, height: 40, fontSize: 12),
+                  _Box(label: '3', color: _accentC, width: 40, height: 40, fontSize: 12),
                 ],
               ),
             ),
@@ -938,11 +820,7 @@ class _RulerPainter extends CustomPainter {
     final Paint axis = Paint()
       ..color = _muted
       ..strokeWidth = 1;
-    canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      axis,
-    );
+    canvas.drawLine(Offset(0, size.height / 2), Offset(size.width, size.height / 2), axis);
     const double step = 10;
     final int ticks = (size.width / step).floor();
     for (int i = 0; i <= ticks; i++) {
@@ -1006,66 +884,43 @@ class _CrossAxisAlignmentTab extends StatelessWidget {
         children: <Widget>[
           ValueListenableBuilder<CrossAxisAlignment>(
             valueListenable: _crossSpotlight,
-            builder:
-                (
-                  BuildContext context,
-                  CrossAxisAlignment spotlight,
-                  Widget? child,
-                ) {
-                  final bool isBaseline =
-                      spotlight == CrossAxisAlignment.baseline;
-                  return _FrameCard(
-                    title: 'Spotlight: ${spotlight.name}',
-                    note:
-                        'Boxes have deliberately mixed heights to make cross-axis positioning '
-                        'visible. Baseline mode aligns the text, not the box.',
-                    child: Container(
-                      height: 130,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: _paper,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: _frame),
-                      ),
-                      child: Flex(
-                        direction: Axis.horizontal,
-                        crossAxisAlignment: spotlight,
-                        textBaseline: isBaseline
-                            ? TextBaseline.alphabetic
-                            : null,
-                        children: <Widget>[
-                          _VaryingBox(
-                            height: 48,
-                            label: 'small',
-                            color: _accentA,
-                          ),
-                          const SizedBox(width: 14),
-                          _VaryingBox(
-                            height: 78,
-                            label: 'medium',
-                            color: _accentB,
-                          ),
-                          const SizedBox(width: 14),
-                          _VaryingBox(
-                            height: 104,
-                            label: 'tall',
-                            color: _accentC,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+            builder: (BuildContext context, CrossAxisAlignment spotlight, Widget? child) {
+              final bool isBaseline = spotlight == CrossAxisAlignment.baseline;
+              return _FrameCard(
+                title: 'Spotlight: ${spotlight.name}',
+                note:
+                    'Boxes have deliberately mixed heights to make cross-axis positioning '
+                    'visible. Baseline mode aligns the text, not the box.',
+                child: Container(
+                  height: 130,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: _paper,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: _frame),
+                  ),
+                  child: Flex(
+                    direction: Axis.horizontal,
+                    crossAxisAlignment: spotlight,
+                    textBaseline: isBaseline ? TextBaseline.alphabetic : null,
+                    children: <Widget>[
+                      _VaryingBox(height: 48, label: 'small', color: _accentA),
+                      const SizedBox(width: 14),
+                      _VaryingBox(height: 78, label: 'medium', color: _accentB),
+                      const SizedBox(width: 14),
+                      _VaryingBox(height: 104, label: 'tall', color: _accentC),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
           const SizedBox(height: 20),
           LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-              final int columns = constraints.maxWidth > 720
-                  ? 3
-                  : (constraints.maxWidth > 440 ? 2 : 1);
+              final int columns = constraints.maxWidth > 720 ? 3 : (constraints.maxWidth > 440 ? 2 : 1);
               final double spacing = 14;
-              final double width =
-                  (constraints.maxWidth - spacing * (columns - 1)) / columns;
+              final double width = (constraints.maxWidth - spacing * (columns - 1)) / columns;
               return Wrap(
                 spacing: spacing,
                 runSpacing: spacing,
@@ -1097,11 +952,7 @@ class _CrossAxisAlignmentTab extends StatelessWidget {
 }
 
 class _CrossSample {
-  const _CrossSample({
-    required this.value,
-    required this.title,
-    required this.note,
-  });
+  const _CrossSample({required this.value, required this.title, required this.note});
   final CrossAxisAlignment value;
   final String title;
   final String note;
@@ -1147,11 +998,7 @@ class _CrossAxisCard extends StatelessWidget {
 }
 
 class _VaryingBox extends StatelessWidget {
-  const _VaryingBox({
-    required this.height,
-    required this.label,
-    required this.color,
-  });
+  const _VaryingBox({required this.height, required this.label, required this.color});
 
   final double height;
   final String label;
@@ -1169,10 +1016,7 @@ class _VaryingBox extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-        ),
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
       ),
     );
   }
@@ -1197,27 +1041,26 @@ class _MainAxisSizeTab extends StatelessWidget {
         children: <Widget>[
           ValueListenableBuilder<MainAxisSize>(
             valueListenable: _sizeSpotlight,
-            builder:
-                (BuildContext context, MainAxisSize spotlight, Widget? child) {
-                  return SegmentedButton<MainAxisSize>(
-                    segments: const <ButtonSegment<MainAxisSize>>[
-                      ButtonSegment<MainAxisSize>(
-                        value: MainAxisSize.max,
-                        label: Text('MainAxisSize.max'),
-                        icon: Icon(Icons.open_in_full),
-                      ),
-                      ButtonSegment<MainAxisSize>(
-                        value: MainAxisSize.min,
-                        label: Text('MainAxisSize.min'),
-                        icon: Icon(Icons.close_fullscreen),
-                      ),
-                    ],
-                    selected: <MainAxisSize>{spotlight},
-                    onSelectionChanged: (Set<MainAxisSize> values) {
-                      _sizeSpotlight.value = values.first;
-                    },
-                  );
+            builder: (BuildContext context, MainAxisSize spotlight, Widget? child) {
+              return SegmentedButton<MainAxisSize>(
+                segments: const <ButtonSegment<MainAxisSize>>[
+                  ButtonSegment<MainAxisSize>(
+                    value: MainAxisSize.max,
+                    label: Text('MainAxisSize.max'),
+                    icon: Icon(Icons.open_in_full),
+                  ),
+                  ButtonSegment<MainAxisSize>(
+                    value: MainAxisSize.min,
+                    label: Text('MainAxisSize.min'),
+                    icon: Icon(Icons.close_fullscreen),
+                  ),
+                ],
+                selected: <MainAxisSize>{spotlight},
+                onSelectionChanged: (Set<MainAxisSize> values) {
+                  _sizeSpotlight.value = values.first;
                 },
+              );
+            },
           ),
           const SizedBox(height: 18),
           _FrameCard(
@@ -1287,26 +1130,11 @@ class _MainAxisSizeTab extends StatelessWidget {
                         mainAxisSize: spotlight,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const <Widget>[
-                          _Box(
-                            label: 'x',
-                            color: _accentA,
-                            width: 50,
-                            height: 44,
-                          ),
+                          _Box(label: 'x', color: _accentA, width: 50, height: 44),
                           SizedBox(width: 10),
-                          _Box(
-                            label: 'y',
-                            color: _accentB,
-                            width: 50,
-                            height: 44,
-                          ),
+                          _Box(label: 'y', color: _accentB, width: 50, height: 44),
                           SizedBox(width: 10),
-                          _Box(
-                            label: 'z',
-                            color: _accentC,
-                            width: 50,
-                            height: 44,
-                          ),
+                          _Box(label: 'z', color: _accentC, width: 50, height: 44),
                         ],
                       ),
                     ),
@@ -1383,29 +1211,11 @@ class _SizeBox extends StatelessWidget {
               mainAxisSize: mainSize,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const <Widget>[
-                _Box(
-                  label: 'a',
-                  color: _accentA,
-                  width: 40,
-                  height: 36,
-                  fontSize: 12,
-                ),
+                _Box(label: 'a', color: _accentA, width: 40, height: 36, fontSize: 12),
                 SizedBox(width: 8),
-                _Box(
-                  label: 'b',
-                  color: _accentB,
-                  width: 40,
-                  height: 36,
-                  fontSize: 12,
-                ),
+                _Box(label: 'b', color: _accentB, width: 40, height: 36, fontSize: 12),
                 SizedBox(width: 8),
-                _Box(
-                  label: 'c',
-                  color: _accentC,
-                  width: 40,
-                  height: 36,
-                  fontSize: 12,
-                ),
+                _Box(label: 'c', color: _accentC, width: 40, height: 36, fontSize: 12),
               ],
             ),
           ),
@@ -1434,8 +1244,7 @@ class _ExpandedFlexibleTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _FrameCard(
-            title:
-                'Recipe: fixed + Expanded(2) + Expanded(1) + Flexible(loose)',
+            title: 'Recipe: fixed + Expanded(2) + Expanded(1) + Flexible(loose)',
             note:
                 'Each colored band below is one child. The width ratio of the two Expanded '
                 'children is 2:1 after the fixed child takes its space. The Flexible child '
@@ -1519,8 +1328,7 @@ class _ExpandedFlexibleTab extends StatelessWidget {
           const SizedBox(height: 20),
           _FrameCard(
             title: 'Visual: changing the flex factor',
-            note:
-                'Three flex factors side by side make the 1:2:3 proportion obvious.',
+            note: 'Three flex factors side by side make the 1:2:3 proportion obvious.',
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -1533,20 +1341,11 @@ class _ExpandedFlexibleTab extends StatelessWidget {
                 child: Flex(
                   direction: Axis.horizontal,
                   children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: _RatioBar(label: '1', color: _accentA),
-                    ),
+                    Expanded(flex: 1, child: _RatioBar(label: '1', color: _accentA)),
                     SizedBox(width: 6),
-                    Expanded(
-                      flex: 2,
-                      child: _RatioBar(label: '2', color: _accentB),
-                    ),
+                    Expanded(flex: 2, child: _RatioBar(label: '2', color: _accentB)),
                     SizedBox(width: 6),
-                    Expanded(
-                      flex: 3,
-                      child: _RatioBar(label: '3', color: _accentC),
-                    ),
+                    Expanded(flex: 3, child: _RatioBar(label: '3', color: _accentC)),
                   ],
                 ),
               ),
@@ -1599,11 +1398,7 @@ class _ExpandedLegend extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
           ),
           if (flex != null)
             Text(
@@ -1671,10 +1466,7 @@ class _FlexFitCard extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     fit == FlexFit.tight ? 'fills the slot' : 'up to ~140',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -1711,11 +1503,7 @@ class _RatioBar extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w800,
-          fontSize: 18,
-        ),
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18),
       ),
     );
   }
@@ -1755,38 +1543,37 @@ class _DirectionMatrixTab extends StatelessWidget {
                           ChoiceChip(
                             label: const Text('TextDirection.ltr'),
                             selected: td == TextDirection.ltr,
-                            onSelected: (_) => _textDirectionNotifier.value =
-                                TextDirection.ltr,
+                            onSelected: (_) =>
+                                _textDirectionNotifier.value = TextDirection.ltr,
                           ),
                           ChoiceChip(
                             label: const Text('TextDirection.rtl'),
                             selected: td == TextDirection.rtl,
-                            onSelected: (_) => _textDirectionNotifier.value =
-                                TextDirection.rtl,
+                            onSelected: (_) =>
+                                _textDirectionNotifier.value = TextDirection.rtl,
                           ),
                           const SizedBox(width: 10),
                           ChoiceChip(
                             label: const Text('VerticalDirection.down'),
                             selected: vd == VerticalDirection.down,
                             onSelected: (_) =>
-                                _verticalDirectionNotifier.value =
-                                    VerticalDirection.down,
+                                _verticalDirectionNotifier.value = VerticalDirection.down,
                           ),
                           ChoiceChip(
                             label: const Text('VerticalDirection.up'),
                             selected: vd == VerticalDirection.up,
                             onSelected: (_) =>
-                                _verticalDirectionNotifier.value =
-                                    VerticalDirection.up,
+                                _verticalDirectionNotifier.value = VerticalDirection.up,
                           ),
                         ],
                       ),
                       const SizedBox(height: 18),
                       _FrameCard(
                         title: 'Horizontal Flex - textDirection: ${td.name}',
-                        note: td == TextDirection.ltr
-                            ? '1-2-3 in visual order, because LTR means child[0] is on the left.'
-                            : '1-2-3 reversed, because RTL means child[0] is on the right.',
+                        note:
+                            td == TextDirection.ltr
+                                ? '1-2-3 in visual order, because LTR means child[0] is on the left.'
+                                : '1-2-3 reversed, because RTL means child[0] is on the right.',
                         child: Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
@@ -1799,26 +1586,11 @@ class _DirectionMatrixTab extends StatelessWidget {
                             textDirection: td,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: const <Widget>[
-                              _Box(
-                                label: '1',
-                                color: _accentA,
-                                width: 48,
-                                height: 48,
-                              ),
+                              _Box(label: '1', color: _accentA, width: 48, height: 48),
                               SizedBox(width: 10),
-                              _Box(
-                                label: '2',
-                                color: _accentB,
-                                width: 48,
-                                height: 48,
-                              ),
+                              _Box(label: '2', color: _accentB, width: 48, height: 48),
                               SizedBox(width: 10),
-                              _Box(
-                                label: '3',
-                                color: _accentC,
-                                width: 48,
-                                height: 48,
-                              ),
+                              _Box(label: '3', color: _accentC, width: 48, height: 48),
                             ],
                           ),
                         ),
@@ -1844,26 +1616,11 @@ class _DirectionMatrixTab extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const <Widget>[
-                                _Box(
-                                  label: '1',
-                                  color: _accentA,
-                                  width: 72,
-                                  height: 44,
-                                ),
+                                _Box(label: '1', color: _accentA, width: 72, height: 44),
                                 SizedBox(height: 8),
-                                _Box(
-                                  label: '2',
-                                  color: _accentB,
-                                  width: 72,
-                                  height: 44,
-                                ),
+                                _Box(label: '2', color: _accentB, width: 72, height: 44),
                                 SizedBox(height: 8),
-                                _Box(
-                                  label: '3',
-                                  color: _accentC,
-                                  width: 72,
-                                  height: 44,
-                                ),
+                                _Box(label: '3', color: _accentC, width: 72, height: 44),
                               ],
                             ),
                           ),
@@ -1876,9 +1633,7 @@ class _DirectionMatrixTab extends StatelessWidget {
             },
           ),
           const SizedBox(height: 20),
-          const _SectionHeading(
-            text: '2 x 2 matrix: all four combinations at once',
-          ),
+          const _SectionHeading(text: '2 x 2 matrix: all four combinations at once'),
           const _DirectionMatrix(),
           const SizedBox(height: 18),
           const _InfoCard(
@@ -1910,41 +1665,17 @@ class _DirectionMatrix extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                SizedBox(
-                  width: cellWidth,
-                  child: const _MatrixCell(
-                    td: TextDirection.ltr,
-                    vd: VerticalDirection.down,
-                  ),
-                ),
+                SizedBox(width: cellWidth, child: const _MatrixCell(td: TextDirection.ltr, vd: VerticalDirection.down)),
                 const SizedBox(width: 14),
-                SizedBox(
-                  width: cellWidth,
-                  child: const _MatrixCell(
-                    td: TextDirection.rtl,
-                    vd: VerticalDirection.down,
-                  ),
-                ),
+                SizedBox(width: cellWidth, child: const _MatrixCell(td: TextDirection.rtl, vd: VerticalDirection.down)),
               ],
             ),
             const SizedBox(height: 14),
             Row(
               children: <Widget>[
-                SizedBox(
-                  width: cellWidth,
-                  child: const _MatrixCell(
-                    td: TextDirection.ltr,
-                    vd: VerticalDirection.up,
-                  ),
-                ),
+                SizedBox(width: cellWidth, child: const _MatrixCell(td: TextDirection.ltr, vd: VerticalDirection.up)),
                 const SizedBox(width: 14),
-                SizedBox(
-                  width: cellWidth,
-                  child: const _MatrixCell(
-                    td: TextDirection.rtl,
-                    vd: VerticalDirection.up,
-                  ),
-                ),
+                SizedBox(width: cellWidth, child: const _MatrixCell(td: TextDirection.rtl, vd: VerticalDirection.up)),
               ],
             ),
           ],
@@ -1963,8 +1694,7 @@ class _MatrixCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return _FrameCard(
       title: '${td.name} / ${vd.name}',
-      note:
-          'Horizontal Flex above, vertical Flex below. Both use the same three children.',
+      note: 'Horizontal Flex above, vertical Flex below. Both use the same three children.',
       child: Column(
         children: <Widget>[
           Container(
@@ -1979,29 +1709,11 @@ class _MatrixCell extends StatelessWidget {
               textDirection: td,
               mainAxisAlignment: MainAxisAlignment.start,
               children: const <Widget>[
-                _Box(
-                  label: '1',
-                  color: _accentA,
-                  width: 36,
-                  height: 36,
-                  fontSize: 12,
-                ),
+                _Box(label: '1', color: _accentA, width: 36, height: 36, fontSize: 12),
                 SizedBox(width: 6),
-                _Box(
-                  label: '2',
-                  color: _accentB,
-                  width: 36,
-                  height: 36,
-                  fontSize: 12,
-                ),
+                _Box(label: '2', color: _accentB, width: 36, height: 36, fontSize: 12),
                 SizedBox(width: 6),
-                _Box(
-                  label: '3',
-                  color: _accentC,
-                  width: 36,
-                  height: 36,
-                  fontSize: 12,
-                ),
+                _Box(label: '3', color: _accentC, width: 36, height: 36, fontSize: 12),
               ],
             ),
           ),
@@ -2019,29 +1731,11 @@ class _MatrixCell extends StatelessWidget {
               verticalDirection: vd,
               mainAxisAlignment: MainAxisAlignment.start,
               children: const <Widget>[
-                _Box(
-                  label: '1',
-                  color: _accentA,
-                  width: 50,
-                  height: 32,
-                  fontSize: 12,
-                ),
+                _Box(label: '1', color: _accentA, width: 50, height: 32, fontSize: 12),
                 SizedBox(height: 6),
-                _Box(
-                  label: '2',
-                  color: _accentB,
-                  width: 50,
-                  height: 32,
-                  fontSize: 12,
-                ),
+                _Box(label: '2', color: _accentB, width: 50, height: 32, fontSize: 12),
                 SizedBox(height: 6),
-                _Box(
-                  label: '3',
-                  color: _accentC,
-                  width: 50,
-                  height: 32,
-                  fontSize: 12,
-                ),
+                _Box(label: '3', color: _accentC, width: 50, height: 32, fontSize: 12),
               ],
             ),
           ),
@@ -2080,21 +1774,9 @@ class _BaselineTab extends StatelessWidget {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(
-                      width: halfWidth,
-                      child: const _BaselineCard(
-                        alignment: CrossAxisAlignment.baseline,
-                        label: 'baseline',
-                      ),
-                    ),
+                    SizedBox(width: halfWidth, child: const _BaselineCard(alignment: CrossAxisAlignment.baseline, label: 'baseline')),
                     const SizedBox(width: 14),
-                    SizedBox(
-                      width: halfWidth,
-                      child: const _BaselineCard(
-                        alignment: CrossAxisAlignment.end,
-                        label: 'end (bottom)',
-                      ),
-                    ),
+                    SizedBox(width: halfWidth, child: const _BaselineCard(alignment: CrossAxisAlignment.end, label: 'end (bottom)')),
                   ],
                 );
               },
@@ -2125,34 +1807,10 @@ class _BaselineTab extends StatelessWidget {
                     textBaseline: TextBaseline.alphabetic,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(
-                        'Ag',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        'Ag',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        'Ag',
-                        style: TextStyle(
-                          fontSize: 56,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        'Ag',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      Text('Ag', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                      Text('Ag', style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700)),
+                      Text('Ag', style: TextStyle(fontSize: 56, fontWeight: FontWeight.w700)),
+                      Text('Ag', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
                     ],
                   ),
                 ],
@@ -2215,18 +1873,9 @@ class _BaselineCard extends StatelessWidget {
           textBaseline: isBaseline ? TextBaseline.alphabetic : null,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: const <Widget>[
-            Text(
-              'Fly',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-            ),
-            Text(
-              'Run',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
-            ),
-            Text(
-              'Jump',
-              style: TextStyle(fontSize: 42, fontWeight: FontWeight.w600),
-            ),
+            Text('Fly', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+            Text('Run', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+            Text('Jump', style: TextStyle(fontSize: 42, fontWeight: FontWeight.w600)),
           ],
         ),
       ),
@@ -2245,11 +1894,7 @@ class _BaselineGuidePainter extends CustomPainter {
     const double gap = 4;
     double x = 0;
     while (x < size.width) {
-      canvas.drawLine(
-        Offset(x, y),
-        Offset(math.min(x + dash, size.width), y),
-        paint,
-      );
+      canvas.drawLine(Offset(x, y), Offset(math.min(x + dash, size.width), y), paint);
       x += dash + gap;
     }
   }
@@ -2308,24 +1953,14 @@ class _ResponsiveFlexSection extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  const Text(
-                    'Viewport:',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
+                  const Text('Viewport:', style: TextStyle(fontWeight: FontWeight.w600)),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Wrap(
                       spacing: 8,
                       runSpacing: 6,
                       children: <Widget>[
-                        for (final int w in <int>[
-                          320,
-                          480,
-                          600,
-                          768,
-                          1024,
-                          1440,
-                        ])
+                        for (final int w in <int>[320, 480, 600, 768, 1024, 1440])
                           ChoiceChip(
                             label: Text('${w}px'),
                             selected: w == width,
@@ -2367,23 +2002,11 @@ class _ResponsiveFlexSection extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: const <Widget>[
-                      _ResponsiveCard(
-                        title: 'Profile',
-                        detail: 'Photo + bio',
-                        color: _accentA,
-                      ),
+                      _ResponsiveCard(title: 'Profile', detail: 'Photo + bio', color: _accentA),
                       SizedBox(width: 10, height: 10),
-                      _ResponsiveCard(
-                        title: 'Settings',
-                        detail: 'Preferences',
-                        color: _accentB,
-                      ),
+                      _ResponsiveCard(title: 'Settings', detail: 'Preferences', color: _accentB),
                       SizedBox(width: 10, height: 10),
-                      _ResponsiveCard(
-                        title: 'Logs',
-                        detail: 'Recent activity',
-                        color: _accentE,
-                      ),
+                      _ResponsiveCard(title: 'Logs', detail: 'Recent activity', color: _accentE),
                     ],
                   ),
                 ),
@@ -2397,11 +2020,7 @@ class _ResponsiveFlexSection extends StatelessWidget {
 }
 
 class _ResponsiveCard extends StatelessWidget {
-  const _ResponsiveCard({
-    required this.title,
-    required this.detail,
-    required this.color,
-  });
+  const _ResponsiveCard({required this.title, required this.detail, required this.color});
   final String title;
   final String detail;
   final Color color;
@@ -2423,20 +2042,10 @@ class _ResponsiveCard extends StatelessWidget {
             Container(
               width: 36,
               height: 6,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(999),
-              ),
+              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(999)),
             ),
             const SizedBox(height: 10),
-            Text(
-              title,
-              style: TextStyle(
-                color: color,
-                fontWeight: FontWeight.w800,
-                fontSize: 18,
-              ),
-            ),
+            Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 18)),
             const SizedBox(height: 4),
             Text(detail, style: const TextStyle(color: _muted)),
           ],
@@ -2545,12 +2154,7 @@ class _AxisDiagramPainter extends CustomPainter {
       canvas.drawLine(start, end, mainPaint);
       _drawArrow(canvas, end, const Offset(1, 0), mainPaint);
       canvas.drawLine(Offset(cx, 24), Offset(cx, size.height - 24), crossPaint);
-      _drawArrow(
-        canvas,
-        Offset(cx, size.height - 24),
-        const Offset(0, 1),
-        crossPaint,
-      );
+      _drawArrow(canvas, Offset(cx, size.height - 24), const Offset(0, 1), crossPaint);
 
       _drawLabel(canvas, 'main axis', Offset(cx, cy - 14), _accentA);
       _drawLabel(canvas, 'cross', Offset(cx + 34, cy + 20), _accentF);
@@ -2558,10 +2162,7 @@ class _AxisDiagramPainter extends CustomPainter {
       for (int i = 0; i < 3; i++) {
         final double bx = 40.0 + i * ((size.width - 80) / 2);
         canvas.drawRRect(
-          RRect.fromRectAndRadius(
-            Rect.fromLTWH(bx - 16, cy - 20, 32, 40),
-            const Radius.circular(6),
-          ),
+          RRect.fromRectAndRadius(Rect.fromLTWH(bx - 16, cy - 20, 32, 40), const Radius.circular(6)),
           Paint()..color = <Color>[_accentA, _accentB, _accentC][i],
         );
       }
@@ -2571,12 +2172,7 @@ class _AxisDiagramPainter extends CustomPainter {
       canvas.drawLine(start, end, mainPaint);
       _drawArrow(canvas, end, const Offset(0, 1), mainPaint);
       canvas.drawLine(Offset(24, cy), Offset(size.width - 24, cy), crossPaint);
-      _drawArrow(
-        canvas,
-        Offset(size.width - 24, cy),
-        const Offset(1, 0),
-        crossPaint,
-      );
+      _drawArrow(canvas, Offset(size.width - 24, cy), const Offset(1, 0), crossPaint);
 
       _drawLabel(canvas, 'main', Offset(cx + 36, cy - 40), _accentA);
       _drawLabel(canvas, 'cross axis', Offset(cx, cy - 12), _accentF);
@@ -2584,10 +2180,7 @@ class _AxisDiagramPainter extends CustomPainter {
       for (int i = 0; i < 3; i++) {
         final double by = 40.0 + i * ((size.height - 80) / 2);
         canvas.drawRRect(
-          RRect.fromRectAndRadius(
-            Rect.fromLTWH(cx - 22, by - 14, 44, 28),
-            const Radius.circular(6),
-          ),
+          RRect.fromRectAndRadius(Rect.fromLTWH(cx - 22, by - 14, 44, 28), const Radius.circular(6)),
           Paint()..color = <Color>[_accentA, _accentB, _accentC][i],
         );
       }
@@ -2610,23 +2203,15 @@ class _AxisDiagramPainter extends CustomPainter {
     final TextPainter painter = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(
-          color: color,
-          fontWeight: FontWeight.w700,
-          fontSize: 12,
-        ),
+        style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 12),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    painter.paint(
-      canvas,
-      origin - Offset(painter.width / 2, painter.height / 2),
-    );
+    painter.paint(canvas, origin - Offset(painter.width / 2, painter.height / 2));
   }
 
   @override
-  bool shouldRepaint(covariant _AxisDiagramPainter oldDelegate) =>
-      oldDelegate.direction != direction;
+  bool shouldRepaint(covariant _AxisDiagramPainter oldDelegate) => oldDelegate.direction != direction;
 }
 
 // ── Comparison table ──────────────────────────────────────────────────────
@@ -2687,41 +2272,11 @@ class _ComparisonSection extends StatelessWidget {
             ),
             child: Row(
               children: const <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    'Widget',
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    'Axis',
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    'Line breaks',
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    'Paints',
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Text(
-                    'Note',
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                ),
+                Expanded(flex: 2, child: Text('Widget', style: TextStyle(fontWeight: FontWeight.w800))),
+                Expanded(flex: 2, child: Text('Axis', style: TextStyle(fontWeight: FontWeight.w800))),
+                Expanded(flex: 2, child: Text('Line breaks', style: TextStyle(fontWeight: FontWeight.w800))),
+                Expanded(flex: 2, child: Text('Paints', style: TextStyle(fontWeight: FontWeight.w800))),
+                Expanded(flex: 5, child: Text('Note', style: TextStyle(fontWeight: FontWeight.w800))),
               ],
             ),
           ),
@@ -2735,23 +2290,11 @@ class _ComparisonSection extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      rows[i].widget,
-                      style: const TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                  ),
+                  Expanded(flex: 2, child: Text(rows[i].widget, style: const TextStyle(fontWeight: FontWeight.w700))),
                   Expanded(flex: 2, child: Text(rows[i].axis)),
                   Expanded(flex: 2, child: Text(rows[i].linebreaks)),
                   Expanded(flex: 2, child: Text(rows[i].paints)),
-                  Expanded(
-                    flex: 5,
-                    child: Text(
-                      rows[i].note,
-                      style: const TextStyle(height: 1.35),
-                    ),
-                  ),
+                  Expanded(flex: 5, child: Text(rows[i].note, style: const TextStyle(height: 1.35))),
                 ],
               ),
             ),
@@ -2930,10 +2473,7 @@ class _ApiRow extends StatelessWidget {
               const SizedBox(width: 8),
               if (item.required)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: _accentD,
                     borderRadius: BorderRadius.circular(999),

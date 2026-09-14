@@ -126,9 +126,8 @@ class _VemWorkshopState extends State<_VemWorkshop> {
   void _handleOuterScroll(ScrollNotification notification) {
     setState(() {
       _scrollEventCount += 1;
-      _notificationBudget = (_notificationBudget + 1)
-          .clamp(0, 999999999)
-          .toInt();
+      _notificationBudget =
+          (_notificationBudget + 1).clamp(0, 999999999).toInt();
       if (notification.depth > _maxDepthSeen) {
         _maxDepthSeen = notification.depth;
       }
@@ -224,8 +223,7 @@ class _VemWorkshopState extends State<_VemWorkshop> {
 
             const _VemSectionHeader(
               number: '05',
-              title:
-                  'Notification Pass-Through — bubble path through viewports',
+              title: 'Notification Pass-Through — bubble path through viewports',
               subtitle:
                   'Shows how depth changes as ScrollNotifications cross nested CustomScrollViews.',
             ),
@@ -318,11 +316,21 @@ class _VemAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
           ),
-          _VemReadout(label: 'events', value: scrollEvents.toString()),
+          _VemReadout(
+            label: 'events',
+            value: scrollEvents.toString(),
+          ),
           const SizedBox(width: 10),
-          _VemReadout(label: 'max depth', value: maxDepth.toString()),
+          _VemReadout(
+            label: 'max depth',
+            value: maxDepth.toString(),
+          ),
           const SizedBox(width: 10),
-          _VemReadout(label: 'last', value: lastLabel, narrow: false),
+          _VemReadout(
+            label: 'last',
+            value: lastLabel,
+            narrow: false,
+          ),
           const SizedBox(width: 10),
           IconButton(
             tooltip: 'Reset counters',
@@ -464,7 +472,10 @@ class _VemHairline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: 1, color: _vemBrassDim);
+    return Container(
+      height: 1,
+      color: _vemBrassDim,
+    );
   }
 }
 
@@ -473,7 +484,10 @@ class _VemHairline extends StatelessWidget {
 // ============================================================================
 
 class _VemFrame extends StatelessWidget {
-  const _VemFrame({required this.child, this.title});
+  const _VemFrame({
+    required this.child,
+    this.title,
+  });
 
   final Widget child;
   final String? title;
@@ -919,11 +933,8 @@ class _VemLiveViewportCardState extends State<_VemLiveViewportCard> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(
-                Icons.settings_input_component,
-                color: _vemBrass,
-                size: 16,
-              ),
+              const Icon(Icons.settings_input_component,
+                  color: _vemBrass, size: 16),
               const SizedBox(width: 8),
               Text(
                 'CONTROLS',
@@ -1099,8 +1110,7 @@ class _VemLiveViewportCardState extends State<_VemLiveViewportCard> {
       return SingleChildScrollView(
         controller: _controller,
         scrollDirection: _axis,
-        reverse:
-            widget.axisDirection == AxisDirection.up ||
+        reverse: widget.axisDirection == AxisDirection.up ||
             widget.axisDirection == AxisDirection.left,
         child: _buildLinearContent(),
       );
@@ -1108,16 +1118,17 @@ class _VemLiveViewportCardState extends State<_VemLiveViewportCard> {
     return CustomScrollView(
       controller: _controller,
       scrollDirection: _axis,
-      reverse:
-          widget.axisDirection == AxisDirection.up ||
+      reverse: widget.axisDirection == AxisDirection.up ||
           widget.axisDirection == AxisDirection.left,
       slivers: <Widget>[
         SliverPadding(
           padding: const EdgeInsets.all(10),
           sliver: SliverList.builder(
             itemCount: 30,
-            itemBuilder: (BuildContext context, int index) =>
-                _VemFilmRow(index: index, horizontal: _axis == Axis.horizontal),
+            itemBuilder: (BuildContext context, int index) => _VemFilmRow(
+              index: index,
+              horizontal: _axis == Axis.horizontal,
+            ),
           ),
         ),
       ],
@@ -1128,13 +1139,15 @@ class _VemLiveViewportCardState extends State<_VemLiveViewportCard> {
     if (_axis == Axis.horizontal) {
       return Row(
         children: <Widget>[
-          for (int i = 0; i < 30; i++) _VemFilmRow(index: i, horizontal: true),
+          for (int i = 0; i < 30; i++)
+            _VemFilmRow(index: i, horizontal: true),
         ],
       );
     }
     return Column(
       children: <Widget>[
-        for (int i = 0; i < 30; i++) _VemFilmRow(index: i, horizontal: false),
+        for (int i = 0; i < 30; i++)
+          _VemFilmRow(index: i, horizontal: false),
       ],
     );
   }
@@ -1146,14 +1159,20 @@ class _VemLiveViewportCardState extends State<_VemLiveViewportCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('AXIS:', style: _hintStyle()),
+          Text(
+            'AXIS:',
+            style: _hintStyle(),
+          ),
           const SizedBox(height: 2),
           Text(
             _axisLabel,
             style: const TextStyle(color: _vemIvory, fontSize: 12),
           ),
           const SizedBox(height: 10),
-          Text('SCROLLABLE:', style: _hintStyle()),
+          Text(
+            'SCROLLABLE:',
+            style: _hintStyle(),
+          ),
           Text(
             widget.useShrinkWrap
                 ? 'SingleChildScrollView\n-> _SingleChildViewportElement'
@@ -1166,7 +1185,10 @@ class _VemLiveViewportCardState extends State<_VemLiveViewportCard> {
             ),
           ),
           const SizedBox(height: 10),
-          Text('MIXIN INSTALLED:', style: _hintStyle()),
+          Text(
+            'MIXIN INSTALLED:',
+            style: _hintStyle(),
+          ),
           Text(
             'NotifiableElementMixin\n+ ViewportElementMixin',
             style: const TextStyle(
@@ -1192,11 +1214,11 @@ class _VemLiveViewportCardState extends State<_VemLiveViewportCard> {
   }
 
   TextStyle _hintStyle() => const TextStyle(
-    color: _vemBrass,
-    fontSize: 10,
-    letterSpacing: 1.2,
-    fontFamily: _vemTitleFamily,
-  );
+        color: _vemBrass,
+        fontSize: 10,
+        letterSpacing: 1.2,
+        fontFamily: _vemTitleFamily,
+      );
 
   Widget _buildInnerReadout() {
     return Container(
@@ -1244,7 +1266,11 @@ class _VemLiveViewportCardState extends State<_VemLiveViewportCard> {
       'by the number of viewport elements between the scrollable and that '
       'outer listener. Toggle shrinkWrap to swap _ViewportElement for '
       '_SingleChildViewportElement: both apply ViewportElementMixin.',
-      style: TextStyle(color: _vemIvoryDim, fontSize: 11.5, height: 1.45),
+      style: TextStyle(
+        color: _vemIvoryDim,
+        fontSize: 11.5,
+        height: 1.45,
+      ),
     );
   }
 }
@@ -1257,9 +1283,8 @@ class _VemFilmRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color accent = index % 7 == 0
-        ? _vemBrassHi
-        : _vemAccent.withValues(alpha: 0.8);
+    final Color accent =
+        index % 7 == 0 ? _vemBrassHi : _vemAccent.withValues(alpha: 0.8);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
@@ -1433,11 +1458,8 @@ class _VemAnatomyPainter extends CustomPainter {
 
     double x = 15;
     for (int i = 0; i < cols.length; i++) {
-      _drawColumn(
-        canvas,
-        Rect.fromLTWH(x, 15, colWidth, size.height - 30),
-        cols[i],
-      );
+      _drawColumn(canvas, Rect.fromLTWH(x, 15, colWidth, size.height - 30),
+          cols[i]);
       x += colWidth + 10;
     }
 
@@ -1642,14 +1664,11 @@ class _VemInspectorCardState extends State<_VemInspectorCard> {
                   )
                 : ListView.builder(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
+                        horizontal: 12, vertical: 8),
                     itemCount: _report.length,
                     itemBuilder: (BuildContext context, int index) {
                       final String line = _report[index];
-                      final bool highlight =
-                          line.contains('Viewport') ||
+                      final bool highlight = line.contains('Viewport') ||
                           line.contains('Scrollable');
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 2),
@@ -1725,9 +1744,7 @@ class _VemInspectorCardState extends State<_VemInspectorCard> {
                     Container(
                       key: _probeKey,
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
-                      ),
+                          horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
                         color: _vemBrass.withValues(alpha: 0.18),
                         border: Border.all(color: _vemBrassHi),
@@ -1762,7 +1779,8 @@ class _VemInspectorCardState extends State<_VemInspectorCard> {
                     padding: const EdgeInsets.only(bottom: 4),
                     child: Text(
                       '• sliver contents row $i',
-                      style: const TextStyle(color: _vemIvoryDim, fontSize: 11),
+                      style:
+                          const TextStyle(color: _vemIvoryDim, fontSize: 11),
                     ),
                   ),
               ]),
@@ -1880,12 +1898,13 @@ class _VemNotificationPathCardState extends State<_VemNotificationPathCard> {
                             child: CustomScrollView(
                               slivers: <Widget>[
                                 SliverList(
-                                  delegate: SliverChildBuilderDelegate(
+                                  delegate:
+                                      SliverChildBuilderDelegate(
                                     (BuildContext context, int index) =>
                                         _VemFilmRow(
-                                          index: index,
-                                          horizontal: false,
-                                        ),
+                                      index: index,
+                                      horizontal: false,
+                                    ),
                                     childCount: 24,
                                   ),
                                 ),
@@ -1898,9 +1917,7 @@ class _VemNotificationPathCardState extends State<_VemNotificationPathCard> {
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) => Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 4,
-                            ),
+                                horizontal: 12, vertical: 4),
                             child: Text(
                               '· outer item ${index.toString().padLeft(2, "0")}',
                               style: const TextStyle(
@@ -1942,7 +1959,8 @@ class _VemNotificationPathCardState extends State<_VemNotificationPathCard> {
               border: Border.all(color: _vemBrassDim),
             ),
             constraints: const BoxConstraints(maxHeight: 180),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             child: _events.isEmpty
                 ? Text(
                     'log empty — interact with the nested scrollables above',
@@ -1965,7 +1983,8 @@ class _VemNotificationPathCardState extends State<_VemNotificationPathCard> {
                                   width: 26,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: _vemBrass.withValues(alpha: 0.25),
+                                    color:
+                                        _vemBrass.withValues(alpha: 0.25),
                                     borderRadius: BorderRadius.circular(3),
                                   ),
                                   child: Text(
@@ -2121,7 +2140,8 @@ class _VemComparisonCardState extends State<_VemComparisonCard> {
   Widget _buildListView({required bool shrinkWrap}) {
     final Widget list = ListView.builder(
       shrinkWrap: shrinkWrap,
-      physics: shrinkWrap ? const AlwaysScrollableScrollPhysics() : null,
+      physics:
+          shrinkWrap ? const AlwaysScrollableScrollPhysics() : null,
       padding: const EdgeInsets.all(8),
       itemCount: 24,
       itemBuilder: (BuildContext context, int index) {
@@ -2151,7 +2171,8 @@ class _VemComparisonCardState extends State<_VemComparisonCard> {
       child: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: const BoxDecoration(
               color: _vemSlateDeep,
               border: Border(bottom: BorderSide(color: _vemBrassDim)),
@@ -2185,9 +2206,7 @@ class _VemComparisonCardState extends State<_VemComparisonCard> {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                      horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: _vemBrass.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(3),
@@ -2215,11 +2234,8 @@ class _VemComparisonCardState extends State<_VemComparisonCard> {
       <String>['Sizing', 'fills main axis', 'shrinks to content'],
       <String>['Element', '_ViewportElement', '_ShrinkWrappingViewportElement'],
       <String>['Mixin', 'ViewportElementMixin', 'ViewportElementMixin'],
-      <String>[
-        'Mixin effect',
-        'depth += 1 on ScrollNotification',
-        'depth += 1 on ScrollNotification',
-      ],
+      <String>['Mixin effect', 'depth += 1 on ScrollNotification',
+          'depth += 1 on ScrollNotification'],
       <String>[
         'Common use',
         'CustomScrollView default, fixed-height parent',
@@ -2237,9 +2253,11 @@ class _VemComparisonCardState extends State<_VemComparisonCard> {
           Container(
             decoration: const BoxDecoration(
               color: _vemSlateDeep,
-              border: Border(bottom: BorderSide(color: _vemBrassDim)),
+              border:
+                  Border(bottom: BorderSide(color: _vemBrassDim)),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
             child: Row(
               children: const <Widget>[
                 SizedBox(
@@ -2286,7 +2304,8 @@ class _VemComparisonCardState extends State<_VemComparisonCard> {
                     ? _vemSlateDeep.withValues(alpha: 0.5)
                     : Colors.transparent,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 7),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -2443,7 +2462,11 @@ class _VemEpilogueCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             e.body,
-            style: const TextStyle(color: _vemIvory, fontSize: 12, height: 1.5),
+            style: const TextStyle(
+              color: _vemIvory,
+              fontSize: 12,
+              height: 1.5,
+            ),
           ),
         ],
       ),

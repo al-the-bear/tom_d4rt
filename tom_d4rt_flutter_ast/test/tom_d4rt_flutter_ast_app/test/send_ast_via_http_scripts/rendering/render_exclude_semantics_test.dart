@@ -126,7 +126,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
       padding: const EdgeInsets.all(24.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primary, scheme.tertiary, scheme.secondary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.tertiary,
+            scheme.secondary,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -225,10 +229,7 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
               _headerChip(scheme, 'MergeSemantics', Icons.merge_type_outlined),
               _headerChip(scheme, 'BlockSemantics', Icons.block_outlined),
               _headerChip(
-                scheme,
-                'ExcludeSemanticsScrollEdges',
-                Icons.swap_vert,
-              ),
+                  scheme, 'ExcludeSemanticsScrollEdges', Icons.swap_vert),
             ],
           ),
         ],
@@ -330,8 +331,7 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
           _codeBlock(
             scheme: scheme,
             language: 'dart',
-            code:
-                'ExcludeSemantics(\n'
+            code: 'ExcludeSemantics(\n'
                 '  excluding: true,\n'
                 '  child: const Icon(Icons.star_outline),\n'
                 ')\n'
@@ -360,7 +360,10 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
       decoration: BoxDecoration(
         color: bgContainer,
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: scheme.outlineVariant, width: 1.0),
+        border: Border.all(
+          color: scheme.outlineVariant,
+          width: 1.0,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,7 +385,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
           const SizedBox(height: 10.0),
           Text(
             subtitle,
-            style: TextStyle(color: fgContainer, fontSize: 12.0, height: 1.35),
+            style: TextStyle(
+              color: fgContainer,
+              fontSize: 12.0,
+              height: 1.35,
+            ),
           ),
           const SizedBox(height: 14.0),
           // A miniature visual of the conceptual subtree.
@@ -445,9 +452,8 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
               fontFamily: 'monospace',
               fontSize: 11.0,
               color: exposed ? scheme.onSurface : scheme.error,
-              decoration: exposed
-                  ? TextDecoration.none
-                  : TextDecoration.lineThrough,
+              decoration:
+                  exposed ? TextDecoration.none : TextDecoration.lineThrough,
             ),
           ),
         ],
@@ -492,8 +498,7 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
                 child: _comparisonColumn(
                   scheme: scheme,
                   heading: 'Without ExcludeSemantics',
-                  caption:
-                      'Default behaviour. Every Icon and Text exposes '
+                  caption: 'Default behaviour. Every Icon and Text exposes '
                       'its own semantics node.',
                   exposeAll: true,
                   child: originalSubtree,
@@ -506,8 +511,7 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
                 child: _comparisonColumn(
                   scheme: scheme,
                   heading: 'With ExcludeSemantics(excluding: true)',
-                  caption:
-                      'Same pixels. The subtree is pruned, so the screen '
+                  caption: 'Same pixels. The subtree is pruned, so the screen '
                       'reader only sees the outer card label.',
                   exposeAll: false,
                   child: originalSubtree,
@@ -563,7 +567,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
           const SizedBox(height: 6.0),
           Text(
             caption,
-            style: TextStyle(color: onAccent, fontSize: 11.5, height: 1.35),
+            style: TextStyle(
+              color: onAccent,
+              fontSize: 11.5,
+              height: 1.35,
+            ),
           ),
           const SizedBox(height: 12.0),
           // Visual subtree
@@ -599,7 +607,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 6.0),
-                _miniSemanticsRow(scheme: scheme, label: 'card', exposed: true),
+                _miniSemanticsRow(
+                  scheme: scheme,
+                  label: 'card',
+                  exposed: true,
+                ),
                 _miniSemanticsRow(
                   scheme: scheme,
                   label: '  rating',
@@ -693,20 +705,32 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
       'Scaffold',
       true,
       <_SemanticsNode>[
-        _SemanticsNode('AppBar (title: Profile)', true, <_SemanticsNode>[
-          _SemanticsNode('back button', true),
-          _SemanticsNode('overflow menu', true),
-        ]),
-        _SemanticsNode('ListTile (Account)', true, <_SemanticsNode>[
-          _SemanticsNode('leading avatar (decorative)', false),
-          _SemanticsNode('title text', true),
-          _SemanticsNode('subtitle text', true),
-          _SemanticsNode('trailing chevron (decorative)', false),
-        ]),
-        _SemanticsNode('Banner (decorative gradient)', false, <_SemanticsNode>[
-          _SemanticsNode('emoji icon (decorative)', false),
-          _SemanticsNode('background text', false),
-        ]),
+        _SemanticsNode(
+          'AppBar (title: Profile)',
+          true,
+          <_SemanticsNode>[
+            _SemanticsNode('back button', true),
+            _SemanticsNode('overflow menu', true),
+          ],
+        ),
+        _SemanticsNode(
+          'ListTile (Account)',
+          true,
+          <_SemanticsNode>[
+            _SemanticsNode('leading avatar (decorative)', false),
+            _SemanticsNode('title text', true),
+            _SemanticsNode('subtitle text', true),
+            _SemanticsNode('trailing chevron (decorative)', false),
+          ],
+        ),
+        _SemanticsNode(
+          'Banner (decorative gradient)',
+          false,
+          <_SemanticsNode>[
+            _SemanticsNode('emoji icon (decorative)', false),
+            _SemanticsNode('background text', false),
+          ],
+        ),
       ],
     );
 
@@ -754,10 +778,16 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
         Container(
           width: 12.0,
           height: 12.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 6.0),
-        Text(label, style: TextStyle(fontSize: 11.0, color: scheme.onSurface)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 11.0, color: scheme.onSurface),
+        ),
       ],
     );
   }
@@ -769,12 +799,10 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
   ) {
     final List<Widget> out = <Widget>[];
     final double indent = depth * 18.0;
-    final Color tone = node.exposed
-        ? scheme.primaryContainer
-        : scheme.errorContainer;
-    final Color onTone = node.exposed
-        ? scheme.onPrimaryContainer
-        : scheme.onErrorContainer;
+    final Color tone =
+        node.exposed ? scheme.primaryContainer : scheme.errorContainer;
+    final Color onTone =
+        node.exposed ? scheme.onPrimaryContainer : scheme.onErrorContainer;
 
     out.add(
       Padding(
@@ -782,7 +810,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
         child: Row(
           children: <Widget>[
             if (depth > 0)
-              Container(width: 10.0, height: 1.0, color: scheme.outlineVariant),
+              Container(
+                width: 10.0,
+                height: 1.0,
+                color: scheme.outlineVariant,
+              ),
             if (depth > 0) const SizedBox(width: 6.0),
             Flexible(
               child: Container(
@@ -793,7 +825,10 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: tone,
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: scheme.outlineVariant, width: 1.0),
+                  border: Border.all(
+                    color: scheme.outlineVariant,
+                    width: 1.0,
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -876,12 +911,8 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
       content: Column(
         children: <Widget>[
           for (int i = 0; i < branches.length; i++)
-            _decisionStep(
-              scheme,
-              i + 1,
-              branches[i],
-              isLast: i == branches.length - 1,
-            ),
+            _decisionStep(scheme, i + 1, branches[i],
+                isLast: i == branches.length - 1),
         ],
       ),
     );
@@ -924,7 +955,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
               ),
             ),
             if (!isLast)
-              Container(width: 2.0, height: 60.0, color: scheme.outlineVariant),
+              Container(
+                width: 2.0,
+                height: 60.0,
+                color: scheme.outlineVariant,
+              ),
           ],
         ),
         const SizedBox(width: 14.0),
@@ -1001,7 +1036,8 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
           Icon(icon, color: onTone, size: 14.0),
           const SizedBox(width: 8.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: onTone.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(6.0),
@@ -1020,7 +1056,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(color: onTone, fontSize: 12.0, height: 1.35),
+              style: TextStyle(
+                color: onTone,
+                fontSize: 12.0,
+                height: 1.35,
+              ),
             ),
           ),
         ],
@@ -1181,7 +1221,8 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: onTone.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(5.0),
@@ -1199,7 +1240,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
           const SizedBox(height: 6.0),
           Text(
             text,
-            style: TextStyle(color: onTone, fontSize: 12.0, height: 1.4),
+            style: TextStyle(
+              color: onTone,
+              fontSize: 12.0,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1285,12 +1330,18 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         children: <Widget>[
-          Expanded(flex: 3, child: _columnHeader(scheme, 'Neighbour widget')),
+          Expanded(
+            flex: 3,
+            child: _columnHeader(scheme, 'Neighbour widget'),
+          ),
           Expanded(
             flex: 2,
             child: _columnHeader(scheme, 'Result inside ExcludeSemantics'),
           ),
-          Expanded(flex: 5, child: _columnHeader(scheme, 'Why')),
+          Expanded(
+            flex: 5,
+            child: _columnHeader(scheme, 'Why'),
+          ),
         ],
       ),
     );
@@ -1372,42 +1423,42 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
         'title': 'Excluding interactive widgets',
         'body':
             'Wrapping a Button or TextField in ExcludeSemantics(excluding: '
-            'true) makes the control unreachable by screen readers. Use '
-            'Semantics(label: ...) to override the announcement instead.',
+                'true) makes the control unreachable by screen readers. Use '
+                'Semantics(label: ...) to override the announcement instead.',
       },
       <String, String>{
         'title': 'Excluding the whole list',
         'body':
             'A whole ListView under ExcludeSemantics(excluding: true) hides '
-            'every item, including their tap handlers. Limit exclusion to '
-            'decorative tiles or use ExcludeSemanticsScrollEdges for edges.',
+                'every item, including their tap handlers. Limit exclusion to '
+                'decorative tiles or use ExcludeSemanticsScrollEdges for edges.',
       },
       <String, String>{
         'title': 'Excluding a form label',
         'body':
             'A label paired with a text field must remain announced. If you '
-            'must hide the visible text, keep its semantics or move the '
-            'label to a Semantics(label: ...) on the TextField wrapper.',
+                'must hide the visible text, keep its semantics or move the '
+                'label to a Semantics(label: ...) on the TextField wrapper.',
       },
       <String, String>{
         'title': 'Stacked excludes',
         'body':
             'ExcludeSemantics inside another ExcludeSemantics is redundant - '
-            'the outer one already prunes the subtree. Remove the inner '
-            'wrapper for clarity.',
+                'the outer one already prunes the subtree. Remove the inner '
+                'wrapper for clarity.',
       },
       <String, String>{
         'title': 'Excluding tooltip-only controls',
         'body':
             'If a button only conveys meaning through its tooltip, do not '
-            'exclude the tooltip - it is the only assistive text.',
+                'exclude the tooltip - it is the only assistive text.',
       },
       <String, String>{
         'title': 'Forgetting MergeSemantics',
         'body':
             'Sometimes the goal is not to prune but to merge. If you only '
-            'need a single announcement instead of three, use '
-            'MergeSemantics; ExcludeSemantics would erase too much.',
+                'need a single announcement instead of three, use '
+                'MergeSemantics; ExcludeSemantics would erase too much.',
       },
     ];
 
@@ -1621,7 +1672,8 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
                   scheme: scheme,
                   number: 2,
                   title: 'Suppress duplicate labels',
-                  text: 'Pick one canonical announcement and exclude the rest.',
+                  text:
+                      'Pick one canonical announcement and exclude the rest.',
                 ),
                 _summaryRecipeRow(
                   scheme: scheme,
@@ -1744,7 +1796,10 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
       padding: const EdgeInsets.all(22.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.secondary, scheme.primary],
+          colors: <Color>[
+            scheme.secondary,
+            scheme.primary,
+          ],
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
         ),
@@ -1898,7 +1953,11 @@ class ExcludeSemanticsDeepDemoApp extends StatelessWidget {
           Expanded(
             child: Text(
               message,
-              style: TextStyle(color: onTone, fontSize: 12.0, height: 1.45),
+              style: TextStyle(
+                color: onTone,
+                fontSize: 12.0,
+                height: 1.45,
+              ),
             ),
           ),
         ],

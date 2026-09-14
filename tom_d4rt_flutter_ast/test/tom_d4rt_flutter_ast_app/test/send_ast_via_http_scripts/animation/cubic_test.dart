@@ -446,7 +446,10 @@ class _PrivateHeroCard extends StatelessWidget {
                 painter: _PrivateHeroCurvePainter(
                   curve: Curves.easeInOut,
                   // P1 = (0.42, 0), P2 = (0.58, 1) in (a,b,c,d) order.
-                  controlPoints: <Offset>[Offset(0.42, 0.0), Offset(0.58, 1.0)],
+                  controlPoints: <Offset>[
+                    Offset(0.42, 0.0),
+                    Offset(0.58, 1.0),
+                  ],
                   label: 'easeInOut',
                   formula: 'Cubic(0.42, 0, 0.58, 1.0)',
                 ),
@@ -454,14 +457,12 @@ class _PrivateHeroCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 14.0),
-          _PrivateLegendRow(
-            items: <_PrivateLegendItem>[
-              _PrivateLegendItem(color: _kAccent, label: 'curve'),
-              _PrivateLegendItem(color: _kHi, label: 'control points'),
-              _PrivateLegendItem(color: _kAxis, label: 'axes'),
-              _PrivateLegendItem(color: _kGrid, label: 'grid'),
-            ],
-          ),
+          _PrivateLegendRow(items: <_PrivateLegendItem>[
+            _PrivateLegendItem(color: _kAccent, label: 'curve'),
+            _PrivateLegendItem(color: _kHi, label: 'control points'),
+            _PrivateLegendItem(color: _kAxis, label: 'axes'),
+            _PrivateLegendItem(color: _kGrid, label: 'grid'),
+          ]),
         ],
       ),
     );
@@ -484,23 +485,21 @@ class _PrivateLegendRow extends StatelessWidget {
       spacing: 16.0,
       runSpacing: 8.0,
       children: items
-          .map<Widget>(
-            (_PrivateLegendItem item) => Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  width: 14.0,
-                  height: 14.0,
-                  decoration: BoxDecoration(
-                    color: item.color,
-                    borderRadius: BorderRadius.circular(3.0),
+          .map<Widget>((_PrivateLegendItem item) => Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    width: 14.0,
+                    height: 14.0,
+                    decoration: BoxDecoration(
+                      color: item.color,
+                      borderRadius: BorderRadius.circular(3.0),
+                    ),
                   ),
-                ),
-                SizedBox(width: 8.0),
-                Text(item.label, style: _kSmall),
-              ],
-            ),
-          )
+                  SizedBox(width: 8.0),
+                  Text(item.label, style: _kSmall),
+                ],
+              ))
           .toList(),
     );
   }
@@ -567,36 +566,22 @@ class _PrivateHeroCurvePainter extends CustomPainter {
       ..color = _kAxis
       ..strokeWidth = 1.4;
     canvas.drawLine(
-      Offset(rect.left, rect.bottom),
-      Offset(rect.right, rect.bottom),
-      axis,
-    );
+        Offset(rect.left, rect.bottom), Offset(rect.right, rect.bottom), axis);
     canvas.drawLine(
-      Offset(rect.left, rect.bottom),
-      Offset(rect.left, rect.top),
-      axis,
-    );
+        Offset(rect.left, rect.bottom), Offset(rect.left, rect.top), axis);
 
     // tick labels.
     for (int i = 0; i <= 10; i += 2) {
       final double tx = rect.left + rect.width * (i / 10.0);
       final double ty = rect.bottom + 4.0;
-      _label(
-        canvas,
-        (i / 10.0).toStringAsFixed(1),
-        Offset(tx - 10.0, ty),
-        _kSmall,
-      );
+      _label(canvas, (i / 10.0).toStringAsFixed(1),
+          Offset(tx - 10.0, ty), _kSmall);
     }
     for (int i = 0; i <= 10; i += 2) {
       final double v = i / 10.0;
       final double yy = rect.bottom - rect.height * v;
-      _label(
-        canvas,
-        v.toStringAsFixed(1),
-        Offset(rect.left - 30.0, yy - 7.0),
-        _kSmall,
-      );
+      _label(canvas, v.toStringAsFixed(1),
+          Offset(rect.left - 30.0, yy - 7.0), _kSmall);
     }
   }
 
@@ -679,45 +664,32 @@ class _PrivateHeroCurvePainter extends CustomPainter {
     canvas.drawCircle(p2, 6.0, cp);
     canvas.drawCircle(p2, 6.0, cpRing);
 
-    _label(
-      canvas,
-      'P1 (${controlPoints[0].dx.toStringAsFixed(2)}, ${controlPoints[0].dy.toStringAsFixed(2)})',
-      p1.translate(10.0, -16.0),
-      _kMonoSmall,
-    );
-    _label(
-      canvas,
-      'P2 (${controlPoints[1].dx.toStringAsFixed(2)}, ${controlPoints[1].dy.toStringAsFixed(2)})',
-      p2.translate(-92.0, 6.0),
-      _kMonoSmall,
-    );
+    _label(canvas,
+        'P1 (${controlPoints[0].dx.toStringAsFixed(2)}, ${controlPoints[0].dy.toStringAsFixed(2)})',
+        p1.translate(10.0, -16.0), _kMonoSmall);
+    _label(canvas,
+        'P2 (${controlPoints[1].dx.toStringAsFixed(2)}, ${controlPoints[1].dy.toStringAsFixed(2)})',
+        p2.translate(-92.0, 6.0), _kMonoSmall);
   }
 
   void _drawLabels(Canvas canvas, Size size, Rect rect) {
-    _label(
-      canvas,
-      label,
-      Offset(rect.left, rect.top - 32.0),
-      TextStyle(fontSize: 18.0, fontWeight: FontWeight.w800, color: _kInk),
-    );
-    _label(
-      canvas,
-      formula,
-      Offset(rect.left, rect.top - 12.0),
-      TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 12.5,
-        color: _kAccent,
-        fontWeight: FontWeight.w700,
-      ),
-    );
-    _label(
-      canvas,
-      't (input)',
-      Offset(rect.right - 70.0, rect.bottom + 18.0),
-      _kSmall,
-    );
-    _label(canvas, 'f(t)', Offset(rect.left - 38.0, rect.top - 6.0), _kSmall);
+    _label(canvas, label,
+        Offset(rect.left, rect.top - 32.0),
+        TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w800,
+            color: _kInk));
+    _label(canvas, formula,
+        Offset(rect.left, rect.top - 12.0),
+        TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12.5,
+            color: _kAccent,
+            fontWeight: FontWeight.w700));
+    _label(canvas, 't (input)',
+        Offset(rect.right - 70.0, rect.bottom + 18.0), _kSmall);
+    _label(canvas, 'f(t)',
+        Offset(rect.left - 38.0, rect.top - 6.0), _kSmall);
   }
 
   Offset _project(Offset curveSpace, Rect rect) {
@@ -736,14 +708,8 @@ class _PrivateHeroCurvePainter extends CustomPainter {
     tp.paint(canvas, at);
   }
 
-  void _drawDashedLine(
-    Canvas canvas,
-    Offset a,
-    Offset b,
-    Paint paint, {
-    double dash = 5.0,
-    double gap = 4.0,
-  }) {
+  void _drawDashedLine(Canvas canvas, Offset a, Offset b, Paint paint,
+      {double dash = 5.0, double gap = 4.0}) {
     final double dx = b.dx - a.dx;
     final double dy = b.dy - a.dy;
     final double dist = math.sqrt(dx * dx + dy * dy);
@@ -801,7 +767,9 @@ class _PrivateAnatomyCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(14.0),
               border: Border.all(color: _kCardEdge),
             ),
-            child: CustomPaint(painter: _PrivateAnatomyPainter()),
+            child: CustomPaint(
+              painter: _PrivateAnatomyPainter(),
+            ),
           ),
           SizedBox(height: 16.0),
           _PrivateAnatomyLegend(),
@@ -876,15 +844,13 @@ class _PrivateAnatomyChip extends StatelessWidget {
               color: color,
               borderRadius: BorderRadius.circular(6.0),
             ),
-            child: Text(
-              mark,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11.0,
-                fontWeight: FontWeight.w800,
-                color: Colors.white,
-              ),
-            ),
+            child: Text(mark,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                )),
           ),
           SizedBox(width: 8.0),
           Text(desc, style: _kSmall),
@@ -903,29 +869,16 @@ class _PrivateAnatomyPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Rect rect = Rect.fromLTRB(
-      60.0,
-      30.0,
-      size.width - 30.0,
-      size.height - 38.0,
-    );
+    final Rect rect = Rect.fromLTRB(60.0, 30.0, size.width - 30.0, size.height - 38.0);
 
     _grid(canvas, rect);
 
     // Axes.
-    final Paint axisPaint = Paint()
-      ..color = _kAxis
-      ..strokeWidth = 1.4;
+    final Paint axisPaint = Paint()..color = _kAxis..strokeWidth = 1.4;
     canvas.drawLine(
-      Offset(rect.left, rect.bottom),
-      Offset(rect.right, rect.bottom),
-      axisPaint,
-    );
+        Offset(rect.left, rect.bottom), Offset(rect.right, rect.bottom), axisPaint);
     canvas.drawLine(
-      Offset(rect.left, rect.bottom),
-      Offset(rect.left, rect.top),
-      axisPaint,
-    );
+        Offset(rect.left, rect.bottom), Offset(rect.left, rect.top), axisPaint);
 
     // The Cubic curve to illustrate.
     final Cubic c = Cubic(_p1.dx, _p1.dy, _p2.dx, _p2.dy);
@@ -966,26 +919,19 @@ class _PrivateAnatomyPainter extends CustomPainter {
     // Endpoints.
     _marker(canvas, p0, _kInkMuted, 'P0 (0, 0)');
     _marker(canvas, p3, _kInkMuted, 'P3 (1, 1)');
-    _marker(
-      canvas,
-      p1,
-      _kHi,
-      'P1 (${_p1.dx.toStringAsFixed(2)}, ${_p1.dy.toStringAsFixed(2)})',
-    );
-    _marker(
-      canvas,
-      p2,
-      _kHi3,
-      'P2 (${_p2.dx.toStringAsFixed(2)}, ${_p2.dy.toStringAsFixed(2)})',
-    );
+    _marker(canvas, p1, _kHi,
+        'P1 (${_p1.dx.toStringAsFixed(2)}, ${_p1.dy.toStringAsFixed(2)})');
+    _marker(canvas, p2, _kHi3,
+        'P2 (${_p2.dx.toStringAsFixed(2)}, ${_p2.dy.toStringAsFixed(2)})');
 
     // Title.
-    _text(
-      canvas,
-      'Cubic(a, b, c, d)',
-      Offset(rect.left, rect.top - 24.0),
-      TextStyle(fontSize: 16.0, fontWeight: FontWeight.w800, color: _kInk),
-    );
+    _text(canvas, 'Cubic(a, b, c, d)',
+        Offset(rect.left, rect.top - 24.0),
+        TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w800,
+          color: _kInk,
+        ));
   }
 
   void _grid(Canvas canvas, Rect rect) {
@@ -994,24 +940,16 @@ class _PrivateAnatomyPainter extends CustomPainter {
       ..strokeWidth = 1.0;
     for (int i = 1; i < 10; i++) {
       final double f = i / 10.0;
-      canvas.drawLine(
-        Offset(rect.left + rect.width * f, rect.top),
-        Offset(rect.left + rect.width * f, rect.bottom),
-        p,
-      );
-      canvas.drawLine(
-        Offset(rect.left, rect.bottom - rect.height * f),
-        Offset(rect.right, rect.bottom - rect.height * f),
-        p,
-      );
+      canvas.drawLine(Offset(rect.left + rect.width * f, rect.top),
+          Offset(rect.left + rect.width * f, rect.bottom), p);
+      canvas.drawLine(Offset(rect.left, rect.bottom - rect.height * f),
+          Offset(rect.right, rect.bottom - rect.height * f), p);
     }
   }
 
   Offset _project(Offset c, Rect rect) {
-    return Offset(
-      rect.left + rect.width * c.dx,
-      rect.bottom - rect.height * c.dy,
-    );
+    return Offset(rect.left + rect.width * c.dx,
+        rect.bottom - rect.height * c.dy);
   }
 
   void _marker(Canvas canvas, Offset at, Color color, String label) {
@@ -1022,17 +960,12 @@ class _PrivateAnatomyPainter extends CustomPainter {
       ..strokeWidth = 1.6;
     canvas.drawCircle(at, 6.5, fill);
     canvas.drawCircle(at, 6.5, ring);
-    _text(
-      canvas,
-      label,
-      at.translate(10.0, -18.0),
-      TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.0,
-        color: _kInkSoft,
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    _text(canvas, label, at.translate(10.0, -18.0),
+        TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.0,
+            color: _kInkSoft,
+            fontWeight: FontWeight.w600));
   }
 
   void _dashed(Canvas canvas, Offset a, Offset b, Paint paint) {
@@ -1096,9 +1029,8 @@ class _PrivateGalleryCard extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: specs
-            .map<Widget>(
-              (_PrivateCurveSpec spec) => _PrivateGalleryTile(spec: spec),
-            )
+            .map<Widget>((_PrivateCurveSpec spec) =>
+                _PrivateGalleryTile(spec: spec))
             .toList(),
       ),
     );
@@ -1123,15 +1055,13 @@ class _PrivateGalleryTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              spec.name,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12.0,
-                fontWeight: FontWeight.w800,
-                color: spec.tint,
-              ),
-            ),
+            Text(spec.name,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w800,
+                  color: spec.tint,
+                )),
             SizedBox(height: 4.0),
             Expanded(
               child: CustomPaint(
@@ -1144,7 +1074,11 @@ class _PrivateGalleryTile extends StatelessWidget {
             SizedBox(height: 4.0),
             Text(
               spec.blurb,
-              style: TextStyle(fontSize: 9.5, color: _kInkMuted, height: 1.2),
+              style: TextStyle(
+                fontSize: 9.5,
+                color: _kInkMuted,
+                height: 1.2,
+              ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -1169,17 +1103,17 @@ class _PrivateMiniCurvePainter extends CustomPainter {
       ..color = _kGrid
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
-    canvas.drawRRect(RRect.fromRectAndRadius(r, Radius.circular(6.0)), frame);
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(r, Radius.circular(6.0)), frame);
 
     // Mid-line.
     final Paint mid = Paint()
       ..color = _kGrid.withValues(alpha: 0.6)
       ..strokeWidth = 1.0;
     canvas.drawLine(
-      Offset(r.left, r.top + r.height / 2),
-      Offset(r.right, r.top + r.height / 2),
-      mid,
-    );
+        Offset(r.left, r.top + r.height / 2),
+        Offset(r.right, r.top + r.height / 2),
+        mid);
 
     // Curve.
     final Path path = Path();
@@ -1355,7 +1289,9 @@ class _PrivateConstructorCard extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 8.0),
-              Expanded(child: Text(spec.title, style: _kH3)),
+              Expanded(
+                child: Text(spec.title, style: _kH3),
+              ),
             ],
           ),
           SizedBox(height: 8.0),
@@ -1379,14 +1315,12 @@ class _PrivateConstructorCard extends StatelessWidget {
             style: _kMono,
           ),
           SizedBox(height: 4.0),
-          Text(
-            spec.css,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12.0,
-              color: _kAccent,
-            ),
-          ),
+          Text(spec.css,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12.0,
+                color: _kAccent,
+              )),
           SizedBox(height: 8.0),
           Text(spec.note, style: _kSmall),
         ],
@@ -1402,12 +1336,8 @@ class _PrivateConstructorPlotPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Rect r = Rect.fromLTRB(
-      12.0,
-      10.0,
-      size.width - 12.0,
-      size.height - 10.0,
-    );
+    final Rect r =
+        Rect.fromLTRB(12.0, 10.0, size.width - 12.0, size.height - 10.0);
 
     // Grid.
     final Paint grid = Paint()
@@ -1415,16 +1345,10 @@ class _PrivateConstructorPlotPainter extends CustomPainter {
       ..strokeWidth = 1.0;
     for (int i = 1; i < 5; i++) {
       final double f = i / 5.0;
-      canvas.drawLine(
-        Offset(r.left + r.width * f, r.top),
-        Offset(r.left + r.width * f, r.bottom),
-        grid,
-      );
-      canvas.drawLine(
-        Offset(r.left, r.bottom - r.height * f),
-        Offset(r.right, r.bottom - r.height * f),
-        grid,
-      );
+      canvas.drawLine(Offset(r.left + r.width * f, r.top),
+          Offset(r.left + r.width * f, r.bottom), grid);
+      canvas.drawLine(Offset(r.left, r.bottom - r.height * f),
+          Offset(r.right, r.bottom - r.height * f), grid);
     }
 
     // Frame.
@@ -1432,19 +1356,18 @@ class _PrivateConstructorPlotPainter extends CustomPainter {
       ..color = _kAxis
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
-    canvas.drawRRect(RRect.fromRectAndRadius(r, Radius.circular(6.0)), frame);
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(r, Radius.circular(6.0)), frame);
 
     // Hull.
     final Offset p0 = Offset(r.left, r.bottom);
     final Offset p3 = Offset(r.right, r.top);
     final Offset p1 = Offset(
-      r.left + r.width * cubic.a,
-      r.bottom - r.height * cubic.b,
-    );
+        r.left + r.width * cubic.a,
+        r.bottom - r.height * cubic.b);
     final Offset p2 = Offset(
-      r.left + r.width * cubic.c,
-      r.bottom - r.height * cubic.d,
-    );
+        r.left + r.width * cubic.c,
+        r.bottom - r.height * cubic.d);
 
     final Paint hull = Paint()
       ..color = tint.withValues(alpha: 0.4)
@@ -1516,9 +1439,11 @@ class _PrivateTransformTableCard extends StatelessWidget {
             cells: <_PrivateCell>[
               _PrivateCell(text: 't', isHeader: true, flex: 2),
               ...cols.map<_PrivateCell>(
-                (_PrivateNamedCurve c) =>
-                    _PrivateCell(text: c.name, isHeader: true, flex: 3),
-              ),
+                  (_PrivateNamedCurve c) => _PrivateCell(
+                        text: c.name,
+                        isHeader: true,
+                        flex: 3,
+                      )),
             ],
             zebra: false,
             isHeader: true,
@@ -1534,14 +1459,13 @@ class _PrivateTransformTableCard extends StatelessWidget {
                   bold: true,
                 ),
                 ...cols.map<_PrivateCell>(
-                  (_PrivateNamedCurve c) => _PrivateCell(
-                    text: c.curve.transform(ts[i]).toStringAsFixed(4),
-                    isHeader: false,
-                    flex: 3,
-                    mono: true,
-                    tint: _curveTint(c.name),
-                  ),
-                ),
+                    (_PrivateNamedCurve c) => _PrivateCell(
+                          text: c.curve.transform(ts[i]).toStringAsFixed(4),
+                          isHeader: false,
+                          flex: 3,
+                          mono: true,
+                          tint: _curveTint(c.name),
+                        )),
               ],
               zebra: i.isOdd,
               isHeader: false,
@@ -1608,30 +1532,31 @@ class _PrivateTableRow extends StatelessWidget {
         color: isHeader
             ? _kAccentSoft.withValues(alpha: 0.4)
             : (zebra ? Color(0xFFFBFAF5) : _kSurface),
-        border: Border(bottom: BorderSide(color: _kCardEdge)),
+        border: Border(
+          bottom: BorderSide(color: _kCardEdge),
+        ),
       ),
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 9.0),
       child: Row(
         children: cells
-            .map<Widget>(
-              (_PrivateCell c) => Expanded(
-                flex: c.flex,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6.0),
-                  child: Text(
-                    c.text,
-                    style: TextStyle(
-                      fontFamily: c.mono ? 'monospace' : null,
-                      fontSize: c.isHeader ? 12.5 : 13.0,
-                      fontWeight: c.isHeader || c.bold
-                          ? FontWeight.w800
-                          : FontWeight.w500,
-                      color: c.tint ?? (c.isHeader ? _kAccent : _kInk),
+            .map<Widget>((_PrivateCell c) => Expanded(
+                  flex: c.flex,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6.0),
+                    child: Text(
+                      c.text,
+                      style: TextStyle(
+                        fontFamily: c.mono ? 'monospace' : null,
+                        fontSize: c.isHeader ? 12.5 : 13.0,
+                        fontWeight: c.isHeader || c.bold
+                            ? FontWeight.w800
+                            : FontWeight.w500,
+                        color: c.tint ??
+                            (c.isHeader ? _kAccent : _kInk),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            )
+                ))
             .toList(),
       ),
     );
@@ -1701,9 +1626,8 @@ class _PrivateSiblingCurveCard extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: siblings
-            .map<Widget>(
-              (_PrivateSiblingSpec s) => _PrivateSiblingTile(spec: s),
-            )
+            .map<Widget>((_PrivateSiblingSpec s) =>
+                _PrivateSiblingTile(spec: s))
             .toList(),
       ),
     );
@@ -1740,17 +1664,15 @@ class _PrivateSiblingTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(
-            spec.name,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11.5,
-              fontWeight: FontWeight.w800,
-              color: spec.tint,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+          Text(spec.name,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.5,
+                fontWeight: FontWeight.w800,
+                color: spec.tint,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis),
           SizedBox(height: 6.0),
           Expanded(
             child: CustomPaint(
@@ -1761,12 +1683,8 @@ class _PrivateSiblingTile extends StatelessWidget {
             ),
           ),
           SizedBox(height: 6.0),
-          Text(
-            spec.blurb,
-            style: _kSmall,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
+          Text(spec.blurb, style: _kSmall, maxLines: 2,
+              overflow: TextOverflow.ellipsis),
         ],
       ),
     );
@@ -1783,12 +1701,8 @@ class _PrivateCodeListingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<_PrivateCodeLine> code = <_PrivateCodeLine>[
-      _PrivateCodeLine([
-        _PrivateCodeTok(
-          '// Construct a Tween animated by a Cubic curve.',
-          _kCodeCom,
-        ),
-      ]),
+      _PrivateCodeLine(
+          [_PrivateCodeTok('// Construct a Tween animated by a Cubic curve.', _kCodeCom)]),
       _PrivateCodeLine([
         _PrivateCodeTok('final ', _kCodeKey),
         _PrivateCodeTok('controller ', _kCodeInk),
@@ -1811,10 +1725,7 @@ class _PrivateCodeListingCard extends StatelessWidget {
       _PrivateCodeLine([_PrivateCodeTok(');', _kCodeInk)]),
       _PrivateCodeLine([_PrivateCodeTok('', _kCodeInk)]),
       _PrivateCodeLine([
-        _PrivateCodeTok(
-          '// Apply Cubic ease-in-out via CurvedAnimation.',
-          _kCodeCom,
-        ),
+        _PrivateCodeTok('// Apply Cubic ease-in-out via CurvedAnimation.', _kCodeCom),
       ]),
       _PrivateCodeLine([
         _PrivateCodeTok('final ', _kCodeKey),
@@ -1902,12 +1813,9 @@ class _PrivateCodeListingCard extends StatelessWidget {
           children: code
               .asMap()
               .entries
-              .map<Widget>(
-                (MapEntry<int, _PrivateCodeLine> e) => _PrivateCodeLineWidget(
-                  lineNumber: e.key + 1,
-                  line: e.value,
-                ),
-              )
+              .map<Widget>((MapEntry<int, _PrivateCodeLine> e) =>
+                  _PrivateCodeLineWidget(
+                      lineNumber: e.key + 1, line: e.value))
               .toList(),
         ),
       ),
@@ -1927,7 +1835,8 @@ class _PrivateCodeLine {
 }
 
 class _PrivateCodeLineWidget extends StatelessWidget {
-  const _PrivateCodeLineWidget({required this.lineNumber, required this.line});
+  const _PrivateCodeLineWidget(
+      {required this.lineNumber, required this.line});
   final int lineNumber;
   final _PrivateCodeLine line;
 
@@ -1952,17 +1861,15 @@ class _PrivateCodeLineWidget extends StatelessWidget {
           child: RichText(
             text: TextSpan(
               children: line.tokens
-                  .map<InlineSpan>(
-                    (_PrivateCodeTok t) => TextSpan(
-                      text: t.text,
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 13.0,
-                        color: t.color,
-                        height: 1.45,
-                      ),
-                    ),
-                  )
+                  .map<InlineSpan>((_PrivateCodeTok t) => TextSpan(
+                        text: t.text,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 13.0,
+                          color: t.color,
+                          height: 1.45,
+                        ),
+                      ))
                   .toList(),
             ),
           ),
@@ -1984,32 +1891,28 @@ class _PrivatePitfallsCard extends StatelessWidget {
     final List<_PrivatePitfall> pitfalls = <_PrivatePitfall>[
       _PrivatePitfall(
         title: 'Control x-coordinates must be in [0, 1].',
-        body:
-            'a (P1.x) and c (P2.x) outside [0, 1] make the curve no longer '
+        body: 'a (P1.x) and c (P2.x) outside [0, 1] make the curve no longer '
             'a function — the same t could map to multiple y values. Flutter '
             'asserts on this in debug builds.',
         tone: _kHi,
       ),
       _PrivatePitfall(
         title: 'Curves.linear is the identity, not a Cubic.',
-        body:
-            'Curves.linear is a small dedicated subclass with '
+        body: 'Curves.linear is a small dedicated subclass with '
             'transform(t) => t. You will not find Bezier control points; '
             'do not pattern-match on (a, b, c, d) for it.',
         tone: _kAccent,
       ),
       _PrivatePitfall(
         title: 'Non-monotone Cubics cause overshoot — by design.',
-        body:
-            'A Cubic with d > 1 (e.g. easeOutBack) intentionally exceeds '
+        body: 'A Cubic with d > 1 (e.g. easeOutBack) intentionally exceeds '
             '1.0 mid-curve. If you Tween a length or opacity, clamp the '
             'output OR pick a non-overshoot curve.',
         tone: _kHi3,
       ),
       _PrivatePitfall(
         title: 'transform(0) and transform(1) must hit 0 and 1.',
-        body:
-            'This is part of the Curve contract. Cubic enforces it via '
+        body: 'This is part of the Curve contract. Cubic enforces it via '
             'fixed endpoints; custom Curve subclasses must respect it.',
         tone: _kHi4,
       ),
@@ -2021,12 +1924,10 @@ class _PrivatePitfallsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: pitfalls
-            .map<Widget>(
-              (_PrivatePitfall p) => Padding(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: _PrivatePitfallRow(pitfall: p),
-              ),
-            )
+            .map<Widget>((_PrivatePitfall p) => Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: _PrivatePitfallRow(pitfall: p),
+                ))
             .toList(),
       ),
     );
@@ -2069,14 +1970,12 @@ class _PrivatePitfallRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(
-            pitfall.title,
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 14.0,
-              color: pitfall.tone,
-            ),
-          ),
+          Text(pitfall.title,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 14.0,
+                color: pitfall.tone,
+              )),
           SizedBox(height: 6.0),
           Text(pitfall.body, style: _kBody),
         ],
@@ -2111,15 +2010,13 @@ class _PrivateFooter extends StatelessWidget {
               color: _kAccent,
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: Text(
-              'C',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 22.0,
-                fontWeight: FontWeight.w900,
-                color: Colors.white,
-              ),
-            ),
+            child: Text('C',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                )),
           ),
           SizedBox(width: 14.0),
           Expanded(
@@ -2127,14 +2024,12 @@ class _PrivateFooter extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
-                  'Cubic — visual deep demo',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                Text('Cubic — visual deep demo',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w800,
+                    )),
                 SizedBox(height: 4.0),
                 Text(
                   'package:flutter/animation.dart · Cubic, Curves, '

@@ -640,7 +640,10 @@ dynamic build(BuildContext context) {
                     left: 0.0,
                     right: 0.0,
                     top: 8.0 + offset,
-                    child: Container(height: 1.5, color: _kCoralDeep),
+                    child: Container(
+                      height: 1.5,
+                      color: _kCoralDeep,
+                    ),
                   ),
                 ],
               ),
@@ -708,7 +711,11 @@ dynamic build(BuildContext context) {
           ),
           child: Text.rich(
             TextSpan(
-              style: TextStyle(fontSize: 15.0, color: _kCharcoal, height: 1.6),
+              style: TextStyle(
+                fontSize: 15.0,
+                color: _kCharcoal,
+                height: 1.6,
+              ),
               children: <InlineSpan>[
                 TextSpan(text: 'Tap the '),
                 WidgetSpan(
@@ -752,7 +759,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(4.0),
                       border: Border.all(color: _kCharcoal, width: 1.0),
                     ),
-                    child: Icon(Icons.image, size: 16.0, color: _kCream),
+                    child: Icon(
+                      Icons.image,
+                      size: 16.0,
+                      color: _kCream,
+                    ),
                   ),
                 ),
                 TextSpan(text: ' to your post.'),
@@ -771,7 +782,11 @@ dynamic build(BuildContext context) {
           ),
           child: Text.rich(
             TextSpan(
-              style: TextStyle(fontSize: 16.0, color: _kCharcoal, height: 1.8),
+              style: TextStyle(
+                fontSize: 16.0,
+                color: _kCharcoal,
+                height: 1.8,
+              ),
               children: <InlineSpan>[
                 TextSpan(text: 'top:'),
                 WidgetSpan(
@@ -968,8 +983,7 @@ dynamic build(BuildContext context) {
   final footgunData = <Map<String, Object>>[
     {
       'title': 'baseline alignments need a TextBaseline',
-      'detail':
-          'When alignment is baseline / aboveBaseline / belowBaseline, '
+      'detail': 'When alignment is baseline / aboveBaseline / belowBaseline, '
           'the baseline field MUST be non-null. Otherwise the assertion in '
           'the constructor fails.',
       'icon': Icons.warning_amber_rounded,
@@ -977,32 +991,28 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'PlaceholderDimensions.empty is a sentinel',
-      'detail':
-          'Size.zero with PlaceholderAlignment.baseline. Use it as a '
+      'detail': 'Size.zero with PlaceholderAlignment.baseline. Use it as a '
           'safe default for un-measured WidgetSpans, not as a real layout.',
       'icon': Icons.crop_square,
       'color': _kAmber,
     },
     {
       'title': 'must call setPlaceholderDimensions BEFORE layout',
-      'detail':
-          'TextPainter.layout() reads the dimensions list. Setting it '
+      'detail': 'TextPainter.layout() reads the dimensions list. Setting it '
           'after layout has no effect until the next layout pass.',
       'icon': Icons.timer_off_outlined,
       'color': _kSage,
     },
     {
       'title': 'list length must match WidgetSpan count',
-      'detail':
-          'Mismatched arrays silently produce wrong line metrics. The '
+      'detail': 'Mismatched arrays silently produce wrong line metrics. The '
           'order of the list mirrors the WidgetSpan traversal order.',
       'icon': Icons.format_list_numbered,
       'color': _kSlate,
     },
     {
       'title': 'baselineOffset is from the BOX TOP',
-      'detail':
-          'It is the distance from the placeholder box top down to its '
+      'detail': 'It is the distance from the placeholder box top down to its '
           'baseline. Confusing it with line-height yields jittery glyph runs.',
       'icon': Icons.straighten,
       'color': _kCharcoalSoft,
@@ -1044,7 +1054,11 @@ dynamic build(BuildContext context) {
                 color: color.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Icon(item['icon'] as IconData, color: color, size: 22.0),
+              child: Icon(
+                item['icon'] as IconData,
+                color: color,
+                size: 22.0,
+              ),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1407,7 +1421,10 @@ Widget _buildBaselineRow(
               ),
               SizedBox(height: 6.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 6.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: _kCream,
                   borderRadius: BorderRadius.circular(4.0),
@@ -1471,7 +1488,9 @@ Widget _compareRow(
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(6.0),
-      border: Border(left: BorderSide(color: color, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 3.0),
+      ),
     ),
     child: Row(
       children: [

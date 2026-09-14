@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'What is TapRegionSurface?',
-      'body':
-          'TapRegionSurface is a widget that provides a surface for '
+      'body': 'TapRegionSurface is a widget that provides a surface for '
           'TapRegion widgets to register with. It acts as the registry '
           'that tracks all active tap regions and their group memberships, '
           'enabling "tap outside" detection across grouped regions.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.group_work,
       'title': 'Group-Based Detection',
-      'body':
-          'TapRegion widgets sharing the same groupId form a logical group. '
+      'body': 'TapRegion widgets sharing the same groupId form a logical group. '
           'When a tap occurs outside ALL regions in a group, the onTapOutside '
           'callback fires on every member. Tapping inside any group member '
           'does NOT trigger the outside callback.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Registry Hierarchy',
-      'body':
-          'TapRegionSurface uses RenderTapRegionSurface under the hood. '
+      'body': 'TapRegionSurface uses RenderTapRegionSurface under the hood. '
           'WidgetsApp and MaterialApp already include a TapRegionSurface '
           'near the root, so most apps get the registry automatically '
           'without adding one explicitly.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.exit_to_app,
       'title': 'Primary Use Case',
-      'body':
-          'The most common use is dismissing floating UI when the user '
+      'body': 'The most common use is dismissing floating UI when the user '
           'taps elsewhere: menus, dropdowns, search suggestions, tooltips, '
           'and bottom sheets. Each floating element and its trigger can '
           'share a group so the overlay stays open while interacting.',
@@ -128,55 +124,48 @@ dynamic build(BuildContext context) {
     {
       'name': 'TapRegionSurface',
       'type': 'Widget',
-      'desc':
-          'The registry surface widget. Wraps a subtree to provide '
+      'desc': 'The registry surface widget. Wraps a subtree to provide '
           'tap region registration. Creates a RenderTapRegionSurface '
           'that tracks all descendant TapRegion widgets.',
     },
     {
       'name': 'TapRegion',
       'type': 'Widget',
-      'desc':
-          'A widget that registers a region with the nearest '
+      'desc': 'A widget that registers a region with the nearest '
           'TapRegionSurface. Provides onTapOutside and onTapInside '
           'callbacks based on group membership.',
     },
     {
       'name': 'TapRegion.groupId',
       'type': 'Object?',
-      'desc':
-          'An identifier that groups multiple TapRegion widgets. '
+      'desc': 'An identifier that groups multiple TapRegion widgets. '
           'Regions with the same groupId are treated as one logical '
           'area. A tap must be outside ALL members to trigger onTapOutside.',
     },
     {
       'name': 'TapRegion.onTapOutside',
       'type': 'TapRegionCallback?',
-      'desc':
-          'Called when a tap occurs outside this region (or its group). '
+      'desc': 'Called when a tap occurs outside this region (or its group). '
           'Receives a PointerDownEvent with the tap position. Use this '
           'to dismiss overlays, close menus, or unfocus fields.',
     },
     {
       'name': 'TapRegion.onTapInside',
       'type': 'TapRegionCallback?',
-      'desc':
-          'Called when a tap occurs inside this region. Useful for '
+      'desc': 'Called when a tap occurs inside this region. Useful for '
           'tracking engagement or resetting dismiss timers.',
     },
     {
       'name': 'TapRegion.consumeOutsideTaps',
       'type': 'bool',
-      'desc':
-          'When true, taps outside this region are consumed and not '
+      'desc': 'When true, taps outside this region are consumed and not '
           'passed to other widgets. Defaults to false. Use sparingly '
           'as it blocks all other tap handlers.',
     },
     {
       'name': 'TapRegion.behavior',
       'type': 'HitTestBehavior?',
-      'desc':
-          'Controls how hit testing works for this region. Defaults to '
+      'desc': 'Controls how hit testing works for this region. Defaults to '
           'deferToChild. Set to opaque to capture taps on blank areas '
           'within the region bounds.',
     },
@@ -266,8 +255,7 @@ dynamic build(BuildContext context) {
   final groupScenarios = <Map<String, dynamic>>[
     {
       'title': 'Ungrouped Regions',
-      'desc':
-          'Each TapRegion has no groupId. A tap outside any individual '
+      'desc': 'Each TapRegion has no groupId. A tap outside any individual '
           'region triggers its own onTapOutside — even if the tap lands '
           'inside another TapRegion.',
       'regions': ['Region A', 'Region B', 'Region C'],
@@ -276,8 +264,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Same-Group Regions',
-      'desc':
-          'All TapRegion widgets share groupId: "menu". A tap inside '
+      'desc': 'All TapRegion widgets share groupId: "menu". A tap inside '
           'any member does NOT fire onTapOutside. Only a tap outside '
           'all three regions triggers the callback on every member.',
       'regions': ['Trigger', 'Menu Body', 'Sub-Menu'],
@@ -286,8 +273,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Mixed Groups',
-      'desc':
-          'Regions can belong to different groups. Group A and Group B '
+      'desc': 'Regions can belong to different groups. Group A and Group B '
           'are independent — tapping inside Group A triggers onTapOutside '
           'for Group B members, and vice versa.',
       'regions': ['Group A: Field', 'Group B: Dropdown'],
@@ -427,8 +413,7 @@ dynamic build(BuildContext context) {
     {
       'step': 1,
       'title': 'TapRegionSurface Inserted',
-      'desc':
-          'The surface creates a RenderTapRegionSurface that '
+      'desc': 'The surface creates a RenderTapRegionSurface that '
           'listens for pointer events on the entire surface area. '
           'MaterialApp/WidgetsApp inserts one automatically.',
       'icon': Icons.layers,
@@ -437,8 +422,7 @@ dynamic build(BuildContext context) {
     {
       'step': 2,
       'title': 'TapRegion Mounts',
-      'desc':
-          'When a TapRegion widget is inserted into the tree, '
+      'desc': 'When a TapRegion widget is inserted into the tree, '
           'its render object registers with the nearest ancestor '
           'TapRegionSurface. The region bounds and groupId are '
           'recorded in the registry.',
@@ -448,8 +432,7 @@ dynamic build(BuildContext context) {
     {
       'step': 3,
       'title': 'Pointer Event Arrives',
-      'desc':
-          'When the user taps anywhere on the surface, the '
+      'desc': 'When the user taps anywhere on the surface, the '
           'RenderTapRegionSurface receives the PointerDownEvent. '
           'It performs hit-testing against all registered regions.',
       'icon': Icons.touch_app,
@@ -458,8 +441,7 @@ dynamic build(BuildContext context) {
     {
       'step': 4,
       'title': 'Group Evaluation',
-      'desc':
-          'For each group, the surface checks whether the tap '
+      'desc': 'For each group, the surface checks whether the tap '
           'landed inside ANY member of that group. If inside, '
           'onTapInside fires. If outside ALL members, onTapOutside '
           'fires on every member of the group.',
@@ -469,8 +451,7 @@ dynamic build(BuildContext context) {
     {
       'step': 5,
       'title': 'TapRegion Unmounts',
-      'desc':
-          'When a TapRegion is removed from the tree, its render '
+      'desc': 'When a TapRegion is removed from the tree, its render '
           'object unregisters from the surface. Future taps will '
           'no longer consider this region for group membership.',
       'icon': Icons.remove_circle,
@@ -533,7 +514,8 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(rs['icon'] as IconData, color: rsColor, size: 18),
+                        Icon(rs['icon'] as IconData,
+                            color: rsColor, size: 18),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -575,8 +557,7 @@ dynamic build(BuildContext context) {
   final hitScenarios = <Map<String, dynamic>>[
     {
       'title': 'Tap Inside Region',
-      'desc':
-          'The pointer lands within the bounds of a TapRegion. '
+      'desc': 'The pointer lands within the bounds of a TapRegion. '
           'onTapInside fires for that region. If the region is in a '
           'group, no onTapOutside fires on any group member.',
       'diagram': 'inside',
@@ -584,8 +565,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Tap Outside Individual',
-      'desc':
-          'For ungrouped regions (no groupId), a tap anywhere '
+      'desc': 'For ungrouped regions (no groupId), a tap anywhere '
           'outside the single region triggers onTapOutside. Other '
           'regions are not considered.',
       'diagram': 'outside-single',
@@ -593,8 +573,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Tap Outside Group',
-      'desc':
-          'For grouped regions, the tap must be outside every '
+      'desc': 'For grouped regions, the tap must be outside every '
           'member of the group. If it hits even one member, the tap '
           'is "inside" the group.',
       'diagram': 'outside-group',
@@ -602,8 +581,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Overlapping Regions',
-      'desc':
-          'When regions overlap, a tap in the overlapping area is '
+      'desc': 'When regions overlap, a tap in the overlapping area is '
           '"inside" both regions (and both groups). Hit testing uses '
           'the region bounds, not widget z-order.',
       'diagram': 'overlap',
@@ -686,7 +664,10 @@ dynamic build(BuildContext context) {
                 child: Center(
                   child: Text(
                     'Region',
-                    style: TextStyle(fontSize: 9, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ),
               ),
@@ -727,7 +708,8 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(3),
                       ),
                       child: const Center(
-                        child: Text('A', style: TextStyle(fontSize: 10)),
+                        child: Text('A',
+                            style: TextStyle(fontSize: 10)),
                       ),
                     ),
                     const SizedBox(width: 4),
@@ -739,7 +721,8 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(3),
                       ),
                       child: const Center(
-                        child: Text('B', style: TextStyle(fontSize: 10)),
+                        child: Text('B',
+                            style: TextStyle(fontSize: 10)),
                       ),
                     ),
                   ],
@@ -781,7 +764,8 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Colors.purple.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: Colors.purple.withOpacity(0.3)),
+                      border:
+                          Border.all(color: Colors.purple.withOpacity(0.3)),
                     ),
                     child: const Center(
                       child: Text('R2', style: TextStyle(fontSize: 9)),
@@ -842,12 +826,10 @@ dynamic build(BuildContext context) {
     {
       'phase': 'Mount',
       'icon': Icons.play_arrow,
-      'desc':
-          'TapRegion renders and registers with the nearest '
+      'desc': 'TapRegion renders and registers with the nearest '
           'TapRegionSurface ancestor. The region becomes active for '
           'hit testing immediately.',
-      'code':
-          'TapRegion(\n'
+      'code': 'TapRegion(\n'
           '  groupId: myGroupId,\n'
           '  onTapOutside: (_) => dismiss(),\n'
           '  child: menuContent,\n'
@@ -857,12 +839,10 @@ dynamic build(BuildContext context) {
     {
       'phase': 'Active',
       'icon': Icons.fiber_manual_record,
-      'desc':
-          'While mounted, the region participates in all tap '
+      'desc': 'While mounted, the region participates in all tap '
           'evaluations. Group membership can change if groupId '
           'changes via setState rebuild.',
-      'code':
-          '// groupId can change dynamically\n'
+      'code': '// groupId can change dynamically\n'
           'TapRegion(\n'
           '  groupId: isExpanded\n'
           '    ? expandedGroupId\n'
@@ -874,12 +854,10 @@ dynamic build(BuildContext context) {
     {
       'phase': 'Unmount',
       'icon': Icons.stop,
-      'desc':
-          'When removed from the tree, the region unregisters. '
+      'desc': 'When removed from the tree, the region unregisters. '
           'If it was the last member of a group, the group is '
           'effectively dissolved. No dangling references remain.',
-      'code':
-          '// Region auto-unregisters on dispose\n'
+      'code': '// Region auto-unregisters on dispose\n'
           'if (showOverlay)\n'
           '  TapRegion(\n'
           '    groupId: overlayGroup,\n'
@@ -974,12 +952,10 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Dismiss Menu on Outside Tap',
-      'desc':
-          'Wrap a popup menu trigger and the menu body in TapRegion '
+      'desc': 'Wrap a popup menu trigger and the menu body in TapRegion '
           'widgets with the same groupId. When the user taps outside '
           'both, call setState to close the menu.',
-      'code':
-          'TapRegion(\n'
+      'code': 'TapRegion(\n'
           '  groupId: "myMenu",\n'
           '  onTapOutside: (_) {\n'
           '    setState(() => showMenu = false);\n'
@@ -991,12 +967,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Unfocus TextField on Outside Tap',
-      'desc':
-          'TextField already uses TapRegion internally. The focus '
+      'desc': 'TextField already uses TapRegion internally. The focus '
           'node unfocuses when a tap lands outside the field. '
           'TextFieldTapRegion extends this to custom overlays.',
-      'code':
-          '// TextField handles this automatically:\n'
+      'code': '// TextField handles this automatically:\n'
           '// tap outside the field => unfocus\n'
           '// No extra code needed for basic cases.',
       'icon': Icons.text_fields,
@@ -1004,12 +978,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dropdown with Trigger',
-      'desc':
-          'The trigger button and dropdown panel share a groupId. '
+      'desc': 'The trigger button and dropdown panel share a groupId. '
           'Tapping the trigger opens the dropdown; tapping inside '
           'the dropdown keeps it open; tapping outside both closes it.',
-      'code':
-          'TapRegion(\n'
+      'code': 'TapRegion(\n'
           '  groupId: dropdownId,\n'
           '  child: IconButton(\n'
           '    onPressed: toggleDropdown,\n'
@@ -1022,24 +994,20 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-Level Menu',
-      'desc':
-          'Nested sub-menus share the same groupId as the parent. '
+      'desc': 'Nested sub-menus share the same groupId as the parent. '
           'This means tapping inside any level of the menu hierarchy '
           'keeps everything open, while tapping away dismisses all.',
-      'code':
-          '// Parent menu, sub-menu, sub-sub-menu\n'
+      'code': '// Parent menu, sub-menu, sub-sub-menu\n'
           '// all share groupId: "cascadingMenu"',
       'icon': Icons.account_tree,
       'color': Colors.purple,
     },
     {
       'title': 'Modal Barrier Alternative',
-      'desc':
-          'Use consumeOutsideTaps: true to block taps from reaching '
+      'desc': 'Use consumeOutsideTaps: true to block taps from reaching '
           'widgets behind the overlay. This behaves like a modal '
           'barrier but without the visual scrim.',
-      'code':
-          'TapRegion(\n'
+      'code': 'TapRegion(\n'
           '  consumeOutsideTaps: true,\n'
           '  onTapOutside: (_) => closeModal(),\n'
           '  child: modalContent,\n'
@@ -1136,38 +1104,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.layers,
-      'text':
-          'TapRegionSurface is the registry that manages all '
+      'text': 'TapRegionSurface is the registry that manages all '
           'TapRegion widgets in its subtree.',
     },
     {
       'icon': Icons.group_work,
-      'text':
-          'TapRegion.groupId groups multiple regions — taps outside '
+      'text': 'TapRegion.groupId groups multiple regions — taps outside '
           'the entire group fire onTapOutside on all members.',
     },
     {
       'icon': Icons.touch_app,
-      'text':
-          'onTapOutside is the primary callback — used for dismissing '
+      'text': 'onTapOutside is the primary callback — used for dismissing '
           'floating UI when the user taps elsewhere.',
     },
     {
       'icon': Icons.apps,
-      'text':
-          'MaterialApp includes a TapRegionSurface automatically; '
+      'text': 'MaterialApp includes a TapRegionSurface automatically; '
           'most apps do not need to add one explicitly.',
     },
     {
       'icon': Icons.block,
-      'text':
-          'consumeOutsideTaps blocks taps from reaching other widgets, '
+      'text': 'consumeOutsideTaps blocks taps from reaching other widgets, '
           'acting like a modal barrier without a scrim.',
     },
     {
       'icon': Icons.link,
-      'text':
-          'Common pattern: trigger + overlay share a groupId so tapping '
+      'text': 'Common pattern: trigger + overlay share a groupId so tapping '
           'either keeps the overlay open.',
     },
   ];
@@ -1194,7 +1156,11 @@ dynamic build(BuildContext context) {
                 color: Colors.teal.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(sp['icon'] as IconData, color: Colors.teal, size: 20),
+              child: Icon(
+                sp['icon'] as IconData,
+                color: Colors.teal,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(

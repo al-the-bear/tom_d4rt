@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_quilt,
       'title': 'What is TwoDimensionalViewport?',
-      'body':
-          'TwoDimensionalViewport is the lowest layer in the 2D '
+      'body': 'TwoDimensionalViewport is the lowest layer in the 2D '
           'scrolling stack. It is the actual RenderObject that '
           'determines which cells are visible, builds them via the '
           'delegate, positions them, and paints them.',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility,
       'title': 'Visible Region',
-      'body':
-          'Given horizontal and vertical scroll offsets plus the '
+      'body': 'Given horizontal and vertical scroll offsets plus the '
           'viewport dimensions, the viewport computes a rectangular '
           'region. Only cells overlapping this region are built and '
           'rendered. Everything else is garbage collected.',
@@ -37,8 +35,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.recycling,
       'title': 'Child Lifecycle',
-      'body':
-          'As the user scrolls, new cells enter the visible region '
+      'body': 'As the user scrolls, new cells enter the visible region '
           'and old ones leave. The viewport creates new children on '
           'entry and disposes them on exit. This keeps memory constant '
           'regardless of total grid size.',
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.brush,
       'title': 'Paint and Composite',
-      'body':
-          'The viewport paints children in a deterministic order. '
+      'body': 'The viewport paints children in a deterministic order. '
           'Each child is positioned at its layout offset. The '
           'viewport clips content that extends beyond its bounds '
           'based on the clipBehavior setting.',
@@ -127,48 +123,42 @@ dynamic build(BuildContext context) {
     {
       'name': 'horizontalOffset',
       'type': 'ViewportOffset',
-      'desc':
-          'The horizontal scroll position. The viewport reads '
+      'desc': 'The horizontal scroll position. The viewport reads '
           '.pixels to determine horizontal offset and listens for '
           'changes to trigger relayout.',
     },
     {
       'name': 'verticalOffset',
       'type': 'ViewportOffset',
-      'desc':
-          'The vertical scroll position. Same as horizontalOffset '
+      'desc': 'The vertical scroll position. Same as horizontalOffset '
           'but for the vertical axis. Together they define the '
           'visible rectangle in content space.',
     },
     {
       'name': 'delegate',
       'type': 'TwoDimensionalChildDelegate',
-      'desc':
-          'Provides children (cells) for given ChildVicinity '
+      'desc': 'Provides children (cells) for given ChildVicinity '
           'coordinates. The viewport calls the delegate to build '
           'cells that enter the visible region.',
     },
     {
       'name': 'mainAxis',
       'type': 'Axis',
-      'desc':
-          'Primary axis for layout iteration. Axis.vertical means '
+      'desc': 'Primary axis for layout iteration. Axis.vertical means '
           'rows are laid out first, then columns within each row. '
           'Determines traversal order for the layout algorithm.',
     },
     {
       'name': 'cacheExtent',
       'type': 'double',
-      'desc':
-          'Extra pixels around the viewport to pre-render. Cells '
+      'desc': 'Extra pixels around the viewport to pre-render. Cells '
           'within cacheExtent of the visible edge are kept alive '
           'even though they are not visible. Improves scroll smoothness.',
     },
     {
       'name': 'clipBehavior',
       'type': 'Clip',
-      'desc':
-          'How to clip children that extend beyond the viewport '
+      'desc': 'How to clip children that extend beyond the viewport '
           'boundaries: Clip.none (no clipping, possible overflow), '
           'Clip.hardEdge, Clip.antiAlias, or Clip.antiAliasWithSaveLayer.',
     },
@@ -257,8 +247,7 @@ dynamic build(BuildContext context) {
   final lifecycleSteps = <Map<String, dynamic>>[
     {
       'step': '1. Request Cell',
-      'desc':
-          'During layout, the viewport determines cell (x,y) should '
+      'desc': 'During layout, the viewport determines cell (x,y) should '
           'be visible. It asks the delegate to build the widget for '
           'ChildVicinity(xIndex: x, yIndex: y).',
       'icon': Icons.add_box,
@@ -266,8 +255,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Build Widget',
-      'desc':
-          'The delegate calls its builder function which returns a '
+      'desc': 'The delegate calls its builder function which returns a '
           'widget tree for the cell. This widget is inflated into '
           'an Element with a RenderBox.',
       'icon': Icons.build,
@@ -275,8 +263,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Layout Cell',
-      'desc':
-          'The viewport gives the cell RenderBox constraints '
+      'desc': 'The viewport gives the cell RenderBox constraints '
           '(typically the cell size). The cell lays itself out. '
           'The viewport records the cell size and position.',
       'icon': Icons.square_foot,
@@ -284,8 +271,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Paint Cell',
-      'desc':
-          'The viewport paints all visible cells at their calculated '
+      'desc': 'The viewport paints all visible cells at their calculated '
           'offsets relative to the viewport origin. Paint order '
           'follows the layout iteration order.',
       'icon': Icons.brush,
@@ -293,8 +279,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Scroll Away',
-      'desc':
-          'When the user scrolls and a cell exits the visible region '
+      'desc': 'When the user scrolls and a cell exits the visible region '
           '(plus cache extent), the viewport marks it for disposal. '
           'The element is unmounted and the widget tree freed.',
       'icon': Icons.delete_sweep,
@@ -302,8 +287,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '6. Garbage Collect',
-      'desc':
-          'At the end of each layout pass, cells no longer in the '
+      'desc': 'At the end of each layout pass, cells no longer in the '
           'visible+cache region are collected. Their RenderBoxes are '
           'removed and memory is freed.',
       'icon': Icons.recycling,
@@ -330,7 +314,11 @@ dynamic build(BuildContext context) {
                     color: lsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(ls['icon'] as IconData, color: lsColor, size: 18),
+                  child: Icon(
+                    ls['icon'] as IconData,
+                    color: lsColor,
+                    size: 18,
+                  ),
                 ),
                 if (i < lifecycleSteps.length - 1)
                   Container(
@@ -395,17 +383,11 @@ dynamic build(BuildContext context) {
   for (var y = 0; y < gridSize; y++) {
     final cells = <Widget>[];
     for (var x = 0; x < gridSize; x++) {
-      final isVisible =
-          x >= viewportStartX &&
-          x <= viewportEndX &&
-          y >= viewportStartY &&
-          y <= viewportEndY;
-      final isCache =
-          !isVisible &&
-          x >= viewportStartX - 1 &&
-          x <= viewportEndX + 1 &&
-          y >= viewportStartY - 1 &&
-          y <= viewportEndY + 1;
+      final isVisible = x >= viewportStartX && x <= viewportEndX &&
+          y >= viewportStartY && y <= viewportEndY;
+      final isCache = !isVisible &&
+          x >= viewportStartX - 1 && x <= viewportEndX + 1 &&
+          y >= viewportStartY - 1 && y <= viewportEndY + 1;
       Color bgColor;
       if (isVisible) {
         bgColor = Colors.deepPurple.withOpacity(0.2);
@@ -449,24 +431,21 @@ dynamic build(BuildContext context) {
   final regionExplanations = <Map<String, dynamic>>[
     {
       'label': 'Visible',
-      'desc':
-          'Cells within the viewport bounds. Fully built, laid out, '
+      'desc': 'Cells within the viewport bounds. Fully built, laid out, '
           'and painted. The user can see these.',
       'color': Colors.deepPurple.withOpacity(0.2),
       'border': Colors.deepPurple,
     },
     {
       'label': 'Cached',
-      'desc':
-          'Cells within cacheExtent of the viewport. Built and laid '
+      'desc': 'Cells within cacheExtent of the viewport. Built and laid '
           'out but not painted. Ready for immediate display on scroll.',
       'color': Colors.deepPurple.withOpacity(0.08),
       'border': Colors.grey,
     },
     {
       'label': 'Outside',
-      'desc':
-          'Cells beyond the cache extent. Not built, no memory used. '
+      'desc': 'Cells beyond the cache extent. Not built, no memory used. '
           'Will be created on demand when they enter the cache zone.',
       'color': Colors.grey.withOpacity(0.04),
       'border': Colors.grey,
@@ -528,12 +507,10 @@ dynamic build(BuildContext context) {
   final paintTopics = <Map<String, dynamic>>[
     {
       'title': 'Row-Major Order (Axis.vertical)',
-      'desc':
-          'When mainAxis is Axis.vertical, the viewport iterates by '
+      'desc': 'When mainAxis is Axis.vertical, the viewport iterates by '
           'rows first. Within each row, cells are painted left-to-right. '
           'Later rows paint on top of earlier rows.',
-      'diagram':
-          'Paint order:\n'
+      'diagram': 'Paint order:\n'
           '  Row 0: (0,0) \u2192 (1,0) \u2192 (2,0)\n'
           '  Row 1: (0,1) \u2192 (1,1) \u2192 (2,1)\n'
           '  Row 2: (0,2) \u2192 (1,2) \u2192 (2,2)\n'
@@ -543,12 +520,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Column-Major Order (Axis.horizontal)',
-      'desc':
-          'When mainAxis is Axis.horizontal, the viewport iterates by '
+      'desc': 'When mainAxis is Axis.horizontal, the viewport iterates by '
           'columns first. Within each column, cells are painted '
           'top-to-bottom. Later columns paint on top.',
-      'diagram':
-          'Paint order:\n'
+      'diagram': 'Paint order:\n'
           '  Col 0: (0,0) \u2192 (0,1) \u2192 (0,2)\n'
           '  Col 1: (1,0) \u2192 (1,1) \u2192 (1,2)\n'
           '  Col 2: (2,0) \u2192 (2,1) \u2192 (2,2)\n'
@@ -558,12 +533,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Overlapping Cells',
-      'desc':
-          'If cells overlap (negative margins, custom positioning), '
+      'desc': 'If cells overlap (negative margins, custom positioning), '
           'the paint order determines which cell appears on top. '
           'There is no z-index control within the viewport itself.',
-      'diagram':
-          'If Cell A overlaps Cell B:\n'
+      'diagram': 'If Cell A overlaps Cell B:\n'
           '  A painted first \u2192 B appears on top\n'
           '  B painted first \u2192 A appears on top\n'
           '\n'
@@ -640,8 +613,7 @@ dynamic build(BuildContext context) {
   final cacheItems = <Map<String, dynamic>>[
     {
       'title': 'Default Cache',
-      'desc':
-          'By default, the cache extent is 250 logical pixels '
+      'desc': 'By default, the cache extent is 250 logical pixels '
           'in each direction. Cells within 250px of the visible '
           'edge are pre-built but not painted.',
       'metric': '250px default',
@@ -649,8 +621,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Zero Cache',
-      'desc':
-          'Setting cacheExtent to 0.0 means only strictly visible '
+      'desc': 'Setting cacheExtent to 0.0 means only strictly visible '
           'cells are built. Scrolling may stutter as new cells '
           'are built just-in-time.',
       'metric': 'Minimum memory, stuttery scroll',
@@ -658,8 +629,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Large Cache',
-      'desc':
-          'A large cache extent (1000+px) pre-builds many cells. '
+      'desc': 'A large cache extent (1000+px) pre-builds many cells. '
           'Scrolling is buttery smooth but uses more memory and '
           'initial build time is longer.',
       'metric': 'Smooth scroll, more memory',
@@ -667,8 +637,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Bidirectional Cache',
-      'desc':
-          'Unlike 1D viewports with cache along one axis, the '
+      'desc': 'Unlike 1D viewports with cache along one axis, the '
           '2D viewport caches in all four directions: left, right, '
           'top, and bottom of the visible region.',
       'metric': '4-directional pre-render',
@@ -747,8 +716,7 @@ dynamic build(BuildContext context) {
   final clipModes = <Map<String, dynamic>>[
     {
       'name': 'Clip.hardEdge',
-      'desc':
-          'Sharp rectangular clip at the viewport boundary. '
+      'desc': 'Sharp rectangular clip at the viewport boundary. '
           'Cheapest clip operation. Edges may show aliasing artifacts '
           'on diagonal content.',
       'cost': 'Low',
@@ -757,8 +725,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Clip.antiAlias',
-      'desc':
-          'Anti-aliased clip that smooths edges. Slightly more '
+      'desc': 'Anti-aliased clip that smooths edges. Slightly more '
           'expensive than hardEdge but much better visual quality, '
           'especially for rounded viewport corners.',
       'cost': 'Medium',
@@ -767,8 +734,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Clip.antiAliasWithSaveLayer',
-      'desc':
-          'Highest quality clip with a separate layer for compositing. '
+      'desc': 'Highest quality clip with a separate layer for compositing. '
           'Needed when content has transparency that must not leak. '
           'Most expensive option.',
       'cost': 'High',
@@ -777,8 +743,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Clip.none',
-      'desc':
-          'No clipping at all. Content can render outside the viewport '
+      'desc': 'No clipping at all. Content can render outside the viewport '
           'boundary. Useful for debugging or when you know content '
           'will never overflow.',
       'cost': 'Zero',
@@ -837,7 +802,10 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     'Cost: ${cm['cost']}  Quality: ${cm['quality']}',
-                    style: TextStyle(fontSize: 9, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ),
               ],
@@ -865,38 +833,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.view_quilt,
-      'text':
-          'TwoDimensionalViewport is the render layer that performs '
+      'text': 'TwoDimensionalViewport is the render layer that performs '
           '2D layout, builds visible cells, and paints them.',
     },
     {
       'icon': Icons.recycling,
-      'text':
-          'Cells are created on entry and disposed on exit. Memory '
+      'text': 'Cells are created on entry and disposed on exit. Memory '
           'usage is proportional to visible cells, not total grid size.',
     },
     {
       'icon': Icons.visibility,
-      'text':
-          'The visible region is computed from scroll offsets plus '
+      'text': 'The visible region is computed from scroll offsets plus '
           'viewport dimensions. Cache extent expands the built zone.',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'Paint order follows mainAxis iteration: row-major for '
+      'text': 'Paint order follows mainAxis iteration: row-major for '
           'Axis.vertical, column-major for Axis.horizontal.',
     },
     {
       'icon': Icons.content_cut,
-      'text':
-          'clipBehavior controls edge treatment from no clipping '
+      'text': 'clipBehavior controls edge treatment from no clipping '
           'to high-quality anti-aliased save layers.',
     },
     {
       'icon': Icons.architecture,
-      'text':
-          'The viewport is built by TwoDimensionalScrollable through '
+      'text': 'The viewport is built by TwoDimensionalScrollable through '
           'the viewportBuilder callback with both ViewportOffsets.',
     },
   ];
@@ -1055,7 +1017,9 @@ dynamic build(BuildContext context) {
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.deepPurple.withOpacity(0.3)),
+                  border: Border.all(
+                    color: Colors.deepPurple.withOpacity(0.3),
+                  ),
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),

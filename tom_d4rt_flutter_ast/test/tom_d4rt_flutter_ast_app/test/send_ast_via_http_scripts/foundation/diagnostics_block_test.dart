@@ -212,8 +212,7 @@ const List<DiagStyleEntry> kStyleEntries = [
     summary:
         'Default style. Keeps a blank line between siblings and indents '
         'children. Friendly for human reading.',
-    visualHint:
-        '   Block                      \n     a: 1                   \n     b: 2                   ',
+    visualHint: '   Block                      \n     a: 1                   \n     b: 2                   ',
     icon: Icons.view_agenda_outlined,
     color: kPalettePrimary,
   ),
@@ -492,7 +491,10 @@ Widget buildHero() {
           ),
         ),
         const SizedBox(width: 16),
-        Expanded(flex: 2, child: buildHeroBlockGraphic()),
+        Expanded(
+          flex: 2,
+          child: buildHeroBlockGraphic(),
+        ),
       ],
     ),
   );
@@ -771,7 +773,9 @@ Widget buildSiblingGallery() {
         'Each has a specific role.',
     icon: Icons.diversity_3,
     color: kPaletteAccent,
-    child: Column(children: kSiblings.map((s) => buildSiblingCard(s)).toList()),
+    child: Column(
+      children: kSiblings.map((s) => buildSiblingCard(s)).toList(),
+    ),
   );
 }
 
@@ -818,10 +822,7 @@ Widget buildSiblingCard(DiagSibling s) {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                s.purpose,
-                style: const TextStyle(fontSize: 13, height: 1.4),
-              ),
+              Text(s.purpose, style: const TextStyle(fontSize: 13, height: 1.4)),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
@@ -909,11 +910,7 @@ DiagFakeBlock buildPaintingBlock() {
     name: 'Painting',
     style: 'dense',
     properties: [
-      DiagFakeProperty(
-        name: 'color',
-        value: 'Color(0xff1565c0)',
-        type: 'Color',
-      ),
+      DiagFakeProperty(name: 'color', value: 'Color(0xff1565c0)', type: 'Color'),
       DiagFakeProperty(name: 'opacity', value: '0.92', type: 'double'),
       DiagFakeProperty(
         name: 'borderRadius',
@@ -951,27 +948,23 @@ DiagFakeBlock buildAnimationBlock() {
   return const DiagFakeBlock(
     name: 'Animation',
     properties: [
-      DiagFakeProperty(
-        name: 'controller',
-        value: 'AnimationController#a4b',
-        type: 'AnimationController',
-      ),
+      DiagFakeProperty(name: 'controller', value: 'AnimationController#a4b', type: 'AnimationController'),
       DiagFakeProperty(name: 'duration', value: '320ms', type: 'Duration'),
       DiagFakeProperty(name: 'curve', value: 'Curves.easeInOut', type: 'Curve'),
-      DiagFakeProperty(
-        name: 'reverseCurve',
-        value: 'Curves.easeOut',
-        type: 'Curve',
-      ),
+      DiagFakeProperty(name: 'reverseCurve', value: 'Curves.easeOut', type: 'Curve'),
     ],
     children: [
       DiagFakeBlock(
         name: 'Listeners',
-        properties: [DiagFakeProperty(name: 'count', value: '3', type: 'int')],
+        properties: [
+          DiagFakeProperty(name: 'count', value: '3', type: 'int'),
+        ],
       ),
       DiagFakeBlock(
         name: 'StatusListeners',
-        properties: [DiagFakeProperty(name: 'count', value: '2', type: 'int')],
+        properties: [
+          DiagFakeProperty(name: 'count', value: '2', type: 'int'),
+        ],
       ),
     ],
   );
@@ -989,12 +982,14 @@ DiagFakeBlock buildErrorBlock() {
       ),
       DiagFakeProperty(
         name: 'description',
-        value: 'A child has produced a layout larger than the available space.',
+        value:
+            'A child has produced a layout larger than the available space.',
         type: 'ErrorDescription',
       ),
       DiagFakeProperty(
         name: 'hint',
-        value: 'Wrap the offending widget in an Expanded or Flexible.',
+        value:
+            'Wrap the offending widget in an Expanded or Flexible.',
         type: 'ErrorHint',
       ),
     ],
@@ -1002,21 +997,9 @@ DiagFakeBlock buildErrorBlock() {
       DiagFakeBlock(
         name: 'Stack frames',
         properties: [
-          DiagFakeProperty(
-            name: 'frame[0]',
-            value: 'RenderFlex.performLayout',
-            type: 'String',
-          ),
-          DiagFakeProperty(
-            name: 'frame[1]',
-            value: 'RenderObject.layout',
-            type: 'String',
-          ),
-          DiagFakeProperty(
-            name: 'frame[2]',
-            value: 'PipelineOwner.flushLayout',
-            type: 'String',
-          ),
+          DiagFakeProperty(name: 'frame[0]', value: 'RenderFlex.performLayout', type: 'String'),
+          DiagFakeProperty(name: 'frame[1]', value: 'RenderObject.layout', type: 'String'),
+          DiagFakeProperty(name: 'frame[2]', value: 'PipelineOwner.flushLayout', type: 'String'),
         ],
       ),
     ],
@@ -1041,7 +1024,11 @@ Widget buildWorkedExample(DiagFakeBlock block) {
           ),
           child: Row(
             children: [
-              const Icon(Icons.terminal, size: 16, color: kPaletteMuted),
+              const Icon(
+                Icons.terminal,
+                size: 16,
+                color: kPaletteMuted,
+              ),
               const SizedBox(width: 6),
               Text(
                 'DiagnosticsBlock(name: ${quote(block.name)}, style: ${block.style})',
@@ -1226,17 +1213,11 @@ Widget buildStyleAppliedExample() {
           style: TextStyle(fontFamily: 'monospace', fontSize: 11),
         ),
         const SizedBox(height: 12),
-        buildStyleSnippet(
-          'sparse',
-          'Box\n  ├─ a: 1\n  ├─ b: 2\n  └─ Inner\n        └─ c: 3',
-        ),
+        buildStyleSnippet('sparse', 'Box\n  ├─ a: 1\n  ├─ b: 2\n  └─ Inner\n        └─ c: 3'),
         const SizedBox(height: 8),
         buildStyleSnippet('dense', 'Box\n  ├─a:1 ├─b:2 └─Inner(c:3)'),
         const SizedBox(height: 8),
-        buildStyleSnippet(
-          'errorProperty',
-          '╳ Box ╳\n  ├─ a: 1\n  ├─ b: 2\n  └─ Inner\n        └─ c: 3',
-        ),
+        buildStyleSnippet('errorProperty', '╳ Box ╳\n  ├─ a: 1\n  ├─ b: 2\n  └─ Inner\n        └─ c: 3'),
       ],
     ),
   );
@@ -1335,7 +1316,9 @@ Widget buildOrderedBullet(String text) {
       children: [
         const Icon(Icons.adjust, size: 12, color: kPaletteErr),
         const SizedBox(width: 8),
-        Expanded(child: Text(text, style: const TextStyle(fontSize: 13))),
+        Expanded(
+          child: Text(text, style: const TextStyle(fontSize: 13)),
+        ),
       ],
     ),
   );
@@ -1398,36 +1381,30 @@ Widget buildInspectorDiagram() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: buildInspectorBox(
-                title: 'Flutter App',
-                subtitle: 'debugFillProperties → DiagnosticsNode tree',
-                icon: Icons.phone_android,
-                color: kPaletteOk,
-              ),
-            ),
+            Expanded(child: buildInspectorBox(
+              title: 'Flutter App',
+              subtitle: 'debugFillProperties → DiagnosticsNode tree',
+              icon: Icons.phone_android,
+              color: kPaletteOk,
+            )),
             const SizedBox(width: 12),
             const Icon(Icons.arrow_forward, color: kPaletteMuted),
             const SizedBox(width: 12),
-            Expanded(
-              child: buildInspectorBox(
-                title: 'VM Service',
-                subtitle: 'Serialised JSON of nodes + metadata',
-                icon: Icons.cloud_sync,
-                color: kPaletteInfo,
-              ),
-            ),
+            Expanded(child: buildInspectorBox(
+              title: 'VM Service',
+              subtitle: 'Serialised JSON of nodes + metadata',
+              icon: Icons.cloud_sync,
+              color: kPaletteInfo,
+            )),
             const SizedBox(width: 12),
             const Icon(Icons.arrow_forward, color: kPaletteMuted),
             const SizedBox(width: 12),
-            Expanded(
-              child: buildInspectorBox(
-                title: 'DevTools',
-                subtitle: 'Renders blocks as collapsible UI',
-                icon: Icons.developer_board,
-                color: kPaletteAccent,
-              ),
-            ),
+            Expanded(child: buildInspectorBox(
+              title: 'DevTools',
+              subtitle: 'Renders blocks as collapsible UI',
+              icon: Icons.developer_board,
+              color: kPaletteAccent,
+            )),
           ],
         ),
         const SizedBox(height: 16),
@@ -1586,10 +1563,7 @@ Widget buildRecipeStep(int n, String title, String body) {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
               ),
               const SizedBox(height: 2),
               Text(body, style: const TextStyle(fontSize: 12, height: 1.4)),
@@ -1649,7 +1623,9 @@ Widget buildPitfallsSection() {
         'DiagnosticsBlock instances.',
     icon: Icons.report_problem_outlined,
     color: kPaletteWarn,
-    child: Column(children: kPitfalls.map(buildPitfallRow).toList()),
+    child: Column(
+      children: kPitfalls.map(buildPitfallRow).toList(),
+    ),
   );
 }
 
@@ -1691,7 +1667,10 @@ Widget buildPitfallRow(DiagPitfall p) {
               Text(p.body, style: const TextStyle(fontSize: 13, height: 1.4)),
               const SizedBox(height: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: p.color.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(6),

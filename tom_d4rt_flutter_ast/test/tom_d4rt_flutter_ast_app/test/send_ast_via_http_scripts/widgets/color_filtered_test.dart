@@ -105,14 +105,7 @@ Widget _sourceContent({double height = 120, double radius = 12}) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          _srcRed,
-          _srcYellow,
-          _srcGreen,
-          _srcCyan,
-          _srcBlue,
-          _srcMagenta,
-        ],
+        colors: [_srcRed, _srcYellow, _srcGreen, _srcCyan, _srcBlue, _srcMagenta],
         stops: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
       ),
       boxShadow: [
@@ -163,11 +156,8 @@ Widget _sourceContent({double height = 120, double radius = 12}) {
                 ),
               ],
             ),
-            child: const Icon(
-              Icons.wb_sunny_rounded,
-              color: _srcYellow,
-              size: 26,
-            ),
+            child: const Icon(Icons.wb_sunny_rounded,
+                color: _srcYellow, size: 26),
           ),
         ),
       ],
@@ -202,7 +192,8 @@ Widget _miniSource({double height = 68}) {
           color: Colors.white.withOpacity(0.95),
           shape: BoxShape.circle,
         ),
-        child: const Icon(Icons.star_rounded, color: _srcRed, size: 18),
+        child: const Icon(Icons.star_rounded,
+            color: _srcRed, size: 18),
       ),
     ),
   );
@@ -282,7 +273,9 @@ Widget _section({
           decoration: BoxDecoration(
             color: _cfSoft,
             borderRadius: BorderRadius.circular(10),
-            border: Border(left: BorderSide(color: tint, width: 3)),
+            border: Border(
+              left: BorderSide(color: tint, width: 3),
+            ),
           ),
           child: Text(
             paragraph,
@@ -334,11 +327,8 @@ Widget _buildIntroCard() {
                 color: Colors.white.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(
-                Icons.palette_rounded,
-                color: Colors.white,
-                size: 28,
-              ),
+              child: const Icon(Icons.palette_rounded,
+                  color: Colors.white, size: 28),
             ),
             const SizedBox(width: 12),
             const Expanded(
@@ -353,7 +343,8 @@ Widget _buildIntroCard() {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: _cfAccent,
                 borderRadius: BorderRadius.circular(20),
@@ -381,7 +372,11 @@ Widget _buildIntroCard() {
           'A widget that composites every pixel painted by its child through '
           'a dart:ui ColorFilter. Combine flat-color blends, channel matrices '
           'and gamma corrections to recolor any subtree without rasterizing.',
-          style: TextStyle(color: Colors.white, fontSize: 14, height: 1.55),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 18),
         Wrap(
@@ -408,10 +403,9 @@ Widget _buildIntroCard() {
                   const Text(
                     'source',
                     style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
+                        color: Colors.white70,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -428,10 +422,9 @@ Widget _buildIntroCard() {
                   const Text(
                     'grayscale matrix',
                     style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
+                        color: Colors.white70,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -442,19 +435,16 @@ Widget _buildIntroCard() {
                 children: [
                   ColorFiltered(
                     colorFilter: const ColorFilter.mode(
-                      Color(0xFF1F2937),
-                      BlendMode.saturation,
-                    ),
+                        Color(0xFF1F2937), BlendMode.saturation),
                     child: _sourceContent(height: 92, radius: 12),
                   ),
                   const SizedBox(height: 6),
                   const Text(
                     'mode (saturation)',
                     style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
+                        color: Colors.white70,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -500,121 +490,52 @@ class _BlendEntry {
 
 const List<_BlendEntry> _kBlendEntries = [
   _BlendEntry(
-    'srcIn',
-    BlendMode.srcIn,
-    Color(0xFF0F3460),
-    'silhouette in tint color',
-  ),
+      'srcIn', BlendMode.srcIn, Color(0xFF0F3460), 'silhouette in tint color'),
+  _BlendEntry('srcOver', BlendMode.srcOver, Color(0xCC1F2937),
+      'overlay tint on top'),
+  _BlendEntry('srcATop', BlendMode.srcATop, Color(0xCCE94560),
+      'tint where child is opaque'),
   _BlendEntry(
-    'srcOver',
-    BlendMode.srcOver,
-    Color(0xCC1F2937),
-    'overlay tint on top',
-  ),
+      'dstIn', BlendMode.dstIn, Color(0xFF111827), 'keep child where tint is'),
+  _BlendEntry('dstOver', BlendMode.dstOver, Color(0xFFF59E0B),
+      'tint behind child'),
+  _BlendEntry('modulate', BlendMode.modulate, Color(0xFFE94560),
+      'channel-wise multiply'),
   _BlendEntry(
-    'srcATop',
-    BlendMode.srcATop,
-    Color(0xCCE94560),
-    'tint where child is opaque',
-  ),
-  _BlendEntry(
-    'dstIn',
-    BlendMode.dstIn,
-    Color(0xFF111827),
-    'keep child where tint is',
-  ),
-  _BlendEntry(
-    'dstOver',
-    BlendMode.dstOver,
-    Color(0xFFF59E0B),
-    'tint behind child',
-  ),
-  _BlendEntry(
-    'modulate',
-    BlendMode.modulate,
-    Color(0xFFE94560),
-    'channel-wise multiply',
-  ),
-  _BlendEntry(
-    'multiply',
-    BlendMode.multiply,
-    Color(0xFF7C3AED),
-    'darkening blend',
-  ),
+      'multiply', BlendMode.multiply, Color(0xFF7C3AED), 'darkening blend'),
   _BlendEntry('plus', BlendMode.plus, Color(0xFF0F766E), 'add channels'),
+  _BlendEntry('screen', BlendMode.screen, Color(0xFFEF4444), 'inverse multiply'),
+  _BlendEntry('overlay', BlendMode.overlay, Color(0xFF14B8A6),
+      'screen + multiply mix'),
   _BlendEntry(
-    'screen',
-    BlendMode.screen,
-    Color(0xFFEF4444),
-    'inverse multiply',
-  ),
+      'darken', BlendMode.darken, Color(0xFF7E22CE), 'min(src, dst)'),
   _BlendEntry(
-    'overlay',
-    BlendMode.overlay,
-    Color(0xFF14B8A6),
-    'screen + multiply mix',
-  ),
-  _BlendEntry('darken', BlendMode.darken, Color(0xFF7E22CE), 'min(src, dst)'),
-  _BlendEntry('lighten', BlendMode.lighten, Color(0xFFFACC15), 'max(src, dst)'),
+      'lighten', BlendMode.lighten, Color(0xFFFACC15), 'max(src, dst)'),
+  _BlendEntry('colorDodge', BlendMode.colorDodge, Color(0xFFEAB308),
+      'brighten by tint'),
+  _BlendEntry('colorBurn', BlendMode.colorBurn, Color(0xFF1F2937),
+      'darken by tint'),
+  _BlendEntry('hardLight', BlendMode.hardLight, Color(0xFF0EA5E9),
+      'overlay with src/dst swap'),
+  _BlendEntry('softLight', BlendMode.softLight, Color(0xFFF97316),
+      'gentle dodge or burn'),
+  _BlendEntry('difference', BlendMode.difference, Color(0xFF22C55E),
+      '|src − dst|'),
+  _BlendEntry('exclusion', BlendMode.exclusion, Color(0xFF06B6D4),
+      'softer difference'),
   _BlendEntry(
-    'colorDodge',
-    BlendMode.colorDodge,
-    Color(0xFFEAB308),
-    'brighten by tint',
-  ),
-  _BlendEntry(
-    'colorBurn',
-    BlendMode.colorBurn,
-    Color(0xFF1F2937),
-    'darken by tint',
-  ),
-  _BlendEntry(
-    'hardLight',
-    BlendMode.hardLight,
-    Color(0xFF0EA5E9),
-    'overlay with src/dst swap',
-  ),
-  _BlendEntry(
-    'softLight',
-    BlendMode.softLight,
-    Color(0xFFF97316),
-    'gentle dodge or burn',
-  ),
-  _BlendEntry(
-    'difference',
-    BlendMode.difference,
-    Color(0xFF22C55E),
-    '|src − dst|',
-  ),
-  _BlendEntry(
-    'exclusion',
-    BlendMode.exclusion,
-    Color(0xFF06B6D4),
-    'softer difference',
-  ),
-  _BlendEntry('hue', BlendMode.hue, Color(0xFFEC4899), 'src hue, dst sat/lum'),
-  _BlendEntry(
-    'saturation',
-    BlendMode.saturation,
-    Color(0xFFEF4444),
-    'src sat, dst hue/lum',
-  ),
-  _BlendEntry(
-    'color',
-    BlendMode.color,
-    Color(0xFF8B5CF6),
-    'src hue/sat, dst lum',
-  ),
-  _BlendEntry(
-    'luminosity',
-    BlendMode.luminosity,
-    Color(0xFF1F2937),
-    'src lum, dst hue/sat',
-  ),
+      'hue', BlendMode.hue, Color(0xFFEC4899), 'src hue, dst sat/lum'),
+  _BlendEntry('saturation', BlendMode.saturation, Color(0xFFEF4444),
+      'src sat, dst hue/lum'),
+  _BlendEntry('color', BlendMode.color, Color(0xFF8B5CF6),
+      'src hue/sat, dst lum'),
+  _BlendEntry('luminosity', BlendMode.luminosity, Color(0xFF1F2937),
+      'src lum, dst hue/sat'),
   _BlendEntry('clear', BlendMode.clear, Color(0xFF000000), 'fully transparent'),
   _BlendEntry('src', BlendMode.src, Color(0xFFE94560), 'replace with src'),
   _BlendEntry('dst', BlendMode.dst, Color(0xFF000000), 'keep dst as-is'),
-  _BlendEntry('xor', BlendMode.xor, Color(0xFF0F3460), 'non-overlap regions'),
+  _BlendEntry(
+      'xor', BlendMode.xor, Color(0xFF0F3460), 'non-overlap regions'),
 ];
 
 Widget _buildBlendModesGrid() {
@@ -682,7 +603,11 @@ Widget _blendTile(_BlendEntry entry) {
           textAlign: TextAlign.center,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontSize: 9.5, color: _cfMuted, height: 1.15),
+          style: const TextStyle(
+            fontSize: 9.5,
+            color: _cfMuted,
+            height: 1.15,
+          ),
         ),
       ],
     ),
@@ -697,164 +622,52 @@ Widget _blendTile(_BlendEntry entry) {
 // followed by an additive offset column.
 
 const List<double> _kIdentityMatrix = <double>[
-  1,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1,
-  0,
+  1, 0, 0, 0, 0,
+  0, 1, 0, 0, 0,
+  0, 0, 1, 0, 0,
+  0, 0, 0, 1, 0,
 ];
 
 const List<double> _kGrayscaleMatrix = <double>[
-  0.2126,
-  0.7152,
-  0.0722,
-  0,
-  0,
-  0.2126,
-  0.7152,
-  0.0722,
-  0,
-  0,
-  0.2126,
-  0.7152,
-  0.0722,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1,
-  0,
+  0.2126, 0.7152, 0.0722, 0, 0,
+  0.2126, 0.7152, 0.0722, 0, 0,
+  0.2126, 0.7152, 0.0722, 0, 0,
+  0, 0, 0, 1, 0,
 ];
 
 const List<double> _kSepiaMatrix = <double>[
-  0.393,
-  0.769,
-  0.189,
-  0,
-  0,
-  0.349,
-  0.686,
-  0.168,
-  0,
-  0,
-  0.272,
-  0.534,
-  0.131,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1,
-  0,
+  0.393, 0.769, 0.189, 0, 0,
+  0.349, 0.686, 0.168, 0, 0,
+  0.272, 0.534, 0.131, 0, 0,
+  0, 0, 0, 1, 0,
 ];
 
 const List<double> _kInvertMatrix = <double>[
-  -1,
-  0,
-  0,
-  0,
-  255,
-  0,
-  -1,
-  0,
-  0,
-  255,
-  0,
-  0,
-  -1,
-  0,
-  255,
-  0,
-  0,
-  0,
-  1,
-  0,
+  -1, 0, 0, 0, 255,
+  0, -1, 0, 0, 255,
+  0, 0, -1, 0, 255,
+  0, 0, 0, 1, 0,
 ];
 
 const List<double> _kHighSaturationMatrix = <double>[
-  1.6,
-  -0.3,
-  -0.3,
-  0,
-  0,
-  -0.3,
-  1.6,
-  -0.3,
-  0,
-  0,
-  -0.3,
-  -0.3,
-  1.6,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1,
-  0,
+  1.6, -0.3, -0.3, 0, 0,
+  -0.3, 1.6, -0.3, 0, 0,
+  -0.3, -0.3, 1.6, 0, 0,
+  0, 0, 0, 1, 0,
 ];
 
 const List<double> _kBrightnessMatrix = <double>[
-  1,
-  0,
-  0,
-  0,
-  40,
-  0,
-  1,
-  0,
-  0,
-  40,
-  0,
-  0,
-  1,
-  0,
-  40,
-  0,
-  0,
-  0,
-  1,
-  0,
+  1, 0, 0, 0, 40,
+  0, 1, 0, 0, 40,
+  0, 0, 1, 0, 40,
+  0, 0, 0, 1, 0,
 ];
 
 const List<double> _kContrastMatrix = <double>[
-  1.5,
-  0,
-  0,
-  0,
-  -64,
-  0,
-  1.5,
-  0,
-  0,
-  -64,
-  0,
-  0,
-  1.5,
-  0,
-  -64,
-  0,
-  0,
-  0,
-  1,
-  0,
+  1.5, 0, 0, 0, -64,
+  0, 1.5, 0, 0, -64,
+  0, 0, 1.5, 0, -64,
+  0, 0, 0, 1, 0,
 ];
 
 const List<double> _kChannelSwapMatrix = <double>[
@@ -866,49 +679,17 @@ const List<double> _kChannelSwapMatrix = <double>[
 ];
 
 const List<double> _kCoolToneMatrix = <double>[
-  0.9,
-  0,
-  0,
-  0,
-  -10,
-  0,
-  1.0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1.2,
-  0,
-  20,
-  0,
-  0,
-  0,
-  1,
-  0,
+  0.9, 0, 0, 0, -10,
+  0, 1.0, 0, 0, 0,
+  0, 0, 1.2, 0, 20,
+  0, 0, 0, 1, 0,
 ];
 
 const List<double> _kWarmToneMatrix = <double>[
-  1.2,
-  0,
-  0,
-  0,
-  20,
-  0,
-  1.0,
-  0,
-  0,
-  5,
-  0,
-  0,
-  0.8,
-  0,
-  -10,
-  0,
-  0,
-  0,
-  1,
-  0,
+  1.2, 0, 0, 0, 20,
+  0, 1.0, 0, 0, 5,
+  0, 0, 0.8, 0, -10,
+  0, 0, 0, 1, 0,
 ];
 
 class _MatrixEntry {
@@ -919,56 +700,26 @@ class _MatrixEntry {
 }
 
 const List<_MatrixEntry> _kMatrixEntries = <_MatrixEntry>[
-  _MatrixEntry(
-    'Identity',
-    _kIdentityMatrix,
-    'Diagonal 1s — no change. Useful as a baseline.',
-  ),
-  _MatrixEntry(
-    'Grayscale',
-    _kGrayscaleMatrix,
-    'Luminance weights 0.2126/0.7152/0.0722 produce perceptual gray.',
-  ),
-  _MatrixEntry(
-    'Sepia',
-    _kSepiaMatrix,
-    'Classic warm-brown photographic tint, used in vintage looks.',
-  ),
-  _MatrixEntry(
-    'Invert',
-    _kInvertMatrix,
-    'Negate channels and add 255 — produces a photographic negative.',
-  ),
-  _MatrixEntry(
-    'High Saturation',
-    _kHighSaturationMatrix,
-    'Pull each channel away from the mean of the others to boost colors.',
-  ),
-  _MatrixEntry(
-    'Brightness',
-    _kBrightnessMatrix,
-    'Add a constant offset per channel — every pixel becomes lighter.',
-  ),
-  _MatrixEntry(
-    'Contrast',
-    _kContrastMatrix,
-    'Multiply by 1.5 then subtract 64 to push values away from mid-gray.',
-  ),
-  _MatrixEntry(
-    'Channel Swap',
-    _kChannelSwapMatrix,
-    'Cycle R→G→B→R so reds become greens, greens become blues.',
-  ),
-  _MatrixEntry(
-    'Cool Tone',
-    _kCoolToneMatrix,
-    'Reduce red, boost blue — produces a chilled cinematic look.',
-  ),
-  _MatrixEntry(
-    'Warm Tone',
-    _kWarmToneMatrix,
-    'Boost red and slightly drop blue — sunset / golden-hour feel.',
-  ),
+  _MatrixEntry('Identity', _kIdentityMatrix,
+      'Diagonal 1s — no change. Useful as a baseline.'),
+  _MatrixEntry('Grayscale', _kGrayscaleMatrix,
+      'Luminance weights 0.2126/0.7152/0.0722 produce perceptual gray.'),
+  _MatrixEntry('Sepia', _kSepiaMatrix,
+      'Classic warm-brown photographic tint, used in vintage looks.'),
+  _MatrixEntry('Invert', _kInvertMatrix,
+      'Negate channels and add 255 — produces a photographic negative.'),
+  _MatrixEntry('High Saturation', _kHighSaturationMatrix,
+      'Pull each channel away from the mean of the others to boost colors.'),
+  _MatrixEntry('Brightness', _kBrightnessMatrix,
+      'Add a constant offset per channel — every pixel becomes lighter.'),
+  _MatrixEntry('Contrast', _kContrastMatrix,
+      'Multiply by 1.5 then subtract 64 to push values away from mid-gray.'),
+  _MatrixEntry('Channel Swap', _kChannelSwapMatrix,
+      'Cycle R→G→B→R so reds become greens, greens become blues.'),
+  _MatrixEntry('Cool Tone', _kCoolToneMatrix,
+      'Reduce red, boost blue — produces a chilled cinematic look.'),
+  _MatrixEntry('Warm Tone', _kWarmToneMatrix,
+      'Boost red and slightly drop blue — sunset / golden-hour feel.'),
 ];
 
 Widget _buildMatrixTransforms() {
@@ -1035,9 +786,7 @@ Widget _matrixRow(_MatrixEntry entry) {
                 const SizedBox(width: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                      horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: _cfHighlight.withOpacity(0.10),
                     borderRadius: BorderRadius.circular(10),
@@ -1091,7 +840,10 @@ Widget _matrixGlyph(List<double> matrix) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _cfDivider),
     ),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: rows,
+    ),
   );
 }
 
@@ -1103,9 +855,9 @@ Widget _matrixCell(double v) {
   final Color bg = v == 0
       ? _cfSurface
       : (v < 0
-            ? Color.lerp(_cfSurface, _cfAccent, t.clamp(0.0, 1.0)) ?? _cfSurface
-            : Color.lerp(_cfSurface, _cfHighlight, t.clamp(0.0, 1.0)) ??
-                  _cfSurface);
+          ? Color.lerp(_cfSurface, _cfAccent, t.clamp(0.0, 1.0)) ?? _cfSurface
+          : Color.lerp(_cfSurface, _cfHighlight, t.clamp(0.0, 1.0)) ??
+              _cfSurface);
   final Color fg = v == 0 ? _cfMuted : Colors.white;
   return Container(
     width: 36,
@@ -1118,7 +870,11 @@ Widget _matrixCell(double v) {
     ),
     child: Text(
       _formatMatrixValue(v),
-      style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: fg),
+      style: TextStyle(
+        fontSize: 9,
+        fontWeight: FontWeight.w600,
+        color: fg,
+      ),
     ),
   );
 }
@@ -1150,9 +906,7 @@ Widget _buildGammaCorrection() {
       children: [
         Row(
           children: [
-            Expanded(
-              child: _gammaTile('source (sRGB)', _sourceContent(height: 110)),
-            ),
+            Expanded(child: _gammaTile('source (sRGB)', _sourceContent(height: 110))),
             const SizedBox(width: 10),
             Expanded(
               child: _gammaTile(
@@ -1186,7 +940,8 @@ Widget _buildGammaCorrection() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.info_outline_rounded, color: _cfWarn, size: 18),
+              const Icon(Icons.info_outline_rounded,
+                  color: _cfWarn, size: 18),
               const SizedBox(width: 8),
               const Expanded(
                 child: Text(
@@ -1194,7 +949,11 @@ Widget _buildGammaCorrection() {
                   'physically-accurate blending is required (e.g. lens flares, '
                   'translucent shaders). The two filters are inverses; chaining '
                   'them yields the original input.',
-                  style: TextStyle(fontSize: 12.5, height: 1.45, color: _cfInk),
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    height: 1.45,
+                    color: _cfInk,
+                  ),
                 ),
               ),
             ],
@@ -1222,7 +981,10 @@ Widget _gammaTile(String label, Widget child) {
     ),
     child: Column(
       children: [
-        ClipRRect(borderRadius: BorderRadius.circular(8), child: child),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: child,
+        ),
         const SizedBox(height: 6),
         Text(
           label,
@@ -1250,36 +1012,18 @@ class _PairEntry {
 }
 
 const List<_PairEntry> _kPairs = <_PairEntry>[
-  _PairEntry(
-    'srcIn tint',
-    ColorFilter.mode(_cfHighlight, BlendMode.srcIn),
-    'Replace child colors with a flat brand tint while preserving the alpha shape.',
-  ),
-  _PairEntry(
-    'modulate red',
-    ColorFilter.mode(_srcRed, BlendMode.modulate),
-    'Per-channel multiplication darkens and tints toward red.',
-  ),
-  _PairEntry(
-    'grayscale',
-    ColorFilter.matrix(_kGrayscaleMatrix),
-    'Drop saturation entirely — useful for "disabled" or "draft" states.',
-  ),
-  _PairEntry(
-    'sepia',
-    ColorFilter.matrix(_kSepiaMatrix),
-    'Aged photograph effect — warm browns dominate the tone curve.',
-  ),
-  _PairEntry(
-    'invert',
-    ColorFilter.matrix(_kInvertMatrix),
-    'Photographic negative — full channel flip with a +255 offset.',
-  ),
-  _PairEntry(
-    'warm tone',
-    ColorFilter.matrix(_kWarmToneMatrix),
-    'Boost reds, drop blues — golden hour feel.',
-  ),
+  _PairEntry('srcIn tint', ColorFilter.mode(_cfHighlight, BlendMode.srcIn),
+      'Replace child colors with a flat brand tint while preserving the alpha shape.'),
+  _PairEntry('modulate red', ColorFilter.mode(_srcRed, BlendMode.modulate),
+      'Per-channel multiplication darkens and tints toward red.'),
+  _PairEntry('grayscale', ColorFilter.matrix(_kGrayscaleMatrix),
+      'Drop saturation entirely — useful for "disabled" or "draft" states.'),
+  _PairEntry('sepia', ColorFilter.matrix(_kSepiaMatrix),
+      'Aged photograph effect — warm browns dominate the tone curve.'),
+  _PairEntry('invert', ColorFilter.matrix(_kInvertMatrix),
+      'Photographic negative — full channel flip with a +255 offset.'),
+  _PairEntry('warm tone', ColorFilter.matrix(_kWarmToneMatrix),
+      'Boost reds, drop blues — golden hour feel.'),
 ];
 
 Widget _buildBeforeAfterComparison() {
@@ -1328,11 +1072,10 @@ Widget _pairRow(_PairEntry pair) {
                   const Text(
                     'before',
                     style: TextStyle(
-                      fontSize: 10.5,
-                      fontWeight: FontWeight.w700,
-                      color: _cfMuted,
-                      letterSpacing: 0.5,
-                    ),
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.w700,
+                        color: _cfMuted,
+                        letterSpacing: 0.5),
                   ),
                 ],
               ),
@@ -1352,11 +1095,8 @@ Widget _pairRow(_PairEntry pair) {
                   ),
                 ],
               ),
-              child: const Icon(
-                Icons.arrow_forward_rounded,
-                color: Colors.white,
-                size: 16,
-              ),
+              child: const Icon(Icons.arrow_forward_rounded,
+                  color: Colors.white, size: 16),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -1373,11 +1113,10 @@ Widget _pairRow(_PairEntry pair) {
                   Text(
                     pair.label,
                     style: const TextStyle(
-                      fontSize: 10.5,
-                      fontWeight: FontWeight.w700,
-                      color: _cfHighlight,
-                      letterSpacing: 0.5,
-                    ),
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.w700,
+                        color: _cfHighlight,
+                        letterSpacing: 0.5),
                   ),
                 ],
               ),
@@ -1387,7 +1126,11 @@ Widget _pairRow(_PairEntry pair) {
         const SizedBox(height: 10),
         Text(
           pair.tagline,
-          style: const TextStyle(fontSize: 12.5, color: _cfInk, height: 1.4),
+          style: const TextStyle(
+            fontSize: 12.5,
+            color: _cfInk,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -1412,29 +1155,17 @@ Widget _buildAnatomyDiagram() {
     tint: _cfHighlight,
     body: Column(
       children: [
-        _anatomyRow(
-          Icons.widgets_outlined,
-          'ColorFiltered',
-          'Public widget. Holds colorFilter + child fields.',
-        ),
+        _anatomyRow(Icons.widgets_outlined, 'ColorFiltered',
+            'Public widget. Holds colorFilter + child fields.'),
         _anatomyArrow(),
-        _anatomyRow(
-          Icons.layers_outlined,
-          'RenderColorFilter',
-          'RenderProxyBox subclass. Implements paint() by pushing a layer.',
-        ),
+        _anatomyRow(Icons.layers_outlined, 'RenderColorFilter',
+            'RenderProxyBox subclass. Implements paint() by pushing a layer.'),
         _anatomyArrow(),
-        _anatomyRow(
-          Icons.filter_b_and_w_rounded,
-          'ColorFilterLayer',
-          'Engine layer carrying the filter. Survives across frames.',
-        ),
+        _anatomyRow(Icons.filter_b_and_w_rounded, 'ColorFilterLayer',
+            'Engine layer carrying the filter. Survives across frames.'),
         _anatomyArrow(),
-        _anatomyRow(
-          Icons.brush_outlined,
-          'dart:ui ColorFilter',
-          'Native Skia object. Kind: mode, matrix, linearToSrgb, srgbToLinear.',
-        ),
+        _anatomyRow(Icons.brush_outlined, 'dart:ui ColorFilter',
+            'Native Skia object. Kind: mode, matrix, linearToSrgb, srgbToLinear.'),
         const SizedBox(height: 12),
         _anatomyLegend(),
       ],
@@ -1501,7 +1232,9 @@ Widget _anatomyRow(IconData icon, String name, String desc) {
 Widget _anatomyArrow() {
   return const Padding(
     padding: EdgeInsets.symmetric(vertical: 4),
-    child: Center(child: Icon(Icons.south_rounded, color: _cfMuted, size: 18)),
+    child: Center(
+      child: Icon(Icons.south_rounded, color: _cfMuted, size: 18),
+    ),
   );
 }
 
@@ -1516,14 +1249,16 @@ Widget _anatomyLegend() {
     child: const Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.tips_and_updates_outlined, color: _cfHighlight, size: 18),
+        Icon(Icons.tips_and_updates_outlined,
+            color: _cfHighlight, size: 18),
         SizedBox(width: 8),
         Expanded(
           child: Text(
             'The ColorFilter object is const-friendly. Constructing it inside '
             'build() is cheap, but extracting it to a top-level const lets '
             'Flutter treat it as a single shared instance and skip rebuilds.',
-            style: TextStyle(fontSize: 12, color: _cfHighlight, height: 1.45),
+            style: TextStyle(
+                fontSize: 12, color: _cfHighlight, height: 1.45),
           ),
         ),
       ],
@@ -1740,11 +1475,8 @@ Widget _buildPerformanceNotes() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
-                Icons.psychology_outlined,
-                color: _cfHighlight,
-                size: 20,
-              ),
+              const Icon(Icons.psychology_outlined,
+                  color: _cfHighlight, size: 20),
               const SizedBox(width: 8),
               const Expanded(
                 child: Text(
@@ -1800,7 +1532,11 @@ Widget _perfRow(IconData icon, Color tint, String tag, String text) {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(fontSize: 12.5, color: _cfInk, height: 1.45),
+            style: const TextStyle(
+              fontSize: 12.5,
+              color: _cfInk,
+              height: 1.45,
+            ),
           ),
         ),
       ],
@@ -1828,37 +1564,37 @@ Widget _buildUsageGuide() {
         _codeBlock(
           'Mode filter',
           "ColorFiltered(\n"
-              "  colorFilter: const ColorFilter.mode(\n"
-              "    Color(0xFF0F3460),\n"
-              "    BlendMode.srcIn,\n"
-              "  ),\n"
-              "  child: Image.network(url),\n"
-              ");",
+          "  colorFilter: const ColorFilter.mode(\n"
+          "    Color(0xFF0F3460),\n"
+          "    BlendMode.srcIn,\n"
+          "  ),\n"
+          "  child: Image.network(url),\n"
+          ");",
         ),
         const SizedBox(height: 10),
         _codeBlock(
           'Matrix filter',
           "const grayscale = <double>[\n"
-              "  0.2126, 0.7152, 0.0722, 0, 0,\n"
-              "  0.2126, 0.7152, 0.0722, 0, 0,\n"
-              "  0.2126, 0.7152, 0.0722, 0, 0,\n"
-              "  0,      0,      0,      1, 0,\n"
-              "];\n"
-              "ColorFiltered(\n"
-              "  colorFilter: const ColorFilter.matrix(grayscale),\n"
-              "  child: child,\n"
-              ");",
+          "  0.2126, 0.7152, 0.0722, 0, 0,\n"
+          "  0.2126, 0.7152, 0.0722, 0, 0,\n"
+          "  0.2126, 0.7152, 0.0722, 0, 0,\n"
+          "  0,      0,      0,      1, 0,\n"
+          "];\n"
+          "ColorFiltered(\n"
+          "  colorFilter: const ColorFilter.matrix(grayscale),\n"
+          "  child: child,\n"
+          ");",
         ),
         const SizedBox(height: 10),
         _codeBlock(
           'Gamma filters',
           "ColorFiltered(\n"
-              "  colorFilter: const ColorFilter.srgbToLinearGamma(),\n"
-              "  child: ColorFiltered(\n"
-              "    colorFilter: const ColorFilter.linearToSrgbGamma(),\n"
-              "    child: child,\n"
-              "  ),\n"
-              ");",
+          "  colorFilter: const ColorFilter.srgbToLinearGamma(),\n"
+          "  child: ColorFiltered(\n"
+          "    colorFilter: const ColorFilter.linearToSrgbGamma(),\n"
+          "    child: child,\n"
+          "  ),\n"
+          ");",
         ),
         const SizedBox(height: 14),
         _doDontList(),
@@ -1944,21 +1680,29 @@ Widget _doDontList() {
   return Row(
     children: [
       Expanded(
-        child: _doDontColumn(true, 'Do', <String>[
-          'Const-construct ColorFilter at top level.',
-          'Wrap the largest possible subtree with one filter.',
-          'Use srcIn for tinting opaque silhouettes.',
-          'Pair gamma filters when blending in linear light.',
-        ]),
+        child: _doDontColumn(
+          true,
+          'Do',
+          <String>[
+            'Const-construct ColorFilter at top level.',
+            'Wrap the largest possible subtree with one filter.',
+            'Use srcIn for tinting opaque silhouettes.',
+            'Pair gamma filters when blending in linear light.',
+          ],
+        ),
       ),
       const SizedBox(width: 10),
       Expanded(
-        child: _doDontColumn(false, "Don't", <String>[
-          'Allocate ColorFilter inside per-frame builders.',
-          'Apply ColorFiltered to every list cell.',
-          'Combine BlendMode.clear except inside SaveLayer().',
-          'Expect matrix arithmetic to clamp before writeback.',
-        ]),
+        child: _doDontColumn(
+          false,
+          "Don't",
+          <String>[
+            'Allocate ColorFilter inside per-frame builders.',
+            'Apply ColorFiltered to every list cell.',
+            'Combine BlendMode.clear except inside SaveLayer().',
+            'Expect matrix arithmetic to clamp before writeback.',
+          ],
+        ),
       ),
     ],
   );
@@ -1966,38 +1710,38 @@ Widget _doDontList() {
 
 Widget _doDontColumn(bool positive, String title, List<String> entries) {
   final Color tint = positive ? _cfOk : _cfAccent;
-  final IconData icon = positive
-      ? Icons.check_circle_outline_rounded
-      : Icons.cancel_outlined;
+  final IconData icon =
+      positive ? Icons.check_circle_outline_rounded : Icons.cancel_outlined;
   final List<Widget> items = <Widget>[];
   for (int i = 0; i < entries.length; i++) {
-    items.add(
-      Padding(
-        padding: const EdgeInsets.only(bottom: 6),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 5),
-              width: 6,
-              height: 6,
-              decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
+    items.add(Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 5),
+            width: 6,
+            height: 6,
+            decoration: BoxDecoration(
+              color: tint,
+              shape: BoxShape.circle,
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                entries[i],
-                style: const TextStyle(
-                  fontSize: 12.5,
-                  color: _cfInk,
-                  height: 1.4,
-                ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              entries[i],
+              style: const TextStyle(
+                fontSize: 12.5,
+                color: _cfInk,
+                height: 1.4,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
   return Container(
     padding: const EdgeInsets.all(12),
@@ -2025,7 +1769,10 @@ Widget _doDontColumn(bool positive, String title, List<String> entries) {
           ],
         ),
         const SizedBox(height: 8),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: items),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: items,
+        ),
       ],
     ),
   );
@@ -2055,7 +1802,8 @@ Widget _buildFooter() {
     ),
     child: Row(
       children: [
-        const Icon(Icons.color_lens_outlined, color: Colors.white, size: 22),
+        const Icon(Icons.color_lens_outlined,
+            color: Colors.white, size: 22),
         const SizedBox(width: 10),
         const Expanded(
           child: Text(

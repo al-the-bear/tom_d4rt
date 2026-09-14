@@ -68,7 +68,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Icon(Icons.crop_din, color: Colors.white, size: 36.0),
+              child: Icon(
+                Icons.crop_din,
+                color: Colors.white,
+                size: 36.0,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -180,7 +184,11 @@ dynamic build(BuildContext context) {
           'A SizedBox forces its child (or empty space) to a specific size. '
           'Unlike Container it has no decoration, no padding, no margin — just '
           'tight constraints applied to its sole child.',
-          style: TextStyle(fontSize: 13.0, color: indigo900, height: 1.5),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: indigo900,
+            height: 1.5,
+          ),
         ),
         SizedBox(height: 20.0),
         // Anatomy visual: width arrow on top, height arrow on left,
@@ -200,7 +208,11 @@ dynamic build(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.arrow_back, size: 14.0, color: purple700),
-                    Container(width: 200.0, height: 2.0, color: purple700),
+                    Container(
+                      width: 200.0,
+                      height: 2.0,
+                      color: purple700,
+                    ),
                     Icon(Icons.arrow_forward, size: 14.0, color: purple700),
                   ],
                 ),
@@ -222,12 +234,12 @@ dynamic build(BuildContext context) {
                     Column(
                       children: [
                         Icon(Icons.arrow_drop_up, size: 14.0, color: indigo700),
-                        Container(width: 2.0, height: 80.0, color: indigo700),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          size: 14.0,
+                        Container(
+                          width: 2.0,
+                          height: 80.0,
                           color: indigo700,
                         ),
+                        Icon(Icons.arrow_drop_down, size: 14.0, color: indigo700),
                       ],
                     ),
                     SizedBox(width: 4.0),
@@ -339,7 +351,9 @@ dynamic build(BuildContext context) {
     ),
     child: Center(
       child: SizedBox.shrink(
-        child: Container(decoration: BoxDecoration(color: purple600)),
+        child: Container(
+          decoration: BoxDecoration(color: purple600),
+        ),
       ),
     ),
   );
@@ -1460,7 +1474,9 @@ dynamic build(BuildContext context) {
       Container(
         padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 6.0),
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: purple100, width: 1.0)),
+          border: Border(
+            bottom: BorderSide(color: purple100, width: 1.0),
+          ),
         ),
         child: Row(
           children: [
@@ -1788,17 +1804,17 @@ dynamic build(BuildContext context) {
         recapBullet(
           Icons.check_circle_outline,
           'SizedBox is the lightest sizing primitive — no decoration, just '
-          'tight constraints applied to its child or empty space.',
+              'tight constraints applied to its child or empty space.',
         ),
         recapBullet(
           Icons.check_circle_outline,
           'Five constructors: default, .shrink(), .expand(), .fromSize(), '
-          '.square().',
+              '.square().',
         ),
         recapBullet(
           Icons.check_circle_outline,
           'Idiomatic for vertical/horizontal rhythm in Column / Row '
-          '(SizedBox(height: 8) / SizedBox(width: 8)).',
+              '(SizedBox(height: 8) / SizedBox(width: 8)).',
         ),
         recapBullet(
           Icons.check_circle_outline,
@@ -1807,13 +1823,13 @@ dynamic build(BuildContext context) {
         recapBullet(
           Icons.check_circle_outline,
           'Use SizedBox.expand() only inside bounded parents (Stack, '
-          'AspectRatio, fixed-size Container).',
+              'AspectRatio, fixed-size Container).',
         ),
         recapBullet(
           Icons.check_circle_outline,
           'Reach for Container when you also need decoration / padding / '
-          'margin; ConstrainedBox when you need ranges instead of exact '
-          'sizes.',
+              'margin; ConstrainedBox when you need ranges instead of exact '
+              'sizes.',
         ),
       ],
     ),

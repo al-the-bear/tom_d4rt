@@ -131,11 +131,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.accessibility_new,
-              color: Colors.teal.shade700,
-              size: 28.0,
-            ),
+            Icon(Icons.accessibility_new,
+                color: Colors.teal.shade700, size: 28.0),
             SizedBox(width: 10.0),
             Text(
               'Why politeness matters',
@@ -176,11 +173,8 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.lightbulb_outline,
-                color: Colors.teal.shade800,
-                size: 20.0,
-              ),
+              Icon(Icons.lightbulb_outline,
+                  color: Colors.teal.shade800, size: 20.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -522,11 +516,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.report_problem_outlined,
-              color: Colors.deepOrange.shade700,
-              size: 28.0,
-            ),
+            Icon(Icons.report_problem_outlined,
+                color: Colors.deepOrange.shade700, size: 28.0),
             SizedBox(width: 10.0),
             Text(
               'Pitfalls',
@@ -616,11 +607,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.alt_route,
-              color: Colors.deepPurple.shade700,
-              size: 28.0,
-            ),
+            Icon(Icons.alt_route,
+                color: Colors.deepPurple.shade700, size: 28.0),
             SizedBox(width: 10.0),
             Text(
               'Choosing between polite and assertive',
@@ -671,11 +659,8 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.tips_and_updates,
-                color: Colors.deepPurple.shade700,
-                size: 22.0,
-              ),
+              Icon(Icons.tips_and_updates,
+                  color: Colors.deepPurple.shade700, size: 22.0),
               SizedBox(width: 10.0),
               Expanded(
                 child: Text(
@@ -789,8 +774,7 @@ dynamic build(BuildContext context) {
   const filePath =
       'tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/'
       'send_ast_via_http_scripts/semantics/assertiveness_test.dart';
-  const asciiBox =
-      '+----------------------------------------------------+\n'
+  const asciiBox = '+----------------------------------------------------+\n'
       '|  Flutter Assertiveness — deep visual demo          |\n'
       '|  values: polite, assertive                         |\n'
       '|  consumed by: SemanticsService.announce            |\n'
@@ -822,11 +806,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.insert_drive_file_outlined,
-              color: Colors.blueGrey.shade700,
-              size: 20.0,
-            ),
+            Icon(Icons.insert_drive_file_outlined,
+                color: Colors.blueGrey.shade700, size: 20.0),
             SizedBox(width: 8.0),
             Expanded(
               child: Text(
@@ -1110,7 +1091,10 @@ Widget _kvRow(String key, String value, Color color) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(fontSize: 12.5, color: Colors.black87),
+            style: TextStyle(
+              fontSize: 12.5,
+              color: Colors.black87,
+            ),
           ),
         ),
       ],
@@ -1128,14 +1112,11 @@ Widget _buildTimeBar() {
     child: Row(
       children: [
         SizedBox(width: 8.0),
-        Text(
-          't=0',
-          style: TextStyle(
-            color: Colors.white70,
-            fontFamily: 'monospace',
-            fontSize: 11.0,
-          ),
-        ),
+        Text('t=0',
+            style: TextStyle(
+                color: Colors.white70,
+                fontFamily: 'monospace',
+                fontSize: 11.0)),
         Expanded(
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 12.0),
@@ -1158,14 +1139,11 @@ Widget _buildTimeBar() {
           ),
         ),
         SizedBox(width: 6.0),
-        Text(
-          'announce()',
-          style: TextStyle(
-            color: Colors.cyanAccent,
-            fontFamily: 'monospace',
-            fontSize: 11.0,
-          ),
-        ),
+        Text('announce()',
+            style: TextStyle(
+                color: Colors.cyanAccent,
+                fontFamily: 'monospace',
+                fontSize: 11.0)),
         Expanded(
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 12.0),
@@ -1173,14 +1151,11 @@ Widget _buildTimeBar() {
             color: Colors.white24,
           ),
         ),
-        Text(
-          't=end',
-          style: TextStyle(
-            color: Colors.white70,
-            fontFamily: 'monospace',
-            fontSize: 11.0,
-          ),
-        ),
+        Text('t=end',
+            style: TextStyle(
+                color: Colors.white70,
+                fontFamily: 'monospace',
+                fontSize: 11.0)),
         SizedBox(width: 8.0),
       ],
     ),
@@ -1231,7 +1206,10 @@ Widget _buildTranscriptScenario({
             Expanded(
               child: Text(
                 behavior,
-                style: TextStyle(color: Colors.white, fontSize: 12.0),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12.0,
+                ),
               ),
             ),
           ],
@@ -1447,14 +1425,11 @@ Widget _mockFormError() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        'Email',
-        style: TextStyle(
-          fontSize: 12.0,
-          fontWeight: FontWeight.bold,
-          color: Colors.grey.shade700,
-        ),
-      ),
+      Text('Email',
+          style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade700)),
       SizedBox(height: 4.0),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
@@ -1463,24 +1438,20 @@ Widget _mockFormError() {
           borderRadius: BorderRadius.circular(6.0),
           border: Border.all(color: Colors.red.shade400, width: 1.5),
         ),
-        child: Text(
-          'not-an-email',
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12.0,
-            color: Colors.red.shade900,
-          ),
-        ),
+        child: Text('not-an-email',
+            style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12.0,
+                color: Colors.red.shade900)),
       ),
       SizedBox(height: 6.0),
       Row(
         children: [
           Icon(Icons.error, size: 14.0, color: Colors.red.shade700),
           SizedBox(width: 4.0),
-          Text(
-            'Please enter a valid email address.',
-            style: TextStyle(fontSize: 11.5, color: Colors.red.shade700),
-          ),
+          Text('Please enter a valid email address.',
+              style:
+                  TextStyle(fontSize: 11.5, color: Colors.red.shade700)),
         ],
       ),
     ],
@@ -1500,14 +1471,11 @@ Widget _mockSuccessToast() {
       children: [
         Icon(Icons.check_circle, color: Colors.white, size: 18.0),
         SizedBox(width: 8.0),
-        Text(
-          'Profile saved.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 12.5,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Text('Profile saved.',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 12.5,
+                fontWeight: FontWeight.w500)),
       ],
     ),
   );
@@ -1530,18 +1498,17 @@ Widget _mockNotificationBanner() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Sam Patel',
-              style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'Sent you a new message about the design review.',
-              style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700),
-            ),
+            Text('Sam Patel',
+                style: TextStyle(
+                    fontSize: 12.5, fontWeight: FontWeight.bold)),
+            Text('Sent you a new message about the design review.',
+                style: TextStyle(
+                    fontSize: 11.5, color: Colors.grey.shade700)),
           ],
         ),
       ),
-      Text('2m', style: TextStyle(fontSize: 10.5, color: Colors.grey.shade500)),
+      Text('2m',
+          style: TextStyle(fontSize: 10.5, color: Colors.grey.shade500)),
     ],
   );
 }
@@ -1552,20 +1519,14 @@ Widget _mockCriticalAlert() {
     children: [
       Row(
         children: [
-          Icon(
-            Icons.warning_amber_rounded,
-            color: Colors.deepOrange.shade700,
-            size: 22.0,
-          ),
+          Icon(Icons.warning_amber_rounded,
+              color: Colors.deepOrange.shade700, size: 22.0),
           SizedBox(width: 8.0),
-          Text(
-            'Session expired',
-            style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.deepOrange.shade900,
-            ),
-          ),
+          Text('Session expired',
+              style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepOrange.shade900)),
         ],
       ),
       SizedBox(height: 6.0),
@@ -1584,14 +1545,11 @@ Widget _mockCriticalAlert() {
               color: Colors.deepOrange.shade600,
               borderRadius: BorderRadius.circular(6.0),
             ),
-            child: Text(
-              'Sign in',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 11.5,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('Sign in',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -1663,7 +1621,9 @@ Widget _buildTableRow(
     decoration: BoxDecoration(
       border: isLast
           ? null
-          : Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1.0)),
+          : Border(
+              bottom: BorderSide(color: Colors.grey.shade200, width: 1.0),
+            ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1683,14 +1643,20 @@ Widget _buildTableRow(
           flex: 4,
           child: Text(
             politeText,
-            style: TextStyle(fontSize: 12.0, color: politeColor),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: politeColor,
+            ),
           ),
         ),
         Expanded(
           flex: 4,
           child: Text(
             assertiveText,
-            style: TextStyle(fontSize: 12.0, color: assertiveColor),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: assertiveColor,
+            ),
           ),
         ),
       ],
@@ -1732,7 +1698,10 @@ Widget _buildPitfall({
               SizedBox(height: 2.0),
               Text(
                 body,
-                style: TextStyle(fontSize: 12.5, color: Colors.brown.shade900),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.brown.shade900,
+                ),
               ),
             ],
           ),
@@ -1762,7 +1731,10 @@ Widget _buildDecisionStep({
         Container(
           width: 28.0,
           height: 28.0,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
           alignment: Alignment.center,
           child: Text(
             step,
@@ -1780,7 +1752,10 @@ Widget _buildDecisionStep({
             children: [
               Text(
                 question,
-                style: TextStyle(fontSize: 13.0, color: Colors.black87),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.black87,
+                ),
               ),
               SizedBox(height: 6.0),
               Row(

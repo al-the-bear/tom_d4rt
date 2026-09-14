@@ -106,7 +106,11 @@ Widget buildIntroHeader() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[kAccentNavy, kAccentBlue, kAccentViolet],
+        colors: <Color>[
+          kAccentNavy,
+          kAccentBlue,
+          kAccentViolet,
+        ],
       ),
       borderRadius: BorderRadius.circular(18),
       boxShadow: <BoxShadow>[
@@ -128,7 +132,9 @@ Widget buildIntroHeader() {
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.4)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.4),
+                ),
               ),
               child: const Center(
                 child: AnimatedIcon(
@@ -156,7 +162,10 @@ Widget buildIntroHeader() {
                   SizedBox(height: 4),
                   Text(
                     'Bundled morphing icons - progress-driven 0..1 glyphs',
-                    style: TextStyle(color: Color(0xFFD7E0F8), fontSize: 13),
+                    style: TextStyle(
+                      color: Color(0xFFD7E0F8),
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
@@ -169,7 +178,9 @@ Widget buildIntroHeader() {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.18),
+            ),
           ),
           child: const Text(
             'AnimatedIcon animates between two static glyphs over a fixed '
@@ -177,7 +188,11 @@ Widget buildIntroHeader() {
             'set; the source of motion is any Animation<double>. In this '
             'demo we drive every example with AlwaysStoppedAnimation<double>'
             '(t) snapshots so the renders are pure functions of t.',
-            style: TextStyle(color: Colors.white, fontSize: 13, height: 1.5),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
         const SizedBox(height: 12),
@@ -254,7 +269,9 @@ Widget buildSectionBanner({
             color: Colors.white.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Center(child: Icon(glyph, color: Colors.white, size: 22)),
+          child: Center(
+            child: Icon(glyph, color: Colors.white, size: 22),
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -356,7 +373,9 @@ Widget _frameStripCard({
               decoration: BoxDecoration(
                 color: iconColor.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: iconColor.withValues(alpha: 0.4)),
+                border: Border.all(
+                  color: iconColor.withValues(alpha: 0.4),
+                ),
               ),
               child: Text(
                 'AnimatedIcons.$name',
@@ -443,8 +462,7 @@ Widget _frameStripCard({
 Widget _rowAddEvent() {
   return _frameStripCard(
     name: 'add_event',
-    description:
-        'plus glyph morphs into a calendar/event glyph - '
+    description: 'plus glyph morphs into a calendar/event glyph - '
         'used for confirming that a new event was scheduled.',
     icon: AnimatedIcons.add_event,
     iconColor: kAccentBlue,
@@ -470,8 +488,7 @@ Widget _rowAddEvent() {
 Widget _rowArrowMenu() {
   return _frameStripCard(
     name: 'arrow_menu',
-    description:
-        'back-arrow morphs into a hamburger menu - '
+    description: 'back-arrow morphs into a hamburger menu - '
         'used when leaving a detail screen returns the user to a drawer host.',
     icon: AnimatedIcons.arrow_menu,
     iconColor: kAccentTeal,
@@ -495,8 +512,7 @@ Widget _rowArrowMenu() {
 Widget _rowCloseMenu() {
   return _frameStripCard(
     name: 'close_menu',
-    description:
-        'close (X) morphs into a hamburger menu - '
+    description: 'close (X) morphs into a hamburger menu - '
         'used when dismissing an overlay returns the user to a menu state.',
     icon: AnimatedIcons.close_menu,
     iconColor: kAccentPink,
@@ -523,8 +539,7 @@ Widget _rowCloseMenu() {
 Widget _rowEllipsisSearch() {
   return _frameStripCard(
     name: 'ellipsis_search',
-    description:
-        'three-dot overflow morphs into a magnifying glass - '
+    description: 'three-dot overflow morphs into a magnifying glass - '
         'used when pressing the more-menu reveals a search field.',
     icon: AnimatedIcons.ellipsis_search,
     iconColor: kAccentAmber,
@@ -544,8 +559,7 @@ Widget _rowEllipsisSearch() {
 Widget _rowEventAdd() {
   return _frameStripCard(
     name: 'event_add',
-    description:
-        'calendar/event glyph morphs into a plus - '
+    description: 'calendar/event glyph morphs into a plus - '
         'inverse of add_event; used when tapping a calendar opens new-event UI.',
     icon: AnimatedIcons.event_add,
     iconColor: kAccentViolet,
@@ -576,8 +590,7 @@ Widget _rowEventAdd() {
 Widget _rowHomeMenu() {
   return _frameStripCard(
     name: 'home_menu',
-    description:
-        'home glyph morphs into a hamburger menu - '
+    description: 'home glyph morphs into a hamburger menu - '
         'used when tapping a home button surfaces a drawer.',
     icon: AnimatedIcons.home_menu,
     iconColor: kAccentLime,
@@ -597,8 +610,7 @@ Widget _rowHomeMenu() {
 Widget _rowListView() {
   return _frameStripCard(
     name: 'list_view',
-    description:
-        'list/lines glyph morphs into a grid view glyph - '
+    description: 'list/lines glyph morphs into a grid view glyph - '
         'used by gallery toggles to switch from list layout to grid layout.',
     icon: AnimatedIcons.list_view,
     iconColor: kAccentRose,
@@ -625,8 +637,7 @@ Widget _rowListView() {
 Widget _rowMenuArrow() {
   return _frameStripCard(
     name: 'menu_arrow',
-    description:
-        'hamburger menu morphs into a back-arrow - '
+    description: 'hamburger menu morphs into a back-arrow - '
         'classic drawer-open / page-push transition.',
     icon: AnimatedIcons.menu_arrow,
     iconColor: kAccentNavy,
@@ -650,8 +661,7 @@ Widget _rowMenuArrow() {
 Widget _rowMenuClose() {
   return _frameStripCard(
     name: 'menu_close',
-    description:
-        'hamburger menu morphs into a close (X) - '
+    description: 'hamburger menu morphs into a close (X) - '
         'used by drawers/overlays to flag dismiss-action availability.',
     icon: AnimatedIcons.menu_close,
     iconColor: kAccentAmber,
@@ -671,8 +681,7 @@ Widget _rowMenuClose() {
 Widget _rowMenuHome() {
   return _frameStripCard(
     name: 'menu_home',
-    description:
-        'hamburger menu morphs into a home glyph - '
+    description: 'hamburger menu morphs into a home glyph - '
         'inverse of home_menu; used when a drawer collapse should return home.',
     icon: AnimatedIcons.menu_home,
     iconColor: kAccentTeal,
@@ -699,8 +708,7 @@ Widget _rowMenuHome() {
 Widget _rowPausePlay() {
   return _frameStripCard(
     name: 'pause_play',
-    description:
-        'pause bars morph into a play triangle - '
+    description: 'pause bars morph into a play triangle - '
         'used on transport bars when a track ends or is stopped.',
     icon: AnimatedIcons.pause_play,
     iconColor: kAccentPink,
@@ -724,8 +732,7 @@ Widget _rowPausePlay() {
 Widget _rowPlayPause() {
   return _frameStripCard(
     name: 'play_pause',
-    description:
-        'play triangle morphs into pause bars - '
+    description: 'play triangle morphs into pause bars - '
         'the canonical media transport toggle on mobile players.',
     icon: AnimatedIcons.play_pause,
     iconColor: kAccentBlue,
@@ -752,8 +759,7 @@ Widget _rowPlayPause() {
 Widget _rowSearchEllipsis() {
   return _frameStripCard(
     name: 'search_ellipsis',
-    description:
-        'magnifying glass morphs into three-dot overflow - '
+    description: 'magnifying glass morphs into three-dot overflow - '
         'inverse of ellipsis_search; used when collapsing a search field.',
     icon: AnimatedIcons.search_ellipsis,
     iconColor: kAccentViolet,
@@ -773,8 +779,7 @@ Widget _rowSearchEllipsis() {
 Widget _rowViewList() {
   return _frameStripCard(
     name: 'view_list',
-    description:
-        'grid view glyph morphs into a list/lines glyph - '
+    description: 'grid view glyph morphs into a list/lines glyph - '
         'inverse of list_view; reverts to list layout after a grid view.',
     icon: AnimatedIcons.view_list,
     iconColor: kAccentLime,
@@ -904,53 +909,21 @@ class _ColorVariant {
 
 Widget buildColorPaletteBlock() {
   const _ColorVariant v0 = _ColorVariant(
-    'navy',
-    kAccentNavy,
-    Color(0xFFE0E7FF),
-    Color(0xFFC7D2FE),
-  );
+      'navy', kAccentNavy, Color(0xFFE0E7FF), Color(0xFFC7D2FE));
   const _ColorVariant v1 = _ColorVariant(
-    'blue',
-    kAccentBlue,
-    Color(0xFFDBEAFE),
-    Color(0xFFBFDBFE),
-  );
+      'blue', kAccentBlue, Color(0xFFDBEAFE), Color(0xFFBFDBFE));
   const _ColorVariant v2 = _ColorVariant(
-    'teal',
-    kAccentTeal,
-    Color(0xFFCCFBF1),
-    Color(0xFF99F6E4),
-  );
+      'teal', kAccentTeal, Color(0xFFCCFBF1), Color(0xFF99F6E4));
   const _ColorVariant v3 = _ColorVariant(
-    'lime',
-    kAccentLime,
-    Color(0xFFD9F99D),
-    Color(0xFFBEF264),
-  );
+      'lime', kAccentLime, Color(0xFFD9F99D), Color(0xFFBEF264));
   const _ColorVariant v4 = _ColorVariant(
-    'amber',
-    kAccentAmber,
-    Color(0xFFFEF3C7),
-    Color(0xFFFDE68A),
-  );
+      'amber', kAccentAmber, Color(0xFFFEF3C7), Color(0xFFFDE68A));
   const _ColorVariant v5 = _ColorVariant(
-    'rose',
-    kAccentRose,
-    Color(0xFFFFE4E6),
-    Color(0xFFFECDD3),
-  );
+      'rose', kAccentRose, Color(0xFFFFE4E6), Color(0xFFFECDD3));
   const _ColorVariant v6 = _ColorVariant(
-    'pink',
-    kAccentPink,
-    Color(0xFFFCE7F3),
-    Color(0xFFFBCFE8),
-  );
+      'pink', kAccentPink, Color(0xFFFCE7F3), Color(0xFFFBCFE8));
   const _ColorVariant v7 = _ColorVariant(
-    'violet',
-    kAccentViolet,
-    Color(0xFFEDE9FE),
-    Color(0xFFC4B5FD),
-  );
+      'violet', kAccentViolet, Color(0xFFEDE9FE), Color(0xFFC4B5FD));
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1069,7 +1042,8 @@ Widget _rtlPanel(String label, TextDirection direction, Color tint) {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: tint,
                 borderRadius: BorderRadius.circular(6),
@@ -1218,7 +1192,11 @@ Widget _useCaseAppBarMorph() {
         const Text(
           'On drawer-open or page-push, the leading icon morphs '
           'menu -> arrow. Below: three frozen states.',
-          style: TextStyle(fontSize: 12, color: kInkSecondary, height: 1.4),
+          style: TextStyle(
+            fontSize: 12,
+            color: kInkSecondary,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 14),
         _fakeAppBar('Drawer closed', 0.0, 'menu'),
@@ -1324,7 +1302,11 @@ Widget _useCaseFabPlayPause() {
         const Text(
           'Card pattern: a single FAB whose AnimatedIcon switches '
           'between AnimatedIcons.play_pause progress 0 and 1.',
-          style: TextStyle(fontSize: 12, color: kInkSecondary, height: 1.4),
+          style: TextStyle(
+            fontSize: 12,
+            color: kInkSecondary,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 16),
         Row(
@@ -1405,7 +1387,11 @@ Widget _useCaseSearchExpand() {
         const Text(
           'Leading icon morphs ellipsis (collapsed) -> magnifying glass '
           '(expanded). The expanded state reveals an inline TextField.',
-          style: TextStyle(fontSize: 12, color: kInkSecondary, height: 1.4),
+          style: TextStyle(
+            fontSize: 12,
+            color: kInkSecondary,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 14),
         _searchBar(0.0, 'collapsed', false),
@@ -1457,7 +1443,10 @@ Widget _searchBar(double progress, String state, bool showField) {
           const Expanded(
             child: Text(
               '- more options -',
-              style: TextStyle(color: kInkMuted, fontSize: 12),
+              style: TextStyle(
+                color: kInkMuted,
+                fontSize: 12,
+              ),
             ),
           ),
         Container(
@@ -1585,14 +1574,20 @@ class _ToggleState extends State<Toggle>
                 const SizedBox(width: 14),
                 Text(
                   'toggle.dart',
-                  style: codeStyle(size: 11, color: const Color(0xFF94A3B8)),
+                  style: codeStyle(
+                    size: 11,
+                    color: const Color(0xFF94A3B8),
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 12),
             Text(
               snippet,
-              style: codeStyle(size: 12, color: const Color(0xFFE2E8F0)),
+              style: codeStyle(
+                size: 12,
+                color: const Color(0xFFE2E8F0),
+              ),
             ),
           ],
         ),
@@ -1753,90 +1748,76 @@ Widget buildFooterTable() {
           children: <Widget>[
             _tableHeader(),
             _tableRow(
-              'add_event',
-              'plus -> calendar',
-              'Confirming a new calendar entry was just added.',
-              kAccentBlue,
-            ),
+                'add_event',
+                'plus -> calendar',
+                'Confirming a new calendar entry was just added.',
+                kAccentBlue),
             _tableRow(
-              'arrow_menu',
-              'arrow -> menu',
-              'Returning from a detail screen back to a drawer host.',
-              kAccentTeal,
-            ),
+                'arrow_menu',
+                'arrow -> menu',
+                'Returning from a detail screen back to a drawer host.',
+                kAccentTeal),
             _tableRow(
-              'close_menu',
-              'close -> menu',
-              'Dismissing a sheet that returns to a hamburger state.',
-              kAccentPink,
-            ),
+                'close_menu',
+                'close -> menu',
+                'Dismissing a sheet that returns to a hamburger state.',
+                kAccentPink),
             _tableRow(
-              'ellipsis_search',
-              'ellipsis -> search',
-              'Overflow menu morphs into the search affordance on tap.',
-              kAccentAmber,
-            ),
+                'ellipsis_search',
+                'ellipsis -> search',
+                'Overflow menu morphs into the search affordance on tap.',
+                kAccentAmber),
             _tableRow(
-              'event_add',
-              'calendar -> plus',
-              'Calendar entry tapped to launch new-event flow.',
-              kAccentViolet,
-            ),
+                'event_add',
+                'calendar -> plus',
+                'Calendar entry tapped to launch new-event flow.',
+                kAccentViolet),
             _tableRow(
-              'home_menu',
-              'home -> menu',
-              'Home button press opens the app drawer.',
-              kAccentLime,
-            ),
+                'home_menu',
+                'home -> menu',
+                'Home button press opens the app drawer.',
+                kAccentLime),
             _tableRow(
-              'list_view',
-              'list -> grid',
-              'Toggling a gallery/list from list layout to grid.',
-              kAccentRose,
-            ),
+                'list_view',
+                'list -> grid',
+                'Toggling a gallery/list from list layout to grid.',
+                kAccentRose),
             _tableRow(
-              'menu_arrow',
-              'menu -> arrow',
-              'Drawer-open or page-push transition (canonical).',
-              kAccentNavy,
-            ),
+                'menu_arrow',
+                'menu -> arrow',
+                'Drawer-open or page-push transition (canonical).',
+                kAccentNavy),
             _tableRow(
-              'menu_close',
-              'menu -> close',
-              'Drawer/overlay flagging that it can be dismissed.',
-              kAccentAmber,
-            ),
+                'menu_close',
+                'menu -> close',
+                'Drawer/overlay flagging that it can be dismissed.',
+                kAccentAmber),
             _tableRow(
-              'menu_home',
-              'menu -> home',
-              'Closing a drawer that returns the user to home.',
-              kAccentTeal,
-            ),
+                'menu_home',
+                'menu -> home',
+                'Closing a drawer that returns the user to home.',
+                kAccentTeal),
             _tableRow(
-              'pause_play',
-              'pause -> play',
-              'Track ended or stopped - show resume affordance.',
-              kAccentPink,
-            ),
+                'pause_play',
+                'pause -> play',
+                'Track ended or stopped - show resume affordance.',
+                kAccentPink),
             _tableRow(
-              'play_pause',
-              'play -> pause',
-              'Media transport: starting playback shows pause.',
-              kAccentBlue,
-            ),
+                'play_pause',
+                'play -> pause',
+                'Media transport: starting playback shows pause.',
+                kAccentBlue),
             _tableRow(
-              'search_ellipsis',
-              'search -> ellipsis',
-              'Collapsing a search field back to overflow menu.',
-              kAccentViolet,
-            ),
+                'search_ellipsis',
+                'search -> ellipsis',
+                'Collapsing a search field back to overflow menu.',
+                kAccentViolet),
             _tableRow(
-              'view_list',
-              'grid -> list',
-              'Reverting from grid layout to list layout.',
-              kAccentLime,
-              isLast: true,
-            ),
+                'view_list',
+                'grid -> list',
+                'Reverting from grid layout to list layout.',
+                kAccentLime,
+                isLast: true),
           ],
         ),
       ),
@@ -1906,9 +1887,8 @@ Widget _tableRow(
     decoration: BoxDecoration(
       border: Border(
         bottom: BorderSide(
-          color: isLast
-              ? Colors.transparent
-              : kInkMuted.withValues(alpha: 0.18),
+          color:
+              isLast ? Colors.transparent : kInkMuted.withValues(alpha: 0.18),
         ),
       ),
     ),
@@ -2008,7 +1988,8 @@ Widget buildClosingFooter() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.movie_filter, color: Color(0xFF93C5FD), size: 24),
+            const Icon(Icons.movie_filter,
+                color: Color(0xFF93C5FD), size: 24),
             const SizedBox(width: 8),
             Text(
               'AnimatedIcon - bundled morphing glyphs',
@@ -2050,7 +2031,10 @@ Widget buildClosingFooter() {
               const SizedBox(width: 8),
               Text(
                 'end . animatedicon_test.dart',
-                style: codeStyle(size: 11, color: const Color(0xFF93C5FD)),
+                style: codeStyle(
+                  size: 11,
+                  color: const Color(0xFF93C5FD),
+                ),
               ),
             ],
           ),
@@ -2085,7 +2069,8 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Center(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.16),
                 borderRadius: BorderRadius.circular(20),

@@ -157,10 +157,7 @@ class _ThemedMiniPage extends StatelessWidget {
             const SizedBox(height: 8.0),
             FilledButton(
               onPressed: () {},
-              child: const Text(
-                'FilledButton',
-                style: TextStyle(fontSize: 10.0),
-              ),
+              child: const Text('FilledButton', style: TextStyle(fontSize: 10.0)),
             ),
             const SizedBox(height: 6.0),
             OutlinedButton(
@@ -278,10 +275,8 @@ class _SimpleRouterDelegate extends RouterDelegate<_SimpleRoutePath>
           key: ValueKey<String>('page-$_current'),
           child: Scaffold(
             appBar: AppBar(
-              title: Text(
-                'Router: $_current',
-                style: const TextStyle(fontSize: 12.0),
-              ),
+              title: Text('Router: $_current',
+                  style: const TextStyle(fontSize: 12.0)),
               toolbarHeight: 36.0,
             ),
             body: Padding(
@@ -299,24 +294,17 @@ class _SimpleRouterDelegate extends RouterDelegate<_SimpleRoutePath>
                     children: <Widget>[
                       OutlinedButton(
                         onPressed: () => go('/'),
-                        child: const Text(
-                          '/',
-                          style: TextStyle(fontSize: 10.0),
-                        ),
+                        child: const Text('/', style: TextStyle(fontSize: 10.0)),
                       ),
                       OutlinedButton(
                         onPressed: () => go('/a'),
-                        child: const Text(
-                          '/a',
-                          style: TextStyle(fontSize: 10.0),
-                        ),
+                        child: const Text('/a',
+                            style: TextStyle(fontSize: 10.0)),
                       ),
                       OutlinedButton(
                         onPressed: () => go('/b'),
-                        child: const Text(
-                          '/b',
-                          style: TextStyle(fontSize: 10.0),
-                        ),
+                        child: const Text('/b',
+                            style: TextStyle(fontSize: 10.0)),
                       ),
                     ],
                   ),
@@ -344,9 +332,7 @@ Widget _sectionTitle(String n, String title, String subtitle) {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+                  horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: const Color(0xFF1565C0),
                 borderRadius: BorderRadius.circular(6.0),
@@ -544,62 +530,58 @@ Widget _buildRoutesMapApp() {
     initialRoute: '/',
     routes: <String, WidgetBuilder>{
       '/': (BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('home /', style: TextStyle(fontSize: 12.0)),
-          toolbarHeight: 36.0,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Text(
-                'routes: <String, WidgetBuilder>',
-                style: TextStyle(fontSize: 10.0),
-              ),
-              const SizedBox(height: 6.0),
-              Wrap(
-                spacing: 4.0,
+            appBar: AppBar(
+              title: const Text('home /',
+                  style: TextStyle(fontSize: 12.0)),
+              toolbarHeight: 36.0,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  OutlinedButton(
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed('/details'),
-                    child: const Text(
-                      '/details',
-                      style: TextStyle(fontSize: 10.0),
-                    ),
-                  ),
-                  OutlinedButton(
-                    onPressed: () => Navigator.of(context).pushNamed('/help'),
-                    child: const Text(
-                      '/help',
-                      style: TextStyle(fontSize: 10.0),
-                    ),
+                  const Text('routes: <String, WidgetBuilder>',
+                      style: TextStyle(fontSize: 10.0)),
+                  const SizedBox(height: 6.0),
+                  Wrap(
+                    spacing: 4.0,
+                    children: <Widget>[
+                      OutlinedButton(
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/details'),
+                        child: const Text('/details',
+                            style: TextStyle(fontSize: 10.0)),
+                      ),
+                      OutlinedButton(
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/help'),
+                        child: const Text('/help',
+                            style: TextStyle(fontSize: 10.0)),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
       '/details': (BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('details', style: TextStyle(fontSize: 12.0)),
-          toolbarHeight: 36.0,
-        ),
-        body: const Center(
-          child: Text('details page', style: TextStyle(fontSize: 10.0)),
-        ),
-      ),
+            appBar: AppBar(
+              title: const Text('details', style: TextStyle(fontSize: 12.0)),
+              toolbarHeight: 36.0,
+            ),
+            body: const Center(
+              child: Text('details page', style: TextStyle(fontSize: 10.0)),
+            ),
+          ),
       '/help': (BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('help', style: TextStyle(fontSize: 12.0)),
-          toolbarHeight: 36.0,
-        ),
-        body: const Center(
-          child: Text('help page', style: TextStyle(fontSize: 10.0)),
-        ),
-      ),
+            appBar: AppBar(
+              title: const Text('help', style: TextStyle(fontSize: 12.0)),
+              toolbarHeight: 36.0,
+            ),
+            body: const Center(
+              child: Text('help page', style: TextStyle(fontSize: 10.0)),
+            ),
+          ),
     },
   );
 }
@@ -611,7 +593,11 @@ Widget _buildLocaleApp(Locale locale, String label) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     locale: locale,
-    supportedLocales: const <Locale>[Locale('en'), Locale('fr'), Locale('de')],
+    supportedLocales: const <Locale>[
+      Locale('en'),
+      Locale('fr'),
+      Locale('de'),
+    ],
     home: Scaffold(
       appBar: AppBar(
         title: Text(label, style: const TextStyle(fontSize: 12.0)),
@@ -622,10 +608,8 @@ Widget _buildLocaleApp(Locale locale, String label) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'locale: ${locale.toLanguageTag()}',
-              style: const TextStyle(fontSize: 10.0),
-            ),
+            Text('locale: ${locale.toLanguageTag()}',
+                style: const TextStyle(fontSize: 10.0)),
             const SizedBox(height: 6.0),
             const Text(
               'supportedLocales:\n  en, fr, de',
@@ -671,14 +655,13 @@ Widget _buildPerfOverlayApp() {
     checkerboardOffscreenLayers: true,
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('perf overlay', style: TextStyle(fontSize: 12.0)),
+        title: const Text('perf overlay',
+            style: TextStyle(fontSize: 12.0)),
         toolbarHeight: 36.0,
       ),
       body: const Center(
-        child: Text(
-          'showPerformanceOverlay: true',
-          style: TextStyle(fontSize: 10.0),
-        ),
+        child: Text('showPerformanceOverlay: true',
+            style: TextStyle(fontSize: 10.0)),
       ),
     ),
   );
@@ -690,14 +673,13 @@ Widget _buildSemanticsApp() {
     showSemanticsDebugger: true,
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('semantics', style: TextStyle(fontSize: 12.0)),
+        title: const Text('semantics',
+            style: TextStyle(fontSize: 12.0)),
         toolbarHeight: 36.0,
       ),
       body: const Center(
-        child: Text(
-          'showSemanticsDebugger: true',
-          style: TextStyle(fontSize: 10.0),
-        ),
+        child: Text('showSemanticsDebugger: true',
+            style: TextStyle(fontSize: 10.0)),
       ),
     ),
   );
@@ -748,29 +730,30 @@ Widget _buildObserverApp(_LoggingObserver observer) {
     initialRoute: '/',
     routes: <String, WidgetBuilder>{
       '/': (BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('observer /', style: TextStyle(fontSize: 12.0)),
-          toolbarHeight: 36.0,
-        ),
-        body: Center(
-          child: OutlinedButton(
-            onPressed: () => Navigator.of(context).pushNamed('/inner'),
-            child: const Text('push /inner', style: TextStyle(fontSize: 10.0)),
+            appBar: AppBar(
+              title: const Text('observer /',
+                  style: TextStyle(fontSize: 12.0)),
+              toolbarHeight: 36.0,
+            ),
+            body: Center(
+              child: OutlinedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed('/inner'),
+                child: const Text('push /inner',
+                    style: TextStyle(fontSize: 10.0)),
+              ),
+            ),
           ),
-        ),
-      ),
       '/inner': (BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'observer /inner',
-            style: TextStyle(fontSize: 12.0),
+            appBar: AppBar(
+              title: const Text('observer /inner',
+                  style: TextStyle(fontSize: 12.0)),
+              toolbarHeight: 36.0,
+            ),
+            body: const Center(
+              child: Text('pop me!', style: TextStyle(fontSize: 10.0)),
+            ),
           ),
-          toolbarHeight: 36.0,
-        ),
-        body: const Center(
-          child: Text('pop me!', style: TextStyle(fontSize: 10.0)),
-        ),
-      ),
     },
   );
 }
@@ -784,7 +767,8 @@ Widget _buildScrollBehaviorApp() {
     scrollBehavior: const _NoOverscrollBehavior(),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('scroll behavior', style: TextStyle(fontSize: 12.0)),
+        title: const Text('scroll behavior',
+            style: TextStyle(fontSize: 12.0)),
         toolbarHeight: 36.0,
       ),
       body: ListView.builder(
@@ -821,7 +805,8 @@ Widget _buildShortcutsApp() {
     },
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('shortcuts', style: TextStyle(fontSize: 12.0)),
+        title: const Text('shortcuts',
+            style: TextStyle(fontSize: 12.0)),
         toolbarHeight: 36.0,
       ),
       body: const Padding(
@@ -841,7 +826,8 @@ Widget _buildRestorationApp() {
     restorationScopeId: 'demo_root',
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('restoration', style: TextStyle(fontSize: 12.0)),
+        title: const Text('restoration',
+            style: TextStyle(fontSize: 12.0)),
         toolbarHeight: 36.0,
       ),
       body: const Padding(
@@ -874,7 +860,8 @@ Widget _buildUnknownRouteApp() {
           settings: settings,
           builder: (BuildContext context) => Scaffold(
             appBar: AppBar(
-              title: const Text('home', style: TextStyle(fontSize: 12.0)),
+              title: const Text('home',
+                  style: TextStyle(fontSize: 12.0)),
               toolbarHeight: 36.0,
             ),
             body: const Center(
@@ -891,15 +878,14 @@ Widget _buildUnknownRouteApp() {
         settings: settings,
         builder: (BuildContext context) => Scaffold(
           appBar: AppBar(
-            title: const Text('404', style: TextStyle(fontSize: 12.0)),
+            title: const Text('404',
+                style: TextStyle(fontSize: 12.0)),
             toolbarHeight: 36.0,
             backgroundColor: Colors.red,
           ),
           body: const Center(
-            child: Text(
-              '404 — not found',
-              style: TextStyle(fontSize: 10.0, color: Colors.red),
-            ),
+            child: Text('404 — not found',
+                style: TextStyle(fontSize: 10.0, color: Colors.red)),
           ),
         ),
       );
@@ -1062,8 +1048,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         for (int i = 0; i < seedColors.length; i++)
           _PhoneFrame(
-            label:
-                'seed #${i + 1}: '
+            label: 'seed #${i + 1}: '
                 '0x${seedColors[i].toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
             width: 170.0,
             height: 260.0,
@@ -1111,10 +1096,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        const Text(
-          'Routing configuration patterns:',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
-        ),
+        const Text('Routing configuration patterns:',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
         const SizedBox(height: 6.0),
         _codeBlock(routesMapCode),
         _codeBlock(onGenerateRouteCode),
@@ -1339,7 +1322,8 @@ dynamic build(BuildContext context) {
     navigatorKey: demoNavKey,
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('navigatorKey', style: TextStyle(fontSize: 12.0)),
+        title: const Text('navigatorKey',
+            style: TextStyle(fontSize: 12.0)),
         toolbarHeight: 36.0,
       ),
       body: Padding(
@@ -1416,10 +1400,7 @@ dynamic build(BuildContext context) {
     <String>['supportedLocales', 'Locales the app declares as supported.'],
     <String>['locale', 'Force a specific Locale, overriding system.'],
     <String>['localeListResolutionCallback', 'Pick locale from device list.'],
-    <String>[
-      'localeResolutionCallback',
-      'Pick locale from single device value.',
-    ],
+    <String>['localeResolutionCallback', 'Pick locale from single device value.'],
     <String>['restorationScopeId', 'Enables state restoration tree.'],
     <String>['scrollBehavior', 'Default ScrollBehavior for all Scrollables.'],
     <String>['actions', 'Map of Intent → Action for the app.'],
@@ -1427,10 +1408,7 @@ dynamic build(BuildContext context) {
     <String>['debugShowCheckedModeBanner', 'Show/hide the DEBUG banner.'],
     <String>['showPerformanceOverlay', 'Frame-time overlay HUD.'],
     <String>['showSemanticsDebugger', 'Semantics overlay debugger.'],
-    <String>[
-      'checkerboardRasterCacheImages',
-      'Highlight cached raster layers.',
-    ],
+    <String>['checkerboardRasterCacheImages', 'Highlight cached raster layers.'],
     <String>['checkerboardOffscreenLayers', 'Highlight offscreen layers.'],
     <String>['color', 'App primary color for OS task switcher.'],
     <String>['MaterialApp.router', 'Constructor using Router + Delegate.'],
@@ -1453,7 +1431,8 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           decoration: const BoxDecoration(
             color: Color(0xFF1565C0),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(7.0)),
+            borderRadius:
+                BorderRadius.vertical(top: Radius.circular(7.0)),
           ),
           child: const Row(
             children: <Widget>[
@@ -1483,7 +1462,8 @@ dynamic build(BuildContext context) {
         ),
         for (int i = 0; i < cheatSheet.length; i++)
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
             decoration: BoxDecoration(
               color: i.isEven
                   ? const Color(0xFFFAFAFA)

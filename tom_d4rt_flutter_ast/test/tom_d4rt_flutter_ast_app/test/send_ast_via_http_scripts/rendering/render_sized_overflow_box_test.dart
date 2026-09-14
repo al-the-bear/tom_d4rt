@@ -194,11 +194,8 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.open_in_full_rounded,
-                color: Colors.white,
-                size: 28,
-              ),
+              const Icon(Icons.open_in_full_rounded,
+                  color: Colors.white, size: 28),
               const SizedBox(width: 10),
               const Text(
                 'Overflow Atelier',
@@ -211,10 +208,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -303,9 +297,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                   color: _palettes[i].primary,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: _paletteIndex == i
-                        ? Colors.white
-                        : Colors.transparent,
+                    color: _paletteIndex == i ? Colors.white : Colors.transparent,
                     width: 2,
                   ),
                   boxShadow: [
@@ -360,9 +352,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionTitle(
-            'Concept Comparison: SizedBox vs OverflowBox vs SizedOverflowBox',
-          ),
+          _sectionTitle('Concept Comparison: SizedBox vs OverflowBox vs SizedOverflowBox'),
           const SizedBox(height: 8),
           Text(
             'All three widgets can affect geometry, but they do so very '
@@ -419,8 +409,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
               Expanded(
                 child: _comparisonPanel(
                   title: 'SizedBox',
-                  note:
-                      'Both parent and child are typically constrained to the same explicit size.',
+                  note: 'Both parent and child are typically constrained to the same explicit size.',
                   color: _p.primary,
                   child: Container(
                     width: 320,
@@ -448,8 +437,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
               Expanded(
                 child: _comparisonPanel(
                   title: 'OverflowBox',
-                  note:
-                      'Parent size can remain fixed while child gets relaxed max constraints.',
+                  note: 'Parent size can remain fixed while child gets relaxed max constraints.',
                   color: _p.secondary,
                   child: Container(
                     width: 320,
@@ -480,8 +468,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
               Expanded(
                 child: _comparisonPanel(
                   title: 'SizedOverflowBox',
-                  note:
-                      'Render box uses explicit size while child keeps inherited constraints.',
+                  note: 'Render box uses explicit size while child keeps inherited constraints.',
                   color: _p.accent,
                   child: Container(
                     width: 320,
@@ -516,15 +503,9 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('You want a predictable parent footprint.'),
-                _bullet(
-                  'You want child visuals to extend beyond that footprint.',
-                ),
-                _bullet(
-                  'You still want child to participate in inherited constraints.',
-                ),
-                _bullet(
-                  'You need alignment control over where overflow appears.',
-                ),
+                _bullet('You want child visuals to extend beyond that footprint.'),
+                _bullet('You still want child to participate in inherited constraints.'),
+                _bullet('You need alignment control over where overflow appears.'),
               ],
             ),
           ),
@@ -577,8 +558,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
           const SizedBox(height: 12),
           _card(
             title: 'Live Alignment Stage',
-            subtitle:
-                'Blue frame is SizedOverflowBox footprint, child may overflow.',
+            subtitle: 'Blue frame is SizedOverflowBox footprint, child may overflow.',
             tint: _p.primary.withValues(alpha: 0.04),
             child: Container(
               width: double.infinity,
@@ -622,29 +602,19 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                   Positioned(
                     right: 12,
                     top: 12,
-                    child: _metricChip(
-                      'Anchor',
-                      _anchorLabel(_anchor),
-                      _p.primary,
-                    ),
+                    child: _metricChip('Anchor', _anchorLabel(_anchor), _p.primary),
                   ),
                   Positioned(
                     right: 12,
                     top: 46,
-                    child: _metricChip(
-                      'Parent',
-                      '${_parentWidth.toInt()}×${_parentHeight.toInt()}',
-                      _p.primary,
-                    ),
+                    child: _metricChip('Parent',
+                        '${_parentWidth.toInt()}×${_parentHeight.toInt()}', _p.primary),
                   ),
                   Positioned(
                     right: 12,
                     top: 80,
-                    child: _metricChip(
-                      'Child',
-                      '${_childWidth.toInt()}×${_childHeight.toInt()}',
-                      _p.secondary,
-                    ),
+                    child: _metricChip('Child',
+                        '${_childWidth.toInt()}×${_childHeight.toInt()}', _p.secondary),
                   ),
                 ],
               ),
@@ -702,9 +672,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                     decoration: BoxDecoration(
                       color: _p.primary.withValues(alpha: 0.14),
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: _p.primary.withValues(alpha: 0.4),
-                      ),
+                      border: Border.all(color: _p.primary.withValues(alpha: 0.4)),
                     ),
                     child: SizedOverflowBox(
                       size: const Size(48, 30),
@@ -756,8 +724,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
           const SizedBox(height: 12),
           _card(
             title: 'Lab Controls',
-            subtitle:
-                'Tune container, render-box size, and child size independently.',
+            subtitle: 'Tune container, render-box size, and child size independently.',
             child: Column(
               children: [
                 _sliderRow(
@@ -850,8 +817,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
           const SizedBox(height: 12),
           _card(
             title: 'Constraint Stage',
-            subtitle:
-                'Outer panel constraints are inherited by child, not replaced by size field.',
+            subtitle: 'Outer panel constraints are inherited by child, not replaced by size field.',
             tint: _p.primary.withValues(alpha: 0.04),
             child: Column(
               children: [
@@ -861,9 +827,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: _p.primary.withValues(alpha: 0.34),
-                    ),
+                    border: Border.all(color: _p.primary.withValues(alpha: 0.34)),
                   ),
                   child: Center(
                     child: Stack(
@@ -939,23 +903,16 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              _metricChip(
-                                'Outer',
-                                '${_labOuterWidth.toInt()}×${_labOuterHeight.toInt()}',
-                                _p.primary,
-                              ),
+                              _metricChip('Outer',
+                                  '${_labOuterWidth.toInt()}×${_labOuterHeight.toInt()}', _p.primary),
                               const SizedBox(height: 6),
-                              _metricChip(
-                                'SizedOverflowBox',
-                                '${_labSizedOverflowWidth.toInt()}×${_labSizedOverflowHeight.toInt()}',
-                                _p.accent,
-                              ),
+                              _metricChip('SizedOverflowBox',
+                                  '${_labSizedOverflowWidth.toInt()}×${_labSizedOverflowHeight.toInt()}',
+                                  _p.accent),
                               const SizedBox(height: 6),
-                              _metricChip(
-                                'Child',
-                                '${_labChildWidth.toInt()}×${_labChildHeight.toInt()}',
-                                _p.secondary,
-                              ),
+                              _metricChip('Child',
+                                  '${_labChildWidth.toInt()}×${_labChildHeight.toInt()}',
+                                  _p.secondary),
                             ],
                           ),
                         ),
@@ -1034,22 +991,15 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
           if (_showCalloutPattern) const SizedBox(height: 12),
           _card(
             title: 'Pattern Guidance',
-            subtitle:
-                'How to decide between SizedOverflowBox and alternatives.',
+            subtitle: 'How to decide between SizedOverflowBox and alternatives.',
             tint: _p.accent.withValues(alpha: 0.05),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Use Positioned/Stack for absolute layering logic.'),
-                _bullet(
-                  'Use OverflowBox when child constraints must change too.',
-                ),
-                _bullet(
-                  'Use SizedOverflowBox when parent footprint must remain explicit.',
-                ),
-                _bullet(
-                  'Add clipping intentionally if visual spill should be hidden.',
-                ),
+                _bullet('Use OverflowBox when child constraints must change too.'),
+                _bullet('Use SizedOverflowBox when parent footprint must remain explicit.'),
+                _bullet('Add clipping intentionally if visual spill should be hidden.'),
               ],
             ),
           ),
@@ -1188,11 +1138,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                     Text(
                       'Row keeps predictable height while decorative media '
                       'extends past the local box.',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: _p.muted,
-                        height: 1.3,
-                      ),
+                      style: TextStyle(fontSize: 12, color: _p.muted, height: 1.3),
                     ),
                   ],
                 ),
@@ -1282,10 +1228,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
             subtitle: 'Switch between Clip.none and Clip.hardEdge wrappers.',
             child: Row(
               children: [
-                Text(
-                  'Clip hard edge',
-                  style: TextStyle(fontSize: 12, color: _p.ink),
-                ),
+                Text('Clip hard edge', style: TextStyle(fontSize: 12, color: _p.ink)),
                 const SizedBox(width: 10),
                 Switch(
                   value: _showClipHardEdge,
@@ -1293,11 +1236,8 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                   onChanged: (v) => setState(() => _showClipHardEdge = v),
                 ),
                 const SizedBox(width: 10),
-                _metricChip(
-                  'Clip',
-                  _showClipHardEdge ? 'hardEdge' : 'none',
-                  _showClipHardEdge ? _p.secondary : _p.primary,
-                ),
+                _metricChip('Clip', _showClipHardEdge ? 'hardEdge' : 'none',
+                    _showClipHardEdge ? _p.secondary : _p.primary),
               ],
             ),
           ),
@@ -1317,7 +1257,8 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                   border: Border.all(color: _p.primary.withValues(alpha: 0.3)),
                 ),
                 child: ClipRect(
-                  clipBehavior: _showClipHardEdge ? Clip.hardEdge : Clip.none,
+                  clipBehavior:
+                      _showClipHardEdge ? Clip.hardEdge : Clip.none,
                   child: Stack(
                     children: [
                       Positioned.fill(
@@ -1401,15 +1342,9 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Visibility of overflow depends on ancestor clipping.'),
-                _bullet(
-                  'Use clip intentionally for clean boundaries in constrained UI.',
-                ),
-                _bullet(
-                  'Keep semantics and hit regions aligned with UX expectations.',
-                ),
-                _bullet(
-                  'Test gesture behavior when overflow extends beyond slots.',
-                ),
+                _bullet('Use clip intentionally for clean boundaries in constrained UI.'),
+                _bullet('Keep semantics and hit regions aligned with UX expectations.'),
+                _bullet('Test gesture behavior when overflow extends beyond slots.'),
               ],
             ),
           ),
@@ -1464,8 +1399,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                 _decisionRow(
                   use: 'Primary long list item sizing hack',
                   decision: 'Don\'t',
-                  reason:
-                      'Can hide constraint issues and complicate hit testing.',
+                  reason: 'Can hide constraint issues and complicate hit testing.',
                   good: false,
                 ),
                 _decisionRow(
@@ -1492,27 +1426,23 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
               children: [
                 _qa(
                   q: 'How is SizedOverflowBox different from OverflowBox?',
-                  a:
-                      'OverflowBox modifies child constraints; SizedOverflowBox '
+                  a: 'OverflowBox modifies child constraints; SizedOverflowBox '
                       'defines only its own render-box size while forwarding '
                       'incoming constraints to child.',
                 ),
                 _qa(
                   q: 'Why does my overflow disappear?',
-                  a:
-                      'An ancestor likely clips (ClipRect, physical model, etc.). '
+                  a: 'An ancestor likely clips (ClipRect, physical model, etc.). '
                       'Overflow visibility requires unclipped ancestors.',
                 ),
                 _qa(
                   q: 'Does SizedOverflowBox help with badges and handles?',
-                  a:
-                      'Yes. It is a strong fit when layout slots must remain fixed '
+                  a: 'Yes. It is a strong fit when layout slots must remain fixed '
                       'while decorative elements protrude.',
                 ),
                 _qa(
                   q: 'Should I use it for every overflow need?',
-                  a:
-                      'No. Use Stack/Positioned or OverflowBox when their '
+                  a: 'No. Use Stack/Positioned or OverflowBox when their '
                       'constraint model better matches the goal.',
                 ),
               ],
@@ -1526,19 +1456,11 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _check('Compared core alternatives with visual evidence.'),
-                _check(
-                  'Demonstrated all anchor alignments and overflow directions.',
-                ),
-                _check(
-                  'Explained constraint forwarding vs self-size behavior.',
-                ),
+                _check('Demonstrated all anchor alignments and overflow directions.'),
+                _check('Explained constraint forwarding vs self-size behavior.'),
                 _check('Included practical UI patterns with rationale.'),
-                _check(
-                  'Visualized clipping effects and interaction implications.',
-                ),
-                _check(
-                  'Provided do/don\'t guidance and FAQ for usage decisions.',
-                ),
+                _check('Visualized clipping effects and interaction implications.'),
+                _check('Provided do/don\'t guidance and FAQ for usage decisions.'),
               ],
             ),
           ),
@@ -1638,7 +1560,10 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.5)),
+          Text(
+            subtitle,
+            style: TextStyle(color: _p.muted, fontSize: 11.5),
+          ),
           const SizedBox(height: 10),
           child,
         ],
@@ -1822,7 +1747,10 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
           onChanged: (v) => onChanged(v ?? false),
         ),
         Expanded(
-          child: Text(text, style: TextStyle(fontSize: 12, color: _p.ink)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12, color: _p.ink),
+          ),
         ),
       ],
     );
@@ -1896,11 +1824,7 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            good ? Icons.check_circle : Icons.cancel,
-            color: color,
-            size: 18,
-          ),
+          Icon(good ? Icons.check_circle : Icons.cancel, color: color, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1924,7 +1848,10 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(reason, style: TextStyle(fontSize: 11.4, color: _p.muted)),
+                Text(
+                  reason,
+                  style: TextStyle(fontSize: 11.4, color: _p.muted),
+                ),
               ],
             ),
           ),
@@ -1972,7 +1899,10 @@ class _OverflowAtelierState extends State<_OverflowAtelier> {
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(fontSize: 12, color: _p.ink)),
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 12, color: _p.ink),
+            ),
           ),
         ],
       ),

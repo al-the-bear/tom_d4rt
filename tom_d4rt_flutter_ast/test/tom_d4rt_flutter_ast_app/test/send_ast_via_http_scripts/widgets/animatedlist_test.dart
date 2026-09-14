@@ -308,7 +308,10 @@ dynamic build(BuildContext context) {
         sizeFactor: a,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 8.0,
+          ),
           decoration: BoxDecoration(
             color: const Color(0xFFFFFFFF),
             borderRadius: BorderRadius.circular(8.0),
@@ -400,73 +403,73 @@ dynamic build(BuildContext context) {
         opacity: a,
         child: IntrinsicHeight(
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              SizedBox(
-                width: 28.0,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      width: 2.0,
-                      height: 6.0,
-                      color: i == 0
-                          ? const Color(0x00000000)
-                          : Color(p['accent'] as int),
-                    ),
-                    Container(
-                      width: 16.0,
-                      height: 16.0,
-                      decoration: BoxDecoration(
-                        color: Color(p['accent'] as int),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: const Color(0xFFFFFFFF),
-                          width: 2.0,
-                        ),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(
+              width: 28.0,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: 2.0,
+                    height: 6.0,
+                    color: i == 0
+                        ? const Color(0x00000000)
+                        : Color(p['accent'] as int),
+                  ),
+                  Container(
+                    width: 16.0,
+                    height: 16.0,
+                    decoration: BoxDecoration(
+                      color: Color(p['accent'] as int),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: const Color(0xFFFFFFFF),
+                        width: 2.0,
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        width: 2.0,
+                  ),
+                  Expanded(
+                    child: Container(
+                      width: 2.0,
+                      color: Color(p['accent'] as int),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8.0),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 3.0),
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Color(p['tone'] as int),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '${p['name']} • ${_programmeActs[i % _programmeActs.length]}',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
                         color: Color(p['accent'] as int),
+                      ),
+                    ),
+                    Text(
+                      'Frame entry at cue ${i + 1}',
+                      style: const TextStyle(
+                        fontSize: 10.5,
+                        color: Color(0xFF616161),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 3.0),
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: Color(p['tone'] as int),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '${p['name']} • ${_programmeActs[i % _programmeActs.length]}',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: Color(p['accent'] as int),
-                        ),
-                      ),
-                      Text(
-                        'Frame entry at cue ${i + 1}',
-                        style: const TextStyle(
-                          fontSize: 10.5,
-                          color: Color(0xFF616161),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
+        ),
         ),
       );
     },
@@ -653,7 +656,10 @@ dynamic build(BuildContext context) {
         initialItemCount: 4,
         itemBuilder: (BuildContext c, int i, Animation<double> a) {
           final Map<String, dynamic> p = _performers[i % _performers.length];
-          return SizeTransition(sizeFactor: a, child: _performerTile(p, i));
+          return SizeTransition(
+            sizeFactor: a,
+            child: _performerTile(p, i),
+          );
         },
       ),
     ],
@@ -672,15 +678,20 @@ dynamic build(BuildContext context) {
           );
         },
       ),
-      const SliverToBoxAdapter(child: SizedBox(height: 6.0)),
+      const SliverToBoxAdapter(
+        child: SizedBox(height: 6.0),
+      ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext c, int i) {
-          return _miniProgrammeNote(
-            'Programme note ${i + 1}',
-            'Coordinates the entrance of performer ${_performers[i % _performers.length]['name']}.',
-            _performers[i % _performers.length]['accent'] as int,
-          );
-        }, childCount: 2),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext c, int i) {
+            return _miniProgrammeNote(
+              'Programme note ${i + 1}',
+              'Coordinates the entrance of performer ${_performers[i % _performers.length]['name']}.',
+              _performers[i % _performers.length]['accent'] as int,
+            );
+          },
+          childCount: 2,
+        ),
       ),
     ],
   );
@@ -933,22 +944,10 @@ dynamic build(BuildContext context) {
               accent: 0xFFC2185B,
               demoHeight: 340.0,
               demo: _quadGrid(<Widget>[
-                _miniDemoLabelled(
-                  'initialItemCount: 0',
-                  primitivesSnapshotZero,
-                ),
-                _miniDemoLabelled(
-                  'initialItemCount: 3',
-                  primitivesSnapshotThree,
-                ),
-                _miniDemoLabelled(
-                  'initialItemCount: 5',
-                  primitivesSnapshotFive,
-                ),
-                _miniDemoLabelled(
-                  'initialItemCount: 8',
-                  primitivesSnapshotEight,
-                ),
+                _miniDemoLabelled('initialItemCount: 0', primitivesSnapshotZero),
+                _miniDemoLabelled('initialItemCount: 3', primitivesSnapshotThree),
+                _miniDemoLabelled('initialItemCount: 5', primitivesSnapshotFive),
+                _miniDemoLabelled('initialItemCount: 8', primitivesSnapshotEight),
               ]),
               recipe: const <String>[
                 'AnimatedList declares animated insertion/removal semantics',
@@ -958,16 +957,10 @@ dynamic build(BuildContext context) {
               ],
               comparison: const <List<String>>[
                 <String>['Variant', 'Use case'],
-                <String>[
-                  'initialItemCount: 0',
-                  'Empty list — wait for first insert',
-                ],
+                <String>['initialItemCount: 0', 'Empty list — wait for first insert'],
                 <String>['initialItemCount: 3', 'Small roster snapshot'],
                 <String>['initialItemCount: 5', 'Medium roster — fade entry'],
-                <String>[
-                  'initialItemCount: 8',
-                  'Full programme — top-aligned grow',
-                ],
+                <String>['initialItemCount: 8', 'Full programme — top-aligned grow'],
               ],
             ),
             const SizedBox(height: 16.0),
@@ -1009,7 +1002,8 @@ dynamic build(BuildContext context) {
             _sectionPanel(
               number: 3,
               title: 'Removal Frame Snapshots',
-              subtitle: 'removedItemBuilder visualised by reversing the t axis',
+              subtitle:
+                  'removedItemBuilder visualised by reversing the t axis',
               bg: 0xFFFFF3E0,
               border: 0xFFFFE0B2,
               accent: 0xFFE65100,
@@ -1017,10 +1011,7 @@ dynamic build(BuildContext context) {
               demo: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _miniDemoLabelled(
-                    't = 1.00 (item present)',
-                    removalFrameStart,
-                  ),
+                  _miniDemoLabelled('t = 1.00 (item present)', removalFrameStart),
                   _miniDemoLabelled('t = 0.50 (halfway out)', removalFrameMid),
                   _miniDemoLabelled('t = 0.20 (nearly gone)', removalFrameLate),
                   _miniDemoLabelled('t = 0.00 (vanished)', removalFrameVanish),
@@ -1053,10 +1044,7 @@ dynamic build(BuildContext context) {
               demo: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _miniDemoLabelled(
-                    'Leading/trailing icons',
-                    builderLeadingTrailing,
-                  ),
+                  _miniDemoLabelled('Leading/trailing icons', builderLeadingTrailing),
                   _miniDemoLabelled('Badge row with cue tags', builderBadgeRow),
                   _miniDemoLabelled('Timeline with connector', builderTimeline),
                 ],
@@ -1087,22 +1075,10 @@ dynamic build(BuildContext context) {
               demo: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _miniDemoLabelled(
-                    'vertical (default)',
-                    sizeTransitionVertical,
-                  ),
-                  _miniDemoLabelled(
-                    'axisAlignment: -1 (top)',
-                    sizeTransitionTopAligned,
-                  ),
-                  _miniDemoLabelled(
-                    'axisAlignment: +1 (bottom)',
-                    sizeTransitionBottomAligned,
-                  ),
-                  _miniDemoLabelled(
-                    'axis: horizontal',
-                    sizeTransitionHorizontalAxis,
-                  ),
+                  _miniDemoLabelled('vertical (default)', sizeTransitionVertical),
+                  _miniDemoLabelled('axisAlignment: -1 (top)', sizeTransitionTopAligned),
+                  _miniDemoLabelled('axisAlignment: +1 (bottom)', sizeTransitionBottomAligned),
+                  _miniDemoLabelled('axis: horizontal', sizeTransitionHorizontalAxis),
                 ],
               ),
               recipe: const <String>[
@@ -1196,10 +1172,7 @@ dynamic build(BuildContext context) {
               demo: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _miniDemoLabelled(
-                    'SliverAnimatedList host',
-                    sliverAnimatedHost,
-                  ),
+                  _miniDemoLabelled('SliverAnimatedList host', sliverAnimatedHost),
                   _miniDemoLabelled('Mixed slivers', sliverAnimatedMixed),
                 ],
               ),
@@ -1383,7 +1356,10 @@ Widget _heroHeader() {
                   ),
                   Text(
                     'A staged tour of insertion, removal, and transition primitives',
-                    style: TextStyle(fontSize: 12.0, color: Color(0xFFEDE7F6)),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Color(0xFFEDE7F6),
+                    ),
                   ),
                 ],
               ),
@@ -1519,11 +1495,7 @@ Widget _conceptOverview() {
           'or hold an AnimatedListState reference, we visualise the surface '
           'area through STATIC SNAPSHOTS instead — different itemCounts, '
           'different t values fed through AlwaysStoppedAnimation<double>(t).',
-          style: TextStyle(
-            fontSize: 13.0,
-            height: 1.5,
-            color: Color(0xFF37474F),
-          ),
+          style: TextStyle(fontSize: 13.0, height: 1.5, color: Color(0xFF37474F)),
         ),
         const SizedBox(height: 10.0),
         const Text(
@@ -1764,8 +1736,8 @@ Widget _comparisonTable(List<List<String>> rows, int accent, int border) {
               color: i == 0
                   ? Color(border).withOpacity(0.18)
                   : (i.isEven
-                        ? const Color(0xFFFFFFFF)
-                        : const Color(0xFFF5F5F5)),
+                      ? const Color(0xFFFFFFFF)
+                      : const Color(0xFFF5F5F5)),
               borderRadius: BorderRadius.circular(4.0),
             ),
             margin: const EdgeInsets.only(bottom: 2.0),
@@ -1781,7 +1753,9 @@ Widget _comparisonTable(List<List<String>> rows, int accent, int border) {
                         fontWeight: i == 0
                             ? FontWeight.bold
                             : FontWeight.normal,
-                        color: i == 0 ? Color(accent) : const Color(0xFF424242),
+                        color: i == 0
+                            ? Color(accent)
+                            : const Color(0xFF424242),
                       ),
                     ),
                   ),
@@ -1804,12 +1778,7 @@ Widget _comparisonOverviewPanel() {
     <String>['Reorder support', 'manual', 'no', 'built-in'],
     <String>['itemBuilder signature', '(ctx, i, anim)', '(ctx, i)', '(ctx, i)'],
     <String>['Sliver variant', 'SliverAnimatedList', 'SliverList', 'n/a'],
-    <String>[
-      'Separator support',
-      'manual (in builder)',
-      '.separated ctor',
-      'manual',
-    ],
+    <String>['Separator support', 'manual (in builder)', '.separated ctor', 'manual'],
     <String>['Common transition', 'SizeTransition', 'n/a', 'AnimatedSwitcher'],
     <String>['Use case', 'Add/remove rows', 'Static rows', 'Drag to reorder'],
   ];
@@ -1853,11 +1822,12 @@ Widget _comparisonOverviewPanel() {
             decoration: BoxDecoration(
               color: i == 0
                   ? const Color(0xFFEDE7F6)
-                  : (i.isEven
-                        ? const Color(0xFFFFFFFF)
-                        : const Color(0xFFFAFAFA)),
+                  : (i.isEven ? const Color(0xFFFFFFFF) : const Color(0xFFFAFAFA)),
               border: Border(
-                bottom: BorderSide(color: const Color(0xFFEEEEEE), width: 0.6),
+                bottom: BorderSide(
+                  color: const Color(0xFFEEEEEE),
+                  width: 0.6,
+                ),
               ),
             ),
             child: Row(
@@ -1902,8 +1872,7 @@ Widget _glossaryPanel() {
     },
     <String, String>{
       'term': 'itemBuilder',
-      'def':
-          '(BuildContext, int, Animation<double>) → Widget — builds each row.',
+      'def': '(BuildContext, int, Animation<double>) → Widget — builds each row.',
     },
     <String, String>{
       'term': 'removedItemBuilder',
@@ -1923,8 +1892,7 @@ Widget _glossaryPanel() {
     },
     <String, String>{
       'term': 'AlwaysStoppedAnimation',
-      'def':
-          'A non-ticking Animation<T> stuck at a single value — useful for snapshots.',
+      'def': 'A non-ticking Animation<T> stuck at a single value — useful for snapshots.',
     },
     <String, String>{
       'term': 'axisAlignment',
@@ -2049,11 +2017,7 @@ Widget _epiloguePanel() {
         const SizedBox(height: 10.0),
         const Text(
           'Every supported AnimatedList facet has a live (bounded) demo, recipe card, and comparison panel above. Below is the coverage manifest.',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Color(0xFFC8E6C9),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Color(0xFFC8E6C9), height: 1.4),
         ),
         const SizedBox(height: 12.0),
         for (final String item in achievements)
@@ -2257,7 +2221,10 @@ Widget _removedItemTile(Map<String, dynamic> p, int index) {
               ),
               const Text(
                 'removedItemBuilder snapshot',
-                style: TextStyle(fontSize: 10.5, color: Color(0xFFC62828)),
+                style: TextStyle(
+                  fontSize: 10.5,
+                  color: Color(0xFFC62828),
+                ),
               ),
             ],
           ),
@@ -2359,9 +2326,8 @@ Widget _quadGrid(List<Widget> children) {
   final List<Widget> rows = <Widget>[];
   for (int i = 0; i < children.length; i += 2) {
     final Widget left = children[i];
-    final Widget right = (i + 1 < children.length)
-        ? children[i + 1]
-        : const SizedBox.shrink();
+    final Widget right =
+        (i + 1 < children.length) ? children[i + 1] : const SizedBox.shrink();
     rows.add(
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -2376,7 +2342,10 @@ Widget _quadGrid(List<Widget> children) {
       ),
     );
   }
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: rows,
+  );
 }
 
 // ============================================================================
@@ -2405,7 +2374,10 @@ Widget _recipeQuoteCard({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 5.0,
+          ),
           decoration: BoxDecoration(
             color: Color(accent),
             borderRadius: const BorderRadius.only(

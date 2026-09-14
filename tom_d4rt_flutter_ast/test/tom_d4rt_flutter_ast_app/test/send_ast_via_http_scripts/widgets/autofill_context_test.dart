@@ -571,21 +571,15 @@ dynamic build(BuildContext context) {
   );
   final disabledConfig = AutofillConfiguration.disabled;
 
-  print(
-    'emailConfig: enabled=${emailConfig.enabled} '
-    'id="${emailConfig.uniqueIdentifier}" '
-    'hints=${emailConfig.autofillHints} '
-    'value="${emailConfig.currentEditingValue.text}"',
-  );
-  print(
-    'passwordConfig: enabled=${passwordConfig.enabled} '
-    'id="${passwordConfig.uniqueIdentifier}"',
-  );
-  print(
-    'disabledConfig: enabled=${disabledConfig.enabled} '
-    'hints=${disabledConfig.autofillHints} '
-    'id="${disabledConfig.uniqueIdentifier}"',
-  );
+  print('emailConfig: enabled=${emailConfig.enabled} '
+      'id="${emailConfig.uniqueIdentifier}" '
+      'hints=${emailConfig.autofillHints} '
+      'value="${emailConfig.currentEditingValue.text}"');
+  print('passwordConfig: enabled=${passwordConfig.enabled} '
+      'id="${passwordConfig.uniqueIdentifier}"');
+  print('disabledConfig: enabled=${disabledConfig.enabled} '
+      'hints=${disabledConfig.autofillHints} '
+      'id="${disabledConfig.uniqueIdentifier}"');
 
   final configAnatomy = Container(
     margin: EdgeInsets.symmetric(vertical: 12.0),
@@ -686,7 +680,9 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 8.0),
         TextField(
-          autofillHints: const <String>[AutofillHints.telephoneNumber],
+          autofillHints: const <String>[
+            AutofillHints.telephoneNumber,
+          ],
           decoration: InputDecoration(
             labelText: 'Telephone',
             prefixIcon: Icon(Icons.phone_outlined),
@@ -756,7 +752,10 @@ dynamic build(BuildContext context) {
                 ),
                 Spacer(),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: stampGreen.withValues(alpha: 0.2),
                     border: Border.all(color: stampGreen, width: 1.0),
@@ -899,7 +898,10 @@ dynamic build(BuildContext context) {
                 ),
                 Spacer(),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: stampGreen.withValues(alpha: 0.2),
                     border: Border.all(color: stampGreen, width: 1.0),
@@ -1467,7 +1469,11 @@ Widget _buildDrawer(
         ),
         child: Row(
           children: [
-            Container(width: 6.0, height: 14.0, color: labelColor),
+            Container(
+              width: 6.0,
+              height: 14.0,
+              color: labelColor,
+            ),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -1530,7 +1536,10 @@ Widget _buildDrawer(
           ],
         ),
         SizedBox(height: 8.0),
-        Container(height: 2.0, color: labelColor.withValues(alpha: 0.5)),
+        Container(
+          height: 2.0,
+          color: labelColor.withValues(alpha: 0.5),
+        ),
         SizedBox(height: 6.0),
         ...children,
       ],
@@ -1682,9 +1691,13 @@ Widget _buildConfigCard(
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
               decoration: BoxDecoration(
-                color: config.enabled ? Color(0xFFE6F4EA) : Color(0xFFF8E1E1),
+                color: config.enabled
+                    ? Color(0xFFE6F4EA)
+                    : Color(0xFFF8E1E1),
                 border: Border.all(
-                  color: config.enabled ? Color(0xFF2E6B3F) : Color(0xFFB23030),
+                  color: config.enabled
+                      ? Color(0xFF2E6B3F)
+                      : Color(0xFFB23030),
                 ),
                 borderRadius: BorderRadius.circular(4.0),
               ),
@@ -1692,7 +1705,9 @@ Widget _buildConfigCard(
                 config.enabled ? 'enabled' : 'disabled',
                 style: TextStyle(
                   fontSize: 10.0,
-                  color: config.enabled ? Color(0xFF2E6B3F) : Color(0xFFB23030),
+                  color: config.enabled
+                      ? Color(0xFF2E6B3F)
+                      : Color(0xFFB23030),
                   fontFamily: 'monospace',
                   fontWeight: FontWeight.bold,
                 ),
@@ -1766,7 +1781,10 @@ Widget _buildLedgerRow(
         Container(
           width: 32.0,
           height: 32.0,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: accent),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: accent,
+          ),
           child: Center(
             child: Text(
               number,

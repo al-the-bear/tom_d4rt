@@ -20,8 +20,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.pan_tool,
       'title': 'End-of-Drag Report',
-      'body':
-          'DraggableDetails is a small immutable data class '
+      'body': 'DraggableDetails is a small immutable data class '
           'provided to Draggable\'s onDragEnd callback. When the '
           'user lifts their finger after dragging, Flutter creates '
           'a DraggableDetails describing exactly what happened: '
@@ -32,8 +31,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle,
       'title': 'wasAccepted — Did a Target Take It?',
-      'body':
-          'The boolean wasAccepted is true if the drag was '
+      'body': 'The boolean wasAccepted is true if the drag was '
           'released over a DragTarget that returned true from its '
           'onWillAcceptWithDetails callback (or the older '
           'onWillAccept). If the user dropped it in empty space '
@@ -43,8 +41,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.speed,
       'title': 'velocity — Release Speed & Direction',
-      'body':
-          'Velocity records the speed (in pixels per second) '
+      'body': 'Velocity records the speed (in pixels per second) '
           'and direction at the moment the user released. This is '
           'the same Velocity class from dart:ui — it has '
           'pixelsPerSecond (an Offset with dx/dy components). '
@@ -54,8 +51,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.place,
       'title': 'offset — Final Screen Position',
-      'body':
-          'The offset is the Offset (in global coordinates) '
+      'body': 'The offset is the Offset (in global coordinates) '
           'where the feedback widget ended up when the drag was '
           'released. Combined with velocity and wasAccepted, '
           'you have complete information to animate the aftermath '
@@ -78,14 +74,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.verified,
       'color': Colors.green[600]!,
       'bgColor': Colors.green[50]!,
-      'description':
-          'True if a DragTarget accepted this drag. '
+      'description': 'True if a DragTarget accepted this drag. '
           'The acceptance is determined by DragTarget.onWillAccept'
           'WithDetails returning true. If the drag was released '
           'outside any target, or if all targets rejected, this '
           'is false.',
-      'example':
-          'DraggableDetails(\n'
+      'example': 'DraggableDetails(\n'
           '  wasAccepted: true,\n'
           '  velocity: Velocity.zero,\n'
           '  offset: Offset(200, 400),\n'
@@ -97,13 +91,11 @@ dynamic build(BuildContext context) {
       'icon': Icons.trending_up,
       'color': Colors.blue[600]!,
       'bgColor': Colors.blue[50]!,
-      'description':
-          'The velocity at release, in pixels per second. '
+      'description': 'The velocity at release, in pixels per second. '
           'Velocity has a single property: pixelsPerSecond (Offset). '
           'A slow, careful drop gives nearly zero velocity. A fast '
           'fling gives high velocity in the swipe direction.',
-      'example':
-          'details.velocity.pixelsPerSecond.dx  // horizontal\n'
+      'example': 'details.velocity.pixelsPerSecond.dx  // horizontal\n'
           'details.velocity.pixelsPerSecond.dy  // vertical\n'
           'details.velocity.pixelsPerSecond.distance  // speed',
     },
@@ -113,13 +105,11 @@ dynamic build(BuildContext context) {
       'icon': Icons.control_camera,
       'color': Colors.lightBlue[700]!,
       'bgColor': Colors.lightBlue[50]!,
-      'description':
-          'The global screen offset where the feedback '
+      'description': 'The global screen offset where the feedback '
           'widget was when the drag ended. This is the top-left '
           'corner of the feedback widget, in screen coordinates. '
           'Useful for animating the return or snap animation.',
-      'example':
-          'details.offset.dx  // x position (from left)\n'
+      'example': 'details.offset.dx  // x position (from left)\n'
           'details.offset.dy  // y position (from top)',
     },
   ];
@@ -140,8 +130,7 @@ dynamic build(BuildContext context) {
       'wasAccepted': true,
       'velocityLabel': 'Low (~50 px/s)',
       'offsetLabel': 'Over target center',
-      'description':
-          'The most common success case: user carefully '
+      'description': 'The most common success case: user carefully '
           'drags an item and drops it on a valid target. Low '
           'velocity (gentle release), offset is within the '
           'target\'s bounds. The target\'s onAcceptWithDetails '
@@ -155,8 +144,7 @@ dynamic build(BuildContext context) {
       'wasAccepted': false,
       'velocityLabel': 'Low (~30 px/s)',
       'offsetLabel': 'Over rejecting target',
-      'description':
-          'The user dropped over a DragTarget, but '
+      'description': 'The user dropped over a DragTarget, but '
           'onWillAcceptWithDetails returned false (e.g., wrong '
           'data type, target full, business rule violation). '
           'The feedback widget animates back to origin.',
@@ -169,8 +157,7 @@ dynamic build(BuildContext context) {
       'wasAccepted': false,
       'velocityLabel': 'Medium (~200 px/s)',
       'offsetLabel': 'Outside any target',
-      'description':
-          'The user released while not over any '
+      'description': 'The user released while not over any '
           'DragTarget. wasAccepted is false. The Draggable\'s '
           'feedback snaps back to origin. This feels like a '
           '"cancelled" drag to the user.',
@@ -183,8 +170,7 @@ dynamic build(BuildContext context) {
       'wasAccepted': false,
       'velocityLabel': 'High (~2000 px/s)',
       'offsetLabel': 'Far from origin',
-      'description':
-          'A fast swipe released mid-flight. High '
+      'description': 'A fast swipe released mid-flight. High '
           'velocity means the user was moving quickly. Even if '
           'the offset passes over a target, acceptance depends '
           'on where the drag ends, not the path. Custom logic '
@@ -198,8 +184,7 @@ dynamic build(BuildContext context) {
       'wasAccepted': true,
       'velocityLabel': 'High (~1500 px/s)',
       'offsetLabel': 'Over target',
-      'description':
-          'Dropped onto a target while still moving '
+      'description': 'Dropped onto a target while still moving '
           'fast. wasAccepted is true AND velocity is high. This '
           'combination can trigger a special "flung into place" '
           'animation rather than a gentle settle.',
@@ -269,8 +254,7 @@ dynamic build(BuildContext context) {
       'label': 'Drag Starts',
       'participant': 'Draggable',
       'color': Colors.lightBlue[500]!,
-      'detail':
-          'User presses and starts dragging. onDragStarted '
+      'detail': 'User presses and starts dragging. onDragStarted '
           'fires (no DraggableDetails yet). The feedback widget '
           'appears under the finger. childWhenDragging replaces '
           'the original widget.',
@@ -280,8 +264,7 @@ dynamic build(BuildContext context) {
       'label': 'Drag Moves',
       'participant': 'Framework',
       'color': Colors.lightBlue[600]!,
-      'detail':
-          'As the finger moves, the feedback follows. '
+      'detail': 'As the finger moves, the feedback follows. '
           'DragTargets receive onMove callbacks when the drag '
           'enters their hit-test area. Still no DraggableDetails.',
     },
@@ -290,8 +273,7 @@ dynamic build(BuildContext context) {
       'label': 'Over a Target',
       'participant': 'DragTarget',
       'color': Colors.green[500]!,
-      'detail':
-          'When the feedback overlaps a DragTarget, '
+      'detail': 'When the feedback overlaps a DragTarget, '
           'onWillAcceptWithDetails is called. The target returns '
           'true/false to indicate acceptance. This decision is '
           'stored for when the drag ends.',
@@ -301,8 +283,7 @@ dynamic build(BuildContext context) {
       'label': 'Drag Ends',
       'participant': 'Framework',
       'color': Colors.blue[700]!,
-      'detail':
-          'User lifts finger. Framework creates DraggableDetails '
+      'detail': 'User lifts finger. Framework creates DraggableDetails '
           'with wasAccepted (from step 3), the current Velocity, '
           'and the final Offset. If accepted, DragTarget.onAccept'
           'WithDetails fires with a DragTargetDetails.',
@@ -312,8 +293,7 @@ dynamic build(BuildContext context) {
       'label': 'onDragEnd Called',
       'participant': 'Draggable',
       'color': Colors.lightBlue[800]!,
-      'detail':
-          'Draggable.onDragEnd(DraggableDetails details) fires. '
+      'detail': 'Draggable.onDragEnd(DraggableDetails details) fires. '
           'Your callback receives the DraggableDetails. Use it to '
           'update state, trigger animations, log analytics, or '
           'decide what happens next.',
@@ -323,8 +303,7 @@ dynamic build(BuildContext context) {
       'label': 'Feedback Animates',
       'participant': 'Framework',
       'color': Colors.grey[600]!,
-      'detail':
-          'If wasAccepted is false, the feedback widget '
+      'detail': 'If wasAccepted is false, the feedback widget '
           'animates back to its origin position. If true, the '
           'feedback disappears and the target arranges the '
           'received data.',
@@ -346,8 +325,7 @@ dynamic build(BuildContext context) {
     },
     {
       'aspect': 'When created',
-      'draggableD':
-          'Every time a drag ends '
+      'draggableD': 'Every time a drag ends '
           '(accepted or rejected)',
       'targetD': 'Only when accepted',
     },
@@ -368,11 +346,9 @@ dynamic build(BuildContext context) {
     },
     {
       'aspect': 'Purpose',
-      'draggableD':
-          'Source decides what to do '
+      'draggableD': 'Source decides what to do '
           'after drag',
-      'targetD':
-          'Target receives and processes '
+      'targetD': 'Target receives and processes '
           'the dragged data',
     },
   ];
@@ -389,16 +365,14 @@ dynamic build(BuildContext context) {
       'name': 'Draggable<T>',
       'icon': Icons.open_with,
       'color': Colors.lightBlue[600]!,
-      'description':
-          'Base class. Starts dragging immediately on '
+      'description': 'Base class. Starts dragging immediately on '
           'pan gesture. Provides onDragEnd(DraggableDetails).',
     },
     {
       'name': 'LongPressDraggable<T>',
       'icon': Icons.touch_app,
       'color': Colors.indigo[500]!,
-      'description':
-          'Starts dragging only after a long press. '
+      'description': 'Starts dragging only after a long press. '
           'Also provides onDragEnd(DraggableDetails). Better for '
           'lists where scroll conflicts with drag.',
     },
@@ -406,8 +380,7 @@ dynamic build(BuildContext context) {
       'name': 'DragTarget<T>',
       'icon': Icons.crop_free,
       'color': Colors.green[600]!,
-      'description':
-          'The receiver. Uses onWillAcceptWithDetails '
+      'description': 'The receiver. Uses onWillAcceptWithDetails '
           'to decide, onAcceptWithDetails to process. Receives '
           'DragTargetDetails (not DraggableDetails).',
     },
@@ -415,8 +388,7 @@ dynamic build(BuildContext context) {
       'name': 'DraggableScrollableSheet',
       'icon': Icons.vertical_align_bottom,
       'color': Colors.purple[500]!,
-      'description':
-          'A different concept — a scrollable sheet that '
+      'description': 'A different concept — a scrollable sheet that '
           'can be dragged. Not related to drag-and-drop; does NOT '
           'produce DraggableDetails.',
     },
@@ -434,8 +406,7 @@ dynamic build(BuildContext context) {
       'title': 'Snap-Back Animation',
       'icon': Icons.undo,
       'color': Colors.lightBlue[600]!,
-      'body':
-          'When wasAccepted is false, use the offset to animate '
+      'body': 'When wasAccepted is false, use the offset to animate '
           'the item back to its original position. The default '
           'Draggable does this automatically, but custom feedback '
           'widgets may need manual animation using the offset.',
@@ -444,8 +415,7 @@ dynamic build(BuildContext context) {
       'title': 'Throw-to-Delete',
       'icon': Icons.delete_sweep,
       'color': Colors.red[500]!,
-      'body':
-          'Use velocity.pixelsPerSecond.distance to detect '
+      'body': 'Use velocity.pixelsPerSecond.distance to detect '
           'a fast fling. If the speed exceeds a threshold (e.g., '
           '1000 px/s), treat it as a "throw away" gesture and '
           'delete the item — even without a formal DragTarget.',
@@ -454,8 +424,7 @@ dynamic build(BuildContext context) {
       'title': 'Kanban Board',
       'icon': Icons.view_column,
       'color': Colors.blue[600]!,
-      'body':
-          'In a Kanban-style board, onDragEnd tells the source '
+      'body': 'In a Kanban-style board, onDragEnd tells the source '
           'column whether the card was accepted by another column. '
           'If wasAccepted is true, remove from source. If false, '
           'the card stays (user cancelled).',
@@ -464,8 +433,7 @@ dynamic build(BuildContext context) {
       'title': 'Reorderable Grid',
       'icon': Icons.grid_view,
       'color': Colors.teal[600]!,
-      'body':
-          'Combine wasAccepted + offset to determine the final '
+      'body': 'Combine wasAccepted + offset to determine the final '
           'grid position. If the drop was accepted, rearrange '
           'items. Use offset to calculate which cell the item '
           'landed in for smooth placement.',
@@ -474,8 +442,7 @@ dynamic build(BuildContext context) {
       'title': 'Analytics & Logging',
       'icon': Icons.analytics,
       'color': Colors.deepPurple[500]!,
-      'body':
-          'Log every DraggableDetails for UX analytics: how '
+      'body': 'Log every DraggableDetails for UX analytics: how '
           'often users drag successfully, average velocity, '
           'common drop locations. This data reveals interaction '
           'patterns and usability issues.',
@@ -493,8 +460,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'onDragEnd Fires for ALL Drags',
-      'body':
-          'Even if the drag was rejected or dropped in empty '
+      'body': 'Even if the drag was rejected or dropped in empty '
           'space, onDragEnd fires. Always check wasAccepted '
           'before taking acceptance-specific actions like '
           'removing the item from a list.',
@@ -503,8 +469,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Velocity Can Be Zero',
-      'body':
-          'If the user holds the drag still for a moment before '
+      'body': 'If the user holds the drag still for a moment before '
           'releasing, the velocity is Velocity.zero. Don\'t divide '
           'by velocity.pixelsPerSecond.distance without checking '
           'for zero first.',
@@ -513,8 +478,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Offset Is Global',
-      'body':
-          'DraggableDetails.offset is in the global screen '
+      'body': 'DraggableDetails.offset is in the global screen '
           'coordinate system (from top-left of screen). If you '
           'need local coordinates relative to a specific widget, '
           'use RenderBox.globalToLocal() to convert.',
@@ -523,8 +487,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'No Data Property',
-      'body':
-          'Unlike DragTargetDetails, DraggableDetails does '
+      'body': 'Unlike DragTargetDetails, DraggableDetails does '
           'NOT carry the data payload. The Draggable already '
           'knows its own data. If you need to reference it in '
           'onDragEnd, capture it in a closure or use the widget '
@@ -534,8 +497,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Feedback Widget Cleanup',
-      'body':
-          'After onDragEnd, the feedback widget is removed '
+      'body': 'After onDragEnd, the feedback widget is removed '
           'from the overlay. If your feedback widget manages '
           'resources (controllers, streams), dispose them in '
           'the widget\'s dispose method, not in onDragEnd.',
@@ -544,8 +506,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Combine with onDragCompleted',
-      'body':
-          'Draggable also has onDragCompleted (no parameters) '
+      'body': 'Draggable also has onDragCompleted (no parameters) '
           'that fires only when accepted. If you only need the '
           '"was it accepted?" signal without velocity/offset, '
           'use that simpler callback instead.',
@@ -618,94 +579,77 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _sectionHeading('1', 'What is DraggableDetails?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: card['accent'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+          ...conceptCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: card['accent'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          card['icon'] as IconData,
-                          color: card['accent'] as Color,
-                          size: 22,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(card['icon'] as IconData,
+                            color: card['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            card['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(card['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      card['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(card['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Properties ──
           _sectionHeading('2', 'The Three Properties'),
           SizedBox(height: 12),
-          ...properties.map(
-            (prop) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: prop['bgColor'] as Color,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: (prop['color'] as Color).withOpacity(0.4),
+          ...properties.map((prop) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: prop['bgColor'] as Color,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                        color: (prop['color'] as Color).withOpacity(0.4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
                         Container(
                           width: 36,
                           height: 36,
@@ -713,157 +657,118 @@ dynamic build(BuildContext context) {
                             color: prop['color'] as Color,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Icon(
-                            prop['icon'] as IconData,
-                            color: Colors.white,
-                            size: 20,
-                          ),
+                          child: Icon(prop['icon'] as IconData,
+                              color: Colors.white, size: 20),
                         ),
                         SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '.${prop['name']}',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'monospace',
-                                  color: prop['color'] as Color,
-                                ),
-                              ),
-                              Text(
-                                prop['type'] as String,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
+                              Text('.${prop['name']}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'monospace',
+                                      color: prop['color'] as Color)),
+                              Text(prop['type'] as String,
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: Colors.grey[600])),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      prop['description'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[800],
-                        height: 1.4,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        prop['example'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: Colors.grey[700],
-                          height: 1.4,
+                      ]),
+                      SizedBox(height: 10),
+                      Text(prop['description'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[800],
+                              height: 1.4)),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(6),
                         ),
+                        child: Text(prop['example'] as String,
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: Colors.grey[700],
+                                height: 1.4)),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 3: Outcome Scenarios ──
           _sectionHeading('3', 'Drag Outcome Scenarios'),
           SizedBox(height: 12),
-          ...outcomes.map(
-            (o) => Padding(
-              padding: EdgeInsets.only(bottom: 14),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: o['bgColor'] as Color,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: (o['color'] as Color).withOpacity(0.4),
+          ...outcomes.map((o) => Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: o['bgColor'] as Color,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                        color: (o['color'] as Color).withOpacity(0.4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          o['icon'] as IconData,
-                          color: o['color'] as Color,
-                          size: 22,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(o['icon'] as IconData,
+                            color: o['color'] as Color, size: 22),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            o['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(o['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                      children: [
-                        _detailChip(
-                          'accepted',
-                          '${o['wasAccepted']}',
-                          (o['wasAccepted'] as bool)
-                              ? Colors.green[600]!
-                              : Colors.red[500]!,
-                        ),
+                      ]),
+                      SizedBox(height: 8),
+                      Row(children: [
+                        _detailChip('accepted', '${o['wasAccepted']}',
+                            (o['wasAccepted'] as bool)
+                                ? Colors.green[600]!
+                                : Colors.red[500]!),
                         SizedBox(width: 6),
                         _detailChip(
-                          'velocity',
-                          o['velocityLabel'] as String,
-                          Colors.blue[500]!,
-                        ),
+                            'velocity',
+                            o['velocityLabel'] as String,
+                            Colors.blue[500]!),
                         SizedBox(width: 6),
                         _detailChip(
-                          'offset',
-                          o['offsetLabel'] as String,
-                          Colors.grey[600]!,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      o['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                            'offset',
+                            o['offsetLabel'] as String,
+                            Colors.grey[600]!),
+                      ]),
+                      SizedBox(height: 10),
+                      Text(o['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -875,37 +780,30 @@ dynamic build(BuildContext context) {
             'and dy (vertical) components. The total speed is '
             'the distance: sqrt(dx² + dy²).',
             style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[600],
-              height: 1.5,
-            ),
+                fontSize: 13, color: Colors.grey[600], height: 1.5),
           ),
           SizedBox(height: 12),
-          ...velocityExamples.map(
-            (ve) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: (ve['color'] as Color).withOpacity(0.3),
+          ...velocityExamples.map((ve) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: (ve['color'] as Color).withOpacity(0.3)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
                         Container(
                           width: 10,
                           height: 10,
@@ -915,75 +813,62 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         SizedBox(width: 8),
-                        Text(
-                          ve['label'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
+                        Text(ve['label'] as String,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13)),
                         Spacer(),
                         Text(
                           'dx=${(ve['dx'] as double).toStringAsFixed(0)}, '
                           'dy=${(ve['dy'] as double).toStringAsFixed(0)} '
                           '→ ${ve['speed']}',
                           style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: Colors.grey[600],
-                          ),
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: Colors.grey[600]),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      height: 14,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      child: FractionallySizedBox(
-                        alignment: Alignment.centerLeft,
-                        widthFactor: (ve['barFraction'] as double).clamp(
-                          0.02,
-                          1.0,
+                      ]),
+                      SizedBox(height: 8),
+                      Container(
+                        height: 14,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(7),
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                (ve['color'] as Color).withOpacity(0.6),
-                                ve['color'] as Color,
-                              ],
+                        child: FractionallySizedBox(
+                          alignment: Alignment.centerLeft,
+                          widthFactor:
+                              (ve['barFraction'] as double).clamp(0.02, 1.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  (ve['color'] as Color).withOpacity(0.6),
+                                  ve['color'] as Color,
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(7),
                             ),
-                            borderRadius: BorderRadius.circular(7),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: Lifecycle ──
-          _sectionHeading(
-            '5',
-            'Drag Lifecycle — When DraggableDetails Appears',
-          ),
+          _sectionHeading('5', 'Drag Lifecycle — When DraggableDetails Appears'),
           SizedBox(height: 12),
-          ...lifecycleSteps.map(
-            (step) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
+          ...lifecycleSteps.map((step) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(children: [
                       Container(
                         width: 32,
                         height: 32,
@@ -992,86 +877,67 @@ dynamic build(BuildContext context) {
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: Text(
-                            step['step'] as String,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                          ),
+                          child: Text(step['step'] as String,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
                         ),
                       ),
-                      Container(width: 2, height: 28, color: Colors.grey[300]),
-                    ],
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 2,
-                            offset: Offset(0, 1),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                step['label'] as String,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                ),
-                              ),
+                      Container(
+                          width: 2, height: 28, color: Colors.grey[300]),
+                    ]),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 2,
+                                offset: Offset(0, 1))
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(children: [
+                              Text(step['label'] as String,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13)),
                               Spacer(),
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
-                                ),
+                                    horizontal: 8, vertical: 2),
                                 decoration: BoxDecoration(
-                                  color: (step['color'] as Color).withOpacity(
-                                    0.15,
-                                  ),
+                                  color: (step['color'] as Color)
+                                      .withOpacity(0.15),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Text(
-                                  step['participant'] as String,
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: step['color'] as Color,
-                                  ),
-                                ),
+                                child: Text(step['participant'] as String,
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        color: step['color'] as Color)),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            step['detail'] as String,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
+                            ]),
+                            SizedBox(height: 6),
+                            Text(step['detail'] as String,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                    height: 1.4)),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1085,59 +951,45 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlue[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
+            child: Column(children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue[700],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
+                ),
+                child: Row(children: [
+                  _tCell('Aspect', bold: true, white: true, flex: 2),
+                  _tCell('DraggableDetails', bold: true, white: true, flex: 3),
+                  _tCell('DragTargetDetails', bold: true, white: true, flex: 3),
+                ]),
+              ),
+              ...comparison.asMap().entries.map((entry) {
+                final idx = entry.key;
+                final row = entry.value;
+                return Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _tCell('Aspect', bold: true, white: true, flex: 2),
-                      _tCell(
-                        'DraggableDetails',
-                        bold: true,
-                        white: true,
-                        flex: 3,
-                      ),
-                      _tCell(
-                        'DragTargetDetails',
-                        bold: true,
-                        white: true,
-                        flex: 3,
-                      ),
+                      _tCell(row['aspect']!, bold: true, flex: 2),
+                      _tCell(row['draggableD']!, flex: 3),
+                      _tCell(row['targetD']!, flex: 3),
                     ],
                   ),
-                ),
-                ...comparison.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final row = entry.value;
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    color: idx.isEven ? Colors.grey[50] : Colors.white,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _tCell(row['aspect']!, bold: true, flex: 2),
-                        _tCell(row['draggableD']!, flex: 3),
-                        _tCell(row['targetD']!, flex: 3),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ),
+                );
+              }),
+            ]),
           ),
 
           SizedBox(height: 24),
@@ -1145,134 +997,110 @@ dynamic build(BuildContext context) {
           // ── Section 7: Draggable Family ──
           _sectionHeading('7', 'The Draggable / DragTarget Family'),
           SizedBox(height: 12),
-          ...family.map(
-            (f) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: f['color'] as Color, width: 4),
+          ...family.map((f) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: f['color'] as Color, width: 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: (f['color'] as Color).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(f['icon'] as IconData,
+                            color: f['color'] as Color, size: 22),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(f['name'] as String,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    fontFamily: 'monospace')),
+                            SizedBox(height: 4),
+                            Text(f['description'] as String,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                    height: 1.4)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: (f['color'] as Color).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Icon(
-                        f['icon'] as IconData,
-                        color: f['color'] as Color,
-                        size: 22,
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            f['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFamily: 'monospace',
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            f['description'] as String,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 8: Real-World Patterns ──
           _sectionHeading('8', 'Real-World Patterns'),
           SizedBox(height: 12),
-          ...patterns.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
+          ...patterns.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          p['icon'] as IconData,
-                          color: p['color'] as Color,
-                          size: 20,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(p['icon'] as IconData,
+                            color: p['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            p['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(p['title'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      p['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(p['body'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1304,41 +1132,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1379,26 +1195,20 @@ Widget _sectionHeading(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1407,12 +1217,8 @@ Widget _sectionHeading(String number, String title) {
 // ──────────────────────────────────────────────────────────
 // Helper: Table cell
 // ──────────────────────────────────────────────────────────
-Widget _tCell(
-  String text, {
-  bool bold = false,
-  bool white = false,
-  int flex = 1,
-}) {
+Widget _tCell(String text,
+    {bool bold = false, bool white = false, int flex = 1}) {
   return Expanded(
     flex: flex,
     child: Text(

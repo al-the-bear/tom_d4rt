@@ -71,10 +71,7 @@ class _GlowLabPageState extends State<_GlowLabPage> {
               const SizedBox(height: 2),
               Text(
                 'Axis: ${config.axisDirection.name} | Leading: ${config.showLeading} | Trailing: ${config.showTrailing}',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -92,14 +89,10 @@ class _GlowLabPageState extends State<_GlowLabPage> {
                 onCompactChanged: (value) => setState(() => _compact = value),
                 onShowGridChanged: (value) => setState(() => _showGrid = value),
                 onRtlChanged: (value) => setState(() => _rtl = value),
-                onAxisDirectionChanged: (value) =>
-                    setState(() => _axisDirection = value),
-                onShowLeadingChanged: (value) =>
-                    setState(() => _showLeading = value),
-                onShowTrailingChanged: (value) =>
-                    setState(() => _showTrailing = value),
-                onGlowColorChanged: (value) =>
-                    setState(() => _glowColor = value),
+                onAxisDirectionChanged: (value) => setState(() => _axisDirection = value),
+                onShowLeadingChanged: (value) => setState(() => _showLeading = value),
+                onShowTrailingChanged: (value) => setState(() => _showTrailing = value),
+                onGlowColorChanged: (value) => setState(() => _glowColor = value),
               ),
               const SizedBox(height: 12),
               const _SceneCard(
@@ -234,11 +227,7 @@ class _HeroControlDeck extends StatelessWidget {
           children: [
             const Text(
               'Glow Control Deck',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 28,
-              ),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 28),
             ),
             const SizedBox(height: 6),
             const Text(
@@ -252,13 +241,7 @@ class _HeroControlDeck extends StatelessWidget {
                   child: SwitchListTile(
                     contentPadding: EdgeInsets.zero,
                     dense: true,
-                    title: const Text(
-                      'Compact layout',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    title: const Text('Compact layout', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                     value: compact,
                     onChanged: onCompactChanged,
                   ),
@@ -267,13 +250,7 @@ class _HeroControlDeck extends StatelessWidget {
                   child: SwitchListTile(
                     contentPadding: EdgeInsets.zero,
                     dense: true,
-                    title: const Text(
-                      'Guide grid',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    title: const Text('Guide grid', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                     value: showGrid,
                     onChanged: onShowGridChanged,
                   ),
@@ -282,13 +259,7 @@ class _HeroControlDeck extends StatelessWidget {
                   child: SwitchListTile(
                     contentPadding: EdgeInsets.zero,
                     dense: true,
-                    title: const Text(
-                      'RTL',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    title: const Text('RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                     value: rtl,
                     onChanged: onRtlChanged,
                   ),
@@ -312,13 +283,7 @@ class _HeroControlDeck extends StatelessWidget {
                         child: SwitchListTile(
                           contentPadding: EdgeInsets.zero,
                           dense: true,
-                          title: const Text(
-                            'Show leading',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          title: const Text('Show leading', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                           value: config.showLeading,
                           onChanged: onShowLeadingChanged,
                         ),
@@ -327,13 +292,7 @@ class _HeroControlDeck extends StatelessWidget {
                         child: SwitchListTile(
                           contentPadding: EdgeInsets.zero,
                           dense: true,
-                          title: const Text(
-                            'Show trailing',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          title: const Text('Show trailing', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                           value: config.showTrailing,
                           onChanged: onShowTrailingChanged,
                         ),
@@ -358,9 +317,7 @@ class _HeroControlDeck extends StatelessWidget {
                           color: entry,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: config.glowColor == entry
-                                ? Colors.white
-                                : Colors.white.withValues(alpha: 0.35),
+                            color: config.glowColor == entry ? Colors.white : Colors.white.withValues(alpha: 0.35),
                             width: config.glowColor == entry ? 2.5 : 1,
                           ),
                         ),
@@ -398,10 +355,7 @@ class _AxisDirectionField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Axis Direction',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
-        ),
+        const Text('Axis Direction', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
         const SizedBox(height: 6),
         DecoratedBox(
           decoration: BoxDecoration(
@@ -420,10 +374,7 @@ class _AxisDirectionField extends StatelessWidget {
                   .map(
                     (entry) => DropdownMenuItem<AxisDirection>(
                       value: entry,
-                      child: Text(
-                        entry.name,
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                      child: Text(entry.name, style: const TextStyle(color: Colors.white)),
                     ),
                   )
                   .toList(),
@@ -455,14 +406,7 @@ class _HeroTag extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        child: Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
       ),
     );
   }
@@ -509,32 +453,16 @@ class _SceneCard extends StatelessWidget {
                   radius: 14,
                   backgroundColor: accent,
                   foregroundColor: Colors.white,
-                  child: Text(
-                    '$index',
-                    style: const TextStyle(fontWeight: FontWeight.w800),
-                  ),
+                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: accent,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
+                      Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 18)),
                       const SizedBox(height: 3),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(
-                          height: 1.38,
-                          color: Color(0xFF2E3D49),
-                        ),
-                      ),
+                      Text(subtitle, style: const TextStyle(height: 1.38, color: Color(0xFF2E3D49))),
                     ],
                   ),
                 ),
@@ -557,10 +485,7 @@ class _ConceptScene extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Key mechanics',
-          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-        ),
+        const Text('Key mechanics', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
         const SizedBox(height: 8),
         const Text(
           'GlowingOverscrollIndicator listens to ScrollNotifications and paints glow overlays for overscroll. It dispatches OverscrollIndicatorNotification before painting, giving you a hook to disallow painting or offset it.',
@@ -578,26 +503,11 @@ class _ConceptScene extends StatelessWidget {
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Bullet(
-                text:
-                    'showLeading controls the side with negative scroll offsets.',
-              ),
-              _Bullet(
-                text:
-                    'showTrailing controls the side with positive scroll offsets.',
-              ),
-              _Bullet(
-                text:
-                    'axisDirection decides which edge is considered leading/trailing.',
-              ),
-              _Bullet(
-                text:
-                    'notificationPredicate defaults to depth == 0, useful to override in nested layouts.',
-              ),
-              _Bullet(
-                text:
-                    'color alpha channel is ignored; use visible RGB tones for clear demos.',
-              ),
+              _Bullet(text: 'showLeading controls the side with negative scroll offsets.'),
+              _Bullet(text: 'showTrailing controls the side with positive scroll offsets.'),
+              _Bullet(text: 'axisDirection decides which edge is considered leading/trailing.'),
+              _Bullet(text: 'notificationPredicate defaults to depth == 0, useful to override in nested layouts.'),
+              _Bullet(text: 'color alpha channel is ignored; use visible RGB tones for clear demos.'),
             ],
           ),
         ),
@@ -643,10 +553,7 @@ class _BaselineDualSceneState extends State<_BaselineDualScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Vertical feed',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                    const Text('Vertical feed', style: TextStyle(fontWeight: FontWeight.w800)),
                     const SizedBox(height: 8),
                     Expanded(
                       child: GlowingOverscrollIndicator(
@@ -663,17 +570,11 @@ class _BaselineDualSceneState extends State<_BaselineDualScene> {
                               margin: const EdgeInsets.only(bottom: 8),
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: index.isEven
-                                    ? const Color(0xFFEAF3FB)
-                                    : const Color(0xFFF7EEF2),
+                                color: index.isEven ? const Color(0xFFEAF3FB) : const Color(0xFFF7EEF2),
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: const Color(0xFFD2DFEC),
-                                ),
+                                border: Border.all(color: const Color(0xFFD2DFEC)),
                               ),
-                              child: Text(
-                                'Feed item ${index + 1}: drag past top/bottom to trigger glow.',
-                              ),
+                              child: Text('Feed item ${index + 1}: drag past top/bottom to trigger glow.'),
                             );
                           },
                         ),
@@ -693,10 +594,7 @@ class _BaselineDualSceneState extends State<_BaselineDualScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Horizontal tray',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
+                    const Text('Horizontal tray', style: TextStyle(fontWeight: FontWeight.w800)),
                     const SizedBox(height: 8),
                     Expanded(
                       child: GlowingOverscrollIndicator(
@@ -716,28 +614,20 @@ class _BaselineDualSceneState extends State<_BaselineDualScene> {
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
-                                    index.isEven
-                                        ? const Color(0xFFDDEDFB)
-                                        : const Color(0xFFF7E4EC),
-                                    index.isEven
-                                        ? const Color(0xFFC1DAEE)
-                                        : const Color(0xFFEDCDD9),
+                                    index.isEven ? const Color(0xFFDDEDFB) : const Color(0xFFF7E4EC),
+                                    index.isEven ? const Color(0xFFC1DAEE) : const Color(0xFFEDCDD9),
                                   ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: const Color(0xFFCCD9E8),
-                                ),
+                                border: Border.all(color: const Color(0xFFCCD9E8)),
                               ),
                               padding: const EdgeInsets.all(10),
                               child: Center(
                                 child: Text(
                                   'Card ${index + 1}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: const TextStyle(fontWeight: FontWeight.w700),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -763,8 +653,7 @@ class _NotificationControlScene extends StatefulWidget {
   final _DemoConfig config;
 
   @override
-  State<_NotificationControlScene> createState() =>
-      _NotificationControlSceneState();
+  State<_NotificationControlScene> createState() => _NotificationControlSceneState();
 }
 
 class _NotificationControlSceneState extends State<_NotificationControlScene> {
@@ -775,10 +664,7 @@ class _NotificationControlSceneState extends State<_NotificationControlScene> {
 
   void _push(String event) {
     setState(() {
-      _log.insert(
-        0,
-        '${DateTime.now().toIso8601String().substring(11, 19)} | $event',
-      );
+      _log.insert(0, '${DateTime.now().toIso8601String().substring(11, 19)} | $event');
       if (_log.length > 14) {
         _log.removeRange(14, _log.length);
       }
@@ -815,10 +701,7 @@ class _NotificationControlSceneState extends State<_NotificationControlScene> {
           ],
         ),
         const SizedBox(height: 8),
-        Text(
-          'Paint offset: ${_paintOffset.toStringAsFixed(0)}',
-          style: const TextStyle(fontWeight: FontWeight.w700),
-        ),
+        Text('Paint offset: ${_paintOffset.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w700)),
         Slider(
           value: _paintOffset,
           min: 0,
@@ -844,16 +727,11 @@ class _NotificationControlSceneState extends State<_NotificationControlScene> {
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         decoration: const BoxDecoration(
                           color: Color(0xFF15374E),
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(8),
-                          ),
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
                         ),
                         child: const Text(
                           'Header-safe glow target (offset adjusts where glow paints)',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                         ),
                       ),
                       Expanded(
@@ -861,16 +739,11 @@ class _NotificationControlSceneState extends State<_NotificationControlScene> {
                           onNotification: (notification) {
                             notification.paintOffset = _paintOffset;
                             final bool leading = notification.leading;
-                            if ((leading && _blockLeading) ||
-                                (!leading && _blockTrailing)) {
+                            if ((leading && _blockLeading) || (!leading && _blockTrailing)) {
                               notification.disallowIndicator();
-                              _push(
-                                'disallowIndicator side=${leading ? 'leading' : 'trailing'}',
-                              );
+                              _push('disallowIndicator side=${leading ? 'leading' : 'trailing'}');
                             } else {
-                              _push(
-                                'allow side=${leading ? 'leading' : 'trailing'} offset=${_paintOffset.toStringAsFixed(0)}',
-                              );
+                              _push('allow side=${leading ? 'leading' : 'trailing'} offset=${_paintOffset.toStringAsFixed(0)}');
                             }
                             return false;
                           },
@@ -884,21 +757,14 @@ class _NotificationControlSceneState extends State<_NotificationControlScene> {
                               itemCount: 20,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 4,
-                                  ),
+                                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                   padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     color: const Color(0xFFEFF5FA),
                                     borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      color: const Color(0xFFD4DFEA),
-                                    ),
+                                    border: Border.all(color: const Color(0xFFD4DFEA)),
                                   ),
-                                  child: Text(
-                                    'Notification lab row ${index + 1}',
-                                  ),
+                                  child: Text('Notification lab row ${index + 1}'),
                                 );
                               },
                             ),
@@ -910,9 +776,7 @@ class _NotificationControlSceneState extends State<_NotificationControlScene> {
                 ),
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: _EventLog(title: 'Notification log', events: _log),
-              ),
+              Expanded(child: _EventLog(title: 'Notification log', events: _log)),
             ],
           ),
         ),
@@ -943,10 +807,7 @@ class _NestedDepthSceneState extends State<_NestedDepthScene> {
 
   void _push(String message) {
     setState(() {
-      _events.insert(
-        0,
-        '${DateTime.now().toIso8601String().substring(11, 19)} | $message',
-      );
+      _events.insert(0, '${DateTime.now().toIso8601String().substring(11, 19)} | $message');
       if (_events.length > 16) {
         _events.removeRange(16, _events.length);
       }
@@ -1015,9 +876,7 @@ class _NestedDepthSceneState extends State<_NestedDepthScene> {
                         const SizedBox(height: 10),
                         NotificationListener<ScrollNotification>(
                           onNotification: (notification) {
-                            _push(
-                              'ScrollNotification depth=${notification.depth} type=${notification.runtimeType}',
-                            );
+                            _push('ScrollNotification depth=${notification.depth} type=${notification.runtimeType}');
                             return false;
                           },
                           child: Container(
@@ -1026,9 +885,7 @@ class _NestedDepthSceneState extends State<_NestedDepthScene> {
                             decoration: BoxDecoration(
                               color: const Color(0xFFFDF3F7),
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: const Color(0xFFE5C8D4),
-                              ),
+                              border: Border.all(color: const Color(0xFFE5C8D4)),
                             ),
                             child: ListView.builder(
                               physics: const AlwaysScrollableScrollPhysics(),
@@ -1040,9 +897,7 @@ class _NestedDepthSceneState extends State<_NestedDepthScene> {
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                      color: const Color(0xFFDCD9E6),
-                                    ),
+                                    border: Border.all(color: const Color(0xFFDCD9E6)),
                                   ),
                                   child: Text('Nested lane ${index + 1}'),
                                 );
@@ -1058,9 +913,7 @@ class _NestedDepthSceneState extends State<_NestedDepthScene> {
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: const Color(0xFFD5E5D5)),
                           ),
-                          child: const Text(
-                            'Continue dragging outer content for depth 0 overscroll at top/bottom.',
-                          ),
+                          child: const Text('Continue dragging outer content for depth 0 overscroll at top/bottom.'),
                         ),
                       ],
                     ),
@@ -1068,9 +921,7 @@ class _NestedDepthSceneState extends State<_NestedDepthScene> {
                 ),
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: _EventLog(title: 'Depth trace', events: _events),
-              ),
+              Expanded(child: _EventLog(title: 'Depth trace', events: _events)),
             ],
           ),
         ),
@@ -1087,26 +938,10 @@ class _AxisDirectionMatrixScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cells = <_AxisCellSpec>[
-      const _AxisCellSpec(
-        axisDirection: AxisDirection.down,
-        title: 'down',
-        hint: 'leading=top, trailing=bottom',
-      ),
-      const _AxisCellSpec(
-        axisDirection: AxisDirection.up,
-        title: 'up',
-        hint: 'leading=bottom, trailing=top',
-      ),
-      const _AxisCellSpec(
-        axisDirection: AxisDirection.right,
-        title: 'right',
-        hint: 'leading=left, trailing=right',
-      ),
-      const _AxisCellSpec(
-        axisDirection: AxisDirection.left,
-        title: 'left',
-        hint: 'leading=right, trailing=left',
-      ),
+      const _AxisCellSpec(axisDirection: AxisDirection.down, title: 'down', hint: 'leading=top, trailing=bottom'),
+      const _AxisCellSpec(axisDirection: AxisDirection.up, title: 'up', hint: 'leading=bottom, trailing=top'),
+      const _AxisCellSpec(axisDirection: AxisDirection.right, title: 'right', hint: 'leading=left, trailing=right'),
+      const _AxisCellSpec(axisDirection: AxisDirection.left, title: 'left', hint: 'leading=right, trailing=left'),
     ];
 
     return SizedBox(
@@ -1130,11 +965,7 @@ class _AxisDirectionMatrixScene extends StatelessWidget {
 }
 
 class _AxisCellSpec {
-  const _AxisCellSpec({
-    required this.axisDirection,
-    required this.title,
-    required this.hint,
-  });
+  const _AxisCellSpec({required this.axisDirection, required this.title, required this.hint});
 
   final AxisDirection axisDirection;
   final String title;
@@ -1164,13 +995,9 @@ class _AxisCellState extends State<_AxisCell> {
   Widget build(BuildContext context) {
     final config = widget.config;
 
-    final bool horizontal =
-        widget.spec.axisDirection == AxisDirection.left ||
-        widget.spec.axisDirection == AxisDirection.right;
+    final bool horizontal = widget.spec.axisDirection == AxisDirection.left || widget.spec.axisDirection == AxisDirection.right;
     final Axis scrollAxis = horizontal ? Axis.horizontal : Axis.vertical;
-    final bool reverse =
-        widget.spec.axisDirection == AxisDirection.up ||
-        widget.spec.axisDirection == AxisDirection.left;
+    final bool reverse = widget.spec.axisDirection == AxisDirection.up || widget.spec.axisDirection == AxisDirection.left;
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -1182,14 +1009,8 @@ class _AxisCellState extends State<_AxisCell> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              widget.spec.title,
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
-            ),
-            Text(
-              widget.spec.hint,
-              style: const TextStyle(fontSize: 12, color: Color(0xFF586A79)),
-            ),
+            Text(widget.spec.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
+            Text(widget.spec.hint, style: const TextStyle(fontSize: 12, color: Color(0xFF586A79))),
             const SizedBox(height: 6),
             Expanded(
               child: _GuideStage(
@@ -1211,9 +1032,7 @@ class _AxisCellState extends State<_AxisCell> {
                           width: 82,
                           margin: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: index.isEven
-                                ? const Color(0xFFE8F1FB)
-                                : const Color(0xFFF8EAF0),
+                            color: index.isEven ? const Color(0xFFE8F1FB) : const Color(0xFFF8EAF0),
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: const Color(0xFFD3DFEB)),
                           ),
@@ -1225,9 +1044,7 @@ class _AxisCellState extends State<_AxisCell> {
                         height: 44,
                         margin: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: index.isEven
-                              ? const Color(0xFFE8F1FB)
-                              : const Color(0xFFF8EAF0),
+                          color: index.isEven ? const Color(0xFFE8F1FB) : const Color(0xFFF8EAF0),
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: const Color(0xFFD3DFEB)),
                         ),
@@ -1253,44 +1070,23 @@ class _PracticalCompositionScene extends StatefulWidget {
   final _DemoConfig config;
 
   @override
-  State<_PracticalCompositionScene> createState() =>
-      _PracticalCompositionSceneState();
+  State<_PracticalCompositionScene> createState() => _PracticalCompositionSceneState();
 }
 
-class _PracticalCompositionSceneState
-    extends State<_PracticalCompositionScene> {
+class _PracticalCompositionSceneState extends State<_PracticalCompositionScene> {
   int _selectedTab = 0;
   final List<String> _events = <String>[];
 
   final List<_FeedCardData> _cards = const [
-    _FeedCardData(
-      'Ops Health',
-      'Live system cards with vertical scroll emphasis.',
-      _ink,
-    ),
-    _FeedCardData(
-      'Sales Trail',
-      'Horizontal momentum cards with edge constraints.',
-      _sun,
-    ),
-    _FeedCardData(
-      'Creative Queue',
-      'Nested lane interactions and callback diagnostics.',
-      _berry,
-    ),
-    _FeedCardData(
-      'Fulfillment',
-      'Practical mixed dashboard with readable glow controls.',
-      _mint,
-    ),
+    _FeedCardData('Ops Health', 'Live system cards with vertical scroll emphasis.', _ink),
+    _FeedCardData('Sales Trail', 'Horizontal momentum cards with edge constraints.', _sun),
+    _FeedCardData('Creative Queue', 'Nested lane interactions and callback diagnostics.', _berry),
+    _FeedCardData('Fulfillment', 'Practical mixed dashboard with readable glow controls.', _mint),
   ];
 
   void _push(String event) {
     setState(() {
-      _events.insert(
-        0,
-        '${DateTime.now().toIso8601String().substring(11, 19)} | $event',
-      );
+      _events.insert(0, '${DateTime.now().toIso8601String().substring(11, 19)} | $event');
       if (_events.length > 16) {
         _events.removeRange(16, _events.length);
       }
@@ -1321,8 +1117,7 @@ class _PracticalCompositionSceneState
                         (index) => ChoiceChip(
                           selected: _selectedTab == index,
                           label: Text(_cards[index].title),
-                          onSelected: (_) =>
-                              setState(() => _selectedTab = index),
+                          onSelected: (_) => setState(() => _selectedTab = index),
                         ),
                       ),
                     ),
@@ -1333,17 +1128,9 @@ class _PracticalCompositionSceneState
                       decoration: BoxDecoration(
                         color: card.color.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: card.color.withValues(alpha: 0.35),
-                        ),
+                        border: Border.all(color: card.color.withValues(alpha: 0.35)),
                       ),
-                      child: Text(
-                        card.detail,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          height: 1.35,
-                        ),
-                      ),
+                      child: Text(card.detail, style: const TextStyle(fontWeight: FontWeight.w700, height: 1.35)),
                     ),
                     const SizedBox(height: 8),
                     Expanded(
@@ -1352,15 +1139,10 @@ class _PracticalCompositionSceneState
                           Expanded(
                             child: NotificationListener<OverscrollIndicatorNotification>(
                               onNotification: (notification) {
-                                _push(
-                                  'Left lane side=${notification.leading ? 'leading' : 'trailing'} depth=${notification.depth}',
-                                );
-                                if (!notification.leading &&
-                                    _selectedTab == 2) {
+                                _push('Left lane side=${notification.leading ? 'leading' : 'trailing'} depth=${notification.depth}');
+                                if (!notification.leading && _selectedTab == 2) {
                                   notification.disallowIndicator();
-                                  _push(
-                                    'Left lane trailing glow blocked for Creative Queue',
-                                  );
+                                  _push('Left lane trailing glow blocked for Creative Queue');
                                 }
                                 return false;
                               },
@@ -1370,8 +1152,7 @@ class _PracticalCompositionSceneState
                                 showLeading: true,
                                 showTrailing: true,
                                 child: ListView.builder(
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
+                                  physics: const AlwaysScrollableScrollPhysics(),
                                   itemCount: 18,
                                   itemBuilder: (context, index) {
                                     return Container(
@@ -1380,13 +1161,9 @@ class _PracticalCompositionSceneState
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          color: const Color(0xFFD8E1EA),
-                                        ),
+                                        border: Border.all(color: const Color(0xFFD8E1EA)),
                                       ),
-                                      child: Text(
-                                        '${card.title} detail row ${index + 1}',
-                                      ),
+                                      child: Text('${card.title} detail row ${index + 1}'),
                                     );
                                   },
                                 ),
@@ -1404,8 +1181,7 @@ class _PracticalCompositionSceneState
                                 scrollDirection: Axis.horizontal,
                                 physics: const AlwaysScrollableScrollPhysics(),
                                 itemCount: 12,
-                                separatorBuilder: (_, _) =>
-                                    const SizedBox(width: 8),
+                                separatorBuilder: (_, _) => const SizedBox(width: 8),
                                 itemBuilder: (context, index) {
                                   return Container(
                                     width: 110,
@@ -1420,32 +1196,16 @@ class _PracticalCompositionSceneState
                                         end: Alignment.bottomRight,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: card.color.withValues(
-                                          alpha: 0.35,
-                                        ),
-                                      ),
+                                      border: Border.all(color: card.color.withValues(alpha: 0.35)),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
+                                        Text('Tile ${index + 1}', style: const TextStyle(fontWeight: FontWeight.w700)),
                                         Text(
-                                          'Tile ${index + 1}',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        Text(
-                                          _selectedTab == 1
-                                              ? 'Leading hidden in this tab'
-                                              : 'Both sides allowed',
-                                          style: const TextStyle(
-                                            fontSize: 11,
-                                            color: Color(0xFF4D5E6D),
-                                          ),
+                                          _selectedTab == 1 ? 'Leading hidden in this tab' : 'Both sides allowed',
+                                          style: const TextStyle(fontSize: 11, color: Color(0xFF4D5E6D)),
                                         ),
                                       ],
                                     ),
@@ -1463,12 +1223,7 @@ class _PracticalCompositionSceneState
             ),
           ),
           const SizedBox(width: 10),
-          Expanded(
-            child: _EventLog(
-              title: 'Practical composition log',
-              events: _events,
-            ),
-          ),
+          Expanded(child: _EventLog(title: 'Practical composition log', events: _events)),
         ],
       ),
     );
@@ -1531,11 +1286,7 @@ class _GridPainter extends CustomPainter {
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({
-    required this.label,
-    required this.color,
-    required this.onPressed,
-  });
+  const _ActionButton({required this.label, required this.color, required this.onPressed});
 
   final String label;
   final Color color;
@@ -1544,10 +1295,7 @@ class _ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FilledButton(
-      style: FilledButton.styleFrom(
-        backgroundColor: color,
-        foregroundColor: Colors.white,
-      ),
+      style: FilledButton.styleFrom(backgroundColor: color, foregroundColor: Colors.white),
       onPressed: onPressed,
       child: Text(label),
     );
@@ -1576,18 +1324,12 @@ class _EventLog extends StatelessWidget {
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
           if (events.isEmpty)
-            const Text(
-              'No events captured yet.',
-              style: TextStyle(color: Color(0xFF5D7082)),
-            )
+            const Text('No events captured yet.', style: TextStyle(color: Color(0xFF5D7082)))
           else
             ...events.map(
               (entry) => Padding(
                 padding: const EdgeInsets.only(bottom: 3),
-                child: Text(
-                  entry,
-                  style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
-                ),
+                child: Text(entry, style: const TextStyle(fontSize: 12, fontFamily: 'monospace')),
               ),
             ),
         ],
@@ -1636,11 +1378,7 @@ class _RecapPanel extends StatelessWidget {
         children: [
           Text(
             'Recap',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18),
           ),
           SizedBox(height: 8),
           Text(

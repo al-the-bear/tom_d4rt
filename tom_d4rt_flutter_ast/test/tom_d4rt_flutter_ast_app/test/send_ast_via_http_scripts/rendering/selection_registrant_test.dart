@@ -52,7 +52,9 @@ Widget _srSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_srViolet, _srDarkViolet]),
+      gradient: LinearGradient(
+        colors: [_srViolet, _srDarkViolet],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,8 +268,7 @@ Widget _srPropertyRow(String name, String type, String desc) {
     child: Row(
       children: [
         Container(
-          width: 6,
-          height: 6,
+          width: 6, height: 6,
           decoration: const BoxDecoration(
             color: _srViolet,
             shape: BoxShape.circle,
@@ -300,7 +301,10 @@ Widget _srPropertyRow(String name, String type, String desc) {
         Expanded(
           child: Text(
             desc,
-            style: const TextStyle(color: _srCharcoal, fontSize: 11),
+            style: const TextStyle(
+              color: _srCharcoal,
+              fontSize: 11,
+            ),
           ),
         ),
       ],
@@ -400,10 +404,7 @@ Widget _srBuildProtocol() {
                     children: [
                       const Icon(Icons.arrow_forward, color: _srPlum, size: 20),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: _srPlum.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
@@ -420,10 +421,7 @@ Widget _srBuildProtocol() {
                       const SizedBox(height: 4),
                       const Icon(Icons.arrow_back, color: _srOrange, size: 20),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: _srOrange.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
@@ -451,11 +449,7 @@ Widget _srBuildProtocol() {
                     ),
                     child: Column(
                       children: [
-                        const Icon(
-                          Icons.app_registration,
-                          color: _srViolet,
-                          size: 28,
-                        ),
+                        const Icon(Icons.app_registration, color: _srViolet, size: 28),
                         const SizedBox(height: 6),
                         const Text(
                           'SelectionRegistrant',
@@ -543,7 +537,7 @@ Widget _srBuildLifecycle() {
               'Registered',
               'registrarA.add(this)',
               'Object is now part of the selection tree.  '
-                  'SelectableRegion can see it.',
+              'SelectableRegion can see it.',
               _srMint,
               Icons.check_circle,
             ),
@@ -552,7 +546,7 @@ Widget _srBuildLifecycle() {
               'Re-registered',
               'registrarA.remove(this)\nregistrarB.add(this)',
               'Old registrar is cleaned up, new one takes over.  '
-                  'This can happen during reparenting.',
+              'This can happen during reparenting.',
               _srBlue,
               Icons.swap_horiz,
             ),
@@ -561,7 +555,7 @@ Widget _srBuildLifecycle() {
               'Unregistered',
               'registrarB.remove(this)',
               'Object is removed from the selection tree.  '
-                  'No more selection events will reach it.',
+              'No more selection events will reach it.',
               _srOrange,
               Icons.cancel,
             ),
@@ -589,13 +583,7 @@ Widget _srBuildLifecycle() {
   );
 }
 
-Widget _srLifecycleStep(
-  String state,
-  String action,
-  String desc,
-  Color color,
-  IconData icon,
-) {
+Widget _srLifecycleStep(String state, String action, String desc, Color color, IconData icon) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -674,8 +662,7 @@ Widget _srBuildRegistrarSource() {
     children: [
       _srSectionHeader(
         '4. Where Does the Registrar Come From?',
-        subtitle:
-            'The inherited widget chain from SelectionArea to render objects',
+        subtitle: 'The inherited widget chain from SelectionArea to render objects',
       ),
       const SizedBox(height: 12),
       _srNote(
@@ -710,24 +697,9 @@ Widget _srBuildRegistrarSource() {
             _srTreeNode('SelectableRegion (creates registrar)', _srTeal, 1),
             _srTreeNode('InheritedWidget (provides registrar)', _srBlue, 2),
             _srTreeNode('Column', _srSlate, 3),
-            _srTreeNode(
-              'Text → RenderParagraph',
-              _srViolet,
-              4,
-              isHighlight: true,
-            ),
-            _srTreeNode(
-              'Text → RenderParagraph',
-              _srViolet,
-              4,
-              isHighlight: true,
-            ),
-            _srTreeNode(
-              'Text → RenderParagraph',
-              _srViolet,
-              4,
-              isHighlight: true,
-            ),
+            _srTreeNode('Text → RenderParagraph', _srViolet, 4, isHighlight: true),
+            _srTreeNode('Text → RenderParagraph', _srViolet, 4, isHighlight: true),
+            _srTreeNode('Text → RenderParagraph', _srViolet, 4, isHighlight: true),
           ],
         ),
       ),
@@ -764,26 +736,26 @@ Widget _srBuildRegistrarSource() {
   );
 }
 
-Widget _srTreeNode(
-  String label,
-  Color color,
-  int depth, {
-  bool isRoot = false,
-  bool isHighlight = false,
-}) {
+Widget _srTreeNode(String label, Color color, int depth, {bool isRoot = false, bool isHighlight = false}) {
   return Padding(
     padding: EdgeInsets.only(left: depth * 20.0, top: 4, bottom: 4),
     child: Row(
       children: [
-        if (!isRoot) Container(width: 12, height: 1, color: _srLavender),
+        if (!isRoot)
+          Container(
+            width: 12,
+            height: 1,
+            color: _srLavender,
+          ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
-            color: isHighlight
-                ? color.withValues(alpha: 0.12)
-                : color.withValues(alpha: 0.06),
+            color: isHighlight ? color.withValues(alpha: 0.12) : color.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: color, width: isHighlight ? 2 : 1),
+            border: Border.all(
+              color: color,
+              width: isHighlight ? 2 : 1,
+            ),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -791,11 +763,7 @@ Widget _srTreeNode(
               if (isHighlight)
                 const Padding(
                   padding: EdgeInsets.only(right: 6),
-                  child: Icon(
-                    Icons.app_registration,
-                    size: 12,
-                    color: _srViolet,
-                  ),
+                  child: Icon(Icons.app_registration, size: 12, color: _srViolet),
                 ),
               Text(
                 label,
@@ -901,7 +869,11 @@ Widget _srBuildMultipleRegistrants() {
                 'Selection events are dispatched in registration order.\n'
                 'The registrar iterates: Text A → Image → Text B → Text C',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: _srCharcoal, fontSize: 11, height: 1.4),
+                style: TextStyle(
+                  color: _srCharcoal,
+                  fontSize: 11,
+                  height: 1.4,
+                ),
               ),
             ),
           ],
@@ -1073,9 +1045,15 @@ Widget _srSequenceStep(String title, String desc, List<Widget> dots) {
           ),
         ),
         const SizedBox(height: 4),
-        Text(desc, style: const TextStyle(color: _srCharcoal, fontSize: 11)),
+        Text(
+          desc,
+          style: const TextStyle(color: _srCharcoal, fontSize: 11),
+        ),
         const SizedBox(height: 8),
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: dots),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: dots,
+        ),
       ],
     ),
   );
@@ -1087,9 +1065,11 @@ Widget _srStatusDot(String label, Color color) {
     child: Column(
       children: [
         Container(
-          width: 24,
-          height: 24,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          width: 24, height: 24,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
           child: Center(
             child: Text(
               label,
@@ -1225,7 +1205,11 @@ Widget _srBuildNestedAreas() {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Row(children: [_srSmallRegistrant('P5', _srTeal)]),
+                  Row(
+                    children: [
+                      _srSmallRegistrant('P5', _srTeal),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -1241,7 +1225,11 @@ Widget _srBuildNestedAreas() {
                 'P3, P4 → Registrar B (inner)\n'
                 'Selecting in the inner area does NOT affect the outer area.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: _srCharcoal, fontSize: 11, height: 1.5),
+                style: TextStyle(
+                  color: _srCharcoal,
+                  fontSize: 11,
+                  height: 1.5,
+                ),
               ),
             ),
           ],
@@ -1474,9 +1462,7 @@ Widget _srBuildPatterns() {
             _srCheckItem('Always set registrar = null in detach()'),
             _srCheckItem('Always set registrar in attach() after super'),
             _srCheckItem('Use maybeOf() — registrar can be null legally'),
-            _srCheckItem(
-              'Never call add()/remove() directly — the mixin does this',
-            ),
+            _srCheckItem('Never call add()/remove() directly — the mixin does this'),
             _srCheckItem('Handle re-registration when registrar changes'),
           ],
         ),
@@ -1549,38 +1535,14 @@ Widget _srBuildSummary() {
               ],
             ),
             const SizedBox(height: 12),
-            _srSummaryItem(
-              'Role',
-              'Client mixin — registers with a SelectionRegistrar.',
-            ),
-            _srSummaryItem(
-              'Key Property',
-              'registrar — set it to register, null to unregister.',
-            ),
-            _srSummaryItem(
-              'Lifecycle',
-              'Set in attach(), cleared in detach().',
-            ),
-            _srSummaryItem(
-              'Auto Management',
-              'Handles add() and remove() automatically.',
-            ),
-            _srSummaryItem(
-              'Registrar Source',
-              'Inherited from SelectionArea or SelectableRegion.',
-            ),
-            _srSummaryItem(
-              'Ordering',
-              'Registrants are ordered by registration time.',
-            ),
-            _srSummaryItem(
-              'Nesting',
-              'Each nested scope has its own registrar.',
-            ),
-            _srSummaryItem(
-              'Best Practice',
-              'Never call add()/remove() directly on the registrar.',
-            ),
+            _srSummaryItem('Role', 'Client mixin — registers with a SelectionRegistrar.'),
+            _srSummaryItem('Key Property', 'registrar — set it to register, null to unregister.'),
+            _srSummaryItem('Lifecycle', 'Set in attach(), cleared in detach().'),
+            _srSummaryItem('Auto Management', 'Handles add() and remove() automatically.'),
+            _srSummaryItem('Registrar Source', 'Inherited from SelectionArea or SelectableRegion.'),
+            _srSummaryItem('Ordering', 'Registrants are ordered by registration time.'),
+            _srSummaryItem('Nesting', 'Each nested scope has its own registrar.'),
+            _srSummaryItem('Best Practice', 'Never call add()/remove() directly on the registrar.'),
           ],
         ),
       ),
@@ -1596,37 +1558,31 @@ Widget _srSummaryItem(String title, String desc) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 6,
-          height: 6,
+          width: 6, height: 6,
           margin: const EdgeInsets.only(top: 5),
-          decoration: const BoxDecoration(
-            color: _srGold,
-            shape: BoxShape.circle,
-          ),
+          decoration: const BoxDecoration(color: _srGold, shape: BoxShape.circle),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '$title — ',
-                  style: const TextStyle(
-                    color: _srLavender,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+            text: TextSpan(children: [
+              TextSpan(
+                text: '$title — ',
+                style: const TextStyle(
+                  color: _srLavender,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
                 ),
-                TextSpan(
-                  text: desc,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.9),
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+              ),
+              TextSpan(
+                text: desc,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 12,
+                  height: 1.4,
                 ),
-              ],
-            ),
+              ),
+            ]),
           ),
         ),
       ],

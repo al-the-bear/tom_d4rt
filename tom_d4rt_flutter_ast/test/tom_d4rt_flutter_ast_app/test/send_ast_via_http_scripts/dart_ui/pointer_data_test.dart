@@ -253,8 +253,7 @@ dynamic build(BuildContext context) {
     final List<_ProbeFlag> flags = <_ProbeFlag>[
       _ProbeFlag(
         label: 'Coordinate In Stage',
-        isHealthy:
-            data.physicalX >= 0 &&
+        isHealthy: data.physicalX >= 0 &&
             data.physicalX <= 360 &&
             data.physicalY >= 0 &&
             data.physicalY <= 360,
@@ -263,32 +262,28 @@ dynamic build(BuildContext context) {
       ),
       _ProbeFlag(
         label: 'Pressure Normalized',
-        isHealthy:
-            data.pressure >= data.pressureMin &&
+        isHealthy: data.pressure >= data.pressureMin &&
             data.pressure <= math.max(data.pressureMax, 1),
         description:
             'Pressure should stay within [pressureMin, pressureMax] for reliable brush dynamics.',
       ),
       _ProbeFlag(
         label: 'Scroll Context',
-        isHealthy:
-            data.kind != ui.PointerDeviceKind.touch ||
+        isHealthy: data.kind != ui.PointerDeviceKind.touch ||
             (data.scrollDeltaX == 0 && data.scrollDeltaY == 0),
         description:
             'Touch streams usually use move deltas, while wheel/trackpad interactions populate scroll deltas.',
       ),
       _ProbeFlag(
         label: 'Button Semantics',
-        isHealthy: data.change == ui.PointerChange.hover
-            ? data.buttons == 0
-            : true,
+        isHealthy:
+            data.change == ui.PointerChange.hover ? data.buttons == 0 : true,
         description:
             'Hover should typically not have pressed buttons; down/move can carry non-zero button masks.',
       ),
       _ProbeFlag(
         label: 'Stylus Detail Completeness',
-        isHealthy:
-            data.kind != ui.PointerDeviceKind.stylus ||
+        isHealthy: data.kind != ui.PointerDeviceKind.stylus ||
             data.tilt.abs() > 0 ||
             data.orientation.abs() > 0 ||
             data.pressure > 0,
@@ -400,18 +395,13 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
               ),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  color: Colors.blueGrey.shade600,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Text(subtitle,
+                  style: TextStyle(
+                      color: Colors.blueGrey.shade600,
+                      fontWeight: FontWeight.w500)),
             ],
           ),
         ),
@@ -477,10 +467,7 @@ dynamic build(BuildContext context) {
                       Chip(
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
                         side: BorderSide.none,
-                        avatar: Icon(
-                          iconForKind(liveData.kind),
-                          color: Colors.white,
-                        ),
+                        avatar: Icon(iconForKind(liveData.kind), color: Colors.white),
                         label: Text(
                           'Kind: ${liveData.kind.name}',
                           style: const TextStyle(color: Colors.white),
@@ -489,10 +476,8 @@ dynamic build(BuildContext context) {
                       Chip(
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
                         side: BorderSide.none,
-                        avatar: const Icon(
-                          Icons.track_changes,
-                          color: Colors.white,
-                        ),
+                        avatar:
+                            const Icon(Icons.track_changes, color: Colors.white),
                         label: Text(
                           'Change: ${liveData.change.name}',
                           style: const TextStyle(color: Colors.white),
@@ -501,7 +486,8 @@ dynamic build(BuildContext context) {
                       Chip(
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
                         side: BorderSide.none,
-                        avatar: const Icon(Icons.speed, color: Colors.white),
+                        avatar:
+                            const Icon(Icons.speed, color: Colors.white),
                         label: Text(
                           'Pressure ${liveData.pressure.toStringAsFixed(2)}',
                           style: const TextStyle(color: Colors.white),
@@ -542,9 +528,8 @@ dynamic build(BuildContext context) {
                             border: OutlineInputBorder(),
                             isDense: true,
                           ),
-                          items: ui.PointerChange.values.map((
-                            ui.PointerChange value,
-                          ) {
+                          items: ui.PointerChange.values
+                              .map((ui.PointerChange value) {
                             return DropdownMenuItem<ui.PointerChange>(
                               value: value,
                               child: Text(value.name),
@@ -569,9 +554,8 @@ dynamic build(BuildContext context) {
                             border: OutlineInputBorder(),
                             isDense: true,
                           ),
-                          items: ui.PointerDeviceKind.values.map((
-                            ui.PointerDeviceKind value,
-                          ) {
+                          items: ui.PointerDeviceKind.values
+                              .map((ui.PointerDeviceKind value) {
                             return DropdownMenuItem<ui.PointerDeviceKind>(
                               value: value,
                               child: Text(value.name),
@@ -624,13 +608,10 @@ dynamic build(BuildContext context) {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  Text(
-                    'Coordinate + Delta Controls',
-                    style: TextStyle(
-                      color: Colors.blueGrey.shade700,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('Coordinate + Delta Controls',
+                      style: TextStyle(
+                          color: Colors.blueGrey.shade700,
+                          fontWeight: FontWeight.w700)),
                   Slider(
                     value: x,
                     min: 0,
@@ -670,13 +651,10 @@ dynamic build(BuildContext context) {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    'Touch Geometry + Stylus Metrics',
-                    style: TextStyle(
-                      color: Colors.blueGrey.shade700,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('Touch Geometry + Stylus Metrics',
+                      style: TextStyle(
+                          color: Colors.blueGrey.shade700,
+                          fontWeight: FontWeight.w700)),
                   Slider(
                     value: pressure,
                     min: 0,
@@ -699,8 +677,7 @@ dynamic build(BuildContext context) {
                           value: radiusMajor,
                           min: 0,
                           max: 60,
-                          label:
-                              'radiusMajor ${radiusMajor.toStringAsFixed(1)}',
+                          label: 'radiusMajor ${radiusMajor.toStringAsFixed(1)}',
                           onChanged: (double value) =>
                               setState(() => radiusMajor = value),
                         ),
@@ -710,8 +687,7 @@ dynamic build(BuildContext context) {
                           value: radiusMinor,
                           min: 0,
                           max: 60,
-                          label:
-                              'radiusMinor ${radiusMinor.toStringAsFixed(1)}',
+                          label: 'radiusMinor ${radiusMinor.toStringAsFixed(1)}',
                           onChanged: (double value) =>
                               setState(() => radiusMinor = value),
                         ),
@@ -726,8 +702,7 @@ dynamic build(BuildContext context) {
                           min: -1,
                           max: 1,
                           label: 'tilt ${tilt.toStringAsFixed(2)}',
-                          onChanged: (double value) =>
-                              setState(() => tilt = value),
+                          onChanged: (double value) => setState(() => tilt = value),
                         ),
                       ),
                       Expanded(
@@ -773,32 +748,32 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: CheckboxListTile(
-                            value: synthesized,
-                            dense: true,
-                            title: const Text('Synthesized'),
-                            subtitle: const Text('Generated event stream'),
-                            onChanged: (bool? value) {
-                              setState(() {
-                                synthesized = value ?? false;
-                              });
-                            },
-                          ),
+                          value: synthesized,
+                          dense: true,
+                          title: const Text('Synthesized'),
+                          subtitle: const Text('Generated event stream'),
+                          onChanged: (bool? value) {
+                            setState(() {
+                              synthesized = value ?? false;
+                            });
+                          },
+                        ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: CheckboxListTile(
-                            value: obscured,
-                            dense: true,
-                            title: const Text('Obscured'),
-                            subtitle: const Text('Input is visually hidden'),
-                            onChanged: (bool? value) {
-                              setState(() {
-                                obscured = value ?? false;
-                              });
-                            },
-                          ),
+                          value: obscured,
+                          dense: true,
+                          title: const Text('Obscured'),
+                          subtitle: const Text('Input is visually hidden'),
+                          onChanged: (bool? value) {
+                            setState(() {
+                              obscured = value ?? false;
+                            });
+                          },
+                        ),
                         ),
                       ),
                     ],
@@ -878,9 +853,7 @@ dynamic build(BuildContext context) {
                   painter: _PointerStagePainter(
                     liveData: liveData,
                     accent: accent,
-                    history: timeline
-                        .map((_PointerScenario e) => e.data)
-                        .toList(),
+                    history: timeline.map((_PointerScenario e) => e.data).toList(),
                   ),
                 ),
               ),
@@ -1000,9 +973,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: scenario.swatch.withValues(alpha: 0.07),
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: scenario.swatch.withValues(alpha: 0.35),
-                    ),
+                    border:
+                        Border.all(color: scenario.swatch.withValues(alpha: 0.35)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1014,11 +986,7 @@ dynamic build(BuildContext context) {
                           shape: BoxShape.circle,
                           color: scenario.swatch.withValues(alpha: 0.25),
                         ),
-                        child: Icon(
-                          scenario.icon,
-                          color: scenario.swatch,
-                          size: 20,
-                        ),
+                        child: Icon(scenario.icon, color: scenario.swatch, size: 20),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
@@ -1172,9 +1140,7 @@ dynamic build(BuildContext context) {
                       ),
                     )
                   : Column(
-                      children: timeline.asMap().entries.map((
-                        MapEntry<int, _PointerScenario> entry,
-                      ) {
+                      children: timeline.asMap().entries.map((MapEntry<int, _PointerScenario> entry) {
                         final int index = entry.key;
                         final _PointerScenario item = entry.value;
                         return Container(
@@ -1184,8 +1150,7 @@ dynamic build(BuildContext context) {
                             borderRadius: BorderRadius.circular(10),
                             color: item.swatch.withValues(alpha: 0.08),
                             border: Border.all(
-                              color: item.swatch.withValues(alpha: 0.35),
-                            ),
+                                color: item.swatch.withValues(alpha: 0.35)),
                           ),
                           child: Row(
                             children: <Widget>[
@@ -1207,8 +1172,7 @@ dynamic build(BuildContext context) {
                                     Text(
                                       item.title,
                                       style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                          fontWeight: FontWeight.w700),
                                     ),
                                     const SizedBox(height: 2),
                                     Text(
@@ -1430,9 +1394,8 @@ class _PointerStagePainter extends CustomPainter {
     final Paint historyPaint = Paint()..strokeWidth = 2.4;
     for (int i = 0; i < history.length; i++) {
       final ui.PointerData item = history[i];
-      historyPaint.color = const Color(
-        0xFF607D8B,
-      ).withValues(alpha: math.max(0.1, 0.8 - (i * 0.08)));
+      historyPaint.color = const Color(0xFF607D8B)
+          .withValues(alpha: math.max(0.1, 0.8 - (i * 0.08)));
       final Offset point = Offset(
         item.physicalX.clamp(0, size.width),
         item.physicalY.clamp(0, size.height),
@@ -1460,11 +1423,7 @@ class _PointerStagePainter extends CustomPainter {
     final Paint pointerPaint = Paint()
       ..color = accent
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(
-      livePoint,
-      math.max(5, 8 + (liveData.pressure * 10)),
-      pointerPaint,
-    );
+    canvas.drawCircle(livePoint, math.max(5, 8 + (liveData.pressure * 10)), pointerPaint);
 
     final Paint vectorPaint = Paint()
       ..color = const Color(0xFF263238)
@@ -1497,8 +1456,7 @@ class _PointerStagePainter extends CustomPainter {
 
     final TextPainter legend = TextPainter(
       text: TextSpan(
-        text:
-            'Live ${liveData.change.name}/${liveData.kind.name} '
+        text: 'Live ${liveData.change.name}/${liveData.kind.name} '
             'at (${liveData.physicalX.toStringAsFixed(1)}, ${liveData.physicalY.toStringAsFixed(1)})',
         style: const TextStyle(
           color: Color(0xFF102027),

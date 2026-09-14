@@ -305,17 +305,13 @@ Widget _buildOverview() {
           'attached to a Paint and rasterized.',
         ),
         SizedBox(height: 12.0),
-        _bodyText('Three concrete shapes exist:'),
+        _bodyText(
+          'Three concrete shapes exist:',
+        ),
         SizedBox(height: 8.0),
-        _bullet(
-          'LinearGradient — colors interpolate along a straight axis from begin to end',
-        ),
-        _bullet(
-          'RadialGradient — colors radiate from a center, optionally with a focal point',
-        ),
-        _bullet(
-          'SweepGradient — colors sweep angularly around a center, like a clock',
-        ),
+        _bullet('LinearGradient — colors interpolate along a straight axis from begin to end'),
+        _bullet('RadialGradient — colors radiate from a center, optionally with a focal point'),
+        _bullet('SweepGradient — colors sweep angularly around a center, like a clock'),
         SizedBox(height: 12.0),
         _bodyText(
           'Each shares: colors, stops, transform, tileMode. The differences are how '
@@ -337,41 +333,16 @@ Widget _buildAbstractAnatomy() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _anatomyRow(
-          'colors',
-          'List<Color>',
-          'Required. At least two colors. Interpolated in linear-space.',
-        ),
-        _anatomyRow(
-          'stops',
-          'List<double>?',
-          'Same length as colors, sorted ascending in [0,1]. If null, evenly distributed.',
-        ),
-        _anatomyRow(
-          'transform',
-          'GradientTransform?',
-          'Optional shader-space transform (e.g. GradientRotation).',
-        ),
-        _anatomyRow(
-          'createShader',
-          'Shader Function(Rect, {TextDirection?})',
-          'Concrete entry point — builds the dart:ui Shader.',
-        ),
-        _anatomyRow(
-          'scale',
-          'Gradient Function(double factor)',
-          'Scales colors\' alpha by factor — used in implicit animation.',
-        ),
-        _anatomyRow(
-          'lerp',
-          'static Gradient? Function(Gradient?, Gradient?, double)',
-          'Interpolates two gradients (same concrete type) by t in [0,1].',
-        ),
+        _anatomyRow('colors', 'List<Color>', 'Required. At least two colors. Interpolated in linear-space.'),
+        _anatomyRow('stops', 'List<double>?', 'Same length as colors, sorted ascending in [0,1]. If null, evenly distributed.'),
+        _anatomyRow('transform', 'GradientTransform?', 'Optional shader-space transform (e.g. GradientRotation).'),
+        _anatomyRow('createShader', 'Shader Function(Rect, {TextDirection?})', 'Concrete entry point — builds the dart:ui Shader.'),
+        _anatomyRow('scale', 'Gradient Function(double factor)', 'Scales colors\' alpha by factor — used in implicit animation.'),
+        _anatomyRow('lerp', 'static Gradient? Function(Gradient?, Gradient?, double)', 'Interpolates two gradients (same concrete type) by t in [0,1].'),
         SizedBox(height: 12.0),
         _calloutBox(
           title: 'Conceptual model',
-          body:
-              'A Gradient is a parametric color function f: R^2 -> Color, '
+          body: 'A Gradient is a parametric color function f: R^2 -> Color, '
               'sampled into a Shader bounded to a Rect when painted. The '
               'concrete subtype defines how (x, y) maps to a position along '
               'the stops array.',
@@ -778,13 +749,7 @@ Widget _buildStopsDeepDive() {
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: <Color>[
-          kSpecRed,
-          kSpecYellow,
-          kSpecGreen,
-          kSpecBlue,
-          kSpecViolet,
-        ],
+        colors: <Color>[kSpecRed, kSpecYellow, kSpecGreen, kSpecBlue, kSpecViolet],
       ),
     ),
     _StopSpec(
@@ -858,7 +823,10 @@ Widget _stopRow(_StopSpec spec) {
                 ),
               ),
               SizedBox(height: 2.0),
-              Text(spec.detail, style: TextStyle(color: kFog, fontSize: 10.0)),
+              Text(
+                spec.detail,
+                style: TextStyle(color: kFog, fontSize: 10.0),
+              ),
             ],
           ),
         ),
@@ -902,128 +870,92 @@ Widget _buildTileModeShowcase() {
         _tileGroupHeader('LinearGradient (compact axis)'),
         SizedBox(height: 8.0),
         _tileRow4(<Widget>[
-          _tileCell(
-            'clamp',
-            LinearGradient(
-              begin: Alignment(-0.3, 0.0),
-              end: Alignment(0.3, 0.0),
-              colors: <Color>[kSpecBlue, kSpecPink],
-              tileMode: TileMode.clamp,
-            ),
-          ),
-          _tileCell(
-            'repeat',
-            LinearGradient(
-              begin: Alignment(-0.3, 0.0),
-              end: Alignment(0.3, 0.0),
-              colors: <Color>[kSpecBlue, kSpecPink],
-              tileMode: TileMode.repeated,
-            ),
-          ),
-          _tileCell(
-            'mirror',
-            LinearGradient(
-              begin: Alignment(-0.3, 0.0),
-              end: Alignment(0.3, 0.0),
-              colors: <Color>[kSpecBlue, kSpecPink],
-              tileMode: TileMode.mirror,
-            ),
-          ),
-          _tileCell(
-            'decal',
-            LinearGradient(
-              begin: Alignment(-0.3, 0.0),
-              end: Alignment(0.3, 0.0),
-              colors: <Color>[kSpecBlue, kSpecPink],
-              tileMode: TileMode.decal,
-            ),
-          ),
+          _tileCell('clamp', LinearGradient(
+            begin: Alignment(-0.3, 0.0),
+            end: Alignment(0.3, 0.0),
+            colors: <Color>[kSpecBlue, kSpecPink],
+            tileMode: TileMode.clamp,
+          )),
+          _tileCell('repeat', LinearGradient(
+            begin: Alignment(-0.3, 0.0),
+            end: Alignment(0.3, 0.0),
+            colors: <Color>[kSpecBlue, kSpecPink],
+            tileMode: TileMode.repeated,
+          )),
+          _tileCell('mirror', LinearGradient(
+            begin: Alignment(-0.3, 0.0),
+            end: Alignment(0.3, 0.0),
+            colors: <Color>[kSpecBlue, kSpecPink],
+            tileMode: TileMode.mirror,
+          )),
+          _tileCell('decal', LinearGradient(
+            begin: Alignment(-0.3, 0.0),
+            end: Alignment(0.3, 0.0),
+            colors: <Color>[kSpecBlue, kSpecPink],
+            tileMode: TileMode.decal,
+          )),
         ]),
         SizedBox(height: 16.0),
         _tileGroupHeader('RadialGradient (small radius=0.18)'),
         SizedBox(height: 8.0),
         _tileRow4(<Widget>[
-          _tileCell(
-            'clamp',
-            RadialGradient(
-              center: Alignment.center,
-              radius: 0.18,
-              colors: <Color>[kSpecGreen, kSpecYellow],
-              tileMode: TileMode.clamp,
-            ),
-          ),
-          _tileCell(
-            'repeat',
-            RadialGradient(
-              center: Alignment.center,
-              radius: 0.18,
-              colors: <Color>[kSpecGreen, kSpecYellow],
-              tileMode: TileMode.repeated,
-            ),
-          ),
-          _tileCell(
-            'mirror',
-            RadialGradient(
-              center: Alignment.center,
-              radius: 0.18,
-              colors: <Color>[kSpecGreen, kSpecYellow],
-              tileMode: TileMode.mirror,
-            ),
-          ),
-          _tileCell(
-            'decal',
-            RadialGradient(
-              center: Alignment.center,
-              radius: 0.18,
-              colors: <Color>[kSpecGreen, kSpecYellow],
-              tileMode: TileMode.decal,
-            ),
-          ),
+          _tileCell('clamp', RadialGradient(
+            center: Alignment.center,
+            radius: 0.18,
+            colors: <Color>[kSpecGreen, kSpecYellow],
+            tileMode: TileMode.clamp,
+          )),
+          _tileCell('repeat', RadialGradient(
+            center: Alignment.center,
+            radius: 0.18,
+            colors: <Color>[kSpecGreen, kSpecYellow],
+            tileMode: TileMode.repeated,
+          )),
+          _tileCell('mirror', RadialGradient(
+            center: Alignment.center,
+            radius: 0.18,
+            colors: <Color>[kSpecGreen, kSpecYellow],
+            tileMode: TileMode.mirror,
+          )),
+          _tileCell('decal', RadialGradient(
+            center: Alignment.center,
+            radius: 0.18,
+            colors: <Color>[kSpecGreen, kSpecYellow],
+            tileMode: TileMode.decal,
+          )),
         ]),
         SizedBox(height: 16.0),
         _tileGroupHeader('SweepGradient (endAngle=π/2)'),
         SizedBox(height: 8.0),
         _tileRow4(<Widget>[
-          _tileCell(
-            'clamp',
-            SweepGradient(
-              center: Alignment.center,
-              startAngle: 0.0,
-              endAngle: math.pi / 2.0,
-              colors: <Color>[kSpecRed, kSpecOrange],
-              tileMode: TileMode.clamp,
-            ),
-          ),
-          _tileCell(
-            'repeat',
-            SweepGradient(
-              center: Alignment.center,
-              startAngle: 0.0,
-              endAngle: math.pi / 2.0,
-              colors: <Color>[kSpecRed, kSpecOrange],
-              tileMode: TileMode.repeated,
-            ),
-          ),
-          _tileCell(
-            'mirror',
-            SweepGradient(
-              center: Alignment.center,
-              startAngle: 0.0,
-              endAngle: math.pi / 2.0,
-              colors: <Color>[kSpecRed, kSpecOrange],
-              tileMode: TileMode.mirror,
-            ),
-          ),
-          _tileCell(
-            'decal',
-            SweepGradient(
-              center: Alignment.center,
-              startAngle: 0.0,
-              endAngle: math.pi / 2.0,
-              colors: <Color>[kSpecRed, kSpecOrange],
-              tileMode: TileMode.decal,
-            ),
-          ),
+          _tileCell('clamp', SweepGradient(
+            center: Alignment.center,
+            startAngle: 0.0,
+            endAngle: math.pi / 2.0,
+            colors: <Color>[kSpecRed, kSpecOrange],
+            tileMode: TileMode.clamp,
+          )),
+          _tileCell('repeat', SweepGradient(
+            center: Alignment.center,
+            startAngle: 0.0,
+            endAngle: math.pi / 2.0,
+            colors: <Color>[kSpecRed, kSpecOrange],
+            tileMode: TileMode.repeated,
+          )),
+          _tileCell('mirror', SweepGradient(
+            center: Alignment.center,
+            startAngle: 0.0,
+            endAngle: math.pi / 2.0,
+            colors: <Color>[kSpecRed, kSpecOrange],
+            tileMode: TileMode.mirror,
+          )),
+          _tileCell('decal', SweepGradient(
+            center: Alignment.center,
+            startAngle: 0.0,
+            endAngle: math.pi / 2.0,
+            colors: <Color>[kSpecRed, kSpecOrange],
+            tileMode: TileMode.decal,
+          )),
         ]),
       ],
     ),
@@ -1146,8 +1078,7 @@ Widget _buildTransformDemo() {
       children: <Widget>[
         _calloutBox(
           title: 'GradientTransform is abstract',
-          body:
-              'Subclass it and implement transform(Rect, {TextDirection?}) → Matrix4? '
+          body: 'Subclass it and implement transform(Rect, {TextDirection?}) → Matrix4? '
               'to define custom shader-space transforms. The framework ships '
               'GradientRotation as the most common concrete instance. The transform '
               'is applied to the shader\'s local matrix before sampling.',
@@ -1160,20 +1091,16 @@ Widget _buildTransformDemo() {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           childAspectRatio: 1.6,
-          children: specs
-              .map(
-                (s) => _specimenCard(
-                  label: s.label,
-                  detail: s.detail,
-                  swatch: Container(
-                    decoration: BoxDecoration(
-                      gradient: s.gradient,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                ),
-              )
-              .toList(growable: false),
+          children: specs.map((s) => _specimenCard(
+            label: s.label,
+            detail: s.detail,
+            swatch: Container(
+              decoration: BoxDecoration(
+                gradient: s.gradient,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+          )).toList(growable: false),
         ),
       ],
     ),
@@ -1210,8 +1137,7 @@ Widget _buildLerpShowcase() {
   final List<Widget> cells = <Widget>[];
   for (final double t in frames) {
     final Gradient? lerped = LinearGradient.lerp(a, b, t);
-    final AlwaysStoppedAnimation<double> snapshot =
-        AlwaysStoppedAnimation<double>(t);
+    final AlwaysStoppedAnimation<double> snapshot = AlwaysStoppedAnimation<double>(t);
     cells.add(
       Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1321,13 +1247,21 @@ Widget _buildShaderMaskSection() {
         _shaderMaskCard(
           title: 'RadialGradient → Icon',
           mask: iconGrad,
-          child: Icon(Icons.wb_sunny, size: 80.0, color: Color(0xFFFFFFFF)),
+          child: Icon(
+            Icons.wb_sunny,
+            size: 80.0,
+            color: Color(0xFFFFFFFF),
+          ),
         ),
         SizedBox(height: 12.0),
         _shaderMaskCard(
           title: 'SweepGradient → Color wheel Icon',
           mask: wheelGrad,
-          child: Icon(Icons.refresh, size: 80.0, color: Color(0xFFFFFFFF)),
+          child: Icon(
+            Icons.refresh,
+            size: 80.0,
+            color: Color(0xFFFFFFFF),
+          ),
         ),
         SizedBox(height: 12.0),
         _shaderMaskCard(
@@ -1420,7 +1354,10 @@ Widget _buildDecorationCompare() {
             note: 'Any ShapeBorder — stadium, rounded, beveled',
             box: Container(
               height: 120.0,
-              decoration: ShapeDecoration(gradient: g, shape: StadiumBorder()),
+              decoration: ShapeDecoration(
+                gradient: g,
+                shape: StadiumBorder(),
+              ),
             ),
           ),
         ),
@@ -1530,8 +1467,7 @@ Widget _buildLowLevelApi() {
         SizedBox(height: 16.0),
         _calloutBox(
           title: 'Anatomy of ui.Gradient.linear',
-          body:
-              'ui.Gradient.linear(from, to, colors, [stops, tileMode, matrix4]) '
+          body: 'ui.Gradient.linear(from, to, colors, [stops, tileMode, matrix4]) '
               'returns a Shader. Pass that Shader to Paint.shader to paint anything '
               'with it — Path, drawRect, drawText, etc. No Rect required: the from→to '
               'segment defines the gradient axis in raw pixel space.',
@@ -1602,31 +1538,31 @@ Widget _buildPerformanceNotes() {
         _perfRow(
           'aliasing on sharp stops',
           'Duplicate stops (0.5, 0.5) produce hard edges. On low-DPI screens '
-              'this looks jagged. Mitigate by separating stops by ~0.005.',
+          'this looks jagged. Mitigate by separating stops by ~0.005.',
         ),
         _perfRow(
           'banding on subtle gradients',
           'Two-color gradients across large surfaces with low contrast (e.g. '
-              '0xFF1A1A1A → 0xFF1C1C1C) show step banding. Engine dithering helps; '
-              'consider 8-bit noise overlay for hero surfaces.',
+          '0xFF1A1A1A → 0xFF1C1C1C) show step banding. Engine dithering helps; '
+          'consider 8-bit noise overlay for hero surfaces.',
         ),
         _perfRow(
           'sRGB vs DisplayP3',
           'painting.Gradient interpolates in sRGB by default. On wide-gamut '
-              'displays this can look dull. Future Flutter releases expose colorSpace '
-              'on Gradient — when available, P3 produces more vibrant mid-tones.',
+          'displays this can look dull. Future Flutter releases expose colorSpace '
+          'on Gradient — when available, P3 produces more vibrant mid-tones.',
         ),
         _perfRow(
           'gradients vs custom shaders',
           'A LinearGradient is a single GPU-fast gradient draw call. A custom '
-              'FragmentShader is significantly more expensive and recompiles on '
-              'first use. Prefer gradients whenever you can express the effect with one.',
+          'FragmentShader is significantly more expensive and recompiles on '
+          'first use. Prefer gradients whenever you can express the effect with one.',
         ),
         _perfRow(
           'createShader allocation',
           'Every call to createShader allocates a new ui.Shader. Avoid building '
-              'gradients inside paint() — build them once and cache, or use '
-              'BoxDecoration which handles caching internally.',
+          'gradients inside paint() — build them once and cache, or use '
+          'BoxDecoration which handles caching internally.',
         ),
       ],
     ),
@@ -1643,7 +1579,10 @@ Widget _perfRow(String title, String body) {
           width: 8.0,
           height: 8.0,
           margin: EdgeInsets.only(top: 6.0, right: 10.0),
-          decoration: BoxDecoration(color: kSpecOrange, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: kSpecOrange,
+            shape: BoxShape.circle,
+          ),
         ),
         Expanded(
           child: Column(
@@ -1660,7 +1599,11 @@ Widget _perfRow(String title, String body) {
               SizedBox(height: 3.0),
               Text(
                 body,
-                style: TextStyle(color: kIron, fontSize: 12.0, height: 1.45),
+                style: TextStyle(
+                  color: kIron,
+                  fontSize: 12.0,
+                  height: 1.45,
+                ),
               ),
             ],
           ),
@@ -1682,8 +1625,7 @@ Widget _buildComposites() {
         _showpieceCard(
           tag: 'showpiece · sunrise',
           title: 'Sunrise hero card',
-          body:
-              'LinearGradient warm-orange to cool-violet, soft elevation shadow, '
+          body: 'LinearGradient warm-orange to cool-violet, soft elevation shadow, '
               'inset highlight at top.',
           builder: () => Container(
             height: 160.0,
@@ -1720,7 +1662,10 @@ Widget _buildComposites() {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: <Color>[Color(0x55FFFFFF), Color(0x00FFFFFF)],
+                        colors: <Color>[
+                          Color(0x55FFFFFF),
+                          Color(0x00FFFFFF),
+                        ],
                       ),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(16.0),
@@ -1737,8 +1682,7 @@ Widget _buildComposites() {
         _showpieceCard(
           tag: 'showpiece · neon',
           title: 'Neon glow strip',
-          body:
-              'SweepGradient color wheel under a dark veil, with a thin glow ring '
+          body: 'SweepGradient color wheel under a dark veil, with a thin glow ring '
               'and rounded body.',
           builder: () => Container(
             height: 100.0,
@@ -1791,8 +1735,7 @@ Widget _buildComposites() {
         _showpieceCard(
           tag: 'showpiece · frost',
           title: 'Frosted gradient glass',
-          body:
-              'Linear pastel gradient under a translucent white veil with cream '
+          body: 'Linear pastel gradient under a translucent white veil with cream '
               'frame, simulating a frosted card surface.',
           builder: () => Container(
             height: 130.0,
@@ -1864,7 +1807,10 @@ Widget _showpieceCard({
           ),
         ),
         SizedBox(height: 4.0),
-        Text(body, style: TextStyle(color: kIron, fontSize: 11.5, height: 1.4)),
+        Text(
+          body,
+          style: TextStyle(color: kIron, fontSize: 11.5, height: 1.4),
+        ),
         SizedBox(height: 12.0),
         builder(),
       ],
@@ -1880,8 +1826,7 @@ Widget _buildRecipes() {
     _Recipe(
       title: 'Sunrise hero header',
       summary: 'LinearGradient topCenter→bottomCenter, warm-to-cool, 4 stops',
-      snippet:
-          'LinearGradient(\n'
+      snippet: 'LinearGradient(\n'
           '  begin: Alignment.topCenter,\n'
           '  end: Alignment.bottomCenter,\n'
           '  colors: [yellow, orange, pink, violet],\n'
@@ -1897,8 +1842,7 @@ Widget _buildRecipes() {
     _Recipe(
       title: 'Neon glow strip',
       summary: 'SweepGradient rainbow + dark overlay, glow shadow',
-      snippet:
-          'SweepGradient(\n'
+      snippet: 'SweepGradient(\n'
           '  startAngle: 0,\n'
           '  endAngle: 2*pi,\n'
           '  colors: [...rainbow, red],\n'
@@ -1912,8 +1856,7 @@ Widget _buildRecipes() {
     _Recipe(
       title: 'Color-wheel selector ring',
       summary: 'SweepGradient full circle, masked to ring shape via padding',
-      snippet:
-          'SweepGradient(\n'
+      snippet: 'SweepGradient(\n'
           '  center: Alignment.center,\n'
           '  startAngle: 0,\n'
           '  endAngle: 2*pi,\n'
@@ -1939,8 +1882,7 @@ Widget _buildRecipes() {
     _Recipe(
       title: 'Frosted glass overlay',
       summary: 'LinearGradient pastel + Color(0xAAFAF6EC) veil + border 2px',
-      snippet:
-          'Container(\n'
+      snippet: 'Container(\n'
           '  decoration: BoxDecoration(\n'
           '    gradient: LinearGradient(...),\n'
           '  ),\n'
@@ -1955,8 +1897,7 @@ Widget _buildRecipes() {
     _Recipe(
       title: 'Gradient text title',
       summary: 'ShaderMask wraps Text, BlendMode.srcIn',
-      snippet:
-          'ShaderMask(\n'
+      snippet: 'ShaderMask(\n'
           '  shaderCallback: (b) => grad.createShader(b),\n'
           '  blendMode: BlendMode.srcIn,\n'
           '  child: Text(\'...\'),\n'
@@ -1970,8 +1911,7 @@ Widget _buildRecipes() {
     _Recipe(
       title: 'Spotlight focal radial',
       summary: 'RadialGradient with focal offset for off-center highlight',
-      snippet:
-          'RadialGradient(\n'
+      snippet: 'RadialGradient(\n'
           '  center: Alignment.center,\n'
           '  radius: 0.8,\n'
           '  focal: Alignment.topLeft,\n'
@@ -2162,14 +2102,11 @@ Widget _cmpRow(String a, String b, String c, String d) {
       children: <Widget>[
         Expanded(
           flex: 2,
-          child: Text(
-            a,
-            style: TextStyle(
-              color: kInk,
-              fontSize: 11.0,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(a, style: TextStyle(
+            color: kInk,
+            fontSize: 11.0,
+            fontWeight: FontWeight.w700,
+          )),
         ),
         Expanded(
           flex: 3,
@@ -2201,28 +2138,28 @@ Widget _buildPitfalls() {
         _pitfall(
           'stops.length must equal colors.length',
           'If supplied, the lengths must match exactly. Mismatch throws AssertionError '
-              'at construction time. Always cross-check after editing colors.',
+          'at construction time. Always cross-check after editing colors.',
         ),
         _pitfall(
           'TileMode.decal needs framework level support',
           'Older Skia/Impeller branches may fall back to clamp. Validate on target '
-              'platforms; provide a clamp fallback for older Flutter channels.',
+          'platforms; provide a clamp fallback for older Flutter channels.',
         ),
         _pitfall(
           'large gradients rebuilt every frame are expensive',
           'Building Gradient inside paint() per-frame allocates a Shader per call. '
-              'Hoist into a field, or rely on BoxDecoration\'s built-in caching.',
+          'Hoist into a field, or rely on BoxDecoration\'s built-in caching.',
         ),
         _pitfall(
           'transform expects unit space [-1, 1] × [-1, 1]',
           'Alignment-based gradients live in shader space normalized to the Rect. '
-              'GradientTransform.transform receives the actual paint Rect — bridge them '
-              'carefully.',
+          'GradientTransform.transform receives the actual paint Rect — bridge them '
+          'carefully.',
         ),
         _pitfall(
           'colors interpolate in sRGB',
           'A red→green linear gradient passes through muddy yellow, not vivid lime. '
-              'Add an intermediate explicit color stop to control the perceived blend.',
+          'Add an intermediate explicit color stop to control the perceived blend.',
         ),
       ],
     ),
@@ -2237,7 +2174,9 @@ Widget _pitfall(String title, String body) {
       decoration: BoxDecoration(
         color: kPaper,
         borderRadius: BorderRadius.circular(8.0),
-        border: Border(left: BorderSide(color: kSpecRed, width: 4.0)),
+        border: Border(
+          left: BorderSide(color: kSpecRed, width: 4.0),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2266,87 +2205,31 @@ Widget _pitfall(String title, String body) {
 // ============================================================================
 Widget _buildGlossary() {
   final List<List<String>> terms = <List<String>>[
-    <String>[
-      'Gradient',
-      'Abstract parent for parametric color fields, produces a Shader.',
-    ],
-    <String>[
-      'LinearGradient',
-      'Concrete gradient along a straight begin→end axis.',
-    ],
-    <String>[
-      'RadialGradient',
-      'Concrete gradient radiating from a center, optional focal.',
-    ],
-    <String>[
-      'SweepGradient',
-      'Concrete gradient sweeping angularly around a center.',
-    ],
-    <String>[
-      'Shader',
-      'dart:ui object that fills pixels; attached to Paint.shader.',
-    ],
-    <String>[
-      'GradientStop',
-      'A double in [0,1] paired with a color, defining where the color lives.',
-    ],
-    <String>[
-      'TileMode',
-      'How a gradient repeats outside its primary axis: clamp/repeat/mirror/decal.',
-    ],
-    <String>[
-      'GradientTransform',
-      'Abstract shader-space transform applied during createShader.',
-    ],
-    <String>[
-      'GradientRotation',
-      'Concrete GradientTransform that rotates the gradient by radians.',
-    ],
-    <String>[
-      'ColorSpace',
-      'How colors are interpolated; sRGB default, P3 future opt-in.',
-    ],
-    <String>[
-      'dithering',
-      'Adding noise to mitigate banding on subtle gradients.',
-    ],
-    <String>[
-      'banding',
-      'Visible stair-steps in low-contrast gradients on 8-bit displays.',
-    ],
-    <String>[
-      'ShaderMask',
-      'Widget that uses a shader as a mask for its child via BlendMode.',
-    ],
-    <String>[
-      'Alignment',
-      'Normalized 2D position in [-1, 1]² used by Gradient endpoints.',
-    ],
-    <String>[
-      'ui.Gradient',
-      'Low-level dart:ui factory class for raw shader creation.',
-    ],
-    <String>[
-      'createShader',
-      'Method on Gradient that materializes a Shader bound to a Rect.',
-    ],
-    <String>[
-      'BoxDecoration.gradient',
-      'Decoration slot painting a gradient inside a Rect-shaped box.',
-    ],
-    <String>[
-      'ShapeDecoration.gradient',
-      'Decoration slot painting a gradient inside a ShapeBorder.',
-    ],
+    <String>['Gradient', 'Abstract parent for parametric color fields, produces a Shader.'],
+    <String>['LinearGradient', 'Concrete gradient along a straight begin→end axis.'],
+    <String>['RadialGradient', 'Concrete gradient radiating from a center, optional focal.'],
+    <String>['SweepGradient', 'Concrete gradient sweeping angularly around a center.'],
+    <String>['Shader', 'dart:ui object that fills pixels; attached to Paint.shader.'],
+    <String>['GradientStop', 'A double in [0,1] paired with a color, defining where the color lives.'],
+    <String>['TileMode', 'How a gradient repeats outside its primary axis: clamp/repeat/mirror/decal.'],
+    <String>['GradientTransform', 'Abstract shader-space transform applied during createShader.'],
+    <String>['GradientRotation', 'Concrete GradientTransform that rotates the gradient by radians.'],
+    <String>['ColorSpace', 'How colors are interpolated; sRGB default, P3 future opt-in.'],
+    <String>['dithering', 'Adding noise to mitigate banding on subtle gradients.'],
+    <String>['banding', 'Visible stair-steps in low-contrast gradients on 8-bit displays.'],
+    <String>['ShaderMask', 'Widget that uses a shader as a mask for its child via BlendMode.'],
+    <String>['Alignment', 'Normalized 2D position in [-1, 1]² used by Gradient endpoints.'],
+    <String>['ui.Gradient', 'Low-level dart:ui factory class for raw shader creation.'],
+    <String>['createShader', 'Method on Gradient that materializes a Shader bound to a Rect.'],
+    <String>['BoxDecoration.gradient', 'Decoration slot painting a gradient inside a Rect-shaped box.'],
+    <String>['ShapeDecoration.gradient', 'Decoration slot painting a gradient inside a ShapeBorder.'],
   ];
 
   return _sectionCard(
     title: '18 · Glossary',
     subtitle: 'Eighteen terms for the gradient vocabulary',
     child: Column(
-      children: terms
-          .map((List<String> t) => _glossaryRow(t[0], t[1]))
-          .toList(growable: false),
+      children: terms.map((List<String> t) => _glossaryRow(t[0], t[1])).toList(growable: false),
     ),
   );
 }
@@ -2408,7 +2291,11 @@ Widget _buildEpilogue() {
           'Three shapes; one abstract Gradient parent; one underlying ui.Gradient surface. '
           'Understanding their stops, tile modes, and transforms is enough to express '
           'most ambient color effects without writing a single FragmentShader.',
-          style: TextStyle(color: kCream, fontSize: 13.0, height: 1.55),
+          style: TextStyle(
+            color: kCream,
+            fontSize: 13.0,
+            height: 1.55,
+          ),
         ),
         SizedBox(height: 12.0),
         Container(
@@ -2516,7 +2403,10 @@ Widget _specimenCard({
 }
 
 Widget _bodyText(String s) {
-  return Text(s, style: TextStyle(color: kIron, fontSize: 12.5, height: 1.5));
+  return Text(
+    s,
+    style: TextStyle(color: kIron, fontSize: 12.5, height: 1.5),
+  );
 }
 
 Widget _bullet(String s) {
@@ -2525,14 +2415,7 @@ Widget _bullet(String s) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          '• ',
-          style: TextStyle(
-            color: kSpecBlue,
-            fontSize: 12.5,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text('• ', style: TextStyle(color: kSpecBlue, fontSize: 12.5, fontWeight: FontWeight.bold)),
         Expanded(
           child: Text(
             s,

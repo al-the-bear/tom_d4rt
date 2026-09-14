@@ -48,10 +48,8 @@ const List<_LocaleCard> _locales = <_LocaleCard>[
 const List<_DirectionRule> _directionRules = <_DirectionRule>[
   _DirectionRule(
     title: 'Edge anchoring',
-    ltrBehavior:
-        'Leading widgets anchor left and trailing widgets anchor right.',
-    rtlBehavior:
-        'Leading widgets anchor right and trailing widgets anchor left.',
+    ltrBehavior: 'Leading widgets anchor left and trailing widgets anchor right.',
+    rtlBehavior: 'Leading widgets anchor right and trailing widgets anchor left.',
   ),
   _DirectionRule(
     title: 'Padding resolution',
@@ -70,8 +68,7 @@ const List<_DirectionRule> _directionRules = <_DirectionRule>[
   ),
   _DirectionRule(
     title: 'Page transitions',
-    ltrBehavior:
-        'Horizontal transitions generally move left-to-right for back.',
+    ltrBehavior: 'Horizontal transitions generally move left-to-right for back.',
     rtlBehavior: 'Transitions mirror to preserve semantic forward direction.',
   ),
 ];
@@ -180,10 +177,7 @@ Widget _buildDirectionOverview(TextDirection inheritedDirection) {
     _OverviewRow('WidgetsLocalizations.of(context)', 'resolved'),
     _OverviewRow('Inherited text direction', inheritedDirection.name),
     _OverviewRow('Directionality.of(context)', inheritedDirection.name),
-    _OverviewRow(
-      'TextDirection.values',
-      TextDirection.values.length.toString(),
-    ),
+    _OverviewRow('TextDirection.values', TextDirection.values.length.toString()),
   ];
 
   return Card(
@@ -251,9 +245,7 @@ Widget _buildLocaleChooser(ValueNotifier<int> selectedLocale) {
                     ChoiceChip(
                       selected: i == selected,
                       avatar: Icon(_locales[i].icon, size: 18),
-                      label: Text(
-                        '${_locales[i].name} (${_locales[i].localeCode})',
-                      ),
+                      label: Text('${_locales[i].name} (${_locales[i].localeCode})'),
                       onSelected: (_) => selectedLocale.value = i,
                     ),
                 ],
@@ -280,99 +272,84 @@ Widget _buildDirectionalWorkbench({
         first: selectedLocale,
         second: forceDirectionalPadding,
         third: mirrorNavigationIcons,
-        builder:
-            (
-              BuildContext context,
-              int localeIndex,
-              bool useDirectional,
-              bool mirrorIcons,
-            ) {
-              final _LocaleCard locale = _locales[localeIndex];
-              final bool rtl = locale.textDirection == TextDirection.rtl;
-              final EdgeInsetsGeometry padding = useDirectional
-                  ? const EdgeInsetsDirectional.fromSTEB(18, 10, 10, 10)
-                  : const EdgeInsets.fromLTRB(18, 10, 10, 10);
+        builder: (BuildContext context, int localeIndex, bool useDirectional,
+            bool mirrorIcons) {
+          final _LocaleCard locale = _locales[localeIndex];
+          final bool rtl = locale.textDirection == TextDirection.rtl;
+          final EdgeInsetsGeometry padding = useDirectional
+              ? const EdgeInsetsDirectional.fromSTEB(18, 10, 10, 10)
+              : const EdgeInsets.fromLTRB(18, 10, 10, 10);
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    'Directional Workbench',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Directional Workbench',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+              ),
+              const SizedBox(height: 8),
+              SwitchListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Use EdgeInsetsDirectional in sample card'),
+                value: useDirectional,
+                onChanged: (bool next) => forceDirectionalPadding.value = next,
+              ),
+              SwitchListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Mirror navigation arrow for RTL selection'),
+                value: mirrorIcons,
+                onChanged: (bool next) => mirrorNavigationIcons.value = next,
+              ),
+              const SizedBox(height: 8),
+              Directionality(
+                textDirection: locale.textDirection,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: locale.color.withValues(alpha: 0.6)),
+                    color: locale.color.withValues(alpha: 0.09),
                   ),
-                  const SizedBox(height: 8),
-                  SwitchListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text(
-                      'Use EdgeInsetsDirectional in sample card',
-                    ),
-                    value: useDirectional,
-                    onChanged: (bool next) =>
-                        forceDirectionalPadding.value = next,
-                  ),
-                  SwitchListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text(
-                      'Mirror navigation arrow for RTL selection',
-                    ),
-                    value: mirrorIcons,
-                    onChanged: (bool next) =>
-                        mirrorNavigationIcons.value = next,
-                  ),
-                  const SizedBox(height: 8),
-                  Directionality(
-                    textDirection: locale.textDirection,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: locale.color.withValues(alpha: 0.6),
-                        ),
-                        color: locale.color.withValues(alpha: 0.09),
-                      ),
-                      child: Padding(
-                        padding: padding,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Padding(
+                    padding: padding,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
                           children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                CircleAvatar(
-                                  backgroundColor: locale.color,
-                                  child: Icon(locale.icon, color: Colors.white),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    locale.scriptPreview,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                                Icon(
-                                  rtl && mirrorIcons
-                                      ? Icons.arrow_back
-                                      : Icons.arrow_forward,
-                                ),
-                              ],
+                            CircleAvatar(
+                              backgroundColor: locale.color,
+                              child: Icon(locale.icon, color: Colors.white),
                             ),
-                            const SizedBox(height: 10),
-                            Text(
-                              rtl
-                                  ? 'RTL context is active: visual leading edge is right.'
-                                  : 'LTR context is active: visual leading edge is left.',
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                locale.scriptPreview,
+                                style: const TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Icon(
+                              rtl && mirrorIcons
+                                  ? Icons.arrow_back
+                                  : Icons.arrow_forward,
                             ),
                           ],
                         ),
-                      ),
+                        const SizedBox(height: 10),
+                        Text(
+                          rtl
+                              ? 'RTL context is active: visual leading edge is right.'
+                              : 'LTR context is active: visual leading edge is left.',
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              );
-            },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     ),
   );
@@ -420,10 +397,8 @@ Widget _buildRuleExplorer(ValueNotifier<int> selectedRule) {
                     children: <Widget>[
                       Text(
                         rule.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
+                        style:
+                            const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                       ),
                       const SizedBox(height: 6),
                       Text('LTR: ${rule.ltrBehavior}'),
@@ -491,21 +466,17 @@ Widget _buildLocalizationDelegateRecipe() {
   const List<_SnippetCard> snippets = <_SnippetCard>[
     _SnippetCard(
       title: 'MaterialApp delegates',
-      code:
-          'MaterialApp(\n  localizationsDelegates: const [\n    GlobalWidgetsLocalizations.delegate,\n    GlobalMaterialLocalizations.delegate,\n  ],\n)',
+      code: 'MaterialApp(\n  localizationsDelegates: const [\n    GlobalWidgetsLocalizations.delegate,\n    GlobalMaterialLocalizations.delegate,\n  ],\n)',
       note: 'Global delegates provide stock translations and text direction.',
     ),
     _SnippetCard(
       title: 'Locale support declaration',
-      code:
-          'supportedLocales: const [\n  Locale(\'en\'),\n  Locale(\'ar\'),\n  Locale(\'he\'),\n],',
-      note:
-          'Order can reflect product priorities but should include all targets.',
+      code: 'supportedLocales: const [\n  Locale(\'en\'),\n  Locale(\'ar\'),\n  Locale(\'he\'),\n],',
+      note: 'Order can reflect product priorities but should include all targets.',
     ),
     _SnippetCard(
       title: 'Direction read in widgets layer',
-      code:
-          'final dir = WidgetsLocalizations.of(context).textDirection;\nfinal isRtl = dir == TextDirection.rtl;',
+      code: 'final dir = WidgetsLocalizations.of(context).textDirection;\nfinal isRtl = dir == TextDirection.rtl;',
       note: 'Use in custom widgets that need direction-aware behavior.',
     ),
   ];

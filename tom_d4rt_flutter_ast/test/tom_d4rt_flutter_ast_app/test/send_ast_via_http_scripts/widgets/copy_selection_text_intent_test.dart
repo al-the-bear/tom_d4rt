@@ -31,10 +31,7 @@ Widget _csSection(String title, List<Widget> children) {
       border: Border.all(color: _csLightCobalt, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x151A237E),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x151A237E), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -46,14 +43,11 @@ Widget _csSection(String title, List<Widget> children) {
             color: _csCobalt,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _csWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _csWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -65,24 +59,20 @@ Widget _csSection(String title, List<Widget> children) {
 Widget _csLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _csDarkCobalt,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _csDarkCobalt,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _csBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _csDarkText, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _csDarkText, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -96,15 +86,12 @@ Widget _csCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _csLightCobalt.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _csDarkCobalt,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _csDarkCobalt,
+            height: 1.45)),
   );
 }
 
@@ -116,10 +103,9 @@ Widget _csChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -152,10 +138,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'CopySelectionTextIntent',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: const Text('CopySelectionTextIntent',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -184,48 +168,27 @@ dynamic build(BuildContext context) {
                       color: _csWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.content_copy,
-                      color: _csWhite,
-                      size: 32,
-                    ),
+                    child: const Icon(Icons.content_copy,
+                        color: _csWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'CopySelectionTextIntent',
-                    style: TextStyle(
-                      color: _csWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('CopySelectionTextIntent',
+                      style: TextStyle(
+                          color: _csWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
-                  Text(
-                    'Copy selected text to the system clipboard',
-                    style: TextStyle(
-                      color: _csWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text('Copy selected text to the system clipboard',
+                      style: TextStyle(
+                          color: _csWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _csChip(
-                        'Ctrl+C',
-                        _csWhite.withValues(alpha: 0.25),
-                        _csWhite,
-                      ),
-                      _csChip(
-                        'Clipboard',
-                        _csWhite.withValues(alpha: 0.25),
-                        _csWhite,
-                      ),
-                      _csChip(
-                        'Selection',
-                        _csWhite.withValues(alpha: 0.25),
-                        _csWhite,
-                      ),
+                      _csChip('Ctrl+C', _csWhite.withValues(alpha: 0.25), _csWhite),
+                      _csChip('Clipboard', _csWhite.withValues(alpha: 0.25), _csWhite),
+                      _csChip('Selection', _csWhite.withValues(alpha: 0.25), _csWhite),
                     ],
                   ),
                 ],
@@ -416,30 +379,12 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _csSummaryRow(
-                      Icons.content_copy,
-                      'Copies selected text to system clipboard',
-                    ),
-                    _csSummaryRow(
-                      Icons.keyboard,
-                      'Triggered by Ctrl+C / Cmd+C',
-                    ),
-                    _csSummaryRow(
-                      Icons.text_fields,
-                      'Works in TextField, SelectableText, EditableText',
-                    ),
-                    _csSummaryRow(
-                      Icons.select_all,
-                      'Requires active selection (non-collapsed)',
-                    ),
-                    _csSummaryRow(
-                      Icons.tune,
-                      'Can be overridden for custom copy logic',
-                    ),
-                    _csSummaryRow(
-                      Icons.accessible,
-                      'Announced by screen readers',
-                    ),
+                    _csSummaryRow(Icons.content_copy, 'Copies selected text to system clipboard'),
+                    _csSummaryRow(Icons.keyboard, 'Triggered by Ctrl+C / Cmd+C'),
+                    _csSummaryRow(Icons.text_fields, 'Works in TextField, SelectableText, EditableText'),
+                    _csSummaryRow(Icons.select_all, 'Requires active selection (non-collapsed)'),
+                    _csSummaryRow(Icons.tune, 'Can be overridden for custom copy logic'),
+                    _csSummaryRow(Icons.accessible, 'Announced by screen readers'),
                   ],
                 ),
               ),
@@ -482,7 +427,8 @@ List<Widget> _buildCopyChain() {
       decoration: BoxDecoration(
         color: (l['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (l['color'] as Color).withValues(alpha: 0.3)),
+        border: Border.all(
+            color: (l['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -493,25 +439,22 @@ List<Widget> _buildCopyChain() {
               color: l['color'] as Color,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(l['icon'] as IconData, color: _csWhite, size: 18),
+            child:
+                Icon(l['icon'] as IconData, color: _csWhite, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l['title'] as String,
-                  style: TextStyle(
-                    color: l['color'] as Color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
-                Text(
-                  l['detail'] as String,
-                  style: const TextStyle(color: _csDarkText, fontSize: 11),
-                ),
+                Text(l['title'] as String,
+                    style: TextStyle(
+                        color: l['color'] as Color,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12)),
+                Text(l['detail'] as String,
+                    style: const TextStyle(
+                        color: _csDarkText, fontSize: 11)),
               ],
             ),
           ),
@@ -540,20 +483,19 @@ Widget _buildSelectionPrereqs() {
             decoration: BoxDecoration(
               color: _csAccentGreen.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _csAccentGreen.withValues(alpha: 0.3)),
+              border:
+                  Border.all(color: _csAccentGreen.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Icon(Icons.check_circle, color: _csAccentGreen, size: 22),
+                const Icon(Icons.check_circle,
+                    color: _csAccentGreen, size: 22),
                 const SizedBox(height: 4),
-                const Text(
-                  'Has Selection',
-                  style: TextStyle(
-                    color: _csAccentGreen,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Has Selection',
+                    style: TextStyle(
+                        color: _csAccentGreen,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),
                   padding: const EdgeInsets.all(6),
@@ -561,36 +503,30 @@ Widget _buildSelectionPrereqs() {
                     color: _csWhite,
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                      color: _csAccentGreen.withValues(alpha: 0.3),
-                    ),
+                        color: _csAccentGreen.withValues(alpha: 0.3)),
                   ),
                   child: RichText(
                     text: TextSpan(
                       style: const TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 10,
-                        color: _csDarkText,
-                      ),
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: _csDarkText),
                       children: [
                         const TextSpan(text: 'Hello '),
                         TextSpan(
-                          text: 'World',
-                          style: TextStyle(
-                            backgroundColor: _csMedCobalt.withValues(
-                              alpha: 0.3,
-                            ),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                            text: 'World',
+                            style: TextStyle(
+                                backgroundColor:
+                                    _csMedCobalt.withValues(alpha: 0.3),
+                                fontWeight: FontWeight.w700)),
                         const TextSpan(text: '!'),
                       ],
                     ),
                   ),
                 ),
-                const Text(
-                  'Ctrl+C → "World" copied',
-                  style: TextStyle(color: _csAccentGreen, fontSize: 9),
-                ),
+                const Text('Ctrl+C → "World" copied',
+                    style: TextStyle(
+                        color: _csAccentGreen, fontSize: 9)),
               ],
             ),
           ),
@@ -602,24 +538,19 @@ Widget _buildSelectionPrereqs() {
             decoration: BoxDecoration(
               color: _csAccentRed.withValues(alpha: 0.04),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _csAccentRed.withValues(alpha: 0.2)),
+              border:
+                  Border.all(color: _csAccentRed.withValues(alpha: 0.2)),
             ),
             child: Column(
               children: [
-                Icon(
-                  Icons.cancel,
-                  color: _csAccentRed.withValues(alpha: 0.6),
-                  size: 22,
-                ),
+                Icon(Icons.cancel,
+                    color: _csAccentRed.withValues(alpha: 0.6), size: 22),
                 const SizedBox(height: 4),
-                Text(
-                  'No Selection',
-                  style: TextStyle(
-                    color: _csAccentRed.withValues(alpha: 0.6),
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('No Selection',
+                    style: TextStyle(
+                        color: _csAccentRed.withValues(alpha: 0.6),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),
                   padding: const EdgeInsets.all(6),
@@ -627,25 +558,18 @@ Widget _buildSelectionPrereqs() {
                     color: _csWhite,
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                      color: _csAccentRed.withValues(alpha: 0.2),
-                    ),
+                        color: _csAccentRed.withValues(alpha: 0.2)),
                   ),
-                  child: const Text(
-                    'Hello World|',
+                  child: const Text('Hello World|',
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: _csDarkText)),
+                ),
+                Text('Ctrl+C → no-op',
                     style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: _csDarkText,
-                    ),
-                  ),
-                ),
-                Text(
-                  'Ctrl+C → no-op',
-                  style: TextStyle(
-                    color: _csAccentRed.withValues(alpha: 0.6),
-                    fontSize: 9,
-                  ),
-                ),
+                        color: _csAccentRed.withValues(alpha: 0.6),
+                        fontSize: 9)),
               ],
             ),
           ),
@@ -683,20 +607,18 @@ Widget _buildPlatformShortcutsTable() {
           color: isHeader
               ? _csCobalt
               : entry.key.isEven
-              ? _csLavender
-              : _csWhite,
+                  ? _csLavender
+                  : _csWhite,
           child: Row(
             children: entry.value.asMap().entries.map((col) {
               return Expanded(
                 flex: col.key == 3 ? 3 : 2,
-                child: Text(
-                  col.value,
-                  style: TextStyle(
-                    color: isHeader ? _csWhite : _csDarkText,
-                    fontSize: 10,
-                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-                  ),
-                ),
+                child: Text(col.value,
+                    style: TextStyle(
+                        color: isHeader ? _csWhite : _csDarkText,
+                        fontSize: 10,
+                        fontWeight:
+                            isHeader ? FontWeight.w700 : FontWeight.w400)),
               );
             }).toList(),
           ),
@@ -712,26 +634,10 @@ Widget _buildPlatformShortcutsTable() {
 Widget _buildClipboardFlow() {
   final steps = <Map<String, dynamic>>[
     {'label': 'Intent dispatched', 'icon': Icons.send, 'color': _csMedCobalt},
-    {
-      'label': 'Read TextSelection',
-      'icon': Icons.select_all,
-      'color': _csAccentPurple,
-    },
-    {
-      'label': 'Extract substring',
-      'icon': Icons.content_cut,
-      'color': _csAccentOrange,
-    },
-    {
-      'label': 'Clipboard.setData()',
-      'icon': Icons.content_paste,
-      'color': _csAccentGreen,
-    },
-    {
-      'label': 'Platform clipboard updated',
-      'icon': Icons.check,
-      'color': _csAccentTeal,
-    },
+    {'label': 'Read TextSelection', 'icon': Icons.select_all, 'color': _csAccentPurple},
+    {'label': 'Extract substring', 'icon': Icons.content_cut, 'color': _csAccentOrange},
+    {'label': 'Clipboard.setData()', 'icon': Icons.content_paste, 'color': _csAccentGreen},
+    {'label': 'Platform clipboard updated', 'icon': Icons.check, 'color': _csAccentTeal},
   ];
 
   return Container(
@@ -751,8 +657,7 @@ Widget _buildClipboardFlow() {
             color: (s['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(6),
             border: Border.all(
-              color: (s['color'] as Color).withValues(alpha: 0.3),
-            ),
+                color: (s['color'] as Color).withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
@@ -764,27 +669,22 @@ Widget _buildClipboardFlow() {
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: Text(
-                    '${entry.key + 1}',
-                    style: const TextStyle(
-                      color: _csWhite,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: Text('${entry.key + 1}',
+                      style: const TextStyle(
+                          color: _csWhite,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700)),
                 ),
               ),
               const SizedBox(width: 8),
-              Icon(s['icon'] as IconData, size: 16, color: s['color'] as Color),
+              Icon(s['icon'] as IconData,
+                  size: 16, color: s['color'] as Color),
               const SizedBox(width: 6),
-              Text(
-                s['label'] as String,
-                style: TextStyle(
-                  color: s['color'] as Color,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              Text(s['label'] as String,
+                  style: TextStyle(
+                      color: s['color'] as Color,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600)),
             ],
           ),
         );
@@ -812,33 +712,29 @@ Widget _buildCopyVsCutBehavior() {
             decoration: BoxDecoration(
               color: _csAccentGreen.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _csAccentGreen.withValues(alpha: 0.3)),
+              border:
+                  Border.all(color: _csAccentGreen.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Icon(Icons.content_copy, color: _csAccentGreen, size: 22),
+                const Icon(Icons.content_copy,
+                    color: _csAccentGreen, size: 22),
                 const SizedBox(height: 4),
-                const Text(
-                  'Copy (Ctrl+C)',
-                  style: TextStyle(
-                    color: _csAccentGreen,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Copy (Ctrl+C)',
+                    style: TextStyle(
+                        color: _csAccentGreen,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
                 _csDivider(),
-                const Text(
-                  'Selection preserved',
-                  style: TextStyle(color: _csAccentGreen, fontSize: 10),
-                ),
-                const Text(
-                  'Text remains in field',
-                  style: TextStyle(color: _csAccentGreen, fontSize: 10),
-                ),
-                const Text(
-                  'Clipboard updated',
-                  style: TextStyle(color: _csAccentGreen, fontSize: 10),
-                ),
+                const Text('Selection preserved',
+                    style: TextStyle(
+                        color: _csAccentGreen, fontSize: 10)),
+                const Text('Text remains in field',
+                    style: TextStyle(
+                        color: _csAccentGreen, fontSize: 10)),
+                const Text('Clipboard updated',
+                    style: TextStyle(
+                        color: _csAccentGreen, fontSize: 10)),
               ],
             ),
           ),
@@ -850,33 +746,29 @@ Widget _buildCopyVsCutBehavior() {
             decoration: BoxDecoration(
               color: _csAccentOrange.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _csAccentOrange.withValues(alpha: 0.3)),
+              border:
+                  Border.all(color: _csAccentOrange.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Icon(Icons.content_cut, color: _csAccentOrange, size: 22),
+                const Icon(Icons.content_cut,
+                    color: _csAccentOrange, size: 22),
                 const SizedBox(height: 4),
-                const Text(
-                  'Cut (Ctrl+X)',
-                  style: TextStyle(
-                    color: _csAccentOrange,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Cut (Ctrl+X)',
+                    style: TextStyle(
+                        color: _csAccentOrange,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
                 _csDivider(),
-                const Text(
-                  'Selection removed',
-                  style: TextStyle(color: _csAccentOrange, fontSize: 10),
-                ),
-                const Text(
-                  'Text deleted from field',
-                  style: TextStyle(color: _csAccentOrange, fontSize: 10),
-                ),
-                const Text(
-                  'Clipboard updated',
-                  style: TextStyle(color: _csAccentOrange, fontSize: 10),
-                ),
+                const Text('Selection removed',
+                    style: TextStyle(
+                        color: _csAccentOrange, fontSize: 10)),
+                const Text('Text deleted from field',
+                    style: TextStyle(
+                        color: _csAccentOrange, fontSize: 10)),
+                const Text('Clipboard updated',
+                    style: TextStyle(
+                        color: _csAccentOrange, fontSize: 10)),
               ],
             ),
           ),
@@ -891,38 +783,10 @@ Widget _buildCopyVsCutBehavior() {
 // ─────────────────────────────────────────────────────────────
 List<Widget> _buildTextWidgetCards() {
   final widgets = <Map<String, dynamic>>[
-    {
-      'name': 'TextField',
-      'behavior': 'Full copy support, selection handles',
-      'detail':
-          'Primary editable text. Copies between base and extent of current selection.',
-      'icon': Icons.text_fields,
-      'color': _csMedCobalt,
-    },
-    {
-      'name': 'SelectableText',
-      'behavior': 'Read-only copy support',
-      'detail':
-          'Non-editable but selectable. User can select and copy but not modify.',
-      'icon': Icons.text_snippet,
-      'color': _csAccentPurple,
-    },
-    {
-      'name': 'EditableText',
-      'behavior': 'Low-level copy action',
-      'detail':
-          'Foundation widget. TextField wraps this. Direct clipboard access.',
-      'icon': Icons.edit,
-      'color': _csAccentTeal,
-    },
-    {
-      'name': 'TextFormField',
-      'behavior': 'Same as TextField + form',
-      'detail':
-          'Form integration. Copy behavior inherited from TextField delegate.',
-      'icon': Icons.description,
-      'color': _csAccentGreen,
-    },
+    {'name': 'TextField', 'behavior': 'Full copy support, selection handles', 'detail': 'Primary editable text. Copies between base and extent of current selection.', 'icon': Icons.text_fields, 'color': _csMedCobalt},
+    {'name': 'SelectableText', 'behavior': 'Read-only copy support', 'detail': 'Non-editable but selectable. User can select and copy but not modify.', 'icon': Icons.text_snippet, 'color': _csAccentPurple},
+    {'name': 'EditableText', 'behavior': 'Low-level copy action', 'detail': 'Foundation widget. TextField wraps this. Direct clipboard access.', 'icon': Icons.edit, 'color': _csAccentTeal},
+    {'name': 'TextFormField', 'behavior': 'Same as TextField + form', 'detail': 'Form integration. Copy behavior inherited from TextField delegate.', 'icon': Icons.description, 'color': _csAccentGreen},
   ];
 
   return widgets.map((w) {
@@ -932,7 +796,8 @@ List<Widget> _buildTextWidgetCards() {
       decoration: BoxDecoration(
         color: (w['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (w['color'] as Color).withValues(alpha: 0.3)),
+        border:
+            Border.all(color: (w['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -946,40 +811,32 @@ List<Widget> _buildTextWidgetCards() {
                   color: w['color'] as Color,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Icon(w['icon'] as IconData, color: _csWhite, size: 15),
+                child: Icon(w['icon'] as IconData,
+                    color: _csWhite, size: 15),
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      w['name'] as String,
-                      style: TextStyle(
-                        color: w['color'] as Color,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                    Text(
-                      w['behavior'] as String,
-                      style: const TextStyle(color: _csDarkText, fontSize: 10),
-                    ),
+                    Text(w['name'] as String,
+                        style: TextStyle(
+                            color: w['color'] as Color,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'monospace')),
+                    Text(w['behavior'] as String,
+                        style: const TextStyle(
+                            color: _csDarkText, fontSize: 10)),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 4),
-          Text(
-            w['detail'] as String,
-            style: const TextStyle(
-              color: _csDarkText,
-              fontSize: 10.5,
-              height: 1.3,
-            ),
-          ),
+          Text(w['detail'] as String,
+              style: const TextStyle(
+                  color: _csDarkText, fontSize: 10.5, height: 1.3)),
         ],
       ),
     );
@@ -1024,7 +881,8 @@ List<Widget> _buildCustomCopyScenarios() {
       decoration: BoxDecoration(
         color: (s['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+        border:
+            Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -1035,29 +893,22 @@ List<Widget> _buildCustomCopyScenarios() {
               color: s['color'] as Color,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Icon(s['icon'] as IconData, color: _csWhite, size: 15),
+            child:
+                Icon(s['icon'] as IconData, color: _csWhite, size: 15),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  s['name'] as String,
-                  style: TextStyle(
-                    color: s['color'] as Color,
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Text(
-                  s['desc'] as String,
-                  style: const TextStyle(
-                    color: _csDarkText,
-                    fontSize: 10,
-                    height: 1.3,
-                  ),
-                ),
+                Text(s['name'] as String,
+                    style: TextStyle(
+                        color: s['color'] as Color,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w700)),
+                Text(s['desc'] as String,
+                    style: const TextStyle(
+                        color: _csDarkText, fontSize: 10, height: 1.3)),
               ],
             ),
           ),
@@ -1086,39 +937,32 @@ Widget _buildRichVsPlainComparison() {
             decoration: BoxDecoration(
               color: _csMedCobalt.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _csMedCobalt.withValues(alpha: 0.3)),
+              border:
+                  Border.all(color: _csMedCobalt.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Text(
-                  'Plain Text',
-                  style: TextStyle(
-                    color: _csMedCobalt,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Plain Text',
+                    style: TextStyle(
+                        color: _csMedCobalt,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 6),
-                const Text(
-                  'text/plain',
-                  style: TextStyle(
-                    color: _csMedCobalt,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                const Text('text/plain',
+                    style: TextStyle(
+                        color: _csMedCobalt,
+                        fontSize: 10,
+                        fontFamily: 'monospace')),
                 _csDivider(),
-                const Text(
-                  'Default for\nCopySelectionTextIntent',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: _csDarkText, fontSize: 10),
-                ),
+                const Text('Default for\nCopySelectionTextIntent',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: _csDarkText, fontSize: 10)),
                 const SizedBox(height: 4),
-                const Text(
-                  'No formatting\nNo colors\nJust characters',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: _csDarkText, fontSize: 9.5),
-                ),
+                const Text('No formatting\nNo colors\nJust characters',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: _csDarkText, fontSize: 9.5)),
               ],
             ),
           ),
@@ -1130,39 +974,32 @@ Widget _buildRichVsPlainComparison() {
             decoration: BoxDecoration(
               color: _csAccentPurple.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _csAccentPurple.withValues(alpha: 0.3)),
+              border:
+                  Border.all(color: _csAccentPurple.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [
-                const Text(
-                  'Rich Text',
-                  style: TextStyle(
-                    color: _csAccentPurple,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Rich Text',
+                    style: TextStyle(
+                        color: _csAccentPurple,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 6),
-                const Text(
-                  'text/html',
-                  style: TextStyle(
-                    color: _csAccentPurple,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                const Text('text/html',
+                    style: TextStyle(
+                        color: _csAccentPurple,
+                        fontSize: 10,
+                        fontFamily: 'monospace')),
                 _csDivider(),
-                const Text(
-                  'Custom action\nneeded for HTML copy',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: _csDarkText, fontSize: 10),
-                ),
+                const Text('Custom action\nneeded for HTML copy',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: _csDarkText, fontSize: 10)),
                 const SizedBox(height: 4),
-                const Text(
-                  'Bold, italic\nColors, links\nStructured content',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: _csDarkText, fontSize: 9.5),
-                ),
+                const Text('Bold, italic\nColors, links\nStructured content',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: _csDarkText, fontSize: 9.5)),
               ],
             ),
           ),
@@ -1177,23 +1014,11 @@ Widget _buildRichVsPlainComparison() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildAccessibilityItems() {
   final items = <Map<String, dynamic>>[
-    {
-      'req': 'Screen reader announces "copied to clipboard"',
-      'icon': Icons.record_voice_over,
-    },
-    {
-      'req': 'Keyboard shortcut must work without mouse',
-      'icon': Icons.keyboard,
-    },
-    {
-      'req': 'Selection visible before and after copy',
-      'icon': Icons.visibility,
-    },
+    {'req': 'Screen reader announces "copied to clipboard"', 'icon': Icons.record_voice_over},
+    {'req': 'Keyboard shortcut must work without mouse', 'icon': Icons.keyboard},
+    {'req': 'Selection visible before and after copy', 'icon': Icons.visibility},
     {'req': 'Context menu provides Copy option', 'icon': Icons.menu},
-    {
-      'req': 'Works with assistive technology selection',
-      'icon': Icons.accessible,
-    },
+    {'req': 'Works with assistive technology selection', 'icon': Icons.accessible},
   ];
 
   return Column(
@@ -1204,17 +1029,18 @@ Widget _buildAccessibilityItems() {
         decoration: BoxDecoration(
           color: _csAccentGreen.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: _csAccentGreen.withValues(alpha: 0.2)),
+          border:
+              Border.all(color: _csAccentGreen.withValues(alpha: 0.2)),
         ),
         child: Row(
           children: [
-            Icon(item['icon'] as IconData, size: 16, color: _csAccentGreen),
+            Icon(item['icon'] as IconData,
+                size: 16, color: _csAccentGreen),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                item['req'] as String,
-                style: const TextStyle(color: _csDarkText, fontSize: 11),
-              ),
+              child: Text(item['req'] as String,
+                  style: const TextStyle(
+                      color: _csDarkText, fontSize: 11)),
             ),
           ],
         ),
@@ -1250,20 +1076,14 @@ Widget _buildCodeEditorDemo() {
             children: [
               const Icon(Icons.code, color: _csWhite, size: 14),
               const SizedBox(width: 8),
-              const Text(
-                'main.dart',
-                style: TextStyle(
-                  color: _csWhite,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              const Text('main.dart',
+                  style: TextStyle(
+                      color: _csWhite,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600)),
               const Spacer(),
-              _csChip(
-                'Lines 2-4 selected',
-                _csWhite.withValues(alpha: 0.2),
-                _csWhite,
-              ),
+              _csChip('Lines 2-4 selected',
+                  _csWhite.withValues(alpha: 0.2), _csWhite),
             ],
           ),
         ),
@@ -1274,37 +1094,33 @@ Widget _buildCodeEditorDemo() {
             children: lines.map((l) {
               final selected = l['selected'] as bool;
               return Container(
-                color: selected ? _csMedCobalt.withValues(alpha: 0.3) : null,
+                color: selected
+                    ? _csMedCobalt.withValues(alpha: 0.3)
+                    : null,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 2,
-                ),
+                    horizontal: 12, vertical: 2),
                 child: Row(
                   children: [
                     SizedBox(
                       width: 24,
-                      child: Text(
-                        l['num'] as String,
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          color: selected
-                              ? _csLightCobalt
-                              : const Color(0xFF6C6C8A),
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
+                      child: Text(l['num'] as String,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              color: selected
+                                  ? _csLightCobalt
+                                  : const Color(0xFF6C6C8A),
+                              fontSize: 10,
+                              fontFamily: 'monospace')),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: Text(
-                        l['code'] as String,
-                        style: TextStyle(
-                          color: selected ? _csWhite : const Color(0xFFA0A0C0),
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
+                      child: Text(l['code'] as String,
+                          style: TextStyle(
+                              color: selected
+                                  ? _csWhite
+                                  : const Color(0xFFA0A0C0),
+                              fontSize: 11,
+                              fontFamily: 'monospace')),
                     ),
                   ],
                 ),
@@ -1319,31 +1135,26 @@ Widget _buildCodeEditorDemo() {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: _csWhite,
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(color: _csLightCobalt),
                 ),
-                child: const Text(
-                  'Ctrl+C',
-                  style: TextStyle(
-                    color: _csCobalt,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                child: const Text('Ctrl+C',
+                    style: TextStyle(
+                        color: _csCobalt,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'monospace')),
               ),
               const SizedBox(width: 8),
-              const Text(
-                '→ 3 lines copied to clipboard',
-                style: TextStyle(
-                  color: _csCobalt,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              const Text('→ 3 lines copied to clipboard',
+                  style: TextStyle(
+                      color: _csCobalt,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600)),
             ],
           ),
         ),
@@ -1363,13 +1174,10 @@ Widget _csSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _csWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _csWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _csWhite.withValues(alpha: 0.95),
+                  fontSize: 12.5)),
         ),
       ],
     ),

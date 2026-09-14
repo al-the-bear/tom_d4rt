@@ -58,7 +58,9 @@ Widget _smSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_smSteel, _smDarkSteel]),
+      gradient: LinearGradient(
+        colors: [_smSteel, _smDarkSteel],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,12 +147,8 @@ Widget _smBadge(String text, Color color) {
   );
 }
 
-Widget _smPropertyRow(
-  String property,
-  String value,
-  IconData icon, {
-  Color iconColor = _smSteel,
-}) {
+Widget _smPropertyRow(String property, String value, IconData icon,
+    {Color iconColor = _smSteel}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
     child: Row(
@@ -199,11 +197,7 @@ Widget _smGradientSample({
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x1A000000),
-          blurRadius: 8,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -220,14 +214,11 @@ Widget _smGradientSample({
               topRight: Radius.circular(12),
             ),
           ),
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-              color: _smSteel,
-            ),
-          ),
+          child: Text(label,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: _smSteel)),
         ),
         // Masked content
         ClipRRect(
@@ -329,10 +320,9 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 1 — Overview: What is ShaderMaskLayer?
         // ==================================================================
-        _smSectionHeader(
-          '1. What is ShaderMaskLayer?',
-          subtitle: 'A compositing layer that masks child pixels with a shader',
-        ),
+        _smSectionHeader('1. What is ShaderMaskLayer?',
+            subtitle:
+                'A compositing layer that masks child pixels with a shader'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -358,39 +348,20 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text(
-                'Compositing Layer Tree',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: _smDarkSteel,
-                ),
-              ),
+              const Text('Compositing Layer Tree',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: _smDarkSteel)),
               const SizedBox(height: 14),
-              _smPropertyRow(
-                'shader',
-                'The Shader to apply as mask',
-                Icons.gradient,
-                iconColor: _smSky,
-              ),
-              _smPropertyRow(
-                'maskRect',
-                'Bounds for the shader callback',
-                Icons.crop,
-                iconColor: _smTeal,
-              ),
-              _smPropertyRow(
-                'blendMode',
-                'How shader & child combine',
-                Icons.layers,
-                iconColor: _smAmber,
-              ),
-              _smPropertyRow(
-                'child layers',
-                'Everything below in the tree',
-                Icons.account_tree,
-                iconColor: _smPlum,
-              ),
+              _smPropertyRow('shader', 'The Shader to apply as mask',
+                  Icons.gradient, iconColor: _smSky),
+              _smPropertyRow('maskRect', 'Bounds for the shader callback',
+                  Icons.crop, iconColor: _smTeal),
+              _smPropertyRow('blendMode', 'How shader & child combine',
+                  Icons.layers, iconColor: _smAmber),
+              _smPropertyRow('child layers', 'Everything below in the tree',
+                  Icons.account_tree, iconColor: _smPlum),
             ],
           ),
         ),
@@ -414,10 +385,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 2 — Linear Gradient Masks
         // ==================================================================
-        _smSectionHeader(
-          '2. Linear Gradient Masks',
-          subtitle: 'Fading content with directional gradients',
-        ),
+        _smSectionHeader('2. Linear Gradient Masks',
+            subtitle: 'Fading content with directional gradients'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -464,12 +433,7 @@ dynamic build(BuildContext context) {
           description: 'Sharp center,\nfaded edges',
           shaderCallback: (Rect bounds) {
             return const LinearGradient(
-              colors: [
-                Colors.transparent,
-                Colors.white,
-                Colors.white,
-                Colors.transparent,
-              ],
+              colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
               stops: [0.0, 0.2, 0.8, 1.0],
             ).createShader(bounds);
           },
@@ -494,10 +458,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 3 — Radial Gradient Masks
         // ==================================================================
-        _smSectionHeader(
-          '3. Radial Gradient Masks',
-          subtitle: 'Circular and spotlight effects',
-        ),
+        _smSectionHeader('3. Radial Gradient Masks',
+            subtitle: 'Circular and spotlight effects'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -557,10 +519,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 4 — Sweep Gradient Masks
         // ==================================================================
-        _smSectionHeader(
-          '4. Sweep Gradient Masks',
-          subtitle: 'Angular / rotational effects',
-        ),
+        _smSectionHeader('4. Sweep Gradient Masks',
+            subtitle: 'Angular / rotational effects'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -604,10 +564,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 5 — Blend Modes
         // ==================================================================
-        _smSectionHeader(
-          '5. Blend Mode Comparison',
-          subtitle: 'dstIn vs srcIn vs modulate',
-        ),
+        _smSectionHeader('5. Blend Mode Comparison',
+            subtitle: 'dstIn vs srcIn vs modulate'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -632,14 +590,11 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text(
-                'BlendMode.dstIn — Transparency Mask',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: _smDarkSteel,
-                ),
-              ),
+              const Text('BlendMode.dstIn — Transparency Mask',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: _smDarkSteel)),
               const SizedBox(height: 10),
               SizedBox(
                 height: 80,
@@ -654,23 +609,18 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
-                      child: Text(
-                        'dstIn',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('dstIn',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
-                'Child → transparent where shader is transparent',
-                style: TextStyle(fontSize: 10, color: _smCharcoal),
-              ),
+              const Text('Child → transparent where shader is transparent',
+                  style: TextStyle(fontSize: 10, color: _smCharcoal)),
             ],
           ),
         ),
@@ -686,14 +636,11 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text(
-                'BlendMode.srcIn — Colour Tinting',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: _smDarkSteel,
-                ),
-              ),
+              const Text('BlendMode.srcIn — Colour Tinting',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: _smDarkSteel)),
               const SizedBox(height: 10),
               SizedBox(
                 height: 80,
@@ -708,23 +655,18 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
-                      child: Text(
-                        'srcIn',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('srcIn',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
-                'Shader colour replaces child colour',
-                style: TextStyle(fontSize: 10, color: _smCharcoal),
-              ),
+              const Text('Shader colour replaces child colour',
+                  style: TextStyle(fontSize: 10, color: _smCharcoal)),
             ],
           ),
         ),
@@ -740,14 +682,11 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text(
-                'BlendMode.modulate — Colour Multiply',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: _smDarkSteel,
-                ),
-              ),
+              const Text('BlendMode.modulate — Colour Multiply',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: _smDarkSteel)),
               const SizedBox(height: 10),
               SizedBox(
                 height: 80,
@@ -762,23 +701,18 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
-                      child: Text(
-                        'modulate',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('modulate',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
-                'Shader × child pixel-by-pixel multiplication',
-                style: TextStyle(fontSize: 10, color: _smCharcoal),
-              ),
+              const Text('Shader × child pixel-by-pixel multiplication',
+                  style: TextStyle(fontSize: 10, color: _smCharcoal)),
             ],
           ),
         ),
@@ -788,10 +722,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 6 — Text Gradient Effects
         // ==================================================================
-        _smSectionHeader(
-          '6. Text Gradient Effects',
-          subtitle: 'Using ShaderMask to create gradient text',
-        ),
+        _smSectionHeader('6. Text Gradient Effects',
+            subtitle: 'Using ShaderMask to create gradient text'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -907,10 +839,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 7 — Icon Gradient Effects
         // ==================================================================
-        _smSectionHeader(
-          '7. Icon Gradient Effects',
-          subtitle: 'Applying shader masks to icons',
-        ),
+        _smSectionHeader('7. Icon Gradient Effects',
+            subtitle: 'Applying shader masks to icons'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -927,27 +857,37 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
-              BoxShadow(
-                color: Color(0x1A000000),
-                blurRadius: 8,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 2)),
             ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _smGradientIcon(Icons.favorite, [
-                _smCoral,
-                _smAmber,
-              ], 'Favourite'),
-              _smGradientIcon(Icons.star, [_smGold, _smAmber], 'Starred'),
-              _smGradientIcon(Icons.local_fire_department, [
-                _smCoral,
-                _smGold,
-              ], 'Trending'),
-              _smGradientIcon(Icons.eco, [_smTeal, _smEmerald], 'Nature'),
-              _smGradientIcon(Icons.water_drop, [_smSky, _smTeal], 'Water'),
+              _smGradientIcon(
+                Icons.favorite,
+                [_smCoral, _smAmber],
+                'Favourite',
+              ),
+              _smGradientIcon(
+                Icons.star,
+                [_smGold, _smAmber],
+                'Starred',
+              ),
+              _smGradientIcon(
+                Icons.local_fire_department,
+                [_smCoral, _smGold],
+                'Trending',
+              ),
+              _smGradientIcon(
+                Icons.eco,
+                [_smTeal, _smEmerald],
+                'Nature',
+              ),
+              _smGradientIcon(
+                Icons.water_drop,
+                [_smSky, _smTeal],
+                'Water',
+              ),
             ],
           ),
         ),
@@ -957,10 +897,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 8 — Practical Fade Patterns
         // ==================================================================
-        _smSectionHeader(
-          '8. Practical Fade Patterns',
-          subtitle: 'Real-world uses: scroll fades, card reveals, overlays',
-        ),
+        _smSectionHeader('8. Practical Fade Patterns',
+            subtitle: 'Real-world uses: scroll fades, card reveals, overlays'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -983,14 +921,11 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text(
-                'List with Top/Bottom Fade',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: _smDarkSteel,
-                ),
-              ),
+              const Text('List with Top/Bottom Fade',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: _smDarkSteel)),
               const SizedBox(height: 10),
               SizedBox(
                 height: 160,
@@ -1013,9 +948,7 @@ dynamic build(BuildContext context) {
                       12,
                       (i) => Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 3,
-                        ),
+                            horizontal: 10, vertical: 3),
                         child: Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
@@ -1034,24 +967,17 @@ dynamic build(BuildContext context) {
                                   borderRadius: BorderRadius.circular(14),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    '${i + 1}',
-                                    style: const TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: _smSteel,
-                                    ),
-                                  ),
+                                  child: Text('${i + 1}',
+                                      style: const TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                          color: _smSteel)),
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Text(
-                                'List Item ${i + 1}',
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: _smCharcoal,
-                                ),
-                              ),
+                              Text('List Item ${i + 1}',
+                                  style: const TextStyle(
+                                      fontSize: 12, color: _smCharcoal)),
                             ],
                           ),
                         ),
@@ -1068,7 +994,9 @@ dynamic build(BuildContext context) {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           height: 180,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+          ),
           clipBehavior: Clip.antiAlias,
           child: Stack(
             children: [
@@ -1082,11 +1010,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 child: Center(
-                  child: Icon(
-                    Icons.landscape,
-                    color: Colors.white.withValues(alpha: 0.3),
-                    size: 80,
-                  ),
+                  child: Icon(Icons.landscape, color: Colors.white.withValues(alpha: 0.3), size: 80),
                 ),
               ),
               // Gradient overlay for text readability
@@ -1102,7 +1026,10 @@ dynamic build(BuildContext context) {
                     stops: [0.0, 1.0],
                   ).createShader(bounds),
                   blendMode: BlendMode.dstIn,
-                  child: Container(height: 80, color: Colors.black),
+                  child: Container(
+                    height: 80,
+                    color: Colors.black,
+                  ),
                 ),
               ),
               // Text over gradient
@@ -1112,18 +1039,14 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Mountain Valley',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'A common hero image pattern with gradient overlay',
-                      style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 11),
-                    ),
+                    Text('Mountain Valley',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+                    Text('A common hero image pattern with gradient overlay',
+                        style: TextStyle(
+                            color: Color(0xCCFFFFFF), fontSize: 11)),
                   ],
                 ),
               ),
@@ -1136,10 +1059,9 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 9 — Layer Tree Internals
         // ==================================================================
-        _smSectionHeader(
-          '9. Layer Tree Internals',
-          subtitle: 'How ShaderMaskLayer fits in the compositing pipeline',
-        ),
+        _smSectionHeader('9. Layer Tree Internals',
+            subtitle:
+                'How ShaderMaskLayer fits in the compositing pipeline'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -1170,42 +1092,23 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text(
-                'Compositing Pipeline',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: _smDarkSteel,
-                ),
-              ),
+              const Text('Compositing Pipeline',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: _smDarkSteel)),
               const SizedBox(height: 14),
-              _smPipelineStep(
-                '1',
-                'pushShaderMask(shader, rect, mode)',
-                _smSky,
-                Icons.layers,
-              ),
+              _smPipelineStep('1', 'pushShaderMask(shader, rect, mode)',
+                  _smSky, Icons.layers),
               _smPipelineArrow(),
-              _smPipelineStep(
-                '2',
-                'Children render to offscreen buffer',
-                _smTeal,
-                Icons.image,
-              ),
+              _smPipelineStep('2', 'Children render to offscreen buffer',
+                  _smTeal, Icons.image),
               _smPipelineArrow(),
-              _smPipelineStep(
-                '3',
-                'Apply shader × child with blendMode',
-                _smAmber,
-                Icons.auto_fix_high,
-              ),
+              _smPipelineStep('3', 'Apply shader × child with blendMode',
+                  _smAmber, Icons.auto_fix_high),
               _smPipelineArrow(),
-              _smPipelineStep(
-                '4',
-                'Composite result into parent layer',
-                _smEmerald,
-                Icons.check_circle,
-              ),
+              _smPipelineStep('4', 'Composite result into parent layer',
+                  _smEmerald, Icons.check_circle),
             ],
           ),
         ),
@@ -1215,10 +1118,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 10 — Multi-Stop Gradient Masks
         // ==================================================================
-        _smSectionHeader(
-          '10. Multi-Stop Gradient Masks',
-          subtitle: 'Complex fade patterns with multiple stops',
-        ),
+        _smSectionHeader('10. Multi-Stop Gradient Masks',
+            subtitle: 'Complex fade patterns with multiple stops'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -1270,10 +1171,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 11 — Performance Considerations
         // ==================================================================
-        _smSectionHeader(
-          '11. Performance Considerations',
-          subtitle: 'GPU cost and when to use alternatives',
-        ),
+        _smSectionHeader('11. Performance Considerations',
+            subtitle: 'GPU cost and when to use alternatives'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -1299,28 +1198,25 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
-              BoxShadow(
-                color: Color(0x1A000000),
-                blurRadius: 8,
-                offset: Offset(0, 2),
-              ),
+              BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 2)),
             ],
           ),
           child: Column(
             children: [
-              const Text(
-                'Cost Comparison',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: _smCharcoal,
-                ),
-              ),
+              const Text('Cost Comparison',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: _smCharcoal)),
               const SizedBox(height: 14),
-              _smCostRow('DecoratedBox gradient', 'Low', _smEmerald, 1),
-              _smCostRow('Simple ShaderMask', 'Medium', _smAmber, 2),
-              _smCostRow('Nested ShaderMask × 2', 'High', _smCoral, 3),
-              _smCostRow('Fullscreen + animation', 'Very High', _smCoral, 4),
+              _smCostRow('DecoratedBox gradient', 'Low',
+                  _smEmerald, 1),
+              _smCostRow('Simple ShaderMask', 'Medium',
+                  _smAmber, 2),
+              _smCostRow('Nested ShaderMask × 2', 'High',
+                  _smCoral, 3),
+              _smCostRow('Fullscreen + animation', 'Very High',
+                  _smCoral, 4),
             ],
           ),
         ),
@@ -1330,10 +1226,8 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 12 — Summary
         // ==================================================================
-        _smSectionHeader(
-          '12. Summary',
-          subtitle: 'ShaderMaskLayer in the rendering pipeline',
-        ),
+        _smSectionHeader('12. Summary',
+            subtitle: 'ShaderMaskLayer in the rendering pipeline'),
 
         const SizedBox(height: 10),
         _smInfoCard(
@@ -1405,10 +1299,7 @@ dynamic build(BuildContext context) {
 // ==========================================================================
 
 Widget _smGradientIcon(
-  IconData icon,
-  List<Color> gradientColors,
-  String label,
-) {
+    IconData icon, List<Color> gradientColors, String label) {
   return Column(
     children: [
       ShaderMask(
@@ -1421,24 +1312,17 @@ Widget _smGradientIcon(
         child: Icon(icon, size: 36, color: Colors.white),
       ),
       const SizedBox(height: 4),
-      Text(
-        label,
-        style: const TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-          color: _smCharcoal,
-        ),
-      ),
+      Text(label,
+          style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: _smCharcoal)),
     ],
   );
 }
 
 Widget _smPipelineStep(
-  String number,
-  String label,
-  Color color,
-  IconData icon,
-) {
+    String number, String label, Color color, IconData icon) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
     decoration: BoxDecoration(
@@ -1456,26 +1340,17 @@ Widget _smPipelineStep(
             borderRadius: BorderRadius.circular(14),
           ),
           child: Center(
-            child: Text(
-              number,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
+            child: Text(number,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12)),
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: color,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600)),
         ),
         Icon(icon, color: color, size: 20),
       ],
@@ -1497,10 +1372,8 @@ Widget _smCostRow(String label, String cost, Color color, int level) {
       children: [
         Expanded(
           flex: 3,
-          child: Text(
-            label,
-            style: const TextStyle(fontSize: 12, color: _smCharcoal),
-          ),
+          child: Text(label,
+              style: const TextStyle(fontSize: 12, color: _smCharcoal)),
         ),
         Expanded(
           flex: 2,
@@ -1521,14 +1394,11 @@ Widget _smCostRow(String label, String cost, Color color, int level) {
                 ),
               ),
               const SizedBox(width: 6),
-              Text(
-                cost,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
+              Text(cost,
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: color)),
             ],
           ),
         ),

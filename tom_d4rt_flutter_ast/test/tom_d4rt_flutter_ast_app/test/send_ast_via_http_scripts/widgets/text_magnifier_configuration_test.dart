@@ -90,7 +90,11 @@ const _tmcfgPalette = _TmcfgPalette(
 // Preset identifiers for the interactive playground.
 // ---------------------------------------------------------------------------
 
-enum _TmcfgPreset { pill, circle, roundedRect }
+enum _TmcfgPreset {
+  pill,
+  circle,
+  roundedRect,
+}
 
 // ---------------------------------------------------------------------------
 // A record-like holder describing one of the four specimen configurations.
@@ -163,8 +167,7 @@ final List<_TmcfgSpecimen> _tmcfgSpecimens = <_TmcfgSpecimen>[
 
 dynamic build(BuildContext context) {
   debugPrint(
-    '[TextMagnifierConfiguration] Magnifier Atelier deep demo launching',
-  );
+      '[TextMagnifierConfiguration] Magnifier Atelier deep demo launching');
   return const _TmcfgAtelier();
 }
 
@@ -281,18 +284,17 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
     // Wrap the chosen builder so we can thread the playground scale through
     // the existing MagnifierBuilder signature without changing its shape.
     return TextMagnifierConfiguration(
-      magnifierBuilder:
-          (
-            BuildContext context,
-            MagnifierController controller,
-            ValueNotifier<MagnifierInfo> notifier,
-          ) {
-            _trace('Playground builder invoked, scale=$_scale preset=$_preset');
-            return _TmcfgScaleProxy(
-              scale: _scale,
-              inner: chosen(context, controller, notifier),
-            );
-          },
+      magnifierBuilder: (
+        BuildContext context,
+        MagnifierController controller,
+        ValueNotifier<MagnifierInfo> notifier,
+      ) {
+        _trace('Playground builder invoked, scale=$_scale preset=$_preset');
+        return _TmcfgScaleProxy(
+          scale: _scale,
+          inner: chosen(context, controller, notifier),
+        );
+      },
       shouldDisplayHandlesInMagnifier: _handlesOnMagnifier,
     );
   }
@@ -416,10 +418,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
                   runSpacing: 8,
                   children: <Widget>[
                     _chip('magnifierBuilder', _tmcfgPalette.ruby),
-                    _chip(
-                      'shouldDisplayHandlesInMagnifier',
-                      _tmcfgPalette.brass,
-                    ),
+                    _chip('shouldDisplayHandlesInMagnifier',
+                        _tmcfgPalette.brass),
                     _chip('MagnifierController', _tmcfgPalette.glass),
                     _chip('ValueNotifier<MagnifierInfo>', _tmcfgPalette.glass),
                     _chip('.disabled', _tmcfgPalette.ruby),
@@ -465,7 +465,7 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'What it configures',
         'body':
             'A bundle describing how TextField/EditableText should render the '
-            'magnifier loupe during selection on touch platforms.',
+                'magnifier loupe during selection on touch platforms.',
         'icon': Icons.tune,
         'accent': _tmcfgPalette.sky,
       },
@@ -473,7 +473,7 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'Who supplies it',
         'body':
             'The caller — each TextField accepts magnifierConfiguration. '
-            'Platform defaults provide a sensible adaptive loupe.',
+                'Platform defaults provide a sensible adaptive loupe.',
         'icon': Icons.touch_app,
         'accent': _tmcfgPalette.brass,
       },
@@ -481,7 +481,7 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'When it triggers',
         'body':
             'Primarily on long-press and handle drags on touch devices. '
-            'Desktop/mouse flows typically skip the builder.',
+                'Desktop/mouse flows typically skip the builder.',
         'icon': Icons.timer_outlined,
         'accent': _tmcfgPalette.ruby,
       },
@@ -696,7 +696,10 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
             // visible, and each card still demonstrates a different
             // magnifierConfiguration via the Tags/Wrap below).
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
+              ),
               decoration: BoxDecoration(
                 color: _tmcfgPalette.surface,
                 borderRadius: BorderRadius.circular(10),
@@ -865,7 +868,10 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 6),
         Text(
@@ -917,7 +923,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
           const SizedBox(height: 12),
           _diagRow('label', spec.label),
           _diagRow('builderKind', spec.builderKind),
-          _diagRow('shouldDisplayHandlesInMagnifier', spec.handles.toString()),
+          _diagRow('shouldDisplayHandlesInMagnifier',
+              spec.handles.toString()),
           _diagRow(
             'builder is no-op',
             identical(
@@ -925,14 +932,10 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
               TextMagnifierConfiguration.disabled.magnifierBuilder,
             ).toString(),
           ),
-          _diagRow(
-            'identicalTo(.disabled)',
-            identical(cfg, TextMagnifierConfiguration.disabled).toString(),
-          ),
-          _diagRow(
-            'identicalTo(.empty)',
-            identical(cfg, const TextMagnifierConfiguration()).toString(),
-          ),
+          _diagRow('identicalTo(.disabled)',
+              identical(cfg, TextMagnifierConfiguration.disabled).toString()),
+          _diagRow('identicalTo(.empty)',
+              identical(cfg, const TextMagnifierConfiguration()).toString()),
           _diagRow('runtimeType', cfg.runtimeType.toString()),
         ],
       ),
@@ -1059,9 +1062,7 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
               filled: true,
               fillColor: _tmcfgPalette.surface,
               contentPadding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 8,
-              ),
+                  horizontal: 10, vertical: 8),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
@@ -1121,7 +1122,10 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
                 _handlesOnMagnifier
                     ? 'Handles travel with the loupe'
                     : 'Handles stay below the loupe',
-                style: TextStyle(fontSize: 12.5, color: _tmcfgPalette.ink),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: _tmcfgPalette.ink,
+                ),
               ),
             ],
           ),
@@ -1151,11 +1155,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
           const SizedBox(height: 10),
           Row(
             children: <Widget>[
-              Icon(
-                Icons.bug_report_outlined,
-                color: _tmcfgPalette.brass,
-                size: 16,
-              ),
+              Icon(Icons.bug_report_outlined,
+                  color: _tmcfgPalette.brass, size: 16),
               const SizedBox(width: 6),
               Text(
                 'Verbose tracing',
@@ -1192,7 +1193,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
       decoration: BoxDecoration(
         color: _tmcfgPalette.ink.withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _tmcfgPalette.brass.withValues(alpha: 0.35)),
+        border:
+            Border.all(color: _tmcfgPalette.brass.withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1232,7 +1234,10 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
               _playgroundController.text,
               magnifierConfiguration: cfg,
               maxLines: 3,
-              style: TextStyle(fontSize: 13.5, color: _tmcfgPalette.ink),
+              style: TextStyle(
+                fontSize: 13.5,
+                color: _tmcfgPalette.ink,
+              ),
             ),
           ),
           const SizedBox(height: 10),
@@ -1272,7 +1277,10 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: accent,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 8),
           Text(
@@ -1314,11 +1322,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.menu_book_outlined,
-                color: _tmcfgPalette.brass,
-                size: 22,
-              ),
+              Icon(Icons.menu_book_outlined,
+                  color: _tmcfgPalette.brass, size: 22),
               const SizedBox(width: 10),
               Text(
                 'Quoted API',
@@ -1369,7 +1374,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
       decoration: BoxDecoration(
         color: _tmcfgPalette.glass.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _tmcfgPalette.brass.withValues(alpha: 0.35)),
+        border:
+            Border.all(color: _tmcfgPalette.brass.withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1422,11 +1428,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
               color: _tmcfgPalette.ruby.withValues(alpha: 0.18),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              Icons.warning_amber_rounded,
-              color: _tmcfgPalette.ruby,
-              size: 26,
-            ),
+            child: Icon(Icons.warning_amber_rounded,
+                color: _tmcfgPalette.ruby, size: 26),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -1484,9 +1487,9 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'Default behaviour',
         'body':
             'When TextField receives no magnifierConfiguration it uses the '
-            'platform-adaptive default returned by '
-            'TextMagnifier.adaptiveMagnifierConfiguration, which mirrors '
-            'iOS-style loupes on iOS and Material-style loupes on Android.',
+                'platform-adaptive default returned by '
+                'TextMagnifier.adaptiveMagnifierConfiguration, which mirrors '
+                'iOS-style loupes on iOS and Material-style loupes on Android.',
         'icon': Icons.smartphone,
         'accent': _tmcfgPalette.sky,
       },
@@ -1494,8 +1497,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'Null builder vs .disabled',
         'body':
             'Passing a config whose magnifierBuilder returns null effectively '
-            'disables the magnifier, but .disabled is a canned sentinel '
-            'with clearer intent. Prefer the sentinel for readability.',
+                'disables the magnifier, but .disabled is a canned sentinel '
+                'with clearer intent. Prefer the sentinel for readability.',
         'icon': Icons.block_flipped,
         'accent': _tmcfgPalette.ruby,
       },
@@ -1503,8 +1506,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'MagnifierInfo notifier',
         'body':
             'The notifier reports field size, global selection position, '
-            'caret rect, and the current drag position. Your builder '
-            'reads from it with ValueListenableBuilder to reposition.',
+                'caret rect, and the current drag position. Your builder '
+                'reads from it with ValueListenableBuilder to reposition.',
         'icon': Icons.my_location,
         'accent': _tmcfgPalette.brass,
       },
@@ -1512,8 +1515,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'MagnifierController',
         'body':
             'The controller owns the overlay entry hosting the magnifier. '
-            'Use it to coordinate show/hide transitions or to inspect '
-            'the currently mounted overlay entry.',
+                'Use it to coordinate show/hide transitions or to inspect '
+                'the currently mounted overlay entry.',
         'icon': Icons.settings_applications_outlined,
         'accent': _tmcfgPalette.ink,
       },
@@ -1521,8 +1524,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'Interplay with handles',
         'body':
             'shouldDisplayHandlesInMagnifier tells the framework whether '
-            'text selection handles should be painted onto the magnified '
-            'surface while it is visible. Useful for precise handle drag.',
+                'text selection handles should be painted onto the magnified '
+                'surface while it is visible. Useful for precise handle drag.',
         'icon': Icons.drag_handle,
         'accent': _tmcfgPalette.sky,
       },
@@ -1530,8 +1533,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
         'title': 'Performance notes',
         'body':
             'The magnifier repaints while the drag position changes. Keep '
-            'the custom builder widget tree shallow — avoid expensive '
-            'layouts or animations that would stall the drag rate.',
+                'the custom builder widget tree shallow — avoid expensive '
+                'layouts or animations that would stall the drag rate.',
         'icon': Icons.speed,
         'accent': _tmcfgPalette.brass,
       },
@@ -1543,7 +1546,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
       decoration: BoxDecoration(
         color: _tmcfgPalette.surface,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: _tmcfgPalette.muted.withValues(alpha: 0.3)),
+        border:
+            Border.all(color: _tmcfgPalette.muted.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1638,7 +1642,8 @@ class _TmcfgAtelierState extends State<_TmcfgAtelier>
       ),
       child: Row(
         children: <Widget>[
-          Icon(Icons.verified_outlined, color: _tmcfgPalette.brass, size: 20),
+          Icon(Icons.verified_outlined,
+              color: _tmcfgPalette.brass, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -1723,7 +1728,11 @@ Widget? _tmcfgPillMagnifierBuilder(
 // Shape enum for the hovering lens.
 // ---------------------------------------------------------------------------
 
-enum _TmcfgLensShape { circle, roundedRect, pill }
+enum _TmcfgLensShape {
+  circle,
+  roundedRect,
+  pill,
+}
 
 // ---------------------------------------------------------------------------
 // Hovering-lens widget — reads MagnifierInfo from the notifier and
@@ -1785,7 +1794,10 @@ class _TmcfgScaleProxy extends StatelessWidget {
   final double scale;
   final Widget? inner;
 
-  const _TmcfgScaleProxy({required this.scale, required this.inner});
+  const _TmcfgScaleProxy({
+    required this.scale,
+    required this.inner,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1839,7 +1851,11 @@ class _TmcfgLensPainter extends CustomPainter {
     final Paint indexPaint = Paint()
       ..style = PaintingStyle.fill
       ..color = indexColor;
-    canvas.drawCircle(Offset(size.width / 2, 6), 3.2, indexPaint);
+    canvas.drawCircle(
+      Offset(size.width / 2, 6),
+      3.2,
+      indexPaint,
+    );
     canvas.drawCircle(
       Offset(size.width / 2, 6),
       3.2,
@@ -1874,9 +1890,13 @@ class _TmcfgLensPainter extends CustomPainter {
         return Path()
           ..addRRect(RRect.fromRectAndRadius(rect, const Radius.circular(16)));
       case _TmcfgLensShape.pill:
-        return Path()..addRRect(
-          RRect.fromRectAndRadius(rect, Radius.circular(rect.height / 2)),
-        );
+        return Path()
+          ..addRRect(
+            RRect.fromRectAndRadius(
+              rect,
+              Radius.circular(rect.height / 2),
+            ),
+          );
     }
   }
 
@@ -1986,21 +2006,17 @@ class _TmcfgLensFlarePainter extends CustomPainter {
     // Inner highlight (specular).
     final Paint specular = Paint()
       ..style = PaintingStyle.fill
-      ..shader =
-          RadialGradient(
-            colors: <Color>[
-              glass.withValues(alpha: 0.7),
-              glass.withValues(alpha: 0.0),
-            ],
-          ).createShader(
-            Rect.fromCircle(
-              center: Offset(
-                center.dx - radius * 0.25,
-                center.dy - radius * 0.25,
-              ),
-              radius: radius * 0.3,
-            ),
-          );
+      ..shader = RadialGradient(
+        colors: <Color>[
+          glass.withValues(alpha: 0.7),
+          glass.withValues(alpha: 0.0),
+        ],
+      ).createShader(
+        Rect.fromCircle(
+          center: Offset(center.dx - radius * 0.25, center.dy - radius * 0.25),
+          radius: radius * 0.3,
+        ),
+      );
     canvas.drawCircle(
       Offset(center.dx - radius * 0.25, center.dy - radius * 0.25),
       radius * 0.3,
@@ -2162,25 +2178,13 @@ class _TmcfgCrossSectionPainter extends CustomPainter {
     }
 
     // Labels.
-    _paintLabel(
-      canvas,
-      'Lens',
-      Offset(lensCenter.dx + lensRadius + 8, lensCenter.dy - 6),
-      brass,
-    );
-    _paintLabel(
-      canvas,
-      'Selection',
-      Offset(selectionRect.right + 6, baselineY - 2),
-      sky,
-    );
+    _paintLabel(canvas, 'Lens', Offset(lensCenter.dx + lensRadius + 8,
+        lensCenter.dy - 6), brass);
+    _paintLabel(canvas, 'Selection', Offset(selectionRect.right + 6,
+        baselineY - 2), sky);
     _paintLabel(canvas, 'Baseline', Offset(24, baselineY + 14), ink);
-    _paintLabel(
-      canvas,
-      'Focal axis',
-      Offset(axisX + 4, 6),
-      sky.withValues(alpha: 0.85),
-    );
+    _paintLabel(canvas, 'Focal axis', Offset(axisX + 4, 6),
+        sky.withValues(alpha: 0.85));
 
     // A travelling bead on the focal axis to animate the ray-trace.
     final double beadY = 72 + ((baselineY - 72 - 16) * ray);

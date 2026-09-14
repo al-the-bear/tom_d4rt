@@ -299,7 +299,9 @@ Widget _buildSectionTitle(
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border(left: BorderSide(color: accent, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: accent, width: 4.0),
+      ),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: accent.withValues(alpha: 0.12),
@@ -621,15 +623,13 @@ Widget _buildHierarchyConstellation() {
     child: Column(
       children: <Widget>[
         // Apex node: ObjectEvent (abstract).
-        Center(
-          child: _constellationNode(
-            'ObjectEvent',
-            'abstract base',
-            <String>['object: Object', 'toMap()'],
-            _kTeal,
-            big: true,
-          ),
-        ),
+        Center(child: _constellationNode(
+          'ObjectEvent',
+          'abstract base',
+          <String>['object: Object', 'toMap()'],
+          _kTeal,
+          big: true,
+        )),
         SizedBox(height: 6.0),
         // Connecting lines (rendered as gradient bars).
         Row(
@@ -643,11 +643,16 @@ Widget _buildHierarchyConstellation() {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _constellationNode('ObjectCreated', 'extends ObjectEvent', <String>[
-              'library: String',
-              'className: String',
-              'object: Object',
-            ], _kCoral),
+            _constellationNode(
+              'ObjectCreated',
+              'extends ObjectEvent',
+              <String>[
+                'library: String',
+                'className: String',
+                'object: Object',
+              ],
+              _kCoral,
+            ),
             _constellationNode(
               'ObjectDisposed',
               'extends ObjectEvent',
@@ -705,7 +710,9 @@ Widget _connector(Color a, Color b) {
       child: Container(
         height: 2.0,
         margin: EdgeInsets.symmetric(horizontal: 12.0),
-        decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.25)),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.25),
+        ),
       ),
     ),
   );
@@ -844,9 +851,7 @@ Widget _buildEventTimeline(List<ObjectEvent> events) {
 Widget _timelineNode(ObjectEvent ev, int index, bool last) {
   final bool isCreated = ev is ObjectCreated;
   final Color accent = isCreated ? _kTeal : _kCoral;
-  final IconData icon = isCreated
-      ? Icons.add_circle_outline
-      : Icons.cancel_outlined;
+  final IconData icon = isCreated ? Icons.add_circle_outline : Icons.cancel_outlined;
   final String title = isCreated ? 'CREATE' : 'DISPOSE';
   final String detail = ev is ObjectCreated
       ? '${ev.className}\n${ev.library}'
@@ -941,7 +946,9 @@ Widget _timelineNode(ObjectEvent ev, int index, bool last) {
           height: 2.0,
           margin: EdgeInsets.only(top: 70.0),
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: <Color>[_kTeal, _kCoral]),
+            gradient: LinearGradient(
+              colors: <Color>[_kTeal, _kCoral],
+            ),
           ),
         ),
     ],
@@ -960,53 +967,27 @@ Widget _buildFieldAnatomy() {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(
-          child: _anatomyPanel(
-            'ObjectCreated',
-            _kCoral,
-            Icons.add_box_outlined,
-            <_FieldRow>[
-              _FieldRow(
-                'object',
-                'final Object',
-                'The instrumented instance reference',
-                true,
-              ),
-              _FieldRow(
-                'library',
-                'final String',
-                'A library Uri, e.g. package:flutter/widgets.dart',
-                true,
-              ),
-              _FieldRow(
-                'className',
-                'final String',
-                'Runtime type name of the instrumented class',
-                true,
-              ),
-            ],
-            <String>[
-              'toMap() -> { object: { libraryName, className, eventType: created } }',
-            ],
-          ),
-        ),
+        Expanded(child: _anatomyPanel(
+          'ObjectCreated',
+          _kCoral,
+          Icons.add_box_outlined,
+          <_FieldRow>[
+            _FieldRow('object', 'final Object', 'The instrumented instance reference', true),
+            _FieldRow('library', 'final String', 'A library Uri, e.g. package:flutter/widgets.dart', true),
+            _FieldRow('className', 'final String', 'Runtime type name of the instrumented class', true),
+          ],
+          <String>['toMap() -> { object: { libraryName, className, eventType: created } }'],
+        )),
         SizedBox(width: 14.0),
-        Expanded(
-          child: _anatomyPanel(
-            'ObjectDisposed',
-            _kAmber,
-            Icons.indeterminate_check_box_outlined,
-            <_FieldRow>[
-              _FieldRow(
-                'object',
-                'final Object',
-                'The instance about to be released',
-                true,
-              ),
-            ],
-            <String>['toMap() -> { object: { eventType: disposed } }'],
-          ),
-        ),
+        Expanded(child: _anatomyPanel(
+          'ObjectDisposed',
+          _kAmber,
+          Icons.indeterminate_check_box_outlined,
+          <_FieldRow>[
+            _FieldRow('object', 'final Object', 'The instance about to be released', true),
+          ],
+          <String>['toMap() -> { object: { eventType: disposed } }'],
+        )),
       ],
     ),
   );
@@ -1031,7 +1012,10 @@ Widget _anatomyPanel(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[accent.withValues(alpha: 0.18), _kSurface],
+        colors: <Color>[
+          accent.withValues(alpha: 0.18),
+          _kSurface,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1107,7 +1091,10 @@ Widget _anatomyField(_FieldRow f, Color accent) {
     decoration: BoxDecoration(
       color: _kStageBg.withValues(alpha: 0.55),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.0),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.35),
+        width: 1.0,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1139,7 +1126,11 @@ Widget _anatomyField(_FieldRow f, Color accent) {
         SizedBox(height: 4.0),
         Text(
           f.description,
-          style: TextStyle(color: _kInkSoft, fontSize: 11.0, height: 1.35),
+          style: TextStyle(
+            color: _kInkSoft,
+            fontSize: 11.0,
+            height: 1.35,
+          ),
         ),
       ],
     ),
@@ -1177,7 +1168,11 @@ Widget _buildLibraryPalette() {
     _LibScenario(
       'package:flutter/widgets.dart',
       Icons.account_tree_outlined,
-      <String>['ScrollPositionWithSingleContext', 'OverlayEntry', 'FocusNode'],
+      <String>[
+        'ScrollPositionWithSingleContext',
+        'OverlayEntry',
+        'FocusNode',
+      ],
       _kAmber,
       'Container widgets that own resources beyond their build closure.',
     ),
@@ -1206,7 +1201,9 @@ Widget _buildLibraryPalette() {
   return Wrap(
     spacing: 12.0,
     runSpacing: 12.0,
-    children: <Widget>[for (final _LibScenario s in scenarios) _libraryCard(s)],
+    children: <Widget>[
+      for (final _LibScenario s in scenarios) _libraryCard(s),
+    ],
   );
 }
 
@@ -1266,11 +1263,7 @@ Widget _libraryCard(_LibScenario s) {
           style: TextStyle(color: _kInkSoft, fontSize: 11.0, height: 1.4),
         ),
         SizedBox(height: 8.0),
-        Wrap(
-          children: <Widget>[
-            for (final String c in s.classes) _chip(c, s.accent),
-          ],
-        ),
+        Wrap(children: <Widget>[for (final String c in s.classes) _chip(c, s.accent)]),
       ],
     ),
   );
@@ -1316,16 +1309,20 @@ Widget _buildToMapInspector(
             ),
             SizedBox(width: 14.0),
             Expanded(
-              child:
-                  _inspectorCard('ObjectCreated -> Ticker', _kCoral, <String>[
-                    '{',
-                    '  <object>: {',
-                    '    "libraryName": "${cTicker.library}",',
-                    '    "className": "${cTicker.className}",',
-                    '    "eventType": "created"',
-                    '  }',
-                    '}',
-                  ], 'entries: ${mapTicker.length}'),
+              child: _inspectorCard(
+                'ObjectCreated -> Ticker',
+                _kCoral,
+                <String>[
+                  '{',
+                  '  <object>: {',
+                  '    "libraryName": "${cTicker.library}",',
+                  '    "className": "${cTicker.className}",',
+                  '    "eventType": "created"',
+                  '  }',
+                  '}',
+                ],
+                'entries: ${mapTicker.length}',
+              ),
             ),
           ],
         ),
@@ -1605,7 +1602,10 @@ Widget _pipelineStep(_PipelineStep s, int index) {
               width: 22.0,
               height: 22.0,
               alignment: Alignment.center,
-              decoration: BoxDecoration(color: s.color, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: s.color,
+                shape: BoxShape.circle,
+              ),
               child: Text(
                 '$index',
                 style: TextStyle(
@@ -1659,7 +1659,9 @@ Widget _pipelineArrow() {
         Container(
           height: 2.0,
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: <Color>[_kTeal, _kCoral]),
+            gradient: LinearGradient(
+              colors: <Color>[_kTeal, _kCoral],
+            ),
           ),
         ),
         Positioned(
@@ -1826,7 +1828,10 @@ Widget _recipeCard(_Recipe r) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[r.accent.withValues(alpha: 0.16), _kSurface],
+        colors: <Color>[
+          r.accent.withValues(alpha: 0.16),
+          _kSurface,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1873,7 +1878,11 @@ Widget _recipeCard(_Recipe r) {
             padding: EdgeInsets.symmetric(vertical: 2.0),
             child: Text(
               step,
-              style: TextStyle(color: _kInkSoft, fontSize: 11.5, height: 1.35),
+              style: TextStyle(
+                color: _kInkSoft,
+                fontSize: 11.5,
+                height: 1.35,
+              ),
             ),
           ),
         SizedBox(height: 10.0),
@@ -1945,41 +1954,13 @@ Widget _buildCountersDashboard(
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(
-              child: _counterTile(
-                'total events',
-                stream.length,
-                _kInk,
-                Icons.list_alt,
-              ),
-            ),
+            Expanded(child: _counterTile('total events', stream.length, _kInk, Icons.list_alt)),
             SizedBox(width: 12.0),
-            Expanded(
-              child: _counterTile(
-                'created',
-                created,
-                _kTeal,
-                Icons.add_circle_outline,
-              ),
-            ),
+            Expanded(child: _counterTile('created', created, _kTeal, Icons.add_circle_outline)),
             SizedBox(width: 12.0),
-            Expanded(
-              child: _counterTile(
-                'disposed',
-                disposed,
-                _kCoral,
-                Icons.cancel_outlined,
-              ),
-            ),
+            Expanded(child: _counterTile('disposed', disposed, _kCoral, Icons.cancel_outlined)),
             SizedBox(width: 12.0),
-            Expanded(
-              child: _counterTile(
-                'libraries',
-                perLib.length,
-                _kAmber,
-                Icons.layers_outlined,
-              ),
-            ),
+            Expanded(child: _counterTile('libraries', perLib.length, _kAmber, Icons.layers_outlined)),
           ],
         ),
         SizedBox(height: 16.0),
@@ -2006,7 +1987,10 @@ Widget _counterTile(String label, int value, Color accent, IconData icon) {
     decoration: BoxDecoration(
       color: _kStageBg,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: accent.withValues(alpha: 0.5), width: 1.0),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.5),
+        width: 1.0,
+      ),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: accent.withValues(alpha: 0.18),
@@ -2181,7 +2165,10 @@ Widget _pitfallTile(_Pitfall p) {
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[p.color.withValues(alpha: 0.22), _kSurface],
+        colors: <Color>[
+          p.color.withValues(alpha: 0.22),
+          _kSurface,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -2222,7 +2209,11 @@ Widget _pitfallTile(_Pitfall p) {
               SizedBox(height: 4.0),
               Text(
                 p.detail,
-                style: TextStyle(color: _kInkSoft, fontSize: 11.0, height: 1.4),
+                style: TextStyle(
+                  color: _kInkSoft,
+                  fontSize: 11.0,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -2273,30 +2264,20 @@ Widget _buildCheatSheet() {
         _kvRow('class', 'ObjectEvent (abstract)', _kTeal),
         _kvRow('field', 'final Object object', _kInk),
         _kvRow('method', 'Map<Object, Map<String, Object>> toMap()', _kInk),
-        _kvRow(
-          'subclass',
-          'ObjectCreated(library, className, object)',
-          _kCoral,
-        ),
+        _kvRow('subclass', 'ObjectCreated(library, className, object)', _kCoral),
         _kvRow('subclass', 'ObjectDisposed(object)', _kAmber),
-        _kvRow(
-          'typedef',
-          'ObjectEventListener = void Function(ObjectEvent)',
-          _kViolet,
-        ),
+        _kvRow('typedef', 'ObjectEventListener = void Function(ObjectEvent)', _kViolet),
         _kvRow('singleton', 'FlutterMemoryAllocations.instance', _kSky),
         _kvRow('flag', 'kFlutterMemoryAllocationsEnabled', _kLime),
         SizedBox(height: 10.0),
-        Wrap(
-          children: <Widget>[
-            _chip('addListener', _kTeal),
-            _chip('removeListener', _kCoral),
-            _chip('hasListeners', _kAmber),
-            _chip('dispatchObjectCreated', _kViolet),
-            _chip('dispatchObjectDisposed', _kSky),
-            _chip('dispatchObjectEvent', _kLime),
-          ],
-        ),
+        Wrap(children: <Widget>[
+          _chip('addListener', _kTeal),
+          _chip('removeListener', _kCoral),
+          _chip('hasListeners', _kAmber),
+          _chip('dispatchObjectCreated', _kViolet),
+          _chip('dispatchObjectDisposed', _kSky),
+          _chip('dispatchObjectEvent', _kLime),
+        ]),
       ],
     ),
   );
@@ -2318,7 +2299,10 @@ Widget _buildFooter() {
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: _kInkFaint.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: _kInkFaint.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
     ),
     child: Row(
       children: <Widget>[

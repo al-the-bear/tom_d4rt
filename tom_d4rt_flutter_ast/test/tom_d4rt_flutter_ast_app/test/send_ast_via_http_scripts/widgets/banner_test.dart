@@ -173,7 +173,11 @@ class SectionShell extends StatelessWidget {
 }
 
 class CaptionChip extends StatelessWidget {
-  const CaptionChip({super.key, required this.label, required this.tone});
+  const CaptionChip({
+    super.key,
+    required this.label,
+    required this.tone,
+  });
 
   final String label;
   final Color tone;
@@ -250,7 +254,11 @@ class FramedSurface extends StatelessWidget {
 }
 
 class ProseBlock extends StatelessWidget {
-  const ProseBlock({super.key, required this.text, this.tone = kInkSoft});
+  const ProseBlock({
+    super.key,
+    required this.text,
+    this.tone = kInkSoft,
+  });
 
   final String text;
   final Color tone;
@@ -259,7 +267,11 @@ class ProseBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(fontSize: 12.5, height: 1.45, color: tone),
+      style: TextStyle(
+        fontSize: 12.5,
+        height: 1.45,
+        color: tone,
+      ),
     );
   }
 }
@@ -418,7 +430,11 @@ class HeroBadge extends StatelessWidget {
             ),
           ),
           const Center(
-            child: Icon(Icons.flag_rounded, color: Colors.white, size: 30),
+            child: Icon(
+              Icons.flag_rounded,
+              color: Colors.white,
+              size: 30,
+            ),
           ),
         ],
       ),
@@ -581,7 +597,11 @@ class AnatomyCallout extends StatelessWidget {
           ),
           Text(
             detail,
-            style: const TextStyle(fontSize: 10, color: kInkMute, height: 1.2),
+            style: const TextStyle(
+              fontSize: 10,
+              color: kInkMute,
+              height: 1.2,
+            ),
           ),
         ],
       ),
@@ -614,7 +634,10 @@ class LocationShowcase extends StatelessWidget {
                 label: 'topStart',
                 location: BannerLocation.topStart,
               ),
-              LocationCell(label: 'topEnd', location: BannerLocation.topEnd),
+              LocationCell(
+                label: 'topEnd',
+                location: BannerLocation.topEnd,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -646,7 +669,11 @@ class LocationShowcase extends StatelessWidget {
 }
 
 class LocationCell extends StatelessWidget {
-  const LocationCell({super.key, required this.label, required this.location});
+  const LocationCell({
+    super.key,
+    required this.label,
+    required this.location,
+  });
 
   final String label;
   final BannerLocation location;
@@ -662,7 +689,10 @@ class LocationCell extends StatelessWidget {
             message: 'DEBUG',
             location: location,
             color: kRedLocation,
-            child: const FramedSurface(size: 130, label: 'child'),
+            child: const FramedSurface(
+              size: 130,
+              label: 'child',
+            ),
           ),
         ),
         const SizedBox(height: 8),
@@ -705,7 +735,11 @@ class ColorSweep extends StatelessWidget {
 }
 
 class ColorSwatchTile extends StatelessWidget {
-  const ColorSwatchTile({super.key, required this.label, required this.tone});
+  const ColorSwatchTile({
+    super.key,
+    required this.label,
+    required this.tone,
+  });
 
   final String label;
   final Color tone;
@@ -721,7 +755,10 @@ class ColorSwatchTile extends StatelessWidget {
             message: label.toUpperCase(),
             location: BannerLocation.topEnd,
             color: tone,
-            child: const FramedSurface(size: 110, label: 'child'),
+            child: const FramedSurface(
+              size: 110,
+              label: 'child',
+            ),
           ),
         ),
         const SizedBox(height: 6),
@@ -958,7 +995,10 @@ class DirectionPanel extends StatelessWidget {
             color: kRedDirection,
             textDirection: textDirection,
             layoutDirection: layoutDirection,
-            child: const FramedSurface(size: 130, label: 'child'),
+            child: const FramedSurface(
+              size: 130,
+              label: 'child',
+            ),
           ),
         ),
         const SizedBox(height: 8),
@@ -1227,7 +1267,11 @@ class AppIconTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
           ),
           child: const Center(
-            child: Icon(Icons.flutter_dash, color: Colors.white, size: 50),
+            child: Icon(
+              Icons.flutter_dash,
+              color: Colors.white,
+              size: 50,
+            ),
           ),
         ),
       ),

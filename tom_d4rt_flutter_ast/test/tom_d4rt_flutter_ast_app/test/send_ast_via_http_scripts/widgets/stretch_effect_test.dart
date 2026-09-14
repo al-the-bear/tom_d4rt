@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.expand,
       'title': 'What is the Stretch Effect?',
-      'body':
-          'The stretch overscroll effect visually deforms the scroll '
+      'body': 'The stretch overscroll effect visually deforms the scroll '
           'view content when the user scrolls past the edge. Instead of '
           'painting a colored glow overlay, the content itself stretches '
           'and snaps back like a rubber band. This is the default '
@@ -30,8 +29,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'Platform Default',
-      'body':
-          'On Android 12+, Flutter automatically uses '
+      'body': 'On Android 12+, Flutter automatically uses '
           'StretchingOverscrollIndicator instead of the classic '
           'GlowingOverscrollIndicator. On iOS, the rubber-band bounce '
           'of BouncingScrollPhysics handles overscroll natively, so '
@@ -41,8 +39,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'Stretch vs Glow',
-      'body':
-          'The glow effect paints a semi-transparent radial gradient '
+      'body': 'The glow effect paints a semi-transparent radial gradient '
           'overlay at the scroll edge. The stretch effect applies a matrix '
           'transform to the entire content viewport, physically distorting '
           'the rendered pixels. Stretch feels more tactile.',
@@ -51,8 +48,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.settings,
       'title': 'Configuration',
-      'body':
-          'The stretch effect is controlled by the ScrollBehavior of '
+      'body': 'The stretch effect is controlled by the ScrollBehavior of '
           'the nearest ScrollConfiguration ancestor. You can override '
           'buildOverscrollIndicator() to switch between stretch and glow, '
           'or disable overscroll indicators entirely.',
@@ -131,39 +127,34 @@ dynamic build(BuildContext context) {
     {
       'member': 'StretchingOverscrollIndicator',
       'kind': 'Widget',
-      'desc':
-          'The widget that applies the rubber-sheet stretch transform. '
+      'desc': 'The widget that applies the rubber-sheet stretch transform. '
           'Wraps a scroll view child and intercepts overscroll '
           'notifications to compute the stretch amount.',
     },
     {
       'member': 'axisDirection',
       'kind': 'Property',
-      'desc':
-          'The direction of the scroll axis. Determines which edge '
+      'desc': 'The direction of the scroll axis. Determines which edge '
           'stretches — top/bottom for vertical, left/right for horizontal.',
     },
     {
       'member': 'clipBehavior',
       'kind': 'Property',
-      'desc':
-          'How the content is clipped during stretch. Defaults to '
+      'desc': 'How the content is clipped during stretch. Defaults to '
           'Clip.hardEdge. Set to Clip.none to let stretched content '
           'overflow its bounds.',
     },
     {
       'member': 'notificationPredicate',
       'kind': 'Property',
-      'desc':
-          'A callback that filters which ScrollNotifications trigger '
+      'desc': 'A callback that filters which ScrollNotifications trigger '
           'the stretch. Defaults to defaultScrollNotificationPredicate '
           '(depth == 0).',
     },
     {
       'member': 'ScrollBehavior.buildOverscrollIndicator()',
       'kind': 'Method',
-      'desc':
-          'Override this in a custom ScrollBehavior to control '
+      'desc': 'Override this in a custom ScrollBehavior to control '
           'which indicator is used. Return StretchingOverscrollIndicator '
           'or GlowingOverscrollIndicator.',
     },
@@ -222,7 +213,10 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     row['kind']!,
-                    style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ),
               ],
@@ -250,32 +244,28 @@ dynamic build(BuildContext context) {
   final stretchStages = <Map<String, dynamic>>[
     {
       'label': 'At Rest',
-      'desc':
-          'Content is within scroll bounds. No deformation applied. '
+      'desc': 'Content is within scroll bounds. No deformation applied. '
           'Items render at their natural positions.',
       'stretchPct': 0.0,
       'color': Colors.grey,
     },
     {
       'label': 'Light Overscroll (5%)',
-      'desc':
-          'User drags slightly past the edge. Content begins to '
+      'desc': 'User drags slightly past the edge. Content begins to '
           'stretch. Items near the edge spread apart subtly.',
       'stretchPct': 0.05,
       'color': Colors.cyan,
     },
     {
       'label': 'Medium Overscroll (15%)',
-      'desc':
-          'Noticeable rubber-band deformation. Items at the edge '
+      'desc': 'Noticeable rubber-band deformation. Items at the edge '
           'are clearly separated. The stretch transform is visible.',
       'stretchPct': 0.15,
       'color': Colors.blue,
     },
     {
       'label': 'Heavy Overscroll (30%)',
-      'desc':
-          'Maximum visual stretch. Content looks like a pulled '
+      'desc': 'Maximum visual stretch. Content looks like a pulled '
           'rubber sheet. Release triggers snap-back animation.',
       'stretchPct': 0.30,
       'color': Colors.deepPurple,
@@ -365,7 +355,9 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.grey.withOpacity(0.15)),
               ),
-              child: Column(children: bars),
+              child: Column(
+                children: bars,
+              ),
             ),
           ],
         ),
@@ -498,8 +490,7 @@ dynamic build(BuildContext context) {
   final platforms = <Map<String, dynamic>>[
     {
       'platform': 'Android 12+ (API 31+)',
-      'behavior':
-          'StretchingOverscrollIndicator is the default. The '
+      'behavior': 'StretchingOverscrollIndicator is the default. The '
           'MaterialScrollBehavior returns it from '
           'buildOverscrollIndicator().',
       'icon': Icons.phone_android,
@@ -507,16 +498,14 @@ dynamic build(BuildContext context) {
     },
     {
       'platform': 'Android < 12',
-      'behavior':
-          'GlowingOverscrollIndicator is the default. The classic '
+      'behavior': 'GlowingOverscrollIndicator is the default. The classic '
           'blue/theme-color glow appears at scroll edges.',
       'icon': Icons.phone_android,
       'color': Colors.blue,
     },
     {
       'platform': 'iOS / macOS',
-      'behavior':
-          'BouncingScrollPhysics provides native overscroll bounce. '
+      'behavior': 'BouncingScrollPhysics provides native overscroll bounce. '
           'No overscroll indicator widget is used — the physics '
           'handle everything.',
       'icon': Icons.apple,
@@ -524,8 +513,7 @@ dynamic build(BuildContext context) {
     },
     {
       'platform': 'Web / Desktop',
-      'behavior':
-          'Depends on the ScrollBehavior configured by the '
+      'behavior': 'Depends on the ScrollBehavior configured by the '
           'framework. MaterialApp typically uses ClampingScrollPhysics '
           'with glow or stretch depending on version.',
       'icon': Icons.desktop_windows,
@@ -597,8 +585,7 @@ dynamic build(BuildContext context) {
   final configs = <Map<String, dynamic>>[
     {
       'title': 'Force Stretch Everywhere',
-      'code':
-          'ScrollConfiguration(\n'
+      'code': 'ScrollConfiguration(\n'
           '  behavior: MyBehavior(), // always stretch\n'
           '  child: ListView(...),\n'
           ')\n\n'
@@ -612,29 +599,25 @@ dynamic build(BuildContext context) {
           '    );\n'
           '  }\n'
           '}',
-      'note':
-          'Override ScrollBehavior to force the stretch effect '
+      'note': 'Override ScrollBehavior to force the stretch effect '
           'on all platforms, even pre-Android 12.',
       'color': Colors.cyan,
     },
     {
       'title': 'Disable Overscroll Indicator',
-      'code':
-          'ScrollConfiguration(\n'
+      'code': 'ScrollConfiguration(\n'
           '  behavior: ScrollBehavior().copyWith(\n'
           '    overscroll: false,\n'
           '  ),\n'
           '  child: ListView(...),\n'
           ')',
-      'note':
-          'Remove all overscroll visual effects. Useful for custom '
+      'note': 'Remove all overscroll visual effects. Useful for custom '
           'scroll views that handle overscroll manually.',
       'color': Colors.orange,
     },
     {
       'title': 'Force Glow Effect',
-      'code':
-          'ScrollConfiguration(\n'
+      'code': 'ScrollConfiguration(\n'
           '  behavior: MyGlowBehavior(),\n'
           '  child: ListView(...),\n'
           ')\n\n'
@@ -745,8 +728,7 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Material 3 Lists',
-      'desc':
-          'The default stretch effect on Android 12+ Material apps. '
+      'desc': 'The default stretch effect on Android 12+ Material apps. '
           'Every ListView, GridView, and CustomScrollView gets it '
           'automatically via MaterialScrollBehavior.',
       'icon': Icons.list,
@@ -754,8 +736,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Chat Scrolling',
-      'desc':
-          'Chat message lists with stretch overscroll feel natural '
+      'desc': 'Chat message lists with stretch overscroll feel natural '
           'and responsive. Users pulling past the latest message get '
           'satisfying tactile feedback.',
       'icon': Icons.chat_bubble_outline,
@@ -763,24 +744,21 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Image Galleries',
-      'desc':
-          'Photo browsing with horizontal scroll. The stretch effect '
+      'desc': 'Photo browsing with horizontal scroll. The stretch effect '
           'at the first and last images signals the boundary clearly.',
       'icon': Icons.photo_library,
       'color': Colors.purple,
     },
     {
       'title': 'Pull-to-Refresh',
-      'desc':
-          'Combine with RefreshIndicator. The stretch deformation '
+      'desc': 'Combine with RefreshIndicator. The stretch deformation '
           'provides visual feedback while the refresh spinner appears.',
       'icon': Icons.refresh,
       'color': Colors.blue,
     },
     {
       'title': 'Horizontal Carousels',
-      'desc':
-          'PageView and horizontal ListViews get stretch at the '
+      'desc': 'PageView and horizontal ListViews get stretch at the '
           'first and last pages, reinforcing that the user has reached '
           'the boundary.',
       'icon': Icons.view_carousel,
@@ -852,38 +830,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.expand,
-      'text':
-          'The stretch effect deforms scroll content like a rubber '
+      'text': 'The stretch effect deforms scroll content like a rubber '
           'sheet when overscrolling, replacing the classic glow overlay.',
     },
     {
       'icon': Icons.phone_android,
-      'text':
-          'Default on Android 12+ (API 31). Older Android uses '
+      'text': 'Default on Android 12+ (API 31). Older Android uses '
           'GlowingOverscrollIndicator. iOS uses native bounce physics.',
     },
     {
       'icon': Icons.settings,
-      'text':
-          'Controlled via ScrollBehavior.buildOverscrollIndicator(). '
+      'text': 'Controlled via ScrollBehavior.buildOverscrollIndicator(). '
           'Override to force stretch, glow, or none on any platform.',
     },
     {
       'icon': Icons.touch_app,
-      'text':
-          'Provides a more tactile, physical feel than the glow '
+      'text': 'Provides a more tactile, physical feel than the glow '
           'effect. The content itself responds to the user\'s pull.',
     },
     {
       'icon': Icons.compare,
-      'text':
-          'Stretch uses matrix transform on the viewport. Glow '
+      'text': 'Stretch uses matrix transform on the viewport. Glow '
           'paints an overlay. Stretch distorts content, glow does not.',
     },
     {
       'icon': Icons.auto_mode,
-      'text':
-          'No code changes needed for apps targeting Android 12+. '
+      'text': 'No code changes needed for apps targeting Android 12+. '
           'MaterialApp handles the default automatically via '
           'MaterialScrollBehavior.',
     },
@@ -911,7 +883,11 @@ dynamic build(BuildContext context) {
                 color: Colors.cyan.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(sp['icon'] as IconData, color: Colors.cyan, size: 20),
+              child: Icon(
+                sp['icon'] as IconData,
+                color: Colors.cyan,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(

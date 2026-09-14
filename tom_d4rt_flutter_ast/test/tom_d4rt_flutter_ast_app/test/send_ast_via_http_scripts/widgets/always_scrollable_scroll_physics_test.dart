@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_vert,
       'title': 'AlwaysScrollableScrollPhysics',
-      'body':
-          'By default, a ListView or ScrollView only scrolls when '
+      'body': 'By default, a ListView or ScrollView only scrolls when '
           'its content exceeds the viewport. AlwaysScrollableScrollPhysics '
           'overrides this — the view is scrollable regardless of content '
           'size. This enables overscroll indicators and pull-to-refresh '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.refresh,
       'title': 'Pull-to-Refresh Enabler',
-      'body':
-          'RefreshIndicator needs the ScrollView to be scrollable '
+      'body': 'RefreshIndicator needs the ScrollView to be scrollable '
           'to detect the pull gesture. Without AlwaysScrollableScrollPhysics, '
           'a list with 2 items that fits the screen cannot trigger '
           'pull-to-refresh. This physics class is the standard fix.',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.link,
       'title': 'Physics Chaining',
-      'body':
-          'AlwaysScrollableScrollPhysics takes an optional parent '
+      'body': 'AlwaysScrollableScrollPhysics takes an optional parent '
           'parameter. It delegates all physics behavior to the parent '
           'but overrides shouldAcceptUserOffset() to always return true. '
           'Common: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()).',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'Platform-Aware',
-      'body':
-          'On iOS, ListView already uses BouncingScrollPhysics (always '
+      'body': 'On iOS, ListView already uses BouncingScrollPhysics (always '
           'scrollable). On Android, it uses ClampingScrollPhysics (not '
           'always scrollable). AlwaysScrollableScrollPhysics makes '
           'behavior consistent across platforms.',
@@ -67,16 +63,15 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
+        border: Border.all(
+          color: (card['accent'] as Color).withOpacity(0.3),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            card['icon'] as IconData,
-            color: card['accent'] as Color,
-            size: 32,
-          ),
+          Icon(card['icon'] as IconData,
+              color: card['accent'] as Color, size: 32),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -166,7 +161,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.deepOrange.withOpacity(0.05),
         borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: Colors.deepOrange, width: 4)),
+        border: Border(
+          left: BorderSide(color: Colors.deepOrange, width: 4),
+        ),
       ),
       child: Row(
         children: [
@@ -188,9 +185,7 @@ dynamic build(BuildContext context) {
                 Text(
                   prop['value']!,
                   style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                      fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 Text(
                   prop['detail']!,
@@ -245,9 +240,7 @@ dynamic build(BuildContext context) {
               itemBuilder: (ctx, i) {
                 return Container(
                   margin: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 3,
-                  ),
+                      horizontal: 6, vertical: 3),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: accent.withOpacity(0.08),
@@ -284,13 +277,13 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            buildMiniList('Default Physics', null, Colors.grey),
+            buildMiniList(
+                'Default Physics', null, Colors.grey),
             const SizedBox(width: 12),
             buildMiniList(
-              'AlwaysScrollable',
-              const AlwaysScrollableScrollPhysics(),
-              Colors.deepOrange,
-            ),
+                'AlwaysScrollable',
+                const AlwaysScrollableScrollPhysics(),
+                Colors.deepOrange),
           ],
         ),
         const SizedBox(height: 12),
@@ -312,10 +305,7 @@ dynamic build(BuildContext context) {
                   '(AlwaysScrollableScrollPhysics) is scrollable regardless, '
                   'showing overscroll indicators.',
                   style: TextStyle(
-                    fontSize: 12,
-                    height: 1.4,
-                    color: Colors.grey[700],
-                  ),
+                      fontSize: 12, height: 1.4, color: Colors.grey[700]),
                 ),
               ),
             ],
@@ -477,9 +467,8 @@ dynamic build(BuildContext context) {
             : (phys['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: (phys['color'] as Color).withOpacity(
-            isHighlighted ? 0.5 : 0.2,
-          ),
+          color: (phys['color'] as Color)
+              .withOpacity(isHighlighted ? 0.5 : 0.2),
           width: isHighlighted ? 2 : 1,
         ),
       ),
@@ -492,11 +481,8 @@ dynamic build(BuildContext context) {
               color: (phys['color'] as Color).withOpacity(0.15),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              phys['icon'] as IconData,
-              color: phys['color'] as Color,
-              size: 20,
-            ),
+            child: Icon(phys['icon'] as IconData,
+                color: phys['color'] as Color, size: 20),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -517,9 +503,7 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 6),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                          vertical: 1,
-                        ),
+                            horizontal: 5, vertical: 1),
                         decoration: BoxDecoration(
                           color: Colors.deepOrange,
                           borderRadius: BorderRadius.circular(4),
@@ -527,10 +511,9 @@ dynamic build(BuildContext context) {
                         child: const Text(
                           'THIS DEMO',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 8,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Colors.white,
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -538,9 +521,7 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 6),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                          vertical: 1,
-                        ),
+                            horizontal: 5, vertical: 1),
                         decoration: BoxDecoration(
                           color: Colors.grey,
                           borderRadius: BorderRadius.circular(4),
@@ -548,10 +529,9 @@ dynamic build(BuildContext context) {
                         child: const Text(
                           'BASE',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 8,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Colors.white,
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -579,41 +559,34 @@ dynamic build(BuildContext context) {
     {
       'code': 'const AlwaysScrollableScrollPhysics()',
       'chain': 'AlwaysScrollable → platform default',
-      'description':
-          'Uses platform default as parent. On Android: '
+      'description': 'Uses platform default as parent. On Android: '
           'ClampingScrollPhysics. On iOS: BouncingScrollPhysics.',
       'color': Colors.deepOrange,
     },
     {
-      'code':
-          'const AlwaysScrollableScrollPhysics(\n'
+      'code': 'const AlwaysScrollableScrollPhysics(\n'
           '  parent: BouncingScrollPhysics(),\n'
           ')',
       'chain': 'AlwaysScrollable → Bouncing',
-      'description':
-          'Forces iOS-style bounce on all platforms while '
+      'description': 'Forces iOS-style bounce on all platforms while '
           'keeping always-scrollable behavior.',
       'color': Colors.blue,
     },
     {
-      'code':
-          'const AlwaysScrollableScrollPhysics(\n'
+      'code': 'const AlwaysScrollableScrollPhysics(\n'
           '  parent: ClampingScrollPhysics(),\n'
           ')',
       'chain': 'AlwaysScrollable → Clamping',
-      'description':
-          'Forces Android-style clamping on all platforms while '
+      'description': 'Forces Android-style clamping on all platforms while '
           'keeping always-scrollable behavior.',
       'color': Colors.green,
     },
     {
-      'code':
-          'const AlwaysScrollableScrollPhysics(\n'
+      'code': 'const AlwaysScrollableScrollPhysics(\n'
           '  parent: PageScrollPhysics(),\n'
           ')',
       'chain': 'AlwaysScrollable → Page snapping',
-      'description':
-          'Page-snapping behavior that is always scrollable. '
+      'description': 'Page-snapping behavior that is always scrollable. '
           'Useful for carousels with few pages.',
       'color': Colors.purple,
     },
@@ -691,8 +664,7 @@ dynamic build(BuildContext context) {
       'platform': 'Android',
       'icon': Icons.phone_android,
       'default': 'ClampingScrollPhysics',
-      'effect':
-          'Overscroll glow (edge effect). Not scrollable when '
+      'effect': 'Overscroll glow (edge effect). Not scrollable when '
           'content fits. Need AlwaysScrollable for pull-to-refresh.',
       'color': Colors.green,
       'needsAlways': true,
@@ -701,8 +673,7 @@ dynamic build(BuildContext context) {
       'platform': 'iOS',
       'icon': Icons.phone_iphone,
       'default': 'BouncingScrollPhysics',
-      'effect':
-          'Overscroll bounce. Already always-scrollable due to '
+      'effect': 'Overscroll bounce. Already always-scrollable due to '
           'bounce physics. AlwaysScrollable is redundant but harmless.',
       'color': Colors.blue,
       'needsAlways': false,
@@ -711,8 +682,7 @@ dynamic build(BuildContext context) {
       'platform': 'Web',
       'icon': Icons.web,
       'default': 'ClampingScrollPhysics',
-      'effect':
-          'Same as Android — clamping by default. Need '
+      'effect': 'Same as Android — clamping by default. Need '
           'AlwaysScrollable for refresh on short content.',
       'color': Colors.orange,
       'needsAlways': true,
@@ -721,8 +691,7 @@ dynamic build(BuildContext context) {
       'platform': 'Desktop',
       'icon': Icons.desktop_mac,
       'default': 'ClampingScrollPhysics',
-      'effect':
-          'Clamping by default. AlwaysScrollable needed if '
+      'effect': 'Clamping by default. AlwaysScrollable needed if '
           'you want overscroll on short content.',
       'color': Colors.purple,
       'needsAlways': true,
@@ -738,7 +707,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (plat['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (plat['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (plat['color'] as Color).withOpacity(0.25),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -750,11 +721,8 @@ dynamic build(BuildContext context) {
               color: (plat['color'] as Color).withOpacity(0.15),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              plat['icon'] as IconData,
-              color: plat['color'] as Color,
-              size: 24,
-            ),
+            child: Icon(plat['icon'] as IconData,
+                color: plat['color'] as Color, size: 24),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -774,9 +742,7 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: (plat['needsAlways'] as bool)
                             ? Colors.red.withOpacity(0.1)
@@ -808,10 +774,9 @@ dynamic build(BuildContext context) {
                 Text(
                   'Default: ${plat['default']}',
                   style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey[700],
-                  ),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[700]),
                 ),
                 const SizedBox(height: 2),
                 Text(
@@ -834,16 +799,14 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Pull-to-Refresh Lists',
-      'desc':
-          'Any list that might have fewer items than the screen height '
+      'desc': 'Any list that might have fewer items than the screen height '
           'needs AlwaysScrollableScrollPhysics for RefreshIndicator to work.',
       'icon': Icons.refresh,
       'color': Colors.deepOrange,
     },
     {
       'title': 'Empty State with Refresh',
-      'desc':
-          'When a list is empty (0 items), the user must still be able '
+      'desc': 'When a list is empty (0 items), the user must still be able '
           'to pull-to-refresh to load initial data. AlwaysScrollable makes '
           'the empty view scrollable.',
       'icon': Icons.inbox,
@@ -851,8 +814,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Search Results',
-      'desc':
-          'Search results may start empty and grow. Using '
+      'desc': 'Search results may start empty and grow. Using '
           'AlwaysScrollableScrollPhysics ensures consistent UX whether '
           'there are 0 results or 1000.',
       'icon': Icons.search,
@@ -860,16 +822,14 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Chat Messages',
-      'desc':
-          'A new conversation has few messages. Pull-to-refresh loads '
+      'desc': 'A new conversation has few messages. Pull-to-refresh loads '
           'older messages. AlwaysScrollable enables this even with 1-2 messages.',
       'icon': Icons.chat,
       'color': Colors.purple,
     },
     {
       'title': 'Dashboard Cards',
-      'desc':
-          'A dashboard with 2-3 cards might fit the screen. Adding '
+      'desc': 'A dashboard with 2-3 cards might fit the screen. Adding '
           'AlwaysScrollable provides overscroll feedback and a consistent '
           'scrolling feel.',
       'icon': Icons.dashboard,
@@ -877,8 +837,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Cross-Platform Consistency',
-      'desc':
-          'Use AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()) '
+      'desc': 'Use AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()) '
           'to get iOS-style bounce on all platforms for a consistent UX.',
       'icon': Icons.devices,
       'color': Colors.amber[800]!,
@@ -894,7 +853,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (uc['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (uc['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (uc['color'] as Color).withOpacity(0.25),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -936,8 +897,7 @@ dynamic build(BuildContext context) {
       'title': 'Forgetting AlwaysScrollable with RefreshIndicator',
       'severity': 'Error',
       'sevColor': Colors.red,
-      'detail':
-          'RefreshIndicator silently does nothing if the list can\'t '
+      'detail': 'RefreshIndicator silently does nothing if the list can\'t '
           'scroll. This is the #1 cause of "RefreshIndicator not working" '
           'bugs. Fix: add physics: AlwaysScrollableScrollPhysics().',
       'icon': Icons.error,
@@ -946,8 +906,7 @@ dynamic build(BuildContext context) {
       'title': 'Using on Nested ScrollView',
       'severity': 'Warning',
       'sevColor': Colors.orange,
-      'detail':
-          'In a nested scroll scenario (ScrollView inside ScrollView), '
+      'detail': 'In a nested scroll scenario (ScrollView inside ScrollView), '
           'the inner view should use NeverScrollableScrollPhysics, not '
           'AlwaysScrollable. AlwaysScrollable on an inner view will steal '
           'scroll events.',
@@ -957,8 +916,7 @@ dynamic build(BuildContext context) {
       'title': 'Redundant on iOS',
       'severity': 'Info',
       'sevColor': Colors.blue,
-      'detail':
-          'On iOS, BouncingScrollPhysics is already always-scrollable. '
+      'detail': 'On iOS, BouncingScrollPhysics is already always-scrollable. '
           'Adding AlwaysScrollableScrollPhysics is redundant. Not harmful, '
           'but adds unnecessary complexity. Consider platform checks.',
       'icon': Icons.info,
@@ -967,8 +925,7 @@ dynamic build(BuildContext context) {
       'title': 'Not Chaining with Desired Physics',
       'severity': 'Warning',
       'sevColor': Colors.orange,
-      'detail':
-          'AlwaysScrollableScrollPhysics() without parent uses the '
+      'detail': 'AlwaysScrollableScrollPhysics() without parent uses the '
           'platform default. If you want specific behavior (e.g., bounce), '
           'chain explicitly: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()).',
       'icon': Icons.warning,
@@ -984,18 +941,17 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (m['sevColor'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (m['sevColor'] as Color).withOpacity(0.3)),
+        border: Border.all(
+          color: (m['sevColor'] as Color).withOpacity(0.3),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                m['icon'] as IconData,
-                color: m['sevColor'] as Color,
-                size: 20,
-              ),
+              Icon(m['icon'] as IconData,
+                  color: m['sevColor'] as Color, size: 20),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -1008,7 +964,8 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: m['sevColor'] as Color,
                   borderRadius: BorderRadius.circular(4),
@@ -1040,36 +997,12 @@ dynamic build(BuildContext context) {
   print('=== Section 10: Summary Dashboard ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {
-      'label': 'Physics types',
-      'value': '${physicsFamily.length}',
-      'icon': Icons.category,
-    },
-    {
-      'label': 'Chaining patterns',
-      'value': '${chainingExamples.length}',
-      'icon': Icons.link,
-    },
-    {
-      'label': 'Platforms covered',
-      'value': '${platformData.length}',
-      'icon': Icons.devices,
-    },
-    {
-      'label': 'Use cases',
-      'value': '${useCases.length}',
-      'icon': Icons.lightbulb,
-    },
-    {
-      'label': 'Common mistakes',
-      'value': '${mistakes.length}',
-      'icon': Icons.warning,
-    },
-    {
-      'label': 'API properties',
-      'value': '${apiProps.length}',
-      'icon': Icons.code,
-    },
+    {'label': 'Physics types', 'value': '${physicsFamily.length}', 'icon': Icons.category},
+    {'label': 'Chaining patterns', 'value': '${chainingExamples.length}', 'icon': Icons.link},
+    {'label': 'Platforms covered', 'value': '${platformData.length}', 'icon': Icons.devices},
+    {'label': 'Use cases', 'value': '${useCases.length}', 'icon': Icons.lightbulb},
+    {'label': 'Common mistakes', 'value': '${mistakes.length}', 'icon': Icons.warning},
+    {'label': 'API properties', 'value': '${apiProps.length}', 'icon': Icons.code},
   ];
 
   final summaryGrid = Wrap(
@@ -1256,7 +1189,10 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          SizedBox(height: 200, child: refreshDemo),
+          SizedBox(
+            height: 200,
+            child: refreshDemo,
+          ),
 
           scrollSectionHeader('5', 'ScrollPhysics Family', Icons.category),
           ...physicsWidgets,

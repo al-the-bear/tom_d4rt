@@ -276,7 +276,10 @@ Widget buildShapeDemo(String label, ShapeBorder shape, Color color) {
       elevation: 2,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Text(label, style: TextStyle(color: Colors.white, fontSize: 14)),
+        child: Text(
+          label,
+          style: TextStyle(color: Colors.white, fontSize: 14),
+        ),
       ),
     ),
   );
@@ -366,9 +369,7 @@ Widget buildBehaviorComparison(String behavior, bool isFloating) {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
-                  color: isFloating
-                      ? Colors.blue.shade700
-                      : Colors.green.shade700,
+                  color: isFloating ? Colors.blue.shade700 : Colors.green.shade700,
                 ),
               ),
               SizedBox(height: 2),
@@ -378,9 +379,7 @@ Widget buildBehaviorComparison(String behavior, bool isFloating) {
                     : 'Fixed at screen bottom edge',
                 style: TextStyle(
                   fontSize: 12,
-                  color: isFloating
-                      ? Colors.blue.shade600
-                      : Colors.green.shade600,
+                  color: isFloating ? Colors.blue.shade600 : Colors.green.shade600,
                 ),
               ),
             ],
@@ -406,8 +405,16 @@ Widget buildContentStylePreview(
     ),
     child: Row(
       children: [
-        Expanded(child: Text('Sample content text', style: textStyle)),
-        Text(label, style: TextStyle(color: Colors.white70, fontSize: 11)),
+        Expanded(
+          child: Text(
+            'Sample content text',
+            style: textStyle,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(color: Colors.white70, fontSize: 11),
+        ),
       ],
     ),
   );
@@ -469,18 +476,12 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         'Theme Integration',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 8),
                       Text(
                         'SnackBarThemeData centralizes SnackBar styling allowing consistent appearance across the entire application without repetitive inline configuration.',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey.shade700,
-                        ),
+                        style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
                       ),
                       SizedBox(height: 12),
                       buildThemePropertyDisplay(
@@ -530,7 +531,9 @@ dynamic build(BuildContext context) {
                 buildThemedSnackBarPreview(
                   'Dark Grey Background',
                   'Classic dark grey SnackBar theme',
-                  SnackBarThemeData(backgroundColor: Colors.grey.shade800),
+                  SnackBarThemeData(
+                    backgroundColor: Colors.grey.shade800,
+                  ),
                   'Dark grey themed SnackBar',
                   context,
                 ),
@@ -546,21 +549,27 @@ dynamic build(BuildContext context) {
                 buildThemedSnackBarPreview(
                   'Teal Background',
                   'Vibrant teal color theme',
-                  SnackBarThemeData(backgroundColor: Colors.teal.shade600),
+                  SnackBarThemeData(
+                    backgroundColor: Colors.teal.shade600,
+                  ),
                   'Teal themed SnackBar',
                   context,
                 ),
                 buildThemedSnackBarPreview(
                   'Indigo Background',
                   'Rich indigo color',
-                  SnackBarThemeData(backgroundColor: Colors.indigo.shade700),
+                  SnackBarThemeData(
+                    backgroundColor: Colors.indigo.shade700,
+                  ),
                   'Indigo themed SnackBar',
                   context,
                 ),
                 buildThemedSnackBarPreview(
                   'Blue Grey Background',
                   'Neutral blue-grey tone',
-                  SnackBarThemeData(backgroundColor: Colors.blueGrey.shade700),
+                  SnackBarThemeData(
+                    backgroundColor: Colors.blueGrey.shade700,
+                  ),
                   'Blue grey themed SnackBar',
                   context,
                 ),
@@ -577,46 +586,19 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         'Background Color Palette',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 8),
                       Wrap(
                         spacing: 4,
                         runSpacing: 4,
                         children: [
-                          buildColorSwatch(
-                            'Grey.800',
-                            Colors.grey.shade800,
-                            Colors.white,
-                          ),
-                          buildColorSwatch(
-                            'Grey.900',
-                            Colors.grey.shade900,
-                            Colors.white,
-                          ),
-                          buildColorSwatch(
-                            'Purple',
-                            Colors.deepPurple.shade700,
-                            Colors.white,
-                          ),
-                          buildColorSwatch(
-                            'Indigo',
-                            Colors.indigo.shade700,
-                            Colors.white,
-                          ),
-                          buildColorSwatch(
-                            'Teal',
-                            Colors.teal.shade700,
-                            Colors.white,
-                          ),
-                          buildColorSwatch(
-                            'Brown',
-                            Colors.brown.shade700,
-                            Colors.white,
-                          ),
+                          buildColorSwatch('Grey.800', Colors.grey.shade800, Colors.white),
+                          buildColorSwatch('Grey.900', Colors.grey.shade900, Colors.white),
+                          buildColorSwatch('Purple', Colors.deepPurple.shade700, Colors.white),
+                          buildColorSwatch('Indigo', Colors.indigo.shade700, Colors.white),
+                          buildColorSwatch('Teal', Colors.teal.shade700, Colors.white),
+                          buildColorSwatch('Brown', Colors.brown.shade700, Colors.white),
                         ],
                       ),
                     ],
@@ -711,24 +693,15 @@ dynamic build(BuildContext context) {
                         children: [
                           TextButton(
                             onPressed: () {},
-                            child: Text(
-                              'AMBER',
-                              style: TextStyle(color: Colors.amber),
-                            ),
+                            child: Text('AMBER', style: TextStyle(color: Colors.amber)),
                           ),
                           TextButton(
                             onPressed: () {},
-                            child: Text(
-                              'CYAN',
-                              style: TextStyle(color: Colors.cyanAccent),
-                            ),
+                            child: Text('CYAN', style: TextStyle(color: Colors.cyanAccent)),
                           ),
                           TextButton(
                             onPressed: () {},
-                            child: Text(
-                              'GREEN',
-                              style: TextStyle(color: Colors.lightGreenAccent),
-                            ),
+                            child: Text('GREEN', style: TextStyle(color: Colors.lightGreenAccent)),
                           ),
                         ],
                       ),
@@ -736,24 +709,15 @@ dynamic build(BuildContext context) {
                         children: [
                           TextButton(
                             onPressed: () {},
-                            child: Text(
-                              'PINK',
-                              style: TextStyle(color: Colors.pinkAccent),
-                            ),
+                            child: Text('PINK', style: TextStyle(color: Colors.pinkAccent)),
                           ),
                           TextButton(
                             onPressed: () {},
-                            child: Text(
-                              'ORANGE',
-                              style: TextStyle(color: Colors.orangeAccent),
-                            ),
+                            child: Text('ORANGE', style: TextStyle(color: Colors.orangeAccent)),
                           ),
                           TextButton(
                             onPressed: () {},
-                            child: Text(
-                              'YELLOW',
-                              style: TextStyle(color: Colors.yellow),
-                            ),
+                            child: Text('YELLOW', style: TextStyle(color: Colors.yellow)),
                           ),
                         ],
                       ),
@@ -778,7 +742,10 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8),
                 buildContentStylePreview(
                   'Default 14sp',
-                  TextStyle(color: Colors.white, fontSize: 14),
+                  TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
                   Colors.grey.shade800,
                 ),
                 buildContentStylePreview(
@@ -918,16 +885,12 @@ dynamic build(BuildContext context) {
                 ),
                 buildShapeDemo(
                   'Rounded 8px',
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   Colors.grey.shade800,
                 ),
                 buildShapeDemo(
                   'Rounded 16px',
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   Colors.grey.shade800,
                 ),
                 buildShapeDemo(
@@ -937,9 +900,7 @@ dynamic build(BuildContext context) {
                 ),
                 buildShapeDemo(
                   'Beveled',
-                  BeveledRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  BeveledRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   Colors.teal.shade700,
                 ),
                 SizedBox(height: 12),
@@ -1017,9 +978,7 @@ dynamic build(BuildContext context) {
                   Colors.grey.shade800,
                   Colors.amber,
                   6,
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   SnackBarBehavior.floating,
                 ),
                 SizedBox(height: 8),
@@ -1055,10 +1014,7 @@ dynamic build(BuildContext context) {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    insetPadding: EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 16,
-                    ),
+                    insetPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   'High margin floating',
                   context,
@@ -1163,11 +1119,7 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.info_outline,
-                            color: Colors.blue.shade700,
-                            size: 20,
-                          ),
+                          Icon(Icons.info_outline, color: Colors.blue.shade700, size: 20),
                           SizedBox(width: 8),
                           Text(
                             'Width Best Practices',

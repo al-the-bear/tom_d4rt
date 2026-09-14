@@ -61,7 +61,16 @@ const Color _kSlateDeep = Color(0xFF1C313A);
 // Custom permission enum used to drive a `BitField<_Permission>`. Each value
 // represents one bit. The order in the enum declaration determines the bit
 // index (`_Permission.read.index == 0`, etc).
-enum _Permission { read, write, delete, share, edit, admin, audit, invite }
+enum _Permission {
+  read,
+  write,
+  delete,
+  share,
+  edit,
+  admin,
+  audit,
+  invite,
+}
 
 const Map<_Permission, String> _kPermissionLabel = <_Permission, String>{
   _Permission.read: 'read',
@@ -182,7 +191,9 @@ Widget _buildHeroBanner() {
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.4)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.4),
+                ),
               ),
               child: const Icon(
                 Icons.grid_view_rounded,
@@ -274,7 +285,10 @@ Widget _buildSectionFrame({
     padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Colors.white, accent.withValues(alpha: 0.06)],
+        colors: <Color>[
+          Colors.white,
+          accent.withValues(alpha: 0.06),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -420,8 +434,7 @@ Widget _buildConstructorsCard() {
         const SizedBox(height: 14),
         _ctorRow(
           name: 'BitField<T>(int length)',
-          body:
-              'Creates a field with `length` slots, all initialised to '
+          body: 'Creates a field with `length` slots, all initialised to '
               '`false`. Use this when you plan to opt bits in one at a time.',
           tone: _kTeal,
           toneDeep: _kTealDeep,
@@ -429,8 +442,7 @@ Widget _buildConstructorsCard() {
         const SizedBox(height: 12),
         _ctorRow(
           name: 'BitField<T>.filled(int length, bool value)',
-          body:
-              'Creates a field with `length` slots all initialised to '
+          body: 'Creates a field with `length` slots all initialised to '
               '`value`. Handy when the natural default is "everything on" '
               '(e.g. a permission preset for an admin) and you want to clear '
               'specific bits afterwards.',
@@ -492,7 +504,11 @@ Widget _ctorRow({
         const SizedBox(height: 6),
         Text(
           body,
-          style: const TextStyle(fontSize: 12.5, color: _kInkSoft, height: 1.5),
+          style: const TextStyle(
+            fontSize: 12.5,
+            color: _kInkSoft,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -671,24 +687,21 @@ Widget _buildIndexingCard() {
         ),
         _opRow(
           op: 'bf[_Permission.admin] = true',
-          desc:
-              'Sets the bit corresponding to admin, equivalent to '
+          desc: 'Sets the bit corresponding to admin, equivalent to '
               'storage |= (1 << admin.index).',
           icon: Icons.east_outlined,
           color: _kTeal,
         ),
         _opRow(
           op: 'bf[_Permission.audit] = false',
-          desc:
-              'Clears the bit, equivalent to '
+          desc: 'Clears the bit, equivalent to '
               'storage &= ~(1 << audit.index).',
           icon: Icons.east_outlined,
           color: _kAmber,
         ),
         _opRow(
           op: 'bf.reset(value: false)',
-          desc:
-              'Resets every bit to the given value. Useful after recycling '
+          desc: 'Resets every bit to the given value. Useful after recycling '
               'a BitField in a pool.',
           icon: Icons.restart_alt_outlined,
           color: _kViolet,
@@ -789,7 +802,11 @@ Widget _buildInteractiveDemo() {
               'StatefulBuilder rebuilds. No allocations happen during '
               'toggling — the only mutation is a single bitwise operation '
               'against the internal storage integer.',
-              style: TextStyle(fontSize: 13, color: _kInkSoft, height: 1.5),
+              style: TextStyle(
+                fontSize: 13,
+                color: _kInkSoft,
+                height: 1.5,
+              ),
             ),
             const SizedBox(height: 16),
             Container(
@@ -818,7 +835,11 @@ Widget _buildInteractiveDemo() {
                   const SizedBox(height: 10),
                   Row(
                     children: <Widget>[
-                      const Icon(Icons.functions, size: 16, color: _kInkMuted),
+                      const Icon(
+                        Icons.functions,
+                        size: 16,
+                        color: _kInkMuted,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         'storage bits = ${_renderBitsForUi(bf)}',
@@ -1015,7 +1036,8 @@ Widget _toggleChip({
                 shape: BoxShape.circle,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: (value ? _kBitOn : _kBitOff).withValues(alpha: 0.45),
+                    color: (value ? _kBitOn : _kBitOff)
+                        .withValues(alpha: 0.45),
                     blurRadius: 4,
                   ),
                 ],
@@ -1212,7 +1234,8 @@ Widget _miniBit(bool value) {
       borderRadius: BorderRadius.circular(4),
       boxShadow: <BoxShadow>[
         BoxShadow(
-          color: (value ? _kBitOnDeep : _kBitOffDeep).withValues(alpha: 0.32),
+          color: (value ? _kBitOnDeep : _kBitOffDeep)
+              .withValues(alpha: 0.32),
           blurRadius: 3,
           offset: const Offset(0, 2),
         ),
@@ -1231,26 +1254,23 @@ Widget _miniBit(bool value) {
 }
 
 BitField<_Permission> _buildGuest() {
-  final BitField<_Permission> bf = BitField<_Permission>(
-    _Permission.values.length,
-  );
+  final BitField<_Permission> bf =
+      BitField<_Permission>(_Permission.values.length);
   bf[_Permission.read] = true;
   return bf;
 }
 
 BitField<_Permission> _buildViewer() {
-  final BitField<_Permission> bf = BitField<_Permission>(
-    _Permission.values.length,
-  );
+  final BitField<_Permission> bf =
+      BitField<_Permission>(_Permission.values.length);
   bf[_Permission.read] = true;
   bf[_Permission.share] = true;
   return bf;
 }
 
 BitField<_Permission> _buildEditor() {
-  final BitField<_Permission> bf = BitField<_Permission>(
-    _Permission.values.length,
-  );
+  final BitField<_Permission> bf =
+      BitField<_Permission>(_Permission.values.length);
   bf[_Permission.read] = true;
   bf[_Permission.write] = true;
   bf[_Permission.edit] = true;
@@ -1259,10 +1279,8 @@ BitField<_Permission> _buildEditor() {
 }
 
 BitField<_Permission> _buildAdmin() {
-  final BitField<_Permission> bf = BitField<_Permission>.filled(
-    _Permission.values.length,
-    true,
-  );
+  final BitField<_Permission> bf =
+      BitField<_Permission>.filled(_Permission.values.length, true);
   // Admin holds everything by default; we leave audit on but could clear it.
   return bf;
 }
@@ -1290,30 +1308,26 @@ Widget _buildLimitsCard() {
         _limitRow(
           icon: Icons.straighten,
           title: 'Maximum 62 bits',
-          body:
-              'The length passed to the constructor is asserted to be '
+          body: 'The length passed to the constructor is asserted to be '
               '≤ 62, matching the safely-tagged small-integer range on every '
               'Dart VM target.',
         ),
         _limitRow(
           icon: Icons.lock_outline,
           title: 'Fixed size, no resize',
-          body:
-              'Length is set once at construction. There is no `add`, no '
+          body: 'Length is set once at construction. There is no `add`, no '
               '`grow`, no `resize`. Pool and reuse instead.',
         ),
         _limitRow(
           icon: Icons.label_outline,
           title: 'Enum keys only (in practice)',
-          body:
-              'Although `T extends dynamic`, the implementation uses '
+          body: 'Although `T extends dynamic`, the implementation uses '
               '`.index`, so non-enum types will throw at runtime.',
         ),
         _limitRow(
           icon: Icons.do_not_disturb_alt,
           title: 'No iteration, no equality, no JSON',
-          body:
-              'No `Iterable` interface, no `==`/`hashCode` overrides, no '
+          body: 'No `Iterable` interface, no `==`/`hashCode` overrides, no '
               'built-in serialization. Provide those yourself if needed.',
         ),
       ],
@@ -1415,11 +1429,36 @@ Widget _buildDecisionMatrixCard() {
                 'allocates',
                 'allocates more',
               ),
-              _matrixRow('Need set algebra', 'manual', 'best', 'verbose'),
-              _matrixRow('Need nullable / tri-state', 'no', 'no', 'best'),
-              _matrixRow('Serialize as int', 'natural', 'manual', 'manual'),
-              _matrixRow('Iterate values', 'manual', 'natural', 'natural'),
-              _matrixRow('> 62 entries', 'unsafe', 'fine', 'fine'),
+              _matrixRow(
+                'Need set algebra',
+                'manual',
+                'best',
+                'verbose',
+              ),
+              _matrixRow(
+                'Need nullable / tri-state',
+                'no',
+                'no',
+                'best',
+              ),
+              _matrixRow(
+                'Serialize as int',
+                'natural',
+                'manual',
+                'manual',
+              ),
+              _matrixRow(
+                'Iterate values',
+                'manual',
+                'natural',
+                'natural',
+              ),
+              _matrixRow(
+                '> 62 entries',
+                'unsafe',
+                'fine',
+                'fine',
+              ),
             ],
           ),
         ),
@@ -1430,7 +1469,9 @@ Widget _buildDecisionMatrixCard() {
 
 TableRow _matrixHeader() {
   return TableRow(
-    decoration: BoxDecoration(color: _kSlateDeep.withValues(alpha: 0.92)),
+    decoration: BoxDecoration(
+      color: _kSlateDeep.withValues(alpha: 0.92),
+    ),
     children: <Widget>[
       _matrixCell('Scenario', isHeader: true),
       _matrixCell('BitField', isHeader: true),
@@ -1539,7 +1580,11 @@ final adminPerms = BitField<Permission>.filled(
           'class with named getters/setters so that callers never see '
           'BitField directly. That keeps the bitmask an implementation '
           'detail you can swap out if your enum ever grows past 62.',
-          style: TextStyle(fontSize: 12.5, color: _kInkMuted, height: 1.5),
+          style: TextStyle(
+            fontSize: 12.5,
+            color: _kInkMuted,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -1570,8 +1615,7 @@ Widget _buildPatternsCard() {
           name: 'Feature flags',
           tone: _kIndigo,
           toneDeep: _kIndigoDeep,
-          body:
-              'A handful of compile-time-known boolean toggles wrapped in '
+          body: 'A handful of compile-time-known boolean toggles wrapped in '
               'a class with named accessors. The BitField is private; the '
               'wrapper exposes `isExperimentalRouterOn`, etc.',
         ),
@@ -1579,8 +1623,7 @@ Widget _buildPatternsCard() {
           name: 'Semantics flag sets',
           tone: _kTeal,
           toneDeep: _kTealDeep,
-          body:
-              'Flutters semantics layer keeps per-node flags in a compact '
+          body: 'Flutters semantics layer keeps per-node flags in a compact '
               'integer-backed structure. BitField is the textbook tool for '
               'that representation, and the official `SemanticsFlag` machinery '
               'is built around the same idea.',
@@ -1589,8 +1632,7 @@ Widget _buildPatternsCard() {
           name: 'Custom permission bags',
           tone: _kViolet,
           toneDeep: _kVioletDeep,
-          body:
-              'Small role models — guest/viewer/editor/admin — that have '
+          body: 'Small role models — guest/viewer/editor/admin — that have '
               'to be transferred over the wire as a single integer payload, '
               'then expanded back into a typed API on the receiving end.',
         ),
@@ -1598,8 +1640,7 @@ Widget _buildPatternsCard() {
           name: 'Per-frame dirty bits',
           tone: _kAmber,
           toneDeep: _kAmberDeep,
-          body:
-              'A render object that tracks which of its sub-aspects '
+          body: 'A render object that tracks which of its sub-aspects '
               '("needs paint", "needs layout", "needs compositing bits '
               'update") are dirty during a frame. BitField turns the check '
               'into a single comparison.',
@@ -1682,9 +1723,8 @@ Widget _patternRow({
 Widget _buildSemanticsCard() {
   // Quick visualisation of a `BitField<_Channel>` to drive home that the
   // type parameter can be any enum — a 3-slot BitField is perfectly valid.
-  final BitField<_Channel> channels = BitField<_Channel>(
-    _Channel.values.length,
-  );
+  final BitField<_Channel> channels =
+      BitField<_Channel>(_Channel.values.length);
   channels[_Channel.audio] = true;
   channels[_Channel.haptics] = true;
   return _buildSectionFrame(
@@ -1744,8 +1784,8 @@ Widget _channelCell({
   final IconData icon = channel == _Channel.audio
       ? Icons.volume_up_outlined
       : channel == _Channel.video
-      ? Icons.videocam_outlined
-      : Icons.vibration;
+          ? Icons.videocam_outlined
+          : Icons.vibration;
   final Color top = value ? _kBitOn : _kBitOff;
   final Color bot = value ? _kBitOnDeep : _kBitOffDeep;
   return Column(
@@ -1842,7 +1882,10 @@ Widget _buildReferenceCard() {
           ],
         ),
         const SizedBox(height: 14),
-        _refLine('Library', 'package:flutter/foundation.dart'),
+        _refLine(
+          'Library',
+          'package:flutter/foundation.dart',
+        ),
         _refLine(
           'Type parameter',
           '<T extends dynamic> — must be an enum at runtime',
@@ -1851,9 +1894,18 @@ Widget _buildReferenceCard() {
           'Constructors',
           'BitField<T>(length) and BitField<T>.filled(length, value)',
         ),
-        _refLine('Indexing', 'bf[enumValue] and bf[enumValue] = bool'),
-        _refLine('Reset', 'bf.reset(value: false) clears (or fills) every bit'),
-        _refLine('Hard limit', 'length ≤ 62 bits — asserted in foundation'),
+        _refLine(
+          'Indexing',
+          'bf[enumValue] and bf[enumValue] = bool',
+        ),
+        _refLine(
+          'Reset',
+          'bf.reset(value: false) clears (or fills) every bit',
+        ),
+        _refLine(
+          'Hard limit',
+          'length ≤ 62 bits — asserted in foundation',
+        ),
         _refLine(
           'Allocation',
           'one int per BitField, zero allocation per read/write',

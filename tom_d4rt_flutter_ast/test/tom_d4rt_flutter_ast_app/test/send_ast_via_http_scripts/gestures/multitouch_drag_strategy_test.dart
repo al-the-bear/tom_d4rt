@@ -84,7 +84,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF0D47A1), Color(0xFF512DA8), Color(0xFFAD1457)],
+        colors: [
+          Color(0xFF0D47A1),
+          Color(0xFF512DA8),
+          Color(0xFFAD1457),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -784,7 +788,10 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(width: 10.0),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: row['palette'] as Color,
                     borderRadius: BorderRadius.circular(6.0),
@@ -1049,7 +1056,12 @@ dynamic build(BuildContext context) {
       ],
     ),
     clipBehavior: Clip.antiAlias,
-    child: Column(children: [comparisonHeader, ...comparisonRows]),
+    child: Column(
+      children: [
+        comparisonHeader,
+        ...comparisonRows,
+      ],
+    ),
   );
 
   // ============================================================
@@ -1130,7 +1142,11 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        Wrap(spacing: 8.0, runSpacing: 8.0, children: quickReferenceChips),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: quickReferenceChips,
+        ),
         SizedBox(height: 16.0),
         Text(
           'FAQ',
@@ -1321,9 +1337,9 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(width: 10.0),
                 Text(
-                  (s['animation'] as Animation<double>).value.toStringAsFixed(
-                    2,
-                  ),
+                  (s['animation'] as Animation<double>)
+                      .value
+                      .toStringAsFixed(2),
                   style: TextStyle(
                     fontFamily: 'monospace',
                     fontSize: 11.0,
@@ -1372,12 +1388,12 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             heroHeader,
-            _sectionTitle(
-              '1. Anatomy of a multi-touch drag',
-              Icons.account_tree,
-            ),
+            _sectionTitle('1. Anatomy of a multi-touch drag', Icons.account_tree),
             anatomyDiagram,
-            _sectionTitle('2. Strategy by strategy', Icons.style),
+            _sectionTitle(
+              '2. Strategy by strategy',
+              Icons.style,
+            ),
             ...perValueCards,
             _sectionTitle('3. Recipes', Icons.menu_book),
             recipesSection,
@@ -1471,7 +1487,12 @@ Widget _heroChip(String label, IconData icon) {
   );
 }
 
-Widget _anatomyNode(String title, String body, IconData icon, Color color) {
+Widget _anatomyNode(
+  String title,
+  String body,
+  IconData icon,
+  Color color,
+) {
   return Container(
     width: 130.0,
     padding: EdgeInsets.all(10.0),
@@ -1720,7 +1741,10 @@ Widget _strategyAnimationStrip(Animation<double> animation, Color color) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
+      border: Border.all(
+        color: color.withValues(alpha: 0.5),
+        width: 1.0,
+      ),
     ),
     child: FractionallySizedBox(
       alignment: Alignment.centerLeft,

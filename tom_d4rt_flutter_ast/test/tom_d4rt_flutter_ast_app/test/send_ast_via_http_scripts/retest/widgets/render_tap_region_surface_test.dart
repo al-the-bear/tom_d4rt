@@ -56,10 +56,8 @@ class _RenderTapRegionSurfaceDemoState
     return Scaffold(
       backgroundColor: _kBg,
       appBar: AppBar(
-        title: Text(
-          'RenderTapRegionSurface',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-        ),
+        title: Text('RenderTapRegionSurface',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -76,7 +74,11 @@ class _RenderTapRegionSurfaceDemoState
       ),
       body: TabBarView(
         controller: _tabs,
-        children: [_TheoryTab(), _TapDetectionLabTab(), _GroupBehaviorTab()],
+        children: [
+          _TheoryTab(),
+          _TapDetectionLabTab(),
+          _GroupBehaviorTab(),
+        ],
       ),
     );
   }
@@ -118,15 +120,11 @@ class _TheoryTab extends StatelessWidget {
         _sectionCard(
           title: 'Inheritance & Interfaces',
           children: [
-            _hierarchyRow(
-              'RenderProxyBoxWithHitTestBehavior',
-              'Pass-through box with configurable hit behavior',
-            ),
+            _hierarchyRow('RenderProxyBoxWithHitTestBehavior',
+                'Pass-through box with configurable hit behavior'),
             Divider(color: _kDivider, height: 20),
-            _hierarchyRow(
-              'TapRegionRegistry',
-              'Interface for region registration & lookup',
-            ),
+            _hierarchyRow('TapRegionRegistry',
+                'Interface for region registration & lookup'),
           ],
         ),
         SizedBox(height: 16),
@@ -159,23 +157,14 @@ class _TheoryTab extends StatelessWidget {
         _sectionCard(
           title: 'Internal Data Structures',
           children: [
-            _dataRow(
-              '_registeredRegions',
-              'Set<RenderTapRegion>',
-              'All attached tap regions',
-            ),
+            _dataRow('_registeredRegions', 'Set<RenderTapRegion>',
+                'All attached tap regions'),
             SizedBox(height: 8),
-            _dataRow(
-              '_groupIdToRegions',
-              'Map<Object?, Set<RenderTapRegion>>',
-              'Groups by groupId',
-            ),
+            _dataRow('_groupIdToRegions', 'Map<Object?, Set<RenderTapRegion>>',
+                'Groups by groupId'),
             SizedBox(height: 8),
-            _dataRow(
-              '_cachedResults',
-              'Expando<BoxHitTestResult>',
-              'Cached hit test results per event',
-            ),
+            _dataRow('_cachedResults', 'Expando<BoxHitTestResult>',
+                'Cached hit test results per event'),
           ],
         ),
         SizedBox(height: 16),
@@ -184,41 +173,21 @@ class _TheoryTab extends StatelessWidget {
         _sectionCard(
           title: 'Hit Test & Event Flow',
           children: [
-            _flowStep(
-              1,
-              'hitTest() called',
-              'Caches BoxHitTestResult for PointerDownEvent',
-              Icons.touch_app,
-              _kPrimary,
-            ),
-            _flowStep(
-              2,
-              'handleEvent() invoked',
-              'Uses cached result to find hit regions',
-              Icons.smart_button,
-              Colors.blue.shade700,
-            ),
-            _flowStep(
-              3,
-              'Compute insideRegions',
-              'hitRegions + all group members',
-              Icons.group,
-              Colors.purple,
-            ),
-            _flowStep(
-              4,
-              'Compute outsideRegions',
-              'All registered - insideRegions',
-              Icons.group_off,
-              Colors.deepOrange,
-            ),
-            _flowStep(
-              5,
-              'Call callbacks',
-              'onTapOutside/onTapInside on regions',
-              Icons.notifications,
-              _kAccent,
-            ),
+            _flowStep(1, 'hitTest() called',
+                'Caches BoxHitTestResult for PointerDownEvent',
+                Icons.touch_app, _kPrimary),
+            _flowStep(2, 'handleEvent() invoked',
+                'Uses cached result to find hit regions',
+                Icons.smart_button, Colors.blue.shade700),
+            _flowStep(3, 'Compute insideRegions',
+                'hitRegions + all group members',
+                Icons.group, Colors.purple),
+            _flowStep(4, 'Compute outsideRegions',
+                'All registered - insideRegions',
+                Icons.group_off, Colors.deepOrange),
+            _flowStep(5, 'Call callbacks',
+                'onTapOutside/onTapInside on regions',
+                Icons.notifications, _kAccent),
           ],
         ),
         SizedBox(height: 16),
@@ -255,11 +224,7 @@ class _TheoryTab extends StatelessWidget {
                     child: Text(
                       'Group members are always considered together — tap '
                       'inside any member means tap inside all of them.',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: _kDarkText,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(fontSize: 11, color: _kDarkText, height: 1.4),
                     ),
                   ),
                 ],
@@ -465,14 +430,8 @@ class _TapDetectionLabTabState extends State<_TapDetectionLabTab> {
                       Positioned(
                         bottom: 8,
                         right: 12,
-                        child: Text(
-                          'Tap anywhere',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: _kSubtle,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
+                        child: Text('Tap anywhere',
+                            style: TextStyle(fontSize: 10, color: _kSubtle, fontStyle: FontStyle.italic)),
                       ),
                     ],
                   ),
@@ -497,13 +456,9 @@ class _TapDetectionLabTabState extends State<_TapDetectionLabTab> {
             SizedBox(height: 8),
             Row(
               children: [
-                Expanded(
-                  child: _counter('Region C', _regionCCount, Colors.purple),
-                ),
+                Expanded(child: _counter('Region C', _regionCCount, Colors.purple)),
                 SizedBox(width: 8),
-                Expanded(
-                  child: _counter('Outside', _outsideCount, Colors.grey),
-                ),
+                Expanded(child: _counter('Outside', _outsideCount, Colors.grey)),
               ],
             ),
           ],
@@ -515,33 +470,20 @@ class _TapDetectionLabTabState extends State<_TapDetectionLabTab> {
           title: 'Event Log',
           children: [
             if (_events.isEmpty)
-              Text(
-                'Tap regions to see events...',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _kSubtle,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ..._events
-                .take(12)
-                .map(
-                  (e) => Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Row(
-                      children: [
-                        Icon(Icons.chevron_right, size: 14, color: _kPrimary),
-                        SizedBox(width: 4),
-                        Expanded(
-                          child: Text(
-                            e,
-                            style: TextStyle(fontSize: 11, color: _kDarkText),
-                          ),
-                        ),
-                      ],
-                    ),
+              Text('Tap regions to see events...',
+                  style: TextStyle(fontSize: 12, color: _kSubtle, fontStyle: FontStyle.italic)),
+            ..._events.take(12).map((e) => Padding(
+                  padding: EdgeInsets.only(bottom: 4),
+                  child: Row(
+                    children: [
+                      Icon(Icons.chevron_right, size: 14, color: _kPrimary),
+                      SizedBox(width: 4),
+                      Expanded(
+                        child: Text(e, style: TextStyle(fontSize: 11, color: _kDarkText)),
+                      ),
+                    ],
                   ),
-                ),
+                )),
           ],
         ),
         SizedBox(height: 16),
@@ -559,17 +501,9 @@ class _TapDetectionLabTabState extends State<_TapDetectionLabTab> {
             SizedBox(height: 12),
             _pathStep('PointerDownEvent', 'Tap at (x, y)', _kPrimary),
             _pathArrow(),
-            _pathStep(
-              'hitTest()',
-              'Walk tree → collect entries',
-              Colors.blue.shade700,
-            ),
+            _pathStep('hitTest()', 'Walk tree → collect entries', Colors.blue.shade700),
             _pathArrow(),
-            _pathStep(
-              'Cache result',
-              '_cachedResults[event] = result',
-              Colors.purple,
-            ),
+            _pathStep('Cache result', '_cachedResults[event] = result', Colors.purple),
             _pathArrow(),
             _pathStep('handleEvent()', 'Process from cache', Colors.teal),
             _pathArrow(),
@@ -594,18 +528,10 @@ class _TapDetectionLabTabState extends State<_TapDetectionLabTab> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              color: color,
-            ),
-          ),
-          Text(
-            'TapRegion',
-            style: TextStyle(fontSize: 9, color: color.withOpacity(0.7)),
-          ),
+          Text(label,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: color)),
+          Text('TapRegion',
+              style: TextStyle(fontSize: 9, color: color.withOpacity(0.7))),
         ],
       ),
     );
@@ -624,23 +550,11 @@ class _TapDetectionLabTabState extends State<_TapDetectionLabTab> {
           Icon(Icons.touch_app, size: 18, color: color),
           SizedBox(width: 8),
           Expanded(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: _kDarkText,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
           ),
-          Text(
-            '$count',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-              color: color,
-            ),
-          ),
+          Text('$count',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: color)),
         ],
       ),
     );
@@ -662,14 +576,8 @@ class _TapDetectionLabTabState extends State<_TapDetectionLabTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: _kDarkText,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
                 Text(detail, style: TextStyle(fontSize: 11, color: _kSubtle)),
               ],
             ),
@@ -682,9 +590,7 @@ class _TapDetectionLabTabState extends State<_TapDetectionLabTab> {
   Widget _pathArrow() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 2),
-      child: Center(
-        child: Icon(Icons.arrow_downward, size: 16, color: _kSubtle),
-      ),
+      child: Center(child: Icon(Icons.arrow_downward, size: 16, color: _kSubtle)),
     );
   }
 }
@@ -761,9 +667,7 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
                   activeColor: _kPrimary,
                   onChanged: (v) {
                     setState(() => _sameGroup = v);
-                    _addEvent(
-                      'Group mode: ${v ? 'SAME group' : 'DIFFERENT groups'}',
-                    );
+                    _addEvent('Group mode: ${v ? 'SAME group' : 'DIFFERENT groups'}');
                   },
                 ),
                 SizedBox(width: 8),
@@ -940,15 +844,12 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
                     child: Text(
                       _consumeTaps
                           ? 'consumeOutsideTaps is ON — outside taps are '
-                                'consumed, preventing other gesture recognizers.'
+                            'consumed, preventing other gesture recognizers.'
                           : 'consumeOutsideTaps is OFF — taps propagate normally.',
                       style: TextStyle(
-                        fontSize: 11,
-                        color: _consumeTaps
-                            ? Colors.deepOrange.shade800
-                            : _kSubtle,
-                        height: 1.4,
-                      ),
+                          fontSize: 11,
+                          color: _consumeTaps ? Colors.deepOrange.shade800 : _kSubtle,
+                          height: 1.4),
                     ),
                   ),
                 ],
@@ -963,33 +864,20 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
           title: 'Event Log',
           children: [
             if (_events.isEmpty)
-              Text(
-                'Tap regions to see events...',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _kSubtle,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ..._events
-                .take(10)
-                .map(
-                  (e) => Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Row(
-                      children: [
-                        Icon(Icons.chevron_right, size: 14, color: _kPrimary),
-                        SizedBox(width: 4),
-                        Expanded(
-                          child: Text(
-                            e,
-                            style: TextStyle(fontSize: 11, color: _kDarkText),
-                          ),
-                        ),
-                      ],
-                    ),
+              Text('Tap regions to see events...',
+                  style: TextStyle(fontSize: 12, color: _kSubtle, fontStyle: FontStyle.italic)),
+            ..._events.take(10).map((e) => Padding(
+                  padding: EdgeInsets.only(bottom: 4),
+                  child: Row(
+                    children: [
+                      Icon(Icons.chevron_right, size: 14, color: _kPrimary),
+                      SizedBox(width: 4),
+                      Expanded(
+                        child: Text(e, style: TextStyle(fontSize: 11, color: _kDarkText)),
+                      ),
+                    ],
                   ),
-                ),
+                )),
           ],
         ),
         SizedBox(height: 16),
@@ -998,29 +886,17 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
         _sectionCard(
           title: 'Common Use Cases',
           children: [
-            _useCase(
-              Icons.menu,
-              'Dropdown menus',
-              'Tap outside to close — all menu items share a groupId',
-            ),
+            _useCase(Icons.menu, 'Dropdown menus',
+                'Tap outside to close — all menu items share a groupId'),
             SizedBox(height: 10),
-            _useCase(
-              Icons.edit,
-              'Form fields',
-              'Tap outside to unfocus — group related inputs',
-            ),
+            _useCase(Icons.edit, 'Form fields',
+                'Tap outside to unfocus — group related inputs'),
             SizedBox(height: 10),
-            _useCase(
-              Icons.chat_bubble_outline,
-              'Popovers / tooltips',
-              'Dismiss on outside tap with consumeOutsideTaps',
-            ),
+            _useCase(Icons.chat_bubble_outline, 'Popovers / tooltips',
+                'Dismiss on outside tap with consumeOutsideTaps'),
             SizedBox(height: 10),
-            _useCase(
-              Icons.dashboard,
-              'Modal dialogs',
-              'Multiple floating elements as one dismissal zone',
-            ),
+            _useCase(Icons.dashboard, 'Modal dialogs',
+                'Multiple floating elements as one dismissal zone'),
           ],
         ),
         SizedBox(height: 32),
@@ -1040,14 +916,8 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w900,
-              color: color,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900, color: color)),
           Container(
             margin: EdgeInsets.only(top: 4),
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -1055,14 +925,8 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
               color: color.withOpacity(0.15),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              groupId,
-              style: TextStyle(
-                fontSize: 9,
-                color: color,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(groupId,
+                style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.w600)),
           ),
         ],
       ),
@@ -1079,23 +943,11 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
       ),
       child: Column(
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: _kDarkText,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
           SizedBox(height: 4),
-          Text(
-            '$count',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              color: color,
-            ),
-          ),
+          Text('$count',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: color)),
         ],
       ),
     );
@@ -1109,10 +961,7 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
         children: [
           Text('• ', style: TextStyle(fontSize: 12, color: _kPrimary)),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 12, color: _kDarkText),
-            ),
+            child: Text(text, style: TextStyle(fontSize: 12, color: _kDarkText)),
           ),
         ],
       ),
@@ -1129,14 +978,8 @@ class _GroupBehaviorTabState extends State<_GroupBehaviorTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: _kDarkText,
-                ),
-              ),
+              Text(title,
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
               Text(detail, style: TextStyle(fontSize: 11, color: _kSubtle)),
             ],
           ),
@@ -1157,11 +1000,7 @@ Widget _sectionCard({required String title, required List<Widget> children}) {
       color: _kCardBg,
       borderRadius: BorderRadius.circular(12),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.06),
-          blurRadius: 8,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 8, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -1172,14 +1011,8 @@ Widget _sectionCard({required String title, required List<Widget> children}) {
             Container(width: 4, height: 18, color: _kPrimary),
             SizedBox(width: 8),
             Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: _kDarkText,
-                ),
-              ),
+              child: Text(title,
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
             ),
           ],
         ),
@@ -1198,15 +1031,8 @@ Widget _codeBlock(String code) {
       color: _kCodeBg,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontSize: 11,
-        fontFamily: 'monospace',
-        color: _kDarkText,
-        height: 1.5,
-      ),
-    ),
+    child: Text(code,
+        style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _kDarkText, height: 1.5)),
   );
 }
 
@@ -1220,15 +1046,9 @@ Widget _hierarchyRow(String name, String description) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              name,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'monospace',
-                color: _kDarkText,
-              ),
-            ),
+            Text(name,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600,
+                    fontFamily: 'monospace', color: _kDarkText)),
             Text(description, style: TextStyle(fontSize: 11, color: _kSubtle)),
           ],
         ),
@@ -1249,24 +1069,12 @@ Widget _dataRow(String name, String type, String desc) {
           children: [
             Row(
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'monospace',
-                    color: _kPrimary,
-                  ),
-                ),
+                Text(name,
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600,
+                        fontFamily: 'monospace', color: _kPrimary)),
                 SizedBox(width: 6),
-                Text(
-                  type,
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    color: _kSubtle,
-                  ),
-                ),
+                Text(type,
+                    style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: _kSubtle)),
               ],
             ),
             Text(desc, style: TextStyle(fontSize: 11, color: _kDarkText)),
@@ -1277,13 +1085,7 @@ Widget _dataRow(String name, String type, String desc) {
   );
 }
 
-Widget _flowStep(
-  int number,
-  String title,
-  String detail,
-  IconData icon,
-  Color color,
-) {
+Widget _flowStep(int number, String title, String detail, IconData icon, Color color) {
   return Padding(
     padding: EdgeInsets.only(bottom: 10),
     child: Row(
@@ -1294,14 +1096,8 @@ Widget _flowStep(
           height: 24,
           decoration: BoxDecoration(shape: BoxShape.circle, color: color),
           alignment: Alignment.center,
-          child: Text(
-            '$number',
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
+          child: Text('$number',
+              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white)),
         ),
         SizedBox(width: 10),
         Expanded(
@@ -1313,14 +1109,8 @@ Widget _flowStep(
                   Icon(icon, size: 16, color: color),
                   SizedBox(width: 6),
                   Expanded(
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    child: Text(title,
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
                   ),
                 ],
               ),
@@ -1342,22 +1132,13 @@ Widget _eventRow(String eventType, String callbacks) {
           color: _kPrimary.withOpacity(0.1),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text(
-          eventType,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'monospace',
-            color: _kPrimary,
-          ),
-        ),
+        child: Text(eventType,
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600,
+                fontFamily: 'monospace', color: _kPrimary)),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          '→ $callbacks',
-          style: TextStyle(fontSize: 11, color: _kDarkText),
-        ),
+        child: Text('→ $callbacks', style: TextStyle(fontSize: 11, color: _kDarkText)),
       ),
     ],
   );

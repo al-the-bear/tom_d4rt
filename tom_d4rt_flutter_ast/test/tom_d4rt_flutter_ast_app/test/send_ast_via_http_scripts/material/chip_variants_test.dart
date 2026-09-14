@@ -30,42 +30,45 @@ const Color _kGood = Color(0xFF166534);
 const Color _kBad = Color(0xFFB91C1C);
 
 TextStyle _h1() => const TextStyle(
-  fontSize: 22.0,
-  fontWeight: FontWeight.w800,
-  color: _kInk,
-  height: 1.2,
-);
+      fontSize: 22.0,
+      fontWeight: FontWeight.w800,
+      color: _kInk,
+      height: 1.2,
+    );
 
 TextStyle _h2() => const TextStyle(
-  fontSize: 17.0,
-  fontWeight: FontWeight.w700,
-  color: _kInk,
-  height: 1.25,
-);
+      fontSize: 17.0,
+      fontWeight: FontWeight.w700,
+      color: _kInk,
+      height: 1.25,
+    );
 
 TextStyle _h3() => const TextStyle(
-  fontSize: 14.0,
-  fontWeight: FontWeight.w700,
-  color: _kInk,
-  letterSpacing: 0.2,
-);
+      fontSize: 14.0,
+      fontWeight: FontWeight.w700,
+      color: _kInk,
+      letterSpacing: 0.2,
+    );
 
-TextStyle _body() =>
-    const TextStyle(fontSize: 13.0, color: _kInkSoft, height: 1.45);
+TextStyle _body() => const TextStyle(
+      fontSize: 13.0,
+      color: _kInkSoft,
+      height: 1.45,
+    );
 
 TextStyle _mono() => const TextStyle(
-  fontSize: 12.0,
-  fontFamily: 'monospace',
-  color: _kInk,
-  height: 1.4,
-);
+      fontSize: 12.0,
+      fontFamily: 'monospace',
+      color: _kInk,
+      height: 1.4,
+    );
 
 TextStyle _label() => const TextStyle(
-  fontSize: 11.0,
-  fontWeight: FontWeight.w700,
-  color: _kInkMute,
-  letterSpacing: 0.6,
-);
+      fontSize: 11.0,
+      fontWeight: FontWeight.w700,
+      color: _kInkMute,
+      letterSpacing: 0.6,
+    );
 
 // ---------------------------------------------------------------------------
 // Layout helpers.
@@ -147,7 +150,11 @@ Widget _pill(String text, Color bg, Color fg) {
     ),
     child: Text(
       text,
-      style: TextStyle(color: fg, fontSize: 11.0, fontWeight: FontWeight.w700),
+      style: TextStyle(
+        color: fg,
+        fontSize: 11.0,
+        fontWeight: FontWeight.w700,
+      ),
     ),
   );
 }
@@ -191,9 +198,13 @@ Widget _buildDossier({
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: _bulletList('USE WHEN', useWhen, _kGood)),
+            Expanded(
+              child: _bulletList('USE WHEN', useWhen, _kGood),
+            ),
             const SizedBox(width: 12.0),
-            Expanded(child: _bulletList('AVOID WHEN', avoidWhen, _kBad)),
+            Expanded(
+              child: _bulletList('AVOID WHEN', avoidWhen, _kBad),
+            ),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -211,23 +222,24 @@ Widget _bulletList(String header, List<String> items, Color dot) {
     children: [
       Text(header, style: _label()),
       const SizedBox(height: 4.0),
-      ...items.map(
-        (item) => Padding(
-          padding: const EdgeInsets.only(bottom: 4.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 6.0, right: 6.0),
-                width: 6.0,
-                height: 6.0,
-                decoration: BoxDecoration(color: dot, shape: BoxShape.circle),
-              ),
-              Expanded(child: Text(item, style: _body())),
-            ],
-          ),
-        ),
-      ),
+      ...items.map((item) => Padding(
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 6.0, right: 6.0),
+                  width: 6.0,
+                  height: 6.0,
+                  decoration: BoxDecoration(
+                    color: dot,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                Expanded(child: Text(item, style: _body())),
+              ],
+            ),
+          )),
     ],
   );
 }
@@ -270,9 +282,7 @@ Widget _section1Dossiers() {
         ],
         preview: const Chip(
           label: Text('Chip'),
-          avatar: CircleAvatar(
-            child: Text('C', style: TextStyle(fontSize: 10.0)),
-          ),
+          avatar: CircleAvatar(child: Text('C', style: TextStyle(fontSize: 10.0))),
         ),
         accent: _kAccent,
       ),
@@ -375,9 +385,8 @@ Widget _section1Dossiers() {
         ],
         preview: InputChip(
           avatar: const CircleAvatar(
-            backgroundColor: _kAccentSoft,
-            child: Text('A', style: TextStyle(fontSize: 10.0)),
-          ),
+              backgroundColor: _kAccentSoft,
+              child: Text('A', style: TextStyle(fontSize: 10.0))),
           label: const Text('Alice'),
           onDeleted: () {},
         ),
@@ -420,7 +429,9 @@ Widget _buildAnatomyRow(List<String> cells, {bool header = false}) {
   return Container(
     decoration: BoxDecoration(
       color: header ? const Color(0xFFEFF3F8) : Colors.white,
-      border: const Border(bottom: BorderSide(color: _kDivider)),
+      border: const Border(
+        bottom: BorderSide(color: _kDivider),
+      ),
     ),
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     child: Row(
@@ -431,7 +442,9 @@ Widget _buildAnatomyRow(List<String> cells, {bool header = false}) {
             flex: i == 0 ? 3 : 2,
             child: Text(
               cells[i],
-              style: header ? _label() : (i == 0 ? _mono() : _body()),
+              style: header
+                  ? _label()
+                  : (i == 0 ? _mono() : _body()),
             ),
           ),
       ],
@@ -447,48 +460,16 @@ Widget _section2Anatomy() {
         padding: const EdgeInsets.all(0.0),
         child: Column(
           children: [
-            _buildAnatomyRow(const [
-              'CLASS',
-              'EXTENDS / FAMILY',
-              'INTERACTIVE?',
-              'SELECTABLE?',
-            ], header: true),
-            _buildAnatomyRow(const [
-              'Chip',
-              'StatelessWidget',
-              'No (by default)',
-              'No',
-            ]),
-            _buildAnatomyRow(const [
-              'RawChip',
-              'StatefulWidget',
-              'Optional',
-              'Optional',
-            ]),
-            _buildAnatomyRow(const [
-              'ActionChip',
-              'wraps RawChip',
-              'Yes (onPressed)',
-              'No',
-            ]),
-            _buildAnatomyRow(const [
-              'FilterChip',
-              'wraps RawChip',
-              'Yes (onSelected)',
-              'Yes — multi',
-            ]),
-            _buildAnatomyRow(const [
-              'ChoiceChip',
-              'wraps RawChip',
-              'Yes (onSelected)',
-              'Yes — single',
-            ]),
-            _buildAnatomyRow(const [
-              'InputChip',
-              'wraps RawChip',
-              'Yes (onPressed / onDeleted)',
-              'Optional',
-            ]),
+            _buildAnatomyRow(
+              const ['CLASS', 'EXTENDS / FAMILY', 'INTERACTIVE?', 'SELECTABLE?'],
+              header: true,
+            ),
+            _buildAnatomyRow(const ['Chip', 'StatelessWidget', 'No (by default)', 'No']),
+            _buildAnatomyRow(const ['RawChip', 'StatefulWidget', 'Optional', 'Optional']),
+            _buildAnatomyRow(const ['ActionChip', 'wraps RawChip', 'Yes (onPressed)', 'No']),
+            _buildAnatomyRow(const ['FilterChip', 'wraps RawChip', 'Yes (onSelected)', 'Yes — multi']),
+            _buildAnatomyRow(const ['ChoiceChip', 'wraps RawChip', 'Yes (onSelected)', 'Yes — single']),
+            _buildAnatomyRow(const ['InputChip', 'wraps RawChip', 'Yes (onPressed / onDeleted)', 'Optional']),
           ],
         ),
       ),
@@ -499,106 +480,29 @@ Widget _section2Anatomy() {
         padding: const EdgeInsets.all(0.0),
         child: Column(
           children: [
-            _buildAnatomyRow(const [
-              'PROPERTY',
-              'TYPE',
-              'PURPOSE',
-            ], header: true),
-            _buildAnatomyRow(const [
-              'label',
-              'Widget',
-              'The main content slot, usually Text.',
-            ]),
-            _buildAnatomyRow(const [
-              'avatar',
-              'Widget?',
-              'Leading slot. CircleAvatar, Icon, image, etc.',
-            ]),
-            _buildAnatomyRow(const [
-              'deleteIcon',
-              'Widget?',
-              'Trailing slot rendered only when onDeleted is provided.',
-            ]),
-            _buildAnatomyRow(const [
-              'onPressed',
-              'VoidCallback?',
-              'Tap callback (ActionChip / InputChip / RawChip).',
-            ]),
-            _buildAnatomyRow(const [
-              'onSelected',
-              'ValueChanged<bool>?',
-              'Selection callback (Filter/Choice/Input/Raw).',
-            ]),
-            _buildAnatomyRow(const [
-              'onDeleted',
-              'VoidCallback?',
-              'Delete-icon callback (Input/Raw).',
-            ]),
-            _buildAnatomyRow(const [
-              'selected',
-              'bool',
-              'Whether the chip is currently selected.',
-            ]),
-            _buildAnatomyRow(const [
-              'selectedColor',
-              'Color?',
-              'Background colour when selected.',
-            ]),
-            _buildAnatomyRow(const [
-              'disabledColor',
-              'Color?',
-              'Background colour when callbacks are null.',
-            ]),
-            _buildAnatomyRow(const [
-              'elevation',
-              'double?',
-              'Resting Z elevation.',
-            ]),
-            _buildAnatomyRow(const [
-              'pressElevation',
-              'double?',
-              'Z elevation while the chip is pressed.',
-            ]),
-            _buildAnatomyRow(const [
-              'shape',
-              'OutlinedBorder?',
-              'Outline shape; default StadiumBorder.',
-            ]),
-            _buildAnatomyRow(const [
-              'side',
-              'BorderSide?',
-              'Override border colour / width.',
-            ]),
-            _buildAnatomyRow(const [
-              'padding',
-              'EdgeInsetsGeometry?',
-              'Inner padding around label.',
-            ]),
-            _buildAnatomyRow(const [
-              'labelPadding',
-              'EdgeInsetsGeometry?',
-              'Padding around the label widget only.',
-            ]),
-            _buildAnatomyRow(const [
-              'materialTapTargetSize',
-              'MaterialTapTargetSize?',
-              'shrinkWrap or padded hit target.',
-            ]),
-            _buildAnatomyRow(const [
-              'visualDensity',
-              'VisualDensity?',
-              'Adjust compactness per platform.',
-            ]),
-            _buildAnatomyRow(const [
-              'showCheckmark',
-              'bool?',
-              'Filter/Choice only; toggles leading check.',
-            ]),
-            _buildAnatomyRow(const [
-              'checkmarkColor',
-              'Color?',
-              'Tint of the leading check glyph.',
-            ]),
+            _buildAnatomyRow(
+              const ['PROPERTY', 'TYPE', 'PURPOSE'],
+              header: true,
+            ),
+            _buildAnatomyRow(const ['label', 'Widget', 'The main content slot, usually Text.']),
+            _buildAnatomyRow(const ['avatar', 'Widget?', 'Leading slot. CircleAvatar, Icon, image, etc.']),
+            _buildAnatomyRow(const ['deleteIcon', 'Widget?', 'Trailing slot rendered only when onDeleted is provided.']),
+            _buildAnatomyRow(const ['onPressed', 'VoidCallback?', 'Tap callback (ActionChip / InputChip / RawChip).']),
+            _buildAnatomyRow(const ['onSelected', 'ValueChanged<bool>?', 'Selection callback (Filter/Choice/Input/Raw).']),
+            _buildAnatomyRow(const ['onDeleted', 'VoidCallback?', 'Delete-icon callback (Input/Raw).']),
+            _buildAnatomyRow(const ['selected', 'bool', 'Whether the chip is currently selected.']),
+            _buildAnatomyRow(const ['selectedColor', 'Color?', 'Background colour when selected.']),
+            _buildAnatomyRow(const ['disabledColor', 'Color?', 'Background colour when callbacks are null.']),
+            _buildAnatomyRow(const ['elevation', 'double?', 'Resting Z elevation.']),
+            _buildAnatomyRow(const ['pressElevation', 'double?', 'Z elevation while the chip is pressed.']),
+            _buildAnatomyRow(const ['shape', 'OutlinedBorder?', 'Outline shape; default StadiumBorder.']),
+            _buildAnatomyRow(const ['side', 'BorderSide?', 'Override border colour / width.']),
+            _buildAnatomyRow(const ['padding', 'EdgeInsetsGeometry?', 'Inner padding around label.']),
+            _buildAnatomyRow(const ['labelPadding', 'EdgeInsetsGeometry?', 'Padding around the label widget only.']),
+            _buildAnatomyRow(const ['materialTapTargetSize', 'MaterialTapTargetSize?', 'shrinkWrap or padded hit target.']),
+            _buildAnatomyRow(const ['visualDensity', 'VisualDensity?', 'Adjust compactness per platform.']),
+            _buildAnatomyRow(const ['showCheckmark', 'bool?', 'Filter/Choice only; toggles leading check.']),
+            _buildAnatomyRow(const ['checkmarkColor', 'Color?', 'Tint of the leading check glyph.']),
           ],
         ),
       ),
@@ -625,7 +529,11 @@ Widget _buildGalleryColumn(String title, List<Widget> chips) {
         children: [
           Text(title, style: _h3()),
           const SizedBox(height: 8.0),
-          Wrap(spacing: 6.0, runSpacing: 6.0, children: chips),
+          Wrap(
+            spacing: 6.0,
+            runSpacing: 6.0,
+            children: chips,
+          ),
         ],
       ),
     ),
@@ -642,7 +550,10 @@ Widget _section3Gallery() {
         child: const Text('A', style: TextStyle(fontSize: 11.0)),
       ),
     ),
-    const Chip(label: Text('Iconed'), avatar: Icon(Icons.label, size: 16.0)),
+    const Chip(
+      label: Text('Iconed'),
+      avatar: Icon(Icons.label, size: 16.0),
+    ),
     Chip(
       label: const Text('With border'),
       side: const BorderSide(color: _kAccent, width: 1.2),
@@ -687,7 +598,11 @@ Widget _section3Gallery() {
       selectedColor: _kAccentSoft,
       checkmarkColor: _kAccent,
     ),
-    FilterChip(label: const Text('Films'), selected: false, onSelected: (_) {}),
+    FilterChip(
+      label: const Text('Films'),
+      selected: false,
+      onSelected: (_) {},
+    ),
     FilterChip(
       label: const Text('Music'),
       selected: true,
@@ -724,7 +639,11 @@ Widget _section3Gallery() {
       selected: false,
       onSelected: (_) {},
     ),
-    const ChoiceChip(label: Text('Yearly'), selected: false, onSelected: null),
+    const ChoiceChip(
+      label: Text('Yearly'),
+      selected: false,
+      onSelected: null,
+    ),
   ];
 
   final List<Widget> inputChips = [
@@ -743,7 +662,10 @@ Widget _section3Gallery() {
       onDeleted: () {},
       selectedColor: const Color(0xFFDCFCE7),
     ),
-    const InputChip(label: Text('Disabled token'), isEnabled: false),
+    const InputChip(
+      label: Text('Disabled token'),
+      isEnabled: false,
+    ),
     InputChip(
       label: const Text('Custom delete'),
       onDeleted: () {},
@@ -764,7 +686,10 @@ Widget _section3Gallery() {
       onSelected: (_) {},
       selectedColor: const Color(0xFFFDE68A),
     ),
-    RawChip(label: const Text('Raw + delete'), onDeleted: () {}),
+    RawChip(
+      label: const Text('Raw + delete'),
+      onDeleted: () {},
+    ),
     // RawChip's chip.dart line 1027 asserts that
     // `onSelected == null || onPressed == null`. Demo this variant
     // with only onSelected wired (Filter/Choice/InputChip use this
@@ -889,11 +814,7 @@ Widget _section4Stateful() {
           children: [
             Row(
               children: [
-                const Icon(
-                  Icons.radio_button_checked,
-                  size: 18.0,
-                  color: Color(0xFF8B5CF6),
-                ),
+                const Icon(Icons.radio_button_checked, size: 18.0, color: Color(0xFF8B5CF6)),
                 const SizedBox(width: 8.0),
                 Text('ChoiceChip — single-select density', style: _h3()),
               ],
@@ -1037,7 +958,10 @@ Widget _themedCluster(String title, ChipThemeData theme, Color accent) {
                   selected: false,
                   onSelected: (_) {},
                 ),
-                ActionChip(label: const Text('Action'), onPressed: () {}),
+                ActionChip(
+                  label: const Text('Action'),
+                  onPressed: () {},
+                ),
               ],
             ),
           ),
@@ -1074,11 +998,7 @@ Widget _section5Theme() {
     selectedColor: const Color(0xFFFB7185),
     disabledColor: const Color(0xFFFEE2E2),
     secondarySelectedColor: const Color(0xFFE11D48),
-    labelStyle: const TextStyle(
-      fontSize: 13.0,
-      color: _kInk,
-      fontWeight: FontWeight.w700,
-    ),
+    labelStyle: const TextStyle(fontSize: 13.0, color: _kInk, fontWeight: FontWeight.w700),
     secondaryLabelStyle: const TextStyle(fontSize: 13.0, color: Colors.white),
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
@@ -1206,7 +1126,10 @@ Widget _section7Delete() {
           spacing: 8.0,
           runSpacing: 8.0,
           children: [
-            InputChip(label: const Text('Default cross'), onDeleted: () {}),
+            InputChip(
+              label: const Text('Default cross'),
+              onDeleted: () {},
+            ),
             InputChip(
               label: const Text('Cancel'),
               onDeleted: () {},
@@ -1267,7 +1190,11 @@ Widget _shapeColumn(String name, OutlinedBorder shape, BorderSide side) {
             spacing: 6.0,
             runSpacing: 6.0,
             children: [
-              Chip(label: const Text('Plain'), shape: shape, side: side),
+              Chip(
+                label: const Text('Plain'),
+                shape: shape,
+                side: side,
+              ),
               FilterChip(
                 label: const Text('Filter'),
                 selected: true,
@@ -1388,11 +1315,7 @@ Widget _section9Recipes() {
     spacing: 6.0,
     children: [
       FilterChip(label: const Text('Free'), selected: true, onSelected: (_) {}),
-      FilterChip(
-        label: const Text('Paid'),
-        selected: false,
-        onSelected: (_) {},
-      ),
+      FilterChip(label: const Text('Paid'), selected: false, onSelected: (_) {}),
       FilterChip(label: const Text('New'), selected: true, onSelected: (_) {}),
     ],
   );
@@ -1445,16 +1368,8 @@ Widget _section9Recipes() {
     spacing: 6.0,
     children: [
       ChoiceChip(label: const Text('All'), selected: false, onSelected: (_) {}),
-      ChoiceChip(
-        label: const Text('Books'),
-        selected: true,
-        onSelected: (_) {},
-      ),
-      ChoiceChip(
-        label: const Text('Films'),
-        selected: false,
-        onSelected: (_) {},
-      ),
+      ChoiceChip(label: const Text('Books'), selected: true, onSelected: (_) {}),
+      ChoiceChip(label: const Text('Films'), selected: false, onSelected: (_) {}),
     ],
   );
 
@@ -1508,8 +1423,7 @@ Widget _section9Recipes() {
     children: [
       _buildRecipeCard(
         title: 'Skill tags on a profile card',
-        summary:
-            'Read-only labels describing capabilities. No interaction needed.',
+        summary: 'Read-only labels describing capabilities. No interaction needed.',
         steps: const [
           'Wrap a list of strings in Wrap.',
           'Build a plain Chip per entry.',
@@ -1529,8 +1443,7 @@ Widget _section9Recipes() {
       ),
       _buildRecipeCard(
         title: 'Status badges',
-        summary:
-            'Non-interactive Chips with semantic icons and tinted backgrounds.',
+        summary: 'Non-interactive Chips with semantic icons and tinted backgrounds.',
         steps: const [
           'Map status enum to (icon, color, text).',
           'Set backgroundColor on a Chip; never wire onPressed.',
@@ -1540,8 +1453,7 @@ Widget _section9Recipes() {
       ),
       _buildRecipeCard(
         title: 'Email recipient tokens',
-        summary:
-            'Each token is an InputChip with onDeleted; tap removes it from the list.',
+        summary: 'Each token is an InputChip with onDeleted; tap removes it from the list.',
         steps: const [
           'Render the list of String tokens inside a Wrap.',
           'For each token, emit an InputChip with avatar + onDeleted.',
@@ -1571,8 +1483,7 @@ Widget _section9Recipes() {
       ),
       _buildRecipeCard(
         title: 'Removable applied filters',
-        summary:
-            'Show every active filter as an InputChip with a delete cross.',
+        summary: 'Show every active filter as an InputChip with a delete cross.',
         steps: const [
           'Derive a list of human-readable filter clauses.',
           'For each clause render an InputChip with onDeleted.',
@@ -1603,7 +1514,9 @@ Widget _buildComparisonRow(List<String> cells, {bool header = false}) {
             flex: i == 0 ? 3 : 2,
             child: Text(
               cells[i],
-              style: header ? _label() : (i == 0 ? _h3() : _body()),
+              style: header
+                  ? _label()
+                  : (i == 0 ? _h3() : _body()),
             ),
           ),
       ],
@@ -1616,69 +1529,18 @@ Widget _section10Comparison() {
     padding: const EdgeInsets.all(0.0),
     child: Column(
       children: [
-        _buildComparisonRow(const [
-          'VARIANT',
-          'PRESS',
-          'SELECT',
-          'DELETE',
-          'TYPICAL USE',
-        ], header: true),
-        _buildComparisonRow(const [
-          'Chip',
-          '—',
-          '—',
-          '—',
-          'Read-only tag, badge.',
-        ]),
-        _buildComparisonRow(const [
-          'ActionChip',
-          'yes',
-          '—',
-          '—',
-          'Inline action button.',
-        ]),
-        _buildComparisonRow(const [
-          'FilterChip',
-          'via onSelected',
-          'multi',
-          '—',
-          'Filter a list.',
-        ]),
-        _buildComparisonRow(const [
-          'ChoiceChip',
-          'via onSelected',
-          'single',
-          '—',
-          'Pick one of N.',
-        ]),
-        _buildComparisonRow(const [
-          'InputChip',
-          'yes',
-          'optional',
-          'yes',
-          'Removable tokens.',
-        ]),
-        _buildComparisonRow(const [
-          'RawChip',
-          'optional',
-          'optional',
-          'optional',
-          'Custom hybrid.',
-        ]),
-        _buildComparisonRow(const [
-          'TextButton',
-          'yes',
-          '—',
-          '—',
-          'Standalone command.',
-        ]),
-        _buildComparisonRow(const [
-          'ToggleButton',
-          'yes',
-          'manual',
-          '—',
-          'Group toggle bar.',
-        ]),
+        _buildComparisonRow(
+          const ['VARIANT', 'PRESS', 'SELECT', 'DELETE', 'TYPICAL USE'],
+          header: true,
+        ),
+        _buildComparisonRow(const ['Chip', '—', '—', '—', 'Read-only tag, badge.']),
+        _buildComparisonRow(const ['ActionChip', 'yes', '—', '—', 'Inline action button.']),
+        _buildComparisonRow(const ['FilterChip', 'via onSelected', 'multi', '—', 'Filter a list.']),
+        _buildComparisonRow(const ['ChoiceChip', 'via onSelected', 'single', '—', 'Pick one of N.']),
+        _buildComparisonRow(const ['InputChip', 'yes', 'optional', 'yes', 'Removable tokens.']),
+        _buildComparisonRow(const ['RawChip', 'optional', 'optional', 'optional', 'Custom hybrid.']),
+        _buildComparisonRow(const ['TextButton', 'yes', '—', '—', 'Standalone command.']),
+        _buildComparisonRow(const ['ToggleButton', 'yes', 'manual', '—', 'Group toggle bar.']),
       ],
     ),
   );
@@ -1709,54 +1571,18 @@ Widget _section11Glossary() {
       children: [
         Text('Glossary', style: _h2()),
         const SizedBox(height: 6.0),
-        _glossaryRow(
-          'avatar slot',
-          'Leading widget in a chip — typically CircleAvatar or Icon.',
-        ),
-        _glossaryRow(
-          'label slot',
-          'Main content of the chip; almost always a Text widget.',
-        ),
-        _glossaryRow(
-          'delete affordance',
-          'Trailing icon revealed only when onDeleted is wired.',
-        ),
-        _glossaryRow(
-          'press elevation',
-          'Z-elevation while the chip is being pressed.',
-        ),
-        _glossaryRow(
-          'checkmark',
-          'Leading glyph indicating Filter/Choice selection state.',
-        ),
-        _glossaryRow(
-          'isEnabled',
-          'Coarse switch on InputChip / RawChip that disables all callbacks.',
-        ),
-        _glossaryRow(
-          'ChipThemeData',
-          'Inherited bundle of defaults applied to all chips below it.',
-        ),
-        _glossaryRow(
-          'selectedColor',
-          'Background applied when selected == true.',
-        ),
-        _glossaryRow(
-          'disabledColor',
-          'Background applied when interaction callbacks are null.',
-        ),
-        _glossaryRow(
-          'shape',
-          'OutlinedBorder controlling the chip outline; default StadiumBorder.',
-        ),
-        _glossaryRow(
-          'side',
-          'Explicit BorderSide overriding the shape default.',
-        ),
-        _glossaryRow(
-          'visualDensity',
-          'Cross-platform compactness tuner inherited from Theme.',
-        ),
+        _glossaryRow('avatar slot', 'Leading widget in a chip — typically CircleAvatar or Icon.'),
+        _glossaryRow('label slot', 'Main content of the chip; almost always a Text widget.'),
+        _glossaryRow('delete affordance', 'Trailing icon revealed only when onDeleted is wired.'),
+        _glossaryRow('press elevation', 'Z-elevation while the chip is being pressed.'),
+        _glossaryRow('checkmark', 'Leading glyph indicating Filter/Choice selection state.'),
+        _glossaryRow('isEnabled', 'Coarse switch on InputChip / RawChip that disables all callbacks.'),
+        _glossaryRow('ChipThemeData', 'Inherited bundle of defaults applied to all chips below it.'),
+        _glossaryRow('selectedColor', 'Background applied when selected == true.'),
+        _glossaryRow('disabledColor', 'Background applied when interaction callbacks are null.'),
+        _glossaryRow('shape', 'OutlinedBorder controlling the chip outline; default StadiumBorder.'),
+        _glossaryRow('side', 'Explicit BorderSide overriding the shape default.'),
+        _glossaryRow('visualDensity', 'Cross-platform compactness tuner inherited from Theme.'),
       ],
     ),
   );
@@ -1809,11 +1635,7 @@ dynamic build(BuildContext context) {
             _pill('Chip', _kAccentSoft, _kAccent),
             _pill('ActionChip', const Color(0xFFFEF3C7), _kWarn),
             _pill('FilterChip', const Color(0xFFDCFCE7), _kGood),
-            _pill(
-              'ChoiceChip',
-              const Color(0xFFEDE9FE),
-              const Color(0xFF6D28D9),
-            ),
+            _pill('ChoiceChip', const Color(0xFFEDE9FE), const Color(0xFF6D28D9)),
             _pill('InputChip', const Color(0xFFFEE2E2), _kBad),
             _pill('RawChip', const Color(0xFFE0F2FE), const Color(0xFF0369A1)),
             _pill('ChipThemeData', const Color(0xFFE5E7EB), _kInk),
@@ -1826,7 +1648,10 @@ dynamic build(BuildContext context) {
   final Widget footer = Padding(
     padding: const EdgeInsets.symmetric(vertical: 16.0),
     child: Center(
-      child: Text('End of chip variants visual demo.', style: _label()),
+      child: Text(
+        'End of chip variants visual demo.',
+        style: _label(),
+      ),
     ),
   );
 

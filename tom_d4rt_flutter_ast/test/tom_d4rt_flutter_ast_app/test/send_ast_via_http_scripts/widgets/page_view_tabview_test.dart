@@ -136,8 +136,7 @@ dynamic build(BuildContext context) {
             _sectionPanel(
               number: 2,
               title: 'Vertical PageView',
-              subtitle:
-                  'scrollDirection: Axis.vertical for top-to-bottom pages',
+              subtitle: 'scrollDirection: Axis.vertical for top-to-bottom pages',
               bg: 0xFFFFF3E0,
               border: 0xFFFFB74D,
               accent: 0xFFE65100,
@@ -183,7 +182,8 @@ dynamic build(BuildContext context) {
             _sectionPanel(
               number: 4,
               title: 'viewportFraction Carousel',
-              subtitle: 'viewportFraction < 1.0 shows neighbouring pages',
+              subtitle:
+                  'viewportFraction < 1.0 shows neighbouring pages',
               bg: 0xFFFCE4EC,
               border: 0xFFF06292,
               accent: 0xFFC2185B,
@@ -548,7 +548,9 @@ Widget _viewportFractionRow(double fraction) {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 4,
               itemBuilder: (BuildContext context, int index) {
-                return _carouselCard(_atlasPlaces[index % _atlasPlaces.length]);
+                return _carouselCard(
+                  _atlasPlaces[index % _atlasPlaces.length],
+                );
               },
             ),
           ),
@@ -574,7 +576,10 @@ Widget _pageViewBuilderDemo() {
         decoration: BoxDecoration(
           color: Color(entry['tone'] as int),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: Color(entry['accent'] as int), width: 1.2),
+          border: Border.all(
+            color: Color(entry['accent'] as int),
+            width: 1.2,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -628,63 +633,72 @@ Widget _pageViewCustomDemo() {
   return PageView.custom(
     controller: PageController(initialPage: 0, viewportFraction: 0.85),
     physics: const NeverScrollableScrollPhysics(),
-    childrenDelegate: SliverChildBuilderDelegate((
-      BuildContext context,
-      int index,
-    ) {
-      final Map<String, dynamic> entry =
-          _atlasPlaces[(index + 3) % _atlasPlaces.length];
-      return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: <Color>[Color(entry['tone'] as int), Color(0xFFFFFFFF)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-          borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: Color(entry['accent'] as int), width: 1.2),
-        ),
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(
-                  Icons.layers,
-                  color: Color(entry['accent'] as int),
-                  size: 18.0,
-                ),
-                const SizedBox(width: 8.0),
-                Text(
-                  'custom #$index',
-                  style: const TextStyle(
-                    fontSize: 11.0,
-                    fontFamily: 'monospace',
-                    color: Color(0xFF616161),
-                  ),
-                ),
+    childrenDelegate: SliverChildBuilderDelegate(
+      (BuildContext context, int index) {
+        final Map<String, dynamic> entry =
+            _atlasPlaces[(index + 3) % _atlasPlaces.length];
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color>[
+                Color(entry['tone'] as int),
+                Color(0xFFFFFFFF),
               ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            const SizedBox(height: 8.0),
-            Text(
-              entry['name'] as String,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14.0,
-                color: Color(entry['accent'] as int),
+            borderRadius: BorderRadius.circular(12.0),
+            border: Border.all(
+              color: Color(entry['accent'] as int),
+              width: 1.2,
+            ),
+          ),
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Icon(
+                    Icons.layers,
+                    color: Color(entry['accent'] as int),
+                    size: 18.0,
+                  ),
+                  const SizedBox(width: 8.0),
+                  Text(
+                    'custom #$index',
+                    style: const TextStyle(
+                      fontSize: 11.0,
+                      fontFamily: 'monospace',
+                      color: Color(0xFF616161),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 4.0),
-            Text(
-              entry['subtitle'] as String,
-              style: const TextStyle(fontSize: 11.0, color: Color(0xFF616161)),
-            ),
-          ],
-        ),
-      );
-    }, childCount: 5),
+              const SizedBox(height: 8.0),
+              Text(
+                entry['name'] as String,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.0,
+                  color: Color(entry['accent'] as int),
+                ),
+              ),
+              const SizedBox(height: 4.0),
+              Text(
+                entry['subtitle'] as String,
+                style: const TextStyle(
+                  fontSize: 11.0,
+                  color: Color(0xFF616161),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      childCount: 5,
+    ),
   );
 }
 
@@ -904,87 +918,87 @@ Widget _tabVariationsDemo() {
       children: <Widget>[
         _tabVariationRow(
           title: 'Tab(text:)',
-          bar: const TabBar(
-            tabs: <Widget>[
-              Tab(text: 'One'),
-              Tab(text: 'Two'),
-              Tab(text: 'Three'),
-            ],
-            labelColor: Color(0xFF6A1B9A),
-            unselectedLabelColor: Color(0xFFBA68C8),
-            indicatorColor: Color(0xFF6A1B9A),
-          ),
+        bar: const TabBar(
+          tabs: <Widget>[
+            Tab(text: 'One'),
+            Tab(text: 'Two'),
+            Tab(text: 'Three'),
+          ],
+          labelColor: Color(0xFF6A1B9A),
+          unselectedLabelColor: Color(0xFFBA68C8),
+          indicatorColor: Color(0xFF6A1B9A),
         ),
-        const SizedBox(height: 8.0),
-        _tabVariationRow(
-          title: 'Tab(icon:)',
-          bar: const TabBar(
-            tabs: <Widget>[
-              Tab(icon: Icon(Icons.home)),
-              Tab(icon: Icon(Icons.search)),
-              Tab(icon: Icon(Icons.settings)),
-            ],
-            labelColor: Color(0xFF6A1B9A),
-            unselectedLabelColor: Color(0xFFBA68C8),
-            indicatorColor: Color(0xFF6A1B9A),
-          ),
+      ),
+      const SizedBox(height: 8.0),
+      _tabVariationRow(
+        title: 'Tab(icon:)',
+        bar: const TabBar(
+          tabs: <Widget>[
+            Tab(icon: Icon(Icons.home)),
+            Tab(icon: Icon(Icons.search)),
+            Tab(icon: Icon(Icons.settings)),
+          ],
+          labelColor: Color(0xFF6A1B9A),
+          unselectedLabelColor: Color(0xFFBA68C8),
+          indicatorColor: Color(0xFF6A1B9A),
         ),
-        const SizedBox(height: 8.0),
-        _tabVariationRow(
-          title: 'Tab(text:, icon:)',
-          bar: const TabBar(
-            tabs: <Widget>[
-              Tab(text: 'Home', icon: Icon(Icons.home)),
-              Tab(text: 'Search', icon: Icon(Icons.search)),
-              Tab(text: 'Settings', icon: Icon(Icons.settings)),
-            ],
-            labelColor: Color(0xFF6A1B9A),
-            unselectedLabelColor: Color(0xFFBA68C8),
-            indicatorColor: Color(0xFF6A1B9A),
-          ),
+      ),
+      const SizedBox(height: 8.0),
+      _tabVariationRow(
+        title: 'Tab(text:, icon:)',
+        bar: const TabBar(
+          tabs: <Widget>[
+            Tab(text: 'Home', icon: Icon(Icons.home)),
+            Tab(text: 'Search', icon: Icon(Icons.search)),
+            Tab(text: 'Settings', icon: Icon(Icons.settings)),
+          ],
+          labelColor: Color(0xFF6A1B9A),
+          unselectedLabelColor: Color(0xFFBA68C8),
+          indicatorColor: Color(0xFF6A1B9A),
         ),
-        const SizedBox(height: 8.0),
-        _tabVariationRow(
-          title: 'Tab(child: Row(...))',
-          bar: const TabBar(
-            tabs: <Widget>[
-              Tab(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.star, size: 14.0),
-                    SizedBox(width: 4.0),
-                    Text('Featured'),
-                  ],
-                ),
+      ),
+      const SizedBox(height: 8.0),
+      _tabVariationRow(
+        title: 'Tab(child: Row(...))',
+        bar: const TabBar(
+          tabs: <Widget>[
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.star, size: 14.0),
+                  SizedBox(width: 4.0),
+                  Text('Featured'),
+                ],
               ),
-              Tab(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.bolt, size: 14.0),
-                    SizedBox(width: 4.0),
-                    Text('Trending'),
-                  ],
-                ),
+            ),
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.bolt, size: 14.0),
+                  SizedBox(width: 4.0),
+                  Text('Trending'),
+                ],
               ),
-              Tab(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.history, size: 14.0),
-                    SizedBox(width: 4.0),
-                    Text('Recent'),
-                  ],
-                ),
+            ),
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.history, size: 14.0),
+                  SizedBox(width: 4.0),
+                  Text('Recent'),
+                ],
               ),
-            ],
-            labelColor: Color(0xFF6A1B9A),
-            unselectedLabelColor: Color(0xFFBA68C8),
-            indicatorColor: Color(0xFF6A1B9A),
-          ),
+            ),
+          ],
+          labelColor: Color(0xFF6A1B9A),
+          unselectedLabelColor: Color(0xFFBA68C8),
+          indicatorColor: Color(0xFF6A1B9A),
         ),
-      ],
+      ),
+    ],
     ),
   );
 }
@@ -1166,7 +1180,9 @@ Widget _physicsRow(String label, ScrollPhysics physics, int accent) {
                   decoration: BoxDecoration(
                     color: Color(entry['tone'] as int),
                     borderRadius: BorderRadius.circular(6.0),
-                    border: Border.all(color: Color(entry['accent'] as int)),
+                    border: Border.all(
+                      color: Color(entry['accent'] as int),
+                    ),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -1242,11 +1258,7 @@ Widget _heroHeader() {
         const SizedBox(height: 10.0),
         const Text(
           'Deep Demo: a richly designed gallery exploring PageView and TabBarView in many configurations — horizontal pages, vertical pages, viewportFraction carousels, TabBar indicator styles, nested page/tab compositions and physics variants.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Color(0xFFD1C4E9),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Color(0xFFD1C4E9), height: 1.4),
         ),
         const SizedBox(height: 14.0),
         Wrap(
@@ -1342,11 +1354,7 @@ Widget _conceptOverview() {
           'controllers (PageController and TabController) and accept the same family '
           'of ScrollPhysics. The sections below host bounded snapshots of each '
           'configuration so we can showcase every supported variation side by side.',
-          style: TextStyle(
-            fontSize: 13.0,
-            height: 1.5,
-            color: Color(0xFF37474F),
-          ),
+          style: TextStyle(fontSize: 13.0, height: 1.5, color: Color(0xFF37474F)),
         ),
         const SizedBox(height: 12.0),
         const Text(
@@ -1630,8 +1638,8 @@ Widget _comparisonTable(List<List<String>> rows, int accent, int border) {
               color: i == 0
                   ? Color(border).withOpacity(0.18)
                   : (i.isEven
-                        ? const Color(0xFFFFFFFF)
-                        : const Color(0xFFF5F5F5)),
+                      ? const Color(0xFFFFFFFF)
+                      : const Color(0xFFF5F5F5)),
               borderRadius: BorderRadius.circular(4.0),
             ),
             margin: const EdgeInsets.only(bottom: 2.0),
@@ -1647,7 +1655,9 @@ Widget _comparisonTable(List<List<String>> rows, int accent, int border) {
                         fontWeight: i == 0
                             ? FontWeight.bold
                             : FontWeight.normal,
-                        color: i == 0 ? Color(accent) : const Color(0xFF424242),
+                        color: i == 0
+                            ? Color(accent)
+                            : const Color(0xFF424242),
                       ),
                     ),
                   ),
@@ -1719,8 +1729,8 @@ Widget _featureMatrix() {
               color: i == 0
                   ? const Color(0xFFE8EAF6)
                   : (i.isEven
-                        ? const Color(0xFFFAFAFA)
-                        : const Color(0xFFFFFFFF)),
+                      ? const Color(0xFFFAFAFA)
+                      : const Color(0xFFFFFFFF)),
               borderRadius: BorderRadius.circular(6.0),
               border: Border.all(
                 color: i == 0
@@ -1762,7 +1772,8 @@ Widget _glossaryPanel() {
   final List<Map<String, String>> entries = <Map<String, String>>[
     <String, String>{
       'term': 'Page',
-      'def': 'One child of a PageView — typically occupies the full viewport.',
+      'def':
+          'One child of a PageView — typically occupies the full viewport.',
     },
     <String, String>{
       'term': 'Viewport',
@@ -1791,7 +1802,8 @@ Widget _glossaryPanel() {
     },
     <String, String>{
       'term': 'TabBarView',
-      'def': 'The synchronized content viewport that follows the selected tab.',
+      'def':
+          'The synchronized content viewport that follows the selected tab.',
     },
     <String, String>{
       'term': 'TabController',
@@ -1815,7 +1827,8 @@ Widget _glossaryPanel() {
     },
     <String, String>{
       'term': 'pageSnapping',
-      'def': 'When true, scrolling settles to the nearest page on release.',
+      'def':
+          'When true, scrolling settles to the nearest page on release.',
     },
   ];
 
@@ -2001,12 +2014,18 @@ Widget _atlasPagePanel(Map<String, dynamic> entry, String tag) {
     margin: const EdgeInsets.all(6.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Color(entry['tone'] as int), const Color(0xFFFFFFFF)],
+        colors: <Color>[
+          Color(entry['tone'] as int),
+          const Color(0xFFFFFFFF),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: Color(entry['accent'] as int), width: 1.4),
+      border: Border.all(
+        color: Color(entry['accent'] as int),
+        width: 1.4,
+      ),
     ),
     padding: const EdgeInsets.all(14.0),
     child: Column(
@@ -2078,7 +2097,10 @@ Widget _miniPagePanel(Map<String, dynamic> entry) {
     decoration: BoxDecoration(
       color: Color(entry['tone'] as int),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(color: Color(entry['accent'] as int), width: 1.0),
+      border: Border.all(
+        color: Color(entry['accent'] as int),
+        width: 1.0,
+      ),
     ),
     alignment: Alignment.center,
     child: Column(
@@ -2121,7 +2143,10 @@ Widget _carouselCard(Map<String, dynamic> entry) {
     decoration: BoxDecoration(
       color: Color(entry['tone'] as int),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: Color(entry['accent'] as int), width: 1.0),
+      border: Border.all(
+        color: Color(entry['accent'] as int),
+        width: 1.0,
+      ),
     ),
     alignment: Alignment.center,
     child: Row(

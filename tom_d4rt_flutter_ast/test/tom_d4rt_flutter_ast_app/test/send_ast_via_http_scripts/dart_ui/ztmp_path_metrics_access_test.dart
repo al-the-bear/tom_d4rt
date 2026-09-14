@@ -202,7 +202,11 @@ Widget _heroBanner() {
           'extract sub-segments, or distribute equally-spaced markers along '
           'curved geometry — the building blocks of dashed strokes, marching '
           'ants, "draw-on" reveals and label-along-path layouts.',
-          style: TextStyle(color: _kInkDim, fontSize: 14, height: 1.55),
+          style: TextStyle(
+            color: _kInkDim,
+            fontSize: 14,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 18),
         Row(
@@ -562,13 +566,7 @@ Widget _section1Anatomy() {
 
 Widget _anatomyDiagram(List<ui.PathMetric> metrics) {
   // 3-column flow: Path → PathMetrics → PathMetric (one row per contour)
-  final List<Color> rowColours = <Color>[
-    _kAccent,
-    _kAccent2,
-    _kAccent3,
-    _kAccent4,
-    _kAccent5,
-  ];
+  final List<Color> rowColours = <Color>[_kAccent, _kAccent2, _kAccent3, _kAccent4, _kAccent5];
   return Container(
     padding: const EdgeInsets.all(18),
     decoration: BoxDecoration(
@@ -589,11 +587,7 @@ Widget _anatomyDiagram(List<ui.PathMetric> metrics) {
               const SizedBox(height: 8),
               const Text(
                 'Source geometry',
-                style: TextStyle(
-                  color: _kInk,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(color: _kInk, fontSize: 13, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 12),
               Container(
@@ -667,28 +661,17 @@ Widget _anatomyDiagram(List<ui.PathMetric> metrics) {
               const SizedBox(height: 8),
               const Text(
                 'One-shot iterable',
-                style: TextStyle(
-                  color: _kInk,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(color: _kInk, fontSize: 13, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 12),
               for (int i = 0; i < metrics.length; i++) ...<Widget>[
                 Container(
                   margin: const EdgeInsets.only(bottom: 6),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: rowColours[i % rowColours.length].withOpacity(0.12),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                      color: rowColours[i % rowColours.length].withOpacity(
-                        0.55,
-                      ),
-                    ),
+                    border: Border.all(color: rowColours[i % rowColours.length].withOpacity(0.55)),
                   ),
                   child: Row(
                     children: <Widget>[
@@ -710,11 +693,7 @@ Widget _anatomyDiagram(List<ui.PathMetric> metrics) {
               const SizedBox(height: 4),
               const Text(
                 'iterator.moveNext()',
-                style: TextStyle(
-                  color: _kInkFaint,
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                ),
+                style: TextStyle(color: _kInkFaint, fontSize: 11, fontFamily: 'monospace'),
               ),
             ],
           ),
@@ -735,11 +714,7 @@ Widget _anatomyDiagram(List<ui.PathMetric> metrics) {
               const SizedBox(height: 8),
               const Text(
                 'Per-contour facts',
-                style: TextStyle(
-                  color: _kInk,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(color: _kInk, fontSize: 13, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 12),
               for (int i = 0; i < metrics.length; i++) ...<Widget>[
@@ -749,11 +724,7 @@ Widget _anatomyDiagram(List<ui.PathMetric> metrics) {
                   decoration: BoxDecoration(
                     color: _kBg,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: rowColours[i % rowColours.length].withOpacity(
-                        0.45,
-                      ),
-                    ),
+                    border: Border.all(color: rowColours[i % rowColours.length].withOpacity(0.45)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -804,7 +775,13 @@ Widget _anatomyDiagram(List<ui.PathMetric> metrics) {
   );
 }
 
-List<Widget> _dotsAlongQuad(Offset a, Offset b, Offset c, Color colour, int n) {
+List<Widget> _dotsAlongQuad(
+  Offset a,
+  Offset b,
+  Offset c,
+  Color colour,
+  int n,
+) {
   // Approximate a quadratic Bézier at parametric t in [0, 1] for the
   // anatomy diagram. (Used only for the flow diagram, not for the
   // PathMetric demos themselves.)
@@ -814,7 +791,11 @@ List<Widget> _dotsAlongQuad(Offset a, Offset b, Offset c, Color colour, int n) {
     final double u = 1 - t;
     final double x = u * u * a.dx + 2 * u * t * b.dx + t * t * c.dx;
     final double y = u * u * a.dy + 2 * u * t * b.dy + t * t * c.dy;
-    out.add(Positioned(left: x - 2, top: y - 2, child: _dot(4, colour)));
+    out.add(Positioned(
+      left: x - 2,
+      top: y - 2,
+      child: _dot(4, colour),
+    ));
   }
   return out;
 }
@@ -834,7 +815,11 @@ Widget _section2LengthSampler() {
 
   // 2. Quarter-arc: arcTo on a 120x120 oval, sweeping 90 degrees.
   final ui.Path p2 = ui.Path()
-    ..addArc(const Rect.fromLTWH(0, 0, 240, 240), 0, math.pi / 2);
+    ..addArc(
+      const Rect.fromLTWH(0, 0, 240, 240),
+      0,
+      math.pi / 2,
+    );
 
   // 3. Quadratic bezier
   final ui.Path p3 = ui.Path()
@@ -870,12 +855,12 @@ Widget _section2LengthSampler() {
   p6.close();
 
   final List<_LengthRow> rows = <_LengthRow>[
-    _LengthRow('straight line', 'lineTo', p1, _kAccent),
-    _LengthRow('quarter arc', 'addArc 90°', p2, _kAccent2),
-    _LengthRow('quadratic bezier', 'quadraticBezierTo', p3, _kAccent3),
-    _LengthRow('cubic bezier', 'cubicTo', p4, _kAccent4),
-    _LengthRow('rounded rectangle', 'addRRect (closed)', p5, _kAccent5),
-    _LengthRow('regular pentagon', 'lineTo×5 + close', p6, _kAccent6),
+    _LengthRow('straight line',     'lineTo',                p1, _kAccent),
+    _LengthRow('quarter arc',       'addArc 90°',            p2, _kAccent2),
+    _LengthRow('quadratic bezier',  'quadraticBezierTo',     p3, _kAccent3),
+    _LengthRow('cubic bezier',      'cubicTo',               p4, _kAccent4),
+    _LengthRow('rounded rectangle', 'addRRect (closed)',     p5, _kAccent5),
+    _LengthRow('regular pentagon',  'lineTo×5 + close',      p6, _kAccent6),
   ];
 
   // Resolve metrics + length for each row.
@@ -939,12 +924,7 @@ class _LengthRow {
   const _LengthRow(this.name, this.code, this.path, this.colour);
 }
 
-Widget _lengthBarRow(
-  _LengthRow row,
-  double length,
-  bool isClosed,
-  double maxLength,
-) {
+Widget _lengthBarRow(_LengthRow row, double length, bool isClosed, double maxLength) {
   final double w = (length / maxLength).clamp(0.02, 1.0);
   return Container(
     margin: const EdgeInsets.only(bottom: 12),
@@ -1004,7 +984,10 @@ Widget _lengthBarRow(
                   height: 14,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: <Color>[row.colour.withOpacity(0.65), row.colour],
+                      colors: <Color>[
+                        row.colour.withOpacity(0.65),
+                        row.colour,
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(7),
                     boxShadow: <BoxShadow>[
@@ -1096,7 +1079,9 @@ Widget _section3TangentGrid() {
             arrowColour: _kAccent3,
           ),
           const SizedBox(width: 18),
-          Expanded(child: _tangentLegend(tangents)),
+          Expanded(
+            child: _tangentLegend(tangents),
+          ),
         ],
       ),
       const SizedBox(height: 18),
@@ -1216,7 +1201,11 @@ Widget _tangentSurface({
             ),
           ),
         ],
-        Positioned(left: 10, top: 10, child: _label(label, colour)),
+        Positioned(
+          left: 10,
+          top: 10,
+          child: _label(label, colour),
+        ),
         Positioned(
           left: 10,
           bottom: 10,
@@ -1335,12 +1324,7 @@ Widget _section4MultiContour() {
   }
 
   final List<Color> contourColours = <Color>[
-    _kAccent,
-    _kAccent2,
-    _kAccent3,
-    _kAccent4,
-    _kAccent5,
-    _kAccent6,
+    _kAccent, _kAccent2, _kAccent3, _kAccent4, _kAccent5, _kAccent6,
   ];
 
   return _sectionFrame(
@@ -1367,7 +1351,10 @@ Widget _section4MultiContour() {
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(flex: 5, child: _multiContourList(metrics, contourColours)),
+          Expanded(
+            flex: 5,
+            child: _multiContourList(metrics, contourColours),
+          ),
           const SizedBox(width: 18),
           Expanded(
             flex: 6,
@@ -1405,9 +1392,7 @@ Widget _multiContourList(List<ui.PathMetric> metrics, List<Color> colours) {
           decoration: BoxDecoration(
             color: _kPanelLight,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: colours[i % colours.length].withOpacity(0.45),
-            ),
+            border: Border.all(color: colours[i % colours.length].withOpacity(0.45)),
           ),
           child: Row(
             children: <Widget>[
@@ -1624,12 +1609,7 @@ Widget _section5ExtractPath() {
   );
 }
 
-Widget _extractCompareRow(
-  List<double> range,
-  double totalLength,
-  double measured,
-  Color colour,
-) {
+Widget _extractCompareRow(List<double> range, double totalLength, double measured, Color colour) {
   final double requested = (range[1] - range[0]) * totalLength;
   final double maxL = totalLength;
   return Container(
@@ -1795,12 +1775,10 @@ Widget _recipeFrame({
 Widget _recipe1DashedBorder() {
   // A rounded rectangle border made of dashes via repeated extractPath.
   final ui.Path frame = ui.Path()
-    ..addRRect(
-      RRect.fromRectAndRadius(
-        const Rect.fromLTWH(8, 8, 264, 110),
-        const Radius.circular(20),
-      ),
-    );
+    ..addRRect(RRect.fromRectAndRadius(
+      const Rect.fromLTWH(8, 8, 264, 110),
+      const Radius.circular(20),
+    ));
   final ui.PathMetric m = _collectMetrics(frame).first;
   final double L = m.length;
   final double dash = 14;
@@ -1834,7 +1812,11 @@ Widget _recipe1DashedBorder() {
         children: <Widget>[
           for (final List<Offset> seg in dashSegments)
             for (final Offset o in seg)
-              Positioned(left: o.dx, top: o.dy, child: _dot(3, _kAccent3)),
+              Positioned(
+                left: o.dx,
+                top: o.dy,
+                child: _dot(3, _kAccent3),
+              ),
         ],
       ),
     ),
@@ -1858,9 +1840,7 @@ Widget _recipe2DrawOn() {
   final double t = 0.62; // a frozen "now"
   final ui.Path drawn = m.extractPath(0, t * L);
   final List<ui.PathMetric> dm = _collectMetrics(drawn);
-  final List<Offset> drawnDots = dm.isNotEmpty
-      ? _samplePositions(dm.first, 160)
-      : <Offset>[];
+  final List<Offset> drawnDots = dm.isNotEmpty ? _samplePositions(dm.first, 160) : <Offset>[];
   final List<Offset> fullDots = _samplePositions(m, 240);
 
   return _recipeFrame(
@@ -1918,23 +1898,21 @@ Widget _recipe3LabelAlong() {
     final double frac = (i + 0.5) / label.length;
     final ui.Tangent? tan = m.getTangentForOffset(frac * L * 0.95);
     if (tan != null) {
-      letters.add(
-        Positioned(
-          left: tan.position.dx - 6,
-          top: tan.position.dy - 10,
-          child: Transform.rotate(
-            angle: -tan.angle,
-            child: Text(
-              label[i],
-              style: const TextStyle(
-                color: _kAccent4,
-                fontSize: 14,
-                fontWeight: FontWeight.w800,
-              ),
+      letters.add(Positioned(
+        left: tan.position.dx - 6,
+        top: tan.position.dy - 10,
+        child: Transform.rotate(
+          angle: -tan.angle,
+          child: Text(
+            label[i],
+            style: const TextStyle(
+              color: _kAccent4,
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ),
-      );
+      ));
     }
   }
   final List<Offset> waveDots = _samplePositions(m, 140);
@@ -1989,23 +1967,21 @@ Widget _recipe4EqualTicks() {
       final double d = (i / 12) * L;
       final ui.Tangent? t = m.getTangentForOffset(d);
       if (t == null) continue;
-      out.add(
-        Positioned(
-          left: t.position.dx - 8,
-          top: t.position.dy - 1,
-          child: Transform.rotate(
-            angle: -t.angle + math.pi / 2,
-            child: Container(
-              width: 16,
-              height: 2,
-              decoration: BoxDecoration(
-                color: colour,
-                borderRadius: BorderRadius.circular(1),
-              ),
+      out.add(Positioned(
+        left: t.position.dx - 8,
+        top: t.position.dy - 1,
+        child: Transform.rotate(
+          angle: -t.angle + math.pi / 2,
+          child: Container(
+            width: 16,
+            height: 2,
+            decoration: BoxDecoration(
+              color: colour,
+              borderRadius: BorderRadius.circular(1),
             ),
           ),
         ),
-      );
+      ));
     }
     return out;
   }
@@ -2505,7 +2481,11 @@ Widget _comparisonCard({
     child: Stack(
       children: <Widget>[
         child,
-        Positioned(left: 8, top: 8, child: _label(title, colour)),
+        Positioned(
+          left: 8,
+          top: 8,
+          child: _label(title, colour),
+        ),
         Positioned(
           right: 8,
           top: 8,
@@ -2552,20 +2532,14 @@ Widget _section9ApiTable() {
         rows: <List<String>>[
           <String>['moveTo(x, y)', 'Begin a new contour at (x, y).'],
           <String>['lineTo(x, y)', 'Add a straight segment to (x, y).'],
-          <String>[
-            'quadraticBezierTo(cx, cy, x, y)',
-            'Add a quadratic Bézier.',
-          ],
+          <String>['quadraticBezierTo(cx, cy, x, y)', 'Add a quadratic Bézier.'],
           <String>['cubicTo(c1x, c1y, c2x, c2y, x, y)', 'Add a cubic Bézier.'],
           <String>['addRect(rect)', 'Add a closed rectangle contour.'],
           <String>['addOval(rect)', 'Add a closed oval contour.'],
           <String>['addRRect(rrect)', 'Add a closed rounded rectangle.'],
           <String>['close()', 'Close the current contour.'],
           <String>['contains(offset)', 'Hit-test a point against the fill.'],
-          <String>[
-            'computeMetrics({forceClosed})',
-            'Return PathMetrics for traversal.',
-          ],
+          <String>['computeMetrics({forceClosed})', 'Return PathMetrics for traversal.'],
         ],
       ),
       const SizedBox(height: 10),
@@ -2574,10 +2548,7 @@ Widget _section9ApiTable() {
         colour: _kAccent2,
         rows: <List<String>>[
           <String>['iterator', 'Returns an Iterator<PathMetric>.'],
-          <String>[
-            '(implements Iterable<PathMetric>)',
-            'One-shot — iterate once.',
-          ],
+          <String>['(implements Iterable<PathMetric>)', 'One-shot — iterate once.'],
         ],
       ),
       const SizedBox(height: 10),
@@ -2588,14 +2559,8 @@ Widget _section9ApiTable() {
           <String>['length', 'Arc-length of this contour in pixels.'],
           <String>['isClosed', 'True iff this contour was closed.'],
           <String>['contourIndex', '0-based contour index in the source path.'],
-          <String>[
-            'getTangentForOffset(d)',
-            'Return Tangent at arc-distance d.',
-          ],
-          <String>[
-            'extractPath(start, end, {startWithMoveTo})',
-            'Sub-path over [start, end].',
-          ],
+          <String>['getTangentForOffset(d)', 'Return Tangent at arc-distance d.'],
+          <String>['extractPath(start, end, {startWithMoveTo})', 'Sub-path over [start, end].'],
         ],
       ),
       const SizedBox(height: 10),
@@ -2630,10 +2595,7 @@ Widget _apiTypeBlock({
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                colour.withOpacity(0.18),
-                colour.withOpacity(0.05),
-              ],
+              colors: <Color>[colour.withOpacity(0.18), colour.withOpacity(0.05)],
             ),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(12),
@@ -2713,7 +2675,10 @@ Widget _footer() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF142035), Color(0xFF101A33)],
+        colors: <Color>[
+          Color(0xFF142035),
+          Color(0xFF101A33),
+        ],
       ),
       borderRadius: BorderRadius.circular(16),
       border: Border.all(color: Color(0x22FFFFFF)),
@@ -2736,7 +2701,11 @@ Widget _footer() {
           'whether it is closed, and lets you sample tangents and extract '
           'sub-paths at any arc-distance. Tangent ties position and direction '
           'together for placement and rotation.',
-          style: TextStyle(color: _kInkDim, fontSize: 13, height: 1.55),
+          style: TextStyle(
+            color: _kInkDim,
+            fontSize: 13,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 14),
         Row(

@@ -137,13 +137,16 @@ class ImgElementPlatformView extends StatelessWidget {
       errorBuilder: (BuildContext context, Object error, StackTrace? stack) {
         return _NetworkErrorTile(src: src!, error: error);
       },
-      loadingBuilder:
-          (BuildContext context, Widget child, ImageChunkEvent? progress) {
-            if (progress == null) {
-              return child;
-            }
-            return _NetworkLoadingTile(progress: progress);
-          },
+      loadingBuilder: (
+        BuildContext context,
+        Widget child,
+        ImageChunkEvent? progress,
+      ) {
+        if (progress == null) {
+          return child;
+        }
+        return _NetworkLoadingTile(progress: progress);
+      },
     );
   }
 }
@@ -310,12 +313,8 @@ class _PlatformBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TargetPlatform tp = Theme.of(context).platform;
-    final Color background = kIsWeb
-        ? const Color(0xFFE6F4EA)
-        : const Color(0xFFFFF3CD);
-    final Color foreground = kIsWeb
-        ? const Color(0xFF15803D)
-        : const Color(0xFF92400E);
+    final Color background = kIsWeb ? const Color(0xFFE6F4EA) : const Color(0xFFFFF3CD);
+    final Color foreground = kIsWeb ? const Color(0xFF15803D) : const Color(0xFF92400E);
     final IconData icon = kIsWeb ? Icons.public : Icons.warning_amber_outlined;
     final String headline = kIsWeb
         ? 'You are running on the web — ImgElementPlatformView is supported.'
@@ -351,10 +350,7 @@ class _PlatformBanner extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   subline,
-                  style: TextStyle(
-                    color: foreground.withOpacity(0.9),
-                    fontSize: 13,
-                  ),
+                  style: TextStyle(color: foreground.withOpacity(0.9), fontSize: 13),
                 ),
                 const SizedBox(height: 10),
                 Wrap(
@@ -362,10 +358,7 @@ class _PlatformBanner extends StatelessWidget {
                   runSpacing: 6,
                   children: <Widget>[
                     _Chip(label: 'kIsWeb = $kIsWeb', color: foreground),
-                    _Chip(
-                      label: 'platform = ${_describePlatform(tp)}',
-                      color: foreground,
-                    ),
+                    _Chip(label: 'platform = ${_describePlatform(tp)}', color: foreground),
                     _Chip(label: 'src arg = String?', color: foreground),
                     _Chip(label: 'returns: HtmlElementView', color: foreground),
                   ],
@@ -417,11 +410,7 @@ class _Chip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(
-          color: color,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -447,11 +436,7 @@ class _SectionCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Color(0x141F6FEB),
-            blurRadius: 14,
-            offset: Offset(0, 6),
-          ),
+          BoxShadow(color: Color(0x141F6FEB), blurRadius: 14, offset: Offset(0, 6)),
         ],
         border: Border.all(color: const Color(0xFFE3E9F2)),
       ),
@@ -569,8 +554,7 @@ class _SectionWebOnlyBanner extends StatelessWidget {
     final TargetPlatform tp = Theme.of(context).platform;
     return _SectionCard(
       title: '1. ImgElementPlatformView is web-only',
-      subtitle:
-          'The class is declared inside a `dart.library.js_interop` '
+      subtitle: 'The class is declared inside a `dart.library.js_interop` '
           'conditional import. Off-web there is no implementation at all.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -629,8 +613,7 @@ class _SectionAnatomyDiagram extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionCard(
       title: '2. Anatomy of an ImgElementPlatformView',
-      subtitle:
-          'From Dart-side widget to a real <img> element living in '
+      subtitle: 'From Dart-side widget to a real <img> element living in '
           'the page DOM.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -678,31 +661,16 @@ class _AnatomyPainter extends CustomPainter {
     final double cellTop = size.height * 0.28;
 
     final List<_AnatomyCell> cells = <_AnatomyCell>[
-      _AnatomyCell(
-        'Dart Widget',
-        'ImgElementPlatformView(src)',
-        const Color(0xFF1F6FEB),
-      ),
-      _AnatomyCell(
-        'Flutter SDK',
-        'HtmlElementView(viewType, params)',
-        const Color(0xFF7C3AED),
-      ),
-      _AnatomyCell(
-        'Platform view\nregistry',
-        'createElement("img")',
-        const Color(0xFFF59E0B),
-      ),
+      _AnatomyCell('Dart Widget', 'ImgElementPlatformView(src)', const Color(0xFF1F6FEB)),
+      _AnatomyCell('Flutter SDK', 'HtmlElementView(viewType, params)', const Color(0xFF7C3AED)),
+      _AnatomyCell('Platform view\nregistry', 'createElement("img")', const Color(0xFFF59E0B)),
       _AnatomyCell('Browser DOM', '<img src="..."/>', const Color(0xFF10B981)),
     ];
 
     for (int i = 0; i < cells.length; i++) {
       final double x = 16 + i * (colWidth + 14);
       final Rect rect = Rect.fromLTWH(x, cellTop, colWidth, cellHeight);
-      final RRect rrect = RRect.fromRectAndRadius(
-        rect,
-        const Radius.circular(10),
-      );
+      final RRect rrect = RRect.fromRectAndRadius(rect, const Radius.circular(10));
       final Paint fill = Paint()..color = cells[i].color.withOpacity(0.12);
       final Paint border = Paint()
         ..style = PaintingStyle.stroke
@@ -724,10 +692,7 @@ class _AnatomyPainter extends CustomPainter {
         textAlign: TextAlign.center,
       );
       title.layout(maxWidth: colWidth - 12);
-      title.paint(
-        canvas,
-        Offset(x + (colWidth - title.width) / 2, cellTop + 12),
-      );
+      title.paint(canvas, Offset(x + (colWidth - title.width) / 2, cellTop + 12));
 
       final TextPainter sub = TextPainter(
         text: TextSpan(
@@ -744,10 +709,7 @@ class _AnatomyPainter extends CustomPainter {
       sub.layout(maxWidth: colWidth - 12);
       sub.paint(
         canvas,
-        Offset(
-          x + (colWidth - sub.width) / 2,
-          cellTop + cellHeight - sub.height - 12,
-        ),
+        Offset(x + (colWidth - sub.width) / 2, cellTop + cellHeight - sub.height - 12),
       );
 
       if (i < cells.length - 1) {
@@ -757,11 +719,7 @@ class _AnatomyPainter extends CustomPainter {
         final Paint arrow = Paint()
           ..color = const Color(0xFF52607A)
           ..strokeWidth = 1.4;
-        canvas.drawLine(
-          Offset(arrowX1, arrowY),
-          Offset(arrowX2, arrowY),
-          arrow,
-        );
+        canvas.drawLine(Offset(arrowX1, arrowY), Offset(arrowX2, arrowY), arrow);
         final Path tip = Path()
           ..moveTo(arrowX2, arrowY)
           ..lineTo(arrowX2 - 4, arrowY - 3)
@@ -842,9 +800,7 @@ class _SectionBasicEmbed extends StatelessWidget {
                         // Hard rule 4: live `if (kIsWeb) ImgElementPlatformView(...)`.
                         child: kIsWeb
                             ? const ImgElementPlatformView(src)
-                            : const _OffWebDescriptor(
-                                label: 'ImgElementPlatformView',
-                              ),
+                            : const _OffWebDescriptor(label: 'ImgElementPlatformView'),
                       ),
                     ),
                   ],
@@ -870,9 +826,8 @@ class _SectionBasicEmbed extends StatelessWidget {
                         child: Image.network(
                           src,
                           fit: BoxFit.cover,
-                          errorBuilder:
-                              (BuildContext c, Object e, StackTrace? s) =>
-                                  _NetworkErrorTile(src: src, error: e),
+                          errorBuilder: (BuildContext c, Object e, StackTrace? s) =>
+                              _NetworkErrorTile(src: src, error: e),
                         ),
                       ),
                     ),
@@ -945,8 +900,7 @@ class _SectionAttributesShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionCard(
       title: '4. HTML <img> attributes (and what is missing from the Dart API)',
-      subtitle:
-          'The public Dart constructor is `ImgElementPlatformView(this.src, '
+      subtitle: 'The public Dart constructor is `ImgElementPlatformView(this.src, '
           '{super.key})`. None of the rich HTML attributes are exposed.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -989,7 +943,7 @@ class _SectionAttributesShowcase extends StatelessWidget {
                     child: kIsWeb
                         ? const ImgElementPlatformView(
                             'https://flutter.github.io/assets-for-api-docs/'
-                            'assets/widgets/falcon.jpg',
+                                'assets/widgets/falcon.jpg',
                           )
                         : const _OffWebDescriptor(label: '<img>'),
                   ),
@@ -1003,7 +957,7 @@ class _SectionAttributesShowcase extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
                       'https://flutter.github.io/assets-for-api-docs/'
-                      'assets/widgets/falcon.jpg',
+                          'assets/widgets/falcon.jpg',
                       fit: BoxFit.cover,
                       errorBuilder: (BuildContext c, Object e, StackTrace? s) =>
                           const ColoredBox(color: Color(0xFFEFEFEF)),
@@ -1090,8 +1044,7 @@ const List<_ImgAttrInfo> _imgAttributes = <_ImgAttrInfo>[
   _ImgAttrInfo(
     name: 'width / height',
     exposedInDart: false,
-    summary:
-        'Intrinsic size in CSS pixels — the SDK forces width/height to '
+    summary: 'Intrinsic size in CSS pixels — the SDK forces width/height to '
         '100% via inline styles regardless.',
   ),
 ];
@@ -1139,11 +1092,7 @@ class _ImgAttrCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             info.summary,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF11243F),
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 12, color: Color(0xFF11243F), height: 1.4),
           ),
         ],
       ),
@@ -1380,21 +1329,19 @@ class _SectionAccessibility extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Semantics(
-                label:
-                    'A photograph of a Pacific puffin, head turned to the right.',
+                label: 'A photograph of a Pacific puffin, head turned to the right.',
                 image: true,
                 child: kIsWeb
                     ? const ImgElementPlatformView(
                         'https://flutter.github.io/assets-for-api-docs/'
-                        'assets/widgets/puffin.jpg',
+                            'assets/widgets/puffin.jpg',
                       )
                     : Image.network(
                         'https://flutter.github.io/assets-for-api-docs/'
-                        'assets/widgets/puffin.jpg',
+                            'assets/widgets/puffin.jpg',
                         fit: BoxFit.cover,
-                        errorBuilder:
-                            (BuildContext c, Object e, StackTrace? s) =>
-                                const ColoredBox(color: Color(0xFFCFD7E3)),
+                        errorBuilder: (BuildContext c, Object e, StackTrace? s) =>
+                            const ColoredBox(color: Color(0xFFCFD7E3)),
                       ),
               ),
             ),
@@ -1502,8 +1449,7 @@ class _SectionScrollableList extends StatelessWidget {
             height: 320,
             child: ListView.separated(
               itemCount: _scrollImages.length,
-              separatorBuilder: (BuildContext c, int i) =>
-                  const SizedBox(height: 10),
+              separatorBuilder: (BuildContext c, int i) => const SizedBox(height: 10),
               itemBuilder: (BuildContext c, int i) {
                 final _ScrollImage row = _scrollImages[i];
                 return _FeedRow(row: row);
@@ -1548,14 +1494,12 @@ const List<_ScrollImage> _scrollImages = <_ScrollImage>[
   _ScrollImage(
     title: 'Puffin',
     subtitle: 'Pacific puffin, breeding plumage',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
   ),
   _ScrollImage(
     title: 'Falcon',
     subtitle: 'Peregrine falcon in flight',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
   ),
   _ScrollImage(
     title: 'Owl 2',
@@ -1565,14 +1509,12 @@ const List<_ScrollImage> _scrollImages = <_ScrollImage>[
   _ScrollImage(
     title: 'Falcon 2',
     subtitle: 'Same asset, second instance',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
   ),
   _ScrollImage(
     title: 'Puffin 2',
     subtitle: 'Same asset, second instance',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
   ),
 ];
 
@@ -1706,13 +1648,11 @@ const List<_GalleryItem> _galleryItems = <_GalleryItem>[
   ),
   _GalleryItem(
     label: 'Puffin',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
   ),
   _GalleryItem(
     label: 'Falcon',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
   ),
   _GalleryItem(
     label: 'Owl B',
@@ -1720,13 +1660,11 @@ const List<_GalleryItem> _galleryItems = <_GalleryItem>[
   ),
   _GalleryItem(
     label: 'Puffin B',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
   ),
   _GalleryItem(
     label: 'Falcon B',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
   ),
   _GalleryItem(
     label: 'Owl C',
@@ -1734,13 +1672,11 @@ const List<_GalleryItem> _galleryItems = <_GalleryItem>[
   ),
   _GalleryItem(
     label: 'Puffin C',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
   ),
   _GalleryItem(
     label: 'Falcon C',
-    src:
-        'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
+    src: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
   ),
 ];
 
@@ -1795,8 +1731,7 @@ class _SectionPitfalls extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionCard(
       title: '11. Pitfalls & gotchas',
-      subtitle:
-          'Things to watch for when adopting ImgElementPlatformView in '
+      subtitle: 'Things to watch for when adopting ImgElementPlatformView in '
           'production.',
       accent: const Color(0xFFB42318),
       body: Column(
@@ -1866,8 +1801,7 @@ class _SectionReferenceTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionCard(
       title: '12. Reference table',
-      subtitle:
-          'Defaults applied by the SDK widget vs the underlying HTML '
+      subtitle: 'Defaults applied by the SDK widget vs the underlying HTML '
           'element.',
       body: Table(
         columnWidths: const <int, TableColumnWidth>{
@@ -1878,51 +1812,25 @@ class _SectionReferenceTable extends StatelessWidget {
         border: TableBorder.all(color: const Color(0xFFE3E9F2)),
         children: <TableRow>[
           _refHeaderRow(),
-          _refRow(
-            'Public Dart constructor',
-            'ImgElementPlatformView(String? src, {Key? key})',
-            'No `alt`, no `crossOrigin`, no `decoding`, no `loading`.',
-          ),
-          _refRow(
-            'Platform-view viewType',
-            'Flutter__ImgElementImage__',
-            'Registered exactly once per session via a static flag.',
-          ),
-          _refRow(
-            'Inline <img> styles',
-            'width:100%; height:100%; pointer-events:none',
-            'Forces fill behaviour and disables direct hit-testing.',
-          ),
-          _refRow(
-            'Hit test behaviour',
-            'PlatformViewHitTestBehavior.transparent',
-            'Pointer events fall through to the Flutter widget below.',
-          ),
-          _refRow(
-            'object-fit (CSS)',
-            'fill (browser default)',
-            'Equivalent to BoxFit.fill. Custom values require a fork.',
-          ),
-          _refRow(
-            'loading attribute',
-            'auto (browser default)',
-            'No way to opt in to lazy loading without forking the widget.',
-          ),
-          _refRow(
-            'Screen reader label',
-            'empty alt by default',
-            'Wrap in Semantics(label:..., image:true) until SDK exposes alt.',
-          ),
-          _refRow(
-            'toImage support',
-            'Not captured',
-            'Platform views are composed by the browser after Flutter renders.',
-          ),
-          _refRow(
-            'Off-web behaviour',
-            'Class is not declared',
-            'Importing on iOS/Android/Desktop fails to compile.',
-          ),
+          _refRow('Public Dart constructor',
+              'ImgElementPlatformView(String? src, {Key? key})',
+              'No `alt`, no `crossOrigin`, no `decoding`, no `loading`.'),
+          _refRow('Platform-view viewType', 'Flutter__ImgElementImage__',
+              'Registered exactly once per session via a static flag.'),
+          _refRow('Inline <img> styles', 'width:100%; height:100%; pointer-events:none',
+              'Forces fill behaviour and disables direct hit-testing.'),
+          _refRow('Hit test behaviour', 'PlatformViewHitTestBehavior.transparent',
+              'Pointer events fall through to the Flutter widget below.'),
+          _refRow('object-fit (CSS)', 'fill (browser default)',
+              'Equivalent to BoxFit.fill. Custom values require a fork.'),
+          _refRow('loading attribute', 'auto (browser default)',
+              'No way to opt in to lazy loading without forking the widget.'),
+          _refRow('Screen reader label', 'empty alt by default',
+              'Wrap in Semantics(label:..., image:true) until SDK exposes alt.'),
+          _refRow('toImage support', 'Not captured',
+              'Platform views are composed by the browser after Flutter renders.'),
+          _refRow('Off-web behaviour', 'Class is not declared',
+              'Importing on iOS/Android/Desktop fails to compile.'),
         ],
       ),
     );
@@ -1941,7 +1849,13 @@ TableRow _refHeaderRow() {
 }
 
 TableRow _refRow(String a, String b, String c) {
-  return TableRow(children: <Widget>[_refCell(a), _refCell(b), _refCell(c)]);
+  return TableRow(
+    children: <Widget>[
+      _refCell(a),
+      _refCell(b),
+      _refCell(c),
+    ],
+  );
 }
 
 Widget _refCell(String text, {bool bold = false}) {
@@ -1971,16 +1885,14 @@ class _SectionKIsWebRecipe extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionCard(
       title: '13. Production kIsWeb gating recipe',
-      subtitle:
-          'Copy-pasteable patterns for embedding the platform view '
+      subtitle: 'Copy-pasteable patterns for embedding the platform view '
           'safely.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _Bullet(
             'Pattern A — inline ternary, ideal for one-off call sites with '
-            'a single `src`:',
-          ),
+            'a single `src`:'),
           const SizedBox(height: 6),
           const _CodeBlock(
             "Widget hero(String src) =>\n"
@@ -1999,8 +1911,7 @@ class _SectionKIsWebRecipe extends StatelessWidget {
           const SizedBox(height: 12),
           _Bullet(
             'Pattern C — typedef + injection so widget tests can stub the '
-            'platform-view branch:',
-          ),
+            'platform-view branch:'),
           const SizedBox(height: 6),
           const _CodeBlock(
             "typedef ImgBuilder = Widget Function(String src);\n"
@@ -2012,8 +1923,7 @@ class _SectionKIsWebRecipe extends StatelessWidget {
           const SizedBox(height: 12),
           _Bullet(
             'Pattern D — guard ALSO at import time so off-web compilation '
-            'does not even pull the symbol:',
-          ),
+            'does not even pull the symbol:'),
           const SizedBox(height: 6),
           const _CodeBlock(
             "// Conceptual conditional import:\n"
@@ -2208,11 +2118,7 @@ class _AuditProbeState extends State<_AuditProbe> {
       color: const Color(0xFFEFF4FB),
       child: Row(
         children: <Widget>[
-          const Icon(
-            Icons.health_and_safety_outlined,
-            size: 16,
-            color: Color(0xFF1F6FEB),
-          ),
+          const Icon(Icons.health_and_safety_outlined, size: 16, color: Color(0xFF1F6FEB)),
           const SizedBox(width: 6),
           Text(
             'audit probe ticks: $_ticks  ·  kIsWeb=$kIsWeb  ·  '

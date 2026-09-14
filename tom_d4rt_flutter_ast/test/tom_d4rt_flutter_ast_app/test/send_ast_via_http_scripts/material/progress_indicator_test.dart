@@ -145,7 +145,10 @@ dynamic build(BuildContext context) {
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(useMaterial3: true, colorSchemeSeed: _palette1Tint),
+    theme: ThemeData(
+      useMaterial3: true,
+      colorSchemeSeed: _palette1Tint,
+    ),
     home: Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
       body: SafeArea(
@@ -259,7 +262,8 @@ Widget _section1IndeterminateCircular() {
         'indeterminate animation. Use this when you do not know how long the '
         'work will take. The widget owns its own ticker, so it animates as '
         'soon as it is mounted.',
-    caption: 'API: CircularProgressIndicator() - no value means indeterminate.',
+    caption:
+        'API: CircularProgressIndicator() - no value means indeterminate.',
     body: StatefulBuilder(
       builder: (ctx, setState) {
         return Row(
@@ -271,7 +275,9 @@ Widget _section1IndeterminateCircular() {
                 const SizedBox(
                   width: 48.0,
                   height: 48.0,
-                  child: CircularProgressIndicator(semanticsLabel: 'loading'),
+                  child: CircularProgressIndicator(
+                    semanticsLabel: 'loading',
+                  ),
                 ),
                 const SizedBox(height: 8.0),
                 const Text(
@@ -646,11 +652,8 @@ Widget _section5ColorCustomization() {
       builder: (ctx, _) {
         final double v = _mediumProgress.value;
         // Interpolate the valueColor between two tints.
-        final Color animatedColor = Color.lerp(
-          _palette5Tint,
-          _palette4Tint,
-          v,
-        )!;
+        final Color animatedColor =
+            Color.lerp(_palette5Tint, _palette4Tint, v)!;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -681,7 +684,9 @@ Widget _section5ColorCustomization() {
             const SizedBox(height: 4.0),
             LinearProgressIndicator(
               value: 0.45,
-              valueColor: const AlwaysStoppedAnimation<Color>(_palette5Tint),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                _palette5Tint,
+              ),
               backgroundColor: const Color(0xFFFFCDD2),
               minHeight: 8.0,
             ),
@@ -710,7 +715,8 @@ Widget _section5ColorCustomization() {
                   height: 48.0,
                   child: CircularProgressIndicator(
                     value: v,
-                    valueColor: AlwaysStoppedAnimation<Color>(animatedColor),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(animatedColor),
                     backgroundColor: const Color(0xFFFFCDD2),
                   ),
                 ),
@@ -726,7 +732,9 @@ Widget _section5ColorCustomization() {
                   width: 48.0,
                   height: 48.0,
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(_palette4Tint),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      _palette4Tint,
+                    ),
                     backgroundColor: Color(0xFFFFCDD2),
                   ),
                 ),
@@ -768,13 +776,21 @@ Widget _section6CircularStrokeAndCap() {
           runSpacing: 16.0,
           alignment: WrapAlignment.spaceEvenly,
           children: [
-            _circularSpec(caption: 'sw 2', value: v, strokeWidth: 2.0),
+            _circularSpec(
+              caption: 'sw 2',
+              value: v,
+              strokeWidth: 2.0,
+            ),
             _circularSpec(
               caption: 'sw 4 (default)',
               value: v,
               strokeWidth: 4.0,
             ),
-            _circularSpec(caption: 'sw 8', value: v, strokeWidth: 8.0),
+            _circularSpec(
+              caption: 'sw 8',
+              value: v,
+              strokeWidth: 8.0,
+            ),
             _circularSpec(
               caption: 'sw 12 round',
               value: v,
@@ -964,7 +980,8 @@ Widget _section8Material3Options() {
         'a track gap between the active and inactive segments and a stop '
         'indicator dot at the trailing edge. Use `trackGap`, '
         '`stopIndicatorColor`, and `stopIndicatorRadius` to customise.',
-    caption: 'These props are no-ops if year2023 is true (the legacy default).',
+    caption:
+        'These props are no-ops if year2023 is true (the legacy default).',
     body: AnimatedBuilder(
       animation: _mediumProgress,
       builder: (ctx, _) {
@@ -1047,7 +1064,10 @@ Widget _section8Material3Options() {
                     const SizedBox(height: 6.0),
                     const Text(
                       'circular legacy',
-                      style: TextStyle(fontSize: 10.5, color: _palette8Tint),
+                      style: TextStyle(
+                        fontSize: 10.5,
+                        color: _palette8Tint,
+                      ),
                     ),
                   ],
                 ),
@@ -1068,7 +1088,10 @@ Widget _section8Material3Options() {
                     const SizedBox(height: 6.0),
                     const Text(
                       'circular trackGap',
-                      style: TextStyle(fontSize: 10.5, color: _palette8Tint),
+                      style: TextStyle(
+                        fontSize: 10.5,
+                        color: _palette8Tint,
+                      ),
                     ),
                   ],
                 ),
@@ -1164,12 +1187,17 @@ Widget _section10ProgressIndicatorTheme() {
                     ),
                   ),
                   const SizedBox(height: 8.0),
-                  LinearProgressIndicator(value: v, minHeight: 4.0),
+                  LinearProgressIndicator(
+                    value: v,
+                    minHeight: 4.0,
+                  ),
                   const SizedBox(height: 12.0),
                   SizedBox(
                     width: 44.0,
                     height: 44.0,
-                    child: CircularProgressIndicator(value: v),
+                    child: CircularProgressIndicator(
+                      value: v,
+                    ),
                   ),
                 ],
               ),
@@ -1200,12 +1228,16 @@ Widget _section10ProgressIndicatorTheme() {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        LinearProgressIndicator(value: v),
+                        LinearProgressIndicator(
+                          value: v,
+                        ),
                         const SizedBox(height: 12.0),
                         SizedBox(
                           width: 44.0,
                           height: 44.0,
-                          child: CircularProgressIndicator(value: v),
+                          child: CircularProgressIndicator(
+                            value: v,
+                          ),
                         ),
                       ],
                     ),
@@ -1235,8 +1267,7 @@ Widget _section11SizedVariants() {
         'parent. Wrap it in `SizedBox` to give it a specific footprint. '
         'Tiny: inline spinners next to text. Large: hero/empty-state '
         'centerpieces.',
-    caption:
-        'SizedBox is the canonical way to size a CircularProgressIndicator.',
+    caption: 'SizedBox is the canonical way to size a CircularProgressIndicator.',
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1385,7 +1416,9 @@ Widget _section12EmbeddedInButtons() {
               SizedBox(
                 width: 14.0,
                 height: 14.0,
-                child: CircularProgressIndicator(strokeWidth: 2.0),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.0,
+                ),
               ),
               SizedBox(width: 8.0),
               Text('Loading'),
@@ -1632,7 +1665,10 @@ Widget _sectionCard({
       children: [
         _sectionTitle(number: number, title: title, tint: tint),
         const SizedBox(height: 10.0),
-        Text(description, style: const TextStyle(fontSize: 13.0, height: 1.4)),
+        Text(
+          description,
+          style: const TextStyle(fontSize: 13.0, height: 1.4),
+        ),
         const SizedBox(height: 14.0),
         body,
         const SizedBox(height: 10.0),

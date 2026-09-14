@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'What is TreeSliver?',
-      'body':
-          'TreeSliver is a sliver widget that renders a list of '
+      'body': 'TreeSliver is a sliver widget that renders a list of '
           'TreeSliverNode items as an expandable tree. It lazily '
           'builds only visible rows, making it efficient for very '
           'large trees with thousands of nodes.',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_list,
       'title': 'Sliver-Based',
-      'body':
-          'TreeSliver is a sliver, so it works inside CustomScrollView. '
+      'body': 'TreeSliver is a sliver, so it works inside CustomScrollView. '
           'Combine it with other slivers like SliverAppBar, '
           'SliverToBoxAdapter, or SliverList for rich scrollable UIs.',
       'accent': Colors.blue,
@@ -36,8 +34,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Animated Expand/Collapse',
-      'body':
-          'TreeSliver animates the insertion and removal of child rows '
+      'body': 'TreeSliver animates the insertion and removal of child rows '
           'when a branch is expanded or collapsed. Smooth slide-in '
           'transitions give users clear visual feedback.',
       'accent': Colors.green,
@@ -45,8 +42,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.format_indent_increase,
       'title': 'Indentation & Guides',
-      'body':
-          'Each level of nesting is visually indented. TreeSliver can '
+      'body': 'Each level of nesting is visually indented. TreeSliver can '
           'also draw tree guide lines connecting parents to children, '
           'similar to IDE file explorers.',
       'accent': Colors.deepOrange,
@@ -124,47 +120,41 @@ dynamic build(BuildContext context) {
     {
       'name': 'tree',
       'type': 'List<TreeSliverNode<T>>',
-      'desc':
-          'The root-level nodes of the tree. Each root can have '
+      'desc': 'The root-level nodes of the tree. Each root can have '
           'children forming sub-trees. The flat list of roots is '
           'the starting point for tree traversal.',
     },
     {
       'name': 'treeNodeBuilder',
       'type': 'TreeSliverNodeBuilder',
-      'desc':
-          'Callback that builds a widget for each visible node. '
+      'desc': 'Callback that builds a widget for each visible node. '
           'Receives the context, node, and animation value. If null, '
           'TreeSliver uses a default row builder.',
     },
     {
       'name': 'treeRowExtentBuilder',
       'type': 'TreeSliverRowExtentBuilder?',
-      'desc':
-          'Optional callback to set the height of each tree row. '
+      'desc': 'Optional callback to set the height of each tree row. '
           'Receives the node and returns a double. If null, rows '
           'use the default extent.',
     },
     {
       'name': 'indentation',
       'type': 'TreeSliverIndentationType',
-      'desc':
-          'Controls how child levels are indented. Options: '
+      'desc': 'Controls how child levels are indented. Options: '
           'standard (fixed per level), custom (callback), '
           'or none. Also configures tree guide line painting.',
     },
     {
       'name': 'toggleAnimationStyle',
       'type': 'AnimationStyle?',
-      'desc':
-          'Customize the expand/collapse animation duration and curve. '
+      'desc': 'Customize the expand/collapse animation duration and curve. '
           'Set AnimationStyle.noAnimation to disable transitions.',
     },
     {
       'name': 'onNodeToggle',
       'type': 'ValueChanged<TreeSliverNode<T>>?',
-      'desc':
-          'Callback fired when a node is expanded or collapsed. '
+      'desc': 'Callback fired when a node is expanded or collapsed. '
           'Receives the toggled node. Useful for analytics, '
           'lazy loading children, or persisting expansion state.',
     },
@@ -256,12 +246,10 @@ dynamic build(BuildContext context) {
   final buildExamples = <Map<String, dynamic>>[
     {
       'title': 'Default Row Builder',
-      'desc':
-          'Without a treeNodeBuilder, TreeSliver renders a simple '
+      'desc': 'Without a treeNodeBuilder, TreeSliver renders a simple '
           'row with indentation and an expand arrow. Good for '
           'prototyping but limited in styling.',
-      'code':
-          'TreeSliver<String>(\n'
+      'code': 'TreeSliver<String>(\n'
           '  tree: myNodes,\n'
           '  // Uses default builder\n'
           ')',
@@ -269,12 +257,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Row Builder',
-      'desc':
-          'Provide treeNodeBuilder to fully control each row\u0027s '
+      'desc': 'Provide treeNodeBuilder to fully control each row\u0027s '
           'appearance. Receive the node, depth, and animation to '
           'build any widget you want.',
-      'code':
-          'TreeSliver<FileNode>(\n'
+      'code': 'TreeSliver<FileNode>(\n'
           '  tree: fileTree,\n'
           '  treeNodeBuilder: (context, node, anim) {\n'
           '    return Padding(\n'
@@ -292,12 +278,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Animated Row Content',
-      'desc':
-          'The animation parameter drives the expand/collapse '
+      'desc': 'The animation parameter drives the expand/collapse '
           'transition. Use it for opacity fades or size changes '
           'as children appear.',
-      'code':
-          'treeNodeBuilder: (ctx, node, anim) {\n'
+      'code': 'treeNodeBuilder: (ctx, node, anim) {\n'
           '  return SizeTransition(\n'
           '    sizeFactor: anim,\n'
           '    child: ListTile(\n'
@@ -309,11 +293,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Rich Row with Actions',
-      'desc':
-          'Build rows with icons, trailing buttons, context menus — '
+      'desc': 'Build rows with icons, trailing buttons, context menus — '
           'anything a ListTile can do. Depth controls indentation.',
-      'code':
-          'treeNodeBuilder: (ctx, node, anim) {\n'
+      'code': 'treeNodeBuilder: (ctx, node, anim) {\n'
           '  final isFolder = node.children.isNotEmpty;\n'
           '  return ListTile(\n'
           '    contentPadding: EdgeInsets.only(\n'
@@ -397,8 +379,7 @@ dynamic build(BuildContext context) {
   final indentTypes = <Map<String, dynamic>>[
     {
       'type': 'Standard (default)',
-      'desc':
-          'Each level is indented by a fixed amount (typically 40 '
+      'desc': 'Each level is indented by a fixed amount (typically 40 '
           'logical pixels). Consistent and predictable layout that '
           'works for most use cases.',
       'visual': [
@@ -411,8 +392,7 @@ dynamic build(BuildContext context) {
     },
     {
       'type': 'Custom',
-      'desc':
-          'Provide a callback that returns the indentation for each '
+      'desc': 'Provide a callback that returns the indentation for each '
           'node based on its depth. Useful for non-linear indent '
           'or progressively tighter nesting.',
       'visual': [
@@ -425,8 +405,7 @@ dynamic build(BuildContext context) {
     },
     {
       'type': 'None',
-      'desc':
-          'No automatic indentation. All items are flush left. '
+      'desc': 'No automatic indentation. All items are flush left. '
           'Handle indentation in your treeNodeBuilder manually. '
           'Full control over visual layout.',
       'visual': [
@@ -532,17 +511,15 @@ dynamic build(BuildContext context) {
           '\u2502  \u251C\u2500 test/',
           '\u2502  \u2502  \u2514\u2500 main_test.dart',
           '\u2502  \u2514\u2500 README.md',
-        ].map(
-          (line) => Text(
-            line,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: Color(0xFFCDD6F4),
-              height: 1.6,
-            ),
-          ),
-        ),
+        ].map((line) => Text(
+              line,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                color: Color(0xFFCDD6F4),
+                height: 1.6,
+              ),
+            )),
       ],
     ),
   );
@@ -555,12 +532,10 @@ dynamic build(BuildContext context) {
   final animItems = <Map<String, dynamic>>[
     {
       'title': 'Default Animation',
-      'desc':
-          'TreeSliver uses a smooth slide-and-fade transition for '
+      'desc': 'TreeSliver uses a smooth slide-and-fade transition for '
           'expand/collapse. Children slide in from the top when '
           'expanding, and slide out when collapsing.',
-      'code':
-          'TreeSliver<String>(\n'
+      'code': 'TreeSliver<String>(\n'
           '  tree: nodes,\n'
           '  // Default animation applied\n'
           ')',
@@ -569,12 +544,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Duration',
-      'desc':
-          'Override the animation timing with toggleAnimationStyle. '
+      'desc': 'Override the animation timing with toggleAnimationStyle. '
           'Slower animations give dramatic flair; faster ones '
           'feel snappy.',
-      'code':
-          'TreeSliver<String>(\n'
+      'code': 'TreeSliver<String>(\n'
           '  tree: nodes,\n'
           '  toggleAnimationStyle: AnimationStyle(\n'
           '    duration: Duration(milliseconds: 500),\n'
@@ -586,12 +559,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No Animation',
-      'desc':
-          'Disable animation entirely for instant expand/collapse. '
+      'desc': 'Disable animation entirely for instant expand/collapse. '
           'Good for accessibility (reduced motion) or dense trees '
           'where animation is distracting.',
-      'code':
-          'TreeSliver<String>(\n'
+      'code': 'TreeSliver<String>(\n'
           '  tree: nodes,\n'
           '  toggleAnimationStyle:\n'
           '    AnimationStyle.noAnimation,\n'
@@ -601,12 +572,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Animation in Row Builder',
-      'desc':
-          'The treeNodeBuilder receives an Animation<double> for the '
+      'desc': 'The treeNodeBuilder receives an Animation<double> for the '
           'expand transition. Use it for custom entry effects: fade, '
           'scale, or slide.',
-      'code':
-          'treeNodeBuilder: (ctx, node, anim) {\n'
+      'code': 'treeNodeBuilder: (ctx, node, anim) {\n'
           '  return FadeTransition(\n'
           '    opacity: anim,\n'
           '    child: SizeTransition(\n'
@@ -713,8 +682,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Tap to Toggle',
       'icon': Icons.touch_app,
-      'desc':
-          'By default, tapping a branch node toggles its expansion. '
+      'desc': 'By default, tapping a branch node toggles its expansion. '
           'TreeSliver handles this internally. No extra gesture '
           'detector needed.',
       'color': Colors.indigo,
@@ -722,8 +690,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'onNodeToggle Callback',
       'icon': Icons.notifications,
-      'desc':
-          'React to expansions/collapses. Use for lazy loading — '
+      'desc': 'React to expansions/collapses. Use for lazy loading — '
           'when a node is expanded, fetch its children from an API '
           'before they\u0027re displayed.',
       'color': Colors.blue,
@@ -731,8 +698,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Programmatic Control',
       'icon': Icons.code,
-      'desc':
-          'Set node.expanded = true/false and rebuild to control '
+      'desc': 'Set node.expanded = true/false and rebuild to control '
           'expansion in code. Useful for "Expand All" or "Collapse '
           'All" buttons.',
       'color': Colors.green,
@@ -740,8 +706,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Selection State',
       'icon': Icons.check_circle,
-      'desc':
-          'TreeSliver doesn\u0027t manage selection. Add selected '
+      'desc': 'TreeSliver doesn\u0027t manage selection. Add selected '
           'state to your content type T and highlight rows '
           'in treeNodeBuilder based on that state.',
       'color': Colors.deepOrange,
@@ -749,8 +714,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Context Menus',
       'icon': Icons.more_vert,
-      'desc':
-          'Add right-click or long-press menus in treeNodeBuilder. '
+      'desc': 'Add right-click or long-press menus in treeNodeBuilder. '
           'Wrap rows with GestureDetector or use PopupMenuButton '
           'as a trailing widget.',
       'color': Colors.purple,
@@ -822,12 +786,10 @@ dynamic build(BuildContext context) {
     {
       'title': 'File Explorer',
       'icon': Icons.folder_open,
-      'desc':
-          'The classic use: file system hierarchy. Folders expand to '
+      'desc': 'The classic use: file system hierarchy. Folders expand to '
           'show nested files and subdirectories. Use icons to '
           'distinguish file types.',
-      'code':
-          'CustomScrollView(\n'
+      'code': 'CustomScrollView(\n'
           '  slivers: [\n'
           '    TreeSliver<FileNode>(\n'
           '      tree: fileSystemTree,\n'
@@ -841,13 +803,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Settings Groups',
-      'desc':
-          'Expandable setting categories like "Display", "Sound", '
+      'desc': 'Expandable setting categories like "Display", "Sound", '
           '"Network". Each expands to show individual toggle/slider '
           'settings.',
       'icon': Icons.settings,
-      'code':
-          'TreeSliver<SettingItem>(\n'
+      'code': 'TreeSliver<SettingItem>(\n'
           '  tree: settingsTree,\n'
           '  treeNodeBuilder: (ctx, node, anim) {\n'
           '    if (node.children.isNotEmpty) {\n'
@@ -860,12 +820,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'With Other Slivers',
-      'desc':
-          'Combine TreeSliver with SliverAppBar, SliverPadding, or '
+      'desc': 'Combine TreeSliver with SliverAppBar, SliverPadding, or '
           'SliverList inside a CustomScrollView for rich layouts.',
       'icon': Icons.view_quilt,
-      'code':
-          'CustomScrollView(\n'
+      'code': 'CustomScrollView(\n'
           '  slivers: [\n'
           '    SliverAppBar(title: Text("Explorer")),\n'
           '    SliverPadding(\n'
@@ -954,38 +912,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.account_tree,
-      'text':
-          'TreeSliver renders hierarchical tree data as an '
+      'text': 'TreeSliver renders hierarchical tree data as an '
           'expandable/collapsible scrollable list of rows.',
     },
     {
       'icon': Icons.view_list,
-      'text':
-          'Works inside CustomScrollView alongside other slivers. '
+      'text': 'Works inside CustomScrollView alongside other slivers. '
           'Lazily builds only visible rows for performance.',
     },
     {
       'icon': Icons.build,
-      'text':
-          'treeNodeBuilder provides full control over row appearance. '
+      'text': 'treeNodeBuilder provides full control over row appearance. '
           'Receives node content, depth, and expand animation.',
     },
     {
       'icon': Icons.format_indent_increase,
-      'text':
-          'Indentation types: standard (40px per level), custom '
+      'text': 'Indentation types: standard (40px per level), custom '
           'callback, or none. Tree guide lines optional.',
     },
     {
       'icon': Icons.animation,
-      'text':
-          'Smooth expand/collapse animations by default. Customize '
+      'text': 'Smooth expand/collapse animations by default. Customize '
           'with toggleAnimationStyle or disable entirely.',
     },
     {
       'icon': Icons.touch_app,
-      'text':
-          'Tap toggles expansion. Use onNodeToggle for side effects '
+      'text': 'Tap toggles expansion. Use onNodeToggle for side effects '
           'like lazy loading or analytics.',
     },
   ];

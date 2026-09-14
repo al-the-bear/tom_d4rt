@@ -181,7 +181,11 @@ LinearGradient _heroGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0xFF0A84FF), Color(0xFF5856D6), Color(0xFFAF52DE)],
+    colors: <Color>[
+      Color(0xFF0A84FF),
+      Color(0xFF5856D6),
+      Color(0xFFAF52DE),
+    ],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -190,7 +194,10 @@ LinearGradient _surfaceGradient() {
   return const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[Color(0xFFF6F7FB), Color(0xFFE9ECF4)],
+    colors: <Color>[
+      Color(0xFFF6F7FB),
+      Color(0xFFE9ECF4),
+    ],
   );
 }
 
@@ -198,7 +205,10 @@ LinearGradient _anatomyGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0xFFFFF6E5), Color(0xFFFFE0B2)],
+    colors: <Color>[
+      Color(0xFFFFF6E5),
+      Color(0xFFFFE0B2),
+    ],
   );
 }
 
@@ -206,7 +216,11 @@ LinearGradient _matrixGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0xFFE0F7FA), Color(0xFFB2EBF2), Color(0xFF80DEEA)],
+    colors: <Color>[
+      Color(0xFFE0F7FA),
+      Color(0xFFB2EBF2),
+      Color(0xFF80DEEA),
+    ],
     stops: <double>[0.0, 0.6, 1.0],
   );
 }
@@ -215,7 +229,10 @@ LinearGradient _snippetGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0xFF1F2937), Color(0xFF111827)],
+    colors: <Color>[
+      Color(0xFF1F2937),
+      Color(0xFF111827),
+    ],
   );
 }
 
@@ -223,7 +240,11 @@ LinearGradient _paletteGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0xFFFFFBEB), Color(0xFFFFE4E6), Color(0xFFFCE7F3)],
+    colors: <Color>[
+      Color(0xFFFFFBEB),
+      Color(0xFFFFE4E6),
+      Color(0xFFFCE7F3),
+    ],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -232,7 +253,10 @@ LinearGradient _interactiveGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0xFFECFCCB), Color(0xFFD9F99D)],
+    colors: <Color>[
+      Color(0xFFECFCCB),
+      Color(0xFFD9F99D),
+    ],
   );
 }
 
@@ -240,7 +264,11 @@ LinearGradient _comparisonGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[Color(0xFFF3E8FF), Color(0xFFE9D5FF), Color(0xFFDDD6FE)],
+    colors: <Color>[
+      Color(0xFFF3E8FF),
+      Color(0xFFE9D5FF),
+      Color(0xFFDDD6FE),
+    ],
     stops: <double>[0.0, 0.5, 1.0],
   );
 }
@@ -249,7 +277,10 @@ LinearGradient _footerGradient() {
   return const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[Color(0xFF1F2937), Color(0xFF0F172A)],
+    colors: <Color>[
+      Color(0xFF1F2937),
+      Color(0xFF0F172A),
+    ],
   );
 }
 
@@ -266,14 +297,10 @@ LinearGradient _footerGradient() {
 
 dynamic build(BuildContext context) {
   print('[clai-demo] entering build()');
-  print(
-    '[clai-demo] Flutter SDK exposes CupertinoLinearActivityIndicator '
-    'with parameters: progress (required), height (default 4.5), color.',
-  );
-  print(
-    '[clai-demo] backgroundColor and radius are synthesised via '
-    'Container + ClipRRect wrappers.',
-  );
+  print('[clai-demo] Flutter SDK exposes CupertinoLinearActivityIndicator '
+      'with parameters: progress (required), height (default 4.5), color.');
+  print('[clai-demo] backgroundColor and radius are synthesised via '
+      'Container + ClipRRect wrappers.');
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -445,7 +472,9 @@ Widget _buildHeroSection() {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14.0,
-                      fontFeatures: <FontFeature>[FontFeature.tabularFigures()],
+                      fontFeatures: <FontFeature>[
+                        FontFeature.tabularFigures(),
+                      ],
                     ),
                   ),
                 ],
@@ -612,7 +641,10 @@ Widget _progressRow({
         width: 110.0,
         child: Text(
           caption,
-          style: const TextStyle(fontSize: 12.0, color: Color(0xFF4B5563)),
+          style: const TextStyle(
+            fontSize: 12.0,
+            color: Color(0xFF4B5563),
+          ),
         ),
       ),
     ],
@@ -680,7 +712,8 @@ Widget _buildIndeterminateSweepSection() {
               ),
             ],
           ),
-          if (i != sweepFrames.length - 1) const SizedBox(height: _kGapMd),
+          if (i != sweepFrames.length - 1)
+            const SizedBox(height: _kGapMd),
         ],
       ],
     ),
@@ -725,16 +758,27 @@ Widget _buildAnatomySection() {
         SizedBox(
           height: 220.0,
           width: double.infinity,
-          child: CustomPaint(painter: _IndicatorAnatomyPainter()),
+          child: CustomPaint(
+            painter: _IndicatorAnatomyPainter(),
+          ),
         ),
         const SizedBox(height: _kGapLg),
         Wrap(
           spacing: _kGapLg,
           runSpacing: _kGapSm,
           children: <Widget>[
-            _legendSwatch(const Color(0xFFE5E7EB), 'Track (systemFill)'),
-            _legendSwatch(CupertinoColors.activeBlue, 'Fill (progress region)'),
-            _legendSwatch(const Color(0xFFFF9500), 'Radius callout (height/2)'),
+            _legendSwatch(
+              const Color(0xFFE5E7EB),
+              'Track (systemFill)',
+            ),
+            _legendSwatch(
+              CupertinoColors.activeBlue,
+              'Fill (progress region)',
+            ),
+            _legendSwatch(
+              const Color(0xFFFF9500),
+              'Radius callout (height/2)',
+            ),
           ],
         ),
       ],
@@ -819,10 +863,7 @@ class _IndicatorAnatomyPainter extends CustomPainter {
 
     // Fill label with leader line
     final Offset fillPoint = Offset(left + width * progress * 0.5, midY);
-    final Offset fillLabel = Offset(
-      fillPoint.dx,
-      midY + barHeight / 2.0 + 36.0,
-    );
+    final Offset fillLabel = Offset(fillPoint.dx, midY + barHeight / 2.0 + 36.0);
     canvas.drawLine(
       fillPoint.translate(0, barHeight / 2.0),
       fillLabel,
@@ -892,15 +933,14 @@ class _IndicatorAnatomyPainter extends CustomPainter {
 // =====================================================================
 
 Widget _buildCustomisationSection() {
-  final List<({String name, Color? color})> samples =
-      <({String name, Color? color})>[
-        (name: 'default (activeBlue)', color: null),
-        (name: 'systemIndigo', color: CupertinoColors.systemIndigo),
-        (name: 'systemGreen', color: CupertinoColors.systemGreen),
-        (name: 'systemOrange', color: CupertinoColors.systemOrange),
-        (name: 'systemRed', color: CupertinoColors.systemRed),
-        (name: 'systemPurple', color: CupertinoColors.systemPurple),
-      ];
+  final List<({String name, Color? color})> samples = <({String name, Color? color})>[
+    (name: 'default (activeBlue)', color: null),
+    (name: 'systemIndigo', color: CupertinoColors.systemIndigo),
+    (name: 'systemGreen', color: CupertinoColors.systemGreen),
+    (name: 'systemOrange', color: CupertinoColors.systemOrange),
+    (name: 'systemRed', color: CupertinoColors.systemRed),
+    (name: 'systemPurple', color: CupertinoColors.systemPurple),
+  ];
 
   return Container(
     decoration: BoxDecoration(
@@ -936,7 +976,10 @@ Widget _buildCustomisationSection() {
 
 Widget _customisationRow({required String name, Color? color}) {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: _kGapMd, vertical: _kGapMd),
+    padding: const EdgeInsets.symmetric(
+      horizontal: _kGapMd,
+      vertical: _kGapMd,
+    ),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
@@ -955,7 +998,10 @@ Widget _customisationRow({required String name, Color? color}) {
           width: 160.0,
           child: Text(
             name,
-            style: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.w500),
+            style: const TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         Expanded(
@@ -1119,7 +1165,10 @@ Widget _bgRow({
     children: <Widget>[
       SizedBox(
         width: 180.0,
-        child: Text(label, style: const TextStyle(fontSize: 12.0)),
+        child: Text(
+          label,
+          style: const TextStyle(fontSize: 12.0),
+        ),
       ),
       Expanded(
         child: Container(
@@ -1136,7 +1185,10 @@ Widget _bgRow({
                   ]
                 : null,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 4.0,
+            vertical: 4.0,
+          ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(radius),
             child: CupertinoLinearActivityIndicator(
@@ -1190,7 +1242,10 @@ Widget _buildAccentSwatchSection() {
           runSpacing: _kGapLg,
           children: <Widget>[
             for (int i = 0; i < _kCupertinoAccents.length; i++)
-              _swatchTile(_kCupertinoAccents[i], _kCupertinoAccentNames[i]),
+              _swatchTile(
+                _kCupertinoAccents[i],
+                _kCupertinoAccentNames[i],
+              ),
           ],
         ),
       ],
@@ -1201,7 +1256,10 @@ Widget _buildAccentSwatchSection() {
 Widget _swatchTile(Color color, String name) {
   return Container(
     width: _kSwatchIndicatorWidth,
-    padding: const EdgeInsets.symmetric(horizontal: _kGapMd, vertical: _kGapMd),
+    padding: const EdgeInsets.symmetric(
+      horizontal: _kGapMd,
+      vertical: _kGapMd,
+    ),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
@@ -1336,15 +1394,24 @@ Widget _comparisonRow({
       children: <Widget>[
         Text(
           label,
-          style: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600),
+          style: const TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         const SizedBox(height: _kGapXs),
         Text(
           caption,
-          style: const TextStyle(fontSize: 11.0, color: Color(0xFF6B7280)),
+          style: const TextStyle(
+            fontSize: 11.0,
+            color: Color(0xFF6B7280),
+          ),
         ),
         const SizedBox(height: _kGapSm),
-        SizedBox(width: _kIndicatorWidth, child: child),
+        SizedBox(
+          width: _kIndicatorWidth,
+          child: child,
+        ),
       ],
     ),
   );
@@ -1473,7 +1540,13 @@ Widget _buildDecisionMatrixSection() {
                 'iOS spinners',
                 cellStyle,
               ),
-              _matrixRow('Param count', '3', '7+', '4', cellStyle),
+              _matrixRow(
+                'Param count',
+                '3',
+                '7+',
+                '4',
+                cellStyle,
+              ),
             ],
           ),
         ),
@@ -1482,12 +1555,21 @@ Widget _buildDecisionMatrixSection() {
   );
 }
 
-TableRow _matrixRow(String a, String b, String c, String d, TextStyle style) {
+TableRow _matrixRow(
+  String a,
+  String b,
+  String c,
+  String d,
+  TextStyle style,
+) {
   return TableRow(
     children: <Widget>[
       Padding(
         padding: const EdgeInsets.all(_kGapSm),
-        child: Text(a, style: style.copyWith(fontWeight: FontWeight.w600)),
+        child: Text(
+          a,
+          style: style.copyWith(fontWeight: FontWeight.w600),
+        ),
       ),
       Padding(
         padding: const EdgeInsets.all(_kGapSm),
@@ -1678,10 +1760,8 @@ Widget _buildInteractiveProgressSection() {
                       icon: CupertinoIcons.minus,
                       onTap: () {
                         setLocal(() {
-                          currentProgress = (currentProgress - 0.1).clamp(
-                            0.0,
-                            1.0,
-                          );
+                          currentProgress =
+                              (currentProgress - 0.1).clamp(0.0, 1.0);
                         });
                       },
                     ),
@@ -1701,10 +1781,8 @@ Widget _buildInteractiveProgressSection() {
                       icon: CupertinoIcons.plus,
                       onTap: () {
                         setLocal(() {
-                          currentProgress = (currentProgress + 0.1).clamp(
-                            0.0,
-                            1.0,
-                          );
+                          currentProgress =
+                              (currentProgress + 0.1).clamp(0.0, 1.0);
                         });
                       },
                     ),
@@ -1716,7 +1794,9 @@ Widget _buildInteractiveProgressSection() {
                   style: const TextStyle(
                     fontSize: 13.0,
                     fontWeight: FontWeight.w600,
-                    fontFeatures: <FontFeature>[FontFeature.tabularFigures()],
+                    fontFeatures: <FontFeature>[
+                      FontFeature.tabularFigures(),
+                    ],
                   ),
                 ),
                 const SizedBox(height: _kGapMd),
@@ -1724,13 +1804,8 @@ Widget _buildInteractiveProgressSection() {
                   spacing: _kGapSm,
                   runSpacing: _kGapSm,
                   children: <Widget>[
-                    for (final double preset in <double>[
-                      0.0,
-                      0.25,
-                      0.5,
-                      0.75,
-                      1.0,
-                    ])
+                    for (final double preset
+                        in <double>[0.0, 0.25, 0.5, 0.75, 1.0])
                       _presetChip(
                         label: '${(preset * 100).toInt()}%',
                         selected: (currentProgress - preset).abs() < 0.001,
@@ -1769,7 +1844,11 @@ Widget _stepButton({required IconData icon, required VoidCallback onTap}) {
           ),
         ],
       ),
-      child: Icon(icon, size: 18.0, color: const Color(0xFF1F2937)),
+      child: Icon(
+        icon,
+        size: 18.0,
+        color: const Color(0xFF1F2937),
+      ),
     ),
   );
 }
@@ -1916,7 +1995,10 @@ Widget _edgeCard({
         const SizedBox(height: _kGapXs),
         Text(
           description,
-          style: const TextStyle(fontSize: 11.0, color: Color(0xFF6B7280)),
+          style: const TextStyle(
+            fontSize: 11.0,
+            color: Color(0xFF6B7280),
+          ),
         ),
         const SizedBox(height: _kGapMd),
         child,
@@ -2025,7 +2107,10 @@ Widget _legendSwatch(Color color, String label) {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(4.0),
-          border: Border.all(color: Colors.black.withOpacity(0.08), width: 1.0),
+          border: Border.all(
+            color: Colors.black.withOpacity(0.08),
+            width: 1.0,
+          ),
         ),
       ),
       const SizedBox(width: _kGapXs + 2.0),

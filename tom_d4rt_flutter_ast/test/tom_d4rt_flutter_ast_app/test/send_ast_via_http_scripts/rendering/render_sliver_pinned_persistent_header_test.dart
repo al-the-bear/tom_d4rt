@@ -407,7 +407,10 @@ class _BehaviorCell extends StatelessWidget {
           const SizedBox(height: 8),
           _MiniDiagram(diagram: diagram, color: color),
           const SizedBox(height: 8),
-          Text(bullet, style: const TextStyle(fontSize: 11.5, height: 1.35)),
+          Text(
+            bullet,
+            style: const TextStyle(fontSize: 11.5, height: 1.35),
+          ),
           const SizedBox(height: 6),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
@@ -916,10 +919,7 @@ class _SimplePinnedDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     final double range = (maxExtent - minExtent).clamp(1.0, 10000.0);
     final double progress = (shrinkOffset / range).clamp(0.0, 1.0);
     return Container(
@@ -1081,12 +1081,15 @@ class _Section5FloatingContrast extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: const Color(0xFFE1BEE7)),
+                          border:
+                              Border.all(color: const Color(0xFFE1BEE7)),
                         ),
                         child: Row(
                           children: <Widget>[
                             Icon(
-                              index.isEven ? Icons.cloud_outlined : Icons.cloud,
+                              index.isEven
+                                  ? Icons.cloud_outlined
+                                  : Icons.cloud,
                               color: const Color(0xFF6A1B9A),
                             ),
                             const SizedBox(width: 10),
@@ -1296,7 +1299,10 @@ class _ApiCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          Text(blurb, style: const TextStyle(fontSize: 11.5, height: 1.35)),
+          Text(
+            blurb,
+            style: const TextStyle(fontSize: 11.5, height: 1.35),
+          ),
           const SizedBox(height: 6),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
@@ -1466,7 +1472,10 @@ class _LifecycleStep extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(text, style: const TextStyle(fontSize: 12, height: 1.4)),
+                Text(
+                  text,
+                  style: const TextStyle(fontSize: 12, height: 1.4),
+                ),
               ],
             ),
           ),
@@ -1598,7 +1607,10 @@ class _PitfallRow extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(text, style: const TextStyle(fontSize: 12, height: 1.4)),
+                Text(
+                  text,
+                  style: const TextStyle(fontSize: 12, height: 1.4),
+                ),
               ],
             ),
           ),
@@ -1752,7 +1764,8 @@ class _Section9StickyAppShell extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) => Container(
-          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          margin:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -1764,7 +1777,10 @@ class _Section9StickyAppShell extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(

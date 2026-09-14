@@ -116,15 +116,14 @@ dynamic build(BuildContext context) {
 
   final ThemeData theme = ThemeData(
     useMaterial3: true,
-    colorScheme:
-        ColorScheme.fromSeed(
-          seedColor: _wbdCerulean,
-          brightness: Brightness.light,
-        ).copyWith(
-          primary: _wbdCeruleanDeep,
-          secondary: _wbdAmberDeep,
-          surface: _wbdPaper,
-        ),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: _wbdCerulean,
+      brightness: Brightness.light,
+    ).copyWith(
+      primary: _wbdCeruleanDeep,
+      secondary: _wbdAmberDeep,
+      surface: _wbdPaper,
+    ),
     scaffoldBackgroundColor: _wbdPaper,
     dividerColor: _wbdRule,
   );
@@ -202,9 +201,8 @@ class _WbdTitleBar extends StatelessWidget {
     // Branch the title-bar accent on the LIVE getter value so reading it is
     // load-bearing for the rendered UI.
     final Color accent = liveIsSafari ? _wbdWebkit : _wbdCerulean;
-    final String headline = liveIsSafari
-        ? 'WebKit-flavoured build path'
-        : 'Non-Safari build path';
+    final String headline =
+        liveIsSafari ? 'WebKit-flavoured build path' : 'Non-Safari build path';
     return Container(
       padding: const EdgeInsets.fromLTRB(22, 18, 22, 18),
       decoration: BoxDecoration(
@@ -226,11 +224,8 @@ class _WbdTitleBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.white.withOpacity(0.3)),
             ),
-            child: const Icon(
-              Icons.travel_explore,
-              color: Colors.white,
-              size: 28,
-            ),
+            child: const Icon(Icons.travel_explore,
+                color: Colors.white, size: 28),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -344,11 +339,8 @@ class _WbdLiveReadoutCard extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(
-                  Icons.info_outline,
-                  color: _wbdCeruleanDeep,
-                  size: 20,
-                ),
+                const Icon(Icons.info_outline,
+                    color: _wbdCeruleanDeep, size: 20),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -402,7 +394,8 @@ class _WbdKvRow extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: highlight.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(6),
@@ -437,46 +430,40 @@ class _WbdBranchPanel extends StatelessWidget {
     final List<Widget> branchChildren = <Widget>[];
     // Real if/else branch on the live SDK value.
     if (liveIsSafari) {
-      branchChildren.add(
-        const _WbdBranchCard(
-          title: 'Safari branch — taken',
-          body:
-              'WebBrowserDetection.isSafari returned true, so the demo is '
-              'rendering the WebKit-tuned path: prefer JPEG over WebP, skip '
-              'Blink-only CSS hacks, and apply the iOS-style cursor caret '
-              'workaround used inside flutter/src/widgets/editable_text.dart.',
-          accent: _wbdWebkit,
-          icon: Icons.apple,
-        ),
-      );
+      branchChildren.add(const _WbdBranchCard(
+        title: 'Safari branch — taken',
+        body:
+            'WebBrowserDetection.isSafari returned true, so the demo is '
+            'rendering the WebKit-tuned path: prefer JPEG over WebP, skip '
+            'Blink-only CSS hacks, and apply the iOS-style cursor caret '
+            'workaround used inside flutter/src/widgets/editable_text.dart.',
+        accent: _wbdWebkit,
+        icon: Icons.apple,
+      ));
     } else {
-      branchChildren.add(
-        const _WbdBranchCard(
-          title: 'Non-Safari branch — taken',
-          body:
-              'WebBrowserDetection.isSafari returned false, so the demo is '
-              'rendering the broad path: WebP allowed, modern clipboard '
-              'API, and no special caret handling. On non-web platforms '
-              'the getter is the io stub, which is exactly this branch.',
-          accent: _wbdCerulean,
-          icon: Icons.public,
-        ),
-      );
+      branchChildren.add(const _WbdBranchCard(
+        title: 'Non-Safari branch — taken',
+        body:
+            'WebBrowserDetection.isSafari returned false, so the demo is '
+            'rendering the broad path: WebP allowed, modern clipboard '
+            'API, and no special caret handling. On non-web platforms '
+            'the getter is the io stub, which is exactly this branch.',
+        accent: _wbdCerulean,
+        icon: Icons.public,
+      ));
     }
     branchChildren.add(const SizedBox(height: 12));
     // Conditional expression branch — also load-bearing.
-    branchChildren.add(
-      _WbdBranchCard(
-        title: liveIsSafari
-            ? 'Conditional expr — Safari path'
-            : 'Conditional expr — Other path',
-        body: liveIsSafari
-            ? 'A ternary on the same value selected the WebKit path.'
-            : 'A ternary on the same value selected the non-WebKit path.',
-        accent: liveIsSafari ? _wbdWebkit : _wbdBlink,
-        icon: liveIsSafari ? Icons.bolt : Icons.flash_on,
-      ),
-    );
+    branchChildren.add(_WbdBranchCard(
+      title: liveIsSafari
+          ? 'Conditional expr — Safari path'
+          : 'Conditional expr — Other path',
+      body: liveIsSafari
+          ? 'A ternary on the same value selected the WebKit path.'
+          : 'A ternary on the same value selected the non-WebKit path.',
+      accent: liveIsSafari ? _wbdWebkit : _wbdBlink,
+      icon: liveIsSafari ? Icons.bolt : Icons.flash_on,
+    ));
     return _WbdSection(
       title: 'Branch Panel',
       subtitle:
@@ -557,35 +544,21 @@ class _WbdEngineStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<_EngineSpec> engines = <_EngineSpec>[
       const _EngineSpec(
-        name: 'WebKit',
-        vendor: 'Apple',
-        color: _wbdWebkit,
-        isSafari: true,
-      ),
+          name: 'WebKit', vendor: 'Apple', color: _wbdWebkit, isSafari: true),
       const _EngineSpec(
-        name: 'Blink',
-        vendor: 'Google',
-        color: _wbdBlink,
-        isSafari: false,
-      ),
+          name: 'Blink', vendor: 'Google', color: _wbdBlink, isSafari: false),
       const _EngineSpec(
-        name: 'Gecko',
-        vendor: 'Mozilla',
-        color: _wbdGecko,
-        isSafari: false,
-      ),
+          name: 'Gecko', vendor: 'Mozilla', color: _wbdGecko, isSafari: false),
       const _EngineSpec(
-        name: 'EdgeHTML',
-        vendor: 'Microsoft',
-        color: _wbdEdge,
-        isSafari: false,
-      ),
+          name: 'EdgeHTML',
+          vendor: 'Microsoft',
+          color: _wbdEdge,
+          isSafari: false),
       const _EngineSpec(
-        name: 'unknown',
-        vendor: 'unknown',
-        color: _wbdUnknown,
-        isSafari: false,
-      ),
+          name: 'unknown',
+          vendor: 'unknown',
+          color: _wbdUnknown,
+          isSafari: false),
     ];
     return _WbdSection(
       title: 'Engine Strip',
@@ -643,10 +616,8 @@ class _WbdEngineChip extends StatelessWidget {
           Container(
             width: 10,
             height: 10,
-            decoration: BoxDecoration(
-              color: spec.color,
-              shape: BoxShape.circle,
-            ),
+            decoration:
+                BoxDecoration(color: spec.color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 8),
           Text(
@@ -681,9 +652,8 @@ class _WbdCapabilityMatrix extends StatelessWidget {
         name: 'WebP image format',
         safariScore: 'partial (16+)',
         otherScore: 'full',
-        recommend: liveIsSafari
-            ? 'Fallback to JPEG for older builds'
-            : 'Use WebP',
+        recommend:
+            liveIsSafari ? 'Fallback to JPEG for older builds' : 'Use WebP',
       ),
       _CapabilityRow(
         name: 'Clipboard API',
@@ -713,7 +683,9 @@ class _WbdCapabilityMatrix extends StatelessWidget {
         name: 'CSS backdrop-filter',
         safariScore: 'works with -webkit- prefix',
         otherScore: 'unprefixed',
-        recommend: liveIsSafari ? 'Emit prefixed property' : 'Emit unprefixed',
+        recommend: liveIsSafari
+            ? 'Emit prefixed property'
+            : 'Emit unprefixed',
       ),
       _CapabilityRow(
         name: 'Service workers',
@@ -757,14 +729,11 @@ class _WbdCapabilityMatrix extends StatelessWidget {
   }
 
   List<_CapabilityRow> _sortRows(
-    List<_CapabilityRow> input,
-    bool isSafariActive,
-  ) {
+      List<_CapabilityRow> input, bool isSafariActive) {
     final List<_CapabilityRow> copy = List<_CapabilityRow>.from(input);
     if (isSafariActive) {
-      copy.sort(
-        (a, b) => a.safariScore.length.compareTo(b.safariScore.length) * -1,
-      );
+      copy.sort((a, b) =>
+          a.safariScore.length.compareTo(b.safariScore.length) * -1);
     }
     return copy;
   }
@@ -905,7 +874,8 @@ class _WbdMatrixBodyRow extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: highlight.withOpacity(0.10),
                 borderRadius: BorderRadius.circular(5),
@@ -971,7 +941,8 @@ class _WbdGuardLadder extends StatelessWidget {
           'so a real flip of the SDK getter would flip every cell.',
       child: Column(
         children: <Widget>[
-          for (final _GuardEntry entry in entries) _WbdGuardRow(entry: entry),
+          for (final _GuardEntry entry in entries)
+            _WbdGuardRow(entry: entry),
         ],
       ),
     );
@@ -1042,7 +1013,10 @@ class _WbdGuardRow extends StatelessWidget {
             flex: 4,
             child: Text(
               entry.note,
-              style: const TextStyle(color: _wbdInk, fontSize: 11.5),
+              style: const TextStyle(
+                color: _wbdInk,
+                fontSize: 11.5,
+              ),
             ),
           ),
         ],
@@ -1121,7 +1095,10 @@ class _WbdScenarioGrid extends StatelessWidget {
         runSpacing: 12,
         children: <Widget>[
           for (final _ScenarioCard sc in scenarios)
-            SizedBox(width: 260, child: _WbdScenarioTile(card: sc)),
+            SizedBox(
+              width: 260,
+              child: _WbdScenarioTile(card: sc),
+            ),
         ],
       ),
     );
@@ -1184,7 +1161,11 @@ class _WbdScenarioTile extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             card.body,
-            style: const TextStyle(color: _wbdInk, fontSize: 12, height: 1.4),
+            style: const TextStyle(
+              color: _wbdInk,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1204,24 +1185,21 @@ class _WbdSnippetGallery extends StatelessWidget {
     final List<_Snippet> snippets = <_Snippet>[
       _Snippet(
         title: 'Direct guard',
-        code:
-            'if (WebBrowserDetection.isSafari) {\n'
+        code: 'if (WebBrowserDetection.isSafari) {\n'
             '  applyWebKitCaretWorkaround();\n'
             '}',
         executes: liveIsSafari,
       ),
       _Snippet(
         title: 'Web-only guard',
-        code:
-            'if (kIsWeb && WebBrowserDetection.isSafari) {\n'
+        code: 'if (kIsWeb && WebBrowserDetection.isSafari) {\n'
             '  serveJpegFallback();\n'
             '}',
         executes: false,
       ),
       _Snippet(
         title: 'Format picker',
-        code:
-            'String format() => '
+        code: 'String format() => '
             'WebBrowserDetection.isSafari ? \'jpeg\' : \'webp\';',
         executes: true,
       ),
@@ -1232,8 +1210,7 @@ class _WbdSnippetGallery extends StatelessWidget {
       ),
       _Snippet(
         title: 'Combined guard',
-        code:
-            'if (kIsWeb &&\n'
+        code: 'if (kIsWeb &&\n'
             '    WebBrowserDetection.isSafari &&\n'
             '    remoteFlag.enabled) {\n'
             '  enableSafariOnlyExperiment();\n'
@@ -1242,8 +1219,7 @@ class _WbdSnippetGallery extends StatelessWidget {
       ),
       _Snippet(
         title: 'Negative guard',
-        code:
-            'if (!WebBrowserDetection.isSafari) {\n'
+        code: 'if (!WebBrowserDetection.isSafari) {\n'
             '  preferUnprefixedCss();\n'
             '}',
         executes: !liveIsSafari,
@@ -1259,7 +1235,10 @@ class _WbdSnippetGallery extends StatelessWidget {
         runSpacing: 12,
         children: <Widget>[
           for (final _Snippet sn in snippets)
-            SizedBox(width: 320, child: _WbdSnippetCard(snippet: sn)),
+            SizedBox(
+              width: 320,
+              child: _WbdSnippetCard(snippet: sn),
+            ),
         ],
       ),
     );
@@ -1267,7 +1246,11 @@ class _WbdSnippetGallery extends StatelessWidget {
 }
 
 class _Snippet {
-  _Snippet({required this.title, required this.code, required this.executes});
+  _Snippet({
+    required this.title,
+    required this.code,
+    required this.executes,
+  });
   final String title;
   final String code;
   final bool executes;
@@ -1302,7 +1285,8 @@ class _WbdSnippetCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: snippet.executes
                       ? _wbdTeal.withOpacity(0.25)
@@ -1401,7 +1385,11 @@ class _WbdRemediationLadder extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           for (int i = 0; i < steps.length; i++)
-            _WbdLadderRow(index: i, step: steps[i], isActive: i == activeIndex),
+            _WbdLadderRow(
+              index: i,
+              step: steps[i],
+              isActive: i == activeIndex,
+            ),
         ],
       ),
     );
@@ -1478,9 +1466,7 @@ class _WbdLadderRow extends StatelessWidget {
                     if (isActive)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
+                            horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
                           color: _wbdAmberDeep,
                           borderRadius: BorderRadius.circular(20),
@@ -1568,7 +1554,10 @@ class _WbdMythBusters extends StatelessWidget {
           'Six lines that get said in code reviews — and what is actually '
           'true.',
       child: Column(
-        children: <Widget>[for (final _Myth m in myths) _WbdMythCard(myth: m)],
+        children: <Widget>[
+          for (final _Myth m in myths)
+            _WbdMythCard(myth: m),
+        ],
       ),
     );
   }
@@ -1674,7 +1663,10 @@ class _WbdFlowchart extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    _WbdFlowEdgeLabel(label: 'true', active: liveIsSafari),
+                    _WbdFlowEdgeLabel(
+                      label: 'true',
+                      active: liveIsSafari,
+                    ),
                     _WbdFlowConnector(active: liveIsSafari),
                     _WbdFlowNode(
                       label: 'WebKit branch',
@@ -1689,7 +1681,10 @@ class _WbdFlowchart extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    _WbdFlowEdgeLabel(label: 'false', active: !liveIsSafari),
+                    _WbdFlowEdgeLabel(
+                      label: 'false',
+                      active: !liveIsSafari,
+                    ),
                     _WbdFlowConnector(active: !liveIsSafari),
                     _WbdFlowNode(
                       label: 'Standards branch',
@@ -1842,47 +1837,29 @@ class _WbdMetricsRail extends StatelessWidget {
     final List<_Metric> metrics = liveIsSafari
         ? <_Metric>[
             const _Metric(
-              label: 'WebKit guard hits',
-              value: '1',
-              accent: _wbdWebkit,
-            ),
+                label: 'WebKit guard hits', value: '1', accent: _wbdWebkit),
             const _Metric(
-              label: 'JPEG fallbacks',
-              value: '1',
-              accent: _wbdAmberDeep,
-            ),
+                label: 'JPEG fallbacks', value: '1', accent: _wbdAmberDeep),
             const _Metric(
-              label: 'Caret workaround active',
-              value: 'yes',
-              accent: _wbdTeal,
-            ),
+                label: 'Caret workaround active',
+                value: 'yes',
+                accent: _wbdTeal),
             const _Metric(
-              label: 'Non-Safari path',
-              value: 'idle',
-              accent: _wbdRule,
-            ),
+                label: 'Non-Safari path', value: 'idle', accent: _wbdRule),
           ]
         : <_Metric>[
             const _Metric(
-              label: 'WebKit guard hits',
-              value: '0',
-              accent: _wbdRule,
-            ),
+                label: 'WebKit guard hits', value: '0', accent: _wbdRule),
             const _Metric(
-              label: 'JPEG fallbacks',
-              value: '0',
-              accent: _wbdRule,
-            ),
+                label: 'JPEG fallbacks', value: '0', accent: _wbdRule),
             const _Metric(
-              label: 'Caret workaround active',
-              value: 'no',
-              accent: _wbdRule,
-            ),
+                label: 'Caret workaround active',
+                value: 'no',
+                accent: _wbdRule),
             const _Metric(
-              label: 'Standards path',
-              value: 'active',
-              accent: _wbdCerulean,
-            ),
+                label: 'Standards path',
+                value: 'active',
+                accent: _wbdCerulean),
           ];
     return _WbdSection(
       title: 'Metrics Rail',
@@ -1969,13 +1946,13 @@ class _WbdQaChecklist extends StatelessWidget {
       _QaItem(
         label: 'Branches are not constant-folded away',
         passed: true,
-        detail: 'The identity helper forces the bool through a function call.',
+        detail:
+            'The identity helper forces the bool through a function call.',
       ),
       _QaItem(
         label: 'UI changes when isSafari flips',
         passed: true,
-        detail:
-            'Title bar, branch panel, capability matrix, scenario '
+        detail: 'Title bar, branch panel, capability matrix, scenario '
             'grid, and metrics rail all key off the value.',
       ),
       _QaItem(
@@ -1995,14 +1972,18 @@ class _WbdQaChecklist extends StatelessWidget {
       _QaItem(
         label: 'No hard-coded `false` for isSafari anywhere',
         passed: true,
-        detail: 'The audit-flagged literal is replaced by a live getter call.',
+        detail:
+            'The audit-flagged literal is replaced by a live getter call.',
       ),
     ];
     return _WbdSection(
       title: 'QA Checklist',
-      subtitle: 'The audit criteria, each evaluated against this build.',
+      subtitle:
+          'The audit criteria, each evaluated against this build.',
       child: Column(
-        children: <Widget>[for (final _QaItem it in items) _WbdQaRow(item: it)],
+        children: <Widget>[
+          for (final _QaItem it in items) _WbdQaRow(item: it),
+        ],
       ),
     );
   }
@@ -2279,7 +2260,9 @@ class _WbdAppendixGlossary extends StatelessWidget {
       title: 'Appendix · Glossary',
       subtitle: 'Vocabulary used in the rest of the demo.',
       child: Column(
-        children: <Widget>[for (final _Term t in terms) _WbdTermRow(term: t)],
+        children: <Widget>[
+          for (final _Term t in terms) _WbdTermRow(term: t),
+        ],
       ),
     );
   }

@@ -284,9 +284,11 @@ String _dumpNode(_Node n, [String prefix = '', String childPrefix = '']) {
     final isLast = i == n.children.length - 1;
     final branch = isLast ? ' └─ ' : ' ├─ ';
     final descent = isLast ? '    ' : ' │  ';
-    lines.add(
-      _dumpNode(n.children[i], childPrefix + branch, childPrefix + descent),
-    );
+    lines.add(_dumpNode(
+      n.children[i],
+      childPrefix + branch,
+      childPrefix + descent,
+    ));
   }
   return lines.join('\n');
 }
@@ -489,7 +491,13 @@ dynamic build(BuildContext context) {
                 'This matters the moment your value lands in a Set or a Map.',
           ),
           const SizedBox(height: 12),
-          _EqualityRecipe(p1: p1, p2: p2, p3: p3, b1: b1, b2: b2),
+          _EqualityRecipe(
+            p1: p1,
+            p2: p2,
+            p3: p3,
+            b1: b1,
+            b2: b2,
+          ),
           const SizedBox(height: 32),
 
           // ---- §6 Type-check recipe ------------------------------------------
@@ -742,7 +750,10 @@ class _HeroCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('Dart Class Metadata', style: _title),
+                    Text(
+                      'Dart Class Metadata',
+                      style: _title,
+                    ),
                     const SizedBox(height: 4),
                     Text(
                       'Runtime inspection without dart:mirrors',
@@ -931,8 +942,8 @@ class _AnatomyGrid extends StatelessWidget {
         final int columns = constraints.maxWidth >= 900
             ? 4
             : constraints.maxWidth >= 640
-            ? 2
-            : 1;
+                ? 2
+                : 1;
         final double spacing = 12;
         final double itemWidth =
             (constraints.maxWidth - spacing * (columns - 1)) / columns;
@@ -1072,20 +1083,20 @@ class _RuntimeTypeTable extends StatelessWidget {
             ),
             child: Row(
               children: const <Widget>[
-                Expanded(flex: 3, child: Text('Instance', style: _label)),
-                Expanded(flex: 3, child: Text('runtimeType', style: _label)),
+                Expanded(
+                  flex: 3,
+                  child: Text('Instance', style: _label),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text('runtimeType', style: _label),
+                ),
                 Expanded(
                   flex: 6,
-                  child: Text(
-                    'Inheritance chain (root → Object)',
-                    style: _label,
-                  ),
+                  child: Text('Inheritance chain (root → Object)', style: _label),
                 ),
                 SizedBox(width: 90, child: Text('is Widget', style: _label)),
-                SizedBox(
-                  width: 110,
-                  child: Text('is Stateless', style: _label),
-                ),
+                SizedBox(width: 110, child: Text('is Stateless', style: _label)),
               ],
             ),
           ),
@@ -1166,8 +1177,14 @@ class _RuntimeTypeRowView extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 90, child: _BoolDot(value: row.isWidget)),
-          SizedBox(width: 110, child: _BoolDot(value: row.isStateless)),
+          SizedBox(
+            width: 90,
+            child: _BoolDot(value: row.isWidget),
+          ),
+          SizedBox(
+            width: 110,
+            child: _BoolDot(value: row.isStateless),
+          ),
         ],
       ),
     );
@@ -1178,11 +1195,7 @@ class _ChainPill extends StatelessWidget {
   final String label;
   final Color color;
   final bool bold;
-  const _ChainPill({
-    required this.label,
-    required this.color,
-    this.bold = false,
-  });
+  const _ChainPill({required this.label, required this.color, this.bold = false});
 
   @override
   Widget build(BuildContext context) {
@@ -1191,7 +1204,9 @@ class _ChainPill extends StatelessWidget {
       decoration: BoxDecoration(
         color: bold ? color.withOpacity(0.18) : _paperAlt,
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: bold ? color.withOpacity(0.45) : _line),
+        border: Border.all(
+          color: bold ? color.withOpacity(0.45) : _line,
+        ),
       ),
       child: Text(
         label,
@@ -1215,7 +1230,11 @@ class _BoolDot extends StatelessWidget {
     final Color c = value ? _mint : _rose;
     return Row(
       children: <Widget>[
-        Icon(value ? Icons.check_circle : Icons.cancel, color: c, size: 14),
+        Icon(
+          value ? Icons.check_circle : Icons.cancel,
+          color: c,
+          size: 14,
+        ),
         const SizedBox(width: 6),
         Text(
           value ? 'true' : 'false',
@@ -1299,10 +1318,8 @@ class _InheritanceDiagram extends StatelessWidget {
           const SizedBox(height: 20),
           Container(height: 1, color: _line),
           const SizedBox(height: 20),
-          const Text(
-            'Sibling concrete shapes — same base, different mixins:',
-            style: _bodyStrong,
-          ),
+          const Text('Sibling concrete shapes — same base, different mixins:',
+              style: _bodyStrong),
           const SizedBox(height: 12),
           Wrap(
             spacing: 12,
@@ -1615,8 +1632,7 @@ class _Point {
           _Callout(
             tone: _CalloutTone.tip,
             title: 'Why == must be symmetric',
-            body:
-                'If a == b is true but b == a is false, your value will '
+            body: 'If a == b is true but b == a is false, your value will '
                 'silently misbehave in Set, Map, and listEquals. The first '
                 'line of operator == should always be a type guard.',
           ),
@@ -1654,20 +1670,20 @@ class _ResultGrid extends StatelessWidget {
           for (int i = 0; i < rows.length; i++) ...<Widget>[
             if (i > 0) Container(height: 1, color: _line),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     flex: 7,
                     child: Text(rows[i].expression, style: _monoInk),
                   ),
-                  const Icon(Icons.arrow_right_alt, size: 14, color: _inkMute),
+                  const Icon(Icons.arrow_right_alt,
+                      size: 14, color: _inkMute),
                   const SizedBox(width: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
+                        horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: (rows[i].ok ? _mint : _rose).withOpacity(0.14),
                       borderRadius: BorderRadius.circular(6),
@@ -1719,7 +1735,11 @@ class _Callout extends StatelessWidget {
   final _CalloutTone tone;
   final String title;
   final String body;
-  const _Callout({required this.tone, required this.title, required this.body});
+  const _Callout({
+    required this.tone,
+    required this.title,
+    required this.body,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1827,8 +1847,7 @@ final _Circle c = shapes.first as _Circle;''',
           _Callout(
             tone: _CalloutTone.warn,
             title: 'as throws — prefer pattern matching',
-            body:
-                'Use `if (x case Circle c)` (Dart 3 pattern) or `if (x is '
+            body: 'Use `if (x case Circle c)` (Dart 3 pattern) or `if (x is '
                 'Circle)` rather than `x as Circle`. A failed cast is a '
                 'TypeError, not a checked exception.',
           ),
@@ -1873,17 +1892,16 @@ class _TypeCheckEntryView extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.account_tree_outlined, color: _accent, size: 16),
+              const Icon(Icons.account_tree_outlined,
+                  color: _accent, size: 16),
               const SizedBox(width: 6),
-              Text(
-                entry.subject,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                  color: _ink,
-                ),
-              ),
+              Text(entry.subject,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                    color: _ink,
+                  )),
               const SizedBox(width: 8),
               Text(
                 'runtimeType=${entry.subjectRuntimeType}',
@@ -1899,9 +1917,7 @@ class _TypeCheckEntryView extends StatelessWidget {
               for (final _TypeCheckBit b in entry.checks)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
+                      horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: (b.value ? _mint : _rose).withOpacity(0.12),
                     borderRadius: BorderRadius.circular(6),
@@ -2006,8 +2022,7 @@ a == c;          // true  — structural equality''',
           _Callout(
             tone: _CalloutTone.info,
             title: 'When to reach for identical()',
-            body:
-                'In hot paths (Widget.canUpdate, Listenable equality, '
+            body: 'In hot paths (Widget.canUpdate, Listenable equality, '
                 'memoisation): identical() is O(1) and side-effect-free. '
                 'Use == when you actually care about value equality.',
           ),
@@ -2078,8 +2093,7 @@ class _Node with DiagnosticableTreeMixin {
           _Callout(
             tone: _CalloutTone.tip,
             title: 'The inspector calls this for you',
-            body:
-                'When a widget is selected in DevTools, the inspector calls '
+            body: 'When a widget is selected in DevTools, the inspector calls '
                 'toDiagnosticsNode() to build the property panel. Mixing in '
                 'DiagnosticableTreeMixin is the cheapest way to make your '
                 'domain objects first-class citizens there.',
@@ -2109,35 +2123,33 @@ class _ReflectionCaveat extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('In a Flutter app you cannot:', style: _bodyStrong),
-          const SizedBox(height: 8),
-          const _BulletList(
-            items: <String>[
-              'Enumerate the fields of a class.',
-              'Look up a method by name and invoke it.',
-              'Read annotations at runtime.',
-              'Discover subclasses of a base class.',
-              'Construct an instance from a Type token.',
-            ],
+          const Text(
+            'In a Flutter app you cannot:',
+            style: _bodyStrong,
           ),
+          const SizedBox(height: 8),
+          const _BulletList(items: <String>[
+            'Enumerate the fields of a class.',
+            'Look up a method by name and invoke it.',
+            'Read annotations at runtime.',
+            'Discover subclasses of a base class.',
+            'Construct an instance from a Type token.',
+          ]),
           const SizedBox(height: 12),
           const Text('In a Flutter app you *can*:', style: _bodyStrong),
           const SizedBox(height: 8),
-          const _BulletList(
-            items: <String>[
-              'Use `is` and `as` against any type the compiler can see.',
-              'Compare runtimeType for equality (with caveats — see §12).',
-              'Override == / hashCode / toString to make values inspectable.',
-              'Use DiagnosticableTreeMixin to expose properties to DevTools.',
-              'Generate reflective metadata at build time via build_runner.',
-            ],
-          ),
+          const _BulletList(items: <String>[
+            'Use `is` and `as` against any type the compiler can see.',
+            'Compare runtimeType for equality (with caveats — see §12).',
+            'Override == / hashCode / toString to make values inspectable.',
+            'Use DiagnosticableTreeMixin to expose properties to DevTools.',
+            'Generate reflective metadata at build time via build_runner.',
+          ]),
           const SizedBox(height: 12),
           _Callout(
             tone: _CalloutTone.warn,
             title: 'Why Flutter omits mirrors',
-            body:
-                'dart:mirrors prevents tree-shaking — the compiler has to '
+            body: 'dart:mirrors prevents tree-shaking — the compiler has to '
                 'assume any class could be queried, so it must keep every '
                 'method symbol. That alone would multiply binary size. AOT '
                 'Dart on iOS / web / desktop simply does not ship mirrors.',
@@ -2191,39 +2203,54 @@ class _MirrorsComparison extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<List<String>> rows = <List<String>>[
-      <String>[
-        'Capability',
-        'dart:mirrors',
-        'is / as / runtimeType',
-        'codegen',
-      ],
+      <String>['Capability', 'dart:mirrors', 'is / as / runtimeType', 'codegen'],
       <String>[
         'List fields of a class',
         'yes',
         'no',
-        'yes (with @JsonSerializable etc.)',
+        'yes (with @JsonSerializable etc.)'
       ],
       <String>[
         'Invoke method by name',
         'yes',
         'no',
-        'yes (generated dispatch table)',
+        'yes (generated dispatch table)'
       ],
-      <String>['Test if x is a T', 'yes', 'yes (preferred)', 'yes'],
-      <String>['Read annotations', 'yes', 'no', 'yes (build-time)'],
+      <String>[
+        'Test if x is a T',
+        'yes',
+        'yes (preferred)',
+        'yes'
+      ],
+      <String>[
+        'Read annotations',
+        'yes',
+        'no',
+        'yes (build-time)'
+      ],
       <String>[
         'Discover all subclasses',
         'yes',
         'no',
-        'yes (sealed classes for closed sets)',
+        'yes (sealed classes for closed sets)'
       ],
-      <String>['AOT-compatible', 'no', 'yes', 'yes'],
-      <String>['Tree-shakeable', 'no', 'yes', 'yes'],
+      <String>[
+        'AOT-compatible',
+        'no',
+        'yes',
+        'yes'
+      ],
+      <String>[
+        'Tree-shakeable',
+        'no',
+        'yes',
+        'yes'
+      ],
       <String>[
         'Binary size cost',
         'high',
         'zero',
-        'predictable (only what is generated)',
+        'predictable (only what is generated)'
       ],
     ];
     return Container(
@@ -2242,12 +2269,12 @@ class _MirrorsComparison extends StatelessWidget {
                 borderRadius: i == 0
                     ? const BorderRadius.vertical(top: Radius.circular(14))
                     : (i == rows.length - 1
-                          ? const BorderRadius.vertical(
-                              bottom: Radius.circular(14),
-                            )
-                          : null),
+                        ? const BorderRadius.vertical(
+                            bottom: Radius.circular(14))
+                        : null),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 14, vertical: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -2313,7 +2340,9 @@ class _MirrorsCell extends StatelessWidget {
         fontSize: 12.5,
         color: text == 'no' || text == 'high'
             ? _rose
-            : (text == 'yes' || text == 'zero' ? _mint : _inkSoft),
+            : (text == 'yes' || text == 'zero'
+                ? _mint
+                : _inkSoft),
         fontWeight: FontWeight.w600,
         fontFamily: 'monospace',
       ),
@@ -2371,9 +2400,7 @@ String describe(_Event e) => switch (e) {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
+                        horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: _accent.withOpacity(0.12),
                       borderRadius: BorderRadius.circular(6),
@@ -2390,7 +2417,8 @@ String describe(_Event e) => switch (e) {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  const Icon(Icons.arrow_right_alt, size: 14, color: _inkMute),
+                  const Icon(Icons.arrow_right_alt,
+                      size: 14, color: _inkMute),
                   const SizedBox(width: 8),
                   Expanded(child: Text(renders[i], style: _monoInk)),
                 ],
@@ -2400,8 +2428,7 @@ String describe(_Event e) => switch (e) {
           _Callout(
             tone: _CalloutTone.tip,
             title: 'Exhaustiveness wins',
-            body:
-                'Because _Event is sealed, the analyzer flags the switch '
+            body: 'Because _Event is sealed, the analyzer flags the switch '
                 'if you add a new subclass and forget to handle it. This is '
                 'the closest Dart gets to algebraic data types.',
           ),
@@ -2425,8 +2452,7 @@ class _PitfallsList extends StatelessWidget {
         _Pitfall(
           tag: 'P1',
           title: 'Comparing runtimeType across libraries',
-          body:
-              'Two classes with the same name in different libraries have '
+          body: 'Two classes with the same name in different libraries have '
               'different Type tokens. Never use runtimeType.toString() as a '
               'wire-format discriminator — refactor and they break silently.',
         ),
@@ -2434,8 +2460,7 @@ class _PitfallsList extends StatelessWidget {
         _Pitfall(
           tag: 'P2',
           title: 'Generic type erasure surprises',
-          body:
-              'List<int>() and List<num>() have different runtimeTypes — '
+          body: 'List<int>() and List<num>() have different runtimeTypes — '
               'but `<int>[] is List<num>` is true because Dart generics are '
               'reified covariantly. Read the spec before relying on this.',
         ),
@@ -2443,8 +2468,7 @@ class _PitfallsList extends StatelessWidget {
         _Pitfall(
           tag: 'P3',
           title: 'Forgetting the type guard in operator ==',
-          body:
-              'If you write `return x == other.x` without first checking '
+          body: 'If you write `return x == other.x` without first checking '
               '`other is _Point`, you crash on `_Point(1,2) == "hi"` instead '
               'of returning false. Always guard the type first.',
         ),
@@ -2452,8 +2476,7 @@ class _PitfallsList extends StatelessWidget {
         _Pitfall(
           tag: 'P4',
           title: 'Mutable hashCode',
-          body:
-              'If a field used in hashCode changes after the object is put '
+          body: 'If a field used in hashCode changes after the object is put '
               'in a Set, the Set silently loses it. Prefer final fields, or '
               'compute hashCode from immutable identity.',
         ),
@@ -2461,8 +2484,7 @@ class _PitfallsList extends StatelessWidget {
         _Pitfall(
           tag: 'P5',
           title: 'Using Type as a map key for "class registry"',
-          body:
-              'Type is comparable and hashable, but Type tokens for generic '
+          body: 'Type is comparable and hashable, but Type tokens for generic '
               'classes differ for each type argument. Prefer codegen or '
               'sealed classes for closed type families.',
         ),
@@ -2470,8 +2492,7 @@ class _PitfallsList extends StatelessWidget {
         _Pitfall(
           tag: 'P6',
           title: 'Treating identical() as semantic equality',
-          body:
-              'For numbers, strings and const objects, identical() may '
+          body: 'For numbers, strings and const objects, identical() may '
               'unexpectedly be true *or* false depending on canonicalisation '
               'rules. Use it only as an optimisation, never as truth.',
         ),
@@ -2543,66 +2564,30 @@ class _Glossary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<_GlossEntry> entries = <_GlossEntry>[
-      _GlossEntry(
-        'Class',
-        'Unit of code declaring fields, methods, '
-            'constructors, and inherited or mixed-in behaviour.',
-      ),
-      _GlossEntry(
-        'Instance',
-        'A heap-allocated value whose runtime '
-            'representation is determined by a class.',
-      ),
-      _GlossEntry(
-        'runtimeType',
-        'A Type token that names the concrete class '
-            'of an instance. Equal to the class declaration token.',
-      ),
-      _GlossEntry(
-        'Type',
-        'Reified handle to a type. Has equality and '
-            'hashCode but no introspective surface.',
-      ),
-      _GlossEntry(
-        'Mixin',
-        'A class fragment combined into another class '
-            'via "with". Cannot be instantiated directly.',
-      ),
-      _GlossEntry(
-        'Interface',
-        'Any class implicitly defines an interface; '
-            'use "implements" to commit to satisfying it without inheriting.',
-      ),
-      _GlossEntry(
-        'Sealed class',
-        'A class whose subclasses must live in the '
-            'same library. Enables exhaustive pattern matching.',
-      ),
-      _GlossEntry(
-        'Linearization',
-        'The compiler-imposed order of superclasses '
-            'and mixins used to resolve method calls.',
-      ),
-      _GlossEntry(
-        'Reified generics',
-        'Dart preserves type arguments at '
-            'runtime, unlike Java\'s erased generics.',
-      ),
-      _GlossEntry(
-        'Tree-shaking',
-        'Compiler optimisation that drops unused '
-            'code; defeated by reflective APIs like dart:mirrors.',
-      ),
-      _GlossEntry(
-        'Canonicalisation',
-        'Process by which the compiler shares '
-            'one heap object for all const expressions that compare equal.',
-      ),
-      _GlossEntry(
-        'Diagnosticable',
-        'Foundation type whose toDiagnosticsNode() '
-            'powers the Flutter inspector property panel.',
-      ),
+      _GlossEntry('Class', 'Unit of code declaring fields, methods, '
+          'constructors, and inherited or mixed-in behaviour.'),
+      _GlossEntry('Instance', 'A heap-allocated value whose runtime '
+          'representation is determined by a class.'),
+      _GlossEntry('runtimeType', 'A Type token that names the concrete class '
+          'of an instance. Equal to the class declaration token.'),
+      _GlossEntry('Type', 'Reified handle to a type. Has equality and '
+          'hashCode but no introspective surface.'),
+      _GlossEntry('Mixin', 'A class fragment combined into another class '
+          'via "with". Cannot be instantiated directly.'),
+      _GlossEntry('Interface', 'Any class implicitly defines an interface; '
+          'use "implements" to commit to satisfying it without inheriting.'),
+      _GlossEntry('Sealed class', 'A class whose subclasses must live in the '
+          'same library. Enables exhaustive pattern matching.'),
+      _GlossEntry('Linearization', 'The compiler-imposed order of superclasses '
+          'and mixins used to resolve method calls.'),
+      _GlossEntry('Reified generics', 'Dart preserves type arguments at '
+          'runtime, unlike Java\'s erased generics.'),
+      _GlossEntry('Tree-shaking', 'Compiler optimisation that drops unused '
+          'code; defeated by reflective APIs like dart:mirrors.'),
+      _GlossEntry('Canonicalisation', 'Process by which the compiler shares '
+          'one heap object for all const expressions that compare equal.'),
+      _GlossEntry('Diagnosticable', 'Foundation type whose toDiagnosticsNode() '
+          'powers the Flutter inspector property panel.'),
     ];
     return Container(
       decoration: BoxDecoration(
@@ -2615,7 +2600,8 @@ class _Glossary extends StatelessWidget {
           for (int i = 0; i < entries.length; i++) ...<Widget>[
             if (i > 0) Container(height: 1, color: _line),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -2660,7 +2646,10 @@ class _Recap extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: <Color>[Color(0xFFEEF2FF), Color(0xFFFAF5FF)],
+          colors: <Color>[
+            Color(0xFFEEF2FF),
+            Color(0xFFFAF5FF),
+          ],
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: _line),
@@ -2678,11 +2667,8 @@ class _Recap extends StatelessWidget {
                   color: _accent,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(
-                  Icons.bookmark_outline,
-                  color: Colors.white,
-                  size: 20,
-                ),
+                child: const Icon(Icons.bookmark_outline,
+                    color: Colors.white, size: 20),
               ),
               const SizedBox(width: 12),
               const Text('Recap', style: _section),

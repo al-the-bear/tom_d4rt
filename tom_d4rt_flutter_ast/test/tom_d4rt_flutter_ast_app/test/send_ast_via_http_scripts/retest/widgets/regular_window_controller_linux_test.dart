@@ -53,10 +53,8 @@ class _LinuxControllerDemoState extends State<_LinuxControllerDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text(
-          'RegularWindowControllerLinux',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
-        ),
+        title: Text('RegularWindowControllerLinux',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -74,7 +72,11 @@ class _LinuxControllerDemoState extends State<_LinuxControllerDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [_TheoryTab(), _GtkExplorerTab(), _ComparisonTab()],
+        children: [
+          _TheoryTab(),
+          _GtkExplorerTab(),
+          _ComparisonTab(),
+        ],
       ),
     );
   }
@@ -128,30 +130,23 @@ class _TheoryTab extends StatelessWidget {
                   color: _kLinuxColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
-                  Icons.desktop_windows,
-                  color: _kLinuxColor,
-                  size: 28,
-                ),
+                child: Icon(Icons.desktop_windows,
+                    color: _kLinuxColor, size: 28),
               ),
               SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'RegularWindowControllerLinux',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: _kDarkText,
-                      ),
-                    ),
+                    Text('RegularWindowControllerLinux',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: _kDarkText)),
                     SizedBox(height: 3),
-                    Text(
-                      'Linux-specific window controller using GTK',
-                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                    ),
+                    Text('Linux-specific window controller using GTK',
+                        style: TextStyle(
+                            fontSize: 12, color: Colors.grey[600])),
                   ],
                 ),
               ),
@@ -171,7 +166,8 @@ class _TheoryTab extends StatelessWidget {
               'embedding layer. It translates Flutter\'s windowing API into '
               'GTK function calls for window management, sizing, and state '
               'transitions.',
-              style: TextStyle(fontSize: 12.5, color: _kDarkText, height: 1.5),
+              style: TextStyle(
+                  fontSize: 12.5, color: _kDarkText, height: 1.5),
             ),
           ),
           SizedBox(height: 12),
@@ -200,39 +196,20 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Class Hierarchy',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Class Hierarchy',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
-          _hierarchyNode(
-            'ChangeNotifier',
-            0,
-            Colors.grey[600]!,
-            'Foundation mixin',
-          ),
-          _hierarchyNode(
-            'BaseWindowController',
-            1,
-            Color(0xFF5D4037),
-            'Window lifecycle base',
-          ),
-          _hierarchyNode(
-            'RegularWindowController',
-            2,
-            _kGtkColor,
-            'Abstract regular window',
-          ),
-          _hierarchyNode(
-            'RegularWindowControllerLinux',
-            3,
-            _kLinuxColor,
-            'GTK implementation',
-          ),
+          _hierarchyNode('ChangeNotifier', 0, Colors.grey[600]!,
+              'Foundation mixin'),
+          _hierarchyNode('BaseWindowController', 1, Color(0xFF5D4037),
+              'Window lifecycle base'),
+          _hierarchyNode('RegularWindowController', 2, _kGtkColor,
+              'Abstract regular window'),
+          _hierarchyNode('RegularWindowControllerLinux', 3, _kLinuxColor,
+              'GTK implementation'),
           SizedBox(height: 12),
           Container(
             padding: EdgeInsets.all(10),
@@ -244,10 +221,7 @@ class _TheoryTab extends StatelessWidget {
               'The controller is a ChangeNotifier, so it can notify listeners '
               'when window state changes (activated, maximized, etc.).',
               style: TextStyle(
-                fontSize: 11.5,
-                color: Colors.grey[700],
-                height: 1.4,
-              ),
+                  fontSize: 11.5, color: Colors.grey[700], height: 1.4),
             ),
           ),
         ],
@@ -269,17 +243,15 @@ class _TheoryTab extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8),
-          Text(
-            name,
-            style: TextStyle(
-              fontSize: 11.5,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'monospace',
-              color: color,
-            ),
-          ),
+          Text(name,
+              style: TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'monospace',
+                  color: color)),
           SizedBox(width: 8),
-          Text(desc, style: TextStyle(fontSize: 10.5, color: Colors.grey[500])),
+          Text(desc,
+              style: TextStyle(fontSize: 10.5, color: Colors.grey[500])),
         ],
       ),
     );
@@ -290,31 +262,29 @@ class _TheoryTab extends StatelessWidget {
       {
         'name': 'owner',
         'type': 'WindowingOwnerLinux',
-        'desc':
-            'The Linux windowing owner that manages '
-            'this controller\'s lifecycle',
+        'desc': 'The Linux windowing owner that manages '
+            'this controller\'s lifecycle'
       },
       {
         'name': 'delegate',
         'type': 'RegularWindowControllerDelegate?',
-        'desc':
-            'Optional delegate for lifecycle callbacks '
-            '(close request, destroyed)',
+        'desc': 'Optional delegate for lifecycle callbacks '
+            '(close request, destroyed)'
       },
       {
         'name': 'preferredSize',
         'type': 'Size?',
-        'desc': 'Initial content size for the GTK window',
+        'desc': 'Initial content size for the GTK window'
       },
       {
         'name': 'preferredConstraints',
         'type': 'BoxConstraints?',
-        'desc': 'Min/max size constraints for the window',
+        'desc': 'Min/max size constraints for the window'
       },
       {
         'name': 'title',
         'type': 'String?',
-        'desc': 'Initial window title shown in the title bar and taskbar',
+        'desc': 'Initial window title shown in the title bar and taskbar'
       },
     ];
 
@@ -328,67 +298,54 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Constructor Parameters',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Constructor Parameters',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
-          ...params.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 96,
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: _kPropertyColor.withOpacity(0.08),
-                      borderRadius: BorderRadius.circular(4),
+          ...params.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 96,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: _kPropertyColor.withOpacity(0.08),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(p['name']!,
+                          style: TextStyle(
+                              fontSize: 10.5,
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.w600,
+                              color: _kPropertyColor)),
                     ),
-                    child: Text(
-                      p['name']!,
-                      style: TextStyle(
-                        fontSize: 10.5,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w600,
-                        color: _kPropertyColor,
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(p['type']!,
+                              style: TextStyle(
+                                  fontSize: 10.5,
+                                  fontFamily: 'monospace',
+                                  color: _kMethodColor)),
+                          SizedBox(height: 2),
+                          Text(p['desc']!,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[600],
+                                  height: 1.3)),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          p['type']!,
-                          style: TextStyle(
-                            fontSize: 10.5,
-                            fontFamily: 'monospace',
-                            color: _kMethodColor,
-                          ),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          p['desc']!,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey[600],
-                            height: 1.3,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -450,75 +407,58 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Properties',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Properties',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 4),
-          Text(
-            'Reactive — changes trigger listener notifications',
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+          Text('Reactive — changes trigger listener notifications',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           SizedBox(height: 12),
-          ...props.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Row(
-                children: [
-                  Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: (p['color'] as Color).withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(6),
+          ...props.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: (p['color'] as Color).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Icon(p['icon'] as IconData,
+                          size: 15, color: p['color'] as Color),
                     ),
-                    child: Icon(
-                      p['icon'] as IconData,
-                      size: 15,
-                      color: p['color'] as Color,
+                    SizedBox(width: 10),
+                    SizedBox(
+                      width: 90,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(p['name'] as String,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontFamily: 'monospace',
+                                  fontWeight: FontWeight.w600,
+                                  color: p['color'] as Color)),
+                          Text(p['type'] as String,
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: Colors.grey[500])),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  SizedBox(
-                    width: 90,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          p['name'] as String,
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(p['desc'] as String,
                           style: TextStyle(
-                            fontSize: 11,
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w600,
-                            color: p['color'] as Color,
-                          ),
-                        ),
-                        Text(
-                          p['type'] as String,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                      ],
+                              fontSize: 11, color: Colors.grey[600])),
                     ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      p['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -583,70 +523,54 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Methods → GTK Mapping',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Methods → GTK Mapping',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 4),
-          Text(
-            'Each Flutter method translates to a GTK function call',
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+          Text('Each Flutter method translates to a GTK function call',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           SizedBox(height: 12),
-          ...methods.map(
-            (m) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _kCodeBg,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 130,
-                      child: Text(
-                        m['name']!,
-                        style: TextStyle(
-                          fontSize: 10.5,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w600,
-                          color: _kMethodColor,
+          ...methods.map((m) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: _kCodeBg,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 130,
+                        child: Text(m['name']!,
+                            style: TextStyle(
+                                fontSize: 10.5,
+                                fontFamily: 'monospace',
+                                fontWeight: FontWeight.w600,
+                                color: _kMethodColor)),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(m['desc']!,
+                                style: TextStyle(
+                                    fontSize: 10.5,
+                                    color: Colors.grey[700])),
+                            Text(m['gtk']!,
+                                style: TextStyle(
+                                    fontSize: 9.5,
+                                    fontFamily: 'monospace',
+                                    color: _kGtkColor)),
+                          ],
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            m['desc']!,
-                            style: TextStyle(
-                              fontSize: 10.5,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          Text(
-                            m['gtk']!,
-                            style: TextStyle(
-                              fontSize: 9.5,
-                              fontFamily: 'monospace',
-                              color: _kGtkColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
         ],
       ),
     );
@@ -665,44 +589,33 @@ class _TheoryTab extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.integration_instructions, size: 20, color: _kGtkColor),
+              Icon(Icons.integration_instructions,
+                  size: 20, color: _kGtkColor),
               SizedBox(width: 8),
-              Text(
-                'GTK Integration Layer',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('GTK Integration Layer',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 12),
-          _gtkLayerRow('Flutter Widget Tree', 'Your app UI', Color(0xFF1565C0)),
+          _gtkLayerRow('Flutter Widget Tree', 'Your app UI',
+              Color(0xFF1565C0)),
           _gtkArrow(),
           _gtkLayerRow(
-            'RegularWindowControllerLinux',
-            'Dart-side controller',
-            _kLinuxColor,
-          ),
+              'RegularWindowControllerLinux',
+              'Dart-side controller',
+              _kLinuxColor),
           _gtkArrow(),
-          _gtkLayerRow(
-            'Flutter Engine (C)',
-            'Platform channel / FFI',
-            Color(0xFF5D4037),
-          ),
+          _gtkLayerRow('Flutter Engine (C)', 'Platform channel / FFI',
+              Color(0xFF5D4037)),
           _gtkArrow(),
-          _gtkLayerRow(
-            'FlFlutterView (GTK3)',
-            'GtkWindow + GL surface',
-            _kGtkColor,
-          ),
+          _gtkLayerRow('FlFlutterView (GTK3)', 'GtkWindow + GL surface',
+              _kGtkColor),
           _gtkArrow(),
-          _gtkLayerRow(
-            'X11 / Wayland',
-            'Linux display server',
-            Colors.grey[600]!,
-          ),
+          _gtkLayerRow('X11 / Wayland', 'Linux display server',
+              Colors.grey[600]!),
           SizedBox(height: 14),
           Container(
             padding: EdgeInsets.all(10),
@@ -712,7 +625,8 @@ class _TheoryTab extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.info_outline, size: 16, color: Color(0xFFE65100)),
+                Icon(Icons.info_outline,
+                    size: 16, color: Color(0xFFE65100)),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -721,10 +635,9 @@ class _TheoryTab extends StatelessWidget {
                     'its own GtkWindow with an embedded OpenGL surface '
                     'for Flutter rendering.',
                     style: TextStyle(
-                      fontSize: 11.5,
-                      color: _kDarkText,
-                      height: 1.4,
-                    ),
+                        fontSize: 11.5,
+                        color: _kDarkText,
+                        height: 1.4),
                   ),
                 ),
               ],
@@ -751,18 +664,14 @@ class _TheoryTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                note,
-                style: TextStyle(fontSize: 10.5, color: Colors.grey[500]),
-              ),
+              Text(name,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: color)),
+              Text(note,
+                  style: TextStyle(
+                      fontSize: 10.5, color: Colors.grey[500])),
             ],
           ),
         ),
@@ -786,10 +695,11 @@ Widget _infoBadge(String text, Color color) {
       border: Border.all(color: color.withOpacity(0.3)),
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: color)),
   );
 }
 
@@ -828,7 +738,9 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
         _isFullscreen = false;
       }
     });
-    _addLog(_isMaximized ? 'gtk_window_maximize()' : 'gtk_window_unmaximize()');
+    _addLog(_isMaximized
+        ? 'gtk_window_maximize()'
+        : 'gtk_window_unmaximize()');
   }
 
   void _toggleMinimize() {
@@ -839,7 +751,9 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
         _isFullscreen = false;
       }
     });
-    _addLog(_isMinimized ? 'gtk_window_iconify()' : 'gtk_window_deiconify()');
+    _addLog(_isMinimized
+        ? 'gtk_window_iconify()'
+        : 'gtk_window_deiconify()');
   }
 
   void _toggleFullscreen() {
@@ -850,9 +764,9 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
         _isMinimized = false;
       }
     });
-    _addLog(
-      _isFullscreen ? 'gtk_window_fullscreen()' : 'gtk_window_unfullscreen()',
-    );
+    _addLog(_isFullscreen
+        ? 'gtk_window_fullscreen()'
+        : 'gtk_window_unfullscreen()');
   }
 
   void _setSize(double w, double h) {
@@ -860,7 +774,8 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
       _windowWidth = w;
       _windowHeight = h;
     });
-    _addLog('gtk_window_set_default_size(${w.toInt()}, ${h.toInt()})');
+    _addLog(
+        'gtk_window_set_default_size(${w.toInt()}, ${h.toInt()})');
   }
 
   @override
@@ -898,14 +813,11 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Window Preview',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: _kDarkText,
-            ),
-          ),
+          Text('Window Preview',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText)),
           SizedBox(height: 12),
           Center(
             child: AnimatedContainer(
@@ -914,11 +826,13 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
               width: _isMaximized || _isFullscreen
                   ? MediaQuery.of(context).size.width - 64
                   : _isMinimized
-                  ? 120
-                  : _windowWidth.clamp(120.0, 350.0),
+                      ? 120
+                      : _windowWidth.clamp(120.0, 350.0),
               height: _isMinimized ? 32 : _windowHeight.clamp(80.0, 250.0),
               decoration: BoxDecoration(
-                color: _isActivated ? Color(0xFF37474F) : Color(0xFF78909C),
+                color: _isActivated
+                    ? Color(0xFF37474F)
+                    : Color(0xFF78909C),
                 borderRadius: BorderRadius.circular(6),
                 boxShadow: [
                   if (_isActivated && !_isMinimized)
@@ -940,8 +854,7 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
                           ? Color(0xFF263238)
                           : Color(0xFF546E7A),
                       borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(6),
-                      ),
+                          top: Radius.circular(6)),
                     ),
                     child: Row(
                       children: [
@@ -977,9 +890,8 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
                           child: Text(
                             _windowTitle,
                             style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white70,
-                            ),
+                                fontSize: 10,
+                                color: Colors.white70),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -994,37 +906,30 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
                         decoration: BoxDecoration(
                           color: Color(0xFFF5F5F5),
                           borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(4),
-                          ),
+                              bottom: Radius.circular(4)),
                         ),
                         child: Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.desktop_windows,
-                                size: 24,
-                                color: Colors.grey[400],
-                              ),
+                              Icon(Icons.desktop_windows,
+                                  size: 24,
+                                  color: Colors.grey[400]),
                               SizedBox(height: 4),
                               Text(
                                 '${_windowWidth.toInt()} × '
                                 '${_windowHeight.toInt()}',
                                 style: TextStyle(
-                                  fontSize: 10,
-                                  fontFamily: 'monospace',
-                                  color: Colors.grey[500],
-                                ),
+                                    fontSize: 10,
+                                    fontFamily: 'monospace',
+                                    color: Colors.grey[500]),
                               ),
                               if (_isFullscreen)
-                                Text(
-                                  'FULLSCREEN',
-                                  style: TextStyle(
-                                    fontSize: 9,
-                                    fontWeight: FontWeight.w700,
-                                    color: _kGtkColor,
-                                  ),
-                                ),
+                                Text('FULLSCREEN',
+                                    style: TextStyle(
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w700,
+                                        color: _kGtkColor)),
                             ],
                           ),
                         ),
@@ -1050,14 +955,11 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Window State Controls',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: _kDarkText,
-            ),
-          ),
+          Text('Window State Controls',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText)),
           SizedBox(height: 12),
           Row(
             children: [
@@ -1068,11 +970,9 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
                 Color(0xFF1565C0),
                 () {
                   setState(() => _isActivated = !_isActivated);
-                  _addLog(
-                    _isActivated
-                        ? 'gtk_window_present()'
-                        : 'window deactivated',
-                  );
+                  _addLog(_isActivated
+                      ? 'gtk_window_present()'
+                      : 'window deactivated');
                 },
               ),
               SizedBox(width: 6),
@@ -1106,13 +1006,8 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
     );
   }
 
-  Widget _stateButton(
-    String label,
-    IconData icon,
-    bool active,
-    Color color,
-    VoidCallback onTap,
-  ) {
+  Widget _stateButton(String label, IconData icon, bool active,
+      Color color, VoidCallback onTap) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -1127,16 +1022,15 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
           ),
           child: Column(
             children: [
-              Icon(icon, size: 18, color: active ? color : Colors.grey[400]),
+              Icon(icon,
+                  size: 18,
+                  color: active ? color : Colors.grey[400]),
               SizedBox(height: 2),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.w600,
-                  color: active ? color : Colors.grey[400],
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w600,
+                      color: active ? color : Colors.grey[400])),
             ],
           ),
         ),
@@ -1155,21 +1049,15 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Size Control',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: _kDarkText,
-            ),
-          ),
+          Text('Size Control',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText)),
           SizedBox(height: 12),
           Row(
             children: [
-              Text(
-                'Width:',
-                style: TextStyle(fontSize: 11, color: Colors.grey[700]),
-              ),
+              Text('Width:', style: TextStyle(fontSize: 11, color: Colors.grey[700])),
               Expanded(
                 child: Slider(
                   value: _windowWidth,
@@ -1181,23 +1069,17 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
               ),
               SizedBox(
                 width: 40,
-                child: Text(
-                  '${_windowWidth.toInt()}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: _kDarkText,
-                  ),
-                ),
+                child: Text('${_windowWidth.toInt()}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: _kDarkText)),
               ),
             ],
           ),
           Row(
             children: [
-              Text(
-                'Height:',
-                style: TextStyle(fontSize: 11, color: Colors.grey[700]),
-              ),
+              Text('Height:', style: TextStyle(fontSize: 11, color: Colors.grey[700])),
               Expanded(
                 child: Slider(
                   value: _windowHeight,
@@ -1209,14 +1091,11 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
               ),
               SizedBox(
                 width: 40,
-                child: Text(
-                  '${_windowHeight.toInt()}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: _kDarkText,
-                  ),
-                ),
+                child: Text('${_windowHeight.toInt()}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: _kDarkText)),
               ),
             ],
           ),
@@ -1243,14 +1122,11 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
           color: _kSurface,
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: _kPrimary,
-          ),
-        ),
+        child: Text(label,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: _kPrimary)),
       ),
     );
   }
@@ -1266,14 +1142,11 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Title Control',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: _kDarkText,
-            ),
-          ),
+          Text('Title Control',
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText)),
           SizedBox(height: 10),
           TextField(
             decoration: InputDecoration(
@@ -1317,22 +1190,17 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
             children: [
               Icon(Icons.search, size: 18, color: _kPropertyColor),
               SizedBox(width: 8),
-              Text(
-                'Property Inspector',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: _kDarkText,
-                ),
-              ),
+              Text('Property Inspector',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: _kDarkText)),
             ],
           ),
           SizedBox(height: 12),
           _propRow('title', '"$_windowTitle"'),
-          _propRow(
-            'contentSize',
-            'Size(${_windowWidth.toInt()}, ${_windowHeight.toInt()})',
-          ),
+          _propRow('contentSize',
+              'Size(${_windowWidth.toInt()}, ${_windowHeight.toInt()})'),
           _propRow('isActivated', '$_isActivated'),
           _propRow('isMaximized', '$_isMaximized'),
           _propRow('isMinimized', '$_isMinimized'),
@@ -1349,25 +1217,19 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
         children: [
           SizedBox(
             width: 100,
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w600,
-                color: _kPropertyColor,
-              ),
-            ),
+            child: Text(name,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w600,
+                    color: _kPropertyColor)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: _kDarkText,
-              ),
-            ),
+            child: Text(value,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: _kDarkText)),
           ),
         ],
       ),
@@ -1389,21 +1251,17 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
             children: [
               Icon(Icons.terminal, size: 18, color: _kGtkColor),
               SizedBox(width: 8),
-              Text(
-                'GTK Command Log',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: _kDarkText,
-                ),
-              ),
+              Text('GTK Command Log',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: _kDarkText)),
               Spacer(),
               GestureDetector(
                 onTap: () => setState(() => _commandLog.clear()),
-                child: Text(
-                  'Clear',
-                  style: TextStyle(fontSize: 10, color: Colors.grey[500]),
-                ),
+                child: Text('Clear',
+                    style: TextStyle(
+                        fontSize: 10, color: Colors.grey[500])),
               ),
             ],
           ),
@@ -1416,10 +1274,10 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
             ),
             child: _commandLog.isEmpty
                 ? Center(
-                    child: Text(
-                      'Use the controls above to generate GTK calls',
-                      style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-                    ),
+                    child: Text('Use the controls above to generate GTK calls',
+                        style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[600])),
                   )
                 : ListView.builder(
                     padding: EdgeInsets.all(8),
@@ -1428,22 +1286,18 @@ class _GtkExplorerTabState extends State<_GtkExplorerTab> {
                       padding: EdgeInsets.only(bottom: 2),
                       child: Row(
                         children: [
-                          Text(
-                            '\$ ',
-                            style: TextStyle(
-                              fontSize: 10.5,
-                              fontFamily: 'monospace',
-                              color: _kAccent,
-                            ),
-                          ),
+                          Text('\$ ',
+                              style: TextStyle(
+                                  fontSize: 10.5,
+                                  fontFamily: 'monospace',
+                                  color: _kAccent)),
                           Expanded(
                             child: Text(
                               _commandLog[i],
                               style: TextStyle(
-                                fontSize: 10.5,
-                                fontFamily: 'monospace',
-                                color: Color(0xFF4FC3F7),
-                              ),
+                                  fontSize: 10.5,
+                                  fontFamily: 'monospace',
+                                  color: Color(0xFF4FC3F7)),
                             ),
                           ),
                         ],
@@ -1497,37 +1351,22 @@ class _ComparisonTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Platform Controller Comparison',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Platform Controller Comparison',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
           Row(
             children: [
-              _platformCard(
-                'Linux',
-                Icons.desktop_windows,
-                _kLinuxColor,
-                'GTK3 / X11 / Wayland',
-              ),
+              _platformCard('Linux', Icons.desktop_windows,
+                  _kLinuxColor, 'GTK3 / X11 / Wayland'),
               SizedBox(width: 8),
-              _platformCard(
-                'macOS',
-                Icons.laptop_mac,
-                Color(0xFF616161),
-                'Cocoa / NSWindow',
-              ),
+              _platformCard('macOS', Icons.laptop_mac,
+                  Color(0xFF616161), 'Cocoa / NSWindow'),
               SizedBox(width: 8),
-              _platformCard(
-                'Windows',
-                Icons.desktop_windows,
-                Color(0xFF1565C0),
-                'Win32 / HWND',
-              ),
+              _platformCard('Windows', Icons.desktop_windows,
+                  Color(0xFF1565C0), 'Win32 / HWND'),
             ],
           ),
           SizedBox(height: 12),
@@ -1543,10 +1382,7 @@ class _ComparisonTab extends StatelessWidget {
               'differences are in the native backend and some '
               'platform-specific behaviors.',
               style: TextStyle(
-                fontSize: 11.5,
-                color: Colors.grey[700],
-                height: 1.4,
-              ),
+                  fontSize: 11.5, color: Colors.grey[700], height: 1.4),
             ),
           ),
         ],
@@ -1554,7 +1390,8 @@ class _ComparisonTab extends StatelessWidget {
     );
   }
 
-  Widget _platformCard(String name, IconData icon, Color color, String tech) {
+  Widget _platformCard(
+      String name, IconData icon, Color color, String tech) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(10),
@@ -1567,19 +1404,15 @@ class _ComparisonTab extends StatelessWidget {
           children: [
             Icon(icon, size: 24, color: color),
             SizedBox(height: 4),
-            Text(
-              name,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: color,
-              ),
-            ),
-            Text(
-              tech,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 9, color: Colors.grey[600]),
-            ),
+            Text(name,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: color)),
+            Text(tech,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 9, color: Colors.grey[600])),
           ],
         ),
       ),
@@ -1597,12 +1430,7 @@ class _ComparisonTab extends StatelessWidget {
       {'feature': 'Constraints', 'linux': true, 'macos': true, 'win32': true},
       {'feature': 'Close guard', 'linux': true, 'macos': true, 'win32': true},
       {'feature': 'Window style', 'linux': false, 'macos': true, 'win32': true},
-      {
-        'feature': 'Transparency',
-        'linux': false,
-        'macos': true,
-        'win32': false,
-      },
+      {'feature': 'Transparency', 'linux': false, 'macos': true, 'win32': false},
     ];
 
     return Container(
@@ -1615,14 +1443,11 @@ class _ComparisonTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Feature Parity Matrix',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Feature Parity Matrix',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
           // Header
           Row(
@@ -1634,25 +1459,22 @@ class _ComparisonTab extends StatelessWidget {
             ],
           ),
           Divider(height: 12),
-          ...features.map(
-            (f) => Padding(
-              padding: EdgeInsets.only(bottom: 4),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      f['feature'] as String,
-                      style: TextStyle(fontSize: 11, color: Colors.grey[700]),
+          ...features.map((f) => Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Text(f['feature'] as String,
+                          style: TextStyle(
+                              fontSize: 11, color: Colors.grey[700])),
                     ),
-                  ),
-                  _matrixCell(f['linux'] as bool),
-                  _matrixCell(f['macos'] as bool),
-                  _matrixCell(f['win32'] as bool),
-                ],
-              ),
-            ),
-          ),
+                    _matrixCell(f['linux'] as bool),
+                    _matrixCell(f['macos'] as bool),
+                    _matrixCell(f['win32'] as bool),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -1661,14 +1483,11 @@ class _ComparisonTab extends StatelessWidget {
   Widget _matrixHeader(String text, Color color) {
     return Expanded(
       child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            color: color,
-          ),
-        ),
+        child: Text(text,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: color)),
       ),
     );
   }
@@ -1729,54 +1548,46 @@ class _ComparisonTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Native API Mapping',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Native API Mapping',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 4),
-          Text(
-            'How each Flutter method maps to native calls',
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+          Text('How each Flutter method maps to native calls',
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
           SizedBox(height: 12),
-          ...mappings.map(
-            (m) => Container(
-              margin: EdgeInsets.only(bottom: 6),
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: _kCodeBg,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    m['method']!,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'monospace',
-                      color: _kMethodColor,
+          ...mappings.map((m) => Container(
+                margin: EdgeInsets.only(bottom: 6),
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _kCodeBg,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(m['method']!,
+                        style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'monospace',
+                            color: _kMethodColor)),
+                    SizedBox(height: 4),
+                    Row(
+                      children: [
+                        _nativeChip('Linux', m['linux']!, _kLinuxColor),
+                        SizedBox(width: 4),
+                        _nativeChip(
+                            'macOS', m['macos']!, Colors.grey[700]!),
+                        SizedBox(width: 4),
+                        _nativeChip(
+                            'Win32', m['win32']!, Color(0xFF1565C0)),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 4),
-                  Row(
-                    children: [
-                      _nativeChip('Linux', m['linux']!, _kLinuxColor),
-                      SizedBox(width: 4),
-                      _nativeChip('macOS', m['macos']!, Colors.grey[700]!),
-                      SizedBox(width: 4),
-                      _nativeChip('Win32', m['win32']!, Color(0xFF1565C0)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -1792,23 +1603,17 @@ class _ComparisonTab extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Text(
-              platform,
-              style: TextStyle(
-                fontSize: 8,
-                fontWeight: FontWeight.w700,
-                color: color,
-              ),
-            ),
-            Text(
-              api,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 8,
-                fontFamily: 'monospace',
-                color: Colors.grey[700],
-              ),
-            ),
+            Text(platform,
+                style: TextStyle(
+                    fontSize: 8,
+                    fontWeight: FontWeight.w700,
+                    color: color)),
+            Text(api,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 8,
+                    fontFamily: 'monospace',
+                    color: Colors.grey[700])),
           ],
         ),
       ),
@@ -1830,26 +1635,27 @@ class _ComparisonTab extends StatelessWidget {
             children: [
               Icon(Icons.desktop_windows, size: 20, color: _kLinuxColor),
               SizedBox(width: 8),
-              Text(
-                'Linux-Specific Details',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('Linux-Specific Details',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 12),
           _detailRow('Toolkit', 'GTK 3.x (Gimp Toolkit)', _kGtkColor),
           SizedBox(height: 6),
-          _detailRow('Rendering', 'OpenGL via FlFlutterView', _kPropertyColor),
+          _detailRow('Rendering', 'OpenGL via FlFlutterView',
+              _kPropertyColor),
           SizedBox(height: 6),
-          _detailRow('Display', 'X11 or Wayland (via GDK)', _kLinuxColor),
+          _detailRow('Display', 'X11 or Wayland (via GDK)',
+              _kLinuxColor),
           SizedBox(height: 6),
-          _detailRow('Events', 'GdkEvent → Flutter engine', _kMethodColor),
+          _detailRow('Events', 'GdkEvent → Flutter engine',
+              _kMethodColor),
           SizedBox(height: 6),
-          _detailRow('Close signal', 'delete-event GSignal', Color(0xFFE65100)),
+          _detailRow('Close signal', 'delete-event GSignal',
+              Color(0xFFE65100)),
           SizedBox(height: 12),
           Container(
             padding: EdgeInsets.all(10),
@@ -1863,7 +1669,8 @@ class _ComparisonTab extends StatelessWidget {
               '(GNOME Shell, KDE, etc.), not by the app itself. '
               'This means the title bar style depends on the user\'s '
               'desktop environment.',
-              style: TextStyle(fontSize: 11.5, color: _kDarkText, height: 1.4),
+              style: TextStyle(
+                  fontSize: 11.5, color: _kDarkText, height: 1.4),
             ),
           ),
         ],
@@ -1877,25 +1684,23 @@ class _ComparisonTab extends StatelessWidget {
         Container(
           width: 5,
           height: 5,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 8),
         SizedBox(
           width: 90,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: _kDarkText,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: _kDarkText)),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-          ),
+          child: Text(value,
+              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
         ),
       ],
     );
@@ -1912,14 +1717,11 @@ class _ComparisonTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Display Server Compatibility',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: _kPrimary,
-            ),
-          ),
+          Text('Display Server Compatibility',
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary)),
           SizedBox(height: 12),
           Row(
             children: [
@@ -1933,26 +1735,22 @@ class _ComparisonTab extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Text(
-                        'X11',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: _kPrimary,
-                        ),
-                      ),
+                      Text('X11',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: _kPrimary)),
                       SizedBox(height: 4),
-                      Text(
-                        'Traditional',
-                        style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-                      ),
+                      Text('Traditional',
+                          style: TextStyle(
+                              fontSize: 10, color: Colors.grey[600])),
                       SizedBox(height: 8),
-                      Icon(Icons.check_circle, size: 20, color: _kPrimary),
+                      Icon(Icons.check_circle,
+                          size: 20, color: _kPrimary),
                       SizedBox(height: 4),
-                      Text(
-                        'Full support',
-                        style: TextStyle(fontSize: 10, color: _kPrimary),
-                      ),
+                      Text('Full support',
+                          style: TextStyle(
+                              fontSize: 10, color: _kPrimary)),
                     ],
                   ),
                 ),
@@ -1968,29 +1766,23 @@ class _ComparisonTab extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Text(
-                        'Wayland',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: _kGtkColor,
-                        ),
-                      ),
+                      Text('Wayland',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: _kGtkColor)),
                       SizedBox(height: 4),
-                      Text(
-                        'Modern',
-                        style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-                      ),
+                      Text('Modern',
+                          style: TextStyle(
+                              fontSize: 10, color: Colors.grey[600])),
                       SizedBox(height: 8),
-                      Icon(Icons.warning, size: 20, color: Color(0xFFE65100)),
+                      Icon(Icons.warning,
+                          size: 20, color: Color(0xFFE65100)),
                       SizedBox(height: 4),
-                      Text(
-                        'Via XWayland',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Color(0xFFE65100),
-                        ),
-                      ),
+                      Text('Via XWayland',
+                          style: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xFFE65100))),
                     ],
                   ),
                 ),
@@ -2003,10 +1795,7 @@ class _ComparisonTab extends StatelessWidget {
             'is controlled by the compositor, and some window state '
             'queries may not be available.',
             style: TextStyle(
-              fontSize: 11.5,
-              color: Colors.grey[700],
-              height: 1.4,
-            ),
+                fontSize: 11.5, color: Colors.grey[700], height: 1.4),
           ),
         ],
       ),
@@ -2017,32 +1806,27 @@ class _ComparisonTab extends StatelessWidget {
     final limitations = <Map<String, String>>[
       {
         'title': 'GTK3 only',
-        'detail':
-            'Flutter Linux uses GTK3, not GTK4. GTK4 migration '
+        'detail': 'Flutter Linux uses GTK3, not GTK4. GTK4 migration '
             'is a separate effort.',
       },
       {
         'title': 'Window manager dependent decorations',
-        'detail':
-            'Title bar, borders, and shadows are drawn by the '
+        'detail': 'Title bar, borders, and shadows are drawn by the '
             'window manager, not the app.',
       },
       {
         'title': 'Wayland positioning limitations',
-        'detail':
-            'On Wayland, absolute window positioning is not available. '
+        'detail': 'On Wayland, absolute window positioning is not available. '
             'The compositor decides where windows appear.',
       },
       {
         'title': 'Experimental API stability',
-        'detail':
-            'The multi-window API may change in future Flutter releases. '
+        'detail': 'The multi-window API may change in future Flutter releases. '
             'Not recommended for production yet.',
       },
       {
         'title': 'Single GL context per window',
-        'detail':
-            'Each window has its own OpenGL context. Sharing textures '
+        'detail': 'Each window has its own OpenGL context. Sharing textures '
             'between windows requires additional work.',
       },
     ];
@@ -2061,70 +1845,56 @@ class _ComparisonTab extends StatelessWidget {
             children: [
               Icon(Icons.report_problem, size: 18, color: Color(0xFFE65100)),
               SizedBox(width: 8),
-              Text(
-                'Linux Limitations & Notes',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary,
-                ),
-              ),
+              Text('Linux Limitations & Notes',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary)),
             ],
           ),
           SizedBox(height: 12),
-          ...limitations.asMap().entries.map(
-            (e) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      color: _kAccent.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '${e.key + 1}',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          color: _kDarkText,
-                        ),
+          ...limitations.asMap().entries.map((e) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: _kAccent.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Center(
+                        child: Text('${e.key + 1}',
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                color: _kDarkText)),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          e.value['title']!,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: _kDarkText,
-                          ),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          e.value['detail']!,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey[600],
-                            height: 1.4,
-                          ),
-                        ),
-                      ],
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(e.value['title']!,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: _kDarkText)),
+                          SizedBox(height: 2),
+                          Text(e.value['detail']!,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[600],
+                                  height: 1.4)),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );

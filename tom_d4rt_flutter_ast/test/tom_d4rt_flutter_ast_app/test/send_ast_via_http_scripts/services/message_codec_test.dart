@@ -163,7 +163,10 @@ Widget sectionTitle(String title, {String? subtitle}) {
 Widget paragraph(String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6),
-    child: Text(text, style: const TextStyle(fontSize: 14, height: 1.45)),
+    child: Text(
+      text,
+      style: const TextStyle(fontSize: 14, height: 1.45),
+    ),
   );
 }
 
@@ -231,7 +234,11 @@ Widget hexView(ByteData? data) {
   );
 }
 
-Widget infoCard({required String title, required Widget child, Color? color}) {
+Widget infoCard({
+  required String title,
+  required Widget child,
+  Color? color,
+}) {
   return Card(
     elevation: 1.5,
     margin: const EdgeInsets.symmetric(vertical: 8),
@@ -328,9 +335,7 @@ Widget buildIntroSection() {
             keyValueRow('StringCodec', 'UTF-8 string <-> ByteData'),
             keyValueRow('JSONMessageCodec', 'jsonEncode/jsonDecode + UTF-8'),
             keyValueRow(
-              'StandardMessageCodec',
-              'binary type-tagged stream (default)',
-            ),
+                'StandardMessageCodec', 'binary type-tagged stream (default)'),
             keyValueRow('BinaryCodec', 'identity: ByteData passes through'),
           ],
         ),
@@ -539,10 +544,8 @@ Widget buildStringCodecSection() {
           children: [
             keyValueRow('UTF-16 code units', '$codeUnits'),
             keyValueRow('UTF-8 byte count', '$byteCount'),
-            keyValueRow(
-              'round-trip equal',
-              '${decoded == sample.value ? "yes" : "NO"}',
-            ),
+            keyValueRow('round-trip equal',
+                '${decoded == sample.value ? "yes" : "NO"}'),
             const SizedBox(height: 6),
             hexView(encoded),
           ],
@@ -619,18 +622,14 @@ Widget buildJsonCodecSection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Pretty JSON',
-              style: TextStyle(fontSize: 12, color: Color(0xFF607D8B)),
-            ),
+            const Text('Pretty JSON',
+                style: TextStyle(fontSize: 12, color: Color(0xFF607D8B))),
             const SizedBox(height: 4),
             codeBlock(prettyJson(sample.value)),
             const SizedBox(height: 6),
             keyValueRow('byte length', '${byteLength(encoded)}'),
-            keyValueRow(
-              'decoded type',
-              decoded == null ? 'Null' : decoded.runtimeType.toString(),
-            ),
+            keyValueRow('decoded type',
+                decoded == null ? 'Null' : decoded.runtimeType.toString()),
             const SizedBox(height: 6),
             hexView(encoded),
           ],
@@ -698,7 +697,11 @@ Widget buildStandardCodecSection() {
     'pixels': logicalPixels,
     'samples': logicalSamples,
     'ints': logicalInts,
-    'meta': <String, Object?>{'frameNumber': 12345, 'flags': true, 'tag': null},
+    'meta': <String, Object?>{
+      'frameNumber': 12345,
+      'flags': true,
+      'tag': null,
+    },
   };
 
   final stdEncoded = standard.encodeMessage(standardPayload);
@@ -716,12 +719,12 @@ Widget buildStandardCodecSection() {
     _StdTypeSample('int 1<<40', 1 << 40),
     _StdTypeSample('double pi', 3.141592653589793),
     _StdTypeSample('string "hi"', 'hi'),
-    _StdTypeSample('Uint8List [1,2,3]', Uint8List.fromList(<int>[1, 2, 3])),
-    _StdTypeSample('Int32List [1,2,3]', Int32List.fromList(<int>[1, 2, 3])),
     _StdTypeSample(
-      'Float64List [1.0,2.0]',
-      Float64List.fromList(<double>[1.0, 2.0]),
-    ),
+        'Uint8List [1,2,3]', Uint8List.fromList(<int>[1, 2, 3])),
+    _StdTypeSample(
+        'Int32List [1,2,3]', Int32List.fromList(<int>[1, 2, 3])),
+    _StdTypeSample(
+        'Float64List [1.0,2.0]', Float64List.fromList(<double>[1.0, 2.0])),
     _StdTypeSample('List ["a", 1]', <Object?>['a', 1]),
     _StdTypeSample('Map {"a":1}', <Object?, Object?>{'a': 1}),
   ];
@@ -768,22 +771,24 @@ Widget buildStandardCodecSection() {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             keyValueRow(
-              'Standard byte length',
-              '${byteLength(stdEncoded)} bytes',
-            ),
-            keyValueRow('JSON byte length', '${byteLength(jsonEncoded)} bytes'),
-            keyValueRow('decoded ok (std)', stdDecoded != null ? 'yes' : 'NO'),
+                'Standard byte length', '${byteLength(stdEncoded)} bytes'),
+            keyValueRow(
+                'JSON byte length', '${byteLength(jsonEncoded)} bytes'),
+            keyValueRow('decoded ok (std)',
+                stdDecoded != null ? 'yes' : 'NO'),
             const SizedBox(height: 8),
             const Text(
               'Standard wire bytes:',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 12, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             hexView(stdEncoded),
             const SizedBox(height: 8),
             const Text(
               'JSON wire bytes:',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 12, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             hexView(jsonEncoded),
@@ -859,7 +864,10 @@ Widget buildBinaryCodecSection() {
         return ByteData.view(src.buffer);
       },
     ),
-    _BinarySample(label: 'empty ByteData(0)', builder: () => ByteData(0)),
+    _BinarySample(
+      label: 'empty ByteData(0)',
+      builder: () => ByteData(0),
+    ),
   ];
 
   final cards = <Widget>[];
@@ -877,10 +885,8 @@ Widget buildBinaryCodecSection() {
             keyValueRow('input bytes', '${input.lengthInBytes}'),
             keyValueRow('encoded bytes', '${byteLength(encoded)}'),
             keyValueRow('decoded bytes', '${byteLength(decoded)}'),
-            keyValueRow(
-              'decoded === encoded',
-              identical ? 'yes (identity)' : 'no',
-            ),
+            keyValueRow('decoded === encoded',
+                identical ? 'yes (identity)' : 'no'),
             const SizedBox(height: 6),
             hexView(encoded),
           ],
@@ -928,8 +934,14 @@ Widget buildComparisonSection() {
   // Common payload to size-compare all four codecs against (only the codecs
   // that can encode it will produce bytes; the rest produce N/A).
   const sampleString = 'Hello, codec!';
-  final sampleJsonable = <String, Object?>{'event': 'tap', 'count': 7};
-  final sampleStandard = <Object?, Object?>{'event': 'tap', 'count': 7};
+  final sampleJsonable = <String, Object?>{
+    'event': 'tap',
+    'count': 7,
+  };
+  final sampleStandard = <Object?, Object?>{
+    'event': 'tap',
+    'count': 7,
+  };
   final sampleBinary = ByteData(8)..setUint64(0, 0xCAFEBABEDEADBEEF);
 
   final stringBytes = byteLength(string.encodeMessage(sampleString));
@@ -941,32 +953,29 @@ Widget buildComparisonSection() {
     return TableRow(
       decoration: const BoxDecoration(color: Color(0xFFE3F2FD)),
       children: cells
-          .map(
-            (c) => Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                c,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
+          .map((c) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  c,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
                 ),
-              ),
-            ),
-          )
+              ))
           .toList(),
     );
   }
 
   TableRow body(List<String> cells, {Color? bg}) {
     return TableRow(
-      decoration: BoxDecoration(color: bg ?? const Color(0xFFFAFAFA)),
+      decoration:
+          BoxDecoration(color: bg ?? const Color(0xFFFAFAFA)),
       children: cells
-          .map(
-            (c) => Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(c, style: const TextStyle(fontSize: 12.5)),
-            ),
-          )
+          .map((c) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(c, style: const TextStyle(fontSize: 12.5)),
+              ))
           .toList(),
     );
   }
@@ -989,12 +998,7 @@ Widget buildComparisonSection() {
           3: FlexColumnWidth(2),
         },
         children: <TableRow>[
-          header(<String>[
-            'Codec',
-            'Supported types',
-            'Sample size',
-            'When to use',
-          ]),
+          header(<String>['Codec', 'Supported types', 'Sample size', 'When to use']),
           body(<String>[
             'StringCodec',
             'String only',
@@ -1059,7 +1063,10 @@ Widget _wireBox(String label, String value, Color color) {
         const SizedBox(height: 2),
         Text(
           value,
-          style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+          ),
         ),
       ],
     ),
@@ -1089,11 +1096,8 @@ Widget buildWireDiagramsSection() {
             Wrap(
               children: [
                 _wireBox('TYPE TAG', '1 byte', const Color(0xFF00695C)),
-                _wireBox(
-                  'LENGTH (VLU)',
-                  '1 / 3 / 5 bytes',
-                  const Color(0xFF1565C0),
-                ),
+                _wireBox('LENGTH (VLU)', '1 / 3 / 5 bytes',
+                    const Color(0xFF1565C0)),
                 _wireBox('PAYLOAD', 'N bytes', const Color(0xFF6A1B9A)),
               ],
             ),
@@ -1249,18 +1253,19 @@ Widget buildErrorPathsSection() {
         'a value they cannot encode. Always wrap untrusted payloads in '
         'try/catch — a single bad value would otherwise crash the channel.',
       ),
-      ...results.map(
-        (r) => infoCard(
-          title: r.label,
-          color: r.error == null
-              ? const Color(0xFF2E7D32)
-              : const Color(0xFFD32F2F),
-          child: Text(
-            r.error ?? '(no error — encoded silently)',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-          ),
-        ),
-      ),
+      ...results.map((r) => infoCard(
+            title: r.label,
+            color: r.error == null
+                ? const Color(0xFF2E7D32)
+                : const Color(0xFFD32F2F),
+            child: Text(
+              r.error ?? '(no error — encoded silently)',
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12.5,
+              ),
+            ),
+          )),
     ],
   );
 }
@@ -1347,7 +1352,8 @@ Widget buildRecipeGallery() {
     ),
     _Recipe(
       title: 'Audio buffer via Binary',
-      channel: "BasicMessageChannel<ByteData?>('app/audio', BinaryCodec())",
+      channel:
+          "BasicMessageChannel<ByteData?>('app/audio', BinaryCodec())",
       codec: 'BinaryCodec',
       dartSnippet:
           "final ch = BasicMessageChannel<ByteData?>(\n"
@@ -1375,17 +1381,15 @@ Widget buildRecipeGallery() {
           keyValueRow('codec', r.codec),
           keyValueRow('channel', r.channel),
           const SizedBox(height: 6),
-          const Text(
-            'Dart side',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-          ),
+          const Text('Dart side',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 13)),
           const SizedBox(height: 2),
           codeBlock(r.dartSnippet),
           const SizedBox(height: 6),
-          const Text(
-            'Host side',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-          ),
+          const Text('Host side',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 13)),
           const SizedBox(height: 2),
           codeBlock(r.hostSide),
         ],
@@ -1414,32 +1418,29 @@ Widget buildReferenceSection() {
     return TableRow(
       decoration: const BoxDecoration(color: Color(0xFFE3F2FD)),
       children: cells
-          .map(
-            (c) => Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                c,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
+          .map((c) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  c,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
                 ),
-              ),
-            ),
-          )
+              ))
           .toList(),
     );
   }
 
   TableRow body(List<String> cells, {Color? bg}) {
     return TableRow(
-      decoration: BoxDecoration(color: bg ?? const Color(0xFFFAFAFA)),
+      decoration:
+          BoxDecoration(color: bg ?? const Color(0xFFFAFAFA)),
       children: cells
-          .map(
-            (c) => Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(c, style: const TextStyle(fontSize: 12.5)),
-            ),
-          )
+          .map((c) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(c, style: const TextStyle(fontSize: 12.5)),
+              ))
           .toList(),
     );
   }
@@ -1449,7 +1450,8 @@ Widget buildReferenceSection() {
     children: [
       sectionTitle(
         '11. Reference table',
-        subtitle: 'Codec <-> channel pairing and platform-side equivalents.',
+        subtitle:
+            'Codec <-> channel pairing and platform-side equivalents.',
       ),
       Table(
         border: TableBorder.all(color: const Color(0xFFB0BEC5)),
@@ -1535,10 +1537,8 @@ dynamic build(BuildContext context) {
 
   final bin1 = binaryCodec.encodeMessage(buildSampleByteData());
   final bin2 = binaryCodec.decodeMessage(bin1);
-  print(
-    'BinaryCodec: ${byteLength(bin1)} bytes, decoded ${byteLength(bin2)} '
-    'bytes',
-  );
+  print('BinaryCodec: ${byteLength(bin1)} bytes, decoded ${byteLength(bin2)} '
+      'bytes');
 
   return MaterialApp(
     title: 'MessageCodec Deep Demo',

@@ -44,13 +44,7 @@ class _ColorChip {
   final Color onColor;
   final String hex;
   final String purpose;
-  const _ColorChip(
-    this.token,
-    this.color,
-    this.onColor,
-    this.hex,
-    this.purpose,
-  );
+  const _ColorChip(this.token, this.color, this.onColor, this.hex, this.purpose);
 }
 
 class _TypeRow {
@@ -65,12 +59,7 @@ class _StateBox {
   final Color background;
   final Color foreground;
   final String description;
-  const _StateBox(
-    this.label,
-    this.background,
-    this.foreground,
-    this.description,
-  );
+  const _StateBox(this.label, this.background, this.foreground, this.description);
 }
 
 class _Tip {
@@ -138,12 +127,7 @@ dynamic build(BuildContext context) {
 
   // Helper closures (not top-level functions) for repeated visual primitives.
   // These keep build() fully self-contained.
-  Widget sectionTitle(
-    String number,
-    String title,
-    String subtitle,
-    Color tone,
-  ) {
+  Widget sectionTitle(String number, String title, String subtitle, Color tone) {
     return Padding(
       padding: const EdgeInsets.only(top: 28.0, bottom: 12.0),
       child: Row(
@@ -207,7 +191,10 @@ dynamic build(BuildContext context) {
                   height: 3.0,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: <Color>[tone, tone.withValues(alpha: 0.0)],
+                      colors: <Color>[
+                        tone,
+                        tone.withValues(alpha: 0.0),
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(2.0),
                   ),
@@ -324,11 +311,7 @@ dynamic build(BuildContext context) {
               ],
             ),
             alignment: Alignment.center,
-            child: const Icon(
-              Icons.palette_outlined,
-              color: Colors.white,
-              size: 30.0,
-            ),
+            child: const Icon(Icons.palette_outlined, color: Colors.white, size: 30.0),
           ),
         ),
       ],
@@ -366,16 +349,11 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 4.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.14),
                       borderRadius: BorderRadius.circular(999.0),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.30),
-                      ),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.30)),
                     ),
                     child: const Text(
                       'DEEP DEMO',
@@ -446,11 +424,7 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   _bucket('subThemes', 'AppBar/Card/Chip/...', rose300),
                   const SizedBox(width: 8.0),
-                  _bucket(
-                    'extensions',
-                    'Map<Object,ThemeExtension>',
-                    violet400,
-                  ),
+                  _bucket('extensions', 'Map<Object,ThemeExtension>', violet400),
                   const SizedBox(width: 8.0),
                   _bucket('brightness', 'light · dark', emerald400),
                 ],
@@ -509,11 +483,7 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       alignment: Alignment.center,
-                      child: Icon(
-                        Icons.style_outlined,
-                        color: s.onPrimary,
-                        size: 18.0,
-                      ),
+                      child: Icon(Icons.style_outlined, color: s.onPrimary, size: 18.0),
                     ),
                     const SizedBox(width: 10.0),
                     Expanded(
@@ -541,40 +511,26 @@ dynamic build(BuildContext context) {
                 Row(
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 6.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                       decoration: BoxDecoration(
                         color: s.primaryContainer,
                         borderRadius: BorderRadius.circular(999.0),
                       ),
                       child: Text(
                         'primary',
-                        style: TextStyle(
-                          color: s.onPrimaryContainer,
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(color: s.onPrimaryContainer, fontSize: 11.5, fontWeight: FontWeight.w700),
                       ),
                     ),
                     const SizedBox(width: 6.0),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 6.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                       decoration: BoxDecoration(
                         color: s.secondaryContainer,
                         borderRadius: BorderRadius.circular(999.0),
                       ),
                       child: Text(
                         'secondary',
-                        style: TextStyle(
-                          color: s.onSecondaryContainer,
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(color: s.onSecondaryContainer, fontSize: 11.5, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ],
@@ -584,10 +540,7 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     FilledButton(onPressed: () {}, child: const Text('Action')),
                     const SizedBox(width: 8.0),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text('Cancel'),
-                    ),
+                    OutlinedButton(onPressed: () {}, child: const Text('Cancel')),
                   ],
                 ),
               ],
@@ -600,24 +553,15 @@ dynamic build(BuildContext context) {
 
   final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: indigo500,
-      brightness: Brightness.light,
-    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: indigo500, brightness: Brightness.light),
   );
   final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: indigo500,
-      brightness: Brightness.dark,
-    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: indigo500, brightness: Brightness.dark),
   );
   final ThemeData seedTheme = ThemeData(
     useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: teal500,
-      brightness: Brightness.light,
-    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: teal500, brightness: Brightness.light),
   );
 
   final Widget threeThemed = Row(
@@ -658,10 +602,7 @@ dynamic build(BuildContext context) {
   // `ColorScheme.fromSeed(indigo, light)` instance.
   print('themes_advanced_test: section 3 — colorscheme grid');
 
-  final ColorScheme cs = ColorScheme.fromSeed(
-    seedColor: indigo500,
-    brightness: Brightness.light,
-  );
+  final ColorScheme cs = ColorScheme.fromSeed(seedColor: indigo500, brightness: Brightness.light);
   String hex(Color c) {
     final int v = c.toARGB32() & 0xFFFFFF;
     final String s = v.toRadixString(16).toUpperCase().padLeft(6, '0');
@@ -669,90 +610,18 @@ dynamic build(BuildContext context) {
   }
 
   final List<_ColorChip> swatches = <_ColorChip>[
-    _ColorChip(
-      'primary',
-      cs.primary,
-      cs.onPrimary,
-      hex(cs.primary),
-      'Brand colour, high-emphasis surfaces',
-    ),
-    _ColorChip(
-      'onPrimary',
-      cs.onPrimary,
-      cs.primary,
-      hex(cs.onPrimary),
-      'Foreground over primary',
-    ),
-    _ColorChip(
-      'primaryContainer',
-      cs.primaryContainer,
-      cs.onPrimaryContainer,
-      hex(cs.primaryContainer),
-      'Lower-emphasis primary surface',
-    ),
-    _ColorChip(
-      'secondary',
-      cs.secondary,
-      cs.onSecondary,
-      hex(cs.secondary),
-      'Less prominent accent',
-    ),
-    _ColorChip(
-      'onSecondary',
-      cs.onSecondary,
-      cs.secondary,
-      hex(cs.onSecondary),
-      'Foreground over secondary',
-    ),
-    _ColorChip(
-      'tertiary',
-      cs.tertiary,
-      cs.onTertiary,
-      hex(cs.tertiary),
-      'Contrasting accent',
-    ),
-    _ColorChip(
-      'surface',
-      cs.surface,
-      cs.onSurface,
-      hex(cs.surface),
-      'Default container surface',
-    ),
-    _ColorChip(
-      'surfaceContainerHighest',
-      cs.surfaceContainerHighest,
-      cs.onSurface,
-      hex(cs.surfaceContainerHighest),
-      'Elevated container surface',
-    ),
-    _ColorChip(
-      'error',
-      cs.error,
-      cs.onError,
-      hex(cs.error),
-      'Validation/destructive',
-    ),
-    _ColorChip(
-      'onError',
-      cs.onError,
-      cs.error,
-      hex(cs.onError),
-      'Foreground over error',
-    ),
-    _ColorChip(
-      'outline',
-      cs.outline,
-      cs.onSurface,
-      hex(cs.outline),
-      'Strong dividers/borders',
-    ),
-    _ColorChip(
-      'outlineVariant',
-      cs.outlineVariant,
-      cs.onSurface,
-      hex(cs.outlineVariant),
-      'Subtle dividers',
-    ),
+    _ColorChip('primary', cs.primary, cs.onPrimary, hex(cs.primary), 'Brand colour, high-emphasis surfaces'),
+    _ColorChip('onPrimary', cs.onPrimary, cs.primary, hex(cs.onPrimary), 'Foreground over primary'),
+    _ColorChip('primaryContainer', cs.primaryContainer, cs.onPrimaryContainer, hex(cs.primaryContainer), 'Lower-emphasis primary surface'),
+    _ColorChip('secondary', cs.secondary, cs.onSecondary, hex(cs.secondary), 'Less prominent accent'),
+    _ColorChip('onSecondary', cs.onSecondary, cs.secondary, hex(cs.onSecondary), 'Foreground over secondary'),
+    _ColorChip('tertiary', cs.tertiary, cs.onTertiary, hex(cs.tertiary), 'Contrasting accent'),
+    _ColorChip('surface', cs.surface, cs.onSurface, hex(cs.surface), 'Default container surface'),
+    _ColorChip('surfaceContainerHighest', cs.surfaceContainerHighest, cs.onSurface, hex(cs.surfaceContainerHighest), 'Elevated container surface'),
+    _ColorChip('error', cs.error, cs.onError, hex(cs.error), 'Validation/destructive'),
+    _ColorChip('onError', cs.onError, cs.error, hex(cs.onError), 'Foreground over error'),
+    _ColorChip('outline', cs.outline, cs.onSurface, hex(cs.outline), 'Strong dividers/borders'),
+    _ColorChip('outlineVariant', cs.outlineVariant, cs.onSurface, hex(cs.outlineVariant), 'Subtle dividers'),
   ];
 
   Widget swatchCard(_ColorChip s) {
@@ -776,18 +645,12 @@ dynamic build(BuildContext context) {
             height: 64.0,
             decoration: BoxDecoration(
               color: s.color,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(11.0),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(11.0)),
             ),
             alignment: Alignment.center,
             child: Text(
               'Aa',
-              style: TextStyle(
-                color: s.onColor,
-                fontWeight: FontWeight.w800,
-                fontSize: 22.0,
-              ),
+              style: TextStyle(color: s.onColor, fontWeight: FontWeight.w800, fontSize: 22.0),
             ),
           ),
           Padding(
@@ -816,11 +679,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 4.0),
                 Text(
                   s.purpose,
-                  style: const TextStyle(
-                    fontSize: 10.5,
-                    color: slate500,
-                    height: 1.3,
-                  ),
+                  style: const TextStyle(fontSize: 10.5, color: slate500, height: 1.3),
                 ),
               ],
             ),
@@ -848,9 +707,7 @@ dynamic build(BuildContext context) {
       SizedBox(width: 168.0, child: swatchCard(swatches[11])),
     ],
   );
-  print(
-    'themes_advanced_test: swatch grid rendered (${swatches.length} tokens)',
-  );
+  print('themes_advanced_test: swatch grid rendered (${swatches.length} tokens)');
 
   // ==========================================================================
   // SECTION 4 — TYPOGRAPHY LADDER
@@ -863,81 +720,21 @@ dynamic build(BuildContext context) {
   print('themes_advanced_test: section 4 — typography ladder');
 
   final List<_TypeRow> typeRows = <_TypeRow>[
-    _TypeRow(
-      'displayLarge',
-      (TextTheme t) => t.displayLarge,
-      'The quick brown fox',
-    ),
-    _TypeRow(
-      'displayMedium',
-      (TextTheme t) => t.displayMedium,
-      'The quick brown fox',
-    ),
-    _TypeRow(
-      'displaySmall',
-      (TextTheme t) => t.displaySmall,
-      'The quick brown fox',
-    ),
-    _TypeRow(
-      'headlineLarge',
-      (TextTheme t) => t.headlineLarge,
-      'Headlines lead the page',
-    ),
-    _TypeRow(
-      'headlineMedium',
-      (TextTheme t) => t.headlineMedium,
-      'Headlines lead the page',
-    ),
-    _TypeRow(
-      'headlineSmall',
-      (TextTheme t) => t.headlineSmall,
-      'Headlines lead the page',
-    ),
-    _TypeRow(
-      'titleLarge',
-      (TextTheme t) => t.titleLarge,
-      'Titles introduce sections',
-    ),
-    _TypeRow(
-      'titleMedium',
-      (TextTheme t) => t.titleMedium,
-      'Titles introduce sections',
-    ),
-    _TypeRow(
-      'titleSmall',
-      (TextTheme t) => t.titleSmall,
-      'Titles introduce sections',
-    ),
-    _TypeRow(
-      'bodyLarge',
-      (TextTheme t) => t.bodyLarge,
-      'Body text carries the prose',
-    ),
-    _TypeRow(
-      'bodyMedium',
-      (TextTheme t) => t.bodyMedium,
-      'Body text carries the prose',
-    ),
-    _TypeRow(
-      'bodySmall',
-      (TextTheme t) => t.bodySmall,
-      'Body text carries the prose',
-    ),
-    _TypeRow(
-      'labelLarge',
-      (TextTheme t) => t.labelLarge,
-      'LABELS · BUTTONS · CHIPS',
-    ),
-    _TypeRow(
-      'labelMedium',
-      (TextTheme t) => t.labelMedium,
-      'LABELS · BUTTONS · CHIPS',
-    ),
-    _TypeRow(
-      'labelSmall',
-      (TextTheme t) => t.labelSmall,
-      'LABELS · BUTTONS · CHIPS',
-    ),
+    _TypeRow('displayLarge', (TextTheme t) => t.displayLarge, 'The quick brown fox'),
+    _TypeRow('displayMedium', (TextTheme t) => t.displayMedium, 'The quick brown fox'),
+    _TypeRow('displaySmall', (TextTheme t) => t.displaySmall, 'The quick brown fox'),
+    _TypeRow('headlineLarge', (TextTheme t) => t.headlineLarge, 'Headlines lead the page'),
+    _TypeRow('headlineMedium', (TextTheme t) => t.headlineMedium, 'Headlines lead the page'),
+    _TypeRow('headlineSmall', (TextTheme t) => t.headlineSmall, 'Headlines lead the page'),
+    _TypeRow('titleLarge', (TextTheme t) => t.titleLarge, 'Titles introduce sections'),
+    _TypeRow('titleMedium', (TextTheme t) => t.titleMedium, 'Titles introduce sections'),
+    _TypeRow('titleSmall', (TextTheme t) => t.titleSmall, 'Titles introduce sections'),
+    _TypeRow('bodyLarge', (TextTheme t) => t.bodyLarge, 'Body text carries the prose'),
+    _TypeRow('bodyMedium', (TextTheme t) => t.bodyMedium, 'Body text carries the prose'),
+    _TypeRow('bodySmall', (TextTheme t) => t.bodySmall, 'Body text carries the prose'),
+    _TypeRow('labelLarge', (TextTheme t) => t.labelLarge, 'LABELS · BUTTONS · CHIPS'),
+    _TypeRow('labelMedium', (TextTheme t) => t.labelMedium, 'LABELS · BUTTONS · CHIPS'),
+    _TypeRow('labelSmall', (TextTheme t) => t.labelSmall, 'LABELS · BUTTONS · CHIPS'),
   ];
 
   final ThemeData typeTheme = ThemeData(
@@ -974,11 +771,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   '${fontSize.toStringAsFixed(1)}px · w${weight.index + 1}00',
-                  style: const TextStyle(
-                    color: slate500,
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                  ),
+                  style: const TextStyle(color: slate500, fontSize: 10.5, fontFamily: 'monospace'),
                 ),
               ],
             ),
@@ -1031,9 +824,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  print(
-    'themes_advanced_test: typography ladder rendered (${typeRows.length} rows)',
-  );
+  print('themes_advanced_test: typography ladder rendered (${typeRows.length} rows)');
 
   // ==========================================================================
   // SECTION 5 — COMPONENT THEME GRID (DEFAULTS vs OVERRIDDEN)
@@ -1045,10 +836,7 @@ dynamic build(BuildContext context) {
 
   final ThemeData overriddenTheme = ThemeData(
     useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: violet600,
-      brightness: Brightness.light,
-    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: violet600, brightness: Brightness.light),
     appBarTheme: const AppBarTheme(
       backgroundColor: violet600,
       foregroundColor: Colors.white,
@@ -1071,10 +859,7 @@ dynamic build(BuildContext context) {
     chipTheme: ChipThemeData(
       backgroundColor: violet500.withValues(alpha: 0.12),
       selectedColor: violet500,
-      labelStyle: const TextStyle(
-        color: violet700,
-        fontWeight: FontWeight.w700,
-      ),
+      labelStyle: const TextStyle(color: violet700, fontWeight: FontWeight.w700),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
         side: const BorderSide(color: violet500, width: 1.0),
@@ -1122,23 +907,14 @@ dynamic build(BuildContext context) {
       style: ElevatedButton.styleFrom(
         backgroundColor: violet600,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.4,
-        ),
+        textStyle: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.4),
       ),
     ),
   );
 
-  Widget componentRow(
-    String label,
-    Widget defaultSample,
-    Widget overriddenSample,
-  ) {
+  Widget componentRow(String label, Widget defaultSample, Widget overriddenSample) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
       decoration: const BoxDecoration(
@@ -1205,38 +981,29 @@ dynamic build(BuildContext context) {
             children: const <Widget>[
               SizedBox(
                 width: 120.0,
-                child: Text(
-                  'component',
-                  style: TextStyle(
-                    color: slate600,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'monospace',
-                    fontSize: 11.5,
-                  ),
-                ),
+                child: Text('component',
+                    style: TextStyle(
+                        color: slate600,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'monospace',
+                        fontSize: 11.5)),
               ),
               Expanded(
-                child: Text(
-                  'default M3',
-                  style: TextStyle(
-                    color: slate600,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 11.5,
-                    letterSpacing: 0.4,
-                  ),
-                ),
+                child: Text('default M3',
+                    style: TextStyle(
+                        color: slate600,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 11.5,
+                        letterSpacing: 0.4)),
               ),
               SizedBox(width: 10.0),
               Expanded(
-                child: Text(
-                  'overridden via Theme(data: ...)',
-                  style: TextStyle(
-                    color: violet700,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 11.5,
-                    letterSpacing: 0.4,
-                  ),
-                ),
+                child: Text('overridden via Theme(data: ...)',
+                    style: TextStyle(
+                        color: violet700,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 11.5,
+                        letterSpacing: 0.4)),
               ),
             ],
           ),
@@ -1296,82 +1063,64 @@ dynamic build(BuildContext context) {
         ),
         componentRow(
           'IconButton',
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_outline),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_outline),
-          ),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
         ),
         componentRow(
           'ListTile',
           const Material(
             type: MaterialType.transparency,
             child: ListTile(
-              leading: Icon(Icons.folder_outlined),
-              title: Text('Documents'),
-              subtitle: Text('1.2 GB'),
-            ),
+            leading: Icon(Icons.folder_outlined),
+            title: Text('Documents'),
+            subtitle: Text('1.2 GB'),
+          ),
           ),
           const Material(
             type: MaterialType.transparency,
             child: ListTile(
-              leading: Icon(Icons.folder_outlined),
-              title: Text('Documents'),
-              subtitle: Text('1.2 GB'),
-            ),
+            leading: Icon(Icons.folder_outlined),
+            title: Text('Documents'),
+            subtitle: Text('1.2 GB'),
+          ),
           ),
         ),
         componentRow(
           'Switch',
-          Row(
-            children: const <Widget>[
-              Switch(value: true, onChanged: null),
-              SizedBox(width: 8.0),
-              Switch(value: false, onChanged: null),
-            ],
-          ),
-          Row(
-            children: const <Widget>[
-              Switch(value: true, onChanged: null),
-              SizedBox(width: 8.0),
-              Switch(value: false, onChanged: null),
-            ],
-          ),
+          Row(children: const <Widget>[
+            Switch(value: true, onChanged: null),
+            SizedBox(width: 8.0),
+            Switch(value: false, onChanged: null),
+          ]),
+          Row(children: const <Widget>[
+            Switch(value: true, onChanged: null),
+            SizedBox(width: 8.0),
+            Switch(value: false, onChanged: null),
+          ]),
         ),
         componentRow(
           'Checkbox',
-          Row(
-            children: const <Widget>[
-              Checkbox(value: true, onChanged: null),
-              SizedBox(width: 8.0),
-              Checkbox(value: false, onChanged: null),
-            ],
-          ),
-          Row(
-            children: const <Widget>[
-              Checkbox(value: true, onChanged: null),
-              SizedBox(width: 8.0),
-              Checkbox(value: false, onChanged: null),
-            ],
-          ),
+          Row(children: const <Widget>[
+            Checkbox(value: true, onChanged: null),
+            SizedBox(width: 8.0),
+            Checkbox(value: false, onChanged: null),
+          ]),
+          Row(children: const <Widget>[
+            Checkbox(value: true, onChanged: null),
+            SizedBox(width: 8.0),
+            Checkbox(value: false, onChanged: null),
+          ]),
         ),
         componentRow(
           'Radio',
-          Row(
-            children: const <Widget>[
-              Radio<int>(value: 1, groupValue: 1, onChanged: null),
-              Radio<int>(value: 2, groupValue: 1, onChanged: null),
-            ],
-          ),
-          Row(
-            children: const <Widget>[
-              Radio<int>(value: 1, groupValue: 1, onChanged: null),
-              Radio<int>(value: 2, groupValue: 1, onChanged: null),
-            ],
-          ),
+          Row(children: const <Widget>[
+            Radio<int>(value: 1, groupValue: 1, onChanged: null),
+            Radio<int>(value: 2, groupValue: 1, onChanged: null),
+          ]),
+          Row(children: const <Widget>[
+            Radio<int>(value: 1, groupValue: 1, onChanged: null),
+            Radio<int>(value: 2, groupValue: 1, onChanged: null),
+          ]),
         ),
         componentRow(
           'Slider',
@@ -1382,11 +1131,19 @@ dynamic build(BuildContext context) {
           'Divider',
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[Text('above'), Divider(), Text('below')],
+            children: const <Widget>[
+              Text('above'),
+              Divider(),
+              Text('below'),
+            ],
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[Text('above'), Divider(), Text('below')],
+            children: const <Widget>[
+              Text('above'),
+              Divider(),
+              Text('below'),
+            ],
           ),
         ),
       ],
@@ -1425,13 +1182,8 @@ dynamic build(BuildContext context) {
             disabledBackgroundColor: box.background,
             disabledForegroundColor: box.foreground,
             elevation: disabled ? 0.0 : 2.0,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 18.0,
-              vertical: 12.0,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           ),
           child: Text(box.label),
         ),
@@ -1541,10 +1293,7 @@ dynamic build(BuildContext context) {
       ),
       labelStyle: const TextStyle(color: indigo700),
       hintStyle: const TextStyle(color: slate400),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 14.0,
-        vertical: 14.0,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 14.0),
       prefixIconColor: indigo600,
     ),
   );
@@ -1568,10 +1317,7 @@ dynamic build(BuildContext context) {
         borderSide: const BorderSide(color: teal600, width: 2.0),
       ),
       labelStyle: const TextStyle(color: teal700, fontWeight: FontWeight.w700),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 14.0,
-        vertical: 14.0,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 14.0),
       prefixIconColor: teal600,
     ),
   );
@@ -1661,11 +1407,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8.0),
           Text(
             description,
-            style: const TextStyle(
-              color: slate500,
-              fontSize: 11.5,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: slate500, fontSize: 11.5, height: 1.4),
           ),
         ],
       ),
@@ -1772,11 +1514,7 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.warning_amber_rounded,
-                color: amber700,
-                size: 20.0,
-              ),
+              child: const Icon(Icons.warning_amber_rounded, color: amber700, size: 20.0),
             ),
             const SizedBox(width: 12.0),
             const Text(
@@ -1883,14 +1621,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.only(bottom: 6.0),
-              child: Text(
-                'SnackBarTheme preview',
-                style: TextStyle(
-                  color: slate700,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text('SnackBarTheme preview',
+                  style: TextStyle(color: slate700, fontSize: 12.0, fontWeight: FontWeight.w700)),
             ),
             snackBarPreview,
           ],
@@ -1903,14 +1635,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.only(bottom: 6.0),
-              child: Text(
-                'DialogTheme preview',
-                style: TextStyle(
-                  color: slate700,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text('DialogTheme preview',
+                  style: TextStyle(color: slate700, fontSize: 12.0, fontWeight: FontWeight.w700)),
             ),
             dialogPreview,
           ],
@@ -1923,14 +1649,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.only(bottom: 6.0),
-              child: Text(
-                'BottomSheetTheme preview',
-                style: TextStyle(
-                  color: slate700,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text('BottomSheetTheme preview',
+                  style: TextStyle(color: slate700, fontSize: 12.0, fontWeight: FontWeight.w700)),
             ),
             bottomSheetPreview,
           ],
@@ -1996,11 +1716,7 @@ dynamic build(BuildContext context) {
                       CircleAvatar(
                         radius: 18.0,
                         backgroundColor: sc.primary,
-                        child: Icon(
-                          Icons.person_outline,
-                          color: sc.onPrimary,
-                          size: 18.0,
-                        ),
+                        child: Icon(Icons.person_outline, color: sc.onPrimary, size: 18.0),
                       ),
                       const SizedBox(width: 10.0),
                       Expanded(
@@ -2008,20 +1724,12 @@ dynamic build(BuildContext context) {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Text(
-                              'Ada Lovelace',
-                              style: TextStyle(
-                                color: sc.onSurface,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Text(
-                              'ada@enchanted.org',
-                              style: TextStyle(
-                                color: sc.onSurface.withValues(alpha: 0.7),
-                                fontSize: 12.0,
-                              ),
-                            ),
+                            Text('Ada Lovelace',
+                                style: TextStyle(
+                                    color: sc.onSurface, fontWeight: FontWeight.w700)),
+                            Text('ada@enchanted.org',
+                                style: TextStyle(
+                                    color: sc.onSurface.withValues(alpha: 0.7), fontSize: 12.0)),
                           ],
                         ),
                       ),
@@ -2042,17 +1750,11 @@ dynamic build(BuildContext context) {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: FilledButton(
-                        onPressed: () {},
-                        child: const Text('Confirm'),
-                      ),
+                      child: FilledButton(onPressed: () {}, child: const Text('Confirm')),
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        child: const Text('Cancel'),
-                      ),
+                      child: OutlinedButton(onPressed: () {}, child: const Text('Cancel')),
                     ),
                   ],
                 ),
@@ -2145,9 +1847,7 @@ dynamic build(BuildContext context) {
               width: 6.0,
               decoration: BoxDecoration(
                 color: t.tone,
-                borderRadius: const BorderRadius.horizontal(
-                  left: Radius.circular(11.0),
-                ),
+                borderRadius: const BorderRadius.horizontal(left: Radius.circular(11.0)),
               ),
             ),
             Padding(
@@ -2238,10 +1938,7 @@ dynamic build(BuildContext context) {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: violet400.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(6.0),
@@ -2308,10 +2005,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(width: 8.0),
                 Text(
                   'Theme.of(context).extensions resolves to a collection with $extCount entries.',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.80),
-                    fontSize: 12.0,
-                  ),
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.80), fontSize: 12.0),
                 ),
               ],
             );
@@ -2350,11 +2044,7 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10.0),
           ),
           alignment: Alignment.center,
-          child: const Icon(
-            Icons.bar_chart_outlined,
-            color: Colors.white,
-            size: 22.0,
-          ),
+          child: const Icon(Icons.bar_chart_outlined, color: Colors.white, size: 22.0),
         ),
         const SizedBox(width: 14.0),
         Expanded(
@@ -2422,12 +2112,8 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           heroHeader,
 
-          sectionTitle(
-            '1',
-            'Anatomy of ThemeData',
-            'Five flat buckets compose the entire theme',
-            indigo500,
-          ),
+          sectionTitle('1', 'Anatomy of ThemeData',
+              'Five flat buckets compose the entire theme', indigo500),
           Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
@@ -2443,11 +2129,7 @@ dynamic build(BuildContext context) {
                   'A widget never reads "the indigo colour" directly — it reads '
                   'Theme.of(context).colorScheme.primary, which is resolved by walking '
                   'the inherited theme chain.',
-                  style: TextStyle(
-                    color: slate700,
-                    fontSize: 13.0,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(color: slate700, fontSize: 13.0, height: 1.5),
                 ),
                 const SizedBox(height: 12.0),
                 codeCard(
@@ -2468,81 +2150,46 @@ dynamic build(BuildContext context) {
             ),
           ),
 
-          sectionTitle(
-            '2',
-            'Three themed sub-trees',
-            'Theme(data: ...) overrides scope to a subtree',
-            violet500,
-          ),
+          sectionTitle('2', 'Three themed sub-trees',
+              'Theme(data: ...) overrides scope to a subtree', violet500),
           threeThemed,
 
-          sectionTitle(
-            '3',
-            'ColorScheme tokens',
-            'fromSeed(indigo, light) · 12 of the most common roles',
-            teal500,
-          ),
+          sectionTitle('3', 'ColorScheme tokens',
+              'fromSeed(indigo, light) · 12 of the most common roles', teal500),
           swatchGrid,
 
-          sectionTitle(
-            '4',
-            'Typography ladder',
-            'TextTheme display · headline · title · body · label',
-            amber600,
-          ),
+          sectionTitle('4', 'Typography ladder',
+              'TextTheme display · headline · title · body · label', amber600),
           typographyLadder,
 
-          sectionTitle(
-            '5',
-            'Component theme grid',
-            'Default M3 vs strongly overridden Theme(data: ...)',
-            rose500,
-          ),
+          sectionTitle('5', 'Component theme grid',
+              'Default M3 vs strongly overridden Theme(data: ...)', rose500),
           componentGrid,
 
-          sectionTitle(
-            '6',
-            'WidgetStateProperty resolver',
-            'pressed · hovered · focused · disabled · default',
-            indigo700,
-          ),
+          sectionTitle('6', 'WidgetStateProperty resolver',
+              'pressed · hovered · focused · disabled · default', indigo700),
           stateResolver,
 
-          sectionTitle(
-            '7',
-            'InputDecorationTheme',
-            'Outline · Filled · Underline — three coordinated overrides',
-            teal600,
-          ),
+          sectionTitle('7', 'InputDecorationTheme',
+              'Outline · Filled · Underline — three coordinated overrides', teal600),
           inputDemo,
 
-          sectionTitle(
-            '8',
-            'Surface previews',
-            'SnackBar · Dialog · BottomSheet visual shells',
-            amber700,
-          ),
+          sectionTitle('8', 'Surface previews',
+              'SnackBar · Dialog · BottomSheet visual shells', amber700),
           surfacesRow,
 
-          sectionTitle(
-            '9',
-            'Brightness comparison',
-            'Same content under light and dark seeded schemes',
-            slate800,
-          ),
+          sectionTitle('9', 'Brightness comparison',
+              'Same content under light and dark seeded schemes', slate800),
           brightnessRow,
 
-          sectionTitle(
-            '10',
-            'Tips and pitfalls',
-            'What works on real apps · what bites in dark mode',
-            emerald600,
-          ),
+          sectionTitle('10', 'Tips and pitfalls',
+              'What works on real apps · what bites in dark mode', emerald600),
           tipsList,
           const SizedBox(height: 14.0),
           extensionsConceptCard,
 
-          sectionTitle('11', 'Footer', 'Demo summary statistics', violet700),
+          sectionTitle('11', 'Footer',
+              'Demo summary statistics', violet700),
           footer,
         ],
       ),

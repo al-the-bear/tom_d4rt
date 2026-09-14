@@ -32,21 +32,9 @@ class _ClipRSuperellipseEngineLayerDemoState
   final List<String> _probeFailed = <String>[];
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0B132B),
-      const Color(0xFF1C2541),
-      const Color(0xFF5BC0BE),
-    ],
-    <Color>[
-      const Color(0xFF0D1B2A),
-      const Color(0xFF1B263B),
-      const Color(0xFF415A77),
-    ],
-    <Color>[
-      const Color(0xFF14213D),
-      const Color(0xFFFCA311),
-      const Color(0xFFE5E5E5),
-    ],
+    <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
+    <Color>[const Color(0xFF0D1B2A), const Color(0xFF1B263B), const Color(0xFF415A77)],
+    <Color>[const Color(0xFF14213D), const Color(0xFFFCA311), const Color(0xFFE5E5E5)],
   ];
 
   @override
@@ -92,8 +80,10 @@ class _ClipRSuperellipseEngineLayerDemoState
         bottomLeft: Radius.circular(_radius),
         bottomRight: Radius.circular(_radius),
       );
-      final ui.ClipRSuperellipseEngineLayer layer = builder
-          .pushClipRSuperellipse(shape, clipBehavior: _clipBehavior);
+      final ui.ClipRSuperellipseEngineLayer layer = builder.pushClipRSuperellipse(
+        shape,
+        clipBehavior: _clipBehavior,
+      );
       builder.pop();
       return layer.runtimeType == ui.ClipRSuperellipseEngineLayer;
     });
@@ -107,18 +97,17 @@ class _ClipRSuperellipseEngineLayerDemoState
         bottomLeft: Radius.circular(_radius),
         bottomRight: Radius.circular(_radius),
       );
-      final ui.ClipRSuperellipseEngineLayer initial = first
-          .pushClipRSuperellipse(shape);
+      final ui.ClipRSuperellipseEngineLayer initial = first.pushClipRSuperellipse(shape);
       first.pop();
 
       final ui.SceneBuilder second = ui.SceneBuilder();
-      final ui.ClipRSuperellipseEngineLayer reused = second
-          .pushClipRSuperellipse(shape, oldLayer: initial);
+      final ui.ClipRSuperellipseEngineLayer reused = second.pushClipRSuperellipse(
+        shape,
+        oldLayer: initial,
+      );
       second.pop();
 
-      return reused.runtimeType.toString().contains(
-        'ClipRSuperellipseEngineLayer',
-      );
+      return reused.runtimeType.toString().contains('ClipRSuperellipseEngineLayer');
     });
 
     _runProbe('nested push/pop works for superellipse clips', () {
@@ -171,12 +160,7 @@ class _ClipRSuperellipseEngineLayerDemoState
     );
   }
 
-  Widget _sectionTitle(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color color,
-  ) {
+  Widget _sectionTitle(String title, String subtitle, IconData icon, Color color) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 18, 16, 10),
       padding: const EdgeInsets.all(14),
@@ -209,10 +193,7 @@ class _ClipRSuperellipseEngineLayerDemoState
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(fontSize: 12.5, height: 1.35),
-                ),
+                Text(subtitle, style: const TextStyle(fontSize: 12.5, height: 1.35)),
               ],
             ),
           ),
@@ -255,9 +236,7 @@ class _ClipRSuperellipseEngineLayerDemoState
                     children: <Widget>[
                       if (_showGrid)
                         Positioned.fill(
-                          child: CustomPaint(
-                            painter: _GridPainter(lineColor: Colors.white24),
-                          ),
+                          child: CustomPaint(painter: _GridPainter(lineColor: Colors.white24)),
                         ),
                       Align(
                         alignment: Alignment.topRight,
@@ -280,10 +259,7 @@ class _ClipRSuperellipseEngineLayerDemoState
                           decoration: BoxDecoration(
                             color: Colors.white.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Colors.white60,
-                              width: 1.1,
-                            ),
+                            border: Border.all(color: Colors.white60, width: 1.1),
                           ),
                         ),
                       ),
@@ -532,10 +508,7 @@ class _ClipRSuperellipseEngineLayerDemoState
                     ),
                   ),
                   child: CustomPaint(
-                    painter: _OverlayPainter(
-                      stroke: _stroke,
-                      showGrid: _showGrid,
-                    ),
+                    painter: _OverlayPainter(stroke: _stroke, showGrid: _showGrid),
                     child: const SizedBox.expand(),
                   ),
                 ),
@@ -562,7 +535,9 @@ class _ClipRSuperellipseEngineLayerDemoState
         child: Container(
           width: 270,
           height: 150,
-          decoration: BoxDecoration(gradient: LinearGradient(colors: colors)),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: colors),
+          ),
           child: Center(
             child: Text(
               label,
@@ -600,24 +575,19 @@ class _ClipRSuperellipseEngineLayerDemoState
               children: <Widget>[
                 Positioned(
                   top: 10,
-                  child: card(_radius + 20, <Color>[
-                    palette[1],
-                    palette[0],
-                  ], 'Outer Clip'),
+                  child: card(_radius + 20, <Color>[palette[1], palette[0]], 'Outer Clip'),
                 ),
                 Positioned(
                   top: 35,
-                  child: card(_radius * 0.8, <Color>[
-                    palette[2],
-                    palette[1],
-                  ], 'Inner Clip'),
+                  child: card(_radius * 0.8, <Color>[palette[2], palette[1]], 'Inner Clip'),
                 ),
                 Positioned(
                   top: 62,
-                  child: card((_radius * 0.55).clamp(6, 60), <Color>[
-                    Colors.black.withValues(alpha: 0.5),
-                    palette[2],
-                  ], 'Content Layer'),
+                  child: card(
+                    (_radius * 0.55).clamp(6, 60),
+                    <Color>[Colors.black.withValues(alpha: 0.5), palette[2]],
+                    'Content Layer',
+                  ),
                 ),
               ],
             ),
@@ -636,9 +606,7 @@ class _ClipRSuperellipseEngineLayerDemoState
 
   Widget _buildProbeDashboard() {
     Widget tile(String label, bool success) {
-      final Color color = success
-          ? const Color(0xFF1B8A5A)
-          : const Color(0xFFB92B27);
+      final Color color = success ? const Color(0xFF1B8A5A) : const Color(0xFFB92B27);
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -649,15 +617,9 @@ class _ClipRSuperellipseEngineLayerDemoState
         ),
         child: Row(
           children: <Widget>[
-            Icon(
-              success ? Icons.check_circle : Icons.cancel,
-              color: color,
-              size: 18,
-            ),
+            Icon(success ? Icons.check_circle : Icons.cancel, color: color, size: 18),
             const SizedBox(width: 8),
-            Expanded(
-              child: Text(label, style: const TextStyle(fontSize: 12.5)),
-            ),
+            Expanded(child: Text(label, style: const TextStyle(fontSize: 12.5))),
           ],
         ),
       );
@@ -745,10 +707,7 @@ class _ClipRSuperellipseEngineLayerDemoState
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    text,
-                    style: const TextStyle(color: Colors.white, fontSize: 12.2),
-                  ),
+                  Text(text, style: const TextStyle(color: Colors.white, fontSize: 12.2)),
                 ],
               ),
             ),
@@ -772,22 +731,19 @@ class _ClipRSuperellipseEngineLayerDemoState
               useCase(
                 icon: Icons.phone_iphone,
                 title: 'iOS-style card chrome',
-                text:
-                    'Smooth corners keep transitions premium-looking on cards and sheets.',
+                text: 'Smooth corners keep transitions premium-looking on cards and sheets.',
                 colors: const <Color>[Color(0xFF4568DC), Color(0xFFB06AB3)],
               ),
               useCase(
                 icon: Icons.image,
                 title: 'Media clipping masks',
-                text:
-                    'Clip posters and thumbnails with non-circular soft geometry.',
+                text: 'Clip posters and thumbnails with non-circular soft geometry.',
                 colors: const <Color>[Color(0xFF134E5E), Color(0xFF71B280)],
               ),
               useCase(
                 icon: Icons.auto_awesome,
                 title: 'Glass morphic surfaces',
-                text:
-                    'Combine blur and superellipse clips for polished floating panels.',
+                text: 'Combine blur and superellipse clips for polished floating panels.',
                 colors: const <Color>[Color(0xFF614385), Color(0xFF516395)],
               ),
             ],
@@ -812,10 +768,8 @@ class _ClipRSuperellipseEngineLayerDemoState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Interpreter-focused testing summary',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Interpreter-focused testing summary',
+              style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Text(
             '- Engine-layer probes run through SceneBuilder.pushClipRSuperellipse\n'
@@ -936,23 +890,14 @@ class _OverlayPainter extends CustomPainter {
 
     final Paint circle = Paint()..color = Colors.white.withValues(alpha: 0.22);
     canvas.drawCircle(Offset(size.width * 0.3, size.height * 0.34), 24, circle);
-    canvas.drawCircle(
-      Offset(size.width * 0.72, size.height * 0.64),
-      34,
-      circle,
-    );
+    canvas.drawCircle(Offset(size.width * 0.72, size.height * 0.64), 34, circle);
 
     if (showGrid) {
       final Paint marker = Paint()
         ..color = Colors.white.withValues(alpha: 0.36)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.2;
-      final Rect guide = Rect.fromLTWH(
-        26,
-        26,
-        size.width - 52,
-        size.height - 52,
-      );
+      final Rect guide = Rect.fromLTWH(26, 26, size.width - 52, size.height - 52);
       canvas.drawRect(guide, marker);
       canvas.drawLine(
         Offset(size.width / 2, 26),

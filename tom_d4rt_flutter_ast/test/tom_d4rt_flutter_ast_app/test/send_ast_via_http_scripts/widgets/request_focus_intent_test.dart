@@ -252,8 +252,7 @@ class _HeroBannerTab extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           const _InfoCard(
-            title:
-                'Why use an Intent instead of calling requestFocus() directly?',
+            title: 'Why use an Intent instead of calling requestFocus() directly?',
             body:
                 'Dispatching through Actions.invoke() keeps focus logic '
                 'decoupled from widgets. Any ancestor can intercept or override '
@@ -925,15 +924,12 @@ class _ShortcutBindingTab extends StatelessWidget {
           const SizedBox(height: 16),
           Shortcuts(
             shortcuts: <ShortcutActivator, Intent>{
-              const SingleActivator(LogicalKeyboardKey.f1): RequestFocusIntent(
-                _shortcutNode1,
-              ),
-              const SingleActivator(LogicalKeyboardKey.f2): RequestFocusIntent(
-                _shortcutNode2,
-              ),
-              const SingleActivator(LogicalKeyboardKey.f3): RequestFocusIntent(
-                _shortcutNode3,
-              ),
+              const SingleActivator(LogicalKeyboardKey.f1):
+                  RequestFocusIntent(_shortcutNode1),
+              const SingleActivator(LogicalKeyboardKey.f2):
+                  RequestFocusIntent(_shortcutNode2),
+              const SingleActivator(LogicalKeyboardKey.f3):
+                  RequestFocusIntent(_shortcutNode3),
             },
             child: Row(
               children: <Widget>[
@@ -1162,7 +1158,11 @@ class _DefaultActionWiringTab extends StatelessWidget {
           const SizedBox(height: 12),
           _TreeDiagram(
             nodes: const <_TreeNode>[
-              _TreeNode(depth: 0, label: 'MaterialApp', note: 'your app root'),
+              _TreeNode(
+                depth: 0,
+                label: 'MaterialApp',
+                note: 'your app root',
+              ),
               _TreeNode(
                 depth: 1,
                 label: 'WidgetsApp',
@@ -1277,7 +1277,11 @@ class _TreeDiagram extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: nodes.map((n) {
           return Padding(
-            padding: EdgeInsets.only(left: n.depth * 18.0, top: 4, bottom: 4),
+            padding: EdgeInsets.only(
+              left: n.depth * 18.0,
+              top: 4,
+              bottom: 4,
+            ),
             child: Row(
               children: <Widget>[
                 if (n.depth > 0) ...<Widget>[
@@ -1621,13 +1625,17 @@ class _FocusListenerTab extends StatelessWidget {
               TableRow(
                 children: <Widget>[
                   _TCell('hasFocus'),
-                  _TCell('Node or any descendant has primary focus.'),
+                  _TCell(
+                    'Node or any descendant has primary focus.',
+                  ),
                 ],
               ),
               TableRow(
                 children: <Widget>[
                   _TCell('hasPrimaryFocus'),
-                  _TCell('This exact node has primary focus (leaf).'),
+                  _TCell(
+                    'This exact node has primary focus (leaf).',
+                  ),
                 ],
               ),
             ],
@@ -1639,7 +1647,10 @@ class _FocusListenerTab extends StatelessWidget {
 }
 
 class _ListenerStateCard extends StatelessWidget {
-  const _ListenerStateCard({required this.index, required this.focused});
+  const _ListenerStateCard({
+    required this.index,
+    required this.focused,
+  });
   final int index;
   final ValueNotifier<bool> focused;
 
@@ -1848,10 +1859,7 @@ class _PitfallsAndApiTab extends StatelessWidget {
                   ),
                 ),
                 const Divider(height: 20),
-                _ApiRow(
-                  name: 'Constructor',
-                  sig: 'RequestFocusIntent(FocusNode focusNode)',
-                ),
+                _ApiRow(name: 'Constructor', sig: 'RequestFocusIntent(FocusNode focusNode)'),
                 _ApiRow(name: 'focusNode', sig: 'FocusNode get focusNode'),
                 const Divider(height: 20),
                 Text(
@@ -1865,13 +1873,11 @@ class _PitfallsAndApiTab extends StatelessWidget {
                 const SizedBox(height: 8),
                 _ApiRow(
                   name: 'invoke',
-                  sig:
-                      'Object? invoke(RequestFocusIntent intent)\n  → calls intent.focusNode.requestFocus()',
+                  sig: 'Object? invoke(RequestFocusIntent intent)\n  → calls intent.focusNode.requestFocus()',
                 ),
                 _ApiRow(
                   name: 'isEnabled',
-                  sig:
-                      'bool isEnabled(RequestFocusIntent intent)\n  → always true by default',
+                  sig: 'bool isEnabled(RequestFocusIntent intent)\n  → always true by default',
                 ),
               ],
             ),
@@ -2001,7 +2007,11 @@ class _PitfallCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(Icons.check_circle, color: cs.secondary, size: 18),
+                  Icon(
+                    Icons.check_circle,
+                    color: cs.secondary,
+                    size: 18,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(

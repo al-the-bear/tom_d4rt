@@ -97,7 +97,10 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 16.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 8.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(8.0),
@@ -150,7 +153,10 @@ dynamic build(BuildContext context) {
             ),
           ),
           Expanded(
-            child: Text(description, style: const TextStyle(fontSize: 12.0)),
+            child: Text(
+              description,
+              style: const TextStyle(fontSize: 12.0),
+            ),
           ),
         ],
       ),
@@ -202,7 +208,11 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12.0),
         anatomyRow('title', 'Widget', 'Headline of the step.'),
         anatomyRow('subtitle', 'Widget?', 'Optional secondary line.'),
-        anatomyRow('content', 'Widget', 'Body shown when the step is active.'),
+        anatomyRow(
+          'content',
+          'Widget',
+          'Body shown when the step is active.',
+        ),
         anatomyRow(
           'state',
           'StepState',
@@ -249,7 +259,9 @@ dynamic build(BuildContext context) {
                       width: 24.0,
                       height: 24.0,
                       decoration: BoxDecoration(
-                        color: i == 1 ? Colors.indigo : Colors.indigo.shade200,
+                        color: i == 1
+                            ? Colors.indigo
+                            : Colors.indigo.shade200,
                         shape: BoxShape.circle,
                       ),
                       alignment: Alignment.center,
@@ -542,7 +554,10 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 4.0),
             Text(
               'Password set, 2FA enabled.',
-              style: TextStyle(fontSize: 11.0, color: Colors.green.shade700),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.green.shade700,
+              ),
             ),
           ],
         ),
@@ -803,7 +818,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12.0),
         Wrap(
           alignment: WrapAlignment.center,
-          children: [for (final s in StepState.values) miniStepCircle(s)],
+          children: [
+            for (final s in StepState.values) miniStepCircle(s),
+          ],
         ),
       ],
     ),
@@ -865,7 +882,10 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
+            ),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(6.0),
@@ -888,7 +908,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Text('• ', style: TextStyle(color: color)),
                   Expanded(
-                    child: Text(b, style: const TextStyle(fontSize: 12.0)),
+                    child: Text(
+                      b,
+                      style: const TextStyle(fontSize: 12.0),
+                    ),
                   ),
                 ],
               ),
@@ -969,7 +992,10 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontWeight: FontWeight.bold, color: color),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
                 ),
                 const SizedBox(height: 4.0),
                 Text(body, style: const TextStyle(fontSize: 12.0)),

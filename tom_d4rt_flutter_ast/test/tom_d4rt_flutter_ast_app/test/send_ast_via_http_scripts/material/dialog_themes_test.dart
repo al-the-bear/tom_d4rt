@@ -474,7 +474,10 @@ Widget _anatomySection() {
     body: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(flex: 5, child: _anatomyStage()),
+        Expanded(
+          flex: 5,
+          child: _anatomyStage(),
+        ),
         _wgap(28),
         Expanded(
           flex: 4,
@@ -529,7 +532,11 @@ Widget _anatomyStage() {
             const Text(
               'The article will be visible to all readers. You can edit or '
               'unpublish it at any time from the dashboard.',
-              style: TextStyle(color: _subtle, fontSize: 13.5, height: 1.45),
+              style: TextStyle(
+                color: _subtle,
+                fontSize: 13.5,
+                height: 1.45,
+              ),
             ),
             _gap(16),
             _anatomyTag('D', _moss),
@@ -539,7 +546,10 @@ Widget _anatomyStage() {
               children: [
                 TextButton(onPressed: () {}, child: const Text('Cancel')),
                 _wgap(4),
-                FilledButton(onPressed: () {}, child: const Text('Publish')),
+                FilledButton(
+                  onPressed: () {},
+                  child: const Text('Publish'),
+                ),
               ],
             ),
           ],
@@ -950,7 +960,11 @@ Widget _paletteCard(_PaletteSpec spec) {
             const Text(
               'Painted via DialogTheme.backgroundColor and a colour-matched '
               'titleTextStyle.',
-              style: TextStyle(color: _slate, fontSize: 11.5, height: 1.4),
+              style: TextStyle(
+                color: _slate,
+                fontSize: 11.5,
+                height: 1.4,
+              ),
             ),
             _gap(12),
             Align(
@@ -959,7 +973,10 @@ Widget _paletteCard(_PaletteSpec spec) {
                 onPressed: () {},
                 child: Text(
                   'OK',
-                  style: TextStyle(color: spec.fg, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: spec.fg,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
@@ -1061,26 +1078,14 @@ Widget _elevationCard(String label, double elevation, Color tint) {
 
 Widget _alignmentSection() {
   const List<Alignment> rowOrder = [
-    Alignment.topLeft,
-    Alignment.topCenter,
-    Alignment.topRight,
-    Alignment.centerLeft,
-    Alignment.center,
-    Alignment.centerRight,
-    Alignment.bottomLeft,
-    Alignment.bottomCenter,
-    Alignment.bottomRight,
+    Alignment.topLeft, Alignment.topCenter, Alignment.topRight,
+    Alignment.centerLeft, Alignment.center, Alignment.centerRight,
+    Alignment.bottomLeft, Alignment.bottomCenter, Alignment.bottomRight,
   ];
   const List<String> rowLabels = [
-    'topLeft',
-    'topCenter',
-    'topRight',
-    'centerLeft',
-    'center',
-    'centerRight',
-    'bottomLeft',
-    'bottomCenter',
-    'bottomRight',
+    'topLeft', 'topCenter', 'topRight',
+    'centerLeft', 'center', 'centerRight',
+    'bottomLeft', 'bottomCenter', 'bottomRight',
   ];
   return _sectionFrame(
     index: '07',
@@ -1269,7 +1274,11 @@ Widget _simpleDialogOption(String label, IconData icon) {
         Icon(icon, color: _navy, size: 18),
         _wgap(10),
         Expanded(
-          child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     ),
@@ -1308,7 +1317,11 @@ Widget _customFlavour() {
                 const Text(
                   'Build any surface you like — Dialog is just a Material '
                   'shell.',
-                  style: TextStyle(color: _navyWash, fontSize: 12, height: 1.4),
+                  style: TextStyle(
+                    color: _navyWash,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
                 ),
                 _gap(12),
                 Align(
@@ -1353,30 +1366,45 @@ Widget _actionStyleSection() {
           'the primary action with progressively more weight.',
         ),
         _gap(18),
-        _actionRow('TEXT + TEXT', [
-          TextButton(onPressed: () {}, child: const Text('Cancel')),
-          TextButton(onPressed: () {}, child: const Text('OK')),
-        ]),
-        _actionRow('TEXT + OUTLINED', [
-          TextButton(onPressed: () {}, child: const Text('Cancel')),
-          OutlinedButton(onPressed: () {}, child: const Text('Continue')),
-        ]),
-        _actionRow('TEXT + FILLED', [
-          TextButton(onPressed: () {}, child: const Text('Cancel')),
-          FilledButton(onPressed: () {}, child: const Text('Save')),
-        ]),
-        _actionRow('TEXT + ELEVATED', [
-          TextButton(onPressed: () {}, child: const Text('Cancel')),
-          ElevatedButton(onPressed: () {}, child: const Text('Publish')),
-        ]),
-        _actionRow('DESTRUCTIVE', [
-          TextButton(onPressed: () {}, child: const Text('Keep')),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: _danger),
-            onPressed: () {},
-            child: const Text('Delete'),
-          ),
-        ]),
+        _actionRow(
+          'TEXT + TEXT',
+          [
+            TextButton(onPressed: () {}, child: const Text('Cancel')),
+            TextButton(onPressed: () {}, child: const Text('OK')),
+          ],
+        ),
+        _actionRow(
+          'TEXT + OUTLINED',
+          [
+            TextButton(onPressed: () {}, child: const Text('Cancel')),
+            OutlinedButton(onPressed: () {}, child: const Text('Continue')),
+          ],
+        ),
+        _actionRow(
+          'TEXT + FILLED',
+          [
+            TextButton(onPressed: () {}, child: const Text('Cancel')),
+            FilledButton(onPressed: () {}, child: const Text('Save')),
+          ],
+        ),
+        _actionRow(
+          'TEXT + ELEVATED',
+          [
+            TextButton(onPressed: () {}, child: const Text('Cancel')),
+            ElevatedButton(onPressed: () {}, child: const Text('Publish')),
+          ],
+        ),
+        _actionRow(
+          'DESTRUCTIVE',
+          [
+            TextButton(onPressed: () {}, child: const Text('Keep')),
+            FilledButton(
+              style: FilledButton.styleFrom(backgroundColor: _danger),
+              onPressed: () {},
+              child: const Text('Delete'),
+            ),
+          ],
+        ),
       ],
     ),
   );
@@ -1472,21 +1500,54 @@ Widget _codeQuoteSection() {
 
 Widget _glossarySection() {
   final List<List<String>> rows = [
-    ['backgroundColor', 'Fill colour of the dialog surface.'],
+    [
+      'backgroundColor',
+      'Fill colour of the dialog surface.',
+    ],
     [
       'surfaceTintColor',
       'Material 3 elevation tint overlay, blended over background.',
     ],
-    ['shadowColor', 'Colour of the shadow drop beneath the surface.'],
-    ['elevation', 'Z-depth — drives shadow size and surfaceTint strength.'],
-    ['shape', 'ShapeBorder applied to the perimeter (rounded, stadium, cut).'],
-    ['alignment', 'Where the dialog sits inside the modal route.'],
-    ['titleTextStyle', 'Default TextStyle for AlertDialog.title.'],
-    ['contentTextStyle', 'Default TextStyle for AlertDialog.content.'],
-    ['iconColor', 'Tint for the optional leading icon slot (M3).'],
-    ['actionsPadding', 'EdgeInsets around the actions row.'],
-    ['insetPadding', 'Outer margin between dialog and screen edges.'],
-    ['barrierColor', 'Scrim colour rendered behind the dialog.'],
+    [
+      'shadowColor',
+      'Colour of the shadow drop beneath the surface.',
+    ],
+    [
+      'elevation',
+      'Z-depth — drives shadow size and surfaceTint strength.',
+    ],
+    [
+      'shape',
+      'ShapeBorder applied to the perimeter (rounded, stadium, cut).',
+    ],
+    [
+      'alignment',
+      'Where the dialog sits inside the modal route.',
+    ],
+    [
+      'titleTextStyle',
+      'Default TextStyle for AlertDialog.title.',
+    ],
+    [
+      'contentTextStyle',
+      'Default TextStyle for AlertDialog.content.',
+    ],
+    [
+      'iconColor',
+      'Tint for the optional leading icon slot (M3).',
+    ],
+    [
+      'actionsPadding',
+      'EdgeInsets around the actions row.',
+    ],
+    [
+      'insetPadding',
+      'Outer margin between dialog and screen edges.',
+    ],
+    [
+      'barrierColor',
+      'Scrim colour rendered behind the dialog.',
+    ],
   ];
   return _sectionFrame(
     index: '11',
@@ -1537,7 +1598,11 @@ Widget _glossaryRow(String term, String def) {
         Expanded(
           child: Text(
             def,
-            style: const TextStyle(color: _ink, fontSize: 13, height: 1.45),
+            style: const TextStyle(
+              color: _ink,
+              fontSize: 13,
+              height: 1.45,
+            ),
           ),
         ),
       ],
@@ -1623,7 +1688,11 @@ Widget _infoRecipe() {
                 const Text(
                   'You can now drag widgets directly onto the canvas. '
                   'Try it from the toolbox panel.',
-                  style: TextStyle(color: _subtle, fontSize: 13, height: 1.45),
+                  style: TextStyle(
+                    color: _subtle,
+                    fontSize: 13,
+                    height: 1.45,
+                  ),
                 ),
                 _gap(16),
                 Align(
@@ -1662,7 +1731,8 @@ Widget _confirmRecipe() {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.cloud_upload_outlined, color: _moss, size: 28),
+                const Icon(Icons.cloud_upload_outlined,
+                    color: _moss, size: 28),
                 _gap(12),
                 const Text(
                   'Publish article?',
@@ -1676,7 +1746,11 @@ Widget _confirmRecipe() {
                 const Text(
                   'This will make the draft visible to all readers. You '
                   'can unpublish later from the dashboard.',
-                  style: TextStyle(color: _subtle, fontSize: 13, height: 1.45),
+                  style: TextStyle(
+                    color: _subtle,
+                    fontSize: 13,
+                    height: 1.45,
+                  ),
                 ),
                 _gap(16),
                 Row(
@@ -1752,7 +1826,11 @@ Widget _destructiveRecipe() {
                 const Text(
                   'This cannot be undone. All boards, drafts, and assets '
                   'will be permanently removed.',
-                  style: TextStyle(color: _subtle, fontSize: 13, height: 1.45),
+                  style: TextStyle(
+                    color: _subtle,
+                    fontSize: 13,
+                    height: 1.45,
+                  ),
                 ),
                 _gap(16),
                 Row(

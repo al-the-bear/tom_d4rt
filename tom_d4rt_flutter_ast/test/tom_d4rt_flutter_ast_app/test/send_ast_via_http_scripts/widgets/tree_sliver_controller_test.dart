@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'Tree State Manager',
-      'body':
-          'TreeSliverController extends ChangeNotifier to track '
+      'body': 'TreeSliverController extends ChangeNotifier to track '
           'which tree nodes are expanded or collapsed. It stores '
           'expansion state independently from the tree data, so '
           'the same tree can respond to multiple controllers.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.unfold_more,
       'title': 'Expand/Collapse API',
-      'body':
-          'Methods like expandNode(), collapseNode(), toggleNode(), '
+      'body': 'Methods like expandNode(), collapseNode(), toggleNode(), '
           'expandAll(), and collapseAll() provide programmatic control '
           'over which branches are visible. Each mutation notifies '
           'TreeSliver to rebuild.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.segment,
       'title': 'Integrates with TreeSliver',
-      'body':
-          'TreeSliver is a sliver widget that lazily builds tree rows. '
+      'body': 'TreeSliver is a sliver widget that lazily builds tree rows. '
           'The controller tells it which child lists to materialize. '
           'Only visible nodes are built — efficient even for big trees.',
       'accent': Color(0xFF5C6BC0),
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_list,
       'title': 'TreeSliverNode<T>',
-      'body':
-          'Each node wraps a content value (T) plus a list of children. '
+      'body': 'Each node wraps a content value (T) plus a list of children. '
           'Depth, parent references, and expansion flags are managed '
           'by the framework — you supply the data shape.',
       'accent': Color(0xFFE65100),
@@ -66,40 +62,35 @@ dynamic build(BuildContext context) {
     {
       'property': 'content',
       'type': 'T',
-      'description':
-          'The user data for this node. Displayed by the node '
+      'description': 'The user data for this node. Displayed by the node '
           'builder callback.',
       'color': Color(0xFF5C6BC0),
     },
     {
       'property': 'children',
       'type': 'List<TreeSliverNode<T>>',
-      'description':
-          'Child nodes. Empty list for leaf nodes. The controller '
+      'description': 'Child nodes. Empty list for leaf nodes. The controller '
           'uses this to determine what appears when expanded.',
       'color': Color(0xFFE65100),
     },
     {
       'property': 'depth',
       'type': 'int',
-      'description':
-          'Level in the tree hierarchy. Root nodes are depth 0. '
+      'description': 'Level in the tree hierarchy. Root nodes are depth 0. '
           'Used for indentation calculations.',
       'color': Color(0xFF5C6BC0),
     },
     {
       'property': 'parent',
       'type': 'TreeSliverNode<T>?',
-      'description':
-          'Reference to parent node, null for root nodes. '
+      'description': 'Reference to parent node, null for root nodes. '
           'Enables upward traversal.',
       'color': Color(0xFFE65100),
     },
     {
       'property': 'isExpanded',
       'type': 'bool',
-      'description':
-          'Current expansion state. True if children are '
+      'description': 'Current expansion state. True if children are '
           'visible, false if collapsed.',
       'color': Color(0xFF5C6BC0),
     },
@@ -115,48 +106,42 @@ dynamic build(BuildContext context) {
   final methods = <Map<String, dynamic>>[
     {
       'name': 'expandNode(node)',
-      'description':
-          'Marks a single node as expanded and notifies listeners. '
+      'description': 'Marks a single node as expanded and notifies listeners. '
           'If the node has children, they become visible in the tree.',
       'category': 'Single Node',
       'color': Color(0xFF5C6BC0),
     },
     {
       'name': 'collapseNode(node)',
-      'description':
-          'Marks a single node as collapsed. Children are hidden '
+      'description': 'Marks a single node as collapsed. Children are hidden '
           'but not removed — state is preserved for re-expansion.',
       'category': 'Single Node',
       'color': Color(0xFFE65100),
     },
     {
       'name': 'toggleNode(node)',
-      'description':
-          'Toggles between expanded and collapsed. Convenient '
+      'description': 'Toggles between expanded and collapsed. Convenient '
           'for tap handlers on tree row chevrons.',
       'category': 'Single Node',
       'color': Color(0xFF5C6BC0),
     },
     {
       'name': 'isExpanded(node)',
-      'description':
-          'Returns whether the given node is currently expanded. '
+      'description': 'Returns whether the given node is currently expanded. '
           'Use to render expand/collapse indicators.',
       'category': 'Query',
       'color': Color(0xFFE65100),
     },
     {
       'name': 'expandAll()',
-      'description':
-          'Recursively expands all nodes in the tree. Useful '
+      'description': 'Recursively expands all nodes in the tree. Useful '
           'for "Show All" actions or search result highlighting.',
       'category': 'Bulk',
       'color': Color(0xFF5C6BC0),
     },
     {
       'name': 'collapseAll()',
-      'description':
-          'Collapses all nodes back to showing only roots. '
+      'description': 'Collapses all nodes back to showing only roots. '
           'Clean reset for tree navigation.',
       'category': 'Bulk',
       'color': Color(0xFFE65100),
@@ -232,24 +217,21 @@ CustomScrollView(
   final indentTypes = <Map<String, dynamic>>[
     {
       'type': 'standard',
-      'description':
-          'Fixed pixel offset per depth level. Each level indents '
+      'description': 'Fixed pixel offset per depth level. Each level indents '
           'by a consistent amount (typically 40 logical pixels).',
       'visual': '├── Level 0\n│   ├── Level 1\n│   │   └── Level 2',
       'color': Color(0xFF5C6BC0),
     },
     {
       'type': 'none',
-      'description':
-          'No indentation at all. All nodes align to the left edge. '
+      'description': 'No indentation at all. All nodes align to the left edge. '
           'Useful when depth is shown by other visual means (nesting connectors).',
       'visual': '├── Level 0\n├── Level 1\n├── Level 2',
       'color': Color(0xFFE65100),
     },
     {
       'type': 'custom',
-      'description':
-          'A callback receives the tree node and returns the indent '
+      'description': 'A callback receives the tree node and returns the indent '
           'width. Enables variable-depth indentation, proportional spacing, '
           'or data-driven offsets.',
       'visual': '├── Level 0\n│  ├── Level 1 (16px)\n│     └── Level 2 (32px)',
@@ -280,18 +262,8 @@ CustomScrollView(
           'icon': Icons.folder,
           'color': Color(0xFFFFA726),
           'children': [
-            {
-              'label': 'user.dart',
-              'depth': 2,
-              'icon': Icons.description,
-              'color': Color(0xFF42A5F5),
-            },
-            {
-              'label': 'product.dart',
-              'depth': 2,
-              'icon': Icons.description,
-              'color': Color(0xFF42A5F5),
-            },
+            {'label': 'user.dart', 'depth': 2, 'icon': Icons.description, 'color': Color(0xFF42A5F5)},
+            {'label': 'product.dart', 'depth': 2, 'icon': Icons.description, 'color': Color(0xFF42A5F5)},
           ],
         },
         {
@@ -301,20 +273,10 @@ CustomScrollView(
           'icon': Icons.folder,
           'color': Color(0xFFFFA726),
           'children': [
-            {
-              'label': 'button.dart',
-              'depth': 2,
-              'icon': Icons.description,
-              'color': Color(0xFF42A5F5),
-            },
+            {'label': 'button.dart', 'depth': 2, 'icon': Icons.description, 'color': Color(0xFF42A5F5)},
           ],
         },
-        {
-          'label': 'main.dart',
-          'depth': 1,
-          'icon': Icons.description,
-          'color': Color(0xFF66BB6A),
-        },
+        {'label': 'main.dart', 'depth': 1, 'icon': Icons.description, 'color': Color(0xFF66BB6A)},
       ],
     },
     {
@@ -324,20 +286,10 @@ CustomScrollView(
       'icon': Icons.folder,
       'color': Color(0xFFFFA726),
       'children': [
-        {
-          'label': 'models_test.dart',
-          'depth': 1,
-          'icon': Icons.description,
-          'color': Color(0xFF42A5F5),
-        },
+        {'label': 'models_test.dart', 'depth': 1, 'icon': Icons.description, 'color': Color(0xFF42A5F5)},
       ],
     },
-    {
-      'label': 'pubspec.yaml',
-      'depth': 0,
-      'icon': Icons.settings,
-      'color': Color(0xFF78909C),
-    },
+    {'label': 'pubspec.yaml', 'depth': 0, 'icon': Icons.settings, 'color': Color(0xFF78909C)},
   ];
 
   print('  Sample tree items: ${sampleTree.length}');
@@ -350,8 +302,7 @@ CustomScrollView(
   final notifierAspects = <Map<String, dynamic>>[
     {
       'aspect': 'Notification Batching',
-      'description':
-          'Each expand/collapse call triggers a single '
+      'description': 'Each expand/collapse call triggers a single '
           'notifyListeners(). Bulk operations like expandAll() '
           'notify once after processing all nodes.',
       'icon': Icons.notifications_active,
@@ -359,8 +310,7 @@ CustomScrollView(
     },
     {
       'aspect': 'Listener Registration',
-      'description':
-          'TreeSliver registers as a listener automatically. '
+      'description': 'TreeSliver registers as a listener automatically. '
           'You can also add custom listeners to react to tree '
           'state changes in other parts of the UI.',
       'icon': Icons.hearing,
@@ -368,8 +318,7 @@ CustomScrollView(
     },
     {
       'aspect': 'Disposal',
-      'description':
-          'The controller should be disposed when the hosting '
+      'description': 'The controller should be disposed when the hosting '
           'widget is disposed. Failing to do so leaks listeners. '
           'Use StatefulWidget\'s dispose() method.',
       'icon': Icons.delete_outline,
@@ -377,8 +326,7 @@ CustomScrollView(
     },
     {
       'aspect': 'External Controllers',
-      'description':
-          'Create the controller outside TreeSliver to share '
+      'description': 'Create the controller outside TreeSliver to share '
           'it across widgets — e.g., a sidebar tree and a toolbar '
           'with expand/collapse buttons.',
       'icon': Icons.share,
@@ -396,8 +344,7 @@ CustomScrollView(
   final practices = <Map<String, dynamic>>[
     {
       'title': 'Lazy Tree Construction',
-      'detail':
-          'Build TreeSliverNode lists lazily — only populate '
+      'detail': 'Build TreeSliverNode lists lazily — only populate '
           'children when the parent is first expanded, not upfront. '
           'This keeps initial load fast for large datasets.',
       'icon': Icons.hourglass_empty,
@@ -405,8 +352,7 @@ CustomScrollView(
     },
     {
       'title': 'Preserve Controller Across Rebuilds',
-      'detail':
-          'Store TreeSliverController in a State field, not in '
+      'detail': 'Store TreeSliverController in a State field, not in '
           'build(). Recreating it loses expansion state and wastes '
           'AnimationController instances.',
       'icon': Icons.save,
@@ -414,8 +360,7 @@ CustomScrollView(
     },
     {
       'title': 'Custom Node Builder for Rich UIs',
-      'detail':
-          'The default tree node builder is simple text. Override '
+      'detail': 'The default tree node builder is simple text. Override '
           'treeNodeBuilder to add icons, trailing actions, context '
           'menus, and drag handles per node type.',
       'icon': Icons.design_services,
@@ -423,8 +368,7 @@ CustomScrollView(
     },
     {
       'title': 'Animate State Changes',
-      'detail':
-          'TreeSliver animates child insertion/removal. Keep '
+      'detail': 'TreeSliver animates child insertion/removal. Keep '
           'animation durations short (200–300 ms) for a responsive '
           'feel when expanding deep branches.',
       'icon': Icons.animation,
@@ -432,8 +376,7 @@ CustomScrollView(
     },
     {
       'title': 'Scope to CustomScrollView',
-      'detail':
-          'TreeSliver is a sliver — it must live inside a '
+      'detail': 'TreeSliver is a sliver — it must live inside a '
           'CustomScrollView (or NestedScrollView). Do not try to '
           'place it inside a regular Column or Container.',
       'icon': Icons.view_column,
@@ -467,14 +410,8 @@ CustomScrollView(
             children: [
               Icon(Icons.account_tree, size: 48, color: Colors.white),
               SizedBox(height: 12),
-              Text(
-                'TreeSliverController',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              Text('TreeSliverController',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
               SizedBox(height: 6),
               Text(
                 'The ChangeNotifier that manages expand/collapse state '
@@ -490,196 +427,132 @@ CustomScrollView(
         SizedBox(height: 24),
 
         // ---- Section 1: Concept ----
-        _sectionHeader(
-          '1. Concept',
-          Icons.lightbulb_outline,
-          Color(0xFF5C6BC0),
-        ),
+        _sectionHeader('1. Concept', Icons.lightbulb_outline, Color(0xFF5C6BC0)),
         SizedBox(height: 10),
-        ...conceptCards.map(
-          (c) => Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: (c['accent'] as Color).withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(12),
-                border: Border(
-                  left: BorderSide(color: c['accent'] as Color, width: 4),
+        ...conceptCards.map((c) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: (c['accent'] as Color).withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(left: BorderSide(color: c['accent'] as Color, width: 4)),
+                ),
+                padding: EdgeInsets.all(14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(c['icon'] as IconData, color: c['accent'] as Color, size: 28),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(c['title'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: c['accent'] as Color)),
+                          SizedBox(height: 4),
+                          Text(c['body'] as String, style: TextStyle(fontSize: 13)),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.all(14),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    c['icon'] as IconData,
-                    color: c['accent'] as Color,
-                    size: 28,
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          c['title'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: c['accent'] as Color,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          c['body'] as String,
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 2: TreeSliverNode ----
         _sectionHeader('2. TreeSliverNode', Icons.circle, Color(0xFFE65100)),
         SizedBox(height: 10),
-        ...nodeProperties.map(
-          (np) => Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey[200]!),
-              ),
-              padding: EdgeInsets.all(12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: np['color'] as Color,
-                      borderRadius: BorderRadius.circular(4),
+        ...nodeProperties.map((np) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey[200]!),
+                ),
+                padding: EdgeInsets.all(12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: np['color'] as Color,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(np['property'] as String,
+                          style: TextStyle(color: Colors.white, fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.bold)),
                     ),
-                    child: Text(
-                      np['property'] as String,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'monospace',
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(np['type'] as String,
+                              style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Colors.grey[600])),
+                          SizedBox(height: 3),
+                          Text(np['description'] as String,
+                              style: TextStyle(fontSize: 12)),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          np['type'] as String,
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          np['description'] as String,
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 3: Controller Methods ----
-        _sectionHeader(
-          '3. Controller Methods',
-          Icons.settings_remote,
-          Color(0xFF5C6BC0),
-        ),
+        _sectionHeader('3. Controller Methods', Icons.settings_remote, Color(0xFF5C6BC0)),
         SizedBox(height: 10),
-        ...methods.map(
-          (m) => Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                color: (m['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(10),
-                border: Border(
-                  left: BorderSide(color: m['color'] as Color, width: 3),
+        ...methods.map((m) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: (m['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border(left: BorderSide(color: m['color'] as Color, width: 3)),
+                ),
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(m['name'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'monospace',
+                                  fontSize: 12, color: m['color'] as Color)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          child: Text(m['category'] as String,
+                              style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600)),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Text(m['description'] as String,
+                        style: TextStyle(fontSize: 12)),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          m['name'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'monospace',
-                            fontSize: 12,
-                            color: m['color'] as Color,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                        child: Text(
-                          m['category'] as String,
-                          style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    m['description'] as String,
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 4: Tree Construction ----
         _sectionHeader('4. Tree Construction', Icons.code, Color(0xFFE65100)),
         SizedBox(height: 10),
-        Text(
-          'Defining a tree structure with TreeSliverNode:',
-          style: TextStyle(fontSize: 13, color: Colors.grey[700]),
-        ),
+        Text('Defining a tree structure with TreeSliverNode:',
+            style: TextStyle(fontSize: 13, color: Colors.grey[700])),
         SizedBox(height: 8),
         Container(
           width: double.infinity,
@@ -688,20 +561,12 @@ CustomScrollView(
             color: Colors.grey[900],
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(
-            treeCode,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: Color(0xFF80CBC4),
-            ),
-          ),
+          child: Text(treeCode,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF80CBC4))),
         ),
         SizedBox(height: 12),
-        Text(
-          'Wiring controller and TreeSliver:',
-          style: TextStyle(fontSize: 13, color: Colors.grey[700]),
-        ),
+        Text('Wiring controller and TreeSliver:',
+            style: TextStyle(fontSize: 13, color: Colors.grey[700])),
         SizedBox(height: 8),
         Container(
           width: double.infinity,
@@ -710,79 +575,54 @@ CustomScrollView(
             color: Colors.grey[900],
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(
-            usageCode,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: Color(0xFFFF8A65),
-            ),
-          ),
+          child: Text(usageCode,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFFF8A65))),
         ),
 
         SizedBox(height: 20),
 
         // ---- Section 5: Indentation ----
-        _sectionHeader(
-          '5. Indentation Types',
-          Icons.format_indent_increase,
-          Color(0xFF5C6BC0),
-        ),
+        _sectionHeader('5. Indentation Types', Icons.format_indent_increase, Color(0xFF5C6BC0)),
         SizedBox(height: 10),
-        ...indentTypes.map(
-          (it) => Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: (it['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: (it['color'] as Color).withValues(alpha: 0.3),
+        ...indentTypes.map((it) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: (it['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: (it['color'] as Color).withValues(alpha: 0.3)),
+                ),
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: it['color'] as Color,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(it['type'] as String,
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                    ),
+                    SizedBox(height: 8),
+                    Text(it['description'] as String, style: TextStyle(fontSize: 12)),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: Colors.grey[300]!),
+                      ),
+                      child: Text(it['visual'] as String,
+                          style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: it['color'] as Color,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      it['type'] as String,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    it['description'] as String,
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  SizedBox(height: 8),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: Colors.grey[300]!),
-                    ),
-                    child: Text(
-                      it['visual'] as String,
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 11),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
@@ -798,129 +638,91 @@ CustomScrollView(
           padding: EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [..._buildTreeVisual(sampleTree, 0)],
+            children: [
+              ..._buildTreeVisual(sampleTree, 0),
+            ],
           ),
         ),
 
         SizedBox(height: 20),
 
         // ---- Section 7: ChangeNotifier Pattern ----
-        _sectionHeader(
-          '7. ChangeNotifier',
-          Icons.notification_important,
-          Color(0xFF5C6BC0),
-        ),
+        _sectionHeader('7. ChangeNotifier', Icons.notification_important, Color(0xFF5C6BC0)),
         SizedBox(height: 10),
-        ...notifierAspects.map(
-          (a) => Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: (a['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(12),
-                border: Border(
-                  left: BorderSide(color: a['color'] as Color, width: 4),
+        ...notifierAspects.map((a) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: (a['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(left: BorderSide(color: a['color'] as Color, width: 4)),
+                ),
+                padding: EdgeInsets.all(14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(a['icon'] as IconData, color: a['color'] as Color, size: 24),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(a['aspect'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: a['color'] as Color)),
+                          SizedBox(height: 3),
+                          Text(a['description'] as String,
+                              style: TextStyle(fontSize: 12)),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.all(14),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    a['icon'] as IconData,
-                    color: a['color'] as Color,
-                    size: 24,
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          a['aspect'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: a['color'] as Color,
-                          ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          a['description'] as String,
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 8: Best Practices ----
-        _sectionHeader(
-          '8. Best Practices',
-          Icons.tips_and_updates,
-          Color(0xFFE65100),
-        ),
+        _sectionHeader('8. Best Practices', Icons.tips_and_updates, Color(0xFFE65100)),
         SizedBox(height: 10),
-        ...practices.map(
-          (p) => Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.grey[200]!),
+        ...practices.map((p) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey[200]!),
+                ),
+                padding: EdgeInsets.all(12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 34,
+                      height: 34,
+                      decoration: BoxDecoration(
+                        color: (p['color'] as Color).withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(p['icon'] as IconData, color: p['color'] as Color, size: 18),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(p['title'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                          SizedBox(height: 3),
+                          Text(p['detail'] as String,
+                              style: TextStyle(fontSize: 12, color: Colors.grey[700])),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              padding: EdgeInsets.all(12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 34,
-                    height: 34,
-                    decoration: BoxDecoration(
-                      color: (p['color'] as Color).withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                      p['icon'] as IconData,
-                      color: p['color'] as Color,
-                      size: 18,
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          p['title'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          p['detail'] as String,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 24),
 
@@ -958,8 +760,7 @@ List<Widget> _buildTreeVisual(List<Map<String, dynamic>> nodes, int depth) {
   final widgets = <Widget>[];
   for (final node in nodes) {
     final indent = depth * 24.0;
-    final hasChildren =
-        node.containsKey('children') && (node['children'] as List).isNotEmpty;
+    final hasChildren = node.containsKey('children') && (node['children'] as List).isNotEmpty;
     final isExpanded = node['expanded'] == true;
     widgets.add(
       Padding(
@@ -975,37 +776,24 @@ List<Widget> _buildTreeVisual(List<Map<String, dynamic>> nodes, int depth) {
             else
               SizedBox(width: 18),
             SizedBox(width: 4),
-            Icon(
-              node['icon'] as IconData,
-              size: 18,
-              color: node['color'] as Color,
-            ),
+            Icon(node['icon'] as IconData, size: 18, color: node['color'] as Color),
             SizedBox(width: 6),
-            Text(
-              node['label'] as String,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: hasChildren ? FontWeight.w600 : FontWeight.normal,
-              ),
-            ),
+            Text(node['label'] as String,
+                style: TextStyle(fontSize: 13, fontWeight: hasChildren ? FontWeight.w600 : FontWeight.normal)),
             if (hasChildren && !isExpanded) ...[
               SizedBox(width: 6),
-              Text(
-                '(${(node['children'] as List).length})',
-                style: TextStyle(fontSize: 10, color: Colors.grey[500]),
-              ),
+              Text('(${(node['children'] as List).length})',
+                  style: TextStyle(fontSize: 10, color: Colors.grey[500])),
             ],
           ],
         ),
       ),
     );
     if (hasChildren && isExpanded) {
-      widgets.addAll(
-        _buildTreeVisual(
-          (node['children'] as List).cast<Map<String, dynamic>>(),
-          depth + 1,
-        ),
-      );
+      widgets.addAll(_buildTreeVisual(
+        (node['children'] as List).cast<Map<String, dynamic>>(),
+        depth + 1,
+      ));
     }
   }
   return widgets;
@@ -1018,14 +806,7 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
     children: [
       Icon(icon, color: color, size: 22),
       SizedBox(width: 8),
-      Text(
-        title,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: color,
-        ),
-      ),
+      Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
     ],
   );
 }

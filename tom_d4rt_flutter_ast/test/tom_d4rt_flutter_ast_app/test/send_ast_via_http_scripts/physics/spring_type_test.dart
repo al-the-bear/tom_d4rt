@@ -283,12 +283,7 @@ class _AnatomyPainter extends CustomPainter {
 
     // Wall on the left.
     final Paint wall = Paint()..color = Colors.brown.shade300;
-    final Rect wallRect = Rect.fromLTWH(
-      0,
-      rect.height * 0.1,
-      12,
-      rect.height * 0.8,
-    );
+    final Rect wallRect = Rect.fromLTWH(0, rect.height * 0.1, 12, rect.height * 0.8);
     canvas.drawRect(wallRect, wall);
     // Wall hatching.
     final Paint hatch = Paint()
@@ -319,7 +314,12 @@ class _AnatomyPainter extends CustomPainter {
     canvas.drawPath(coil, coilPaint);
 
     // Mass block.
-    final Rect massRect = Rect.fromLTWH(springEndX, midY - 24, 48, 48);
+    final Rect massRect = Rect.fromLTWH(
+      springEndX,
+      midY - 24,
+      48,
+      48,
+    );
     final Paint massPaint = Paint()
       ..shader = const LinearGradient(
         colors: [Color(0xFF1976D2), Color(0xFF0D47A1)],
@@ -375,21 +375,10 @@ class _AnatomyPainter extends CustomPainter {
       tp.paint(canvas, pos);
     }
 
-    drawLabel(
-      'stiffness (k)',
-      Offset(springStartX + 8, midY - 36),
-      _kCriticalColor,
-    );
-    drawLabel(
-      'damping (c)',
-      Offset(springStartX + 8, damperY + 14),
-      _kOverColor,
-    );
-    drawLabel(
-      'mass (m)',
-      Offset(massRect.left + 2, massRect.bottom + 4),
-      const Color(0xFF0D47A1),
-    );
+    drawLabel('stiffness (k)', Offset(springStartX + 8, midY - 36), _kCriticalColor);
+    drawLabel('damping (c)', Offset(springStartX + 8, damperY + 14), _kOverColor);
+    drawLabel('mass (m)', Offset(massRect.left + 2, massRect.bottom + 4),
+        const Color(0xFF0D47A1));
 
     // Equilibrium tick at right.
     final Paint tickPaint = Paint()
@@ -430,9 +419,11 @@ class _DiscriminantPainter extends CustomPainter {
 
     // Region shading.
     final Paint underBg = Paint()..color = _kUnderColor.withValues(alpha: 0.12);
-    canvas.drawRect(Rect.fromLTRB(8, midY - 18, xFor(1.0), midY + 18), underBg);
-    final Paint critBg = Paint()
-      ..color = _kCriticalColor.withValues(alpha: 0.22);
+    canvas.drawRect(
+      Rect.fromLTRB(8, midY - 18, xFor(1.0), midY + 18),
+      underBg,
+    );
+    final Paint critBg = Paint()..color = _kCriticalColor.withValues(alpha: 0.22);
     canvas.drawRect(
       Rect.fromLTRB(xFor(1.0) - 2, midY - 18, xFor(1.0) + 2, midY + 18),
       critBg,
@@ -457,11 +448,7 @@ class _DiscriminantPainter extends CustomPainter {
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: text,
-          style: TextStyle(
-            color: color,
-            fontSize: size,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(color: color, fontSize: size, fontWeight: FontWeight.w600),
         ),
         textDirection: TextDirection.ltr,
       );
@@ -472,18 +459,8 @@ class _DiscriminantPainter extends CustomPainter {
     drawText('ζ = 0', Offset(8, midY + 22), Colors.black54, 10);
     drawText('ζ = 1', Offset(xFor(1.0) - 14, midY + 22), _kCriticalColor, 11);
     drawText('ζ = 2', Offset(rect.width - 32, midY + 22), Colors.black54, 10);
-    drawText(
-      'underDamped',
-      Offset(xFor(0.5) - 36, midY - 36),
-      _kUnderColor,
-      11,
-    );
-    drawText(
-      'critical',
-      Offset(xFor(1.0) - 18, midY - 36),
-      _kCriticalColor,
-      11,
-    );
+    drawText('underDamped', Offset(xFor(0.5) - 36, midY - 36), _kUnderColor, 11);
+    drawText('critical', Offset(xFor(1.0) - 18, midY - 36), _kCriticalColor, 11);
     drawText('overDamped', Offset(xFor(1.5) - 32, midY - 36), _kOverColor, 11);
 
     // Markers.
@@ -513,9 +490,7 @@ class _DiscriminantPainter extends CustomPainter {
 dynamic build(BuildContext context) {
   print('SpringType Deep Demo executing');
   print('Library: package:flutter/physics.dart');
-  print(
-    'Enum values: ${SpringType.values.map((SpringType v) => v.name).join(", ")}',
-  );
+  print('Enum values: ${SpringType.values.map((SpringType v) => v.name).join(", ")}');
 
   // ---------------------------------------------------------------------------
   // 0. PRECOMPUTE — all simulations run once here so the build tree stays pure.
@@ -525,11 +500,7 @@ dynamic build(BuildContext context) {
   // The classic three traces. Same mass and stiffness; only damping changes.
   final _SpringTrace under = _buildTrace(
     label: 'underDamped',
-    description: const SpringDescription(
-      mass: 1.0,
-      stiffness: 120.0,
-      damping: 4.0,
-    ),
+    description: const SpringDescription(mass: 1.0, stiffness: 120.0, damping: 4.0),
     color: _kUnderColor,
   );
   final _SpringTrace critical = _buildTrace(
@@ -542,11 +513,7 @@ dynamic build(BuildContext context) {
   );
   final _SpringTrace over = _buildTrace(
     label: 'overDamped',
-    description: const SpringDescription(
-      mass: 1.0,
-      stiffness: 120.0,
-      damping: 60.0,
-    ),
+    description: const SpringDescription(mass: 1.0, stiffness: 120.0, damping: 60.0),
     color: _kOverColor,
   );
 
@@ -572,7 +539,10 @@ dynamic build(BuildContext context) {
   );
   final _SpringTrace soft = _buildTrace(
     label: 'soft reveal',
-    description: SpringDescription.withDampingRatio(mass: 1.0, stiffness: 80.0),
+    description: SpringDescription.withDampingRatio(
+      mass: 1.0,
+      stiffness: 80.0,
+    ),
     color: _kCriticalColor,
   );
   final _SpringTrace settle = _buildTrace(
@@ -591,29 +561,17 @@ dynamic build(BuildContext context) {
   // produces an unbounded simulation) — instead we surround the boundary.
   final _SpringTrace tinyDamping = _buildTrace(
     label: 'tiny damping',
-    description: const SpringDescription(
-      mass: 1.0,
-      stiffness: 200.0,
-      damping: 0.1,
-    ),
+    description: const SpringDescription(mass: 1.0, stiffness: 200.0, damping: 0.1),
     color: _kUnderColor,
   );
   final _SpringTrace heavyDamping = _buildTrace(
     label: 'heavy damping',
-    description: const SpringDescription(
-      mass: 1.0,
-      stiffness: 200.0,
-      damping: 200.0,
-    ),
+    description: const SpringDescription(mass: 1.0, stiffness: 200.0, damping: 200.0),
     color: _kOverColor,
   );
   final _SpringTrace heavyMass = _buildTrace(
     label: 'heavy mass',
-    description: const SpringDescription(
-      mass: 6.0,
-      stiffness: 120.0,
-      damping: 4.0,
-    ),
+    description: const SpringDescription(mass: 6.0, stiffness: 120.0, damping: 4.0),
     color: _kUnderColor,
   );
 
@@ -787,8 +745,7 @@ dynamic build(BuildContext context) {
   // 3. PER-VALUE CARDS — one card per SpringType value.
   // ---------------------------------------------------------------------------
   print('=== Section 3: Per-value cards ===');
-  Widget buildValueCard(
-    _SpringTrace tr, {
+  Widget buildValueCard(_SpringTrace tr, {
     required String mathIntuition,
     required String realWorld,
   }) {
@@ -820,7 +777,10 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[tr.color, tr.color.withValues(alpha: 0.75)],
+                colors: <Color>[
+                  tr.color,
+                  tr.color.withValues(alpha: 0.75),
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -842,8 +802,8 @@ dynamic build(BuildContext context) {
                     tr.type == SpringType.criticallyDamped
                         ? Icons.adjust
                         : tr.type == SpringType.underDamped
-                        ? Icons.graphic_eq
-                        : Icons.trending_flat,
+                            ? Icons.graphic_eq
+                            : Icons.trending_flat,
                     color: Colors.white,
                     size: 18,
                   ),
@@ -905,7 +865,9 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: tr.color.withValues(alpha: 0.04),
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: tr.color.withValues(alpha: 0.25)),
+                    border: Border.all(
+                      color: tr.color.withValues(alpha: 0.25),
+                    ),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -961,30 +923,24 @@ dynamic build(BuildContext context) {
   final List<Widget> valueCards = <Widget>[
     buildValueCard(
       under,
-      mathIntuition:
-          'Damping ratio ζ < 1. The system has surplus energy and '
+      mathIntuition: 'Damping ratio ζ < 1. The system has surplus energy and '
           'crosses the rest line, oscillating with exponentially decaying '
           'amplitude.',
-      realWorld:
-          'Bouncy slide-in panels, playful confirmations, anything '
+      realWorld: 'Bouncy slide-in panels, playful confirmations, anything '
           'where overshoot is part of the personality.',
     ),
     buildValueCard(
       critical,
-      mathIntuition:
-          'Damping ratio ζ = 1 exactly. The fastest decay possible '
+      mathIntuition: 'Damping ratio ζ = 1 exactly. The fastest decay possible '
           'without crossing the rest line — a single, smooth approach.',
-      realWorld:
-          'Default Material motion, professional UI affordances, '
+      realWorld: 'Default Material motion, professional UI affordances, '
           'anything that should feel decisive but never bounce.',
     ),
     buildValueCard(
       over,
-      mathIntuition:
-          'Damping ratio ζ > 1. Two real exponential decays sum '
+      mathIntuition: 'Damping ratio ζ > 1. Two real exponential decays sum '
           'together; motion is monotonic and lazy.',
-      realWorld:
-          'Soft scroll-end clamps, deliberately heavy "magnet" pulls, '
+      realWorld: 'Soft scroll-end clamps, deliberately heavy "magnet" pulls, '
           'modal dismissal where you do not want any rebound.',
     ),
   ];
@@ -1067,10 +1023,7 @@ dynamic build(BuildContext context) {
           runSpacing: 8,
           children: <Widget>[
             _LegendDot(color: _kUnderColor, label: 'underDamped (c=4)'),
-            _LegendDot(
-              color: _kCriticalColor,
-              label: 'criticallyDamped (auto)',
-            ),
+            _LegendDot(color: _kCriticalColor, label: 'criticallyDamped (auto)'),
             _LegendDot(color: _kOverColor, label: 'overDamped (c=60)'),
           ],
         ),
@@ -1254,8 +1207,7 @@ dynamic build(BuildContext context) {
                       color: Colors.deepPurple,
                     ),
                     _Chip(
-                      label:
-                          'c ${trace.description.damping.toStringAsFixed(2)}',
+                      label: 'c ${trace.description.damping.toStringAsFixed(2)}',
                       color: Colors.deepOrange,
                     ),
                     _Chip(
@@ -1276,24 +1228,21 @@ dynamic build(BuildContext context) {
   final List<Widget> recipeCards = <Widget>[
     buildRecipe(
       title: 'Snappy menu drop',
-      useCase:
-          'A dropdown menu that should feel responsive and a touch '
+      useCase: 'A dropdown menu that should feel responsive and a touch '
           'playful. Small overshoot communicates "arrived".',
       trace: snappy,
       icon: Icons.menu_open,
     ),
     buildRecipe(
       title: 'Soft reveal modal',
-      useCase:
-          'A modal that slides into place with a single, decisive ease. '
+      useCase: 'A modal that slides into place with a single, decisive ease. '
           'No rebound, no second chance.',
       trace: soft,
       icon: Icons.layers,
     ),
     buildRecipe(
       title: 'No-overshoot scroll end',
-      useCase:
-          'When a list snaps to its final offset; bouncing here would '
+      useCase: 'When a list snaps to its final offset; bouncing here would '
           'be perceived as an unintended drag.',
       trace: settle,
       icon: Icons.vertical_align_bottom,
@@ -1522,8 +1471,8 @@ dynamic build(BuildContext context) {
                   color: t == SpringType.criticallyDamped
                       ? _kCriticalColor
                       : t == SpringType.underDamped
-                      ? _kUnderColor
-                      : _kOverColor,
+                          ? _kUnderColor
+                          : _kOverColor,
                   width: 4,
                 ),
               ),
@@ -1555,8 +1504,8 @@ dynamic build(BuildContext context) {
                   t == SpringType.underDamped
                       ? 'ζ < 1'
                       : t == SpringType.criticallyDamped
-                      ? 'ζ = 1'
-                      : 'ζ > 1',
+                          ? 'ζ = 1'
+                          : 'ζ > 1',
                   style: TextStyle(
                     fontFamily: 'monospace',
                     color: Colors.greenAccent.shade200,
@@ -1629,8 +1578,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12),
         _CodeSnippet(
           color: Colors.cyanAccent.shade100,
-          code:
-              '// Pick by intent, not by number\n'
+          code: '// Pick by intent, not by number\n'
               'final desc = SpringDescription.withDampingRatio(\n'
               '  mass: 1.0,\n'
               '  stiffness: 200.0,\n'
@@ -1640,8 +1588,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         _CodeSnippet(
           color: Colors.greenAccent.shade100,
-          code:
-              '// Drive any AnimationController via SpringSimulation\n'
+          code: '// Drive any AnimationController via SpringSimulation\n'
               'controller.animateWith(\n'
               '  SpringSimulation(desc, 0.0, 1.0, 0.0),\n'
               ');',
@@ -1649,8 +1596,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         _CodeSnippet(
           color: Colors.amberAccent.shade100,
-          code:
-              '// SpringType is computed eagerly in the constructor\n'
+          code: '// SpringType is computed eagerly in the constructor\n'
               'final sim = SpringSimulation(desc, 0.0, 1.0, 0.0);\n'
               'switch (sim.type) {\n'
               '  case SpringType.criticallyDamped: /* default UI motion */\n'
@@ -1706,13 +1652,11 @@ dynamic build(BuildContext context) {
         ),
         const _Bullet(
           color: _kCriticalColor,
-          text:
-              'Want decisive? Pick ζ = 1 (criticallyDamped). Default Material feel.',
+          text: 'Want decisive? Pick ζ = 1 (criticallyDamped). Default Material feel.',
         ),
         const _Bullet(
           color: _kOverColor,
-          text:
-              'Want heavy/lazy? Pick ζ > 1 (overDamped). No bounce, no sparkle.',
+          text: 'Want heavy/lazy? Pick ζ > 1 (overDamped). No bounce, no sparkle.',
         ),
         const SizedBox(height: 6),
         Text(
@@ -1974,7 +1918,10 @@ class _LabelRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 2),
-              Text(body, style: const TextStyle(fontSize: 12.5, height: 1.4)),
+              Text(
+                body,
+                style: const TextStyle(fontSize: 12.5, height: 1.4),
+              ),
             ],
           ),
         ),
@@ -2000,14 +1947,20 @@ class _LegendDot extends StatelessWidget {
             color: color,
             shape: BoxShape.circle,
             boxShadow: <BoxShadow>[
-              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 4),
+              BoxShadow(
+                color: color.withValues(alpha: 0.4),
+                blurRadius: 4,
+              ),
             ],
           ),
         ),
         const SizedBox(width: 6),
         Text(
           label,
-          style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11,
+          ),
         ),
       ],
     );
@@ -2015,7 +1968,11 @@ class _LegendDot extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
-  const _Chip({required this.label, required this.color, this.filled = false});
+  const _Chip({
+    required this.label,
+    required this.color,
+    this.filled = false,
+  });
   final String label;
   final Color color;
   final bool filled;

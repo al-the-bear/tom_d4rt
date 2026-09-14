@@ -101,9 +101,9 @@ dynamic build(BuildContext context) {
         _dtInfoBox(
           'Why Not Just DoNothingAndStopPropagationIntent?',
           'The text-specific variant allows the Actions framework to '
-              'distinguish between "block this key for text editing reasons" '
-              'and "block this key for general app reasons." This enables '
-              'debug tools and key tracing to identify the source of the block.',
+          'distinguish between "block this key for text editing reasons" '
+          'and "block this key for general app reasons." This enables '
+          'debug tools and key tracing to identify the source of the block.',
         ),
         const SizedBox(height: 24),
 
@@ -142,7 +142,9 @@ dynamic build(BuildContext context) {
 
         // ── 5. Comparison: Text vs General ──
         _dtSection('5. Text vs General Stop-Propagation'),
-        _dtBody('Comparing the two stop-propagation intents:'),
+        _dtBody(
+          'Comparing the two stop-propagation intents:',
+        ),
         const SizedBox(height: 12),
         _buildTextVsGeneral(),
         const SizedBox(height: 24),
@@ -243,12 +245,17 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [_dtSienna.withValues(alpha: 0.08), _dtPeach],
+              colors: [
+                _dtSienna.withValues(alpha: 0.08),
+                _dtPeach,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: _dtSienna.withValues(alpha: 0.25)),
+            border: Border.all(
+              color: _dtSienna.withValues(alpha: 0.25),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -304,7 +311,11 @@ Widget _dtSection(String title) {
 Widget _dtBody(String text) {
   return Text(
     text,
-    style: TextStyle(color: _dtBlack, fontSize: 15, height: 1.6),
+    style: TextStyle(
+      color: _dtBlack,
+      fontSize: 15,
+      height: 1.6,
+    ),
   );
 }
 
@@ -359,7 +370,11 @@ Widget _dtInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(color: _dtBlack, fontSize: 14, height: 1.5),
+          style: TextStyle(
+            color: _dtBlack,
+            fontSize: 14,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -386,7 +401,11 @@ Widget _dtSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: _dtBlack, fontSize: 13, height: 1.4),
+            style: TextStyle(
+              color: _dtBlack,
+              fontSize: 13,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -445,7 +464,9 @@ Widget _buildInheritanceChain() {
               child: Row(
                 children: [
                   Icon(
-                    i == chain.length - 1 ? Icons.star : Icons.circle_outlined,
+                    i == chain.length - 1
+                        ? Icons.star
+                        : Icons.circle_outlined,
                     color: chain[i]['color'] as Color,
                     size: 16,
                   ),
@@ -466,10 +487,7 @@ Widget _buildInheritanceChain() {
                         Text(
                           chain[i]['desc'] as String,
                           style: TextStyle(
-                            color: _dtBlack,
-                            fontSize: 11,
-                            height: 1.3,
-                          ),
+                              color: _dtBlack, fontSize: 11, height: 1.3),
                         ),
                       ],
                     ),
@@ -481,9 +499,9 @@ Widget _buildInheritanceChain() {
           if (i < chain.length - 1)
             Padding(
               padding: EdgeInsets.only(
-                left: ((chain[i]['indent'] as int) + 1) * 24.0 + 6,
-              ),
-              child: Container(width: 2, height: 12, color: _dtDivider),
+                  left: ((chain[i]['indent'] as int) + 1) * 24.0 + 6),
+              child: Container(
+                  width: 2, height: 12, color: _dtDivider),
             ),
         ],
       ],
@@ -506,10 +524,7 @@ Widget _buildTextInputPipeline() {
         Text(
           'Dual Pipeline for Text Fields',
           style: TextStyle(
-            color: _dtSienna,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+            color: _dtSienna, fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 14),
         Row(
@@ -528,28 +543,17 @@ Widget _buildTextInputPipeline() {
                   children: [
                     Icon(Icons.shortcut, color: _dtError, size: 22),
                     const SizedBox(height: 4),
-                    Text(
-                      'Shortcuts Pipeline',
-                      style: TextStyle(
-                        color: _dtError,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                    Text('Shortcuts Pipeline',
+                        style: TextStyle(color: _dtError, fontSize: 11,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
                     const SizedBox(height: 6),
-                    Text(
-                      '\u2022 Checks Shortcuts widgets',
-                      style: TextStyle(color: _dtBlack, fontSize: 10),
-                    ),
-                    Text(
-                      '\u2022 Finds StopPropTextIntent',
-                      style: TextStyle(color: _dtBlack, fontSize: 10),
-                    ),
-                    Text(
-                      '\u2022 Key consumed (blocked)',
-                      style: TextStyle(color: _dtBlack, fontSize: 10),
-                    ),
+                    Text('\u2022 Checks Shortcuts widgets',
+                        style: TextStyle(color: _dtBlack, fontSize: 10)),
+                    Text('\u2022 Finds StopPropTextIntent',
+                        style: TextStyle(color: _dtBlack, fontSize: 10)),
+                    Text('\u2022 Key consumed (blocked)',
+                        style: TextStyle(color: _dtBlack, fontSize: 10)),
                     const SizedBox(height: 6),
                     Container(
                       padding: const EdgeInsets.all(4),
@@ -557,14 +561,9 @@ Widget _buildTextInputPipeline() {
                         color: _dtError.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
-                        'BLOCKED',
-                        style: TextStyle(
-                          color: _dtError,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('BLOCKED',
+                          style: TextStyle(color: _dtError, fontSize: 10,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -578,34 +577,24 @@ Widget _buildTextInputPipeline() {
                 decoration: BoxDecoration(
                   color: _dtSuccess.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _dtSuccess.withValues(alpha: 0.2)),
+                  border: Border.all(
+                      color: _dtSuccess.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   children: [
                     Icon(Icons.input, color: _dtSuccess, size: 22),
                     const SizedBox(height: 4),
-                    Text(
-                      'Platform Channel',
-                      style: TextStyle(
-                        color: _dtSuccess,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                    Text('Platform Channel',
+                        style: TextStyle(color: _dtSuccess, fontSize: 11,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
                     const SizedBox(height: 6),
-                    Text(
-                      '\u2022 OS text input service',
-                      style: TextStyle(color: _dtBlack, fontSize: 10),
-                    ),
-                    Text(
-                      '\u2022 Handles character insertion',
-                      style: TextStyle(color: _dtBlack, fontSize: 10),
-                    ),
-                    Text(
-                      '\u2022 Manages IME composition',
-                      style: TextStyle(color: _dtBlack, fontSize: 10),
-                    ),
+                    Text('\u2022 OS text input service',
+                        style: TextStyle(color: _dtBlack, fontSize: 10)),
+                    Text('\u2022 Handles character insertion',
+                        style: TextStyle(color: _dtBlack, fontSize: 10)),
+                    Text('\u2022 Manages IME composition',
+                        style: TextStyle(color: _dtBlack, fontSize: 10)),
                     const SizedBox(height: 6),
                     Container(
                       padding: const EdgeInsets.all(4),
@@ -613,14 +602,9 @@ Widget _buildTextInputPipeline() {
                         color: _dtSuccess.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
-                        'HANDLES TEXT',
-                        style: TextStyle(
-                          color: _dtSuccess,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('HANDLES TEXT',
+                          style: TextStyle(color: _dtSuccess, fontSize: 10,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -685,19 +669,15 @@ Widget _buildBlockedKeys() {
             color: (k['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (k['color'] as Color).withValues(alpha: 0.2),
-            ),
+              color: (k['color'] as Color).withValues(alpha: 0.2)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(
-                    k['icon'] as IconData,
-                    color: k['color'] as Color,
-                    size: 16,
-                  ),
+                  Icon(k['icon'] as IconData,
+                      color: k['color'] as Color, size: 16),
                   const SizedBox(width: 6),
                   Text(
                     k['key'] as String,
@@ -737,36 +717,20 @@ Widget _buildTextVsGeneral() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '...TextIntent',
-                style: TextStyle(
-                  color: _dtSienna,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text('...TextIntent',
+                  style: TextStyle(color: _dtSienna, fontSize: 12,
+                      fontWeight: FontWeight.bold, fontFamily: 'monospace')),
               const SizedBox(height: 8),
-              Text(
-                '\u2022 Text editing context',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
-              Text(
-                '\u2022 Registered by EditableText',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
-              Text(
-                '\u2022 Blocks text-conflicting keys',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
-              Text(
-                '\u2022 Works with platform channel',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
-              Text(
-                '\u2022 Identifiable in debug tools',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
+              Text('\u2022 Text editing context',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
+              Text('\u2022 Registered by EditableText',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
+              Text('\u2022 Blocks text-conflicting keys',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
+              Text('\u2022 Works with platform channel',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
+              Text('\u2022 Identifiable in debug tools',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
             ],
           ),
         ),
@@ -783,36 +747,20 @@ Widget _buildTextVsGeneral() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '...Intent (general)',
-                style: TextStyle(
-                  color: _dtInfo,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text('...Intent (general)',
+                  style: TextStyle(color: _dtInfo, fontSize: 12,
+                      fontWeight: FontWeight.bold, fontFamily: 'monospace')),
               const SizedBox(height: 8),
-              Text(
-                '\u2022 Any widget context',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
-              Text(
-                '\u2022 Registered by any widget',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
-              Text(
-                '\u2022 Blocks any key for any reason',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
-              Text(
-                '\u2022 No text input awareness',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
-              Text(
-                '\u2022 Generic in debug tools',
-                style: TextStyle(color: _dtBlack, fontSize: 11),
-              ),
+              Text('\u2022 Any widget context',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
+              Text('\u2022 Registered by any widget',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
+              Text('\u2022 Blocks any key for any reason',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
+              Text('\u2022 No text input awareness',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
+              Text('\u2022 Generic in debug tools',
+                  style: TextStyle(color: _dtBlack, fontSize: 11)),
             ],
           ),
         ),
@@ -870,34 +818,19 @@ Widget _buildModeComparison() {
           children: [
             SizedBox(
               width: 70,
-              child: Text(
-                'Key',
-                style: TextStyle(
-                  color: _dtMuted,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text('Key',
+                  style: TextStyle(color: _dtMuted, fontSize: 11,
+                      fontWeight: FontWeight.bold)),
             ),
             Expanded(
-              child: Text(
-                'Text Mode (blocked)',
-                style: TextStyle(
-                  color: _dtSienna,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text('Text Mode (blocked)',
+                  style: TextStyle(color: _dtSienna, fontSize: 11,
+                      fontWeight: FontWeight.bold)),
             ),
             Expanded(
-              child: Text(
-                'Nav Mode (propagates)',
-                style: TextStyle(
-                  color: _dtInfo,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text('Nav Mode (propagates)',
+                  style: TextStyle(color: _dtInfo, fontSize: 11,
+                      fontWeight: FontWeight.bold)),
             ),
           ],
         ),
@@ -909,11 +842,10 @@ Widget _buildModeComparison() {
                 width: 70,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 2,
-                  ),
+                      horizontal: 4, vertical: 2),
                   decoration: BoxDecoration(
-                    color: (keys[i]['color'] as Color).withValues(alpha: 0.1),
+                    color: (keys[i]['color'] as Color)
+                        .withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
@@ -996,11 +928,8 @@ Widget _buildPlatformChannelInteraction() {
                   color: steps[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(
-                  steps[i]['icon'] as IconData,
-                  color: _dtWhite,
-                  size: 16,
-                ),
+                child: Icon(steps[i]['icon'] as IconData,
+                    color: _dtWhite, size: 16),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1018,10 +947,7 @@ Widget _buildPlatformChannelInteraction() {
                     Text(
                       steps[i]['handler'] as String,
                       style: TextStyle(
-                        color: _dtBlack,
-                        fontSize: 11,
-                        height: 1.3,
-                      ),
+                          color: _dtBlack, fontSize: 11, height: 1.3),
                     ),
                   ],
                 ),
@@ -1054,10 +980,7 @@ Widget _buildConflictResolution() {
         Text(
           'Shortcut Conflict: Space in Search Dialog',
           style: TextStyle(
-            color: _dtSienna,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+            color: _dtSienna, fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 14),
         // Outer scope
@@ -1072,22 +995,12 @@ Widget _buildConflictResolution() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'App Level: Shortcuts',
-                style: TextStyle(
-                  color: _dtWarning,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'Space \u2192 PlayPauseIntent (media)',
-                style: TextStyle(
-                  color: _dtBlack,
-                  fontSize: 10,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text('App Level: Shortcuts',
+                  style: TextStyle(color: _dtWarning, fontSize: 11,
+                      fontWeight: FontWeight.bold)),
+              Text('Space \u2192 PlayPauseIntent (media)',
+                  style: TextStyle(color: _dtBlack, fontSize: 10,
+                      fontFamily: 'monospace')),
               const SizedBox(height: 8),
               // Inner scope
               Container(
@@ -1097,54 +1010,36 @@ Widget _buildConflictResolution() {
                 decoration: BoxDecoration(
                   color: _dtSienna.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _dtSienna.withValues(alpha: 0.2)),
+                  border: Border.all(
+                      color: _dtSienna.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'TextField: EditableText Shortcuts',
-                      style: TextStyle(
-                        color: _dtSienna,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Space \u2192 StopPropagationTextIntent',
-                      style: TextStyle(
-                        color: _dtBlack,
-                        fontSize: 10,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
+                    Text('TextField: EditableText Shortcuts',
+                        style: TextStyle(color: _dtSienna, fontSize: 11,
+                            fontWeight: FontWeight.bold)),
+                    Text('Space \u2192 StopPropagationTextIntent',
+                        style: TextStyle(color: _dtBlack, fontSize: 10,
+                            fontFamily: 'monospace')),
                     const SizedBox(height: 6),
                     Row(
                       children: [
-                        Icon(Icons.check_circle, color: _dtSuccess, size: 14),
+                        Icon(Icons.check_circle,
+                            color: _dtSuccess, size: 14),
                         const SizedBox(width: 4),
-                        Text(
-                          'Space types " " in search field',
-                          style: TextStyle(
-                            color: _dtSuccess,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        Text('Space types " " in search field',
+                            style: TextStyle(color: _dtSuccess, fontSize: 10,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                     Row(
                       children: [
                         Icon(Icons.block, color: _dtError, size: 14),
                         const SizedBox(width: 4),
-                        Text(
-                          'PlayPauseIntent never fires',
-                          style: TextStyle(
-                            color: _dtError,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        Text('PlayPauseIntent never fires',
+                            style: TextStyle(color: _dtError, fontSize: 10,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ],
@@ -1177,10 +1072,7 @@ Widget _buildIMEBlocking() {
             Text(
               'CJK Input Method Composition',
               style: TextStyle(
-                color: _dtSienna,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
+                color: _dtSienna, fontSize: 14, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -1241,16 +1133,12 @@ Widget _dtIMEChip(String lang, String flow, Color color) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          lang,
-          style: TextStyle(
-            color: color,
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(lang,
+            style: TextStyle(color: color, fontSize: 11,
+                fontWeight: FontWeight.bold)),
         const SizedBox(width: 6),
-        Text(flow, style: TextStyle(color: _dtBlack, fontSize: 11)),
+        Text(flow,
+            style: TextStyle(color: _dtBlack, fontSize: 11)),
       ],
     ),
   );
@@ -1275,10 +1163,7 @@ Widget _buildDebugTracing() {
             Text(
               'Debug Output Identification',
               style: TextStyle(
-                color: _dtSienna,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
+                color: _dtSienna, fontSize: 14, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -1307,10 +1192,7 @@ Widget _buildDebugTracing() {
           'identify that a blocked key is due to a text field having '
           'focus, not a bug in their shortcut configuration.',
           style: TextStyle(
-            color: _dtMuted,
-            fontSize: 11,
-            fontStyle: FontStyle.italic,
-          ),
+            color: _dtMuted, fontSize: 11, fontStyle: FontStyle.italic),
         ),
       ],
     ),

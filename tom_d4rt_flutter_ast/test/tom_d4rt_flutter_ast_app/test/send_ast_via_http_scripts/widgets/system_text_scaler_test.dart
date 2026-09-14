@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.text_fields,
       'title': 'What is TextScaler?',
-      'body':
-          'TextScaler is an abstract class that determines how text '
+      'body': 'TextScaler is an abstract class that determines how text '
           'font sizes are scaled. It replaces the deprecated '
           'textScaleFactor (a simple double) with a richer API that '
           'supports non-linear scaling curves.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.accessibility,
       'title': 'Accessibility Purpose',
-      'body':
-          'Users with visual impairments set a preferred text size '
+      'body': 'Users with visual impairments set a preferred text size '
           'in their OS settings. TextScaler respects that preference '
           'by scaling all text proportionally, while allowing apps '
           'to clamp or customize the scaling behavior.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'System Integration',
-      'body':
-          'The system text scale factor is provided by the platform. '
+      'body': 'The system text scale factor is provided by the platform. '
           'MediaQuery.textScalerOf(context) returns the current '
           'TextScaler. On Android and iOS, this reflects the user\'s '
           'font size preference from accessibility settings.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.trending_up,
       'title': 'Linear vs Non-Linear',
-      'body':
-          'TextScaler.linear(factor) scales all sizes uniformly. '
+      'body': 'TextScaler.linear(factor) scales all sizes uniformly. '
           'Non-linear scalers can apply different multipliers at '
           'different base sizes — scaling small text more aggressively '
           'while keeping headings from becoming enormous.',
@@ -128,48 +124,42 @@ dynamic build(BuildContext context) {
     {
       'name': 'TextScaler.noScaling',
       'type': 'const TextScaler',
-      'desc':
-          'A TextScaler that does not scale text at all. Every font '
+      'desc': 'A TextScaler that does not scale text at all. Every font '
           'size is returned as-is. Equivalent to TextScaler.linear(1.0) '
           'but as a named constant.',
     },
     {
       'name': 'TextScaler.linear(factor)',
       'type': 'factory',
-      'desc':
-          'Creates a linear TextScaler. The given factor multiplies '
+      'desc': 'Creates a linear TextScaler. The given factor multiplies '
           'every font size uniformly. TextScaler.linear(1.5) makes all '
           'text 50% larger. This is the most common scaler.',
     },
     {
       'name': 'scale(fontSize)',
       'type': 'double',
-      'desc':
-          'The core method. Takes a font size and returns the scaled '
+      'desc': 'The core method. Takes a font size and returns the scaled '
           'size. For linear scalers: fontSize * factor. Custom scalers '
           'can implement any curve here.',
     },
     {
       'name': 'textScaleFactor',
       'type': 'double',
-      'desc':
-          'Deprecated getter. Returns the effective linear factor. '
+      'desc': 'Deprecated getter. Returns the effective linear factor. '
           'For backwards compatibility only. Prefer scale() which '
           'handles non-linear scalers correctly.',
     },
     {
       'name': 'clamp({minScaleFactor, maxScaleFactor})',
       'type': 'TextScaler',
-      'desc':
-          'Returns a new TextScaler that clamps the scaling result '
+      'desc': 'Returns a new TextScaler that clamps the scaling result '
           'within bounds. Useful for preventing text from becoming '
           'too small or too large, especially for headings.',
     },
     {
       'name': 'MediaQuery.textScalerOf(context)',
       'type': 'TextScaler',
-      'desc':
-          'Reads the TextScaler from the nearest MediaQuery. This '
+      'desc': 'Reads the TextScaler from the nearest MediaQuery. This '
           'provides the system text scale as configured by the user '
           'in OS accessibility settings.',
     },
@@ -268,10 +258,10 @@ dynamic build(BuildContext context) {
     final scaleColor = isDefault
         ? Colors.green
         : f < 1.0
-        ? Colors.blue
-        : f <= 1.5
-        ? Colors.brown
-        : Colors.red;
+            ? Colors.blue
+            : f <= 1.5
+                ? Colors.brown
+                : Colors.red;
     print('Scale ${i + 1}: ${f}x -> ${scaled}sp');
 
     scaleWidgets.add(
@@ -363,8 +353,7 @@ dynamic build(BuildContext context) {
   final a11yTopics = <Map<String, dynamic>>[
     {
       'title': 'Legal Requirements',
-      'desc':
-          'WCAG 2.1 Success Criterion 1.4.4 requires that text can '
+      'desc': 'WCAG 2.1 Success Criterion 1.4.4 requires that text can '
           'be resized up to 200% without loss of functionality. '
           'TextScaler is Flutter\'s mechanism for meeting this.',
       'icon': Icons.gavel,
@@ -372,8 +361,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Low Vision Users',
-      'desc':
-          'Approximately 4% of the population has low vision. Large '
+      'desc': 'Approximately 4% of the population has low vision. Large '
           'text settings (1.5x–3.0x) are common. Apps must handle '
           'text overflow gracefully at these scales.',
       'icon': Icons.visibility_off,
@@ -381,8 +369,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Testing at Scale',
-      'desc':
-          'Always test your UI at 1.0x, 1.5x, and 2.0x scale. Use '
+      'desc': 'Always test your UI at 1.0x, 1.5x, and 2.0x scale. Use '
           'MediaQuery.withClampedTextScaling or wrap in MediaQuery '
           'to simulate different scales during development.',
       'icon': Icons.bug_report,
@@ -390,8 +377,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Don\'t Disable Scaling',
-      'desc':
-          'Never set textScaler to TextScaler.noScaling globally. '
+      'desc': 'Never set textScaler to TextScaler.noScaling globally. '
           'Users who need large text cannot use your app. Instead, '
           'use clamp() to set reasonable bounds per widget.',
       'icon': Icons.block,
@@ -399,8 +385,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Overflow Strategies',
-      'desc':
-          'At large scales, text may overflow. Use Flexible/Expanded '
+      'desc': 'At large scales, text may overflow. Use Flexible/Expanded '
           'layouts, ellipsis for single-line text, and scrollable '
           'containers. Avoid fixed-height text containers.',
       'icon': Icons.height,
@@ -472,8 +457,7 @@ dynamic build(BuildContext context) {
   final layoutExamples = <Map<String, dynamic>>[
     {
       'title': 'Button with Scaled Text',
-      'desc':
-          'At 2x scale, button text doubles in size. If the button has '
+      'desc': 'At 2x scale, button text doubles in size. If the button has '
           'a fixed width, text overflows. Use flexible width or wrap the '
           'text with FittedBox for graceful degradation.',
       'scale': 2.0,
@@ -482,8 +466,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'AppBar Title Overflow',
-      'desc':
-          'Long titles in AppBar may overflow at large scales. '
+      'desc': 'Long titles in AppBar may overflow at large scales. '
           'Use AutoSizeText or set overflow: TextOverflow.ellipsis '
           'to handle this. Material AppBar clips by default.',
       'scale': 1.5,
@@ -492,8 +475,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Card Content',
-      'desc':
-          'Cards with both heading and body text grow vertically. '
+      'desc': 'Cards with both heading and body text grow vertically. '
           'At 2x scale, a card might need scrolling. Use '
           'ConstrainedBox with Scrollable for safety.',
       'scale': 2.0,
@@ -502,8 +484,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Navigation Labels',
-      'desc':
-          'BottomNavigationBar labels at large scales may overlap. '
+      'desc': 'BottomNavigationBar labels at large scales may overlap. '
           'Material widgets handle this internally but custom nav bars '
           'need explicit overflow handling.',
       'scale': 1.5,
@@ -512,8 +493,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Data Tables',
-      'desc':
-          'Table cells with scaled text need wider columns. '
+      'desc': 'Table cells with scaled text need wider columns. '
           'Use SingleChildScrollView for horizontal overflow. '
           'Consider clamped scaling for dense data displays.',
       'scale': 1.5,
@@ -574,10 +554,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: leColor.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(4),
@@ -636,11 +613,7 @@ dynamic build(BuildContext context) {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    size: 14,
-                    color: Colors.grey.shade400,
-                  ),
+                  child: Icon(Icons.arrow_forward, size: 14, color: Colors.grey.shade400),
                 ),
                 Expanded(
                   child: Container(
@@ -707,12 +680,10 @@ dynamic build(BuildContext context) {
   final customScalers = <Map<String, dynamic>>[
     {
       'title': 'Capped Heading Scaler',
-      'desc':
-          'Scales body text normally but caps heading sizes to prevent '
+      'desc': 'Scales body text normally but caps heading sizes to prevent '
           'them from dominating the screen. Checks if fontSize > 20 '
           'and applies a reduced factor for large sizes.',
-      'code':
-          'class CappedScaler implements TextScaler {\n'
+      'code': 'class CappedScaler implements TextScaler {\n'
           '  final double factor;\n'
           '  const CappedScaler(this.factor);\n'
           '\n'
@@ -729,12 +700,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Step Scaler',
-      'desc':
-          'Rounds scaled sizes to discrete steps (e.g., 12, 14, 16, '
+      'desc': 'Rounds scaled sizes to discrete steps (e.g., 12, 14, 16, '
           '18, 20). This keeps typography consistent even when the OS '
           'scale factor is not a clean number.',
-      'code':
-          'class StepScaler implements TextScaler {\n'
+      'code': 'class StepScaler implements TextScaler {\n'
           '  final double factor;\n'
           '  final List<double> steps = [12, 14, 16, 18, 20, 24, 28, 32];\n'
           '\n'
@@ -749,11 +718,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Bounded Scaler via clamp()',
-      'desc':
-          'The simplest custom approach: take the system TextScaler '
+      'desc': 'The simplest custom approach: take the system TextScaler '
           'and call clamp() to set min/max bounds. Built into the SDK.',
-      'code':
-          'final scaler = MediaQuery.textScalerOf(context);\n'
+      'code': 'final scaler = MediaQuery.textScalerOf(context);\n'
           'final clamped = scaler.clamp(\n'
           '  minScaleFactor: 0.8,\n'
           '  maxScaleFactor: 1.5,\n'
@@ -855,23 +822,19 @@ dynamic build(BuildContext context) {
   final mqTopics = <Map<String, dynamic>>[
     {
       'title': 'Reading the System Scale',
-      'desc':
-          'MediaQuery.textScalerOf(context) returns the TextScaler. '
+      'desc': 'MediaQuery.textScalerOf(context) returns the TextScaler. '
           'This is the recommended way to access the system text scale. '
           'It subscribes to changes so the widget rebuilds.',
-      'code':
-          'final scaler = MediaQuery.textScalerOf(context);\n'
+      'code': 'final scaler = MediaQuery.textScalerOf(context);\n'
           'final bodySize = scaler.scale(14.0); // e.g., 21.0 at 1.5x',
       'color': Colors.brown,
     },
     {
       'title': 'Overriding for a Subtree',
-      'desc':
-          'Wrap a subtree in MediaQuery to override the text scaler '
+      'desc': 'Wrap a subtree in MediaQuery to override the text scaler '
           'for descendant widgets. Useful for areas that should ignore '
           'or limit the system scale.',
-      'code':
-          'MediaQuery(\n'
+      'code': 'MediaQuery(\n'
           '  data: MediaQuery.of(context).copyWith(\n'
           '    textScaler: TextScaler.linear(1.0),\n'
           '  ),\n'
@@ -881,12 +844,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'withClampedTextScaling',
-      'desc':
-          'A convenience: MediaQuery.withClampedTextScaling wraps a '
+      'desc': 'A convenience: MediaQuery.withClampedTextScaling wraps a '
           'subtree and clamps the text scaler between min and max. '
           'Simpler than manually copying MediaQueryData.',
-      'code':
-          'MediaQuery.withClampedTextScaling(\n'
+      'code': 'MediaQuery.withClampedTextScaling(\n'
           '  minScaleFactor: 1.0,\n'
           '  maxScaleFactor: 1.5,\n'
           '  child: widget,\n'
@@ -895,13 +856,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Text Widget Integration',
-      'desc':
-          'Text and RichText automatically use MediaQuery.textScalerOf '
+      'desc': 'Text and RichText automatically use MediaQuery.textScalerOf '
           'unless you set textScaler on the widget directly. Setting '
           'textScaler: TextScaler.noScaling on a Text widget opts it '
           'out of scaling.',
-      'code':
-          'Text(\n'
+      'code': 'Text(\n'
           '  "Always 14sp",\n'
           '  textScaler: TextScaler.noScaling,\n'
           '  style: TextStyle(fontSize: 14),\n'
@@ -978,38 +937,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.text_fields,
-      'text':
-          'TextScaler replaces textScaleFactor with a richer API '
+      'text': 'TextScaler replaces textScaleFactor with a richer API '
           'that supports non-linear scaling curves.',
     },
     {
       'icon': Icons.accessibility,
-      'text':
-          'System text scaling is an accessibility requirement. '
+      'text': 'System text scaling is an accessibility requirement. '
           'Never disable it globally — use clamp() for limits.',
     },
     {
       'icon': Icons.trending_up,
-      'text':
-          'TextScaler.linear(factor) is the most common scaler. '
+      'text': 'TextScaler.linear(factor) is the most common scaler. '
           'The factor multiplies all font sizes uniformly.',
     },
     {
       'icon': Icons.phone_android,
-      'text':
-          'MediaQuery.textScalerOf(context) provides the system '
+      'text': 'MediaQuery.textScalerOf(context) provides the system '
           'TextScaler from the user\'s OS settings.',
     },
     {
       'icon': Icons.tune,
-      'text':
-          'Custom TextScalers can cap headings, round to steps, '
+      'text': 'Custom TextScalers can cap headings, round to steps, '
           'or apply any scaling curve per font size.',
     },
     {
       'icon': Icons.bug_report,
-      'text':
-          'Test your UI at 1.0x, 1.5x, and 2.0x to catch overflow '
+      'text': 'Test your UI at 1.0x, 1.5x, and 2.0x to catch overflow '
           'issues before users encounter them.',
     },
   ];

@@ -79,8 +79,7 @@ class _EndEvent {
   final DateTime? startedAt;
   final String cause;
 
-  double get extentBefore =>
-      (pixels - minScrollExtent).clamp(0.0, double.infinity);
+  double get extentBefore => (pixels - minScrollExtent).clamp(0.0, double.infinity);
   double get extentAfter =>
       (maxScrollExtent - pixels).clamp(0.0, double.infinity);
   double get extentInside => viewportDimension;
@@ -242,8 +241,8 @@ class _EndOfScrollRadarHomeState extends State<_EndOfScrollRadarHome>
     if (!_listController.hasClients) return;
     final double target =
         _listController.offset + 420 > _listController.position.maxScrollExtent
-        ? 0.0
-        : _listController.offset + 420;
+            ? 0.0
+            : _listController.offset + 420;
     await _listController.animateTo(
       target,
       duration: const Duration(milliseconds: 900),
@@ -282,77 +281,79 @@ class _EndOfScrollRadarHomeState extends State<_EndOfScrollRadarHome>
       body: NotificationListener<ScrollNotification>(
         onNotification: _onNotification,
         child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: _HeroHeader(radar: _radar)),
-            SliverToBoxAdapter(child: _SectionDivider(title: '1 · Overview')),
-            SliverToBoxAdapter(child: _OverviewCard()),
-            SliverToBoxAdapter(
-              child: _SectionDivider(title: '2 · Live end-event catcher'),
-            ),
-            SliverToBoxAdapter(
-              child: _LiveCatcher(
-                controller: _listController,
-                events: _events,
-                onClear: _clearLog,
+            slivers: [
+              SliverToBoxAdapter(child: _HeroHeader(radar: _radar)),
+              SliverToBoxAdapter(child: _SectionDivider(title: '1 · Overview')),
+              SliverToBoxAdapter(child: _OverviewCard()),
+              SliverToBoxAdapter(
+                child: _SectionDivider(title: '2 · Live end-event catcher'),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: _SectionDivider(title: '3 · Event timeline'),
-            ),
-            SliverToBoxAdapter(
-              child: _EventTimeline(
-                events: _events,
-                controller: _timelineController,
+              SliverToBoxAdapter(
+                child: _LiveCatcher(
+                  controller: _listController,
+                  events: _events,
+                  onClear: _clearLog,
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: _SectionDivider(
-                title: '4 · Cause-of-end comparison cards',
+              SliverToBoxAdapter(
+                child: _SectionDivider(title: '3 · Event timeline'),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: _ScenarioCards(
-                events: _events,
-                pulse: _pulse,
-                onFling: _hintFling,
-                onRelease: _hintRelease,
-                onProgrammatic: _runProgrammatic,
-                flingHighlight: _highlightForFling,
-                releaseHighlight: _highlightForTouchRelease,
-                progHighlight: _highlightForProgrammatic,
+              SliverToBoxAdapter(
+                child: _EventTimeline(
+                  events: _events,
+                  controller: _timelineController,
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: _SectionDivider(title: '5 · DragEndDetails anatomy'),
-            ),
-            SliverToBoxAdapter(child: _DragDetailsCard(events: _events)),
-            SliverToBoxAdapter(
-              child: _SectionDivider(title: '6 · ScrollMetrics snapshot'),
-            ),
-            SliverToBoxAdapter(child: _MetricsCard(events: _events)),
-            SliverToBoxAdapter(
-              child: _SectionDivider(title: '7 · ScrollStart / End pairing'),
-            ),
-            SliverToBoxAdapter(child: _PairingDiagram(events: _events)),
-            SliverToBoxAdapter(
-              child: _SectionDivider(title: '8 · Teaching panel'),
-            ),
-            SliverToBoxAdapter(
-              child: _TeachingPanel(
-                totalEnds: _totalEnds,
-                dragEnds: _dragEnds,
-                progEnds: _progEnds,
+              SliverToBoxAdapter(
+                child:
+                    _SectionDivider(title: '4 · Cause-of-end comparison cards'),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: _SectionDivider(title: '9 · Common use cases'),
-            ),
-            SliverToBoxAdapter(child: _UseCasesStrip()),
-            SliverToBoxAdapter(child: _SectionDivider(title: '10 · Summary')),
-            SliverToBoxAdapter(child: _FooterCard()),
-            const SliverToBoxAdapter(child: SizedBox(height: 32)),
-          ],
-        ),
+              SliverToBoxAdapter(
+                child: _ScenarioCards(
+                  events: _events,
+                  pulse: _pulse,
+                  onFling: _hintFling,
+                  onRelease: _hintRelease,
+                  onProgrammatic: _runProgrammatic,
+                  flingHighlight: _highlightForFling,
+                  releaseHighlight: _highlightForTouchRelease,
+                  progHighlight: _highlightForProgrammatic,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: _SectionDivider(title: '5 · DragEndDetails anatomy'),
+              ),
+              SliverToBoxAdapter(child: _DragDetailsCard(events: _events)),
+              SliverToBoxAdapter(
+                child: _SectionDivider(title: '6 · ScrollMetrics snapshot'),
+              ),
+              SliverToBoxAdapter(child: _MetricsCard(events: _events)),
+              SliverToBoxAdapter(
+                child:
+                    _SectionDivider(title: '7 · ScrollStart / End pairing'),
+              ),
+              SliverToBoxAdapter(child: _PairingDiagram(events: _events)),
+              SliverToBoxAdapter(
+                child: _SectionDivider(title: '8 · Teaching panel'),
+              ),
+              SliverToBoxAdapter(
+                child: _TeachingPanel(
+                  totalEnds: _totalEnds,
+                  dragEnds: _dragEnds,
+                  progEnds: _progEnds,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: _SectionDivider(title: '9 · Common use cases'),
+              ),
+              SliverToBoxAdapter(child: _UseCasesStrip()),
+              SliverToBoxAdapter(
+                child: _SectionDivider(title: '10 · Summary'),
+              ),
+              SliverToBoxAdapter(child: _FooterCard()),
+              const SliverToBoxAdapter(child: SizedBox(height: 32)),
+            ],
+          ),
       ),
     );
   }
@@ -409,10 +410,10 @@ class _HeroHeader extends StatelessWidget {
                 Text(
                   'ScrollEndNotification',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.2,
-                  ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.2,
+                      ),
                 ),
                 const SizedBox(height: 6),
                 Text(
@@ -468,7 +469,9 @@ class _HeroChip extends StatelessWidget {
             : Colors.white.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: accent ? kCoral : Colors.white.withValues(alpha: 0.25),
+          color: accent
+              ? kCoral
+              : Colors.white.withValues(alpha: 0.25),
         ),
       ),
       child: Text(
@@ -523,7 +526,10 @@ class _RadarPainter extends CustomPainter {
       ..shader = SweepGradient(
         startAngle: sweep - 0.6,
         endAngle: sweep,
-        colors: [kCoral.withValues(alpha: 0.0), kCoral.withValues(alpha: 0.75)],
+        colors: [
+          kCoral.withValues(alpha: 0.0),
+          kCoral.withValues(alpha: 0.75),
+        ],
       ).createShader(rect);
     canvas.drawArc(rect, sweep - 0.6, 0.6, true, sweepPaint);
 
@@ -539,7 +545,11 @@ class _RadarPainter extends CustomPainter {
     );
 
     // Center dot.
-    canvas.drawCircle(center, 4, Paint()..color = kButter);
+    canvas.drawCircle(
+      center,
+      4,
+      Paint()..color = kButter,
+    );
 
     // Pip marks.
     final pipPaint = Paint()
@@ -670,7 +680,11 @@ class _BulletRow extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: kInk, fontSize: 14, height: 1.45),
+              style: const TextStyle(
+                color: kInk,
+                fontSize: 14,
+                height: 1.45,
+              ),
             ),
           ),
         ],
@@ -726,11 +740,8 @@ class _LiveCatcher extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(14, 12, 12, 8),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.receipt_long_outlined,
-                        color: kNavy,
-                        size: 20,
-                      ),
+                      const Icon(Icons.receipt_long_outlined,
+                          color: kNavy, size: 20),
                       const SizedBox(width: 8),
                       const Text(
                         'End event log',
@@ -745,10 +756,8 @@ class _LiveCatcher extends StatelessWidget {
                         visualDensity: VisualDensity.compact,
                         tooltip: 'Clear log',
                         onPressed: onClear,
-                        icon: const Icon(
-                          Icons.delete_sweep_outlined,
-                          color: kMuted,
-                        ),
+                        icon: const Icon(Icons.delete_sweep_outlined,
+                            color: kMuted),
                       ),
                     ],
                   ),
@@ -759,9 +768,9 @@ class _LiveCatcher extends StatelessWidget {
                       : ListView.separated(
                           padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
                           itemCount: events.length,
-                          separatorBuilder: (c, i) => const SizedBox(height: 6),
-                          itemBuilder: (ctx, i) =>
-                              _EventLogRow(event: events[i]),
+                          separatorBuilder: (c, i) =>
+                              const SizedBox(height: 6),
+                          itemBuilder: (ctx, i) => _EventLogRow(event: events[i]),
                         ),
                 ),
               ],
@@ -803,7 +812,10 @@ class _ColouredListView extends StatelessWidget {
                 width: 36,
                 height: 36,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(color: c, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: c,
+                  shape: BoxShape.circle,
+                ),
                 child: Text(
                   '${i + 1}',
                   style: const TextStyle(
@@ -827,7 +839,10 @@ class _ColouredListView extends StatelessWidget {
                     ),
                     Text(
                       'Scroll me, fling me, release me — watch the log.',
-                      style: TextStyle(color: kMuted, fontSize: 12),
+                      style: TextStyle(
+                        color: kMuted,
+                        fontSize: 12,
+                      ),
                     ),
                   ],
                 ),
@@ -922,8 +937,8 @@ class _EventLogRow extends StatelessWidget {
                   Text(
                     event.fromDrag
                         ? 'v=${event.primaryVelocity.toStringAsFixed(1)} '
-                              'dx=${event.velocityDx.toStringAsFixed(1)} '
-                              'dy=${event.velocityDy.toStringAsFixed(1)}'
+                            'dx=${event.velocityDx.toStringAsFixed(1)} '
+                            'dy=${event.velocityDy.toStringAsFixed(1)}'
                         : 'programmatic — no DragEndDetails',
                     style: TextStyle(
                       color: event.fromDrag ? kNavy : kMuted,
@@ -975,8 +990,7 @@ class _EventTimeline extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               itemCount: recent.length,
               separatorBuilder: (c, i) => const SizedBox(width: 10),
-              itemBuilder: (ctx, i) =>
-                  _TimelineChip(event: recent[i], index: i),
+              itemBuilder: (ctx, i) => _TimelineChip(event: recent[i], index: i),
             ),
     );
   }
@@ -1091,81 +1105,79 @@ class _ScenarioCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: LayoutBuilder(
-        builder: (ctx, bc) {
-          final bool wide = bc.maxWidth > 900;
-          final children = [
-            _ScenarioCard(
-              title: 'User fling end',
-              subtitle: 'fast flick, released with velocity',
-              icon: Icons.bolt,
-              accent: kCoral,
-              event: _findFor('fling'),
-              pulse: pulse,
-              highlight: flingHighlight,
-              button: 'Arm — next end = fling',
-              onPressed: onFling,
-              bullets: const [
-                'dragDetails != null',
-                'primaryVelocity |v| ≥ ~200',
-                'typical for page swipes and tab scrolls',
-              ],
-            ),
-            _ScenarioCard(
-              title: 'User touch release',
-              subtitle: 'slow drag, released with ~0 velocity',
-              icon: Icons.pan_tool_alt_outlined,
-              accent: kButter,
-              event: _findFor('release'),
-              pulse: pulse,
-              highlight: releaseHighlight,
-              button: 'Arm — next end = release',
-              onPressed: onRelease,
-              bullets: const [
-                'dragDetails != null',
-                'primaryVelocity |v| ≈ 0',
-                'user "parks" the list precisely',
-              ],
-            ),
-            _ScenarioCard(
-              title: 'Programmatic animateTo end',
-              subtitle: 'no pointer, settled by controller',
-              icon: Icons.auto_mode,
-              accent: kNavy,
-              event: _findFor('programmatic'),
-              pulse: pulse,
-              highlight: progHighlight,
-              button: 'Run animateTo now',
-              onPressed: onProgrammatic,
-              bullets: const [
-                'dragDetails == null',
-                'velocity unknown',
-                'e.g. scrollToIndex, restoreOffset',
-              ],
-            ),
-          ];
+      child: LayoutBuilder(builder: (ctx, bc) {
+        final bool wide = bc.maxWidth > 900;
+        final children = [
+          _ScenarioCard(
+            title: 'User fling end',
+            subtitle: 'fast flick, released with velocity',
+            icon: Icons.bolt,
+            accent: kCoral,
+            event: _findFor('fling'),
+            pulse: pulse,
+            highlight: flingHighlight,
+            button: 'Arm — next end = fling',
+            onPressed: onFling,
+            bullets: const [
+              'dragDetails != null',
+              'primaryVelocity |v| ≥ ~200',
+              'typical for page swipes and tab scrolls',
+            ],
+          ),
+          _ScenarioCard(
+            title: 'User touch release',
+            subtitle: 'slow drag, released with ~0 velocity',
+            icon: Icons.pan_tool_alt_outlined,
+            accent: kButter,
+            event: _findFor('release'),
+            pulse: pulse,
+            highlight: releaseHighlight,
+            button: 'Arm — next end = release',
+            onPressed: onRelease,
+            bullets: const [
+              'dragDetails != null',
+              'primaryVelocity |v| ≈ 0',
+              'user "parks" the list precisely',
+            ],
+          ),
+          _ScenarioCard(
+            title: 'Programmatic animateTo end',
+            subtitle: 'no pointer, settled by controller',
+            icon: Icons.auto_mode,
+            accent: kNavy,
+            event: _findFor('programmatic'),
+            pulse: pulse,
+            highlight: progHighlight,
+            button: 'Run animateTo now',
+            onPressed: onProgrammatic,
+            bullets: const [
+              'dragDetails == null',
+              'velocity unknown',
+              'e.g. scrollToIndex, restoreOffset',
+            ],
+          ),
+        ];
 
-          if (wide) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (int i = 0; i < children.length; i++) ...[
-                  Expanded(child: children[i]),
-                  if (i < children.length - 1) const SizedBox(width: 12),
-                ],
-              ],
-            );
-          }
-          return Column(
+        if (wide) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (int i = 0; i < children.length; i++) ...[
-                children[i],
-                if (i < children.length - 1) const SizedBox(height: 12),
+                Expanded(child: children[i]),
+                if (i < children.length - 1) const SizedBox(width: 12),
               ],
             ],
           );
-        },
-      ),
+        }
+        return Column(
+          children: [
+            for (int i = 0; i < children.length; i++) ...[
+              children[i],
+              if (i < children.length - 1) const SizedBox(height: 12),
+            ],
+          ],
+        );
+      }),
     );
   }
 }
@@ -1248,10 +1260,8 @@ class _ScenarioCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '•  ',
-                    style: TextStyle(color: kCoral, fontSize: 14),
-                  ),
+                  const Text('•  ',
+                      style: TextStyle(color: kCoral, fontSize: 14)),
                   Expanded(
                     child: Text(
                       b,
@@ -1308,7 +1318,9 @@ class _ScenarioCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('when : ${_fmtTime(event!.timestamp)}'),
-                            Text('px   : ${event!.pixels.toStringAsFixed(2)}'),
+                            Text(
+                              'px   : ${event!.pixels.toStringAsFixed(2)}',
+                            ),
                             Text(
                               'max  : ${event!.maxScrollExtent.toStringAsFixed(1)}',
                             ),
@@ -1339,9 +1351,8 @@ class _DragDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _EndEvent? latest = events.where((e) => e.fromDrag).isEmpty
-        ? null
-        : events.firstWhere((e) => e.fromDrag);
+    final _EndEvent? latest =
+        events.where((e) => e.fromDrag).isEmpty ? null : events.firstWhere((e) => e.fromDrag);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(18),
@@ -1368,74 +1379,61 @@ class _DragDetailsCard extends StatelessWidget {
             style: TextStyle(color: kMuted, fontSize: 12, height: 1.4),
           ),
           const SizedBox(height: 14),
-          LayoutBuilder(
-            builder: (ctx, bc) {
-              final bool wide = bc.maxWidth > 720;
-              final fields = [
-                _FieldTile(
-                  label: 'velocity.pixelsPerSecond.dx',
-                  value: latest == null
-                      ? '—'
-                      : latest.velocityDx.toStringAsFixed(2),
-                ),
-                _FieldTile(
-                  label: 'velocity.pixelsPerSecond.dy',
-                  value: latest == null
-                      ? '—'
-                      : latest.velocityDy.toStringAsFixed(2),
-                ),
-                _FieldTile(
-                  label: 'primaryVelocity',
-                  value: latest == null
-                      ? '—'
-                      : latest.primaryVelocity.toStringAsFixed(2),
-                ),
-                _FieldTile(
-                  label: 'speed (magnitude)',
-                  value: latest == null
-                      ? '—'
-                      : math
-                            .sqrt(
-                              latest.velocityDx * latest.velocityDx +
-                                  latest.velocityDy * latest.velocityDy,
-                            )
-                            .toStringAsFixed(2),
-                ),
-                _FieldTile(
-                  label: 'direction',
-                  value: latest == null
-                      ? '—'
-                      : _directionLabel(
-                          latest.primaryVelocity,
-                          latest.axisDirection,
-                        ),
-                ),
-                _FieldTile(
-                  label: 'captured at',
-                  value: latest == null ? '—' : _fmtTime(latest.timestamp),
-                ),
-              ];
-              if (wide) {
-                return Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: [
-                    for (final f in fields)
-                      SizedBox(width: (bc.maxWidth - 36) / 3, child: f),
-                  ],
-                );
-              }
-              return Column(
+          LayoutBuilder(builder: (ctx, bc) {
+            final bool wide = bc.maxWidth > 720;
+            final fields = [
+              _FieldTile(
+                label: 'velocity.pixelsPerSecond.dx',
+                value: latest == null ? '—' : latest.velocityDx.toStringAsFixed(2),
+              ),
+              _FieldTile(
+                label: 'velocity.pixelsPerSecond.dy',
+                value: latest == null ? '—' : latest.velocityDy.toStringAsFixed(2),
+              ),
+              _FieldTile(
+                label: 'primaryVelocity',
+                value: latest == null ? '—' : latest.primaryVelocity.toStringAsFixed(2),
+              ),
+              _FieldTile(
+                label: 'speed (magnitude)',
+                value: latest == null
+                    ? '—'
+                    : math
+                        .sqrt(latest.velocityDx * latest.velocityDx +
+                            latest.velocityDy * latest.velocityDy)
+                        .toStringAsFixed(2),
+              ),
+              _FieldTile(
+                label: 'direction',
+                value: latest == null
+                    ? '—'
+                    : _directionLabel(latest.primaryVelocity, latest.axisDirection),
+              ),
+              _FieldTile(
+                label: 'captured at',
+                value: latest == null ? '—' : _fmtTime(latest.timestamp),
+              ),
+            ];
+            if (wide) {
+              return Wrap(
+                spacing: 12,
+                runSpacing: 12,
                 children: [
                   for (final f in fields)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: f,
-                    ),
+                    SizedBox(width: (bc.maxWidth - 36) / 3, child: f),
                 ],
               );
-            },
-          ),
+            }
+            return Column(
+              children: [
+                for (final f in fields)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: f,
+                  ),
+              ],
+            );
+          }),
           const SizedBox(height: 14),
           _VelocityGauge(
             velocity: latest?.primaryVelocity ?? 0.0,
@@ -1548,47 +1546,44 @@ class _VelocityGauge extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          LayoutBuilder(
-            builder: (ctx, bc) {
-              final double halfW = bc.maxWidth / 2;
-              return SizedBox(
-                height: 18,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(9),
-                          border: Border.all(
-                            color: kNavy.withValues(alpha: 0.1),
-                          ),
-                        ),
+          LayoutBuilder(builder: (ctx, bc) {
+            final double halfW = bc.maxWidth / 2;
+            return SizedBox(
+              height: 18,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(9),
+                        border:
+                            Border.all(color: kNavy.withValues(alpha: 0.1)),
                       ),
                     ),
-                    Positioned(
-                      left: halfW - 1,
-                      top: 2,
-                      bottom: 2,
-                      child: Container(width: 2, color: kMuted),
-                    ),
-                    Positioned(
-                      left: velocity >= 0 ? halfW : halfW - halfW * bar,
-                      top: 3,
-                      bottom: 3,
-                      width: halfW * bar,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: c.withValues(alpha: 0.75),
-                          borderRadius: BorderRadius.circular(7),
-                        ),
+                  ),
+                  Positioned(
+                    left: halfW - 1,
+                    top: 2,
+                    bottom: 2,
+                    child: Container(width: 2, color: kMuted),
+                  ),
+                  Positioned(
+                    left: velocity >= 0 ? halfW : halfW - halfW * bar,
+                    top: 3,
+                    bottom: 3,
+                    width: halfW * bar,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: c.withValues(alpha: 0.75),
+                        borderRadius: BorderRadius.circular(7),
                       ),
                     ),
-                  ],
-                ),
-              );
-            },
-          ),
+                  ),
+                ],
+              ),
+            );
+          }),
           const SizedBox(height: 6),
           Text(
             '${velocity.toStringAsFixed(1)} px/s (range ±4000)',
@@ -1642,10 +1637,7 @@ class _MetricsCard extends StatelessWidget {
               style: TextStyle(color: kMuted, fontStyle: FontStyle.italic),
             )
           else ...[
-            _MetricRow(
-              label: 'axisDirection',
-              value: '${latest.axisDirection}',
-            ),
+            _MetricRow(label: 'axisDirection', value: '${latest.axisDirection}'),
             _MetricRow(
               label: 'pixels',
               value: latest.pixels.toStringAsFixed(2),
@@ -1681,8 +1673,8 @@ class _MetricsCard extends StatelessWidget {
               latest.pixels >= latest.maxScrollExtent - 0.5
                   ? 'Reached the bottom. Safe to fetch the next page.'
                   : 'Ended mid-list at '
-                        '${(latest.pixels / latest.maxScrollExtent * 100).toStringAsFixed(1)}% '
-                        'of the scrollable range.',
+                      '${(latest.pixels / latest.maxScrollExtent * 100).toStringAsFixed(1)}% '
+                      'of the scrollable range.',
               style: TextStyle(
                 color: kMuted,
                 fontStyle: FontStyle.italic,
@@ -1741,11 +1733,10 @@ class _ExtentBars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double total =
-        (event.extentBefore + event.extentInside + event.extentAfter).clamp(
-          1.0,
-          double.infinity,
-        );
+    final double total = (event.extentBefore +
+            event.extentInside +
+            event.extentAfter)
+        .clamp(1.0, double.infinity);
     final double b = event.extentBefore / total;
     final double i = event.extentInside / total;
     final double a = event.extentAfter / total;
@@ -1805,10 +1796,16 @@ class _LegendDot extends StatelessWidget {
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 6),
-        Text(label, style: TextStyle(color: kMuted, fontSize: 11)),
+        Text(
+          label,
+          style: TextStyle(color: kMuted, fontSize: 11),
+        ),
       ],
     );
   }
@@ -1858,74 +1855,73 @@ class _PairingDiagram extends StatelessWidget {
               style: TextStyle(color: kMuted, fontStyle: FontStyle.italic),
             )
           else
-            LayoutBuilder(
-              builder: (ctx, bc) {
-                final double maxMs = paired
-                    .map((e) => e.duration.inMilliseconds.toDouble())
-                    .fold<double>(1.0, (p, c) => c > p ? c : p);
-                return Column(
-                  children: [
-                    for (int i = 0; i < paired.length; i++)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 28,
-                              child: Text(
-                                '#${i + 1}',
-                                style: TextStyle(
-                                  color: kMuted,
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                ),
+            LayoutBuilder(builder: (ctx, bc) {
+              final double maxMs = paired
+                  .map((e) => e.duration.inMilliseconds.toDouble())
+                  .fold<double>(1.0, (p, c) => c > p ? c : p);
+              return Column(
+                children: [
+                  for (int i = 0; i < paired.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 28,
+                            child: Text(
+                              '#${i + 1}',
+                              style: TextStyle(
+                                color: kMuted,
+                                fontFamily: 'monospace',
+                                fontSize: 11,
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                height: 16,
-                                decoration: BoxDecoration(
-                                  color: kMist,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: FractionallySizedBox(
-                                  alignment: Alignment.centerLeft,
-                                  widthFactor:
-                                      (paired[i].duration.inMilliseconds /
-                                              maxMs)
-                                          .clamp(0.02, 1.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: paired[i].fromDrag
-                                          ? kCoral.withValues(alpha: 0.85)
-                                          : kMuted,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 16,
+                              decoration: BoxDecoration(
+                                color: kMist,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: FractionallySizedBox(
+                                alignment: Alignment.centerLeft,
+                                widthFactor: (paired[i]
+                                            .duration
+                                            .inMilliseconds /
+                                        maxMs)
+                                    .clamp(0.02, 1.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: paired[i].fromDrag
+                                        ? kCoral.withValues(alpha: 0.85)
+                                        : kMuted,
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                              width: 80,
-                              child: Text(
-                                '${paired[i].duration.inMilliseconds} ms',
-                                textAlign: TextAlign.right,
-                                style: const TextStyle(
-                                  color: kInk,
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                          ),
+                          const SizedBox(width: 10),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              '${paired[i].duration.inMilliseconds} ms',
+                              textAlign: TextAlign.right,
+                              style: const TextStyle(
+                                color: kInk,
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                  ],
-                );
-              },
-            ),
+                    ),
+                ],
+              );
+            }),
         ],
       ),
     );
@@ -1951,65 +1947,66 @@ class _TeachingPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: LayoutBuilder(
-        builder: (ctx, bc) {
-          final bool wide = bc.maxWidth > 900;
-          final tiles = [
-            _TeachingTile(
-              icon: Icons.download_done_outlined,
-              title: 'Use it to lazy-load',
-              body:
-                  'Fetch the next page of items only after scrolling settles. '
-                  'The end event is cheaper to handle than onScroll deltas, and '
-                  'matches the user\'s intent ("I stopped — give me more").',
-              counter: _TeachingCounter(
-                label: 'end events captured',
-                value: '$totalEnds',
-              ),
+      child: LayoutBuilder(builder: (ctx, bc) {
+        final bool wide = bc.maxWidth > 900;
+        final tiles = [
+          _TeachingTile(
+            icon: Icons.download_done_outlined,
+            title: 'Use it to lazy-load',
+            body:
+                'Fetch the next page of items only after scrolling settles. '
+                'The end event is cheaper to handle than onScroll deltas, and '
+                'matches the user\'s intent ("I stopped — give me more").',
+            counter: _TeachingCounter(
+              label: 'end events captured',
+              value: '$totalEnds',
             ),
-            _TeachingTile(
-              icon: Icons.fork_right,
-              title: 'Differentiate user vs programmatic',
-              body:
-                  'Check dragDetails != null to know if the end came from a '
-                  'real gesture. Programmatic ends (animateTo, jumpTo) arrive '
-                  'with a null dragDetails and no velocity.',
-              counter: _TeachingCounter(
-                label: 'drag / prog',
-                value: '$dragEnds / $progEnds',
-              ),
+          ),
+          _TeachingTile(
+            icon: Icons.fork_right,
+            title: 'Differentiate user vs programmatic',
+            body:
+                'Check dragDetails != null to know if the end came from a '
+                'real gesture. Programmatic ends (animateTo, jumpTo) arrive '
+                'with a null dragDetails and no velocity.',
+            counter: _TeachingCounter(
+              label: 'drag / prog',
+              value: '$dragEnds / $progEnds',
             ),
-            _TeachingTile(
-              icon: Icons.warning_amber_outlined,
-              title: '"End" ≠ "bottom"',
-              body:
-                  'End merely means "activity became idle". Compare '
-                  'metrics.pixels against metrics.maxScrollExtent to detect '
-                  'reaching the end of content. The two are orthogonal.',
-              counter: _TeachingCounter(label: 'rule', value: 'pixels vs max'),
+          ),
+          _TeachingTile(
+            icon: Icons.warning_amber_outlined,
+            title: '"End" ≠ "bottom"',
+            body:
+                'End merely means "activity became idle". Compare '
+                'metrics.pixels against metrics.maxScrollExtent to detect '
+                'reaching the end of content. The two are orthogonal.',
+            counter: _TeachingCounter(
+              label: 'rule',
+              value: 'pixels vs max',
             ),
-          ];
-          if (wide) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (int i = 0; i < tiles.length; i++) ...[
-                  Expanded(child: tiles[i]),
-                  if (i < tiles.length - 1) const SizedBox(width: 12),
-                ],
-              ],
-            );
-          }
-          return Column(
+          ),
+        ];
+        if (wide) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (int i = 0; i < tiles.length; i++) ...[
-                tiles[i],
-                if (i < tiles.length - 1) const SizedBox(height: 12),
+                Expanded(child: tiles[i]),
+                if (i < tiles.length - 1) const SizedBox(width: 12),
               ],
             ],
           );
-        },
-      ),
+        }
+        return Column(
+          children: [
+            for (int i = 0; i < tiles.length; i++) ...[
+              tiles[i],
+              if (i < tiles.length - 1) const SizedBox(height: 12),
+            ],
+          ],
+        );
+      }),
     );
   }
 }
@@ -2161,30 +2158,28 @@ class _UseCasesStrip extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: LayoutBuilder(
-        builder: (ctx, bc) {
-          final bool wide = bc.maxWidth > 900;
-          if (wide) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (int i = 0; i < cases.length; i++) ...[
-                  Expanded(child: cases[i]),
-                  if (i < cases.length - 1) const SizedBox(width: 12),
-                ],
-              ],
-            );
-          }
-          return Column(
+      child: LayoutBuilder(builder: (ctx, bc) {
+        final bool wide = bc.maxWidth > 900;
+        if (wide) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (int i = 0; i < cases.length; i++) ...[
-                cases[i],
-                if (i < cases.length - 1) const SizedBox(height: 12),
+                Expanded(child: cases[i]),
+                if (i < cases.length - 1) const SizedBox(width: 12),
               ],
             ],
           );
-        },
-      ),
+        }
+        return Column(
+          children: [
+            for (int i = 0; i < cases.length; i++) ...[
+              cases[i],
+              if (i < cases.length - 1) const SizedBox(height: 12),
+            ],
+          ],
+        );
+      }),
     );
   }
 }

@@ -162,7 +162,10 @@ dynamic build(BuildContext context) {
               Text(
                 'Display styles are the largest text styles, typically used for '
                 'hero sections and dramatic visual statements.',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
               SizedBox(height: 20.0),
 
@@ -253,7 +256,10 @@ dynamic build(BuildContext context) {
               Text(
                 'Headline styles are used for section headers and prominent titles. '
                 'They create visual hierarchy in content-heavy screens.',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
               SizedBox(height: 20.0),
 
@@ -344,7 +350,10 @@ dynamic build(BuildContext context) {
               Text(
                 'Title styles are used for card titles, dialog titles, and AppBar '
                 'titles. They provide medium emphasis in the visual hierarchy.',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
               SizedBox(height: 20.0),
 
@@ -435,15 +444,17 @@ dynamic build(BuildContext context) {
               Text(
                 'Body styles are used for main content text, long-form reading, '
                 'and descriptions. Optimized for readability at smaller sizes.',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
               SizedBox(height: 20.0),
 
               // Body Large
               _buildTextStyleDemo(
                 label: 'bodyLarge',
-                sampleText:
-                    'Body Large text for longer paragraphs and main content that requires comfortable reading at desktop sizes.',
+                sampleText: 'Body Large text for longer paragraphs and main content that requires comfortable reading at desktop sizes.',
                 style: textTheme.bodyLarge,
                 description: '16sp, primary paragraph text',
               ),
@@ -452,8 +463,7 @@ dynamic build(BuildContext context) {
               // Body Medium
               _buildTextStyleDemo(
                 label: 'bodyMedium',
-                sampleText:
-                    'Body Medium is the default body style used throughout most Material components and general content.',
+                sampleText: 'Body Medium is the default body style used throughout most Material components and general content.',
                 style: textTheme.bodyMedium,
                 description: '14sp, default body text',
               ),
@@ -462,8 +472,7 @@ dynamic build(BuildContext context) {
               // Body Small
               _buildTextStyleDemo(
                 label: 'bodySmall',
-                sampleText:
-                    'Body Small is used for annotations, footnotes, timestamps, and secondary information that supports the main content.',
+                sampleText: 'Body Small is used for annotations, footnotes, timestamps, and secondary information that supports the main content.',
                 style: textTheme.bodySmall,
                 description: '12sp, captions, timestamps',
               ),
@@ -529,7 +538,10 @@ dynamic build(BuildContext context) {
               Text(
                 'Label styles are used for buttons, chips, form labels, and navigation. '
                 'They are designed to be legible at very small sizes.',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade600,
+                ),
               ),
               SizedBox(height: 20.0),
 
@@ -645,7 +657,9 @@ dynamic build(BuildContext context) {
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
                 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-                style: textTheme.bodyMedium?.copyWith(height: 1.5),
+                style: textTheme.bodyMedium?.copyWith(
+                  height: 1.5,
+                ),
               ),
               SizedBox(height: 16.0),
 
@@ -759,42 +773,12 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Typography Scale Reference ===');
 
   final scaleItems = [
-    {
-      'name': 'displayLarge',
-      'size': 57.0,
-      'weight': 'Regular',
-      'tracking': -0.25,
-    },
-    {
-      'name': 'displayMedium',
-      'size': 45.0,
-      'weight': 'Regular',
-      'tracking': 0.0,
-    },
-    {
-      'name': 'displaySmall',
-      'size': 36.0,
-      'weight': 'Regular',
-      'tracking': 0.0,
-    },
-    {
-      'name': 'headlineLarge',
-      'size': 32.0,
-      'weight': 'Regular',
-      'tracking': 0.0,
-    },
-    {
-      'name': 'headlineMedium',
-      'size': 28.0,
-      'weight': 'Regular',
-      'tracking': 0.0,
-    },
-    {
-      'name': 'headlineSmall',
-      'size': 24.0,
-      'weight': 'Regular',
-      'tracking': 0.0,
-    },
+    {'name': 'displayLarge', 'size': 57.0, 'weight': 'Regular', 'tracking': -0.25},
+    {'name': 'displayMedium', 'size': 45.0, 'weight': 'Regular', 'tracking': 0.0},
+    {'name': 'displaySmall', 'size': 36.0, 'weight': 'Regular', 'tracking': 0.0},
+    {'name': 'headlineLarge', 'size': 32.0, 'weight': 'Regular', 'tracking': 0.0},
+    {'name': 'headlineMedium', 'size': 28.0, 'weight': 'Regular', 'tracking': 0.0},
+    {'name': 'headlineSmall', 'size': 24.0, 'weight': 'Regular', 'tracking': 0.0},
     {'name': 'titleLarge', 'size': 22.0, 'weight': 'Regular', 'tracking': 0.0},
     {'name': 'titleMedium', 'size': 16.0, 'weight': 'Medium', 'tracking': 0.15},
     {'name': 'titleSmall', 'size': 14.0, 'weight': 'Medium', 'tracking': 0.1},
@@ -812,7 +796,9 @@ dynamic build(BuildContext context) {
       Container(
         padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+          border: Border(
+            bottom: BorderSide(color: Colors.grey.shade200),
+          ),
         ),
         child: Row(
           children: [
@@ -982,7 +968,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'Typography class provides platform-specific factory constructors:',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade700,
+          ),
         ),
         SizedBox(height: 12.0),
         Wrap(
@@ -1037,7 +1026,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Material Design text style system',
-                style: TextStyle(fontSize: 14.0, color: Colors.white70),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.white70,
+                ),
               ),
             ],
           ),
@@ -1120,11 +1112,7 @@ Widget _buildCategoryRow(String name, String description) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          Icons.chevron_right,
-          size: 16.0,
-          color: Colors.deepPurple.shade400,
-        ),
+        Icon(Icons.chevron_right, size: 16.0, color: Colors.deepPurple.shade400),
         SizedBox(width: 4.0),
         Text(
           '$name: ',
@@ -1137,7 +1125,10 @@ Widget _buildCategoryRow(String name, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+            ),
           ),
         ),
       ],
@@ -1176,7 +1167,10 @@ Widget _buildTextStyleDemo({
           Expanded(
             child: Text(
               description,
-              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.grey.shade500,
+              ),
             ),
           ),
         ],

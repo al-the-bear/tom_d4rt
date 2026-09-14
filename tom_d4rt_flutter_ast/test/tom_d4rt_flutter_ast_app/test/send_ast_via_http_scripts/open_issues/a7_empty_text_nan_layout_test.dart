@@ -28,7 +28,8 @@ dynamic build(BuildContext context) {
   // U19 — fragment a non-Latin string into one TextSpan per character.
   const String greeting = 'こんにちは';
   final List<TextSpan> perCharSpans = <TextSpan>[
-    for (int i = 0; i < greeting.length; i++) TextSpan(text: greeting[i]),
+    for (int i = 0; i < greeting.length; i++)
+      TextSpan(text: greeting[i]),
   ];
 
   return Center(

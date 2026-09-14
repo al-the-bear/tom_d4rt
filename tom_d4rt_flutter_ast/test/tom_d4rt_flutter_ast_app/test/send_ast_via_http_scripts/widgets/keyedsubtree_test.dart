@@ -79,7 +79,8 @@ dynamic build(BuildContext context) {
     {
       'member': 'key',
       'kind': 'inherited',
-      'role': 'The Key that this KeyedSubtree contributes to the element tree.',
+      'role':
+          'The Key that this KeyedSubtree contributes to the element tree.',
     },
   ];
 
@@ -1840,7 +1841,10 @@ dynamic build(BuildContext context) {
               const Center(
                 child: Text(
                   'Deep Demo • KeyedSubtree • Flutter Widgets',
-                  style: TextStyle(fontSize: 12.0, color: Color(0xFF9E9E9E)),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Color(0xFF9E9E9E),
+                  ),
                 ),
               ),
 
@@ -1880,7 +1884,10 @@ Widget _buildRecipeCard(String title, String body) {
             ),
           ),
           const SizedBox(height: 6.0),
-          Text(body, style: const TextStyle(fontSize: 11.0, height: 1.4)),
+          Text(
+            body,
+            style: const TextStyle(fontSize: 11.0, height: 1.4),
+          ),
         ],
       ),
     ),
@@ -1909,7 +1916,10 @@ Widget _buildGlossaryRow(String term, String definition) {
             ),
           ),
           const SizedBox(height: 4.0),
-          Text(definition, style: const TextStyle(fontSize: 11.0, height: 1.4)),
+          Text(
+            definition,
+            style: const TextStyle(fontSize: 11.0, height: 1.4),
+          ),
         ],
       ),
     ),
@@ -1933,7 +1943,10 @@ Widget _buildSummaryItem(String label) {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(color: Color(0xFFFFFFFF), fontSize: 13.0),
+            style: const TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 13.0,
+            ),
           ),
         ),
         Container(

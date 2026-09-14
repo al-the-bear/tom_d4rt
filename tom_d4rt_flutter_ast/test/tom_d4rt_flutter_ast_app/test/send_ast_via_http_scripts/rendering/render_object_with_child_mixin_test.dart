@@ -100,6 +100,7 @@ Widget _buildDemoCard(String label, Widget child) {
   );
 }
 
+
 // Section 1: Padding with different EdgeInsets
 Widget _buildPaddingSection() {
   print('[Padding] Demonstrating Padding with various EdgeInsets');

@@ -103,61 +103,61 @@ dynamic build(BuildContext context) {
 // ---------------------------------------------------------------------------
 
 Widget _sectionTitle(String text) => Padding(
-  padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-  child: Text(
-    text,
-    style: const TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF3949AB),
-    ),
-  ),
-);
+      padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF3949AB),
+        ),
+      ),
+    );
 
 Widget _infoCard(String title, String body, {Color? accent}) => Card(
-  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-  elevation: 2,
-  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-  child: Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
-      border: Border(
-        left: BorderSide(color: accent ?? const Color(0xFF5C6BC0), width: 4),
-      ),
-    ),
-    padding: const EdgeInsets.all(14),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border(
+            left: BorderSide(color: accent ?? const Color(0xFF5C6BC0), width: 4),
+          ),
         ),
-        const SizedBox(height: 6),
-        Text(body, style: const TextStyle(fontSize: 13, height: 1.5)),
-      ],
-    ),
-  ),
-);
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(title,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 14)),
+            const SizedBox(height: 6),
+            Text(body,
+                style: const TextStyle(fontSize: 13, height: 1.5)),
+          ],
+        ),
+      ),
+    );
 
 Widget _codeBlock(String code) => Container(
-  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-  padding: const EdgeInsets.all(14),
-  decoration: BoxDecoration(
-    color: const Color(0xFF1A1A2E),
-    borderRadius: BorderRadius.circular(10),
-  ),
-  width: double.infinity,
-  child: SelectableText(
-    code,
-    style: const TextStyle(
-      fontFamily: 'monospace',
-      fontSize: 12,
-      color: Color(0xFF80CBC4),
-      height: 1.6,
-    ),
-  ),
-);
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A2E),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      width: double.infinity,
+      child: SelectableText(
+        code,
+        style: const TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 12,
+          color: Color(0xFF80CBC4),
+          height: 1.6,
+        ),
+      ),
+    );
 
 // ---------------------------------------------------------------------------
 // Interpolation helper: lerp a Rect at t between begin and end
@@ -319,17 +319,15 @@ class _HeroBannerTab extends StatelessWidget {
   }
 
   Widget _chipBadge(String label) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-    decoration: BoxDecoration(
-      color: Colors.white.withAlpha(40),
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: Colors.white38),
-    ),
-    child: Text(
-      label,
-      style: const TextStyle(color: Colors.white, fontSize: 12),
-    ),
-  );
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.white.withAlpha(40),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white38),
+        ),
+        child: Text(label,
+            style: const TextStyle(color: Colors.white, fontSize: 12)),
+      );
 }
 
 // ---------------------------------------------------------------------------
@@ -384,10 +382,9 @@ class _SliderPlaygroundTab extends StatelessWidget {
                 Text(
                   't = ${t.toStringAsFixed(3)}',
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF3949AB),
-                    fontSize: 16,
-                  ),
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF3949AB),
+                      fontSize: 16),
                 ),
                 const SizedBox(height: 16),
 
@@ -443,13 +440,13 @@ class _SliderPlaygroundTab extends StatelessWidget {
   }
 
   Widget _legendItem(Color color, String label) => Row(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Container(width: 16, height: 4, color: color),
-      const SizedBox(width: 4),
-      Text(label, style: const TextStyle(fontSize: 12)),
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(width: 16, height: 4, color: color),
+          const SizedBox(width: 4),
+          Text(label, style: const TextStyle(fontSize: 12)),
+        ],
+      );
 }
 
 class _StackPreviewFixed extends StatelessWidget {
@@ -510,9 +507,7 @@ class _StackPreviewFixed extends StatelessWidget {
                 child: Text(
                   'child',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -533,20 +528,18 @@ class _LiveRectDisplay extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Card(
         color: const Color(0xFF1A1A2E),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
-                'Live Rect',
-                style: TextStyle(
-                  color: Colors.amberAccent,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                ),
-              ),
+              const Text('Live Rect',
+                  style: TextStyle(
+                      color: Colors.amberAccent,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13)),
               const SizedBox(height: 8),
               Text(
                 'left   = ${rect.left.toStringAsFixed(1)}\n'
@@ -556,11 +549,10 @@ class _LiveRectDisplay extends StatelessWidget {
                 'width  = ${rect.width.toStringAsFixed(1)}\n'
                 'height = ${rect.height.toStringAsFixed(1)}',
                 style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 13,
-                  color: Color(0xFF80CBC4),
-                  height: 1.7,
-                ),
+                    fontFamily: 'monospace',
+                    fontSize: 13,
+                    color: Color(0xFF80CBC4),
+                    height: 1.7),
               ),
             ],
           ),
@@ -608,39 +600,37 @@ class _PresetsTab extends StatelessWidget {
                   child: Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: List<Widget>.generate(_presets.length, (int i) {
-                      final bool selected = i == pIdx;
-                      return GestureDetector(
-                        onTap: () => _presetIndex.value = i,
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: selected
-                                ? const Color(0xFF5C6BC0)
-                                : const Color(0xFFE8EAF6),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: const Color(0xFF5C6BC0),
-                              width: 1.5,
-                            ),
-                          ),
-                          child: Text(
-                            _presets[i]['label'] as String,
-                            style: TextStyle(
+                    children: List<Widget>.generate(
+                      _presets.length,
+                      (int i) {
+                        final bool selected = i == pIdx;
+                        return GestureDetector(
+                          onTap: () => _presetIndex.value = i,
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 200),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 14, vertical: 8),
+                            decoration: BoxDecoration(
                               color: selected
-                                  ? Colors.white
-                                  : const Color(0xFF3949AB),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                                  ? const Color(0xFF5C6BC0)
+                                  : const Color(0xFFE8EAF6),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                  color: const Color(0xFF5C6BC0), width: 1.5),
+                            ),
+                            child: Text(
+                              _presets[i]['label'] as String,
+                              style: TextStyle(
+                                  color: selected
+                                      ? Colors.white
+                                      : const Color(0xFF3949AB),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13),
                             ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -666,10 +656,7 @@ class _PresetsTab extends StatelessWidget {
                 // Centered preview with fixed stack size
                 Center(
                   child: _PresetPreview(
-                    presetIdx: pIdx,
-                    t: t,
-                    currentRect: current,
-                  ),
+                      presetIdx: pIdx, t: t, currentRect: current),
                 ),
 
                 const SizedBox(height: 16),
@@ -680,9 +667,9 @@ class _PresetsTab extends StatelessWidget {
                   return _infoCard(
                     _presets[i]['label'] as String,
                     'begin: LTWH(${b.left.toInt()}, ${b.top.toInt()}, '
-                    '${b.width.toInt()}, ${b.height.toInt()})\n'
-                    'end:   LTWH(${e.left.toInt()}, ${e.top.toInt()}, '
-                    '${e.width.toInt()}, ${e.height.toInt()})',
+                        '${b.width.toInt()}, ${b.height.toInt()})\n'
+                        'end:   LTWH(${e.left.toInt()}, ${e.top.toInt()}, '
+                        '${e.width.toInt()}, ${e.height.toInt()})',
                     accent: const Color(0xFF7986CB),
                   );
                 }),
@@ -725,18 +712,13 @@ class _PresetPreview extends StatelessWidget {
             rect: beginRect,
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.indigo.withAlpha(60),
-                  width: 2,
-                ),
+                border: Border.all(color: Colors.indigo.withAlpha(60), width: 2),
                 borderRadius: BorderRadius.circular(4),
                 color: Colors.indigo.withAlpha(20),
               ),
               child: const Center(
-                child: Text(
-                  'begin',
-                  style: TextStyle(color: Colors.indigo, fontSize: 10),
-                ),
+                child: Text('begin',
+                    style: TextStyle(color: Colors.indigo, fontSize: 10)),
               ),
             ),
           ),
@@ -746,17 +728,14 @@ class _PresetPreview extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Colors.deepPurple.withAlpha(60),
-                  width: 2,
-                ),
+                    color: Colors.deepPurple.withAlpha(60), width: 2),
                 borderRadius: BorderRadius.circular(4),
                 color: Colors.deepPurple.withAlpha(20),
               ),
               child: const Center(
-                child: Text(
-                  'end',
-                  style: TextStyle(color: Colors.deepPurple, fontSize: 10),
-                ),
+                child: Text('end',
+                    style:
+                        TextStyle(color: Colors.deepPurple, fontSize: 10)),
               ),
             ),
           ),
@@ -781,10 +760,9 @@ class _PresetPreview extends StatelessWidget {
                 child: Text(
                   't=${t.toStringAsFixed(2)}',
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12),
                 ),
               ),
             ),
@@ -862,30 +840,29 @@ class _TweenBuilderTab extends StatelessWidget {
                         tween: RectTween(begin: tweenBegin, end: tweenEnd),
                         duration: const Duration(seconds: 2),
                         curve: curve,
-                        builder:
-                            (BuildContext ctx2, Rect? rect, Widget? child) {
-                              return Container(
-                                width: _stackSide,
-                                height: _stackSide,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: const Color(0xFF3949AB),
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: const Color(0xFFF5F5F5),
+                        builder: (BuildContext ctx2, Rect? rect,
+                            Widget? child) {
+                          return Container(
+                            width: _stackSide,
+                            height: _stackSide,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color(0xFF3949AB), width: 2),
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xFFF5F5F5),
+                            ),
+                            child: Stack(
+                              children: <Widget>[
+                                RelativePositionedTransition(
+                                  rect:
+                                      AlwaysStoppedAnimation<Rect?>(rect),
+                                  size: const Size(_stackSide, _stackSide),
+                                  child: child!,
                                 ),
-                                child: Stack(
-                                  children: <Widget>[
-                                    RelativePositionedTransition(
-                                      rect: AlwaysStoppedAnimation<Rect?>(rect),
-                                      size: const Size(_stackSide, _stackSide),
-                                      child: child!,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                              ],
+                            ),
+                          );
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
@@ -902,20 +879,14 @@ class _TweenBuilderTab extends StatelessWidget {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                Icon(
-                                  Icons.widgets,
-                                  color: Colors.white,
-                                  size: 28,
-                                ),
+                                Icon(Icons.widgets,
+                                    color: Colors.white, size: 28),
                                 SizedBox(height: 4),
-                                Text(
-                                  'Tween',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                  ),
-                                ),
+                                Text('Tween',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11)),
                               ],
                             ),
                           ),
@@ -928,16 +899,17 @@ class _TweenBuilderTab extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: ElevatedButton.icon(
-                    onPressed: () => _animTrigger.value = !_animTrigger.value,
+                    onPressed: () =>
+                        _animTrigger.value = !_animTrigger.value,
                     icon: const Icon(Icons.play_arrow),
-                    label: Text(trigger ? 'Animate Back' : 'Animate Forward'),
+                    label:
+                        Text(trigger ? 'Animate Back' : 'Animate Forward'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF5C6BC0),
                       foregroundColor: Colors.white,
                       minimumSize: const Size(double.infinity, 48),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                          borderRadius: BorderRadius.circular(10)),
                     ),
                   ),
                 ),
@@ -984,7 +956,8 @@ class _TweenBuilderTab extends StatelessWidget {
 class _CurvesTab extends StatelessWidget {
   const _CurvesTab();
 
-  static const List<Map<String, dynamic>> _curveItems = <Map<String, dynamic>>[
+  static const List<Map<String, dynamic>> _curveItems =
+      <Map<String, dynamic>>[
     <String, dynamic>{'label': 'linear', 'curve': Curves.linear},
     <String, dynamic>{'label': 'easeIn', 'curve': Curves.easeIn},
     <String, dynamic>{'label': 'easeOut', 'curve': Curves.easeOut},
@@ -1015,7 +988,8 @@ class _CurvesTab extends StatelessWidget {
           valueListenable: _selectedCurve,
           builder: (BuildContext ctx, Curve selected, Widget? _) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Wrap(
                 spacing: 8,
                 runSpacing: 8,
@@ -1028,28 +1002,23 @@ class _CurvesTab extends StatelessWidget {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 8,
-                      ),
+                          horizontal: 14, vertical: 8),
                       decoration: BoxDecoration(
                         color: isSelected
                             ? const Color(0xFF5C6BC0)
                             : const Color(0xFFE8EAF6),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: const Color(0xFF5C6BC0),
-                          width: 1.5,
-                        ),
+                            color: const Color(0xFF5C6BC0), width: 1.5),
                       ),
                       child: Text(
                         label,
                         style: TextStyle(
-                          color: isSelected
-                              ? Colors.white
-                              : const Color(0xFF3949AB),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
-                        ),
+                            color: isSelected
+                                ? Colors.white
+                                : const Color(0xFF3949AB),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13),
                       ),
                     ),
                   );
@@ -1075,48 +1044,44 @@ class _CurvesTab extends StatelessWidget {
                         tween: RectTween(begin: tweenBegin, end: tweenEnd),
                         duration: const Duration(milliseconds: 1500),
                         curve: curve,
-                        builder:
-                            (BuildContext ctx3, Rect? rect, Widget? child) {
-                              return Container(
-                                width: _stackSide,
-                                height: _stackSide,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: const Color(0xFF3949AB),
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: const Color(0xFFF5F5F5),
+                        builder: (BuildContext ctx3, Rect? rect,
+                            Widget? child) {
+                          return Container(
+                            width: _stackSide,
+                            height: _stackSide,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color(0xFF3949AB), width: 2),
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xFFF5F5F5),
+                            ),
+                            child: Stack(
+                              children: <Widget>[
+                                RelativePositionedTransition(
+                                  rect: AlwaysStoppedAnimation<Rect?>(rect),
+                                  size: const Size(_stackSide, _stackSide),
+                                  child: child!,
                                 ),
-                                child: Stack(
-                                  children: <Widget>[
-                                    RelativePositionedTransition(
-                                      rect: AlwaysStoppedAnimation<Rect?>(rect),
-                                      size: const Size(_stackSide, _stackSide),
-                                      child: child!,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                              ],
+                            ),
+                          );
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xFF5C6BC0),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Center(
-                            child: Icon(
-                              Icons.star,
-                              color: Colors.white,
-                              size: 24,
-                            ),
+                            child: Icon(Icons.star,
+                                color: Colors.white, size: 24),
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(height: 12),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       child: ElevatedButton.icon(
                         onPressed: () =>
                             _animTrigger.value = !_animTrigger.value,
@@ -1127,8 +1092,7 @@ class _CurvesTab extends StatelessWidget {
                           foregroundColor: Colors.white,
                           minimumSize: const Size(double.infinity, 48),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                       ),
                     ),
@@ -1140,30 +1104,18 @@ class _CurvesTab extends StatelessWidget {
         ),
 
         _sectionTitle('Curve Descriptions'),
-        _infoCard(
-          'linear',
-          'Constant velocity. No easing. Mechanical, uniform feel.',
-        ),
-        _infoCard(
-          'easeIn',
-          'Starts slow, then accelerates. Ideal for exits — content leaves with momentum.',
-        ),
-        _infoCard(
-          'easeOut',
-          'Starts fast, decelerates to stop. Ideal for entrances — content arrives gently.',
-        ),
-        _infoCard(
-          'easeInOut',
-          'Slow start and end, fast middle. Most natural feel for most animations.',
-        ),
-        _infoCard(
-          'bounceOut',
-          'Overshoots the target then bounces back. Playful, energetic feel.',
-        ),
-        _infoCard(
-          'elasticOut',
-          'Spring-like overshoot with damping. Great for attention-grabbing, springy reveals.',
-        ),
+        _infoCard('linear',
+            'Constant velocity. No easing. Mechanical, uniform feel.'),
+        _infoCard('easeIn',
+            'Starts slow, then accelerates. Ideal for exits — content leaves with momentum.'),
+        _infoCard('easeOut',
+            'Starts fast, decelerates to stop. Ideal for entrances — content arrives gently.'),
+        _infoCard('easeInOut',
+            'Slow start and end, fast middle. Most natural feel for most animations.'),
+        _infoCard('bounceOut',
+            'Overshoots the target then bounces back. Playful, energetic feel.'),
+        _infoCard('elasticOut',
+            'Spring-like overshoot with damping. Great for attention-grabbing, springy reveals.'),
       ],
     );
   }
@@ -1299,14 +1251,11 @@ class _MultiChildPreview extends StatelessWidget {
                 border: Border.all(color: Colors.white, width: 2),
               ),
               child: const Center(
-                child: Text(
-                  'A',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
+                child: Text('A',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18)),
               ),
             ),
           ),
@@ -1320,14 +1269,11 @@ class _MultiChildPreview extends StatelessWidget {
                 border: Border.all(color: Colors.white, width: 2),
               ),
               child: const Center(
-                child: Text(
-                  'B',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
+                child: Text('B',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18)),
               ),
             ),
           ),
@@ -1341,14 +1287,11 @@ class _MultiChildPreview extends StatelessWidget {
                 border: Border.all(color: Colors.white, width: 2),
               ),
               child: const Center(
-                child: Text(
-                  'C',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
+                child: Text('C',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18)),
               ),
             ),
           ),
@@ -1397,8 +1340,7 @@ class _ComparisonTab extends StatelessWidget {
             'size parameter must match the Stack\'s layout size',
             'Uses Rect (not RelativeRect) despite the name',
           ],
-          useWhen:
-              'Both position AND size need to change during animation, '
+          useWhen: 'Both position AND size need to change during animation, '
               'or when driving from an AnimationController.',
         ),
 
@@ -1416,8 +1358,7 @@ class _ComparisonTab extends StatelessWidget {
             'Less composable with animation curves and sequences',
             'Always animates to "current" values — no replay',
           ],
-          useWhen:
-              'Simple cases where you just need a positioned child '
+          useWhen: 'Simple cases where you just need a positioned child '
               'to slide when its state changes.',
         ),
 
@@ -1434,8 +1375,7 @@ class _ComparisonTab extends StatelessWidget {
             'RelativeRect model is less intuitive than Rect',
             'RelativeRect edge distances may be confusing',
           ],
-          useWhen:
-              'When edge-distance semantics (fromLTRB) feel more '
+          useWhen: 'When edge-distance semantics (fromLTRB) feel more '
               'natural than absolute Rect coordinates for your layout.',
         ),
 
@@ -1454,8 +1394,7 @@ class _ComparisonTab extends StatelessWidget {
             'Offset is fraction of the widget\'s own size, not parent',
             'Cannot target specific pixel positions',
           ],
-          useWhen:
-              'Sliding content in/out of view by fractions of its '
+          useWhen: 'Sliding content in/out of view by fractions of its '
               'own size — page transitions, drawer reveals.',
         ),
 
@@ -1502,37 +1441,28 @@ class _ComparisonTab extends StatelessWidget {
                 Icon(icon, color: accent, size: 22),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: accent,
-                    ),
-                  ),
+                  child: Text(title,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: accent)),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Pros:',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: Colors.green,
-              ),
-            ),
+            const Text('Pros:',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: Colors.green)),
             const SizedBox(height: 4),
             ...pros.map((String p) => _bulletRow('✓', p, Colors.green)),
             const SizedBox(height: 8),
-            const Text(
-              'Cons:',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: Colors.red,
-              ),
-            ),
+            const Text('Cons:',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: Colors.red)),
             const SizedBox(height: 4),
             ...cons.map((String c) => _bulletRow('✗', c, Colors.red)),
             const SizedBox(height: 10),
@@ -1548,10 +1478,9 @@ class _ComparisonTab extends StatelessWidget {
                   Icon(Icons.lightbulb_outline, color: accent, size: 16),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: Text(
-                      'Use when: $useWhen',
-                      style: const TextStyle(fontSize: 12, height: 1.5),
-                    ),
+                    child: Text('Use when: $useWhen',
+                        style:
+                            const TextStyle(fontSize: 12, height: 1.5)),
                   ),
                 ],
               ),
@@ -1563,21 +1492,20 @@ class _ComparisonTab extends StatelessWidget {
   }
 
   Widget _bulletRow(String bullet, String text, Color color) => Padding(
-    padding: const EdgeInsets.only(bottom: 4),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          bullet,
-          style: TextStyle(color: color, fontWeight: FontWeight.bold),
+        padding: const EdgeInsets.only(bottom: 4),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(bullet,
+                style: TextStyle(
+                    color: color, fontWeight: FontWeight.bold)),
+            const SizedBox(width: 6),
+            Expanded(
+                child: Text(text,
+                    style: const TextStyle(fontSize: 12, height: 1.5))),
+          ],
         ),
-        const SizedBox(width: 6),
-        Expanded(
-          child: Text(text, style: const TextStyle(fontSize: 12, height: 1.5)),
-        ),
-      ],
-    ),
-  );
+      );
 }
 
 // ---------------------------------------------------------------------------
@@ -1639,11 +1567,7 @@ class _DiagramTab extends StatelessWidget {
                       painter: _RectDiagramPainter(
                         stackSize: const Size(_stackSide, _stackSide),
                         childRect: Rect.fromLTRB(
-                          childLeft,
-                          childTop,
-                          childRight,
-                          childBottom,
-                        ),
+                            childLeft, childTop, childRight, childBottom),
                       ),
                     ),
                   ),
@@ -1687,45 +1611,38 @@ class _DiagramTab extends StatelessWidget {
         _sectionTitle('Key Fields'),
         _infoCard('rect.left', 'X coordinate of the left edge.'),
         _infoCard('rect.top', 'Y coordinate of the top edge.'),
-        _infoCard(
-          'rect.right',
-          'X coordinate of the right edge (left + width).',
-        ),
-        _infoCard(
-          'rect.bottom',
-          'Y coordinate of the bottom edge (top + height).',
-        ),
+        _infoCard('rect.right', 'X coordinate of the right edge (left + width).'),
+        _infoCard('rect.bottom', 'Y coordinate of the bottom edge (top + height).'),
         _infoCard('rect.width', 'Horizontal size (right - left).'),
         _infoCard('rect.height', 'Vertical size (bottom - top).'),
-        _infoCard(
-          'size (constructor param)',
-          'The Size of the Stack parent — used to compute Positioned '
-              'right and bottom values from rect.right and rect.bottom.',
-        ),
+        _infoCard('size (constructor param)',
+            'The Size of the Stack parent — used to compute Positioned '
+                'right and bottom values from rect.right and rect.bottom.'),
       ],
     );
   }
 
   Widget _legendItem(Color color, String label) => Row(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Container(
-        width: 16,
-        height: 16,
-        decoration: BoxDecoration(
-          color: color.withAlpha(60),
-          border: Border.all(color: color, width: 2),
-          borderRadius: BorderRadius.circular(3),
-        ),
-      ),
-      const SizedBox(width: 6),
-      Text(label, style: const TextStyle(fontSize: 12)),
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+              width: 16,
+              height: 16,
+              decoration: BoxDecoration(
+                  color: color.withAlpha(60),
+                  border: Border.all(color: color, width: 2),
+                  borderRadius: BorderRadius.circular(3))),
+          const SizedBox(width: 6),
+          Text(label, style: const TextStyle(fontSize: 12)),
+        ],
+      );
 }
 
 class _RectDiagramPainter extends CustomPainter {
-  const _RectDiagramPainter({required this.stackSize, required this.childRect});
+  const _RectDiagramPainter({
+    required this.stackSize,
+    required this.childRect,
+  });
   final Size stackSize;
   final Rect childRect;
 
@@ -1766,73 +1683,41 @@ class _RectDiagramPainter extends CustomPainter {
     );
 
     // Left arrow (rect.left)
-    _drawHArrow(
-      canvas,
-      0,
-      childRect.top + childRect.height / 2,
-      childRect.left,
-      childRect.top + childRect.height / 2,
-      Colors.red,
-    );
-    _drawText(
-      canvas,
-      'L=${childRect.left.toInt()}',
-      Offset(childRect.left / 2, childRect.top + childRect.height / 2 - 14),
-      Colors.red,
-    );
+    _drawHArrow(canvas, 0, childRect.top + childRect.height / 2,
+        childRect.left, childRect.top + childRect.height / 2, Colors.red);
+    _drawText(canvas, 'L=${childRect.left.toInt()}',
+        Offset(childRect.left / 2, childRect.top + childRect.height / 2 - 14),
+        Colors.red);
 
     // Top arrow (rect.top)
-    _drawVArrow(
-      canvas,
-      childRect.left + childRect.width / 2,
-      0,
-      childRect.left + childRect.width / 2,
-      childRect.top,
-      Colors.green,
-    );
-    _drawText(
-      canvas,
-      'T=${childRect.top.toInt()}',
-      Offset(childRect.left + childRect.width / 2 + 4, childRect.top / 2),
-      Colors.green,
-    );
+    _drawVArrow(canvas, childRect.left + childRect.width / 2, 0,
+        childRect.left + childRect.width / 2, childRect.top, Colors.green);
+    _drawText(canvas, 'T=${childRect.top.toInt()}',
+        Offset(childRect.left + childRect.width / 2 + 4, childRect.top / 2),
+        Colors.green);
 
     // Right distance arrow (size.width - rect.right)
     final double rightDist = sw - childRect.right;
     if (rightDist > 4) {
-      _drawHArrow(
-        canvas,
-        childRect.right,
-        childRect.top + 20,
-        sw,
-        childRect.top + 20,
-        Colors.blue,
-      );
+      _drawHArrow(canvas, childRect.right, childRect.top + 20, sw,
+          childRect.top + 20, Colors.blue);
       _drawText(
-        canvas,
-        'W-R=${rightDist.toInt()}',
-        Offset(childRect.right + 2, childRect.top + 6),
-        Colors.blue,
-      );
+          canvas,
+          'W-R=${rightDist.toInt()}',
+          Offset(childRect.right + 2, childRect.top + 6),
+          Colors.blue);
     }
 
     // Bottom distance arrow (size.height - rect.bottom)
     final double bottomDist = sh - childRect.bottom;
     if (bottomDist > 4) {
-      _drawVArrow(
-        canvas,
-        childRect.left + 20,
-        childRect.bottom,
-        childRect.left + 20,
-        sh,
-        Colors.orange,
-      );
+      _drawVArrow(canvas, childRect.left + 20, childRect.bottom,
+          childRect.left + 20, sh, Colors.orange);
       _drawText(
-        canvas,
-        'H-B=${bottomDist.toInt()}',
-        Offset(childRect.left + 24, childRect.bottom + 4),
-        Colors.orange,
-      );
+          canvas,
+          'H-B=${bottomDist.toInt()}',
+          Offset(childRect.left + 24, childRect.bottom + 4),
+          Colors.orange);
     }
 
     // "child" label
@@ -1849,17 +1734,12 @@ class _RectDiagramPainter extends CustomPainter {
     );
 
     // "Stack" label
-    _drawText(canvas, 'Stack', const Offset(4, 4), const Color(0xFF3949AB));
+    _drawText(canvas, 'Stack', const Offset(4, 4),
+        const Color(0xFF3949AB));
   }
 
-  void _drawHArrow(
-    Canvas canvas,
-    double x1,
-    double y,
-    double x2,
-    double yEnd,
-    Color color,
-  ) {
+  void _drawHArrow(Canvas canvas, double x1, double y, double x2, double yEnd,
+      Color color) {
     final Paint p = Paint()
       ..color = color
       ..strokeWidth = 1.5
@@ -1872,14 +1752,8 @@ class _RectDiagramPainter extends CustomPainter {
     canvas.drawLine(Offset(x2, yEnd), Offset(x2 - 6, yEnd + 4), p);
   }
 
-  void _drawVArrow(
-    Canvas canvas,
-    double x,
-    double y1,
-    double xEnd,
-    double y2,
-    Color color,
-  ) {
+  void _drawVArrow(Canvas canvas, double x, double y1, double xEnd, double y2,
+      Color color) {
     final Paint p = Paint()
       ..color = color
       ..strokeWidth = 1.5
@@ -1891,22 +1765,15 @@ class _RectDiagramPainter extends CustomPainter {
     canvas.drawLine(Offset(xEnd, y2), Offset(xEnd + 4, y2 - 6), p);
   }
 
-  void _drawText(
-    Canvas canvas,
-    String text,
-    Offset pos,
-    Color color, {
-    bool bold = false,
-    double size = 11,
-  }) {
+  void _drawText(Canvas canvas, String text, Offset pos, Color color,
+      {bool bold = false, double size = 11}) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
         style: TextStyle(
-          color: color,
-          fontSize: size,
-          fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        ),
+            color: color,
+            fontSize: size,
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1935,43 +1802,27 @@ class _ApiCheatSheetTab extends StatelessWidget {
         Card(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
-                  'Constructor Parameters',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Color(0xFF3949AB),
-                  ),
-                ),
+                const Text('Constructor Parameters',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Color(0xFF3949AB))),
                 const SizedBox(height: 12),
-                _paramRow(
-                  'rect',
-                  'Animation<Rect?>',
-                  'required',
-                  'Animation driving the child\'s position and size.',
-                ),
-                _paramRow(
-                  'size',
-                  'Size',
-                  'required',
-                  'Size of the Stack parent. Used to compute '
-                      'Positioned right = size.width - rect.right and '
-                      'bottom = size.height - rect.bottom.',
-                ),
-                _paramRow(
-                  'child',
-                  'Widget',
-                  'required',
-                  'The widget to position inside the Stack.',
-                ),
+                _paramRow('rect', 'Animation<Rect?>', 'required',
+                    'Animation driving the child\'s position and size.'),
+                _paramRow('size', 'Size', 'required',
+                    'Size of the Stack parent. Used to compute '
+                        'Positioned right = size.width - rect.right and '
+                        'bottom = size.height - rect.bottom.'),
+                _paramRow('child', 'Widget', 'required',
+                    'The widget to position inside the Stack.'),
                 _paramRow('key', 'Key?', 'optional', 'Widget key.'),
               ],
             ),
@@ -2125,46 +1976,38 @@ class _ApiCheatSheetTab extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             width: 52,
-            child: Text(
-              name,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                color: Color(0xFF5C6BC0),
-              ),
-            ),
+            child: Text(name,
+                style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: Color(0xFF5C6BC0))),
           ),
           const SizedBox(width: 4),
           SizedBox(
             width: 100,
-            child: Text(
-              type,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                color: Color(0xFF26A69A),
-              ),
-            ),
+            child: Text(type,
+                style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: Color(0xFF26A69A))),
           ),
           const SizedBox(width: 4),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
             decoration: BoxDecoration(
               color: const Color(0xFFE8EAF6),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              modifier,
-              style: const TextStyle(fontSize: 10, color: Color(0xFF3949AB)),
-            ),
+            child: Text(modifier,
+                style: const TextStyle(
+                    fontSize: 10, color: Color(0xFF3949AB))),
           ),
           const SizedBox(width: 6),
           Expanded(
-            child: Text(
-              description,
-              style: const TextStyle(fontSize: 12, height: 1.4),
-            ),
+            child: Text(description,
+                style: const TextStyle(fontSize: 12, height: 1.4)),
           ),
         ],
       ),
@@ -2172,11 +2015,7 @@ class _ApiCheatSheetTab extends StatelessWidget {
   }
 
   Widget _useCaseCard(
-    String title,
-    IconData icon,
-    Color color,
-    String description,
-  ) {
+      String title, IconData icon, Color color, String description) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       elevation: 2,
@@ -2199,23 +2038,17 @@ class _ApiCheatSheetTab extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: color,
-                    ),
-                  ),
+                  Text(title,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: color)),
                   const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      height: 1.5,
-                      color: Colors.black87,
-                    ),
-                  ),
+                  Text(description,
+                      style: const TextStyle(
+                          fontSize: 12,
+                          height: 1.5,
+                          color: Colors.black87)),
                 ],
               ),
             ),

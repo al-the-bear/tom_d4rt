@@ -48,7 +48,9 @@ Widget _scSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_scTeal, _scDarkTeal]),
+      gradient: LinearGradient(
+        colors: [_scTeal, _scDarkTeal],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,7 +190,10 @@ Widget _scKeyValueRow(String key, String value, {Color? valueColor}) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: valueColor ?? _scCharcoal, fontSize: 13),
+            style: TextStyle(
+              color: valueColor ?? _scCharcoal,
+              fontSize: 13,
+            ),
           ),
         ),
       ],
@@ -262,22 +267,11 @@ Widget _scBuildOverview() {
               ),
               child: const Column(
                 children: [
-                  Text(
-                    'Source Text:',
-                    style: TextStyle(
-                      color: _scTeal,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 11,
-                    ),
-                  ),
+                  Text('Source Text:', style: TextStyle(color: _scTeal, fontWeight: FontWeight.bold, fontSize: 11)),
                   SizedBox(height: 4),
                   Text(
                     '"Flutter makes building beautiful apps easy"',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: _scCharcoal,
-                    ),
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: _scCharcoal),
                   ),
                 ],
               ),
@@ -295,22 +289,11 @@ Widget _scBuildOverview() {
               ),
               child: const Column(
                 children: [
-                  Text(
-                    'SelectedContentRange:',
-                    style: TextStyle(
-                      color: _scDarkTeal,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 11,
-                    ),
-                  ),
+                  Text('SelectedContentRange:', style: TextStyle(color: _scDarkTeal, fontWeight: FontWeight.bold, fontSize: 11)),
                   SizedBox(height: 4),
                   Text(
                     'startOffset: 16,  endOffset: 25',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: _scCharcoal,
-                    ),
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: _scCharcoal),
                   ),
                 ],
               ),
@@ -327,22 +310,11 @@ Widget _scBuildOverview() {
               ),
               child: const Column(
                 children: [
-                  Text(
-                    'SelectedContent:',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 11,
-                    ),
-                  ),
+                  Text('SelectedContent:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
                   SizedBox(height: 4),
                   Text(
                     'plainText: "beautiful"',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: _scAqua,
-                    ),
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: _scAqua),
                   ),
                 ],
               ),
@@ -402,19 +374,11 @@ Widget _scBuildPlainText() {
                 children: [
                   TextSpan(
                     text: 'Bold ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: _scTeal,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _scTeal),
                   ),
                   TextSpan(
                     text: 'italic ',
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontSize: 14,
-                      color: _scSeaGreen,
-                    ),
+                    style: TextStyle(fontStyle: FontStyle.italic, fontSize: 14, color: _scSeaGreen),
                   ),
                   TextSpan(
                     text: 'colored ',
@@ -422,11 +386,7 @@ Widget _scBuildPlainText() {
                   ),
                   TextSpan(
                     text: 'underlined',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontSize: 14,
-                      color: _scPlum,
-                    ),
+                    style: TextStyle(decoration: TextDecoration.underline, fontSize: 14, color: _scPlum),
                   ),
                 ],
               ),
@@ -581,13 +541,7 @@ Widget _scBuildCreation() {
   );
 }
 
-Widget _scCreationStep(
-  String number,
-  String title,
-  String desc,
-  IconData icon,
-  Color color,
-) {
+Widget _scCreationStep(String number, String title, String desc, IconData icon, Color color) {
   return Row(
     children: [
       Container(
@@ -595,14 +549,7 @@ Widget _scCreationStep(
         height: 30,
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
-          child: Text(
-            number,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-            ),
-          ),
+          child: Text(number, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
         ),
       ),
       const SizedBox(width: 10),
@@ -612,22 +559,8 @@ Widget _scCreationStep(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: color,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
-            Text(
-              desc,
-              style: const TextStyle(
-                color: _scCharcoal,
-                fontSize: 11,
-                height: 1.3,
-              ),
-            ),
+            Text(title, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12)),
+            Text(desc, style: const TextStyle(color: _scCharcoal, fontSize: 11, height: 1.3)),
           ],
         ),
       ),
@@ -683,27 +616,15 @@ Widget _scBuildMerging() {
             const SizedBox(height: 12),
 
             // Three widget blocks
-            _scMergeBlock(
-              'Heading Text Widget',
-              'SelectedContent( plainText: "Introduction" )',
-              _scTeal,
-            ),
+            _scMergeBlock('Heading Text Widget', 'SelectedContent( plainText: "Introduction" )', _scTeal),
             const SizedBox(height: 6),
             Center(child: _scBadge('+ "\\n"', _scGold)),
             const SizedBox(height: 6),
-            _scMergeBlock(
-              'Paragraph Text Widget',
-              'SelectedContent( plainText: "Flutter is great" )',
-              _scSeaGreen,
-            ),
+            _scMergeBlock('Paragraph Text Widget', 'SelectedContent( plainText: "Flutter is great" )', _scSeaGreen),
             const SizedBox(height: 6),
             Center(child: _scBadge('+ "\\n"', _scGold)),
             const SizedBox(height: 6),
-            _scMergeBlock(
-              'Caption Text Widget',
-              'SelectedContent( plainText: "Figure 1" )',
-              _scPlum,
-            ),
+            _scMergeBlock('Caption Text Widget', 'SelectedContent( plainText: "Figure 1" )', _scPlum),
 
             const SizedBox(height: 12),
             const Icon(Icons.arrow_downward, color: _scTeal, size: 20),
@@ -721,11 +642,7 @@ Widget _scBuildMerging() {
                 children: [
                   const Text(
                     'Final Clipboard Content',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   const SizedBox(height: 6),
                   Container(
@@ -833,11 +750,7 @@ Widget _scBuildLiveDemo() {
                   const SizedBox(width: 8),
                   const Text(
                     'Select across paragraphs',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   const Spacer(),
                   _scBadge('3 widgets', _scSeaGreen),
@@ -914,11 +827,7 @@ Widget _scBuildLiveDemo() {
                   const SizedBox(width: 8),
                   const Text(
                     'Headers, bullets, and body text',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   const Spacer(),
                   _scBadge('mixed', _scGold),
@@ -991,11 +900,7 @@ Widget _scBuildLiveDemo() {
                   const SizedBox(width: 8),
                   const Text(
                     'Copy code snippets',
-                    style: TextStyle(
-                      color: _scAqua,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: _scAqua, fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                   const Spacer(),
                   _scBadge('code', _scTeal),
@@ -1040,8 +945,7 @@ List<Widget> _scBulletPoints(List<String> items) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 6,
-            height: 6,
+            width: 6, height: 6,
             margin: const EdgeInsets.only(top: 6, right: 8),
             decoration: const BoxDecoration(
               color: _scTeal,
@@ -1051,11 +955,7 @@ List<Widget> _scBulletPoints(List<String> items) {
           Expanded(
             child: Text(
               item,
-              style: const TextStyle(
-                color: _scCharcoal,
-                fontSize: 13,
-                height: 1.4,
-              ),
+              style: const TextStyle(color: _scCharcoal, fontSize: 13, height: 1.4),
             ),
           ),
         ],
@@ -1274,49 +1174,19 @@ Widget _scBuildCallback() {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: Text(
-                      'Action',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
+                    child: Text('Action', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
                   ),
                   Expanded(
                     flex: 3,
-                    child: Text(
-                      'Callback Receives',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
+                    child: Text('Callback Receives', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
                   ),
                 ],
               ),
             ),
-            _scCallbackRow(
-              'User starts dragging',
-              'SelectedContent(plainText: "...")',
-              false,
-            ),
-            _scCallbackRow(
-              'User extends selection',
-              'SelectedContent(plainText: "... more")',
-              true,
-            ),
-            _scCallbackRow(
-              'User lifts finger',
-              'SelectedContent (final text)',
-              false,
-            ),
-            _scCallbackRow(
-              'User taps elsewhere',
-              'null (selection cleared)',
-              true,
-            ),
+            _scCallbackRow('User starts dragging', 'SelectedContent(plainText: "...")', false),
+            _scCallbackRow('User extends selection', 'SelectedContent(plainText: "... more")', true),
+            _scCallbackRow('User lifts finger', 'SelectedContent (final text)', false),
+            _scCallbackRow('User taps elsewhere', 'null (selection cleared)', true),
           ],
         ),
       ),
@@ -1355,11 +1225,7 @@ Widget _scBuildCallback() {
                   SizedBox(width: 8),
                   Text(
                     'SelectionArea with onSelectionChanged',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                   ),
                 ],
               ),
@@ -1374,22 +1240,14 @@ Widget _scBuildCallback() {
                       'The onSelectionChanged callback provides real-time updates as '
                       'you select text.  Each update delivers a new SelectedContent '
                       'object reflecting the current selection state.',
-                      style: TextStyle(
-                        color: _scCharcoal,
-                        fontSize: 13,
-                        height: 1.6,
-                      ),
+                      style: TextStyle(color: _scCharcoal, fontSize: 13, height: 1.6),
                     ),
                     const SizedBox(height: 10),
                     const Text(
                       'In a production app, you might use this callback to show a '
                       'floating toolbar, update a word count, or enable/disable '
                       'formatting buttons.',
-                      style: TextStyle(
-                        color: _scCharcoal,
-                        fontSize: 13,
-                        height: 1.6,
-                      ),
+                      style: TextStyle(color: _scCharcoal, fontSize: 13, height: 1.6),
                     ),
                   ],
                 ),
@@ -1410,25 +1268,11 @@ Widget _scCallbackRow(String action, String receives, bool isAlt) {
       children: [
         Expanded(
           flex: 2,
-          child: Text(
-            action,
-            style: const TextStyle(
-              color: _scDarkTeal,
-              fontWeight: FontWeight.w600,
-              fontSize: 11,
-            ),
-          ),
+          child: Text(action, style: const TextStyle(color: _scDarkTeal, fontWeight: FontWeight.w600, fontSize: 11)),
         ),
         Expanded(
           flex: 3,
-          child: Text(
-            receives,
-            style: const TextStyle(
-              color: _scCharcoal,
-              fontFamily: 'monospace',
-              fontSize: 10,
-            ),
-          ),
+          child: Text(receives, style: const TextStyle(color: _scCharcoal, fontFamily: 'monospace', fontSize: 10)),
         ),
       ],
     ),
@@ -1552,7 +1396,13 @@ Widget _scCompareItem(String label, String value) {
           ),
         ),
         const Spacer(),
-        Text(value, style: const TextStyle(color: _scCharcoal, fontSize: 11)),
+        Text(
+          value,
+          style: const TextStyle(
+            color: _scCharcoal,
+            fontSize: 11,
+          ),
+        ),
       ],
     ),
   );
@@ -1696,30 +1546,12 @@ Widget _scBuildSummary() {
               ],
             ),
             const SizedBox(height: 12),
-            _scSummaryBullet(
-              'Single field',
-              'Just plainText — the actual selected string',
-            ),
-            _scSummaryBullet(
-              'Plain text only',
-              'All styling and formatting is stripped',
-            ),
-            _scSummaryBullet(
-              'Per-Selectable',
-              'Each widget produces its own SelectedContent',
-            ),
-            _scSummaryBullet(
-              'Merged for clipboard',
-              'All SelectedContent values joined with newlines',
-            ),
-            _scSummaryBullet(
-              'Nullable',
-              'Null means the widget has no selection',
-            ),
-            _scSummaryBullet(
-              'Callback-friendly',
-              'onSelectionChanged delivers SelectedContent in real-time',
-            ),
+            _scSummaryBullet('Single field', 'Just plainText — the actual selected string'),
+            _scSummaryBullet('Plain text only', 'All styling and formatting is stripped'),
+            _scSummaryBullet('Per-Selectable', 'Each widget produces its own SelectedContent'),
+            _scSummaryBullet('Merged for clipboard', 'All SelectedContent values joined with newlines'),
+            _scSummaryBullet('Nullable', 'Null means the widget has no selection'),
+            _scSummaryBullet('Callback-friendly', 'onSelectionChanged delivers SelectedContent in real-time'),
           ],
         ),
       ),
@@ -1735,13 +1567,9 @@ Widget _scSummaryBullet(String title, String desc) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 6,
-          height: 6,
+          width: 6, height: 6,
           margin: const EdgeInsets.only(top: 6),
-          decoration: const BoxDecoration(
-            color: _scGold,
-            shape: BoxShape.circle,
-          ),
+          decoration: const BoxDecoration(color: _scGold, shape: BoxShape.circle),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -1750,19 +1578,11 @@ Widget _scSummaryBullet(String title, String desc) {
               children: [
                 TextSpan(
                   text: '$title — ',
-                  style: const TextStyle(
-                    color: _scAqua,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+                  style: const TextStyle(color: _scAqua, fontWeight: FontWeight.bold, fontSize: 12),
                 ),
                 TextSpan(
                   text: desc,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.9),
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12, height: 1.4),
                 ),
               ],
             ),

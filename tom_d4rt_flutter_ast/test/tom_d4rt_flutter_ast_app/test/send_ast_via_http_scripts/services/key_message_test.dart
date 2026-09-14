@@ -60,10 +60,8 @@ dynamic build(BuildContext context) {
   print('KeyUpEvent created: ${keyUp.runtimeType}');
 
   final message = KeyMessage([keyDown, keyRepeat, keyUp], null);
-  print(
-    'KeyMessage created: ${message.runtimeType} '
-    'with ${message.events.length} events',
-  );
+  print('KeyMessage created: ${message.runtimeType} '
+      'with ${message.events.length} events');
 
   // ============================================================
   // SECTION 1: Title Banner
@@ -339,7 +337,10 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: tagColor.withValues(alpha: 0.25),
                           borderRadius: BorderRadius.circular(4.0),
-                          border: Border.all(color: tagColor, width: 0.8),
+                          border: Border.all(
+                            color: tagColor,
+                            width: 0.8,
+                          ),
                         ),
                         child: Text(
                           tag,
@@ -376,7 +377,10 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: Colors.grey.shade50,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: neonCyan.withValues(alpha: 0.5), width: 2.0),
+      border: Border.all(
+        color: neonCyan.withValues(alpha: 0.5),
+        width: 2.0,
+      ),
       boxShadow: [
         BoxShadow(
           color: neonCyan.withValues(alpha: 0.18),
@@ -429,8 +433,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.south,
       'color': neonCyan,
       'desc': 'A key was pressed (initial transition).',
-      'detail':
-          'Fires once per physical press. Following events for the same '
+      'detail': 'Fires once per physical press. Following events for the same '
           'key are KeyRepeatEvent until the matching KeyUpEvent.',
       'sample': keyDown,
     },
@@ -439,8 +442,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.replay,
       'color': amber,
       'desc': 'OS-level auto-repeat while a key is held.',
-      'detail':
-          'Cadence is decided by the platform (xkb, Win32, macOS HID). '
+      'detail': 'Cadence is decided by the platform (xkb, Win32, macOS HID). '
           'Treat the same as KeyDown for typing; ignore for shortcuts.',
       'sample': keyRepeat,
     },
@@ -449,8 +451,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.north,
       'color': Color(0xFF80DEEA),
       'desc': 'A key was released (final transition).',
-      'detail':
-          'Always paired with a prior KeyDownEvent for the same '
+      'detail': 'Always paired with a prior KeyDownEvent for the same '
           'physicalKey. Use this for "release" gestures (push-to-talk).',
       'sample': keyUp,
     },
@@ -699,7 +700,10 @@ dynamic build(BuildContext context) {
           offset: Offset(0.0, 4.0),
         ),
       ],
-      border: Border.all(color: neonCyan.withValues(alpha: 0.3), width: 1.0),
+      border: Border.all(
+        color: neonCyan.withValues(alpha: 0.3),
+        width: 1.0,
+      ),
     ),
     child: Column(
       children: [
@@ -842,7 +846,10 @@ dynamic build(BuildContext context) {
                   padding: EdgeInsets.all(12.0),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [color.withValues(alpha: 0.10), Colors.white],
+                      colors: [
+                        color.withValues(alpha: 0.10),
+                        Colors.white,
+                      ],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
@@ -914,7 +921,10 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: neonCyan.withValues(alpha: 0.4), width: 1.5),
+      border: Border.all(
+        color: neonCyan.withValues(alpha: 0.4),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: neonCyan.withValues(alpha: 0.15),
@@ -964,8 +974,7 @@ dynamic build(BuildContext context) {
   final pipelineSteps = [
     {
       'title': 'Platform raw event',
-      'desc':
-          'OS surfaces a raw key event '
+      'desc': 'OS surfaces a raw key event '
           '(NSEvent / WM_KEY* / xkb_keysym).',
       'icon': Icons.public,
       'color': Color(0xFFB39DDB),
@@ -984,24 +993,21 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'KeyEventManager dispatches',
-      'desc':
-          'HardwareKeyboard / KeyEventManager forward the events to '
+      'desc': 'HardwareKeyboard / KeyEventManager forward the events to '
           'registered handlers.',
       'icon': Icons.alt_route,
       'color': Color(0xFF4DD0E1),
     },
     {
       'title': 'FocusManager routing',
-      'desc':
-          'Events propagate through the FocusNode chain (focused widget '
+      'desc': 'Events propagate through the FocusNode chain (focused widget '
           'first, walking ancestors).',
       'icon': Icons.center_focus_strong,
       'color': Color(0xFF66BB6A),
     },
     {
       'title': 'Shortcuts / handlers',
-      'desc':
-          'Shortcuts, RawKeyboardListener, EditableText receive and '
+      'desc': 'Shortcuts, RawKeyboardListener, EditableText receive and '
           'optionally consume the event.',
       'icon': Icons.handshake,
       'color': Color(0xFFFF7043),
@@ -1121,7 +1127,10 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: Colors.grey.shade50,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: graphite.withValues(alpha: 0.3), width: 1.0),
+      border: Border.all(
+        color: graphite.withValues(alpha: 0.3),
+        width: 1.0,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1167,7 +1176,10 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: Color(0xFF1E1E1E),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: neonCyan.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: neonCyan.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withValues(alpha: 0.5),
@@ -1221,10 +1233,8 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 14.0),
-        _buildCodeLine(
-          '// Custom dispatcher: examine every KeyMessage',
-          Colors.grey.shade500,
-        ),
+        _buildCodeLine('// Custom dispatcher: examine every KeyMessage',
+            Colors.grey.shade500),
         _buildCodeLine(
           'KeyEventManager manager = ServicesBinding.instance.keyEventManager;',
           Colors.cyan.shade300,
@@ -1482,9 +1492,8 @@ dynamic build(BuildContext context) {
                     style: TextStyle(
                       fontFamily: 'monospace',
                       fontSize: 12.0,
-                      fontWeight: isFocused
-                          ? FontWeight.bold
-                          : FontWeight.normal,
+                      fontWeight:
+                          isFocused ? FontWeight.bold : FontWeight.normal,
                       color: graphite,
                     ),
                   ),
@@ -1566,7 +1575,10 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'The amber-highlighted node is the focused one — it gets '
                   'the events from this KeyMessage first.',
-                  style: TextStyle(fontSize: 11.0, color: graphite),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: graphite,
+                  ),
                 ),
               ),
             ],
@@ -1585,48 +1597,42 @@ dynamic build(BuildContext context) {
     {
       'title': 'KeyMessage is deprecated',
       'icon': Icons.history_toggle_off,
-      'desc':
-          'New code should listen via HardwareKeyboard.instance or '
+      'desc': 'New code should listen via HardwareKeyboard.instance or '
           'Shortcuts/Actions. KeyMessage exists only to keep the legacy '
           'RawKeyboard pipeline working alongside the modern KeyEvent API.',
     },
     {
       'title': 'rawEvent is dynamic',
       'icon': Icons.dangerous,
-      'desc':
-          'rawEvent is RawKeyEvent? but typed dynamic for legacy reasons. '
+      'desc': 'rawEvent is RawKeyEvent? but typed dynamic for legacy reasons. '
           'Always null-check and prefer reading data from the events list — '
           'rawEvent will eventually go away.',
     },
     {
       'title': 'events.length can be > 1',
       'icon': Icons.format_list_numbered,
-      'desc':
-          'A single platform delivery may unpack into multiple KeyEvents '
+      'desc': 'A single platform delivery may unpack into multiple KeyEvents '
           '(e.g. dead-key composition). Iterate; never assume events.first is '
           'the only thing happening.',
     },
     {
       'title': 'physicalKey vs logicalKey',
       'icon': Icons.swap_horiz,
-      'desc':
-          'physicalKey is location-based (USB HID); logicalKey reflects '
+      'desc': 'physicalKey is location-based (USB HID); logicalKey reflects '
           'layout. Bind shortcuts to physicalKey for muscle memory, to '
           'logicalKey for typed-character semantics.',
     },
     {
       'title': 'Repeat events count',
       'icon': Icons.replay_circle_filled,
-      'desc':
-          'KeyRepeatEvent fires repeatedly while a key is held. Filter '
+      'desc': 'KeyRepeatEvent fires repeatedly while a key is held. Filter '
           'them out for one-shot shortcuts; otherwise users will fire actions '
           '20 times by holding the key down for half a second.',
     },
     {
       'title': 'No setState in handlers',
       'icon': Icons.warning,
-      'desc':
-          'KeyEventManager dispatch happens during the engine\'s native '
+      'desc': 'KeyEventManager dispatch happens during the engine\'s native '
           'event tick. Schedule UI work via Element.markNeedsBuild or post a '
           'microtask — direct setState during handler is brittle.',
     },
@@ -1640,7 +1646,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.red.shade50, Colors.orange.shade50],
+            colors: [
+              Colors.red.shade50,
+              Colors.orange.shade50,
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1734,8 +1743,8 @@ dynamic build(BuildContext context) {
     final color = ev is KeyDownEvent
         ? neonCyan
         : ev is KeyUpEvent
-        ? Color(0xFF80DEEA)
-        : amber;
+            ? Color(0xFF80DEEA)
+            : amber;
     print(
       'event[$i] runtimeType=${ev.runtimeType} '
       'physical=${ev.physicalKey.debugName} '
@@ -1749,7 +1758,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withValues(alpha: 0.10), Colors.white],
+            colors: [
+              color.withValues(alpha: 0.10),
+              Colors.white,
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -1761,7 +1773,10 @@ dynamic build(BuildContext context) {
             Container(
               width: 32.0,
               height: 32.0,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
               child: Center(
                 child: Text(
                   '$i',
@@ -1822,7 +1837,10 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: neonCyan.withValues(alpha: 0.4), width: 1.5),
+      border: Border.all(
+        color: neonCyan.withValues(alpha: 0.4),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: neonCyan.withValues(alpha: 0.15),
@@ -1903,7 +1921,10 @@ dynamic build(BuildContext context) {
           offset: Offset(0.0, 6.0),
         ),
       ],
-      border: Border.all(color: neonCyan.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: neonCyan.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1965,7 +1986,9 @@ dynamic build(BuildContext context) {
   return SingleChildScrollView(
     padding: EdgeInsets.all(16.0),
     child: Container(
-      decoration: BoxDecoration(color: Colors.grey.shade100),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1981,17 +2004,28 @@ dynamic build(BuildContext context) {
           // 3. KeyEvent subtypes
           _sectionHeader('2. KeyEvent Subtypes', Icons.layers, graphite),
           SizedBox(height: 8.0),
-          Wrap(alignment: WrapAlignment.center, children: subtypeCards),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: subtypeCards,
+          ),
           SizedBox(height: 24.0),
 
           // 4. Visual keyboard
-          _sectionHeader('3. Mechanical Reference', Icons.keyboard, graphite),
+          _sectionHeader(
+            '3. Mechanical Reference',
+            Icons.keyboard,
+            graphite,
+          ),
           SizedBox(height: 8.0),
           Center(child: keyboard),
           SizedBox(height: 24.0),
 
           // 5. Lifecycle timeline
-          _sectionHeader('4. Single-key Lifecycle', Icons.timeline, graphite),
+          _sectionHeader(
+            '4. Single-key Lifecycle',
+            Icons.timeline,
+            graphite,
+          ),
           timelineCard,
           SizedBox(height: 24.0),
 
@@ -2001,7 +2035,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           // 7. Code block
-          _sectionHeader('6. KeyMessage Handler', Icons.code, graphite),
+          _sectionHeader(
+            '6. KeyMessage Handler',
+            Icons.code,
+            graphite,
+          ),
           codeBlock,
           SizedBox(height: 24.0),
 
@@ -2011,7 +2049,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           // 9. Focus routing
-          _sectionHeader('8. Focus Routing', Icons.account_tree, graphite),
+          _sectionHeader(
+            '8. Focus Routing',
+            Icons.account_tree,
+            graphite,
+          ),
           focusCard,
           SizedBox(height: 24.0),
 
@@ -2025,7 +2067,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           // 11. Inline event dump
-          _sectionHeader('10. Live KeyMessage', Icons.list_alt, graphite),
+          _sectionHeader(
+            '10. Live KeyMessage',
+            Icons.list_alt,
+            graphite,
+          ),
           eventDumpCard,
           SizedBox(height: 24.0),
 
@@ -2222,7 +2268,11 @@ Widget _buildTableCell(String text, double width, Color color) {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 10.0, color: color, fontFamily: 'monospace'),
+        style: TextStyle(
+          fontSize: 10.0,
+          color: color,
+          fontFamily: 'monospace',
+        ),
       ),
     ),
   );
@@ -2239,7 +2289,11 @@ Widget _buildRecapLine(IconData icon, String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.4),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -2273,7 +2327,11 @@ Map<String, dynamic> _kk(
   PhysicalKeyboardKey physical, {
   double width = 36.0,
 }) {
-  return {'label': label, 'physical': physical, 'width': width};
+  return {
+    'label': label,
+    'physical': physical,
+    'width': width,
+  };
 }
 
 Widget _buildKeyboardRow(
@@ -2296,13 +2354,18 @@ Widget _buildKeyboardRow(
           gradient: LinearGradient(
             colors: isHighlighted
                 ? [highlightColor.withValues(alpha: 0.85), highlightColor]
-                : [Color(0xFF37424B), Color(0xFF22282F)],
+                : [
+                    Color(0xFF37424B),
+                    Color(0xFF22282F),
+                  ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
           borderRadius: BorderRadius.circular(6.0),
           border: Border.all(
-            color: isHighlighted ? amber : Colors.white.withValues(alpha: 0.08),
+            color: isHighlighted
+                ? amber
+                : Colors.white.withValues(alpha: 0.08),
             width: isHighlighted ? 1.8 : 1.0,
           ),
           boxShadow: isHighlighted
@@ -2340,6 +2403,9 @@ Widget _buildKeyboardRow(
   }
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 2.0),
-    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: widgets),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: widgets,
+    ),
   );
 }

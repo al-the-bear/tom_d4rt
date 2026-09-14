@@ -698,13 +698,22 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
               value: _rootRuntimeType,
               highlight: true,
             ),
-            _buildInspectorRow(label: 'hashCode', value: _rootHashCode),
+            _buildInspectorRow(
+              label: 'hashCode',
+              value: _rootHashCode,
+            ),
             _buildInspectorRow(
               label: 'debugMountState',
               value: _rootMountState,
             ),
-            _buildInspectorRow(label: 'depth', value: _rootDepth),
-            _buildInspectorRow(label: 'slot', value: _rootSlot),
+            _buildInspectorRow(
+              label: 'depth',
+              value: _rootDepth,
+            ),
+            _buildInspectorRow(
+              label: 'slot',
+              value: _rootSlot,
+            ),
             _buildInspectorRow(
               label: 'childCount (direct)',
               value: _rootChildCount,
@@ -807,7 +816,10 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
             runSpacing: 12,
             children: <Widget>[
               for (final _HierarchyNode branch in _hierarchyBranchPath)
-                SizedBox(width: 260, child: _buildHierarchyNode(branch)),
+                SizedBox(
+                  width: 260,
+                  child: _buildHierarchyNode(branch),
+                ),
             ],
           ),
         ],
@@ -842,18 +854,14 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
     final Color fill = isTarget
         ? _emerald.withValues(alpha: 0.15)
         : onPath
-        ? _parchmentDeep.withValues(alpha: 0.7)
-        : _cream;
+            ? _parchmentDeep.withValues(alpha: 0.7)
+            : _cream;
     final Color border = isTarget
         ? _emerald
         : onPath
-        ? _emeraldDeep.withValues(alpha: 0.5)
-        : _parchmentDeep;
-    final double borderWidth = isTarget
-        ? 2.5
-        : onPath
-        ? 1.5
-        : 1;
+            ? _emeraldDeep.withValues(alpha: 0.5)
+            : _parchmentDeep;
+    final double borderWidth = isTarget ? 2.5 : onPath ? 1.5 : 1;
 
     return Container(
       decoration: BoxDecoration(
@@ -891,9 +899,7 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
                       style: TextStyle(
                         color: _slate,
                         fontSize: 14,
-                        fontWeight: isTarget
-                            ? FontWeight.w800
-                            : FontWeight.w700,
+                        fontWeight: isTarget ? FontWeight.w800 : FontWeight.w700,
                         letterSpacing: 0.2,
                       ),
                     ),
@@ -1013,7 +1019,12 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
   Widget _buildProbeRow(_ProbeRow row) {
     // Depth 0 darkest, depth 4 lightest.
     final double t = (row.depth.clamp(0, _kProbeMaxDepth)) / _kProbeMaxDepth;
-    final Color depthColor = Color.lerp(_charcoal, _parchment, t) ?? _charcoal;
+    final Color depthColor = Color.lerp(
+          _charcoal,
+          _parchment,
+          t,
+        ) ??
+        _charcoal;
 
     final Color textColor = row.depth <= 1 ? _cream : _slate;
     final Color fill = row.isRoot
@@ -1096,9 +1107,8 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final bool wide = constraints.maxWidth >= 720;
-        final double cardWidth = wide
-            ? (constraints.maxWidth - 3 * 12) / 4
-            : 220;
+        final double cardWidth =
+            wide ? (constraints.maxWidth - 3 * 12) / 4 : 220;
 
         return Wrap(
           spacing: 12,
@@ -1121,10 +1131,7 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
       decoration: BoxDecoration(
         color: _cream,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: card.accent.withValues(alpha: 0.55),
-          width: 1.2,
-        ),
+        border: Border.all(color: card.accent.withValues(alpha: 0.55), width: 1.2),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: card.accent.withValues(alpha: 0.08),
@@ -1244,7 +1251,10 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: _salmon.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(4),
@@ -1341,7 +1351,10 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
       decoration: BoxDecoration(
         color: _salmonSoft.withValues(alpha: 0.35),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _salmon.withValues(alpha: 0.55), width: 1),
+        border: Border.all(
+          color: _salmon.withValues(alpha: 0.55),
+          width: 1,
+        ),
       ),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -1366,7 +1379,11 @@ class _ElementTreeRootViewerDemoState extends State<ElementTreeRootViewerDemo> {
           const SizedBox(height: 6),
           Text(
             c.resolution,
-            style: const TextStyle(color: _slate, fontSize: 12, height: 1.4),
+            style: const TextStyle(
+              color: _slate,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),

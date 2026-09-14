@@ -296,7 +296,9 @@ dynamic build(BuildContext context) {
                                       hint: 'Defer',
                                       accent: const Color(0xFF00838F),
                                       onChildTap: () => setState(() {
-                                        s2DeferLog.add('${stamp()}  CHILD tap');
+                                        s2DeferLog.add(
+                                          '${stamp()}  CHILD tap',
+                                        );
                                       }),
                                     ),
                                   ),
@@ -488,14 +490,15 @@ dynamic build(BuildContext context) {
                                         height: 50,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFFEF6C00),
-                                          borderRadius: BorderRadius.circular(
-                                            6,
-                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
                                         ),
                                         alignment: Alignment.center,
                                         child: const Text(
                                           'tap',
-                                          style: TextStyle(color: Colors.white),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -749,7 +752,8 @@ dynamic build(BuildContext context) {
                           Align(
                             alignment: Alignment.centerRight,
                             child: TextButton.icon(
-                              onPressed: () => setState(s5TranslucentLog.clear),
+                              onPressed: () =>
+                                  setState(s5TranslucentLog.clear),
                               icon: const Icon(Icons.clear_all),
                               label: const Text('Clear log'),
                             ),
@@ -778,7 +782,7 @@ dynamic build(BuildContext context) {
               // - opaque:       overlay swallows all taps in its bounds,
               //                 background never fires inside those bounds.
               // - translucent:  overlay AND background both fire for taps
-              //             inside the overlay bounds.
+                  //             inside the overlay bounds.
               // ===============================================================
               _SectionHeader(
                 accent: const Color(0xFF1565C0),
@@ -850,7 +854,8 @@ dynamic build(BuildContext context) {
                                           color: const Color(0xFF1565C0),
                                           width: 2,
                                         ),
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius:
+                                            BorderRadius.circular(10),
                                       ),
                                       alignment: Alignment.bottomLeft,
                                       padding: const EdgeInsets.all(8),
@@ -891,7 +896,8 @@ dynamic build(BuildContext context) {
                                             width: 80,
                                             height: 30,
                                             decoration: BoxDecoration(
-                                              color: const Color(0xFFFFB74D),
+                                              color:
+                                                  const Color(0xFFFFB74D),
                                               borderRadius:
                                                   BorderRadius.circular(6),
                                             ),
@@ -910,34 +916,47 @@ dynamic build(BuildContext context) {
                                           Positioned.fill(
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color:
-                                                    s6Behavior ==
-                                                        HitTestBehavior.opaque
+                                                color: s6Behavior ==
+                                                        HitTestBehavior
+                                                            .opaque
                                                     ? const Color(0x33E65100)
-                                                    : const Color(0x336A1B9A),
+                                                    : const Color(
+                                                        0x336A1B9A,
+                                                      ),
                                                 border: Border.all(
-                                                  color:
-                                                      s6Behavior ==
-                                                          HitTestBehavior.opaque
-                                                      ? const Color(0xFFE65100)
-                                                      : const Color(0xFF6A1B9A),
+                                                  color: s6Behavior ==
+                                                          HitTestBehavior
+                                                              .opaque
+                                                      ? const Color(
+                                                          0xFFE65100,
+                                                        )
+                                                      : const Color(
+                                                          0xFF6A1B9A,
+                                                        ),
                                                   width: 2,
                                                 ),
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                               ),
-                                              alignment: Alignment.bottomRight,
-                                              padding: const EdgeInsets.all(6),
+                                              alignment:
+                                                  Alignment.bottomRight,
+                                              padding:
+                                                  const EdgeInsets.all(6),
                                               child: Text(
                                                 'OVERLAY (.${s6Behavior.name})',
                                                 style: TextStyle(
-                                                  color:
-                                                      s6Behavior ==
-                                                          HitTestBehavior.opaque
-                                                      ? const Color(0xFFBF360C)
-                                                      : const Color(0xFF4A148C),
+                                                  color: s6Behavior ==
+                                                          HitTestBehavior
+                                                              .opaque
+                                                      ? const Color(
+                                                          0xFFBF360C,
+                                                        )
+                                                      : const Color(
+                                                          0xFF4A148C,
+                                                        ),
                                                   fontSize: 11,
-                                                  fontWeight: FontWeight.w700,
+                                                  fontWeight:
+                                                      FontWeight.w700,
                                                 ),
                                               ),
                                             ),
@@ -954,7 +973,8 @@ dynamic build(BuildContext context) {
                                                 style: TextStyle(
                                                   fontSize: 11,
                                                   color: Color(0xFF00838F),
-                                                  fontStyle: FontStyle.italic,
+                                                  fontStyle:
+                                                      FontStyle.italic,
                                                 ),
                                               ),
                                             ),
@@ -972,7 +992,8 @@ dynamic build(BuildContext context) {
                             children: [
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
                                   children: [
                                     const Text(
                                       'OVERLAY log',
@@ -992,7 +1013,8 @@ dynamic build(BuildContext context) {
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
                                   children: [
                                     const Text(
                                       'BACKGROUND log',
@@ -1126,7 +1148,8 @@ dynamic build(BuildContext context) {
                               const SizedBox(width: 12),
                               Switch(
                                 value: s7Wrapped,
-                                onChanged: (v) => setState(() => s7Wrapped = v),
+                                onChanged: (v) =>
+                                    setState(() => s7Wrapped = v),
                               ),
                               const SizedBox(width: 6),
                               Text(s7Wrapped ? '(opaque)' : '(deferToChild)'),
@@ -1214,56 +1237,55 @@ dynamic build(BuildContext context) {
                             child: Stack(
                               children: [
                                 Positioned.fill(
-                                  child:
-                                      NotificationListener<ScrollNotification>(
-                                        onNotification: (n) {
-                                          if (n is ScrollUpdateNotification &&
-                                              !s8ScrollerLog) {
-                                            s8ScrollerLog = true;
-                                            setState(() {
-                                              s8ScrollerEntries.add(
-                                                '${stamp()}  list scrolled',
-                                              );
-                                            });
-                                            Future.delayed(
-                                              const Duration(milliseconds: 250),
-                                              () {
-                                                s8ScrollerLog = false;
-                                              },
-                                            );
-                                          }
-                                          return false;
-                                        },
-                                        child: ListView.separated(
-                                          padding: const EdgeInsets.all(8),
-                                          itemCount: 30,
-                                          separatorBuilder: (_, _) =>
-                                              const Divider(height: 1),
-                                          itemBuilder: (_, i) => ListTile(
-                                            dense: true,
-                                            leading: CircleAvatar(
-                                              backgroundColor: const Color(
-                                                0xFF455A64,
-                                              ),
-                                              child: Text(
-                                                '${i + 1}',
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
-                                            title: Text('Item #${i + 1}'),
-                                            subtitle: Text(
-                                              'list row - scrolling still '
-                                              'works through the edge zone',
-                                              style: TextStyle(
-                                                color: Colors.grey.shade600,
-                                              ),
+                                  child: NotificationListener<
+                                      ScrollNotification>(
+                                    onNotification: (n) {
+                                      if (n is ScrollUpdateNotification &&
+                                          !s8ScrollerLog) {
+                                        s8ScrollerLog = true;
+                                        setState(() {
+                                          s8ScrollerEntries.add(
+                                            '${stamp()}  list scrolled',
+                                          );
+                                        });
+                                        Future.delayed(
+                                          const Duration(milliseconds: 250),
+                                          () {
+                                            s8ScrollerLog = false;
+                                          },
+                                        );
+                                      }
+                                      return false;
+                                    },
+                                    child: ListView.separated(
+                                      padding: const EdgeInsets.all(8),
+                                      itemCount: 30,
+                                      separatorBuilder: (_, _) =>
+                                          const Divider(height: 1),
+                                      itemBuilder: (_, i) => ListTile(
+                                        dense: true,
+                                        leading: CircleAvatar(
+                                          backgroundColor:
+                                              const Color(0xFF455A64),
+                                          child: Text(
+                                            '${i + 1}',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12,
                                             ),
                                           ),
                                         ),
+                                        title: Text('Item #${i + 1}'),
+                                        subtitle: Text(
+                                          'list row - scrolling still '
+                                          'works through the edge zone',
+                                          style: TextStyle(
+                                            color: Colors.grey.shade600,
+                                          ),
+                                        ),
                                       ),
+                                    ),
+                                  ),
                                 ),
                                 // Edge-swipe zone using .translucent: it
                                 // records the tap but does NOT block the
@@ -1289,9 +1311,8 @@ dynamic build(BuildContext context) {
                                           begin: Alignment.centerLeft,
                                           end: Alignment.centerRight,
                                           colors: [
-                                            const Color(
-                                              0xFF455A64,
-                                            ).withOpacity(0.35),
+                                            const Color(0xFF455A64)
+                                                .withOpacity(0.35),
                                             Colors.transparent,
                                           ],
                                         ),
@@ -1379,12 +1400,15 @@ dynamic build(BuildContext context) {
                                   child: GestureDetector(
                                     behavior: HitTestBehavior.opaque,
                                     onTap: () => setState(() {
-                                      s9Log.add('${stamp()}  PAGE tapped');
+                                      s9Log.add(
+                                        '${stamp()}  PAGE tapped',
+                                      );
                                     }),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: const Color(0xFFFFEBEE),
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius:
+                                            BorderRadius.circular(10),
                                         border: Border.all(
                                           color: const Color(0xFF8E0000),
                                           width: 1,
@@ -1429,7 +1453,8 @@ dynamic build(BuildContext context) {
                                               '(.opaque)',
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.w600,
+                                                fontWeight:
+                                                    FontWeight.w600,
                                               ),
                                             ),
                                           ],
@@ -1593,62 +1618,50 @@ dynamic build(BuildContext context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       _DecisionRow(
-                        scenario:
-                            'Wrapping an icon button so only the icon '
+                        scenario: 'Wrapping an icon button so only the icon '
                             'itself responds',
                         choice: '.deferToChild',
-                        reason:
-                            'The user expects to tap the visible icon, '
+                        reason: 'The user expects to tap the visible icon, '
                             'not the empty padding around it.',
                       ),
                       Divider(),
                       _DecisionRow(
-                        scenario:
-                            'Modal scrim, loading overlay, tap-out-to-'
+                        scenario: 'Modal scrim, loading overlay, tap-out-to-'
                             'dismiss background',
                         choice: '.opaque',
-                        reason:
-                            'You want to absolutely block events from '
+                        reason: 'You want to absolutely block events from '
                             'reaching the page beneath.',
                       ),
                       Divider(),
                       _DecisionRow(
-                        scenario:
-                            'Edge-swipe / drag handle on top of a '
+                        scenario: 'Edge-swipe / drag handle on top of a '
                             'scrolling list',
                         choice: '.translucent',
-                        reason:
-                            'You need to record gestures yourself but '
+                        reason: 'You need to record gestures yourself but '
                             'not interfere with the underlying scrollable.',
                       ),
                       Divider(),
                       _DecisionRow(
-                        scenario:
-                            'Whole-card click target where the card '
+                        scenario: 'Whole-card click target where the card '
                             'has empty padding',
                         choice: '.opaque',
-                        reason:
-                            'The default deferToChild would ignore taps '
+                        reason: 'The default deferToChild would ignore taps '
                             'on the padding.',
                       ),
                       Divider(),
                       _DecisionRow(
-                        scenario:
-                            'Visualisation overlay that should not '
+                        scenario: 'Visualisation overlay that should not '
                             'steal taps from a chart below',
                         choice: '.translucent',
-                        reason:
-                            'Track pointer movements while letting the '
+                        reason: 'Track pointer movements while letting the '
                             'chart still receive selection events.',
                       ),
                       Divider(),
                       _DecisionRow(
-                        scenario:
-                            'Animated decoration drawn on top of '
+                        scenario: 'Animated decoration drawn on top of '
                             'normal content',
                         choice: '.deferToChild (or IgnorePointer)',
-                        reason:
-                            'Decoration should never receive events. '
+                        reason: 'Decoration should never receive events. '
                             'IgnorePointer is even cleaner: it removes the '
                             'subtree from hit testing entirely.',
                       ),
@@ -1686,60 +1699,46 @@ dynamic build(BuildContext context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       _MistakeRow(
-                        symptom:
-                            'My GestureDetector wraps an empty SizedBox '
+                        symptom: 'My GestureDetector wraps an empty SizedBox '
                             'and nothing happens.',
-                        cause:
-                            'Default .deferToChild has no child paint to '
+                        cause: 'Default .deferToChild has no child paint to '
                             'defer to.',
-                        fix:
-                            'Use behavior: HitTestBehavior.opaque, or give '
+                        fix: 'Use behavior: HitTestBehavior.opaque, or give '
                             'the child a color so it has hit-test bounds.',
                       ),
                       Divider(),
                       _MistakeRow(
-                        symptom:
-                            'My loading scrim lets the user double-'
+                        symptom: 'My loading scrim lets the user double-'
                             'submit a form.',
-                        cause:
-                            '.translucent (or no detector at all) does '
+                        cause: '.translucent (or no detector at all) does '
                             'not block events.',
-                        fix:
-                            'Use .opaque on the scrim, or wrap the form '
+                        fix: 'Use .opaque on the scrim, or wrap the form '
                             'with AbsorbPointer/IgnorePointer.',
                       ),
                       Divider(),
                       _MistakeRow(
-                        symptom:
-                            'My swipe handle works, but the list below '
+                        symptom: 'My swipe handle works, but the list below '
                             'no longer scrolls.',
-                        cause:
-                            '.opaque on the handle is consuming all '
+                        cause: '.opaque on the handle is consuming all '
                             'pointer events.',
-                        fix:
-                            'Switch to .translucent so the list still '
+                        fix: 'Switch to .translucent so the list still '
                             'sees the drag.',
                       ),
                       Divider(),
                       _MistakeRow(
-                        symptom:
-                            'My onTap fires on the parent but also on '
+                        symptom: 'My onTap fires on the parent but also on '
                             'a sibling I did not expect.',
                         cause: '.translucent lets the event continue.',
-                        fix:
-                            'Use .opaque if only the topmost detector '
+                        fix: 'Use .opaque if only the topmost detector '
                             'should fire.',
                       ),
                       Divider(),
                       _MistakeRow(
-                        symptom:
-                            'IgnorePointer fixed it but now I cannot '
+                        symptom: 'IgnorePointer fixed it but now I cannot '
                             'tap children either.',
-                        cause:
-                            'IgnorePointer removes the entire subtree '
+                        cause: 'IgnorePointer removes the entire subtree '
                             'from hit testing.',
-                        fix:
-                            'Use HitTestBehavior on individual detectors '
+                        fix: 'Use HitTestBehavior on individual detectors '
                             'instead, or AbsorbPointer for "consume but '
                             'do not let through".',
                       ),
@@ -1781,7 +1780,9 @@ dynamic build(BuildContext context) {
                     ),
                     children: const [
                       TableRow(
-                        decoration: BoxDecoration(color: Color(0xFF263238)),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF263238),
+                        ),
                         children: [
                           _Th('Value'),
                           _Th('Hit area'),
@@ -1794,14 +1795,14 @@ dynamic build(BuildContext context) {
                           _Td('.deferToChild'),
                           _Td('Wherever a child reports a hit'),
                           _Td('No propagation past the child'),
-                          _Td(
-                            'Default for GestureDetector with a '
-                            'visible child',
-                          ),
+                          _Td('Default for GestureDetector with a '
+                              'visible child'),
                         ],
                       ),
                       TableRow(
-                        decoration: BoxDecoration(color: Color(0xFFF5F5F5)),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                        ),
                         children: [
                           _Td('.opaque'),
                           _Td('Entire bounds'),
@@ -2192,7 +2193,11 @@ class _DetectorBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: accent, width: 1, style: BorderStyle.solid),
+        border: Border.all(
+          color: accent,
+          width: 1,
+          style: BorderStyle.solid,
+        ),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Stack(
@@ -2219,7 +2224,11 @@ class _DetectorBox extends StatelessWidget {
                   color: accent,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.adjust, size: 18, color: Colors.white),
+                child: const Icon(
+                  Icons.adjust,
+                  size: 18,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -2261,7 +2270,10 @@ class _DecisionRow extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: const Color(0xFF00695C).withOpacity(0.15),
                 borderRadius: BorderRadius.circular(6),
@@ -2375,7 +2387,10 @@ class _Td extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: Text(text, style: const TextStyle(fontSize: 12, height: 1.4)),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 12, height: 1.4),
+      ),
     );
   }
 }

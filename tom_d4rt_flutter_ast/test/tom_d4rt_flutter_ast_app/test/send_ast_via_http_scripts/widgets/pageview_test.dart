@@ -73,7 +73,10 @@ class _HeroHeader extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[Colors.indigo.shade700, Colors.deepPurple.shade400],
+          colors: <Color>[
+            Colors.indigo.shade700,
+            Colors.deepPurple.shade400,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -206,7 +209,10 @@ class _SectionDivider extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Container(height: 1.0, color: Colors.indigo.shade100),
+            child: Container(
+              height: 1.0,
+              color: Colors.indigo.shade100,
+            ),
           ),
         ],
       ),
@@ -236,11 +242,7 @@ class _Narrative extends StatelessWidget {
 }
 
 class _DemoCard extends StatelessWidget {
-  const _DemoCard({
-    required this.title,
-    required this.subtitle,
-    required this.child,
-  });
+  const _DemoCard({required this.title, required this.subtitle, required this.child});
 
   final String title;
   final String subtitle;
@@ -279,7 +281,10 @@ class _DemoCard extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 12.0),
             child: Text(
               subtitle,
-              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey.shade700,
+              ),
             ),
           ),
           child,
@@ -343,8 +348,7 @@ class _OnboardingSectionState extends State<_OnboardingSection> {
         ),
         _DemoCard(
           title: 'PageView(children: ...)',
-          subtitle:
-              'Default constructor, 3 colored pages, page-indicator dots.',
+          subtitle: 'Default constructor, 3 colored pages, page-indicator dots.',
           child: SizedBox(
             height: 280.0,
             child: Stack(
@@ -507,7 +511,8 @@ class _BuilderSectionState extends State<_BuilderSection> {
               itemCount: _tipCount,
               onPageChanged: (int i) => setState(() => _index = i),
               itemBuilder: (BuildContext context, int i) {
-                final List<Color> palette = _palettes[i % _palettes.length];
+                final List<Color> palette =
+                    _palettes[i % _palettes.length];
                 final String body = _tips[i % _tips.length];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
@@ -596,7 +601,10 @@ class _BuilderSectionState extends State<_BuilderSection> {
               ),
               Text(
                 'allowImplicitScrolling: false (default)',
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade500,
+                ),
               ),
             ],
           ),
@@ -713,28 +721,14 @@ class _CarouselSection extends StatefulWidget {
 }
 
 class _CarouselSectionState extends State<_CarouselSection> {
-  final PageController _controller = PageController(
-    viewportFraction: 0.7,
-    initialPage: 1,
-  );
+  final PageController _controller =
+      PageController(viewportFraction: 0.7, initialPage: 1);
 
   static const List<_FoodCard> _items = <_FoodCard>[
-    _FoodCard(
-      name: 'Margherita',
-      icon: Icons.local_pizza,
-      color: Color(0xFFFF7043),
-    ),
+    _FoodCard(name: 'Margherita', icon: Icons.local_pizza, color: Color(0xFFFF7043)),
     _FoodCard(name: 'Sushi', icon: Icons.set_meal, color: Color(0xFF26A69A)),
-    _FoodCard(
-      name: 'Burger',
-      icon: Icons.lunch_dining,
-      color: Color(0xFFAB47BC),
-    ),
-    _FoodCard(
-      name: 'Ramen',
-      icon: Icons.ramen_dining,
-      color: Color(0xFFEF5350),
-    ),
+    _FoodCard(name: 'Burger', icon: Icons.lunch_dining, color: Color(0xFFAB47BC)),
+    _FoodCard(name: 'Ramen', icon: Icons.ramen_dining, color: Color(0xFFEF5350)),
     _FoodCard(name: 'Salad', icon: Icons.eco, color: Color(0xFF66BB6A)),
   ];
 
@@ -763,23 +757,18 @@ class _CarouselSectionState extends State<_CarouselSection> {
               animation: _controller,
               builder: (BuildContext context, Widget? _) {
                 final double rawPage =
-                    _controller.hasClients &&
-                        _controller.position.haveDimensions
-                    ? (_controller.page ?? 0.0)
-                    : (_controller.initialPage).toDouble();
+                    _controller.hasClients && _controller.position.haveDimensions
+                        ? (_controller.page ?? 0.0)
+                        : (_controller.initialPage).toDouble();
                 return PageView.builder(
                   controller: _controller,
                   itemCount: _items.length,
                   itemBuilder: (BuildContext context, int i) {
                     final double delta = (rawPage - i).abs();
-                    final double scale = (1.0 - (delta * 0.18)).clamp(
-                      0.78,
-                      1.0,
-                    );
-                    final double opacity = (1.0 - (delta * 0.45)).clamp(
-                      0.35,
-                      1.0,
-                    );
+                    final double scale =
+                        (1.0 - (delta * 0.18)).clamp(0.78, 1.0);
+                    final double opacity =
+                        (1.0 - (delta * 0.45)).clamp(0.35, 1.0);
                     return Center(
                       child: Opacity(
                         opacity: opacity,
@@ -801,11 +790,7 @@ class _CarouselSectionState extends State<_CarouselSection> {
 }
 
 class _FoodCard {
-  const _FoodCard({
-    required this.name,
-    required this.icon,
-    required this.color,
-  });
+  const _FoodCard({required this.name, required this.icon, required this.color});
 
   final String name;
   final IconData icon;
@@ -925,8 +910,7 @@ class _ProgrammaticSectionState extends State<_ProgrammaticSection> {
         ),
         _DemoCard(
           title: 'PageController API',
-          subtitle:
-              'Buttons drive nextPage, previousPage, animateToPage, jumpToPage.',
+          subtitle: 'Buttons drive nextPage, previousPage, animateToPage, jumpToPage.',
           child: Column(
             children: <Widget>[
               SizedBox(
@@ -938,16 +922,12 @@ class _ProgrammaticSectionState extends State<_ProgrammaticSection> {
                   itemBuilder: (BuildContext context, int i) {
                     return Container(
                       margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 8.0,
-                      ),
+                          horizontal: 12.0, vertical: 8.0),
                       decoration: BoxDecoration(
                         color: Colors.indigo.shade50,
                         borderRadius: BorderRadius.circular(14.0),
-                        border: Border.all(
-                          color: Colors.indigo.shade200,
-                          width: 1.0,
-                        ),
+                        border:
+                            Border.all(color: Colors.indigo.shade200, width: 1.0),
                       ),
                       alignment: Alignment.center,
                       child: Text(
@@ -971,9 +951,7 @@ class _ProgrammaticSectionState extends State<_ProgrammaticSection> {
                     _NavButton(icon: Icons.chevron_left, onPressed: _goPrev),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 14.0,
-                        vertical: 6.0,
-                      ),
+                          horizontal: 14.0, vertical: 6.0),
                       decoration: BoxDecoration(
                         color: Colors.indigo.shade700,
                         borderRadius: BorderRadius.circular(20.0),
@@ -1084,9 +1062,7 @@ class _IndicatorSectionState extends State<_IndicatorSection> {
                   itemBuilder: (BuildContext context, int i) {
                     return Container(
                       margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 8.0,
-                      ),
+                          horizontal: 12.0, vertical: 8.0),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: _strip[i],
@@ -1326,15 +1302,11 @@ class _CustomSectionState extends State<_CustomSection> {
                   return Container(
                     key: ValueKey<int>(i),
                     margin: const EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 8.0,
-                    ),
+                        horizontal: 6.0, vertical: 8.0),
                     decoration: BoxDecoration(
                       color: Colors.teal.shade50,
                       border: Border.all(
-                        color: Colors.teal.shade300,
-                        width: 1.5,
-                      ),
+                          color: Colors.teal.shade300, width: 1.5),
                       borderRadius: BorderRadius.circular(14.0),
                     ),
                     alignment: Alignment.center,
@@ -1381,10 +1353,14 @@ class _PadEndsGridSection extends StatefulWidget {
 }
 
 class _PadEndsGridSectionState extends State<_PadEndsGridSection> {
-  final PageController _aController = PageController(viewportFraction: 1.0);
-  final PageController _bController = PageController(viewportFraction: 1.0);
-  final PageController _cController = PageController(viewportFraction: 0.7);
-  final PageController _dController = PageController(viewportFraction: 0.7);
+  final PageController _aController =
+      PageController(viewportFraction: 1.0);
+  final PageController _bController =
+      PageController(viewportFraction: 1.0);
+  final PageController _cController =
+      PageController(viewportFraction: 0.7);
+  final PageController _dController =
+      PageController(viewportFraction: 0.7);
 
   @override
   void dispose() {
@@ -1576,9 +1552,7 @@ class _CheatSheetSection extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 3.0),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 8.0,
-                ),
+                    horizontal: 10.0, vertical: 8.0),
                 decoration: BoxDecoration(
                   color: Colors.indigo.shade50,
                   borderRadius: BorderRadius.circular(8.0),

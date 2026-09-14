@@ -38,7 +38,11 @@ const Color isToneHighlight = Color(0xFFCFC9BC);
 Widget isCaptionText(String text, {double size = 12.0, Color? color}) {
   return Text(
     text,
-    style: TextStyle(fontSize: size, color: color ?? isToneMid, height: 1.35),
+    style: TextStyle(
+      fontSize: size,
+      color: color ?? isToneMid,
+      height: 1.35,
+    ),
   );
 }
 
@@ -184,7 +188,10 @@ Widget isSectionFrame({
             ],
           ),
         ),
-        Padding(padding: const EdgeInsets.all(14.0), child: child),
+        Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: child,
+        ),
       ],
     ),
   );
@@ -225,12 +232,17 @@ Widget isImageStandIn({
   } else if (kind == 'radial') {
     body = Container(
       decoration: BoxDecoration(
-        gradient: RadialGradient(colors: [a, b], radius: 0.85),
+        gradient: RadialGradient(
+          colors: [a, b],
+          radius: 0.85,
+        ),
       ),
     );
   } else if (kind == 'sweep') {
     body = Container(
-      decoration: BoxDecoration(gradient: SweepGradient(colors: [a, b, a])),
+      decoration: BoxDecoration(
+        gradient: SweepGradient(colors: [a, b, a]),
+      ),
     );
   } else {
     body = CustomPaint(
@@ -255,10 +267,7 @@ Widget isImageStandIn({
             left: 4.0,
             bottom: 4.0,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 5.0,
-                vertical: 2.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
               color: isFilmBlack.withOpacity(0.55),
               child: Text(
                 label,
@@ -414,10 +423,8 @@ Widget isProviderCard({
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        '• ',
-                        style: TextStyle(fontSize: 11.0, color: isToneMid),
-                      ),
+                      const Text('• ',
+                          style: TextStyle(fontSize: 11.0, color: isToneMid)),
                       Expanded(
                         child: Text(
                           usageLines[i],
@@ -443,21 +450,17 @@ Widget isProviderTaxonomySection() {
   // Construct sample provider instances so the section is more than just
   // string literals — these go through the analyzer and verify the constructor
   // signatures still resolve in the current Flutter SDK.
-  final MemoryImage memProvider = MemoryImage(
-    Uint8List.fromList([0, 0, 0, 0, 255, 255, 255, 255]),
-  );
-  final AssetImage assetProvider = const AssetImage(
-    'packages/example/assets/lamp.png',
-  );
-  final NetworkImage netProvider = const NetworkImage(
-    'https://example.com/photo.jpg',
-  );
+  final MemoryImage memProvider =
+      MemoryImage(Uint8List.fromList([0, 0, 0, 0, 255, 255, 255, 255]));
+  final AssetImage assetProvider =
+      const AssetImage('packages/example/assets/lamp.png');
+  final NetworkImage netProvider =
+      const NetworkImage('https://example.com/photo.jpg');
   // FileImage is constructed lazily — passing a stand-in File reference is
   // unsafe under the interpreter, so we describe it via Text in the card.
 
   // Touch hashCodes so the local variables aren't dropped by the analyzer.
-  final String memTag =
-      'hash:${memProvider.hashCode.toString().substring(0, 4)}';
+  final String memTag = 'hash:${memProvider.hashCode.toString().substring(0, 4)}';
   final String assetTag = 'asset:${assetProvider.assetName}';
   final String netTag = 'url:${netProvider.url}';
 
@@ -796,8 +799,7 @@ Widget isStreamSection() {
                 index: 1,
                 title: 'ImageProvider',
                 type: 'ImageProvider<T>',
-                summary:
-                    'You hand this to Image(image:). Knows how to make '
+                summary: 'You hand this to Image(image:). Knows how to make '
                     'a key and how to load bytes.',
                 accent: isAmberLamp,
               ),
@@ -806,8 +808,7 @@ Widget isStreamSection() {
                 index: 2,
                 title: 'ImageConfiguration',
                 type: 'ImageConfiguration',
-                summary:
-                    'Holds bundle, DPR, locale, size, platform. Passed '
+                summary: 'Holds bundle, DPR, locale, size, platform. Passed '
                     'to obtainKey(ctx).',
                 accent: isAmberDim,
               ),
@@ -816,8 +817,7 @@ Widget isStreamSection() {
                 index: 3,
                 title: 'Key',
                 type: 'T extends Object',
-                summary:
-                    'Hashable identity used by ImageCache. Equal keys '
+                summary: 'Hashable identity used by ImageCache. Equal keys '
                     'share a completer.',
                 accent: isChemicalCyan,
               ),
@@ -826,8 +826,7 @@ Widget isStreamSection() {
                 index: 4,
                 title: 'ImageStream',
                 type: 'ImageStream',
-                summary:
-                    'Lightweight broadcast handle. Listeners attach '
+                summary: 'Lightweight broadcast handle. Listeners attach '
                     'here even before bytes arrive.',
                 accent: isChemicalTeal,
               ),
@@ -836,8 +835,7 @@ Widget isStreamSection() {
                 index: 5,
                 title: 'Completer',
                 type: 'ImageStreamCompleter',
-                summary:
-                    'The producer. OneFrame… or MultiFrame…. Owns the '
+                summary: 'The producer. OneFrame… or MultiFrame…. Owns the '
                     'decoded frames and drives listeners.',
                 accent: isSafelightRed,
               ),
@@ -846,8 +844,7 @@ Widget isStreamSection() {
                 index: 6,
                 title: 'Frame',
                 type: 'ImageInfo',
-                summary:
-                    'Final payload. image + scale + optional '
+                summary: 'Final payload. image + scale + optional '
                     'debugLabel. Handed to onFrame listeners.',
                 accent: isAmberLamp,
               ),
@@ -874,20 +871,17 @@ Widget isStreamSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              isKeyValueRow(
-                'typedef ImageListener',
-                'void Function(ImageInfo, bool synchronousCall)',
-              ),
-              isKeyValueRow(
-                'typedef ImageChunkListener',
-                'void Function(ImageChunkEvent event)',
-              ),
-              isKeyValueRow(
-                'typedef ImageErrorListener',
-                'void Function(Object exception, StackTrace? stack)',
-              ),
+              isKeyValueRow('typedef ImageListener',
+                  'void Function(ImageInfo, bool synchronousCall)'),
+              isKeyValueRow('typedef ImageChunkListener',
+                  'void Function(ImageChunkEvent event)'),
+              isKeyValueRow('typedef ImageErrorListener',
+                  'void Function(Object exception, StackTrace? stack)'),
               isDivider(),
-              isMonoText('final listener = ImageStreamListener(', size: 11.0),
+              isMonoText(
+                'final listener = ImageStreamListener(',
+                size: 11.0,
+              ),
               isMonoText(
                 "  (info, sync) => print('frame: \${info.image.width}'),",
                 size: 11.0,
@@ -1021,32 +1015,24 @@ Widget isConfigSampleCard({
           ],
         ),
         const SizedBox(height: 6.0),
+        isKeyValueRow('bundle',
+            (config.bundle != null) ? config.bundle.toString() : 'null'),
+        isKeyValueRow('devicePixelRatio',
+            (config.devicePixelRatio ?? double.nan).toString()),
         isKeyValueRow(
-          'bundle',
-          (config.bundle != null) ? config.bundle.toString() : 'null',
-        ),
+            'locale', (config.locale != null) ? config.locale.toString() : 'null'),
         isKeyValueRow(
-          'devicePixelRatio',
-          (config.devicePixelRatio ?? double.nan).toString(),
-        ),
+            'textDirection',
+            (config.textDirection != null)
+                ? config.textDirection.toString()
+                : 'null'),
+        isKeyValueRow('size',
+            (config.size != null) ? config.size.toString() : 'null'),
         isKeyValueRow(
-          'locale',
-          (config.locale != null) ? config.locale.toString() : 'null',
-        ),
-        isKeyValueRow(
-          'textDirection',
-          (config.textDirection != null)
-              ? config.textDirection.toString()
-              : 'null',
-        ),
-        isKeyValueRow(
-          'size',
-          (config.size != null) ? config.size.toString() : 'null',
-        ),
-        isKeyValueRow(
-          'platform',
-          (config.platform != null) ? config.platform.toString() : 'null',
-        ),
+            'platform',
+            (config.platform != null)
+                ? config.platform.toString()
+                : 'null'),
       ],
     ),
   );
@@ -1101,36 +1087,18 @@ Widget isConfigurationSection(BuildContext context) {
           ),
           child: Column(
             children: [
-              isConfigFieldRow(
-                'bundle',
-                'AssetBundle?',
-                'Where AssetImage looks for variants.',
-              ),
-              isConfigFieldRow(
-                'devicePixelRatio',
-                'double?',
-                'Used to pick @2x / @3x variants.',
-              ),
-              isConfigFieldRow(
-                'locale',
-                'Locale?',
-                'Localised variants in the variant manifest.',
-              ),
-              isConfigFieldRow(
-                'textDirection',
-                'TextDirection?',
-                'Some providers vary by writing direction.',
-              ),
-              isConfigFieldRow(
-                'size',
-                'Size?',
-                'Layout size in logical pixels at paint time.',
-              ),
-              isConfigFieldRow(
-                'platform',
-                'TargetPlatform?',
-                'Lets providers pick platform-specific assets.',
-              ),
+              isConfigFieldRow('bundle', 'AssetBundle?',
+                  'Where AssetImage looks for variants.'),
+              isConfigFieldRow('devicePixelRatio', 'double?',
+                  'Used to pick @2x / @3x variants.'),
+              isConfigFieldRow('locale', 'Locale?',
+                  'Localised variants in the variant manifest.'),
+              isConfigFieldRow('textDirection', 'TextDirection?',
+                  'Some providers vary by writing direction.'),
+              isConfigFieldRow('size', 'Size?',
+                  'Layout size in logical pixels at paint time.'),
+              isConfigFieldRow('platform', 'TargetPlatform?',
+                  'Lets providers pick platform-specific assets.'),
             ],
           ),
         ),
@@ -1182,7 +1150,10 @@ Widget isConfigurationSection(BuildContext context) {
             children: [
               isHeaderText('copyWith demo', size: 13.0, color: isAmberDim),
               const SizedBox(height: 4.0),
-              isMonoText('const base = ImageConfiguration.empty;', size: 11.0),
+              isMonoText(
+                'const base = ImageConfiguration.empty;',
+                size: 11.0,
+              ),
               isMonoText(
                 'final hiDpi = base.copyWith(devicePixelRatio: 3.0);',
                 size: 11.0,
@@ -1237,7 +1208,11 @@ Widget isBoxFitTile({
           color: tone.withOpacity(0.18),
           child: Row(
             children: [
-              Container(width: 8.0, height: 8.0, color: tone),
+              Container(
+                width: 8.0,
+                height: 8.0,
+                color: tone,
+              ),
               const SizedBox(width: 6.0),
               Expanded(
                 child: Text(
@@ -1349,32 +1324,28 @@ Widget isBoxFitSection() {
             isBoxFitTile(
               name: 'fitWidth',
               fit: BoxFit.fitWidth,
-              summary:
-                  'Match container width; vertical may overflow or '
+              summary: 'Match container width; vertical may overflow or '
                   'leave gap.',
               tone: isChemicalTeal,
             ),
             isBoxFitTile(
               name: 'fitHeight',
               fit: BoxFit.fitHeight,
-              summary:
-                  'Match container height; horizontal may overflow or '
+              summary: 'Match container height; horizontal may overflow or '
                   'leave gap.',
               tone: isAmberDim,
             ),
             isBoxFitTile(
               name: 'none',
               fit: BoxFit.none,
-              summary:
-                  'Source drawn at its natural size; cropping happens '
+              summary: 'Source drawn at its natural size; cropping happens '
                   'symmetrically.',
               tone: isToneShadow,
             ),
             isBoxFitTile(
               name: 'scaleDown',
               fit: BoxFit.scaleDown,
-              summary:
-                  'Like BoxFit.contain but never upscales. Honours '
+              summary: 'Like BoxFit.contain but never upscales. Honours '
                   'natural source size when smaller.',
               tone: isFilmInk,
             ),
@@ -1393,9 +1364,8 @@ Widget isBoxFitSection() {
               isHeaderText('applyBoxFit return shape', size: 13.0),
               const SizedBox(height: 4.0),
               isMonoText(
-                'class FittedSizes { final Size source; final Size destination; }',
-                size: 11.0,
-              ),
+                  'class FittedSizes { final Size source; final Size destination; }',
+                  size: 11.0),
               const SizedBox(height: 6.0),
               isCaptionText(
                 'The destination size is then passed through Alignment.inscribe(...) '
@@ -1453,10 +1423,8 @@ class _IsTilePatternPainter extends CustomPainter {
 
     // Determine where to draw based on repeat semantics. We emulate the
     // framework's painting logic for visual fidelity.
-    final bool repX =
-        repeat == ImageRepeat.repeat || repeat == ImageRepeat.repeatX;
-    final bool repY =
-        repeat == ImageRepeat.repeat || repeat == ImageRepeat.repeatY;
+    final bool repX = repeat == ImageRepeat.repeat || repeat == ImageRepeat.repeatX;
+    final bool repY = repeat == ImageRepeat.repeat || repeat == ImageRepeat.repeatY;
     final double startX = repX ? 0.0 : (size.width - tile) / 2.0;
     final double endX = repX ? size.width : startX + tile;
     final double startY = repY ? 0.0 : (size.height - tile) / 2.0;
@@ -1597,13 +1565,11 @@ Widget isImageRepeatSection() {
               const SizedBox(height: 4.0),
               isMonoText('DecorationImage(image:..., repeat: …)', size: 11.0),
               isMonoText(
-                'paintImage(canvas:, rect:, image:, repeat: …)',
-                size: 11.0,
-              ),
+                  'paintImage(canvas:, rect:, image:, repeat: …)',
+                  size: 11.0),
               isMonoText(
-                'Image(image:..., repeat: ImageRepeat.repeat)',
-                size: 11.0,
-              ),
+                  'Image(image:..., repeat: ImageRepeat.repeat)',
+                  size: 11.0),
               const SizedBox(height: 6.0),
               isCaptionText(
                 'paintImage iterates a generated list of tile positions and '
@@ -1655,7 +1621,10 @@ Widget isDecorationVariant({
           ),
         ),
         const SizedBox(height: 6.0),
-        Container(height: 110.0, decoration: decoration),
+        Container(
+          height: 110.0,
+          decoration: decoration,
+        ),
         const SizedBox(height: 6.0),
         Text(
           detail,
@@ -1677,13 +1646,14 @@ Widget isDecorationImageSection() {
   // 4-byte transparent MemoryImage as a placeholder. The visual effect is
   // produced by the surrounding Container, but the analyzer is satisfied
   // and the API surface is correctly demonstrated.
-  final ImageProvider placeholder = MemoryImage(
-    Uint8List.fromList([0, 0, 0, 0]),
-  );
+  final ImageProvider placeholder =
+      MemoryImage(Uint8List.fromList([0, 0, 0, 0]));
 
   // Variant 1 — fit: cover, no filter.
   final BoxDecoration v1 = BoxDecoration(
-    gradient: LinearGradient(colors: [isAmberLamp, isSafelightRed]),
+    gradient: LinearGradient(
+      colors: [isAmberLamp, isSafelightRed],
+    ),
     borderRadius: BorderRadius.circular(6.0),
     image: DecorationImage(
       image: placeholder,
@@ -1721,7 +1691,9 @@ Widget isDecorationImageSection() {
   );
   // Variant 4 — invertColors true.
   final BoxDecoration v4 = BoxDecoration(
-    gradient: const LinearGradient(colors: [isToneHighlight, isFilmCream]),
+    gradient: const LinearGradient(
+      colors: [isToneHighlight, isFilmCream],
+    ),
     borderRadius: BorderRadius.circular(6.0),
     image: DecorationImage(
       image: placeholder,
@@ -1744,7 +1716,9 @@ Widget isDecorationImageSection() {
   );
   // Variant 6 — filterQuality + alignment.
   final BoxDecoration v6 = BoxDecoration(
-    gradient: const RadialGradient(colors: [isAmberLamp, isFilmBlack]),
+    gradient: const RadialGradient(
+      colors: [isAmberLamp, isFilmBlack],
+    ),
     borderRadius: BorderRadius.circular(6.0),
     image: DecorationImage(
       image: placeholder,
@@ -1894,7 +1868,11 @@ Widget isFilterQualitySwatch({
             border: Border.all(color: isToneShadow.withOpacity(0.4)),
           ),
           child: CustomPaint(
-            painter: _IsChequerPainter(a: accent, b: isFilmPaper, squares: 8),
+            painter: _IsChequerPainter(
+              a: accent,
+              b: isFilmPaper,
+              squares: 8,
+            ),
             child: const SizedBox.expand(),
           ),
         ),
@@ -1931,7 +1909,10 @@ Widget isBlendModeSwatch({
     child: Stack(
       children: [
         Positioned.fill(
-          child: Container(margin: const EdgeInsets.all(6.0), color: dst),
+          child: Container(
+            margin: const EdgeInsets.all(6.0),
+            color: dst,
+          ),
         ),
         Positioned(
           left: 18.0,
@@ -1939,7 +1920,10 @@ Widget isBlendModeSwatch({
           right: 6.0,
           bottom: 6.0,
           child: Container(
-            decoration: BoxDecoration(color: src, backgroundBlendMode: mode),
+            decoration: BoxDecoration(
+              color: src,
+              backgroundBlendMode: mode,
+            ),
           ),
         ),
         Positioned(
@@ -2020,85 +2004,53 @@ Widget isFilterAndBlendSection() {
         Wrap(
           children: [
             isBlendModeSwatch(
-              mode: BlendMode.srcOver,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.srcOver, src: isSafelightRed, dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.multiply,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.multiply, src: isSafelightRed, dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.screen,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.screen, src: isSafelightRed, dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.overlay,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.overlay, src: isSafelightRed, dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.darken,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.darken, src: isSafelightRed, dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.lighten,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.lighten, src: isSafelightRed, dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.colorDodge,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.colorDodge,
+                src: isSafelightRed,
+                dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.colorBurn,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.colorBurn,
+                src: isSafelightRed,
+                dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.hardLight,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.hardLight,
+                src: isSafelightRed,
+                dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.softLight,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.softLight,
+                src: isSafelightRed,
+                dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.difference,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.difference,
+                src: isSafelightRed,
+                dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.exclusion,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.exclusion,
+                src: isSafelightRed,
+                dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.hue,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.hue, src: isSafelightRed, dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.saturation,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.saturation,
+                src: isSafelightRed,
+                dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.color,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.color, src: isSafelightRed, dst: isAmberLamp),
             isBlendModeSwatch(
-              mode: BlendMode.luminosity,
-              src: isSafelightRed,
-              dst: isAmberLamp,
-            ),
+                mode: BlendMode.luminosity,
+                src: isSafelightRed,
+                dst: isAmberLamp),
           ],
         ),
       ],
@@ -2169,14 +2121,9 @@ Widget isCompleterCard({
         ),
         const SizedBox(height: 8.0),
         isCaptionText('ROLE', size: 9.5, color: accent),
-        Text(
-          role,
-          style: const TextStyle(
-            fontSize: 11.5,
-            color: isFilmInk,
-            height: 1.35,
-          ),
-        ),
+        Text(role,
+            style: const TextStyle(
+                fontSize: 11.5, color: isFilmInk, height: 1.35)),
         const SizedBox(height: 6.0),
         isCaptionText('INPUT', size: 9.5, color: accent),
         isMonoText(inputs, size: 10.5),
@@ -2191,10 +2138,8 @@ Widget isCompleterCard({
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '• ',
-                  style: TextStyle(fontSize: 11.0, color: isToneMid),
-                ),
+                const Text('• ',
+                    style: TextStyle(fontSize: 11.0, color: isToneMid)),
                 Expanded(
                   child: Text(
                     useCases[i],
@@ -2232,10 +2177,8 @@ Widget isCompleterAndShaderSection() {
               role:
                   'Owns a single decoded frame. Used for ordinary static '
                   'images (PNG, JPEG, single-frame WebP).',
-              inputs:
-                  'Future<ImageInfo> informationFuture, {InformationCollector? informationCollector}',
-              emits:
-                  'one onListen call per listener with the resolved ImageInfo',
+              inputs: 'Future<ImageInfo> informationFuture, {InformationCollector? informationCollector}',
+              emits: 'one onListen call per listener with the resolved ImageInfo',
               accent: isAmberLamp,
               useCases: const [
                 'Most NetworkImage / FileImage results',
@@ -2312,11 +2255,8 @@ Widget isCompleterAndShaderSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              isHeaderText(
-                'paintImage(...) summary',
-                size: 13.0,
-                color: isAmberDim,
-              ),
+              isHeaderText('paintImage(...) summary', size: 13.0,
+                  color: isAmberDim),
               const SizedBox(height: 4.0),
               isCaptionText(
                 'paintImage from package:flutter/painting.dart is the low-level '
@@ -2364,10 +2304,7 @@ Widget isAdviceTile({
         Row(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 2.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
               decoration: BoxDecoration(
                 color: bar,
                 borderRadius: BorderRadius.circular(3.0),
@@ -2420,64 +2357,55 @@ Widget isPitfallsSection() {
         isAdviceTile(
           isDo: true,
           headline: 'Pass a stable provider instance',
-          body:
-              'ImageProvider equality drives the cache key. Don\'t '
+          body: 'ImageProvider equality drives the cache key. Don\'t '
               'construct NetworkImage(url) inside build() unless url is '
               'truly dynamic — you\'ll thrash the cache.',
         ),
         isAdviceTile(
           isDo: true,
           headline: 'Wrap big sources in ResizeImage',
-          body:
-              'A 4K JPEG decoded for a 96×96 avatar wastes ~32MB of '
+          body: 'A 4K JPEG decoded for a 96×96 avatar wastes ~32MB of '
               'RAM. ResizeImage(inner, width: 96, height: 96) decodes to '
               'the target size instead.',
         ),
         isAdviceTile(
           isDo: true,
-          headline:
-              'Read ImageConfiguration with createLocalImageConfiguration',
-          body:
-              'It gathers MediaQuery + Directionality + DefaultAssetBundle '
+          headline: 'Read ImageConfiguration with createLocalImageConfiguration',
+          body: 'It gathers MediaQuery + Directionality + DefaultAssetBundle '
               'into a single value — the canonical input to obtainKey.',
         ),
         isAdviceTile(
           isDo: false,
           headline: 'Call ImageProvider.resolve in a test loop',
-          body:
-              'resolve depends on a live ServicesBinding for asset lookups '
+          body: 'resolve depends on a live ServicesBinding for asset lookups '
               'and an HttpClient for NetworkImage. In a unit test, mock the '
               'provider instead of calling resolve.',
         ),
         isAdviceTile(
           isDo: false,
           headline: 'Forget removeListener',
-          body:
-              'ImageStreamListeners are strongly referenced. Leaking one '
+          body: 'ImageStreamListeners are strongly referenced. Leaking one '
               'across widget rebuilds keeps the underlying frames pinned '
               'and can stall MultiFrameImageStreamCompleter.',
         ),
         isAdviceTile(
           isDo: false,
           headline: 'Use FilterQuality.high in scroll lists',
-          body:
-              'Each frame redraw runs a cubic-style sampling pass on the '
+          body: 'Each frame redraw runs a cubic-style sampling pass on the '
               'GPU. For scrolling avatars, FilterQuality.medium or low is '
               'almost always the right answer.',
         ),
         isAdviceTile(
           isDo: true,
           headline: 'Provide an onError listener',
-          body:
-              'Without it, decode failures crash through to '
+          body: 'Without it, decode failures crash through to '
               'FlutterError.onError. Show a fallback Container or icon and '
               'log the exception instead.',
         ),
         isAdviceTile(
           isDo: false,
           headline: 'Mix centerSlice with repeat',
-          body:
-              'centerSlice asks the painter to 9-slice scale the source. '
+          body: 'centerSlice asks the painter to 9-slice scale the source. '
               'It is mutually exclusive with ImageRepeat tiles — paintImage '
               'will assert.',
         ),
@@ -2533,10 +2461,8 @@ dynamic build(BuildContext context) {
   final double opacityAtMoment = opacityTween.transform(curvedT);
   final AlwaysStoppedAnimation<double> snapshotAnim =
       AlwaysStoppedAnimation<double>(curvedT);
-  print(
-    '  • snapshot animation built — t=$curvedT '
-    'opacity=$opacityAtMoment value=${snapshotAnim.value}',
-  );
+  print('  • snapshot animation built — t=$curvedT '
+      'opacity=$opacityAtMoment value=${snapshotAnim.value}');
 
   // Header bar that summarises the snapshot and the section count.
   final Widget header = Container(
@@ -2588,7 +2514,11 @@ dynamic build(BuildContext context) {
         const Text(
           'A hand-authored tour of how a Flutter Image is resolved, streamed, '
           'composited, and painted into a decoration.',
-          style: TextStyle(fontSize: 11.5, color: isToneHighlight, height: 1.4),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: isToneHighlight,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 10.0),
         Wrap(
@@ -2640,7 +2570,11 @@ dynamic build(BuildContext context) {
           '(BoxFit, ImageRepeat, FilterQuality, BlendMode, colorFilter, '
           'alignment, centerSlice) live on Image / DecorationImage / '
           'paintImage and apply *after* the bytes are decoded.',
-          style: TextStyle(fontSize: 11.5, color: isToneHighlight, height: 1.5),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: isToneHighlight,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 8.0),
         Row(

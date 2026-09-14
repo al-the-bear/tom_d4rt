@@ -1311,8 +1311,7 @@ Widget _buildMockScaffold(
                 child: Padding(
                   padding: EdgeInsets.only(
                     left: fabAlignment == Alignment.bottomLeft ? 12.0 : 0.0,
-                    right:
-                        (fabAlignment == Alignment.bottomRight ||
+                    right: (fabAlignment == Alignment.bottomRight ||
                             fabAlignment == Alignment.topRight)
                         ? 12.0
                         : 0.0,
@@ -1320,9 +1319,9 @@ Widget _buildMockScaffold(
                     bottom: docked
                         ? 12.0
                         : (fabAlignment == Alignment.bottomLeft ||
-                              fabAlignment == Alignment.bottomRight)
-                        ? 30.0
-                        : 0.0,
+                                  fabAlignment == Alignment.bottomRight)
+                              ? 30.0
+                              : 0.0,
                   ),
                   child: FloatingActionButton.small(
                     onPressed: () {},
@@ -1653,7 +1652,10 @@ Widget _buildSectionEdgeCases() {
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: <Color>[Color(0xFF80DEEA), Color(0xFF00838F)],
+                        colors: <Color>[
+                          Color(0xFF80DEEA),
+                          Color(0xFF00838F),
+                        ],
                       ),
                     ),
                     child: const Icon(Icons.waves, color: Colors.white),

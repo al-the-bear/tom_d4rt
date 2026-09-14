@@ -69,7 +69,9 @@ dynamic build(BuildContext context) {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 17,
-                  color: isMac ? Colors.green.shade900 : Colors.amber.shade900,
+                  color: isMac
+                      ? Colors.green.shade900
+                      : Colors.amber.shade900,
                 ),
               ),
               const SizedBox(height: 6),
@@ -85,11 +87,11 @@ dynamic build(BuildContext context) {
               Text(
                 isMac
                     ? 'AppKitView placeholders below will instantiate real '
-                          'native NSView surfaces backed by registered factories.'
+                        'native NSView surfaces backed by registered factories.'
                     : 'AppKitView is only meaningful on macOS. On the current '
-                          'platform the placeholders below are styled stand-ins '
-                          'showing where NSViews would render. The widget tree '
-                          'still demonstrates the API surface verbatim.',
+                        'platform the placeholders below are styled stand-ins '
+                        'showing where NSViews would render. The widget tree '
+                        'still demonstrates the API surface verbatim.',
                 style: TextStyle(
                   fontSize: 13,
                   height: 1.45,
@@ -111,8 +113,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'icon': Icons.desktop_mac,
       'title': 'macOS-native bridge',
-      'body':
-          'AppKitView is the desktop equivalent of UiKitView. It is a '
+      'body': 'AppKitView is the desktop equivalent of UiKitView. It is a '
           'StatefulWidget that asks the Flutter macOS embedder to allocate '
           'an NSView through a registered FlutterPlatformViewFactory and '
           'attach it inside the Flutter window.',
@@ -121,8 +122,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'icon': Icons.swap_horizontal_circle,
       'title': 'PlatformViewLink under the hood',
-      'body':
-          'Like its siblings, AppKitView uses PlatformViewLink + a '
+      'body': 'Like its siblings, AppKitView uses PlatformViewLink + a '
           'RenderBox descendant of RenderConstrainedBox to coordinate '
           'layout with AppKit. The RenderBox keeps the NSView frame in '
           'sync with the Flutter widget bounds every frame.',
@@ -131,8 +131,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'icon': Icons.developer_board,
       'title': 'Hosted by FlutterAppKitView',
-      'body':
-          'On the macOS engine side, the embedded NSView is placed in '
+      'body': 'On the macOS engine side, the embedded NSView is placed in '
           'a FlutterAppKitView controller. The controller forwards events '
           'into the AppKit responder chain and reports view lifecycle '
           'changes back to the Flutter framework via the platform_views '
@@ -142,8 +141,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'icon': Icons.compare_arrows,
       'title': 'Why bother?',
-      'body':
-          'Many AppKit widgets (NSScrollView, MKMapView, WKWebView, '
+      'body': 'Many AppKit widgets (NSScrollView, MKMapView, WKWebView, '
           'AVPlayerView, IKImageView) are far richer and more performant '
           'than re-implementing them in pure Flutter. AppKitView lets a '
           'Flutter app reuse decades of native macOS engineering.',
@@ -161,7 +159,10 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[accent.withOpacity(0.12), accent.withOpacity(0.03)],
+            colors: <Color>[
+              accent.withOpacity(0.12),
+              accent.withOpacity(0.03),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -179,7 +180,11 @@ dynamic build(BuildContext context) {
                   color: accent.withOpacity(0.15),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(e['icon'] as IconData, color: accent, size: 26),
+                child: Icon(
+                  e['icon'] as IconData,
+                  color: accent,
+                  size: 26,
+                ),
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -242,8 +247,7 @@ dynamic build(BuildContext context) {
   final List<Map<String, dynamic>> lifecycle = <Map<String, dynamic>>[
     <String, dynamic>{
       'step': '1. Register factory (Swift)',
-      'desc':
-          'In MainFlutterWindow.swift or a plugin, call '
+      'desc': 'In MainFlutterWindow.swift or a plugin, call '
           'registrar.register(factory, withId: "demo.fluttertom/appkit-view"). '
           'The factory subclasses NSObject, FlutterPlatformViewFactory and '
           'returns objects conforming to FlutterPlatformView.',
@@ -252,8 +256,7 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'step': '2. AppKitViewController created',
-      'desc':
-          'Flutter triggers PlatformViewsService.initAppKitView (the '
+      'desc': 'Flutter triggers PlatformViewsService.initAppKitView (the '
           'macOS sibling of initUiKitView). The engine instantiates a '
           'FlutterAppKitViewController which wraps the NSView and a '
           'platform-specific message channel.',
@@ -262,8 +265,7 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'step': '3. NSView attached',
-      'desc':
-          'The controller adds the NSView as a subview of the Flutter '
+      'desc': 'The controller adds the NSView as a subview of the Flutter '
           'NSView (or as a sibling layer in hybrid composition). The view '
           'is positioned via CGRect derived from the Flutter RenderBox.',
       'icon': Icons.add_box_outlined,
@@ -271,8 +273,7 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'step': '4. Flutter requests layout',
-      'desc':
-          'Each Flutter frame, the embedded RenderBox computes its '
+      'desc': 'Each Flutter frame, the embedded RenderBox computes its '
           'paint bounds and sends them across the channel as a setFrame '
           'call. AppKit re-lays out the NSView, including any Auto Layout '
           'constraints it owns.',
@@ -281,8 +282,7 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'step': '5. Frames painted',
-      'desc':
-          'Flutter composes its own scene; AppKit paints its NSView '
+      'desc': 'Flutter composes its own scene; AppKit paints its NSView '
           'into a CALayer that is composited above (or below, depending '
           'on z-order) the Flutter Skia surface. The user sees a single '
           'unified frame.',
@@ -291,8 +291,7 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'step': '6. Disposed',
-      'desc':
-          'When the AppKitView leaves the tree, the controller '
+      'desc': 'When the AppKitView leaves the tree, the controller '
           'dispose() is called, the NSView is removed from its superview '
           'and the platform-view ID is freed for reuse.',
       'icon': Icons.delete_sweep,
@@ -365,7 +364,11 @@ dynamic build(BuildContext context) {
       lifecycleCards.add(
         Padding(
           padding: const EdgeInsets.only(left: 32),
-          child: Icon(Icons.south, color: color.withOpacity(0.6), size: 18),
+          child: Icon(
+            Icons.south,
+            color: color.withOpacity(0.6),
+            size: 18,
+          ),
         ),
       );
     }
@@ -450,7 +453,7 @@ dynamic build(BuildContext context) {
   // looks like, with the right size + label) is preserved while the
   // native NSView wedge is avoided.
   Widget liveAppKitView() {
-    if (false /* was: isMac — see TODO #19 comment above */ ) {
+    if (false /* was: isMac — see TODO #19 comment above */) {
       print('  -> instantiating real AppKitView on macOS');
       return IgnorePointer(
         child: SizedBox(
@@ -519,12 +522,12 @@ dynamic build(BuildContext context) {
         Text(
           isMac
               ? 'Below is a real AppKitView instance with viewType '
-                    '"demo.fluttertom/appkit-view". If no factory is '
-                    'registered in the host application, the embedded NSView '
-                    'will simply not paint -- but the widget tree is real.'
+                  '"demo.fluttertom/appkit-view". If no factory is '
+                  'registered in the host application, the embedded NSView '
+                  'will simply not paint -- but the widget tree is real.'
               : 'On non-macOS we render a styled stand-in to keep the '
-                    'widget tree shape comparable. On macOS this slot would '
-                    'host an AppKitView instance with the same dimensions.',
+                  'widget tree shape comparable. On macOS this slot would '
+                  'host an AppKitView instance with the same dimensions.',
           style: TextStyle(
             fontSize: 12.5,
             color: Colors.grey.shade800,
@@ -592,7 +595,11 @@ dynamic build(BuildContext context) {
               border: Border.all(color: color.withOpacity(0.4)),
             ),
             child: Center(
-              child: Icon(entry['icon'] as IconData, color: color, size: 48),
+              child: Icon(
+                entry['icon'] as IconData,
+                color: color,
+                size: 48,
+              ),
             ),
           );
 
@@ -837,16 +844,14 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'name': 'NSScrollView',
       'icon': Icons.unfold_more,
-      'desc':
-          'Native momentum scrolling, magnification, rubber-banding. '
+      'desc': 'Native momentum scrolling, magnification, rubber-banding. '
           'Embeds documents that exceed the visible area.',
       'color': Colors.indigo,
     },
     <String, dynamic>{
       'name': 'NSTableView',
       'icon': Icons.table_chart,
-      'desc':
-          'High-performance tabular data with native column resizing, '
+      'desc': 'High-performance tabular data with native column resizing, '
           'sorting and selection. Beats Flutter DataTable for very large '
           'datasets.',
       'color': Colors.blue,
@@ -854,48 +859,42 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'name': 'MKMapView',
       'icon': Icons.map,
-      'desc':
-          'Apple Maps embedded view. Annotations, overlays, tile '
+      'desc': 'Apple Maps embedded view. Annotations, overlays, tile '
           'caching, route rendering -- all without third-party SDKs.',
       'color': Colors.green,
     },
     <String, dynamic>{
       'name': 'WKWebView',
       'icon': Icons.web,
-      'desc':
-          'Modern WebKit-based browser surface. Critical for embedding '
+      'desc': 'Modern WebKit-based browser surface. Critical for embedding '
           'rich HTML/JS content with full Safari parity.',
       'color': Colors.teal,
     },
     <String, dynamic>{
       'name': 'AVPlayerView',
       'icon': Icons.movie,
-      'desc':
-          'Native video playback with AirPlay, picture-in-picture and '
+      'desc': 'Native video playback with AirPlay, picture-in-picture and '
           'transport controls. Uses AVFoundation under the hood.',
       'color': Colors.purple,
     },
     <String, dynamic>{
       'name': 'IKImageView',
       'icon': Icons.image,
-      'desc':
-          'Image Kit pan/zoom/crop view with built-in editing tools '
+      'desc': 'Image Kit pan/zoom/crop view with built-in editing tools '
           'used by Preview and Photos.',
       'color': Colors.orange,
     },
     <String, dynamic>{
       'name': 'NSPathControl',
       'icon': Icons.folder_open,
-      'desc':
-          'Breadcrumb-style path control for filesystem navigation. '
+      'desc': 'Breadcrumb-style path control for filesystem navigation. '
           'Integrates with Finder drag/drop semantics.',
       'color': Colors.brown,
     },
     <String, dynamic>{
       'name': 'NSDatePicker',
       'icon': Icons.event,
-      'desc':
-          'Native graphical or textual date/time picker with locale '
+      'desc': 'Native graphical or textual date/time picker with locale '
           'support and accessibility built in.',
       'color': Colors.pink,
     },
@@ -984,8 +983,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'title': 'Wrong viewType',
       'icon': Icons.error_outline,
-      'desc':
-          'The viewType string in Dart must match the id used in '
+      'desc': 'The viewType string in Dart must match the id used in '
           'registrar.register exactly. Typos result in a silent black '
           'rectangle and a "no factory registered" log line.',
       'color': Colors.red,
@@ -993,8 +991,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'title': 'Missing channel handler',
       'icon': Icons.warning,
-      'desc':
-          'If your NSView communicates over a method channel and the '
+      'desc': 'If your NSView communicates over a method channel and the '
           'Swift side never registers the handler, calls hang and Flutter '
           'eventually times out. Always pair Dart MethodChannel(name) with '
           'a Swift FlutterMethodChannel(name:binaryMessenger:).',
@@ -1003,8 +1000,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'title': 'creationParamsCodec mismatch',
       'icon': Icons.sync_problem,
-      'desc':
-          'Encoding with JSONMessageCodec on Dart while decoding with '
+      'desc': 'Encoding with JSONMessageCodec on Dart while decoding with '
           'FlutterStandardMessageCodec on Swift produces a runtime cast '
           'crash. Both sides must agree on the codec.',
       'color': Colors.deepOrange,
@@ -1012,8 +1008,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'title': 'Hit-testing through clipped regions',
       'icon': Icons.crop,
-      'desc':
-          'ClipRRect / ClipPath wrapping an AppKitView clips the '
+      'desc': 'ClipRRect / ClipPath wrapping an AppKitView clips the '
           'Flutter pixels but does NOT clip the underlying NSView for '
           'hit-testing. Pointer events outside the clip can still hit '
           'the NSView.',
@@ -1022,8 +1017,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'title': 'Z-ordering with native overlays',
       'icon': Icons.layers,
-      'desc':
-          'Tooltips, dropdowns and other Flutter overlays may render '
+      'desc': 'Tooltips, dropdowns and other Flutter overlays may render '
           'BELOW the NSView because the NSView lives in its own layer. '
           'Use Overlay sparingly above AppKitView regions.',
       'color': Colors.purple,
@@ -1031,8 +1025,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'title': 'High-DPI scaling',
       'icon': Icons.high_quality,
-      'desc':
-          'Some AppKit views (notably custom NSView subclasses) need '
+      'desc': 'Some AppKit views (notably custom NSView subclasses) need '
           'wantsLayer = true and explicit layer.contentsScale to look '
           'sharp on Retina. Otherwise text appears blurry.',
       'color': Colors.indigo,
@@ -1121,8 +1114,7 @@ dynamic build(BuildContext context) {
       'title': 'Embed an NSScrollView for legacy AppKit content',
       'icon': Icons.unfold_more,
       'color': Colors.indigo,
-      'why':
-          'Reuse an existing NSScrollView document (a custom NSView '
+      'why': 'Reuse an existing NSScrollView document (a custom NSView '
           'subclass with thousands of items already laid out by Auto '
           'Layout). Pure Flutter rewrites are expensive; embedding wins.',
       'snippet':
@@ -1153,8 +1145,7 @@ dynamic build(BuildContext context) {
       'title': 'Host a WKWebView',
       'icon': Icons.web,
       'color': Colors.blue,
-      'why':
-          'Show rich HTML/JS content (release notes, embedded payment '
+      'why': 'Show rich HTML/JS content (release notes, embedded payment '
           'flows, OAuth dialogs) with full WebKit parity.',
       'snippet':
           "// Dart\n"
@@ -1181,8 +1172,7 @@ dynamic build(BuildContext context) {
       'title': 'Embed an MKMapView',
       'icon': Icons.map,
       'color': Colors.green,
-      'why':
-          'Show a fully native Apple Maps view with annotations and '
+      'why': 'Show a fully native Apple Maps view with annotations and '
           'overlays. Apple Maps is restricted from non-native APIs, so '
           'embedding is the only path.',
       'snippet':
@@ -1217,8 +1207,7 @@ dynamic build(BuildContext context) {
       'title': 'IKImageView for built-in image controls',
       'icon': Icons.image_search,
       'color': Colors.orange,
-      'why':
-          'Need pan/zoom, crop guides and tool palettes for free? '
+      'why': 'Need pan/zoom, crop guides and tool palettes for free? '
           'IKImageView from ImageKit ships with all of that. Wrapping '
           'it via AppKitView avoids re-implementing photo-editor UI in '
           'Flutter.',
@@ -1362,7 +1351,10 @@ dynamic build(BuildContext context) {
           ),
           children: referenceRows[r].map<Widget>((String cell) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
+              ),
               child: Text(
                 cell,
                 style: TextStyle(
@@ -1500,7 +1492,10 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.fromLTRB(16, 18, 16, 4),
       child: Text(
         'AppKitView - macOS NSView Embedding',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     ),
     const Padding(
@@ -1583,10 +1578,8 @@ dynamic build(BuildContext context) {
     const SizedBox(height: 24),
   ];
 
-  print(
-    '=== AppKitView Deep Demo composed (${children.length} top-level '
-    'children) ===',
-  );
+  print('=== AppKitView Deep Demo composed (${children.length} top-level '
+      'children) ===');
 
   return MaterialApp(
     title: 'AppKitView Deep Demo',
@@ -1631,7 +1624,9 @@ class _SectionHeader extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(10),
-        border: Border(left: BorderSide(color: color, width: 4)),
+        border: Border(
+          left: BorderSide(color: color, width: 4),
+        ),
       ),
       child: Row(
         children: <Widget>[

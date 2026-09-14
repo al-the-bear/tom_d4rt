@@ -94,8 +94,8 @@ dynamic build(BuildContext context) {
         'MenuController',
         'Required',
         'The controller for opening/closing the menu programmatically. '
-            'Tracks isOpen state. Must be provided — each anchor needs its own '
-            'or shares a parent group controller.',
+        'Tracks isOpen state. Must be provided — each anchor needs its own '
+        'or shares a parent group controller.',
         const Color(0xFF1565C0),
         const Color(0xFFBBDEFB),
       ),
@@ -105,11 +105,11 @@ dynamic build(BuildContext context) {
         'RawMenuAnchorOverlayBuilder',
         'Required',
         'Widget Function(BuildContext, RawMenuOverlayInfo info)\n\n'
-            'Called when the menu opens. Receives info with:\n'
-            '  • anchorRect — position relative to Overlay\n'
-            '  • overlaySize — available overlay dimensions\n'
-            '  • tapRegionGroupId — for TapRegion coordination\n'
-            '  • position — optional offset from MenuController.open()',
+        'Called when the menu opens. Receives info with:\n'
+        '  • anchorRect — position relative to Overlay\n'
+        '  • overlaySize — available overlay dimensions\n'
+        '  • tapRegionGroupId — for TapRegion coordination\n'
+        '  • position — optional offset from MenuController.open()',
         const Color(0xFF1565C0),
         const Color(0xFFBBDEFB),
       ),
@@ -128,9 +128,9 @@ dynamic build(BuildContext context) {
         'RawMenuAnchorChildBuilder?',
         'Optional',
         'Widget Function(BuildContext, MenuController, Widget? child)\n\n'
-            'Builds the trigger widget. Receives the controller for '
-            'reading isOpen and calling open()/close(). The child parameter '
-            'is the optional child widget for efficiency.',
+        'Builds the trigger widget. Receives the controller for '
+        'reading isOpen and calling open()/close(). The child parameter '
+        'is the optional child widget for efficiency.',
         const Color(0xFF2E7D32),
         const Color(0xFFE8F5E9),
       ),
@@ -140,8 +140,8 @@ dynamic build(BuildContext context) {
         'Widget?',
         'Optional',
         'Static child passed through to the builder. Use this for '
-            'portions that don\'t depend on controller state — avoids '
-            'unnecessary rebuilds.',
+        'portions that don\'t depend on controller state — avoids '
+        'unnecessary rebuilds.',
         const Color(0xFF2E7D32),
         const Color(0xFFE8F5E9),
       ),
@@ -151,7 +151,7 @@ dynamic build(BuildContext context) {
         'FocusNode?',
         'Optional',
         'Focus node for the trigger widget. If provided, focus '
-            'returns to this node when the menu closes.',
+        'returns to this node when the menu closes.',
         const Color(0xFF2E7D32),
         const Color(0xFFE8F5E9),
       ),
@@ -161,8 +161,8 @@ dynamic build(BuildContext context) {
         'bool',
         'Default: false',
         'When true, taps outside the menu that close it are consumed '
-            'and don\'t propagate to the gesture arena. When false, the '
-            'closing tap also triggers other gesture recognizers.',
+        'and don\'t propagate to the gesture arena. When false, the '
+        'closing tap also triggers other gesture recognizers.',
         const Color(0xFF2E7D32),
         const Color(0xFFE8F5E9),
       ),
@@ -172,8 +172,8 @@ dynamic build(BuildContext context) {
         'bool',
         'Default: false',
         'When true, mounts the menu in the root Overlay so it renders '
-            'above all widgets. When false, uses the nearest ancestor '
-            'Overlay. Submenus always use the same overlay as their root.',
+        'above all widgets. When false, uses the nearest ancestor '
+        'Overlay. Submenus always use the same overlay as their root.',
         const Color(0xFF2E7D32),
         const Color(0xFFE8F5E9),
       ),
@@ -215,63 +215,29 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12),
-        _buildFlowStep(
-          1,
-          'MenuController.open()',
-          'User or code triggers open',
-          const Color(0xFF1565C0),
-        ),
+        _buildFlowStep(1, 'MenuController.open()', 'User or code triggers open',
+            const Color(0xFF1565C0)),
+        _buildFlowArrow(),
+        _buildFlowStep(2, 'onOpenRequested(pos, showOverlay)',
+            'Intercept: delay, animate, then call showOverlay()', const Color(0xFFE65100)),
         _buildFlowArrow(),
         _buildFlowStep(
-          2,
-          'onOpenRequested(pos, showOverlay)',
-          'Intercept: delay, animate, then call showOverlay()',
-          const Color(0xFFE65100),
-        ),
+            3, 'showOverlay()', 'Overlay inserted, widget built', const Color(0xFF2E7D32)),
         _buildFlowArrow(),
-        _buildFlowStep(
-          3,
-          'showOverlay()',
-          'Overlay inserted, widget built',
-          const Color(0xFF2E7D32),
-        ),
-        _buildFlowArrow(),
-        _buildFlowStep(
-          4,
-          'onOpen',
-          'Notified: menu is now visible',
-          const Color(0xFF2E7D32),
-        ),
+        _buildFlowStep(4, 'onOpen', 'Notified: menu is now visible', const Color(0xFF2E7D32)),
         const SizedBox(height: 16),
         const Divider(color: Color(0xFFFFCC80)),
         const SizedBox(height: 12),
-        _buildFlowStep(
-          5,
-          'MenuController.close()',
-          'User tap outside or code triggers close',
-          const Color(0xFF1565C0),
-        ),
+        _buildFlowStep(5, 'MenuController.close()', 'User tap outside or code triggers close',
+            const Color(0xFF1565C0)),
+        _buildFlowArrow(),
+        _buildFlowStep(6, 'onCloseRequested(hideOverlay)',
+            'Intercept: animate out, then call hideOverlay()', const Color(0xFFE65100)),
         _buildFlowArrow(),
         _buildFlowStep(
-          6,
-          'onCloseRequested(hideOverlay)',
-          'Intercept: animate out, then call hideOverlay()',
-          const Color(0xFFE65100),
-        ),
+            7, 'hideOverlay()', 'Overlay removed from tree', const Color(0xFFC62828)),
         _buildFlowArrow(),
-        _buildFlowStep(
-          7,
-          'hideOverlay()',
-          'Overlay removed from tree',
-          const Color(0xFFC62828),
-        ),
-        _buildFlowArrow(),
-        _buildFlowStep(
-          8,
-          'onClose',
-          'Notified: menu is now hidden',
-          const Color(0xFFC62828),
-        ),
+        _buildFlowStep(8, 'onClose', 'Notified: menu is now hidden', const Color(0xFFC62828)),
       ],
     ),
   );
@@ -317,8 +283,8 @@ dynamic build(BuildContext context) {
           'anchorRect',
           'Rect',
           'Position and size of the anchor widget relative to the '
-              'Overlay. Use anchorRect.bottom for the top of a dropdown, '
-              'anchorRect.left for left alignment.',
+          'Overlay. Use anchorRect.bottom for the top of a dropdown, '
+          'anchorRect.left for left alignment.',
           const Color(0xFF1565C0),
         ),
         const SizedBox(height: 8),
@@ -326,7 +292,7 @@ dynamic build(BuildContext context) {
           'overlaySize',
           'Size',
           'Total size of the Overlay. Useful for clamping the menu '
-              'position so it doesn\'t overflow the screen edges.',
+          'position so it doesn\'t overflow the screen edges.',
           const Color(0xFF2E7D32),
         ),
         const SizedBox(height: 8),
@@ -334,7 +300,7 @@ dynamic build(BuildContext context) {
           'tapRegionGroupId',
           'Object',
           'The TapRegion group ID. Pass this to a TapRegion wrapping '
-              'the menu panel so taps on the menu don\'t count as "outside".',
+          'the menu panel so taps on the menu don\'t count as "outside".',
           const Color(0xFFE65100),
         ),
         const SizedBox(height: 8),
@@ -342,7 +308,7 @@ dynamic build(BuildContext context) {
           'position',
           'Offset?',
           'Custom offset passed to MenuController.open(position: ...). '
-              'Used for context menus opened at a specific cursor position.',
+          'Used for context menus opened at a specific cursor position.',
           const Color(0xFF6A1B9A),
         ),
       ],
@@ -481,11 +447,7 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.touch_app,
-                    color: Color(0xFF2E7D32),
-                    size: 20,
-                  ),
+                  const Icon(Icons.touch_app, color: Color(0xFF2E7D32), size: 20),
                   const SizedBox(width: 6),
                   const Text(
                     'false (default)',
@@ -668,22 +630,10 @@ dynamic build(BuildContext context) {
         _buildComparisonHeader(),
         _buildComparisonRow('Layer', 'widgets', 'material'),
         _buildComparisonRow('Theming', 'None', 'MenuTheme integration'),
-        _buildComparisonRow(
-          'Positioning',
-          'Manual via info',
-          'Auto with alignment',
-        ),
-        _buildComparisonRow(
-          'Animation',
-          'Via callbacks',
-          'Built-in transitions',
-        ),
+        _buildComparisonRow('Positioning', 'Manual via info', 'Auto with alignment'),
+        _buildComparisonRow('Animation', 'Via callbacks', 'Built-in transitions'),
         _buildComparisonRow('Focus', 'Manual', 'Automatic management'),
-        _buildComparisonRow(
-          'Semantics',
-          'TapRegion only',
-          'Full menu semantics',
-        ),
+        _buildComparisonRow('Semantics', 'TapRegion only', 'Full menu semantics'),
         _buildComparisonRow('Overlay', 'overlayBuilder', 'menuChildren list'),
         _buildComparisonRow('Use Case', 'Custom menus', 'Standard MD menus'),
       ],
@@ -723,16 +673,8 @@ dynamic build(BuildContext context) {
         _buildApiRow('useRootOverlay', 'bool', false),
         _buildApiRow('onOpen', 'VoidCallback?', false),
         _buildApiRow('onClose', 'VoidCallback?', false),
-        _buildApiRow(
-          'onOpenRequested',
-          'RawMenuAnchorOpenRequestedCallback',
-          false,
-        ),
-        _buildApiRow(
-          'onCloseRequested',
-          'RawMenuAnchorCloseRequestedCallback',
-          false,
-        ),
+        _buildApiRow('onOpenRequested', 'RawMenuAnchorOpenRequestedCallback', false),
+        _buildApiRow('onCloseRequested', 'RawMenuAnchorCloseRequestedCallback', false),
         const SizedBox(height: 14),
         const Text(
           'Typedef Signatures',
@@ -1013,7 +955,10 @@ Widget _buildParamCard(
         const SizedBox(height: 8),
         Text(
           description,
-          style: TextStyle(fontSize: 12, color: accentColor.withOpacity(0.85)),
+          style: TextStyle(
+            fontSize: 12,
+            color: accentColor.withOpacity(0.85),
+          ),
         ),
       ],
     ),
@@ -1087,12 +1032,7 @@ Widget _buildFlowArrow() {
 // ============================================================
 // Helper: Overlay info field
 // ============================================================
-Widget _buildInfoField(
-  String name,
-  String type,
-  String description,
-  Color color,
-) {
+Widget _buildInfoField(String name, String type, String description, Color color) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1148,12 +1088,7 @@ Widget _buildInfoField(
 // ============================================================
 // Helper: Position pattern card
 // ============================================================
-Widget _buildPositionPattern(
-  String title,
-  String code,
-  IconData icon,
-  Color color,
-) {
+Widget _buildPositionPattern(String title, String code, IconData icon, Color color) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1327,9 +1262,7 @@ Widget _buildApiRow(String name, String type, bool required) {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
             decoration: BoxDecoration(
-              color: required
-                  ? const Color(0xFFFFCDD2)
-                  : const Color(0xFFC8E6C9),
+              color: required ? const Color(0xFFFFCDD2) : const Color(0xFFC8E6C9),
               borderRadius: BorderRadius.circular(3),
             ),
             child: Text(
@@ -1338,9 +1271,7 @@ Widget _buildApiRow(String name, String type, bool required) {
               style: TextStyle(
                 fontSize: 9,
                 fontWeight: FontWeight.w600,
-                color: required
-                    ? const Color(0xFFC62828)
-                    : const Color(0xFF2E7D32),
+                color: required ? const Color(0xFFC62828) : const Color(0xFF2E7D32),
               ),
             ),
           ),
@@ -1421,10 +1352,7 @@ class _LiveDropdownDemoState extends State<_LiveDropdownDemo> {
                 }
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
                   color: const Color(0xFFEDE7F6),
                   borderRadius: BorderRadius.circular(8),
@@ -1484,9 +1412,8 @@ class _LiveDropdownDemoState extends State<_LiveDropdownDemo> {
                 color: label == _selected
                     ? const Color(0xFF7E57C2)
                     : const Color(0xFF424242),
-                fontWeight: label == _selected
-                    ? FontWeight.bold
-                    : FontWeight.normal,
+                fontWeight:
+                    label == _selected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
             if (label == _selected) ...[
@@ -1585,11 +1512,7 @@ class _LiveContextMenuDemoState extends State<_LiveContextMenuDemo> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
-                      Icons.ads_click,
-                      color: Color(0xFF9C27B0),
-                      size: 24,
-                    ),
+                    const Icon(Icons.ads_click, color: Color(0xFF9C27B0), size: 24),
                     const SizedBox(height: 4),
                     Text(
                       _lastAction,

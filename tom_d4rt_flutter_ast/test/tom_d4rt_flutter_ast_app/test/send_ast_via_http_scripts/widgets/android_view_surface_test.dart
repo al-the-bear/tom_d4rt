@@ -88,7 +88,10 @@ dynamic build(BuildContext context) {
       textTheme: const TextTheme(
         bodyMedium: TextStyle(color: Color(0xFF0E1620), fontSize: 14),
       ),
-      cardTheme: const CardThemeData(elevation: 1, margin: EdgeInsets.all(6)),
+      cardTheme: const CardThemeData(
+        elevation: 1,
+        margin: EdgeInsets.all(6),
+      ),
     ),
     home: Scaffold(
       backgroundColor: _palette.background,
@@ -189,7 +192,10 @@ Widget _section1HeaderAndPlatformBanner(BuildContext context) {
                   ),
                   Text(
                     'The render primitive behind AndroidView',
-                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),
@@ -223,7 +229,10 @@ Widget _section1HeaderAndPlatformBanner(BuildContext context) {
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
                     ),
                     const SizedBox(height: 6),
                     Text(
@@ -296,29 +305,13 @@ Widget _layeredDiagram() {
     ),
     child: Column(
       children: <Widget>[
-        _layerBox(
-          'AndroidView (widget)',
-          _palette.primary,
-          'High-level user-facing widget',
-        ),
+        _layerBox('AndroidView (widget)', _palette.primary, 'High-level user-facing widget'),
         _arrowDown(),
-        _layerBox(
-          'AndroidViewSurface (render)',
-          _palette.accent,
-          'Render tree primitive',
-        ),
+        _layerBox('AndroidViewSurface (render)', _palette.accent, 'Render tree primitive'),
         _arrowDown(),
-        _layerBox(
-          'SurfaceView / TextureView',
-          _palette.info,
-          'Android side rendering target',
-        ),
+        _layerBox('SurfaceView / TextureView', _palette.info, 'Android side rendering target'),
         _arrowDown(),
-        _layerBox(
-          'android.view.View',
-          _palette.secondary,
-          'The actual native view',
-        ),
+        _layerBox('android.view.View', _palette.secondary, 'The actual native view'),
       ],
     ),
   );
@@ -344,7 +337,13 @@ Widget _layerBox(String label, Color color, String subtitle) {
             fontSize: 14,
           ),
         ),
-        Text(subtitle, style: TextStyle(color: _palette.ink, fontSize: 12)),
+        Text(
+          subtitle,
+          style: TextStyle(
+            color: _palette.ink,
+            fontSize: 12,
+          ),
+        ),
       ],
     ),
   );
@@ -378,58 +377,52 @@ Widget _section3CompositionModes() {
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            child: _compositionModeCard(
-              title: 'Hybrid Composition',
-              shortName: 'HC',
-              color: _palette.primary,
-              pros: const <String>[
-                'Most correct rendering',
-                'Supports overlays and transforms',
-                'Native a11y intact',
-                'Best for complex Views (WebView, MapView)',
-              ],
-              cons: const <String>[
-                'Forces UI thread sync',
-                'Higher latency on each frame',
-                'Frame budget pressure',
-              ],
-            ),
-          ),
-          Expanded(
-            child: _compositionModeCard(
-              title: 'Texture Layer HC',
-              shortName: 'TLHC',
-              color: _palette.accent,
-              pros: const <String>[
-                'Decoupled from UI thread',
-                'Lower latency than HC',
-                'Currently the recommended default in modern Flutter',
-                'Works well with most native Views',
-              ],
-              cons: const <String>[
-                'Some Views misbehave when drawn into a TextureView',
-                'a11y less robust than HC',
-              ],
-            ),
-          ),
-          Expanded(
-            child: _compositionModeCard(
-              title: 'Virtual Display',
-              shortName: 'VD',
-              color: _palette.secondary,
-              pros: const <String>[
-                'Legacy fallback (oldest mode)',
-                'Available everywhere',
-                'Works for read-only View content',
-              ],
-              cons: const <String>[
-                'No keyboard / IME / hover',
-                'Touch issues with maps and webview',
-                'Considered obsolete for new code',
-              ],
-            ),
-          ),
+          Expanded(child: _compositionModeCard(
+            title: 'Hybrid Composition',
+            shortName: 'HC',
+            color: _palette.primary,
+            pros: const <String>[
+              'Most correct rendering',
+              'Supports overlays and transforms',
+              'Native a11y intact',
+              'Best for complex Views (WebView, MapView)',
+            ],
+            cons: const <String>[
+              'Forces UI thread sync',
+              'Higher latency on each frame',
+              'Frame budget pressure',
+            ],
+          )),
+          Expanded(child: _compositionModeCard(
+            title: 'Texture Layer HC',
+            shortName: 'TLHC',
+            color: _palette.accent,
+            pros: const <String>[
+              'Decoupled from UI thread',
+              'Lower latency than HC',
+              'Currently the recommended default in modern Flutter',
+              'Works well with most native Views',
+            ],
+            cons: const <String>[
+              'Some Views misbehave when drawn into a TextureView',
+              'a11y less robust than HC',
+            ],
+          )),
+          Expanded(child: _compositionModeCard(
+            title: 'Virtual Display',
+            shortName: 'VD',
+            color: _palette.secondary,
+            pros: const <String>[
+              'Legacy fallback (oldest mode)',
+              'Available everywhere',
+              'Works for read-only View content',
+            ],
+            cons: const <String>[
+              'No keyboard / IME / hover',
+              'Touch issues with maps and webview',
+              'Considered obsolete for new code',
+            ],
+          )),
         ],
       ),
       const SizedBox(height: 12),
@@ -620,7 +613,9 @@ Widget _section4Lifecycle() {
     title: '3. Lifecycle (6 steps)',
     color: _palette.success,
     children: <Widget>[
-      Column(children: steps.map(_lifecycleStepCard).toList()),
+      Column(
+        children: steps.map(_lifecycleStepCard).toList(),
+      ),
     ],
   );
 }
@@ -720,38 +715,32 @@ Widget _section5HitTestBehaviorVisualizer() {
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            child: _hitTestCard(
-              title: 'opaque',
-              color: _palette.danger,
-              description:
-                  'AndroidViewSurface absorbs all touches inside its bounds. '
-                  'Flutter siblings beneath never receive these events. '
-                  'Best for views like maps and webviews that need full input.',
-              scenarioHits: const <bool>[true, false, false],
-            ),
-          ),
-          Expanded(
-            child: _hitTestCard(
-              title: 'translucent',
-              color: _palette.warning,
-              description:
-                  'Touches reach the AndroidViewSurface AND propagate through '
-                  'so Flutter widgets behind it can also process them. Useful '
-                  'for transparent overlays.',
-              scenarioHits: const <bool>[true, true, false],
-            ),
-          ),
-          Expanded(
-            child: _hitTestCard(
-              title: 'transparent',
-              color: _palette.info,
-              description:
-                  'Touches skip the AndroidViewSurface and go to whatever is '
-                  'beneath. Useful when the native view is purely decorative.',
-              scenarioHits: const <bool>[false, true, false],
-            ),
-          ),
+          Expanded(child: _hitTestCard(
+            title: 'opaque',
+            color: _palette.danger,
+            description:
+                'AndroidViewSurface absorbs all touches inside its bounds. '
+                'Flutter siblings beneath never receive these events. '
+                'Best for views like maps and webviews that need full input.',
+            scenarioHits: const <bool>[true, false, false],
+          )),
+          Expanded(child: _hitTestCard(
+            title: 'translucent',
+            color: _palette.warning,
+            description:
+                'Touches reach the AndroidViewSurface AND propagate through '
+                'so Flutter widgets behind it can also process them. Useful '
+                'for transparent overlays.',
+            scenarioHits: const <bool>[true, true, false],
+          )),
+          Expanded(child: _hitTestCard(
+            title: 'transparent',
+            color: _palette.info,
+            description:
+                'Touches skip the AndroidViewSurface and go to whatever is '
+                'beneath. Useful when the native view is purely decorative.',
+            scenarioHits: const <bool>[false, true, false],
+          )),
         ],
       ),
     ],
@@ -793,7 +782,11 @@ Widget _hitTestCard({
           const SizedBox(height: 8),
           Text(
             description,
-            style: TextStyle(fontSize: 12, height: 1.4, color: _palette.ink),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.4,
+              color: _palette.ink,
+            ),
           ),
           const SizedBox(height: 10),
           _hitTestDiagram(color: color, hits: scenarioHits),
@@ -832,7 +825,10 @@ Widget _hitTestDiagram({required Color color, required List<bool> hits}) {
             padding: const EdgeInsets.all(4),
             child: Text(
               'Flutter sibling',
-              style: TextStyle(fontSize: 9, color: _palette.muted),
+              style: TextStyle(
+                fontSize: 9,
+                color: _palette.muted,
+              ),
             ),
           ),
         ),
@@ -883,7 +879,10 @@ Widget _hitTestDiagram({required Color color, required List<bool> hits}) {
                 hits[0]
                     ? 'AVS gets it'
                     : (hits[1] ? 'Sibling gets it' : 'Lost'),
-                style: TextStyle(fontSize: 9, color: _palette.ink),
+                style: TextStyle(
+                  fontSize: 9,
+                  color: _palette.ink,
+                ),
               ),
             ],
           ),
@@ -1090,21 +1089,13 @@ class _DottedBorderPainter extends CustomPainter {
     // right
     double y = 0;
     while (y < size.height) {
-      canvas.drawLine(
-        Offset(size.width, y),
-        Offset(size.width, y + dash),
-        paint,
-      );
+      canvas.drawLine(Offset(size.width, y), Offset(size.width, y + dash), paint);
       y += dash + gap;
     }
     // bottom
     x = 0;
     while (x < size.width) {
-      canvas.drawLine(
-        Offset(x, size.height),
-        Offset(x + dash, size.height),
-        paint,
-      );
+      canvas.drawLine(Offset(x, size.height), Offset(x + dash, size.height), paint);
       x += dash + gap;
     }
     // left
@@ -1200,7 +1191,11 @@ Widget _viewTypeCard(_ViewTypeEntry e) {
             const SizedBox(height: 4),
             Text(
               e.summary,
-              style: TextStyle(color: _palette.ink, fontSize: 11, height: 1.3),
+              style: TextStyle(
+                color: _palette.ink,
+                fontSize: 11,
+                height: 1.3,
+              ),
             ),
             const SizedBox(height: 8),
             Container(
@@ -1306,7 +1301,11 @@ Widget _section9CommonPitfalls() {
     icon: Icons.warning_amber_rounded,
     title: '8. Common pitfalls',
     color: _palette.danger,
-    children: <Widget>[Wrap(children: pitfalls.map(_pitfallCard).toList())],
+    children: <Widget>[
+      Wrap(
+        children: pitfalls.map(_pitfallCard).toList(),
+      ),
+    ],
   );
 }
 
@@ -1343,7 +1342,11 @@ Widget _pitfallCard(_Pitfall p) {
             const SizedBox(height: 6),
             Text(
               p.detail,
-              style: TextStyle(color: _palette.ink, fontSize: 12, height: 1.4),
+              style: TextStyle(
+                color: _palette.ink,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ],
         ),
@@ -1421,7 +1424,11 @@ Widget _section10RecipeGallery() {
     icon: Icons.menu_book,
     title: '9. Recipe gallery',
     color: _palette.accent,
-    children: <Widget>[Wrap(children: recipes.map(_recipeCard).toList())],
+    children: <Widget>[
+      Wrap(
+        children: recipes.map(_recipeCard).toList(),
+      ),
+    ],
   );
 }
 
@@ -1457,43 +1464,43 @@ Widget _recipeCard(_Recipe r) {
             ),
             const SizedBox(height: 8),
             ...r.steps.asMap().entries.map(
-              (MapEntry<int, String> e) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: 18,
-                      height: 18,
-                      decoration: BoxDecoration(
-                        color: r.color.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${e.key + 1}',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold,
-                          color: r.color,
+                  (MapEntry<int, String> e) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: 18,
+                          height: 18,
+                          decoration: BoxDecoration(
+                            color: r.color.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            '${e.key + 1}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: r.color,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        e.value,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: _palette.ink,
-                          height: 1.3,
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            e.value,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: _palette.ink,
+                              height: 1.3,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
             const SizedBox(height: 6),
             Container(
               height: 50,
@@ -1505,7 +1512,10 @@ Widget _recipeCard(_Recipe r) {
               alignment: Alignment.center,
               child: Text(
                 'integration diagram (placeholder)',
-                style: TextStyle(fontSize: 10, color: r.color),
+                style: TextStyle(
+                  fontSize: 10,
+                  color: r.color,
+                ),
               ),
             ),
           ],
@@ -1583,7 +1593,10 @@ Widget _section11ReferenceTable() {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
-          children: <Widget>[_tableHeaderRow(), ...rows.map(_tableDataRow)],
+          children: <Widget>[
+            _tableHeaderRow(),
+            ...rows.map(_tableDataRow),
+          ],
         ),
       ),
     ],
@@ -1645,7 +1658,9 @@ Widget _tableDataRow(_TableRow r) {
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
     decoration: BoxDecoration(
       color: _palette.surface,
-      border: Border(top: BorderSide(color: _palette.muted.withOpacity(0.3))),
+      border: Border(
+        top: BorderSide(color: _palette.muted.withOpacity(0.3)),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1666,14 +1681,21 @@ Widget _tableDataRow(_TableRow r) {
           flex: 2,
           child: Text(
             r.platforms,
-            style: TextStyle(color: _palette.ink, fontSize: 12),
+            style: TextStyle(
+              color: _palette.ink,
+              fontSize: 12,
+            ),
           ),
         ),
         Expanded(
           flex: 5,
           child: Text(
             r.role,
-            style: TextStyle(color: _palette.ink, fontSize: 12, height: 1.4),
+            style: TextStyle(
+              color: _palette.ink,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -1797,28 +1819,26 @@ Widget _bulletList(List<String> items) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: items
-        .map(
-          (String t) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Icon(Icons.check, size: 14, color: _palette.success),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    t,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: _palette.ink,
-                      height: 1.4,
+        .map((String t) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Icon(Icons.check, size: 14, color: _palette.success),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      t,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: _palette.ink,
+                        height: 1.4,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        )
+                ],
+              ),
+            ))
         .toList(),
   );
 }

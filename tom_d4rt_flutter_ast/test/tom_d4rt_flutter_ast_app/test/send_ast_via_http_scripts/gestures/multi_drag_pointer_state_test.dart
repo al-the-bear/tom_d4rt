@@ -118,7 +118,11 @@ dynamic build(BuildContext context) {
                   width: 1.4,
                 ),
               ),
-              child: Icon(Icons.touch_app, color: Colors.white, size: 36.0),
+              child: Icon(
+                Icons.touch_app,
+                color: Colors.white,
+                size: 36.0,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -295,11 +299,17 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Expanded(flex: 5, child: Text(f['desc']!, style: bodyStyle)),
+            Expanded(
+              flex: 5,
+              child: Text(f['desc']!, style: bodyStyle),
+            ),
             Expanded(
               flex: 4,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(6.0),
@@ -410,7 +420,10 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(height: 4.0),
-            Text('used by', style: TextStyle(fontSize: 9.0, color: slateMuted)),
+            Text(
+              'used by',
+              style: TextStyle(fontSize: 9.0, color: slateMuted),
+            ),
             Text(
               parent,
               textAlign: TextAlign.center,
@@ -568,11 +581,8 @@ dynamic build(BuildContext context) {
                     ),
                   ],
                 ),
-                child: Icon(
-                  s['icon'] as IconData,
-                  color: Colors.white,
-                  size: 20.0,
-                ),
+                child: Icon(s['icon'] as IconData,
+                    color: Colors.white, size: 20.0),
               ),
               if (i != lifecycleSteps.length - 1)
                 Container(width: 3.0, height: 28.0, color: tealLight),
@@ -585,7 +595,10 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.white, c.withValues(alpha: 0.12)],
+                  colors: [
+                    Colors.white,
+                    c.withValues(alpha: 0.12),
+                  ],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 ),
@@ -672,7 +685,9 @@ dynamic build(BuildContext context) {
     final bool zebra = r % 2 == 0;
     dataRows.add(
       TableRow(
-        decoration: BoxDecoration(color: zebra ? paperTint : Colors.white),
+        decoration: BoxDecoration(
+          color: zebra ? paperTint : Colors.white,
+        ),
         children: [
           _tableCell(row[0], code: true, color: tealDeep),
           _tableCell(row[1], code: true, color: amberAccent),
@@ -894,7 +909,10 @@ dynamic build(BuildContext context) {
     subHeadStyle: subHeadStyle,
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [pathDiagram, ...deltaWidgets],
+      children: [
+        pathDiagram,
+        ...deltaWidgets,
+      ],
     ),
   );
 
@@ -1013,7 +1031,10 @@ dynamic build(BuildContext context) {
     subtitle: 'Each variant overrides checkForResolutionAfterMove',
     headStyle: headStyle,
     subHeadStyle: subHeadStyle,
-    body: Wrap(alignment: WrapAlignment.start, children: variantWidgets),
+    body: Wrap(
+      alignment: WrapAlignment.start,
+      children: variantWidgets,
+    ),
   );
 
   // ============================================================
@@ -1057,7 +1078,10 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.white, c.withValues(alpha: 0.2)],
+              colors: [
+                Colors.white,
+                c.withValues(alpha: 0.2),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1169,21 +1193,9 @@ dynamic build(BuildContext context) {
             ),
           ),
         ),
-        Positioned(
-          left: 100.0,
-          top: 130.0,
-          child: _fingerDot(acceptGreen, '1'),
-        ),
-        Positioned(
-          left: 200.0,
-          top: 150.0,
-          child: _fingerDot(acceptGreen, '2'),
-        ),
-        Positioned(
-          left: 310.0,
-          top: 165.0,
-          child: _fingerDot(amberAccent, '3'),
-        ),
+        Positioned(left: 100.0, top: 130.0, child: _fingerDot(acceptGreen, '1')),
+        Positioned(left: 200.0, top: 150.0, child: _fingerDot(acceptGreen, '2')),
+        Positioned(left: 310.0, top: 165.0, child: _fingerDot(amberAccent, '3')),
         Positioned(
           left: 40.0,
           bottom: 10.0,
@@ -1241,32 +1253,32 @@ dynamic build(BuildContext context) {
       'title': 'Forgetting accepted() / rejected()',
       'desc':
           'Custom subclass that wins the arena but never calls accepted() '
-          'will leak pending deltas - the Drag never starts.',
+              'will leak pending deltas - the Drag never starts.',
     },
     {
       'title': 'initialPosition vs current position',
       'desc':
           'initialPosition is frozen at pointer-down. Current position must '
-          'be reconstructed as initialPosition + pendingDelta (until '
-          'accept replays it).',
+              'be reconstructed as initialPosition + pendingDelta (until '
+              'accept replays it).',
     },
     {
       'title': 'pendingDelta is null at start',
       'desc':
           'Right after construction pendingDelta is null, not Offset.zero. '
-          'Always null-check before reading.',
+              'Always null-check before reading.',
     },
     {
       'title': 'Resolving twice',
       'desc':
           'Calling accepted then rejected (or vice versa) on the same state '
-          'corrupts the arena entry - guard with a local flag.',
+              'corrupts the arena entry - guard with a local flag.',
     },
     {
       'title': 'Holding state past dispose()',
       'desc':
           'After dispose() the _client Drag is null. Capturing the state in '
-          'a closure and using it later throws.',
+              'a closure and using it later throws.',
     },
   ];
 
@@ -1597,7 +1609,10 @@ Widget _pointDot(String label, Color color) {
           color: color,
           shape: BoxShape.circle,
           boxShadow: [
-            BoxShadow(color: color.withValues(alpha: 0.6), blurRadius: 6.0),
+            BoxShadow(
+              color: color.withValues(alpha: 0.6),
+              blurRadius: 6.0,
+            ),
           ],
         ),
       ),
@@ -1680,11 +1695,7 @@ Widget _recapBullet(String head, String body) {
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12.5,
-                height: 1.4,
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 12.5, height: 1.4),
               children: [
                 TextSpan(
                   text: '$head:  ',

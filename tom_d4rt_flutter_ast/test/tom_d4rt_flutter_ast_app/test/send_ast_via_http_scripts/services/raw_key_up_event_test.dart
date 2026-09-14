@@ -163,7 +163,10 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -174,7 +177,9 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? coral.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(bottom: BorderSide(color: sand.withValues(alpha: 0.6))),
+        border: Border(
+          bottom: BorderSide(color: sand.withValues(alpha: 0.6)),
+        ),
       ),
       child: Row(
         children: cells.map((c) {
@@ -225,7 +230,8 @@ dynamic build(BuildContext context) {
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: charcoal,
               borderRadius: const BorderRadius.only(
@@ -298,7 +304,11 @@ dynamic build(BuildContext context) {
                 'HardwareKeyboard.instance / Focus(onKeyEvent: ...) '
                 'instead. The class still exists and still ships events, '
                 'but it will be removed in a future stable release.',
-                style: TextStyle(color: ash, fontSize: 12, height: 1.45),
+                style: TextStyle(
+                  color: ash,
+                  fontSize: 12,
+                  height: 1.45,
+                ),
               ),
             ],
           ),
@@ -436,12 +446,8 @@ dynamic build(BuildContext context) {
         'Lifecycle table',
         Column(
           children: [
-            ruRow([
-              'Phase',
-              'Event',
-              'Repeat?',
-              'Modifiers tracked',
-            ], isHeader: true),
+            ruRow(['Phase', 'Event', 'Repeat?', 'Modifiers tracked'],
+                isHeader: true),
             ruRow(['Press', 'RawKeyDownEvent', 'no', 'yes (incoming)']),
             ruRow(['Hold', 'RawKeyDownEvent (xN)', 'yes', 'yes']),
             ruRow(['Release', 'RawKeyUpEvent', 'no', 'yes (final state)']),
@@ -509,11 +515,8 @@ dynamic build(BuildContext context) {
         'Side-by-side: same release, two views',
         Column(
           children: [
-            ruRow([
-              'Pressed key (visual)',
-              'logicalKey',
-              'physicalKey',
-            ], isHeader: true),
+            ruRow(['Pressed key (visual)', 'logicalKey', 'physicalKey'],
+                isHeader: true),
             ruRow(['A on US QWERTY', 'keyA', 'keyA']),
             ruRow(['Q on FR AZERTY', 'keyA', 'keyQ']),
             ruRow(['Enter / Return', 'enter', 'enter']),
@@ -555,11 +558,8 @@ dynamic build(BuildContext context) {
         'character on RawKeyUpEvent',
         Column(
           children: [
-            ruRow([
-              'Released key',
-              'down.character',
-              'up.character',
-            ], isHeader: true),
+            ruRow(['Released key', 'down.character', 'up.character'],
+                isHeader: true),
             ruRow(['letter "a"', '"a"', 'null (most platforms)']),
             ruRow(['Shift+"a"', '"A"', 'null']),
             ruRow(['"1"', '"1"', 'null']),
@@ -790,11 +790,7 @@ dynamic build(BuildContext context) {
   print('[ru-10] Section 10: Recipe gallery');
 
   Widget recipeCard(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color background,
-  ) {
+      String title, String subtitle, IconData icon, Color background) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -824,7 +820,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(fontSize: 11, color: charcoal, height: 1.4),
+            style: TextStyle(
+              fontSize: 11,
+              color: charcoal,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -920,48 +920,23 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             ruRow(['Name', 'Type', 'Description'], isHeader: true),
-            ruRow([
-              'logicalKey',
-              'LogicalKeyboardKey',
-              'Layout-aware identifier of the released key',
-            ]),
-            ruRow([
-              'physicalKey',
-              'PhysicalKeyboardKey',
-              'USB HID code of the physical position',
-            ]),
-            ruRow([
-              'data',
-              'RawKeyEventData',
-              'Platform-specific subclass with native fields',
-            ]),
-            ruRow([
-              'character',
-              'String?',
-              'Almost always null on KeyUp — see section 6',
-            ]),
+            ruRow(['logicalKey', 'LogicalKeyboardKey',
+                'Layout-aware identifier of the released key']),
+            ruRow(['physicalKey', 'PhysicalKeyboardKey',
+                'USB HID code of the physical position']),
+            ruRow(['data', 'RawKeyEventData',
+                'Platform-specific subclass with native fields']),
+            ruRow(['character', 'String?',
+                'Almost always null on KeyUp — see section 6']),
             ruRow(['isShiftPressed', 'bool', 'Shift modifier final state']),
             ruRow(['isControlPressed', 'bool', 'Control modifier final state']),
-            ruRow([
-              'isAltPressed',
-              'bool',
-              'Alt / Option modifier final state',
-            ]),
-            ruRow([
-              'isMetaPressed',
-              'bool',
-              'Meta / Cmd / Win modifier final state',
-            ]),
-            ruRow([
-              'repeat',
-              'bool',
-              'Always false on KeyUp; meaningful only on KeyDown',
-            ]),
-            ruRow([
-              'stringWithoutModifiers',
-              'String (data field)',
-              'Glyph the key would produce with no modifiers',
-            ]),
+            ruRow(['isAltPressed', 'bool', 'Alt / Option modifier final state']),
+            ruRow(['isMetaPressed', 'bool',
+                'Meta / Cmd / Win modifier final state']),
+            ruRow(['repeat', 'bool',
+                'Always false on KeyUp; meaningful only on KeyDown']),
+            ruRow(['stringWithoutModifiers', 'String (data field)',
+                'Glyph the key would produce with no modifiers']),
           ],
         ),
       ),
@@ -972,7 +947,7 @@ dynamic build(BuildContext context) {
             ruRow(['Signature', 'Notes'], isHeader: true),
             ruRow([
               'RawKeyUpEvent({ required RawKeyEventData data, String? character })',
-              'Same shape as RawKeyDownEvent; type discriminates',
+              'Same shape as RawKeyDownEvent; type discriminates'
             ]),
           ],
         ),
@@ -1004,31 +979,20 @@ dynamic build(BuildContext context) {
         'Modifier helper map',
         Column(
           children: [
-            ruRow(['Method', 'Bitmask aspect', 'Replacement'], isHeader: true),
-            ruRow([
-              'isShiftPressed',
-              'shift bits',
-              'HardwareKeyboard.instance.isShiftPressed',
-            ]),
-            ruRow([
-              'isControlPressed',
-              'control bits',
-              'HardwareKeyboard.instance.isControlPressed',
-            ]),
-            ruRow([
-              'isAltPressed',
-              'alt/opt bits',
-              'HardwareKeyboard.instance.isAltPressed',
-            ]),
-            ruRow([
-              'isMetaPressed',
-              'meta/cmd bits',
-              'HardwareKeyboard.instance.isMetaPressed',
-            ]),
+            ruRow(['Method', 'Bitmask aspect', 'Replacement'],
+                isHeader: true),
+            ruRow(['isShiftPressed', 'shift bits',
+                'HardwareKeyboard.instance.isShiftPressed']),
+            ruRow(['isControlPressed', 'control bits',
+                'HardwareKeyboard.instance.isControlPressed']),
+            ruRow(['isAltPressed', 'alt/opt bits',
+                'HardwareKeyboard.instance.isAltPressed']),
+            ruRow(['isMetaPressed', 'meta/cmd bits',
+                'HardwareKeyboard.instance.isMetaPressed']),
             ruRow([
               'isModifierPressed(...)',
               'arbitrary modifier',
-              'HardwareKeyboard.instance.logicalKeysPressed.contains(...)',
+              'HardwareKeyboard.instance.logicalKeysPressed.contains(...)'
             ]),
           ],
         ),
@@ -1069,7 +1033,10 @@ dynamic build(BuildContext context) {
             children: [
               const Text(
                 'RawKeyUpEvent',
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
@@ -1132,9 +1099,15 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('• ', style: TextStyle(fontSize: 12)),
+        const Text(
+          '• ',
+          style: TextStyle(fontSize: 12),
+        ),
         Expanded(
-          child: Text(text, style: const TextStyle(fontSize: 11, height: 1.4)),
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 11, height: 1.4),
+          ),
         ),
       ],
     ),
@@ -1248,14 +1221,12 @@ class _LiveKeyUpListenerState extends State<_LiveKeyUpListener> {
         platformLabel: platformLabel,
       );
 
-      print(
-        '[ru-listener] up '
-        'logical=${rec.logicalKeyLabel} '
-        'physical=${rec.physicalKeyLabel} '
-        'char=${rec.character} '
-        'mods=[shift=$shift,ctrl=$ctrl,alt=$alt,meta=$meta] '
-        'repeat=$repeat platform=$platformLabel',
-      );
+      print('[ru-listener] up '
+          'logical=${rec.logicalKeyLabel} '
+          'physical=${rec.physicalKeyLabel} '
+          'char=${rec.character} '
+          'mods=[shift=$shift,ctrl=$ctrl,alt=$alt,meta=$meta] '
+          'repeat=$repeat platform=$platformLabel');
 
       setState(() {
         _log.insert(0, rec);
@@ -1424,7 +1395,10 @@ class _KeyUpRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 84, child: Text(_ts(record.timestamp), style: base)),
+          SizedBox(
+            width: 84,
+            child: Text(_ts(record.timestamp), style: base),
+          ),
           SizedBox(
             width: 130,
             child: Text(
@@ -1444,9 +1418,7 @@ class _KeyUpRow extends StatelessWidget {
           SizedBox(
             width: 70,
             child: Text(
-              record.character == null
-                  ? 'char:—'
-                  : 'char:"${record.character}"',
+              record.character == null ? 'char:—' : 'char:"${record.character}"',
               style: base,
             ),
           ),
@@ -1498,8 +1470,8 @@ class _DownVsUpListenerState extends State<_DownVsUpListener> {
   }
 
   void _onKey(RawKeyEvent event) {
-    final String label =
-        event.logicalKey.debugName ?? event.logicalKey.keyLabel;
+    final String label = event.logicalKey.debugName ??
+        event.logicalKey.keyLabel;
     final DateTime now = DateTime.now();
     final String stamp =
         '${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}.${now.millisecond.toString().padLeft(3, '0')}';
@@ -1529,11 +1501,7 @@ class _DownVsUpListenerState extends State<_DownVsUpListener> {
   }
 
   Widget _logColumn(
-    String title,
-    List<String> entries,
-    Color accent,
-    Color background,
-  ) {
+      String title, List<String> entries, Color accent, Color background) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -1546,7 +1514,8 @@ class _DownVsUpListenerState extends State<_DownVsUpListener> {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: accent,
                 borderRadius: const BorderRadius.only(
@@ -1696,7 +1665,8 @@ class _ModifierMatrixState extends State<_ModifierMatrix> {
         _ctrl = event.isControlPressed;
         _alt = event.isAltPressed;
         _meta = event.isMetaPressed;
-        _lastKey = event.logicalKey.debugName ?? event.logicalKey.keyLabel;
+        _lastKey =
+            event.logicalKey.debugName ?? event.logicalKey.keyLabel;
       });
     }
   }
@@ -1710,7 +1680,10 @@ class _ModifierMatrixState extends State<_ModifierMatrix> {
       decoration: BoxDecoration(
         color: active ? on : off.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: active ? on : off, width: 1.5),
+        border: Border.all(
+          color: active ? on : off,
+          width: 1.5,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -1792,7 +1765,11 @@ class _ModifierMatrixState extends State<_ModifierMatrix> {
               'corresponding chip stay green. Releasing the modifier itself '
               'flips its chip OFF in the same RawKeyUpEvent (see Section 4 '
               'note).',
-              style: TextStyle(fontSize: 11, color: charcoal, height: 1.5),
+              style: TextStyle(
+                fontSize: 11,
+                color: charcoal,
+                height: 1.5,
+              ),
             ),
           ],
         ),
@@ -1913,7 +1890,8 @@ class _KeyboardHeatmapState extends State<_KeyboardHeatmap> {
                 ),
                 const Spacer(),
                 OutlinedButton(
-                  onPressed: () => setState(() => _lastReleased.clear()),
+                  onPressed: () =>
+                      setState(() => _lastReleased.clear()),
                   child: const Text('Reset heatmap'),
                 ),
               ],
@@ -1930,7 +1908,10 @@ class _KeyboardHeatmapState extends State<_KeyboardHeatmap> {
             const SizedBox(height: 10),
             Row(
               children: [
-                const Text('cooler ', style: TextStyle(fontSize: 11)),
+                const Text(
+                  'cooler ',
+                  style: TextStyle(fontSize: 11),
+                ),
                 Container(
                   width: 14,
                   height: 14,
@@ -1960,7 +1941,10 @@ class _KeyboardHeatmapState extends State<_KeyboardHeatmap> {
                   height: 14,
                   color: const Color(0xFFF59E0B),
                 ),
-                const Text(' hotter', style: TextStyle(fontSize: 11)),
+                const Text(
+                  ' hotter',
+                  style: TextStyle(fontSize: 11),
+                ),
                 const Spacer(),
                 const Text(
                   'note: heatmap does not auto-fade in this static demo',

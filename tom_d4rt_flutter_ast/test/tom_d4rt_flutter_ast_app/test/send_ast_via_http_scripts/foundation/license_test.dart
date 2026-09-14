@@ -305,222 +305,159 @@ dynamic build(BuildContext context) {
   _slivers.add(const SizedBox(height: 24.0));
   print('[license_test] Section 1 (hero) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '01',
-      'LicenseEntry anatomy',
-      'The abstract base class. Every concrete license entry exposes two '
-          'iterables: packages and paragraphs. Everything else in this demo '
-          'is built on top of this minimal contract.',
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '01',
+    'LicenseEntry anatomy',
+    'The abstract base class. Every concrete license entry exposes two '
+        'iterables: packages and paragraphs. Everything else in this demo '
+        'is built on top of this minimal contract.',
+  ));
   _slivers.add(_buildEntryAnatomy());
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 2 (anatomy) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '02',
-      'LicenseEntryWithLineBreaks gallery',
-      'Five concrete entries covering the canonical FOSS licenses plus a '
-          'Tom-internal flavour. Each card shows packages, runtimeType, and '
-          'a paragraph count tally.',
-    ),
-  );
-  _slivers.add(
-    _buildGallery(
-      <LicenseEntryWithLineBreaks>[
-        _entryMit,
-        _entryBsd,
-        _entryApache,
-        _entryGpl,
-        _entryTom,
-      ],
-      <List<LicenseParagraph>>[
-        _mitParas,
-        _bsdParas,
-        _apacheParas,
-        _gplParas,
-        _tomParas,
-      ],
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '02',
+    'LicenseEntryWithLineBreaks gallery',
+    'Five concrete entries covering the canonical FOSS licenses plus a '
+        'Tom-internal flavour. Each card shows packages, runtimeType, and '
+        'a paragraph count tally.',
+  ));
+  _slivers.add(_buildGallery(<LicenseEntryWithLineBreaks>[
+    _entryMit,
+    _entryBsd,
+    _entryApache,
+    _entryGpl,
+    _entryTom,
+  ], <List<LicenseParagraph>>[
+    _mitParas,
+    _bsdParas,
+    _apacheParas,
+    _gplParas,
+    _tomParas,
+  ]));
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 3 (gallery) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '03',
-      'Paragraph deep dive',
-      'The same gallery, but with each entry expanded to show every '
-          'LicenseParagraph the line-break parser produced.',
-    ),
-  );
-  _slivers.add(
-    _buildParagraphDeepDive(
-      'MIT License',
-      _entryMit.packages.toList(),
-      _mitParas,
-      _kAccentBlue,
-      _kAccentBlueSoft,
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '03',
+    'Paragraph deep dive',
+    'The same gallery, but with each entry expanded to show every '
+        'LicenseParagraph the line-break parser produced.',
+  ));
+  _slivers.add(_buildParagraphDeepDive('MIT License',
+      _entryMit.packages.toList(), _mitParas, _kAccentBlue, _kAccentBlueSoft));
   _slivers.add(const SizedBox(height: 18.0));
-  _slivers.add(
-    _buildParagraphDeepDive(
-      'BSD 3-Clause',
-      _entryBsd.packages.toList(),
-      _bsdParas,
-      _kAccentGreen,
-      _kAccentGreenSoft,
-    ),
-  );
+  _slivers.add(_buildParagraphDeepDive('BSD 3-Clause',
+      _entryBsd.packages.toList(), _bsdParas, _kAccentGreen, _kAccentGreenSoft));
   _slivers.add(const SizedBox(height: 18.0));
-  _slivers.add(
-    _buildParagraphDeepDive(
+  _slivers.add(_buildParagraphDeepDive(
       'Apache 2.0',
       _entryApache.packages.toList(),
       _apacheParas,
       _kAccentAmber,
-      _kAccentAmberSoft,
-    ),
-  );
+      _kAccentAmberSoft));
   _slivers.add(const SizedBox(height: 18.0));
-  _slivers.add(
-    _buildParagraphDeepDive(
-      'GPL 3.0',
-      _entryGpl.packages.toList(),
-      _gplParas,
-      _kAccentRed,
-      _kAccentRedSoft,
-    ),
-  );
+  _slivers.add(_buildParagraphDeepDive('GPL 3.0',
+      _entryGpl.packages.toList(), _gplParas, _kAccentRed, _kAccentRedSoft));
   _slivers.add(const SizedBox(height: 18.0));
-  _slivers.add(
-    _buildParagraphDeepDive(
-      'Tom Internal',
-      _entryTom.packages.toList(),
-      _tomParas,
-      _kAccentViolet,
-      _kAccentVioletSoft,
-    ),
-  );
+  _slivers.add(_buildParagraphDeepDive('Tom Internal',
+      _entryTom.packages.toList(), _tomParas, _kAccentViolet, _kAccentVioletSoft));
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 4 (deep dive) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '04',
-      'LicenseParagraph indentation showcase',
-      'The .indent value is an int. 0 is flush-left. Positive values nest. '
-          'The sentinel LicenseParagraph.centeredIndent means "centre this '
-          'paragraph", typically used for license titles.',
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '04',
+    'LicenseParagraph indentation showcase',
+    'The .indent value is an int. 0 is flush-left. Positive values nest. '
+        'The sentinel LicenseParagraph.centeredIndent means "centre this '
+        'paragraph", typically used for license titles.',
+  ));
   _slivers.add(_buildIndentShowcase());
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 5 (indent showcase) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '05',
-      'LicenseRegistry inventory',
-      'Where every LicenseEntry the app ships eventually lives. addLicense() '
-          'pushes a generator; .licenses pulls them back out as a Stream. '
-          'In this demo we describe both - we do not subscribe.',
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '05',
+    'LicenseRegistry inventory',
+    'Where every LicenseEntry the app ships eventually lives. addLicense() '
+        'pushes a generator; .licenses pulls them back out as a Stream. '
+        'In this demo we describe both - we do not subscribe.',
+  ));
   _slivers.add(_buildRegistryCard());
   _slivers.add(const SizedBox(height: 18.0));
   _slivers.add(_buildRegistryFlow());
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 6 (registry) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '06',
-      'Recipe code cards',
-      'Idiomatic snippets you can drop into your app: registering a license '
-          'from a string asset, registering many at once, and the common '
-          'mistake of forgetting to call addLicense before runApp.',
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '06',
+    'Recipe code cards',
+    'Idiomatic snippets you can drop into your app: registering a license '
+        'from a string asset, registering many at once, and the common '
+        'mistake of forgetting to call addLicense before runApp.',
+  ));
   _slivers.add(_buildRecipeCards());
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 7 (recipes) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '07',
-      'AboutDialog mock',
-      'AboutDialog is the Material widget that surfaces app metadata and the '
-          '"VIEW LICENSES" CTA. Below is a faithful static render of one.',
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '07',
+    'AboutDialog mock',
+    'AboutDialog is the Material widget that surfaces app metadata and the '
+        '"VIEW LICENSES" CTA. Below is a faithful static render of one.',
+  ));
   _slivers.add(_buildAboutDialogMock());
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 8 (about dialog) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '08',
-      'LicensePage mock',
-      'LicensePage is the screen you reach from AboutDialog. It groups '
-          'entries by package and renders each entry as a list tile that '
-          'drills into the full text.',
-    ),
-  );
-  _slivers.add(
-    _buildLicensePageMock(
-      <LicenseEntryWithLineBreaks>[
-        _entryMit,
-        _entryBsd,
-        _entryApache,
-        _entryGpl,
-        _entryTom,
-      ],
-      <List<LicenseParagraph>>[
-        _mitParas,
-        _bsdParas,
-        _apacheParas,
-        _gplParas,
-        _tomParas,
-      ],
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '08',
+    'LicensePage mock',
+    'LicensePage is the screen you reach from AboutDialog. It groups '
+        'entries by package and renders each entry as a list tile that '
+        'drills into the full text.',
+  ));
+  _slivers.add(_buildLicensePageMock(<LicenseEntryWithLineBreaks>[
+    _entryMit,
+    _entryBsd,
+    _entryApache,
+    _entryGpl,
+    _entryTom,
+  ], <List<LicenseParagraph>>[
+    _mitParas,
+    _bsdParas,
+    _apacheParas,
+    _gplParas,
+    _tomParas,
+  ]));
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 9 (license page) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '09',
-      'AboutListTile anatomy',
-      'AboutListTile is a one-liner you drop into a Drawer or Settings list. '
-          'When tapped, it pushes the AboutDialog with the provided metadata.',
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '09',
+    'AboutListTile anatomy',
+    'AboutListTile is a one-liner you drop into a Drawer or Settings list. '
+        'When tapped, it pushes the AboutDialog with the provided metadata.',
+  ));
   _slivers.add(_buildAboutListTileMock());
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 10 (about list tile) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '10',
-      'Best practices & pitfalls',
-      'Eight callouts collected from real Tom Framework app reviews.',
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '10',
+    'Best practices & pitfalls',
+    'Eight callouts collected from real Tom Framework app reviews.',
+  ));
   _slivers.add(_buildPitfallsPanel());
   _slivers.add(const SizedBox(height: 28.0));
   print('[license_test] Section 11 (pitfalls) appended.');
 
-  _slivers.add(
-    _buildSectionHeader(
-      '11',
-      'Cheat-sheet',
-      'Chip groups summarising the API surface for quick reference.',
-    ),
-  );
+  _slivers.add(_buildSectionHeader(
+    '11',
+    'Cheat-sheet',
+    'Chip groups summarising the API surface for quick reference.',
+  ));
   _slivers.add(_buildCheatSheet());
   _slivers.add(const SizedBox(height: 36.0));
   print('[license_test] Section 12 (cheat sheet) appended.');
@@ -606,11 +543,8 @@ Widget _buildHero() {
                 border: Border.all(color: _kHairline, width: 1.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.menu_book_outlined,
-                color: _kAccentDeep,
-                size: 24.0,
-              ),
+              child: const Icon(Icons.menu_book_outlined,
+                  color: _kAccentDeep, size: 24.0),
             ),
             const SizedBox(width: 14.0),
             const Expanded(
@@ -659,36 +593,37 @@ Widget _buildHeroToc() {
   ];
   final List<Widget> _rows = <Widget>[];
   for (int i = 0; i < _items.length; i++) {
-    _rows.add(
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 3.0),
-        child: Row(
-          children: <Widget>[
-            Container(
-              width: 6.0,
-              height: 6.0,
-              decoration: const BoxDecoration(
-                color: _kAccent,
-                shape: BoxShape.circle,
+    _rows.add(Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3.0),
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: 6.0,
+            height: 6.0,
+            decoration: const BoxDecoration(
+              color: _kAccent,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 10.0),
+          Expanded(
+            child: Text(
+              _items[i],
+              style: const TextStyle(
+                fontSize: 12.5,
+                color: _kInkSecondary,
+                fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(width: 10.0),
-            Expanded(
-              child: Text(
-                _items[i],
-                style: const TextStyle(
-                  fontSize: 12.5,
-                  color: _kInkSecondary,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: _rows);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: _rows,
+  );
 }
 
 // ===========================================================================
@@ -751,10 +686,8 @@ Widget _buildEntryAnatomy() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: _kAccentBlueSoft,
                 borderRadius: BorderRadius.circular(6.0),
@@ -829,7 +762,10 @@ Widget _buildAnatomyRow(String name, String type, String doc) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(width: 150.0, child: Text(name, style: _kKeyText)),
+        SizedBox(
+          width: 150.0,
+          child: Text(name, style: _kKeyText),
+        ),
         SizedBox(
           width: 220.0,
           child: Text(
@@ -881,16 +817,14 @@ Widget _buildGallery(
     final LicenseEntryWithLineBreaks _e = entries[i];
     final List<LicenseParagraph> _ps = paragraphLists[i];
     final List<String> _pkgs = _e.packages.toList();
-    _cards.add(
-      _buildGalleryCard(
-        _titles[i],
-        _pkgs,
-        _ps.length,
-        _e.runtimeType.toString(),
-        _swatch[i],
-        _swatchSoft[i],
-      ),
-    );
+    _cards.add(_buildGalleryCard(
+      _titles[i],
+      _pkgs,
+      _ps.length,
+      _e.runtimeType.toString(),
+      _swatch[i],
+      _swatchSoft[i],
+    ));
   }
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -918,25 +852,23 @@ Widget _buildGalleryCard(
 ) {
   final List<Widget> _chips = <Widget>[];
   for (int i = 0; i < packages.length; i++) {
-    _chips.add(
-      Container(
-        margin: const EdgeInsets.only(right: 6.0, bottom: 6.0),
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-        decoration: BoxDecoration(
-          color: accentSoft,
-          borderRadius: BorderRadius.circular(6.0),
-          border: Border.all(color: _kHairline, width: 1.0),
-        ),
-        child: Text(
-          packages[i],
-          style: TextStyle(
-            fontSize: 11.0,
-            color: accent,
-            fontWeight: FontWeight.w700,
-          ),
+    _chips.add(Container(
+      margin: const EdgeInsets.only(right: 6.0, bottom: 6.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      decoration: BoxDecoration(
+        color: accentSoft,
+        borderRadius: BorderRadius.circular(6.0),
+        border: Border.all(color: _kHairline, width: 1.0),
+      ),
+      child: Text(
+        packages[i],
+        style: TextStyle(
+          fontSize: 11.0,
+          color: accent,
+          fontWeight: FontWeight.w700,
         ),
       ),
-    );
+    ));
   }
   return Container(
     decoration: BoxDecoration(
@@ -969,9 +901,7 @@ Widget _buildGalleryCard(
                   Expanded(child: Text(title, style: _kCardTitle)),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 3.0,
-                    ),
+                        horizontal: 8.0, vertical: 3.0),
                     decoration: BoxDecoration(
                       color: _kCardSoft,
                       borderRadius: BorderRadius.circular(6.0),
@@ -989,7 +919,10 @@ Widget _buildGalleryCard(
                 ],
               ),
               const SizedBox(height: 6.0),
-              Text('runtimeType = $runtimeTypeLabel', style: _kMonoSmall),
+              Text(
+                'runtimeType = $runtimeTypeLabel',
+                style: _kMonoSmall,
+              ),
               const SizedBox(height: 6.0),
               Wrap(children: _chips),
             ],
@@ -1017,19 +950,17 @@ Widget _buildParagraphDeepDive(
     _rows.add(_buildParagraphRow(i, _p, accent));
   }
   if (paragraphs.length > _maxShown) {
-    _rows.add(
-      Padding(
-        padding: const EdgeInsets.only(top: 6.0),
-        child: Text(
-          '… ${paragraphs.length - _maxShown} more paragraph(s) elided.',
-          style: const TextStyle(
-            fontSize: 11.5,
-            color: _kInkTertiary,
-            fontStyle: FontStyle.italic,
-          ),
+    _rows.add(Padding(
+      padding: const EdgeInsets.only(top: 6.0),
+      child: Text(
+        '… ${paragraphs.length - _maxShown} more paragraph(s) elided.',
+        style: const TextStyle(
+          fontSize: 11.5,
+          color: _kInkTertiary,
+          fontStyle: FontStyle.italic,
         ),
       ),
-    );
+    ));
   }
   return Container(
     decoration: BoxDecoration(
@@ -1044,10 +975,8 @@ Widget _buildParagraphDeepDive(
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: accentSoft,
                 borderRadius: BorderRadius.circular(6.0),
@@ -1237,10 +1166,8 @@ Widget _buildRegistryCard() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: _kAccentTealSoft,
                 borderRadius: BorderRadius.circular(6.0),
@@ -1328,12 +1255,10 @@ Widget _buildRegistryFlow() {
             _buildFlowBox('main()', _kAccentBlue, _kAccentBlueSoft),
             _buildArrow(),
             _buildFlowBox(
-              'addLicense(\n  () async* {…}\n)',
-              _kAccentAmber,
-              _kAccentAmberSoft,
-            ),
+                'addLicense(\n  () async* {…}\n)', _kAccentAmber, _kAccentAmberSoft),
             _buildArrow(),
-            _buildFlowBox('collectors[]', _kAccentTeal, _kAccentTealSoft),
+            _buildFlowBox(
+                'collectors[]', _kAccentTeal, _kAccentTealSoft),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -1343,12 +1268,10 @@ Widget _buildRegistryFlow() {
             _buildFlowBox('LicensePage', _kAccentViolet, _kAccentVioletSoft),
             _buildArrow(reverse: true),
             _buildFlowBox(
-              'licenses\n(Stream)',
-              _kAccentGreen,
-              _kAccentGreenSoft,
-            ),
+                'licenses\n(Stream)', _kAccentGreen, _kAccentGreenSoft),
             _buildArrow(reverse: true),
-            _buildFlowBox('collectors[]', _kAccentTeal, _kAccentTealSoft),
+            _buildFlowBox(
+                'collectors[]', _kAccentTeal, _kAccentTealSoft),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -1411,9 +1334,8 @@ Widget _buildRecipeCards() {
           _CodeLine('void main() {', _kCodeKeyword),
           _CodeLine('  LicenseRegistry.addLicense(() async* {', _kCodePlain),
           _CodeLine(
-            "    final raw = await rootBundle.loadString('assets/LICENSE');",
-            _kCodePlain,
-          ),
+              "    final raw = await rootBundle.loadString('assets/LICENSE');",
+              _kCodePlain),
           _CodeLine('    yield LicenseEntryWithLineBreaks(', _kCodePlain),
           _CodeLine("      <String>['my_app'],", _kCodeString),
           _CodeLine('      raw,', _kCodePlain),
@@ -1424,90 +1346,80 @@ Widget _buildRecipeCards() {
         ],
       ),
       const SizedBox(height: 10.0),
-      _buildCodeCard('2) Register many at once from a manifest', <_CodeLine>[
-        _CodeLine(
-          '// Each yield emits one LicenseEntry. The framework pulls',
-          _kCodeComment,
-        ),
-        _CodeLine(
-          '// them lazily, so it is fine for the closure to be slow.',
-          _kCodeComment,
-        ),
-        _CodeLine('LicenseRegistry.addLicense(() async* {', _kCodePlain),
-        _CodeLine(
-          "  final List<String> packages = ['foo', 'bar', 'baz'];",
-          _kCodePlain,
-        ),
-        _CodeLine('  for (final pkg in packages) {', _kCodeKeyword),
-        _CodeLine(
-          "    final body = await rootBundle.loadString('lic/\$pkg.txt');",
-          _kCodePlain,
-        ),
-        _CodeLine(
-          '    yield LicenseEntryWithLineBreaks(<String>[pkg], body);',
-          _kCodePlain,
-        ),
-        _CodeLine('  }', _kCodePlain),
-        _CodeLine('});', _kCodePlain),
-      ]),
+      _buildCodeCard(
+        '2) Register many at once from a manifest',
+        <_CodeLine>[
+          _CodeLine(
+              '// Each yield emits one LicenseEntry. The framework pulls',
+              _kCodeComment),
+          _CodeLine(
+              '// them lazily, so it is fine for the closure to be slow.',
+              _kCodeComment),
+          _CodeLine('LicenseRegistry.addLicense(() async* {', _kCodePlain),
+          _CodeLine(
+              "  final List<String> packages = ['foo', 'bar', 'baz'];", _kCodePlain),
+          _CodeLine('  for (final pkg in packages) {', _kCodeKeyword),
+          _CodeLine(
+              "    final body = await rootBundle.loadString('lic/\$pkg.txt');",
+              _kCodePlain),
+          _CodeLine(
+              '    yield LicenseEntryWithLineBreaks(<String>[pkg], body);',
+              _kCodePlain),
+          _CodeLine('  }', _kCodePlain),
+          _CodeLine('});', _kCodePlain),
+        ],
+      ),
       const SizedBox(height: 10.0),
       _buildCodeCard(
         '3) Open LicensePage directly without AboutDialog',
         <_CodeLine>[
-          _CodeLine('showLicensePage(', _kCodeKeyword),
-          _CodeLine('  context: context,', _kCodePlain),
-          _CodeLine("  applicationName: 'Tom Framework Demo',", _kCodeString),
-          _CodeLine("  applicationVersion: '1.0.0',", _kCodeString),
-          _CodeLine('  applicationIcon: const FlutterLogo(),', _kCodePlain),
           _CodeLine(
-            "  applicationLegalese: '© 2026 Tom contributors',",
-            _kCodeString,
-          ),
+              'showLicensePage(', _kCodeKeyword),
+          _CodeLine('  context: context,', _kCodePlain),
+          _CodeLine(
+              "  applicationName: 'Tom Framework Demo',", _kCodeString),
+          _CodeLine("  applicationVersion: '1.0.0',", _kCodeString),
+          _CodeLine(
+              '  applicationIcon: const FlutterLogo(),', _kCodePlain),
+          _CodeLine(
+              "  applicationLegalese: '© 2026 Tom contributors',", _kCodeString),
           _CodeLine(');', _kCodePlain),
         ],
       ),
       const SizedBox(height: 10.0),
-      _buildCodeCard('4) Hand-roll a LicenseEntry subclass', <_CodeLine>[
-        _CodeLine('class MyLicense extends LicenseEntry {', _kCodeKeyword),
-        _CodeLine('  const MyLicense();', _kCodePlain),
-        _CodeLine('  @override', _kCodeComment),
-        _CodeLine(
-          "  Iterable<String> get packages => ['my_app'];",
-          _kCodePlain,
-        ),
-        _CodeLine('  @override', _kCodeComment),
-        _CodeLine(
-          '  Iterable<LicenseParagraph> get paragraphs sync* {',
-          _kCodePlain,
-        ),
-        _CodeLine(
-          "    yield const LicenseParagraph('Hand-rolled.', 0);",
-          _kCodeString,
-        ),
-        _CodeLine('  }', _kCodePlain),
-        _CodeLine('}', _kCodeKeyword),
-      ]),
+      _buildCodeCard(
+        '4) Hand-roll a LicenseEntry subclass',
+        <_CodeLine>[
+          _CodeLine(
+              'class MyLicense extends LicenseEntry {', _kCodeKeyword),
+          _CodeLine('  const MyLicense();', _kCodePlain),
+          _CodeLine('  @override', _kCodeComment),
+          _CodeLine(
+              "  Iterable<String> get packages => ['my_app'];", _kCodePlain),
+          _CodeLine('  @override', _kCodeComment),
+          _CodeLine(
+              '  Iterable<LicenseParagraph> get paragraphs sync* {',
+              _kCodePlain),
+          _CodeLine(
+              "    yield const LicenseParagraph('Hand-rolled.', 0);",
+              _kCodeString),
+          _CodeLine('  }', _kCodePlain),
+          _CodeLine('}', _kCodeKeyword),
+        ],
+      ),
       const SizedBox(height: 10.0),
       _buildCodeCard(
         '5) Read the registry (in a real app, not at script-eval time)',
         <_CodeLine>[
           _CodeLine(
-            '// LicenseRegistry.licenses is a broadcast Stream.',
-            _kCodeComment,
-          ),
+              '// LicenseRegistry.licenses is a broadcast Stream.', _kCodeComment),
           _CodeLine(
-            '// FutureBuilder + toList() is the idiomatic consumer pattern.',
-            _kCodeComment,
-          ),
-          _CodeLine(
-            'final entries = await LicenseRegistry.licenses',
-            _kCodePlain,
-          ),
+              '// FutureBuilder + toList() is the idiomatic consumer pattern.',
+              _kCodeComment),
+          _CodeLine('final entries = await LicenseRegistry.licenses', _kCodePlain),
           _CodeLine('    .toList();', _kCodePlain),
           _CodeLine(
-            "print('total licenses: \${entries.length}');",
-            _kCodePlain,
-          ),
+              "print('total licenses: \${entries.length}');", _kCodePlain),
         ],
       ),
       const SizedBox(height: 10.0),
@@ -1515,19 +1427,13 @@ Widget _buildRecipeCards() {
         '6) The classic mistake — registering after first frame',
         <_CodeLine>[
           _CodeLine(
-            '// DON\'T do this. The first LicensePage build will miss',
-            _kCodeComment,
-          ),
-          _CodeLine(
-            '// any entry registered after the first frame.',
-            _kCodeComment,
-          ),
+              '// DON\'T do this. The first LicensePage build will miss', _kCodeComment),
+          _CodeLine('// any entry registered after the first frame.', _kCodeComment),
           _CodeLine('runApp(MyApp());', _kCodePlain),
           _CodeLine('// …later, in some initState…', _kCodeComment),
           _CodeLine(
-            'LicenseRegistry.addLicense(() async* { /* … */ });',
-            _kCodePlain,
-          ),
+              'LicenseRegistry.addLicense(() async* { /* … */ });',
+              _kCodePlain),
         ],
       ),
     ],
@@ -1543,33 +1449,31 @@ class _CodeLine {
 Widget _buildCodeCard(String title, List<_CodeLine> lines) {
   final List<Widget> _rows = <Widget>[];
   for (int i = 0; i < lines.length; i++) {
-    _rows.add(
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 1.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: 28.0,
-              child: Text(
-                '${i + 1}'.padLeft(2, '0'),
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11.0,
-                  color: _kCodeComment,
-                ),
+    _rows.add(Padding(
+      padding: const EdgeInsets.symmetric(vertical: 1.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: 28.0,
+            child: Text(
+              '${i + 1}'.padLeft(2, '0'),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+                color: _kCodeComment,
               ),
             ),
-            Expanded(
-              child: Text(
-                lines[i].text,
-                style: _kCodeBase.copyWith(color: lines[i].color),
-              ),
+          ),
+          Expanded(
+            child: Text(
+              lines[i].text,
+              style: _kCodeBase.copyWith(color: lines[i].color),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
   return Container(
     decoration: BoxDecoration(
@@ -1646,11 +1550,8 @@ Widget _buildAboutDialogMock() {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.book_outlined,
-                      color: _kAccentBlue,
-                      size: 26.0,
-                    ),
+                    child: const Icon(Icons.book_outlined,
+                        color: _kAccentBlue, size: 26.0),
                   ),
                   const SizedBox(width: 14.0),
                   Expanded(
@@ -1693,7 +1594,10 @@ Widget _buildAboutDialogMock() {
                 ),
               ),
               const SizedBox(height: 14.0),
-              Container(height: 1.0, color: _kHairline),
+              Container(
+                height: 1.0,
+                color: _kHairline,
+              ),
               const SizedBox(height: 12.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -1771,9 +1675,7 @@ Widget _buildLicensePageMock(
                 padding: const EdgeInsets.fromLTRB(14.0, 14.0, 14.0, 10.0),
                 decoration: const BoxDecoration(
                   color: _kCanvasDeep,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(12.0),
-                  ),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(12.0)),
                 ),
                 child: Row(
                   children: <Widget>[
@@ -1806,11 +1708,8 @@ Widget _buildLicensePageMock(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       alignment: Alignment.center,
-                      child: const Icon(
-                        Icons.book_outlined,
-                        color: _kAccentBlue,
-                        size: 22.0,
-                      ),
+                      child: const Icon(Icons.book_outlined,
+                          color: _kAccentBlue, size: 22.0),
                     ),
                     const SizedBox(width: 12.0),
                     Expanded(
@@ -1884,10 +1783,7 @@ List<Widget> _buildLicenseTiles(
 }
 
 Widget _buildLicenseTile(
-  List<String> packages,
-  int paragraphCount,
-  bool isLast,
-) {
+    List<String> packages, int paragraphCount, bool isLast) {
   return Container(
     padding: const EdgeInsets.fromLTRB(14.0, 12.0, 14.0, 12.0),
     decoration: BoxDecoration(
@@ -1917,7 +1813,10 @@ Widget _buildLicenseTile(
                 packages.length == 1
                     ? '1 license'
                     : '${packages.length} packages, $paragraphCount paragraphs',
-                style: const TextStyle(fontSize: 11.5, color: _kInkSecondary),
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  color: _kInkSecondary,
+                ),
               ),
             ],
           ),
@@ -1952,11 +1851,8 @@ Widget _buildAboutListTileMock() {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.info_outline,
-                color: _kAccentBlue,
-                size: 20.0,
-              ),
+              child: const Icon(Icons.info_outline,
+                  color: _kAccentBlue, size: 20.0),
             ),
             const SizedBox(width: 14.0),
             const Expanded(
@@ -1986,43 +1882,27 @@ Widget _buildAboutListTileMock() {
           children: <Widget>[
             const Text('AboutListTile fields', style: _kCardTitle),
             const SizedBox(height: 10.0),
+            _buildAnatomyRow('icon', 'Widget?', 'Leading icon. Defaults to a placeholder.'),
             _buildAnatomyRow(
-              'icon',
-              'Widget?',
-              'Leading icon. Defaults to a placeholder.',
-            ),
+                'applicationName',
+                'String?',
+                'Falls back to Title widget in the surrounding scope.'),
+            _buildAnatomyRow('applicationVersion', 'String?',
+                'Free-form. Typical format: "1.0.0+123".'),
+            _buildAnatomyRow('applicationIcon', 'Widget?',
+                'Rendered next to the name in AboutDialog and LicensePage.'),
             _buildAnatomyRow(
-              'applicationName',
-              'String?',
-              'Falls back to Title widget in the surrounding scope.',
-            ),
+                'applicationLegalese',
+                'String?',
+                'Short copyright/legalese line. Multi-line strings render '
+                    'verbatim.'),
             _buildAnatomyRow(
-              'applicationVersion',
-              'String?',
-              'Free-form. Typical format: "1.0.0+123".',
-            ),
-            _buildAnatomyRow(
-              'applicationIcon',
-              'Widget?',
-              'Rendered next to the name in AboutDialog and LicensePage.',
-            ),
-            _buildAnatomyRow(
-              'applicationLegalese',
-              'String?',
-              'Short copyright/legalese line. Multi-line strings render '
-                  'verbatim.',
-            ),
-            _buildAnatomyRow(
-              'aboutBoxChildren',
-              'List<Widget>?',
-              'Extra widgets shown in the AboutDialog between the '
-                  'legalese and the action buttons.',
-            ),
-            _buildAnatomyRow(
-              'child',
-              'Widget?',
-              'Custom title for the tile. Defaults to "About {name}".',
-            ),
+                'aboutBoxChildren',
+                'List<Widget>?',
+                'Extra widgets shown in the AboutDialog between the '
+                    'legalese and the action buttons.'),
+            _buildAnatomyRow('child', 'Widget?',
+                'Custom title for the tile. Defaults to "About {name}".'),
             _buildAnatomyRow('dense', 'bool?', 'ListTile density toggle.'),
           ],
         ),
@@ -2109,13 +1989,8 @@ Widget _buildPitfallsPanel() {
   );
 }
 
-Widget _buildPitfallRow(
-  IconData icon,
-  Color accent,
-  Color accentSoft,
-  String title,
-  String body,
-) {
+Widget _buildPitfallRow(IconData icon, Color accent, Color accentSoft,
+    String title, String body) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 10.0),
     child: Container(
@@ -2226,33 +2101,27 @@ Widget _buildCheatSheet() {
 }
 
 Widget _buildChipGroup(
-  String title,
-  List<String> items,
-  Color accent,
-  Color accentSoft,
-) {
+    String title, List<String> items, Color accent, Color accentSoft) {
   final List<Widget> _chips = <Widget>[];
   for (int i = 0; i < items.length; i++) {
-    _chips.add(
-      Container(
-        margin: const EdgeInsets.only(right: 6.0, bottom: 6.0),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-        decoration: BoxDecoration(
-          color: accentSoft,
-          borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: accent.withOpacity(0.4), width: 1.0),
-        ),
-        child: Text(
-          items[i],
-          style: TextStyle(
-            fontSize: 11.5,
-            fontWeight: FontWeight.w700,
-            color: accent,
-            fontFamily: 'monospace',
-          ),
+    _chips.add(Container(
+      margin: const EdgeInsets.only(right: 6.0, bottom: 6.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      decoration: BoxDecoration(
+        color: accentSoft,
+        borderRadius: BorderRadius.circular(20.0),
+        border: Border.all(color: accent.withOpacity(0.4), width: 1.0),
+      ),
+      child: Text(
+        items[i],
+        style: TextStyle(
+          fontSize: 11.5,
+          fontWeight: FontWeight.w700,
+          color: accent,
+          fontFamily: 'monospace',
         ),
       ),
-    );
+    ));
   }
   return Container(
     decoration: BoxDecoration(
@@ -2264,15 +2133,13 @@ Widget _buildChipGroup(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          title.toUpperCase(),
-          style: TextStyle(
-            fontSize: 11.0,
-            color: accent,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 1.0,
-          ),
-        ),
+        Text(title.toUpperCase(),
+            style: TextStyle(
+              fontSize: 11.0,
+              color: accent,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.0,
+            )),
         const SizedBox(height: 8.0),
         Wrap(children: _chips),
       ],

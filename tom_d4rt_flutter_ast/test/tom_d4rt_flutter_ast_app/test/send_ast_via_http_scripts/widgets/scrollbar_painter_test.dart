@@ -73,7 +73,10 @@ class _ScrollbarPainterStudioState extends State<_ScrollbarPainterStudio> {
             const SizedBox(width: 12),
             const Text(
               'ScrollbarPainter Studio',
-              style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.2),
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.2,
+              ),
             ),
             const SizedBox(width: 10),
             Container(
@@ -158,11 +161,20 @@ class _HeroHeader extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    _Pill(label: 'CustomPainter', color: _kAccent),
+                    _Pill(
+                      label: 'CustomPainter',
+                      color: _kAccent,
+                    ),
                     const SizedBox(width: 8),
-                    _Pill(label: 'ChangeNotifier', color: _kTeal),
+                    _Pill(
+                      label: 'ChangeNotifier',
+                      color: _kTeal,
+                    ),
                     const SizedBox(width: 8),
-                    _Pill(label: 'ScrollMetrics', color: _kPurple),
+                    _Pill(
+                      label: 'ScrollMetrics',
+                      color: _kPurple,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 14),
@@ -181,15 +193,16 @@ class _HeroHeader extends StatelessWidget {
                   'track on a canvas. Flutter\'s Scrollbar and RawScrollbar '
                   'widgets use it under the hood — you can too, when you '
                   'need a custom scrollable surface.',
-                  style: TextStyle(fontSize: 14, color: _kInkSoft, height: 1.5),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: _kInkSoft,
+                    height: 1.5,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 Row(
                   children: <Widget>[
-                    _KeyFact(
-                      icon: Icons.brush_outlined,
-                      label: 'paints a thumb',
-                    ),
+                    _KeyFact(icon: Icons.brush_outlined, label: 'paints a thumb'),
                     SizedBox(width: 18),
                     _KeyFact(icon: Icons.tune, label: '16 knobs'),
                     SizedBox(width: 18),
@@ -200,7 +213,10 @@ class _HeroHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 24),
-          Expanded(flex: 2, child: _HeroPreview()),
+          Expanded(
+            flex: 2,
+            child: _HeroPreview(),
+          ),
         ],
       ),
     );
@@ -351,7 +367,11 @@ class _HeroPreviewState extends State<_HeroPreview>
                     'A ScrollbarPainter driven by a synthetic\n'
                     'FixedScrollMetrics and a breathing\n'
                     'AnimationController.',
-                    style: TextStyle(color: _kInk, height: 1.4, fontSize: 13),
+                    style: TextStyle(
+                      color: _kInk,
+                      height: 1.4,
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
@@ -362,7 +382,9 @@ class _HeroPreviewState extends State<_HeroPreview>
             top: 0,
             bottom: 0,
             width: 22,
-            child: CustomPaint(painter: _PainterAdapter(_painter, metrics)),
+            child: CustomPaint(
+              painter: _PainterAdapter(_painter, metrics),
+            ),
           ),
         ],
       ),
@@ -405,7 +427,7 @@ class _PainterAdapter extends CustomPainter {
 // Horizontal variant — we need to pass horizontal size + axis.
 class _HorizontalPainterAdapter extends CustomPainter {
   _HorizontalPainterAdapter(this.painter, this.metrics)
-    : super(repaint: painter);
+      : super(repaint: painter);
 
   final ScrollbarPainter painter;
   final ScrollMetrics metrics;
@@ -526,7 +548,8 @@ class _DriverAndPanelsSectionState extends State<_DriverAndPanelsSection> {
       pixels: 0,
       viewportDimension: viewportHeight,
       axisDirection: AxisDirection.down,
-      devicePixelRatio: MediaQuery.maybeOf(context)?.devicePixelRatio ?? 1.0,
+      devicePixelRatio:
+          MediaQuery.maybeOf(context)?.devicePixelRatio ?? 1.0,
     );
   }
 
@@ -607,7 +630,9 @@ class _DriverListView extends StatelessWidget {
             alignment: Alignment.centerLeft,
             decoration: const BoxDecoration(
               color: _kCard,
-              border: Border(bottom: BorderSide(color: _kDivider)),
+              border: Border(
+                bottom: BorderSide(color: _kDivider),
+              ),
             ),
             child: const Text(
               'driver ListView',
@@ -808,7 +833,9 @@ class _PreviewPanel extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.09),
-              border: const Border(bottom: BorderSide(color: _kDivider)),
+              border: const Border(
+                bottom: BorderSide(color: _kDivider),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -847,7 +874,9 @@ class _PreviewPanel extends StatelessWidget {
           Expanded(
             child: Stack(
               children: <Widget>[
-                Positioned.fill(child: _FauxContentBackground(accent: accent)),
+                Positioned.fill(
+                  child: _FauxContentBackground(accent: accent),
+                ),
                 Positioned.fill(
                   child: LayoutBuilder(
                     builder: (BuildContext context, BoxConstraints c) {
@@ -976,7 +1005,8 @@ class _HorizontalPanelSectionState extends State<_HorizontalPanelSection> {
       pixels: 0,
       viewportDimension: viewportWidth,
       axisDirection: AxisDirection.right,
-      devicePixelRatio: MediaQuery.maybeOf(context)?.devicePixelRatio ?? 1.0,
+      devicePixelRatio:
+          MediaQuery.maybeOf(context)?.devicePixelRatio ?? 1.0,
     );
   }
 
@@ -1005,7 +1035,10 @@ class _HorizontalPanelSectionState extends State<_HorizontalPanelSection> {
               itemCount: 24,
               separatorBuilder: (_, _) => const SizedBox(width: 10),
               itemBuilder: (BuildContext context, int index) {
-                return _HorizontalTile(index: index, color: _horizColor(index));
+                return _HorizontalTile(
+                  index: index,
+                  color: _horizColor(index),
+                );
               },
             ),
           ),
@@ -1058,21 +1091,17 @@ class _HorizontalPanelSectionState extends State<_HorizontalPanelSection> {
                                     20,
                                   ),
                                   child: Row(
-                                    children: List<Widget>.generate(12, (
-                                      int i,
-                                    ) {
+                                    children: List<Widget>.generate(12,
+                                        (int i) {
                                       return Expanded(
                                         child: Container(
                                           margin: const EdgeInsets.symmetric(
-                                            horizontal: 2,
-                                          ),
+                                              horizontal: 2),
                                           decoration: BoxDecoration(
                                             color: _kAccent.withValues(
-                                              alpha: 0.08 + (i % 4) * 0.03,
-                                            ),
-                                            borderRadius: BorderRadius.circular(
-                                              4,
-                                            ),
+                                                alpha: 0.08 + (i % 4) * 0.03),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
                                           ),
                                         ),
                                       );
@@ -1112,7 +1141,11 @@ class _HorizontalPanelSectionState extends State<_HorizontalPanelSection> {
   }
 
   Color _horizColor(int i) {
-    const colors = <Color>[_kTeal, _kAccent, _kPurple];
+    const colors = <Color>[
+      _kTeal,
+      _kAccent,
+      _kPurple,
+    ];
     return colors[i % colors.length];
   }
 }
@@ -1140,7 +1173,10 @@ class _HorizontalTile extends StatelessWidget {
               Container(
                 width: 10,
                 height: 10,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 8),
               Text(
@@ -1308,25 +1344,23 @@ class _FadeDemoSectionState extends State<_FadeDemoSection>
                           animation: _controller,
                           builder: (BuildContext context, Widget? _) {
                             return LayoutBuilder(
-                              builder:
-                                  (BuildContext context, BoxConstraints c) {
-                                    final metrics = FixedScrollMetrics(
-                                      minScrollExtent: 0,
-                                      maxScrollExtent: 800,
-                                      pixels: _offset,
-                                      viewportDimension: c.maxHeight,
-                                      axisDirection: AxisDirection.down,
-                                      devicePixelRatio: MediaQuery.of(
-                                        context,
-                                      ).devicePixelRatio,
-                                    );
-                                    return CustomPaint(
-                                      painter: _PainterAdapter(
-                                        _painter,
-                                        metrics,
-                                      ),
-                                    );
-                                  },
+                              builder: (
+                                BuildContext context,
+                                BoxConstraints c,
+                              ) {
+                                final metrics = FixedScrollMetrics(
+                                  minScrollExtent: 0,
+                                  maxScrollExtent: 800,
+                                  pixels: _offset,
+                                  viewportDimension: c.maxHeight,
+                                  axisDirection: AxisDirection.down,
+                                  devicePixelRatio:
+                                      MediaQuery.of(context).devicePixelRatio,
+                                );
+                                return CustomPaint(
+                                  painter: _PainterAdapter(_painter, metrics),
+                                );
+                              },
                             );
                           },
                         ),
@@ -1384,7 +1418,10 @@ class _FadeDemoSectionState extends State<_FadeDemoSection>
                       const Text(
                         'Drag up to show, down to hide.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 11, color: _kInkSoft),
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: _kInkSoft,
+                        ),
                       ),
                     ],
                   ),
@@ -1414,7 +1451,8 @@ class _TrackStylingSection extends StatefulWidget {
   const _TrackStylingSection();
 
   @override
-  State<_TrackStylingSection> createState() => _TrackStylingSectionState();
+  State<_TrackStylingSection> createState() =>
+      _TrackStylingSectionState();
 }
 
 class _TrackStylingSectionState extends State<_TrackStylingSection> {
@@ -1534,16 +1572,16 @@ class _TrackStylingSectionState extends State<_TrackStylingSection> {
                           width: 40,
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           child: LayoutBuilder(
-                            builder: (BuildContext context, BoxConstraints c) {
+                            builder:
+                                (BuildContext context, BoxConstraints c) {
                               final metrics = FixedScrollMetrics(
                                 minScrollExtent: 0,
                                 maxScrollExtent: 800,
                                 pixels: _offset,
                                 viewportDimension: c.maxHeight,
                                 axisDirection: AxisDirection.down,
-                                devicePixelRatio: MediaQuery.of(
-                                  context,
-                                ).devicePixelRatio,
+                                devicePixelRatio:
+                                    MediaQuery.of(context).devicePixelRatio,
                               );
                               return CustomPaint(
                                 painter: _PainterAdapter(_painter, metrics),
@@ -1557,7 +1595,10 @@ class _TrackStylingSectionState extends State<_TrackStylingSection> {
                 ),
               ),
               const SizedBox(width: 18),
-              Expanded(flex: 2, child: _TrackStyleLegend()),
+              Expanded(
+                flex: 2,
+                child: _TrackStyleLegend(),
+              ),
             ],
           ),
         ],
@@ -1826,7 +1867,10 @@ class _ParameterReferenceSection extends StatelessWidget {
                 ),
                 const Divider(height: 1, color: _kDivider),
                 for (int i = 0; i < _params.length; i++)
-                  _ParamRowView(row: _params[i], even: i.isEven),
+                  _ParamRowView(
+                    row: _params[i],
+                    even: i.isEven,
+                  ),
               ],
             ),
           ),
@@ -1882,7 +1926,11 @@ class _ParamRowView extends StatelessWidget {
           Expanded(
             child: Text(
               row.description,
-              style: const TextStyle(fontSize: 12.5, color: _kInk, height: 1.4),
+              style: const TextStyle(
+                fontSize: 12.5,
+                color: _kInk,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -2152,7 +2200,11 @@ class _FooterCard extends StatelessWidget {
                   'Given ScrollMetrics + a canvas, paint a styled thumb and '
                   'optional track — that\'s it. Everything else in this '
                   'studio is sugar on top.',
-                  style: TextStyle(color: _kInkSoft, fontSize: 13, height: 1.4),
+                  style: TextStyle(
+                    color: _kInkSoft,
+                    fontSize: 13,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),

@@ -47,9 +47,7 @@ dynamic build(BuildContext context) {
   final Color mistShade = const Color(0xFFB7AE92);
 
   print('[atlas_parchment] vellumDeep=$vellumDeep globeIndigo=$globeIndigo');
-  print(
-    '[atlas_parchment] cinnabarCompass=$cinnabarCompass verdigris=$verdigris',
-  );
+  print('[atlas_parchment] cinnabarCompass=$cinnabarCompass verdigris=$verdigris');
 
   // ---------------------------------------------------------------------------
   // TYPOGRAPHIC STOPS
@@ -128,9 +126,7 @@ dynamic build(BuildContext context) {
     letterSpacing: 0.8,
   );
 
-  print(
-    '[atlas_parchment] typography registered: ${styleHeroTitle.fontSize}pt hero',
-  );
+  print('[atlas_parchment] typography registered: ${styleHeroTitle.fontSize}pt hero');
 
   // ---------------------------------------------------------------------------
   // DEFENSIVE LOCALE CONSTRUCTION
@@ -393,9 +389,7 @@ dynamic build(BuildContext context) {
     print('[atlas_parchment] Localizations.localeOf failed: $e');
   }
 
-  print(
-    '[atlas_parchment] ambient locale resolved: $ambientLocale ok=$ambientLocaleOk',
-  );
+  print('[atlas_parchment] ambient locale resolved: $ambientLocale ok=$ambientLocaleOk');
 
   // ---------------------------------------------------------------------------
   // CATALOG: rows of locale records used by the locale plate grid.
@@ -403,394 +397,126 @@ dynamic build(BuildContext context) {
   // currency, sampleGreeting, ok-flag-as-string].
   // ---------------------------------------------------------------------------
   final List<List<String>> localeCatalog = <List<String>>[
-    <String>[
-      'en-US',
-      'English',
-      'United States',
-      'LTR',
-      'Latin',
-      'USD',
-      'Hello, world.',
-      localeEnUsOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'en-GB',
-      'English',
-      'United Kingdom',
-      'LTR',
-      'Latin',
-      'GBP',
-      'Hello, world.',
-      localeEnGbOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'en-CA',
-      'English',
-      'Canada',
-      'LTR',
-      'Latin',
-      'CAD',
-      'Hello, world.',
-      localeEnCaOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'en-AU',
-      'English',
-      'Australia',
-      'LTR',
-      'Latin',
-      'AUD',
-      'G\'day, world.',
-      localeEnAuOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'de-DE',
-      'Deutsch',
-      'Deutschland',
-      'LTR',
-      'Latin',
-      'EUR',
-      'Hallo, Welt.',
-      localeDeDeOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'de-CH',
-      'Deutsch',
-      'Schweiz',
-      'LTR',
-      'Latin',
-      'CHF',
-      'Gruezi, Welt.',
-      localeDeChOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'de-AT',
-      'Deutsch',
-      'Osterreich',
-      'LTR',
-      'Latin',
-      'EUR',
-      'Servus, Welt.',
-      localeDeAtOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'fr-FR',
-      'Francais',
-      'France',
-      'LTR',
-      'Latin',
-      'EUR',
-      'Bonjour, monde.',
-      localeFrFrOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'fr-CA',
-      'Francais',
-      'Canada',
-      'LTR',
-      'Latin',
-      'CAD',
-      'Bonjour, monde.',
-      localeFrCaOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'ja-JP',
-      'Nihongo',
-      'Nippon',
-      'LTR',
-      'CJK',
-      'JPY',
-      'Konnichiwa, sekai.',
-      localeJaJpOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'ko-KR',
-      'Hangugeo',
-      'Daehan Minguk',
-      'LTR',
-      'CJK',
-      'KRW',
-      'Annyeong, segye.',
-      localeKoKrOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'ar-EG',
-      'al-arabiya',
-      'Misr',
-      'RTL',
-      'Arabic',
-      'EGP',
-      'marhaba, ya alam.',
-      localeArEgOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'ar-SA',
-      'al-arabiya',
-      'Su\'udiya',
-      'RTL',
-      'Arabic',
-      'SAR',
-      'as-salamu alaykum.',
-      localeArSaOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'he-IL',
-      'ivrit',
-      'Yisra\'el',
-      'RTL',
-      'Hebrew',
-      'ILS',
-      'shalom, olam.',
-      localeHeIlOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'zh-Hans',
-      'Zhongwen',
-      'Simplified',
-      'LTR',
-      'Han-Hans',
-      '---',
-      'ni hao, shi jie.',
-      localeZhHansOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'zh-Hant',
-      'Zhongwen',
-      'Traditional',
-      'LTR',
-      'Han-Hant',
-      '---',
-      'ni hao, shi jie.',
-      localeZhHantOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'zh-Hans-CN',
-      'Zhongwen',
-      'PRC (Simplified)',
-      'LTR',
-      'Han-Hans',
-      'CNY',
-      'ni hao, shi jie.',
-      localeZhCnOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'zh-Hant-TW',
-      'Zhongwen',
-      'Taiwan (Traditional)',
-      'LTR',
-      'Han-Hant',
-      'TWD',
-      'ni hao, shi jie.',
-      localeZhTwOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'sr-Cyrl',
-      'srpski',
-      'Serbia (Cyrillic)',
-      'LTR',
-      'Cyrillic',
-      'RSD',
-      'zdravo, svete.',
-      localeSrCyrlOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'sr-Latn',
-      'srpski',
-      'Serbia (Latin)',
-      'LTR',
-      'Latin',
-      'RSD',
-      'zdravo, svete.',
-      localeSrLatnOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'pt-BR',
-      'portugues',
-      'Brasil',
-      'LTR',
-      'Latin',
-      'BRL',
-      'Ola, mundo.',
-      localePtBrOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'pt-PT',
-      'portugues',
-      'Portugal',
-      'LTR',
-      'Latin',
-      'EUR',
-      'Ola, mundo.',
-      localePtPtOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'es-ES',
-      'espanol',
-      'Espana',
-      'LTR',
-      'Latin',
-      'EUR',
-      'Hola, mundo.',
-      localeEsEsOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'es-MX',
-      'espanol',
-      'Mexico',
-      'LTR',
-      'Latin',
-      'MXN',
-      'Hola, mundo.',
-      localeEsMxOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'ru-RU',
-      'russkiy',
-      'Rossiya',
-      'LTR',
-      'Cyrillic',
-      'RUB',
-      'privet, mir.',
-      localeRuRuOk ? 'live' : 'shadow',
-    ],
-    <String>[
-      'hi-IN',
-      'hindi',
-      'Bharat',
-      'LTR',
-      'Devanagari',
-      'INR',
-      'namaste, duniya.',
-      localeHiInOk ? 'live' : 'shadow',
-    ],
+    <String>['en-US', 'English', 'United States', 'LTR', 'Latin', 'USD',
+        'Hello, world.', localeEnUsOk ? 'live' : 'shadow'],
+    <String>['en-GB', 'English', 'United Kingdom', 'LTR', 'Latin', 'GBP',
+        'Hello, world.', localeEnGbOk ? 'live' : 'shadow'],
+    <String>['en-CA', 'English', 'Canada', 'LTR', 'Latin', 'CAD',
+        'Hello, world.', localeEnCaOk ? 'live' : 'shadow'],
+    <String>['en-AU', 'English', 'Australia', 'LTR', 'Latin', 'AUD',
+        'G\'day, world.', localeEnAuOk ? 'live' : 'shadow'],
+    <String>['de-DE', 'Deutsch', 'Deutschland', 'LTR', 'Latin', 'EUR',
+        'Hallo, Welt.', localeDeDeOk ? 'live' : 'shadow'],
+    <String>['de-CH', 'Deutsch', 'Schweiz', 'LTR', 'Latin', 'CHF',
+        'Gruezi, Welt.', localeDeChOk ? 'live' : 'shadow'],
+    <String>['de-AT', 'Deutsch', 'Osterreich', 'LTR', 'Latin', 'EUR',
+        'Servus, Welt.', localeDeAtOk ? 'live' : 'shadow'],
+    <String>['fr-FR', 'Francais', 'France', 'LTR', 'Latin', 'EUR',
+        'Bonjour, monde.', localeFrFrOk ? 'live' : 'shadow'],
+    <String>['fr-CA', 'Francais', 'Canada', 'LTR', 'Latin', 'CAD',
+        'Bonjour, monde.', localeFrCaOk ? 'live' : 'shadow'],
+    <String>['ja-JP', 'Nihongo', 'Nippon', 'LTR', 'CJK', 'JPY',
+        'Konnichiwa, sekai.', localeJaJpOk ? 'live' : 'shadow'],
+    <String>['ko-KR', 'Hangugeo', 'Daehan Minguk', 'LTR', 'CJK', 'KRW',
+        'Annyeong, segye.', localeKoKrOk ? 'live' : 'shadow'],
+    <String>['ar-EG', 'al-arabiya', 'Misr', 'RTL', 'Arabic', 'EGP',
+        'marhaba, ya alam.', localeArEgOk ? 'live' : 'shadow'],
+    <String>['ar-SA', 'al-arabiya', 'Su\'udiya', 'RTL', 'Arabic', 'SAR',
+        'as-salamu alaykum.', localeArSaOk ? 'live' : 'shadow'],
+    <String>['he-IL', 'ivrit', 'Yisra\'el', 'RTL', 'Hebrew', 'ILS',
+        'shalom, olam.', localeHeIlOk ? 'live' : 'shadow'],
+    <String>['zh-Hans', 'Zhongwen', 'Simplified', 'LTR', 'Han-Hans', '---',
+        'ni hao, shi jie.', localeZhHansOk ? 'live' : 'shadow'],
+    <String>['zh-Hant', 'Zhongwen', 'Traditional', 'LTR', 'Han-Hant', '---',
+        'ni hao, shi jie.', localeZhHantOk ? 'live' : 'shadow'],
+    <String>['zh-Hans-CN', 'Zhongwen', 'PRC (Simplified)', 'LTR', 'Han-Hans',
+        'CNY', 'ni hao, shi jie.', localeZhCnOk ? 'live' : 'shadow'],
+    <String>['zh-Hant-TW', 'Zhongwen', 'Taiwan (Traditional)', 'LTR',
+        'Han-Hant', 'TWD', 'ni hao, shi jie.', localeZhTwOk ? 'live' : 'shadow'],
+    <String>['sr-Cyrl', 'srpski', 'Serbia (Cyrillic)', 'LTR', 'Cyrillic', 'RSD',
+        'zdravo, svete.', localeSrCyrlOk ? 'live' : 'shadow'],
+    <String>['sr-Latn', 'srpski', 'Serbia (Latin)', 'LTR', 'Latin', 'RSD',
+        'zdravo, svete.', localeSrLatnOk ? 'live' : 'shadow'],
+    <String>['pt-BR', 'portugues', 'Brasil', 'LTR', 'Latin', 'BRL',
+        'Ola, mundo.', localePtBrOk ? 'live' : 'shadow'],
+    <String>['pt-PT', 'portugues', 'Portugal', 'LTR', 'Latin', 'EUR',
+        'Ola, mundo.', localePtPtOk ? 'live' : 'shadow'],
+    <String>['es-ES', 'espanol', 'Espana', 'LTR', 'Latin', 'EUR',
+        'Hola, mundo.', localeEsEsOk ? 'live' : 'shadow'],
+    <String>['es-MX', 'espanol', 'Mexico', 'LTR', 'Latin', 'MXN',
+        'Hola, mundo.', localeEsMxOk ? 'live' : 'shadow'],
+    <String>['ru-RU', 'russkiy', 'Rossiya', 'LTR', 'Cyrillic', 'RUB',
+        'privet, mir.', localeRuRuOk ? 'live' : 'shadow'],
+    <String>['hi-IN', 'hindi', 'Bharat', 'LTR', 'Devanagari', 'INR',
+        'namaste, duniya.', localeHiInOk ? 'live' : 'shadow'],
   ];
 
   print('[atlas_parchment] catalog rows = ${localeCatalog.length}');
 
   // Probe every constructed Locale so the runtime confirms each instance is
   // reachable. Each line emits the toLanguageTag() (or a shadow marker).
-  print(
-    '[atlas_parchment] localeEnUs    = '
-    '${localeEnUs == null ? '<shadow>' : localeEnUs.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeEnGb    = '
-    '${localeEnGb == null ? '<shadow>' : localeEnGb.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeEnCa    = '
-    '${localeEnCa == null ? '<shadow>' : localeEnCa.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeEnAu    = '
-    '${localeEnAu == null ? '<shadow>' : localeEnAu.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeDeDe    = '
-    '${localeDeDe == null ? '<shadow>' : localeDeDe.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeDeCh    = '
-    '${localeDeCh == null ? '<shadow>' : localeDeCh.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeDeAt    = '
-    '${localeDeAt == null ? '<shadow>' : localeDeAt.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeFrFr    = '
-    '${localeFrFr == null ? '<shadow>' : localeFrFr.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeFrCa    = '
-    '${localeFrCa == null ? '<shadow>' : localeFrCa.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeJaJp    = '
-    '${localeJaJp == null ? '<shadow>' : localeJaJp.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeKoKr    = '
-    '${localeKoKr == null ? '<shadow>' : localeKoKr.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeArEg    = '
-    '${localeArEg == null ? '<shadow>' : localeArEg.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeArSa    = '
-    '${localeArSa == null ? '<shadow>' : localeArSa.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeHeIl    = '
-    '${localeHeIl == null ? '<shadow>' : localeHeIl.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeZhHans  = '
-    '${localeZhHans == null ? '<shadow>' : localeZhHans.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeZhHant  = '
-    '${localeZhHant == null ? '<shadow>' : localeZhHant.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeZhCn    = '
-    '${localeZhCn == null ? '<shadow>' : localeZhCn.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeZhTw    = '
-    '${localeZhTw == null ? '<shadow>' : localeZhTw.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeSrCyrl  = '
-    '${localeSrCyrl == null ? '<shadow>' : localeSrCyrl.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeSrLatn  = '
-    '${localeSrLatn == null ? '<shadow>' : localeSrLatn.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localePtBr    = '
-    '${localePtBr == null ? '<shadow>' : localePtBr.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localePtPt    = '
-    '${localePtPt == null ? '<shadow>' : localePtPt.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeEsEs    = '
-    '${localeEsEs == null ? '<shadow>' : localeEsEs.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeEsMx    = '
-    '${localeEsMx == null ? '<shadow>' : localeEsMx.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeRuRu    = '
-    '${localeRuRu == null ? '<shadow>' : localeRuRu.toLanguageTag()}',
-  );
-  print(
-    '[atlas_parchment] localeHiIn    = '
-    '${localeHiIn == null ? '<shadow>' : localeHiIn.toLanguageTag()}',
-  );
+  print('[atlas_parchment] localeEnUs    = '
+      '${localeEnUs == null ? '<shadow>' : localeEnUs.toLanguageTag()}');
+  print('[atlas_parchment] localeEnGb    = '
+      '${localeEnGb == null ? '<shadow>' : localeEnGb.toLanguageTag()}');
+  print('[atlas_parchment] localeEnCa    = '
+      '${localeEnCa == null ? '<shadow>' : localeEnCa.toLanguageTag()}');
+  print('[atlas_parchment] localeEnAu    = '
+      '${localeEnAu == null ? '<shadow>' : localeEnAu.toLanguageTag()}');
+  print('[atlas_parchment] localeDeDe    = '
+      '${localeDeDe == null ? '<shadow>' : localeDeDe.toLanguageTag()}');
+  print('[atlas_parchment] localeDeCh    = '
+      '${localeDeCh == null ? '<shadow>' : localeDeCh.toLanguageTag()}');
+  print('[atlas_parchment] localeDeAt    = '
+      '${localeDeAt == null ? '<shadow>' : localeDeAt.toLanguageTag()}');
+  print('[atlas_parchment] localeFrFr    = '
+      '${localeFrFr == null ? '<shadow>' : localeFrFr.toLanguageTag()}');
+  print('[atlas_parchment] localeFrCa    = '
+      '${localeFrCa == null ? '<shadow>' : localeFrCa.toLanguageTag()}');
+  print('[atlas_parchment] localeJaJp    = '
+      '${localeJaJp == null ? '<shadow>' : localeJaJp.toLanguageTag()}');
+  print('[atlas_parchment] localeKoKr    = '
+      '${localeKoKr == null ? '<shadow>' : localeKoKr.toLanguageTag()}');
+  print('[atlas_parchment] localeArEg    = '
+      '${localeArEg == null ? '<shadow>' : localeArEg.toLanguageTag()}');
+  print('[atlas_parchment] localeArSa    = '
+      '${localeArSa == null ? '<shadow>' : localeArSa.toLanguageTag()}');
+  print('[atlas_parchment] localeHeIl    = '
+      '${localeHeIl == null ? '<shadow>' : localeHeIl.toLanguageTag()}');
+  print('[atlas_parchment] localeZhHans  = '
+      '${localeZhHans == null ? '<shadow>' : localeZhHans.toLanguageTag()}');
+  print('[atlas_parchment] localeZhHant  = '
+      '${localeZhHant == null ? '<shadow>' : localeZhHant.toLanguageTag()}');
+  print('[atlas_parchment] localeZhCn    = '
+      '${localeZhCn == null ? '<shadow>' : localeZhCn.toLanguageTag()}');
+  print('[atlas_parchment] localeZhTw    = '
+      '${localeZhTw == null ? '<shadow>' : localeZhTw.toLanguageTag()}');
+  print('[atlas_parchment] localeSrCyrl  = '
+      '${localeSrCyrl == null ? '<shadow>' : localeSrCyrl.toLanguageTag()}');
+  print('[atlas_parchment] localeSrLatn  = '
+      '${localeSrLatn == null ? '<shadow>' : localeSrLatn.toLanguageTag()}');
+  print('[atlas_parchment] localePtBr    = '
+      '${localePtBr == null ? '<shadow>' : localePtBr.toLanguageTag()}');
+  print('[atlas_parchment] localePtPt    = '
+      '${localePtPt == null ? '<shadow>' : localePtPt.toLanguageTag()}');
+  print('[atlas_parchment] localeEsEs    = '
+      '${localeEsEs == null ? '<shadow>' : localeEsEs.toLanguageTag()}');
+  print('[atlas_parchment] localeEsMx    = '
+      '${localeEsMx == null ? '<shadow>' : localeEsMx.toLanguageTag()}');
+  print('[atlas_parchment] localeRuRu    = '
+      '${localeRuRu == null ? '<shadow>' : localeRuRu.toLanguageTag()}');
+  print('[atlas_parchment] localeHiIn    = '
+      '${localeHiIn == null ? '<shadow>' : localeHiIn.toLanguageTag()}');
 
   // ---------------------------------------------------------------------------
   // API SURFACE TABLE (Locale)
   // ---------------------------------------------------------------------------
   final List<List<String>> localeApiRows = <List<String>>[
     <String>['Locale(lang)', 'ctor', 'Locale("en")', 'language only'],
-    <String>[
-      'Locale(lang, region)',
-      'ctor',
-      'Locale("en", "US")',
-      'common shorthand',
-    ],
-    <String>[
-      'Locale.fromSubtags',
-      'ctor',
-      'Locale.fromSubtags(...)',
-      'full BCP47 control',
-    ],
+    <String>['Locale(lang, region)', 'ctor', 'Locale("en", "US")',
+        'common shorthand'],
+    <String>['Locale.fromSubtags', 'ctor', 'Locale.fromSubtags(...)',
+        'full BCP47 control'],
     <String>['languageCode', 'String', 'en, de, ja, zh', 'ISO 639'],
     <String>['countryCode', 'String?', 'US, CH, JP', 'ISO 3166'],
     <String>['scriptCode', 'String?', 'Hans, Hant, Cyrl', 'ISO 15924'],
@@ -806,21 +532,12 @@ dynamic build(BuildContext context) {
     <String>['fr-CA', 'fr-CA -> fr -> en (default)', 'region drops first'],
     <String>['de-CH', 'de-CH -> de -> en', 'region drops to base'],
     <String>['en-AU', 'en-AU -> en -> (none)', 'language already base'],
-    <String>[
-      'zh-Hant-TW',
-      'zh-Hant-TW -> zh-Hant -> zh -> en',
-      'script preserved before language base',
-    ],
-    <String>[
-      'zh-Hans-CN',
-      'zh-Hans-CN -> zh-Hans -> zh -> en',
-      'script aware fallback',
-    ],
-    <String>[
-      'sr-Cyrl',
-      'sr-Cyrl -> sr -> en',
-      'script may be required disambiguator',
-    ],
+    <String>['zh-Hant-TW', 'zh-Hant-TW -> zh-Hant -> zh -> en',
+        'script preserved before language base'],
+    <String>['zh-Hans-CN', 'zh-Hans-CN -> zh-Hans -> zh -> en',
+        'script aware fallback'],
+    <String>['sr-Cyrl', 'sr-Cyrl -> sr -> en',
+        'script may be required disambiguator'],
     <String>['pt-BR', 'pt-BR -> pt -> en', 'BR vs PT regional split'],
     <String>['ar-EG', 'ar-EG -> ar -> en', 'RTL: dir flips on resolution'],
   ];
@@ -829,57 +546,28 @@ dynamic build(BuildContext context) {
   // FLOWCHART NODES (Localizations -> override -> MaterialApp.locale -> system)
   // ---------------------------------------------------------------------------
   final List<List<String>> flowchartNodes = <List<String>>[
-    <String>[
-      '1',
-      'WidgetsBinding.platformDispatcher.locales',
-      'OS-level system locales (ordered preference list)',
-    ],
-    <String>[
-      '2',
-      'WidgetsApp.localeListResolutionCallback',
-      'first chance to map system locales -> supported locale',
-    ],
-    <String>[
-      '3',
-      'WidgetsApp.localeResolutionCallback',
-      'fallback when listResolution returns null',
-    ],
-    <String>[
-      '4',
-      'MaterialApp.locale (explicit)',
-      'pinned locale: bypasses system selection',
-    ],
-    <String>[
-      '5',
-      'MaterialApp.supportedLocales',
-      'whitelist used for narrowing system locales',
-    ],
-    <String>[
-      '6',
-      'Localizations widget (root)',
-      'inherited widget broadcasting Locale to descendants',
-    ],
-    <String>[
-      '7',
-      'Localizations.override(...)',
-      'subtree-level override; nests within parent',
-    ],
-    <String>[
-      '8',
-      'Localizations.localeOf(context)',
-      'leaf widget reads ambient locale',
-    ],
-    <String>[
-      '9',
-      'LocaleSnapshotNotification (conceptual)',
-      'broadcast wrapper used by router/shell layers to react to changes',
-    ],
+    <String>['1', 'WidgetsBinding.platformDispatcher.locales',
+        'OS-level system locales (ordered preference list)'],
+    <String>['2', 'WidgetsApp.localeListResolutionCallback',
+        'first chance to map system locales -> supported locale'],
+    <String>['3', 'WidgetsApp.localeResolutionCallback',
+        'fallback when listResolution returns null'],
+    <String>['4', 'MaterialApp.locale (explicit)',
+        'pinned locale: bypasses system selection'],
+    <String>['5', 'MaterialApp.supportedLocales',
+        'whitelist used for narrowing system locales'],
+    <String>['6', 'Localizations widget (root)',
+        'inherited widget broadcasting Locale to descendants'],
+    <String>['7', 'Localizations.override(...)',
+        'subtree-level override; nests within parent'],
+    <String>['8', 'Localizations.localeOf(context)',
+        'leaf widget reads ambient locale'],
+    <String>['9', 'LocaleSnapshotNotification (conceptual)',
+        'broadcast wrapper used by router/shell layers to react to changes'],
   ];
 
-  print(
-    '[atlas_parchment] phase 3/9 -- flowchart nodes registered: '
-    '${flowchartNodes.length}',
-  );
+  print('[atlas_parchment] phase 3/9 -- flowchart nodes registered: '
+      '${flowchartNodes.length}');
 
   // ---------------------------------------------------------------------------
   // GLOSSARY ROWS
@@ -893,20 +581,11 @@ dynamic build(BuildContext context) {
     <String>['LTR', 'left-to-right text direction (Latin, CJK, Cyrillic)'],
     <String>['RTL', 'right-to-left text direction (Arabic, Hebrew, Syriac)'],
     <String>['Bidi', 'bidirectional text layout combining LTR/RTL runs'],
-    <String>[
-      'Localizations',
-      'inherited widget broadcasting Locale + delegates',
-    ],
+    <String>['Localizations', 'inherited widget broadcasting Locale + delegates'],
     <String>['Delegate', 'factory producing localized resources for a Locale'],
-    <String>[
-      'Fallback',
-      'process of relaxing tag specificity until match found',
-    ],
+    <String>['Fallback', 'process of relaxing tag specificity until match found'],
     <String>['Snapshot', 'immutable Locale value captured at a point in time'],
-    <String>[
-      'Notification',
-      'bubbling widget-tree event (we read, never sub.)',
-    ],
+    <String>['Notification', 'bubbling widget-tree event (we read, never sub.)'],
     <String>['Override', 'subtree-scoped Locale replacing parent ambient'],
     <String>['Resolution', 'mapping system locale list to supported locale'],
     <String>['Pinned locale', 'MaterialApp.locale forcing a specific tag'],
@@ -916,150 +595,88 @@ dynamic build(BuildContext context) {
   // PITFALLS TABLE
   // ---------------------------------------------------------------------------
   final List<List<String>> pitfallRows = <List<String>>[
-    <String>[
-      'Pinned locale ignores system',
-      'MaterialApp(locale: en) overrides device language; users get wrong UI',
-    ],
-    <String>[
-      'Missing supportedLocales',
-      'system selects first supported -> all users get the dev language',
-    ],
-    <String>[
-      'Wrong delegate order',
-      'app delegates appearing after Material delegate may be shadowed',
-    ],
-    <String>[
-      'Locale.fromSubtags misuse',
-      'passing region as scriptCode silently produces tag like zh-CN-Hans',
-    ],
-    <String>[
-      'Equality on raw strings',
-      'comparing locale.toString() vs toLanguageTag(); underscore vs dash',
-    ],
-    <String>[
-      'No script disambiguator for zh/sr',
-      'zh alone -> Flutter may pick Hans or Hant unpredictably',
-    ],
-    <String>[
-      'Hard-coded LTR layouts',
-      'Padding(left: 16) does not flip; use EdgeInsetsDirectional.only(start)',
-    ],
-    <String>[
-      'Non-bubbling locale changes',
-      'subtree did not rebuild because Localizations.override was missed',
-    ],
-    <String>[
-      'BuildContext below new override',
-      'Localizations.localeOf reads override-scope, not root-scope',
-    ],
-    <String>[
-      'Region-only delta ignored',
-      'fr-CA -> fr-FR may not retrigger l10n if delegate keys are language-only',
-    ],
+    <String>['Pinned locale ignores system',
+        'MaterialApp(locale: en) overrides device language; users get wrong UI'],
+    <String>['Missing supportedLocales',
+        'system selects first supported -> all users get the dev language'],
+    <String>['Wrong delegate order',
+        'app delegates appearing after Material delegate may be shadowed'],
+    <String>['Locale.fromSubtags misuse',
+        'passing region as scriptCode silently produces tag like zh-CN-Hans'],
+    <String>['Equality on raw strings',
+        'comparing locale.toString() vs toLanguageTag(); underscore vs dash'],
+    <String>['No script disambiguator for zh/sr',
+        'zh alone -> Flutter may pick Hans or Hant unpredictably'],
+    <String>['Hard-coded LTR layouts',
+        'Padding(left: 16) does not flip; use EdgeInsetsDirectional.only(start)'],
+    <String>['Non-bubbling locale changes',
+        'subtree did not rebuild because Localizations.override was missed'],
+    <String>['BuildContext below new override',
+        'Localizations.localeOf reads override-scope, not root-scope'],
+    <String>['Region-only delta ignored',
+        'fr-CA -> fr-FR may not retrigger l10n if delegate keys are language-only'],
   ];
 
   // ---------------------------------------------------------------------------
   // COMPARISON TABLE: Localizations vs LocaleSnapshotNotification vs fromSubtags
   // ---------------------------------------------------------------------------
   final List<List<String>> comparisonRows = <List<String>>[
-    <String>[
-      'Concept',
-      'Localizations widget',
-      'LocaleSnapshotNotification (concept)',
-      'Locale.fromSubtags',
-    ],
-    <String>[
-      'Layer',
-      'inherited widget',
-      'bubbling tree event',
-      'value object',
-    ],
-    <String>[
-      'Lifetime',
-      'long-lived (rebuilds on locale change)',
-      'instantaneous broadcast',
-      'immutable record',
-    ],
-    <String>[
-      'Direction',
-      'top-down via InheritedWidget',
-      'bottom-up via Notification',
-      'pure data',
-    ],
-    <String>[
-      'Mutability',
-      'immutable per-frame',
-      'immutable payload',
-      'immutable',
-    ],
-    <String>[
-      'Reads',
-      'Localizations.localeOf(ctx)',
-      'NotificationListener<...> (read-only here)',
-      '.languageCode, .countryCode, .scriptCode',
-    ],
-    <String>[
-      'Use case',
-      'broadcast ambient locale',
-      'audit/log/route on snapshot delta',
-      'construct precise tags',
-    ],
-    <String>[
-      'Pitfall',
-      'reading too early in build',
-      'mutating onNotification (forbidden in this manual)',
-      'mis-ordering script vs region',
-    ],
+    <String>['Concept', 'Localizations widget',
+        'LocaleSnapshotNotification (concept)', 'Locale.fromSubtags'],
+    <String>['Layer', 'inherited widget',
+        'bubbling tree event', 'value object'],
+    <String>['Lifetime', 'long-lived (rebuilds on locale change)',
+        'instantaneous broadcast', 'immutable record'],
+    <String>['Direction', 'top-down via InheritedWidget',
+        'bottom-up via Notification', 'pure data'],
+    <String>['Mutability', 'immutable per-frame',
+        'immutable payload', 'immutable'],
+    <String>['Reads', 'Localizations.localeOf(ctx)',
+        'NotificationListener<...> (read-only here)',
+        '.languageCode, .countryCode, .scriptCode'],
+    <String>['Use case', 'broadcast ambient locale',
+        'audit/log/route on snapshot delta', 'construct precise tags'],
+    <String>['Pitfall', 'reading too early in build',
+        'mutating onNotification (forbidden in this manual)',
+        'mis-ordering script vs region'],
   ];
 
   // ---------------------------------------------------------------------------
   // SCENARIO PANELS
   // ---------------------------------------------------------------------------
   final List<List<String>> scenarioRows = <List<String>>[
-    <String>[
-      'Multi-language storefront',
-      'Catalog page must render product names in 8 locales with proper '
-          'currency formatting and RTL aware checkout flow.',
-      'Pin MaterialApp.supportedLocales to the curated set; rely on '
-          'localeListResolutionCallback to honour user preference order; '
-          'use Directionality from Localizations.localeOf() to flip the '
-          'product image gallery.',
-    ],
-    <String>[
-      'Regional formatting island',
-      'A single date picker inside an English app must render in fr-CA '
-          'for the Quebec branch only.',
-      'Wrap that subtree in Localizations.override(locale: Locale("fr","CA")). '
-          'Do not pin MaterialApp.locale or you will affect the whole shell.',
-    ],
-    <String>[
-      'Language fallback for documentation',
-      'Help articles ship in en, de, and ja. A user with locale fr-CA '
-          'visits the help center.',
-      'Implement explicit fallback fr-CA -> fr -> en. Do not blindly trust '
-          'the Material delegate; provide an app-level delegate first.',
-    ],
-    <String>[
-      'Bidirectional product reviews',
-      'Reviews come from users in both en-US and ar-EG, mixed into one '
-          'feed. Each review must render in its own direction.',
-      'Determine direction per review from the review locale, not from the '
-          'ambient Localizations. Wrap each tile in Directionality.',
-    ],
-    <String>[
-      'Script aware sort',
-      'Catalog title sort must place zh-Hans before zh-Hant for the PRC '
-          'channel and the inverse for Taiwan.',
-      'Use Locale.fromSubtags to disambiguate; do not rely on language '
-          'code alone -- both share zh.',
-    ],
-    <String>[
-      'Locale audit trail',
-      'Compliance team needs every page render tagged with the active '
-          'BCP47 locale tag for export.',
-      'Capture Localizations.localeOf(context).toLanguageTag() into the '
-          'analytics payload at the leaf, not at the shell.',
-    ],
+    <String>['Multi-language storefront',
+        'Catalog page must render product names in 8 locales with proper '
+            'currency formatting and RTL aware checkout flow.',
+        'Pin MaterialApp.supportedLocales to the curated set; rely on '
+            'localeListResolutionCallback to honour user preference order; '
+            'use Directionality from Localizations.localeOf() to flip the '
+            'product image gallery.'],
+    <String>['Regional formatting island',
+        'A single date picker inside an English app must render in fr-CA '
+            'for the Quebec branch only.',
+        'Wrap that subtree in Localizations.override(locale: Locale("fr","CA")). '
+            'Do not pin MaterialApp.locale or you will affect the whole shell.'],
+    <String>['Language fallback for documentation',
+        'Help articles ship in en, de, and ja. A user with locale fr-CA '
+            'visits the help center.',
+        'Implement explicit fallback fr-CA -> fr -> en. Do not blindly trust '
+            'the Material delegate; provide an app-level delegate first.'],
+    <String>['Bidirectional product reviews',
+        'Reviews come from users in both en-US and ar-EG, mixed into one '
+            'feed. Each review must render in its own direction.',
+        'Determine direction per review from the review locale, not from the '
+            'ambient Localizations. Wrap each tile in Directionality.'],
+    <String>['Script aware sort',
+        'Catalog title sort must place zh-Hans before zh-Hant for the PRC '
+            'channel and the inverse for Taiwan.',
+        'Use Locale.fromSubtags to disambiguate; do not rely on language '
+            'code alone -- both share zh.'],
+    <String>['Locale audit trail',
+        'Compliance team needs every page render tagged with the active '
+            'BCP47 locale tag for export.',
+        'Capture Localizations.localeOf(context).toLanguageTag() into the '
+            'analytics payload at the leaf, not at the shell.'],
   ];
 
   // ---------------------------------------------------------------------------
@@ -1068,26 +685,16 @@ dynamic build(BuildContext context) {
   final List<List<String>> ambientProbe = <List<String>>[
     <String>['ambient.localeOf', '${ambientLocale ?? '<null>'}'],
     <String>['ambient.constructionOk', '$ambientLocaleOk'],
-    <String>[
-      'ambient.languageCode',
-      ambientLocale == null ? '<null>' : ambientLocale.languageCode,
-    ],
-    <String>[
-      'ambient.countryCode',
-      ambientLocale == null ? '<null>' : '${ambientLocale.countryCode}',
-    ],
-    <String>[
-      'ambient.scriptCode',
-      ambientLocale == null ? '<null>' : '${ambientLocale.scriptCode}',
-    ],
-    <String>[
-      'ambient.toLanguageTag',
-      ambientLocale == null ? '<null>' : ambientLocale.toLanguageTag(),
-    ],
-    <String>[
-      'ambient.toString',
-      ambientLocale == null ? '<null>' : ambientLocale.toString(),
-    ],
+    <String>['ambient.languageCode',
+        ambientLocale == null ? '<null>' : ambientLocale.languageCode],
+    <String>['ambient.countryCode',
+        ambientLocale == null ? '<null>' : '${ambientLocale.countryCode}'],
+    <String>['ambient.scriptCode',
+        ambientLocale == null ? '<null>' : '${ambientLocale.scriptCode}'],
+    <String>['ambient.toLanguageTag',
+        ambientLocale == null ? '<null>' : ambientLocale.toLanguageTag()],
+    <String>['ambient.toString',
+        ambientLocale == null ? '<null>' : ambientLocale.toString()],
   ];
 
   print('[atlas_parchment] phase 4/9 -- ambient probe captured');
@@ -1139,7 +746,10 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[globeIndigo, globeMidnight],
+          colors: <Color>[
+            globeIndigo,
+            globeMidnight,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1147,7 +757,9 @@ dynamic build(BuildContext context) {
           topLeft: Radius.circular(14.0),
           topRight: Radius.circular(14.0),
         ),
-        border: Border(bottom: BorderSide(color: brassEdge, width: 2.0)),
+        border: Border(
+          bottom: BorderSide(color: brassEdge, width: 2.0),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -1212,10 +824,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: vellumIvory,
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(
-          color: sepiaRule.withValues(alpha: 0.45),
-          width: 1.2,
-        ),
+        border: Border.all(color: sepiaRule.withValues(alpha: 0.45), width: 1.2),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: globeMidnight.withValues(alpha: 0.10),
@@ -1229,7 +838,10 @@ dynamic build(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           header,
-          Padding(padding: const EdgeInsets.all(18.0), child: body),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: body,
+          ),
         ],
       ),
     );
@@ -1245,7 +857,11 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[vellumChalk, vellumPale, vellumWarm],
+        colors: <Color>[
+          vellumChalk,
+          vellumPale,
+          vellumWarm,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1291,17 +907,13 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(
-                    'ATLAS PARCHMENT FIELD MANUAL',
-                    style: styleHeroSubtitle,
-                  ),
+                  Text('ATLAS PARCHMENT FIELD MANUAL',
+                      style: styleHeroSubtitle),
                   const SizedBox(height: 4.0),
                   Text('LocaleSnapshotNotification', style: styleHeroTitle),
                   const SizedBox(height: 2.0),
-                  Text(
-                    'A Cartographer\'s Pocket Guide',
-                    style: styleSectionHeader,
-                  ),
+                  Text('A Cartographer\'s Pocket Guide',
+                      style: styleSectionHeader),
                   const SizedBox(height: 4.0),
                   Text(
                     'A bilingual cartographer\'s pocket guide to '
@@ -1332,20 +944,14 @@ dynamic build(BuildContext context) {
           runSpacing: 10.0,
           children: <Widget>[
             makeStatChip('LOCALES', '${localeCatalog.length}', globeIndigo),
-            makeStatChip(
-              'AMBIENT',
-              ambientLocale == null ? '<null>' : ambientLocale.toLanguageTag(),
-              cinnabarCompass,
-            ),
+            makeStatChip('AMBIENT',
+                ambientLocale == null ? '<null>' : ambientLocale.toLanguageTag(),
+                cinnabarCompass),
             makeStatChip('FALLBACKS', '${fallbackRows.length}', verdigris),
             makeStatChip('SCENARIOS', '${scenarioRows.length}', sepiaRule),
             makeStatChip('PITFALLS', '${pitfallRows.length}', cinnabarRust),
             makeStatChip('GLOSSARY', '${glossaryRows.length}', brassEdge),
-            makeStatChip(
-              'FLOW NODES',
-              '${flowchartNodes.length}',
-              globeMidnight,
-            ),
+            makeStatChip('FLOW NODES', '${flowchartNodes.length}', globeMidnight),
             makeStatChip('API ROWS', '${localeApiRows.length}', globeIndigo),
           ],
         ),
@@ -1363,7 +969,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(width: 4.0, height: 60.0, color: cinnabarCompass),
+              Container(
+                width: 4.0,
+                height: 60.0,
+                color: cinnabarCompass,
+              ),
               const SizedBox(width: 12.0),
               Expanded(
                 child: Column(
@@ -1444,9 +1054,7 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 3.0,
-                  ),
+                      horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: plateAccent,
                     borderRadius: BorderRadius.circular(4.0),
@@ -1456,9 +1064,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(width: 8.0),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                      horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: isRtl
                         ? cinnabarCompass.withValues(alpha: 0.20)
@@ -1493,22 +1099,18 @@ dynamic build(BuildContext context) {
               ],
             ),
             const SizedBox(height: 10.0),
-            Text(
-              language,
-              style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.w800,
-                color: globeMidnight,
-              ),
-            ),
+            Text(language,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w800,
+                  color: globeMidnight,
+                )),
             const SizedBox(height: 2.0),
             Text(region, style: styleCaption),
             const SizedBox(height: 8.0),
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 4.0,
-              ),
+                  horizontal: 6.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: plateAccent.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(4.0),
@@ -1555,11 +1157,8 @@ dynamic build(BuildContext context) {
   }
 
   final Widget catalogSection = makePanel(
-    makeSectionBar(
-      'II',
-      'Locale catalog',
-      'Twenty-six plates. Solid border = live; dashed tone = shadow.',
-    ),
+    makeSectionBar('II', 'Locale catalog',
+        'Twenty-six plates. Solid border = live; dashed tone = shadow.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -1573,7 +1172,9 @@ dynamic build(BuildContext context) {
           style: styleBody,
         ),
         const SizedBox(height: 14.0),
-        Wrap(children: catalogPlates),
+        Wrap(
+          children: catalogPlates,
+        ),
       ],
     ),
   );
@@ -1584,80 +1185,75 @@ dynamic build(BuildContext context) {
   print('[atlas_parchment] phase 7/9 -- composing tables');
 
   final List<TableRow> apiTableRows = <TableRow>[];
-  apiTableRows.add(
-    TableRow(
-      decoration: BoxDecoration(color: globeIndigo),
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Symbol', style: styleTableHeader),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Kind', style: styleTableHeader),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Example', style: styleTableHeader),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Notes', style: styleTableHeader),
-        ),
-      ],
+  apiTableRows.add(TableRow(
+    decoration: BoxDecoration(
+      color: globeIndigo,
     ),
-  );
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('Symbol', style: styleTableHeader),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('Kind', style: styleTableHeader),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('Example', style: styleTableHeader),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('Notes', style: styleTableHeader),
+      ),
+    ],
+  ));
   for (int i = 0; i < localeApiRows.length; i++) {
     final List<String> r = localeApiRows[i];
     final bool zebra = i % 2 == 0;
-    apiTableRows.add(
-      TableRow(
-        decoration: BoxDecoration(color: zebra ? vellumChalk : vellumPale),
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(r[0], style: styleMonoAccent),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 2.0,
-              ),
-              decoration: BoxDecoration(
-                color: verdigris.withValues(alpha: 0.18),
-                borderRadius: BorderRadius.circular(4.0),
-              ),
-              child: Text(
-                r[1],
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: verdigris,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'monospace',
-                ),
+    apiTableRows.add(TableRow(
+      decoration: BoxDecoration(
+        color: zebra ? vellumChalk : vellumPale,
+      ),
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[0], style: styleMonoAccent),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6.0, vertical: 2.0),
+            decoration: BoxDecoration(
+              color: verdigris.withValues(alpha: 0.18),
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+            child: Text(
+              r[1],
+              style: TextStyle(
+                fontSize: 11.0,
+                color: verdigris,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'monospace',
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(r[2], style: styleMono),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(r[3], style: styleTableCell),
-          ),
-        ],
-      ),
-    );
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[2], style: styleMono),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[3], style: styleTableCell),
+        ),
+      ],
+    ));
   }
   final Widget apiSection = makePanel(
-    makeSectionBar(
-      'III',
-      'Locale API surface',
-      'Constructors, identifiers, and string forms.',
-    ),
+    makeSectionBar('III', 'Locale API surface',
+        'Constructors, identifiers, and string forms.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -1711,90 +1307,87 @@ dynamic build(BuildContext context) {
         // card to its right) is preserved.
         child: IntrinsicHeight(
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    width: 32.0,
-                    height: 32.0,
-                    decoration: BoxDecoration(
-                      color: i == flowchartNodes.length - 1
-                          ? cinnabarCompass
-                          : globeIndigo,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: brassEdge, width: 1.4),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Container(
+                  width: 32.0,
+                  height: 32.0,
+                  decoration: BoxDecoration(
+                    color: i == flowchartNodes.length - 1
+                        ? cinnabarCompass
+                        : globeIndigo,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: brassEdge, width: 1.4),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    n[0],
+                    style: TextStyle(
+                      color: vellumChalk,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 13.0,
+                      fontFamily: 'monospace',
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      n[0],
+                  ),
+                ),
+                isLast
+                    ? const SizedBox(height: 0.0)
+                    : Container(
+                        width: 2.0,
+                        height: 28.0,
+                        color: sepiaRule.withValues(alpha: 0.55),
+                      ),
+              ],
+            ),
+            const SizedBox(width: 14.0),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 12.0),
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: i == flowchartNodes.length - 1
+                      ? cinnabarCompass.withValues(alpha: 0.08)
+                      : vellumChalk,
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: i == flowchartNodes.length - 1
+                        ? cinnabarCompass.withValues(alpha: 0.55)
+                        : sepiaRule.withValues(alpha: 0.45),
+                    width: 1.0,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      n[1],
                       style: TextStyle(
-                        color: vellumChalk,
-                        fontWeight: FontWeight.w900,
                         fontSize: 13.0,
+                        fontWeight: FontWeight.w800,
+                        color: i == flowchartNodes.length - 1
+                            ? cinnabarRust
+                            : globeIndigo,
                         fontFamily: 'monospace',
                       ),
                     ),
-                  ),
-                  isLast
-                      ? const SizedBox(height: 0.0)
-                      : Container(
-                          width: 2.0,
-                          height: 28.0,
-                          color: sepiaRule.withValues(alpha: 0.55),
-                        ),
-                ],
-              ),
-              const SizedBox(width: 14.0),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 12.0),
-                  padding: const EdgeInsets.all(12.0),
-                  decoration: BoxDecoration(
-                    color: i == flowchartNodes.length - 1
-                        ? cinnabarCompass.withValues(alpha: 0.08)
-                        : vellumChalk,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: i == flowchartNodes.length - 1
-                          ? cinnabarCompass.withValues(alpha: 0.55)
-                          : sepiaRule.withValues(alpha: 0.45),
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        n[1],
-                        style: TextStyle(
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w800,
-                          color: i == flowchartNodes.length - 1
-                              ? cinnabarRust
-                              : globeIndigo,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
-                      const SizedBox(height: 4.0),
-                      Text(n[2], style: styleBody),
-                    ],
-                  ),
+                    const SizedBox(height: 4.0),
+                    Text(n[2], style: styleBody),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
         ),
       ),
     );
   }
   final Widget flowchartSection = makePanel(
-    makeSectionBar(
-      'IV',
-      'Notification dispatch',
-      'Localizations -> override -> MaterialApp.locale -> systemLocales.',
-    ),
+    makeSectionBar('IV', 'Notification dispatch',
+        'Localizations -> override -> MaterialApp.locale -> systemLocales.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -1820,54 +1413,47 @@ dynamic build(BuildContext context) {
   // BUILDER: Fallback table
   // ---------------------------------------------------------------------------
   final List<TableRow> fallbackTableRows = <TableRow>[];
-  fallbackTableRows.add(
-    TableRow(
-      decoration: BoxDecoration(color: cinnabarCompass),
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Input tag', style: styleTableHeader),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Resolution chain', style: styleTableHeader),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Note', style: styleTableHeader),
-        ),
-      ],
-    ),
-  );
+  fallbackTableRows.add(TableRow(
+    decoration: BoxDecoration(color: cinnabarCompass),
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('Input tag', style: styleTableHeader),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('Resolution chain', style: styleTableHeader),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('Note', style: styleTableHeader),
+      ),
+    ],
+  ));
   for (int i = 0; i < fallbackRows.length; i++) {
     final List<String> r = fallbackRows[i];
     final bool zebra = i % 2 == 0;
-    fallbackTableRows.add(
-      TableRow(
-        decoration: BoxDecoration(color: zebra ? vellumChalk : vellumPale),
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(r[0], style: styleMonoAccent),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(r[1], style: styleMono),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(r[2], style: styleTableCell),
-          ),
-        ],
-      ),
-    );
+    fallbackTableRows.add(TableRow(
+      decoration: BoxDecoration(color: zebra ? vellumChalk : vellumPale),
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[0], style: styleMonoAccent),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[1], style: styleMono),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[2], style: styleTableCell),
+        ),
+      ],
+    ));
   }
   final Widget fallbackSection = makePanel(
-    makeSectionBar(
-      'V',
-      'Language fallback',
-      'How a tag relaxes itself until a delegate matches.',
-    ),
+    makeSectionBar('V', 'Language fallback',
+        'How a tag relaxes itself until a delegate matches.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -1902,11 +1488,8 @@ dynamic build(BuildContext context) {
   // BUILDER: Bidirectional prose
   // ---------------------------------------------------------------------------
   final Widget bidiSection = makePanel(
-    makeSectionBar(
-      'VI',
-      'Bidirectional text & RTL',
-      'Direction is a property of the run, not the page.',
-    ),
+    makeSectionBar('VI', 'Bidirectional text & RTL',
+        'Direction is a property of the run, not the page.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -2052,32 +1635,43 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget glossarySection = makePanel(
-    makeSectionBar('VII', 'Glossary', 'Terms used throughout the manual.'),
-    Wrap(children: glossaryWidgets),
+    makeSectionBar('VII', 'Glossary',
+        'Terms used throughout the manual.'),
+    Wrap(
+      children: glossaryWidgets,
+    ),
   );
 
   // ---------------------------------------------------------------------------
   // BUILDER: Palette swatches
   // ---------------------------------------------------------------------------
   final List<List<dynamic>> swatchRows = <List<dynamic>>[
-    <dynamic>['vellumDeep', vellumDeep, '#E8DCC0', 'workbench mat'],
-    <dynamic>['vellumWarm', vellumWarm, '#EFE3C8', 'panel base'],
-    <dynamic>['vellumPale', vellumPale, '#F6ECD2', 'plate body'],
-    <dynamic>['vellumIvory', vellumIvory, '#FBF4DC', 'panel inset'],
-    <dynamic>['vellumChalk', vellumChalk, '#FFF9E5', 'highlight wash'],
-    <dynamic>['globeIndigo', globeIndigo, '#1F3A6B', 'primary ink'],
-    <dynamic>['globeMidnight', globeMidnight, '#12224A', 'titlebar tone'],
-    <dynamic>[
-      'cinnabarCompass',
-      cinnabarCompass,
-      '#B23B2E',
-      'accent ink (RTL/danger)',
-    ],
-    <dynamic>['cinnabarRust', cinnabarRust, '#8C2A1F', 'emphasis text'],
-    <dynamic>['verdigris', verdigris, '#3F7D6E', 'verified marker'],
-    <dynamic>['sepiaRule', sepiaRule, '#7A5A2F', 'hairline divider'],
-    <dynamic>['brassEdge', brassEdge, '#A88A3F', 'binding & frames'],
-    <dynamic>['mistShade', mistShade, '#B7AE92', 'shadow / disabled'],
+    <dynamic>['vellumDeep',  vellumDeep,  '#E8DCC0',
+        'workbench mat'],
+    <dynamic>['vellumWarm',  vellumWarm,  '#EFE3C8',
+        'panel base'],
+    <dynamic>['vellumPale',  vellumPale,  '#F6ECD2',
+        'plate body'],
+    <dynamic>['vellumIvory', vellumIvory, '#FBF4DC',
+        'panel inset'],
+    <dynamic>['vellumChalk', vellumChalk, '#FFF9E5',
+        'highlight wash'],
+    <dynamic>['globeIndigo', globeIndigo, '#1F3A6B',
+        'primary ink'],
+    <dynamic>['globeMidnight', globeMidnight, '#12224A',
+        'titlebar tone'],
+    <dynamic>['cinnabarCompass', cinnabarCompass, '#B23B2E',
+        'accent ink (RTL/danger)'],
+    <dynamic>['cinnabarRust', cinnabarRust, '#8C2A1F',
+        'emphasis text'],
+    <dynamic>['verdigris', verdigris, '#3F7D6E',
+        'verified marker'],
+    <dynamic>['sepiaRule',  sepiaRule, '#7A5A2F',
+        'hairline divider'],
+    <dynamic>['brassEdge',  brassEdge, '#A88A3F',
+        'binding & frames'],
+    <dynamic>['mistShade',  mistShade, '#B7AE92',
+        'shadow / disabled'],
   ];
   final List<Widget> swatchTiles = <Widget>[];
   for (int i = 0; i < swatchRows.length; i++) {
@@ -2118,9 +1712,7 @@ dynamic build(BuildContext context) {
                     top: 6.0,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0,
-                        vertical: 2.0,
-                      ),
+                          horizontal: 6.0, vertical: 2.0),
                       decoration: BoxDecoration(
                         color: vellumChalk.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3.0),
@@ -2145,15 +1737,13 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w800,
-                      color: globeMidnight,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  Text(label,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w800,
+                        color: globeMidnight,
+                        fontFamily: 'monospace',
+                      )),
                   const SizedBox(height: 2.0),
                   Text(role, style: styleCaption),
                 ],
@@ -2165,7 +1755,8 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget paletteSection = makePanel(
-    makeSectionBar('VIII', 'Palette swatches', 'Atlas Parchment color sticks.'),
+    makeSectionBar('VIII', 'Palette swatches',
+        'Atlas Parchment color sticks.'),
     Wrap(children: swatchTiles),
   );
 
@@ -2176,52 +1767,39 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < comparisonRows.length; i++) {
     final List<String> r = comparisonRows[i];
     final bool isHeader = i == 0;
-    comparisonTableRows.add(
-      TableRow(
-        decoration: BoxDecoration(
-          color: isHeader
-              ? globeMidnight
-              : (i % 2 == 0 ? vellumChalk : vellumPale),
-        ),
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              r[0],
-              style: isHeader ? styleTableHeader : styleMonoAccent,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              r[1],
-              style: isHeader ? styleTableHeader : styleTableCell,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              r[2],
-              style: isHeader ? styleTableHeader : styleTableCell,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              r[3],
-              style: isHeader ? styleTableHeader : styleTableCell,
-            ),
-          ),
-        ],
+    comparisonTableRows.add(TableRow(
+      decoration: BoxDecoration(
+        color: isHeader
+            ? globeMidnight
+            : (i % 2 == 0 ? vellumChalk : vellumPale),
       ),
-    );
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[0],
+              style: isHeader ? styleTableHeader : styleMonoAccent),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[1],
+              style: isHeader ? styleTableHeader : styleTableCell),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[2],
+              style: isHeader ? styleTableHeader : styleTableCell),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(r[3],
+              style: isHeader ? styleTableHeader : styleTableCell),
+        ),
+      ],
+    ));
   }
   final Widget comparisonSection = makePanel(
-    makeSectionBar(
-      'IX',
-      'Comparison',
-      'Localizations vs LocaleSnapshotNotification vs Locale.fromSubtags.',
-    ),
+    makeSectionBar('IX', 'Comparison',
+        'Localizations vs LocaleSnapshotNotification vs Locale.fromSubtags.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -2269,7 +1847,10 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: vellumChalk,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: band.withValues(alpha: 0.55), width: 1.0),
+          border: Border.all(
+            color: band.withValues(alpha: 0.55),
+            width: 1.0,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -2310,11 +1891,8 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget pitfallsSection = makePanel(
-    makeSectionBar(
-      'X',
-      'Pitfalls',
-      'Where locale propagation silently misbehaves.',
-    ),
+    makeSectionBar('X', 'Pitfalls',
+        'Where locale propagation silently misbehaves.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -2344,9 +1922,7 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 10.0,
-              ),
+                  horizontal: 14.0, vertical: 10.0),
               decoration: BoxDecoration(
                 color: frame.withValues(alpha: 0.12),
                 borderRadius: const BorderRadius.only(
@@ -2358,14 +1934,15 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 3.0,
-                    ),
+                        horizontal: 8.0, vertical: 3.0),
                     decoration: BoxDecoration(
                       color: frame,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    child: Text('SCN-${i + 1}', style: styleGlyphTag),
+                    child: Text(
+                      'SCN-${i + 1}',
+                      style: styleGlyphTag,
+                    ),
                   ),
                   const SizedBox(width: 10.0),
                   Expanded(
@@ -2408,11 +1985,8 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget scenariosSection = makePanel(
-    makeSectionBar(
-      'XI',
-      'Scenario panels',
-      'Concrete locale propagation cases drawn from the field.',
-    ),
+    makeSectionBar('XI', 'Scenario panels',
+        'Concrete locale propagation cases drawn from the field.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -2436,19 +2010,21 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.symmetric(vertical: 2.0),
         child: Row(
           children: <Widget>[
-            SizedBox(width: 180.0, child: Text(r[0], style: styleMonoAccent)),
-            Expanded(child: Text(r[1], style: styleMono)),
+            SizedBox(
+              width: 180.0,
+              child: Text(r[0], style: styleMonoAccent),
+            ),
+            Expanded(
+              child: Text(r[1], style: styleMono),
+            ),
           ],
         ),
       ),
     );
   }
   final Widget ambientSection = makePanel(
-    makeSectionBar(
-      'I',
-      'Ambient locale probe',
-      'What Localizations.localeOf actually returned at build time.',
-    ),
+    makeSectionBar('I', 'Ambient locale probe',
+        'What Localizations.localeOf actually returned at build time.'),
     Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -2495,10 +2071,8 @@ dynamic build(BuildContext context) {
     scenariosSection,
   ];
 
-  print(
-    '[atlas_parchment] phase 9/9 -- assembling Scaffold; '
-    '${compositionStack.length} top-level sections',
-  );
+  print('[atlas_parchment] phase 9/9 -- assembling Scaffold; '
+      '${compositionStack.length} top-level sections');
 
   // ---------------------------------------------------------------------------
   // FINAL FOOTER -- a small decorative compass plate
@@ -2565,9 +2139,7 @@ dynamic build(BuildContext context) {
             opacity: const AlwaysStoppedAnimation<double>(0.95),
             child: Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 6.0,
-              ),
+                  horizontal: 10.0, vertical: 6.0),
               decoration: BoxDecoration(
                 color: brassEdge,
                 borderRadius: BorderRadius.circular(6.0),
@@ -2599,7 +2171,9 @@ dynamic build(BuildContext context) {
     theme: ThemeData(
       scaffoldBackgroundColor: vellumDeep,
       primaryColor: globeIndigo,
-      textTheme: TextTheme(bodyMedium: styleBody),
+      textTheme: TextTheme(
+        bodyMedium: styleBody,
+      ),
     ),
     home: Scaffold(
       backgroundColor: vellumDeep,
@@ -2645,10 +2219,8 @@ dynamic build(BuildContext context) {
           // Read-only observation. We do not mutate any state; this listener
           // simply demonstrates the bubbling Notification mechanism. The
           // returned false allows the notification to keep propagating.
-          print(
-            '[atlas_parchment] (observed) layout-changed bubble: '
-            '$notification',
-          );
+          print('[atlas_parchment] (observed) layout-changed bubble: '
+              '$notification');
           return false;
         },
         child: SingleChildScrollView(

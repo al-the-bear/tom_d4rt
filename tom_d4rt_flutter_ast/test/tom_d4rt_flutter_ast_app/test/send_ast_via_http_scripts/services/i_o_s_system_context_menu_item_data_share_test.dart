@@ -27,13 +27,17 @@ dynamic build(BuildContext context) {
   const sibPaste = IOSSystemContextMenuItemDataPaste();
   const sibSelectAll = IOSSystemContextMenuItemDataSelectAll();
   const sibLookUp = IOSSystemContextMenuItemDataLookUp(title: 'Look Up');
-  const sibSearchWeb = IOSSystemContextMenuItemDataSearchWeb(
-    title: 'Search Web',
-  );
+  const sibSearchWeb = IOSSystemContextMenuItemDataSearchWeb(title: 'Search Web');
   const sibLiveText = IOSSystemContextMenuItemDataLiveText();
-  print(
-    'Sibling list assembled: ${[sibCopy.runtimeType, sibCut.runtimeType, sibPaste.runtimeType, sibSelectAll.runtimeType, sibLookUp.title, sibSearchWeb.title, sibLiveText.runtimeType]}',
-  );
+  print('Sibling list assembled: ${[
+    sibCopy.runtimeType,
+    sibCut.runtimeType,
+    sibPaste.runtimeType,
+    sibSelectAll.runtimeType,
+    sibLookUp.title,
+    sibSearchWeb.title,
+    sibLiveText.runtimeType,
+  ]}');
 
   // Color palette anchors used throughout the demo.
   const Color iosBlue = Color(0xFF007AFF);
@@ -63,10 +67,7 @@ dynamic build(BuildContext context) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(
-        color: Colors.white.withValues(alpha: 0.4),
-        width: 1.5,
-      ),
+      border: Border.all(color: Colors.white.withValues(alpha: 0.4), width: 1.5),
       boxShadow: [
         BoxShadow(
           color: iosBlue.withValues(alpha: 0.35),
@@ -114,7 +115,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'iOS native context-menu Share item',
-                    style: TextStyle(fontSize: 14.0, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -258,7 +262,11 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8.0),
         Padding(
           padding: const EdgeInsets.only(left: 24.0),
-          child: Container(width: 1.5, height: 18.0, color: iosGrey4),
+          child: Container(
+            width: 1.5,
+            height: 18.0,
+            color: iosGrey4,
+          ),
         ),
         const SizedBox(height: 4.0),
         const Padding(
@@ -478,10 +486,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          iosBlue.withValues(alpha: 0.12),
-          iosBlue.withValues(alpha: 0.04),
-        ],
+        colors: [iosBlue.withValues(alpha: 0.12), iosBlue.withValues(alpha: 0.04)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -655,7 +660,9 @@ dynamic build(BuildContext context) {
           color: isShare
               ? iosBlue.withValues(alpha: 0.06)
               : (i.isEven ? Colors.white : iosGrey1),
-          border: Border(top: BorderSide(color: iosGrey3, width: 0.5)),
+          border: Border(
+            top: BorderSide(color: iosGrey3, width: 0.5),
+          ),
         ),
         child: Row(
           children: [
@@ -768,7 +775,10 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomCenter,
         ),
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: iosGrey3.withValues(alpha: 0.7), width: 0.5),
+        border: Border.all(
+          color: iosGrey3.withValues(alpha: 0.7),
+          width: 0.5,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.20),
@@ -831,7 +841,10 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(14.0),
-          border: Border.all(color: accent.withValues(alpha: 0.45), width: 1.0),
+          border: Border.all(
+            color: accent.withValues(alpha: 0.45),
+            width: 1.0,
+          ),
           boxShadow: [
             BoxShadow(
               color: accent.withValues(alpha: 0.20),
@@ -1170,10 +1183,7 @@ dynamic build(BuildContext context) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(18.0),
-      border: Border.all(
-        color: Colors.white.withValues(alpha: 0.2),
-        width: 1.0,
-      ),
+      border: Border.all(color: Colors.white.withValues(alpha: 0.2), width: 1.0),
       boxShadow: [
         BoxShadow(
           color: iosBlue.withValues(alpha: 0.35),
@@ -1237,12 +1247,17 @@ dynamic build(BuildContext context) {
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(8.0),
-        border: Border(left: BorderSide(color: iosBlue, width: 3.0)),
+        border: Border(
+          left: BorderSide(color: iosBlue, width: 3.0),
+        ),
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6.0,
+              vertical: 2.0,
+            ),
             decoration: BoxDecoration(
               color: iosBlue,
               borderRadius: BorderRadius.circular(4.0),
@@ -1313,11 +1328,7 @@ dynamic build(BuildContext context) {
           section7Locales,
           const SizedBox(height: 28.0),
 
-          sectionHeader(
-            '8',
-            'EditableText integration',
-            Icons.integration_instructions,
-          ),
+          sectionHeader('8', 'EditableText integration', Icons.integration_instructions),
           section8Integration,
           const SizedBox(height: 28.0),
 

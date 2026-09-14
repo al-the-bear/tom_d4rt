@@ -105,11 +105,7 @@ class _HeroHeader extends StatelessWidget {
       height: 220,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: <Color>[
-            Color(0xFF1A237E),
-            Color(0xFF3949AB),
-            Color(0xFF7E57C2),
-          ],
+          colors: <Color>[Color(0xFF1A237E), Color(0xFF3949AB), Color(0xFF7E57C2)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -206,10 +202,7 @@ class _HeroChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.18),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.4),
-          width: 1,
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.4), width: 1),
       ),
       child: Text(
         label,
@@ -349,29 +342,25 @@ class _AnatomySection extends StatelessWidget {
         children: const <Widget>[
           _AnatomyBlock(
             title: 'columns: List<DataColumn>',
-            body:
-                'Each DataColumn declares: label (Widget), tooltip, '
+            body: 'Each DataColumn declares: label (Widget), tooltip, '
                 'numeric (right-aligns numeric data), onSort (sort callback).',
           ),
           SizedBox(height: 10),
           _AnatomyBlock(
             title: 'rows: List<DataRow>',
-            body:
-                'Each DataRow holds: cells (List<DataCell>), selected (bool), '
+            body: 'Each DataRow holds: cells (List<DataCell>), selected (bool), '
                 'onSelectChanged (selection toggle), color (WidgetStateProperty<Color?>), key.',
           ),
           SizedBox(height: 10),
           _AnatomyBlock(
             title: 'sizing knobs',
-            body:
-                'dataRowMinHeight, dataRowMaxHeight, headingRowHeight, '
+            body: 'dataRowMinHeight, dataRowMaxHeight, headingRowHeight, '
                 'horizontalMargin, columnSpacing.',
           ),
           SizedBox(height: 10),
           _AnatomyBlock(
             title: 'visual knobs',
-            body:
-                'dividerThickness (px), decoration (whole-table BoxDecoration), '
+            body: 'dividerThickness (px), decoration (whole-table BoxDecoration), '
                 'border (TableBorder), headingTextStyle, dataTextStyle.',
           ),
           SizedBox(height: 16),
@@ -410,10 +399,7 @@ class _AnatomyBlock extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            body,
-            style: const TextStyle(fontSize: 13, color: Color(0xFF1A237E)),
-          ),
+          Text(body, style: const TextStyle(fontSize: 13, color: Color(0xFF1A237E))),
         ],
       ),
     );
@@ -441,20 +427,16 @@ class _MiniDataTablePreview extends StatelessWidget {
           DataColumn(label: Text('count'), numeric: true),
         ],
         rows: const <DataRow>[
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('A1')),
-              DataCell(Text('alpha')),
-              DataCell(Text('12')),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('A2')),
-              DataCell(Text('beta')),
-              DataCell(Text('48')),
-            ],
-          ),
+          DataRow(cells: <DataCell>[
+            DataCell(Text('A1')),
+            DataCell(Text('alpha')),
+            DataCell(Text('12')),
+          ]),
+          DataRow(cells: <DataCell>[
+            DataCell(Text('A2')),
+            DataCell(Text('beta')),
+            DataCell(Text('48')),
+          ]),
         ],
       ),
     );
@@ -490,135 +472,82 @@ class _EmployeesSection extends StatelessWidget {
           columnSpacing: 28,
           horizontalMargin: 16,
           columns: const <DataColumn>[
+            DataColumn(label: Text('ID', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Name', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Role', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Department', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Joined', style: TextStyle(fontWeight: FontWeight.w700))),
             DataColumn(
-              label: Text('ID', style: TextStyle(fontWeight: FontWeight.w700)),
-            ),
-            DataColumn(
-              label: Text(
-                'Name',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Role',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Department',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Joined',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Salary',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Salary', style: TextStyle(fontWeight: FontWeight.w700)),
               numeric: true,
               tooltip: 'USD, gross',
             ),
           ],
           rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('E-1001')),
-                DataCell(_NameCell(icon: Icons.person, name: 'Ada Lovelace')),
-                DataCell(Text('Principal Engineer')),
-                DataCell(Text('Platform')),
-                DataCell(Text('2018-03-12')),
-                DataCell(Text(r'$182,400')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('E-1002')),
-                DataCell(
-                  _NameCell(icon: Icons.person_outline, name: 'Grace Hopper'),
-                ),
-                DataCell(Text('Director')),
-                DataCell(Text('Compilers')),
-                DataCell(Text('2016-08-01')),
-                DataCell(Text(r'$214,000')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('E-1003')),
-                DataCell(_NameCell(icon: Icons.person, name: 'Alan Turing')),
-                DataCell(Text('Senior Researcher')),
-                DataCell(Text('Cryptography')),
-                DataCell(Text('2019-11-23')),
-                DataCell(Text(r'$176,800')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('E-1004')),
-                DataCell(
-                  _NameCell(icon: Icons.person_outline, name: 'Linus Torvalds'),
-                ),
-                DataCell(Text('Kernel Lead')),
-                DataCell(Text('Infrastructure')),
-                DataCell(Text('2014-05-17')),
-                DataCell(Text(r'$198,250')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('E-1005')),
-                DataCell(
-                  _NameCell(icon: Icons.person, name: 'Margaret Hamilton'),
-                ),
-                DataCell(Text('Software Architect')),
-                DataCell(Text('Avionics')),
-                DataCell(Text('2017-02-09')),
-                DataCell(Text(r'$192,600')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('E-1006')),
-                DataCell(
-                  _NameCell(icon: Icons.person_outline, name: 'Donald Knuth'),
-                ),
-                DataCell(Text('Distinguished Engineer')),
-                DataCell(Text('Algorithms')),
-                DataCell(Text('2012-09-04')),
-                DataCell(Text(r'$226,000')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('E-1007')),
-                DataCell(
-                  _NameCell(icon: Icons.person, name: 'Edsger Dijkstra'),
-                ),
-                DataCell(Text('Staff Engineer')),
-                DataCell(Text('Distributed Systems')),
-                DataCell(Text('2020-06-14')),
-                DataCell(Text(r'$165,300')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('E-1008')),
-                DataCell(
-                  _NameCell(icon: Icons.person_outline, name: 'Barbara Liskov'),
-                ),
-                DataCell(Text('VP of Engineering')),
-                DataCell(Text('Languages')),
-                DataCell(Text('2013-12-01')),
-                DataCell(Text(r'$248,900')),
-              ],
-            ),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('E-1001')),
+              DataCell(_NameCell(icon: Icons.person, name: 'Ada Lovelace')),
+              DataCell(Text('Principal Engineer')),
+              DataCell(Text('Platform')),
+              DataCell(Text('2018-03-12')),
+              DataCell(Text(r'$182,400')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('E-1002')),
+              DataCell(_NameCell(icon: Icons.person_outline, name: 'Grace Hopper')),
+              DataCell(Text('Director')),
+              DataCell(Text('Compilers')),
+              DataCell(Text('2016-08-01')),
+              DataCell(Text(r'$214,000')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('E-1003')),
+              DataCell(_NameCell(icon: Icons.person, name: 'Alan Turing')),
+              DataCell(Text('Senior Researcher')),
+              DataCell(Text('Cryptography')),
+              DataCell(Text('2019-11-23')),
+              DataCell(Text(r'$176,800')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('E-1004')),
+              DataCell(_NameCell(icon: Icons.person_outline, name: 'Linus Torvalds')),
+              DataCell(Text('Kernel Lead')),
+              DataCell(Text('Infrastructure')),
+              DataCell(Text('2014-05-17')),
+              DataCell(Text(r'$198,250')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('E-1005')),
+              DataCell(_NameCell(icon: Icons.person, name: 'Margaret Hamilton')),
+              DataCell(Text('Software Architect')),
+              DataCell(Text('Avionics')),
+              DataCell(Text('2017-02-09')),
+              DataCell(Text(r'$192,600')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('E-1006')),
+              DataCell(_NameCell(icon: Icons.person_outline, name: 'Donald Knuth')),
+              DataCell(Text('Distinguished Engineer')),
+              DataCell(Text('Algorithms')),
+              DataCell(Text('2012-09-04')),
+              DataCell(Text(r'$226,000')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('E-1007')),
+              DataCell(_NameCell(icon: Icons.person, name: 'Edsger Dijkstra')),
+              DataCell(Text('Staff Engineer')),
+              DataCell(Text('Distributed Systems')),
+              DataCell(Text('2020-06-14')),
+              DataCell(Text(r'$165,300')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('E-1008')),
+              DataCell(_NameCell(icon: Icons.person_outline, name: 'Barbara Liskov')),
+              DataCell(Text('VP of Engineering')),
+              DataCell(Text('Languages')),
+              DataCell(Text('2013-12-01')),
+              DataCell(Text(r'$248,900')),
+            ]),
           ],
         ),
       ),
@@ -672,89 +601,55 @@ class _PricingTierSection extends StatelessWidget {
           columnSpacing: 36,
           horizontalMargin: 16,
           columns: const <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Feature',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Free',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text('Pro', style: TextStyle(fontWeight: FontWeight.w700)),
-            ),
-            DataColumn(
-              label: Text(
-                'Team',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Enterprise',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
+            DataColumn(label: Text('Feature', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Free', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Pro', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Team', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Enterprise', style: TextStyle(fontWeight: FontWeight.w700))),
           ],
           rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Unlimited projects')),
-                DataCell(_TierMark(included: false)),
-                DataCell(_TierMark(included: true)),
-                DataCell(_TierMark(included: true)),
-                DataCell(_TierMark(included: true)),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Custom domains')),
-                DataCell(_TierMark(included: false)),
-                DataCell(_TierMark(included: true)),
-                DataCell(_TierMark(included: true)),
-                DataCell(_TierMark(included: true)),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Team seats')),
-                DataCell(Text('1')),
-                DataCell(Text('3')),
-                DataCell(Text('15')),
-                DataCell(Text('Unlimited')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Audit log retention')),
-                DataCell(Text('—')),
-                DataCell(Text('30 days')),
-                DataCell(Text('180 days')),
-                DataCell(Text('7 years')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('SAML SSO')),
-                DataCell(_TierMark(included: false)),
-                DataCell(_TierMark(included: false)),
-                DataCell(_TierMark(included: true)),
-                DataCell(_TierMark(included: true)),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Dedicated support')),
-                DataCell(_TierMark(included: false)),
-                DataCell(_TierMark(included: false)),
-                DataCell(_TierMark(included: false)),
-                DataCell(_TierMark(included: true)),
-              ],
-            ),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Unlimited projects')),
+              DataCell(_TierMark(included: false)),
+              DataCell(_TierMark(included: true)),
+              DataCell(_TierMark(included: true)),
+              DataCell(_TierMark(included: true)),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Custom domains')),
+              DataCell(_TierMark(included: false)),
+              DataCell(_TierMark(included: true)),
+              DataCell(_TierMark(included: true)),
+              DataCell(_TierMark(included: true)),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Team seats')),
+              DataCell(Text('1')),
+              DataCell(Text('3')),
+              DataCell(Text('15')),
+              DataCell(Text('Unlimited')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Audit log retention')),
+              DataCell(Text('—')),
+              DataCell(Text('30 days')),
+              DataCell(Text('180 days')),
+              DataCell(Text('7 years')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('SAML SSO')),
+              DataCell(_TierMark(included: false)),
+              DataCell(_TierMark(included: false)),
+              DataCell(_TierMark(included: true)),
+              DataCell(_TierMark(included: true)),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Dedicated support')),
+              DataCell(_TierMark(included: false)),
+              DataCell(_TierMark(included: false)),
+              DataCell(_TierMark(included: false)),
+              DataCell(_TierMark(included: true)),
+            ]),
           ],
         ),
       ),
@@ -807,100 +702,73 @@ class _SortableFinancialSection extends StatelessWidget {
           dataRowMinHeight: 42,
           columns: <DataColumn>[
             DataColumn(
-              label: const Text(
-                'Quarter',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: const Text('Quarter', style: TextStyle(fontWeight: FontWeight.w700)),
               onSort: (int _, bool _) {},
             ),
             DataColumn(
-              label: const Text(
-                'Region',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: const Text('Region', style: TextStyle(fontWeight: FontWeight.w700)),
               onSort: (int _, bool _) {},
             ),
             DataColumn(
-              label: const Text(
-                'Revenue',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: const Text('Revenue', style: TextStyle(fontWeight: FontWeight.w700)),
               numeric: true,
               onSort: (int _, bool _) {},
             ),
             DataColumn(
-              label: const Text(
-                'Growth %',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: const Text('Growth %', style: TextStyle(fontWeight: FontWeight.w700)),
               numeric: true,
               tooltip: 'YoY growth, sorted descending',
               onSort: (int _, bool _) {},
             ),
             DataColumn(
-              label: const Text(
-                'Margin %',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: const Text('Margin %', style: TextStyle(fontWeight: FontWeight.w700)),
               numeric: true,
               onSort: (int _, bool _) {},
             ),
           ],
           rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Q1 2025')),
-                DataCell(Text('EMEA')),
-                DataCell(Text(r'$4,820,000')),
-                DataCell(Text('+18.4')),
-                DataCell(Text('22.1')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Q1 2025')),
-                DataCell(Text('NA')),
-                DataCell(Text(r'$7,310,000')),
-                DataCell(Text('+12.7')),
-                DataCell(Text('27.8')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Q1 2025')),
-                DataCell(Text('APAC')),
-                DataCell(Text(r'$3,140,000')),
-                DataCell(Text('+24.6')),
-                DataCell(Text('19.4')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Q4 2024')),
-                DataCell(Text('EMEA')),
-                DataCell(Text(r'$4,070,000')),
-                DataCell(Text('+9.2')),
-                DataCell(Text('21.3')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Q4 2024')),
-                DataCell(Text('NA')),
-                DataCell(Text(r'$6,480,000')),
-                DataCell(Text('+7.8')),
-                DataCell(Text('26.1')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Q4 2024')),
-                DataCell(Text('APAC')),
-                DataCell(Text(r'$2,520,000')),
-                DataCell(Text('+15.3')),
-                DataCell(Text('17.8')),
-              ],
-            ),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Q1 2025')),
+              DataCell(Text('EMEA')),
+              DataCell(Text(r'$4,820,000')),
+              DataCell(Text('+18.4')),
+              DataCell(Text('22.1')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Q1 2025')),
+              DataCell(Text('NA')),
+              DataCell(Text(r'$7,310,000')),
+              DataCell(Text('+12.7')),
+              DataCell(Text('27.8')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Q1 2025')),
+              DataCell(Text('APAC')),
+              DataCell(Text(r'$3,140,000')),
+              DataCell(Text('+24.6')),
+              DataCell(Text('19.4')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Q4 2024')),
+              DataCell(Text('EMEA')),
+              DataCell(Text(r'$4,070,000')),
+              DataCell(Text('+9.2')),
+              DataCell(Text('21.3')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Q4 2024')),
+              DataCell(Text('NA')),
+              DataCell(Text(r'$6,480,000')),
+              DataCell(Text('+7.8')),
+              DataCell(Text('26.1')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Q4 2024')),
+              DataCell(Text('APAC')),
+              DataCell(Text(r'$2,520,000')),
+              DataCell(Text('+15.3')),
+              DataCell(Text('17.8')),
+            ]),
           ],
         ),
       ),
@@ -919,8 +787,7 @@ class _SelectableStudentsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionFrame(
       title: '6. Selectable students',
-      subtitle:
-          'selected: true on some rows; alternating row colors via WidgetStateProperty.',
+      subtitle: 'selected: true on some rows; alternating row colors via WidgetStateProperty.',
       icon: Icons.checklist,
       gradient: const LinearGradient(
         colors: <Color>[Color(0xFF4527A0), Color(0xFF7E57C2)],
@@ -936,124 +803,82 @@ class _SelectableStudentsSection extends StatelessWidget {
           columnSpacing: 28,
           horizontalMargin: 14,
           columns: const <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Student',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Cohort',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text('GPA', style: TextStyle(fontWeight: FontWeight.w700)),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text(
-                'Status',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
+            DataColumn(label: Text('Student', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Cohort', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('GPA', style: TextStyle(fontWeight: FontWeight.w700)), numeric: true),
+            DataColumn(label: Text('Status', style: TextStyle(fontWeight: FontWeight.w700))),
           ],
           rows: <DataRow>[
             DataRow(
               key: const ValueKey<String>('student-1'),
               selected: true,
-              color: WidgetStateProperty.resolveWith<Color?>(
-                _zebraResolver(true),
-              ),
+              color: WidgetStateProperty.resolveWith<Color?>(_zebraResolver(true)),
               onSelectChanged: (bool? _) {},
               cells: const <DataCell>[
                 DataCell(Text('Alice Carter')),
                 DataCell(Text('2025-A')),
                 DataCell(Text('3.92')),
-                DataCell(
-                  _StatusPill(label: 'Active', color: Color(0xFF2E7D32)),
-                ),
+                DataCell(_StatusPill(label: 'Active', color: Color(0xFF2E7D32))),
               ],
             ),
             DataRow(
               key: const ValueKey<String>('student-2'),
               selected: false,
-              color: WidgetStateProperty.resolveWith<Color?>(
-                _zebraResolver(false),
-              ),
+              color: WidgetStateProperty.resolveWith<Color?>(_zebraResolver(false)),
               onSelectChanged: (bool? _) {},
               cells: const <DataCell>[
                 DataCell(Text('Bertrand Holm')),
                 DataCell(Text('2025-A')),
                 DataCell(Text('3.41')),
-                DataCell(
-                  _StatusPill(label: 'Active', color: Color(0xFF2E7D32)),
-                ),
+                DataCell(_StatusPill(label: 'Active', color: Color(0xFF2E7D32))),
               ],
             ),
             DataRow(
               key: const ValueKey<String>('student-3'),
               selected: true,
-              color: WidgetStateProperty.resolveWith<Color?>(
-                _zebraResolver(true),
-              ),
+              color: WidgetStateProperty.resolveWith<Color?>(_zebraResolver(true)),
               onSelectChanged: (bool? _) {},
               cells: const <DataCell>[
                 DataCell(Text('Cassidy Park')),
                 DataCell(Text('2024-B')),
                 DataCell(Text('3.78')),
-                DataCell(
-                  _StatusPill(label: 'Honors', color: Color(0xFF6A1B9A)),
-                ),
+                DataCell(_StatusPill(label: 'Honors', color: Color(0xFF6A1B9A))),
               ],
             ),
             DataRow(
               key: const ValueKey<String>('student-4'),
               selected: false,
-              color: WidgetStateProperty.resolveWith<Color?>(
-                _zebraResolver(false),
-              ),
+              color: WidgetStateProperty.resolveWith<Color?>(_zebraResolver(false)),
               onSelectChanged: (bool? _) {},
               cells: const <DataCell>[
                 DataCell(Text('Diego Marsh')),
                 DataCell(Text('2024-B')),
                 DataCell(Text('2.96')),
-                DataCell(
-                  _StatusPill(label: 'On Leave', color: Color(0xFFEF6C00)),
-                ),
+                DataCell(_StatusPill(label: 'On Leave', color: Color(0xFFEF6C00))),
               ],
             ),
             DataRow(
               key: const ValueKey<String>('student-5'),
               selected: true,
-              color: WidgetStateProperty.resolveWith<Color?>(
-                _zebraResolver(true),
-              ),
+              color: WidgetStateProperty.resolveWith<Color?>(_zebraResolver(true)),
               onSelectChanged: (bool? _) {},
               cells: const <DataCell>[
                 DataCell(Text('Elise Park')),
                 DataCell(Text('2025-A')),
                 DataCell(Text('3.65')),
-                DataCell(
-                  _StatusPill(label: 'Active', color: Color(0xFF2E7D32)),
-                ),
+                DataCell(_StatusPill(label: 'Active', color: Color(0xFF2E7D32))),
               ],
             ),
             DataRow(
               key: const ValueKey<String>('student-6'),
               selected: false,
-              color: WidgetStateProperty.resolveWith<Color?>(
-                _zebraResolver(false),
-              ),
+              color: WidgetStateProperty.resolveWith<Color?>(_zebraResolver(false)),
               onSelectChanged: (bool? _) {},
               cells: const <DataCell>[
                 DataCell(Text('Farouk Idris')),
                 DataCell(Text('2023-C')),
                 DataCell(Text('3.12')),
-                DataCell(
-                  _StatusPill(label: 'Graduated', color: Color(0xFF1565C0)),
-                ),
+                DataCell(_StatusPill(label: 'Graduated', color: Color(0xFF1565C0))),
               ],
             ),
           ],
@@ -1091,11 +916,7 @@ class _StatusPill extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(
-          color: color,
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-        ),
+        style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700),
       ),
     );
   }
@@ -1112,8 +933,7 @@ class _CustomCellGallerySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionFrame(
       title: '7. Custom cell content',
-      subtitle:
-          'Avatars, badges, progress bars — DataCell can wrap any widget.',
+      subtitle: 'Avatars, badges, progress bars — DataCell can wrap any widget.',
       icon: Icons.dashboard_customize,
       gradient: const LinearGradient(
         colors: <Color>[Color(0xFFE65100), Color(0xFFFB8C00)],
@@ -1129,102 +949,42 @@ class _CustomCellGallerySection extends StatelessWidget {
           dataRowMinHeight: 56,
           dataRowMaxHeight: 64,
           columns: const <DataColumn>[
-            DataColumn(
-              label: Text(
-                'User',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Tags',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Storage used',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Last seen',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
+            DataColumn(label: Text('User', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Tags', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Storage used', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Last seen', style: TextStyle(fontWeight: FontWeight.w700))),
           ],
           rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(
-                  _AvatarCell(
-                    initials: 'AL',
-                    name: 'Ada Lovelace',
-                    color: Color(0xFF1565C0),
-                  ),
-                ),
-                DataCell(_TagsCell(tags: <String>['admin', 'beta'])),
-                DataCell(_StorageCell(value: 0.42, label: '4.2 GB / 10 GB')),
-                DataCell(Text('2 minutes ago')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(
-                  _AvatarCell(
-                    initials: 'GH',
-                    name: 'Grace Hopper',
-                    color: Color(0xFF6A1B9A),
-                  ),
-                ),
-                DataCell(_TagsCell(tags: <String>['owner'])),
-                DataCell(_StorageCell(value: 0.78, label: '7.8 GB / 10 GB')),
-                DataCell(Text('14 minutes ago')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(
-                  _AvatarCell(
-                    initials: 'AT',
-                    name: 'Alan Turing',
-                    color: Color(0xFFAD1457),
-                  ),
-                ),
-                DataCell(_TagsCell(tags: <String>['guest', 'invited'])),
-                DataCell(_StorageCell(value: 0.18, label: '1.8 GB / 10 GB')),
-                DataCell(Text('yesterday')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(
-                  _AvatarCell(
-                    initials: 'MH',
-                    name: 'Margaret Hamilton',
-                    color: Color(0xFF2E7D32),
-                  ),
-                ),
-                DataCell(_TagsCell(tags: <String>['admin', 'lead'])),
-                DataCell(_StorageCell(value: 0.93, label: '9.3 GB / 10 GB')),
-                DataCell(Text('5 minutes ago')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(
-                  _AvatarCell(
-                    initials: 'BL',
-                    name: 'Barbara Liskov',
-                    color: Color(0xFF0097A7),
-                  ),
-                ),
-                DataCell(_TagsCell(tags: <String>['exec'])),
-                DataCell(_StorageCell(value: 0.55, label: '5.5 GB / 10 GB')),
-                DataCell(Text('3 hours ago')),
-              ],
-            ),
+            DataRow(cells: <DataCell>[
+              DataCell(_AvatarCell(initials: 'AL', name: 'Ada Lovelace', color: Color(0xFF1565C0))),
+              DataCell(_TagsCell(tags: <String>['admin', 'beta'])),
+              DataCell(_StorageCell(value: 0.42, label: '4.2 GB / 10 GB')),
+              DataCell(Text('2 minutes ago')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(_AvatarCell(initials: 'GH', name: 'Grace Hopper', color: Color(0xFF6A1B9A))),
+              DataCell(_TagsCell(tags: <String>['owner'])),
+              DataCell(_StorageCell(value: 0.78, label: '7.8 GB / 10 GB')),
+              DataCell(Text('14 minutes ago')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(_AvatarCell(initials: 'AT', name: 'Alan Turing', color: Color(0xFFAD1457))),
+              DataCell(_TagsCell(tags: <String>['guest', 'invited'])),
+              DataCell(_StorageCell(value: 0.18, label: '1.8 GB / 10 GB')),
+              DataCell(Text('yesterday')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(_AvatarCell(initials: 'MH', name: 'Margaret Hamilton', color: Color(0xFF2E7D32))),
+              DataCell(_TagsCell(tags: <String>['admin', 'lead'])),
+              DataCell(_StorageCell(value: 0.93, label: '9.3 GB / 10 GB')),
+              DataCell(Text('5 minutes ago')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(_AvatarCell(initials: 'BL', name: 'Barbara Liskov', color: Color(0xFF0097A7))),
+              DataCell(_TagsCell(tags: <String>['exec'])),
+              DataCell(_StorageCell(value: 0.55, label: '5.5 GB / 10 GB')),
+              DataCell(Text('3 hours ago')),
+            ]),
           ],
         ),
       ),
@@ -1233,11 +993,7 @@ class _CustomCellGallerySection extends StatelessWidget {
 }
 
 class _AvatarCell extends StatelessWidget {
-  const _AvatarCell({
-    required this.initials,
-    required this.name,
-    required this.color,
-  });
+  const _AvatarCell({required this.initials, required this.name, required this.color});
 
   final String initials;
   final String name;
@@ -1334,9 +1090,7 @@ class _StorageCell extends StatelessWidget {
               value: value,
               minHeight: 6,
               backgroundColor: const Color(0xFFFFE0B2),
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                Color(0xFFE65100),
-              ),
+              valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFE65100)),
             ),
           ),
         ],
@@ -1356,8 +1110,7 @@ class _ThemingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionFrame(
       title: '8. Theming',
-      subtitle:
-          'DataTableTheme overrides text styles, dividers and decoration.',
+      subtitle: 'DataTableTheme overrides text styles, dividers and decoration.',
       icon: Icons.palette,
       gradient: const LinearGradient(
         colors: <Color>[Color(0xFF006064), Color(0xFF00838F)],
@@ -1370,20 +1123,14 @@ class _ThemingSection extends StatelessWidget {
         children: const <Widget>[
           Text(
             'Default styling:',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF006064),
-            ),
+            style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF006064)),
           ),
           SizedBox(height: 6),
           _DefaultStyledTable(),
           SizedBox(height: 18),
           Text(
             'Themed via DataTableTheme:',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF006064),
-            ),
+            style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF006064)),
           ),
           SizedBox(height: 6),
           _ThemedTable(),
@@ -1407,27 +1154,21 @@ class _DefaultStyledTable extends StatelessWidget {
           DataColumn(label: Text('Change'), numeric: true),
         ],
         rows: const <DataRow>[
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('Latency p99')),
-              DataCell(Text('142 ms')),
-              DataCell(Text('-3.1%')),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('Error rate')),
-              DataCell(Text('0.04%')),
-              DataCell(Text('-12.7%')),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(Text('Throughput')),
-              DataCell(Text('48.2 k/s')),
-              DataCell(Text('+8.4%')),
-            ],
-          ),
+          DataRow(cells: <DataCell>[
+            DataCell(Text('Latency p99')),
+            DataCell(Text('142 ms')),
+            DataCell(Text('-3.1%')),
+          ]),
+          DataRow(cells: <DataCell>[
+            DataCell(Text('Error rate')),
+            DataCell(Text('0.04%')),
+            DataCell(Text('-12.7%')),
+          ]),
+          DataRow(cells: <DataCell>[
+            DataCell(Text('Throughput')),
+            DataCell(Text('48.2 k/s')),
+            DataCell(Text('+8.4%')),
+          ]),
         ],
       ),
     );
@@ -1470,27 +1211,21 @@ class _ThemedTable extends StatelessWidget {
             DataColumn(label: Text('Change'), numeric: true),
           ],
           rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Latency p99')),
-                DataCell(Text('142 ms')),
-                DataCell(Text('-3.1%')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Error rate')),
-                DataCell(Text('0.04%')),
-                DataCell(Text('-12.7%')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Throughput')),
-                DataCell(Text('48.2 k/s')),
-                DataCell(Text('+8.4%')),
-              ],
-            ),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Latency p99')),
+              DataCell(Text('142 ms')),
+              DataCell(Text('-3.1%')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Error rate')),
+              DataCell(Text('0.04%')),
+              DataCell(Text('-12.7%')),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('Throughput')),
+              DataCell(Text('48.2 k/s')),
+              DataCell(Text('+8.4%')),
+            ]),
           ],
         ),
       ),
@@ -1509,8 +1244,7 @@ class _FooterSummarySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionFrame(
       title: '9. Footer summary row',
-      subtitle:
-          'Synthesised footer row uses WidgetStatePropertyAll for background.',
+      subtitle: 'Synthesised footer row uses WidgetStatePropertyAll for background.',
       icon: Icons.functions,
       gradient: const LinearGradient(
         colors: <Color>[Color(0xFF1B5E20), Color(0xFF388E3C)],
@@ -1525,82 +1259,43 @@ class _FooterSummarySection extends StatelessWidget {
           horizontalMargin: 16,
           dividerThickness: 1.5,
           columns: const <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Item',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text('Qty', style: TextStyle(fontWeight: FontWeight.w700)),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text(
-                'Unit',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text(
-                'Total',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              numeric: true,
-            ),
+            DataColumn(label: Text('Item', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Qty', style: TextStyle(fontWeight: FontWeight.w700)), numeric: true),
+            DataColumn(label: Text('Unit', style: TextStyle(fontWeight: FontWeight.w700)), numeric: true),
+            DataColumn(label: Text('Total', style: TextStyle(fontWeight: FontWeight.w700)), numeric: true),
           ],
           rows: <DataRow>[
-            const DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Hex bolt M8x40')),
-                DataCell(Text('250')),
-                DataCell(Text(r'$0.18')),
-                DataCell(Text(r'$45.00')),
-              ],
-            ),
-            const DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Lock washer M8')),
-                DataCell(Text('500')),
-                DataCell(Text(r'$0.06')),
-                DataCell(Text(r'$30.00')),
-              ],
-            ),
-            const DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Hex nut M8')),
-                DataCell(Text('500')),
-                DataCell(Text(r'$0.04')),
-                DataCell(Text(r'$20.00')),
-              ],
-            ),
-            const DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Loctite 243 (50 ml)')),
-                DataCell(Text('4')),
-                DataCell(Text(r'$8.50')),
-                DataCell(Text(r'$34.00')),
-              ],
-            ),
+            const DataRow(cells: <DataCell>[
+              DataCell(Text('Hex bolt M8x40')),
+              DataCell(Text('250')),
+              DataCell(Text(r'$0.18')),
+              DataCell(Text(r'$45.00')),
+            ]),
+            const DataRow(cells: <DataCell>[
+              DataCell(Text('Lock washer M8')),
+              DataCell(Text('500')),
+              DataCell(Text(r'$0.06')),
+              DataCell(Text(r'$30.00')),
+            ]),
+            const DataRow(cells: <DataCell>[
+              DataCell(Text('Hex nut M8')),
+              DataCell(Text('500')),
+              DataCell(Text(r'$0.04')),
+              DataCell(Text(r'$20.00')),
+            ]),
+            const DataRow(cells: <DataCell>[
+              DataCell(Text('Loctite 243 (50 ml)')),
+              DataCell(Text('4')),
+              DataCell(Text(r'$8.50')),
+              DataCell(Text(r'$34.00')),
+            ]),
             DataRow(
               color: const WidgetStatePropertyAll<Color?>(Color(0xFFC8E6C9)),
               cells: const <DataCell>[
-                DataCell(
-                  Text('TOTAL', style: TextStyle(fontWeight: FontWeight.w800)),
-                ),
-                DataCell(
-                  Text('1254', style: TextStyle(fontWeight: FontWeight.w800)),
-                ),
-                DataCell(
-                  Text('—', style: TextStyle(fontWeight: FontWeight.w800)),
-                ),
-                DataCell(
-                  Text(
-                    r'$129.00',
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                ),
+                DataCell(Text('TOTAL', style: TextStyle(fontWeight: FontWeight.w800))),
+                DataCell(Text('1254', style: TextStyle(fontWeight: FontWeight.w800))),
+                DataCell(Text('—', style: TextStyle(fontWeight: FontWeight.w800))),
+                DataCell(Text(r'$129.00', style: TextStyle(fontWeight: FontWeight.w800))),
               ],
             ),
           ],
@@ -1635,40 +1330,35 @@ class _PitfallsSection extends StatelessWidget {
           _PitfallCallout(
             symbol: '!',
             title: 'Forgetting numeric: true',
-            body:
-                'Numeric columns must set numeric: true so values right-align '
+            body: 'Numeric columns must set numeric: true so values right-align '
                 'and the heading is right-aligned. Without it, numbers look messy.',
           ),
           SizedBox(height: 10),
           _PitfallCallout(
             symbol: 'X',
             title: 'Mismatched cell count',
-            body:
-                'Every DataRow must provide exactly one DataCell per DataColumn. '
+            body: 'Every DataRow must provide exactly one DataCell per DataColumn. '
                 'A missing cell asserts at build time and crashes the frame.',
           ),
           SizedBox(height: 10),
           _PitfallCallout(
             symbol: '>',
             title: 'Wide tables overflow',
-            body:
-                'DataTable does not scroll on its own. Always wrap wide tables '
+            body: 'DataTable does not scroll on its own. Always wrap wide tables '
                 'in SingleChildScrollView(scrollDirection: Axis.horizontal, ...).',
           ),
           SizedBox(height: 10),
           _PitfallCallout(
             symbol: '?',
             title: 'No-op onSort still toggles arrow',
-            body:
-                'Setting onSort enables the sort indicator. If your callback '
+            body: 'Setting onSort enables the sort indicator. If your callback '
                 'is a no-op, the arrow flips visually but data does not reorder.',
           ),
           SizedBox(height: 10),
           _PitfallCallout(
             symbol: '#',
             title: 'Selection without keys',
-            body:
-                'When mutating a list of selected rows, give each DataRow a '
+            body: 'When mutating a list of selected rows, give each DataRow a '
                 'stable ValueKey so selection is preserved across rebuilds.',
           ),
         ],
@@ -1731,10 +1421,7 @@ class _PitfallCallout extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   body,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF3E2723),
-                  ),
+                  style: const TextStyle(fontSize: 13, color: Color(0xFF3E2723)),
                 ),
               ],
             ),
@@ -1771,143 +1458,78 @@ class _WideHorizontalScrollSection extends StatelessWidget {
           columnSpacing: 36,
           horizontalMargin: 16,
           columns: const <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Order ID',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Customer',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text('SKU', style: TextStyle(fontWeight: FontWeight.w700)),
-            ),
-            DataColumn(
-              label: Text(
-                'Description',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text('Qty', style: TextStyle(fontWeight: FontWeight.w700)),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text(
-                'Unit',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text(
-                'Subtotal',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text('Tax', style: TextStyle(fontWeight: FontWeight.w700)),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text(
-                'Shipped',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Status',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
+            DataColumn(label: Text('Order ID', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Customer', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('SKU', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Description', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Qty', style: TextStyle(fontWeight: FontWeight.w700)), numeric: true),
+            DataColumn(label: Text('Unit', style: TextStyle(fontWeight: FontWeight.w700)), numeric: true),
+            DataColumn(label: Text('Subtotal', style: TextStyle(fontWeight: FontWeight.w700)), numeric: true),
+            DataColumn(label: Text('Tax', style: TextStyle(fontWeight: FontWeight.w700)), numeric: true),
+            DataColumn(label: Text('Shipped', style: TextStyle(fontWeight: FontWeight.w700))),
+            DataColumn(label: Text('Status', style: TextStyle(fontWeight: FontWeight.w700))),
           ],
           rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('ORD-220394')),
-                DataCell(Text('Helix Robotics')),
-                DataCell(Text('SX-440-B')),
-                DataCell(Text('Servo bracket, anodized')),
-                DataCell(Text('24')),
-                DataCell(Text(r'$12.40')),
-                DataCell(Text(r'$297.60')),
-                DataCell(Text(r'$23.81')),
-                DataCell(Text('2025-04-22')),
-                DataCell(
-                  _StatusPill(label: 'Shipped', color: Color(0xFF2E7D32)),
-                ),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('ORD-220395')),
-                DataCell(Text('Northwind Optics')),
-                DataCell(Text('LP-7700')),
-                DataCell(Text('Polarising lens, 60mm')),
-                DataCell(Text('6')),
-                DataCell(Text(r'$84.00')),
-                DataCell(Text(r'$504.00')),
-                DataCell(Text(r'$40.32')),
-                DataCell(Text('2025-04-23')),
-                DataCell(
-                  _StatusPill(label: 'Pending', color: Color(0xFFEF6C00)),
-                ),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('ORD-220396')),
-                DataCell(Text('Pelican Marine')),
-                DataCell(Text('CB-12X')),
-                DataCell(Text('Marine cable, 12 AWG, 50m')),
-                DataCell(Text('3')),
-                DataCell(Text(r'$162.00')),
-                DataCell(Text(r'$486.00')),
-                DataCell(Text(r'$38.88')),
-                DataCell(Text('—')),
-                DataCell(
-                  _StatusPill(label: 'Backorder', color: Color(0xFFAD1457)),
-                ),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('ORD-220397')),
-                DataCell(Text('Vector Aerospace')),
-                DataCell(Text('TI-AL-225')),
-                DataCell(Text('Titanium fastener kit')),
-                DataCell(Text('1')),
-                DataCell(Text(r'$1,180.00')),
-                DataCell(Text(r'$1,180.00')),
-                DataCell(Text(r'$94.40')),
-                DataCell(Text('2025-04-21')),
-                DataCell(
-                  _StatusPill(label: 'Shipped', color: Color(0xFF2E7D32)),
-                ),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('ORD-220398')),
-                DataCell(Text('Cypress Foods')),
-                DataCell(Text('PK-300')),
-                DataCell(Text('Vacuum pouch, 30x40, 1000ct')),
-                DataCell(Text('12')),
-                DataCell(Text(r'$58.00')),
-                DataCell(Text(r'$696.00')),
-                DataCell(Text(r'$55.68')),
-                DataCell(Text('2025-04-22')),
-                DataCell(
-                  _StatusPill(label: 'Shipped', color: Color(0xFF2E7D32)),
-                ),
-              ],
-            ),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('ORD-220394')),
+              DataCell(Text('Helix Robotics')),
+              DataCell(Text('SX-440-B')),
+              DataCell(Text('Servo bracket, anodized')),
+              DataCell(Text('24')),
+              DataCell(Text(r'$12.40')),
+              DataCell(Text(r'$297.60')),
+              DataCell(Text(r'$23.81')),
+              DataCell(Text('2025-04-22')),
+              DataCell(_StatusPill(label: 'Shipped', color: Color(0xFF2E7D32))),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('ORD-220395')),
+              DataCell(Text('Northwind Optics')),
+              DataCell(Text('LP-7700')),
+              DataCell(Text('Polarising lens, 60mm')),
+              DataCell(Text('6')),
+              DataCell(Text(r'$84.00')),
+              DataCell(Text(r'$504.00')),
+              DataCell(Text(r'$40.32')),
+              DataCell(Text('2025-04-23')),
+              DataCell(_StatusPill(label: 'Pending', color: Color(0xFFEF6C00))),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('ORD-220396')),
+              DataCell(Text('Pelican Marine')),
+              DataCell(Text('CB-12X')),
+              DataCell(Text('Marine cable, 12 AWG, 50m')),
+              DataCell(Text('3')),
+              DataCell(Text(r'$162.00')),
+              DataCell(Text(r'$486.00')),
+              DataCell(Text(r'$38.88')),
+              DataCell(Text('—')),
+              DataCell(_StatusPill(label: 'Backorder', color: Color(0xFFAD1457))),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('ORD-220397')),
+              DataCell(Text('Vector Aerospace')),
+              DataCell(Text('TI-AL-225')),
+              DataCell(Text('Titanium fastener kit')),
+              DataCell(Text('1')),
+              DataCell(Text(r'$1,180.00')),
+              DataCell(Text(r'$1,180.00')),
+              DataCell(Text(r'$94.40')),
+              DataCell(Text('2025-04-21')),
+              DataCell(_StatusPill(label: 'Shipped', color: Color(0xFF2E7D32))),
+            ]),
+            DataRow(cells: <DataCell>[
+              DataCell(Text('ORD-220398')),
+              DataCell(Text('Cypress Foods')),
+              DataCell(Text('PK-300')),
+              DataCell(Text('Vacuum pouch, 30x40, 1000ct')),
+              DataCell(Text('12')),
+              DataCell(Text(r'$58.00')),
+              DataCell(Text(r'$696.00')),
+              DataCell(Text(r'$55.68')),
+              DataCell(Text('2025-04-22')),
+              DataCell(_StatusPill(label: 'Shipped', color: Color(0xFF2E7D32))),
+            ]),
           ],
         ),
       ),

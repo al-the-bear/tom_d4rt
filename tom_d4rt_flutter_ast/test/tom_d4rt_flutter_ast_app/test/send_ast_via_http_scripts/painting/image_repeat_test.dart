@@ -45,20 +45,15 @@ Widget irInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 110.0,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF8B6914),
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF8B6914))),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 12.0, color: Color(0xFF5D4037)),
-          ),
+          child: Text(value,
+              style: TextStyle(fontSize: 12.0, color: Color(0xFF5D4037))),
         ),
       ],
     ),
@@ -155,14 +150,9 @@ Widget irTilePreview(ImageRepeat mode, Color bg, String label) {
         ),
       ),
       SizedBox(height: 4.0),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          fontWeight: FontWeight.w600,
-          color: Color(0xFF6B3A2A),
-        ),
-      ),
+      Text(label,
+          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
+              color: Color(0xFF6B3A2A))),
     ],
   );
 }
@@ -197,22 +187,18 @@ dynamic build(BuildContext context) {
             Icon(Icons.grid_on, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text(
-                'ImageRepeat',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              child: Text('ImageRepeat',
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
             ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text(
-          'Controls how an image is tiled within its container bounds',
-          style: TextStyle(fontSize: 13.0, color: Color(0xFFFFE0C0)),
-        ),
+        Text('Controls how an image is tiled within its container bounds',
+            style: TextStyle(fontSize: 13.0, color: Color(0xFFFFE0C0))),
         SizedBox(height: 6.0),
         Row(
           children: [
@@ -265,30 +251,20 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(
-                icons[v] ?? Icons.help,
-                color: Color(0xFFA0522D),
-                size: 24.0,
-              ),
+              Icon(icons[v] ?? Icons.help, color: Color(0xFFA0522D), size: 24.0),
               SizedBox(height: 6.0),
-              Text(
-                v.name,
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF6B3A2A),
-                ),
-              ),
+              Text(v.name,
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF6B3A2A),
+                  )),
               SizedBox(height: 4.0),
-              Text(
-                labels[v] ?? '',
-                style: TextStyle(fontSize: 11.0, color: Color(0xFF8B6914)),
-              ),
+              Text(labels[v] ?? '',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF8B6914))),
               SizedBox(height: 4.0),
-              Text(
-                'index: ${v.index}',
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF999999)),
-              ),
+              Text('index: ${v.index}',
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF999999))),
             ],
           ),
         );
@@ -351,41 +327,20 @@ dynamic build(BuildContext context) {
         // Header row
         Row(
           children: [
-            SizedBox(
-              width: 90.0,
-              child: Text(
-                'Mode',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.0,
-                  color: Color(0xFF6B3A2A),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 70.0,
-              child: Text(
-                'X-axis',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.0,
-                  color: Color(0xFF6B3A2A),
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              width: 70.0,
-              child: Text(
-                'Y-axis',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.0,
-                  color: Color(0xFF6B3A2A),
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
+            SizedBox(width: 90.0,
+                child: Text('Mode',
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.0,
+                        color: Color(0xFF6B3A2A)))),
+            SizedBox(width: 70.0,
+                child: Text('X-axis',
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.0,
+                        color: Color(0xFF6B3A2A)),
+                    textAlign: TextAlign.center)),
+            SizedBox(width: 70.0,
+                child: Text('Y-axis',
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.0,
+                        color: Color(0xFF6B3A2A)),
+                    textAlign: TextAlign.center)),
           ],
         ),
         Divider(color: Color(0xFFD2B48C)),
@@ -395,37 +350,24 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.symmetric(vertical: 4.0),
             child: Row(
               children: [
-                SizedBox(
-                  width: 90.0,
-                  child: Text(
-                    r['mode'] as String,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w600,
-                      color: modeColor,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 70.0,
-                  child: Icon(
-                    (r['x'] as bool) ? Icons.check_circle : Icons.cancel,
-                    color: (r['x'] as bool)
-                        ? Color(0xFF4CAF50)
-                        : Color(0xFFE57373),
-                    size: 18.0,
-                  ),
-                ),
-                SizedBox(
-                  width: 70.0,
-                  child: Icon(
-                    (r['y'] as bool) ? Icons.check_circle : Icons.cancel,
-                    color: (r['y'] as bool)
-                        ? Color(0xFF4CAF50)
-                        : Color(0xFFE57373),
-                    size: 18.0,
-                  ),
-                ),
+                SizedBox(width: 90.0,
+                    child: Text(r['mode'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600,
+                            color: modeColor))),
+                SizedBox(width: 70.0,
+                    child: Icon(
+                      (r['x'] as bool) ? Icons.check_circle : Icons.cancel,
+                      color: (r['x'] as bool)
+                          ? Color(0xFF4CAF50) : Color(0xFFE57373),
+                      size: 18.0,
+                    )),
+                SizedBox(width: 70.0,
+                    child: Icon(
+                      (r['y'] as bool) ? Icons.check_circle : Icons.cancel,
+                      color: (r['y'] as bool)
+                          ? Color(0xFF4CAF50) : Color(0xFFE57373),
+                      size: 18.0,
+                    )),
               ],
             ),
           );
@@ -441,29 +383,14 @@ dynamic build(BuildContext context) {
   print('  Works with BoxDecoration and ShapeDecoration');
 
   final irDecoCards = <Map<String, String>>[
-    {
-      'mode': 'repeat',
-      'desc': 'Fills entire box with tiled copies',
-      'code':
-          'DecorationImage(\n  image: img,\n  repeat: ImageRepeat.repeat,\n)',
-    },
-    {
-      'mode': 'repeatX',
-      'desc': 'One row of tiles left to right',
-      'code':
-          'DecorationImage(\n  image: img,\n  repeat: ImageRepeat.repeatX,\n)',
-    },
-    {
-      'mode': 'repeatY',
-      'desc': 'One column of tiles top to bottom',
-      'code':
-          'DecorationImage(\n  image: img,\n  repeat: ImageRepeat.repeatY,\n)',
-    },
-    {
-      'mode': 'noRepeat',
-      'desc': 'Single image placed by alignment',
-      'code': 'DecorationImage(\n  image: img,\n  // default: noRepeat\n)',
-    },
+    {'mode': 'repeat', 'desc': 'Fills entire box with tiled copies',
+     'code': 'DecorationImage(\n  image: img,\n  repeat: ImageRepeat.repeat,\n)'},
+    {'mode': 'repeatX', 'desc': 'One row of tiles left to right',
+     'code': 'DecorationImage(\n  image: img,\n  repeat: ImageRepeat.repeatX,\n)'},
+    {'mode': 'repeatY', 'desc': 'One column of tiles top to bottom',
+     'code': 'DecorationImage(\n  image: img,\n  repeat: ImageRepeat.repeatY,\n)'},
+    {'mode': 'noRepeat', 'desc': 'Single image placed by alignment',
+     'code': 'DecorationImage(\n  image: img,\n  // default: noRepeat\n)'},
   ];
 
   final irDecoSection = Container(
@@ -487,19 +414,12 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                c['mode']!,
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFFA0522D),
-                ),
-              ),
+              Text(c['mode']!,
+                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
+                      color: Color(0xFFA0522D))),
               SizedBox(height: 4.0),
-              Text(
-                c['desc']!,
-                style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037)),
-              ),
+              Text(c['desc']!,
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037))),
               SizedBox(height: 6.0),
               Container(
                 width: double.infinity,
@@ -508,14 +428,9 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFF5F0EB),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(
-                  c['code']!,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    color: Color(0xFF6B3A2A),
-                  ),
-                ),
+                child: Text(c['code']!,
+                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                        color: Color(0xFF6B3A2A))),
               ),
             ],
           ),
@@ -550,14 +465,9 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Container ${cs['label']}',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF6B3A2A),
-                ),
-              ),
+              Text('Container ${cs['label']}',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600,
+                      color: Color(0xFF6B3A2A))),
               SizedBox(height: 4.0),
               Container(
                 width: (cs['w'] as double),
@@ -568,10 +478,8 @@ dynamic build(BuildContext context) {
                   borderRadius: BorderRadius.circular(4.0),
                 ),
                 child: Center(
-                  child: Text(
-                    'repeat zone',
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF8B4513)),
-                  ),
+                  child: Text('repeat zone',
+                      style: TextStyle(fontSize: 10.0, color: Color(0xFF8B4513))),
                 ),
               ),
             ],
@@ -597,14 +505,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'paintImage() Integration',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF6B3A2A),
-          ),
-        ),
+        Text('paintImage() Integration',
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700,
+                color: Color(0xFF6B3A2A))),
         SizedBox(height: 8.0),
         irInfoRow('Function:', 'paintImage()'),
         irInfoRow('Parameter:', 'repeat: ImageRepeat'),
@@ -626,11 +529,8 @@ dynamic build(BuildContext context) {
             '  repeat: ImageRepeat.repeat,\n'
             '  scale: 1.0,\n'
             ')',
-            style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF6B3A2A),
-            ),
+            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                color: Color(0xFF6B3A2A)),
           ),
         ),
       ],
@@ -646,30 +546,10 @@ dynamic build(BuildContext context) {
   print('  noRepeat  | One   | None       | Centered');
 
   final irCompRows = <Map<String, String>>[
-    {
-      'mode': 'repeat',
-      'tiles': 'Many',
-      'dir': 'X + Y',
-      'use': 'Wallpaper / Patterns',
-    },
-    {
-      'mode': 'repeatX',
-      'tiles': 'Row',
-      'dir': 'Horizontal',
-      'use': 'Borders / Dividers',
-    },
-    {
-      'mode': 'repeatY',
-      'tiles': 'Column',
-      'dir': 'Vertical',
-      'use': 'Sidebars / Edges',
-    },
-    {
-      'mode': 'noRepeat',
-      'tiles': 'Single',
-      'dir': 'None',
-      'use': 'Centered / Logo',
-    },
+    {'mode': 'repeat', 'tiles': 'Many', 'dir': 'X + Y', 'use': 'Wallpaper / Patterns'},
+    {'mode': 'repeatX', 'tiles': 'Row', 'dir': 'Horizontal', 'use': 'Borders / Dividers'},
+    {'mode': 'repeatY', 'tiles': 'Column', 'dir': 'Vertical', 'use': 'Sidebars / Edges'},
+    {'mode': 'noRepeat', 'tiles': 'Single', 'dir': 'None', 'use': 'Centered / Logo'},
   ];
 
   final irCompTable = Container(
@@ -683,92 +563,41 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            SizedBox(
-              width: 70.0,
-              child: Text(
-                'Mode',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11.0,
-                  color: Color(0xFF6B3A2A),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 50.0,
-              child: Text(
-                'Tiles',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11.0,
-                  color: Color(0xFF6B3A2A),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 70.0,
-              child: Text(
-                'Direction',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11.0,
-                  color: Color(0xFF6B3A2A),
-                ),
-              ),
-            ),
+            SizedBox(width: 70.0,
+                child: Text('Mode', style: TextStyle(fontWeight: FontWeight.w700,
+                    fontSize: 11.0, color: Color(0xFF6B3A2A)))),
+            SizedBox(width: 50.0,
+                child: Text('Tiles', style: TextStyle(fontWeight: FontWeight.w700,
+                    fontSize: 11.0, color: Color(0xFF6B3A2A)))),
+            SizedBox(width: 70.0,
+                child: Text('Direction', style: TextStyle(fontWeight: FontWeight.w700,
+                    fontSize: 11.0, color: Color(0xFF6B3A2A)))),
             Expanded(
-              child: Text(
-                'Use Case',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11.0,
-                  color: Color(0xFF6B3A2A),
-                ),
-              ),
-            ),
+                child: Text('Use Case', style: TextStyle(fontWeight: FontWeight.w700,
+                    fontSize: 11.0, color: Color(0xFF6B3A2A)))),
           ],
         ),
         Divider(color: Color(0xFFD2B48C)),
-        ...irCompRows.map(
-          (r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 3.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 70.0,
-                  child: Text(
-                    r['mode']!,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFA0522D),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 50.0,
-                  child: Text(
-                    r['tiles']!,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037)),
-                  ),
-                ),
-                SizedBox(
-                  width: 70.0,
-                  child: Text(
-                    r['dir']!,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037)),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    r['use']!,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037)),
-                  ),
-                ),
-              ],
-            ),
+        ...irCompRows.map((r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 3.0),
+          child: Row(
+            children: [
+              SizedBox(width: 70.0,
+                  child: Text(r['mode']!,
+                      style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
+                          color: Color(0xFFA0522D)))),
+              SizedBox(width: 50.0,
+                  child: Text(r['tiles']!,
+                      style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037)))),
+              SizedBox(width: 70.0,
+                  child: Text(r['dir']!,
+                      style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037)))),
+              Expanded(
+                  child: Text(r['use']!,
+                      style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037)))),
+            ],
           ),
-        ),
+        )),
       ],
     ),
   );
@@ -783,42 +612,18 @@ dynamic build(BuildContext context) {
   print('  Texture fill: repeat');
 
   final irUseCases = <Map<String, dynamic>>[
-    {
-      'title': 'Wallpaper Background',
-      'icon': Icons.wallpaper,
-      'mode': 'repeat',
-      'desc': 'Seamless tile pattern covers entire area',
-    },
-    {
-      'title': 'Horizontal Border',
-      'icon': Icons.border_top,
-      'mode': 'repeatX',
-      'desc': 'Decorative strip along top or bottom edge',
-    },
-    {
-      'title': 'Sidebar Texture',
-      'icon': Icons.border_left,
-      'mode': 'repeatY',
-      'desc': 'Vertical pattern along left/right edge',
-    },
-    {
-      'title': 'Centered Logo',
-      'icon': Icons.center_focus_strong,
-      'mode': 'noRepeat',
-      'desc': 'Single image placed by alignment rule',
-    },
-    {
-      'title': 'Watermark Layer',
-      'icon': Icons.branding_watermark,
-      'mode': 'repeat',
-      'desc': 'Semi-transparent overlay tiled everywhere',
-    },
-    {
-      'title': 'Texture Fill',
-      'icon': Icons.texture,
-      'mode': 'repeat',
-      'desc': 'Paper, fabric, or noise texture background',
-    },
+    {'title': 'Wallpaper Background', 'icon': Icons.wallpaper,
+     'mode': 'repeat', 'desc': 'Seamless tile pattern covers entire area'},
+    {'title': 'Horizontal Border', 'icon': Icons.border_top,
+     'mode': 'repeatX', 'desc': 'Decorative strip along top or bottom edge'},
+    {'title': 'Sidebar Texture', 'icon': Icons.border_left,
+     'mode': 'repeatY', 'desc': 'Vertical pattern along left/right edge'},
+    {'title': 'Centered Logo', 'icon': Icons.center_focus_strong,
+     'mode': 'noRepeat', 'desc': 'Single image placed by alignment rule'},
+    {'title': 'Watermark Layer', 'icon': Icons.branding_watermark,
+     'mode': 'repeat', 'desc': 'Semi-transparent overlay tiled everywhere'},
+    {'title': 'Texture Fill', 'icon': Icons.texture,
+     'mode': 'repeat', 'desc': 'Paper, fabric, or noise texture background'},
   ];
 
   final irUseCaseSection = Container(
@@ -845,31 +650,20 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(
-                    uc['icon'] as IconData,
-                    color: Color(0xFFA0522D),
-                    size: 16.0,
-                  ),
+                  Icon(uc['icon'] as IconData, color: Color(0xFFA0522D), size: 16.0),
                   SizedBox(width: 4.0),
                   Expanded(
-                    child: Text(
-                      uc['title'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF6B3A2A),
-                      ),
-                    ),
+                    child: Text(uc['title'] as String,
+                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                            color: Color(0xFF6B3A2A))),
                   ),
                 ],
               ),
               SizedBox(height: 4.0),
               irChip(uc['mode'] as String, Color(0xFFA0522D)),
               SizedBox(height: 4.0),
-              Text(
-                uc['desc'] as String,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF5D4037)),
-              ),
+              Text(uc['desc'] as String,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF5D4037))),
             ],
           ),
         );
@@ -900,14 +694,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Alignment affects where tiling starts',
-          style: TextStyle(
-            fontSize: 12.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8B6914),
-          ),
-        ),
+        Text('Alignment affects where tiling starts',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8B6914))),
         SizedBox(height: 8.0),
         Wrap(
           spacing: 10.0,
@@ -932,22 +721,17 @@ dynamic build(BuildContext context) {
                         color: Color(0xFFA0522D),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: Icon(
-                        Icons.radio_button_checked,
-                        size: 14.0,
-                        color: Colors.white,
-                      ),
+                      child: Icon(Icons.radio_button_checked,
+                          size: 14.0, color: Colors.white),
                     ),
                   ),
                   Positioned(
                     bottom: 2.0,
                     left: 0.0,
                     right: 0.0,
-                    child: Text(
-                      a['name'] as String,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 9.0, color: Color(0xFF6B3A2A)),
-                    ),
+                    child: Text(a['name'] as String,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 9.0, color: Color(0xFF6B3A2A))),
                   ),
                 ],
               ),
@@ -982,14 +766,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Dart 3 Switch Expression',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF6B3A2A),
-          ),
-        ),
+        Text('Dart 3 Switch Expression',
+            style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
+                color: Color(0xFF6B3A2A))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -1005,11 +784,8 @@ dynamic build(BuildContext context) {
             '  ImageRepeat.repeatY  => "Y only",\n'
             '  ImageRepeat.noRepeat => "none",\n'
             '};',
-            style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF6B3A2A),
-            ),
+            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                color: Color(0xFF6B3A2A)),
           ),
         ),
         SizedBox(height: 8.0),
@@ -1025,10 +801,8 @@ dynamic build(BuildContext context) {
             child: Row(
               children: [
                 Icon(Icons.arrow_right, color: Color(0xFFA0522D), size: 16.0),
-                Text(
-                  '${v.name} → $desc',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037)),
-                ),
+                Text('${v.name} → $desc',
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037))),
               ],
             ),
           );
@@ -1052,41 +826,17 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Expanded(
-              child: irTilePreview(
-                ImageRepeat.repeat,
-                Color(0xFFFFEDD5),
-                'repeat',
-              ),
-            ),
+            Expanded(child: irTilePreview(ImageRepeat.repeat, Color(0xFFFFEDD5), 'repeat')),
             SizedBox(width: 8.0),
-            Expanded(
-              child: irTilePreview(
-                ImageRepeat.repeatX,
-                Color(0xFFE8F5E9),
-                'repeatX',
-              ),
-            ),
+            Expanded(child: irTilePreview(ImageRepeat.repeatX, Color(0xFFE8F5E9), 'repeatX')),
           ],
         ),
         SizedBox(height: 12.0),
         Row(
           children: [
-            Expanded(
-              child: irTilePreview(
-                ImageRepeat.repeatY,
-                Color(0xFFE3F2FD),
-                'repeatY',
-              ),
-            ),
+            Expanded(child: irTilePreview(ImageRepeat.repeatY, Color(0xFFE3F2FD), 'repeatY')),
             SizedBox(width: 8.0),
-            Expanded(
-              child: irTilePreview(
-                ImageRepeat.noRepeat,
-                Color(0xFFFCE4EC),
-                'noRepeat',
-              ),
-            ),
+            Expanded(child: irTilePreview(ImageRepeat.noRepeat, Color(0xFFFCE4EC), 'noRepeat')),
           ],
         ),
       ],
@@ -1110,27 +860,16 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        irInfoRow(
-          'repeat == repeat:',
-          '${ImageRepeat.repeat == ImageRepeat.repeat}',
-        ),
-        irInfoRow(
-          'repeat == noRepeat:',
-          '${ImageRepeat.repeat == ImageRepeat.noRepeat}',
-        ),
+        irInfoRow('repeat == repeat:', '${ImageRepeat.repeat == ImageRepeat.repeat}'),
+        irInfoRow('repeat == noRepeat:', '${ImageRepeat.repeat == ImageRepeat.noRepeat}'),
         irInfoRow('hashCode repeat:', '${ImageRepeat.repeat.hashCode}'),
         irInfoRow('hashCode noRepeat:', '${ImageRepeat.noRepeat.hashCode}'),
         SizedBox(height: 6.0),
         Divider(color: Color(0xFFD2B48C)),
         SizedBox(height: 4.0),
-        Text(
-          'All ImageRepeat values in a Set:',
-          style: TextStyle(
-            fontSize: 11.0,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF6B3A2A),
-          ),
-        ),
+        Text('All ImageRepeat values in a Set:',
+            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
+                color: Color(0xFF6B3A2A))),
         SizedBox(height: 4.0),
         Wrap(
           spacing: 6.0,
@@ -1150,36 +889,27 @@ dynamic build(BuildContext context) {
   print('  Pattern 3: Repeat with opacity');
 
   final irPatterns = <Map<String, String>>[
-    {
-      'title': 'Background Tile Pattern',
-      'code':
-          'Container(\n'
-          '  decoration: BoxDecoration(\n'
-          '    image: DecorationImage(\n'
-          '      image: AssetImage("tile.png"),\n'
-          '      repeat: ImageRepeat.repeat,\n'
-          '    ),\n'
-          '  ),\n'
-          ')',
-    },
-    {
-      'title': 'Conditional Mode Selection',
-      'code':
-          'final mode = isFullTile\n'
-          '    ? ImageRepeat.repeat\n'
-          '    : isHorizontal\n'
-          '        ? ImageRepeat.repeatX\n'
-          '        : ImageRepeat.noRepeat;',
-    },
-    {
-      'title': 'Opacity + Repeat Combo',
-      'code':
-          'DecorationImage(\n'
-          '  image: AssetImage("watermark.png"),\n'
-          '  repeat: ImageRepeat.repeat,\n'
-          '  opacity: 0.15,\n'
-          ')',
-    },
+    {'title': 'Background Tile Pattern',
+     'code': 'Container(\n'
+         '  decoration: BoxDecoration(\n'
+         '    image: DecorationImage(\n'
+         '      image: AssetImage("tile.png"),\n'
+         '      repeat: ImageRepeat.repeat,\n'
+         '    ),\n'
+         '  ),\n'
+         ')'},
+    {'title': 'Conditional Mode Selection',
+     'code': 'final mode = isFullTile\n'
+         '    ? ImageRepeat.repeat\n'
+         '    : isHorizontal\n'
+         '        ? ImageRepeat.repeatX\n'
+         '        : ImageRepeat.noRepeat;'},
+    {'title': 'Opacity + Repeat Combo',
+     'code': 'DecorationImage(\n'
+         '  image: AssetImage("watermark.png"),\n'
+         '  repeat: ImageRepeat.repeat,\n'
+         '  opacity: 0.15,\n'
+         ')'},
   ];
 
   final irPatternsSection = Container(
@@ -1202,14 +932,9 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                p['title']!,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFFA0522D),
-                ),
-              ),
+              Text(p['title']!,
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                      color: Color(0xFFA0522D))),
               SizedBox(height: 6.0),
               Container(
                 width: double.infinity,
@@ -1218,14 +943,9 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFF5F0EB),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(
-                  p['code']!,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    color: Color(0xFF6B3A2A),
-                  ),
-                ),
+                child: Text(p['code']!,
+                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                        color: Color(0xFF6B3A2A))),
               ),
             ],
           ),
@@ -1242,30 +962,14 @@ dynamic build(BuildContext context) {
   print('  noRepeat: Logos, hero images, single-placement');
 
   final irWhenData = <Map<String, dynamic>>[
-    {
-      'mode': 'repeat',
-      'icon': Icons.grid_4x4,
-      'color': Color(0xFFA0522D),
-      'when': 'Wallpapers, textures, seamless patterns, watermarks',
-    },
-    {
-      'mode': 'repeatX',
-      'icon': Icons.view_column,
-      'color': Color(0xFFD2691E),
-      'when': 'Horizontal dividers, header/footer strips, top borders',
-    },
-    {
-      'mode': 'repeatY',
-      'icon': Icons.view_stream,
-      'color': Color(0xFF8B6914),
-      'when': 'Vertical sidebars, page edges, side decorations',
-    },
-    {
-      'mode': 'noRepeat',
-      'icon': Icons.crop_square,
-      'color': Color(0xFF6B3A2A),
-      'when': 'Logos, hero images, centered photos, single placement',
-    },
+    {'mode': 'repeat', 'icon': Icons.grid_4x4, 'color': Color(0xFFA0522D),
+     'when': 'Wallpapers, textures, seamless patterns, watermarks'},
+    {'mode': 'repeatX', 'icon': Icons.view_column, 'color': Color(0xFFD2691E),
+     'when': 'Horizontal dividers, header/footer strips, top borders'},
+    {'mode': 'repeatY', 'icon': Icons.view_stream, 'color': Color(0xFF8B6914),
+     'when': 'Vertical sidebars, page edges, side decorations'},
+    {'mode': 'noRepeat', 'icon': Icons.crop_square, 'color': Color(0xFF6B3A2A),
+     'when': 'Logos, hero images, centered photos, single placement'},
   ];
 
   final irWhenSection = Container(
@@ -1282,31 +986,17 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                w['icon'] as IconData,
-                color: w['color'] as Color,
-                size: 20.0,
-              ),
+              Icon(w['icon'] as IconData, color: w['color'] as Color, size: 20.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      w['mode'] as String,
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                        color: w['color'] as Color,
-                      ),
-                    ),
-                    Text(
-                      w['when'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        color: Color(0xFF5D4037),
-                      ),
-                    ),
+                    Text(w['mode'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                            color: w['color'] as Color)),
+                    Text(w['when'] as String,
+                        style: TextStyle(fontSize: 11.0, color: Color(0xFF5D4037))),
                   ],
                 ),
               ),
@@ -1337,50 +1027,33 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text(
-          'ImageRepeat Dashboard',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        Text('ImageRepeat Dashboard',
+            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,
+                color: Colors.white)),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Text(
-                  '${ImageRepeat.values.length}',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFFFE0C0),
-                  ),
-                ),
-                Text(
-                  'Values',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFD2B48C)),
-                ),
+                Text('${ImageRepeat.values.length}',
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold,
+                        color: Color(0xFFFFE0C0))),
+                Text('Values', style: TextStyle(fontSize: 11.0, color: Color(0xFFD2B48C))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.crop_square, color: Color(0xFFFFE0C0), size: 28.0),
-                Text(
-                  'Default: noRepeat',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFD2B48C)),
-                ),
+                Text('Default: noRepeat',
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFFD2B48C))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.grid_4x4, color: Color(0xFFFFE0C0), size: 28.0),
-                Text(
-                  'Most Used: repeat',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFD2B48C)),
-                ),
+                Text('Most Used: repeat',
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFFD2B48C))),
               ],
             ),
           ],

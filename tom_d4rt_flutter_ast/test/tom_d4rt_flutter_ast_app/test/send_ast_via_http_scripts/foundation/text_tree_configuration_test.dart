@@ -100,11 +100,7 @@ Widget _heroHeader() {
     padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 24),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF1A237E),
-          Color(0xFF283593),
-          Color(0xFF3949AB),
-        ],
+        colors: <Color>[Color(0xFF1A237E), Color(0xFF283593), Color(0xFF3949AB)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1012,7 +1008,8 @@ Widget _annotatedLine({
           spacing: 3,
           runSpacing: 8,
           children: <Widget>[
-            for (final _AnnotatedChip chip in chips) _annotatedChip(chip: chip),
+            for (final _AnnotatedChip chip in chips)
+              _annotatedChip(chip: chip),
           ],
         ),
       ],
@@ -1584,7 +1581,10 @@ class _PresetCardWidget extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: preset.tint,
                   borderRadius: BorderRadius.circular(4),
@@ -1786,7 +1786,12 @@ String _sparseToStringDeepFallback(_SampleScene scene) {
   buf.writeln(')');
   // Body uses the sparse default branch markers so the output reads
   // like Flutter's real sparse `toStringDeep` rendering.
-  buf.write(scene.renderManual(one: '├─', other: '│  ', last: '└─', link: ' '));
+  buf.write(scene.renderManual(
+    one: '├─',
+    other: '│  ',
+    last: '└─',
+    link: ' ',
+  ));
   return buf.toString();
 }
 

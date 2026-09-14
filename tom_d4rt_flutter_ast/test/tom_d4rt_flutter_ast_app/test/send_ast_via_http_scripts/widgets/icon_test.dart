@@ -120,20 +120,20 @@ import 'package:flutter/material.dart';
 // leaf is the accent; vellum is the background; iron-gall ink and rubricator
 // red round out the typography.
 // -----------------------------------------------------------------------------
-const Color lapisIvory = Color(0xFFF4ECD8); // unbleached vellum
-const Color lapisParchment = Color(0xFFE8DCB8); // aged parchment
-const Color lapisRubric = Color(0xFFB23A38); // rubricator red
-const Color lapisIngot = Color(0xFFC9A227); // burnished gold leaf
-const Color lapisGoldHaze = Color(0xFFE2C46A); // pale gold wash
-const Color lapisInk = Color(0xFF1D2A4A); // deep lapis ink
-const Color lapisDeep = Color(0xFF233567); // royal lapis
-const Color lapisMid = Color(0xFF35539B); // mid lapis pigment
-const Color lapisAzure = Color(0xFF4A78C8); // bright sky lapis
-const Color lapisSky = Color(0xFF7AA0DC); // pale lapis sky
-const Color lapisVerdigris = Color(0xFF497F6E); // copper verdigris
-const Color lapisOlive = Color(0xFF6B6B33); // earth-pigment olive
-const Color lapisCharcoal = Color(0xFF2A2826); // iron-gall ink
-const Color lapisSlate = Color(0xFF6F6E62); // muted scribe slate
+const Color lapisIvory       = Color(0xFFF4ECD8); // unbleached vellum
+const Color lapisParchment   = Color(0xFFE8DCB8); // aged parchment
+const Color lapisRubric      = Color(0xFFB23A38); // rubricator red
+const Color lapisIngot       = Color(0xFFC9A227); // burnished gold leaf
+const Color lapisGoldHaze    = Color(0xFFE2C46A); // pale gold wash
+const Color lapisInk         = Color(0xFF1D2A4A); // deep lapis ink
+const Color lapisDeep        = Color(0xFF233567); // royal lapis
+const Color lapisMid         = Color(0xFF35539B); // mid lapis pigment
+const Color lapisAzure       = Color(0xFF4A78C8); // bright sky lapis
+const Color lapisSky         = Color(0xFF7AA0DC); // pale lapis sky
+const Color lapisVerdigris   = Color(0xFF497F6E); // copper verdigris
+const Color lapisOlive       = Color(0xFF6B6B33); // earth-pigment olive
+const Color lapisCharcoal    = Color(0xFF2A2826); // iron-gall ink
+const Color lapisSlate       = Color(0xFF6F6E62); // muted scribe slate
 
 // -----------------------------------------------------------------------------
 // TYPOGRAPHY HELPERS
@@ -143,41 +143,38 @@ const Color lapisSlate = Color(0xFF6F6E62); // muted scribe slate
 // majuscule, minuscule, and uncial scripts respectively.
 // -----------------------------------------------------------------------------
 TextStyle _displayStyle(double size, Color color) => TextStyle(
-  fontSize: size,
-  fontWeight: FontWeight.w800,
-  color: color,
-  letterSpacing: 0.6,
-  height: 1.15,
-);
+      fontSize: size,
+      fontWeight: FontWeight.w800,
+      color: color,
+      letterSpacing: 0.6,
+      height: 1.15,
+    );
 
 TextStyle _titleStyle(double size, Color color) => TextStyle(
-  fontSize: size,
-  fontWeight: FontWeight.w700,
-  color: color,
-  letterSpacing: 0.3,
-  height: 1.2,
-);
+      fontSize: size,
+      fontWeight: FontWeight.w700,
+      color: color,
+      letterSpacing: 0.3,
+      height: 1.2,
+    );
 
-TextStyle _bodyStyle(
-  Color color, {
-  double size = 13,
-  FontWeight w = FontWeight.w400,
-}) => TextStyle(fontSize: size, color: color, fontWeight: w, height: 1.5);
+TextStyle _bodyStyle(Color color, {double size = 13, FontWeight w = FontWeight.w400}) =>
+    TextStyle(fontSize: size, color: color, fontWeight: w, height: 1.5);
 
 TextStyle _captionStyle(Color color, {double size = 11}) => TextStyle(
-  fontSize: size,
-  color: color,
-  fontWeight: FontWeight.w500,
-  letterSpacing: 0.4,
-  height: 1.3,
-);
+      fontSize: size,
+      color: color,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.4,
+      height: 1.3,
+    );
 
 TextStyle _monoStyle(Color color, {double size = 11}) => TextStyle(
-  fontFamily: 'monospace',
-  fontSize: size,
-  color: color,
-  height: 1.4,
-);
+      fontFamily: 'monospace',
+      fontSize: size,
+      color: color,
+      height: 1.4,
+    );
 
 // -----------------------------------------------------------------------------
 // SURFACE DECORATIONS
@@ -187,26 +184,26 @@ TextStyle _monoStyle(Color color, {double size = 11}) => TextStyle(
 // gold-leaf rule.
 // -----------------------------------------------------------------------------
 BoxDecoration _vellumSurface() => BoxDecoration(
-  color: lapisIvory,
-  borderRadius: BorderRadius.circular(10),
-  border: Border.all(color: lapisIngot.withValues(alpha: 0.55), width: 1.0),
-);
+      color: lapisIvory,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: lapisIngot.withValues(alpha: 0.55), width: 1.0),
+    );
 
 BoxDecoration _lapisSurface() => BoxDecoration(
-  gradient: LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [lapisInk, lapisDeep, lapisMid],
-  ),
-  borderRadius: BorderRadius.circular(12),
-  border: Border.all(color: lapisIngot.withValues(alpha: 0.7), width: 1.2),
-);
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [lapisInk, lapisDeep, lapisMid],
+      ),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: lapisIngot.withValues(alpha: 0.7), width: 1.2),
+    );
 
 BoxDecoration _goldFrame() => BoxDecoration(
-  color: lapisIvory,
-  borderRadius: BorderRadius.circular(8),
-  border: Border.all(color: lapisIngot, width: 1.4),
-);
+      color: lapisIvory,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: lapisIngot, width: 1.4),
+    );
 
 // -----------------------------------------------------------------------------
 // SMALL UI HELPERS
@@ -243,11 +240,17 @@ Widget _propRow(String name, String value, {Color? accent}) {
       children: [
         SizedBox(
           width: 130,
-          child: Text(name, style: _monoStyle(accent ?? lapisInk, size: 11)),
+          child: Text(
+            name,
+            style: _monoStyle(accent ?? lapisInk, size: 11),
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(value, style: _bodyStyle(lapisCharcoal, size: 12)),
+          child: Text(
+            value,
+            style: _bodyStyle(lapisCharcoal, size: 12),
+          ),
         ),
       ],
     ),
@@ -274,13 +277,10 @@ Widget _glyphTile({
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(child: Icon(glyph, size: 36, color: tone)),
-        Text(
-          label,
-          style: _captionStyle(lapisInk, size: 11),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+        Center(
+          child: Icon(glyph, size: 36, color: tone),
         ),
+        Text(label, style: _captionStyle(lapisInk, size: 11), maxLines: 1, overflow: TextOverflow.ellipsis),
         Text(codepointHex, style: _monoStyle(lapisSlate, size: 9)),
       ],
     ),
@@ -292,9 +292,7 @@ Widget _proseCard({required String title, required List<String> paragraphs}) {
   children.add(Text(title, style: _titleStyle(15, lapisInk)));
   children.add(_verticalGap(8));
   for (int i = 0; i < paragraphs.length; i++) {
-    children.add(
-      Text(paragraphs[i], style: _bodyStyle(lapisCharcoal, size: 12)),
-    );
+    children.add(Text(paragraphs[i], style: _bodyStyle(lapisCharcoal, size: 12)));
     if (i < paragraphs.length - 1) {
       children.add(_verticalGap(8));
     }
@@ -302,10 +300,7 @@ Widget _proseCard({required String title, required List<String> paragraphs}) {
   return Container(
     padding: const EdgeInsets.all(14),
     decoration: _vellumSurface(),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: children,
-    ),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: children),
   );
 }
 
@@ -407,47 +402,18 @@ dynamic build(BuildContext context) {
   ];
 
   final List<String> catalogHex = <String>[
-    '0xe88a',
-    '0xe838',
-    '0xeb3e',
-    '0xe0f0',
-    '0xe865',
-    '0xea19',
-    '0xe53b',
-    '0xe3ae',
-    '0xe40a',
-    '0xe3c9',
-    '0xe150',
-    '0xebd0',
-    '0xe43e',
-    '0xe3b7',
-    '0xe7b1',
-    '0xe54e',
-    '0xea63',
-    '0xe63f',
-    '0xe6b8',
-    '0xe587',
-    '0xeae7',
-    '0xea05',
-    '0xeaaf',
-    '0xe84f',
-    '0xea36',
-    '0xea66',
-    '0xea65',
-    '0xe7e9',
-    '0xefef',
-    '0xf1e8',
-    '0xe56c',
-    '0xe556',
+    '0xe88a', '0xe838', '0xeb3e', '0xe0f0', '0xe865',
+    '0xea19', '0xe53b', '0xe3ae', '0xe40a', '0xe3c9',
+    '0xe150', '0xebd0', '0xe43e', '0xe3b7', '0xe7b1',
+    '0xe54e', '0xea63', '0xe63f', '0xe6b8', '0xe587',
+    '0xeae7', '0xea05', '0xeaaf', '0xe84f', '0xea36',
+    '0xea66', '0xea65', '0xe7e9', '0xefef', '0xf1e8',
+    '0xe56c', '0xe556',
   ];
 
-  print(
-    'Catalog assembled - ${catalogGlyphs.length} glyphs ready for illumination.',
-  );
+  print('Catalog assembled - ${catalogGlyphs.length} glyphs ready for illumination.');
   print('First glyph:  Icons.home  -> codepoint ${catalogHex[0]}');
-  print(
-    'Last glyph:   Icons.local_dining  -> codepoint ${catalogHex[catalogHex.length - 1]}',
-  );
+  print('Last glyph:   Icons.local_dining  -> codepoint ${catalogHex[catalogHex.length - 1]}');
 
   // ---------------------------------------------------------------------------
   // HAND-BUILT ICONDATA :: The scribe forges three glyphs from raw codepoints.
@@ -465,16 +431,10 @@ dynamic build(BuildContext context) {
     matchTextDirection: true,
   );
 
-  print(
-    '  manualHome  :: codePoint = ${manualHome.codePoint.toRadixString(16)}',
-  );
-  print(
-    '  manualStar  :: codePoint = ${manualStar.codePoint.toRadixString(16)}',
-  );
-  print(
-    '  manualArrow :: codePoint = ${manualArrow.codePoint.toRadixString(16)} '
-    '(matchTextDirection = ${manualArrow.matchTextDirection})',
-  );
+  print('  manualHome  :: codePoint = ${manualHome.codePoint.toRadixString(16)}');
+  print('  manualStar  :: codePoint = ${manualStar.codePoint.toRadixString(16)}');
+  print('  manualArrow :: codePoint = ${manualArrow.codePoint.toRadixString(16)} '
+      '(matchTextDirection = ${manualArrow.matchTextDirection})');
 
   // ===========================================================================
   // SECTION 1 :: TITLE ILLUMINATION
@@ -507,11 +467,7 @@ dynamic build(BuildContext context) {
                   _verticalGap(4),
                   Text(
                     'An illuminated codex of the Icon widget',
-                    style: _bodyStyle(
-                      lapisGoldHaze,
-                      size: 14,
-                      w: FontWeight.w500,
-                    ),
+                    style: _bodyStyle(lapisGoldHaze, size: 14, w: FontWeight.w500),
                   ),
                 ],
               ),
@@ -604,46 +560,26 @@ dynamic build(BuildContext context) {
         _verticalGap(10),
         _propRow('icon', 'IconData (required) - the glyph to paint.'),
         _propRow('size', 'double, edge length of square box; defaults to 24.'),
-        _propRow(
-          'color',
-          'Color, foreground tint; defaults to IconTheme.color.',
-        ),
-        _propRow(
-          'semanticLabel',
-          'String, screen-reader label; null = no Semantics().',
-        ),
-        _propRow(
-          'textDirection',
-          'TextDirection, used when IconData.matchTextDirection.',
-        ),
-        _propRow(
-          'fill',
-          'double 0.0-1.0, variable-font outline-to-solid axis.',
-        ),
+        _propRow('color', 'Color, foreground tint; defaults to IconTheme.color.'),
+        _propRow('semanticLabel', 'String, screen-reader label; null = no Semantics().'),
+        _propRow('textDirection', 'TextDirection, used when IconData.matchTextDirection.'),
+        _propRow('fill', 'double 0.0-1.0, variable-font outline-to-solid axis.'),
         _propRow('weight', 'double 100-700, variable-font stroke heaviness.'),
-        _propRow(
-          'grade',
-          'double -50-200, fine ink-weight tweak without footprint change.',
-        ),
-        _propRow(
-          'opticalSize',
-          'double 20/24/40/48, axis hint for optical size.',
-        ),
-        _propRow(
-          'shadows',
-          'List<Shadow>, drop-shadows / glows under the glyph.',
-        ),
-        _propRow(
-          'applyTextScaling',
-          'bool, scale size by MediaQuery.textScaleFactor.',
-        ),
+        _propRow('grade', 'double -50-200, fine ink-weight tweak without footprint change.'),
+        _propRow('opticalSize', 'double 20/24/40/48, axis hint for optical size.'),
+        _propRow('shadows', 'List<Shadow>, drop-shadows / glows under the glyph.'),
+        _propRow('applyTextScaling', 'bool, scale size by MediaQuery.textScaleFactor.'),
       ],
     ),
   );
 
   final Widget section2 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: [section2Prose, _verticalGap(10), section2Table],
+    children: [
+      section2Prose,
+      _verticalGap(10),
+      section2Table,
+    ],
   );
 
   // ===========================================================================
@@ -677,9 +613,7 @@ dynamic build(BuildContext context) {
     } else {
       accent = lapisIngot;
     }
-    tileWidgets.add(
-      _glyphTile(glyph: g, label: label, codepointHex: hex, accent: accent),
-    );
+    tileWidgets.add(_glyphTile(glyph: g, label: label, codepointHex: hex, accent: accent));
   }
 
   final Widget section3 = Container(
@@ -692,10 +626,8 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.grid_view, color: lapisIngot, size: 22),
             _horizontalGap(8),
-            Text(
-              'Catalog of illuminative glyphs',
-              style: _titleStyle(16, lapisIvory),
-            ),
+            Text('Catalog of illuminative glyphs',
+                style: _titleStyle(16, lapisIvory)),
           ],
         ),
         _verticalGap(4),
@@ -704,7 +636,11 @@ dynamic build(BuildContext context) {
           style: _bodyStyle(lapisSky, size: 12),
         ),
         _verticalGap(12),
-        Wrap(spacing: 8, runSpacing: 8, children: tileWidgets),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: tileWidgets,
+        ),
       ],
     ),
   );
@@ -744,10 +680,7 @@ dynamic build(BuildContext context) {
               color: lapisCharcoal.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              codeSnippet,
-              style: _monoStyle(lapisGoldHaze, size: 11),
-            ),
+            child: Text(codeSnippet, style: _monoStyle(lapisGoldHaze, size: 11)),
           ),
           _verticalGap(8),
           Text(prose, style: _bodyStyle(lapisCharcoal, size: 11)),
@@ -762,10 +695,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Hand-built IconData :: three glyphs forged at the bench',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Hand-built IconData :: three glyphs forged at the bench',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(6),
         Text(
           'Each panel constructs IconData(...) directly and renders it. '
@@ -825,30 +756,28 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < sizeSamples.length; i++) {
     final double s = sizeSamples[i];
     final String l = sizeLabels[i];
-    sizeColumns.add(
-      Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: lapisIvory,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: lapisIngot.withValues(alpha: 0.5)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 80,
-              width: 80,
-              child: Center(
-                child: Icon(Icons.auto_stories, size: s, color: lapisDeep),
-              ),
-            ),
-            _verticalGap(6),
-            Text('$l px', style: _monoStyle(lapisInk, size: 11)),
-          ],
-        ),
+    sizeColumns.add(Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: lapisIvory,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: lapisIngot.withValues(alpha: 0.5)),
       ),
-    );
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 80,
+            width: 80,
+            child: Center(
+              child: Icon(Icons.auto_stories, size: s, color: lapisDeep),
+            ),
+          ),
+          _verticalGap(6),
+          Text('$l px', style: _monoStyle(lapisInk, size: 11)),
+        ],
+      ),
+    ));
   }
 
   final Widget section5 = Container(
@@ -857,10 +786,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Size sweep :: 12 -> 72 logical pixels',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Size sweep :: 12 -> 72 logical pixels',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(4),
         Text(
           'A glyph is a vector outline. It scales without resampling, but the '
@@ -880,9 +807,7 @@ dynamic build(BuildContext context) {
   // The same glyph (Icons.lightbulb) painted in twelve named tints from the
   // Glyph Lapis palette. Each sample shows the tone name underneath.
   // ===========================================================================
-  print(
-    'Section 6 :: painting the color ribbon in twelve lapis-and-gold tints.',
-  );
+  print('Section 6 :: painting the color ribbon in twelve lapis-and-gold tints.');
 
   final List<Color> ribbonColors = <Color>[
     lapisInk,
@@ -899,39 +824,27 @@ dynamic build(BuildContext context) {
     lapisSlate,
   ];
   final List<String> ribbonNames = <String>[
-    'ink',
-    'deep',
-    'mid',
-    'azure',
-    'sky',
-    'verdigris',
-    'olive',
-    'rubric',
-    'ingot',
-    'gold haze',
-    'charcoal',
-    'slate',
+    'ink', 'deep', 'mid', 'azure', 'sky', 'verdigris',
+    'olive', 'rubric', 'ingot', 'gold haze', 'charcoal', 'slate',
   ];
   final List<Widget> ribbonTiles = <Widget>[];
   for (int i = 0; i < ribbonColors.length; i++) {
-    ribbonTiles.add(
-      Container(
-        width: 86,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
-        decoration: BoxDecoration(
-          color: lapisIvory,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: ribbonColors[i].withValues(alpha: 0.7)),
-        ),
-        child: Column(
-          children: [
-            Icon(Icons.lightbulb, size: 36, color: ribbonColors[i]),
-            _verticalGap(6),
-            Text(ribbonNames[i], style: _captionStyle(lapisInk, size: 10)),
-          ],
-        ),
+    ribbonTiles.add(Container(
+      width: 86,
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+      decoration: BoxDecoration(
+        color: lapisIvory,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: ribbonColors[i].withValues(alpha: 0.7)),
       ),
-    );
+      child: Column(
+        children: [
+          Icon(Icons.lightbulb, size: 36, color: ribbonColors[i]),
+          _verticalGap(6),
+          Text(ribbonNames[i], style: _captionStyle(lapisInk, size: 10)),
+        ],
+      ),
+    ));
   }
 
   final Widget section6 = Container(
@@ -940,10 +853,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Color ribbon :: a single lightbulb in twelve pigments',
-          style: _titleStyle(15, lapisIvory),
-        ),
+        Text('Color ribbon :: a single lightbulb in twelve pigments',
+            style: _titleStyle(15, lapisIvory)),
         _verticalGap(4),
         Text(
           'Color is multiplied into the glyph as a tint. The glyph itself is '
@@ -964,18 +875,10 @@ dynamic build(BuildContext context) {
   // The Material Symbols variable font supports all four axes; the Material
   // Icons font (used here) supports a subset, but the API is identical.
   // ===========================================================================
-  print(
-    'Section 7 :: walking the variable-font axes (fill / weight / grade / opticalSize).',
-  );
+  print('Section 7 :: walking the variable-font axes (fill / weight / grade / opticalSize).');
 
-  Widget axisCell(
-    String label,
-    IconData glyph, {
-    double? fill,
-    double? weight,
-    double? grade,
-    double? opticalSize,
-  }) {
+  Widget axisCell(String label, IconData glyph,
+      {double? fill, double? weight, double? grade, double? opticalSize}) {
     return Container(
       width: 90,
       height: 100,
@@ -1060,10 +963,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Variable-font axes :: fill / weight / grade / opticalSize',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Variable-font axes :: fill / weight / grade / opticalSize',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(4),
         Text(
           'Material Symbols is a variable font with four design-time axes. '
@@ -1185,10 +1086,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Shadow demos :: glyph as illuminated relief',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Shadow demos :: glyph as illuminated relief',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(4),
         Text(
           'Icon.shadows accepts a List<Shadow>. Each Shadow has offset, '
@@ -1204,29 +1103,25 @@ dynamic build(BuildContext context) {
               title: 'Single drop shadow',
               glyph: Icons.castle,
               shadows: dropShadow,
-              prose:
-                  'Offset (0,2), blur 4, ink 50% alpha. The classic Material elevation hint.',
+              prose: 'Offset (0,2), blur 4, ink 50% alpha. The classic Material elevation hint.',
             ),
             shadowCell(
               title: 'Double drop shadow',
               glyph: Icons.museum,
               shadows: doubleDrop,
-              prose:
-                  'Inner crisp shadow + softer outer shadow. Mimics elevation 4dp.',
+              prose: 'Inner crisp shadow + softer outer shadow. Mimics elevation 4dp.',
             ),
             shadowCell(
               title: 'Lapis halo',
               glyph: Icons.spa,
               shadows: lapisHalo,
-              prose:
-                  'Zero-offset, blur 12, lapis-azure tint. Used here to crown the saint of bath-salts.',
+              prose: 'Zero-offset, blur 12, lapis-azure tint. Used here to crown the saint of bath-salts.',
             ),
             shadowCell(
               title: 'Gold leaf glow',
               glyph: Icons.celebration,
               shadows: goldGlow,
-              prose:
-                  'Zero-offset, blur 16, gold ingot tint. Reserved in the codex for festal scenes.',
+              prose: 'Zero-offset, blur 16, gold ingot tint. Reserved in the codex for festal scenes.',
             ),
           ],
         ),
@@ -1379,10 +1274,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Glyph in context :: chip, avatar, button',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Glyph in context :: chip, avatar, button',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(4),
         Text(
           'Icon is rarely the leaf in production trees. It nests inside Chip, '
@@ -1399,10 +1292,7 @@ dynamic build(BuildContext context) {
         _verticalGap(6),
         avatarExample,
         _verticalGap(14),
-        Text(
-          'As OutlinedButton.icon leading',
-          style: _titleStyle(13, lapisInk),
-        ),
+        Text('As OutlinedButton.icon leading', style: _titleStyle(13, lapisInk)),
         _verticalGap(6),
         buttonExample,
       ],
@@ -1444,18 +1334,13 @@ dynamic build(BuildContext context) {
               Icon(Icons.label, size: 14, color: accent),
               _horizontalGap(4),
               Expanded(
-                child: Text(
-                  'semanticLabel: "$label"',
-                  style: _monoStyle(accent, size: 10),
-                ),
+                child: Text('semanticLabel: "$label"',
+                    style: _monoStyle(accent, size: 10)),
               ),
             ],
           ),
           _verticalGap(6),
-          Text(
-            'Reads as: "$reading"',
-            style: _bodyStyle(lapisCharcoal, size: 11),
-          ),
+          Text('Reads as: "$reading"', style: _bodyStyle(lapisCharcoal, size: 11)),
         ],
       ),
     );
@@ -1467,10 +1352,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Semantic label inspector :: one glyph, three readings',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Semantic label inspector :: one glyph, three readings',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(4),
         Text(
           'A star is a star until you tell the screen reader otherwise. '
@@ -1555,55 +1438,37 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Catechism :: eight rules for Icon use',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Catechism :: eight rules for Icon use',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(10),
         Wrap(
           spacing: 10,
           runSpacing: 10,
           children: [
-            ruleCard(
-              true,
-              'Pair an icon with a label when meaning is non-obvious',
-              'A wrench glyph alone may mean "settings", "repair", or "developer mode". A label removes the guesswork.',
-            ),
-            ruleCard(
-              false,
-              'Avoid using Icon to render brand logos',
-              'Logos should be ImageIcon or AssetImage. Brand color and proportion need pixel control that fonts can not give.',
-            ),
-            ruleCard(
-              true,
-              'Use semanticLabel for any actionable icon',
-              'IconButton wraps Icon and reuses semanticLabel as the button\'s accessibility name. Always provide it for tappable glyphs.',
-            ),
-            ruleCard(
-              false,
-              'Avoid sub-16px icons when applyTextScaling is off',
-              'Below 16 logical pixels Material glyphs lose hinting and become blobs. If you must go small, raise opticalSize.',
-            ),
-            ruleCard(
-              true,
-              'Set matchTextDirection on directional glyphs',
-              'arrow_back, arrow_forward, send, reply, undo - all need matchTextDirection: true to mirror in RTL.',
-            ),
-            ruleCard(
-              false,
-              'Avoid baking colored icons into a font',
-              'Color is a property of the Icon widget, not of the font. A fixed-color glyph defeats theming.',
-            ),
-            ruleCard(
-              true,
-              'Prefer Icons.* over hand-built IconData',
-              'The Icons class is generated from the official icon-font manifest. Hand-built IconData drifts when the font upgrades.',
-            ),
-            ruleCard(
-              false,
-              'Avoid Icon as the only error/success signal',
-              'Color and icon together fail color-blind users. Always pair with text or a Semantics() liveRegion.',
-            ),
+            ruleCard(true,
+                'Pair an icon with a label when meaning is non-obvious',
+                'A wrench glyph alone may mean "settings", "repair", or "developer mode". A label removes the guesswork.'),
+            ruleCard(false,
+                'Avoid using Icon to render brand logos',
+                'Logos should be ImageIcon or AssetImage. Brand color and proportion need pixel control that fonts can not give.'),
+            ruleCard(true,
+                'Use semanticLabel for any actionable icon',
+                'IconButton wraps Icon and reuses semanticLabel as the button\'s accessibility name. Always provide it for tappable glyphs.'),
+            ruleCard(false,
+                'Avoid sub-16px icons when applyTextScaling is off',
+                'Below 16 logical pixels Material glyphs lose hinting and become blobs. If you must go small, raise opticalSize.'),
+            ruleCard(true,
+                'Set matchTextDirection on directional glyphs',
+                'arrow_back, arrow_forward, send, reply, undo - all need matchTextDirection: true to mirror in RTL.'),
+            ruleCard(false,
+                'Avoid baking colored icons into a font',
+                'Color is a property of the Icon widget, not of the font. A fixed-color glyph defeats theming.'),
+            ruleCard(true,
+                'Prefer Icons.* over hand-built IconData',
+                'The Icons class is generated from the official icon-font manifest. Hand-built IconData drifts when the font upgrades.'),
+            ruleCard(false,
+                'Avoid Icon as the only error/success signal',
+                'Color and icon together fail color-blind users. Always pair with text or a Semantics() liveRegion.'),
           ],
         ),
       ],
@@ -1671,7 +1536,10 @@ dynamic build(BuildContext context) {
           ],
         ),
         _verticalGap(12),
-        Text('Glyph Lapis  ::  fin.', style: _displayStyle(18, lapisIngot)),
+        Text(
+          'Glyph Lapis  ::  fin.',
+          style: _displayStyle(18, lapisIngot),
+        ),
       ],
     ),
   );
@@ -1710,10 +1578,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Glossary of illumination :: terms a digital scribe should know',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Glossary of illumination :: terms a digital scribe should know',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(4),
         Text(
           'A short bestiary of the words used throughout this codex. Read these '
@@ -1725,102 +1591,54 @@ dynamic build(BuildContext context) {
           spacing: 10,
           runSpacing: 10,
           children: [
-            glossEntry(
-              'IconData',
-              'A small value class that records the codepoint, font family, font package, matchTextDirection flag, and font-family fallback list of a glyph. It is a request, not a painting.',
-            ),
-            glossEntry(
-              'codePoint',
-              'The integer index of a glyph inside an icon font. For Material Icons it lives in the Unicode Private Use Area U+E000 - U+F8FF.',
-            ),
-            glossEntry(
-              'fontFamily',
-              'The string identifier under which the glyph table is registered in pubspec.yaml or the platform font system. For Material Icons it is "MaterialIcons".',
-            ),
-            glossEntry(
-              'fontPackage',
-              'Optional package name for fonts that ship inside a Flutter package rather than the host application. The framework rewrites the family lookup automatically.',
-            ),
-            glossEntry(
-              'matchTextDirection',
-              'A flag on IconData that, when true, tells Icon to mirror the glyph horizontally inside an RTL Directionality. Only relevant for directional glyphs.',
-            ),
-            glossEntry(
-              'IconTheme',
-              'An InheritedWidget that carries default size, color, fill, weight, grade, opticalSize, opacity, and shadows for descendant Icons. Override at any level of the tree.',
-            ),
-            glossEntry(
-              'IconThemeData',
-              'The data class held by IconTheme. You build one with IconThemeData(size: ..., color: ...) and pass it to IconTheme(data: ..., child: ...).',
-            ),
-            glossEntry(
-              'semanticLabel',
-              'A string passed to Icon that wraps the glyph in a Semantics() node with that label. Null means no semantics node - correct for purely decorative glyphs.',
-            ),
-            glossEntry(
-              'Variable font',
-              'A font format that exposes one or more design-time axes (weight, width, optical size, custom). Material Symbols is a variable font with weight, fill, grade, and optical-size axes.',
-            ),
-            glossEntry(
-              'Fill axis',
-              'A 0.0 - 1.0 axis that morphs a Material Symbol from outlined to solid. Common in tab bars where active tabs go solid.',
-            ),
-            glossEntry(
-              'Weight axis',
-              'A 100 - 700 axis that controls stroke heaviness. Pair the Icon weight with neighboring Text weight for harmony.',
-            ),
-            glossEntry(
-              'Grade axis',
-              'A -50 - 200 axis for fine ink-weight adjustments without changing footprint. Useful when weight changes would shift surrounding layout.',
-            ),
-            glossEntry(
-              'Optical size axis',
-              'A 20 / 24 / 40 / 48 axis hint that tells the variable-font renderer which optical-size master to favor. Small icons benefit from heavier outlines.',
-            ),
-            glossEntry(
-              'Shadow',
-              'A dart:ui value class with offset, blurRadius, and color. Icon.shadows accepts a List<Shadow> drawn behind the glyph.',
-            ),
-            glossEntry(
-              'applyTextScaling',
-              'A bool on Icon. When true, MediaQuery.textScaleFactor multiplies the effective size. Defaults to false because most icons should resist text scaling.',
-            ),
-            glossEntry(
-              'Icons class',
-              'A static registry of pre-baked IconData entries for the Material Icons font. Icons.home is shorthand for IconData(0xe88a, fontFamily: "MaterialIcons").',
-            ),
-            glossEntry(
-              'ImageIcon',
-              'A widget that paints an ImageProvider at IconTheme size and color. Use for brand marks and bespoke illustrations that do not belong in a font.',
-            ),
-            glossEntry(
-              'IconButton',
-              'A Material widget that wraps Icon in an InkResponse. Reuses Icon.semanticLabel as the button label.',
-            ),
-            glossEntry(
-              'Material Icons font',
-              'The default icon font shipped with Flutter. Static, supports color and shadows but not the variable-font axes.',
-            ),
-            glossEntry(
-              'Material Symbols font',
-              'A newer variable icon font that supports fill, weight, grade, and optical-size axes. Add as an asset font in pubspec.yaml.',
-            ),
-            glossEntry(
-              'Cupertino Icons',
-              'The companion font for iOS-style icons. Used by CupertinoIcons class. Visually distinct from Material Icons.',
-            ),
-            glossEntry(
-              'Private Use Area',
-              'The Unicode block U+E000 - U+F8FF reserved for application-private glyphs. Every Material Icon lives here.',
-            ),
-            glossEntry(
-              'Glyph footprint',
-              'The bounding box of an icon. Grade-axis adjustments preserve footprint; weight-axis adjustments do not.',
-            ),
-            glossEntry(
-              'Semantics node',
-              'A node in the accessibility tree describing a region of the UI to assistive technologies. Icon adds one only when semanticLabel is set.',
-            ),
+            glossEntry('IconData',
+                'A small value class that records the codepoint, font family, font package, matchTextDirection flag, and font-family fallback list of a glyph. It is a request, not a painting.'),
+            glossEntry('codePoint',
+                'The integer index of a glyph inside an icon font. For Material Icons it lives in the Unicode Private Use Area U+E000 - U+F8FF.'),
+            glossEntry('fontFamily',
+                'The string identifier under which the glyph table is registered in pubspec.yaml or the platform font system. For Material Icons it is "MaterialIcons".'),
+            glossEntry('fontPackage',
+                'Optional package name for fonts that ship inside a Flutter package rather than the host application. The framework rewrites the family lookup automatically.'),
+            glossEntry('matchTextDirection',
+                'A flag on IconData that, when true, tells Icon to mirror the glyph horizontally inside an RTL Directionality. Only relevant for directional glyphs.'),
+            glossEntry('IconTheme',
+                'An InheritedWidget that carries default size, color, fill, weight, grade, opticalSize, opacity, and shadows for descendant Icons. Override at any level of the tree.'),
+            glossEntry('IconThemeData',
+                'The data class held by IconTheme. You build one with IconThemeData(size: ..., color: ...) and pass it to IconTheme(data: ..., child: ...).'),
+            glossEntry('semanticLabel',
+                'A string passed to Icon that wraps the glyph in a Semantics() node with that label. Null means no semantics node - correct for purely decorative glyphs.'),
+            glossEntry('Variable font',
+                'A font format that exposes one or more design-time axes (weight, width, optical size, custom). Material Symbols is a variable font with weight, fill, grade, and optical-size axes.'),
+            glossEntry('Fill axis',
+                'A 0.0 - 1.0 axis that morphs a Material Symbol from outlined to solid. Common in tab bars where active tabs go solid.'),
+            glossEntry('Weight axis',
+                'A 100 - 700 axis that controls stroke heaviness. Pair the Icon weight with neighboring Text weight for harmony.'),
+            glossEntry('Grade axis',
+                'A -50 - 200 axis for fine ink-weight adjustments without changing footprint. Useful when weight changes would shift surrounding layout.'),
+            glossEntry('Optical size axis',
+                'A 20 / 24 / 40 / 48 axis hint that tells the variable-font renderer which optical-size master to favor. Small icons benefit from heavier outlines.'),
+            glossEntry('Shadow',
+                'A dart:ui value class with offset, blurRadius, and color. Icon.shadows accepts a List<Shadow> drawn behind the glyph.'),
+            glossEntry('applyTextScaling',
+                'A bool on Icon. When true, MediaQuery.textScaleFactor multiplies the effective size. Defaults to false because most icons should resist text scaling.'),
+            glossEntry('Icons class',
+                'A static registry of pre-baked IconData entries for the Material Icons font. Icons.home is shorthand for IconData(0xe88a, fontFamily: "MaterialIcons").'),
+            glossEntry('ImageIcon',
+                'A widget that paints an ImageProvider at IconTheme size and color. Use for brand marks and bespoke illustrations that do not belong in a font.'),
+            glossEntry('IconButton',
+                'A Material widget that wraps Icon in an InkResponse. Reuses Icon.semanticLabel as the button label.'),
+            glossEntry('Material Icons font',
+                'The default icon font shipped with Flutter. Static, supports color and shadows but not the variable-font axes.'),
+            glossEntry('Material Symbols font',
+                'A newer variable icon font that supports fill, weight, grade, and optical-size axes. Add as an asset font in pubspec.yaml.'),
+            glossEntry('Cupertino Icons',
+                'The companion font for iOS-style icons. Used by CupertinoIcons class. Visually distinct from Material Icons.'),
+            glossEntry('Private Use Area',
+                'The Unicode block U+E000 - U+F8FF reserved for application-private glyphs. Every Material Icon lives here.'),
+            glossEntry('Glyph footprint',
+                'The bounding box of an icon. Grade-axis adjustments preserve footprint; weight-axis adjustments do not.'),
+            glossEntry('Semantics node',
+                'A node in the accessibility tree describing a region of the UI to assistive technologies. Icon adds one only when semanticLabel is set.'),
           ],
         ),
       ],
@@ -1832,9 +1650,7 @@ dynamic build(BuildContext context) {
   //
   // A three-column comparison rendered as a vellum-on-lapis table.
   // ===========================================================================
-  print(
-    'Section 14 :: drawing the comparison table for Icon, ImageIcon, SvgPicture.',
-  );
+  print('Section 14 :: drawing the comparison table for Icon, ImageIcon, SvgPicture.');
 
   Widget compareCell(String text, Color text2, {bool isHeader = false}) {
     return Container(
@@ -1881,10 +1697,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Comparison :: Icon vs ImageIcon vs SvgPicture',
-          style: _titleStyle(15, lapisInk),
-        ),
+        Text('Comparison :: Icon vs ImageIcon vs SvgPicture',
+            style: _titleStyle(15, lapisInk)),
         _verticalGap(4),
         Text(
           'Three rendering paths for symbolic art. Choose by source format and '
@@ -1910,55 +1724,55 @@ dynamic build(BuildContext context) {
                 compareCell('ImageIcon', lapisIvory, isHeader: true),
                 compareCell('SvgPicture', lapisIvory, isHeader: true),
               ]),
-              compareRow([
-                compareCell('Source format', lapisInk),
-                compareCell('Glyph in icon font', lapisCharcoal),
-                compareCell('PNG / JPG asset', lapisCharcoal),
-                compareCell('SVG asset', lapisCharcoal),
-              ]),
-              compareRow([
-                compareCell('Vector / raster', lapisInk),
-                compareCell('Vector outline', lapisCharcoal),
-                compareCell('Raster bitmap', lapisCharcoal),
-                compareCell('Vector', lapisCharcoal),
-              ]),
-              compareRow([
-                compareCell('Color tinting', lapisInk),
-                compareCell('Direct color property', lapisCharcoal),
-                compareCell('Via ColorFilter / blendMode', lapisCharcoal),
-                compareCell('Via ColorFilter or theme', lapisCharcoal),
-              ]),
-              compareRow([
-                compareCell('Multi-color glyphs', lapisInk),
-                compareCell('No (font is monochrome)', lapisCharcoal),
-                compareCell('Yes (source has colors)', lapisCharcoal),
-                compareCell('Yes (full SVG palette)', lapisCharcoal),
-              ]),
-              compareRow([
-                compareCell('Variable axes', lapisInk),
-                compareCell('Yes (Material Symbols)', lapisCharcoal),
-                compareCell('No', lapisCharcoal),
-                compareCell('No (treat SVG as static)', lapisCharcoal),
-              ]),
-              compareRow([
-                compareCell('Build cost', lapisInk),
-                compareCell('Cheap (text shaping)', lapisCharcoal),
-                compareCell('Cheap (raster blit)', lapisCharcoal),
-                compareCell('More (parse + paint)', lapisCharcoal),
-              ]),
-              compareRow([
-                compareCell('Bundle weight', lapisInk),
-                compareCell('One font for thousands', lapisCharcoal),
-                compareCell('One file per icon', lapisCharcoal),
-                compareCell('One file per icon', lapisCharcoal),
-              ]),
-              compareRow([
-                compareCell('When to choose', lapisInk),
-                compareCell('Symbolic UI glyphs', lapisCharcoal),
-                compareCell('Brand / illustration', lapisCharcoal),
-                compareCell('Crisp brand vector', lapisCharcoal),
-              ]),
-            ],
+            compareRow([
+              compareCell('Source format', lapisInk),
+              compareCell('Glyph in icon font', lapisCharcoal),
+              compareCell('PNG / JPG asset', lapisCharcoal),
+              compareCell('SVG asset', lapisCharcoal),
+            ]),
+            compareRow([
+              compareCell('Vector / raster', lapisInk),
+              compareCell('Vector outline', lapisCharcoal),
+              compareCell('Raster bitmap', lapisCharcoal),
+              compareCell('Vector', lapisCharcoal),
+            ]),
+            compareRow([
+              compareCell('Color tinting', lapisInk),
+              compareCell('Direct color property', lapisCharcoal),
+              compareCell('Via ColorFilter / blendMode', lapisCharcoal),
+              compareCell('Via ColorFilter or theme', lapisCharcoal),
+            ]),
+            compareRow([
+              compareCell('Multi-color glyphs', lapisInk),
+              compareCell('No (font is monochrome)', lapisCharcoal),
+              compareCell('Yes (source has colors)', lapisCharcoal),
+              compareCell('Yes (full SVG palette)', lapisCharcoal),
+            ]),
+            compareRow([
+              compareCell('Variable axes', lapisInk),
+              compareCell('Yes (Material Symbols)', lapisCharcoal),
+              compareCell('No', lapisCharcoal),
+              compareCell('No (treat SVG as static)', lapisCharcoal),
+            ]),
+            compareRow([
+              compareCell('Build cost', lapisInk),
+              compareCell('Cheap (text shaping)', lapisCharcoal),
+              compareCell('Cheap (raster blit)', lapisCharcoal),
+              compareCell('More (parse + paint)', lapisCharcoal),
+            ]),
+            compareRow([
+              compareCell('Bundle weight', lapisInk),
+              compareCell('One font for thousands', lapisCharcoal),
+              compareCell('One file per icon', lapisCharcoal),
+              compareCell('One file per icon', lapisCharcoal),
+            ]),
+            compareRow([
+              compareCell('When to choose', lapisInk),
+              compareCell('Symbolic UI glyphs', lapisCharcoal),
+              compareCell('Brand / illustration', lapisCharcoal),
+              compareCell('Crisp brand vector', lapisCharcoal),
+            ]),
+          ],
           ),
         ),
         _verticalGap(10),
@@ -2021,10 +1835,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Recipe cards :: five canonical patterns',
-          style: _titleStyle(15, lapisIvory),
-        ),
+        Text('Recipe cards :: five canonical patterns',
+            style: _titleStyle(15, lapisIvory)),
         _verticalGap(4),
         Text(
           'Five short code recipes showing how Icon is used in the wild. '
@@ -2104,39 +1916,39 @@ dynamic build(BuildContext context) {
     child: SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          section1,
-          _verticalGap(16),
-          section2,
-          _verticalGap(16),
-          section3,
-          _verticalGap(16),
-          section4,
-          _verticalGap(16),
-          section5,
-          _verticalGap(16),
-          section6,
-          _verticalGap(16),
-          section7,
-          _verticalGap(16),
-          section8,
-          _verticalGap(16),
-          section9,
-          _verticalGap(16),
-          section10,
-          _verticalGap(16),
-          section11,
-          _verticalGap(16),
-          section13,
-          _verticalGap(16),
-          section14,
-          _verticalGap(16),
-          section15,
-          _verticalGap(16),
-          section12,
-        ],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        section1,
+        _verticalGap(16),
+        section2,
+        _verticalGap(16),
+        section3,
+        _verticalGap(16),
+        section4,
+        _verticalGap(16),
+        section5,
+        _verticalGap(16),
+        section6,
+        _verticalGap(16),
+        section7,
+        _verticalGap(16),
+        section8,
+        _verticalGap(16),
+        section9,
+        _verticalGap(16),
+        section10,
+        _verticalGap(16),
+        section11,
+        _verticalGap(16),
+        section13,
+        _verticalGap(16),
+        section14,
+        _verticalGap(16),
+        section15,
+        _verticalGap(16),
+        section12,
+      ],
       ),
     ),
   );

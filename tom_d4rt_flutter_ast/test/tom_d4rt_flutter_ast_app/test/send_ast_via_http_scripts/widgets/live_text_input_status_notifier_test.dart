@@ -32,24 +32,17 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -78,20 +71,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 180,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 13, color: darkTawny),
-            ),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: darkTawny)),
           ),
         ],
       ),
@@ -126,15 +114,12 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Expanded(
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: darkTawny,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                child: Text(name,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: darkTawny,
+                        fontFamily: 'monospace')),
               ),
               tag(returns, accent.withValues(alpha: 0.15), accent),
             ],
@@ -165,33 +150,25 @@ dynamic build(BuildContext context) {
               color: darkTawny,
               borderRadius: BorderRadius.circular(13),
             ),
-            child: Text(
-              '$number',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$number',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: darkTawny,
-                  ),
-                ),
+                Text(title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: darkTawny)),
                 const SizedBox(height: 2),
-                Text(
-                  detail,
-                  style: TextStyle(fontSize: 12, color: burnishedCopper),
-                ),
+                Text(detail,
+                    style: TextStyle(fontSize: 12, color: burnishedCopper)),
               ],
             ),
           ),
@@ -204,13 +181,13 @@ dynamic build(BuildContext context) {
     final statusColor = status == LiveTextInputStatus.enabled
         ? activeGreen
         : status == LiveTextInputStatus.disabled
-        ? alertCrimson
-        : caramel;
+            ? alertCrimson
+            : caramel;
     final icon = status == LiveTextInputStatus.enabled
         ? Icons.check_circle
         : status == LiveTextInputStatus.disabled
-        ? Icons.cancel
-        : Icons.help_outline;
+            ? Icons.cancel
+            : Icons.help_outline;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -224,14 +201,11 @@ dynamic build(BuildContext context) {
           Icon(icon, color: statusColor, size: 20),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: darkTawny,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: darkTawny)),
           ),
           tag(status.name, statusColor.withValues(alpha: 0.12), statusColor),
         ],
@@ -278,7 +252,6 @@ dynamic build(BuildContext context) {
     listenerCallCount++;
     print('  Listener called #$listenerCallCount');
   }
-
   defaultNotifier.addListener(listener);
   print('\n--- Listener added ---');
   print('Listener registered');
@@ -295,9 +268,7 @@ dynamic build(BuildContext context) {
   // Section 7 — lifecycle states
   print('\n--- App lifecycle states ---');
   for (final state in AppLifecycleState.values) {
-    print(
-      '  ${state.name}: ${state == AppLifecycleState.resumed ? "triggers update()" : "no action"}',
-    );
+    print('  ${state.name}: ${state == AppLifecycleState.resumed ? "triggers update()" : "no action"}');
   }
 
   // Section 8 — cleanup
@@ -335,42 +306,34 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'LiveTextInputStatusNotifier',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              const Text('LiveTextInputStatusNotifier',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold)),
               const SizedBox(height: 6),
               Text(
-                'Async notifier for platform Live Text input availability',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 14,
-                ),
-              ),
+                  'Async notifier for platform Live Text input availability',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 14)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  tag('ValueNotifier', warmBronze, Colors.white),
-                  tag('Lifecycle', caramel, darkTawny),
-                  tag('Platform', honeyTan, darkTawny),
-                  tag('OCR', sandBeige, darkTawny),
-                ],
-              ),
+              Wrap(children: [
+                tag('ValueNotifier', warmBronze, Colors.white),
+                tag('Lifecycle', caramel, darkTawny),
+                tag('Platform', honeyTan, darkTawny),
+                tag('OCR', sandBeige, darkTawny),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
         sectionBanner(
-          '1 \u00b7 What Is LiveTextInputStatusNotifier',
-          'A ValueNotifier that monitors Live Text capability',
-          darkTawny,
-          Colors.white,
-        ),
+            '1 \u00b7 What Is LiveTextInputStatusNotifier',
+            'A ValueNotifier that monitors Live Text capability',
+            darkTawny,
+            Colors.white),
         noteBox(
           'LiveTextInputStatusNotifier is a ValueNotifier<LiveTextInputStatus> '
           'that tracks whether the device supports Live Text input — the '
@@ -380,11 +343,7 @@ dynamic build(BuildContext context) {
           darkTawny,
           creamIvory,
         ),
-        dataRow(
-          'Extends',
-          'ValueNotifier<LiveTextInputStatus>',
-          burnishedCopper,
-        ),
+        dataRow('Extends', 'ValueNotifier<LiveTextInputStatus>', burnishedCopper),
         dataRow('Implements', 'WidgetsBindingObserver', warmBronze),
         dataRow('Purpose', 'Track Live Text OCR availability', caramel),
         dataRow('Platform', 'Primarily iOS 15+', honeyTan),
@@ -392,26 +351,16 @@ dynamic build(BuildContext context) {
 
         // ── 3. Creation with initial values ──────────────────────────
         sectionBanner(
-          '2 \u00b7 Creation — Three Starting States',
-          'Default, enabled, or disabled initial value',
-          burnishedCopper,
-          Colors.white,
-        ),
+            '2 \u00b7 Creation — Three Starting States',
+            'Default, enabled, or disabled initial value',
+            burnishedCopper,
+            Colors.white),
         statusIndicator(
-          'Default (unknown) — status not yet checked',
-          LiveTextInputStatus.unknown,
-          creamIvory,
-        ),
+            'Default (unknown) — status not yet checked', LiveTextInputStatus.unknown, creamIvory),
         statusIndicator(
-          'Enabled — Live Text confirmed available',
-          LiveTextInputStatus.enabled,
-          creamIvory,
-        ),
+            'Enabled — Live Text confirmed available', LiveTextInputStatus.enabled, creamIvory),
         statusIndicator(
-          'Disabled — Live Text not available',
-          LiveTextInputStatus.disabled,
-          creamIvory,
-        ),
+            'Disabled — Live Text not available', LiveTextInputStatus.disabled, creamIvory),
         noteBox(
           'The default initial value is LiveTextInputStatus.unknown. The '
           'notifier then calls update() asynchronously to determine the '
@@ -423,65 +372,59 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. API surface ───────────────────────────────────────────
-        sectionBanner(
-          '3 \u00b7 API Surface',
-          'Methods and properties specific to this notifier',
-          warmBronze,
-          Colors.white,
-        ),
+        sectionBanner('3 \u00b7 API Surface',
+            'Methods and properties specific to this notifier',
+            warmBronze, Colors.white),
         apiCard(
           'value',
           'LiveTextInputStatus',
           'The current Live Text availability status. Changes trigger '
-              'listeners. Can be unknown, enabled, or disabled.',
+          'listeners. Can be unknown, enabled, or disabled.',
           darkTawny,
         ),
         apiCard(
           'update()',
           'Future<void>',
           'Asynchronously checks LiveText.isLiveTextInputAvailable() and '
-              'updates the value. Called automatically on creation and when '
-              'the app resumes from the background.',
+          'updates the value. Called automatically on creation and when '
+          'the app resumes from the background.',
           burnishedCopper,
         ),
         apiCard(
           'addListener(listener)',
           'void',
           'Adds a listener that is called when the status changes. The '
-              'first listener also registers this notifier as a '
-              'WidgetsBindingObserver for lifecycle events.',
+          'first listener also registers this notifier as a '
+          'WidgetsBindingObserver for lifecycle events.',
           warmBronze,
         ),
         apiCard(
           'removeListener(listener)',
           'void',
           'Removes a listener. When the last listener is removed, the '
-              'notifier unregisters as a WidgetsBindingObserver.',
+          'notifier unregisters as a WidgetsBindingObserver.',
           caramel,
         ),
         apiCard(
           'didChangeAppLifecycleState(state)',
           'void',
           'Called by the framework when the app lifecycle changes. Only '
-              'AppLifecycleState.resumed triggers a re-check via update().',
+          'AppLifecycleState.resumed triggers a re-check via update().',
           honeyTan,
         ),
         apiCard(
           'dispose()',
           'void',
           'Cleans up resources, removes the lifecycle observer, and '
-              'disposes the underlying ChangeNotifier.',
+          'disposes the underlying ChangeNotifier.',
           darkTawny,
         ),
         const SizedBox(height: 14),
 
         // ── 5. Observer pattern ──────────────────────────────────────
-        sectionBanner(
-          '4 \u00b7 The Observer Pattern',
-          'How the notifier watches the app lifecycle',
-          darkTawny,
-          Colors.white,
-        ),
+        sectionBanner('4 \u00b7 The Observer Pattern',
+            'How the notifier watches the app lifecycle',
+            darkTawny, Colors.white),
         noteBox(
           'LiveTextInputStatusNotifier implements WidgetsBindingObserver. '
           'When the first listener is added, it registers itself with '
@@ -491,51 +434,24 @@ dynamic build(BuildContext context) {
           darkTawny,
           creamIvory,
         ),
-        flowStep(
-          1,
-          'First addListener() call',
-          'Registers as WidgetsBindingObserver',
-          creamIvory,
-        ),
-        flowStep(
-          2,
-          'App goes to background',
-          'didChangeAppLifecycleState(paused) — no action',
-          paleHoney,
-        ),
-        flowStep(
-          3,
-          'App resumes',
-          'didChangeAppLifecycleState(resumed) → update()',
-          creamIvory,
-        ),
-        flowStep(
-          4,
-          'update() checks platform',
-          'LiveText.isLiveTextInputAvailable()',
-          paleHoney,
-        ),
-        flowStep(
-          5,
-          'Value updated',
-          'Notifies all listeners of new status',
-          creamIvory,
-        ),
-        flowStep(
-          6,
-          'Last removeListener()',
-          'Unregisters as WidgetsBindingObserver',
-          paleHoney,
-        ),
+        flowStep(1, 'First addListener() call',
+            'Registers as WidgetsBindingObserver', creamIvory),
+        flowStep(2, 'App goes to background',
+            'didChangeAppLifecycleState(paused) — no action', paleHoney),
+        flowStep(3, 'App resumes',
+            'didChangeAppLifecycleState(resumed) → update()', creamIvory),
+        flowStep(4, 'update() checks platform',
+            'LiveText.isLiveTextInputAvailable()', paleHoney),
+        flowStep(5, 'Value updated',
+            'Notifies all listeners of new status', creamIvory),
+        flowStep(6, 'Last removeListener()',
+            'Unregisters as WidgetsBindingObserver', paleHoney),
         const SizedBox(height: 14),
 
         // ── 6. Lifecycle state handling ──────────────────────────────
-        sectionBanner(
-          '5 \u00b7 App Lifecycle Response',
-          'Which states trigger a re-check',
-          burnishedCopper,
-          Colors.white,
-        ),
+        sectionBanner('5 \u00b7 App Lifecycle Response',
+            'Which states trigger a re-check',
+            burnishedCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -553,9 +469,7 @@ dynamic build(BuildContext context) {
                       Container(
                         width: 110,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: state == AppLifecycleState.resumed
                               ? activeGreen.withValues(alpha: 0.12)
@@ -567,16 +481,13 @@ dynamic build(BuildContext context) {
                                 : Colors.grey.withValues(alpha: 0.2),
                           ),
                         ),
-                        child: Text(
-                          state.name,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: state == AppLifecycleState.resumed
-                                ? activeGreen
-                                : darkTawny,
-                          ),
-                        ),
+                        child: Text(state.name,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: state == AppLifecycleState.resumed
+                                    ? activeGreen
+                                    : darkTawny)),
                       ),
                       const SizedBox(width: 12),
                       Icon(
@@ -595,11 +506,10 @@ dynamic build(BuildContext context) {
                               ? 'Calls update() → re-checks platform'
                               : 'No action taken',
                           style: TextStyle(
-                            fontSize: 12,
-                            color: state == AppLifecycleState.resumed
-                                ? activeGreen
-                                : Colors.grey.shade600,
-                          ),
+                              fontSize: 12,
+                              color: state == AppLifecycleState.resumed
+                                  ? activeGreen
+                                  : Colors.grey.shade600),
                         ),
                       ),
                     ],
@@ -611,12 +521,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Listener lifecycle dashboard ──────────────────────────
-        sectionBanner(
-          '6 \u00b7 Listener Lifecycle Dashboard',
-          'Visualizing listener count and observer state',
-          warmBronze,
-          Colors.white,
-        ),
+        sectionBanner('6 \u00b7 Listener Lifecycle Dashboard',
+            'Visualizing listener count and observer state',
+            warmBronze, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -628,30 +535,10 @@ dynamic build(BuildContext context) {
             children: [
               for (final scenario in [
                 ('0 listeners', 'Not registered', Icons.visibility_off, false),
-                (
-                  '1st addListener',
-                  'Registers observer',
-                  Icons.visibility,
-                  true,
-                ),
-                (
-                  '2nd addListener',
-                  'Already registered',
-                  Icons.visibility,
-                  true,
-                ),
-                (
-                  '1st removeListener',
-                  'Still registered',
-                  Icons.visibility,
-                  true,
-                ),
-                (
-                  'Last removeListener',
-                  'Unregisters',
-                  Icons.visibility_off,
-                  false,
-                ),
+                ('1st addListener', 'Registers observer', Icons.visibility, true),
+                ('2nd addListener', 'Already registered', Icons.visibility, true),
+                ('1st removeListener', 'Still registered', Icons.visibility, true),
+                ('Last removeListener', 'Unregisters', Icons.visibility_off, false),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -662,33 +549,25 @@ dynamic build(BuildContext context) {
                   ),
                   child: Row(
                     children: [
-                      Icon(
-                        scenario.$3,
-                        size: 20,
-                        color: scenario.$4 ? darkTawny : Colors.grey,
-                      ),
+                      Icon(scenario.$3,
+                          size: 20,
+                          color: scenario.$4 ? darkTawny : Colors.grey),
                       const SizedBox(width: 10),
                       SizedBox(
                         width: 120,
-                        child: Text(
-                          scenario.$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: darkTawny,
-                          ),
-                        ),
+                        child: Text(scenario.$1,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: darkTawny)),
                       ),
                       Expanded(
-                        child: Text(
-                          scenario.$2,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: scenario.$4
-                                ? burnishedCopper
-                                : Colors.grey.shade600,
-                          ),
-                        ),
+                        child: Text(scenario.$2,
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: scenario.$4
+                                    ? burnishedCopper
+                                    : Colors.grey.shade600)),
                       ),
                       Container(
                         width: 60,
@@ -703,10 +582,11 @@ dynamic build(BuildContext context) {
                         child: Text(
                           scenario.$4 ? 'ACTIVE' : 'IDLE',
                           style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: scenario.$4 ? activeGreen : alertCrimson,
-                          ),
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: scenario.$4
+                                  ? activeGreen
+                                  : alertCrimson),
                         ),
                       ),
                     ],
@@ -718,12 +598,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Value change visualization ────────────────────────────
-        sectionBanner(
-          '7 \u00b7 Value Transitions',
-          'How the notifier value changes over time',
-          darkTawny,
-          Colors.white,
-        ),
+        sectionBanner('7 \u00b7 Value Transitions',
+            'How the notifier value changes over time',
+            darkTawny, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -745,42 +622,32 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.symmetric(vertical: 3),
                   child: Row(
                     children: [
-                      Text(
-                        transition.$4,
-                        style: TextStyle(fontSize: 16, color: transition.$3),
-                      ),
+                      Text(transition.$4,
+                          style: TextStyle(
+                              fontSize: 16, color: transition.$3)),
                       const SizedBox(width: 8),
                       SizedBox(
                         width: 140,
-                        child: Text(
-                          transition.$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: darkTawny,
-                          ),
-                        ),
+                        child: Text(transition.$1,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: darkTawny)),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
+                            horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
                           color: transition.$3.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
-                            color: transition.$3.withValues(alpha: 0.3),
-                          ),
+                              color: transition.$3.withValues(alpha: 0.3)),
                         ),
-                        child: Text(
-                          transition.$2,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: transition.$3,
-                          ),
-                        ),
+                        child: Text(transition.$2,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: transition.$3)),
                       ),
                     ],
                   ),
@@ -791,12 +658,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. ValueListenableBuilder integration ────────────────────
-        sectionBanner(
-          '8 \u00b7 ValueListenableBuilder Pattern',
-          'Reactive UI that responds to status changes',
-          burnishedCopper,
-          Colors.white,
-        ),
+        sectionBanner('8 \u00b7 ValueListenableBuilder Pattern',
+            'Reactive UI that responds to status changes',
+            burnishedCopper, Colors.white),
         noteBox(
           'Since LiveTextInputStatusNotifier extends ValueNotifier, it '
           'works perfectly with ValueListenableBuilder. This allows your '
@@ -816,14 +680,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Simulated Live Text Button States:',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: darkTawny,
-                ),
-              ),
+              Text('Simulated Live Text Button States:',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: darkTawny)),
               const SizedBox(height: 12),
               for (final state in LiveTextInputStatus.values)
                 Container(
@@ -847,8 +708,8 @@ dynamic build(BuildContext context) {
                           state == LiveTextInputStatus.enabled
                               ? Icons.camera_alt
                               : state == LiveTextInputStatus.disabled
-                              ? Icons.camera_alt
-                              : Icons.hourglass_empty,
+                                  ? Icons.camera_alt
+                                  : Icons.hourglass_empty,
                           size: 22,
                           color: state == LiveTextInputStatus.enabled
                               ? activeGreen
@@ -860,52 +721,44 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Status: ${state.name}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: darkTawny,
-                              ),
-                            ),
+                            Text('Status: ${state.name}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                    color: darkTawny)),
                             Text(
                               state == LiveTextInputStatus.enabled
                                   ? 'Show Live Text button in text field'
                                   : state == LiveTextInputStatus.disabled
-                                  ? 'Hide Live Text button'
-                                  : 'Show loading/placeholder',
+                                      ? 'Hide Live Text button'
+                                      : 'Show loading/placeholder',
                               style: TextStyle(
-                                fontSize: 12,
-                                color: burnishedCopper,
-                              ),
+                                  fontSize: 12, color: burnishedCopper),
                             ),
                           ],
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 4,
-                        ),
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: state == LiveTextInputStatus.enabled
                               ? activeGreen
                               : state == LiveTextInputStatus.disabled
-                              ? alertCrimson
-                              : caramel,
+                                  ? alertCrimson
+                                  : caramel,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
                           state == LiveTextInputStatus.enabled
                               ? 'VISIBLE'
                               : state == LiveTextInputStatus.disabled
-                              ? 'HIDDEN'
-                              : 'PENDING',
+                                  ? 'HIDDEN'
+                                  : 'PENDING',
                           style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -917,12 +770,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. TextField integration ────────────────────────────────
-        sectionBanner(
-          '9 \u00b7 Real-World: TextField Integration',
-          'How text fields use Live Text status',
-          warmBronze,
-          Colors.white,
-        ),
+        sectionBanner('9 \u00b7 Real-World: TextField Integration',
+            'How text fields use Live Text status',
+            warmBronze, Colors.white),
         noteBox(
           'Flutter\'s TextField and CupertinoTextField check the Live Text '
           'status to decide whether to show a camera icon in the toolbar. '
@@ -951,13 +801,9 @@ dynamic build(BuildContext context) {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        'Enter text...',
-                        style: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontSize: 15,
-                        ),
-                      ),
+                      child: Text('Enter text...',
+                          style: TextStyle(
+                              color: Colors.grey.shade400, fontSize: 15)),
                     ),
                     Container(
                       padding: const EdgeInsets.all(4),
@@ -965,11 +811,8 @@ dynamic build(BuildContext context) {
                         color: activeGreen.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Icon(
-                        Icons.camera_alt,
-                        size: 18,
-                        color: activeGreen,
-                      ),
+                      child: Icon(Icons.camera_alt,
+                          size: 18, color: activeGreen),
                     ),
                   ],
                 ),
@@ -979,14 +822,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.arrow_upward, size: 14, color: burnishedCopper),
                   const SizedBox(width: 4),
-                  Text(
-                    'Camera icon shown when Live Text is enabled',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontStyle: FontStyle.italic,
-                      color: burnishedCopper,
-                    ),
-                  ),
+                  Text('Camera icon shown when Live Text is enabled',
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontStyle: FontStyle.italic,
+                          color: burnishedCopper)),
                 ],
               ),
             ],
@@ -995,12 +835,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Comparison with other notifiers ──────────────────────
-        sectionBanner(
-          '10 \u00b7 Comparison with Other Notifiers',
-          'How it fits in the ValueNotifier family',
-          darkTawny,
-          Colors.white,
-        ),
+        sectionBanner('10 \u00b7 Comparison with Other Notifiers',
+            'How it fits in the ValueNotifier family',
+            darkTawny, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1019,32 +856,19 @@ dynamic build(BuildContext context) {
               TableRow(
                 decoration: BoxDecoration(color: darkTawny),
                 children: [
-                  for (final h in [
-                    'Notifier',
-                    'Value Type',
-                    'Lifecycle',
-                    'Async',
-                  ])
+                  for (final h in ['Notifier', 'Value Type', 'Lifecycle', 'Async'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        h,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
                     ),
                 ],
               ),
               for (final row in [
-                (
-                  'LiveTextInputStatus\nNotifier',
-                  'LiveText\nInputStatus',
-                  'Yes',
-                  'Yes',
-                ),
+                ('LiveTextInputStatus\nNotifier', 'LiveText\nInputStatus', 'Yes', 'Yes'),
                 ('ValueNotifier<T>', 'T', 'No', 'No'),
                 ('TextEditingController', 'TextEditing\nValue', 'No', 'No'),
                 ('ScrollController', 'double', 'No', 'No'),
@@ -1053,41 +877,34 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: darkTawny,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: darkTawny)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(fontSize: 10, color: burnishedCopper),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(fontSize: 10, color: burnishedCopper)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: row.$3 == 'Yes' ? activeGreen : Colors.grey,
-                        ),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(
+                              fontSize: 10,
+                              color: row.$3 == 'Yes'
+                                  ? activeGreen
+                                  : Colors.grey)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$4,
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: row.$4 == 'Yes' ? activeGreen : Colors.grey,
-                        ),
-                      ),
+                      child: Text(row.$4,
+                          style: TextStyle(
+                              fontSize: 10,
+                              color: row.$4 == 'Yes'
+                                  ? activeGreen
+                                  : Colors.grey)),
                     ),
                   ],
                 ),
@@ -1097,12 +914,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Platform specifics ───────────────────────────────────
-        sectionBanner(
-          '11 \u00b7 Platform Behavior',
-          'How Live Text works across platforms',
-          burnishedCopper,
-          Colors.white,
-        ),
+        sectionBanner('11 \u00b7 Platform Behavior',
+            'How Live Text works across platforms',
+            burnishedCopper, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1113,48 +927,13 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final platform in [
-                (
-                  'iOS 15+',
-                  Icons.phone_iphone,
-                  'Full Live Text support',
-                  activeGreen,
-                ),
-                (
-                  'iPadOS 15+',
-                  Icons.tablet_mac,
-                  'Full Live Text support',
-                  activeGreen,
-                ),
-                (
-                  'macOS 12+',
-                  Icons.laptop_mac,
-                  'Partial support (camera-based)',
-                  caramel,
-                ),
-                (
-                  'Android',
-                  Icons.phone_android,
-                  'Not supported — always disabled',
-                  alertCrimson,
-                ),
-                (
-                  'Web',
-                  Icons.language,
-                  'Not supported — always disabled',
-                  alertCrimson,
-                ),
-                (
-                  'Windows',
-                  Icons.desktop_windows,
-                  'Not supported — always disabled',
-                  alertCrimson,
-                ),
-                (
-                  'Linux',
-                  Icons.computer,
-                  'Not supported — always disabled',
-                  alertCrimson,
-                ),
+                ('iOS 15+', Icons.phone_iphone, 'Full Live Text support', activeGreen),
+                ('iPadOS 15+', Icons.tablet_mac, 'Full Live Text support', activeGreen),
+                ('macOS 12+', Icons.laptop_mac, 'Partial support (camera-based)', caramel),
+                ('Android', Icons.phone_android, 'Not supported — always disabled', alertCrimson),
+                ('Web', Icons.language, 'Not supported — always disabled', alertCrimson),
+                ('Windows', Icons.desktop_windows, 'Not supported — always disabled', alertCrimson),
+                ('Linux', Icons.computer, 'Not supported — always disabled', alertCrimson),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
@@ -1164,20 +943,16 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 10),
                       SizedBox(
                         width: 90,
-                        child: Text(
-                          platform.$1,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: darkTawny,
-                          ),
-                        ),
+                        child: Text(platform.$1,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: darkTawny)),
                       ),
                       Expanded(
-                        child: Text(
-                          platform.$3,
-                          style: TextStyle(fontSize: 12, color: platform.$4),
-                        ),
+                        child: Text(platform.$3,
+                            style: TextStyle(
+                                fontSize: 12, color: platform.$4)),
                       ),
                     ],
                   ),
@@ -1188,12 +963,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Inheritance hierarchy ────────────────────────────────
-        sectionBanner(
-          '12 \u00b7 Inheritance Hierarchy',
-          'Class relationships',
-          caramel,
-          darkTawny,
-        ),
+        sectionBanner('12 \u00b7 Inheritance Hierarchy',
+            'Class relationships', caramel, darkTawny),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1212,17 +983,16 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    line,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      fontWeight: line.contains('\u2605')
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: line.contains('\u2605') ? darkTawny : warmBronze,
-                    ),
-                  ),
+                  child: Text(line,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: line.contains('\u2605')
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: line.contains('\u2605')
+                              ? darkTawny
+                              : warmBronze)),
                 ),
             ],
           ),
@@ -1235,36 +1005,16 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Dispose sequence ─────────────────────────────────────
-        sectionBanner(
-          '13 \u00b7 Dispose Sequence',
-          'Clean shutdown order',
-          warmBronze,
-          Colors.white,
-        ),
-        flowStep(
-          1,
-          'Remove lifecycle observer',
-          'Unregisters from WidgetsBinding',
-          creamIvory,
-        ),
-        flowStep(
-          2,
-          'Clear listeners',
-          'All registered listeners are removed',
-          paleHoney,
-        ),
-        flowStep(
-          3,
-          'Super.dispose()',
-          'ValueNotifier cleanup runs',
-          creamIvory,
-        ),
-        flowStep(
-          4,
-          'Ready for GC',
-          'No references held, safe for garbage collection',
-          paleHoney,
-        ),
+        sectionBanner('13 \u00b7 Dispose Sequence',
+            'Clean shutdown order', warmBronze, Colors.white),
+        flowStep(1, 'Remove lifecycle observer',
+            'Unregisters from WidgetsBinding', creamIvory),
+        flowStep(2, 'Clear listeners',
+            'All registered listeners are removed', paleHoney),
+        flowStep(3, 'Super.dispose()',
+            'ValueNotifier cleanup runs', creamIvory),
+        flowStep(4, 'Ready for GC',
+            'No references held, safe for garbage collection', paleHoney),
         noteBox(
           'Always dispose the notifier when the widget that owns it is '
           'disposed. Failing to dispose leaks the WidgetsBindingObserver '
@@ -1275,12 +1025,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Common patterns ──────────────────────────────────────
-        sectionBanner(
-          '14 \u00b7 Common Patterns',
-          'Best practices for using this notifier',
-          darkTawny,
-          Colors.white,
-        ),
+        sectionBanner('14 \u00b7 Common Patterns',
+            'Best practices for using this notifier',
+            darkTawny, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1306,31 +1053,22 @@ dynamic build(BuildContext context) {
                       Container(
                         width: 90,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: darkTawny.withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(
-                          pattern.$1,
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: darkTawny,
-                          ),
-                        ),
+                        child: Text(pattern.$1,
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: darkTawny)),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: Text(
-                          pattern.$2,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: burnishedCopper,
-                          ),
-                        ),
+                        child: Text(pattern.$2,
+                            style: TextStyle(
+                                fontSize: 12, color: burnishedCopper)),
                       ),
                     ],
                   ),
@@ -1341,12 +1079,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          darkTawny,
-          Colors.white,
-        ),
+        sectionBanner('15 \u00b7 Summary',
+            'Key takeaways', darkTawny, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1376,19 +1110,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: sandBeige,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: sandBeige,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
+                        child: Text(point,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

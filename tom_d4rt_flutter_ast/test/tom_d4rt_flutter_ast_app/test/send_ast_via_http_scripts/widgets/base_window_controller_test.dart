@@ -30,10 +30,7 @@ Widget _bwSection(String title, List<Widget> children) {
       border: Border.all(color: _bwLightSlate, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x1A37474F),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x1A37474F), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -45,14 +42,11 @@ Widget _bwSection(String title, List<Widget> children) {
             color: _bwCharcoal,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _bwWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _bwWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -64,24 +58,19 @@ Widget _bwSection(String title, List<Widget> children) {
 Widget _bwLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _bwDarkCharcoal,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _bwDarkCharcoal,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _bwBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _bwGray, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(color: _bwGray, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -95,15 +84,12 @@ Widget _bwCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _bwLightSlate.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _bwDarkCharcoal,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _bwDarkCharcoal,
+            height: 1.45)),
   );
 }
 
@@ -115,10 +101,9 @@ Widget _bwChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -151,10 +136,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'BaseWindowController',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: const Text('BaseWindowController',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -183,48 +166,27 @@ dynamic build(BuildContext context) {
                       color: _bwWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.window_rounded,
-                      color: _bwWhite,
-                      size: 32,
-                    ),
+                    child: const Icon(Icons.window_rounded,
+                        color: _bwWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'BaseWindowController',
-                    style: TextStyle(
-                      color: _bwWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('BaseWindowController',
+                      style: TextStyle(
+                          color: _bwWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
-                  Text(
-                    'Abstract base class for multi-window management',
-                    style: TextStyle(
-                      color: _bwWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text('Abstract base class for multi-window management',
+                      style: TextStyle(
+                          color: _bwWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _bwChip(
-                        'Abstract',
-                        _bwWhite.withValues(alpha: 0.25),
-                        _bwWhite,
-                      ),
-                      _bwChip(
-                        'Controller',
-                        _bwWhite.withValues(alpha: 0.25),
-                        _bwWhite,
-                      ),
-                      _bwChip(
-                        'Multi-Window',
-                        _bwWhite.withValues(alpha: 0.25),
-                        _bwWhite,
-                      ),
+                      _bwChip('Abstract', _bwWhite.withValues(alpha: 0.25), _bwWhite),
+                      _bwChip('Controller', _bwWhite.withValues(alpha: 0.25), _bwWhite),
+                      _bwChip('Multi-Window', _bwWhite.withValues(alpha: 0.25), _bwWhite),
                     ],
                   ),
                 ],
@@ -471,30 +433,12 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _bwSummaryRow(
-                      Icons.window,
-                      'Abstract base for window management',
-                    ),
-                    _bwSummaryRow(
-                      Icons.account_tree,
-                      'Defines lifecycle: create → show → hide → close → destroy',
-                    ),
-                    _bwSummaryRow(
-                      Icons.stream,
-                      'Reactive state via Stream<WindowState>',
-                    ),
-                    _bwSummaryRow(
-                      Icons.devices,
-                      'Platform-abstract — one API, per-OS implementations',
-                    ),
-                    _bwSummaryRow(
-                      Icons.hub,
-                      'WindowManager coordinates multiple controllers',
-                    ),
-                    _bwSummaryRow(
-                      Icons.cleaning_services,
-                      'Proper disposal prevents native resource leaks',
-                    ),
+                    _bwSummaryRow(Icons.window, 'Abstract base for window management'),
+                    _bwSummaryRow(Icons.account_tree, 'Defines lifecycle: create → show → hide → close → destroy'),
+                    _bwSummaryRow(Icons.stream, 'Reactive state via Stream<WindowState>'),
+                    _bwSummaryRow(Icons.devices, 'Platform-abstract — one API, per-OS implementations'),
+                    _bwSummaryRow(Icons.hub, 'WindowManager coordinates multiple controllers'),
+                    _bwSummaryRow(Icons.cleaning_services, 'Proper disposal prevents native resource leaks'),
                   ],
                 ),
               ),
@@ -538,9 +482,8 @@ Widget _buildContractCategories() {
         decoration: BoxDecoration(
           color: (c['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: (c['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border:
+              Border.all(color: (c['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -554,17 +497,15 @@ Widget _buildContractCategories() {
                     color: c['color'] as Color,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(c['icon'] as IconData, color: _bwWhite, size: 18),
+                  child: Icon(c['icon'] as IconData,
+                      color: _bwWhite, size: 18),
                 ),
                 const SizedBox(width: 10),
-                Text(
-                  c['name'] as String,
-                  style: TextStyle(
-                    color: c['color'] as Color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text(c['name'] as String,
+                    style: TextStyle(
+                        color: c['color'] as Color,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700)),
               ],
             ),
             const SizedBox(height: 8),
@@ -574,25 +515,20 @@ Widget _buildContractCategories() {
               children: (c['members'] as List<String>).map((m) {
                 return Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
+                      horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: _bwWhite,
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                      color: (c['color'] as Color).withValues(alpha: 0.3),
-                    ),
+                        color:
+                            (c['color'] as Color).withValues(alpha: 0.3)),
                   ),
-                  child: Text(
-                    m,
-                    style: TextStyle(
-                      color: c['color'] as Color,
-                      fontSize: 10.5,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text(m,
+                      style: TextStyle(
+                          color: c['color'] as Color,
+                          fontSize: 10.5,
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w600)),
                 );
               }).toList(),
             ),
@@ -638,36 +574,27 @@ Widget _buildLifecycleDiagram() {
                     shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
-                  child: Text(
-                    '${entry.key + 1}',
-                    style: const TextStyle(
-                      color: _bwWhite,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: Text('${entry.key + 1}',
+                      style: const TextStyle(
+                          color: _bwWhite,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700)),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        s['state'] as String,
-                        style: TextStyle(
-                          color: s['color'] as Color,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        s['action'] as String,
-                        style: const TextStyle(
-                          color: _bwGray,
-                          fontSize: 10.5,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
+                      Text(s['state'] as String,
+                          style: TextStyle(
+                              color: s['color'] as Color,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700)),
+                      Text(s['action'] as String,
+                          style: const TextStyle(
+                              color: _bwGray,
+                              fontSize: 10.5,
+                              fontFamily: 'monospace')),
                     ],
                   ),
                 ),
@@ -709,18 +636,13 @@ Widget _buildRelationshipDiagram() {
           ),
           child: const Column(
             children: [
-              Text(
-                'WindowManager',
-                style: TextStyle(
-                  color: _bwAccentBlue,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(
-                'Coordinates all windows',
-                style: TextStyle(color: _bwGray, fontSize: 10),
-              ),
+              Text('WindowManager',
+                  style: TextStyle(
+                      color: _bwAccentBlue,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700)),
+              Text('Coordinates all windows',
+                  style: TextStyle(color: _bwGray, fontSize: 10)),
             ],
           ),
         ),
@@ -761,24 +683,21 @@ Widget _buildWindowBox(String id, String title, Color color, bool isMain) {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color, width: isMain ? 2 : 1),
+        border: Border.all(
+            color: color, width: isMain ? 2 : 1),
       ),
       child: Column(
         children: [
           Icon(Icons.desktop_windows, size: 18, color: color),
           const SizedBox(height: 4),
-          Text(
-            id,
-            style: TextStyle(
-              color: color,
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          Text(
-            title,
-            style: TextStyle(color: color.withValues(alpha: 0.8), fontSize: 9),
-          ),
+          Text(id,
+              style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700)),
+          Text(title,
+              style: TextStyle(
+                  color: color.withValues(alpha: 0.8), fontSize: 9)),
           if (isMain)
             Container(
               margin: const EdgeInsets.only(top: 4),
@@ -787,14 +706,11 @@ Widget _buildWindowBox(String id, String title, Color color, bool isMain) {
                 color: color,
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: const Text(
-                'main',
-                style: TextStyle(
-                  color: _bwWhite,
-                  fontSize: 8,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: const Text('main',
+                  style: TextStyle(
+                      color: _bwWhite,
+                      fontSize: 8,
+                      fontWeight: FontWeight.w700)),
             ),
         ],
       ),
@@ -807,32 +723,12 @@ Widget _buildWindowBox(String id, String title, Color color, bool isMain) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildStateCards() {
   final states = <Map<String, dynamic>>[
-    {
-      'name': 'created',
-      'desc': 'Controller instantiated, no native window yet',
-      'color': _bwGray,
-    },
-    {
-      'name': 'initialized',
-      'desc': 'Native window handle allocated',
-      'color': _bwAccentBlue,
-    },
-    {
-      'name': 'visible',
-      'desc': 'Window shown on screen',
-      'color': _bwAccentGreen,
-    },
+    {'name': 'created', 'desc': 'Controller instantiated, no native window yet', 'color': _bwGray},
+    {'name': 'initialized', 'desc': 'Native window handle allocated', 'color': _bwAccentBlue},
+    {'name': 'visible', 'desc': 'Window shown on screen', 'color': _bwAccentGreen},
     {'name': 'hidden', 'desc': 'Minimized or hidden', 'color': _bwAccentOrange},
-    {
-      'name': 'destroying',
-      'desc': 'Cleanup in progress',
-      'color': _bwAccentPurple,
-    },
-    {
-      'name': 'destroyed',
-      'desc': 'Native resources freed',
-      'color': _bwDarkCharcoal,
-    },
+    {'name': 'destroying', 'desc': 'Cleanup in progress', 'color': _bwAccentPurple},
+    {'name': 'destroyed', 'desc': 'Native resources freed', 'color': _bwDarkCharcoal},
   ];
   return Wrap(
     spacing: 6,
@@ -845,8 +741,7 @@ Widget _buildStateCards() {
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
-            color: (s['color'] as Color).withValues(alpha: 0.3),
-          ),
+              color: (s['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -860,19 +755,15 @@ Widget _buildStateCards() {
               ),
             ),
             const SizedBox(height: 4),
-            Text(
-              s['name'] as String,
-              style: TextStyle(
-                color: s['color'] as Color,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
-              ),
-            ),
-            Text(
-              s['desc'] as String,
-              style: const TextStyle(color: _bwGray, fontSize: 9, height: 1.3),
-            ),
+            Text(s['name'] as String,
+                style: TextStyle(
+                    color: s['color'] as Color,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'monospace')),
+            Text(s['desc'] as String,
+                style: const TextStyle(
+                    color: _bwGray, fontSize: 9, height: 1.3)),
           ],
         ),
       );
@@ -885,30 +776,10 @@ Widget _buildStateCards() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildCoordinationDiagram() {
   final features = <Map<String, dynamic>>[
-    {
-      'name': 'Spawn',
-      'desc': 'Create new window + controller',
-      'icon': Icons.add_circle,
-      'color': _bwAccentGreen,
-    },
-    {
-      'name': 'Focus',
-      'desc': 'Track which window is active',
-      'icon': Icons.center_focus_strong,
-      'color': _bwAccentBlue,
-    },
-    {
-      'name': 'Broadcast',
-      'desc': 'Send data across windows',
-      'icon': Icons.broadcast_on_personal,
-      'color': _bwAccentPurple,
-    },
-    {
-      'name': 'Close All',
-      'desc': 'Orderly shutdown of all windows',
-      'icon': Icons.close_fullscreen,
-      'color': _bwAccentOrange,
-    },
+    {'name': 'Spawn', 'desc': 'Create new window + controller', 'icon': Icons.add_circle, 'color': _bwAccentGreen},
+    {'name': 'Focus', 'desc': 'Track which window is active', 'icon': Icons.center_focus_strong, 'color': _bwAccentBlue},
+    {'name': 'Broadcast', 'desc': 'Send data across windows', 'icon': Icons.broadcast_on_personal, 'color': _bwAccentPurple},
+    {'name': 'Close All', 'desc': 'Orderly shutdown of all windows', 'icon': Icons.close_fullscreen, 'color': _bwAccentOrange},
   ];
   return Row(
     children: features.map((f) {
@@ -920,31 +791,23 @@ Widget _buildCoordinationDiagram() {
             color: (f['color'] as Color).withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (f['color'] as Color).withValues(alpha: 0.3),
-            ),
+                color: (f['color'] as Color).withValues(alpha: 0.3)),
           ),
           child: Column(
             children: [
-              Icon(f['icon'] as IconData, size: 22, color: f['color'] as Color),
+              Icon(f['icon'] as IconData,
+                  size: 22, color: f['color'] as Color),
               const SizedBox(height: 4),
-              Text(
-                f['name'] as String,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: f['color'] as Color,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(
-                f['desc'] as String,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: _bwGray,
-                  fontSize: 8.5,
-                  height: 1.2,
-                ),
-              ),
+              Text(f['name'] as String,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: f['color'] as Color,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700)),
+              Text(f['desc'] as String,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: _bwGray, fontSize: 8.5, height: 1.2)),
             ],
           ),
         ),
@@ -978,19 +841,17 @@ Widget _buildPlatformTable() {
           color: isHeader
               ? _bwCharcoal
               : entry.key.isEven
-              ? _bwSlateSilver
-              : _bwWhite,
+                  ? _bwSlateSilver
+                  : _bwWhite,
           child: Row(
             children: row.asMap().entries.map((col) {
               return Expanded(
-                child: Text(
-                  col.value,
-                  style: TextStyle(
-                    color: isHeader ? _bwWhite : _bwGray,
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-                  ),
-                ),
+                child: Text(col.value,
+                    style: TextStyle(
+                        color: isHeader ? _bwWhite : _bwGray,
+                        fontSize: 11,
+                        fontWeight:
+                            isHeader ? FontWeight.w700 : FontWeight.w400)),
               );
             }).toList(),
           ),
@@ -1049,7 +910,8 @@ List<Widget> _buildSpawnFlowSteps() {
       decoration: BoxDecoration(
         color: (s['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+        border: Border.all(
+            color: (s['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -1061,36 +923,27 @@ List<Widget> _buildSpawnFlowSteps() {
               borderRadius: BorderRadius.circular(6),
             ),
             alignment: Alignment.center,
-            child: Text(
-              s['step'] as String,
-              style: const TextStyle(
-                color: _bwWhite,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            child: Text(s['step'] as String,
+                style: const TextStyle(
+                    color: _bwWhite,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700)),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  s['title'] as String,
-                  style: TextStyle(
-                    color: s['color'] as Color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
-                Text(
-                  s['detail'] as String,
-                  style: const TextStyle(
-                    color: _bwGray,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                Text(s['title'] as String,
+                    style: TextStyle(
+                        color: s['color'] as Color,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12)),
+                Text(s['detail'] as String,
+                    style: const TextStyle(
+                        color: _bwGray,
+                        fontSize: 10,
+                        fontFamily: 'monospace')),
               ],
             ),
           ),
@@ -1105,34 +958,10 @@ List<Widget> _buildSpawnFlowSteps() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildChatAppDemo() {
   final windows = <Map<String, dynamic>>[
-    {
-      'id': 1,
-      'title': 'Chat — Main',
-      'contact': 'Contacts List',
-      'state': 'visible',
-      'isMain': true,
-    },
-    {
-      'id': 2,
-      'title': 'Chat — Alice',
-      'contact': 'Alice Chen',
-      'state': 'visible',
-      'isMain': false,
-    },
-    {
-      'id': 3,
-      'title': 'Chat — Team',
-      'contact': 'Team Channel',
-      'state': 'visible',
-      'isMain': false,
-    },
-    {
-      'id': 4,
-      'title': 'Chat — Bob',
-      'contact': 'Bob Rivera',
-      'state': 'hidden',
-      'isMain': false,
-    },
+    {'id': 1, 'title': 'Chat — Main', 'contact': 'Contacts List', 'state': 'visible', 'isMain': true},
+    {'id': 2, 'title': 'Chat — Alice', 'contact': 'Alice Chen', 'state': 'visible', 'isMain': false},
+    {'id': 3, 'title': 'Chat — Team', 'contact': 'Team Channel', 'state': 'visible', 'isMain': false},
+    {'id': 4, 'title': 'Chat — Bob', 'contact': 'Bob Rivera', 'state': 'hidden', 'isMain': false},
   ];
   return Container(
     padding: const EdgeInsets.all(12),
@@ -1152,17 +981,16 @@ Widget _buildChatAppDemo() {
             color: isHidden
                 ? _bwGray.withValues(alpha: 0.08)
                 : isMain
-                ? _bwAccentBlue.withValues(alpha: 0.08)
-                : _bwWhite,
+                    ? _bwAccentBlue.withValues(alpha: 0.08)
+                    : _bwWhite,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: isHidden
-                  ? _bwGray.withValues(alpha: 0.3)
-                  : isMain
-                  ? _bwAccentBlue
-                  : _bwLightSlate,
-              width: isMain ? 2 : 1,
-            ),
+                color: isHidden
+                    ? _bwGray.withValues(alpha: 0.3)
+                    : isMain
+                        ? _bwAccentBlue
+                        : _bwLightSlate,
+                width: isMain ? 2 : 1),
           ),
           child: Row(
             children: [
@@ -1177,10 +1005,9 @@ Widget _buildChatAppDemo() {
                 ),
                 alignment: Alignment.center,
                 child: Icon(
-                  isHidden ? Icons.visibility_off : Icons.chat_bubble,
-                  size: 16,
-                  color: isHidden ? _bwGray : _bwCharcoal,
-                ),
+                    isHidden ? Icons.visibility_off : Icons.chat_bubble,
+                    size: 16,
+                    color: isHidden ? _bwGray : _bwCharcoal),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1189,55 +1016,43 @@ Widget _buildChatAppDemo() {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          w['title'] as String,
-                          style: TextStyle(
-                            color: isHidden ? _bwGray : _bwDarkCharcoal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        Text(w['title'] as String,
+                            style: TextStyle(
+                                color: isHidden
+                                    ? _bwGray
+                                    : _bwDarkCharcoal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600)),
                         if (isMain) ...[
                           const SizedBox(width: 4),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 4,
-                              vertical: 1,
-                            ),
+                                horizontal: 4, vertical: 1),
                             decoration: BoxDecoration(
                               color: _bwAccentBlue,
                               borderRadius: BorderRadius.circular(3),
                             ),
-                            child: const Text(
-                              'main',
-                              style: TextStyle(
-                                color: _bwWhite,
-                                fontSize: 8,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            child: const Text('main',
+                                style: TextStyle(
+                                    color: _bwWhite,
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w700)),
                           ),
                         ],
                       ],
                     ),
-                    Text(
-                      '${w['contact']} · ${w['state']}',
-                      style: TextStyle(
-                        color: _bwGray.withValues(alpha: 0.7),
-                        fontSize: 10,
-                      ),
-                    ),
+                    Text('${w['contact']} · ${w['state']}',
+                        style: TextStyle(
+                            color: _bwGray.withValues(alpha: 0.7),
+                            fontSize: 10)),
                   ],
                 ),
               ),
-              Text(
-                'id: ${w['id']}',
-                style: const TextStyle(
-                  color: _bwGray,
-                  fontSize: 9,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text('id: ${w['id']}',
+                  style: const TextStyle(
+                      color: _bwGray,
+                      fontSize: 9,
+                      fontFamily: 'monospace')),
             ],
           ),
         );
@@ -1251,24 +1066,9 @@ Widget _buildChatAppDemo() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildIdeWindowDemo() {
   final tabs = <Map<String, dynamic>>[
-    {
-      'file': 'main.dart',
-      'window': 'Main',
-      'detached': false,
-      'icon': Icons.code,
-    },
-    {
-      'file': 'settings.json',
-      'window': 'Window 2',
-      'detached': true,
-      'icon': Icons.settings,
-    },
-    {
-      'file': 'README.md',
-      'window': 'Window 3',
-      'detached': true,
-      'icon': Icons.description,
-    },
+    {'file': 'main.dart', 'window': 'Main', 'detached': false, 'icon': Icons.code},
+    {'file': 'settings.json', 'window': 'Window 2', 'detached': true, 'icon': Icons.settings},
+    {'file': 'README.md', 'window': 'Window 3', 'detached': true, 'icon': Icons.description},
   ];
   return Container(
     padding: const EdgeInsets.all(12),
@@ -1291,14 +1091,11 @@ Widget _buildIdeWindowDemo() {
                 children: [
                   Icon(Icons.code, size: 14, color: _bwLightSlate),
                   SizedBox(width: 6),
-                  Text(
-                    'FlutterIDE — Multi Window',
-                    style: TextStyle(
-                      color: _bwWhite,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  Text('FlutterIDE — Multi Window',
+                      style: TextStyle(
+                          color: _bwWhite,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600)),
                 ],
               ),
               const SizedBox(height: 8),
@@ -1316,36 +1113,31 @@ Widget _buildIdeWindowDemo() {
                         borderRadius: BorderRadius.circular(4),
                         border: isDetached
                             ? Border.all(
-                                color: _bwAccentOrange.withValues(alpha: 0.4),
-                              )
+                                color: _bwAccentOrange.withValues(alpha: 0.4))
                             : null,
                       ),
                       child: Column(
                         children: [
-                          Icon(
-                            t['icon'] as IconData,
-                            size: 14,
-                            color: isDetached ? _bwAccentOrange : _bwLightSlate,
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            t['file'] as String,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: isDetached ? _bwAccentOrange : _bwWhite,
-                              fontSize: 9,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Text(
-                            isDetached ? '↗ ${t['window']}' : 'here',
-                            style: TextStyle(
+                          Icon(t['icon'] as IconData,
+                              size: 14,
                               color: isDetached
-                                  ? _bwAccentOrange.withValues(alpha: 0.7)
-                                  : _bwGray,
-                              fontSize: 8,
-                            ),
-                          ),
+                                  ? _bwAccentOrange
+                                  : _bwLightSlate),
+                          const SizedBox(height: 2),
+                          Text(t['file'] as String,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: isDetached
+                                      ? _bwAccentOrange
+                                      : _bwWhite,
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.w600)),
+                          Text(isDetached ? '↗ ${t['window']}' : 'here',
+                              style: TextStyle(
+                                  color: isDetached
+                                      ? _bwAccentOrange.withValues(alpha: 0.7)
+                                      : _bwGray,
+                                  fontSize: 8)),
                         ],
                       ),
                     ),
@@ -1371,36 +1163,12 @@ Widget _buildIdeWindowDemo() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildCleanupChecklist() {
   final items = <Map<String, dynamic>>[
-    {
-      'check': 'Close StreamControllers',
-      'icon': Icons.check_circle,
-      'color': _bwAccentGreen,
-    },
-    {
-      'check': 'Cancel event subscriptions',
-      'icon': Icons.check_circle,
-      'color': _bwAccentGreen,
-    },
-    {
-      'check': 'Release native window handle',
-      'icon': Icons.check_circle,
-      'color': _bwAccentGreen,
-    },
-    {
-      'check': 'Remove from WindowManager registry',
-      'icon': Icons.check_circle,
-      'color': _bwAccentGreen,
-    },
-    {
-      'check': 'Notify other windows of closure',
-      'icon': Icons.info,
-      'color': _bwAccentOrange,
-    },
-    {
-      'check': 'Persist window position for restore',
-      'icon': Icons.info,
-      'color': _bwAccentOrange,
-    },
+    {'check': 'Close StreamControllers', 'icon': Icons.check_circle, 'color': _bwAccentGreen},
+    {'check': 'Cancel event subscriptions', 'icon': Icons.check_circle, 'color': _bwAccentGreen},
+    {'check': 'Release native window handle', 'icon': Icons.check_circle, 'color': _bwAccentGreen},
+    {'check': 'Remove from WindowManager registry', 'icon': Icons.check_circle, 'color': _bwAccentGreen},
+    {'check': 'Notify other windows of closure', 'icon': Icons.info, 'color': _bwAccentOrange},
+    {'check': 'Persist window position for restore', 'icon': Icons.info, 'color': _bwAccentOrange},
   ];
   return Column(
     children: items.map((item) {
@@ -1411,26 +1179,19 @@ Widget _buildCleanupChecklist() {
           color: _bwWhite,
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
-            color: (item['color'] as Color).withValues(alpha: 0.3),
-          ),
+              color: (item['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
-            Icon(
-              item['icon'] as IconData,
-              size: 16,
-              color: item['color'] as Color,
-            ),
+            Icon(item['icon'] as IconData,
+                size: 16, color: item['color'] as Color),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                item['check'] as String,
-                style: const TextStyle(
-                  color: _bwDarkCharcoal,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              child: Text(item['check'] as String,
+                  style: const TextStyle(
+                      color: _bwDarkCharcoal,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500)),
             ),
           ],
         ),
@@ -1450,13 +1211,10 @@ Widget _bwSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _bwWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _bwWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _bwWhite.withValues(alpha: 0.95),
+                  fontSize: 12.5)),
         ),
       ],
     ),

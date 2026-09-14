@@ -253,23 +253,11 @@ dynamic build(BuildContext context) {
         buildDescription('ButtonBar supports all MainAxisAlignment values'),
 
         buildAlignmentCard('MainAxisAlignment.start', MainAxisAlignment.start),
-        buildAlignmentCard(
-          'MainAxisAlignment.center',
-          MainAxisAlignment.center,
-        ),
+        buildAlignmentCard('MainAxisAlignment.center', MainAxisAlignment.center),
         buildAlignmentCard('MainAxisAlignment.end', MainAxisAlignment.end),
-        buildAlignmentCard(
-          'MainAxisAlignment.spaceBetween',
-          MainAxisAlignment.spaceBetween,
-        ),
-        buildAlignmentCard(
-          'MainAxisAlignment.spaceAround',
-          MainAxisAlignment.spaceAround,
-        ),
-        buildAlignmentCard(
-          'MainAxisAlignment.spaceEvenly',
-          MainAxisAlignment.spaceEvenly,
-        ),
+        buildAlignmentCard('MainAxisAlignment.spaceBetween', MainAxisAlignment.spaceBetween),
+        buildAlignmentCard('MainAxisAlignment.spaceAround', MainAxisAlignment.spaceAround),
+        buildAlignmentCard('MainAxisAlignment.spaceEvenly', MainAxisAlignment.spaceEvenly),
 
         // Section 2: Different Button Types
         buildSectionTitle('2. Different Button Types'),
@@ -341,7 +329,9 @@ dynamic build(BuildContext context) {
           title: 'Single Button',
           description: 'Just one action button',
           buttonBar: ButtonBar(
-            children: [ElevatedButton(onPressed: () {}, child: Text('Done'))],
+            children: [
+              ElevatedButton(onPressed: () {}, child: Text('Done')),
+            ],
           ),
         ),
         buildButtonBarDemo(
@@ -407,9 +397,7 @@ dynamic build(BuildContext context) {
 
         // Section 5: Main Axis Size
         buildSectionTitle('5. Main Axis Size'),
-        buildDescription(
-          'mainAxisSize controls whether ButtonBar expands to fill width',
-        ),
+        buildDescription('mainAxisSize controls whether ButtonBar expands to fill width'),
 
         Container(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -424,7 +412,9 @@ dynamic build(BuildContext context) {
               Container(
                 padding: EdgeInsets.all(12),
                 child: Row(
-                  children: [buildPropertyChip('mainAxisSize', 'max')],
+                  children: [
+                    buildPropertyChip('mainAxisSize', 'max'),
+                  ],
                 ),
               ),
               Container(
@@ -453,7 +443,9 @@ dynamic build(BuildContext context) {
               Container(
                 padding: EdgeInsets.all(12),
                 child: Row(
-                  children: [buildPropertyChip('mainAxisSize', 'min')],
+                  children: [
+                    buildPropertyChip('mainAxisSize', 'min'),
+                  ],
                 ),
               ),
               Container(
@@ -520,11 +512,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 12,
-                offset: Offset(0, 4),
-              ),
+              BoxShadow(color: Colors.black26, blurRadius: 12, offset: Offset(0, 4)),
             ],
           ),
           child: Column(
@@ -567,11 +555,7 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 12,
-                offset: Offset(0, 4),
-              ),
+              BoxShadow(color: Colors.black26, blurRadius: 12, offset: Offset(0, 4)),
             ],
           ),
           child: Column(
@@ -674,18 +658,14 @@ dynamic build(BuildContext context) {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 ),
                 child: Text('Round A'),
               ),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   backgroundColor: Colors.orange,
                   foregroundColor: Colors.white,
                 ),

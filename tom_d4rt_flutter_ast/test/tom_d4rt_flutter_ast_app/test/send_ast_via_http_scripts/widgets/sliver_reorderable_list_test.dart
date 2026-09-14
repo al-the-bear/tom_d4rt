@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_vert,
       'title': 'What Is SliverReorderableList?',
-      'body':
-          'SliverReorderableList is a sliver that displays children '
+      'body': 'SliverReorderableList is a sliver that displays children '
           'the user can reorder by long-pressing and dragging. It functions '
           'identically to ReorderableListView but as a sliver, so it can '
           'be composed with SliverAppBar, SliverList, and other slivers '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Long-Press to Reorder',
-      'body':
-          'By default, the user long-presses an item to start dragging. '
+      'body': 'By default, the user long-presses an item to start dragging. '
           'You can also provide a ReorderableDragStartListener (or wrap a '
           'child widget in one) that uses a drag handle icon, so the user '
           'can grab a handle instead of long-pressing.',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.dataset,
       'title': 'Data-Driven Reordering',
-      'body':
-          'When a drag completes, the onReorder callback fires with '
+      'body': 'When a drag completes, the onReorder callback fires with '
           'oldIndex and newIndex. You must update your data model and '
           'rebuild — the sliver does not reorder the data for you. '
           'Remember: if newIndex > oldIndex, subtract 1 because the '
@@ -50,8 +47,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_day,
       'title': 'Sliver Composition',
-      'body':
-          'Because it is a sliver, SliverReorderableList can coexist '
+      'body': 'Because it is a sliver, SliverReorderableList can coexist '
           'with SliverAppBar, SliverPadding, SliverToBoxAdapter, and any '
           'other sliver in a single CustomScrollView — something a '
           'standalone ReorderableListView cannot do.',
@@ -130,8 +126,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'itemBuilder',
       'type': 'IndexedWidgetBuilder',
-      'desc':
-          'Required. Builds each child at the given index. Each child '
+      'desc': 'Required. Builds each child at the given index. Each child '
           'must have a unique Key so the reorder animation knows which '
           'widget is being dragged. Without keys, reordering fails.',
     },
@@ -143,29 +138,25 @@ dynamic build(BuildContext context) {
     {
       'param': 'onReorder',
       'type': 'ReorderCallback',
-      'desc':
-          'Required. Called when a drag completes. Receives (oldIndex, '
+      'desc': 'Required. Called when a drag completes. Receives (oldIndex, '
           'newIndex). You must update your backing data in this callback.',
     },
     {
       'param': 'onReorderStart',
       'type': 'void Function(int)?',
-      'desc':
-          'Called when a reorder drag starts. Receives the index of '
+      'desc': 'Called when a reorder drag starts. Receives the index of '
           'the item being picked up. Useful for haptic feedback or UI state.',
     },
     {
       'param': 'onReorderEnd',
       'type': 'void Function(int)?',
-      'desc':
-          'Called when a reorder drag ends, regardless of whether the '
+      'desc': 'Called when a reorder drag ends, regardless of whether the '
           'item moved. Receives the final index.',
     },
     {
       'param': 'proxyDecorator',
       'type': 'ReorderItemProxyDecorator?',
-      'desc':
-          'A builder that wraps the dragged item to customize its '
+      'desc': 'A builder that wraps the dragged item to customize its '
           'appearance while in flight. Receives (child, index, animation). '
           'Common patterns: elevation, scale, opacity changes.',
     },
@@ -253,30 +244,14 @@ dynamic build(BuildContext context) {
 
   // Since d4rt scripts are stateless, we show the structural layout
   final basicTasks = <Map<String, dynamic>>[
-    {
-      'title': 'Review pull requests',
-      'icon': Icons.rate_review,
-      'priority': 'High',
-    },
-    {
-      'title': 'Update documentation',
-      'icon': Icons.description,
-      'priority': 'Medium',
-    },
+    {'title': 'Review pull requests', 'icon': Icons.rate_review, 'priority': 'High'},
+    {'title': 'Update documentation', 'icon': Icons.description, 'priority': 'Medium'},
     {'title': 'Fix login bug', 'icon': Icons.bug_report, 'priority': 'High'},
-    {
-      'title': 'Deploy staging build',
-      'icon': Icons.cloud_upload,
-      'priority': 'Low',
-    },
+    {'title': 'Deploy staging build', 'icon': Icons.cloud_upload, 'priority': 'Low'},
     {'title': 'Write unit tests', 'icon': Icons.science, 'priority': 'Medium'},
     {'title': 'Refactor auth module', 'icon': Icons.code, 'priority': 'Medium'},
     {'title': 'Design API endpoints', 'icon': Icons.api, 'priority': 'High'},
-    {
-      'title': 'Optimize database queries',
-      'icon': Icons.storage,
-      'priority': 'Low',
-    },
+    {'title': 'Optimize database queries', 'icon': Icons.storage, 'priority': 'Low'},
   ];
 
   final priorityColors = <String, Color>{
@@ -440,8 +415,7 @@ dynamic build(BuildContext context) {
   final handlePatterns = <Map<String, dynamic>>[
     {
       'name': 'Long-Press Anywhere',
-      'desc':
-          'Default behavior — long-press on any part of the item to '
+      'desc': 'Default behavior — long-press on any part of the item to '
           'start dragging. No special handle widget needed. Best for '
           'simple lists where the entire row is tappable.',
       'icon': Icons.touch_app,
@@ -449,8 +423,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'ReorderableDragStartListener',
-      'desc':
-          'Wrap the item (or part of it) in ReorderableDragStartListener. '
+      'desc': 'Wrap the item (or part of it) in ReorderableDragStartListener. '
           'The drag starts on pointer-down inside that listener — no '
           'long-press delay. Typically used to wrap a drag-handle icon.',
       'icon': Icons.drag_handle,
@@ -458,8 +431,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'ReorderableDelayedDragStartListener',
-      'desc':
-          'Similar to ReorderableDragStartListener but includes a '
+      'desc': 'Similar to ReorderableDragStartListener but includes a '
           'configurable delay before the drag activates. Useful when the '
           'draggable area overlaps with other gesture detectors.',
       'icon': Icons.timer,
@@ -467,8 +439,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Custom Drag Handle',
-      'desc':
-          'Place a drag-handle icon on one side of the item, wrap it in '
+      'desc': 'Place a drag-handle icon on one side of the item, wrap it in '
           'ReorderableDragStartListener, and keep the rest of the item free '
           'for taps. This is the most common pattern in production apps.',
       'icon': Icons.drag_indicator,
@@ -653,7 +624,10 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 2),
                   Text(
                     ex['desc'] as String,
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
@@ -781,9 +755,14 @@ dynamic build(BuildContext context) {
             key: ValueKey<String>('${section['header']}_$index'),
             index: index,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 10,
+              ),
               decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey.shade200),
+                ),
                 color: Colors.white,
               ),
               child: Row(
@@ -843,8 +822,7 @@ dynamic build(BuildContext context) {
   final practices = <Map<String, dynamic>>[
     {
       'title': 'Always Use Unique Keys',
-      'body':
-          'Every child must have a unique Key (usually ValueKey with '
+      'body': 'Every child must have a unique Key (usually ValueKey with '
           'the item ID). The reorder animation uses keys to track which '
           'widget moved. Without keys, items will not animate correctly.',
       'icon': Icons.vpn_key,
@@ -852,8 +830,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Handle newIndex Correctly',
-      'body':
-          'When newIndex > oldIndex, the item at oldIndex has already '
+      'body': 'When newIndex > oldIndex, the item at oldIndex has already '
           'been removed from its old position, so the effective insertion '
           'index is newIndex - 1. Most frameworks document this.',
       'icon': Icons.numbers,
@@ -861,8 +838,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Provide Haptic Feedback',
-      'body':
-          'Use onReorderStart to trigger a light haptic vibration. '
+      'body': 'Use onReorderStart to trigger a light haptic vibration. '
           'This gives the user tactile confirmation that the drag has '
           'started. Use HapticFeedback.mediumImpact().',
       'icon': Icons.vibration,
@@ -870,8 +846,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Use proxyDecorator',
-      'body':
-          'Add a subtle elevation or scale to the dragged item so '
+      'body': 'Add a subtle elevation or scale to the dragged item so '
           'the user can clearly see which item they are moving. A shadow '
           'effect works well.',
       'icon': Icons.layers,
@@ -879,8 +854,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Persist Reorder Results',
-      'body':
-          'Save the new order to your data store (database, shared '
+      'body': 'Save the new order to your data store (database, shared '
           'preferences, etc.) in onReorder. If the user closes the app '
           'before persisting, the reorder is lost.',
       'icon': Icons.save,
@@ -888,8 +862,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Accessibility',
-      'body':
-          'The drag handle should have a semantic label explaining '
+      'body': 'The drag handle should have a semantic label explaining '
           'its purpose. Users with assistive technology need to know they '
           'can press and hold to reorder.',
       'icon': Icons.accessibility,
@@ -961,38 +934,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.swap_vert,
-      'text':
-          'SliverReorderableList enables drag-to-reorder inside a '
+      'text': 'SliverReorderableList enables drag-to-reorder inside a '
           'CustomScrollView, composable with other slivers.',
     },
     {
       'icon': Icons.touch_app,
-      'text':
-          'Long-press to drag by default, or use '
+      'text': 'Long-press to drag by default, or use '
           'ReorderableDragStartListener for a dedicated drag handle.',
     },
     {
       'icon': Icons.vpn_key,
-      'text':
-          'Every child must have a unique Key for reorder animation '
+      'text': 'Every child must have a unique Key for reorder animation '
           'to work correctly.',
     },
     {
       'icon': Icons.dataset,
-      'text':
-          'The onReorder callback provides (oldIndex, newIndex). You '
+      'text': 'The onReorder callback provides (oldIndex, newIndex). You '
           'must update your data model — the sliver does not move data.',
     },
     {
       'icon': Icons.brush,
-      'text':
-          'proxyDecorator customizes the look of the dragged item — '
+      'text': 'proxyDecorator customizes the look of the dragged item — '
           'add elevation, scale, or color changes.',
     },
     {
       'icon': Icons.view_day,
-      'text':
-          'Multiple SliverReorderableList slivers can appear in one '
+      'text': 'Multiple SliverReorderableList slivers can appear in one '
           'CustomScrollView for sectioned reorderable lists.',
     },
   ];

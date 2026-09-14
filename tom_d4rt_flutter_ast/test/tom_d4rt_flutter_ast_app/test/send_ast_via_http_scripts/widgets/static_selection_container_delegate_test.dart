@@ -677,8 +677,8 @@ class _SscdVelvetRopePainter extends CustomPainter {
     for (int i = 0; i <= segments; i++) {
       final double t = i / segments;
       final double x = t * size.width;
-      final double y =
-          baseY + math.sin(t * math.pi * 6 + phase * math.pi * 2) * 2.6;
+      final double y = baseY +
+          math.sin(t * math.pi * 6 + phase * math.pi * 2) * 2.6;
       p.lineTo(x, y);
       h.lineTo(x, y - 2);
     }
@@ -736,7 +736,11 @@ class _SscdIntroRibbon extends StatelessWidget {
               'controls for select-all / clear / copy. A comparison card, an '
               'API card, and a pitfall card. Drag across any selectable '
               'surface to observe the delegate at work.',
-              style: TextStyle(fontSize: 14, color: _kObsidian, height: 1.45),
+              style: TextStyle(
+                fontSize: 14,
+                color: _kObsidian,
+                height: 1.45,
+              ),
             ),
           ),
         ],
@@ -1046,7 +1050,10 @@ class _SscdPlinthBodyPainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[_kMarble, _kMarbleDeep.withValues(alpha: 0.7)],
+        colors: <Color>[
+          _kMarble,
+          _kMarbleDeep.withValues(alpha: 0.7),
+        ],
       ).createShader(r);
     canvas.drawRRect(
       RRect.fromRectAndRadius(r.deflate(1), const Radius.circular(6)),
@@ -1075,7 +1082,9 @@ class _SscdPlinthBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 20,
-      child: CustomPaint(painter: _SscdPlinthBasePainter(accent: accent)),
+      child: CustomPaint(
+        painter: _SscdPlinthBasePainter(accent: accent),
+      ),
     );
   }
 }
@@ -1097,10 +1106,16 @@ class _SscdPlinthBasePainter extends CustomPainter {
       tier2,
     );
     final Paint tier3 = Paint()..color = _kObsidianSoft;
-    canvas.drawRect(Rect.fromLTWH(0, h * 0.7, w, h * 0.3), tier3);
+    canvas.drawRect(
+      Rect.fromLTWH(0, h * 0.7, w, h * 0.3),
+      tier3,
+    );
     // Gold inlay stripe.
     final Paint inlay = Paint()..color = accent.withValues(alpha: 0.55);
-    canvas.drawRect(Rect.fromLTWH(w * 0.05, h * 0.33, w * 0.9, 1.2), inlay);
+    canvas.drawRect(
+      Rect.fromLTWH(w * 0.05, h * 0.33, w * 0.9, 1.2),
+      inlay,
+    );
   }
 
   @override
@@ -1140,7 +1155,10 @@ class _SscdDashedFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       foregroundPainter: _SscdDashedFramePainter(color: color),
-      child: Padding(padding: const EdgeInsets.all(4), child: child),
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: child,
+      ),
     );
   }
 }
@@ -1156,18 +1174,10 @@ class _SscdDashedFramePainter extends CustomPainter {
       ..strokeWidth = 1
       ..color = color;
     _drawDashedLine(canvas, const Offset(0, 0), Offset(size.width, 0), p);
-    _drawDashedLine(
-      canvas,
-      Offset(size.width, 0),
-      Offset(size.width, size.height),
-      p,
-    );
-    _drawDashedLine(
-      canvas,
-      Offset(size.width, size.height),
-      Offset(0, size.height),
-      p,
-    );
+    _drawDashedLine(canvas, Offset(size.width, 0),
+        Offset(size.width, size.height), p);
+    _drawDashedLine(canvas, Offset(size.width, size.height),
+        Offset(0, size.height), p);
     _drawDashedLine(canvas, Offset(0, size.height), const Offset(0, 0), p);
 
     // Corner ticks.
@@ -1178,20 +1188,16 @@ class _SscdDashedFramePainter extends CustomPainter {
     const double tl = 6;
     canvas.drawLine(const Offset(0, 0), const Offset(tl, 0), tick);
     canvas.drawLine(const Offset(0, 0), const Offset(0, tl), tick);
-    canvas.drawLine(Offset(size.width, 0), Offset(size.width - tl, 0), tick);
+    canvas.drawLine(
+        Offset(size.width, 0), Offset(size.width - tl, 0), tick);
     canvas.drawLine(Offset(size.width, 0), Offset(size.width, tl), tick);
     canvas.drawLine(Offset(0, size.height), Offset(tl, size.height), tick);
-    canvas.drawLine(Offset(0, size.height), Offset(0, size.height - tl), tick);
     canvas.drawLine(
-      Offset(size.width, size.height),
-      Offset(size.width - tl, size.height),
-      tick,
-    );
-    canvas.drawLine(
-      Offset(size.width, size.height),
-      Offset(size.width, size.height - tl),
-      tick,
-    );
+        Offset(0, size.height), Offset(0, size.height - tl), tick);
+    canvas.drawLine(Offset(size.width, size.height),
+        Offset(size.width - tl, size.height), tick);
+    canvas.drawLine(Offset(size.width, size.height),
+        Offset(size.width, size.height - tl), tick);
   }
 
   void _drawDashedLine(Canvas canvas, Offset a, Offset b, Paint p) {
@@ -1306,7 +1312,11 @@ class _SscdLaboratoryPanelState extends State<_SscdLaboratoryPanel> {
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[body, const SizedBox(height: 16), readout],
+                children: <Widget>[
+                  body,
+                  const SizedBox(height: 16),
+                  readout,
+                ],
               );
             },
           ),
@@ -1416,10 +1426,7 @@ class _SscdLabReadout extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          _SscdReadoutRow(
-            label: 'status',
-            value: _statusLabel(geometry.status),
-          ),
+          _SscdReadoutRow(label: 'status', value: _statusLabel(geometry.status)),
           _SscdReadoutRow(
             label: 'hasContent',
             value: geometry.hasContent ? 'true' : 'false',
@@ -1592,7 +1599,8 @@ class _SscdImperativeControlRow extends StatelessWidget {
       debugPrint('[Sscd] Select all — region context missing.');
       return;
     }
-    final Object? invoked = Actions.maybeInvoke<SelectAllTextIntent>(
+    final Object? invoked =
+        Actions.maybeInvoke<SelectAllTextIntent>(
       c,
       const SelectAllTextIntent(SelectionChangedCause.keyboard),
     );
@@ -1605,8 +1613,8 @@ class _SscdImperativeControlRow extends StatelessWidget {
       debugPrint('[Sscd] Clear — region context missing.');
       return;
     }
-    final SelectableRegionState? state = c
-        .findAncestorStateOfType<SelectableRegionState>();
+    final SelectableRegionState? state =
+        c.findAncestorStateOfType<SelectableRegionState>();
     state?.clearSelection();
     debugPrint('[Sscd] Clear invoked; state=$state.');
   }
@@ -1617,7 +1625,8 @@ class _SscdImperativeControlRow extends StatelessWidget {
       debugPrint('[Sscd] Copy — region context missing.');
       return;
     }
-    final Object? invoked = Actions.maybeInvoke<CopySelectionTextIntent>(
+    final Object? invoked =
+        Actions.maybeInvoke<CopySelectionTextIntent>(
       c,
       CopySelectionTextIntent.copy,
     );
@@ -1805,11 +1814,17 @@ class _SscdComparisonRow extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: _SscdComparisonCell(text: staticValue, accent: _kGold),
+              child: _SscdComparisonCell(
+                text: staticValue,
+                accent: _kGold,
+              ),
             ),
           ),
           Expanded(
-            child: _SscdComparisonCell(text: baseValue, accent: _kSlate),
+            child: _SscdComparisonCell(
+              text: baseValue,
+              accent: _kSlate,
+            ),
           ),
         ],
       ),
@@ -1832,7 +1847,11 @@ class _SscdComparisonCell extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 12.5, color: _kObsidian, height: 1.4),
+        style: const TextStyle(
+          fontSize: 12.5,
+          color: _kObsidian,
+          height: 1.4,
+        ),
       ),
     );
   }
@@ -1858,7 +1877,11 @@ class _SscdApiCard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(width: 6, height: 22, color: _kGold),
+              Container(
+                width: 6,
+                height: 22,
+                color: _kGold,
+              ),
               const SizedBox(width: 10),
               const Text(
                 'API Surface',
@@ -2089,7 +2112,10 @@ class _SscdFootCartouche extends StatelessWidget {
 // =============================================================================
 
 class _SscdSectionHeader extends StatelessWidget {
-  const _SscdSectionHeader({required this.caption, required this.subtitle});
+  const _SscdSectionHeader({
+    required this.caption,
+    required this.subtitle,
+  });
 
   final String caption;
   final String subtitle;
@@ -2101,7 +2127,11 @@ class _SscdSectionHeader extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Container(width: 4, height: 20, color: _kGold),
+            Container(
+              width: 4,
+              height: 20,
+              color: _kGold,
+            ),
             const SizedBox(width: 10),
             Text(
               caption,

@@ -245,7 +245,10 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         '(nothing visible here)',
-                        style: TextStyle(fontSize: 10.0, color: Colors.black45),
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.black45,
+                        ),
                       ),
                       offstageHidden,
                     ],
@@ -276,7 +279,10 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         '(default hides)',
-                        style: TextStyle(fontSize: 10.0, color: Colors.black45),
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.black45,
+                        ),
                       ),
                       offstageDefault,
                     ],
@@ -319,12 +325,8 @@ dynamic build(BuildContext context) {
 
   final vis2 = Visibility(
     visible: false,
-    child: _boxLabel(
-      'visible:false (default replacement)',
-      Colors.green,
-      240.0,
-      30.0,
-    ),
+    child: _boxLabel('visible:false (default replacement)', Colors.green, 240.0,
+        30.0),
     replacement: Container(
       width: 240.0,
       height: 30.0,
@@ -424,19 +426,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160.0,
-            child: Text(
-              label,
-              style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500),
-            ),
+            child: Text(label,
+                style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500)),
           ),
           Expanded(child: visWidget),
           SizedBox(width: 8.0),
           SizedBox(
             width: 110.0,
-            child: Text(
-              layoutNote,
-              style: TextStyle(fontSize: 10.5, color: Colors.black54),
-            ),
+            child: Text(layoutNote,
+                style: TextStyle(fontSize: 10.5, color: Colors.black54)),
           ),
         ],
       ),
@@ -655,7 +653,10 @@ dynamic build(BuildContext context) {
               width: 56.0,
               child: Text(
                 'op=${t.toStringAsFixed(1)}',
-                style: TextStyle(fontSize: 12.0, fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
             SizedBox(width: 8.0),
@@ -744,7 +745,10 @@ dynamic build(BuildContext context) {
                 onPressed: () {
                   print('BELOW button tapped');
                 },
-                child: Text('below', style: TextStyle(color: Colors.brown)),
+                child: Text(
+                  'below',
+                  style: TextStyle(color: Colors.brown),
+                ),
               ),
             ),
           ),
@@ -864,9 +868,8 @@ dynamic build(BuildContext context) {
             style: TextStyle(
               fontSize: 11.5,
               color: excluded ? Colors.grey : Colors.black87,
-              decoration: excluded
-                  ? TextDecoration.lineThrough
-                  : TextDecoration.none,
+              decoration:
+                  excluded ? TextDecoration.lineThrough : TextDecoration.none,
               fontFamily: 'monospace',
             ),
           ),
@@ -933,11 +936,7 @@ dynamic build(BuildContext context) {
         semNode('Section: Opacity ladder', indent: 16.0),
         semNode('Section: Pointer wrappers', indent: 16.0),
         semNode('Section: ExcludeSemantics demo', indent: 16.0),
-        semNode(
-          '(excluded) Decorative card title',
-          excluded: true,
-          indent: 32.0,
-        ),
+        semNode('(excluded) Decorative card title', excluded: true, indent: 32.0),
         semNode('(excluded) star icons', excluded: true, indent: 32.0),
         semNode('(excluded) descriptive text', excluded: true, indent: 32.0),
         semNode('Section: Lifecycle vs layout summary', indent: 16.0),
@@ -968,15 +967,8 @@ dynamic build(BuildContext context) {
   // =========================================================================
   print('--- Section 7: Lifecycle vs layout summary ---');
 
-  Widget compareCell(
-    String title,
-    String paint,
-    String layout,
-    String hit,
-    String sem,
-    String state,
-    String anim,
-  ) {
+  Widget compareCell(String title, String paint, String layout, String hit,
+      String sem, String state, String anim) {
     return Container(
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(

@@ -490,10 +490,10 @@ Widget _buildRefreshChapter() {
         _explanationBox(
           'INTERPRETER NOTE',
           'CupertinoSliverRefreshControl requires a Future<void>-returning '
-              'onRefresh callback. The d4rt analyzer-free interpreter cannot run '
-              'async functions, so we pass onRefresh: null to keep the sliver in '
-              'pure-display mode. The widget still mounts and reports its inactive '
-              'state to the scrollable.',
+          'onRefresh callback. The d4rt analyzer-free interpreter cannot run '
+          'async functions, so we pass onRefresh: null to keep the sliver in '
+          'pure-display mode. The widget still mounts and reports its inactive '
+          'state to the scrollable.',
           CupertinoColors.systemIndigo,
         ),
         const SizedBox(height: 12),
@@ -755,10 +755,10 @@ Widget _buildMagnifierChapter() {
         _explanationBox(
           'WHEN TO USE',
           'CupertinoTextMagnifier is wired into the Cupertino text selection '
-              'overlays via the magnifierConfiguration property on selection '
-              'controls. You rarely instantiate it directly — but knowing its '
-              'inOutAnimation contract helps when integrating custom selection '
-              'handles or testing rendering snapshots.',
+          'overlays via the magnifierConfiguration property on selection '
+          'controls. You rarely instantiate it directly — but knowing its '
+          'inOutAnimation contract helps when integrating custom selection '
+          'handles or testing rendering snapshots.',
           CupertinoColors.systemPink,
         ),
       ],
@@ -1013,7 +1013,10 @@ Widget _textMagnifierDemo() {
                 top: 8,
                 child: const Text(
                   'The quick brown fox jumps over the lazy dog',
-                  style: TextStyle(fontSize: 16, color: Color(0xFF1C1C1E)),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF1C1C1E),
+                  ),
                 ),
               ),
               Positioned(
@@ -1066,7 +1069,11 @@ Widget _textMagnifierDemo() {
           'drags a selection handle. It accepts a MagnifierController and an '
           'animation that drives entry/exit; the controller decides when to '
           'show/hide via TextMagnifierConfiguration.magnifierBuilder.',
-          style: TextStyle(fontSize: 12, color: Color(0xFF3C3C43), height: 1.4),
+          style: TextStyle(
+            fontSize: 12,
+            color: Color(0xFF3C3C43),
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -1151,9 +1158,9 @@ Widget _buildTabScaffoldChapter() {
         _explanationBox(
           'CONTROLLER TIP',
           'CupertinoTabController is a ChangeNotifier. Set controller.index '
-              'from outside the widget tree to switch tabs without rebuilding. '
-              'Always dispose it from a StatefulWidget — in this static demo we '
-              'rely on the test driver to garbage-collect it.',
+          'from outside the widget tree to switch tabs without rebuilding. '
+          'Always dispose it from a StatefulWidget — in this static demo we '
+          'rely on the test driver to garbage-collect it.',
           CupertinoColors.systemTeal,
         ),
       ],
@@ -1177,7 +1184,10 @@ Widget _tabAnatomy() {
           decoration: BoxDecoration(
             color: CupertinoColors.systemTeal.withOpacity(0.15),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: CupertinoColors.systemTeal, width: 0.5),
+            border: Border.all(
+              color: CupertinoColors.systemTeal,
+              width: 0.5,
+            ),
           ),
           child: const Text(
             'CupertinoTabScaffold',
@@ -1217,7 +1227,10 @@ Widget _tabAnatomy() {
                     SizedBox(height: 2),
                     Text(
                       'returns CupertinoTabView',
-                      style: TextStyle(fontSize: 10, color: Color(0xFF6E6E73)),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Color(0xFF6E6E73),
+                      ),
                     ),
                   ],
                 ),
@@ -1232,7 +1245,10 @@ Widget _tabAnatomy() {
           decoration: BoxDecoration(
             color: CupertinoColors.systemPink.withOpacity(0.12),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: CupertinoColors.systemPink, width: 0.5),
+            border: Border.all(
+              color: CupertinoColors.systemPink,
+              width: 0.5,
+            ),
           ),
           child: const Text(
             'CupertinoTabBar  (items + colors)',
@@ -1388,7 +1404,10 @@ Widget _tabBody(int index) {
             decoration: BoxDecoration(
               color: CupertinoColors.white,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: const Color(0x1A000000), width: 0.5),
+              border: Border.all(
+                color: const Color(0x1A000000),
+                width: 0.5,
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1575,9 +1594,9 @@ Widget _buildPageTransitionChapter() {
         _explanationBox(
           'INTERPOLATION',
           't=0.0 is the route fully off-screen (right side). t=1.0 is the '
-              'route fully settled. linearTransition=false applies the Cupertino '
-              'curve; setting it to true gives a constant-speed slide useful for '
-              'driven hero animations.',
+          'route fully settled. linearTransition=false applies the Cupertino '
+          'curve; setting it to true gives a constant-speed slide useful for '
+          'driven hero animations.',
           CupertinoColors.systemOrange,
         ),
       ],
@@ -1612,7 +1631,10 @@ Widget _pageTransitionRow(double t) {
         Row(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 7,
+                vertical: 2,
+              ),
               decoration: BoxDecoration(
                 color: CupertinoColors.systemOrange.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(6),
@@ -1760,9 +1782,9 @@ Widget _buildFullscreenDialogChapter() {
         _explanationBox(
           'CONTRAST',
           'Compared to CupertinoPageTransition, the dialog transition uses a '
-              'vertical slide and a slight background opacity ramp. The exit '
-              'animation is reversed on pop; on dismiss-by-swipe the same '
-              'animation runs in reverse driven by the gesture velocity.',
+          'vertical slide and a slight background opacity ramp. The exit '
+          'animation is reversed on pop; on dismiss-by-swipe the same '
+          'animation runs in reverse driven by the gesture velocity.',
           CupertinoColors.systemGreen,
         ),
       ],
@@ -1797,7 +1819,10 @@ Widget _fullscreenDialogRow(double t) {
         Row(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 7,
+                vertical: 2,
+              ),
               decoration: BoxDecoration(
                 color: CupertinoColors.systemGreen.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(6),
@@ -2090,9 +2115,9 @@ Widget _buildReferenceChapter() {
         _explanationBox(
           'COVERAGE',
           'This script exercises bridged class construction for 9 Cupertino '
-              'symbols plus AlwaysStoppedAnimation. The test driver prints '
-              'progress between chapters so a grep for "cupertino_refresh_mag_test" '
-              'shows full chapter coverage in the logs.',
+          'symbols plus AlwaysStoppedAnimation. The test driver prints '
+          'progress between chapters so a grep for "cupertino_refresh_mag_test" '
+          'shows full chapter coverage in the logs.',
           CupertinoColors.systemGrey,
         ),
       ],
@@ -2164,7 +2189,11 @@ Widget _referenceTile({
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(CupertinoIcons.arrow_turn_down_right, size: 12, color: tint),
+            Icon(
+              CupertinoIcons.arrow_turn_down_right,
+              size: 12,
+              color: tint,
+            ),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
@@ -2198,8 +2227,12 @@ Widget _themeCard({required Brightness brightness}) {
   final isLight = brightness == Brightness.light;
   final bg = isLight ? const Color(0xFFFFFFFF) : const Color(0xFF1C1C1E);
   final fg = isLight ? const Color(0xFF1C1C1E) : const Color(0xFFFFFFFF);
-  final accent = isLight ? CupertinoColors.systemBlue : const Color(0xFF0A84FF);
-  final subdued = isLight ? const Color(0xFF6E6E73) : const Color(0xFF98989F);
+  final accent = isLight
+      ? CupertinoColors.systemBlue
+      : const Color(0xFF0A84FF);
+  final subdued = isLight
+      ? const Color(0xFF6E6E73)
+      : const Color(0xFF98989F);
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -2237,7 +2270,11 @@ Widget _themeCard({required Brightness brightness}) {
           ),
           child: Row(
             children: [
-              Icon(CupertinoIcons.arrow_clockwise, size: 12, color: accent),
+              Icon(
+                CupertinoIcons.arrow_clockwise,
+                size: 12,
+                color: accent,
+              ),
               const SizedBox(width: 4),
               Text(
                 'Refreshing…',
@@ -2298,7 +2335,11 @@ Widget _buildFooter() {
         const Text(
           'cupertino_refresh_mag_test • d4rt analyzer-free interpreter • '
           'snapshot-based animations, no AnimationController, no setState.',
-          style: TextStyle(fontSize: 11, color: Color(0xFF6E6E73), height: 1.4),
+          style: TextStyle(
+            fontSize: 11,
+            color: Color(0xFF6E6E73),
+            height: 1.4,
+          ),
         ),
       ],
     ),

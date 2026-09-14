@@ -344,7 +344,11 @@ dynamic build(BuildContext context) {
           'A live SerialTapGestureRecognizer is constructed, configured, '
           'queried, and disposed during build(). Values below are sampled '
           'from that instance.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 12),
         Container(
@@ -476,7 +480,11 @@ dynamic build(BuildContext context) {
     width: 600,
     height: 140,
     child: Stack(
-      children: <Widget>[timelineAxis, ...markerWidgets, ...gapLabels],
+      children: <Widget>[
+        timelineAxis,
+        ...markerWidgets,
+        ...gapLabels,
+      ],
     ),
   );
 
@@ -503,7 +511,11 @@ dynamic build(BuildContext context) {
         const Text(
           'Six consecutive taps along a single time axis. Each circle is '
           'labelled with its 1-based count value emitted by the recognizer.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
         SingleChildScrollView(
@@ -626,10 +638,17 @@ dynamic build(BuildContext context) {
         const Text(
           'Editor-style intent for each count value. Only the first three '
           'are platform-conventional; values beyond 4 are usually opt-in.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
-        Wrap(direction: Axis.horizontal, children: cascadeCards),
+        Wrap(
+          direction: Axis.horizontal,
+          children: cascadeCards,
+        ),
       ],
     ),
   );
@@ -644,12 +663,7 @@ dynamic build(BuildContext context) {
     <String>['onDown', 'onTapDown', 'onDoubleTapDown', 'onSerialTapDown'],
     <String>['onUp', 'onTapUp', 'onDoubleTap', 'onSerialTapUp'],
     <String>['onCancel', 'onTapCancel', '-', 'onSerialTapCancel'],
-    <String>[
-      'timeout',
-      'kPressTimeout',
-      'kDoubleTapTimeout',
-      'kDoubleTapTimeout',
-    ],
+    <String>['timeout', 'kPressTimeout', 'kDoubleTapTimeout', 'kDoubleTapTimeout'],
     <String>['slop', 'kTouchSlop', 'kDoubleTapSlop', 'kDoubleTapSlop'],
     <String>['typical use', 'button', 'zoom toggle', 'select word/par'],
     <String>['arena win', 'sweep', 'sweep', 'cooperative'],
@@ -677,7 +691,10 @@ dynamic build(BuildContext context) {
         Expanded(
           flex: c == 0 ? 3 : 2,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 9,
+            ),
             child: Text(
               text,
               style: TextStyle(
@@ -697,7 +714,9 @@ dynamic build(BuildContext context) {
           color: isHeader
               ? surfaceElevated
               : (r.isOdd ? inkBackground : surfaceDepth),
-          border: Border(bottom: BorderSide(color: borderHalo, width: 1)),
+          border: Border(
+            bottom: BorderSide(color: borderHalo, width: 1),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -730,7 +749,11 @@ dynamic build(BuildContext context) {
         const Text(
           'Field-by-field contrast of the three tap-family recognizers in '
           'the gestures library.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
         Container(
@@ -739,7 +762,9 @@ dynamic build(BuildContext context) {
             border: Border.all(color: borderHalo, width: 1),
           ),
           clipBehavior: Clip.antiAlias,
-          child: Column(children: tableRowWidgets),
+          child: Column(
+            children: tableRowWidgets,
+          ),
         ),
       ],
     ),
@@ -887,7 +912,11 @@ dynamic build(BuildContext context) {
           'Wire a SerialTapGestureRecognizer through the factory map. The '
           'second callback receives the freshly-created recognizer for '
           'configuration on every rebuild.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
         Container(
@@ -950,7 +979,8 @@ dynamic build(BuildContext context) {
     final String typeName = typeEntry[0] as String;
     final Color typeColor = typeEntry[1] as Color;
     final String typeDesc = typeEntry[2] as String;
-    final List<List<String>> typeFields = typeEntry[3] as List<List<String>>;
+    final List<List<String>> typeFields =
+        typeEntry[3] as List<List<String>>;
     final List<Widget> fieldRows = <Widget>[];
     for (int f = 0; f < typeFields.length; f = f + 1) {
       final List<String> field = typeFields[f];
@@ -1086,10 +1116,16 @@ dynamic build(BuildContext context) {
         const Text(
           'Three concrete payload classes carry information about each '
           'event in the series. All three expose count.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
-        Column(children: detailsTypeCards),
+        Column(
+          children: detailsTypeCards,
+        ),
       ],
     ),
   );
@@ -1225,7 +1261,10 @@ dynamic build(BuildContext context) {
         left: i * 60.0,
         top: 0,
         bottom: 0,
-        child: Container(width: 1, color: borderHalo.withValues(alpha: 0.4)),
+        child: Container(
+          width: 1,
+          color: borderHalo.withValues(alpha: 0.4),
+        ),
       ),
     );
   }
@@ -1235,7 +1274,10 @@ dynamic build(BuildContext context) {
         top: i * 60.0,
         left: 0,
         right: 0,
-        child: Container(height: 1, color: borderHalo.withValues(alpha: 0.4)),
+        child: Container(
+          height: 1,
+          color: borderHalo.withValues(alpha: 0.4),
+        ),
       ),
     );
   }
@@ -1282,7 +1324,11 @@ dynamic build(BuildContext context) {
         const Text(
           'Two pointers, two independent series. The recognizer maintains '
           'state per pointer; series do not interleave across pointers.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
         SingleChildScrollView(
@@ -1440,10 +1486,17 @@ dynamic build(BuildContext context) {
         const Text(
           'Sequences end (or never start) for several reasons. Each card '
           'names the trigger and the resulting recognizer behaviour.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
-        Wrap(direction: Axis.horizontal, children: edgeCaseCards),
+        Wrap(
+          direction: Axis.horizontal,
+          children: edgeCaseCards,
+        ),
       ],
     ),
   );
@@ -1546,7 +1599,11 @@ dynamic build(BuildContext context) {
       'by package:flutter/gestures.dart. They are platform-tuned and '
       'should not be hard-coded into application logic — depend on the '
       'symbols.',
-      style: TextStyle(color: textMuted, fontSize: 11, height: 1.5),
+      style: TextStyle(
+        color: textMuted,
+        fontSize: 11,
+        height: 1.5,
+      ),
     ),
   );
 
@@ -1573,10 +1630,17 @@ dynamic build(BuildContext context) {
         const Text(
           'The temporal and spatial constants that govern serial-tap '
           'recognition.',
-          style: TextStyle(color: textMuted, fontSize: 12, height: 1.45),
+          style: TextStyle(
+            color: textMuted,
+            fontSize: 12,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
-        Wrap(direction: Axis.horizontal, children: constantCards),
+        Wrap(
+          direction: Axis.horizontal,
+          children: constantCards,
+        ),
         footerNote,
       ],
     ),

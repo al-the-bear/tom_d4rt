@@ -38,8 +38,7 @@ const List<_Scenario> _scenarios = <_Scenario>[
   _Scenario(
     id: 'stage',
     title: 'Layout Stage',
-    subtitle:
-        'Observe how custom offsets are assigned to each child in linked-list order.',
+    subtitle: 'Observe how custom offsets are assigned to each child in linked-list order.',
   ),
   _Scenario(
     id: 'paint',
@@ -54,60 +53,23 @@ const List<_Scenario> _scenarios = <_Scenario>[
   _Scenario(
     id: 'traversal',
     title: 'Traversal',
-    subtitle:
-        'Track firstChild, lastChild, and childCount snapshots from the render object.',
+    subtitle: 'Track firstChild, lastChild, and childCount snapshots from the render object.',
   ),
   _Scenario(
     id: 'compare',
     title: 'Comparisons',
-    subtitle:
-        'Contrast this mixin-driven render object with Stack and Wrap widgets.',
+    subtitle: 'Contrast this mixin-driven render object with Stack and Wrap widgets.',
   ),
 ];
 
 const List<_NodeModel> _nodes = <_NodeModel>[
-  _NodeModel(
-    id: 'A',
-    label: 'Anchor',
-    color: Color(0xFF0EA5E9),
-    hint: 'Primary reference node',
-  ),
-  _NodeModel(
-    id: 'B',
-    label: 'Beacon',
-    color: Color(0xFF22C55E),
-    hint: 'Secondary lane probe',
-  ),
-  _NodeModel(
-    id: 'C',
-    label: 'Core',
-    color: Color(0xFFF59E0B),
-    hint: 'Center marker for overlaps',
-  ),
-  _NodeModel(
-    id: 'D',
-    label: 'Delta',
-    color: Color(0xFFF43F5E),
-    hint: 'High-priority overlap card',
-  ),
-  _NodeModel(
-    id: 'E',
-    label: 'Echo',
-    color: Color(0xFF8B5CF6),
-    hint: 'Trailing child in linked list',
-  ),
-  _NodeModel(
-    id: 'F',
-    label: 'Flux',
-    color: Color(0xFF14B8A6),
-    hint: 'Rhythm card for wave mode',
-  ),
-  _NodeModel(
-    id: 'G',
-    label: 'Grid',
-    color: Color(0xFF3B82F6),
-    hint: 'Edge card for bounds checks',
-  ),
+  _NodeModel(id: 'A', label: 'Anchor', color: Color(0xFF0EA5E9), hint: 'Primary reference node'),
+  _NodeModel(id: 'B', label: 'Beacon', color: Color(0xFF22C55E), hint: 'Secondary lane probe'),
+  _NodeModel(id: 'C', label: 'Core', color: Color(0xFFF59E0B), hint: 'Center marker for overlaps'),
+  _NodeModel(id: 'D', label: 'Delta', color: Color(0xFFF43F5E), hint: 'High-priority overlap card'),
+  _NodeModel(id: 'E', label: 'Echo', color: Color(0xFF8B5CF6), hint: 'Trailing child in linked list'),
+  _NodeModel(id: 'F', label: 'Flux', color: Color(0xFF14B8A6), hint: 'Rhythm card for wave mode'),
+  _NodeModel(id: 'G', label: 'Grid', color: Color(0xFF3B82F6), hint: 'Edge card for bounds checks'),
 ];
 
 const List<String> _guideBullets = <String>[
@@ -126,32 +88,33 @@ const List<String> _guideBullets = <String>[
 const List<_FaqItem> _faq = <_FaqItem>[
   _FaqItem(
     question: 'Why use RenderBoxContainerDefaultsMixin?',
-    answer:
-        'It avoids reimplementing paint and hit-test loops for multi-child RenderBox containers.',
+    answer: 'It avoids reimplementing paint and hit-test loops for multi-child RenderBox containers.',
   ),
   _FaqItem(
     question: 'What does the mixin assume?',
-    answer:
-        'Children are managed with ContainerRenderObjectMixin and use compatible parent data with offsets.',
+    answer: 'Children are managed with ContainerRenderObjectMixin and use compatible parent data with offsets.',
   ),
   _FaqItem(
     question: 'When should I override defaultPaint?',
-    answer:
-        'Only when paint order or effects differ from normal child traversal behavior.',
+    answer: 'Only when paint order or effects differ from normal child traversal behavior.',
   ),
   _FaqItem(
     question: 'Can this replace Stack?',
-    answer:
-        'Not directly; this is a render-layer utility for building custom containers, while Stack is a widget abstraction.',
+    answer: 'Not directly; this is a render-layer utility for building custom containers, while Stack is a widget abstraction.',
   ),
   _FaqItem(
     question: 'How do I debug hit testing?',
-    answer:
-        'Log hit events and toggle overlap-heavy layouts to validate front-most child resolution.',
+    answer: 'Log hit events and toggle overlap-heavy layouts to validate front-most child resolution.',
   ),
 ];
 
-enum _LayoutMode { stack, lanes, wave, radial, spiral }
+enum _LayoutMode {
+  stack,
+  lanes,
+  wave,
+  radial,
+  spiral,
+}
 
 class _ThemeProfile {
   const _ThemeProfile({
@@ -170,11 +133,7 @@ class _ThemeProfile {
 }
 
 class _Scenario {
-  const _Scenario({
-    required this.id,
-    required this.title,
-    required this.subtitle,
-  });
+  const _Scenario({required this.id, required this.title, required this.subtitle});
 
   final String id;
   final String title;
@@ -182,12 +141,7 @@ class _Scenario {
 }
 
 class _NodeModel {
-  const _NodeModel({
-    required this.id,
-    required this.label,
-    required this.color,
-    required this.hint,
-  });
+  const _NodeModel({required this.id, required this.label, required this.color, required this.hint});
 
   final String id;
   final String label;
@@ -223,12 +177,7 @@ class _RenderSnapshot {
 }
 
 class _Metric {
-  const _Metric({
-    required this.label,
-    required this.value,
-    required this.note,
-    required this.icon,
-  });
+  const _Metric({required this.label, required this.value, required this.note, required this.icon});
 
   final String label;
   final String value;
@@ -237,11 +186,7 @@ class _Metric {
 }
 
 class _TimelineEntry {
-  const _TimelineEntry({
-    required this.time,
-    required this.title,
-    required this.message,
-  });
+  const _TimelineEntry({required this.time, required this.title, required this.message});
 
   final DateTime time;
   final String title;
@@ -256,13 +201,10 @@ class _RenderBoxContainerDefaultsMixinStudio extends StatefulWidget {
   const _RenderBoxContainerDefaultsMixinStudio();
 
   @override
-  State<_RenderBoxContainerDefaultsMixinStudio> createState() =>
-      _RenderBoxContainerDefaultsMixinStudioState();
+  State<_RenderBoxContainerDefaultsMixinStudio> createState() => _RenderBoxContainerDefaultsMixinStudioState();
 }
 
-class _RenderBoxContainerDefaultsMixinStudioState
-    extends State<_RenderBoxContainerDefaultsMixinStudio>
-    with SingleTickerProviderStateMixin {
+class _RenderBoxContainerDefaultsMixinStudioState extends State<_RenderBoxContainerDefaultsMixinStudio> with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
 
   late final AnimationController _motionController = AnimationController(
@@ -316,10 +258,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _addTimeline(
-        'Init',
-        'RenderBoxContainerDefaultsMixin Container Render Lab initialized.',
-      );
+      _addTimeline('Init', 'RenderBoxContainerDefaultsMixin Container Render Lab initialized.');
     });
   }
 
@@ -397,102 +336,22 @@ class _RenderBoxContainerDefaultsMixinStudioState
 
   List<_Metric> _metrics() {
     return <_Metric>[
-      _Metric(
-        label: 'Scenario',
-        value: _scenarios[_scenarioIndex].title,
-        note: 'Current exploration lane.',
-        icon: Icons.view_kanban_outlined,
-      ),
-      _Metric(
-        label: 'Theme',
-        value: _profiles[_themeIndex].name,
-        note: 'Color profile for this session.',
-        icon: Icons.palette_outlined,
-      ),
-      _Metric(
-        label: 'Layout Mode',
-        value: _layoutMode.name,
-        note: 'Custom offset strategy in performLayout.',
-        icon: Icons.grid_view_outlined,
-      ),
-      _Metric(
-        label: 'Child Count',
-        value: '${_snapshot.childCount}',
-        note: 'Linked-list children managed by container mixin.',
-        icon: Icons.widgets_outlined,
-      ),
-      _Metric(
-        label: 'firstChild',
-        value: _snapshot.firstLabel,
-        note: 'First child in traversal order.',
-        icon: Icons.first_page_outlined,
-      ),
-      _Metric(
-        label: 'lastChild',
-        value: _snapshot.lastLabel,
-        note: 'Last child in traversal order.',
-        icon: Icons.last_page_outlined,
-      ),
-      _Metric(
-        label: 'Paint Calls',
-        value: '${_snapshot.paintCalls}',
-        note: 'Render object paint invocations.',
-        icon: Icons.brush_outlined,
-      ),
-      _Metric(
-        label: 'Hit Calls',
-        value: '${_snapshot.hitCalls}',
-        note: 'Hit-test passes through defaultHitTestChildren.',
-        icon: Icons.ads_click_outlined,
-      ),
-      _Metric(
-        label: 'Last Hit',
-        value: _snapshot.lastHit,
-        note: 'Latest child resolved by hit testing.',
-        icon: Icons.touch_app_outlined,
-      ),
-      _Metric(
-        label: 'Last Tap',
-        value: _lastTappedNode,
-        note: 'UI callback from tapped visual node.',
-        icon: Icons.gesture_outlined,
-      ),
-      _Metric(
-        label: 'Layout Switches',
-        value: '$_layoutSwitchCount',
-        note: 'Mode changes by controls.',
-        icon: Icons.swap_horiz_outlined,
-      ),
-      _Metric(
-        label: 'Scenario Switches',
-        value: '$_scenarioSwitchCount',
-        note: 'Scenario lane changes.',
-        icon: Icons.route_outlined,
-      ),
-      _Metric(
-        label: 'Theme Switches',
-        value: '$_themeSwitchCount',
-        note: 'Theme profile changes.',
-        icon: Icons.tonality_outlined,
-      ),
-      _Metric(
-        label: 'Bounds Toggles',
-        value: '$_boundsToggleCount',
-        note: 'Bounding-rect overlay toggles.',
-        icon: Icons.crop_square_outlined,
-      ),
-      _Metric(
-        label: 'Grid Toggles',
-        value: '$_gridToggleCount',
-        note: 'Background grid visibility toggles.',
-        icon: Icons.grid_on_outlined,
-      ),
-      _Metric(
-        label: 'Phase',
-        value: _phase,
-        note: 'Most recent interaction phase.',
-        icon: Icons.flag_outlined,
-      ),
+      _Metric(label: 'Scenario', value: _scenarios[_scenarioIndex].title, note: 'Current exploration lane.', icon: Icons.view_kanban_outlined),
+      _Metric(label: 'Theme', value: _profiles[_themeIndex].name, note: 'Color profile for this session.', icon: Icons.palette_outlined),
+      _Metric(label: 'Layout Mode', value: _layoutMode.name, note: 'Custom offset strategy in performLayout.', icon: Icons.grid_view_outlined),
+      _Metric(label: 'Child Count', value: '${_snapshot.childCount}', note: 'Linked-list children managed by container mixin.', icon: Icons.widgets_outlined),
+      _Metric(label: 'firstChild', value: _snapshot.firstLabel, note: 'First child in traversal order.', icon: Icons.first_page_outlined),
+      _Metric(label: 'lastChild', value: _snapshot.lastLabel, note: 'Last child in traversal order.', icon: Icons.last_page_outlined),
+      _Metric(label: 'Paint Calls', value: '${_snapshot.paintCalls}', note: 'Render object paint invocations.', icon: Icons.brush_outlined),
+      _Metric(label: 'Hit Calls', value: '${_snapshot.hitCalls}', note: 'Hit-test passes through defaultHitTestChildren.', icon: Icons.ads_click_outlined),
+      _Metric(label: 'Last Hit', value: _snapshot.lastHit, note: 'Latest child resolved by hit testing.', icon: Icons.touch_app_outlined),
+      _Metric(label: 'Last Tap', value: _lastTappedNode, note: 'UI callback from tapped visual node.', icon: Icons.gesture_outlined),
+      _Metric(label: 'Layout Switches', value: '$_layoutSwitchCount', note: 'Mode changes by controls.', icon: Icons.swap_horiz_outlined),
+      _Metric(label: 'Scenario Switches', value: '$_scenarioSwitchCount', note: 'Scenario lane changes.', icon: Icons.route_outlined),
+      _Metric(label: 'Theme Switches', value: '$_themeSwitchCount', note: 'Theme profile changes.', icon: Icons.tonality_outlined),
+      _Metric(label: 'Bounds Toggles', value: '$_boundsToggleCount', note: 'Bounding-rect overlay toggles.', icon: Icons.crop_square_outlined),
+      _Metric(label: 'Grid Toggles', value: '$_gridToggleCount', note: 'Background grid visibility toggles.', icon: Icons.grid_on_outlined),
+      _Metric(label: 'Phase', value: _phase, note: 'Most recent interaction phase.', icon: Icons.flag_outlined),
     ];
   }
 
@@ -515,11 +374,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                scheme.surface,
-                scheme.surfaceContainerLowest,
-                scheme.surfaceContainerLow,
-              ],
+              colors: <Color>[scheme.surface, scheme.surfaceContainerLowest, scheme.surfaceContainerLow],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -580,34 +435,20 @@ class _RenderBoxContainerDefaultsMixinStudioState
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(
-                  Icons.account_tree_outlined,
-                  color: scheme.primary,
-                  size: 26,
-                ),
+                Icon(Icons.account_tree_outlined, color: scheme.primary, size: 26),
                 Text(
                   'RenderBoxContainerDefaultsMixin Container Render Lab',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 26,
-                  ),
+                  style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 26),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: scheme.primaryContainer,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
                     _scenarios[_scenarioIndex].title,
-                    style: TextStyle(
-                      color: scheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -632,14 +473,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Theme Profiles',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontSize: 16, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -661,19 +495,9 @@ class _RenderBoxContainerDefaultsMixinStudioState
               }),
             ),
             const SizedBox(height: 8),
-            Text(
-              _profiles[_themeIndex].description,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_profiles[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
             const Divider(height: 22),
-            Text(
-              'Scenario Lanes',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontSize: 16, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -695,10 +519,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
               }),
             ),
             const SizedBox(height: 8),
-            Text(
-              _scenarios[_scenarioIndex].subtitle,
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text(_scenarios[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
       ),
@@ -716,14 +537,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'Render Controls',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Render Controls', style: TextStyle(color: scheme.onSurface, fontSize: 18, fontWeight: FontWeight.w700)),
                 const Spacer(),
                 OutlinedButton.icon(
                   onPressed: _resetStudio,
@@ -733,15 +547,12 @@ class _RenderBoxContainerDefaultsMixinStudioState
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Tune layout parameters that flow into the custom render object using RenderBoxContainerDefaultsMixin.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Tune layout parameters that flow into the custom render object using RenderBoxContainerDefaultsMixin.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 12),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _LayoutMode.values.map((_LayoutMode mode) {
+              children: _LayoutMode.values.map(( _LayoutMode mode) {
                 return ChoiceChip(
                   selected: _layoutMode == mode,
                   label: Text(mode.name),
@@ -765,10 +576,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
               max: 72,
               divisions: 64,
               onChanged: (double v) => setState(() => _spacing = v),
-              onChangeEnd: (double v) => _addTimeline(
-                'Spacing',
-                'Spacing updated to ${v.toStringAsFixed(1)}.',
-              ),
+              onChangeEnd: (double v) => _addTimeline('Spacing', 'Spacing updated to ${v.toStringAsFixed(1)}.'),
             ),
             _sliderRow(
               scheme: scheme,
@@ -778,10 +586,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
               max: 96,
               divisions: 88,
               onChanged: (double v) => setState(() => _amplitude = v),
-              onChangeEnd: (double v) => _addTimeline(
-                'Amplitude',
-                'Amplitude updated to ${v.toStringAsFixed(1)}.',
-              ),
+              onChangeEnd: (double v) => _addTimeline('Amplitude', 'Amplitude updated to ${v.toStringAsFixed(1)}.'),
             ),
             _sliderRow(
               scheme: scheme,
@@ -791,10 +596,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
               max: 1.4,
               divisions: 140,
               onChanged: (double v) => setState(() => _rotation = v),
-              onChangeEnd: (double v) => _addTimeline(
-                'Rotation',
-                'Rotation updated to ${v.toStringAsFixed(2)} turns.',
-              ),
+              onChangeEnd: (double v) => _addTimeline('Rotation', 'Rotation updated to ${v.toStringAsFixed(2)} turns.'),
             ),
             _sliderRow(
               scheme: scheme,
@@ -804,10 +606,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
               max: 1,
               divisions: 80,
               onChanged: (double v) => setState(() => _radialBias = v),
-              onChangeEnd: (double v) => _addTimeline(
-                'Radial Bias',
-                'Radial bias updated to ${v.toStringAsFixed(2)}.',
-              ),
+              onChangeEnd: (double v) => _addTimeline('Radial Bias', 'Radial bias updated to ${v.toStringAsFixed(2)}.'),
             ),
             _sliderRow(
               scheme: scheme,
@@ -817,10 +616,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
               max: 460,
               divisions: 120,
               onChanged: (double v) => setState(() => _canvasHeight = v),
-              onChangeEnd: (double v) => _addTimeline(
-                'Canvas Height',
-                'Canvas height updated to ${v.toStringAsFixed(0)}.',
-              ),
+              onChangeEnd: (double v) => _addTimeline('Canvas Height', 'Canvas height updated to ${v.toStringAsFixed(0)}.'),
             ),
             const SizedBox(height: 8),
             Wrap(
@@ -834,10 +630,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
                       _showGrid = v ?? true;
                       _gridToggleCount += 1;
                     });
-                    _addTimeline(
-                      'Grid',
-                      _showGrid ? 'Grid enabled.' : 'Grid disabled.',
-                    );
+                    _addTimeline('Grid', _showGrid ? 'Grid enabled.' : 'Grid disabled.');
                   },
                   child: const Text('Show backdrop grid'),
                 ),
@@ -848,12 +641,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
                       _showBounds = v ?? true;
                       _boundsToggleCount += 1;
                     });
-                    _addTimeline(
-                      'Bounds',
-                      _showBounds
-                          ? 'Bounds overlay enabled.'
-                          : 'Bounds overlay disabled.',
-                    );
+                    _addTimeline('Bounds', _showBounds ? 'Bounds overlay enabled.' : 'Bounds overlay disabled.');
                   },
                   child: const Text('Show child bounds'),
                 ),
@@ -861,12 +649,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
                   value: _denseOverlap,
                   onChanged: (bool? v) {
                     setState(() => _denseOverlap = v ?? false);
-                    _addTimeline(
-                      'Overlap',
-                      _denseOverlap
-                          ? 'Dense overlap enabled.'
-                          : 'Dense overlap disabled.',
-                    );
+                    _addTimeline('Overlap', _denseOverlap ? 'Dense overlap enabled.' : 'Dense overlap disabled.');
                   },
                   child: const Text('Dense overlap mode'),
                 ),
@@ -880,31 +663,23 @@ class _RenderBoxContainerDefaultsMixinStudioState
                     } else {
                       _motionController.stop();
                     }
-                    _addTimeline(
-                      'Backdrop',
-                      next
-                          ? 'Backdrop animation enabled.'
-                          : 'Backdrop animation paused.',
-                    );
+                    _addTimeline('Backdrop', next ? 'Backdrop animation enabled.' : 'Backdrop animation paused.');
                   },
                   child: const Text('Animate backdrop'),
                 ),
                 CheckboxMenuButton(
                   value: _showDiagnostics,
-                  onChanged: (bool? v) =>
-                      setState(() => _showDiagnostics = v ?? true),
+                  onChanged: (bool? v) => setState(() => _showDiagnostics = v ?? true),
                   child: const Text('Show diagnostics'),
                 ),
                 CheckboxMenuButton(
                   value: _showGuide,
-                  onChanged: (bool? v) =>
-                      setState(() => _showGuide = v ?? true),
+                  onChanged: (bool? v) => setState(() => _showGuide = v ?? true),
                   child: const Text('Show guide board'),
                 ),
                 CheckboxMenuButton(
                   value: _showTimeline,
-                  onChanged: (bool? v) =>
-                      setState(() => _showTimeline = v ?? true),
+                  onChanged: (bool? v) => setState(() => _showTimeline = v ?? true),
                   child: const Text('Show timeline board'),
                 ),
               ],
@@ -930,23 +705,11 @@ class _RenderBoxContainerDefaultsMixinStudioState
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(
-              child: Text(label, style: TextStyle(color: scheme.onSurface)),
-            ),
-            Text(
-              value.toStringAsFixed(2),
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
+            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
-        Slider(
-          value: value,
-          min: min,
-          max: max,
-          divisions: divisions,
-          onChanged: onChanged,
-          onChangeEnd: onChangeEnd,
-        ),
+        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
       ],
     );
   }
@@ -960,19 +723,9 @@ class _RenderBoxContainerDefaultsMixinStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Custom Render Canvas',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Custom Render Canvas', style: TextStyle(color: scheme.onSurface, fontSize: 18, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
-            Text(
-              'This board uses a custom multi-child RenderBox that delegates paint/hit loops to RenderBoxContainerDefaultsMixin.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('This board uses a custom multi-child RenderBox that delegates paint/hit loops to RenderBoxContainerDefaultsMixin.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 12),
             SizedBox(
               height: _canvasHeight,
@@ -1022,9 +775,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
   }
 
   Widget _buildTraversalBoard(ColorScheme scheme) {
-    final List<String> ordered = _nodes
-        .map((_NodeModel n) => '${n.id}:${n.label}')
-        .toList(growable: false);
+    final List<String> ordered = _nodes.map(( _NodeModel n) => '${n.id}:${n.label}').toList(growable: false);
     return Card(
       elevation: 0,
       color: scheme.surfaceContainerLow,
@@ -1033,52 +784,26 @@ class _RenderBoxContainerDefaultsMixinStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Traversal and Order Inspector',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Traversal and Order Inspector', style: TextStyle(color: scheme.onSurface, fontSize: 18, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
-            Text(
-              'Linked-list child data from ContainerRenderObjectMixin and default traversal assumptions.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Linked-list child data from ContainerRenderObjectMixin and default traversal assumptions.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: ordered.map((String label) {
-                final bool focus = label.startsWith(
-                  _snapshot.lastHit.isEmpty
-                      ? 'none'
-                      : _snapshot.lastHit.substring(0, 1),
-                );
+                final bool focus = label.startsWith(_snapshot.lastHit.isEmpty ? 'none' : _snapshot.lastHit.substring(0, 1));
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 160),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    color: focus
-                        ? scheme.primaryContainer
-                        : scheme.surfaceContainerHighest,
+                    color: focus ? scheme.primaryContainer : scheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(999),
-                    border: Border.all(
-                      color: focus ? scheme.primary : scheme.outlineVariant,
-                    ),
+                    border: Border.all(color: focus ? scheme.primary : scheme.outlineVariant),
                   ),
                   child: Text(
                     label,
-                    style: TextStyle(
-                      color: focus
-                          ? scheme.onPrimaryContainer
-                          : scheme.onSurface,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(color: focus ? scheme.onPrimaryContainer : scheme.onSurface, fontWeight: FontWeight.w600),
                   ),
                 );
               }).toList(),
@@ -1095,42 +820,15 @@ class _RenderBoxContainerDefaultsMixinStudioState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Current snapshot',
-                      style: TextStyle(
-                        color: scheme.onSurface,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('Current snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 6),
-                    Text(
-                      'childCount: ${_snapshot.childCount}',
-                      style: TextStyle(color: scheme.onSurfaceVariant),
-                    ),
-                    Text(
-                      'firstChild: ${_snapshot.firstLabel}',
-                      style: TextStyle(color: scheme.onSurfaceVariant),
-                    ),
-                    Text(
-                      'lastChild: ${_snapshot.lastLabel}',
-                      style: TextStyle(color: scheme.onSurfaceVariant),
-                    ),
-                    Text(
-                      'paintCalls: ${_snapshot.paintCalls}',
-                      style: TextStyle(color: scheme.onSurfaceVariant),
-                    ),
-                    Text(
-                      'hitCalls: ${_snapshot.hitCalls}',
-                      style: TextStyle(color: scheme.onSurfaceVariant),
-                    ),
-                    Text(
-                      'lastHit: ${_snapshot.lastHit}',
-                      style: TextStyle(color: scheme.onSurfaceVariant),
-                    ),
-                    Text(
-                      'layoutMode: ${_snapshot.layoutMode}',
-                      style: TextStyle(color: scheme.onSurfaceVariant),
-                    ),
+                    Text('childCount: ${_snapshot.childCount}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text('firstChild: ${_snapshot.firstLabel}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text('lastChild: ${_snapshot.lastLabel}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text('paintCalls: ${_snapshot.paintCalls}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text('hitCalls: ${_snapshot.hitCalls}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text('lastHit: ${_snapshot.lastHit}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text('layoutMode: ${_snapshot.layoutMode}', style: TextStyle(color: scheme.onSurfaceVariant)),
                   ],
                 ),
               ),
@@ -1150,19 +848,9 @@ class _RenderBoxContainerDefaultsMixinStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Comparison Board',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Comparison Board', style: TextStyle(color: scheme.onSurface, fontSize: 18, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
-            Text(
-              'The mixin is a render-layer primitive. Here are conceptual comparisons with widget-layer APIs.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('The mixin is a render-layer primitive. Here are conceptual comparisons with widget-layer APIs.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1170,19 +858,14 @@ class _RenderBoxContainerDefaultsMixinStudioState
                 final Widget custom = _compareCard(
                   scheme: scheme,
                   title: 'Custom RenderBox + Defaults Mixin',
-                  subtitle:
-                      'Manual layout policy with delegated paint/hit traversal.',
+                  subtitle: 'Manual layout policy with delegated paint/hit traversal.',
                   color: const Color(0xFF0F766E),
-                  child: const Text(
-                    'Render-layer control',
-                    textAlign: TextAlign.center,
-                  ),
+                  child: const Text('Render-layer control', textAlign: TextAlign.center),
                 );
                 final Widget stack = _compareCard(
                   scheme: scheme,
                   title: 'Stack',
-                  subtitle:
-                      'Widget-layer API for layered positioning and overlap.',
+                  subtitle: 'Widget-layer API for layered positioning and overlap.',
                   color: const Color(0xFF1D4ED8),
                   child: Stack(
                     alignment: Alignment.center,
@@ -1195,8 +878,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
                 final Widget wrap = _compareCard(
                   scheme: scheme,
                   title: 'Wrap',
-                  subtitle:
-                      'Flowing layout widget without custom render-object wiring.',
+                  subtitle: 'Flowing layout widget without custom render-object wiring.',
                   color: const Color(0xFFB45309),
                   child: Wrap(
                     spacing: 4,
@@ -1255,18 +937,9 @@ class _RenderBoxContainerDefaultsMixinStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
-            ),
+            Text(subtitle, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
@@ -1294,24 +967,17 @@ class _RenderBoxContainerDefaultsMixinStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Metrics and Diagnostics',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontSize: 18, fontWeight: FontWeight.w700)),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                    ? 3
-                    : constraints.maxWidth > 560
-                    ? 2
-                    : 1;
+                        ? 3
+                        : constraints.maxWidth > 560
+                            ? 2
+                            : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1339,38 +1005,13 @@ class _RenderBoxContainerDefaultsMixinStudioState
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    m.label,
-                                    style: TextStyle(
-                                      color: scheme.onSurfaceVariant,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
+                                Expanded(child: Text(m.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
                               ],
                             ),
                             const Spacer(),
-                            Text(
-                              m.value,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: scheme.onSurface,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15,
-                              ),
-                            ),
+                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
                             const SizedBox(height: 4),
-                            Text(
-                              m.note,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: scheme.onSurfaceVariant,
-                                fontSize: 12,
-                              ),
-                            ),
+                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
                           ],
                         ),
                       ),
@@ -1403,44 +1044,17 @@ class _RenderBoxContainerDefaultsMixinStudioState
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text(
-                  'Snapshot',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'theme=${_profiles[_themeIndex].id} scenario=${_scenarios[_scenarioIndex].id}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'layoutMode=${_layoutMode.name} spacing=${_spacing.toStringAsFixed(2)} amplitude=${_amplitude.toStringAsFixed(2)}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'rotation=${_rotation.toStringAsFixed(2)} radialBias=${_radialBias.toStringAsFixed(2)} denseOverlap=$_denseOverlap',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'canvasHeight=${_canvasHeight.toStringAsFixed(0)} showBounds=$_showBounds showGrid=$_showGrid',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'childCount=${_snapshot.childCount} first=${_snapshot.firstLabel} last=${_snapshot.lastLabel}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'paintCalls=${_snapshot.paintCalls} hitCalls=${_snapshot.hitCalls} lastHit=${_snapshot.lastHit}',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Text(
-              'tapCount=$_tapCount phase=$_phase',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('theme=${_profiles[_themeIndex].id} scenario=${_scenarios[_scenarioIndex].id}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('layoutMode=${_layoutMode.name} spacing=${_spacing.toStringAsFixed(2)} amplitude=${_amplitude.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('rotation=${_rotation.toStringAsFixed(2)} radialBias=${_radialBias.toStringAsFixed(2)} denseOverlap=$_denseOverlap', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('canvasHeight=${_canvasHeight.toStringAsFixed(0)} showBounds=$_showBounds showGrid=$_showGrid', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('childCount=${_snapshot.childCount} first=${_snapshot.firstLabel} last=${_snapshot.lastLabel}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('paintCalls=${_snapshot.paintCalls} hitCalls=${_snapshot.hitCalls} lastHit=${_snapshot.lastHit}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text('tapCount=$_tapCount phase=$_phase', style: TextStyle(color: scheme.onSurfaceVariant)),
           ],
         ),
       ),
@@ -1456,14 +1070,7 @@ class _RenderBoxContainerDefaultsMixinStudioState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Guide and FAQ',
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontSize: 18, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             ..._guideBullets.map((String line) {
               return Padding(
@@ -1476,18 +1083,13 @@ class _RenderBoxContainerDefaultsMixinStudioState
                       child: Icon(Icons.circle, size: 8, color: scheme.primary),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        line,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
-                    ),
+                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faq.map((_FaqItem item) {
+            ..._faq.map(( _FaqItem item) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1500,18 +1102,9 @@ class _RenderBoxContainerDefaultsMixinStudioState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        item.question,
-                        style: TextStyle(
-                          color: scheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      Text(item.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                       const SizedBox(height: 6),
-                      Text(
-                        item.answer,
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
+                      Text(item.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
                     ],
                   ),
                 ),
@@ -1534,28 +1127,17 @@ class _RenderBoxContainerDefaultsMixinStudioState
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(
-                  'Timeline',
-                  style: TextStyle(
-                    color: scheme.onSurface,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontSize: 18, fontWeight: FontWeight.w700)),
                 const Spacer(),
                 TextButton.icon(
-                  onPressed: () =>
-                      setState(() => _timeline = const <_TimelineEntry>[]),
+                  onPressed: () => setState(() => _timeline = const <_TimelineEntry>[]),
                   icon: const Icon(Icons.clear_all),
                   label: const Text('Clear'),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Chronological log of control actions and render-layer state changes.',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
+            Text('Chronological log of control actions and render-layer state changes.', style: TextStyle(color: scheme.onSurfaceVariant)),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
@@ -1566,16 +1148,12 @@ class _RenderBoxContainerDefaultsMixinStudioState
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: scheme.outlineVariant),
                 ),
-                child: Text(
-                  'Timeline is empty. Interact with controls to collect events.',
-                  style: TextStyle(color: scheme.onSurfaceVariant),
-                ),
+                child: Text('Timeline is empty. Interact with controls to collect events.', style: TextStyle(color: scheme.onSurfaceVariant)),
               )
             else
               Column(
-                children: _timeline.map((_TimelineEntry entry) {
-                  final String stamp =
-                      '${entry.time.hour.toString().padLeft(2, '0')}:${entry.time.minute.toString().padLeft(2, '0')}:${entry.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.map(( _TimelineEntry entry) {
+                  final String stamp = '${entry.time.hour.toString().padLeft(2, '0')}:${entry.time.minute.toString().padLeft(2, '0')}:${entry.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
@@ -1586,22 +1164,10 @@ class _RenderBoxContainerDefaultsMixinStudioState
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(
-                          stamp.substring(stamp.length - 2),
-                          style: TextStyle(color: scheme.onPrimaryContainer),
-                        ),
+                        child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
                       ),
-                      title: Text(
-                        entry.title,
-                        style: TextStyle(
-                          color: scheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      subtitle: Text(
-                        '$stamp  |  ${entry.message}',
-                        style: TextStyle(color: scheme.onSurfaceVariant),
-                      ),
+                      title: Text(entry.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      subtitle: Text('$stamp  |  ${entry.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
                     ),
                   );
                 }).toList(),
@@ -1663,20 +1229,14 @@ class _DefaultsRenderHost extends StatelessWidget {
       radialBias: radialBias,
       showBounds: showBounds,
       onSnapshot: onSnapshot,
-      childIds: nodes
-          .map((_NodeModel n) => '${n.id}:${n.label}')
-          .toList(growable: false),
+      childIds: nodes.map(( _NodeModel n) => '${n.id}:${n.label}').toList(growable: false),
       children: children,
     );
   }
 }
 
 class _NodeCard extends StatelessWidget {
-  const _NodeCard({
-    required this.model,
-    required this.dense,
-    required this.onTap,
-  });
+  const _NodeCard({required this.model, required this.dense, required this.onTap});
 
   final _NodeModel model;
   final bool dense;
@@ -1712,14 +1272,7 @@ class _NodeCard extends StatelessWidget {
                       color: Colors.white.withValues(alpha: 0.26),
                       borderRadius: BorderRadius.circular(999),
                     ),
-                    child: Text(
-                      model.id,
-                      style: TextStyle(
-                        color: scheme.onPrimary,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                    child: Text(model.id, style: TextStyle(color: scheme.onPrimary, fontSize: 11, fontWeight: FontWeight.w800)),
                   ),
                   const SizedBox(width: 6),
                   Expanded(
@@ -1727,11 +1280,7 @@ class _NodeCard extends StatelessWidget {
                       model.label,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: scheme.onPrimary,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: scheme.onPrimary, fontWeight: FontWeight.w700, fontSize: 12),
                     ),
                   ),
                 ],
@@ -1741,10 +1290,7 @@ class _NodeCard extends StatelessWidget {
                 model.hint,
                 maxLines: dense ? 1 : 2,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: scheme.onPrimary.withValues(alpha: 0.90),
-                  fontSize: 10,
-                ),
+                style: TextStyle(color: scheme.onPrimary.withValues(alpha: 0.90), fontSize: 10),
               ),
             ],
           ),
@@ -1761,8 +1307,7 @@ class _NodeId extends ParentDataWidget<_DefaultsParentData> {
 
   @override
   void applyParentData(RenderObject renderObject) {
-    final _DefaultsParentData parentData =
-        renderObject.parentData! as _DefaultsParentData;
+    final _DefaultsParentData parentData = renderObject.parentData! as _DefaultsParentData;
     if (parentData.id != id) {
       parentData.id = id;
       final RenderObject? targetParent = renderObject.parent;
@@ -1813,10 +1358,7 @@ class _DefaultsContainer extends MultiChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(
-    BuildContext context,
-    covariant _RenderDefaultsContainer renderObject,
-  ) {
+  void updateRenderObject(BuildContext context, covariant _RenderDefaultsContainer renderObject) {
     renderObject
       ..layoutMode = layoutMode
       ..spacing = spacing
@@ -1846,14 +1388,14 @@ class _RenderDefaultsContainer extends RenderBox
     required bool showBounds,
     required List<String> childIds,
     required ValueChanged<_RenderSnapshot> onSnapshot,
-  }) : _layoutMode = layoutMode,
-       _spacing = spacing,
-       _amplitude = amplitude,
-       _rotationTurns = rotationTurns,
-       _radialBias = radialBias,
-       _showBounds = showBounds,
-       _childIds = childIds,
-       _onSnapshot = onSnapshot;
+  })  : _layoutMode = layoutMode,
+        _spacing = spacing,
+        _amplitude = amplitude,
+        _rotationTurns = rotationTurns,
+        _radialBias = radialBias,
+        _showBounds = showBounds,
+        _childIds = childIds,
+        _onSnapshot = onSnapshot;
 
   _LayoutMode _layoutMode;
   double _spacing;
@@ -1944,17 +1486,11 @@ class _RenderDefaultsContainer extends RenderBox
   @override
   void performLayout() {
     final Size constrained = constraints.biggest;
-    final double width = constrained.width.isFinite
-        ? constrained.width
-        : constraints.constrainWidth(620);
-    final double height = constrained.height.isFinite
-        ? constrained.height
-        : constraints.constrainHeight(320);
+    final double width = constrained.width.isFinite ? constrained.width : constraints.constrainWidth(620);
+    final double height = constrained.height.isFinite ? constrained.height : constraints.constrainHeight(320);
     size = Size(width, height);
 
-    final BoxConstraints childConstraints = BoxConstraints.loose(
-      Size(size.width, size.height),
-    );
+    final BoxConstraints childConstraints = BoxConstraints.loose(Size(size.width, size.height));
 
     final List<RenderBox> childrenList = <RenderBox>[];
     RenderBox? child = firstChild;
@@ -1962,9 +1498,7 @@ class _RenderDefaultsContainer extends RenderBox
       child.layout(childConstraints, parentUsesSize: true);
       childrenList.add(child);
       final _DefaultsParentData data = child.parentData! as _DefaultsParentData;
-      data.id = data.id == '?' && childrenList.length <= _childIds.length
-          ? _childIds[childrenList.length - 1]
-          : data.id;
+      data.id = data.id == '?' && childrenList.length <= _childIds.length ? _childIds[childrenList.length - 1] : data.id;
       child = data.nextSibling;
     }
 
@@ -2000,12 +1534,8 @@ class _RenderDefaultsContainer extends RenderBox
     for (int i = 0; i < childrenList.length; i += 1) {
       final RenderBox child = childrenList[i];
       final _DefaultsParentData data = child.parentData! as _DefaultsParentData;
-      final double x =
-          startX +
-          (_spacing * 0.58 * i).clamp(0, size.width - child.size.width);
-      final double y =
-          startY +
-          (_spacing * 0.54 * i).clamp(0, size.height - child.size.height);
+      final double x = startX + (_spacing * 0.58 * i).clamp(0, size.width - child.size.width);
+      final double y = startY + (_spacing * 0.54 * i).clamp(0, size.height - child.size.height);
       data.offset = Offset(x, y);
     }
   }
@@ -2017,8 +1547,7 @@ class _RenderDefaultsContainer extends RenderBox
       final RenderBox child = childrenList[i];
       final _DefaultsParentData data = child.parentData! as _DefaultsParentData;
       final int lane = i % laneCount;
-      final double y =
-          lane * laneHeight + (laneHeight - child.size.height) * 0.5;
+      final double y = lane * laneHeight + (laneHeight - child.size.height) * 0.5;
       final double x = 10 + (i * _spacing * 1.8);
       data.offset = Offset(
         x.clamp(0, math.max(0, size.width - child.size.width)),
@@ -2035,8 +1564,7 @@ class _RenderDefaultsContainer extends RenderBox
       final _DefaultsParentData data = child.parentData! as _DefaultsParentData;
       final double x = 12 + (i * _spacing * 1.9);
       final double phase = (x / waveLength) + (_rotationTurns * math.pi * 2);
-      final double y =
-          centerY + math.sin(phase) * _amplitude - (child.size.height * 0.5);
+      final double y = centerY + math.sin(phase) * _amplitude - (child.size.height * 0.5);
       data.offset = Offset(
         x.clamp(0, math.max(0, size.width - child.size.width)),
         y.clamp(0, math.max(0, size.height - child.size.height)),
@@ -2046,18 +1574,13 @@ class _RenderDefaultsContainer extends RenderBox
 
   void _layoutRadial(List<RenderBox> childrenList) {
     final Offset center = Offset(size.width * 0.5, size.height * 0.5);
-    final double radius =
-        math.min(size.width, size.height) * 0.34 * _radialBias;
+    final double radius = math.min(size.width, size.height) * 0.34 * _radialBias;
     for (int i = 0; i < childrenList.length; i += 1) {
       final RenderBox child = childrenList[i];
       final _DefaultsParentData data = child.parentData! as _DefaultsParentData;
-      final double angle =
-          ((i / childrenList.length) * math.pi * 2) +
-          (_rotationTurns * math.pi * 2);
-      final double x =
-          center.dx + math.cos(angle) * radius - (child.size.width * 0.5);
-      final double y =
-          center.dy + math.sin(angle) * radius - (child.size.height * 0.5);
+      final double angle = ((i / childrenList.length) * math.pi * 2) + (_rotationTurns * math.pi * 2);
+      final double x = center.dx + math.cos(angle) * radius - (child.size.width * 0.5);
+      final double y = center.dy + math.sin(angle) * radius - (child.size.height * 0.5);
       data.offset = Offset(
         x.clamp(0, math.max(0, size.width - child.size.width)),
         y.clamp(0, math.max(0, size.height - child.size.height)),
@@ -2073,10 +1596,8 @@ class _RenderDefaultsContainer extends RenderBox
       final _DefaultsParentData data = child.parentData! as _DefaultsParentData;
       final double angle = (i * 0.86) + (_rotationTurns * math.pi * 2);
       final double radius = i * step + (_amplitude * 0.22);
-      final double x =
-          center.dx + math.cos(angle) * radius - (child.size.width * 0.5);
-      final double y =
-          center.dy + math.sin(angle) * radius - (child.size.height * 0.5);
+      final double x = center.dx + math.cos(angle) * radius - (child.size.width * 0.5);
+      final double y = center.dy + math.sin(angle) * radius - (child.size.height * 0.5);
       data.offset = Offset(
         x.clamp(0, math.max(0, size.width - child.size.width)),
         y.clamp(0, math.max(0, size.height - child.size.height)),
@@ -2106,9 +1627,7 @@ class _RenderDefaultsContainer extends RenderBox
     }
     final _DefaultsParentData data = child.parentData! as _DefaultsParentData;
     final String id = data.id;
-    final int index = _childIds.indexWhere(
-      (String element) => element.startsWith(id),
-    );
+    final int index = _childIds.indexWhere((String element) => element.startsWith(id));
     if (index >= 0) {
       return _childIds[index];
     }
@@ -2154,13 +1673,9 @@ class _RenderDefaultsContainer extends RenderBox
         ..strokeWidth = 1.4;
       RenderBox? child = firstChild;
       while (child != null) {
-        final _DefaultsParentData data =
-            child.parentData! as _DefaultsParentData;
+        final _DefaultsParentData data = child.parentData! as _DefaultsParentData;
         final Rect rect = (offset + data.offset) & child.size;
-        context.canvas.drawRRect(
-          RRect.fromRectAndRadius(rect, const Radius.circular(8)),
-          paint,
-        );
+        context.canvas.drawRRect(RRect.fromRectAndRadius(rect, const Radius.circular(8)), paint);
         child = data.nextSibling;
       }
     }
@@ -2203,21 +1718,9 @@ class _BackdropPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final List<Color> palette = <Color>[
-      Color.lerp(
-        const Color(0xFF22C55E),
-        const Color(0xFF0EA5E9),
-        (math.sin(progress * math.pi * 2) + 1) / 2,
-      )!,
-      Color.lerp(
-        const Color(0xFFF59E0B),
-        const Color(0xFFEF4444),
-        (math.cos(progress * math.pi * 2) + 1) / 2,
-      )!,
-      Color.lerp(
-        const Color(0xFF6366F1),
-        const Color(0xFF14B8A6),
-        (math.sin(progress * math.pi * 4) + 1) / 2,
-      )!,
+      Color.lerp(const Color(0xFF22C55E), const Color(0xFF0EA5E9), (math.sin(progress * math.pi * 2) + 1) / 2)!,
+      Color.lerp(const Color(0xFFF59E0B), const Color(0xFFEF4444), (math.cos(progress * math.pi * 2) + 1) / 2)!,
+      Color.lerp(const Color(0xFF6366F1), const Color(0xFF14B8A6), (math.sin(progress * math.pi * 4) + 1) / 2)!,
     ];
 
     final Paint base = Paint()
@@ -2233,11 +1736,8 @@ class _BackdropPainter extends CustomPainter {
     for (int i = 0; i < 11; i += 1) {
       final double wave = progress * math.pi * 2 + (i * 0.52);
       final double x = size.width * 0.5 + math.cos(wave) * size.width * 0.42;
-      final double y =
-          size.height * 0.5 + math.sin(wave * 1.21) * size.height * 0.35;
-      circles.color = palette[i % palette.length].withValues(
-        alpha: 0.20 + ((i % 3) * 0.07),
-      );
+      final double y = size.height * 0.5 + math.sin(wave * 1.21) * size.height * 0.35;
+      circles.color = palette[i % palette.length].withValues(alpha: 0.20 + ((i % 3) * 0.07));
       canvas.drawCircle(Offset(x, y), 12 + ((i % 4) * 7), circles);
     }
 

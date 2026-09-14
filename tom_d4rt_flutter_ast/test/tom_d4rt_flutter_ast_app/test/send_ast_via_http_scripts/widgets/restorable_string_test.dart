@@ -147,17 +147,19 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
   // the key teaching distinction from RestorableStringN.
   // ---------------------------------------------------------------------------
 
-  final RestorableString _productName = RestorableString(_kDefaultProductName);
+  final RestorableString _productName =
+      RestorableString(_kDefaultProductName);
   final RestorableString _sku = RestorableString(_kDefaultSku);
   final RestorableString _tagline = RestorableString(_kDefaultTagline);
-  final RestorableString _recipientAddress = RestorableString(_kDefaultAddress);
-  final RestorableString _neonSignText = RestorableString(_kDefaultNeonText);
+  final RestorableString _recipientAddress =
+      RestorableString(_kDefaultAddress);
+  final RestorableString _neonSignText =
+      RestorableString(_kDefaultNeonText);
 
   // Active typography selection for the hero preview. Stored as an int so it
   // can ride the same restoration bus.
-  final RestorableInt _fontFamilyIndex = RestorableInt(
-    _kDefaultFontFamilyIndex,
-  );
+  final RestorableInt _fontFamilyIndex =
+      RestorableInt(_kDefaultFontFamilyIndex);
 
   // ---------------------------------------------------------------------------
   // TextEditingControllers — one per editable RestorableString. They are
@@ -204,7 +206,8 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
     // to seed controllers with the *literal default* and only
     // sync from `RestorableProperty.value` inside `restoreState`,
     // which is functionally equivalent in real Flutter.
-    _productNameController = TextEditingController(text: _kDefaultProductName);
+    _productNameController =
+        TextEditingController(text: _kDefaultProductName);
     _skuController = TextEditingController(text: _kDefaultSku);
     _taglineController = TextEditingController(text: _kDefaultTagline);
     _addressController = TextEditingController(text: _kDefaultAddress);
@@ -437,7 +440,11 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
             'through a different visual lens. Edit any field and watch the '
             'shipping label, price tag, neon sign, and envelope all update '
             'in lockstep — yet survive a hot restart untouched.',
-            style: TextStyle(fontSize: 14, height: 1.45, color: _kChromeMuted),
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.45,
+              color: _kChromeMuted,
+            ),
           ),
         ],
       ),
@@ -484,8 +491,11 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
   // ---------------------------------------------------------------------------
 
   Widget _buildShippingLabel() {
-    final TextStyle heroStyle = _kFontFamilies[_fontFamilyIndex.value].style
-        .copyWith(color: _kShippingInk, fontSize: 20);
+    final TextStyle heroStyle =
+        _kFontFamilies[_fontFamilyIndex.value].style.copyWith(
+              color: _kShippingInk,
+              fontSize: 20,
+            );
     return _PreviewFrame(
       label: 'Shipping Label',
       accent: _kShippingInk,
@@ -521,16 +531,14 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
               ),
             ),
             const SizedBox(height: 14),
-            Text(
-              'CONTENTS',
-              style: const TextStyle(
-                fontFamily: 'Courier',
-                fontSize: 10,
-                letterSpacing: 2,
-                fontWeight: FontWeight.w700,
-                color: _kShippingInk,
-              ),
-            ),
+            Text('CONTENTS',
+                style: const TextStyle(
+                  fontFamily: 'Courier',
+                  fontSize: 10,
+                  letterSpacing: 2,
+                  fontWeight: FontWeight.w700,
+                  color: _kShippingInk,
+                )),
             const SizedBox(height: 4),
             Text(
               _productName.value,
@@ -658,7 +666,11 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Container(width: 52, height: 2, color: _kTagRed),
+                          Container(
+                            width: 52,
+                            height: 2,
+                            color: _kTagRed,
+                          ),
                         ],
                       ),
                       const SizedBox(width: 12),
@@ -809,7 +821,9 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
         decoration: BoxDecoration(
           color: _kEnvelopePaper,
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: _kEnvelopeAccent.withValues(alpha: 0.35)),
+          border: Border.all(
+            color: _kEnvelopeAccent.withValues(alpha: 0.35),
+          ),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.08),
@@ -881,7 +895,10 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
                         decoration: BoxDecoration(
                           color: _kEnvelopeStamp,
                           borderRadius: BorderRadius.circular(2),
-                          border: Border.all(color: Colors.white, width: 3),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 3,
+                          ),
                         ),
                         child: const Center(
                           child: Icon(
@@ -1208,7 +1225,8 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
                 _selectFontFamily(selection.first);
               },
               style: SegmentedButton.styleFrom(
-                selectedBackgroundColor: _kChromeAccent.withValues(alpha: 0.85),
+                selectedBackgroundColor:
+                    _kChromeAccent.withValues(alpha: 0.85),
                 selectedForegroundColor: Colors.white,
               ),
             ),
@@ -1271,7 +1289,9 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
       decoration: BoxDecoration(
         color: _kChromeBackground.withValues(alpha: 0.65),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: _kChromeAccent.withValues(alpha: 0.12)),
+        border: Border.all(
+          color: _kChromeAccent.withValues(alpha: 0.12),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -1624,15 +1644,18 @@ class _DottedDividerRow extends StatelessWidget {
       builder: (BuildContext ctx, BoxConstraints constraints) {
         const double dotSize = 2;
         const double gap = 4;
-        final int count = (constraints.maxWidth / (dotSize + gap))
-            .floor()
-            .clamp(4, 200);
+        final int count =
+            (constraints.maxWidth / (dotSize + gap)).floor().clamp(4, 200);
         return Row(
           children: <Widget>[
             for (int i = 0; i < count; i++)
               Padding(
                 padding: EdgeInsets.only(right: i == count - 1 ? 0 : gap),
-                child: Container(width: dotSize, height: dotSize, color: color),
+                child: Container(
+                  width: dotSize,
+                  height: dotSize,
+                  color: color,
+                ),
               ),
           ],
         );
@@ -1654,46 +1677,8 @@ class _BarcodeStrip extends StatelessWidget {
   final double height;
 
   static const List<int> _kPattern = <int>[
-    3,
-    1,
-    2,
-    1,
-    1,
-    2,
-    3,
-    1,
-    1,
-    1,
-    2,
-    2,
-    1,
-    3,
-    1,
-    2,
-    1,
-    1,
-    2,
-    1,
-    3,
-    1,
-    2,
-    1,
-    1,
-    2,
-    1,
-    3,
-    1,
-    2,
-    1,
-    1,
-    2,
-    3,
-    1,
-    1,
-    2,
-    1,
-    2,
-    1,
+    3, 1, 2, 1, 1, 2, 3, 1, 1, 1, 2, 2, 1, 3, 1, 2, 1, 1, 2, 1,
+    3, 1, 2, 1, 1, 2, 1, 3, 1, 2, 1, 1, 2, 3, 1, 1, 2, 1, 2, 1,
   ];
 
   @override

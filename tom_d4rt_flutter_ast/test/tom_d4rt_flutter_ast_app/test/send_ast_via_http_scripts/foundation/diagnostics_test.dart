@@ -134,7 +134,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'null with defaultValue',
-      'snippet': 'StringProperty("subtitle", null, defaultValue: "untitled")',
+      'snippet':
+          'StringProperty("subtitle", null, defaultValue: "untitled")',
       'output': 'subtitle: null (default: "untitled")',
       'note': 'null collapses to a sentinel and reports default',
     },
@@ -146,7 +147,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'ifEmpty',
-      'snippet': 'StringProperty("body", "", ifEmpty: "<empty>")',
+      'snippet':
+          'StringProperty("body", "", ifEmpty: "<empty>")',
       'output': 'body: <empty>',
       'note': 'empty string replaced by ifEmpty placeholder',
     },
@@ -208,7 +210,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'with defaultValue',
-      'snippet': 'DoubleProperty("opacity", 1.0, defaultValue: 1.0)',
+      'snippet':
+          'DoubleProperty("opacity", 1.0, defaultValue: 1.0)',
       'output': '(omitted at level fine)',
     },
     {
@@ -231,7 +234,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'TextDirection',
-      'snippet': 'EnumProperty<TextDirection>("dir", TextDirection.ltr)',
+      'snippet':
+          'EnumProperty<TextDirection>("dir", TextDirection.ltr)',
       'output': 'dir: ltr',
       'family': 'paint/text',
     },
@@ -243,7 +247,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Brightness',
-      'snippet': 'EnumProperty<Brightness>("brightness", Brightness.dark)',
+      'snippet':
+          'EnumProperty<Brightness>("brightness", Brightness.dark)',
       'output': 'brightness: dark',
       'family': 'theming',
     },
@@ -290,7 +295,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'no ifFalse → silent',
-      'snippet': 'FlagProperty("dirty", value: false, ifTrue: "dirty")',
+      'snippet':
+          'FlagProperty("dirty", value: false, ifTrue: "dirty")',
       'output': '(omitted)',
       'note': 'no legend for false → property silently dropped',
     },
@@ -310,7 +316,8 @@ dynamic build(BuildContext context) {
   final iterableScenarios = <Map<String, dynamic>>[
     {
       'title': 'small list',
-      'snippet': 'IterableProperty<int>("offsets", [1, 2, 3])',
+      'snippet':
+          'IterableProperty<int>("offsets", [1, 2, 3])',
       'output': 'offsets: 1, 2, 3',
     },
     {
@@ -331,7 +338,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'strings',
-      'snippet': 'IterableProperty<String>("tags", ["alpha", "beta"])',
+      'snippet':
+          'IterableProperty<String>("tags", ["alpha", "beta"])',
       'output': 'tags: "alpha", "beta"',
     },
   ];
@@ -343,13 +351,15 @@ dynamic build(BuildContext context) {
   final objectFlagScenarios = <Map<String, dynamic>>[
     {
       'title': 'callback present',
-      'snippet': 'ObjectFlagProperty<VoidCallback>.has("onTap", () {})',
+      'snippet':
+          'ObjectFlagProperty<VoidCallback>.has("onTap", () {})',
       'output': 'has onTap',
       'note': 'shows "has X" when value != null',
     },
     {
       'title': 'callback missing',
-      'snippet': 'ObjectFlagProperty<VoidCallback>.has("onTap", null)',
+      'snippet':
+          'ObjectFlagProperty<VoidCallback>.has("onTap", null)',
       'output': 'no onTap',
       'note': 'shows "no X" when value == null',
     },
@@ -399,7 +409,8 @@ dynamic build(BuildContext context) {
       'rank': 2,
       'color': inkOcean,
       'glyph': '◯',
-      'desc': 'Default diagnostic verbosity. Most properties live here.',
+      'desc':
+          'Default diagnostic verbosity. Most properties live here.',
     },
     {
       'name': 'info',
@@ -904,7 +915,12 @@ dynamic build(BuildContext context) {
               inkBlack,
               inkOcean,
             ),
-            _numericRow('IntProperty', intScenarios, inkOcean, inkBlack),
+            _numericRow(
+              'IntProperty',
+              intScenarios,
+              inkOcean,
+              inkBlack,
+            ),
             _numericRow(
               'DoubleProperty',
               doubleScenarios,
@@ -1034,7 +1050,12 @@ dynamic build(BuildContext context) {
               inkAmber,
             ),
             _realWorldGrid(realWorldDumps, inkBlack),
-            _sectionHeader('13', 'Glossary', inkBlack, inkForest),
+            _sectionHeader(
+              '13',
+              'Glossary',
+              inkBlack,
+              inkForest,
+            ),
             _glossaryList(glossary, inkBlack, inkForest),
             _sectionHeader(
               '14',
@@ -1162,11 +1183,7 @@ Widget _heroChip(String label, Color bg, Color text) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 11.0,
-        color: text,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(fontSize: 11.0, color: text, fontWeight: FontWeight.bold),
     ),
   );
 }
@@ -1240,7 +1257,11 @@ Widget _primitiveGrid(List<Map<String, dynamic>> primitives, Color inkBlack) {
   }
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-    child: Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+    child: Wrap(
+      spacing: 12.0,
+      runSpacing: 12.0,
+      children: cards,
+    ),
   );
 }
 
@@ -1252,7 +1273,9 @@ Widget _primitiveCard(Map<String, dynamic> p, Color inkBlack) {
     decoration: BoxDecoration(
       color: Color(0xFFFFFFFF),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(left: BorderSide(color: palette, width: 5.0)),
+      border: Border(
+        left: BorderSide(color: palette, width: 5.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: Color(0x11000000),
@@ -1346,7 +1369,9 @@ Widget _recipeCard(
     decoration: BoxDecoration(
       color: bg,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: accent, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: accent, width: 4.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: Color(0x22000000),
@@ -1417,11 +1442,19 @@ Widget _scenarioGrid(
   }
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-    child: Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+    child: Wrap(
+      spacing: 12.0,
+      runSpacing: 12.0,
+      children: cards,
+    ),
   );
 }
 
-Widget _scenarioCard(Map<String, dynamic> s, Color accent, Color inkBlack) {
+Widget _scenarioCard(
+  Map<String, dynamic> s,
+  Color accent,
+  Color inkBlack,
+) {
   return Container(
     width: 320.0,
     padding: EdgeInsets.all(14.0),
@@ -1444,7 +1477,10 @@ Widget _scenarioCard(Map<String, dynamic> s, Color accent, Color inkBlack) {
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
             SizedBox(width: 8.0),
             Expanded(
@@ -1599,7 +1635,8 @@ Widget _numericRow(
           spacing: 10.0,
           runSpacing: 10.0,
           children: [
-            for (final s in scenarios) _numericCell(s, accent, inkBlack),
+            for (final s in scenarios)
+              _numericCell(s, accent, inkBlack),
           ],
         ),
       ],
@@ -1607,7 +1644,11 @@ Widget _numericRow(
   );
 }
 
-Widget _numericCell(Map<String, dynamic> s, Color accent, Color inkBlack) {
+Widget _numericCell(
+  Map<String, dynamic> s,
+  Color accent,
+  Color inkBlack,
+) {
   return Container(
     width: 280.0,
     padding: EdgeInsets.all(10.0),
@@ -1673,11 +1714,19 @@ Widget _flagGrid(
   }
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-    child: Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+    child: Wrap(
+      spacing: 12.0,
+      runSpacing: 12.0,
+      children: cards,
+    ),
   );
 }
 
-Widget _flagCard(Map<String, dynamic> f, Color accent, Color inkBlack) {
+Widget _flagCard(
+  Map<String, dynamic> f,
+  Color accent,
+  Color inkBlack,
+) {
   return Container(
     width: 340.0,
     padding: EdgeInsets.all(14.0),
@@ -1791,7 +1840,11 @@ Widget _levelMatrix(List<Map<String, dynamic>> levels, Color inkBlack) {
   }
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-    child: Wrap(spacing: 10.0, runSpacing: 10.0, children: cards),
+    child: Wrap(
+      spacing: 10.0,
+      runSpacing: 10.0,
+      children: cards,
+    ),
   );
 }
 
@@ -1850,7 +1903,10 @@ Widget _levelCard(Map<String, dynamic> l, Color inkBlack) {
                   ),
                   Text(
                     'rank ${l['rank']}',
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF607D8B)),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Color(0xFF607D8B),
+                    ),
                   ),
                 ],
               ),
@@ -1871,7 +1927,11 @@ Widget _levelCard(Map<String, dynamic> l, Color inkBlack) {
   );
 }
 
-Widget _levelTable(List<List<String>> rows, Color inkBlack, Color accent) {
+Widget _levelTable(
+  List<List<String>> rows,
+  Color inkBlack,
+  Color accent,
+) {
   return Container(
     margin: EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 16.0),
     decoration: BoxDecoration(
@@ -1975,11 +2035,19 @@ Widget _styleGrid(
   }
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-    child: Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+    child: Wrap(
+      spacing: 12.0,
+      runSpacing: 12.0,
+      children: cards,
+    ),
   );
 }
 
-Widget _styleCard(Map<String, dynamic> s, Color accent, Color inkBlack) {
+Widget _styleCard(
+  Map<String, dynamic> s,
+  Color accent,
+  Color inkBlack,
+) {
   return Container(
     width: 460.0,
     padding: EdgeInsets.all(14.0),
@@ -2067,7 +2135,11 @@ Widget _styleCard(Map<String, dynamic> s, Color accent, Color inkBlack) {
   );
 }
 
-Widget _styleTable(List<List<String>> rows, Color inkBlack, Color accent) {
+Widget _styleTable(
+  List<List<String>> rows,
+  Color inkBlack,
+  Color accent,
+) {
   return Container(
     margin: EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 16.0),
     decoration: BoxDecoration(
@@ -2133,7 +2205,11 @@ Widget _treeGrid(List<Map<String, dynamic>> trees, Color inkBlack) {
   }
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-    child: Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+    child: Wrap(
+      spacing: 12.0,
+      runSpacing: 12.0,
+      children: cards,
+    ),
   );
 }
 
@@ -2145,7 +2221,9 @@ Widget _treeCard(Map<String, dynamic> t, Color inkBlack) {
     decoration: BoxDecoration(
       color: Color(0xFFFFFFFF),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(top: BorderSide(color: palette, width: 4.0)),
+      border: Border(
+        top: BorderSide(color: palette, width: 4.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: Color(0x14000000),
@@ -2162,7 +2240,10 @@ Widget _treeCard(Map<String, dynamic> t, Color inkBlack) {
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(color: palette, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: palette,
+                shape: BoxShape.circle,
+              ),
             ),
             SizedBox(width: 8.0),
             Expanded(
@@ -2233,7 +2314,11 @@ Widget _blockGrid(List<Map<String, dynamic>> blocks, Color inkBlack) {
   }
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-    child: Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
+    child: Wrap(
+      spacing: 12.0,
+      runSpacing: 12.0,
+      children: cards,
+    ),
   );
 }
 

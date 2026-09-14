@@ -22,16 +22,16 @@ import 'package:flutter/rendering.dart' show FloatingHeaderSnapConfiguration;
 /// 8. Implementing shouldRebuild correctly
 
 // ─── palette ───────────────────────────────────────────────
-const _kOrange = Color(0xFFFF9800);
-const _kOrangeLight = Color(0xFFFFE0B2);
-const _kOrangeDark = Color(0xFFE65100);
-const _kBlue = Color(0xFF2196F3);
-const _kBlueLight = Color(0xFFBBDEFB);
-const _kBlueDark = Color(0xFF0D47A1);
-const _kSurface = Color(0xFFFFFBF5);
-const _kDivider = Color(0xFFE0E0E0);
-const _kTextDark = Color(0xFF212121);
-const _kTextMuted = Color(0xFF757575);
+const _kOrange       = Color(0xFFFF9800);
+const _kOrangeLight  = Color(0xFFFFE0B2);
+const _kOrangeDark   = Color(0xFFE65100);
+const _kBlue         = Color(0xFF2196F3);
+const _kBlueLight    = Color(0xFFBBDEFB);
+const _kBlueDark     = Color(0xFF0D47A1);
+const _kSurface      = Color(0xFFFFFBF5);
+const _kDivider      = Color(0xFFE0E0E0);
+const _kTextDark     = Color(0xFF212121);
+const _kTextMuted    = Color(0xFF757575);
 
 // ─── 1. Delegate anatomy ───────────────────────────────────
 class _DelegateProperty {
@@ -42,64 +42,37 @@ class _DelegateProperty {
 }
 
 const _kDelegateProperties = <_DelegateProperty>[
-  _DelegateProperty(
-    'minExtent',
-    'double get minExtent',
-    'The smallest size (height for vertical scroll) the header can shrink '
-        'to. When the header is fully collapsed, its extent equals minExtent.',
-  ),
-  _DelegateProperty(
-    'maxExtent',
-    'double get maxExtent',
-    'The largest size the header occupies when it has not been scrolled at '
-        'all. Must be ≥ minExtent. The difference (maxExtent − minExtent) is '
-        'the total shrinkable range.',
-  ),
-  _DelegateProperty(
-    'build',
-    'Widget build(BuildContext, double shrinkOffset, bool overlapsContent)',
-    'Called every time the header needs to rebuild its content. '
-        'shrinkOffset goes from 0 (fully expanded) to maxExtent − minExtent '
-        '(fully collapsed). overlapsContent indicates whether slivers below '
-        'are rendering beneath this header.',
-  ),
-  _DelegateProperty(
-    'shouldRebuild',
-    'bool shouldRebuild(covariant oldDelegate)',
-    'Return true if the new delegate would produce a different build() '
-        'result than oldDelegate. If false, the framework skips the rebuild — '
-        'an important performance optimization.',
-  ),
-  _DelegateProperty(
-    'vsync',
-    'TickerProvider? get vsync',
-    'Required when snapConfiguration or showOnScreenConfiguration is non-null. '
-        'Usually provided by TickerProviderStateMixin on the State object.',
-  ),
-  _DelegateProperty(
-    'snapConfiguration',
-    'PersistentHeaderSnapConfiguration?',
-    'When set, the header snaps to either minExtent or maxExtent after the '
-        'user lifts their finger. The configuration includes snap animation curve '
-        'and duration.',
-  ),
-  _DelegateProperty(
-    'showOnScreenConfiguration',
-    'PersistentHeaderShowOnScreenConfiguration?',
-    'Controls behavior when a child of the header calls Scrollable.ensureVisible. '
-        'Determines the min/max extent to use when showing content on screen.',
-  ),
+  _DelegateProperty('minExtent', 'double get minExtent',
+      'The smallest size (height for vertical scroll) the header can shrink '
+      'to. When the header is fully collapsed, its extent equals minExtent.'),
+  _DelegateProperty('maxExtent', 'double get maxExtent',
+      'The largest size the header occupies when it has not been scrolled at '
+      'all. Must be ≥ minExtent. The difference (maxExtent − minExtent) is '
+      'the total shrinkable range.'),
+  _DelegateProperty('build', 'Widget build(BuildContext, double shrinkOffset, bool overlapsContent)',
+      'Called every time the header needs to rebuild its content. '
+      'shrinkOffset goes from 0 (fully expanded) to maxExtent − minExtent '
+      '(fully collapsed). overlapsContent indicates whether slivers below '
+      'are rendering beneath this header.'),
+  _DelegateProperty('shouldRebuild', 'bool shouldRebuild(covariant oldDelegate)',
+      'Return true if the new delegate would produce a different build() '
+      'result than oldDelegate. If false, the framework skips the rebuild — '
+      'an important performance optimization.'),
+  _DelegateProperty('vsync', 'TickerProvider? get vsync',
+      'Required when snapConfiguration or showOnScreenConfiguration is non-null. '
+      'Usually provided by TickerProviderStateMixin on the State object.'),
+  _DelegateProperty('snapConfiguration', 'PersistentHeaderSnapConfiguration?',
+      'When set, the header snaps to either minExtent or maxExtent after the '
+      'user lifts their finger. The configuration includes snap animation curve '
+      'and duration.'),
+  _DelegateProperty('showOnScreenConfiguration', 'PersistentHeaderShowOnScreenConfiguration?',
+      'Controls behavior when a child of the header calls Scrollable.ensureVisible. '
+      'Determines the min/max extent to use when showing content on screen.'),
 ];
 
 // ─── 2. Pinned vs floating ─────────────────────────────────
 class _HeaderMode {
-  const _HeaderMode(
-    this.name,
-    this.pinned,
-    this.floating,
-    this.behavior,
-    this.useCase,
-  );
+  const _HeaderMode(this.name, this.pinned, this.floating, this.behavior, this.useCase);
   final String name;
   final bool pinned;
   final bool floating;
@@ -108,36 +81,20 @@ class _HeaderMode {
 }
 
 const _kHeaderModes = <_HeaderMode>[
-  _HeaderMode(
-    'Scrolling (default)',
-    false,
-    false,
-    'Scrolls off the top entirely. Occupies space only while visible.',
-    'Large hero headers, parallax banners',
-  ),
-  _HeaderMode(
-    'Pinned',
-    true,
-    false,
-    'Shrinks from maxExtent to minExtent, then stays pinned at minExtent.',
-    'App bars, persistent navigation',
-  ),
-  _HeaderMode(
-    'Floating',
-    false,
-    true,
-    'Scrolls away but immediately reappears when user scrolls back. '
-        'Does NOT stay at minExtent while scrolling down.',
-    'Quick-access toolbars',
-  ),
-  _HeaderMode(
-    'Pinned + Floating',
-    true,
-    true,
-    'Stays at minExtent while scrolling down, and snaps back to maxExtent '
-        'when user scrolls up. Combines both behaviors.',
-    'SliverAppBar with both pinned and floating',
-  ),
+  _HeaderMode('Scrolling (default)', false, false,
+      'Scrolls off the top entirely. Occupies space only while visible.',
+      'Large hero headers, parallax banners'),
+  _HeaderMode('Pinned', true, false,
+      'Shrinks from maxExtent to minExtent, then stays pinned at minExtent.',
+      'App bars, persistent navigation'),
+  _HeaderMode('Floating', false, true,
+      'Scrolls away but immediately reappears when user scrolls back. '
+      'Does NOT stay at minExtent while scrolling down.',
+      'Quick-access toolbars'),
+  _HeaderMode('Pinned + Floating', true, true,
+      'Stays at minExtent while scrolling down, and snaps back to maxExtent '
+      'when user scrolls up. Combines both behaviors.',
+      'SliverAppBar with both pinned and floating'),
 ];
 
 // ─── 3. shrinkOffset mechanics ─────────────────────────────
@@ -163,15 +120,8 @@ Widget _sectionHeader(String title, IconData icon) {
         Icon(icon, color: Colors.white, size: 22),
         SizedBox(width: 12),
         Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.4,
-            ),
-          ),
+          child: Text(title,
+              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700, letterSpacing: 0.4)),
         ),
       ],
     ),
@@ -187,11 +137,7 @@ Widget _card({required Widget child}) {
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.04),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: child,
@@ -199,27 +145,12 @@ Widget _card({required Widget child}) {
 }
 
 Widget _label(String text) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontSize: 11,
-      color: _kTextMuted,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.6,
-    ),
-  );
+  return Text(text, style: TextStyle(fontSize: 11, color: _kTextMuted, fontWeight: FontWeight.w600, letterSpacing: 0.6));
 }
 
 Widget _mono(String text, {Color? color}) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontFamily: 'monospace',
-      fontSize: 12.5,
-      color: color ?? _kTextDark,
-      height: 1.45,
-    ),
-  );
+  return Text(text,
+      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5, color: color ?? _kTextDark, height: 1.45));
 }
 
 Widget _bullet(String text) {
@@ -228,19 +159,10 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 7),
-          width: 5,
-          height: 5,
-          decoration: BoxDecoration(color: _kOrange, shape: BoxShape.circle),
-        ),
+        Container(margin: EdgeInsets.only(top: 7), width: 5, height: 5,
+            decoration: BoxDecoration(color: _kOrange, shape: BoxShape.circle)),
         SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-          ),
-        ),
+        Expanded(child: Text(text, style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
       ],
     ),
   );
@@ -257,17 +179,11 @@ class _DemoPinnedDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 120;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final t = (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
     final bgColor = Color.lerp(_kOrangeLight, _kOrangeDark, t)!;
     final titleSize = 20.0 - (6.0 * t);
-    print(
-      '[PinnedDelegate] shrinkOffset=${shrinkOffset.toStringAsFixed(1)}, t=${t.toStringAsFixed(2)}, overlaps=$overlapsContent',
-    );
+    print('[PinnedDelegate] shrinkOffset=${shrinkOffset.toStringAsFixed(1)}, t=${t.toStringAsFixed(2)}, overlaps=$overlapsContent');
 
     return Container(
       color: bgColor,
@@ -277,23 +193,15 @@ class _DemoPinnedDelegate extends SliverPersistentHeaderDelegate {
         children: [
           Icon(Icons.push_pin, color: Colors.white, size: 18 + (4 * (1 - t))),
           SizedBox(width: 10),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: titleSize,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                fontSize: titleSize,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              )),
           Spacer(),
-          Text(
-            '${(t * 100).toStringAsFixed(0)}%',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white70,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text('${(t * 100).toStringAsFixed(0)}%',
+              style: TextStyle(fontSize: 12, color: Colors.white70, fontFamily: 'monospace')),
         ],
       ),
     );
@@ -322,28 +230,16 @@ class _DemoFloatingDelegate extends SliverPersistentHeaderDelegate {
   FloatingHeaderSnapConfiguration? get snapConfiguration => null;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final t = (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
     final bgColor = Color.lerp(_kBlueLight, _kBlueDark, t)!;
-    print(
-      '[FloatingDelegate] shrinkOffset=${shrinkOffset.toStringAsFixed(1)}, t=${t.toStringAsFixed(2)}',
-    );
+    print('[FloatingDelegate] shrinkOffset=${shrinkOffset.toStringAsFixed(1)}, t=${t.toStringAsFixed(2)}');
 
     return Container(
       decoration: BoxDecoration(
         color: bgColor,
         boxShadow: overlapsContent
-            ? [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
-              ]
+            ? [BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2))]
             : null,
       ),
       alignment: Alignment.centerLeft,
@@ -352,14 +248,12 @@ class _DemoFloatingDelegate extends SliverPersistentHeaderDelegate {
         children: [
           Icon(Icons.vertical_align_top, color: Colors.white, size: 18),
           SizedBox(width: 10),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 16 - (3 * t),
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                fontSize: 16 - (3 * t),
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              )),
           Spacer(),
           if (overlapsContent)
             Container(
@@ -368,10 +262,7 @@ class _DemoFloatingDelegate extends SliverPersistentHeaderDelegate {
                 color: Colors.white24,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                'overlaps',
-                style: TextStyle(fontSize: 10, color: Colors.white),
-              ),
+              child: Text('overlaps', style: TextStyle(fontSize: 10, color: Colors.white)),
             ),
         ],
       ),
@@ -394,10 +285,7 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: _kOrange,
-        brightness: Brightness.light,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: _kOrange, brightness: Brightness.light),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: _DemoHome(),
@@ -435,18 +323,9 @@ class _DemoHomeState extends State<_DemoHome> with TickerProviderStateMixin {
         unselectedItemColor: _kTextMuted,
         onTap: (i) => setState(() => _tabIndex = i),
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.article_outlined),
-            label: 'Theory',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.push_pin_outlined),
-            label: 'Pinned',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.vertical_align_top),
-            label: 'Floating',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.article_outlined), label: 'Theory'),
+          BottomNavigationBarItem(icon: Icon(Icons.push_pin_outlined), label: 'Pinned'),
+          BottomNavigationBarItem(icon: Icon(Icons.vertical_align_top), label: 'Floating'),
         ],
       ),
     );
@@ -463,99 +342,61 @@ class _TheoryTab extends StatelessWidget {
         // ── Section 1 ──
         _sectionHeader('1 · Delegate Anatomy', Icons.build_outlined),
         SizedBox(height: 8),
-        ..._kDelegateProperties.map(
-          (p) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: _kOrangeLight,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        p.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                          color: _kOrangeDark,
-                        ),
-                      ),
+        ..._kDelegateProperties.map((p) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: _kOrangeLight,
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                  ],
-                ),
-                SizedBox(height: 6),
-                _mono(p.signature, color: _kBlueDark),
-                SizedBox(height: 6),
-                Text(
-                  p.description,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
+                    child: Text(p.name,
+                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _kOrangeDark)),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+              SizedBox(height: 6),
+              _mono(p.signature, color: _kBlueDark),
+              SizedBox(height: 6),
+              Text(p.description, style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+            ],
           ),
-        ),
+        )),
 
         SizedBox(height: 12),
 
         // ── Section 2 ──
-        _sectionHeader(
-          '2 · Pinned vs Floating vs Pinned+Floating',
-          Icons.compare_arrows,
-        ),
+        _sectionHeader('2 · Pinned vs Floating vs Pinned+Floating', Icons.compare_arrows),
         SizedBox(height: 8),
-        ..._kHeaderModes.map(
-          (m) => _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      m.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: _kTextDark,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    if (m.pinned) _badge('pinned', _kOrangeDark),
-                    if (m.floating) ...[
-                      SizedBox(width: 4),
-                      _badge('floating', _kBlueDark),
-                    ],
+        ..._kHeaderModes.map((m) => _card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(m.name,
+                      style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: _kTextDark)),
+                  SizedBox(width: 10),
+                  if (m.pinned)
+                    _badge('pinned', _kOrangeDark),
+                  if (m.floating) ...[
+                    SizedBox(width: 4),
+                    _badge('floating', _kBlueDark),
                   ],
-                ),
-                SizedBox(height: 6),
-                Text(
-                  m.behavior,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: _kTextDark,
-                    height: 1.35,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  'Use case: ${m.useCase}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _kTextMuted,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
+              SizedBox(height: 6),
+              Text(m.behavior, style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
+              SizedBox(height: 4),
+              Text('Use case: ${m.useCase}',
+                  style: TextStyle(fontSize: 12, color: _kTextMuted, fontStyle: FontStyle.italic)),
+            ],
           ),
-        ),
+        )),
 
         SizedBox(height: 12),
 
@@ -566,10 +407,8 @@ class _TheoryTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                _kShrinkOffsetExplanation,
-                style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
-              ),
+              Text(_kShrinkOffsetExplanation,
+                  style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4)),
             ],
           ),
         ),
@@ -579,17 +418,11 @@ class _TheoryTab extends StatelessWidget {
             children: [
               _label('COLLAPSE FRACTION USAGE'),
               SizedBox(height: 8),
-              _bullet(
-                'Interpolate font size: 24 − (8 × t) → from 24pt to 16pt',
-              ),
+              _bullet('Interpolate font size: 24 − (8 × t) → from 24pt to 16pt'),
               _bullet('Fade subtitle: Opacity(opacity: 1 − t)'),
-              _bullet(
-                'Slide avatar: Transform.translate(offset: Offset(0, −40 × t))',
-              ),
+              _bullet('Slide avatar: Transform.translate(offset: Offset(0, −40 × t))'),
               _bullet('Change background: Color.lerp(expanded, collapsed, t)'),
-              _bullet(
-                'Collapse flex layout: switch from Column to Row at t > 0.5',
-              ),
+              _bullet('Collapse flex layout: switch from Column to Row at t > 0.5'),
             ],
           ),
         ),
@@ -636,15 +469,9 @@ class _TheoryTab extends StatelessWidget {
             children: [
               _label('WHEN overlapsContent IS TRUE'),
               SizedBox(height: 8),
-              _bullet(
-                'Pinned header: always true once scrolled past maxExtent',
-              ),
-              _bullet(
-                'Floating header: true when header overlaps list content',
-              ),
-              _bullet(
-                'Non-pinned non-floating: always false (it scrolls away)',
-              ),
+              _bullet('Pinned header: always true once scrolled past maxExtent'),
+              _bullet('Floating header: true when header overlaps list content'),
+              _bullet('Non-pinned non-floating: always false (it scrolls away)'),
               _bullet('Useful for material elevation effect on app bars'),
             ],
           ),
@@ -674,15 +501,9 @@ class _TheoryTab extends StatelessWidget {
               SizedBox(height: 10),
               _bullet('Requires vsync to be non-null (needs TickerProvider)'),
               _bullet('Only meaningful for floating headers'),
-              _bullet(
-                'Snap direction determined by current shrinkOffset vs midpoint',
-              ),
-              _bullet(
-                'If shrinkOffset < (maxExtent−minExtent)/2 → snap to expanded',
-              ),
-              _bullet(
-                'If shrinkOffset ≥ (maxExtent−minExtent)/2 → snap to collapsed',
-              ),
+              _bullet('Snap direction determined by current shrinkOffset vs midpoint'),
+              _bullet('If shrinkOffset < (maxExtent−minExtent)/2 → snap to expanded'),
+              _bullet('If shrinkOffset ≥ (maxExtent−minExtent)/2 → snap to collapsed'),
             ],
           ),
         ),
@@ -690,10 +511,7 @@ class _TheoryTab extends StatelessWidget {
         SizedBox(height: 12),
 
         // ── Section 8 ──
-        _sectionHeader(
-          '8 · Implementing shouldRebuild Correctly',
-          Icons.check_circle_outline,
-        ),
+        _sectionHeader('8 · Implementing shouldRebuild Correctly', Icons.check_circle_outline),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -719,21 +537,13 @@ class _TheoryTab extends StatelessWidget {
               _label('BAD: ALWAYS TRUE'),
               SizedBox(height: 6),
               _mono('@override', color: Colors.red.shade700),
-              _mono(
-                'bool shouldRebuild(_) => true; // wasteful',
-                color: Colors.red.shade700,
-              ),
+              _mono('bool shouldRebuild(_) => true; // wasteful', color: Colors.red.shade700),
               SizedBox(height: 10),
               Text(
                 'Note that shouldRebuild only controls rebuilds triggered by '
                 'delegate replacement. Scroll-driven rebuilds (where shrinkOffset '
                 'changes) always call build() regardless of shouldRebuild.',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: _kBlueDark,
-                  fontStyle: FontStyle.italic,
-                  height: 1.35,
-                ),
+                style: TextStyle(fontSize: 12.5, color: _kBlueDark, fontStyle: FontStyle.italic, height: 1.35),
               ),
             ],
           ),
@@ -765,55 +575,24 @@ class _TheoryTab extends StatelessWidget {
       children: [
         _diagramRow('shrinkOffset = 0', 'Fully expanded', _kOrangeLight, 1.0),
         SizedBox(height: 4),
-        _diagramRow(
-          'shrinkOffset = (max−min)/4',
-          '25% collapsed',
-          _kOrangeLight,
-          0.75,
-        ),
+        _diagramRow('shrinkOffset = (max−min)/4', '25% collapsed', _kOrangeLight, 0.75),
         SizedBox(height: 4),
-        _diagramRow(
-          'shrinkOffset = (max−min)/2',
-          '50% collapsed',
-          Color.lerp(_kOrangeLight, _kOrangeDark, 0.5)!,
-          0.5,
-        ),
+        _diagramRow('shrinkOffset = (max−min)/2', '50% collapsed', Color.lerp(_kOrangeLight, _kOrangeDark, 0.5)!, 0.5),
         SizedBox(height: 4),
-        _diagramRow(
-          'shrinkOffset = 3(max−min)/4',
-          '75% collapsed',
-          Color.lerp(_kOrangeLight, _kOrangeDark, 0.75)!,
-          0.25,
-        ),
+        _diagramRow('shrinkOffset = 3(max−min)/4', '75% collapsed', Color.lerp(_kOrangeLight, _kOrangeDark, 0.75)!, 0.25),
         SizedBox(height: 4),
-        _diagramRow(
-          'shrinkOffset = max−min',
-          'Fully collapsed',
-          _kOrangeDark,
-          0.0,
-        ),
+        _diagramRow('shrinkOffset = max−min', 'Fully collapsed', _kOrangeDark, 0.0),
       ],
     );
   }
 
-  Widget _diagramRow(
-    String offset,
-    String label,
-    Color color,
-    double widthFraction,
-  ) {
+  Widget _diagramRow(String offset, String label, Color color, double widthFraction) {
     return Row(
       children: [
         SizedBox(
           width: 140,
-          child: Text(
-            offset,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 10,
-              color: _kTextMuted,
-            ),
-          ),
+          child: Text(offset,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: _kTextMuted)),
         ),
         Expanded(
           child: SizedBox(
@@ -828,14 +607,8 @@ class _TheoryTab extends StatelessWidget {
                   border: Border.all(color: _kOrangeDark.withOpacity(0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 9,
-                    fontWeight: FontWeight.w600,
-                    color: _kOrangeDark,
-                  ),
-                ),
+                child: Text(label,
+                    style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: _kOrangeDark)),
               ),
             ),
           ),
@@ -853,10 +626,8 @@ Widget _badge(String text, Color color) {
       borderRadius: BorderRadius.circular(4),
       border: Border.all(color: color.withOpacity(0.3)),
     ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: color),
-    ),
+    child: Text(text,
+        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: color)),
   );
 }
 
@@ -883,52 +654,42 @@ class _PinnedDemoTab extends StatelessWidget {
                   'to 48 px (minExtent) and stays visible. The background color '
                   'interpolates from light orange to dark orange as the collapse '
                   'fraction increases. The font size also decreases.',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: _kTextDark,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
                 ),
               ],
             ),
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((ctx, i) {
-            final colors = [_kOrangeLight.withOpacity(0.3), Colors.white];
-            return Container(
-              height: 52,
-              color: colors[i % 2],
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: _kOrange.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${i + 1}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: _kOrangeDark,
+          delegate: SliverChildBuilderDelegate(
+            (ctx, i) {
+              final colors = [_kOrangeLight.withOpacity(0.3), Colors.white];
+              return Container(
+                height: 52,
+                color: colors[i % 2],
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 28, height: 28,
+                      decoration: BoxDecoration(
+                        color: _kOrange.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(6),
                       ),
+                      alignment: Alignment.center,
+                      child: Text('${i + 1}',
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kOrangeDark)),
                     ),
-                  ),
-                  SizedBox(width: 12),
-                  Text(
-                    'List item ${i + 1}',
-                    style: TextStyle(fontSize: 14, color: _kTextDark),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 30),
+                    SizedBox(width: 12),
+                    Text('List item ${i + 1}',
+                        style: TextStyle(fontSize: 14, color: _kTextDark)),
+                  ],
+                ),
+              );
+            },
+            childCount: 30,
+          ),
         ),
       ],
     );
@@ -946,10 +707,7 @@ class _FloatingDemoTab extends StatelessWidget {
       slivers: [
         SliverPersistentHeader(
           floating: true,
-          delegate: _DemoFloatingDelegate(
-            label: 'Floating + Snap',
-            vsyncProvider: vsync,
-          ),
+          delegate: _DemoFloatingDelegate(label: 'Floating + Snap', vsyncProvider: vsync),
         ),
         SliverToBoxAdapter(
           child: Padding(
@@ -964,52 +722,42 @@ class _FloatingDemoTab extends StatelessWidget {
                   'scroll down, it disappears. When you scroll up even slightly, '
                   'it pops back in and snaps to its full extent. The shadow '
                   'appears only when overlapsContent is true.',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: _kTextDark,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
                 ),
               ],
             ),
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate((ctx, i) {
-            final colors = [_kBlueLight.withOpacity(0.3), Colors.white];
-            return Container(
-              height: 52,
-              color: colors[i % 2],
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: _kBlue.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${i + 1}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: _kBlueDark,
+          delegate: SliverChildBuilderDelegate(
+            (ctx, i) {
+              final colors = [_kBlueLight.withOpacity(0.3), Colors.white];
+              return Container(
+                height: 52,
+                color: colors[i % 2],
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 28, height: 28,
+                      decoration: BoxDecoration(
+                        color: _kBlue.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(6),
                       ),
+                      alignment: Alignment.center,
+                      child: Text('${i + 1}',
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kBlueDark)),
                     ),
-                  ),
-                  SizedBox(width: 12),
-                  Text(
-                    'List item ${i + 1}',
-                    style: TextStyle(fontSize: 14, color: _kTextDark),
-                  ),
-                ],
-              ),
-            );
-          }, childCount: 30),
+                    SizedBox(width: 12),
+                    Text('List item ${i + 1}',
+                        style: TextStyle(fontSize: 14, color: _kTextDark)),
+                  ],
+                ),
+              );
+            },
+            childCount: 30,
+          ),
         ),
       ],
     );

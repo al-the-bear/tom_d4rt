@@ -176,7 +176,10 @@ Widget buildDialogSimulation(String title, String content) {
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               CloseButton(),
@@ -297,9 +300,14 @@ Widget buildThemedCloseButton(Color iconColor, Color bgColor, String label) {
   return Column(
     children: [
       Container(
-        decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: bgColor,
+          shape: BoxShape.circle,
+        ),
         child: Theme(
-          data: ThemeData(iconTheme: IconThemeData(color: iconColor)),
+          data: ThemeData(
+            iconTheme: IconThemeData(color: iconColor),
+          ),
           child: CloseButton(),
         ),
       ),
@@ -345,10 +353,7 @@ Widget buildTabWithClose(String tabLabel, bool isActive) {
         topRight: Radius.circular(8),
       ),
       // Use uniform border color to avoid "borderRadius can only be given on borders with uniform colors" error
-      border: Border.all(
-        color: isActive ? Color(0xFF1976D2) : Color(0xFFBDBDBD),
-        width: isActive ? 2 : 1,
-      ),
+      border: Border.all(color: isActive ? Color(0xFF1976D2) : Color(0xFFBDBDBD), width: isActive ? 2 : 1),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -362,7 +367,11 @@ Widget buildTabWithClose(String tabLabel, bool isActive) {
           ),
         ),
         SizedBox(width: 4),
-        SizedBox(width: 20, height: 20, child: CloseButton()),
+        SizedBox(
+          width: 20,
+          height: 20,
+          child: CloseButton(),
+        ),
       ],
     ),
   );
@@ -386,14 +395,14 @@ dynamic build(BuildContext context) {
           children: [
             // Section 1: Basic CloseButton
             buildSectionHeader('1. Basic CloseButton'),
-            buildDemoCard('Default CloseButton', Center(child: CloseButton())),
+            buildDemoCard(
+              'Default CloseButton',
+              Center(child: CloseButton()),
+            ),
             buildInfoRow('Widget', 'CloseButton()'),
             buildInfoRow('Behavior', 'Calls Navigator.maybePop by default'),
             buildInfoRow('Icon', 'Icons.close'),
-            Text(
-              'Section 1: Basic CloseButton rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 1: Basic CloseButton rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 2: CloseButton vs Other Buttons Comparison
             buildSectionHeader('2. Button Comparison'),
@@ -404,10 +413,7 @@ dynamic build(BuildContext context) {
             buildInfoRow('CloseButton', 'Uses Icons.close, calls maybePop'),
             buildInfoRow('BackButton', 'Uses Icons.arrow_back, calls maybePop'),
             buildInfoRow('IconButton', 'Custom icon with custom callback'),
-            Text(
-              'Section 2: Button comparison rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 2: Button comparison rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 3: CloseButton in AppBar
             buildSectionHeader('3. CloseButton in AppBars'),
@@ -435,10 +441,7 @@ dynamic build(BuildContext context) {
               'Orange AppBar with CloseButton',
               buildAppBarWithClose('Notifications', Color(0xFFE65100)),
             ),
-            Text(
-              'Section 3: AppBar variants rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 3: AppBar variants rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 4: CloseButton in Dialogs
             buildSectionHeader('4. CloseButton in Dialog Simulations'),
@@ -461,10 +464,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ),
-            Text(
-              'Section 4: Dialog simulations rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 4: Dialog simulations rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 5: CloseButton in Cards
             buildSectionHeader('5. CloseButton in Cards'),
@@ -497,10 +497,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text(
-              'Section 5: Cards with close buttons rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 5: Cards with close buttons rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 6: Themed CloseButton
             buildSectionHeader('6. Themed CloseButton Variants'),
@@ -554,10 +551,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text(
-              'Section 6: Themed close buttons rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 6: Themed close buttons rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 7: CloseButton in Notification Panels
             buildSectionHeader('7. Notification Panels with Close'),
@@ -588,10 +582,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text(
-              'Section 7: Notification panels rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 7: Notification panels rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 8: CloseButton in Tab-like Context
             buildSectionHeader('8. CloseButton in Tabs'),
@@ -616,10 +607,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ),
-            Text(
-              'Section 8: Tab close buttons rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 8: Tab close buttons rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 9: Size Variations
             buildSectionHeader('9. CloseButton Size Variations'),
@@ -630,28 +618,44 @@ dynamic build(BuildContext context) {
                 children: [
                   Column(
                     children: [
-                      SizedBox(width: 24, height: 24, child: CloseButton()),
+                      SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CloseButton(),
+                      ),
                       SizedBox(height: 4),
                       Text('24x24', style: TextStyle(fontSize: 11)),
                     ],
                   ),
                   Column(
                     children: [
-                      SizedBox(width: 32, height: 32, child: CloseButton()),
+                      SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: CloseButton(),
+                      ),
                       SizedBox(height: 4),
                       Text('32x32', style: TextStyle(fontSize: 11)),
                     ],
                   ),
                   Column(
                     children: [
-                      SizedBox(width: 48, height: 48, child: CloseButton()),
+                      SizedBox(
+                        width: 48,
+                        height: 48,
+                        child: CloseButton(),
+                      ),
                       SizedBox(height: 4),
                       Text('48x48 (default)', style: TextStyle(fontSize: 11)),
                     ],
                   ),
                   Column(
                     children: [
-                      SizedBox(width: 64, height: 64, child: CloseButton()),
+                      SizedBox(
+                        width: 64,
+                        height: 64,
+                        child: CloseButton(),
+                      ),
                       SizedBox(height: 4),
                       Text('64x64', style: TextStyle(fontSize: 11)),
                     ],
@@ -659,10 +663,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text(
-              'Section 9: Size variations rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 9: Size variations rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 10: CloseButton on Different Backgrounds
             buildSectionHeader('10. CloseButton on Backgrounds'),
@@ -672,43 +673,16 @@ dynamic build(BuildContext context) {
                 spacing: 12,
                 runSpacing: 12,
                 children: [
-                  buildColoredContext(
-                    Color(0xFF263238),
-                    'Dark Grey',
-                    CloseButton(),
-                  ),
-                  buildColoredContext(
-                    Color(0xFF0D47A1),
-                    'Deep Blue',
-                    CloseButton(),
-                  ),
-                  buildColoredContext(
-                    Color(0xFFB71C1C),
-                    'Deep Red',
-                    CloseButton(),
-                  ),
-                  buildColoredContext(
-                    Color(0xFF1B5E20),
-                    'Deep Green',
-                    CloseButton(),
-                  ),
-                  buildColoredContext(
-                    Color(0xFF4A148C),
-                    'Deep Purple',
-                    CloseButton(),
-                  ),
-                  buildColoredContext(
-                    Color(0xFF004D40),
-                    'Deep Teal',
-                    CloseButton(),
-                  ),
+                  buildColoredContext(Color(0xFF263238), 'Dark Grey', CloseButton()),
+                  buildColoredContext(Color(0xFF0D47A1), 'Deep Blue', CloseButton()),
+                  buildColoredContext(Color(0xFFB71C1C), 'Deep Red', CloseButton()),
+                  buildColoredContext(Color(0xFF1B5E20), 'Deep Green', CloseButton()),
+                  buildColoredContext(Color(0xFF4A148C), 'Deep Purple', CloseButton()),
+                  buildColoredContext(Color(0xFF004D40), 'Deep Teal', CloseButton()),
                 ],
               ),
             ),
-            Text(
-              'Section 10: Background variations rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 10: Background variations rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 11: CloseButton with Custom onPressed
             buildSectionHeader('11. CloseButton with Custom Actions'),
@@ -766,10 +740,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text(
-              'Section 11: Custom action close buttons rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 11: Custom action close buttons rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Section 12: CloseButton in Complex Layouts
             buildSectionHeader('12. Complex Layout Integration'),
@@ -810,9 +781,7 @@ dynamic build(BuildContext context) {
                                 ),
                                 Theme(
                                   data: ThemeData(
-                                    iconTheme: IconThemeData(
-                                      color: Color(0xFFB0BEC5),
-                                    ),
+                                    iconTheme: IconThemeData(color: Color(0xFFB0BEC5)),
                                   ),
                                   child: CloseButton(),
                                 ),
@@ -825,41 +794,11 @@ dynamic build(BuildContext context) {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'src/',
-                                  style: TextStyle(
-                                    color: Color(0xFFB0BEC5),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                Text(
-                                  '  main.dart',
-                                  style: TextStyle(
-                                    color: Color(0xFFE0E0E0),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                Text(
-                                  '  utils.dart',
-                                  style: TextStyle(
-                                    color: Color(0xFFE0E0E0),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                Text(
-                                  'test/',
-                                  style: TextStyle(
-                                    color: Color(0xFFB0BEC5),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                Text(
-                                  '  test.dart',
-                                  style: TextStyle(
-                                    color: Color(0xFFE0E0E0),
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                Text('src/', style: TextStyle(color: Color(0xFFB0BEC5), fontSize: 12)),
+                                Text('  main.dart', style: TextStyle(color: Color(0xFFE0E0E0), fontSize: 12)),
+                                Text('  utils.dart', style: TextStyle(color: Color(0xFFE0E0E0), fontSize: 12)),
+                                Text('test/', style: TextStyle(color: Color(0xFFB0BEC5), fontSize: 12)),
+                                Text('  test.dart', style: TextStyle(color: Color(0xFFE0E0E0), fontSize: 12)),
                               ],
                             ),
                           ),
@@ -874,18 +813,12 @@ dynamic build(BuildContext context) {
                           children: [
                             Text(
                               'Editor Area',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 8),
                             Text(
                               'The sidebar can be closed with the CloseButton in the top-right corner.',
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Color(0xFF616161),
-                              ),
+                              style: TextStyle(fontSize: 13, color: Color(0xFF616161)),
                             ),
                           ],
                         ),
@@ -895,10 +828,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ),
-            Text(
-              'Section 12: Complex layout rendered',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('Section 12: Complex layout rendered', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             // Summary
             buildSectionHeader('Summary'),
@@ -908,10 +838,7 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildInfoRow('1', 'Basic default CloseButton'),
-                  buildInfoRow(
-                    '2',
-                    'Comparison with BackButton and IconButton',
-                  ),
+                  buildInfoRow('2', 'Comparison with BackButton and IconButton'),
                   buildInfoRow('3', 'CloseButton in colored AppBars'),
                   buildInfoRow('4', 'CloseButton in dialog headers'),
                   buildInfoRow('5', 'CloseButton in dismissible cards'),
@@ -925,10 +852,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Text(
-              '=== CloseButton Deep Demo Complete ===',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
+            Text('=== CloseButton Deep Demo Complete ===', style: TextStyle(fontSize: 10, color: Colors.grey)),
 
             SizedBox(height: 40),
           ],

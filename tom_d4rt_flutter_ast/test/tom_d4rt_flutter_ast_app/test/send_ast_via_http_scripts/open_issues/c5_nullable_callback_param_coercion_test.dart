@@ -20,10 +20,13 @@ class _LabeledPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 
   @override
-  SemanticsBuilderCallback? get semanticsBuilder =>
-      (Size size) => <CustomPainterSemantics>[];
+  SemanticsBuilderCallback? get semanticsBuilder => (Size size) =>
+      <CustomPainterSemantics>[];
 }
 
 dynamic build(BuildContext context) {
-  return const CustomPaint(size: Size(20, 20), painter: _LabeledPainter());
+  return const CustomPaint(
+    size: Size(20, 20),
+    painter: _LabeledPainter(),
+  );
 }

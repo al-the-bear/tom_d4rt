@@ -231,7 +231,10 @@ Widget _kv(String key, String value, {Color valueColor = _accentGreen}) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(width: 130, child: Text(key, style: _stMonoMuted)),
+        SizedBox(
+          width: 130,
+          child: Text(key, style: _stMonoMuted),
+        ),
         Expanded(
           child: Text(value, style: _stMono.copyWith(color: valueColor)),
         ),
@@ -311,11 +314,10 @@ Widget _frozenFrame({
     final String ch = text[i];
     final bool inSelection =
         selectionStart != null &&
-        selectionEnd != null &&
-        i >= selectionStart &&
-        i < selectionEnd;
-    final bool inComposing =
-        composing != null &&
+            selectionEnd != null &&
+            i >= selectionStart &&
+            i < selectionEnd;
+    final bool inComposing = composing != null &&
         composing.isValid &&
         !composing.isCollapsed &&
         i >= composing.start &&
@@ -388,7 +390,10 @@ Widget _frozenFrame({
         ),
         const SizedBox(height: _gapS),
         RichText(
-          text: TextSpan(style: _stMono, children: withCaret),
+          text: TextSpan(
+            style: _stMono,
+            children: withCaret,
+          ),
         ),
       ],
     ),
@@ -594,10 +599,14 @@ Widget _siblingGallerySection() {
       margin: const EdgeInsets.only(bottom: _gapM),
       padding: const EdgeInsets.all(_gapM),
       decoration: BoxDecoration(
-        color: emphasized ? color.withValues(alpha: 0.14) : _bgInner,
+        color: emphasized
+            ? color.withValues(alpha: 0.14)
+            : _bgInner,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: emphasized ? color.withValues(alpha: 0.7) : _border,
+          color: emphasized
+              ? color.withValues(alpha: 0.7)
+              : _border,
           width: emphasized ? 2 : 1,
         ),
       ),
@@ -650,7 +659,8 @@ Widget _siblingGallerySection() {
       tile(
         name: 'TextEditingDeltaReplacement',
         desc: 'Replace a range with new text. Length may change.',
-        fields: 'oldText, replacementText, replacedRange, selection, composing',
+        fields:
+            'oldText, replacementText, replacedRange, selection, composing',
         color: _accentWarm,
         runtimeTypeStr: '${rep.runtimeType}',
         emphasized: false,
@@ -1368,10 +1378,10 @@ void _printDiagnostics() {
 
   final TextEditingDeltaNonTextUpdate nonTextUpdate =
       TextEditingDeltaNonTextUpdate(
-        oldText: 'Hello World',
-        selection: const TextSelection(baseOffset: 0, extentOffset: 5),
-        composing: TextRange.empty,
-      );
+    oldText: 'Hello World',
+    selection: const TextSelection(baseOffset: 0, extentOffset: 5),
+    composing: TextRange.empty,
+  );
   print('\nTextEditingDeltaNonTextUpdate created:');
   print('runtimeType: ${nonTextUpdate.runtimeType}');
 
@@ -1393,20 +1403,20 @@ void _printDiagnostics() {
   print('\nSelection change example:');
   final TextEditingDeltaNonTextUpdate selectionChange =
       TextEditingDeltaNonTextUpdate(
-        oldText: 'Example text',
-        selection: const TextSelection(baseOffset: 8, extentOffset: 12),
-        composing: TextRange.empty,
-      );
+    oldText: 'Example text',
+    selection: const TextSelection(baseOffset: 8, extentOffset: 12),
+    composing: TextRange.empty,
+  );
   print('New selection: ${selectionChange.selection}');
   print('Selected text would be: "text"');
 
   print('\nComposing region change:');
   final TextEditingDeltaNonTextUpdate composingChange =
       TextEditingDeltaNonTextUpdate(
-        oldText: 'Hello',
-        selection: const TextSelection.collapsed(offset: 5),
-        composing: const TextRange(start: 0, end: 5),
-      );
+    oldText: 'Hello',
+    selection: const TextSelection.collapsed(offset: 5),
+    composing: const TextRange(start: 0, end: 5),
+  );
   print('composing: ${composingChange.composing}');
   print('Shows IME composition region');
 

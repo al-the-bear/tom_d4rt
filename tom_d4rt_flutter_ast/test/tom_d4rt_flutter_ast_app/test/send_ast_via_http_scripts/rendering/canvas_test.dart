@@ -210,7 +210,10 @@ class _SectionFrame extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: <Color>[accent, accent.withValues(alpha: 0.55)],
+                    colors: <Color>[
+                      accent,
+                      accent.withValues(alpha: 0.55),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
@@ -386,7 +389,9 @@ class _PaintCard extends StatelessWidget {
               spacing: 6,
               runSpacing: 6,
               children: tags
-                  .map((String t) => _MiniChip(label: t, color: accent))
+                  .map(
+                    (String t) => _MiniChip(label: t, color: accent),
+                  )
                   .toList(),
             ),
           ],
@@ -497,7 +502,10 @@ class _Bullet extends StatelessWidget {
             margin: const EdgeInsets.only(top: 7),
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -602,7 +610,9 @@ class _GridLayout extends StatelessWidget {
           spacing: spacing,
           runSpacing: spacing,
           children: children
-              .map((Widget child) => SizedBox(width: w, child: child))
+              .map(
+                (Widget child) => SizedBox(width: w, child: child),
+              )
               .toList(),
         );
       },
@@ -646,10 +656,8 @@ class _HeroSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(999),
@@ -669,10 +677,8 @@ class _HeroSection extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFF22D3EE).withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -751,7 +757,9 @@ class _HeroSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.07),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.14),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1030,15 +1038,11 @@ class _StyleFillStrokePainter extends CustomPainter {
     canvas.drawCircle(Offset(size.width * 0.70, cy), r, stroke);
 
     final TextPainter tpFill = _label('fill', _Palette.indigo);
-    tpFill.paint(
-      canvas,
-      Offset(size.width * 0.30 - tpFill.width / 2, cy + r + 6),
-    );
+    tpFill.paint(canvas,
+        Offset(size.width * 0.30 - tpFill.width / 2, cy + r + 6));
     final TextPainter tpStroke = _label('stroke', _Palette.indigo);
-    tpStroke.paint(
-      canvas,
-      Offset(size.width * 0.70 - tpStroke.width / 2, cy + r + 6),
-    );
+    tpStroke.paint(canvas,
+        Offset(size.width * 0.70 - tpStroke.width / 2, cy + r + 6));
   }
 
   @override
@@ -1059,11 +1063,9 @@ class _StrokeWidthPainter extends CustomPainter {
         ..strokeWidth = widths[i]
         ..color = _Palette.blue;
       canvas.drawLine(
-        Offset(size.width * 0.10, y),
-        Offset(size.width * 0.78, y),
-        p,
-      );
-      final TextPainter tp = _label('${widths[i]} px', _Palette.blue, size: 11);
+          Offset(size.width * 0.10, y), Offset(size.width * 0.78, y), p);
+      final TextPainter tp =
+          _label('${widths[i]} px', _Palette.blue, size: 11);
       tp.paint(canvas, Offset(size.width * 0.80, y - tp.height / 2));
     }
   }
@@ -1092,10 +1094,7 @@ class _StrokeCapPainter extends CustomPainter {
         ..color = _Palette.cyan
         ..strokeCap = caps[i];
       canvas.drawLine(
-        Offset(size.width * 0.18, y),
-        Offset(size.width * 0.62, y),
-        p,
-      );
+          Offset(size.width * 0.18, y), Offset(size.width * 0.62, y), p);
       // Endpoint markers
       final Paint dot = Paint()..color = _Palette.ink;
       canvas.drawCircle(Offset(size.width * 0.18, y), 1.5, dot);
@@ -1191,7 +1190,12 @@ class _MaskFilterPainter extends CustomPainter {
       BlurStyle.outer,
       BlurStyle.solid,
     ];
-    const List<String> names = <String>['normal', 'inner', 'outer', 'solid'];
+    const List<String> names = <String>[
+      'normal',
+      'inner',
+      'outer',
+      'solid',
+    ];
     final double colW = size.width / styles.length;
     for (int i = 0; i < styles.length; i++) {
       final double cx = colW * (i + 0.5);
@@ -1216,48 +1220,16 @@ class _ColorFilterPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint base = Paint()..color = const Color(0xFF1E293B);
     final ColorFilter sepia = const ColorFilter.matrix(<double>[
-      0.393,
-      0.769,
-      0.189,
-      0,
-      0,
-      0.349,
-      0.686,
-      0.168,
-      0,
-      0,
-      0.272,
-      0.534,
-      0.131,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0,
+      0.393, 0.769, 0.189, 0, 0,
+      0.349, 0.686, 0.168, 0, 0,
+      0.272, 0.534, 0.131, 0, 0,
+      0,     0,     0,     1, 0,
     ]);
     final ColorFilter invert = const ColorFilter.matrix(<double>[
-      -1,
-      0,
-      0,
-      0,
-      255,
-      0,
-      -1,
-      0,
-      0,
-      255,
-      0,
-      0,
-      -1,
-      0,
-      255,
-      0,
-      0,
-      0,
-      1,
-      0,
+      -1, 0, 0, 0, 255,
+      0, -1, 0, 0, 255,
+      0, 0, -1, 0, 255,
+      0, 0, 0, 1, 0,
     ]);
     final double cellW = size.width / 3;
     final double cy = size.height * 0.5;
@@ -1334,11 +1306,18 @@ class _LinearGradientPainter extends CustomPainter {
       ..shader = ui.Gradient.linear(
         rect.topLeft,
         rect.bottomRight,
-        const <Color>[Color(0xFF7C3AED), Color(0xFFEC4899), Color(0xFFF59E0B)],
+        const <Color>[
+          Color(0xFF7C3AED),
+          Color(0xFFEC4899),
+          Color(0xFFF59E0B),
+        ],
         <double>[0.0, 0.5, 1.0],
       );
     canvas.drawRRect(
-      RRect.fromRectAndRadius(rect.deflate(14), const Radius.circular(14)),
+      RRect.fromRectAndRadius(
+        rect.deflate(14),
+        const Radius.circular(14),
+      ),
       p,
     );
   }
@@ -1358,7 +1337,11 @@ class _RadialGradientPainter extends CustomPainter {
       ..shader = ui.Gradient.radial(
         center,
         size.shortestSide * 0.55,
-        const <Color>[Color(0xFFFB7185), Color(0xFFDB2777), Color(0xFF581C87)],
+        const <Color>[
+          Color(0xFFFB7185),
+          Color(0xFFDB2777),
+          Color(0xFF581C87),
+        ],
         <double>[0.0, 0.55, 1.0],
       );
     canvas.drawRect(rect, p);
@@ -1412,29 +1395,17 @@ class _AntiAliasPainter extends CustomPainter {
     canvas.save();
     canvas.translate(size.width * 0.30, cy);
     canvas.rotate(0.18);
-    canvas.drawRect(
-      Rect.fromCenter(center: Offset.zero, width: 60, height: 60),
-      aa,
-    );
+    canvas.drawRect(Rect.fromCenter(center: Offset.zero, width: 60, height: 60), aa);
     canvas.restore();
     canvas.save();
     canvas.translate(size.width * 0.70, cy);
     canvas.rotate(0.18);
-    canvas.drawRect(
-      Rect.fromCenter(center: Offset.zero, width: 60, height: 60),
-      noAA,
-    );
+    canvas.drawRect(Rect.fromCenter(center: Offset.zero, width: 60, height: 60), noAA);
     canvas.restore();
     final TextPainter t1 = _label('AA on', _Palette.sky, size: 11);
-    t1.paint(
-      canvas,
-      Offset(size.width * 0.30 - t1.width / 2, size.height - 16),
-    );
+    t1.paint(canvas, Offset(size.width * 0.30 - t1.width / 2, size.height - 16));
     final TextPainter t2 = _label('AA off', _Palette.sky, size: 11);
-    t2.paint(
-      canvas,
-      Offset(size.width * 0.70 - t2.width / 2, size.height - 16),
-    );
+    t2.paint(canvas, Offset(size.width * 0.70 - t2.width / 2, size.height - 16));
   }
 
   @override
@@ -1469,17 +1440,9 @@ class _MiterLimitPainter extends CustomPainter {
       ..lineTo(size.width * 0.69, cy - 24)
       ..lineTo(size.width * 0.83, cy + 16);
     canvas.drawPath(zig2, high);
-    final TextPainter t1 = _label(
-      'limit=2 (beveled)',
-      _Palette.indigo,
-      size: 10,
-    );
+    final TextPainter t1 = _label('limit=2 (beveled)', _Palette.indigo, size: 10);
     t1.paint(canvas, Offset(size.width * 0.10, size.height - 16));
-    final TextPainter t2 = _label(
-      'limit=10 (spike)',
-      _Palette.indigo,
-      size: 10,
-    );
+    final TextPainter t2 = _label('limit=10 (spike)', _Palette.indigo, size: 10);
     t2.paint(canvas, Offset(size.width * 0.57, size.height - 16));
   }
 
@@ -1501,15 +1464,9 @@ class _InvertColorsPainter extends CustomPainter {
       ..invertColors = true;
     canvas.drawCircle(Offset(size.width * 0.70, size.height / 2), 26, b);
     final TextPainter t1 = _label('normal', _Palette.blue, size: 11);
-    t1.paint(
-      canvas,
-      Offset(size.width * 0.30 - t1.width / 2, size.height - 16),
-    );
+    t1.paint(canvas, Offset(size.width * 0.30 - t1.width / 2, size.height - 16));
     final TextPainter t2 = _label('invert', _Palette.blue, size: 11);
-    t2.paint(
-      canvas,
-      Offset(size.width * 0.70 - t2.width / 2, size.height - 16),
-    );
+    t2.paint(canvas, Offset(size.width * 0.70 - t2.width / 2, size.height - 16));
   }
 
   @override
@@ -1696,10 +1653,7 @@ class _DrawLineVariantsPainter extends CustomPainter {
         ..strokeWidth = 1.0 + i * 1.2
         ..strokeCap = StrokeCap.round;
       canvas.drawLine(
-        Offset(size.width * 0.08, y),
-        Offset(size.width * 0.92, y),
-        p,
-      );
+          Offset(size.width * 0.08, y), Offset(size.width * 0.92, y), p);
     }
   }
 
@@ -1766,15 +1720,11 @@ class _DrawArcPainter extends CustomPainter {
       ..color = _Palette.amber
       ..strokeCap = StrokeCap.round;
     final Paint pie = Paint()..color = _Palette.amber.withValues(alpha: 0.75);
-    final Rect r1 = Rect.fromCircle(
-      center: Offset(size.width * 0.30, size.height / 2),
-      radius: 36,
-    );
+    final Rect r1 =
+        Rect.fromCircle(center: Offset(size.width * 0.30, size.height / 2), radius: 36);
     canvas.drawArc(r1, math.pi * 0.15, math.pi * 1.3, false, open);
-    final Rect r2 = Rect.fromCircle(
-      center: Offset(size.width * 0.72, size.height / 2),
-      radius: 36,
-    );
+    final Rect r2 =
+        Rect.fromCircle(center: Offset(size.width * 0.72, size.height / 2), radius: 36);
     canvas.drawArc(r2, -math.pi / 2, math.pi * 1.2, true, pie);
   }
 
@@ -1793,7 +1743,11 @@ class _DrawPathPainter extends CustomPainter {
     path.moveTo(w * 0.10, h * 0.80);
     path.lineTo(w * 0.25, h * 0.20);
     path.quadraticBezierTo(w * 0.40, h * 0.05, w * 0.55, h * 0.40);
-    path.cubicTo(w * 0.65, h * 0.55, w * 0.70, h * 0.10, w * 0.85, h * 0.45);
+    path.cubicTo(
+      w * 0.65, h * 0.55,
+      w * 0.70, h * 0.10,
+      w * 0.85, h * 0.45,
+    );
     path.conicTo(w * 0.95, h * 0.70, w * 0.75, h * 0.80, 1.4);
     path.arcToPoint(
       Offset(w * 0.35, h * 0.85),
@@ -1806,7 +1760,8 @@ class _DrawPathPainter extends CustomPainter {
       ..strokeWidth = 2.5
       ..color = _Palette.purple
       ..strokeJoin = StrokeJoin.round;
-    final Paint fill = Paint()..color = _Palette.purple.withValues(alpha: 0.15);
+    final Paint fill = Paint()
+      ..color = _Palette.purple.withValues(alpha: 0.15);
     canvas.drawPath(path, fill);
     canvas.drawPath(path, stroke);
   }
@@ -1895,10 +1850,7 @@ class _DrawColorPainter extends CustomPainter {
     canvas.drawCircle(Offset(size.width * 0.30, size.height / 2), 32, shape);
     canvas.drawCircle(Offset(size.width * 0.70, size.height / 2), 32, shape);
     // Tint everything with a translucent orange overlay
-    canvas.drawColor(
-      _Palette.orange.withValues(alpha: 0.18),
-      BlendMode.srcOver,
-    );
+    canvas.drawColor(_Palette.orange.withValues(alpha: 0.18), BlendMode.srcOver);
   }
 
   @override
@@ -1966,19 +1918,15 @@ class _PathCombinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Path a = Path()
-      ..addOval(
-        Rect.fromCircle(
-          center: Offset(size.width * 0.40, size.height / 2),
-          radius: 38,
-        ),
-      );
+      ..addOval(Rect.fromCircle(
+        center: Offset(size.width * 0.40, size.height / 2),
+        radius: 38,
+      ));
     final Path b = Path()
-      ..addOval(
-        Rect.fromCircle(
-          center: Offset(size.width * 0.60, size.height / 2),
-          radius: 38,
-        ),
-      );
+      ..addOval(Rect.fromCircle(
+        center: Offset(size.width * 0.60, size.height / 2),
+        radius: 38,
+      ));
     final Path union = Path.combine(PathOperation.union, a, b);
     final Path diff = Path.combine(PathOperation.difference, a, b);
     final Paint fill = Paint()..color = _Palette.sky.withValues(alpha: 0.20);
@@ -2081,14 +2029,12 @@ class _TranslatePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint ghost = Paint()
-      ..color = _Palette.purple.withValues(alpha: 0.18);
+    final Paint ghost = Paint()..color = _Palette.purple.withValues(alpha: 0.18);
     final Paint p = Paint()..color = _Palette.purple;
     final Rect r = Rect.fromCenter(
-      center: Offset(size.width * 0.30, size.height / 2),
-      width: 60,
-      height: 60,
-    );
+        center: Offset(size.width * 0.30, size.height / 2),
+        width: 60,
+        height: 60);
     canvas.drawRect(r, ghost);
     canvas.save();
     canvas.translate(size.width * 0.40, 0);
@@ -2105,8 +2051,7 @@ class _UniformScalePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint ghost = Paint()
-      ..color = _Palette.indigo.withValues(alpha: 0.18);
+    final Paint ghost = Paint()..color = _Palette.indigo.withValues(alpha: 0.18);
     final Paint p = Paint()..color = _Palette.indigo;
     canvas.drawCircle(Offset(size.width * 0.28, size.height / 2), 24, ghost);
     canvas.save();
@@ -2146,11 +2091,7 @@ class _RotatePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint ghost = Paint()..color = _Palette.cyan.withValues(alpha: 0.18);
     final Paint p = Paint()..color = _Palette.cyan;
-    final Rect base = Rect.fromCenter(
-      center: Offset.zero,
-      width: 60,
-      height: 40,
-    );
+    final Rect base = Rect.fromCenter(center: Offset.zero, width: 60, height: 40);
     canvas.save();
     canvas.translate(size.width * 0.30, size.height / 2);
     canvas.drawRect(base, ghost);
@@ -2173,11 +2114,7 @@ class _SkewPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint ghost = Paint()..color = _Palette.teal.withValues(alpha: 0.18);
     final Paint p = Paint()..color = _Palette.teal;
-    final Rect base = Rect.fromCenter(
-      center: Offset.zero,
-      width: 70,
-      height: 50,
-    );
+    final Rect base = Rect.fromCenter(center: Offset.zero, width: 70, height: 50);
     canvas.save();
     canvas.translate(size.width * 0.30, size.height / 2);
     canvas.drawRect(base, ghost);
@@ -2198,14 +2135,9 @@ class _Matrix4Painter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint ghost = Paint()
-      ..color = _Palette.emerald.withValues(alpha: 0.18);
+    final Paint ghost = Paint()..color = _Palette.emerald.withValues(alpha: 0.18);
     final Paint p = Paint()..color = _Palette.emerald;
-    final Rect base = Rect.fromCenter(
-      center: Offset.zero,
-      width: 64,
-      height: 48,
-    );
+    final Rect base = Rect.fromCenter(center: Offset.zero, width: 64, height: 48);
     canvas.save();
     canvas.translate(size.width * 0.28, size.height / 2);
     canvas.drawRect(base, ghost);
@@ -2214,22 +2146,10 @@ class _Matrix4Painter extends CustomPainter {
     final double c = math.cos(0.21);
     final double s = math.sin(0.21);
     final Float64List m = Float64List.fromList(<double>[
-      1.3 * c,
-      1.0 * s,
-      0,
-      0,
-      -s,
-      c,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0,
-      size.width * 0.70,
-      size.height / 2,
-      0,
-      1,
+      1.3 * c, 1.0 * s, 0, 0,
+      -s, c, 0, 0,
+      0, 0, 1, 0,
+      size.width * 0.70, size.height / 2, 0, 1,
     ]);
     canvas.save();
     canvas.transform(m);
@@ -2330,13 +2250,11 @@ class _ClipRectPainter extends CustomPainter {
       ..strokeWidth = 1
       ..color = _Palette.rose.withValues(alpha: 0.6);
     canvas.drawRect(
-      Rect.fromCenter(
-        center: size.center(Offset.zero),
-        width: size.width * 0.6,
-        height: size.height * 0.55,
-      ),
-      outline,
-    );
+        Rect.fromCenter(
+            center: size.center(Offset.zero),
+            width: size.width * 0.6,
+            height: size.height * 0.55),
+        outline);
   }
 
   @override
@@ -2417,12 +2335,8 @@ class _ClipEnumPainter extends CustomPainter {
     canvas.save();
     canvas.clipRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(
-          size.width * 0.05,
-          size.height * 0.18,
-          size.width * 0.40,
-          size.height * 0.65,
-        ),
+        Rect.fromLTWH(size.width * 0.05, size.height * 0.18,
+            size.width * 0.40, size.height * 0.65),
         const Radius.circular(20),
       ),
       doAntiAlias: false,
@@ -2432,12 +2346,8 @@ class _ClipEnumPainter extends CustomPainter {
     canvas.save();
     canvas.clipRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(
-          size.width * 0.55,
-          size.height * 0.18,
-          size.width * 0.40,
-          size.height * 0.65,
-        ),
+        Rect.fromLTWH(size.width * 0.55, size.height * 0.18,
+            size.width * 0.40, size.height * 0.65),
         const Radius.circular(20),
       ),
     );
@@ -2533,10 +2443,7 @@ class _SaveRestorePainter extends CustomPainter {
         size.height / 2,
       );
       canvas.rotate(i * 0.22);
-      canvas.drawRect(
-        r,
-        p..color = _Palette.indigo.withValues(alpha: 0.18 + i * 0.14),
-      );
+      canvas.drawRect(r, p..color = _Palette.indigo.withValues(alpha: 0.18 + i * 0.14));
       canvas.restore();
     }
   }
@@ -2561,33 +2468,13 @@ class _SaveLayerOpacityPainter extends CustomPainter {
     canvas.drawCircle(Offset(size.width * 0.22, cy + 10), 22, c);
     // With layer (right half)
     canvas.saveLayer(bounds, Paint()..color = const Color(0x80FFFFFF));
-    canvas.drawCircle(
-      Offset(size.width * 0.66, cy - 10),
-      22,
-      Paint()..color = const Color(0xFFEF4444),
-    );
-    canvas.drawCircle(
-      Offset(size.width * 0.78, cy - 10),
-      22,
-      Paint()..color = const Color(0xFF3B82F6),
-    );
-    canvas.drawCircle(
-      Offset(size.width * 0.72, cy + 10),
-      22,
-      Paint()..color = const Color(0xFF10B981),
-    );
+    canvas.drawCircle(Offset(size.width * 0.66, cy - 10), 22, Paint()..color = const Color(0xFFEF4444));
+    canvas.drawCircle(Offset(size.width * 0.78, cy - 10), 22, Paint()..color = const Color(0xFF3B82F6));
+    canvas.drawCircle(Offset(size.width * 0.72, cy + 10), 22, Paint()..color = const Color(0xFF10B981));
     canvas.restore();
-    final TextPainter t1 = _label(
-      'overlap = darker',
-      _Palette.purple,
-      size: 10,
-    );
+    final TextPainter t1 = _label('overlap = darker', _Palette.purple, size: 10);
     t1.paint(canvas, Offset(size.width * 0.08, size.height - 16));
-    final TextPainter t2 = _label(
-      'grouped = one alpha',
-      _Palette.purple,
-      size: 10,
-    );
+    final TextPainter t2 = _label('grouped = one alpha', _Palette.purple, size: 10);
     t2.paint(canvas, Offset(size.width * 0.55, size.height - 16));
   }
 
@@ -2632,10 +2519,9 @@ class _LayerBlurPainter extends CustomPainter {
     canvas.drawCircle(Offset(size.width * 0.35, size.height / 2), 26, a);
     canvas.drawRect(
       Rect.fromCenter(
-        center: Offset(size.width * 0.65, size.height / 2),
-        width: 52,
-        height: 52,
-      ),
+          center: Offset(size.width * 0.65, size.height / 2),
+          width: 52,
+          height: 52),
       b,
     );
     canvas.restore();
@@ -2721,7 +2607,11 @@ class _ParagraphPainter extends CustomPainter {
             'testing offsets. After layout(), call paint(canvas, offset) '
             'inside a CustomPainter to render text exactly where you '
             'need it on the canvas.',
-        style: TextStyle(color: _Palette.slate, fontSize: 13.5, height: 1.55),
+        style: TextStyle(
+          color: _Palette.slate,
+          fontSize: 13.5,
+          height: 1.55,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: size.width - 32);
@@ -2850,9 +2740,7 @@ class _AARotatedOnPainter extends CustomPainter {
     canvas.translate(size.width / 2, size.height / 2);
     canvas.rotate(0.18);
     canvas.drawRect(
-      Rect.fromCenter(center: Offset.zero, width: 80, height: 60),
-      p,
-    );
+        Rect.fromCenter(center: Offset.zero, width: 80, height: 60), p);
     canvas.restore();
   }
 
@@ -2872,9 +2760,7 @@ class _AARotatedOffPainter extends CustomPainter {
     canvas.translate(size.width / 2, size.height / 2);
     canvas.rotate(0.18);
     canvas.drawRect(
-      Rect.fromCenter(center: Offset.zero, width: 80, height: 60),
-      p,
-    );
+        Rect.fromCenter(center: Offset.zero, width: 80, height: 60), p);
     canvas.restore();
   }
 

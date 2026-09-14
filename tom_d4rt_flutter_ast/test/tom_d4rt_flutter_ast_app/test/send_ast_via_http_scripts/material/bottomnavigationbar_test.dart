@@ -33,7 +33,11 @@ const Color kScrim = Color(0xFF94A3B8);
 // ============================================================================
 
 class SmallChip extends StatelessWidget {
-  const SmallChip({super.key, required this.label, required this.tint});
+  const SmallChip({
+    super.key,
+    required this.label,
+    required this.tint,
+  });
 
   final String label;
   final Color tint;
@@ -265,7 +269,11 @@ class NarrativeBlurb extends StatelessWidget {
 // ============================================================================
 
 class ColourSwatch extends StatelessWidget {
-  const ColourSwatch({super.key, required this.name, required this.color});
+  const ColourSwatch({
+    super.key,
+    required this.name,
+    required this.color,
+  });
 
   final String name;
   final Color color;
@@ -452,34 +460,34 @@ Widget _miniBody({
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            width: 78.0,
-            height: 78.0,
-            decoration: BoxDecoration(
-              color: tint.withValues(alpha: 0.18),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(glyph, color: tint, size: 38.0),
+        Container(
+          width: 78.0,
+          height: 78.0,
+          decoration: BoxDecoration(
+            color: tint.withValues(alpha: 0.18),
+            shape: BoxShape.circle,
           ),
-          const SizedBox(height: 14.0),
-          Text(
-            headline,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w800,
-              color: kInkDeep,
-            ),
+          child: Icon(glyph, color: tint, size: 38.0),
+        ),
+        const SizedBox(height: 14.0),
+        Text(
+          headline,
+          style: const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w800,
+            color: kInkDeep,
           ),
-          const SizedBox(height: 6.0),
-          Text(
-            body,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 12.0,
-              height: 1.4,
-              color: kInkMuted,
-            ),
+        ),
+        const SizedBox(height: 6.0),
+        Text(
+          body,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 12.0,
+            height: 1.4,
+            color: kInkMuted,
           ),
+        ),
         ],
       ),
     ),
@@ -509,7 +517,8 @@ class _BottomNavPreview extends StatefulWidget {
     this.iconSize = 24.0,
     this.useThemeData = false,
     this.cursorIsClick = true,
-    this.landscapeLayout = BottomNavigationBarLandscapeLayout.centered,
+    this.landscapeLayout =
+        BottomNavigationBarLandscapeLayout.centered,
   });
 
   final List<BottomNavigationBarItem> items;
@@ -609,11 +618,17 @@ class _BottomNavPreviewState extends State<_BottomNavPreview> {
             landscapeLayout: widget.landscapeLayout,
           ),
         ),
-        child: MaterialApp(debugShowCheckedModeBanner: false, home: scaffold),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: scaffold,
+        ),
       );
     }
 
-    return MaterialApp(debugShowCheckedModeBanner: false, home: scaffold);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: scaffold,
+    );
   }
 }
 
@@ -884,7 +899,8 @@ dynamic build(BuildContext context) {
                     style: TextStyle(
                       color: tint,
                       fontSize: selected ? 13.0 : 11.0,
-                      fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                      fontWeight:
+                          selected ? FontWeight.w700 : FontWeight.w500,
                     ),
                   ),
                 ],
@@ -1056,14 +1072,20 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: IconTheme(
-                        data: const IconThemeData(color: kScrim, size: 22.0),
+                        data: const IconThemeData(
+                          color: kScrim,
+                          size: 22.0,
+                        ),
                         child: s['icon'] as Widget,
                       ),
                     ),
                     const SizedBox(height: 4.0),
                     const Text(
                       'idle',
-                      style: TextStyle(fontSize: 10.0, color: kInkMuted),
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: kInkMuted,
+                      ),
                     ),
                   ],
                 ),
@@ -1358,56 +1380,57 @@ dynamic build(BuildContext context) {
   // SECTION 8 — Badged items preview
   // --------------------------------------------------------------------------
 
-  final List<BottomNavigationBarItem> badgedItems = <BottomNavigationBarItem>[
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
-      activeIcon: Icon(Icons.home),
-      label: 'Home',
-    ),
-    const BottomNavigationBarItem(
-      icon: _BadgedIcon(
-        glyph: Icons.mail_outline,
-        badge: '12',
-        color: kInkMuted,
-      ),
-      activeIcon: _BadgedIcon(
-        glyph: Icons.mail,
-        badge: '12',
-        color: kAccentRose,
-      ),
-      label: 'Inbox',
-    ),
-    const BottomNavigationBarItem(
-      icon: _BadgedIcon(
-        glyph: Icons.notifications_none,
-        badge: '3',
-        color: kInkMuted,
-        dotColor: kAccentSun,
-      ),
-      activeIcon: _BadgedIcon(
-        glyph: Icons.notifications,
-        badge: '3',
-        color: kAccentRose,
-        dotColor: kAccentSun,
-      ),
-      label: 'Alerts',
-    ),
-    const BottomNavigationBarItem(
-      icon: _BadgedIcon(
-        glyph: Icons.shopping_cart_outlined,
-        badge: '99+',
-        color: kInkMuted,
-        dotColor: kAccentMint,
-      ),
-      activeIcon: _BadgedIcon(
-        glyph: Icons.shopping_cart,
-        badge: '99+',
-        color: kAccentRose,
-        dotColor: kAccentMint,
-      ),
-      label: 'Cart',
-    ),
-  ];
+  final List<BottomNavigationBarItem> badgedItems =
+      <BottomNavigationBarItem>[
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.home_outlined),
+          activeIcon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        const BottomNavigationBarItem(
+          icon: _BadgedIcon(
+            glyph: Icons.mail_outline,
+            badge: '12',
+            color: kInkMuted,
+          ),
+          activeIcon: _BadgedIcon(
+            glyph: Icons.mail,
+            badge: '12',
+            color: kAccentRose,
+          ),
+          label: 'Inbox',
+        ),
+        const BottomNavigationBarItem(
+          icon: _BadgedIcon(
+            glyph: Icons.notifications_none,
+            badge: '3',
+            color: kInkMuted,
+            dotColor: kAccentSun,
+          ),
+          activeIcon: _BadgedIcon(
+            glyph: Icons.notifications,
+            badge: '3',
+            color: kAccentRose,
+            dotColor: kAccentSun,
+          ),
+          label: 'Alerts',
+        ),
+        const BottomNavigationBarItem(
+          icon: _BadgedIcon(
+            glyph: Icons.shopping_cart_outlined,
+            badge: '99+',
+            color: kInkMuted,
+            dotColor: kAccentMint,
+          ),
+          activeIcon: _BadgedIcon(
+            glyph: Icons.shopping_cart,
+            badge: '99+',
+            color: kAccentRose,
+            dotColor: kAccentMint,
+          ),
+          label: 'Cart',
+        ),
+      ];
 
   final List<Widget> badgedBodies = <Widget>[
     _miniBody(
@@ -1503,7 +1526,8 @@ dynamic build(BuildContext context) {
           showUnselectedLabels: true,
           elevation: 4.0,
           startIndex: 0,
-          landscapeLayout: s['value'] as BottomNavigationBarLandscapeLayout,
+          landscapeLayout:
+              s['value'] as BottomNavigationBarLandscapeLayout,
         ),
       );
     }),
@@ -1554,7 +1578,9 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  final Widget cursorRow = Wrap(children: <Widget>[cursorClick, cursorBasic]);
+  final Widget cursorRow = Wrap(
+    children: <Widget>[cursorClick, cursorBasic],
+  );
 
   // --------------------------------------------------------------------------
   // SECTION 11 — Label visibility matrix
@@ -1592,7 +1618,8 @@ dynamic build(BuildContext context) {
       final Map<String, Object> s = labelSpec[i];
       return PhoneFrame(
         title: s['title'] as String,
-        subtitle: 'sel=${s['sel']} / uns=${s['uns']}',
+        subtitle:
+            'sel=${s['sel']} / uns=${s['uns']}',
         statusTint: s['tint'] as Color,
         width: 230.0,
         height: 430.0,
@@ -1655,7 +1682,12 @@ dynamic build(BuildContext context) {
       'bg': const Color(0xFF3B0764),
       'sel': const Color(0xFFE9D5FF),
       'uns': const Color(0xFFC4B5FD),
-      'icons': <IconData>[Icons.draw, Icons.palette, Icons.layers, Icons.brush],
+      'icons': <IconData>[
+        Icons.draw,
+        Icons.palette,
+        Icons.layers,
+        Icons.brush,
+      ],
       'labels': <String>['Draw', 'Color', 'Layers', 'Brush'],
       'tint': kAccentPlum,
     },
@@ -1713,12 +1745,13 @@ dynamic build(BuildContext context) {
       final List<String> labels = s['labels'] as List<String>;
       final List<BottomNavigationBarItem> gItems =
           List<BottomNavigationBarItem>.generate(icons.length, (int j) {
-            return BottomNavigationBarItem(
-              icon: Icon(icons[j]),
-              label: labels[j],
-            );
-          });
-      final List<Widget> gBodies = List<Widget>.generate(icons.length, (int j) {
+        return BottomNavigationBarItem(
+          icon: Icon(icons[j]),
+          label: labels[j],
+        );
+      });
+      final List<Widget> gBodies =
+          List<Widget>.generate(icons.length, (int j) {
         return _miniBody(
           glyph: icons[j],
           headline: labels[j],
@@ -1870,16 +1903,21 @@ dynamic build(BuildContext context) {
         final Map<String, String> p = propRef[i];
         final bool last = i == propRef.length - 1;
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 12.0,
+          ),
           decoration: BoxDecoration(
-            color: i.isEven ? kPaperBase.withValues(alpha: 0.55) : kPaperLift,
+            color: i.isEven
+                ? kPaperBase.withValues(alpha: 0.55)
+                : kPaperLift,
             borderRadius: i == 0
                 ? const BorderRadius.vertical(top: Radius.circular(15.0))
                 : (last
-                      ? const BorderRadius.vertical(
-                          bottom: Radius.circular(15.0),
-                        )
-                      : BorderRadius.zero),
+                    ? const BorderRadius.vertical(
+                        bottom: Radius.circular(15.0),
+                      )
+                    : BorderRadius.zero),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1892,7 +1930,9 @@ dynamic build(BuildContext context) {
                     fontSize: 13.0,
                     fontWeight: FontWeight.w800,
                     color: kInkDeep,
-                    fontFeatures: <FontFeature>[FontFeature.tabularFigures()],
+                    fontFeatures: <FontFeature>[
+                      FontFeature.tabularFigures(),
+                    ],
                   ),
                 ),
               ),
@@ -1967,9 +2007,8 @@ dynamic build(BuildContext context) {
               color: kBezelChrome,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
-                color: (isFixed ? kAccentSky : kAccentCoral).withValues(
-                  alpha: 0.6,
-                ),
+                color: (isFixed ? kAccentSky : kAccentCoral)
+                    .withValues(alpha: 0.6),
                 width: 1.0,
               ),
             ),
@@ -1980,13 +2019,14 @@ dynamic build(BuildContext context) {
                   height: 36.0,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: (isFixed ? kAccentSky : kAccentCoral).withValues(
-                      alpha: 0.22,
-                    ),
+                    color: (isFixed ? kAccentSky : kAccentCoral)
+                        .withValues(alpha: 0.22),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Icon(
-                    isFixed ? Icons.view_column_outlined : Icons.swap_horiz,
+                    isFixed
+                        ? Icons.view_column_outlined
+                        : Icons.swap_horiz,
                     color: isFixed ? kAccentSky : kAccentCoral,
                   ),
                 ),
@@ -2008,10 +2048,10 @@ dynamic build(BuildContext context) {
                       Text(
                         isFixed
                             ? 'Items occupy equal width; labels always shown '
-                                  'by default. Use for 3-4 stable destinations.'
+                                'by default. Use for 3-4 stable destinations.'
                             : 'Active slot grows; idle ones shrink. '
-                                  'item.backgroundColor takes over the bar '
-                                  'when an item is selected.',
+                                'item.backgroundColor takes over the bar '
+                                'when an item is selected.',
                         style: const TextStyle(
                           fontSize: 11.0,
                           color: Color(0xFFCBD5E1),
@@ -2354,6 +2394,10 @@ dynamic build(BuildContext context) {
 
   return Scaffold(
     backgroundColor: kPaperBase,
-    body: SafeArea(child: SingleChildScrollView(child: content)),
+    body: SafeArea(
+      child: SingleChildScrollView(
+        child: content,
+      ),
+    ),
   );
 }

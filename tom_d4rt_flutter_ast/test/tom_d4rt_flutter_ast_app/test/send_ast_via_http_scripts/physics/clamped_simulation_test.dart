@@ -193,31 +193,29 @@ dynamic build(BuildContext context) {
           'and dx(t) at six time points each, and render the band-pinned '
           'trajectories beside their unclamped originals. No tickers, no '
           'futures, no controllers; only physics.',
-          style: TextStyle(color: goldMuted, fontSize: 13.5, height: 1.45),
+          style: TextStyle(
+            color: goldMuted,
+            fontSize: 13.5,
+            height: 1.45,
+          ),
         ),
         SizedBox(height: 14.0),
         Row(
           children: <Widget>[
             Container(width: 14.0, height: 14.0, color: brassBright),
             SizedBox(width: 8.0),
-            Text(
-              'Brass = inner simulation x(t)',
-              style: TextStyle(color: goldText, fontSize: 12.0),
-            ),
+            Text('Brass = inner simulation x(t)',
+                style: TextStyle(color: goldText, fontSize: 12.0)),
             SizedBox(width: 18.0),
             Container(width: 14.0, height: 14.0, color: copperGlow),
             SizedBox(width: 8.0),
-            Text(
-              'Copper = clamped output',
-              style: TextStyle(color: goldText, fontSize: 12.0),
-            ),
+            Text('Copper = clamped output',
+                style: TextStyle(color: goldText, fontSize: 12.0)),
             SizedBox(width: 18.0),
             Container(width: 14.0, height: 14.0, color: verdigrisSoft),
             SizedBox(width: 8.0),
-            Text(
-              'Verdigris = band rails',
-              style: TextStyle(color: goldText, fontSize: 12.0),
-            ),
+            Text('Verdigris = band rails',
+                style: TextStyle(color: goldText, fontSize: 12.0)),
           ],
         ),
       ],
@@ -228,20 +226,20 @@ dynamic build(BuildContext context) {
   // B. Palette table + swatches
   // ============================================================
   final List<List<String>> paletteRows = <List<String>>[
-    <String>['Parchment', '#F4E7C9', 'page backdrop'],
+    <String>['Parchment',      '#F4E7C9', 'page backdrop'],
     <String>['Parchment Deep', '#E9D6A6', 'alternating row'],
-    <String>['Midnight', '#1A1722', 'panel void'],
-    <String>['Midnight Soft', '#2A2434', 'panel body'],
-    <String>['Brass', '#C9A45C', 'inner curve'],
-    <String>['Brass Bright', '#E6C271', 'inner highlight'],
-    <String>['Copper', '#B46A3C', 'clamped curve'],
-    <String>['Copper Glow', '#D68A55', 'clamped highlight'],
-    <String>['Verdigris', '#4F8B7A', 'band rail'],
+    <String>['Midnight',       '#1A1722', 'panel void'],
+    <String>['Midnight Soft',  '#2A2434', 'panel body'],
+    <String>['Brass',          '#C9A45C', 'inner curve'],
+    <String>['Brass Bright',   '#E6C271', 'inner highlight'],
+    <String>['Copper',         '#B46A3C', 'clamped curve'],
+    <String>['Copper Glow',    '#D68A55', 'clamped highlight'],
+    <String>['Verdigris',      '#4F8B7A', 'band rail'],
     <String>['Verdigris Soft', '#7FB1A2', 'band fill'],
-    <String>['Carmine Warn', '#B2424A', 'pitfall accent'],
-    <String>['Ink Text', '#1F1A12', 'parchment text'],
-    <String>['Ink Muted', '#5C4A2C', 'parchment caption'],
-    <String>['Gold Text', '#F1DDA8', 'midnight text'],
+    <String>['Carmine Warn',   '#B2424A', 'pitfall accent'],
+    <String>['Ink Text',       '#1F1A12', 'parchment text'],
+    <String>['Ink Muted',      '#5C4A2C', 'parchment caption'],
+    <String>['Gold Text',      '#F1DDA8', 'midnight text'],
   ];
   final List<Color> paletteHues = <Color>[
     parchment,
@@ -655,30 +653,22 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        Text(
-          prose1,
-          style: TextStyle(color: inkText, fontSize: 13.0, height: 1.45),
-        ),
+        Text(prose1,
+            style: TextStyle(color: inkText, fontSize: 13.0, height: 1.45)),
         SizedBox(height: 10.0),
-        Text(
-          prose2,
-          style: TextStyle(color: inkText, fontSize: 13.0, height: 1.45),
-        ),
+        Text(prose2,
+            style: TextStyle(color: inkText, fontSize: 13.0, height: 1.45)),
         SizedBox(height: 10.0),
-        Text(
-          prose3,
-          style: TextStyle(color: inkText, fontSize: 13.0, height: 1.45),
-        ),
+        Text(prose3,
+            style: TextStyle(color: inkText, fontSize: 13.0, height: 1.45)),
         SizedBox(height: 10.0),
-        Text(
-          prose4,
-          style: TextStyle(
-            color: copper,
-            fontSize: 13.0,
-            height: 1.45,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        Text(prose4,
+            style: TextStyle(
+              color: copper,
+              fontSize: 13.0,
+              height: 1.45,
+              fontStyle: FontStyle.italic,
+            )),
       ],
     ),
   );
@@ -689,14 +679,14 @@ dynamic build(BuildContext context) {
   // cell width corresponds to abs(x(t)) and color depth to abs(dx(t)).
   // ============================================================
   final List<List<dynamic>> trajectoryDefs = <List<dynamic>>[
-    <dynamic>['Gravity (raw)', gravity, brass, false],
-    <dynamic>['Gravity (clamped)', clampedGravity, copperGlow, true],
-    <dynamic>['Friction (raw)', friction, brass, false],
-    <dynamic>['Friction (clamped)', clampedFriction, copperGlow, true],
-    <dynamic>['ScrollSpring (raw)', scrollSimulation, brass, false],
-    <dynamic>['ScrollSpring (clamped)', clampedScroll, copperGlow, true],
-    <dynamic>['Bouncing (raw)', bouncing, brass, false],
-    <dynamic>['Bouncing (clamped)', clampedBouncing, copperGlow, true],
+    <dynamic>['Gravity (raw)',          gravity,         brass,       false],
+    <dynamic>['Gravity (clamped)',      clampedGravity,  copperGlow,  true],
+    <dynamic>['Friction (raw)',         friction,        brass,       false],
+    <dynamic>['Friction (clamped)',     clampedFriction, copperGlow,  true],
+    <dynamic>['ScrollSpring (raw)',     scrollSimulation, brass,      false],
+    <dynamic>['ScrollSpring (clamped)', clampedScroll,   copperGlow,  true],
+    <dynamic>['Bouncing (raw)',         bouncing,        brass,       false],
+    <dynamic>['Bouncing (clamped)',     clampedBouncing, copperGlow,  true],
   ];
 
   // Compute the max absolute x across all sims and times so cell widths
@@ -815,7 +805,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.only(bottom: 10.0),
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          color: isClamped ? parchmentDeep : parchment.withValues(alpha: 0.85),
+          color: isClamped
+              ? parchmentDeep
+              : parchment.withValues(alpha: 0.85),
           border: Border.all(
             color: isClamped ? copper : brass,
             width: isClamped ? 1.4 : 1.0,
@@ -897,10 +889,14 @@ dynamic build(BuildContext context) {
   // For each base sim, two side-by-side bars whose lengths show actual x(t).
   // ============================================================
   final List<List<dynamic>> compareDefs = <List<dynamic>>[
-    <dynamic>['Gravity', gravity, clampedGravity, -50.0, 60.0],
-    <dynamic>['Friction', friction, clampedFriction, 0.0, 120.0],
-    <dynamic>['ScrollSpring', scrollSimulation, clampedScroll, 0.0, 200.0],
-    <dynamic>['Bouncing', bouncing, clampedBouncing, 0.0, 220.0],
+    <dynamic>['Gravity',         gravity,          clampedGravity,
+              -50.0, 60.0],
+    <dynamic>['Friction',        friction,         clampedFriction,
+              0.0,   120.0],
+    <dynamic>['ScrollSpring',    scrollSimulation, clampedScroll,
+              0.0,   200.0],
+    <dynamic>['Bouncing',        bouncing,         clampedBouncing,
+              0.0,   220.0],
   ];
   // Common bar scale: a logical 220px wide region per column.
   const double barColWidth = 220.0;
@@ -966,15 +962,11 @@ dynamic build(BuildContext context) {
       // Centred bar: zero is the midline.
       final double centerOffset = barColWidth / 2.0;
       final double rawBarWidth =
-          (rawX.abs() / globalXSpan * (barColWidth / 2.0)).clamp(
-            0.0,
-            barColWidth / 2.0 - 1.0,
-          );
+          (rawX.abs() / globalXSpan * (barColWidth / 2.0))
+              .clamp(0.0, barColWidth / 2.0 - 1.0);
       final double clampedBarWidth =
-          (clampedX.abs() / globalXSpan * (barColWidth / 2.0)).clamp(
-            0.0,
-            barColWidth / 2.0 - 1.0,
-          );
+          (clampedX.abs() / globalXSpan * (barColWidth / 2.0))
+              .clamp(0.0, barColWidth / 2.0 - 1.0);
       final bool aboveMaxRaw = rawX > xMax;
       final bool belowMinRaw = rawX < xMin;
       final bool clipped = aboveMaxRaw || belowMinRaw;
@@ -1034,7 +1026,9 @@ dynamic build(BuildContext context) {
                       width: rawBarWidth,
                       height: 12.0,
                       child: Container(
-                        color: clipped ? brass.withValues(alpha: 0.5) : brass,
+                        color: clipped
+                            ? brass.withValues(alpha: 0.5)
+                            : brass,
                       ),
                     ),
                     if (clipped)
@@ -1071,8 +1065,7 @@ dynamic build(BuildContext context) {
                     ),
                     // band rails
                     Positioned(
-                      left:
-                          centerOffset +
+                      left: centerOffset +
                           (xMin / globalXSpan * (barColWidth / 2.0)),
                       top: 0.0,
                       bottom: 0.0,
@@ -1080,8 +1073,7 @@ dynamic build(BuildContext context) {
                       child: Container(color: verdigris),
                     ),
                     Positioned(
-                      left:
-                          centerOffset +
+                      left: centerOffset +
                           (xMax / globalXSpan * (barColWidth / 2.0)),
                       top: 0.0,
                       bottom: 0.0,
@@ -1164,36 +1156,9 @@ dynamic build(BuildContext context) {
   // raw curve: an asymmetric mound that runs from low, rises to peak ~0.95,
   // and falls back into the lower rail.
   final List<double> rawCurve = <double>[
-    0.05,
-    0.07,
-    0.12,
-    0.18,
-    0.26,
-    0.36,
-    0.46,
-    0.56,
-    0.66,
-    0.74,
-    0.82,
-    0.88,
-    0.92,
-    0.95,
-    0.96,
-    0.95,
-    0.92,
-    0.88,
-    0.82,
-    0.74,
-    0.66,
-    0.58,
-    0.50,
-    0.43,
-    0.36,
-    0.30,
-    0.25,
-    0.20,
-    0.16,
-    0.12,
+    0.05, 0.07, 0.12, 0.18, 0.26, 0.36, 0.46, 0.56, 0.66, 0.74,
+    0.82, 0.88, 0.92, 0.95, 0.96, 0.95, 0.92, 0.88, 0.82, 0.74,
+    0.66, 0.58, 0.50, 0.43, 0.36, 0.30, 0.25, 0.20, 0.16, 0.12,
   ];
   // clamped curve: clamp(rawCurve, diagramRailMin, diagramRailMax).
   final List<double> clampedCurve = <double>[];
@@ -1223,14 +1188,18 @@ dynamic build(BuildContext context) {
           child: Stack(
             children: <Widget>[
               // Background panel
-              Positioned.fill(child: Container(color: parchmentDeep)),
+              Positioned.fill(
+                child: Container(color: parchmentDeep),
+              ),
               // Band fill between rails
               Positioned(
                 left: 0.0,
                 right: 0.0,
                 top: diagramHeight * (1.0 - diagramRailMax),
                 height: diagramHeight * (diagramRailMax - diagramRailMin),
-                child: Container(color: verdigrisSoft.withValues(alpha: 0.35)),
+                child: Container(
+                  color: verdigrisSoft.withValues(alpha: 0.35),
+                ),
               ),
               // Upper rail line
               Positioned(
@@ -1312,18 +1281,18 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Container(width: 10.0, height: 10.0, color: brass),
             SizedBox(width: 6.0),
-            Text(
-              'raw (ghost)',
-              style: TextStyle(color: inkText, fontSize: 11.0),
-            ),
+            Text('raw (ghost)',
+                style: TextStyle(color: inkText, fontSize: 11.0)),
             SizedBox(width: 18.0),
             Container(width: 10.0, height: 10.0, color: copperGlow),
             SizedBox(width: 6.0),
-            Text('clamped', style: TextStyle(color: inkText, fontSize: 11.0)),
+            Text('clamped',
+                style: TextStyle(color: inkText, fontSize: 11.0)),
             SizedBox(width: 18.0),
             Container(width: 10.0, height: 10.0, color: verdigris),
             SizedBox(width: 6.0),
-            Text('rail', style: TextStyle(color: inkText, fontSize: 11.0)),
+            Text('rail',
+                style: TextStyle(color: inkText, fontSize: 11.0)),
           ],
         ),
       ],
@@ -1334,26 +1303,17 @@ dynamic build(BuildContext context) {
   // H. isDone propagation rule card
   // ============================================================
   final List<List<String>> isDoneCases = <List<String>>[
-    <String>[
-      'raw isDone(t) == false',
-      'clamped isDone(t) == false',
-      'No clamp affects done-ness; both report not-done.',
-    ],
-    <String>[
-      'raw isDone(t) == true (x past end-distance)',
-      'clamped isDone(t) == true',
-      'Even though x is pinned to xMax, isDone forwards through.',
-    ],
-    <String>[
-      'raw isDone(t) == true (velocity in tolerance)',
-      'clamped isDone(t) == true',
-      'Tolerance-driven done-ness is also forwarded unchanged.',
-    ],
-    <String>[
-      'raw never finishes (e.g. unbounded gravity)',
-      'clamped never finishes',
-      'Clamping x or dx does not by itself end the simulation.',
-    ],
+    <String>['raw isDone(t) == false', 'clamped isDone(t) == false',
+             'No clamp affects done-ness; both report not-done.'],
+    <String>['raw isDone(t) == true (x past end-distance)',
+             'clamped isDone(t) == true',
+             'Even though x is pinned to xMax, isDone forwards through.'],
+    <String>['raw isDone(t) == true (velocity in tolerance)',
+             'clamped isDone(t) == true',
+             'Tolerance-driven done-ness is also forwarded unchanged.'],
+    <String>['raw never finishes (e.g. unbounded gravity)',
+             'clamped never finishes',
+             'Clamping x or dx does not by itself end the simulation.'],
   ];
   final List<Widget> isDoneRows = <Widget>[];
   for (int i = 0; i < isDoneCases.length; i++) {
@@ -1363,7 +1323,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           color: i.isEven ? midnightSoft : midnight,
-          border: Border.all(color: copper.withValues(alpha: 0.5), width: 0.8),
+          border: Border.all(
+            color: copper.withValues(alpha: 0.5),
+            width: 0.8,
+          ),
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         child: Row(
@@ -1382,10 +1345,8 @@ dynamic build(BuildContext context) {
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                '->',
-                style: TextStyle(color: copperGlow, fontSize: 14.0),
-              ),
+              child: Text('->',
+                  style: TextStyle(color: copperGlow, fontSize: 14.0)),
             ),
             SizedBox(
               width: 240.0,
@@ -1497,15 +1458,18 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 'Snapshot from clampedScroll.tolerance:',
-                style: TextStyle(color: inkMuted, fontSize: 11.0),
+                style: TextStyle(
+                  color: inkMuted,
+                  fontSize: 11.0,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
                 toleranceSnapshot == null
                     ? '(unavailable)'
                     : 'distance=${toleranceSnapshot.distance}, '
-                          'velocity=${toleranceSnapshot.velocity}, '
-                          'time=${toleranceSnapshot.time}',
+                        'velocity=${toleranceSnapshot.velocity}, '
+                        'time=${toleranceSnapshot.time}',
                 style: TextStyle(
                   color: copper,
                   fontFamily: 'monospace',
@@ -1531,62 +1495,55 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           SizedBox(
             width: 130.0,
-            child: Text(
-              'sim',
-              style: TextStyle(color: goldText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('sim',
+                style: TextStyle(
+                    color: goldText, fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 60.0,
-            child: Text(
-              't',
-              style: TextStyle(color: goldText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('t',
+                style: TextStyle(
+                    color: goldText, fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 80.0,
-            child: Text(
-              'raw x',
-              style: TextStyle(color: goldText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('raw x',
+                style: TextStyle(
+                    color: goldText, fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 90.0,
-            child: Text(
-              'clamped x',
-              style: TextStyle(color: goldText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('clamped x',
+                style: TextStyle(
+                    color: goldText, fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 80.0,
-            child: Text(
-              'raw dx',
-              style: TextStyle(color: goldText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('raw dx',
+                style: TextStyle(
+                    color: goldText, fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 90.0,
-            child: Text(
-              'clamped dx',
-              style: TextStyle(color: goldText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('clamped dx',
+                style: TextStyle(
+                    color: goldText, fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 60.0,
-            child: Text(
-              'done',
-              style: TextStyle(color: goldText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('done',
+                style: TextStyle(
+                    color: goldText, fontWeight: FontWeight.w700)),
           ),
         ],
       ),
     ),
   );
   final List<List<dynamic>> samplePairs = <List<dynamic>>[
-    <dynamic>['Gravity', gravity, clampedGravity],
-    <dynamic>['Friction', friction, clampedFriction],
+    <dynamic>['Gravity',      gravity,         clampedGravity],
+    <dynamic>['Friction',     friction,        clampedFriction],
     <dynamic>['ScrollSpring', scrollSimulation, clampedScroll],
-    <dynamic>['Bouncing', bouncing, clampedBouncing],
+    <dynamic>['Bouncing',     bouncing,        clampedBouncing],
   ];
   int rowIdx = 0;
   for (int s = 0; s < samplePairs.length; s++) {
@@ -1687,7 +1644,8 @@ dynamic build(BuildContext context) {
                     color: done ? carmineWarn : goldMuted,
                     fontFamily: 'monospace',
                     fontSize: 11.0,
-                    fontWeight: done ? FontWeight.w700 : FontWeight.w400,
+                    fontWeight:
+                        done ? FontWeight.w700 : FontWeight.w400,
                   ),
                 ),
               ),
@@ -1822,7 +1780,11 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               pitfalls[i][1],
-              style: TextStyle(color: goldMuted, fontSize: 12.5, height: 1.4),
+              style: TextStyle(
+                color: goldMuted,
+                fontSize: 12.5,
+                height: 1.4,
+              ),
             ),
           ],
         ),
@@ -1861,8 +1823,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   // L. Decision flowchart
   // ============================================================
-  const String flowchart =
-      ''
+  const String flowchart = ''
       'Q1. Do you control the inner Simulation\'s construction?\n'
       '     YES -> can you pass the limit directly into the inner sim?\n'
       '            YES -> do that. ClampedSimulation is unnecessary.\n'
@@ -1926,8 +1887,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   // M. Code snippets
   // ============================================================
-  const String snippet1 =
-      ''
+  const String snippet1 = ''
       '// Simplest case: clamp position only.\n'
       'final inner = GravitySimulation(10.0, 0.0, 400.0, 0.0);\n'
       'final clamped = ClampedSimulation(\n'
@@ -1937,8 +1897,7 @@ dynamic build(BuildContext context) {
       ');\n'
       '// clamped.x(t) is in [0, 200] for every t.\n'
       '';
-  const String snippet2 =
-      ''
+  const String snippet2 = ''
       '// Clamp position AND velocity.\n'
       'final wrapped = ClampedSimulation(\n'
       '  FrictionSimulation(0.135, 20.0, 180.0),\n'
@@ -1948,8 +1907,7 @@ dynamic build(BuildContext context) {
       '  dxMax: 200.0,\n'
       ');\n'
       '';
-  const String snippet3 =
-      ''
+  const String snippet3 = ''
       '// Use with AnimationController.animateWith — the controller treats\n'
       '// ClampedSimulation just like any other Simulation.\n'
       'controller.animateWith(ClampedSimulation(\n'
@@ -1961,8 +1919,7 @@ dynamic build(BuildContext context) {
       '  xMax: 200.0,\n'
       '));\n'
       '';
-  const String snippet4 =
-      ''
+  const String snippet4 = ''
       '// Defensive snapshot probe — script-friendly, returns 0 on error.\n'
       'double safeClampedX(ClampedSimulation s, double t) {\n'
       '  try {\n'
@@ -1972,8 +1929,7 @@ dynamic build(BuildContext context) {
       '  }\n'
       '}\n'
       '';
-  const String snippet5 =
-      ''
+  const String snippet5 = ''
       '// Reading the rails back out for a debugger overlay.\n'
       'String railSummary(ClampedSimulation s) {\n'
       '  return \'x in [\${s.xMin}, \${s.xMax}], \'\n'
@@ -2002,7 +1958,8 @@ dynamic build(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 10.0, vertical: 6.0),
               color: midnightSoft,
               width: double.infinity,
               child: Text(
@@ -2106,23 +2063,20 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           SizedBox(
             width: 220.0,
-            child: Text(
-              'Approach',
-              style: TextStyle(color: inkText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('Approach',
+                style: TextStyle(
+                    color: inkText, fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 240.0,
-            child: Text(
-              'Behaviour',
-              style: TextStyle(color: inkText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('Behaviour',
+                style: TextStyle(
+                    color: inkText, fontWeight: FontWeight.w700)),
           ),
           Expanded(
-            child: Text(
-              'When to use',
-              style: TextStyle(color: inkText, fontWeight: FontWeight.w700),
-            ),
+            child: Text('When to use',
+                style: TextStyle(
+                    color: inkText, fontWeight: FontWeight.w700)),
           ),
         ],
       ),
@@ -2132,7 +2086,9 @@ dynamic build(BuildContext context) {
     comparisonChildren.add(
       Container(
         padding: EdgeInsets.all(8.0),
-        color: i.isEven ? parchment : parchmentDeep.withValues(alpha: 0.55),
+        color: i.isEven
+            ? parchment
+            : parchmentDeep.withValues(alpha: 0.55),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -2238,13 +2194,22 @@ dynamic build(BuildContext context) {
       'Tolerance',
       'distance/velocity/time epsilons used to decide isDone.',
     ],
-    <String>['clampDouble', 'Foundation helper: clamp(v, lo, hi) for doubles.'],
-    <String>['rail', 'Informal term for one of xMin/xMax/dxMin/dxMax.'],
+    <String>[
+      'clampDouble',
+      'Foundation helper: clamp(v, lo, hi) for doubles.',
+    ],
+    <String>[
+      'rail',
+      'Informal term for one of xMin/xMax/dxMin/dxMax.',
+    ],
     <String>[
       'band',
       'The region [xMin, xMax] (or [dxMin, dxMax]) the output is held in.',
     ],
-    <String>['pinning', 'A clamp event where x sits exactly on a rail.'],
+    <String>[
+      'pinning',
+      'A clamp event where x sits exactly on a rail.',
+    ],
   ];
   final List<Widget> glossaryRows = <Widget>[];
   for (int i = 0; i < glossary.length; i++) {
@@ -2342,7 +2307,11 @@ dynamic build(BuildContext context) {
           'need a guarantee, not a smoothing — pick it for hard rails, '
           'pick a saturating wrapper for soft rails, pick a custom '
           'Simulation when you need to recompute dx from clamped x.',
-          style: TextStyle(color: inkText, fontSize: 13.0, height: 1.45),
+          style: TextStyle(
+            color: inkText,
+            fontSize: 13.0,
+            height: 1.45,
+          ),
         ),
         SizedBox(height: 8.0),
         Text(

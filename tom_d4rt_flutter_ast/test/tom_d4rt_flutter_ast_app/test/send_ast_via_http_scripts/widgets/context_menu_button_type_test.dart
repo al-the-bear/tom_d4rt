@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.category,
       'title': 'Semantic Classification',
-      'body':
-          'ContextMenuButtonType is an enum that classifies '
+      'body': 'ContextMenuButtonType is an enum that classifies '
           'each ContextMenuButtonItem. It tells the framework '
           'what kind of action the button represents — cut, '
           'copy, paste, selectAll, delete, or custom. The type '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.label,
       'title': 'Label Resolution',
-      'body':
-          'For standard types (cut, copy, paste, etc.), '
+      'body': 'For standard types (cut, copy, paste, etc.), '
           'Flutter automatically provides platform-localized '
           'labels. You don\'t need to specify "Cut" or "Copier" — '
           'the type alone determines the correct string for '
@@ -40,8 +38,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.sort,
       'title': 'Ordering Control',
-      'body':
-          'The type determines where the item appears in the '
+      'body': 'The type determines where the item appears in the '
           'menu. Standard types follow a predictable order: '
           'Cut → Copy → Paste → Select All → Delete. Custom '
           'items are placed after all standard items.',
@@ -50,8 +47,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.add_circle,
       'title': 'Custom Extensibility',
-      'body':
-          'The "custom" type is the escape hatch for any '
+      'body': 'The "custom" type is the escape hatch for any '
           'app-specific action. Unlike standard types, custom '
           'items MUST provide an explicit label. This is how '
           'you add "Translate", "Share", "Define", or any '
@@ -75,8 +71,7 @@ dynamic build(BuildContext context) {
       'color': Colors.orange[800]!,
       'keyboard': 'Ctrl+X / Cmd+X',
       'defaultLabel': 'Cut (localized)',
-      'description':
-          'Represents a Cut operation that removes '
+      'description': 'Represents a Cut operation that removes '
           'selected content and places it on the clipboard. '
           'Only meaningful when content is selected and the '
           'field is editable.',
@@ -89,8 +84,7 @@ dynamic build(BuildContext context) {
       'color': Colors.red[700]!,
       'keyboard': 'Ctrl+C / Cmd+C',
       'defaultLabel': 'Copy (localized)',
-      'description':
-          'Represents a Copy operation that places '
+      'description': 'Represents a Copy operation that places '
           'selected content on the clipboard without removing '
           'it. Available whenever text is selected, regardless '
           'of whether the field is editable.',
@@ -103,8 +97,7 @@ dynamic build(BuildContext context) {
       'color': Colors.orange[700]!,
       'keyboard': 'Ctrl+V / Cmd+V',
       'defaultLabel': 'Paste (localized)',
-      'description':
-          'Represents a Paste operation that inserts '
+      'description': 'Represents a Paste operation that inserts '
           'clipboard content at the cursor position. Replaces '
           'selected text if any exists. Only available when the '
           'field is editable and clipboard has content.',
@@ -117,8 +110,7 @@ dynamic build(BuildContext context) {
       'color': Colors.red[600]!,
       'keyboard': 'Ctrl+A / Cmd+A',
       'defaultLabel': 'Select All (localized)',
-      'description':
-          'Represents selecting all content in the '
+      'description': 'Represents selecting all content in the '
           'field. Available when the field contains text that '
           'is not already fully selected. Some platforms hide '
           'this when all text is already selected.',
@@ -131,8 +123,7 @@ dynamic build(BuildContext context) {
       'color': Colors.orange[900]!,
       'keyboard': 'Del / Backspace',
       'defaultLabel': 'Delete (localized)',
-      'description':
-          'Represents removing selected content without '
+      'description': 'Represents removing selected content without '
           'copying to clipboard. Unlike Cut, the content is '
           'discarded. Less common in context menus; some '
           'platforms omit it entirely from the menu.',
@@ -145,8 +136,7 @@ dynamic build(BuildContext context) {
       'color': Colors.red[800]!,
       'keyboard': 'App-defined',
       'defaultLabel': 'MUST provide explicit label',
-      'description':
-          'Used for any app-specific action. There is '
+      'description': 'Used for any app-specific action. There is '
           'no default label — you must provide one. The type '
           'signals to the framework that this is not a standard '
           'text editing operation and should be placed after '
@@ -168,8 +158,7 @@ dynamic build(BuildContext context) {
       'label': 'Check explicit label',
       'icon': Icons.text_fields,
       'color': Colors.orange[800]!,
-      'detail':
-          'If the ContextMenuButtonItem has a non-null label '
+      'detail': 'If the ContextMenuButtonItem has a non-null label '
           'property, use it directly. This overrides any default. '
           'Custom types always use this path since they have no '
           'default label.',
@@ -179,8 +168,7 @@ dynamic build(BuildContext context) {
       'label': 'Look up type default',
       'icon': Icons.search,
       'color': Colors.red[700]!,
-      'detail':
-          'For standard types (cut, copy, etc.) with null '
+      'detail': 'For standard types (cut, copy, etc.) with null '
           'label, look up the default string. The default depends '
           'on the current locale and platform.',
     },
@@ -189,8 +177,7 @@ dynamic build(BuildContext context) {
       'label': 'Apply localization',
       'icon': Icons.language,
       'color': Colors.orange[700]!,
-      'detail':
-          'The MaterialLocalizations (or CupertinoLocalizations) '
+      'detail': 'The MaterialLocalizations (or CupertinoLocalizations) '
           'provides the localized string. "Copy" in English becomes '
           '"Copier" in French, "Kopieren" in German, etc.',
     },
@@ -199,8 +186,7 @@ dynamic build(BuildContext context) {
       'label': 'Render in menu widget',
       'icon': Icons.widgets,
       'color': Colors.red[600]!,
-      'detail':
-          'The context menu builder receives the resolved label '
+      'detail': 'The context menu builder receives the resolved label '
           'and renders it as a Text widget inside the menu button. '
           'The builder can also add icons, spacing, or keyboard '
           'shortcut hints.',
@@ -219,14 +205,12 @@ dynamic build(BuildContext context) {
       'name': 'Remove Select All',
       'icon': Icons.filter_list,
       'color': Colors.orange[800]!,
-      'code':
-          'items.removeWhere(\n'
+      'code': 'items.removeWhere(\n'
           '  (i) => i.type ==\n'
           '    ContextMenuButtonType\n'
           '        .selectAll,\n'
           ')',
-      'description':
-          'Remove Select All from small input fields '
+      'description': 'Remove Select All from small input fields '
           'where selecting all text is trivially done by '
           'double-tapping. Keeps the context menu compact.',
     },
@@ -234,13 +218,11 @@ dynamic build(BuildContext context) {
       'name': 'Keep only Copy',
       'icon': Icons.content_copy,
       'color': Colors.red[700]!,
-      'code':
-          'items.retainWhere(\n'
+      'code': 'items.retainWhere(\n'
           '  (i) => i.type ==\n'
           '    ContextMenuButtonType.copy,\n'
           ')',
-      'description':
-          'For a read-only display where only copying '
+      'description': 'For a read-only display where only copying '
           'makes sense. Strips Cut, Paste, Select All, and Delete. '
           'Results in a single-item context menu.',
     },
@@ -248,15 +230,13 @@ dynamic build(BuildContext context) {
       'name': 'Check if type exists',
       'icon': Icons.check,
       'color': Colors.orange[700]!,
-      'code':
-          'final hasPaste =\n'
+      'code': 'final hasPaste =\n'
           '  items.any(\n'
           '    (i) => i.type ==\n'
           '      ContextMenuButtonType\n'
           '          .paste,\n'
           '  );',
-      'description':
-          'Check before inserting to avoid duplicates. '
+      'description': 'Check before inserting to avoid duplicates. '
           'Useful when conditionally adding items based on what '
           'the default list already contains.',
     },
@@ -264,8 +244,7 @@ dynamic build(BuildContext context) {
       'name': 'Insert custom after Copy',
       'icon': Icons.add,
       'color': Colors.red[600]!,
-      'code':
-          'final idx = items\n'
+      'code': 'final idx = items\n'
           '  .indexWhere(\n'
           '    (i) => i.type ==\n'
           '      ContextMenuButtonType\n'
@@ -275,8 +254,7 @@ dynamic build(BuildContext context) {
           '  items.insert(\n'
           '    idx + 1, customItem);\n'
           '}',
-      'description':
-          'Insert a custom item immediately after Copy '
+      'description': 'Insert a custom item immediately after Copy '
           'for a natural flow: Copy → Share. Use indexWhere with '
           'the type to find the insertion point.',
     },
@@ -295,8 +273,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.text_fields,
       'color': Colors.orange[800]!,
       'items': 'Paste (if clipboard has content)',
-      'description':
-          'With no selection and editable, only Paste '
+      'description': 'With no selection and editable, only Paste '
           'is relevant. Cut and Copy need selection. Select All '
           'may appear if the field has text.',
     },
@@ -305,8 +282,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.text_fields,
       'color': Colors.red[700]!,
       'items': 'Cut, Copy, Paste, Select All',
-      'description':
-          'Full menu. All standard operations available. '
+      'description': 'Full menu. All standard operations available. '
           'The most common context menu scenario. Cut and Copy work '
           'on selection, Paste replaces selection.',
     },
@@ -315,8 +291,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.lock_outline,
       'color': Colors.orange[700]!,
       'items': 'Copy, Select All',
-      'description':
-          'No Cut or Paste since field is read-only. '
+      'description': 'No Cut or Paste since field is read-only. '
           'Copy works on the selection. Select All extends '
           'the selection to all content.',
     },
@@ -325,8 +300,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.select_all,
       'color': Colors.red[600]!,
       'items': 'Copy, Select All',
-      'description':
-          'SelectableText is inherently non-editable. '
+      'description': 'SelectableText is inherently non-editable. '
           'Only Copy and Select All make sense. Same as a '
           'read-only TextField.',
     },
@@ -335,8 +309,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.text_snippet,
       'color': Colors.orange[900]!,
       'items': 'Copy, Select All',
-      'description':
-          'SelectionArea spans multiple widgets. The '
+      'description': 'SelectionArea spans multiple widgets. The '
           'context menu provides Copy for the selected range '
           'and Select All for the entire selectable region.',
     },
@@ -355,8 +328,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.android,
       'color': Colors.orange[800]!,
       'order': 'Cut → Copy → Paste → Select All → [custom]',
-      'description':
-          'Android floating toolbar shows items left to '
+      'description': 'Android floating toolbar shows items left to '
           'right. Standard operations first, then custom items. '
           'Overflow items appear in a "More" section if the '
           'toolbar runs out of space.',
@@ -366,8 +338,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.phone_iphone,
       'color': Colors.red[700]!,
       'order': 'Cut → Copy → Paste → Select All → Look Up → [custom]',
-      'description':
-          'iOS bubble menu scrolls horizontally. Items '
+      'description': 'iOS bubble menu scrolls horizontally. Items '
           'appear in standard Apple order. System items (Look Up, '
           'Share) may be injected by the system between standard '
           'and custom items.',
@@ -377,8 +348,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.desktop_mac,
       'color': Colors.orange[700]!,
       'order': 'Cut → Copy → Paste → Select All → [custom]',
-      'description':
-          'macOS right-click menu is vertical. Each '
+      'description': 'macOS right-click menu is vertical. Each '
           'item shows the text label and keyboard shortcut. '
           'Custom items appear at the bottom separated by a '
           'visual divider.',
@@ -388,8 +358,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.desktop_windows,
       'color': Colors.red[600]!,
       'order': 'Cut → Copy → Paste → Delete → Select All → [custom]',
-      'description':
-          'Windows/Linux may include Delete between '
+      'description': 'Windows/Linux may include Delete between '
           'Paste and Select All. This follows the native context '
           'menu convention on these platforms. Custom items '
           'are appended at the end.',
@@ -463,8 +432,7 @@ dynamic build(BuildContext context) {
       'name': 'Messaging App: Forward',
       'icon': Icons.forward,
       'color': Colors.orange[800]!,
-      'description':
-          'Add a custom "Forward" button to message '
+      'description': 'Add a custom "Forward" button to message '
           'bubbles. When text is selected in a received message, '
           'the user can forward it to another chat. Uses '
           'ContextMenuButtonType.custom with label "Forward".',
@@ -473,8 +441,7 @@ dynamic build(BuildContext context) {
       'name': 'Note App: Format Text',
       'icon': Icons.format_bold,
       'color': Colors.red[700]!,
-      'description':
-          'Add "Bold", "Italic", "Highlight" custom '
+      'description': 'Add "Bold", "Italic", "Highlight" custom '
           'items. Each applies formatting to selected text. '
           'Multiple custom items can control the rich text '
           'editor directly from the context menu.',
@@ -483,8 +450,7 @@ dynamic build(BuildContext context) {
       'name': 'Browser: Open Link',
       'icon': Icons.open_in_new,
       'color': Colors.orange[700]!,
-      'description':
-          'Detect if selected text looks like a URL. '
+      'description': 'Detect if selected text looks like a URL. '
           'If so, add "Open Link" as a custom item. The '
           'onPressed callback launches the URL in the browser. '
           'Shows dynamic custom items based on content.',
@@ -493,8 +459,7 @@ dynamic build(BuildContext context) {
       'name': 'Code Editor: Comment Toggle',
       'icon': Icons.code,
       'color': Colors.red[600]!,
-      'description':
-          'Add "Toggle Comment" for selected code lines. '
+      'description': 'Add "Toggle Comment" for selected code lines. '
           'Also add "Indent" and "Unindent" custom items. '
           'IDE-style context menus that go beyond basic '
           'text editing operations.',
@@ -503,8 +468,7 @@ dynamic build(BuildContext context) {
       'name': 'Photo App: Copy Image',
       'icon': Icons.image,
       'color': Colors.orange[900]!,
-      'description':
-          'Override the default Copy behavior to copy '
+      'description': 'Override the default Copy behavior to copy '
           'the image to clipboard instead of text. Replace '
           'the standard copy item\'s onPressed with custom '
           'logic. Same type, different callback.',
@@ -522,8 +486,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Type Drives Default Label',
-      'body':
-          'Setting type to ContextMenuButtonType.copy means '
+      'body': 'Setting type to ContextMenuButtonType.copy means '
           'the button automatically gets the localized "Copy" '
           'label. You don\'t need to specify label unless you '
           'want to override it (e.g., "Copy Reference" instead '
@@ -533,8 +496,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Custom Type REQUIRES Label',
-      'body':
-          'If type is custom and label is null, the button '
+      'body': 'If type is custom and label is null, the button '
           'will have no visible text. Always provide an explicit '
           'label for custom items. This is the most common '
           'mistake when adding custom context menu actions.',
@@ -543,8 +505,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Filter by Type, Not by Label',
-      'body':
-          'When removing standard items, filter by type not '
+      'body': 'When removing standard items, filter by type not '
           'by label string. Labels are localized and change '
           'with locale. Types are constants. '
           'removeWhere((i) => i.type == ...type.paste) works '
@@ -554,8 +515,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Same Type, Different Callback',
-      'body':
-          'You can create an item with type copy but a custom '
+      'body': 'You can create an item with type copy but a custom '
           'onPressed. It still gets the "Copy" label and standard '
           'ordering, but does something different when tapped. '
           'Useful for intercepting standard actions.',
@@ -564,8 +524,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Don\'t Create Duplicate Types',
-      'body':
-          'Having two items with type copy is confusing — the '
+      'body': 'Having two items with type copy is confusing — the '
           'menu shows two "Copy" buttons. If you need multiple '
           'copy-like actions, make the second one custom with '
           'a distinct label like "Copy Link" or "Copy as HTML".',
@@ -574,8 +533,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Enum Values Are Exhaustive',
-      'body':
-          'Switch statements on ContextMenuButtonType should '
+      'body': 'Switch statements on ContextMenuButtonType should '
           'handle all six cases. Dart analyzer will warn about '
           'missing cases. Using custom as the default case is '
           'acceptable for extensibility.',
@@ -635,10 +593,7 @@ dynamic build(BuildContext context) {
                   'Determines default labels, localization, and '
                   'ordering within the menu.',
                   style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                    height: 1.5,
-                  ),
+                    color: Colors.white70, fontSize: 14, height: 1.5),
                 ),
               ],
             ),
@@ -649,452 +604,357 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _typHead('1', 'What is ContextMenuButtonType?'),
           SizedBox(height: 12),
-          ...conceptCards.map(
-            (card) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: card['accent'] as Color, width: 4),
+          ...conceptCards.map((card) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: card['accent'] as Color, width: 4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          card['icon'] as IconData,
-                          color: card['accent'] as Color,
-                          size: 22,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(card['icon'] as IconData,
+                            color: card['accent'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            card['title'] as String,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[900],
-                            ),
-                          ),
+                          child: Text(card['title'] as String,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[900])),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      card['body'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 10),
+                      Text(card['body'] as String,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[700],
+                              height: 1.5)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 2: Enum Values ──
           _typHead('2', 'All Six Values'),
           SizedBox(height: 12),
-          ...enumValues.map(
-            (ev) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: ev['color'] as Color, width: 5),
+          ...enumValues.map((ev) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: ev['color'] as Color, width: 5)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 2))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          ev['icon'] as IconData,
-                          color: ev['color'] as Color,
-                          size: 22,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(ev['icon'] as IconData,
+                            color: ev['color'] as Color, size: 22),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(
-                            ev['fullName'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'monospace',
-                              fontSize: 10,
-                              color: ev['color'] as Color,
-                            ),
-                          ),
+                          child: Text(ev['fullName'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'monospace',
+                                  fontSize: 10,
+                                  color: ev['color'] as Color)),
                         ),
-                        _typDot(ev['keyboard'] as String, Colors.grey[600]!),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      ev['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                    SizedBox(height: 6),
-                    Row(
-                      children: [
-                        _typDot(
-                          'Label: ${ev['defaultLabel']}',
-                          ev['color'] as Color,
-                        ),
+                        _typDot(ev['keyboard'] as String,
+                            Colors.grey[600]!),
+                      ]),
+                      SizedBox(height: 8),
+                      Text(ev['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                      SizedBox(height: 6),
+                      Row(children: [
+                        _typDot('Label: ${ev['defaultLabel']}',
+                            ev['color'] as Color),
                         SizedBox(width: 6),
-                        _typDot(
-                          ev['availability'] as String,
-                          Colors.grey[500]!,
-                        ),
-                      ],
-                    ),
-                  ],
+                        _typDot(ev['availability'] as String,
+                            Colors.grey[500]!),
+                      ]),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 3: Label Resolution ──
           _typHead('3', 'Label Resolution Pipeline'),
           SizedBox(height: 12),
-          ...labelPipeline.map(
-            (lp) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: lp['color'] as Color, width: 4),
+          ...labelPipeline.map((lp) => Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: lp['color'] as Color, width: 4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 26,
-                      height: 26,
-                      decoration: BoxDecoration(
-                        color: lp['color'] as Color,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${lp['step']}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                          ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 26,
+                        height: 26,
+                        decoration: BoxDecoration(
+                          color: lp['color'] as Color,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text('${lp['step']}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11)),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                lp['icon'] as IconData,
-                                color: lp['color'] as Color,
-                                size: 14,
-                              ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(children: [
+                              Icon(lp['icon'] as IconData,
+                                  color: lp['color'] as Color,
+                                  size: 14),
                               SizedBox(width: 4),
-                              Text(
-                                lp['label'] as String,
+                              Text(lp['label'] as String,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                            ]),
+                            SizedBox(height: 3),
+                            Text(lp['detail'] as String,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 3),
-                          Text(
-                            lp['detail'] as String,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
+                                    fontSize: 11,
+                                    color: Colors.grey[700],
+                                    height: 1.3)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 4: Filtering ──
           _typHead('4', 'Type-Based Filtering'),
           SizedBox(height: 12),
-          ...filterPatterns.map(
-            (fp) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: fp['color'] as Color, width: 4),
+          ...filterPatterns.map((fp) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: fp['color'] as Color, width: 4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          fp['icon'] as IconData,
-                          color: fp['color'] as Color,
-                          size: 18,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(fp['icon'] as IconData,
+                            color: fp['color'] as Color, size: 18),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            fp['name'] as String,
+                          child: Text(fp['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
+                        ),
+                      ]),
+                      SizedBox(height: 8),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[900],
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(fp['code'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(6),
+                                fontFamily: 'monospace',
+                                fontSize: 10,
+                                color: Colors.orange[300],
+                                height: 1.4)),
                       ),
-                      child: Text(
-                        fp['code'] as String,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 10,
-                          color: Colors.orange[300],
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      fp['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                      SizedBox(height: 6),
+                      Text(fp['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 5: Items by Widget ──
           _typHead('5', 'Default Items by Widget'),
           SizedBox(height: 12),
-          ...widgetItems.map(
-            (wi) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: wi['color'] as Color, width: 4),
+          ...widgetItems.map((wi) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: wi['color'] as Color, width: 4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          wi['icon'] as IconData,
-                          color: wi['color'] as Color,
-                          size: 16,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(wi['icon'] as IconData,
+                            color: wi['color'] as Color, size: 16),
                         SizedBox(width: 6),
                         Expanded(
-                          child: Text(
-                            wi['widget'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
+                          child: Text(wi['widget'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    _typDot(wi['items'] as String, wi['color'] as Color),
-                    SizedBox(height: 4),
-                    Text(
-                      wi['description'] as String,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 4),
+                      _typDot(wi['items'] as String,
+                          wi['color'] as Color),
+                      SizedBox(height: 4),
+                      Text(wi['description'] as String,
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
           // ── Section 6: Platform Ordering ──
           _typHead('6', 'Platform Ordering'),
           SizedBox(height: 12),
-          ...platformOrders.map(
-            (po) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(color: po['color'] as Color, width: 4),
+          ...platformOrders.map((po) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                          color: po['color'] as Color, width: 4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          po['icon'] as IconData,
-                          color: po['color'] as Color,
-                          size: 18,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(po['icon'] as IconData,
+                            color: po['color'] as Color, size: 18),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            po['platform'] as String,
+                          child: Text(po['platform'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
+                        ),
+                      ]),
+                      SizedBox(height: 4),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: (po['color'] as Color).withOpacity(0.08),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(po['order'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: (po['color'] as Color).withOpacity(0.08),
-                        borderRadius: BorderRadius.circular(4),
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                fontWeight: FontWeight.bold,
+                                color: po['color'] as Color)),
                       ),
-                      child: Text(
-                        po['order'] as String,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.bold,
-                          color: po['color'] as Color,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      po['description'] as String,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[700],
-                        height: 1.3,
-                      ),
-                    ),
-                  ],
+                      SizedBox(height: 4),
+                      Text(po['description'] as String,
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                              height: 1.3)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1108,10 +968,9 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2))
               ],
             ),
             child: SingleChildScrollView(
@@ -1120,7 +979,8 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 8, horizontal: 6),
                     decoration: BoxDecoration(
                       color: Colors.orange[800],
                       borderRadius: BorderRadius.only(
@@ -1131,36 +991,28 @@ dynamic build(BuildContext context) {
                     child: Row(
                       children: [
                         SizedBox(
-                          width: 80,
-                          child: Text(
-                            'Aspect',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9,
-                            ),
-                          ),
-                        ),
+                            width: 80,
+                            child: Text('Aspect',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 9))),
                         for (final h in [
                           'cut',
                           'copy',
                           'paste',
                           'selAll',
                           'del',
-                          'custom',
+                          'custom'
                         ])
                           SizedBox(
-                            width: 50,
-                            child: Text(
-                              h,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 8,
-                              ),
-                            ),
-                          ),
+                              width: 50,
+                              child: Text(h,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 8))),
                       ],
                     ),
                   ),
@@ -1168,39 +1020,33 @@ dynamic build(BuildContext context) {
                     final idx = entry.key;
                     final row = entry.value;
                     return Container(
-                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-                      color: idx.isEven ? Colors.grey[50] : Colors.white,
+                      padding: EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 6),
+                      color:
+                          idx.isEven ? Colors.grey[50] : Colors.white,
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 80,
-                            child: Text(
-                              row['aspect'] as String,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 9,
-                              ),
-                            ),
-                          ),
+                              width: 80,
+                              child: Text(row['aspect'] as String,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 9))),
                           for (final k in [
                             'cut',
                             'copy',
                             'paste',
                             'selAll',
                             'del',
-                            'custom',
+                            'custom'
                           ])
                             SizedBox(
-                              width: 50,
-                              child: Text(
-                                row[k] as String,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.grey[700],
-                                ),
-                              ),
-                            ),
+                                width: 50,
+                                child: Text(row[k] as String,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 8,
+                                        color: Colors.grey[700]))),
                         ],
                       ),
                     );
@@ -1215,62 +1061,48 @@ dynamic build(BuildContext context) {
           // ── Section 8: Real-World Patterns ──
           _typHead('8', 'Real-World Patterns'),
           SizedBox(height: 12),
-          ...realWorldPatterns.map(
-            (p) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(color: p['color'] as Color, width: 4),
+          ...realWorldPatterns.map((p) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border(
+                      left: BorderSide(
+                          color: p['color'] as Color, width: 4)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 3,
+                          offset: Offset(0, 1))
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          p['icon'] as IconData,
-                          color: p['color'] as Color,
-                          size: 20,
-                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Icon(p['icon'] as IconData,
+                            color: p['color'] as Color, size: 20),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            p['name'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: Text(p['name'] as String,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      p['description'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
+                      ]),
+                      SizedBox(height: 8),
+                      Text(p['description'] as String,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4)),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(height: 24),
 
@@ -1302,41 +1134,29 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                    left: BorderSide(color: borderColor, width: 4),
-                  ),
+                      left: BorderSide(color: borderColor, width: 4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          tip['icon'] as IconData,
-                          color: borderColor,
-                          size: 20,
-                        ),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            tip['title'] as String,
+                    Row(children: [
+                      Icon(tip['icon'] as IconData,
+                          color: borderColor, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(tip['title'] as String,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      tip['body'] as String,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[800],
-                        height: 1.4,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey[900])),
                       ),
-                    ),
+                    ]),
+                    SizedBox(height: 6),
+                    Text(tip['body'] as String,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[800],
+                            height: 1.4)),
                   ],
                 ),
               ),
@@ -1377,26 +1197,20 @@ Widget _typHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child: Text(number,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[900])),
       ),
     ],
   );
@@ -1412,13 +1226,10 @@ Widget _typDot(String text, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 9,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 9,
+            fontWeight: FontWeight.bold)),
   );
 }

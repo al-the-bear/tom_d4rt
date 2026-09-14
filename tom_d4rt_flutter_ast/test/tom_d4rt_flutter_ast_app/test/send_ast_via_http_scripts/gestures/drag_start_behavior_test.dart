@@ -237,8 +237,7 @@ dynamic build(BuildContext context) {
       'Feels "stuck to the finger" — zero perceived lag.',
       'Risks accidental drags from a tap that drifts a few px.',
     ],
-    snippet:
-        'GestureDetector(\n'
+    snippet: 'GestureDetector(\n'
         '  dragStartBehavior: DragStartBehavior.down,\n'
         '  onPanUpdate: (d) => print(d.delta),\n'
         ')',
@@ -260,8 +259,7 @@ dynamic build(BuildContext context) {
       'No accidental drag-while-tapping; cleaner discrimination.',
       'Drag may visibly "snap" to the finger after threshold cross.',
     ],
-    snippet:
-        'GestureDetector(\n'
+    snippet: 'GestureDetector(\n'
         '  dragStartBehavior: DragStartBehavior.start,\n'
         '  onPanUpdate: (d) => print(d.delta),\n'
         ')',
@@ -406,25 +404,33 @@ dynamic build(BuildContext context) {
         Row(
           children: [
             Expanded(
-              child: _timelineColumn('down', Colors.teal, const [
-                _TickSpec(0, 'DOWN', true),
-                _TickSpec(1, 'move +2px', false),
-                _TickSpec(2, 'move +6px', false),
-                _TickSpec(3, 'move +12px', false),
-                _TickSpec(4, 'move +18px', false),
-                _TickSpec(5, 'move +24px', false),
-              ]),
+              child: _timelineColumn(
+                'down',
+                Colors.teal,
+                const [
+                  _TickSpec(0, 'DOWN', true),
+                  _TickSpec(1, 'move +2px', false),
+                  _TickSpec(2, 'move +6px', false),
+                  _TickSpec(3, 'move +12px', false),
+                  _TickSpec(4, 'move +18px', false),
+                  _TickSpec(5, 'move +24px', false),
+                ],
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
-              child: _timelineColumn('start', Colors.amber.shade800, const [
-                _TickSpec(0, 'DOWN (silent)', false),
-                _TickSpec(1, 'move +2px', false),
-                _TickSpec(2, 'move +6px', false),
-                _TickSpec(3, 'move +12px', false),
-                _TickSpec(4, 'CROSS slop', true),
-                _TickSpec(5, 'move +24px', false),
-              ]),
+              child: _timelineColumn(
+                'start',
+                Colors.amber.shade800,
+                const [
+                  _TickSpec(0, 'DOWN (silent)', false),
+                  _TickSpec(1, 'move +2px', false),
+                  _TickSpec(2, 'move +6px', false),
+                  _TickSpec(3, 'move +12px', false),
+                  _TickSpec(4, 'CROSS slop', true),
+                  _TickSpec(5, 'move +24px', false),
+                ],
+              ),
             ),
           ],
         ),
@@ -574,43 +580,35 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         _pitfall(
           symptom: 'My item jumps the moment I touch it',
-          cause:
-              'down was used on a Draggable; the first delta includes '
+          cause: 'down was used on a Draggable; the first delta includes '
               'the finger\'s natural micro-jitter at contact time.',
-          fix:
-              'Switch to DragStartBehavior.start — the recogniser '
+          fix: 'Switch to DragStartBehavior.start — the recogniser '
               'discards pre-arena movement.',
         ),
         SizedBox(height: 10.0),
         _pitfall(
           symptom: 'Slider snaps weirdly far on tap',
-          cause:
-              'down was forced on a Slider; the initial delta is '
+          cause: 'down was forced on a Slider; the initial delta is '
               'computed from the finger\'s landing point, then immediately '
               'mapped to the track value.',
-          fix:
-              'Stick with the default DragStartBehavior.start so the '
+          fix: 'Stick with the default DragStartBehavior.start so the '
               'value tracks finger movement, not finger contact.',
         ),
         SizedBox(height: 10.0),
         _pitfall(
           symptom: 'List scrolls feel laggy after the first frame',
-          cause:
-              'start was used on a Scrollable; the first ~18px of '
+          cause: 'start was used on a Scrollable; the first ~18px of '
               'movement are silently absorbed.',
-          fix:
-              'Use DragStartBehavior.down for scrollables so the '
+          fix: 'Use DragStartBehavior.down for scrollables so the '
               'content moves in lockstep with the finger from frame 0.',
         ),
         SizedBox(height: 10.0),
         _pitfall(
           symptom: 'Tests using flutter_test\'s drag() seem off-by-slop',
-          cause:
-              'WidgetTester.drag uses kDragSlopDefault. If the widget '
+          cause: 'WidgetTester.drag uses kDragSlopDefault. If the widget '
               'under test mixes down with start, callbacks may double-fire '
               'or miss.',
-          fix:
-              'Pin dragStartBehavior explicitly in the widget under test '
+          fix: 'Pin dragStartBehavior explicitly in the widget under test '
               'and pass touchSlopX / touchSlopY arguments where needed.',
         ),
       ],
@@ -658,15 +656,30 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 14.0),
-        _matrixRow(['Dimension', 'down', 'start'], isHeader: true),
+        _matrixRow(
+          ['Dimension', 'down', 'start'],
+          isHeader: true,
+        ),
         _matrixRow(const [
           'Initial offset',
           'pointer-down position',
           'arena-win position',
         ]),
-        _matrixRow(const ['First callback', 'frame 0', 'after slop crossed']),
-        _matrixRow(const ['Pre-slop deltas', 'reported', 'discarded']),
-        _matrixRow(const ['Feel', 'sticky / immediate', 'crisp / discrete']),
+        _matrixRow(const [
+          'First callback',
+          'frame 0',
+          'after slop crossed',
+        ]),
+        _matrixRow(const [
+          'Pre-slop deltas',
+          'reported',
+          'discarded',
+        ]),
+        _matrixRow(const [
+          'Feel',
+          'sticky / immediate',
+          'crisp / discrete',
+        ]),
         _matrixRow(const [
           'Best for',
           'Scrollables, drawing',
@@ -863,7 +876,11 @@ Widget _heroChip(String label, Color bg, Color fg) {
     ),
     child: Text(
       label,
-      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: fg),
+      style: TextStyle(
+        fontSize: 12.0,
+        fontWeight: FontWeight.bold,
+        color: fg,
+      ),
     ),
   );
 }
@@ -1055,9 +1072,8 @@ Widget _valueCard({
                       fontFamily: 'monospace',
                       fontSize: 11.0,
                       color: Colors.black87,
-                      fontWeight: spec.fires
-                          ? FontWeight.bold
-                          : FontWeight.normal,
+                      fontWeight:
+                          spec.fires ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -1143,9 +1159,8 @@ Widget _timelineColumn(String title, Color accent, List<_TickSpec> ticks) {
                     style: TextStyle(
                       fontSize: 11.0,
                       color: Colors.black87,
-                      fontWeight: tick.fires
-                          ? FontWeight.bold
-                          : FontWeight.normal,
+                      fontWeight:
+                          tick.fires ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -1227,11 +1242,8 @@ Widget _pitfall({
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.red.shade700,
-              size: 18.0,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.red.shade700, size: 18.0),
             SizedBox(width: 8.0),
             Expanded(
               child: Text(

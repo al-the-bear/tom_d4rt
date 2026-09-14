@@ -137,7 +137,11 @@ Widget _pill(String text, Color bg, Color fg) {
     ),
     child: Text(
       text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        color: fg,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -266,7 +270,10 @@ Widget _sectionHeader(int n, String title, String subtitle) {
           ),
           child: Text(
             '$n',
-            style: const TextStyle(color: kCream, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: kCream,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -379,15 +386,11 @@ dynamic build(BuildContext context) {
     kind: PointerDeviceKind.touch,
     consecutiveTapCount: 1,
   );
-  print(
-    'anchor == anchorTwin (identity)   : '
-    '${identical(anchor, anchorTwin)}',
-  );
+  print('anchor == anchorTwin (identity)   : '
+      '${identical(anchor, anchorTwin)}');
   print('anchor == anchorTwin (== operator): ${anchor == anchorTwin}');
-  print(
-    'anchor.runtimeType == twin.runtime: '
-    '${anchor.runtimeType == anchorTwin.runtimeType}',
-  );
+  print('anchor.runtimeType == twin.runtime: '
+      '${anchor.runtimeType == anchorTwin.runtimeType}');
   print('Note: TapDragDownDetails does not override == — two instances');
   print('      with identical fields are still distinct Dart objects.');
 
@@ -577,9 +580,7 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------
   // SECTION 7 — Cheat-sheet log
   // -------------------------------------------------------------------
-  print(
-    '\n=== Section 7: Where TapAndDragGestureRecognizer earns its keep ===',
-  );
+  print('\n=== Section 7: Where TapAndDragGestureRecognizer earns its keep ===');
   print('  * Text editors  : drag-select word on count=2, paragraph=3');
   print('  * Map / images  : double-tap-and-drag to zoom-pan');
   print('  * Sliders       : double-tap to fine-tune, then drag');
@@ -617,7 +618,11 @@ dynamic build(BuildContext context) {
                 end: Alignment.bottomRight,
               ),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 12, offset: Offset(2, 6)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 12,
+                  offset: Offset(2, 6),
+                ),
               ],
             ),
             child: Row(
@@ -682,7 +687,11 @@ dynamic build(BuildContext context) {
                 radius: 1.2,
               ),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 8, offset: Offset(1, 3)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 8,
+                  offset: Offset(1, 3),
+                ),
               ],
             ),
             child: Column(
@@ -714,8 +723,14 @@ dynamic build(BuildContext context) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          _field('globalPosition', '${anchor.globalPosition}'),
-                          _field('localPosition', '${anchor.localPosition}'),
+                          _field(
+                            'globalPosition',
+                            '${anchor.globalPosition}',
+                          ),
+                          _field(
+                            'localPosition',
+                            '${anchor.localPosition}',
+                          ),
                           _field('kind', '${anchor.kind}'),
                           _field(
                             'consecutiveTapCount',
@@ -752,7 +767,10 @@ dynamic build(BuildContext context) {
                               'logging telemetry, or feeding into an '
                               'overlay positioned outside the receiving '
                               'box.',
-                              style: TextStyle(color: kSlate, fontSize: 11),
+                              style: TextStyle(
+                                color: kSlate,
+                                fontSize: 11,
+                              ),
                             ),
                           ],
                         ),
@@ -780,7 +798,10 @@ dynamic build(BuildContext context) {
                               'this when you compute selection ranges, '
                               'paint custom highlights, or animate the '
                               'finger crosshair.',
-                              style: TextStyle(color: kSlate, fontSize: 11),
+                              style: TextStyle(
+                                color: kSlate,
+                                fontSize: 11,
+                              ),
                             ),
                           ],
                         ),
@@ -813,7 +834,10 @@ dynamic build(BuildContext context) {
                               'Branch on this to gate features that only '
                               'make sense for a real input device (e.g. '
                               'right-click context menus on mouse).',
-                              style: TextStyle(color: kSlate, fontSize: 11),
+                              style: TextStyle(
+                                color: kSlate,
+                                fontSize: 11,
+                              ),
                             ),
                           ],
                         ),
@@ -840,7 +864,10 @@ dynamic build(BuildContext context) {
                               'fresh tap, 2 for a double-tap, 3 for a '
                               'triple-tap, etc. The recognizer maintains '
                               'this for you — no manual timer needed.',
-                              style: TextStyle(color: kSlate, fontSize: 11),
+                              style: TextStyle(
+                                color: kSlate,
+                                fontSize: 11,
+                              ),
                             ),
                           ],
                         ),
@@ -892,7 +919,11 @@ dynamic build(BuildContext context) {
                 end: Alignment.bottomRight,
               ),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 10, offset: Offset(2, 4)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 10,
+                  offset: Offset(2, 4),
+                ),
               ],
             ),
             child: Column(
@@ -917,11 +948,8 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    const Icon(
-                      Icons.arrow_forward,
-                      color: kCoralSoft,
-                      size: 28,
-                    ),
+                    const Icon(Icons.arrow_forward,
+                        color: kCoralSoft, size: 28),
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -938,11 +966,8 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    const Icon(
-                      Icons.arrow_forward,
-                      color: kCoralSoft,
-                      size: 28,
-                    ),
+                    const Icon(Icons.arrow_forward,
+                        color: kCoralSoft, size: 28),
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -959,11 +984,8 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    const Icon(
-                      Icons.arrow_forward,
-                      color: kCoralSoft,
-                      size: 28,
-                    ),
+                    const Icon(Icons.arrow_forward,
+                        color: kCoralSoft, size: 28),
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -980,11 +1002,8 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    const Icon(
-                      Icons.arrow_forward,
-                      color: kCoralSoft,
-                      size: 28,
-                    ),
+                    const Icon(Icons.arrow_forward,
+                        color: kCoralSoft, size: 28),
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -1151,7 +1170,11 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: kSlate, width: 1),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 6, offset: Offset(1, 2)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 6,
+                  offset: Offset(1, 2),
+                ),
               ],
               gradient: const LinearGradient(
                 colors: [kCream, kCreamDeep],
@@ -1174,7 +1197,8 @@ dynamic build(BuildContext context) {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             _field('kind', '${kindTouch.kind}'),
-                            _field('count', '${kindTouch.consecutiveTapCount}'),
+                            _field('count',
+                                '${kindTouch.consecutiveTapCount}'),
                             _pill('finger contact', kSage, kCream),
                           ],
                         ),
@@ -1189,7 +1213,8 @@ dynamic build(BuildContext context) {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             _field('kind', '${kindMouse.kind}'),
-                            _field('count', '${kindMouse.consecutiveTapCount}'),
+                            _field('count',
+                                '${kindMouse.consecutiveTapCount}'),
                             _pill('mouse pointer', kCobalt, kCream),
                           ],
                         ),
@@ -1208,10 +1233,8 @@ dynamic build(BuildContext context) {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             _field('kind', '${kindStylus.kind}'),
-                            _field(
-                              'count',
-                              '${kindStylus.consecutiveTapCount}',
-                            ),
+                            _field('count',
+                                '${kindStylus.consecutiveTapCount}'),
                             _pill('pen tip', kAmber, kSlate),
                           ],
                         ),
@@ -1226,10 +1249,8 @@ dynamic build(BuildContext context) {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             _field('kind', '${kindInverted.kind}'),
-                            _field(
-                              'count',
-                              '${kindInverted.consecutiveTapCount}',
-                            ),
+                            _field('count',
+                                '${kindInverted.consecutiveTapCount}'),
                             _pill('eraser end', kSlate, kCream),
                           ],
                         ),
@@ -1248,10 +1269,8 @@ dynamic build(BuildContext context) {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             _field('kind', '${kindTrackpad.kind}'),
-                            _field(
-                              'count',
-                              '${kindTrackpad.consecutiveTapCount}',
-                            ),
+                            _field('count',
+                                '${kindTrackpad.consecutiveTapCount}'),
                             _pill('multi-touch surface', kTeal, kCream),
                           ],
                         ),
@@ -1267,7 +1286,8 @@ dynamic build(BuildContext context) {
                           children: [
                             _field('kindUnknown', '${kindUnknown.kind}'),
                             _field('kindNull', '${kindNull.kind}'),
-                            _pill('kind is nullable', kSlateLight, kCream),
+                            _pill(
+                                'kind is nullable', kSlateLight, kCream),
                           ],
                         ),
                       ),
@@ -1293,7 +1313,11 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: kSlate, width: 1),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 6, offset: Offset(1, 3)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 6,
+                  offset: Offset(1, 3),
+                ),
               ],
               gradient: const LinearGradient(
                 colors: [kCreamDeep, kCream],
@@ -1405,7 +1429,8 @@ dynamic build(BuildContext context) {
                         decoration: const BoxDecoration(color: kCreamDeep),
                         child: const Text(
                           'YES',
-                          style: TextStyle(fontSize: 11, color: kSage),
+                          style:
+                              TextStyle(fontSize: 11, color: kSage),
                         ),
                       ),
                     ),
@@ -1416,7 +1441,8 @@ dynamic build(BuildContext context) {
                         decoration: const BoxDecoration(color: kCreamDeep),
                         child: const Text(
                           'YES (req.)',
-                          style: TextStyle(fontSize: 11, color: kSage),
+                          style:
+                              TextStyle(fontSize: 11, color: kSage),
                         ),
                       ),
                     ),
@@ -1469,7 +1495,8 @@ dynamic build(BuildContext context) {
                         decoration: const BoxDecoration(color: kCream),
                         child: const Text(
                           'YES',
-                          style: TextStyle(fontSize: 11, color: kSage),
+                          style:
+                              TextStyle(fontSize: 11, color: kSage),
                         ),
                       ),
                     ),
@@ -1480,7 +1507,8 @@ dynamic build(BuildContext context) {
                         decoration: const BoxDecoration(color: kCream),
                         child: const Text(
                           'YES (null-able)',
-                          style: TextStyle(fontSize: 11, color: kAmber),
+                          style:
+                              TextStyle(fontSize: 11, color: kAmber),
                         ),
                       ),
                     ),
@@ -1533,7 +1561,8 @@ dynamic build(BuildContext context) {
                         decoration: const BoxDecoration(color: kCreamDeep),
                         child: const Text(
                           'YES',
-                          style: TextStyle(fontSize: 11, color: kSage),
+                          style:
+                              TextStyle(fontSize: 11, color: kSage),
                         ),
                       ),
                     ),
@@ -1593,7 +1622,8 @@ dynamic build(BuildContext context) {
                         decoration: const BoxDecoration(color: kCream),
                         child: const Text(
                           'YES',
-                          style: TextStyle(fontSize: 11, color: kSage),
+                          style:
+                              TextStyle(fontSize: 11, color: kSage),
                         ),
                       ),
                     ),
@@ -1604,7 +1634,8 @@ dynamic build(BuildContext context) {
                         decoration: const BoxDecoration(color: kCream),
                         child: const Text(
                           'YES (req.)',
-                          style: TextStyle(fontSize: 11, color: kSage),
+                          style:
+                              TextStyle(fontSize: 11, color: kSage),
                         ),
                       ),
                     ),
@@ -1654,7 +1685,11 @@ dynamic build(BuildContext context) {
                 end: Alignment.bottomRight,
               ),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 8, offset: Offset(1, 4)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 8,
+                  offset: Offset(1, 4),
+                ),
               ],
             ),
             child: Stack(
@@ -1681,8 +1716,10 @@ dynamic build(BuildContext context) {
                                   fontSize: 12,
                                 ),
                               ),
-                              _field('global', '${lifeT1Down.globalPosition}'),
-                              _field('local', '${lifeT1Down.localPosition}'),
+                              _field('global',
+                                  '${lifeT1Down.globalPosition}'),
+                              _field('local',
+                                  '${lifeT1Down.localPosition}'),
                             ],
                           ),
                         ),
@@ -1690,11 +1727,8 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8),
                     _wire(),
-                    _arrow(
-                      '↓ within kDoubleTapTimeout (~300 ms)',
-                      kAmber,
-                      kSlate,
-                    ),
+                    _arrow('↓ within kDoubleTapTimeout (~300 ms)',
+                        kAmber, kSlate),
                     _wire(),
                     Row(
                       children: [
@@ -1714,8 +1748,10 @@ dynamic build(BuildContext context) {
                                   fontSize: 12,
                                 ),
                               ),
-                              _field('global', '${lifeT2Down.globalPosition}'),
-                              _field('local', '${lifeT2Down.localPosition}'),
+                              _field('global',
+                                  '${lifeT2Down.globalPosition}'),
+                              _field('local',
+                                  '${lifeT2Down.localPosition}'),
                             ],
                           ),
                         ),
@@ -1723,7 +1759,8 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8),
                     _wire(),
-                    _arrow('↓ within kDoubleTapSlop (~18 px)', kAmber, kSlate),
+                    _arrow('↓ within kDoubleTapSlop (~18 px)',
+                        kAmber, kSlate),
                     _wire(),
                     Row(
                       children: [
@@ -1743,8 +1780,10 @@ dynamic build(BuildContext context) {
                                   fontSize: 12,
                                 ),
                               ),
-                              _field('global', '${lifeT3Down.globalPosition}'),
-                              _field('local', '${lifeT3Down.localPosition}'),
+                              _field('global',
+                                  '${lifeT3Down.globalPosition}'),
+                              _field('local',
+                                  '${lifeT3Down.localPosition}'),
                             ],
                           ),
                         ),
@@ -1752,11 +1791,8 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 10),
                     _wire(),
-                    _arrow(
-                      '↓ pointer moves > kPrecisePointerHitSlop',
-                      kCoral,
-                      kCream,
-                    ),
+                    _arrow('↓ pointer moves > kPrecisePointerHitSlop',
+                        kCoral, kCream),
                     _wire(),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
@@ -1777,7 +1813,10 @@ dynamic build(BuildContext context) {
                                 '— consecutiveTapCount carries over from '
                                 'the most-recent down. count=3 means a '
                                 'paragraph-drag in a text editor.',
-                                style: TextStyle(color: kCream, fontSize: 11),
+                                style: TextStyle(
+                                  color: kCream,
+                                  fontSize: 11,
+                                ),
                               ),
                             ),
                           ],
@@ -1799,7 +1838,10 @@ dynamic build(BuildContext context) {
                           'repeatedly as the pointer moves; the same '
                           'consecutiveTapCount stays attached so you '
                           'know what kind of drag this is.',
-                          style: TextStyle(color: kCream, fontSize: 11),
+                          style: TextStyle(
+                            color: kCream,
+                            fontSize: 11,
+                          ),
                         ),
                       ),
                     ),
@@ -1818,7 +1860,10 @@ dynamic build(BuildContext context) {
                           'released. If the user never moved past the '
                           'slop, you get onTapUp(TapDragUpDetails) '
                           'instead.',
-                          style: TextStyle(color: kCream, fontSize: 11),
+                          style: TextStyle(
+                            color: kCream,
+                            fontSize: 11,
+                          ),
                         ),
                       ),
                     ),
@@ -1862,7 +1907,11 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: kCobaltDeep, width: 2),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 6, offset: Offset(1, 3)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 6,
+                  offset: Offset(1, 3),
+                ),
               ],
               gradient: const RadialGradient(
                 colors: [kCream, kCreamDeep],
@@ -1884,18 +1933,19 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 6),
                 _arrow('PointerDownEvent', kCobaltSoft, kCream),
-                _arrow('GestureBinding.handlePointerEvent', kCobalt, kCream),
+                _arrow(
+                    'GestureBinding.handlePointerEvent', kCobalt, kCream),
                 _arrow('PointerRouter.route', kCobalt, kCream),
                 _arrow('GestureArenaManager.add()', kSlateSoft, kCream),
+                _arrow('TapAndDragGestureRecognizer.addPointer()',
+                    kCobaltDeep, kCream),
                 _arrow(
-                  'TapAndDragGestureRecognizer.addPointer()',
-                  kCobaltDeep,
-                  kCream,
-                ),
-                _arrow('recognizer wins arena ⟶ accept', kSage, kCream),
-                _arrow('★ onTapDown(TapDragDownDetails) ★', kCoral, kCream),
+                    'recognizer wins arena ⟶ accept', kSage, kCream),
+                _arrow('★ onTapDown(TapDragDownDetails) ★',
+                    kCoral, kCream),
                 _arrow('… pointer moves > slop …', kAmber, kSlate),
-                _arrow('onDragStart(TapDragStartDetails)', kCobalt, kCream),
+                _arrow(
+                    'onDragStart(TapDragStartDetails)', kCobalt, kCream),
                 _arrow('onDragUpdate(...) repeatedly', kTeal, kCream),
                 _arrow('onDragEnd(TapDragEndDetails)', kCoralDeep, kCream),
                 const SizedBox(height: 8),
@@ -1942,7 +1992,11 @@ dynamic build(BuildContext context) {
               ),
               border: Border.all(color: kCobaltDeep, width: 2),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 10, offset: Offset(2, 5)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 10,
+                  offset: Offset(2, 5),
+                ),
               ],
             ),
             child: Column(
@@ -1970,22 +2024,19 @@ dynamic build(BuildContext context) {
                 _field('globalPosition', '${anchor.globalPosition}'),
                 _field('localPosition', '${anchor.localPosition}'),
                 _field('kind', '${anchor.kind}'),
-                _field('consecutiveTapCount', '${anchor.consecutiveTapCount}'),
+                _field('consecutiveTapCount',
+                    '${anchor.consecutiveTapCount}'),
                 _wire(),
                 Wrap(
                   children: [
-                    _pill('hashCode', kSlateSoft, kCream),
-                    _pill(
-                      '!= operator (default Object identity)',
-                      kSlateSoft,
-                      kCream,
-                    ),
-                    _pill(
-                      'toString → DiagnosticableTreeMixin',
-                      kSlateSoft,
-                      kCream,
-                    ),
-                    _pill('debugFillProperties (overridden)', kCobalt, kCream),
+                    _pill('hashCode',
+                        kSlateSoft, kCream),
+                    _pill('!= operator (default Object identity)',
+                        kSlateSoft, kCream),
+                    _pill('toString → DiagnosticableTreeMixin',
+                        kSlateSoft, kCream),
+                    _pill('debugFillProperties (overridden)',
+                        kCobalt, kCream),
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -2024,7 +2075,11 @@ dynamic build(BuildContext context) {
               ),
               border: Border.all(color: kSlate, width: 2),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 10, offset: Offset(2, 5)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 10,
+                  offset: Offset(2, 5),
+                ),
               ],
             ),
             child: Column(
@@ -2088,7 +2143,9 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: kSlate,
               borderRadius: BorderRadius.circular(8),
-              boxShadow: const [BoxShadow(color: kShadow, blurRadius: 4)],
+              boxShadow: const [
+                BoxShadow(color: kShadow, blurRadius: 4),
+              ],
             ),
             child: Row(
               children: [

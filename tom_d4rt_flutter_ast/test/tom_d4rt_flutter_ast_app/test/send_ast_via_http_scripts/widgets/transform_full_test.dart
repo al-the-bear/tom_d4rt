@@ -289,13 +289,11 @@ Widget checkerBackdrop({
     final List<Widget> cells = <Widget>[];
     for (int c = 0; c < cols; c = c + 1) {
       final bool even = ((r + c) % 2) == 0;
-      cells.add(
-        Container(
-          width: cellW,
-          height: cellH,
-          decoration: BoxDecoration(color: even ? a : b),
-        ),
-      );
+      cells.add(Container(
+        width: cellW,
+        height: cellH,
+        decoration: BoxDecoration(color: even ? a : b),
+      ));
     }
     rowsList.add(Row(mainAxisSize: MainAxisSize.min, children: cells));
   }
@@ -351,7 +349,10 @@ Widget visTile({
           child: Container(
             width: 10.0,
             height: 10.0,
-            decoration: BoxDecoration(color: kIvory, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: kIvory,
+              shape: BoxShape.circle,
+            ),
           ),
         ),
         Positioned(
@@ -409,7 +410,9 @@ Widget sectionCard({
           children: [
             pill(number, tag),
             SizedBox(width: 12.0),
-            Expanded(child: Text(title, style: headingStyle())),
+            Expanded(
+              child: Text(title, style: headingStyle()),
+            ),
           ],
         ),
         SizedBox(height: 6.0),
@@ -460,14 +463,12 @@ dynamic build(BuildContext context) {
                   boxShadow: [softMustardShadow()],
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'T',
-                  style: TextStyle(
-                    fontSize: 26.0,
-                    fontWeight: FontWeight.w900,
-                    color: kPlumDeep,
-                  ),
-                ),
+                child: Text('T',
+                    style: TextStyle(
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.w900,
+                      color: kPlumDeep,
+                    )),
               ),
             ),
             SizedBox(width: 10.0),
@@ -482,14 +483,12 @@ dynamic build(BuildContext context) {
                   boxShadow: [tightShadow()],
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'R',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.w900,
-                    color: kIvory,
-                  ),
-                ),
+                child: Text('R',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w900,
+                      color: kIvory,
+                    )),
               ),
             ),
             SizedBox(width: 10.0),
@@ -505,14 +504,12 @@ dynamic build(BuildContext context) {
                   boxShadow: [tightShadow()],
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'S',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.w900,
-                    color: kIvory,
-                  ),
-                ),
+                child: Text('S',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w900,
+                      color: kIvory,
+                    )),
               ),
             ),
           ],
@@ -543,9 +540,7 @@ dynamic build(BuildContext context) {
             color: kIvory.withValues(alpha: 0.16),
             borderRadius: BorderRadius.circular(12.0),
             border: Border.all(
-              color: kPlumWash.withValues(alpha: 0.5),
-              width: 1.0,
-            ),
+                color: kPlumWash.withValues(alpha: 0.5), width: 1.0),
           ),
           child: Text(
             'Transform wraps a child with a 4x4 matrix. The widget never '
@@ -636,7 +631,10 @@ dynamic build(BuildContext context) {
           color: kPlumWash.withValues(alpha: 0.45),
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Column(mainAxisSize: MainAxisSize.min, children: matrixRows),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: matrixRows,
+        ),
       ),
       SizedBox(height: 12.0),
       Wrap(
@@ -661,8 +659,7 @@ dynamic build(BuildContext context) {
   final section2 = sectionCard(
     number: '02',
     title: 'Matrix4 anatomy',
-    subtitle:
-        'Sixteen doubles describing scale, rotation, translation '
+    subtitle: 'Sixteen doubles describing scale, rotation, translation '
         'and perspective.',
     tag: kPlumMid,
     body: anatomyBody,
@@ -706,49 +703,49 @@ dynamic build(BuildContext context) {
 
   final List<Widget> rotItems = <Widget>[];
   for (int i = 0; i < rotAngles.length; i = i + 1) {
-    rotItems.add(
-      Container(
-        width: 110.0,
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: kIvory,
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: kGridLineSoft, width: 1.0),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            checkerBackdrop(
-              width: 92.0,
-              height: 92.0,
-              child: Transform.rotate(
-                angle: rotAngles[i],
-                child: visTile(
-                  width: 56.0,
-                  height: 56.0,
-                  color: rotColors[i],
-                  label: rotLabels[i],
-                ),
+    rotItems.add(Container(
+      width: 110.0,
+      padding: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: kIvory,
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: kGridLineSoft, width: 1.0),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          checkerBackdrop(
+            width: 92.0,
+            height: 92.0,
+            child: Transform.rotate(
+              angle: rotAngles[i],
+              child: visTile(
+                width: 56.0,
+                height: 56.0,
+                color: rotColors[i],
+                label: rotLabels[i],
               ),
             ),
-            SizedBox(height: 6.0),
-            Text('angle: ${rotLabels[i]}', style: monoStyle()),
-            Text(
-              '${rotAngles[i].toStringAsFixed(3)} rad',
-              style: captionStyle(),
-            ),
-          ],
-        ),
+          ),
+          SizedBox(height: 6.0),
+          Text('angle: ${rotLabels[i]}', style: monoStyle()),
+          Text('${rotAngles[i].toStringAsFixed(3)} rad',
+              style: captionStyle()),
+        ],
       ),
-    );
+    ));
   }
 
   final rotationBody = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
     children: [
-      Wrap(spacing: 10.0, runSpacing: 10.0, children: rotItems),
+      Wrap(
+        spacing: 10.0,
+        runSpacing: 10.0,
+        children: rotItems,
+      ),
       SizedBox(height: 12.0),
       Container(
         padding: EdgeInsets.all(10.0),
@@ -965,24 +962,30 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 8.0),
-          codeChip(
-            'Offset(${off.dx.toStringAsFixed(0)}, '
-            '${off.dy.toStringAsFixed(0)})',
-          ),
+          codeChip('Offset(${off.dx.toStringAsFixed(0)}, '
+              '${off.dy.toStringAsFixed(0)})'),
         ],
       ),
     );
   }
 
   final List<Widget> translateCells = <Widget>[
-    translateCell(off: Offset(0.0, 0.0), color: kSlate, label: 'NO MOVE'),
-    translateCell(off: Offset(20.0, 0.0), color: kAccentTeal, label: 'EAST'),
-    translateCell(off: Offset(-20.0, 0.0), color: kAccentRose, label: 'WEST'),
-    translateCell(off: Offset(0.0, -20.0), color: kAccentOlive, label: 'NORTH'),
-    translateCell(off: Offset(0.0, 20.0), color: kPlumMid, label: 'SOUTH'),
-    translateCell(off: Offset(15.0, 15.0), color: kMustard, label: 'SE'),
-    translateCell(off: Offset(-15.0, 15.0), color: kAccentSky, label: 'SW'),
-    translateCell(off: Offset(-25.0, -25.0), color: kPlumDeep, label: 'NW'),
+    translateCell(
+        off: Offset(0.0, 0.0), color: kSlate, label: 'NO MOVE'),
+    translateCell(
+        off: Offset(20.0, 0.0), color: kAccentTeal, label: 'EAST'),
+    translateCell(
+        off: Offset(-20.0, 0.0), color: kAccentRose, label: 'WEST'),
+    translateCell(
+        off: Offset(0.0, -20.0), color: kAccentOlive, label: 'NORTH'),
+    translateCell(
+        off: Offset(0.0, 20.0), color: kPlumMid, label: 'SOUTH'),
+    translateCell(
+        off: Offset(15.0, 15.0), color: kMustard, label: 'SE'),
+    translateCell(
+        off: Offset(-15.0, 15.0), color: kAccentSky, label: 'SW'),
+    translateCell(
+        off: Offset(-25.0, -25.0), color: kPlumDeep, label: 'NW'),
   ];
 
   // A "before/after" composition: same tile, with and without translate.
@@ -1010,7 +1013,11 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(width: 18.0),
-        Container(width: 1.0, height: 130.0, color: kGridLine),
+        Container(
+          width: 1.0,
+          height: 130.0,
+          color: kGridLine,
+        ),
         SizedBox(width: 18.0),
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -1536,81 +1543,71 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 8.0),
-          codeChip(
-            'origin: Offset(${origin.dx.toStringAsFixed(0)}, '
-            '${origin.dy.toStringAsFixed(0)})',
-          ),
+          codeChip('origin: Offset(${origin.dx.toStringAsFixed(0)}, '
+              '${origin.dy.toStringAsFixed(0)})'),
         ],
       ),
     );
   }
 
   final List<Widget> alignmentCells = <Widget>[
-    alignCell(label: 'topLeft', alignment: Alignment.topLeft, color: kPlumDeep),
     alignCell(
-      label: 'topCenter',
-      alignment: Alignment.topCenter,
-      color: kPlumMid,
-    ),
+        label: 'topLeft', alignment: Alignment.topLeft, color: kPlumDeep),
     alignCell(
-      label: 'topRight',
-      alignment: Alignment.topRight,
-      color: kAccentRose,
-    ),
+        label: 'topCenter',
+        alignment: Alignment.topCenter,
+        color: kPlumMid),
     alignCell(
-      label: 'centerLeft',
-      alignment: Alignment.centerLeft,
-      color: kAccentTeal,
-    ),
-    alignCell(label: 'center', alignment: Alignment.center, color: kMustard),
+        label: 'topRight',
+        alignment: Alignment.topRight,
+        color: kAccentRose),
     alignCell(
-      label: 'centerRight',
-      alignment: Alignment.centerRight,
-      color: kAccentOlive,
-    ),
+        label: 'centerLeft',
+        alignment: Alignment.centerLeft,
+        color: kAccentTeal),
     alignCell(
-      label: 'bottomLeft',
-      alignment: Alignment.bottomLeft,
-      color: kAccentSky,
-    ),
+        label: 'center',
+        alignment: Alignment.center,
+        color: kMustard),
     alignCell(
-      label: 'bottomCenter',
-      alignment: Alignment.bottomCenter,
-      color: kPlumSoft,
-    ),
+        label: 'centerRight',
+        alignment: Alignment.centerRight,
+        color: kAccentOlive),
     alignCell(
-      label: 'bottomRight',
-      alignment: Alignment.bottomRight,
-      color: kPlumDeep,
-    ),
+        label: 'bottomLeft',
+        alignment: Alignment.bottomLeft,
+        color: kAccentSky),
+    alignCell(
+        label: 'bottomCenter',
+        alignment: Alignment.bottomCenter,
+        color: kPlumSoft),
+    alignCell(
+        label: 'bottomRight',
+        alignment: Alignment.bottomRight,
+        color: kPlumDeep),
   ];
 
   final List<Widget> originCells = <Widget>[
     originCell(
-      label: 'origin (0,0)',
-      origin: Offset(0.0, 0.0),
-      color: kPlumMid,
-    ),
+        label: 'origin (0,0)',
+        origin: Offset(0.0, 0.0),
+        color: kPlumMid),
     originCell(
-      label: 'origin (32,0)',
-      origin: Offset(32.0, 0.0),
-      color: kAccentRose,
-    ),
+        label: 'origin (32,0)',
+        origin: Offset(32.0, 0.0),
+        color: kAccentRose),
     originCell(
-      label: 'origin (0,32)',
-      origin: Offset(0.0, 32.0),
-      color: kAccentTeal,
-    ),
+        label: 'origin (0,32)',
+        origin: Offset(0.0, 32.0),
+        color: kAccentTeal),
     originCell(
-      label: 'origin (32,32)',
-      origin: Offset(32.0, 32.0),
-      color: kMustard,
-    ),
+        label: 'origin (32,32)',
+        origin: Offset(32.0, 32.0),
+        color: kMustard),
     originCell(
-      label: 'origin (-16,-16)',
-      origin: Offset(-16.0, -16.0),
-      color: kAccentOlive,
-    ),
+        label: 'origin (-16,-16)',
+        origin: Offset(-16.0, -16.0),
+        color: kAccentOlive),
   ];
 
   final originBody = Column(
@@ -1631,17 +1628,13 @@ dynamic build(BuildContext context) {
         ),
       ),
       SizedBox(height: 12.0),
-      Text(
-        'alignment ∈ Alignment.{top,center,bottom}{Left,Center,Right}',
-        style: monoStyle(size: 12.0, color: kPlumDeep),
-      ),
+      Text('alignment ∈ Alignment.{top,center,bottom}{Left,Center,Right}',
+          style: monoStyle(size: 12.0, color: kPlumDeep)),
       SizedBox(height: 8.0),
       Wrap(spacing: 10.0, runSpacing: 10.0, children: alignmentCells),
       SizedBox(height: 16.0),
-      Text(
-        'origin ∈ Offset(...) — measured from the child top-left',
-        style: monoStyle(size: 12.0, color: kPlumDeep),
-      ),
+      Text('origin ∈ Offset(...) — measured from the child top-left',
+          style: monoStyle(size: 12.0, color: kPlumDeep)),
       SizedBox(height: 8.0),
       Wrap(spacing: 10.0, runSpacing: 10.0, children: originCells),
       SizedBox(height: 12.0),
@@ -1657,10 +1650,8 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Combined: alignment.center + origin Offset(20, 0)',
-              style: monoStyle(size: 12.0),
-            ),
+            Text('Combined: alignment.center + origin Offset(20, 0)',
+                style: monoStyle(size: 12.0)),
             SizedBox(height: 8.0),
             Center(
               child: checkerBackdrop(
@@ -1735,31 +1726,16 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
     children: [
-      recapRow(
-        'Transform(transform: Matrix4)',
-        'Generic — accepts any 4x4 matrix.',
-        kPlumDeep,
-      ),
-      recapRow(
-        'Transform.rotate(angle: ...)',
-        'Single-axis Z rotation. Radians, not degrees.',
-        kAccentRose,
-      ),
-      recapRow(
-        'Transform.scale(scale | scaleX, scaleY)',
-        'Uniform or asymmetric scale around alignment.',
-        kAccentTeal,
-      ),
-      recapRow(
-        'Transform.translate(offset: ...)',
-        'Pure paint-only pixel shift.',
-        kAccentOlive,
-      ),
-      recapRow(
-        'Transform.flip(flipX, flipY)',
-        'Mirror across one or both axes.',
-        kAccentSky,
-      ),
+      recapRow('Transform(transform: Matrix4)',
+          'Generic — accepts any 4x4 matrix.', kPlumDeep),
+      recapRow('Transform.rotate(angle: ...)',
+          'Single-axis Z rotation. Radians, not degrees.', kAccentRose),
+      recapRow('Transform.scale(scale | scaleX, scaleY)',
+          'Uniform or asymmetric scale around alignment.', kAccentTeal),
+      recapRow('Transform.translate(offset: ...)',
+          'Pure paint-only pixel shift.', kAccentOlive),
+      recapRow('Transform.flip(flipX, flipY)',
+          'Mirror across one or both axes.', kAccentSky),
       SizedBox(height: 8.0),
       Container(
         padding: EdgeInsets.all(12.0),
@@ -1771,7 +1747,8 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('CHEAT SHEET', style: pillStyle(color: kIvory, size: 12.0)),
+            Text('CHEAT SHEET',
+                style: pillStyle(color: kIvory, size: 12.0)),
             SizedBox(height: 6.0),
             Text(
               '• Matrix4.identity() then mutate via cascade.\n'
@@ -1831,14 +1808,12 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(6.0),
             ),
             alignment: Alignment.center,
-            child: Text(
-              '✓',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.w900,
-                color: kPlumDeep,
-              ),
-            ),
+            child: Text('✓',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w900,
+                  color: kPlumDeep,
+                )),
           ),
         ),
         SizedBox(width: 12.0),

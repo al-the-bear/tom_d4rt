@@ -184,7 +184,11 @@ Widget _chip(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: color),
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+        color: color,
+      ),
     ),
   );
 }
@@ -519,11 +523,7 @@ class _LifecyclePainter extends CustomPainter {
       final color = isActive ? primary : accent.withAlpha(160);
       final radius = isActive ? 26.0 : 20.0;
 
-      canvas.drawCircle(
-        Offset(centerX, centerY),
-        radius,
-        Paint()..color = color,
-      );
+      canvas.drawCircle(Offset(centerX, centerY), radius, Paint()..color = color);
 
       final tp = TextPainter(
         text: TextSpan(
@@ -536,7 +536,10 @@ class _LifecyclePainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(canvas, Offset(centerX - tp.width / 2, centerY - tp.height / 2));
+      tp.paint(
+        canvas,
+        Offset(centerX - tp.width / 2, centerY - tp.height / 2),
+      );
 
       if (i < stages.length - 1) {
         final p = Paint()
@@ -575,10 +578,7 @@ class _HitStackPainter extends CustomPainter {
     );
     // Background flutter widgets
     final back = Paint()..color = color.withAlpha(90);
-    canvas.drawRect(
-      Rect.fromLTWH(8, size.height - 32, size.width - 16, 24),
-      back,
-    );
+    canvas.drawRect(Rect.fromLTWH(8, size.height - 32, size.width - 16, 24), back);
 
     // Platform view region
     final pv = Paint()..color = color.withAlpha(passThrough ? 80 : 200);
@@ -660,7 +660,10 @@ class _CompositingPainter extends CustomPainter {
     if (mode == 'hybrid') {
       // Native draws into Flutter surface (in-line)
       final native = Paint()..color = primary.withAlpha(120);
-      canvas.drawRect(Rect.fromLTWH(20, 40, size.width - 40, 36), native);
+      canvas.drawRect(
+        Rect.fromLTWH(20, 40, size.width - 40, 36),
+        native,
+      );
       _txt(
         canvas,
         'Native view rendered in-place',
@@ -682,10 +685,16 @@ class _CompositingPainter extends CustomPainter {
     } else {
       // Texture: native renders off-screen, sent as texture
       final tex = Paint()..color = accent.withAlpha(150);
-      canvas.drawRect(Rect.fromLTWH(20, 40, size.width - 40, 24), tex);
+      canvas.drawRect(
+        Rect.fromLTWH(20, 40, size.width - 40, 24),
+        tex,
+      );
       _txt(canvas, 'Texture (off-screen)', const Offset(28, 44), Colors.white);
       final draw = Paint()..color = primary.withAlpha(150);
-      canvas.drawRect(Rect.fromLTWH(20, 70, size.width - 40, 18), draw);
+      canvas.drawRect(
+        Rect.fromLTWH(20, 70, size.width - 40, 18),
+        draw,
+      );
       _txt(canvas, 'Composited by Flutter', const Offset(28, 72), Colors.white);
       _txt(
         canvas,
@@ -1141,10 +1150,8 @@ Widget _section5Gestures() {
                     _chip('VerticalDragGestureRecognizer', _kGesturePrimary),
                     _chip('ScaleGestureRecognizer', _kGesturePrimary),
                     _chip('LongPressGestureRecognizer', _kGesturePrimary),
-                    _chip(
-                      'EagerGestureRecognizer (always wins)',
-                      _kGestureAccent,
-                    ),
+                    _chip('EagerGestureRecognizer (always wins)',
+                        _kGestureAccent),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -1251,10 +1258,8 @@ Widget _section6PlatformGuarded() {
                 ),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.warning_amber_rounded,
-                      color: Colors.orange,
-                    ),
+                    const Icon(Icons.warning_amber_rounded,
+                        color: Colors.orange),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -1271,10 +1276,8 @@ Widget _section6PlatformGuarded() {
               SizedBox(
                 height: 200,
                 child: CustomPaint(
-                  painter: _HeroSurfacePainter(
-                    _kPlatformPrimary,
-                    _kPlatformAccent,
-                  ),
+                  painter:
+                      _HeroSurfacePainter(_kPlatformPrimary, _kPlatformAccent),
                   size: const Size(double.infinity, 200),
                 ),
               ),
@@ -1357,10 +1360,11 @@ Widget _section7Lifecycle() {
                         backgroundColor: _kLifecyclePrimary,
                         foregroundColor: Colors.white,
                       ),
-                      onPressed: () => setLocal(() {
-                        creates += 1;
-                        stage = 0;
-                      }),
+                      onPressed: () =>
+                          setLocal(() {
+                            creates += 1;
+                            stage = 0;
+                          }),
                       icon: const Icon(Icons.add),
                       label: Text('create() ($creates)'),
                     ),
@@ -1547,7 +1551,10 @@ Widget _section9Pitfalls() {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(body, style: const TextStyle(fontSize: 13, height: 1.45)),
+                Text(
+                  body,
+                  style: const TextStyle(fontSize: 13, height: 1.45),
+                ),
               ],
             ),
           ),
@@ -1576,41 +1583,41 @@ Widget _section9Pitfalls() {
             pitfall(
               'Null / disposed controller',
               'Passing a controller whose engine view was already '
-                  'disposed leaves the render box with nothing to display. '
-                  'Always recreate the controller when the surface widget is '
-                  'recreated, or use a key.',
+              'disposed leaves the render box with nothing to display. '
+              'Always recreate the controller when the surface widget is '
+              'recreated, or use a key.',
               Icons.power_off,
             ),
             pitfall(
               'Missing gestureRecognizers',
               'If the outer scrollable wraps the platform view and '
-                  'gestureRecognizers is empty, the native view will swallow '
-                  'all drags. Add at least a VerticalDragGestureRecognizer '
-                  'so the parent Scrollable can win.',
+              'gestureRecognizers is empty, the native view will swallow '
+              'all drags. Add at least a VerticalDragGestureRecognizer '
+              'so the parent Scrollable can win.',
               Icons.swipe,
             ),
             pitfall(
               'Hit-test layering',
               'Stacking a translucent overlay over an opaque platform '
-                  'view with the wrong hitTestBehavior on the OVERLAY can '
-                  'block ALL pointers. Pick translucent on the topmost '
-                  'widgets you want to pass through.',
+              'view with the wrong hitTestBehavior on the OVERLAY can '
+              'block ALL pointers. Pick translucent on the topmost '
+              'widgets you want to pass through.',
               Icons.layers_outlined,
             ),
             pitfall(
               'Resizing every frame',
               'A parent that animates the size of the platform view '
-                  'forces an engine resize each frame, which on Android '
-                  'can stutter for hybrid composition. Snap sizes to '
-                  'discrete steps if possible.',
+              'forces an engine resize each frame, which on Android '
+              'can stutter for hybrid composition. Snap sizes to '
+              'discrete steps if possible.',
               Icons.aspect_ratio,
             ),
             pitfall(
               'Forgetting platform guard',
               'Importing a plugin that uses AndroidView/UiKitView and '
-                  'building it on desktop/web will break or render '
-                  'nothing — always guard with '
-                  'Theme.of(context).platform == TargetPlatform.android/iOS.',
+              'building it on desktop/web will break or render '
+              'nothing — always guard with '
+              'Theme.of(context).platform == TargetPlatform.android/iOS.',
               Icons.shield,
             ),
           ],
@@ -1678,8 +1685,8 @@ Widget _section10Decision() {
             choice(
               'AndroidView',
               'You need any native Android View on Android only — Map, '
-                  'WebView, AdView, native camera preview. Most projects '
-                  'should start here.',
+              'WebView, AdView, native camera preview. Most projects '
+              'should start here.',
               Icons.android,
               _kDecisionPrimary,
             ),
@@ -1692,22 +1699,22 @@ Widget _section10Decision() {
             choice(
               'webview_flutter / google_maps_flutter',
               'You only want a WebView or Google Map. Use the official '
-                  'plugin — they wrap PlatformViewSurface for you.',
+              'plugin — they wrap PlatformViewSurface for you.',
               Icons.public,
               _kDecisionPrimary,
             ),
             choice(
               'Custom controller + PlatformViewSurface',
               'You are writing your own native plugin and need full '
-                  'control of creationParams, hit testing and gestures.',
+              'control of creationParams, hit testing and gestures.',
               Icons.build,
               _kDecisionAccent,
             ),
             choice(
               'NOT a platform view',
               'Pure-Flutter graphics, custom paint, video via Texture '
-                  'plugin only. Avoid the platform-view tax of compositing '
-                  'overhead and gesture arena complexity.',
+              'plugin only. Avoid the platform-view tax of compositing '
+              'overhead and gesture arena complexity.',
               Icons.block,
               _kPitfallPrimary,
             ),
@@ -1803,9 +1810,8 @@ Widget _section11ReferenceTable() {
                             .map(
                               (c) => DataCell(
                                 ConstrainedBox(
-                                  constraints: const BoxConstraints(
-                                    maxWidth: 320,
-                                  ),
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 320),
                                   child: Text(
                                     c,
                                     style: const TextStyle(
@@ -1840,8 +1846,7 @@ Widget _section12Footer() {
           children: [
             _sectionHero(
               title: 'References',
-              subtitle:
-                  'Primary Flutter SDK types relevant to '
+              subtitle: 'Primary Flutter SDK types relevant to '
                   'PlatformViewRenderBox.',
               icon: Icons.link,
               primary: _kFooterPrimary,
@@ -1915,11 +1920,9 @@ dynamic build(BuildContext context) {
   print('=== PlatformViewRenderBox Deep Demo ===');
   print('Subject: PlatformViewRenderBox (rendering library)');
   print('Constructor params: controller, hitTestBehavior, gestureRecognizers');
-  print(
-    'Sections: 12 (hero, architecture, ctor, hit-test, gestures, '
-    'platform-guard, lifecycle, compositing, pitfalls, decisions, '
-    'reference, footer)',
-  );
+  print('Sections: 12 (hero, architecture, ctor, hit-test, gestures, '
+      'platform-guard, lifecycle, compositing, pitfalls, decisions, '
+      'reference, footer)');
   print('Painters: 5 (hero, architecture, lifecycle, hitstack, compositing)');
 
   return MaterialApp(
@@ -1953,17 +1956,15 @@ dynamic build(BuildContext context) {
             children: [
               _section1HeroIntro(),
               const SizedBox(height: 20),
-              _sectionTitle(
-                'Architecture map',
-                Icons.account_tree,
-                _kArchPrimary,
-              ),
+              _sectionTitle('Architecture map', Icons.account_tree,
+                  _kArchPrimary),
               _section2Architecture(),
               const SizedBox(height: 20),
               _sectionTitle('Constructor', Icons.construction, _kCtorPrimary),
               _section3Constructor(),
               const SizedBox(height: 20),
-              _sectionTitle('Hit-test behavior', Icons.touch_app, _kHitPrimary),
+              _sectionTitle('Hit-test behavior', Icons.touch_app,
+                  _kHitPrimary),
               _section4HitTest(),
               const SizedBox(height: 20),
               _sectionTitle('Gestures', Icons.gesture, _kGesturePrimary),
@@ -1981,11 +1982,8 @@ dynamic build(BuildContext context) {
               _sectionTitle('Pitfalls', Icons.bug_report, _kPitfallPrimary),
               _section9Pitfalls(),
               const SizedBox(height: 20),
-              _sectionTitle(
-                'Decision',
-                Icons.compare_arrows,
-                _kDecisionPrimary,
-              ),
+              _sectionTitle('Decision', Icons.compare_arrows,
+                  _kDecisionPrimary),
               _section10Decision(),
               const SizedBox(height: 20),
               _sectionTitle('Reference', Icons.menu_book, _kReferencePrimary),

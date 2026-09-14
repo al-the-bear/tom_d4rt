@@ -17,12 +17,7 @@ class BrandTokens extends ThemeExtension<BrandTokens> {
   final Color shell;
 
   @override
-  BrandTokens copyWith({
-    Color? brand,
-    Color? brandOn,
-    Color? brandSoft,
-    Color? shell,
-  }) {
+  BrandTokens copyWith({Color? brand, Color? brandOn, Color? brandSoft, Color? shell}) {
     return BrandTokens(
       brand: brand ?? this.brand,
       brandOn: brandOn ?? this.brandOn,
@@ -60,12 +55,7 @@ class StatusTokens extends ThemeExtension<StatusTokens> {
   final Color info;
 
   @override
-  StatusTokens copyWith({
-    Color? success,
-    Color? warning,
-    Color? error,
-    Color? info,
-  }) {
+  StatusTokens copyWith({Color? success, Color? warning, Color? error, Color? info}) {
     return StatusTokens(
       success: success ?? this.success,
       warning: warning ?? this.warning,
@@ -103,12 +93,7 @@ class ScaleTokens extends ThemeExtension<ScaleTokens> {
   final double radius;
 
   @override
-  ScaleTokens copyWith({
-    double? compact,
-    double? comfortable,
-    double? expanded,
-    double? radius,
-  }) {
+  ScaleTokens copyWith({double? compact, double? comfortable, double? expanded, double? radius}) {
     return ScaleTokens(
       compact: compact ?? this.compact,
       comfortable: comfortable ?? this.comfortable,
@@ -318,45 +303,17 @@ const List<_Recipe> _recipes = [
 ];
 
 const List<_Scenario> _scenarios = [
-  _Scenario(
-    'ops',
-    'Ops Dashboard',
-    'Metric cards and status badges driven by custom extension tokens.',
-  ),
-  _Scenario(
-    'forms',
-    'Form Builder',
-    'Input and validation states themed through extension values.',
-  ),
-  _Scenario(
-    'catalog',
-    'Catalog Tiles',
-    'Tag-heavy tile layout influenced by badge and spacing tokens.',
-  ),
-  _Scenario(
-    'shell',
-    'App Shell',
-    'Navigation shell with extension-branded controls and rails.',
-  ),
+  _Scenario('ops', 'Ops Dashboard', 'Metric cards and status badges driven by custom extension tokens.'),
+  _Scenario('forms', 'Form Builder', 'Input and validation states themed through extension values.'),
+  _Scenario('catalog', 'Catalog Tiles', 'Tag-heavy tile layout influenced by badge and spacing tokens.'),
+  _Scenario('shell', 'App Shell', 'Navigation shell with extension-branded controls and rails.'),
 ];
 
 const List<_Faq> _faqs = [
-  _Faq(
-    'Why use ThemeExtension?',
-    'It adds typed custom tokens to ThemeData without overloading ColorScheme or ad-hoc constants.',
-  ),
-  _Faq(
-    'What methods are mandatory?',
-    'Implement copyWith and lerp so custom tokens can update and interpolate safely.',
-  ),
-  _Faq(
-    'Can multiple extensions coexist?',
-    'Yes. This demo uses BrandTokens, StatusTokens, ScaleTokens, and BadgeTokens together.',
-  ),
-  _Faq(
-    'How should interpolation be tested?',
-    'Blend two themes and inspect extension values plus widget behavior at several t checkpoints.',
-  ),
+  _Faq('Why use ThemeExtension?', 'It adds typed custom tokens to ThemeData without overloading ColorScheme or ad-hoc constants.'),
+  _Faq('What methods are mandatory?', 'Implement copyWith and lerp so custom tokens can update and interpolate safely.'),
+  _Faq('Can multiple extensions coexist?', 'Yes. This demo uses BrandTokens, StatusTokens, ScaleTokens, and BadgeTokens together.'),
+  _Faq('How should interpolation be tested?', 'Blend two themes and inspect extension values plus widget behavior at several t checkpoints.'),
 ];
 
 const List<String> _guide = [
@@ -410,16 +367,8 @@ dynamic build(BuildContext context) {
       final end = _recipes[endIndex];
       final scenario = _scenarios[scenarioIndex];
 
-      final beginTheme = _buildTheme(
-        begin,
-        denseMode: denseMode,
-        emphasisMode: emphasisMode,
-      );
-      final endTheme = _buildTheme(
-        end,
-        denseMode: denseMode,
-        emphasisMode: emphasisMode,
-      );
+      final beginTheme = _buildTheme(begin, denseMode: denseMode, emphasisMode: emphasisMode);
+      final endTheme = _buildTheme(end, denseMode: denseMode, emphasisMode: emphasisMode);
       final tween = ThemeDataTween(begin: beginTheme, end: endTheme);
       final current = tween.lerp(t);
 
@@ -429,15 +378,7 @@ dynamic build(BuildContext context) {
           color: current.colorScheme.surface,
           child: Column(
             children: [
-              _topHeader(
-                current,
-                begin,
-                end,
-                scenario,
-                t,
-                interactionCount,
-                tick,
-              ),
+              _topHeader(current, begin, end, scenario, t, interactionCount, tick),
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -515,18 +456,14 @@ dynamic build(BuildContext context) {
                         setState(() {
                           iconBadges = value;
                           tick += 1;
-                          addLog(
-                            'Badge icons ${value ? 'enabled' : 'disabled'}.',
-                          );
+                          addLog('Badge icons ${value ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onEmphasis: (value) {
                         setState(() {
                           emphasisMode = value;
                           tick += 1;
-                          addLog(
-                            'Emphasis mode ${value ? 'enabled' : 'disabled'}.',
-                          );
+                          addLog('Emphasis mode ${value ? 'enabled' : 'disabled'}.');
                         });
                       },
                       onScale: (value) {
@@ -549,19 +486,14 @@ dynamic build(BuildContext context) {
                           gradient: LinearGradient(
                             colors: [
                               current.colorScheme.surface,
-                              current.colorScheme.surfaceContainerHighest
-                                  .withAlpha(156),
+                              current.colorScheme.surfaceContainerHighest.withAlpha(156),
                               current.colorScheme.surface,
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
                           borderRadius: BorderRadius.circular(18),
-                          border: Border.all(
-                            color: current.colorScheme.outlineVariant.withAlpha(
-                              130,
-                            ),
-                          ),
+                          border: Border.all(color: current.colorScheme.outlineVariant.withAlpha(130)),
                         ),
                         child: AnimatedScale(
                           scale: cardScale,
@@ -602,29 +534,14 @@ dynamic build(BuildContext context) {
   );
 }
 
-ThemeData _buildTheme(
-  _Recipe recipe, {
-  required bool denseMode,
-  required bool emphasisMode,
-}) {
-  final scheme = ColorScheme.fromSeed(
-    seedColor: recipe.seed,
-    brightness: recipe.brightness,
-  );
-  final base = ThemeData(
-    useMaterial3: true,
-    colorScheme: scheme,
-    visualDensity: denseMode ? VisualDensity.compact : VisualDensity.standard,
-  );
+ThemeData _buildTheme(_Recipe recipe, {required bool denseMode, required bool emphasisMode}) {
+  final scheme = ColorScheme.fromSeed(seedColor: recipe.seed, brightness: recipe.brightness);
+  final base = ThemeData(useMaterial3: true, colorScheme: scheme, visualDensity: denseMode ? VisualDensity.compact : VisualDensity.standard);
 
   final textTheme = emphasisMode
       ? base.textTheme.copyWith(
-          titleLarge: base.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w800,
-          ),
-          titleMedium: base.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
+          titleLarge: base.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+          titleMedium: base.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
           bodyMedium: base.textTheme.bodyMedium?.copyWith(letterSpacing: 0.12),
         )
       : base.textTheme;
@@ -633,16 +550,12 @@ ThemeData _buildTheme(
     textTheme: textTheme,
     cardTheme: CardThemeData(
       elevation: denseMode ? 0.5 : 1.5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(recipe.scale.radius),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(recipe.scale.radius)),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: recipe.brand.brandSoft.withAlpha(170),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(recipe.scale.radius - 3),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(recipe.scale.radius - 3)),
       isDense: denseMode,
     ),
     extensions: <ThemeExtension<dynamic>>[
@@ -696,9 +609,7 @@ Widget _topHeader(
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(130),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
     ),
     child: Row(
       children: [
@@ -723,27 +634,14 @@ Widget _topHeader(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ThemeExtension Lab',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text('ThemeExtension Lab', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               SizedBox(height: 4),
               Text(
                 'begin: ${begin.title}  end: ${end.title}  t=${t.toStringAsFixed(2)}  interactions: $interactions',
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(180),
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180), fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 5),
-              Text(
-                scenario.description,
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(170),
-                ),
-              ),
+              Text(scenario.description, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(170))),
             ],
           ),
         ),
@@ -794,75 +692,26 @@ Widget _leftControls({
         end: Alignment.bottomCenter,
       ),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: theme.colorScheme.outlineVariant.withAlpha(130),
-      ),
+      border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
     ),
     child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Extension Controls',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text('Extension Controls', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
           SizedBox(height: 4),
-          Text(
-            'Blend recipes, inspect extension values, and test component impact.',
-          ),
+          Text('Blend recipes, inspect extension values, and test component impact.'),
           SizedBox(height: 10),
-          _dd(
-            'Begin Recipe',
-            beginIndex,
-            _recipes.map((e) => e.title).toList(),
-            onBegin,
-          ),
-          _dd(
-            'End Recipe',
-            endIndex,
-            _recipes.map((e) => e.title).toList(),
-            onEnd,
-          ),
-          _dd(
-            'Scenario',
-            scenarioIndex,
-            _scenarios.map((e) => e.title).toList(),
-            onScenario,
-          ),
+          _dd('Begin Recipe', beginIndex, _recipes.map((e) => e.title).toList(), onBegin),
+          _dd('End Recipe', endIndex, _recipes.map((e) => e.title).toList(), onEnd),
+          _dd('Scenario', scenarioIndex, _scenarios.map((e) => e.title).toList(), onScenario),
           _dd('Board', boardIndex, List.generate(5, _boardName), onBoard),
           _sl('Interpolation t', t, 0, 1, onT),
-          _sw(
-            'Auto-play',
-            'Animate extension interpolation continuously',
-            autoPlay,
-            onAutoPlay,
-          ),
-          _sw(
-            'Dense mode',
-            'Compact density for controls and cards',
-            denseMode,
-            onDense,
-          ),
-          _sw(
-            'Show diagnostics',
-            'Display extension token diagnostics panels',
-            showDiagnostics,
-            onDiagnostics,
-          ),
-          _sw(
-            'Icon badges',
-            'Render icons inside badge chips',
-            iconBadges,
-            onIconBadges,
-          ),
-          _sw(
-            'Typography emphasis',
-            'Strengthen hierarchy with heavier titles',
-            emphasisMode,
-            onEmphasis,
-          ),
+          _sw('Auto-play', 'Animate extension interpolation continuously', autoPlay, onAutoPlay),
+          _sw('Dense mode', 'Compact density for controls and cards', denseMode, onDense),
+          _sw('Show diagnostics', 'Display extension token diagnostics panels', showDiagnostics, onDiagnostics),
+          _sw('Icon badges', 'Render icons inside badge chips', iconBadges, onIconBadges),
+          _sw('Typography emphasis', 'Strengthen hierarchy with heavier titles', emphasisMode, onEmphasis),
           _sl('Content scale', cardScale, 0.9, 1.12, onScale),
           _sl('Interpolation speed', interpolationSpeed, 0.5, 2.0, onSpeed),
         ],
@@ -871,12 +720,7 @@ Widget _leftControls({
   );
 }
 
-Widget _dd(
-  String label,
-  int value,
-  List<String> options,
-  ValueChanged<int> onChanged,
-) {
+Widget _dd(String label, int value, List<String> options, ValueChanged<int> onChanged) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.fromLTRB(10, 8, 10, 10),
@@ -894,10 +738,7 @@ Widget _dd(
           initialValue: value,
           isDense: true,
           decoration: InputDecoration(border: OutlineInputBorder()),
-          items: [
-            for (var i = 0; i < options.length; i++)
-              DropdownMenuItem(value: i, child: Text(options[i])),
-          ],
+          items: [for (var i = 0; i < options.length; i++) DropdownMenuItem(value: i, child: Text(options[i]))],
           onChanged: (v) {
             if (v != null) {
               onChanged(v);
@@ -923,28 +764,17 @@ Widget _sw(String t, String s, bool v, ValueChanged<bool> onChanged) {
       children: [
         Row(
           children: [
-            Expanded(
-              child: Text(t, style: TextStyle(fontWeight: FontWeight.w700)),
-            ),
+            Expanded(child: Text(t, style: TextStyle(fontWeight: FontWeight.w700))),
             Switch(value: v, onChanged: onChanged),
           ],
         ),
-        Text(
-          s,
-          style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160)),
-        ),
+        Text(s, style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160))),
       ],
     ),
   );
 }
 
-Widget _sl(
-  String label,
-  double value,
-  double min,
-  double max,
-  ValueChanged<double> onChanged,
-) {
+Widget _sl(String label, double value, double min, double max, ValueChanged<double> onChanged) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -956,10 +786,7 @@ Widget _sl(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$label: ${value.toStringAsFixed(2)}',
-          style: TextStyle(fontWeight: FontWeight.w700),
-        ),
+        Text('$label: ${value.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.w700)),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ],
     ),
@@ -983,15 +810,7 @@ Widget _board({
 }) {
   switch (boardIndex) {
     case 0:
-      return _galleryBoard(
-        current,
-        beginTheme,
-        endTheme,
-        tween,
-        t,
-        showDiagnostics,
-        onAction,
-      );
+      return _galleryBoard(current, beginTheme, endTheme, tween, t, showDiagnostics, onAction);
     case 1:
       return _matrixBoard(current, beginTheme, endTheme, tween, t);
     case 2:
@@ -1018,12 +837,7 @@ Widget _galleryBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Extension Gallery',
-          'Visual snapshots at key interpolation checkpoints.',
-          't=${t.toStringAsFixed(2)}',
-        ),
+        _section(current, 'Extension Gallery', 'Visual snapshots at key interpolation checkpoints.', 't=${t.toStringAsFixed(2)}'),
         SizedBox(height: 10),
         Wrap(
           spacing: 10,
@@ -1039,23 +853,23 @@ Widget _galleryBoard(
         ),
         SizedBox(height: 10),
         if (showDiagnostics)
-          _diagnostics(current, 'Extension diagnostics', [
-            'brand: ${_hex(_brand(current).brand)}',
-            'brandSoft: ${_hex(_brand(current).brandSoft)}',
-            'status.success: ${_hex(_status(current).success)}',
-            'badge.bg: ${_hex(_badge(current).bg)}',
-            'scale.compact: ${_scale(current).compact.toStringAsFixed(1)}',
-          ]),
+          _diagnostics(
+            current,
+            'Extension diagnostics',
+            [
+              'brand: ${_hex(_brand(current).brand)}',
+              'brandSoft: ${_hex(_brand(current).brandSoft)}',
+              'status.success: ${_hex(_status(current).success)}',
+              'badge.bg: ${_hex(_badge(current).bg)}',
+              'scale.compact: ${_scale(current).compact.toStringAsFixed(1)}',
+            ],
+          ),
       ],
     ),
   );
 }
 
-Widget _galleryCard({
-  required ThemeData theme,
-  required String label,
-  required VoidCallback onAction,
-}) {
+Widget _galleryCard({required ThemeData theme, required String label, required VoidCallback onAction}) {
   return Theme(
     data: theme,
     child: Container(
@@ -1075,10 +889,7 @@ Widget _galleryCard({
             children: [
               FilledButton(onPressed: onAction, child: Text('Action')),
               SizedBox(width: 6),
-              Chip(
-                label: Text('Badge'),
-                side: BorderSide(color: _badge(theme).border),
-              ),
+              Chip(label: Text('Badge'), side: BorderSide(color: _badge(theme).border)),
             ],
           ),
           SizedBox(height: 8),
@@ -1098,24 +909,13 @@ Widget _galleryCard({
   );
 }
 
-Widget _matrixBoard(
-  ThemeData current,
-  ThemeData beginTheme,
-  ThemeData endTheme,
-  ThemeDataTween tween,
-  double t,
-) {
+Widget _matrixBoard(ThemeData current, ThemeData beginTheme, ThemeData endTheme, ThemeDataTween tween, double t) {
   return SingleChildScrollView(
     padding: EdgeInsets.fromLTRB(14, 12, 14, 14),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Lerp Matrix',
-          'Compare begin/end/current extension values.',
-          'matrix',
-        ),
+        _section(current, 'Lerp Matrix', 'Compare begin/end/current extension values.', 'matrix'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1123,56 +923,17 @@ Widget _matrixBoard(
           decoration: BoxDecoration(
             color: current.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             children: [
-              _rowColor(
-                'brand',
-                _brand(beginTheme).brand,
-                _brand(endTheme).brand,
-                _brand(current).brand,
-              ),
-              _rowColor(
-                'brandSoft',
-                _brand(beginTheme).brandSoft,
-                _brand(endTheme).brandSoft,
-                _brand(current).brandSoft,
-              ),
-              _rowColor(
-                'status.success',
-                _status(beginTheme).success,
-                _status(endTheme).success,
-                _status(current).success,
-              ),
-              _rowColor(
-                'status.warning',
-                _status(beginTheme).warning,
-                _status(endTheme).warning,
-                _status(current).warning,
-              ),
-              _rowColor(
-                'badge.bg',
-                _badge(beginTheme).bg,
-                _badge(endTheme).bg,
-                _badge(current).bg,
-              ),
-              _rowDouble(
-                'scale.compact',
-                _scale(beginTheme).compact,
-                _scale(endTheme).compact,
-                _scale(current).compact,
-                t,
-              ),
-              _rowDouble(
-                'scale.radius',
-                _scale(beginTheme).radius,
-                _scale(endTheme).radius,
-                _scale(current).radius,
-                t,
-              ),
+              _rowColor('brand', _brand(beginTheme).brand, _brand(endTheme).brand, _brand(current).brand),
+              _rowColor('brandSoft', _brand(beginTheme).brandSoft, _brand(endTheme).brandSoft, _brand(current).brandSoft),
+              _rowColor('status.success', _status(beginTheme).success, _status(endTheme).success, _status(current).success),
+              _rowColor('status.warning', _status(beginTheme).warning, _status(endTheme).warning, _status(current).warning),
+              _rowColor('badge.bg', _badge(beginTheme).bg, _badge(endTheme).bg, _badge(current).bg),
+              _rowDouble('scale.compact', _scale(beginTheme).compact, _scale(endTheme).compact, _scale(current).compact, t),
+              _rowDouble('scale.radius', _scale(beginTheme).radius, _scale(endTheme).radius, _scale(current).radius, t),
             ],
           ),
         ),
@@ -1186,55 +947,34 @@ Widget _rowColor(String label, Color begin, Color end, Color current) {
     padding: EdgeInsets.only(bottom: 8),
     child: Row(
       children: [
-        SizedBox(
-          width: 130,
-          child: Text(label, style: TextStyle(fontWeight: FontWeight.w700)),
-        ),
+        SizedBox(width: 130, child: Text(label, style: TextStyle(fontWeight: FontWeight.w700))),
         _swatch(begin),
         SizedBox(width: 8),
         _swatch(end),
         SizedBox(width: 8),
         _swatch(current),
         SizedBox(width: 10),
-        Expanded(
-          child: Text('b ${_hex(begin)}  e ${_hex(end)}  c ${_hex(current)}'),
-        ),
+        Expanded(child: Text('b ${_hex(begin)}  e ${_hex(end)}  c ${_hex(current)}')),
       ],
     ),
   );
 }
 
-Widget _rowDouble(
-  String label,
-  double begin,
-  double end,
-  double current,
-  double t,
-) {
+Widget _rowDouble(String label, double begin, double end, double current, double t) {
   return Padding(
     padding: EdgeInsets.only(bottom: 8),
     child: Row(
       children: [
-        SizedBox(
-          width: 130,
-          child: Text(label, style: TextStyle(fontWeight: FontWeight.w700)),
-        ),
+        SizedBox(width: 130, child: Text(label, style: TextStyle(fontWeight: FontWeight.w700))),
         Expanded(
-          child: Text(
-            'begin=${begin.toStringAsFixed(2)}  end=${end.toStringAsFixed(2)}  current=${current.toStringAsFixed(2)}  t=${t.toStringAsFixed(2)}',
-          ),
+          child: Text('begin=${begin.toStringAsFixed(2)}  end=${end.toStringAsFixed(2)}  current=${current.toStringAsFixed(2)}  t=${t.toStringAsFixed(2)}'),
         ),
       ],
     ),
   );
 }
 
-Widget _componentBoard(
-  ThemeData current,
-  _Scenario scenario,
-  bool iconBadges,
-  ValueChanged<String> onAction,
-) {
+Widget _componentBoard(ThemeData current, _Scenario scenario, bool iconBadges, ValueChanged<String> onAction) {
   final statuses = [
     ('Healthy', _status(current).success),
     ('Warning', _status(current).warning),
@@ -1247,12 +987,7 @@ Widget _componentBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Component Scene',
-          scenario.description,
-          scenario.title,
-        ),
+        _section(current, 'Component Scene', scenario.description, scenario.title),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1316,16 +1051,9 @@ Widget _componentBoard(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                metric.$1,
-                                style: TextStyle(fontWeight: FontWeight.w700),
-                              ),
+                              Text(metric.$1, style: TextStyle(fontWeight: FontWeight.w700)),
                               SizedBox(height: _scale(current).compact),
-                              Text(
-                                metric.$2,
-                                style: current.textTheme.headlineMedium
-                                    ?.copyWith(fontWeight: FontWeight.w800),
-                              ),
+                              Text(metric.$2, style: current.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
                               SizedBox(height: _scale(current).compact),
                               OutlinedButton(
                                 onPressed: () => onAction('open-${metric.$1}'),
@@ -1346,17 +1074,9 @@ Widget _componentBoard(
   );
 }
 
-Widget _statusBadge({
-  required ThemeData theme,
-  required String label,
-  required Color color,
-  required bool iconBadges,
-}) {
+Widget _statusBadge({required ThemeData theme, required String label, required Color color, required bool iconBadges}) {
   return Container(
-    padding: EdgeInsets.symmetric(
-      horizontal: _scale(theme).comfortable,
-      vertical: _scale(theme).compact,
-    ),
+    padding: EdgeInsets.symmetric(horizontal: _scale(theme).comfortable, vertical: _scale(theme).compact),
     decoration: BoxDecoration(
       color: color.withAlpha(36),
       borderRadius: BorderRadius.circular(_scale(theme).radius - 4),
@@ -1369,20 +1089,13 @@ Widget _statusBadge({
           Icon(Icons.circle, size: 9, color: color),
           SizedBox(width: 6),
         ],
-        Text(
-          label,
-          style: TextStyle(color: color, fontWeight: FontWeight.w700),
-        ),
+        Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
       ],
     ),
   );
 }
 
-Widget _shellBoard(
-  ThemeData current,
-  bool iconBadges,
-  ValueChanged<String> onAction,
-) {
+Widget _shellBoard(ThemeData current, bool iconBadges, ValueChanged<String> onAction) {
   final nav = [
     ('Overview', Icons.dashboard_outlined),
     ('Streams', Icons.timeline),
@@ -1395,12 +1108,7 @@ Widget _shellBoard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Shell + Status',
-          'Extension tokens applied in app frame and nav context.',
-          'shell',
-        ),
+        _section(current, 'Shell + Status', 'Extension tokens applied in app frame and nav context.', 'shell'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1430,14 +1138,8 @@ Widget _shellBoard(
                     AppBar(
                       title: Text('Extension-powered Shell'),
                       actions: [
-                        IconButton(
-                          onPressed: () => onAction('search-shell'),
-                          icon: Icon(Icons.search),
-                        ),
-                        IconButton(
-                          onPressed: () => onAction('alerts-shell'),
-                          icon: Icon(Icons.notifications_none),
-                        ),
+                        IconButton(onPressed: () => onAction('search-shell'), icon: Icon(Icons.search)),
+                        IconButton(onPressed: () => onAction('alerts-shell'), icon: Icon(Icons.notifications_none)),
                       ],
                     ),
                     Expanded(
@@ -1447,13 +1149,8 @@ Widget _shellBoard(
                           Card(
                             child: ListTile(
                               title: Text('Service health stream'),
-                              subtitle: Text(
-                                'Observe shell surfaces and controls while extension tokens interpolate.',
-                              ),
-                              trailing: FilledButton(
-                                onPressed: () => onAction('open-stream'),
-                                child: Text('Open'),
-                              ),
+                              subtitle: Text('Observe shell surfaces and controls while extension tokens interpolate.'),
+                              trailing: FilledButton(onPressed: () => onAction('open-stream'), child: Text('Open')),
                             ),
                           ),
                           SizedBox(height: _scale(current).comfortable),
@@ -1461,41 +1158,17 @@ Widget _shellBoard(
                             spacing: _scale(current).compact,
                             runSpacing: _scale(current).compact,
                             children: [
-                              _statusBadge(
-                                theme: current,
-                                label: 'Healthy',
-                                color: _status(current).success,
-                                iconBadges: iconBadges,
-                              ),
-                              _statusBadge(
-                                theme: current,
-                                label: 'Warning',
-                                color: _status(current).warning,
-                                iconBadges: iconBadges,
-                              ),
-                              _statusBadge(
-                                theme: current,
-                                label: 'Error',
-                                color: _status(current).error,
-                                iconBadges: iconBadges,
-                              ),
+                              _statusBadge(theme: current, label: 'Healthy', color: _status(current).success, iconBadges: iconBadges),
+                              _statusBadge(theme: current, label: 'Warning', color: _status(current).warning, iconBadges: iconBadges),
+                              _statusBadge(theme: current, label: 'Error', color: _status(current).error, iconBadges: iconBadges),
                             ],
                           ),
                           SizedBox(height: _scale(current).comfortable),
                           Row(
                             children: [
-                              Expanded(
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    labelText: 'Quick command',
-                                  ),
-                                ),
-                              ),
+                              Expanded(child: TextField(decoration: InputDecoration(labelText: 'Quick command'))),
                               SizedBox(width: _scale(current).compact),
-                              FilledButton.tonal(
-                                onPressed: () => onAction('run-shell'),
-                                child: Text('Run'),
-                              ),
+                              FilledButton.tonal(onPressed: () => onAction('run-shell'), child: Text('Run')),
                             ],
                           ),
                         ],
@@ -1512,23 +1185,13 @@ Widget _shellBoard(
   );
 }
 
-Widget _guideBoard(
-  ThemeData current,
-  int interactionCount,
-  int tick,
-  List<String> log,
-) {
+Widget _guideBoard(ThemeData current, int interactionCount, int tick, List<String> log) {
   return SingleChildScrollView(
     padding: EdgeInsets.fromLTRB(14, 12, 14, 14),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _section(
-          current,
-          'Guide + Timeline',
-          'How to implement and validate ThemeExtension usage.',
-          'guide',
-        ),
+        _section(current, 'Guide + Timeline', 'How to implement and validate ThemeExtension usage.', 'guide'),
         SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -1536,17 +1199,12 @@ Widget _guideBoard(
           decoration: BoxDecoration(
             color: current.colorScheme.tertiaryContainer.withAlpha(108),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.tertiary.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.tertiary.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ThemeExtension guidance',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('ThemeExtension guidance', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               for (final g in _guide) _bullet(g),
             ],
@@ -1559,17 +1217,12 @@ Widget _guideBoard(
           decoration: BoxDecoration(
             color: current.colorScheme.surfaceContainerHighest.withAlpha(120),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.outlineVariant.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.outlineVariant.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'FAQ',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('FAQ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               for (final f in _faqs)
                 Padding(
@@ -1593,32 +1246,22 @@ Widget _guideBoard(
           decoration: BoxDecoration(
             color: current.colorScheme.primaryContainer.withAlpha(102),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: current.colorScheme.primary.withAlpha(130),
-            ),
+            border: Border.all(color: current.colorScheme.primary.withAlpha(130)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Interaction timeline',
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-              ),
+              Text('Interaction timeline', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
               SizedBox(height: 8),
               Text('Interactions: $interactionCount  |  Ticks: $tick'),
               SizedBox(height: 8),
               if (log.isEmpty)
-                Text(
-                  'No events yet. Interact with controls and boards to populate timeline.',
-                )
+                Text('No events yet. Interact with controls and boards to populate timeline.')
               else
                 for (final line in log)
                   Padding(
                     padding: EdgeInsets.only(bottom: 4),
-                    child: Text(
-                      line,
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-                    ),
+                    child: Text(line, style: TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
                   ),
             ],
           ),
@@ -1635,17 +1278,9 @@ Widget _section(ThemeData theme, String title, String subtitle, String chip) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800),
-            ),
+            Text(title, style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800)),
             SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(
-                color: theme.colorScheme.onSurface.withAlpha(175),
-              ),
-            ),
+            Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(175))),
           ],
         ),
       ),
@@ -1656,10 +1291,7 @@ Widget _section(ThemeData theme, String title, String subtitle, String chip) {
           borderRadius: BorderRadius.circular(999),
           border: Border.all(color: _badge(theme).border.withAlpha(150)),
         ),
-        child: Text(
-          chip,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
-        ),
+        child: Text(chip, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
       ),
     ],
   );
@@ -1677,18 +1309,12 @@ Widget _diagnostics(ThemeData theme, String title, List<String> lines) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         SizedBox(height: 8),
         for (final line in lines)
           Padding(
             padding: EdgeInsets.only(bottom: 4),
-            child: Text(
-              line,
-              style: TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-            ),
+            child: Text(line, style: TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
           ),
       ],
     ),
@@ -1706,10 +1332,7 @@ Widget _bullet(String text) {
           child: Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: Color(0xFF0F766E),
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: Color(0xFF0F766E), shape: BoxShape.circle),
           ),
         ),
         Expanded(child: Text(text)),

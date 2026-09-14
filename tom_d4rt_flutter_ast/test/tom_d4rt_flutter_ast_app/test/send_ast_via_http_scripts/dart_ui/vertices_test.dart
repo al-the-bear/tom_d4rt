@@ -275,8 +275,11 @@ dynamic build(BuildContext context) {
     center: const Offset(100, 100),
     radius: 90,
     segments: 18,
-    colorAt: (t) =>
-        Color.lerp(const Color(0xFF1976D2), const Color(0xFFFFEB3B), t)!,
+    colorAt: (t) => Color.lerp(
+      const Color(0xFF1976D2),
+      const Color(0xFFFFEB3B),
+      t,
+    )!,
   );
   print('ringFan: 18-segment radial fan with rim gradient');
 
@@ -366,9 +369,17 @@ dynamic build(BuildContext context) {
   }) {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(18),
-      gradient: LinearGradient(begin: begin, end: end, colors: gradient),
+      gradient: LinearGradient(
+        begin: begin,
+        end: end,
+        colors: gradient,
+      ),
       boxShadow: <BoxShadow>[
-        BoxShadow(color: shadow, blurRadius: 16, offset: const Offset(0, 8)),
+        BoxShadow(
+          color: shadow,
+          blurRadius: 16,
+          offset: const Offset(0, 8),
+        ),
         BoxShadow(
           color: shadow.withOpacity(0.18),
           blurRadius: 32,
@@ -465,7 +476,11 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget chip({required String label, required Color color, IconData? icon}) {
+  Widget chip({
+    required String label,
+    required Color color,
+    IconData? icon,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
       decoration: BoxDecoration(
@@ -578,7 +593,9 @@ dynamic build(BuildContext context) {
         color: header
             ? const Color(0xFF263238)
             : (tint ?? Colors.white).withOpacity(header ? 1 : 0.85),
-        border: const Border(bottom: BorderSide(color: Color(0x22000000))),
+        border: const Border(
+          bottom: BorderSide(color: Color(0x22000000)),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -586,16 +603,16 @@ dynamic build(BuildContext context) {
             Expanded(
               flex: i == 0 ? 2 : 3,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 9,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
                 child: Text(
                   cells[i],
                   style: TextStyle(
                     fontSize: 12.5,
                     fontWeight: header ? FontWeight.w700 : FontWeight.w500,
-                    color: header ? Colors.white : const Color(0xDE000000),
+                    color: header
+                        ? Colors.white
+                        : const Color(0xDE000000),
                   ),
                 ),
               ),
@@ -1265,48 +1282,64 @@ dynamic build(BuildContext context) {
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: <Widget>[
-            matrixRow(<String>[
-              'Workload',
-              'Mode',
-              'Indices?',
-              'Raw?',
-            ], header: true),
-            matrixRow(<String>[
-              'Single static shape',
-              'triangles',
-              'No',
-              'No',
-            ], tint: const Color(0xFFFFF3E0)),
-            matrixRow(<String>[
-              'Ribbon / wave / trail',
-              'triangleStrip',
-              'No',
-              'Maybe',
-            ], tint: const Color(0xFFE3F2FD)),
-            matrixRow(<String>[
-              'Pie chart / radial burst',
-              'triangleFan',
-              'No',
-              'No',
-            ], tint: const Color(0xFFE8F5E9)),
-            matrixRow(<String>[
-              'Regular grid / heat map',
-              'triangles',
-              'Yes',
-              'Yes',
-            ], tint: const Color(0xFFFCE4EC)),
-            matrixRow(<String>[
-              'Animated particle sheet',
-              'triangles',
-              'Yes',
-              'Yes',
-            ], tint: const Color(0xFFF3E5F5)),
-            matrixRow(<String>[
-              'Image warp / page curl',
-              'triangles',
-              'Yes',
-              'Maybe',
-            ], tint: const Color(0xFFE0F7FA)),
+            matrixRow(
+              <String>['Workload', 'Mode', 'Indices?', 'Raw?'],
+              header: true,
+            ),
+            matrixRow(
+              <String>[
+                'Single static shape',
+                'triangles',
+                'No',
+                'No',
+              ],
+              tint: const Color(0xFFFFF3E0),
+            ),
+            matrixRow(
+              <String>[
+                'Ribbon / wave / trail',
+                'triangleStrip',
+                'No',
+                'Maybe',
+              ],
+              tint: const Color(0xFFE3F2FD),
+            ),
+            matrixRow(
+              <String>[
+                'Pie chart / radial burst',
+                'triangleFan',
+                'No',
+                'No',
+              ],
+              tint: const Color(0xFFE8F5E9),
+            ),
+            matrixRow(
+              <String>[
+                'Regular grid / heat map',
+                'triangles',
+                'Yes',
+                'Yes',
+              ],
+              tint: const Color(0xFFFCE4EC),
+            ),
+            matrixRow(
+              <String>[
+                'Animated particle sheet',
+                'triangles',
+                'Yes',
+                'Yes',
+              ],
+              tint: const Color(0xFFF3E5F5),
+            ),
+            matrixRow(
+              <String>[
+                'Image warp / page curl',
+                'triangles',
+                'Yes',
+                'Maybe',
+              ],
+              tint: const Color(0xFFE0F7FA),
+            ),
           ],
         ),
       ),
@@ -1539,7 +1572,11 @@ ui.Vertices _buildRadialFan({
     positions.add(Offset(dx, dy));
     colors.add(colorAt(t));
   }
-  return ui.Vertices(ui.VertexMode.triangleFan, positions, colors: colors);
+  return ui.Vertices(
+    ui.VertexMode.triangleFan,
+    positions,
+    colors: colors,
+  );
 }
 
 ui.Vertices _buildIndexedGrid({
@@ -1554,12 +1591,18 @@ ui.Vertices _buildIndexedGrid({
   final stride = cols + 1;
   for (var y = 0; y <= rows; y++) {
     for (var x = 0; x <= cols; x++) {
-      positions.add(Offset(origin.dx + x * cellW, origin.dy + y * cellH));
+      positions.add(
+        Offset(origin.dx + x * cellW, origin.dy + y * cellH),
+      );
       final tx = cols == 0 ? 0.0 : x / cols;
       final ty = rows == 0 ? 0.0 : y / rows;
       colors.add(
         Color.lerp(
-          Color.lerp(const Color(0xFF1A237E), const Color(0xFFFFAB00), tx)!,
+          Color.lerp(
+            const Color(0xFF1A237E),
+            const Color(0xFFFFAB00),
+            tx,
+          )!,
           const Color(0xFFE91E63),
           ty * 0.55,
         )!,
@@ -1680,7 +1723,8 @@ class _FanSliderState extends State<_FanSlider> {
             ),
             const SizedBox(width: 12),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: BoxDecoration(
                 color: const Color(0xFF4527A0).withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),

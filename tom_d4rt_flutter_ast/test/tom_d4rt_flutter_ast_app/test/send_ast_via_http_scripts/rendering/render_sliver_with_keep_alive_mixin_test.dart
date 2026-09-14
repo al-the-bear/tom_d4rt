@@ -84,14 +84,8 @@ Widget _kaSectionTitle(String title, IconData icon) {
 Widget _kaBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
-    ),
+    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
+    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -117,23 +111,9 @@ Widget _kaInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: _kaTextDark,
-                ),
-              ),
+              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _kaTextDark)),
               SizedBox(height: 4),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _kaTextMedium,
-                  height: 1.4,
-                ),
-              ),
+              Text(body, style: TextStyle(fontSize: 12, color: _kaTextMedium, height: 1.4)),
             ],
           ),
         ),
@@ -148,19 +128,8 @@ Widget _kaInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _kaCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(
-      color: _kaSurfaceDark,
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 11,
-        fontFamily: 'monospace',
-        color: color ?? _kaAccent,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    decoration: BoxDecoration(color: _kaSurfaceDark, borderRadius: BorderRadius.circular(4)),
+    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _kaAccent, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -198,14 +167,7 @@ Widget _kaSection1Overview() {
         ),
         child: Column(
           children: [
-            Text(
-              'Without vs With Keep-Alive',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _kaTextDark,
-              ),
-            ),
+            Text('Without vs With Keep-Alive', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kaTextDark)),
             SizedBox(height: 10),
             Row(
               children: [
@@ -219,35 +181,17 @@ Widget _kaSection1Overview() {
                         decoration: BoxDecoration(
                           color: _kaRed.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(
-                            color: _kaRed.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: _kaRed.withValues(alpha: 0.2)),
                         ),
                         child: Column(
                           children: [
-                            Text(
-                              'Item scrolls off',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: _kaRed,
-                              ),
-                            ),
+                            Text('Item scrolls off', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _kaRed)),
                             Icon(Icons.arrow_downward, size: 14, color: _kaRed),
-                            Text(
-                              'Disposed',
-                              style: TextStyle(fontSize: 10, color: _kaRed),
-                            ),
+                            Text('Disposed', style: TextStyle(fontSize: 10, color: _kaRed)),
                             Icon(Icons.arrow_downward, size: 14, color: _kaRed),
-                            Text(
-                              'State lost',
-                              style: TextStyle(fontSize: 10, color: _kaGrey),
-                            ),
+                            Text('State lost', style: TextStyle(fontSize: 10, color: _kaGrey)),
                             Icon(Icons.arrow_downward, size: 14, color: _kaRed),
-                            Text(
-                              'Rebuilt on scroll back',
-                              style: TextStyle(fontSize: 10, color: _kaRed),
-                            ),
+                            Text('Rebuilt on scroll back', style: TextStyle(fontSize: 10, color: _kaRed)),
                           ],
                         ),
                       ),
@@ -265,47 +209,17 @@ Widget _kaSection1Overview() {
                         decoration: BoxDecoration(
                           color: _kaGreen.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(
-                            color: _kaGreen.withValues(alpha: 0.2),
-                          ),
+                          border: Border.all(color: _kaGreen.withValues(alpha: 0.2)),
                         ),
                         child: Column(
                           children: [
-                            Text(
-                              'Item scrolls off',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: _kaGreen,
-                              ),
-                            ),
-                            Icon(
-                              Icons.arrow_downward,
-                              size: 14,
-                              color: _kaGreen,
-                            ),
-                            Text(
-                              'Kept alive (hidden)',
-                              style: TextStyle(fontSize: 10, color: _kaGreen),
-                            ),
-                            Icon(
-                              Icons.arrow_downward,
-                              size: 14,
-                              color: _kaGreen,
-                            ),
-                            Text(
-                              'State preserved',
-                              style: TextStyle(fontSize: 10, color: _kaGreen),
-                            ),
-                            Icon(
-                              Icons.arrow_downward,
-                              size: 14,
-                              color: _kaGreen,
-                            ),
-                            Text(
-                              'Shown on scroll back',
-                              style: TextStyle(fontSize: 10, color: _kaGreen),
-                            ),
+                            Text('Item scrolls off', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _kaGreen)),
+                            Icon(Icons.arrow_downward, size: 14, color: _kaGreen),
+                            Text('Kept alive (hidden)', style: TextStyle(fontSize: 10, color: _kaGreen)),
+                            Icon(Icons.arrow_downward, size: 14, color: _kaGreen),
+                            Text('State preserved', style: TextStyle(fontSize: 10, color: _kaGreen)),
+                            Icon(Icons.arrow_downward, size: 14, color: _kaGreen),
+                            Text('Shown on scroll back', style: TextStyle(fontSize: 10, color: _kaGreen)),
                           ],
                         ),
                       ),
@@ -326,37 +240,11 @@ Widget _kaSection1Overview() {
 // ---------------------------------------------------------------------------
 Widget _kaSection2Lifecycle() {
   final phases = <Map<String, dynamic>>[
-    {
-      'phase': 'Created',
-      'desc':
-          'Child element and render object are created when scrolling into view',
-      'color': _kaBlue,
-      'icon': Icons.add_circle,
-    },
-    {
-      'phase': 'Visible',
-      'desc': 'Child is laid out and painted within the viewport',
-      'color': _kaGreen,
-      'icon': Icons.visibility,
-    },
-    {
-      'phase': 'Off-screen (no keep-alive)',
-      'desc': 'Child is garbage collected — state is lost',
-      'color': _kaRed,
-      'icon': Icons.delete,
-    },
-    {
-      'phase': 'Off-screen (keep-alive)',
-      'desc': 'Child is retained but not painted, preserving state',
-      'color': _kaPrimary,
-      'icon': Icons.push_pin,
-    },
-    {
-      'phase': 'Back on-screen',
-      'desc': 'Child is painted again with preserved state',
-      'color': _kaTeal,
-      'icon': Icons.replay,
-    },
+    {'phase': 'Created', 'desc': 'Child element and render object are created when scrolling into view', 'color': _kaBlue, 'icon': Icons.add_circle},
+    {'phase': 'Visible', 'desc': 'Child is laid out and painted within the viewport', 'color': _kaGreen, 'icon': Icons.visibility},
+    {'phase': 'Off-screen (no keep-alive)', 'desc': 'Child is garbage collected — state is lost', 'color': _kaRed, 'icon': Icons.delete},
+    {'phase': 'Off-screen (keep-alive)', 'desc': 'Child is retained but not painted, preserving state', 'color': _kaPrimary, 'icon': Icons.push_pin},
+    {'phase': 'Back on-screen', 'desc': 'Child is painted again with preserved state', 'color': _kaTeal, 'icon': Icons.replay},
   ];
 
   return Column(
@@ -387,39 +275,22 @@ Widget _kaSection2Lifecycle() {
               decoration: BoxDecoration(
                 color: (p['color'] as Color).withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(6),
-                border: Border(
-                  left: BorderSide(color: p['color'] as Color, width: 3),
-                ),
+                border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
               ),
               child: Row(
                 children: [
-                  Icon(
-                    p['icon'] as IconData,
-                    size: 18,
-                    color: p['color'] as Color,
-                  ),
+                  Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
                   SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          p['phase'] as String,
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: p['color'] as Color,
-                          ),
-                        ),
-                        Text(
-                          p['desc'] as String,
-                          style: TextStyle(fontSize: 10, color: _kaTextMedium),
-                        ),
+                        Text(p['phase'] as String, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: p['color'] as Color)),
+                        Text(p['desc'] as String, style: TextStyle(fontSize: 10, color: _kaTextMedium)),
                       ],
                     ),
                   ),
-                  if (i < phases.length - 1)
-                    Icon(Icons.arrow_downward, size: 12, color: _kaGrey),
+                  if (i < phases.length - 1) Icon(Icons.arrow_downward, size: 12, color: _kaGrey),
                 ],
               ),
             );
@@ -456,14 +327,7 @@ Widget _kaSection3ParentData() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Parent data structure',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _kaTextDark,
-              ),
-            ),
+            Text('Parent data structure', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kaTextDark)),
             SizedBox(height: 8),
             _kaCode('class SliverMultiBoxAdaptorParentData'),
             _kaCode('    extends SliverLogicalParentData'),
@@ -496,8 +360,8 @@ Widget _kaSection3ParentData() {
               ),
               child: Text(
                 'When the mixin\'s keepAlive is true, the sliver moves the '
-                'child to a "kept alive" bucket instead of destroying it during '
-                'garbage collection.',
+                    'child to a "kept alive" bucket instead of destroying it during '
+                    'garbage collection.',
                 style: TextStyle(fontSize: 10, color: _kaTextMedium),
               ),
             ),
@@ -516,10 +380,7 @@ Widget _kaSection4AutomaticKeepAlive() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _kaSectionTitle(
-        '4 · AutomaticKeepAlive & the Widget Layer',
-        Icons.smart_toy,
-      ),
+      _kaSectionTitle('4 · AutomaticKeepAlive & the Widget Layer', Icons.smart_toy),
       _kaInfoCard(
         'How widgets request keep-alive',
         'At the widget layer, AutomaticKeepAliveClientMixin is mixed into '
@@ -538,75 +399,31 @@ Widget _kaSection4AutomaticKeepAlive() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Keep-alive request flow',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: _kaTextDark,
-              ),
-            ),
+            Text('Keep-alive request flow', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kaTextDark)),
             SizedBox(height: 8),
             ...[
-              {
-                'step': 'State mixes in AutomaticKeepAliveClientMixin',
-                'icon': Icons.extension,
-                'color': _kaPrimary,
-              },
-              {
-                'step': 'wantKeepAlive getter returns true',
-                'icon': Icons.check,
-                'color': _kaGreen,
-              },
-              {
-                'step': 'updateKeepAlive() sends KeepAliveNotification',
-                'icon': Icons.notifications_active,
-                'color': _kaBlue,
-              },
-              {
-                'step': 'AutomaticKeepAlive widget catches notification',
-                'icon': Icons.catching_pokemon,
-                'color': _kaOrange,
-              },
-              {
-                'step': 'Sets parentData.keepAlive = true',
-                'icon': Icons.flag,
-                'color': _kaTeal,
-              },
-              {
-                'step': 'Sliver retains child when off-screen',
-                'icon': Icons.push_pin,
-                'color': _kaAccent,
-              },
-            ].map(
-              (s) => Container(
-                margin: EdgeInsets.only(bottom: 4),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: (s['color'] as Color).withValues(alpha: 0.06),
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border(
-                    left: BorderSide(color: s['color'] as Color, width: 3),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      s['icon'] as IconData,
-                      size: 14,
-                      color: s['color'] as Color,
-                    ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        s['step'] as String,
-                        style: TextStyle(fontSize: 11, color: _kaTextMedium),
-                      ),
-                    ),
-                  ],
-                ),
+              {'step': 'State mixes in AutomaticKeepAliveClientMixin', 'icon': Icons.extension, 'color': _kaPrimary},
+              {'step': 'wantKeepAlive getter returns true', 'icon': Icons.check, 'color': _kaGreen},
+              {'step': 'updateKeepAlive() sends KeepAliveNotification', 'icon': Icons.notifications_active, 'color': _kaBlue},
+              {'step': 'AutomaticKeepAlive widget catches notification', 'icon': Icons.catching_pokemon, 'color': _kaOrange},
+              {'step': 'Sets parentData.keepAlive = true', 'icon': Icons.flag, 'color': _kaTeal},
+              {'step': 'Sliver retains child when off-screen', 'icon': Icons.push_pin, 'color': _kaAccent},
+            ].map((s) => Container(
+              margin: EdgeInsets.only(bottom: 4),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: (s['color'] as Color).withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(4),
+                border: Border(left: BorderSide(color: s['color'] as Color, width: 3)),
               ),
-            ),
+              child: Row(
+                children: [
+                  Icon(s['icon'] as IconData, size: 14, color: s['color'] as Color),
+                  SizedBox(width: 8),
+                  Expanded(child: Text(s['step'] as String, style: TextStyle(fontSize: 11, color: _kaTextMedium))),
+                ],
+              ),
+            )),
           ],
         ),
       ),
@@ -644,106 +461,32 @@ Widget _kaSection5Memory() {
               color: _kaSurface,
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 80,
-                    child: Text(
-                      'Aspect',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _kaTextDark,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'No Keep-Alive',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _kaRed,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'With Keep-Alive',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: _kaGreen,
-                      ),
-                    ),
-                  ),
+                  SizedBox(width: 80, child: Text('Aspect', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _kaTextDark))),
+                  Expanded(child: Text('No Keep-Alive', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _kaRed))),
+                  Expanded(child: Text('With Keep-Alive', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _kaGreen))),
                 ],
               ),
             ),
             ...[
-              {
-                'aspect': 'Memory',
-                'without': 'Low (visible only)',
-                'with': 'Higher (retained)',
-              },
-              {
-                'aspect': 'State',
-                'without': 'Lost on scroll',
-                'with': 'Preserved',
-              },
-              {
-                'aspect': 'Rebuild cost',
-                'without': 'Full rebuild',
-                'with': 'Zero (reuse)',
-              },
-              {
-                'aspect': 'Network',
-                'without': 'Re-fetch data',
-                'with': 'Data cached',
-              },
+              {'aspect': 'Memory', 'without': 'Low (visible only)', 'with': 'Higher (retained)'},
+              {'aspect': 'State', 'without': 'Lost on scroll', 'with': 'Preserved'},
+              {'aspect': 'Rebuild cost', 'without': 'Full rebuild', 'with': 'Zero (reuse)'},
+              {'aspect': 'Network', 'without': 'Re-fetch data', 'with': 'Data cached'},
               {'aspect': 'Animations', 'without': 'Reset', 'with': 'Continue'},
-              {
-                'aspect': 'Text input',
-                'without': 'Cleared',
-                'with': 'Preserved',
-              },
-            ].map(
-              (r) => Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: _kaDivider.withValues(alpha: 0.3),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: Text(
-                        r['aspect']!,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: _kaTextDark,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['without']!,
-                        style: TextStyle(fontSize: 10, color: _kaRed),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['with']!,
-                        style: TextStyle(fontSize: 10, color: _kaGreen),
-                      ),
-                    ),
-                  ],
-                ),
+              {'aspect': 'Text input', 'without': 'Cleared', 'with': 'Preserved'},
+            ].map((r) => Container(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: _kaDivider.withValues(alpha: 0.3))),
               ),
-            ),
+              child: Row(
+                children: [
+                  SizedBox(width: 80, child: Text(r['aspect']!, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _kaTextDark))),
+                  Expanded(child: Text(r['without']!, style: TextStyle(fontSize: 10, color: _kaRed))),
+                  Expanded(child: Text(r['with']!, style: TextStyle(fontSize: 10, color: _kaGreen))),
+                ],
+              ),
+            )),
           ],
         ),
       ),
@@ -791,14 +534,7 @@ Widget _kaSection6Demo() {
               padding: EdgeInsets.only(left: 4, bottom: 4),
               child: Row(
                 children: [
-                  Text(
-                    'SliverList with keep-alive markers',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: _kaTextDark,
-                    ),
-                  ),
+                  Text('SliverList with keep-alive markers', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _kaTextDark)),
                   SizedBox(width: 6),
                   _kaBadge('pin = keep-alive', _kaPrimary, _kaOnPrimary),
                 ],
@@ -817,19 +553,12 @@ Widget _kaSection6Demo() {
                         final alive = item['keepAlive'] as bool;
                         return Container(
                           height: 52,
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 4,
-                            vertical: 2,
-                          ),
+                          margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                           decoration: BoxDecoration(
-                            color: alive
-                                ? _kaPrimary.withValues(alpha: 0.08)
-                                : Colors.white,
+                            color: alive ? _kaPrimary.withValues(alpha: 0.08) : Colors.white,
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(
-                              color: alive
-                                  ? _kaPrimary.withValues(alpha: 0.4)
-                                  : _kaDivider.withValues(alpha: 0.3),
+                              color: alive ? _kaPrimary.withValues(alpha: 0.4) : _kaDivider.withValues(alpha: 0.3),
                               width: alive ? 2 : 1,
                             ),
                           ),
@@ -839,18 +568,8 @@ Widget _kaSection6Demo() {
                                 width: 36,
                                 alignment: Alignment.center,
                                 child: alive
-                                    ? Icon(
-                                        Icons.push_pin,
-                                        size: 18,
-                                        color: _kaPrimary,
-                                      )
-                                    : Text(
-                                        '${item['index']}',
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          color: _kaGrey,
-                                        ),
-                                      ),
+                                    ? Icon(Icons.push_pin, size: 18, color: _kaPrimary)
+                                    : Text('${item['index']}', style: TextStyle(fontSize: 11, color: _kaGrey)),
                               ),
                               Expanded(
                                 child: Column(
@@ -860,34 +579,22 @@ Widget _kaSection6Demo() {
                                     Text(
                                       item['label'] as String,
                                       style: TextStyle(
-                                        fontWeight: alive
-                                            ? FontWeight.w700
-                                            : FontWeight.w500,
+                                        fontWeight: alive ? FontWeight.w700 : FontWeight.w500,
                                         fontSize: 12,
                                         color: alive ? _kaPrimary : _kaTextDark,
                                       ),
                                     ),
                                     Text(
-                                      alive
-                                          ? 'State preserved when off-screen'
-                                          : 'State lost when off-screen',
-                                      style: TextStyle(
-                                        fontSize: 9,
-                                        color: alive ? _kaAccent : _kaGrey,
-                                      ),
+                                      alive ? 'State preserved when off-screen' : 'State lost when off-screen',
+                                      style: TextStyle(fontSize: 9, color: alive ? _kaAccent : _kaGrey),
                                     ),
                                   ],
                                 ),
                               ),
-                              if (alive)
-                                Padding(
-                                  padding: EdgeInsets.only(right: 8),
-                                  child: _kaBadge(
-                                    'ALIVE',
-                                    _kaPrimary,
-                                    _kaOnPrimary,
-                                  ),
-                                ),
+                              if (alive) Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: _kaBadge('ALIVE', _kaPrimary, _kaOnPrimary),
+                              ),
                             ],
                           ),
                         );
@@ -940,31 +647,21 @@ Widget _kaSection7WhenToUse() {
                     'Nested scroll views',
                     'Items with expensive init',
                     'Tab views in lists',
-                  ].map(
-                    (t) => Container(
-                      margin: EdgeInsets.only(bottom: 4),
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: _kaGreen.withValues(alpha: 0.06),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.check_circle, size: 12, color: _kaGreen),
-                          SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              t,
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: _kaTextMedium,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                  ].map((t) => Container(
+                    margin: EdgeInsets.only(bottom: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: _kaGreen.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(4),
                     ),
-                  ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.check_circle, size: 12, color: _kaGreen),
+                        SizedBox(width: 4),
+                        Expanded(child: Text(t, style: TextStyle(fontSize: 10, color: _kaTextMedium))),
+                      ],
+                    ),
+                  )),
                 ],
               ),
             ),
@@ -980,31 +677,21 @@ Widget _kaSection7WhenToUse() {
                     'Stateless information cards',
                     'Items with minimal init',
                     'Memory-critical apps',
-                  ].map(
-                    (t) => Container(
-                      margin: EdgeInsets.only(bottom: 4),
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: _kaRed.withValues(alpha: 0.06),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.cancel, size: 12, color: _kaRed),
-                          SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              t,
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: _kaTextMedium,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                  ].map((t) => Container(
+                    margin: EdgeInsets.only(bottom: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: _kaRed.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(4),
                     ),
-                  ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.cancel, size: 12, color: _kaRed),
+                        SizedBox(width: 4),
+                        Expanded(child: Text(t, style: TextStyle(fontSize: 10, color: _kaTextMedium))),
+                      ],
+                    ),
+                  )),
                 ],
               ),
             ),
@@ -1022,40 +709,35 @@ Widget _kaSection8Patterns() {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Tab views in a list',
-      'desc':
-          'Each list item contains a TabBarView. Keep-alive preserves '
+      'desc': 'Each list item contains a TabBarView. Keep-alive preserves '
           'the selected tab and nested scroll position.',
       'icon': Icons.tab,
       'color': _kaPrimary,
     },
     {
       'title': 'Forms in expandable tiles',
-      'desc':
-          'ExpansionTile items contain form fields. Without keep-alive, '
+      'desc': 'ExpansionTile items contain form fields. Without keep-alive, '
           'user input is lost when the tile scrolls off screen.',
       'icon': Icons.edit_note,
       'color': _kaBlue,
     },
     {
       'title': 'Media players',
-      'desc':
-          'Audio/video players in a feed should preserve playback position '
+      'desc': 'Audio/video players in a feed should preserve playback position '
           'and buffered data when scrolled off screen.',
       'icon': Icons.play_circle,
       'color': _kaOrange,
     },
     {
       'title': 'Chat messages with controllers',
-      'desc':
-          'Chat bubbles with animation controllers or text editing '
+      'desc': 'Chat bubbles with animation controllers or text editing '
           'controllers benefit from state preservation.',
       'icon': Icons.chat,
       'color': _kaTeal,
     },
     {
       'title': 'Data-heavy dashboard cards',
-      'desc':
-          'Cards that load charts or compute summaries. Re-computing '
+      'desc': 'Cards that load charts or compute summaries. Re-computing '
           'on every scroll-back is expensive.',
       'icon': Icons.dashboard,
       'color': _kaAmber,
@@ -1073,46 +755,32 @@ Widget _kaSection8Patterns() {
             'in user experience by preserving meaningful state.',
         Icons.cases,
       ),
-      ...patterns.map(
-        (p) => Container(
-          margin: EdgeInsets.only(bottom: 6),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6),
-            border: Border(
-              left: BorderSide(color: p['color'] as Color, width: 3),
-            ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      p['title'] as String,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _kaTextDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      p['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: _kaTextMedium),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      ...patterns.map((p) => Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
         ),
-      ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(p['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _kaTextDark)),
+                  SizedBox(height: 2),
+                  Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _kaTextMedium)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )),
     ],
   );
 }
@@ -1150,43 +818,21 @@ Widget _kaSection9Summary() {
               {'label': 'Flag', 'value': 'parentData.keepAlive'},
               {'label': 'Effect', 'value': 'Child retained when off-screen'},
               {'label': 'Cost', 'value': 'Memory (render tree not released)'},
-            ].map(
-              (r) => Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: _kaDivider.withValues(alpha: 0.3),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: Text(
-                        r['label']!,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: _kaTextDark,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        r['value']!,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: _kaPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+            ].map((r) => Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: _kaDivider.withValues(alpha: 0.3))),
               ),
-            ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text(r['label']!, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _kaTextDark)),
+                  ),
+                  Expanded(child: Text(r['value']!, style: TextStyle(fontSize: 11, color: _kaPrimary, fontWeight: FontWeight.w600))),
+                ],
+              ),
+            )),
           ],
         ),
       ),
@@ -1196,10 +842,7 @@ Widget _kaSection9Summary() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _kaPrimary.withValues(alpha: 0.08),
-              _kaAccent.withValues(alpha: 0.08),
-            ],
+            colors: [_kaPrimary.withValues(alpha: 0.08), _kaAccent.withValues(alpha: 0.08)],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _kaPrimary.withValues(alpha: 0.2)),
@@ -1210,11 +853,7 @@ Widget _kaSection9Summary() {
             SizedBox(height: 8),
             Text(
               'RenderSliverWithKeepAliveMixin',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: _kaTextDark,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _kaTextDark),
             ),
             SizedBox(height: 4),
             Text(
@@ -1274,10 +913,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Keeping sliver children alive when they scroll off-screen',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _kaOnPrimary.withValues(alpha: 0.85),
-                ),
+                style: TextStyle(fontSize: 12, color: _kaOnPrimary.withValues(alpha: 0.85)),
               ),
             ],
           ),

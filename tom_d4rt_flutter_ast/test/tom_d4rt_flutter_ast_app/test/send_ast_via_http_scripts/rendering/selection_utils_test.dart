@@ -58,7 +58,9 @@ Widget _suSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_suNavy, _suDarkNavy]),
+      gradient: LinearGradient(
+        colors: [_suNavy, _suDarkNavy],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,7 +288,10 @@ Widget _suUtilCard(String title, IconData icon, String desc, Color color) {
         Text(
           desc,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: _suSteel, fontSize: 10),
+          style: const TextStyle(
+            color: _suSteel,
+            fontSize: 10,
+          ),
         ),
       ],
     ),
@@ -302,8 +307,7 @@ Widget _suBuildGetResult() {
     children: [
       _suSectionHeader(
         '2. getResultBasedOnRect()',
-        subtitle:
-            'Mapping a point\'s position relative to a rect to a SelectionResult',
+        subtitle: 'Mapping a point\'s position relative to a rect to a SelectionResult',
       ),
       const SizedBox(height: 12),
       _suNote(
@@ -384,11 +388,8 @@ Widget _suBuildGetResult() {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.arrow_upward,
-                            color: _suAmber,
-                            size: 16,
-                          ),
+                          const Icon(Icons.arrow_upward,
+                              color: _suAmber, size: 16),
                           const SizedBox(width: 6),
                           const Text(
                             'previous',
@@ -422,11 +423,8 @@ Widget _suBuildGetResult() {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.arrow_back,
-                                  color: _suCoral,
-                                  size: 14,
-                                ),
+                                Icon(Icons.arrow_back,
+                                    color: _suCoral, size: 14),
                                 Text(
                                   'previous',
                                   style: TextStyle(
@@ -458,11 +456,8 @@ Widget _suBuildGetResult() {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: _suMint,
-                                    size: 28,
-                                  ),
+                                  Icon(Icons.check_circle,
+                                      color: _suMint, size: 28),
                                   SizedBox(height: 4),
                                   Text(
                                     'end',
@@ -498,11 +493,8 @@ Widget _suBuildGetResult() {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.arrow_forward,
-                                  color: _suViolet,
-                                  size: 14,
-                                ),
+                                Icon(Icons.arrow_forward,
+                                    color: _suViolet, size: 14),
                                 Text(
                                   'next',
                                   style: TextStyle(
@@ -536,17 +528,16 @@ Widget _suBuildGetResult() {
                         bottomLeft: Radius.circular(8),
                         bottomRight: Radius.circular(8),
                       ),
-                      border: Border.all(color: _suNavy.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: _suNavy.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.arrow_downward,
-                            color: _suNavy,
-                            size: 16,
-                          ),
+                          const Icon(Icons.arrow_downward,
+                              color: _suNavy, size: 16),
                           const SizedBox(width: 6),
                           const Text(
                             'next',
@@ -686,7 +677,8 @@ Widget _suBuildSelectionResult() {
   );
 }
 
-Widget _suResultCard(String label, String desc, Color color, IconData icon) {
+Widget _suResultCard(
+    String label, String desc, Color color, IconData icon) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -715,7 +707,11 @@ Widget _suResultCard(String label, String desc, Color color, IconData icon) {
         const SizedBox(height: 6),
         Text(
           desc,
-          style: const TextStyle(color: _suDarkNavy, fontSize: 11, height: 1.4),
+          style: const TextStyle(
+            color: _suDarkNavy,
+            fontSize: 11,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -801,7 +797,10 @@ Widget _suBuildAdjustDrag() {
                       child: const Center(
                         child: Text(
                           'Selectable text area',
-                          style: TextStyle(color: _suDarkNavy, fontSize: 13),
+                          style: TextStyle(
+                            color: _suDarkNavy,
+                            fontSize: 13,
+                          ),
                         ),
                       ),
                     ),
@@ -837,12 +836,13 @@ Widget _suBuildAdjustDrag() {
                     top: 18,
                     child: Row(
                       children: [
-                        Container(width: 16, height: 2, color: _suAmber),
-                        const Icon(
-                          Icons.arrow_forward,
+                        Container(
+                          width: 16,
+                          height: 2,
                           color: _suAmber,
-                          size: 12,
                         ),
+                        const Icon(Icons.arrow_forward,
+                            color: _suAmber, size: 12),
                       ],
                     ),
                   ),
@@ -936,10 +936,8 @@ Widget _suBuildAdjustDrag() {
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Text(
-                  'Raw finger position  ',
-                  style: TextStyle(fontSize: 10, color: _suSteel),
-                ),
+                const Text('Raw finger position  ',
+                    style: TextStyle(fontSize: 10, color: _suSteel)),
                 Container(
                   width: 10,
                   height: 10,
@@ -949,10 +947,8 @@ Widget _suBuildAdjustDrag() {
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Text(
-                  'Adjusted position',
-                  style: TextStyle(fontSize: 10, color: _suSteel),
-                ),
+                const Text('Adjusted position',
+                    style: TextStyle(fontSize: 10, color: _suSteel)),
               ],
             ),
           ],
@@ -980,29 +976,20 @@ Widget _suBuildAdjustDrag() {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'start',
-                          style: TextStyle(
-                            color: _suMint,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        const Text('start',
+                            style: TextStyle(
+                                color: _suMint,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold)),
                         const SizedBox(width: 4),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: _suSteel,
-                          size: 14,
-                        ),
+                        const Icon(Icons.arrow_forward,
+                            color: _suSteel, size: 14),
                         const SizedBox(width: 4),
-                        const Text(
-                          'end',
-                          style: TextStyle(
-                            color: _suCoral,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        const Text('end',
+                            style: TextStyle(
+                                color: _suCoral,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                     const SizedBox(height: 4),
@@ -1020,7 +1007,8 @@ Widget _suBuildAdjustDrag() {
                       child: const Center(
                         child: Text(
                           'Hello World →',
-                          style: TextStyle(color: _suDarkNavy, fontSize: 11),
+                          style: TextStyle(
+                              color: _suDarkNavy, fontSize: 11),
                         ),
                       ),
                     ),
@@ -1035,7 +1023,8 @@ Widget _suBuildAdjustDrag() {
                 decoration: BoxDecoration(
                   color: _suViolet.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: _suViolet.withValues(alpha: 0.3)),
+                  border:
+                      Border.all(color: _suViolet.withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   children: [
@@ -1044,25 +1033,20 @@ Widget _suBuildAdjustDrag() {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'end',
-                          style: TextStyle(
-                            color: _suCoral,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        const Text('end',
+                            style: TextStyle(
+                                color: _suCoral,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold)),
                         const SizedBox(width: 4),
-                        const Icon(Icons.arrow_back, color: _suSteel, size: 14),
+                        const Icon(Icons.arrow_back,
+                            color: _suSteel, size: 14),
                         const SizedBox(width: 4),
-                        const Text(
-                          'start',
-                          style: TextStyle(
-                            color: _suMint,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        const Text('start',
+                            style: TextStyle(
+                                color: _suMint,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                     const SizedBox(height: 4),
@@ -1080,7 +1064,8 @@ Widget _suBuildAdjustDrag() {
                       child: const Center(
                         child: Text(
                           '← مرحبا بالعالم',
-                          style: TextStyle(color: _suDarkNavy, fontSize: 11),
+                          style: TextStyle(
+                              color: _suDarkNavy, fontSize: 11),
                         ),
                       ),
                     ),
@@ -1170,18 +1155,13 @@ Widget _suBuildGetBoundingBox() {
                                 decoration: BoxDecoration(
                                   color: _suNavy.withValues(alpha: 0.2),
                                   border: Border.all(
-                                    color: _suNavy.withValues(alpha: 0.5),
-                                  ),
+                                      color: _suNavy.withValues(alpha: 0.5)),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                                 child: const Center(
-                                  child: Text(
-                                    'line 1 box',
-                                    style: TextStyle(
-                                      fontSize: 9,
-                                      color: _suNavy,
-                                    ),
-                                  ),
+                                  child: Text('line 1 box',
+                                      style: TextStyle(
+                                          fontSize: 9, color: _suNavy)),
                                 ),
                               ),
                             ),
@@ -1199,18 +1179,13 @@ Widget _suBuildGetBoundingBox() {
                                 decoration: BoxDecoration(
                                   color: _suNavy.withValues(alpha: 0.2),
                                   border: Border.all(
-                                    color: _suNavy.withValues(alpha: 0.5),
-                                  ),
+                                      color: _suNavy.withValues(alpha: 0.5)),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                                 child: const Center(
-                                  child: Text(
-                                    'line 2 box',
-                                    style: TextStyle(
-                                      fontSize: 9,
-                                      color: _suNavy,
-                                    ),
-                                  ),
+                                  child: Text('line 2 box',
+                                      style: TextStyle(
+                                          fontSize: 9, color: _suNavy)),
                                 ),
                               ),
                             ),
@@ -1229,18 +1204,13 @@ Widget _suBuildGetBoundingBox() {
                                 decoration: BoxDecoration(
                                   color: _suNavy.withValues(alpha: 0.2),
                                   border: Border.all(
-                                    color: _suNavy.withValues(alpha: 0.5),
-                                  ),
+                                      color: _suNavy.withValues(alpha: 0.5)),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                                 child: const Center(
-                                  child: Text(
-                                    'line 3 box',
-                                    style: TextStyle(
-                                      fontSize: 9,
-                                      color: _suNavy,
-                                    ),
-                                  ),
+                                  child: Text('line 3 box',
+                                      style: TextStyle(
+                                          fontSize: 9, color: _suNavy)),
                                 ),
                               ),
                             ),
@@ -1254,7 +1224,8 @@ Widget _suBuildGetBoundingBox() {
                 // Arrow
                 const Padding(
                   padding: EdgeInsets.only(top: 40),
-                  child: Icon(Icons.arrow_forward, color: _suAmber, size: 28),
+                  child: Icon(Icons.arrow_forward,
+                      color: _suAmber, size: 28),
                 ),
                 // Output: single bounding rect
                 Expanded(
@@ -1280,21 +1251,17 @@ Widget _suBuildGetBoundingBox() {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  'bounding box',
-                                  style: TextStyle(
-                                    color: _suMint,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                  ),
-                                ),
-                                Text(
-                                  'enclosing all lines',
-                                  style: TextStyle(
-                                    color: _suSteel,
-                                    fontSize: 9,
-                                  ),
-                                ),
+                                Text('bounding box',
+                                    style: TextStyle(
+                                      color: _suMint,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11,
+                                    )),
+                                Text('enclosing all lines',
+                                    style: TextStyle(
+                                      color: _suSteel,
+                                      fontSize: 9,
+                                    )),
                               ],
                             ),
                           ),
@@ -1317,7 +1284,11 @@ Widget _suBuildGetBoundingBox() {
                 'The toolbar sits centered above the bounding box.\n'
                 'Without merging, the system wouldn\'t know where to place it.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: _suDarkNavy, fontSize: 11, height: 1.4),
+                style: TextStyle(
+                  color: _suDarkNavy,
+                  fontSize: 11,
+                  height: 1.4,
+                ),
               ),
             ),
           ],
@@ -1461,8 +1432,13 @@ Widget _suPipelineStep(
       Container(
         width: 32,
         height: 32,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        child: Center(child: Icon(icon, color: Colors.white, size: 16)),
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Icon(icon, color: Colors.white, size: 16),
+        ),
       ),
       const SizedBox(width: 10),
       Expanded(
@@ -1658,7 +1634,10 @@ Widget _suBuildLiveDemo() {
                 const SizedBox(height: 6),
                 Text(
                   'Subtitle text — medium size.',
-                  style: TextStyle(color: _suSteel, fontSize: 16),
+                  style: TextStyle(
+                    color: _suSteel,
+                    fontSize: 16,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Text(
@@ -1673,7 +1652,10 @@ Widget _suBuildLiveDemo() {
                 const SizedBox(height: 6),
                 const Text(
                   'Tiny caption — the offset correction scales with the bounding rect.',
-                  style: TextStyle(color: _suSteel, fontSize: 10),
+                  style: TextStyle(
+                    color: _suSteel,
+                    fontSize: 10,
+                  ),
                 ),
               ],
             ),
@@ -1707,7 +1689,8 @@ Widget _suBuildEdgeCases() {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: const BoxDecoration(
                 color: _suNavy,
                 borderRadius: BorderRadius.only(
@@ -1825,12 +1808,9 @@ Widget _suBuildEdgeCases() {
             _suCheckPriority(2, 'dy < rect.top', 'Above → previous', _suAmber),
             _suCheckPriority(3, 'dy > rect.bottom', 'Below → next', _suViolet),
             _suCheckPriority(
-              4,
-              'dx < rect.left',
-              'Left (same band) → previous',
-              _suCoral,
-            ),
-            _suCheckPriority(5, 'else', 'Right (same band) → next', _suNavy),
+                4, 'dx < rect.left', 'Left (same band) → previous', _suCoral),
+            _suCheckPriority(
+                5, 'else', 'Right (same band) → next', _suNavy),
           ],
         ),
       ),
@@ -1838,7 +1818,8 @@ Widget _suBuildEdgeCases() {
   );
 }
 
-Widget _suEdgeRow(String scenario, String method, String behavior, bool isAlt) {
+Widget _suEdgeRow(
+    String scenario, String method, String behavior, bool isAlt) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     color: isAlt ? _suLightSky.withValues(alpha: 0.5) : Colors.white,
@@ -1848,7 +1829,10 @@ Widget _suEdgeRow(String scenario, String method, String behavior, bool isAlt) {
           flex: 3,
           child: Text(
             scenario,
-            style: const TextStyle(color: _suDarkNavy, fontSize: 11),
+            style: const TextStyle(
+              color: _suDarkNavy,
+              fontSize: 11,
+            ),
           ),
         ),
         Expanded(
@@ -1866,7 +1850,10 @@ Widget _suEdgeRow(String scenario, String method, String behavior, bool isAlt) {
           flex: 3,
           child: Text(
             behavior,
-            style: const TextStyle(color: _suSteel, fontSize: 11),
+            style: const TextStyle(
+              color: _suSteel,
+              fontSize: 11,
+            ),
           ),
         ),
       ],
@@ -1874,7 +1861,8 @@ Widget _suEdgeRow(String scenario, String method, String behavior, bool isAlt) {
   );
 }
 
-Widget _suCheckPriority(int order, String check, String result, Color color) {
+Widget _suCheckPriority(
+    int order, String check, String result, Color color) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 3),
     child: Row(
@@ -1882,7 +1870,10 @@ Widget _suCheckPriority(int order, String check, String result, Color color) {
         Container(
           width: 24,
           height: 24,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
           child: Center(
             child: Text(
               '$order',
@@ -1987,7 +1978,8 @@ Widget _suBuildIntegration() {
   );
 }
 
-Widget _suCallSiteCard(String title, String desc, Color color, IconData icon) {
+Widget _suCallSiteCard(
+    String title, String desc, Color color, IconData icon) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(14),
@@ -2214,7 +2206,10 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.build, size: 14),
                 SizedBox(width: 4),
-                Text('Utility', style: TextStyle(fontSize: 12)),
+                Text(
+                  'Utility',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),

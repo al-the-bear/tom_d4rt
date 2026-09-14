@@ -19,8 +19,7 @@ class _TooltipPositionContextDemo extends StatefulWidget {
       _TooltipPositionContextDemoState();
 }
 
-class _TooltipPositionContextDemoState
-    extends State<_TooltipPositionContextDemo>
+class _TooltipPositionContextDemoState extends State<_TooltipPositionContextDemo>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
@@ -56,7 +55,11 @@ class _TooltipPositionContextDemoState
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [_ModelTab(), _PositionStudioTab(), _EdgeCasesTab()],
+        children: const [
+          _ModelTab(),
+          _PositionStudioTab(),
+          _EdgeCasesTab(),
+        ],
       ),
     );
   }
@@ -175,20 +178,16 @@ class _PositionStudioTabState extends State<_PositionStudioTab> {
                   value: _tooltipSize.width,
                   min: 100,
                   max: 240,
-                  onChanged: (value) => setState(
-                    () => _tooltipSize = Size(value, _tooltipSize.height),
-                  ),
+                  onChanged: (value) =>
+                      setState(() => _tooltipSize = Size(value, _tooltipSize.height)),
                 ),
-                Text(
-                  'Tooltip height: ${_tooltipSize.height.toStringAsFixed(0)}',
-                ),
+                Text('Tooltip height: ${_tooltipSize.height.toStringAsFixed(0)}'),
                 Slider(
                   value: _tooltipSize.height,
                   min: 36,
                   max: 120,
-                  onChanged: (value) => setState(
-                    () => _tooltipSize = Size(_tooltipSize.width, value),
-                  ),
+                  onChanged: (value) =>
+                      setState(() => _tooltipSize = Size(_tooltipSize.width, value)),
                 ),
                 FilterChip(
                   label: const Text('preferBelow'),
@@ -219,14 +218,8 @@ class _PositionStudioTabState extends State<_PositionStudioTab> {
                     onPanUpdate: (details) {
                       setState(() {
                         _target = Offset(
-                          (_target.dx + details.delta.dx).clamp(
-                            0,
-                            _overlay.width,
-                          ),
-                          (_target.dy + details.delta.dy).clamp(
-                            0,
-                            _overlay.height,
-                          ),
+                          (_target.dx + details.delta.dx).clamp(0, _overlay.width),
+                          (_target.dy + details.delta.dy).clamp(0, _overlay.height),
                         );
                       });
                     },
@@ -334,10 +327,7 @@ class _Banner extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
-            ),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
             const SizedBox(height: 8),
             Text(body),
           ],
@@ -395,11 +385,7 @@ class _ChecklistCard extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.check_circle,
-                      size: 18,
-                      color: Color(0xFF2E7D32),
-                    ),
+                    const Icon(Icons.check_circle, size: 18, color: Color(0xFF2E7D32)),
                     const SizedBox(width: 8),
                     Expanded(child: Text(line)),
                   ],
@@ -479,10 +465,7 @@ class _EdgeCaseCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              definition.name,
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
+            Text(definition.name, style: const TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             Text('target: ${definition.contextValue.target}'),
             Text('tooltipSize: ${definition.contextValue.tooltipSize}'),
@@ -530,47 +513,25 @@ _PlacementResult _positionTooltip(TooltipPositionContext contextValue) {
 
   final above = Offset(
     targetCenterX - halfTooltipWidth,
-    contextValue.target.dy -
-        contextValue.verticalOffset -
-        contextValue.tooltipSize.height,
+    contextValue.target.dy - contextValue.verticalOffset - contextValue.tooltipSize.height,
   );
   final below = Offset(
     targetCenterX - halfTooltipWidth,
-    contextValue.target.dy +
-        contextValue.targetSize.height +
-        contextValue.verticalOffset,
+    contextValue.target.dy + contextValue.targetSize.height + contextValue.verticalOffset,
   );
 
   final candidate = contextValue.preferBelow ? below : above;
   final fallback = contextValue.preferBelow ? above : below;
 
-  final candidateFits = _fits(
-    candidate,
-    contextValue.tooltipSize,
-    contextValue.overlaySize,
-  );
+  final candidateFits = _fits(candidate, contextValue.tooltipSize, contextValue.overlaySize);
   final raw = candidateFits ? candidate : fallback;
   final reason = candidateFits
-      ? (contextValue.preferBelow
-            ? 'preferred below fits'
-            : 'preferred above fits')
+      ? (contextValue.preferBelow ? 'preferred below fits' : 'preferred above fits')
       : 'fallback used due to edge collision';
 
   final clamped = Offset(
-    raw.dx.clamp(
-      0.0,
-      math.max(
-        0.0,
-        contextValue.overlaySize.width - contextValue.tooltipSize.width,
-      ),
-    ),
-    raw.dy.clamp(
-      0.0,
-      math.max(
-        0.0,
-        contextValue.overlaySize.height - contextValue.tooltipSize.height,
-      ),
-    ),
+    raw.dx.clamp(0.0, math.max(0.0, contextValue.overlaySize.width - contextValue.tooltipSize.width)),
+    raw.dy.clamp(0.0, math.max(0.0, contextValue.overlaySize.height - contextValue.tooltipSize.height)),
   );
 
   return _PlacementResult(origin: clamped, reason: reason);

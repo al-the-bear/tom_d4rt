@@ -19,21 +19,14 @@ dynamic build(BuildContext context) {
   // 3 callbacks).
   // ============================================================
   void onImageA(ImageInfo info, bool sync) {
-    print(
-      'onImageA fired: ${info.image.width}x${info.image.height} sync=$sync',
-    );
+    print('onImageA fired: ${info.image.width}x${info.image.height} sync=$sync');
   }
-
   void onImageB(ImageInfo info, bool sync) {
     print('onImageB fired (different instance) sync=$sync info=$info');
   }
-
   void onChunkA(ImageChunkEvent ev) {
-    print(
-      'onChunkA: loaded=${ev.cumulativeBytesLoaded}/${ev.expectedTotalBytes}',
-    );
+    print('onChunkA: loaded=${ev.cumulativeBytesLoaded}/${ev.expectedTotalBytes}');
   }
-
   void onErrorA(Object e, StackTrace? s) {
     print('onErrorA: $e (stack=${s != null})');
   }
@@ -71,24 +64,12 @@ dynamic build(BuildContext context) {
     onError: onErrorA,
   );
 
-  print(
-    'listenerMinimal:    onImage=yes, onChunk=${listenerMinimal.onChunk != null}, onError=${listenerMinimal.onError != null}',
-  );
-  print(
-    'listenerWithChunk:  onImage=yes, onChunk=${listenerWithChunk.onChunk != null}, onError=${listenerWithChunk.onError != null}',
-  );
-  print(
-    'listenerWithError:  onImage=yes, onChunk=${listenerWithError.onChunk != null}, onError=${listenerWithError.onError != null}',
-  );
-  print(
-    'listenerAll:        onImage=yes, onChunk=${listenerAll.onChunk != null}, onError=${listenerAll.onError != null}',
-  );
-  print(
-    'listenerAllTwin:    onImage=yes, onChunk=${listenerAllTwin.onChunk != null}, onError=${listenerAllTwin.onError != null}',
-  );
-  print(
-    'listenerDifferent:  onImage=yes, onChunk=${listenerDifferent.onChunk != null}, onError=${listenerDifferent.onError != null}',
-  );
+  print('listenerMinimal:    onImage=yes, onChunk=${listenerMinimal.onChunk != null}, onError=${listenerMinimal.onError != null}');
+  print('listenerWithChunk:  onImage=yes, onChunk=${listenerWithChunk.onChunk != null}, onError=${listenerWithChunk.onError != null}');
+  print('listenerWithError:  onImage=yes, onChunk=${listenerWithError.onChunk != null}, onError=${listenerWithError.onError != null}');
+  print('listenerAll:        onImage=yes, onChunk=${listenerAll.onChunk != null}, onError=${listenerAll.onError != null}');
+  print('listenerAllTwin:    onImage=yes, onChunk=${listenerAllTwin.onChunk != null}, onError=${listenerAllTwin.onError != null}');
+  print('listenerDifferent:  onImage=yes, onChunk=${listenerDifferent.onChunk != null}, onError=${listenerDifferent.onError != null}');
 
   // Equality probes (used in section 8).
   final bool eqAllSame = listenerAll == listenerAllTwin;
@@ -589,7 +570,11 @@ dynamic build(BuildContext context) {
       lifecycleNodes.add(
         Padding(
           padding: EdgeInsets.symmetric(vertical: 2.0),
-          child: Icon(Icons.arrow_downward, color: streamAccent, size: 22.0),
+          child: Icon(
+            Icons.arrow_downward,
+            color: streamAccent,
+            size: 22.0,
+          ),
         ),
       );
     }
@@ -648,7 +633,7 @@ dynamic build(BuildContext context) {
       'title': 'You MUST removeListener',
       'desc':
           'ImageStream holds a strong reference to your listener. Forget to '
-          'remove it in dispose() and your widget (and its closures) are leaked.',
+              'remove it in dispose() and your widget (and its closures) are leaked.',
       'icon': Icons.warning_amber,
       'color': Colors.orange,
     },
@@ -656,8 +641,8 @@ dynamic build(BuildContext context) {
       'title': 'Same instance for add/remove',
       'desc':
           'addListener and removeListener compare by ==. Build a new closure '
-          'every frame and removeListener will silently do nothing. Store '
-          'the listener in a field.',
+              'every frame and removeListener will silently do nothing. Store '
+              'the listener in a field.',
       'icon': Icons.fingerprint,
       'color': Colors.deepPurple,
     },
@@ -665,9 +650,9 @@ dynamic build(BuildContext context) {
       'title': 'synchronousCall vs setState',
       'desc':
           'If the stream already has a frame, addListener calls onImage '
-          'SYNCHRONOUSLY. Calling setState() from there during build '
-          'throws "setState during build". Schedule it (e.g. via the '
-          'sync flag) or use precacheImage.',
+              'SYNCHRONOUSLY. Calling setState() from there during build '
+              'throws "setState during build". Schedule it (e.g. via the '
+              'sync flag) or use precacheImage.',
       'icon': Icons.sync_problem,
       'color': Colors.red,
     },
@@ -675,7 +660,7 @@ dynamic build(BuildContext context) {
       'title': 'onError or you get a red box',
       'desc':
           'No onError? Decode failures are reported via FlutterError.onError '
-          'and typically show as the red error widget in debug builds.',
+              'and typically show as the red error widget in debug builds.',
       'icon': Icons.broken_image,
       'color': Colors.deepOrange,
     },
@@ -683,8 +668,8 @@ dynamic build(BuildContext context) {
       'title': 'onChunk is best-effort',
       'desc':
           'Local providers (AssetImage, MemoryImage) usually never call '
-          'onChunk. Don\'t depend on it firing — handle the case where '
-          'expectedTotalBytes is null too.',
+              'onChunk. Don\'t depend on it firing — handle the case where '
+              'expectedTotalBytes is null too.',
       'icon': Icons.report_problem,
       'color': Colors.amber.shade800,
     },
@@ -836,7 +821,11 @@ dynamic build(BuildContext context) {
               'to an ImageStream. The framework invokes them as the stream '
               'produces chunks, frames, and errors. The class is just a '
               'value-object: it has no logic of its own beyond equality.',
-              style: TextStyle(fontSize: 13.0, color: streamDeep, height: 1.4),
+              style: TextStyle(
+                fontSize: 13.0,
+                color: streamDeep,
+                height: 1.4,
+              ),
             ),
           ),
           SizedBox(height: 24.0),
@@ -846,7 +835,10 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           _buildSectionLabel('3. Five Instances', streamDeep),
-          Wrap(alignment: WrapAlignment.center, children: instanceCards),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: instanceCards,
+          ),
           SizedBox(height: 24.0),
 
           _buildSectionLabel('4. ImageListener (onImage)', streamDeep),
@@ -961,7 +953,10 @@ Widget _buildCallbackBox(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.30)],
+        colors: [
+          color.withValues(alpha: 0.15),
+          color.withValues(alpha: 0.30),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1031,7 +1026,10 @@ Widget _buildInstanceCard(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.25)],
+        colors: [
+          color.withValues(alpha: 0.10),
+          color.withValues(alpha: 0.25),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1121,7 +1119,10 @@ Widget _buildSignatureCard(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.20)],
+        colors: [
+          color.withValues(alpha: 0.08),
+          color.withValues(alpha: 0.20),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1183,7 +1184,10 @@ Widget _buildSignatureCard(
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
+            border: Border.all(
+              color: color.withValues(alpha: 0.5),
+              width: 1.0,
+            ),
           ),
           child: Text(
             paramExplain,
@@ -1306,7 +1310,10 @@ Widget _buildLifecycleNode(
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.25)],
+        colors: [
+          color.withValues(alpha: 0.10),
+          color.withValues(alpha: 0.25),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1357,7 +1364,10 @@ Widget _buildLifecycleNode(
               ),
               Text(
                 description,
-                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ],
           ),

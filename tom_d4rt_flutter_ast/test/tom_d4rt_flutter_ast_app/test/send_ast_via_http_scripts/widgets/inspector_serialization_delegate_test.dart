@@ -53,27 +53,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: iris, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -90,14 +84,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: wisteria),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: deepViolet.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: deepViolet.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -125,18 +116,14 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             decoration: BoxDecoration(
               color: paleLavender,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(7),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(7)),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: deepViolet,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: deepViolet)),
           ),
           Padding(padding: const EdgeInsets.all(12), child: content),
         ],
@@ -152,10 +139,9 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(
-        label,
-        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
-      ),
+      child: Text(label,
+          style:
+              TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
     );
   }
 
@@ -167,17 +153,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: deepViolet,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: deepViolet)),
           ),
           Expanded(
-            child: Text(value, style: TextStyle(fontSize: 12, color: grape)),
+            child: Text(value,
+                style: TextStyle(fontSize: 12, color: grape)),
           ),
         ],
       ),
@@ -196,17 +180,13 @@ dynamic build(BuildContext context) {
               color: color,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: deepViolet.withValues(alpha: 0.15),
-                width: 1,
-              ),
+                  color: deepViolet.withValues(alpha: 0.15), width: 1),
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            name,
-            style: TextStyle(fontSize: 9, color: deepViolet),
-            textAlign: TextAlign.center,
-          ),
+          Text(name,
+              style: TextStyle(fontSize: 9, color: deepViolet),
+              textAlign: TextAlign.center),
         ],
       ),
     );
@@ -222,14 +202,9 @@ dynamic build(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(label, style: TextStyle(fontSize: 11, color: deepViolet)),
-              Text(
-                '${(fraction * 100).toStringAsFixed(0)}%',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                ),
-              ),
+              Text('${(fraction * 100).toStringAsFixed(0)}%',
+                  style: TextStyle(
+                      fontSize: 11, fontWeight: FontWeight.w700, color: color)),
             ],
           ),
           const SizedBox(height: 3),
@@ -280,23 +255,17 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: active ? color : deepViolet,
-                  ),
-                ),
-                Text(
-                  detail,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: active
-                        ? color.withValues(alpha: 0.7)
-                        : grape.withValues(alpha: 0.5),
-                  ),
-                ),
+                Text(name,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: active ? color : deepViolet)),
+                Text(detail,
+                    style: TextStyle(
+                        fontSize: 10,
+                        color: active
+                            ? color.withValues(alpha: 0.7)
+                            : grape.withValues(alpha: 0.5))),
               ],
             ),
           ),
@@ -314,15 +283,12 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: wisteria),
       ),
-      child: Text(
-        content,
-        style: TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 11,
-          color: deepViolet,
-          height: 1.4,
-        ),
-      ),
+      child: Text(content,
+          style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: deepViolet,
+              height: 1.4)),
     );
   }
 
@@ -334,37 +300,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('01', 'Overview & Purpose'),
       noteBox(
-        'InspectorSerializationDelegate controls how the widget tree is '
-        'converted into serializable diagnostic maps for transmission '
-        'to DevTools. It determines which properties, children, and '
-        'metadata appear in the serialized output.',
-      ),
+          'InspectorSerializationDelegate controls how the widget tree is '
+          'converted into serializable diagnostic maps for transmission '
+          'to DevTools. It determines which properties, children, and '
+          'metadata appear in the serialized output.'),
       infoCard(
-        'Core Identity',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Type', 'Abstract delegate / configuration'),
-            dataRow('Package', 'flutter/widgets (diagnostics)'),
-            dataRow('Purpose', 'Control inspector serialization'),
-            dataRow('Consumers', 'WidgetInspectorService, DevTools'),
-            dataRow('Output', 'Map<String, Object?> per node'),
-          ],
-        ),
-      ),
+          'Core Identity',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Type', 'Abstract delegate / configuration'),
+              dataRow('Package', 'flutter/widgets (diagnostics)'),
+              dataRow('Purpose', 'Control inspector serialization'),
+              dataRow('Consumers', 'WidgetInspectorService, DevTools'),
+              dataRow('Output', 'Map<String, Object?> per node'),
+            ],
+          )),
       infoCard(
-        'Key Responsibilities',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Filter properties', 'Include/exclude by level'),
-            dataRow('Control depth', 'How deep to serialize'),
-            dataRow('Add summaries', 'Description vs full detail'),
-            dataRow('Children policy', 'Which children to include'),
-            dataRow('Custom data', 'Attach extra diagnostic info'),
-          ],
-        ),
-      ),
+          'Key Responsibilities',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Filter properties', 'Include/exclude by level'),
+              dataRow('Control depth', 'How deep to serialize'),
+              dataRow('Add summaries', 'Description vs full detail'),
+              dataRow('Children policy', 'Which children to include'),
+              dataRow('Custom data', 'Attach extra diagnostic info'),
+            ],
+          )),
     ],
   );
 
@@ -376,44 +339,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('02', 'Serialization Architecture'),
       noteBox(
-        'The delegate sits between DiagnosticsNode and the JSON output, '
-        'intercepting each node to decide what gets included.',
-      ),
+          'The delegate sits between DiagnosticsNode and the JSON output, '
+          'intercepting each node to decide what gets included.'),
       infoCard(
-        'Architecture Layers',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            delegateNode(
-              'DiagnosticsNode',
-              'Source diagnostic data',
-              false,
-              indigo,
-            ),
-            delegateNode('Delegate', 'Filters and transforms', true, plum),
-            delegateNode('toJsonMap()', 'Produces Map output', false, indigo),
-            delegateNode(
-              'Service extension',
-              'Sends to DevTools',
-              false,
-              indigo,
-            ),
-          ],
-        ),
-      ),
+          'Architecture Layers',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              delegateNode('DiagnosticsNode', 'Source diagnostic data', false, indigo),
+              delegateNode('Delegate', 'Filters and transforms', true, plum),
+              delegateNode('toJsonMap()', 'Produces Map output', false, indigo),
+              delegateNode('Service extension', 'Sends to DevTools', false, indigo),
+            ],
+          )),
       infoCard(
-        'Data Flow',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('1. Tree walk', 'Visit each Element or RenderObject'),
-            dataRow('2. Create diagnostics', 'toDiagnosticsNode()'),
-            dataRow('3. Apply delegate', 'Filter properties/children'),
-            dataRow('4. Serialize', 'toJsonMap(delegate)'),
-            dataRow('5. Transmit', 'Send JSON to DevTools client'),
-          ],
-        ),
-      ),
+          'Data Flow',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('1. Tree walk', 'Visit each Element or RenderObject'),
+              dataRow('2. Create diagnostics', 'toDiagnosticsNode()'),
+              dataRow('3. Apply delegate', 'Filter properties/children'),
+              dataRow('4. Serialize', 'toJsonMap(delegate)'),
+              dataRow('5. Transmit', 'Send JSON to DevTools client'),
+            ],
+          )),
     ],
   );
 
@@ -425,35 +375,32 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('03', 'Property Filtering'),
       noteBox(
-        'The delegate can filter which DiagnosticsProperty entries are '
-        'included based on their DiagnosticLevel — info, debug, fine, '
-        'hidden, etc.',
-      ),
+          'The delegate can filter which DiagnosticsProperty entries are '
+          'included based on their DiagnosticLevel — info, debug, fine, '
+          'hidden, etc.'),
       infoCard(
-        'Diagnostic Levels',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            delegateNode('hidden', 'Internal framework details', false, orchid),
-            delegateNode('fine', 'Verbose debug information', false, orchid),
-            delegateNode('debug', 'Standard debug properties', true, amethyst),
-            delegateNode('info', 'Key user-facing properties', true, plum),
-            delegateNode('summary', 'Most important properties', true, indigo),
-          ],
-        ),
-      ),
+          'Diagnostic Levels',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              delegateNode('hidden', 'Internal framework details', false, orchid),
+              delegateNode('fine', 'Verbose debug information', false, orchid),
+              delegateNode('debug', 'Standard debug properties', true, amethyst),
+              delegateNode('info', 'Key user-facing properties', true, plum),
+              delegateNode('summary', 'Most important properties', true, indigo),
+            ],
+          )),
       infoCard(
-        'Filter Configuration',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('minLevel', 'Minimum DiagnosticLevel to include'),
-            dataRow('summaryTree', 'Only summary-level in tree view'),
-            dataRow('subtreeDepth', 'Depth limit for child tree'),
-            dataRow('includeProperties', 'true/false for properties'),
-          ],
-        ),
-      ),
+          'Filter Configuration',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('minLevel', 'Minimum DiagnosticLevel to include'),
+              dataRow('summaryTree', 'Only summary-level in tree view'),
+              dataRow('subtreeDepth', 'Depth limit for child tree'),
+              dataRow('includeProperties', 'true/false for properties'),
+            ],
+          )),
     ],
   );
 
@@ -465,34 +412,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('04', 'Children Policy'),
       noteBox(
-        'The delegate controls which children of a node appear in the '
-        'serialized tree — all children, only direct, or filtered by type.',
-      ),
+          'The delegate controls which children of a node appear in the '
+          'serialized tree — all children, only direct, or filtered by type.'),
       infoCard(
-        'Child Inclusion Modes',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('All children', 'Every child node included'),
-            dataRow('Direct only', 'No deep recursion'),
-            dataRow('Filtered', 'Only matching child types'),
-            dataRow('Summary', 'Key children only for overview'),
-            dataRow('None', 'Leaf node, no children'),
-          ],
-        ),
-      ),
+          'Child Inclusion Modes',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('All children', 'Every child node included'),
+              dataRow('Direct only', 'No deep recursion'),
+              dataRow('Filtered', 'Only matching child types'),
+              dataRow('Summary', 'Key children only for overview'),
+              dataRow('None', 'Leaf node, no children'),
+            ],
+          )),
       infoCard(
-        'Depth Control',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('subtreeDepth: 0', 'Current node only'),
-            dataRow('subtreeDepth: 1', 'Direct children'),
-            dataRow('subtreeDepth: 2', 'Two levels deep'),
-            dataRow('subtreeDepth: -1', 'Unlimited (full tree)'),
-          ],
-        ),
-      ),
+          'Depth Control',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('subtreeDepth: 0', 'Current node only'),
+              dataRow('subtreeDepth: 1', 'Direct children'),
+              dataRow('subtreeDepth: 2', 'Two levels deep'),
+              dataRow('subtreeDepth: -1', 'Unlimited (full tree)'),
+            ],
+          )),
     ],
   );
 
@@ -504,35 +448,32 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('05', 'Summary vs Detail Tree'),
       noteBox(
-        'The inspector supports two tree views — a summary tree that '
-        'hides framework internals and a detail tree that shows everything.',
-      ),
+          'The inspector supports two tree views — a summary tree that '
+          'hides framework internals and a detail tree that shows everything.'),
       infoCard(
-        'Summary Tree',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Purpose', 'User-focused widget overview'),
-            dataRow('Filtering', 'Hides internal framework widgets'),
-            dataRow('Depth', 'Collapses uninteresting subtrees'),
-            dataRow('Labels', 'Friendly widget names'),
-            dataRow('Use case', 'Default DevTools tree view'),
-          ],
-        ),
-      ),
+          'Summary Tree',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Purpose', 'User-focused widget overview'),
+              dataRow('Filtering', 'Hides internal framework widgets'),
+              dataRow('Depth', 'Collapses uninteresting subtrees'),
+              dataRow('Labels', 'Friendly widget names'),
+              dataRow('Use case', 'Default DevTools tree view'),
+            ],
+          )),
       infoCard(
-        'Detail Tree',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Purpose', 'Complete render tree'),
-            dataRow('Filtering', 'Nothing hidden'),
-            dataRow('Depth', 'Full tree depth'),
-            dataRow('Labels', 'Technical type names'),
-            dataRow('Use case', 'Deep debugging sessions'),
-          ],
-        ),
-      ),
+          'Detail Tree',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Purpose', 'Complete render tree'),
+              dataRow('Filtering', 'Nothing hidden'),
+              dataRow('Depth', 'Full tree depth'),
+              dataRow('Labels', 'Technical type names'),
+              dataRow('Use case', 'Deep debugging sessions'),
+            ],
+          )),
     ],
   );
 
@@ -544,37 +485,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('06', 'JSON Map Format'),
       noteBox(
-        'The delegate produces a Map<String, Object?> for each node. '
-        'Key fields include description, type, properties, and children.',
-      ),
+          'The delegate produces a Map<String, Object?> for each node. '
+          'Key fields include description, type, properties, and children.'),
       infoCard(
-        'Output Fields',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('description', 'String — human-readable summary'),
-            dataRow('type', 'String — runtime type name'),
-            dataRow('hasChildren', 'bool — has child nodes'),
-            dataRow('properties', 'List<Map> — property entries'),
-            dataRow('children', 'List<Map> — child node maps'),
-            dataRow('widgetRuntimeType', 'String — original widget type'),
-          ],
-        ),
-      ),
+          'Output Fields',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('description', 'String — human-readable summary'),
+              dataRow('type', 'String — runtime type name'),
+              dataRow('hasChildren', 'bool — has child nodes'),
+              dataRow('properties', 'List<Map> — property entries'),
+              dataRow('children', 'List<Map> — child node maps'),
+              dataRow('widgetRuntimeType', 'String — original widget type'),
+            ],
+          )),
       infoCard(
-        'Example JSON Structure',
-        jsonBlock(
-          '{\n'
-          '  "description": "Padding",\n'
-          '  "type": "Padding",\n'
-          '  "hasChildren": true,\n'
-          '  "properties": [\n'
-          '    {"name": "padding", "value": "EdgeInsets(8.0)"}\n'
-          '  ],\n'
-          '  "children": [ ... ]\n'
-          '}',
-        ),
-      ),
+          'Example JSON Structure',
+          jsonBlock(
+              '{\n'
+              '  "description": "Padding",\n'
+              '  "type": "Padding",\n'
+              '  "hasChildren": true,\n'
+              '  "properties": [\n'
+              '    {"name": "padding", "value": "EdgeInsets(8.0)"}\n'
+              '  ],\n'
+              '  "children": [ ... ]\n'
+              '}')),
     ],
   );
 
@@ -586,52 +523,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('07', 'Property Serialization'),
       noteBox(
-        'Each DiagnosticsProperty is serialized into a map with name, '
-        'value, level, and optional extra metadata.',
-      ),
+          'Each DiagnosticsProperty is serialized into a map with name, '
+          'value, level, and optional extra metadata.'),
       infoCard(
-        'Property Map Fields',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('name', 'Property name (e.g. "padding")'),
-            dataRow('value', 'String representation'),
-            dataRow('level', 'DiagnosticLevel enum name'),
-            dataRow('description', 'Optional longer description'),
-            dataRow('ifNull', 'Text if value is null'),
-            dataRow('defaultValue', 'Default for comparison'),
-          ],
-        ),
-      ),
+          'Property Map Fields',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('name', 'Property name (e.g. "padding")'),
+              dataRow('value', 'String representation'),
+              dataRow('level', 'DiagnosticLevel enum name'),
+              dataRow('description', 'Optional longer description'),
+              dataRow('ifNull', 'Text if value is null'),
+              dataRow('defaultValue', 'Default for comparison'),
+            ],
+          )),
       infoCard(
-        'Property Types',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            delegateNode(
-              'StringProperty',
-              '"Hello" — plain text',
-              true,
-              indigo,
-            ),
-            delegateNode('DoubleProperty', '16.0 — numeric value', false, iris),
-            delegateNode('FlagProperty', 'true/false — boolean', false, iris),
-            delegateNode('EnumProperty', 'Axis.horizontal — enum', false, iris),
-            delegateNode(
-              'ColorProperty',
-              'Color(0xFF...) — color',
-              false,
-              iris,
-            ),
-            delegateNode(
-              'DiagnosticsProperty',
-              'Generic typed property',
-              false,
-              iris,
-            ),
-          ],
-        ),
-      ),
+          'Property Types',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              delegateNode('StringProperty', '"Hello" — plain text', true, indigo),
+              delegateNode('DoubleProperty', '16.0 — numeric value', false, iris),
+              delegateNode('FlagProperty', 'true/false — boolean', false, iris),
+              delegateNode('EnumProperty', 'Axis.horizontal — enum', false, iris),
+              delegateNode('ColorProperty', 'Color(0xFF...) — color', false, iris),
+              delegateNode('DiagnosticsProperty', 'Generic typed property', false, iris),
+            ],
+          )),
     ],
   );
 
@@ -643,34 +562,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('08', 'Truncation & Size Limits'),
       noteBox(
-        'Large widget trees produce massive serialized output. The delegate '
-        'helps truncate data to keep transmission sizes manageable.',
-      ),
+          'Large widget trees produce massive serialized output. The delegate '
+          'helps truncate data to keep transmission sizes manageable.'),
       infoCard(
-        'Size Management',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Max depth', 'Limit subtree recursion'),
-            dataRow('Max properties', 'Cap property count per node'),
-            dataRow('Truncate strings', 'Limit long descriptions'),
-            dataRow('Skip hidden', 'Omit hidden-level data'),
-            dataRow('Lazy expansion', 'Fetch children on demand'),
-          ],
-        ),
-      ),
+          'Size Management',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Max depth', 'Limit subtree recursion'),
+              dataRow('Max properties', 'Cap property count per node'),
+              dataRow('Truncate strings', 'Limit long descriptions'),
+              dataRow('Skip hidden', 'Omit hidden-level data'),
+              dataRow('Lazy expansion', 'Fetch children on demand'),
+            ],
+          )),
       infoCard(
-        'Truncation Indicators',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('truncated: true', 'Node was truncated'),
-            dataRow('childCount', 'Total children vs shown'),
-            dataRow('...', 'Truncation marker in description'),
-            dataRow('hasMore', 'More data available on request'),
-          ],
-        ),
-      ),
+          'Truncation Indicators',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('truncated: true', 'Node was truncated'),
+              dataRow('childCount', 'Total children vs shown'),
+              dataRow('...', 'Truncation marker in description'),
+              dataRow('hasMore', 'More data available on request'),
+            ],
+          )),
     ],
   );
 
@@ -682,37 +598,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('09', 'Custom Delegate Implementation'),
       noteBox(
-        'A custom InspectorSerializationDelegate can override behavior '
-        'to add project-specific diagnostic data or change filtering.',
-      ),
+          'A custom InspectorSerializationDelegate can override behavior '
+          'to add project-specific diagnostic data or change filtering.'),
       infoCard(
-        'Override Points',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('additionalNodeProperties', 'Add custom fields per node'),
-            dataRow('filterProperties', 'Custom property inclusion'),
-            dataRow('filterChildren', 'Custom child inclusion'),
-            dataRow('truncateProperties', 'Custom truncation logic'),
-            dataRow('groupName', 'Group nodes by category'),
-          ],
-        ),
-      ),
+          'Override Points',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('additionalNodeProperties', 'Add custom fields per node'),
+              dataRow('filterProperties', 'Custom property inclusion'),
+              dataRow('filterChildren', 'Custom child inclusion'),
+              dataRow('truncateProperties', 'Custom truncation logic'),
+              dataRow('groupName', 'Group nodes by category'),
+            ],
+          )),
       infoCard(
-        'Implementation Pattern',
-        jsonBlock(
-          'class MyDelegate extends InspectorSerializationDelegate {\n'
-          '  Map<String, Object?> additionalNodeProperties(\n'
-          '    DiagnosticsNode node,\n'
-          '  ) {\n'
-          '    return {\n'
-          '      "customData": node.runtimeType.toString(),\n'
-          '      "timestamp": DateTime.now().toIso8601String(),\n'
-          '    };\n'
-          '  }\n'
-          '}',
-        ),
-      ),
+          'Implementation Pattern',
+          jsonBlock(
+              'class MyDelegate extends InspectorSerializationDelegate {\n'
+              '  Map<String, Object?> additionalNodeProperties(\n'
+              '    DiagnosticsNode node,\n'
+              '  ) {\n'
+              '    return {\n'
+              '      "customData": node.runtimeType.toString(),\n'
+              '      "timestamp": DateTime.now().toIso8601String(),\n'
+              '    };\n'
+              '  }\n'
+              '}')),
     ],
   );
 
@@ -724,34 +636,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('10', 'Service Extension Integration'),
       noteBox(
-        'The delegate is used by WidgetInspectorService when responding '
-        'to service extension calls from DevTools.',
-      ),
+          'The delegate is used by WidgetInspectorService when responding '
+          'to service extension calls from DevTools.'),
       infoCard(
-        'Service Extensions',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('getDetailsSubtree', 'Full detail tree request'),
-            dataRow('getSummaryTree', 'Summary tree request'),
-            dataRow('getProperties', 'Property list for node'),
-            dataRow('getChildren', 'Children list for node'),
-            dataRow('getRootWidget', 'Entry point for tree'),
-          ],
-        ),
-      ),
+          'Service Extensions',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('getDetailsSubtree', 'Full detail tree request'),
+              dataRow('getSummaryTree', 'Summary tree request'),
+              dataRow('getProperties', 'Property list for node'),
+              dataRow('getChildren', 'Children list for node'),
+              dataRow('getRootWidget', 'Entry point for tree'),
+            ],
+          )),
       infoCard(
-        'Request / Response Flow',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('1. DevTools sends', 'Service extension call'),
-            dataRow('2. Service creates', 'Delegate with parameters'),
-            dataRow('3. Delegate serializes', 'Tree with configured depth'),
-            dataRow('4. Service returns', 'JSON map to DevTools'),
-          ],
-        ),
-      ),
+          'Request / Response Flow',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('1. DevTools sends', 'Service extension call'),
+              dataRow('2. Service creates', 'Delegate with parameters'),
+              dataRow('3. Delegate serializes', 'Tree with configured depth'),
+              dataRow('4. Service returns', 'JSON map to DevTools'),
+            ],
+          )),
     ],
   );
 
@@ -763,33 +672,30 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('11', 'Grouping & Object References'),
       noteBox(
-        'The inspector uses a group system to manage object references. '
-        'The delegate interacts with this for object identity tracking.',
-      ),
+          'The inspector uses a group system to manage object references. '
+          'The delegate interacts with this for object identity tracking.'),
       infoCard(
-        'Object Groups',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Group name', 'String identifier for a set'),
-            dataRow('Object refs', 'Track alive references'),
-            dataRow('Dispose group', 'Release all refs in group'),
-            dataRow('ID mapping', 'Object → unique ref ID'),
-          ],
-        ),
-      ),
+          'Object Groups',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Group name', 'String identifier for a set'),
+              dataRow('Object refs', 'Track alive references'),
+              dataRow('Dispose group', 'Release all refs in group'),
+              dataRow('ID mapping', 'Object → unique ref ID'),
+            ],
+          )),
       infoCard(
-        'Why Groups Matter',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Memory control', 'Prevent object leaks'),
-            dataRow('Session scoping', 'Group per DevTools request'),
-            dataRow('Identity', 'Same object → same ID'),
-            dataRow('Cleanup', 'Dispose when DevTools disconnects'),
-          ],
-        ),
-      ),
+          'Why Groups Matter',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Memory control', 'Prevent object leaks'),
+              dataRow('Session scoping', 'Group per DevTools request'),
+              dataRow('Identity', 'Same object → same ID'),
+              dataRow('Cleanup', 'Dispose when DevTools disconnects'),
+            ],
+          )),
     ],
   );
 
@@ -801,32 +707,28 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('12', 'Description Formatting'),
       noteBox(
-        'The delegate controls how node descriptions are formatted — '
-        'short summary vs verbose, single-line vs multi-line.',
-      ),
+          'The delegate controls how node descriptions are formatted — '
+          'short summary vs verbose, single-line vs multi-line.'),
       infoCard(
-        'Description Modes',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('singleLine', '"Padding(padding: 8.0)"'),
-            dataRow('shallow', '"Padding" — type only'),
-            dataRow('deep', 'Full property list, multi-line'),
-            dataRow('errorDescription', 'Red-highlighted for errors'),
-          ],
-        ),
-      ),
+          'Description Modes',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('singleLine', '"Padding(padding: 8.0)"'),
+              dataRow('shallow', '"Padding" — type only'),
+              dataRow('deep', 'Full property list, multi-line'),
+              dataRow('errorDescription', 'Red-highlighted for errors'),
+            ],
+          )),
       infoCard(
-        'Format Examples',
-        jsonBlock(
-          'Single-line: Padding(padding: EdgeInsets(8.0))\n'
-          'Shallow:     Padding\n'
-          'Deep:        Padding\n'
-          '               padding: EdgeInsets(8.0, 0.0, 8.0, 0.0)\n'
-          '               child: Text\n'
-          'Error:       ══╡ EXCEPTION CAUGHT ╞══',
-        ),
-      ),
+          'Format Examples',
+          jsonBlock(
+              'Single-line: Padding(padding: EdgeInsets(8.0))\n'
+              'Shallow:     Padding\n'
+              'Deep:        Padding\n'
+              '               padding: EdgeInsets(8.0, 0.0, 8.0, 0.0)\n'
+              '               child: Text\n'
+              'Error:       ══╡ EXCEPTION CAUGHT ╞══')),
     ],
   );
 
@@ -838,45 +740,32 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('13', 'DiagnosticsNode Interaction'),
       noteBox(
-        'The delegate works with DiagnosticsNode subclasses which wrap '
-        'the actual widget/render object data for serialization.',
-      ),
+          'The delegate works with DiagnosticsNode subclasses which wrap '
+          'the actual widget/render object data for serialization.'),
       infoCard(
-        'DiagnosticsNode Hierarchy',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            delegateNode('DiagnosticsNode', 'Base class', false, iris),
-            delegateNode(
-              'DiagnosticsProperty<T>',
-              'Name-value property',
-              true,
-              plum,
-            ),
-            delegateNode(
-              'DiagnosticableTreeNode',
-              'Tree-structured node',
-              false,
-              iris,
-            ),
-            delegateNode('ErrorDescription', 'Error diagnostic', false, iris),
-            delegateNode('ErrorSummary', 'Error summary line', false, iris),
-          ],
-        ),
-      ),
+          'DiagnosticsNode Hierarchy',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              delegateNode('DiagnosticsNode', 'Base class', false, iris),
+              delegateNode('DiagnosticsProperty<T>', 'Name-value property', true, plum),
+              delegateNode('DiagnosticableTreeNode', 'Tree-structured node', false, iris),
+              delegateNode('ErrorDescription', 'Error diagnostic', false, iris),
+              delegateNode('ErrorSummary', 'Error summary line', false, iris),
+            ],
+          )),
       infoCard(
-        'Node → Map Pipeline',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('node.toJsonMap()', 'Convert node to map'),
-            dataRow('delegate.filter()', 'Apply delegate filters'),
-            dataRow('node.getProperties()', 'List of property nodes'),
-            dataRow('node.getChildren()', 'List of child nodes'),
-            dataRow('Recursion', 'Apply delegate to each child'),
-          ],
-        ),
-      ),
+          'Node → Map Pipeline',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('node.toJsonMap()', 'Convert node to map'),
+              dataRow('delegate.filter()', 'Apply delegate filters'),
+              dataRow('node.getProperties()', 'List of property nodes'),
+              dataRow('node.getChildren()', 'List of child nodes'),
+              dataRow('Recursion', 'Apply delegate to each child'),
+            ],
+          )),
     ],
   );
 
@@ -888,36 +777,32 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('14', 'Error Serialization'),
       noteBox(
-        'When a widget has an error (e.g. overflow, build failure), the '
-        'delegate ensures error diagnostics are prominently serialized.',
-      ),
+          'When a widget has an error (e.g. overflow, build failure), the '
+          'delegate ensures error diagnostics are prominently serialized.'),
       infoCard(
-        'Error Diagnostic Fields',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('hasError', 'bool — node has error'),
-            dataRow('errorDescription', 'Text of the error'),
-            dataRow('level: error', 'DiagnosticLevel.error'),
-            dataRow('errorSummary', 'Short summary line'),
-            dataRow('errorDetails', 'Full stack trace / details'),
-          ],
-        ),
-      ),
+          'Error Diagnostic Fields',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('hasError', 'bool — node has error'),
+              dataRow('errorDescription', 'Text of the error'),
+              dataRow('level: error', 'DiagnosticLevel.error'),
+              dataRow('errorSummary', 'Short summary line'),
+              dataRow('errorDetails', 'Full stack trace / details'),
+            ],
+          )),
       infoCard(
-        'Error JSON Example',
-        jsonBlock(
-          '{\n'
-          '  "description": "ErrorWidget",\n'
-          '  "hasError": true,\n'
-          '  "level": "error",\n'
-          '  "errorSummary": "A RenderFlex overflowed",\n'
-          '  "properties": [\n'
-          '    {"name": "message", "level": "error"}\n'
-          '  ]\n'
-          '}',
-        ),
-      ),
+          'Error JSON Example',
+          jsonBlock(
+              '{\n'
+              '  "description": "ErrorWidget",\n'
+              '  "hasError": true,\n'
+              '  "level": "error",\n'
+              '  "errorSummary": "A RenderFlex overflowed",\n'
+              '  "properties": [\n'
+              '    {"name": "message", "level": "error"}\n'
+              '  ]\n'
+              '}')),
     ],
   );
 
@@ -929,34 +814,31 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('15', 'Performance Impact'),
       noteBox(
-        'Serialization is debug-only but trades off completeness against '
-        'performance — deeper trees take longer to serialize.',
-      ),
+          'Serialization is debug-only but trades off completeness against '
+          'performance — deeper trees take longer to serialize.'),
       infoCard(
-        'Performance Trade-offs',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            progressBar('Shallow tree (depth 1)', 0.15, indigo),
-            progressBar('Medium tree (depth 3)', 0.40, iris),
-            progressBar('Deep tree (depth 10)', 0.75, plum),
-            progressBar('Full tree (unlimited)', 0.95, grape),
-          ],
-        ),
-      ),
+          'Performance Trade-offs',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              progressBar('Shallow tree (depth 1)', 0.15, indigo),
+              progressBar('Medium tree (depth 3)', 0.40, iris),
+              progressBar('Deep tree (depth 10)', 0.75, plum),
+              progressBar('Full tree (unlimited)', 0.95, grape),
+            ],
+          )),
       infoCard(
-        'Optimization Strategies',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Lazy loading', 'Serialize children on demand'),
-            dataRow('Level filtering', 'Skip hidden/fine levels'),
-            dataRow('Depth limit', 'Bound recursion depth'),
-            dataRow('Caching', 'Cache serialized map if unchanged'),
-            dataRow('Delta updates', 'Only resend changed nodes'),
-          ],
-        ),
-      ),
+          'Optimization Strategies',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Lazy loading', 'Serialize children on demand'),
+              dataRow('Level filtering', 'Skip hidden/fine levels'),
+              dataRow('Depth limit', 'Bound recursion depth'),
+              dataRow('Caching', 'Cache serialized map if unchanged'),
+              dataRow('Delta updates', 'Only resend changed nodes'),
+            ],
+          )),
     ],
   );
 
@@ -967,61 +849,56 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionBanner('16', 'Visual Dashboard'),
-      noteBox(
-        'Complete overview of the InspectorSerializationDelegate deep demo.',
-      ),
+      noteBox('Complete overview of the InspectorSerializationDelegate deep demo.'),
       infoCard(
-        'Demo Color Palette',
-        Wrap(
-          children: [
-            colorSwatch('Indigo', indigo),
-            colorSwatch('Plum', plum),
-            colorSwatch('Deep Violet', deepViolet),
-            colorSwatch('Pale Lavender', paleLavender),
-            colorSwatch('Amethyst', amethyst),
-            colorSwatch('Lilac', lilac),
-            colorSwatch('Iris', iris),
-            colorSwatch('Orchid', orchid),
-            colorSwatch('Wisteria', wisteria),
-            colorSwatch('Grape', grape),
-          ],
-        ),
-      ),
+          'Demo Color Palette',
+          Wrap(
+            children: [
+              colorSwatch('Indigo', indigo),
+              colorSwatch('Plum', plum),
+              colorSwatch('Deep Violet', deepViolet),
+              colorSwatch('Pale Lavender', paleLavender),
+              colorSwatch('Amethyst', amethyst),
+              colorSwatch('Lilac', lilac),
+              colorSwatch('Iris', iris),
+              colorSwatch('Orchid', orchid),
+              colorSwatch('Wisteria', wisteria),
+              colorSwatch('Grape', grape),
+            ],
+          )),
       infoCard(
-        'Section Coverage',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            progressBar('Overview', 1.0, indigo),
-            progressBar('Architecture', 1.0, plum),
-            progressBar('Property Filtering', 1.0, iris),
-            progressBar('Children Policy', 1.0, grape),
-            progressBar('Summary vs Detail', 1.0, indigo),
-            progressBar('JSON Map Format', 1.0, plum),
-            progressBar('Property Serialization', 1.0, iris),
-            progressBar('Truncation', 1.0, grape),
-            progressBar('Custom Delegate', 1.0, indigo),
-            progressBar('Service Extensions', 1.0, plum),
-            progressBar('Grouping', 1.0, iris),
-            progressBar('Description Formatting', 1.0, grape),
-            progressBar('DiagnosticsNode', 1.0, indigo),
-            progressBar('Error Serialization', 1.0, plum),
-            progressBar('Performance', 1.0, iris),
-            progressBar('Dashboard', 1.0, grape),
-          ],
-        ),
-      ),
+          'Section Coverage',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              progressBar('Overview', 1.0, indigo),
+              progressBar('Architecture', 1.0, plum),
+              progressBar('Property Filtering', 1.0, iris),
+              progressBar('Children Policy', 1.0, grape),
+              progressBar('Summary vs Detail', 1.0, indigo),
+              progressBar('JSON Map Format', 1.0, plum),
+              progressBar('Property Serialization', 1.0, iris),
+              progressBar('Truncation', 1.0, grape),
+              progressBar('Custom Delegate', 1.0, indigo),
+              progressBar('Service Extensions', 1.0, plum),
+              progressBar('Grouping', 1.0, iris),
+              progressBar('Description Formatting', 1.0, grape),
+              progressBar('DiagnosticsNode', 1.0, indigo),
+              progressBar('Error Serialization', 1.0, plum),
+              progressBar('Performance', 1.0, iris),
+              progressBar('Dashboard', 1.0, grape),
+            ],
+          )),
       infoCard(
-        'Statistics',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dataRow('Total sections', '16'),
-            dataRow('Theme', 'Indigo / Plum'),
-            dataRow('Palette colors', '10'),
-          ],
-        ),
-      ),
+          'Statistics',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              dataRow('Total sections', '16'),
+              dataRow('Theme', 'Indigo / Plum'),
+              dataRow('Palette colors', '10'),
+            ],
+          )),
       Wrap(
         spacing: 6,
         runSpacing: 4,

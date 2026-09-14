@@ -9,9 +9,7 @@ dynamic build(BuildContext context) {
   print('SwipeEdge Deep Demo executing');
   print('Library: package:flutter/services.dart');
   print('Source:  flutter/lib/src/services/predictive_back_event.dart');
-  print(
-    'Values:  ${SwipeEdge.values.length} -> ${SwipeEdge.values.map((e) => e.name).join(", ")}',
-  );
+  print('Values:  ${SwipeEdge.values.length} -> ${SwipeEdge.values.map((e) => e.name).join(", ")}');
 
   // ============================================================
   // SECTION 1: Hero Header
@@ -22,7 +20,11 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
+        colors: [
+          Color(0xFF0F2027),
+          Color(0xFF203A43),
+          Color(0xFF2C5364),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -50,7 +52,11 @@ dynamic build(BuildContext context) {
                   width: 1.0,
                 ),
               ),
-              child: const Icon(Icons.swipe, color: Colors.white, size: 36.0),
+              child: const Icon(
+                Icons.swipe,
+                color: Colors.white,
+                size: 36.0,
+              ),
             ),
             const SizedBox(width: 16.0),
             Expanded(
@@ -87,7 +93,10 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: const Color(0xFF8FD3F4).withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: const Color(0xFF8FD3F4), width: 1.0),
+                border: Border.all(
+                  color: const Color(0xFF8FD3F4),
+                  width: 1.0,
+                ),
               ),
               child: const Text(
                 'Android 14+',
@@ -106,7 +115,9 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.10),
+            ),
           ),
           child: const Text(
             'SwipeEdge identifies which screen edge a predictive-back '
@@ -114,7 +125,11 @@ dynamic build(BuildContext context) {
             'so the application can mirror the system animation correctly — '
             'sliding away to the left when the user pulls from the left, '
             'and to the right when they pull from the right.',
-            style: TextStyle(fontSize: 13.0, height: 1.5, color: Colors.white),
+            style: TextStyle(
+              fontSize: 13.0,
+              height: 1.5,
+              color: Colors.white,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -175,7 +190,10 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: const Color(0xFF7C3AED), width: 2.0),
+            border: Border.all(
+              color: const Color(0xFF7C3AED),
+              width: 2.0,
+            ),
           ),
           child: Column(
             children: [
@@ -207,10 +225,7 @@ dynamic build(BuildContext context) {
                     end: Alignment.centerRight,
                   ),
                   borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                    color: const Color(0xFFD97706),
-                    width: 2.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFD97706), width: 2.0),
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFFD97706).withValues(alpha: 0.30),
@@ -221,7 +236,10 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.arrow_right_alt, color: Color(0xFFB45309)),
+                    const Icon(
+                      Icons.arrow_right_alt,
+                      color: Color(0xFFB45309),
+                    ),
                     const SizedBox(width: 8.0),
                     const Text(
                       'swipeEdge',
@@ -300,9 +318,7 @@ dynamic build(BuildContext context) {
     print('SwipeEdge.${value.name} index=${value.index}');
     final isLeft = value == SwipeEdge.left;
     final accent = isLeft ? const Color(0xFF0EA5E9) : const Color(0xFFEC4899);
-    final accentDark = isLeft
-        ? const Color(0xFF0369A1)
-        : const Color(0xFF9F1239);
+    final accentDark = isLeft ? const Color(0xFF0369A1) : const Color(0xFF9F1239);
     valueCards.add(
       Container(
         width: 320.0,
@@ -340,7 +356,9 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Icon(
-                    isLeft ? Icons.arrow_back_ios_new : Icons.arrow_forward_ios,
+                    isLeft
+                        ? Icons.arrow_back_ios_new
+                        : Icons.arrow_forward_ios,
                     color: Colors.white,
                     size: 22.0,
                   ),
@@ -394,10 +412,14 @@ dynamic build(BuildContext context) {
             Text(
               isLeft
                   ? 'Indicates that the swipe gesture starts from the left '
-                        'edge of the screen.'
+                      'edge of the screen.'
                   : 'Indicates that the swipe gesture starts from the right '
-                        'edge of the screen.',
-              style: TextStyle(fontSize: 12.0, height: 1.45, color: accentDark),
+                      'edge of the screen.',
+              style: TextStyle(
+                fontSize: 12.0,
+                height: 1.45,
+                color: accentDark,
+              ),
             ),
             const SizedBox(height: 14.0),
             // Mini diagram: a phone with an arrow
@@ -421,13 +443,13 @@ dynamic build(BuildContext context) {
               child: Text(
                 isLeft
                     ? 'if (event.swipeEdge == SwipeEdge.left) {\n'
-                          '  // user dragged from left;\n'
-                          '  // slide outgoing route to the right.\n'
-                          '}'
+                        '  // user dragged from left;\n'
+                        '  // slide outgoing route to the right.\n'
+                        '}'
                     : 'if (event.swipeEdge == SwipeEdge.right) {\n'
-                          '  // user dragged from right;\n'
-                          '  // slide outgoing route to the left.\n'
-                          '}',
+                        '  // user dragged from right;\n'
+                        '  // slide outgoing route to the left.\n'
+                        '}',
                 style: const TextStyle(
                   fontFamily: 'monospace',
                   fontSize: 11.0,
@@ -493,18 +515,18 @@ dynamic build(BuildContext context) {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: Color(0xFFCBD5E1))),
+              border: Border(
+                bottom: BorderSide(color: Color(0xFFCBD5E1)),
+              ),
             ),
             child: Row(
               children: [
-                _matrixCell(
-                  'SwipeEdge.${v.name}',
-                  110.0,
-                  color: const Color(0xFF0F172A),
-                  monospace: true,
-                ),
-                _matrixCell(v.name, 90.0, color: const Color(0xFF334155)),
-                _matrixCell('${v.index}', 70.0, color: const Color(0xFF334155)),
+                _matrixCell('SwipeEdge.${v.name}', 110.0,
+                    color: const Color(0xFF0F172A), monospace: true),
+                _matrixCell(v.name, 90.0,
+                    color: const Color(0xFF334155)),
+                _matrixCell('${v.index}', 70.0,
+                    color: const Color(0xFF334155)),
                 _matrixCell(
                   v == SwipeEdge.left ? 'right' : 'left',
                   100.0,
@@ -870,7 +892,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 24.0),
         _sectionTitle('2. The two SwipeEdge values', Icons.swipe),
         const SizedBox(height: 8.0),
-        Wrap(alignment: WrapAlignment.center, children: valueCards),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: valueCards,
+        ),
         const SizedBox(height: 24.0),
         _sectionTitle('3. Per-value properties', Icons.table_chart),
         propertiesMatrix,
@@ -878,10 +903,7 @@ dynamic build(BuildContext context) {
         _sectionTitle('4. Gesture flow', Icons.timeline),
         gestureFlow,
         const SizedBox(height: 24.0),
-        _sectionTitle(
-          '5. Recipe — fake-app page transition',
-          Icons.phone_android,
-        ),
+        _sectionTitle('5. Recipe — fake-app page transition', Icons.phone_android),
         recipeFakeApp,
         const SizedBox(height: 24.0),
         _sectionTitle('6. Recipe — Navigator route guard', Icons.shield),
@@ -1060,12 +1082,17 @@ Widget _miniPhoneDiagram(bool isLeft, Color accent) {
         child: Container(
           width: 6.0,
           height: 90.0,
-          margin: EdgeInsets.symmetric(horizontal: isLeft ? 90.0 : 90.0),
+          margin: EdgeInsets.symmetric(
+            horizontal: isLeft ? 90.0 : 90.0,
+          ),
           decoration: BoxDecoration(
             color: accent,
             borderRadius: BorderRadius.circular(3.0),
             boxShadow: [
-              BoxShadow(color: accent.withValues(alpha: 0.6), blurRadius: 8.0),
+              BoxShadow(
+                color: accent.withValues(alpha: 0.6),
+                blurRadius: 8.0,
+              ),
             ],
           ),
         ),
@@ -1126,7 +1153,13 @@ Widget _matrixCell(
 // ----------------------------------------------------------------
 // Flow step / connector
 // ----------------------------------------------------------------
-Widget _flowStep(int n, String title, String body, IconData icon, Color color) {
+Widget _flowStep(
+  int n,
+  String title,
+  String body,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: const EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -1690,7 +1723,11 @@ Widget _pitfall(String title, String body) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.error_outline, color: Color(0xFFB91C1C), size: 18.0),
+        const Icon(
+          Icons.error_outline,
+          color: Color(0xFFB91C1C),
+          size: 18.0,
+        ),
         const SizedBox(width: 10.0),
         Expanded(
           child: Column(

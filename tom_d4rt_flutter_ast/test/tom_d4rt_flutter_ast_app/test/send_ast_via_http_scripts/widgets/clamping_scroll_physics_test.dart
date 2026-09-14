@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.android,
       'title': 'Android-Style Scrolling',
-      'body':
-          'ClampingScrollPhysics is the default scroll behavior '
+      'body': 'ClampingScrollPhysics is the default scroll behavior '
           'on Android. When the user scrolls past the content edge, '
           'the scroll position is "clamped" — it refuses to go '
           'beyond the boundary. Instead, any excess energy is '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.block,
       'title': 'Hard Stop at Edges',
-      'body':
-          'Unlike BouncingScrollPhysics (iOS) which rubber-bands '
+      'body': 'Unlike BouncingScrollPhysics (iOS) which rubber-bands '
           'past the edge, ClampingScrollPhysics creates a firm '
           'boundary. The scroll position will never be less than '
           'minScrollExtent or greater than maxScrollExtent. This '
@@ -41,8 +39,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.flash_on,
       'title': 'Overscroll Glow Indicator',
-      'body':
-          'When the user drags or flings past the edge, an '
+      'body': 'When the user drags or flings past the edge, an '
           'OverscrollIndicatorNotification is dispatched. The '
           'GlowingOverscrollIndicator (part of MaterialApp\'s '
           'ScrollBehavior) renders the characteristic blue/green '
@@ -53,8 +50,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'Clamp vs Bounce',
-      'body':
-          'The fundamental difference: Clamping restricts the '
+      'body': 'The fundamental difference: Clamping restricts the '
           'scroll position to valid bounds and uses a visual '
           'indicator for overscroll. Bouncing allows the position '
           'to exceed bounds temporarily and uses spring physics '
@@ -73,16 +69,15 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
+        border: Border.all(
+          color: (card['accent'] as Color).withOpacity(0.3),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            card['icon'] as IconData,
-            color: card['accent'] as Color,
-            size: 32,
-          ),
+          Icon(card['icon'] as IconData,
+              color: card['accent'] as Color, size: 32),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -118,8 +113,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'ClampingScrollPhysics({parent})',
       'type': 'Constructor',
-      'desc':
-          'Creates clamping scroll physics. The optional parent '
+      'desc': 'Creates clamping scroll physics. The optional parent '
           'parameter allows chaining with another ScrollPhysics. '
           'Common: ClampingScrollPhysics(parent: '
           'AlwaysScrollableScrollPhysics()) for scrolling even '
@@ -129,8 +123,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'applyTo(ScrollPhysics? ancestor)',
       'type': 'ClampingScrollPhysics',
-      'desc':
-          'Creates a copy of this physics combined with an '
+      'desc': 'Creates a copy of this physics combined with an '
           'ancestor physics. Used by the framework to compose '
           'physics chains during ScrollConfiguration resolution.',
       'icon': Icons.copy,
@@ -138,8 +131,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'applyBoundaryConditions(pos, value)',
       'type': 'double',
-      'desc':
-          'Returns the overscroll amount that should NOT be '
+      'desc': 'Returns the overscroll amount that should NOT be '
           'applied to the position. If scrolling past max, '
           'returns the excess. This is how clamping works — the '
           'excess is "rejected" and converted to an overscroll '
@@ -149,8 +141,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'createBallisticSimulation(pos, velocity)',
       'type': 'Simulation?',
-      'desc':
-          'Creates a ClampingScrollSimulation for fling gestures. '
+      'desc': 'Creates a ClampingScrollSimulation for fling gestures. '
           'The simulation decelerates with friction and hard stops '
           'at the content boundary. Returns null if velocity is '
           'below minFlingVelocity and position is at rest.',
@@ -159,8 +150,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'minFlingVelocity',
       'type': 'double',
-      'desc':
-          'The minimum velocity (in px/s) to trigger a ballistic '
+      'desc': 'The minimum velocity (in px/s) to trigger a ballistic '
           'fling scroll. Below this, the scroll stops immediately '
           'when the user lifts their finger.',
       'icon': Icons.speed,
@@ -168,8 +158,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'maxFlingVelocity',
       'type': 'double',
-      'desc':
-          'Maximum velocity cap for fling gestures. Prevents '
+      'desc': 'Maximum velocity cap for fling gestures. Prevents '
           'unreasonably fast scrolling from multi-touch artifacts '
           'or gesture detector edge cases.',
       'icon': Icons.trending_up,
@@ -177,8 +166,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'minFlingDistance',
       'type': 'double',
-      'desc':
-          'The minimum distance (in px) a fling must travel '
+      'desc': 'The minimum distance (in px) a fling must travel '
           'before being considered a fling. Helps filter out '
           'accidental micro-swipes.',
       'icon': Icons.straighten,
@@ -220,9 +208,7 @@ dynamic build(BuildContext context) {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: Colors.green[100],
                         borderRadius: BorderRadius.circular(4),
@@ -261,8 +247,7 @@ dynamic build(BuildContext context) {
       'scenario': 'Scrolling within bounds',
       'position': 'min < pos < max',
       'result': 'Returns 0.0 — scroll freely',
-      'detail':
-          'No boundary is approached. The position updates '
+      'detail': 'No boundary is approached. The position updates '
           'normally without any clamping.',
       'color': Colors.green[600]!,
     },
@@ -270,8 +255,7 @@ dynamic build(BuildContext context) {
       'scenario': 'Drag past top edge',
       'position': 'pos approaches < min',
       'result': 'Returns underscroll excess',
-      'detail':
-          'The excess pixels are rejected. The position stays '
+      'detail': 'The excess pixels are rejected. The position stays '
           'at min. Glow indicator appears at the top.',
       'color': Colors.orange[600]!,
     },
@@ -279,8 +263,7 @@ dynamic build(BuildContext context) {
       'scenario': 'Drag past bottom edge',
       'position': 'pos approaches > max',
       'result': 'Returns overscroll excess',
-      'detail':
-          'The excess pixels are rejected. The position stays '
+      'detail': 'The excess pixels are rejected. The position stays '
           'at max. Glow indicator appears at the bottom.',
       'color': Colors.orange[700]!,
     },
@@ -288,8 +271,7 @@ dynamic build(BuildContext context) {
       'scenario': 'Fling into top boundary',
       'position': 'velocity < 0, pos near min',
       'result': 'Simulation stops at min',
-      'detail':
-          'ClampingScrollSimulation decelerates and hard-stops '
+      'detail': 'ClampingScrollSimulation decelerates and hard-stops '
           'at the boundary. Remaining energy triggers glow.',
       'color': Colors.red[600]!,
     },
@@ -297,8 +279,7 @@ dynamic build(BuildContext context) {
       'scenario': 'Fling into bottom boundary',
       'position': 'velocity > 0, pos near max',
       'result': 'Simulation stops at max',
-      'detail':
-          'ClampingScrollSimulation decelerates and hard-stops '
+      'detail': 'ClampingScrollSimulation decelerates and hard-stops '
           'at the boundary. Remaining energy triggers glow.',
       'color': Colors.red[600]!,
     },
@@ -306,8 +287,7 @@ dynamic build(BuildContext context) {
       'scenario': 'Content fits in viewport',
       'position': 'max == min == 0',
       'result': 'No scrolling possible',
-      'detail':
-          'With default physics, no scroll occurs. To force '
+      'detail': 'With default physics, no scroll occurs. To force '
           'scrolling feedback, use AlwaysScrollableScrollPhysics.',
       'color': Colors.grey[600]!,
     },
@@ -322,7 +302,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (b['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (b['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (b['color'] as Color).withOpacity(0.25),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -340,7 +322,8 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: (b['color'] as Color).withOpacity(0.12),
                   borderRadius: BorderRadius.circular(6),
@@ -423,32 +406,22 @@ dynamic build(BuildContext context) {
     child: Row(
       children: const [
         Expanded(
-          flex: 3,
-          child: Text(
-            'Aspect',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-        ),
+            flex: 3,
+            child: Text('Aspect',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12))),
         Expanded(
-          flex: 4,
-          child: Text(
-            'Clamping',
-            style: TextStyle(color: Colors.white, fontSize: 12),
-            textAlign: TextAlign.center,
-          ),
-        ),
+            flex: 4,
+            child: Text('Clamping',
+                style: TextStyle(color: Colors.white, fontSize: 12),
+                textAlign: TextAlign.center)),
         Expanded(
-          flex: 4,
-          child: Text(
-            'Bouncing',
-            style: TextStyle(color: Colors.white, fontSize: 12),
-            textAlign: TextAlign.center,
-          ),
-        ),
+            flex: 4,
+            child: Text('Bouncing',
+                style: TextStyle(color: Colors.white, fontSize: 12),
+                textAlign: TextAlign.center)),
       ],
     ),
   );
@@ -508,16 +481,14 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'OverscrollIndicatorNotification',
       'icon': Icons.notifications,
-      'detail':
-          'Dispatched when excess overscroll is generated. '
+      'detail': 'Dispatched when excess overscroll is generated. '
           'Contains the overscroll amount and the axis direction. '
           'GlowingOverscrollIndicator listens for these.',
     },
     {
       'aspect': 'GlowingOverscrollIndicator',
       'icon': Icons.blur_on,
-      'detail':
-          'The widget that paints the edge glow. Automatically '
+      'detail': 'The widget that paints the edge glow. Automatically '
           'included by MaterialApp\'s ScrollBehavior. Renders a '
           'gradient arc at the overscrolled edge, sized '
           'proportional to the overscroll energy.',
@@ -525,8 +496,7 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'Disabling the Glow',
       'icon': Icons.visibility_off,
-      'detail':
-          'To suppress the glow, wrap the scrollable in a '
+      'detail': 'To suppress the glow, wrap the scrollable in a '
           'NotificationListener<OverscrollIndicatorNotification> '
           'and call notification.disallowIndicator(). Or use '
           'ScrollConfiguration with a custom ScrollBehavior.',
@@ -534,8 +504,7 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'Customizing Glow Color',
       'icon': Icons.palette,
-      'detail':
-          'The glow color defaults to ThemeData.colorScheme'
+      'detail': 'The glow color defaults to ThemeData.colorScheme'
           '.secondary. Override it via ScrollConfiguration or '
           'by providing a custom GlowingOverscrollIndicator '
           'with the desired color.',
@@ -543,8 +512,7 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'StretchingOverscrollIndicator',
       'icon': Icons.open_with,
-      'detail':
-          'Android 12+ uses a stretch effect instead of glow. '
+      'detail': 'Android 12+ uses a stretch effect instead of glow. '
           'Flutter supports this via StretchingOverscrollIndicator '
           'in the ScrollBehavior. It stretches the content area '
           'instead of painting a glow arc.',
@@ -565,7 +533,8 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(g['icon'] as IconData, color: Colors.green[700], size: 24),
+          Icon(g['icon'] as IconData,
+              color: Colors.green[700], size: 24),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -605,35 +574,29 @@ dynamic build(BuildContext context) {
       'color': Colors.green[600]!,
     },
     {
-      'chain':
-          'ClampingScrollPhysics(\n'
+      'chain': 'ClampingScrollPhysics(\n'
           '  parent: AlwaysScrollableScrollPhysics()\n'
           ')',
-      'desc':
-          'Clamp at edges, but allow scroll even when content '
+      'desc': 'Clamp at edges, but allow scroll even when content '
           'fits. Useful for pull-to-refresh patterns on Android.',
       'icon': Icons.link,
       'color': Colors.green[700]!,
     },
     {
-      'chain':
-          'PageScrollPhysics(\n'
+      'chain': 'PageScrollPhysics(\n'
           '  parent: ClampingScrollPhysics()\n'
           ')',
-      'desc':
-          'Page snapping with clamping at the first and last '
+      'desc': 'Page snapping with clamping at the first and last '
           'page. Combines discrete page settling with Android-style '
           'edge behavior.',
       'icon': Icons.link,
       'color': Colors.green[800]!,
     },
     {
-      'chain':
-          'CustomScrollPhysics(\n'
+      'chain': 'CustomScrollPhysics(\n'
           '  parent: ClampingScrollPhysics()\n'
           ')',
-      'desc':
-          'Your custom physics (e.g., different friction) '
+      'desc': 'Your custom physics (e.g., different friction) '
           'with clamping as the fallback boundary behavior.',
       'icon': Icons.link,
       'color': Colors.teal[700]!,
@@ -649,7 +612,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (ch['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (ch['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (ch['color'] as Color).withOpacity(0.25),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -690,8 +655,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Android Chat App',
       'icon': Icons.chat,
-      'scenario':
-          'A message list that uses ClampingScrollPhysics '
+      'scenario': 'A message list that uses ClampingScrollPhysics '
           'by default (since it\'s Android). Scrolling to the top '
           'shows the glow, indicating no older messages are loaded '
           'yet. Pull-to-refresh loads more history.',
@@ -700,8 +664,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Settings Screen',
       'icon': Icons.settings,
-      'scenario':
-          'A scrollable settings list. ClampingScrollPhysics '
+      'scenario': 'A scrollable settings list. ClampingScrollPhysics '
           'provides familiar Android feel. The glow at bottom '
           'tells the user they\'ve seen all settings.',
       'color': Colors.green[700]!,
@@ -709,8 +672,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Cross-Platform Consistency',
       'icon': Icons.devices,
-      'scenario':
-          'Force Android-style scrolling on all platforms '
+      'scenario': 'Force Android-style scrolling on all platforms '
           'by explicitly setting physics: ClampingScrollPhysics(). '
           'Useful for apps that want a uniform look regardless '
           'of the user\'s platform.',
@@ -719,8 +681,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Nested Scroll Views',
       'icon': Icons.view_agenda,
-      'scenario':
-          'Inner scroll views in NestedScrollView. '
+      'scenario': 'Inner scroll views in NestedScrollView. '
           'ClampingScrollPhysics prevents the inner view from '
           'overscrolling into the outer view\'s territory, '
           'keeping the scroll coordination clean.',
@@ -744,12 +705,15 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: (p['color'] as Color).withOpacity(0.25)),
+        border: Border.all(
+          color: (p['color'] as Color).withOpacity(0.25),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(p['icon'] as IconData, color: p['color'] as Color, size: 26),
+          Icon(p['icon'] as IconData,
+              color: p['color'] as Color, size: 26),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -784,8 +748,7 @@ dynamic build(BuildContext context) {
   final tips = <Map<String, dynamic>>[
     {
       'tip': 'Don\'t Mix Clamping with RefreshIndicator Directly',
-      'body':
-          'RefreshIndicator needs overscroll to trigger. With '
+      'body': 'RefreshIndicator needs overscroll to trigger. With '
           'ClampingScrollPhysics the position is clamped, so the '
           'indicator works through OverscrollNotification, not '
           'actual over-position. Ensure '
@@ -795,8 +758,7 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Platform-Aware Defaults',
-      'body':
-          'You rarely need to specify ClampingScrollPhysics '
+      'body': 'You rarely need to specify ClampingScrollPhysics '
           'explicitly. Flutter\'s ScrollConfiguration automatically '
           'picks clamping on Android and bouncing on iOS. Override '
           'only when you want a non-native feel.',
@@ -804,8 +766,7 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Glow vs Stretch on Android 12+',
-      'body':
-          'Flutter 3+ supports StretchingOverscrollIndicator '
+      'body': 'Flutter 3+ supports StretchingOverscrollIndicator '
           'for Android 12+ Material 3 stretch effect. If your app '
           'targets newer Android, consider using the stretch '
           'behavior via ScrollBehavior for a modern feel.',
@@ -813,8 +774,7 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Performance with Overscroll',
-      'body':
-          'The glow indicator is lightweight — it only paints '
+      'body': 'The glow indicator is lightweight — it only paints '
           'when overscroll energy is non-zero. No performance '
           'concern here. The stretch indicator is slightly more '
           'expensive as it transforms the scroll area.',
@@ -822,8 +782,7 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Testing Overscroll in Widget Tests',
-      'body':
-          'In widget tests, tester.drag() past the boundary '
+      'body': 'In widget tests, tester.drag() past the boundary '
           'will trigger OverscrollIndicatorNotification. To verify '
           'the glow appears, check that a GlowingOverscrollIndicator '
           'widget is found and has a non-zero glow value.',
@@ -872,9 +831,7 @@ dynamic build(BuildContext context) {
                     if (isWarning)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: Colors.orange[100],
                           borderRadius: BorderRadius.circular(4),
@@ -1007,7 +964,12 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.green[200]!),
             ),
-            child: Column(children: [compHeader, ...compRows]),
+            child: Column(
+              children: [
+                compHeader,
+                ...compRows,
+              ],
+            ),
           ),
 
           // Section 5: Glow Indicator

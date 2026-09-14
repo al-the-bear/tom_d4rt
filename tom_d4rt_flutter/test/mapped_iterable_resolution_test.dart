@@ -19,11 +19,10 @@ import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 /// The fix splits resolution into two chain walks (precise across all frames,
 /// then fuzzy fallback across all frames). These tests pin that ordering.
 void main() {
-  test(
-    'List.map().toList() (MappedListIterable) resolves to List, not Map',
-    () {
-      final flutter = SourceFlutterD4rt();
-      final result = flutter.build<Widget>('''
+  test('List.map().toList() (MappedListIterable) resolves to List, not Map',
+      () {
+    final flutter = SourceFlutterD4rt();
+    final result = flutter.build<Widget>('''
       import 'package:flutter/material.dart';
       Widget build() {
         final items = <int>[1, 2, 3];
@@ -33,16 +32,14 @@ void main() {
         return Column(children: children);
       }
     ''');
-      expect(result, isA<Column>());
-      expect((result as Column).children.length, 3);
-    },
-  );
+    expect(result, isA<Column>());
+    expect((result as Column).children.length, 3);
+  });
 
-  test(
-    'List.map -> MapEntry then re-map (MappedListIterable<int,MapEntry>)',
-    () {
-      final flutter = SourceFlutterD4rt();
-      final result = flutter.execute<int>('''
+  test('List.map -> MapEntry then re-map (MappedListIterable<int,MapEntry>)',
+      () {
+    final flutter = SourceFlutterD4rt();
+    final result = flutter.execute<int>('''
       int build() {
         final items = <int>[1, 2, 3];
         final entries = items.map((i) => MapEntry(i, i * 10));
@@ -50,9 +47,8 @@ void main() {
         return doubled.length;
       }
     ''', name: 'build');
-      expect(result, 3);
-    },
-  );
+    expect(result, 3);
+  });
 
   test('Map.fromEntries from List.map MapEntries', () {
     final flutter = SourceFlutterD4rt();

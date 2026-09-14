@@ -17,7 +17,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1565C0), Color(0xFF1976D2), Color(0xFF42A5F5)],
+        colors: [
+          Color(0xFF1565C0),
+          Color(0xFF1976D2),
+          Color(0xFF42A5F5),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         stops: [0.0, 0.5, 1.0],
@@ -52,7 +56,11 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(Icons.smart_button, color: Colors.white, size: 36.0),
+              child: Icon(
+                Icons.smart_button,
+                color: Colors.white,
+                size: 36.0,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -120,23 +128,27 @@ dynamic build(BuildContext context) {
       description: 'Minimal usage with a Text child and onPressed callback.',
       accent: Color(0xFF1976D2),
       code: 'TextButton(\n  onPressed: () {},\n  child: Text(\'Submit\'),\n)',
-      button: TextButton(onPressed: () {}, child: Text('Submit')),
+      button: TextButton(
+        onPressed: () {},
+        child: Text('Submit'),
+      ),
     ),
     _buildButtonCase(
       title: 'Disabled (onPressed: null)',
-      description:
-          'When onPressed and onLongPress are null the button '
+      description: 'When onPressed and onLongPress are null the button '
           'is disabled and shows the disabled foreground color.',
       accent: Color(0xFF757575),
       code: 'TextButton(\n  onPressed: null,\n  child: Text(\'Disabled\'),\n)',
-      button: TextButton(onPressed: null, child: Text('Disabled')),
+      button: TextButton(
+        onPressed: null,
+        child: Text('Disabled'),
+      ),
     ),
     _buildButtonCase(
       title: 'With autofocus',
       description: 'autofocus: true makes this the initial focused widget.',
       accent: Color(0xFFEF6C00),
-      code:
-          'TextButton(\n  autofocus: true,\n  onPressed: () {},\n  child: Text(\'Focus me\'),\n)',
+      code: 'TextButton(\n  autofocus: true,\n  onPressed: () {},\n  child: Text(\'Focus me\'),\n)',
       button: TextButton(
         autofocus: false,
         onPressed: () {},
@@ -147,8 +159,7 @@ dynamic build(BuildContext context) {
       title: 'With clipBehavior',
       description: 'Clip.antiAlias keeps splash effects inside the shape.',
       accent: Color(0xFF6A1B9A),
-      code:
-          'TextButton(\n  clipBehavior: Clip.antiAlias,\n  onPressed: () {},\n  child: Text(\'Clipped\'),\n)',
+      code: 'TextButton(\n  clipBehavior: Clip.antiAlias,\n  onPressed: () {},\n  child: Text(\'Clipped\'),\n)',
       button: TextButton(
         clipBehavior: Clip.antiAlias,
         onPressed: () {},
@@ -159,8 +170,7 @@ dynamic build(BuildContext context) {
       title: 'With onLongPress',
       description: 'A long-press callback distinct from the tap callback.',
       accent: Color(0xFF00897B),
-      code:
-          'TextButton(\n  onPressed: () {},\n  onLongPress: () {},\n  child: Text(\'Hold me\'),\n)',
+      code: 'TextButton(\n  onPressed: () {},\n  onLongPress: () {},\n  child: Text(\'Hold me\'),\n)',
       button: TextButton(
         onPressed: () {},
         onLongPress: () {},
@@ -171,8 +181,7 @@ dynamic build(BuildContext context) {
       title: 'With Icon child',
       description: 'A bare Icon widget can also serve as the child label.',
       accent: Color(0xFFC62828),
-      code:
-          'TextButton(\n  onPressed: () {},\n  child: Icon(Icons.favorite),\n)',
+      code: 'TextButton(\n  onPressed: () {},\n  child: Icon(Icons.favorite),\n)',
       button: TextButton(
         onPressed: () {},
         child: Icon(Icons.favorite, color: Color(0xFFC62828)),
@@ -190,8 +199,7 @@ dynamic build(BuildContext context) {
       title: 'TextButton.icon - basic',
       description: 'Convenience factory pairing an icon and a label widget.',
       accent: Color(0xFF1976D2),
-      code:
-          'TextButton.icon(\n  onPressed: () {},\n  icon: Icon(Icons.add),\n  label: Text(\'Add Item\'),\n)',
+      code: 'TextButton.icon(\n  onPressed: () {},\n  icon: Icon(Icons.add),\n  label: Text(\'Add Item\'),\n)',
       button: TextButton.icon(
         onPressed: () {},
         icon: Icon(Icons.add),
@@ -200,8 +208,7 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'TextButton.icon - start alignment',
-      description:
-          'iconAlignment: IconAlignment.start places the icon '
+      description: 'iconAlignment: IconAlignment.start places the icon '
           'before the label (default in LTR).',
       accent: Color(0xFF388E3C),
       code: 'TextButton.icon(\n  iconAlignment: IconAlignment.start,\n  ...\n)',
@@ -214,8 +221,7 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'TextButton.icon - end alignment',
-      description:
-          'iconAlignment: IconAlignment.end positions the icon '
+      description: 'iconAlignment: IconAlignment.end positions the icon '
           'after the label, useful for forward navigation.',
       accent: Color(0xFFEF6C00),
       code: 'TextButton.icon(\n  iconAlignment: IconAlignment.end,\n  ...\n)',
@@ -228,8 +234,7 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'TextButton.icon - null icon',
-      description:
-          'When icon is null the factory degrades gracefully to '
+      description: 'When icon is null the factory degrades gracefully to '
           'a plain TextButton showing only the label.',
       accent: Color(0xFF6A1B9A),
       code: 'TextButton.icon(\n  icon: null,\n  label: Text(\'No Icon\'),\n)',
@@ -241,12 +246,10 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'TextButton.icon - disabled',
-      description:
-          'When onPressed is null the icon and label are both '
+      description: 'When onPressed is null the icon and label are both '
           'tinted with the disabled foreground color.',
       accent: Color(0xFF757575),
-      code:
-          'TextButton.icon(\n  onPressed: null,\n  icon: Icon(Icons.lock),\n  label: Text(\'Locked\'),\n)',
+      code: 'TextButton.icon(\n  onPressed: null,\n  icon: Icon(Icons.lock),\n  label: Text(\'Locked\'),\n)',
       button: TextButton.icon(
         onPressed: null,
         icon: Icon(Icons.lock),
@@ -255,8 +258,7 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'TextButton.icon - Clip.none',
-      description:
-          'TextButton.icon defaults to Clip.none unlike the '
+      description: 'TextButton.icon defaults to Clip.none unlike the '
           'default constructor which uses Clip.hardEdge.',
       accent: Color(0xFF00897B),
       code: 'TextButton.icon(\n  clipBehavior: Clip.none,\n  ...\n)',
@@ -281,7 +283,9 @@ dynamic build(BuildContext context) {
       accent: Color(0xFFD81B60),
       code: 'TextButton.styleFrom(\n  foregroundColor: Colors.pink,\n)',
       button: TextButton(
-        style: TextButton.styleFrom(foregroundColor: Color(0xFFD81B60)),
+        style: TextButton.styleFrom(
+          foregroundColor: Color(0xFFD81B60),
+        ),
         onPressed: () {},
         child: Text('Pink Label'),
       ),
@@ -290,8 +294,7 @@ dynamic build(BuildContext context) {
       title: 'backgroundColor',
       description: 'Tints the underlying Material with a fill color.',
       accent: Color(0xFF1565C0),
-      code:
-          'TextButton.styleFrom(\n  backgroundColor: Color(0xFFE3F2FD),\n  foregroundColor: Color(0xFF1565C0),\n)',
+      code: 'TextButton.styleFrom(\n  backgroundColor: Color(0xFFE3F2FD),\n  foregroundColor: Color(0xFF1565C0),\n)',
       button: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Color(0xFFE3F2FD),
@@ -305,10 +308,11 @@ dynamic build(BuildContext context) {
       title: 'disabledForegroundColor',
       description: 'Override the default 38% opacity disabled label color.',
       accent: Color(0xFF424242),
-      code:
-          'TextButton.styleFrom(\n  disabledForegroundColor: Colors.red.shade200,\n)',
+      code: 'TextButton.styleFrom(\n  disabledForegroundColor: Colors.red.shade200,\n)',
       button: TextButton(
-        style: TextButton.styleFrom(disabledForegroundColor: Color(0xFFEF9A9A)),
+        style: TextButton.styleFrom(
+          disabledForegroundColor: Color(0xFFEF9A9A),
+        ),
         onPressed: null,
         child: Text('Custom Disabled'),
       ),
@@ -317,8 +321,7 @@ dynamic build(BuildContext context) {
       title: 'disabledBackgroundColor',
       description: 'Custom background tint when disabled.',
       accent: Color(0xFF424242),
-      code:
-          'TextButton.styleFrom(\n  disabledBackgroundColor: Color(0xFFEEEEEE),\n)',
+      code: 'TextButton.styleFrom(\n  disabledBackgroundColor: Color(0xFFEEEEEE),\n)',
       button: TextButton(
         style: TextButton.styleFrom(
           disabledBackgroundColor: Color(0xFFEEEEEE),
@@ -330,12 +333,10 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'shadowColor + elevation',
-      description:
-          'Although TextButton defaults to elevation 0, a custom '
+      description: 'Although TextButton defaults to elevation 0, a custom '
           'elevation produces a shadow tinted with shadowColor.',
       accent: Color(0xFF6A1B9A),
-      code:
-          'TextButton.styleFrom(\n  elevation: 4,\n  shadowColor: Colors.purple,\n)',
+      code: 'TextButton.styleFrom(\n  elevation: 4,\n  shadowColor: Colors.purple,\n)',
       button: TextButton(
         style: TextButton.styleFrom(
           elevation: 4.0,
@@ -349,8 +350,7 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'overlayColor',
-      description:
-          'Color used for pressed/hovered/focused highlight. '
+      description: 'Color used for pressed/hovered/focused highlight. '
           'Pass Colors.transparent to defeat the highlight entirely.',
       accent: Color(0xFFEF6C00),
       code: 'TextButton.styleFrom(\n  overlayColor: Colors.transparent,\n)',
@@ -367,8 +367,7 @@ dynamic build(BuildContext context) {
       title: 'iconColor',
       description: 'iconColor is used independently of foregroundColor.',
       accent: Color(0xFF00897B),
-      code:
-          'TextButton.styleFrom(\n  iconColor: Colors.teal,\n  foregroundColor: Colors.black,\n)',
+      code: 'TextButton.styleFrom(\n  iconColor: Colors.teal,\n  foregroundColor: Colors.black,\n)',
       button: TextButton.icon(
         style: TextButton.styleFrom(
           iconColor: Color(0xFF00897B),
@@ -383,10 +382,11 @@ dynamic build(BuildContext context) {
       title: 'disabledIconColor',
       description: 'Override the icon color when the button is disabled.',
       accent: Color(0xFFC62828),
-      code:
-          'TextButton.styleFrom(\n  disabledIconColor: Colors.red.shade100,\n)',
+      code: 'TextButton.styleFrom(\n  disabledIconColor: Colors.red.shade100,\n)',
       button: TextButton.icon(
-        style: TextButton.styleFrom(disabledIconColor: Color(0xFFFFCDD2)),
+        style: TextButton.styleFrom(
+          disabledIconColor: Color(0xFFFFCDD2),
+        ),
         onPressed: null,
         icon: Icon(Icons.warning),
         label: Text('Disabled Icon'),
@@ -416,8 +416,7 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'fixedSize',
-      description:
-          'Lock the button to a specific size - overrides '
+      description: 'Lock the button to a specific size - overrides '
           'intrinsic content sizing.',
       accent: Color(0xFFEF6C00),
       code: 'TextButton.styleFrom(\n  fixedSize: Size(220, 56),\n)',
@@ -433,8 +432,7 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'maximumSize',
-      description:
-          'Cap the button at a maximum size - useful when the '
+      description: 'Cap the button at a maximum size - useful when the '
           'label can be very long.',
       accent: Color(0xFF388E3C),
       code: 'TextButton.styleFrom(\n  maximumSize: Size(160, 40),\n)',
@@ -452,11 +450,13 @@ dynamic build(BuildContext context) {
       title: 'padding - symmetric',
       description: 'Custom internal padding between content and bounds.',
       accent: Color(0xFF6A1B9A),
-      code:
-          'TextButton.styleFrom(\n  padding: EdgeInsets.symmetric(\n    horizontal: 32, vertical: 16,\n  ),\n)',
+      code: 'TextButton.styleFrom(\n  padding: EdgeInsets.symmetric(\n    horizontal: 32, vertical: 16,\n  ),\n)',
       button: TextButton(
         style: TextButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: 32.0,
+            vertical: 16.0,
+          ),
           backgroundColor: Color(0xFFF3E5F5),
           foregroundColor: Color(0xFF6A1B9A),
         ),
@@ -466,12 +466,10 @@ dynamic build(BuildContext context) {
     ),
     _buildButtonCase(
       title: 'shape - RoundedRectangle',
-      description:
-          'Default M3 shape is StadiumBorder; M2 uses '
+      description: 'Default M3 shape is StadiumBorder; M2 uses '
           'RoundedRectangleBorder with radius 4.',
       accent: Color(0xFF1565C0),
-      code:
-          'TextButton.styleFrom(\n  shape: RoundedRectangleBorder(\n    borderRadius: BorderRadius.circular(12),\n  ),\n)',
+      code: 'TextButton.styleFrom(\n  shape: RoundedRectangleBorder(\n    borderRadius: BorderRadius.circular(12),\n  ),\n)',
       button: TextButton(
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -503,8 +501,7 @@ dynamic build(BuildContext context) {
       title: 'shape - BeveledRectangle',
       description: 'Beveled corners give a chiseled appearance.',
       accent: Color(0xFF424242),
-      code:
-          'TextButton.styleFrom(\n  shape: BeveledRectangleBorder(\n    borderRadius: BorderRadius.circular(8),\n  ),\n)',
+      code: 'TextButton.styleFrom(\n  shape: BeveledRectangleBorder(\n    borderRadius: BorderRadius.circular(8),\n  ),\n)',
       button: TextButton(
         style: TextButton.styleFrom(
           shape: BeveledRectangleBorder(
@@ -521,8 +518,7 @@ dynamic build(BuildContext context) {
       title: 'side - BorderSide',
       description: 'Add an outline - unusual for a TextButton but supported.',
       accent: Color(0xFF00897B),
-      code:
-          'TextButton.styleFrom(\n  side: BorderSide(color: Colors.teal, width: 2),\n)',
+      code: 'TextButton.styleFrom(\n  side: BorderSide(color: Colors.teal, width: 2),\n)',
       button: TextButton(
         style: TextButton.styleFrom(
           side: BorderSide(color: Color(0xFF00897B), width: 2.0),
@@ -543,7 +539,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)],
+        colors: [
+          Color(0xFFE8EAF6),
+          Color(0xFFC5CAE9),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -579,7 +578,9 @@ dynamic build(BuildContext context) {
               label: Text('Edit'),
             ),
             TextButton(
-              style: TextButton.styleFrom(backgroundColor: Color(0xFFE3F2FD)),
+              style: TextButton.styleFrom(
+                backgroundColor: Color(0xFFE3F2FD),
+              ),
               onPressed: () {},
               child: Text('Filled'),
             ),
@@ -597,7 +598,9 @@ dynamic build(BuildContext context) {
               label: Text('Edit'),
             ),
             TextButton(
-              style: TextButton.styleFrom(backgroundColor: Color(0xFFE3F2FD)),
+              style: TextButton.styleFrom(
+                backgroundColor: Color(0xFFE3F2FD),
+              ),
               onPressed: null,
               child: Text('Filled'),
             ),
@@ -634,7 +637,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF263238), Color(0xFF37474F)],
+        colors: [
+          Color(0xFF263238),
+          Color(0xFF37474F),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -666,147 +672,65 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 16.0),
-        _buildPropertyEntry(
-          'foregroundColor',
-          'Color?',
-          'Label and icon color when enabled.',
-        ),
-        _buildPropertyEntry(
-          'backgroundColor',
-          'Color?',
-          'Material fill color, default transparent.',
-        ),
-        _buildPropertyEntry(
-          'disabledForegroundColor',
-          'Color?',
-          'Label color when onPressed is null.',
-        ),
-        _buildPropertyEntry(
-          'disabledBackgroundColor',
-          'Color?',
-          'Material color when disabled.',
-        ),
-        _buildPropertyEntry(
-          'shadowColor',
-          'Color?',
-          'Shadow tint when elevation > 0.',
-        ),
-        _buildPropertyEntry(
-          'surfaceTintColor',
-          'Color?',
-          'Surface tint applied per Material 3.',
-        ),
-        _buildPropertyEntry(
-          'iconColor',
-          'Color?',
-          'Icon color independent of foreground.',
-        ),
-        _buildPropertyEntry(
-          'iconSize',
-          'double?',
-          'Override icon size. Default 18 for icon factory.',
-        ),
-        _buildPropertyEntry(
-          'iconAlignment',
-          'IconAlignment?',
-          'Position icon at start or end of label.',
-        ),
-        _buildPropertyEntry(
-          'disabledIconColor',
-          'Color?',
-          'Icon color when disabled.',
-        ),
-        _buildPropertyEntry(
-          'overlayColor',
-          'Color?',
-          'Pressed / hovered / focused highlight color.',
-        ),
-        _buildPropertyEntry(
-          'elevation',
-          'double?',
-          'Resting Material elevation. Default 0.',
-        ),
-        _buildPropertyEntry(
-          'textStyle',
-          'TextStyle?',
-          'TextStyle for the label child.',
-        ),
-        _buildPropertyEntry(
-          'padding',
-          'EdgeInsetsGeometry?',
-          'Internal padding around the child.',
-        ),
-        _buildPropertyEntry('minimumSize', 'Size?', 'Minimum tap target size.'),
-        _buildPropertyEntry(
-          'fixedSize',
-          'Size?',
-          'Locks the button to an exact size.',
-        ),
-        _buildPropertyEntry(
-          'maximumSize',
-          'Size?',
-          'Caps the button to a maximum size.',
-        ),
-        _buildPropertyEntry(
-          'side',
-          'BorderSide?',
-          'Outline of the button border.',
-        ),
-        _buildPropertyEntry(
-          'shape',
-          'OutlinedBorder?',
-          'Shape of the button. Default StadiumBorder in M3.',
-        ),
-        _buildPropertyEntry(
-          'enabledMouseCursor',
-          'MouseCursor?',
-          'Cursor for enabled buttons.',
-        ),
-        _buildPropertyEntry(
-          'disabledMouseCursor',
-          'MouseCursor?',
-          'Cursor for disabled buttons.',
-        ),
-        _buildPropertyEntry(
-          'visualDensity',
-          'VisualDensity?',
-          'Density adjustment from theme.',
-        ),
-        _buildPropertyEntry(
-          'tapTargetSize',
-          'MaterialTapTargetSize?',
-          'shrinkWrap or padded tap target.',
-        ),
-        _buildPropertyEntry(
-          'animationDuration',
-          'Duration?',
-          'Duration of state-change animations.',
-        ),
-        _buildPropertyEntry(
-          'enableFeedback',
-          'bool?',
-          'Haptic and audio feedback toggle.',
-        ),
-        _buildPropertyEntry(
-          'alignment',
-          'AlignmentGeometry?',
-          'Alignment of the child within the button.',
-        ),
-        _buildPropertyEntry(
-          'splashFactory',
-          'InteractiveInkFeatureFactory?',
-          'Splash factory - default InkRipple.splashFactory.',
-        ),
-        _buildPropertyEntry(
-          'backgroundBuilder',
-          'ButtonLayerBuilder?',
-          'Builder for content behind the button child.',
-        ),
-        _buildPropertyEntry(
-          'foregroundBuilder',
-          'ButtonLayerBuilder?',
-          'Builder for content above the button child.',
-        ),
+        _buildPropertyEntry('foregroundColor', 'Color?',
+            'Label and icon color when enabled.'),
+        _buildPropertyEntry('backgroundColor', 'Color?',
+            'Material fill color, default transparent.'),
+        _buildPropertyEntry('disabledForegroundColor', 'Color?',
+            'Label color when onPressed is null.'),
+        _buildPropertyEntry('disabledBackgroundColor', 'Color?',
+            'Material color when disabled.'),
+        _buildPropertyEntry('shadowColor', 'Color?',
+            'Shadow tint when elevation > 0.'),
+        _buildPropertyEntry('surfaceTintColor', 'Color?',
+            'Surface tint applied per Material 3.'),
+        _buildPropertyEntry('iconColor', 'Color?',
+            'Icon color independent of foreground.'),
+        _buildPropertyEntry('iconSize', 'double?',
+            'Override icon size. Default 18 for icon factory.'),
+        _buildPropertyEntry('iconAlignment', 'IconAlignment?',
+            'Position icon at start or end of label.'),
+        _buildPropertyEntry('disabledIconColor', 'Color?',
+            'Icon color when disabled.'),
+        _buildPropertyEntry('overlayColor', 'Color?',
+            'Pressed / hovered / focused highlight color.'),
+        _buildPropertyEntry('elevation', 'double?',
+            'Resting Material elevation. Default 0.'),
+        _buildPropertyEntry('textStyle', 'TextStyle?',
+            'TextStyle for the label child.'),
+        _buildPropertyEntry('padding', 'EdgeInsetsGeometry?',
+            'Internal padding around the child.'),
+        _buildPropertyEntry('minimumSize', 'Size?',
+            'Minimum tap target size.'),
+        _buildPropertyEntry('fixedSize', 'Size?',
+            'Locks the button to an exact size.'),
+        _buildPropertyEntry('maximumSize', 'Size?',
+            'Caps the button to a maximum size.'),
+        _buildPropertyEntry('side', 'BorderSide?',
+            'Outline of the button border.'),
+        _buildPropertyEntry('shape', 'OutlinedBorder?',
+            'Shape of the button. Default StadiumBorder in M3.'),
+        _buildPropertyEntry('enabledMouseCursor', 'MouseCursor?',
+            'Cursor for enabled buttons.'),
+        _buildPropertyEntry('disabledMouseCursor', 'MouseCursor?',
+            'Cursor for disabled buttons.'),
+        _buildPropertyEntry('visualDensity', 'VisualDensity?',
+            'Density adjustment from theme.'),
+        _buildPropertyEntry('tapTargetSize', 'MaterialTapTargetSize?',
+            'shrinkWrap or padded tap target.'),
+        _buildPropertyEntry('animationDuration', 'Duration?',
+            'Duration of state-change animations.'),
+        _buildPropertyEntry('enableFeedback', 'bool?',
+            'Haptic and audio feedback toggle.'),
+        _buildPropertyEntry('alignment', 'AlignmentGeometry?',
+            'Alignment of the child within the button.'),
+        _buildPropertyEntry('splashFactory',
+            'InteractiveInkFeatureFactory?',
+            'Splash factory - default InkRipple.splashFactory.'),
+        _buildPropertyEntry('backgroundBuilder', 'ButtonLayerBuilder?',
+            'Builder for content behind the button child.'),
+        _buildPropertyEntry('foregroundBuilder', 'ButtonLayerBuilder?',
+            'Builder for content above the button child.'),
       ],
     ),
   );
@@ -934,10 +858,15 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            TextButton(onPressed: () {}, child: Text('CANCEL')),
+            TextButton(
+              onPressed: () {},
+              child: Text('CANCEL'),
+            ),
             SizedBox(width: 8.0),
             TextButton(
-              style: TextButton.styleFrom(foregroundColor: Color(0xFFC62828)),
+              style: TextButton.styleFrom(
+                foregroundColor: Color(0xFFC62828),
+              ),
               onPressed: () {},
               child: Text('DELETE'),
             ),
@@ -951,7 +880,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFFAFAFA), Color(0xFFEEEEEE)],
+        colors: [
+          Color(0xFFFAFAFA),
+          Color(0xFFEEEEEE),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1056,8 +988,14 @@ dynamic build(BuildContext context) {
               SizedBox(height: 12.0),
               Row(
                 children: [
-                  TextButton(onPressed: () {}, child: Text('LEARN MORE')),
-                  TextButton(onPressed: () {}, child: Text('SHARE')),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text('LEARN MORE'),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text('SHARE'),
+                  ),
                 ],
               ),
             ],
@@ -1076,7 +1014,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFFEDE7F6), Color(0xFFD1C4E9)],
+        colors: [
+          Color(0xFFEDE7F6),
+          Color(0xFFD1C4E9),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1115,7 +1056,12 @@ dynamic build(BuildContext context) {
           Icons.account_tree,
         ),
         _buildHierarchyArrow(),
-        _buildHierarchyNode('Widget', 2, Color(0xFF5E35B1), Icons.widgets),
+        _buildHierarchyNode(
+          'Widget',
+          2,
+          Color(0xFF5E35B1),
+          Icons.widgets,
+        ),
         _buildHierarchyArrow(),
         _buildHierarchyNode(
           'StatefulWidget',
@@ -1187,7 +1133,10 @@ dynamic build(BuildContext context) {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF1565C0), Color(0xFF1976D2)],
+              colors: [
+                Color(0xFF1565C0),
+                Color(0xFF1976D2),
+              ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -1222,7 +1171,11 @@ dynamic build(BuildContext context) {
               Icons.label_important,
             ),
             SizedBox(height: 12.0),
-            Wrap(spacing: 16.0, runSpacing: 16.0, children: iconFactoryCases),
+            Wrap(
+              spacing: 16.0,
+              runSpacing: 16.0,
+              children: iconFactoryCases,
+            ),
             SizedBox(height: 28.0),
             _buildSectionHeader(
               '4. ButtonStyle.styleFrom - Color Configuration',
@@ -1244,7 +1197,11 @@ dynamic build(BuildContext context) {
               Icons.straighten,
             ),
             SizedBox(height: 12.0),
-            Wrap(spacing: 16.0, runSpacing: 16.0, children: sizingCases),
+            Wrap(
+              spacing: 16.0,
+              runSpacing: 16.0,
+              children: sizingCases,
+            ),
             SizedBox(height: 28.0),
             _buildSectionHeader(
               '6. Visual States',
@@ -1271,7 +1228,11 @@ dynamic build(BuildContext context) {
               Icons.color_lens,
             ),
             SizedBox(height: 12.0),
-            Wrap(spacing: 16.0, runSpacing: 16.0, children: themedVariants),
+            Wrap(
+              spacing: 16.0,
+              runSpacing: 16.0,
+              children: themedVariants,
+            ),
             SizedBox(height: 28.0),
             _buildSectionHeader(
               '9. Real-world Contexts',
@@ -1347,12 +1308,17 @@ Widget _buildSectionHeader(
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.02)],
+        colors: [
+          color.withValues(alpha: 0.1),
+          color.withValues(alpha: 0.02),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.08),
@@ -1414,7 +1380,10 @@ Widget _buildButtonCase({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: accent.withValues(alpha: 0.25), width: 1.5),
+      border: Border.all(
+        color: accent.withValues(alpha: 0.25),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),
@@ -1431,7 +1400,10 @@ Widget _buildButtonCase({
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
             SizedBox(width: 8.0),
             Expanded(
@@ -1535,7 +1507,13 @@ Widget _buildStateRow({
           ),
         ),
         SizedBox(width: 16.0),
-        Expanded(child: Wrap(spacing: 8.0, runSpacing: 8.0, children: buttons)),
+        Expanded(
+          child: Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: buttons,
+          ),
+        ),
       ],
     ),
   );
@@ -1573,10 +1551,8 @@ Widget _buildPropertyEntry(String name, String type, String description) {
                   ),
                   SizedBox(width: 8.0),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 2.0,
-                    ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                     decoration: BoxDecoration(
                       color: Color(0xFF455A64),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1659,7 +1635,8 @@ Widget _buildThemedTile({
             backgroundColor: Colors.white.withValues(alpha: 0.92),
             foregroundColor: shadowColor,
             shape: StadiumBorder(),
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding:
+                EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             textStyle: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 13.0,
@@ -1711,7 +1688,11 @@ Widget _buildHierarchyNode(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: highlight ? Colors.white : color, size: 18.0),
+          Icon(
+            icon,
+            color: highlight ? Colors.white : color,
+            size: 18.0,
+          ),
           SizedBox(width: 8.0),
           Text(
             name,
@@ -1725,7 +1706,8 @@ Widget _buildHierarchyNode(
           if (highlight) ...[
             SizedBox(width: 8.0),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.25),
                 borderRadius: BorderRadius.circular(4.0),
@@ -1750,7 +1732,11 @@ Widget _buildHierarchyNode(
 Widget _buildHierarchyArrow() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 24.0),
-    child: Icon(Icons.arrow_downward, color: Color(0xFF7E57C2), size: 16.0),
+    child: Icon(
+      Icons.arrow_downward,
+      color: Color(0xFF7E57C2),
+      size: 16.0,
+    ),
   );
 }
 
@@ -1760,7 +1746,10 @@ Widget _buildSiblingNode(String name, Color color, IconData icon) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(color: color.withValues(alpha: 0.4), width: 1.5),
+      border: Border.all(
+        color: color.withValues(alpha: 0.4),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.18),
@@ -1786,7 +1775,10 @@ Widget _buildSiblingNode(String name, Color color, IconData icon) {
         SizedBox(height: 2.0),
         Text(
           'sibling',
-          style: TextStyle(fontSize: 9.0, color: color.withValues(alpha: 0.7)),
+          style: TextStyle(
+            fontSize: 9.0,
+            color: color.withValues(alpha: 0.7),
+          ),
         ),
       ],
     ),
@@ -1798,7 +1790,11 @@ Widget _buildFooterCard() {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF263238), Color(0xFF37474F), Color(0xFF455A64)],
+        colors: [
+          Color(0xFF263238),
+          Color(0xFF37474F),
+          Color(0xFF455A64),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

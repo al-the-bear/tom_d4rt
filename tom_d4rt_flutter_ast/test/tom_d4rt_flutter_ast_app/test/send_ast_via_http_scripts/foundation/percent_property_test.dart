@@ -40,7 +40,14 @@ const double kP66 = 0.66;
 const double kP84 = 0.84;
 const double kP100 = 1.00;
 
-const List<double> kAllPercents = <double>[kP00, kP18, kP42, kP66, kP84, kP100];
+const List<double> kAllPercents = <double>[
+  kP00,
+  kP18,
+  kP42,
+  kP66,
+  kP84,
+  kP100,
+];
 
 const List<String> kAllLabels = <String>[
   'idle',
@@ -434,7 +441,11 @@ Widget _buildHeroHeader(PercentProperty sample) {
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: const Icon(Icons.percent, size: 36.0, color: Colors.white),
+              child: const Icon(
+                Icons.percent,
+                size: 36.0,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(width: 16.0),
             Expanded(
@@ -453,7 +464,10 @@ Widget _buildHeroHeader(PercentProperty sample) {
                   SizedBox(height: 4.0),
                   Text(
                     'A DiagnosticsProperty<double> that prints ratios as %',
-                    style: TextStyle(color: Color(0xFFD1C4E9), fontSize: 14.0),
+                    style: TextStyle(
+                      color: Color(0xFFD1C4E9),
+                      fontSize: 14.0,
+                    ),
                   ),
                 ],
               ),
@@ -462,7 +476,10 @@ Widget _buildHeroHeader(PercentProperty sample) {
         ),
         const SizedBox(height: 22.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+            vertical: 12.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.35),
             borderRadius: BorderRadius.circular(10.0),
@@ -473,7 +490,11 @@ Widget _buildHeroHeader(PercentProperty sample) {
           ),
           child: Row(
             children: <Widget>[
-              const Icon(Icons.terminal, size: 18.0, color: Color(0xFFFFCA28)),
+              const Icon(
+                Icons.terminal,
+                size: 18.0,
+                color: Color(0xFFFFCA28),
+              ),
               const SizedBox(width: 10.0),
               Expanded(
                 child: Text(
@@ -515,7 +536,9 @@ Widget _buildSectionTitle({
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -596,7 +619,10 @@ Widget _buildAnatomyDiagram() {
       children: <Widget>[
         // Signature line, monospace, syntax-highlight-ish.
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: const Color(0xFF1B1B1F),
             borderRadius: BorderRadius.circular(8.0),
@@ -793,9 +819,8 @@ Widget _buildPercentCard({
   // value. This satisfies the requirement that any animation reference
   // is fully pinned, and demonstrates how a real Animation<double>
   // would feed PercentProperty.
-  final AlwaysStoppedAnimation<double> pinned = AlwaysStoppedAnimation<double>(
-    fraction,
-  );
+  final AlwaysStoppedAnimation<double> pinned =
+      AlwaysStoppedAnimation<double>(fraction);
   print('  card[$label] pinned=${pinned.value} duration=${Duration.zero}');
 
   return Container(
@@ -889,7 +914,10 @@ Widget _buildPercentCard({
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[accent.withValues(alpha: 0.85), accent],
+                    colors: <Color>[
+                      accent.withValues(alpha: 0.85),
+                      accent,
+                    ],
                   ),
                 ),
               ),
@@ -909,7 +937,10 @@ Widget _buildPercentCard({
         const SizedBox(height: 12.0),
         // toString readout
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: const Color(0xFF1B1B1F),
             borderRadius: BorderRadius.circular(8.0),
@@ -1068,7 +1099,10 @@ Widget _buildGaugeRow() {
         ),
       ],
     ),
-    child: Wrap(alignment: WrapAlignment.spaceEvenly, children: gauges),
+    child: Wrap(
+      alignment: WrapAlignment.spaceEvenly,
+      children: gauges,
+    ),
   );
 }
 
@@ -1221,7 +1255,10 @@ Widget _buildDonutRow() {
         ),
       ],
     ),
-    child: Wrap(alignment: WrapAlignment.spaceEvenly, children: donuts),
+    child: Wrap(
+      alignment: WrapAlignment.spaceEvenly,
+      children: donuts,
+    ),
   );
 }
 
@@ -1820,7 +1857,10 @@ Widget _buildFooter() {
               child: Text(
                 'See also: DoubleProperty, IntProperty, FlagProperty, '
                 'EnumProperty - all share DiagnosticsProperty<T>.',
-                style: TextStyle(color: Colors.grey.shade300, fontSize: 12.0),
+                style: TextStyle(
+                  color: Colors.grey.shade300,
+                  fontSize: 12.0,
+                ),
               ),
             ),
           ],

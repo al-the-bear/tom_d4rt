@@ -51,27 +51,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: amber, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -88,14 +82,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: beeswax),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: deepAmber.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: deepAmber.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -111,21 +102,16 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: deepAmber,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: deepAmber,
+                  fontFamily: 'monospace')),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              detail,
-              style: TextStyle(fontSize: 12, color: darkAmber),
-            ),
+            child: Text(detail,
+                style: TextStyle(fontSize: 12, color: darkAmber)),
           ),
         ],
       ),
@@ -161,16 +147,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: deepAmber,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: deepAmber)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -188,14 +174,11 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? deepAmber : darkAmber,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? deepAmber : darkAmber)),
           );
         }).toList(),
       ),
@@ -212,23 +195,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? deepAmber : caramel,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.east, size: 12, color: honey),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.east, size: 12, color: honey),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -248,14 +226,13 @@ dynamic build(BuildContext context) {
         border: Border.all(color: color.withValues(alpha: 0.6)),
       ),
       child: Center(
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: color.computeLuminance() > 0.5 ? deepAmber : Colors.white,
-          ),
-        ),
+        child: Text(label,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color.computeLuminance() > 0.5
+                    ? deepAmber
+                    : Colors.white)),
       ),
     );
   }
@@ -277,15 +254,13 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: accent,
-                  ),
-                ),
-                Text(hint, style: TextStyle(fontSize: 10, color: darkAmber)),
+                Text(label,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: accent)),
+                Text(hint,
+                    style: TextStyle(fontSize: 10, color: darkAmber)),
               ],
             ),
           ),
@@ -314,33 +289,12 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             afLayerBox('Scaffold / Page', amber.withValues(alpha: 0.1), 34),
-            afLayerBox(
-              'AutofillGroup  ← creates AutofillScope',
-              goldenrod.withValues(alpha: 0.15),
-              40,
-            ),
-            afLayerBox(
-              '  TextField (email)   ← AutofillClient',
-              honey.withValues(alpha: 0.12),
-              34,
-            ),
-            afLayerBox(
-              '  TextField (password) ← AutofillClient',
-              butterscotch.withValues(alpha: 0.12),
-              34,
-            ),
-            afLayerBox(
-              'Platform Autofill Service',
-              deepAmber.withValues(alpha: 0.08),
-              34,
-            ),
+            afLayerBox('AutofillGroup  ← creates AutofillScope', goldenrod.withValues(alpha: 0.15), 40),
+            afLayerBox('  TextField (email)   ← AutofillClient', honey.withValues(alpha: 0.12), 34),
+            afLayerBox('  TextField (password) ← AutofillClient', butterscotch.withValues(alpha: 0.12), 34),
+            afLayerBox('Platform Autofill Service', deepAmber.withValues(alpha: 0.08), 34),
             const SizedBox(height: 10),
-            afFlow([
-              'AutofillGroup',
-              'creates scope',
-              'fields register',
-              'platform fills all',
-            ]),
+            afFlow(['AutofillGroup', 'creates scope', 'fields register', 'platform fills all']),
           ],
         ),
       ),
@@ -365,21 +319,12 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             afRow(['Member', 'Returns', 'Purpose'], isHeader: true),
-            afRow([
-              'autofillClients',
-              'Iterable<AutofillClient>',
-              'All fields in this scope',
-            ]),
-            afRow([
-              'getAutofillClient(id)',
-              'AutofillClient?',
-              'Lookup by autofill ID',
-            ]),
-            afRow([
-              'attach(client, config)',
-              'TextInputConnection',
-              'Connect client to platform',
-            ]),
+            afRow(['autofillClients', 'Iterable<AutofillClient>',
+                'All fields in this scope']),
+            afRow(['getAutofillClient(id)', 'AutofillClient?',
+                'Lookup by autofill ID']),
+            afRow(['attach(client, config)', 'TextInputConnection',
+                'Connect client to platform']),
           ],
         ),
       ),
@@ -388,18 +333,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            afCode(
-              'autofillClients',
-              'Read-only collection of all registered AutofillClient instances',
-            ),
-            afCode(
-              'getAutofillClient(String)',
-              'Platform calls this to route filled values to specific fields',
-            ),
-            afCode(
-              'attach(AutofillClient, TextInputConfiguration)',
-              'Creates TextInputConnection with autofill context from all clients',
-            ),
+            afCode('autofillClients',
+                'Read-only collection of all registered AutofillClient instances'),
+            afCode('getAutofillClient(String)',
+                'Platform calls this to route filled values to specific fields'),
+            afCode('attach(AutofillClient, TextInputConfiguration)',
+                'Creates TextInputConnection with autofill context from all clients'),
           ],
         ),
       ),
@@ -434,96 +373,69 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'AutofillGroup(',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: deepAmber,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text('AutofillGroup(',
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                          color: deepAmber,
+                          fontWeight: FontWeight.bold)),
                   Padding(
                     padding: const EdgeInsets.only(left: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'onDisposeAction: AutofillContextAction.commit,',
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: darkAmber,
-                          ),
-                        ),
-                        Text(
-                          'child: Column(',
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: darkAmber,
-                          ),
-                        ),
+                        Text('onDisposeAction: AutofillContextAction.commit,',
+                            style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                                color: darkAmber)),
+                        Text('child: Column(',
+                            style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                                color: darkAmber)),
                         Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'children: [',
-                                style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                  color: darkAmber,
-                                ),
-                              ),
-                              Text(
-                                '  TextField(autofillHints: [AutofillHints.email]),',
-                                style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                  color: caramel,
-                                ),
-                              ),
-                              Text(
-                                '  TextField(autofillHints: [AutofillHints.password]),',
-                                style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                  color: caramel,
-                                ),
-                              ),
-                              Text(
-                                '],',
-                                style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                  color: darkAmber,
-                                ),
-                              ),
+                              Text('children: [',
+                                  style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 11,
+                                      color: darkAmber)),
+                              Text('  TextField(autofillHints: [AutofillHints.email]),',
+                                  style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 11,
+                                      color: caramel)),
+                              Text('  TextField(autofillHints: [AutofillHints.password]),',
+                                  style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 11,
+                                      color: caramel)),
+                              Text('],',
+                                  style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 11,
+                                      color: darkAmber)),
                             ],
                           ),
                         ),
-                        Text(
-                          '),',
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: darkAmber,
-                          ),
-                        ),
+                        Text('),',
+                            style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                                color: darkAmber)),
                       ],
                     ),
                   ),
-                  Text(
-                    ')',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: deepAmber,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text(')',
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                          color: deepAmber,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -537,10 +449,7 @@ dynamic build(BuildContext context) {
             afRow(['Role', 'Mechanism'], isHeader: true),
             afRow(['Implements AutofillScope', 'Mixin + override']),
             afRow(['Tracks registered clients', 'Internal map by autofillId']),
-            afRow([
-              'Provides scope via InheritedWidget',
-              'Children look up scope',
-            ]),
+            afRow(['Provides scope via InheritedWidget', 'Children look up scope']),
             afRow(['Manages dispose action', 'commit or cancel']),
           ],
         ),
@@ -566,42 +475,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _afStepItem(
-              1,
-              'AutofillGroup builds',
-              'AutofillGroupState is created with AutofillScopeMixin',
-              amber,
-            ),
-            _afStepItem(
-              2,
-              'TextField builds inside',
-              'EditableTextState.didChangeDependencies() fires',
-              honey,
-            ),
-            _afStepItem(
-              3,
-              'EditableText looks up scope',
-              'AutofillGroup.of(context) returns scope',
-              goldenrod,
-            ),
-            _afStepItem(
-              4,
-              'Client registers',
-              'scope.register(this) adds to client map',
-              butterscotch,
-            ),
-            _afStepItem(
-              5,
-              'User taps field',
-              'scope.attach() sends ALL client configs to platform',
-              caramel,
-            ),
-            _afStepItem(
-              6,
-              'Platform fills',
-              'Values routed via getAutofillClient(id)',
-              deepAmber,
-            ),
+            _afStepItem(1, 'AutofillGroup builds', 'AutofillGroupState is created with AutofillScopeMixin', amber),
+            _afStepItem(2, 'TextField builds inside', 'EditableTextState.didChangeDependencies() fires', honey),
+            _afStepItem(3, 'EditableText looks up scope', 'AutofillGroup.of(context) returns scope', goldenrod),
+            _afStepItem(4, 'Client registers', 'scope.register(this) adds to client map', butterscotch),
+            _afStepItem(5, 'User taps field', 'scope.attach() sends ALL client configs to platform', caramel),
+            _afStepItem(6, 'Platform fills', 'Values routed via getAutofillClient(id)', deepAmber),
           ],
         ),
       ),
@@ -626,49 +505,29 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Expanded(
-                  child: _afPlatformBox(
-                    'Android',
+                Expanded(child: _afPlatformBox('Android',
                     'AutofillService groups fields by the scope. '
-                        'Uses autofillHints to match saved entries.',
-                    Icons.android,
-                    const Color(0xFF3DDC84),
-                  ),
-                ),
+                    'Uses autofillHints to match saved entries.',
+                    Icons.android, const Color(0xFF3DDC84))),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: _afPlatformBox(
-                    'iOS',
+                Expanded(child: _afPlatformBox('iOS',
                     'UITextContentType groups via accessoryView. '
-                        'Scope maps to a single form context.',
-                    Icons.phone_iphone,
-                    const Color(0xFF007AFF),
-                  ),
-                ),
+                    'Scope maps to a single form context.',
+                    Icons.phone_iphone, const Color(0xFF007AFF))),
               ],
             ),
             const SizedBox(height: 8),
             Row(
               children: [
-                Expanded(
-                  child: _afPlatformBox(
-                    'Web',
+                Expanded(child: _afPlatformBox('Web',
                     'HTML autocomplete attribute per input. '
-                        'Browser groups by form element.',
-                    Icons.web,
-                    const Color(0xFFE44D26),
-                  ),
-                ),
+                    'Browser groups by form element.',
+                    Icons.web, const Color(0xFFE44D26))),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: _afPlatformBox(
-                    'Desktop',
+                Expanded(child: _afPlatformBox('Desktop',
                     'Password managers provide autofill. '
-                        'Scope tells manager which fields relate.',
-                    Icons.desktop_windows,
-                    const Color(0xFF6E6E6E),
-                  ),
-                ),
+                    'Scope tells manager which fields relate.',
+                    Icons.desktop_windows, const Color(0xFF6E6E6E))),
               ],
             ),
           ],
@@ -706,44 +565,24 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'Scope A',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: deepAmber,
-                          ),
-                        ),
+                        Text('Scope A',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: deepAmber)),
                         const SizedBox(height: 6),
-                        afFieldBox(
-                          'Email',
-                          'AutofillHints.email',
-                          Icons.email,
-                          amber,
-                        ),
-                        afFieldBox(
-                          'Password',
-                          'AutofillHints.password',
-                          Icons.lock,
-                          honey,
-                        ),
+                        afFieldBox('Email', 'AutofillHints.email', Icons.email, amber),
+                        afFieldBox('Password', 'AutofillHints.password', Icons.lock, honey),
                         Container(
                           width: double.infinity,
                           padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: const Color(
-                              0xFF4CAF50,
-                            ).withValues(alpha: 0.08),
+                            color: const Color(0xFF4CAF50).withValues(alpha: 0.08),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: const Text(
-                            '✓ Fills together',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Color(0xFF2E7D32),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
+                          child: const Text('✓ Fills together',
+                              style: TextStyle(fontSize: 10, color: Color(0xFF2E7D32)),
+                              textAlign: TextAlign.center),
                         ),
                       ],
                     ),
@@ -753,18 +592,9 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.block,
-                        color: Colors.red.withValues(alpha: 0.4),
-                        size: 20,
-                      ),
-                      Text(
-                        'isolated',
-                        style: TextStyle(
-                          fontSize: 9,
-                          color: Colors.red.withValues(alpha: 0.5),
-                        ),
-                      ),
+                      Icon(Icons.block, color: Colors.red.withValues(alpha: 0.4), size: 20),
+                      Text('isolated',
+                          style: TextStyle(fontSize: 9, color: Colors.red.withValues(alpha: 0.5))),
                     ],
                   ),
                 ),
@@ -778,44 +608,24 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'Scope B',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: darkAmber,
-                          ),
-                        ),
+                        Text('Scope B',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: darkAmber)),
                         const SizedBox(height: 6),
-                        afFieldBox(
-                          'Name',
-                          'AutofillHints.name',
-                          Icons.person,
-                          goldenrod,
-                        ),
-                        afFieldBox(
-                          'Phone',
-                          'AutofillHints.telephoneNumber',
-                          Icons.phone,
-                          butterscotch,
-                        ),
+                        afFieldBox('Name', 'AutofillHints.name', Icons.person, goldenrod),
+                        afFieldBox('Phone', 'AutofillHints.telephoneNumber', Icons.phone, butterscotch),
                         Container(
                           width: double.infinity,
                           padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: const Color(
-                              0xFF4CAF50,
-                            ).withValues(alpha: 0.08),
+                            color: const Color(0xFF4CAF50).withValues(alpha: 0.08),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: const Text(
-                            '✓ Fills together',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Color(0xFF2E7D32),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
+                          child: const Text('✓ Fills together',
+                              style: TextStyle(fontSize: 10, color: Color(0xFF2E7D32)),
+                              textAlign: TextAlign.center),
                         ),
                       ],
                     ),
@@ -856,14 +666,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.lock_outline, color: deepAmber, size: 22),
                   const SizedBox(width: 8),
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: deepAmber,
-                    ),
-                  ),
+                  Text('Login',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: deepAmber)),
                 ],
               ),
               const SizedBox(height: 12),
@@ -878,10 +685,8 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.email_outlined, size: 18, color: honey),
                     const SizedBox(width: 8),
-                    Text(
-                      'user@example.com',
-                      style: TextStyle(fontSize: 13, color: darkAmber),
-                    ),
+                    Text('user@example.com',
+                        style: TextStyle(fontSize: 13, color: darkAmber)),
                   ],
                 ),
               ),
@@ -897,10 +702,8 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.password, size: 18, color: honey),
                     const SizedBox(width: 8),
-                    Text(
-                      '••••••••',
-                      style: TextStyle(fontSize: 13, color: darkAmber),
-                    ),
+                    Text('••••••••',
+                        style: TextStyle(fontSize: 13, color: darkAmber)),
                   ],
                 ),
               ),
@@ -912,22 +715,17 @@ dynamic build(BuildContext context) {
                   color: deepAmber,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Text(
-                  'Sign In',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                child: const Text('Sign In',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
               ),
               const SizedBox(height: 8),
-              Text(
-                'Both fields share one AutofillScope → platform fills '
-                'email+password simultaneously from saved credentials.',
-                style: TextStyle(fontSize: 10, color: darkAmber),
-              ),
+              Text('Both fields share one AutofillScope → platform fills '
+                  'email+password simultaneously from saved credentials.',
+                  style: TextStyle(fontSize: 10, color: darkAmber)),
             ],
           ),
         ),
@@ -973,32 +771,22 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Scope: Profile',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: deepAmber,
-                    ),
-                  ),
+                  Text('Scope: Profile',
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: deepAmber)),
                   const SizedBox(height: 4),
                   afFieldBox('Full Name', 'name', Icons.person, amber),
                   afFieldBox('Email', 'email', Icons.email, honey),
-                  afFieldBox(
-                    'Phone',
-                    'telephoneNumber',
-                    Icons.phone,
-                    goldenrod,
-                  ),
+                  afFieldBox('Phone', 'telephoneNumber', Icons.phone, goldenrod),
                 ],
               ),
             ),
             const SizedBox(height: 6),
-            Text(
-              'Each tab creates its own AutofillScope. Filling profile '
-              'fields does not trigger billing autofill.',
-              style: TextStyle(fontSize: 10, color: darkAmber),
-            ),
+            Text('Each tab creates its own AutofillScope. Filling profile '
+                'fields does not trigger billing autofill.',
+                style: TextStyle(fontSize: 10, color: darkAmber)),
           ],
         ),
       ),
@@ -1022,26 +810,15 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            afFlow([
-              'Page loads',
-              'Scope created',
-              'Fields register',
-              'Focus email',
-              'Platform offers',
-              'User taps',
-              'Both filled',
-            ]),
+            afFlow(['Page loads', 'Scope created', 'Fields register',
+                'Focus email', 'Platform offers', 'User taps', 'Both filled']),
             const SizedBox(height: 12),
             afRow(['Step', 'Actor', 'Result'], isHeader: true),
             afRow(['1. build()', 'Flutter', 'Scope + fields created']),
             afRow(['2. focus', 'User', 'Scope sends config to platform']),
             afRow(['3. offer', 'OS', 'Autofill popup appears']),
             afRow(['4. select', 'User', 'Platform calls updateEditingState']),
-            afRow([
-              '5. fill',
-              'Platform→Scope',
-              'Both email and password filled',
-            ]),
+            afRow(['5. fill', 'Platform→Scope', 'Both email and password filled']),
             afRow(['6. submit', 'User', 'onDisposeAction: commit']),
           ],
         ),
@@ -1071,40 +848,22 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'AutofillGroup — Address Scope',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: deepAmber,
-                ),
-              ),
+              Text('AutofillGroup — Address Scope',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: deepAmber)),
               const Divider(),
               afFieldBox('Street', 'streetAddressLine1', Icons.home, amber),
-              afFieldBox(
-                'Apt/Suite',
-                'streetAddressLine2',
-                Icons.apartment,
-                honey,
-              ),
+              afFieldBox('Apt/Suite', 'streetAddressLine2', Icons.apartment, honey),
               Row(
                 children: [
                   Expanded(
-                    child: afFieldBox(
-                      'City',
-                      'addressCity',
-                      Icons.location_city,
-                      goldenrod,
-                    ),
+                    child: afFieldBox('City', 'addressCity', Icons.location_city, goldenrod),
                   ),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: afFieldBox(
-                      'State',
-                      'addressState',
-                      Icons.map,
-                      butterscotch,
-                    ),
+                    child: afFieldBox('State', 'addressState', Icons.map, butterscotch),
                   ),
                 ],
               ),
@@ -1115,20 +874,13 @@ dynamic build(BuildContext context) {
                   ),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: afFieldBox(
-                      'Country',
-                      'countryName',
-                      Icons.flag,
-                      deepAmber,
-                    ),
+                    child: afFieldBox('Country', 'countryName', Icons.flag, deepAmber),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'All 6 fields: one scope → one autofill action',
-                style: TextStyle(fontSize: 10, color: darkAmber),
-              ),
+              Text('All 6 fields: one scope → one autofill action',
+                  style: TextStyle(fontSize: 10, color: darkAmber)),
             ],
           ),
         ),
@@ -1154,10 +906,7 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                deepAmber.withValues(alpha: 0.08),
-                caramel.withValues(alpha: 0.05),
-              ],
+              colors: [deepAmber.withValues(alpha: 0.08), caramel.withValues(alpha: 0.05)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1170,51 +919,28 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'CREDIT CARD',
-                    style: TextStyle(
-                      fontSize: 10,
-                      letterSpacing: 2,
-                      color: darkAmber,
-                    ),
-                  ),
+                  Text('CREDIT CARD',
+                      style: TextStyle(
+                          fontSize: 10,
+                          letterSpacing: 2,
+                          color: darkAmber)),
                   Icon(Icons.credit_card, color: goldenrod, size: 22),
                 ],
               ),
               const SizedBox(height: 12),
-              afFieldBox(
-                'Card Number',
-                'creditCardNumber',
-                Icons.payment,
-                amber,
-              ),
+              afFieldBox('Card Number', 'creditCardNumber', Icons.payment, amber),
               Row(
                 children: [
                   Expanded(
-                    child: afFieldBox(
-                      'Exp',
-                      'creditCardExpDate',
-                      Icons.date_range,
-                      honey,
-                    ),
+                    child: afFieldBox('Exp', 'creditCardExpDate', Icons.date_range, honey),
                   ),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: afFieldBox(
-                      'CVV',
-                      'creditCardSecurityCode',
-                      Icons.security,
-                      goldenrod,
-                    ),
+                    child: afFieldBox('CVV', 'creditCardSecurityCode', Icons.security, goldenrod),
                   ),
                 ],
               ),
-              afFieldBox(
-                'Name on Card',
-                'creditCardName',
-                Icons.person,
-                butterscotch,
-              ),
+              afFieldBox('Name on Card', 'creditCardName', Icons.person, butterscotch),
               const SizedBox(height: 6),
               Container(
                 width: double.infinity,
@@ -1269,14 +995,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Outer: Page-Level (no direct fields)',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: deepAmber,
-                ),
-              ),
+              Text('Outer: Page-Level (no direct fields)',
+                  style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: deepAmber)),
               const SizedBox(height: 6),
               Container(
                 width: double.infinity,
@@ -1290,14 +1013,11 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Scope: Shipping',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: amber,
-                      ),
-                    ),
+                    Text('Scope: Shipping',
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: amber)),
                     afFieldBox('Street', 'street', Icons.home, amber),
                     afFieldBox('City', 'city', Icons.location_city, amber),
                   ],
@@ -1316,26 +1036,13 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Scope: Billing',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: goldenrod,
-                      ),
-                    ),
-                    afFieldBox(
-                      'Card#',
-                      'creditCardNumber',
-                      Icons.credit_card,
-                      goldenrod,
-                    ),
-                    afFieldBox(
-                      'Exp',
-                      'creditCardExpDate',
-                      Icons.date_range,
-                      goldenrod,
-                    ),
+                    Text('Scope: Billing',
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: goldenrod)),
+                    afFieldBox('Card#', 'creditCardNumber', Icons.credit_card, goldenrod),
+                    afFieldBox('Exp', 'creditCardExpDate', Icons.date_range, goldenrod),
                   ],
                 ),
               ),
@@ -1376,26 +1083,15 @@ dynamic build(BuildContext context) {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.check_circle,
-                          color: const Color(0xFF4CAF50),
-                        ),
+                        Icon(Icons.check_circle, color: const Color(0xFF4CAF50)),
                         const SizedBox(height: 4),
-                        Text(
-                          'Commit',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xFF2E7D32),
-                          ),
-                        ),
-                        Text(
-                          'Save to autofill',
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: const Color(0xFF388E3C),
-                          ),
-                        ),
+                        Text('Commit',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xFF2E7D32))),
+                        Text('Save to autofill',
+                            style: TextStyle(fontSize: 9, color: const Color(0xFF388E3C))),
                       ],
                     ),
                   ),
@@ -1414,21 +1110,13 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.cancel, color: const Color(0xFFE53935)),
                         const SizedBox(height: 4),
-                        Text(
-                          'Cancel',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xFFC62828),
-                          ),
-                        ),
-                        Text(
-                          'Discard changes',
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: const Color(0xFFD32F2F),
-                          ),
-                        ),
+                        Text('Cancel',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xFFC62828))),
+                        Text('Discard changes',
+                            style: TextStyle(fontSize: 9, color: const Color(0xFFD32F2F))),
                       ],
                     ),
                   ),
@@ -1464,43 +1152,15 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            afLayerBox(
-              'scope.attach(client, config)',
-              amber.withValues(alpha: 0.15),
-              36,
-            ),
-            afLayerBox(
-              'TextInput.setClient + autofillConfig',
-              honey.withValues(alpha: 0.12),
-              36,
-            ),
-            afLayerBox(
-              'Platform receives all client configs',
-              goldenrod.withValues(alpha: 0.1),
-              36,
-            ),
-            afLayerBox(
-              'OS builds autofill view with all fields',
-              deepAmber.withValues(alpha: 0.08),
-              36,
-            ),
+            afLayerBox('scope.attach(client, config)', amber.withValues(alpha: 0.15), 36),
+            afLayerBox('TextInput.setClient + autofillConfig', honey.withValues(alpha: 0.12), 36),
+            afLayerBox('Platform receives all client configs', goldenrod.withValues(alpha: 0.1), 36),
+            afLayerBox('OS builds autofill view with all fields', deepAmber.withValues(alpha: 0.08), 36),
             const SizedBox(height: 10),
             afRow(['Message', 'Payload', 'Direction'], isHeader: true),
-            afRow([
-              'setClient',
-              'autofillConfig with all hints',
-              'Dart → Platform',
-            ]),
-            afRow([
-              'updateEditingState',
-              'Filled text value',
-              'Platform → Dart',
-            ]),
-            afRow([
-              'finishAutofillContext',
-              'shouldSave flag',
-              'Dart → Platform',
-            ]),
+            afRow(['setClient', 'autofillConfig with all hints', 'Dart → Platform']),
+            afRow(['updateEditingState', 'Filled text value', 'Platform → Dart']),
+            afRow(['finishAutofillContext', 'shouldSave flag', 'Dart → Platform']),
           ],
         ),
       ),
@@ -1524,23 +1184,11 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             afRow(['Strategy', 'Layer', 'What It Verifies'], isHeader: true),
-            afRow([
-              'find.byType(AutofillGroup)',
-              'Widget',
-              'Scope widget present',
-            ]),
+            afRow(['find.byType(AutofillGroup)', 'Widget', 'Scope widget present']),
             afRow(['AutofillGroup.of(context)', 'Widget', 'Scope accessible']),
-            afRow([
-              'Mock TextInput channel',
-              'Platform',
-              'Messages sent correctly',
-            ]),
+            afRow(['Mock TextInput channel', 'Platform', 'Messages sent correctly']),
             afRow(['Integration test on device', 'E2E', 'Real autofill popup']),
-            afRow([
-              'Check autofillHints list',
-              'Config',
-              'Correct hints assigned',
-            ]),
+            afRow(['Check autofillHints list', 'Config', 'Correct hints assigned']),
           ],
         ),
       ),
@@ -1575,16 +1223,8 @@ dynamic build(BuildContext context) {
             afRow(['Topic', 'Section', 'Insight'], isHeader: true),
             afRow(['What', 'S01', 'Groups autofill clients as one unit']),
             afRow(['API', 'S02', 'autofillClients, getAutofillClient, attach']),
-            afRow([
-              'Implementation',
-              'S03',
-              'AutofillGroup + AutofillGroupState',
-            ]),
-            afRow([
-              'Registration',
-              'S04',
-              'Fields register on build inside scope',
-            ]),
+            afRow(['Implementation', 'S03', 'AutofillGroup + AutofillGroupState']),
+            afRow(['Registration', 'S04', 'Fields register on build inside scope']),
             afRow(['Platforms', 'S05', 'Android/iOS/Web/Desktop mapping']),
             afRow(['Isolation', 'S06', 'Scopes are independent']),
             afRow(['Login', 'S07', 'Two-field credential scope']),
@@ -1625,14 +1265,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'AutofillScope — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('AutofillScope — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From abstract interface through registration lifecycle, scope '
@@ -1663,22 +1300,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -1704,14 +1329,11 @@ Widget _afStepItem(int num, String phase, String desc, Color color) {
             borderRadius: BorderRadius.circular(13),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 10),
@@ -1719,18 +1341,14 @@ Widget _afStepItem(int num, String phase, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                phase,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 11, color: Color(0xFF7A5200)),
-              ),
+              Text(phase,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(
+                      fontSize: 11, color: Color(0xFF7A5200))),
             ],
           ),
         ),
@@ -1754,21 +1372,16 @@ Widget _afPlatformBox(String name, String desc, IconData icon, Color color) {
           children: [
             Icon(icon, size: 16, color: color),
             const SizedBox(width: 6),
-            Text(
-              name,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-            ),
+            Text(name,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: color)),
           ],
         ),
         const SizedBox(height: 4),
-        Text(
-          desc,
-          style: TextStyle(fontSize: 10, color: const Color(0xFF7A5200)),
-        ),
+        Text(desc,
+            style: TextStyle(fontSize: 10, color: const Color(0xFF7A5200))),
       ],
     ),
   );
@@ -1793,14 +1406,11 @@ Widget _afScopeTab(String label, IconData icon, Color color, bool active) {
         children: [
           Icon(icon, size: 14, color: color),
           const SizedBox(width: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: active ? FontWeight.bold : FontWeight.normal,
-              color: color,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: active ? FontWeight.bold : FontWeight.normal,
+                  color: color)),
         ],
       ),
     ),
@@ -1819,10 +1429,8 @@ Widget _afCheckItem(String text, bool ok, Color color) {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12, color: const Color(0xFF7A5200)),
-          ),
+          child: Text(text,
+              style: TextStyle(fontSize: 12, color: const Color(0xFF7A5200))),
         ),
       ],
     ),

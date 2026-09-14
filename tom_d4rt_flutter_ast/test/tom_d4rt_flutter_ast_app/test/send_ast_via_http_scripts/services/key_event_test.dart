@@ -71,7 +71,11 @@ class _HeroSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF1A237E), Color(0xFF311B92), Color(0xFF4A148C)],
+          colors: [
+            Color(0xFF1A237E),
+            Color(0xFF311B92),
+            Color(0xFF4A148C),
+          ],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
@@ -143,7 +147,11 @@ class _HeroSection extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: const [
-                    Icon(Icons.bolt, color: Colors.greenAccent, size: 16),
+                    Icon(
+                      Icons.bolt,
+                      color: Colors.greenAccent,
+                      size: 16,
+                    ),
                     SizedBox(width: 6),
                     Text(
                       "LIVE",
@@ -165,7 +173,9 @@ class _HeroSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.black.withValues(alpha: 0.32),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.08),
+              ),
             ),
             child: Row(
               children: [
@@ -256,7 +266,9 @@ class _IntroSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF161B22),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.06),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,10 +409,15 @@ class _EventTypeMatrixSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF1B5E20), Color(0xFF0D3D14)],
+          colors: [
+            Color(0xFF1B5E20),
+            Color(0xFF0D3D14),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.18)),
+        border: Border.all(
+          color: Colors.greenAccent.withValues(alpha: 0.18),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -685,10 +702,15 @@ class _ShortcutGallerySection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF263238), Color(0xFF1A2327)],
+          colors: [
+            Color(0xFF263238),
+            Color(0xFF1A2327),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.cyanAccent.withValues(alpha: 0.15)),
+        border: Border.all(
+          color: Colors.cyanAccent.withValues(alpha: 0.15),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -874,7 +896,9 @@ class _ShortcutCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Row(children: _buildKeyGlyphs(keys, color)),
+          Row(
+            children: _buildKeyGlyphs(keys, color),
+          ),
         ],
       ),
     );
@@ -962,17 +986,27 @@ class _ModifierPanelSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF3E2723), Color(0xFF4E342E), Color(0xFF5D4037)],
+          colors: [
+            Color(0xFF3E2723),
+            Color(0xFF4E342E),
+            Color(0xFF5D4037),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.orangeAccent.withValues(alpha: 0.18)),
+        border: Border.all(
+          color: Colors.orangeAccent.withValues(alpha: 0.18),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(Icons.tune, color: Colors.orangeAccent, size: 22),
+              const Icon(
+                Icons.tune,
+                color: Colors.orangeAccent,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               const Text(
                 "Modifier Key Matrix",
@@ -1230,7 +1264,11 @@ class _PhysicalVsLogicalSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF0D47A1), Color(0xFF01579B), Color(0xFF006064)],
+          colors: [
+            Color(0xFF0D47A1),
+            Color(0xFF01579B),
+            Color(0xFF006064),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
       ),
@@ -1300,7 +1338,10 @@ class _PhysicalVsLogicalSection extends StatelessWidget {
                       label: "arrowLeft",
                       value: "PhysicalKeyboardKey.arrowLeft",
                     ),
-                    _IdentityRow(label: "f1", value: "PhysicalKeyboardKey.f1"),
+                    _IdentityRow(
+                      label: "f1",
+                      value: "PhysicalKeyboardKey.f1",
+                    ),
                   ],
                 ),
               ),
@@ -1327,7 +1368,10 @@ class _PhysicalVsLogicalSection extends StatelessWidget {
                       label: "arrowLeft",
                       value: "LogicalKeyboardKey.arrowLeft",
                     ),
-                    _IdentityRow(label: "f1", value: "LogicalKeyboardKey.f1"),
+                    _IdentityRow(
+                      label: "f1",
+                      value: "LogicalKeyboardKey.f1",
+                    ),
                   ],
                 ),
               ),
@@ -1472,45 +1516,46 @@ class _IdentityPanel extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Container(height: 1, color: color.withValues(alpha: 0.18)),
-          const SizedBox(height: 10),
-          ...examples.map(
-            (e) => Padding(
-              padding: const EdgeInsets.only(bottom: 6),
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      color: color.withValues(alpha: 0.16),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      e.label,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      e.value,
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.78),
-                        fontSize: 11.5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          Container(
+            height: 1,
+            color: color.withValues(alpha: 0.18),
           ),
+          const SizedBox(height: 10),
+          ...examples.map((e) => Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: color.withValues(alpha: 0.16),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        e.label,
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 10.5,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        e.value,
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.78),
+                          fontSize: 11.5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -1538,7 +1583,11 @@ class _RepeatHandlingSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF880E4F), Color(0xFFAD1457), Color(0xFF6A1B9A)],
+          colors: [
+            Color(0xFF880E4F),
+            Color(0xFFAD1457),
+            Color(0xFF6A1B9A),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
       ),
@@ -1547,7 +1596,11 @@ class _RepeatHandlingSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.repeat, color: Colors.pinkAccent, size: 22),
+              const Icon(
+                Icons.repeat,
+                color: Colors.pinkAccent,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               const Text(
                 "Repeat Event Lifecycle",
@@ -1623,8 +1676,7 @@ class _RepeatHandlingSection extends StatelessWidget {
                 child: _RepeatNoteCard(
                   title: "Debounce text input",
                   icon: Icons.edit_outlined,
-                  body:
-                      "TextField treats KeyDownEvent and KeyRepeatEvent identically for character insertion.",
+                  body: "TextField treats KeyDownEvent and KeyRepeatEvent identically for character insertion.",
                   color: Colors.amberAccent,
                 ),
               ),
@@ -1633,8 +1685,7 @@ class _RepeatHandlingSection extends StatelessWidget {
                 child: _RepeatNoteCard(
                   title: "Ignore for shortcuts",
                   icon: Icons.shortcut,
-                  body:
-                      "Shortcut dispatch typically ignores KeyRepeatEvent to avoid re-triggering commands.",
+                  body: "Shortcut dispatch typically ignores KeyRepeatEvent to avoid re-triggering commands.",
                   color: Colors.cyanAccent,
                 ),
               ),
@@ -1643,8 +1694,7 @@ class _RepeatHandlingSection extends StatelessWidget {
                 child: _RepeatNoteCard(
                   title: "Game-loop polling",
                   icon: Icons.sports_esports,
-                  body:
-                      "Games typically poll HardwareKeyboard.logicalKeysPressed instead of reacting to repeats.",
+                  body: "Games typically poll HardwareKeyboard.logicalKeysPressed instead of reacting to repeats.",
                   color: Colors.greenAccent,
                 ),
               ),
@@ -1699,9 +1749,7 @@ class _TimelineEntry extends StatelessWidget {
               Container(
                 width: 2,
                 height: 6,
-                color: isFirst
-                    ? Colors.transparent
-                    : color.withValues(alpha: 0.4),
+                color: isFirst ? Colors.transparent : color.withValues(alpha: 0.4),
               ),
               Container(
                 width: 14,
@@ -1715,9 +1763,7 @@ class _TimelineEntry extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: 2,
-                  color: isLast
-                      ? Colors.transparent
-                      : color.withValues(alpha: 0.4),
+                  color: isLast ? Colors.transparent : color.withValues(alpha: 0.4),
                 ),
               ),
             ],
@@ -1852,7 +1898,11 @@ class _FocusTraversalSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
-          colors: [Color(0xFF004D40), Color(0xFF00695C), Color(0xFF00796B)],
+          colors: [
+            Color(0xFF004D40),
+            Color(0xFF00695C),
+            Color(0xFF00796B),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
       ),
@@ -1861,7 +1911,11 @@ class _FocusTraversalSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.swap_horiz, color: Colors.tealAccent, size: 22),
+              const Icon(
+                Icons.swap_horiz,
+                color: Colors.tealAccent,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               const Text(
                 "Focus Traversal Keys",
@@ -1901,8 +1955,7 @@ class _FocusTraversalSection extends StatelessWidget {
                   keys: const ["Tab"],
                   color: Colors.tealAccent,
                   icon: Icons.arrow_forward,
-                  body:
-                      "Moves focus to the next focusable widget in the traversal order.",
+                  body: "Moves focus to the next focusable widget in the traversal order.",
                 ),
               ),
               const SizedBox(width: 12),
@@ -1912,8 +1965,7 @@ class _FocusTraversalSection extends StatelessWidget {
                   keys: const ["Shift", "Tab"],
                   color: Colors.cyanAccent,
                   icon: Icons.arrow_back,
-                  body:
-                      "Moves focus to the previous focusable widget in the traversal order.",
+                  body: "Moves focus to the previous focusable widget in the traversal order.",
                 ),
               ),
               const SizedBox(width: 12),
@@ -1923,8 +1975,7 @@ class _FocusTraversalSection extends StatelessWidget {
                   keys: const ["Enter"],
                   color: Colors.amberAccent,
                   icon: Icons.touch_app_outlined,
-                  body:
-                      "Activates the currently focused control, similar to a tap.",
+                  body: "Activates the currently focused control, similar to a tap.",
                 ),
               ),
             ],
@@ -1958,8 +2009,7 @@ class _FocusTraversalSection extends StatelessWidget {
                   keys: const ["Arrow Down"],
                   color: Colors.lightBlueAccent,
                   icon: Icons.keyboard_arrow_down,
-                  body:
-                      "Directional focus traversal downward in spatial groups.",
+                  body: "Directional focus traversal downward in spatial groups.",
                 ),
               ),
             ],
@@ -2063,9 +2113,7 @@ class _TraversalCard extends StatelessWidget {
           const SizedBox(height: 10),
           Wrap(
             spacing: 6,
-            children: keys
-                .map((k) => _KeyGlyph(label: k, color: color))
-                .toList(),
+            children: keys.map((k) => _KeyGlyph(label: k, color: color)).toList(),
           ),
           const SizedBox(height: 10),
           Text(
@@ -2108,7 +2156,11 @@ class _MappingLine extends StatelessWidget {
               ),
             ),
           ),
-          const Icon(Icons.arrow_right_alt, color: Colors.white24, size: 16),
+          const Icon(
+            Icons.arrow_right_alt,
+            color: Colors.white24,
+            size: 16,
+          ),
           const SizedBox(width: 6),
           Expanded(
             child: Text(
@@ -2187,10 +2239,8 @@ class _AccessibilityNotesSection extends StatelessWidget {
               Expanded(
                 child: _A11yPoint(
                   number: "01",
-                  title:
-                      "Every interactive widget must be reachable via keyboard",
-                  body:
-                      "Audit your Focus tree: any tap target should have a corresponding keyboard path through Tab / arrow keys.",
+                  title: "Every interactive widget must be reachable via keyboard",
+                  body: "Audit your Focus tree: any tap target should have a corresponding keyboard path through Tab / arrow keys.",
                   color: Colors.deepPurpleAccent,
                 ),
               ),
@@ -2199,8 +2249,7 @@ class _AccessibilityNotesSection extends StatelessWidget {
                 child: _A11yPoint(
                   number: "02",
                   title: "Provide a visible focus indicator",
-                  body:
-                      "Default Material themes render a focus ring; preserve or replace it intentionally, never disable it silently.",
+                  body: "Default Material themes render a focus ring; preserve or replace it intentionally, never disable it silently.",
                   color: Colors.purpleAccent,
                 ),
               ),
@@ -2214,8 +2263,7 @@ class _AccessibilityNotesSection extends StatelessWidget {
                 child: _A11yPoint(
                   number: "03",
                   title: "Esc should always dismiss",
-                  body:
-                      "Wire DismissIntent in dialogs, popovers, dropdowns. Users should never feel trapped.",
+                  body: "Wire DismissIntent in dialogs, popovers, dropdowns. Users should never feel trapped.",
                   color: Colors.pinkAccent,
                 ),
               ),
@@ -2224,8 +2272,7 @@ class _AccessibilityNotesSection extends StatelessWidget {
                 child: _A11yPoint(
                   number: "04",
                   title: "Avoid keyboard-only behavior conflicts",
-                  body:
-                      "Do not consume universal shortcuts (Tab, Esc, Enter) unless the widget genuinely requires it (e.g. a code editor surface).",
+                  body: "Do not consume universal shortcuts (Tab, Esc, Enter) unless the widget genuinely requires it (e.g. a code editor surface).",
                   color: Colors.indigoAccent,
                 ),
               ),
@@ -2353,10 +2400,15 @@ class _CheatSheetSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF212121), Color(0xFF0E1117)],
+          colors: [
+            Color(0xFF212121),
+            Color(0xFF0E1117),
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.06),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2484,7 +2536,10 @@ class _CheatColumn extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 4,
+            ),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(5),
@@ -2514,7 +2569,9 @@ class _CheatColumn extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(3),
-                      border: Border.all(color: color.withValues(alpha: 0.32)),
+                      border: Border.all(
+                        color: color.withValues(alpha: 0.32),
+                      ),
                     ),
                     child: Text(
                       e.name,
@@ -2567,7 +2624,9 @@ class _FooterSection extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.08),
+        ),
       ),
       child: Row(
         children: [

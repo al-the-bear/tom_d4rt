@@ -573,7 +573,12 @@ dynamic build(BuildContext context) {
                 _menuItem('Save As\u2026', '\u2318\u21E7S', Icons.save_as, ink),
                 _menuDivider(),
                 _menuItem('Find', '\u2303F', Icons.search, ink),
-                _menuItem('Find Next', '\u2318G', Icons.skip_next, ink),
+                _menuItem(
+                  'Find Next',
+                  '\u2318G',
+                  Icons.skip_next,
+                  ink,
+                ),
                 _menuDivider(),
                 _menuItem('Quit', '\u2318Q', Icons.power_settings_new, ink),
               ],
@@ -631,42 +636,39 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: ember.withValues(alpha: 0.3), width: 1.0),
+            border: Border.all(
+              color: ember.withValues(alpha: 0.3),
+              width: 1.0,
+            ),
           ),
           child: Column(
             children: [
               _tableHeader(['Aspect', 'MenuSerial', 'ShortcutAct.', 'KeySet']),
-              _tableRow([
-                'Type',
-                'mixin',
-                'abstract',
-                'class',
-                '(deprecated)',
-              ], false),
-              _tableRow(['Menu serializable', 'yes', 'maybe', 'no', ''], true),
-              _tableRow([
-                'serializeForMenu()',
-                'required',
-                'optional',
-                'absent',
-                '',
-              ], false),
+              _tableRow(
+                ['Type', 'mixin', 'abstract', 'class', '(deprecated)'],
+                false,
+              ),
+              _tableRow(
+                ['Menu serializable', 'yes', 'maybe', 'no', ''],
+                true,
+              ),
+              _tableRow(
+                ['serializeForMenu()', 'required', 'optional', 'absent', ''],
+                false,
+              ),
               _tableRow(['Modifiers', 'yes', 'yes', 'yes', ''], true),
-              _tableRow([
-                'Character trigger',
-                'via CA',
-                'via CA',
-                'no',
-                '',
-              ], false),
-              _tableRow(['Order matters', 'yes', 'yes', 'no', ''], true),
-              _tableRow([
-                'Use in PlatformMenuBar',
-                'YES',
-                'no',
-                'no',
-                '',
-              ], false),
+              _tableRow(
+                ['Character trigger', 'via CA', 'via CA', 'no', ''],
+                false,
+              ),
+              _tableRow(
+                ['Order matters', 'yes', 'yes', 'no', ''],
+                true,
+              ),
+              _tableRow(
+                ['Use in PlatformMenuBar', 'YES', 'no', 'no', ''],
+                false,
+              ),
             ],
           ),
         ),
@@ -717,35 +719,92 @@ dynamic build(BuildContext context) {
           '// SingleActivator already implements MenuSerializableShortcut',
           Color(0xFF676E95),
         ),
-        _code('final saveShortcut = SingleActivator(', Color(0xFFC3E88D)),
-        _code('  LogicalKeyboardKey.keyS,', Color(0xFFFFCB6B)),
-        _code('  meta: true,', Color(0xFFFFCB6B)),
-        _code(');', Color(0xFFC3E88D)),
+        _code(
+          'final saveShortcut = SingleActivator(',
+          Color(0xFFC3E88D),
+        ),
+        _code(
+          '  LogicalKeyboardKey.keyS,',
+          Color(0xFFFFCB6B),
+        ),
+        _code(
+          '  meta: true,',
+          Color(0xFFFFCB6B),
+        ),
+        _code(
+          ');',
+          Color(0xFFC3E88D),
+        ),
         SizedBox(height: 8.0),
         _code(
           '// Custom activator — mix in MenuSerializableShortcut',
           Color(0xFF676E95),
         ),
-        _code('class MyShortcut extends ShortcutActivator', Color(0xFFF07178)),
-        _code('    with MenuSerializableShortcut {', Color(0xFFF07178)),
-        _code('  @override', Color(0xFF82AAFF)),
+        _code(
+          'class MyShortcut extends ShortcutActivator',
+          Color(0xFFF07178),
+        ),
+        _code(
+          '    with MenuSerializableShortcut {',
+          Color(0xFFF07178),
+        ),
+        _code(
+          '  @override',
+          Color(0xFF82AAFF),
+        ),
         _code(
           '  ShortcutSerialization serializeForMenu() {',
           Color(0xFFFFCB6B),
         ),
-        _code('    return ShortcutSerialization.modifier(', Color(0xFFC3E88D)),
-        _code('      LogicalKeyboardKey.keyS,', Color(0xFFFFCB6B)),
-        _code('      meta: true, shift: true,', Color(0xFFFFCB6B)),
-        _code('    );', Color(0xFFC3E88D)),
-        _code('  }', Color(0xFFFFCB6B)),
-        _code('}', Color(0xFFF07178)),
+        _code(
+          '    return ShortcutSerialization.modifier(',
+          Color(0xFFC3E88D),
+        ),
+        _code(
+          '      LogicalKeyboardKey.keyS,',
+          Color(0xFFFFCB6B),
+        ),
+        _code(
+          '      meta: true, shift: true,',
+          Color(0xFFFFCB6B),
+        ),
+        _code(
+          '    );',
+          Color(0xFFC3E88D),
+        ),
+        _code(
+          '  }',
+          Color(0xFFFFCB6B),
+        ),
+        _code(
+          '}',
+          Color(0xFFF07178),
+        ),
         SizedBox(height: 8.0),
-        _code('// Wire it into the platform menu bar', Color(0xFF676E95)),
-        _code('PlatformMenuItem(', Color(0xFFC3E88D)),
-        _code('  label: "Save",', Color(0xFFC3E88D)),
-        _code('  shortcut: saveShortcut,', Color(0xFFC3E88D)),
-        _code('  onSelected: () => doSave(),', Color(0xFFC3E88D)),
-        _code(');', Color(0xFFC3E88D)),
+        _code(
+          '// Wire it into the platform menu bar',
+          Color(0xFF676E95),
+        ),
+        _code(
+          'PlatformMenuItem(',
+          Color(0xFFC3E88D),
+        ),
+        _code(
+          '  label: "Save",',
+          Color(0xFFC3E88D),
+        ),
+        _code(
+          '  shortcut: saveShortcut,',
+          Color(0xFFC3E88D),
+        ),
+        _code(
+          '  onSelected: () => doSave(),',
+          Color(0xFFC3E88D),
+        ),
+        _code(
+          ');',
+          Color(0xFFC3E88D),
+        ),
       ],
     ),
   );
@@ -892,11 +951,17 @@ dynamic build(BuildContext context) {
           SizedBox(height: 18.0),
 
           _sectionTitle('3. SingleActivator gallery', steelDark),
-          Wrap(alignment: WrapAlignment.center, children: singleActivatorCards),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: singleActivatorCards,
+          ),
           SizedBox(height: 18.0),
 
           _sectionTitle('4. CharacterActivator showcase', steelDark),
-          Wrap(alignment: WrapAlignment.center, children: characterCards),
+          Wrap(
+            alignment: WrapAlignment.center,
+            children: characterCards,
+          ),
           SizedBox(height: 18.0),
 
           _sectionTitle('5. Modifier glyphs', steelDark),
@@ -965,7 +1030,10 @@ Widget _chip(String label, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.22),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: color.withValues(alpha: 0.6), width: 1.0),
+      border: Border.all(
+        color: color.withValues(alpha: 0.6),
+        width: 1.0,
+      ),
     ),
     child: Text(
       label,
@@ -992,7 +1060,10 @@ Widget _anatomyRow(
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.07),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(color: color.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: color.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
     ),
     child: Row(
       children: [
@@ -1045,12 +1116,18 @@ Widget _classCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.32)],
+        colors: [
+          color.withValues(alpha: 0.18),
+          color.withValues(alpha: 0.32),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: color.withValues(alpha: 0.7), width: 1.5),
+      border: Border.all(
+        color: color.withValues(alpha: 0.7),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.4),
@@ -1151,7 +1228,10 @@ Widget _activatorCard(
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: color.withValues(alpha: 0.55), width: 1.4),
+      border: Border.all(
+        color: color.withValues(alpha: 0.55),
+        width: 1.4,
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.25),
@@ -1268,12 +1348,18 @@ Widget _characterCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
+        colors: [
+          color.withValues(alpha: 0.08),
+          color.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: color.withValues(alpha: 0.55), width: 1.4),
+      border: Border.all(
+        color: color.withValues(alpha: 0.55),
+        width: 1.4,
+      ),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.3),
@@ -1366,7 +1452,10 @@ Widget _modifierTile(String name, String glyph, String label, Color color) {
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.32)],
+        colors: [
+          color.withValues(alpha: 0.15),
+          color.withValues(alpha: 0.32),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1404,7 +1493,10 @@ Widget _modifierTile(String name, String glyph, String label, Color color) {
         SizedBox(height: 2.0),
         Text(
           label,
-          style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 10.0,
+            color: Colors.grey.shade700,
+          ),
         ),
       ],
     ),
@@ -1456,7 +1548,10 @@ Widget _menuItem(String label, String shortcut, IconData icon, Color color) {
         Icon(icon, size: 14.0, color: Colors.grey.shade600),
         SizedBox(width: 10.0),
         Expanded(
-          child: Text(label, style: TextStyle(fontSize: 13.0, color: color)),
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 13.0, color: color),
+          ),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
@@ -1523,7 +1618,9 @@ Widget _tableRow(List<String> cells, bool alt) {
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
     decoration: BoxDecoration(
       color: alt ? Color(0xFFFFF8F0) : Colors.white,
-      border: Border(top: BorderSide(color: Color(0xFFFFE0B2), width: 0.5)),
+      border: Border(
+        top: BorderSide(color: Color(0xFFFFE0B2), width: 0.5),
+      ),
     ),
     child: Row(
       children: [
@@ -1560,7 +1657,12 @@ Widget _code(String text, Color color) {
   );
 }
 
-Widget _footgun(String title, String body, IconData icon, Color color) {
+Widget _footgun(
+  String title,
+  String body,
+  IconData icon,
+  Color color,
+) {
   // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #121, P5(a)):
   // Flutter forbids `borderRadius` on a `Border(...)` with non-uniform
   // colors (thick colored `left` + thin `color.withValues(alpha: 0.3)`
@@ -1600,7 +1702,10 @@ Widget _footgun(String title, String body, IconData icon, Color color) {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(color: color.withValues(alpha: 0.3), width: 1.0),
+            border: Border.all(
+              color: color.withValues(alpha: 0.3),
+              width: 1.0,
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1661,7 +1766,10 @@ Widget _recapLine(String text, Color bullet) {
           child: Container(
             width: 8.0,
             height: 8.0,
-            decoration: BoxDecoration(color: bullet, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: bullet,
+              shape: BoxShape.circle,
+            ),
           ),
         ),
         Expanded(

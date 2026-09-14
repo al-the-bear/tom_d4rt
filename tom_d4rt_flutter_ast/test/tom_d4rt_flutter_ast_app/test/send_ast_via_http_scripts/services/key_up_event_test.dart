@@ -374,7 +374,10 @@ Widget _buildTitleBanner() {
         ),
         const SizedBox(height: 18.0),
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
+          padding: const EdgeInsets.symmetric(
+            vertical: 12.0,
+            horizontal: 14.0,
+          ),
           decoration: BoxDecoration(
             color: _kSlateDeep.withValues(alpha: 0.55),
             borderRadius: BorderRadius.circular(10.0),
@@ -494,10 +497,7 @@ Widget _buildAnatomyDiagram(KeyUpEvent anchor) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(18.0),
-      border: Border.all(
-        color: _kSlateSoft.withValues(alpha: 0.25),
-        width: 1.0,
-      ),
+      border: Border.all(color: _kSlateSoft.withValues(alpha: 0.25), width: 1.0),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: _kSlateDeep.withValues(alpha: 0.10),
@@ -574,11 +574,7 @@ Widget _anatomyRow(Map<String, Object?> field) {
               ),
             ],
           ),
-          child: Icon(
-            field['icon'] as IconData,
-            color: Colors.white,
-            size: 22.0,
-          ),
+          child: Icon(field['icon'] as IconData, color: Colors.white, size: 22.0),
         ),
         const SizedBox(width: 14.0),
         Expanded(
@@ -904,7 +900,12 @@ Widget _buildComparisonTable() {
               _tableHeader('Attribute', 110.0, _kTealSoft),
               _tableHeader('KeyDownEvent', 0.0, _kAmberSoft, expanded: true),
               _tableHeader('KeyUpEvent', 0.0, _kTealSoft, expanded: true),
-              _tableHeader('KeyRepeatEvent', 0.0, _kSkyMid, expanded: true),
+              _tableHeader(
+                'KeyRepeatEvent',
+                0.0,
+                _kSkyMid,
+                expanded: true,
+              ),
             ],
           ),
         ),
@@ -992,12 +993,10 @@ Widget _tableCell(
     ),
   );
   if (expanded) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(right: 6.0),
-        child: content,
-      ),
-    );
+    return Expanded(child: Padding(
+      padding: const EdgeInsets.only(right: 6.0),
+      child: content,
+    ));
   }
   return SizedBox(width: width, child: content);
 }
@@ -1042,13 +1041,9 @@ Widget _buildPhysicalLogicalSection() {
         const SizedBox(height: 14.0),
         Row(
           children: <Widget>[
-            Expanded(
-              child: _layoutCard('QWERTY', 'A', 'a', 'keyA', _kTealDeep),
-            ),
+            Expanded(child: _layoutCard('QWERTY', 'A', 'a', 'keyA', _kTealDeep)),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: _layoutCard('AZERTY', 'A', 'q', 'keyA', _kAmberDeep),
-            ),
+            Expanded(child: _layoutCard('AZERTY', 'A', 'q', 'keyA', _kAmberDeep)),
             const SizedBox(width: 12.0),
             Expanded(child: _layoutCard('Dvorak', 'A', 'a', 'keyA', _kSkyDeep)),
           ],
@@ -1169,7 +1164,10 @@ Widget _layoutCard(
         ),
         const SizedBox(height: 12.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 6.0,
+          ),
           decoration: BoxDecoration(
             color: tone.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(8.0),
@@ -1241,8 +1239,7 @@ Widget _buildDeviceTypeShowcase() {
 
 Widget _deviceCard(Map<String, Object?> entry) {
   final Color tone = entry['tone'] as Color;
-  final ui.KeyEventDeviceType deviceType =
-      entry['type'] as ui.KeyEventDeviceType;
+  final ui.KeyEventDeviceType deviceType = entry['type'] as ui.KeyEventDeviceType;
   // Construct an example KeyUpEvent with this deviceType (no setState — pure data).
   final KeyUpEvent example = KeyUpEvent(
     physicalKey: PhysicalKeyboardKey.enter,
@@ -1299,11 +1296,18 @@ Widget _deviceCard(Map<String, Object?> entry) {
         const SizedBox(height: 10.0),
         Text(
           entry['descr'] as String,
-          style: TextStyle(fontSize: 11.5, color: _kSlateSoft, height: 1.4),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: _kSlateSoft,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 10.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+            vertical: 6.0,
+          ),
           decoration: BoxDecoration(
             color: _kSlateDeep,
             borderRadius: BorderRadius.circular(6.0),
@@ -1328,29 +1332,8 @@ Widget _deviceCard(Map<String, Object?> entry) {
 // ===========================================================================
 Widget _buildVirtualKeyboard(KeyUpEvent releasedEvent) {
   // Top row of the QWERTY layout.
-  const List<String> row1 = <String>[
-    'Q',
-    'W',
-    'E',
-    'R',
-    'T',
-    'Y',
-    'U',
-    'I',
-    'O',
-    'P',
-  ];
-  const List<String> row2 = <String>[
-    'A',
-    'S',
-    'D',
-    'F',
-    'G',
-    'H',
-    'J',
-    'K',
-    'L',
-  ];
+  const List<String> row1 = <String>['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
+  const List<String> row2 = <String>['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
   const List<String> row3 = <String>['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
 
   final String releasedLabel = releasedEvent.logicalKey.keyLabel.toUpperCase();
@@ -1382,7 +1365,10 @@ Widget _buildVirtualKeyboard(KeyUpEvent releasedEvent) {
       children: <Widget>[
         // Indicator strip
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+          padding: const EdgeInsets.symmetric(
+            vertical: 10.0,
+            horizontal: 14.0,
+          ),
           decoration: BoxDecoration(
             color: _kTealDeep.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(10.0),
@@ -1452,7 +1438,10 @@ Widget _buildVirtualKeyboard(KeyUpEvent releasedEvent) {
         ),
         const SizedBox(height: 12.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: _kSlateDeep.withValues(alpha: 0.6),
             borderRadius: BorderRadius.circular(10.0),
@@ -1484,7 +1473,10 @@ Widget _kbRow(List<String> labels, String releasedLabel) {
     caps.add(_keycap(l, isReleased));
     if (i < labels.length - 1) caps.add(const SizedBox(width: 6.0));
   }
-  return Row(mainAxisAlignment: MainAxisAlignment.center, children: caps);
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: caps,
+  );
 }
 
 Widget _keycap(String label, bool justReleased) {
@@ -1624,15 +1616,9 @@ Widget _buildCodeBlock() {
         ),
         const SizedBox(height: 14.0),
         _codeLine('// 1) Listen globally via HardwareKeyboard.', _kSlateMist),
-        _codeLine(
-          'HardwareKeyboard.instance.addHandler((KeyEvent e) {',
-          Colors.white,
-        ),
+        _codeLine('HardwareKeyboard.instance.addHandler((KeyEvent e) {', Colors.white),
         _codeLine('  if (e is KeyUpEvent) {', _kSkyMid),
-        _codeLine(
-          '    debugPrint("released \${e.logicalKey.keyLabel}");',
-          _kTealSoft,
-        ),
+        _codeLine('    debugPrint("released \${e.logicalKey.keyLabel}");', _kTealSoft),
         _codeLine('  }', _kSkyMid),
         _codeLine('  return false;', Colors.white),
         _codeLine('});', Colors.white),
@@ -1642,10 +1628,7 @@ Widget _buildCodeBlock() {
         _codeLine('  autofocus: true,', Colors.white),
         _codeLine('  onKeyEvent: (FocusNode node, KeyEvent e) {', Colors.white),
         _codeLine('    if (e is KeyUpEvent &&', _kSkyMid),
-        _codeLine(
-          '        e.logicalKey == LogicalKeyboardKey.escape) {',
-          _kSkyMid,
-        ),
+        _codeLine('        e.logicalKey == LogicalKeyboardKey.escape) {', _kSkyMid),
         _codeLine('      Navigator.of(context).maybePop();', _kAmberSoft),
         _codeLine('      return KeyEventResult.handled;', _kAmberSoft),
         _codeLine('    }', _kSkyMid),
@@ -1654,10 +1637,7 @@ Widget _buildCodeBlock() {
         _codeLine('  child: child,', Colors.white),
         _codeLine(');', Colors.white),
         const SizedBox(height: 12.0),
-        _codeLine(
-          '// 3) KeyboardListener — declarative widget form.',
-          _kSlateMist,
-        ),
+        _codeLine('// 3) KeyboardListener — declarative widget form.', _kSlateMist),
         _codeLine('KeyboardListener(', Colors.white),
         _codeLine('  focusNode: focusNode,', Colors.white),
         _codeLine('  onKeyEvent: (KeyEvent e) {', Colors.white),
@@ -2053,11 +2033,7 @@ Widget _footgunCard(Map<String, Object?> entry) {
               ),
             ],
           ),
-          child: Icon(
-            entry['icon'] as IconData,
-            color: Colors.white,
-            size: 22.0,
-          ),
+          child: Icon(entry['icon'] as IconData, color: Colors.white, size: 22.0),
         ),
         const SizedBox(width: 14.0),
         Expanded(
@@ -2193,10 +2169,7 @@ Widget _recapBullet(Map<String, Object?> entry) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.07),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: Colors.white.withValues(alpha: 0.15),
-        width: 1.0,
-      ),
+      border: Border.all(color: Colors.white.withValues(alpha: 0.15), width: 1.0),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2208,11 +2181,7 @@ Widget _recapBullet(Map<String, Object?> entry) {
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: tone.withValues(alpha: 0.7), width: 1.0),
           ),
-          child: Icon(
-            entry['icon'] as IconData,
-            color: Colors.white,
-            size: 18.0,
-          ),
+          child: Icon(entry['icon'] as IconData, color: Colors.white, size: 18.0),
         ),
         const SizedBox(width: 12.0),
         Expanded(

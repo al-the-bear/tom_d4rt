@@ -15,11 +15,7 @@ dynamic build(BuildContext context) {
   final seedDefinitions = <Map<String, dynamic>>[
     {'name': 'Indigo', 'seed': Colors.indigo, 'icon': Icons.water_drop},
     {'name': 'Teal', 'seed': Colors.teal, 'icon': Icons.eco},
-    {
-      'name': 'Deep Orange',
-      'seed': Colors.deepOrange,
-      'icon': Icons.local_fire_department,
-    },
+    {'name': 'Deep Orange', 'seed': Colors.deepOrange, 'icon': Icons.local_fire_department},
     {'name': 'Pink', 'seed': Colors.pink, 'icon': Icons.favorite},
     {'name': 'Green', 'seed': Colors.green, 'icon': Icons.park},
   ];
@@ -139,7 +135,9 @@ dynamic build(BuildContext context) {
     cardTheme: CardThemeData(
       color: Colors.deepPurple.shade50,
       elevation: 4.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14.0),
+      ),
     ),
     chipTheme: ChipThemeData(
       backgroundColor: Colors.deepPurple.shade100,
@@ -285,145 +283,41 @@ dynamic build(BuildContext context) {
   print('=== Section 3: TextTheme samples ===');
 
   final demoTextTheme = TextTheme(
-    displayLarge: TextStyle(
-      fontSize: 38.0,
-      fontWeight: FontWeight.w300,
-      color: Colors.indigo.shade900,
-    ),
-    displayMedium: TextStyle(
-      fontSize: 32.0,
-      fontWeight: FontWeight.w300,
-      color: Colors.indigo.shade800,
-    ),
-    displaySmall: TextStyle(
-      fontSize: 28.0,
-      fontWeight: FontWeight.w400,
-      color: Colors.indigo.shade700,
-    ),
-    headlineLarge: TextStyle(
-      fontSize: 26.0,
-      fontWeight: FontWeight.w500,
-      color: Colors.deepPurple.shade800,
-    ),
-    headlineMedium: TextStyle(
-      fontSize: 22.0,
-      fontWeight: FontWeight.w500,
-      color: Colors.deepPurple.shade700,
-    ),
-    headlineSmall: TextStyle(
-      fontSize: 20.0,
-      fontWeight: FontWeight.w500,
-      color: Colors.deepPurple.shade600,
-    ),
-    titleLarge: TextStyle(
-      fontSize: 18.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.teal.shade800,
-    ),
-    titleMedium: TextStyle(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.teal.shade700,
-      letterSpacing: 0.15,
-    ),
-    titleSmall: TextStyle(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.teal.shade600,
-      letterSpacing: 0.1,
-    ),
-    bodyLarge: TextStyle(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w400,
-      color: Colors.grey.shade800,
-      letterSpacing: 0.5,
-    ),
-    bodyMedium: TextStyle(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w400,
-      color: Colors.grey.shade700,
-      letterSpacing: 0.25,
-    ),
-    bodySmall: TextStyle(
-      fontSize: 12.0,
-      fontWeight: FontWeight.w400,
-      color: Colors.grey.shade600,
-      letterSpacing: 0.4,
-    ),
-    labelLarge: TextStyle(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w500,
-      color: Colors.orange.shade900,
-      letterSpacing: 0.1,
-    ),
-    labelMedium: TextStyle(
-      fontSize: 12.0,
-      fontWeight: FontWeight.w500,
-      color: Colors.orange.shade800,
-      letterSpacing: 0.5,
-    ),
-    labelSmall: TextStyle(
-      fontSize: 11.0,
-      fontWeight: FontWeight.w500,
-      color: Colors.orange.shade700,
-      letterSpacing: 0.5,
-    ),
+    displayLarge: TextStyle(fontSize: 38.0, fontWeight: FontWeight.w300, color: Colors.indigo.shade900),
+    displayMedium: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w300, color: Colors.indigo.shade800),
+    displaySmall: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w400, color: Colors.indigo.shade700),
+    headlineLarge: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w500, color: Colors.deepPurple.shade800),
+    headlineMedium: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w500, color: Colors.deepPurple.shade700),
+    headlineSmall: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.deepPurple.shade600),
+    titleLarge: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.teal.shade800),
+    titleMedium: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.teal.shade700, letterSpacing: 0.15),
+    titleSmall: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.teal.shade600, letterSpacing: 0.1),
+    bodyLarge: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400, color: Colors.grey.shade800, letterSpacing: 0.5),
+    bodyMedium: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.grey.shade700, letterSpacing: 0.25),
+    bodySmall: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400, color: Colors.grey.shade600, letterSpacing: 0.4),
+    labelLarge: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.orange.shade900, letterSpacing: 0.1),
+    labelMedium: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500, color: Colors.orange.shade800, letterSpacing: 0.5),
+    labelSmall: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w500, color: Colors.orange.shade700, letterSpacing: 0.5),
   );
 
-  print(
-    'Demo TextTheme displayLarge size = ${demoTextTheme.displayLarge?.fontSize}',
-  );
-  print(
-    'Demo TextTheme labelSmall size = ${demoTextTheme.labelSmall?.fontSize}',
-  );
+  print('Demo TextTheme displayLarge size = ${demoTextTheme.displayLarge?.fontSize}');
+  print('Demo TextTheme labelSmall size = ${demoTextTheme.labelSmall?.fontSize}');
 
   final textThemeRows = <Map<String, dynamic>>[
-    {
-      'name': 'displayLarge',
-      'style': demoTextTheme.displayLarge,
-      'group': 'Display',
-    },
-    {
-      'name': 'displayMedium',
-      'style': demoTextTheme.displayMedium,
-      'group': 'Display',
-    },
-    {
-      'name': 'displaySmall',
-      'style': demoTextTheme.displaySmall,
-      'group': 'Display',
-    },
-    {
-      'name': 'headlineLarge',
-      'style': demoTextTheme.headlineLarge,
-      'group': 'Headline',
-    },
-    {
-      'name': 'headlineMedium',
-      'style': demoTextTheme.headlineMedium,
-      'group': 'Headline',
-    },
-    {
-      'name': 'headlineSmall',
-      'style': demoTextTheme.headlineSmall,
-      'group': 'Headline',
-    },
+    {'name': 'displayLarge', 'style': demoTextTheme.displayLarge, 'group': 'Display'},
+    {'name': 'displayMedium', 'style': demoTextTheme.displayMedium, 'group': 'Display'},
+    {'name': 'displaySmall', 'style': demoTextTheme.displaySmall, 'group': 'Display'},
+    {'name': 'headlineLarge', 'style': demoTextTheme.headlineLarge, 'group': 'Headline'},
+    {'name': 'headlineMedium', 'style': demoTextTheme.headlineMedium, 'group': 'Headline'},
+    {'name': 'headlineSmall', 'style': demoTextTheme.headlineSmall, 'group': 'Headline'},
     {'name': 'titleLarge', 'style': demoTextTheme.titleLarge, 'group': 'Title'},
-    {
-      'name': 'titleMedium',
-      'style': demoTextTheme.titleMedium,
-      'group': 'Title',
-    },
+    {'name': 'titleMedium', 'style': demoTextTheme.titleMedium, 'group': 'Title'},
     {'name': 'titleSmall', 'style': demoTextTheme.titleSmall, 'group': 'Title'},
     {'name': 'bodyLarge', 'style': demoTextTheme.bodyLarge, 'group': 'Body'},
     {'name': 'bodyMedium', 'style': demoTextTheme.bodyMedium, 'group': 'Body'},
     {'name': 'bodySmall', 'style': demoTextTheme.bodySmall, 'group': 'Body'},
     {'name': 'labelLarge', 'style': demoTextTheme.labelLarge, 'group': 'Label'},
-    {
-      'name': 'labelMedium',
-      'style': demoTextTheme.labelMedium,
-      'group': 'Label',
-    },
+    {'name': 'labelMedium', 'style': demoTextTheme.labelMedium, 'group': 'Label'},
     {'name': 'labelSmall', 'style': demoTextTheme.labelSmall, 'group': 'Label'},
   ];
 
@@ -450,10 +344,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: tagColor.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: tagColor.withValues(alpha: 0.25),
-            width: 1.0,
-          ),
+          border: Border.all(color: tagColor.withValues(alpha: 0.25), width: 1.0),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -520,9 +411,7 @@ dynamic build(BuildContext context) {
     {
       'label': 'copyWith primary = red',
       'theme': parentTheme.copyWith(
-        colorScheme: parentTheme.colorScheme.copyWith(
-          primary: Colors.red.shade700,
-        ),
+        colorScheme: parentTheme.colorScheme.copyWith(primary: Colors.red.shade700),
       ),
       'tag': 'override-1',
       'color': Colors.red,
@@ -530,9 +419,7 @@ dynamic build(BuildContext context) {
     {
       'label': 'copyWith primary = amber',
       'theme': parentTheme.copyWith(
-        colorScheme: parentTheme.colorScheme.copyWith(
-          primary: Colors.amber.shade800,
-        ),
+        colorScheme: parentTheme.colorScheme.copyWith(primary: Colors.amber.shade800),
       ),
       'tag': 'override-2',
       'color': Colors.amber.shade800,
@@ -540,9 +427,7 @@ dynamic build(BuildContext context) {
     {
       'label': 'copyWith primary = green',
       'theme': parentTheme.copyWith(
-        colorScheme: parentTheme.colorScheme.copyWith(
-          primary: Colors.green.shade700,
-        ),
+        colorScheme: parentTheme.colorScheme.copyWith(primary: Colors.green.shade700),
       ),
       'tag': 'override-3',
       'color': Colors.green,
@@ -796,7 +681,9 @@ dynamic build(BuildContext context) {
                   ),
                   subtitle: Text(
                     'Inherits typography from ThemeData',
-                    style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
+                    style: TextStyle(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   trailing: Icon(
                     Icons.chevron_right,
@@ -806,7 +693,10 @@ dynamic build(BuildContext context) {
               ),
               // Themed chips
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 14.0,
+                  vertical: 10.0,
+                ),
                 child: Wrap(
                   spacing: 8.0,
                   runSpacing: 8.0,
@@ -1224,7 +1114,10 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(alignment: WrapAlignment.center, children: themeVariantCards),
+            Wrap(
+              alignment: WrapAlignment.center,
+              children: themeVariantCards,
+            ),
             SizedBox(height: 32.0),
 
             // Section 3
@@ -1382,7 +1275,12 @@ Widget _buildSwatchCell(Color color) {
   );
 }
 
-Widget _buildCodePanel(String title, IconData icon, Color accent, String code) {
+Widget _buildCodePanel(
+  String title,
+  IconData icon,
+  Color accent,
+  String code,
+) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),

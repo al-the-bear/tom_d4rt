@@ -229,7 +229,10 @@ Widget buildRichTextSelection() {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               TextSpan(text: ' and '),
-              TextSpan(text: 'small', style: TextStyle(fontSize: 10)),
+              TextSpan(
+                text: 'small',
+                style: TextStyle(fontSize: 10),
+              ),
               TextSpan(text: ' text sizes in one span.'),
             ],
           ),
@@ -274,7 +277,10 @@ Widget buildSelectionWithColors(Color selectionColor) {
         children: [
           Text(
             'Custom Selection Color Demo',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 8),
           Text(
@@ -292,32 +298,27 @@ Widget buildSelectionWithColors(Color selectionColor) {
 Widget buildContextMenuDemo() {
   print('Building context menu demo');
   return SelectionArea(
-    contextMenuBuilder:
-        (BuildContext context, SelectableRegionState selectableRegionState) {
-          return AdaptiveTextSelectionToolbar.buttonItems(
-            anchors: selectableRegionState.contextMenuAnchors,
-            buttonItems: [
-              ContextMenuButtonItem(
-                label: 'Copy',
-                onPressed: () {
-                  Clipboard.setData(
-                    ClipboardData(text: 'Selected text copied'),
-                  );
-                  print('Copy action triggered from context menu');
-                },
-              ),
-              ContextMenuButtonItem(
-                label: 'Select All',
-                onPressed: () {
-                  selectableRegionState.selectAll(
-                    SelectionChangedCause.toolbar,
-                  );
-                  print('Select All action triggered from context menu');
-                },
-              ),
-            ],
-          );
-        },
+    contextMenuBuilder: (BuildContext context, SelectableRegionState selectableRegionState) {
+      return AdaptiveTextSelectionToolbar.buttonItems(
+        anchors: selectableRegionState.contextMenuAnchors,
+        buttonItems: [
+          ContextMenuButtonItem(
+            label: 'Copy',
+            onPressed: () {
+              Clipboard.setData(ClipboardData(text: 'Selected text copied'));
+              print('Copy action triggered from context menu');
+            },
+          ),
+          ContextMenuButtonItem(
+            label: 'Select All',
+            onPressed: () {
+              selectableRegionState.selectAll(SelectionChangedCause.toolbar);
+              print('Select All action triggered from context menu');
+            },
+          ),
+        ],
+      );
+    },
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -340,14 +341,15 @@ Widget buildMagnifierDemo() {
   print('Building magnifier demo');
   return SelectionArea(
     magnifierConfiguration: TextMagnifierConfiguration(
-      magnifierBuilder:
-          (
-            BuildContext context,
-            MagnifierController controller,
-            ValueNotifier<MagnifierInfo> magnifierInfo,
-          ) {
-            return TextMagnifier(magnifierInfo: magnifierInfo);
-          },
+      magnifierBuilder: (
+        BuildContext context,
+        MagnifierController controller,
+        ValueNotifier<MagnifierInfo> magnifierInfo,
+      ) {
+        return TextMagnifier(
+          magnifierInfo: magnifierInfo,
+        );
+      },
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,7 +379,7 @@ Widget buildMagnifierDemo() {
 Widget buildOnSelectionChangedDemo() {
   print('Building onSelectionChanged demo');
   int tapCount = 0;
-
+  
   return StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
       return Column(
@@ -455,17 +457,32 @@ Widget buildMultipleTextWidgets() {
       spacing: 8,
       runSpacing: 8,
       children: [
-        Chip(label: Text('Chip 1'), backgroundColor: Colors.blue.shade100),
-        Chip(label: Text('Chip 2'), backgroundColor: Colors.green.shade100),
-        Chip(label: Text('Chip 3'), backgroundColor: Colors.orange.shade100),
+        Chip(
+          label: Text('Chip 1'),
+          backgroundColor: Colors.blue.shade100,
+        ),
+        Chip(
+          label: Text('Chip 2'),
+          backgroundColor: Colors.green.shade100,
+        ),
+        Chip(
+          label: Text('Chip 3'),
+          backgroundColor: Colors.orange.shade100,
+        ),
         Container(
           padding: EdgeInsets.all(8),
           color: Colors.purple.shade50,
           child: Text('Container Text'),
         ),
         Text('Regular Text'),
-        Text('Bold Text', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Italic Text', style: TextStyle(fontStyle: FontStyle.italic)),
+        Text(
+          'Bold Text',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          'Italic Text',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
       ],
     ),
   );
@@ -632,7 +649,10 @@ Widget buildArticleWithSelectionArea() {
         SizedBox(height: 4),
         Text(
           'A deep dive into Flutter selection',
-          style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey.shade600,
+          ),
         ),
         Divider(height: 24),
         Text(

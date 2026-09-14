@@ -186,8 +186,7 @@ class SkewGradientTransform extends GradientTransform {
   }
 
   @override
-  String toString() =>
-      'SkewGradientTransform(${alphaX.toStringAsFixed(2)}, '
+  String toString() => 'SkewGradientTransform(${alphaX.toStringAsFixed(2)}, '
       '${alphaY.toStringAsFixed(2)})';
 }
 
@@ -208,8 +207,7 @@ class TranslateGradientTransform extends GradientTransform {
   }
 
   @override
-  String toString() =>
-      'TranslateGradientTransform('
+  String toString() => 'TranslateGradientTransform('
       '${fractionX.toStringAsFixed(2)}, ${fractionY.toStringAsFixed(2)})';
 }
 
@@ -263,8 +261,7 @@ class RotateThenTranslateTransform extends GradientTransform {
   }
 
   @override
-  String toString() =>
-      'RotateThenTranslate(rad=${radians.toStringAsFixed(2)},'
+  String toString() => 'RotateThenTranslate(rad=${radians.toStringAsFixed(2)},'
       ' fx=${fractionX.toStringAsFixed(2)}, fy=${fractionY.toStringAsFixed(2)})';
 }
 
@@ -509,7 +506,10 @@ Widget _bullet(String text) {
 Widget _wrap(List<Widget> tiles) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 8),
-    child: Wrap(alignment: WrapAlignment.center, children: tiles),
+    child: Wrap(
+      alignment: WrapAlignment.center,
+      children: tiles,
+    ),
   );
 }
 
@@ -524,13 +524,11 @@ List<Widget> _rotationGridForLinear() {
   // 0..360 in 15-degree steps, so 25 tiles -- the last one mirrors the first.
   for (int deg = 0; deg <= 360; deg += 15) {
     final double rad = deg * math.pi / 180.0;
-    tiles.add(
-      _linearTile(
-        label: 'Linear @ $deg°  (${rad.toStringAsFixed(2)} rad)',
-        transform: GradientRotation(rad),
-        colors: kRainbow,
-      ),
-    );
+    tiles.add(_linearTile(
+      label: 'Linear @ $deg°  (${rad.toStringAsFixed(2)} rad)',
+      transform: GradientRotation(rad),
+      colors: kRainbow,
+    ));
   }
   return tiles;
 }
@@ -539,15 +537,13 @@ List<Widget> _rotationGridForRadial() {
   final List<Widget> tiles = <Widget>[];
   for (int deg = 0; deg <= 360; deg += 30) {
     final double rad = deg * math.pi / 180.0;
-    tiles.add(
-      _radialTile(
-        label: 'Radial @ $deg°',
-        transform: GradientRotation(rad),
-        colors: kSunset,
-        center: const Alignment(-0.6, -0.3),
-        radius: 0.9,
-      ),
-    );
+    tiles.add(_radialTile(
+      label: 'Radial @ $deg°',
+      transform: GradientRotation(rad),
+      colors: kSunset,
+      center: const Alignment(-0.6, -0.3),
+      radius: 0.9,
+    ));
   }
   return tiles;
 }
@@ -556,13 +552,11 @@ List<Widget> _rotationGridForSweep() {
   final List<Widget> tiles = <Widget>[];
   for (int deg = 0; deg <= 360; deg += 30) {
     final double rad = deg * math.pi / 180.0;
-    tiles.add(
-      _sweepTile(
-        label: 'Sweep @ $deg°',
-        transform: GradientRotation(rad),
-        colors: kRainbow,
-      ),
-    );
+    tiles.add(_sweepTile(
+      label: 'Sweep @ $deg°',
+      transform: GradientRotation(rad),
+      colors: kRainbow,
+    ));
   }
   return tiles;
 }
@@ -573,15 +567,13 @@ List<Widget> _skewGrid() {
   final List<double> ys = <double>[-0.4, -0.2, 0.0, 0.2, 0.4];
   for (final double ax in xs) {
     for (final double ay in ys) {
-      tiles.add(
-        _linearTile(
-          label: 'Skew(${ax.toStringAsFixed(2)},${ay.toStringAsFixed(2)})',
-          transform: SkewGradientTransform(ax, ay),
-          colors: kOcean,
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      );
+      tiles.add(_linearTile(
+        label: 'Skew(${ax.toStringAsFixed(2)},${ay.toStringAsFixed(2)})',
+        transform: SkewGradientTransform(ax, ay),
+        colors: kOcean,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ));
     }
   }
   return tiles;
@@ -593,15 +585,13 @@ List<Widget> _translateGrid() {
   final List<double> fys = <double>[-0.5, -0.25, 0.0, 0.25, 0.5];
   for (final double fx in fxs) {
     for (final double fy in fys) {
-      tiles.add(
-        _radialTile(
-          label: 'Translate(${fx.toStringAsFixed(2)},${fy.toStringAsFixed(2)})',
-          transform: TranslateGradientTransform(fx, fy),
-          colors: kLava,
-          center: Alignment.center,
-          radius: 0.6,
-        ),
-      );
+      tiles.add(_radialTile(
+        label: 'Translate(${fx.toStringAsFixed(2)},${fy.toStringAsFixed(2)})',
+        transform: TranslateGradientTransform(fx, fy),
+        colors: kLava,
+        center: Alignment.center,
+        radius: 0.6,
+      ));
     }
   }
   return tiles;
@@ -613,13 +603,11 @@ List<Widget> _scaleGrid() {
   final List<double> sys = <double>[0.5, 0.75, 1.0, 1.5, 2.0];
   for (final double sx in sxs) {
     for (final double sy in sys) {
-      tiles.add(
-        _sweepTile(
-          label: 'Scale(${sx.toStringAsFixed(2)},${sy.toStringAsFixed(2)})',
-          transform: ScaleGradientTransform(sx, sy),
-          colors: kForest,
-        ),
-      );
+      tiles.add(_sweepTile(
+        label: 'Scale(${sx.toStringAsFixed(2)},${sy.toStringAsFixed(2)})',
+        transform: ScaleGradientTransform(sx, sy),
+        colors: kForest,
+      ));
     }
   }
   return tiles;
@@ -632,17 +620,15 @@ List<Widget> _compositeGrid() {
   for (final double deg in degs) {
     for (final double fx in fxs) {
       final double rad = deg * math.pi / 180.0;
-      tiles.add(
-        _linearTile(
-          label: 'Rot ${deg.toInt()}° + tx=${fx.toStringAsFixed(2)}',
-          transform: RotateThenTranslateTransform(
-            radians: rad,
-            fractionX: fx,
-            fractionY: 0.0,
-          ),
-          colors: kRainbow,
+      tiles.add(_linearTile(
+        label: 'Rot ${deg.toInt()}° + tx=${fx.toStringAsFixed(2)}',
+        transform: RotateThenTranslateTransform(
+          radians: rad,
+          fractionX: fx,
+          fractionY: 0.0,
         ),
-      );
+        colors: kRainbow,
+      ));
     }
   }
   return tiles;
@@ -653,26 +639,22 @@ List<Widget> _directionalGrid() {
   final List<double> degs = <double>[15, 30, 45, 60, 75, 90];
   for (final double deg in degs) {
     final double rad = deg * math.pi / 180.0;
-    tiles.add(
-      Directionality(
-        textDirection: TextDirection.ltr,
-        child: _linearTile(
-          label: 'LTR ${deg.toInt()}°',
-          transform: DirectionAwareRotation(rad),
-          colors: kSunset,
-        ),
+    tiles.add(Directionality(
+      textDirection: TextDirection.ltr,
+      child: _linearTile(
+        label: 'LTR ${deg.toInt()}°',
+        transform: DirectionAwareRotation(rad),
+        colors: kSunset,
       ),
-    );
-    tiles.add(
-      Directionality(
-        textDirection: TextDirection.rtl,
-        child: _linearTile(
-          label: 'RTL ${deg.toInt()}°',
-          transform: DirectionAwareRotation(rad),
-          colors: kSunset,
-        ),
+    ));
+    tiles.add(Directionality(
+      textDirection: TextDirection.rtl,
+      child: _linearTile(
+        label: 'RTL ${deg.toInt()}°',
+        transform: DirectionAwareRotation(rad),
+        colors: kSunset,
       ),
-    );
+    ));
   }
   return tiles;
 }
@@ -734,7 +716,10 @@ Widget _recipeTiltedSun() {
     padding: const EdgeInsets.all(12),
     child: const Text(
       'Tilted Sun -- ScaleGradientTransform(1.6, 0.7)',
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -1037,15 +1022,11 @@ Widget _glossary() {
       _bullet('bounds -- the Rect that the gradient is being painted into.'),
       _bullet('mapping -- the coordinate system used to sample color stops.'),
       _bullet('pivot -- the point that stays fixed during a rotation/scale.'),
-      _bullet(
-        'radians -- the unit GradientRotation expects (math.pi == 180°).',
-      ),
+      _bullet('radians -- the unit GradientRotation expects (math.pi == 180°).'),
       _bullet('shader -- the underlying Skia object that paints the gradient.'),
       _bullet('affine -- a transformation that preserves straight lines.'),
       _bullet('column-major -- the memory layout Matrix4 uses internally.'),
-      _bullet(
-        'identity -- the transform that does nothing; the null transform.',
-      ),
+      _bullet('identity -- the transform that does nothing; the null transform.'),
     ],
   );
 }
@@ -1348,7 +1329,10 @@ class TopLeftPivotRotation extends GradientTransform {
 /// "spotlight zoomed in 45°" effect.
 @immutable
 class SpotlightTransform extends GradientTransform {
-  const SpotlightTransform({required this.radians, required this.scale});
+  const SpotlightTransform({
+    required this.radians,
+    required this.scale,
+  });
 
   final double radians;
   final double scale;
@@ -1436,10 +1420,10 @@ class FakePerspectiveTransform extends GradientTransform {
 @immutable
 class PreComputedRotation extends GradientTransform {
   PreComputedRotation(this.radians, Rect bounds)
-    : _matrix = Matrix4.identity()
-        ..translate(bounds.center.dx, bounds.center.dy)
-        ..multiply(Matrix4.rotationZ(radians))
-        ..translate(-bounds.center.dx, -bounds.center.dy);
+      : _matrix = Matrix4.identity()
+          ..translate(bounds.center.dx, bounds.center.dy)
+          ..multiply(Matrix4.rotationZ(radians))
+          ..translate(-bounds.center.dx, -bounds.center.dy);
 
   final double radians;
   final Matrix4 _matrix;
@@ -1456,43 +1440,47 @@ class PreComputedRotation extends GradientTransform {
 // ============================================================================
 
 LinearGradient mirroredLinear() => const LinearGradient(
-  colors: kRainbow,
-  transform: MirrorXGradientTransform(),
-);
+      colors: kRainbow,
+      transform: MirrorXGradientTransform(),
+    );
 
 RadialGradient mirroredRadial() => const RadialGradient(
-  colors: kSunset,
-  radius: 0.8,
-  center: Alignment(-0.5, 0.0),
-  transform: MirrorYGradientTransform(),
-);
+      colors: kSunset,
+      radius: 0.8,
+      center: Alignment(-0.5, 0.0),
+      transform: MirrorYGradientTransform(),
+    );
 
 SweepGradient spotlightSweep() => SweepGradient(
-  colors: const <Color>[...kRainbow, kRainbowFirst],
-  transform: const SpotlightTransform(radians: 0.5, scale: 1.6),
-);
+      colors: const <Color>[...kRainbow, kRainbowFirst],
+      transform: const SpotlightTransform(radians: 0.5, scale: 1.6),
+    );
 
-LinearGradient pinwheelLinear() =>
-    const LinearGradient(colors: kForest, transform: AnisotropicRotation(0.6));
+LinearGradient pinwheelLinear() => const LinearGradient(
+      colors: kForest,
+      transform: AnisotropicRotation(0.6),
+    );
 
 LinearGradient aspectAwareLinear() => const LinearGradient(
-  colors: kOcean,
-  transform: AspectAwareRotation(math.pi / 6),
-);
+      colors: kOcean,
+      transform: AspectAwareRotation(math.pi / 6),
+    );
 
 RadialGradient topLeftPivotRadial() => RadialGradient(
-  colors: kLava,
-  radius: 0.6,
-  transform: TopLeftPivotRotation(math.pi / 6),
-);
+      colors: kLava,
+      radius: 0.6,
+      transform: TopLeftPivotRotation(math.pi / 6),
+    );
 
-LinearGradient pulseLinear(double phase) =>
-    LinearGradient(colors: kRainbow, transform: PulseScaleTransform(phase));
+LinearGradient pulseLinear(double phase) => LinearGradient(
+      colors: kRainbow,
+      transform: PulseScaleTransform(phase),
+    );
 
 LinearGradient fakePerspectiveLinear() => const LinearGradient(
-  colors: kGlass,
-  transform: FakePerspectiveTransform(0.002),
-);
+      colors: kGlass,
+      transform: FakePerspectiveTransform(0.002),
+    );
 
 // ============================================================================
 // SECTION 13 -- APPENDIX: TEXT BANNERS THAT WRAP EACH TRANSFORM

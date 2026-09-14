@@ -162,7 +162,10 @@ dynamic build(BuildContext context) {
 
   String safeTransformRect(Matrix4 m, double l, double t, double r, double b) {
     try {
-      final Rect out = MatrixUtils.transformRect(m, Rect.fromLTRB(l, t, r, b));
+      final Rect out = MatrixUtils.transformRect(
+        m,
+        Rect.fromLTRB(l, t, r, b),
+      );
       return 'L${out.left.toStringAsFixed(1)} '
           'T${out.top.toStringAsFixed(1)} '
           'R${out.right.toStringAsFixed(1)} '
@@ -325,8 +328,13 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(width: 130.0, child: Text(key, style: pCaption)),
-          Expanded(child: Text(value, style: pMono)),
+          SizedBox(
+            width: 130.0,
+            child: Text(key, style: pCaption),
+          ),
+          Expanded(
+            child: Text(value, style: pMono),
+          ),
         ],
       ),
     );
@@ -340,7 +348,11 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 6.0, right: 8.0),
-            child: Icon(Icons.circle, size: 5.0, color: accentLavender),
+            child: Icon(
+              Icons.circle,
+              size: 5.0,
+              color: accentLavender,
+            ),
           ),
           Expanded(child: Text(s, style: pBody)),
         ],
@@ -518,15 +530,23 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         Row(
           children: <Widget>[
-            Expanded(child: matrixGrid('identity', mIdentity, accentLavender)),
-            Expanded(child: matrixGrid('rotZ 45°', mRotZ45, accentIndigo)),
+            Expanded(
+              child: matrixGrid('identity', mIdentity, accentLavender),
+            ),
+            Expanded(
+              child: matrixGrid('rotZ 45°', mRotZ45, accentIndigo),
+            ),
           ],
         ),
         const SizedBox(height: 4.0),
         Row(
           children: <Widget>[
-            Expanded(child: matrixGrid('translate', mTranslate, accentSky)),
-            Expanded(child: matrixGrid('scale 1.5', mScaleUniform, accentTeal)),
+            Expanded(
+              child: matrixGrid('translate', mTranslate, accentSky),
+            ),
+            Expanded(
+              child: matrixGrid('scale 1.5', mScaleUniform, accentTeal),
+            ),
           ],
         ),
         const SizedBox(height: 6.0),
@@ -649,10 +669,21 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           child: Row(
             children: const <Widget>[
-              SizedBox(width: 220.0, child: Text('member', style: hSub)),
-              SizedBox(width: 220.0, child: Text('signature', style: hSub)),
-              SizedBox(width: 90.0, child: Text('returns', style: hSub)),
-              Expanded(child: Text('purpose', style: hSub)),
+              SizedBox(
+                width: 220.0,
+                child: Text('member', style: hSub),
+              ),
+              SizedBox(
+                width: 220.0,
+                child: Text('signature', style: hSub),
+              ),
+              SizedBox(
+                width: 90.0,
+                child: Text('returns', style: hSub),
+              ),
+              Expanded(
+                child: Text('purpose', style: hSub),
+              ),
             ],
           ),
         ),
@@ -674,8 +705,13 @@ dynamic build(BuildContext context) {
                   width: 220.0,
                   child: Text(apiRows[i][1], style: pCode),
                 ),
-                SizedBox(width: 90.0, child: Text(apiRows[i][2], style: pMono)),
-                Expanded(child: Text(apiRows[i][3], style: pBody)),
+                SizedBox(
+                  width: 90.0,
+                  child: Text(apiRows[i][2], style: pMono),
+                ),
+                Expanded(
+                  child: Text(apiRows[i][3], style: pBody),
+                ),
               ],
             ),
           ),
@@ -892,7 +928,10 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           child: Row(
             children: <Widget>[
-              const SizedBox(width: 110.0, child: Text('matrix', style: hSub)),
+              const SizedBox(
+                width: 110.0,
+                child: Text('matrix', style: hSub),
+              ),
               for (int i = 0; i < samplePoints.length; i = i + 1)
                 SizedBox(
                   width: 130.0,
@@ -929,7 +968,10 @@ dynamic build(BuildContext context) {
                       ),
                       const SizedBox(width: 6.0),
                       Expanded(
-                        child: Text(ptMatrices[row][0] as String, style: pMono),
+                        child: Text(
+                          ptMatrices[row][0] as String,
+                          style: pMono,
+                        ),
                       ),
                     ],
                   ),
@@ -972,7 +1014,10 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           child: Row(
             children: <Widget>[
-              const SizedBox(width: 110.0, child: Text('matrix', style: hSub)),
+              const SizedBox(
+                width: 110.0,
+                child: Text('matrix', style: hSub),
+              ),
               for (int i = 0; i < sampleRects.length; i = i + 1)
                 SizedBox(
                   width: 220.0,
@@ -999,7 +1044,10 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 SizedBox(
                   width: 110.0,
-                  child: Text(ptMatrices[row][0] as String, style: pMono),
+                  child: Text(
+                    ptMatrices[row][0] as String,
+                    style: pMono,
+                  ),
                 ),
                 for (int p = 0; p < sampleRects.length; p = p + 1)
                   SizedBox(
@@ -1105,7 +1153,9 @@ dynamic build(BuildContext context) {
         style: pBody,
       ),
       const SizedBox(height: 12.0),
-      codeLine('// indices for storage (column-major):'),
+      codeLine(
+        '// indices for storage (column-major):',
+      ),
       codeLine('//   col0 col1 col2 col3'),
       codeLine('// 0:  m00  m01  m02  tx'),
       codeLine('// 1:  m10  m11  m12  ty'),
@@ -1129,12 +1179,7 @@ dynamic build(BuildContext context) {
   // ---------------------------------------------------------------
   // Section: scenario panels.
   // ---------------------------------------------------------------
-  Widget scenarioCard(
-    String title,
-    String tagText,
-    Color accent,
-    List<Widget> body,
-  ) {
+  Widget scenarioCard(String title, String tagText, Color accent, List<Widget> body) {
     return Container(
       margin: const EdgeInsets.only(bottom: 14.0),
       padding: const EdgeInsets.all(14.0),
@@ -1162,67 +1207,84 @@ dynamic build(BuildContext context) {
   final Widget scenarios = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      scenarioCard('Transform widget', 'WIDGET', accentIndigo, <Widget>[
-        const Text(
-          'Transform takes a Matrix4 and applies it as part of the '
-          'paint phase. Use Transform.rotate, Transform.scale, '
-          'Transform.translate for the common cases; reach for the '
-          'raw constructor only when composing custom matrices.',
-          style: pBody,
-        ),
-        const SizedBox(height: 8.0),
-        codeLine('Transform('),
-        codeLine('  transform: Matrix4.rotationZ(0.4),'),
-        codeLine('  alignment: Alignment.center,'),
-        codeLine('  child: const Text("tilted"),'),
-        codeLine(')'),
-        const SizedBox(height: 8.0),
-        const Text(
-          'The alignment argument shifts the origin of the transform '
-          'to the centre of the child. Without it, the rotation '
-          'pivots at the top-left of the child.',
-          style: pBodyDim,
-        ),
-      ]),
-      scenarioCard('RenderTransform', 'RENDER', accentSky, <Widget>[
-        const Text(
-          'RenderTransform is the render-object backing for the '
-          'Transform widget. It applies its matrix during paint and '
-          'forwards hit-tests through the inverse of the matrix.',
-          style: pBody,
-        ),
-        const SizedBox(height: 8.0),
-        codeLine('@override void paint(PaintingContext c, Offset off) {'),
-        codeLine('  c.pushTransform(true, off, _transform, super.paint);'),
-        codeLine('}'),
-        const SizedBox(height: 8.0),
-        const Text(
-          'pushTransform layers the matrix on the painting context. '
-          'It also pushes a corresponding transform layer when needed '
-          'so that compositing handles the matrix on the GPU.',
-          style: pBodyDim,
-        ),
-      ]),
-      scenarioCard('Canvas.transform', 'CANVAS', accentTeal, <Widget>[
-        const Text(
-          'Inside a CustomPainter, Canvas.transform mutates the '
-          'current transform. Pair it with canvas.save and '
-          'canvas.restore so siblings paint correctly.',
-          style: pBody,
-        ),
-        const SizedBox(height: 8.0),
-        codeLine('canvas.save();'),
-        codeLine('canvas.transform(matrix.storage);'),
-        codeLine('canvas.drawCircle(Offset.zero, 8.0, paint);'),
-        codeLine('canvas.restore();'),
-        const SizedBox(height: 8.0),
-        const Text(
-          'canvas.transform expects a Float64List storage view; '
-          'pass matrix.storage directly. Skia internally combines '
-          'this with the existing transform stack.',
-          style: pBodyDim,
-        ),
-      ]),
+      scenarioCard(
+        'Transform widget',
+        'WIDGET',
+        accentIndigo,
+        <Widget>[
+          const Text(
+            'Transform takes a Matrix4 and applies it as part of the '
+            'paint phase. Use Transform.rotate, Transform.scale, '
+            'Transform.translate for the common cases; reach for the '
+            'raw constructor only when composing custom matrices.',
+            style: pBody,
+          ),
+          const SizedBox(height: 8.0),
+          codeLine('Transform('),
+          codeLine('  transform: Matrix4.rotationZ(0.4),'),
+          codeLine('  alignment: Alignment.center,'),
+          codeLine('  child: const Text("tilted"),'),
+          codeLine(')'),
+          const SizedBox(height: 8.0),
+          const Text(
+            'The alignment argument shifts the origin of the transform '
+            'to the centre of the child. Without it, the rotation '
+            'pivots at the top-left of the child.',
+            style: pBodyDim,
+          ),
+        ],
+      ),
+      scenarioCard(
+        'RenderTransform',
+        'RENDER',
+        accentSky,
+        <Widget>[
+          const Text(
+            'RenderTransform is the render-object backing for the '
+            'Transform widget. It applies its matrix during paint and '
+            'forwards hit-tests through the inverse of the matrix.',
+            style: pBody,
+          ),
+          const SizedBox(height: 8.0),
+          codeLine(
+            '@override void paint(PaintingContext c, Offset off) {',
+          ),
+          codeLine('  c.pushTransform(true, off, _transform, super.paint);'),
+          codeLine('}'),
+          const SizedBox(height: 8.0),
+          const Text(
+            'pushTransform layers the matrix on the painting context. '
+            'It also pushes a corresponding transform layer when needed '
+            'so that compositing handles the matrix on the GPU.',
+            style: pBodyDim,
+          ),
+        ],
+      ),
+      scenarioCard(
+        'Canvas.transform',
+        'CANVAS',
+        accentTeal,
+        <Widget>[
+          const Text(
+            'Inside a CustomPainter, Canvas.transform mutates the '
+            'current transform. Pair it with canvas.save and '
+            'canvas.restore so siblings paint correctly.',
+            style: pBody,
+          ),
+          const SizedBox(height: 8.0),
+          codeLine('canvas.save();'),
+          codeLine('canvas.transform(matrix.storage);'),
+          codeLine('canvas.drawCircle(Offset.zero, 8.0, paint);'),
+          codeLine('canvas.restore();'),
+          const SizedBox(height: 8.0),
+          const Text(
+            'canvas.transform expects a Float64List storage view; '
+            'pass matrix.storage directly. Skia internally combines '
+            'this with the existing transform stack.',
+            style: pBodyDim,
+          ),
+        ],
+      ),
       scenarioCard(
         'Hit testing through transforms',
         'HIT',
@@ -1249,19 +1311,24 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      scenarioCard('Layer.applyTransform', 'LAYER', accentAmber, <Widget>[
-        const Text(
-          'TransformLayer.applyTransform composes its matrix with an '
-          'incoming Matrix4 destined for the GPU. Override only when '
-          'you build custom layers in a render object.',
-          style: pBody,
-        ),
-        const SizedBox(height: 8.0),
-        codeLine('@override'),
-        codeLine('void applyTransform(Layer? child, Matrix4 transform) {'),
-        codeLine('  transform.multiply(_transform!);'),
-        codeLine('}'),
-      ]),
+      scenarioCard(
+        'Layer.applyTransform',
+        'LAYER',
+        accentAmber,
+        <Widget>[
+          const Text(
+            'TransformLayer.applyTransform composes its matrix with an '
+            'incoming Matrix4 destined for the GPU. Override only when '
+            'you build custom layers in a render object.',
+            style: pBody,
+          ),
+          const SizedBox(height: 8.0),
+          codeLine('@override'),
+          codeLine('void applyTransform(Layer? child, Matrix4 transform) {'),
+          codeLine('  transform.multiply(_transform!);'),
+          codeLine('}'),
+        ],
+      ),
       scenarioCard(
         'Transformed bounds for repaint',
         'BOUNDS',
@@ -1321,7 +1388,10 @@ dynamic build(BuildContext context) {
                       tag('UI / 2D', accentLavender),
                       const SizedBox(width: 6.0),
                       const Expanded(
-                        child: Text('MatrixUtils.transformPoint', style: hSub),
+                        child: Text(
+                          'MatrixUtils.transformPoint',
+                          style: hSub,
+                        ),
                       ),
                     ],
                   ),
@@ -1362,7 +1432,10 @@ dynamic build(BuildContext context) {
                       tag('VECTOR / 3D', accentTeal),
                       const SizedBox(width: 6.0),
                       const Expanded(
-                        child: Text('Matrix4.transform3', style: hSub),
+                        child: Text(
+                          'Matrix4.transform3',
+                          style: hSub,
+                        ),
                       ),
                     ],
                   ),
@@ -1488,17 +1561,11 @@ dynamic build(BuildContext context) {
         const Text('         v', style: pMono),
         const Text('        +Y', style: pMono),
         const SizedBox(height: 12.0),
-        const Text(
-          'Effect of Matrix4.translationValues(40, 24, 0):',
-          style: pCaption,
-        ),
+        const Text('Effect of Matrix4.translationValues(40, 24, 0):', style: pCaption),
         const SizedBox(height: 6.0),
         const Text('   (0,0)+--------+', style: pMono),
         const Text('        |        |', style: pMono),
-        const Text(
-          '        |   X    |  ----> shifts right 40, down 24',
-          style: pMono,
-        ),
+        const Text('        |   X    |  ----> shifts right 40, down 24', style: pMono),
         const Text('        |        |', style: pMono),
         const Text('        +--------+', style: pMono),
         const Text('              |', style: pMono),
@@ -1508,10 +1575,7 @@ dynamic build(BuildContext context) {
         const Text('                |   X\'   |', style: pMono),
         const Text('                +--------+', style: pMono),
         const SizedBox(height: 12.0),
-        const Text(
-          'Effect of Matrix4.rotationZ(pi/4) about origin:',
-          style: pCaption,
-        ),
+        const Text('Effect of Matrix4.rotationZ(pi/4) about origin:', style: pCaption),
         const SizedBox(height: 6.0),
         const Text('  before:        after:', style: pMono),
         const Text('  +----+         /\\', style: pMono),
@@ -1521,10 +1585,7 @@ dynamic build(BuildContext context) {
         const Text('                \\  /', style: pMono),
         const Text('                 \\/', style: pMono),
         const SizedBox(height: 12.0),
-        const Text(
-          'Effect of perspective entry (3, 2) = 0.001:',
-          style: pCaption,
-        ),
+        const Text('Effect of perspective entry (3, 2) = 0.001:', style: pCaption),
         const SizedBox(height: 6.0),
         const Text('  near plane          far plane', style: pMono),
         const Text('  +-------+    -->    +---+', style: pMono),
@@ -1553,66 +1614,33 @@ dynamic build(BuildContext context) {
         SizedBox(height: 6.0),
         Text('   need only a translation?', style: pMono),
         Text('   |', style: pMono),
-        Text(
-          '   +-- yes --> Matrix4.translationValues(tx, ty, tz)',
-          style: pMono,
-        ),
+        Text('   +-- yes --> Matrix4.translationValues(tx, ty, tz)', style: pMono),
         Text('   |', style: pMono),
         Text('   +-- no  --> need only one rotation?', style: pMono),
         Text('               |', style: pMono),
-        Text(
-          '               +-- yes --> Matrix4.rotationZ(theta)',
-          style: pMono,
-        ),
-        Text(
-          '               |          (or rotationX, rotationY)',
-          style: pMono,
-        ),
+        Text('               +-- yes --> Matrix4.rotationZ(theta)', style: pMono),
+        Text('               |          (or rotationX, rotationY)', style: pMono),
         Text('               |', style: pMono),
-        Text(
-          '               +-- no  --> need only a uniform scale?',
-          style: pMono,
-        ),
+        Text('               +-- no  --> need only a uniform scale?', style: pMono),
         Text('                           |', style: pMono),
-        Text(
-          '                           +-- yes --> Matrix4.diagonal3Values',
-          style: pMono,
-        ),
+        Text('                           +-- yes --> Matrix4.diagonal3Values', style: pMono),
         Text('                           |', style: pMono),
-        Text(
-          '                           +-- no  --> compose with chained',
-          style: pMono,
-        ),
-        Text(
-          '                                       mutators on identity',
-          style: pMono,
-        ),
+        Text('                           +-- no  --> compose with chained', style: pMono),
+        Text('                                       mutators on identity', style: pMono),
         SizedBox(height: 12.0),
         Text('Pick a transform applier:', style: pCaption),
         SizedBox(height: 6.0),
-        Text(
-          '   transforming a 2D Offset for paint or hit test?',
-          style: pMono,
-        ),
+        Text('   transforming a 2D Offset for paint or hit test?', style: pMono),
         Text('   |', style: pMono),
         Text('   +-- yes --> MatrixUtils.transformPoint', style: pMono),
         Text('   |', style: pMono),
-        Text(
-          '   +-- no  --> transforming a Rect for repaint bounds?',
-          style: pMono,
-        ),
+        Text('   +-- no  --> transforming a Rect for repaint bounds?', style: pMono),
         Text('               |', style: pMono),
-        Text(
-          '               +-- yes --> MatrixUtils.transformRect',
-          style: pMono,
-        ),
+        Text('               +-- yes --> MatrixUtils.transformRect', style: pMono),
         Text('               |', style: pMono),
         Text('               +-- no  --> raw vector math?', style: pMono),
         Text('                           |', style: pMono),
-        Text(
-          '                           +-- yes --> Matrix4.transform3',
-          style: pMono,
-        ),
+        Text('                           +-- yes --> Matrix4.transform3', style: pMono),
       ],
     ),
   );
@@ -1723,7 +1751,9 @@ dynamic build(BuildContext context) {
                   width: 200.0,
                   child: Text(glossary[i][0], style: pMono),
                 ),
-                Expanded(child: Text(glossary[i][1], style: pBody)),
+                Expanded(
+                  child: Text(glossary[i][1], style: pBody),
+                ),
               ],
             ),
           ),
@@ -1743,7 +1773,9 @@ dynamic build(BuildContext context) {
         border: Border.all(color: accent, width: 1.0),
         borderRadius: BorderRadius.circular(6.0),
       ),
-      child: Center(child: Text(label, style: pMono)),
+      child: Center(
+        child: Text(label, style: pMono),
+      ),
     );
     Widget transformed = child;
     try {
@@ -1760,7 +1792,9 @@ dynamic build(BuildContext context) {
           color: flagSingular.withValues(alpha: 0.18),
           border: Border.all(color: flagSingular, width: 1.0),
         ),
-        child: const Center(child: Text('err', style: pMono)),
+        child: const Center(
+          child: Text('err', style: pMono),
+        ),
       );
     }
     return Container(
@@ -1777,7 +1811,10 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(label, style: pCaption),
           const SizedBox(height: 8.0),
-          SizedBox(height: 80.0, child: Center(child: transformed)),
+          SizedBox(
+            height: 80.0,
+            child: Center(child: transformed),
+          ),
           const SizedBox(height: 4.0),
           Opacity(
             opacity: const AlwaysStoppedAnimation<double>(1.0).value,
@@ -1871,7 +1908,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const <Widget>[
-        Text('Float64List storage[16] (column-major):', style: pCaption),
+        Text(
+          'Float64List storage[16] (column-major):',
+          style: pCaption,
+        ),
         SizedBox(height: 8.0),
         Text('  index  | role           | logical', style: pMono),
         Text('  -------+----------------+--------', style: pMono),
@@ -1992,12 +2032,18 @@ dynamic build(BuildContext context) {
       for (int i = 0; i < 8; i = i + 1)
         Container(
           color: i % 2 == 0 ? paperDeep : paperMid,
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 8.0,
+          ),
           child: Row(
             children: <Widget>[
               SizedBox(
                 width: 100.0,
-                child: Text('N = ${(i * 100).toString()}', style: pMono),
+                child: Text(
+                  'N = ${(i * 100).toString()}',
+                  style: pMono,
+                ),
               ),
               SizedBox(
                 width: 130.0,
@@ -2297,9 +2343,7 @@ dynamic build(BuildContext context) {
                 bullet('Prefer MatrixUtils.transformPoint in painting code.'),
                 bullet('Prefer Matrix4.tryInvert over inverted().'),
                 bullet('Wrap every Matrix4 op in try/catch under d4rt.'),
-                bullet(
-                  'Use AlwaysStoppedAnimation<double>(t) for inert demos.',
-                ),
+                bullet('Use AlwaysStoppedAnimation<double>(t) for inert demos.'),
                 bullet('Never reach for a controller in this sandbox.'),
               ],
             ),

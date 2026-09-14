@@ -429,9 +429,14 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.apple, size: 18, color: Color(0xFF333333)),
                 const SizedBox(width: 16),
-                ...['MyApp', 'File', 'Edit', 'View', 'Window', 'Help'].map((
-                  label,
-                ) {
+                ...[
+                  'MyApp',
+                  'File',
+                  'Edit',
+                  'View',
+                  'Window',
+                  'Help',
+                ].map((label) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 16),
                     child: Text(
@@ -518,29 +523,25 @@ dynamic build(BuildContext context) {
           ...[
             {
               'method': 'setMenus(menus)',
-              'desc':
-                  'Sends the full menu tree to the platform. '
+              'desc': 'Sends the full menu tree to the platform. '
                   'Called on mount and whenever menus change.',
               'icon': Icons.upload,
             },
             {
               'method': 'clearMenus()',
-              'desc':
-                  'Removes all platform menus. Called when '
+              'desc': 'Removes all platform menus. Called when '
                   'PlatformMenuBar unmounts.',
               'icon': Icons.clear_all,
             },
             {
               'method': 'debugLockDelegate(ctx)',
-              'desc':
-                  'Acquires exclusive lock. Only one '
+              'desc': 'Acquires exclusive lock. Only one '
                   'PlatformMenuBar can be active at a time.',
               'icon': Icons.lock,
             },
             {
               'method': 'debugUnlockDelegate(ctx)',
-              'desc':
-                  'Releases the lock so another '
+              'desc': 'Releases the lock so another '
                   'PlatformMenuBar can take over.',
               'icon': Icons.lock_open,
             },
@@ -628,31 +629,12 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 14),
                 ...[
-                  {
-                    'step': '1',
-                    'text': 'PlatformMenuBar widget defines menu structure',
-                  },
-                  {
-                    'step': '2',
-                    'text': 'Widget calls delegate.setMenus(menuList)',
-                  },
-                  {
-                    'step': '3',
-                    'text': 'DefaultPlatformMenuDelegate serializes items',
-                  },
-                  {
-                    'step': '4',
-                    'text': 'Sends via SystemChannels.menu MethodChannel',
-                  },
-                  {
-                    'step': '5',
-                    'text': 'Platform renders native menu bar (NSMenu)',
-                  },
-                  {
-                    'step': '6',
-                    'text':
-                        'User clicks item → callback via channel → onSelected',
-                  },
+                  {'step': '1', 'text': 'PlatformMenuBar widget defines menu structure'},
+                  {'step': '2', 'text': 'Widget calls delegate.setMenus(menuList)'},
+                  {'step': '3', 'text': 'DefaultPlatformMenuDelegate serializes items'},
+                  {'step': '4', 'text': 'Sends via SystemChannels.menu MethodChannel'},
+                  {'step': '5', 'text': 'Platform renders native menu bar (NSMenu)'},
+                  {'step': '6', 'text': 'User clicks item → callback via channel → onSelected'},
                 ].map((step) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
@@ -720,42 +702,12 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
                 ...[
-                  {
-                    'name': 'macOS',
-                    'icon': Icons.laptop_mac,
-                    'status': 'Full support',
-                    'supported': true,
-                  },
-                  {
-                    'name': 'Windows',
-                    'icon': Icons.desktop_windows,
-                    'status': 'Not yet',
-                    'supported': false,
-                  },
-                  {
-                    'name': 'Linux',
-                    'icon': Icons.computer,
-                    'status': 'Not yet',
-                    'supported': false,
-                  },
-                  {
-                    'name': 'Android',
-                    'icon': Icons.phone_android,
-                    'status': 'N/A',
-                    'supported': false,
-                  },
-                  {
-                    'name': 'iOS',
-                    'icon': Icons.phone_iphone,
-                    'status': 'N/A',
-                    'supported': false,
-                  },
-                  {
-                    'name': 'Web',
-                    'icon': Icons.language,
-                    'status': 'N/A',
-                    'supported': false,
-                  },
+                  {'name': 'macOS', 'icon': Icons.laptop_mac, 'status': 'Full support', 'supported': true},
+                  {'name': 'Windows', 'icon': Icons.desktop_windows, 'status': 'Not yet', 'supported': false},
+                  {'name': 'Linux', 'icon': Icons.computer, 'status': 'Not yet', 'supported': false},
+                  {'name': 'Android', 'icon': Icons.phone_android, 'status': 'N/A', 'supported': false},
+                  {'name': 'iOS', 'icon': Icons.phone_iphone, 'status': 'N/A', 'supported': false},
+                  {'name': 'Web', 'icon': Icons.language, 'status': 'N/A', 'supported': false},
                 ].map((platform) {
                   final supported = platform['supported'] as bool;
                   return Padding(
@@ -781,9 +733,7 @@ dynamic build(BuildContext context) {
                         ),
                         Icon(
                           supported ? Icons.check_circle : Icons.cancel,
-                          color: supported
-                              ? Color(0xFF43A047)
-                              : Color(0xFFBDBDBD),
+                          color: supported ? Color(0xFF43A047) : Color(0xFFBDBDBD),
                           size: 16,
                         ),
                         const SizedBox(width: 6),
@@ -835,36 +785,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  Amber 900 ${amber900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  Amber 800 ${amber800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
-  print(
-    '  │  Amber 700 ${amber700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  Amber 600 ${amber600.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  Amber 500 ${amber500.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Amber 300 ${amber300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  Amber 200 ${amber200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  Amber 100 ${amber100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  Amber 50  ${amber50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  Light     ${nearWhiteAmber.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
+  print('  │  Amber 900 ${amber900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  Amber 800 ${amber800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print('  │  Amber 700 ${amber700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  Amber 600 ${amber600.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  Amber 500 ${amber500.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Amber 300 ${amber300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  Amber 200 ${amber200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  Amber 100 ${amber100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  Amber 50  ${amber50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  Light     ${nearWhiteAmber.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

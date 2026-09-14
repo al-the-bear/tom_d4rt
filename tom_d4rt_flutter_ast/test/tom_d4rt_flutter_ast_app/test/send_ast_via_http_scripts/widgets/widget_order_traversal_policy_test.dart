@@ -103,9 +103,7 @@ dynamic build(BuildContext context) {
   print('=' * 70);
   print('Class:    WidgetOrderTraversalPolicy');
   print('Library:  package:flutter/src/widgets/focus_traversal.dart');
-  print(
-    'Extends:  FocusTraversalPolicy with DirectionalFocusTraversalPolicyMixin',
-  );
+  print('Extends:  FocusTraversalPolicy with DirectionalFocusTraversalPolicyMixin');
   print('Ctor:     WidgetOrderTraversalPolicy({requestFocusCallback})');
   print('Default:  used by FocusTraversalGroup when no policy is passed');
   print('Order:    widget tree declaration order (not visual reading order)');
@@ -152,7 +150,8 @@ class _WotpHome extends StatefulWidget {
   State<_WotpHome> createState() => _WotpHomeState();
 }
 
-class _WotpHomeState extends State<_WotpHome> with TickerProviderStateMixin {
+class _WotpHomeState extends State<_WotpHome>
+    with TickerProviderStateMixin {
   static const List<_WotpTabSpec> _tabs = <_WotpTabSpec>[
     _WotpTabSpec(icon: Icons.menu_book_rounded, label: 'Dossier'),
     _WotpTabSpec(icon: Icons.event_seat_rounded, label: 'Seat Grid'),
@@ -191,7 +190,10 @@ class _WotpHomeState extends State<_WotpHome> with TickerProviderStateMixin {
       appBar: AppBar(
         title: const Text(
           'WidgetOrderTraversalPolicy — Conductor\'s Baton',
-          style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.3),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.3,
+          ),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
@@ -199,7 +201,12 @@ class _WotpHomeState extends State<_WotpHome> with TickerProviderStateMixin {
             controller: _tabController,
             isScrollable: true,
             tabs: _tabs
-                .map((t) => Tab(icon: Icon(t.icon, size: 18), text: t.label))
+                .map(
+                  (t) => Tab(
+                    icon: Icon(t.icon, size: 18),
+                    text: t.label,
+                  ),
+                )
                 .toList(),
           ),
         ),
@@ -303,8 +310,7 @@ class _WotpBatonBackdropPainter extends CustomPainter {
     for (int i = 0; i <= steps; i++) {
       final t = i / steps;
       final x = t * size.width;
-      final y =
-          size.height / 2 +
+      final y = size.height / 2 +
           math.sin((t * 4 * math.pi) + (phase * 2 * math.pi)) * 10;
       if (i == 0) {
         path.moveTo(x, y);
@@ -320,8 +326,7 @@ class _WotpBatonBackdropPainter extends CustomPainter {
 
     // Baton tip — a small glowing circle tracing the curve.
     final tipX = phase * size.width;
-    final tipY =
-        size.height / 2 +
+    final tipY = size.height / 2 +
         math.sin((phase * 4 * math.pi) + (phase * 2 * math.pi)) * 10;
     final glow = Paint()
       ..color = _kGold.withValues(alpha: 0.55)
@@ -382,9 +387,7 @@ class _WotpCard extends StatelessWidget {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             ),
             child: Row(
               children: [
@@ -394,9 +397,8 @@ class _WotpCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: _kGoldPale.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: _kGoldPale.withValues(alpha: 0.55),
-                    ),
+                    border:
+                        Border.all(color: _kGoldPale.withValues(alpha: 0.55)),
                   ),
                   child: Icon(icon, color: _kGoldPale, size: 18),
                 ),
@@ -431,7 +433,10 @@ class _WotpCard extends StatelessWidget {
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.all(14), child: child),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: child,
+          ),
         ],
       ),
     );
@@ -519,7 +524,11 @@ class _WotpBullet extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: _kInk, fontSize: 13, height: 1.4),
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 13,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -614,13 +623,11 @@ class _WotpDossierIntro extends StatelessWidget {
             text: 'Uses DirectionalFocusTraversalPolicyMixin for arrow keys.',
           ),
           _WotpBullet(
-            text:
-                'Ignores explicit FocusTraversalOrder markers — those are '
+            text: 'Ignores explicit FocusTraversalOrder markers — those are '
                 'honored only by OrderedTraversalPolicy.',
           ),
           _WotpBullet(
-            text:
-                'Deterministic: two identical widget trees always produce '
+            text: 'Deterministic: two identical widget trees always produce '
                 'the same Tab order.',
           ),
         ],
@@ -661,8 +668,7 @@ class _WotpDossierWhatIsFocus extends StatelessWidget {
             text: 'FocusTraversalGroup — selects the policy for a subtree.',
           ),
           _WotpBullet(
-            text:
-                'FocusTraversalPolicy — sortDescendants, findFirst/Last, '
+            text: 'FocusTraversalPolicy — sortDescendants, findFirst/Last, '
                 'inDirection, next/previous.',
           ),
         ],
@@ -697,8 +703,7 @@ class _WotpDossierWhyWidgetOrder extends StatelessWidget {
           _WotpBullet(text: 'Does not care about pixels — only tree order.'),
           _WotpBullet(text: 'Easy to reason about when composing.'),
           _WotpBullet(
-            text:
-                'May surprise users with RTL text, where reading order '
+            text: 'May surprise users with RTL text, where reading order '
                 'runs right-to-left but widget order stays the same.',
           ),
         ],
@@ -724,19 +729,16 @@ class _WotpDossierConstructor extends StatelessWidget {
             text: 'No positional arguments — fully default-constructible.',
           ),
           _WotpBullet(
-            text:
-                'requestFocusCallback (optional): customize the mechanism '
+            text: 'requestFocusCallback (optional): customize the mechanism '
                 'used to request focus; useful when you need to scroll the '
                 'target into view or animate focus transitions.',
           ),
           _WotpBullet(
-            text:
-                'Inherits sortDescendants, findFirstFocus, findLastFocus, '
+            text: 'Inherits sortDescendants, findFirstFocus, findLastFocus, '
                 'next, previous, and inDirection from FocusTraversalPolicy.',
           ),
           _WotpCodeBlock(
-            code:
-                'FocusTraversalGroup(\n'
+            code: 'FocusTraversalGroup(\n'
                 '  policy: WidgetOrderTraversalPolicy(),\n'
                 '  child: Column(\n'
                 '    children: [field1, field2, field3, submitButton],\n'
@@ -794,13 +796,11 @@ class _WotpDossierTreeVsReading extends StatelessWidget {
             text: 'Columns and Rows almost always match reading order.',
           ),
           const _WotpBullet(
-            text:
-                'Stacks, overlays, Positioned widgets, and Transforms can '
+            text: 'Stacks, overlays, Positioned widgets, and Transforms can '
                 'break the alignment.',
           ),
           const _WotpBullet(
-            text:
-                'RTL Directionality flips reading order but NOT widget '
+            text: 'RTL Directionality flips reading order but NOT widget '
                 'order — pick the policy that matches user expectation.',
           ),
         ],
@@ -865,14 +865,12 @@ class _WotpDossierWhenToUse extends StatelessWidget {
           ),
           _WotpBullet(
             glyph: '✓',
-            text:
-                'Grids that are declared in the same order you want users '
+            text: 'Grids that are declared in the same order you want users '
                 'to Tab through — row by row.',
           ),
           _WotpBullet(
             glyph: '✓',
-            text:
-                'You want the Tab order to be refactor-stable — moving '
+            text: 'You want the Tab order to be refactor-stable — moving '
                 'a widget in source changes the order.',
           ),
           _WotpBullet(
@@ -886,8 +884,7 @@ class _WotpDossierWhenToUse extends StatelessWidget {
           ),
           _WotpBullet(
             glyph: '✗',
-            text:
-                'You need explicit, non-tree Tab ordering — use '
+            text: 'You need explicit, non-tree Tab ordering — use '
                 'OrderedTraversalPolicy with FocusTraversalOrder markers.',
           ),
         ],
@@ -923,8 +920,7 @@ class _WotpDossierRelatedPolicies extends StatelessWidget {
           ),
           _WotpPolicyRow(
             name: 'OrderedTraversalPolicy',
-            byline:
-                'Honor FocusTraversalOrder markers (Numeric or Lexical). '
+            byline: 'Honor FocusTraversalOrder markers (Numeric or Lexical). '
                 'Falls back to a secondary policy for unordered nodes.',
             color: _kAccentRose,
           ),
@@ -1016,14 +1012,12 @@ class _WotpDossierAlgorithm extends StatelessWidget {
         children: const [
           _WotpBullet(
             glyph: '1',
-            text:
-                'Walk the Element tree, collecting all traversable FocusNodes '
+            text: 'Walk the Element tree, collecting all traversable FocusNodes '
                 'within the current FocusTraversalGroup scope.',
           ),
           _WotpBullet(
             glyph: '2',
-            text:
-                'Preserve the order nodes were attached — which corresponds '
+            text: 'Preserve the order nodes were attached — which corresponds '
                 'to their position in the widget tree.',
           ),
           _WotpBullet(
@@ -1032,8 +1026,7 @@ class _WotpDossierAlgorithm extends StatelessWidget {
           ),
           _WotpBullet(
             glyph: '4',
-            text:
-                'Return the resulting list. next() / previous() / '
+            text: 'Return the resulting list. next() / previous() / '
                 'findFirstFocus() / findLastFocus() use this list.',
           ),
           SizedBox(height: 8),
@@ -1064,29 +1057,24 @@ class _WotpDossierPitfalls extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           _WotpBullet(
-            text:
-                'Stacks and overlays: the last child paints on top but is '
+            text: 'Stacks and overlays: the last child paints on top but is '
                 'still visited last.',
           ),
           _WotpBullet(
-            text:
-                'Conditional children: removing a focusable mid-tree '
+            text: 'Conditional children: removing a focusable mid-tree '
                 'shifts every subsequent Tab index.',
           ),
           _WotpBullet(
-            text:
-                'Nested FocusTraversalGroups: each group has its own '
+            text: 'Nested FocusTraversalGroups: each group has its own '
                 'sortDescendants. The outer group visits the group as a '
                 'unit after descending into it.',
           ),
           _WotpBullet(
-            text:
-                'Directionality: arrow keys (inDirection) still respect '
+            text: 'Directionality: arrow keys (inDirection) still respect '
                 'the ambient Directionality even though Tab does not.',
           ),
           _WotpBullet(
-            text:
-                'FocusTraversalOrder markers are IGNORED — use '
+            text: 'FocusTraversalOrder markers are IGNORED — use '
                 'OrderedTraversalPolicy if you need them.',
           ),
         ],
@@ -1247,9 +1235,8 @@ class _WotpSeatGridTabState extends State<_WotpSeatGridTab>
                             final idx = r * _colCount + c;
                             return Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
                                 child: _WotpSeatCard(
                                   label: _seatLabels[idx],
                                   index: idx,
@@ -1286,8 +1273,7 @@ class _WotpSeatGridTabState extends State<_WotpSeatGridTab>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               _WotpBullet(
-                text:
-                    'primaryFocus.nextFocus() asks the ambient policy '
+                text: 'primaryFocus.nextFocus() asks the ambient policy '
                     '(here, WidgetOrderTraversalPolicy) for the next node '
                     'in its sorted list, wrapping at the end.',
               ),
@@ -1295,13 +1281,11 @@ class _WotpSeatGridTabState extends State<_WotpSeatGridTab>
                 text: 'primaryFocus.previousFocus() walks the list backwards.',
               ),
               _WotpBullet(
-                text:
-                    'FocusNode.requestFocus() focuses a specific node '
+                text: 'FocusNode.requestFocus() focuses a specific node '
                     'regardless of the traversal order.',
               ),
               _WotpBullet(
-                text:
-                    'Because the policy is WidgetOrder, the order is '
+                text: 'Because the policy is WidgetOrder, the order is '
                     'exactly A1 → A2 → … → A6 → B1 → … → F6. No surprises.',
               ),
             ],
@@ -1345,8 +1329,14 @@ class _WotpSeatGridTabState extends State<_WotpSeatGridTab>
       spacing: 10,
       runSpacing: 6,
       children: const [
-        _WotpLegendChip(color: _kGold, label: 'Currently focused'),
-        _WotpLegendChip(color: _kAccentRose, label: 'Previously focused'),
+        _WotpLegendChip(
+          color: _kGold,
+          label: 'Currently focused',
+        ),
+        _WotpLegendChip(
+          color: _kAccentRose,
+          label: 'Previously focused',
+        ),
         _WotpLegendChip(
           color: _kParchmentDeep,
           label: 'Idle seat',
@@ -1357,10 +1347,10 @@ class _WotpSeatGridTabState extends State<_WotpSeatGridTab>
   }
 
   Widget _wotpReadout() {
-    final current = _focusedIndex < 0 ? '(none)' : _seatLabels[_focusedIndex];
-    final previous = _previousFocusedIndex < 0
-        ? '(none)'
-        : _seatLabels[_previousFocusedIndex];
+    final current =
+        _focusedIndex < 0 ? '(none)' : _seatLabels[_focusedIndex];
+    final previous =
+        _previousFocusedIndex < 0 ? '(none)' : _seatLabels[_previousFocusedIndex];
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -1448,15 +1438,15 @@ class _WotpSeatCard extends StatelessWidget {
                 color: isFocused
                     ? _kGoldPale
                     : (isPrevious
-                          ? _kAccentRose.withValues(alpha: 0.15)
-                          : _kParchmentDeep),
+                        ? _kAccentRose.withValues(alpha: 0.15)
+                        : _kParchmentDeep),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: isFocused
                       ? _kGold
                       : (isPrevious
-                            ? _kAccentRose
-                            : _kGoldDeep.withValues(alpha: 0.35)),
+                          ? _kAccentRose
+                          : _kGoldDeep.withValues(alpha: 0.35)),
                   width: isFocused ? 2.4 : 1.1,
                 ),
                 boxShadow: isFocused
@@ -1561,7 +1551,10 @@ class _WotpLegendChip extends StatelessWidget {
           Container(
             width: 10,
             height: 10,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 6),
           Text(
@@ -1598,10 +1591,8 @@ class _WotpPlaygroundTabState extends State<_WotpPlaygroundTab>
   static const int _panelCount = 3;
   static const int _nodesPerPanel = 9;
 
-  final List<GlobalKey> _panelKeys = List<GlobalKey>.generate(
-    _panelCount,
-    (_) => GlobalKey(),
-  );
+  final List<GlobalKey> _panelKeys =
+      List<GlobalKey>.generate(_panelCount, (_) => GlobalKey());
   final List<List<GlobalKey>> _nodeKeys = List<List<GlobalKey>>.generate(
     _panelCount,
     (_) => List<GlobalKey>.generate(_nodesPerPanel, (_) => GlobalKey()),
@@ -1639,9 +1630,8 @@ class _WotpPlaygroundTabState extends State<_WotpPlaygroundTab>
       for (int i = 0; i < _nodesPerPanel; i++) {
         final panelIndex = p;
         final nodeIndex = i;
-        _nodes[p][i].addListener(
-          () => _handleFocusChange(panelIndex, nodeIndex),
-        );
+        _nodes[p][i]
+            .addListener(() => _handleFocusChange(panelIndex, nodeIndex));
       }
     }
   }
@@ -1738,7 +1728,8 @@ class _WotpPlaygroundTabState extends State<_WotpPlaygroundTab>
       children: [
         _WotpCard(
           title: 'Policy comparison playground',
-          subtitle: 'Same nine focusables — three different traversal policies',
+          subtitle:
+              'Same nine focusables — three different traversal policies',
           icon: Icons.compare_arrows_rounded,
           accent: _kMaroonDeep,
           child: Column(
@@ -1758,13 +1749,11 @@ class _WotpPlaygroundTabState extends State<_WotpPlaygroundTab>
                 text: 'WidgetOrder: 1→2→3→4→5→6→7→8→9 (declaration).',
               ),
               _WotpBullet(
-                text:
-                    'ReadingOrder: top-to-bottom, LTR — visually equal in '
+                text: 'ReadingOrder: top-to-bottom, LTR — visually equal in '
                     'this layout, but the algorithm is different.',
               ),
               _WotpBullet(
-                text:
-                    'Ordered: respects FocusTraversalOrder markers. The '
+                text: 'Ordered: respects FocusTraversalOrder markers. The '
                     'third panel reverses odd indices with NumericFocusOrder.',
               ),
             ],
@@ -1780,26 +1769,18 @@ class _WotpPlaygroundTabState extends State<_WotpPlaygroundTab>
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: children
-                        .map(
-                          (c) => Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                              ),
+                        .map((c) => Expanded(child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 6),
                               child: c,
-                            ),
-                          ),
-                        )
+                            )))
                         .toList(),
                   )
                 : Column(
                     children: children
-                        .map(
-                          (c) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            child: c,
-                          ),
-                        )
+                        .map((c) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: c,
+                            ))
                         .toList(),
                   );
           },
@@ -1918,15 +1899,15 @@ class _WotpPlaygroundTabState extends State<_WotpPlaygroundTab>
             color: isFocused
                 ? _kGoldPale
                 : (isPrevious
-                      ? _panelAccents[p].withValues(alpha: 0.18)
-                      : _kParchmentDeep),
+                    ? _panelAccents[p].withValues(alpha: 0.18)
+                    : _kParchmentDeep),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: isFocused
                   ? _kGold
                   : (isPrevious
-                        ? _panelAccents[p]
-                        : _kGoldDeep.withValues(alpha: 0.3)),
+                      ? _panelAccents[p]
+                      : _kGoldDeep.withValues(alpha: 0.3)),
               width: isFocused ? 2 : 1,
             ),
           ),
@@ -1971,9 +1952,8 @@ class _WotpPlaygroundTabState extends State<_WotpPlaygroundTab>
   }
 
   Widget _buildPanelReadout(int p) {
-    final current = _focusedIndex[p] < 0
-        ? '(none)'
-        : '#${_focusedIndex[p] + 1}';
+    final current =
+        _focusedIndex[p] < 0 ? '(none)' : '#${_focusedIndex[p] + 1}';
     final previous = _previousFocusedIndex[p] < 0
         ? '(none)'
         : '#${_previousFocusedIndex[p] + 1}';
@@ -2031,8 +2011,7 @@ class _WotpBatonTrailPainter extends CustomPainter {
     if (currentIndex < 0 || previousIndex < 0) return;
     final panelBox = panelKey.currentContext?.findRenderObject() as RenderBox?;
     final fromBox =
-        nodeKeys[previousIndex].currentContext?.findRenderObject()
-            as RenderBox?;
+        nodeKeys[previousIndex].currentContext?.findRenderObject() as RenderBox?;
     final toBox =
         nodeKeys[currentIndex].currentContext?.findRenderObject() as RenderBox?;
     if (panelBox == null || fromBox == null || toBox == null) return;
@@ -2041,9 +2020,7 @@ class _WotpBatonTrailPainter extends CustomPainter {
     Offset centerOf(RenderBox box) {
       final topLeft = box.localToGlobal(Offset.zero);
       final panelTopLeft = panelBox.localToGlobal(Offset.zero);
-      return topLeft -
-          panelTopLeft +
-          Offset(box.size.width / 2, box.size.height / 2);
+      return topLeft - panelTopLeft + Offset(box.size.width / 2, box.size.height / 2);
     }
 
     final from = centerOf(fromBox);
@@ -2178,24 +2155,20 @@ class _WotpLogTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               _WotpBullet(
-                text:
-                    'Each FocusNode used in the demo has an attached '
+                text: 'Each FocusNode used in the demo has an attached '
                     'listener that fires on every hasFocus change.',
               ),
               _WotpBullet(
-                text:
-                    'When a node gains focus, the listener pushes an '
+                text: 'When a node gains focus, the listener pushes an '
                     'entry into a top-level ValueNotifier<List<_WotpLogEntry>>.',
               ),
               _WotpBullet(
-                text:
-                    'A ValueListenableBuilder rebuilds the log list '
+                text: 'A ValueListenableBuilder rebuilds the log list '
                     'without the parent having to carry state — the log '
                     'survives tab switches.',
               ),
               _WotpBullet(
-                text:
-                    'The entry records policy name, from-label, to-label, '
+                text: 'The entry records policy name, from-label, to-label, '
                     'and a human-readable reason (nextFocus, requestFocus, …).',
               ),
             ],
@@ -2216,10 +2189,7 @@ class _WotpLogTab extends StatelessWidget {
         children: const [
           SizedBox(width: 32, child: Text('#', style: _wotpLogHeaderStyle)),
           SizedBox(width: 90, child: Text('time', style: _wotpLogHeaderStyle)),
-          SizedBox(
-            width: 92,
-            child: Text('policy', style: _wotpLogHeaderStyle),
-          ),
+          SizedBox(width: 92, child: Text('policy', style: _wotpLogHeaderStyle)),
           SizedBox(width: 70, child: Text('from', style: _wotpLogHeaderStyle)),
           SizedBox(width: 20, child: Text('→', style: _wotpLogHeaderStyle)),
           SizedBox(width: 60, child: Text('to', style: _wotpLogHeaderStyle)),
@@ -2271,36 +2241,30 @@ class _WotpLogTab extends StatelessWidget {
           ),
           const SizedBox(
             width: 20,
-            child: Text(
-              '→',
-              style: TextStyle(color: _kGoldDeep, fontWeight: FontWeight.w700),
-            ),
+            child: Text('→',
+                style:
+                    TextStyle(color: _kGoldDeep, fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 60,
-            child: Text(
-              e.to,
-              style: _wotpLogCellMono(
-                _kMaroonDeep,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            child: Text(e.to,
+                style: _wotpLogCellMono(_kMaroonDeep,
+                    fontWeight: FontWeight.w700)),
           ),
           Expanded(
-            child: Text(
-              e.reason,
-              style: const TextStyle(color: _kInk, fontSize: 11),
-            ),
+            child: Text(e.reason,
+                style: const TextStyle(
+                  color: _kInk,
+                  fontSize: 11,
+                )),
           ),
         ],
       ),
     );
   }
 
-  TextStyle _wotpLogCellMono(
-    Color color, {
-    FontWeight fontWeight = FontWeight.w500,
-  }) {
+  TextStyle _wotpLogCellMono(Color color,
+      {FontWeight fontWeight = FontWeight.w500}) {
     return TextStyle(
       color: color,
       fontSize: 11,
@@ -2436,9 +2400,8 @@ class _WotpDirectionalTabState extends State<_WotpDirectionalTab>
                             final idx = r * _colCount + c;
                             return Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
                                 child: _wotpDirectionalNode(idx),
                               ),
                             );
@@ -2476,22 +2439,21 @@ class _WotpDirectionalTabState extends State<_WotpDirectionalTab>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              _WotpBullet(text: 'Tab → uses sortDescendants (widget order).'),
               _WotpBullet(
-                text:
-                    'Arrow keys → use the mixin\'s inDirection algorithm '
+                text: 'Tab → uses sortDescendants (widget order).',
+              ),
+              _WotpBullet(
+                text: 'Arrow keys → use the mixin\'s inDirection algorithm '
                     'which picks the closest focus node in the given '
                     'direction using a projected geometric scoring function.',
               ),
               _WotpBullet(
-                text:
-                    'Directionality flips "forward" for Tab in some '
+                text: 'Directionality flips "forward" for Tab in some '
                     'policies, but NOT for WidgetOrder — it still uses the '
                     'widget tree order.',
               ),
               _WotpBullet(
-                text:
-                    'Arrow keys always mirror the on-screen geometry, '
+                text: 'Arrow keys always mirror the on-screen geometry, '
                     'and do respect Directionality (left/right flip when '
                     'Directionality.rtl).',
               ),
@@ -2518,33 +2480,19 @@ class _WotpDirectionalTabState extends State<_WotpDirectionalTab>
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          children: [btn(Icons.keyboard_arrow_up_rounded, TraversalDirection.up, 'Up')],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            btn(Icons.keyboard_arrow_up_rounded, TraversalDirection.up, 'Up'),
+            btn(Icons.keyboard_arrow_left_rounded, TraversalDirection.left, 'Left'),
+            btn(Icons.keyboard_arrow_right_rounded, TraversalDirection.right, 'Right'),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            btn(
-              Icons.keyboard_arrow_left_rounded,
-              TraversalDirection.left,
-              'Left',
-            ),
-            btn(
-              Icons.keyboard_arrow_right_rounded,
-              TraversalDirection.right,
-              'Right',
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            btn(
-              Icons.keyboard_arrow_down_rounded,
-              TraversalDirection.down,
-              'Down',
-            ),
+            btn(Icons.keyboard_arrow_down_rounded, TraversalDirection.down, 'Down')
           ],
         ),
       ],
@@ -2557,17 +2505,14 @@ class _WotpDirectionalTabState extends State<_WotpDirectionalTab>
       children: [
         const Text(
           'Directionality:',
-          style: TextStyle(
-            fontSize: 12,
-            color: _kInk,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(fontSize: 12, color: _kInk, fontWeight: FontWeight.w600),
         ),
         const SizedBox(width: 10),
         ChoiceChip(
           label: const Text('LTR'),
           selected: _direction == TextDirection.ltr,
-          onSelected: (_) => setState(() => _direction = TextDirection.ltr),
+          onSelected: (_) =>
+              setState(() => _direction = TextDirection.ltr),
           selectedColor: _kGoldPale,
           backgroundColor: _kParchmentDeep,
           labelStyle: TextStyle(
@@ -2579,7 +2524,8 @@ class _WotpDirectionalTabState extends State<_WotpDirectionalTab>
         ChoiceChip(
           label: const Text('RTL'),
           selected: _direction == TextDirection.rtl,
-          onSelected: (_) => setState(() => _direction = TextDirection.rtl),
+          onSelected: (_) =>
+              setState(() => _direction = TextDirection.rtl),
           selectedColor: _kGoldPale,
           backgroundColor: _kParchmentDeep,
           labelStyle: TextStyle(
@@ -2615,8 +2561,7 @@ class _WotpDirectionalTabState extends State<_WotpDirectionalTab>
                     ? [
                         BoxShadow(
                           color: _kGold.withValues(
-                            alpha: 0.3 + _pulse.value * 0.4,
-                          ),
+                              alpha: 0.3 + _pulse.value * 0.4),
                           blurRadius: 12,
                           spreadRadius: 1,
                         ),
@@ -2720,19 +2665,16 @@ class _WotpOrderMarkerTabState extends State<_WotpOrderMarkerTab> {
               ),
               SizedBox(height: 8),
               _WotpBullet(
-                text:
-                    'Wrapping a child in FocusTraversalOrder under a '
+                text: 'Wrapping a child in FocusTraversalOrder under a '
                     'WidgetOrderTraversalPolicy has no effect on Tab order.',
               ),
               _WotpBullet(
-                text:
-                    'To honor explicit order, swap the policy to '
+                text: 'To honor explicit order, swap the policy to '
                     'OrderedTraversalPolicy. Its secondary policy defaults '
                     'to ReadingOrderTraversalPolicy.',
               ),
               _WotpBullet(
-                text:
-                    'NumericFocusOrder sorts by double; LexicalFocusOrder '
+                text: 'NumericFocusOrder sorts by double; LexicalFocusOrder '
                     'sorts by String.',
               ),
             ],
@@ -2764,8 +2706,7 @@ class _WotpOrderMarkerTabState extends State<_WotpOrderMarkerTab> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               _WotpCodeBlock(
-                code:
-                    '// MARKERS IGNORED: tree order prevails.\n'
+                code: '// MARKERS IGNORED: tree order prevails.\n'
                     'FocusTraversalGroup(\n'
                     '  policy: WidgetOrderTraversalPolicy(),\n'
                     '  child: Column(\n'
@@ -2781,8 +2722,7 @@ class _WotpOrderMarkerTabState extends State<_WotpOrderMarkerTab> {
               ),
               SizedBox(height: 6),
               _WotpCodeBlock(
-                code:
-                    '// MARKERS HONORED: NumericFocusOrder sorts it.\n'
+                code: '// MARKERS HONORED: NumericFocusOrder sorts it.\n'
                     'FocusTraversalGroup(\n'
                     '  policy: OrderedTraversalPolicy(),\n'
                     '  child: Column(\n'
@@ -2907,12 +2847,8 @@ class _WotpOrderMarkerTabState extends State<_WotpOrderMarkerTab> {
     );
   }
 
-  Widget _markerNode(
-    String label,
-    FocusNode node,
-    bool focused, {
-    Color accent = _kMaroon,
-  }) {
+  Widget _markerNode(String label, FocusNode node, bool focused,
+      {Color accent = _kMaroon}) {
     return FocusableActionDetector(
       focusNode: node,
       onFocusChange: (_) {},
@@ -2986,8 +2922,7 @@ class _WotpRecipeDefaultForm extends StatelessWidget {
             style: TextStyle(fontSize: 13, height: 1.5, color: _kInk),
           ),
           _WotpCodeBlock(
-            code:
-                'Column(\n'
+            code: 'Column(\n'
                 '  children: [\n'
                 '    TextField(decoration: InputDecoration(labelText: "Name")),\n'
                 '    TextField(decoration: InputDecoration(labelText: "Email")),\n'
@@ -2999,8 +2934,7 @@ class _WotpRecipeDefaultForm extends StatelessWidget {
           ),
           _WotpBullet(text: 'Tab order: Name → Email → Password → Sign in.'),
           _WotpBullet(
-            text:
-                'Shift+Tab walks back. autofocus: true on the first '
+            text: 'Shift+Tab walks back. autofocus: true on the first '
                 'field gives a sensible starting state.',
           ),
         ],
@@ -3029,8 +2963,7 @@ class _WotpRecipeMultiColumnGrid extends StatelessWidget {
             style: TextStyle(fontSize: 13, height: 1.5, color: _kInk),
           ),
           _WotpCodeBlock(
-            code:
-                'FocusTraversalGroup(\n'
+            code: 'FocusTraversalGroup(\n'
                 '  policy: WidgetOrderTraversalPolicy(),\n'
                 '  child: Column(\n'
                 '    children: [\n'
@@ -3043,8 +2976,7 @@ class _WotpRecipeMultiColumnGrid extends StatelessWidget {
           ),
           _WotpBullet(text: 'Tab order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8.'),
           _WotpBullet(
-            text:
-                'If you need column-major order instead, swap the Columns '
+            text: 'If you need column-major order instead, swap the Columns '
                 'and Rows in your tree — the policy will follow.',
           ),
         ],
@@ -3073,8 +3005,7 @@ class _WotpRecipeSkipFocusable extends StatelessWidget {
             style: TextStyle(fontSize: 13, height: 1.5, color: _kInk),
           ),
           _WotpCodeBlock(
-            code:
-                'final skipMe = FocusNode(skipTraversal: true);\n'
+            code: 'final skipMe = FocusNode(skipTraversal: true);\n'
                 'FocusTraversalGroup(\n'
                 '  policy: WidgetOrderTraversalPolicy(),\n'
                 '  child: Column(\n'
@@ -3088,8 +3019,7 @@ class _WotpRecipeSkipFocusable extends StatelessWidget {
           ),
           _WotpBullet(text: 'Tab order: a → c (skipMe is invisible to Tab).'),
           _WotpBullet(
-            text:
-                'Use skipTraversal when a focusable is informational '
+            text: 'Use skipTraversal when a focusable is informational '
                 '(e.g. a copyable readonly badge) and shouldn\'t interrupt '
                 'keyboard flow.',
           ),
@@ -3120,20 +3050,17 @@ class _WotpRecipeConditionalSkip extends StatelessWidget {
             style: TextStyle(fontSize: 13, height: 1.5, color: _kInk),
           ),
           _WotpCodeBlock(
-            code:
-                'ExcludeFocusTraversal(\n'
+            code: 'ExcludeFocusTraversal(\n'
                 '  excluding: _readonlyMode,\n'
                 '  child: advancedControls,\n'
                 ');',
           ),
           _WotpBullet(
-            text:
-                'Useful for wizards, accordions, and modal drawers: hide '
+            text: 'Useful for wizards, accordions, and modal drawers: hide '
                 'the collapsed section from Tab until expanded.',
           ),
           _WotpBullet(
-            text:
-                'For full focus blocking (not just traversal) use '
+            text: 'For full focus blocking (not just traversal) use '
                 'ExcludeFocus, which also prevents requestFocus from '
                 'entering the subtree.',
           ),
@@ -3165,8 +3092,7 @@ class _WotpRecipeDpad extends StatelessWidget {
             style: TextStyle(fontSize: 13, height: 1.5, color: _kInk),
           ),
           _WotpCodeBlock(
-            code:
-                'Shortcuts(\n'
+            code: 'Shortcuts(\n'
                 '  shortcuts: const <ShortcutActivator, Intent>{\n'
                 '    SingleActivator(LogicalKeyboardKey.gameButtonA):\n'
                 '        ActivateIntent(),\n'
@@ -3208,8 +3134,7 @@ class _WotpRecipeNestedGroups extends StatelessWidget {
             style: TextStyle(fontSize: 13, height: 1.5, color: _kInk),
           ),
           _WotpCodeBlock(
-            code:
-                'FocusTraversalGroup(\n'
+            code: 'FocusTraversalGroup(\n'
                 '  policy: WidgetOrderTraversalPolicy(),\n'
                 '  child: Column(\n'
                 '    children: [\n'
@@ -3224,10 +3149,11 @@ class _WotpRecipeNestedGroups extends StatelessWidget {
                 '  ),\n'
                 ');',
           ),
-          _WotpBullet(text: 'Tab order: outerA → i1 → i2 → i3 → outerB.'),
           _WotpBullet(
-            text:
-                'Mix policies freely — WidgetOrder outside, Reading '
+            text: 'Tab order: outerA → i1 → i2 → i3 → outerB.',
+          ),
+          _WotpBullet(
+            text: 'Mix policies freely — WidgetOrder outside, Reading '
                 'inside a Wrap, Ordered inside a grid with markers.',
           ),
         ],
@@ -3380,7 +3306,9 @@ class _WotpGlossaryEntries extends StatelessWidget {
       accent: _kGoldDeep,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [for (final e in entries) _WotpGlossaryRow(entry: e)],
+        children: [
+          for (final e in entries) _WotpGlossaryRow(entry: e),
+        ],
       ),
     );
   }
@@ -3404,7 +3332,9 @@ class _WotpGlossaryRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: _kParchmentDeep,
         borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: _kGoldDeep, width: 3)),
+        border: Border(
+          left: BorderSide(color: _kGoldDeep, width: 3),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -3423,7 +3353,11 @@ class _WotpGlossaryRow extends StatelessWidget {
             padding: const EdgeInsets.only(top: 4),
             child: Text(
               entry.definition,
-              style: const TextStyle(color: _kInk, fontSize: 12, height: 1.45),
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 12,
+                height: 1.45,
+              ),
             ),
           ),
         ],
@@ -3452,10 +3386,8 @@ class _WotpGlossaryCrossReferences extends StatelessWidget {
           _WotpTag(label: 'FocusTraversalOrder', color: _kAccentRose),
           _WotpTag(label: 'NumericFocusOrder', color: _kAccentRose),
           _WotpTag(label: 'LexicalFocusOrder', color: _kAccentRose),
-          _WotpTag(
-            label: 'DirectionalFocusTraversalPolicyMixin',
-            color: _kGoldDeep,
-          ),
+          _WotpTag(label: 'DirectionalFocusTraversalPolicyMixin',
+              color: _kGoldDeep),
           _WotpTag(label: 'TraversalDirection', color: _kGoldDeep),
           _WotpTag(label: 'ExcludeFocus', color: _kMaroonLight),
           _WotpTag(label: 'ExcludeFocusTraversal', color: _kMaroonLight),
@@ -3508,18 +3440,15 @@ class _WotpGlossaryEpilogue extends StatelessWidget {
             text: 'Keep the widget tree readable — traversal will follow.',
           ),
           _WotpBullet(
-            text:
-                'Prefer skipTraversal for single-node exclusions, '
+            text: 'Prefer skipTraversal for single-node exclusions, '
                 'ExcludeFocusTraversal for subtree exclusions.',
           ),
           _WotpBullet(
-            text:
-                'Use DirectionalFocusIntent for arrow keys; Tab continues '
+            text: 'Use DirectionalFocusIntent for arrow keys; Tab continues '
                 'to use the policy\'s widget-order sort.',
           ),
           _WotpBullet(
-            text:
-                'Remember: no policy is universally best. Match the '
+            text: 'Remember: no policy is universally best. Match the '
                 'policy to user expectation, not to convenience.',
           ),
           SizedBox(height: 12),

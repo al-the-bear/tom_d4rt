@@ -148,8 +148,7 @@ class _HeroBannerTab extends StatelessWidget {
               _StepTile(
                 index: 1,
                 title: 'No overlap measurement',
-                body:
-                    'A regular CustomScrollView does not measure the outer '
+                body: 'A regular CustomScrollView does not measure the outer '
                     'SliverAppBar\'s extent and pass it inward. The inner '
                     'viewport starts at offset 0, not offset = appBarHeight.',
               ),
@@ -157,8 +156,7 @@ class _HeroBannerTab extends StatelessWidget {
               _StepTile(
                 index: 2,
                 title: 'Double-scroll problem',
-                body:
-                    'Without coordination, dragging can scroll the outer list '
+                body: 'Without coordination, dragging can scroll the outer list '
                     'AND the inner list simultaneously, producing jittery or '
                     'physically incorrect behaviour.',
               ),
@@ -166,8 +164,7 @@ class _HeroBannerTab extends StatelessWidget {
               _StepTile(
                 index: 3,
                 title: 'No shared scroll physics',
-                body:
-                    'NestedScrollView installs a custom ScrollPhysics that '
+                body: 'NestedScrollView installs a custom ScrollPhysics that '
                     'apportions drag between inner and outer. A plain '
                     'CustomScrollView has no such delegation.',
               ),
@@ -210,31 +207,11 @@ class _ClassTable extends StatelessWidget {
   const _ClassTable();
 
   static const List<List<String>> _rows = <List<String>>[
-    <String>[
-      'NestedScrollViewViewport',
-      'Viewport subclass',
-      'Inner viewport with overlap offset',
-    ],
-    <String>[
-      'SliverOverlapAbsorber',
-      'SingleChildRenderObjectWidget',
-      'Measures & absorbs overlap budget',
-    ],
-    <String>[
-      'SliverOverlapInjector',
-      'SingleChildRenderObjectWidget',
-      'Re-injects budget into inner list',
-    ],
-    <String>[
-      'NestedScrollView',
-      'StatefulWidget',
-      'Coordinates outer + inner scrollables',
-    ],
-    <String>[
-      '_NestedScrollCoordinator',
-      'Internal class',
-      'Delegates drag between viewports',
-    ],
+    <String>['NestedScrollViewViewport', 'Viewport subclass', 'Inner viewport with overlap offset'],
+    <String>['SliverOverlapAbsorber', 'SingleChildRenderObjectWidget', 'Measures & absorbs overlap budget'],
+    <String>['SliverOverlapInjector', 'SingleChildRenderObjectWidget', 'Re-injects budget into inner list'],
+    <String>['NestedScrollView', 'StatefulWidget', 'Coordinates outer + inner scrollables'],
+    <String>['_NestedScrollCoordinator', 'Internal class', 'Delegates drag between viewports'],
   ];
 
   @override
@@ -257,7 +234,9 @@ class _ClassTable extends StatelessWidget {
             ],
           ),
           ..._rows.map(
-            (r) => TableRow(children: r.map((c) => _tableData(c)).toList()),
+            (r) => TableRow(
+              children: r.map((c) => _tableData(c)).toList(),
+            ),
           ),
         ],
       ),
@@ -266,12 +245,14 @@ class _ClassTable extends StatelessWidget {
 }
 
 Widget _tableHeader(String text) => Padding(
-  padding: const EdgeInsets.all(8),
-  child: Text(text, style: const TextStyle(fontWeight: FontWeight.w700)),
-);
+      padding: const EdgeInsets.all(8),
+      child: Text(text, style: const TextStyle(fontWeight: FontWeight.w700)),
+    );
 
-Widget _tableData(String text) =>
-    Padding(padding: const EdgeInsets.all(8), child: Text(text));
+Widget _tableData(String text) => Padding(
+      padding: const EdgeInsets.all(8),
+      child: Text(text),
+    );
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // TAB 2 — Working NestedScrollView
@@ -280,11 +261,7 @@ Widget _tableData(String text) =>
 class _WorkingNestedScrollTab extends StatelessWidget {
   const _WorkingNestedScrollTab();
 
-  static const List<String> _categories = <String>[
-    'Rivers',
-    'Mountains',
-    'Deserts',
-  ];
+  static const List<String> _categories = <String>['Rivers', 'Mountains', 'Deserts'];
 
   @override
   Widget build(BuildContext context) {
@@ -311,9 +288,7 @@ class _WorkingNestedScrollTab extends StatelessWidget {
           ];
         },
         body: TabBarView(
-          children: _categories
-              .map((cat) => _InnerList(category: cat))
-              .toList(),
+          children: _categories.map((cat) => _InnerList(category: cat)).toList(),
         ),
       ),
     );
@@ -359,40 +334,16 @@ class _InnerList extends StatelessWidget {
 
   static const Map<String, List<String>> _data = <String, List<String>>{
     'Rivers': <String>[
-      'Amazon',
-      'Nile',
-      'Yangtze',
-      'Mississippi',
-      'Congo',
-      'Niger',
-      'Mekong',
-      'Volga',
-      'Zambezi',
-      'Murray',
+      'Amazon', 'Nile', 'Yangtze', 'Mississippi', 'Congo', 'Niger', 'Mekong',
+      'Volga', 'Zambezi', 'Murray',
     ],
     'Mountains': <String>[
-      'Everest',
-      'K2',
-      'Kangchenjunga',
-      'Lhotse',
-      'Makalu',
-      'Cho Oyu',
-      'Dhaulagiri',
-      'Manaslu',
-      'Nanga Parbat',
-      'Annapurna',
+      'Everest', 'K2', 'Kangchenjunga', 'Lhotse', 'Makalu', 'Cho Oyu',
+      'Dhaulagiri', 'Manaslu', 'Nanga Parbat', 'Annapurna',
     ],
     'Deserts': <String>[
-      'Sahara',
-      'Arabian',
-      'Gobi',
-      'Patagonian',
-      'Great Victoria',
-      'Kalahari',
-      'Great Basin',
-      'Syrian',
-      'Chihuahuan',
-      'Taklamakan',
+      'Sahara', 'Arabian', 'Gobi', 'Patagonian', 'Great Victoria', 'Kalahari',
+      'Great Basin', 'Syrian', 'Chihuahuan', 'Taklamakan',
     ],
   };
 
@@ -570,16 +521,11 @@ class _FixedScrollDemo extends StatelessWidget {
               headerSliverBuilder: (BuildContext ctx, bool scrolled) {
                 return <Widget>[
                   SliverOverlapAbsorber(
-                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                      ctx,
-                    ),
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
                     sliver: SliverAppBar(
                       automaticallyImplyLeading: false,
                       pinned: true,
-                      title: const Text(
-                        'Header',
-                        style: TextStyle(fontSize: 14),
-                      ),
+                      title: const Text('Header', style: TextStyle(fontSize: 14)),
                       backgroundColor: cs.primary,
                       foregroundColor: cs.onPrimary,
                       forceElevated: scrolled,
@@ -592,9 +538,7 @@ class _FixedScrollDemo extends StatelessWidget {
                   return CustomScrollView(
                     slivers: <Widget>[
                       SliverOverlapInjector(
-                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                          ctx,
-                        ),
+                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
                       ),
                       SliverList.builder(
                         itemCount: 15,
@@ -674,16 +618,14 @@ class _OverlapBudgetDiagramTab extends StatelessWidget {
         _StepTile(
           index: 1,
           title: 'SliverAppBar expands',
-          body:
-              'The outer SliverAppBar fills its expandedHeight. The pinned '
+          body: 'The outer SliverAppBar fills its expandedHeight. The pinned '
               'portion (toolbarHeight + tabBarHeight) is the overlap budget.',
         ),
         const SizedBox(height: 8),
         _StepTile(
           index: 2,
           title: 'SliverOverlapAbsorber captures it',
-          body:
-              'Wrapped around the SliverAppBar in the outer headerSliverBuilder, '
+          body: 'Wrapped around the SliverAppBar in the outer headerSliverBuilder, '
               'it calls NestedScrollView.sliverOverlapAbsorberHandleFor(context) and '
               'stores the overlap measurement in the handle.',
         ),
@@ -691,16 +633,14 @@ class _OverlapBudgetDiagramTab extends StatelessWidget {
         _StepTile(
           index: 3,
           title: 'Handle is passed to inner viewport',
-          body:
-              'NestedScrollViewViewport receives the handle and adjusts its '
+          body: 'NestedScrollViewViewport receives the handle and adjusts its '
               'anchor/offset so the inner content starts below the pinned header.',
         ),
         const SizedBox(height: 8),
         _StepTile(
           index: 4,
           title: 'SliverOverlapInjector re-injects',
-          body:
-              'At the top of each inner CustomScrollView, SliverOverlapInjector '
+          body: 'At the top of each inner CustomScrollView, SliverOverlapInjector '
               'reads the same handle and inserts a virtual sliver of that exact '
               'height, pushing the real content down to the correct position.',
         ),
@@ -746,92 +686,47 @@ class _OverlapBudgetPainter extends CustomPainter {
     final double cx = size.width / 2;
 
     // Box 1: SliverAppBar
-    _drawBox(
-      canvas,
-      cx,
-      20,
-      'SliverAppBar\n(expandedHeight)',
-      primary,
-      Colors.white,
-      outlinePaint,
-    );
+    _drawBox(canvas, cx, 20, 'SliverAppBar\n(expandedHeight)', primary,
+        Colors.white, outlinePaint);
 
     // Arrow down
     _drawArrow(canvas, cx, 20 + _boxH, cx, 110, arrowPaint);
     _drawLabel(canvas, cx + 8, 84, '① measures overlap', onSurface);
 
     // Box 2: SliverOverlapAbsorber
-    _drawBox(
-      canvas,
-      cx,
-      110,
-      'SliverOverlapAbsorber\n(outer list)',
-      secondary,
-      Colors.white,
-      outlinePaint,
-    );
+    _drawBox(canvas, cx, 110, 'SliverOverlapAbsorber\n(outer list)', secondary,
+        Colors.white, outlinePaint);
 
     // Arrow down
     _drawArrow(canvas, cx, 110 + _boxH, cx, 200, arrowPaint);
     _drawLabel(canvas, cx + 8, 174, '② stores in handle', onSurface);
 
     // Box 3: NestedScrollViewViewport
-    _drawBox(
-      canvas,
-      cx,
-      200,
-      'NestedScrollViewViewport\n(inner)',
-      tertiary,
-      Colors.white,
-      outlinePaint,
-    );
+    _drawBox(canvas, cx, 200, 'NestedScrollViewViewport\n(inner)', tertiary,
+        Colors.white, outlinePaint);
 
     // Arrow down
     _drawArrow(canvas, cx, 200 + _boxH, cx, 290, arrowPaint);
     _drawLabel(canvas, cx + 8, 264, '③ adjusts anchor', onSurface);
 
     // Box 4: SliverOverlapInjector
-    _drawBox(
-      canvas,
-      cx,
-      290,
-      'SliverOverlapInjector\n(top of inner list)',
-      primary.withAlpha(180),
-      Colors.white,
-      outlinePaint,
-    );
+    _drawBox(canvas, cx, 290, 'SliverOverlapInjector\n(top of inner list)',
+        primary.withAlpha(180), Colors.white, outlinePaint);
 
     // Arrow down
     _drawArrow(canvas, cx, 290 + _boxH, cx, 380, arrowPaint);
     _drawLabel(canvas, cx + 8, 354, '④ pushes content down', onSurface);
 
     // Box 5: Inner list content
-    _drawBox(
-      canvas,
-      cx,
-      380,
-      'Inner List Content\n(correct position)',
-      secondary.withAlpha(180),
-      Colors.white,
-      outlinePaint,
-    );
+    _drawBox(canvas, cx, 380, 'Inner List Content\n(correct position)',
+        secondary.withAlpha(180), Colors.white, outlinePaint);
   }
 
-  void _drawBox(
-    Canvas canvas,
-    double cx,
-    double top,
-    String label,
-    Color fillColor,
-    Color textColor,
-    Paint stroke,
-  ) {
+  void _drawBox(Canvas canvas, double cx, double top, String label,
+      Color fillColor, Color textColor, Paint stroke) {
     final Paint fill = Paint()..color = fillColor;
     final Rect rect = Rect.fromLTWH(cx - _boxW / 2, top, _boxW, _boxH);
-    final RRect rRect = RRect.fromRectAndRadius(
-      rect,
-      const Radius.circular(_r),
-    );
+    final RRect rRect = RRect.fromRectAndRadius(rect, const Radius.circular(_r));
     canvas.drawRRect(rRect, fill);
     canvas.drawRRect(rRect, stroke);
     final TextPainter tp = TextPainter(
@@ -846,41 +741,33 @@ class _OverlapBudgetPainter extends CustomPainter {
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: _boxW - 8);
-    tp.paint(canvas, Offset(cx - tp.width / 2, top + (_boxH - tp.height) / 2));
+    tp.paint(
+      canvas,
+      Offset(cx - tp.width / 2, top + (_boxH - tp.height) / 2),
+    );
   }
 
   void _drawArrow(
-    Canvas canvas,
-    double x1,
-    double y1,
-    double x2,
-    double y2,
-    Paint paint,
-  ) {
+      Canvas canvas, double x1, double y1, double x2, double y2, Paint paint) {
     canvas.drawLine(Offset(x1, y1 + 2), Offset(x2, y2 - 8), paint);
     final Path head = Path()
       ..moveTo(x2 - 6, y2 - 14)
       ..lineTo(x2, y2 - 4)
       ..lineTo(x2 + 6, y2 - 14);
     canvas.drawPath(
-      head,
-      Paint()
-        ..color = paint.color
-        ..strokeWidth = 2
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round,
-    );
+        head,
+        Paint()
+          ..color = paint.color
+          ..strokeWidth = 2
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round);
   }
 
   void _drawLabel(Canvas canvas, double x, double y, String text, Color color) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(
-          color: color,
-          fontSize: 10,
-          fontStyle: FontStyle.italic,
-        ),
+        style: TextStyle(color: color, fontSize: 10, fontStyle: FontStyle.italic),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -976,8 +863,7 @@ Builder(
         const SizedBox(height: 8),
         _ErrorCard(
           title: 'Sharing a single injector across tabs',
-          body:
-              'If you try to reuse one SliverOverlapInjector widget across '
+          body: 'If you try to reuse one SliverOverlapInjector widget across '
               'multiple tabs (e.g., outside the TabBarView), it will only be '
               'mounted in one tab at a time. The other tabs will start at '
               'offset 0 and appear clipped under the header.',
@@ -1001,76 +887,20 @@ class _TreeDiagram extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _TreeNode(label: 'NestedScrollView', depth: 0, color: cs.primary),
-            _TreeNode(
-              label: '├─ headerSliverBuilder',
-              depth: 1,
-              color: cs.secondary,
-            ),
-            _TreeNode(
-              label: '│   ├─ SliverOverlapAbsorber (★ ONE only)',
-              depth: 2,
-              color: cs.tertiary,
-            ),
-            _TreeNode(
-              label: '│   └─ SliverAppBar (pinned)',
-              depth: 2,
-              color: cs.secondary,
-            ),
-            _TreeNode(
-              label: '└─ body: DefaultTabController',
-              depth: 1,
-              color: cs.secondary,
-            ),
-            _TreeNode(
-              label: '    └─ TabBarView',
-              depth: 2,
-              color: cs.secondary,
-            ),
-            _TreeNode(
-              label: '        ├─ Builder → CustomScrollView [Tab 1]',
-              depth: 3,
-              color: cs.tertiary,
-            ),
-            _TreeNode(
-              label: '        │   ├─ SliverOverlapInjector (handle)',
-              depth: 4,
-              color: cs.primary,
-            ),
-            _TreeNode(
-              label: '        │   └─ SliverList',
-              depth: 4,
-              color: cs.outline,
-            ),
-            _TreeNode(
-              label: '        ├─ Builder → CustomScrollView [Tab 2]',
-              depth: 3,
-              color: cs.tertiary,
-            ),
-            _TreeNode(
-              label: '        │   ├─ SliverOverlapInjector (handle)',
-              depth: 4,
-              color: cs.primary,
-            ),
-            _TreeNode(
-              label: '        │   └─ SliverList',
-              depth: 4,
-              color: cs.outline,
-            ),
-            _TreeNode(
-              label: '        └─ Builder → CustomScrollView [Tab N]',
-              depth: 3,
-              color: cs.tertiary,
-            ),
-            _TreeNode(
-              label: '            ├─ SliverOverlapInjector (handle)',
-              depth: 4,
-              color: cs.primary,
-            ),
-            _TreeNode(
-              label: '            └─ SliverList',
-              depth: 4,
-              color: cs.outline,
-            ),
+            _TreeNode(label: '├─ headerSliverBuilder', depth: 1, color: cs.secondary),
+            _TreeNode(label: '│   ├─ SliverOverlapAbsorber (★ ONE only)', depth: 2, color: cs.tertiary),
+            _TreeNode(label: '│   └─ SliverAppBar (pinned)', depth: 2, color: cs.secondary),
+            _TreeNode(label: '└─ body: DefaultTabController', depth: 1, color: cs.secondary),
+            _TreeNode(label: '    └─ TabBarView', depth: 2, color: cs.secondary),
+            _TreeNode(label: '        ├─ Builder → CustomScrollView [Tab 1]', depth: 3, color: cs.tertiary),
+            _TreeNode(label: '        │   ├─ SliverOverlapInjector (handle)', depth: 4, color: cs.primary),
+            _TreeNode(label: '        │   └─ SliverList', depth: 4, color: cs.outline),
+            _TreeNode(label: '        ├─ Builder → CustomScrollView [Tab 2]', depth: 3, color: cs.tertiary),
+            _TreeNode(label: '        │   ├─ SliverOverlapInjector (handle)', depth: 4, color: cs.primary),
+            _TreeNode(label: '        │   └─ SliverList', depth: 4, color: cs.outline),
+            _TreeNode(label: '        └─ Builder → CustomScrollView [Tab N]', depth: 3, color: cs.tertiary),
+            _TreeNode(label: '            ├─ SliverOverlapInjector (handle)', depth: 4, color: cs.primary),
+            _TreeNode(label: '            └─ SliverList', depth: 4, color: cs.outline),
           ],
         ),
       ),
@@ -1130,8 +960,7 @@ class _VariantsTab extends StatelessWidget {
         _VariantCard(
           title: 'Pinned Only',
           subtitle: 'pinned: true, floating: false, snap: false',
-          description:
-              'The app bar collapses to its toolbarHeight and stays '
+          description: 'The app bar collapses to its toolbarHeight and stays '
               'pinned. The overlap budget is fixed at toolbarHeight. The inner '
               'list always starts below the pinned bar.',
           colorSeed: const Color(0xFF1B5E20),
@@ -1143,8 +972,7 @@ class _VariantsTab extends StatelessWidget {
         _VariantCard(
           title: 'Pinned + Floating',
           subtitle: 'pinned: true, floating: true, snap: false',
-          description:
-              'The app bar floats back into view when the user scrolls '
+          description: 'The app bar floats back into view when the user scrolls '
               'up even a tiny amount. Useful for re-revealing navigation without '
               'losing the current scroll position.',
           colorSeed: const Color(0xFF0D47A1),
@@ -1156,8 +984,7 @@ class _VariantsTab extends StatelessWidget {
         _VariantCard(
           title: 'Floating + Snap',
           subtitle: 'pinned: false, floating: true, snap: true',
-          description:
-              'The app bar fully snaps in or out — it never pauses '
+          description: 'The app bar fully snaps in or out — it never pauses '
               'mid-expansion. The overlap budget jumps between 0 and '
               'expandedHeight rather than animating continuously.',
           colorSeed: const Color(0xFF4A148C),
@@ -1193,10 +1020,8 @@ class _VariantCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme tt = Theme.of(context).textTheme;
-    final ColorScheme varCs = ColorScheme.fromSeed(
-      seedColor: colorSeed,
-      brightness: Brightness.light,
-    );
+    final ColorScheme varCs =
+        ColorScheme.fromSeed(seedColor: colorSeed, brightness: Brightness.light);
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -1208,20 +1033,16 @@ class _VariantCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: tt.titleMedium?.copyWith(
-                    color: varCs.onPrimary,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                Text(
-                  subtitle,
-                  style: tt.bodySmall?.copyWith(
-                    color: varCs.onPrimary.withAlpha(200),
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                Text(title,
+                    style: tt.titleMedium?.copyWith(
+                      color: varCs.onPrimary,
+                      fontWeight: FontWeight.w800,
+                    )),
+                Text(subtitle,
+                    style: tt.bodySmall?.copyWith(
+                      color: varCs.onPrimary.withAlpha(200),
+                      fontFamily: 'monospace',
+                    )),
               ],
             ),
           ),
@@ -1298,10 +1119,8 @@ class _MiniNestedScrollView extends StatelessWidget {
                   itemBuilder: (_, int i) => ListTile(
                     dense: true,
                     tileColor: i.isEven ? varCs.surfaceContainerLow : null,
-                    title: Text(
-                      'Row ${i + 1}',
-                      style: const TextStyle(fontSize: 13),
-                    ),
+                    title: Text('Row ${i + 1}',
+                        style: const TextStyle(fontSize: 13)),
                   ),
                 ),
               ],
@@ -1367,10 +1186,7 @@ class _ScrollCoordinationTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Drag down (positive delta):',
-                style: tt.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-              ),
+              Text('Drag down (positive delta):', style: tt.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
               Text(
                 '1. Outer scrollable absorbs delta until minScrollExtent.\n'
@@ -1378,10 +1194,7 @@ class _ScrollCoordinationTab extends StatelessWidget {
                 style: tt.bodyMedium,
               ),
               const SizedBox(height: 12),
-              Text(
-                'Drag up (negative delta):',
-                style: tt.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-              ),
+              Text('Drag up (negative delta):', style: tt.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
               Text(
                 '1. Inner scrollable absorbs delta until minScrollExtent.\n'
@@ -1411,30 +1224,10 @@ class _PhaseTable extends StatelessWidget {
   const _PhaseTable();
 
   static const List<List<String>> _rows = <List<String>>[
-    <String>[
-      'Scroll up (expand header)',
-      'Inner at min',
-      'Outer expands',
-      'Full header visible',
-    ],
-    <String>[
-      'Scroll up (header expanded)',
-      'Outer at max',
-      'Inner scrolls',
-      'List moves down',
-    ],
-    <String>[
-      'Scroll down (collapse header)',
-      'Inner first absorbs',
-      'Outer collapses',
-      'Header shrinks',
-    ],
-    <String>[
-      'Fling (fast scroll)',
-      'Split by velocity',
-      'Both animate',
-      'Physics handles it',
-    ],
+    <String>['Scroll up (expand header)', 'Inner at min', 'Outer expands', 'Full header visible'],
+    <String>['Scroll up (header expanded)', 'Outer at max', 'Inner scrolls', 'List moves down'],
+    <String>['Scroll down (collapse header)', 'Inner first absorbs', 'Outer collapses', 'Header shrinks'],
+    <String>['Fling (fast scroll)', 'Split by velocity', 'Both animate', 'Physics handles it'],
   ];
 
   @override
@@ -1498,63 +1291,23 @@ class _CoordinationDiagramPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     // User drag gesture box
-    _paintBox(
-      canvas,
-      cx,
-      10,
-      220,
-      44,
-      'User Drag Gesture',
-      primary,
-      Colors.white,
-      outlineP,
-    );
+    _paintBox(canvas, cx, 10, 220, 44, 'User Drag Gesture', primary, Colors.white, outlineP);
 
     // Arrow to coordinator
     _arrowDown(canvas, cx, 54, cx, 90, arrowP);
 
     // Coordinator
-    _paintBox(
-      canvas,
-      cx,
-      90,
-      280,
-      44,
-      '_NestedScrollCoordinator',
-      secondary,
-      Colors.white,
-      outlineP,
-    );
+    _paintBox(canvas, cx, 90, 280, 44, '_NestedScrollCoordinator', secondary, Colors.white, outlineP);
 
     // Two branches
     _arrowAngle(canvas, cx - 60, 134, cx - 110, 178, arrowP);
     _arrowAngle(canvas, cx + 60, 134, cx + 110, 178, arrowP);
 
     // Outer scroll
-    _paintBox(
-      canvas,
-      cx - 110,
-      178,
-      180,
-      52,
-      'Outer Scrollable\n(header region)',
-      tertiary,
-      Colors.white,
-      outlineP,
-    );
+    _paintBox(canvas, cx - 110, 178, 180, 52, 'Outer Scrollable\n(header region)', tertiary, Colors.white, outlineP);
 
     // Inner scroll
-    _paintBox(
-      canvas,
-      cx + 110,
-      178,
-      180,
-      52,
-      'Inner Scrollable\n(list region)',
-      primary.withAlpha(180),
-      Colors.white,
-      outlineP,
-    );
+    _paintBox(canvas, cx + 110, 178, 180, 52, 'Inner Scrollable\n(list region)', primary.withAlpha(180), Colors.white, outlineP);
 
     // Arrow from outer to NestedScrollViewViewport
     _arrowDown(canvas, cx - 110, 230, cx - 110, 276, arrowP);
@@ -1567,43 +1320,13 @@ class _CoordinationDiagramPainter extends CustomPainter {
     _arrowAngle(canvas, cx + 110, 320, cx + 40, 360, arrowP);
 
     // Outer viewport box
-    _paintBox(
-      canvas,
-      cx - 110,
-      276,
-      180,
-      44,
-      'Outer Viewport\n(SliverAppBar lives here)',
-      secondary.withAlpha(180),
-      Colors.white,
-      outlineP,
-    );
+    _paintBox(canvas, cx - 110, 276, 180, 44, 'Outer Viewport\n(SliverAppBar lives here)', secondary.withAlpha(180), Colors.white, outlineP);
 
     // Inner viewport box
-    _paintBox(
-      canvas,
-      cx + 110,
-      276,
-      180,
-      44,
-      'NestedScrollViewViewport\n(overlap-aware)',
-      tertiary.withAlpha(200),
-      Colors.white,
-      outlineP,
-    );
+    _paintBox(canvas, cx + 110, 276, 180, 44, 'NestedScrollViewViewport\n(overlap-aware)', tertiary.withAlpha(200), Colors.white, outlineP);
 
     // Final result box
-    _paintBox(
-      canvas,
-      cx,
-      360,
-      280,
-      52,
-      'Coordinated Frame\n(correct overlap budget applied)',
-      primary,
-      Colors.white,
-      outlineP,
-    );
+    _paintBox(canvas, cx, 360, 280, 52, 'Coordinated Frame\n(correct overlap budget applied)', primary, Colors.white, outlineP);
 
     // Label
     final TextPainter tp = TextPainter(
@@ -1621,17 +1344,8 @@ class _CoordinationDiagramPainter extends CustomPainter {
     tp.paint(canvas, Offset(cx + 14, 310));
   }
 
-  void _paintBox(
-    Canvas canvas,
-    double cx,
-    double top,
-    double w,
-    double h,
-    String label,
-    Color fillColor,
-    Color textColor,
-    Paint stroke,
-  ) {
+  void _paintBox(Canvas canvas, double cx, double top, double w, double h,
+      String label, Color fillColor, Color textColor, Paint stroke) {
     final Paint fill = Paint()..color = fillColor;
     final Rect rect = Rect.fromLTWH(cx - w / 2, top, w, h);
     final RRect rRect = RRect.fromRectAndRadius(rect, const Radius.circular(8));
@@ -1640,11 +1354,7 @@ class _CoordinationDiagramPainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: label,
-        style: TextStyle(
-          color: textColor,
-          fontSize: 10.5,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(color: textColor, fontSize: 10.5, fontWeight: FontWeight.w600),
       ),
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
@@ -1652,53 +1362,32 @@ class _CoordinationDiagramPainter extends CustomPainter {
     tp.paint(canvas, Offset(cx - tp.width / 2, top + (h - tp.height) / 2));
   }
 
-  void _arrowDown(
-    Canvas canvas,
-    double x,
-    double y1,
-    double x2,
-    double y2,
-    Paint p,
-  ) {
+  void _arrowDown(Canvas canvas, double x, double y1, double x2, double y2, Paint p) {
     canvas.drawLine(Offset(x, y1 + 2), Offset(x2, y2 - 8), p);
     final Path head = Path()
       ..moveTo(x2 - 5, y2 - 13)
       ..lineTo(x2, y2 - 3)
       ..lineTo(x2 + 5, y2 - 13);
     canvas.drawPath(
-      head,
-      Paint()
-        ..color = p.color
-        ..strokeWidth = 1.8
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round,
-    );
+        head,
+        Paint()
+          ..color = p.color
+          ..strokeWidth = 1.8
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round);
   }
 
-  void _arrowAngle(
-    Canvas canvas,
-    double x1,
-    double y1,
-    double x2,
-    double y2,
-    Paint p,
-  ) {
+  void _arrowAngle(Canvas canvas, double x1, double y1, double x2, double y2, Paint p) {
     canvas.drawLine(Offset(x1, y1), Offset(x2, y2 - 6), p);
     final double dx = x2 - x1;
     final double dy = (y2 - 6) - y1;
     final double len = (dx * dx + dy * dy) == 0 ? 1 : 1;
     final double ux = dx * len;
     final double uy = dy * len;
-    canvas.drawLine(
-      Offset(x2 - ux * 8 - uy * 5, y2 - 6 - uy * 8 + ux * 5),
-      Offset(x2, y2 - 6),
-      p,
-    );
-    canvas.drawLine(
-      Offset(x2 - ux * 8 + uy * 5, y2 - 6 - uy * 8 - ux * 5),
-      Offset(x2, y2 - 6),
-      p,
-    );
+    canvas.drawLine(Offset(x2 - ux * 8 - uy * 5, y2 - 6 - uy * 8 + ux * 5),
+        Offset(x2, y2 - 6), p);
+    canvas.drawLine(Offset(x2 - ux * 8 + uy * 5, y2 - 6 - uy * 8 - ux * 5),
+        Offset(x2, y2 - 6), p);
   }
 
   @override
@@ -1734,8 +1423,7 @@ class _ApiSnippetsTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _CodeSnippet(
-          code: r'''
+        _CodeSnippet(code: r'''
 SliverOverlapAbsorber(
   // Obtain the handle from NestedScrollView's context
   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
@@ -1748,8 +1436,7 @@ SliverOverlapAbsorber(
     bottom: TabBar(tabs: myTabs),
   ),
 )
-''',
-        ),
+'''),
         const SizedBox(height: 24),
         _SectionHeading('SliverOverlapInjector'),
         const SizedBox(height: 8),
@@ -1765,8 +1452,7 @@ SliverOverlapAbsorber(
           ),
         ),
         const SizedBox(height: 8),
-        _CodeSnippet(
-          code: r'''
+        _CodeSnippet(code: r'''
 // Inside each tab's Builder:
 Builder(
   builder: (BuildContext context) {
@@ -1787,8 +1473,7 @@ Builder(
     );
   },
 )
-''',
-        ),
+'''),
         const SizedBox(height: 24),
         _SectionHeading('NestedScrollViewViewport Constructor'),
         const SizedBox(height: 8),
@@ -1803,8 +1488,7 @@ Builder(
           ),
         ),
         const SizedBox(height: 8),
-        _CodeSnippet(
-          code: r'''
+        _CodeSnippet(code: r'''
 // Internal constructor (Flutter framework):
 NestedScrollViewViewport({
   super.key,
@@ -1820,13 +1504,11 @@ NestedScrollViewViewport({
   super.clipBehavior,
   super.children,
 })
-''',
-        ),
+'''),
         const SizedBox(height: 24),
         _SectionHeading('SliverOverlapAbsorberHandle'),
         const SizedBox(height: 8),
-        _CodeSnippet(
-          code: r'''
+        _CodeSnippet(code: r'''
 // Obtain handle — call inside a Builder whose context
 // is a descendant of NestedScrollView:
 final SliverOverlapAbsorberHandle handle =
@@ -1835,13 +1517,11 @@ final SliverOverlapAbsorberHandle handle =
 // The handle exposes:
 // handle.overlap — current overlap in logical pixels
 // handle.layoutExtent — total layout extent of the absorber
-''',
-        ),
+'''),
         const SizedBox(height: 24),
         _SectionHeading('Full NestedScrollView Skeleton'),
         const SizedBox(height: 8),
-        _CodeSnippet(
-          code: r'''
+        _CodeSnippet(code: r'''
 DefaultTabController(
   length: tabs.length,
   child: NestedScrollView(
@@ -1883,8 +1563,7 @@ DefaultTabController(
     ),
   ),
 )
-''',
-        ),
+'''),
         const SizedBox(height: 32),
       ],
     );
@@ -1915,8 +1594,7 @@ class _PitfallsTab extends StatelessWidget {
               'the correct top — i.e., the top few items are hidden behind the '
               'pinned app bar. Scrolling down reveals them, but they cannot be '
               'reached by scrolling up.',
-          fix:
-              'Add SliverOverlapInjector as the very first sliver in every '
+          fix: 'Add SliverOverlapInjector as the very first sliver in every '
               'inner CustomScrollView, using the handle from '
               'NestedScrollView.sliverOverlapAbsorberHandleFor(context).',
         ),
@@ -1930,8 +1608,7 @@ class _PitfallsTab extends StatelessWidget {
               'by more than the actual header height, leaving a gap at the top '
               'of the inner scroll area. In debug mode, an assertion fires: '
               '"There are multiple SliverOverlapAbsorbers on the same handle."',
-          fix:
-              'Use exactly ONE SliverOverlapAbsorber per NestedScrollView, '
+          fix: 'Use exactly ONE SliverOverlapAbsorber per NestedScrollView, '
               'wrapping the outermost SliverAppBar. Multiple inner tabs share '
               'the same absorber via the common handle.',
         ),
@@ -1945,8 +1622,7 @@ class _PitfallsTab extends StatelessWidget {
               'shrinkWrap parent causes layout exceptions or infinite height '
               'constraint errors. The inner CustomScrollView also must not use '
               'shrinkWrap.',
-          fix:
-              'Place NestedScrollView in a container with a bounded height '
+          fix: 'Place NestedScrollView in a container with a bounded height '
               '(e.g., Expanded, SizedBox with a fixed height, or a full-screen '
               'Scaffold body). Never wrap it in a shrinkWrap ListView.',
         ),
@@ -1983,7 +1659,8 @@ class _PitfallTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final TextTheme tt = Theme.of(context).textTheme;
-    final Color severityColor = severity == 'High' ? cs.error : cs.tertiary;
+    final Color severityColor =
+        severity == 'High' ? cs.error : cs.tertiary;
 
     return Card(
       child: Padding(
@@ -1996,57 +1673,42 @@ class _PitfallTile extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: cs.primaryContainer,
                   radius: 16,
-                  child: Text(
-                    '$number',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: cs.onPrimaryContainer,
-                    ),
-                  ),
+                  child: Text('$number',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: cs.onPrimaryContainer)),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    title,
-                    style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w700),
-                  ),
+                  child: Text(title,
+                      style: tt.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.w700)),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: severityColor.withAlpha(40),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: severityColor, width: 1),
                   ),
-                  child: Text(
-                    severity,
-                    style: TextStyle(
-                      color: severityColor,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: Text(severity,
+                      style: TextStyle(
+                          color: severityColor,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700)),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            Text(
-              'Symptoms:',
-              style: tt.labelMedium?.copyWith(fontWeight: FontWeight.w700),
-            ),
+            Text('Symptoms:', style: tt.labelMedium?.copyWith(fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             Text(symptoms, style: tt.bodySmall),
             const SizedBox(height: 10),
-            Text(
-              'Fix:',
-              style: tt.labelMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: cs.primary,
-              ),
-            ),
+            Text('Fix:', style: tt.labelMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: cs.primary,
+            )),
             const SizedBox(height: 4),
             Text(fix, style: tt.bodySmall?.copyWith(color: cs.primary)),
           ],
@@ -2146,11 +1808,8 @@ class _ChecklistCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.check_circle_outline,
-                        color: cs.primary,
-                        size: 18,
-                      ),
+                      Icon(Icons.check_circle_outline,
+                          color: cs.primary, size: 18),
                       const SizedBox(width: 10),
                       Expanded(child: Text(item, style: tt.bodySmall)),
                     ],
@@ -2178,9 +1837,9 @@ class _SectionHeading extends StatelessWidget {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-        color: cs.primary,
-        fontWeight: FontWeight.w800,
-      ),
+            color: cs.primary,
+            fontWeight: FontWeight.w800,
+          ),
     );
   }
 }
@@ -2241,18 +1900,15 @@ class _ErrorCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: tt.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: cs.onErrorContainer,
-                  ),
-                ),
+                Text(title,
+                    style: tt.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: cs.onErrorContainer,
+                    )),
                 const SizedBox(height: 4),
-                Text(
-                  body,
-                  style: tt.bodySmall?.copyWith(color: cs.onErrorContainer),
-                ),
+                Text(body,
+                    style:
+                        tt.bodySmall?.copyWith(color: cs.onErrorContainer)),
               ],
             ),
           ),
@@ -2283,7 +1939,10 @@ class _StepTile extends StatelessWidget {
         Container(
           width: 28,
           height: 28,
-          decoration: BoxDecoration(color: cs.primary, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: cs.primary,
+            shape: BoxShape.circle,
+          ),
           alignment: Alignment.center,
           child: Text(
             '$index',
@@ -2299,10 +1958,8 @@ class _StepTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: tt.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-              ),
+              Text(title,
+                  style: tt.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 2),
               Text(body, style: tt.bodySmall),
             ],

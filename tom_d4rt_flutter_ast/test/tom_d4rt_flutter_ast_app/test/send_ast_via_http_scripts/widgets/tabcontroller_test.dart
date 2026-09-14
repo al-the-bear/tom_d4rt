@@ -165,11 +165,16 @@ Widget _heroSection() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(999),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.40)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.40),
+                ),
               ),
               child: const Text(
                 'flutter / material',
@@ -183,11 +188,16 @@ Widget _heroSection() {
             ),
             const SizedBox(width: 10),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(999),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.40)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.40),
+                ),
               ),
               child: const Text(
                 'controller · ChangeNotifier · Listenable',
@@ -367,8 +377,7 @@ Widget _anatomySection() {
           accentSoft: _kIndigoSoft,
           icon: Icons.info_outline,
           title: 'Constructed inside a State',
-          body:
-              'The controller must outlive its TabBar / TabBarView and be '
+          body: 'The controller must outlive its TabBar / TabBarView and be '
               'disposed in State.dispose(). Anywhere you would otherwise '
               'create one yourself, ask first if DefaultTabController would '
               'do — it usually does.',
@@ -425,7 +434,11 @@ Widget _argCard(String name, String type, String body, Color accent) {
         const SizedBox(height: 8),
         Text(
           body,
-          style: const TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.5),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -667,7 +680,11 @@ Widget _factCard({
         const SizedBox(height: 4),
         Text(
           helper,
-          style: const TextStyle(color: _kInkSoft, fontSize: 11.5, height: 1.4),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 11.5,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -712,8 +729,7 @@ Widget _timelineSection() {
           accentSoft: _kAmberSoft,
           icon: Icons.timer_outlined,
           title: 'animation.value · double in [0.0, length-1]',
-          body:
-              'The animation reports the controller\'s position as a '
+          body: 'The animation reports the controller\'s position as a '
               'double. While the indicator slides from tab 0 to tab 1, '
               'animation.value sweeps from 0.0 to 1.0. Going from tab 1 '
               'to tab 3 would sweep from 1.0 to 3.0.',
@@ -963,7 +979,10 @@ Widget _bigConceptCard({
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 3,
+              ),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(6),
@@ -1082,7 +1101,9 @@ Widget _timelineRow(
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 6),
     decoration: const BoxDecoration(
-      border: Border(top: BorderSide(color: _kSlateSoft, width: 1)),
+      border: Border(
+        top: BorderSide(color: _kSlateSoft, width: 1),
+      ),
     ),
     child: Row(
       children: <Widget>[
@@ -1187,8 +1208,7 @@ Widget _indexIsChangingSection() {
           accentSoft: _kRoseSoft,
           icon: Icons.swipe_outlined,
           title: 'Swipes are not "changing"',
-          body:
-              'When the user drags TabBarView with their finger, '
+          body: 'When the user drags TabBarView with their finger, '
               'indexIsChanging stays false. The flag only marks '
               '*programmatic* changes initiated by animateTo or by '
               'assigning to controller.index.',
@@ -1233,7 +1253,11 @@ Widget _stateChip({
         const SizedBox(height: 8),
         Text(
           body,
-          style: const TextStyle(color: _kInk, fontSize: 12.5, height: 1.5),
+          style: const TextStyle(
+            color: _kInk,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -1382,7 +1406,11 @@ Widget _ruleCard({
         const SizedBox(height: 6),
         Text(
           detail,
-          style: const TextStyle(color: _kInkSoft, fontSize: 12, height: 1.5),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 12,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -1485,8 +1513,7 @@ Widget _triadSection() {
           accentSoft: _kIndigoSoft,
           icon: Icons.link,
           title: 'One controller — many listeners',
-          body:
-              'Both TabBar and TabBarView find the controller via '
+          body: 'Both TabBar and TabBarView find the controller via '
               'their `controller:` parameter or, when not given, via '
               'DefaultTabController.of(context). Either both look up '
               'the same controller, or you pass it explicitly to both.',
@@ -1748,7 +1775,10 @@ Widget _comparisonColumn({
             Container(
               width: 8,
               height: 8,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 8),
             Text(
@@ -1889,8 +1919,7 @@ Widget _vsyncSection() {
           accentSoft: _kAmberSoft,
           icon: Icons.warning_amber_outlined,
           title: 'You cannot avoid vsync',
-          body:
-              'There is no parameter-less TabController constructor. '
+          body: 'There is no parameter-less TabController constructor. '
               'If you do not want to think about vsync, use '
               'DefaultTabController instead — it provides one internally.',
         ),
@@ -1945,7 +1974,11 @@ Widget _vsyncMixinCard({
         const SizedBox(height: 8),
         Text(
           body,
-          style: const TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.5),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 12.5,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -1977,8 +2010,7 @@ Widget _animationDurationSection() {
                 accent: _kEmerald,
                 label: '150 ms',
                 tagline: 'snappy',
-                code:
-                    'TabController(\n'
+                code: 'TabController(\n'
                     '  length: 4,\n'
                     '  vsync: this,\n'
                     '  animationDuration:\n'
@@ -1995,8 +2027,7 @@ Widget _animationDurationSection() {
                 accent: _kIndigo,
                 label: '300 ms',
                 tagline: 'default',
-                code:
-                    'TabController(\n'
+                code: 'TabController(\n'
                     '  length: 4,\n'
                     '  vsync: this,\n'
                     '  // animationDuration omitted\n'
@@ -2012,8 +2043,7 @@ Widget _animationDurationSection() {
                 accent: _kAmber,
                 label: '500 ms',
                 tagline: 'cinematic',
-                code:
-                    'TabController(\n'
+                code: 'TabController(\n'
                     '  length: 4,\n'
                     '  vsync: this,\n'
                     '  animationDuration:\n'
@@ -2052,7 +2082,11 @@ Widget _animationDurationSection() {
                 'jump — no slide, no easing, no fade. The TabBar indicator '
                 'and TabBarView page change instantly. Useful for tests '
                 'and for users with reduce-motion accessibility settings.',
-                style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.5),
+                style: TextStyle(
+                  color: _kInk,
+                  fontSize: 12.5,
+                  height: 1.5,
+                ),
               ),
             ],
           ),
@@ -2092,7 +2126,10 @@ Widget _durationCard({
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 2,
+              ),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(6),
@@ -2130,7 +2167,11 @@ Widget _durationCard({
         const SizedBox(height: 8),
         Text(
           description,
-          style: const TextStyle(color: _kInkSoft, fontSize: 12, height: 1.5),
+          style: const TextStyle(
+            color: _kInkSoft,
+            fontSize: 12,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -2238,7 +2279,11 @@ Widget _animateToSection() {
                 'animateTo with the controller-level animationDuration '
                 'and Curves.ease. Use whichever reads better in context. '
                 'Both flip indexIsChanging to true and notify listeners.',
-                style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.5),
+                style: TextStyle(
+                  color: _kInk,
+                  fontSize: 12.5,
+                  height: 1.5,
+                ),
               ),
             ],
           ),
@@ -2268,8 +2313,7 @@ Widget _pitfallsSection() {
           accent: _kRose,
           icon: Icons.error_outline,
           title: 'length mismatch',
-          body:
-              'TabBar.tabs.length, TabBarView.children.length, and '
+          body: 'TabBar.tabs.length, TabBarView.children.length, and '
               'TabController.length must all be equal. Otherwise you get '
               'a runtime assertion in debug and unpredictable behaviour '
               'in release.',
@@ -2278,8 +2322,7 @@ Widget _pitfallsSection() {
           accent: _kAmber,
           icon: Icons.memory_outlined,
           title: 'forgetting to dispose',
-          body:
-              'When you build a TabController explicitly, you own its '
+          body: 'When you build a TabController explicitly, you own its '
               'lifecycle. Always dispose it in State.dispose to release '
               'the underlying Ticker. Use DefaultTabController to dodge '
               'this entirely.',
@@ -2288,8 +2331,7 @@ Widget _pitfallsSection() {
           accent: _kEmerald,
           icon: Icons.layers_outlined,
           title: 'two controllers, one view',
-          body:
-              'Passing different controllers to TabBar and TabBarView '
+          body: 'Passing different controllers to TabBar and TabBarView '
               'silently breaks them. Pass the same instance to both, or '
               'rely on DefaultTabController to provide a shared one.',
         ),
@@ -2297,8 +2339,7 @@ Widget _pitfallsSection() {
           accent: _kIndigo,
           icon: Icons.repeat_outlined,
           title: 'firing setState inside the listener',
-          body:
-              'addListener fires many times per transition. Calling '
+          body: 'addListener fires many times per transition. Calling '
               'setState every tick is fine for tiny widgets, but for '
               'expensive subtrees, rebuild only when '
               'indexIsChanging flips false.',
@@ -2307,8 +2348,7 @@ Widget _pitfallsSection() {
           accent: _kViolet,
           icon: Icons.bolt_outlined,
           title: 'changing length after construction',
-          body:
-              'TabController.length is final. To change it, dispose '
+          body: 'TabController.length is final. To change it, dispose '
               'the old controller and create a new one — typically by '
               'driving its construction off a key or a piece of state '
               'that flips when length changes.',
@@ -2317,8 +2357,7 @@ Widget _pitfallsSection() {
           accent: _kTeal,
           icon: Icons.settings_outlined,
           title: 'reading animation before attach',
-          body:
-              'controller.animation is null until at least one '
+          body: 'controller.animation is null until at least one '
               'descendant TabBar or TabBarView attaches to it. Reading '
               'it inside initState before the first frame returns null.',
         ),
@@ -2567,7 +2606,10 @@ Widget _sectionShell({
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: accentSoft,
                 borderRadius: BorderRadius.circular(999),
@@ -2587,7 +2629,10 @@ Widget _sectionShell({
             Container(
               width: 6,
               height: 6,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: accent,
+                shape: BoxShape.circle,
+              ),
             ),
           ],
         ),

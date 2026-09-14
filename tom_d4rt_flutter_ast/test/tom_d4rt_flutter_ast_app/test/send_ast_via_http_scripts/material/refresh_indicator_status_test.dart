@@ -50,9 +50,7 @@ dynamic build(BuildContext context) {
   for (final entry in riTransitions.entries) {
     print('  ${entry.key} -> ${entry.value.join(", ")}');
   }
-  print(
-    '  Happy path: idle -> drag -> armed -> snap -> refresh -> done -> idle',
-  );
+  print('  Happy path: idle -> drag -> armed -> snap -> refresh -> done -> idle');
   print('  Cancel path: idle -> drag -> canceled -> idle');
 
   // ──────────────────────────────────────────────
@@ -108,23 +106,15 @@ dynamic build(BuildContext context) {
         itemBuilder: (ctx, i) => ListTile(
           leading: CircleAvatar(
             backgroundColor: const Color(0xFFFF6F61).withValues(alpha: 0.15),
-            child: Text(
-              '${i + 1}',
-              style: const TextStyle(color: Color(0xFFFF6F61), fontSize: 13),
-            ),
+            child: Text('${i + 1}', style: const TextStyle(color: Color(0xFFFF6F61), fontSize: 13)),
           ),
           title: Text(riItems[i]),
-          subtitle: Text(
-            'Pull down to refresh',
-            style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
-          ),
+          subtitle: Text('Pull down to refresh', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
         ),
       ),
     ),
   );
-  print(
-    '  Built RefreshIndicator: items=${riItems.length}, displacement=40.0, strokeWidth=3.0',
-  );
+  print('  Built RefreshIndicator: items=${riItems.length}, displacement=40.0, strokeWidth=3.0');
 
   // ──────────────────────────────────────────────
   // 7. Displacement & edge offset variations
@@ -163,10 +153,8 @@ dynamic build(BuildContext context) {
   };
   for (final entry in riColors.entries) {
     final c = entry.value;
-    print(
-      '  ${entry.key}: a=${c.a.toStringAsFixed(2)}, r=${c.r.toStringAsFixed(2)}, '
-      'g=${c.g.toStringAsFixed(2)}, b=${c.b.toStringAsFixed(2)}',
-    );
+    print('  ${entry.key}: a=${c.a.toStringAsFixed(2)}, r=${c.r.toStringAsFixed(2)}, '
+        'g=${c.g.toStringAsFixed(2)}, b=${c.b.toStringAsFixed(2)}');
   }
 
   // ──────────────────────────────────────────────
@@ -184,9 +172,7 @@ dynamic build(BuildContext context) {
   for (final entry in riTimeline.entries) {
     final progress = (entry.value * 20).toInt();
     final bar = '#' * progress + '.' * (20 - progress);
-    print(
-      '  ${entry.key.padRight(8)} [$bar] ${(entry.value * 100).toStringAsFixed(0)}%',
-    );
+    print('  ${entry.key.padRight(8)} [$bar] ${(entry.value * 100).toStringAsFixed(0)}%');
   }
 
   // ──────────────────────────────────────────────
@@ -194,18 +180,8 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────
   print('\n[11] RefreshIndicator vs CupertinoSliverRefreshControl');
   final riComparison = <String, List<String>>{
-    'RefreshIndicator': [
-      'Material spinner',
-      'Wraps ScrollView',
-      'displacement param',
-      'strokeWidth param',
-    ],
-    'CupertinoSliverRefreshControl': [
-      'iOS-style arrow',
-      'Sliver-based',
-      'refreshTriggerPullDistance',
-      'refreshIndicatorExtent',
-    ],
+    'RefreshIndicator': ['Material spinner', 'Wraps ScrollView', 'displacement param', 'strokeWidth param'],
+    'CupertinoSliverRefreshControl': ['iOS-style arrow', 'Sliver-based', 'refreshTriggerPullDistance', 'refreshIndicatorExtent'],
   };
   for (final entry in riComparison.entries) {
     print('  ${entry.key}:');
@@ -255,9 +231,7 @@ dynamic build(BuildContext context) {
   final riSystemDriven = {'snap', 'refresh', 'done'};
   print('  User-driven : ${riUserDriven.join(", ")}');
   print('  System-driven: ${riSystemDriven.join(", ")}');
-  print(
-    '  Total: ${riUserDriven.union(riSystemDriven).length} active states (+idle)',
-  );
+  print('  Total: ${riUserDriven.union(riSystemDriven).length} active states (+idle)');
 
   // ──────────────────────────────────────────────
   // 15. Accessibility considerations
@@ -287,29 +261,18 @@ dynamic build(BuildContext context) {
     return Container(
       width: 150,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(10),
-      ),
+      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, color: Colors.white, size: 24),
           const SizedBox(height: 6),
-          Text(
-            state.toUpperCase(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 11,
-            ),
-          ),
+          Text(state.toUpperCase(),
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
           const SizedBox(height: 4),
-          Text(
-            desc,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white70, fontSize: 9),
-          ),
+          Text(desc,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.white70, fontSize: 9)),
         ],
       ),
     );
@@ -344,12 +307,7 @@ dynamic build(BuildContext context) {
           child: const Text(
             'RefreshIndicator Lifecycle\nDeep Demo',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              height: 1.3,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold, height: 1.3),
           ),
         ),
         const SizedBox(height: 16),
@@ -365,27 +323,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'RefreshIndicatorMode (internal)',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: riCoral,
-                ),
-              ),
+              const Text('RefreshIndicatorMode (internal)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: riCoral)),
               const SizedBox(height: 8),
-              Text(
-                'Internal states: ${riModes.length}',
-                style: const TextStyle(fontSize: 13),
-              ),
-              const Text(
-                'This enum is NOT publicly exported.',
-                style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic),
-              ),
-              const Text(
-                'States tracked internally by RefreshIndicator widget.',
-                style: TextStyle(fontSize: 13),
-              ),
+              Text('Internal states: ${riModes.length}', style: const TextStyle(fontSize: 13)),
+              const Text('This enum is NOT publicly exported.', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
+              const Text('States tracked internally by RefreshIndicator widget.', style: TextStyle(fontSize: 13)),
             ],
           ),
         ),
@@ -416,48 +358,31 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'State Transitions',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
+              const Text('State Transitions', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 8),
-              ...riTransitions.entries.map(
-                (entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 75,
-                        child: Text(
-                          entry.key,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                      const Icon(Icons.arrow_forward, size: 14, color: riCoral),
-                      const SizedBox(width: 6),
-                      Text(
-                        entry.value.join(', '),
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ...riTransitions.entries.map((entry) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 75, child: Text(entry.key, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12))),
+                        const Icon(Icons.arrow_forward, size: 14, color: riCoral),
+                        const SizedBox(width: 6),
+                        Text(entry.value.join(', '), style: const TextStyle(fontSize: 12)),
+                      ],
+                    ),
+                  )),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // Live RefreshIndicator
-        const Text(
-          'Live RefreshIndicator (pull to try)',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        const Text('Live RefreshIndicator (pull to try)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         const SizedBox(height: 8),
-        ClipRRect(borderRadius: BorderRadius.circular(10), child: riIndicator),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: riIndicator,
+        ),
         const SizedBox(height: 14),
 
         // Timeline
@@ -470,46 +395,28 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Animation Timeline',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
+              const Text('Animation Timeline', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 8),
-              ...riTimeline.entries.map(
-                (entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 60,
-                        child: Text(
-                          entry.key,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 12,
-                          decoration: BoxDecoration(
-                            color: riCoral.withValues(
-                              alpha: entry.value.clamp(0.1, 1.0),
+              ...riTimeline.entries.map((entry) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 60, child: Text(entry.key,
+                            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
+                        Expanded(
+                          child: Container(
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: riCoral.withValues(alpha: entry.value.clamp(0.1, 1.0)),
+                              borderRadius: BorderRadius.circular(3),
                             ),
-                            borderRadius: BorderRadius.circular(3),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        '${(entry.value * 100).toStringAsFixed(0)}%',
-                        style: const TextStyle(fontSize: 11),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                        const SizedBox(width: 6),
+                        Text('${(entry.value * 100).toStringAsFixed(0)}%', style: const TextStyle(fontSize: 11)),
+                      ],
+                    ),
+                  )),
             ],
           ),
         ),
@@ -525,19 +432,13 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'State Grouping',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
+              const Text('State Grouping', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 8),
               Row(
                 children: [
                   const Icon(Icons.touch_app, size: 16, color: riCoral),
                   const SizedBox(width: 6),
-                  Text(
-                    'User: ${riUserDriven.join(", ")}',
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  Text('User: ${riUserDriven.join(", ")}', style: const TextStyle(fontSize: 12)),
                 ],
               ),
               const SizedBox(height: 6),
@@ -545,10 +446,7 @@ dynamic build(BuildContext context) {
                 children: [
                   const Icon(Icons.settings, size: 16, color: riSalmon),
                   const SizedBox(width: 6),
-                  Text(
-                    'System: ${riSystemDriven.join(", ")}',
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  Text('System: ${riSystemDriven.join(", ")}', style: const TextStyle(fontSize: 12)),
                 ],
               ),
             ],
@@ -566,32 +464,19 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Patterns & Anti-Patterns',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
+              const Text('Patterns & Anti-Patterns', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 8),
-              ...riPatterns.entries.map(
-                (entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Row(
-                    children: [
-                      Icon(
-                        entry.value ? Icons.check_circle : Icons.cancel,
-                        size: 14,
-                        color: entry.value ? Colors.green : Colors.red,
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          entry.key,
-                          style: const TextStyle(fontSize: 11),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ...riPatterns.entries.map((entry) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Row(
+                      children: [
+                        Icon(entry.value ? Icons.check_circle : Icons.cancel,
+                            size: 14, color: entry.value ? Colors.green : Colors.red),
+                        const SizedBox(width: 6),
+                        Expanded(child: Text(entry.key, style: const TextStyle(fontSize: 11))),
+                      ],
+                    ),
+                  )),
             ],
           ),
         ),
@@ -607,20 +492,12 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Accessibility Notes',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
+              const Text('Accessibility Notes', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 8),
-              ...riAccessNotes.asMap().entries.map(
-                (entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(
-                    '${entry.key + 1}. ${entry.value}',
-                    style: const TextStyle(fontSize: 11),
-                  ),
-                ),
-              ),
+              ...riAccessNotes.asMap().entries.map((entry) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Text('${entry.key + 1}. ${entry.value}', style: const TextStyle(fontSize: 11)),
+                  )),
             ],
           ),
         ),

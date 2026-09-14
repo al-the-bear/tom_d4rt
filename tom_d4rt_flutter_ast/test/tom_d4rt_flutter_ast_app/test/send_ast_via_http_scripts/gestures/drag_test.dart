@@ -42,7 +42,10 @@ dynamic build(BuildContext context) {
     velocity: Velocity(pixelsPerSecond: Offset(60.0, 0.0)),
     primaryVelocity: 60.0,
   );
-  final endZero = DragEndDetails(velocity: Velocity.zero, primaryVelocity: 0.0);
+  final endZero = DragEndDetails(
+    velocity: Velocity.zero,
+    primaryVelocity: 0.0,
+  );
 
   // ============================================================
   // SECTION 1: HERO HEADER
@@ -51,7 +54,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF6A1B9A), Color(0xFFAD1457)],
+        colors: [
+          Color(0xFF1A237E),
+          Color(0xFF6A1B9A),
+          Color(0xFFAD1457),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -91,7 +98,11 @@ dynamic build(BuildContext context) {
                   width: 1.0,
                 ),
               ),
-              child: Icon(Icons.swipe, size: 56.0, color: Colors.white),
+              child: Icon(
+                Icons.swipe,
+                size: 56.0,
+                color: Colors.white,
+              ),
             ),
             SizedBox(width: 20.0),
             Expanded(
@@ -135,10 +146,7 @@ dynamic build(BuildContext context) {
           spacing: 8.0,
           runSpacing: 8.0,
           children: [
-            _heroChip(
-              'package:flutter/gestures.dart',
-              Icons.inventory_2_outlined,
-            ),
+            _heroChip('package:flutter/gestures.dart', Icons.inventory_2_outlined),
             _heroChip('update()', Icons.timeline),
             _heroChip('end()', Icons.flag_outlined),
             _heroChip('cancel()', Icons.cancel_outlined),
@@ -202,23 +210,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 20.0),
         Row(
           children: [
-            Expanded(
-              child: _stateNode(
-                'CREATED',
-                Colors.grey,
-                Icons.add_circle_outline,
-                'recogniser hands you a Drag',
-              ),
-            ),
+            Expanded(child: _stateNode('CREATED', Colors.grey, Icons.add_circle_outline, 'recogniser hands you a Drag')),
             _arrow('onStart', Colors.indigo),
-            Expanded(
-              child: _stateNode(
-                'UPDATING',
-                Colors.green,
-                Icons.timeline,
-                'pointer moves; update() fires',
-              ),
-            ),
+            Expanded(child: _stateNode('UPDATING', Colors.green, Icons.timeline, 'pointer moves; update() fires')),
           ],
         ),
         SizedBox(height: 12.0),
@@ -237,11 +231,7 @@ dynamic build(BuildContext context) {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.fork_right,
-                  size: 16.0,
-                  color: Colors.deepOrange.shade700,
-                ),
+                Icon(Icons.fork_right, size: 16.0, color: Colors.deepOrange.shade700),
                 SizedBox(width: 6.0),
                 Text(
                   'either path',
@@ -258,23 +248,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Row(
           children: [
-            Expanded(
-              child: _stateNode(
-                'ENDED',
-                Colors.blue,
-                Icons.flag,
-                'pointer lifted; end() with velocity',
-              ),
-            ),
+            Expanded(child: _stateNode('ENDED', Colors.blue, Icons.flag, 'pointer lifted; end() with velocity')),
             SizedBox(width: 12.0),
-            Expanded(
-              child: _stateNode(
-                'CANCELLED',
-                Colors.red,
-                Icons.cancel,
-                'system stole the pointer',
-              ),
-            ),
+            Expanded(child: _stateNode('CANCELLED', Colors.red, Icons.cancel, 'system stole the pointer')),
           ],
         ),
       ],
@@ -289,8 +265,7 @@ dynamic build(BuildContext context) {
     tagline: 'pointer has moved',
     color: Colors.green,
     icon: Icons.timeline,
-    fires:
-        'every frame the pointer changes position while the drag owns the arena',
+    fires: 'every frame the pointer changes position while the drag owns the arena',
     payload: 'DragUpdateDetails',
     bullets: [
       'globalPosition — pointer in screen coords',
@@ -355,34 +330,13 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 14.0),
         for (final entry in <List<dynamic>>[
-          [
-            'globalPosition',
-            updateA.globalPosition.toString(),
-            'screen coords',
-          ],
-          [
-            'localPosition',
-            updateA.localPosition.toString(),
-            'render-box coords',
-          ],
+          ['globalPosition', updateA.globalPosition.toString(), 'screen coords'],
+          ['localPosition', updateA.localPosition.toString(), 'render-box coords'],
           ['delta', updateA.delta.toString(), 'movement since last update'],
-          [
-            'primaryDelta',
-            '${updateA.primaryDelta}',
-            'null unless 1-D recogniser',
-          ],
-          [
-            'sourceTimeStamp',
-            '${updateA.sourceTimeStamp}',
-            'PointerMoveEvent.timeStamp',
-          ],
+          ['primaryDelta', '${updateA.primaryDelta}', 'null unless 1-D recogniser'],
+          ['sourceTimeStamp', '${updateA.sourceTimeStamp}', 'PointerMoveEvent.timeStamp'],
         ])
-          _kvRow(
-            entry[0] as String,
-            entry[1] as String,
-            entry[2] as String,
-            Colors.green.shade700,
-          ),
+          _kvRow(entry[0] as String, entry[1] as String, entry[2] as String, Colors.green.shade700),
       ],
     ),
   );
@@ -465,7 +419,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.purple.shade50, Colors.deepPurple.shade50],
+        colors: [
+          Colors.purple.shade50,
+          Colors.deepPurple.shade50,
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -544,7 +501,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.red.shade50, Colors.orange.shade50],
+        colors: [
+          Colors.red.shade50,
+          Colors.orange.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -622,7 +582,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.teal.shade50, Colors.cyan.shade50],
+        colors: [
+          Colors.teal.shade50,
+          Colors.cyan.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -699,7 +662,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.deepPurple.shade50, Colors.indigo.shade50],
+        colors: [
+          Colors.deepPurple.shade50,
+          Colors.indigo.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -718,11 +684,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.show_chart,
-              color: Colors.deepPurple.shade800,
-              size: 22.0,
-            ),
+            Icon(Icons.show_chart, color: Colors.deepPurple.shade800, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Synthetic update() stream',
@@ -785,7 +747,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.lightGreen.shade50, Colors.green.shade50],
+        colors: [
+          Colors.lightGreen.shade50,
+          Colors.green.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -838,7 +803,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.blueGrey.shade50, Colors.grey.shade100],
+        colors: [
+          Colors.blueGrey.shade50,
+          Colors.grey.shade100,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -857,11 +825,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.menu_book_outlined,
-              color: Colors.blueGrey.shade800,
-              size: 22.0,
-            ),
+            Icon(Icons.menu_book_outlined,
+                color: Colors.blueGrey.shade800, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Quick reference',
@@ -876,12 +841,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 14.0),
         _refRow('update(d)', 'pointer moved', 'every frame', Colors.green),
         _refRow('end(d)', 'pointer lifted', 'once, terminal', Colors.blue),
-        _refRow(
-          'cancel()',
-          'arena lost / preempted',
-          'once, terminal',
-          Colors.red,
-        ),
+        _refRow('cancel()', 'arena lost / preempted', 'once, terminal', Colors.red),
       ],
     ),
   );
@@ -1035,7 +995,10 @@ Widget _stateNode(String label, Color color, IconData icon, String subtitle) {
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.20), color.withValues(alpha: 0.08)],
+        colors: [
+          color.withValues(alpha: 0.20),
+          color.withValues(alpha: 0.08),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1071,7 +1034,10 @@ Widget _arrow(String label, Color color) {
     child: Column(
       children: [
         Icon(Icons.arrow_forward, color: color, size: 28.0),
-        Text(label, style: TextStyle(fontSize: 10.0, color: color)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 10.0, color: color),
+        ),
       ],
     ),
   );
@@ -1179,16 +1145,14 @@ Widget _methodCard({
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.fiber_manual_record,
-                  size: 8.0,
-                  color: color.shade700,
-                ),
+                Icon(Icons.fiber_manual_record,
+                    size: 8.0, color: color.shade700),
                 SizedBox(width: 6.0),
                 Expanded(
                   child: Text(
                     b,
-                    style: TextStyle(fontSize: 11.0, color: Colors.black87),
+                    style:
+                        TextStyle(fontSize: 11.0, color: Colors.black87),
                   ),
                 ),
               ],
@@ -1252,11 +1216,8 @@ Widget _endCard({
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(color: color.shade400, width: 1.0),
               ),
-              child: Icon(
-                Icons.flag_outlined,
-                color: color.shade800,
-                size: 22.0,
-              ),
+              child: Icon(Icons.flag_outlined,
+                  color: color.shade800, size: 22.0),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1355,11 +1316,8 @@ Widget _cancelCard({required MaterialColor color}) {
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(color: color.shade400, width: 1.0),
               ),
-              child: Icon(
-                Icons.cancel_outlined,
-                color: color.shade800,
-                size: 22.0,
-              ),
+              child: Icon(Icons.cancel_outlined,
+                  color: color.shade800, size: 22.0),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1459,7 +1417,10 @@ Widget _kvRow(String key, String value, String comment, Color accent) {
             color: accent.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(4.0),
           ),
-          child: Text(comment, style: TextStyle(fontSize: 10.0, color: accent)),
+          child: Text(
+            comment,
+            style: TextStyle(fontSize: 10.0, color: accent),
+          ),
         ),
       ],
     ),
@@ -1469,14 +1430,18 @@ Widget _kvRow(String key, String value, String comment, Color accent) {
 Widget _velocityCard(String label, DragEndDetails d, MaterialColor color) {
   final magnitude = d.velocity.pixelsPerSecond.distance;
   // Normalise magnitude to a 0..1 fraction for the bar visual; cap at 1500 px/s.
-  final fraction = (magnitude / 1500.0).clamp(0.0, 1.0) as double;
+  final fraction =
+      (magnitude / 1500.0).clamp(0.0, 1.0) as double;
   final anim = AlwaysStoppedAnimation<double>(fraction);
   return Container(
     width: 100.0,
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.shade100, color.shade50],
+        colors: [
+          color.shade100,
+          color.shade50,
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1665,12 +1630,14 @@ Widget _compareColumn(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.chevron_right, size: 14.0, color: color.shade700),
+                Icon(Icons.chevron_right,
+                    size: 14.0, color: color.shade700),
                 SizedBox(width: 4.0),
                 Expanded(
                   child: Text(
                     b,
-                    style: TextStyle(fontSize: 11.0, color: Colors.black87),
+                    style:
+                        TextStyle(fontSize: 11.0, color: Colors.black87),
                   ),
                 ),
               ],

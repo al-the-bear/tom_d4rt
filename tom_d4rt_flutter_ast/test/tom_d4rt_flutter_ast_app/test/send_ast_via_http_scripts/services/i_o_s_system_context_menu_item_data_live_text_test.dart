@@ -88,7 +88,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF1C1C1E), Color(0xFF2C2C2E), Color(0xFF1C1C1E)],
+        colors: [
+          Color(0xFF1C1C1E),
+          Color(0xFF2C2C2E),
+          Color(0xFF1C1C1E),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -147,7 +151,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'iOS Live Text · camera-driven OCR action',
-                    style: TextStyle(color: Color(0xFF8E8E93), fontSize: 12.0),
+                    style: TextStyle(
+                      color: Color(0xFF8E8E93),
+                      fontSize: 12.0,
+                    ),
                   ),
                 ],
               ),
@@ -215,24 +222,9 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 16.0),
         _treeRow('IOSSystemContextMenuItemData', Color(0xFFFFD60A), 0, true),
-        _treeRow(
-          'IOSSystemContextMenuItemDataCopy',
-          Color(0xFFFF9F0A),
-          1,
-          false,
-        ),
-        _treeRow(
-          'IOSSystemContextMenuItemDataCut',
-          Color(0xFFFF9F0A),
-          1,
-          false,
-        ),
-        _treeRow(
-          'IOSSystemContextMenuItemDataPaste',
-          Color(0xFFFF9F0A),
-          1,
-          false,
-        ),
+        _treeRow('IOSSystemContextMenuItemDataCopy', Color(0xFFFF9F0A), 1, false),
+        _treeRow('IOSSystemContextMenuItemDataCut', Color(0xFFFF9F0A), 1, false),
+        _treeRow('IOSSystemContextMenuItemDataPaste', Color(0xFFFF9F0A), 1, false),
         _treeRow(
           'IOSSystemContextMenuItemDataSelectAll',
           Color(0xFFFF9F0A),
@@ -391,8 +383,16 @@ dynamic build(BuildContext context) {
     {'lhs': 'LiveText()', 'rhs': 'LiveText()', 'eq': liveTextEq},
     {'lhs': 'Copy()', 'rhs': 'Copy()', 'eq': copyEq},
     {'lhs': 'LiveText()', 'rhs': 'Copy()', 'eq': liveTextVsCopy},
-    {'lhs': "LookUp('Look Up')", 'rhs': "LookUp('Look Up')", 'eq': lookUpEq},
-    {'lhs': "LookUp('Look Up')", 'rhs': "LookUp('Define')", 'eq': lookUpDiff},
+    {
+      'lhs': "LookUp('Look Up')",
+      'rhs': "LookUp('Look Up')",
+      'eq': lookUpEq,
+    },
+    {
+      'lhs': "LookUp('Look Up')",
+      'rhs': "LookUp('Define')",
+      'eq': lookUpDiff,
+    },
     {
       'lhs': "Share('Share...')",
       'rhs': "Share('Share...')",
@@ -519,7 +519,9 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(
                   width: 80.0,
-                  child: Center(child: _eqBadge(row['eq'] as bool)),
+                  child: Center(
+                    child: _eqBadge(row['eq'] as bool),
+                  ),
                 ),
               ],
             ),
@@ -805,10 +807,26 @@ dynamic build(BuildContext context) {
             ),
           ),
         ),
-        Positioned(top: 16.0, left: 16.0, child: _corner(true, true)),
-        Positioned(top: 16.0, right: 16.0, child: _corner(true, false)),
-        Positioned(bottom: 16.0, left: 16.0, child: _corner(false, true)),
-        Positioned(bottom: 16.0, right: 16.0, child: _corner(false, false)),
+        Positioned(
+          top: 16.0,
+          left: 16.0,
+          child: _corner(true, true),
+        ),
+        Positioned(
+          top: 16.0,
+          right: 16.0,
+          child: _corner(true, false),
+        ),
+        Positioned(
+          bottom: 16.0,
+          left: 16.0,
+          child: _corner(false, true),
+        ),
+        Positioned(
+          bottom: 16.0,
+          right: 16.0,
+          child: _corner(false, false),
+        ),
         // Recognized text overlay
         Positioned(
           left: 40.0,
@@ -1243,7 +1261,9 @@ Widget _sectionTitle(String text) {
   return Container(
     padding: EdgeInsets.fromLTRB(12.0, 6.0, 0.0, 6.0),
     decoration: BoxDecoration(
-      border: Border(left: BorderSide(color: Color(0xFFBF5AF2), width: 4.0)),
+      border: Border(
+        left: BorderSide(color: Color(0xFFBF5AF2), width: 4.0),
+      ),
     ),
     child: Text(
       text,
@@ -1262,7 +1282,11 @@ Widget _intro(String text) {
     padding: EdgeInsets.symmetric(vertical: 6.0),
     child: Text(
       text,
-      style: TextStyle(color: Color(0xFFCFCFD3), fontSize: 12.0, height: 1.5),
+      style: TextStyle(
+        color: Color(0xFFCFCFD3),
+        fontSize: 12.0,
+        height: 1.5,
+      ),
     ),
   );
 }
@@ -1335,8 +1359,14 @@ Widget _catalogCard({
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: highlighted
-            ? [accent.withValues(alpha: 0.30), accent.withValues(alpha: 0.10)]
-            : [Color(0xFF2C2C2E), Color(0xFF1C1C1E)],
+            ? [
+                accent.withValues(alpha: 0.30),
+                accent.withValues(alpha: 0.10),
+              ]
+            : [
+                Color(0xFF2C2C2E),
+                Color(0xFF1C1C1E),
+              ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1377,7 +1407,10 @@ Widget _catalogCard({
             SizedBox(width: 10.0),
             if (highlighted)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 6.0,
+                  vertical: 2.0,
+                ),
                 decoration: BoxDecoration(
                   color: accent,
                   borderRadius: BorderRadius.circular(4.0),
@@ -1523,7 +1556,11 @@ Widget _pipelineRow(
 }
 
 Map<String, Object> _menuRow(String label, IconData icon, bool focus) {
-  return <String, Object>{'label': label, 'icon': icon, 'focus': focus};
+  return <String, Object>{
+    'label': label,
+    'icon': icon,
+    'focus': focus,
+  };
 }
 
 Widget _systemMenuMockup({
@@ -1662,7 +1699,8 @@ Widget _menuItemRow(
             ),
           ),
         ),
-        if (focus) Icon(Icons.arrow_forward_ios, color: color, size: 12.0),
+        if (focus)
+          Icon(Icons.arrow_forward_ios, color: color, size: 12.0),
       ],
     ),
   );
@@ -1760,7 +1798,9 @@ Widget _timelineRow(String year, String label, String note, bool on) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 3.0),
+      ),
     ),
     child: Row(
       children: [
@@ -1807,7 +1847,11 @@ Widget _timelineRow(String year, String label, String note, bool on) {
             ],
           ),
         ),
-        Icon(on ? Icons.check_circle : Icons.cancel, color: color, size: 18.0),
+        Icon(
+          on ? Icons.check_circle : Icons.cancel,
+          color: color,
+          size: 18.0,
+        ),
       ],
     ),
   );
@@ -1819,7 +1863,9 @@ Widget _codeBlock(String code, Color accent) {
     decoration: BoxDecoration(
       color: Color(0xFF050507),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(left: BorderSide(color: accent, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: accent, width: 3.0),
+      ),
     ),
     child: Text(
       code,

@@ -368,7 +368,10 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 Text(
                   'risk',
-                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
@@ -517,7 +520,8 @@ dynamic build(BuildContext context) {
               colorA: Colors.indigo.shade400,
               colorB: Colors.indigo.shade900,
               hidden: false,
-              detail: 'Visible unless any sibling marks the tree as sensitive.',
+              detail:
+                  'Visible unless any sibling marks the tree as sensitive.',
             ),
             _mirrorTile(
               caption: 'sensitive',
@@ -939,7 +943,10 @@ dynamic build(BuildContext context) {
               anatomy,
               _sectionHeader('2. Per-value cards', Icons.style),
               const SizedBox(height: 8.0),
-              Wrap(alignment: WrapAlignment.center, children: valueCards),
+              Wrap(
+                alignment: WrapAlignment.center,
+                children: valueCards,
+              ),
               const SizedBox(height: 16.0),
               _sectionHeader('3. Mock screenshots', Icons.smartphone),
               const SizedBox(height: 8.0),
@@ -1154,7 +1161,10 @@ Widget _bankingBody({required bool redacted, required double opacity}) {
           ),
           const SizedBox(height: 4.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 6.0,
+            ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: <Color>[Colors.indigo.shade400, Colors.indigo.shade700],
@@ -1270,7 +1280,11 @@ Widget _redactOverlay({required double opacity}) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.shield_moon, color: Colors.red.shade300, size: 36.0),
+            Icon(
+              Icons.shield_moon,
+              color: Colors.red.shade300,
+              size: 36.0,
+            ),
             const SizedBox(height: 6.0),
             Text(
               'CONTENT HIDDEN',
@@ -1284,7 +1298,10 @@ Widget _redactOverlay({required double opacity}) {
             const SizedBox(height: 2.0),
             Text(
               'FLAG_SECURE active',
-              style: TextStyle(color: Colors.grey.shade400, fontSize: 9.0),
+              style: TextStyle(
+                color: Colors.grey.shade400,
+                fontSize: 9.0,
+              ),
             ),
           ],
         ),
@@ -1295,7 +1312,10 @@ Widget _redactOverlay({required double opacity}) {
 
 Widget _noneOverlay({required double opacity}) {
   return IgnorePointer(
-    child: Opacity(opacity: opacity, child: const SizedBox.shrink()),
+    child: Opacity(
+      opacity: opacity,
+      child: const SizedBox.shrink(),
+    ),
   );
 }
 
@@ -1398,7 +1418,10 @@ Widget _matrixRow(String label, List<bool> values, List<Color> colors) {
           width: 160.0,
           child: Text(
             label,
-            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade900),
+            style: TextStyle(
+              fontSize: 11.0,
+              color: Colors.grey.shade900,
+            ),
           ),
         ),
         for (int i = 0; i < values.length; i++)

@@ -101,9 +101,9 @@ dynamic build(BuildContext context) {
         _dfInfoBox(
           'Directional vs Sequential',
           'Sequential focus (Tab/Shift+Tab) follows a predefined order. '
-              'Directional focus (arrow keys) uses spatial proximity — the '
-              'nearest widget in the arrow direction gets focus. This is '
-              'critical for grid layouts, TV remotes, and game controllers.',
+          'Directional focus (arrow keys) uses spatial proximity — the '
+          'nearest widget in the arrow direction gets focus. This is '
+          'critical for grid layouts, TV remotes, and game controllers.',
         ),
         const SizedBox(height: 24),
 
@@ -310,7 +310,9 @@ dynamic build(BuildContext context) {
 
         // ── 9. Edge Cases ──
         _dfSection('9. Edge Cases & Boundary Behavior'),
-        _dfBody('Several edge cases affect directional focus behavior:'),
+        _dfBody(
+          'Several edge cases affect directional focus behavior:',
+        ),
         const SizedBox(height: 12),
         _buildEdgeCasesGrid(),
         const SizedBox(height: 24),
@@ -352,12 +354,17 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [_dfNavy.withValues(alpha: 0.08), _dfSilver],
+              colors: [
+                _dfNavy.withValues(alpha: 0.08),
+                _dfSilver,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: _dfNavy.withValues(alpha: 0.25)),
+            border: Border.all(
+              color: _dfNavy.withValues(alpha: 0.25),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,10 +389,7 @@ dynamic build(BuildContext context) {
               _dfSummaryRow('Algorithm', 'Geometry-based nearest-neighbor'),
               _dfSummaryRow('Scope', 'Constrained by FocusScope boundaries'),
               _dfSummaryRow('Policies', 'WidgetOrder, ReadingOrder, custom'),
-              _dfSummaryRow(
-                'Text Fields',
-                'Optionally skipped (ignoreTextFields)',
-              ),
+              _dfSummaryRow('Text Fields', 'Optionally skipped (ignoreTextFields)'),
               _dfSummaryRow('Use Cases', 'Grids, TV apps, dashboards, games'),
             ],
           ),
@@ -416,7 +420,11 @@ Widget _dfSection(String title) {
 Widget _dfBody(String text) {
   return Text(
     text,
-    style: TextStyle(color: _dfBlack, fontSize: 15, height: 1.6),
+    style: TextStyle(
+      color: _dfBlack,
+      fontSize: 15,
+      height: 1.6,
+    ),
   );
 }
 
@@ -469,7 +477,11 @@ Widget _dfInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(color: _dfBlack, fontSize: 14, height: 1.5),
+          style: TextStyle(
+            color: _dfBlack,
+            fontSize: 14,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -496,7 +508,11 @@ Widget _dfSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: _dfBlack, fontSize: 13, height: 1.4),
+            style: TextStyle(
+              color: _dfBlack,
+              fontSize: 13,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -556,7 +572,8 @@ Widget _buildFocusDirectionGrid() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(d['icon'] as IconData, color: d['color'] as Color, size: 28),
+              Icon(d['icon'] as IconData,
+                  color: d['color'] as Color, size: 28),
               const SizedBox(height: 8),
               Text(
                 d['dir'] as String,
@@ -728,16 +745,14 @@ Widget _buildFocusScopeDiagram() {
                 spacing: 8,
                 runSpacing: 6,
                 children: [
-                  for (var child in (scopes[i]['children'] as List<String>))
+                  for (var child
+                      in (scopes[i]['children'] as List<String>))
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
+                          horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
-                        color: (scopes[i]['color'] as Color).withValues(
-                          alpha: 0.1,
-                        ),
+                        color: (scopes[i]['color'] as Color)
+                            .withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
@@ -757,7 +772,8 @@ Widget _buildFocusScopeDiagram() {
         if (i < scopes.length - 1)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Icon(Icons.arrow_downward, color: _dfDivider, size: 18),
+            child: Icon(Icons.arrow_downward,
+                color: _dfDivider, size: 18),
           ),
       ],
     ],
@@ -766,26 +782,10 @@ Widget _buildFocusScopeDiagram() {
 
 Widget _buildTraversalPolicyTable() {
   final policies = <List<String>>[
-    [
-      'WidgetOrderTraversalPolicy',
-      'Follow widget tree order',
-      'Default for most layouts',
-    ],
-    [
-      'ReadingOrderTraversalPolicy',
-      'Follow reading direction',
-      'LTR/RTL aware ordering',
-    ],
-    [
-      'OrderedTraversalPolicy',
-      'Explicit numeric order',
-      'FocusOrder annotations',
-    ],
-    [
-      'DirectionalFocusTraversalPolicyMixin',
-      'Geometry-based',
-      'Base for custom spatial',
-    ],
+    ['WidgetOrderTraversalPolicy', 'Follow widget tree order', 'Default for most layouts'],
+    ['ReadingOrderTraversalPolicy', 'Follow reading direction', 'LTR/RTL aware ordering'],
+    ['OrderedTraversalPolicy', 'Explicit numeric order', 'FocusOrder annotations'],
+    ['DirectionalFocusTraversalPolicyMixin', 'Geometry-based', 'Base for custom spatial'],
   ];
 
   return Container(
@@ -801,42 +801,26 @@ Widget _buildTraversalPolicyTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _dfNavy.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(9),
+            ),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 5,
-                child: Text(
-                  'Policy',
-                  style: TextStyle(
-                    color: _dfNavy,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Policy', style: TextStyle(
+                  color: _dfNavy, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 4,
-                child: Text(
-                  'Strategy',
-                  style: TextStyle(
-                    color: _dfNavy,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Strategy', style: TextStyle(
+                  color: _dfNavy, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 4,
-                child: Text(
-                  'Use Case',
-                  style: TextStyle(
-                    color: _dfNavy,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Use Case', style: TextStyle(
+                  color: _dfNavy, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -852,29 +836,19 @@ Widget _buildTraversalPolicyTable() {
               children: [
                 Expanded(
                   flex: 5,
-                  child: Text(
-                    row[0],
-                    style: TextStyle(
-                      color: _dfDarkNavy,
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text(row[0], style: TextStyle(
+                    color: _dfDarkNavy, fontSize: 11,
+                    fontFamily: 'monospace', fontWeight: FontWeight.w600)),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(
-                    row[1],
-                    style: TextStyle(color: _dfBlack, fontSize: 12),
-                  ),
+                  child: Text(row[1], style: TextStyle(
+                    color: _dfBlack, fontSize: 12)),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(
-                    row[2],
-                    style: TextStyle(color: _dfMuted, fontSize: 12),
-                  ),
+                  child: Text(row[2], style: TextStyle(
+                    color: _dfMuted, fontSize: 12)),
                 ),
               ],
             ),
@@ -903,15 +877,13 @@ Widget _buildTextFieldInteraction() {
                 children: [
                   Icon(Icons.check_circle, color: _dfSuccess, size: 16),
                   const SizedBox(width: 6),
-                  Text(
-                    'ignoreTextFields: true',
-                    style: TextStyle(
-                      color: _dfSuccess,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  Text('ignoreTextFields: true',
+                      style: TextStyle(
+                        color: _dfSuccess,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'monospace',
+                      )),
                 ],
               ),
               const SizedBox(height: 8),
@@ -919,7 +891,8 @@ Widget _buildTextFieldInteraction() {
                 'Arrow keys are consumed by the text field for '
                 'cursor movement. Focus stays in the field. '
                 'This is the default behavior.',
-                style: TextStyle(color: _dfBlack, fontSize: 12, height: 1.4),
+                style: TextStyle(
+                  color: _dfBlack, fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -941,15 +914,13 @@ Widget _buildTextFieldInteraction() {
                 children: [
                   Icon(Icons.warning_amber, color: _dfWarning, size: 16),
                   const SizedBox(width: 6),
-                  Text(
-                    'ignoreTextFields: false',
-                    style: TextStyle(
-                      color: _dfWarning,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  Text('ignoreTextFields: false',
+                      style: TextStyle(
+                        color: _dfWarning,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'monospace',
+                      )),
                 ],
               ),
               const SizedBox(height: 8),
@@ -957,7 +928,8 @@ Widget _buildTextFieldInteraction() {
                 'Arrow keys navigate focus away from text field. '
                 'User cannot use arrows for text cursor. '
                 'Rarely desired.',
-                style: TextStyle(color: _dfBlack, fontSize: 12, height: 1.4),
+                style: TextStyle(
+                  color: _dfBlack, fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -995,14 +967,18 @@ Widget _buildGridNavigationDemo() {
                 Expanded(
                   child: Container(
                     height: 50,
-                    margin: EdgeInsets.only(right: col < 2 ? 6 : 0),
+                    margin: EdgeInsets.only(
+                      right: col < 2 ? 6 : 0,
+                    ),
                     decoration: BoxDecoration(
                       color: (row == 1 && col == 1)
                           ? _dfNavy.withValues(alpha: 0.15)
                           : _dfWhite,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: (row == 1 && col == 1) ? _dfNavy : _dfDivider,
+                        color: (row == 1 && col == 1)
+                            ? _dfNavy
+                            : _dfDivider,
                         width: (row == 1 && col == 1) ? 2 : 1,
                       ),
                     ),
@@ -1010,7 +986,9 @@ Widget _buildGridNavigationDemo() {
                       child: Text(
                         '${row * 3 + col + 1}',
                         style: TextStyle(
-                          color: (row == 1 && col == 1) ? _dfNavy : _dfMuted,
+                          color: (row == 1 && col == 1)
+                              ? _dfNavy
+                              : _dfMuted,
                           fontSize: 16,
                           fontWeight: (row == 1 && col == 1)
                               ? FontWeight.bold
@@ -1029,7 +1007,11 @@ Widget _buildGridNavigationDemo() {
         Text(
           'Cell 5 is focused. Arrow keys move to adjacent cells. '
           'Up \u2192 2, Down \u2192 8, Left \u2192 4, Right \u2192 6.',
-          style: TextStyle(color: _dfMuted, fontSize: 12, height: 1.4),
+          style: TextStyle(
+            color: _dfMuted,
+            fontSize: 12,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -1096,11 +1078,8 @@ Widget _buildEdgeCasesGrid() {
             children: [
               Row(
                 children: [
-                  Icon(
-                    c['icon'] as IconData,
-                    color: c['color'] as Color,
-                    size: 18,
-                  ),
+                  Icon(c['icon'] as IconData,
+                      color: c['color'] as Color, size: 18),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -1117,7 +1096,11 @@ Widget _buildEdgeCasesGrid() {
               const SizedBox(height: 6),
               Text(
                 c['behavior'] as String,
-                style: TextStyle(color: _dfBlack, fontSize: 11, height: 1.3),
+                style: TextStyle(
+                  color: _dfBlack,
+                  fontSize: 11,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -1169,11 +1152,8 @@ Widget _buildPlatformFocusTable() {
           ),
           child: Row(
             children: [
-              Icon(
-                platforms[i]['icon'] as IconData,
-                color: platforms[i]['color'] as Color,
-                size: 22,
-              ),
+              Icon(platforms[i]['icon'] as IconData,
+                  color: platforms[i]['color'] as Color, size: 22),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1191,10 +1171,7 @@ Widget _buildPlatformFocusTable() {
                     Text(
                       platforms[i]['behavior'] as String,
                       style: TextStyle(
-                        color: _dfBlack,
-                        fontSize: 12,
-                        height: 1.4,
-                      ),
+                        color: _dfBlack, fontSize: 12, height: 1.4),
                     ),
                   ],
                 ),
@@ -1212,29 +1189,25 @@ Widget _buildAccessibilityIntegration() {
   final features = <Map<String, dynamic>>[
     {
       'feature': 'Keyboard Navigation',
-      'desc':
-          'Users who cannot use a mouse rely on arrow keys for '
+      'desc': 'Users who cannot use a mouse rely on arrow keys for '
           'spatial navigation between interactive elements',
       'icon': Icons.keyboard,
     },
     {
       'feature': 'Switch Access',
-      'desc':
-          'Assistive devices that emit directional signals '
+      'desc': 'Assistive devices that emit directional signals '
           'map to DirectionalFocusIntent automatically',
       'icon': Icons.accessibility,
     },
     {
       'feature': 'Focus Indicators',
-      'desc':
-          'Visible focus rings must update when focus moves '
+      'desc': 'Visible focus rings must update when focus moves '
           'directionally to show the user where they are',
       'icon': Icons.radio_button_checked,
     },
     {
       'feature': 'Screen Reader Announcements',
-      'desc':
-          'Focus changes trigger semantics announcements '
+      'desc': 'Focus changes trigger semantics announcements '
           'for the newly focused widget',
       'icon': Icons.record_voice_over,
     },
@@ -1253,7 +1226,8 @@ Widget _buildAccessibilityIntegration() {
           ),
           child: Row(
             children: [
-              Icon(features[i]['icon'] as IconData, color: _dfNavy, size: 20),
+              Icon(features[i]['icon'] as IconData,
+                  color: _dfNavy, size: 20),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1271,10 +1245,7 @@ Widget _buildAccessibilityIntegration() {
                     Text(
                       features[i]['desc'] as String,
                       style: TextStyle(
-                        color: _dfBlack,
-                        fontSize: 12,
-                        height: 1.4,
-                      ),
+                        color: _dfBlack, fontSize: 12, height: 1.4),
                     ),
                   ],
                 ),

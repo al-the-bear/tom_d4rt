@@ -126,8 +126,7 @@ dynamic build(BuildContext context) {
       'cut': true,
       'paste': true,
       'selectAll': false,
-      'note':
-          'Select All is hidden because the entire content is already selected.',
+      'note': 'Select All is hidden because the entire content is already selected.',
     },
     <String, dynamic>{
       'state': 'Selection in read-only field',
@@ -135,8 +134,7 @@ dynamic build(BuildContext context) {
       'cut': false,
       'paste': false,
       'selectAll': true,
-      'note':
-          'Cut and Paste suppressed because read-only fields cannot mutate.',
+      'note': 'Cut and Paste suppressed because read-only fields cannot mutate.',
     },
     <String, dynamic>{
       'state': 'Empty read-only field',
@@ -179,15 +177,11 @@ dynamic build(BuildContext context) {
         'Line three: try Select All to highlight everything.\n'
         'Line four: the desktop strip stays anchored on top.',
   );
-  final passwordController = TextEditingController(
-    text: 'sup3r-s3cret-passphrase',
-  );
+  final passwordController = TextEditingController(text: 'sup3r-s3cret-passphrase');
   final searchController = TextEditingController(
     text: 'CupertinoDesktopTextSelectionControls',
   );
-  final emailController = TextEditingController(
-    text: 'engineer@tomframework.dev',
-  );
+  final emailController = TextEditingController(text: 'engineer@tomframework.dev');
   final numericController = TextEditingController(text: '0123456789');
   final scriptController = TextEditingController(
     text:
@@ -259,10 +253,7 @@ dynamic build(BuildContext context) {
                       'The macOS / Windows / Linux text-selection toolbar for '
                       'CupertinoTextField, exposed as the singleton '
                       'cupertinoDesktopTextSelectionControls.',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Color(0xFFE0E1DD),
-                      ),
+                      style: TextStyle(fontSize: 14.0, color: Color(0xFFE0E1DD)),
                     ),
                     const SizedBox(height: 14.0),
                     Wrap(
@@ -290,10 +281,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFEFF6FF),
                   borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(
-                    color: const Color(0xFF93C5FD),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFF93C5FD), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -358,10 +346,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFF7ED),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFFFDBA74),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFFDBA74), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -428,10 +413,7 @@ dynamic build(BuildContext context) {
                       child: const Text(
                         'Look for: a single horizontal bar of buttons above the '
                         'caret, with NO drag-handle bubbles below the selection.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Color(0xFF7C2D12),
-                        ),
+                        style: TextStyle(fontSize: 12.5, color: Color(0xFF7C2D12)),
                       ),
                     ),
                   ],
@@ -449,10 +431,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFDF2F8),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFFF9A8D4),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFF9A8D4), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -504,8 +483,7 @@ dynamic build(BuildContext context) {
                       labelColor: const Color(0xFF831843),
                       child: CupertinoTextField(
                         controller: compareDesktopController,
-                        selectionControls:
-                            cupertinoDesktopTextSelectionControls,
+                        selectionControls: cupertinoDesktopTextSelectionControls,
                         style: const TextStyle(fontSize: 13.5),
                         padding: const EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
@@ -542,10 +520,7 @@ dynamic build(BuildContext context) {
                         'Compare: the desktop variant draws zero pixels of handle, '
                         'so getHandleSize returns Size.zero. The touch variant '
                         'draws bubble grips that you can drag to extend the selection.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Color(0xFF831843),
-                        ),
+                        style: TextStyle(fontSize: 12.5, color: Color(0xFF831843)),
                       ),
                     ),
                   ],
@@ -563,10 +538,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFECFDF5),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFF6EE7B7),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFF6EE7B7), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -729,10 +701,7 @@ dynamic build(BuildContext context) {
                         'Look for: identical anchor outputs across scales because the '
                         'desktop control draws no scaled handle. Compare against the '
                         'touch column to see the cost of bubble grips.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Color(0xFF065F46),
-                        ),
+                        style: TextStyle(fontSize: 12.5, color: Color(0xFF065F46)),
                       ),
                     ),
                   ],
@@ -750,10 +719,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFBEB),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFFFCD34D),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFFCD34D), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -868,10 +834,7 @@ dynamic build(BuildContext context) {
                       'The snippet above is itself an editable field bound to the '
                       'desktop controls. Selecting the source shows the menu strip in '
                       'a code-styled context.',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Color(0xFF78350F),
-                      ),
+                      style: TextStyle(fontSize: 12.0, color: Color(0xFF78350F)),
                     ),
                   ],
                 ),
@@ -888,10 +851,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFEDE9FE),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFFC4B5FD),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFC4B5FD), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -963,8 +923,14 @@ dynamic build(BuildContext context) {
                                 spacing: 6.0,
                                 runSpacing: 6.0,
                                 children: <Widget>[
-                                  _capabilityChip('Copy', row['copy'] as bool),
-                                  _capabilityChip('Cut', row['cut'] as bool),
+                                  _capabilityChip(
+                                    'Copy',
+                                    row['copy'] as bool,
+                                  ),
+                                  _capabilityChip(
+                                    'Cut',
+                                    row['cut'] as bool,
+                                  ),
                                   _capabilityChip(
                                     'Paste',
                                     row['paste'] as bool,
@@ -1003,10 +969,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFE0F2FE),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFF7DD3FC),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFF7DD3FC), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1059,8 +1022,7 @@ dynamic build(BuildContext context) {
                       labelColor: const Color(0xFF075985),
                       child: CupertinoTextField(
                         controller: shareController,
-                        selectionControls:
-                            cupertinoDesktopTextSelectionControls,
+                        selectionControls: cupertinoDesktopTextSelectionControls,
                         maxLines: 2,
                         style: const TextStyle(fontSize: 13.0),
                         padding: const EdgeInsets.all(10.0),
@@ -1077,8 +1039,7 @@ dynamic build(BuildContext context) {
                       labelColor: const Color(0xFF075985),
                       child: CupertinoTextField(
                         controller: readOnlyController,
-                        selectionControls:
-                            cupertinoDesktopTextSelectionControls,
+                        selectionControls: cupertinoDesktopTextSelectionControls,
                         readOnly: true,
                         maxLines: 2,
                         style: const TextStyle(fontSize: 13.0),
@@ -1101,10 +1062,7 @@ dynamic build(BuildContext context) {
                         'Look for: identical menu strip styling, but a reduced button '
                         'set in the read-only field. The controls object decides which '
                         'buttons to render based on the field\'s editable state.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Color(0xFF075985),
-                        ),
+                        style: TextStyle(fontSize: 12.5, color: Color(0xFF075985)),
                       ),
                     ),
                   ],
@@ -1122,10 +1080,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFEF2F2),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFFFCA5A5),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFFCA5A5), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1208,10 +1163,7 @@ dynamic build(BuildContext context) {
                         'Look for: a single horizontal strip even when the selection '
                         'crosses several wrapped lines. The toolbar tracks the '
                         'selection extent, not the anchor.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Color(0xFF7F1D1D),
-                        ),
+                        style: TextStyle(fontSize: 12.5, color: Color(0xFF7F1D1D)),
                       ),
                     ),
                   ],
@@ -1229,10 +1181,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFF0FDFA),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFF5EEAD4),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFF5EEAD4), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1284,8 +1233,7 @@ dynamic build(BuildContext context) {
                       labelColor: const Color(0xFF134E4A),
                       child: CupertinoTextField(
                         controller: passwordController,
-                        selectionControls:
-                            cupertinoDesktopTextSelectionControls,
+                        selectionControls: cupertinoDesktopTextSelectionControls,
                         obscureText: true,
                         style: const TextStyle(fontSize: 13.0),
                         padding: const EdgeInsets.all(10.0),
@@ -1302,8 +1250,7 @@ dynamic build(BuildContext context) {
                       labelColor: const Color(0xFF134E4A),
                       child: CupertinoTextField(
                         controller: emailController,
-                        selectionControls:
-                            cupertinoDesktopTextSelectionControls,
+                        selectionControls: cupertinoDesktopTextSelectionControls,
                         keyboardType: TextInputType.emailAddress,
                         style: const TextStyle(fontSize: 13.0),
                         padding: const EdgeInsets.all(10.0),
@@ -1320,8 +1267,7 @@ dynamic build(BuildContext context) {
                       labelColor: const Color(0xFF134E4A),
                       child: CupertinoTextField(
                         controller: numericController,
-                        selectionControls:
-                            cupertinoDesktopTextSelectionControls,
+                        selectionControls: cupertinoDesktopTextSelectionControls,
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly,
@@ -1341,8 +1287,7 @@ dynamic build(BuildContext context) {
                       labelColor: const Color(0xFF134E4A),
                       child: CupertinoTextField(
                         controller: searchController,
-                        selectionControls:
-                            cupertinoDesktopTextSelectionControls,
+                        selectionControls: cupertinoDesktopTextSelectionControls,
                         placeholder: 'Search Tom Framework symbols...',
                         prefix: const Padding(
                           padding: EdgeInsets.only(left: 8.0),
@@ -1373,10 +1318,7 @@ dynamic build(BuildContext context) {
                         'a selection. The numeric field rejects pasted non-digit content '
                         'because the FilteringTextInputFormatter still applies after '
                         'Paste runs through the desktop toolbar handler.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Color(0xFF134E4A),
-                        ),
+                        style: TextStyle(fontSize: 12.5, color: Color(0xFF134E4A)),
                       ),
                     ),
                   ],
@@ -1394,10 +1336,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFF1F2),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFFFDA4AF),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFFDA4AF), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1478,8 +1417,7 @@ dynamic build(BuildContext context) {
                       colorBg: const Color(0xFFFFE4E6),
                     ),
                     _hookCard(
-                      title:
-                          'handleCopy / handleCut / handlePaste / handleSelectAll',
+                      title: 'handleCopy / handleCut / handlePaste / handleSelectAll',
                       description:
                           'Inherited from TextSelectionControls. The desktop toolbar '
                           'invokes these on the supplied delegate to mutate the field\'s '
@@ -1504,10 +1442,7 @@ dynamic build(BuildContext context) {
                       'Try: select "polymorphism" with the mouse, watch buildToolbar '
                       'paint a strip; press Cut from the menu and observe handleCut '
                       'fire on the controls\' delegate.',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Color(0xFF881337),
-                      ),
+                      style: TextStyle(fontSize: 12.0, color: Color(0xFF881337)),
                     ),
                   ],
                 ),
@@ -1524,10 +1459,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFF5F3FF),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFFA78BFA),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFA78BFA), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1597,10 +1529,7 @@ dynamic build(BuildContext context) {
                         'Look for: a paste-only strip. The controls object decides which '
                         'buttons to render based on TextSelectionDelegate state, not on '
                         'a separate flag passed by the field.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Color(0xFF4C1D95),
-                        ),
+                        style: TextStyle(fontSize: 12.5, color: Color(0xFF4C1D95)),
                       ),
                     ),
                   ],
@@ -1618,10 +1547,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFAEB),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(
-                    color: const Color(0xFFFDE68A),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: const Color(0xFFFDE68A), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1747,23 +1673,14 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     const SizedBox(height: 12.0),
-                    _cheatRow(
-                      'singleton',
-                      'cupertinoDesktopTextSelectionControls',
-                    ),
+                    _cheatRow('singleton', 'cupertinoDesktopTextSelectionControls'),
                     _cheatRow('class', 'CupertinoDesktopTextSelectionControls'),
                     _cheatRow('library', 'package:flutter/cupertino.dart'),
-                    _cheatRow(
-                      'parent',
-                      'TextSelectionControls (mixin/abstract)',
-                    ),
+                    _cheatRow('parent', 'TextSelectionControls (mixin/abstract)'),
                     _cheatRow('handle', 'none — getHandleSize() = Size.zero'),
                     _cheatRow('toolbar', 'horizontal menu strip above caret'),
                     _cheatRow('default on', 'macOS / Linux / Windows desktop'),
-                    _cheatRow(
-                      'use with',
-                      'CupertinoTextField.selectionControls',
-                    ),
+                    _cheatRow('use with', 'CupertinoTextField.selectionControls'),
                     const SizedBox(height: 14.0),
                     Container(
                       padding: const EdgeInsets.all(10.0),

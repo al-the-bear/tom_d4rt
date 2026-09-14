@@ -112,7 +112,10 @@ Widget buildPredictiveBackOverviewSection() {
                   SizedBox(height: 4),
                   Text(
                     'Android 14+ Navigation Feature',
-                    style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
@@ -144,21 +147,13 @@ Widget buildPredictiveBackOverviewSection() {
                 'that allows users to preview the destination before completing a back navigation. '
                 'As the user swipes from the edge of the screen, they see a preview of where they will '
                 'go if they complete the gesture.',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey.shade700,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade700, height: 1.5),
               ),
             ],
           ),
         ),
         SizedBox(height: 16),
-        buildSubsectionTitle(
-          'Key Concepts',
-          Icons.lightbulb,
-          Colors.amber.shade700,
-        ),
+        buildSubsectionTitle('Key Concepts', Icons.lightbulb, Colors.amber.shade700),
         _buildConceptCard(
           'Gesture Preview',
           'Users see a visual preview of the previous screen as they swipe back',
@@ -184,11 +179,7 @@ Widget buildPredictiveBackOverviewSection() {
           Colors.purple,
         ),
         SizedBox(height: 16),
-        buildSubsectionTitle(
-          'Platform Requirements',
-          Icons.android,
-          Colors.green.shade700,
-        ),
+        buildSubsectionTitle('Platform Requirements', Icons.android, Colors.green.shade700),
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -197,16 +188,10 @@ Widget buildPredictiveBackOverviewSection() {
           ),
           child: Column(
             children: [
-              _buildRequirementRow(
-                'Minimum Android Version',
-                'Android 14 (API 34)',
-              ),
+              _buildRequirementRow('Minimum Android Version', 'Android 14 (API 34)'),
               _buildRequirementRow('Navigation Mode', 'Gesture Navigation'),
               _buildRequirementRow('Flutter Version', 'Flutter 3.16+'),
-              _buildRequirementRow(
-                'AndroidManifest Flag',
-                'enableOnBackInvokedCallback=true',
-              ),
+              _buildRequirementRow('AndroidManifest Flag', 'enableOnBackInvokedCallback=true'),
             ],
           ),
         ),
@@ -236,12 +221,7 @@ Widget buildPredictiveBackOverviewSection() {
   );
 }
 
-Widget _buildConceptCard(
-  String title,
-  String description,
-  IconData icon,
-  MaterialColor color,
-) {
+Widget _buildConceptCard(String title, String description, IconData icon, MaterialColor color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(12),
@@ -350,11 +330,7 @@ Widget buildPageTransitionsThemeSection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 16),
-        buildSubsectionTitle(
-          'Theme Setup Example',
-          Icons.code,
-          Colors.grey.shade700,
-        ),
+        buildSubsectionTitle('Theme Setup Example', Icons.code, Colors.grey.shade700),
         Container(
           padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
@@ -366,27 +342,12 @@ Widget buildPageTransitionsThemeSection() {
             children: [
               _buildCodeLine('MaterialApp(', Colors.yellow.shade300),
               _buildCodeLine('  theme: ThemeData(', Colors.blue.shade300),
-              _buildCodeLine(
-                '    pageTransitionsTheme: PageTransitionsTheme(',
-                Colors.green.shade300,
-              ),
+              _buildCodeLine('    pageTransitionsTheme: PageTransitionsTheme(', Colors.green.shade300),
               _buildCodeLine('      builders: {', Colors.cyan.shade300),
-              _buildCodeLine(
-                '        TargetPlatform.android:',
-                Colors.orange.shade300,
-              ),
-              _buildCodeLine(
-                '          PredictiveBackFullscreenPageTransitionsBuilder(),',
-                Colors.pink.shade300,
-              ),
-              _buildCodeLine(
-                '        TargetPlatform.iOS:',
-                Colors.orange.shade300,
-              ),
-              _buildCodeLine(
-                '          CupertinoPageTransitionsBuilder(),',
-                Colors.pink.shade300,
-              ),
+              _buildCodeLine('        TargetPlatform.android:', Colors.orange.shade300),
+              _buildCodeLine('          PredictiveBackFullscreenPageTransitionsBuilder(),', Colors.pink.shade300),
+              _buildCodeLine('        TargetPlatform.iOS:', Colors.orange.shade300),
+              _buildCodeLine('          CupertinoPageTransitionsBuilder(),', Colors.pink.shade300),
               _buildCodeLine('      },', Colors.cyan.shade300),
               _buildCodeLine('    ),', Colors.green.shade300),
               _buildCodeLine('  ),', Colors.blue.shade300),
@@ -395,11 +356,7 @@ Widget buildPageTransitionsThemeSection() {
           ),
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Platform Builder Mapping',
-          Icons.devices,
-          Colors.teal.shade700,
-        ),
+        buildSubsectionTitle('Platform Builder Mapping', Icons.devices, Colors.teal.shade700),
         _buildPlatformMappingCard(
           'Android',
           'PredictiveBackFullscreenPageTransitionsBuilder',
@@ -453,10 +410,7 @@ Widget buildPageTransitionsThemeSection() {
                 ),
               ),
               SizedBox(height: 8),
-              buildInfoCard(
-                'builders',
-                'Map<TargetPlatform, PageTransitionsBuilder>',
-              ),
+              buildInfoCard('builders', 'Map<TargetPlatform, PageTransitionsBuilder>'),
             ],
           ),
         ),
@@ -470,17 +424,16 @@ Widget _buildCodeLine(String code, Color color) {
     padding: EdgeInsets.symmetric(vertical: 1),
     child: Text(
       code,
-      style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: color),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11,
+        color: color,
+      ),
     ),
   );
 }
 
-Widget _buildPlatformMappingCard(
-  String platform,
-  String builder,
-  IconData icon,
-  MaterialColor color,
-) {
+Widget _buildPlatformMappingCard(String platform, String builder, IconData icon, MaterialColor color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(10),
@@ -603,11 +556,7 @@ Widget buildTransitionBuildersComparisonSection() {
           false,
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Visual Comparison',
-          Icons.visibility,
-          Colors.purple.shade700,
-        ),
+        buildSubsectionTitle('Visual Comparison', Icons.visibility, Colors.purple.shade700),
         Container(
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -616,37 +565,13 @@ Widget buildTransitionBuildersComparisonSection() {
           ),
           child: Column(
             children: [
-              _buildComparisonRow('Animation Type', [
-                'Preview',
-                'Fade',
-                'Open',
-                'Zoom',
-                'Slide',
-              ]),
+              _buildComparisonRow('Animation Type', ['Preview', 'Fade', 'Open', 'Zoom', 'Slide']),
               Divider(color: Colors.purple.shade200),
-              _buildComparisonRow('Gesture Driven', [
-                'Yes',
-                'No',
-                'No',
-                'No',
-                'Yes',
-              ]),
+              _buildComparisonRow('Gesture Driven', ['Yes', 'No', 'No', 'No', 'Yes']),
               Divider(color: Colors.purple.shade200),
-              _buildComparisonRow('Predictive', [
-                'Yes',
-                'No',
-                'No',
-                'No',
-                'No',
-              ]),
+              _buildComparisonRow('Predictive', ['Yes', 'No', 'No', 'No', 'No']),
               Divider(color: Colors.purple.shade200),
-              _buildComparisonRow('Duration (ms)', [
-                '300',
-                '300',
-                '300',
-                '300',
-                '400',
-              ]),
+              _buildComparisonRow('Duration (ms)', ['300', '300', '300', '300', '400']),
             ],
           ),
         ),
@@ -660,11 +585,7 @@ Widget buildTransitionBuildersComparisonSection() {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.tips_and_updates,
-                color: Colors.teal.shade700,
-                size: 22,
-              ),
+              Icon(Icons.tips_and_updates, color: Colors.teal.shade700, size: 22),
               SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -771,7 +692,10 @@ Widget _buildBuilderTag(String label, String value, MaterialColor color) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('$label: ', style: TextStyle(fontSize: 10, color: color.shade600)),
+        Text(
+          '$label: ',
+          style: TextStyle(fontSize: 10, color: color.shade600),
+        ),
         Text(
           value,
           style: TextStyle(
@@ -804,14 +728,10 @@ Widget _buildComparisonRow(String label, List<String> values) {
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: values
-                .map(
-                  (v) => Text(
-                    v,
-                    style: TextStyle(fontSize: 10, color: Colors.grey.shade700),
-                  ),
-                )
-                .toList(),
+            children: values.map((v) => Text(
+              v,
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade700),
+            )).toList(),
           ),
         ),
       ],
@@ -853,11 +773,7 @@ Widget buildNavigatorPushDemonstrationSection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Basic Navigation',
-          Icons.arrow_forward,
-          Colors.blue.shade700,
-        ),
+        buildSubsectionTitle('Basic Navigation', Icons.arrow_forward, Colors.blue.shade700),
         _buildNavigationExample(
           'Simple Push',
           'Navigator.push with MaterialPageRoute',
@@ -877,11 +793,7 @@ Widget buildNavigatorPushDemonstrationSection() {
           Colors.orange,
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Advanced Navigation',
-          Icons.account_tree,
-          Colors.purple.shade700,
-        ),
+        buildSubsectionTitle('Advanced Navigation', Icons.account_tree, Colors.purple.shade700),
         _buildNavigationExample(
           'Push and Remove Until',
           'Clear stack and push new route',
@@ -945,12 +857,7 @@ Widget buildNavigatorPushDemonstrationSection() {
   );
 }
 
-Widget _buildNavigationExample(
-  String title,
-  String description,
-  String code,
-  MaterialColor color,
-) {
+Widget _buildNavigationExample(String title, String description, String code, MaterialColor color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     decoration: BoxDecoration(
@@ -1072,11 +979,7 @@ Widget buildMaterialPageRouteCustomizationSection() {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.settings_applications,
-              color: Colors.orange.shade700,
-              size: 28,
-            ),
+            Icon(Icons.settings_applications, color: Colors.orange.shade700, size: 28),
             SizedBox(width: 12),
             Text(
               'MaterialPageRoute Customization',
@@ -1095,11 +998,7 @@ Widget buildMaterialPageRouteCustomizationSection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Route Properties',
-          Icons.tune,
-          Colors.orange.shade700,
-        ),
+        buildSubsectionTitle('Route Properties', Icons.tune, Colors.orange.shade700),
         _buildPropertyCard(
           'builder',
           'WidgetBuilder',
@@ -1137,11 +1036,7 @@ Widget buildMaterialPageRouteCustomizationSection() {
           Colors.pink,
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Custom Route Example',
-          Icons.code,
-          Colors.grey.shade700,
-        ),
+        buildSubsectionTitle('Custom Route Example', Icons.code, Colors.grey.shade700),
         Container(
           padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
@@ -1151,46 +1046,24 @@ Widget buildMaterialPageRouteCustomizationSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildCodeLine(
-                'MaterialPageRoute<void>(',
-                Colors.yellow.shade300,
-              ),
-              _buildCodeLine(
-                '  builder: (BuildContext context) {',
-                Colors.blue.shade300,
-              ),
-              _buildCodeLine(
-                '    return DetailsScreen(',
-                Colors.green.shade300,
-              ),
+              _buildCodeLine('MaterialPageRoute<void>(', Colors.yellow.shade300),
+              _buildCodeLine('  builder: (BuildContext context) {', Colors.blue.shade300),
+              _buildCodeLine('    return DetailsScreen(', Colors.green.shade300),
               _buildCodeLine('      itemId: itemId,', Colors.cyan.shade300),
               _buildCodeLine('    );', Colors.green.shade300),
               _buildCodeLine('  },', Colors.blue.shade300),
-              _buildCodeLine(
-                '  settings: RouteSettings(',
-                Colors.purple.shade300,
-              ),
+              _buildCodeLine('  settings: RouteSettings(', Colors.purple.shade300),
               _buildCodeLine('    name: \'/details\',', Colors.orange.shade300),
-              _buildCodeLine(
-                '    arguments: {\'id\': itemId},',
-                Colors.orange.shade300,
-              ),
+              _buildCodeLine('    arguments: {\'id\': itemId},', Colors.orange.shade300),
               _buildCodeLine('  ),', Colors.purple.shade300),
               _buildCodeLine('  maintainState: true,', Colors.pink.shade300),
-              _buildCodeLine(
-                '  fullscreenDialog: false,',
-                Colors.pink.shade300,
-              ),
+              _buildCodeLine('  fullscreenDialog: false,', Colors.pink.shade300),
               _buildCodeLine(')', Colors.yellow.shade300),
             ],
           ),
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Fullscreen Dialog Mode',
-          Icons.fullscreen,
-          Colors.indigo.shade700,
-        ),
+        buildSubsectionTitle('Fullscreen Dialog Mode', Icons.fullscreen, Colors.indigo.shade700),
         Container(
           padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
@@ -1210,27 +1083,15 @@ Widget buildMaterialPageRouteCustomizationSection() {
                 ),
               ),
               SizedBox(height: 10),
-              _buildDialogBehaviorItem(
-                'AppBar shows close button instead of back arrow',
-              ),
-              _buildDialogBehaviorItem(
-                'Transition animates from bottom on iOS',
-              ),
-              _buildDialogBehaviorItem(
-                'Predictive back still works on Android 14+',
-              ),
-              _buildDialogBehaviorItem(
-                'Route blocks gestures from underlying routes',
-              ),
+              _buildDialogBehaviorItem('AppBar shows close button instead of back arrow'),
+              _buildDialogBehaviorItem('Transition animates from bottom on iOS'),
+              _buildDialogBehaviorItem('Predictive back still works on Android 14+'),
+              _buildDialogBehaviorItem('Route blocks gestures from underlying routes'),
             ],
           ),
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Route Transitions Override',
-          Icons.swap_horiz,
-          Colors.red.shade700,
-        ),
+        buildSubsectionTitle('Route Transitions Override', Icons.swap_horiz, Colors.red.shade700),
         Container(
           padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
@@ -1264,30 +1125,12 @@ Widget buildMaterialPageRouteCustomizationSection() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildCodeLine(
-                      'PageRouteBuilder<void>(',
-                      Colors.yellow.shade300,
-                    ),
-                    _buildCodeLine(
-                      '  pageBuilder: (ctx, anim, anim2) => MyPage(),',
-                      Colors.blue.shade300,
-                    ),
-                    _buildCodeLine(
-                      '  transitionsBuilder: (ctx, anim, anim2, child) {',
-                      Colors.green.shade300,
-                    ),
-                    _buildCodeLine(
-                      '    return FadeTransition(',
-                      Colors.cyan.shade300,
-                    ),
-                    _buildCodeLine(
-                      '      opacity: anim,',
-                      Colors.orange.shade300,
-                    ),
-                    _buildCodeLine(
-                      '      child: child,',
-                      Colors.orange.shade300,
-                    ),
+                    _buildCodeLine('PageRouteBuilder<void>(', Colors.yellow.shade300),
+                    _buildCodeLine('  pageBuilder: (ctx, anim, anim2) => MyPage(),', Colors.blue.shade300),
+                    _buildCodeLine('  transitionsBuilder: (ctx, anim, anim2, child) {', Colors.green.shade300),
+                    _buildCodeLine('    return FadeTransition(', Colors.cyan.shade300),
+                    _buildCodeLine('      opacity: anim,', Colors.orange.shade300),
+                    _buildCodeLine('      child: child,', Colors.orange.shade300),
                     _buildCodeLine('    );', Colors.cyan.shade300),
                     _buildCodeLine('  },', Colors.green.shade300),
                     _buildCodeLine(')', Colors.yellow.shade300),
@@ -1302,12 +1145,7 @@ Widget buildMaterialPageRouteCustomizationSection() {
   );
 }
 
-Widget _buildPropertyCard(
-  String name,
-  String type,
-  String description,
-  MaterialColor color,
-) {
+Widget _buildPropertyCard(String name, String type, String description, MaterialColor color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(10),
@@ -1413,11 +1251,7 @@ Widget buildPredictiveBackAnimationSection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Transform Properties',
-          Icons.transform,
-          Colors.pink.shade700,
-        ),
+        buildSubsectionTitle('Transform Properties', Icons.transform, Colors.pink.shade700),
         _buildAnimationPropertyCard(
           'Scale',
           'Current page scales down as gesture progresses',
@@ -1443,11 +1277,7 @@ Widget buildPredictiveBackAnimationSection() {
           Colors.blue,
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Animation Timeline',
-          Icons.timeline,
-          Colors.teal.shade700,
-        ),
+        buildSubsectionTitle('Animation Timeline', Icons.timeline, Colors.teal.shade700),
         Container(
           padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
@@ -1456,29 +1286,13 @@ Widget buildPredictiveBackAnimationSection() {
           ),
           child: Column(
             children: [
-              _buildTimelineStep(
-                0,
-                'Idle',
-                'Page at normal position and scale',
-              ),
+              _buildTimelineStep(0, 'Idle', 'Page at normal position and scale'),
               _buildTimelineConnector(),
-              _buildTimelineStep(
-                1,
-                'Gesture Start',
-                'System detects back gesture',
-              ),
+              _buildTimelineStep(1, 'Gesture Start', 'System detects back gesture'),
               _buildTimelineConnector(),
-              _buildTimelineStep(
-                2,
-                'Preview Active',
-                'Previous page visible, current transforms',
-              ),
+              _buildTimelineStep(2, 'Preview Active', 'Previous page visible, current transforms'),
               _buildTimelineConnector(),
-              _buildTimelineStep(
-                3,
-                'Release',
-                'Animation completes or reverses',
-              ),
+              _buildTimelineStep(3, 'Release', 'Animation completes or reverses'),
             ],
           ),
         ),
@@ -1668,11 +1482,7 @@ Widget buildBackCompatibilitySection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 20),
-        buildSubsectionTitle(
-          'Fallback Behavior',
-          Icons.alt_route,
-          Colors.amber.shade700,
-        ),
+        buildSubsectionTitle('Fallback Behavior', Icons.alt_route, Colors.amber.shade700),
         Container(
           padding: EdgeInsets.all(14),
           decoration: BoxDecoration(
@@ -1734,11 +1544,7 @@ Widget buildBackCompatibilitySection() {
   );
 }
 
-Widget _buildFallbackRow(
-  String platform,
-  String behavior,
-  MaterialColor color,
-) {
+Widget _buildFallbackRow(String platform, String behavior, MaterialColor color) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8),
     child: Row(
@@ -1804,35 +1610,35 @@ Widget buildBestPracticesSection() {
         _buildPracticeCard(
           'Enable in AndroidManifest',
           'Set enableOnBackInvokedCallback to true in your AndroidManifest.xml '
-              'to enable predictive back support.',
+          'to enable predictive back support.',
           Icons.android,
           Colors.green,
         ),
         _buildPracticeCard(
           'Use MaterialPageRoute',
           'Stick to MaterialPageRoute for consistent transitions. Custom routes '
-              'may not integrate with predictive back.',
+          'may not integrate with predictive back.',
           Icons.route,
           Colors.blue,
         ),
         _buildPracticeCard(
           'Handle Back Callbacks',
           'Use PopScope widget to intercept back navigation when needed, ensuring '
-              'compatibility with predictive back.',
+          'compatibility with predictive back.',
           Icons.warning_amber,
           Colors.orange,
         ),
         _buildPracticeCard(
           'Test on Real Devices',
           'Emulators may not fully support predictive back. Test on Android 14+ '
-              'devices with gesture navigation.',
+          'devices with gesture navigation.',
           Icons.phone_android,
           Colors.purple,
         ),
         _buildPracticeCard(
           'Avoid Navigation Conflicts',
           'Ensure only one NavigatorState handles back gestures. Nested navigators '
-              'can cause unexpected behavior.',
+          'can cause unexpected behavior.',
           Icons.layers,
           Colors.red,
         ),
@@ -1841,12 +1647,7 @@ Widget buildBestPracticesSection() {
   );
 }
 
-Widget _buildPracticeCard(
-  String title,
-  String description,
-  IconData icon,
-  MaterialColor color,
-) {
+Widget _buildPracticeCard(String title, String description, IconData icon, MaterialColor color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(12),
@@ -1882,11 +1683,7 @@ Widget _buildPracticeCard(
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade700,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700, height: 1.4),
               ),
             ],
           ),
@@ -1897,10 +1694,8 @@ Widget _buildPracticeCard(
 }
 
 Widget buildMainContent() {
-  print(
-    'Building main content for PredictiveBackFullscreenPageTransitionsBuilder demo',
-  );
-
+  print('Building main content for PredictiveBackFullscreenPageTransitionsBuilder demo');
+  
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),
     child: Column(
@@ -1908,28 +1703,28 @@ Widget buildMainContent() {
       children: [
         buildSectionHeader('Predictive Back Concept Overview'),
         buildPredictiveBackOverviewSection(),
-
+        
         buildSectionHeader('PageTransitionsTheme Configuration'),
         buildPageTransitionsThemeSection(),
-
+        
         buildSectionHeader('Transition Builders Comparison'),
         buildTransitionBuildersComparisonSection(),
-
+        
         buildSectionHeader('Navigator.push Demonstrations'),
         buildNavigatorPushDemonstrationSection(),
-
+        
         buildSectionHeader('MaterialPageRoute Customization'),
         buildMaterialPageRouteCustomizationSection(),
-
+        
         buildSectionHeader('Animation Details'),
         buildPredictiveBackAnimationSection(),
-
+        
         buildSectionHeader('Backward Compatibility'),
         buildBackCompatibilitySection(),
-
+        
         buildSectionHeader('Best Practices'),
         buildBestPracticesSection(),
-
+        
         SizedBox(height: 24),
         Container(
           padding: EdgeInsets.all(16),
@@ -1963,7 +1758,10 @@ Widget buildMainContent() {
                 'Bringing modern Android 14+ predictive back gestures to Flutter applications '
                 'with fullscreen transition previews.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ],
           ),
@@ -1977,30 +1775,29 @@ Widget buildMainContent() {
 dynamic build(BuildContext context) {
   print('=== PredictiveBackFullscreenPageTransitionsBuilder Deep Demo ===');
   print('Testing page transition builder for Android predictive back gesture');
-
+  
   return MaterialApp(
-    title: 'PredictiveBackFullscreenPageTransitionsBuilder Demo',
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      primarySwatch: Colors.deepPurple,
-      scaffoldBackgroundColor: Colors.grey.shade200,
-      pageTransitionsTheme: PageTransitionsTheme(
-        builders: {
-          TargetPlatform.android:
-              PredictiveBackFullscreenPageTransitionsBuilder(),
-          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
-          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.windows: ZoomPageTransitionsBuilder(),
-        },
+      title: 'PredictiveBackFullscreenPageTransitionsBuilder Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: Colors.grey.shade200,
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: PredictiveBackFullscreenPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+          },
+        ),
       ),
-    ),
-    home: Scaffold(
-      appBar: AppBar(
-        title: Text('Predictive Back Demo'),
-        backgroundColor: Colors.deepPurple.shade700,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Predictive Back Demo'),
+          backgroundColor: Colors.deepPurple.shade700,
+        ),
+        body: buildMainContent(),
       ),
-      body: buildMainContent(),
-    ),
   );
 }

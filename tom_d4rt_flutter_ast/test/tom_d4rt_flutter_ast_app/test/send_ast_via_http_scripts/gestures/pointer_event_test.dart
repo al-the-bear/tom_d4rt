@@ -157,7 +157,11 @@ dynamic build(BuildContext context) {
           child: const Text(
             'PointerEvent (abstract base) — common API for every pointer '
             'event the engine ever dispatches to your widget tree.',
-            style: TextStyle(color: Colors.white, fontSize: 14.0, height: 1.4),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.0,
+              height: 1.4,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -230,7 +234,10 @@ dynamic build(BuildContext context) {
             ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.deepPurple.shade700, Colors.indigo.shade500],
+                colors: [
+                  Colors.deepPurple.shade700,
+                  Colors.indigo.shade500,
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -471,42 +478,42 @@ dynamic build(BuildContext context) {
               'touch',
               Icons.touch_app,
               'Finger on a capacitive screen. Cannot hover. Pressure may be '
-                  'available or simulated as 1.0.',
+              'available or simulated as 1.0.',
               Colors.blue,
             ),
             buildKindChip(
               'mouse',
               Icons.mouse,
               'Pointing device with a cursor. Hovers, scrolls, has buttons. '
-                  'Pressure is fixed to 1.0 while pressed, else 0.0.',
+              'Pressure is fixed to 1.0 while pressed, else 0.0.',
               Colors.indigo,
             ),
             buildKindChip(
               'stylus',
               Icons.brush,
               'Active pen. Reports pressure, tilt, orientation. May hover '
-                  'above the surface (distance > 0).',
+              'above the surface (distance > 0).',
               Colors.deepPurple,
             ),
             buildKindChip(
               'invertedStylus',
               Icons.swap_vert,
               'Stylus held with the eraser-end down. Same data shape as '
-                  'stylus, distinguished only by kind.',
+              'stylus, distinguished only by kind.',
               Colors.purple,
             ),
             buildKindChip(
               'trackpad',
               Icons.touch_app_outlined,
               'Indirect surface that produces PointerPanZoom* events instead '
-                  'of regular down/move/up.',
+              'of regular down/move/up.',
               Colors.teal,
             ),
             buildKindChip(
               'unknown',
               Icons.help_outline,
               'Engine could not classify the source. Treat as touch by '
-                  'default.',
+              'default.',
               Colors.grey,
             ),
           ],
@@ -537,7 +544,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.list_alt, color: Colors.deepPurple.shade700, size: 22.0),
+            Icon(
+              Icons.list_alt,
+              color: Colors.deepPurple.shade700,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             const Text(
               'Common-fields grid (~26 fields)',
@@ -553,243 +564,278 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.5, height: 1.4),
         ),
         const SizedBox(height: 16.0),
-        buildFieldGroup('identity (4)', Icons.fingerprint, Colors.deepPurple, [
-          buildFieldCard(
-            'pointer',
-            'int',
-            '${sampleDown.pointer}',
-            'Unique id assigned by the engine when the pointer was added. '
-                'Stable until the corresponding PointerRemovedEvent.',
-            Colors.deepPurple,
-          ),
-          buildFieldCard(
-            'device',
-            'int',
-            '${sampleDown.device}',
-            'Hardware-level device id. Two pointers from the same physical '
-                'device share this.',
-            Colors.deepPurple,
-          ),
-          buildFieldCard(
-            'kind',
-            'PointerDeviceKind',
-            '${sampleDown.kind}',
-            'Discriminator between touch / mouse / stylus / trackpad / '
-                'invertedStylus / unknown.',
-            Colors.deepPurple,
-          ),
-          buildFieldCard(
-            'embedderId',
-            'int',
-            '${sampleDown.embedderId}',
-            'Opaque identifier supplied by the platform embedder; useful '
-                'for round-tripping events to native code.',
-            Colors.deepPurple,
-          ),
-        ]),
+        buildFieldGroup(
+          'identity (4)',
+          Icons.fingerprint,
+          Colors.deepPurple,
+          [
+            buildFieldCard(
+              'pointer',
+              'int',
+              '${sampleDown.pointer}',
+              'Unique id assigned by the engine when the pointer was added. '
+              'Stable until the corresponding PointerRemovedEvent.',
+              Colors.deepPurple,
+            ),
+            buildFieldCard(
+              'device',
+              'int',
+              '${sampleDown.device}',
+              'Hardware-level device id. Two pointers from the same physical '
+              'device share this.',
+              Colors.deepPurple,
+            ),
+            buildFieldCard(
+              'kind',
+              'PointerDeviceKind',
+              '${sampleDown.kind}',
+              'Discriminator between touch / mouse / stylus / trackpad / '
+              'invertedStylus / unknown.',
+              Colors.deepPurple,
+            ),
+            buildFieldCard(
+              'embedderId',
+              'int',
+              '${sampleDown.embedderId}',
+              'Opaque identifier supplied by the platform embedder; useful '
+              'for round-tripping events to native code.',
+              Colors.deepPurple,
+            ),
+          ],
+        ),
         const SizedBox(height: 16.0),
-        buildFieldGroup('viewport (3)', Icons.window, Colors.indigo, [
-          buildFieldCard(
-            'viewId',
-            'int',
-            '${sampleDown.viewId}',
-            'The FlutterView that received this event. Critical for '
-                'multi-window apps.',
-            Colors.indigo,
-          ),
-          buildFieldCard(
-            'timeStamp',
-            'Duration',
-            '${sampleDown.timeStamp}',
-            'Engine clock offset since pointer-input subsystem started. '
-                'Monotonic, NOT wall-clock.',
-            Colors.indigo,
-          ),
-          buildFieldCard(
-            'transform',
-            'Matrix4?',
-            sampleDown.transform == null ? 'null' : 'present',
-            'World-to-local transform applied while routing to a hit '
-                'render object. null at the engine boundary.',
-            Colors.indigo,
-          ),
-        ]),
+        buildFieldGroup(
+          'viewport (3)',
+          Icons.window,
+          Colors.indigo,
+          [
+            buildFieldCard(
+              'viewId',
+              'int',
+              '${sampleDown.viewId}',
+              'The FlutterView that received this event. Critical for '
+              'multi-window apps.',
+              Colors.indigo,
+            ),
+            buildFieldCard(
+              'timeStamp',
+              'Duration',
+              '${sampleDown.timeStamp}',
+              'Engine clock offset since pointer-input subsystem started. '
+              'Monotonic, NOT wall-clock.',
+              Colors.indigo,
+            ),
+            buildFieldCard(
+              'transform',
+              'Matrix4?',
+              sampleDown.transform == null ? 'null' : 'present',
+              'World-to-local transform applied while routing to a hit '
+              'render object. null at the engine boundary.',
+              Colors.indigo,
+            ),
+          ],
+        ),
         const SizedBox(height: 16.0),
-        buildFieldGroup('motion (4)', Icons.timeline, Colors.blue, [
-          buildFieldCard(
-            'position',
-            'Offset',
-            '${sampleDown.position}',
-            'Logical-pixel coordinates in the global (root) coordinate '
-                'system.',
-            Colors.blue,
-          ),
-          buildFieldCard(
-            'localPosition',
-            'Offset',
-            '${sampleDown.localPosition}',
-            'Same point but expressed in the local coordinate space of '
-                'the receiving render object.',
-            Colors.blue,
-          ),
-          buildFieldCard(
-            'delta',
-            'Offset',
-            '${sampleHover.delta}',
-            'Movement since the previous event, in the global coordinate '
-                'system. Always Offset.zero on Down/Up/Hover-first.',
-            Colors.blue,
-          ),
-          buildFieldCard(
-            'localDelta',
-            'Offset',
-            '${sampleHover.localDelta}',
-            'Same delta, but transformed into the local coordinate space.',
-            Colors.blue,
-          ),
-        ]),
+        buildFieldGroup(
+          'motion (4)',
+          Icons.timeline,
+          Colors.blue,
+          [
+            buildFieldCard(
+              'position',
+              'Offset',
+              '${sampleDown.position}',
+              'Logical-pixel coordinates in the global (root) coordinate '
+              'system.',
+              Colors.blue,
+            ),
+            buildFieldCard(
+              'localPosition',
+              'Offset',
+              '${sampleDown.localPosition}',
+              'Same point but expressed in the local coordinate space of '
+              'the receiving render object.',
+              Colors.blue,
+            ),
+            buildFieldCard(
+              'delta',
+              'Offset',
+              '${sampleHover.delta}',
+              'Movement since the previous event, in the global coordinate '
+              'system. Always Offset.zero on Down/Up/Hover-first.',
+              Colors.blue,
+            ),
+            buildFieldCard(
+              'localDelta',
+              'Offset',
+              '${sampleHover.localDelta}',
+              'Same delta, but transformed into the local coordinate space.',
+              Colors.blue,
+            ),
+          ],
+        ),
         const SizedBox(height: 16.0),
-        buildFieldGroup('pressure (3)', Icons.speed, Colors.red, [
-          buildFieldCard(
-            'pressure',
-            'double',
-            '${sampleDown.pressure}',
-            'Normalised current pressure (typically [pressureMin, '
-                'pressureMax]). Hardware-dependent.',
-            Colors.red,
-          ),
-          buildFieldCard(
-            'pressureMin',
-            'double',
-            '${sampleDown.pressureMin}',
-            'Lowest pressure reportable by the device. May equal '
-                'pressureMax on devices without pressure.',
-            Colors.red,
-          ),
-          buildFieldCard(
-            'pressureMax',
-            'double',
-            '${sampleDown.pressureMax}',
-            'Highest pressure reportable by the device. The trio min-cur-'
-                'max lets apps normalise to [0, 1] cleanly.',
-            Colors.red,
-          ),
-        ]),
+        buildFieldGroup(
+          'pressure (3)',
+          Icons.speed,
+          Colors.red,
+          [
+            buildFieldCard(
+              'pressure',
+              'double',
+              '${sampleDown.pressure}',
+              'Normalised current pressure (typically [pressureMin, '
+              'pressureMax]). Hardware-dependent.',
+              Colors.red,
+            ),
+            buildFieldCard(
+              'pressureMin',
+              'double',
+              '${sampleDown.pressureMin}',
+              'Lowest pressure reportable by the device. May equal '
+              'pressureMax on devices without pressure.',
+              Colors.red,
+            ),
+            buildFieldCard(
+              'pressureMax',
+              'double',
+              '${sampleDown.pressureMax}',
+              'Highest pressure reportable by the device. The trio min-cur-'
+              'max lets apps normalise to [0, 1] cleanly.',
+              Colors.red,
+            ),
+          ],
+        ),
         const SizedBox(height: 16.0),
-        buildFieldGroup('geometry (7)', Icons.straighten, Colors.teal, [
-          buildFieldCard(
-            'distance',
-            'double',
-            '${sampleDown.distance}',
-            'Stylus hover distance above the surface in arbitrary units. '
-                '0.0 once the stylus touches.',
-            Colors.teal,
-          ),
-          buildFieldCard(
-            'distanceMax',
-            'double',
-            '${sampleDown.distanceMax}',
-            'Maximum distance the device can detect a hovering stylus.',
-            Colors.teal,
-          ),
-          buildFieldCard(
-            'size',
-            'double',
-            '${sampleDown.size}',
-            'Area of the contact ellipse, normalised to the screen size. '
-                'Touch-only on most platforms.',
-            Colors.teal,
-          ),
-          buildFieldCard(
-            'radiusMajor',
-            'double',
-            '${sampleDown.radiusMajor}',
-            'Major axis radius of the contact ellipse, in logical pixels.',
-            Colors.teal,
-          ),
-          buildFieldCard(
-            'radiusMinor',
-            'double',
-            '${sampleDown.radiusMinor}',
-            'Minor axis radius of the contact ellipse, in logical pixels.',
-            Colors.teal,
-          ),
-          buildFieldCard(
-            'radiusMin',
-            'double',
-            '${sampleDown.radiusMin}',
-            'Smallest radius the device can report. Useful for '
-                'normalising radiusMajor.',
-            Colors.teal,
-          ),
-          buildFieldCard(
-            'radiusMax',
-            'double',
-            '${sampleDown.radiusMax}',
-            'Largest radius the device can report.',
-            Colors.teal,
-          ),
-        ]),
+        buildFieldGroup(
+          'geometry (7)',
+          Icons.straighten,
+          Colors.teal,
+          [
+            buildFieldCard(
+              'distance',
+              'double',
+              '${sampleDown.distance}',
+              'Stylus hover distance above the surface in arbitrary units. '
+              '0.0 once the stylus touches.',
+              Colors.teal,
+            ),
+            buildFieldCard(
+              'distanceMax',
+              'double',
+              '${sampleDown.distanceMax}',
+              'Maximum distance the device can detect a hovering stylus.',
+              Colors.teal,
+            ),
+            buildFieldCard(
+              'size',
+              'double',
+              '${sampleDown.size}',
+              'Area of the contact ellipse, normalised to the screen size. '
+              'Touch-only on most platforms.',
+              Colors.teal,
+            ),
+            buildFieldCard(
+              'radiusMajor',
+              'double',
+              '${sampleDown.radiusMajor}',
+              'Major axis radius of the contact ellipse, in logical pixels.',
+              Colors.teal,
+            ),
+            buildFieldCard(
+              'radiusMinor',
+              'double',
+              '${sampleDown.radiusMinor}',
+              'Minor axis radius of the contact ellipse, in logical pixels.',
+              Colors.teal,
+            ),
+            buildFieldCard(
+              'radiusMin',
+              'double',
+              '${sampleDown.radiusMin}',
+              'Smallest radius the device can report. Useful for '
+              'normalising radiusMajor.',
+              Colors.teal,
+            ),
+            buildFieldCard(
+              'radiusMax',
+              'double',
+              '${sampleDown.radiusMax}',
+              'Largest radius the device can report.',
+              Colors.teal,
+            ),
+          ],
+        ),
         const SizedBox(height: 16.0),
-        buildFieldGroup('state (5)', Icons.flag, Colors.deepOrange, [
-          buildFieldCard(
-            'buttons',
-            'int (bitmask)',
-            '${sampleDown.buttons}',
-            'Bitmask of pressed buttons (kPrimaryButton, kSecondaryButton '
-                'etc.). 0 means no buttons pressed.',
-            Colors.deepOrange,
-          ),
-          buildFieldCard(
-            'down',
-            'bool',
-            '${sampleDown.down}',
-            'true while the pointer is in contact / pressed. Subclasses '
-                'fix this — Down/Move are true, Up/Hover/Cancel are false.',
-            Colors.deepOrange,
-          ),
-          buildFieldCard(
-            'obscured',
-            'bool',
-            '${sampleDown.obscured}',
-            'true if another platform window covered the surface; the '
-                'event is delivered but suspect.',
-            Colors.deepOrange,
-          ),
-          buildFieldCard(
-            'orientation',
-            'double (rad)',
-            '${sampleDown.orientation}',
-            'Stylus orientation around its own axis. Touch reports 0.',
-            Colors.deepOrange,
-          ),
-          buildFieldCard(
-            'tilt',
-            'double (rad)',
-            '${sampleDown.tilt}',
-            'Stylus tilt angle from perpendicular. Touch reports 0.',
-            Colors.deepOrange,
-          ),
-        ]),
+        buildFieldGroup(
+          'state (5)',
+          Icons.flag,
+          Colors.deepOrange,
+          [
+            buildFieldCard(
+              'buttons',
+              'int (bitmask)',
+              '${sampleDown.buttons}',
+              'Bitmask of pressed buttons (kPrimaryButton, kSecondaryButton '
+              'etc.). 0 means no buttons pressed.',
+              Colors.deepOrange,
+            ),
+            buildFieldCard(
+              'down',
+              'bool',
+              '${sampleDown.down}',
+              'true while the pointer is in contact / pressed. Subclasses '
+              'fix this — Down/Move are true, Up/Hover/Cancel are false.',
+              Colors.deepOrange,
+            ),
+            buildFieldCard(
+              'obscured',
+              'bool',
+              '${sampleDown.obscured}',
+              'true if another platform window covered the surface; the '
+              'event is delivered but suspect.',
+              Colors.deepOrange,
+            ),
+            buildFieldCard(
+              'orientation',
+              'double (rad)',
+              '${sampleDown.orientation}',
+              'Stylus orientation around its own axis. Touch reports 0.',
+              Colors.deepOrange,
+            ),
+            buildFieldCard(
+              'tilt',
+              'double (rad)',
+              '${sampleDown.tilt}',
+              'Stylus tilt angle from perpendicular. Touch reports 0.',
+              Colors.deepOrange,
+            ),
+          ],
+        ),
         const SizedBox(height: 16.0),
-        buildFieldGroup('provenance (2)', Icons.history, Colors.brown, [
-          buildFieldCard(
-            'synthesized',
-            'bool',
-            '${sampleDown.synthesized}',
-            'true if the framework (not the engine) fabricated this event '
-                '— e.g. enter / exit derived from move.',
-            Colors.brown,
-          ),
-          buildFieldCard(
-            'original',
-            'PointerEvent?',
-            sampleDown.original == null ? 'null' : 'present',
-            'For events produced by transformed(), the un-transformed '
-                'event from the engine. null at the root.',
-            Colors.brown,
-          ),
-        ]),
+        buildFieldGroup(
+          'provenance (2)',
+          Icons.history,
+          Colors.brown,
+          [
+            buildFieldCard(
+              'synthesized',
+              'bool',
+              '${sampleDown.synthesized}',
+              'true if the framework (not the engine) fabricated this event '
+              '— e.g. enter / exit derived from move.',
+              Colors.brown,
+            ),
+            buildFieldCard(
+              'original',
+              'PointerEvent?',
+              sampleDown.original == null ? 'null' : 'present',
+              'For events produced by transformed(), the un-transformed '
+              'event from the engine. null at the root.',
+              Colors.brown,
+            ),
+          ],
+        ),
       ],
     ),
   );
@@ -882,7 +928,10 @@ dynamic build(BuildContext context) {
             children: const [
               Text(
                 'Identity rules',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13.0,
+                ),
               ),
               SizedBox(height: 6.0),
               Text(
@@ -924,7 +973,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.link, color: Colors.indigo.shade700, size: 22.0),
+            Icon(
+              Icons.link,
+              color: Colors.indigo.shade700,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             const Text(
               'original chain',
@@ -951,7 +1004,10 @@ dynamic build(BuildContext context) {
                 color: Colors.indigo,
               ),
             ),
-            Icon(Icons.chevron_left, color: Colors.indigo.shade400),
+            Icon(
+              Icons.chevron_left,
+              color: Colors.indigo.shade400,
+            ),
             Expanded(
               child: buildChainLink(
                 step: '2',
@@ -960,7 +1016,10 @@ dynamic build(BuildContext context) {
                 color: Colors.deepPurple,
               ),
             ),
-            Icon(Icons.chevron_left, color: Colors.deepPurple.shade400),
+            Icon(
+              Icons.chevron_left,
+              color: Colors.deepPurple.shade400,
+            ),
             Expanded(
               child: buildChainLink(
                 step: '3',
@@ -1080,7 +1139,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.code, color: Colors.indigo.shade700, size: 22.0),
+            Icon(
+              Icons.code,
+              color: Colors.indigo.shade700,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             const Text(
               'toString() sample',
@@ -1168,7 +1231,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.public, color: Colors.deepPurple.shade700, size: 22.0),
+            Icon(
+              Icons.public,
+              color: Colors.deepPurple.shade700,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             const Text(
               'Real-world consumers',
@@ -1191,8 +1258,7 @@ dynamic build(BuildContext context) {
                 title: 'GestureBinding hit-test',
                 icon: Icons.center_focus_strong,
                 color: Colors.deepPurple,
-                body:
-                    'The engine hands raw events to GestureBinding which '
+                body: 'The engine hands raw events to GestureBinding which '
                     'walks the render tree, dispatches to HitTestTargets and '
                     'feeds gesture arenas.',
               ),
@@ -1203,8 +1269,7 @@ dynamic build(BuildContext context) {
                 title: 'MouseRegion',
                 icon: Icons.mouse,
                 color: Colors.indigo,
-                body:
-                    'Receives PointerEnter / PointerHover / PointerExit '
+                body: 'Receives PointerEnter / PointerHover / PointerExit '
                     'and drives cursor changes via SystemMouseCursors.',
               ),
             ),
@@ -1219,8 +1284,7 @@ dynamic build(BuildContext context) {
                 title: 'Listener',
                 icon: Icons.hearing,
                 color: Colors.purple,
-                body:
-                    'Low-level widget exposing onPointerDown, onPointerMove, '
+                body: 'Low-level widget exposing onPointerDown, onPointerMove, '
                     'onPointerUp, onPointerHover, onPointerCancel and '
                     'onPointerSignal callbacks.',
               ),
@@ -1231,8 +1295,7 @@ dynamic build(BuildContext context) {
                 title: 'RawGestureDetector',
                 icon: Icons.api,
                 color: Colors.deepPurple,
-                body:
-                    'Composes user-supplied GestureRecognizer instances, '
+                body: 'Composes user-supplied GestureRecognizer instances, '
                     'each of which sees the raw PointerEvent stream.',
               ),
             ),
@@ -1272,36 +1335,31 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12.0),
         buildCaveat(
           title: 'pressure availability',
-          body:
-              'Most touch hardware does NOT report real pressure; the '
+          body: 'Most touch hardware does NOT report real pressure; the '
               'engine emits 1.0 while pressed and 0.0 otherwise. Always '
               'inspect pressureMin / pressureMax before normalising.',
         ),
         buildCaveat(
           title: 'viewId for multi-window',
-          body:
-              'In single-window apps viewId is always 0. With multi-view '
+          body: 'In single-window apps viewId is always 0. With multi-view '
               'embedders (web, Linux desktop, custom hosts) you must filter '
               'or transform per-view to avoid mixing windows.',
         ),
         buildCaveat(
           title: 'embedderId semantics',
-          body:
-              'embedderId is opaque — it is meaningful only to the '
+          body: 'embedderId is opaque — it is meaningful only to the '
               'platform embedder that produced it. Do not parse, compare or '
               'persist it across runs.',
         ),
         buildCaveat(
           title: 'transform vs no-transform performance',
-          body:
-              'transformed() allocates a new event and re-projects '
+          body: 'transformed() allocates a new event and re-projects '
               'positions. Cheap, but per-frame fan-out in deeply nested '
               'render trees adds up; avoid wrapping in needless Transforms.',
         ),
         buildCaveat(
           title: 'original chain depth',
-          body:
-              'Walking original.original... is rarely required. If you '
+          body: 'Walking original.original... is rarely required. If you '
               'find yourself doing it from app code, the framework probably '
               'already provides a higher-level callback.',
         ),
@@ -1559,7 +1617,11 @@ Widget buildFieldGroup(
         ],
       ),
       const SizedBox(height: 8.0),
-      Wrap(spacing: 10.0, runSpacing: 10.0, children: cards),
+      Wrap(
+        spacing: 10.0,
+        runSpacing: 10.0,
+        children: cards,
+      ),
     ],
   );
 }
@@ -1618,7 +1680,10 @@ Widget buildFieldCard(
           ),
           const SizedBox(height: 6.0),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6.0,
+              vertical: 4.0,
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(6.0),
@@ -1834,7 +1899,11 @@ Widget buildVersusCard({
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 4.0, right: 6.0),
-                  child: Icon(Icons.circle, size: 6.0, color: color.shade700),
+                  child: Icon(
+                    Icons.circle,
+                    size: 6.0,
+                    color: color.shade700,
+                  ),
                 ),
                 Expanded(
                   child: Text(
@@ -1915,7 +1984,10 @@ Widget buildConsumerCard({
   );
 }
 
-Widget buildCaveat({required String title, required String body}) {
+Widget buildCaveat({
+  required String title,
+  required String body,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     child: Row(

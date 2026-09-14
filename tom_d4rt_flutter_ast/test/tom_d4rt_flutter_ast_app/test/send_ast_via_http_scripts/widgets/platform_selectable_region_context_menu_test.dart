@@ -339,26 +339,11 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 12),
                 ...[
-                  {
-                    'label': 'SelectionArea / SelectableRegion',
-                    'detail': 'Widget that enables text selection',
-                  },
-                  {
-                    'label': 'SelectionContainerDelegate',
-                    'detail': 'Manages selection state for children',
-                  },
-                  {
-                    'label': 'PlatformSelectableRegionContextMenu',
-                    'detail': 'Web: registers platform view',
-                  },
-                  {
-                    'label': 'HtmlElementView',
-                    'detail': 'Invisible overlay intercepts contextmenu',
-                  },
-                  {
-                    'label': 'Browser Native Context Menu',
-                    'detail': 'Copy / Select All / Search',
-                  },
+                  {'label': 'SelectionArea / SelectableRegion', 'detail': 'Widget that enables text selection'},
+                  {'label': 'SelectionContainerDelegate', 'detail': 'Manages selection state for children'},
+                  {'label': 'PlatformSelectableRegionContextMenu', 'detail': 'Web: registers platform view'},
+                  {'label': 'HtmlElementView', 'detail': 'Invisible overlay intercepts contextmenu'},
+                  {'label': 'Browser Native Context Menu', 'detail': 'Copy / Select All / Search'},
                 ].asMap().entries.map((entry) {
                   final i = entry.key;
                   final item = entry.value;
@@ -411,11 +396,7 @@ dynamic build(BuildContext context) {
                         if (i < 4)
                           Padding(
                             padding: const EdgeInsets.only(top: 4),
-                            child: Icon(
-                              Icons.arrow_downward,
-                              color: cyan300,
-                              size: 14,
-                            ),
+                            child: Icon(Icons.arrow_downward, color: cyan300, size: 14),
                           ),
                       ],
                     ),
@@ -580,16 +561,11 @@ dynamic build(BuildContext context) {
                         TextSpan(
                           text: 'selected text',
                           style: TextStyle(
-                            backgroundColor: Color(
-                              0xFF90CAF9,
-                            ).withValues(alpha: 0.5),
+                            backgroundColor: Color(0xFF90CAF9).withValues(alpha: 0.5),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const TextSpan(
-                          text:
-                              ' appears highlighted with the native selection color.',
-                        ),
+                        const TextSpan(text: ' appears highlighted with the native selection color.'),
                       ],
                     ),
                   ),
@@ -670,22 +646,9 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
                 ...[
-                  {
-                    'step': 'attach(delegate)',
-                    'desc': 'SelectableRegion mounts → registers delegate',
-                    'icon': Icons.link,
-                  },
-                  {
-                    'step': 'Right-click',
-                    'desc':
-                        'Browser contextmenu → word selection → native menu',
-                    'icon': Icons.touch_app,
-                  },
-                  {
-                    'step': 'detach(delegate)',
-                    'desc': 'SelectableRegion unmounts → clears delegate',
-                    'icon': Icons.link_off,
-                  },
+                  {'step': 'attach(delegate)', 'desc': 'SelectableRegion mounts → registers delegate', 'icon': Icons.link},
+                  {'step': 'Right-click', 'desc': 'Browser contextmenu → word selection → native menu', 'icon': Icons.touch_app},
+                  {'step': 'detach(delegate)', 'desc': 'SelectableRegion unmounts → clears delegate', 'icon': Icons.link_off},
                 ].map((item) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
@@ -762,42 +725,12 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 ...[
-                  {
-                    'platform': 'Web',
-                    'mechanism': 'Browser native (this widget)',
-                    'icon': Icons.language,
-                    'uses': true,
-                  },
-                  {
-                    'platform': 'Android',
-                    'mechanism': 'Selection toolbar above text',
-                    'icon': Icons.phone_android,
-                    'uses': false,
-                  },
-                  {
-                    'platform': 'iOS',
-                    'mechanism': 'Callout bar + magnifier',
-                    'icon': Icons.phone_iphone,
-                    'uses': false,
-                  },
-                  {
-                    'platform': 'macOS',
-                    'mechanism': 'NSMenu right-click',
-                    'icon': Icons.laptop_mac,
-                    'uses': false,
-                  },
-                  {
-                    'platform': 'Windows',
-                    'mechanism': 'Win32 popup menu',
-                    'icon': Icons.desktop_windows,
-                    'uses': false,
-                  },
-                  {
-                    'platform': 'Linux',
-                    'mechanism': 'GTK/Qt context menu',
-                    'icon': Icons.computer,
-                    'uses': false,
-                  },
+                  {'platform': 'Web', 'mechanism': 'Browser native (this widget)', 'icon': Icons.language, 'uses': true},
+                  {'platform': 'Android', 'mechanism': 'Selection toolbar above text', 'icon': Icons.phone_android, 'uses': false},
+                  {'platform': 'iOS', 'mechanism': 'Callout bar + magnifier', 'icon': Icons.phone_iphone, 'uses': false},
+                  {'platform': 'macOS', 'mechanism': 'NSMenu right-click', 'icon': Icons.laptop_mac, 'uses': false},
+                  {'platform': 'Windows', 'mechanism': 'Win32 popup menu', 'icon': Icons.desktop_windows, 'uses': false},
+                  {'platform': 'Linux', 'mechanism': 'GTK/Qt context menu', 'icon': Icons.computer, 'uses': false},
                 ].map((p) {
                   final uses = p['uses'] as bool;
                   return Padding(
@@ -882,36 +815,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  Teal 900  ${teal900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  Teal 800  ${teal800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
-  print(
-    '  │  Cyan 900  ${cyan900.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  Cyan 800  ${cyan800.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  Cyan 600  ${cyan600.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Cyan 300  ${cyan300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  Cyan 200  ${cyan200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  Cyan 100  ${cyan100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  Cyan 50   ${cyan50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  Teal 50   ${teal50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
+  print('  │  Teal 900  ${teal900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  Teal 800  ${teal800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print('  │  Cyan 900  ${cyan900.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  Cyan 800  ${cyan800.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  Cyan 600  ${cyan600.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Cyan 300  ${cyan300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  Cyan 200  ${cyan200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  Cyan 100  ${cyan100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  Cyan 50   ${cyan50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  Teal 50   ${teal50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 
@@ -944,7 +857,10 @@ Widget _buildContextMenuItem({
         if (shortcut.isNotEmpty)
           Text(
             shortcut,
-            style: TextStyle(color: const Color(0xFF9E9E9E), fontSize: 11),
+            style: TextStyle(
+              color: const Color(0xFF9E9E9E),
+              fontSize: 11,
+            ),
           ),
       ],
     ),

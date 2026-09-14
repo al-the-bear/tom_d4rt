@@ -447,10 +447,7 @@ Widget _buildErrorStateDemo() {
                 borderRadius: BorderRadius.circular(8),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.orange.shade900,
-                  width: 2.5,
-                ),
+                borderSide: BorderSide(color: Colors.orange.shade900, width: 2.5),
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
@@ -804,10 +801,7 @@ Widget _buildInputDecorationThemingDemo() {
             inputDecorationTheme: InputDecorationTheme(
               filled: true,
               fillColor: Colors.green.shade50,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.green.shade300, width: 1),
                 borderRadius: BorderRadius.circular(10),
@@ -1201,10 +1195,7 @@ Widget _buildInteractiveDemo() {
                 borderRadius: BorderRadius.circular(12),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.amber.shade700,
-                  width: 2.5,
-                ),
+                borderSide: BorderSide(color: Colors.amber.shade700, width: 2.5),
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
@@ -1277,22 +1268,13 @@ Widget _buildCompleteFormDemo() {
             inputDecorationTheme: InputDecorationTheme(
               filled: true,
               fillColor: Colors.grey.shade50,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 14,
-              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.blueGrey.shade200,
-                  width: 1,
-                ),
+                borderSide: BorderSide(color: Colors.blueGrey.shade200, width: 1),
                 borderRadius: BorderRadius.circular(8),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.blueGrey.shade600,
-                  width: 2,
-                ),
+                borderSide: BorderSide(color: Colors.blueGrey.shade600, width: 2),
                 borderRadius: BorderRadius.circular(8),
               ),
               errorBorder: OutlineInputBorder(

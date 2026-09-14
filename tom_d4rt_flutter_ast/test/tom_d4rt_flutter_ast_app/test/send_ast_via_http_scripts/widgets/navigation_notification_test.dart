@@ -32,24 +32,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -66,7 +57,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 13, color: darkPlum)),
+      child: Text(text,
+          style: TextStyle(fontSize: 13, color: darkPlum)),
     );
   }
 
@@ -78,17 +70,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(value, style: TextStyle(fontSize: 13, color: darkPlum)),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: darkPlum)),
           ),
         ],
       ),
@@ -157,52 +147,38 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.notifications_active,
-                    size: 28,
-                    color: paleWisteria,
-                  ),
+                  Icon(Icons.notifications_active, size: 28,
+                      color: paleWisteria),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      'NavigationNotification',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('NavigationNotification',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'Notification dispatched when navigation state changes — tells the system about back handling',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 13,
-                ),
-              ),
+              Text('Notification dispatched when navigation state changes — tells the system about back handling',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 13)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  tag('Notification', periwinkle, Colors.white),
-                  tag('canHandlePop', softWisteria, darkPlum),
-                  tag('Navigator', lightPeriwinkle, darkPlum),
-                  tag('System Back', paleWisteria, darkPlum),
-                ],
-              ),
+              Wrap(children: [
+                tag('Notification', periwinkle, Colors.white),
+                tag('canHandlePop', softWisteria, darkPlum),
+                tag('Navigator', lightPeriwinkle, darkPlum),
+                tag('System Back', paleWisteria, darkPlum),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner(
-          '1 \u00b7 What Is NavigationNotification',
-          'A notification about navigation pop-handling capability',
-          deepWisteria,
-          Colors.white,
-        ),
+        sectionBanner('1 \u00b7 What Is NavigationNotification',
+            'A notification about navigation pop-handling capability',
+            deepWisteria, Colors.white),
         noteBox(
           'NavigationNotification is a class that extends Notification. It '
           'carries a single boolean property — canHandlePop — indicating '
@@ -214,22 +190,15 @@ dynamic build(BuildContext context) {
           whiteWisteria,
         ),
         dataRow('Extends', 'Notification', wisteria),
-        dataRow(
-          'Constructor',
-          'const NavigationNotification({required canHandlePop})',
-          deepWisteria,
-        ),
+        dataRow('Constructor', 'const NavigationNotification({required canHandlePop})', deepWisteria),
         dataRow('Property', 'canHandlePop (final bool)', periwinkle),
         dataRow('Defined in', 'widgets/navigator.dart', darkPlum),
         const SizedBox(height: 14),
 
         // ── 3. The Notification pattern ──────────────────────────────
-        sectionBanner(
-          '2 \u00b7 The Notification Pattern',
-          'How Flutter notifications bubble up the tree',
-          wisteria,
-          Colors.white,
-        ),
+        sectionBanner('2 \u00b7 The Notification Pattern',
+            'How Flutter notifications bubble up the tree',
+            wisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -256,18 +225,14 @@ dynamic build(BuildContext context) {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Navigator / PopScope',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: tealBright,
-                          ),
-                        ),
-                        Text(
-                          'Dispatches NavigationNotification',
-                          style: TextStyle(fontSize: 10, color: darkPlum),
-                        ),
+                        Text('Navigator / PopScope',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: tealBright)),
+                        Text('Dispatches NavigationNotification',
+                            style: TextStyle(
+                                fontSize: 10, color: darkPlum)),
                       ],
                     ),
                   ],
@@ -278,10 +243,8 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     Icon(Icons.arrow_upward, size: 16, color: periwinkle),
-                    Text(
-                      'bubbles up',
-                      style: TextStyle(fontSize: 8, color: periwinkle),
-                    ),
+                    Text('bubbles up',
+                        style: TextStyle(fontSize: 8, color: periwinkle)),
                   ],
                 ),
               ),
@@ -292,24 +255,19 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: periwinkle.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: periwinkle.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: periwinkle.withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.layers,
-                      size: 20,
-                      color: periwinkle.withValues(alpha: 0.5),
-                    ),
+                    Icon(Icons.layers, size: 20,
+                        color: periwinkle.withValues(alpha: 0.5)),
                     const SizedBox(width: 8),
-                    Text(
-                      'Any intermediate widgets...',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontStyle: FontStyle.italic,
-                        color: periwinkle,
-                      ),
-                    ),
+                    Text('Any intermediate widgets...',
+                        style: TextStyle(
+                            fontSize: 11,
+                            fontStyle: FontStyle.italic,
+                            color: periwinkle)),
                   ],
                 ),
               ),
@@ -318,10 +276,8 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     Icon(Icons.arrow_upward, size: 16, color: periwinkle),
-                    Text(
-                      'bubbles up',
-                      style: TextStyle(fontSize: 8, color: periwinkle),
-                    ),
+                    Text('bubbles up',
+                        style: TextStyle(fontSize: 8, color: periwinkle)),
                   ],
                 ),
               ),
@@ -342,18 +298,14 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'MaterialApp / WidgetsApp',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: deepWisteria,
-                            ),
-                          ),
-                          Text(
-                            'Listens and calls SystemNavigator.setFrameworkHandlesBack()',
-                            style: TextStyle(fontSize: 10, color: darkPlum),
-                          ),
+                          Text('MaterialApp / WidgetsApp',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  color: deepWisteria)),
+                          Text('Listens and calls SystemNavigator.setFrameworkHandlesBack()',
+                              style: TextStyle(
+                                  fontSize: 10, color: darkPlum)),
                         ],
                       ),
                     ),
@@ -366,12 +318,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. canHandlePop property ─────────────────────────────────
-        sectionBanner(
-          '3 \u00b7 The canHandlePop Property',
-          'What it means and when it changes',
-          periwinkle,
-          Colors.white,
-        ),
+        sectionBanner('3 \u00b7 The canHandlePop Property',
+            'What it means and when it changes',
+            periwinkle, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -394,31 +343,24 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.check_circle, size: 28, color: tealBright),
                       const SizedBox(height: 6),
-                      Text(
-                        'true',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          fontFamily: 'monospace',
-                          color: tealBright,
-                        ),
-                      ),
+                      Text('true',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontFamily: 'monospace',
+                              color: tealBright)),
                       const SizedBox(height: 6),
-                      Text(
-                        'App can handle pop',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: darkPlum,
-                        ),
-                      ),
+                      Text('App can handle pop',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: darkPlum)),
                       const SizedBox(height: 4),
-                      Text(
-                        'Navigator has routes to pop, or a PopScope is blocking. '
-                        'System back gesture will be handled by the app.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: darkPlum),
-                      ),
+                      Text('Navigator has routes to pop, or a PopScope is blocking. '
+                          'System back gesture will be handled by the app.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10, color: darkPlum)),
                     ],
                   ),
                 ),
@@ -436,31 +378,24 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.cancel, size: 28, color: coralWarm),
                       const SizedBox(height: 6),
-                      Text(
-                        'false',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          fontFamily: 'monospace',
-                          color: coralWarm,
-                        ),
-                      ),
+                      Text('false',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontFamily: 'monospace',
+                              color: coralWarm)),
                       const SizedBox(height: 6),
-                      Text(
-                        'App cannot handle pop',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: darkPlum,
-                        ),
-                      ),
+                      Text('App cannot handle pop',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: darkPlum)),
                       const SizedBox(height: 4),
-                      Text(
-                        'At the root route with no PopScope. System back '
-                        'gesture will exit the app or return to launcher.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: darkPlum),
-                      ),
+                      Text('At the root route with no PopScope. System back '
+                          'gesture will exit the app or return to launcher.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10, color: darkPlum)),
                     ],
                   ),
                 ),
@@ -471,12 +406,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Who dispatches it ─────────────────────────────────────
-        sectionBanner(
-          '4 \u00b7 Who Dispatches It',
-          'Sources that create and dispatch the notification',
-          deepWisteria,
-          Colors.white,
-        ),
+        sectionBanner('4 \u00b7 Who Dispatches It',
+            'Sources that create and dispatch the notification',
+            deepWisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -487,27 +419,15 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final source in [
-                (
-                  'Navigator',
-                  'Dispatches when routes are pushed or popped. '
-                      'canHandlePop is true when there is more than one route.',
-                  Icons.navigation,
-                  wisteria,
-                ),
-                (
-                  'PopScope',
-                  'Dispatches when its canPop property changes. '
-                      'Overrides Navigator\'s pop behavior while active.',
-                  Icons.block,
-                  periwinkle,
-                ),
-                (
-                  'NavigatorState',
-                  'After didPush, didPop, didRemove, or '
-                      'didReplace callbacks fire, it schedules notification dispatch.',
-                  Icons.timeline,
-                  deepWisteria,
-                ),
+                ('Navigator', 'Dispatches when routes are pushed or popped. '
+                    'canHandlePop is true when there is more than one route.',
+                    Icons.navigation, wisteria),
+                ('PopScope', 'Dispatches when its canPop property changes. '
+                    'Overrides Navigator\'s pop behavior while active.',
+                    Icons.block, periwinkle),
+                ('NavigatorState', 'After didPush, didPop, didRemove, or '
+                    'didReplace callbacks fire, it schedules notification dispatch.',
+                    Icons.timeline, deepWisteria),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -516,8 +436,7 @@ dynamic build(BuildContext context) {
                     color: source.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: source.$4, width: 3),
-                    ),
+                        left: BorderSide(color: source.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -528,19 +447,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              source.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: source.$4,
-                              ),
-                            ),
-                            Text(
-                              source.$2,
-                              style: TextStyle(fontSize: 11, color: darkPlum),
-                            ),
+                            Text(source.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'monospace',
+                                    color: source.$4)),
+                            Text(source.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkPlum)),
                           ],
                         ),
                       ),
@@ -553,12 +468,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Who consumes it ───────────────────────────────────────
-        sectionBanner(
-          '5 \u00b7 Who Consumes It',
-          'Widgets that listen for the notification',
-          wisteria,
-          Colors.white,
-        ),
+        sectionBanner('5 \u00b7 Who Consumes It',
+            'Widgets that listen for the notification',
+            wisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -569,27 +481,15 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final consumer in [
-                (
-                  'MaterialApp',
-                  'Wraps the app with a NotificationListener<NavigationNotification> '
-                      'and calls SystemNavigator.setFrameworkHandlesBack(canHandlePop).',
-                  Icons.phone_android,
-                  deepWisteria,
-                ),
-                (
-                  'WidgetsApp',
-                  'Base class for MaterialApp/CupertinoApp. Contains the '
-                      'actual notification listener implementation.',
-                  Icons.widgets,
-                  wisteria,
-                ),
-                (
-                  'Custom Listener',
-                  'You can add your own NotificationListener to track '
-                      'navigation state for analytics, UI updates, etc.',
-                  Icons.hearing,
-                  periwinkle,
-                ),
+                ('MaterialApp', 'Wraps the app with a NotificationListener<NavigationNotification> '
+                    'and calls SystemNavigator.setFrameworkHandlesBack(canHandlePop).',
+                    Icons.phone_android, deepWisteria),
+                ('WidgetsApp', 'Base class for MaterialApp/CupertinoApp. Contains the '
+                    'actual notification listener implementation.',
+                    Icons.widgets, wisteria),
+                ('Custom Listener', 'You can add your own NotificationListener to track '
+                    'navigation state for analytics, UI updates, etc.',
+                    Icons.hearing, periwinkle),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -597,8 +497,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: consumer.$4, width: 3),
-                    ),
+                        left: BorderSide(color: consumer.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -609,19 +508,15 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              consumer.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: consumer.$4,
-                              ),
-                            ),
-                            Text(
-                              consumer.$2,
-                              style: TextStyle(fontSize: 11, color: darkPlum),
-                            ),
+                            Text(consumer.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'monospace',
+                                    color: consumer.$4)),
+                            Text(consumer.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkPlum)),
                           ],
                         ),
                       ),
@@ -634,12 +529,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. System back button flow ───────────────────────────────
-        sectionBanner(
-          '6 \u00b7 System Back Button Flow',
-          'End-to-end: from Navigator to OS back button',
-          periwinkle,
-          Colors.white,
-        ),
+        sectionBanner('6 \u00b7 System Back Button Flow',
+            'End-to-end: from Navigator to OS back button',
+            periwinkle, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -650,42 +542,18 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                (
-                  1,
-                  'Route pushed/popped',
-                  'Navigator updates its route stack',
-                  tealBright,
-                ),
-                (
-                  2,
-                  'Notification dispatched',
-                  'NavigationNotification(canHandlePop: hasRoutes)',
-                  wisteria,
-                ),
-                (
-                  3,
-                  'Bubbles to WidgetsApp',
-                  'NotificationListener<NavigationNotification> catches it',
-                  periwinkle,
-                ),
-                (
-                  4,
-                  'System call',
-                  'SystemNavigator.setFrameworkHandlesBack(canHandlePop)',
-                  deepWisteria,
-                ),
-                (
-                  5,
-                  'OS updated',
-                  'Android/iOS knows whether to defer back to the app',
-                  darkPlum,
-                ),
-                (
-                  6,
-                  'Back pressed',
-                  'If canHandlePop=true, app pops route; if false, OS handles',
-                  coralWarm,
-                ),
+                (1, 'Route pushed/popped', 'Navigator updates its route stack',
+                    tealBright),
+                (2, 'Notification dispatched', 'NavigationNotification(canHandlePop: hasRoutes)',
+                    wisteria),
+                (3, 'Bubbles to WidgetsApp', 'NotificationListener<NavigationNotification> catches it',
+                    periwinkle),
+                (4, 'System call', 'SystemNavigator.setFrameworkHandlesBack(canHandlePop)',
+                    deepWisteria),
+                (5, 'OS updated', 'Android/iOS knows whether to defer back to the app',
+                    darkPlum),
+                (6, 'Back pressed', 'If canHandlePop=true, app pops route; if false, OS handles',
+                    coralWarm),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -693,7 +561,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: step.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: step.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -705,32 +574,25 @@ dynamic build(BuildContext context) {
                           color: step.$4,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text(
-                          '${step.$1}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Text('${step.$1}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold)),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              step.$2,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: darkPlum,
-                              ),
-                            ),
-                            Text(
-                              step.$3,
-                              style: TextStyle(fontSize: 11, color: darkPlum),
-                            ),
+                            Text(step.$2,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: darkPlum)),
+                            Text(step.$3,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkPlum)),
                           ],
                         ),
                       ),
@@ -743,12 +605,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Route stack scenarios ─────────────────────────────────
-        sectionBanner(
-          '7 \u00b7 Route Stack Scenarios',
-          'When canHandlePop is true vs false',
-          deepWisteria,
-          Colors.white,
-        ),
+        sectionBanner('7 \u00b7 Route Stack Scenarios',
+            'When canHandlePop is true vs false',
+            deepWisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -759,41 +618,16 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final scenario in [
-                (
-                  'Single route (root)',
-                  '[/]',
-                  false,
-                  'Nothing to pop — OS handles back',
-                  coralWarm,
-                ),
-                (
-                  'Two routes',
-                  '[/, /details]',
-                  true,
-                  'Can pop /details to return to /',
-                  tealBright,
-                ),
-                (
-                  'Three routes',
-                  '[/, /list, /item]',
-                  true,
-                  'Can pop /item to return to /list',
-                  tealBright,
-                ),
-                (
-                  'Root + PopScope',
-                  '[/] + PopScope(canPop: false)',
-                  true,
-                  'PopScope intercepts — app handles',
-                  wisteria,
-                ),
-                (
-                  'Dialog open',
-                  '[/, /home, dialog]',
-                  true,
-                  'Can dismiss dialog',
-                  tealBright,
-                ),
+                ('Single route (root)', '[/]', false,
+                    'Nothing to pop — OS handles back', coralWarm),
+                ('Two routes', '[/, /details]', true,
+                    'Can pop /details to return to /', tealBright),
+                ('Three routes', '[/, /list, /item]', true,
+                    'Can pop /item to return to /list', tealBright),
+                ('Root + PopScope', '[/] + PopScope(canPop: false)', true,
+                    'PopScope intercepts — app handles', wisteria),
+                ('Dialog open', '[/, /home, dialog]', true,
+                    'Can dismiss dialog', tealBright),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -802,8 +636,7 @@ dynamic build(BuildContext context) {
                     color: scenario.$5.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: scenario.$5, width: 3),
-                    ),
+                        left: BorderSide(color: scenario.$5, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -820,29 +653,22 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  scenario.$1,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                    color: darkPlum,
-                                  ),
-                                ),
+                                Text(scenario.$1,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11,
+                                        color: darkPlum)),
                                 const SizedBox(width: 6),
-                                Text(
-                                  scenario.$2,
-                                  style: TextStyle(
-                                    fontSize: 9,
-                                    fontFamily: 'monospace',
-                                    color: periwinkle,
-                                  ),
-                                ),
+                                Text(scenario.$2,
+                                    style: TextStyle(
+                                        fontSize: 9,
+                                        fontFamily: 'monospace',
+                                        color: periwinkle)),
                               ],
                             ),
-                            Text(
-                              scenario.$4,
-                              style: TextStyle(fontSize: 10, color: darkPlum),
-                            ),
+                            Text(scenario.$4,
+                                style: TextStyle(
+                                    fontSize: 10, color: darkPlum)),
                           ],
                         ),
                       ),
@@ -855,12 +681,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Live demo: listening for the notification ─────────────
-        sectionBanner(
-          '8 \u00b7 Live Demo: Notification Listener',
-          'Using NotificationListener to observe navigation state',
-          wisteria,
-          Colors.white,
-        ),
+        sectionBanner('8 \u00b7 Live Demo: Notification Listener',
+            'Using NotificationListener to observe navigation state',
+            wisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -878,22 +701,21 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: wisteria.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: wisteria.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: wisteria.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'NotificationListener<NavigationNotification>(\n'
-                  '  onNotification: (notification) {\n'
-                  '    print(notification.canHandlePop);\n'
-                  '    return false; // allow bubbling\n'
-                  '  },\n'
-                  '  child: Navigator(...),\n'
-                  ')',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepWisteria,
-                  ),
-                ),
+                    'NotificationListener<NavigationNotification>(\n'
+                    '  onNotification: (notification) {\n'
+                    '    print(notification.canHandlePop);\n'
+                    '    return false; // allow bubbling\n'
+                    '  },\n'
+                    '  child: Navigator(...),\n'
+                    ')',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepWisteria)),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -909,12 +731,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. PopScope interaction ─────────────────────────────────
-        sectionBanner(
-          '9 \u00b7 PopScope Interaction',
-          'How PopScope affects NavigationNotification',
-          periwinkle,
-          Colors.white,
-        ),
+        sectionBanner('9 \u00b7 PopScope Interaction',
+            'How PopScope affects NavigationNotification',
+            periwinkle, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -938,21 +757,17 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text(
-                            'PopScope(canPop: true)',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: tealBright,
-                            ),
-                          ),
+                          Text('PopScope(canPop: true)',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: tealBright)),
                           const SizedBox(height: 4),
-                          Text(
-                            'Normal behavior.\nNavigator decides\ncanHandlePop.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: darkPlum),
-                          ),
+                          Text('Normal behavior.\nNavigator decides\ncanHandlePop.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 10, color: darkPlum)),
                         ],
                       ),
                     ),
@@ -968,21 +783,17 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text(
-                            'PopScope(canPop: false)',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: coralWarm,
-                            ),
-                          ),
+                          Text('PopScope(canPop: false)',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: coralWarm)),
                           const SizedBox(height: 4),
-                          Text(
-                            'Forces canHandlePop\nto true. Back goes\nto onPopInvokedWithResult.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: darkPlum),
-                          ),
+                          Text('Forces canHandlePop\nto true. Back goes\nto onPopInvokedWithResult.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 10, color: darkPlum)),
                         ],
                       ),
                     ),
@@ -1004,12 +815,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Nested navigators ────────────────────────────────────
-        sectionBanner(
-          '10 \u00b7 Nested Navigators',
-          'How notifications work with multiple navigators',
-          deepWisteria,
-          Colors.white,
-        ),
+        sectionBanner('10 \u00b7 Nested Navigators',
+            'How notifications work with multiple navigators',
+            deepWisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1029,14 +837,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'Root Navigator',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: deepWisteria,
-                      ),
-                    ),
+                    Text('Root Navigator',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: deepWisteria)),
                     const SizedBox(height: 6),
                     Container(
                       width: double.infinity,
@@ -1048,31 +853,24 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text(
-                            'Nested Navigator (tab)',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: wisteria,
-                            ),
-                          ),
+                          Text('Nested Navigator (tab)',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: wisteria)),
                           const SizedBox(height: 4),
-                          Text(
-                            'Dispatches its own notification',
-                            style: TextStyle(fontSize: 10, color: darkPlum),
-                          ),
+                          Text('Dispatches its own notification',
+                              style: TextStyle(
+                                  fontSize: 10, color: darkPlum)),
                         ],
                       ),
                     ),
                     const SizedBox(height: 6),
-                    Text(
-                      'Both navigators dispatch independently',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontStyle: FontStyle.italic,
-                        color: darkPlum,
-                      ),
-                    ),
+                    Text('Both navigators dispatch independently',
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontStyle: FontStyle.italic,
+                            color: darkPlum)),
                   ],
                 ),
               ),
@@ -1091,12 +889,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Predictive back ──────────────────────────────────────
-        sectionBanner(
-          '11 \u00b7 Predictive Back Gesture',
-          'Android 13+ predictive back and NavigationNotification',
-          wisteria,
-          Colors.white,
-        ),
+        sectionBanner('11 \u00b7 Predictive Back Gesture',
+            'Android 13+ predictive back and NavigationNotification',
+            wisteria, Colors.white),
         noteBox(
           'On Android 13+ with predictive back enabled, the OS shows a preview '
           'of the previous screen during back swipe. NavigationNotification '
@@ -1127,19 +922,15 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.swipe_left, size: 22, color: tealBright),
                       const SizedBox(height: 4),
-                      Text(
-                        'canHandlePop: true',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                          color: tealBright,
-                        ),
-                      ),
-                      Text(
-                        'App handles swipe\nand pops route',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: darkPlum),
-                      ),
+                      Text('canHandlePop: true',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              color: tealBright)),
+                      Text('App handles swipe\nand pops route',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10, color: darkPlum)),
                     ],
                   ),
                 ),
@@ -1157,19 +948,15 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.swipe_right, size: 22, color: coralWarm),
                       const SizedBox(height: 4),
-                      Text(
-                        'canHandlePop: false',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                          color: coralWarm,
-                        ),
-                      ),
-                      Text(
-                        'Swipe shows home\nlauncher preview',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: darkPlum),
-                      ),
+                      Text('canHandlePop: false',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              color: coralWarm)),
+                      Text('Swipe shows home\nlauncher preview',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10, color: darkPlum)),
                     ],
                   ),
                 ),
@@ -1180,12 +967,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Comparison with other notifications ──────────────────
-        sectionBanner(
-          '12 \u00b7 Comparison With Other Notifications',
-          'NavigationNotification vs other framework notifications',
-          periwinkle,
-          Colors.white,
-        ),
+        sectionBanner('12 \u00b7 Comparison With Other Notifications',
+            'NavigationNotification vs other framework notifications',
+            periwinkle, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1194,7 +978,10 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Table(
-            columnWidths: const {0: FlexColumnWidth(3), 1: FlexColumnWidth(4)},
+            columnWidths: const {
+              0: FlexColumnWidth(3),
+              1: FlexColumnWidth(4),
+            },
             children: [
               TableRow(
                 decoration: BoxDecoration(color: deepWisteria),
@@ -1202,14 +989,11 @@ dynamic build(BuildContext context) {
                   for (final h in ['Notification', 'Purpose'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        h,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10)),
                     ),
                 ],
               ),
@@ -1223,31 +1007,28 @@ dynamic build(BuildContext context) {
               ])
                 TableRow(
                   decoration: row.$1 == 'NavigationNotification'
-                      ? BoxDecoration(color: wisteria.withValues(alpha: 0.08))
+                      ? BoxDecoration(
+                          color: wisteria.withValues(alpha: 0.08))
                       : null,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'monospace',
-                          fontWeight: row.$1 == 'NavigationNotification'
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: row.$1 == 'NavigationNotification'
-                              ? wisteria
-                              : darkPlum,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              fontWeight: row.$1 == 'NavigationNotification'
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: row.$1 == 'NavigationNotification'
+                                  ? wisteria
+                                  : darkPlum)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(fontSize: 10, color: darkPlum),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 10, color: darkPlum)),
                     ),
                   ],
                 ),
@@ -1257,12 +1038,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Class definition ─────────────────────────────────────
-        sectionBanner(
-          '13 \u00b7 Class Definition',
-          'The complete class as defined in the SDK',
-          deepWisteria,
-          Colors.white,
-        ),
+        sectionBanner('13 \u00b7 Class Definition',
+            'The complete class as defined in the SDK',
+            deepWisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1276,35 +1054,31 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: deepWisteria.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: deepWisteria.withValues(alpha: 0.3)),
+              border: Border.all(
+                  color: deepWisteria.withValues(alpha: 0.3)),
             ),
             child: Text(
-              'class NavigationNotification extends Notification {\n'
-              '  const NavigationNotification({\n'
-              '    required this.canHandlePop,\n'
-              '  });\n'
-              '\n'
-              '  /// Whether a [Navigator] or [PopScope]\n'
-              '  /// in the tree can handle a pop.\n'
-              '  final bool canHandlePop;\n'
-              '}',
-              style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: deepWisteria,
-              ),
-            ),
+                'class NavigationNotification extends Notification {\n'
+                '  const NavigationNotification({\n'
+                '    required this.canHandlePop,\n'
+                '  });\n'
+                '\n'
+                '  /// Whether a [Navigator] or [PopScope]\n'
+                '  /// in the tree can handle a pop.\n'
+                '  final bool canHandlePop;\n'
+                '}',
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepWisteria)),
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 15. Class hierarchy ──────────────────────────────────────
-        sectionBanner(
-          '14 \u00b7 Class Hierarchy',
-          'Inheritance chain',
-          wisteria,
-          Colors.white,
-        ),
+        sectionBanner('14 \u00b7 Class Hierarchy',
+            'Inheritance chain',
+            wisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1322,17 +1096,14 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Text(
-                    level.$1,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      fontWeight: level.$1.contains('NavigationNotification')
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: level.$2,
-                    ),
-                  ),
+                  child: Text(level.$1,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: level.$1.contains('NavigationNotification')
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: level.$2)),
                 ),
             ],
           ),
@@ -1340,12 +1111,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepWisteria,
-          Colors.white,
-        ),
+        sectionBanner('15 \u00b7 Summary',
+            'Key takeaways', deepWisteria, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1377,19 +1144,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: lightPeriwinkle,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: lightPeriwinkle,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
+                        child: Text(point,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

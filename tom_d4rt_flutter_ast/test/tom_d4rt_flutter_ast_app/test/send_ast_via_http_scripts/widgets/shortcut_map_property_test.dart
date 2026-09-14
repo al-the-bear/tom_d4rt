@@ -134,7 +134,10 @@ class _ShortcutMapDemoHomeState extends State<_ShortcutMapDemoHome> {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1180),
             child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 28),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 28,
+                vertical: 28,
+              ),
               children: <Widget>[
                 const _DiagnosticBlueprintHero(),
                 const SizedBox(height: _kSectionGap),
@@ -151,7 +154,10 @@ class _ShortcutMapDemoHomeState extends State<_ShortcutMapDemoHome> {
                   onStyleSelected: _selectStyle,
                 ),
                 const SizedBox(height: _kSectionGap),
-                _StyledRenderCard(labeledMap: active, style: _selectedStyle),
+                _StyledRenderCard(
+                  labeledMap: active,
+                  style: _selectedStyle,
+                ),
                 const SizedBox(height: _kSectionGap),
                 _BeforeAfterComparisonCard(
                   primary: _maps[0],
@@ -190,7 +196,9 @@ class _DiagnosticBlueprintHero extends StatelessWidget {
         height: 320,
         child: Stack(
           children: <Widget>[
-            const Positioned.fill(child: _BlueprintBackdrop()),
+            const Positioned.fill(
+              child: _BlueprintBackdrop(),
+            ),
             Padding(
               padding: const EdgeInsets.all(_kInnerPadding + 4),
               child: Column(
@@ -234,7 +242,10 @@ class _DiagnosticBlueprintHero extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 18),
-                        Expanded(flex: 3, child: _BlueprintCalloutList()),
+                        Expanded(
+                          flex: 3,
+                          child: _BlueprintCalloutList(),
+                        ),
                       ],
                     ),
                   ),
@@ -255,7 +266,9 @@ class _BlueprintBackdrop extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_kCardRadius),
-      child: CustomPaint(painter: _BlueprintPainter()),
+      child: CustomPaint(
+        painter: _BlueprintPainter(),
+      ),
     );
   }
 }
@@ -568,7 +581,9 @@ class _EntryBreakdownList extends StatelessWidget {
             decoration: BoxDecoration(
               color: _kIvory,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _kCobalt.withValues(alpha: 0.2)),
+              border: Border.all(
+                color: _kCobalt.withValues(alpha: 0.2),
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1010,7 +1025,11 @@ class _BeforeAfterComparisonCard extends StatelessWidget {
           );
           if (stacked) {
             return Column(
-              children: <Widget>[left, const SizedBox(height: 12), right],
+              children: <Widget>[
+                left,
+                const SizedBox(height: 12),
+                right,
+              ],
             );
           }
           return Row(
@@ -1031,11 +1050,8 @@ class _BeforeAfterComparisonCard extends StatelessWidget {
     String name,
     DiagnosticsTreeStyle style,
   ) {
-    final _ShortcutHost host = _ShortcutHost(
-      shortcuts: map,
-      style: style,
-      tag: name,
-    );
+    final _ShortcutHost host =
+        _ShortcutHost(shortcuts: map, style: style, tag: name);
     return host.toStringDeep();
   }
 }
@@ -1155,7 +1171,12 @@ class _DiagnosticTreePainter extends CustomPainter {
 
     for (int i = 0; i < _leaves.length; i++) {
       final Offset pos = Offset(laneStart + laneStep * i, leafY);
-      _drawNode(canvas, pos, _leaves[i].activator, _leaves[i].intent);
+      _drawNode(
+        canvas,
+        pos,
+        _leaves[i].activator,
+        _leaves[i].intent,
+      );
       _drawCurvyLink(canvas, mid, pos);
     }
 
@@ -1189,7 +1210,8 @@ class _DiagnosticTreePainter extends CustomPainter {
     final Rect rect = Rect.fromCenter(center: center, width: w, height: h);
     final RRect rr = RRect.fromRectAndRadius(rect, const Radius.circular(10));
 
-    final Paint fill = Paint()..color = emphasized ? _kCobalt : _kIvory;
+    final Paint fill = Paint()
+      ..color = emphasized ? _kCobalt : _kIvory;
     final Paint border = Paint()
       ..color = _kCobalt
       ..style = PaintingStyle.stroke
@@ -1238,7 +1260,10 @@ class _DiagnosticTreePainter extends CustomPainter {
     );
     subPainter.paint(
       canvas,
-      Offset(center.dx - subPainter.width / 2, topY + titlePainter.height + 4),
+      Offset(
+        center.dx - subPainter.width / 2,
+        topY + titlePainter.height + 4,
+      ),
     );
   }
 
@@ -1251,7 +1276,14 @@ class _DiagnosticTreePainter extends CustomPainter {
     final double midY = (from.dy + to.dy) / 2;
     final Path path = Path()
       ..moveTo(from.dx, from.dy + 28)
-      ..cubicTo(from.dx, midY, to.dx, midY, to.dx, to.dy - 28);
+      ..cubicTo(
+        from.dx,
+        midY,
+        to.dx,
+        midY,
+        to.dx,
+        to.dy - 28,
+      );
     canvas.drawPath(path, linkPaint);
 
     // Arrow head.
@@ -1338,7 +1370,9 @@ class _WhereYouSeeItPanel extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _kIvory,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _kCobalt.withValues(alpha: 0.25)),
+                border: Border.all(
+                  color: _kCobalt.withValues(alpha: 0.25),
+                ),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1546,9 +1580,18 @@ class _FieldBodyRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(flex: 3, child: Text(row.field, style: _kMonoAccent)),
-          Expanded(flex: 3, child: Text(row.type, style: _kMonoStyle)),
-          Expanded(flex: 6, child: Text(row.note, style: _kBodyStyle)),
+          Expanded(
+            flex: 3,
+            child: Text(row.field, style: _kMonoAccent),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(row.type, style: _kMonoStyle),
+          ),
+          Expanded(
+            flex: 6,
+            child: Text(row.note, style: _kBodyStyle),
+          ),
         ],
       ),
     );
@@ -1584,7 +1627,8 @@ class _HarnessFooter extends StatelessWidget {
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(Icons.keyboard_command_key_outlined, color: _kIvory, size: 20),
+          Icon(Icons.keyboard_command_key_outlined,
+              color: _kIvory, size: 20),
           SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -1604,7 +1648,11 @@ class _HarnessFooter extends StatelessWidget {
                   'ShortcutMapProperty — palette ivory/cobalt/graphite. '
                   'Rendered via the tom_d4rt_flutter_ast_app test harness to '
                   'verify Flutter 3.41.6 behavior.',
-                  style: TextStyle(color: _kIvory, fontSize: 12, height: 1.4),
+                  style: TextStyle(
+                    color: _kIvory,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -1788,7 +1836,8 @@ List<_LabeledShortcutMap> _buildSampleMaps() {
           control: true,
           shift: true,
         ): const _RedoIntent(),
-        const SingleActivator(LogicalKeyboardKey.escape): const DismissIntent(),
+        const SingleActivator(LogicalKeyboardKey.escape):
+            const DismissIntent(),
       },
     ),
     _LabeledShortcutMap(
@@ -1799,8 +1848,10 @@ List<_LabeledShortcutMap> _buildSampleMaps() {
           'shows every activator path through valueToString().',
       map: <ShortcutActivator, Intent>{
         const CharacterActivator('?'): const _HelpIntent(),
-        LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyF):
-            const _FindIntent(),
+        LogicalKeySet(
+          LogicalKeyboardKey.control,
+          LogicalKeyboardKey.keyF,
+        ): const _FindIntent(),
         const SingleActivator(LogicalKeyboardKey.f1): const _HelpIntent(),
       },
     ),
@@ -1817,8 +1868,11 @@ List<_LabeledShortcutMap> _buildSampleMaps() {
             const _OpenPaletteIntent(),
         const SingleActivator(LogicalKeyboardKey.comma, meta: true):
             const _OpenSettingsIntent(),
-        const SingleActivator(LogicalKeyboardKey.keyT, meta: true, shift: true):
-            const _ReopenTabIntent(),
+        const SingleActivator(
+          LogicalKeyboardKey.keyT,
+          meta: true,
+          shift: true,
+        ): const _ReopenTabIntent(),
       },
     ),
   ];
@@ -1930,3 +1984,4 @@ class _ReopenTabIntent extends Intent {
   @override
   String toStringShort() => 'ReopenTabIntent';
 }
+

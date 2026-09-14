@@ -396,7 +396,11 @@ BoxDecoration _cardDecoration({
         ? RadialGradient(
             center: const Alignment(-0.6, -0.8),
             radius: 1.2,
-            colors: <Color>[accent.withAlpha(48), background, background],
+            colors: <Color>[
+              accent.withAlpha(48),
+              background,
+              background,
+            ],
             stops: const <double>[0.0, 0.55, 1.0],
           )
         : LinearGradient(
@@ -448,7 +452,10 @@ Widget _sectionHeader({
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: <Color>[accent.withAlpha(220), accent.withAlpha(120)],
+            colors: <Color>[
+              accent.withAlpha(220),
+              accent.withAlpha(120),
+            ],
           ),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           boxShadow: <BoxShadow>[
@@ -475,7 +482,8 @@ Widget _sectionHeader({
                   ),
                   decoration: BoxDecoration(
                     color: accent.withAlpha(50),
-                    borderRadius: const BorderRadius.all(Radius.circular(6)),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(6)),
                     border: Border.all(color: accent.withAlpha(120)),
                   ),
                   child: Text(
@@ -523,7 +531,11 @@ Widget _paragraph(String body) {
     padding: const EdgeInsets.only(top: 12),
     child: Text(
       body,
-      style: const TextStyle(color: _textSecondary, fontSize: 13, height: 1.55),
+      style: const TextStyle(
+        color: _textSecondary,
+        fontSize: 13,
+        height: 1.55,
+      ),
     ),
   );
 }
@@ -641,8 +653,7 @@ Widget _buildIntroSection() {
           accent: _accentIntro,
           number: '01',
           title: 'What is ObjectCreated?',
-          tagline:
-              'A creation half-life event in Flutter\'s memory '
+          tagline: 'A creation half-life event in Flutter\'s memory '
               'observability layer.',
         ),
         _paragraph(
@@ -698,8 +709,7 @@ Widget _buildIntroSection() {
         _codeBlock(
           accent: _accentIntro,
           caption: 'package:flutter/foundation.dart',
-          code:
-              'class ObjectCreated extends ObjectEvent {\n'
+          code: 'class ObjectCreated extends ObjectEvent {\n'
               '  ObjectCreated({\n'
               '    required this.library,\n'
               '    required this.className,\n'
@@ -755,7 +765,10 @@ Widget _kvRow(String k, String v) {
 Widget _buildAnatomySection() {
   return Container(
     padding: const EdgeInsets.all(20),
-    decoration: _cardDecoration(background: _bgAnatomy, accent: _accentAnatomy),
+    decoration: _cardDecoration(
+      background: _bgAnatomy,
+      accent: _accentAnatomy,
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -764,8 +777,7 @@ Widget _buildAnatomySection() {
           accent: _accentAnatomy,
           number: '02',
           title: 'Anatomy of an ObjectCreated event',
-          tagline:
-              'Three named fields, dispatched synchronously to every '
+          tagline: 'Three named fields, dispatched synchronously to every '
               'listener.',
         ),
         _paragraph(
@@ -802,7 +814,11 @@ Widget _buildAnatomySection() {
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: _fieldChip('className', 'Bar', const Color(0xFFFFB36B)),
+              child: _fieldChip(
+                'className',
+                'Bar',
+                const Color(0xFFFFB36B),
+              ),
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -864,8 +880,7 @@ Widget _buildLifecycleSection() {
       subtitle: 'this is fully constructed',
       icon: Icons.bolt,
       color: Color(0xFF6BA8FF),
-      detail:
-          'The owning class has just finished initialising its fields. '
+      detail: 'The owning class has just finished initialising its fields. '
           'Calling dispatchObjectCreated in the constructor is conventional '
           'because the object is in a known-good state and a stack frame '
           'still pointing at the constructor makes the DevTools trace useful.',
@@ -875,8 +890,7 @@ Widget _buildLifecycleSection() {
       subtitle: 'event allocated',
       icon: Icons.send_outlined,
       color: Color(0xFFB892FF),
-      detail:
-          'MemoryAllocations.instance allocates an ObjectCreated event. '
+      detail: 'MemoryAllocations.instance allocates an ObjectCreated event. '
           'If there are zero listeners the dispatcher fast-paths and does '
           'not even build the event — that is the price of free observability.',
     ),
@@ -885,8 +899,7 @@ Widget _buildLifecycleSection() {
       subtitle: 'each callback runs',
       icon: Icons.podcasts_outlined,
       color: Color(0xFFFFB36B),
-      detail:
-          'Listeners run synchronously in registration order. They MUST '
+      detail: 'Listeners run synchronously in registration order. They MUST '
           'NOT call addListener / removeListener during dispatch — the same '
           'rule that applies to ChangeNotifier — and they MUST NOT retain '
           'the object reference past the callback frame.',
@@ -896,8 +909,7 @@ Widget _buildLifecycleSection() {
       subtitle: 'matching ObjectDisposed',
       icon: Icons.power_settings_new,
       color: Color(0xFF8A8A8A),
-      detail:
-          'Eventually the owner calls dispose() and a paired '
+      detail: 'Eventually the owner calls dispose() and a paired '
           'dispatchObjectDisposed event closes the lifespan. The (library, '
           'className, identity-hash) pair is how leak-tracker tells which '
           'created event has no matching disposed event.',
@@ -1052,8 +1064,7 @@ Widget _buildListenerSection() {
         _codeBlock(
           accent: _accentListener,
           caption: 'subscribe / unsubscribe',
-          code:
-              'void _onMemoryEvent(ObjectEvent event) {\n'
+          code: 'void _onMemoryEvent(ObjectEvent event) {\n'
               '  if (event is ObjectCreated) {\n'
               '    print(\'created  \${event.className}\'\n'
               '          \' in \${event.library}\');\n'
@@ -1095,11 +1106,10 @@ Widget _buildListenerSection() {
                       shape: BoxShape.circle,
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                          color:
-                              (armed
-                                      ? const Color(0xFF8BD89B)
-                                      : const Color(0xFF8A8A8A))
-                                  .withAlpha(140),
+                          color: (armed
+                                  ? const Color(0xFF8BD89B)
+                                  : const Color(0xFF8A8A8A))
+                              .withAlpha(140),
                           blurRadius: 8,
                         ),
                       ],
@@ -1185,7 +1195,10 @@ Widget _buildSamplePayloadsSection() {
 
   return Container(
     padding: const EdgeInsets.all(20),
-    decoration: _cardDecoration(background: _bgPayload, accent: _accentPayload),
+    decoration: _cardDecoration(
+      background: _bgPayload,
+      accent: _accentPayload,
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -1227,7 +1240,10 @@ Widget _payloadCard(_SamplePayload p) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[p.tint.withAlpha(36), p.tint.withAlpha(10)],
+        colors: <Color>[
+          p.tint.withAlpha(36),
+          p.tint.withAlpha(10),
+        ],
       ),
       borderRadius: const BorderRadius.all(Radius.circular(10)),
       border: Border.all(color: p.tint.withAlpha(120)),
@@ -1323,7 +1339,8 @@ Widget _buildDecisionMatrixSection() {
       scenario: 'Singleton service',
       useIt: 'No',
       alternative: 'manual logging',
-      rationale: 'A singleton outlives the app; "creation" only happens once.',
+      rationale:
+          'A singleton outlives the app; "creation" only happens once.',
     ),
     _DecisionRow(
       scenario: 'Test fixture',
@@ -1394,7 +1411,9 @@ Widget _buildDecisionMatrixSection() {
             ),
             children: <TableRow>[
               TableRow(
-                decoration: BoxDecoration(color: _accentDecision.withAlpha(40)),
+                decoration: BoxDecoration(
+                  color: _accentDecision.withAlpha(40),
+                ),
                 children: const <Widget>[
                   _TableHeaderCell('Scenario'),
                   _TableHeaderCell('Use it?'),
@@ -1499,7 +1518,11 @@ Widget _buildPaletteSection() {
       className: 'LruCache',
       object: Object(),
     ),
-    ObjectCreated(library: '', className: 'Anonymous', object: Object()),
+    ObjectCreated(
+      library: '',
+      className: 'Anonymous',
+      object: Object(),
+    ),
     ObjectCreated(
       library: 'lib/utils.dart',
       className: 'Helper',
@@ -1520,7 +1543,10 @@ Widget _buildPaletteSection() {
 
   return Container(
     padding: const EdgeInsets.all(20),
-    decoration: _cardDecoration(background: _bgPalette, accent: _accentPalette),
+    decoration: _cardDecoration(
+      background: _bgPalette,
+      accent: _accentPalette,
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -1563,7 +1589,10 @@ Widget _libraryChip(ObjectCreated e, Color tint) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[tint.withAlpha(50), tint.withAlpha(14)],
+        colors: <Color>[
+          tint.withAlpha(50),
+          tint.withAlpha(14),
+        ],
       ),
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       border: Border.all(color: tint.withAlpha(140)),
@@ -1607,7 +1636,10 @@ Widget _libraryChip(ObjectCreated e, Color tint) {
 Widget _buildCodeSnippetSection() {
   return Container(
     padding: const EdgeInsets.all(20),
-    decoration: _cardDecoration(background: _bgCode, accent: _accentCode),
+    decoration: _cardDecoration(
+      background: _bgCode,
+      accent: _accentCode,
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -1630,8 +1662,7 @@ Widget _buildCodeSnippetSection() {
         _codeBlock(
           accent: _accentCode,
           caption: 'observable_widget_state.dart',
-          code:
-              'class MyState extends ChangeNotifier {\n'
+          code: 'class MyState extends ChangeNotifier {\n'
               '  MyState() {\n'
               '    if (kFlutterMemoryAllocationsEnabled) {\n'
               '      MemoryAllocations.instance.dispatchObjectCreated(\n'
@@ -1655,8 +1686,7 @@ Widget _buildCodeSnippetSection() {
         _codeBlock(
           accent: _accentCode,
           caption: 'leak_detector.dart',
-          code:
-              'final Set<int> _live = <int>{};\n\n'
+          code: 'final Set<int> _live = <int>{};\n\n'
               'void _leakDetector(ObjectEvent event) {\n'
               '  if (event is ObjectCreated) {\n'
               '    _live.add(identityHashCode(event.object));\n'
@@ -1741,7 +1771,9 @@ Widget _buildPitfallSection() {
         ),
         const SizedBox(height: 14),
         Column(
-          children: <Widget>[for (final _Pitfall p in pitfalls) _pitfallRow(p)],
+          children: <Widget>[
+            for (final _Pitfall p in pitfalls) _pitfallRow(p),
+          ],
         ),
       ],
     ),
@@ -1998,8 +2030,7 @@ Widget _buildComparisonSection() {
                   <String>['className', 'String'],
                   <String>['object', 'Object'],
                 ],
-                note:
-                    'Dispatched from constructors. Used to register the '
+                note: 'Dispatched from constructors. Used to register the '
                     'identity-hash with the leak-tracker.',
               ),
             ),
@@ -2011,8 +2042,7 @@ Widget _buildComparisonSection() {
                 fields: const <List<String>>[
                   <String>['object', 'Object'],
                 ],
-                note:
-                    'Dispatched from dispose(). Used to unregister the '
+                note: 'Dispatched from dispose(). Used to unregister the '
                     'identity-hash. No (library, className) needed.',
               ),
             ),
@@ -2262,9 +2292,8 @@ Widget _buildReferenceSection() {
                         ),
                         decoration: BoxDecoration(
                           color: _accentReference.withAlpha(30),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(4),
-                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4)),
                         ),
                         child: Text(
                           r.kind,
@@ -2336,7 +2365,10 @@ dynamic build(BuildContext context) {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(6)),
                 boxShadow: <BoxShadow>[
-                  BoxShadow(color: _accentIntro.withAlpha(120), blurRadius: 8),
+                  BoxShadow(
+                    color: _accentIntro.withAlpha(120),
+                    blurRadius: 8,
+                  ),
                 ],
               ),
               child: const Icon(
@@ -2355,7 +2387,10 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(width: 10),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 3,
+              ),
               decoration: BoxDecoration(
                 color: _accentPayload.withAlpha(40),
                 borderRadius: const BorderRadius.all(Radius.circular(6)),

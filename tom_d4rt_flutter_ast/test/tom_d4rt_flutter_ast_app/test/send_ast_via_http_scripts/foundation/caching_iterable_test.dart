@@ -149,10 +149,7 @@ class _HeroHeaderSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 8,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -172,10 +169,7 @@ class _HeroHeaderSection extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 8,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -392,7 +386,10 @@ class _LazyVsEagerSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: border, width: highlight ? 2.4 : 1.0),
+        border: Border.all(
+          color: border,
+          width: highlight ? 2.4 : 1.0,
+        ),
         boxShadow: highlight
             ? <BoxShadow>[
                 BoxShadow(
@@ -530,8 +527,7 @@ class _CacheLifecycleSection extends StatelessWidget {
           const SizedBox(height: 24),
           _detailBlock(
             title: "Transition: PRISTINE -> WARMING",
-            detail:
-                "Triggered by any first access - elementAt, first, length, "
+            detail: "Triggered by any first access - elementAt, first, length, "
                 "iterator, toList, fold, where, etc. The first element pulled "
                 "from the underlying iterator is appended to the internal "
                 "buffer.",
@@ -540,8 +536,7 @@ class _CacheLifecycleSection extends StatelessWidget {
           const SizedBox(height: 12),
           _detailBlock(
             title: "Transition: WARMING -> SEALED",
-            detail:
-                "Triggered when the underlying iterator returns false from "
+            detail: "Triggered when the underlying iterator returns false from "
                 "moveNext. The internal hasMoreElements flag is set to false "
                 "and from then on the cache is treated as the canonical list.",
             color: const Color(0xFF7E57C2),
@@ -549,8 +544,7 @@ class _CacheLifecycleSection extends StatelessWidget {
           const SizedBox(height: 12),
           _detailBlock(
             title: "Note: there is no PRUNE state",
-            detail:
-                "CachingIterable never shrinks its internal buffer. Once "
+            detail: "CachingIterable never shrinks its internal buffer. Once "
                 "an element has been cached it is retained for the lifetime of "
                 "the CachingIterable. If you need bounded memory, wrap a "
                 "windowed iterator instead.",
@@ -646,13 +640,18 @@ class _CacheLifecycleSection extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(width: 4, color: color),
+            Container(
+              width: 4,
+              color: color,
+            ),
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: color.withValues(alpha: 0.18)),
+                  border: Border.all(
+                    color: color.withValues(alpha: 0.18),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -719,102 +718,24 @@ class _PassComparisonSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<_PassRow> rows = <_PassRow>[
-      _PassRow(
-        "elementAt(0)",
-        "moveNext + cache write",
-        "cache read",
-        "1",
-        "0",
-      ),
-      _PassRow(
-        "elementAt(1)",
-        "moveNext + cache write",
-        "cache read",
-        "1",
-        "0",
-      ),
-      _PassRow(
-        "elementAt(2)",
-        "moveNext + cache write",
-        "cache read",
-        "1",
-        "0",
-      ),
-      _PassRow(
-        "elementAt(3)",
-        "moveNext + cache write",
-        "cache read",
-        "1",
-        "0",
-      ),
-      _PassRow(
-        "elementAt(4)",
-        "moveNext + cache write",
-        "cache read",
-        "1",
-        "0",
-      ),
+      _PassRow("elementAt(0)", "moveNext + cache write", "cache read", "1", "0"),
+      _PassRow("elementAt(1)", "moveNext + cache write", "cache read", "1", "0"),
+      _PassRow("elementAt(2)", "moveNext + cache write", "cache read", "1", "0"),
+      _PassRow("elementAt(3)", "moveNext + cache write", "cache read", "1", "0"),
+      _PassRow("elementAt(4)", "moveNext + cache write", "cache read", "1", "0"),
       _PassRow("length", "fully drain iterator", "cache.length", "n - 5", "0"),
       _PassRow("toList()", "drain + copy cache", "copy cache", "0", "0"),
       _PassRow("first", "cache read", "cache read", "0", "0"),
       _PassRow("last", "drain iterator", "cache read", "0", "0"),
       _PassRow("isEmpty", "moveNext once", "cache read", "0", "0"),
-      _PassRow(
-        "contains(x)",
-        "scan until found",
-        "scan cache only",
-        "0..n",
-        "0",
-      ),
-      _PassRow(
-        "where(f).toList()",
-        "scan + filter + cache",
-        "scan cache",
-        "0",
-        "0",
-      ),
-      _PassRow(
-        "map(f).toList()",
-        "scan + map + cache",
-        "scan cache + map",
-        "0",
-        "0",
-      ),
-      _PassRow(
-        "fold(seed, op)",
-        "scan + fold + cache",
-        "scan cache + fold",
-        "0",
-        "0",
-      ),
-      _PassRow(
-        "any(f)",
-        "scan until true",
-        "scan cache until true",
-        "0..n",
-        "0",
-      ),
-      _PassRow(
-        "every(f)",
-        "scan until false",
-        "scan cache until false",
-        "0..n",
-        "0",
-      ),
-      _PassRow(
-        "take(k).toList()",
-        "moveNext k times",
-        "cache read k times",
-        "k",
-        "0",
-      ),
-      _PassRow(
-        "skip(k).toList()",
-        "moveNext k + drain",
-        "cache read",
-        "0",
-        "0",
-      ),
+      _PassRow("contains(x)", "scan until found", "scan cache only", "0..n", "0"),
+      _PassRow("where(f).toList()", "scan + filter + cache", "scan cache", "0", "0"),
+      _PassRow("map(f).toList()", "scan + map + cache", "scan cache + map", "0", "0"),
+      _PassRow("fold(seed, op)", "scan + fold + cache", "scan cache + fold", "0", "0"),
+      _PassRow("any(f)", "scan until true", "scan cache until true", "0..n", "0"),
+      _PassRow("every(f)", "scan until false", "scan cache until false", "0..n", "0"),
+      _PassRow("take(k).toList()", "moveNext k times", "cache read k times", "k", "0"),
+      _PassRow("skip(k).toList()", "moveNext k + drain", "cache read", "0", "0"),
       _PassRow("reduce(op)", "scan + reduce", "scan cache + reduce", "0", "0"),
       _PassRow("join(\",\")", "scan + concat", "scan cache + concat", "0", "0"),
     ];
@@ -947,7 +868,9 @@ class _PassComparisonSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.85),
-        border: const Border(bottom: BorderSide(color: Color(0xFFFFE0B2))),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFFFFE0B2)),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -967,14 +890,20 @@ class _PassComparisonSection extends StatelessWidget {
             flex: 4,
             child: Text(
               row.first,
-              style: const TextStyle(color: Color(0xFF37474F), fontSize: 12),
+              style: const TextStyle(
+                color: Color(0xFF37474F),
+                fontSize: 12,
+              ),
             ),
           ),
           Expanded(
             flex: 4,
             child: Text(
               row.second,
-              style: const TextStyle(color: Color(0xFF37474F), fontSize: 12),
+              style: const TextStyle(
+                color: Color(0xFF37474F),
+                fontSize: 12,
+              ),
             ),
           ),
           Expanded(
@@ -1054,8 +983,7 @@ class _UseCasesSection extends StatelessWidget {
             color: const Color(0xFF66BB6A),
             title: "Lazy Slivers",
             seenIn: "package:flutter/widgets/sliver.dart",
-            blurb:
-                "SliverChildBuilderDelegate computes its children lazily, "
+            blurb: "SliverChildBuilderDelegate computes its children lazily, "
                 "but the sliver protocol asks for child count and a specific "
                 "index repeatedly. Wrapping the builder output in a "
                 "CachingIterable lets the framework hit the cache for warm "
@@ -1066,8 +994,7 @@ class _UseCasesSection extends StatelessWidget {
             color: const Color(0xFF42A5F5),
             title: "Animated Builders",
             seenIn: "third-party animated list libraries",
-            blurb:
-                "Animated lists frequently re-iterate their child set to "
+            blurb: "Animated lists frequently re-iterate their child set to "
                 "compute insertion / removal diffs. CachingIterable lets the "
                 "diff phase re-walk the iterable without re-running the "
                 "expensive build closure.",
@@ -1077,8 +1004,7 @@ class _UseCasesSection extends StatelessWidget {
             color: const Color(0xFFAB47BC),
             title: "Computed Properties",
             seenIn: "diagnostics, debug labels, semantics",
-            blurb:
-                "Diagnostic strings often want to ask how many children "
+            blurb: "Diagnostic strings often want to ask how many children "
                 "there are and to show the first three. A CachingIterable "
                 "answers both questions in O(1) after the first call without "
                 "forcing a full traversal.",
@@ -1088,8 +1014,7 @@ class _UseCasesSection extends StatelessWidget {
             color: const Color(0xFFFFA726),
             title: "Streaming Tests",
             seenIn: "package:flutter_test",
-            blurb:
-                "Test harnesses sometimes need to inspect the same lazily "
+            blurb: "Test harnesses sometimes need to inspect the same lazily "
                 "generated event stream multiple times. Wrapping the stream "
                 "snapshot iterator in a CachingIterable preserves the lazy "
                 "property while making the inspection re-entrant.",
@@ -1099,8 +1024,7 @@ class _UseCasesSection extends StatelessWidget {
             color: const Color(0xFFEC407A),
             title: "Generator Memoization",
             seenIn: "user code, dart:core sync* generators",
-            blurb:
-                "Any sync* generator returns a one-shot Iterable whose "
+            blurb: "Any sync* generator returns a one-shot Iterable whose "
                 "iterator can only be walked once. Wrapping it in a "
                 "CachingIterable turns the generator into a reusable, lazy, "
                 "memoized sequence - a poor person's lazy List.",
@@ -1138,7 +1062,10 @@ class _UseCasesSection extends StatelessWidget {
               Container(
                 width: 10,
                 height: 10,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 10),
               Text(
@@ -1213,8 +1140,7 @@ class _PitfallsSection extends StatelessWidget {
           _pitfallCard(
             level: "high",
             title: "Underlying iterator must not be shared",
-            blurb:
-                "If you pass an iterator to CachingIterable and then walk "
+            blurb: "If you pass an iterator to CachingIterable and then walk "
                 "it elsewhere, the cache will see a gap. The iterator is "
                 "expected to be owned exclusively by the CachingIterable.",
           ),
@@ -1222,8 +1148,7 @@ class _PitfallsSection extends StatelessWidget {
           _pitfallCard(
             level: "high",
             title: "forEach vs map vs where",
-            blurb:
-                "forEach is eager: it walks the iterator immediately and "
+            blurb: "forEach is eager: it walks the iterator immediately and "
                 "fills the cache to the end. map and where return new lazy "
                 "iterables that only walk the source as their results are "
                 "consumed. If you call forEach, expect a full drain.",
@@ -1232,8 +1157,7 @@ class _PitfallsSection extends StatelessWidget {
           _pitfallCard(
             level: "medium",
             title: "length always drains the iterator",
-            blurb:
-                "Calling .length on a CachingIterable forces the iterator "
+            blurb: "Calling .length on a CachingIterable forces the iterator "
                 "to be fully consumed (because length cannot be computed "
                 "without knowing the end). Avoid it in hot paths if you only "
                 "care about a prefix.",
@@ -1242,8 +1166,7 @@ class _PitfallsSection extends StatelessWidget {
           _pitfallCard(
             level: "medium",
             title: "No element eviction",
-            blurb:
-                "CachingIterable keeps every element it has ever seen. "
+            blurb: "CachingIterable keeps every element it has ever seen. "
                 "If your sequence is huge and you only need a small window, "
                 "use a windowed wrapper instead.",
           ),
@@ -1251,8 +1174,7 @@ class _PitfallsSection extends StatelessWidget {
           _pitfallCard(
             level: "low",
             title: "Not thread-safe",
-            blurb:
-                "CachingIterable is not designed for concurrent access. "
+            blurb: "CachingIterable is not designed for concurrent access. "
                 "In Dart this is rarely an issue because each isolate is "
                 "single-threaded, but if you cross isolate boundaries you "
                 "need to serialize access yourself.",
@@ -1261,8 +1183,7 @@ class _PitfallsSection extends StatelessWidget {
           _pitfallCard(
             level: "low",
             title: "No identity guarantee across passes",
-            blurb:
-                "The CachingIterable returns the same cached object on "
+            blurb: "The CachingIterable returns the same cached object on "
                 "every read. If your iterator produces mutable values, "
                 "callers may observe each other mutations.",
           ),
@@ -1364,51 +1285,44 @@ class _ApiSurfaceSection extends StatelessWidget {
       _ApiRow(
         kind: "ctor",
         signature: "CachingIterable<T>(Iterator<T> source)",
-        notes:
-            "Wraps the given source. The iterator is expected to be owned "
+        notes: "Wraps the given source. The iterator is expected to be owned "
             "exclusively by the new CachingIterable.",
       ),
       _ApiRow(
         kind: "getter",
         signature: "Iterator<T> get iterator",
-        notes:
-            "Returns a new iterator that walks the cache and continues "
+        notes: "Returns a new iterator that walks the cache and continues "
             "into the underlying iterator past the cache high-water mark.",
       ),
       _ApiRow(
         kind: "override",
         signature: "T elementAt(int index)",
-        notes:
-            "Walks the underlying iterator until index is reached, "
+        notes: "Walks the underlying iterator until index is reached, "
             "caching all intermediate elements. Subsequent calls for the "
             "same index are O(1).",
       ),
       _ApiRow(
         kind: "override",
         signature: "int get length",
-        notes:
-            "Drains the underlying iterator to completion. Cached for "
+        notes: "Drains the underlying iterator to completion. Cached for "
             "subsequent reads.",
       ),
       _ApiRow(
         kind: "override",
         signature: "bool contains(Object? element)",
-        notes:
-            "Linearly scans until element is found or the iterator is "
+        notes: "Linearly scans until element is found or the iterator is "
             "exhausted. May leave the iterator in a partially-drained state.",
       ),
       _ApiRow(
         kind: "override",
         signature: "Iterable<T> skip(int count)",
-        notes:
-            "Returns a lazy view that skips the first count elements. "
+        notes: "Returns a lazy view that skips the first count elements. "
             "Does not force the iterator to advance past count.",
       ),
       _ApiRow(
         kind: "override",
         signature: "Iterable<T> take(int count)",
-        notes:
-            "Returns a lazy view that yields at most count elements. "
+        notes: "Returns a lazy view that yields at most count elements. "
             "Only advances the underlying iterator as needed.",
       ),
       _ApiRow(
@@ -1536,7 +1450,9 @@ class _ApiSurfaceSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.85),
-        border: const Border(bottom: BorderSide(color: Color(0xFFB3E5FC))),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFFB3E5FC)),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1615,15 +1531,13 @@ class _PerformanceHeuristicsSection extends StatelessWidget {
       _HeuristicRow(
         scenario: "Cheap generator, traversed once",
         verdict: "avoid",
-        rationale:
-            "Use the iterator directly; CachingIterable adds overhead "
+        rationale: "Use the iterator directly; CachingIterable adds overhead "
             "with no benefit.",
       ),
       _HeuristicRow(
         scenario: "Cheap generator, traversed many times",
         verdict: "prefer List",
-        rationale:
-            "Up-front .toList() is simpler and has the same asymptotic "
+        rationale: "Up-front .toList() is simpler and has the same asymptotic "
             "behaviour.",
       ),
       _HeuristicRow(
@@ -1634,51 +1548,44 @@ class _PerformanceHeuristicsSection extends StatelessWidget {
       _HeuristicRow(
         scenario: "Expensive generator, may be traversed many times",
         verdict: "use it",
-        rationale:
-            "The canonical use case. The first pass pays the cost; "
+        rationale: "The canonical use case. The first pass pays the cost; "
             "subsequent passes are O(n) cache scans.",
       ),
       _HeuristicRow(
         scenario: "Expensive generator, partial traversal",
         verdict: "use it",
-        rationale:
-            "You only pay for the prefix you actually walk, and that "
+        rationale: "You only pay for the prefix you actually walk, and that "
             "prefix is reused next time.",
       ),
       _HeuristicRow(
         scenario: "Very long generator, bounded window",
         verdict: "avoid",
-        rationale:
-            "CachingIterable keeps every element forever. Use a "
+        rationale: "CachingIterable keeps every element forever. Use a "
             "windowed wrapper.",
       ),
       _HeuristicRow(
         scenario: "Generator producing mutable values",
         verdict: "use with care",
-        rationale:
-            "Cached values are shared across passes. Treat them as "
+        rationale: "Cached values are shared across passes. Treat them as "
             "immutable.",
       ),
       _HeuristicRow(
         scenario: "Generator that throws",
         verdict: "use with care",
-        rationale:
-            "Once an exception is thrown the cache may be partially "
+        rationale: "Once an exception is thrown the cache may be partially "
             "filled. Subsequent passes will replay the same exception at the "
             "same index.",
       ),
       _HeuristicRow(
         scenario: "Length needed up front",
         verdict: "prefer List",
-        rationale:
-            ".length forces a full drain anyway; use a List<T> for "
+        rationale: ".length forces a full drain anyway; use a List<T> for "
             "clarity.",
       ),
       _HeuristicRow(
         scenario: "Constant-time random access needed",
         verdict: "prefer List",
-        rationale:
-            "CachingIterable elementAt is amortized O(1) but the "
+        rationale: "CachingIterable elementAt is amortized O(1) but the "
             "first call to a cold index is O(index).",
       ),
     ];
@@ -1801,7 +1708,9 @@ class _PerformanceHeuristicsSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.85),
-        border: const Border(bottom: BorderSide(color: Color(0xFFE1BEE7))),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFFE1BEE7)),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2122,52 +2031,52 @@ class _SectionTitle extends StatelessWidget {
 const Map<String, String> _glossary = <String, String>{
   "Iterator":
       "A single-walk cursor over a sequence. Defined by the abstract class "
-      "Iterator<T> in dart:core. Provides moveNext() and current.",
+          "Iterator<T> in dart:core. Provides moveNext() and current.",
   "Iterable":
       "A re-entrant source of iterators. Defined by the abstract class "
-      "Iterable<T> in dart:core. Calling .iterator may return a fresh "
-      "iterator on every call.",
+          "Iterable<T> in dart:core. Calling .iterator may return a fresh "
+          "iterator on every call.",
   "Lazy":
       "A computation that is deferred until its result is consumed. "
-      "Opposite of eager.",
+          "Opposite of eager.",
   "Eager":
       "A computation that runs immediately, regardless of whether its "
-      "result is consumed. Opposite of lazy.",
+          "result is consumed. Opposite of lazy.",
   "Memoization":
       "Caching the result of a function so that repeated calls with the "
-      "same input do not recompute.",
+          "same input do not recompute.",
   "Generator":
       "A function that produces values one at a time, typically via "
-      "Dart sync* or async* syntax.",
+          "Dart sync* or async* syntax.",
   "Sliver":
       "A scrollable region in Flutter. Slivers compute their child set "
-      "lazily and ask for child N and child count repeatedly.",
+          "lazily and ask for child N and child count repeatedly.",
   "Cache":
       "A storage area for previously-computed results, used to avoid "
-      "recomputation. CachingIterable cache is an internal List<T>.",
+          "recomputation. CachingIterable cache is an internal List<T>.",
   "High-water mark":
       "The largest index that has ever been requested from a cache. "
-      "CachingIterable underlying iterator is advanced to exactly the "
-      "high-water mark.",
+          "CachingIterable underlying iterator is advanced to exactly the "
+          "high-water mark.",
   "Drain":
       "To advance an iterator until moveNext returns false. After draining, "
-      "the iterator yields no more elements.",
+          "the iterator yields no more elements.",
   "Pristine":
       "The state of a CachingIterable that has never had an element "
-      "requested from it.",
+          "requested from it.",
   "Warming":
       "The state of a CachingIterable whose underlying iterator has been "
-      "partially walked.",
+          "partially walked.",
   "Sealed":
       "The state of a CachingIterable whose underlying iterator has been "
-      "fully drained. The cache is now authoritative.",
+          "fully drained. The cache is now authoritative.",
   "Re-entrant":
       "A property of a sequence that allows it to be traversed any number "
-      "of times. Iterables are re-entrant; iterators are not.",
+          "of times. Iterables are re-entrant; iterators are not.",
   "Amortized":
       "An average-case cost over many operations. CachingIterable "
-      "elementAt is amortized O(1) because the up-front cost of filling "
-      "the cache is spread over future reads.",
+          "elementAt is amortized O(1) because the up-front cost of filling "
+          "the cache is spread over future reads.",
 };
 
 // =============================================================================
@@ -2263,11 +2172,7 @@ const List<_CostRow> _costModel = <_CostRow>[
   _CostRow("first read of length", "O(n)", "Drains the iterator fully."),
   _CostRow("subsequent read of length", "O(1)", "Returns cached length."),
   _CostRow("first iteration", "O(n)", "Walks and caches every element."),
-  _CostRow(
-    "subsequent iteration",
-    "O(n)",
-    "Walks the cache; no iterator work.",
-  ),
+  _CostRow("subsequent iteration", "O(n)", "Walks the cache; no iterator work."),
   _CostRow("first contains(x)", "O(n) worst", "Linear scan until found."),
   _CostRow("subsequent contains(x)", "O(n) worst", "Linear scan of cache."),
   _CostRow("first toList()", "O(n)", "Drain plus copy."),
@@ -2275,11 +2180,7 @@ const List<_CostRow> _costModel = <_CostRow>[
   _CostRow("take(k).toList() first", "O(k)", "Walks k elements."),
   _CostRow("take(k).toList() later", "O(k)", "Indexes k cache slots."),
   _CostRow("skip(k).toList() first", "O(n)", "Drains the whole iterator."),
-  _CostRow(
-    "skip(k).toList() later",
-    "O(n - k)",
-    "Reads the tail of the cache.",
-  ),
+  _CostRow("skip(k).toList() later", "O(n - k)", "Reads the tail of the cache."),
 ];
 
 class _CostRow {
@@ -2335,8 +2236,7 @@ const List<String> _internalNotes = <String>[
 // is included in the AST file to give the harness a large block of literal
 // text to verify.
 // =============================================================================
-const String _workedExampleSliver =
-    ""
+const String _workedExampleSliver = ""
     "Consider a SliverChildBuilderDelegate whose IndexedWidgetBuilder is "
     "expensive - say, it parses JSON and constructs a complex card widget. "
     "Without caching, the sliver protocol combined queries (childCount, "
@@ -2357,8 +2257,7 @@ const String _workedExampleSliver =
 // =============================================================================
 // APPENDIX F — Worked Example: Animated List Diff
 // =============================================================================
-const String _workedExampleAnimatedList =
-    ""
+const String _workedExampleAnimatedList = ""
     "Animated list libraries typically compute a diff between the old and "
     "new child sets to decide which children to animate in, out, or move. "
     "The diff algorithm walks both sets multiple times: once to build a "
@@ -2377,8 +2276,7 @@ const String _workedExampleAnimatedList =
 // =============================================================================
 // APPENDIX G — Worked Example: Diagnostics
 // =============================================================================
-const String _workedExampleDiagnostics =
-    ""
+const String _workedExampleDiagnostics = ""
     "The Flutter diagnostics system asks widgets to describe themselves for "
     "the inspector and the toString() output. A common pattern is to expose "
     "a children iterable that the diagnostics tooling may walk to compute a "
@@ -2401,8 +2299,7 @@ const String _workedExampleDiagnostics =
 // This is paraphrased; the real source is in flutter/foundation/lib/src/
 // foundation/collections.dart.
 // =============================================================================
-const String _implementationSketch =
-    ""
+const String _implementationSketch = ""
     "class CachingIterable<E> extends IterableBase<E> {\n"
     "  CachingIterable(this._prefillIterator);\n"
     "\n"
@@ -2515,13 +2412,17 @@ const Map<String, String> _crossReferences = <String, String>{
       "Eagerly materialized counterpart to SliverChildBuilderDelegate.",
   "Iterable.cast":
       "Returns a typed wrapper; lazy like CachingIterable but does not cache.",
-  "Iterable.toList": "Eager materialization; the antonym of CachingIterable.",
+  "Iterable.toList":
+      "Eager materialization; the antonym of CachingIterable.",
   "Stream.asBroadcastStream":
       "The asynchronous cousin of CachingIterable; converts a single-listener "
-      "stream into one that can be listened to multiple times.",
-  "StreamController.broadcast": "Another asynchronous broadcast primitive.",
-  "ListView.builder": "User-facing wrapper around SliverChildBuilderDelegate.",
-  "GridView.builder": "User-facing wrapper around SliverChildBuilderDelegate.",
+          "stream into one that can be listened to multiple times.",
+  "StreamController.broadcast":
+      "Another asynchronous broadcast primitive.",
+  "ListView.builder":
+      "User-facing wrapper around SliverChildBuilderDelegate.",
+  "GridView.builder":
+      "User-facing wrapper around SliverChildBuilderDelegate.",
   "Iterable.cycle (package:quiver)":
       "Infinite iterable; cannot be cached because it has no end.",
   "DiagnosticsNode.getChildren":
@@ -2535,8 +2436,7 @@ const Map<String, String> _crossReferences = <String, String>{
 // exists and what it does not attempt to be. Pure prose; no Dart constructs
 // beyond a String literal.
 // =============================================================================
-const String _closingRemarks =
-    ""
+const String _closingRemarks = ""
     "This file deliberately resists the temptation to be exhaustive. "
     "CachingIterable is a small class and a small idea; the goal of this "
     "document is to surface that idea clearly, with enough surrounding "

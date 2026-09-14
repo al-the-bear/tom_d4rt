@@ -192,19 +192,31 @@ dynamic build(BuildContext context) {
   final behaviorDeferToChild = GestureDetector(
     behavior: HitTestBehavior.deferToChild,
     onTap: () {},
-    child: _swatch('deferToChild', Color(0xFF388E3C), Icons.child_care),
+    child: _swatch(
+      'deferToChild',
+      Color(0xFF388E3C),
+      Icons.child_care,
+    ),
   );
 
   final behaviorOpaque = GestureDetector(
     behavior: HitTestBehavior.opaque,
     onTap: () {},
-    child: _swatch('opaque', Color(0xFF455A64), Icons.layers),
+    child: _swatch(
+      'opaque',
+      Color(0xFF455A64),
+      Icons.layers,
+    ),
   );
 
   final behaviorTranslucent = GestureDetector(
     behavior: HitTestBehavior.translucent,
     onTap: () {},
-    child: _swatch('translucent', Color(0xFFFB8C00), Icons.opacity),
+    child: _swatch(
+      'translucent',
+      Color(0xFFFB8C00),
+      Icons.opacity,
+    ),
   );
 
   final hitTestExplainer = Container(
@@ -243,7 +255,11 @@ dynamic build(BuildContext context) {
         Wrap(
           spacing: 12.0,
           runSpacing: 12.0,
-          children: [behaviorDeferToChild, behaviorOpaque, behaviorTranslucent],
+          children: [
+            behaviorDeferToChild,
+            behaviorOpaque,
+            behaviorTranslucent,
+          ],
         ),
         hitTestExplainer,
       ],
@@ -374,45 +390,45 @@ dynamic build(BuildContext context) {
     gestures: <Type, GestureRecognizerFactory>{
       TapGestureRecognizer:
           GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-            () => TapGestureRecognizer(),
-            (TapGestureRecognizer instance) {
-              instance.onTap = () {};
-              instance.onTapDown = (TapDownDetails d) {};
-              instance.onTapUp = (TapUpDetails d) {};
-              instance.onTapCancel = () {};
-            },
-          ),
+        () => TapGestureRecognizer(),
+        (TapGestureRecognizer instance) {
+          instance.onTap = () {};
+          instance.onTapDown = (TapDownDetails d) {};
+          instance.onTapUp = (TapUpDetails d) {};
+          instance.onTapCancel = () {};
+        },
+      ),
       DoubleTapGestureRecognizer:
           GestureRecognizerFactoryWithHandlers<DoubleTapGestureRecognizer>(
-            () => DoubleTapGestureRecognizer(),
-            (DoubleTapGestureRecognizer instance) {
-              instance.onDoubleTap = () {};
-              instance.onDoubleTapDown = (TapDownDetails d) {};
-              instance.onDoubleTapCancel = () {};
-            },
-          ),
+        () => DoubleTapGestureRecognizer(),
+        (DoubleTapGestureRecognizer instance) {
+          instance.onDoubleTap = () {};
+          instance.onDoubleTapDown = (TapDownDetails d) {};
+          instance.onDoubleTapCancel = () {};
+        },
+      ),
       LongPressGestureRecognizer:
           GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
-            () => LongPressGestureRecognizer(),
-            (LongPressGestureRecognizer instance) {
-              instance.onLongPress = () {};
-              instance.onLongPressStart = (LongPressStartDetails d) {};
-              instance.onLongPressMoveUpdate =
-                  (LongPressMoveUpdateDetails d) {};
-              instance.onLongPressEnd = (LongPressEndDetails d) {};
-              instance.onLongPressUp = () {};
-            },
-          ),
+        () => LongPressGestureRecognizer(),
+        (LongPressGestureRecognizer instance) {
+          instance.onLongPress = () {};
+          instance.onLongPressStart = (LongPressStartDetails d) {};
+          instance.onLongPressMoveUpdate =
+              (LongPressMoveUpdateDetails d) {};
+          instance.onLongPressEnd = (LongPressEndDetails d) {};
+          instance.onLongPressUp = () {};
+        },
+      ),
       PanGestureRecognizer:
           GestureRecognizerFactoryWithHandlers<PanGestureRecognizer>(
-            () => PanGestureRecognizer(),
-            (PanGestureRecognizer instance) {
-              instance.onStart = (DragStartDetails d) {};
-              instance.onUpdate = (DragUpdateDetails d) {};
-              instance.onEnd = (DragEndDetails d) {};
-              instance.onCancel = () {};
-            },
-          ),
+        () => PanGestureRecognizer(),
+        (PanGestureRecognizer instance) {
+          instance.onStart = (DragStartDetails d) {};
+          instance.onUpdate = (DragUpdateDetails d) {};
+          instance.onEnd = (DragEndDetails d) {};
+          instance.onCancel = () {};
+        },
+      ),
     },
     child: Container(
       padding: EdgeInsets.all(20.0),
@@ -442,7 +458,10 @@ dynamic build(BuildContext context) {
               ),
               Text(
                 '4 recognizers via factory map',
-                style: TextStyle(color: Colors.white70, fontSize: 12.0),
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 12.0,
+                ),
               ),
             ],
           ),
@@ -493,7 +512,9 @@ dynamic build(BuildContext context) {
     'RawGestureDetector',
     'Factory map plumbing — the engine behind GestureDetector',
     Color(0xFFE65100),
-    Column(children: [rawGestureRecipe, rawRecipeExplainer]),
+    Column(
+      children: [rawGestureRecipe, rawRecipeExplainer],
+    ),
   );
 
   print('Section 5 created');
@@ -593,47 +614,41 @@ dynamic build(BuildContext context) {
     ..onTapDown = (TapDownDetails d) {}
     ..onTapUp = (TapUpDetails d) {}
     ..onTapCancel = () {};
-  print('TapGestureRecognizer constructed: ${tapRecognizerSample.runtimeType}');
+  print(
+      'TapGestureRecognizer constructed: ${tapRecognizerSample.runtimeType}');
 
   final doubleTapRecognizerSample = DoubleTapGestureRecognizer()
     ..onDoubleTap = () {}
     ..onDoubleTapDown = (TapDownDetails d) {}
     ..onDoubleTapCancel = () {};
-  print(
-    'DoubleTapGestureRecognizer constructed: '
-    '${doubleTapRecognizerSample.runtimeType}',
-  );
+  print('DoubleTapGestureRecognizer constructed: '
+      '${doubleTapRecognizerSample.runtimeType}');
 
-  final longPressRecognizerSample =
-      LongPressGestureRecognizer(duration: Duration(milliseconds: 500))
-        ..onLongPress = () {}
-        ..onLongPressStart = (LongPressStartDetails d) {}
-        ..onLongPressMoveUpdate = (LongPressMoveUpdateDetails d) {}
-        ..onLongPressEnd = (LongPressEndDetails d) {}
-        ..onLongPressUp = () {};
-  print(
-    'LongPressGestureRecognizer constructed: '
-    '${longPressRecognizerSample.runtimeType}',
-  );
+  final longPressRecognizerSample = LongPressGestureRecognizer(
+    duration: Duration(milliseconds: 500),
+  )
+    ..onLongPress = () {}
+    ..onLongPressStart = (LongPressStartDetails d) {}
+    ..onLongPressMoveUpdate = (LongPressMoveUpdateDetails d) {}
+    ..onLongPressEnd = (LongPressEndDetails d) {}
+    ..onLongPressUp = () {};
+  print('LongPressGestureRecognizer constructed: '
+      '${longPressRecognizerSample.runtimeType}');
 
   final panRecognizerSample = PanGestureRecognizer()
     ..onStart = (DragStartDetails d) {}
     ..onUpdate = (DragUpdateDetails d) {}
     ..onEnd = (DragEndDetails d) {}
     ..onCancel = () {};
-  print(
-    'PanGestureRecognizer constructed: '
-    '${panRecognizerSample.runtimeType}',
-  );
+  print('PanGestureRecognizer constructed: '
+      '${panRecognizerSample.runtimeType}');
 
   final scaleRecognizerSample = ScaleGestureRecognizer()
     ..onStart = (ScaleStartDetails d) {}
     ..onUpdate = (ScaleUpdateDetails d) {}
     ..onEnd = (ScaleEndDetails d) {};
-  print(
-    'ScaleGestureRecognizer constructed: '
-    '${scaleRecognizerSample.runtimeType}',
-  );
+  print('ScaleGestureRecognizer constructed: '
+      '${scaleRecognizerSample.runtimeType}');
 
   final factorySection = _section(
     'Recognizer Hierarchy',
@@ -746,7 +761,9 @@ dynamic build(BuildContext context) {
     'Conflict Resolution',
     'How the gesture arena disambiguates competing recognizers',
     Color(0xFF0D47A1),
-    Column(children: [arenaIntro, arenaDemo]),
+    Column(
+      children: [arenaIntro, arenaDemo],
+    ),
   );
 
   print('Section 7 created');
@@ -763,7 +780,11 @@ dynamic build(BuildContext context) {
       PointerDeviceKind.invertedStylus,
     },
     onTap: () {},
-    child: _swatch('supportedDevices', Color(0xFF00838F), Icons.devices_other),
+    child: _swatch(
+      'supportedDevices',
+      Color(0xFF00838F),
+      Icons.devices_other,
+    ),
   );
 
   final mouseTrackpadDemo = GestureDetector(
@@ -777,7 +798,11 @@ dynamic build(BuildContext context) {
     onScaleEnd: (ScaleEndDetails d) {},
     trackpadScrollCausesScale: true,
     trackpadScrollToScaleFactor: Offset(0.0, -1.0 / 200.0),
-    child: _swatch('mouse + trackpad', Color(0xFFAD1457), Icons.mouse),
+    child: _swatch(
+      'mouse + trackpad',
+      Color(0xFFAD1457),
+      Icons.mouse,
+    ),
   );
 
   final excludeSemanticsDemo = GestureDetector(
@@ -795,7 +820,11 @@ dynamic build(BuildContext context) {
     onPanStart: (DragStartDetails d) {},
     onPanUpdate: (DragUpdateDetails d) {},
     onPanEnd: (DragEndDetails d) {},
-    child: _swatch('dragStart=down', Color(0xFF2E7D32), Icons.arrow_downward),
+    child: _swatch(
+      'dragStart=down',
+      Color(0xFF2E7D32),
+      Icons.arrow_downward,
+    ),
   );
 
   final dragBehaviorStartDemo = GestureDetector(
@@ -803,7 +832,11 @@ dynamic build(BuildContext context) {
     onPanStart: (DragStartDetails d) {},
     onPanUpdate: (DragUpdateDetails d) {},
     onPanEnd: (DragEndDetails d) {},
-    child: _swatch('dragStart=start', Color(0xFFEF6C00), Icons.play_arrow),
+    child: _swatch(
+      'dragStart=start',
+      Color(0xFFEF6C00),
+      Icons.play_arrow,
+    ),
   );
 
   final miscExplainer = Container(
@@ -838,7 +871,10 @@ dynamic build(BuildContext context) {
           'trackpadScrollToScaleFactor',
           'scale-factor offset applied per trackpad scroll',
         ),
-        _bullet('excludeFromSemantics', 'omit gesture from accessibility tree'),
+        _bullet(
+          'excludeFromSemantics',
+          'omit gesture from accessibility tree',
+        ),
       ],
     ),
   );
@@ -877,14 +913,10 @@ dynamic build(BuildContext context) {
   // interpreter limits (no ticker, no setState).
   const double t = 0.4;
   final double scaleSnapshot = Tween<double>(begin: 1.0, end: 1.4).transform(t);
-  final double rotationSnapshot = Tween<double>(
-    begin: 0.0,
-    end: 0.25,
-  ).transform(t);
-  final double opacitySnapshot = Tween<double>(
-    begin: 0.6,
-    end: 1.0,
-  ).transform(t);
+  final double rotationSnapshot =
+      Tween<double>(begin: 0.0, end: 0.25).transform(t);
+  final double opacitySnapshot =
+      Tween<double>(begin: 0.6, end: 1.0).transform(t);
 
   final snapshot = AlwaysStoppedAnimation<double>(t);
   print('AlwaysStoppedAnimation value: ${snapshot.value}');

@@ -14,10 +14,22 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   final dossier = <Map<String, String>>[
-    {'field': 'Class', 'value': 'ReadBuffer'},
-    {'field': 'Library', 'value': 'package:flutter/foundation.dart'},
-    {'field': 'Counterpart', 'value': 'WriteBuffer (producer)'},
-    {'field': 'Role', 'value': 'Sequential reader over a ByteData'},
+    {
+      'field': 'Class',
+      'value': 'ReadBuffer',
+    },
+    {
+      'field': 'Library',
+      'value': 'package:flutter/foundation.dart',
+    },
+    {
+      'field': 'Counterpart',
+      'value': 'WriteBuffer (producer)',
+    },
+    {
+      'field': 'Role',
+      'value': 'Sequential reader over a ByteData',
+    },
     {
       'field': 'Endianness',
       'value': 'host endian (little endian on most platforms)',
@@ -30,8 +42,14 @@ dynamic build(BuildContext context) {
       'field': 'Layout',
       'value': 'Tightly packed primitives with alignment for typed lists',
     },
-    {'field': 'Cursor', 'value': 'Internal offset advanced by each get* call'},
-    {'field': 'Lifetime', 'value': 'Single forward pass; no random access API'},
+    {
+      'field': 'Cursor',
+      'value': 'Internal offset advanced by each get* call',
+    },
+    {
+      'field': 'Lifetime',
+      'value': 'Single forward pass; no random access API',
+    },
     {
       'field': 'Coupling',
       'value': 'Schema must be agreed between writer and reader',
@@ -137,7 +155,11 @@ dynamic build(BuildContext context) {
   wbI32.putInt32(0x7FFFFFFF);
   final bdI32 = wbI32.done();
   final rbI32 = ReadBuffer(bdI32);
-  final i32Values = <int>[rbI32.getInt32(), rbI32.getInt32(), rbI32.getInt32()];
+  final i32Values = <int>[
+    rbI32.getInt32(),
+    rbI32.getInt32(),
+    rbI32.getInt32(),
+  ];
   final i32Dump = dumpBytes(bdI32);
 
   // ----- Uint32 round-trip -----
@@ -161,7 +183,11 @@ dynamic build(BuildContext context) {
   wbI64.putInt64(0x0102030405060708);
   final bdI64 = wbI64.done();
   final rbI64 = ReadBuffer(bdI64);
-  final i64Values = <int>[rbI64.getInt64(), rbI64.getInt64(), rbI64.getInt64()];
+  final i64Values = <int>[
+    rbI64.getInt64(),
+    rbI64.getInt64(),
+    rbI64.getInt64(),
+  ];
   final i64Dump = dumpBytes(bdI64);
 
   // ----- Float64 round-trip -----
@@ -310,14 +336,17 @@ dynamic build(BuildContext context) {
     final payload = rb.getUint8List(length);
     final text = String.fromCharCodes(payload);
     return <String, dynamic>{
-      'cmd': '0x' + cmd.toRadixString(16).toUpperCase().padLeft(2, '0'),
+      'cmd': '0x' +
+          cmd.toRadixString(16).toUpperCase().padLeft(2, '0'),
       'length': length,
       'payload_hex': payload
-          .map((b) => b.toRadixString(16).toUpperCase().padLeft(2, '0'))
+          .map((b) =>
+              b.toRadixString(16).toUpperCase().padLeft(2, '0'))
           .join(' '),
       'payload_text': text,
       'frame_hex': bytes
-          .map((b) => b.toRadixString(16).toUpperCase().padLeft(2, '0'))
+          .map((b) =>
+              b.toRadixString(16).toUpperCase().padLeft(2, '0'))
           .join(' '),
     };
   }
@@ -360,36 +389,34 @@ dynamic build(BuildContext context) {
       'title': 'Decode a fixed header',
       'body':
           'Agree on order: u8 version, u32 flags, u32 payload-length. Then call '
-          'getUint8 / getUint32 / getUint32 in that exact order.',
+              'getUint8 / getUint32 / getUint32 in that exact order.',
     },
     {
       'title': 'Read a TLV record',
-      'body':
-          'Use getUint8() for tag, getUint32() for length, then '
+      'body': 'Use getUint8() for tag, getUint32() for length, then '
           'getUint8List(length) for the value bytes.',
     },
     {
       'title': 'Stream-parse a list of records',
       'body':
           'Loop while ReadBuffer.hasRemaining and parse one record per iteration; '
-          'stop naturally when the buffer is exhausted.',
+              'stop naturally when the buffer is exhausted.',
     },
     {
       'title': 'Decode a vector of doubles',
       'body':
           'Write the length as u32 with WriteBuffer, then putFloat64List(values). '
-          'On read: getUint32 then getFloat64List(length).',
+              'On read: getUint32 then getFloat64List(length).',
     },
     {
       'title': 'Skip a typed-list pad',
       'body':
           'Typed lists are aligned to their element width. Trust ReadBuffer to '
-          'consume the pad bytes; do not manually advance.',
+              'consume the pad bytes; do not manually advance.',
     },
     {
       'title': 'Decode a string blob',
-      'body':
-          'Write byte count as u32 then putUint8List(utf8.encode(s)). '
+      'body': 'Write byte count as u32 then putUint8List(utf8.encode(s)). '
           'On read: length = getUint32, then '
           'utf8.decode(getUint8List(length)).',
     },
@@ -397,13 +424,13 @@ dynamic build(BuildContext context) {
       'title': 'Inspect bytes during debugging',
       'body':
           'Wrap a ByteData in a ReadBuffer for parsing, but keep a Uint8List view '
-          'around to print hex while you debug schema mismatches.',
+              'around to print hex while you debug schema mismatches.',
     },
     {
       'title': 'Validate before decoding',
       'body':
           'Check ByteData.lengthInBytes against a minimum size before constructing '
-          'the ReadBuffer to avoid out-of-range reads.',
+              'the ReadBuffer to avoid out-of-range reads.',
     },
   ];
 
@@ -475,27 +502,29 @@ dynamic build(BuildContext context) {
       'term': 'Alignment',
       'definition':
           'Insertion of pad bytes so a typed-list starts on a multiple of '
-          'its element width.',
+              'its element width.',
     },
     {
       'term': 'Endianness',
-      'definition': 'Byte order used to lay out multi-byte numbers in memory.',
+      'definition':
+          'Byte order used to lay out multi-byte numbers in memory.',
     },
     {
       'term': 'Wire format',
       'definition':
           'The agreed binary layout between writer and reader sides of a '
-          'channel.',
+              'channel.',
     },
     {
       'term': 'TLV',
       'definition':
           'Tag-Length-Value, a common framing pattern for self-describing '
-          'records.',
+              'records.',
     },
     {
       'term': 'Float64',
-      'definition': 'IEEE 754 double-precision 64-bit floating point number.',
+      'definition':
+          'IEEE 754 double-precision 64-bit floating point number.',
     },
     {
       'term': 'Int32',
@@ -506,25 +535,25 @@ dynamic build(BuildContext context) {
       'term': 'Int64',
       'definition':
           'Two\'s-complement signed 64-bit integer, used for large IDs and '
-          'timestamps.',
+              'timestamps.',
     },
     {
       'term': 'WriteBuffer',
       'definition':
           'Producer side counterpart to ReadBuffer; appends bytes and '
-          'finalizes to ByteData via done().',
+              'finalizes to ByteData via done().',
     },
     {
       'term': 'done()',
       'definition':
           'WriteBuffer terminator returning a ByteData snapshot for handing '
-          'to ReadBuffer.',
+              'to ReadBuffer.',
     },
     {
       'term': 'hasRemaining',
       'definition':
           'Boolean getter — true while the cursor has not reached the end '
-          'of the underlying ByteData.',
+              'of the underlying ByteData.',
     },
   ];
 
@@ -543,7 +572,8 @@ dynamic build(BuildContext context) {
       child: Row(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(4),
@@ -592,44 +622,42 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Expanded(child: Text(right, style: const TextStyle(fontSize: 12))),
+          Expanded(
+            child: Text(
+              right,
+              style: const TextStyle(fontSize: 12),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget byteDumpRow(
-    List<String> dump, {
-    int? highlightStart,
-    int? highlightEnd,
-    Color highlight = Colors.orange,
-  }) {
+  Widget byteDumpRow(List<String> dump, {int? highlightStart, int? highlightEnd, Color highlight = Colors.orange}) {
     final chips = <Widget>[];
     for (var i = 0; i < dump.length; i++) {
-      final inSel =
-          highlightStart != null &&
+      final inSel = highlightStart != null &&
           highlightEnd != null &&
           i >= highlightStart &&
           i <= highlightEnd;
-      chips.add(
-        Container(
-          margin: const EdgeInsets.only(right: 4, bottom: 4),
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-          decoration: BoxDecoration(
-            color: inSel ? highlight : Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(3),
-          ),
-          child: Text(
-            dump[i],
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: inSel ? Colors.white : Colors.black87,
-              fontWeight: inSel ? FontWeight.bold : FontWeight.normal,
-            ),
+      chips.add(Container(
+        margin: const EdgeInsets.only(right: 4, bottom: 4),
+        padding:
+            const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+        decoration: BoxDecoration(
+          color: inSel ? highlight : Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Text(
+          dump[i],
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11,
+            color: inSel ? Colors.white : Colors.black87,
+            fontWeight: inSel ? FontWeight.bold : FontWeight.normal,
           ),
         ),
-      );
+      ));
     }
     return Wrap(children: chips);
   }
@@ -640,35 +668,36 @@ dynamic build(BuildContext context) {
     for (var start = 0; start < dump.length; start += perRow) {
       final end = (start + perRow > dump.length) ? dump.length : start + perRow;
       final slice = dump.sublist(start, end);
-      rows.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                color: Colors.blueGrey.shade50,
-                child: Text(
-                  '0x' + start.toRadixString(16).toUpperCase().padLeft(4, '0'),
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    color: Colors.blueGrey,
-                  ),
+      rows.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              color: Colors.blueGrey.shade50,
+              child: Text(
+                '0x' + start.toRadixString(16).toUpperCase().padLeft(4, '0'),
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Colors.blueGrey,
                 ),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  slice.join(' '),
-                  style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                slice.join(' '),
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ));
     }
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
   }
@@ -676,7 +705,8 @@ dynamic build(BuildContext context) {
   Widget valueCard(String label, String value, Color color) {
     return Container(
       margin: const EdgeInsets.only(right: 8, bottom: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      padding:
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
         color: color.withOpacity(0.10),
         border: Border.all(color: color.withOpacity(0.4)),
@@ -716,7 +746,10 @@ dynamic build(BuildContext context) {
         color: color.withOpacity(0.08),
         border: Border(left: BorderSide(color: color, width: 4)),
       ),
-      child: Text(message, style: const TextStyle(fontSize: 12)),
+      child: Text(
+        message,
+        style: const TextStyle(fontSize: 12),
+      ),
     );
   }
 
@@ -738,8 +771,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         infoBox(
           'ReadBuffer reads a ByteData produced by WriteBuffer. It is the binary '
-          'counterpart of a stream of put* / get* operations agreed between '
-          'the two ends of a Flutter platform channel.',
+              'counterpart of a stream of put* / get* operations agreed between '
+              'the two ends of a Flutter platform channel.',
           Colors.indigo,
         ),
         const SizedBox(height: 8),
@@ -766,64 +799,60 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         infoBox(
           'Each get* call advances the internal cursor by the indicated number '
-          'of bytes. Typed-list reads also consume up to (alignment - 1) '
-          'pad bytes that WriteBuffer emitted on the producer side.',
+              'of bytes. Typed-list reads also consume up to (alignment - 1) '
+              'pad bytes that WriteBuffer emitted on the producer side.',
           Colors.teal,
         ),
         const SizedBox(height: 8),
-        ...anatomy.map(
-          (m) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: 110,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.teal,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    m['kind']!,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
+        ...anatomy.map((m) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 110,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      m['kind']!,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        m['member']!,
-                        style: const TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          m['member']!,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        m['cost']!,
-                        style: const TextStyle(
-                          fontSize: 11,
-                          color: Colors.black54,
+                        Text(
+                          m['cost']!,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: Colors.black54,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                ],
+              ),
+            )),
       ],
     ),
   );
@@ -895,8 +924,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         infoBox(
           'For each primitive type we encode three values with WriteBuffer, '
-          'dump the byte representation, then decode with ReadBuffer. The '
-          'decoded values match the input exactly, byte-for-byte.',
+              'dump the byte representation, then decode with ReadBuffer. The '
+              'decoded values match the input exactly, byte-for-byte.',
           Colors.deepPurple,
         ),
         const SizedBox(height: 12),
@@ -919,9 +948,8 @@ dynamic build(BuildContext context) {
           dump: u32Dump,
           labels: <String>['[0]', '[1]', '[2]'],
           values: u32Values
-              .map(
-                (v) => '0x' + v.toRadixString(16).toUpperCase().padLeft(8, '0'),
-              )
+              .map((v) =>
+                  '0x' + v.toRadixString(16).toUpperCase().padLeft(8, '0'))
               .toList(),
           color: Colors.blue,
         ),
@@ -989,15 +1017,13 @@ dynamic build(BuildContext context) {
                 Container(
                   margin: const EdgeInsets.only(right: 4, bottom: 4),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 3,
-                  ),
+                      horizontal: 6, vertical: 3),
                   decoration: BoxDecoration(
                     color: i < markerLen
                         ? Colors.amber
                         : (i < markerLen + padLen
-                              ? Colors.red.shade300
-                              : color),
+                            ? Colors.red.shade300
+                            : color),
                     borderRadius: BorderRadius.circular(3),
                   ),
                   child: Text(
@@ -1050,39 +1076,35 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         infoBox(
           'When a typed list follows a misaligned cursor, WriteBuffer pads with '
-          'extra bytes so the payload starts on a multiple of the element '
-          'width. ReadBuffer transparently consumes that pad — but you can '
-          'see it clearly in the byte dump below.',
+              'extra bytes so the payload starts on a multiple of the element '
+              'width. ReadBuffer transparently consumes that pad — but you can '
+              'see it clearly in the byte dump below.',
           Colors.orange,
         ),
         const SizedBox(height: 12),
         listBlock(
           title: 'Int32List of length 3 after a u8 marker',
-          description:
-              'pad = 3 bytes to reach 4-byte alignment; payload = 12 B',
+          description: 'pad = 3 bytes to reach 4-byte alignment; payload = 12 B',
           dump: alignDump,
           markerLen: 1,
           padLen: 3,
           payloadLen: 12,
           markerLabel: 'marker u8',
           marker:
-              '0x' +
-              alignMarker.toRadixString(16).toUpperCase().padLeft(2, '0'),
+              '0x' + alignMarker.toRadixString(16).toUpperCase().padLeft(2, '0'),
           payloadLabel: 'Int32List(3)',
           payload: alignList.toString(),
           color: Colors.orange,
         ),
         listBlock(
           title: 'Int64List of length 3 after a u8 marker',
-          description:
-              'pad = 7 bytes to reach 8-byte alignment; payload = 24 B',
+          description: 'pad = 7 bytes to reach 8-byte alignment; payload = 24 B',
           dump: align8Dump,
           markerLen: 1,
           padLen: 7,
           payloadLen: 24,
           markerLabel: 'marker u8',
-          marker:
-              '0x' +
+          marker: '0x' +
               align8Marker.toRadixString(16).toUpperCase().padLeft(2, '0'),
           payloadLabel: 'Int64List(3)',
           payload: align8List.toString(),
@@ -1090,15 +1112,13 @@ dynamic build(BuildContext context) {
         ),
         listBlock(
           title: 'Float64List of length 3 after a u8 marker',
-          description:
-              'pad = 7 bytes to reach 8-byte alignment; payload = 24 B',
+          description: 'pad = 7 bytes to reach 8-byte alignment; payload = 24 B',
           dump: alignFDump,
           markerLen: 1,
           padLen: 7,
           payloadLen: 24,
           markerLabel: 'marker u8',
-          marker:
-              '0x' +
+          marker: '0x' +
               alignFMarker.toRadixString(16).toUpperCase().padLeft(2, '0'),
           payloadLabel: 'Float64List(3)',
           payload: alignFList.toString(),
@@ -1112,8 +1132,7 @@ dynamic build(BuildContext context) {
           padLen: 0,
           payloadLen: 5,
           markerLabel: 'marker u8',
-          marker:
-              '0x' +
+          marker: '0x' +
               bytesMarker.toRadixString(16).toUpperCase().padLeft(2, '0'),
           payloadLabel: 'Uint8List(5)',
           payload: bytesList.toString(),
@@ -1141,8 +1160,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         infoBox(
           'A buffer with five interleaved fields: u8 tag, i32 count, f64 ratio, '
-          'i64 timestamp, u8 trailer. We highlight the slice consumed by '
-          'each step and report the value the reader produced.',
+              'i64 timestamp, u8 trailer. We highlight the slice consumed by '
+              'each step and report the value the reader produced.',
           Colors.purple,
         ),
         const SizedBox(height: 12),
@@ -1195,9 +1214,7 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 12),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
+                          horizontal: 6, vertical: 2),
                       color: Colors.purple.shade100,
                       child: Text(
                         'span ${step['span']}',
@@ -1219,11 +1236,8 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 6),
                 Row(
                   children: <Widget>[
-                    const Icon(
-                      Icons.arrow_forward,
-                      size: 14,
-                      color: Colors.purple,
-                    ),
+                    const Icon(Icons.arrow_forward,
+                        size: 14, color: Colors.purple),
                     const SizedBox(width: 4),
                     Text(
                       'value = ${step['value']}',
@@ -1241,7 +1255,7 @@ dynamic build(BuildContext context) {
         }),
         infoBox(
           'After step 5 the cursor sits at $cursor and hasRemaining is now '
-          '${rbMixed.hasRemaining}. The buffer is exhausted.',
+              '${rbMixed.hasRemaining}. The buffer is exhausted.',
           Colors.purple,
         ),
       ],
@@ -1266,79 +1280,78 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         infoBox(
           'A toy protocol shows the typical handler shape: read a command byte, '
-          'read the payload length, then pull the payload as a Uint8List. '
-          'The bytes shown below were produced with WriteBuffer and decoded '
-          'with ReadBuffer in one pass.',
+              'read the payload length, then pull the payload as a Uint8List. '
+              'The bytes shown below were produced with WriteBuffer and decoded '
+              'with ReadBuffer in one pass.',
           Colors.cyan,
         ),
         const SizedBox(height: 12),
-        ...framesDecoded.map(
-          (frame) => Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.cyan.shade300),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
-                      color: Colors.cyan,
-                      child: Text(
-                        'cmd ${frame['cmd']}',
-                        style: const TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 11,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+        ...framesDecoded.map((frame) => Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.cyan.shade300),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        color: Colors.cyan,
+                        child: Text(
+                          'cmd ${frame['cmd']}',
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      'length = ${frame['length']}',
-                      style: const TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12,
+                      const SizedBox(width: 8),
+                      Text(
+                        'length = ${frame['length']}',
+                        style: const TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                        ),
                       ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'frame: ${frame['frame_hex']}',
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                      color: Colors.black87,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  'frame: ${frame['frame_hex']}',
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    color: Colors.black87,
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'payload (hex): ${frame['payload_hex']}',
-                  style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
-                ),
-                Text(
-                  'payload (text): "${frame['payload_text']}"',
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo,
+                  const SizedBox(height: 4),
+                  Text(
+                    'payload (hex): ${frame['payload_hex']}',
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                  Text(
+                    'payload (text): "${frame['payload_text']}"',
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo,
+                    ),
+                  ),
+                ],
+              ),
+            )),
       ],
     ),
   );
@@ -1361,7 +1374,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         infoBox(
           'Iterate while ReadBuffer.hasRemaining is true. Once the cursor has '
-          'consumed every byte the flag flips to false and the loop stops.',
+              'consumed every byte the flag flips to false and the loop stops.',
           Colors.lime.shade800,
         ),
         const SizedBox(height: 8),
@@ -1405,51 +1418,47 @@ dynamic build(BuildContext context) {
           ],
         ),
         const Divider(),
-        ...scanTrace.map(
-          (row) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3),
-            child: Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 60,
-                  child: Text(
-                    row['index'].toString(),
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
+        ...scanTrace.map((row) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    width: 60,
+                    child: Text(
+                      row['index'].toString(),
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 100,
-                  child: Text(
-                    row['value'].toString(),
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
+                  SizedBox(
+                    width: 100,
+                    child: Text(
+                      row['value'].toString(),
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
-                  color: row['hasRemainingAfter'] == true
-                      ? Colors.lightGreen.shade200
-                      : Colors.red.shade100,
-                  child: Text(
-                    row['hasRemainingAfter'].toString(),
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6, vertical: 2),
+                    color: row['hasRemainingAfter'] == true
+                        ? Colors.lightGreen.shade200
+                        : Colors.red.shade100,
+                    child: Text(
+                      row['hasRemainingAfter'].toString(),
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                ],
+              ),
+            )),
       ],
     ),
   );
@@ -1470,39 +1479,41 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         const SizedBox(height: 8),
-        ...recipes.map(
-          (r) => Container(
-            margin: const EdgeInsets.symmetric(vertical: 4),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.brown.shade200),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    const Icon(Icons.menu_book, size: 16, color: Colors.brown),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        r['title']!,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
+        ...recipes.map((r) => Container(
+              margin: const EdgeInsets.symmetric(vertical: 4),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.brown.shade200),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      const Icon(Icons.menu_book,
+                          size: 16, color: Colors.brown),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          r['title']!,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(r['body']!, style: const TextStyle(fontSize: 12)),
-              ],
-            ),
-          ),
-        ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    r['body']!,
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
+            )),
       ],
     ),
   );
@@ -1565,40 +1576,31 @@ dynamic build(BuildContext context) {
                 ),
               ],
             ),
-            ...comparisonRows.map(
-              (r) => TableRow(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Text(
-                      r['feature']!,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
+            ...comparisonRows.map((r) => TableRow(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Text(r['feature']!,
+                          style:
+                              const TextStyle(fontWeight: FontWeight.w600)),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Text(
-                      r['readbuffer']!,
-                      style: const TextStyle(fontSize: 12),
+                    Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Text(r['readbuffer']!,
+                          style: const TextStyle(fontSize: 12)),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Text(
-                      r['bytedata']!,
-                      style: const TextStyle(fontSize: 12),
+                    Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Text(r['bytedata']!,
+                          style: const TextStyle(fontSize: 12)),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Text(
-                      r['uint8list']!,
-                      style: const TextStyle(fontSize: 12),
+                    Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Text(r['uint8list']!,
+                          style: const TextStyle(fontSize: 12)),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                )),
           ],
         ),
       ],
@@ -1621,34 +1623,32 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         const SizedBox(height: 8),
-        ...glossary.map(
-          (g) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  width: 140,
-                  child: Text(
-                    g['term']!,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey,
-                      fontSize: 12,
+        ...glossary.map((g) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    width: 140,
+                    child: Text(
+                      g['term']!,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueGrey,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(
-                    g['definition']!,
-                    style: const TextStyle(fontSize: 12),
+                  Expanded(
+                    child: Text(
+                      g['definition']!,
+                      style: const TextStyle(fontSize: 12),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                ],
+              ),
+            )),
       ],
     ),
   );
@@ -1681,11 +1681,7 @@ dynamic build(BuildContext context) {
             valueCard('list reads', '4', Colors.orange),
             valueCard('cursor steps', '${mixedSteps.length}', Colors.purple),
             valueCard('frames decoded', '${framesDecoded.length}', Colors.cyan),
-            valueCard(
-              'scan ticks',
-              '${scanTrace.length}',
-              Colors.lime.shade800,
-            ),
+            valueCard('scan ticks', '${scanTrace.length}', Colors.lime.shade800),
             valueCard('recipes', '${recipes.length}', Colors.brown),
             valueCard('glossary terms', '${glossary.length}', Colors.blueGrey),
           ],
@@ -1693,8 +1689,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 10),
         infoBox(
           'Every byte rendered in this demo was produced by WriteBuffer and '
-          'consumed by ReadBuffer. The cursor advanced strictly forward, '
-          'and hasRemaining served as the natural termination signal.',
+              'consumed by ReadBuffer. The cursor advanced strictly forward, '
+              'and hasRemaining served as the natural termination signal.',
           Colors.indigo,
         ),
       ],
@@ -1765,9 +1761,16 @@ Widget _legend(Color color, String label) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      Container(width: 12, height: 12, color: color),
+      Container(
+        width: 12,
+        height: 12,
+        color: color,
+      ),
       const SizedBox(width: 4),
-      Text(label, style: const TextStyle(fontSize: 10, color: Colors.black54)),
+      Text(
+        label,
+        style: const TextStyle(fontSize: 10, color: Colors.black54),
+      ),
     ],
   );
 }

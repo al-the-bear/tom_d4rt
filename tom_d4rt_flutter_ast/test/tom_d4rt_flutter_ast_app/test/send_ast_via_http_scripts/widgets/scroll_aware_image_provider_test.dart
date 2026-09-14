@@ -372,7 +372,11 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(width: 8.0),
               if (isOptimised)
-                Icon(Icons.eco, color: Color(0xFF2E7D32), size: 16.0),
+                Icon(
+                  Icons.eco,
+                  color: Color(0xFF2E7D32),
+                  size: 16.0,
+                ),
             ],
           ),
         ],
@@ -421,7 +425,13 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        buildMemoryBar('Visible (5)', 0.10, Color(0xFF2E7D32), '2.5 MB', false),
+        buildMemoryBar(
+          'Visible (5)',
+          0.10,
+          Color(0xFF2E7D32),
+          '2.5 MB',
+          false,
+        ),
         buildMemoryBar(
           'Loading (20+)',
           0.40,
@@ -446,8 +456,20 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        buildMemoryBar('Visible (5)', 0.10, Color(0xFF2E7D32), '2.5 MB', true),
-        buildMemoryBar('Deferred', 0.0, Colors.grey.shade300, '', true),
+        buildMemoryBar(
+          'Visible (5)',
+          0.10,
+          Color(0xFF2E7D32),
+          '2.5 MB',
+          true,
+        ),
+        buildMemoryBar(
+          'Deferred',
+          0.0,
+          Colors.grey.shade300,
+          '',
+          true,
+        ),
         SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -458,14 +480,18 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.savings, color: Color(0xFF2E7D32), size: 20.0),
+              Icon(Icons.savings,
+                  color: Color(0xFF2E7D32), size: 20.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'Savings: ~40 MB less memory during fast scroll. '
                   'Images resolve only when scrolling stops and they '
                   'are still visible.',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF1B5E20)),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Color(0xFF1B5E20),
+                  ),
                 ),
               ),
             ],
@@ -544,7 +570,10 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               action,
-              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Colors.grey.shade600,
+              ),
             ),
           ),
         ],
@@ -556,7 +585,9 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)]),
+      gradient: LinearGradient(
+        colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)],
+      ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: Color(0xFF3F51B5)),
     ),
@@ -658,11 +689,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.integration_instructions,
-              color: Color(0xFF37474F),
-              size: 24.0,
-            ),
+            Icon(Icons.integration_instructions,
+                color: Color(0xFF37474F), size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Image Widget Integration',
@@ -721,7 +749,8 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.info_outline, color: Color(0xFFF9A825), size: 18.0),
+              Icon(Icons.info_outline,
+                  color: Color(0xFFF9A825), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -729,7 +758,10 @@ dynamic build(BuildContext context) {
                   'ScrollAwareImageProvider manually. It is '
                   'automatically used by Image, Image.network, '
                   'Image.asset, etc. when inside a scrollable.',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF795548)),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Color(0xFF795548),
+                  ),
                 ),
               ),
             ],
@@ -756,7 +788,9 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.all(4.0),
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: supported ? color.withValues(alpha: 0.06) : Colors.grey.shade100,
+        color: supported
+            ? color.withValues(alpha: 0.06)
+            : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
           color: supported
@@ -784,11 +818,17 @@ dynamic build(BuildContext context) {
           Text(
             description,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 9.0,
+              color: Colors.grey.shade600,
+            ),
           ),
           SizedBox(height: 6.0),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: 6.0,
+              vertical: 2.0,
+            ),
             decoration: BoxDecoration(
               color: supported
                   ? Color(0xFF2E7D32).withValues(alpha: 0.15)
@@ -800,7 +840,9 @@ dynamic build(BuildContext context) {
               style: TextStyle(
                 fontSize: 8.0,
                 fontWeight: FontWeight.bold,
-                color: supported ? Color(0xFF2E7D32) : Colors.grey.shade500,
+                color: supported
+                    ? Color(0xFF2E7D32)
+                    : Colors.grey.shade500,
               ),
             ),
           ),
@@ -917,18 +959,27 @@ dynamic build(BuildContext context) {
                 width: 10.0,
                 height: 10.0,
                 decoration: BoxDecoration(
-                  color: isDeferred ? Colors.grey.shade300 : color,
+                  color: isDeferred
+                      ? Colors.grey.shade300
+                      : color,
                   shape: BoxShape.circle,
                   border: Border.all(color: color),
                 ),
               ),
-              Container(width: 2.0, height: 20.0, color: Colors.grey.shade300),
+              Container(
+                width: 2.0,
+                height: 20.0,
+                color: Colors.grey.shade300,
+              ),
             ],
           ),
           SizedBox(width: 10.0),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: isDeferred
                     ? Colors.grey.shade100
@@ -1111,7 +1162,11 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFBF360C), Color(0xFFE65100), Color(0xFFF57C00)],
+              colors: [
+                Color(0xFFBF360C),
+                Color(0xFFE65100),
+                Color(0xFFF57C00),
+              ],
             ),
           ),
           child: Column(
@@ -1228,7 +1283,10 @@ Widget _buildScrollBullet(String text, Color color) {
         ),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(text, style: TextStyle(fontSize: 12.0, color: color)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12.0, color: color),
+          ),
         ),
       ],
     ),

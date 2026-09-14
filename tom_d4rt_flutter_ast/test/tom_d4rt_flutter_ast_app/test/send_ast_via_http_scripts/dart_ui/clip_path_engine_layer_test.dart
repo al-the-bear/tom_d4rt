@@ -203,10 +203,8 @@ class _SectionFrame extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.13),
                   borderRadius: BorderRadius.circular(999),
@@ -469,7 +467,10 @@ class _Bullet extends StatelessWidget {
             margin: const EdgeInsets.only(top: 7),
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -618,10 +619,8 @@ class _HeroSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(999),
@@ -641,10 +640,8 @@ class _HeroSection extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFFC084FC).withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -722,7 +719,9 @@ class _HeroSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.07),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.14),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -997,7 +996,10 @@ class _HierarchyTreePainter extends CustomPainter {
     tp.layout(maxWidth: rect.width - 8);
     tp.paint(
       canvas,
-      Offset(rect.center.dx - tp.width / 2, rect.center.dy - tp.height / 2),
+      Offset(
+        rect.center.dx - tp.width / 2,
+        rect.center.dy - tp.height / 2,
+      ),
     );
   }
 
@@ -1212,7 +1214,11 @@ void _drawColorfulBackground(Canvas canvas, Size size) {
     ..strokeWidth = 6
     ..style = PaintingStyle.stroke;
   for (double t = -size.height; t < size.width + size.height; t += 18) {
-    canvas.drawLine(Offset(t, 0), Offset(t + size.height, size.height), stripe);
+    canvas.drawLine(
+      Offset(t, 0),
+      Offset(t + size.height, size.height),
+      stripe,
+    );
   }
 }
 
@@ -1273,7 +1279,11 @@ class _ClipPathWrapDiagramPainter extends CustomPainter {
         text:
             'The clip layer holds the Path mask. The picture layer below '
             'is rasterised through that mask each frame.',
-        style: TextStyle(fontSize: 11.5, color: _Palette.slate, height: 1.4),
+        style: TextStyle(
+          fontSize: 11.5,
+          color: _Palette.slate,
+          height: 1.4,
+        ),
       ),
       textDirection: TextDirection.ltr,
     );
@@ -1283,7 +1293,10 @@ class _ClipPathWrapDiagramPainter extends CustomPainter {
 
   void _drawBox(Canvas canvas, Rect rect, Color color, String label) {
     final RRect rr = RRect.fromRectAndRadius(rect, const Radius.circular(10));
-    canvas.drawRRect(rr, Paint()..color = color.withValues(alpha: 0.1));
+    canvas.drawRRect(
+      rr,
+      Paint()..color = color.withValues(alpha: 0.1),
+    );
     canvas.drawRRect(
       rr,
       Paint()
@@ -1385,8 +1398,7 @@ class _SceneBuilderWalkthroughSection extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'pseudo · pushClipPath + addPicture + pop + build',
-          code:
-              'final SceneBuilder builder = SceneBuilder();\n'
+          code: 'final SceneBuilder builder = SceneBuilder();\n'
               '\n'
               '// 1. Push a clip layer. Returns a ClipPathEngineLayer.\n'
               'final ClipPathEngineLayer clip = builder.pushClipPath(\n'
@@ -1490,8 +1502,7 @@ class _LayerReuseSection extends StatelessWidget {
         const SizedBox(height: 16),
         const _CodeBlock(
           caption: 'frame N+1 — reusing the clip layer',
-          code:
-              '// In a Layer subclass\'s addToScene:\n'
+          code: '// In a Layer subclass\'s addToScene:\n'
               'ClipPathEngineLayer? _engineLayer;\n'
               '\n'
               '@override\n'
@@ -1650,7 +1661,9 @@ class _LayerReuseDiagramPainter extends CustomPainter {
     );
     final TextPainter pt = TextPainter(
       text: TextSpan(
-        text: idx == 0 ? 'pushClipPath()' : 'pushClipPath(oldLayer:)',
+        text: idx == 0
+            ? 'pushClipPath()'
+            : 'pushClipPath(oldLayer:)',
         style: TextStyle(
           color: _Palette.teal,
           fontSize: 10,
@@ -1726,7 +1739,10 @@ class _LayerReuseDiagramPainter extends CustomPainter {
     tag.layout();
     tag.paint(
       canvas,
-      Offset(frame.center.dx - tag.width / 2, frame.bottom - tag.height - 6),
+      Offset(
+        frame.center.dx - tag.width / 2,
+        frame.bottom - tag.height - 6,
+      ),
     );
   }
 
@@ -1766,7 +1782,8 @@ class _LayerTypeCardsSection extends StatelessWidget {
             ),
             _PaintCard(
               title: 'ClipRRectEngineLayer',
-              subtitle: 'Rounded-rect mask. Common path for Material cards.',
+              subtitle:
+                  'Rounded-rect mask. Common path for Material cards.',
               accent: _Palette.orange,
               painter: _ClipRRectEffectPainter(),
               tags: <String>['pushClipRRect', 'antiAlias'],
@@ -1806,14 +1823,16 @@ class _LayerTypeCardsSection extends StatelessWidget {
             ),
             _PaintCard(
               title: 'ShaderMaskEngineLayer',
-              subtitle: 'Multiplies child pixels by a Shader (gradient/image).',
+              subtitle:
+                  'Multiplies child pixels by a Shader (gradient/image).',
               accent: _Palette.violet,
               painter: _ShaderMaskEffectPainter(),
               tags: <String>['pushShaderMask', 'BlendMode.modulate'],
             ),
             _PaintCard(
               title: 'ColorFilterEngineLayer',
-              subtitle: 'Per-pixel color transform applied to the subtree.',
+              subtitle:
+                  'Per-pixel color transform applied to the subtree.',
               accent: _Palette.fuchsia,
               painter: _ColorFilterEffectPainter(),
               tags: <String>['pushColorFilter', 'matrix / mode'],
@@ -1992,10 +2011,8 @@ class _OffsetEffectPainter extends CustomPainter {
       orig,
     );
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        r.shift(const Offset(30, 18)),
-        const Radius.circular(8),
-      ),
+      RRect.fromRectAndRadius(r.shift(const Offset(30, 18)),
+          const Radius.circular(8)),
       shifted,
     );
     // arrow showing the shift
@@ -2088,26 +2105,10 @@ class _ColorFilterEffectPainter extends CustomPainter {
       Offset.zero & size,
       Paint()
         ..colorFilter = const ColorFilter.matrix(<double>[
-          0.2126,
-          0.7152,
-          0.0722,
-          0,
-          0,
-          0.2126,
-          0.7152,
-          0.0722,
-          0,
-          0,
-          0.2126,
-          0.7152,
-          0.0722,
-          0,
-          0,
-          0,
-          0,
-          0,
-          1,
-          0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0, 0, 0, 1, 0,
         ]),
     );
     canvas.drawRect(
@@ -2149,12 +2150,7 @@ class _ImageFilterEffectPainter extends CustomPainter {
     canvas.drawRect(Offset.zero & size, bg);
     // Left half: sharp text; right half: blurred via ImageFilter.
     final Rect left = Rect.fromLTWH(0, 0, size.width / 2, size.height);
-    final Rect right = Rect.fromLTWH(
-      size.width / 2,
-      0,
-      size.width / 2,
-      size.height,
-    );
+    final Rect right = Rect.fromLTWH(size.width / 2, 0, size.width / 2, size.height);
 
     void paintSwatch(Rect r) {
       for (int i = 0; i < 3; i++) {
@@ -2375,7 +2371,10 @@ class _PipelineTimelinePainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       );
       sub.layout(maxWidth: r.width - 6);
-      sub.paint(canvas, Offset(r.center.dx - sub.width / 2, r.center.dy + 4));
+      sub.paint(
+        canvas,
+        Offset(r.center.dx - sub.width / 2, r.center.dy + 4),
+      );
     }
 
     // Marker above COMPOSITE
@@ -2438,7 +2437,11 @@ class _PipelineTimelinePainter extends CustomPainter {
         children: <TextSpan>[
           const TextSpan(
             text: 'Layer (Dart) → SceneBuilder.push* → ',
-            style: TextStyle(color: _Palette.slate, fontSize: 12, height: 1.5),
+            style: TextStyle(
+              color: _Palette.slate,
+              fontSize: 12,
+              height: 1.5,
+            ),
           ),
           TextSpan(
             text: 'EngineLayer (compositor)',
@@ -2454,14 +2457,21 @@ class _PipelineTimelinePainter extends CustomPainter {
                 ' → Scene → FlutterView.render → GPU. The Dart side hands '
                 'off ownership of the EngineLayer tree to native; '
                 'subsequent frames may reuse the same handles.',
-            style: TextStyle(color: _Palette.slate, fontSize: 12, height: 1.5),
+            style: TextStyle(
+              color: _Palette.slate,
+              fontSize: 12,
+              height: 1.5,
+            ),
           ),
         ],
       ),
       textDirection: TextDirection.ltr,
     );
     legendTp.layout(maxWidth: legend.width - 18);
-    legendTp.paint(canvas, Offset(legend.left + 10, legend.top + 10));
+    legendTp.paint(
+      canvas,
+      Offset(legend.left + 10, legend.top + 10),
+    );
 
     // Top title
     final TextPainter title = TextPainter(
@@ -2511,44 +2521,20 @@ class _ComparisonTableSection extends StatelessWidget {
 
   static const List<List<String>> _rows = <List<String>>[
     <String>['ContainerLayer', '—', 'Abstract parent on the Dart side.'],
-    <String>[
-      'PictureLayer',
-      '—',
-      'Holds a recorded ui.Picture; no engine layer.',
-    ],
+    <String>['PictureLayer', '—', 'Holds a recorded ui.Picture; no engine layer.'],
     <String>['ClipPathLayer', 'ClipPathEngineLayer', 'pushClipPath.'],
     <String>['ClipRectLayer', 'ClipRectEngineLayer', 'pushClipRect.'],
     <String>['ClipRRectLayer', 'ClipRRectEngineLayer', 'pushClipRRect.'],
     <String>['OpacityLayer', 'OpacityEngineLayer', 'pushOpacity.'],
-    <String>[
-      'TransformLayer',
-      'TransformEngineLayer',
-      'pushTransform (Float64List).',
-    ],
+    <String>['TransformLayer', 'TransformEngineLayer', 'pushTransform (Float64List).'],
     <String>['OffsetLayer', 'OffsetEngineLayer', 'pushOffset (dx, dy).'],
-    <String>[
-      'BackdropFilterLayer',
-      'BackdropFilterEngineLayer',
-      'pushBackdropFilter.',
-    ],
+    <String>['BackdropFilterLayer', 'BackdropFilterEngineLayer', 'pushBackdropFilter.'],
     <String>['ShaderMaskLayer', 'ShaderMaskEngineLayer', 'pushShaderMask.'],
     <String>['ColorFilterLayer', 'ColorFilterEngineLayer', 'pushColorFilter.'],
     <String>['ImageFilterLayer', 'ImageFilterEngineLayer', 'pushImageFilter.'],
-    <String>[
-      'PhysicalModelLayer',
-      'PhysicalShapeEngineLayer',
-      'pushPhysicalShape.',
-    ],
-    <String>[
-      'AnnotatedRegionLayer',
-      '—',
-      'Hit-test metadata; no engine layer.',
-    ],
-    <String>[
-      'LeaderLayer / FollowerLayer',
-      '—',
-      'CompositedTransformTarget plumbing.',
-    ],
+    <String>['PhysicalModelLayer', 'PhysicalShapeEngineLayer', 'pushPhysicalShape.'],
+    <String>['AnnotatedRegionLayer', '—', 'Hit-test metadata; no engine layer.'],
+    <String>['LeaderLayer / FollowerLayer', '—', 'CompositedTransformTarget plumbing.'],
   ];
 
   @override
@@ -2577,7 +2563,11 @@ class _ComparisonTableSection extends StatelessWidget {
                 isHeader: true,
               ),
               for (final List<String> row in _rows)
-                _ComparisonRow(left: row[0], middle: row[1], right: row[2]),
+                _ComparisonRow(
+                  left: row[0],
+                  middle: row[1],
+                  right: row[2],
+                ),
             ],
           ),
         ),
@@ -2772,8 +2762,7 @@ class _CodeIdiomsSection extends StatelessWidget {
       children: <Widget>[
         const _CodeBlock(
           caption: 'pushClipPath — arbitrary mask',
-          code:
-              'final Path star = _buildStarPath();\n'
+          code: 'final Path star = _buildStarPath();\n'
               'final ClipPathEngineLayer? layer = builder.pushClipPath(\n'
               '  star,\n'
               '  clipBehavior: Clip.antiAlias,\n'
@@ -2785,8 +2774,7 @@ class _CodeIdiomsSection extends StatelessWidget {
         const SizedBox(height: 12),
         const _CodeBlock(
           caption: 'pushClipRRect — rounded-rect mask',
-          code:
-              'final RRect card = RRect.fromRectAndRadius(\n'
+          code: 'final RRect card = RRect.fromRectAndRadius(\n'
               '  Offset.zero & size,\n'
               '  const Radius.circular(12),\n'
               ');\n'
@@ -2800,8 +2788,7 @@ class _CodeIdiomsSection extends StatelessWidget {
         const SizedBox(height: 12),
         const _CodeBlock(
           caption: 'pushColorFilter — per-pixel color transform',
-          code:
-              'final ColorFilter grayscale = const ColorFilter.matrix(\n'
+          code: 'final ColorFilter grayscale = const ColorFilter.matrix(\n'
               '  <double>[\n'
               '    0.2126, 0.7152, 0.0722, 0, 0,\n'
               '    0.2126, 0.7152, 0.0722, 0, 0,\n'
@@ -2816,8 +2803,7 @@ class _CodeIdiomsSection extends StatelessWidget {
         const SizedBox(height: 12),
         const _CodeBlock(
           caption: 'pushImageFilter — blur the subtree',
-          code:
-              'final ui.ImageFilter blur =\n'
+          code: 'final ui.ImageFilter blur =\n'
               '    ui.ImageFilter.blur(sigmaX: 6, sigmaY: 6);\n'
               'final ImageFilterEngineLayer? layer = builder.pushImageFilter(\n'
               '  blur,\n'
@@ -2828,8 +2814,7 @@ class _CodeIdiomsSection extends StatelessWidget {
         const SizedBox(height: 12),
         const _CodeBlock(
           caption: 'pushBackdropFilter — frosted-glass effect',
-          code:
-              'final ui.ImageFilter frost =\n'
+          code: 'final ui.ImageFilter frost =\n'
               '    ui.ImageFilter.blur(sigmaX: 12, sigmaY: 12);\n'
               'final BackdropFilterEngineLayer? layer =\n'
               '    builder.pushBackdropFilter(\n'
@@ -2842,8 +2827,7 @@ class _CodeIdiomsSection extends StatelessWidget {
         const SizedBox(height: 12),
         const _CodeBlock(
           caption: 'pushShaderMask — gradient-shaped masking',
-          code:
-              'final Shader shader = ui.Gradient.linear(\n'
+          code: 'final Shader shader = ui.Gradient.linear(\n'
               '  Offset.zero,\n'
               '  Offset(size.width, 0),\n'
               '  <Color>[Colors.deepPurple, Colors.amber],\n'
@@ -2899,7 +2883,9 @@ class _CheatSheetSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(999),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.22)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.22),
+              ),
             ),
             child: const Text(
               'CHEAT SHEET · ENGINELAYER',
@@ -3005,7 +2991,9 @@ class _CheatSheetSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.07),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.14),
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -3085,7 +3073,9 @@ class _ChipGroup extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: accent.withValues(alpha: 0.13),
                     borderRadius: BorderRadius.circular(999),
-                    border: Border.all(color: accent.withValues(alpha: 0.32)),
+                    border: Border.all(
+                      color: accent.withValues(alpha: 0.32),
+                    ),
                   ),
                   child: Text(
                     c,

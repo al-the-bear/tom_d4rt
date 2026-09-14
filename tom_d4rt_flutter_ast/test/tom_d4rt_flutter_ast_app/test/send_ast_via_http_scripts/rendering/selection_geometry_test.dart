@@ -59,7 +59,9 @@ Widget _sgSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_sgIndigo, _sgDarkIndigo]),
+      gradient: LinearGradient(
+        colors: [_sgIndigo, _sgDarkIndigo],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +109,11 @@ Widget _sgNote(String text, {IconData icon = Icons.info_outline}) {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(color: _sgNavy, fontSize: 13, height: 1.5),
+            style: const TextStyle(
+              color: _sgNavy,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -156,7 +162,11 @@ Widget _sgFieldRow(String field, String desc, {Color? color}) {
         Expanded(
           child: Text(
             desc,
-            style: const TextStyle(color: _sgNavy, fontSize: 12, height: 1.4),
+            style: const TextStyle(
+              color: _sgNavy,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -268,25 +278,12 @@ Widget _sgBuildOverview() {
               ],
             ),
             const SizedBox(height: 14),
-            _sgFieldRow(
-              'status',
-              'SelectionStatus — none, collapsed, uncollapsed',
-            ),
-            _sgFieldRow(
-              'hasContent',
-              'bool — does this Selectable have content?',
-            ),
-            _sgFieldRow(
-              'startSelectionPoint',
-              'SelectionPoint? — start handle',
-            ),
+            _sgFieldRow('status', 'SelectionStatus — none, collapsed, uncollapsed'),
+            _sgFieldRow('hasContent', 'bool — does this Selectable have content?'),
+            _sgFieldRow('startSelectionPoint', 'SelectionPoint? — start handle'),
             _sgFieldRow('endSelectionPoint', 'SelectionPoint? — end handle'),
             const Divider(color: _sgPeriwinkle, height: 20),
-            _sgFieldRow(
-              'hasSelection',
-              'bool (getter) — status ≠ .none',
-              color: _sgSlate,
-            ),
+            _sgFieldRow('hasSelection', 'bool (getter) — status ≠ .none', color: _sgSlate),
           ],
         ),
       ),
@@ -380,7 +377,10 @@ Widget _sgBuildStatusEnum() {
                       ),
                       child: const Text(
                         'Hello world',
-                        style: TextStyle(color: _sgNavy, fontSize: 12),
+                        style: TextStyle(
+                          color: _sgNavy,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                   ],
@@ -454,7 +454,11 @@ Widget _sgBuildStatusEnum() {
                             'Hel',
                             style: TextStyle(color: _sgNavy, fontSize: 12),
                           ),
-                          Container(width: 2, height: 16, color: _sgAmber),
+                          Container(
+                            width: 2,
+                            height: 16,
+                            color: _sgAmber,
+                          ),
                           const Text(
                             'lo world',
                             style: TextStyle(color: _sgNavy, fontSize: 12),
@@ -486,11 +490,7 @@ Widget _sgBuildStatusEnum() {
                         shape: BoxShape.circle,
                       ),
                       child: const Center(
-                        child: Icon(
-                          Icons.select_all,
-                          color: Colors.white,
-                          size: 20,
-                        ),
+                        child: Icon(Icons.select_all, color: Colors.white, size: 20),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -640,12 +640,7 @@ Widget _sgBuildSelectionPoint() {
               children: [
                 _sgHandleDemo('left', const Color(0xFF2196F3), true, false),
                 _sgHandleDemo('right', const Color(0xFFE91E63), false, false),
-                _sgHandleDemo(
-                  'collapsed',
-                  const Color(0xFFFF9800),
-                  false,
-                  true,
-                ),
+                _sgHandleDemo('collapsed', const Color(0xFFFF9800), false, true),
               ],
             ),
           ],
@@ -681,7 +676,11 @@ Widget _sgBuildSelectionPoint() {
                 // Start handle indicator
                 Column(
                   children: [
-                    Container(width: 2, height: 18, color: _sgIndigo),
+                    Container(
+                      width: 2,
+                      height: 18,
+                      color: _sgIndigo,
+                    ),
                     Container(
                       width: 12,
                       height: 12,
@@ -704,7 +703,11 @@ Widget _sgBuildSelectionPoint() {
                 // End handle indicator
                 Column(
                   children: [
-                    Container(width: 2, height: 18, color: _sgIndigo),
+                    Container(
+                      width: 2,
+                      height: 18,
+                      color: _sgIndigo,
+                    ),
                     Container(
                       width: 12,
                       height: 12,
@@ -757,7 +760,10 @@ Widget _sgHandleDemo(String label, Color color, bool isLeft, bool isCollapsed) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         )
       else
         Container(
@@ -773,7 +779,11 @@ Widget _sgHandleDemo(String label, Color color, bool isLeft, bool isCollapsed) {
             ),
           ),
         ),
-      Container(width: 2, height: isCollapsed ? 20 : 24, color: color),
+      Container(
+        width: 2,
+        height: isCollapsed ? 20 : 24,
+        color: color,
+      ),
       const SizedBox(height: 6),
       Text(
         '.$label',
@@ -785,12 +795,11 @@ Widget _sgHandleDemo(String label, Color color, bool isLeft, bool isCollapsed) {
         ),
       ),
       Text(
-        isCollapsed
-            ? 'cursor'
-            : isLeft
-            ? 'start'
-            : 'end',
-        style: const TextStyle(color: _sgSlate, fontSize: 10),
+        isCollapsed ? 'cursor' : isLeft ? 'start' : 'end',
+        style: const TextStyle(
+          color: _sgSlate,
+          fontSize: 10,
+        ),
       ),
     ],
   );
@@ -876,17 +885,9 @@ Widget _sgBuildCreation() {
             _sgTransitionArrow('hasContent = true'),
             _sgStateBox('none', 'Has content, no selection', _sgPeriwinkle),
             _sgTransitionArrow('Tap → cursor'),
-            _sgStateBox(
-              'collapsed',
-              'Cursor at position (one point)',
-              _sgAmber,
-            ),
+            _sgStateBox('collapsed', 'Cursor at position (one point)', _sgAmber),
             _sgTransitionArrow('Drag → range'),
-            _sgStateBox(
-              'uncollapsed',
-              'Range selected (two points)',
-              _sgIndigo,
-            ),
+            _sgStateBox('uncollapsed', 'Range selected (two points)', _sgIndigo),
             _sgTransitionArrow('ClearSelectionEvent'),
             _sgStateBox('none', 'Back to no selection', _sgPeriwinkle),
           ],
@@ -910,7 +911,10 @@ Widget _sgStateBox(String label, String desc, Color color) {
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -926,7 +930,13 @@ Widget _sgStateBox(String label, String desc, Color color) {
                   fontSize: 13,
                 ),
               ),
-              Text(desc, style: const TextStyle(color: _sgNavy, fontSize: 11)),
+              Text(
+                desc,
+                style: const TextStyle(
+                  color: _sgNavy,
+                  fontSize: 11,
+                ),
+              ),
             ],
           ),
         ),
@@ -1055,7 +1065,11 @@ Widget _sgBuildRegionUsage() {
                     'Start handle → from Selectable A\'s geometry\n'
                     'End handle → from Selectable C\'s geometry\n'
                     'Selectable B → fully selected (both points at edges)',
-                    style: TextStyle(color: _sgNavy, fontSize: 11, height: 1.5),
+                    style: TextStyle(
+                      color: _sgNavy,
+                      fontSize: 11,
+                      height: 1.5,
+                    ),
                   ),
                 ],
               ),
@@ -1271,8 +1285,13 @@ Widget _sgTimelineStep(
           Container(
             width: 36,
             height: 36,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-            child: Center(child: Icon(icon, color: Colors.white, size: 18)),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Icon(icon, color: Colors.white, size: 18),
+            ),
           ),
         ],
       ),
@@ -1298,7 +1317,11 @@ Widget _sgTimelineStep(
             const SizedBox(height: 4),
             Text(
               desc,
-              style: const TextStyle(color: _sgNavy, fontSize: 11, height: 1.5),
+              style: const TextStyle(
+                color: _sgNavy,
+                fontSize: 11,
+                height: 1.5,
+              ),
             ),
           ],
         ),
@@ -1465,7 +1488,10 @@ Widget _sgBuildLiveDemo() {
                 const SizedBox(height: 6),
                 Text(
                   'Medium subtitle — lineHeight ≈ 20',
-                  style: TextStyle(color: _sgSlate, fontSize: 16),
+                  style: TextStyle(
+                    color: _sgSlate,
+                    fontSize: 16,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Text(
@@ -1480,7 +1506,10 @@ Widget _sgBuildLiveDemo() {
                 const SizedBox(height: 6),
                 const Text(
                   'Tiny caption — lineHeight ≈ 10',
-                  style: TextStyle(color: _sgSlate, fontSize: 10),
+                  style: TextStyle(
+                    color: _sgSlate,
+                    fontSize: 10,
+                  ),
                 ),
               ],
             ),
@@ -1568,30 +1597,10 @@ Widget _sgBuildHasContent() {
                 ],
               ),
             ),
-            _sgMatrixRow(
-              'false',
-              'none',
-              'Empty selectable — no content at all',
-              false,
-            ),
-            _sgMatrixRow(
-              'true',
-              'none',
-              'Has content, nothing selected yet',
-              true,
-            ),
-            _sgMatrixRow(
-              'true',
-              'collapsed',
-              'Has content, cursor placed (no range)',
-              false,
-            ),
-            _sgMatrixRow(
-              'true',
-              'uncollapsed',
-              'Has content, range is selected',
-              true,
-            ),
+            _sgMatrixRow('false', 'none', 'Empty selectable — no content at all', false),
+            _sgMatrixRow('true', 'none', 'Has content, nothing selected yet', true),
+            _sgMatrixRow('true', 'collapsed', 'Has content, cursor placed (no range)', false),
+            _sgMatrixRow('true', 'uncollapsed', 'Has content, range is selected', true),
           ],
         ),
       ),
@@ -1679,12 +1688,7 @@ Widget _sgBuildHasContent() {
   );
 }
 
-Widget _sgMatrixRow(
-  String hasContent,
-  String status,
-  String meaning,
-  bool isAlt,
-) {
+Widget _sgMatrixRow(String hasContent, String status, String meaning, bool isAlt) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     color: isAlt ? _sgLightPeriwinkle.withValues(alpha: 0.5) : Colors.white,
@@ -1717,7 +1721,10 @@ Widget _sgMatrixRow(
           flex: 4,
           child: Text(
             meaning,
-            style: const TextStyle(color: _sgNavy, fontSize: 11),
+            style: const TextStyle(
+              color: _sgNavy,
+              fontSize: 11,
+            ),
           ),
         ),
       ],
@@ -1792,27 +1799,17 @@ Widget _sgBuildPushHandleLayers() {
                     decoration: BoxDecoration(
                       color: _sgIndigo.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: _sgIndigo.withValues(alpha: 0.3),
-                      ),
+                      border: Border.all(color: _sgIndigo.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       children: [
                         _sgTag('Render Tree', _sgIndigo),
                         const SizedBox(height: 8),
-                        _sgLayerBox(
-                          'Selectable A',
-                          'LeaderLayer\n(start handle)',
-                          _sgMint,
-                        ),
+                        _sgLayerBox('Selectable A', 'LeaderLayer\n(start handle)', _sgMint),
                         const SizedBox(height: 6),
                         _sgLayerBox('Selectable B', '(no layers)', _sgSlate),
                         const SizedBox(height: 6),
-                        _sgLayerBox(
-                          'Selectable C',
-                          'LeaderLayer\n(end handle)',
-                          _sgCoral,
-                        ),
+                        _sgLayerBox('Selectable C', 'LeaderLayer\n(end handle)', _sgCoral),
                       ],
                     ),
                   ),
@@ -1822,11 +1819,7 @@ Widget _sgBuildPushHandleLayers() {
                   padding: const EdgeInsets.only(top: 50),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.arrow_forward,
-                        color: _sgAmber,
-                        size: 24,
-                      ),
+                      const Icon(Icons.arrow_forward, color: _sgAmber, size: 24),
                       const Text(
                         'LayerLink',
                         style: TextStyle(
@@ -1845,31 +1838,17 @@ Widget _sgBuildPushHandleLayers() {
                     decoration: BoxDecoration(
                       color: _sgAmber.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: _sgAmber.withValues(alpha: 0.3),
-                      ),
+                      border: Border.all(color: _sgAmber.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       children: [
                         _sgTag('Overlay', _sgAmber),
                         const SizedBox(height: 8),
-                        _sgLayerBox(
-                          'Start Handle',
-                          'FollowerLayer\ntracks start',
-                          _sgMint,
-                        ),
+                        _sgLayerBox('Start Handle', 'FollowerLayer\ntracks start', _sgMint),
                         const SizedBox(height: 6),
-                        _sgLayerBox(
-                          'End Handle',
-                          'FollowerLayer\ntracks end',
-                          _sgCoral,
-                        ),
+                        _sgLayerBox('End Handle', 'FollowerLayer\ntracks end', _sgCoral),
                         const SizedBox(height: 6),
-                        _sgLayerBox(
-                          'Toolbar',
-                          'Positioned\nbetween handles',
-                          _sgDeepPurple,
-                        ),
+                        _sgLayerBox('Toolbar', 'Positioned\nbetween handles', _sgDeepPurple),
                       ],
                     ),
                   ),
@@ -1912,7 +1891,11 @@ Widget _sgLayerBox(String title, String desc, Color color) {
         Text(
           desc,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: _sgNavy, fontSize: 9, height: 1.3),
+          style: const TextStyle(
+            color: _sgNavy,
+            fontSize: 9,
+            height: 1.3,
+          ),
         ),
       ],
     ),
@@ -2005,7 +1988,11 @@ Widget _sgBuildBestPractices() {
               'identical values won\'t trigger unnecessary rebuilds.\n\n'
               '• Keep localPosition computation tight — it runs on every '
               'event during drag gestures, which fire at 60+ Hz.',
-              style: TextStyle(color: _sgNavy, fontSize: 12, height: 1.5),
+              style: TextStyle(
+                color: _sgNavy,
+                fontSize: 12,
+                height: 1.5,
+              ),
             ),
           ],
         ),
@@ -2167,7 +2154,10 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.data_object, size: 14),
                 SizedBox(width: 4),
-                Text('Rendering', style: TextStyle(fontSize: 12)),
+                Text(
+                  'Rendering',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),

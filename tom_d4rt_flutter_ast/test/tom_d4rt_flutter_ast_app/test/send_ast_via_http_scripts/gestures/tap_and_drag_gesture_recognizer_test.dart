@@ -167,7 +167,11 @@ Widget makePill(String text, Color bg, Color fg) {
     ),
     child: Text(
       text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        color: fg,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -222,7 +226,11 @@ Widget makeSectionHeader(int number, String title, String subtitle) {
             color: kCream,
             shape: BoxShape.circle,
             boxShadow: [
-              BoxShadow(color: kShadow, blurRadius: 4, offset: Offset(1, 2)),
+              BoxShadow(
+                color: kShadow,
+                blurRadius: 4,
+                offset: Offset(1, 2),
+              ),
             ],
           ),
           child: Text(
@@ -597,7 +605,10 @@ Widget makeSelectionStrip({
         decoration: BoxDecoration(
           color: isSel ? highlight : kPaper,
           borderRadius: BorderRadius.circular(3),
-          border: Border.all(color: isSel ? kCoralDeep : kSteelLight, width: 1),
+          border: Border.all(
+            color: isSel ? kCoralDeep : kSteelLight,
+            width: 1,
+          ),
         ),
         child: Text(
           words[i],
@@ -611,7 +622,10 @@ Widget makeSelectionStrip({
       ),
     );
   }
-  return Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: spans);
+  return Wrap(
+    crossAxisAlignment: WrapCrossAlignment.center,
+    children: spans,
+  );
 }
 
 // ---------------------------------------------------------------------
@@ -658,7 +672,11 @@ Widget makeCaveatTile({
         const SizedBox(height: 6),
         Text(
           body,
-          style: const TextStyle(color: kSteel, fontSize: 11, height: 1.4),
+          style: const TextStyle(
+            color: kSteel,
+            fontSize: 11,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -722,7 +740,11 @@ Widget makeRealWorldCard({
         const SizedBox(height: 8),
         Text(
           body,
-          style: const TextStyle(color: kSteel, fontSize: 11, height: 1.4),
+          style: const TextStyle(
+            color: kSteel,
+            fontSize: 11,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -784,11 +806,19 @@ dynamic build(BuildContext context) {
                   child: Stack(
                     alignment: Alignment.center,
                     children: const [
-                      Icon(Icons.touch_app, color: kCobaltDeep, size: 38),
+                      Icon(
+                        Icons.touch_app,
+                        color: kCobaltDeep,
+                        size: 38,
+                      ),
                       Positioned(
                         right: 8,
                         bottom: 8,
-                        child: Icon(Icons.swipe, color: kCoral, size: 22),
+                        child: Icon(
+                          Icons.swipe,
+                          color: kCoral,
+                          size: 22,
+                        ),
                       ),
                     ],
                   ),
@@ -861,7 +891,11 @@ dynamic build(BuildContext context) {
                   'TapGestureRecognizer next to a PanGestureRecognizer '
                   'cannot model this because the two would compete in '
                   'the gesture arena and only one would win.',
-                  style: TextStyle(color: kSteel, fontSize: 12, height: 1.45),
+                  style: TextStyle(
+                    color: kSteel,
+                    fontSize: 12,
+                    height: 1.45,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -924,9 +958,17 @@ dynamic build(BuildContext context) {
                   children: [
                     makeStateNode('idle', 'no pointers', kSteel),
                     makeArrow('down'),
-                    makeStateNode('tap-down(N)', 'count=N', kCobalt),
+                    makeStateNode(
+                      'tap-down(N)',
+                      'count=N',
+                      kCobalt,
+                    ),
                     makeArrow('lift'),
-                    makeStateNode('tap-up(N)', 'pure tap', kCobaltDeep),
+                    makeStateNode(
+                      'tap-up(N)',
+                      'pure tap',
+                      kCobaltDeep,
+                    ),
                     makeArrow('settle'),
                     makeStateNode('idle', 'cycle done', kSteel),
                   ],
@@ -935,13 +977,29 @@ dynamic build(BuildContext context) {
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    makeStateNode('tap-down(N)', 'count=N', kCobalt),
+                    makeStateNode(
+                      'tap-down(N)',
+                      'count=N',
+                      kCobalt,
+                    ),
                     makeArrow('slop+'),
-                    makeStateNode('drag-start', 'now panning', kCoral),
+                    makeStateNode(
+                      'drag-start',
+                      'now panning',
+                      kCoral,
+                    ),
                     makeArrow('move'),
-                    makeStateNode('drag-update*', 'fires often', kCoralDeep),
+                    makeStateNode(
+                      'drag-update*',
+                      'fires often',
+                      kCoralDeep,
+                    ),
                     makeArrow('lift'),
-                    makeStateNode('drag-end', 'velocity', kCoralDeep),
+                    makeStateNode(
+                      'drag-end',
+                      'velocity',
+                      kCoralDeep,
+                    ),
                     makeArrow('settle'),
                     makeStateNode('idle', 'reset', kSteel),
                   ],
@@ -955,7 +1013,11 @@ dynamic build(BuildContext context) {
                   'that was current when the most recent tap-down fired '
                   '— so a triple-click-then-drag emits drag-update '
                   'events whose details.consecutiveTapCount == 3.',
-                  style: TextStyle(color: kSteel, fontSize: 11, height: 1.45),
+                  style: TextStyle(
+                    color: kSteel,
+                    fontSize: 11,
+                    height: 1.45,
+                  ),
                 ),
               ],
             ),
@@ -974,7 +1036,8 @@ dynamic build(BuildContext context) {
             children: [
               makeCallbackCard(
                 name: 'onTapDown',
-                signature: 'void Function(TapDragDownDetails details)',
+                signature:
+                    'void Function(TapDragDownDetails details)',
                 purpose:
                     'Fires the moment the recognizer wins the down phase. '
                     'Carries globalPosition, localPosition, kind, and '
@@ -1007,7 +1070,8 @@ dynamic build(BuildContext context) {
               ),
               makeCallbackCard(
                 name: 'onDragStart',
-                signature: 'void Function(TapDragStartDetails details)',
+                signature:
+                    'void Function(TapDragStartDetails details)',
                 purpose:
                     'Fires when the pointer crosses kTouchSlop and the '
                     'recognizer commits to a drag. details.kind, '
@@ -1018,7 +1082,8 @@ dynamic build(BuildContext context) {
               ),
               makeCallbackCard(
                 name: 'onDragUpdate',
-                signature: 'void Function(TapDragUpdateDetails details)',
+                signature:
+                    'void Function(TapDragUpdateDetails details)',
                 purpose:
                     'Fires repeatedly while the pointer is moving. '
                     'details.delta is the change since the last update; '
@@ -1029,7 +1094,8 @@ dynamic build(BuildContext context) {
               ),
               makeCallbackCard(
                 name: 'onDragEnd',
-                signature: 'void Function(TapDragEndDetails details)',
+                signature:
+                    'void Function(TapDragEndDetails details)',
                 purpose:
                     'Fires when the pointer is lifted after a drag. '
                     'details.velocity is the final pointer velocity, '
@@ -1088,7 +1154,13 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(height: 8),
                     makeSelectionStrip(
-                      words: const ['The', 'quick', 'brown', 'f|ox', 'jumps'],
+                      words: const [
+                        'The',
+                        'quick',
+                        'brown',
+                        'f|ox',
+                        'jumps',
+                      ],
                       selectStart: 3,
                       selectEnd: 3,
                       highlight: kCobaltMist,
@@ -1546,7 +1618,11 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: kCobalt, width: 2),
               boxShadow: const [
-                BoxShadow(color: kShadow, blurRadius: 10, offset: Offset(2, 5)),
+                BoxShadow(
+                  color: kShadow,
+                  blurRadius: 10,
+                  offset: Offset(2, 5),
+                ),
               ],
             ),
             child: Column(
@@ -1632,7 +1708,9 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: kSteel,
               borderRadius: BorderRadius.circular(8),
-              boxShadow: const [BoxShadow(color: kShadow, blurRadius: 4)],
+              boxShadow: const [
+                BoxShadow(color: kShadow, blurRadius: 4),
+              ],
             ),
             child: Row(
               children: const [

@@ -337,7 +337,10 @@ Widget _bulletList(List<String> items, {Color colour = _kAccent}) {
       ),
     );
   }
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: rows,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -351,11 +354,7 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF312E81),
-          Color(0xFF4F46E5),
-          Color(0xFF7C3AED),
-        ],
+        colors: <Color>[Color(0xFF312E81), Color(0xFF4F46E5), Color(0xFF7C3AED)],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -476,7 +475,11 @@ Widget _heroIntroCard() {
             '_AppBarDefaultsM3 (or _AppBarDefaultsM2 when useMaterial3 is '
             'false). Because every field is nullable, AppBarTheme is a '
             'pure override layer.',
-            style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInk),
+            style: TextStyle(
+              fontSize: 13.5,
+              height: 1.5,
+              color: _kInk,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -494,13 +497,16 @@ Widget _heroIntroCard() {
             ),
             const SizedBox(width: 14.0),
             Expanded(
-              child: _bulletList(const <String>[
-                'surfaceTintColor is M3-only; ignored when useMaterial3 is false.',
-                'systemOverlayStyle controls Android status-bar icon colour.',
-                'centerTitle defaults to true on iOS, false on other platforms.',
-                'toolbarHeight gates the AppBar preferredSize.',
-                'shape lets you round bottom corners; respected by both bars.',
-              ], colour: _kAccentTeal),
+              child: _bulletList(
+                const <String>[
+                  'surfaceTintColor is M3-only; ignored when useMaterial3 is false.',
+                  'systemOverlayStyle controls Android status-bar icon colour.',
+                  'centerTitle defaults to true on iOS, false on other platforms.',
+                  'toolbarHeight gates the AppBar preferredSize.',
+                  'shape lets you round bottom corners; respected by both bars.',
+                ],
+                colour: _kAccentTeal,
+              ),
             ),
           ],
         ),
@@ -529,108 +535,48 @@ class _AnatomyRow {
 }
 
 const List<_AnatomyRow> _kAnatomy = <_AnatomyRow>[
-  _AnatomyRow(
-    'backgroundColor',
-    'Color?',
-    'ColorScheme.surface',
-    'Solid fill behind the toolbar.',
-  ),
-  _AnatomyRow(
-    'foregroundColor',
-    'Color?',
-    'ColorScheme.onSurface',
-    'Default colour for title, icons, leading widget.',
-    tint: _kAccentBlue,
-  ),
-  _AnatomyRow(
-    'elevation',
-    'double?',
-    '0.0 (M3)',
-    'Drop-shadow depth (Material 2 behaviour).',
-    tint: _kAccentTeal,
-  ),
-  _AnatomyRow(
-    'scrolledUnderElevation',
-    'double?',
-    '3.0',
-    'Replacement elevation once content scrolls under the bar.',
-    tint: _kAccentGreen,
-  ),
-  _AnatomyRow(
-    'shadowColor',
-    'Color?',
-    'Colors.black',
-    'Colour of the drop shadow when elevation > 0.',
-    tint: _kAccentAmber,
-  ),
-  _AnatomyRow(
-    'surfaceTintColor',
-    'Color?',
-    'ColorScheme.surfaceTint',
-    'M3 tonal overlay tint composed over backgroundColor.',
-    tint: _kAccentRose,
-  ),
-  _AnatomyRow(
-    'shape',
-    'ShapeBorder?',
-    'null',
-    'Bottom edge shape (e.g. rounded corners, beveled).',
-    tint: _kAccentViolet,
-  ),
-  _AnatomyRow(
-    'iconTheme',
-    'IconThemeData?',
-    'IconThemeData(size: 24)',
-    'Icon size/colour used by leading and inferred actions.',
-  ),
-  _AnatomyRow(
-    'actionsIconTheme',
-    'IconThemeData?',
-    'iconTheme fallback',
-    'Overrides iconTheme just for the trailing actions slot.',
-    tint: _kAccentBlue,
-  ),
-  _AnatomyRow(
-    'centerTitle',
-    'bool?',
-    'platform-dependent',
-    'true centres the title; iOS defaults to true, others false.',
-    tint: _kAccentTeal,
-  ),
-  _AnatomyRow(
-    'titleSpacing',
-    'double?',
-    'NavigationToolbar.kMiddleSpacing',
-    'Horizontal gap between leading and title widgets.',
-    tint: _kAccentGreen,
-  ),
-  _AnatomyRow(
-    'toolbarHeight',
-    'double?',
-    'kToolbarHeight (56)',
-    'Total vertical extent reserved for the toolbar row.',
-    tint: _kAccentAmber,
-  ),
-  _AnatomyRow(
-    'titleTextStyle',
-    'TextStyle?',
-    'TextTheme.titleLarge',
-    'Default text style applied to the title widget.',
-    tint: _kAccentRose,
-  ),
-  _AnatomyRow(
-    'toolbarTextStyle',
-    'TextStyle?',
-    'TextTheme.bodyMedium',
-    'Default text style for non-title text in the toolbar.',
-    tint: _kAccentViolet,
-  ),
-  _AnatomyRow(
-    'systemOverlayStyle',
-    'SystemUiOverlayStyle?',
-    'derived',
-    'Android status-bar icon colour and contrast.',
-  ),
+  _AnatomyRow('backgroundColor', 'Color?', 'ColorScheme.surface',
+      'Solid fill behind the toolbar.'),
+  _AnatomyRow('foregroundColor', 'Color?', 'ColorScheme.onSurface',
+      'Default colour for title, icons, leading widget.',
+      tint: _kAccentBlue),
+  _AnatomyRow('elevation', 'double?', '0.0 (M3)',
+      'Drop-shadow depth (Material 2 behaviour).',
+      tint: _kAccentTeal),
+  _AnatomyRow('scrolledUnderElevation', 'double?', '3.0',
+      'Replacement elevation once content scrolls under the bar.',
+      tint: _kAccentGreen),
+  _AnatomyRow('shadowColor', 'Color?', 'Colors.black',
+      'Colour of the drop shadow when elevation > 0.',
+      tint: _kAccentAmber),
+  _AnatomyRow('surfaceTintColor', 'Color?', 'ColorScheme.surfaceTint',
+      'M3 tonal overlay tint composed over backgroundColor.',
+      tint: _kAccentRose),
+  _AnatomyRow('shape', 'ShapeBorder?', 'null',
+      'Bottom edge shape (e.g. rounded corners, beveled).',
+      tint: _kAccentViolet),
+  _AnatomyRow('iconTheme', 'IconThemeData?', 'IconThemeData(size: 24)',
+      'Icon size/colour used by leading and inferred actions.'),
+  _AnatomyRow('actionsIconTheme', 'IconThemeData?', 'iconTheme fallback',
+      'Overrides iconTheme just for the trailing actions slot.',
+      tint: _kAccentBlue),
+  _AnatomyRow('centerTitle', 'bool?', 'platform-dependent',
+      'true centres the title; iOS defaults to true, others false.',
+      tint: _kAccentTeal),
+  _AnatomyRow('titleSpacing', 'double?', 'NavigationToolbar.kMiddleSpacing',
+      'Horizontal gap between leading and title widgets.',
+      tint: _kAccentGreen),
+  _AnatomyRow('toolbarHeight', 'double?', 'kToolbarHeight (56)',
+      'Total vertical extent reserved for the toolbar row.',
+      tint: _kAccentAmber),
+  _AnatomyRow('titleTextStyle', 'TextStyle?', 'TextTheme.titleLarge',
+      'Default text style applied to the title widget.',
+      tint: _kAccentRose),
+  _AnatomyRow('toolbarTextStyle', 'TextStyle?', 'TextTheme.bodyMedium',
+      'Default text style for non-title text in the toolbar.',
+      tint: _kAccentViolet),
+  _AnatomyRow('systemOverlayStyle', 'SystemUiOverlayStyle?', 'derived',
+      'Android status-bar icon colour and contrast.'),
 ];
 
 Widget _anatomyTable() {
@@ -646,46 +592,38 @@ Widget _anatomyTable() {
         children: const <Widget>[
           SizedBox(
             width: 180.0,
-            child: Text(
-              'Field',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                color: _kInkSecondary,
-              ),
-            ),
+            child: Text('Field',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInkSecondary,
+                )),
           ),
           SizedBox(
             width: 150.0,
-            child: Text(
-              'Type',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                color: _kInkSecondary,
-              ),
-            ),
+            child: Text('Type',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInkSecondary,
+                )),
           ),
           SizedBox(
             width: 180.0,
-            child: Text(
-              'M3 default',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                color: _kInkSecondary,
-              ),
-            ),
+            child: Text('M3 default',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInkSecondary,
+                )),
           ),
           Expanded(
-            child: Text(
-              'Purpose',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                color: _kInkSecondary,
-              ),
-            ),
+            child: Text('Purpose',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInkSecondary,
+                )),
           ),
         ],
       ),
@@ -754,7 +692,9 @@ Widget _anatomyTable() {
                 ),
               ),
             ),
-            Expanded(child: Text(row.purpose, style: _kBodySoftStyle)),
+            Expanded(
+              child: Text(row.purpose, style: _kBodySoftStyle),
+            ),
           ],
         ),
       ),
@@ -781,11 +721,9 @@ Widget _anatomySection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _cardTitle(
-              'Every field in one table',
-              subtitle:
-                  'Fifteen nullable fields. Each one is "if non-null, win".',
-            ),
+            _cardTitle('Every field in one table',
+                subtitle:
+                    'Fifteen nullable fields. Each one is "if non-null, win".'),
             const SizedBox(height: 10.0),
             Text(
               'Reading the table: when AppBar resolves a property, it asks '
@@ -867,12 +805,17 @@ Widget _mockAppBar({
   );
   return Container(
     height: height,
-    decoration: BoxDecoration(color: background, boxShadow: shadows),
+    decoration: BoxDecoration(
+      color: background,
+      boxShadow: shadows,
+    ),
     child: Stack(
       children: <Widget>[
         if (tintOpacity > 0.0)
           Positioned.fill(
-            child: Container(color: tint.withOpacity(tintOpacity)),
+            child: Container(
+              color: tint.withOpacity(tintOpacity),
+            ),
           ),
         Row(children: rowChildren),
       ],
@@ -901,10 +844,8 @@ Widget _themedPreviewColumn({
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 8.0,
-            ),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -919,9 +860,7 @@ Widget _themedPreviewColumn({
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                      horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: (isDark ? _kInkOnDark : _kInk).withOpacity(0.08),
                     borderRadius: BorderRadius.circular(999.0),
@@ -1005,11 +944,9 @@ Widget _lightVsDarkSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle(
-          'Light vs Dark, identical widget tree',
-          subtitle:
-              'Same AppBar(title: Text("Inbox")). Only ThemeData seed differs.',
-        ),
+        _cardTitle('Light vs Dark, identical widget tree',
+            subtitle:
+                'Same AppBar(title: Text("Inbox")). Only ThemeData seed differs.'),
         const SizedBox(height: 14.0),
         SizedBox(
           height: 220.0,
@@ -1061,12 +998,7 @@ Widget _lightVsDarkSection() {
 // ---------------------------------------------------------------------------
 
 class _ScrollState {
-  const _ScrollState(
-    this.label,
-    this.elevation,
-    this.tintOpacity,
-    this.caption,
-  );
+  const _ScrollState(this.label, this.elevation, this.tintOpacity, this.caption);
   final String label;
   final double elevation;
   final double tintOpacity;
@@ -1074,25 +1006,16 @@ class _ScrollState {
 }
 
 const List<_ScrollState> _kScrollStates = <_ScrollState>[
+  _ScrollState('At rest', 0.0, 0.0,
+      'No content under bar. elevation = AppBarTheme.elevation (0 in M3).'),
   _ScrollState(
-    'At rest',
-    0.0,
-    0.0,
-    'No content under bar. elevation = AppBarTheme.elevation (0 in M3).',
-  ),
-  _ScrollState(
-    'Scrolled under',
-    3.0,
-    0.08,
-    'NestedScrollView reports scrolledUnder=true; switches to '
-        'scrolledUnderElevation and applies surfaceTint overlay.',
-  ),
-  _ScrollState(
-    'Max scroll',
-    3.0,
-    0.14,
-    'Tint clamps but does not strengthen beyond the M3 elevation curve.',
-  ),
+      'Scrolled under',
+      3.0,
+      0.08,
+      'NestedScrollView reports scrolledUnder=true; switches to '
+          'scrolledUnderElevation and applies surfaceTint overlay.'),
+  _ScrollState('Max scroll', 3.0, 0.14,
+      'Tint clamps but does not strengthen beyond the M3 elevation curve.'),
 ];
 
 Widget _scrolledUnderCard(_ScrollState state, int index) {
@@ -1168,14 +1091,12 @@ Widget _scrolledUnderCard(_ScrollState state, int index) {
           ),
         ),
         const SizedBox(height: 8.0),
-        Text(
-          state.caption,
-          style: const TextStyle(
-            fontSize: 11.5,
-            color: _kInkSecondary,
-            height: 1.4,
-          ),
-        ),
+        Text(state.caption,
+            style: const TextStyle(
+              fontSize: 11.5,
+              color: _kInkSecondary,
+              height: 1.4,
+            )),
       ],
     ),
   );
@@ -1190,13 +1111,14 @@ Widget _scrolledUnderSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle(
-          'scrolledUnderElevation in three frames',
-          subtitle:
-              'The M3 AppBar swaps elevation when content scrolls under it.',
-        ),
+        _cardTitle('scrolledUnderElevation in three frames',
+            subtitle:
+                'The M3 AppBar swaps elevation when content scrolls under it.'),
         const SizedBox(height: 14.0),
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: cards),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: cards,
+        ),
         const SizedBox(height: 14.0),
         Container(
           padding: const EdgeInsets.all(10.0),
@@ -1239,36 +1161,22 @@ class _SliverMode {
 }
 
 const List<_SliverMode> _kSliverModes = <_SliverMode>[
+  _SliverMode('pinned: false\nfloating: false', 'Default',
+      'Scrolls completely off as you scroll down.', _kInkTertiary),
+  _SliverMode('pinned: true', 'Pinned',
+      'Sticks at top once collapsed to its toolbarHeight.', _kAccent),
+  _SliverMode('floating: true', 'Floating',
+      'Reappears immediately on any upward scroll gesture.', _kAccentTeal),
   _SliverMode(
-    'pinned: false\nfloating: false',
-    'Default',
-    'Scrolls completely off as you scroll down.',
-    _kInkTertiary,
-  ),
+      'floating: true\nsnap: true',
+      'Floating+Snap',
+      'Snaps fully open on any upward scroll; snaps closed downward.',
+      _kAccentGreen),
   _SliverMode(
-    'pinned: true',
-    'Pinned',
-    'Sticks at top once collapsed to its toolbarHeight.',
-    _kAccent,
-  ),
-  _SliverMode(
-    'floating: true',
-    'Floating',
-    'Reappears immediately on any upward scroll gesture.',
-    _kAccentTeal,
-  ),
-  _SliverMode(
-    'floating: true\nsnap: true',
-    'Floating+Snap',
-    'Snaps fully open on any upward scroll; snaps closed downward.',
-    _kAccentGreen,
-  ),
-  _SliverMode(
-    'pinned: true\nfloating: true\nsnap: true',
-    'Pinned+Floating',
-    'Always visible at minExtent; expands on upward scroll.',
-    _kAccentViolet,
-  ),
+      'pinned: true\nfloating: true\nsnap: true',
+      'Pinned+Floating',
+      'Always visible at minExtent; expands on upward scroll.',
+      _kAccentViolet),
 ];
 
 Widget _sliverModeCard(_SliverMode mode) {
@@ -1294,14 +1202,12 @@ Widget _sliverModeCard(_SliverMode mode) {
               ),
             ),
             const SizedBox(width: 8.0),
-            Text(
-              mode.label,
-              style: const TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-              ),
-            ),
+            Text(mode.label,
+                style: const TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                )),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -1341,21 +1247,22 @@ Widget _sliverFrame(String tag, String state, double barHeight) {
               color: _kAccent.withOpacity(0.12),
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text(
-              tag,
-              style: const TextStyle(
-                fontSize: 10.0,
-                fontFamily: 'monospace',
-                color: _kAccent,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(tag,
+                style: const TextStyle(
+                  fontSize: 10.0,
+                  fontFamily: 'monospace',
+                  color: _kAccent,
+                  fontWeight: FontWeight.w600,
+                )),
           ),
           const SizedBox(width: 6.0),
           Expanded(
             child: Text(
               state,
-              style: const TextStyle(fontSize: 10.5, color: _kInkSecondary),
+              style: const TextStyle(
+                fontSize: 10.5,
+                color: _kInkSecondary,
+              ),
             ),
           ),
         ],
@@ -1392,24 +1299,18 @@ Widget _sliverFrame(String tag, String state, double barHeight) {
             const SizedBox(height: 4.0),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 6.0),
-              child: Text(
-                'list item',
-                style: TextStyle(fontSize: 10.0, color: _kInkSecondary),
-              ),
+              child: Text('list item',
+                  style: TextStyle(fontSize: 10.0, color: _kInkSecondary)),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 6.0),
-              child: Text(
-                'list item',
-                style: TextStyle(fontSize: 10.0, color: _kInkSecondary),
-              ),
+              child: Text('list item',
+                  style: TextStyle(fontSize: 10.0, color: _kInkSecondary)),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 6.0),
-              child: Text(
-                'list item',
-                style: TextStyle(fontSize: 10.0, color: _kInkSecondary),
-              ),
+              child: Text('list item',
+                  style: TextStyle(fontSize: 10.0, color: _kInkSecondary)),
             ),
           ],
         ),
@@ -1434,7 +1335,8 @@ Widget _sliverDiagramTrack() {
         const SizedBox(width: 8.0),
         Expanded(child: _sliverFrame('t=mid', 'collapsing', 80.0)),
         const SizedBox(width: 8.0),
-        Expanded(child: _sliverFrame('t=max', 'toolbarHeight (pinned)', 40.0)),
+        Expanded(
+            child: _sliverFrame('t=max', 'toolbarHeight (pinned)', 40.0)),
       ],
     ),
   );
@@ -1449,16 +1351,18 @@ Widget _sliverSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle(
-          'SliverAppBar: pinned, floating, snap',
-          subtitle:
-              'A SliverAppBar reads AppBarTheme but adds scroll-driven '
-              'extent rules absent from AppBar.',
-        ),
+        _cardTitle('SliverAppBar: pinned, floating, snap',
+            subtitle:
+                'A SliverAppBar reads AppBarTheme but adds scroll-driven '
+                'extent rules absent from AppBar.'),
         const SizedBox(height: 14.0),
         _sliverDiagramTrack(),
         const SizedBox(height: 12.0),
-        Wrap(spacing: 0.0, runSpacing: 0.0, children: cards),
+        Wrap(
+          spacing: 0.0,
+          runSpacing: 0.0,
+          children: cards,
+        ),
       ],
     ),
   );
@@ -1492,23 +1396,19 @@ Widget _tintLayer(String label, Color colour, double opacity, String desc) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 11.5,
-                  fontFamily: 'monospace',
-                  color: _kInk,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(
-                  fontSize: 11.0,
-                  color: _kInkSecondary,
-                  height: 1.3,
-                ),
-              ),
+              Text(label,
+                  style: const TextStyle(
+                    fontSize: 11.5,
+                    fontFamily: 'monospace',
+                    color: _kInk,
+                    fontWeight: FontWeight.w600,
+                  )),
+              Text(desc,
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    color: _kInkSecondary,
+                    height: 1.3,
+                  )),
             ],
           ),
         ),
@@ -1522,10 +1422,9 @@ Widget _surfaceTintSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle(
-          'surfaceTintColor: the M3 tonal overlay',
-          subtitle: 'How Material 3 simulates elevation without a drop shadow.',
-        ),
+        _cardTitle('surfaceTintColor: the M3 tonal overlay',
+            subtitle:
+                'How Material 3 simulates elevation without a drop shadow.'),
         const SizedBox(height: 14.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1535,24 +1434,18 @@ Widget _surfaceTintSection() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  _tintLayer('1. backgroundColor', _kLightAppBarBg, 1.0,
+                      'ColorScheme.surface (e.g. #FFFFFFFF).'),
                   _tintLayer(
-                    '1. backgroundColor',
-                    _kLightAppBarBg,
-                    1.0,
-                    'ColorScheme.surface (e.g. #FFFFFFFF).',
-                  ),
+                      '2. surfaceTintColor @ opacity(elevation)',
+                      _kSeedPrimary,
+                      0.08,
+                      'Opacity rises with effective elevation per M3 curve.'),
                   _tintLayer(
-                    '2. surfaceTintColor @ opacity(elevation)',
-                    _kSeedPrimary,
-                    0.08,
-                    'Opacity rises with effective elevation per M3 curve.',
-                  ),
-                  _tintLayer(
-                    '3. = composited toolbar fill',
-                    _composite(_kLightAppBarBg, _kSeedPrimary, 0.08),
-                    1.0,
-                    'What AppBar actually paints behind your icons.',
-                  ),
+                      '3. = composited toolbar fill',
+                      _composite(_kLightAppBarBg, _kSeedPrimary, 0.08),
+                      1.0,
+                      'What AppBar actually paints behind your icons.'),
                 ],
               ),
             ),
@@ -1640,52 +1533,26 @@ class _CompareRow {
 }
 
 const List<_CompareRow> _kCompare = <_CompareRow>[
-  _CompareRow(
-    'Widget kind',
-    'StatefulWidget (RenderObjectWidget tree)',
-    'RenderObjectWidget that produces a RenderSliver.',
-  ),
-  _CompareRow(
-    'Mount point',
-    'Scaffold.appBar or any PreferredSizeWidget slot',
-    'CustomScrollView.slivers list.',
-  ),
-  _CompareRow(
-    'Reads AppBarTheme',
-    'Yes - every field.',
-    'Yes - the same field set.',
-  ),
-  _CompareRow(
-    'Scroll coupling',
-    'Listens via NotificationListener.',
-    'Native: receives SliverConstraints directly.',
-  ),
-  _CompareRow(
-    'Supports expandedHeight',
-    'No - fixed toolbarHeight.',
-    'Yes - expandedHeight + flexibleSpace.',
-  ),
+  _CompareRow('Widget kind', 'StatefulWidget (RenderObjectWidget tree)',
+      'RenderObjectWidget that produces a RenderSliver.'),
+  _CompareRow('Mount point', 'Scaffold.appBar or any PreferredSizeWidget slot',
+      'CustomScrollView.slivers list.'),
+  _CompareRow('Reads AppBarTheme', 'Yes - every field.',
+      'Yes - the same field set.'),
+  _CompareRow('Scroll coupling', 'Listens via NotificationListener.',
+      'Native: receives SliverConstraints directly.'),
+  _CompareRow('Supports expandedHeight', 'No - fixed toolbarHeight.',
+      'Yes - expandedHeight + flexibleSpace.'),
   _CompareRow('Supports pinned/floating', 'No.', 'Yes (the whole point).'),
-  _CompareRow(
-    'Stretch on overscroll',
-    'No.',
-    'Yes via stretch: true and onStretchTrigger.',
-  ),
-  _CompareRow(
-    'Owns FlexibleSpaceBar parallax',
-    'No.',
-    'Yes - the parallax is sliver-coordinate driven.',
-  ),
-  _CompareRow(
-    'scrolledUnder evaluation',
-    'Inferred from nearest Scrollable.',
-    'Computed from SliverConstraints.scrollOffset.',
-  ),
-  _CompareRow(
-    'Preferred for tabs?',
-    'Yes - bottom: TabBar always docked.',
-    'Only with pinned: true; otherwise tabs scroll away.',
-  ),
+  _CompareRow('Stretch on overscroll', 'No.',
+      'Yes via stretch: true and onStretchTrigger.'),
+  _CompareRow('Owns FlexibleSpaceBar parallax', 'No.',
+      'Yes - the parallax is sliver-coordinate driven.'),
+  _CompareRow('scrolledUnder evaluation',
+      'Inferred from nearest Scrollable.',
+      'Computed from SliverConstraints.scrollOffset.'),
+  _CompareRow('Preferred for tabs?', 'Yes - bottom: TabBar always docked.',
+      'Only with pinned: true; otherwise tabs scroll away.'),
 ];
 
 Widget _comparisonSection() {
@@ -1701,34 +1568,28 @@ Widget _comparisonSection() {
         children: const <Widget>[
           SizedBox(
             width: 220.0,
-            child: Text(
-              'Axis',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                color: _kInkSecondary,
-              ),
-            ),
+            child: Text('Axis',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInkSecondary,
+                )),
           ),
           Expanded(
-            child: Text(
-              'AppBar',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                color: _kAccent,
-              ),
-            ),
+            child: Text('AppBar',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kAccent,
+                )),
           ),
           Expanded(
-            child: Text(
-              'SliverAppBar',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                color: _kAccentTeal,
-              ),
-            ),
+            child: Text('SliverAppBar',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kAccentTeal,
+                )),
           ),
         ],
       ),
@@ -1749,14 +1610,12 @@ Widget _comparisonSection() {
           children: <Widget>[
             SizedBox(
               width: 220.0,
-              child: Text(
-                row.axis,
-                style: const TextStyle(
-                  fontSize: 12.5,
-                  color: _kInk,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: Text(row.axis,
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    color: _kInk,
+                    fontWeight: FontWeight.w600,
+                  )),
             ),
             Expanded(child: Text(row.appBar, style: _kBodySoftStyle)),
             Expanded(child: Text(row.sliverAppBar, style: _kBodySoftStyle)),
@@ -1788,89 +1647,89 @@ Widget _codeRecipesSection() {
       _codeBlock(
         title: 'recipe-01-full-theme.dart',
         '// Override every AppBar across the app via ThemeData.\n'
-        'ThemeData(\n'
-        '  useMaterial3: true,\n'
-        '  appBarTheme: const AppBarTheme(\n'
-        '    backgroundColor: Color(0xFFFFFFFF),\n'
-        '    foregroundColor: Color(0xFF1A1C25),\n'
-        '    elevation: 0.0,\n'
-        '    scrolledUnderElevation: 3.0,\n'
-        '    centerTitle: false,\n'
-        '    titleTextStyle: TextStyle(\n'
-        '      fontSize: 18.0,\n'
-        '      fontWeight: FontWeight.w600,\n'
-        '      color: Color(0xFF1A1C25),\n'
-        '    ),\n'
-        '  ),\n'
-        ');',
+            'ThemeData(\n'
+            '  useMaterial3: true,\n'
+            '  appBarTheme: const AppBarTheme(\n'
+            '    backgroundColor: Color(0xFFFFFFFF),\n'
+            '    foregroundColor: Color(0xFF1A1C25),\n'
+            '    elevation: 0.0,\n'
+            '    scrolledUnderElevation: 3.0,\n'
+            '    centerTitle: false,\n'
+            '    titleTextStyle: TextStyle(\n'
+            '      fontSize: 18.0,\n'
+            '      fontWeight: FontWeight.w600,\n'
+            '      color: Color(0xFF1A1C25),\n'
+            '    ),\n'
+            '  ),\n'
+            ');',
       ),
       _codeBlock(
         title: 'recipe-02-single-field.dart',
         '// Tweak just one field by reusing the existing theme.\n'
-        'theme.copyWith(\n'
-        '  appBarTheme: theme.appBarTheme.copyWith(\n'
-        '    scrolledUnderElevation: 6.0,\n'
-        '  ),\n'
-        ');',
+            'theme.copyWith(\n'
+            '  appBarTheme: theme.appBarTheme.copyWith(\n'
+            '    scrolledUnderElevation: 6.0,\n'
+            '  ),\n'
+            ');',
       ),
       _codeBlock(
         title: 'recipe-03-dark-variant.dart',
         '// Pair with darkTheme so AppBar follows MediaQuery.platformBrightness.\n'
-        'MaterialApp(\n'
-        '  theme: lightTheme.copyWith(\n'
-        '    appBarTheme: const AppBarTheme(\n'
-        '      backgroundColor: Color(0xFFFFFFFF),\n'
-        '      foregroundColor: Color(0xFF1A1C25),\n'
-        '    ),\n'
-        '  ),\n'
-        '  darkTheme: darkTheme.copyWith(\n'
-        '    appBarTheme: const AppBarTheme(\n'
-        '      backgroundColor: Color(0xFF1B1D2A),\n'
-        '      foregroundColor: Color(0xFFEDEEF5),\n'
-        '    ),\n'
-        '  ),\n'
-        ');',
+            'MaterialApp(\n'
+            '  theme: lightTheme.copyWith(\n'
+            '    appBarTheme: const AppBarTheme(\n'
+            '      backgroundColor: Color(0xFFFFFFFF),\n'
+            '      foregroundColor: Color(0xFF1A1C25),\n'
+            '    ),\n'
+            '  ),\n'
+            '  darkTheme: darkTheme.copyWith(\n'
+            '    appBarTheme: const AppBarTheme(\n'
+            '      backgroundColor: Color(0xFF1B1D2A),\n'
+            '      foregroundColor: Color(0xFFEDEEF5),\n'
+            '    ),\n'
+            '  ),\n'
+            ');',
       ),
       _codeBlock(
         title: 'recipe-04-m2-fallback.dart',
         '// useMaterial3: false reverts to Material 2 defaults; surfaceTint\n'
-        '// is ignored and elevation defaults back to 4.0.\n'
-        'ThemeData(\n'
-        '  useMaterial3: false,\n'
-        '  appBarTheme: const AppBarTheme(\n'
-        '    elevation: 4.0,\n'
-        '    shadowColor: Color(0xFF000000),\n'
-        '  ),\n'
-        ');',
+            '// is ignored and elevation defaults back to 4.0.\n'
+            'ThemeData(\n'
+            '  useMaterial3: false,\n'
+            '  appBarTheme: const AppBarTheme(\n'
+            '    elevation: 4.0,\n'
+            '    shadowColor: Color(0xFF000000),\n'
+            '  ),\n'
+            ');',
       ),
       _codeBlock(
         title: 'recipe-05-per-route-override.dart',
         '// Override AppBarTheme for a single route via Theme(...).\n'
-        'Theme(\n'
-        '  data: Theme.of(context).copyWith(\n'
-        '    appBarTheme: const AppBarTheme(\n'
-        '      backgroundColor: Color(0xFF312E81),\n'
-        '      foregroundColor: Color(0xFFFFFFFF),\n'
-        '    ),\n'
-        '  ),\n'
-        '  child: Scaffold(\n'
-        '    appBar: AppBar(title: const Text("Settings")),\n'
-        '    body: const _SettingsBody(),\n'
-        '  ),\n'
-        ');',
+            'Theme(\n'
+            '  data: Theme.of(context).copyWith(\n'
+            '    appBarTheme: const AppBarTheme(\n'
+            '      backgroundColor: Color(0xFF312E81),\n'
+            '      foregroundColor: Color(0xFFFFFFFF),\n'
+            '    ),\n'
+            '  ),\n'
+            '  child: Scaffold(\n'
+            '    appBar: AppBar(title: const Text("Settings")),\n'
+            '    body: const _SettingsBody(),\n'
+            '  ),\n'
+            ');',
       ),
       _codeBlock(
         title: 'recipe-06-shape-and-tint.dart',
         '// Rounded bottom corners + opt out of M3 tint.\n'
-        'AppBarTheme(\n'
-        '  shape: const RoundedRectangleBorder(\n'
-        '    borderRadius: BorderRadius.vertical(\n'
-        '      bottom: Radius.circular(20.0),\n'
-        '    ),\n'
-        '  ),\n'
-        '  surfaceTintColor: Colors.transparent,\n'
-        '  scrolledUnderElevation: 0.0,\n'
-        ');',
+            'AppBarTheme(\n'
+            '  shape: const RoundedRectangleBorder(\n'
+            '    borderRadius: BorderRadius.vertical(\n'
+            '      bottom: Radius.circular(20.0),\n'
+            '    ),\n'
+            '  ),\n'
+            '  surfaceTintColor: Colors.transparent,\n'
+            '  scrolledUnderElevation: 0.0,\n'
+            ');',
       ),
     ],
   );
@@ -1979,11 +1838,8 @@ Widget _pitfallsSection() {
                       color: p.colour.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(6.0),
                     ),
-                    child: Icon(
-                      Icons.warning_amber_rounded,
-                      size: 16.0,
-                      color: p.colour,
-                    ),
+                    child: Icon(Icons.warning_amber_rounded,
+                        size: 16.0, color: p.colour),
                   ),
                   const SizedBox(width: 10.0),
                   Expanded(
@@ -2010,14 +1866,16 @@ Widget _pitfallsSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _cardTitle(
-          'Eight commonly missed details',
-          subtitle:
-              'Defaults that bite when you migrate between M2 and M3 or '
-              'switch between AppBar and SliverAppBar.',
-        ),
+        _cardTitle('Eight commonly missed details',
+            subtitle:
+                'Defaults that bite when you migrate between M2 and M3 or '
+                'switch between AppBar and SliverAppBar.'),
         const SizedBox(height: 10.0),
-        Wrap(spacing: 0.0, runSpacing: 0.0, children: cards),
+        Wrap(
+          spacing: 0.0,
+          runSpacing: 0.0,
+          children: cards,
+        ),
       ],
     ),
   );
@@ -2112,7 +1970,10 @@ Widget _cheatSheetFooter() {
         const SizedBox(height: 4.0),
         const Text(
           'Fields & consumers, in one compact map.',
-          style: TextStyle(color: _kInkOnDarkSecondary, fontSize: 12.5),
+          style: TextStyle(
+            color: _kInkOnDarkSecondary,
+            fontSize: 12.5,
+          ),
         ),
         const SizedBox(height: 14.0),
         const Text(
@@ -2149,7 +2010,11 @@ Widget _cheatSheetFooter() {
             'Mnemonic: "colour + shadow + shape + typography + system". '
             'Five families, fifteen fields - every one nullable, every one '
             'overridden in resolution order: widget > AppBarTheme > defaults.',
-            style: TextStyle(color: _kInkOnDark, fontSize: 12.5, height: 1.4),
+            style: TextStyle(
+              color: _kInkOnDark,
+              fontSize: 12.5,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -2186,10 +2051,8 @@ dynamic build(BuildContext context) {
   final double sample = math.max(0.0, demoTheme.elevation ?? 0.0);
   print('sample-elevation-max=$sample');
   const SystemUiOverlayStyle overlayProbe = SystemUiOverlayStyle.dark;
-  print(
-    'overlayProbe.statusBarIconBrightness='
-    '${overlayProbe.statusBarIconBrightness}',
-  );
+  print('overlayProbe.statusBarIconBrightness='
+      '${overlayProbe.statusBarIconBrightness}');
   const TextStyle paintingProbe = TextStyle(color: _kInk);
   print('paintingProbe.color=${paintingProbe.color}');
   const Widget widgetsProbe = SizedBox.shrink();
@@ -2204,92 +2067,62 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           // Section 1
           _heroBanner(),
-          _sectionHeader(
-            1,
-            'Why AppBarTheme exists',
-            'A nullable override layer for every AppBar in the app.',
-          ),
+          _sectionHeader(1, 'Why AppBarTheme exists',
+              'A nullable override layer for every AppBar in the app.'),
           _heroIntroCard(),
           _sectionDivider(),
 
           // Section 2
-          _sectionHeader(
-            2,
-            'AppBarTheme anatomy',
-            'Every field, its type, its M3 default, its purpose.',
-          ),
+          _sectionHeader(2, 'AppBarTheme anatomy',
+              'Every field, its type, its M3 default, its purpose.'),
           _anatomySection(),
           _sectionDivider(),
 
           // Section 3
-          _sectionHeader(
-            3,
-            'Light vs Dark, same widget tree',
-            'How ColorScheme drives AppBar defaults under the hood.',
-          ),
+          _sectionHeader(3, 'Light vs Dark, same widget tree',
+              'How ColorScheme drives AppBar defaults under the hood.'),
           _lightVsDarkSection(),
           _sectionDivider(),
 
           // Section 4
-          _sectionHeader(
-            4,
-            'scrolledUnderElevation',
-            'The elevation tint switch as the user scrolls.',
-          ),
+          _sectionHeader(4, 'scrolledUnderElevation',
+              'The elevation tint switch as the user scrolls.'),
           _scrolledUnderSection(),
           _sectionDivider(),
 
           // Section 5
-          _sectionHeader(
-            5,
-            'SliverAppBar pinned, floating, snap',
-            'How scroll-driven extent interacts with the theme.',
-          ),
+          _sectionHeader(5, 'SliverAppBar pinned, floating, snap',
+              'How scroll-driven extent interacts with the theme.'),
           _sliverSection(),
           _sectionDivider(),
 
           // Section 6
-          _sectionHeader(
-            6,
-            'surfaceTintColor & tonal elevation',
-            'How M3 simulates depth without a drop shadow.',
-          ),
+          _sectionHeader(6, 'surfaceTintColor & tonal elevation',
+              'How M3 simulates depth without a drop shadow.'),
           _surfaceTintSection(),
           _sectionDivider(),
 
           // Section 7
-          _sectionHeader(
-            7,
-            'AppBar vs SliverAppBar',
-            'Same theme inputs, different scroll-coupling rules.',
-          ),
+          _sectionHeader(7, 'AppBar vs SliverAppBar',
+              'Same theme inputs, different scroll-coupling rules.'),
           _comparisonSection(),
           _sectionDivider(),
 
           // Section 8
-          _sectionHeader(
-            8,
-            'ThemeData.appBarTheme recipes',
-            'Six idiomatic overrides you will reach for again.',
-          ),
+          _sectionHeader(8, 'ThemeData.appBarTheme recipes',
+              'Six idiomatic overrides you will reach for again.'),
           _codeRecipesSection(),
           _sectionDivider(),
 
           // Section 9
-          _sectionHeader(
-            9,
-            'Pitfalls',
-            'Eight defaults that commonly trip Flutter engineers.',
-          ),
+          _sectionHeader(9, 'Pitfalls',
+              'Eight defaults that commonly trip Flutter engineers.'),
           _pitfallsSection(),
           _sectionDivider(),
 
           // Section 10
-          _sectionHeader(
-            10,
-            'Cheat-sheet',
-            'Compact recap of fields, consumers, and resolution order.',
-          ),
+          _sectionHeader(10, 'Cheat-sheet',
+              'Compact recap of fields, consumers, and resolution order.'),
           _cheatSheetFooter(),
         ],
       ),

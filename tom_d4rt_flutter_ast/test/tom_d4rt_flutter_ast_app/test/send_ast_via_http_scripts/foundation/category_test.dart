@@ -106,7 +106,11 @@ class _HeroBanner extends StatelessWidget {
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[kAccent, kAccentAlt, kAccentRose],
+          colors: <Color>[
+            kAccent,
+            kAccentAlt,
+            kAccentRose,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -129,9 +133,7 @@ class _HeroBanner extends StatelessWidget {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
+                      horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(999),
@@ -173,9 +175,15 @@ class _HeroBanner extends StatelessWidget {
                 const SizedBox(height: 18),
                 Row(
                   children: <Widget>[
-                    _HeroBadge(label: 'Compile-time only', icon: Icons.bolt),
+                    _HeroBadge(
+                      label: 'Compile-time only',
+                      icon: Icons.bolt,
+                    ),
                     const SizedBox(width: 10),
-                    _HeroBadge(label: 'Read by dartdoc', icon: Icons.menu_book),
+                    _HeroBadge(
+                      label: 'Read by dartdoc',
+                      icon: Icons.menu_book,
+                    ),
                     const SizedBox(width: 10),
                     _HeroBadge(
                       label: 'Powers docs.flutter.dev',
@@ -194,7 +202,9 @@ class _HeroBanner extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.28)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.28),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,7 +245,9 @@ class _HeroBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.32)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.32),
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -346,7 +358,11 @@ class _SectionHeader extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           subtitle,
-          style: const TextStyle(color: kInkSoft, fontSize: 13.5, height: 1.45),
+          style: const TextStyle(
+            color: kInkSoft,
+            fontSize: 13.5,
+            height: 1.45,
+          ),
         ),
       ],
     );
@@ -565,12 +581,18 @@ class _AnnotationCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             description,
-            style: const TextStyle(color: kInk, fontSize: 13, height: 1.45),
+            style: const TextStyle(
+              color: kInk,
+              fontSize: 13,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 12),
-          _LabeledFact(label: 'Placement', value: placement, accent: accent),
+          _LabeledFact(
+              label: 'Placement', value: placement, accent: accent),
           _LabeledFact(label: 'Readers', value: readers, accent: accent),
-          _LabeledFact(label: 'If omitted', value: fallback, accent: accent),
+          _LabeledFact(
+              label: 'If omitted', value: fallback, accent: accent),
           const SizedBox(height: 12),
           _CodeBlock(snippet: snippet),
         ],
@@ -611,7 +633,11 @@ class _LabeledFact extends StatelessWidget {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(color: kInk, fontSize: 12.5, height: 1.35),
+              style: const TextStyle(
+                color: kInk,
+                fontSize: 12.5,
+                height: 1.35,
+              ),
             ),
           ),
         ],
@@ -662,7 +688,10 @@ class _ExampleWidgetGallery extends StatelessWidget {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[kPanel, kAccentGreen.withValues(alpha: 0.05)],
+          colors: <Color>[
+            kPanel,
+            kAccentGreen.withValues(alpha: 0.05),
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -772,8 +801,7 @@ class _ExampleWidgetGallery extends StatelessWidget {
             categories: <String>['animation', 'painting'],
             iconUrl:
                 'https://flutter.github.io/assets-for-api-docs/assets/widgets/ripple_hero.png',
-            summary:
-                'A hero transition that ripples outward from a focal point.',
+            summary: 'A hero transition that ripples outward from a focal point.',
             source:
                 "@Category(<String>['animation', 'painting'])\n"
                 "@DocumentationIcon(\n"
@@ -866,7 +894,10 @@ class _GalleryItem extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.widgets_outlined, color: Colors.white),
+                child: const Icon(
+                  Icons.widgets_outlined,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -888,11 +919,10 @@ class _GalleryItem extends StatelessWidget {
                         if (unicode != null)
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
+                                horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
-                              color: kAccentTeal.withValues(alpha: 0.16),
+                              color:
+                                  kAccentTeal.withValues(alpha: 0.16),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Text(
@@ -929,15 +959,12 @@ class _GalleryItem extends StatelessWidget {
                 .map<Widget>(
                   (String c) => Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
+                        horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: kAccent.withValues(alpha: 0.10),
                       borderRadius: BorderRadius.circular(999),
-                      border: Border.all(
-                        color: kAccent.withValues(alpha: 0.30),
-                      ),
+                      border:
+                          Border.all(color: kAccent.withValues(alpha: 0.30)),
                     ),
                     child: Text(
                       c,
@@ -1235,7 +1262,8 @@ class _CatalogBrowserMockup extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                Icon(Icons.push_pin_outlined, size: 16, color: kAccentAmber),
+                Icon(Icons.push_pin_outlined,
+                    size: 16, color: kAccentAmber),
                 const SizedBox(width: 8),
                 const Expanded(
                   child: Text(
@@ -1279,12 +1307,17 @@ class _CatalogNode extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
-              color: pinned ? accent.withValues(alpha: 0.10) : kPanel,
+              color: pinned
+                  ? accent.withValues(alpha: 0.10)
+                  : kPanel,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: pinned ? accent.withValues(alpha: 0.4) : kBorderSoft,
+                color: pinned
+                    ? accent.withValues(alpha: 0.4)
+                    : kBorderSoft,
               ),
             ),
             child: Row(
@@ -1292,8 +1325,8 @@ class _CatalogNode extends StatelessWidget {
                 Icon(
                   leaf
                       ? (pinned
-                            ? Icons.star_rounded
-                            : Icons.insert_drive_file_outlined)
+                          ? Icons.star_rounded
+                          : Icons.insert_drive_file_outlined)
                       : Icons.folder_outlined,
                   size: 16,
                   color: accent,
@@ -1313,9 +1346,7 @@ class _CatalogNode extends StatelessWidget {
                 if (pinned)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
+                        horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: accent.withValues(alpha: 0.16),
                       borderRadius: BorderRadius.circular(6),
@@ -1356,7 +1387,10 @@ class _DocumentationIconPreviewRows extends StatelessWidget {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[kPanel, kAccentTeal.withValues(alpha: 0.05)],
+          colors: <Color>[
+            kPanel,
+            kAccentTeal.withValues(alpha: 0.05),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1451,7 +1485,9 @@ class _IconPreviewRow extends StatelessWidget {
         color: kPanel,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: ok ? kBorderSoft : kAccentRose.withValues(alpha: 0.4),
+          color: ok
+              ? kBorderSoft
+              : kAccentRose.withValues(alpha: 0.4),
         ),
       ),
       child: Row(
@@ -1827,12 +1863,18 @@ class _MultiCategoryVennDiagram extends StatelessWidget {
                 Positioned(
                   left: 60,
                   top: 30,
-                  child: _VennCircle(label: 'Basics', color: kAccent),
+                  child: _VennCircle(
+                    label: 'Basics',
+                    color: kAccent,
+                  ),
                 ),
                 Positioned(
                   right: 60,
                   top: 30,
-                  child: _VennCircle(label: 'Layout', color: kAccentAlt),
+                  child: _VennCircle(
+                    label: 'Layout',
+                    color: kAccentAlt,
+                  ),
                 ),
                 Positioned(
                   left: 0,
@@ -1840,7 +1882,10 @@ class _MultiCategoryVennDiagram extends StatelessWidget {
                   bottom: 20,
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: _VennCircle(label: 'Material', color: kAccentRose),
+                    child: _VennCircle(
+                      label: 'Material',
+                      color: kAccentRose,
+                    ),
                   ),
                 ),
                 Positioned.fill(
@@ -1850,13 +1895,12 @@ class _MultiCategoryVennDiagram extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 4,
-                          ),
+                              horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
                             color: kPanel,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: kBorder),
+                            border:
+                                Border.all(color: kBorder),
                           ),
                           child: const Text(
                             'GlowCard, GradientButton',
@@ -1928,7 +1972,10 @@ class _VennCircle extends StatelessWidget {
           stops: const <double>[0.0, 0.6, 1.0],
         ),
         shape: BoxShape.circle,
-        border: Border.all(color: color.withValues(alpha: 0.55), width: 2),
+        border: Border.all(
+          color: color.withValues(alpha: 0.55),
+          width: 2,
+        ),
       ),
       alignment: Alignment.topCenter,
       child: Padding(
@@ -1971,7 +2018,10 @@ class _OverlapLegend extends StatelessWidget {
           Container(
             width: 10,
             height: 10,
-            decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: accent,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 8),
           Text(
@@ -2041,8 +2091,7 @@ class _ToolingPipelineSection extends StatelessWidget {
                 child: _PipelineStage(
                   index: 1,
                   title: '.dart source',
-                  subtitle:
-                      'Class declares @Category, @Summary, '
+                  subtitle: 'Class declares @Category, @Summary, '
                       '@DocumentationIcon, @Unicode.',
                   accent: kAccent,
                   icon: Icons.code,
@@ -2202,7 +2251,11 @@ class _PipelineStage extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: const TextStyle(color: kInk, fontSize: 12, height: 1.4),
+            style: const TextStyle(
+              color: kInk,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -2320,7 +2373,8 @@ class _PitfallsSection extends StatelessWidget {
             title: 'Typos in category strings',
             badThing:
                 "@Category(<String>['Basix']) — silently creates a new bucket",
-            goodThing: "@Category(<String>['Basics']) — joins existing widgets",
+            goodThing:
+                "@Category(<String>['Basics']) — joins existing widgets",
             explanation:
                 'Categories are matched by exact string. A typo creates '
                 'a brand-new bucket with one inhabitant, which then never '
@@ -2328,8 +2382,10 @@ class _PitfallsSection extends StatelessWidget {
           ),
           _PitfallEntry(
             title: 'Category name drift over time',
-            badThing: "@Category(<String>['Material Widgets'])",
-            goodThing: "@Category(<String>['material'])",
+            badThing:
+                "@Category(<String>['Material Widgets'])",
+            goodThing:
+                "@Category(<String>['material'])",
             explanation:
                 'The Flutter team standardised on lower-case, '
                 'space-free names like "material", "cupertino", '
@@ -2337,7 +2393,8 @@ class _PitfallsSection extends StatelessWidget {
           ),
           _PitfallEntry(
             title: 'Leading slash in @DocumentationIcon',
-            badThing: "@DocumentationIcon('/assets/widgets/foo.png')",
+            badThing:
+                "@DocumentationIcon('/assets/widgets/foo.png')",
             goodThing:
                 "@DocumentationIcon('https://flutter.github.io/"
                 "assets-for-api-docs/assets/widgets/foo.png')",
@@ -2350,15 +2407,18 @@ class _PitfallsSection extends StatelessWidget {
             title: 'Summary that restates the class name',
             badThing:
                 "@Summary('GlowCard widget which renders a glowing card.')",
-            goodThing: "@Summary('A card with a soft animated glow halo.')",
+            goodThing:
+                "@Summary('A card with a soft animated glow halo.')",
             explanation:
                 'Search uses the summary text. Repeating the class name '
                 'wastes characters and dilutes relevant keywords.',
           ),
           _PitfallEntry(
             title: 'Wrong @Unicode format',
-            badThing: "@Unicode('0x2603')",
-            goodThing: "@Unicode('U+2603')",
+            badThing:
+                "@Unicode('0x2603')",
+            goodThing:
+                "@Unicode('U+2603')",
             explanation:
                 'The character-set rendering expects the canonical '
                 '"U+XXXX" format. Hex literals like 0x2603 are dropped.',
@@ -2407,7 +2467,8 @@ class _PitfallEntry extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.warning_amber_rounded, color: kAccentRose, size: 18),
+              Icon(Icons.warning_amber_rounded,
+                  color: kAccentRose, size: 18),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -2516,7 +2577,10 @@ class _FooterSection extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[kInk, kInk.withValues(alpha: 0.85)],
+          colors: <Color>[
+            kInk,
+            kInk.withValues(alpha: 0.85),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -2629,11 +2693,7 @@ class _FooterLink extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         children: <Widget>[
-          Icon(
-            Icons.link,
-            size: 13,
-            color: Colors.white.withValues(alpha: 0.75),
-          ),
+          Icon(Icons.link, size: 13, color: Colors.white.withValues(alpha: 0.75)),
           const SizedBox(width: 6),
           Expanded(
             child: Text(

@@ -76,7 +76,10 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              _SectionTitle(index: 1, title: 'Intro: where BoxScrollView sits'),
+              _SectionTitle(
+                index: 1,
+                title: 'Intro: where BoxScrollView sits',
+              ),
               const _IntroSection(),
               _SectionTitle(
                 index: 2,
@@ -93,11 +96,20 @@ dynamic build(BuildContext context) {
                 title: 'Custom subclass: extends BoxScrollView',
               ),
               const _CustomSubclassSection(),
-              _SectionTitle(index: 5, title: 'padding showcase'),
+              _SectionTitle(
+                index: 5,
+                title: 'padding showcase',
+              ),
               const _PaddingShowcase(),
-              _SectionTitle(index: 6, title: 'physics matrix'),
+              _SectionTitle(
+                index: 6,
+                title: 'physics matrix',
+              ),
               const _PhysicsMatrix(),
-              _SectionTitle(index: 7, title: 'primary & controller interplay'),
+              _SectionTitle(
+                index: 7,
+                title: 'primary & controller interplay',
+              ),
               const _PrimaryAndControllerSection(),
               _SectionTitle(
                 index: 8,
@@ -114,7 +126,10 @@ dynamic build(BuildContext context) {
                 title: 'Pitfalls: five gotchas to remember',
               ),
               const _PitfallsSection(),
-              _SectionTitle(index: 11, title: 'Reference table'),
+              _SectionTitle(
+                index: 11,
+                title: 'Reference table',
+              ),
               const _ReferenceTable(),
               const SizedBox(height: 32),
               const Center(
@@ -174,7 +189,10 @@ class _SectionTitle extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -210,13 +228,19 @@ class _DemoCard extends StatelessWidget {
           children: <Widget>[
             Text(
               label,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
             ),
             if (subtitle != null) ...<Widget>[
               const SizedBox(height: 2),
               Text(
                 subtitle!,
-                style: const TextStyle(fontSize: 12, color: Colors.black54),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black54,
+                ),
               ),
             ],
             const SizedBox(height: 8),
@@ -566,8 +590,8 @@ class _ListViewGallery extends StatelessWidget {
                   width: 100,
                   margin: const EdgeInsets.symmetric(horizontal: 4),
                   decoration: BoxDecoration(
-                    color:
-                        Colors.primaries[i % Colors.primaries.length].shade100,
+                    color: Colors.primaries[i % Colors.primaries.length]
+                        .shade100,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   alignment: Alignment.center,
@@ -601,7 +625,8 @@ class _ListViewGallery extends StatelessWidget {
         ),
         _DemoCard(
           label: 'I) physics: AlwaysScrollableScrollPhysics()',
-          subtitle: 'Always allow over-scroll bounce, even when content fits.',
+          subtitle:
+              'Always allow over-scroll bounce, even when content fits.',
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             children: <Widget>[
@@ -646,8 +671,10 @@ class _ListViewGallery extends StatelessWidget {
           subtitle: 'Builder + per-gap separator widget.',
           child: ListView.separated(
             itemCount: 200,
-            separatorBuilder: (BuildContext ctx, int idx) =>
-                const Divider(height: 1, color: Colors.indigo),
+            separatorBuilder: (BuildContext ctx, int idx) => const Divider(
+              height: 1,
+              color: Colors.indigo,
+            ),
             itemBuilder: (BuildContext _, int i) =>
                 ListTile(title: Text('Sep row $i')),
           ),
@@ -920,8 +947,7 @@ class _CustomSubclassSectionState extends State<_CustomSubclassSection> {
           ),
         ),
         _DemoCard(
-          label:
-              'Same subclass, horizontal + reverse + controller + shrinkWrap',
+          label: 'Same subclass, horizontal + reverse + controller + shrinkWrap',
           subtitle:
               'Same _MyBoxScroll, different super-parameters. Proves the '
               'inherited knobs flow through a custom subclass.',
@@ -1012,7 +1038,9 @@ class _PaddingShowcase extends StatelessWidget {
           label: 'D) padding: EdgeInsets.fromLTRB(40, 8, 4, 8)',
           subtitle: 'Asymmetric — heavy left gutter.',
           height: 180,
-          child: _stripeList(padding: const EdgeInsets.fromLTRB(40, 8, 4, 8)),
+          child: _stripeList(
+            padding: const EdgeInsets.fromLTRB(40, 8, 4, 8),
+          ),
         ),
         _DemoCard(
           label: 'E) padding: EdgeInsets.only(top: 80, bottom: 80)',
@@ -1108,7 +1136,10 @@ class _PhysicsMatrixState extends State<_PhysicsMatrix> {
           children: <Widget>[
             Text(
               label,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+              ),
             ),
             const SizedBox(height: 4),
             SizedBox(
@@ -1132,7 +1163,10 @@ class _PhysicsMatrixState extends State<_PhysicsMatrix> {
                     color: color.withOpacity(0.5),
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.symmetric(horizontal: 6),
-                    child: Text('Row $i', style: const TextStyle(fontSize: 12)),
+                    child: Text(
+                      'Row $i',
+                      style: const TextStyle(fontSize: 12),
+                    ),
                   ),
                 ),
               ),
@@ -1632,8 +1666,7 @@ class _RecipeHorizontalInVertical extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: Colors
-                            .primaries[(row * 3 + col) %
-                                Colors.primaries.length]
+                            .primaries[(row * 3 + col) % Colors.primaries.length]
                             .shade200,
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -1681,7 +1714,8 @@ class _RecipeStickyHeader extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (BuildContext _, int i) => ListTile(title: Text('A item $i')),
+              (BuildContext _, int i) =>
+                  ListTile(title: Text('A item $i')),
               childCount: 12,
             ),
           ),
@@ -1703,7 +1737,8 @@ class _RecipeStickyHeader extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (BuildContext _, int i) => ListTile(title: Text('B item $i')),
+              (BuildContext _, int i) =>
+                  ListTile(title: Text('B item $i')),
               childCount: 12,
             ),
           ),
@@ -1857,7 +1892,9 @@ class _RecipeSnapToItem extends StatelessWidget {
             width: w.clamp(200, 360),
             margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.primaries[i % Colors.primaries.length].shade200,
+              color: Colors
+                  .primaries[i % Colors.primaries.length]
+                  .shade200,
               borderRadius: BorderRadius.circular(10),
             ),
             alignment: Alignment.center,
@@ -2019,7 +2056,11 @@ class _ReferenceTable extends StatelessWidget {
                 1: FlexColumnWidth(),
               },
               children: <TableRow>[
-                _row('Type', 'Role', isHeader: true),
+                _row(
+                  'Type',
+                  'Role',
+                  isHeader: true,
+                ),
                 _row(
                   'BoxScrollView',
                   'Abstract base — adds padding + buildChildLayout to '

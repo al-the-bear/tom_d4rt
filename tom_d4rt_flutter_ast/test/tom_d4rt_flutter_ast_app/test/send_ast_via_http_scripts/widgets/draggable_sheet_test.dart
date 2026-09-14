@@ -179,7 +179,10 @@ dynamic build(BuildContext context) {
   // ============================================================================
 
   final builderFacts = <Map<String, dynamic>>[
-    {'item': 'Signature', 'value': '(BuildContext, ScrollController) → Widget'},
+    {
+      'item': 'Signature',
+      'value': '(BuildContext, ScrollController) → Widget',
+    },
     {
       'item': 'ScrollController',
       'value': 'MUST be attached to the inner scrollable',
@@ -438,7 +441,8 @@ dynamic build(BuildContext context) {
     },
     {
       'term': 'Modal',
-      'definition': 'A sheet rendered as a route via showModalBottomSheet().',
+      'definition':
+          'A sheet rendered as a route via showModalBottomSheet().',
     },
   ];
 
@@ -468,11 +472,7 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(22.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF1A237E),
-                      Color(0xFF3949AB),
-                      Color(0xFF5C6BC0),
-                    ],
+                    colors: [Color(0xFF1A237E), Color(0xFF3949AB), Color(0xFF5C6BC0)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -603,15 +603,11 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 6.0),
                     _bullet('Parameter recipes — every constructor argument'),
                     _bullet('Stop-snapshots — sheets rendered at fixed rests'),
-                    _bullet(
-                      'Snap mechanics — sizes, durations, free vs magnet',
-                    ),
+                    _bullet('Snap mechanics — sizes, durations, free vs magnet'),
                     _bullet('Builder & controller — the wiring under the hood'),
                     _bullet('Notification trio — extent, bounds, lifecycle'),
                     _bullet('Modal comparison — when to push, when to inline'),
-                    _bullet(
-                      'Recipe cards — real product surfaces in miniature',
-                    ),
+                    _bullet('Recipe cards — real product surfaces in miniature'),
                     _bullet('Glossary & epilogue — quick reference'),
                   ],
                 ),
@@ -702,23 +698,20 @@ dynamic build(BuildContext context) {
                               SizedBox(height: 6.0),
                               Row(
                                 children: [
-                                  _miniTag(
-                                    'type',
-                                    recipe['type'] as String,
-                                    Color(0xFF26C6DA),
-                                  ),
+                                  _miniTag('type', recipe['type'] as String,
+                                      Color(0xFF26C6DA)),
                                   SizedBox(width: 6.0),
-                                  _miniTag(
-                                    'default',
-                                    recipe['default'] as String,
-                                    Color(0xFF80CBC4),
-                                  ),
+                                  _miniTag('default', recipe['default'] as String,
+                                      Color(0xFF80CBC4)),
                                 ],
                               ),
                               SizedBox(height: 8.0),
                               Text(
                                 recipe['role'] as String,
-                                style: TextStyle(fontSize: 12.5, height: 1.45),
+                                style: TextStyle(
+                                  fontSize: 12.5,
+                                  height: 1.45,
+                                ),
                               ),
                             ],
                           ),
@@ -828,14 +821,15 @@ dynamic build(BuildContext context) {
                             child: Stack(
                               children: [
                                 Positioned.fill(
-                                  child: Container(color: Color(0xFFFFF8E1)),
+                                  child: Container(
+                                    color: Color(0xFFFFF8E1),
+                                  ),
                                 ),
                                 for (final marker in snapMarkers)
                                   Positioned(
                                     left: 0.0,
                                     right: 0.0,
-                                    top:
-                                        (1.0 - (marker['fraction'] as double)) *
+                                    top: (1.0 - (marker['fraction'] as double)) *
                                         220.0,
                                     child: Container(
                                       height: 2.0,
@@ -852,9 +846,8 @@ dynamic build(BuildContext context) {
                                 for (final marker in snapMarkers)
                                   Positioned(
                                     left: 8.0,
-                                    top:
-                                        (1.0 - (marker['fraction'] as double)) *
-                                            220.0 -
+                                    top: (1.0 - (marker['fraction'] as double)) *
+                                        220.0 -
                                         10.0,
                                     child: Container(
                                       padding: EdgeInsets.symmetric(
@@ -863,9 +856,7 @@ dynamic build(BuildContext context) {
                                       ),
                                       decoration: BoxDecoration(
                                         color: marker['tint'] as Color,
-                                        borderRadius: BorderRadius.circular(
-                                          4.0,
-                                        ),
+                                        borderRadius: BorderRadius.circular(4.0),
                                       ),
                                       child: Text(
                                         '${marker['label']} · ${(marker['fraction'] as double).toStringAsFixed(2)}',
@@ -1039,7 +1030,9 @@ dynamic build(BuildContext context) {
                                 decoration: BoxDecoration(
                                   color: Color(0xFFFFFFFF),
                                   borderRadius: BorderRadius.circular(6.0),
-                                  border: Border.all(color: Color(0xFFA5D6A7)),
+                                  border: Border.all(
+                                    color: Color(0xFFA5D6A7),
+                                  ),
                                 ),
                                 child: Text(
                                   row['free'] as String,
@@ -1144,10 +1137,7 @@ dynamic build(BuildContext context) {
                                 padding: EdgeInsets.symmetric(vertical: 6.0),
                                 child: Text(
                                   fact['value'] as String,
-                                  style: TextStyle(
-                                    fontSize: 12.5,
-                                    height: 1.45,
-                                  ),
+                                  style: TextStyle(fontSize: 12.5, height: 1.45),
                                 ),
                               ),
                             ),
@@ -1189,11 +1179,8 @@ dynamic build(BuildContext context) {
                       ),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.gamepad,
-                            color: Color(0xFFFFFFFF),
-                            size: 20.0,
-                          ),
+                          Icon(Icons.gamepad,
+                              color: Color(0xFFFFFFFF), size: 20.0),
                           SizedBox(width: 8.0),
                           Text(
                             'final controller = DraggableScrollableController();',
@@ -1241,8 +1228,8 @@ dynamic build(BuildContext context) {
                                       vertical: 2.0,
                                     ),
                                     decoration: BoxDecoration(
-                                      color:
-                                          (member['kind'] as String) == 'method'
+                                      color: (member['kind'] as String) ==
+                                              'method'
                                           ? Color(0xFF1976D2)
                                           : Color(0xFF42A5F5),
                                       borderRadius: BorderRadius.circular(4.0),
@@ -1280,7 +1267,10 @@ dynamic build(BuildContext context) {
                               SizedBox(height: 6.0),
                               Text(
                                 member['role'] as String,
-                                style: TextStyle(fontSize: 12.0, height: 1.45),
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  height: 1.45,
+                                ),
                               ),
                             ],
                           ),
@@ -1362,7 +1352,10 @@ dynamic build(BuildContext context) {
                                 flex: 4,
                                 child: Text(
                                   field['meaning'] as String,
-                                  style: TextStyle(fontSize: 12.0, height: 1.4),
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                    height: 1.4,
+                                  ),
                                 ),
                               ),
                               SizedBox(width: 8.0),
@@ -1505,7 +1498,9 @@ dynamic build(BuildContext context) {
                                 decoration: BoxDecoration(
                                   color: Color(0xFFFFFFFF),
                                   borderRadius: BorderRadius.circular(6.0),
-                                  border: Border.all(color: Color(0xFFB39DDB)),
+                                  border: Border.all(
+                                    color: Color(0xFFB39DDB),
+                                  ),
                                 ),
                                 child: Text(
                                   row['draggable'] as String,
@@ -1611,7 +1606,9 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: Color(0xFFFFFFFF),
                             borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(color: Color(0xFFB0BEC5)),
+                            border: Border.all(
+                              color: Color(0xFFB0BEC5),
+                            ),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1788,7 +1785,10 @@ Widget _bullet(String text) {
           ),
         ),
         Expanded(
-          child: Text(text, style: TextStyle(fontSize: 13.0, height: 1.45)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 13.0, height: 1.45),
+          ),
         ),
       ],
     ),
@@ -1807,7 +1807,10 @@ Widget _miniTag(String label, String value, Color color) {
       children: [
         Text(
           '$label: ',
-          style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10.0),
+          style: TextStyle(
+            color: Color(0xFFFFFFFF),
+            fontSize: 10.0,
+          ),
         ),
         Text(
           value,
@@ -1881,7 +1884,10 @@ Widget _sectionBanner(
               SizedBox(height: 2.0),
               Text(
                 subtitle,
-                style: TextStyle(color: Color(0xEEFFFFFF), fontSize: 12.0),
+                style: TextStyle(
+                  color: Color(0xEEFFFFFF),
+                  fontSize: 12.0,
+                ),
               ),
             ],
           ),
@@ -1942,7 +1948,10 @@ Widget _snapshotTile(
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: Color(0x33FFFFFF),
                   borderRadius: BorderRadius.circular(6.0),
@@ -1971,7 +1980,10 @@ Widget _snapshotTile(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Color(0xFFF5F5F5), Color(0xFFE0E0E0)],
+                      colors: [
+                        Color(0xFFF5F5F5),
+                        Color(0xFFE0E0E0),
+                      ],
                     ),
                   ),
                   child: Center(
@@ -2148,7 +2160,10 @@ Widget _recipeCard(
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: Color(0x33FFFFFF),
                   borderRadius: BorderRadius.circular(6.0),
@@ -2170,7 +2185,10 @@ Widget _recipeCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(recipe, style: TextStyle(fontSize: 12.5, height: 1.5)),
+              Text(
+                recipe,
+                style: TextStyle(fontSize: 12.5, height: 1.5),
+              ),
               SizedBox(height: 10.0),
               Wrap(
                 spacing: 6.0,
@@ -2262,7 +2280,8 @@ Widget _recipeCard(
                         ),
                         SizedBox(height: 10.0),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 14.0),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 14.0),
                           child: Text(
                             title,
                             style: TextStyle(
@@ -2280,7 +2299,11 @@ Widget _recipeCard(
                             ),
                             child: Row(
                               children: [
-                                Icon(icon, color: palette, size: 14.0),
+                                Icon(
+                                  icon,
+                                  color: palette,
+                                  size: 14.0,
+                                ),
                                 SizedBox(width: 8.0),
                                 Expanded(
                                   child: Text(
@@ -2310,7 +2333,11 @@ Widget _summaryItem(String label, String value) {
     padding: EdgeInsets.only(bottom: 8.0),
     child: Row(
       children: [
-        Icon(Icons.check_circle, color: Color(0xFFFFFFFF), size: 16.0),
+        Icon(
+          Icons.check_circle,
+          color: Color(0xFFFFFFFF),
+          size: 16.0,
+        ),
         SizedBox(width: 10.0),
         Expanded(
           child: Text(

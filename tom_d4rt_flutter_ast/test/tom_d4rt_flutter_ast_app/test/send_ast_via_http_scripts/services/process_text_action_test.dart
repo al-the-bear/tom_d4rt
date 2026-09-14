@@ -67,13 +67,22 @@ dynamic build(BuildContext context) {
     searchAction,
     defineAction,
     ProcessTextAction('com.android.share/.ShareActivity', 'Share'),
-    ProcessTextAction('com.android.browser/.OpenUrlActivity', 'Open URL'),
+    ProcessTextAction(
+      'com.android.browser/.OpenUrlActivity',
+      'Open URL',
+    ),
     ProcessTextAction(
       'com.android.dictionary/.AddActivity',
       'Add to Dictionary',
     ),
-    ProcessTextAction('com.google.email/.ComposeActivity', 'Send via Email'),
-    ProcessTextAction('com.myapp.notes/.QuoteActivity', 'Copy as Quote'),
+    ProcessTextAction(
+      'com.google.email/.ComposeActivity',
+      'Send via Email',
+    ),
+    ProcessTextAction(
+      'com.myapp.notes/.QuoteActivity',
+      'Copy as Quote',
+    ),
   ];
 
   return MaterialApp(
@@ -173,7 +182,11 @@ class _PrivateHeroCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: const <Widget>[
-                      Icon(Icons.android, size: 14, color: Colors.white),
+                      Icon(
+                        Icons.android,
+                        size: 14,
+                        color: Colors.white,
+                      ),
                       SizedBox(width: 6),
                       Text(
                         'flutter/services.dart  ·  Android Q+',
@@ -226,7 +239,10 @@ class _PrivateHeroCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 24),
-          Expanded(flex: 5, child: _PrivateHeroSelectedTextGraphic()),
+          Expanded(
+            flex: 5,
+            child: _PrivateHeroSelectedTextGraphic(),
+          ),
         ],
       ),
     );
@@ -266,7 +282,9 @@ class _PrivateHeroChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.32)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.32),
+        ),
       ),
       child: Text(
         label,
@@ -396,7 +414,10 @@ class _PrivateDot extends StatelessWidget {
     return Container(
       width: 10,
       height: 10,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }
@@ -455,7 +476,10 @@ class _PrivateAnatomyCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _PrivateCodeLine('@immutable', color: _kPurpleSoft),
+                _PrivateCodeLine(
+                  '@immutable',
+                  color: _kPurpleSoft,
+                ),
                 _PrivateCodeLine(
                   'class ProcessTextAction {',
                   color: Colors.white,
@@ -464,10 +488,22 @@ class _PrivateAnatomyCard extends StatelessWidget {
                   '  const ProcessTextAction(',
                   color: Colors.white,
                 ),
-                _PrivateCodeLine('    this.id,', color: _kAccentSoft),
-                _PrivateCodeLine('    this.label,', color: _kAccentSoft),
-                _PrivateCodeLine('  );', color: Colors.white),
-                _PrivateCodeLine('', color: Colors.white),
+                _PrivateCodeLine(
+                  '    this.id,',
+                  color: _kAccentSoft,
+                ),
+                _PrivateCodeLine(
+                  '    this.label,',
+                  color: _kAccentSoft,
+                ),
+                _PrivateCodeLine(
+                  '  );',
+                  color: Colors.white,
+                ),
+                _PrivateCodeLine(
+                  '',
+                  color: Colors.white,
+                ),
                 _PrivateCodeLine(
                   '  final String id;     // unique action identifier',
                   color: _kGoodSoft,
@@ -476,7 +512,10 @@ class _PrivateAnatomyCard extends StatelessWidget {
                   '  final String label;  // human-readable button text',
                   color: _kGoodSoft,
                 ),
-                _PrivateCodeLine('}', color: Colors.white),
+                _PrivateCodeLine(
+                  '}',
+                  color: Colors.white,
+                ),
               ],
             ),
           ),
@@ -488,8 +527,7 @@ class _PrivateAnatomyCard extends StatelessWidget {
                 child: _PrivateFieldCard(
                   tag: 'String',
                   name: 'id',
-                  description:
-                      'Unique action identifier the platform uses '
+                  description: 'Unique action identifier the platform uses '
                       'to dispatch processTextAction(id, ...). On Android '
                       'this maps to the activity component name from the '
                       'PROCESS_TEXT intent registry.',
@@ -502,8 +540,7 @@ class _PrivateAnatomyCard extends StatelessWidget {
                 child: _PrivateFieldCard(
                   tag: 'String',
                   name: 'label',
-                  description:
-                      'Localized display name returned by the '
+                  description: 'Localized display name returned by the '
                       'service. Show this verbatim — it is already '
                       "translated to the user's locale.",
                   example: 'Translate',
@@ -571,7 +608,10 @@ class _PrivateFieldCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(4),
@@ -601,7 +641,11 @@ class _PrivateFieldCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             description,
-            style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+            style: const TextStyle(
+              color: _kInkSoft,
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
           const SizedBox(height: 10),
           Container(
@@ -691,8 +735,7 @@ class _PrivateSampleActionsGallery extends StatelessWidget {
     return _PrivateSectionCard(
       number: '02',
       title: 'Sample actions gallery',
-      subtitle:
-          'Eight realistic Android system actions, each rendered as '
+      subtitle: 'Eight realistic Android system actions, each rendered as '
           'a styled toolbar button mock.',
       child: Wrap(
         spacing: 14,
@@ -796,7 +839,10 @@ class _PrivateActionGalleryTile extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 5,
+            ),
             decoration: BoxDecoration(
               color: const Color(0xFFF8FAFC),
               border: Border.all(color: _kLine),
@@ -816,7 +862,11 @@ class _PrivateActionGalleryTile extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             style.purpose,
-            style: const TextStyle(color: _kInkSoft, fontSize: 12, height: 1.4),
+            style: const TextStyle(
+              color: _kInkSoft,
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -838,8 +888,7 @@ class _PrivateMockToolbarCard extends StatelessWidget {
     return _PrivateSectionCard(
       number: '03',
       title: 'Android selection toolbar mock',
-      subtitle:
-          'Cut · Copy · Paste · ▸ MORE — the "MORE" panel is what '
+      subtitle: 'Cut · Copy · Paste · ▸ MORE — the "MORE" panel is what '
           'queryTextActions() populates.',
       child: Container(
         padding: const EdgeInsets.all(20),
@@ -896,7 +945,10 @@ class _PrivateMockToolbarCard extends StatelessWidget {
             const SizedBox(height: 8),
             // Toolbar
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 4,
+              ),
               decoration: BoxDecoration(
                 color: const Color(0xFF1E293B),
                 borderRadius: BorderRadius.circular(10),
@@ -931,7 +983,11 @@ class _PrivateMockToolbarCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            const Icon(Icons.south, color: _kInkMute, size: 18),
+            const Icon(
+              Icons.south,
+              color: _kInkMute,
+              size: 18,
+            ),
             const SizedBox(height: 10),
             // Sub-menu: ProcessTextAction list
             Container(
@@ -954,7 +1010,11 @@ class _PrivateMockToolbarCard extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(12, 6, 12, 8),
                     child: Row(
                       children: <Widget>[
-                        const Icon(Icons.bolt, size: 14, color: _kAndroidGreen),
+                        const Icon(
+                          Icons.bolt,
+                          size: 14,
+                          color: _kAndroidGreen,
+                        ),
                         const SizedBox(width: 6),
                         Text(
                           'queryTextActions() · ${actions.length} services',
@@ -968,7 +1028,10 @@ class _PrivateMockToolbarCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Divider(height: 1, color: _kLine),
+                  const Divider(
+                    height: 1,
+                    color: _kLine,
+                  ),
                   for (int i = 0; i < actions.length; i++) ...<Widget>[
                     _PrivateMoreMenuItem(action: actions[i]),
                     if (i != actions.length - 1)
@@ -1092,7 +1155,11 @@ class _PrivateMoreMenuItem extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(Icons.chevron_right, color: _kInkMute, size: 16),
+          const Icon(
+            Icons.chevron_right,
+            color: _kInkMute,
+            size: 16,
+          ),
         ],
       ),
     );
@@ -1112,8 +1179,7 @@ class _PrivateRequestFlowDiagram extends StatelessWidget {
       const _PrivateFlowStep(
         index: '1',
         title: 'TextField selection',
-        subtitle:
-            'User selects text; the framework triggers '
+        subtitle: 'User selects text; the framework triggers '
             'EditableTextState._handleSelectionChanged.',
         icon: Icons.text_fields_outlined,
         color: _kAccent,
@@ -1121,8 +1187,7 @@ class _PrivateRequestFlowDiagram extends StatelessWidget {
       const _PrivateFlowStep(
         index: '2',
         title: 'contextMenuBuilder fires',
-        subtitle:
-            'The TextField asks your contextMenuBuilder for the '
+        subtitle: 'The TextField asks your contextMenuBuilder for the '
             'AdaptiveTextSelectionToolbar.',
         icon: Icons.menu_open,
         color: _kPurple,
@@ -1130,8 +1195,7 @@ class _PrivateRequestFlowDiagram extends StatelessWidget {
       const _PrivateFlowStep(
         index: '3',
         title: 'queryTextActions()',
-        subtitle:
-            'DefaultProcessTextService asks Android for installed '
+        subtitle: 'DefaultProcessTextService asks Android for installed '
             'PROCESS_TEXT services -> List<ProcessTextAction>.',
         icon: Icons.cloud_download_outlined,
         color: _kTeal,
@@ -1139,8 +1203,7 @@ class _PrivateRequestFlowDiagram extends StatelessWidget {
       const _PrivateFlowStep(
         index: '4',
         title: 'Render buttons',
-        subtitle:
-            'For each ProcessTextAction, append a '
+        subtitle: 'For each ProcessTextAction, append a '
             'ContextMenuButtonItem(label: action.label).',
         icon: Icons.grid_view_outlined,
         color: _kGood,
@@ -1148,8 +1211,7 @@ class _PrivateRequestFlowDiagram extends StatelessWidget {
       const _PrivateFlowStep(
         index: '5',
         title: 'processTextAction(id, text, readOnly)',
-        subtitle:
-            'On tap, dispatch by id. The platform launches the '
+        subtitle: 'On tap, dispatch by id. The platform launches the '
             'service with the selected text.',
         icon: Icons.send_rounded,
         color: _kWarn,
@@ -1157,8 +1219,7 @@ class _PrivateRequestFlowDiagram extends StatelessWidget {
       const _PrivateFlowStep(
         index: '6',
         title: 'IME callback updates text',
-        subtitle:
-            'If the service returns a String, framework replaces the '
+        subtitle: 'If the service returns a String, framework replaces the '
             'selection. If null or readOnly, no edit is applied.',
         icon: Icons.swap_horiz,
         color: _kPink,
@@ -1168,8 +1229,7 @@ class _PrivateRequestFlowDiagram extends StatelessWidget {
     return _PrivateSectionCard(
       number: '04',
       title: 'Request flow diagram',
-      subtitle:
-          'Selection -> contextMenuBuilder -> queryTextActions -> '
+      subtitle: 'Selection -> contextMenuBuilder -> queryTextActions -> '
           'render -> processTextAction -> IME callback',
       child: Column(
         children: <Widget>[
@@ -1181,7 +1241,11 @@ class _PrivateRequestFlowDiagram extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     const SizedBox(width: 28),
-                    Container(width: 2, height: 18, color: _kLine),
+                    Container(
+                      width: 2,
+                      height: 18,
+                      color: _kLine,
+                    ),
                   ],
                 ),
               ),
@@ -1294,24 +1358,22 @@ class _PrivateApiTableCard extends StatelessWidget {
       const _PrivateApiRow(
         kind: 'abstract',
         signature: 'class ProcessTextService',
-        purpose:
-            'Interface every text-processing backend implements. '
+        purpose: 'Interface every text-processing backend implements. '
             'Override to inject a fake in tests.',
         kindColor: _kPurple,
       ),
       const _PrivateApiRow(
         kind: 'class',
         signature: 'class DefaultProcessTextService extends ProcessTextService',
-        purpose:
-            'Production implementation that talks to the platform '
+        purpose: 'Production implementation that talks to the platform '
             'channel SystemChannels.processText.',
         kindColor: _kAccent,
       ),
       const _PrivateApiRow(
         kind: 'method',
-        signature: 'Future<List<ProcessTextAction>> queryTextActions()',
-        purpose:
-            'Returns every ProcessTextAction registered on the device. '
+        signature:
+            'Future<List<ProcessTextAction>> queryTextActions()',
+        purpose: 'Returns every ProcessTextAction registered on the device. '
             'Empty list on non-Android. Cache the result; it rarely changes.',
         kindColor: _kTeal,
       ),
@@ -1319,25 +1381,22 @@ class _PrivateApiTableCard extends StatelessWidget {
         kind: 'method',
         signature:
             'Future<String?> processTextAction(String id, String text, '
-            'bool readOnly)',
-        purpose:
-            'Dispatches the action by id. Returns processed String, or '
+                'bool readOnly)',
+        purpose: 'Dispatches the action by id. Returns processed String, or '
             'null if the service refused or only displayed a UI.',
         kindColor: _kGood,
       ),
       const _PrivateApiRow(
         kind: 'flag',
         signature: 'bool readOnly  // hint: true if field cannot accept edits',
-        purpose:
-            'When true, the platform should pick non-editing actions '
+        purpose: 'When true, the platform should pick non-editing actions '
             '(translate, share) and skip "Add to dictionary"-style edits.',
         kindColor: _kWarn,
       ),
       const _PrivateApiRow(
         kind: 'channel',
         signature: 'SystemChannels.processText',
-        purpose:
-            'MethodChannel used under the hood; you almost never need '
+        purpose: 'MethodChannel used under the hood; you almost never need '
             'to talk to it directly.',
         kindColor: _kPink,
       ),
@@ -1346,8 +1405,7 @@ class _PrivateApiTableCard extends StatelessWidget {
     return _PrivateSectionCard(
       number: '05',
       title: 'ProcessTextService API table',
-      subtitle:
-          'queryTextActions() + processTextAction() — that is the '
+      subtitle: 'queryTextActions() + processTextAction() — that is the '
           'whole surface area.',
       child: Container(
         decoration: BoxDecoration(
@@ -1358,7 +1416,10 @@ class _PrivateApiTableCard extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
               color: const Color(0xFFF8FAFC),
               child: Row(
                 children: const <Widget>[
@@ -1402,7 +1463,10 @@ class _PrivateApiTableCard extends StatelessWidget {
               ),
             ),
             for (int i = 0; i < rows.length; i++)
-              _PrivateApiRowTile(row: rows[i], even: i.isEven),
+              _PrivateApiRowTile(
+                row: rows[i],
+                even: i.isEven,
+              ),
           ],
         ),
       ),
@@ -1441,7 +1505,10 @@ class _PrivateApiRowTile extends StatelessWidget {
           SizedBox(
             width: 90,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 3,
+              ),
               decoration: BoxDecoration(
                 color: row.kindColor.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(4),
@@ -1501,8 +1568,7 @@ class _PrivatePlatformAvailabilityCard extends StatelessWidget {
     return _PrivateSectionCard(
       number: '06',
       title: 'Platform availability',
-      subtitle:
-          'Android only on devices. Plan a fallback for everywhere '
+      subtitle: 'Android only on devices. Plan a fallback for everywhere '
           'else.',
       child: Column(
         children: <Widget>[
@@ -1512,8 +1578,7 @@ class _PrivatePlatformAvailabilityCard extends StatelessWidget {
                 child: _PrivatePlatformTile(
                   name: 'Android 26+',
                   status: 'queryTextActions',
-                  detail:
-                      'Full ProcessTextService — registry queries + '
+                  detail: 'Full ProcessTextService — registry queries + '
                       'IME callback. This is what Flutter wires up.',
                   color: _kGood,
                   bg: _kGoodSoft,
@@ -1525,8 +1590,7 @@ class _PrivatePlatformAvailabilityCard extends StatelessWidget {
                 child: _PrivatePlatformTile(
                   name: 'Android 23+',
                   status: 'legacy intent',
-                  detail:
-                      'Older PROCESS_TEXT intent path; activities with '
+                  detail: 'Older PROCESS_TEXT intent path; activities with '
                       'ACTION_PROCESS_TEXT receive the selection.',
                   color: _kWarn,
                   bg: _kWarnSoft,
@@ -1542,8 +1606,7 @@ class _PrivatePlatformAvailabilityCard extends StatelessWidget {
                 child: _PrivatePlatformTile(
                   name: 'iOS / macOS',
                   status: 'returns []',
-                  detail:
-                      'No PROCESS_TEXT analogue. queryTextActions '
+                  detail: 'No PROCESS_TEXT analogue. queryTextActions '
                       'always resolves to an empty list.',
                   color: _kInkMute,
                   bg: Color(0xFFF1F5F9),
@@ -1555,8 +1618,7 @@ class _PrivatePlatformAvailabilityCard extends StatelessWidget {
                 child: _PrivatePlatformTile(
                   name: 'Web / Linux / Win',
                   status: 'returns []',
-                  detail:
-                      'Same — empty list. Use ContextMenuButtonItem if '
+                  detail: 'Same — empty list. Use ContextMenuButtonItem if '
                       'you want a custom menu cross-platform.',
                   color: _kInkMute,
                   bg: Color(0xFFF1F5F9),
@@ -1650,10 +1712,7 @@ class _PrivateCodeListingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<_PrivateCodeRow> lines = <_PrivateCodeRow>[
       const _PrivateCodeRow('TextField(', _kCodeKw),
-      const _PrivateCodeRow(
-        "  decoration: const InputDecoration(",
-        _kCodePlain,
-      ),
+      const _PrivateCodeRow("  decoration: const InputDecoration(", _kCodePlain),
       const _PrivateCodeRow(
         "    labelText: 'Type and select to discover actions',",
         _kCodeStr,
@@ -1687,33 +1746,48 @@ class _PrivateCodeListingCard extends StatelessWidget {
         '        final extra = <ContextMenuButtonItem>[',
         _kCodePlain,
       ),
-      const _PrivateCodeRow('          for (final a in actions)', _kCodeKw),
-      const _PrivateCodeRow('            ContextMenuButtonItem(', _kCodePlain),
-      const _PrivateCodeRow('              label: a.label,', _kCodePlain),
-      const _PrivateCodeRow('              onPressed: () async {', _kCodeFn),
+      const _PrivateCodeRow(
+        '          for (final a in actions)',
+        _kCodeKw,
+      ),
+      const _PrivateCodeRow(
+        '            ContextMenuButtonItem(',
+        _kCodePlain,
+      ),
+      const _PrivateCodeRow(
+        '              label: a.label,',
+        _kCodePlain,
+      ),
+      const _PrivateCodeRow(
+        '              onPressed: () async {',
+        _kCodeFn,
+      ),
       const _PrivateCodeRow(
         '                final sel = editableTextState'
-        '.textEditingValue.selection;',
+            '.textEditingValue.selection;',
         _kCodePlain,
       ),
       const _PrivateCodeRow(
         '                final text = sel.textInside('
-        'editableTextState.textEditingValue.text);',
+            'editableTextState.textEditingValue.text);',
         _kCodePlain,
       ),
       const _PrivateCodeRow(
         '                final out = await svc.processTextAction('
-        'a.id, text, false);',
+            'a.id, text, false);',
         _kCodePlain,
       ),
-      const _PrivateCodeRow('                if (out != null) {', _kCodeKw),
+      const _PrivateCodeRow(
+        '                if (out != null) {',
+        _kCodeKw,
+      ),
       const _PrivateCodeRow(
         '                  editableTextState.userUpdateTextEditingValue(',
         _kCodePlain,
       ),
       const _PrivateCodeRow(
         '                    editableTextState.textEditingValue.replaced('
-        'sel, out),',
+            'sel, out),',
         _kCodePlain,
       ),
       const _PrivateCodeRow(
@@ -1745,7 +1819,10 @@ class _PrivateCodeListingCard extends StatelessWidget {
         '            ...editableTextState.contextMenuButtonItems,',
         _kCodePlain,
       ),
-      const _PrivateCodeRow('            ...extra,', _kCodePlain),
+      const _PrivateCodeRow(
+        '            ...extra,',
+        _kCodePlain,
+      ),
       const _PrivateCodeRow('          ],', _kCodePlain),
       const _PrivateCodeRow('        );', _kCodePlain),
       const _PrivateCodeRow('      },', _kCodePlain),
@@ -1757,8 +1834,7 @@ class _PrivateCodeListingCard extends StatelessWidget {
     return _PrivateSectionCard(
       number: '07',
       title: 'Custom contextMenuBuilder with ProcessTextActions',
-      subtitle:
-          'Drop the queried actions into '
+      subtitle: 'Drop the queried actions into '
           'AdaptiveTextSelectionToolbar.buttonItems.',
       child: Container(
         padding: const EdgeInsets.fromLTRB(18, 14, 18, 18),
@@ -1853,8 +1929,7 @@ class _PrivateComparisonCard extends StatelessWidget {
     return _PrivateSectionCard(
       number: '08',
       title: 'ProcessTextAction vs ContextMenuButtonItem',
-      subtitle:
-          'They are not interchangeable. ProcessTextAction is what '
+      subtitle: 'They are not interchangeable. ProcessTextAction is what '
           'the OS sends you. ContextMenuButtonItem is what you build.',
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2038,8 +2113,7 @@ class _PrivatePitfallsCard extends StatelessWidget {
     final List<_PrivatePitfall> pitfalls = <_PrivatePitfall>[
       const _PrivatePitfall(
         title: 'Android-only on real devices',
-        body:
-            'Outside Android the platform channel returns an empty list. '
+        body: 'Outside Android the platform channel returns an empty list. '
             'Wrap UI affordances in defaultTargetPlatform checks so you do '
             'not show a "more" arrow that opens to nothing.',
         color: _kBad,
@@ -2048,8 +2122,7 @@ class _PrivatePitfallsCard extends StatelessWidget {
       ),
       const _PrivatePitfall(
         title: 'processTextAction can return null',
-        body:
-            "Many services don't actually return text — they just open "
+        body: "Many services don't actually return text — they just open "
             'their own UI (translator overlay, share sheet). null does not '
             'mean "error", it means "no replacement". Never throw on null.',
         color: _kWarn,
@@ -2058,8 +2131,7 @@ class _PrivatePitfallsCard extends StatelessWidget {
       ),
       const _PrivatePitfall(
         title: 'Empty list != unavailable',
-        body:
-            'queryTextActions() can legitimately return [] on a clean '
+        body: 'queryTextActions() can legitimately return [] on a clean '
             'Android device with no PROCESS_TEXT-registered apps. Always '
             'render the menu without these extras when the list is empty.',
         color: _kAccent,
@@ -2068,8 +2140,7 @@ class _PrivatePitfallsCard extends StatelessWidget {
       ),
       const _PrivatePitfall(
         title: 'readOnly flag is a hint',
-        body:
-            'When the field is read-only, pass readOnly: true. Some '
+        body: 'When the field is read-only, pass readOnly: true. Some '
             'services use this to skip mutating actions; passing the wrong '
             'value can produce edits the user cannot accept.',
         color: _kPurple,
@@ -2078,8 +2149,7 @@ class _PrivatePitfallsCard extends StatelessWidget {
       ),
       const _PrivatePitfall(
         title: 'Do not call from build()',
-        body:
-            'queryTextActions is async. Hold the result in a State or '
+        body: 'queryTextActions is async. Hold the result in a State or '
             'FutureBuilder. The contextMenuBuilder is the recommended hook.',
         color: _kTeal,
         bg: _kTealSoft,
@@ -2087,8 +2157,7 @@ class _PrivatePitfallsCard extends StatelessWidget {
       ),
       const _PrivatePitfall(
         title: 'Cache the action list',
-        body:
-            'It rarely changes during a session. Repeatedly calling the '
+        body: 'It rarely changes during a session. Repeatedly calling the '
             'platform channel for every selection is wasteful and adds '
             'latency to the toolbar.',
         color: _kGood,
@@ -2100,8 +2169,7 @@ class _PrivatePitfallsCard extends StatelessWidget {
     return _PrivateSectionCard(
       number: '09',
       title: 'Pitfalls',
-      subtitle:
-          'Six things that quietly bite when you wire ProcessText '
+      subtitle: 'Six things that quietly bite when you wire ProcessText '
           'into a real app.',
       child: Wrap(
         spacing: 14,
@@ -2244,7 +2312,10 @@ class _PrivateFooterCard extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 6,
+            ),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(999),

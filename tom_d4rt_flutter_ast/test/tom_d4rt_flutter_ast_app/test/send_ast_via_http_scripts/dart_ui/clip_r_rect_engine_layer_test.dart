@@ -157,13 +157,19 @@ Widget _buildHeroBanner() {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.14),
               borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.25)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.25),
+              ),
             ),
             child: const Text(
               'ClipRRectEngineLayer is created when SceneBuilder.pushClipRRect '
               'is invoked. ClipRRect, RenderClipRRect and Canvas.clipRRect all '
               'eventually feed into one of these layers in the engine layer tree.',
-              style: TextStyle(color: Colors.white, fontSize: 13, height: 1.5),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 13,
+                height: 1.5,
+              ),
             ),
           ),
           const SizedBox(height: 20),
@@ -218,7 +224,9 @@ Widget _sectionHeader(String number, String title, String subtitle) {
         height: 44,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: <Color>[_kAccent, _kViolet]),
+          gradient: const LinearGradient(
+            colors: <Color>[_kAccent, _kViolet],
+          ),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
@@ -429,9 +437,7 @@ Widget _buildRRectGeometryShowcase() {
           children: List<Widget>.generate(specs.length, (int index) {
             final _RRectSpec spec = specs[index];
             return Padding(
-              padding: EdgeInsets.only(
-                bottom: index == specs.length - 1 ? 0 : 14,
-              ),
+              padding: EdgeInsets.only(bottom: index == specs.length - 1 ? 0 : 14),
               child: _RRectSpecRow(spec: spec),
             );
           }),
@@ -500,7 +506,10 @@ class _RRectSpecRow extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   spec.summary,
-                  style: const TextStyle(color: _kInkSoft, fontSize: 12),
+                  style: const TextStyle(
+                    color: _kInkSoft,
+                    fontSize: 12,
+                  ),
                 ),
               ],
             ),

@@ -6,9 +6,8 @@ dynamic build(BuildContext context) {
   );
   final ValueNotifier<bool> active = ValueNotifier<bool>(true);
   final ValueNotifier<double> scale = ValueNotifier<double>(1.00);
-  final ValueNotifier<_WindowMode> mode = ValueNotifier<_WindowMode>(
-    _WindowMode.document,
-  );
+  final ValueNotifier<_WindowMode> mode =
+      ValueNotifier<_WindowMode>(_WindowMode.document);
   final ValueNotifier<String> scopeId = ValueNotifier<String>('main-workspace');
 
   return Theme(
@@ -37,55 +36,59 @@ dynamic build(BuildContext context) {
         third: scale,
         fourth: mode,
         fifth: scopeId,
-        builder:
-            (
-              BuildContext context,
-              Rect b,
-              bool isActive,
-              double deviceScale,
-              _WindowMode windowMode,
-              String id,
-            ) {
-              return _DemoWindowScope(
-                scopeId: id,
-                bounds: b,
-                isActive: isActive,
-                scale: deviceScale,
-                mode: windowMode,
-                child: ListView(
-                  padding: const EdgeInsets.fromLTRB(20, 22, 20, 24),
-                  children: <Widget>[
-                    const _WindowScopeHero(),
-                    const SizedBox(height: 16),
-                    _ScopeControlCenter(
-                      bounds: bounds,
-                      active: active,
-                      scale: scale,
-                      mode: mode,
-                      scopeId: scopeId,
-                    ),
-                    const SizedBox(height: 16),
-                    const _ScopeSnapshotPanel(),
-                    const SizedBox(height: 16),
-                    const _AspectRebuildBoard(),
-                    const SizedBox(height: 16),
-                    const _NestedScopeShowcase(),
-                    const SizedBox(height: 16),
-                    const _ScopeUsageRecipes(),
-                    const SizedBox(height: 16),
-                    const _ScopeValidationChecklist(),
-                  ],
+        builder: (BuildContext context, Rect b, bool isActive,
+            double deviceScale, _WindowMode windowMode, String id) {
+          return _DemoWindowScope(
+            scopeId: id,
+            bounds: b,
+            isActive: isActive,
+            scale: deviceScale,
+            mode: windowMode,
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(20, 22, 20, 24),
+              children: <Widget>[
+                const _WindowScopeHero(),
+                const SizedBox(height: 16),
+                _ScopeControlCenter(
+                  bounds: bounds,
+                  active: active,
+                  scale: scale,
+                  mode: mode,
+                  scopeId: scopeId,
                 ),
-              );
-            },
+                const SizedBox(height: 16),
+                const _ScopeSnapshotPanel(),
+                const SizedBox(height: 16),
+                const _AspectRebuildBoard(),
+                const SizedBox(height: 16),
+                const _NestedScopeShowcase(),
+                const SizedBox(height: 16),
+                const _ScopeUsageRecipes(),
+                const SizedBox(height: 16),
+                const _ScopeValidationChecklist(),
+              ],
+            ),
+          );
+        },
       ),
     ),
   );
 }
 
-enum _WindowMode { document, utility, modal, panel }
+enum _WindowMode {
+  document,
+  utility,
+  modal,
+  panel,
+}
 
-enum _ScopeAspect { id, bounds, active, scale, mode }
+enum _ScopeAspect {
+  id,
+  bounds,
+  active,
+  scale,
+  mode,
+}
 
 class _WindowScopeHero extends StatelessWidget {
   const _WindowScopeHero();
@@ -154,136 +157,125 @@ class _ScopeControlCenter extends StatelessWidget {
           third: scale,
           fourth: mode,
           fifth: scopeId,
-          builder:
-              (
-                BuildContext context,
-                Rect rect,
-                bool isActive,
-                double dpiScale,
-                _WindowMode windowMode,
-                String id,
-              ) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      'Scope Control Center',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children:
-                          const <String>[
-                                'main-workspace',
-                                'detached-toolbox',
-                                'presentation-window',
-                                'preview-pane',
-                              ]
-                              .map(
-                                (String value) => ChoiceChip(
-                                  label: Text(value),
-                                  selected: false,
-                                ),
-                              )
-                              .toList(),
-                    ),
-                    const SizedBox(height: 8),
-                    DropdownButtonFormField<String>(
-                      initialValue: id,
-                      decoration: const InputDecoration(
-                        labelText: 'Scope ID',
-                        border: OutlineInputBorder(),
-                        isDense: true,
-                      ),
-                      items: const <DropdownMenuItem<String>>[
-                        DropdownMenuItem(
-                          value: 'main-workspace',
-                          child: Text('main-workspace'),
+          builder: (BuildContext context, Rect rect, bool isActive,
+              double dpiScale, _WindowMode windowMode, String id) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  'Scope Control Center',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: const <String>[
+                    'main-workspace',
+                    'detached-toolbox',
+                    'presentation-window',
+                    'preview-pane',
+                  ]
+                      .map(
+                        (String value) => ChoiceChip(
+                          label: Text(value),
+                          selected: false,
                         ),
-                        DropdownMenuItem(
-                          value: 'detached-toolbox',
-                          child: Text('detached-toolbox'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'presentation-window',
-                          child: Text('presentation-window'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'preview-pane',
-                          child: Text('preview-pane'),
-                        ),
-                      ],
-                      onChanged: (String? next) {
-                        if (next != null) {
-                          scopeId.value = next;
-                        }
-                      },
+                      )
+                      .toList(),
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  initialValue: id,
+                  decoration: const InputDecoration(
+                    labelText: 'Scope ID',
+                    border: OutlineInputBorder(),
+                    isDense: true,
+                  ),
+                  items: const <DropdownMenuItem<String>>[
+                    DropdownMenuItem(
+                      value: 'main-workspace',
+                      child: Text('main-workspace'),
                     ),
-                    const SizedBox(height: 10),
-                    Text('Width: ${rect.width.toStringAsFixed(0)}'),
-                    Slider(
-                      min: 360,
-                      max: 1280,
-                      value: rect.width,
-                      onChanged: (double width) {
-                        bounds.value = Rect.fromLTWH(
-                          rect.left,
-                          rect.top,
-                          width,
-                          rect.height,
-                        );
-                      },
+                    DropdownMenuItem(
+                      value: 'detached-toolbox',
+                      child: Text('detached-toolbox'),
                     ),
-                    Text('Height: ${rect.height.toStringAsFixed(0)}'),
-                    Slider(
-                      min: 280,
-                      max: 840,
-                      value: rect.height,
-                      onChanged: (double height) {
-                        bounds.value = Rect.fromLTWH(
-                          rect.left,
-                          rect.top,
-                          rect.width,
-                          height,
-                        );
-                      },
+                    DropdownMenuItem(
+                      value: 'presentation-window',
+                      child: Text('presentation-window'),
                     ),
-                    Text('Device scale: ${dpiScale.toStringAsFixed(2)}'),
-                    Slider(
-                      min: 1.0,
-                      max: 2.5,
-                      divisions: 30,
-                      value: dpiScale,
-                      onChanged: (double value) => scale.value = value,
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: <Widget>[
-                        for (final _WindowMode value in _WindowMode.values)
-                          ChoiceChip(
-                            selected: value == windowMode,
-                            label: Text(value.name),
-                            onSelected: (_) => mode.value = value,
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    SwitchListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: const Text('Window is active'),
-                      value: isActive,
-                      onChanged: (bool value) => active.value = value,
+                    DropdownMenuItem(
+                      value: 'preview-pane',
+                      child: Text('preview-pane'),
                     ),
                   ],
-                );
-              },
+                  onChanged: (String? next) {
+                    if (next != null) {
+                      scopeId.value = next;
+                    }
+                  },
+                ),
+                const SizedBox(height: 10),
+                Text('Width: ${rect.width.toStringAsFixed(0)}'),
+                Slider(
+                  min: 360,
+                  max: 1280,
+                  value: rect.width,
+                  onChanged: (double width) {
+                    bounds.value = Rect.fromLTWH(
+                      rect.left,
+                      rect.top,
+                      width,
+                      rect.height,
+                    );
+                  },
+                ),
+                Text('Height: ${rect.height.toStringAsFixed(0)}'),
+                Slider(
+                  min: 280,
+                  max: 840,
+                  value: rect.height,
+                  onChanged: (double height) {
+                    bounds.value = Rect.fromLTWH(
+                      rect.left,
+                      rect.top,
+                      rect.width,
+                      height,
+                    );
+                  },
+                ),
+                Text('Device scale: ${dpiScale.toStringAsFixed(2)}'),
+                Slider(
+                  min: 1.0,
+                  max: 2.5,
+                  divisions: 30,
+                  value: dpiScale,
+                  onChanged: (double value) => scale.value = value,
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: <Widget>[
+                    for (final _WindowMode value in _WindowMode.values)
+                      ChoiceChip(
+                        selected: value == windowMode,
+                        label: Text(value.name),
+                        onSelected: (_) => mode.value = value,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                SwitchListTile(
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Window is active'),
+                  value: isActive,
+                  onChanged: (bool value) => active.value = value,
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -401,10 +393,8 @@ class _AspectProbeCardState extends State<_AspectProbeCard> {
 
   @override
   Widget build(BuildContext context) {
-    final _DemoWindowScope scope = _DemoWindowScope.of(
-      context,
-      aspect: widget.aspect,
-    );
+    final _DemoWindowScope scope =
+        _DemoWindowScope.of(context, aspect: widget.aspect);
 
     String value;
     Color accent;
@@ -416,8 +406,7 @@ class _AspectProbeCardState extends State<_AspectProbeCard> {
         accent = const Color(0xFF1A6A5C);
         icon = Icons.badge;
       case _ScopeAspect.bounds:
-        value =
-            '${scope.bounds.width.toStringAsFixed(0)}x${scope.bounds.height.toStringAsFixed(0)}';
+        value = '${scope.bounds.width.toStringAsFixed(0)}x${scope.bounds.height.toStringAsFixed(0)}';
         accent = const Color(0xFF3969B5);
         icon = Icons.straighten;
       case _ScopeAspect.active:
@@ -460,10 +449,7 @@ class _AspectProbeCardState extends State<_AspectProbeCard> {
               const SizedBox(height: 8),
               Text(
                 value,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 4),
               Text('rebuild count: $rebuilds'),
@@ -561,12 +547,8 @@ class _NestedScopePanel extends StatelessWidget {
               runSpacing: 8,
               children: <Widget>[
                 _NestedBadge(label: 'Panel widgets subscribe to mode + bounds'),
-                _NestedBadge(
-                  label: 'Root scope still available above this node',
-                ),
-                _NestedBadge(
-                  label: 'InheritedModel can partition dependencies',
-                ),
+                _NestedBadge(label: 'Root scope still available above this node'),
+                _NestedBadge(label: 'InheritedModel can partition dependencies'),
               ],
             ),
           ],
@@ -654,9 +636,7 @@ class _ScopeUsageRecipes extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 recipe.title,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                style: const TextStyle(fontWeight: FontWeight.w700),
                               ),
                               const SizedBox(height: 8),
                               Container(
@@ -751,9 +731,14 @@ class _DemoWindowScope extends InheritedModel<_ScopeAspect> {
   final double scale;
   final _WindowMode mode;
 
-  static _DemoWindowScope of(BuildContext context, {_ScopeAspect? aspect}) {
-    final _DemoWindowScope? scope =
-        InheritedModel.inheritFrom<_DemoWindowScope>(context, aspect: aspect);
+  static _DemoWindowScope of(
+    BuildContext context, {
+    _ScopeAspect? aspect,
+  }) {
+    final _DemoWindowScope? scope = InheritedModel.inheritFrom<_DemoWindowScope>(
+      context,
+      aspect: aspect,
+    );
     assert(scope != null, 'No _DemoWindowScope found in context');
     return scope!;
   }
@@ -772,12 +757,10 @@ class _DemoWindowScope extends InheritedModel<_ScopeAspect> {
     _DemoWindowScope oldWidget,
     Set<_ScopeAspect> dependencies,
   ) {
-    if (dependencies.contains(_ScopeAspect.id) &&
-        scopeId != oldWidget.scopeId) {
+    if (dependencies.contains(_ScopeAspect.id) && scopeId != oldWidget.scopeId) {
       return true;
     }
-    if (dependencies.contains(_ScopeAspect.bounds) &&
-        bounds != oldWidget.bounds) {
+    if (dependencies.contains(_ScopeAspect.bounds) && bounds != oldWidget.bounds) {
       return true;
     }
     if (dependencies.contains(_ScopeAspect.active) &&

@@ -28,9 +28,8 @@ final ValueNotifier<int> _counterB = ValueNotifier<int>(7);
 final _CartListenable _cart = _CartListenable.seeded();
 
 // Theme notifier for the nested scopes tab.
-final ValueNotifier<_PaletteChoice> _palette = ValueNotifier<_PaletteChoice>(
-  _PaletteChoice.teal,
-);
+final ValueNotifier<_PaletteChoice> _palette =
+    ValueNotifier<_PaletteChoice>(_PaletteChoice.teal);
 
 // ---------------------------------------------------------------------------
 // Entry point (d4rt expects a top-level `build` returning a widget tree).
@@ -47,10 +46,8 @@ class _InheritedNotifierDeepDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = ColorScheme.fromSeed(
-      seedColor: _kSeed,
-      brightness: Brightness.light,
-    );
+    final ColorScheme scheme =
+        ColorScheme.fromSeed(seedColor: _kSeed, brightness: Brightness.light);
     final ThemeData theme = ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
@@ -148,12 +145,18 @@ class _AppBarTitle extends StatelessWidget {
             children: <Widget>[
               Text(
                 'InheritedNotifier Deep Demo',
-                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               SizedBox(height: 4),
               Text(
                 'Inherited widget that rebuilds descendants on Listenable notifications',
-                style: TextStyle(fontSize: 12, color: Color(0xFFB8D2D2)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFFB8D2D2),
+                ),
               ),
             ],
           ),
@@ -312,7 +315,8 @@ class _SectionHeader extends StatelessWidget {
           ),
           if (trailing != null)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: _kAccentSoft,
                 borderRadius: BorderRadius.circular(10),
@@ -336,7 +340,11 @@ class _InfoChip extends StatelessWidget {
   final IconData icon;
   final String text;
   final Color tone;
-  const _InfoChip({required this.icon, required this.text, required this.tone});
+  const _InfoChip({
+    required this.icon,
+    required this.text,
+    required this.tone,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -410,7 +418,10 @@ class _SoftDivider extends StatelessWidget {
 
 /// CountScope — minimal `InheritedNotifier<ValueNotifier<int>>` recipe.
 class _CountScope extends InheritedNotifier<ValueNotifier<int>> {
-  const _CountScope({required super.notifier, required super.child});
+  const _CountScope({
+    required super.notifier,
+    required super.child,
+  });
 
   static _CountScope? maybeOf(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<_CountScope>();
@@ -436,12 +447,18 @@ class _CartListenable extends ChangeNotifier {
   double _discount = 0.0;
 
   _CartListenable.seeded() {
-    _items.add(
-      const _CartItem('Notebook', 6.50, Icons.menu_book_outlined, _kBlueTone),
-    );
-    _items.add(
-      const _CartItem('Espresso', 3.20, Icons.coffee_outlined, _kAccent),
-    );
+    _items.add(const _CartItem(
+      'Notebook',
+      6.50,
+      Icons.menu_book_outlined,
+      _kBlueTone,
+    ));
+    _items.add(const _CartItem(
+      'Espresso',
+      3.20,
+      Icons.coffee_outlined,
+      _kAccent,
+    ));
   }
 
   int get count => _items.length;
@@ -478,10 +495,7 @@ class _CartListenable extends ChangeNotifier {
 const Color _kBlueTone = Color(0xFF3E78A8);
 
 class _CartScope extends InheritedNotifier<_CartListenable> {
-  const _CartScope({
-    required _CartListenable super.notifier,
-    required super.child,
-  });
+  const _CartScope({required _CartListenable super.notifier, required super.child});
 
   static _CartScope? maybeOf(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<_CartScope>();
@@ -503,8 +517,8 @@ class _PaletteScope extends InheritedNotifier<ValueNotifier<_PaletteChoice>> {
   });
 
   static _PaletteScope of(BuildContext context) {
-    final _PaletteScope? s = context
-        .dependOnInheritedWidgetOfExactType<_PaletteScope>();
+    final _PaletteScope? s =
+        context.dependOnInheritedWidgetOfExactType<_PaletteScope>();
     assert(s != null, '_PaletteScope.of() called with no _PaletteScope above.');
     return s!;
   }
@@ -852,28 +866,26 @@ class _ContrastBlock extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          ...bullets.map(
-            (String b) => Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Icon(Icons.circle, size: 6, color: tone),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      b,
-                      style: const TextStyle(
-                        fontSize: 12.5,
-                        color: _kInk,
-                        height: 1.4,
+          ...bullets.map((String b) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(Icons.circle, size: 6, color: tone),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        b,
+                        style: const TextStyle(
+                          fontSize: 12.5,
+                          color: _kInk,
+                          height: 1.4,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -916,7 +928,11 @@ class _WhenToReach extends StatelessWidget {
             '2. You want .of(context) access without InheritedWidget boilerplate.\n'
             '3. You need dependents to rebuild on every notifyListeners() call.\n'
             '4. You need something smaller than a full Provider / Riverpod dep.',
-            style: TextStyle(fontSize: 13, color: _kInk, height: 1.55),
+            style: TextStyle(
+              fontSize: 13,
+              color: _kInk,
+              height: 1.55,
+            ),
           ),
         ],
       ),
@@ -1143,7 +1159,8 @@ class _LiveCounterControls extends StatelessWidget {
             icon: Icons.shuffle,
             label: 'shuffle',
             tone: _kOlive,
-            onTap: () => _counterA.value = (_counterA.value * 2 + 3) % 99,
+            onTap: () =>
+                _counterA.value = (_counterA.value * 2 + 3) % 99,
           ),
         ],
       ),
@@ -1171,7 +1188,8 @@ class _PillButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: tone,
             borderRadius: BorderRadius.circular(12),
@@ -1336,7 +1354,10 @@ class _LiveCounterGauge extends StatelessWidget {
               const Expanded(
                 child: Text(
                   'Gauge — (counterA mod 100) / 100',
-                  style: TextStyle(fontWeight: FontWeight.w700, color: _kInk),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
                 ),
               ),
               Text(
@@ -1426,17 +1447,15 @@ class _CodeBlock extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          ...lines.map(
-            (String l) => Text(
-              l.isEmpty ? ' ' : l,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                color: Color(0xFFE4EFEF),
-                height: 1.5,
-              ),
-            ),
-          ),
+          ...lines.map((String l) => Text(
+                l.isEmpty ? ' ' : l,
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: Color(0xFFE4EFEF),
+                  height: 1.5,
+                ),
+              )),
         ],
       ),
     );
@@ -1504,25 +1523,23 @@ class _CartSummaryHeader extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          _CartBigNumber(label: 'items', value: '${c.count}', tone: _kSeed),
+          _CartBigNumber(
+              label: 'items', value: '${c.count}', tone: _kSeed),
           const SizedBox(width: 14),
           _CartBigNumber(
-            label: 'subtotal',
-            value: '\$${c.subtotal.toStringAsFixed(2)}',
-            tone: _kViolet,
-          ),
+              label: 'subtotal',
+              value: '\$${c.subtotal.toStringAsFixed(2)}',
+              tone: _kViolet),
           const SizedBox(width: 14),
           _CartBigNumber(
-            label: 'discount',
-            value: '-\$${c.discount.toStringAsFixed(2)}',
-            tone: _kRose,
-          ),
+              label: 'discount',
+              value: '-\$${c.discount.toStringAsFixed(2)}',
+              tone: _kRose),
           const SizedBox(width: 14),
           _CartBigNumber(
-            label: 'total',
-            value: '\$${c.total.toStringAsFixed(2)}',
-            tone: _kAccent,
-          ),
+              label: 'total',
+              value: '\$${c.total.toStringAsFixed(2)}',
+              tone: _kAccent),
         ],
       ),
     );
@@ -1683,7 +1700,10 @@ class _CartItemTile extends StatelessWidget {
           ),
           Text(
             '\$${item.price.toStringAsFixed(2)}',
-            style: const TextStyle(fontWeight: FontWeight.w800, color: _kInk),
+            style: const TextStyle(
+              fontWeight: FontWeight.w800,
+              color: _kInk,
+            ),
           ),
         ],
       ),
@@ -1706,35 +1726,34 @@ class _CartMutationButtons extends StatelessWidget {
             icon: Icons.menu_book_outlined,
             label: '+ Notebook',
             tone: _kBlueTone,
-            onTap: () => _cart.addItem(
-              const _CartItem(
-                'Notebook',
-                6.50,
-                Icons.menu_book_outlined,
-                _kBlueTone,
-              ),
-            ),
+            onTap: () => _cart.addItem(const _CartItem(
+              'Notebook',
+              6.50,
+              Icons.menu_book_outlined,
+              _kBlueTone,
+            )),
           ),
           _PillButton(
             icon: Icons.coffee_outlined,
             label: '+ Espresso',
             tone: _kAccent,
-            onTap: () => _cart.addItem(
-              const _CartItem(
-                'Espresso',
-                3.20,
-                Icons.coffee_outlined,
-                _kAccent,
-              ),
-            ),
+            onTap: () => _cart.addItem(const _CartItem(
+              'Espresso',
+              3.20,
+              Icons.coffee_outlined,
+              _kAccent,
+            )),
           ),
           _PillButton(
             icon: Icons.cake_outlined,
             label: '+ Muffin',
             tone: _kRose,
-            onTap: () => _cart.addItem(
-              const _CartItem('Muffin', 2.80, Icons.cake_outlined, _kRose),
-            ),
+            onTap: () => _cart.addItem(const _CartItem(
+              'Muffin',
+              2.80,
+              Icons.cake_outlined,
+              _kRose,
+            )),
           ),
           _PillButton(
             icon: Icons.remove_circle_outline,
@@ -1778,7 +1797,10 @@ class _CartDiscountRow extends StatelessWidget {
               const Expanded(
                 child: Text(
                   'Discount',
-                  style: TextStyle(fontWeight: FontWeight.w700, color: _kInk),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
                 ),
               ),
               Text(
@@ -1833,11 +1855,9 @@ class _CartNestedReceipts extends StatelessWidget {
             value: c.items.isEmpty
                 ? '—'
                 : c.items
-                      .reduce(
-                        (_CartItem a, _CartItem b) =>
-                            a.price >= b.price ? a : b,
-                      )
-                      .name,
+                    .reduce((_CartItem a, _CartItem b) =>
+                        a.price >= b.price ? a : b)
+                    .name,
             tone: _kAccent,
           ),
           const SizedBox(height: 8),
@@ -1856,10 +1876,10 @@ class _CartNestedReceipts extends StatelessWidget {
             value: c.total == 0
                 ? 'waiting for items'
                 : c.total < 5
-                ? 'small order'
-                : c.total < 15
-                ? 'regular'
-                : 'hungry',
+                    ? 'small order'
+                    : c.total < 15
+                        ? 'regular'
+                        : 'hungry',
             tone: _kRose,
           ),
         ],
@@ -1962,7 +1982,8 @@ class _PalettePicker extends StatelessWidget {
             onTap: () => _palette.value = c,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 180),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
                 color: active ? tone : tone.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(12),
@@ -2283,8 +2304,8 @@ class _MaybeOfCard extends StatelessWidget {
                 scope == null
                     ? 'No _CountScope ancestor — scope is null.'
                     : n == null
-                    ? 'Scope present but notifier is null.'
-                    : 'Scope present; current = ${n.value}.',
+                        ? 'Scope present but notifier is null.'
+                        : 'Scope present; current = ${n.value}.',
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   color: _kInk,
@@ -2374,9 +2395,7 @@ class _TableRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: header ? _kSurfaceAlt : Colors.white,
-        border: Border(
-          bottom: BorderSide(color: _kBorder.withValues(alpha: 0.7)),
-        ),
+        border: Border(bottom: BorderSide(color: _kBorder.withValues(alpha: 0.7))),
       ),
       child: Row(
         children: <Widget>[
@@ -2499,7 +2518,10 @@ class _DefenseLine extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(color: _kInk, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                color: _kInk,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           _CodeChip(value),
@@ -2594,7 +2616,9 @@ class _DiagramCanvas extends StatelessWidget {
             border: Border.all(color: _kBorder),
           ),
           padding: const EdgeInsets.all(10),
-          child: CustomPaint(painter: _TreeDiagramPainter()),
+          child: CustomPaint(
+            painter: _TreeDiagramPainter(),
+          ),
         ),
       ),
     );
@@ -2649,7 +2673,8 @@ class _TreeDiagramPainter extends CustomPainter {
     );
 
     // Subtree container.
-    final Rect subtreeRect = Rect.fromLTWH(w * 0.06, 166, w * 0.88, h - 182);
+    final Rect subtreeRect =
+        Rect.fromLTWH(w * 0.06, 166, w * 0.88, h - 182);
     final Paint subtreePaint = Paint()
       ..color = _kViolet.withValues(alpha: 0.08)
       ..style = PaintingStyle.fill;
@@ -2665,13 +2690,8 @@ class _TreeDiagramPainter extends CustomPainter {
       RRect.fromRectAndRadius(subtreeRect, const Radius.circular(10)),
       subtreeBorder,
     );
-    _label(
-      canvas,
-      'subtree',
-      subtreeRect.topLeft + const Offset(8, 4),
-      _kViolet,
-      10,
-    );
+    _label(canvas, 'subtree', subtreeRect.topLeft + const Offset(8, 4),
+        _kViolet, 10);
 
     // 4 leaf descendants.
     final double leafTop = subtreeRect.top + 36;
@@ -2803,7 +2823,8 @@ class _TreeDiagramPainter extends CustomPainter {
     String? label,
   }) {
     canvas.drawLine(from, to, paint);
-    final double ang = (to - from).direction; // radians from origin.
+    final double ang =
+        (to - from).direction; // radians from origin.
     const double size = 8;
     final Offset tip = to;
     final Offset left = Offset(
@@ -2841,7 +2862,13 @@ class _TreeDiagramPainter extends CustomPainter {
     }
   }
 
-  void _label(Canvas canvas, String text, Offset at, Color color, double size) {
+  void _label(
+    Canvas canvas,
+    String text,
+    Offset at,
+    Color color,
+    double size,
+  ) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         style: TextStyle(
@@ -2884,7 +2911,10 @@ class _TreeDiagramPainter extends CustomPainter {
       a += 6.283185307;
     }
     final double a2 = a * a;
-    return a - (a * a2) / 6 + (a * a2 * a2) / 120 - (a * a2 * a2 * a2) / 5040;
+    return a -
+        (a * a2) / 6 +
+        (a * a2 * a2) / 120 -
+        (a * a2 * a2 * a2) / 5040;
   }
 
   @override
@@ -2902,10 +2932,22 @@ class _DiagramLegend extends StatelessWidget {
         spacing: 10,
         runSpacing: 10,
         children: <Widget>[
-          _LegendChip(color: _kAccent, label: 'notifier → scope (listen)'),
-          _LegendChip(color: _kSeed, label: 'scope → dependent (rebuild)'),
-          _LegendChip(color: _kViolet, label: 'subtree bounds'),
-          _LegendChip(color: _kBorder, label: 'leaf widget'),
+          _LegendChip(
+            color: _kAccent,
+            label: 'notifier → scope (listen)',
+          ),
+          _LegendChip(
+            color: _kSeed,
+            label: 'scope → dependent (rebuild)',
+          ),
+          _LegendChip(
+            color: _kViolet,
+            label: 'subtree bounds',
+          ),
+          _LegendChip(
+            color: _kBorder,
+            label: 'leaf widget',
+          ),
         ],
       ),
     );
@@ -3193,9 +3235,7 @@ class _MatrixRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         color: header ? _kSurfaceAlt : Colors.white,
-        border: Border(
-          bottom: BorderSide(color: _kBorder.withValues(alpha: 0.7)),
-        ),
+        border: Border(bottom: BorderSide(color: _kBorder.withValues(alpha: 0.7))),
       ),
       child: Row(
         children: <Widget>[
@@ -3256,7 +3296,8 @@ class _VerdictStack extends StatelessWidget {
           SizedBox(height: 8),
           _VerdictCard(
             title: 'InheritedModel',
-            verdict: 'Best when dependents care about specific aspects only.',
+            verdict:
+                'Best when dependents care about specific aspects only.',
             tone: _kRose,
             icon: Icons.tune,
           ),
@@ -3543,9 +3584,17 @@ class _PitfallCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          _PitfallBlock(tag: 'bad', tone: _kBad, text: badExample),
+          _PitfallBlock(
+            tag: 'bad',
+            tone: _kBad,
+            text: badExample,
+          ),
           const SizedBox(height: 8),
-          _PitfallBlock(tag: 'good', tone: _kOk, text: goodExample),
+          _PitfallBlock(
+            tag: 'good',
+            tone: _kOk,
+            text: goodExample,
+          ),
         ],
       ),
     );
@@ -3594,7 +3643,11 @@ class _PitfallBlock extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: _kInk, fontSize: 12.5, height: 1.5),
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 12.5,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -3654,8 +3707,7 @@ class _UseCaseGrid extends StatelessWidget {
                   icon: Icons.numbers,
                   title: 'Counter',
                   tone: _kSeed,
-                  body:
-                      'Minimal reactive global — shopping bag badge, score, step count.',
+                  body: 'Minimal reactive global — shopping bag badge, score, step count.',
                   notifierHint: 'ValueNotifier<int>',
                 ),
               ),
@@ -3665,8 +3717,7 @@ class _UseCaseGrid extends StatelessWidget {
                   icon: Icons.lock_outline,
                   title: 'Auth state',
                   tone: _kRose,
-                  body:
-                      'Signed-in user + token; routes and app bars react on login/logout.',
+                  body: 'Signed-in user + token; routes and app bars react on login/logout.',
                   notifierHint: 'AuthListenable',
                 ),
               ),
@@ -3680,8 +3731,7 @@ class _UseCaseGrid extends StatelessWidget {
                   icon: Icons.shopping_cart_outlined,
                   title: 'Cart',
                   tone: _kAccent,
-                  body:
-                      'List of items, subtotal, discounts — many widgets watch the summary.',
+                  body: 'List of items, subtotal, discounts — many widgets watch the summary.',
                   notifierHint: 'CartListenable',
                 ),
               ),
@@ -3691,8 +3741,7 @@ class _UseCaseGrid extends StatelessWidget {
                   icon: Icons.palette_outlined,
                   title: 'Theme',
                   tone: _kViolet,
-                  body:
-                      'Palette, density, text-scale; swappable at runtime via notifier.',
+                  body: 'Palette, density, text-scale; swappable at runtime via notifier.',
                   notifierHint: 'PaletteListenable',
                 ),
               ),
@@ -3706,8 +3755,7 @@ class _UseCaseGrid extends StatelessWidget {
                   icon: Icons.swap_vert,
                   title: 'Scroll position',
                   tone: _kOlive,
-                  body:
-                      'Sharing a ScrollController so headers, badges, and pagers react.',
+                  body: 'Sharing a ScrollController so headers, badges, and pagers react.',
                   notifierHint: 'ScrollController',
                 ),
               ),
@@ -3717,8 +3765,7 @@ class _UseCaseGrid extends StatelessWidget {
                   icon: Icons.music_note_outlined,
                   title: 'Music player',
                   tone: _kBlueTone,
-                  body:
-                      'Playing track, progress, volume — mini-players across the tree.',
+                  body: 'Playing track, progress, volume — mini-players across the tree.',
                   notifierHint: 'PlayerListenable',
                 ),
               ),
@@ -3778,7 +3825,11 @@ class _UseCaseCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             body,
-            style: const TextStyle(fontSize: 12, color: _kInk, height: 1.45),
+            style: const TextStyle(
+              fontSize: 12,
+              color: _kInk,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 8),
           _CodeChip(notifierHint),
@@ -3860,10 +3911,12 @@ class _ApiCheatSheet extends StatelessWidget {
             ),
             _ApiRow(
               left: 'Constructor',
-              right:
-                  'InheritedNotifier({Key? key, T? notifier, required Widget child})',
+              right: 'InheritedNotifier({Key? key, T? notifier, required Widget child})',
             ),
-            _ApiRow(left: 'Property', right: 'final T? notifier'),
+            _ApiRow(
+              left: 'Property',
+              right: 'final T? notifier',
+            ),
             _ApiRow(
               left: 'Lookup (nullable)',
               right: 'context.dependOnInheritedWidgetOfExactType<MyScope>()',
@@ -3880,7 +3933,10 @@ class _ApiCheatSheet extends StatelessWidget {
               left: 'Override',
               right: 'do not — updateShouldNotify is handled',
             ),
-            _ApiRow(left: 'Ownership', right: 'caller disposes the Listenable'),
+            _ApiRow(
+              left: 'Ownership',
+              right: 'caller disposes the Listenable',
+            ),
           ],
         ),
       ),
@@ -3892,7 +3948,11 @@ class _ApiRow extends StatelessWidget {
   final String left;
   final String right;
   final bool header;
-  const _ApiRow({required this.left, required this.right, this.header = false});
+  const _ApiRow({
+    required this.left,
+    required this.right,
+    this.header = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -3900,9 +3960,7 @@ class _ApiRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: header ? _kSurfaceAlt : Colors.white,
-        border: Border(
-          bottom: BorderSide(color: _kBorder.withValues(alpha: 0.7)),
-        ),
+        border: Border(bottom: BorderSide(color: _kBorder.withValues(alpha: 0.7))),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -3988,3 +4046,4 @@ class _SummaryCard extends StatelessWidget {
     );
   }
 }
+

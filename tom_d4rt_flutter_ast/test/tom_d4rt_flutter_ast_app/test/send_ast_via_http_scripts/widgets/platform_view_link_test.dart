@@ -468,7 +468,10 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   detail,
-                  style: TextStyle(color: blueGrey600, fontSize: 11),
+                  style: TextStyle(
+                    color: blueGrey600,
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),
@@ -521,21 +524,9 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 12),
                 ...[
-                  {
-                    'label': 'viewType',
-                    'type': 'String',
-                    'desc': 'Identifies the native view',
-                  },
-                  {
-                    'label': 'onCreatePlatformView',
-                    'type': 'Callback',
-                    'desc': 'Creates and returns controller',
-                  },
-                  {
-                    'label': 'surfaceFactory',
-                    'type': 'Factory',
-                    'desc': 'Creates surface widget for rendering',
-                  },
+                  {'label': 'viewType', 'type': 'String', 'desc': 'Identifies the native view'},
+                  {'label': 'onCreatePlatformView', 'type': 'Callback', 'desc': 'Creates and returns controller'},
+                  {'label': 'surfaceFactory', 'type': 'Factory', 'desc': 'Creates surface widget for rendering'},
                 ].asMap().entries.map((entry) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
@@ -543,10 +534,7 @@ dynamic build(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 3,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                           decoration: BoxDecoration(
                             color: blue400.withValues(alpha: 0.25),
                             borderRadius: BorderRadius.circular(4),
@@ -678,11 +666,7 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.phone_android,
-                              color: blueGrey800,
-                              size: 24,
-                            ),
+                            Icon(Icons.phone_android, color: blueGrey800, size: 24),
                             const SizedBox(height: 4),
                             Text(
                               'Native',
@@ -799,10 +783,7 @@ dynamic build(BuildContext context) {
                         ),
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 3,
-                              horizontal: 6,
-                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
                             decoration: BoxDecoration(
                               color: blueGrey50,
                               borderRadius: BorderRadius.circular(4),
@@ -819,10 +800,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(width: 4),
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 3,
-                              horizontal: 6,
-                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
                             decoration: BoxDecoration(
                               color: blue400.withValues(alpha: 0.08),
                               borderRadius: BorderRadius.circular(4),
@@ -878,36 +856,16 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print(
-    '  │  BlueGrey 900 ${blueGrey900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
-  );
-  print(
-    '  │  BlueGrey 800 ${blueGrey800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
-  );
-  print(
-    '  │  BlueGrey 700 ${blueGrey700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
-  );
-  print(
-    '  │  BlueGrey 600 ${blueGrey600.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
-  );
-  print(
-    '  │  Blue 800     ${blue800.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
-  );
-  print(
-    '  │  Blue 400     ${blue400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
-  );
-  print(
-    '  │  BlueGrey 200 ${blueGrey200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
-  );
-  print(
-    '  │  BlueGrey 100 ${blueGrey100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
-  );
-  print(
-    '  │  BlueGrey 50  ${blueGrey50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
-  );
-  print(
-    '  │  Grey 100     ${grey100.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
-  );
+  print('  │  BlueGrey 900 ${blueGrey900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
+  print('  │  BlueGrey 800 ${blueGrey800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
+  print('  │  BlueGrey 700 ${blueGrey700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
+  print('  │  BlueGrey 600 ${blueGrey600.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print('  │  Blue 800     ${blue800.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
+  print('  │  Blue 400     ${blue400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
+  print('  │  BlueGrey 200 ${blueGrey200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
+  print('  │  BlueGrey 100 ${blueGrey100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print('  │  BlueGrey 50  ${blueGrey50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
+  print('  │  Grey 100     ${grey100.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

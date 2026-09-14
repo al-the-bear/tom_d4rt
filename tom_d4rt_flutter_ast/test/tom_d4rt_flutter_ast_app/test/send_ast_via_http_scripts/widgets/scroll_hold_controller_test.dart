@@ -58,7 +58,10 @@ dynamic build(BuildContext context) {
           color: kCharcoal,
           letterSpacing: -0.6,
         ),
-        titleLarge: TextStyle(fontWeight: FontWeight.w700, color: kCharcoal),
+        titleLarge: TextStyle(
+          fontWeight: FontWeight.w700,
+          color: kCharcoal,
+        ),
         bodyMedium: TextStyle(color: kCharcoal, height: 1.4),
       ),
       useMaterial3: true,
@@ -97,7 +100,10 @@ class _HoldLaboratoryPageState extends State<_HoldLaboratoryPage> {
           thumbVisibility: true,
           child: SingleChildScrollView(
             controller: _outerController,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 32,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: const <Widget>[
@@ -173,9 +179,9 @@ class _HeroHeaderSection extends StatelessWidget {
                 Text(
                   'ScrollHoldController',
                   style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    color: kCream,
-                    fontSize: 38,
-                  ),
+                        color: kCream,
+                        fontSize: 38,
+                      ),
                 ),
                 const SizedBox(height: 10),
                 const Text(
@@ -275,18 +281,14 @@ class _PauseSnowflakePainter extends CustomPainter {
       final Offset tip = Offset(math.cos(a) * radius, math.sin(a) * radius);
       canvas.drawLine(Offset.zero, tip, arm);
       // Fork branches.
-      final Offset f1 = Offset(
-        math.cos(a) * radius * 0.55,
-        math.sin(a) * radius * 0.55,
-      );
+      final Offset f1 = Offset(math.cos(a) * radius * 0.55,
+          math.sin(a) * radius * 0.55);
       final Offset f2a = Offset(
-        f1.dx + math.cos(a + 0.9) * radius * 0.25,
-        f1.dy + math.sin(a + 0.9) * radius * 0.25,
-      );
+          f1.dx + math.cos(a + 0.9) * radius * 0.25,
+          f1.dy + math.sin(a + 0.9) * radius * 0.25);
       final Offset f2b = Offset(
-        f1.dx + math.cos(a - 0.9) * radius * 0.25,
-        f1.dy + math.sin(a - 0.9) * radius * 0.25,
-      );
+          f1.dx + math.cos(a - 0.9) * radius * 0.25,
+          f1.dy + math.sin(a - 0.9) * radius * 0.25);
       canvas.drawLine(f1, f2a, arm);
       canvas.drawLine(f1, f2b, arm);
     }
@@ -372,10 +374,8 @@ class _FlingAndHoldSectionState extends State<_FlingAndHoldSection> {
     _listController.addListener(_onScroll);
     // Low-frequency inspector detects phase transitions the notification
     // system doesn't expose directly.
-    _phaseInspector = Timer.periodic(
-      const Duration(milliseconds: 120),
-      (_) => _inspect(),
-    );
+    _phaseInspector =
+        Timer.periodic(const Duration(milliseconds: 120), (_) => _inspect());
   }
 
   void _onScroll() {
@@ -488,7 +488,11 @@ class _FlingAndHoldSectionState extends State<_FlingAndHoldSection> {
                   colour: kBurnt,
                 ),
               const Spacer(),
-              _PillButton(label: 'Fling →', colour: kForest, onPressed: _fling),
+              _PillButton(
+                label: 'Fling →',
+                colour: kForest,
+                onPressed: _fling,
+              ),
               const SizedBox(width: 10),
               _PillButton(
                 label: _hold == null ? 'Hold' : 'Holding…',
@@ -521,17 +525,16 @@ class _FlingAndHoldSectionState extends State<_FlingAndHoldSection> {
                 itemBuilder: (BuildContext context, int i) {
                   return Container(
                     margin: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
+                        horizontal: 8, vertical: 4),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
+                        horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: kMist, width: 1),
+                      border: Border.all(
+                        color: kMist,
+                        width: 1,
+                      ),
                     ),
                     child: Row(
                       children: <Widget>[
@@ -546,9 +549,8 @@ class _FlingAndHoldSectionState extends State<_FlingAndHoldSection> {
                           child: Text(
                             '${i + 1}',
                             style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: kForest,
-                            ),
+                                fontWeight: FontWeight.bold,
+                                color: kForest),
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -610,7 +612,10 @@ class _PhaseBadge extends StatelessWidget {
           Container(
             width: 10,
             height: 10,
-            decoration: BoxDecoration(color: c, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: c,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 8),
           Text(
@@ -671,7 +676,9 @@ class _PillButton extends StatelessWidget {
         backgroundColor: colour,
         foregroundColor: kCream,
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
         textStyle: const TextStyle(fontWeight: FontWeight.w700),
       ),
       child: Text(label),
@@ -719,9 +726,8 @@ class _PhaseTimelineSectionState extends State<_PhaseTimelineSection>
         _cycleIndex = (_cycleIndex + 1) % _cycle.length;
         _events.add(_PhaseEvent(_cycle[_cycleIndex], DateTime.now()));
         // Drop events older than 12s.
-        final DateTime cutoff = DateTime.now().subtract(
-          const Duration(seconds: 12),
-        );
+        final DateTime cutoff =
+            DateTime.now().subtract(const Duration(seconds: 12));
         _events.removeWhere((_PhaseEvent e) => e.at.isBefore(cutoff));
       });
     });
@@ -813,9 +819,12 @@ class _TimelinePainter extends CustomPainter {
     // Event bars.
     for (int i = 0; i < events.length; i++) {
       final _PhaseEvent e = events[i];
-      final DateTime endAt = (i + 1 < events.length) ? events[i + 1].at : now;
-      final double startSec = now.difference(e.at).inMilliseconds / 1000.0;
-      final double endSec = now.difference(endAt).inMilliseconds / 1000.0;
+      final DateTime endAt =
+          (i + 1 < events.length) ? events[i + 1].at : now;
+      final double startSec =
+          now.difference(e.at).inMilliseconds / 1000.0;
+      final double endSec =
+          now.difference(endAt).inMilliseconds / 1000.0;
       if (startSec > windowSec) continue;
       final double x1 =
           size.width - (startSec.clamp(0, windowSec) / windowSec) * size.width;
@@ -826,11 +835,10 @@ class _TimelinePainter extends CustomPainter {
       final double y = laneIndex * laneHeight + 6;
       final Rect r = Rect.fromLTWH(x1, y, (x2 - x1).abs(), laneHeight - 12);
       final Paint barP = Paint()
-        ..color = kPhasePalette[_phaseLabel(e.phase)]!.withValues(alpha: 0.75);
+        ..color = kPhasePalette[_phaseLabel(e.phase)]!
+            .withValues(alpha: 0.75);
       canvas.drawRRect(
-        RRect.fromRectAndRadius(r, const Radius.circular(6)),
-        barP,
-      );
+          RRect.fromRectAndRadius(r, const Radius.circular(6)), barP);
     }
 
     // "Now" marker.
@@ -879,48 +887,21 @@ class _LifecycleDiagramPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final List<_DiagramNode> nodes = <_DiagramNode>[
       _DiagramNode('Ballistic', const Offset(0.12, 0.5), kForest),
-      _DiagramNode(
-        'HoldScrollActivity',
-        const Offset(0.42, 0.5),
-        const Color(0xFFE07A1F),
-      ),
+      _DiagramNode('HoldScrollActivity', const Offset(0.42, 0.5),
+          const Color(0xFFE07A1F)),
       _DiagramNode('Idle', const Offset(0.75, 0.25), kSlate),
-      _DiagramNode('Drag', const Offset(0.75, 0.75), const Color(0xFF1D4E89)),
+      _DiagramNode('Drag', const Offset(0.75, 0.75),
+          const Color(0xFF1D4E89)),
     ];
     // Arrows.
-    _drawArrow(
-      canvas,
-      size,
-      nodes[0],
-      nodes[1],
-      label: 'position.hold()',
-      above: true,
-    );
-    _drawArrow(
-      canvas,
-      size,
-      nodes[1],
-      nodes[2],
-      label: 'holdController.cancel()',
-      above: true,
-    );
-    _drawArrow(
-      canvas,
-      size,
-      nodes[1],
-      nodes[3],
-      label: 'user starts drag',
-      above: false,
-    );
-    _drawArrow(
-      canvas,
-      size,
-      nodes[2],
-      nodes[0],
-      label: 'fling gesture',
-      above: false,
-      curve: true,
-    );
+    _drawArrow(canvas, size, nodes[0], nodes[1],
+        label: 'position.hold()', above: true);
+    _drawArrow(canvas, size, nodes[1], nodes[2],
+        label: 'holdController.cancel()', above: true);
+    _drawArrow(canvas, size, nodes[1], nodes[3],
+        label: 'user starts drag', above: false);
+    _drawArrow(canvas, size, nodes[2], nodes[0],
+        label: 'fling gesture', above: false, curve: true);
 
     for (final _DiagramNode n in nodes) {
       _drawNode(canvas, size, n);
@@ -936,21 +917,14 @@ class _LifecycleDiagramPainter extends CustomPainter {
       ..strokeWidth = 2
       ..color = n.colour;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(box, const Radius.circular(14)),
-      fill,
-    );
+        RRect.fromRectAndRadius(box, const Radius.circular(14)), fill);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(box, const Radius.circular(14)),
-      stroke,
-    );
+        RRect.fromRectAndRadius(box, const Radius.circular(14)), stroke);
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: n.label,
         style: TextStyle(
-          color: n.colour,
-          fontWeight: FontWeight.w800,
-          fontSize: 14,
-        ),
+            color: n.colour, fontWeight: FontWeight.w800, fontSize: 14),
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: 150);
@@ -966,10 +940,7 @@ class _LifecycleDiagramPainter extends CustomPainter {
     required bool above,
     bool curve = false,
   }) {
-    final Offset a = Offset(
-      from.pos.dx * size.width,
-      from.pos.dy * size.height,
-    );
+    final Offset a = Offset(from.pos.dx * size.width, from.pos.dy * size.height);
     final Offset b = Offset(to.pos.dx * size.width, to.pos.dy * size.height);
     final Paint p = Paint()
       ..color = kCharcoal.withValues(alpha: 0.55)
@@ -977,7 +948,10 @@ class _LifecycleDiagramPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
     final Path path = Path()..moveTo(a.dx, a.dy);
     if (curve) {
-      final Offset ctl = Offset((a.dx + b.dx) / 2, math.min(a.dy, b.dy) - 60);
+      final Offset ctl = Offset(
+        (a.dx + b.dx) / 2,
+        math.min(a.dy, b.dy) - 60,
+      );
       path.quadraticBezierTo(ctl.dx, ctl.dy, b.dx, b.dy);
     } else {
       path.lineTo(b.dx, b.dy);
@@ -1065,10 +1039,8 @@ class _HoldCancelCallbackSectionState
         _cancelCount++;
         _hold = null;
       });
-      debugPrint(
-        '[ScrollHoldController] holdCancelCallback fired '
-        '(count=$_cancelCount)',
-      );
+      debugPrint('[ScrollHoldController] holdCancelCallback fired '
+          '(count=$_cancelCount)');
     });
     setState(() => _externallyCancelled = false);
   }
@@ -1150,9 +1122,7 @@ class _HoldCancelCallbackSectionState
                 itemBuilder: (BuildContext context, int i) {
                   return Container(
                     margin: const EdgeInsets.symmetric(
-                      horizontal: 4,
-                      vertical: 3,
-                    ),
+                        horizontal: 4, vertical: 3),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -1210,8 +1180,7 @@ class _MethodReferenceSection extends StatelessWidget {
     ];
     return _LabCard(
       title: '6. Method reference card',
-      subtitle:
-          'Everything you can call on ScrollHoldController — and the '
+      subtitle: 'Everything you can call on ScrollHoldController — and the '
           'surrounding ScrollPosition surface that produces it.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1224,9 +1193,7 @@ class _MethodReferenceSection extends StatelessWidget {
                 color: e.colour.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: e.colour.withValues(alpha: 0.4),
-                  width: 1,
-                ),
+                    color: e.colour.withValues(alpha: 0.4), width: 1),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1294,8 +1261,7 @@ class _UseCasesSection extends StatelessWidget {
     final List<_UseCase> cases = <_UseCase>[
       _UseCase(
         title: 'Tap during fling stops the scroll',
-        body:
-            'The ubiquitous mobile pattern. When the user touches the '
+        body: 'The ubiquitous mobile pattern. When the user touches the '
             'list mid-fling, Flutter calls position.hold() to freeze the '
             'ballistic; on pointer up the hold is cancelled or becomes a '
             'drag.',
@@ -1304,8 +1270,7 @@ class _UseCasesSection extends StatelessWidget {
       ),
       _UseCase(
         title: 'Pull-to-refresh hand-off',
-        body:
-            'A gesture recognizer holds the position while deciding '
+        body: 'A gesture recognizer holds the position while deciding '
             'whether the overscroll becomes a refresh. During that time '
             'nothing else can drive the scroll — the hold is the lock.',
         icon: Icons.refresh,
@@ -1313,8 +1278,7 @@ class _UseCasesSection extends StatelessWidget {
       ),
       _UseCase(
         title: 'Interruptible scroll animation',
-        body:
-            'A programmatic scroll should pause on hover. Call hold() '
+        body: 'A programmatic scroll should pause on hover. Call hold() '
             'when hover starts and cancel() on hover end. Your animateTo '
             'is seamlessly suspended.',
         icon: Icons.pause_circle_filled,
@@ -1322,8 +1286,7 @@ class _UseCasesSection extends StatelessWidget {
       ),
       _UseCase(
         title: 'Custom gesture composition',
-        body:
-            'When a touch could be a tap OR a drag, hold keeps the '
+        body: 'When a touch could be a tap OR a drag, hold keeps the '
             'position still while you compute intent. Upgrade to a drag '
             'activity only if the slop is crossed.',
         icon: Icons.touch_app,
@@ -1343,10 +1306,7 @@ class _UseCasesSection extends StatelessWidget {
             runSpacing: 16,
             children: <Widget>[
               for (final _UseCase u in cases)
-                SizedBox(
-                  width: cardW,
-                  child: _UseCaseTile(useCase: u),
-                ),
+                SizedBox(width: cardW, child: _UseCaseTile(useCase: u)),
             ],
           );
         },
@@ -1441,8 +1401,7 @@ class _TeachingPanelSection extends StatelessWidget {
     final List<_TeachingTile> tiles = <_TeachingTile>[
       _TeachingTile(
         heading: 'Hold vs jumpTo',
-        body:
-            'ScrollHoldController preserves pixels and yields an '
+        body: 'ScrollHoldController preserves pixels and yields an '
             'idle-style frozen state that cooperates with the activity '
             'machinery. jumpTo teleports the position, produces '
             'notifications, and cannot be cancelled — it is not a "pause".',
@@ -1450,8 +1409,7 @@ class _TeachingPanelSection extends StatelessWidget {
       ),
       _TeachingTile(
         heading: 'Always cancel()',
-        body:
-            'A hold that is never cancelled lives forever, blocking '
+        body: 'A hold that is never cancelled lives forever, blocking '
             'every future drag, fling, or animateTo on that position. If '
             'you hold() on pointer down, ALWAYS cancel() on pointer up '
             '— including in error paths.',
@@ -1459,8 +1417,7 @@ class _TeachingPanelSection extends StatelessWidget {
       ),
       _TeachingTile(
         heading: 'Who creates holds?',
-        body:
-            'Most of the time, framework gesture code (Scrollable, '
+        body: 'Most of the time, framework gesture code (Scrollable, '
             'drag recognizers) creates the ScrollHoldController for you. '
             'You typically only touch it directly inside custom '
             'recognizers or physics experiments.',
@@ -1469,8 +1426,7 @@ class _TeachingPanelSection extends StatelessWidget {
     ];
     return _LabCard(
       title: '8. Teaching notes',
-      subtitle:
-          'Three conceptual traps worth internalising before using '
+      subtitle: 'Three conceptual traps worth internalising before using '
           'ScrollHoldController in anger.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1481,7 +1437,9 @@ class _TeachingPanelSection extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: t.colour.withValues(alpha: 0.08),
-                border: Border(left: BorderSide(color: t.colour, width: 4)),
+                border: Border(
+                  left: BorderSide(color: t.colour, width: 4),
+                ),
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(12),
                   bottomRight: Radius.circular(12),
@@ -1565,7 +1523,8 @@ void _onPointerCancel() {
 ''';
     return _LabCard(
       title: '9. Canonical code snippet',
-      subtitle: 'The pattern you will copy-paste roughly 95% of the time.',
+      subtitle:
+          'The pattern you will copy-paste roughly 95% of the time.',
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(

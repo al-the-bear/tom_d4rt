@@ -51,27 +51,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: sage, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -88,14 +82,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: sage),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: deepPine.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: deepPine.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -128,16 +119,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: deepPine,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: deepPine)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -148,19 +139,18 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? emerald.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(bottom: BorderSide(color: sage.withValues(alpha: 0.3))),
+        border: Border(
+          bottom: BorderSide(color: sage.withValues(alpha: 0.3)),
+        ),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? deepPine : forestGreen,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? deepPine : forestGreen)),
           );
         }).toList(),
       ),
@@ -177,23 +167,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? deepPine : pine,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.east, size: 12, color: emerald),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.east, size: 12, color: emerald),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -214,21 +199,16 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: deepPine,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: deepPine,
+                  fontFamily: 'monospace')),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              detail,
-              style: TextStyle(fontSize: 12, color: forestGreen),
-            ),
+            child: Text(detail,
+                style: TextStyle(fontSize: 12, color: forestGreen)),
           ),
         ],
       ),
@@ -254,25 +234,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            gkFlow([
-              'GLFW Event',
-              'GLFWKeyHelper',
-              'FlutterKeyEvent',
-              'Focus System',
-              'Widget',
-            ]),
+            gkFlow(['GLFW Event', 'GLFWKeyHelper', 'FlutterKeyEvent',
+                'Focus System', 'Widget']),
             const SizedBox(height: 10),
             _gkRoleRow('GLFW', 'Window system events (raw scan codes)', pine),
-            _gkRoleRow(
-              'GLFWKeyHelper',
-              'Translates to Flutter key model',
-              emerald,
-            ),
-            _gkRoleRow(
-              'KeyEvent',
-              'Logical + Physical key objects',
-              forestGreen,
-            ),
+            _gkRoleRow('GLFWKeyHelper', 'Translates to Flutter key model', emerald),
+            _gkRoleRow('KeyEvent', 'Logical + Physical key objects', forestGreen),
           ],
         ),
       ),
@@ -340,14 +307,9 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.keyboard, size: 22, color: pine),
                     const SizedBox(height: 4),
-                    Text(
-                      'Scan Code',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: pine,
-                      ),
-                    ),
+                    Text('Scan Code',
+                        style: TextStyle(
+                            fontSize: 11, fontWeight: FontWeight.bold, color: pine)),
                     const SizedBox(height: 6),
                     _gkMappingItem('Physical position', pine),
                     _gkMappingItem('Hardware-dependent', pine),
@@ -355,15 +317,12 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 4),
                     Icon(Icons.arrow_downward, size: 14, color: emerald),
                     const SizedBox(height: 4),
-                    Text(
-                      'PhysicalKeyboardKey',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'monospace',
-                        color: emerald,
-                      ),
-                    ),
+                    Text('PhysicalKeyboardKey',
+                        style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            color: emerald)),
                   ],
                 ),
               ),
@@ -381,14 +340,9 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.text_fields, size: 22, color: emerald),
                     const SizedBox(height: 4),
-                    Text(
-                      'Key Code',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: emerald,
-                      ),
-                    ),
+                    Text('Key Code',
+                        style: TextStyle(
+                            fontSize: 11, fontWeight: FontWeight.bold, color: emerald)),
                     const SizedBox(height: 6),
                     _gkMappingItem('Logical meaning', emerald),
                     _gkMappingItem('Layout-dependent', emerald),
@@ -396,15 +350,12 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 4),
                     Icon(Icons.arrow_downward, size: 14, color: pine),
                     const SizedBox(height: 4),
-                    Text(
-                      'LogicalKeyboardKey',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'monospace',
-                        color: pine,
-                      ),
-                    ),
+                    Text('LogicalKeyboardKey',
+                        style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            color: pine)),
                   ],
                 ),
               ),
@@ -459,12 +410,7 @@ dynamic build(BuildContext context) {
         'GLFW Modifier Flags',
         Column(
           children: [
-            gkRow([
-              'Modifier',
-              'GLFW Flag',
-              'Bit',
-              'Flutter Key',
-            ], isHeader: true),
+            gkRow(['Modifier', 'GLFW Flag', 'Bit', 'Flutter Key'], isHeader: true),
             gkRow(['Shift', 'GLFW_MOD_SHIFT', '0x01', 'shiftLeft/Right']),
             gkRow(['Control', 'GLFW_MOD_CONTROL', '0x02', 'controlLeft/Right']),
             gkRow(['Alt', 'GLFW_MOD_ALT', '0x04', 'altLeft/Right']),
@@ -494,24 +440,9 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _gkEventType(
-              'GLFW_PRESS (1)',
-              'KeyDownEvent',
-              Icons.arrow_downward,
-              pine,
-            ),
-            _gkEventType(
-              'GLFW_RELEASE (0)',
-              'KeyUpEvent',
-              Icons.arrow_upward,
-              emerald,
-            ),
-            _gkEventType(
-              'GLFW_REPEAT (2)',
-              'KeyRepeatEvent',
-              Icons.repeat,
-              mossGreen,
-            ),
+            _gkEventType('GLFW_PRESS (1)', 'KeyDownEvent', Icons.arrow_downward, pine),
+            _gkEventType('GLFW_RELEASE (0)', 'KeyUpEvent', Icons.arrow_upward, emerald),
+            _gkEventType('GLFW_REPEAT (2)', 'KeyRepeatEvent', Icons.repeat, mossGreen),
           ],
         ),
       ),
@@ -536,11 +467,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            gkCode('LogicalKeyboardKey', 'Return: the Flutter logical key'),
-            gkCode(
-              'keyCodeToLogicalKey(int glfwKeyCode)',
-              'Input: GLFW key code integer',
-            ),
+            gkCode('LogicalKeyboardKey',
+                'Return: the Flutter logical key'),
+            gkCode('keyCodeToLogicalKey(int glfwKeyCode)',
+                'Input: GLFW key code integer'),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -641,20 +571,8 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _gkDeadKeyStep(
-              1,
-              'Press ´ (dead acute)',
-              'GLFW_KEY_UNKNOWN',
-              'No char yet',
-              pine,
-            ),
-            _gkDeadKeyStep(
-              2,
-              'Press e',
-              'GLFW_KEY_E (65)',
-              'é produced',
-              emerald,
-            ),
+            _gkDeadKeyStep(1, 'Press ´ (dead acute)', 'GLFW_KEY_UNKNOWN', 'No char yet', pine),
+            _gkDeadKeyStep(2, 'Press e', 'GLFW_KEY_E (65)', 'é produced', emerald),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -737,21 +655,9 @@ dynamic build(BuildContext context) {
               children: [
                 Expanded(child: _gkKeyBlock('F13-F16', '302-305', mossGreen)),
                 const SizedBox(width: 4),
-                Expanded(
-                  child: _gkKeyBlock(
-                    'F17-F20',
-                    '306-309',
-                    const Color(0xFF689F38),
-                  ),
-                ),
+                Expanded(child: _gkKeyBlock('F17-F20', '306-309', const Color(0xFF689F38))),
                 const SizedBox(width: 4),
-                Expanded(
-                  child: _gkKeyBlock(
-                    'F21-F25',
-                    '310-314',
-                    const Color(0xFF7CB342),
-                  ),
-                ),
+                Expanded(child: _gkKeyBlock('F21-F25', '310-314', const Color(0xFF7CB342))),
               ],
             ),
           ],
@@ -777,12 +683,7 @@ dynamic build(BuildContext context) {
         'Key vs Character Events',
         Column(
           children: [
-            gkRow([
-              'Key Press',
-              'Key Code',
-              'Character',
-              'Unicode',
-            ], isHeader: true),
+            gkRow(['Key Press', 'Key Code', 'Character', 'Unicode'], isHeader: true),
             gkRow(['a', '65', 'a', 'U+0061']),
             gkRow(['Shift+a', '65', 'A', 'U+0041']),
             gkRow(['Ctrl+a', '65', '(none)', 'Ctrl blocks char']),
@@ -812,19 +713,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            gkFlow([
-              'Window Focus',
-              'Poll Modifiers',
-              'Compare Tracked',
-              'Synthesize Events',
-            ]),
+            gkFlow(['Window Focus', 'Poll Modifiers',
+                'Compare Tracked', 'Synthesize Events']),
             const SizedBox(height: 10),
-            gkRow([
-              'Modifier',
-              'OS State',
-              'Flutter State',
-              'Action',
-            ], isHeader: true),
+            gkRow(['Modifier', 'OS State', 'Flutter State', 'Action'], isHeader: true),
             gkRow(['Shift', 'Held', 'Not tracked', 'Synthesize down']),
             gkRow(['Ctrl', 'Released', 'Tracked', 'Synthesize up']),
             gkRow(['Alt', 'Held', 'Tracked', 'No action']),
@@ -919,14 +811,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'GLFWKeyHelper — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('GLFWKeyHelper — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From GLFW scan codes and key codes through layout handling, '
@@ -958,22 +847,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -1001,20 +878,13 @@ Widget _gkRoleRow(String label, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 100,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
         ),
       ],
     ),
@@ -1059,44 +929,25 @@ Widget _gkEventType(String glfw, String flutter, IconData icon, Color color) {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            glfw,
-            style: TextStyle(
-              fontSize: 11,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          child: Text(glfw,
+              style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                  color: color)),
         ),
-        Icon(
-          Icons.arrow_forward,
-          size: 12,
-          color: color.withValues(alpha: 0.5),
-        ),
+        Icon(Icons.arrow_forward, size: 12, color: color.withValues(alpha: 0.5)),
         const SizedBox(width: 4),
         Expanded(
-          child: Text(
-            flutter,
-            style: TextStyle(
-              fontSize: 11,
-              fontFamily: 'monospace',
-              color: color,
-            ),
-          ),
+          child: Text(flutter,
+              style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color)),
         ),
       ],
     ),
   );
 }
 
-Widget _gkDeadKeyStep(
-  int num,
-  String input,
-  String glfwCode,
-  String result,
-  Color color,
-) {
+Widget _gkDeadKeyStep(int num, String input, String glfwCode, String result, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1109,31 +960,22 @@ Widget _gkDeadKeyStep(
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 3,
-          child: Text(input, style: TextStyle(fontSize: 10, color: color)),
+          child: Text(input,
+              style: TextStyle(fontSize: 10, color: color)),
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            glfwCode,
-            style: TextStyle(
-              fontSize: 9,
-              fontFamily: 'monospace',
-              color: color.withValues(alpha: 0.7),
-            ),
-          ),
+          child: Text(glfwCode,
+              style: TextStyle(
+                  fontSize: 9, fontFamily: 'monospace', color: color.withValues(alpha: 0.7))),
         ),
         Expanded(
           flex: 2,
@@ -1143,14 +985,9 @@ Widget _gkDeadKeyStep(
               color: color.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              result,
-              style: TextStyle(
-                fontSize: 9,
-                fontWeight: FontWeight.w600,
-                color: color,
-              ),
-            ),
+            child: Text(result,
+                style: TextStyle(
+                    fontSize: 9, fontWeight: FontWeight.w600, color: color)),
           ),
         ),
       ],
@@ -1168,18 +1005,11 @@ Widget _gkKeyBlock(String label, String codes, Color color) {
     ),
     child: Column(
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-        Text(
-          codes,
-          style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
-        ),
+        Text(label,
+            style: TextStyle(
+                fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+        Text(codes,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
       ],
     ),
   );

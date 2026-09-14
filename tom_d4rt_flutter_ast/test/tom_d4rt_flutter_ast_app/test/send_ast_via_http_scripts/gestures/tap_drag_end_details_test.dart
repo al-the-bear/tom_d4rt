@@ -399,7 +399,11 @@ dynamic build(BuildContext context) {
     ComparisonRow(
       name: 'LongPressEndDetails',
       recogniser: 'LongPressGestureRecognizer',
-      fields: <String>['globalPosition', 'localPosition', 'velocity'],
+      fields: <String>[
+        'globalPosition',
+        'localPosition',
+        'velocity',
+      ],
       tint: Color(0xFFAD1457),
       icon: Icons.timer,
     ),
@@ -533,11 +537,7 @@ Widget buildHeroHeader(TapDragEndDetails canonical) {
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF1A237E),
-          Color(0xFF0277BD),
-          Color(0xFF00838F),
-        ],
+        colors: <Color>[Color(0xFF1A237E), Color(0xFF0277BD), Color(0xFF00838F)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -567,7 +567,11 @@ Widget buildHeroHeader(TapDragEndDetails canonical) {
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Icon(Icons.touch_app, color: Colors.white, size: 36),
+              child: const Icon(
+                Icons.touch_app,
+                color: Colors.white,
+                size: 36,
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -618,14 +622,17 @@ Widget buildHeroHeader(TapDragEndDetails canonical) {
             ),
             buildHeroChip(
               'v = ${canonical.velocity.pixelsPerSecond.dx.toStringAsFixed(0)},'
-              ' ${canonical.velocity.pixelsPerSecond.dy.toStringAsFixed(0)} px/s',
+                  ' ${canonical.velocity.pixelsPerSecond.dy.toStringAsFixed(0)} px/s',
               Icons.speed,
             ),
             buildHeroChip(
               'primary = ${canonical.primaryVelocity?.toStringAsFixed(0)}',
               Icons.straighten,
             ),
-            buildHeroChip('shift held', Icons.keyboard),
+            buildHeroChip(
+              'shift held',
+              Icons.keyboard,
+            ),
           ],
         ),
       ],
@@ -871,10 +878,7 @@ Widget buildFieldCard(FieldEntry entry) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(14),
-      border: Border.all(
-        color: entry.color.withValues(alpha: 0.45),
-        width: 1.2,
-      ),
+      border: Border.all(color: entry.color.withValues(alpha: 0.45), width: 1.2),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: entry.color.withValues(alpha: 0.10),
@@ -1080,7 +1084,11 @@ Widget buildVelocityFrame(VelocitySample sample) {
                           borderRadius: BorderRadius.circular(2),
                         ),
                       ),
-                      Icon(Icons.play_arrow, size: 18, color: sample.tint),
+                      Icon(
+                        Icons.play_arrow,
+                        size: 18,
+                        color: sample.tint,
+                      ),
                     ],
                   ),
                 ),
@@ -1165,7 +1173,12 @@ class AxisGrid extends StatelessWidget {
     return Stack(
       children: <Widget>[
         // Horizontal axis
-        const Positioned(left: 12, right: 12, top: 60 - 0.5, child: AxisLine()),
+        const Positioned(
+          left: 12,
+          right: 12,
+          top: 60 - 0.5,
+          child: AxisLine(),
+        ),
         // Vertical axis
         const Positioned(
           left: 140 - 0.5,
@@ -1185,7 +1198,9 @@ class AxisLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 1,
-      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.18)),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.18),
+      ),
     );
   }
 }
@@ -1197,7 +1212,9 @@ class AxisLineVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 1,
-      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.18)),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.18),
+      ),
     );
   }
 }
@@ -1286,7 +1303,10 @@ Widget buildTapCountCard(TapCountSample sample) {
         const SizedBox(height: 12),
         buildTapStrip(sample.count, sample.tint),
         const SizedBox(height: 12),
-        Text(sample.story, style: const TextStyle(fontSize: 12, height: 1.4)),
+        Text(
+          sample.story,
+          style: const TextStyle(fontSize: 12, height: 1.4),
+        ),
       ],
     ),
   );
@@ -1305,7 +1325,10 @@ Widget buildTapStrip(int count, Color tint) {
           color: tint,
           shape: BoxShape.circle,
           boxShadow: <BoxShadow>[
-            BoxShadow(color: tint.withValues(alpha: 0.45), blurRadius: 4),
+            BoxShadow(
+              color: tint.withValues(alpha: 0.45),
+              blurRadius: 4,
+            ),
           ],
         ),
       ),
@@ -1448,7 +1471,10 @@ Widget buildModifierCard(ModifierSample sample) {
             ],
           ),
         const SizedBox(height: 10),
-        Text(sample.story, style: const TextStyle(fontSize: 12, height: 1.4)),
+        Text(
+          sample.story,
+          style: const TextStyle(fontSize: 12, height: 1.4),
+        ),
       ],
     ),
   );
@@ -1745,13 +1771,13 @@ Widget buildComparisonCard(ComparisonRow row) {
                 message: f,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
+                      horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: row.tint.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: row.tint.withValues(alpha: 0.35)),
+                    border: Border.all(
+                      color: row.tint.withValues(alpha: 0.35),
+                    ),
                   ),
                   child: Text(
                     f,

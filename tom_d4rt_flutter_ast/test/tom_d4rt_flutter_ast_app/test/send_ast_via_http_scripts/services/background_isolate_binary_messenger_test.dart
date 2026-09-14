@@ -52,27 +52,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: silver, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -89,14 +83,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: ash.withValues(alpha: 0.5)),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: charcoal.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: charcoal.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -112,21 +103,16 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: charcoal,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: charcoal,
+                  fontFamily: 'monospace')),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              detail,
-              style: TextStyle(fontSize: 12, color: graphite),
-            ),
+            child: Text(detail,
+                style: TextStyle(fontSize: 12, color: graphite)),
           ),
         ],
       ),
@@ -162,16 +148,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: charcoal,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: charcoal)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -182,19 +168,18 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? slate.withValues(alpha: 0.07) : Colors.transparent,
-        border: Border(bottom: BorderSide(color: ash.withValues(alpha: 0.3))),
+        border: Border(
+          bottom: BorderSide(color: ash.withValues(alpha: 0.3)),
+        ),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? charcoal : graphite,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? charcoal : graphite)),
           );
         }).toList(),
       ),
@@ -211,23 +196,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? charcoal : slate,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.east, size: 12, color: silver),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.east, size: 12, color: silver),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -245,9 +225,7 @@ dynamic build(BuildContext context) {
         color: color,
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-          color: isRoot
-              ? const Color(0xFF4CAF50)
-              : color.withValues(alpha: 0.6),
+          color: isRoot ? const Color(0xFF4CAF50) : color.withValues(alpha: 0.6),
           width: isRoot ? 2 : 1,
         ),
       ),
@@ -259,14 +237,13 @@ dynamic build(BuildContext context) {
               const Icon(Icons.star, size: 12, color: Colors.white),
               const SizedBox(width: 4),
             ],
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: color.computeLuminance() > 0.5 ? charcoal : Colors.white,
-              ),
-            ),
+            Text(label,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: color.computeLuminance() > 0.5
+                        ? charcoal
+                        : Colors.white)),
           ],
         ),
       ),
@@ -293,19 +270,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bgIsolateBox(
-              'Root Isolate (UI) — has BinaryMessenger ✓',
-              slate.withValues(alpha: 0.15),
-              isRoot: true,
-            ),
-            bgIsolateBox(
-              'Background Isolate A — NO BinaryMessenger ✗',
-              const Color(0xFFFFCDD2),
-            ),
-            bgIsolateBox(
-              'Background Isolate B — NO BinaryMessenger ✗',
-              const Color(0xFFFFCDD2),
-            ),
+            bgIsolateBox('Root Isolate (UI) — has BinaryMessenger ✓',
+                slate.withValues(alpha: 0.15), isRoot: true),
+            bgIsolateBox('Background Isolate A — NO BinaryMessenger ✗',
+                const Color(0xFFFFCDD2)),
+            bgIsolateBox('Background Isolate B — NO BinaryMessenger ✗',
+                const Color(0xFFFFCDD2)),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -316,11 +286,7 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.lightbulb,
-                    size: 14,
-                    color: Color(0xFF4CAF50),
-                  ),
+                  const Icon(Icons.lightbulb, size: 14, color: Color(0xFF4CAF50)),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -371,21 +337,16 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.memory, size: 20, color: charcoal),
                         const SizedBox(height: 4),
-                        Text(
-                          'Flutter Engine',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: charcoal,
-                          ),
-                        ),
+                        Text('Flutter Engine',
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: charcoal)),
                         const SizedBox(height: 6),
-                        Text(
-                          'C++ layer binds platform channels to exactly '
-                          'one Dart isolate — the root.',
-                          style: TextStyle(fontSize: 10, color: graphite),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text('C++ layer binds platform channels to exactly '
+                            'one Dart isolate — the root.',
+                            style: TextStyle(fontSize: 10, color: graphite),
+                            textAlign: TextAlign.center),
                       ],
                     ),
                   ),
@@ -397,29 +358,22 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: gunmetal.withValues(alpha: 0.04),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: gunmetal.withValues(alpha: 0.15),
-                      ),
+                      border: Border.all(color: gunmetal.withValues(alpha: 0.15)),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.account_tree, size: 20, color: slate),
                         const SizedBox(height: 4),
-                        Text(
-                          'Background Isolate',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: slate,
-                          ),
-                        ),
+                        Text('Background Isolate',
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: slate)),
                         const SizedBox(height: 6),
-                        Text(
-                          'Has no engine binding. Cannot directly call '
-                          'MethodChannel.invokeMethod.',
-                          style: TextStyle(fontSize: 10, color: graphite),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text('Has no engine binding. Cannot directly call '
+                            'MethodChannel.invokeMethod.',
+                            style: TextStyle(fontSize: 10, color: graphite),
+                            textAlign: TextAlign.center),
                       ],
                     ),
                   ),
@@ -451,30 +405,18 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bgStepItem(
-              1,
-              'Root: Get token',
-              'RootIsolateToken.instance! → passes to spawn',
-              slate,
-            ),
-            _bgStepItem(
-              2,
-              'Spawn isolate',
-              'Isolate.spawn(entryPoint, token)',
-              graphite,
-            ),
-            _bgStepItem(
-              3,
-              'Background: Initialize',
-              'BackgroundIsolateBinaryMessenger.ensureInitialized(token)',
-              flint,
-            ),
-            _bgStepItem(
-              4,
-              'Ready',
-              'Platform channels now available in background isolate',
-              charcoal,
-            ),
+            _bgStepItem(1, 'Root: Get token',
+                'RootIsolateToken.instance! → passes to spawn',
+                slate),
+            _bgStepItem(2, 'Spawn isolate',
+                'Isolate.spawn(entryPoint, token)',
+                graphite),
+            _bgStepItem(3, 'Background: Initialize',
+                'BackgroundIsolateBinaryMessenger.ensureInitialized(token)',
+                flint),
+            _bgStepItem(4, 'Ready',
+                'Platform channels now available in background isolate',
+                charcoal),
           ],
         ),
       ),
@@ -490,79 +432,34 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '// Root isolate:',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: flint,
-                ),
-              ),
-              Text(
-                'final token = RootIsolateToken.instance!;',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: charcoal,
-                ),
-              ),
-              Text(
-                'Isolate.spawn(bgEntry, token);',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: charcoal,
-                ),
-              ),
+              Text('// Root isolate:',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: flint)),
+              Text('final token = RootIsolateToken.instance!;',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: charcoal)),
+              Text('Isolate.spawn(bgEntry, token);',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: charcoal)),
               const SizedBox(height: 8),
-              Text(
-                '// Background isolate entry:',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: flint,
-                ),
-              ),
-              Text(
-                'void bgEntry(RootIsolateToken token) {',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: charcoal,
-                ),
-              ),
-              Text(
-                '  BackgroundIsolateBinaryMessenger',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: charcoal,
-                ),
-              ),
-              Text(
-                '    .ensureInitialized(token);',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: charcoal,
-                ),
-              ),
-              Text(
-                '  // Now use MethodChannel, etc.',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: flint,
-                ),
-              ),
-              Text(
-                '}',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: charcoal,
-                ),
-              ),
+              Text('// Background isolate entry:',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: flint)),
+              Text('void bgEntry(RootIsolateToken token) {',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: charcoal)),
+              Text('  BackgroundIsolateBinaryMessenger',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: charcoal)),
+              Text('    .ensureInitialized(token);',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: charcoal)),
+              Text('  // Now use MethodChannel, etc.',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: flint)),
+              Text('}',
+                  style: TextStyle(
+                      fontSize: 11, fontFamily: 'monospace', color: charcoal)),
             ],
           ),
         ),
@@ -624,21 +521,12 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             bgRow(['Method', 'Signature', 'Purpose'], isHeader: true),
-            bgRow([
-              'send',
-              'Future<ByteData?> send(String, ByteData?)',
-              'Send a message',
-            ]),
-            bgRow([
-              'setMessageHandler',
-              'void set…(String, handler)',
-              'Listen for messages',
-            ]),
-            bgRow([
-              'handlePlatformMessage',
-              'Future handle…(…)',
-              'Process incoming',
-            ]),
+            bgRow(['send', 'Future<ByteData?> send(String, ByteData?)',
+                'Send a message']),
+            bgRow(['setMessageHandler', 'void set…(String, handler)',
+                'Listen for messages']),
+            bgRow(['handlePlatformMessage', 'Future handle…(…)',
+                'Process incoming']),
           ],
         ),
       ),
@@ -647,22 +535,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bgChannelChip(
-              'MethodChannel',
-              'Method calls with JSON/Standard codec',
-              slate,
-            ),
-            _bgChannelChip(
-              'BasicMessageChannel',
-              'Simple typed messages',
-              graphite,
-            ),
+            _bgChannelChip('MethodChannel', 'Method calls with JSON/Standard codec', slate),
+            _bgChannelChip('BasicMessageChannel', 'Simple typed messages', graphite),
             _bgChannelChip('EventChannel', 'Streams from platform', flint),
-            _bgChannelChip(
-              'OptionalMethodChannel',
-              'Nullable method calls',
-              charcoal,
-            ),
+            _bgChannelChip('OptionalMethodChannel', 'Nullable method calls', charcoal),
           ],
         ),
       ),
@@ -687,32 +563,21 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bgFlow([
-              'Load image',
-              'Spawn isolate',
-              'Init messenger',
-              'Process',
-              'Save via channel',
-            ]),
+            bgFlow(['Load image', 'Spawn isolate', 'Init messenger',
+                'Process', 'Save via channel']),
             const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
-                  child: _bgUseCasePanel(
-                    'Root Isolate',
-                    'Coordinates UI updates\nShows progress spinner',
-                    Icons.phone_android,
-                    slate,
-                  ),
+                  child: _bgUseCasePanel('Root Isolate',
+                      'Coordinates UI updates\nShows progress spinner',
+                      Icons.phone_android, slate),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: _bgUseCasePanel(
-                    'Background Isolate',
-                    'Resizes, filters, encodes\nCalls native save API',
-                    Icons.image,
-                    charcoal,
-                  ),
+                  child: _bgUseCasePanel('Background Isolate',
+                      'Resizes, filters, encodes\nCalls native save API',
+                      Icons.image, charcoal),
                 ),
               ],
             ),
@@ -754,14 +619,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.storage, size: 22, color: charcoal),
                         const SizedBox(height: 4),
-                        Text(
-                          'DB Isolate',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: charcoal,
-                          ),
-                        ),
+                        Text('DB Isolate',
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: charcoal)),
                         const SizedBox(height: 6),
                         _bgTaskChip('Heavy query', const Color(0xFF1565C0)),
                         _bgTaskChip('Bulk insert', const Color(0xFF2E7D32)),
@@ -775,10 +637,8 @@ dynamic build(BuildContext context) {
                   child: Column(
                     children: [
                       Icon(Icons.swap_horiz, size: 18, color: silver),
-                      Text(
-                        'channel',
-                        style: TextStyle(fontSize: 8, color: flint),
-                      ),
+                      Text('channel',
+                          style: TextStyle(fontSize: 8, color: flint)),
                     ],
                   ),
                 ),
@@ -788,22 +648,17 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: gunmetal.withValues(alpha: 0.04),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: gunmetal.withValues(alpha: 0.15),
-                      ),
+                      border: Border.all(color: gunmetal.withValues(alpha: 0.15)),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.code, size: 22, color: slate),
                         const SizedBox(height: 4),
-                        Text(
-                          'Native DB',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: slate,
-                          ),
-                        ),
+                        Text('Native DB',
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: slate)),
                         const SizedBox(height: 6),
                         _bgTaskChip('SQLite native', const Color(0xFF546E7A)),
                         _bgTaskChip('Encryption', const Color(0xFF6D4C41)),
@@ -837,32 +692,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bgStepItem(
-              1,
-              'Capture camera frame',
-              'CameraPlugin → root isolate',
-              slate,
-            ),
-            _bgStepItem(
-              2,
-              'Send to BG isolate',
-              'Raw bytes via SendPort',
-              graphite,
-            ),
+            _bgStepItem(1, 'Capture camera frame', 'CameraPlugin → root isolate', slate),
+            _bgStepItem(2, 'Send to BG isolate', 'Raw bytes via SendPort', graphite),
             _bgStepItem(3, 'Pre-process', 'Resize, normalize, quantize', flint),
-            _bgStepItem(
-              4,
-              'Call native ML channel',
-              'Via BackgroundIsolateBinaryMessenger',
-              charcoal,
-            ),
+            _bgStepItem(4, 'Call native ML channel', 'Via BackgroundIsolateBinaryMessenger', charcoal),
             _bgStepItem(5, 'Get prediction', 'Model output returned', gunmetal),
-            _bgStepItem(
-              6,
-              'Send result to UI',
-              'Via SendPort back to root',
-              deepGraphite,
-            ),
+            _bgStepItem(6, 'Send result to UI', 'Via SendPort back to root', deepGraphite),
           ],
         ),
       ),
@@ -885,11 +720,7 @@ dynamic build(BuildContext context) {
         'compute() vs Manual Isolate + Messenger',
         Column(
           children: [
-            bgRow([
-              'Feature',
-              'compute()',
-              'Manual + Messenger',
-            ], isHeader: true),
+            bgRow(['Feature', 'compute()', 'Manual + Messenger'], isHeader: true),
             bgRow(['Simplicity', 'Very easy', 'More setup']),
             bgRow(['Platform channels', 'No ✗', 'Yes ✓']),
             bgRow(['Persistent state', 'No (one-shot)', 'Yes (long-lived)']),
@@ -920,30 +751,18 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bgErrorItem(
-              'UninitializedError',
-              'ensureInitialized() not called before channel use',
-              Icons.error,
-              const Color(0xFFD32F2F),
-            ),
-            _bgErrorItem(
-              'MissingPluginException',
-              'Plugin not registered on platform side for BG isolate',
-              Icons.extension_off,
-              const Color(0xFFE65100),
-            ),
-            _bgErrorItem(
-              'PlatformException',
-              'Native code threw an exception during execution',
-              Icons.warning,
-              const Color(0xFFF57F17),
-            ),
-            _bgErrorItem(
-              'ArgumentError',
-              'Sent non-serializable data through channel',
-              Icons.dangerous,
-              const Color(0xFF6D4C41),
-            ),
+            _bgErrorItem('UninitializedError',
+                'ensureInitialized() not called before channel use',
+                Icons.error, const Color(0xFFD32F2F)),
+            _bgErrorItem('MissingPluginException',
+                'Plugin not registered on platform side for BG isolate',
+                Icons.extension_off, const Color(0xFFE65100)),
+            _bgErrorItem('PlatformException',
+                'Native code threw an exception during execution',
+                Icons.warning, const Color(0xFFF57F17)),
+            _bgErrorItem('ArgumentError',
+                'Sent non-serializable data through channel',
+                Icons.dangerous, const Color(0xFF6D4C41)),
           ],
         ),
       ),
@@ -1066,30 +885,18 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bgSecurityItem(
-              'Token scope',
-              'Only pass to isolates you control',
-              Icons.vpn_key,
-              slate,
-            ),
-            _bgSecurityItem(
-              'Channel validation',
-              'Platform side should validate all messages',
-              Icons.verified_user,
-              graphite,
-            ),
-            _bgSecurityItem(
-              'Data isolation',
-              'BG isolate has separate memory; cannot read UI state',
-              Icons.lock,
-              flint,
-            ),
-            _bgSecurityItem(
-              'No global access',
-              'Token cannot be used to access arbitrary channels',
-              Icons.block,
-              charcoal,
-            ),
+            _bgSecurityItem('Token scope',
+                'Only pass to isolates you control',
+                Icons.vpn_key, slate),
+            _bgSecurityItem('Channel validation',
+                'Platform side should validate all messages',
+                Icons.verified_user, graphite),
+            _bgSecurityItem('Data isolation',
+                'BG isolate has separate memory; cannot read UI state',
+                Icons.lock, flint),
+            _bgSecurityItem('No global access',
+                'Token cannot be used to access arbitrary channels',
+                Icons.block, charcoal),
           ],
         ),
       ),
@@ -1179,14 +986,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'BackgroundIsolateBinaryMessenger — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('BackgroundIsolateBinaryMessenger — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From root isolate constraints through initialization, message '
@@ -1217,22 +1021,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -1258,14 +1050,11 @@ Widget _bgStepItem(int num, String phase, String desc, Color color) {
             borderRadius: BorderRadius.circular(13),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 10),
@@ -1273,18 +1062,14 @@ Widget _bgStepItem(int num, String phase, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                phase,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 11, color: Color(0xFF4A4A4A)),
-              ),
+              Text(phase,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(
+                      fontSize: 11, color: Color(0xFF4A4A4A))),
             ],
           ),
         ),
@@ -1310,18 +1095,14 @@ Widget _bgChannelChip(String name, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: Color(0xFF4A4A4A)),
-              ),
+              Text(name,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(
+                      fontSize: 10, color: Color(0xFF4A4A4A))),
             ],
           ),
         ),
@@ -1342,20 +1123,15 @@ Widget _bgUseCasePanel(String title, String desc, IconData icon, Color color) {
       children: [
         Icon(icon, size: 22, color: color),
         const SizedBox(height: 4),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
+        Text(title,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: color)),
         const SizedBox(height: 4),
-        Text(
-          desc,
-          style: const TextStyle(fontSize: 10, color: Color(0xFF4A4A4A)),
-          textAlign: TextAlign.center,
-        ),
+        Text(desc,
+            style: const TextStyle(fontSize: 10, color: Color(0xFF4A4A4A)),
+            textAlign: TextAlign.center),
       ],
     ),
   );
@@ -1370,11 +1146,9 @@ Widget _bgTaskChip(String text, Color color) {
       color: color.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.w600),
-      textAlign: TextAlign.center,
-    ),
+    child: Text(text,
+        style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.w600),
+        textAlign: TextAlign.center),
   );
 }
 
@@ -1390,18 +1164,14 @@ Widget _bgErrorItem(String title, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: Color(0xFF4A4A4A)),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(
+                      fontSize: 10, color: Color(0xFF4A4A4A))),
             ],
           ),
         ),
@@ -1422,18 +1192,14 @@ Widget _bgSecurityItem(String title, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: Color(0xFF4A4A4A)),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(
+                      fontSize: 10, color: Color(0xFF4A4A4A))),
             ],
           ),
         ),

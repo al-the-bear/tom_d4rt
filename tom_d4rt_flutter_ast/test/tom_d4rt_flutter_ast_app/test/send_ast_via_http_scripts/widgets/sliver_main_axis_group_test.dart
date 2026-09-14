@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_agenda,
       'title': 'What Is SliverMainAxisGroup?',
-      'body':
-          'SliverMainAxisGroup wraps a list of slivers so they behave '
+      'body': 'SliverMainAxisGroup wraps a list of slivers so they behave '
           'as a single composite sliver. The framework treats the group\'s '
           'total extent as one unit — when the group scrolls out, all its '
           'children (including pinned headers) scroll away together.',
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.push_pin,
       'title': 'Pinned Headers That Scroll Away',
-      'body':
-          'Without grouping, a SliverPersistentHeader(pinned: true) stays '
+      'body': 'Without grouping, a SliverPersistentHeader(pinned: true) stays '
           'at the top forever. Inside a SliverMainAxisGroup, the header '
           'only stays pinned while its group is still visible. The next '
           'group\'s header pushes it out — like iOS-style section headers.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Multiple Sections',
-      'body':
-          'Create distinct content sections (e.g., "Favorites", "Recent", '
+      'body': 'Create distinct content sections (e.g., "Favorites", "Recent", '
           '"All Items") where each section has its own header and content '
           'slivers. Groups keep the header associated with the right content.',
       'accent': Colors.teal,
@@ -47,8 +44,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.build_circle,
       'title': 'Typical Use Cases',
-      'body':
-          'Alphabetical contact lists with sticky letter headers. Settings '
+      'body': 'Alphabetical contact lists with sticky letter headers. Settings '
           'pages with category sections. Multi-category product catalogs. '
           'Any UI with grouped scrollable sections that need independent '
           'pinned headers.',
@@ -179,8 +175,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'slivers',
       'type': 'List<Widget>',
-      'desc':
-          'The child slivers to group along the main axis. Typically '
+      'desc': 'The child slivers to group along the main axis. Typically '
           'includes a SliverPersistentHeader (pinned) plus one or more '
           'content slivers (SliverList, SliverGrid, etc.).',
       'required': true,
@@ -320,46 +315,14 @@ dynamic build(BuildContext context) {
           SliverList(
             delegate: SliverChildListDelegate(
               _magBuildItems([
-                {
-                  'name': 'Apple',
-                  'detail': 'Crisp and sweet',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Banana',
-                  'detail': 'Rich in potassium',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Cherry',
-                  'detail': 'Small and tangy',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Date',
-                  'detail': 'Naturally sweet',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Elderberry',
-                  'detail': 'Immune support',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Fig',
-                  'detail': 'Soft and honeyed',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Grape',
-                  'detail': 'Juicy clusters',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Honeydew',
-                  'detail': 'Refreshing melon',
-                  'icon': Icons.circle,
-                },
+                {'name': 'Apple', 'detail': 'Crisp and sweet', 'icon': Icons.circle},
+                {'name': 'Banana', 'detail': 'Rich in potassium', 'icon': Icons.circle},
+                {'name': 'Cherry', 'detail': 'Small and tangy', 'icon': Icons.circle},
+                {'name': 'Date', 'detail': 'Naturally sweet', 'icon': Icons.circle},
+                {'name': 'Elderberry', 'detail': 'Immune support', 'icon': Icons.circle},
+                {'name': 'Fig', 'detail': 'Soft and honeyed', 'icon': Icons.circle},
+                {'name': 'Grape', 'detail': 'Juicy clusters', 'icon': Icons.circle},
+                {'name': 'Honeydew', 'detail': 'Refreshing melon', 'icon': Icons.circle},
               ], Colors.green),
             ),
           ),
@@ -378,46 +341,14 @@ dynamic build(BuildContext context) {
           SliverList(
             delegate: SliverChildListDelegate(
               _magBuildItems([
-                {
-                  'name': 'Artichoke',
-                  'detail': 'Hearty flavor',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Broccoli',
-                  'detail': 'Vitamin-packed',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Carrot',
-                  'detail': 'Beta carotene',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Daikon',
-                  'detail': 'Mild radish',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Eggplant',
-                  'detail': 'Versatile cooking',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Fennel',
-                  'detail': 'Anise-like taste',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Garlic',
-                  'detail': 'Aromatic bulb',
-                  'icon': Icons.circle,
-                },
-                {
-                  'name': 'Horseradish',
-                  'detail': 'Spicy root',
-                  'icon': Icons.circle,
-                },
+                {'name': 'Artichoke', 'detail': 'Hearty flavor', 'icon': Icons.circle},
+                {'name': 'Broccoli', 'detail': 'Vitamin-packed', 'icon': Icons.circle},
+                {'name': 'Carrot', 'detail': 'Beta carotene', 'icon': Icons.circle},
+                {'name': 'Daikon', 'detail': 'Mild radish', 'icon': Icons.circle},
+                {'name': 'Eggplant', 'detail': 'Versatile cooking', 'icon': Icons.circle},
+                {'name': 'Fennel', 'detail': 'Anise-like taste', 'icon': Icons.circle},
+                {'name': 'Garlic', 'detail': 'Aromatic bulb', 'icon': Icons.circle},
+                {'name': 'Horseradish', 'detail': 'Spicy root', 'icon': Icons.circle},
               ], Colors.orange),
             ),
           ),
@@ -530,56 +461,58 @@ dynamic build(BuildContext context) {
             ),
           ),
           SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 14.0,
-                  vertical: 3.0,
-                ),
-                padding: const EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.03),
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: color.withValues(alpha: 0.1)),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 28.0,
-                      height: 28.0,
-                      decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${index + 1}',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: color,
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 14.0, vertical: 3.0,
+                  ),
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.03),
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: color.withValues(alpha: 0.1)),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 28.0,
+                        height: 28.0,
+                        decoration: BoxDecoration(
+                          color: color.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${index + 1}',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: color,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12.0),
-                    Expanded(
-                      child: Text(
-                        items[index],
-                        style: TextStyle(
-                          fontSize: 13.0,
-                          color: Colors.grey.shade800,
+                      const SizedBox(width: 12.0),
+                      Expanded(
+                        child: Text(
+                          items[index],
+                          style: TextStyle(
+                            fontSize: 13.0,
+                            color: Colors.grey.shade800,
+                          ),
                         ),
                       ),
-                    ),
-                    Icon(
-                      Icons.chevron_right,
-                      color: color.withValues(alpha: 0.4),
-                      size: 20.0,
-                    ),
-                  ],
-                ),
-              );
-            }, childCount: items.length),
+                      Icon(
+                        Icons.chevron_right,
+                        color: color.withValues(alpha: 0.4),
+                        size: 20.0,
+                      ),
+                    ],
+                  ),
+                );
+              },
+              childCount: items.length,
+            ),
           ),
         ],
       ),
@@ -631,13 +564,8 @@ dynamic build(BuildContext context) {
   };
 
   final contactColors = [
-    Colors.blue,
-    Colors.red,
-    Colors.green,
-    Colors.purple,
-    Colors.orange,
-    Colors.teal,
-    Colors.indigo,
+    Colors.blue, Colors.red, Colors.green, Colors.purple,
+    Colors.orange, Colors.teal, Colors.indigo,
   ];
 
   final contactSlivers = <Widget>[
@@ -684,72 +612,83 @@ dynamic build(BuildContext context) {
         slivers: [
           SliverPersistentHeader(
             pinned: true,
-            delegate: _LetterHeaderDelegate(letter: letter, color: accent),
+            delegate: _LetterHeaderDelegate(
+              letter: letter,
+              color: accent,
+            ),
           ),
           SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              final c = contacts[index];
-              final initials = c['name']!.split(' ').map((w) => w[0]).join();
-              return Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 14.0,
-                  vertical: 2.0,
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 40.0,
-                      height: 40.0,
-                      decoration: BoxDecoration(
-                        color: accent.withValues(alpha: 0.12),
-                        shape: BoxShape.circle,
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        initials,
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: accent,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12.0),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final c = contacts[index];
+                final initials = c['name']!.split(' ').map((w) => w[0]).join();
+                return Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 14.0, vertical: 2.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 40.0,
+                        height: 40.0,
                         decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade100),
+                          color: accent.withValues(alpha: 0.12),
+                          shape: BoxShape.circle,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          initials,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: accent,
                           ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              c['name']!,
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey.shade800,
+                      ),
+                      const SizedBox(width: 12.0),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 12.0),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Colors.grey.shade100,
                               ),
                             ),
-                            Text(
-                              c['phone']!,
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                color: Colors.grey.shade500,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                c['name']!,
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey.shade800,
+                                ),
                               ),
-                            ),
-                          ],
+                              Text(
+                                c['phone']!,
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Icon(Icons.phone, color: Colors.grey.shade300, size: 20.0),
-                  ],
-                ),
-              );
-            }, childCount: contacts.length),
+                      Icon(
+                        Icons.phone,
+                        color: Colors.grey.shade300,
+                        size: 20.0,
+                      ),
+                    ],
+                  ),
+                );
+              },
+              childCount: contacts.length,
+            ),
           ),
         ],
       ),
@@ -839,30 +778,39 @@ dynamic build(BuildContext context) {
                 crossAxisSpacing: 6.0,
                 mainAxisSpacing: 6.0,
               ),
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.08 + (index * 0.03)),
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: color.withValues(alpha: 0.15)),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(cat['icon'] as IconData, color: color, size: 28.0),
-                      const SizedBox(height: 4.0),
-                      Text(
-                        'Photo ${index + 1}',
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: color,
-                          fontWeight: FontWeight.w600,
-                        ),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.08 + (index * 0.03)),
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: color.withValues(alpha: 0.15),
                       ),
-                    ],
-                  ),
-                );
-              }, childCount: count),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          cat['icon'] as IconData,
+                          color: color,
+                          size: 28.0,
+                        ),
+                        const SizedBox(height: 4.0),
+                        Text(
+                          'Photo ${index + 1}',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: color,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                childCount: count,
+              ),
             ),
           ),
         ],
@@ -884,17 +832,9 @@ dynamic build(BuildContext context) {
       'color': Colors.blue,
       'icon': Icons.person,
       'items': [
-        {
-          'name': 'Profile',
-          'subtitle': 'Name, email, photo',
-          'icon': Icons.account_circle,
-        },
+        {'name': 'Profile', 'subtitle': 'Name, email, photo', 'icon': Icons.account_circle},
         {'name': 'Security', 'subtitle': 'Password, 2FA', 'icon': Icons.lock},
-        {
-          'name': 'Privacy',
-          'subtitle': 'Data sharing preferences',
-          'icon': Icons.privacy_tip,
-        },
+        {'name': 'Privacy', 'subtitle': 'Data sharing preferences', 'icon': Icons.privacy_tip},
       ],
     },
     {
@@ -902,26 +842,10 @@ dynamic build(BuildContext context) {
       'color': Colors.teal,
       'icon': Icons.settings,
       'items': [
-        {
-          'name': 'Appearance',
-          'subtitle': 'Theme, colors, font size',
-          'icon': Icons.palette,
-        },
-        {
-          'name': 'Notifications',
-          'subtitle': 'Push, email, in-app',
-          'icon': Icons.notifications,
-        },
-        {
-          'name': 'Language',
-          'subtitle': 'English (US)',
-          'icon': Icons.language,
-        },
-        {
-          'name': 'Storage',
-          'subtitle': 'Cache, downloads',
-          'icon': Icons.storage,
-        },
+        {'name': 'Appearance', 'subtitle': 'Theme, colors, font size', 'icon': Icons.palette},
+        {'name': 'Notifications', 'subtitle': 'Push, email, in-app', 'icon': Icons.notifications},
+        {'name': 'Language', 'subtitle': 'English (US)', 'icon': Icons.language},
+        {'name': 'Storage', 'subtitle': 'Cache, downloads', 'icon': Icons.storage},
       ],
     },
     {
@@ -929,21 +853,9 @@ dynamic build(BuildContext context) {
       'color': Colors.deepPurple,
       'icon': Icons.tune,
       'items': [
-        {
-          'name': 'Developer Options',
-          'subtitle': 'Debug, logging',
-          'icon': Icons.code,
-        },
-        {
-          'name': 'Experimental',
-          'subtitle': 'Beta features',
-          'icon': Icons.science,
-        },
-        {
-          'name': 'Reset',
-          'subtitle': 'Factory defaults',
-          'icon': Icons.restart_alt,
-        },
+        {'name': 'Developer Options', 'subtitle': 'Debug, logging', 'icon': Icons.code},
+        {'name': 'Experimental', 'subtitle': 'Beta features', 'icon': Icons.science},
+        {'name': 'Reset', 'subtitle': 'Factory defaults', 'icon': Icons.restart_alt},
       ],
     },
     {
@@ -951,21 +863,9 @@ dynamic build(BuildContext context) {
       'color': Colors.grey,
       'icon': Icons.info,
       'items': [
-        {
-          'name': 'Version',
-          'subtitle': '2.5.0 (build 1842)',
-          'icon': Icons.info_outline,
-        },
-        {
-          'name': 'Licenses',
-          'subtitle': 'Open source licenses',
-          'icon': Icons.description,
-        },
-        {
-          'name': 'Help & Feedback',
-          'subtitle': 'Support center',
-          'icon': Icons.help,
-        },
+        {'name': 'Version', 'subtitle': '2.5.0 (build 1842)', 'icon': Icons.info_outline},
+        {'name': 'Licenses', 'subtitle': 'Open source licenses', 'icon': Icons.description},
+        {'name': 'Help & Feedback', 'subtitle': 'Support center', 'icon': Icons.help},
       ],
     },
   ];
@@ -1006,68 +906,70 @@ dynamic build(BuildContext context) {
             ),
           ),
           SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              final item = items[index];
-              return Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 14.0,
-                  vertical: 2.0,
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 36.0,
-                      height: 36.0,
-                      decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Icon(
-                        item['icon'] as IconData,
-                        color: color,
-                        size: 18.0,
-                      ),
-                    ),
-                    const SizedBox(width: 12.0),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final item = items[index];
+                return Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 14.0, vertical: 2.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 36.0,
+                        height: 36.0,
                         decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade100),
+                          color: color.withValues(alpha: 0.08),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Icon(
+                          item['icon'] as IconData,
+                          color: color,
+                          size: 18.0,
+                        ),
+                      ),
+                      const SizedBox(width: 12.0),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 14.0),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: Colors.grey.shade100),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item['name'] as String,
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey.shade800,
+                                ),
+                              ),
+                              Text(
+                                item['subtitle'] as String,
+                                style: TextStyle(
+                                  fontSize: 11.5,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item['name'] as String,
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey.shade800,
-                              ),
-                            ),
-                            Text(
-                              item['subtitle'] as String,
-                              style: TextStyle(
-                                fontSize: 11.5,
-                                color: Colors.grey.shade500,
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
-                    ),
-                    Icon(
-                      Icons.chevron_right,
-                      color: Colors.grey.shade300,
-                      size: 20.0,
-                    ),
-                  ],
-                ),
-              );
-            }, childCount: items.length),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Colors.grey.shade300,
+                        size: 20.0,
+                      ),
+                    ],
+                  ),
+                );
+              },
+              childCount: items.length,
+            ),
           ),
         ],
       ),
@@ -1265,7 +1167,10 @@ dynamic build(BuildContext context) {
                 Text(
                   'SliverMainAxisGroup takes a list of child slivers that '
                   'will be grouped along the main scroll axis.',
-                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
                 const SizedBox(height: 16.0),
                 ...paramCards,
@@ -1430,7 +1335,10 @@ class _LetterHeaderDelegate extends SliverPersistentHeaderDelegate {
 // ============================================================
 // HELPER: Build list items for basic demo
 // ============================================================
-List<Widget> _magBuildItems(List<Map<String, dynamic>> items, Color accent) {
+List<Widget> _magBuildItems(
+  List<Map<String, dynamic>> items,
+  Color accent,
+) {
   return items.map((item) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 3.0),
@@ -1449,7 +1357,11 @@ List<Widget> _magBuildItems(List<Map<String, dynamic>> items, Color accent) {
               color: accent.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
-            child: Icon(item['icon'] as IconData, color: accent, size: 14.0),
+            child: Icon(
+              item['icon'] as IconData,
+              color: accent,
+              size: 14.0,
+            ),
           ),
           const SizedBox(width: 12.0),
           Expanded(
@@ -1466,7 +1378,10 @@ List<Widget> _magBuildItems(List<Map<String, dynamic>> items, Color accent) {
                 ),
                 Text(
                   item['detail'] as String,
-                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey.shade500,
+                  ),
                 ),
               ],
             ),
@@ -1500,7 +1415,10 @@ Widget _magRefRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+            ),
           ),
         ),
       ],

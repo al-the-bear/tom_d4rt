@@ -50,7 +50,9 @@ Widget _saSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [_saRuby, _saDarkRuby]),
+      gradient: LinearGradient(
+        colors: [_saRuby, _saDarkRuby],
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,11 +167,7 @@ Widget _saBadge(String label, Color bg) {
     ),
     child: Text(
       label,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-      ),
+      style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
     ),
   );
 }
@@ -218,35 +216,15 @@ Widget _saSection1Overview() {
               ),
             ),
             const SizedBox(height: 12),
-            _saArchRow(
-              'User Action',
-              'Ctrl+A / Cmd+A / Long press + Select All',
-              _saRose,
-            ),
+            _saArchRow('User Action', 'Ctrl+A / Cmd+A / Long press + Select All', _saRose),
             _saArchArrow(),
-            _saArchRow(
-              'SelectionArea',
-              'Detects gesture → creates event',
-              _saLightRuby,
-            ),
+            _saArchRow('SelectionArea', 'Detects gesture → creates event', _saLightRuby),
             _saArchArrow(),
-            _saArchRow(
-              'SelectAllSelectionEvent',
-              'Event object dispatched',
-              _saGold,
-            ),
+            _saArchRow('SelectAllSelectionEvent', 'Event object dispatched', _saGold),
             _saArchArrow(),
-            _saArchRow(
-              'SelectionHandler',
-              'Dispatches to all Selectables',
-              _saTeal,
-            ),
+            _saArchRow('SelectionHandler', 'Dispatches to all Selectables', _saTeal),
             _saArchArrow(),
-            _saArchRow(
-              'Selectable (×N)',
-              'Each selects all its content',
-              _saLavender,
-            ),
+            _saArchRow('Selectable (×N)', 'Each selects all its content', _saLavender),
           ],
         ),
       ),
@@ -280,7 +258,10 @@ Widget _saArchRow(String label, String desc, Color color) {
         Expanded(
           child: Text(
             desc,
-            style: TextStyle(color: color.withValues(alpha: 0.8), fontSize: 11),
+            style: TextStyle(
+              color: color.withValues(alpha: 0.8),
+              fontSize: 11,
+            ),
           ),
         ),
       ],
@@ -395,10 +376,7 @@ Widget _saSection2Hierarchy() {
               final isThis = e['isThis'] as bool;
               return Container(
                 margin: const EdgeInsets.only(left: 24, top: 4),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: isThis ? color.withValues(alpha: 0.1) : Colors.white,
                   borderRadius: BorderRadius.circular(6),
@@ -441,10 +419,7 @@ Widget _saSection2Hierarchy() {
                           const SizedBox(height: 2),
                           Text(
                             e['desc'] as String,
-                            style: const TextStyle(
-                              fontSize: 11,
-                              color: _saCharcoal,
-                            ),
+                            style: const TextStyle(fontSize: 11, color: _saCharcoal),
                           ),
                         ],
                       ),
@@ -531,21 +506,9 @@ Widget _saSection3Internals() {
             const SizedBox(height: 10),
             _saComplexityRow('SelectAllSelectionEvent', 'No params', 1),
             _saComplexityRow('ClearSelectionEvent', 'No params', 1),
-            _saComplexityRow(
-              'SelectionEdgeUpdateEvent',
-              '3 params (type, offset, granularity)',
-              3,
-            ),
-            _saComplexityRow(
-              'GranularlyExtendSelectionEvent',
-              '2 params (forward, granularity)',
-              2,
-            ),
-            _saComplexityRow(
-              'DirectionallyExtendSelectionEvent',
-              '3 params (dx, dy, isEnd)',
-              3,
-            ),
+            _saComplexityRow('SelectionEdgeUpdateEvent', '3 params (type, offset, granularity)', 3),
+            _saComplexityRow('GranularlyExtendSelectionEvent', '2 params (forward, granularity)', 2),
+            _saComplexityRow('DirectionallyExtendSelectionEvent', '3 params (dx, dy, isEnd)', 3),
           ],
         ),
       ),
@@ -574,18 +537,15 @@ Widget _saComplexityRow(String name, String params, int bars) {
         Expanded(
           flex: 2,
           child: Row(
-            children: List.generate(
-              5,
-              (i) => Container(
-                width: 14,
-                height: 14,
-                margin: const EdgeInsets.only(right: 3),
-                decoration: BoxDecoration(
-                  color: i < bars ? _saRuby : _saRuby.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(3),
-                ),
+            children: List.generate(5, (i) => Container(
+              width: 14,
+              height: 14,
+              margin: const EdgeInsets.only(right: 3),
+              decoration: BoxDecoration(
+                color: i < bars ? _saRuby : _saRuby.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(3),
               ),
-            ),
+            )),
           ),
         ),
       ],
@@ -637,31 +597,11 @@ Widget _saSection4Flow() {
             ),
             const SizedBox(height: 12),
             _saTreeNode('SelectionArea', 0, _saRose, note: 'creates event'),
-            _saTreeNode(
-              'SelectionHandler (registrar)',
-              1,
-              _saLightRuby,
-              note: 'dispatches',
-            ),
+            _saTreeNode('SelectionHandler (registrar)', 1, _saLightRuby, note: 'dispatches'),
             _saTreeNode('Column', 2, Colors.grey, note: 'pass-through'),
-            _saTreeNode(
-              'Text("Hello") → RenderParagraph',
-              3,
-              _saTeal,
-              note: 'selects all',
-            ),
-            _saTreeNode(
-              'Text("World") → RenderParagraph',
-              3,
-              _saTeal,
-              note: 'selects all',
-            ),
-            _saTreeNode(
-              'RichText(...) → RenderParagraph',
-              3,
-              _saTeal,
-              note: 'selects all',
-            ),
+            _saTreeNode('Text("Hello") → RenderParagraph', 3, _saTeal, note: 'selects all'),
+            _saTreeNode('Text("World") → RenderParagraph', 3, _saTeal, note: 'selects all'),
+            _saTreeNode('RichText(...) → RenderParagraph', 3, _saTeal, note: 'selects all'),
           ],
         ),
       ),
@@ -688,7 +628,10 @@ Widget _saTreeNode(String label, int depth, Color color, {String? note}) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
@@ -889,11 +832,7 @@ Widget _saSection6BeforeAfter() {
                   children: [
                     Row(
                       children: [
-                        const Icon(
-                          Icons.text_fields,
-                          color: Colors.grey,
-                          size: 14,
-                        ),
+                        const Icon(Icons.text_fields, color: Colors.grey, size: 14),
                         const SizedBox(width: 6),
                         _saBadge('BEFORE', Colors.grey),
                       ],
@@ -902,11 +841,7 @@ Widget _saSection6BeforeAfter() {
                     const Text(
                       'Hello World\n\n'
                       'This is a paragraph\nof text content.',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: _saCharcoal,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(fontSize: 12, color: _saCharcoal, height: 1.4),
                     ),
                     const SizedBox(height: 6),
                     const Text(
@@ -952,11 +887,7 @@ Widget _saSection6BeforeAfter() {
                       child: const Text(
                         'Hello World\n\n'
                         'This is a paragraph\nof text content.',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: _saCharcoal,
-                          height: 1.4,
-                        ),
+                        style: TextStyle(fontSize: 12, color: _saCharcoal, height: 1.4),
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -1058,13 +989,7 @@ Widget _saSection7Patterns() {
   );
 }
 
-Widget _saPatternCard(
-  String title,
-  String code,
-  String explanation,
-  IconData icon,
-  Color color,
-) {
+Widget _saPatternCard(String title, String code, String explanation, IconData icon, Color color) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
     decoration: BoxDecoration(
@@ -1124,11 +1049,7 @@ Widget _saPatternCard(
           padding: const EdgeInsets.all(12),
           child: Text(
             explanation,
-            style: const TextStyle(
-              fontSize: 12,
-              color: _saCharcoal,
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 12, color: _saCharcoal, height: 1.4),
           ),
         ),
       ],
@@ -1160,10 +1081,7 @@ Widget _saSection8Summary() {
         child: Column(
           children: [
             _saSummaryRow('Type', 'Concrete SelectionEvent subclass'),
-            _saSummaryRow(
-              'Purpose',
-              'Commands all selectables to select everything',
-            ),
+            _saSummaryRow('Purpose', 'Commands all selectables to select everything'),
             _saSummaryRow('Parameters', 'None — the type IS the command'),
             _saSummaryRow('Triggered by', 'Ctrl+A, Cmd+A, or context menu'),
             _saSummaryRow('Handled by', 'Any class implementing Selectable'),
@@ -1187,7 +1105,9 @@ Widget _saSection8Summary() {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: [_saRuby, _saDarkRuby]),
+          gradient: const LinearGradient(
+            colors: [_saRuby, _saDarkRuby],
+          ),
           borderRadius: BorderRadius.circular(10),
         ),
         child: const Row(
@@ -1197,8 +1117,8 @@ Widget _saSection8Summary() {
             Expanded(
               child: Text(
                 'SelectAllSelectionEvent: zero parameters, maximum '
-                'selection. The simplest command in Flutter\'s selection '
-                'system.',
+                    'selection. The simplest command in Flutter\'s selection '
+                    'system.',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12.5,
@@ -1310,8 +1230,8 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 6),
                   Text(
                     'The "select all" command in Flutter\'s rendering-layer '
-                    'selection system. Dispatched to every Selectable in '
-                    'a SelectionArea when Ctrl+A / Cmd+A is pressed.',
+                        'selection system. Dispatched to every Selectable in '
+                        'a SelectionArea when Ctrl+A / Cmd+A is pressed.',
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.85),
                       fontSize: 13,

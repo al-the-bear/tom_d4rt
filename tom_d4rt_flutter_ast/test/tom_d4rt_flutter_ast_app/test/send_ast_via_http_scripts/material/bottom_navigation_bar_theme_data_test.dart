@@ -106,26 +106,10 @@ Widget buildNavBarDemo({
             spacing: 6,
             runSpacing: 4,
             children: [
-              _buildMiniChip(
-                'Type',
-                type == BottomNavigationBarType.fixed ? 'fixed' : 'shifting',
-                Colors.blue,
-              ),
-              _buildMiniChip(
-                'Icon Size',
-                iconSize.toStringAsFixed(0),
-                Colors.green,
-              ),
-              _buildMiniChip(
-                'Sel Font',
-                selectedFontSize.toStringAsFixed(0),
-                Colors.orange,
-              ),
-              _buildMiniChip(
-                'Elevation',
-                elevation.toStringAsFixed(0),
-                Colors.purple,
-              ),
+              _buildMiniChip('Type', type == BottomNavigationBarType.fixed ? 'fixed' : 'shifting', Colors.blue),
+              _buildMiniChip('Icon Size', iconSize.toStringAsFixed(0), Colors.green),
+              _buildMiniChip('Sel Font', selectedFontSize.toStringAsFixed(0), Colors.orange),
+              _buildMiniChip('Elevation', elevation.toStringAsFixed(0), Colors.purple),
             ],
           ),
         ),
@@ -145,7 +129,10 @@ Widget buildNavBarDemo({
             currentIndex: currentIndex,
             elevation: elevation,
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: 'Search',
@@ -177,7 +164,10 @@ Widget _buildMiniChip(String key, String value, Color color) {
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: color.withAlpha(60)),
     ),
-    child: Text('$key: $value', style: TextStyle(fontSize: 10, color: color)),
+    child: Text(
+      '$key: $value',
+      style: TextStyle(fontSize: 10, color: color),
+    ),
   );
 }
 
@@ -195,11 +185,7 @@ Widget buildThemeDataCard({
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: accentColor.withAlpha(50)),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(12),
-          blurRadius: 4,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black.withAlpha(12), blurRadius: 4, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -236,11 +222,7 @@ Widget buildThemeDataCard({
                   width: 160,
                   child: Text(
                     entry.key,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey.shade700),
                   ),
                 ),
                 Expanded(
@@ -279,35 +261,18 @@ Widget buildSelectionComparison({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
+        Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
         SizedBox(height: 12),
         Row(
           children: [
             Expanded(
               child: Column(
                 children: [
-                  Text(
-                    'Selected',
-                    style: TextStyle(fontSize: 11, color: Colors.grey),
-                  ),
+                  Text('Selected', style: TextStyle(fontSize: 11, color: Colors.grey)),
                   SizedBox(height: 8),
-                  Icon(
-                    Icons.home,
-                    color: selectedColor,
-                    size: selectedIconSize,
-                  ),
+                  Icon(Icons.home, color: selectedColor, size: selectedIconSize),
                   SizedBox(height: 4),
-                  Text(
-                    'Home',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: selectedColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  Text('Home', style: TextStyle(fontSize: 12, color: selectedColor, fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
@@ -315,21 +280,11 @@ Widget buildSelectionComparison({
             Expanded(
               child: Column(
                 children: [
-                  Text(
-                    'Unselected',
-                    style: TextStyle(fontSize: 11, color: Colors.grey),
-                  ),
+                  Text('Unselected', style: TextStyle(fontSize: 11, color: Colors.grey)),
                   SizedBox(height: 8),
-                  Icon(
-                    Icons.search,
-                    color: unselectedColor,
-                    size: unselectedIconSize,
-                  ),
+                  Icon(Icons.search, color: unselectedColor, size: unselectedIconSize),
                   SizedBox(height: 4),
-                  Text(
-                    'Search',
-                    style: TextStyle(fontSize: 12, color: unselectedColor),
-                  ),
+                  Text('Search', style: TextStyle(fontSize: 12, color: unselectedColor)),
                 ],
               ),
             ),
@@ -403,9 +358,7 @@ dynamic build(BuildContext context) {
 
         // Section 2: Fixed Type Variations
         buildSectionTitle('2. Fixed Type Navigation Bars'),
-        buildDescription(
-          'BottomNavigationBarType.fixed - all items visible equally',
-        ),
+        buildDescription('BottomNavigationBarType.fixed - all items visible equally'),
 
         buildNavBarDemo(
           title: 'Fixed - Default Light',
@@ -446,9 +399,7 @@ dynamic build(BuildContext context) {
 
         // Section 3: Shifting Type Variations
         buildSectionTitle('3. Shifting Type Navigation Bars'),
-        buildDescription(
-          'BottomNavigationBarType.shifting - selected item expands',
-        ),
+        buildDescription('BottomNavigationBarType.shifting - selected item expands'),
 
         buildNavBarDemo(
           title: 'Shifting - Blue/White',
@@ -591,9 +542,7 @@ dynamic build(BuildContext context) {
 
         // Section 7: Selected vs Unselected Comparison
         buildSectionTitle('7. Selected vs Unselected Comparison'),
-        buildDescription(
-          'Side-by-side comparison of selected and unselected states',
-        ),
+        buildDescription('Side-by-side comparison of selected and unselected states'),
 
         buildSelectionComparison(
           title: 'Blue / Grey',

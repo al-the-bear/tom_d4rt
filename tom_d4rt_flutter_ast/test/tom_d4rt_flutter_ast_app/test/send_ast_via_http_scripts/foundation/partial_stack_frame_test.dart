@@ -87,7 +87,11 @@ dynamic build(BuildContext context) {
             'identifying frames. Three fields: package (Pattern), className '
             '(String), method (String). Used by FlutterError.defaultStackFilter '
             'and RepetitiveStackFrameFilter.',
-            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.5),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.white,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -124,11 +128,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.account_tree_outlined,
-              color: Colors.blueGrey.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.account_tree_outlined,
+                color: Colors.blueGrey.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Three Fields',
@@ -221,10 +222,8 @@ dynamic build(BuildContext context) {
       method: s['method'] as String,
     );
     sampleFrames.add(f);
-    print(
-      'Sample ${s['label']}: package=${f.package} '
-      'className=${f.className} method=${f.method}',
-    );
+    print('Sample ${s['label']}: package=${f.package} '
+        'className=${f.className} method=${f.method}');
     sampleCards.add(_buildSampleCard(s, f));
   }
   print('Built ${sampleCards.length} constructor sample cards');
@@ -235,10 +234,8 @@ dynamic build(BuildContext context) {
   print('=== Section 4: asynchronousSuspension Constant ===');
 
   final asyncFrame = PartialStackFrame.asynchronousSuspension;
-  print(
-    'asynchronousSuspension package="${asyncFrame.package}" '
-    'className="${asyncFrame.className}" method="${asyncFrame.method}"',
-  );
+  print('asynchronousSuspension package="${asyncFrame.package}" '
+      'className="${asyncFrame.className}" method="${asyncFrame.method}"');
 
   final asyncBlock = Container(
     padding: EdgeInsets.all(20.0),
@@ -263,11 +260,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.hourglass_empty,
-              color: Colors.purple.shade700,
-              size: 26.0,
-            ),
+            Icon(Icons.hourglass_empty,
+                color: Colors.purple.shade700, size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'PartialStackFrame.asynchronousSuspension',
@@ -429,10 +423,8 @@ dynamic build(BuildContext context) {
       method: row['method'] as String,
     );
     final actual = psf.matches(elementRebuildFrame);
-    print(
-      'regexp[${row['displayPattern']}] => $actual '
-      '(expected ${row['expected']})',
-    );
+    print('regexp[${row['displayPattern']}] => $actual '
+        '(expected ${row['expected']})');
     regexpCards.add(_buildRegexpRow(row, actual));
   }
   print('Built ${regexpCards.length} regexp pattern rows');
@@ -495,7 +487,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Target string built from StackFrame:',
-                style: TextStyle(fontSize: 11.0, color: Colors.cyan.shade700),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.cyan.shade700,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -510,7 +505,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Composed as:',
-                style: TextStyle(fontSize: 11.0, color: Colors.cyan.shade700),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.cyan.shade700,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -538,9 +536,17 @@ dynamic build(BuildContext context) {
           Colors.green,
         ),
         SizedBox(height: 6.0),
-        _buildAllMatchesRow('dart:core', stackFramePackageString, Colors.red),
+        _buildAllMatchesRow(
+          'dart:core',
+          stackFramePackageString,
+          Colors.red,
+        ),
         SizedBox(height: 6.0),
-        _buildAllMatchesRow('painting', stackFramePackageString, Colors.red),
+        _buildAllMatchesRow(
+          'painting',
+          stackFramePackageString,
+          Colors.red,
+        ),
       ],
     ),
   );
@@ -575,11 +581,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.devices_other,
-              color: Colors.orange.shade800,
-              size: 24.0,
-            ),
+            Icon(Icons.devices_other,
+                color: Colors.orange.shade800, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'Platform-Specific Behavior',
@@ -591,7 +594,8 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(width: 12.0),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: kIsWeb
                     ? Colors.lightBlue.shade100
@@ -713,8 +717,7 @@ dynamic build(BuildContext context) {
       packagePath: 'errors_patch.dart',
       className: '_AssertionError',
       method: '_doThrowNew',
-      source:
-          '#0      _AssertionError._doThrowNew '
+      source: '#0      _AssertionError._doThrowNew '
           '(dart:core-patch/errors_patch.dart:5:9)',
     ),
     StackFrame(
@@ -726,8 +729,7 @@ dynamic build(BuildContext context) {
       packagePath: 'errors_patch.dart',
       className: '_AssertionError',
       method: '_throwNew',
-      source:
-          '#1      _AssertionError._throwNew '
+      source: '#1      _AssertionError._throwNew '
           '(dart:core-patch/errors_patch.dart:18:7)',
     ),
     StackFrame(
@@ -739,8 +741,7 @@ dynamic build(BuildContext context) {
       packagePath: 'src/widgets/framework.dart',
       className: 'Element',
       method: 'rebuild',
-      source:
-          '#2      Element.rebuild '
+      source: '#2      Element.rebuild '
           '(package:flutter/src/widgets/framework.dart:100:1)',
     ),
     StackFrame(
@@ -752,8 +753,7 @@ dynamic build(BuildContext context) {
       packagePath: 'src/widgets/framework.dart',
       className: 'StatefulElement',
       method: 'performRebuild',
-      source:
-          '#3      StatefulElement.performRebuild '
+      source: '#3      StatefulElement.performRebuild '
           '(package:flutter/src/widgets/framework.dart:250:1)',
     ),
     StackFrame(
@@ -765,8 +765,7 @@ dynamic build(BuildContext context) {
       packagePath: 'main.dart',
       className: 'MyApp',
       method: 'build',
-      source:
-          '#4      MyApp.build '
+      source: '#4      MyApp.build '
           '(package:my_app/main.dart:42:7)',
     ),
   ];
@@ -800,10 +799,8 @@ dynamic build(BuildContext context) {
       row.add(p.matches(frame));
     }
     matchMatrix.add(row);
-    print(
-      'Frame#${frame.number} ${frame.className}.${frame.method} '
-      '-> ${row.join(",")}',
-    );
+    print('Frame#${frame.number} ${frame.className}.${frame.method} '
+        '-> ${row.join(",")}');
   }
 
   final useCaseBlock = Container(
@@ -829,11 +826,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.filter_alt_outlined,
-              color: Colors.teal.shade800,
-              size: 24.0,
-            ),
+            Icon(Icons.filter_alt_outlined,
+                color: Colors.teal.shade800, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'Filtering a Synthetic Stack Trace',
@@ -897,7 +891,8 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: Colors.teal.shade200, width: 1.0),
+                bottom:
+                    BorderSide(color: Colors.teal.shade200, width: 1.0),
               ),
             ),
             child: Row(
@@ -956,11 +951,13 @@ dynamic build(BuildContext context) {
           children: [
             for (int i = 0; i < filterPatterns.length; i++)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.teal.shade300, width: 1.0),
+                  border:
+                      Border.all(color: Colors.teal.shade300, width: 1.0),
                 ),
                 child: Text(
                   'F${i + 1}: ${filterPatterns[i].package} '
@@ -1125,7 +1122,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.summarize_outlined, color: Colors.white, size: 24.0),
+            Icon(Icons.summarize_outlined,
+                color: Colors.white, size: 24.0),
             SizedBox(width: 10.0),
             Text(
               'Demo Stats',
@@ -1142,26 +1140,19 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               child: _buildStatTile(
-                'Constructors',
-                '${sampleFrames.length}',
-                Icons.build,
-              ),
+                  'Constructors', '${sampleFrames.length}', Icons.build),
             ),
             SizedBox(width: 10.0),
             Expanded(
               child: _buildStatTile(
-                'String Rows',
-                '${stringPatternRows.length}',
-                Icons.text_format,
-              ),
+                  'String Rows', '${stringPatternRows.length}',
+                  Icons.text_format),
             ),
             SizedBox(width: 10.0),
             Expanded(
               child: _buildStatTile(
-                'Regexp Rows',
-                '${regexpRows.length}',
-                Icons.find_in_page_outlined,
-              ),
+                  'Regexp Rows', '${regexpRows.length}',
+                  Icons.find_in_page_outlined),
             ),
           ],
         ),
@@ -1170,26 +1161,18 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               child: _buildStatTile(
-                'Trace Frames',
-                '${stackFrames.length}',
-                Icons.list_alt_outlined,
-              ),
+                  'Trace Frames', '${stackFrames.length}',
+                  Icons.list_alt_outlined),
             ),
             SizedBox(width: 10.0),
             Expanded(
               child: _buildStatTile(
-                'Filter Hits',
-                '$trueCount',
-                Icons.check_circle_outline,
-              ),
+                  'Filter Hits', '$trueCount', Icons.check_circle_outline),
             ),
             SizedBox(width: 10.0),
             Expanded(
               child: _buildStatTile(
-                'Misses',
-                '$falseCount',
-                Icons.cancel_outlined,
-              ),
+                  'Misses', '$falseCount', Icons.cancel_outlined),
             ),
           ],
         ),
@@ -1234,7 +1217,10 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(height: 8.0),
-            Wrap(alignment: WrapAlignment.start, children: sampleCards),
+            Wrap(
+              alignment: WrapAlignment.start,
+              children: sampleCards,
+            ),
             SizedBox(height: 24.0),
             Text(
               '3. asynchronousSuspension',
@@ -1357,7 +1343,10 @@ Widget _buildFieldRow(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.04)],
+        colors: [
+          color.withValues(alpha: 0.10),
+          color.withValues(alpha: 0.04),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1401,9 +1390,7 @@ Widget _buildFieldRow(
                   SizedBox(width: 8.0),
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 2.0,
-                    ),
+                        horizontal: 6.0, vertical: 2.0),
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1446,7 +1433,10 @@ Widget _buildSampleCard(Map<String, dynamic> spec, PartialStackFrame f) {
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.18)],
+        colors: [
+          color.withValues(alpha: 0.10),
+          color.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1481,11 +1471,8 @@ Widget _buildSampleCard(Map<String, dynamic> spec, PartialStackFrame f) {
         ),
         SizedBox(height: 10.0),
         _buildKeyValue('package', '${f.package}', color),
-        _buildKeyValue(
-          'className',
-          f.className.isEmpty ? '"" (top-level)' : f.className,
-          color,
-        ),
+        _buildKeyValue('className',
+            f.className.isEmpty ? '"" (top-level)' : f.className, color),
         _buildKeyValue('method', f.method, color),
       ],
     ),
@@ -1541,7 +1528,9 @@ Widget _buildMatchRow(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(
-        color: correct ? Colors.green.shade300 : Colors.red.shade300,
+        color: correct
+            ? Colors.green.shade300
+            : Colors.red.shade300,
         width: 1.0,
       ),
       boxShadow: [
@@ -1632,7 +1621,10 @@ Widget _buildRegexpRow(Map<String, dynamic> row, bool actual) {
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.deepPurple.shade50, Colors.indigo.shade50],
+        colors: [
+          Colors.deepPurple.shade50,
+          Colors.indigo.shade50,
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1735,7 +1727,9 @@ Widget _buildAllMatchesRow(String pattern, String target, Color color) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(8.0),
       border: Border.all(
-        color: isMatch ? Colors.green.shade300 : Colors.red.shade300,
+        color: isMatch
+            ? Colors.green.shade300
+            : Colors.red.shade300,
         width: 1.0,
       ),
     ),
@@ -1800,7 +1794,10 @@ Widget _buildPlatformCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.22)],
+        colors: [
+          color.withValues(alpha: 0.12),
+          color.withValues(alpha: 0.22),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1840,7 +1837,8 @@ Widget _buildPlatformCard(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.chevron_right, color: color, size: 16.0),
+                Icon(Icons.chevron_right,
+                    color: color, size: 16.0),
                 SizedBox(width: 4.0),
                 Expanded(
                   child: Text(
@@ -1888,7 +1886,10 @@ Widget _buildPrivateMethodRow(Map<String, dynamic> row) {
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.04)],
+        colors: [
+          color.withValues(alpha: 0.10),
+          color.withValues(alpha: 0.04),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1986,7 +1987,10 @@ Widget _buildStatTile(String label, String value, IconData icon) {
             SizedBox(width: 6.0),
             Text(
               label,
-              style: TextStyle(fontSize: 11.0, color: Colors.white70),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.white70,
+              ),
             ),
           ],
         ),
@@ -2011,7 +2015,10 @@ Widget _buildCodeBlock(String code, Color textColor) {
     decoration: BoxDecoration(
       color: Colors.black.withValues(alpha: 0.45),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: textColor.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: textColor.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
     ),
     child: Text(
       code,

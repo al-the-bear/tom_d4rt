@@ -213,8 +213,7 @@ const List<_MixerSamplePayload> _kSamplePayloads = <_MixerSamplePayload>[
     library: 'package:aurora_mixer/src/strip/channel_strip.dart',
     className: 'MixerChannelStrip',
     objectLabel: 'channelStrip#03 (Kick Drum)',
-    notes:
-        'Allocated when the user opens the mixer view; one per visible '
+    notes: 'Allocated when the user opens the mixer view; one per visible '
         'channel. Carries gain, pan, mute, solo and a list of inserts.',
     tint: _kCyan,
     glyph: Icons.tune,
@@ -223,8 +222,7 @@ const List<_MixerSamplePayload> _kSamplePayloads = <_MixerSamplePayload>[
     library: 'package:aurora_mixer/src/eq/eq_band_filter.dart',
     className: 'EQBandFilter',
     objectLabel: 'eqBand#03-low-shelf',
-    notes:
-        'Created lazily the first time the EQ panel is expanded. Backed '
+    notes: 'Created lazily the first time the EQ panel is expanded. Backed '
         'by a biquad coefficient buffer; lifetime tied to the parent strip.',
     tint: _kMagenta,
     glyph: Icons.graphic_eq,
@@ -233,8 +231,7 @@ const List<_MixerSamplePayload> _kSamplePayloads = <_MixerSamplePayload>[
     library: 'package:aurora_mixer/src/buss/buss_send_node.dart',
     className: 'BussSendNode',
     objectLabel: 'sendNode#03->aux-reverb',
-    notes:
-        'Allocated on first routing; carries a weak reference to the '
+    notes: 'Allocated on first routing; carries a weak reference to the '
         'destination buss, plus pre/post fader configuration.',
     tint: _kIris,
     glyph: Icons.alt_route,
@@ -243,8 +240,7 @@ const List<_MixerSamplePayload> _kSamplePayloads = <_MixerSamplePayload>[
     library: 'package:aurora_mixer/src/meter/meter_decay_sampler.dart',
     className: 'MeterDecaySampler',
     objectLabel: 'meterSampler#03 (RMS+peak)',
-    notes:
-        'Allocated per visible channel; samples RMS and peak. Eligible '
+    notes: 'Allocated per visible channel; samples RMS and peak. Eligible '
         'for disposal as soon as the strip scrolls off-screen.',
     tint: _kMint,
     glyph: Icons.equalizer,
@@ -253,8 +249,7 @@ const List<_MixerSamplePayload> _kSamplePayloads = <_MixerSamplePayload>[
     library: 'package:aurora_mixer/src/automation/automation_lane.dart',
     className: 'AutomationLane',
     objectLabel: 'automation#03/gain',
-    notes:
-        'Allocated when the user enables automation recording on a '
+    notes: 'Allocated when the user enables automation recording on a '
         'parameter. Holds breakpoints and an interpolation strategy.',
     tint: _kAmber,
     glyph: Icons.timeline,
@@ -263,8 +258,7 @@ const List<_MixerSamplePayload> _kSamplePayloads = <_MixerSamplePayload>[
     library: 'package:flutter/widgets.dart',
     className: 'GlobalKey',
     objectLabel: 'GlobalKey<MixerStripState>#a1b2',
-    notes:
-        'Flutter itself dispatches a creation event for tracked keys, so '
+    notes: 'Flutter itself dispatches a creation event for tracked keys, so '
         'DevTools can correlate widget identity with object lifecycle.',
     tint: _kRose,
     glyph: Icons.vpn_key,
@@ -296,8 +290,7 @@ const List<_AnatomyField> _kAnatomyFields = <_AnatomyField>[
     name: 'library',
     type: 'String',
     kind: 'identifier',
-    purpose:
-        'Fully qualified library URI of the class. Always present, may '
+    purpose: 'Fully qualified library URI of the class. Always present, may '
         'be a "dart:", "package:" or relative path.',
     accent: _kCyan,
   ),
@@ -305,8 +298,7 @@ const List<_AnatomyField> _kAnatomyFields = <_AnatomyField>[
     name: 'className',
     type: 'String',
     kind: 'identifier',
-    purpose:
-        'Simple (unqualified) class name as the framework knows it. '
+    purpose: 'Simple (unqualified) class name as the framework knows it. '
         'Used by DevTools to group allocations by type.',
     accent: _kMagenta,
   ),
@@ -314,8 +306,7 @@ const List<_AnatomyField> _kAnatomyFields = <_AnatomyField>[
     name: 'object',
     type: 'Object',
     kind: 'reference',
-    purpose:
-        'The newly created instance itself. Strong reference at dispatch '
+    purpose: 'The newly created instance itself. Strong reference at dispatch '
         'time, but DevTools will usually keep only weak handles.',
     accent: _kIris,
   ),
@@ -323,8 +314,7 @@ const List<_AnatomyField> _kAnatomyFields = <_AnatomyField>[
     name: 'runtimeType',
     type: 'Type',
     kind: 'inherited',
-    purpose:
-        'For ObjectCreated, this is "ObjectCreated". For ObjectDisposed '
+    purpose: 'For ObjectCreated, this is "ObjectCreated". For ObjectDisposed '
         'it is the disposal subclass — useful for routing in listeners.',
     accent: _kMint,
   ),
@@ -517,10 +507,7 @@ Widget _sectionFrame({
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: _kGradGlass,
-                  border: Border.all(
-                    color: glyphTint.withAlpha(0x88),
-                    width: 1.4,
-                  ),
+                  border: Border.all(color: glyphTint.withAlpha(0x88), width: 1.4),
                 ),
                 child: Icon(glyph, color: glyphTint, size: 22),
               ),
@@ -530,10 +517,7 @@ Widget _sectionFrame({
                 decoration: BoxDecoration(
                   color: _kAbyss.withAlpha(0xAA),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                    color: glyphTint.withAlpha(0x66),
-                    width: 1,
-                  ),
+                  border: Border.all(color: glyphTint.withAlpha(0x66), width: 1),
                 ),
                 child: Text(
                   index,
@@ -598,14 +582,22 @@ Widget _sectionFrame({
 Widget _prose(String text) {
   return Text(
     text,
-    style: const TextStyle(color: _kInk, fontSize: 13, height: 1.55),
+    style: const TextStyle(
+      color: _kInk,
+      fontSize: 13,
+      height: 1.55,
+    ),
   );
 }
 
 Widget _proseDim(String text) {
   return Text(
     text,
-    style: const TextStyle(color: _kInkDim, fontSize: 12.5, height: 1.55),
+    style: const TextStyle(
+      color: _kInkDim,
+      fontSize: 12.5,
+      height: 1.55,
+    ),
   );
 }
 
@@ -691,7 +683,11 @@ Widget _buildHeader() {
               'instance from its first breath to its eventual disposal. This '
               'screen walks through the event\'s anatomy, the contexts where '
               'Flutter fires it, and how it pairs with ObjectDisposed.',
-              style: TextStyle(color: _kInk, fontSize: 12.8, height: 1.5),
+              style: TextStyle(
+                color: _kInk,
+                fontSize: 12.8,
+                height: 1.5,
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -803,7 +799,10 @@ Widget _buildAnatomyRow(_AnatomyField field) {
             shape: BoxShape.circle,
             color: field.accent,
             boxShadow: <BoxShadow>[
-              BoxShadow(color: field.accent.withAlpha(0xAA), blurRadius: 8),
+              BoxShadow(
+                color: field.accent.withAlpha(0xAA),
+                blurRadius: 8,
+              ),
             ],
           ),
         ),
@@ -933,7 +932,9 @@ Widget _buildSectionDispatchContexts() {
           'in DevTools.',
         ),
         const SizedBox(height: 14),
-        Column(children: contexts.map(_buildDispatchRow).toList()),
+        Column(
+          children: contexts.map(_buildDispatchRow).toList(),
+        ),
         const SizedBox(height: 8),
         _proseDim(
           'This static demo cannot actually trigger any of these pipelines — '
@@ -1307,7 +1308,10 @@ class _PayloadGalleryBodyState extends State<_PayloadGalleryBody> {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: p.tint.withAlpha(0x22),
                   borderRadius: BorderRadius.circular(6),
@@ -1339,7 +1343,11 @@ class _PayloadGalleryBodyState extends State<_PayloadGalleryBody> {
             ),
             child: Text(
               p.notes,
-              style: const TextStyle(color: _kInk, fontSize: 12, height: 1.5),
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 12,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -1636,9 +1644,7 @@ Widget _buildSectionPairing() {
           children: <Widget>[
             Expanded(child: _pairCard(_kCyan, 'ObjectCreated', _createdLines)),
             const SizedBox(width: 10),
-            Expanded(
-              child: _pairCard(_kRose, 'ObjectDisposed', _disposedLines),
-            ),
+            Expanded(child: _pairCard(_kRose, 'ObjectDisposed', _disposedLines)),
           ],
         ),
         const SizedBox(height: 14),
@@ -1849,7 +1855,11 @@ Widget _buildPitfallTile(_PitfallEntry e) {
               const SizedBox(height: 3),
               Text(
                 e.body,
-                style: const TextStyle(color: _kInk, fontSize: 12, height: 1.5),
+                style: const TextStyle(
+                  color: _kInk,
+                  fontSize: 12,
+                  height: 1.5,
+                ),
               ),
             ],
           ),
@@ -1914,7 +1924,11 @@ Widget _buildClosingReferenceCard() {
             'retest sibling tells the same story with a different palette, a '
             'different sample domain, and a different ordering — read both '
             'side by side to compare the two presentations.',
-            style: TextStyle(color: _kInk, fontSize: 12, height: 1.5),
+            style: TextStyle(
+              color: _kInk,
+              fontSize: 12,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -1985,14 +1999,10 @@ Widget _buildSanityProbe() {
   );
   // We intentionally do NOT addListener — that could persist across runs.
   // Print the probes so the d4rt harness sees real foundation activity.
-  print(
-    '[ObjectCreated probe] library=${probeA.library} '
-    'class=${probeA.className} object=${probeA.object.runtimeType}',
-  );
-  print(
-    '[ObjectCreated probe] library=${probeB.library} '
-    'class=${probeB.className} object=${probeB.object.runtimeType}',
-  );
+  print('[ObjectCreated probe] library=${probeA.library} '
+      'class=${probeA.className} object=${probeA.object.runtimeType}');
+  print('[ObjectCreated probe] library=${probeB.library} '
+      'class=${probeB.className} object=${probeB.object.runtimeType}');
 
   return _sectionFrame(
     index: 'IX',

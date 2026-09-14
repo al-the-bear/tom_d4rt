@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'What is TreeSliverNode?',
-      'body':
-          'TreeSliverNode<T> is a generic data class that models one '
+      'body': 'TreeSliverNode<T> is a generic data class that models one '
           'node in a tree hierarchy. It pairs user content of type T '
           'with tree metadata: child nodes, expansion state, and '
           'computed depth. It feeds TreeSliver for rendering.',
@@ -27,8 +26,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.folder_open,
       'title': 'Hierarchical Data',
-      'body':
-          'Trees are everywhere: file systems, org charts, menus, '
+      'body': 'Trees are everywhere: file systems, org charts, menus, '
           'nested categories. TreeSliverNode models these naturally. '
           'Each node can have zero or more children, forming branches '
           'and leaves in an expandable tree.',
@@ -37,8 +35,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.data_object,
       'title': 'Generic Content',
-      'body':
-          'The type parameter T holds your data: a String, a FileInfo, '
+      'body': 'The type parameter T holds your data: a String, a FileInfo, '
           'a MenuItem — anything. TreeSliverNode wraps it with tree '
           'structure metadata so Flutter can render and animate it.',
       'accent': Colors.deepOrange,
@@ -46,8 +43,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.expand_more,
       'title': 'Expansion State',
-      'body':
-          'Each node tracks whether it is expanded or collapsed. When '
+      'body': 'Each node tracks whether it is expanded or collapsed. When '
           'expanded, its children are visible. When collapsed, the '
           'children are hidden. This state drives the TreeSliver\u0027s '
           'layout and animations.',
@@ -126,32 +122,28 @@ dynamic build(BuildContext context) {
     {
       'name': 'content',
       'type': 'T',
-      'desc':
-          'The user data for this node. Can be any type: String, int, '
+      'desc': 'The user data for this node. Can be any type: String, int, '
           'custom object. Accessed when building the visual row for '
           'this node in TreeSliver.',
     },
     {
       'name': 'children',
       'type': 'List<TreeSliverNode<T>>',
-      'desc':
-          'Child nodes forming branches of the tree. An empty list means '
+      'desc': 'Child nodes forming branches of the tree. An empty list means '
           'this is a leaf node (no expand arrow). Can be modified '
           'dynamically to add or remove subtrees.',
     },
     {
       'name': 'expanded',
       'type': 'bool',
-      'desc':
-          'Whether this node\u0027s children are currently visible. Default '
+      'desc': 'Whether this node\u0027s children are currently visible. Default '
           'is false (collapsed). Set to true to show children. Only '
           'meaningful for nodes that have children.',
     },
     {
       'name': 'depth',
       'type': 'int (computed)',
-      'desc':
-          'The level of nesting for this node. Root nodes have depth 0, '
+      'desc': 'The level of nesting for this node. Root nodes have depth 0, '
           'their children have depth 1, etc. Used for indentation. '
           'Computed by TreeSliver, not set manually.',
     },
@@ -240,50 +232,43 @@ dynamic build(BuildContext context) {
   final constructionExamples = <Map<String, dynamic>>[
     {
       'title': 'Leaf Node (No Children)',
-      'code':
-          'TreeSliverNode<String>(\n'
+      'code': 'TreeSliverNode<String>(\n'
           '  "readme.txt",\n'
           ')',
-      'desc':
-          'Simplest form: a leaf node with just content. No expand '
+      'desc': 'Simplest form: a leaf node with just content. No expand '
           'arrow will appear since it has no children.',
       'icon': Icons.insert_drive_file,
       'color': Colors.grey,
     },
     {
       'title': 'Branch Node (With Children)',
-      'code':
-          'TreeSliverNode<String>(\n'
+      'code': 'TreeSliverNode<String>(\n'
           '  "src/",\n'
           '  children: [\n'
           '    TreeSliverNode("main.dart"),\n'
           '    TreeSliverNode("utils.dart"),\n'
           '  ],\n'
           ')',
-      'desc':
-          'A branch node that contains two leaf children. Shows an '
+      'desc': 'A branch node that contains two leaf children. Shows an '
           'expand/collapse toggle.',
       'icon': Icons.folder,
       'color': Colors.amber,
     },
     {
       'title': 'Pre-Expanded Node',
-      'code':
-          'TreeSliverNode<String>(\n'
+      'code': 'TreeSliverNode<String>(\n'
           '  "lib/",\n'
           '  children: [...],\n'
           '  expanded: true,\n'
           ')',
-      'desc':
-          'Create a node that starts expanded. Its children are '
+      'desc': 'Create a node that starts expanded. Its children are '
           'visible immediately without user interaction.',
       'icon': Icons.folder_open,
       'color': Colors.teal,
     },
     {
       'title': 'Deep Nesting',
-      'code':
-          'TreeSliverNode("root/",\n'
+      'code': 'TreeSliverNode("root/",\n'
           '  children: [\n'
           '    TreeSliverNode("level1/",\n'
           '      children: [\n'
@@ -296,16 +281,14 @@ dynamic build(BuildContext context) {
           '    ),\n'
           '  ],\n'
           ')',
-      'desc':
-          'Nodes can nest arbitrarily deep. Each level increases '
+      'desc': 'Nodes can nest arbitrarily deep. Each level increases '
           'the depth value and indent.',
       'icon': Icons.account_tree,
       'color': Colors.blue,
     },
     {
       'title': 'Custom Content Type',
-      'code':
-          'class FileInfo {\n'
+      'code': 'class FileInfo {\n'
           '  final String name;\n'
           '  final int sizeKb;\n'
           '  FileInfo(this.name, this.sizeKb);\n'
@@ -315,8 +298,7 @@ dynamic build(BuildContext context) {
           '  FileInfo("photo.jpg", 2048),\n'
           '  children: [],\n'
           ')',
-      'desc':
-          'Use any type T as content. The tree builder callback '
+      'desc': 'Use any type T as content. The tree builder callback '
           'accesses node.content to display your custom data.',
       'icon': Icons.data_object,
       'color': Colors.deepOrange,
@@ -342,7 +324,11 @@ dynamic build(BuildContext context) {
                     color: ceColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(ce['icon'] as IconData, color: ceColor, size: 20),
+                  child: Icon(
+                    ce['icon'] as IconData,
+                    color: ceColor,
+                    size: 20,
+                  ),
                 ),
                 if (i < constructionExamples.length - 1)
                   Container(
@@ -461,12 +447,7 @@ dynamic build(BuildContext context) {
     final depth = tv['depth'] as int;
     treeVizWidgets.add(
       Container(
-        margin: EdgeInsets.only(
-          left: 16.0 + depth * 24.0,
-          right: 16,
-          top: 3,
-          bottom: 3,
-        ),
+        margin: EdgeInsets.only(left: 16.0 + depth * 24.0, right: 16, top: 3, bottom: 3),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: tvColor.withOpacity(tv['isLeaf'] as bool ? 0.04 : 0.08),
@@ -503,32 +484,28 @@ dynamic build(BuildContext context) {
   final childrenNotes = <Map<String, dynamic>>[
     {
       'title': 'Leaf Nodes',
-      'desc':
-          'Nodes with an empty children list or null children. They '
+      'desc': 'Nodes with an empty children list or null children. They '
           'cannot be expanded. In a file explorer, files are leaves.',
       'icon': Icons.insert_drive_file,
       'color': Colors.grey,
     },
     {
       'title': 'Branch Nodes',
-      'desc':
-          'Nodes with at least one child. They show an expand/collapse '
+      'desc': 'Nodes with at least one child. They show an expand/collapse '
           'indicator. In a file explorer, folders are branches.',
       'icon': Icons.folder,
       'color': Colors.amber,
     },
     {
       'title': 'Dynamic Children',
-      'desc':
-          'Children can be added or removed at runtime. Calling '
+      'desc': 'Children can be added or removed at runtime. Calling '
           'setState after modifying children rebuilds the tree view.',
       'icon': Icons.add_circle_outline,
       'color': Colors.blue,
     },
     {
       'title': 'Lazy Children',
-      'desc':
-          'For large trees, populate children on demand when the user '
+      'desc': 'For large trees, populate children on demand when the user '
           'expands a node. This avoids loading the entire tree upfront.',
       'icon': Icons.hourglass_empty,
       'color': Colors.green,
@@ -592,8 +569,7 @@ dynamic build(BuildContext context) {
   final expansionStates = <Map<String, dynamic>>[
     {
       'state': 'Collapsed (default)',
-      'desc':
-          'Children are hidden. The expand arrow points right (\u25B6). '
+      'desc': 'Children are hidden. The expand arrow points right (\u25B6). '
           'This is the initial state for all newly created nodes '
           'unless expanded: true is passed.',
       'visual': '\u25B6 Documents/',
@@ -602,19 +578,16 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'Expanded',
-      'desc':
-          'Children are visible in the list. The expand arrow points '
+      'desc': 'Children are visible in the list. The expand arrow points '
           'down (\u25BC). Set expanded: true in the constructor or '
           'toggle by user tap.',
       'visual': '\u25BC Documents/',
-      'children':
-          '  \u251C Resume.pdf\n  \u251C Cover.docx\n  \u2514 Notes.txt',
+      'children': '  \u251C Resume.pdf\n  \u251C Cover.docx\n  \u2514 Notes.txt',
       'color': Colors.teal,
     },
     {
       'state': 'Toggling',
-      'desc':
-          'TreeSliver animates the expansion. Children slide in or '
+      'desc': 'TreeSliver animates the expansion. Children slide in or '
           'out smoothly. The node\u0027s expanded flag is flipped. '
           'TreeSliver handles the animation automatically.',
       'visual': '\u25BC\u2192\u25B6 Archiving...',
@@ -707,19 +680,9 @@ dynamic build(BuildContext context) {
     {'depth': 0, 'label': 'Root node', 'indent': 0, 'color': Colors.teal},
     {'depth': 1, 'label': 'First child', 'indent': 24, 'color': Colors.blue},
     {'depth': 2, 'label': 'Grandchild', 'indent': 48, 'color': Colors.green},
-    {
-      'depth': 3,
-      'label': 'Great-grandchild',
-      'indent': 72,
-      'color': Colors.orange,
-    },
+    {'depth': 3, 'label': 'Great-grandchild', 'indent': 72, 'color': Colors.orange},
     {'depth': 4, 'label': 'Deep descendant', 'indent': 96, 'color': Colors.red},
-    {
-      'depth': 5,
-      'label': 'Very deep node',
-      'indent': 120,
-      'color': Colors.purple,
-    },
+    {'depth': 5, 'label': 'Very deep node', 'indent': 120, 'color': Colors.purple},
   ];
 
   final depthWidgets = <Widget>[];
@@ -829,22 +792,18 @@ dynamic build(BuildContext context) {
     {
       'title': 'File Explorer',
       'icon': Icons.folder_special,
-      'desc':
-          'Most iconic use. Folders as branches, files as leaves. '
+      'desc': 'Most iconic use. Folders as branches, files as leaves. '
           'Content type: FileSystemEntity or custom FileNode.',
-      'example':
-          'TreeSliverNode<FileNode>(FileNode("src/", isDir: true),\n'
+      'example': 'TreeSliverNode<FileNode>(FileNode("src/", isDir: true),\n'
           '  children: [TreeSliverNode(FileNode("main.dart"))])',
       'color': Colors.amber,
     },
     {
       'title': 'Organization Chart',
       'icon': Icons.people,
-      'desc':
-          'Each person node contains employees as children. '
+      'desc': 'Each person node contains employees as children. '
           'Expanding reveals direct reports.',
-      'example':
-          'TreeSliverNode(Person("CEO"),\n'
+      'example': 'TreeSliverNode(Person("CEO"),\n'
           '  children: [\n'
           '    TreeSliverNode(Person("CTO"), children: [...]),\n'
           '    TreeSliverNode(Person("CFO"), children: [...]),\n'
@@ -854,11 +813,9 @@ dynamic build(BuildContext context) {
     {
       'title': 'Category Browser',
       'icon': Icons.category,
-      'desc':
-          'Product categories with subcategories. E-commerce apps '
+      'desc': 'Product categories with subcategories. E-commerce apps '
           'use this for navigation and filtering.',
-      'example':
-          'TreeSliverNode(Category("Electronics"),\n'
+      'example': 'TreeSliverNode(Category("Electronics"),\n'
           '  children: [\n'
           '    TreeSliverNode(Category("Phones"), children: [...]),\n'
           '    TreeSliverNode(Category("Laptops"), children: [...]),\n'
@@ -868,11 +825,9 @@ dynamic build(BuildContext context) {
     {
       'title': 'Settings Menu',
       'icon': Icons.settings,
-      'desc':
-          'Nested settings groups. Top-level sections expand to '
+      'desc': 'Nested settings groups. Top-level sections expand to '
           'reveal individual settings.',
-      'example':
-          'TreeSliverNode(SettingsGroup("Display"),\n'
+      'example': 'TreeSliverNode(SettingsGroup("Display"),\n'
           '  children: [\n'
           '    TreeSliverNode(Setting("Brightness")),\n'
           '    TreeSliverNode(Setting("Theme")),\n'
@@ -882,11 +837,9 @@ dynamic build(BuildContext context) {
     {
       'title': 'Comment Threads',
       'icon': Icons.comment,
-      'desc':
-          'Reddit-style nested replies. Each comment is a node, '
+      'desc': 'Reddit-style nested replies. Each comment is a node, '
           'replies are children. Depth controls indentation.',
-      'example':
-          'TreeSliverNode(Comment("Great post!"),\n'
+      'example': 'TreeSliverNode(Comment("Great post!"),\n'
           '  children: [\n'
           '    TreeSliverNode(Comment("Thanks!"), children: [...]),\n'
           '  ])',
@@ -968,38 +921,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.account_tree,
-      'text':
-          'TreeSliverNode<T> pairs your data with tree metadata: '
+      'text': 'TreeSliverNode<T> pairs your data with tree metadata: '
           'children, expansion state, and depth.',
     },
     {
       'icon': Icons.data_object,
-      'text':
-          'Generic type T can be any content — String, custom class, '
+      'text': 'Generic type T can be any content — String, custom class, '
           'enum. The tree builder accesses content to render rows.',
     },
     {
       'icon': Icons.expand_more,
-      'text':
-          'Expansion is per-node boolean state. Toggle it and rebuild '
+      'text': 'Expansion is per-node boolean state. Toggle it and rebuild '
           'to show/hide children smoothly.',
     },
     {
       'icon': Icons.format_indent_increase,
-      'text':
-          'Depth is computed by TreeSliver. Use it for visual '
+      'text': 'Depth is computed by TreeSliver. Use it for visual '
           'indentation: left padding = depth * indent size.',
     },
     {
       'icon': Icons.insert_drive_file,
-      'text':
-          'Leaf nodes (no children) have no expand arrow. Branch '
+      'text': 'Leaf nodes (no children) have no expand arrow. Branch '
           'nodes (with children) show expand/collapse controls.',
     },
     {
       'icon': Icons.folder_special,
-      'text':
-          'Common uses: file explorers, org charts, settings menus, '
+      'text': 'Common uses: file explorers, org charts, settings menus, '
           'category browsers, comment threads.',
     },
   ];
@@ -1026,7 +973,11 @@ dynamic build(BuildContext context) {
                 color: Colors.teal.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(sp['icon'] as IconData, color: Colors.teal, size: 20),
+              child: Icon(
+                sp['icon'] as IconData,
+                color: Colors.teal,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(

@@ -158,7 +158,11 @@ enum _Stage {
   compendium,
 }
 
-enum _Density { light, normal, dense }
+enum _Density {
+  light,
+  normal,
+  dense,
+}
 
 class _TraceLine {
   final DateTime at;
@@ -248,17 +252,13 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
   Set<Factory<OneSequenceGestureRecognizer>> _recognizers() {
     final set = <Factory<OneSequenceGestureRecognizer>>{};
     if (_useEager) {
-      set.add(
-        Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new),
-      );
+      set.add(Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new));
     }
     if (_usePan) {
       set.add(Factory<OneSequenceGestureRecognizer>(PanGestureRecognizer.new));
     }
     if (_useScale) {
-      set.add(
-        Factory<OneSequenceGestureRecognizer>(ScaleGestureRecognizer.new),
-      );
+      set.add(Factory<OneSequenceGestureRecognizer>(ScaleGestureRecognizer.new));
     }
     return set;
   }
@@ -282,12 +282,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
   }
 
   void _pushTrace(String source, String note, Color tone) {
-    final row = _TraceLine(
-      at: DateTime.now(),
-      source: source,
-      note: note,
-      tone: tone,
-    );
+    final row = _TraceLine(at: DateTime.now(), source: source, note: note, tone: tone);
     setState(() {
       _timeline.insert(0, row);
       if (_timeline.length > 40) {
@@ -349,11 +344,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(
-                  Icons.desktop_mac_rounded,
-                  color: Colors.white,
-                  size: 18,
-                ),
+                child: const Icon(Icons.desktop_mac_rounded, color: Colors.white, size: 18),
               ),
               const SizedBox(width: 10),
               const Expanded(
@@ -409,36 +400,15 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text(
-            'Stage',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Stage', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           for (var i = 0; i < _stageLabels.length; i++) _stageChip(i),
           const SizedBox(width: 10),
-          Text(
-            'Density',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Density', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           _densityChip('Light', _Density.light),
           _densityChip('Normal', _Density.normal),
           _densityChip('Dense', _Density.dense),
           const SizedBox(width: 10),
-          Text(
-            'Palette',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
           Row(
@@ -497,9 +467,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
           border: Border.all(
-            color: _paletteIndex == index
-                ? _palettes[index].accentC
-                : Colors.transparent,
+            color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent,
             width: 2,
           ),
         ),
@@ -585,27 +553,11 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                   spacing: 8,
                   runSpacing: 8,
                   children: <Widget>[
-                    _checkTile(
-                      'attempt live view',
-                      _attemptLiveView,
-                      (v) => _attemptLiveView = v,
-                    ),
+                    _checkTile('attempt live view', _attemptLiveView, (v) => _attemptLiveView = v),
                     _checkTile('grid overlay', _showGrid, (v) => _showGrid = v),
-                    _checkTile(
-                      'inspector rail',
-                      _showInspectorRail,
-                      (v) => _showInspectorRail = v,
-                    ),
-                    _checkTile(
-                      'telemetry chips',
-                      _showTelemetry,
-                      (v) => _showTelemetry = v,
-                    ),
-                    _checkTile(
-                      'pattern backdrop',
-                      _showBackdropPattern,
-                      (v) => _showBackdropPattern = v,
-                    ),
+                    _checkTile('inspector rail', _showInspectorRail, (v) => _showInspectorRail = v),
+                    _checkTile('telemetry chips', _showTelemetry, (v) => _showTelemetry = v),
+                    _checkTile('pattern backdrop', _showBackdropPattern, (v) => _showBackdropPattern = v),
                   ],
                 ),
               ],
@@ -628,9 +580,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                           Expanded(
                             flex: 2,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                _cornerRadius,
-                              ),
+                              borderRadius: BorderRadius.circular(_cornerRadius),
                               clipBehavior: _clipMode,
                               child: _AppKitLane(
                                 key: ValueKey(
@@ -694,11 +644,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
         children: <Widget>[
           Text(
             'Embedding Checklist',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
-            ),
+            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13),
           ),
           const SizedBox(height: 8),
           _bullet('Register native AppKit view type on macOS host side.'),
@@ -706,9 +652,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
           _bullet('Provide creationParams and StandardMessageCodec.'),
           _bullet('Choose hit-test behavior for interaction layering.'),
           _bullet('Set gesture recognizers intentionally per use case.'),
-          _bullet(
-            'Observe onPlatformViewCreated callback for lifecycle trace.',
-          ),
+          _bullet('Observe onPlatformViewCreated callback for lifecycle trace.'),
           const SizedBox(height: 8),
           if (_showTelemetry)
             Wrap(
@@ -754,14 +698,8 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
               runSpacing: 8,
               children: <Widget>[
                 _hitChip('Opaque', PlatformViewHitTestBehavior.opaque),
-                _hitChip(
-                  'Translucent',
-                  PlatformViewHitTestBehavior.translucent,
-                ),
-                _hitChip(
-                  'Transparent',
-                  PlatformViewHitTestBehavior.transparent,
-                ),
+                _hitChip('Translucent', PlatformViewHitTestBehavior.translucent),
+                _hitChip('Transparent', PlatformViewHitTestBehavior.transparent),
                 const SizedBox(width: 14),
                 _clipChip('Clip.none', Clip.none),
                 _clipChip('Clip.hardEdge', Clip.hardEdge),
@@ -775,30 +713,10 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
             spacing: 12,
             runSpacing: 12,
             children: <Widget>[
-              _policyCard(
-                'Opaque Lane',
-                PlatformViewHitTestBehavior.opaque,
-                Clip.hardEdge,
-                6201,
-              ),
-              _policyCard(
-                'Translucent Lane',
-                PlatformViewHitTestBehavior.translucent,
-                Clip.antiAlias,
-                6202,
-              ),
-              _policyCard(
-                'Transparent Lane',
-                PlatformViewHitTestBehavior.transparent,
-                Clip.none,
-                6203,
-              ),
-              _policyCard(
-                'SaveLayer Wrapper Lane',
-                PlatformViewHitTestBehavior.opaque,
-                Clip.antiAliasWithSaveLayer,
-                6204,
-              ),
+              _policyCard('Opaque Lane', PlatformViewHitTestBehavior.opaque, Clip.hardEdge, 6201),
+              _policyCard('Translucent Lane', PlatformViewHitTestBehavior.translucent, Clip.antiAlias, 6202),
+              _policyCard('Transparent Lane', PlatformViewHitTestBehavior.transparent, Clip.none, 6203),
+              _policyCard('SaveLayer Wrapper Lane', PlatformViewHitTestBehavior.opaque, Clip.antiAliasWithSaveLayer, 6204),
             ],
           ),
         ],
@@ -824,9 +742,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
             borderRadius: BorderRadius.circular(14),
             clipBehavior: clip,
             child: _AppKitLane(
-              key: ValueKey(
-                'policy-$viewId-$_attemptLiveView-$_recognizers().length',
-              ),
+              key: ValueKey('policy-$viewId-$_attemptLiveView-$_recognizers().length'),
               label: title,
               viewType: 'tom.demo.appkit.policy.$viewId',
               viewId: viewId,
@@ -910,18 +826,13 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                   spacing: 8,
                   runSpacing: 8,
                   children: <Widget>[
-                    for (var i = 0; i < _creationPresets.length; i++)
-                      _presetChip(i),
+                    for (var i = 0; i < _creationPresets.length; i++) _presetChip(i),
                   ],
                 ),
                 const SizedBox(height: 10),
                 Text(
                   _creationPresets[_presetIndex].explanation,
-                  style: TextStyle(
-                    color: _p.muted,
-                    fontSize: 11.5,
-                    height: 1.35,
-                  ),
+                  style: TextStyle(color: _p.muted, fontSize: 11.5, height: 1.35),
                 ),
                 const SizedBox(height: 10),
                 Container(
@@ -961,9 +872,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                       borderRadius: BorderRadius.circular(14),
                       clipBehavior: _clipMode,
                       child: _AppKitLane(
-                        key: ValueKey(
-                          'params-preset-$_presetIndex-$_attemptLiveView-$_recognizers().length',
-                        ),
+                        key: ValueKey('params-preset-$_presetIndex-$_attemptLiveView-$_recognizers().length'),
                         label: 'Preset payload lane',
                         viewType: 'tom.demo.appkit.params.preset',
                         viewId: 6301,
@@ -993,21 +902,11 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      _bullet(
-                        'Use stable keys and version payload when evolving schema.',
-                      ),
-                      _bullet(
-                        'Decode with StandardMessageCodec-compatible types only.',
-                      ),
-                      _bullet(
-                        'Avoid large binary payloads in creation params.',
-                      ),
-                      _bullet(
-                        'Treat params as initialization snapshot, not live stream.',
-                      ),
-                      _bullet(
-                        'Emit native-side logs when params mismatch expected contract.',
-                      ),
+                      _bullet('Use stable keys and version payload when evolving schema.'),
+                      _bullet('Decode with StandardMessageCodec-compatible types only.'),
+                      _bullet('Avoid large binary payloads in creation params.'),
+                      _bullet('Treat params as initialization snapshot, not live stream.'),
+                      _bullet('Emit native-side logs when params mismatch expected contract.'),
                     ],
                   ),
                 ),
@@ -1080,11 +979,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                     spacing: 6,
                     runSpacing: 6,
                     children: <Widget>[
-                      _chip(
-                        'recognizers',
-                        '${_recognizers().length}',
-                        _p.accentB,
-                      ),
+                      _chip('recognizers', '${_recognizers().length}', _p.accentB),
                       _chip('active hit', _hitBehavior.name, _p.accentA),
                     ],
                   ),
@@ -1144,17 +1039,14 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                       borderRadius: BorderRadius.circular(14),
                       clipBehavior: _clipMode,
                       child: _AppKitLane(
-                        key: ValueKey(
-                          'gesture-empty-$_attemptLiveView-$_hitBehavior',
-                        ),
+                        key: ValueKey('gesture-empty-$_attemptLiveView-$_hitBehavior'),
                         label: 'No recognizers',
                         viewType: 'tom.demo.appkit.gesture.empty',
                         viewId: 6402,
                         canCreateReal: _supportsAppKit,
                         attemptReal: _attemptLiveView,
                         hitTestBehavior: _hitBehavior,
-                        gestureRecognizers:
-                            const <Factory<OneSequenceGestureRecognizer>>{},
+                        gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
                         creationParams: _payload(),
                         palette: _p,
                         itemCount: _effectiveSimRows,
@@ -1232,17 +1124,12 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                     ),
                     const SizedBox(width: 8),
                     TextButton.icon(
-                      onPressed: () => _pushTrace(
-                        'marker',
-                        'Manual timeline marker',
-                        _p.accentC,
-                      ),
+                      onPressed: () => _pushTrace('marker', 'Manual timeline marker', _p.accentC),
                       icon: const Icon(Icons.bookmark_add_outlined),
                       label: const Text('Add marker'),
                     ),
                     const Spacer(),
-                    if (_showTelemetry)
-                      _chip('rows', '${_timeline.length}', _p.accentB),
+                    if (_showTelemetry) _chip('rows', '${_timeline.length}', _p.accentB),
                   ],
                 ),
               ],
@@ -1262,10 +1149,9 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                         style: TextStyle(color: _p.muted, fontSize: 11.8),
                       ),
                     )
-                  : ListView.separated(
+                    : ListView.separated(
                       itemCount: _timeline.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 6),
+                      separatorBuilder: (context, index) => const SizedBox(height: 6),
                       itemBuilder: (context, index) {
                         final row = _timeline[index];
                         return Container(
@@ -1273,9 +1159,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                           decoration: BoxDecoration(
                             color: row.tone.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: row.tone.withValues(alpha: 0.35),
-                            ),
+                            border: Border.all(color: row.tone.withValues(alpha: 0.35)),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1285,11 +1169,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                               Expanded(
                                 child: Text(
                                   row.note,
-                                  style: TextStyle(
-                                    color: _p.ink,
-                                    fontSize: 11.3,
-                                    height: 1.34,
-                                  ),
+                                  style: TextStyle(color: _p.ink, fontSize: 11.3, height: 1.34),
                                 ),
                               ),
                               const SizedBox(width: 8),
@@ -1313,15 +1193,13 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
             spacing: 12,
             runSpacing: 12,
             children: <Widget>[
-              for (var i = 0; i < _windowProfiles.length; i++)
-                _windowCard(_windowProfiles[i], 6500 + i),
+              for (var i = 0; i < _windowProfiles.length; i++) _windowCard(_windowProfiles[i], 6500 + i),
               _windowCard(
                 _WindowProfile(
                   name: 'Custom Profile',
                   width: _customWindowWidth,
                   height: _customWindowHeight,
-                  intent:
-                      'User-defined profile for exploratory integration checks.',
+                  intent: 'User-defined profile for exploratory integration checks.',
                 ),
                 6601,
               ),
@@ -1386,38 +1264,14 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
             subtitle: 'What it is, why it exists, and how to integrate it.',
             child: Column(
               children: <Widget>[
-                _matrix(
-                  'Widget role',
-                  'Embed native AppKit NSView into Flutter on macOS.',
-                ),
-                _matrix(
-                  'Platform',
-                  'macOS only for live rendering; fallback recommended elsewhere.',
-                ),
-                _matrix(
-                  'viewType',
-                  'String key matching native AppKit factory registration.',
-                ),
-                _matrix(
-                  'creationParams',
-                  'Initialization payload decoded by native factory.',
-                ),
-                _matrix(
-                  'creationParamsCodec',
-                  'Codec for payload, usually StandardMessageCodec.',
-                ),
-                _matrix(
-                  'hitTestBehavior',
-                  'Pointer event routing between Flutter and native view.',
-                ),
-                _matrix(
-                  'gestureRecognizers',
-                  'Explicit set of recognizers forwarded to platform view.',
-                ),
-                _matrix(
-                  'onPlatformViewCreated',
-                  'Lifecycle callback to capture view ID and trace state.',
-                ),
+                _matrix('Widget role', 'Embed native AppKit NSView into Flutter on macOS.'),
+                _matrix('Platform', 'macOS only for live rendering; fallback recommended elsewhere.'),
+                _matrix('viewType', 'String key matching native AppKit factory registration.'),
+                _matrix('creationParams', 'Initialization payload decoded by native factory.'),
+                _matrix('creationParamsCodec', 'Codec for payload, usually StandardMessageCodec.'),
+                _matrix('hitTestBehavior', 'Pointer event routing between Flutter and native view.'),
+                _matrix('gestureRecognizers', 'Explicit set of recognizers forwarded to platform view.'),
+                _matrix('onPlatformViewCreated', 'Lifecycle callback to capture view ID and trace state.'),
               ],
             ),
           ),
@@ -1430,26 +1284,22 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
                 _doDont(
                   good: true,
                   title: 'Do keep viewType stable',
-                  detail:
-                      'Changing viewType without host updates breaks native factory resolution.',
+                  detail: 'Changing viewType without host updates breaks native factory resolution.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Do version creation payload',
-                  detail:
-                      'Evolving payload contracts safely avoids decode mismatch and runtime surprises.',
+                  detail: 'Evolving payload contracts safely avoids decode mismatch and runtime surprises.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont assume live rendering off macOS',
-                  detail:
-                      'Use robust fallback cards for Linux, Windows, and web execution paths.',
+                  detail: 'Use robust fallback cards for Linux, Windows, and web execution paths.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont over-forward gestures blindly',
-                  detail:
-                      'Recognizer policy should align with native view interaction goals.',
+                  detail: 'Recognizer policy should align with native view interaction goals.',
                 ),
               ],
             ),
@@ -1487,21 +1337,11 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _check('Host Dock Studio with lifecycle and setup checklist.'),
-                _check(
-                  'Interaction gallery comparing hit-test and clip wrappers.',
-                ),
-                _check(
-                  'Creation params workbench with payload presets and inspector text.',
-                ),
-                _check(
-                  'Gesture routing lab comparing active and empty recognizer sets.',
-                ),
-                _check(
-                  'Window theater with multiple profile lanes and event timeline.',
-                ),
-                _check(
-                  'Compendium matrix, FAQ, do/dont, and integration checklist.',
-                ),
+                _check('Interaction gallery comparing hit-test and clip wrappers.'),
+                _check('Creation params workbench with payload presets and inspector text.'),
+                _check('Gesture routing lab comparing active and empty recognizer sets.'),
+                _check('Window theater with multiple profile lanes and event timeline.'),
+                _check('Compendium matrix, FAQ, do/dont, and integration checklist.'),
               ],
             ),
           ),
@@ -1516,11 +1356,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
     );
   }
 
-  Widget _checkTile(
-    String label,
-    bool value,
-    void Function(bool value) assign,
-  ) {
+  Widget _checkTile(String label, bool value, void Function(bool value) assign) {
     return FilterChip(
       selected: value,
       onSelected: (selected) {
@@ -1604,11 +1440,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
         const SizedBox(width: 8),
         Text(
           text,
-          style: TextStyle(
-            color: _p.ink,
-            fontWeight: FontWeight.w800,
-            fontSize: 18,
-          ),
+          style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 18),
         ),
       ],
     );
@@ -1638,14 +1470,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w800,
-              fontSize: 14,
-            ),
-          ),
+          Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 14)),
           const SizedBox(height: 3),
           Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.4)),
           const SizedBox(height: 10),
@@ -1690,11 +1515,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
     );
   }
 
-  Widget _doDont({
-    required bool good,
-    required String title,
-    required String detail,
-  }) {
+  Widget _doDont({required bool good, required String title, required String detail}) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1713,23 +1534,9 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: _p.ink,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ),
-                ),
+                Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
                 const SizedBox(height: 4),
-                Text(
-                  detail,
-                  style: TextStyle(
-                    color: _p.muted,
-                    fontSize: 11.3,
-                    height: 1.34,
-                  ),
-                ),
+                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.3, height: 1.34)),
               ],
             ),
           ),
@@ -1750,19 +1557,9 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Q: $q',
-            style: TextStyle(
-              color: _p.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Q: $q', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           const SizedBox(height: 4),
-          Text(
-            'A: $a',
-            style: TextStyle(color: _p.muted, fontSize: 11.4, height: 1.34),
-          ),
+          Text('A: $a', style: TextStyle(color: _p.muted, fontSize: 11.4, height: 1.34)),
         ],
       ),
     );
@@ -1776,9 +1573,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12)),
-          ),
+          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12))),
         ],
       ),
     );
@@ -1794,17 +1589,11 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
             margin: const EdgeInsets.only(top: 6),
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _p.accentA,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: _p.accentA),
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _p.ink, fontSize: 11.9, height: 1.32),
-            ),
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.9, height: 1.32)),
           ),
         ],
       ),
@@ -1825,12 +1614,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
         children: <Widget>[
           Icon(Icons.info_outline, color: _p.accentC, size: 18),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _p.ink, fontSize: 12, height: 1.35),
-            ),
-          ),
+          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12, height: 1.35))),
         ],
       ),
     );
@@ -1852,17 +1636,10 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
         children: <Widget>[
           Text(
             _stageLabels[_stage.index],
-            style: TextStyle(
-              color: _p.muted,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700),
           ),
           const Spacer(),
-          Text(
-            'Palette: ${_p.name}',
-            style: TextStyle(color: _p.muted, fontSize: 11),
-          ),
+          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11)),
         ],
       ),
     );
@@ -1925,28 +1702,16 @@ class _AppKitLaneState extends State<_AppKitLane> {
   void _boot() {
     if (!widget.attemptReal) {
       setState(() => _status = 'simulated');
-      widget.onTrace(
-        'lane',
-        '${widget.label}: simulation forced by policy',
-        widget.palette.accentC,
-      );
+      widget.onTrace('lane', '${widget.label}: simulation forced by policy', widget.palette.accentC);
       return;
     }
     if (!widget.canCreateReal) {
       setState(() => _status = 'unsupported');
-      widget.onTrace(
-        'lane',
-        '${widget.label}: host does not support AppKitView',
-        widget.palette.accentC,
-      );
+      widget.onTrace('lane', '${widget.label}: host does not support AppKitView', widget.palette.accentC);
       return;
     }
     setState(() => _status = 'live');
-    widget.onTrace(
-      'lane',
-      '${widget.label}: preparing live AppKitView',
-      widget.palette.accentA,
-    );
+    widget.onTrace('lane', '${widget.label}: preparing live AppKitView', widget.palette.accentA);
   }
 
   void _onPlatformViewCreated(int id) {
@@ -1979,17 +1744,13 @@ class _AppKitLaneState extends State<_AppKitLane> {
     // resolves `_status` to its real value on the next frame — but
     // prevents the first-frame AppKitView construction with an
     // unresolved-type gestureRecognizers Set.
-    if (_status == 'boot' || _status == 'simulated') {
+    if (_status == 'boot' ||
+        _status == 'simulated') {
       return _simulatedSurface(
-        _status == 'boot'
-            ? 'Initialising lane…'
-            : 'Live view disabled for controlled comparison.',
-      );
+          _status == 'boot' ? 'Initialising lane…' : 'Live view disabled for controlled comparison.');
     }
     if (_status == 'unsupported') {
-      return _simulatedSurface(
-        'Live AppKitView unavailable on this host platform.',
-      );
+      return _simulatedSurface('Live AppKitView unavailable on this host platform.');
     }
     if (_status == 'error') {
       return _simulatedSurface('Lane failed to initialize: $_error');
@@ -2036,11 +1797,7 @@ class _AppKitLaneState extends State<_AppKitLane> {
           Expanded(
             child: Text(
               widget.label,
-              style: TextStyle(
-                color: widget.palette.ink,
-                fontWeight: FontWeight.w700,
-                fontSize: 11.8,
-              ),
+              style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 11.8),
             ),
           ),
           if (widget.showTelemetry)
@@ -2106,9 +1863,7 @@ class _AppKitLaneState extends State<_AppKitLane> {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: widget.palette.muted.withValues(alpha: 0.25),
-              ),
+              border: Border.all(color: widget.palette.muted.withValues(alpha: 0.25)),
             ),
             child: Text(
               _createdId != null
@@ -2128,23 +1883,12 @@ class _AppKitLaneState extends State<_AppKitLane> {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: widget.palette.accentB.withValues(alpha: 0.09),
-        border: Border(
-          left: BorderSide(
-            color: widget.palette.accentB.withValues(alpha: 0.25),
-          ),
-        ),
+        border: Border(left: BorderSide(color: widget.palette.accentB.withValues(alpha: 0.25))),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Inspector',
-            style: TextStyle(
-              color: widget.palette.ink,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
+          Text('Inspector', style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 12)),
           const SizedBox(height: 8),
           _railLine('viewType', widget.viewType),
           _railLine('viewId', '${widget.viewId}'),
@@ -2154,11 +1898,7 @@ class _AppKitLaneState extends State<_AppKitLane> {
           const SizedBox(height: 8),
           Text(
             'creation params',
-            style: TextStyle(
-              color: widget.palette.muted,
-              fontSize: 10.2,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(color: widget.palette.muted, fontSize: 10.2, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 5),
           Expanded(
@@ -2217,9 +1957,7 @@ class _AppKitLaneState extends State<_AppKitLane> {
     return Container(
       decoration: BoxDecoration(
         color: widget.palette.accentA.withValues(alpha: 0.08),
-        border: Border.all(
-          color: widget.palette.accentA.withValues(alpha: 0.28),
-        ),
+        border: Border.all(color: widget.palette.accentA.withValues(alpha: 0.28)),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
@@ -2229,37 +1967,24 @@ class _AppKitLaneState extends State<_AppKitLane> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(
-                  Icons.precision_manufacturing_outlined,
-                  color: widget.palette.accentA,
-                  size: 18,
-                ),
+                Icon(Icons.precision_manufacturing_outlined, color: widget.palette.accentA, size: 18),
                 const SizedBox(width: 7),
                 Expanded(
                   child: Text(
                     'Simulation Surface',
-                    style: TextStyle(
-                      color: widget.palette.ink,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 12),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 7),
-            Text(
-              reason,
-              style: TextStyle(color: widget.palette.muted, fontSize: 11.2),
-            ),
+            Text(reason, style: TextStyle(color: widget.palette.muted, fontSize: 11.2)),
             const SizedBox(height: 8),
             Expanded(
               child: ListView.builder(
                 itemCount: widget.itemCount,
                 itemBuilder: (context, index) {
-                  final tone = index.isEven
-                      ? widget.palette.accentA
-                      : widget.palette.accentB;
+                  final tone = index.isEven ? widget.palette.accentA : widget.palette.accentB;
                   return Container(
                     margin: const EdgeInsets.only(bottom: 7),
                     padding: const EdgeInsets.all(8),

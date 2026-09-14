@@ -92,16 +92,14 @@ dynamic build(BuildContext context) {
   final int lastIndex = lastValue.index;
   final int totalValues = allValues.length;
   final bool hasEvict = allValues.contains(ServicesServiceExtensions.evict);
-  final bool hasProfile = allValues.contains(
-    ServicesServiceExtensions.profilePlatformChannels,
-  );
+  final bool hasProfile =
+      allValues.contains(ServicesServiceExtensions.profilePlatformChannels);
 
   // Fake "progress" animations used only to color progress bars; static.
   final Animation<double> profileMeter = AlwaysStoppedAnimation<double>(0.78);
   final Animation<double> evictMeter = AlwaysStoppedAnimation<double>(0.42);
-  final Animation<double> registrationMeter = AlwaysStoppedAnimation<double>(
-    1.0,
-  );
+  final Animation<double> registrationMeter =
+      AlwaysStoppedAnimation<double>(1.0);
   final Duration immediate = Duration.zero;
 
   // ---------------------------------------------------------------------------
@@ -111,7 +109,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.fromLTRB(28.0, 36.0, 28.0, 28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF0F172A), Color(0xFF1E3A8A), Color(0xFF7C3AED)],
+        colors: [
+          Color(0xFF0F172A),
+          Color(0xFF1E3A8A),
+          Color(0xFF7C3AED),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -151,11 +153,8 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              child: Icon(
-                Icons.miscellaneous_services,
-                size: 36.0,
-                color: Colors.indigo.shade900,
-              ),
+              child: Icon(Icons.miscellaneous_services,
+                  size: 36.0, color: Colors.indigo.shade900),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -188,9 +187,7 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(999.0),
                 border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.4),
-                  width: 1.0,
-                ),
+                    color: Colors.white.withValues(alpha: 0.4), width: 1.0),
               ),
               child: Text(
                 '$totalValues values',
@@ -211,14 +208,10 @@ dynamic build(BuildContext context) {
             _heroChip('first: $firstName', Colors.cyanAccent),
             _heroChip('last: $lastName', Colors.amberAccent),
             _heroChip('idx[$firstIndex..$lastIndex]', Colors.pinkAccent),
+            _heroChip(hasEvict ? 'evict OK' : 'evict missing',
+                Colors.lightGreenAccent),
             _heroChip(
-              hasEvict ? 'evict OK' : 'evict missing',
-              Colors.lightGreenAccent,
-            ),
-            _heroChip(
-              hasProfile ? 'profile OK' : 'profile missing',
-              Colors.tealAccent,
-            ),
+                hasProfile ? 'profile OK' : 'profile missing', Colors.tealAccent),
           ],
         ),
       ],
@@ -252,11 +245,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.science_outlined,
-              color: Colors.indigo.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.science_outlined,
+                color: Colors.indigo.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Anatomy of a service extension call',
@@ -286,40 +276,20 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               _anatomyRow(
-                '1.',
-                'Call site',
-                'DevTools / flutter tool / curl',
-                Icons.send_outlined,
-                Colors.blue,
-              ),
+                  '1.', 'Call site', 'DevTools / flutter tool / curl',
+                  Icons.send_outlined, Colors.blue),
+              _anatomyRow('2.', 'VM Service', 'JSON-RPC over HTTP',
+                  Icons.dns_outlined, Colors.indigo),
               _anatomyRow(
-                '2.',
-                'VM Service',
-                'JSON-RPC over HTTP',
-                Icons.dns_outlined,
-                Colors.indigo,
-              ),
-              _anatomyRow(
-                '3.',
-                'ServicesBinding',
-                'registerBoolServiceExtension / registerStringServiceExtension',
-                Icons.settings_input_component,
-                Colors.deepPurple,
-              ),
-              _anatomyRow(
-                '4.',
-                'Getter / setter',
-                'Run on the UI isolate',
-                Icons.bolt_outlined,
-                Colors.orange,
-              ),
-              _anatomyRow(
-                '5.',
-                'Side effect',
-                'Cache evict / debug flag flip',
-                Icons.flash_on_outlined,
-                Colors.red,
-              ),
+                  '3.',
+                  'ServicesBinding',
+                  'registerBoolServiceExtension / registerStringServiceExtension',
+                  Icons.settings_input_component,
+                  Colors.deepPurple),
+              _anatomyRow('4.', 'Getter / setter', 'Run on the UI isolate',
+                  Icons.bolt_outlined, Colors.orange),
+              _anatomyRow('5.', 'Side effect', 'Cache evict / debug flag flip',
+                  Icons.flash_on_outlined, Colors.red),
             ],
           ),
         ),
@@ -328,7 +298,10 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(12.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.indigo.shade100, Colors.indigo.shade50],
+              colors: [
+                Colors.indigo.shade100,
+                Colors.indigo.shade50,
+              ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -336,11 +309,8 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.info_outline,
-                color: Colors.indigo.shade700,
-                size: 18.0,
-              ),
+              Icon(Icons.info_outline,
+                  color: Colors.indigo.shade700, size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -382,8 +352,8 @@ dynamic build(BuildContext context) {
     final List<String> pitfalls = record['pitfalls'] as List<String>;
     final Animation<double> meter =
         value == ServicesServiceExtensions.profilePlatformChannels
-        ? profileMeter
-        : evictMeter;
+            ? profileMeter
+            : evictMeter;
 
     valueCards.add(
       Container(
@@ -398,7 +368,8 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: accent.withValues(alpha: 0.55), width: 2.0),
+          border: Border.all(
+              color: accent.withValues(alpha: 0.55), width: 2.0),
           boxShadow: [
             BoxShadow(
               color: accent.withValues(alpha: 0.32),
@@ -474,16 +445,14 @@ dynamic build(BuildContext context) {
                             SizedBox(width: 8.0),
                             Container(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 3.0,
-                              ),
+                                  horizontal: 8.0, vertical: 3.0),
                               decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.22),
                                 borderRadius: BorderRadius.circular(999.0),
                                 border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.45),
-                                  width: 1.0,
-                                ),
+                                    color: Colors.white
+                                        .withValues(alpha: 0.45),
+                                    width: 1.0),
                               ),
                               child: Text(
                                 'idx ${value.index}',
@@ -508,9 +477,7 @@ dynamic build(BuildContext context) {
                         SizedBox(height: 6.0),
                         Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 4.0,
-                          ),
+                              horizontal: 10.0, vertical: 4.0),
                           decoration: BoxDecoration(
                             color: Colors.black.withValues(alpha: 0.35),
                             borderRadius: BorderRadius.circular(8.0),
@@ -548,20 +515,16 @@ dynamic build(BuildContext context) {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12.0),
                             border: Border.all(
-                              color: accent.withValues(alpha: 0.3),
-                              width: 1.0,
-                            ),
+                                color: accent.withValues(alpha: 0.3),
+                                width: 1.0),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.description_outlined,
-                                    color: accent,
-                                    size: 16.0,
-                                  ),
+                                  Icon(Icons.description_outlined,
+                                      color: accent, size: 16.0),
                                   SizedBox(width: 6.0),
                                   Text(
                                     'Summary',
@@ -612,20 +575,15 @@ dynamic build(BuildContext context) {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12.0),
                       border: Border.all(
-                        color: accent.withValues(alpha: 0.3),
-                        width: 1.0,
-                      ),
+                          color: accent.withValues(alpha: 0.3), width: 1.0),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.speed_outlined,
-                              color: accent,
-                              size: 16.0,
-                            ),
+                            Icon(Icons.speed_outlined,
+                                color: accent, size: 16.0),
                             SizedBox(width: 6.0),
                             Text(
                               'Typical activity (illustrative)',
@@ -756,11 +714,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.app_registration,
-              color: Colors.teal.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.app_registration,
+                color: Colors.teal.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Registration matrix - ServicesBinding.initServiceExtensions',
@@ -813,11 +768,8 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.lightbulb_outline,
-                color: Colors.amber.shade800,
-                size: 18.0,
-              ),
+              Icon(Icons.lightbulb_outline,
+                  color: Colors.amber.shade800, size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -864,7 +816,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.developer_mode, color: Colors.cyanAccent, size: 22.0),
+            Icon(Icons.developer_mode,
+                color: Colors.cyanAccent, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'DevTools / VM Service recipes',
@@ -910,15 +863,13 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.cyan.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.cyanAccent.withValues(alpha: 0.4)),
+            border:
+                Border.all(color: Colors.cyanAccent.withValues(alpha: 0.4)),
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.tips_and_updates_outlined,
-                color: Colors.cyanAccent,
-                size: 18.0,
-              ),
+              Icon(Icons.tips_and_updates_outlined,
+                  color: Colors.cyanAccent, size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -965,11 +916,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.red.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.red.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls and gotchas',
@@ -1038,11 +986,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.compare_arrows,
-              color: Colors.amber.shade800,
-              size: 22.0,
-            ),
+            Icon(Icons.compare_arrows,
+                color: Colors.amber.shade800, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'profilePlatformChannels vs. evict',
@@ -1059,8 +1004,8 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: _compareColumn(extensionRecords[0], registrationMeter),
-            ),
+                child: _compareColumn(
+                    extensionRecords[0], registrationMeter)),
             SizedBox(width: 12.0),
             Container(
               width: 2.0,
@@ -1079,8 +1024,8 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(width: 12.0),
             Expanded(
-              child: _compareColumn(extensionRecords[1], registrationMeter),
-            ),
+                child: _compareColumn(
+                    extensionRecords[1], registrationMeter)),
           ],
         ),
       ],
@@ -1131,44 +1076,20 @@ dynamic build(BuildContext context) {
           spacing: 10.0,
           runSpacing: 10.0,
           children: [
-            _quickTile(
-              'Enum',
-              'ServicesServiceExtensions',
-              Icons.list_alt_outlined,
-              Colors.green,
-            ),
-            _quickTile(
-              'values.length',
-              '$totalValues',
-              Icons.format_list_numbered,
-              Colors.teal,
-            ),
+            _quickTile('Enum', 'ServicesServiceExtensions',
+                Icons.list_alt_outlined, Colors.green),
+            _quickTile('values.length', '$totalValues',
+                Icons.format_list_numbered, Colors.teal),
             _quickTile('first', firstName, Icons.first_page, Colors.indigo),
             _quickTile('last', lastName, Icons.last_page, Colors.deepPurple),
-            _quickTile(
-              'library',
-              'package:flutter/services.dart',
-              Icons.book_outlined,
-              Colors.brown,
-            ),
-            _quickTile(
-              'binding',
-              'ServicesBinding',
-              Icons.settings_outlined,
-              Colors.blueGrey,
-            ),
-            _quickTile(
-              'hot reload',
-              'uses evict',
-              Icons.flash_auto_outlined,
-              Colors.orange,
-            ),
-            _quickTile(
-              'profiling',
-              'profilePlatformChannels',
-              Icons.timeline,
-              Colors.pink,
-            ),
+            _quickTile('library', 'package:flutter/services.dart',
+                Icons.book_outlined, Colors.brown),
+            _quickTile('binding', 'ServicesBinding',
+                Icons.settings_outlined, Colors.blueGrey),
+            _quickTile('hot reload', 'uses evict',
+                Icons.flash_auto_outlined, Colors.orange),
+            _quickTile('profiling',
+                'profilePlatformChannels', Icons.timeline, Colors.pink),
           ],
         ),
         SizedBox(height: 14.0),
@@ -1231,11 +1152,8 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.account_tree_outlined,
-              color: Colors.purpleAccent,
-              size: 22.0,
-            ),
+            Icon(Icons.account_tree_outlined,
+                color: Colors.purpleAccent, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Flow diagram',
@@ -1278,15 +1196,13 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.deepPurple.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.deepPurple.shade200, width: 1.0),
+            border: Border.all(
+                color: Colors.deepPurple.shade200, width: 1.0),
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.verified_outlined,
-                color: Colors.purpleAccent,
-                size: 18.0,
-              ),
+              Icon(Icons.verified_outlined,
+                  color: Colors.purpleAccent, size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1319,28 +1235,20 @@ dynamic build(BuildContext context) {
         _sectionHeader('1. Anatomy', Icons.science_outlined, Colors.indigo),
         anatomy,
         SizedBox(height: 18.0),
-        _sectionHeader(
-          '2. Per-value cards',
-          Icons.view_agenda_outlined,
-          Colors.deepPurple,
-        ),
+        _sectionHeader('2. Per-value cards',
+            Icons.view_agenda_outlined, Colors.deepPurple),
         ...valueCards,
         SizedBox(height: 18.0),
         _sectionHeader(
-          '3. Registration matrix',
-          Icons.app_registration,
-          Colors.teal,
-        ),
+            '3. Registration matrix', Icons.app_registration, Colors.teal),
         registrationMatrix,
         SizedBox(height: 18.0),
-        _sectionHeader(
-          '4. DevTools recipes',
-          Icons.developer_mode,
-          Colors.cyan,
-        ),
+        _sectionHeader('4. DevTools recipes',
+            Icons.developer_mode, Colors.cyan),
         devtoolsRecipe,
         SizedBox(height: 18.0),
-        _sectionHeader('5. Pitfalls', Icons.warning_amber_rounded, Colors.red),
+        _sectionHeader('5. Pitfalls', Icons.warning_amber_rounded,
+            Colors.red),
         pitfallsPanel,
         SizedBox(height: 18.0),
         _sectionHeader('6. Comparison', Icons.compare_arrows, Colors.amber),
@@ -1349,11 +1257,8 @@ dynamic build(BuildContext context) {
         _sectionHeader('7. Quick reference', Icons.flash_on, Colors.green),
         quickReference,
         SizedBox(height: 18.0),
-        _sectionHeader(
-          '8. Flow diagram',
-          Icons.account_tree_outlined,
-          Colors.deepPurple,
-        ),
+        _sectionHeader('8. Flow diagram',
+            Icons.account_tree_outlined, Colors.deepPurple),
         asciiFooter,
         SizedBox(height: 24.0),
         Center(
@@ -1372,7 +1277,10 @@ dynamic build(BuildContext context) {
   );
 
   return MaterialApp(
-    home: Scaffold(backgroundColor: Color(0xFFF6F7FB), body: body),
+    home: Scaffold(
+      backgroundColor: Color(0xFFF6F7FB),
+      body: body,
+    ),
   );
 }
 
@@ -1444,12 +1352,7 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
 }
 
 Widget _anatomyRow(
-  String index,
-  String title,
-  String detail,
-  IconData icon,
-  Color color,
-) {
+    String index, String title, String detail, IconData icon, Color color) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 6.0),
     child: Row(
@@ -1566,7 +1469,8 @@ Widget _factTile(String label, String value, Color accent) {
   );
 }
 
-Widget _recipeBlock(String label, String body, IconData icon, Color accent) {
+Widget _recipeBlock(
+    String label, String body, IconData icon, Color accent) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -1615,11 +1519,7 @@ Widget _recipeBlock(String label, String body, IconData icon, Color accent) {
 }
 
 Widget _bulletList(
-  String title,
-  IconData icon,
-  Color color,
-  List<String> items,
-) {
+    String title, IconData icon, Color color, List<String> items) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(12.0),
@@ -1803,9 +1703,7 @@ Widget _terminalBlock(String code, Color textColor) {
       color: Color(0xFF111827),
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(
-        color: Colors.white.withValues(alpha: 0.08),
-        width: 1.0,
-      ),
+          color: Colors.white.withValues(alpha: 0.08), width: 1.0),
     ),
     child: Text(
       code,
@@ -1849,7 +1747,8 @@ Widget _pitfallRow(IconData icon, String text) {
   );
 }
 
-Widget _compareColumn(Map<String, Object> record, Animation<double> meter) {
+Widget _compareColumn(
+    Map<String, Object> record, Animation<double> meter) {
   final Color accent = record['accent'] as Color;
   final IconData icon = record['icon'] as IconData;
   final String title = record['title'] as String;
@@ -1979,7 +1878,10 @@ Widget _quickTile(String label, String value, IconData icon, Color color) {
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
+        colors: [
+          color.withValues(alpha: 0.08),
+          color.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

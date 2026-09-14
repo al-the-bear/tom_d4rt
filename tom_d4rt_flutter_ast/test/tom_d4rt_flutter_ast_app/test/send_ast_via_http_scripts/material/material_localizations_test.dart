@@ -149,7 +149,10 @@ Widget _buildInfoCard({
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         SizedBox(width: 10),
         Expanded(
@@ -187,7 +190,9 @@ Widget _buildIntroCard() {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
-      gradient: LinearGradient(colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)]),
+      gradient: LinearGradient(
+        colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
+      ),
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: Color(0xFF90CAF9)),
     ),
@@ -252,11 +257,7 @@ Widget _buildTooltipStrings(DefaultMaterialLocalizations loc) {
   Color c = Color(0xFF1565C0);
   return Column(
     children: [
-      _buildInfoCard(
-        label: 'openAppDrawerTooltip',
-        value: openDrawer,
-        color: c,
-      ),
+      _buildInfoCard(label: 'openAppDrawerTooltip', value: openDrawer, color: c),
       _buildInfoCard(label: 'backButtonTooltip', value: backBtn, color: c),
       _buildInfoCard(label: 'closeButtonTooltip', value: closeBtn, color: c),
       _buildInfoCard(label: 'deleteButtonTooltip', value: deleteBtn, color: c),
@@ -332,11 +333,7 @@ Widget _buildButtonLabels(DefaultMaterialLocalizations loc) {
       _buildInfoCard(label: 'okButtonLabel', value: ok, color: c),
       _buildInfoCard(label: 'pasteButtonLabel', value: paste, color: c),
       _buildInfoCard(label: 'selectAllButtonLabel', value: selectAll, color: c),
-      _buildInfoCard(
-        label: 'viewLicensesButtonLabel',
-        value: viewLicenses,
-        color: c,
-      ),
+      _buildInfoCard(label: 'viewLicensesButtonLabel', value: viewLicenses, color: c),
     ],
   );
 }
@@ -487,16 +484,8 @@ Widget _buildTimeFormatting(DefaultMaterialLocalizations loc, TimeOfDay time) {
           value: todFormat.toString(),
           color: c,
         ),
-        _buildInfoCard(
-          label: 'timePickerDialHelpText',
-          value: dialHelp,
-          color: c,
-        ),
-        _buildInfoCard(
-          label: 'timePickerInputHelpText',
-          value: inputHelp,
-          color: c,
-        ),
+        _buildInfoCard(label: 'timePickerDialHelpText', value: dialHelp, color: c),
+        _buildInfoCard(label: 'timePickerInputHelpText', value: inputHelp, color: c),
         _buildInfoCard(
           label: 'hourModeAnnouncement',
           value: hourAnnounce,
@@ -689,22 +678,10 @@ Widget _buildCalendarStrings(DefaultMaterialLocalizations loc) {
   Color c = Color(0xFF00695C);
   return Column(
     children: [
-      _buildInfoCard(
-        label: 'calendarModeButtonLabel',
-        value: calMode,
-        color: c,
-      ),
-      _buildInfoCard(
-        label: 'inputDateModeButtonLabel',
-        value: inputMode,
-        color: c,
-      ),
+      _buildInfoCard(label: 'calendarModeButtonLabel', value: calMode, color: c),
+      _buildInfoCard(label: 'inputDateModeButtonLabel', value: inputMode, color: c),
       _buildInfoCard(label: 'datePickerHelpText', value: dpHelp, color: c),
-      _buildInfoCard(
-        label: 'dateRangePickerHelpText',
-        value: drpHelp,
-        color: c,
-      ),
+      _buildInfoCard(label: 'dateRangePickerHelpText', value: drpHelp, color: c),
       _buildInfoCard(label: 'unspecifiedDate', value: unspecDate, color: c),
       _buildInfoCard(
         label: 'unspecifiedDateRange',
@@ -712,11 +689,7 @@ Widget _buildCalendarStrings(DefaultMaterialLocalizations loc) {
         color: c,
       ),
       _buildInfoCard(label: 'dateHelpText', value: dateHelp, color: c),
-      _buildInfoCard(
-        label: 'licensesPageTitle',
-        value: licensesTitle,
-        color: c,
-      ),
+      _buildInfoCard(label: 'licensesPageTitle', value: licensesTitle, color: c),
       _buildInfoCard(
         label: 'aboutListTileTitle(MyApp)',
         value: aboutTitle,
@@ -773,7 +746,11 @@ Widget _buildReorderStrings(DefaultMaterialLocalizations loc) {
           ),
           child: Row(
             children: [
-              Icon(item['icon'] as IconData, color: c, size: 20),
+              Icon(
+                item['icon'] as IconData,
+                color: c,
+                size: 20,
+              ),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -904,7 +881,10 @@ Widget _buildSummary() {
         SizedBox(height: 4),
         Text(
           'Total strings demonstrated: $total',
-          style: TextStyle(fontSize: 14, color: Color(0xFFB3E5FC)),
+          style: TextStyle(
+            fontSize: 14,
+            color: Color(0xFFB3E5FC),
+          ),
         ),
         SizedBox(height: 14),
         ...sections.map((s) {
@@ -924,7 +904,10 @@ Widget _buildSummary() {
                 Expanded(
                   child: Text(
                     s['name'] as String,
-                    style: TextStyle(fontSize: 12, color: Color(0xFFE8EAF6)),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFFE8EAF6),
+                    ),
                   ),
                 ),
                 Text(

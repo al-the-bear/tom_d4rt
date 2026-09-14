@@ -489,12 +489,7 @@ dynamic build(BuildContext context) {
   print('');
 
   // Minimal control points
-  final minimalCurve = CatmullRomSpline([
-    Offset(0.0, 0.0),
-    Offset(0.33, 0.33),
-    Offset(0.67, 0.67),
-    Offset(1.0, 1.0),
-  ]);
+  final minimalCurve = CatmullRomSpline([Offset(0.0, 0.0), Offset(0.33, 0.33), Offset(0.67, 0.67), Offset(1.0, 1.0)]);
   final minimalSamples = minimalCurve.generateSamples();
   print('Minimal curve (4 points):');
   print('  Sample count: ${minimalSamples.length}');

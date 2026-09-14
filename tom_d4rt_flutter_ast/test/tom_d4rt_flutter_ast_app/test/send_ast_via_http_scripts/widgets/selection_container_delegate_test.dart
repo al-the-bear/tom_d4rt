@@ -104,7 +104,10 @@ class _SelectionDelegateDemoApp extends StatelessWidget {
           selectionColor: Color(0x5522D3EE),
           selectionHandleColor: _kCyan,
         ),
-        dividerTheme: const DividerThemeData(color: _kGridLine, thickness: 1),
+        dividerTheme: const DividerThemeData(
+          color: _kGridLine,
+          thickness: 1,
+        ),
         colorScheme: const ColorScheme.dark(
           surface: _kMidnightPanel,
           primary: _kCyan,
@@ -289,7 +292,10 @@ class _DemoIntroCard extends StatelessWidget {
             style: _kBodyStyle,
           ),
           SizedBox(height: 12),
-          Text('Scenes', style: _kSectionStyle),
+          Text(
+            'Scenes',
+            style: _kSectionStyle,
+          ),
           SizedBox(height: 6),
           _BulletRow(
             bullet: 'A',
@@ -517,7 +523,8 @@ class _DelegateFlowPainter extends CustomPainter {
     );
 
     // Grid dots.
-    final Paint gridPaint = Paint()..color = _kGridLine.withValues(alpha: 0.55);
+    final Paint gridPaint = Paint()
+      ..color = _kGridLine.withValues(alpha: 0.55);
     const double step = 28;
     for (double x = step; x < size.width; x += step) {
       for (double y = step; y < size.height; y += step) {
@@ -530,11 +537,12 @@ class _DelegateFlowPainter extends CustomPainter {
       width: size.width * 0.34,
       height: size.height * 0.42,
     );
-    final RRect coreRR = RRect.fromRectAndRadius(
-      core,
-      const Radius.circular(14),
+    final RRect coreRR =
+        RRect.fromRectAndRadius(core, const Radius.circular(14));
+    canvas.drawRRect(
+      coreRR,
+      Paint()..color = _kCyan.withValues(alpha: 0.10),
     );
-    canvas.drawRRect(coreRR, Paint()..color = _kCyan.withValues(alpha: 0.10));
     canvas.drawRRect(
       coreRR,
       Paint()
@@ -559,7 +567,11 @@ class _DelegateFlowPainter extends CustomPainter {
       canvas,
       'selectables • contentLength • value',
       core.center.translate(0, 10),
-      const TextStyle(color: _kPeach, fontSize: 11, fontFamily: 'monospace'),
+      const TextStyle(
+        color: _kPeach,
+        fontSize: 11,
+        fontFamily: 'monospace',
+      ),
       core.width - 20,
     );
 
@@ -661,11 +673,12 @@ class _DelegateFlowPainter extends CustomPainter {
   }
 
   void _drawNode(Canvas canvas, _FlowNode node) {
-    final RRect rr = RRect.fromRectAndRadius(
-      node.rect,
-      const Radius.circular(10),
+    final RRect rr =
+        RRect.fromRectAndRadius(node.rect, const Radius.circular(10));
+    canvas.drawRRect(
+      rr,
+      Paint()..color = node.color.withValues(alpha: 0.12),
     );
-    canvas.drawRRect(rr, Paint()..color = node.color.withValues(alpha: 0.12));
     canvas.drawRRect(
       rr,
       Paint()
@@ -689,7 +702,10 @@ class _DelegateFlowPainter extends CustomPainter {
       canvas,
       node.subtitle,
       node.rect.center.translate(0, 10),
-      const TextStyle(color: _kInk, fontSize: 10),
+      const TextStyle(
+        color: _kInk,
+        fontSize: 10,
+      ),
       node.rect.width - 12,
     );
   }
@@ -903,7 +919,10 @@ class _PassThroughParagraph extends StatelessWidget {
             ? _kDanger.withValues(alpha: 0.06)
             : _kCyan.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: tint.withValues(alpha: 0.4), width: 1),
+        border: Border.all(
+          color: tint.withValues(alpha: 0.4),
+          width: 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1006,7 +1025,10 @@ class _AggregatingSceneState extends State<_AggregatingScene> {
             children: <Widget>[
               Expanded(
                 flex: 2,
-                child: _InspectorCard(eventCount: _events, lastText: _lastText),
+                child: _InspectorCard(
+                  eventCount: _events,
+                  lastText: _lastText,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -1067,19 +1089,19 @@ const List<(String, String)> _kColumns = <(String, String)>[
     'Registration',
     'Each Selectable registers itself with the nearest SelectionRegistrar '
         'during mount. The aggregating delegate stores it in an internal list '
-        'and must unregister on dispose to avoid stale references.',
+        'and must unregister on dispose to avoid stale references.'
   ),
   (
     'Dispatch',
     'When a drag crosses a selectable boundary, the aggregating delegate '
         'splits the event into per-selectable events. Its return value is the '
-        'combined SelectionResult — previous, next, end, or none.',
+        'combined SelectionResult — previous, next, end, or none.'
   ),
   (
     'Geometry',
     'For rendering, the delegate merges per-selectable geometries: it picks '
         'the true startSelectionPoint and endSelectionPoint, and concatenates '
-        'all selectionRects after applying getTransformFrom.',
+        'all selectionRects after applying getTransformFrom.'
   ),
 ];
 
@@ -1118,7 +1140,11 @@ class _ColumnTile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          SelectableText(body, style: _kBodyStyle, cursorColor: _kCyan),
+          SelectableText(
+            body,
+            style: _kBodyStyle,
+            cursorColor: _kCyan,
+          ),
         ],
       ),
     );
@@ -1126,7 +1152,10 @@ class _ColumnTile extends StatelessWidget {
 }
 
 class _InspectorCard extends StatelessWidget {
-  const _InspectorCard({required this.eventCount, required this.lastText});
+  const _InspectorCard({
+    required this.eventCount,
+    required this.lastText,
+  });
 
   final int eventCount;
   final String lastText;
@@ -1250,7 +1279,10 @@ class _LoggingDelegateSceneState extends State<_LoggingDelegateScene> {
                 },
               ),
               const SizedBox(width: 6),
-              Text('Spy enabled: $_spyEnabled', style: _kLabelStyle),
+              Text(
+                'Spy enabled: $_spyEnabled',
+                style: _kLabelStyle,
+              ),
               const Spacer(),
               FilledButton.icon(
                 onPressed: widget.onManualPulse,
@@ -1292,7 +1324,9 @@ class _LoggingDelegateSceneState extends State<_LoggingDelegateScene> {
               decoration: BoxDecoration(
                 color: _kMidnightDeep,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _kCyanSoft.withValues(alpha: 0.4)),
+                border: Border.all(
+                  color: _kCyanSoft.withValues(alpha: 0.4),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1307,14 +1341,18 @@ class _LoggingDelegateSceneState extends State<_LoggingDelegateScene> {
                     'The quick cyan fox dispatches a drag across the peach brook. '
                     'handleSelectionEvent receives a SelectionEdgeUpdateEvent; the '
                     'delegate routes it to the right child selectable.',
-                    style: _kBodyStyle.copyWith(color: _kCyanSoft),
+                    style: _kBodyStyle.copyWith(
+                      color: _kCyanSoft,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   SelectableText(
                     'Meanwhile, the peach moon rises above the midnight grid. '
                     'getSelectionGeometry returns a geometry merged from both '
                     'selectables, and pushHandleLayers forwards LayerLinks.',
-                    style: _kBodyStyle.copyWith(color: _kPeachSoft),
+                    style: _kBodyStyle.copyWith(
+                      color: _kPeachSoft,
+                    ),
                   ),
                 ],
               ),
@@ -1445,9 +1483,18 @@ class _TableRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(flex: 3, child: Text(role, style: headerStyle)),
-          Expanded(flex: 5, child: Text(description, style: bodyStyle)),
-          Expanded(flex: 4, child: Text(notableMembers, style: monoStyle)),
+          Expanded(
+            flex: 3,
+            child: Text(role, style: headerStyle),
+          ),
+          Expanded(
+            flex: 5,
+            child: Text(description, style: bodyStyle),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(notableMembers, style: monoStyle),
+          ),
         ],
       ),
     );
@@ -1512,7 +1559,11 @@ class _WhenToBuildCard extends StatelessWidget {
 }
 
 class _SignalRow extends StatelessWidget {
-  const _SignalRow({required this.ok, required this.label, required this.text});
+  const _SignalRow({
+    required this.ok,
+    required this.label,
+    required this.text,
+  });
 
   final bool ok;
   final String label;
@@ -1826,7 +1877,14 @@ class _EventLogRow extends StatelessWidget {
 // _DelegateSpy — the logging core.
 // ===========================================================================
 
-enum _DelegateSpyEventKind { info, outerArea, sceneA, sceneB, sceneC, manual }
+enum _DelegateSpyEventKind {
+  info,
+  outerArea,
+  sceneA,
+  sceneB,
+  sceneC,
+  manual,
+}
 
 class _DelegateSpyEvent {
   _DelegateSpyEvent({
@@ -1846,15 +1904,21 @@ class _DelegateSpy extends ChangeNotifier {
   final List<_DelegateSpyEvent> _events = <_DelegateSpyEvent>[];
   static const int _maxEvents = 60;
 
-  List<_DelegateSpyEvent> get events =>
-      List<_DelegateSpyEvent>.unmodifiable(_events.reversed);
+  List<_DelegateSpyEvent> get events => List<_DelegateSpyEvent>.unmodifiable(
+    _events.reversed,
+  );
 
   void record(_DelegateSpyEventKind kind, String tag, String payload) {
     final DateTime now = DateTime.now();
     final String stamp =
         '${_two(now.hour)}:${_two(now.minute)}:${_two(now.second)}';
     _events.add(
-      _DelegateSpyEvent(kind: kind, tag: tag, payload: payload, stamp: stamp),
+      _DelegateSpyEvent(
+        kind: kind,
+        tag: tag,
+        payload: payload,
+        stamp: stamp,
+      ),
     );
     if (_events.length > _maxEvents) {
       _events.removeRange(0, _events.length - _maxEvents);
@@ -2036,7 +2100,9 @@ class _InlineHintBar extends StatelessWidget {
         children: <Widget>[
           const Icon(Icons.lightbulb_outline, color: _kPeach, size: 18),
           const SizedBox(width: 10),
-          Expanded(child: Text(text, style: _kBodyStyle)),
+          Expanded(
+            child: Text(text, style: _kBodyStyle),
+          ),
           const SizedBox(width: 10),
           TextButton(
             onPressed: () {
@@ -2063,7 +2129,11 @@ class _FooterNote extends StatelessWidget {
     return Center(
       child: Column(
         children: <Widget>[
-          Container(height: 1, width: 120, color: _kGridLine),
+          Container(
+            height: 1,
+            width: 120,
+            color: _kGridLine,
+          ),
           const SizedBox(height: 8),
           Text(
             'SelectionContainerDelegate — Delegate Dissection',

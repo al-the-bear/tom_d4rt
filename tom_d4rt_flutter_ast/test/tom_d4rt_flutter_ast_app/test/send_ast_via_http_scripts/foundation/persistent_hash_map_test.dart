@@ -26,8 +26,8 @@ dynamic build(BuildContext context) {
   // The canonical starting point: the empty persistent map. Note the
   // constructor is `const`, so this is a compile-time constant: every empty
   // PersistentHashMap in your program is the same singleton.
-  final PersistentHashMap<String, int> v0 =
-      const PersistentHashMap<String, int>.empty();
+  final PersistentHashMap<String, int> v0 = const PersistentHashMap<String,
+      int>.empty();
 
   // SECTION 3 timeline: ten sequential puts. Each `put` returns a brand-new
   // PersistentHashMap; the previous version remains valid and unmutated.
@@ -44,42 +44,34 @@ dynamic build(BuildContext context) {
 
   // Capture the timeline as a list of (label, snapshot) pairs so the UI
   // can iterate over them cleanly.
-  final List<_TimelineFrame<String, int>> timeline =
-      <_TimelineFrame<String, int>>[
-        _TimelineFrame<String, int>('v0  (empty)', v0, '— start —', null),
-        _TimelineFrame<String, int>('v1  (after +alpha)', v1, 'alpha', 1),
-        _TimelineFrame<String, int>('v2  (after +beta)', v2, 'beta', 2),
-        _TimelineFrame<String, int>('v3  (after +gamma)', v3, 'gamma', 3),
-        _TimelineFrame<String, int>('v4  (after +delta)', v4, 'delta', 4),
-        _TimelineFrame<String, int>('v5  (after +epsilon)', v5, 'epsilon', 5),
-        _TimelineFrame<String, int>('v6  (after +zeta)', v6, 'zeta', 6),
-        _TimelineFrame<String, int>('v7  (after +eta)', v7, 'eta', 7),
-        _TimelineFrame<String, int>('v8  (after +theta)', v8, 'theta', 8),
-        _TimelineFrame<String, int>('v9  (after +iota)', v9, 'iota', 9),
-        _TimelineFrame<String, int>('v10 (after +kappa)', v10, 'kappa', 10),
-      ];
+  final List<_TimelineFrame<String, int>> timeline = <_TimelineFrame<String,
+      int>>[
+    _TimelineFrame<String, int>('v0  (empty)', v0, '— start —', null),
+    _TimelineFrame<String, int>('v1  (after +alpha)', v1, 'alpha', 1),
+    _TimelineFrame<String, int>('v2  (after +beta)', v2, 'beta', 2),
+    _TimelineFrame<String, int>('v3  (after +gamma)', v3, 'gamma', 3),
+    _TimelineFrame<String, int>('v4  (after +delta)', v4, 'delta', 4),
+    _TimelineFrame<String, int>('v5  (after +epsilon)', v5, 'epsilon', 5),
+    _TimelineFrame<String, int>('v6  (after +zeta)', v6, 'zeta', 6),
+    _TimelineFrame<String, int>('v7  (after +eta)', v7, 'eta', 7),
+    _TimelineFrame<String, int>('v8  (after +theta)', v8, 'theta', 8),
+    _TimelineFrame<String, int>('v9  (after +iota)', v9, 'iota', 9),
+    _TimelineFrame<String, int>('v10 (after +kappa)', v10, 'kappa', 10),
+  ];
 
   // SECTION 4: A "branch and merge" demonstration. Two sibling derivations
   // share v3 as their common ancestor; each then diverges with different
   // puts. This shows how persistent data structures naturally model
   // version-control-like topologies without ever copying full state.
   final PersistentHashMap<String, int> baseForBranch = v3;
-  final PersistentHashMap<String, int> branchLeftA = baseForBranch.put(
-    'left_a',
-    100,
-  );
-  final PersistentHashMap<String, int> branchLeftB = branchLeftA.put(
-    'left_b',
-    101,
-  );
-  final PersistentHashMap<String, int> branchRightA = baseForBranch.put(
-    'right_a',
-    200,
-  );
-  final PersistentHashMap<String, int> branchRightB = branchRightA.put(
-    'right_b',
-    201,
-  );
+  final PersistentHashMap<String, int> branchLeftA =
+      baseForBranch.put('left_a', 100);
+  final PersistentHashMap<String, int> branchLeftB =
+      branchLeftA.put('left_b', 101);
+  final PersistentHashMap<String, int> branchRightA =
+      baseForBranch.put('right_a', 200);
+  final PersistentHashMap<String, int> branchRightB =
+      branchRightA.put('right_b', 201);
 
   // SECTION 5: Lookup gallery. The same map is queried with present and
   // missing keys, including the awkward edge cases (empty string keys,
@@ -99,16 +91,16 @@ dynamic build(BuildContext context) {
   // SECTION 6: Equality. We deliberately build two maps with the SAME logical
   // contents but via different insertion paths, then check identity and
   // hashCode.
-  final PersistentHashMap<String, int> pathA =
-      const PersistentHashMap<String, int>.empty()
-          .put('x', 1)
-          .put('y', 2)
-          .put('z', 3);
-  final PersistentHashMap<String, int> pathB =
-      const PersistentHashMap<String, int>.empty()
-          .put('z', 3)
-          .put('y', 2)
-          .put('x', 1);
+  final PersistentHashMap<String, int> pathA = const PersistentHashMap<String,
+          int>.empty()
+      .put('x', 1)
+      .put('y', 2)
+      .put('z', 3);
+  final PersistentHashMap<String, int> pathB = const PersistentHashMap<String,
+          int>.empty()
+      .put('z', 3)
+      .put('y', 2)
+      .put('x', 1);
   final bool identicalAB = identical(pathA, pathB);
   final bool operatorEqAB = pathA == pathB;
   final int hashA = pathA.hashCode;
@@ -169,7 +161,8 @@ dynamic build(BuildContext context) {
           _SectionHeader(
             index: 2,
             title: 'Anatomy',
-            subtitle: 'The constructor, the put() method, and the [] operator.',
+            subtitle:
+                'The constructor, the put() method, and the [] operator.',
             color: Colors.teal,
           ),
           _AnatomyCard(),
@@ -346,11 +339,7 @@ class _TimelineFrame<K extends Object, V> {
   final String addedKey;
   final V? addedValue;
   const _TimelineFrame(
-    this.label,
-    this.snapshot,
-    this.addedKey,
-    this.addedValue,
-  );
+      this.label, this.snapshot, this.addedKey, this.addedValue);
 }
 
 class _LookupProbe {
@@ -429,7 +418,10 @@ class _SectionHeader extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: TextStyle(color: color.shade700, fontSize: 13),
+                  style: TextStyle(
+                    color: color.shade700,
+                    fontSize: 13,
+                  ),
                 ),
               ],
             ),
@@ -467,15 +459,13 @@ class _DossierCard extends StatelessWidget {
             'about concurrent mutation.',
           ),
           const SizedBox(height: 12),
-          _BulletList(
-            items: <String>[
-              'Immutable: receiver is never modified by put().',
-              'Structurally shared: unchanged subtrees are reused across versions.',
-              'Cheap to fork: derive 1000 versions, pay only for the diffs.',
-              'Generic: keys must extend Object (cannot be null), values are free.',
-              'Constant-time empty(): the empty map is a const singleton.',
-            ],
-          ),
+          _BulletList(items: <String>[
+            'Immutable: receiver is never modified by put().',
+            'Structurally shared: unchanged subtrees are reused across versions.',
+            'Cheap to fork: derive 1000 versions, pay only for the diffs.',
+            'Generic: keys must extend Object (cannot be null), values are free.',
+            'Constant-time empty(): the empty map is a const singleton.',
+          ]),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(10),
@@ -487,11 +477,8 @@ class _DossierCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Icon(
-                  Icons.lightbulb_outline,
-                  size: 18,
-                  color: Colors.indigo,
-                ),
+                const Icon(Icons.lightbulb_outline,
+                    size: 18, color: Colors.indigo),
                 const SizedBox(width: 6),
                 Expanded(
                   child: const Text(
@@ -616,8 +603,7 @@ class _TimelineFrameCard extends StatelessWidget {
       'iota',
       'kappa',
     ];
-    final List<MapEntry<String, int>> presentEntries =
-        <MapEntry<String, int>>[];
+    final List<MapEntry<String, int>> presentEntries = <MapEntry<String, int>>[];
     for (final String k in knownKeys) {
       final int? v = frame.snapshot[k];
       if (v != null) {
@@ -634,7 +620,8 @@ class _TimelineFrameCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: Colors.deepPurple.shade100,
                   borderRadius: BorderRadius.circular(4),
@@ -662,7 +649,8 @@ class _TimelineFrameCard extends StatelessWidget {
           const SizedBox(height: 10),
           if (isEmpty)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 8),
               decoration: BoxDecoration(
                 color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(4),
@@ -670,7 +658,10 @@ class _TimelineFrameCard extends StatelessWidget {
               ),
               child: const Text(
                 '∅  empty map',
-                style: TextStyle(fontFamily: 'monospace', color: Colors.grey),
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  color: Colors.grey,
+                ),
               ),
             )
           else
@@ -689,7 +680,8 @@ class _TimelineFrameCard extends StatelessWidget {
           if (frame.addedKey != '— start —') ...<Widget>[
             const SizedBox(height: 8),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: Colors.green.shade50,
                 borderRadius: BorderRadius.circular(4),
@@ -949,7 +941,8 @@ class _BranchNode extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(4),
@@ -1026,14 +1019,18 @@ class _LookupGallery extends StatelessWidget {
         children: <Widget>[
           const Text(
             'Probing v10 (10 entries: alpha…kappa) with various keys',
-            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 10),
           ...probes.map((_LookupProbe p) {
             final bool hit = p.result != null;
             return Container(
               margin: const EdgeInsets.only(bottom: 6),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 8),
               decoration: BoxDecoration(
                 color: hit ? Colors.blue.shade50 : Colors.red.shade50,
                 borderRadius: BorderRadius.circular(6),
@@ -1060,9 +1057,7 @@ class _LookupGallery extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
+                        horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: hit ? Colors.blue : Colors.red,
                       borderRadius: BorderRadius.circular(4),
@@ -1133,25 +1128,21 @@ class _EqualityCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _EqualityRow(
-            label: 'identical(pathA, pathB)',
-            value: identical.toString(),
-            good: false,
-          ),
+              label: 'identical(pathA, pathB)',
+              value: identical.toString(),
+              good: false),
           _EqualityRow(
-            label: 'pathA == pathB',
-            value: operatorEq.toString(),
-            good: false,
-          ),
+              label: 'pathA == pathB',
+              value: operatorEq.toString(),
+              good: false),
           _EqualityRow(
-            label: 'pathA.hashCode',
-            value: hashA.toRadixString(16),
-            good: true,
-          ),
+              label: 'pathA.hashCode',
+              value: hashA.toRadixString(16),
+              good: true),
           _EqualityRow(
-            label: 'pathB.hashCode',
-            value: hashB.toRadixString(16),
-            good: true,
-          ),
+              label: 'pathB.hashCode',
+              value: hashB.toRadixString(16),
+              good: true),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(10),
@@ -1209,7 +1200,10 @@ class _EqualityColumn extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 2),
               child: Text(
                 '$k → ${map[k]}',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                ),
               ),
             );
           }),
@@ -1237,11 +1231,15 @@ class _EqualityRow extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+              ),
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: good ? Colors.green.shade100 : Colors.red.shade100,
               borderRadius: BorderRadius.circular(4),
@@ -1348,7 +1346,10 @@ class _CacheSlot extends StatelessWidget {
           ),
           Text(
             value,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+            ),
           ),
         ],
       ),
@@ -1363,17 +1364,26 @@ class _RecipeGrid extends StatelessWidget {
       'Build an empty map',
       'final m = const PersistentHashMap<String,int>.empty();',
     ],
-    <String>['Insert one entry', 'final m2 = m.put("foo", 1);'],
+    <String>[
+      'Insert one entry',
+      'final m2 = m.put("foo", 1);',
+    ],
     <String>[
       'Insert many in a chain',
       'final m3 = m.put("a",1).put("b",2).put("c",3);',
     ],
-    <String>['Lookup with default', 'final v = m["foo"] ?? -1;'],
+    <String>[
+      'Lookup with default',
+      'final v = m["foo"] ?? -1;',
+    ],
     <String>[
       'Branch from a base',
       'final left = base.put("x", 9);\nfinal right = base.put("y", 10);',
     ],
-    <String>['Replace existing key', 'final updated = m.put("foo", 999);'],
+    <String>[
+      'Replace existing key',
+      'final updated = m.put("foo", 999);',
+    ],
     <String>[
       'Use as a frozen field',
       'class State { final PersistentHashMap<String,int> cache; ... }',
@@ -1396,7 +1406,8 @@ class _RecipeGrid extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  const Icon(Icons.menu_book, size: 16, color: Colors.brown),
+                  const Icon(Icons.menu_book,
+                      size: 16, color: Colors.brown),
                   const SizedBox(width: 6),
                   Text(
                     r[0],
@@ -1439,27 +1450,9 @@ class _ComparisonTable extends StatelessWidget {
     <String>['Returns new on update', 'Yes', 'No', 'N/A', 'No'],
     <String>['Structural sharing', 'Yes', 'No', 'No', 'No'],
     <String>['Implements Map<K,V>', 'No', 'Yes', 'Yes', 'Yes'],
-    <String>[
-      'Preserves insertion order',
-      'No',
-      'Yes (LinkedHashMap)',
-      'Yes',
-      'Yes',
-    ],
-    <String>[
-      'Constant empty constructor',
-      'Yes',
-      'Effectively',
-      'No',
-      'Effectively',
-    ],
-    <String>[
-      'Suitable for caches across rebuilds',
-      'Yes',
-      'Risky',
-      'Read-only',
-      'Risky',
-    ],
+    <String>['Preserves insertion order', 'No', 'Yes (LinkedHashMap)', 'Yes', 'Yes'],
+    <String>['Constant empty constructor', 'Yes', 'Effectively', 'No', 'Effectively'],
+    <String>['Suitable for caches across rebuilds', 'Yes', 'Risky', 'Read-only', 'Risky'],
     <String>['Iterable', 'No public iterator', 'Yes', 'Yes', 'Yes'],
   ];
   @override
@@ -1473,11 +1466,8 @@ class _ComparisonTable extends StatelessWidget {
           headingRowColor: WidgetStateProperty.all(Colors.cyan.shade100),
           columns: const <DataColumn>[
             DataColumn(
-              label: Text(
-                'Property',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
+                label: Text('Property',
+                    style: TextStyle(fontWeight: FontWeight.bold))),
             DataColumn(label: Text('PersistentHashMap')),
             DataColumn(label: Text('Map<K,V>')),
             DataColumn(label: Text('Map.unmodifiable')),
@@ -1486,12 +1476,8 @@ class _ComparisonTable extends StatelessWidget {
           rows: _rows.map((List<String> r) {
             return DataRow(
               cells: <DataCell>[
-                DataCell(
-                  Text(
-                    r[0],
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
+                DataCell(Text(r[0],
+                    style: const TextStyle(fontWeight: FontWeight.bold))),
                 DataCell(Text(r[1])),
                 DataCell(Text(r[2])),
                 DataCell(Text(r[3])),
@@ -1595,7 +1581,10 @@ class _GlossaryList extends StatelessWidget {
 class _FinalSnapshotCard extends StatelessWidget {
   final PersistentHashMap<String, int> terminal;
   final Map<String, PersistentHashMap<String, int>> branchTips;
-  const _FinalSnapshotCard({required this.terminal, required this.branchTips});
+  const _FinalSnapshotCard({
+    required this.terminal,
+    required this.branchTips,
+  });
   @override
   Widget build(BuildContext context) {
     final List<String> probedKeys = <String>[
@@ -1634,27 +1623,25 @@ class _FinalSnapshotCard extends StatelessWidget {
           Wrap(
             spacing: 6,
             runSpacing: 6,
-            children:
-                <String>[
-                  'alpha',
-                  'beta',
-                  'gamma',
-                  'delta',
-                  'epsilon',
-                  'zeta',
-                  'eta',
-                  'theta',
-                  'iota',
-                  'kappa',
-                ].map((String k) {
-                  final int? v = terminal[k];
-                  return _EntryChip(k: k, v: v?.toString() ?? 'null');
-                }).toList(),
+            children: <String>[
+              'alpha',
+              'beta',
+              'gamma',
+              'delta',
+              'epsilon',
+              'zeta',
+              'eta',
+              'theta',
+              'iota',
+              'kappa'
+            ].map((String k) {
+              final int? v = terminal[k];
+              return _EntryChip(k: k, v: v?.toString() ?? 'null');
+            }).toList(),
           ),
           const Divider(height: 24),
-          ...branchTips.entries.map((
-            MapEntry<String, PersistentHashMap<String, int>> tip,
-          ) {
+          ...branchTips.entries.map(
+              (MapEntry<String, PersistentHashMap<String, int>> tip) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: Column(

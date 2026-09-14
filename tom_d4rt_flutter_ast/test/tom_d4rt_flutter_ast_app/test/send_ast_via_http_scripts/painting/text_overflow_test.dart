@@ -45,20 +45,15 @@ Widget ovInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 110.0,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF8B3A2A),
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF8B3A2A))),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 12.0, color: Color(0xFF6D3B2E)),
-          ),
+          child: Text(value,
+              style: TextStyle(fontSize: 12.0, color: Color(0xFF6D3B2E))),
         ),
       ],
     ),
@@ -82,11 +77,9 @@ Widget ovOverflowDemo(TextOverflow mode, String label, Color accent) {
           children: [
             ovChip(label, accent),
             Expanded(
-              child: Text(
-                'index: ${mode.index}',
-                textAlign: TextAlign.right,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF999999)),
-              ),
+              child: Text('index: ${mode.index}',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF999999))),
             ),
           ],
         ),
@@ -135,22 +128,18 @@ dynamic build(BuildContext context) {
             Icon(Icons.text_fields, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text(
-                'TextOverflow',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              child: Text('TextOverflow',
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
             ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text(
-          'Controls how visual overflow of text is handled in constrained containers',
-          style: TextStyle(fontSize: 13.0, color: Color(0xFFFFCCBC)),
-        ),
+        Text('Controls how visual overflow of text is handled in constrained containers',
+            style: TextStyle(fontSize: 13.0, color: Color(0xFFFFCCBC))),
         SizedBox(height: 6.0),
         Row(
           children: [
@@ -171,38 +160,22 @@ dynamic build(BuildContext context) {
   }
 
   final ovValueData = <Map<String, dynamic>>[
-    {
-      'value': TextOverflow.clip,
-      'label': 'clip',
-      'color': Color(0xFFCD6B50),
-      'icon': Icons.content_cut,
-      'desc': 'Text is hard-clipped at container boundary',
-      'visual': 'Abruptly cut off mid-character',
-    },
-    {
-      'value': TextOverflow.fade,
-      'label': 'fade',
-      'color': Color(0xFFD4825E),
-      'icon': Icons.gradient,
-      'desc': 'Text fades to transparent at the edge',
-      'visual': 'Smooth gradient disappearance',
-    },
-    {
-      'value': TextOverflow.ellipsis,
-      'label': 'ellipsis',
-      'color': Color(0xFFA0522D),
-      'icon': Icons.more_horiz,
-      'desc': 'Truncated text ends with "..." indicator',
-      'visual': 'Clean truncation with hint of more',
-    },
-    {
-      'value': TextOverflow.visible,
-      'label': 'visible',
-      'color': Color(0xFF6D3B2E),
-      'icon': Icons.open_in_full,
-      'desc': 'Text renders beyond container bounds',
-      'visual': 'Text paints outside its box',
-    },
+    {'value': TextOverflow.clip, 'label': 'clip',
+     'color': Color(0xFFCD6B50), 'icon': Icons.content_cut,
+     'desc': 'Text is hard-clipped at container boundary',
+     'visual': 'Abruptly cut off mid-character'},
+    {'value': TextOverflow.fade, 'label': 'fade',
+     'color': Color(0xFFD4825E), 'icon': Icons.gradient,
+     'desc': 'Text fades to transparent at the edge',
+     'visual': 'Smooth gradient disappearance'},
+    {'value': TextOverflow.ellipsis, 'label': 'ellipsis',
+     'color': Color(0xFFA0522D), 'icon': Icons.more_horiz,
+     'desc': 'Truncated text ends with "..." indicator',
+     'visual': 'Clean truncation with hint of more'},
+    {'value': TextOverflow.visible, 'label': 'visible',
+     'color': Color(0xFF6D3B2E), 'icon': Icons.open_in_full,
+     'desc': 'Text renders beyond container bounds',
+     'visual': 'Text paints outside its box'},
   ];
 
   final ovFourValues = Container(
@@ -228,41 +201,22 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                d['icon'] as IconData,
-                color: d['color'] as Color,
-                size: 22.0,
-              ),
+              Icon(d['icon'] as IconData, color: d['color'] as Color, size: 22.0),
               SizedBox(width: 10.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      d['label'] as String,
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF8B3A2A),
-                      ),
-                    ),
+                    Text(d['label'] as String,
+                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
+                            color: Color(0xFF8B3A2A))),
                     SizedBox(height: 2.0),
-                    Text(
-                      d['desc'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        color: Color(0xFF6D3B2E),
-                      ),
-                    ),
+                    Text(d['desc'] as String,
+                        style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E))),
                     SizedBox(height: 2.0),
-                    Text(
-                      d['visual'] as String,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontStyle: FontStyle.italic,
-                        color: Color(0xFFB54A32),
-                      ),
-                    ),
+                    Text(d['visual'] as String,
+                        style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
+                            color: Color(0xFFB54A32))),
                   ],
                 ),
               ),
@@ -287,14 +241,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Each mode applied to the same long text (maxLines: 1, width: 200px)',
-          style: TextStyle(
-            fontSize: 11.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8B3A2A),
-          ),
-        ),
+        Text('Each mode applied to the same long text (maxLines: 1, width: 200px)',
+            style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8B3A2A))),
         SizedBox(height: 8.0),
         ovOverflowDemo(TextOverflow.clip, 'clip', Color(0xFFCD6B50)),
         ovOverflowDemo(TextOverflow.fade, 'fade', Color(0xFFD4825E)),
@@ -314,11 +263,7 @@ dynamic build(BuildContext context) {
     {'mode': 'clip', 'maxLines': '2', 'behavior': 'Clips at end of line 2'},
     {'mode': 'fade', 'maxLines': '2', 'behavior': 'Fades at end of line 2'},
     {'mode': 'ellipsis', 'maxLines': '2', 'behavior': '"..." at end of line 2'},
-    {
-      'mode': 'visible',
-      'maxLines': '2',
-      'behavior': 'Shows all text beyond line 2',
-    },
+    {'mode': 'visible', 'maxLines': '2', 'behavior': 'Shows all text beyond line 2'},
   ];
 
   final ovMultiLineSection = Container(
@@ -330,14 +275,9 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text(
-          'Multi-line overflow behavior with maxLines: 2',
-          style: TextStyle(
-            fontSize: 12.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8B3A2A),
-          ),
-        ),
+        Text('Multi-line overflow behavior with maxLines: 2',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8B3A2A))),
         SizedBox(height: 8.0),
         ...multiLineData.map((m) {
           return Padding(
@@ -348,13 +288,8 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     ovChip(m['mode'] as String, Color(0xFFB54A32)),
-                    Text(
-                      'maxLines: ${m['maxLines']}',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Color(0xFF999999),
-                      ),
-                    ),
+                    Text('maxLines: ${m['maxLines']}',
+                        style: TextStyle(fontSize: 10.0, color: Color(0xFF999999))),
                   ],
                 ),
                 SizedBox(height: 4.0),
@@ -370,16 +305,13 @@ dynamic build(BuildContext context) {
                     'This is a long sample text that wraps to multiple lines demonstrating overflow with maxLines set to two lines',
                     maxLines: 2,
                     overflow: TextOverflow.values.firstWhere(
-                      (v) => v.name == m['mode'],
-                    ),
+                        (v) => v.name == m['mode']),
                     style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E)),
                   ),
                 ),
                 SizedBox(height: 2.0),
-                Text(
-                  m['behavior'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFFB54A32)),
-                ),
+                Text(m['behavior'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFFB54A32))),
               ],
             ),
           );
@@ -404,14 +336,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Text Widget Overflow Configuration',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF8B3A2A),
-          ),
-        ),
+        Text('Text Widget Overflow Configuration',
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700,
+                color: Color(0xFF8B3A2A))),
         SizedBox(height: 8.0),
         ovInfoRow('Property:', 'Text.overflow'),
         ovInfoRow('Type:', 'TextOverflow?'),
@@ -432,11 +359,8 @@ dynamic build(BuildContext context) {
             '  overflow: TextOverflow.ellipsis,\n'
             '  maxLines: 1,\n'
             ')',
-            style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF8B3A2A),
-            ),
+            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                color: Color(0xFF8B3A2A)),
           ),
         ),
       ],
@@ -460,49 +384,37 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Same text at different container widths (ellipsis mode)',
-          style: TextStyle(
-            fontSize: 11.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF8B3A2A),
-          ),
-        ),
+        Text('Same text at different container widths (ellipsis mode)',
+            style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8B3A2A))),
         SizedBox(height: 8.0),
-        ...widths.map(
-          (w) => Padding(
-            padding: EdgeInsets.only(bottom: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Width: ${w.toInt()}px',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFFB54A32),
-                  ),
+        ...widths.map((w) => Padding(
+          padding: EdgeInsets.only(bottom: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Width: ${w.toInt()}px',
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
+                      color: Color(0xFFB54A32))),
+              SizedBox(height: 4.0),
+              Container(
+                width: w,
+                padding: EdgeInsets.all(6.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Color(0xFFB54A32)),
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
-                SizedBox(height: 4.0),
-                Container(
-                  width: w,
-                  padding: EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Color(0xFFB54A32)),
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  child: Text(
-                    'Learning Flutter text overflow handling techniques',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(fontSize: 12.0, color: Color(0xFF6D3B2E)),
-                  ),
+                child: Text(
+                  'Learning Flutter text overflow handling techniques',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(fontSize: 12.0, color: Color(0xFF6D3B2E)),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
+        )),
       ],
     ),
   );
@@ -514,26 +426,14 @@ dynamic build(BuildContext context) {
   print('  maxLines: N — wraps up to N lines, then overflows');
 
   final wrapData = <Map<String, String>>[
-    {
-      'config': 'softWrap: true (default)',
-      'behavior': 'Text wraps normally',
-      'overflow': 'Only on last line if maxLines set',
-    },
-    {
-      'config': 'softWrap: false',
-      'behavior': 'Single line always',
-      'overflow': 'Overflow mode applies at end',
-    },
-    {
-      'config': 'maxLines: 1',
-      'behavior': 'One line max',
-      'overflow': 'Overflow on first line',
-    },
-    {
-      'config': 'maxLines: 3',
-      'behavior': 'Wraps to 3 lines',
-      'overflow': 'Overflow on line 3',
-    },
+    {'config': 'softWrap: true (default)', 'behavior': 'Text wraps normally',
+     'overflow': 'Only on last line if maxLines set'},
+    {'config': 'softWrap: false', 'behavior': 'Single line always',
+     'overflow': 'Overflow mode applies at end'},
+    {'config': 'maxLines: 1', 'behavior': 'One line max',
+     'overflow': 'Overflow on first line'},
+    {'config': 'maxLines: 3', 'behavior': 'Wraps to 3 lines',
+     'overflow': 'Overflow on line 3'},
   ];
 
   final ovWrapSection = Container(
@@ -556,15 +456,9 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                w['config']!,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'monospace',
-                  color: Color(0xFF8B3A2A),
-                ),
-              ),
+              Text(w['config']!,
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace', color: Color(0xFF8B3A2A))),
               SizedBox(height: 4.0),
               ovInfoRow('Behavior:', w['behavior']!),
               ovInfoRow('Overflow:', w['overflow']!),
@@ -584,30 +478,10 @@ dynamic build(BuildContext context) {
   print('  visible  | Full text | None      | Yes');
 
   final ovCompData = <Map<String, String>>[
-    {
-      'mode': 'clip',
-      'visual': 'Hard cut',
-      'indicator': 'None',
-      'extends': 'No',
-    },
-    {
-      'mode': 'fade',
-      'visual': 'Gradient',
-      'indicator': 'Fade effect',
-      'extends': 'No',
-    },
-    {
-      'mode': 'ellipsis',
-      'visual': 'Truncate',
-      'indicator': '"..."',
-      'extends': 'No',
-    },
-    {
-      'mode': 'visible',
-      'visual': 'Full text',
-      'indicator': 'None',
-      'extends': 'Yes',
-    },
+    {'mode': 'clip', 'visual': 'Hard cut', 'indicator': 'None', 'extends': 'No'},
+    {'mode': 'fade', 'visual': 'Gradient', 'indicator': 'Fade effect', 'extends': 'No'},
+    {'mode': 'ellipsis', 'visual': 'Truncate', 'indicator': '"..."', 'extends': 'No'},
+    {'mode': 'visible', 'visual': 'Full text', 'indicator': 'None', 'extends': 'Yes'},
   ];
 
   final ovCompTable = Container(
@@ -621,92 +495,37 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            SizedBox(
-              width: 60.0,
-              child: Text(
-                'Mode',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11.0,
-                  color: Color(0xFF8B3A2A),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 65.0,
-              child: Text(
-                'Visual',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11.0,
-                  color: Color(0xFF8B3A2A),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 70.0,
-              child: Text(
-                'Indicator',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11.0,
-                  color: Color(0xFF8B3A2A),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                'Extends?',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11.0,
-                  color: Color(0xFF8B3A2A),
-                ),
-              ),
-            ),
+            SizedBox(width: 60.0, child: Text('Mode',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
+                    color: Color(0xFF8B3A2A)))),
+            SizedBox(width: 65.0, child: Text('Visual',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
+                    color: Color(0xFF8B3A2A)))),
+            SizedBox(width: 70.0, child: Text('Indicator',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
+                    color: Color(0xFF8B3A2A)))),
+            Expanded(child: Text('Extends?',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
+                    color: Color(0xFF8B3A2A)))),
           ],
         ),
         Divider(color: Color(0xFFE0A090)),
-        ...ovCompData.map(
-          (r) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 3.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 60.0,
-                  child: Text(
-                    r['mode']!,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFB54A32),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 65.0,
-                  child: Text(
-                    r['visual']!,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E)),
-                  ),
-                ),
-                SizedBox(
-                  width: 70.0,
-                  child: Text(
-                    r['indicator']!,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E)),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    r['extends']!,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E)),
-                  ),
-                ),
-              ],
-            ),
+        ...ovCompData.map((r) => Padding(
+          padding: EdgeInsets.symmetric(vertical: 3.0),
+          child: Row(
+            children: [
+              SizedBox(width: 60.0, child: Text(r['mode']!,
+                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
+                      color: Color(0xFFB54A32)))),
+              SizedBox(width: 65.0, child: Text(r['visual']!,
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E)))),
+              SizedBox(width: 70.0, child: Text(r['indicator']!,
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E)))),
+              Expanded(child: Text(r['extends']!,
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E)))),
+            ],
           ),
-        ),
+        )),
       ],
     ),
   );
@@ -721,48 +540,24 @@ dynamic build(BuildContext context) {
   print('  Tooltips: visible');
 
   final ovUseCases = <Map<String, dynamic>>[
-    {
-      'title': 'List Item Title',
-      'icon': Icons.list,
-      'mode': 'ellipsis',
-      'color': Color(0xFFA0522D),
-      'desc': 'Clean "..." truncation for consistent list layout',
-    },
-    {
-      'title': 'Banner Headline',
-      'icon': Icons.title,
-      'mode': 'fade',
-      'color': Color(0xFFD4825E),
-      'desc': 'Smooth gradient fade for decorative text clipping',
-    },
-    {
-      'title': 'Debug Overlay',
-      'icon': Icons.bug_report,
-      'mode': 'visible',
-      'color': Color(0xFF6D3B2E),
-      'desc': 'Show full text regardless of container bounds',
-    },
-    {
-      'title': 'Chat Message',
-      'icon': Icons.chat_bubble,
-      'mode': 'clip',
-      'color': Color(0xFFCD6B50),
-      'desc': 'Hard clip for fixed-height message previews',
-    },
-    {
-      'title': 'Search Result',
-      'icon': Icons.search,
-      'mode': 'ellipsis',
-      'color': Color(0xFFA0522D),
-      'desc': 'Truncated results with indication of more content',
-    },
-    {
-      'title': 'Chip Label',
-      'icon': Icons.label,
-      'mode': 'fade',
-      'color': Color(0xFFD4825E),
-      'desc': 'Small containers where "..." would be too visible',
-    },
+    {'title': 'List Item Title', 'icon': Icons.list,
+     'mode': 'ellipsis', 'color': Color(0xFFA0522D),
+     'desc': 'Clean "..." truncation for consistent list layout'},
+    {'title': 'Banner Headline', 'icon': Icons.title,
+     'mode': 'fade', 'color': Color(0xFFD4825E),
+     'desc': 'Smooth gradient fade for decorative text clipping'},
+    {'title': 'Debug Overlay', 'icon': Icons.bug_report,
+     'mode': 'visible', 'color': Color(0xFF6D3B2E),
+     'desc': 'Show full text regardless of container bounds'},
+    {'title': 'Chat Message', 'icon': Icons.chat_bubble,
+     'mode': 'clip', 'color': Color(0xFFCD6B50),
+     'desc': 'Hard clip for fixed-height message previews'},
+    {'title': 'Search Result', 'icon': Icons.search,
+     'mode': 'ellipsis', 'color': Color(0xFFA0522D),
+     'desc': 'Truncated results with indication of more content'},
+    {'title': 'Chip Label', 'icon': Icons.label,
+     'mode': 'fade', 'color': Color(0xFFD4825E),
+     'desc': 'Small containers where "..." would be too visible'},
   ];
 
   final ovUseCaseSection = Container(
@@ -789,31 +584,18 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(
-                    uc['icon'] as IconData,
-                    color: Color(0xFFB54A32),
-                    size: 16.0,
-                  ),
+                  Icon(uc['icon'] as IconData, color: Color(0xFFB54A32), size: 16.0),
                   SizedBox(width: 4.0),
-                  Expanded(
-                    child: Text(
-                      uc['title'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF8B3A2A),
-                      ),
-                    ),
-                  ),
+                  Expanded(child: Text(uc['title'] as String,
+                      style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                          color: Color(0xFF8B3A2A)))),
                 ],
               ),
               SizedBox(height: 4.0),
               ovChip(uc['mode'] as String, uc['color'] as Color),
               SizedBox(height: 4.0),
-              Text(
-                uc['desc'] as String,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF6D3B2E)),
-              ),
+              Text(uc['desc'] as String,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF6D3B2E))),
             ],
           ),
         );
@@ -837,14 +619,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Usage in RichText & TextPainter',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF8B3A2A),
-          ),
-        ),
+        Text('Usage in RichText & TextPainter',
+            style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
+                color: Color(0xFF8B3A2A))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -857,14 +634,9 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'RichText',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFFB54A32),
-                ),
-              ),
+              Text('RichText',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                      color: Color(0xFFB54A32))),
               SizedBox(height: 4.0),
               Container(
                 width: double.infinity,
@@ -879,11 +651,8 @@ dynamic build(BuildContext context) {
                   '  overflow: TextOverflow.ellipsis,\n'
                   '  maxLines: 2,\n'
                   ')',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    color: Color(0xFF8B3A2A),
-                  ),
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                      color: Color(0xFF8B3A2A)),
                 ),
               ),
             ],
@@ -899,14 +668,9 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'TextPainter',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFFB54A32),
-                ),
-              ),
+              Text('TextPainter',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                      color: Color(0xFFB54A32))),
               SizedBox(height: 4.0),
               Container(
                 width: double.infinity,
@@ -922,11 +686,8 @@ dynamic build(BuildContext context) {
                   '  ellipsis: "...",\n'
                   '  // maps to TextOverflow.ellipsis\n'
                   ')',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    color: Color(0xFF8B3A2A),
-                  ),
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                      color: Color(0xFF8B3A2A)),
                 ),
               ),
             ],
@@ -960,14 +721,9 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Dart 3 Switch Expression',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF8B3A2A),
-          ),
-        ),
+        Text('Dart 3 Switch Expression',
+            style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
+                color: Color(0xFF8B3A2A))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -983,11 +739,8 @@ dynamic build(BuildContext context) {
             '  TextOverflow.ellipsis => "Truncate ...",\n'
             '  TextOverflow.visible  => "Beyond bounds",\n'
             '};',
-            style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF8B3A2A),
-            ),
+            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                color: Color(0xFF8B3A2A)),
           ),
         ),
         SizedBox(height: 8.0),
@@ -1003,10 +756,8 @@ dynamic build(BuildContext context) {
             child: Row(
               children: [
                 Icon(Icons.arrow_right, color: Color(0xFFB54A32), size: 16.0),
-                Text(
-                  '${v.name} → $desc',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E)),
-                ),
+                Text('${v.name} → $desc',
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E))),
               ],
             ),
           );
@@ -1030,33 +781,17 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Expanded(
-              child: _ovGridCell('clip', TextOverflow.clip, Color(0xFFCD6B50)),
-            ),
+            Expanded(child: _ovGridCell('clip', TextOverflow.clip, Color(0xFFCD6B50))),
             SizedBox(width: 8.0),
-            Expanded(
-              child: _ovGridCell('fade', TextOverflow.fade, Color(0xFFD4825E)),
-            ),
+            Expanded(child: _ovGridCell('fade', TextOverflow.fade, Color(0xFFD4825E))),
           ],
         ),
         SizedBox(height: 8.0),
         Row(
           children: [
-            Expanded(
-              child: _ovGridCell(
-                'ellipsis',
-                TextOverflow.ellipsis,
-                Color(0xFFA0522D),
-              ),
-            ),
+            Expanded(child: _ovGridCell('ellipsis', TextOverflow.ellipsis, Color(0xFFA0522D))),
             SizedBox(width: 8.0),
-            Expanded(
-              child: _ovGridCell(
-                'visible',
-                TextOverflow.visible,
-                Color(0xFF6D3B2E),
-              ),
-            ),
+            Expanded(child: _ovGridCell('visible', TextOverflow.visible, Color(0xFF6D3B2E))),
           ],
         ),
       ],
@@ -1081,10 +816,7 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ovInfoRow('clip == clip:', '${TextOverflow.clip == TextOverflow.clip}'),
-        ovInfoRow(
-          'clip == ellipsis:',
-          '${TextOverflow.clip == TextOverflow.ellipsis}',
-        ),
+        ovInfoRow('clip == ellipsis:', '${TextOverflow.clip == TextOverflow.ellipsis}'),
         ovInfoRow('hashCode clip:', '${TextOverflow.clip.hashCode}'),
         ovInfoRow('hashCode ellipsis:', '${TextOverflow.ellipsis.hashCode}'),
         SizedBox(height: 6.0),
@@ -1108,39 +840,30 @@ dynamic build(BuildContext context) {
   print('  Pattern 3: Responsive overflow');
 
   final ovPatterns = <Map<String, String>>[
-    {
-      'title': 'Single-Line List Tile',
-      'code':
-          'ListTile(\n'
-          '  title: Text(\n'
-          '    title,\n'
-          '    overflow: TextOverflow.ellipsis,\n'
-          '    maxLines: 1,\n'
-          '  ),\n'
-          ')',
-    },
-    {
-      'title': 'Expandable Text Widget',
-      'code':
-          'Text(\n'
-          '  content,\n'
-          '  overflow: isExpanded\n'
-          '      ? TextOverflow.visible\n'
-          '      : TextOverflow.ellipsis,\n'
-          '  maxLines: isExpanded ? null : 3,\n'
-          ')',
-    },
-    {
-      'title': 'Responsive Overflow Choice',
-      'code':
-          'Text(\n'
-          '  text,\n'
-          '  overflow: isCompact\n'
-          '      ? TextOverflow.ellipsis\n'
-          '      : TextOverflow.fade,\n'
-          '  maxLines: isCompact ? 1 : 2,\n'
-          ')',
-    },
+    {'title': 'Single-Line List Tile',
+     'code': 'ListTile(\n'
+         '  title: Text(\n'
+         '    title,\n'
+         '    overflow: TextOverflow.ellipsis,\n'
+         '    maxLines: 1,\n'
+         '  ),\n'
+         ')'},
+    {'title': 'Expandable Text Widget',
+     'code': 'Text(\n'
+         '  content,\n'
+         '  overflow: isExpanded\n'
+         '      ? TextOverflow.visible\n'
+         '      : TextOverflow.ellipsis,\n'
+         '  maxLines: isExpanded ? null : 3,\n'
+         ')'},
+    {'title': 'Responsive Overflow Choice',
+     'code': 'Text(\n'
+         '  text,\n'
+         '  overflow: isCompact\n'
+         '      ? TextOverflow.ellipsis\n'
+         '      : TextOverflow.fade,\n'
+         '  maxLines: isCompact ? 1 : 2,\n'
+         ')'},
   ];
 
   final ovPatternsSection = Container(
@@ -1163,14 +886,9 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                p['title']!,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFFB54A32),
-                ),
-              ),
+              Text(p['title']!,
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                      color: Color(0xFFB54A32))),
               SizedBox(height: 6.0),
               Container(
                 width: double.infinity,
@@ -1179,14 +897,9 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFFFF0EB),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(
-                  p['code']!,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    fontFamily: 'monospace',
-                    color: Color(0xFF8B3A2A),
-                  ),
-                ),
+                child: Text(p['code']!,
+                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                        color: Color(0xFF8B3A2A))),
               ),
             ],
           ),
@@ -1203,30 +916,14 @@ dynamic build(BuildContext context) {
   print('  visible: Debug, tooltips, overlays, measured text');
 
   final ovWhenData = <Map<String, dynamic>>[
-    {
-      'mode': 'clip',
-      'icon': Icons.content_cut,
-      'color': Color(0xFFCD6B50),
-      'when': 'Basic containers, no visual indicator needed, default fallback',
-    },
-    {
-      'mode': 'fade',
-      'icon': Icons.gradient,
-      'color': Color(0xFFD4825E),
-      'when': 'Decorative headers, banners, artistic layouts, chips',
-    },
-    {
-      'mode': 'ellipsis',
-      'icon': Icons.more_horiz,
-      'color': Color(0xFFA0522D),
-      'when': 'Lists, tables, search results, data-heavy UIs, titles',
-    },
-    {
-      'mode': 'visible',
-      'icon': Icons.open_in_full,
-      'color': Color(0xFF6D3B2E),
-      'when': 'Debug overlays, tooltips, expandable content, measured text',
-    },
+    {'mode': 'clip', 'icon': Icons.content_cut, 'color': Color(0xFFCD6B50),
+     'when': 'Basic containers, no visual indicator needed, default fallback'},
+    {'mode': 'fade', 'icon': Icons.gradient, 'color': Color(0xFFD4825E),
+     'when': 'Decorative headers, banners, artistic layouts, chips'},
+    {'mode': 'ellipsis', 'icon': Icons.more_horiz, 'color': Color(0xFFA0522D),
+     'when': 'Lists, tables, search results, data-heavy UIs, titles'},
+    {'mode': 'visible', 'icon': Icons.open_in_full, 'color': Color(0xFF6D3B2E),
+     'when': 'Debug overlays, tooltips, expandable content, measured text'},
   ];
 
   final ovWhenSection = Container(
@@ -1243,31 +940,17 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                w['icon'] as IconData,
-                color: w['color'] as Color,
-                size: 20.0,
-              ),
+              Icon(w['icon'] as IconData, color: w['color'] as Color, size: 20.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      w['mode'] as String,
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                        color: w['color'] as Color,
-                      ),
-                    ),
-                    Text(
-                      w['when'] as String,
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        color: Color(0xFF6D3B2E),
-                      ),
-                    ),
+                    Text(w['mode'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                            color: w['color'] as Color)),
+                    Text(w['when'] as String,
+                        style: TextStyle(fontSize: 11.0, color: Color(0xFF6D3B2E))),
                   ],
                 ),
               ),
@@ -1298,50 +981,34 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text(
-          'TextOverflow Dashboard',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        Text('TextOverflow Dashboard',
+            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,
+                color: Colors.white)),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Text(
-                  '${TextOverflow.values.length}',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFFFCCBC),
-                  ),
-                ),
-                Text(
-                  'Modes',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFE0A090)),
-                ),
+                Text('${TextOverflow.values.length}',
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold,
+                        color: Color(0xFFFFCCBC))),
+                Text('Modes', style: TextStyle(fontSize: 11.0,
+                    color: Color(0xFFE0A090))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.content_cut, color: Color(0xFFFFCCBC), size: 28.0),
-                Text(
-                  'Default: clip',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFE0A090)),
-                ),
+                Text('Default: clip',
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFFE0A090))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.more_horiz, color: Color(0xFFFFCCBC), size: 28.0),
-                Text(
-                  'Most used: ellipsis',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFE0A090)),
-                ),
+                Text('Most used: ellipsis',
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFFE0A090))),
               ],
             ),
           ],
@@ -1432,14 +1099,9 @@ Widget _ovGridCell(String label, TextOverflow mode, Color accent) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11.0,
-            fontWeight: FontWeight.w700,
-            color: accent,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
+                color: accent)),
         SizedBox(height: 4.0),
         SizedBox(
           width: double.infinity,

@@ -150,12 +150,7 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   // section card - the outer frame for every numbered section.
-  Widget sectionCard({
-    required String number,
-    required String title,
-    required String subtitle,
-    required Widget body,
-  }) {
+  Widget sectionCard({required String number, required String title, required String subtitle, required Widget body}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
@@ -266,28 +261,19 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 9,
                   height: 9,
-                  decoration: BoxDecoration(
-                    color: rose500,
-                    shape: BoxShape.circle,
-                  ),
+                  decoration: BoxDecoration(color: rose500, shape: BoxShape.circle),
                 ),
                 const SizedBox(width: 6),
                 Container(
                   width: 9,
                   height: 9,
-                  decoration: BoxDecoration(
-                    color: amber400,
-                    shape: BoxShape.circle,
-                  ),
+                  decoration: BoxDecoration(color: amber400, shape: BoxShape.circle),
                 ),
                 const SizedBox(width: 6),
                 Container(
                   width: 9,
                   height: 9,
-                  decoration: BoxDecoration(
-                    color: emerald500,
-                    shape: BoxShape.circle,
-                  ),
+                  decoration: BoxDecoration(color: emerald500, shape: BoxShape.circle),
                 ),
                 const SizedBox(width: 14),
                 Text(
@@ -379,10 +365,7 @@ dynamic build(BuildContext context) {
           height: 16,
           decoration: BoxDecoration(
             color: checkbox ? amber500 : Colors.white,
-            border: Border.all(
-              color: checkbox ? amber500 : slate400,
-              width: 1.5,
-            ),
+            border: Border.all(color: checkbox ? amber500 : slate400, width: 1.5),
             borderRadius: BorderRadius.circular(3),
           ),
           child: checkbox
@@ -406,10 +389,7 @@ dynamic build(BuildContext context) {
                   child: Container(
                     width: 8,
                     height: 8,
-                    decoration: BoxDecoration(
-                      color: amber500,
-                      shape: BoxShape.circle,
-                    ),
+                    decoration: BoxDecoration(color: amber500, shape: BoxShape.circle),
                   ),
                 )
               : const SizedBox.shrink(),
@@ -544,17 +524,11 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: amber500.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(
-                    color: amber400.withValues(alpha: 0.35),
-                    width: 1,
-                  ),
+                  border: Border.all(color: amber400.withValues(alpha: 0.35), width: 1),
                 ),
                 child: Text(
                   'MATERIAL  /  MENU FAMILY',
@@ -568,17 +542,11 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(width: 10),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: emerald500.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(
-                    color: emerald500.withValues(alpha: 0.35),
-                    width: 1,
-                  ),
+                  border: Border.all(color: emerald500.withValues(alpha: 0.35), width: 1),
                 ),
                 child: Text(
                   'STATIC SNAPSHOT MODE',
@@ -606,7 +574,11 @@ dynamic build(BuildContext context) {
               'compared side-by-side. The original closed triggers are still '
               'present in the document so you can see the resting state next '
               'to the open visual.',
-              style: TextStyle(color: slate300, fontSize: 14.5, height: 1.55),
+              style: TextStyle(
+                color: slate300,
+                fontSize: 14.5,
+                height: 1.55,
+              ),
             ),
           ),
           const SizedBox(height: 22),
@@ -615,34 +587,14 @@ dynamic build(BuildContext context) {
             runSpacing: 10,
             children: [
               pill('MenuAnchor', amber500.withValues(alpha: 0.18), amber400),
-              pill(
-                'MenuController',
-                amber500.withValues(alpha: 0.18),
-                amber400,
-              ),
+              pill('MenuController', amber500.withValues(alpha: 0.18), amber400),
               pill('MenuBar', amber500.withValues(alpha: 0.18), amber400),
-              pill(
-                'MenuItemButton',
-                amber500.withValues(alpha: 0.18),
-                amber400,
-              ),
+              pill('MenuItemButton', amber500.withValues(alpha: 0.18), amber400),
               pill('SubmenuButton', amber500.withValues(alpha: 0.18), amber400),
-              pill(
-                'CheckboxMenuButton',
-                amber500.withValues(alpha: 0.18),
-                amber400,
-              ),
-              pill(
-                'RadioMenuButton',
-                amber500.withValues(alpha: 0.18),
-                amber400,
-              ),
+              pill('CheckboxMenuButton', amber500.withValues(alpha: 0.18), amber400),
+              pill('RadioMenuButton', amber500.withValues(alpha: 0.18), amber400),
               pill('MenuStyle', amber500.withValues(alpha: 0.18), amber400),
-              pill(
-                'SingleActivator',
-                amber500.withValues(alpha: 0.18),
-                amber400,
-              ),
+              pill('SingleActivator', amber500.withValues(alpha: 0.18), amber400),
             ],
           ),
         ],
@@ -666,8 +618,7 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '02',
       title: 'Anatomy of a MenuAnchor',
-      subtitle:
-          'Three slots: builder (the trigger), menuChildren (the items), and child (forwarded into builder).',
+      subtitle: 'Three slots: builder (the trigger), menuChildren (the items), and child (forwarded into builder).',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -681,10 +632,7 @@ dynamic build(BuildContext context) {
             child: Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 10,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   decoration: BoxDecoration(
                     color: slate900,
                     borderRadius: BorderRadius.circular(8),
@@ -723,13 +671,7 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'builder',
-                              style: code.copyWith(
-                                color: violet600,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            Text('builder', style: code.copyWith(color: violet600, fontWeight: FontWeight.w700)),
                             const SizedBox(height: 6),
                             Text(
                               '(context, controller, child) {\n'
@@ -760,13 +702,7 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'menuChildren',
-                              style: code.copyWith(
-                                color: teal600,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            Text('menuChildren', style: code.copyWith(color: teal600, fontWeight: FontWeight.w700)),
                             const SizedBox(height: 6),
                             Text(
                               '<Widget>[\n'
@@ -795,10 +731,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: amber50,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: amber400.withValues(alpha: 0.5),
-                      width: 1,
-                    ),
+                    border: Border.all(color: amber400.withValues(alpha: 0.5), width: 1),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -826,24 +759,24 @@ dynamic build(BuildContext context) {
           codeBlock(
             'menu_anchor.dart',
             'MenuAnchor(\n'
-                '  controller: optional,                     // own controller\n'
-                '  alignmentOffset: const Offset(0, 4),      // gap below trigger\n'
-                '  consumeOutsideTap: true,                  // swallow first tap\n'
-                '  style: MenuStyle(...),                    // surface theming\n'
-                '  builder: (ctx, ctrl, child) => IconButton(\n'
-                '    icon: const Icon(Icons.more_vert),\n'
-                '    onPressed: () => ctrl.isOpen ? ctrl.close() : ctrl.open(),\n'
-                '  ),\n'
-                '  menuChildren: <Widget>[\n'
-                '    MenuItemButton(child: Text("New"),  onPressed: ...),\n'
-                '    MenuItemButton(child: Text("Open"), onPressed: ...),\n'
-                '    const Divider(height: 1),\n'
-                '    SubmenuButton(\n'
-                '      menuChildren: const <Widget>[...],\n'
-                '      child: const Text("Recent"),\n'
-                '    ),\n'
-                '  ],\n'
-                ')',
+            '  controller: optional,                     // own controller\n'
+            '  alignmentOffset: const Offset(0, 4),      // gap below trigger\n'
+            '  consumeOutsideTap: true,                  // swallow first tap\n'
+            '  style: MenuStyle(...),                    // surface theming\n'
+            '  builder: (ctx, ctrl, child) => IconButton(\n'
+            '    icon: const Icon(Icons.more_vert),\n'
+            '    onPressed: () => ctrl.isOpen ? ctrl.close() : ctrl.open(),\n'
+            '  ),\n'
+            '  menuChildren: <Widget>[\n'
+            '    MenuItemButton(child: Text("New"),  onPressed: ...),\n'
+            '    MenuItemButton(child: Text("Open"), onPressed: ...),\n'
+            '    const Divider(height: 1),\n'
+            '    SubmenuButton(\n'
+            '      menuChildren: const <Widget>[...],\n'
+            '      child: const Text("Recent"),\n'
+            '    ),\n'
+            '  ],\n'
+            ')',
           ),
         ],
       ),
@@ -919,19 +852,12 @@ dynamic build(BuildContext context) {
           Align(alignment: Alignment.centerLeft, child: trigger),
           const SizedBox(height: 8),
           if (showOverlay)
-            staticMenuSurface(
-              children: overlayItems,
-              minWidth: 180,
-              elevation: 8,
-            )
+            staticMenuSurface(children: overlayItems, minWidth: 180, elevation: 8)
           else
             Container(
               height: 28,
               alignment: Alignment.centerLeft,
-              child: Text(
-                '(no overlay)',
-                style: muted.copyWith(fontStyle: FontStyle.italic),
-              ),
+              child: Text('(no overlay)', style: muted.copyWith(fontStyle: FontStyle.italic)),
             ),
           const SizedBox(height: 10),
           Text(body, style: muted),
@@ -957,8 +883,7 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '03',
       title: 'MenuController open / close lifecycle',
-      subtitle:
-          'Four labelled snapshots that walk through the imperative API. No live controller is instantiated here.',
+      subtitle: 'Four labelled snapshots that walk through the imperative API. No live controller is instantiated here.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -969,8 +894,7 @@ dynamic build(BuildContext context) {
                 child: flowFrame(
                   step: '1',
                   title: 'Resting',
-                  body:
-                      'Trigger visible, controller.isOpen == false. The '
+                  body: 'Trigger visible, controller.isOpen == false. The '
                       'overlay route is not mounted.',
                   trigger: triggerChip(slate100, slate700, 'Actions  v'),
                   showOverlay: false,
@@ -982,29 +906,15 @@ dynamic build(BuildContext context) {
                 child: flowFrame(
                   step: '2',
                   title: 'Open requested',
-                  body:
-                      'controller.open() pushes a _MenuPanel into the '
+                  body: 'controller.open() pushes a _MenuPanel into the '
                       'Overlay above the trigger. First focus moves to the '
                       'first focusable item.',
                   trigger: triggerChip(amber100, amber600, 'Actions  ^'),
                   showOverlay: true,
                   overlayItems: <Widget>[
-                    staticMenuItemRow(
-                      leading: Icons.add,
-                      label: 'New',
-                      shortcut: 'Ctrl+N',
-                      focused: true,
-                    ),
-                    staticMenuItemRow(
-                      leading: Icons.folder_open,
-                      label: 'Open',
-                      shortcut: 'Ctrl+O',
-                    ),
-                    staticMenuItemRow(
-                      leading: Icons.save,
-                      label: 'Save',
-                      shortcut: 'Ctrl+S',
-                    ),
+                    staticMenuItemRow(leading: Icons.add, label: 'New', shortcut: 'Ctrl+N', focused: true),
+                    staticMenuItemRow(leading: Icons.folder_open, label: 'Open', shortcut: 'Ctrl+O'),
+                    staticMenuItemRow(leading: Icons.save, label: 'Save', shortcut: 'Ctrl+S'),
                   ],
                 ),
               ),
@@ -1013,28 +923,14 @@ dynamic build(BuildContext context) {
                 child: flowFrame(
                   step: '3',
                   title: 'Item activated',
-                  body:
-                      'Tapping or pressing Enter on a MenuItemButton runs '
+                  body: 'Tapping or pressing Enter on a MenuItemButton runs '
                       'its onPressed and calls controller.close() afterward.',
                   trigger: triggerChip(amber100, amber600, 'Actions  ^'),
                   showOverlay: true,
                   overlayItems: <Widget>[
-                    staticMenuItemRow(
-                      leading: Icons.add,
-                      label: 'New',
-                      shortcut: 'Ctrl+N',
-                    ),
-                    staticMenuItemRow(
-                      leading: Icons.folder_open,
-                      label: 'Open',
-                      shortcut: 'Ctrl+O',
-                      focused: true,
-                    ),
-                    staticMenuItemRow(
-                      leading: Icons.save,
-                      label: 'Save',
-                      shortcut: 'Ctrl+S',
-                    ),
+                    staticMenuItemRow(leading: Icons.add, label: 'New', shortcut: 'Ctrl+N'),
+                    staticMenuItemRow(leading: Icons.folder_open, label: 'Open', shortcut: 'Ctrl+O', focused: true),
+                    staticMenuItemRow(leading: Icons.save, label: 'Save', shortcut: 'Ctrl+S'),
                   ],
                 ),
               ),
@@ -1043,8 +939,7 @@ dynamic build(BuildContext context) {
                 child: flowFrame(
                   step: '4',
                   title: 'Closed',
-                  body:
-                      'controller.close() unmounts the overlay route. '
+                  body: 'controller.close() unmounts the overlay route. '
                       'Focus is restored to whatever held it before open().',
                   trigger: triggerChip(slate100, slate700, 'Actions  v'),
                   showOverlay: false,
@@ -1057,24 +952,24 @@ dynamic build(BuildContext context) {
           codeBlock(
             'controller_usage.dart',
             '// 1. Default - MenuAnchor owns the controller.\n'
-                'MenuAnchor(builder: (_, c, __) => ..., menuChildren: ...)\n\n'
-                '// 2. External controller - drive from anywhere.\n'
-                'final MenuController controller = MenuController();\n'
-                'MenuAnchor(\n'
-                '  controller: controller,\n'
-                '  builder: (ctx, c, child) => IconButton(\n'
-                '    onPressed: () => c.isOpen ? c.close() : c.open(),\n'
-                '    icon: const Icon(Icons.menu),\n'
-                '  ),\n'
-                '  menuChildren: const <Widget>[],\n'
-                ')\n\n'
-                '// 3. Imperative open from a *different* widget.\n'
-                'TextButton(\n'
-                '  onPressed: () => controller.open(),\n'
-                '  child: const Text("Show menu"),\n'
-                ')\n\n'
-                '// 4. Imperative close (rarely needed; tap-outside / Esc work).\n'
-                'controller.close();',
+            'MenuAnchor(builder: (_, c, __) => ..., menuChildren: ...)\n\n'
+            '// 2. External controller - drive from anywhere.\n'
+            'final MenuController controller = MenuController();\n'
+            'MenuAnchor(\n'
+            '  controller: controller,\n'
+            '  builder: (ctx, c, child) => IconButton(\n'
+            '    onPressed: () => c.isOpen ? c.close() : c.open(),\n'
+            '    icon: const Icon(Icons.menu),\n'
+            '  ),\n'
+            '  menuChildren: const <Widget>[],\n'
+            ')\n\n'
+            '// 3. Imperative open from a *different* widget.\n'
+            'TextButton(\n'
+            '  onPressed: () => controller.open(),\n'
+            '  child: const Text("Show menu"),\n'
+            ')\n\n'
+            '// 4. Imperative close (rarely needed; tap-outside / Esc work).\n'
+            'controller.close();',
           ),
         ],
       ),
@@ -1095,8 +990,7 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '04',
       title: 'MenuBar with three submenus',
-      subtitle:
-          'Real MenuBar (closed) above, hand-drawn open snapshots below for File / Edit / View.',
+      subtitle: 'Real MenuBar (closed) above, hand-drawn open snapshots below for File / Edit / View.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1140,10 +1034,7 @@ dynamic build(BuildContext context) {
                     MenuItemButton(onPressed: () {}, child: const Text('Redo')),
                     MenuItemButton(onPressed: null, child: const Text('Cut')),
                     MenuItemButton(onPressed: () {}, child: const Text('Copy')),
-                    MenuItemButton(
-                      onPressed: () {},
-                      child: const Text('Paste'),
-                    ),
+                    MenuItemButton(onPressed: () {}, child: const Text('Paste')),
                   ],
                   child: const Text('Edit'),
                 ),
@@ -1183,33 +1074,13 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 6),
                     staticMenuSurface(
                       children: <Widget>[
-                        staticMenuItemRow(
-                          leading: Icons.add,
-                          label: 'New',
-                          shortcut: 'Ctrl+N',
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.folder_open,
-                          label: 'Open',
-                          shortcut: 'Ctrl+O',
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.save,
-                          label: 'Save',
-                          shortcut: 'Ctrl+S',
-                        ),
+                        staticMenuItemRow(leading: Icons.add, label: 'New', shortcut: 'Ctrl+N'),
+                        staticMenuItemRow(leading: Icons.folder_open, label: 'Open', shortcut: 'Ctrl+O'),
+                        staticMenuItemRow(leading: Icons.save, label: 'Save', shortcut: 'Ctrl+S'),
                         staticMenuDivider(),
-                        staticMenuItemRow(
-                          leading: Icons.history,
-                          label: 'Recent',
-                          hasSubmenu: true,
-                        ),
+                        staticMenuItemRow(leading: Icons.history, label: 'Recent', hasSubmenu: true),
                         staticMenuDivider(),
-                        staticMenuItemRow(
-                          leading: Icons.exit_to_app,
-                          label: 'Exit',
-                          shortcut: 'Alt+F4',
-                        ),
+                        staticMenuItemRow(leading: Icons.exit_to_app, label: 'Exit', shortcut: 'Alt+F4'),
                       ],
                     ),
                   ],
@@ -1224,33 +1095,12 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 6),
                     staticMenuSurface(
                       children: <Widget>[
-                        staticMenuItemRow(
-                          leading: Icons.undo,
-                          label: 'Undo',
-                          shortcut: 'Ctrl+Z',
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.redo,
-                          label: 'Redo',
-                          shortcut: 'Ctrl+Y',
-                        ),
+                        staticMenuItemRow(leading: Icons.undo, label: 'Undo', shortcut: 'Ctrl+Z'),
+                        staticMenuItemRow(leading: Icons.redo, label: 'Redo', shortcut: 'Ctrl+Y'),
                         staticMenuDivider(),
-                        staticMenuItemRow(
-                          leading: Icons.content_cut,
-                          label: 'Cut',
-                          shortcut: 'Ctrl+X',
-                          disabled: true,
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.content_copy,
-                          label: 'Copy',
-                          shortcut: 'Ctrl+C',
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.content_paste,
-                          label: 'Paste',
-                          shortcut: 'Ctrl+V',
-                        ),
+                        staticMenuItemRow(leading: Icons.content_cut, label: 'Cut', shortcut: 'Ctrl+X', disabled: true),
+                        staticMenuItemRow(leading: Icons.content_copy, label: 'Copy', shortcut: 'Ctrl+C'),
+                        staticMenuItemRow(leading: Icons.content_paste, label: 'Paste', shortcut: 'Ctrl+V'),
                       ],
                     ),
                   ],
@@ -1265,24 +1115,12 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 6),
                     staticMenuSurface(
                       children: <Widget>[
-                        staticMenuItemRow(
-                          checkbox: true,
-                          label: 'Sidebar',
-                          shortcut: 'Ctrl+B',
-                        ),
+                        staticMenuItemRow(checkbox: true, label: 'Sidebar', shortcut: 'Ctrl+B'),
                         staticMenuItemRow(checkbox: false, label: 'Status bar'),
                         staticMenuItemRow(checkbox: true, label: 'Minimap'),
                         staticMenuDivider(),
-                        staticMenuItemRow(
-                          leading: Icons.zoom_in,
-                          label: 'Zoom in',
-                          shortcut: 'Ctrl++',
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.zoom_out,
-                          label: 'Zoom out',
-                          shortcut: 'Ctrl+-',
-                        ),
+                        staticMenuItemRow(leading: Icons.zoom_in, label: 'Zoom in', shortcut: 'Ctrl++'),
+                        staticMenuItemRow(leading: Icons.zoom_out, label: 'Zoom out', shortcut: 'Ctrl+-'),
                       ],
                     ),
                   ],
@@ -1330,13 +1168,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('plain', slate100, slate700),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(label: 'Rename'),
-                        staticMenuItemRow(label: 'Duplicate'),
-                        staticMenuItemRow(label: 'Move'),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(label: 'Rename'),
+                      staticMenuItemRow(label: 'Duplicate'),
+                      staticMenuItemRow(label: 'Move'),
+                    ]),
                   ],
                 ),
               ),
@@ -1348,16 +1184,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('leadingIcon', sky100, sky600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(leading: Icons.edit, label: 'Edit'),
-                        staticMenuItemRow(leading: Icons.share, label: 'Share'),
-                        staticMenuItemRow(
-                          leading: Icons.archive,
-                          label: 'Archive',
-                        ),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(leading: Icons.edit, label: 'Edit'),
+                      staticMenuItemRow(leading: Icons.share, label: 'Share'),
+                      staticMenuItemRow(leading: Icons.archive, label: 'Archive'),
+                    ]),
                   ],
                 ),
               ),
@@ -1369,25 +1200,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('shortcut', emerald100, emerald600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(
-                          leading: Icons.search,
-                          label: 'Find',
-                          shortcut: 'Ctrl+F',
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.find_replace,
-                          label: 'Replace',
-                          shortcut: 'Ctrl+H',
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.subdirectory_arrow_right,
-                          label: 'Find next',
-                          shortcut: 'F3',
-                        ),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(leading: Icons.search, label: 'Find', shortcut: 'Ctrl+F'),
+                      staticMenuItemRow(leading: Icons.find_replace, label: 'Replace', shortcut: 'Ctrl+H'),
+                      staticMenuItemRow(leading: Icons.subdirectory_arrow_right, label: 'Find next', shortcut: 'F3'),
+                    ]),
                   ],
                 ),
               ),
@@ -1399,24 +1216,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('disabled', slate100, slate500),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(
-                          leading: Icons.upload,
-                          label: 'Upload',
-                          disabled: true,
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.download,
-                          label: 'Download',
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.cloud_off,
-                          label: 'Offline mode',
-                          disabled: true,
-                        ),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(leading: Icons.upload, label: 'Upload', disabled: true),
+                      staticMenuItemRow(leading: Icons.download, label: 'Download'),
+                      staticMenuItemRow(leading: Icons.cloud_off, label: 'Offline mode', disabled: true),
+                    ]),
                   ],
                 ),
               ),
@@ -1428,20 +1232,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('focused row', amber100, amber600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(leading: Icons.add, label: 'Add'),
-                        staticMenuItemRow(
-                          leading: Icons.tune,
-                          label: 'Configure',
-                          focused: true,
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.delete_outline,
-                          label: 'Remove',
-                        ),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(leading: Icons.add, label: 'Add'),
+                      staticMenuItemRow(leading: Icons.tune, label: 'Configure', focused: true),
+                      staticMenuItemRow(leading: Icons.delete_outline, label: 'Remove'),
+                    ]),
                   ],
                 ),
               ),
@@ -1453,25 +1248,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('hasSubmenu', violet100, violet600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(
-                          leading: Icons.history,
-                          label: 'Recent',
-                          hasSubmenu: true,
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.bookmarks,
-                          label: 'Bookmarks',
-                          hasSubmenu: true,
-                        ),
-                        staticMenuItemRow(
-                          leading: Icons.label_outline,
-                          label: 'Tags',
-                          hasSubmenu: true,
-                        ),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(leading: Icons.history, label: 'Recent', hasSubmenu: true),
+                      staticMenuItemRow(leading: Icons.bookmarks, label: 'Bookmarks', hasSubmenu: true),
+                      staticMenuItemRow(leading: Icons.label_outline, label: 'Tags', hasSubmenu: true),
+                    ]),
                   ],
                 ),
               ),
@@ -1481,13 +1262,13 @@ dynamic build(BuildContext context) {
           codeBlock(
             'menu_item_button.dart',
             'MenuItemButton(\n'
-                '  onPressed: () => doSomething(),\n'
-                '  shortcut: const SingleActivator(LogicalKeyboardKey.keyF, control: true),\n'
-                '  leadingIcon: const Icon(Icons.search),\n'
-                '  trailingIcon: const SizedBox.shrink(), // shortcut already shown\n'
-                '  closeOnActivate: true,                 // dismiss after tap\n'
-                '  child: const Text("Find"),\n'
-                ')',
+            '  onPressed: () => doSomething(),\n'
+            '  shortcut: const SingleActivator(LogicalKeyboardKey.keyF, control: true),\n'
+            '  leadingIcon: const Icon(Icons.search),\n'
+            '  trailingIcon: const SizedBox.shrink(), // shortcut already shown\n'
+            '  closeOnActivate: true,                 // dismiss after tap\n'
+            '  child: const Text("Find"),\n'
+            ')',
           ),
         ],
       ),
@@ -1527,27 +1308,11 @@ dynamic build(BuildContext context) {
                 staticMenuSurface(
                   minWidth: 200,
                   children: <Widget>[
-                    staticMenuItemRow(
-                      leading: Icons.add,
-                      label: 'New file',
-                      shortcut: 'Ctrl+N',
-                    ),
-                    staticMenuItemRow(
-                      leading: Icons.create_new_folder,
-                      label: 'New folder',
-                    ),
+                    staticMenuItemRow(leading: Icons.add, label: 'New file', shortcut: 'Ctrl+N'),
+                    staticMenuItemRow(leading: Icons.create_new_folder, label: 'New folder'),
                     staticMenuDivider(),
-                    staticMenuItemRow(
-                      leading: Icons.history,
-                      label: 'Recent',
-                      hasSubmenu: true,
-                      focused: true,
-                    ),
-                    staticMenuItemRow(
-                      leading: Icons.bookmarks,
-                      label: 'Bookmarks',
-                      hasSubmenu: true,
-                    ),
+                    staticMenuItemRow(leading: Icons.history, label: 'Recent', hasSubmenu: true, focused: true),
+                    staticMenuItemRow(leading: Icons.bookmarks, label: 'Bookmarks', hasSubmenu: true),
                   ],
                 ),
                 const SizedBox(width: 8),
@@ -1561,24 +1326,11 @@ dynamic build(BuildContext context) {
                   child: staticMenuSurface(
                     minWidth: 220,
                     children: <Widget>[
-                      staticMenuItemRow(
-                        leading: Icons.description,
-                        label: 'project_v17.flx',
-                      ),
-                      staticMenuItemRow(
-                        leading: Icons.description,
-                        label: 'design_notes.md',
-                      ),
-                      staticMenuItemRow(
-                        leading: Icons.description,
-                        label: 'budget.xlsx',
-                      ),
+                      staticMenuItemRow(leading: Icons.description, label: 'project_v17.flx'),
+                      staticMenuItemRow(leading: Icons.description, label: 'design_notes.md'),
+                      staticMenuItemRow(leading: Icons.description, label: 'budget.xlsx'),
                       staticMenuDivider(),
-                      staticMenuItemRow(
-                        leading: Icons.layers,
-                        label: 'More...',
-                        hasSubmenu: true,
-                      ),
+                      staticMenuItemRow(leading: Icons.layers, label: 'More...', hasSubmenu: true),
                     ],
                   ),
                 ),
@@ -1586,21 +1338,15 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 14),
-          bulletRow(
-            amber500,
-            'Submenus inherit the parent MenuStyle unless they specify '
-            'menuStyle of their own.',
-          ),
-          bulletRow(
-            emerald500,
-            'A submenu can be opened by hover, by Tab/right-arrow, or by '
-            'tapping the parent SubmenuButton.',
-          ),
-          bulletRow(
-            sky500,
-            'Submenus close together with the parent when the user taps '
-            'outside or presses Escape.',
-          ),
+          bulletRow(amber500,
+              'Submenus inherit the parent MenuStyle unless they specify '
+              'menuStyle of their own.'),
+          bulletRow(emerald500,
+              'A submenu can be opened by hover, by Tab/right-arrow, or by '
+              'tapping the parent SubmenuButton.'),
+          bulletRow(sky500,
+              'Submenus close together with the parent when the user taps '
+              'outside or presses Escape.'),
         ],
       ),
     ),
@@ -1635,12 +1381,10 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('value: true', emerald100, emerald600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(checkbox: true, label: 'Word wrap'),
-                        staticMenuItemRow(checkbox: true, label: 'Spell check'),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(checkbox: true, label: 'Word wrap'),
+                      staticMenuItemRow(checkbox: true, label: 'Spell check'),
+                    ]),
                   ],
                 ),
               ),
@@ -1651,15 +1395,10 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('value: false', slate100, slate600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(checkbox: false, label: 'Auto-save'),
-                        staticMenuItemRow(
-                          checkbox: false,
-                          label: 'Smart indent',
-                        ),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(checkbox: false, label: 'Auto-save'),
+                      staticMenuItemRow(checkbox: false, label: 'Smart indent'),
+                    ]),
                   ],
                 ),
               ),
@@ -1670,47 +1409,34 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('mixed (null)', amber100, amber600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 9,
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 16,
-                                height: 16,
-                                decoration: BoxDecoration(
-                                  color: amber500,
-                                  border: Border.all(
-                                    color: amber500,
-                                    width: 1.5,
-                                  ),
-                                  borderRadius: BorderRadius.circular(3),
-                                ),
-                                child: Center(
-                                  child: Container(
-                                    width: 8,
-                                    height: 2,
-                                    color: Colors.white,
-                                  ),
+                    staticMenuSurface(children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              width: 16,
+                              height: 16,
+                              decoration: BoxDecoration(
+                                color: amber500,
+                                border: Border.all(color: amber500, width: 1.5),
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  width: 8,
+                                  height: 2,
+                                  color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  'Tabs (mixed)',
-                                  style: menuItemText,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(child: Text('Tabs (mixed)', style: menuItemText)),
+                          ],
                         ),
-                        staticMenuItemRow(checkbox: false, label: 'Spaces'),
-                      ],
-                    ),
+                      ),
+                      staticMenuItemRow(checkbox: false, label: 'Spaces'),
+                    ]),
                   ],
                 ),
               ),
@@ -1720,11 +1446,11 @@ dynamic build(BuildContext context) {
           codeBlock(
             'checkbox_menu_button.dart',
             'CheckboxMenuButton(\n'
-                '  value: settings.wordWrap,        // bool? (null == mixed)\n'
-                '  tristate: false,                 // set true to allow null\n'
-                '  onChanged: (bool? next) => setState(() => settings.wordWrap = next ?? false),\n'
-                '  child: const Text("Word wrap"),\n'
-                ')',
+            '  value: settings.wordWrap,        // bool? (null == mixed)\n'
+            '  tristate: false,                 // set true to allow null\n'
+            '  onChanged: (bool? next) => setState(() => settings.wordWrap = next ?? false),\n'
+            '  child: const Text("Word wrap"),\n'
+            ')',
           ),
         ],
       ),
@@ -1742,8 +1468,7 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '08',
       title: 'RadioMenuButton group',
-      subtitle:
-          'Exclusive selection. Snapshot shows three options with one selected.',
+      subtitle: 'Exclusive selection. Snapshot shows three options with one selected.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -1756,13 +1481,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('Theme', violet100, violet600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(radio: false, label: 'System'),
-                        staticMenuItemRow(radio: true, label: 'Light'),
-                        staticMenuItemRow(radio: false, label: 'Dark'),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(radio: false, label: 'System'),
+                      staticMenuItemRow(radio: true, label: 'Light'),
+                      staticMenuItemRow(radio: false, label: 'Dark'),
+                    ]),
                   ],
                 ),
               ),
@@ -1773,13 +1496,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('Density', violet100, violet600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(radio: false, label: 'Comfortable'),
-                        staticMenuItemRow(radio: false, label: 'Cozy'),
-                        staticMenuItemRow(radio: true, label: 'Compact'),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(radio: false, label: 'Comfortable'),
+                      staticMenuItemRow(radio: false, label: 'Cozy'),
+                      staticMenuItemRow(radio: true, label: 'Compact'),
+                    ]),
                   ],
                 ),
               ),
@@ -1790,13 +1511,11 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     pill('Sort by', violet100, violet600),
                     const SizedBox(height: 6),
-                    staticMenuSurface(
-                      children: <Widget>[
-                        staticMenuItemRow(radio: true, label: 'Name'),
-                        staticMenuItemRow(radio: false, label: 'Modified'),
-                        staticMenuItemRow(radio: false, label: 'Size'),
-                      ],
-                    ),
+                    staticMenuSurface(children: <Widget>[
+                      staticMenuItemRow(radio: true, label: 'Name'),
+                      staticMenuItemRow(radio: false, label: 'Modified'),
+                      staticMenuItemRow(radio: false, label: 'Size'),
+                    ]),
                   ],
                 ),
               ),
@@ -1806,13 +1525,13 @@ dynamic build(BuildContext context) {
           codeBlock(
             'radio_menu_button.dart',
             'enum AppTheme { system, light, dark }\n\n'
-                'AppTheme groupValue = AppTheme.light;\n\n'
-                'RadioMenuButton<AppTheme>(\n'
-                '  value: AppTheme.system,\n'
-                '  groupValue: groupValue,\n'
-                '  onChanged: (AppTheme? next) => setState(() => groupValue = next!),\n'
-                '  child: const Text("System"),\n'
-                ')',
+            'AppTheme groupValue = AppTheme.light;\n\n'
+            'RadioMenuButton<AppTheme>(\n'
+            '  value: AppTheme.system,\n'
+            '  groupValue: groupValue,\n'
+            '  onChanged: (AppTheme? next) => setState(() => groupValue = next!),\n'
+            '  child: const Text("System"),\n'
+            ')',
           ),
         ],
       ),
@@ -1820,12 +1539,7 @@ dynamic build(BuildContext context) {
   );
 
   // dark menu row helper used by section 09 accent style.
-  Widget darkMenuRow(
-    IconData icon,
-    String label,
-    Color iconColor,
-    Color textColor,
-  ) {
+  Widget darkMenuRow(IconData icon, String label, Color iconColor, Color textColor) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Row(
@@ -1874,13 +1588,9 @@ dynamic build(BuildContext context) {
     shape: WidgetStatePropertyAll<OutlinedBorder>(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
-    padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-      EdgeInsets.all(4),
-    ),
+    padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.all(4)),
     surfaceTintColor: const WidgetStatePropertyAll<Color>(Colors.transparent),
-    shadowColor: WidgetStatePropertyAll<Color>(
-      slate900.withValues(alpha: 0.18),
-    ),
+    shadowColor: WidgetStatePropertyAll<Color>(slate900.withValues(alpha: 0.18)),
     alignment: Alignment.bottomLeft,
   );
   final MenuStyle compactMenuStyle = MenuStyle(
@@ -1892,9 +1602,7 @@ dynamic build(BuildContext context) {
         side: BorderSide(color: slate300, width: 1),
       ),
     ),
-    padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-      EdgeInsets.all(2),
-    ),
+    padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.all(2)),
     alignment: Alignment.bottomLeft,
   );
   final MenuStyle accentMenuStyle = MenuStyle(
@@ -1903,13 +1611,9 @@ dynamic build(BuildContext context) {
     shape: WidgetStatePropertyAll<OutlinedBorder>(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     ),
-    padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-      EdgeInsets.all(8),
-    ),
+    padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.all(8)),
     surfaceTintColor: const WidgetStatePropertyAll<Color>(Colors.transparent),
-    shadowColor: WidgetStatePropertyAll<Color>(
-      amber500.withValues(alpha: 0.40),
-    ),
+    shadowColor: WidgetStatePropertyAll<Color>(amber500.withValues(alpha: 0.40)),
     alignment: Alignment.topLeft,
   );
   final List<MenuStyle> _allMenuStyles = <MenuStyle>[
@@ -1924,8 +1628,7 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '09',
       title: 'MenuStyle theming',
-      subtitle:
-          'Three real MenuStyle objects rendered as snapshots so you can compare surface decisions side-by-side.',
+      subtitle: 'Three real MenuStyle objects rendered as snapshots so you can compare surface decisions side-by-side.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -1979,10 +1682,7 @@ dynamic build(BuildContext context) {
                     pill('accent (dark)', amber100, amber600),
                     const SizedBox(height: 6),
                     Container(
-                      constraints: const BoxConstraints(
-                        minWidth: 220,
-                        maxWidth: 320,
-                      ),
+                      constraints: const BoxConstraints(minWidth: 220, maxWidth: 320),
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: slate900,
@@ -2014,21 +1714,21 @@ dynamic build(BuildContext context) {
           codeBlock(
             'menu_style.dart',
             'final defaultStyle = MenuStyle(\n'
-                '  backgroundColor: const WidgetStatePropertyAll(Colors.white),\n'
-                '  elevation: const WidgetStatePropertyAll(8),\n'
-                '  shape: WidgetStatePropertyAll(RoundedRectangleBorder(\n'
-                '    borderRadius: BorderRadius.circular(8))),\n'
-                '  padding: const WidgetStatePropertyAll(EdgeInsets.all(4)),\n'
-                '  alignment: Alignment.bottomLeft,\n'
-                ');\n\n'
-                'final compactStyle = MenuStyle(\n'
-                '  backgroundColor: const WidgetStatePropertyAll(Color(0xFFF8FAFC)),\n'
-                '  elevation: const WidgetStatePropertyAll(2),\n'
-                '  shape: WidgetStatePropertyAll(RoundedRectangleBorder(\n'
-                '    borderRadius: BorderRadius.circular(4),\n'
-                '    side: const BorderSide(color: Color(0xFFCBD5E1)))),\n'
-                '  padding: const WidgetStatePropertyAll(EdgeInsets.all(2)),\n'
-                ');',
+            '  backgroundColor: const WidgetStatePropertyAll(Colors.white),\n'
+            '  elevation: const WidgetStatePropertyAll(8),\n'
+            '  shape: WidgetStatePropertyAll(RoundedRectangleBorder(\n'
+            '    borderRadius: BorderRadius.circular(8))),\n'
+            '  padding: const WidgetStatePropertyAll(EdgeInsets.all(4)),\n'
+            '  alignment: Alignment.bottomLeft,\n'
+            ');\n\n'
+            'final compactStyle = MenuStyle(\n'
+            '  backgroundColor: const WidgetStatePropertyAll(Color(0xFFF8FAFC)),\n'
+            '  elevation: const WidgetStatePropertyAll(2),\n'
+            '  shape: WidgetStatePropertyAll(RoundedRectangleBorder(\n'
+            '    borderRadius: BorderRadius.circular(4),\n'
+            '    side: const BorderSide(color: Color(0xFFCBD5E1)))),\n'
+            '  padding: const WidgetStatePropertyAll(EdgeInsets.all(2)),\n'
+            ');',
           ),
         ],
       ),
@@ -2054,8 +1754,7 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '10',
       title: 'Anchor positioning',
-      subtitle:
-          'Four common menu placements relative to the trigger rectangle.',
+      subtitle: 'Four common menu placements relative to the trigger rectangle.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -2078,29 +1777,21 @@ dynamic build(BuildContext context) {
                     children: <Widget>[
                       Text('under (default)', style: hSmall),
                       const SizedBox(height: 4),
-                      Text(
-                        'alignment: bottomLeft, offset: (0, 4)',
-                        style: muted,
-                      ),
+                      Text('alignment: bottomLeft, offset: (0, 4)', style: muted),
                       const SizedBox(height: 10),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 9,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
                         decoration: BoxDecoration(
                           color: teal500,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: Text(
-                          'Trigger',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text('Trigger',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'monospace',
+                            )),
                       ),
                       const SizedBox(height: 4),
                       staticMenuSurface(
@@ -2134,23 +1825,18 @@ dynamic build(BuildContext context) {
                       ),
                       const SizedBox(height: 4),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 9,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
                         decoration: BoxDecoration(
                           color: teal500,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: Text(
-                          'Trigger',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text('Trigger',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'monospace',
+                            )),
                       ),
                     ],
                   ),
@@ -2181,23 +1867,18 @@ dynamic build(BuildContext context) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 14,
-                              vertical: 9,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
                             decoration: BoxDecoration(
                               color: teal500,
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            child: Text(
-                              'Trigger',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'monospace',
-                              ),
-                            ),
+                            child: Text('Trigger',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'monospace',
+                                )),
                           ),
                           const SizedBox(width: 6),
                           Flexible(
@@ -2222,18 +1903,18 @@ dynamic build(BuildContext context) {
           codeBlock(
             'positioning.dart',
             'MenuAnchor(\n'
-                '  alignmentOffset: const Offset(0, 4),\n'
-                '  style: MenuStyle(alignment: Alignment.bottomLeft),\n'
-                '  builder: (_, c, __) => trigger,\n'
-                '  menuChildren: const <Widget>[],\n'
-                ');\n\n'
-                '// Pop above by flipping vertical alignment and negating offset.\n'
-                'MenuAnchor(\n'
-                '  alignmentOffset: const Offset(0, -4),\n'
-                '  style: MenuStyle(alignment: Alignment.topLeft),\n'
-                '  builder: (_, c, __) => trigger,\n'
-                '  menuChildren: const <Widget>[],\n'
-                ');',
+            '  alignmentOffset: const Offset(0, 4),\n'
+            '  style: MenuStyle(alignment: Alignment.bottomLeft),\n'
+            '  builder: (_, c, __) => trigger,\n'
+            '  menuChildren: const <Widget>[],\n'
+            ');\n\n'
+            '// Pop above by flipping vertical alignment and negating offset.\n'
+            'MenuAnchor(\n'
+            '  alignmentOffset: const Offset(0, -4),\n'
+            '  style: MenuStyle(alignment: Alignment.topLeft),\n'
+            '  builder: (_, c, __) => trigger,\n'
+            '  menuChildren: const <Widget>[],\n'
+            ');',
           ),
         ],
       ),
@@ -2241,11 +1922,7 @@ dynamic build(BuildContext context) {
   );
 
   // shortcut row helper used by section 11.
-  Widget shortcutLine(
-    List<String> keys,
-    String activator, {
-    bool last = false,
-  }) {
+  Widget shortcutLine(List<String> keys, String activator, {bool last = false}) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 9),
       decoration: BoxDecoration(
@@ -2283,8 +1960,7 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '11',
       title: 'Keyboard shortcuts (SingleActivator)',
-      subtitle:
-          'Six shortcut chips with the matching SingleActivator literal beside each.',
+      subtitle: 'Six shortcut chips with the matching SingleActivator literal beside each.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -2297,30 +1973,12 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: <Widget>[
-                shortcutLine(<String>[
-                  'Ctrl',
-                  'N',
-                ], 'SingleActivator(LogicalKeyboardKey.keyN, control: true)'),
-                shortcutLine(
-                  <String>['Ctrl', 'Shift', 'P'],
-                  'SingleActivator(LogicalKeyboardKey.keyP, control: true, shift: true)',
-                ),
-                shortcutLine(<String>[
-                  'F2',
-                ], 'SingleActivator(LogicalKeyboardKey.f2)'),
-                shortcutLine(<String>[
-                  'Alt',
-                  'F4',
-                ], 'SingleActivator(LogicalKeyboardKey.f4, alt: true)'),
-                shortcutLine(<String>[
-                  'Cmd',
-                  'K',
-                ], 'SingleActivator(LogicalKeyboardKey.keyK, meta: true)'),
-                shortcutLine(
-                  <String>['Esc'],
-                  'SingleActivator(LogicalKeyboardKey.escape)',
-                  last: true,
-                ),
+                shortcutLine(<String>['Ctrl', 'N'], 'SingleActivator(LogicalKeyboardKey.keyN, control: true)'),
+                shortcutLine(<String>['Ctrl', 'Shift', 'P'], 'SingleActivator(LogicalKeyboardKey.keyP, control: true, shift: true)'),
+                shortcutLine(<String>['F2'], 'SingleActivator(LogicalKeyboardKey.f2)'),
+                shortcutLine(<String>['Alt', 'F4'], 'SingleActivator(LogicalKeyboardKey.f4, alt: true)'),
+                shortcutLine(<String>['Cmd', 'K'], 'SingleActivator(LogicalKeyboardKey.keyK, meta: true)'),
+                shortcutLine(<String>['Esc'], 'SingleActivator(LogicalKeyboardKey.escape)', last: true),
               ],
             ),
           ),
@@ -2330,10 +1988,7 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: amber50,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: amber400.withValues(alpha: 0.4),
-                width: 1,
-              ),
+              border: Border.all(color: amber400.withValues(alpha: 0.4), width: 1),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2372,31 +2027,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: <Widget>[
           Expanded(flex: 2, child: Text('Capability', style: hSmall)),
-          Expanded(
-            flex: 3,
-            child: Text(
-              'MenuAnchor',
-              style: hSmall.copyWith(color: emerald600),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              'PopupMenuButton',
-              style: hSmall.copyWith(color: rose600),
-            ),
-          ),
+          Expanded(flex: 3, child: Text('MenuAnchor', style: hSmall.copyWith(color: emerald600))),
+          Expanded(flex: 3, child: Text('PopupMenuButton', style: hSmall.copyWith(color: rose600))),
         ],
       ),
     );
   }
 
-  Widget compareRow(
-    String capability,
-    String anchor,
-    String popup, {
-    bool last = false,
-  }) {
+  Widget compareRow(String capability, String anchor, String popup, {bool last = false}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
@@ -2410,16 +2048,7 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Text(
-              capability,
-              style: bodyText.copyWith(
-                fontWeight: FontWeight.w600,
-                color: slate800,
-              ),
-            ),
-          ),
+          Expanded(flex: 2, child: Text(capability, style: bodyText.copyWith(fontWeight: FontWeight.w600, color: slate800))),
           Expanded(flex: 3, child: Text(anchor, style: bodyText)),
           Expanded(flex: 3, child: Text(popup, style: bodyText)),
         ],
@@ -2439,8 +2068,7 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '12',
       title: 'Real MenuAnchor (closed trigger)',
-      subtitle:
-          'Below is an actual MenuAnchor widget. Its menuChildren are real but not rendered (no input pipeline).',
+      subtitle: 'Below is an actual MenuAnchor widget. Its menuChildren are real but not rendered (no input pipeline).',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -2469,37 +2097,26 @@ dynamic build(BuildContext context) {
                     const Divider(height: 1),
                     SubmenuButton(
                       menuChildren: <Widget>[
-                        MenuItemButton(
-                          onPressed: () {},
-                          child: const Text('project_v17.flx'),
-                        ),
-                        MenuItemButton(
-                          onPressed: () {},
-                          child: const Text('design_notes.md'),
-                        ),
+                        MenuItemButton(onPressed: () {}, child: const Text('project_v17.flx')),
+                        MenuItemButton(onPressed: () {}, child: const Text('design_notes.md')),
                       ],
                       leadingIcon: const Icon(Icons.history),
                       child: const Text('Recent'),
                     ),
                   ],
-                  builder:
-                      (
-                        BuildContext ctx,
-                        MenuController controller,
-                        Widget? child,
-                      ) {
-                        return FilledButton.icon(
-                          onPressed: () {
-                            if (controller.isOpen) {
-                              controller.close();
-                            } else {
-                              controller.open();
-                            }
-                          },
-                          icon: const Icon(Icons.menu),
-                          label: const Text('Actions'),
-                        );
+                  builder: (BuildContext ctx, MenuController controller, Widget? child) {
+                    return FilledButton.icon(
+                      onPressed: () {
+                        if (controller.isOpen) {
+                          controller.close();
+                        } else {
+                          controller.open();
+                        }
                       },
+                      icon: const Icon(Icons.menu),
+                      label: const Text('Actions'),
+                    );
+                  },
                 ),
                 const SizedBox(width: 16),
                 Text('<- closed trigger', style: muted),
@@ -2535,44 +2152,21 @@ dynamic build(BuildContext context) {
             child: Column(
               children: <Widget>[
                 compareHeader(),
-                compareRow(
-                  'Programmatic open()',
-                  'Yes (controller.open)',
-                  'No (only via menuKey hack)',
-                ),
+                compareRow('Programmatic open()', 'Yes (controller.open)', 'No (only via menuKey hack)'),
                 compareRow('Imperative close()', 'Yes', 'No'),
                 compareRow('Submenu cascade', 'Yes (SubmenuButton)', 'No'),
                 compareRow('MenuBar composition', 'Yes', 'No'),
-                compareRow(
-                  'Built-in checkbox / radio rows',
-                  'CheckboxMenuButton / RadioMenuButton',
-                  'CheckedPopupMenuItem only',
-                ),
-                compareRow(
-                  'Surface theming',
-                  'MenuStyle (WidgetStateProperty)',
-                  'PopupMenuThemeData (single value)',
-                ),
-                compareRow(
-                  'Returns selected value',
-                  'No (use callback in item)',
-                  'Yes (Future<T?> from showMenu)',
-                  last: true,
-                ),
+                compareRow('Built-in checkbox / radio rows', 'CheckboxMenuButton / RadioMenuButton', 'CheckedPopupMenuItem only'),
+                compareRow('Surface theming', 'MenuStyle (WidgetStateProperty)', 'PopupMenuThemeData (single value)'),
+                compareRow('Returns selected value', 'No (use callback in item)', 'Yes (Future<T?> from showMenu)', last: true),
               ],
             ),
           ),
           const SizedBox(height: 14),
-          bulletRow(
-            emerald500,
-            'Reach for MenuAnchor when you want a menu bar, '
-            'submenus, or programmatic open/close.',
-          ),
-          bulletRow(
-            amber500,
-            'Reach for PopupMenuButton when you need showMenu()-'
-            'style "ask-and-await" semantics for a single dropdown.',
-          ),
+          bulletRow(emerald500, 'Reach for MenuAnchor when you want a menu bar, '
+              'submenus, or programmatic open/close.'),
+          bulletRow(amber500, 'Reach for PopupMenuButton when you need showMenu()-'
+              'style "ask-and-await" semantics for a single dropdown.'),
         ],
       ),
     ),
@@ -2689,46 +2283,33 @@ dynamic build(BuildContext context) {
     sectionCard(
       number: '15',
       title: 'Accessibility notes',
-      subtitle:
-          'What to do (and not do) so screen readers and keyboard users have a good time.',
+      subtitle: 'What to do (and not do) so screen readers and keyboard users have a good time.',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          bulletRow(
-            emerald500,
-            'Every MenuItemButton ships with the right Semantics: it '
-            'announces as a button, its enabled state matches onPressed != null, '
-            'and the trailing shortcut is announced via Semantics.label.',
-          ),
-          bulletRow(
-            emerald500,
-            'CheckboxMenuButton and RadioMenuButton announce their checked '
-            'state automatically. Do NOT add your own Semantics(checked:) '
-            'wrapper; you would announce twice.',
-          ),
-          bulletRow(
-            amber500,
-            'When you replace a MenuItemButton.child with a custom widget, '
-            'add a Semantics label that matches the visible text. Decorative '
-            'icons should stay excluded with ExcludeSemantics.',
-          ),
-          bulletRow(
-            amber500,
-            'When using a custom builder for the trigger, give the trigger a '
-            'tooltip (or Semantics label) so screen readers announce what '
-            'opening the menu does.',
-          ),
-          bulletRow(
-            sky500,
-            'Keyboard navigation inside a menu is automatic: arrow keys move '
-            'focus, Enter activates, Escape closes, Tab leaves the menu, '
-            'Right-arrow opens a submenu, Left-arrow closes it.',
-          ),
-          bulletRow(
-            rose500,
-            'Do not nest more than ~3 cascades deep. The motor cost climbs '
-            'fast and submenu exit becomes confusing.',
-          ),
+          bulletRow(emerald500,
+              'Every MenuItemButton ships with the right Semantics: it '
+              'announces as a button, its enabled state matches onPressed != null, '
+              'and the trailing shortcut is announced via Semantics.label.'),
+          bulletRow(emerald500,
+              'CheckboxMenuButton and RadioMenuButton announce their checked '
+              'state automatically. Do NOT add your own Semantics(checked:) '
+              'wrapper; you would announce twice.'),
+          bulletRow(amber500,
+              'When you replace a MenuItemButton.child with a custom widget, '
+              'add a Semantics label that matches the visible text. Decorative '
+              'icons should stay excluded with ExcludeSemantics.'),
+          bulletRow(amber500,
+              'When using a custom builder for the trigger, give the trigger a '
+              'tooltip (or Semantics label) so screen readers announce what '
+              'opening the menu does.'),
+          bulletRow(sky500,
+              'Keyboard navigation inside a menu is automatic: arrow keys move '
+              'focus, Enter activates, Escape closes, Tab leaves the menu, '
+              'Right-arrow opens a submenu, Left-arrow closes it.'),
+          bulletRow(rose500,
+              'Do not nest more than ~3 cascades deep. The motor cost climbs '
+              'fast and submenu exit becomes confusing.'),
         ],
       ),
     ),
@@ -2754,14 +2335,12 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'End of demo',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                Text('End of demo',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                    )),
                 const SizedBox(height: 6),
                 Text(
                   'Reading order: hero -> anatomy -> controller flow -> menu '

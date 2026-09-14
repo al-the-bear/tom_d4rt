@@ -161,7 +161,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: textColour.withOpacity(0.4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 12, color: textColour)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: textColour),
+      ),
     );
   }
 
@@ -200,7 +203,10 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 4),
             Text(
               subtitle,
-              style: TextStyle(color: accent.withOpacity(0.85), fontSize: 11),
+              style: TextStyle(
+                color: accent.withOpacity(0.85),
+                fontSize: 11,
+              ),
               textAlign: TextAlign.center,
             ),
           ],
@@ -475,7 +481,8 @@ dynamic build(BuildContext context) {
                                 children: [
                                   NavigationRail(
                                     selectedIndex: 1,
-                                    backgroundColor: const Color(0xFFFFFFFF),
+                                    backgroundColor:
+                                        const Color(0xFFFFFFFF),
                                     labelType: lt,
                                     groupAlignment: alignments[i],
                                     destinations: sharedDestinations,
@@ -621,10 +628,8 @@ dynamic build(BuildContext context) {
             children: [
               Container(
                 color: accent,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: Text(
                   title,
                   style: const TextStyle(
@@ -688,31 +693,31 @@ dynamic build(BuildContext context) {
       'colour': const Color(0xFF455A64),
       'use':
           'Icons are universally recognisable, screen real estate is tight, '
-          'and a tooltip on hover is acceptable.',
+              'and a tooltip on hover is acceptable.',
       'avoid':
           'New users would not recognise the icons unaided, or you have more '
-          'than ~5 destinations.',
+              'than ~5 destinations.',
     },
     {
       'value': 'selected',
       'colour': const Color(0xFF1565C0),
       'use':
           'You want a calm icons-only rail in the resting state, but want to '
-          'reaffirm the active section with its label visible inline.',
+              'reaffirm the active section with its label visible inline.',
       'avoid':
           'When destinations have similar icons that need labels at all times '
-          'for accessibility (consider `all` instead).',
+              'for accessibility (consider `all` instead).',
     },
     {
       'value': 'all',
       'colour': const Color(0xFF2E7D32),
       'use':
           'You have horizontal space, all destinations need labels for '
-          'discoverability/accessibility, or you must comply with text '
-          'requirements for screen readers and translations.',
+              'discoverability/accessibility, or you must comply with text '
+              'requirements for screen readers and translations.',
       'avoid':
           'Very narrow layouts where the label cannot fit without truncation, '
-          'or extended:true is also being used (extended takes over).',
+              'or extended:true is also being used (extended takes over).',
     },
   ];
 
@@ -766,7 +771,10 @@ dynamic build(BuildContext context) {
                     const Text(
                       'Controls how destination labels are shown in a vertical '
                       'NavigationRail.',
-                      style: TextStyle(fontSize: 14, color: Color(0xFFD1C4E9)),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFD1C4E9),
+                      ),
                     ),
                     const SizedBox(height: 12),
                     Wrap(
@@ -1020,7 +1028,8 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: (row['colour'] as Color)),
+                      border:
+                          Border.all(color: (row['colour'] as Color)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1029,9 +1038,7 @@ dynamic build(BuildContext context) {
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
+                                  horizontal: 10, vertical: 4),
                               decoration: BoxDecoration(
                                 color: row['colour'] as Color,
                                 borderRadius: BorderRadius.circular(8),
@@ -1130,14 +1137,16 @@ dynamic build(BuildContext context) {
                       'label to assistive technology, even when '
                       'labelType.none hides it visually. Screen readers will '
                       'still announce the label.',
-                      style: TextStyle(fontSize: 12, color: Color(0xFF004D40)),
+                      style:
+                          TextStyle(fontSize: 12, color: Color(0xFF004D40)),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• Visual labels (selected / all) help discoverability '
                       'for sighted users with low icon literacy and improve '
                       'task completion times in usability studies.',
-                      style: TextStyle(fontSize: 12, color: Color(0xFF004D40)),
+                      style:
+                          TextStyle(fontSize: 12, color: Color(0xFF004D40)),
                     ),
                     SizedBox(height: 6),
                     Text(
@@ -1146,14 +1155,16 @@ dynamic build(BuildContext context) {
                       'labelType values and is the default in M3. The shape '
                       'and colour can be controlled via indicatorShape and '
                       'indicatorColor on the rail or its theme.',
-                      style: TextStyle(fontSize: 12, color: Color(0xFF004D40)),
+                      style:
+                          TextStyle(fontSize: 12, color: Color(0xFF004D40)),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• Combine labelType.all with a sufficient minWidth so '
                       'translations (German, Finnish) do not truncate. '
                       'Ellipsis on a primary nav label is a usability red flag.',
-                      style: TextStyle(fontSize: 12, color: Color(0xFF004D40)),
+                      style:
+                          TextStyle(fontSize: 12, color: Color(0xFF004D40)),
                     ),
                   ],
                 ),
@@ -1193,14 +1204,12 @@ dynamic build(BuildContext context) {
                               height: 28,
                               decoration: BoxDecoration(
                                 color: switch (v) {
-                                  NavigationRailLabelType.none => const Color(
-                                    0xFF455A64,
-                                  ),
+                                  NavigationRailLabelType.none =>
+                                    const Color(0xFF455A64),
                                   NavigationRailLabelType.selected =>
                                     const Color(0xFF1565C0),
-                                  NavigationRailLabelType.all => const Color(
-                                    0xFF2E7D32,
-                                  ),
+                                  NavigationRailLabelType.all =>
+                                    const Color(0xFF2E7D32),
                                 },
                                 borderRadius: BorderRadius.circular(6),
                               ),
@@ -1261,31 +1270,36 @@ dynamic build(BuildContext context) {
                     Text(
                       '• none → icons-only resting state, labels surface only '
                       'as tooltips. Best when icons are universally clear.',
-                      style: TextStyle(color: Color(0xFFD1C4E9), fontSize: 12),
+                      style: TextStyle(
+                          color: Color(0xFFD1C4E9), fontSize: 12),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• selected → minimal visual noise, but still confirms '
                       'the active section with an inline label.',
-                      style: TextStyle(color: Color(0xFFD1C4E9), fontSize: 12),
+                      style: TextStyle(
+                          color: Color(0xFFD1C4E9), fontSize: 12),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• all → labels always visible. Best for accessibility '
                       'and discoverability, requires more horizontal space.',
-                      style: TextStyle(color: Color(0xFFD1C4E9), fontSize: 12),
+                      style: TextStyle(
+                          color: Color(0xFFD1C4E9), fontSize: 12),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• extended: true overrides labelType — Flutter requires '
                       'labelType to be `none` while extended is true.',
-                      style: TextStyle(color: Color(0xFFD1C4E9), fontSize: 12),
+                      style: TextStyle(
+                          color: Color(0xFFD1C4E9), fontSize: 12),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• NavigationRailThemeData lets you set labelType, '
                       'indicator, and label/icon styling app-wide.',
-                      style: TextStyle(color: Color(0xFFD1C4E9), fontSize: 12),
+                      style: TextStyle(
+                          color: Color(0xFFD1C4E9), fontSize: 12),
                     ),
                   ],
                 ),
@@ -1295,7 +1309,10 @@ dynamic build(BuildContext context) {
               const Center(
                 child: Text(
                   'Deep Demo • NavigationRailLabelType • Material',
-                  style: TextStyle(fontSize: 12, color: Color(0xFF9E9E9E)),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF9E9E9E),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

@@ -217,14 +217,8 @@ Widget buildTooltipDemo(String label, String tooltipText, Color color) {
           },
           itemBuilder: (BuildContext ctx) {
             return [
-              PopupMenuItem<String>(
-                value: 'help_a',
-                child: Text('Help Topic A'),
-              ),
-              PopupMenuItem<String>(
-                value: 'help_b',
-                child: Text('Help Topic B'),
-              ),
+              PopupMenuItem<String>(value: 'help_a', child: Text('Help Topic A')),
+              PopupMenuItem<String>(value: 'help_b', child: Text('Help Topic B')),
             ];
           },
         ),
@@ -283,10 +277,7 @@ Widget buildEnabledStateDemo(String label, bool enabled, Color color) {
           },
           itemBuilder: (BuildContext ctx) {
             return [
-              PopupMenuItem<String>(
-                value: 'action',
-                child: Text('Perform Action'),
-              ),
+              PopupMenuItem<String>(value: 'action', child: Text('Perform Action')),
             ];
           },
         ),
@@ -423,18 +414,9 @@ Widget buildCallbackDemo(String label, Color color, Function(String) onSelect) {
           },
           itemBuilder: (BuildContext ctx) {
             return [
-              PopupMenuItem<String>(
-                value: 'callback_a',
-                child: Text('Action A'),
-              ),
-              PopupMenuItem<String>(
-                value: 'callback_b',
-                child: Text('Action B'),
-              ),
-              PopupMenuItem<String>(
-                value: 'callback_c',
-                child: Text('Action C'),
-              ),
+              PopupMenuItem<String>(value: 'callback_a', child: Text('Action A')),
+              PopupMenuItem<String>(value: 'callback_b', child: Text('Action B')),
+              PopupMenuItem<String>(value: 'callback_c', child: Text('Action C')),
             ];
           },
         ),
@@ -548,7 +530,10 @@ dynamic build(BuildContext context) {
 
   Widget result = MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
+    theme: ThemeData(
+      primarySwatch: Colors.indigo,
+      useMaterial3: true,
+    ),
     home: Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
@@ -564,10 +549,7 @@ dynamic build(BuildContext context) {
             },
             itemBuilder: (BuildContext ctx) {
               return [
-                PopupMenuItem<String>(
-                  value: 'settings',
-                  child: Text('Settings'),
-                ),
+                PopupMenuItem<String>(value: 'settings', child: Text('Settings')),
                 PopupMenuItem<String>(value: 'about', child: Text('About')),
               ];
             },
@@ -611,18 +593,9 @@ dynamic build(BuildContext context) {
               secondaryColor,
               (BuildContext ctx) {
                 return [
-                  PopupMenuItem<String>(
-                    value: 'item1',
-                    child: Text('First Item'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'item2',
-                    child: Text('Second Item'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'item3',
-                    child: Text('Third Item'),
-                  ),
+                  PopupMenuItem<String>(value: 'item1', child: Text('First Item')),
+                  PopupMenuItem<String>(value: 'item2', child: Text('Second Item')),
+                  PopupMenuItem<String>(value: 'item3', child: Text('Third Item')),
                 ];
               },
             ),
@@ -632,26 +605,11 @@ dynamic build(BuildContext context) {
               secondaryColor,
               (BuildContext ctx) {
                 return [
-                  PopupMenuItem<String>(
-                    value: 'opt_a',
-                    child: Text('Option A'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'opt_b',
-                    child: Text('Option B'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'opt_c',
-                    child: Text('Option C'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'opt_d',
-                    child: Text('Option D'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'opt_e',
-                    child: Text('Option E'),
-                  ),
+                  PopupMenuItem<String>(value: 'opt_a', child: Text('Option A')),
+                  PopupMenuItem<String>(value: 'opt_b', child: Text('Option B')),
+                  PopupMenuItem<String>(value: 'opt_c', child: Text('Option C')),
+                  PopupMenuItem<String>(value: 'opt_d', child: Text('Option D')),
+                  PopupMenuItem<String>(value: 'opt_e', child: Text('Option E')),
                 ];
               },
             ),
@@ -661,10 +619,7 @@ dynamic build(BuildContext context) {
               secondaryColor,
               (BuildContext ctx) {
                 return [
-                  PopupMenuItem<String>(
-                    value: 'only',
-                    child: Text('Only Option'),
-                  ),
+                  PopupMenuItem<String>(value: 'only', child: Text('Only Option')),
                 ];
               },
             ),
@@ -700,37 +655,45 @@ dynamic build(BuildContext context) {
               Icons.view_list,
               primaryColor,
             ),
-            buildIconTextMenuDemo('File Operations', primaryColor, [
-              {'value': 'new', 'icon': Icons.add, 'text': 'New File'},
-              {'value': 'open', 'icon': Icons.folder_open, 'text': 'Open'},
-              {'value': 'save', 'icon': Icons.save, 'text': 'Save'},
-              {'value': 'export', 'icon': Icons.ios_share, 'text': 'Export'},
-            ]),
-            buildIconTextMenuDemo('Edit Actions', secondaryColor, [
-              {'value': 'cut', 'icon': Icons.content_cut, 'text': 'Cut'},
-              {'value': 'copy', 'icon': Icons.content_copy, 'text': 'Copy'},
-              {'value': 'paste', 'icon': Icons.content_paste, 'text': 'Paste'},
-              {'value': 'delete', 'icon': Icons.delete, 'text': 'Delete'},
-            ]),
-            buildIconTextMenuDemo('View Options', accentColor, [
-              {'value': 'zoom_in', 'icon': Icons.zoom_in, 'text': 'Zoom In'},
-              {'value': 'zoom_out', 'icon': Icons.zoom_out, 'text': 'Zoom Out'},
-              {
-                'value': 'fullscreen',
-                'icon': Icons.fullscreen,
-                'text': 'Fullscreen',
-              },
-            ]),
-            buildIconTextMenuDemo('Navigation', Colors.blue, [
-              {'value': 'home', 'icon': Icons.home, 'text': 'Home'},
-              {'value': 'back', 'icon': Icons.arrow_back, 'text': 'Back'},
-              {
-                'value': 'forward',
-                'icon': Icons.arrow_forward,
-                'text': 'Forward',
-              },
-              {'value': 'refresh', 'icon': Icons.refresh, 'text': 'Refresh'},
-            ]),
+            buildIconTextMenuDemo(
+              'File Operations',
+              primaryColor,
+              [
+                {'value': 'new', 'icon': Icons.add, 'text': 'New File'},
+                {'value': 'open', 'icon': Icons.folder_open, 'text': 'Open'},
+                {'value': 'save', 'icon': Icons.save, 'text': 'Save'},
+                {'value': 'export', 'icon': Icons.ios_share, 'text': 'Export'},
+              ],
+            ),
+            buildIconTextMenuDemo(
+              'Edit Actions',
+              secondaryColor,
+              [
+                {'value': 'cut', 'icon': Icons.content_cut, 'text': 'Cut'},
+                {'value': 'copy', 'icon': Icons.content_copy, 'text': 'Copy'},
+                {'value': 'paste', 'icon': Icons.content_paste, 'text': 'Paste'},
+                {'value': 'delete', 'icon': Icons.delete, 'text': 'Delete'},
+              ],
+            ),
+            buildIconTextMenuDemo(
+              'View Options',
+              accentColor,
+              [
+                {'value': 'zoom_in', 'icon': Icons.zoom_in, 'text': 'Zoom In'},
+                {'value': 'zoom_out', 'icon': Icons.zoom_out, 'text': 'Zoom Out'},
+                {'value': 'fullscreen', 'icon': Icons.fullscreen, 'text': 'Fullscreen'},
+              ],
+            ),
+            buildIconTextMenuDemo(
+              'Navigation',
+              Colors.blue,
+              [
+                {'value': 'home', 'icon': Icons.home, 'text': 'Home'},
+                {'value': 'back', 'icon': Icons.arrow_back, 'text': 'Back'},
+                {'value': 'forward', 'icon': Icons.arrow_forward, 'text': 'Forward'},
+                {'value': 'refresh', 'icon': Icons.refresh, 'text': 'Refresh'},
+              ],
+            ),
 
             buildSectionHeader(
               'Dividers in Menus',
@@ -754,17 +717,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'Multiple Section Dividers',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                         ),
                         Text(
                           'Organizing menu into logical groups',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                         ),
                       ],
                     ),
@@ -776,28 +733,13 @@ dynamic build(BuildContext context) {
                     },
                     itemBuilder: (BuildContext ctx) {
                       return [
-                        PopupMenuItem<String>(
-                          value: 'sec1_a',
-                          child: Text('Section 1 - A'),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'sec1_b',
-                          child: Text('Section 1 - B'),
-                        ),
+                        PopupMenuItem<String>(value: 'sec1_a', child: Text('Section 1 - A')),
+                        PopupMenuItem<String>(value: 'sec1_b', child: Text('Section 1 - B')),
                         PopupMenuDivider(),
-                        PopupMenuItem<String>(
-                          value: 'sec2_a',
-                          child: Text('Section 2 - A'),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'sec2_b',
-                          child: Text('Section 2 - B'),
-                        ),
+                        PopupMenuItem<String>(value: 'sec2_a', child: Text('Section 2 - A')),
+                        PopupMenuItem<String>(value: 'sec2_b', child: Text('Section 2 - B')),
                         PopupMenuDivider(),
-                        PopupMenuItem<String>(
-                          value: 'sec3_a',
-                          child: Text('Section 3 - A'),
-                        ),
+                        PopupMenuItem<String>(value: 'sec3_a', child: Text('Section 3 - A')),
                       ];
                     },
                   ),
@@ -819,17 +761,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'Custom Height Dividers',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                         ),
                         Text(
                           'Dividers with varying heights',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                         ),
                       ],
                     ),
@@ -841,20 +777,11 @@ dynamic build(BuildContext context) {
                     },
                     itemBuilder: (BuildContext ctx) {
                       return [
-                        PopupMenuItem<String>(
-                          value: 'top',
-                          child: Text('Top Item'),
-                        ),
+                        PopupMenuItem<String>(value: 'top', child: Text('Top Item')),
                         PopupMenuDivider(height: 8),
-                        PopupMenuItem<String>(
-                          value: 'middle',
-                          child: Text('Middle Item'),
-                        ),
+                        PopupMenuItem<String>(value: 'middle', child: Text('Middle Item')),
                         PopupMenuDivider(height: 24),
-                        PopupMenuItem<String>(
-                          value: 'bottom',
-                          child: Text('Bottom Item'),
-                        ),
+                        PopupMenuItem<String>(value: 'bottom', child: Text('Bottom Item')),
                       ];
                     },
                   ),
@@ -868,16 +795,8 @@ dynamic build(BuildContext context) {
               warningColor,
             ),
             buildTooltipDemo('Default Tooltip', 'Show menu', warningColor),
-            buildTooltipDemo(
-              'Custom Action Tooltip',
-              'View more options',
-              Colors.brown,
-            ),
-            buildTooltipDemo(
-              'Descriptive Tooltip',
-              'Click to see available actions',
-              Colors.cyan.shade700,
-            ),
+            buildTooltipDemo('Custom Action Tooltip', 'View more options', Colors.brown),
+            buildTooltipDemo('Descriptive Tooltip', 'Click to see available actions', Colors.cyan.shade700),
             buildTooltipDemo('Empty String Tooltip', '', Colors.pink),
 
             buildSectionHeader(
@@ -885,19 +804,27 @@ dynamic build(BuildContext context) {
               Icons.touch_app,
               primaryColor,
             ),
-            buildCallbackDemo('Logging Callback', primaryColor, (String value) {
-              print('Logging callback received: $value');
-            }),
-            buildCallbackDemo('Action Dispatch Callback', secondaryColor, (
-              String value,
-            ) {
-              print('Dispatching action for: $value');
-            }),
-            buildCallbackDemo('State Update Callback', accentColor, (
-              String value,
-            ) {
-              print('Updating state with: $value');
-            }),
+            buildCallbackDemo(
+              'Logging Callback',
+              primaryColor,
+              (String value) {
+                print('Logging callback received: $value');
+              },
+            ),
+            buildCallbackDemo(
+              'Action Dispatch Callback',
+              secondaryColor,
+              (String value) {
+                print('Dispatching action for: $value');
+              },
+            ),
+            buildCallbackDemo(
+              'State Update Callback',
+              accentColor,
+              (String value) {
+                print('Updating state with: $value');
+              },
+            ),
 
             buildSectionHeader(
               'initialValue Property',
@@ -909,21 +836,9 @@ dynamic build(BuildContext context) {
               'Highlights the item with matching value when menu opens',
               Colors.purple,
             ),
-            buildInitialValueDemo(
-              'Size Selection (Small)',
-              'small',
-              Colors.purple,
-            ),
-            buildInitialValueDemo(
-              'Size Selection (Medium)',
-              'medium',
-              Colors.deepPurple,
-            ),
-            buildInitialValueDemo(
-              'Size Selection (Large)',
-              'large',
-              Colors.purpleAccent.shade700,
-            ),
+            buildInitialValueDemo('Size Selection (Small)', 'small', Colors.purple),
+            buildInitialValueDemo('Size Selection (Medium)', 'medium', Colors.deepPurple),
+            buildInitialValueDemo('Size Selection (Large)', 'large', Colors.purpleAccent.shade700),
 
             buildSectionHeader(
               'Enabled State',
@@ -949,36 +864,24 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'Conditionally Disabled',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                         ),
                         Text(
                           'Disabled based on some condition',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                         ),
                       ],
                     ),
                   ),
                   PopupMenuButton<String>(
                     enabled: false,
-                    icon: Icon(
-                      Icons.do_not_disturb,
-                      color: Colors.grey.shade400,
-                    ),
+                    icon: Icon(Icons.do_not_disturb, color: Colors.grey.shade400),
                     onSelected: (String v) {
                       print('This should not fire when disabled');
                     },
                     itemBuilder: (BuildContext ctx) {
                       return [
-                        PopupMenuItem<String>(
-                          value: 'n/a',
-                          child: Text('Not Available'),
-                        ),
+                        PopupMenuItem<String>(value: 'n/a', child: Text('Not Available')),
                       ];
                     },
                   ),
@@ -1007,17 +910,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'Rich Content Items',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                         ),
                         Text(
                           'Items with custom widget content',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                         ),
                       ],
                     ),
@@ -1036,26 +933,14 @@ dynamic build(BuildContext context) {
                               CircleAvatar(
                                 radius: 16,
                                 backgroundColor: Colors.blue.shade100,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 18,
-                                  color: Colors.blue,
-                                ),
+                                child: Icon(Icons.person, size: 18, color: Colors.blue),
                               ),
                               SizedBox(width: 12),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'John Doe',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    'john@example.com',
-                                    style: TextStyle(fontSize: 11),
-                                  ),
+                                  Text('John Doe', style: TextStyle(fontWeight: FontWeight.bold)),
+                                  Text('john@example.com', style: TextStyle(fontSize: 11)),
                                 ],
                               ),
                             ],
@@ -1078,10 +963,7 @@ dynamic build(BuildContext context) {
                             children: [
                               Icon(Icons.logout, size: 20, color: Colors.red),
                               SizedBox(width: 12),
-                              Text(
-                                'Logout',
-                                style: TextStyle(color: Colors.red),
-                              ),
+                              Text('Logout', style: TextStyle(color: Colors.red)),
                             ],
                           ),
                         ),
@@ -1106,26 +988,17 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'Status Indicators',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                         ),
                         Text(
                           'Items with colored status dots',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                         ),
                       ],
                     ),
                   ),
                   PopupMenuButton<String>(
-                    icon: Icon(
-                      Icons.radio_button_checked,
-                      color: Colors.blueGrey,
-                    ),
+                    icon: Icon(Icons.radio_button_checked, color: Colors.blueGrey),
                     onSelected: (String v) {
                       print('Status selected: $v');
                     },
@@ -1221,17 +1094,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           'Badge Items',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                         ),
                         Text(
                           'Items with notification badges',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                         ),
                       ],
                     ),
@@ -1251,20 +1118,14 @@ dynamic build(BuildContext context) {
                               SizedBox(width: 12),
                               Expanded(child: Text('Inbox')),
                               Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
-                                ),
+                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                 decoration: BoxDecoration(
                                   color: Colors.red,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Text(
                                   '5',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                  ),
+                                  style: TextStyle(color: Colors.white, fontSize: 11),
                                 ),
                               ),
                             ],
@@ -1278,20 +1139,14 @@ dynamic build(BuildContext context) {
                               SizedBox(width: 12),
                               Expanded(child: Text('Drafts')),
                               Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
-                                ),
+                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                 decoration: BoxDecoration(
                                   color: Colors.blue,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Text(
                                   '2',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                  ),
+                                  style: TextStyle(color: Colors.white, fontSize: 11),
                                 ),
                               ),
                             ],
@@ -1314,7 +1169,11 @@ dynamic build(BuildContext context) {
               ),
             ),
 
-            buildSectionHeader('Usage Summary', Icons.lightbulb, Colors.orange),
+            buildSectionHeader(
+              'Usage Summary',
+              Icons.lightbulb,
+              Colors.orange,
+            ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               padding: EdgeInsets.all(16),
@@ -1328,11 +1187,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        Icons.tips_and_updates,
-                        color: Colors.orange,
-                        size: 22,
-                      ),
+                      Icon(Icons.tips_and_updates, color: Colors.orange, size: 22),
                       SizedBox(width: 8),
                       Text(
                         'Key Takeaways',
@@ -1345,38 +1200,14 @@ dynamic build(BuildContext context) {
                     ],
                   ),
                   SizedBox(height: 12),
-                  _buildTipItem(
-                    'Use GlobalKey to access PopupMenuButtonState',
-                    Colors.orange,
-                  ),
-                  _buildTipItem(
-                    'Call showButtonMenu() for programmatic menu control',
-                    Colors.orange,
-                  ),
-                  _buildTipItem(
-                    'itemBuilder runs each time the menu opens',
-                    Colors.orange,
-                  ),
-                  _buildTipItem(
-                    'Use PopupMenuDivider to separate menu sections',
-                    Colors.orange,
-                  ),
-                  _buildTipItem(
-                    'Set initialValue to highlight a specific item',
-                    Colors.orange,
-                  ),
-                  _buildTipItem(
-                    'Use enabled property to disable the button',
-                    Colors.orange,
-                  ),
-                  _buildTipItem(
-                    'Customize tooltip for accessibility',
-                    Colors.orange,
-                  ),
-                  _buildTipItem(
-                    'onSelected receives the value of selected item',
-                    Colors.orange,
-                  ),
+                  _buildTipItem('Use GlobalKey to access PopupMenuButtonState', Colors.orange),
+                  _buildTipItem('Call showButtonMenu() for programmatic menu control', Colors.orange),
+                  _buildTipItem('itemBuilder runs each time the menu opens', Colors.orange),
+                  _buildTipItem('Use PopupMenuDivider to separate menu sections', Colors.orange),
+                  _buildTipItem('Set initialValue to highlight a specific item', Colors.orange),
+                  _buildTipItem('Use enabled property to disable the button', Colors.orange),
+                  _buildTipItem('Customize tooltip for accessibility', Colors.orange),
+                  _buildTipItem('onSelected receives the value of selected item', Colors.orange),
                 ],
               ),
             ),

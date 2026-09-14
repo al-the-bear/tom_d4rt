@@ -44,7 +44,8 @@ class SurveyFormDemo extends StatefulWidget {
   State<SurveyFormDemo> createState() => _SurveyFormDemoState();
 }
 
-class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
+class _SurveyFormDemoState extends State<SurveyFormDemo>
+    with RestorationMixin {
   // ---------------------------------------------------------------------
   // Restorable state
   // ---------------------------------------------------------------------
@@ -183,7 +184,10 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
               ],
             ),
@@ -443,7 +447,10 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Colors.amber.shade50, Colors.orange.shade50],
+          colors: <Color>[
+            Colors.amber.shade50,
+            Colors.orange.shade50,
+          ],
         ),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: Colors.amber.shade200),
@@ -492,7 +499,10 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
                 const SizedBox(height: 4),
                 Text(
                   '(no opinion)',
-                  style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
               ],
             )
@@ -510,7 +520,10 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
                 const SizedBox(height: 4),
                 Text(
                   '$rating of 5',
-                  style: TextStyle(fontSize: 13, color: Colors.amber.shade800),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.amber.shade800,
+                  ),
                 ),
               ],
             ),
@@ -617,7 +630,11 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
                           ],
                         ),
                         child: Center(
-                          child: Icon(tile.icon, size: 40, color: Colors.white),
+                          child: Icon(
+                            tile.icon,
+                            size: 40,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -648,7 +665,10 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
                 const SizedBox(width: 10),
                 Text(
                   'Tap a tile to select',
-                  style: TextStyle(color: Colors.grey.shade700, fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.grey.shade700,
+                    fontSize: 16,
+                  ),
                 ),
               ],
             ),
@@ -748,10 +768,7 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
               ],
             ),
             const SizedBox(height: 16),
-            if (quota == null)
-              _buildUnlimitedBadge()
-            else
-              _buildQuotaBar(quota),
+            if (quota == null) _buildUnlimitedBadge() else _buildQuotaBar(quota),
             const SizedBox(height: 18),
             Wrap(
               spacing: 8,
@@ -812,7 +829,10 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
           children: <Widget>[
             Text(
               '$quota / 1000 remaining',
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             Text(
               '${((quota / 1000) * 100).toStringAsFixed(0)}%',
@@ -862,8 +882,8 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
           quota < 100
               ? 'Critical — top up or upgrade soon.'
               : quota < 500
-              ? 'Running low — consider topping up.'
-              : 'Healthy usage.',
+                  ? 'Running low — consider topping up.'
+                  : 'Healthy usage.',
           style: TextStyle(
             fontSize: 12,
             color: Colors.grey.shade700,
@@ -881,7 +901,10 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: <Color>[Color(0xFF6A11CB), Color(0xFF2575FC)],
+              colors: <Color>[
+                Color(0xFF6A11CB),
+                Color(0xFF2575FC),
+              ],
             ),
             borderRadius: BorderRadius.circular(14),
             boxShadow: <BoxShadow>[
@@ -1143,11 +1166,7 @@ class _SurveyFormDemoState extends State<SurveyFormDemo> with RestorationMixin {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(
-                    bp.icon,
-                    color: accent.withValues(alpha: 0.75),
-                    size: 18,
-                  ),
+                  Icon(bp.icon, color: accent.withValues(alpha: 0.75), size: 18),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(

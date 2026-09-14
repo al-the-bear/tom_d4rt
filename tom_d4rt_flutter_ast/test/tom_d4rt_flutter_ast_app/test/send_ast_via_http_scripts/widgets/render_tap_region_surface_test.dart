@@ -11,9 +11,8 @@ final ValueNotifier<bool> _consumeOutside = ValueNotifier<bool>(false);
 final ValueNotifier<int?> _firedRegion = ValueNotifier<int?>(null);
 final ValueNotifier<String?> _firedGroupId = ValueNotifier<String?>(null);
 final ValueNotifier<bool> _dropdownOpen = ValueNotifier<bool>(false);
-final ValueNotifier<String> _dropdownSelected = ValueNotifier<String>(
-  'Choose an item…',
-);
+final ValueNotifier<String> _dropdownSelected =
+    ValueNotifier<String>('Choose an item…');
 
 // ---------------------------------------------------------------------------
 // Entry point required by the harness.
@@ -183,8 +182,7 @@ class _HeroTab extends StatelessWidget {
           // ── Class hierarchy ──────────────────────────────────────────────
           Text('Class hierarchy', style: tt.titleMedium),
           const SizedBox(height: 8),
-          _CodeBlock(
-            code: '''
+          _CodeBlock(code: '''
 RenderObject
  └─ RenderBox
      └─ RenderProxyBox
@@ -193,8 +191,7 @@ RenderObject
 TapRegionSurface (Widget)
  └─ SingleChildRenderObjectWidget
      builds RenderTapRegionSurface
-''',
-          ),
+'''),
           const SizedBox(height: 24),
           // ── Roles diagram ────────────────────────────────────────────────
           Text('Roles', style: tt.titleMedium),
@@ -233,7 +230,12 @@ class _RolesTable extends StatelessWidget {
           ],
         ),
         for (final row in rows)
-          TableRow(children: <Widget>[_TCell(row[0]), _TCell(row[1])]),
+          TableRow(
+            children: <Widget>[
+              _TCell(row[0]),
+              _TCell(row[1]),
+            ],
+          ),
       ],
     );
   }
@@ -251,9 +253,7 @@ class _TCell extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       child: Text(
         text,
-        style: header
-            ? tt.labelMedium?.copyWith(fontWeight: FontWeight.bold)
-            : tt.bodySmall,
+        style: header ? tt.labelMedium?.copyWith(fontWeight: FontWeight.bold) : tt.bodySmall,
       ),
     );
   }
@@ -297,8 +297,7 @@ class _LiveDemoTab extends StatelessWidget {
           child: TapRegionSurface(
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTapDown: (_) =>
-                  _addLog('↳ background tapped (outside all regions)'),
+              onTapDown: (_) => _addLog('↳ background tapped (outside all regions)'),
               child: Container(
                 color: cs.surfaceContainerHighest,
                 child: Center(
@@ -314,14 +313,15 @@ class _LiveDemoTab extends StatelessWidget {
                             _addLog('✓ Inside card $i');
                           },
                           onTapOutside: (_) {
-                            if (_activeCard.value == i)
-                              _activeCard.value = null;
+                            if (_activeCard.value == i) _activeCard.value = null;
                             _addLog('✗ Tapped outside card $i');
                           },
                           child: ValueListenableBuilder<int?>(
                             valueListenable: _activeCard,
-                            builder: (context, active, _) =>
-                                _LiveCard(index: i, active: active == i),
+                            builder: (context, active, _) => _LiveCard(
+                              index: i,
+                              active: active == i,
+                            ),
                           ),
                         ),
                     ],
@@ -332,7 +332,10 @@ class _LiveDemoTab extends StatelessWidget {
           ),
         ),
         // ── Log panel ────────────────────────────────────────────────────
-        Expanded(flex: 2, child: _LogPanel(log: _log)),
+        Expanded(
+          flex: 2,
+          child: _LogPanel(log: _log),
+        ),
       ],
     );
   }
@@ -363,7 +366,7 @@ class _LiveCard extends StatelessWidget {
                   color: cs.primary.withAlpha(80),
                   blurRadius: 12,
                   spreadRadius: 2,
-                ),
+                )
               ]
             : null,
       ),
@@ -380,8 +383,8 @@ class _LiveCard extends StatelessWidget {
             Text(
               'Card $index',
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: active ? cs.primary : cs.onSurface,
-              ),
+                    color: active ? cs.primary : cs.onSurface,
+                  ),
             ),
           ],
         ),
@@ -448,8 +451,10 @@ class _MultiRegionTab extends StatelessWidget {
                     },
                     child: ValueListenableBuilder<int?>(
                       valueListenable: _firedRegion,
-                      builder: (context, fired, _) =>
-                          _ColorTile(def: def, active: fired == def.id),
+                      builder: (context, fired, _) => _ColorTile(
+                        def: def,
+                        active: fired == def.id,
+                      ),
                     ),
                   ),
                 // Sixth cell: clear button (no TapRegion)
@@ -467,7 +472,10 @@ class _MultiRegionTab extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(flex: 2, child: _LogPanel(log: _log)),
+        Expanded(
+          flex: 2,
+          child: _LogPanel(log: _log),
+        ),
       ],
     );
   }
@@ -491,15 +499,19 @@ class _ColorTile extends StatelessWidget {
       duration: const Duration(milliseconds: 150),
       decoration: BoxDecoration(
         color: active ? def.color.shade200 : def.color.shade50,
-        border: Border.all(color: def.color.shade400, width: active ? 3 : 1.5),
+        border: Border.all(
+          color: def.color.shade400,
+          width: active ? 3 : 1.5,
+        ),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Center(
         child: Text(
           def.name,
-          style: Theme.of(
-            context,
-          ).textTheme.labelLarge?.copyWith(color: def.color.shade800),
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge
+              ?.copyWith(color: def.color.shade800),
         ),
       ),
     );
@@ -548,9 +560,7 @@ class _GroupIdTab extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   // Group A label
-                  _SectionLabel(
-                    'Group A ($_groupA) — two regions acting as one',
-                  ),
+                  _SectionLabel('Group A ($_groupA) — two regions acting as one'),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -641,7 +651,10 @@ class _GroupIdTab extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(flex: 2, child: _LogPanel(log: _log)),
+        Expanded(
+          flex: 2,
+          child: _LogPanel(log: _log),
+        ),
       ],
     );
   }
@@ -670,15 +683,19 @@ class _GroupCard extends StatelessWidget {
           height: 80,
           decoration: BoxDecoration(
             color: active ? color.shade200 : color.shade50,
-            border: Border.all(color: color.shade400, width: active ? 3 : 1.5),
+            border: Border.all(
+              color: color.shade400,
+              width: active ? 3 : 1.5,
+            ),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(
             child: Text(
               label,
-              style: Theme.of(
-                context,
-              ).textTheme.labelMedium?.copyWith(color: color.shade800),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(color: color.shade800),
             ),
           ),
         );
@@ -734,9 +751,8 @@ class _ConsumeOutsideTab extends StatelessWidget {
                 const SizedBox(width: 8),
                 Chip(
                   label: Text(consume ? 'ON' : 'OFF'),
-                  backgroundColor: consume
-                      ? cs.primaryContainer
-                      : cs.errorContainer,
+                  backgroundColor:
+                      consume ? cs.primaryContainer : cs.errorContainer,
                 ),
               ],
             ),
@@ -776,22 +792,16 @@ class _ConsumeOutsideTab extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Icon(
-                                Icons.touch_app,
-                                color: cs.primary,
-                                size: 32,
-                              ),
+                              Icon(Icons.touch_app,
+                                  color: cs.primary, size: 32),
                               const SizedBox(height: 8),
                               Text(
                                 'TapRegion',
-                                style: tt.titleMedium?.copyWith(
-                                  color: cs.primary,
-                                ),
+                                style: tt.titleMedium
+                                    ?.copyWith(color: cs.primary),
                               ),
-                              Text(
-                                'Tap inside or outside',
-                                style: tt.bodySmall,
-                              ),
+                              Text('Tap inside or outside',
+                                  style: tt.bodySmall),
                             ],
                           ),
                         ),
@@ -827,7 +837,10 @@ class _ConsumeOutsideTab extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(flex: 2, child: _LogPanel(log: _log)),
+        Expanded(
+          flex: 2,
+          child: _LogPanel(log: _log),
+        ),
       ],
     );
   }
@@ -869,54 +882,47 @@ class _ArchitectureTab extends StatelessWidget {
           const _StepCard(
             step: '1',
             title: 'Pointer down',
-            detail:
-                'User finger lands on screen. Flutter dispatch calls '
+            detail: 'User finger lands on screen. Flutter dispatch calls '
                 'hitTest() through the render tree.',
           ),
           const _StepCard(
             step: '2',
             title: 'HitTestEntry added',
-            detail:
-                'RenderTapRegionSurface adds itself to the HitTestResult '
+            detail: 'RenderTapRegionSurface adds itself to the HitTestResult '
                 'via addWithPaintTransform.',
           ),
           const _StepCard(
             step: '3',
             title: 'handleEvent',
-            detail:
-                'On PointerDownEvent, the surface iterates ALL registered '
+            detail: 'On PointerDownEvent, the surface iterates ALL registered '
                 'RenderTapRegion objects and checks whether the event '
                 'position falls within each one\'s bounding box.',
           ),
           const _StepCard(
             step: '4',
             title: 'Inside / outside determination',
-            detail:
-                'For each TapRegion (and its groupId members), if the '
+            detail: 'For each TapRegion (and its groupId members), if the '
                 'hit test result contains a descendant of that region, it '
                 'is considered "inside". Otherwise it is "outside".',
           ),
           const _StepCard(
             step: '5',
             title: 'onTapOutside callbacks',
-            detail:
-                'For each region where the tap was outside, the surface '
+            detail: 'For each region where the tap was outside, the surface '
                 'calls onTapOutside(event). Regions inside the tap are '
                 'untouched.',
           ),
           const _StepCard(
             step: '6',
             title: 'consumeOutsideTaps',
-            detail:
-                'If any outside-tapped region has consumeOutsideTaps=true, '
+            detail: 'If any outside-tapped region has consumeOutsideTaps=true, '
                 'the surface marks the event as handled, preventing '
                 'further propagation.',
           ),
           const SizedBox(height: 20),
           Text('Key implementation detail', style: tt.titleMedium),
           const SizedBox(height: 8),
-          _CodeBlock(
-            code: '''
+          _CodeBlock(code: '''
 // Simplified pseudocode of RenderTapRegionSurface.handleEvent
 void handleEvent(PointerEvent event, HitTestEntry entry) {
   if (event is! PointerDownEvent) return;
@@ -938,8 +944,7 @@ void handleEvent(PointerEvent event, HitTestEntry entry) {
     }
   }
 }
-''',
-          ),
+'''),
         ],
       ),
     );
@@ -1003,7 +1008,11 @@ class _ArchitecturePainter extends CustomPainter {
 
       tp.text = TextSpan(
         text: labels[i],
-        style: TextStyle(fontSize: 11, color: cs.onSurface, height: 1.3),
+        style: TextStyle(
+          fontSize: 11,
+          color: cs.onSurface,
+          height: 1.3,
+        ),
       );
       tp.layout(maxWidth: boxW - 12);
       tp.paint(
@@ -1023,7 +1032,10 @@ class _ArchitecturePainter extends CustomPainter {
           ..lineTo(ax - 6, ay2 - 8)
           ..lineTo(ax + 6, ay2 - 8)
           ..close();
-        canvas.drawPath(path, Paint()..color = cs.onSurface);
+        canvas.drawPath(
+          path,
+          Paint()..color = cs.onSurface,
+        );
       }
     }
   }
@@ -1070,10 +1082,9 @@ class _StepCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    title,
-                    style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-                  ),
+                  Text(title,
+                      style:
+                          tt.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 4),
                   Text(detail, style: tt.bodySmall),
                 ],
@@ -1140,87 +1151,76 @@ class _DropdownTab extends StatelessWidget {
                     valueListenable: _dropdownSelected,
                     builder: (context, selected, _) =>
                         ValueListenableBuilder<bool>(
-                          valueListenable: _dropdownOpen,
-                          builder: (context, open, _) => TapRegion(
-                            onTapOutside: (_) {
-                              if (_dropdownOpen.value) {
-                                _dropdownOpen.value = false;
-                                _addLog('↳ Dismissed dropdown via tap outside');
-                              }
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Trigger button
-                                OutlinedButton.icon(
-                                  onPressed: () {
-                                    _dropdownOpen.value = !_dropdownOpen.value;
-                                    _addLog(
-                                      open
-                                          ? 'Closed dropdown'
-                                          : 'Opened dropdown',
-                                    );
-                                  },
-                                  icon: Icon(
-                                    open
-                                        ? Icons.arrow_drop_up
-                                        : Icons.arrow_drop_down,
-                                  ),
-                                  label: Text(selected),
-                                ),
-                                const SizedBox(height: 4),
-                                // Dropdown card
-                                if (open)
-                                  Material(
-                                    elevation: 6,
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Container(
-                                      width: 240,
-                                      decoration: BoxDecoration(
-                                        color: cs.surface,
-                                        border: Border.all(color: cs.outline),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Column(
-                                        children: <Widget>[
-                                          for (final item in _items)
-                                            InkWell(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              onTap: () {
-                                                _dropdownSelected.value = item;
-                                                _dropdownOpen.value = false;
-                                                _addLog('Selected: $item');
-                                              },
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      horizontal: 16,
-                                                      vertical: 12,
-                                                    ),
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      Icons.check,
-                                                      size: 16,
-                                                      color: selected == item
-                                                          ? cs.primary
-                                                          : Colors.transparent,
-                                                    ),
-                                                    const SizedBox(width: 8),
-                                                    Text(item),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                              ],
+                      valueListenable: _dropdownOpen,
+                      builder: (context, open, _) => TapRegion(
+                        onTapOutside: (_) {
+                          if (_dropdownOpen.value) {
+                            _dropdownOpen.value = false;
+                            _addLog('↳ Dismissed dropdown via tap outside');
+                          }
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            // Trigger button
+                            OutlinedButton.icon(
+                              onPressed: () {
+                                _dropdownOpen.value = !_dropdownOpen.value;
+                                _addLog(open ? 'Closed dropdown' : 'Opened dropdown');
+                              },
+                              icon: Icon(open
+                                  ? Icons.arrow_drop_up
+                                  : Icons.arrow_drop_down),
+                              label: Text(selected),
                             ),
-                          ),
+                            const SizedBox(height: 4),
+                            // Dropdown card
+                            if (open)
+                              Material(
+                                elevation: 6,
+                                borderRadius: BorderRadius.circular(8),
+                                child: Container(
+                                  width: 240,
+                                  decoration: BoxDecoration(
+                                    color: cs.surface,
+                                    border: Border.all(color: cs.outline),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    children: <Widget>[
+                                      for (final item in _items)
+                                        InkWell(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          onTap: () {
+                                            _dropdownSelected.value = item;
+                                            _dropdownOpen.value = false;
+                                            _addLog('Selected: $item');
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16, vertical: 12),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Icon(Icons.check,
+                                                    size: 16,
+                                                    color: selected == item
+                                                        ? cs.primary
+                                                        : Colors.transparent),
+                                                const SizedBox(width: 8),
+                                                Text(item),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 24),
                   // Background content to tap on
@@ -1233,16 +1233,13 @@ class _DropdownTab extends StatelessWidget {
                           color: cs.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: cs.outlineVariant,
-                            style: BorderStyle.none,
-                          ),
+                              color: cs.outlineVariant, style: BorderStyle.none),
                         ),
                         child: Center(
                           child: Text(
                             'Tap here to dismiss the dropdown',
-                            style: tt.bodyMedium?.copyWith(
-                              color: cs.onSurfaceVariant,
-                            ),
+                            style: tt.bodyMedium
+                                ?.copyWith(color: cs.onSurfaceVariant),
                           ),
                         ),
                       ),
@@ -1253,7 +1250,10 @@ class _DropdownTab extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(flex: 2, child: _LogPanel(log: _log)),
+        Expanded(
+          flex: 2,
+          child: _LogPanel(log: _log),
+        ),
       ],
     );
   }
@@ -1390,10 +1390,14 @@ class _ComparisonTable extends StatelessWidget {
         children: <TableRow>[
           TableRow(
             decoration: BoxDecoration(color: cs.primaryContainer),
-            children: cols.map((c) => _TCell(c, header: true)).toList(),
+            children: cols
+                .map((c) => _TCell(c, header: true))
+                .toList(),
           ),
           for (final row in rows)
-            TableRow(children: row.map((c) => _TCell(c)).toList()),
+            TableRow(
+              children: row.map((c) => _TCell(c)).toList(),
+            ),
         ],
       ),
     );
@@ -1425,10 +1429,8 @@ class _ProConCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              title,
-              style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-            ),
+            Text(title,
+                style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1437,12 +1439,9 @@ class _ProConCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        'Pros',
-                        style: tt.labelSmall?.copyWith(
-                          color: Colors.green.shade700,
-                        ),
-                      ),
+                      Text('Pros',
+                          style: tt.labelSmall
+                              ?.copyWith(color: Colors.green.shade700)),
                       const SizedBox(height: 4),
                       for (final p in pros)
                         Padding(
@@ -1463,12 +1462,9 @@ class _ProConCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        'Cons',
-                        style: tt.labelSmall?.copyWith(
-                          color: Colors.red.shade700,
-                        ),
-                      ),
+                      Text('Cons',
+                          style: tt.labelSmall
+                              ?.copyWith(color: Colors.red.shade700)),
                       const SizedBox(height: 4),
                       for (final c in cons)
                         Padding(
@@ -1521,8 +1517,7 @@ class _PitfallsApiTab extends StatelessWidget {
                 'surface are invisible to the outer surface. This can lead '
                 'to "tap outside" callbacks firing unexpectedly on the outer '
                 'surface when you tap inside the inner surface\'s regions.',
-            fix:
-                'Use a single TapRegionSurface wrapping the entire interactive '
+            fix: 'Use a single TapRegionSurface wrapping the entire interactive '
                 'area. Only add inner surfaces when you deliberately want '
                 'isolation.',
             cs: cs,
@@ -1536,8 +1531,7 @@ class _PitfallsApiTab extends StatelessWidget {
                 'pointer-downs outside that region to be consumed. This means '
                 'scrolling, other gestures, and background tap handlers will '
                 'silently stop working while the region is registered.',
-            fix:
-                'Only enable consumeOutsideTaps for modal-like scenarios '
+            fix: 'Only enable consumeOutsideTaps for modal-like scenarios '
                 '(e.g., an open dropdown). Disable it once the region is '
                 'dismissed. Consider using ModalBarrier instead if you need '
                 'full blocking.',
@@ -1552,8 +1546,7 @@ class _PitfallsApiTab extends StatelessWidget {
                 'Using a common string like "menu" in multiple unrelated '
                 'TapRegionSurface trees can cause unrelated regions to be '
                 'grouped, suppressing onTapOutside when they shouldn\'t be.',
-            fix:
-                'Prefer using a unique Type or a namespaced const symbol as '
+            fix: 'Prefer using a unique Type or a namespaced const symbol as '
                 'groupId (e.g., const Object _myMenuGroupId = Object()). '
                 'Never use plain generic strings in shared libraries.',
             cs: cs,
@@ -1567,8 +1560,7 @@ class _PitfallsApiTab extends StatelessWidget {
                 'does nothing — no callbacks fire, no errors are thrown. '
                 'This can be confusing to debug because the widget tree '
                 'appears correct.',
-            fix:
-                'Always wrap the interactive area with TapRegionSurface. '
+            fix: 'Always wrap the interactive area with TapRegionSurface. '
                 'The surface must be an ancestor of all TapRegion widgets '
                 'in that interaction group.',
             cs: cs,
@@ -1582,8 +1574,7 @@ class _PitfallsApiTab extends StatelessWidget {
                 'If the user navigates via keyboard or controller, '
                 'onTapOutside will not fire. This can leave dropdown/menu '
                 'state stale.',
-            fix:
-                'Combine TapRegion with FocusNode.onFocusChange or '
+            fix: 'Combine TapRegion with FocusNode.onFocusChange or '
                 'FocusScope.onFocusChange for complete dismissal logic.',
             cs: cs,
           ),
@@ -1609,32 +1600,17 @@ class _PitfallsApiTab extends StatelessWidget {
                 'it with the nearest TapRegionSurface ancestor.',
             constructorArgs: const <_ApiArg>[
               _ApiArg('child', 'Widget', 'Required.'),
-              _ApiArg(
-                'onTapInside',
-                'PointerDownEventListener?',
-                'Called when pointer-down is inside this region.',
-              ),
-              _ApiArg(
-                'onTapOutside',
-                'PointerDownEventListener?',
-                'Called when pointer-down is outside this region (and all '
-                    'regions sharing the same groupId).',
-              ),
-              _ApiArg(
-                'groupId',
-                'Object?',
-                'Logical group. Regions sharing a groupId act as one unit.',
-              ),
-              _ApiArg(
-                'consumeOutsideTaps',
-                'bool',
-                'If true, outside pointer events are consumed (default: false).',
-              ),
-              _ApiArg(
-                'enabled',
-                'bool',
-                'If false, region is not registered with the surface (default: true).',
-              ),
+              _ApiArg('onTapInside', 'PointerDownEventListener?',
+                  'Called when pointer-down is inside this region.'),
+              _ApiArg('onTapOutside', 'PointerDownEventListener?',
+                  'Called when pointer-down is outside this region (and all '
+                  'regions sharing the same groupId).'),
+              _ApiArg('groupId', 'Object?',
+                  'Logical group. Regions sharing a groupId act as one unit.'),
+              _ApiArg('consumeOutsideTaps', 'bool',
+                  'If true, outside pointer events are consumed (default: false).'),
+              _ApiArg('enabled', 'bool',
+                  'If false, region is not registered with the surface (default: true).'),
             ],
           ),
           const SizedBox(height: 12),
@@ -1655,11 +1631,7 @@ class _PitfallsApiTab extends StatelessWidget {
                 'RenderObject for TapRegion. Registers/deregisters itself '
                 'with the nearest RenderTapRegionSurface when attached/detached.',
             constructorArgs: const <_ApiArg>[
-              _ApiArg(
-                'groupId',
-                'Object?',
-                'Forwarded from TapRegion.groupId.',
-              ),
+              _ApiArg('groupId', 'Object?', 'Forwarded from TapRegion.groupId.'),
               _ApiArg('onTapInside', 'PointerDownEventListener?', ''),
               _ApiArg('onTapOutside', 'PointerDownEventListener?', ''),
               _ApiArg('consumeOutsideTaps', 'bool', ''),
@@ -1669,8 +1641,7 @@ class _PitfallsApiTab extends StatelessWidget {
           // ── Quick example ─────────────────────────────────────────────────
           Text('Minimal usage example', style: tt.titleMedium),
           const SizedBox(height: 8),
-          _CodeBlock(
-            code: r'''
+          _CodeBlock(code: r'''
 TapRegionSurface(
   child: Stack(
     children: [
@@ -1689,8 +1660,7 @@ TapRegionSurface(
     ],
   ),
 )
-''',
-          ),
+'''),
           const SizedBox(height: 24),
         ],
       ),
@@ -1739,7 +1709,8 @@ class _PitfallCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                    style:
+                        tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -1756,14 +1727,14 @@ class _PitfallCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(Icons.lightbulb_outline, size: 16, color: cs.primary),
+                  Icon(Icons.lightbulb_outline,
+                      size: 16, color: cs.primary),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
                       'Fix: $fix',
-                      style: tt.bodySmall?.copyWith(
-                        color: cs.onPrimaryContainer,
-                      ),
+                      style: tt.bodySmall
+                          ?.copyWith(color: cs.onPrimaryContainer),
                     ),
                   ),
                 ],
@@ -1830,7 +1801,8 @@ class _ApiSection extends StatelessWidget {
                 },
                 children: <TableRow>[
                   TableRow(
-                    decoration: BoxDecoration(color: cs.secondaryContainer),
+                    decoration:
+                        BoxDecoration(color: cs.secondaryContainer),
                     children: <Widget>[
                       _TCell('Parameter', header: true),
                       _TCell('Type', header: true),
@@ -1848,10 +1820,9 @@ class _ApiSection extends StatelessWidget {
                 ],
               )
             else
-              Text(
-                'No public constructor arguments.',
-                style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-              ),
+              Text('No public constructor arguments.',
+                  style: tt.bodySmall
+                      ?.copyWith(color: cs.onSurfaceVariant)),
           ],
         ),
       ),
@@ -1908,9 +1879,8 @@ class _LogPanel extends StatelessWidget {
                   ? Center(
                       child: Text(
                         'Tap to see events…',
-                        style: tt.bodySmall?.copyWith(
-                          color: cs.onSurfaceVariant,
-                        ),
+                        style:
+                            tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
                       ),
                     )
                   : ListView.builder(
@@ -1922,7 +1892,9 @@ class _LogPanel extends StatelessWidget {
                           entries[i],
                           style: tt.bodySmall?.copyWith(
                             fontFamily: 'monospace',
-                            color: i == 0 ? cs.primary : cs.onSurfaceVariant,
+                            color: i == 0
+                                ? cs.primary
+                                : cs.onSurfaceVariant,
                           ),
                         ),
                       ),
@@ -1969,9 +1941,10 @@ class _CodeBlock extends StatelessWidget {
       ),
       child: SelectableText(
         code.trim(),
-        style: Theme.of(
-          context,
-        ).textTheme.bodySmall?.copyWith(fontFamily: 'monospace', fontSize: 12),
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontFamily: 'monospace',
+              fontSize: 12,
+            ),
       ),
     );
   }
@@ -1985,9 +1958,10 @@ class _SectionLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: Theme.of(
-        context,
-      ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+      style: Theme.of(context)
+          .textTheme
+          .titleSmall
+          ?.copyWith(fontWeight: FontWeight.bold),
     );
   }
 }

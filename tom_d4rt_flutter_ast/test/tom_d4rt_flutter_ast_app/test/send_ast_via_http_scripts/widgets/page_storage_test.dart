@@ -33,8 +33,7 @@ class _PageStorageDeepDemoPage extends StatefulWidget {
   const _PageStorageDeepDemoPage();
 
   @override
-  State<_PageStorageDeepDemoPage> createState() =>
-      _PageStorageDeepDemoPageState();
+  State<_PageStorageDeepDemoPage> createState() => _PageStorageDeepDemoPageState();
 }
 
 class _PageStorageDeepDemoPageState extends State<_PageStorageDeepDemoPage> {
@@ -186,12 +185,7 @@ class _HeaderDeck extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF203A58),
-            Color(0xFF2E6EA7),
-            Color(0xFF2E866B),
-            Color(0xFF615AB4),
-          ],
+          colors: [Color(0xFF203A58), Color(0xFF2E6EA7), Color(0xFF2E866B), Color(0xFF615AB4)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -201,11 +195,7 @@ class _HeaderDeck extends StatelessWidget {
         children: [
           const Text(
             'PageStorage Control Deck',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -219,26 +209,10 @@ class _HeaderDeck extends StatelessWidget {
             spacing: 16,
             runSpacing: 8,
             children: [
-              _DeckToggle(
-                label: 'Compact scenes',
-                value: compact,
-                onChanged: onCompactChanged,
-              ),
-              _DeckToggle(
-                label: 'Guide overlays',
-                value: guides,
-                onChanged: onGuidesChanged,
-              ),
-              _DeckToggle(
-                label: 'Instruction notes',
-                value: notes,
-                onChanged: onNotesChanged,
-              ),
-              _DeckToggle(
-                label: 'Dense cards',
-                value: dense,
-                onChanged: onDenseChanged,
-              ),
+              _DeckToggle(label: 'Compact scenes', value: compact, onChanged: onCompactChanged),
+              _DeckToggle(label: 'Guide overlays', value: guides, onChanged: onGuidesChanged),
+              _DeckToggle(label: 'Instruction notes', value: notes, onChanged: onNotesChanged),
+              _DeckToggle(label: 'Dense cards', value: dense, onChanged: onDenseChanged),
             ],
           ),
         ],
@@ -248,11 +222,7 @@ class _HeaderDeck extends StatelessWidget {
 }
 
 class _DeckToggle extends StatelessWidget {
-  const _DeckToggle({
-    required this.label,
-    required this.value,
-    required this.onChanged,
-  });
+  const _DeckToggle({required this.label, required this.value, required this.onChanged});
 
   final String label;
   final bool value;
@@ -263,18 +233,8 @@ class _DeckToggle extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Switch(
-          value: value,
-          onChanged: onChanged,
-          activeThumbColor: Colors.white,
-        ),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Switch(value: value, onChanged: onChanged, activeThumbColor: Colors.white),
+        Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
       ],
     );
   }
@@ -321,32 +281,16 @@ class _DemoSectionShell extends StatelessWidget {
                   radius: 14,
                   backgroundColor: tone,
                   foregroundColor: Colors.white,
-                  child: Text(
-                    '$index',
-                    style: const TextStyle(fontWeight: FontWeight.w800),
-                  ),
+                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: tone,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 19,
-                        ),
-                      ),
+                      Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 19)),
                       const SizedBox(height: 4),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(
-                          color: Color(0xFF3A4F61),
-                          height: 1.34,
-                        ),
-                      ),
+                      Text(subtitle, style: const TextStyle(color: Color(0xFF3A4F61), height: 1.34)),
                     ],
                   ),
                 ),
@@ -412,32 +356,16 @@ class _ScopeStudioSceneState extends State<_ScopeStudioScene> {
                           FilledButton.tonal(
                             onPressed: () {
                               setState(() => _mountInside = !_mountInside);
-                              _log(
-                                _mountInside
-                                    ? 'mounted INSIDE scope'
-                                    : 'unmounted INSIDE scope',
-                              );
+                              _log(_mountInside ? 'mounted INSIDE scope' : 'unmounted INSIDE scope');
                             },
-                            child: Text(
-                              _mountInside
-                                  ? 'Unmount inside scope'
-                                  : 'Mount inside scope',
-                            ),
+                            child: Text(_mountInside ? 'Unmount inside scope' : 'Mount inside scope'),
                           ),
                           FilledButton.tonal(
                             onPressed: () {
                               setState(() => _mountOutside = !_mountOutside);
-                              _log(
-                                _mountOutside
-                                    ? 'mounted OUTSIDE scope'
-                                    : 'unmounted OUTSIDE scope',
-                              );
+                              _log(_mountOutside ? 'mounted OUTSIDE scope' : 'unmounted OUTSIDE scope');
                             },
-                            child: Text(
-                              _mountOutside
-                                  ? 'Unmount outside scope'
-                                  : 'Mount outside scope',
-                            ),
+                            child: Text(_mountOutside ? 'Unmount outside scope' : 'Mount outside scope'),
                           ),
                           FilledButton.tonal(
                             onPressed: () {
@@ -449,15 +377,13 @@ class _ScopeStudioSceneState extends State<_ScopeStudioScene> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      _DataTable(
-                        rows: [
-                          _DataRow('inside mounted', '$_mountInside'),
-                          _DataRow('outside mounted', '$_mountOutside'),
-                          _DataRow('inside tab', '$_insideTab'),
-                          _DataRow('outside tab', '$_outsideTab'),
-                          _DataRow('inside bucket hash', '${_bucket.hashCode}'),
-                        ],
-                      ),
+                      _DataTable(rows: [
+                        _DataRow('inside mounted', '$_mountInside'),
+                        _DataRow('outside mounted', '$_mountOutside'),
+                        _DataRow('inside tab', '$_insideTab'),
+                        _DataRow('outside tab', '$_outsideTab'),
+                        _DataRow('inside bucket hash', '${_bucket.hashCode}'),
+                      ]),
                       const SizedBox(height: 10),
                       if (widget.notes)
                         _BulletCard(
@@ -592,9 +518,7 @@ class _ScopeColumn extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: 0.15),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
             ),
             child: Row(
               children: [
@@ -606,10 +530,7 @@ class _ScopeColumn extends StatelessWidget {
                     style: TextStyle(color: tone, fontWeight: FontWeight.w800),
                   ),
                 ),
-                _ToneBadge(
-                  tone: tone,
-                  text: wrapped ? 'PageStorage ON' : 'PageStorage OFF',
-                ),
+                _ToneBadge(tone: tone, text: wrapped ? 'PageStorage ON' : 'PageStorage OFF'),
               ],
             ),
           ),
@@ -665,24 +586,24 @@ class _ScopePaneBodyState extends State<_ScopePaneBody> {
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                    value: _flagA,
-                    onChanged: (v) => setState(() => _flagA = v),
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Flag A'),
-                  ),
+                  value: _flagA,
+                  onChanged: (v) => setState(() => _flagA = v),
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Flag A'),
+                ),
                 ),
               ),
               Expanded(
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                    value: _flagB,
-                    onChanged: (v) => setState(() => _flagB = v),
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Flag B'),
-                  ),
+                  value: _flagB,
+                  onChanged: (v) => setState(() => _flagB = v),
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Flag B'),
+                ),
                 ),
               ),
             ],
@@ -736,90 +657,25 @@ class _PaneList extends StatelessWidget {
     return ListView(
       key: key,
       children: [
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 1',
-          body: 'Scroll down, switch tab, and return.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 2',
-          body: 'This pane uses a stable PageStorageKey.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 3',
-          body: 'Values are bucket-scoped, not global.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 4',
-          body: 'Inside scope should restore offsets.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 5',
-          body: 'Outside scope often restarts positions.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 6',
-          body: 'Try unmounting and remounting each side.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 7',
-          body: 'Reset inside bucket to wipe remembered data.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 8',
-          body: 'Keep keys unique per scrollable branch.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 9',
-          body: 'Use explicit write/read for custom values.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 10',
-          body: 'PageStorage is in-memory UX continuity.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 11',
-          body: 'Useful for tabs, shells, and routes.',
-        ),
-        _PaneCard(
-          tone: tone,
-          dense: dense,
-          title: '$titlePrefix card 12',
-          body: 'Not a replacement for permanent storage.',
-        ),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 1', body: 'Scroll down, switch tab, and return.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 2', body: 'This pane uses a stable PageStorageKey.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 3', body: 'Values are bucket-scoped, not global.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 4', body: 'Inside scope should restore offsets.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 5', body: 'Outside scope often restarts positions.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 6', body: 'Try unmounting and remounting each side.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 7', body: 'Reset inside bucket to wipe remembered data.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 8', body: 'Keep keys unique per scrollable branch.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 9', body: 'Use explicit write/read for custom values.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 10', body: 'PageStorage is in-memory UX continuity.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 11', body: 'Useful for tabs, shells, and routes.'),
+        _PaneCard(tone: tone, dense: dense, title: '$titlePrefix card 12', body: 'Not a replacement for permanent storage.'),
       ],
     );
   }
 }
 
 class _PaneCard extends StatelessWidget {
-  const _PaneCard({
-    required this.tone,
-    required this.dense,
-    required this.title,
-    required this.body,
-  });
+  const _PaneCard({required this.tone, required this.dense, required this.title, required this.body});
 
   final Color tone;
   final bool dense;
@@ -839,10 +695,7 @@ class _PaneCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
-          ),
+          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
           const SizedBox(height: 4),
           Text(body, style: const TextStyle(height: 1.3)),
         ],
@@ -852,11 +705,7 @@ class _PaneCard extends StatelessWidget {
 }
 
 class _AccessLabScene extends StatefulWidget {
-  const _AccessLabScene({
-    required this.compact,
-    required this.guides,
-    required this.notes,
-  });
+  const _AccessLabScene({required this.compact, required this.guides, required this.notes});
 
   final bool compact;
   final bool guides;
@@ -897,13 +746,11 @@ class _AccessLabSceneState extends State<_AccessLabScene> {
                     children: [
                       const _MiniTitle('Context Probe Controls'),
                       const SizedBox(height: 8),
-                      _DataTable(
-                        rows: [
-                          _DataRow('bucket hash', '${_bucket.hashCode}'),
-                          _DataRow('trace lines', '${_trace.length}'),
-                          _DataRow('last read value', _lastRead),
-                        ],
-                      ),
+                      _DataTable(rows: [
+                        _DataRow('bucket hash', '${_bucket.hashCode}'),
+                        _DataRow('trace lines', '${_trace.length}'),
+                        _DataRow('last read value', _lastRead),
+                      ]),
                       const SizedBox(height: 10),
                       if (widget.notes)
                         _BulletCard(
@@ -944,16 +791,8 @@ class _AccessLabSceneState extends State<_AccessLabScene> {
                               return _ProbeBody(
                                 tone: _mint,
                                 controller: _fieldController,
-                                onMaybeProbe: () => _runProbe(
-                                  'inside maybeOf',
-                                  insideContext,
-                                  force: false,
-                                ),
-                                onForceProbe: () => _runProbe(
-                                  'inside of',
-                                  insideContext,
-                                  force: true,
-                                ),
+                                onMaybeProbe: () => _runProbe('inside maybeOf', insideContext, force: false),
+                                onForceProbe: () => _runProbe('inside of', insideContext, force: true),
                                 onWrite: () {
                                   PageStorage.of(insideContext).writeState(
                                     insideContext,
@@ -963,15 +802,12 @@ class _AccessLabSceneState extends State<_AccessLabScene> {
                                   _append('inside writeState access.lab.text');
                                 },
                                 onRead: () {
-                                  final value = PageStorage.of(insideContext)
-                                      .readState(
-                                        insideContext,
-                                        identifier: 'access.lab.text',
-                                      );
-                                  setState(() => _lastRead = '$value');
-                                  _append(
-                                    'inside readState access.lab.text -> $value',
+                                  final value = PageStorage.of(insideContext).readState(
+                                    insideContext,
+                                    identifier: 'access.lab.text',
                                   );
+                                  setState(() => _lastRead = '$value');
+                                  _append('inside readState access.lab.text -> $value');
                                 },
                               );
                             },
@@ -989,22 +825,10 @@ class _AccessLabSceneState extends State<_AccessLabScene> {
                             return _ProbeBody(
                               tone: _amber,
                               controller: _fieldController,
-                              onMaybeProbe: () => _runProbe(
-                                'outside maybeOf',
-                                outsideContext,
-                                force: false,
-                              ),
-                              onForceProbe: () => _runProbe(
-                                'outside of',
-                                outsideContext,
-                                force: true,
-                              ),
-                              onWrite: () => _append(
-                                'outside write attempt skipped (no guaranteed scope)',
-                              ),
-                              onRead: () => _append(
-                                'outside read attempt skipped (no guaranteed scope)',
-                              ),
+                              onMaybeProbe: () => _runProbe('outside maybeOf', outsideContext, force: false),
+                              onForceProbe: () => _runProbe('outside of', outsideContext, force: true),
+                              onWrite: () => _append('outside write attempt skipped (no guaranteed scope)'),
+                              onRead: () => _append('outside read attempt skipped (no guaranteed scope)'),
                             );
                           },
                         ),
@@ -1023,9 +847,7 @@ class _AccessLabSceneState extends State<_AccessLabScene> {
   void _runProbe(String label, BuildContext context, {required bool force}) {
     if (!force) {
       final bucket = PageStorage.maybeOf(context);
-      _append(
-        '$label -> ${bucket == null ? 'null' : 'bucket(${bucket.hashCode})'}',
-      );
+      _append('$label -> ${bucket == null ? 'null' : 'bucket(${bucket.hashCode})'}');
       return;
     }
     try {
@@ -1045,11 +867,7 @@ class _AccessLabSceneState extends State<_AccessLabScene> {
 }
 
 class _ProbeColumn extends StatelessWidget {
-  const _ProbeColumn({
-    required this.title,
-    required this.tone,
-    required this.child,
-  });
+  const _ProbeColumn({required this.title, required this.tone, required this.child});
 
   final String title;
   final Color tone;
@@ -1069,9 +887,7 @@ class _ProbeColumn extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: 0.15),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
             ),
             child: Row(
               children: [
@@ -1086,9 +902,7 @@ class _ProbeColumn extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Padding(padding: const EdgeInsets.all(8), child: child),
-          ),
+          Expanded(child: Padding(padding: const EdgeInsets.all(8), child: child)),
         ],
       ),
     );
@@ -1130,22 +944,10 @@ class _ProbeBody extends StatelessWidget {
           spacing: 8,
           runSpacing: 8,
           children: [
-            FilledButton.tonal(
-              onPressed: onMaybeProbe,
-              child: const Text('maybeOf(context)'),
-            ),
-            FilledButton.tonal(
-              onPressed: onForceProbe,
-              child: const Text('of(context)'),
-            ),
-            FilledButton.tonal(
-              onPressed: onWrite,
-              child: const Text('writeState'),
-            ),
-            FilledButton.tonal(
-              onPressed: onRead,
-              child: const Text('readState'),
-            ),
+            FilledButton.tonal(onPressed: onMaybeProbe, child: const Text('maybeOf(context)')),
+            FilledButton.tonal(onPressed: onForceProbe, child: const Text('of(context)')),
+            FilledButton.tonal(onPressed: onWrite, child: const Text('writeState')), 
+            FilledButton.tonal(onPressed: onRead, child: const Text('readState')), 
           ],
         ),
         const SizedBox(height: 8),
@@ -1156,32 +958,27 @@ class _ProbeBody extends StatelessWidget {
               _SmallGuidanceTile(
                 tone: tone,
                 title: 'Probe result interpretation',
-                body:
-                    'null from maybeOf means no PageStorage in ancestor chain.',
+                body: 'null from maybeOf means no PageStorage in ancestor chain.',
               ),
               _SmallGuidanceTile(
                 tone: tone,
                 title: 'of() behavior',
-                body:
-                    'Use when scope is required and absence should be treated as programming error.',
+                body: 'Use when scope is required and absence should be treated as programming error.',
               ),
               _SmallGuidanceTile(
                 tone: tone,
                 title: 'Nested contexts',
-                body:
-                    'Builder helps obtain a context inside specific widget branches.',
+                body: 'Builder helps obtain a context inside specific widget branches.',
               ),
               _SmallGuidanceTile(
                 tone: tone,
                 title: 'State strategy',
-                body:
-                    'PageStorage works best for page/session continuity, not long-term persistence.',
+                body: 'PageStorage works best for page/session continuity, not long-term persistence.',
               ),
               _SmallGuidanceTile(
                 tone: tone,
                 title: 'Key strategy',
-                body:
-                    'Stable identifiers and key namespaces reduce collisions in large screens.',
+                body: 'Stable identifiers and key namespaces reduce collisions in large screens.',
               ),
             ],
           ),
@@ -1192,11 +989,7 @@ class _ProbeBody extends StatelessWidget {
 }
 
 class _SmallGuidanceTile extends StatelessWidget {
-  const _SmallGuidanceTile({
-    required this.tone,
-    required this.title,
-    required this.body,
-  });
+  const _SmallGuidanceTile({required this.tone, required this.title, required this.body});
 
   final Color tone;
   final String title;
@@ -1215,10 +1008,7 @@ class _SmallGuidanceTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
-          ),
+          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
           const SizedBox(height: 4),
           Text(body, style: const TextStyle(height: 1.3)),
         ],
@@ -1228,19 +1018,14 @@ class _SmallGuidanceTile extends StatelessWidget {
 }
 
 class _KeyedScrollGalleryScene extends StatefulWidget {
-  const _KeyedScrollGalleryScene({
-    required this.compact,
-    required this.guides,
-    required this.notes,
-  });
+  const _KeyedScrollGalleryScene({required this.compact, required this.guides, required this.notes});
 
   final bool compact;
   final bool guides;
   final bool notes;
 
   @override
-  State<_KeyedScrollGalleryScene> createState() =>
-      _KeyedScrollGallerySceneState();
+  State<_KeyedScrollGalleryScene> createState() => _KeyedScrollGallerySceneState();
 }
 
 class _KeyedScrollGallerySceneState extends State<_KeyedScrollGalleryScene> {
@@ -1289,15 +1074,9 @@ class _KeyedScrollGallerySceneState extends State<_KeyedScrollGalleryScene> {
                           FilledButton.tonal(
                             onPressed: () {
                               setState(() => _mounted = !_mounted);
-                              _log(
-                                _mounted
-                                    ? 'mounted gallery subtree'
-                                    : 'unmounted gallery subtree',
-                              );
+                              _log(_mounted ? 'mounted gallery subtree' : 'unmounted gallery subtree');
                             },
-                            child: Text(
-                              _mounted ? 'Unmount gallery' : 'Mount gallery',
-                            ),
+                            child: Text(_mounted ? 'Unmount gallery' : 'Mount gallery'),
                           ),
                           FilledButton.tonal(
                             onPressed: () {
@@ -1309,14 +1088,12 @@ class _KeyedScrollGallerySceneState extends State<_KeyedScrollGalleryScene> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      _DataTable(
-                        rows: [
-                          _DataRow('tab', '$_tab'),
-                          _DataRow('mounted', '$_mounted'),
-                          _DataRow('bucket hash', '${_bucket.hashCode}'),
-                          _DataRow('trace entries', '${_trace.length}'),
-                        ],
-                      ),
+                      _DataTable(rows: [
+                        _DataRow('tab', '$_tab'),
+                        _DataRow('mounted', '$_mounted'),
+                        _DataRow('bucket hash', '${_bucket.hashCode}'),
+                        _DataRow('trace entries', '${_trace.length}'),
+                      ]),
                       const SizedBox(height: 10),
                       if (widget.notes)
                         _BulletCard(
@@ -1352,8 +1129,7 @@ class _KeyedScrollGallerySceneState extends State<_KeyedScrollGalleryScene> {
                     : const _MutedEmptyCard(
                         tone: _amber,
                         title: 'Gallery unmounted',
-                        body:
-                            'Remount and verify restoration in each keyed list pane.',
+                        body: 'Remount and verify restoration in each keyed list pane.',
                       ),
               ),
             ),
@@ -1388,11 +1164,14 @@ class _GalleryBody extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: _amber.withValues(alpha: 0.24)),
           ),
-          child: Text(switch (tab) {
-            0 => 'Discover: broad card feed with preserved position',
-            1 => 'Archive: denser list preserving independent offset',
-            _ => 'Compare: side-by-side notes and cards preserving offset',
-          }, style: const TextStyle(fontWeight: FontWeight.w700)),
+          child: Text(
+            switch (tab) {
+              0 => 'Discover: broad card feed with preserved position',
+              1 => 'Archive: denser list preserving independent offset',
+              _ => 'Compare: side-by-side notes and cards preserving offset',
+            },
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          ),
         ),
         const SizedBox(height: 8),
         Expanded(
@@ -1418,45 +1197,18 @@ class _DiscoverGalleryPane extends StatelessWidget {
     return ListView(
       key: const PageStorageKey('gallery.discover.scroll'),
       children: const [
-        _GalleryCard(
-          title: 'Discover 1',
-          body: 'Experiment board for layout states.',
-        ),
-        _GalleryCard(
-          title: 'Discover 2',
-          body: 'Widget previews with dynamic controls.',
-        ),
-        _GalleryCard(
-          title: 'Discover 3',
-          body: 'A/B card alternatives for onboarding.',
-        ),
-        _GalleryCard(
-          title: 'Discover 4',
-          body: 'Color and contrast trial combinations.',
-        ),
-        _GalleryCard(
-          title: 'Discover 5',
-          body: 'Content hierarchy prototypes.',
-        ),
-        _GalleryCard(
-          title: 'Discover 6',
-          body: 'Performance-safe visual arrangements.',
-        ),
-        _GalleryCard(
-          title: 'Discover 7',
-          body: 'Navigation hints and sticky affordances.',
-        ),
-        _GalleryCard(
-          title: 'Discover 8',
-          body: 'Interactive state transitions samples.',
-        ),
+        _GalleryCard(title: 'Discover 1', body: 'Experiment board for layout states.'),
+        _GalleryCard(title: 'Discover 2', body: 'Widget previews with dynamic controls.'),
+        _GalleryCard(title: 'Discover 3', body: 'A/B card alternatives for onboarding.'),
+        _GalleryCard(title: 'Discover 4', body: 'Color and contrast trial combinations.'),
+        _GalleryCard(title: 'Discover 5', body: 'Content hierarchy prototypes.'),
+        _GalleryCard(title: 'Discover 6', body: 'Performance-safe visual arrangements.'),
+        _GalleryCard(title: 'Discover 7', body: 'Navigation hints and sticky affordances.'),
+        _GalleryCard(title: 'Discover 8', body: 'Interactive state transitions samples.'),
         _GalleryCard(title: 'Discover 9', body: 'Microcopy framing options.'),
         _GalleryCard(title: 'Discover 10', body: 'Spacing rhythm experiments.'),
         _GalleryCard(title: 'Discover 11', body: 'Action density prototypes.'),
-        _GalleryCard(
-          title: 'Discover 12',
-          body: 'Component grouping alternatives.',
-        ),
+        _GalleryCard(title: 'Discover 12', body: 'Component grouping alternatives.'),
       ],
     );
   }
@@ -1496,28 +1248,13 @@ class _CompareGalleryPane extends StatelessWidget {
       key: const PageStorageKey('gallery.compare.scroll'),
       children: const [
         _GalleryCard(title: 'Compare 1', body: 'Variant A vs B readability.'),
-        _GalleryCard(
-          title: 'Compare 2',
-          body: 'Button hierarchy clarity test.',
-        ),
-        _GalleryCard(
-          title: 'Compare 3',
-          body: 'Inline actions vs overflow menu.',
-        ),
-        _GalleryCard(
-          title: 'Compare 4',
-          body: 'Compact vs spacious card modes.',
-        ),
-        _GalleryCard(
-          title: 'Compare 5',
-          body: 'Dense typography vs calm typography.',
-        ),
+        _GalleryCard(title: 'Compare 2', body: 'Button hierarchy clarity test.'),
+        _GalleryCard(title: 'Compare 3', body: 'Inline actions vs overflow menu.'),
+        _GalleryCard(title: 'Compare 4', body: 'Compact vs spacious card modes.'),
+        _GalleryCard(title: 'Compare 5', body: 'Dense typography vs calm typography.'),
         _GalleryCard(title: 'Compare 6', body: 'Panel grouping alternatives.'),
         _GalleryCard(title: 'Compare 7', body: 'Onboarding sequence options.'),
-        _GalleryCard(
-          title: 'Compare 8',
-          body: 'Progressive disclosure checks.',
-        ),
+        _GalleryCard(title: 'Compare 8', body: 'Progressive disclosure checks.'),
         _GalleryCard(title: 'Compare 9', body: 'Form affordance alternatives.'),
         _GalleryCard(title: 'Compare 10', body: 'Motion style contrast.'),
         _GalleryCard(title: 'Compare 11', body: 'Error state visual clarity.'),
@@ -1546,10 +1283,7 @@ class _GalleryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(color: _amber, fontWeight: FontWeight.w800),
-          ),
+          Text(title, style: const TextStyle(color: _amber, fontWeight: FontWeight.w800)),
           const SizedBox(height: 4),
           Text(body, style: const TextStyle(height: 1.3)),
         ],
@@ -1559,11 +1293,7 @@ class _GalleryCard extends StatelessWidget {
 }
 
 class _LifecycleSwapScene extends StatefulWidget {
-  const _LifecycleSwapScene({
-    required this.compact,
-    required this.guides,
-    required this.notes,
-  });
+  const _LifecycleSwapScene({required this.compact, required this.guides, required this.notes});
 
   final bool compact;
   final bool guides;
@@ -1619,15 +1349,9 @@ class _LifecycleSwapSceneState extends State<_LifecycleSwapScene> {
                           FilledButton.tonal(
                             onPressed: () {
                               setState(() => _mounted = !_mounted);
-                              _log(
-                                _mounted
-                                    ? 'mounted lifecycle subtree'
-                                    : 'unmounted lifecycle subtree',
-                              );
+                              _log(_mounted ? 'mounted lifecycle subtree' : 'unmounted lifecycle subtree');
                             },
-                            child: Text(
-                              _mounted ? 'Unmount subtree' : 'Mount subtree',
-                            ),
+                            child: Text(_mounted ? 'Unmount subtree' : 'Mount subtree'),
                           ),
                           FilledButton.tonal(
                             onPressed: () {
@@ -1639,14 +1363,12 @@ class _LifecycleSwapSceneState extends State<_LifecycleSwapScene> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      _DataTable(
-                        rows: [
-                          _DataRow('pane', '$_pane'),
-                          _DataRow('mounted', '$_mounted'),
-                          _DataRow('bucket hash', '${_bucket.hashCode}'),
-                          _DataRow('events', '${_trace.length}'),
-                        ],
-                      ),
+                      _DataTable(rows: [
+                        _DataRow('pane', '$_pane'),
+                        _DataRow('mounted', '$_mounted'),
+                        _DataRow('bucket hash', '${_bucket.hashCode}'),
+                        _DataRow('events', '${_trace.length}'),
+                      ]),
                       const SizedBox(height: 10),
                       if (widget.notes)
                         _BulletCard(
@@ -1688,8 +1410,7 @@ class _LifecycleSwapSceneState extends State<_LifecycleSwapScene> {
                     : const _MutedEmptyCard(
                         tone: _rose,
                         title: 'Lifecycle subtree offline',
-                        body:
-                            'Mount again to validate continuity using the same bucket.',
+                        body: 'Mount again to validate continuity using the same bucket.',
                       ),
               ),
             ),
@@ -1737,8 +1458,8 @@ class _LifecyclePaneState extends State<_LifecyclePane> {
     final tone = widget.pane == 0
         ? _rose
         : widget.pane == 1
-        ? _mint
-        : _violet;
+            ? _mint
+            : _violet;
 
     final name = switch (widget.pane) {
       0 => 'Plan Pane',
@@ -1759,20 +1480,13 @@ class _LifecyclePaneState extends State<_LifecyclePane> {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: 0.15),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
             ),
             child: Row(
               children: [
                 Icon(Icons.view_agenda, color: tone),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    name,
-                    style: TextStyle(color: tone, fontWeight: FontWeight.w800),
-                  ),
-                ),
+                Expanded(child: Text(name, style: TextStyle(color: tone, fontWeight: FontWeight.w800))),
                 _ToneBadge(tone: tone, text: 'pane ${widget.pane + 1}'),
               ],
             ),
@@ -1794,54 +1508,22 @@ class _LifecyclePaneState extends State<_LifecyclePane> {
                 Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                    value: _flag,
-                    onChanged: (v) => setState(() => _flag = v),
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Enable lane context flag'),
-                  ),
+                  value: _flag,
+                  onChanged: (v) => setState(() => _flag = v),
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Enable lane context flag'),
+                ),
                 ),
                 const SizedBox(height: 8),
-                _LifecycleTile(
-                  tone: tone,
-                  title: '$name item 1',
-                  body: 'Simulated route section with persistent scroll key.',
-                ),
-                _LifecycleTile(
-                  tone: tone,
-                  title: '$name item 2',
-                  body: 'Switch pane and come back to verify continuity.',
-                ),
-                _LifecycleTile(
-                  tone: tone,
-                  title: '$name item 3',
-                  body: 'Toggle flag and compare local vs restored states.',
-                ),
-                _LifecycleTile(
-                  tone: tone,
-                  title: '$name item 4',
-                  body: 'Keep key strings stable across rebuild cycles.',
-                ),
-                _LifecycleTile(
-                  tone: tone,
-                  title: '$name item 5',
-                  body: 'Use explicit storage for custom, keyless values.',
-                ),
-                _LifecycleTile(
-                  tone: tone,
-                  title: '$name item 6',
-                  body: 'PageStorage works per bucket boundary.',
-                ),
-                _LifecycleTile(
-                  tone: tone,
-                  title: '$name item 7',
-                  body: 'Changing bucket acts like fresh session reset.',
-                ),
-                _LifecycleTile(
-                  tone: tone,
-                  title: '$name item 8',
-                  body: 'Perfect for wizard-like step transitions.',
-                ),
+                _LifecycleTile(tone: tone, title: '$name item 1', body: 'Simulated route section with persistent scroll key.'),
+                _LifecycleTile(tone: tone, title: '$name item 2', body: 'Switch pane and come back to verify continuity.'),
+                _LifecycleTile(tone: tone, title: '$name item 3', body: 'Toggle flag and compare local vs restored states.'),
+                _LifecycleTile(tone: tone, title: '$name item 4', body: 'Keep key strings stable across rebuild cycles.'),
+                _LifecycleTile(tone: tone, title: '$name item 5', body: 'Use explicit storage for custom, keyless values.'),
+                _LifecycleTile(tone: tone, title: '$name item 6', body: 'PageStorage works per bucket boundary.'),
+                _LifecycleTile(tone: tone, title: '$name item 7', body: 'Changing bucket acts like fresh session reset.'),
+                _LifecycleTile(tone: tone, title: '$name item 8', body: 'Perfect for wizard-like step transitions.'),
               ],
             ),
           ),
@@ -1852,11 +1534,7 @@ class _LifecyclePaneState extends State<_LifecyclePane> {
 }
 
 class _LifecycleTile extends StatelessWidget {
-  const _LifecycleTile({
-    required this.tone,
-    required this.title,
-    required this.body,
-  });
+  const _LifecycleTile({required this.tone, required this.title, required this.body});
 
   final Color tone;
   final String title;
@@ -1875,10 +1553,7 @@ class _LifecycleTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
-          ),
+          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
           const SizedBox(height: 4),
           Text(body, style: const TextStyle(height: 1.3)),
         ],
@@ -1888,11 +1563,7 @@ class _LifecycleTile extends StatelessWidget {
 }
 
 class _PracticalBoardScene extends StatefulWidget {
-  const _PracticalBoardScene({
-    required this.compact,
-    required this.guides,
-    required this.notes,
-  });
+  const _PracticalBoardScene({required this.compact, required this.guides, required this.notes});
 
   final bool compact;
   final bool guides;
@@ -1968,13 +1639,11 @@ class _PracticalBoardSceneState extends State<_PracticalBoardScene> {
                         ],
                       ),
                     const SizedBox(height: 8),
-                    _DataTable(
-                      rows: [
-                        _DataRow('bucket hash', '${_bucket.hashCode}'),
-                        _DataRow('trace entries', '${_trace.length}'),
-                        _DataRow('time', _stamp().substring(0, 8)),
-                      ],
-                    ),
+                    _DataTable(rows: [
+                      _DataRow('bucket hash', '${_bucket.hashCode}'),
+                      _DataRow('trace entries', '${_trace.length}'),
+                      _DataRow('time', _stamp().substring(0, 8)),
+                    ]),
                     const SizedBox(height: 8),
                     const _MiniTitle('Module Trace'),
                     const SizedBox(height: 6),
@@ -2026,10 +1695,7 @@ class _FiltersModuleState extends State<_FiltersModule> {
               const Icon(Icons.filter_alt_outlined, color: _cobalt, size: 20),
               const SizedBox(width: 6),
               const Expanded(
-                child: Text(
-                  'Filters Rail',
-                  style: TextStyle(color: _cobalt, fontWeight: FontWeight.w800),
-                ),
+                child: Text('Filters Rail', style: TextStyle(color: _cobalt, fontWeight: FontWeight.w800)),
               ),
               _ToneBadge(tone: _cobalt, text: '${_chips.length} selected'),
             ],
@@ -2054,10 +1720,7 @@ class _FiltersModuleState extends State<_FiltersModule> {
               key: const PageStorageKey('practical.filters.scroll'),
               children: const [
                 _PlainLineCard('Rail row 1', 'Filter results summary strip'),
-                _PlainLineCard(
-                  'Rail row 2',
-                  'Backlog segment with medium priority',
-                ),
+                _PlainLineCard('Rail row 2', 'Backlog segment with medium priority'),
                 _PlainLineCard('Rail row 3', 'Current sprint visible tasks'),
                 _PlainLineCard('Rail row 4', 'Cross-team dependency signal'),
                 _PlainLineCard('Rail row 5', 'Ops and monitoring reminders'),
@@ -2129,10 +1792,7 @@ class _DraftsModuleState extends State<_DraftsModule> {
               const Icon(Icons.note_alt_outlined, color: _mint, size: 20),
               const SizedBox(width: 6),
               const Expanded(
-                child: Text(
-                  'Draft Pad',
-                  style: TextStyle(color: _mint, fontWeight: FontWeight.w800),
-                ),
+                child: Text('Draft Pad', style: TextStyle(color: _mint, fontWeight: FontWeight.w800)),
               ),
               _ToneBadge(tone: _mint, text: _ready ? 'ready' : 'editing'),
             ],
@@ -2141,10 +1801,7 @@ class _DraftsModuleState extends State<_DraftsModule> {
           TextField(
             key: const PageStorageKey('practical.draft.a'),
             controller: _a,
-            decoration: const InputDecoration(
-              labelText: 'Draft headline',
-              border: OutlineInputBorder(),
-            ),
+            decoration: const InputDecoration(labelText: 'Draft headline', border: OutlineInputBorder()),
             onChanged: (_) => widget.onLog('headline changed'),
           ),
           const SizedBox(height: 8),
@@ -2153,25 +1810,22 @@ class _DraftsModuleState extends State<_DraftsModule> {
             controller: _b,
             minLines: 3,
             maxLines: 5,
-            decoration: const InputDecoration(
-              labelText: 'Draft details',
-              border: OutlineInputBorder(),
-            ),
+            decoration: const InputDecoration(labelText: 'Draft details', border: OutlineInputBorder()),
             onChanged: (_) => widget.onLog('details changed'),
           ),
           const SizedBox(height: 8),
           Material(
             type: MaterialType.transparency,
             child: SwitchListTile(
-              value: _ready,
-              onChanged: (v) {
-                setState(() => _ready = v);
-                widget.onLog('ready = $v');
-              },
-              dense: true,
-              contentPadding: EdgeInsets.zero,
-              title: const Text('Ready for review'),
-            ),
+            value: _ready,
+            onChanged: (v) {
+              setState(() => _ready = v);
+              widget.onLog('ready = $v');
+            },
+            dense: true,
+            contentPadding: EdgeInsets.zero,
+            title: const Text('Ready for review'),
+          ),
           ),
           const SizedBox(height: 8),
           Expanded(
@@ -2224,10 +1878,7 @@ class _ProgressModuleState extends State<_ProgressModule> {
               const Icon(Icons.stacked_bar_chart, color: _violet, size: 20),
               const SizedBox(width: 6),
               const Expanded(
-                child: Text(
-                  'Progress Lanes',
-                  style: TextStyle(color: _violet, fontWeight: FontWeight.w800),
-                ),
+                child: Text('Progress Lanes', style: TextStyle(color: _violet, fontWeight: FontWeight.w800)),
               ),
               _ToneBadge(tone: _violet, text: 'live'),
             ],
@@ -2262,29 +1913,11 @@ class _ProgressModuleState extends State<_ProgressModule> {
             child: ListView(
               key: const PageStorageKey('practical.progress.scroll'),
               children: [
-                _ProgressLaneCard(
-                  label: 'Analysis lane',
-                  value: _analysis,
-                  tone: _violet,
-                ),
-                _ProgressLaneCard(
-                  label: 'Build lane',
-                  value: _build,
-                  tone: _mint,
-                ),
-                _ProgressLaneCard(
-                  label: 'Verify lane',
-                  value: _verify,
-                  tone: _amber,
-                ),
-                const _PlainLineCard(
-                  'Lane memo',
-                  'Adjust sliders then switch sections to inspect continuity.',
-                ),
-                const _PlainLineCard(
-                  'Lane memo',
-                  'PageStorageKey keeps this panel position in long boards.',
-                ),
+                _ProgressLaneCard(label: 'Analysis lane', value: _analysis, tone: _violet),
+                _ProgressLaneCard(label: 'Build lane', value: _build, tone: _mint),
+                _ProgressLaneCard(label: 'Verify lane', value: _verify, tone: _amber),
+                const _PlainLineCard('Lane memo', 'Adjust sliders then switch sections to inspect continuity.'),
+                const _PlainLineCard('Lane memo', 'PageStorageKey keeps this panel position in long boards.'),
               ],
             ),
           ),
@@ -2295,11 +1928,7 @@ class _ProgressModuleState extends State<_ProgressModule> {
 }
 
 class _TrackSlider extends StatelessWidget {
-  const _TrackSlider({
-    required this.label,
-    required this.value,
-    required this.onChanged,
-  });
+  const _TrackSlider({required this.label, required this.value, required this.onChanged});
 
   final String label;
   final double value;
@@ -2318,11 +1947,7 @@ class _TrackSlider extends StatelessWidget {
 }
 
 class _ProgressLaneCard extends StatelessWidget {
-  const _ProgressLaneCard({
-    required this.label,
-    required this.value,
-    required this.tone,
-  });
+  const _ProgressLaneCard({required this.label, required this.value, required this.tone});
 
   final String label;
   final double value;
@@ -2341,10 +1966,7 @@ class _ProgressLaneCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
-          ),
+          Text(label, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
           LinearProgressIndicator(
             value: value,
@@ -2376,10 +1998,7 @@ class _PlainLineCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.w800, color: _ink),
-          ),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w800, color: _ink)),
           const SizedBox(height: 4),
           Text(body, style: const TextStyle(height: 1.3)),
         ],
@@ -2476,22 +2095,8 @@ class _DataTable extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 150,
-                      child: Text(
-                        row.label,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        row.value,
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ),
+                    SizedBox(width: 150, child: Text(row.label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
+                    Expanded(child: Text(row.value, style: const TextStyle(fontSize: 12))),
                   ],
                 ),
               ),
@@ -2528,22 +2133,10 @@ class _BulletCard extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(
-                        Icons.circle,
-                        size: 7,
-                        color: Color(0xFFBFE3FF),
-                      ),
+                      child: Icon(Icons.circle, size: 7, color: Color(0xFFBFE3FF)),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        line,
-                        style: const TextStyle(
-                          color: Color(0xFFEAF6FF),
-                          height: 1.35,
-                        ),
-                      ),
-                    ),
+                    Expanded(child: Text(line, style: const TextStyle(color: Color(0xFFEAF6FF), height: 1.35))),
                   ],
                 ),
               ),
@@ -2569,19 +2162,13 @@ class _TracePanel extends StatelessWidget {
         border: Border.all(color: const Color(0xFFD0DEEB)),
       ),
       child: lines.isEmpty
-          ? const Text(
-              'No trace messages yet.',
-              style: TextStyle(color: Color(0xFF62798D)),
-            )
+          ? const Text('No trace messages yet.', style: TextStyle(color: Color(0xFF62798D)))
           : ListView.builder(
               key: const PageStorageKey('trace.panel.scroll'),
               itemCount: lines.length,
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(bottom: 3),
-                child: Text(
-                  lines[index],
-                  style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
-                ),
+                child: Text(lines[index], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
               ),
             ),
     );
@@ -2589,11 +2176,7 @@ class _TracePanel extends StatelessWidget {
 }
 
 class _MutedEmptyCard extends StatelessWidget {
-  const _MutedEmptyCard({
-    required this.tone,
-    required this.title,
-    required this.body,
-  });
+  const _MutedEmptyCard({required this.tone, required this.title, required this.body});
 
   final Color tone;
   final String title;
@@ -2615,20 +2198,9 @@ class _MutedEmptyCard extends StatelessWidget {
           children: [
             Icon(Icons.layers_clear, size: 34, color: tone),
             const SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(
-                color: tone,
-                fontWeight: FontWeight.w800,
-                fontSize: 19,
-              ),
-            ),
+            Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 19)),
             const SizedBox(height: 6),
-            Text(
-              body,
-              textAlign: TextAlign.center,
-              style: const TextStyle(height: 1.35),
-            ),
+            Text(body, textAlign: TextAlign.center, style: const TextStyle(height: 1.35)),
           ],
         ),
       ),
@@ -2650,14 +2222,7 @@ class _ToneBadge extends StatelessWidget {
         color: tone.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: tone,
-          fontWeight: FontWeight.w700,
-          fontSize: 11,
-        ),
-      ),
+      child: Text(text, style: TextStyle(color: tone, fontWeight: FontWeight.w700, fontSize: 11)),
     );
   }
 }
@@ -2676,14 +2241,7 @@ class _SummaryCard extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Recap: PageStorage',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-            ),
-          ),
+          Text('Recap: PageStorage', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
           SizedBox(height: 8),
           Text(
             'PageStorage provides bucket-scoped, in-memory persistence for descendant widgets. '

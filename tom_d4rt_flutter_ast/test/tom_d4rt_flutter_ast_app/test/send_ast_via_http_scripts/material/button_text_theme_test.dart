@@ -163,11 +163,8 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.warning_amber_rounded,
-                  color: const Color(0xFFB26A00),
-                  size: 18,
-                ),
+                Icon(Icons.warning_amber_rounded,
+                    color: const Color(0xFFB26A00), size: 18),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -254,11 +251,8 @@ dynamic build(BuildContext context) {
                       children: [
                         const Row(
                           children: [
-                            Icon(
-                              Icons.wb_sunny_outlined,
-                              size: 18,
-                              color: Color(0xFF1976D2),
-                            ),
+                            Icon(Icons.wb_sunny_outlined,
+                                size: 18, color: Color(0xFF1976D2)),
                             SizedBox(width: 6),
                             Text(
                               'Brightness.light',
@@ -271,22 +265,13 @@ dynamic build(BuildContext context) {
                         ),
                         const SizedBox(height: 12),
                         _labelledMaterialButton(
-                          'normal',
-                          ButtonTextTheme.normal,
-                          'Save',
-                        ),
+                          'normal', ButtonTextTheme.normal, 'Save'),
                         const SizedBox(height: 6),
                         _labelledMaterialButton(
-                          'accent',
-                          ButtonTextTheme.accent,
-                          'Save',
-                        ),
+                            'accent', ButtonTextTheme.accent, 'Save'),
                         const SizedBox(height: 6),
                         _labelledMaterialButton(
-                          'primary',
-                          ButtonTextTheme.primary,
-                          'Save',
-                        ),
+                            'primary', ButtonTextTheme.primary, 'Save'),
                       ],
                     ),
                   ),
@@ -317,11 +302,8 @@ dynamic build(BuildContext context) {
                       children: [
                         const Row(
                           children: [
-                            Icon(
-                              Icons.nightlight_round,
-                              size: 18,
-                              color: Color(0xFF90CAF9),
-                            ),
+                            Icon(Icons.nightlight_round,
+                                size: 18, color: Color(0xFF90CAF9)),
                             SizedBox(width: 6),
                             Text(
                               'Brightness.dark',
@@ -334,23 +316,17 @@ dynamic build(BuildContext context) {
                         ),
                         const SizedBox(height: 12),
                         _labelledMaterialButton(
-                          'normal',
-                          ButtonTextTheme.normal,
-                          'Save',
+                          'normal', ButtonTextTheme.normal, 'Save',
                           labelColor: const Color(0xFFCBD5E1),
                         ),
                         const SizedBox(height: 6),
                         _labelledMaterialButton(
-                          'accent',
-                          ButtonTextTheme.accent,
-                          'Save',
+                          'accent', ButtonTextTheme.accent, 'Save',
                           labelColor: const Color(0xFFCBD5E1),
                         ),
                         const SizedBox(height: 6),
                         _labelledMaterialButton(
-                          'primary',
-                          ButtonTextTheme.primary,
-                          'Save',
+                          'primary', ButtonTextTheme.primary, 'Save',
                           labelColor: const Color(0xFFCBD5E1),
                         ),
                       ],
@@ -563,26 +539,14 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 13, color: Color(0xFFBE123C)),
           ),
           const SizedBox(height: 18),
-          _disabledPair(
-            ButtonTextTheme.normal,
-            'normal',
-            const Color(0xFFFFE4E6),
-            const Color(0xFFE11D48),
-          ),
+          _disabledPair(ButtonTextTheme.normal, 'normal',
+              const Color(0xFFFFE4E6), const Color(0xFFE11D48)),
           const SizedBox(height: 10),
-          _disabledPair(
-            ButtonTextTheme.accent,
-            'accent',
-            const Color(0xFFFFE4E6),
-            const Color(0xFFBE123C),
-          ),
+          _disabledPair(ButtonTextTheme.accent, 'accent',
+              const Color(0xFFFFE4E6), const Color(0xFFBE123C)),
           const SizedBox(height: 10),
-          _disabledPair(
-            ButtonTextTheme.primary,
-            'primary',
-            const Color(0xFFFFE4E6),
-            const Color(0xFF9F1239),
-          ),
+          _disabledPair(ButtonTextTheme.primary, 'primary',
+              const Color(0xFFFFE4E6), const Color(0xFF9F1239)),
           const SizedBox(height: 14),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -637,29 +601,14 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 18),
           Row(
             children: [
-              Expanded(
-                child: _primaryColorChip(
-                  const Color(0xFF388E3C),
-                  'forest',
-                  const Color(0xFFE8F5E9),
-                ),
-              ),
+              Expanded(child: _primaryColorChip(const Color(0xFF388E3C),
+                  'forest', const Color(0xFFE8F5E9))),
               const SizedBox(width: 10),
-              Expanded(
-                child: _primaryColorChip(
-                  const Color(0xFFF57C00),
-                  'amber',
-                  const Color(0xFFFFF3E0),
-                ),
-              ),
+              Expanded(child: _primaryColorChip(const Color(0xFFF57C00),
+                  'amber', const Color(0xFFFFF3E0))),
               const SizedBox(width: 10),
-              Expanded(
-                child: _primaryColorChip(
-                  const Color(0xFF512DA8),
-                  'royal',
-                  const Color(0xFFEDE7F6),
-                ),
-              ),
+              Expanded(child: _primaryColorChip(const Color(0xFF512DA8),
+                  'royal', const Color(0xFFEDE7F6))),
             ],
           ),
         ],
@@ -716,78 +665,53 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 10,
-                  ),
+                      horizontal: 12, vertical: 10),
                   child: const Row(
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text(
-                          'name',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12.5,
-                            color: Color(0xFF0F172A),
-                          ),
-                        ),
+                        child: Text('name',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12.5,
+                              color: Color(0xFF0F172A),
+                            )),
                       ),
                       SizedBox(
                         width: 40,
-                        child: Text(
-                          'idx',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12.5,
-                            color: Color(0xFF0F172A),
-                          ),
-                        ),
+                        child: Text('idx',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12.5,
+                              color: Color(0xFF0F172A),
+                            )),
                       ),
                       Expanded(
-                        child: Text(
-                          'description',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12.5,
-                            color: Color(0xFF0F172A),
-                          ),
-                        ),
+                        child: Text('description',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12.5,
+                              color: Color(0xFF0F172A),
+                            )),
                       ),
                       SizedBox(
                         width: 130,
-                        child: Text(
-                          'resolved (light)',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12.5,
-                            color: Color(0xFF0F172A),
-                          ),
-                        ),
+                        child: Text('resolved (light)',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12.5,
+                              color: Color(0xFF0F172A),
+                            )),
                       ),
                     ],
                   ),
                 ),
-                _refRow(
-                  'normal',
-                  0,
-                  'theme body text colour',
-                  const Color(0xFF1D1B20),
-                  'textTheme.bodyMedium',
-                ),
-                _refRow(
-                  'accent',
-                  1,
-                  'colorScheme.secondary',
-                  const Color(0xFF03DAC6),
-                  'scheme.secondary',
-                ),
-                _refRow(
-                  'primary',
-                  2,
-                  'colorScheme.primary',
-                  const Color(0xFF6750A4),
-                  'scheme.primary',
-                ),
+                _refRow('normal', 0, 'theme body text colour',
+                    const Color(0xFF1D1B20), 'textTheme.bodyMedium'),
+                _refRow('accent', 1, 'colorScheme.secondary',
+                    const Color(0xFF03DAC6), 'scheme.secondary'),
+                _refRow('primary', 2, 'colorScheme.primary',
+                    const Color(0xFF6750A4), 'scheme.primary'),
               ],
             ),
           ),
@@ -963,7 +887,10 @@ Widget _heroTile({
         const SizedBox(height: 2),
         Text(
           description,
-          style: const TextStyle(fontSize: 11, color: Color(0xFF6750A4)),
+          style: const TextStyle(
+            fontSize: 11,
+            color: Color(0xFF6750A4),
+          ),
         ),
         const SizedBox(height: 8),
         Align(alignment: Alignment.centerLeft, child: button),
@@ -991,7 +918,11 @@ Widget _labelledMaterialButton(
           ),
         ),
       ),
-      MaterialButton(onPressed: () {}, textTheme: theme, child: Text(text)),
+      MaterialButton(
+        onPressed: () {},
+        textTheme: theme,
+        child: Text(text),
+      ),
     ],
   );
 }
@@ -1143,10 +1074,7 @@ Widget _textThemeRow({
           'primitives (Wrap, Container, Padding) are deliberately neutral so '
           'nothing distracts from the colour resolution path.',
           style: const TextStyle(
-            fontSize: 11,
-            color: Color(0xFF334155),
-            height: 1.35,
-          ),
+              fontSize: 11, color: Color(0xFF334155), height: 1.35),
         ),
       ],
     ),
@@ -1482,11 +1410,7 @@ Widget _recipeConfirmDialog() {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: const Color(0xFFE2E8F0)),
       boxShadow: const [
-        BoxShadow(
-          color: Color(0x14000000),
-          blurRadius: 8,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Color(0x14000000), blurRadius: 8, offset: Offset(0, 2)),
       ],
     ),
     padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),

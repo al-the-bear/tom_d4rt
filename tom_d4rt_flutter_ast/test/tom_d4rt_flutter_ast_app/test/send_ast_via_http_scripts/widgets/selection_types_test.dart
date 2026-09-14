@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
       'label': 'Family',
       'value':
           'SelectionGeometry, SelectionPoint, SelectionStatus, '
-          'SelectionEvent and subtypes',
+              'SelectionEvent and subtypes',
     },
     {
       'label': 'Lives in',
@@ -31,19 +31,19 @@ dynamic build(BuildContext context) {
       'label': 'Consumed by',
       'value':
           'SelectionArea, SelectableRegion, SelectionContainer, custom '
-          'Selectable implementations',
+              'Selectable implementations',
     },
     {
       'label': 'Drives',
       'value':
           'Selection handles, toolbar position, contiguous multi-widget '
-          'selection, screen-reader handoff',
+              'selection, screen-reader handoff',
     },
     {
       'label': 'Why it exists',
       'value':
           'A flexible model for selection that crosses widget boundaries '
-          'and supports keyboard, mouse, touch, and accessibility input.',
+              'and supports keyboard, mouse, touch, and accessibility input.',
     },
   ];
 
@@ -57,7 +57,7 @@ dynamic build(BuildContext context) {
       'kind': 'class',
       'key':
           'startSelectionPoint, endSelectionPoint, status, '
-          'hasContent, selectionRects',
+              'hasContent, selectionRects',
       'role': 'Snapshot of the visual geometry of an active selection.',
     },
     {
@@ -119,14 +119,15 @@ dynamic build(BuildContext context) {
       'kind': 'enum',
       'key':
           'startEdgeUpdate, endEdgeUpdate, clear, selectAll, selectWord, '
-          'selectParagraph, granularlyExtendSelection, '
-          'directionallyExtendSelection',
+              'selectParagraph, granularlyExtendSelection, '
+              'directionallyExtendSelection',
       'role': 'Classification tag carried by SelectionEvent.',
     },
     {
       'symbol': 'TextSelectionGranularity',
       'kind': 'enum',
-      'key': 'character, word, line, paragraph, document',
+      'key':
+          'character, word, line, paragraph, document',
       'role': 'How far one step of GranularlyExtend moves.',
     },
     {
@@ -134,7 +135,7 @@ dynamic build(BuildContext context) {
       'kind': 'enum',
       'key':
           'tap, doubleTap, longPress, forcePress, keyboard, drag, '
-          'scribble, toolbar, secondaryTap',
+              'scribble, toolbar, secondaryTap',
       'role': 'Origin of a TextSelectionDelegate change.',
     },
   ];
@@ -400,20 +401,19 @@ dynamic build(BuildContext context) {
       'when': 'You implement a custom selection toolbar.',
       'code':
           'geometry.startSelectionPoint?.localPosition '
-          '?? geometry.endSelectionPoint?.localPosition',
+              '?? geometry.endSelectionPoint?.localPosition',
     },
     {
       'title': 'Extend by word with the keyboard',
       'when': 'You implement keyboard handling for a custom Selectable.',
       'code':
           'handle(GranularlyExtendSelectionEvent(forward: true, '
-          'isEnd: true, granularity: TextGranularity.word));',
+              'isEnd: true, granularity: TextGranularity.word));',
     },
     {
       'title': 'React to selection changes by cause',
       'when': 'You want a different UX for keyboard vs. tap selection.',
-      'code':
-          'onSelectionChanged: (sel, cause) { if (cause == '
+      'code': 'onSelectionChanged: (sel, cause) { if (cause == '
           'SelectionChangedCause.keyboard) ... }',
     },
     {
@@ -486,61 +486,61 @@ dynamic build(BuildContext context) {
       'term': 'Selectable',
       'def':
           'A widget / render object that participates in the selection '
-          'system by registering with a SelectionRegistrar.',
+              'system by registering with a SelectionRegistrar.',
     },
     {
       'term': 'SelectionRegistrar',
       'def':
           'An object that knows which Selectables exist in a subtree and '
-          'routes SelectionEvents to them.',
+              'routes SelectionEvents to them.',
     },
     {
       'term': 'SelectionArea',
       'def':
           'High-level widget that wraps SelectableRegion to make any '
-          'subtree user-selectable with platform-native handles.',
+              'subtree user-selectable with platform-native handles.',
     },
     {
       'term': 'SelectableRegion',
       'def':
           'Mid-level widget that hosts a SelectionContainer and '
-          'translates input into SelectionEvents.',
+              'translates input into SelectionEvents.',
     },
     {
       'term': 'Selection edge',
       'def':
           'One of the two ends of a selection: the start edge or the '
-          'end edge. Carried by isEnd on extend events.',
+              'end edge. Carried by isEnd on extend events.',
     },
     {
       'term': 'Granularity',
       'def':
           'How far one logical step of selection moves: character, word, '
-          'line, paragraph, or document.',
+              'line, paragraph, or document.',
     },
     {
       'term': 'Geometry',
       'def':
           'The visual snapshot used to draw handles and toolbar: start '
-          'point, end point, status, and selection rects.',
+              'point, end point, status, and selection rects.',
     },
     {
       'term': 'SelectionPoint',
       'def':
           'Geometric description of a single edge: position, line '
-          'height, and which handle (left, right, collapsed) it is.',
+              'height, and which handle (left, right, collapsed) it is.',
     },
     {
       'term': 'Cause',
       'def':
           'The originating input device or surface that produced a '
-          'selection change (tap, drag, keyboard, toolbar...).',
+              'selection change (tap, drag, keyboard, toolbar...).',
     },
     {
       'term': 'Adjust drag offset',
       'def':
           'SelectionUtils.adjustDragOffset clamps a global pointer '
-          'position to the closest position inside a selectable rect.',
+              'position to the closest position inside a selectable rect.',
     },
   ];
 
@@ -674,10 +674,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: tiles,
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: tiles);
   }
 
   Widget anatomyBlock() {
@@ -746,7 +743,9 @@ dynamic build(BuildContext context) {
         Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 6.0),
           decoration: BoxDecoration(
-            color: i.isEven ? const Color(0xFFEDE7F6) : const Color(0xFFFFFFFF),
+            color: i.isEven
+                ? const Color(0xFFEDE7F6)
+                : const Color(0xFFFFFFFF),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -764,7 +763,10 @@ dynamic build(BuildContext context) {
               ),
               Expanded(
                 flex: 2,
-                child: Text(r['kind']!, style: const TextStyle(fontSize: 11.0)),
+                child: Text(
+                  r['kind']!,
+                  style: const TextStyle(fontSize: 11.0),
+                ),
               ),
               Expanded(
                 flex: 4,
@@ -779,7 +781,10 @@ dynamic build(BuildContext context) {
               ),
               Expanded(
                 flex: 5,
-                child: Text(r['role']!, style: const TextStyle(fontSize: 11.0)),
+                child: Text(
+                  r['role']!,
+                  style: const TextStyle(fontSize: 11.0),
+                ),
               ),
             ],
           ),
@@ -848,7 +853,10 @@ dynamic build(BuildContext context) {
           Text(
             'dx=${p.localPosition.dx.toStringAsFixed(1)}, '
             'dy=${p.localPosition.dy.toStringAsFixed(1)}',
-            style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace'),
+            style: const TextStyle(
+              fontSize: 11.0,
+              fontFamily: 'monospace',
+            ),
           ),
           Text(
             'lineHeight=${p.lineHeight.toStringAsFixed(1)}',
@@ -950,10 +958,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: tiles,
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: tiles);
   }
 
   Widget statusBlock() {
@@ -1020,10 +1025,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: cards,
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: cards);
   }
 
   String eventTypeName(SelectionEventType t) {
@@ -1145,10 +1147,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: cards,
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: cards);
   }
 
   Widget enumDualBlock() {
@@ -1246,7 +1245,11 @@ dynamic build(BuildContext context) {
           const Color(0xFF6A1B9A),
         ),
         const SizedBox(height: 12.0),
-        enumList('SelectionChangedCause', causeRows, const Color(0xFFAD1457)),
+        enumList(
+          'SelectionChangedCause',
+          causeRows,
+          const Color(0xFFAD1457),
+        ),
       ],
     );
   }
@@ -1309,7 +1312,9 @@ dynamic build(BuildContext context) {
       rows.add(
         Container(
           padding: const EdgeInsets.all(8.0),
-          color: i.isEven ? const Color(0xFFE0F2F1) : const Color(0xFFFFFFFF),
+          color: i.isEven
+              ? const Color(0xFFE0F2F1)
+              : const Color(0xFFFFFFFF),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -1396,7 +1401,10 @@ dynamic build(BuildContext context) {
           children: const <Widget>[
             Text(
               'A live SelectionArea',
-              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: 6.0),
             Text(
@@ -1497,10 +1505,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: cards,
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: cards);
   }
 
   Widget comparisonBlock() {
@@ -1569,7 +1574,9 @@ dynamic build(BuildContext context) {
       rows.add(
         Container(
           padding: const EdgeInsets.all(8.0),
-          color: i.isEven ? const Color(0xFFEDE7F6) : const Color(0xFFFFFFFF),
+          color: i.isEven
+              ? const Color(0xFFEDE7F6)
+              : const Color(0xFFFFFFFF),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -1648,10 +1655,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: cards,
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: cards);
   }
 
   Widget footer() {
@@ -1687,11 +1691,7 @@ dynamic build(BuildContext context) {
             'SelectionChangedCause refine keyboard extension and origin '
             'tracking. SelectionUtils.adjustDragOffset clamps drag-driven '
             'extension to selectable rects.',
-            style: TextStyle(
-              color: Color(0xFFE8EAF6),
-              fontSize: 12.0,
-              height: 1.5,
-            ),
+            style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 12.0, height: 1.5),
           ),
         ],
       ),

@@ -192,7 +192,11 @@ dynamic build(BuildContext context) {
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.numbers, size: 16.0, color: Colors.indigo),
+                          Icon(
+                            Icons.numbers,
+                            size: 16.0,
+                            color: Colors.indigo,
+                          ),
                           SizedBox(width: 6.0),
                           Text(
                             'int count',
@@ -352,7 +356,10 @@ dynamic build(BuildContext context) {
                 ),
                 Spacer(),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 6.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
                     color: accent.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(4.0),
@@ -444,7 +451,10 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: hue.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(4.0),
@@ -825,7 +835,10 @@ dynamic build(BuildContext context) {
                   'When the burst is cancelled at tap #3, the recognizer '
                   'delivers SerialTapCancelDetails(count: 3) and the UI '
                   'rolls back to its committed state.',
-                  style: TextStyle(fontSize: 12.0, color: Colors.teal.shade900),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.teal.shade900,
+                  ),
                 ),
               ),
             ],
@@ -871,27 +884,16 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        _codeLine(
-          'final recognizer = SerialTapGestureRecognizer()',
-          Colors.white,
-        ),
-        _codeLine(
-          '  ..onSerialTapDown = (SerialTapDownDetails d) {',
-          Colors.lightBlueAccent.shade100,
-        ),
-        _codeLine(
-          "      print('down #\${d.count} at \${d.globalPosition}');",
-          Colors.green.shade300,
-        ),
+        _codeLine('final recognizer = SerialTapGestureRecognizer()', Colors.white),
+        _codeLine('  ..onSerialTapDown = (SerialTapDownDetails d) {',
+            Colors.lightBlueAccent.shade100),
+        _codeLine("      print('down #\${d.count} at \${d.globalPosition}');",
+            Colors.green.shade300),
         _codeLine('    }', Colors.white),
-        _codeLine(
-          '  ..onSerialTapUp = (SerialTapUpDetails d) {',
-          Colors.lightBlueAccent.shade100,
-        ),
-        _codeLine(
-          "      print('up   #\${d.count} at \${d.globalPosition}');",
-          Colors.green.shade300,
-        ),
+        _codeLine('  ..onSerialTapUp = (SerialTapUpDetails d) {',
+            Colors.lightBlueAccent.shade100),
+        _codeLine("      print('up   #\${d.count} at \${d.globalPosition}');",
+            Colors.green.shade300),
         _codeLine('    }', Colors.white),
         _codeLine(
           '  ..onSerialTapCancel = (SerialTapCancelDetails d) {',
@@ -901,10 +903,8 @@ dynamic build(BuildContext context) {
           "      print('cancelled at tap #\${d.count}');",
           Colors.green.shade300,
         ),
-        _codeLine(
-          '      _rollbackToCount(d.count - 1);',
-          Colors.pinkAccent.shade100,
-        ),
+        _codeLine('      _rollbackToCount(d.count - 1);',
+            Colors.pinkAccent.shade100),
         _codeLine('    };', Colors.white),
         SizedBox(height: 12.0),
         Container(
@@ -1094,16 +1094,14 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
           _sectionHeading('1. Title banner'),
           _sectionNote(
-            'A SerialTapCancelDetails is the cancel-side payload of the serial-tap gesture. It carries a single integer.',
-          ),
+              'A SerialTapCancelDetails is the cancel-side payload of the serial-tap gesture. It carries a single integer.'),
           SizedBox(height: 16.0),
           _sectionHeading('2. Anatomy'),
           anatomy,
           SizedBox(height: 16.0),
           _sectionHeading('3. Six real instances'),
           _sectionNote(
-            'Real SerialTapCancelDetails objects with count = 1, 2, 3, 4, 7, 12.',
-          ),
+              'Real SerialTapCancelDetails objects with count = 1, 2, 3, 4, 7, 12.'),
           SizedBox(height: 8.0),
           Wrap(alignment: WrapAlignment.center, children: instanceCards),
           SizedBox(height: 16.0),
@@ -1138,7 +1136,11 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: [
-                Icon(Icons.verified_outlined, color: Colors.indigo, size: 18.0),
+                Icon(
+                  Icons.verified_outlined,
+                  color: Colors.indigo,
+                  size: 18.0,
+                ),
                 SizedBox(width: 8.0),
                 Expanded(
                   child: Text(
@@ -1687,7 +1689,11 @@ Widget _recapRow(int idx, String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.4),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.white,
+              height: 1.4,
+            ),
           ),
         ),
       ],

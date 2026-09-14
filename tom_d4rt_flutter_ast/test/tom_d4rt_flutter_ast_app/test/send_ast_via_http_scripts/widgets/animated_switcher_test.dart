@@ -45,13 +45,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
   // SECTION 5: Key-based Switching
   // ═══════════════════════════════════════════════════════════════════════════
   int _keyIndex = 0;
-  final _keyColors = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.orange,
-    Colors.purple,
-  ];
+  final _keyColors = [Colors.red, Colors.green, Colors.blue, Colors.orange, Colors.purple];
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: Multiple Children Transitions
@@ -201,11 +195,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             const SizedBox(height: 12),
             const Text(
               'Note: Each number needs a unique key (ValueKey) to trigger the animation.',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 12,
-                color: Colors.grey,
-              ),
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.grey),
             ),
 
             print('Basic section rendered'),
@@ -221,48 +211,30 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
   Widget _buildTransitionBuilderSection() {
     print('=== SECTION 2: Transition Builder Variations ===');
     print('transitionBuilder defines the animation used');
-    print(
-      'Common builders: FadeTransition, ScaleTransition, SlideTransition, RotationTransition',
-    );
+    print('Common builders: FadeTransition, ScaleTransition, SlideTransition, RotationTransition');
     print('Selected transition: $_selectedTransition');
 
     final transitions = <String, Widget Function(Widget, Animation<double>)>{
-      'fade': (child, animation) =>
-          FadeTransition(opacity: animation, child: child),
-      'scale': (child, animation) =>
-          ScaleTransition(scale: animation, child: child),
-      'rotation': (child, animation) =>
-          RotationTransition(turns: animation, child: child),
+      'fade': (child, animation) => FadeTransition(opacity: animation, child: child),
+      'scale': (child, animation) => ScaleTransition(scale: animation, child: child),
+      'rotation': (child, animation) => RotationTransition(turns: animation, child: child),
       'slide (up)': (child, animation) => SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0, 1),
-          end: Offset.zero,
-        ).animate(animation),
-        child: child,
-      ),
+            position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(animation),
+            child: child,
+          ),
       'slide (down)': (child, animation) => SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0, -1),
-          end: Offset.zero,
-        ).animate(animation),
-        child: child,
-      ),
+            position: Tween<Offset>(begin: const Offset(0, -1), end: Offset.zero).animate(animation),
+            child: child,
+          ),
       'slide (left)': (child, animation) => SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(1, 0),
-          end: Offset.zero,
-        ).animate(animation),
-        child: child,
-      ),
+            position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+            child: child,
+          ),
       'slide (right)': (child, animation) => SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(-1, 0),
-          end: Offset.zero,
-        ).animate(animation),
-        child: child,
-      ),
-      'size': (child, animation) =>
-          SizeTransition(sizeFactor: animation, child: child),
+            position: Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero).animate(animation),
+            child: child,
+          ),
+      'size': (child, animation) => SizeTransition(sizeFactor: animation, child: child),
     };
 
     return Card(
@@ -313,19 +285,13 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                       width: 80,
                       height: 80,
                       decoration: BoxDecoration(
-                        color:
-                            Colors.primaries[_transitionIndex %
-                                Colors.primaries.length],
+                        color: Colors.primaries[_transitionIndex % Colors.primaries.length],
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
                         child: Text(
                           '${_transitionIndex + 1}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -340,9 +306,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   setState(() => _transitionIndex++);
-                  print(
-                    'Transition demo: index $_transitionIndex, type: $_selectedTransition',
-                  );
+                  print('Transition demo: index $_transitionIndex, type: $_selectedTransition');
                 },
                 icon: const Icon(Icons.refresh),
                 label: const Text('Next'),
@@ -392,10 +356,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             const SizedBox(height: 12),
 
             // Duration selector
-            const Text(
-              'Duration:',
-              style: TextStyle(fontSize: 12, color: Colors.grey),
-            ),
+            const Text('Duration:', style: TextStyle(fontSize: 12, color: Colors.grey)),
             const SizedBox(height: 4),
             Wrap(
               spacing: 8,
@@ -404,9 +365,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                   label: Text('${ms}ms'),
                   selected: _selectedDuration.inMilliseconds == ms,
                   onSelected: (_) {
-                    setState(
-                      () => _selectedDuration = Duration(milliseconds: ms),
-                    );
+                    setState(() => _selectedDuration = Duration(milliseconds: ms));
                     print('Duration changed to: ${ms}ms');
                   },
                 );
@@ -416,10 +375,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             const SizedBox(height: 12),
 
             // Curve selector
-            const Text(
-              'Curve:',
-              style: TextStyle(fontSize: 12, color: Colors.grey),
-            ),
+            const Text('Curve:', style: TextStyle(fontSize: 12, color: Colors.grey)),
             const SizedBox(height: 4),
             Wrap(
               spacing: 8,
@@ -451,9 +407,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                   );
                 },
                 child: Icon(
-                  _durationCounter.isEven
-                      ? Icons.favorite
-                      : Icons.favorite_border,
+                  _durationCounter.isEven ? Icons.favorite : Icons.favorite_border,
                   key: ValueKey<int>(_durationCounter),
                   size: 80,
                   color: Colors.red,
@@ -486,9 +440,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
   // ═══════════════════════════════════════════════════════════════════════════
   Widget _buildLayoutBuilderSection() {
     print('=== SECTION 4: Layout Builder ===');
-    print(
-      'layoutBuilder controls how current and previous children are stacked',
-    );
+    print('layoutBuilder controls how current and previous children are stacked');
     print('Default uses Stack with Alignment.center');
     print('Custom layouts allow different positioning strategies');
     print('Current layout type: $_layoutType');
@@ -529,7 +481,9 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
         layoutBuilder = (currentChild, previousChildren) {
           return Column(
             mainAxisSize: MainAxisSize.min,
-            children: [if (currentChild != null) currentChild],
+            children: [
+              if (currentChild != null) currentChild,
+            ],
           );
         };
         layoutName = 'Column (no overlap)';
@@ -587,10 +541,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             ),
 
             const SizedBox(height: 8),
-            Text(
-              'Current: $layoutName',
-              style: const TextStyle(fontStyle: FontStyle.italic),
-            ),
+            Text('Current: $layoutName', style: const TextStyle(fontStyle: FontStyle.italic)),
 
             const SizedBox(height: 16),
 
@@ -609,17 +560,13 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                   width: 60 + (_layoutCounter % 3) * 20.0,
                   height: 40 + (_layoutCounter % 3) * 15.0,
                   decoration: BoxDecoration(
-                    color: Colors
-                        .primaries[_layoutCounter % Colors.primaries.length],
+                    color: Colors.primaries[_layoutCounter % Colors.primaries.length],
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
                     child: Text(
                       '${_layoutCounter + 1}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -691,10 +638,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                         child: Center(
                           child: Text(
                             'Key ${_keyIndex + 1}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -728,10 +672,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                         child: Center(
                           child: Text(
                             'No Key',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -750,9 +691,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                 return GestureDetector(
                   onTap: () {
                     setState(() => _keyIndex = index);
-                    print(
-                      'Key index changed to: $index, color: ${_keyColors[index]}',
-                    );
+                    print('Key index changed to: $index, color: ${_keyColors[index]}');
                   },
                   child: Container(
                     width: 40,
@@ -762,9 +701,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                       color: _keyColors[index],
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: _keyIndex == index
-                            ? Colors.black
-                            : Colors.transparent,
+                        color: _keyIndex == index ? Colors.black : Colors.transparent,
                         width: 3,
                       ),
                     ),
@@ -777,11 +714,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
 
             const Text(
               'Notice: The "With Key" version animates, while "Without Key" just changes instantly.',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 12,
-                color: Colors.grey,
-              ),
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.grey),
             ),
 
             print('Key-based section rendered'),
@@ -850,11 +783,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        item['icon'] as IconData,
-                        size: 40,
-                        color: item['color'] as Color,
-                      ),
+                      Icon(item['icon'] as IconData, size: 40, color: item['color'] as Color),
                       const SizedBox(height: 8),
                       Text(
                         item['label'] as String,
@@ -903,10 +832,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    setState(
-                      () => _multiIndex =
-                          (_multiIndex - 1 + items.length) % items.length,
-                    );
+                    setState(() => _multiIndex = (_multiIndex - 1 + items.length) % items.length);
                     print('Multi prev: $_multiIndex');
                   },
                   icon: const Icon(Icons.arrow_back),
@@ -915,9 +841,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                 const SizedBox(width: 16),
                 ElevatedButton.icon(
                   onPressed: () {
-                    setState(
-                      () => _multiIndex = (_multiIndex + 1) % items.length,
-                    );
+                    setState(() => _multiIndex = (_multiIndex + 1) % items.length);
                     print('Multi next: $_multiIndex');
                   },
                   icon: const Icon(Icons.arrow_forward),
@@ -958,10 +882,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
       case 1:
         customTransition = (child, animation) {
           return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1, 0),
-              end: Offset.zero,
-            ).animate(animation),
+            position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
             child: FadeTransition(opacity: animation, child: child),
           );
         };
@@ -992,10 +913,9 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
       default:
         customTransition = (child, animation) {
           return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, 1),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: Curves.bounceOut)).animate(animation),
+            position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
+                .chain(CurveTween(curve: Curves.bounceOut))
+                .animate(animation),
             child: child,
           );
         };
@@ -1063,10 +983,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             ),
 
             const SizedBox(height: 8),
-            Text(
-              'Current: $transitionName',
-              style: const TextStyle(fontStyle: FontStyle.italic),
-            ),
+            Text('Current: $transitionName', style: const TextStyle(fontStyle: FontStyle.italic)),
 
             const SizedBox(height: 16),
 
@@ -1085,27 +1002,19 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                     transitionBuilder: customTransition,
                     child: Container(
                       key: ValueKey<int>(_customIndex),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Colors.primaries[_customIndex %
-                                Colors.primaries.length],
-                            Colors.primaries[(_customIndex + 3) %
-                                Colors.primaries.length],
+                            Colors.primaries[_customIndex % Colors.primaries.length],
+                            Colors.primaries[(_customIndex + 3) % Colors.primaries.length],
                           ],
                         ),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         'Item ${_customIndex + 1}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -1157,10 +1066,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             const SizedBox(height: 16),
 
             // Use Case 1: Tab Content
-            const Text(
-              '1. Tab Content Transition:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('1. Tab Content Transition:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
@@ -1181,28 +1087,18 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
-                              color: _tabIndex == index
-                                  ? Colors.deepPurple
-                                  : Colors.transparent,
+                              color: _tabIndex == index ? Colors.deepPurple : Colors.transparent,
                               borderRadius: BorderRadius.only(
-                                topLeft: index == 0
-                                    ? const Radius.circular(12)
-                                    : Radius.zero,
-                                topRight: index == 2
-                                    ? const Radius.circular(12)
-                                    : Radius.zero,
+                                topLeft: index == 0 ? const Radius.circular(12) : Radius.zero,
+                                topRight: index == 2 ? const Radius.circular(12) : Radius.zero,
                               ),
                             ),
                             child: Center(
                               child: Text(
                                 ['Home', 'Products', 'About'][index],
                                 style: TextStyle(
-                                  color: _tabIndex == index
-                                      ? Colors.white
-                                      : Colors.grey,
-                                  fontWeight: _tabIndex == index
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
+                                  color: _tabIndex == index ? Colors.white : Colors.grey,
+                                  fontWeight: _tabIndex == index ? FontWeight.bold : FontWeight.normal,
                                 ),
                               ),
                             ),
@@ -1226,10 +1122,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             const SizedBox(height: 20),
 
             // Use Case 2: Loading State
-            const Text(
-              '2. Loading to Content:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('2. Loading to Content:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -1248,13 +1141,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  ),
+                                  SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)),
                                   SizedBox(width: 12),
                                   Text('Loading data...'),
                                 ],
@@ -1274,10 +1161,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                                 children: [
                                   Icon(Icons.check_circle, color: Colors.green),
                                   SizedBox(width: 8),
-                                  Text(
-                                    'Data loaded successfully!',
-                                    style: TextStyle(color: Colors.green),
-                                  ),
+                                  Text('Data loaded successfully!', style: TextStyle(color: Colors.green)),
                                 ],
                               ),
                             ),
@@ -1298,10 +1182,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             const SizedBox(height: 20),
 
             // Use Case 3: Wizard Steps
-            const Text(
-              '3. Multi-step Wizard:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
+            const Text('3. Multi-step Wizard:', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.all(12),
@@ -1322,17 +1203,13 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                             height: 30,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: index <= _step
-                                  ? Colors.blue
-                                  : Colors.grey.shade300,
+                              color: index <= _step ? Colors.blue : Colors.grey.shade300,
                             ),
                             child: Center(
                               child: Text(
                                 '${index + 1}',
                                 style: TextStyle(
-                                  color: index <= _step
-                                      ? Colors.white
-                                      : Colors.grey,
+                                  color: index <= _step ? Colors.white : Colors.grey,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -1342,9 +1219,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                             Container(
                               width: 40,
                               height: 2,
-                              color: index < _step
-                                  ? Colors.blue
-                                  : Colors.grey.shade300,
+                              color: index < _step ? Colors.blue : Colors.grey.shade300,
                             ),
                         ],
                       );
@@ -1364,10 +1239,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                             begin: const Offset(1, 0),
                             end: Offset.zero,
                           ).animate(animation),
-                          child: FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          ),
+                          child: FadeTransition(opacity: animation, child: child),
                         );
                       },
                       child: Container(
@@ -1382,26 +1254,14 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              [
-                                Icons.person,
-                                Icons.payment,
-                                Icons.local_shipping,
-                                Icons.check_circle,
-                              ][_step],
+                              [Icons.person, Icons.payment, Icons.local_shipping, Icons.check_circle][_step],
                               color: Colors.blue,
                               size: 28,
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              [
-                                'Personal Info',
-                                'Payment',
-                                'Shipping',
-                                'Complete',
-                              ][_step],
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              ['Personal Info', 'Payment', 'Shipping', 'Complete'][_step],
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -1457,11 +1317,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          Icon(
-            content['icon'] as IconData,
-            size: 48,
-            color: content['color'] as Color,
-          ),
+          Icon(content['icon'] as IconData, size: 48, color: content['color'] as Color),
           const SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1469,16 +1325,9 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             children: [
               Text(
                 content['title'] as String,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: content['color'] as Color,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: content['color'] as Color),
               ),
-              const Text(
-                'Content for this tab section',
-                style: TextStyle(color: Colors.grey),
-              ),
+              const Text('Content for this tab section', style: TextStyle(color: Colors.grey)),
             ],
           ),
         ],
@@ -1514,36 +1363,12 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
             const Divider(),
 
             _buildApiRow('child', 'Widget?', 'Current child to display'),
-            _buildApiRow(
-              'duration',
-              'Duration',
-              'Transition animation duration',
-            ),
-            _buildApiRow(
-              'reverseDuration',
-              'Duration?',
-              'Optional reverse duration',
-            ),
-            _buildApiRow(
-              'switchInCurve',
-              'Curve',
-              'Incoming widget curve (default: linear)',
-            ),
-            _buildApiRow(
-              'switchOutCurve',
-              'Curve',
-              'Outgoing widget curve (default: linear)',
-            ),
-            _buildApiRow(
-              'transitionBuilder',
-              'Function',
-              'Builds the transition animation',
-            ),
-            _buildApiRow(
-              'layoutBuilder',
-              'Function',
-              'Positions current and previous children',
-            ),
+            _buildApiRow('duration', 'Duration', 'Transition animation duration'),
+            _buildApiRow('reverseDuration', 'Duration?', 'Optional reverse duration'),
+            _buildApiRow('switchInCurve', 'Curve', 'Incoming widget curve (default: linear)'),
+            _buildApiRow('switchOutCurve', 'Curve', 'Outgoing widget curve (default: linear)'),
+            _buildApiRow('transitionBuilder', 'Function', 'Builds the transition animation'),
+            _buildApiRow('layoutBuilder', 'Function', 'Positions current and previous children'),
 
             const SizedBox(height: 12),
             const Text(
@@ -1571,9 +1396,7 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            const Text(
-              '• Previous children animate out while new child animates in',
-            ),
+            const Text('• Previous children animate out while new child animates in'),
             const Text('• Both children visible during transition'),
             const Text('• Handles null children (animates away)'),
             const Text('• Great for content that changes frequently'),
@@ -1591,31 +1414,13 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
         children: [
           SizedBox(
             width: 130,
-            child: Text(
-              name,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(name, style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w600)),
           ),
           SizedBox(
             width: 100,
-            child: Text(
-              type,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                color: Colors.blue,
-                fontSize: 12,
-              ),
-            ),
+            child: Text(type, style: const TextStyle(fontFamily: 'monospace', color: Colors.blue, fontSize: 12)),
           ),
-          Expanded(
-            child: Text(
-              description,
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
-            ),
-          ),
+          Expanded(child: Text(description, style: const TextStyle(fontSize: 12, color: Colors.grey))),
         ],
       ),
     );

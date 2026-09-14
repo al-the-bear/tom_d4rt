@@ -52,10 +52,26 @@ dynamic build(BuildContext context) {
       'type': 'int',
       'note': 'Alpha channel 0..255 (high byte of value)',
     },
-    {'name': '.red', 'type': 'int', 'note': 'Red channel 0..255'},
-    {'name': '.green', 'type': 'int', 'note': 'Green channel 0..255'},
-    {'name': '.blue', 'type': 'int', 'note': 'Blue channel 0..255'},
-    {'name': '.value', 'type': 'int', 'note': '32-bit packed ARGB integer'},
+    {
+      'name': '.red',
+      'type': 'int',
+      'note': 'Red channel 0..255',
+    },
+    {
+      'name': '.green',
+      'type': 'int',
+      'note': 'Green channel 0..255',
+    },
+    {
+      'name': '.blue',
+      'type': 'int',
+      'note': 'Blue channel 0..255',
+    },
+    {
+      'name': '.value',
+      'type': 'int',
+      'note': '32-bit packed ARGB integer',
+    },
     {
       'name': '.opacity',
       'type': 'double',
@@ -97,7 +113,8 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final crimsonEqual = crimsonHex == crimsonArgb && crimsonArgb == crimsonRgbo;
+  final crimsonEqual =
+      crimsonHex == crimsonArgb && crimsonArgb == crimsonRgbo;
   final crimsonHashesEqual =
       crimsonHex.hashCode == crimsonArgb.hashCode &&
       crimsonArgb.hashCode == crimsonRgbo.hashCode;
@@ -307,13 +324,11 @@ dynamic build(BuildContext context) {
     {'name': 'white', 'color': Colors.white},
   ];
   final luminanceRanked = luminanceCandidates
-      .map(
-        (m) => {
-          'name': m['name'],
-          'color': m['color'],
-          'lum': (m['color'] as Color).computeLuminance(),
-        },
-      )
+      .map((m) => {
+            'name': m['name'],
+            'color': m['color'],
+            'lum': (m['color'] as Color).computeLuminance(),
+          })
       .toList();
   luminanceRanked.sort(
     (a, b) => (a['lum'] as double).compareTo(b['lum'] as double),
@@ -550,7 +565,10 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12.0),
                 Text(
                   'Constructed three equivalent ways:',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                  ),
                 ),
                 SizedBox(height: 6.0),
                 _codeLine('Color(0xFFC91A2A)'),
@@ -583,7 +601,10 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'Constructors',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
+                  ),
                 ),
                 SizedBox(height: 8.0),
                 for (final row in constructorRows)
@@ -629,7 +650,10 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Accessors',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
+                  ),
                 ),
                 SizedBox(height: 8.0),
                 for (final row in accessorRows)
@@ -765,7 +789,9 @@ dynamic build(BuildContext context) {
                   width: double.infinity,
                   padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                    color: crimsonEqual ? Color(0xFF2E7D32) : Color(0xFFC62828),
+                    color: crimsonEqual
+                        ? Color(0xFF2E7D32)
+                        : Color(0xFFC62828),
                     borderRadius: BorderRadius.circular(6.0),
                   ),
                   child: Text(
@@ -1015,7 +1041,10 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12.0),
                 Text(
                   'Channel breakdown',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                  ),
                 ),
                 SizedBox(height: 6.0),
                 for (final row in blendBreakdown)
@@ -1129,8 +1158,7 @@ dynamic build(BuildContext context) {
                               style: TextStyle(
                                 fontSize: 11.0,
                                 fontWeight: FontWeight.bold,
-                                color:
-                                    ((entry['color'] as Color)
+                                color: ((entry['color'] as Color)
                                             .computeLuminance() >
                                         0.5)
                                     ? Color(0xFF000000)
@@ -1233,8 +1261,8 @@ dynamic build(BuildContext context) {
                               style: TextStyle(
                                 fontSize: 11.0,
                                 fontWeight: FontWeight.bold,
-                                color:
-                                    ((m['color'] as Color).computeLuminance() >
+                                color: ((m['color'] as Color)
+                                            .computeLuminance() >
                                         0.5)
                                     ? Color(0xFF000000)
                                     : Color(0xFFFFFFFF),
@@ -1401,7 +1429,11 @@ dynamic build(BuildContext context) {
           // ============================================================
           // SECTION 12: GLOSSARY
           // ============================================================
-          _sectionHeader('12. Glossary', Color(0xFF37474F), Color(0xFFCFD8DC)),
+          _sectionHeader(
+            '12. Glossary',
+            Color(0xFF37474F),
+            Color(0xFFCFD8DC),
+          ),
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(16.0),
@@ -1734,9 +1766,10 @@ Widget _paletteFamily(String label, List<Map<String, dynamic>> entries) {
                       style: TextStyle(
                         fontSize: 10.0,
                         fontWeight: FontWeight.bold,
-                        color: (e['color'] as Color).computeLuminance() > 0.5
-                            ? Color(0xFF000000)
-                            : Color(0xFFFFFFFF),
+                        color:
+                            (e['color'] as Color).computeLuminance() > 0.5
+                                ? Color(0xFF000000)
+                                : Color(0xFFFFFFFF),
                       ),
                     ),
                     SizedBox(height: 2.0),
@@ -1745,9 +1778,10 @@ Widget _paletteFamily(String label, List<Map<String, dynamic>> entries) {
                       style: TextStyle(
                         fontSize: 8.0,
                         fontFamily: 'monospace',
-                        color: (e['color'] as Color).computeLuminance() > 0.5
-                            ? Color(0xFF000000)
-                            : Color(0xFFFFFFFF),
+                        color:
+                            (e['color'] as Color).computeLuminance() > 0.5
+                                ? Color(0xFF000000)
+                                : Color(0xFFFFFFFF),
                       ),
                     ),
                   ],

@@ -109,7 +109,10 @@ Widget _headerCard({
         ),
         const SizedBox(height: 14.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.78),
             borderRadius: BorderRadius.circular(10.0),
@@ -255,8 +258,8 @@ Widget _fancyTile({
               ),
             )
           : (trailingIcon != null
-                ? Icon(trailingIcon, color: seed, size: 20.0)
-                : null),
+              ? Icon(trailingIcon, color: seed, size: 20.0)
+              : null),
     ),
   );
 }
@@ -302,55 +305,55 @@ Widget _buildDefaultTab() {
           ),
         ),
         const SizedBox(height: 6.0),
-        _fancyTile(
-          leadingIcon: Icons.inbox_outlined,
-          title: 'Inbox digest',
-          subtitle: '12 new conversations since 09:42',
-          seed: _seedTeal,
-          trailingText: 'NEW',
-        ),
-        _fancyTile(
-          leadingIcon: Icons.email_outlined,
-          title: 'Marketing newsletter',
-          subtitle: 'Weekly product update — 4 articles',
-          seed: _seedIndigo,
-          trailingIcon: Icons.chevron_right,
-        ),
-        _fancyTile(
-          leadingIcon: Icons.security,
-          title: 'Security alert',
-          subtitle: 'Sign-in from a new device · macOS · Berlin',
-          seed: _seedRose,
-          trailingText: '!',
-        ),
-        _fancyTile(
-          leadingIcon: Icons.calendar_today,
-          title: 'Calendar reminder',
-          subtitle: 'Sprint review tomorrow at 10:00',
-          seed: _seedAmber,
-          trailingIcon: Icons.notifications_active_outlined,
-        ),
-        _fancyTile(
-          leadingIcon: Icons.cloud_done_outlined,
-          title: 'Backup completed',
-          subtitle: 'Daily snapshot · 2.7 GB · 38 minutes',
-          seed: _seedEmerald,
-          trailingText: 'OK',
-        ),
-        _fancyTile(
-          leadingIcon: Icons.bug_report_outlined,
-          title: 'Issue #4827',
-          subtitle: 'RefreshIndicator does not show on tablets',
-          seed: _seedSlate,
-          trailingIcon: Icons.chevron_right,
-        ),
-        _fancyTile(
-          leadingIcon: Icons.shopping_bag_outlined,
-          title: 'Order shipped',
-          subtitle: 'Tracking number 1Z999AA10123456784',
-          seed: _seedViolet,
-          trailingText: 'SHIPPED',
-        ),
+              _fancyTile(
+                leadingIcon: Icons.inbox_outlined,
+                title: 'Inbox digest',
+                subtitle: '12 new conversations since 09:42',
+                seed: _seedTeal,
+                trailingText: 'NEW',
+              ),
+              _fancyTile(
+                leadingIcon: Icons.email_outlined,
+                title: 'Marketing newsletter',
+                subtitle: 'Weekly product update — 4 articles',
+                seed: _seedIndigo,
+                trailingIcon: Icons.chevron_right,
+              ),
+              _fancyTile(
+                leadingIcon: Icons.security,
+                title: 'Security alert',
+                subtitle: 'Sign-in from a new device · macOS · Berlin',
+                seed: _seedRose,
+                trailingText: '!',
+              ),
+              _fancyTile(
+                leadingIcon: Icons.calendar_today,
+                title: 'Calendar reminder',
+                subtitle: 'Sprint review tomorrow at 10:00',
+                seed: _seedAmber,
+                trailingIcon: Icons.notifications_active_outlined,
+              ),
+              _fancyTile(
+                leadingIcon: Icons.cloud_done_outlined,
+                title: 'Backup completed',
+                subtitle: 'Daily snapshot · 2.7 GB · 38 minutes',
+                seed: _seedEmerald,
+                trailingText: 'OK',
+              ),
+              _fancyTile(
+                leadingIcon: Icons.bug_report_outlined,
+                title: 'Issue #4827',
+                subtitle: 'RefreshIndicator does not show on tablets',
+                seed: _seedSlate,
+                trailingIcon: Icons.chevron_right,
+              ),
+              _fancyTile(
+                leadingIcon: Icons.shopping_bag_outlined,
+                title: 'Order shipped',
+                subtitle: 'Tracking number 1Z999AA10123456784',
+                seed: _seedViolet,
+                trailingText: 'SHIPPED',
+              ),
         _fancyTile(
           leadingIcon: Icons.star_border,
           title: 'New star on repository',
@@ -403,7 +406,10 @@ Widget _buildColorsTab() {
               _gradientBanner(
                 title: 'Branded spinner',
                 subtitle: 'White stroke on deep-purple disk',
-                colors: const <Color>[Color(0xFF673AB7), Color(0xFFB39DDB)],
+                colors: const <Color>[
+                  Color(0xFF673AB7),
+                  Color(0xFFB39DDB),
+                ],
                 icon: Icons.palette_outlined,
               ),
               _fancyTile(
@@ -576,37 +582,55 @@ Widget _buildAdaptiveTab() {
               _platformTile(
                 title: 'Android',
                 detail: 'Material spinner',
-                colors: const <Color>[Color(0xFF1B5E20), Color(0xFFA5D6A7)],
+                colors: const <Color>[
+                  Color(0xFF1B5E20),
+                  Color(0xFFA5D6A7),
+                ],
                 icon: Icons.android,
               ),
               _platformTile(
                 title: 'iOS',
                 detail: 'Cupertino activity',
-                colors: const <Color>[Color(0xFF455A64), Color(0xFFB0BEC5)],
+                colors: const <Color>[
+                  Color(0xFF455A64),
+                  Color(0xFFB0BEC5),
+                ],
                 icon: Icons.phone_iphone,
               ),
               _platformTile(
                 title: 'macOS',
                 detail: 'Cupertino activity',
-                colors: const <Color>[Color(0xFF37474F), Color(0xFF90A4AE)],
+                colors: const <Color>[
+                  Color(0xFF37474F),
+                  Color(0xFF90A4AE),
+                ],
                 icon: Icons.laptop_mac,
               ),
               _platformTile(
                 title: 'Windows',
                 detail: 'Material spinner',
-                colors: const <Color>[Color(0xFF0D47A1), Color(0xFF82B1FF)],
+                colors: const <Color>[
+                  Color(0xFF0D47A1),
+                  Color(0xFF82B1FF),
+                ],
                 icon: Icons.laptop_windows,
               ),
               _platformTile(
                 title: 'Linux',
                 detail: 'Material spinner',
-                colors: const <Color>[Color(0xFFBF360C), Color(0xFFFFAB91)],
+                colors: const <Color>[
+                  Color(0xFFBF360C),
+                  Color(0xFFFFAB91),
+                ],
                 icon: Icons.computer,
               ),
               _platformTile(
                 title: 'Web',
                 detail: 'Material spinner',
-                colors: const <Color>[Color(0xFF4527A0), Color(0xFFB39DDB)],
+                colors: const <Color>[
+                  Color(0xFF4527A0),
+                  Color(0xFFB39DDB),
+                ],
                 icon: Icons.public,
               ),
             ],
@@ -728,7 +752,10 @@ Widget _buildDisplacementTab() {
               _gradientBanner(
                 title: 'Lifted spinner',
                 subtitle: 'Drops below the AppBar by edgeOffset 24.0',
-                colors: const <Color>[Color(0xFF1A237E), Color(0xFF7986CB)],
+                colors: const <Color>[
+                  Color(0xFF1A237E),
+                  Color(0xFF7986CB),
+                ],
                 icon: Icons.unfold_more,
               ),
               _fancyTile(
@@ -834,7 +861,10 @@ Widget _buildStrokeAndEdgeTab() {
               _gradientBanner(
                 title: 'Thicker stroke',
                 subtitle: '4.0 logical pixels — heavier visual weight',
-                colors: const <Color>[Color(0xFF1B5E20), Color(0xFF81C784)],
+                colors: const <Color>[
+                  Color(0xFF1B5E20),
+                  Color(0xFF81C784),
+                ],
                 icon: Icons.line_weight,
               ),
               _decisionRow(
@@ -1023,7 +1053,10 @@ Widget _buildCustomScrollViewTab() {
                 child: _gradientBanner(
                   title: 'Sliver-based feed',
                   subtitle: 'A SliverList followed by a SliverGrid',
-                  colors: const <Color>[Color(0xFF4A148C), Color(0xFFCE93D8)],
+                  colors: const <Color>[
+                    Color(0xFF4A148C),
+                    Color(0xFFCE93D8),
+                  ],
                   icon: Icons.dashboard,
                 ),
               ),
@@ -1088,7 +1121,8 @@ Widget _buildCustomScrollViewTab() {
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(10.0, 4.0, 10.0, 12.0),
                 sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 10.0,
                     crossAxisSpacing: 10.0,
@@ -1136,7 +1170,9 @@ Widget _buildCustomScrollViewTab() {
               ),
               SliverToBoxAdapter(child: _comparisonCard()),
               SliverToBoxAdapter(child: _triggerModeDecisionCard()),
-              SliverToBoxAdapter(child: SizedBox(height: 24.0)),
+              SliverToBoxAdapter(
+                child: SizedBox(height: 24.0),
+              ),
             ],
           ),
         ),
@@ -1237,7 +1273,10 @@ Widget _comparisonCard() {
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: <Color>[Color(0xFF00897B), Color(0xFF80CBC4)],
+                  colors: <Color>[
+                    Color(0xFF00897B),
+                    Color(0xFF80CBC4),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(8.0),
               ),
@@ -1251,7 +1290,10 @@ Widget _comparisonCard() {
             const Expanded(
               child: Text(
                 'RefreshIndicator vs CupertinoSliverRefreshControl',
-                style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  fontSize: 14.5,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ],
@@ -1366,7 +1408,10 @@ Widget _triggerModeDecisionCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
+        colors: <Color>[
+          Color(0xFFFFF3E0),
+          Color(0xFFFFE0B2),
+        ],
       ),
       borderRadius: BorderRadius.circular(14.0),
       boxShadow: <BoxShadow>[
@@ -1464,7 +1509,10 @@ Widget _decisionBullet({
               const SizedBox(height: 2.0),
               Text(
                 body,
-                style: const TextStyle(fontSize: 11.5, color: Colors.black87),
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  color: Colors.black87,
+                ),
               ),
             ],
           ),

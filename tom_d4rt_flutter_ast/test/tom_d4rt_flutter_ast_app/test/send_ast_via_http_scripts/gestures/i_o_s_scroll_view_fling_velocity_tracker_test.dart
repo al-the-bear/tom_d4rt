@@ -205,11 +205,8 @@ class _DecelPainter extends CustomPainter {
     final axisPaint = Paint()
       ..color = Colors.black87
       ..strokeWidth = 2.0;
-    canvas.drawLine(
-      Offset(40, size.height - 30),
-      Offset(size.width - 10, size.height - 30),
-      axisPaint,
-    );
+    canvas.drawLine(Offset(40, size.height - 30),
+        Offset(size.width - 10, size.height - 30), axisPaint);
     canvas.drawLine(Offset(40, 10), Offset(40, size.height - 30), axisPaint);
 
     void plot(double friction, Color c, int dash) {
@@ -383,7 +380,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
                 color: scheme.onPrimary.withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.swipe, color: scheme.onPrimary, size: 44.0),
+              child: Icon(Icons.swipe,
+                  color: scheme.onPrimary, size: 44.0),
             ),
             const SizedBox(width: 20),
             Expanded(
@@ -500,7 +498,11 @@ class FlingVelocityDemoApp extends StatelessWidget {
     return [
       _sectionTitle(scheme, '1. What is a fling velocity tracker?'),
       const SizedBox(height: 12),
-      Wrap(spacing: 12, runSpacing: 12, children: concepts),
+      Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: concepts,
+      ),
     ];
   }
 
@@ -540,7 +542,10 @@ class FlingVelocityDemoApp extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          Text(body, style: TextStyle(color: fg, fontSize: 12.5, height: 1.35)),
+          Text(
+            body,
+            style: TextStyle(color: fg, fontSize: 12.5, height: 1.35),
+          ),
         ],
       ),
     );
@@ -609,7 +614,11 @@ class FlingVelocityDemoApp extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 12),
-      Wrap(spacing: 12, runSpacing: 12, children: stages),
+      Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: stages,
+      ),
     ];
   }
 
@@ -639,9 +648,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: v.color.withValues(alpha: 0.12),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(14),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
             child: Row(
               children: [
@@ -658,10 +666,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: v.color.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(8),
@@ -721,14 +727,14 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'Direction reversal',
         'Discards old',
         'Smooths reversal',
-        'Keeps all samples',
+        'Keeps all samples'
       ],
       ['Rejects stale > (ms)', '50', '50', '40'],
       [
         'Class name',
         'IOSScroll...Tracker',
         'MacOSScroll...Tracker',
-        'VelocityTracker',
+        'VelocityTracker'
       ],
     ];
 
@@ -780,17 +786,9 @@ class FlingVelocityDemoApp extends StatelessWidget {
             children: [
               _trackerBadge(scheme, 'iOS', scheme.primary, Icons.phone_iphone),
               _trackerBadge(
-                scheme,
-                'macOS',
-                scheme.secondary,
-                Icons.laptop_mac,
-              ),
+                  scheme, 'macOS', scheme.secondary, Icons.laptop_mac),
               _trackerBadge(
-                scheme,
-                'Default',
-                scheme.tertiary,
-                Icons.devices_other,
-              ),
+                  scheme, 'Default', scheme.tertiary, Icons.devices_other),
             ],
           ),
         ],
@@ -831,14 +829,16 @@ class FlingVelocityDemoApp extends StatelessWidget {
     );
   }
 
-  Widget _comparisonRow(ColorScheme scheme, List<String> cells, bool zebra) {
+  Widget _comparisonRow(
+      ColorScheme scheme, List<String> cells, bool zebra) {
     final children = <Widget>[];
     for (int i = 0; i < cells.length; i++) {
       final isFirst = i == 0;
       children.add(
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
             child: Text(
               cells[i],
               style: TextStyle(
@@ -863,11 +863,7 @@ class FlingVelocityDemoApp extends StatelessWidget {
   }
 
   Widget _trackerBadge(
-    ColorScheme scheme,
-    String label,
-    Color color,
-    IconData icon,
-  ) {
+      ColorScheme scheme, String label, Color color, IconData icon) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -904,54 +900,24 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'label': 'Default',
         'color': scheme.tertiary,
         'weights': <double>[
-          0.40,
-          0.45,
-          0.50,
-          0.55,
-          0.60,
-          0.65,
-          0.70,
-          0.75,
-          0.80,
-          0.85,
-          0.90,
-          1.00,
+          0.40, 0.45, 0.50, 0.55, 0.60, 0.65,
+          0.70, 0.75, 0.80, 0.85, 0.90, 1.00,
         ],
       },
       {
         'label': 'iOS',
         'color': scheme.primary,
         'weights': <double>[
-          0.10,
-          0.10,
-          0.12,
-          0.14,
-          0.18,
-          0.24,
-          0.32,
-          0.45,
-          0.62,
-          0.80,
-          0.95,
-          1.00,
+          0.10, 0.10, 0.12, 0.14, 0.18, 0.24,
+          0.32, 0.45, 0.62, 0.80, 0.95, 1.00,
         ],
       },
       {
         'label': 'macOS',
         'color': scheme.secondary,
         'weights': <double>[
-          0.18,
-          0.22,
-          0.30,
-          0.40,
-          0.55,
-          0.72,
-          0.86,
-          0.96,
-          1.00,
-          0.92,
-          0.74,
-          0.55,
+          0.18, 0.22, 0.30, 0.40, 0.55, 0.72,
+          0.86, 0.96, 1.00, 0.92, 0.74, 0.55,
         ],
       },
     ];
@@ -1101,7 +1067,7 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'color': scheme.error,
         'desc':
             'With only one position the tracker cannot compute velocity. '
-            'The fitted polynomial collapses, and the result is Velocity.zero.',
+                'The fitted polynomial collapses, and the result is Velocity.zero.',
       },
       {
         'title': 'Stale samples',
@@ -1109,8 +1075,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'color': scheme.primary,
         'desc':
             'If the most recent sample is older than the rejection '
-            'threshold (typically 40-50 ms) the tracker reports zero. '
-            'This prevents flings after the user has stopped touching.',
+                'threshold (typically 40-50 ms) the tracker reports zero. '
+                'This prevents flings after the user has stopped touching.',
       },
       {
         'title': 'Direction reversal',
@@ -1118,8 +1084,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'color': scheme.secondary,
         'desc':
             'When the swipe reverses direction near the end the iOS '
-            'tracker biases toward the latest direction so the fling '
-            'follows the user last intent, not the average motion.',
+                'tracker biases toward the latest direction so the fling '
+                'follows the user last intent, not the average motion.',
       },
       {
         'title': 'Tiny motion',
@@ -1127,8 +1093,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'color': scheme.tertiary,
         'desc':
             'Sub-pixel jitter below an internal threshold is treated '
-            'as no motion. Without this guard, a tap could leak in '
-            'a tiny but non-zero fling and cause unintended scrolling.',
+                'as no motion. Without this guard, a tap could leak in '
+                'a tiny but non-zero fling and cause unintended scrolling.',
       },
       {
         'title': 'Trackpad scroll burst',
@@ -1136,8 +1102,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'color': scheme.outline,
         'desc':
             'macOS trackpads emit dense bursts. The macOS tracker '
-            'down-weights the absolute last sample to filter out '
-            'rebound noise from the trackpad release event.',
+                'down-weights the absolute last sample to filter out '
+                'rebound noise from the trackpad release event.',
       },
       {
         'title': 'Long press then drag',
@@ -1145,8 +1111,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'color': scheme.error,
         'desc':
             'If the user holds before flicking, only samples inside the '
-            'window are kept. Older static samples are evicted, so the '
-            'computed velocity reflects the flick alone.',
+                'window are kept. Older static samples are evicted, so the '
+                'computed velocity reflects the flick alone.',
       },
     ];
 
@@ -1155,7 +1121,11 @@ class FlingVelocityDemoApp extends StatelessWidget {
     return [
       _sectionTitle(scheme, '5. Edge cases and rejection rules'),
       const SizedBox(height: 12),
-      Wrap(spacing: 12, runSpacing: 12, children: widgets),
+      Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: widgets,
+      ),
     ];
   }
 
@@ -1290,7 +1260,10 @@ class FlingVelocityDemoApp extends StatelessWidget {
         Container(
           width: 12,
           height: 12,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 6),
         Text(
@@ -1355,18 +1328,18 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'good': <PointerDeviceKind>[PointerDeviceKind.touch],
         'meh': <PointerDeviceKind>[
           PointerDeviceKind.stylus,
-          PointerDeviceKind.invertedStylus,
+          PointerDeviceKind.invertedStylus
         ],
         'avoid': <PointerDeviceKind>[
           PointerDeviceKind.mouse,
-          PointerDeviceKind.trackpad,
+          PointerDeviceKind.trackpad
         ],
       },
       {
         'tracker': 'MacOS tracker',
         'good': <PointerDeviceKind>[
           PointerDeviceKind.trackpad,
-          PointerDeviceKind.mouse,
+          PointerDeviceKind.mouse
         ],
         'meh': <PointerDeviceKind>[PointerDeviceKind.touch],
         'avoid': <PointerDeviceKind>[PointerDeviceKind.unknown],
@@ -1388,7 +1361,11 @@ class FlingVelocityDemoApp extends StatelessWidget {
     return [
       _sectionTitle(scheme, '7. Pointer device compatibility'),
       const SizedBox(height: 12),
-      Wrap(spacing: 10, runSpacing: 10, children: widgets),
+      Wrap(
+        spacing: 10,
+        runSpacing: 10,
+        children: widgets,
+      ),
       const SizedBox(height: 18),
       Container(
         padding: const EdgeInsets.all(14),
@@ -1432,7 +1409,11 @@ class FlingVelocityDemoApp extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(k['icon'] as IconData, color: scheme.primary, size: 20),
+              Icon(
+                k['icon'] as IconData,
+                color: scheme.primary,
+                size: 20,
+              ),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
@@ -1498,18 +1479,20 @@ class FlingVelocityDemoApp extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: Wrap(spacing: 6, runSpacing: 6, children: pills)),
+          Expanded(
+            child: Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: pills,
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _matrixPill(
-    ColorScheme scheme,
-    String label,
-    Color color,
-    IconData icon,
-  ) {
+      ColorScheme scheme, String label, Color color, IconData icon) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
@@ -1545,8 +1528,7 @@ class FlingVelocityDemoApp extends StatelessWidget {
       {
         'title': 'Use the iOS tracker explicitly',
         'subtitle': 'When you want the iOS feel on every platform',
-        'code':
-            '// Force iOS scroll fling tracker for a touch pointer\n'
+        'code': '// Force iOS scroll fling tracker for a touch pointer\n'
             'final tracker = IOSScrollViewFlingVelocityTracker(\n'
             '  PointerDeviceKind.touch,\n'
             ');\n'
@@ -1557,8 +1539,7 @@ class FlingVelocityDemoApp extends StatelessWidget {
       {
         'title': 'Pick by platform with ScrollPhysics',
         'subtitle': 'Let the physics class choose for you',
-        'code':
-            '// BouncingScrollPhysics constructs the iOS tracker.\n'
+        'code': '// BouncingScrollPhysics constructs the iOS tracker.\n'
             '// ClampingScrollPhysics uses the default tracker.\n'
             'final physics = defaultTargetPlatform == TargetPlatform.iOS\n'
             '    ? const BouncingScrollPhysics()\n'
@@ -1567,8 +1548,7 @@ class FlingVelocityDemoApp extends StatelessWidget {
       {
         'title': 'Read Velocity safely',
         'subtitle': 'Always handle Velocity.zero as a possible result',
-        'code':
-            '// Velocity result on release\n'
+        'code': '// Velocity result on release\n'
             'final v = tracker.getVelocity();\n'
             'if (v == Velocity.zero) {\n'
             '  // No fling; just settle\n'
@@ -1579,8 +1559,7 @@ class FlingVelocityDemoApp extends StatelessWidget {
       {
         'title': 'Build a custom tracker',
         'subtitle': 'Subclass VelocityTracker when you need a new feel',
-        'code':
-            '// Custom tracker example\n'
+        'code': '// Custom tracker example\n'
             'class MyTracker extends VelocityTracker {\n'
             '  MyTracker() : super.withKind(PointerDeviceKind.touch);\n'
             '  @override\n'
@@ -1618,17 +1597,13 @@ class FlingVelocityDemoApp extends StatelessWidget {
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: scheme.primaryContainer,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(14),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.menu_book,
-                  color: scheme.onPrimaryContainer,
-                  size: 22,
-                ),
+                Icon(Icons.menu_book,
+                    color: scheme.onPrimaryContainer, size: 22),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
@@ -1646,9 +1621,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
                       Text(
                         r['subtitle']!,
                         style: TextStyle(
-                          color: scheme.onPrimaryContainer.withValues(
-                            alpha: 0.85,
-                          ),
+                          color: scheme.onPrimaryContainer
+                              .withValues(alpha: 0.85),
                           fontSize: 11.5,
                         ),
                       ),
@@ -1662,9 +1636,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: Colors.grey.shade900,
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(14),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(14)),
             ),
             child: Text(
               r['code']!,
@@ -1748,11 +1721,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
               color: scheme.tertiary.withValues(alpha: 0.15),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              Icons.lightbulb_outline,
-              color: scheme.tertiary,
-              size: 20,
-            ),
+            child: Icon(Icons.lightbulb_outline,
+                color: scheme.tertiary, size: 20),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -1772,9 +1742,7 @@ class FlingVelocityDemoApp extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
-                      ),
+                          horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
                         color: scheme.primary.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(6),
@@ -1818,49 +1786,49 @@ class FlingVelocityDemoApp extends StatelessWidget {
         'term': 'VelocityTracker',
         'def':
             'Base class. Collects pointer samples and fits a polynomial '
-            'to estimate velocity at release time.',
+                'to estimate velocity at release time.',
       },
       {
         'term': 'IOSScrollViewFlingVelocityTracker',
         'def':
             'Subclass tuned for the iOS UIScrollView feel: '
-            'a narrow window and aggressive weighting of the newest sample.',
+                'a narrow window and aggressive weighting of the newest sample.',
       },
       {
         'term': 'MacOSScrollViewFlingVelocityTracker',
         'def':
             'Subclass for macOS NSScrollView. Slightly smoother to '
-            'compensate for trackpad rebound noise.',
+                'compensate for trackpad rebound noise.',
       },
       {
         'term': 'Velocity',
         'def':
             'Immutable container for a 2D velocity vector in pixels per '
-            'second. Use Velocity.zero for "no motion".',
+                'second. Use Velocity.zero for "no motion".',
       },
       {
         'term': 'PointerDeviceKind',
         'def':
             'Enum: touch, mouse, stylus, invertedStylus, trackpad, unknown. '
-            'Influences which tracker subclass is selected by physics.',
+                'Influences which tracker subclass is selected by physics.',
       },
       {
         'term': 'Sample window',
         'def':
             'The most recent ~100-200 ms of pointer positions kept for the '
-            'fit. Older samples are evicted.',
+                'fit. Older samples are evicted.',
       },
       {
         'term': 'Fling impulse',
         'def':
             'The velocity handed to a ScrollSimulation when the user '
-            'releases. Decays via friction over time.',
+                'releases. Decays via friction over time.',
       },
       {
         'term': 'Rejection threshold',
         'def':
             'Time gap after which the most recent sample is considered '
-            'stale and velocity is forced to zero.',
+                'stale and velocity is forced to zero.',
       },
     ];
 
@@ -1886,7 +1854,8 @@ class FlingVelocityDemoApp extends StatelessWidget {
                     color: scheme.primary.withValues(alpha: 0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.book, color: scheme.primary, size: 18),
+                  child: Icon(Icons.book,
+                      color: scheme.primary, size: 18),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -1925,7 +1894,10 @@ class FlingVelocityDemoApp extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [scheme.primaryContainer, scheme.tertiaryContainer],
+          colors: [
+            scheme.primaryContainer,
+            scheme.tertiaryContainer,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -2011,7 +1983,9 @@ class FlingVelocityDemoApp extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHigh,
         borderRadius: BorderRadius.circular(10),
-        border: Border(left: BorderSide(color: scheme.primary, width: 4)),
+        border: Border(
+          left: BorderSide(color: scheme.primary, width: 4),
+        ),
       ),
       child: Text(
         text,

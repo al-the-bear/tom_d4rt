@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_list,
       'title': 'Animated List as a Sliver',
-      'body':
-          'SliverAnimatedList is the sliver variant of AnimatedList. '
+      'body': 'SliverAnimatedList is the sliver variant of AnimatedList. '
           'It lives inside a CustomScrollView and participates in the '
           'sliver protocol, meaning it can coexist with SliverAppBar, '
           'SliverGrid, SliverToBoxAdapter, and other slivers.',
@@ -26,8 +25,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_vert,
       'title': 'Insert & Remove with Transitions',
-      'body':
-          'When you call insertItem() or removeItem() on the state, '
+      'body': 'When you call insertItem() or removeItem() on the state, '
           'the list smoothly animates the new item in or the old item out. '
           'Each item\'s builder receives an Animation<double> to drive '
           'any transition widget (Fade, Scale, Slide, SizeTransition, etc.).',
@@ -35,16 +33,14 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.key,
       'title': 'State-Driven API',
-      'body':
-          'Access the list\'s state via GlobalKey<SliverAnimatedListState>. '
+      'body': 'Access the list\'s state via GlobalKey<SliverAnimatedListState>. '
           'The state exposes insertItem(), insertAllItems(), removeItem(), '
           'and removeAllItems() for programmatic control.',
     },
     {
       'icon': Icons.format_list_numbered,
       'title': 'Linear Layout',
-      'body':
-          'Unlike SliverAnimatedGrid which arranges children in a grid, '
+      'body': 'Unlike SliverAnimatedGrid which arranges children in a grid, '
           'SliverAnimatedList arranges them in a single column (or row). '
           'Each item occupies the full cross-axis extent by default.',
     },
@@ -61,7 +57,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.indigo.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.indigo.withValues(alpha: 0.12)),
+          border: Border.all(
+            color: Colors.indigo.withValues(alpha: 0.12),
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +141,10 @@ dynamic build(BuildContext context) {
                 'A sliver that animates list items during insertion and '
                 'removal — the list counterpart to SliverAnimatedGrid.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 13.5, color: Colors.grey[600]),
+                style: TextStyle(
+                  fontSize: 13.5,
+                  color: Colors.grey[600],
+                ),
               ),
             ],
           ),
@@ -164,24 +165,21 @@ dynamic build(BuildContext context) {
       'name': 'itemBuilder',
       'type': 'AnimatedItemBuilder',
       'required': 'Yes',
-      'desc':
-          'Builder called for each item. Receives (context, index, '
+      'desc': 'Builder called for each item. Receives (context, index, '
           'animation). The Animation<double> drives the entry transition.',
     },
     {
       'name': 'initialItemCount',
       'type': 'int',
       'required': 'No',
-      'desc':
-          'Number of items initially in the list. Defaults to 0. '
+      'desc': 'Number of items initially in the list. Defaults to 0. '
           'These items appear immediately without animation.',
     },
     {
       'name': 'findChildIndexCallback',
       'type': 'ChildIndexGetter?',
       'required': 'No',
-      'desc':
-          'Callback to map a child\'s Key to its index. Helps '
+      'desc': 'Callback to map a child\'s Key to its index. Helps '
           'preserve child state when items are inserted or removed.',
     },
   ];
@@ -337,19 +335,19 @@ dynamic build(BuildContext context) {
         _buildSALMethodCard(
           'insertAllItems(index, length, {duration})',
           'Insert multiple items starting at index. More efficient than '
-              'multiple insertItem calls.',
+          'multiple insertItem calls.',
           Colors.blue,
         ),
         _buildSALMethodCard(
           'removeItem(index, builder, {duration})',
           'Remove item at index. The builder provides the exit transition '
-              'while the item animates out.',
+          'while the item animates out.',
           Colors.red,
         ),
         _buildSALMethodCard(
           'removeAllItems(builder, {duration})',
           'Remove all items with the same removal builder. Each item '
-              'gets its own animation.',
+          'gets its own animation.',
           Colors.orange,
         ),
       ],
@@ -379,8 +377,7 @@ dynamic build(BuildContext context) {
     {
       'feature': 'With other slivers',
       'animatedList': 'No — would need\nSliverToBoxAdapter',
-      'sliverAnimatedList':
-          'Yes — works alongside\nSliverAppBar, SliverGrid, etc.',
+      'sliverAnimatedList': 'Yes — works alongside\nSliverAppBar, SliverGrid, etc.',
       'colorAL': Colors.orange,
       'colorSAL': Colors.green,
     },
@@ -471,10 +468,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSALSectionHeader(
-          'AnimatedList vs SliverAnimatedList',
-          Icons.compare,
-        ),
+        buildSALSectionHeader('AnimatedList vs SliverAnimatedList', Icons.compare),
         const SizedBox(height: 8.0),
         Text(
           'The primary difference is the widget type: AnimatedList is a '
@@ -528,9 +522,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.blue.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(
-                    color: Colors.blue.withValues(alpha: 0.15),
-                  ),
+                  border: Border.all(color: Colors.blue.withValues(alpha: 0.15)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -578,11 +570,7 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 6.0),
                     _buildSALTreeNode('CustomScrollView', 0, Colors.grey),
                     _buildSALTreeNode('├─ SliverAppBar', 1, Colors.grey),
-                    _buildSALTreeNode(
-                      '├─ SliverAnimatedList',
-                      1,
-                      Colors.indigo,
-                    ),
+                    _buildSALTreeNode('├─ SliverAnimatedList', 1, Colors.indigo),
                     _buildSALTreeNode('│  ├─ Item 0', 2, Colors.indigo),
                     _buildSALTreeNode('│  └─ Item 1', 2, Colors.indigo),
                     _buildSALTreeNode('└─ SliverGrid', 1, Colors.grey),
@@ -604,8 +592,7 @@ dynamic build(BuildContext context) {
   final transitions = <Map<String, dynamic>>[
     {
       'name': 'SizeTransition',
-      'desc':
-          'Item grows/shrinks in the main axis. Neighboring items '
+      'desc': 'Item grows/shrinks in the main axis. Neighboring items '
           'smoothly push apart or come together. The most natural '
           'list transition — items "expand" into existence.',
       'icon': Icons.unfold_more,
@@ -614,8 +601,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'FadeTransition',
-      'desc':
-          'Item fades in from transparent. Subtle but doesn\'t '
+      'desc': 'Item fades in from transparent. Subtle but doesn\'t '
           'affect layout — the space is already allocated before '
           'the item becomes visible.',
       'icon': Icons.gradient,
@@ -624,8 +610,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'SlideTransition',
-      'desc':
-          'Item slides in from a direction. Often combined with '
+      'desc': 'Item slides in from a direction. Often combined with '
           'SizeTransition so the layout also animates.',
       'icon': Icons.arrow_forward,
       'color': Colors.green,
@@ -633,8 +618,7 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Combined (Size + Fade)',
-      'desc':
-          'The most polished effect: the item both grows into view '
+      'desc': 'The most polished effect: the item both grows into view '
           'AND fades in, creating a smooth, professional entry animation.',
       'icon': Icons.auto_awesome,
       'color': Colors.purple,
@@ -908,28 +892,28 @@ dynamic build(BuildContext context) {
           Icons.undo,
           Colors.orange,
           'When removing an item, show a Snackbar with an "Undo" button. '
-              'Store the removed item and its index. If undo is tapped, '
-              'reinsert the item at its original position with insertItem().',
+          'Store the removed item and its index. If undo is tapped, '
+          'reinsert the item at its original position with insertItem().',
           'void _removeWithUndo(int index) {\n'
-              '  final item = _items.removeAt(index);\n'
-              '  _listKey.currentState!.removeItem(\n'
-              '    index,\n'
-              '    (ctx, anim) => _buildRemoved(item, anim),\n'
-              '  );\n'
-              '  ScaffoldMessenger.of(context).showSnackBar(\n'
-              '    SnackBar(\n'
-              '      content: Text("Removed \${item.name}"),\n'
-              '      action: SnackBarAction(\n'
-              '        label: "UNDO",\n'
-              '        onPressed: () {\n'
-              '          _items.insert(index, item);\n'
-              '          _listKey.currentState!\n'
-              '            .insertItem(index);\n'
-              '        },\n'
-              '      ),\n'
-              '    ),\n'
-              '  );\n'
-              '}',
+          '  final item = _items.removeAt(index);\n'
+          '  _listKey.currentState!.removeItem(\n'
+          '    index,\n'
+          '    (ctx, anim) => _buildRemoved(item, anim),\n'
+          '  );\n'
+          '  ScaffoldMessenger.of(context).showSnackBar(\n'
+          '    SnackBar(\n'
+          '      content: Text("Removed \${item.name}"),\n'
+          '      action: SnackBarAction(\n'
+          '        label: "UNDO",\n'
+          '        onPressed: () {\n'
+          '          _items.insert(index, item);\n'
+          '          _listKey.currentState!\n'
+          '            .insertItem(index);\n'
+          '        },\n'
+          '      ),\n'
+          '    ),\n'
+          '  );\n'
+          '}',
         ),
 
         // Pattern 2: Batch Add
@@ -938,17 +922,17 @@ dynamic build(BuildContext context) {
           Icons.add_circle,
           Colors.green,
           'When loading more items (infinite scroll, "Load More" button), '
-              'use insertAllItems() for a single animation call rather than '
-              'multiple individual insertItem() calls.',
+          'use insertAllItems() for a single animation call rather than '
+          'multiple individual insertItem() calls.',
           'void _loadMore(List<Item> newItems) {\n'
-              '  final startIndex = _items.length;\n'
-              '  _items.addAll(newItems);\n'
-              '  _listKey.currentState!.insertAllItems(\n'
-              '    startIndex,\n'
-              '    newItems.length,\n'
-              '    duration: Duration(milliseconds: 300),\n'
-              '  );\n'
-              '}',
+          '  final startIndex = _items.length;\n'
+          '  _items.addAll(newItems);\n'
+          '  _listKey.currentState!.insertAllItems(\n'
+          '    startIndex,\n'
+          '    newItems.length,\n'
+          '    duration: Duration(milliseconds: 300),\n'
+          '  );\n'
+          '}',
         ),
 
         // Pattern 3: Dismiss-to-delete
@@ -957,27 +941,27 @@ dynamic build(BuildContext context) {
           Icons.swipe,
           Colors.red,
           'Wrap each list item in a Dismissible widget. On dismiss, '
-              'call removeItem() on the state. The SliverAnimatedList handles '
-              'the layout collapse animation.',
+          'call removeItem() on the state. The SliverAnimatedList handles '
+          'the layout collapse animation.',
           'itemBuilder: (context, index, animation) {\n'
-              '  return SizeTransition(\n'
-              '    sizeFactor: animation,\n'
-              '    child: Dismissible(\n'
-              '      key: ValueKey(_items[index].id),\n'
-              '      onDismissed: (_) {\n'
-              '        final removed = _items.removeAt(index);\n'
-              '        _listKey.currentState!.removeItem(\n'
-              '          index,\n'
-              '          (ctx, anim) => SizeTransition(\n'
-              '            sizeFactor: anim,\n'
-              '            child: _tile(removed),\n'
-              '          ),\n'
-              '        );\n'
-              '      },\n'
-              '      child: _tile(_items[index]),\n'
-              '    ),\n'
-              '  );\n'
-              '}',
+          '  return SizeTransition(\n'
+          '    sizeFactor: animation,\n'
+          '    child: Dismissible(\n'
+          '      key: ValueKey(_items[index].id),\n'
+          '      onDismissed: (_) {\n'
+          '        final removed = _items.removeAt(index);\n'
+          '        _listKey.currentState!.removeItem(\n'
+          '          index,\n'
+          '          (ctx, anim) => SizeTransition(\n'
+          '            sizeFactor: anim,\n'
+          '            child: _tile(removed),\n'
+          '          ),\n'
+          '        );\n'
+          '      },\n'
+          '      child: _tile(_items[index]),\n'
+          '    ),\n'
+          '  );\n'
+          '}',
         ),
 
         // Pattern 4: Empty state
@@ -986,19 +970,19 @@ dynamic build(BuildContext context) {
           Icons.inbox,
           Colors.purple,
           'When the list is empty, show a placeholder. Use a '
-              'SliverToBoxAdapter after the SliverAnimatedList that '
-              'only shows when the item count is 0.',
+          'SliverToBoxAdapter after the SliverAnimatedList that '
+          'only shows when the item count is 0.',
           'CustomScrollView(\n'
-              '  slivers: [\n'
-              '    SliverAnimatedList(...),\n'
-              '    if (_items.isEmpty)\n'
-              '      SliverFillRemaining(\n'
-              '        child: Center(\n'
-              '          child: Text("No items yet"),\n'
-              '        ),\n'
-              '      ),\n'
-              '  ],\n'
-              ')',
+          '  slivers: [\n'
+          '    SliverAnimatedList(...),\n'
+          '    if (_items.isEmpty)\n'
+          '      SliverFillRemaining(\n'
+          '        child: Center(\n'
+          '          child: Text("No items yet"),\n'
+          '        ),\n'
+          '      ),\n'
+          '  ],\n'
+          ')',
         ),
       ],
     ),
@@ -1012,39 +996,33 @@ dynamic build(BuildContext context) {
   final summaryItems = <Map<String, dynamic>>[
     {
       'icon': Icons.view_list,
-      'text':
-          'SliverAnimatedList is the sliver version of AnimatedList — '
+      'text': 'SliverAnimatedList is the sliver version of AnimatedList — '
           'use it inside CustomScrollView for animated list sections.',
     },
     {
       'icon': Icons.animation,
-      'text':
-          'Each item gets an Animation<double>. Use SizeTransition for '
+      'text': 'Each item gets an Animation<double>. Use SizeTransition for '
           'natural-feeling list animations, or combine with FadeTransition.',
     },
     {
       'icon': Icons.view_quilt,
-      'text':
-          'Works alongside other slivers (SliverAppBar, SliverGrid, etc.) '
+      'text': 'Works alongside other slivers (SliverAppBar, SliverGrid, etc.) '
           'sharing a single scroll position for the entire view.',
     },
     {
       'icon': Icons.key,
-      'text':
-          'Access state via GlobalKey<SliverAnimatedListState> for '
+      'text': 'Access state via GlobalKey<SliverAnimatedListState> for '
           'insertItem(), removeItem(), and batch operations.',
     },
     {
       'icon': Icons.sync,
-      'text':
-          'Always synchronize your data model with the state operations. '
+      'text': 'Always synchronize your data model with the state operations. '
           'Insert into the list before calling insertItem(), and remove '
           'from the list when calling removeItem().',
     },
     {
       'icon': Icons.compare,
-      'text':
-          'Use SliverAnimatedList instead of AnimatedList when your '
+      'text': 'Use SliverAnimatedList instead of AnimatedList when your '
           'layout combines multiple scrolling sections in CustomScrollView.',
     },
   ];
@@ -1311,7 +1289,10 @@ Widget _buildSALLayoutBlock(
         ),
         Text(
           desc,
-          style: TextStyle(fontSize: 10.0, color: color.withValues(alpha: 0.7)),
+          style: TextStyle(
+            fontSize: 10.0,
+            color: color.withValues(alpha: 0.7),
+          ),
         ),
       ],
     ),
@@ -1513,7 +1494,10 @@ class _SALSlideTransitionVisual extends StatelessWidget {
                       child: const Center(
                         child: Text(
                           'Item',
-                          style: TextStyle(fontSize: 8.0, color: Colors.green),
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.green,
+                          ),
                         ),
                       ),
                     ),
@@ -1711,7 +1695,10 @@ class _SALLiveDemoState extends State<_SALLiveDemo> {
                 ),
                 Text(
                   'ID: ${item.id}',
-                  style: TextStyle(fontSize: 11.0, color: Colors.grey[500]),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey[500],
+                  ),
                 ),
               ],
             ),
@@ -1788,33 +1775,13 @@ class _SALLiveDemoState extends State<_SALLiveDemo> {
             children: [
               Row(
                 children: [
-                  _buildSALBtn(
-                    '+ End',
-                    Icons.arrow_downward,
-                    Colors.green,
-                    _addToEnd,
-                  ),
+                  _buildSALBtn('+ End', Icons.arrow_downward, Colors.green, _addToEnd),
                   const SizedBox(width: 4.0),
-                  _buildSALBtn(
-                    '+ Start',
-                    Icons.arrow_upward,
-                    Colors.blue,
-                    _addToBeginning,
-                  ),
+                  _buildSALBtn('+ Start', Icons.arrow_upward, Colors.blue, _addToBeginning),
                   const SizedBox(width: 4.0),
-                  _buildSALBtn(
-                    '- First',
-                    Icons.remove,
-                    Colors.orange,
-                    _removeFirst,
-                  ),
+                  _buildSALBtn('- First', Icons.remove, Colors.orange, _removeFirst),
                   const SizedBox(width: 4.0),
-                  _buildSALBtn(
-                    '- Last',
-                    Icons.remove_circle_outline,
-                    Colors.red,
-                    _removeLast,
-                  ),
+                  _buildSALBtn('- Last', Icons.remove_circle_outline, Colors.red, _removeLast),
                 ],
               ),
               const SizedBox(height: 8.0),
@@ -1934,20 +1901,20 @@ class _SALLiveDemoState extends State<_SALLiveDemo> {
                                 ? _eventLog.sublist(0, 5)
                                 : _eventLog)
                             .map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.only(bottom: 2.0),
-                                child: Text(
-                                  e,
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    fontFamily: 'monospace',
-                                    color: e.startsWith('+')
-                                        ? Colors.green[700]
-                                        : Colors.red[700],
-                                  ),
-                                ),
+                          (e) => Padding(
+                            padding: const EdgeInsets.only(bottom: 2.0),
+                            child: Text(
+                              e,
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                fontFamily: 'monospace',
+                                color: e.startsWith('+')
+                                    ? Colors.green[700]
+                                    : Colors.red[700],
                               ),
                             ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

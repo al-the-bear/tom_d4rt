@@ -50,7 +50,8 @@ class _ShortcutRegistryEntryDemo extends StatefulWidget {
       _ShortcutRegistryEntryDemoState();
 }
 
-class _ShortcutRegistryEntryDemoState extends State<_ShortcutRegistryEntryDemo>
+class _ShortcutRegistryEntryDemoState
+    extends State<_ShortcutRegistryEntryDemo>
     with TickerProviderStateMixin {
   late final TabController _tabCtrl;
 
@@ -93,7 +94,11 @@ class _ShortcutRegistryEntryDemoState extends State<_ShortcutRegistryEntryDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: const [_LifecycleTab(), _MethodsTab(), _IntegrationTab()],
+        children: const [
+          _LifecycleTab(),
+          _MethodsTab(),
+          _IntegrationTab(),
+        ],
       ),
     );
   }
@@ -123,22 +128,14 @@ class _LifecycleTabState extends State<_LifecycleTab>
   // (here, `List.generate`). Inlining the color literals removes the
   // indirection and ensures `_Phase.color` is never null.
   static final _phases = <_Phase>[
-    _Phase(
-      'Created',
-      'Registry.addAll returns entry',
-      Color(0xFF42A5F5),
-    ), // _kHighlight
-    _Phase(
-      'Active',
-      'Shortcuts bound in registry',
-      Color(0xFF66BB6A),
-    ), // _kGreen
-    _Phase('Replaced', 'replaceAll() called', Color(0xFFFFD54F)), // _kAmber
-    _Phase(
-      'Disposed',
-      'dispose() removes all bindings',
-      Color(0xFFEF5350),
-    ), // _kWarning
+    _Phase('Created', 'Registry.addAll returns entry',
+        Color(0xFF42A5F5)), // _kHighlight
+    _Phase('Active', 'Shortcuts bound in registry',
+        Color(0xFF66BB6A)), // _kGreen
+    _Phase('Replaced', 'replaceAll() called',
+        Color(0xFFFFD54F)), // _kAmber
+    _Phase('Disposed', 'dispose() removes all bindings',
+        Color(0xFFEF5350)), // _kWarning
   ];
 
   @override
@@ -155,7 +152,8 @@ class _LifecycleTabState extends State<_LifecycleTab>
           _sectionTitle('Entry Handle Pattern'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() => _expandHandle = !_expandHandle),
+            onTap: () =>
+                setState(() => _expandHandle = !_expandHandle),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -168,17 +166,17 @@ class _LifecycleTabState extends State<_LifecycleTab>
                 children: [
                   Row(
                     children: [
-                      const Text(
-                        'Handle Pattern',
-                        style: TextStyle(
-                          color: _kAccent,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      const Text('Handle Pattern',
+                          style: TextStyle(
+                            color: _kAccent,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          )),
                       const Spacer(),
                       Icon(
-                        _expandHandle ? Icons.expand_less : Icons.expand_more,
+                        _expandHandle
+                            ? Icons.expand_less
+                            : Icons.expand_more,
                         size: 18,
                         color: _kDimText,
                       ),
@@ -186,22 +184,17 @@ class _LifecycleTabState extends State<_LifecycleTab>
                   ),
                   if (_expandHandle) ...[
                     const SizedBox(height: 8),
+                    _bulletItem('Caller receives an opaque handle',
+                        _kHighlight),
                     _bulletItem(
-                      'Caller receives an opaque handle',
-                      _kHighlight,
-                    ),
+                        'Handle tracks caller\'s registrations',
+                        _kGreen),
                     _bulletItem(
-                      'Handle tracks caller\'s registrations',
-                      _kGreen,
-                    ),
+                        'Caller replaces or disposes via handle',
+                        _kAmber),
                     _bulletItem(
-                      'Caller replaces or disposes via handle',
-                      _kAmber,
-                    ),
-                    _bulletItem(
-                      'Registry manages all handles internally',
-                      _kPurpleLight,
-                    ),
+                        'Registry manages all handles internally',
+                        _kPurpleLight),
                     const SizedBox(height: 8),
                     _codeBlock(
                       'final entry = ShortcutRegistry.of(ctx)\n'
@@ -221,7 +214,8 @@ class _LifecycleTabState extends State<_LifecycleTab>
           _sectionTitle('Private Constructor'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() => _expandPrivate = !_expandPrivate),
+            onTap: () => setState(
+                () => _expandPrivate = !_expandPrivate),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -244,7 +238,9 @@ class _LifecycleTabState extends State<_LifecycleTab>
                       ),
                       const Spacer(),
                       Icon(
-                        _expandPrivate ? Icons.expand_less : Icons.expand_more,
+                        _expandPrivate
+                            ? Icons.expand_less
+                            : Icons.expand_more,
                         size: 18,
                         color: _kDimText,
                       ),
@@ -256,7 +252,8 @@ class _LifecycleTabState extends State<_LifecycleTab>
                       'Only ShortcutRegistry can create entries. '
                       'This prevents external code from forging '
                       'handles and corrupting the registry state.',
-                      style: TextStyle(color: _kDimText, fontSize: 11),
+                      style: TextStyle(
+                        color: _kDimText, fontSize: 11),
                     ),
                     const SizedBox(height: 8),
                     _codeBlock(
@@ -308,29 +305,33 @@ class _LifecycleTabState extends State<_LifecycleTab>
                     final Color? phaseColor = p.color;
                     final Color selectedFill =
                         phaseColor?.withValues(alpha: 0.2) ??
-                        const Color(0x33888888);
+                            const Color(0x33888888);
                     final Color pastFill =
                         phaseColor?.withValues(alpha: 0.08) ??
-                        const Color(0x14888888);
+                            const Color(0x14888888);
                     final Color pastText =
                         phaseColor?.withValues(alpha: 0.5) ??
-                        const Color(0x80888888);
-                    final Color arrowTint = _kDimText.withValues(alpha: 0.3);
+                            const Color(0x80888888);
+                    final Color arrowTint =
+                        _kDimText.withValues(alpha: 0.3);
                     return Expanded(
                       child: GestureDetector(
-                        onTap: () => setState(() => _currentPhase = i),
+                        onTap: () =>
+                            setState(() => _currentPhase = i),
                         child: Column(
                           children: [
                             Container(
                               height: 26,
-                              margin: EdgeInsets.only(right: i < 3 ? 4 : 0),
+                              margin: EdgeInsets.only(
+                                  right: i < 3 ? 4 : 0),
                               decoration: BoxDecoration(
                                 color: sel
                                     ? selectedFill
                                     : past
-                                    ? pastFill
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(4),
+                                        ? pastFill
+                                        : Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.circular(4),
                                 border: Border.all(
                                   color: sel
                                       ? (phaseColor ?? _kSubtle)
@@ -339,28 +340,24 @@ class _LifecycleTabState extends State<_LifecycleTab>
                                 ),
                               ),
                               child: Center(
-                                child: Text(
-                                  p.name,
-                                  style: TextStyle(
-                                    color: sel
-                                        ? (phaseColor ?? _kDimText)
-                                        : past
-                                        ? pastText
-                                        : _kDimText,
-                                    fontSize: 9,
-                                    fontWeight: sel
-                                        ? FontWeight.w700
-                                        : FontWeight.w400,
-                                  ),
-                                ),
+                                child: Text(p.name,
+                                    style: TextStyle(
+                                      color: sel
+                                          ? (phaseColor ?? _kDimText)
+                                          : past
+                                              ? pastText
+                                              : _kDimText,
+                                      fontSize: 9,
+                                      fontWeight: sel
+                                          ? FontWeight.w700
+                                          : FontWeight.w400,
+                                    )),
                               ),
                             ),
                             if (i < 3)
-                              Icon(
-                                Icons.arrow_forward,
-                                size: 10,
-                                color: arrowTint,
-                              ),
+                              Icon(Icons.arrow_forward,
+                                  size: 10,
+                                  color: arrowTint),
                           ],
                         ),
                       ),
@@ -375,9 +372,9 @@ class _LifecycleTabState extends State<_LifecycleTab>
                     color: _kSurface,
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: _phases[_currentPhase].color.withValues(
-                        alpha: 0.3,
-                      ),
+                      color: _phases[_currentPhase]
+                          .color
+                          .withValues(alpha: 0.3),
                     ),
                   ),
                   child: Column(
@@ -394,7 +391,8 @@ class _LifecycleTabState extends State<_LifecycleTab>
                       const SizedBox(height: 4),
                       Text(
                         _phases[_currentPhase].desc,
-                        style: const TextStyle(color: _kDimText, fontSize: 10),
+                        style: const TextStyle(
+                          color: _kDimText, fontSize: 10),
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -454,7 +452,8 @@ class _LifecycleTabState extends State<_LifecycleTab>
                   'this entry. Allows the entry to communicate '
                   'with its parent registry for replace and '
                   'dispose operations.',
-                  style: TextStyle(color: _kDimText, fontSize: 11),
+                  style: TextStyle(
+                    color: _kDimText, fontSize: 11),
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -534,10 +533,7 @@ class _MethodsTabState extends State<_MethodsTab>
   static const _versions = [
     {'keys': 'Ctrl+A → ActivateIntent', 'count': '1'},
     {'keys': 'Ctrl+S → SaveIntent, Ctrl+Z → UndoIntent', 'count': '2'},
-    {
-      'keys': 'Ctrl+C → CopyIntent, Ctrl+V → PasteIntent, Ctrl+X → CutIntent',
-      'count': '3',
-    },
+    {'keys': 'Ctrl+C → CopyIntent, Ctrl+V → PasteIntent, Ctrl+X → CutIntent', 'count': '3'},
   ];
 
   @override
@@ -555,7 +551,8 @@ class _MethodsTabState extends State<_MethodsTab>
           _sectionTitle('replaceAll()'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() => _expandReplaceAll = !_expandReplaceAll),
+            onTap: () => setState(
+                () => _expandReplaceAll = !_expandReplaceAll),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -597,23 +594,30 @@ class _MethodsTabState extends State<_MethodsTab>
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               Text(
                                 'Version ${_replaceVersion + 1}',
                                 style: TextStyle(
-                                  color: _disposed ? _kWarning : _kGreen,
+                                  color: _disposed
+                                      ? _kWarning
+                                      : _kGreen,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                               const Spacer(),
                               Text(
-                                _disposed ? 'DISPOSED' : 'ACTIVE',
+                                _disposed
+                                    ? 'DISPOSED'
+                                    : 'ACTIVE',
                                 style: TextStyle(
-                                  color: _disposed ? _kWarning : _kGreen,
+                                  color: _disposed
+                                      ? _kWarning
+                                      : _kGreen,
                                   fontSize: 9,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -651,21 +655,20 @@ class _MethodsTabState extends State<_MethodsTab>
                                     setState(() {
                                       _replaceVersion =
                                           (_replaceVersion + 1) %
-                                          _versions.length;
+                                              _versions.length;
                                     });
                                   },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: _kPrimary.withValues(alpha: 0.4),
+                              backgroundColor: _kPrimary
+                                  .withValues(alpha: 0.4),
                               foregroundColor: _kAccent,
                               disabledBackgroundColor: _kSubtle,
-                              disabledForegroundColor: _kDimText.withValues(
-                                alpha: 0.4,
-                              ),
+                              disabledForegroundColor:
+                                  _kDimText.withValues(
+                                      alpha: 0.4),
                             ),
-                            child: const Text(
-                              'replaceAll()',
-                              style: TextStyle(fontSize: 11),
-                            ),
+                            child: const Text('replaceAll()',
+                                style: TextStyle(fontSize: 11)),
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -678,15 +681,12 @@ class _MethodsTabState extends State<_MethodsTab>
                               });
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: _kHighlight.withValues(
-                                alpha: 0.15,
-                              ),
+                              backgroundColor: _kHighlight
+                                  .withValues(alpha: 0.15),
                               foregroundColor: _kHighlight,
                             ),
-                            child: const Text(
-                              'Reset',
-                              style: TextStyle(fontSize: 11),
-                            ),
+                            child: const Text('Reset',
+                                style: TextStyle(fontSize: 11)),
                           ),
                         ),
                       ],
@@ -702,7 +702,8 @@ class _MethodsTabState extends State<_MethodsTab>
           _sectionTitle('dispose()'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() => _expandDispose = !_expandDispose),
+            onTap: () => setState(
+                () => _expandDispose = !_expandDispose),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -728,17 +729,17 @@ class _MethodsTabState extends State<_MethodsTab>
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
-                        '@mustCallSuper',
-                        style: TextStyle(
-                          color: _kDimText,
-                          fontSize: 9,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
+                      const Text('@mustCallSuper',
+                          style: TextStyle(
+                            color: _kDimText,
+                            fontSize: 9,
+                            fontStyle: FontStyle.italic,
+                          )),
                       const Spacer(),
                       Icon(
-                        _expandDispose ? Icons.expand_less : Icons.expand_more,
+                        _expandDispose
+                            ? Icons.expand_less
+                            : Icons.expand_more,
                         size: 18,
                         color: _kDimText,
                       ),
@@ -750,22 +751,17 @@ class _MethodsTabState extends State<_MethodsTab>
                     Row(
                       children: [
                         _stateBox(
-                          'Active',
-                          _disposed ? _kDimText : _kGreen,
-                          !_disposed,
-                        ),
+                            'Active',
+                            _disposed ? _kDimText : _kGreen,
+                            !_disposed),
                         const SizedBox(width: 8),
-                        const Icon(
-                          Icons.arrow_forward,
-                          size: 14,
-                          color: _kDimText,
-                        ),
+                        const Icon(Icons.arrow_forward,
+                            size: 14, color: _kDimText),
                         const SizedBox(width: 8),
                         _stateBox(
-                          'Disposed',
-                          _disposed ? _kWarning : _kDimText,
-                          _disposed,
-                        ),
+                            'Disposed',
+                            _disposed ? _kWarning : _kDimText,
+                            _disposed),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -774,18 +770,16 @@ class _MethodsTabState extends State<_MethodsTab>
                           ? null
                           : () => setState(() => _disposed = true),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: _kWarning.withValues(alpha: 0.15),
+                        backgroundColor:
+                            _kWarning.withValues(alpha: 0.15),
                         foregroundColor: _kWarning,
                         disabledBackgroundColor: _kSubtle,
-                        disabledForegroundColor: _kDimText.withValues(
-                          alpha: 0.4,
-                        ),
+                        disabledForegroundColor:
+                            _kDimText.withValues(alpha: 0.4),
                         minimumSize: const Size(double.infinity, 36),
                       ),
-                      child: const Text(
-                        'Call dispose()',
-                        style: TextStyle(fontSize: 11),
-                      ),
+                      child: const Text('Call dispose()',
+                          style: TextStyle(fontSize: 11)),
                     ),
                     const SizedBox(height: 6),
                     if (_disposed)
@@ -796,7 +790,8 @@ class _MethodsTabState extends State<_MethodsTab>
                         child: const Text(
                           'All shortcuts removed from registry.\n'
                           'Entry can no longer be used.',
-                          style: TextStyle(color: _kWarning, fontSize: 10),
+                          style: TextStyle(
+                            color: _kWarning, fontSize: 10),
                         ),
                       ),
                   ],
@@ -810,7 +805,8 @@ class _MethodsTabState extends State<_MethodsTab>
           _sectionTitle('Assertion Checks'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() => _expandAssertions = !_expandAssertions),
+            onTap: () => setState(
+                () => _expandAssertions = !_expandAssertions),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -823,14 +819,12 @@ class _MethodsTabState extends State<_MethodsTab>
                 children: [
                   Row(
                     children: [
-                      const Text(
-                        'Runtime Assertions',
-                        style: TextStyle(
-                          color: _kAmber,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      const Text('Runtime Assertions',
+                          style: TextStyle(
+                            color: _kAmber,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          )),
                       const Spacer(),
                       Icon(
                         _expandAssertions
@@ -890,7 +884,9 @@ class _MethodsTabState extends State<_MethodsTab>
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: active ? color.withValues(alpha: 0.15) : Colors.transparent,
+          color: active
+              ? color.withValues(alpha: 0.15)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
             color: active ? color : _kSubtle,
@@ -898,14 +894,13 @@ class _MethodsTabState extends State<_MethodsTab>
           ),
         ),
         child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              color: active ? color : _kDimText,
-              fontSize: 10,
-              fontWeight: active ? FontWeight.w700 : FontWeight.w400,
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                color: active ? color : _kDimText,
+                fontSize: 10,
+                fontWeight:
+                    active ? FontWeight.w700 : FontWeight.w400,
+              )),
         ),
       ),
     );
@@ -918,7 +913,8 @@ class _MethodsTabState extends State<_MethodsTab>
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: color.withValues(alpha: 0.25)),
+        border: Border.all(
+            color: color.withValues(alpha: 0.25)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -929,22 +925,18 @@ class _MethodsTabState extends State<_MethodsTab>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  trigger,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  msg,
-                  style: const TextStyle(
-                    color: _kDimText,
-                    fontSize: 9,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                Text(trigger,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                    )),
+                Text(msg,
+                    style: const TextStyle(
+                      color: _kDimText,
+                      fontSize: 9,
+                      fontFamily: 'monospace',
+                    )),
               ],
             ),
           ),
@@ -1016,7 +1008,8 @@ class _IntegrationTabState extends State<_IntegrationTab>
           _sectionTitle('Equivalent Activators'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() => _expandEquivalent = !_expandEquivalent),
+            onTap: () => setState(
+                () => _expandEquivalent = !_expandEquivalent),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -1029,14 +1022,12 @@ class _IntegrationTabState extends State<_IntegrationTab>
                 children: [
                   Row(
                     children: [
-                      const Text(
-                        'Overlapping Bindings',
-                        style: TextStyle(
-                          color: _kAmber,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      const Text('Overlapping Bindings',
+                          style: TextStyle(
+                            color: _kAmber,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          )),
                       const Spacer(),
                       Icon(
                         _expandEquivalent
@@ -1057,7 +1048,8 @@ class _IntegrationTabState extends State<_IntegrationTab>
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
                         children: [
                           _conflictRow(
                             'Entry A',
@@ -1073,11 +1065,8 @@ class _IntegrationTabState extends State<_IntegrationTab>
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              const Icon(
-                                Icons.warning_amber,
-                                size: 12,
-                                color: _kAmber,
-                              ),
+                              const Icon(Icons.warning_amber,
+                                  size: 12, color: _kAmber),
                               const SizedBox(width: 6),
                               const Expanded(
                                 child: Text(
@@ -1099,7 +1088,8 @@ class _IntegrationTabState extends State<_IntegrationTab>
                       'Different entries with equivalent activators '
                       'are allowed. Both remain active and both '
                       'execute when the key event matches.',
-                      style: TextStyle(color: _kDimText, fontSize: 11),
+                      style: TextStyle(
+                        color: _kDimText, fontSize: 11),
                     ),
                   ],
                 ],
@@ -1112,7 +1102,8 @@ class _IntegrationTabState extends State<_IntegrationTab>
           _sectionTitle('Listener Notification'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() => _expandListener = !_expandListener),
+            onTap: () => setState(
+                () => _expandListener = !_expandListener),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -1125,17 +1116,17 @@ class _IntegrationTabState extends State<_IntegrationTab>
                 children: [
                   Row(
                     children: [
-                      const Text(
-                        'Post-Frame Notification',
-                        style: TextStyle(
-                          color: _kPurpleLight,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      const Text('Post-Frame Notification',
+                          style: TextStyle(
+                            color: _kPurpleLight,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          )),
                       const Spacer(),
                       Icon(
-                        _expandListener ? Icons.expand_less : Icons.expand_more,
+                        _expandListener
+                            ? Icons.expand_less
+                            : Icons.expand_more,
                         size: 18,
                         color: _kDimText,
                       ),
@@ -1144,23 +1135,19 @@ class _IntegrationTabState extends State<_IntegrationTab>
                   if (_expandListener) ...[
                     const SizedBox(height: 8),
                     _timelineStep(
-                      1,
-                      'Entry calls replaceAll / dispose',
+                      1, 'Entry calls replaceAll / dispose',
                       _kHighlight,
                     ),
                     _timelineStep(
-                      2,
-                      'Registry schedules post-frame callback',
+                      2, 'Registry schedules post-frame callback',
                       _kGreen,
                     ),
                     _timelineStep(
-                      3,
-                      'Current frame completes rendering',
+                      3, 'Current frame completes rendering',
                       _kAmber,
                     ),
                     _timelineStep(
-                      4,
-                      'Listeners notified of shortcut changes',
+                      4, 'Listeners notified of shortcut changes',
                       _kPurpleLight,
                     ),
                     _timelineStep(
@@ -1228,22 +1215,25 @@ class _IntegrationTabState extends State<_IntegrationTab>
     return GestureDetector(
       onTap: () => setState(() => _selectedView = value),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+        padding: const EdgeInsets.symmetric(
+            horizontal: 14, vertical: 5),
         decoration: BoxDecoration(
-          color: sel ? _kPrimary.withValues(alpha: 0.4) : Colors.transparent,
+          color: sel
+              ? _kPrimary.withValues(alpha: 0.4)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: sel ? _kAccent : _kDimText.withValues(alpha: 0.3),
+            color:
+                sel ? _kAccent : _kDimText.withValues(alpha: 0.3),
           ),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: sel ? _kAccent : _kDimText,
-            fontSize: 10,
-            fontWeight: sel ? FontWeight.w600 : FontWeight.w400,
-          ),
-        ),
+        child: Text(label,
+            style: TextStyle(
+              color: sel ? _kAccent : _kDimText,
+              fontSize: 10,
+              fontWeight:
+                  sel ? FontWeight.w600 : FontWeight.w400,
+            )),
       ),
     );
   }
@@ -1297,17 +1287,17 @@ class _IntegrationTabState extends State<_IntegrationTab>
       children: [
         _flowStep('Widget', 'Calls addAll with shortcuts', _kHighlight),
         _flowArrow(),
-        _flowStep('Registry', 'Creates entry, stores map', _kGreen),
-        _flowArrow(),
-        _flowStep('Entry', 'Handle returned to widget', _kAmber),
+        _flowStep(
+            'Registry', 'Creates entry, stores map', _kGreen),
         _flowArrow(),
         _flowStep(
-          'Replace/Dispose',
-          'Widget manages via handle',
-          _kPurpleLight,
-        ),
+            'Entry', 'Handle returned to widget', _kAmber),
         _flowArrow(),
-        _flowStep('Notify', 'Post-frame listener callback', _kAccent),
+        _flowStep('Replace/Dispose',
+            'Widget manages via handle', _kPurpleLight),
+        _flowArrow(),
+        _flowStep('Notify',
+            'Post-frame listener callback', _kAccent),
       ],
     );
   }
@@ -1319,7 +1309,11 @@ class _IntegrationTabState extends State<_IntegrationTab>
       padding: const EdgeInsets.symmetric(vertical: 1),
       child: Text(
         '$indent$prefix$name',
-        style: TextStyle(color: color, fontSize: 10, fontFamily: 'monospace'),
+        style: TextStyle(
+          color: color,
+          fontSize: 10,
+          fontFamily: 'monospace',
+        ),
       ),
     );
   }
@@ -1347,28 +1341,32 @@ class _IntegrationTabState extends State<_IntegrationTab>
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
+        border:
+            Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
           Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(desc, style: const TextStyle(color: _kDimText, fontSize: 9)),
+              Text(title,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  )),
+              Text(desc,
+                  style: const TextStyle(
+                    color: _kDimText, fontSize: 9)),
             ],
           ),
         ],
@@ -1379,37 +1377,38 @@ class _IntegrationTabState extends State<_IntegrationTab>
   Widget _flowArrow() {
     return const Padding(
       padding: EdgeInsets.only(left: 2),
-      child: Icon(Icons.arrow_downward, size: 12, color: _kDimText),
+      child: Icon(Icons.arrow_downward,
+          size: 12, color: _kDimText),
     );
   }
 
-  Widget _conflictRow(String entry, String activator, Color color) {
+  Widget _conflictRow(
+      String entry, String activator, Color color) {
     return Row(
       children: [
         Container(
           width: 6,
           height: 6,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        ),
-        const SizedBox(width: 8),
-        Text(
-          entry,
-          style: TextStyle(
+          decoration: BoxDecoration(
             color: color,
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
+            shape: BoxShape.circle,
           ),
         ),
+        const SizedBox(width: 8),
+        Text(entry,
+            style: TextStyle(
+              color: color,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            )),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            activator,
-            style: const TextStyle(
-              color: _kDimText,
-              fontSize: 10,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text(activator,
+              style: const TextStyle(
+                color: _kDimText,
+                fontSize: 10,
+                fontFamily: 'monospace',
+              )),
         ),
       ],
     );
@@ -1421,7 +1420,8 @@ class _IntegrationTabState extends State<_IntegrationTab>
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
+        border: Border.all(
+            color: color.withValues(alpha: 0.2)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1430,26 +1430,26 @@ class _IntegrationTabState extends State<_IntegrationTab>
             width: 5,
             height: 5,
             margin: const EdgeInsets.only(top: 4),
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  method,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  desc,
-                  style: const TextStyle(color: _kDimText, fontSize: 9),
-                ),
+                Text(method,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 10,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w600,
+                    )),
+                Text(desc,
+                    style: const TextStyle(
+                      color: _kDimText, fontSize: 9)),
               ],
             ),
           ),
@@ -1458,7 +1458,8 @@ class _IntegrationTabState extends State<_IntegrationTab>
     );
   }
 
-  Widget _timelineStep(int step, String desc, Color color) {
+  Widget _timelineStep(
+      int step, String desc, Color color) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
       child: Row(
@@ -1470,27 +1471,25 @@ class _IntegrationTabState extends State<_IntegrationTab>
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.15),
               shape: BoxShape.circle,
-              border: Border.all(color: color.withValues(alpha: 0.5)),
+              border: Border.all(
+                  color: color.withValues(alpha: 0.5)),
             ),
             child: Center(
-              child: Text(
-                '$step',
-                style: TextStyle(
-                  color: color,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text('$step',
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w700,
+                  )),
             ),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 2),
-              child: Text(
-                desc,
-                style: const TextStyle(color: _kDimText, fontSize: 10),
-              ),
+              child: Text(desc,
+                  style: const TextStyle(
+                    color: _kDimText, fontSize: 10)),
             ),
           ),
         ],
@@ -1504,14 +1503,12 @@ class _IntegrationTabState extends State<_IntegrationTab>
 // ═══════════════════════════════════════════════════════════════════════════════
 
 Widget _sectionTitle(String title) {
-  return Text(
-    title,
-    style: const TextStyle(
-      color: _kAccent,
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-    ),
-  );
+  return Text(title,
+      style: const TextStyle(
+        color: _kAccent,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+      ));
 }
 
 Widget _codeBlock(String code) {
@@ -1522,14 +1519,12 @@ Widget _codeBlock(String code) {
       color: _kSurface,
       borderRadius: BorderRadius.circular(6),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        color: Colors.white70,
-        fontSize: 11,
-        fontFamily: 'monospace',
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+          color: Colors.white70,
+          fontSize: 11,
+          fontFamily: 'monospace',
+        )),
   );
 }
 
@@ -1541,13 +1536,13 @@ Widget _infoBanner(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.lightbulb_outline, size: 14, color: _kAccent),
+        const Icon(Icons.lightbulb_outline,
+            size: 14, color: _kAccent),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(color: _kDimText, fontSize: 11),
-          ),
+          child: Text(text,
+              style: const TextStyle(
+                  color: _kDimText, fontSize: 11)),
         ),
       ],
     ),
@@ -1564,14 +1559,16 @@ Widget _bulletItem(String text, Color color) {
           width: 5,
           height: 5,
           margin: const EdgeInsets.only(top: 4),
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(color: _kDimText, fontSize: 11),
-          ),
+          child: Text(text,
+              style: const TextStyle(
+                color: _kDimText, fontSize: 11)),
         ),
       ],
     ),
@@ -1580,15 +1577,18 @@ Widget _bulletItem(String text, Color color) {
 
 Widget _attrChip(String label, Color color) {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+    padding: const EdgeInsets.symmetric(
+        horizontal: 8, vertical: 3),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: color.withValues(alpha: 0.4)),
     ),
-    child: Text(
-      label,
-      style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.w600),
-    ),
+    child: Text(label,
+        style: TextStyle(
+          color: color,
+          fontSize: 9,
+          fontWeight: FontWeight.w600,
+        )),
   );
 }

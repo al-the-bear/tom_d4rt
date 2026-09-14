@@ -68,9 +68,7 @@ import 'package:flutter/material.dart';
 // give the file a stable visual language. Every section uses these exact
 // constants so the swatches in section 01 remain authoritative.
 
-const Color kAubergineDeep = Color(
-  0xFF2A0E2E,
-); // 01 base background, near-black plum
+const Color kAubergineDeep = Color(0xFF2A0E2E); // 01 base background, near-black plum
 const Color kAubergineCore = Color(0xFF4B1D52); // 02 mid plum, primary fill
 const Color kAubergineLift = Color(0xFF6E2D78); // 03 lifted plum, hover state
 const Color kAubergineGlow = Color(0xFF9A4FA6); // 04 lavender glow, accent
@@ -113,11 +111,7 @@ dynamic build(BuildContext context) {
     _buildSection01TitleBanner(),
     _buildSection02ProseAnatomy(),
     _buildSection03PropertyPanel(),
-    _buildSection04StaticGallery(
-      controllerAlpha,
-      controllerBravo,
-      controllerCharlie,
-    ),
+    _buildSection04StaticGallery(controllerAlpha, controllerBravo, controllerCharlie),
     _buildSection05StyleMatrix(),
     _buildSection06SubmenuShowcase(),
     _buildSection07AlignmentDiagram(),
@@ -228,7 +222,10 @@ Widget _buildSection01TitleBanner() {
             ),
           ),
           const SizedBox(height: 24),
-          Container(height: 1, color: kInkOnPlum.withValues(alpha: 0.18)),
+          Container(
+            height: 1,
+            color: kInkOnPlum.withValues(alpha: 0.18),
+          ),
           const SizedBox(height: 20),
           const Text(
             'PRIMARY PALETTE',
@@ -575,10 +572,7 @@ Widget _propertyRowTile(_PropertyRow r) {
                   ),
                   const SizedBox(width: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: kAubergineCore.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(4),
@@ -746,14 +740,7 @@ Widget _buildSection04StaticGallery(
         Wrap(
           spacing: 14,
           runSpacing: 14,
-          children: <Widget>[
-            anchor1,
-            anchor2,
-            anchor3,
-            anchor4,
-            anchor5,
-            anchor6,
-          ],
+          children: <Widget>[anchor1, anchor2, anchor3, anchor4, anchor5, anchor6],
         ),
       ],
     ),
@@ -832,7 +819,9 @@ Widget _buildSection05StyleMatrix() {
     backgroundColor: const WidgetStatePropertyAll<Color>(kDeepMulberry),
     elevation: const WidgetStatePropertyAll<double>(16.0),
     alignment: Alignment.bottomLeft,
-    padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
+    padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
+      EdgeInsets.zero,
+    ),
   );
 
   final MenuStyle styleD = MenuStyle(
@@ -882,11 +871,7 @@ Widget _buildSection05StyleMatrix() {
           const SizedBox(height: 8),
           Text(
             prose,
-            style: const TextStyle(
-              fontSize: 12,
-              height: 1.4,
-              color: kInkOnVelvet,
-            ),
+            style: const TextStyle(fontSize: 12, height: 1.4, color: kInkOnVelvet),
           ),
           const SizedBox(height: 12),
           MenuAnchor(
@@ -923,28 +908,28 @@ Widget _buildSection05StyleMatrix() {
             styleCard(
               'Style A — Dense plum',
               'Compact vertical padding, modest elevation, plum surface, '
-                  'standard rounded corners.',
+              'standard rounded corners.',
               styleA,
               kAubergineCore,
             ),
             styleCard(
               'Style B — Parchment card',
               'Velvet surface, generous padding, very rounded corners, '
-                  'low elevation. Reads like a small panel.',
+              'low elevation. Reads like a small panel.',
               styleB,
               kVelvetSurface,
             ),
             styleCard(
               'Style C — Edge-aligned',
               'Mulberry surface, high elevation, alignment shifted to '
-                  'bottom-left of the anchor. Zero internal padding.',
+              'bottom-left of the anchor. Zero internal padding.',
               styleC,
               kDeepMulberry,
             ),
             styleCard(
               'Style D — Flat copper',
               'Copper surface, zero elevation, near-square corners. '
-                  'Industrial look for power-user toolbars.',
+              'Industrial look for power-user toolbars.',
               styleD,
               kCopperEmber,
             ),
@@ -974,10 +959,7 @@ Widget _buildSection06SubmenuShowcase() {
       MenuItemButton(onPressed: () {}, child: const Text('Export as PNG')),
       MenuItemButton(onPressed: () {}, child: const Text('Export as SVG')),
       const Divider(height: 1),
-      MenuItemButton(
-        onPressed: () {},
-        child: const Text('Export as ZIP archive'),
-      ),
+      MenuItemButton(onPressed: () {}, child: const Text('Export as ZIP archive')),
     ],
     child: const Text('Export'),
   );
@@ -1377,7 +1359,9 @@ Widget _buildSection09DoAvoidCallouts() {
   return _sectionCard(
     accent: kDeepDanger,
     title: '09  DO / AVOID CALLOUTS',
-    child: Column(children: callouts.map(_calloutTile).toList()),
+    child: Column(
+      children: callouts.map(_calloutTile).toList(),
+    ),
   );
 }
 
@@ -1589,7 +1573,9 @@ MenuAnchor(
   return _sectionCard(
     accent: kAubergineCore,
     title: '10  RECIPE CARDS',
-    child: Column(children: recipes.map(_recipeCard).toList()),
+    child: Column(
+      children: recipes.map(_recipeCard).toList(),
+    ),
   );
 }
 
@@ -1668,87 +1654,59 @@ Widget _buildSection11Glossary() {
   print('[11] glossary — fifteen terms');
 
   final List<_GlossEntry> entries = <_GlossEntry>[
-    _GlossEntry(
-      'Anchor',
-      'The widget that the menu is positioned relative to. In MenuAnchor, '
-          'this is the child or the widget produced by builder.',
-    ),
-    _GlossEntry(
-      'Cascading menu',
-      'A menu in which a row can itself open another menu, recursively. '
-          'Built with SubmenuButton inside menuChildren.',
-    ),
-    _GlossEntry(
-      'Overlay',
-      'A Stack-like layer that paints above the regular widget tree. The '
-          'menu surface lives here, not in the anchor\'s subtree.',
-    ),
-    _GlossEntry(
-      'Root overlay',
-      'The application-level Overlay. Use useRootOverlay: true to escape '
-          'intermediate Navigators.',
-    ),
-    _GlossEntry(
-      'MenuController',
-      'An imperative handle to a MenuAnchor. Exposes open(), close(), and '
-          'isOpen for ancestor-driven control.',
-    ),
-    _GlossEntry(
-      'MenuStyle',
-      'A bag of WidgetStateProperty resolvers controlling background, '
-          'elevation, padding, shape, and minimum size of the surface.',
-    ),
-    _GlossEntry(
-      'MenuItemButton',
-      'A leaf row in a menu. Has onPressed, leadingIcon, trailingIcon, '
-          'shortcut, and child.',
-    ),
-    _GlossEntry(
-      'SubmenuButton',
-      'A non-leaf row that itself owns menuChildren and renders a child '
-          'menu when activated.',
-    ),
-    _GlossEntry(
-      'alignmentOffset',
-      'A pixel offset applied to the menu position after default '
-          'alignment. Common breath-room nudge: Offset(0, 8).',
-    ),
-    _GlossEntry(
-      'consumeOutsideTap',
-      'Whether the dismissing tap is absorbed instead of reaching the '
-          'widget under the cursor.',
-    ),
-    _GlossEntry(
-      'crossAxisUnconstrained',
-      'Whether the menu can overflow the cross-axis of its parent\'s '
-          'constraints.',
-    ),
-    _GlossEntry(
-      'childFocusNode',
-      'The FocusNode of the trigger widget; used so the framework can '
-          'restore focus to the trigger after dismissal.',
-    ),
-    _GlossEntry(
-      'Menu surface',
-      'The visible panel that contains the menuChildren. Distinct from '
-          'the anchor itself.',
-    ),
-    _GlossEntry(
-      'PopupMenuButton',
-      'The Material 2 alternative. Less flexible than MenuAnchor; bundles '
-          'trigger and menu in a single widget.',
-    ),
-    _GlossEntry(
-      'Cascade focus',
-      'The keyboard-navigation model in which arrow keys move within a '
-          'menu, Right opens a submenu, and Left closes it.',
-    ),
+    _GlossEntry('Anchor',
+        'The widget that the menu is positioned relative to. In MenuAnchor, '
+        'this is the child or the widget produced by builder.'),
+    _GlossEntry('Cascading menu',
+        'A menu in which a row can itself open another menu, recursively. '
+        'Built with SubmenuButton inside menuChildren.'),
+    _GlossEntry('Overlay',
+        'A Stack-like layer that paints above the regular widget tree. The '
+        'menu surface lives here, not in the anchor\'s subtree.'),
+    _GlossEntry('Root overlay',
+        'The application-level Overlay. Use useRootOverlay: true to escape '
+        'intermediate Navigators.'),
+    _GlossEntry('MenuController',
+        'An imperative handle to a MenuAnchor. Exposes open(), close(), and '
+        'isOpen for ancestor-driven control.'),
+    _GlossEntry('MenuStyle',
+        'A bag of WidgetStateProperty resolvers controlling background, '
+        'elevation, padding, shape, and minimum size of the surface.'),
+    _GlossEntry('MenuItemButton',
+        'A leaf row in a menu. Has onPressed, leadingIcon, trailingIcon, '
+        'shortcut, and child.'),
+    _GlossEntry('SubmenuButton',
+        'A non-leaf row that itself owns menuChildren and renders a child '
+        'menu when activated.'),
+    _GlossEntry('alignmentOffset',
+        'A pixel offset applied to the menu position after default '
+        'alignment. Common breath-room nudge: Offset(0, 8).'),
+    _GlossEntry('consumeOutsideTap',
+        'Whether the dismissing tap is absorbed instead of reaching the '
+        'widget under the cursor.'),
+    _GlossEntry('crossAxisUnconstrained',
+        'Whether the menu can overflow the cross-axis of its parent\'s '
+        'constraints.'),
+    _GlossEntry('childFocusNode',
+        'The FocusNode of the trigger widget; used so the framework can '
+        'restore focus to the trigger after dismissal.'),
+    _GlossEntry('Menu surface',
+        'The visible panel that contains the menuChildren. Distinct from '
+        'the anchor itself.'),
+    _GlossEntry('PopupMenuButton',
+        'The Material 2 alternative. Less flexible than MenuAnchor; bundles '
+        'trigger and menu in a single widget.'),
+    _GlossEntry('Cascade focus',
+        'The keyboard-navigation model in which arrow keys move within a '
+        'menu, Right opens a submenu, and Left closes it.'),
   ];
 
   return _sectionCard(
     accent: kDeepFog,
     title: '11  GLOSSARY',
-    child: Column(children: entries.map(_glossTile).toList()),
+    child: Column(
+      children: entries.map(_glossTile).toList(),
+    ),
   );
 }
 
@@ -1829,28 +1787,19 @@ Widget _buildSection12RecapFooter() {
             ),
           ),
           const SizedBox(height: 12),
-          _recapBullet(
-            'MenuAnchor is the M3 cascading-menu primitive. Pair it with MenuItemButton and SubmenuButton.',
-          ),
-          _recapBullet(
-            'menuChildren is required; the anchor needs either child or builder.',
-          ),
-          _recapBullet(
-            'MenuController bridges the menu to ancestors for shortcuts and tests.',
-          ),
+          _recapBullet('MenuAnchor is the M3 cascading-menu primitive. Pair it with MenuItemButton and SubmenuButton.'),
+          _recapBullet('menuChildren is required; the anchor needs either child or builder.'),
+          _recapBullet('MenuController bridges the menu to ancestors for shortcuts and tests.'),
           _recapBullet('MenuStyle controls the surface, not the children.'),
           _recapBullet('alignmentOffset is the right knob for breathing room.'),
-          _recapBullet(
-            'consumeOutsideTap protects destructive widgets behind the menu.',
-          ),
-          _recapBullet(
-            'useRootOverlay routes the surface above sub-Navigators.',
-          ),
-          _recapBullet(
-            'Use SubmenuButton — never nest MenuAnchor inside MenuAnchor.',
-          ),
+          _recapBullet('consumeOutsideTap protects destructive widgets behind the menu.'),
+          _recapBullet('useRootOverlay routes the surface above sub-Navigators.'),
+          _recapBullet('Use SubmenuButton — never nest MenuAnchor inside MenuAnchor.'),
           const SizedBox(height: 16),
-          Container(height: 1, color: kAuberginePale.withValues(alpha: 0.3)),
+          Container(
+            height: 1,
+            color: kAuberginePale.withValues(alpha: 0.3),
+          ),
           const SizedBox(height: 12),
           Text(
             'End of "Aubergine Velvet" — A MenuAnchor field guide.',
@@ -1956,7 +1905,10 @@ Widget _sectionCard({
             ],
           ),
         ),
-        Padding(padding: const EdgeInsets.all(18), child: child),
+        Padding(
+          padding: const EdgeInsets.all(18),
+          child: child,
+        ),
       ],
     ),
   );
@@ -1976,7 +1928,11 @@ Widget _proseHeader(String text) {
 Widget _proseParagraph(String text) {
   return Text(
     text,
-    style: const TextStyle(fontSize: 13.5, height: 1.5, color: kInkOnVelvet),
+    style: const TextStyle(
+      fontSize: 13.5,
+      height: 1.5,
+      color: kInkOnVelvet,
+    ),
   );
 }
 

@@ -56,22 +56,14 @@ Widget _phoneFrame({
   );
 }
 
-Widget _sectionTitle(
-  String number,
-  String title,
-  String subtitle,
-  Color color,
-) {
+Widget _sectionTitle(String number, String title, String subtitle, Color color) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.fromLTRB(12.0, 24.0, 12.0, 8.0),
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          color.withValues(alpha: 0.85),
-          color.withValues(alpha: 0.55),
-        ],
+        colors: <Color>[color.withValues(alpha: 0.85), color.withValues(alpha: 0.55)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -192,14 +184,13 @@ Widget _listRow(String title, String trailing, IconData leading, Color tint) {
         ),
         Text(
           trailing,
-          style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+          style: TextStyle(
+            fontSize: 11.0,
+            color: Colors.grey.shade600,
+          ),
         ),
         const SizedBox(width: 4.0),
-        Icon(
-          CupertinoIcons.chevron_right,
-          size: 14.0,
-          color: Colors.grey.shade400,
-        ),
+        Icon(CupertinoIcons.chevron_right, size: 14.0, color: Colors.grey.shade400),
       ],
     ),
   );
@@ -217,11 +208,7 @@ Widget _anatomyTag(String text, Color color) {
     child: Text(
       text,
       textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 9.5,
-        color: color,
-        fontWeight: FontWeight.w700,
-      ),
+      style: TextStyle(fontSize: 9.5, color: color, fontWeight: FontWeight.w700),
     ),
   );
 }
@@ -244,23 +231,17 @@ Widget _pitfall(String title, String body, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w800,
-                  color: color,
-                ),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w800,
+                      color: color)),
               const SizedBox(height: 4.0),
-              Text(
-                body,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  color: Colors.grey.shade800,
-                  height: 1.4,
-                ),
-              ),
+              Text(body,
+                  style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4)),
             ],
           ),
         ),
@@ -278,19 +259,16 @@ TableRow _cheatRow(String key, String effect, Color color) {
         child: Text(
           key,
           style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            fontWeight: FontWeight.w700,
-            color: color,
-          ),
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              fontWeight: FontWeight.w700,
+              color: color),
         ),
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
-        child: Text(
-          effect,
-          style: const TextStyle(fontSize: 11.5, color: Colors.black87),
-        ),
+        child: Text(effect,
+            style: const TextStyle(fontSize: 11.5, color: Colors.black87)),
       ),
     ],
   );
@@ -307,13 +285,10 @@ dynamic build(BuildContext context) {
   // re-invoked per AST request; we track and dispose controllers via a
   // microtask after the widget tree is captured. The CupertinoTabScaffold's
   // own internal controller would otherwise also be used when none is given.
-  final List<CupertinoTabController> allControllers =
-      <CupertinoTabController>[];
+  final List<CupertinoTabController> allControllers = <CupertinoTabController>[];
 
   CupertinoTabController makeCtrl(int initial) {
-    final CupertinoTabController c = CupertinoTabController(
-      initialIndex: initial,
-    );
+    final CupertinoTabController c = CupertinoTabController(initialIndex: initial);
     allControllers.add(c);
     return c;
   }
@@ -329,11 +304,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF0A2540),
-          Color(0xFF1E3A8A),
-          Color(0xFF7C3AED),
-        ],
+        colors: <Color>[Color(0xFF0A2540), Color(0xFF1E3A8A), Color(0xFF7C3AED)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -357,11 +328,8 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: const Icon(
-                CupertinoIcons.square_grid_2x2_fill,
-                size: 36.0,
-                color: Colors.white,
-              ),
+              child: const Icon(CupertinoIcons.square_grid_2x2_fill,
+                  size: 36.0, color: Colors.white),
             ),
             const SizedBox(width: 14.0),
             const Expanded(
@@ -450,11 +418,7 @@ dynamic build(BuildContext context) {
           'Each BottomNavigationBarItem owns an icon (or activeIcon when selected) '
           'and a label. The bar provides backgroundColor, border, height, iconSize, '
           'activeColor and inactiveColor.',
-          style: TextStyle(
-            fontSize: 11.5,
-            color: Colors.grey.shade700,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700, height: 1.4),
         ),
         const SizedBox(height: 14.0),
         Container(
@@ -462,9 +426,7 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: const Color(0xFFF7F7FA),
             borderRadius: BorderRadius.circular(12.0),
-            border: Border(
-              top: BorderSide(color: Colors.grey.shade300, width: 0.7),
-            ),
+            border: Border(top: BorderSide(color: Colors.grey.shade300, width: 0.7)),
           ),
           child: Row(
             children: <Widget>[
@@ -472,20 +434,14 @@ dynamic build(BuildContext context) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      CupertinoIcons.house_fill,
-                      size: 26.0,
-                      color: Color(0xFF0A84FF),
-                    ),
+                    Icon(CupertinoIcons.house_fill,
+                        size: 26.0, color: Color(0xFF0A84FF)),
                     SizedBox(height: 2.0),
-                    Text(
-                      'Home',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Color(0xFF0A84FF),
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    Text('Home',
+                        style: TextStyle(
+                            fontSize: 10.0,
+                            color: Color(0xFF0A84FF),
+                            fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
@@ -493,19 +449,10 @@ dynamic build(BuildContext context) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      CupertinoIcons.search,
-                      size: 26.0,
-                      color: Colors.grey.shade600,
-                    ),
+                    Icon(CupertinoIcons.search, size: 26.0, color: Colors.grey.shade600),
                     const SizedBox(height: 2.0),
-                    Text(
-                      'Search',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
+                    Text('Search',
+                        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
                   ],
                 ),
               ),
@@ -513,19 +460,11 @@ dynamic build(BuildContext context) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      CupertinoIcons.person_fill,
-                      size: 26.0,
-                      color: Colors.grey.shade600,
-                    ),
+                    Icon(CupertinoIcons.person_fill,
+                        size: 26.0, color: Colors.grey.shade600),
                     const SizedBox(height: 2.0),
-                    Text(
-                      'Profile',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
+                    Text('Profile',
+                        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
                   ],
                 ),
               ),
@@ -584,34 +523,20 @@ dynamic build(BuildContext context) {
         if (i == 0) {
           return CupertinoTabView(
             builder: (BuildContext c) => CupertinoPageScaffold(
-              navigationBar: const CupertinoNavigationBar(middle: Text('Home')),
+              navigationBar: const CupertinoNavigationBar(
+                middle: Text('Home'),
+              ),
               child: SafeArea(
                 child: ListView(
                   children: <Widget>[
-                    _listRow(
-                      'Today',
-                      '12 items',
-                      CupertinoIcons.sun_max_fill,
-                      const Color(0xFFFF9500),
-                    ),
-                    _listRow(
-                      'Inbox',
-                      '3 new',
-                      CupertinoIcons.tray_fill,
-                      const Color(0xFF0A84FF),
-                    ),
-                    _listRow(
-                      'Pinned',
-                      '7',
-                      CupertinoIcons.pin_fill,
-                      const Color(0xFFFF2D55),
-                    ),
-                    _listRow(
-                      'Recent',
-                      '21',
-                      CupertinoIcons.clock_fill,
-                      const Color(0xFF5856D6),
-                    ),
+                    _listRow('Today', '12 items', CupertinoIcons.sun_max_fill,
+                        const Color(0xFFFF9500)),
+                    _listRow('Inbox', '3 new', CupertinoIcons.tray_fill,
+                        const Color(0xFF0A84FF)),
+                    _listRow('Pinned', '7', CupertinoIcons.pin_fill,
+                        const Color(0xFFFF2D55)),
+                    _listRow('Recent', '21', CupertinoIcons.clock_fill,
+                        const Color(0xFF5856D6)),
                   ],
                 ),
               ),
@@ -630,27 +555,20 @@ dynamic build(BuildContext context) {
                     children: <Widget>[
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 8.0,
-                        ),
+                            horizontal: 10.0, vertical: 8.0),
                         decoration: BoxDecoration(
                           color: const Color(0xFFEFEFF4),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Row(
                           children: <Widget>[
-                            Icon(
-                              CupertinoIcons.search,
-                              size: 16.0,
-                              color: Colors.grey.shade600,
-                            ),
+                            Icon(CupertinoIcons.search,
+                                size: 16.0, color: Colors.grey.shade600),
                             const SizedBox(width: 6.0),
                             Text(
                               'Search...',
                               style: TextStyle(
-                                fontSize: 13.0,
-                                color: Colors.grey.shade600,
-                              ),
+                                  fontSize: 13.0, color: Colors.grey.shade600),
                             ),
                           ],
                         ),
@@ -702,26 +620,14 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   const SizedBox(height: 8.0),
-                  const Text(
-                    'Jane Doe',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  const Text('Jane Doe',
+                      style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.w700)),
                   const SizedBox(height: 12.0),
-                  _listRow(
-                    'Account',
-                    'Apple ID',
-                    CupertinoIcons.person_circle,
-                    const Color(0xFF0A84FF),
-                  ),
-                  _listRow(
-                    'Settings',
-                    '',
-                    CupertinoIcons.settings,
-                    Colors.grey.shade600,
-                  ),
+                  _listRow('Account', 'Apple ID', CupertinoIcons.person_circle,
+                      const Color(0xFF0A84FF)),
+                  _listRow('Settings', '', CupertinoIcons.settings,
+                      Colors.grey.shade600),
                 ],
               ),
             ),
@@ -738,48 +644,18 @@ dynamic build(BuildContext context) {
 
   final List<Widget> paletteMinis = <Widget>[];
   final List<List<dynamic>> palettes = <List<dynamic>>[
-    <dynamic>[
-      'Cobalt',
-      const Color(0xFF0A84FF),
-      Colors.grey,
-      Colors.white,
-      CupertinoIcons.cloud_fill,
-    ],
-    <dynamic>[
-      'Coral',
-      const Color(0xFFFF6B6B),
-      Colors.grey.shade400,
-      const Color(0xFFFFF1F1),
-      CupertinoIcons.flame_fill,
-    ],
-    <dynamic>[
-      'Mint',
-      const Color(0xFF00C2A8),
-      Colors.grey,
-      const Color(0xFFE8FFF9),
-      CupertinoIcons.leaf_arrow_circlepath,
-    ],
-    <dynamic>[
-      'Plum',
-      const Color(0xFF8E44AD),
-      Colors.grey,
-      const Color(0xFFF7EEFF),
-      CupertinoIcons.moon_stars_fill,
-    ],
-    <dynamic>[
-      'Sand',
-      const Color(0xFFB87333),
-      Colors.brown.shade200,
-      const Color(0xFFFAF3E0),
-      CupertinoIcons.sun_max_fill,
-    ],
-    <dynamic>[
-      'Slate',
-      const Color(0xFF2C3E50),
-      Colors.blueGrey,
-      const Color(0xFFECEFF1),
-      CupertinoIcons.cube_box_fill,
-    ],
+    <dynamic>['Cobalt', const Color(0xFF0A84FF), Colors.grey, Colors.white,
+        CupertinoIcons.cloud_fill],
+    <dynamic>['Coral', const Color(0xFFFF6B6B), Colors.grey.shade400,
+        const Color(0xFFFFF1F1), CupertinoIcons.flame_fill],
+    <dynamic>['Mint', const Color(0xFF00C2A8), Colors.grey,
+        const Color(0xFFE8FFF9), CupertinoIcons.leaf_arrow_circlepath],
+    <dynamic>['Plum', const Color(0xFF8E44AD), Colors.grey,
+        const Color(0xFFF7EEFF), CupertinoIcons.moon_stars_fill],
+    <dynamic>['Sand', const Color(0xFFB87333), Colors.brown.shade200,
+        const Color(0xFFFAF3E0), CupertinoIcons.sun_max_fill],
+    <dynamic>['Slate', const Color(0xFF2C3E50), Colors.blueGrey,
+        const Color(0xFFECEFF1), CupertinoIcons.cube_box_fill],
   ];
   for (int p = 0; p < palettes.length; p++) {
     final List<dynamic> row = palettes[p];
@@ -804,7 +680,10 @@ dynamic build(BuildContext context) {
                   inactiveColor: inactive,
                   backgroundColor: bg,
                   items: <BottomNavigationBarItem>[
-                    BottomNavigationBarItem(icon: Icon(badge), label: 'A'),
+                    BottomNavigationBarItem(
+                      icon: Icon(badge),
+                      label: 'A',
+                    ),
                     const BottomNavigationBarItem(
                       icon: Icon(CupertinoIcons.heart),
                       label: 'B',
@@ -827,14 +706,11 @@ dynamic build(BuildContext context) {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 6.0),
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.w700,
-                color: active,
-              ),
-            ),
+            child: Text(name,
+                style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w700,
+                    color: active)),
           ),
         ],
       ),
@@ -867,10 +743,7 @@ dynamic build(BuildContext context) {
             child: Text(
               badge,
               style: const TextStyle(
-                color: Colors.white,
-                fontSize: 8.0,
-                fontWeight: FontWeight.w800,
-              ),
+                  color: Colors.white, fontSize: 8.0, fontWeight: FontWeight.w800),
             ),
           ),
         ),
@@ -882,7 +755,9 @@ dynamic build(BuildContext context) {
     return SizedBox(
       width: 24.0,
       height: 24.0,
-      child: Center(child: Text(emoji, style: const TextStyle(fontSize: 20.0))),
+      child: Center(
+        child: Text(emoji, style: const TextStyle(fontSize: 20.0)),
+      ),
     );
   }
 
@@ -894,22 +769,29 @@ dynamic build(BuildContext context) {
       tabBar: CupertinoTabBar(
         activeColor: const Color(0xFFFF2D55),
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: emojiIcon('🏠'), label: 'Home'),
           BottomNavigationBarItem(
-            icon: badgedIcon(
-              CupertinoIcons.bell,
-              '9+',
-              const Color(0xFFFF3B30),
-            ),
+            icon: emojiIcon('🏠'),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: badgedIcon(CupertinoIcons.bell, '9+', const Color(0xFFFF3B30)),
             label: 'Alerts',
           ),
-          BottomNavigationBarItem(icon: emojiIcon('🎵'), label: 'Music'),
-          BottomNavigationBarItem(icon: emojiIcon('⚙️'), label: 'Setup'),
+          BottomNavigationBarItem(
+            icon: emojiIcon('🎵'),
+            label: 'Music',
+          ),
+          BottomNavigationBarItem(
+            icon: emojiIcon('⚙️'),
+            label: 'Setup',
+          ),
         ],
       ),
       tabBuilder: (BuildContext c, int i) => CupertinoTabView(
         builder: (BuildContext c) => CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(middle: Text('Tab $i')),
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('Tab $i'),
+          ),
           child: Center(
             child: Text(
               'Custom icon tab #$i',
@@ -990,7 +872,10 @@ dynamic build(BuildContext context) {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          colors: <Color>[Color(0xFFAF52DE), Color(0xFF5856D6)],
+                          colors: <Color>[
+                            Color(0xFFAF52DE),
+                            Color(0xFF5856D6),
+                          ],
                         ),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
@@ -1015,10 +900,7 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             CupertinoButton(
               color: const Color(0xFFAF52DE),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 6.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
               onPressed: () {
                 externalCtrl.index = 0;
                 debugPrint('controller.index = 0');
@@ -1028,10 +910,7 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             CupertinoButton(
               color: const Color(0xFF0A84FF),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 6.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
               onPressed: () {
                 externalCtrl.index = 1;
                 debugPrint('controller.index = 1');
@@ -1041,10 +920,7 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             CupertinoButton(
               color: const Color(0xFFFF2D55),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 6.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
               onPressed: () {
                 externalCtrl.index = 2;
                 debugPrint('controller.index = 2');
@@ -1098,9 +974,7 @@ dynamic build(BuildContext context) {
                     child: Text(
                       'Nested navigator on tab $i',
                       style: const TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                      ),
+                          fontSize: 14.0, fontWeight: FontWeight.w700),
                     ),
                   ),
                   CupertinoButton(
@@ -1120,9 +994,8 @@ dynamic build(BuildContext context) {
                                   color: const Color(0xFFE8FFF1),
                                   borderRadius: BorderRadius.circular(12.0),
                                   border: Border.all(
-                                    color: const Color(0xFF34C759),
-                                    width: 1.0,
-                                  ),
+                                      color: const Color(0xFF34C759),
+                                      width: 1.0),
                                 ),
                                 child: Text(
                                   'Pushed inside tab $i.\nTap Mail to switch tabs, '
@@ -1136,10 +1009,7 @@ dynamic build(BuildContext context) {
                         ),
                       );
                     },
-                    child: const Text(
-                      'Push detail',
-                      style: TextStyle(fontSize: 12.0),
-                    ),
+                    child: const Text('Push detail', style: TextStyle(fontSize: 12.0)),
                   ),
                 ],
               ),
@@ -1203,9 +1073,7 @@ dynamic build(BuildContext context) {
                     child: Text(
                       label,
                       style: const TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                      ),
+                          fontSize: 14.0, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
@@ -1216,10 +1084,7 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.only(bottom: 6.0),
             child: Text(
               'h=$h  icon=$iconSize',
-              style: const TextStyle(
-                fontSize: 10.5,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.w600),
             ),
           ),
         ],
@@ -1301,11 +1166,8 @@ dynamic build(BuildContext context) {
                   builder: (BuildContext c) => Container(
                     color: page,
                     alignment: Alignment.center,
-                    child: Icon(
-                      CupertinoIcons.paintbrush_fill,
-                      size: 36.0,
-                      color: active,
-                    ),
+                    child: Icon(CupertinoIcons.paintbrush_fill,
+                        size: 36.0, color: active),
                   ),
                 ),
               ),
@@ -1313,14 +1175,11 @@ dynamic build(BuildContext context) {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 6.0),
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 10.5,
-                fontWeight: FontWeight.w700,
-                color: active,
-              ),
-            ),
+            child: Text(name,
+                style: TextStyle(
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w700,
+                    color: active)),
           ),
         ],
       ),
@@ -1381,7 +1240,10 @@ dynamic build(BuildContext context) {
                 padding: const EdgeInsets.all(6.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[base, base.withValues(alpha: 0.5)],
+                    colors: <Color>[
+                      base,
+                      base.withValues(alpha: 0.5),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1390,19 +1252,16 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'Album $idx',
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 10.0,
-                  ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10.0),
                 ),
               ),
             );
           }
           return CupertinoTabView(
             builder: (BuildContext c) => CupertinoPageScaffold(
-              navigationBar: const CupertinoNavigationBar(
-                middle: Text('Albums'),
-              ),
+              navigationBar: const CupertinoNavigationBar(middle: Text('Albums')),
               child: SafeArea(
                 child: GridView.count(
                   crossAxisCount: 2,
@@ -1417,9 +1276,7 @@ dynamic build(BuildContext context) {
         } else if (i == 1) {
           return CupertinoTabView(
             builder: (BuildContext c) => CupertinoPageScaffold(
-              navigationBar: const CupertinoNavigationBar(
-                middle: Text('For You'),
-              ),
+              navigationBar: const CupertinoNavigationBar(middle: Text('For You')),
               child: SafeArea(
                 child: ListView(
                   padding: const EdgeInsets.all(8.0),
@@ -1435,13 +1292,10 @@ dynamic build(BuildContext context) {
                         ),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: const Text(
-                        'Memories - Sunset Trip',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      child: const Text('Memories - Sunset Trip',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800)),
                     ),
                     Container(
                       height: 120.0,
@@ -1454,13 +1308,10 @@ dynamic build(BuildContext context) {
                         ),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: const Text(
-                        'Featured - Best of 2026',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      child: const Text('Featured - Best of 2026',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800)),
                     ),
                   ],
                 ),
@@ -1470,36 +1321,18 @@ dynamic build(BuildContext context) {
         } else if (i == 2) {
           return CupertinoTabView(
             builder: (BuildContext c) => CupertinoPageScaffold(
-              navigationBar: const CupertinoNavigationBar(
-                middle: Text('Library'),
-              ),
+              navigationBar: const CupertinoNavigationBar(middle: Text('Library')),
               child: SafeArea(
                 child: ListView(
                   children: <Widget>[
-                    _listRow(
-                      'Years',
-                      '12 years',
-                      CupertinoIcons.calendar,
-                      const Color(0xFF0A84FF),
-                    ),
-                    _listRow(
-                      'Months',
-                      '142',
-                      CupertinoIcons.calendar_today,
-                      const Color(0xFF34C759),
-                    ),
-                    _listRow(
-                      'Days',
-                      '4,317',
-                      CupertinoIcons.sun_max,
-                      const Color(0xFFFF9500),
-                    ),
-                    _listRow(
-                      'All Photos',
-                      '52,184',
-                      CupertinoIcons.photo,
-                      const Color(0xFFAF52DE),
-                    ),
+                    _listRow('Years', '12 years', CupertinoIcons.calendar,
+                        const Color(0xFF0A84FF)),
+                    _listRow('Months', '142', CupertinoIcons.calendar_today,
+                        const Color(0xFF34C759)),
+                    _listRow('Days', '4,317', CupertinoIcons.sun_max,
+                        const Color(0xFFFF9500)),
+                    _listRow('All Photos', '52,184', CupertinoIcons.photo,
+                        const Color(0xFFAF52DE)),
                   ],
                 ),
               ),
@@ -1516,28 +1349,20 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 8.0,
-                      ),
+                          horizontal: 10.0, vertical: 8.0),
                       decoration: BoxDecoration(
                         color: const Color(0xFFEFEFF4),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Row(
                         children: <Widget>[
-                          Icon(
-                            CupertinoIcons.search,
-                            size: 16.0,
-                            color: Colors.grey.shade600,
-                          ),
+                          Icon(CupertinoIcons.search,
+                              size: 16.0, color: Colors.grey.shade600),
                           const SizedBox(width: 6.0),
-                          Text(
-                            'Search photos',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
+                          Text('Search photos',
+                              style: TextStyle(
+                                  fontSize: 13.0,
+                                  color: Colors.grey.shade600)),
                         ],
                       ),
                     ),
@@ -1645,51 +1470,32 @@ dynamic build(BuildContext context) {
           },
           border: TableBorder.all(color: Colors.grey.shade200, width: 0.5),
           children: <TableRow>[
-            _cheatRow(
-              'items',
-              'List of BottomNavigationBarItem (2-5 entries).',
-              const Color(0xFF0A84FF),
-            ),
-            _cheatRow(
-              'controller.index',
-              'Read/write the current tab. Animates the bar selection.',
-              const Color(0xFFAF52DE),
-            ),
-            _cheatRow(
-              'activeColor',
-              'Tint for the selected item icon + label. Defaults to primary.',
-              const Color(0xFF34C759),
-            ),
-            _cheatRow(
-              'inactiveColor',
-              'Tint for the unselected items. Default systemGrey.',
-              const Color(0xFF8E8E93),
-            ),
-            _cheatRow(
-              'backgroundColor',
-              'Bar fill; alpha < 1 yields the frosted blur effect.',
-              const Color(0xFFFF9500),
-            ),
-            _cheatRow(
-              'iconSize',
-              'Logical pixel size of all item icons. Default 30.',
-              const Color(0xFFFF2D55),
-            ),
-            _cheatRow(
-              'height',
-              'Bar height excluding bottom safe-area. Default 50.',
-              const Color(0xFF5856D6),
-            ),
-            _cheatRow(
-              'border',
-              'Top border line; null to remove. Use null for transparency.',
-              const Color(0xFF00C2A8),
-            ),
-            _cheatRow(
-              'onTap',
-              'Optional callback; called even when re-tapping current tab.',
-              const Color(0xFFB87333),
-            ),
+            _cheatRow('items', 'List of BottomNavigationBarItem (2-5 entries).',
+                const Color(0xFF0A84FF)),
+            _cheatRow('controller.index',
+                'Read/write the current tab. Animates the bar selection.',
+                const Color(0xFFAF52DE)),
+            _cheatRow('activeColor',
+                'Tint for the selected item icon + label. Defaults to primary.',
+                const Color(0xFF34C759)),
+            _cheatRow('inactiveColor',
+                'Tint for the unselected items. Default systemGrey.',
+                const Color(0xFF8E8E93)),
+            _cheatRow('backgroundColor',
+                'Bar fill; alpha < 1 yields the frosted blur effect.',
+                const Color(0xFFFF9500)),
+            _cheatRow('iconSize',
+                'Logical pixel size of all item icons. Default 30.',
+                const Color(0xFFFF2D55)),
+            _cheatRow('height',
+                'Bar height excluding bottom safe-area. Default 50.',
+                const Color(0xFF5856D6)),
+            _cheatRow('border',
+                'Top border line; null to remove. Use null for transparency.',
+                const Color(0xFF00C2A8)),
+            _cheatRow('onTap',
+                'Optional callback; called even when re-tapping current tab.',
+                const Color(0xFFB87333)),
           ],
         ),
       ],
@@ -1701,31 +1507,19 @@ dynamic build(BuildContext context) {
   // ---------------------------------------------------------------------------
   final List<Widget> body = <Widget>[
     heroHeader,
-    _sectionTitle(
-      '1',
-      'Hero overview',
-      'CupertinoTabBar vs Material BottomNavigationBar',
-      const Color(0xFF0A84FF),
-    ),
+    _sectionTitle('1', 'Hero overview',
+        'CupertinoTabBar vs Material BottomNavigationBar', const Color(0xFF0A84FF)),
     _narrative(
       'CupertinoTabBar is the bottom-edge widget. CupertinoTabScaffold composes it '
       'with a tabBuilder. Each CupertinoTabView owns its own Navigator stack, so '
       'switching tabs preserves state - tapping the active tab again pops to root.',
       const Color(0xFF0A84FF),
     ),
-    _sectionTitle(
-      '2',
-      'Anatomy of a tab bar',
-      'BottomNavigationBarItem + bar parameters',
-      const Color(0xFF34C759),
-    ),
+    _sectionTitle('2', 'Anatomy of a tab bar',
+        'BottomNavigationBarItem + bar parameters', const Color(0xFF34C759)),
     anatomyCard,
-    _sectionTitle(
-      '3',
-      'Basic three-tab demo',
-      'Home / Search / Profile mini iPhone',
-      const Color(0xFFAF52DE),
-    ),
+    _sectionTitle('3', 'Basic three-tab demo',
+        'Home / Search / Profile mini iPhone', const Color(0xFFAF52DE)),
     _narrative(
       'The simplest pattern: a CupertinoApp wrapping a CupertinoTabScaffold with '
       'three CupertinoTabView entries. Each tab is independent - pushing inside '
@@ -1733,40 +1527,36 @@ dynamic build(BuildContext context) {
       const Color(0xFFAF52DE),
     ),
     Center(
-      child: _phoneFrame(width: 230.0, height: 420.0, screen: basicTabScreen),
+      child: _phoneFrame(
+        width: 230.0,
+        height: 420.0,
+        screen: basicTabScreen,
+      ),
     ),
-    _sectionTitle(
-      '4',
-      'activeColor / inactiveColor palette',
-      'Six accent palettes side-by-side',
-      const Color(0xFFFF9500),
-    ),
+    _sectionTitle('4', 'activeColor / inactiveColor palette',
+        'Six accent palettes side-by-side', const Color(0xFFFF9500)),
     _narrative(
       'activeColor tints the selected icon and label; inactiveColor tints the rest. '
       'backgroundColor controls the bar fill (translucent yields the frosted blur).',
       const Color(0xFFFF9500),
     ),
     paletteGrid,
-    _sectionTitle(
-      '5',
-      'Custom icons',
-      'CupertinoIcons, emoji, badged Stacks',
-      const Color(0xFFFF2D55),
-    ),
+    _sectionTitle('5', 'Custom icons',
+        'CupertinoIcons, emoji, badged Stacks', const Color(0xFFFF2D55)),
     _narrative(
       'icon and activeIcon accept any Widget. Use a Stack to add a badge, an emoji '
       'inside a SizedBox to skip Icons entirely, or compose custom shapes.',
       const Color(0xFFFF2D55),
     ),
     Center(
-      child: _phoneFrame(width: 230.0, height: 380.0, screen: customIconScreen),
+      child: _phoneFrame(
+        width: 230.0,
+        height: 380.0,
+        screen: customIconScreen,
+      ),
     ),
-    _sectionTitle(
-      '6',
-      'CupertinoTabController',
-      'External programmatic navigation',
-      const Color(0xFFAF52DE),
-    ),
+    _sectionTitle('6', 'CupertinoTabController',
+        'External programmatic navigation', const Color(0xFFAF52DE)),
     _narrative(
       'A CupertinoTabController exposes index for read/write and is a Listenable. '
       'Pass it to the scaffold and assign controller.index = N to jump tabs '
@@ -1774,12 +1564,8 @@ dynamic build(BuildContext context) {
       const Color(0xFFAF52DE),
     ),
     controllerDemo,
-    _sectionTitle(
-      '7',
-      'Nested navigation',
-      'Per-tab navigator pushes',
-      const Color(0xFF34C759),
-    ),
+    _sectionTitle('7', 'Nested navigation',
+        'Per-tab navigator pushes', const Color(0xFF34C759)),
     _narrative(
       'CupertinoTabView includes its own Navigator. Push a CupertinoPageRoute '
       'inside any tab; the push lives only in that tab. Tap the active tab to pop '
@@ -1787,14 +1573,14 @@ dynamic build(BuildContext context) {
       const Color(0xFF34C759),
     ),
     Center(
-      child: _phoneFrame(width: 230.0, height: 420.0, screen: nestedNavigation),
+      child: _phoneFrame(
+        width: 230.0,
+        height: 420.0,
+        screen: nestedNavigation,
+      ),
     ),
-    _sectionTitle(
-      '8',
-      'Height + iconSize',
-      'Compact, default, large variants',
-      const Color(0xFF0A84FF),
-    ),
+    _sectionTitle('8', 'Height + iconSize',
+        'Compact, default, large variants', const Color(0xFF0A84FF)),
     _narrative(
       'height (excluding safe-area) and iconSize give you three common silhouettes: '
       'compact (44/22) for content-dense apps, default (50/30) for general use, '
@@ -1802,12 +1588,8 @@ dynamic build(BuildContext context) {
       const Color(0xFF0A84FF),
     ),
     sizedRow,
-    _sectionTitle(
-      '9',
-      'backgroundColor + border',
-      'Translucent, opaque, custom border',
-      const Color(0xFFFF2D55),
-    ),
+    _sectionTitle('9', 'backgroundColor + border',
+        'Translucent, opaque, custom border', const Color(0xFFFF2D55)),
     _narrative(
       'A translucent background with no border yields the floating, blurred iOS '
       'look. An opaque background with a thin top border becomes a flat bar. '
@@ -1815,32 +1597,26 @@ dynamic build(BuildContext context) {
       const Color(0xFFFF2D55),
     ),
     bgVariantsRow,
-    _sectionTitle(
-      '10',
-      'Photos micro-app',
-      'Albums / For You / Library / Search',
-      const Color(0xFF5856D6),
-    ),
+    _sectionTitle('10', 'Photos micro-app',
+        'Albums / For You / Library / Search', const Color(0xFF5856D6)),
     _narrative(
       'A realistic 4-tab structure modelled on iOS Photos. Each tab is a distinct '
       'content style: gradient grid, story cards, settings-style list, and a '
       'search field with chip filters.',
       const Color(0xFF5856D6),
     ),
-    Center(child: _phoneFrame(width: 240.0, height: 450.0, screen: photosApp)),
-    _sectionTitle(
-      '11',
-      'Pitfalls',
-      'Common mistakes and lifecycle notes',
-      const Color(0xFFFF9500),
+    Center(
+      child: _phoneFrame(
+        width: 240.0,
+        height: 450.0,
+        screen: photosApp,
+      ),
     ),
+    _sectionTitle('11', 'Pitfalls',
+        'Common mistakes and lifecycle notes', const Color(0xFFFF9500)),
     pitfallsCard,
-    _sectionTitle(
-      '12',
-      'Cheat-sheet',
-      'Parameters at a glance',
-      const Color(0xFF00C2A8),
-    ),
+    _sectionTitle('12', 'Cheat-sheet',
+        'Parameters at a glance', const Color(0xFF00C2A8)),
     cheatTable,
     Container(
       margin: const EdgeInsets.all(16.0),
@@ -1852,11 +1628,8 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: <Widget>[
-          Icon(
-            CupertinoIcons.check_mark_circled_solid,
-            color: Colors.green.shade700,
-            size: 32.0,
-          ),
+          Icon(CupertinoIcons.check_mark_circled_solid,
+              color: Colors.green.shade700, size: 32.0),
           const SizedBox(width: 10.0),
           const Expanded(
             child: Text(

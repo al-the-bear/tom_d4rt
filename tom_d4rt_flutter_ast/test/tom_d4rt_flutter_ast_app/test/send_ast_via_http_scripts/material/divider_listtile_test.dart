@@ -174,11 +174,8 @@ class _Caption extends StatelessWidget {
   final String label;
   final String value;
   final Color tone;
-  const _Caption({
-    required this.label,
-    required this.value,
-    required this.tone,
-  });
+  const _Caption(
+      {required this.label, required this.value, required this.tone});
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +187,10 @@ class _Caption extends StatelessWidget {
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: tone, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: tone,
+              shape: BoxShape.circle,
+            ),
           ),
           SizedBox(width: 8),
           Text(
@@ -267,7 +267,11 @@ class _HeroBannerSection extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 26),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [_Palette.violet, _Palette.accent, _Palette.cool],
+          colors: [
+            _Palette.violet,
+            _Palette.accent,
+            _Palette.cool,
+          ],
           stops: [0.0, 0.55, 1.0],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -299,11 +303,8 @@ class _HeroBannerSection extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.menu_book_outlined,
-                      size: 14,
-                      color: Colors.white,
-                    ),
+                    Icon(Icons.menu_book_outlined,
+                        size: 14, color: Colors.white),
                     SizedBox(width: 6),
                     Text(
                       'MATERIAL DEEP DEMO',
@@ -473,7 +474,11 @@ class _DividerPropertyGallery extends StatelessWidget {
         children: [
           Row(
             children: [
-              _Chip(text: 'height', color: _Palette.accent, icon: Icons.height),
+              _Chip(
+                text: 'height',
+                color: _Palette.accent,
+                icon: Icons.height,
+              ),
               SizedBox(width: 6),
               _Chip(
                 text: 'thickness',
@@ -557,8 +562,7 @@ class _DividerPropertyGallery extends StatelessWidget {
           ),
           _DividerSampleRow(
             label: 'thickness: 8',
-            description:
-                'block-style ribbon; rarely a good idea, but possible.',
+            description: 'block-style ribbon; rarely a good idea, but possible.',
             tone: _Palette.warm,
             child: Divider(height: 24, thickness: 8),
           ),
@@ -982,7 +986,8 @@ class _VerticalDividerToolbar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _Palette.paperSoft,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _Palette.cool.withValues(alpha: 0.4)),
+                border:
+                    Border.all(color: _Palette.cool.withValues(alpha: 0.4)),
               ),
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
               child: Row(
@@ -997,7 +1002,10 @@ class _VerticalDividerToolbar extends StatelessWidget {
                     endIndent: 6,
                     color: _Palette.slate.withValues(alpha: 0.5),
                   ),
-                  _ToolbarButton(icon: Icons.format_align_left, label: 'left'),
+                  _ToolbarButton(
+                    icon: Icons.format_align_left,
+                    label: 'left',
+                  ),
                   _ToolbarButton(
                     icon: Icons.format_align_center,
                     label: 'center',
@@ -1026,7 +1034,8 @@ class _VerticalDividerToolbar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _Palette.paperSoft,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _Palette.cool.withValues(alpha: 0.4)),
+                border:
+                    Border.all(color: _Palette.cool.withValues(alpha: 0.4)),
               ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
@@ -1087,35 +1096,20 @@ class _VerticalDividerToolbar extends StatelessWidget {
                   end: Alignment.centerRight,
                 ),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _Palette.cool.withValues(alpha: 0.4)),
+                border:
+                    Border.all(color: _Palette.cool.withValues(alpha: 0.4)),
               ),
               padding: EdgeInsets.all(10),
               child: Row(
                 children: [
                   _BreadcrumbCrumb(text: 'home'),
-                  VerticalDivider(
-                    width: 14,
-                    thickness: 1,
-                    color: _Palette.cool,
-                  ),
+                  VerticalDivider(width: 14, thickness: 1, color: _Palette.cool),
                   _BreadcrumbCrumb(text: 'projects'),
-                  VerticalDivider(
-                    width: 14,
-                    thickness: 1,
-                    color: _Palette.cool,
-                  ),
+                  VerticalDivider(width: 14, thickness: 1, color: _Palette.cool),
                   _BreadcrumbCrumb(text: 'tom_d4rt'),
-                  VerticalDivider(
-                    width: 14,
-                    thickness: 1,
-                    color: _Palette.cool,
-                  ),
+                  VerticalDivider(width: 14, thickness: 1, color: _Palette.cool),
                   _BreadcrumbCrumb(text: 'tests'),
-                  VerticalDivider(
-                    width: 14,
-                    thickness: 1,
-                    color: _Palette.cool,
-                  ),
+                  VerticalDivider(width: 14, thickness: 1, color: _Palette.cool),
                   _BreadcrumbCrumb(
                     text: 'divider_listtile_test.dart',
                     bold: true,
@@ -1257,9 +1251,17 @@ class _ListTileAnatomySection extends StatelessWidget {
         children: [
           Row(
             children: [
-              _Chip(text: 'leading', color: _Palette.accent, icon: Icons.start),
+              _Chip(
+                text: 'leading',
+                color: _Palette.accent,
+                icon: Icons.start,
+              ),
               SizedBox(width: 6),
-              _Chip(text: 'title', color: _Palette.violet, icon: Icons.title),
+              _Chip(
+                text: 'title',
+                color: _Palette.violet,
+                icon: Icons.title,
+              ),
               SizedBox(width: 6),
               _Chip(
                 text: 'subtitle',
@@ -1299,36 +1301,36 @@ class _ListTileAnatomySection extends StatelessWidget {
             child: Material(
               type: MaterialType.transparency,
               child: ListTile(
-                leading: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [_Palette.accent, _Palette.violet],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
+              leading: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [_Palette.accent, _Palette.violet],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  child: Icon(
-                    Icons.bookmark_outlined,
-                    color: Colors.white,
-                    size: 22,
-                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                title: Text(
-                  'A representative ListTile',
-                  style: TextStyle(
-                    color: _Palette.ink,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                subtitle: Text(
-                  'subtitle text — one line by default; wraps if isThreeLine.',
-                  style: TextStyle(color: _Palette.inkSoft, fontSize: 12.5),
-                ),
-                trailing: Icon(Icons.chevron_right, color: _Palette.warm),
+                child: Icon(Icons.bookmark_outlined,
+                    color: Colors.white, size: 22),
               ),
+              title: Text(
+                'A representative ListTile',
+                style: TextStyle(
+                  color: _Palette.ink,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              subtitle: Text(
+                'subtitle text — one line by default; wraps if isThreeLine.',
+                style: TextStyle(
+                  color: _Palette.inkSoft,
+                  fontSize: 12.5,
+                ),
+              ),
+              trailing: Icon(Icons.chevron_right, color: _Palette.warm),
+            ),
             ),
           ),
           SizedBox(height: 12),
@@ -1487,15 +1489,15 @@ class _PaddingSample extends StatelessWidget {
             child: Material(
               type: MaterialType.transparency,
               child: ListTile(
-                contentPadding: padding,
-                leading: Icon(Icons.tune, color: _Palette.accent),
-                title: Text(
-                  'padded tile',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
-                subtitle: Text('contentPadding controls outer slot insets.'),
-                trailing: Icon(Icons.more_vert, color: _Palette.inkMute),
+              contentPadding: padding,
+              leading: Icon(Icons.tune, color: _Palette.accent),
+              title: Text(
+                'padded tile',
+                style: TextStyle(fontWeight: FontWeight.w700),
               ),
+              subtitle: Text('contentPadding controls outer slot insets.'),
+              trailing: Icon(Icons.more_vert, color: _Palette.inkMute),
+            ),
             ),
           ),
         ],
@@ -1535,15 +1537,15 @@ class _DensitySample extends StatelessWidget {
             child: Material(
               type: MaterialType.transparency,
               child: ListTile(
-                visualDensity: density,
-                leading: Icon(Icons.density_medium, color: _Palette.cool),
-                title: Text(
-                  'density-controlled tile',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
-                subtitle: Text('visualDensity shrinks vertical rhythm.'),
-                trailing: Icon(Icons.unfold_more, color: _Palette.inkMute),
+              visualDensity: density,
+              leading: Icon(Icons.density_medium, color: _Palette.cool),
+              title: Text(
+                'density-controlled tile',
+                style: TextStyle(fontWeight: FontWeight.w700),
               ),
+              subtitle: Text('visualDensity shrinks vertical rhythm.'),
+              trailing: Icon(Icons.unfold_more, color: _Palette.inkMute),
+            ),
             ),
           ),
         ],
@@ -1730,23 +1732,23 @@ class _StateRow extends StatelessWidget {
               child: Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  tileColor: tileColor,
-                  selected: selected,
-                  enabled: enabled,
-                  leading: Icon(Icons.folder_outlined, color: iconColor),
-                  title: Text(
-                    tag.toLowerCase() + ' tile',
-                    style: TextStyle(
-                      color: titleColor,
-                      fontWeight: FontWeight.w800,
-                    ),
+                tileColor: tileColor,
+                selected: selected,
+                enabled: enabled,
+                leading: Icon(Icons.folder_outlined, color: iconColor),
+                title: Text(
+                  tag.toLowerCase() + ' tile',
+                  style: TextStyle(
+                    color: titleColor,
+                    fontWeight: FontWeight.w800,
                   ),
-                  subtitle: Text(
-                    description,
-                    style: TextStyle(color: subtitleColor),
-                  ),
-                  trailing: Icon(Icons.chevron_right, color: iconColor),
                 ),
+                subtitle: Text(
+                  description,
+                  style: TextStyle(color: subtitleColor),
+                ),
+                trailing: Icon(Icons.chevron_right, color: iconColor),
+              ),
               ),
             ),
           ),
@@ -1829,10 +1831,8 @@ class _ListTileVariantsSection extends StatelessWidget {
                 onChanged: null,
                 title: Text('Apply to nested folders'),
                 subtitle: Text('tristate; here shown as indeterminate.'),
-                secondary: Icon(
-                  Icons.folder_copy_outlined,
-                  color: _Palette.accent,
-                ),
+                secondary:
+                    Icon(Icons.folder_copy_outlined, color: _Palette.accent),
               ),
             ],
           ),
@@ -1855,7 +1855,8 @@ class _ListTileVariantsSection extends StatelessWidget {
                 onChanged: null,
                 title: Text('Standard contrast'),
                 subtitle: Text('the recommended default.'),
-                secondary: Icon(Icons.brightness_medium, color: _Palette.cool),
+                secondary:
+                    Icon(Icons.brightness_medium, color: _Palette.cool),
               ),
               RadioListTile<int>(
                 value: 3,
@@ -1891,7 +1892,8 @@ class _ListTileVariantsSection extends StatelessWidget {
                 onChanged: null,
                 title: Text('Auto-archive answered queues'),
                 subtitle: Text('keeps active list tidy.'),
-                secondary: Icon(Icons.archive_outlined, color: _Palette.warm),
+                secondary:
+                    Icon(Icons.archive_outlined, color: _Palette.warm),
               ),
             ],
           ),
@@ -2016,20 +2018,20 @@ class _ListPatternSection extends StatelessWidget {
               Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  leading: Icon(Icons.folder, color: _Palette.violet),
-                  title: Text('tom_agent_container'),
-                  subtitle: Text('top-level workspace'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
+                leading: Icon(Icons.folder, color: _Palette.violet),
+                title: Text('tom_agent_container'),
+                subtitle: Text('top-level workspace'),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
               Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  leading: Icon(Icons.folder_open, color: _Palette.violet),
-                  title: Text('tom_ai'),
-                  subtitle: Text('AI build + bridge ecosystem'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
+                leading: Icon(Icons.folder_open, color: _Palette.violet),
+                title: Text('tom_ai'),
+                subtitle: Text('AI build + bridge ecosystem'),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
               Divider(
                 height: 1,
@@ -2040,20 +2042,20 @@ class _ListPatternSection extends StatelessWidget {
               Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  leading: Icon(Icons.flag, color: _Palette.accent),
-                  title: Text('d4rt'),
-                  subtitle: Text('interpreter + bridges'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
+                leading: Icon(Icons.flag, color: _Palette.accent),
+                title: Text('d4rt'),
+                subtitle: Text('interpreter + bridges'),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
               Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  leading: Icon(Icons.flag_outlined, color: _Palette.accent),
-                  title: Text('flutter_ui'),
-                  subtitle: Text('reusable widgets'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
+                leading: Icon(Icons.flag_outlined, color: _Palette.accent),
+                title: Text('flutter_ui'),
+                subtitle: Text('reusable widgets'),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
               Divider(
                 height: 1,
@@ -2064,20 +2066,20 @@ class _ListPatternSection extends StatelessWidget {
               Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  leading: Icon(Icons.terminal, color: _Palette.warm),
-                  title: Text('testkit'),
-                  subtitle: Text('test tracking and baselines'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
+                leading: Icon(Icons.terminal, color: _Palette.warm),
+                title: Text('testkit'),
+                subtitle: Text('test tracking and baselines'),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
               Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  leading: Icon(Icons.build, color: _Palette.warm),
-                  title: Text('tom_build'),
-                  subtitle: Text('end-to-end build orchestration'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
+                leading: Icon(Icons.build, color: _Palette.warm),
+                title: Text('tom_build'),
+                subtitle: Text('end-to-end build orchestration'),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
             ],
           ),
@@ -2091,47 +2093,47 @@ class _ListPatternSection extends StatelessWidget {
       Material(
         type: MaterialType.transparency,
         child: ListTile(
-          leading: Icon(Icons.inbox_outlined, color: _Palette.cool),
-          title: Text('Inbox'),
-          subtitle: Text('12 new items'),
-          trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
-        ),
+        leading: Icon(Icons.inbox_outlined, color: _Palette.cool),
+        title: Text('Inbox'),
+        subtitle: Text('12 new items'),
+        trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
+      ),
       ),
       Material(
         type: MaterialType.transparency,
         child: ListTile(
-          leading: Icon(Icons.send_outlined, color: _Palette.cool),
-          title: Text('Sent'),
-          subtitle: Text('synced 3m ago'),
-          trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
-        ),
+        leading: Icon(Icons.send_outlined, color: _Palette.cool),
+        title: Text('Sent'),
+        subtitle: Text('synced 3m ago'),
+        trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
+      ),
       ),
       Material(
         type: MaterialType.transparency,
         child: ListTile(
-          leading: Icon(Icons.drafts_outlined, color: _Palette.cool),
-          title: Text('Drafts'),
-          subtitle: Text('4 unfinished'),
-          trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
-        ),
+        leading: Icon(Icons.drafts_outlined, color: _Palette.cool),
+        title: Text('Drafts'),
+        subtitle: Text('4 unfinished'),
+        trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
+      ),
       ),
       Material(
         type: MaterialType.transparency,
         child: ListTile(
-          leading: Icon(Icons.archive_outlined, color: _Palette.cool),
-          title: Text('Archive'),
-          subtitle: Text('older than 90 days'),
-          trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
-        ),
+        leading: Icon(Icons.archive_outlined, color: _Palette.cool),
+        title: Text('Archive'),
+        subtitle: Text('older than 90 days'),
+        trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
+      ),
       ),
       Material(
         type: MaterialType.transparency,
         child: ListTile(
-          leading: Icon(Icons.delete_outline, color: _Palette.cool),
-          title: Text('Trash'),
-          subtitle: Text('auto-purged after 30 days'),
-          trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
-        ),
+        leading: Icon(Icons.delete_outline, color: _Palette.cool),
+        title: Text('Trash'),
+        subtitle: Text('auto-purged after 30 days'),
+        trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
+      ),
       ),
     ];
   }
@@ -2265,9 +2267,7 @@ class _ListTileThemeChainSection extends StatelessWidget {
                 textColor: _Palette.violet,
                 tileColor: _Palette.violetSoft.withValues(alpha: 0.4),
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 4,
-                ),
+                    horizontal: 18, vertical: 4),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -2277,11 +2277,11 @@ class _ListTileThemeChainSection extends StatelessWidget {
                   Material(
                     type: MaterialType.transparency,
                     child: ListTile(
-                      leading: Icon(Icons.bookmark),
-                      title: Text('Outer-themed tile A'),
-                      subtitle: Text('inherits violet text + icon.'),
-                      trailing: Icon(Icons.chevron_right),
-                    ),
+                    leading: Icon(Icons.bookmark),
+                    title: Text('Outer-themed tile A'),
+                    subtitle: Text('inherits violet text + icon.'),
+                    trailing: Icon(Icons.chevron_right),
+                  ),
                   ),
                   SizedBox(height: 6),
                   _ThemeLevel(
@@ -2290,19 +2290,19 @@ class _ListTileThemeChainSection extends StatelessWidget {
                     child: ListTileTheme.merge(
                       iconColor: _Palette.warm,
                       textColor: _Palette.warm,
-                      tileColor: _Palette.warmSoft.withValues(alpha: 0.5),
+                      tileColor:
+                          _Palette.warmSoft.withValues(alpha: 0.5),
                       child: Column(
                         children: [
                           Material(
                             type: MaterialType.transparency,
                             child: ListTile(
-                              leading: Icon(Icons.flash_on),
-                              title: Text('Inner-themed tile B'),
-                              subtitle: Text(
-                                'overrides icon+text+tile, inherits shape.',
-                              ),
-                              trailing: Icon(Icons.chevron_right),
-                            ),
+                            leading: Icon(Icons.flash_on),
+                            title: Text('Inner-themed tile B'),
+                            subtitle: Text(
+                                'overrides icon+text+tile, inherits shape.'),
+                            trailing: Icon(Icons.chevron_right),
+                          ),
                           ),
                           SizedBox(height: 6),
                           _ThemeLevel(
@@ -2311,20 +2311,18 @@ class _ListTileThemeChainSection extends StatelessWidget {
                             child: ListTileTheme.merge(
                               iconColor: _Palette.cool,
                               textColor: _Palette.cool,
-                              tileColor: _Palette.coolSoft.withValues(
-                                alpha: 0.55,
-                              ),
+                              tileColor: _Palette.coolSoft
+                                  .withValues(alpha: 0.55),
                               child: Material(
                                 type: MaterialType.transparency,
                                 child: ListTile(
-                                  leading: Icon(Icons.eco),
-                                  title: Text('Deepest-themed tile C'),
-                                  subtitle: Text(
+                                leading: Icon(Icons.eco),
+                                title: Text('Deepest-themed tile C'),
+                                subtitle: Text(
                                     'inherits shape from level 1, '
-                                    'colors from level 3.',
-                                  ),
-                                  trailing: Icon(Icons.chevron_right),
-                                ),
+                                    'colors from level 3.'),
+                                trailing: Icon(Icons.chevron_right),
+                              ),
                               ),
                             ),
                           ),
@@ -2451,48 +2449,47 @@ class _PitfallsSection extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _Palette.paperSoft,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: _Palette.danger.withValues(alpha: 0.6),
-                ),
+                border:
+                    Border.all(color: _Palette.danger.withValues(alpha: 0.6)),
               ),
               child: Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  selected: true,
-                  tileColor: Colors.transparent,
-                  title: Text(
-                    'wrong: selected but tile transparent',
-                    style: TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                  subtitle: Text('reads as unselected to the eye.'),
-                  leading: Icon(Icons.cancel_outlined, color: _Palette.danger),
-                  trailing: Icon(Icons.chevron_right),
+                selected: true,
+                tileColor: Colors.transparent,
+                title: Text(
+                  'wrong: selected but tile transparent',
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
+                subtitle: Text('reads as unselected to the eye.'),
+                leading: Icon(Icons.cancel_outlined, color: _Palette.danger),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
             ),
             right: Container(
               decoration: BoxDecoration(
                 color: _Palette.paperSoft,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
+                border:
+                    Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
               ),
               child: Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  selected: true,
-                  selectedTileColor: _Palette.accent.withValues(alpha: 0.14),
-                  selectedColor: _Palette.accent,
-                  title: Text(
-                    'right: selectedTileColor + selectedColor',
-                    style: TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                  subtitle: Text('clearly indicated selection.'),
-                  leading: Icon(
-                    Icons.check_circle_outline,
-                    color: _Palette.accent,
-                  ),
-                  trailing: Icon(Icons.chevron_right),
+                selected: true,
+                selectedTileColor:
+                    _Palette.accent.withValues(alpha: 0.14),
+                selectedColor: _Palette.accent,
+                title: Text(
+                  'right: selectedTileColor + selectedColor',
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
+                subtitle: Text('clearly indicated selection.'),
+                leading: Icon(Icons.check_circle_outline,
+                    color: _Palette.accent),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
             ),
           ),
@@ -2509,50 +2506,47 @@ class _PitfallsSection extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _Palette.paperSoft,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: _Palette.danger.withValues(alpha: 0.6),
-                ),
+                border:
+                    Border.all(color: _Palette.danger.withValues(alpha: 0.6)),
               ),
               child: Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 2,
-                    vertical: 0,
-                  ),
-                  visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                  leading: Icon(Icons.unfold_less, color: _Palette.danger),
-                  title: Text(
-                    'wrong: tiny padding + min density',
-                    style: TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                  subtitle: Text('hit target too small for fingers.'),
-                  trailing: Icon(Icons.chevron_right),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                visualDensity:
+                    VisualDensity(horizontal: -4, vertical: -4),
+                leading: Icon(Icons.unfold_less, color: _Palette.danger),
+                title: Text(
+                  'wrong: tiny padding + min density',
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
+                subtitle: Text('hit target too small for fingers.'),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
             ),
             right: Container(
               decoration: BoxDecoration(
                 color: _Palette.paperSoft,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
+                border:
+                    Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
               ),
               child: Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
-                  ),
-                  visualDensity: VisualDensity.standard,
-                  leading: Icon(Icons.unfold_more, color: _Palette.leaf),
-                  title: Text(
-                    'right: standard padding + density',
-                    style: TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                  subtitle: Text('comfortable, accessible target.'),
-                  trailing: Icon(Icons.chevron_right),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                visualDensity: VisualDensity.standard,
+                leading: Icon(Icons.unfold_more, color: _Palette.leaf),
+                title: Text(
+                  'right: standard padding + density',
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
+                subtitle: Text('comfortable, accessible target.'),
+                trailing: Icon(Icons.chevron_right),
+              ),
               ),
             ),
           ),
@@ -2569,82 +2563,67 @@ class _PitfallsSection extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _Palette.paperSoft,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: _Palette.danger.withValues(alpha: 0.6),
-                ),
+                border:
+                    Border.all(color: _Palette.danger.withValues(alpha: 0.6)),
               ),
               child: Material(
                 type: MaterialType.transparency,
                 child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(Icons.brightness_low),
-                      title: Text(
-                        'alpha',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Divider(height: 1, color: _Palette.slate),
-                    ListTile(
-                      leading: Icon(Icons.brightness_medium),
-                      title: Text(
-                        'beta',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Divider(height: 4, thickness: 3, color: _Palette.danger),
-                    ListTile(
-                      leading: Icon(Icons.brightness_high),
-                      title: Text(
-                        'gamma',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  ],
-                ),
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.brightness_low),
+                    title: Text('alpha',
+                        style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                  Divider(height: 1, color: _Palette.slate),
+                  ListTile(
+                    leading: Icon(Icons.brightness_medium),
+                    title: Text('beta',
+                        style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                  Divider(height: 4, thickness: 3, color: _Palette.danger),
+                  ListTile(
+                    leading: Icon(Icons.brightness_high),
+                    title: Text('gamma',
+                        style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                ],
+              ),
               ),
             ),
             right: Container(
               decoration: BoxDecoration(
                 color: _Palette.paperSoft,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
+                border:
+                    Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
               ),
               child: Material(
                 type: MaterialType.transparency,
                 child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(Icons.brightness_low, color: _Palette.leaf),
-                      title: Text(
-                        'alpha',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Divider(height: 1, color: _Palette.slateSoft),
-                    ListTile(
-                      leading: Icon(
-                        Icons.brightness_medium,
-                        color: _Palette.leaf,
-                      ),
-                      title: Text(
-                        'beta',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Divider(height: 1, color: _Palette.slateSoft),
-                    ListTile(
-                      leading: Icon(
-                        Icons.brightness_high,
-                        color: _Palette.leaf,
-                      ),
-                      title: Text(
-                        'gamma',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  ],
-                ),
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.brightness_low,
+                        color: _Palette.leaf),
+                    title: Text('alpha',
+                        style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                  Divider(height: 1, color: _Palette.slateSoft),
+                  ListTile(
+                    leading: Icon(Icons.brightness_medium,
+                        color: _Palette.leaf),
+                    title: Text('beta',
+                        style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                  Divider(height: 1, color: _Palette.slateSoft),
+                  ListTile(
+                    leading: Icon(Icons.brightness_high,
+                        color: _Palette.leaf),
+                    title: Text('gamma',
+                        style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                ],
+              ),
               ),
             ),
           ),
@@ -2676,7 +2655,10 @@ class _PitfallCard extends StatelessWidget {
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [tone.withValues(alpha: 0.10), tone.withValues(alpha: 0.02)],
+          colors: [
+            tone.withValues(alpha: 0.10),
+            tone.withValues(alpha: 0.02),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -2737,7 +2719,8 @@ class _PitfallCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: _Palette.danger.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(4),
@@ -2763,7 +2746,8 @@ class _PitfallCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: _Palette.leaf.withValues(alpha: 0.22),
                         borderRadius: BorderRadius.circular(4),
@@ -2805,7 +2789,10 @@ class _FooterSection extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 22),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [_Palette.slate, _Palette.ink],
+          colors: [
+            _Palette.slate,
+            _Palette.ink,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -2887,11 +2874,8 @@ class _FooterSection extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.info_outline,
-                  color: Colors.white.withValues(alpha: 0.85),
-                  size: 18,
-                ),
+                Icon(Icons.info_outline,
+                    color: Colors.white.withValues(alpha: 0.85), size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(

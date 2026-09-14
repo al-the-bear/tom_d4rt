@@ -36,22 +36,22 @@ import 'package:flutter/services.dart';
 // PALETTE -- Atelier Indigo
 // ============================================================================
 class _Palette {
-  static const Color linen = Color(0xFFF5EFE4);
-  static const Color kraft = Color(0xFFD9C7A3);
-  static const Color indigo = Color(0xFF2D3E6F);
+  static const Color linen      = Color(0xFFF5EFE4);
+  static const Color kraft      = Color(0xFFD9C7A3);
+  static const Color indigo     = Color(0xFF2D3E6F);
   static const Color indigoDeep = Color(0xFF1A2750);
-  static const Color brass = Color(0xFFB48A3C);
-  static const Color brassDeep = Color(0xFF8A6624);
-  static const Color oxblood = Color(0xFF6D2A2A);
-  static const Color ink = Color(0xFF1B1A17);
-  static const Color sage = Color(0xFF6E8260);
-  static const Color sky = Color(0xFF6F8CB4);
-  static const Color paper = Color(0xFFFBF6EC);
-  static const Color rule = Color(0xFF8C7A55);
-  static const Color highlight = Color(0xFFE9D9A8);
-  static const Color shadow = Color(0xFF5A4B33);
-  static const Color hush = Color(0xFFEFE7D6);
-  static const Color stamp = Color(0xFFC0793A);
+  static const Color brass      = Color(0xFFB48A3C);
+  static const Color brassDeep  = Color(0xFF8A6624);
+  static const Color oxblood    = Color(0xFF6D2A2A);
+  static const Color ink        = Color(0xFF1B1A17);
+  static const Color sage       = Color(0xFF6E8260);
+  static const Color sky        = Color(0xFF6F8CB4);
+  static const Color paper      = Color(0xFFFBF6EC);
+  static const Color rule       = Color(0xFF8C7A55);
+  static const Color highlight  = Color(0xFFE9D9A8);
+  static const Color shadow     = Color(0xFF5A4B33);
+  static const Color hush       = Color(0xFFEFE7D6);
+  static const Color stamp      = Color(0xFFC0793A);
 }
 
 Color _alpha(Color c, double a) => c.withValues(alpha: a);
@@ -60,50 +60,52 @@ Color _alpha(Color c, double a) => c.withValues(alpha: a);
 // SMALL HELPERS
 // ============================================================================
 TextStyle _h1() => const TextStyle(
-  fontSize: 26,
-  fontWeight: FontWeight.w800,
-  color: _Palette.linen,
-  letterSpacing: 0.4,
-);
+      fontSize: 26,
+      fontWeight: FontWeight.w800,
+      color: _Palette.linen,
+      letterSpacing: 0.4,
+    );
 
 TextStyle _h2() => const TextStyle(
-  fontSize: 18,
-  fontWeight: FontWeight.w700,
-  color: _Palette.indigoDeep,
-  letterSpacing: 0.3,
-);
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+      color: _Palette.indigoDeep,
+      letterSpacing: 0.3,
+    );
 
 TextStyle _h3() => const TextStyle(
-  fontSize: 15,
-  fontWeight: FontWeight.w700,
-  color: _Palette.ink,
-);
+      fontSize: 15,
+      fontWeight: FontWeight.w700,
+      color: _Palette.ink,
+    );
 
-TextStyle _body() =>
-    const TextStyle(fontSize: 13.5, height: 1.45, color: _Palette.ink);
+TextStyle _body() => const TextStyle(
+      fontSize: 13.5,
+      height: 1.45,
+      color: _Palette.ink,
+    );
 
 TextStyle _mono() => const TextStyle(
-  fontFamily: 'monospace',
-  fontSize: 12.5,
-  height: 1.45,
-  color: _Palette.indigoDeep,
-);
+      fontFamily: 'monospace',
+      fontSize: 12.5,
+      height: 1.45,
+      color: _Palette.indigoDeep,
+    );
 
 TextStyle _monoLight() => const TextStyle(
-  fontFamily: 'monospace',
-  fontSize: 12,
-  height: 1.4,
-  color: _Palette.linen,
-);
+      fontFamily: 'monospace',
+      fontSize: 12,
+      height: 1.4,
+      color: _Palette.linen,
+    );
 
 Widget _gap(double h) => SizedBox(height: h);
 
-Widget _hr({
-  Color color = _Palette.rule,
-  double height = 1,
-  double opacity = 0.4,
-}) {
-  return Container(height: height, color: _alpha(color, opacity));
+Widget _hr({Color color = _Palette.rule, double height = 1, double opacity = 0.4}) {
+  return Container(
+    height: height,
+    color: _alpha(color, opacity),
+  );
 }
 
 Widget _swatch(Color c, String name, String hex) {
@@ -128,32 +130,14 @@ Widget _swatch(Color c, String name, String hex) {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          name,
-          style: const TextStyle(
-            fontSize: 10.5,
-            fontWeight: FontWeight.w700,
-            color: _Palette.ink,
-          ),
-        ),
-        Text(
-          hex,
-          style: const TextStyle(
-            fontSize: 9,
-            color: _Palette.shadow,
-            fontFamily: 'monospace',
-          ),
-        ),
+        Text(name, style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.w700, color: _Palette.ink)),
+        Text(hex, style: const TextStyle(fontSize: 9, color: _Palette.shadow, fontFamily: 'monospace')),
       ],
     ),
   );
 }
 
-Widget _chip(
-  String text, {
-  Color bg = _Palette.brass,
-  Color fg = _Palette.linen,
-}) {
+Widget _chip(String text, {Color bg = _Palette.brass, Color fg = _Palette.linen}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
     decoration: BoxDecoration(
@@ -214,13 +198,7 @@ Widget _sectionTitle(String index, String title, String subtitle) {
             children: [
               Text(title, style: _h1()),
               const SizedBox(height: 2),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _alpha(_Palette.linen, 0.78),
-                ),
-              ),
+              Text(subtitle, style: TextStyle(fontSize: 12, color: _alpha(_Palette.linen, 0.78))),
             ],
           ),
         ),
@@ -271,14 +249,7 @@ Widget _kv(String k, String v) {
       children: [
         SizedBox(
           width: 130,
-          child: Text(
-            k,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: _Palette.brassDeep,
-            ),
-          ),
+          child: Text(k, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _Palette.brassDeep)),
         ),
         Expanded(child: Text(v, style: _body())),
       ],
@@ -333,10 +304,7 @@ Widget _buildTitleBanner() {
                   const SizedBox(height: 2),
                   Text(
                     'A deep visual tour of the asset-loading surface',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: _alpha(_Palette.linen, 0.78),
-                    ),
+                    style: TextStyle(fontSize: 13, color: _alpha(_Palette.linen, 0.78)),
                   ),
                 ],
               ),
@@ -353,16 +321,16 @@ Widget _buildTitleBanner() {
         const SizedBox(height: 16),
         Wrap(
           children: [
-            _swatch(_Palette.linen, 'linen', '#F5EFE4'),
-            _swatch(_Palette.kraft, 'kraft', '#D9C7A3'),
-            _swatch(_Palette.indigo, 'indigo', '#2D3E6F'),
-            _swatch(_Palette.indigoDeep, 'indigoDeep', '#1A2750'),
-            _swatch(_Palette.brass, 'brass', '#B48A3C'),
+            _swatch(_Palette.linen,     'linen',     '#F5EFE4'),
+            _swatch(_Palette.kraft,     'kraft',     '#D9C7A3'),
+            _swatch(_Palette.indigo,    'indigo',    '#2D3E6F'),
+            _swatch(_Palette.indigoDeep,'indigoDeep','#1A2750'),
+            _swatch(_Palette.brass,     'brass',     '#B48A3C'),
             _swatch(_Palette.brassDeep, 'brassDeep', '#8A6624'),
-            _swatch(_Palette.oxblood, 'oxblood', '#6D2A2A'),
-            _swatch(_Palette.sage, 'sage', '#6E8260'),
-            _swatch(_Palette.sky, 'sky', '#6F8CB4'),
-            _swatch(_Palette.stamp, 'stamp', '#C0793A'),
+            _swatch(_Palette.oxblood,   'oxblood',   '#6D2A2A'),
+            _swatch(_Palette.sage,      'sage',      '#6E8260'),
+            _swatch(_Palette.sky,       'sky',       '#6F8CB4'),
+            _swatch(_Palette.stamp,     'stamp',     '#C0793A'),
           ],
         ),
       ],
@@ -440,45 +408,43 @@ Widget _buildBundleTaxonomy() {
   final cards = <Widget>[];
   for (int i = 0; i < descriptors.length; i++) {
     final d = descriptors[i];
-    cards.add(
-      _card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 26,
-                  height: 26,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: d.accent,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    '${i + 1}',
-                    style: const TextStyle(
-                      color: _Palette.linen,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 13,
-                    ),
+    cards.add(_card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 26,
+                height: 26,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: d.accent,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  '${i + 1}',
+                  style: const TextStyle(
+                    color: _Palette.linen,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13,
                   ),
                 ),
-                const SizedBox(width: 8),
-                Expanded(child: Text(d.name, style: _h2())),
-                _chip('class', bg: _alpha(d.accent, 0.85)),
-              ],
-            ),
-            const SizedBox(height: 8),
-            _hr(),
-            const SizedBox(height: 6),
-            _kv('role', d.role),
-            _kv('storage', d.storage),
-            _kv('returns', d.returns),
-          ],
-        ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(child: Text(d.name, style: _h2())),
+              _chip('class', bg: _alpha(d.accent, 0.85)),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _hr(),
+          const SizedBox(height: 6),
+          _kv('role', d.role),
+          _kv('storage', d.storage),
+          _kv('returns', d.returns),
+        ],
       ),
-    );
+    ));
   }
   return Column(children: cards);
 }
@@ -504,14 +470,11 @@ Widget _buildRootBundleProse() {
                     color: _Palette.oxblood,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Text(
-                    'rB',
-                    style: TextStyle(
-                      color: _Palette.linen,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 15,
-                    ),
-                  ),
+                  child: const Text('rB',
+                      style: TextStyle(
+                          color: _Palette.linen,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 15)),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -549,15 +512,11 @@ Widget _buildRootBundleProse() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Signature snippets',
-              style: TextStyle(
+            Text('Signature snippets', style: TextStyle(
                 color: _Palette.linen,
                 fontWeight: FontWeight.w700,
                 fontSize: 14,
-                letterSpacing: 0.4,
-              ),
-            ),
+                letterSpacing: 0.4)),
             const SizedBox(height: 6),
             _codeBlock(
               '// In services.dart\n'
@@ -579,10 +538,7 @@ Widget _buildRootBundleProse() {
               'Note: the asset_test demo never calls .load -- that would '
               'return a Future. We only describe the API and instantiate '
               'providers synchronously.',
-              style: TextStyle(
-                color: _alpha(_Palette.linen, 0.7),
-                fontSize: 11.5,
-              ),
+              style: TextStyle(color: _alpha(_Palette.linen, 0.7), fontSize: 11.5),
             ),
           ],
         ),
@@ -607,68 +563,53 @@ List<_ProviderSample> _providerSamples() {
   final samples = <_ProviderSample>[];
 
   final a1 = AssetImage('assets/dummy.png');
-  samples.add(
-    _ProviderSample(
-      'AssetImage -- bare',
-      a1,
-      "AssetImage('assets/dummy.png')",
-      'Looks up the closest scale variant via the manifest.',
-    ),
-  );
+  samples.add(_ProviderSample(
+    'AssetImage -- bare',
+    a1,
+    "AssetImage('assets/dummy.png')",
+    'Looks up the closest scale variant via the manifest.',
+  ));
 
   final a2 = AssetImage('assets/icons/star.png', package: 'demo_pkg');
-  samples.add(
-    _ProviderSample(
-      'AssetImage -- package',
-      a2,
-      "AssetImage('assets/icons/star.png', package: 'demo_pkg')",
-      "Prefixes the key with 'packages/demo_pkg/'.",
-    ),
-  );
+  samples.add(_ProviderSample(
+    'AssetImage -- package',
+    a2,
+    "AssetImage('assets/icons/star.png', package: 'demo_pkg')",
+    "Prefixes the key with 'packages/demo_pkg/'.",
+  ));
 
   final a3 = ExactAssetImage('assets/icons/star@2x.png', scale: 2.0);
-  samples.add(
-    _ProviderSample(
-      'ExactAssetImage -- 2x',
-      a3,
-      "ExactAssetImage('assets/icons/star@2x.png', scale: 2.0)",
-      'Skips manifest resolution -- you commit to a single file.',
-    ),
-  );
+  samples.add(_ProviderSample(
+    'ExactAssetImage -- 2x',
+    a3,
+    "ExactAssetImage('assets/icons/star@2x.png', scale: 2.0)",
+    'Skips manifest resolution -- you commit to a single file.',
+  ));
 
-  final a4 = ExactAssetImage(
-    'assets/icons/star@3x.png',
-    scale: 3.0,
-    package: 'demo_pkg',
-  );
-  samples.add(
-    _ProviderSample(
-      'ExactAssetImage -- 3x + package',
-      a4,
-      "ExactAssetImage('...@3x.png', scale: 3.0, package: 'demo_pkg')",
-      'Useful for fonts/icons in shared library packages.',
-    ),
-  );
+  final a4 = ExactAssetImage('assets/icons/star@3x.png',
+      scale: 3.0, package: 'demo_pkg');
+  samples.add(_ProviderSample(
+    'ExactAssetImage -- 3x + package',
+    a4,
+    "ExactAssetImage('...@3x.png', scale: 3.0, package: 'demo_pkg')",
+    'Useful for fonts/icons in shared library packages.',
+  ));
 
   final a5 = AssetImage('assets/brand/logo.png');
-  samples.add(
-    _ProviderSample(
-      'AssetImage -- brand logo',
-      a5,
-      "AssetImage('assets/brand/logo.png')",
-      'Typical white-label brand asset -- one logical name.',
-    ),
-  );
+  samples.add(_ProviderSample(
+    'AssetImage -- brand logo',
+    a5,
+    "AssetImage('assets/brand/logo.png')",
+    'Typical white-label brand asset -- one logical name.',
+  ));
 
   final a6 = ExactAssetImage('assets/maps/tile_512.webp', scale: 1.0);
-  samples.add(
-    _ProviderSample(
-      'ExactAssetImage -- map tile',
-      a6,
-      "ExactAssetImage('assets/maps/tile_512.webp', scale: 1.0)",
-      'WebP tile served at a known DPR -- no variant search.',
-    ),
-  );
+  samples.add(_ProviderSample(
+    'ExactAssetImage -- map tile',
+    a6,
+    "ExactAssetImage('assets/maps/tile_512.webp', scale: 1.0)",
+    'WebP tile served at a known DPR -- no variant search.',
+  ));
 
   return samples;
 }
@@ -678,61 +619,59 @@ Widget _buildProviderGallery() {
   final cards = <Widget>[];
   for (int i = 0; i < samples.length; i++) {
     final s = samples[i];
-    cards.add(
-      _card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Visual stand-in for the image we never resolve.
-                Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: _Palette.kraft,
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: _alpha(_Palette.rule, 0.5)),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '${i + 1}',
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      color: _Palette.brassDeep,
-                    ),
+    cards.add(_card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Visual stand-in for the image we never resolve.
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: _Palette.kraft,
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: _alpha(_Palette.rule, 0.5)),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  '${i + 1}',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                    color: _Palette.brassDeep,
                   ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(s.label, style: _h3()),
-                      const SizedBox(height: 4),
-                      Text(
-                        'runtimeType = ${s.provider.runtimeType}',
-                        style: const TextStyle(
-                          fontSize: 11.5,
-                          color: _Palette.brassDeep,
-                          fontFamily: 'monospace',
-                        ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(s.label, style: _h3()),
+                    const SizedBox(height: 4),
+                    Text(
+                      'runtimeType = ${s.provider.runtimeType}',
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        color: _Palette.brassDeep,
+                        fontFamily: 'monospace',
                       ),
-                      const SizedBox(height: 4),
-                      Text(s.detail, style: _body()),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(s.detail, style: _body()),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            _codeBlock(s.code),
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _codeBlock(s.code),
+        ],
       ),
-    );
+    ));
   }
   return Column(children: cards);
 }
@@ -746,22 +685,16 @@ class _VariantRow {
   final double scale;
   final int pxSquare;
   final Color tint;
-  const _VariantRow(
-    this.folder,
-    this.filename,
-    this.scale,
-    this.pxSquare,
-    this.tint,
-  );
+  const _VariantRow(this.folder, this.filename, this.scale, this.pxSquare, this.tint);
 }
 
 List<_VariantRow> _variantRows() {
   return const <_VariantRow>[
-    _VariantRow('assets/', 'star.png', 1.0, 48, _Palette.linen),
-    _VariantRow('assets/1.5x/', 'star.png', 1.5, 72, _Palette.hush),
-    _VariantRow('assets/2.0x/', 'star.png', 2.0, 96, _Palette.kraft),
-    _VariantRow('assets/3.0x/', 'star.png', 3.0, 144, _Palette.highlight),
-    _VariantRow('assets/4.0x/', 'star.png', 4.0, 192, _Palette.brass),
+    _VariantRow('assets/',       'star.png',    1.0,  48, _Palette.linen),
+    _VariantRow('assets/1.5x/',  'star.png',    1.5,  72, _Palette.hush),
+    _VariantRow('assets/2.0x/',  'star.png',    2.0,  96, _Palette.kraft),
+    _VariantRow('assets/3.0x/',  'star.png',    3.0, 144, _Palette.highlight),
+    _VariantRow('assets/4.0x/',  'star.png',    4.0, 192, _Palette.brass),
   ];
 }
 
@@ -779,11 +712,11 @@ Widget _buildVariantDiagram() {
       ),
       child: Row(
         children: [
-          SizedBox(width: 70, child: Text('scale', style: _monoLight())),
-          SizedBox(width: 130, child: Text('folder', style: _monoLight())),
-          SizedBox(width: 100, child: Text('filename', style: _monoLight())),
-          SizedBox(width: 70, child: Text('px (sq)', style: _monoLight())),
-          Expanded(child: Text('preview', style: _monoLight())),
+          SizedBox(width: 70,  child: Text('scale',     style: _monoLight())),
+          SizedBox(width: 130, child: Text('folder',    style: _monoLight())),
+          SizedBox(width: 100, child: Text('filename',  style: _monoLight())),
+          SizedBox(width: 70,  child: Text('px (sq)',   style: _monoLight())),
+          Expanded(            child: Text('preview',   style: _monoLight())),
         ],
       ),
     ),
@@ -805,27 +738,27 @@ Widget _buildVariantDiagram() {
           children: [
             SizedBox(
               width: 70,
-              child: Text(
-                '${r.scale.toStringAsFixed(1)}x',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w800,
-                  color: _Palette.indigoDeep,
-                ),
-              ),
+              child: Text('${r.scale.toStringAsFixed(1)}x',
+                  style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w800,
+                      color: _Palette.indigoDeep)),
             ),
-            SizedBox(width: 130, child: Text(r.folder, style: _mono())),
-            SizedBox(width: 100, child: Text(r.filename, style: _mono())),
+            SizedBox(
+              width: 130,
+              child: Text(r.folder, style: _mono()),
+            ),
+            SizedBox(
+              width: 100,
+              child: Text(r.filename, style: _mono()),
+            ),
             SizedBox(
               width: 70,
-              child: Text(
-                '${r.pxSquare}',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  color: _Palette.brassDeep,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text('${r.pxSquare}',
+                  style: const TextStyle(
+                      fontFamily: 'monospace',
+                      color: _Palette.brassDeep,
+                      fontWeight: FontWeight.w700)),
             ),
             Expanded(
               child: Align(
@@ -898,20 +831,20 @@ class _ManifestVariant {
 List<_ManifestEntry> _manifestEntries() {
   return const <_ManifestEntry>[
     _ManifestEntry('assets/star.png', [
-      _ManifestVariant('assets/star.png', 1.0),
-      _ManifestVariant('assets/1.5x/star.png', 1.5),
-      _ManifestVariant('assets/2.0x/star.png', 2.0),
-      _ManifestVariant('assets/3.0x/star.png', 3.0),
+      _ManifestVariant('assets/star.png',       1.0),
+      _ManifestVariant('assets/1.5x/star.png',  1.5),
+      _ManifestVariant('assets/2.0x/star.png',  2.0),
+      _ManifestVariant('assets/3.0x/star.png',  3.0),
     ]),
     _ManifestEntry('assets/brand/logo.png', [
-      _ManifestVariant('assets/brand/logo.png', 1.0),
+      _ManifestVariant('assets/brand/logo.png',      1.0),
       _ManifestVariant('assets/brand/2.0x/logo.png', 2.0),
     ]),
     _ManifestEntry('assets/i18n/en.json', [
       _ManifestVariant('assets/i18n/en.json', 1.0),
     ]),
     _ManifestEntry('packages/demo_pkg/assets/icons/heart.png', [
-      _ManifestVariant('packages/demo_pkg/assets/icons/heart.png', 1.0),
+      _ManifestVariant('packages/demo_pkg/assets/icons/heart.png',      1.0),
       _ManifestVariant('packages/demo_pkg/assets/2.0x/icons/heart.png', 2.0),
       _ManifestVariant('packages/demo_pkg/assets/3.0x/icons/heart.png', 3.0),
     ]),
@@ -959,43 +892,38 @@ Widget _buildManifestDisplay() {
         ),
       );
     }
-    rows.add(
-      _card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 22,
-                  height: 22,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: _Palette.sky,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    '${i + 1}',
-                    style: const TextStyle(
-                      color: _Palette.linen,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 11,
-                    ),
-                  ),
+    rows.add(_card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 22,
+                height: 22,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: _Palette.sky,
+                  borderRadius: BorderRadius.circular(4),
                 ),
-                const SizedBox(width: 8),
-                Expanded(child: Text(e.key, style: _h3())),
-                _chip('${e.variants.length} variants', bg: _Palette.sage),
-              ],
-            ),
-            const SizedBox(height: 8),
-            _hr(),
-            const SizedBox(height: 4),
-            ...variantRows,
-          ],
-        ),
+                child: Text('${i + 1}',
+                    style: const TextStyle(
+                        color: _Palette.linen,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 11)),
+              ),
+              const SizedBox(width: 8),
+              Expanded(child: Text(e.key, style: _h3())),
+              _chip('${e.variants.length} variants', bg: _Palette.sage),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _hr(),
+          const SizedBox(height: 4),
+          ...variantRows,
+        ],
       ),
-    );
+    ));
   }
 
   return Column(
@@ -1048,10 +976,8 @@ Widget _buildDefaultBundleRecipe() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'DefaultAssetBundle -- the inherited-widget wrapper',
-              style: _h2(),
-            ),
+            Text('DefaultAssetBundle -- the inherited-widget wrapper',
+                style: _h2()),
             const SizedBox(height: 6),
             Text(
               'DefaultAssetBundle is an InheritedWidget that propagates an '
@@ -1091,11 +1017,7 @@ Widget _buildDefaultBundleRecipe() {
               children: [
                 _diagramNode('MaterialApp', _Palette.indigo, _Palette.linen),
                 _diagramArrow(),
-                _diagramNode(
-                  'DefaultAssetBundle',
-                  _Palette.brass,
-                  _Palette.indigoDeep,
-                ),
+                _diagramNode('DefaultAssetBundle', _Palette.brass, _Palette.indigoDeep),
                 _diagramArrow(),
                 _diagramNode('subtree', _Palette.sage, _Palette.linen),
               ],
@@ -1124,7 +1046,10 @@ Widget _diagramNode(String label, Color bg, Color fg) {
     ),
     child: Text(
       label,
-      style: TextStyle(color: fg, fontWeight: FontWeight.w700, fontSize: 12),
+      style: TextStyle(
+          color: fg,
+          fontWeight: FontWeight.w700,
+          fontSize: 12),
     ),
   );
 }
@@ -1145,13 +1070,8 @@ class _ProviderCompare {
   final String cacheKey;
   final String mostUsefulFor;
   final Color accent;
-  const _ProviderCompare(
-    this.name,
-    this.source,
-    this.cacheKey,
-    this.mostUsefulFor,
-    this.accent,
-  );
+  const _ProviderCompare(this.name, this.source, this.cacheKey,
+      this.mostUsefulFor, this.accent);
 }
 
 List<_ProviderCompare> _providerCompares() {
@@ -1207,10 +1127,10 @@ Widget _buildProviderCompare() {
       ),
       child: Row(
         children: [
-          SizedBox(width: 130, child: Text('provider', style: _monoLight())),
-          SizedBox(width: 180, child: Text('source', style: _monoLight())),
-          SizedBox(width: 180, child: Text('cache key', style: _monoLight())),
-          Expanded(child: Text('most useful for', style: _monoLight())),
+          SizedBox(width: 130, child: Text('provider',   style: _monoLight())),
+          SizedBox(width: 180, child: Text('source',     style: _monoLight())),
+          SizedBox(width: 180, child: Text('cache key',  style: _monoLight())),
+          Expanded(            child: Text('most useful for', style: _monoLight())),
         ],
       ),
     ),
@@ -1234,14 +1154,11 @@ Widget _buildProviderCompare() {
           children: [
             SizedBox(
               width: 130,
-              child: Text(
-                r.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w800,
-                  color: _Palette.indigoDeep,
-                  fontSize: 12.5,
-                ),
-              ),
+              child: Text(r.name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: _Palette.indigoDeep,
+                      fontSize: 12.5)),
             ),
             SizedBox(width: 180, child: Text(r.source, style: _body())),
             SizedBox(width: 180, child: Text(r.cacheKey, style: _mono())),
@@ -1269,12 +1186,7 @@ Widget _buildProviderCompare() {
 Widget _buildProviderLineage() {
   final levels = <Widget>[];
 
-  Widget node(
-    String label,
-    String comment,
-    Color bg, {
-    Color fg = _Palette.linen,
-  }) {
+  Widget node(String label, String comment, Color bg, {Color fg = _Palette.linen}) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 6),
@@ -1286,25 +1198,26 @@ Widget _buildProviderLineage() {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(width: 4, height: 36, color: _alpha(_Palette.linen, 0.6)),
+          Container(
+            width: 4,
+            height: 36,
+            color: _alpha(_Palette.linen, 0.6),
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: fg,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 14,
-                  ),
-                ),
+                Text(label,
+                    style: TextStyle(
+                        color: fg,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14)),
                 const SizedBox(height: 2),
-                Text(
-                  comment,
-                  style: TextStyle(color: _alpha(fg, 0.85), fontSize: 12),
-                ),
+                Text(comment,
+                    style: TextStyle(
+                        color: _alpha(fg, 0.85),
+                        fontSize: 12)),
               ],
             ),
           ),
@@ -1313,43 +1226,21 @@ Widget _buildProviderLineage() {
     );
   }
 
-  levels.add(
-    node(
-      'ImageProvider<T>',
+  levels.add(node('ImageProvider<T>',
       'Generic base. Defines obtainKey + loadImage(key, decoder).',
-      _Palette.indigoDeep,
-    ),
-  );
-  levels.add(
-    node(
-      'AssetBundleImageProvider',
+      _Palette.indigoDeep));
+  levels.add(node('AssetBundleImageProvider',
       'Mixes in resolving keys through an AssetBundle. Calls bundle.load(key).',
-      _Palette.indigo,
-    ),
-  );
-  levels.add(
-    node(
-      'AssetImage',
+      _Palette.indigo));
+  levels.add(node('AssetImage',
       'Adds manifest-based scale variant resolution -- picks the right Nx.',
-      _Palette.brass,
-      fg: _Palette.indigoDeep,
-    ),
-  );
-  levels.add(
-    node(
-      'ExactAssetImage',
+      _Palette.brass, fg: _Palette.indigoDeep));
+  levels.add(node('ExactAssetImage',
       'Skips manifest lookup -- you tell it the scale and asset name.',
-      _Palette.brassDeep,
-    ),
-  );
-  levels.add(
-    node(
-      'NetworkAssetBundle (parallel)',
+      _Palette.brassDeep));
+  levels.add(node('NetworkAssetBundle (parallel)',
       'Not an ImageProvider; an AssetBundle subclass that fetches via HTTP.',
-      _Palette.sky,
-      fg: _Palette.indigoDeep,
-    ),
-  );
+      _Palette.sky, fg: _Palette.indigoDeep));
 
   return _card(
     child: Column(
@@ -1435,46 +1326,30 @@ class _Callout {
 
 List<_Callout> _callouts() {
   return const <_Callout>[
-    _Callout(
-      true,
-      'DO use DefaultAssetBundle.of(context)',
-      'Lets tests and themed subtrees swap in a different bundle.',
-    ),
-    _Callout(
-      false,
-      'AVOID hard-coding rootBundle inside widgets',
-      'It works in production but defeats injection-based widget tests.',
-    ),
-    _Callout(
-      true,
-      'DO let AssetImage pick the scale',
-      'Declare one logical name in pubspec and ship Nx siblings.',
-    ),
-    _Callout(
-      false,
-      'AVOID branching on devicePixelRatio yourself',
-      'AssetImage already does this through the manifest.',
-    ),
-    _Callout(
-      true,
-      'DO use ExactAssetImage for pre-rendered tile sets',
-      "When you ship a 512x512 webp tile you don't want Flutter to scale-pick.'",
-    ),
-    _Callout(
-      false,
-      'AVOID NetworkAssetBundle for high-frequency requests',
-      'It re-fetches per key. Use a real cache (CachingAssetBundle subclass).',
-    ),
-    _Callout(
-      true,
-      'DO precache critical AssetImages at startup',
-      'precacheImage(AssetImage(...), context) avoids first-frame jank.',
-    ),
-    _Callout(
-      false,
-      "AVOID calling .load on rootBundle in synchronous code",
-      'It always returns a Future -- await it on a non-render-blocking path.',
-    ),
+    _Callout(true,
+        'DO use DefaultAssetBundle.of(context)',
+        'Lets tests and themed subtrees swap in a different bundle.'),
+    _Callout(false,
+        'AVOID hard-coding rootBundle inside widgets',
+        'It works in production but defeats injection-based widget tests.'),
+    _Callout(true,
+        'DO let AssetImage pick the scale',
+        'Declare one logical name in pubspec and ship Nx siblings.'),
+    _Callout(false,
+        'AVOID branching on devicePixelRatio yourself',
+        'AssetImage already does this through the manifest.'),
+    _Callout(true,
+        'DO use ExactAssetImage for pre-rendered tile sets',
+        "When you ship a 512x512 webp tile you don't want Flutter to scale-pick.'"),
+    _Callout(false,
+        'AVOID NetworkAssetBundle for high-frequency requests',
+        'It re-fetches per key. Use a real cache (CachingAssetBundle subclass).'),
+    _Callout(true,
+        'DO precache critical AssetImages at startup',
+        'precacheImage(AssetImage(...), context) avoids first-frame jank.'),
+    _Callout(false,
+        "AVOID calling .load on rootBundle in synchronous code",
+        'It always returns a Future -- await it on a non-render-blocking path.'),
   ];
 }
 
@@ -1483,9 +1358,7 @@ Widget _buildCallouts() {
   final widgets = <Widget>[];
   for (int i = 0; i < items.length; i++) {
     final c = items[i];
-    final bg = c.isDo
-        ? _alpha(_Palette.sage, 0.18)
-        : _alpha(_Palette.oxblood, 0.13);
+    final bg = c.isDo ? _alpha(_Palette.sage, 0.18) : _alpha(_Palette.oxblood, 0.13);
     final accent = c.isDo ? _Palette.sage : _Palette.oxblood;
     widgets.add(
       Container(
@@ -1556,62 +1429,34 @@ class _GlossaryTerm {
 
 List<_GlossaryTerm> _glossary() {
   return const <_GlossaryTerm>[
-    _GlossaryTerm(
-      'AssetBundle',
-      'Abstract handle for a collection of named assets. Concrete subclasses are PlatformAssetBundle and NetworkAssetBundle.',
-    ),
-    _GlossaryTerm(
-      'rootBundle',
-      'Top-level singleton AssetBundle wired to the engine asset table.',
-    ),
-    _GlossaryTerm(
-      'PlatformAssetBundle',
-      'Concrete bundle that loads via platform channels from the compiled app bundle.',
-    ),
-    _GlossaryTerm(
-      'NetworkAssetBundle',
-      'Concrete bundle that loads via HTTP GET against a base URI.',
-    ),
-    _GlossaryTerm(
-      'CachingAssetBundle',
-      'Mixin that keeps loadString / loadStructuredData results in memory.',
-    ),
-    _GlossaryTerm(
-      'DefaultAssetBundle',
-      'InheritedWidget that supplies a bundle to a subtree.',
-    ),
-    _GlossaryTerm(
-      'AssetManifest',
-      'Build-time JSON-ish index of every asset and its scale variants.',
-    ),
-    _GlossaryTerm(
-      'AssetMetadata',
-      'Per-variant record: key, targetDevicePixelRatio, main-or-variant flag.',
-    ),
-    _GlossaryTerm(
-      'AssetImage',
-      'ImageProvider that resolves a logical asset name through the manifest.',
-    ),
-    _GlossaryTerm(
-      'ExactAssetImage',
-      'ImageProvider that bypasses the manifest -- you pass scale yourself.',
-    ),
-    _GlossaryTerm(
-      'AssetBundleImageProvider',
-      'Internal base shared by AssetImage and ExactAssetImage.',
-    ),
-    _GlossaryTerm(
-      'keyName',
-      'Final resolved bundle key -- includes package prefix and scale folder.',
-    ),
-    _GlossaryTerm(
-      'packages/<name>/...',
-      'Magic prefix that maps to a dependency package\'s assets folder.',
-    ),
-    _GlossaryTerm(
-      'precacheImage',
-      'Top-level helper that warms an ImageProvider so the first frame is cheap.',
-    ),
+    _GlossaryTerm('AssetBundle',
+        'Abstract handle for a collection of named assets. Concrete subclasses are PlatformAssetBundle and NetworkAssetBundle.'),
+    _GlossaryTerm('rootBundle',
+        'Top-level singleton AssetBundle wired to the engine asset table.'),
+    _GlossaryTerm('PlatformAssetBundle',
+        'Concrete bundle that loads via platform channels from the compiled app bundle.'),
+    _GlossaryTerm('NetworkAssetBundle',
+        'Concrete bundle that loads via HTTP GET against a base URI.'),
+    _GlossaryTerm('CachingAssetBundle',
+        'Mixin that keeps loadString / loadStructuredData results in memory.'),
+    _GlossaryTerm('DefaultAssetBundle',
+        'InheritedWidget that supplies a bundle to a subtree.'),
+    _GlossaryTerm('AssetManifest',
+        'Build-time JSON-ish index of every asset and its scale variants.'),
+    _GlossaryTerm('AssetMetadata',
+        'Per-variant record: key, targetDevicePixelRatio, main-or-variant flag.'),
+    _GlossaryTerm('AssetImage',
+        'ImageProvider that resolves a logical asset name through the manifest.'),
+    _GlossaryTerm('ExactAssetImage',
+        'ImageProvider that bypasses the manifest -- you pass scale yourself.'),
+    _GlossaryTerm('AssetBundleImageProvider',
+        'Internal base shared by AssetImage and ExactAssetImage.'),
+    _GlossaryTerm('keyName',
+        'Final resolved bundle key -- includes package prefix and scale folder.'),
+    _GlossaryTerm('packages/<name>/...',
+        'Magic prefix that maps to a dependency package\'s assets folder.'),
+    _GlossaryTerm('precacheImage',
+        'Top-level helper that warms an ImageProvider so the first frame is cheap.'),
   ];
 }
 
@@ -1620,40 +1465,35 @@ Widget _buildGlossary() {
   final tiles = <Widget>[];
   for (int i = 0; i < terms.length; i++) {
     final t = terms[i];
-    tiles.add(
-      _card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 22,
-                  height: 22,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: _Palette.brass,
-                    borderRadius: BorderRadius.circular(11),
-                  ),
-                  child: Text(
-                    '${i + 1}',
-                    style: const TextStyle(
-                      color: _Palette.indigoDeep,
-                      fontSize: 10.5,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
+    tiles.add(_card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 22,
+                height: 22,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: _Palette.brass,
+                  borderRadius: BorderRadius.circular(11),
                 ),
-                const SizedBox(width: 8),
-                Expanded(child: Text(t.term, style: _h3())),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(t.def, style: _body()),
-          ],
-        ),
+                child: Text('${i + 1}',
+                    style: const TextStyle(
+                        color: _Palette.indigoDeep,
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.w900)),
+              ),
+              const SizedBox(width: 8),
+              Expanded(child: Text(t.term, style: _h3())),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(t.def, style: _body()),
+        ],
       ),
-    );
+    ));
   }
   return Column(children: tiles);
 }
@@ -1702,15 +1542,15 @@ Widget _buildRecap() {
         const SizedBox(height: 8),
         Row(
           children: [
-            _chip('AssetBundle', bg: _Palette.brass, fg: _Palette.indigoDeep),
+            _chip('AssetBundle',         bg: _Palette.brass, fg: _Palette.indigoDeep),
             const SizedBox(width: 6),
-            _chip('rootBundle', bg: _Palette.oxblood),
+            _chip('rootBundle',          bg: _Palette.oxblood),
             const SizedBox(width: 6),
-            _chip('AssetManifest', bg: _Palette.sky, fg: _Palette.indigoDeep),
+            _chip('AssetManifest',       bg: _Palette.sky, fg: _Palette.indigoDeep),
             const SizedBox(width: 6),
-            _chip('DefaultAssetBundle', bg: _Palette.sage),
+            _chip('DefaultAssetBundle',  bg: _Palette.sage),
             const SizedBox(width: 6),
-            _chip('AssetImage', bg: _Palette.stamp),
+            _chip('AssetImage',          bg: _Palette.stamp),
           ],
         ),
       ],
@@ -1782,67 +1622,38 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.all(14),
         children: [
           titleBanner,
-          _sectionTitle(
-            '2',
-            'AssetBundle taxonomy',
-            'one card per concrete or abstract bundle class',
-          ),
+          _sectionTitle('2', 'AssetBundle taxonomy',
+              'one card per concrete or abstract bundle class'),
           taxonomy,
-          _sectionTitle(
-            '3',
-            'rootBundle',
-            'the global PlatformAssetBundle singleton',
-          ),
+          _sectionTitle('3', 'rootBundle',
+              'the global PlatformAssetBundle singleton'),
           rootBundleProse,
-          _sectionTitle(
-            '4',
-            'AssetImage gallery',
-            'AssetImage, ExactAssetImage, package: variants',
-          ),
+          _sectionTitle('4', 'AssetImage gallery',
+              'AssetImage, ExactAssetImage, package: variants'),
           gallery,
-          _sectionTitle(
-            '5',
-            'Resolution variants',
-            '1x / 1.5x / 2x / 3x / 4x folder layout',
-          ),
+          _sectionTitle('5', 'Resolution variants',
+              '1x / 1.5x / 2x / 3x / 4x folder layout'),
           variants,
-          _sectionTitle(
-            '6',
-            'AssetManifest',
-            'build-time index of every asset + scale variant',
-          ),
+          _sectionTitle('6', 'AssetManifest',
+              'build-time index of every asset + scale variant'),
           manifest,
-          _sectionTitle(
-            '7',
-            'DefaultAssetBundle',
-            'inherited-widget wrapper for test injection',
-          ),
+          _sectionTitle('7', 'DefaultAssetBundle',
+              'inherited-widget wrapper for test injection'),
           defaultBundle,
-          _sectionTitle(
-            '8',
-            'Provider comparison',
-            'AssetImage vs NetworkImage vs FileImage vs MemoryImage',
-          ),
+          _sectionTitle('8', 'Provider comparison',
+              'AssetImage vs NetworkImage vs FileImage vs MemoryImage'),
           compare,
-          _sectionTitle(
-            '9',
-            'Provider lineage',
-            'AssetBundleImageProvider hierarchy',
-          ),
+          _sectionTitle('9', 'Provider lineage',
+              'AssetBundleImageProvider hierarchy'),
           lineage,
-          _sectionTitle(
-            '10',
-            'pubspec.yaml',
-            'declaring assets and discovering variants',
-          ),
+          _sectionTitle('10', 'pubspec.yaml',
+              'declaring assets and discovering variants'),
           pubspec,
-          _sectionTitle('11', 'DO / AVOID', 'practical field notes'),
+          _sectionTitle('11', 'DO / AVOID',
+              'practical field notes'),
           callouts,
-          _sectionTitle(
-            '12',
-            'Glossary',
-            'fourteen recurring terms in the asset surface',
-          ),
+          _sectionTitle('12', 'Glossary',
+              'fourteen recurring terms in the asset surface'),
           glossary,
           _gap(18),
           recap,

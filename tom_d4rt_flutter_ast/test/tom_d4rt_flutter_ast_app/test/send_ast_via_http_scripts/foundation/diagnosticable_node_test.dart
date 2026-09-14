@@ -174,7 +174,9 @@ class _HeroBannerSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.black.withValues(alpha: 0.25),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.18),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -263,8 +265,7 @@ class _HierarchyDiagramSection extends StatelessWidget {
             ],
           ),
           border: Border.all(
-            color: const Color(0xFF00ACC1).withValues(alpha: 0.4),
-          ),
+              color: const Color(0xFF00ACC1).withValues(alpha: 0.4)),
         ),
         child: Column(
           children: <Widget>[
@@ -313,8 +314,7 @@ class _HierarchyDiagramSection extends StatelessWidget {
                 color: Colors.white.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: const Color(0xFF4527A0).withValues(alpha: 0.4),
-                ),
+                    color: const Color(0xFF4527A0).withValues(alpha: 0.4)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -745,7 +745,10 @@ class _PropRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.7),
         border: Border(
-          bottom: BorderSide(color: color.withValues(alpha: 0.2), width: 1),
+          bottom: BorderSide(
+            color: color.withValues(alpha: 0.2),
+            width: 1,
+          ),
         ),
       ),
       child: Row(
@@ -754,7 +757,8 @@ class _PropRow extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(6),
@@ -1148,8 +1152,7 @@ class _DiagnosticLevelScaleSection extends StatelessWidget {
               description:
                   'Indicates a property whose value is suspicious — like a '
                   'callback supplied where one usually is not.',
-              example:
-                  'ObjectFlagProperty<Function>("onTap", null, ifNull: "MISSING")',
+              example: 'ObjectFlagProperty<Function>("onTap", null, ifNull: "MISSING")',
             ),
             _LevelRow(
               level: 'hint',
@@ -1176,8 +1179,7 @@ class _DiagnosticLevelScaleSection extends StatelessWidget {
               description:
                   'Properties documenting an actual error. Stay visible at '
                   'almost every level.',
-              example:
-                  'DiagnosticsProperty<Object>("exception", e, level: error)',
+              example: 'DiagnosticsProperty<Object>("exception", e, level: error)',
             ),
             _LevelRow(
               level: 'off',
@@ -1224,86 +1226,87 @@ class _LevelRow extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(width: 6, color: color.withValues(alpha: 0.85)),
+              Container(
+                width: 6,
+                color: color.withValues(alpha: 0.85),
+              ),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.85),
-                    border: Border.all(color: color.withValues(alpha: 0.18)),
+                    border: Border.all(
+                      color: color.withValues(alpha: 0.18),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
-                        width: 70,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        decoration: BoxDecoration(
-                          color: color.withValues(alpha: 0.92),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              level,
-                              style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.white.withValues(alpha: 0.98),
-                              ),
-                            ),
-                            Text(
-                              '#$code',
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.white.withValues(alpha: 0.78),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              description,
-                              style: TextStyle(
-                                fontSize: 12.5,
-                                height: 1.45,
-                                color: Colors.black.withValues(alpha: 0.78),
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: color.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                  color: color.withValues(alpha: 0.32),
-                                  width: 1,
-                                ),
-                              ),
-                              child: Text(
-                                example,
-                                style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 11,
-                                  color: color.withValues(alpha: 0.92),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ), // end inner Row
+          Container(
+            width: 70,
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.92),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  level,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white.withValues(alpha: 0.98),
+                  ),
+                ),
+                Text(
+                  '#$code',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.white.withValues(alpha: 0.78),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    height: 1.45,
+                    color: Colors.black.withValues(alpha: 0.78),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                        color: color.withValues(alpha: 0.32), width: 1),
+                  ),
+                  child: Text(
+                    example,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                      color: color.withValues(alpha: 0.92),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ), // end inner Row
                 ), // end Expanded.child Container
               ), // end Expanded
             ], // end outer Row children
@@ -1484,9 +1487,8 @@ class _CodeBlock extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.black.withValues(alpha: 0.3),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(10)),
             ),
             child: Row(
               children: <Widget>[
@@ -1529,9 +1531,7 @@ class _CodeBlock extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                      horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: foreground.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(4),
@@ -1621,103 +1621,85 @@ class _JsonMapPreviewSection extends StatelessWidget {
                   color: const Color(0xFF1565C0).withValues(alpha: 0.6),
                 ),
               ),
-              child: const _JsonLines(
-                lines: <_JsonLine>[
-                  _JsonLine(indent: 0, text: '{'),
-                  _JsonLine(indent: 1, kind: _JK.key, text: '"description"'),
-                  _JsonLine(indent: 1, kind: _JK.string, text: ': "MyWidget",'),
-                  _JsonLine(indent: 1, kind: _JK.key, text: '"type"'),
-                  _JsonLine(
-                    indent: 1,
-                    kind: _JK.string,
-                    text: ': "_ElementDiagnosticableTreeNode",',
-                  ),
-                  _JsonLine(indent: 1, kind: _JK.key, text: '"hasChildren"'),
-                  _JsonLine(indent: 1, kind: _JK.bool, text: ': true,'),
-                  _JsonLine(indent: 1, kind: _JK.key, text: '"allowWrap"'),
-                  _JsonLine(indent: 1, kind: _JK.bool, text: ': false,'),
-                  _JsonLine(indent: 1, kind: _JK.key, text: '"objectId"'),
-                  _JsonLine(
-                    indent: 1,
-                    kind: _JK.string,
-                    text: ': "inspector-1842",',
-                  ),
-                  _JsonLine(indent: 1, kind: _JK.key, text: '"valueId"'),
-                  _JsonLine(
-                    indent: 1,
-                    kind: _JK.string,
-                    text: ': "inspector-1843",',
-                  ),
-                  _JsonLine(indent: 1, kind: _JK.key, text: '"summaryTree"'),
-                  _JsonLine(indent: 1, kind: _JK.bool, text: ': true,'),
-                  _JsonLine(indent: 1, kind: _JK.key, text: '"properties"'),
-                  _JsonLine(indent: 1, text: ': ['),
-                  _JsonLine(indent: 2, text: '{'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"description"'),
-                  _JsonLine(
-                    indent: 3,
-                    kind: _JK.string,
-                    text: ': "\\"submit\\"",',
-                  ),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"name"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "label",'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"type"'),
-                  _JsonLine(
-                    indent: 3,
-                    kind: _JK.string,
-                    text: ': "StringProperty",',
-                  ),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"level"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "info",'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"propertyType"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "String"'),
-                  _JsonLine(indent: 2, text: '},'),
-                  _JsonLine(indent: 2, text: '{'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"description"'),
-                  _JsonLine(
-                    indent: 3,
-                    kind: _JK.string,
-                    text: ': "Color(0xff2196f3)",',
-                  ),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"name"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "color",'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"type"'),
-                  _JsonLine(
-                    indent: 3,
-                    kind: _JK.string,
-                    text: ': "ColorProperty",',
-                  ),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"level"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "info"'),
-                  _JsonLine(indent: 2, text: '},'),
-                  _JsonLine(indent: 2, text: '{'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"description"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "enabled",'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"name"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "enabled",'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"type"'),
-                  _JsonLine(
-                    indent: 3,
-                    kind: _JK.string,
-                    text: ': "FlagProperty",',
-                  ),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"ifTrue"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "enabled",'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"ifFalse"'),
-                  _JsonLine(indent: 3, kind: _JK.string, text: ': "disabled",'),
-                  _JsonLine(indent: 3, kind: _JK.key, text: '"showName"'),
-                  _JsonLine(indent: 3, kind: _JK.bool, text: ': false'),
-                  _JsonLine(indent: 2, text: '}'),
-                  _JsonLine(indent: 1, text: '],'),
-                  _JsonLine(
-                    indent: 1,
-                    kind: _JK.key,
-                    text: '"createdByLocalProject"',
-                  ),
-                  _JsonLine(indent: 1, kind: _JK.bool, text: ': true'),
-                  _JsonLine(indent: 0, text: '}'),
-                ],
-              ),
+              child: const _JsonLines(lines: <_JsonLine>[
+                _JsonLine(indent: 0, text: '{'),
+                _JsonLine(indent: 1, kind: _JK.key, text: '"description"'),
+                _JsonLine(indent: 1, kind: _JK.string, text: ': "MyWidget",'),
+                _JsonLine(indent: 1, kind: _JK.key, text: '"type"'),
+                _JsonLine(indent: 1, kind: _JK.string,
+                    text: ': "_ElementDiagnosticableTreeNode",'),
+                _JsonLine(indent: 1, kind: _JK.key, text: '"hasChildren"'),
+                _JsonLine(indent: 1, kind: _JK.bool, text: ': true,'),
+                _JsonLine(indent: 1, kind: _JK.key, text: '"allowWrap"'),
+                _JsonLine(indent: 1, kind: _JK.bool, text: ': false,'),
+                _JsonLine(indent: 1, kind: _JK.key, text: '"objectId"'),
+                _JsonLine(indent: 1, kind: _JK.string,
+                    text: ': "inspector-1842",'),
+                _JsonLine(indent: 1, kind: _JK.key, text: '"valueId"'),
+                _JsonLine(indent: 1, kind: _JK.string,
+                    text: ': "inspector-1843",'),
+                _JsonLine(indent: 1, kind: _JK.key,
+                    text: '"summaryTree"'),
+                _JsonLine(indent: 1, kind: _JK.bool, text: ': true,'),
+                _JsonLine(indent: 1, kind: _JK.key, text: '"properties"'),
+                _JsonLine(indent: 1, text: ': ['),
+                _JsonLine(indent: 2, text: '{'),
+                _JsonLine(indent: 3, kind: _JK.key,
+                    text: '"description"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "\\"submit\\"",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"name"'),
+                _JsonLine(indent: 3, kind: _JK.string, text: ': "label",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"type"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "StringProperty",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"level"'),
+                _JsonLine(indent: 3, kind: _JK.string, text: ': "info",'),
+                _JsonLine(indent: 3, kind: _JK.key,
+                    text: '"propertyType"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "String"'),
+                _JsonLine(indent: 2, text: '},'),
+                _JsonLine(indent: 2, text: '{'),
+                _JsonLine(indent: 3, kind: _JK.key,
+                    text: '"description"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "Color(0xff2196f3)",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"name"'),
+                _JsonLine(indent: 3, kind: _JK.string, text: ': "color",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"type"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "ColorProperty",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"level"'),
+                _JsonLine(indent: 3, kind: _JK.string, text: ': "info"'),
+                _JsonLine(indent: 2, text: '},'),
+                _JsonLine(indent: 2, text: '{'),
+                _JsonLine(indent: 3, kind: _JK.key,
+                    text: '"description"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "enabled",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"name"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "enabled",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"type"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "FlagProperty",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"ifTrue"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "enabled",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"ifFalse"'),
+                _JsonLine(indent: 3, kind: _JK.string,
+                    text: ': "disabled",'),
+                _JsonLine(indent: 3, kind: _JK.key, text: '"showName"'),
+                _JsonLine(indent: 3, kind: _JK.bool,
+                    text: ': false'),
+                _JsonLine(indent: 2, text: '}'),
+                _JsonLine(indent: 1, text: '],'),
+                _JsonLine(indent: 1, kind: _JK.key,
+                    text: '"createdByLocalProject"'),
+                _JsonLine(indent: 1, kind: _JK.bool, text: ': true'),
+                _JsonLine(indent: 0, text: '}'),
+              ]),
             ),
           ],
         ),
@@ -2289,7 +2271,9 @@ class _FooterSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.15),
+              ),
             ),
             child: Row(
               children: <Widget>[

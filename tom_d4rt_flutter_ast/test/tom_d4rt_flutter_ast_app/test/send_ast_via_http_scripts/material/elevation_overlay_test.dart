@@ -14,11 +14,7 @@ Widget _buildSectionHeader(String title) {
     ),
     child: Text(
       title,
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
     ),
   );
 }
@@ -34,33 +30,18 @@ Widget _buildInfoCard(String label, String value) {
     ),
     child: Row(
       children: [
-        Text(
-          label,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
+        Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         SizedBox(width: 8),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-          ),
+          child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700)),
         ),
       ],
     ),
   );
 }
 
-Widget _buildElevationCard(
-  double elevation,
-  Color surfaceColor,
-  Color tintColor,
-  String label,
-) {
-  Color tintedColor = ElevationOverlay.applySurfaceTint(
-    surfaceColor,
-    tintColor,
-    elevation,
-  );
+Widget _buildElevationCard(double elevation, Color surfaceColor, Color tintColor, String label) {
+  Color tintedColor = ElevationOverlay.applySurfaceTint(surfaceColor, tintColor, elevation);
   debugPrint('Elevation $elevation: tinted color applied');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -95,25 +76,16 @@ Widget _buildElevationCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey.shade800,
-                ),
-              ),
+              Text(label,
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.grey.shade800)),
               SizedBox(height: 2),
-              Text(
-                'elevation: $elevation dp',
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-              ),
+              Text('elevation: $elevation dp',
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
               SizedBox(height: 2),
               Row(
                 children: [
                   Container(
-                    width: 14,
-                    height: 14,
+                    width: 14, height: 14,
                     decoration: BoxDecoration(
                       color: surfaceColor,
                       border: Border.all(color: Colors.grey.shade400),
@@ -121,20 +93,12 @@ Widget _buildElevationCard(
                     ),
                   ),
                   SizedBox(width: 4),
-                  Text(
-                    'base',
-                    style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
-                  ),
+                  Text('base', style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
                   SizedBox(width: 8),
-                  Icon(
-                    Icons.arrow_forward,
-                    size: 12,
-                    color: Colors.grey.shade400,
-                  ),
+                  Icon(Icons.arrow_forward, size: 12, color: Colors.grey.shade400),
                   SizedBox(width: 8),
                   Container(
-                    width: 14,
-                    height: 14,
+                    width: 14, height: 14,
                     decoration: BoxDecoration(
                       color: tintedColor,
                       border: Border.all(color: Colors.grey.shade400),
@@ -142,10 +106,7 @@ Widget _buildElevationCard(
                     ),
                   ),
                   SizedBox(width: 4),
-                  Text(
-                    'tinted',
-                    style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
-                  ),
+                  Text('tinted', style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
                 ],
               ),
             ],
@@ -163,23 +124,15 @@ Widget _buildDarkThemeElevation() {
 
   List<double> elevations = [0, 1, 2, 3, 4, 6, 8, 12, 16, 24];
   List<String> labels = [
-    'Flat surface',
-    'Default elevation',
-    'Card/raised button',
-    'Snackbar',
-    'App bar',
-    'FAB / Snackbar resting',
-    'Bottom sheet / Menu',
-    'Floating action button',
-    'Nav drawer / Modal bottom sheet',
-    'Dialog',
+    'Flat surface', 'Default elevation', 'Card/raised button',
+    'Snackbar', 'App bar', 'FAB / Snackbar resting',
+    'Bottom sheet / Menu', 'Floating action button',
+    'Nav drawer / Modal bottom sheet', 'Dialog',
   ];
 
   List<Widget> cards = [];
   for (int i = 0; i < elevations.length; i = i + 1) {
-    cards.add(
-      _buildElevationCard(elevations[i], darkSurface, tintColor, labels[i]),
-    );
+    cards.add(_buildElevationCard(elevations[i], darkSurface, tintColor, labels[i]));
   }
 
   return Container(
@@ -196,21 +149,13 @@ Widget _buildDarkThemeElevation() {
           children: [
             Icon(Icons.dark_mode, color: Colors.purple.shade200, size: 24),
             SizedBox(width: 8),
-            Text(
-              'Dark Theme Elevation',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.purple.shade200,
-              ),
-            ),
+            Text('Dark Theme Elevation',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.purple.shade200)),
           ],
         ),
         SizedBox(height: 4),
-        Text(
-          'Surface tint applied with ElevationOverlay.applySurfaceTint',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-        ),
+        Text('Surface tint applied with ElevationOverlay.applySurfaceTint',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
         SizedBox(height: 12),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: cards),
       ],
@@ -225,23 +170,15 @@ Widget _buildLightThemeElevation() {
 
   List<double> elevations = [0, 1, 2, 3, 4, 6, 8, 12, 16, 24];
   List<String> labels = [
-    'Flat surface',
-    'Default elevation',
-    'Card/raised button',
-    'Snackbar',
-    'App bar',
-    'FAB / Snackbar resting',
-    'Bottom sheet / Menu',
-    'Floating action button',
-    'Nav drawer / Modal bottom sheet',
-    'Dialog',
+    'Flat surface', 'Default elevation', 'Card/raised button',
+    'Snackbar', 'App bar', 'FAB / Snackbar resting',
+    'Bottom sheet / Menu', 'Floating action button',
+    'Nav drawer / Modal bottom sheet', 'Dialog',
   ];
 
   List<Widget> cards = [];
   for (int i = 0; i < elevations.length; i = i + 1) {
-    cards.add(
-      _buildElevationCard(elevations[i], lightSurface, tintColor, labels[i]),
-    );
+    cards.add(_buildElevationCard(elevations[i], lightSurface, tintColor, labels[i]));
   }
 
   return Container(
@@ -258,21 +195,13 @@ Widget _buildLightThemeElevation() {
           children: [
             Icon(Icons.light_mode, color: Colors.blue.shade600, size: 24),
             SizedBox(width: 8),
-            Text(
-              'Light Theme Elevation',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue.shade800,
-              ),
-            ),
+            Text('Light Theme Elevation',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue.shade800)),
           ],
         ),
         SizedBox(height: 4),
-        Text(
-          'Surface tint applied with ElevationOverlay.applySurfaceTint',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-        ),
+        Text('Surface tint applied with ElevationOverlay.applySurfaceTint',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
         SizedBox(height: 12),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: cards),
       ],
@@ -285,22 +214,14 @@ Widget _buildColorTintComparison() {
   Color baseSurface = Color(0xFF1E1E1E);
   List<String> tintNames = ['Purple', 'Blue', 'Green', 'Orange', 'Red', 'Teal'];
   List<Color> tintColors = [
-    Colors.purple.shade200,
-    Colors.blue.shade200,
-    Colors.green.shade200,
-    Colors.orange.shade200,
-    Colors.red.shade200,
-    Colors.teal.shade200,
+    Colors.purple.shade200, Colors.blue.shade200, Colors.green.shade200,
+    Colors.orange.shade200, Colors.red.shade200, Colors.teal.shade200,
   ];
 
   double targetElevation = 8.0;
   List<Widget> rows = [];
   for (int i = 0; i < tintNames.length; i = i + 1) {
-    Color tinted = ElevationOverlay.applySurfaceTint(
-      baseSurface,
-      tintColors[i],
-      targetElevation,
-    );
+    Color tinted = ElevationOverlay.applySurfaceTint(baseSurface, tintColors[i], targetElevation);
     rows.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 4),
@@ -312,8 +233,7 @@ Widget _buildColorTintComparison() {
         child: Row(
           children: [
             Container(
-              width: 18,
-              height: 18,
+              width: 18, height: 18,
               decoration: BoxDecoration(
                 color: tintColors[i],
                 shape: BoxShape.circle,
@@ -321,19 +241,11 @@ Widget _buildColorTintComparison() {
               ),
             ),
             SizedBox(width: 10),
-            Text(
-              tintNames[i],
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
+            Text(tintNames[i],
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white)),
             SizedBox(width: 8),
-            Text(
-              'tint at elevation $targetElevation',
-              style: TextStyle(fontSize: 11, color: Colors.white70),
-            ),
+            Text('tint at elevation $targetElevation',
+              style: TextStyle(fontSize: 11, color: Colors.white70)),
           ],
         ),
       ),
@@ -350,19 +262,11 @@ Widget _buildColorTintComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Different Tint Colors at Elevation 8',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        Text('Different Tint Colors at Elevation 8',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
         SizedBox(height: 4),
-        Text(
-          'Same surface, different surfaceTintColor values',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-        ),
+        Text('Same surface, different surfaceTintColor values',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
         SizedBox(height: 12),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
       ],
@@ -393,14 +297,8 @@ Widget _buildElevationStaircase() {
           ),
         ),
         alignment: Alignment.center,
-        child: Text(
-          '${steps[i].toInt()}',
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        child: Text('${steps[i].toInt()}',
+          style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white)),
       ),
     );
   }
@@ -415,24 +313,13 @@ Widget _buildElevationStaircase() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Elevation Staircase',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.indigo.shade200,
-          ),
-        ),
+        Text('Elevation Staircase',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.indigo.shade200)),
         SizedBox(height: 4),
-        Text(
-          'Wider and lighter bars represent higher elevation',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-        ),
+        Text('Wider and lighter bars represent higher elevation',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
         SizedBox(height: 12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: stairWidgets,
-        ),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: stairWidgets),
       ],
     ),
   );
@@ -454,11 +341,7 @@ Widget _buildMaterialCards() {
 
   List<Widget> cards = [];
   for (int i = 0; i < elevations.length; i = i + 1) {
-    Color tinted = ElevationOverlay.applySurfaceTint(
-      surface,
-      tint,
-      elevations[i],
-    );
+    Color tinted = ElevationOverlay.applySurfaceTint(surface, tint, elevations[i]);
     cards.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6),
@@ -479,14 +362,8 @@ Widget _buildMaterialCards() {
           children: [
             Row(
               children: [
-                Text(
-                  'Elevation ${elevations[i].toInt()}',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                Text('Elevation ${elevations[i].toInt()}',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
                 Expanded(child: SizedBox()),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -494,18 +371,14 @@ Widget _buildMaterialCards() {
                     color: Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
-                    'dp: ${elevations[i].toInt()}',
-                    style: TextStyle(fontSize: 10, color: Colors.white70),
-                  ),
+                  child: Text('dp: ${elevations[i].toInt()}',
+                    style: TextStyle(fontSize: 10, color: Colors.white70)),
                 ),
               ],
             ),
             SizedBox(height: 4),
-            Text(
-              descriptions[i],
-              style: TextStyle(fontSize: 12, color: Colors.white60),
-            ),
+            Text(descriptions[i],
+              style: TextStyle(fontSize: 12, color: Colors.white60)),
           ],
         ),
       ),
@@ -522,19 +395,11 @@ Widget _buildMaterialCards() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Material Cards at Different Elevations',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple.shade200,
-          ),
-        ),
+        Text('Material Cards at Different Elevations',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade200)),
         SizedBox(height: 4),
-        Text(
-          'Cards show shadow + tint at increasing elevations',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-        ),
+        Text('Cards show shadow + tint at increasing elevations',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade500)),
         SizedBox(height: 8),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: cards),
       ],
@@ -545,16 +410,8 @@ Widget _buildMaterialCards() {
 Widget _buildNullTintBehavior() {
   debugPrint('Building null tint behavior');
   Color surface = Color(0xFF2A2A2A);
-  Color tintedWithNull = ElevationOverlay.applySurfaceTint(
-    surface,
-    Color(0x00000000),
-    8.0,
-  );
-  Color tintedWithColor = ElevationOverlay.applySurfaceTint(
-    surface,
-    Colors.cyan.shade200,
-    8.0,
-  );
+  Color tintedWithNull = ElevationOverlay.applySurfaceTint(surface, Color(0x00000000), 8.0);
+  Color tintedWithColor = ElevationOverlay.applySurfaceTint(surface, Colors.cyan.shade200, 8.0);
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -566,14 +423,8 @@ Widget _buildNullTintBehavior() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Tint Color Behavior',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        Text('Tint Color Behavior',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
         SizedBox(height: 12),
         Row(
           children: [
@@ -586,10 +437,7 @@ Widget _buildNullTintBehavior() {
                   border: Border.all(color: Colors.grey.shade600),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'Transparent tint',
-                  style: TextStyle(fontSize: 12, color: Colors.white),
-                ),
+                child: Text('Transparent tint', style: TextStyle(fontSize: 12, color: Colors.white)),
               ),
             ),
             SizedBox(width: 12),
@@ -602,19 +450,14 @@ Widget _buildNullTintBehavior() {
                   border: Border.all(color: Colors.cyan.shade400),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'Cyan tint',
-                  style: TextStyle(fontSize: 12, color: Colors.white),
-                ),
+                child: Text('Cyan tint', style: TextStyle(fontSize: 12, color: Colors.white)),
               ),
             ),
           ],
         ),
         SizedBox(height: 8),
-        Text(
-          'With transparent tint, surface remains unchanged. With a color tint, surface is tinted.',
-          style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
-        ),
+        Text('With transparent tint, surface remains unchanged. With a color tint, surface is tinted.',
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
       ],
     ),
   );
@@ -623,12 +466,8 @@ Widget _buildNullTintBehavior() {
 Widget _buildPropertiesSummary() {
   debugPrint('Building properties summary');
   List<String> methods = ['applySurfaceTint'];
-  List<String> methodDescs = [
-    'Applies a surface tint color to a surface color based on the given elevation',
-  ];
-  List<String> params = [
-    'surfaceColor: Color, surfaceTintColor: Color, elevation: double',
-  ];
+  List<String> methodDescs = ['Applies a surface tint color to a surface color based on the given elevation'];
+  List<String> params = ['surfaceColor: Color, surfaceTintColor: Color, elevation: double'];
 
   List<Widget> items = [];
   for (int i = 0; i < methods.length; i = i + 1) {
@@ -644,28 +483,14 @@ Widget _buildPropertiesSummary() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              methods[i],
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: Colors.blueGrey.shade800,
-              ),
-            ),
+            Text(methods[i],
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.blueGrey.shade800)),
             SizedBox(height: 4),
-            Text(
-              methodDescs[i],
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-            ),
+            Text(methodDescs[i],
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
             SizedBox(height: 4),
-            Text(
-              'Params: ${params[i]}',
-              style: TextStyle(
-                fontSize: 11,
-                fontStyle: FontStyle.italic,
-                color: Colors.grey.shade500,
-              ),
-            ),
+            Text('Params: ${params[i]}',
+              style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic, color: Colors.grey.shade500)),
           ],
         ),
       ),
@@ -724,18 +549,9 @@ dynamic build(BuildContext context) {
             SizedBox(height: 32),
             _buildInfoCard('Class', 'ElevationOverlay'),
             _buildInfoCard('Package', 'package:flutter/material.dart'),
-            _buildInfoCard(
-              'Purpose',
-              'Applies surface tint to material surfaces based on elevation',
-            ),
-            _buildInfoCard(
-              'Key Method',
-              'applySurfaceTint(surfaceColor, tintColor, elevation)',
-            ),
-            _buildInfoCard(
-              'Usage',
-              'Material 3 tonal elevation system for dark and light themes',
-            ),
+            _buildInfoCard('Purpose', 'Applies surface tint to material surfaces based on elevation'),
+            _buildInfoCard('Key Method', 'applySurfaceTint(surfaceColor, tintColor, elevation)'),
+            _buildInfoCard('Usage', 'Material 3 tonal elevation system for dark and light themes'),
             SizedBox(height: 32),
           ],
         ),

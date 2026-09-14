@@ -398,9 +398,9 @@ Widget _buildColorSchemeSliders() {
             SliderTheme(
               data: SliderThemeData(
                 rangeTrackShape: GappedRangeSliderTrackShape(),
-                trackGap: 6.0,
-                disabledActiveTrackColor: Color(0xFF9E9E9E),
-                disabledInactiveTrackColor: Color(0xFFBDBDBD),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
                 activeTrackColor: s['active'] as Color,
                 inactiveTrackColor: s['inactive'] as Color,
                 overlayColor: s['overlay'] as Color,
@@ -522,9 +522,9 @@ Widget _buildTrackHeightSliders() {
             SliderTheme(
               data: SliderThemeData(
                 rangeTrackShape: GappedRangeSliderTrackShape(),
-                trackGap: 6.0,
-                disabledActiveTrackColor: Color(0xFF9E9E9E),
-                disabledInactiveTrackColor: Color(0xFFBDBDBD),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
                 trackHeight: trackHeight,
                 activeTrackColor: Color(0xFF3F51B5),
                 inactiveTrackColor: Color(0xFFC5CAE9),
@@ -677,9 +677,9 @@ Widget _buildComparisonSection() {
               SliderTheme(
                 data: SliderThemeData(
                   rangeTrackShape: GappedRangeSliderTrackShape(),
-                  trackGap: 6.0,
-                  disabledActiveTrackColor: Color(0xFF9E9E9E),
-                  disabledInactiveTrackColor: Color(0xFFBDBDBD),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
                   trackHeight: 8.0,
                   activeTrackColor: Color(0xFFC62828),
                   inactiveTrackColor: Color(0xFFEF9A9A),

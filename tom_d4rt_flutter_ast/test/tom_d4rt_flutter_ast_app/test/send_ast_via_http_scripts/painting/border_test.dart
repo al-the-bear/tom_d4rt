@@ -134,7 +134,11 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: const TextStyle(color: paletteInk, fontSize: 13.0, height: 1.5),
+        style: const TextStyle(
+          color: paletteInk,
+          fontSize: 13.0,
+          height: 1.5,
+        ),
       ),
     );
   }
@@ -521,7 +525,10 @@ dynamic build(BuildContext context) {
       width: 200.0,
       height: 110.0,
       margin: const EdgeInsets.all(6.0),
-      decoration: BoxDecoration(color: fill, border: border),
+      decoration: BoxDecoration(
+        color: fill,
+        border: border,
+      ),
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
       child: Text(
@@ -540,7 +547,9 @@ dynamic build(BuildContext context) {
     children: <Widget>[
       perSideTile(
         title: 'top only (rose 4px)',
-        border: const Border(top: BorderSide(color: paletteRose, width: 4.0)),
+        border: const Border(
+          top: BorderSide(color: paletteRose, width: 4.0),
+        ),
         fill: paletteRoseSoft,
       ),
       perSideTile(
@@ -552,7 +561,9 @@ dynamic build(BuildContext context) {
       ),
       perSideTile(
         title: 'left only (amber 6px)',
-        border: const Border(left: BorderSide(color: paletteAmber, width: 6.0)),
+        border: const Border(
+          left: BorderSide(color: paletteAmber, width: 6.0),
+        ),
         fill: paletteAmberSoft,
       ),
       perSideTile(
@@ -747,7 +758,10 @@ dynamic build(BuildContext context) {
       child: Directionality(
         textDirection: direction,
         child: Container(
-          decoration: BoxDecoration(color: fill, border: border),
+          decoration: BoxDecoration(
+            color: fill,
+            border: border,
+          ),
           alignment: AlignmentDirectional.centerStart,
           padding: const EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 8.0, 8.0),
           child: Text(
@@ -866,13 +880,20 @@ dynamic build(BuildContext context) {
           if (i.isOdd) {
             return SizedBox(width: gap);
           }
-          return Container(width: dashWidth, height: thickness, color: color);
+          return Container(
+            width: dashWidth,
+            height: thickness,
+            color: color,
+          );
         }),
       ),
     );
   }
 
-  Widget dashedTile({required Color color, required String title}) {
+  Widget dashedTile({
+    required Color color,
+    required String title,
+  }) {
     return Container(
       width: 220.0,
       height: 120.0,
@@ -919,7 +940,11 @@ dynamic build(BuildContext context) {
                 if (i.isOdd) {
                   return const SizedBox(height: 6.0);
                 }
-                return Container(width: 2.5, height: 10.0, color: color);
+                return Container(
+                  width: 2.5,
+                  height: 10.0,
+                  color: color,
+                );
               }),
             ),
           ),
@@ -932,7 +957,11 @@ dynamic build(BuildContext context) {
                 if (i.isOdd) {
                   return const SizedBox(height: 6.0);
                 }
-                return Container(width: 2.5, height: 10.0, color: color);
+                return Container(
+                  width: 2.5,
+                  height: 10.0,
+                  color: color,
+                );
               }),
             ),
           ),
@@ -1096,7 +1125,11 @@ dynamic build(BuildContext context) {
 
   final Widget section8Grid = Wrap(
     children: <Widget>[
-      radiusTile(radius: BorderRadius.zero, title: 'zero', color: paletteSlate),
+      radiusTile(
+        radius: BorderRadius.zero,
+        title: 'zero',
+        color: paletteSlate,
+      ),
       radiusTile(
         radius: BorderRadius.circular(4.0),
         title: 'circular(4)',
@@ -1700,7 +1733,9 @@ dynamic build(BuildContext context) {
         color: paletteCrimson,
       ),
       outlinedButtonTile(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
         label: 'Sharp zero',
         color: paletteSlate,
       ),
@@ -1853,7 +1888,10 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.all(6.0),
       child: Chip(
         label: Text(label),
-        labelStyle: TextStyle(color: color, fontWeight: FontWeight.w800),
+        labelStyle: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w800,
+        ),
         backgroundColor: color.withValues(alpha: 0.12),
         side: BorderSide(color: color, width: 1.4),
         shape: shape,
@@ -1870,7 +1908,9 @@ dynamic build(BuildContext context) {
         color: paletteAccent,
       ),
       shapedChip(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0),
+        ),
         label: 'Rounded 6',
         color: paletteRose,
       ),
@@ -1906,7 +1946,9 @@ dynamic build(BuildContext context) {
         color: paletteCrimson,
       ),
       shapedChip(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
         label: 'Sharp chip',
         color: paletteSlate,
       ),
@@ -2728,7 +2770,8 @@ dynamic build(BuildContext context) {
           ),
           sectionShell(
             title: 'Circle & stadium gallery',
-            subtitle: 'Width sweeps, eccentricity for ellipses, stadium pills.',
+            subtitle:
+                'Width sweeps, eccentricity for ellipses, stadium pills.',
             surface: paletteTealSoft,
             border: paletteTeal,
             titleColor: paletteTeal,
@@ -2817,8 +2860,7 @@ dynamic build(BuildContext context) {
           ),
           sectionShell(
             title: 'Shaped card gallery',
-            subtitle:
-                'Six cards demonstrating five distinct ShapeBorder '
+            subtitle: 'Six cards demonstrating five distinct ShapeBorder '
                 'subclasses.',
             surface: paletteIndigoSoft,
             border: paletteIndigo,
@@ -2874,7 +2916,8 @@ dynamic build(BuildContext context) {
           buildSectionHeader(
             number: 17,
             title: 'BoxBorder polymorphism',
-            subtitle: 'Border + BorderDirectional both implement BoxBorder.',
+            subtitle:
+                'Border + BorderDirectional both implement BoxBorder.',
             icon: Icons.compare,
             color: paletteTeal,
           ),
@@ -2897,7 +2940,8 @@ dynamic build(BuildContext context) {
           buildSectionHeader(
             number: 18,
             title: 'BorderSide deep dive',
-            subtitle: 'color, width, style, strokeAlign and BorderSide.none.',
+            subtitle:
+                'color, width, style, strokeAlign and BorderSide.none.',
             icon: Icons.straighten,
             color: paletteAmber,
           ),
@@ -2910,7 +2954,8 @@ dynamic build(BuildContext context) {
           ),
           sectionShell(
             title: 'BorderSide configurations',
-            subtitle: 'Eight tiles, each pinned to one constructor parameter.',
+            subtitle:
+                'Eight tiles, each pinned to one constructor parameter.',
             surface: paletteAmberSoft,
             border: paletteAmber,
             titleColor: paletteAmber,
@@ -2942,7 +2987,8 @@ dynamic build(BuildContext context) {
           buildSectionHeader(
             number: 20,
             title: 'Design tokens',
-            subtitle: 'The complete colour palette used throughout this demo.',
+            subtitle:
+                'The complete colour palette used throughout this demo.',
             icon: Icons.palette,
             color: paletteIndigo,
           ),
@@ -2980,7 +3026,11 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(Icons.check_circle, color: Colors.white, size: 32.0),
+                const Icon(
+                  Icons.check_circle,
+                  color: Colors.white,
+                  size: 32.0,
+                ),
                 const SizedBox(width: 14.0),
                 Expanded(
                   child: Column(

@@ -140,18 +140,12 @@ dynamic build(BuildContext context) {
       IOSSystemContextMenuItemDataLookUp(title: 'Look Up') ==
       IOSSystemContextMenuItemDataLookUp(title: 'Define');
 
-  print(
-    'translate == translateA (same title)              : '
-    '$sameTitleSameCallback',
-  );
-  print(
-    'translate == translateB (same title, alt callback): '
-    '$sameTitleDifferentCallback',
-  );
-  print(
-    'translate == translateC (different title)         : '
-    '$differentTitle',
-  );
+  print('translate == translateA (same title)              : '
+      '$sameTitleSameCallback');
+  print('translate == translateB (same title, alt callback): '
+      '$sameTitleDifferentCallback');
+  print('translate == translateC (different title)         : '
+      '$differentTitle');
   print('translate == copy                                 : $customVsCopy');
   print('Copy() == Copy()                                  : $twoCopies');
   print('LookUp("Look Up") == LookUp("Look Up")            : $twoLookUpsEq');
@@ -169,7 +163,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF3E2A1F), Color(0xFF5A3E2A), Color(0xFF3E2A1F)],
+        colors: [
+          Color(0xFF3E2A1F),
+          Color(0xFF5A3E2A),
+          Color(0xFF3E2A1F),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -231,7 +229,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'brass blanks · engraved by hand · paired with cuts',
-                    style: TextStyle(color: Color(0xFFC9A876), fontSize: 12.0),
+                    style: TextStyle(
+                      color: Color(0xFFC9A876),
+                      fontSize: 12.0,
+                    ),
                   ),
                 ],
               ),
@@ -324,24 +325,9 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 16.0),
         _treeRow('IOSSystemContextMenuItemData', Color(0xFFE6C078), 0, true),
-        _treeRow(
-          'IOSSystemContextMenuItemDataCopy',
-          Color(0xFFA85D2E),
-          1,
-          false,
-        ),
-        _treeRow(
-          'IOSSystemContextMenuItemDataCut',
-          Color(0xFFA85D2E),
-          1,
-          false,
-        ),
-        _treeRow(
-          'IOSSystemContextMenuItemDataPaste',
-          Color(0xFFA85D2E),
-          1,
-          false,
-        ),
+        _treeRow('IOSSystemContextMenuItemDataCopy', Color(0xFFA85D2E), 1, false),
+        _treeRow('IOSSystemContextMenuItemDataCut', Color(0xFFA85D2E), 1, false),
+        _treeRow('IOSSystemContextMenuItemDataPaste', Color(0xFFA85D2E), 1, false),
         _treeRow(
           'IOSSystemContextMenuItemDataSelectAll',
           Color(0xFFA85D2E),
@@ -374,7 +360,7 @@ dynamic build(BuildContext context) {
         ),
         _treeRow(
           'IOSSystemContextMenuItemDataCustom(title, onPressed)  '
-          '<-- this script',
+              '<-- this script',
           Color(0xFFD4A574),
           1,
           false,
@@ -821,7 +807,9 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(
                   width: 80.0,
-                  child: Center(child: _eqBadge(equalityRows[i]['eq'] as bool)),
+                  child: Center(
+                    child: _eqBadge(equalityRows[i]['eq'] as bool),
+                  ),
                 ),
               ],
             ),
@@ -1075,7 +1063,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 6.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Color(0xFF2A1A0F),
                     borderRadius: BorderRadius.circular(3.0),
@@ -1319,42 +1310,42 @@ dynamic build(BuildContext context) {
       'rule': 'Title is sacred',
       'detail':
           'Two Custom items with the same title are equal -- give every '
-          'engraved key a unique label or you lose it in a Set.',
+              'engraved key a unique label or you lose it in a Set.',
       'on': true,
     },
     {
       'rule': 'Keep titles short',
       'detail':
           'iOS chops titles at the menu surface; aim for <= 24 characters '
-          'so the brass tag fits the rack.',
+              'so the brass tag fits the rack.',
       'on': true,
     },
     {
       'rule': 'Localize per-app extras',
       'detail':
           'Custom titles are not localized by the platform -- run them '
-          'through your own Intl pipeline.',
+              'through your own Intl pipeline.',
       'on': true,
     },
     {
       'rule': 'Order matters',
       'detail':
           'Place built-ins first (Copy, Cut, Paste) and customs after; '
-          'iOS preserves the order you supply.',
+              'iOS preserves the order you supply.',
       'on': true,
     },
     {
       'rule': 'No setState inside onPressed for heavy work',
       'detail':
           'The callback may run after the host widget is gone; capture '
-          'a stable handler or an injected service.',
+              'a stable handler or an injected service.',
       'on': true,
     },
     {
       'rule': 'Do NOT rely on callback identity',
       'detail':
           'operator == ignores the callback; never use Custom items as '
-          'keys in callback-deduplication maps.',
+              'keys in callback-deduplication maps.',
       'on': false,
     },
   ];
@@ -1682,7 +1673,9 @@ Widget _sectionTitle(String text) {
   return Container(
     padding: EdgeInsets.fromLTRB(12.0, 6.0, 0.0, 6.0),
     decoration: BoxDecoration(
-      border: Border(left: BorderSide(color: Color(0xFFB5894D), width: 4.0)),
+      border: Border(
+        left: BorderSide(color: Color(0xFFB5894D), width: 4.0),
+      ),
     ),
     child: Text(
       text,
@@ -1701,7 +1694,11 @@ Widget _intro(String text) {
     padding: EdgeInsets.symmetric(vertical: 6.0),
     child: Text(
       text,
-      style: TextStyle(color: Color(0xFFD4B888), fontSize: 12.0, height: 1.5),
+      style: TextStyle(
+        color: Color(0xFFD4B888),
+        fontSize: 12.0,
+        height: 1.5,
+      ),
     ),
   );
 }
@@ -1776,7 +1773,9 @@ Widget _anatomyRow(
     decoration: BoxDecoration(
       color: Color(0xFF2A1A0F).withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 3.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1850,8 +1849,14 @@ Widget _catalogCard({
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: highlighted
-            ? [accent.withValues(alpha: 0.40), accent.withValues(alpha: 0.10)]
-            : [Color(0xFF3E2A1F), Color(0xFF2A1A0F)],
+            ? [
+                accent.withValues(alpha: 0.40),
+                accent.withValues(alpha: 0.10),
+              ]
+            : [
+                Color(0xFF3E2A1F),
+                Color(0xFF2A1A0F),
+              ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1892,7 +1897,10 @@ Widget _catalogCard({
             SizedBox(width: 10.0),
             if (highlighted)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 6.0,
+                  vertical: 2.0,
+                ),
                 decoration: BoxDecoration(
                   color: accent,
                   borderRadius: BorderRadius.circular(4.0),
@@ -1953,7 +1961,10 @@ Widget _engravedKey({
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [accent.withValues(alpha: 0.30), Color(0xFF3E2A1F)],
+        colors: [
+          accent.withValues(alpha: 0.30),
+          Color(0xFF3E2A1F),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1975,7 +1986,12 @@ Widget _engravedKey({
             Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                gradient: RadialGradient(colors: [Color(0xFFE6C078), accent]),
+                gradient: RadialGradient(
+                  colors: [
+                    Color(0xFFE6C078),
+                    accent,
+                  ],
+                ),
                 shape: BoxShape.circle,
               ),
               child: Icon(symbol, color: Color(0xFF2A1A0F), size: 18.0),
@@ -2000,7 +2016,9 @@ Widget _engravedKey({
           decoration: BoxDecoration(
             color: Color(0xFF1A0F08).withValues(alpha: 0.7),
             borderRadius: BorderRadius.circular(6.0),
-            border: Border(left: BorderSide(color: accent, width: 2.0)),
+            border: Border(
+              left: BorderSide(color: accent, width: 2.0),
+            ),
           ),
           child: Text(
             cutPattern,
@@ -2245,7 +2263,10 @@ Widget _menuItemRow(
             decoration: BoxDecoration(
               color: Color(0xFFB5894D).withValues(alpha: 0.30),
               borderRadius: BorderRadius.circular(4.0),
-              border: Border.all(color: Color(0xFFB5894D), width: 0.5),
+              border: Border.all(
+                color: Color(0xFFB5894D),
+                width: 0.5,
+              ),
             ),
             child: Text(
               'CUSTOM',
@@ -2259,7 +2280,8 @@ Widget _menuItemRow(
             ),
           ),
         if (focus) SizedBox(width: 6.0),
-        if (focus) Icon(Icons.arrow_forward_ios, color: color, size: 12.0),
+        if (focus)
+          Icon(Icons.arrow_forward_ios, color: color, size: 12.0),
       ],
     ),
   );
@@ -2357,12 +2379,18 @@ Widget _ruleRow(String rule, String detail, bool on) {
     decoration: BoxDecoration(
       color: Color(0xFF1A0F08).withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 3.0),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(on ? Icons.check_circle : Icons.cancel, color: color, size: 20.0),
+        Icon(
+          on ? Icons.check_circle : Icons.cancel,
+          color: color,
+          size: 20.0,
+        ),
         SizedBox(width: 12.0),
         Expanded(
           child: Column(
@@ -2399,7 +2427,9 @@ Widget _codeBlock(String code, Color accent) {
     decoration: BoxDecoration(
       color: Color(0xFF050302),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(left: BorderSide(color: accent, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: accent, width: 3.0),
+      ),
     ),
     child: Text(
       code,

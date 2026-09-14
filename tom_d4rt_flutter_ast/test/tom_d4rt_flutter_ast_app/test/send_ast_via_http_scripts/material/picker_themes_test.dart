@@ -357,7 +357,11 @@ Widget _datePickerPreview(_Skin s, DatePickerThemeData t) {
                     .toList(),
               ),
               const SizedBox(height: 6.0),
-              Wrap(spacing: 4.0, runSpacing: 4.0, children: dayCells),
+              Wrap(
+                spacing: 4.0,
+                runSpacing: 4.0,
+                children: dayCells,
+              ),
               Divider(color: t.dividerColor, height: 24.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -1634,7 +1638,10 @@ dynamic build(BuildContext context) {
                   padding: EdgeInsets.all(8.0),
                   child: Text('MenuBarThemeData'),
                 ),
-                Padding(padding: EdgeInsets.all(8.0), child: Text('MenuBar')),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('MenuBar'),
+                ),
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text('Background and shape of the bar itself.'),
@@ -1690,7 +1697,9 @@ dynamic build(BuildContext context) {
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text('textStyle, inputDecorationTheme, menuStyle.'),
+                  child: Text(
+                    'textStyle, inputDecorationTheme, menuStyle.',
+                  ),
                 ),
               ],
             ),

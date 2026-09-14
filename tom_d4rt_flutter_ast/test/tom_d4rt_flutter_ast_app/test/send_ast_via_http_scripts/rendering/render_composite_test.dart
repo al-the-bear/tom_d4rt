@@ -268,7 +268,10 @@ class _Bullet extends StatelessWidget {
             margin: const EdgeInsets.only(top: 6, right: 10),
             width: 8,
             height: 8,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           Expanded(
             child: Text(
@@ -325,11 +328,7 @@ class _HeroBannerSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _GradientCard(
-      colors: const <Color>[
-        Color(0xFF312E81),
-        Color(0xFF6D28D9),
-        Color(0xFFDB2777),
-      ],
+      colors: const <Color>[Color(0xFF312E81), Color(0xFF6D28D9), Color(0xFFDB2777)],
       padding: const EdgeInsets.fromLTRB(28, 32, 28, 32),
       radius: 24,
       child: Column(
@@ -338,10 +337,7 @@ class _HeroBannerSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -361,10 +357,7 @@ class _HeroBannerSection extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(999),
@@ -407,24 +400,12 @@ class _HeroBannerSection extends StatelessWidget {
             spacing: 10,
             runSpacing: 10,
             children: <Widget>[
-              _HeroChip(
-                label: 'needsCompositing',
-                color: const Color(0xFFFBBF24),
-              ),
+              _HeroChip(label: 'needsCompositing', color: const Color(0xFFFBBF24)),
               _HeroChip(label: 'OffsetLayer', color: const Color(0xFF34D399)),
-              _HeroChip(
-                label: 'RepaintBoundary',
-                color: const Color(0xFF60A5FA),
-              ),
-              _HeroChip(
-                label: 'alwaysNeedsCompositing',
-                color: const Color(0xFFF472B6),
-              ),
+              _HeroChip(label: 'RepaintBoundary', color: const Color(0xFF60A5FA)),
+              _HeroChip(label: 'alwaysNeedsCompositing', color: const Color(0xFFF472B6)),
               _HeroChip(label: 'paintsChild', color: const Color(0xFFA78BFA)),
-              _HeroChip(
-                label: 'applyPaintTransform',
-                color: const Color(0xFFFCA5A5),
-              ),
+              _HeroChip(label: 'applyPaintTransform', color: const Color(0xFFFCA5A5)),
             ],
           ),
           const SizedBox(height: 24),
@@ -440,11 +421,8 @@ class _HeroBannerSection extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Icon(
-                      Icons.lightbulb_outline,
-                      color: Colors.white.withValues(alpha: 0.9),
-                      size: 18,
-                    ),
+                    Icon(Icons.lightbulb_outline,
+                        color: Colors.white.withValues(alpha: 0.9), size: 18),
                     const SizedBox(width: 8),
                     const Text(
                       'TL;DR',
@@ -577,20 +555,11 @@ class _TreeComparisonSection extends StatelessWidget {
           const _Divider(),
           Row(
             children: <Widget>[
-              const _Pill(
-                text: 'PARENT = paints child',
-                color: Color(0xFF2563EB),
-              ),
+              const _Pill(text: 'PARENT = paints child', color: Color(0xFF2563EB)),
               const SizedBox(width: 8),
-              const _Pill(
-                text: 'LAYER = engine boundary',
-                color: Color(0xFFDB2777),
-              ),
+              const _Pill(text: 'LAYER = engine boundary', color: Color(0xFFDB2777)),
               const SizedBox(width: 8),
-              const _Pill(
-                text: 'LEAF = paints into canvas',
-                color: Color(0xFF059669),
-              ),
+              const _Pill(text: 'LEAF = paints into canvas', color: Color(0xFF059669)),
             ],
           ),
           const SizedBox(height: 16),
@@ -600,20 +569,16 @@ class _TreeComparisonSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           const _Bullet(
-            'The render tree has many nodes; most are non-compositing.',
-          ),
+              'The render tree has many nodes; most are non-compositing.'),
           const _Bullet(
-            'The layer tree has only the compositing ancestors: Opacity, '
-            'Transform (3D), ClipPath, ColorFilter, RepaintBoundary, root.',
-          ),
+              'The layer tree has only the compositing ancestors: Opacity, '
+              'Transform (3D), ClipPath, ColorFilter, RepaintBoundary, root.'),
           const _Bullet(
-            'Every render object is associated with the nearest enclosing '
-            'compositing ancestor - its "layer owner".',
-          ),
+              'Every render object is associated with the nearest enclosing '
+              'compositing ancestor - its "layer owner".'),
           const _Bullet(
-            'Repainting one render object only invalidates the picture of '
-            'its layer owner, not the entire scene.',
-          ),
+              'Repainting one render object only invalidates the picture of '
+              'its layer owner, not the entire scene.'),
         ],
       ),
     );
@@ -723,7 +688,8 @@ class _TreeComparisonSection extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
             decoration: BoxDecoration(
               color: base.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(4),
@@ -833,73 +799,31 @@ class _NeedsCompositingLifecycleSection extends StatelessWidget {
           const SizedBox(height: 14),
           Row(
             children: <Widget>[
-              Expanded(
-                child: _stateBox(
-                  'INITIAL',
-                  'Just constructed',
-                  const Color(0xFF6B7280),
-                ),
-              ),
+              Expanded(child: _stateBox('INITIAL', 'Just constructed', const Color(0xFF6B7280))),
               _arrow('attach()'),
-              Expanded(
-                child: _stateBox(
-                  'CLEAN',
-                  'attached, flag valid',
-                  const Color(0xFF059669),
-                ),
-              ),
+              Expanded(child: _stateBox('CLEAN', 'attached, flag valid', const Color(0xFF059669))),
             ],
           ),
           const SizedBox(height: 10),
           Row(
             children: <Widget>[
-              Expanded(
-                child: _stateBox(
-                  'CLEAN',
-                  'attached, flag valid',
-                  const Color(0xFF059669),
-                ),
-              ),
+              Expanded(child: _stateBox('CLEAN', 'attached, flag valid', const Color(0xFF059669))),
               _arrow('markNeeds...Update()'),
-              Expanded(
-                child: _stateBox(
-                  'DIRTY',
-                  'needs recompute',
-                  const Color(0xFFDC2626),
-                ),
-              ),
+              Expanded(child: _stateBox('DIRTY', 'needs recompute', const Color(0xFFDC2626))),
             ],
           ),
           const SizedBox(height: 10),
           Row(
             children: <Widget>[
-              Expanded(
-                child: _stateBox(
-                  'DIRTY',
-                  'flag stale',
-                  const Color(0xFFDC2626),
-                ),
-              ),
+              Expanded(child: _stateBox('DIRTY', 'flag stale', const Color(0xFFDC2626))),
               _arrow('_updateCompositingBits()'),
-              Expanded(
-                child: _stateBox(
-                  'CLEAN',
-                  'flag re-derived',
-                  const Color(0xFF059669),
-                ),
-              ),
+              Expanded(child: _stateBox('CLEAN', 'flag re-derived', const Color(0xFF059669))),
             ],
           ),
           const SizedBox(height: 10),
           Row(
             children: <Widget>[
-              Expanded(
-                child: _stateBox(
-                  'CLEAN',
-                  'frame is painting',
-                  const Color(0xFF059669),
-                ),
-              ),
+              Expanded(child: _stateBox('CLEAN', 'frame is painting', const Color(0xFF059669))),
               _arrow('paint() branches'),
               Expanded(
                 child: _stateBox(
@@ -938,7 +862,10 @@ class _NeedsCompositingLifecycleSection extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             hint,
-            style: const TextStyle(fontSize: 11.5, color: Color(0xFF374151)),
+            style: const TextStyle(
+              fontSize: 11.5,
+              color: Color(0xFF374151),
+            ),
           ),
         ],
       ),
@@ -977,10 +904,7 @@ class _NeedsCompositingLifecycleSection extends StatelessWidget {
       children: const <Widget>[
         _Pill(text: 'INITIAL  -  no parent yet', color: Color(0xFF6B7280)),
         _Pill(text: 'CLEAN    -  flag is up to date', color: Color(0xFF059669)),
-        _Pill(
-          text: 'DIRTY    -  needs recomputation',
-          color: Color(0xFFDC2626),
-        ),
+        _Pill(text: 'DIRTY    -  needs recomputation', color: Color(0xFFDC2626)),
         _Pill(text: 'COMPOSITES - layer pushed', color: Color(0xFFDB2777)),
       ],
     );
@@ -1005,39 +929,24 @@ class _NeedsCompositingLifecycleSection extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
           ),
           const SizedBox(height: 12),
-          _propRow(
-            'Root (RenderView)',
-            true,
-            'true because any descendant compositing forces it',
-          ),
-          _propRow('  Column', true, 'aggregates from children below'),
-          _propRow('    Padding', false, 'pure layout, no layer'),
-          _propRow(
-            '    Opacity(0.5)',
-            true,
-            'alwaysNeedsCompositing = true when opacity < 1',
-          ),
-          _propRow('      Text', false, 'leaf, paints into parent canvas'),
-          _propRow(
-            '    RepaintBoundary',
-            true,
-            'alwaysNeedsCompositing = true unconditionally',
-          ),
-          _propRow(
-            '      ListView',
-            false,
-            'inside boundary, paints into boundary layer',
-          ),
-          _propRow(
-            '    Transform.translate',
-            false,
-            '2D translate alone does not force compositing',
-          ),
-          _propRow(
-            '    Transform (3D)',
-            true,
-            'transform with perspective requires layer',
-          ),
+          _propRow('Root (RenderView)', true,
+              'true because any descendant compositing forces it'),
+          _propRow('  Column', true,
+              'aggregates from children below'),
+          _propRow('    Padding', false,
+              'pure layout, no layer'),
+          _propRow('    Opacity(0.5)', true,
+              'alwaysNeedsCompositing = true when opacity < 1'),
+          _propRow('      Text', false,
+              'leaf, paints into parent canvas'),
+          _propRow('    RepaintBoundary', true,
+              'alwaysNeedsCompositing = true unconditionally'),
+          _propRow('      ListView', false,
+              'inside boundary, paints into boundary layer'),
+          _propRow('    Transform.translate', false,
+              '2D translate alone does not force compositing'),
+          _propRow('    Transform (3D)', true,
+              'transform with perspective requires layer'),
         ],
       ),
     );
@@ -1070,7 +979,9 @@ class _NeedsCompositingLifecycleSection extends StatelessWidget {
             child: Text(
               flag ? 'needsCompositing = true' : 'needsCompositing = false',
               style: TextStyle(
-                color: flag ? const Color(0xFFDB2777) : const Color(0xFF059669),
+                color: flag
+                    ? const Color(0xFFDB2777)
+                    : const Color(0xFF059669),
                 fontFamily: 'monospace',
                 fontSize: 11.5,
                 fontWeight: FontWeight.w700,
@@ -1298,11 +1209,8 @@ class _RepaintBoundaryEffectSection extends StatelessWidget {
     );
   }
 
-  Widget _fakeListItem(
-    String label, {
-    required bool dirty,
-    bool accent = false,
-  }) {
+  Widget _fakeListItem(String label,
+      {required bool dirty, bool accent = false}) {
     final Color base = accent
         ? const Color(0xFF7C3AED)
         : const Color(0xFF111827).withValues(alpha: 0.65);
@@ -1370,11 +1278,7 @@ class _RepaintBoundaryEffectSection extends StatelessWidget {
       <String>['GPU compose calls', '~1', '~2'],
       <String>['Memory for cached pictures', 'small', '+1 cached picture'],
       <String>['Setup complexity', 'trivial', 'wrap subtree'],
-      <String>[
-        'When to use',
-        'static rare repaint',
-        'frequent isolated repaint',
-      ],
+      <String>['When to use', 'static rare repaint', 'frequent isolated repaint'],
     ];
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -1496,146 +1400,69 @@ class _CompositingTriggersTableSection extends StatelessWidget {
 
   Widget _triggerTable() {
     final List<_Trigger> triggers = const <_Trigger>[
-      _Trigger(
-        'RenderRepaintBoundary',
-        'OffsetLayer',
-        'always',
-        _Severity.always,
-        'Explicit boundary, alwaysNeedsCompositing == true.',
-      ),
-      _Trigger(
-        'RenderOpacity',
-        'OpacityLayer',
-        'opacity < 1.0',
-        _Severity.conditional,
-        'Opaque at 1.0 short-circuits to no layer.',
-      ),
-      _Trigger(
-        'RenderAnimatedOpacity',
-        'OpacityLayer',
-        'animation value < 1',
-        _Severity.conditional,
-        'Same as RenderOpacity but driven by an Animation.',
-      ),
-      _Trigger(
-        'RenderTransform',
-        'TransformLayer',
-        'transform != identity && hasPerspective || compositing forced',
-        _Severity.conditional,
-        '2D translate may be inlined; 3D requires a layer.',
-      ),
-      _Trigger(
-        'RenderFractionalTranslation',
-        'none',
-        'never',
-        _Severity.never,
-        'Pure offset, applied during paint.',
-      ),
-      _Trigger(
-        'RenderClipRect',
-        'ClipRectLayer',
-        'clipBehavior != none',
-        _Severity.conditional,
-        'May inline antialiased clip without a layer in some cases.',
-      ),
-      _Trigger(
-        'RenderClipRRect',
-        'ClipRRectLayer',
-        'clipBehavior != none',
-        _Severity.conditional,
-        'Rounded clip; antiAliasWithSaveLayer always composites.',
-      ),
-      _Trigger(
-        'RenderClipOval',
-        'ClipPathLayer',
-        'always when clipping',
-        _Severity.always,
-        'Oval clip uses a path layer.',
-      ),
-      _Trigger(
-        'RenderClipPath',
-        'ClipPathLayer',
-        'always when clipping',
-        _Severity.always,
-        'Arbitrary path clip; always pushes a layer.',
-      ),
-      _Trigger(
-        'RenderPhysicalModel',
-        'PhysicalModelLayer',
-        'elevation > 0 || clipBehavior != none',
-        _Severity.conditional,
-        'Engine-side elevation shadow + clip combination.',
-      ),
-      _Trigger(
-        'RenderPhysicalShape',
-        'PhysicalShapeLayer',
-        'elevation > 0 || clipBehavior != none',
-        _Severity.conditional,
-        'PhysicalModel for custom shapes.',
-      ),
-      _Trigger(
-        'RenderImageFilter',
-        'ImageFilterLayer',
-        'filter != null',
-        _Severity.always,
-        'Used by BackdropFilter etc.',
-      ),
-      _Trigger(
-        'RenderBackdropFilter',
-        'BackdropFilterLayer',
-        'always',
-        _Severity.always,
-        'Samples from behind the layer; must composite.',
-      ),
-      _Trigger(
-        'RenderColorFilter',
-        'ColorFilterLayer',
-        'always',
-        _Severity.always,
-        'Wraps subtree paint in a color filter.',
-      ),
-      _Trigger(
-        'RenderShaderMask',
-        'ShaderMaskLayer',
-        'always',
-        _Severity.always,
-        'Applies shader to subtree image.',
-      ),
-      _Trigger(
-        'RenderFollowLeader',
-        'LeaderLayer/FollowerLayer',
-        'with CompositedTransformFollower',
-        _Severity.always,
-        'Synchronises a follower with a leader rectangle.',
-      ),
-      _Trigger(
-        'RenderTransformLayer (3D)',
-        'TransformLayer',
-        'matrix has perspective component',
-        _Severity.always,
-        'Engine cannot collapse perspective into draw calls.',
-      ),
-      _Trigger(
-        'RenderTexture',
-        'TextureLayer',
-        'always when bound',
-        _Severity.always,
-        'External texture (e.g. platform views).',
-      ),
-      _Trigger(
-        'RenderPlatformView',
-        'PlatformViewLayer',
-        'always',
-        _Severity.always,
-        'Embeds native view; needs its own layer.',
-      ),
-      _Trigger(
-        'RenderOpacity (0.0)',
-        'OpacityLayer',
-        'opacity == 0',
-        _Severity.conditional,
-        'May short-circuit paint entirely - subtree not painted at all.',
-      ),
+      _Trigger('RenderRepaintBoundary', 'OffsetLayer',
+          'always', _Severity.always,
+          'Explicit boundary, alwaysNeedsCompositing == true.'),
+      _Trigger('RenderOpacity', 'OpacityLayer',
+          'opacity < 1.0', _Severity.conditional,
+          'Opaque at 1.0 short-circuits to no layer.'),
+      _Trigger('RenderAnimatedOpacity', 'OpacityLayer',
+          'animation value < 1', _Severity.conditional,
+          'Same as RenderOpacity but driven by an Animation.'),
+      _Trigger('RenderTransform', 'TransformLayer',
+          'transform != identity && hasPerspective || compositing forced',
+          _Severity.conditional,
+          '2D translate may be inlined; 3D requires a layer.'),
+      _Trigger('RenderFractionalTranslation', 'none',
+          'never', _Severity.never,
+          'Pure offset, applied during paint.'),
+      _Trigger('RenderClipRect', 'ClipRectLayer',
+          'clipBehavior != none', _Severity.conditional,
+          'May inline antialiased clip without a layer in some cases.'),
+      _Trigger('RenderClipRRect', 'ClipRRectLayer',
+          'clipBehavior != none', _Severity.conditional,
+          'Rounded clip; antiAliasWithSaveLayer always composites.'),
+      _Trigger('RenderClipOval', 'ClipPathLayer',
+          'always when clipping', _Severity.always,
+          'Oval clip uses a path layer.'),
+      _Trigger('RenderClipPath', 'ClipPathLayer',
+          'always when clipping', _Severity.always,
+          'Arbitrary path clip; always pushes a layer.'),
+      _Trigger('RenderPhysicalModel', 'PhysicalModelLayer',
+          'elevation > 0 || clipBehavior != none',
+          _Severity.conditional,
+          'Engine-side elevation shadow + clip combination.'),
+      _Trigger('RenderPhysicalShape', 'PhysicalShapeLayer',
+          'elevation > 0 || clipBehavior != none',
+          _Severity.conditional,
+          'PhysicalModel for custom shapes.'),
+      _Trigger('RenderImageFilter', 'ImageFilterLayer',
+          'filter != null', _Severity.always,
+          'Used by BackdropFilter etc.'),
+      _Trigger('RenderBackdropFilter', 'BackdropFilterLayer',
+          'always', _Severity.always,
+          'Samples from behind the layer; must composite.'),
+      _Trigger('RenderColorFilter', 'ColorFilterLayer',
+          'always', _Severity.always,
+          'Wraps subtree paint in a color filter.'),
+      _Trigger('RenderShaderMask', 'ShaderMaskLayer',
+          'always', _Severity.always,
+          'Applies shader to subtree image.'),
+      _Trigger('RenderFollowLeader', 'LeaderLayer/FollowerLayer',
+          'with CompositedTransformFollower', _Severity.always,
+          'Synchronises a follower with a leader rectangle.'),
+      _Trigger('RenderTransformLayer (3D)', 'TransformLayer',
+          'matrix has perspective component', _Severity.always,
+          'Engine cannot collapse perspective into draw calls.'),
+      _Trigger('RenderTexture', 'TextureLayer',
+          'always when bound', _Severity.always,
+          'External texture (e.g. platform views).'),
+      _Trigger('RenderPlatformView', 'PlatformViewLayer',
+          'always', _Severity.always,
+          'Embeds native view; needs its own layer.'),
+      _Trigger('RenderOpacity (0.0)', 'OpacityLayer',
+          'opacity == 0', _Severity.conditional,
+          'May short-circuit paint entirely - subtree not painted at all.'),
     ];
     return Column(
       children: <Widget>[
@@ -1656,50 +1483,14 @@ class _CompositingTriggersTableSection extends StatelessWidget {
       ),
       child: Row(
         children: const <Widget>[
-          Expanded(
-            flex: 4,
-            child: Text(
-              'RenderObject',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 12.5,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              'Layer kind',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 12.5,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              'Condition',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 12.5,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              'Severity',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 12.5,
-              ),
-            ),
-          ),
+          Expanded(flex: 4, child: Text('RenderObject',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 12.5))),
+          Expanded(flex: 3, child: Text('Layer kind',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 12.5))),
+          Expanded(flex: 3, child: Text('Condition',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 12.5))),
+          Expanded(flex: 2, child: Text('Severity',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 12.5))),
         ],
       ),
     );
@@ -1713,8 +1504,7 @@ class _CompositingTriggersTableSection extends StatelessWidget {
         color: const Color(0xFFF9FAFB),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: const Color(0xFF1F2937).withValues(alpha: 0.08),
-        ),
+            color: const Color(0xFF1F2937).withValues(alpha: 0.08)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1818,26 +1608,16 @@ class _CompositingTriggersTableSection extends StatelessWidget {
         _Pill(text: 'OffsetLayer', color: Color(0xFF4338CA)),
         _Pill(text: 'OpacityLayer', color: Color(0xFF7C3AED)),
         _Pill(text: 'TransformLayer', color: Color(0xFFDB2777)),
-        _Pill(
-          text: 'ClipRectLayer / ClipRRectLayer / ClipPathLayer',
-          color: Color(0xFFB45309),
-        ),
-        _Pill(
-          text: 'PhysicalModelLayer / PhysicalShapeLayer',
-          color: Color(0xFF065F46),
-        ),
-        _Pill(
-          text: 'ImageFilterLayer / BackdropFilterLayer',
-          color: Color(0xFF0E7490),
-        ),
-        _Pill(
-          text: 'ColorFilterLayer / ShaderMaskLayer',
-          color: Color(0xFFBE123C),
-        ),
-        _Pill(
-          text: 'TextureLayer / PlatformViewLayer',
-          color: Color(0xFF1F2937),
-        ),
+        _Pill(text: 'ClipRectLayer / ClipRRectLayer / ClipPathLayer',
+            color: Color(0xFFB45309)),
+        _Pill(text: 'PhysicalModelLayer / PhysicalShapeLayer',
+            color: Color(0xFF065F46)),
+        _Pill(text: 'ImageFilterLayer / BackdropFilterLayer',
+            color: Color(0xFF0E7490)),
+        _Pill(text: 'ColorFilterLayer / ShaderMaskLayer',
+            color: Color(0xFFBE123C)),
+        _Pill(text: 'TextureLayer / PlatformViewLayer',
+            color: Color(0xFF1F2937)),
       ],
     );
   }
@@ -1845,12 +1625,7 @@ class _CompositingTriggersTableSection extends StatelessWidget {
 
 class _Trigger {
   const _Trigger(
-    this.name,
-    this.layer,
-    this.condition,
-    this.severity,
-    this.note,
-  );
+      this.name, this.layer, this.condition, this.severity, this.note);
   final String name;
   final String layer;
   final String condition;
@@ -1964,7 +1739,8 @@ class _MethodReferenceSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(4),
@@ -2030,21 +1806,12 @@ class _MethodReferenceSection extends StatelessWidget {
           const SizedBox(height: 12),
           _seqStep('1', 'caller', 'box.getTransformTo(ancestor)'),
           _seqStep('2', 'RenderObject', 'walk parent chain up to ancestor'),
-          _seqStep(
-            '3',
-            'each parent',
-            'applyPaintTransform(child, matrix) merges in its local mapping',
-          ),
-          _seqStep(
-            '4',
-            'compositing parents',
-            'TransformLayer adds 3D transform, OpacityLayer is a no-op for geometry',
-          ),
-          _seqStep(
-            '5',
-            'caller',
-            'matrix.transform3(localPoint) -> screen position',
-          ),
+          _seqStep('3', 'each parent',
+              'applyPaintTransform(child, matrix) merges in its local mapping'),
+          _seqStep('4', 'compositing parents',
+              'TransformLayer adds 3D transform, OpacityLayer is a no-op for geometry'),
+          _seqStep('5', 'caller',
+              'matrix.transform3(localPoint) -> screen position'),
         ],
       ),
     );
@@ -2140,41 +1907,23 @@ class _PerformanceImpactSection extends StatelessWidget {
           _bar('Container with BoxDecoration', 0.10, const Color(0xFF059669)),
           _bar('Text (single line)', 0.18, const Color(0xFF059669)),
           _bar('Image (decoded, cached)', 0.22, const Color(0xFF059669)),
-          _bar(
-            'Push OffsetLayer (RepaintBoundary)',
-            0.08,
-            const Color(0xFF4338CA),
-          ),
+          _bar('Push OffsetLayer (RepaintBoundary)', 0.08,
+              const Color(0xFF4338CA)),
           _bar('Push OpacityLayer', 0.30, const Color(0xFFB45309)),
           _bar('Push TransformLayer (3D)', 0.40, const Color(0xFFB45309)),
-          _bar(
-            'Push ClipRRectLayer (antialiased)',
-            0.45,
-            const Color(0xFFB45309),
-          ),
-          _bar(
-            'Push ClipPath with complex path',
-            0.65,
-            const Color(0xFFDB2777),
-          ),
-          _bar(
-            'Push BackdropFilter (blur sigma=8)',
-            0.95,
-            const Color(0xFFDB2777),
-          ),
+          _bar('Push ClipRRectLayer (antialiased)', 0.45,
+              const Color(0xFFB45309)),
+          _bar('Push ClipPath with complex path', 0.65,
+              const Color(0xFFDB2777)),
+          _bar('Push BackdropFilter (blur sigma=8)', 0.95,
+              const Color(0xFFDB2777)),
           _bar('Push ColorFilterLayer', 0.35, const Color(0xFFB45309)),
           _bar('Composite 2 cached layers', 0.05, const Color(0xFF059669)),
           _bar('Composite 100 cached layers', 0.50, const Color(0xFFB45309)),
-          _bar(
-            'Repaint 1000-line ListView (no boundary)',
-            1.00,
-            const Color(0xFFDB2777),
-          ),
-          _bar(
-            'Repaint 1000-line ListView (with boundary)',
-            0.06,
-            const Color(0xFF059669),
-          ),
+          _bar('Repaint 1000-line ListView (no boundary)', 1.00,
+              const Color(0xFFDB2777)),
+          _bar('Repaint 1000-line ListView (with boundary)', 0.06,
+              const Color(0xFF059669)),
           const _Divider(),
           _legend(),
         ],
@@ -2452,64 +2201,44 @@ class _BestPracticesSection extends StatelessWidget {
                 'Heuristics that hold for the vast majority of Flutter apps.',
           ),
           const SizedBox(height: 18),
-          _practice(
-            'Measure before optimising',
-            'Run the Performance overlay, the DevTools "Repaint Rainbow", '
-                'and Skia tracing first. Compositing decisions should be '
-                'data driven.',
-          ),
-          _practice(
-            'Boundary near the change',
-            'Place RepaintBoundary around the smallest subtree that '
-                'animates frequently. The boundary is most effective when '
-                'its siblings are stable.',
-          ),
-          _practice(
-            'Prefer Transition widgets over rebuilds',
-            'FadeTransition, SlideTransition, ScaleTransition apply changes '
-                'at the layer level. They avoid the build phase entirely.',
-          ),
-          _practice(
-            'Use Opacity(0.0) carefully',
-            'opacity == 0 short-circuits paint, which is great. But if the '
-                'subtree must remain hit-testable, use Visibility or '
-                'IgnorePointer explicitly.',
-          ),
-          _practice(
-            'Override paintsChild when culling',
-            'If your custom layout decides not to paint a child, override '
-                'paintsChild to return false so semantics and hit testing '
-                'agree.',
-          ),
-          _practice(
-            'Override applyPaintTransform when offsetting',
-            'Whenever your render object positions children at non-trivial '
-                'offsets, applyPaintTransform must mirror that math.',
-          ),
-          _practice(
-            'Call markNeedsCompositingBitsUpdate when conditional',
-            'Any setter that toggles whether a layer is pushed must mark '
-                'the compositing bits dirty - never rely on markNeedsPaint '
-                'alone.',
-          ),
-          _practice(
-            'Cache static content',
-            'Wrap rarely-changing portions of the screen in '
-                'RepaintBoundary so the engine can reuse their picture.',
-          ),
-          _practice(
-            'Minimise BackdropFilter scope',
-            'Constrain BackdropFilter to the smallest possible rect using '
-                'ClipRect. Sampling the back-buffer is expensive at full '
-                'screen resolution.',
-          ),
-          _practice(
-            'Document custom RenderObjects',
-            'When subclassing RenderBox or RenderObject, document the '
-                'compositing contract: when do you set '
-                'alwaysNeedsCompositing, which layer kind do you push, what '
-                'invariants does paintsChild guarantee?',
-          ),
+          _practice('Measure before optimising',
+              'Run the Performance overlay, the DevTools "Repaint Rainbow", '
+                  'and Skia tracing first. Compositing decisions should be '
+                  'data driven.'),
+          _practice('Boundary near the change',
+              'Place RepaintBoundary around the smallest subtree that '
+                  'animates frequently. The boundary is most effective when '
+                  'its siblings are stable.'),
+          _practice('Prefer Transition widgets over rebuilds',
+              'FadeTransition, SlideTransition, ScaleTransition apply changes '
+                  'at the layer level. They avoid the build phase entirely.'),
+          _practice('Use Opacity(0.0) carefully',
+              'opacity == 0 short-circuits paint, which is great. But if the '
+                  'subtree must remain hit-testable, use Visibility or '
+                  'IgnorePointer explicitly.'),
+          _practice('Override paintsChild when culling',
+              'If your custom layout decides not to paint a child, override '
+                  'paintsChild to return false so semantics and hit testing '
+                  'agree.'),
+          _practice('Override applyPaintTransform when offsetting',
+              'Whenever your render object positions children at non-trivial '
+                  'offsets, applyPaintTransform must mirror that math.'),
+          _practice('Call markNeedsCompositingBitsUpdate when conditional',
+              'Any setter that toggles whether a layer is pushed must mark '
+                  'the compositing bits dirty - never rely on markNeedsPaint '
+                  'alone.'),
+          _practice('Cache static content',
+              'Wrap rarely-changing portions of the screen in '
+                  'RepaintBoundary so the engine can reuse their picture.'),
+          _practice('Minimise BackdropFilter scope',
+              'Constrain BackdropFilter to the smallest possible rect using '
+                  'ClipRect. Sampling the back-buffer is expensive at full '
+                  'screen resolution.'),
+          _practice('Document custom RenderObjects',
+              'When subclassing RenderBox or RenderObject, document the '
+                  'compositing contract: when do you set '
+                  'alwaysNeedsCompositing, which layer kind do you push, what '
+                  'invariants does paintsChild guarantee?'),
         ],
       ),
     );
@@ -2527,19 +2256,15 @@ class _BestPracticesSection extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: const Color(0xFF065F46).withValues(alpha: 0.35),
-        ),
+            color: const Color(0xFF065F46).withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(
-                Icons.check_circle_outline,
-                color: Color(0xFF065F46),
-                size: 18,
-              ),
+              const Icon(Icons.check_circle_outline,
+                  color: Color(0xFF065F46), size: 18),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -2587,16 +2312,13 @@ class _FooterSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(999),
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.25),
-                  ),
+                      color: Colors.white.withValues(alpha: 0.25)),
                 ),
                 child: const Text(
                   'END',

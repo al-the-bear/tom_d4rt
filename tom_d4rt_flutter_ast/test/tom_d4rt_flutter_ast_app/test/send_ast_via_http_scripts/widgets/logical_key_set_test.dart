@@ -145,7 +145,10 @@ class _ShortcutPipelinePainter extends CustomPainter {
       fontWeight: FontWeight.w600,
     );
 
-    final subStyle = TextStyle(color: accentColor.withAlpha(180), fontSize: 9);
+    final subStyle = TextStyle(
+      color: accentColor.withAlpha(180),
+      fontSize: 9,
+    );
 
     // ---- layout constants ----
     const double nodeW = 108;
@@ -213,8 +216,7 @@ class _ShortcutPipelinePainter extends CustomPainter {
     // bottom label
     final bottomTp = TextPainter(
       text: TextSpan(
-        text:
-            'LogicalKeySet.accepts() checks whether the pressed key set '
+        text: 'LogicalKeySet.accepts() checks whether the pressed key set '
             'exactly matches its stored key set',
         style: subStyle.copyWith(fontSize: 10),
       ),
@@ -272,7 +274,10 @@ class _LogicalKeySetDemo extends StatelessWidget {
         appBar: AppBar(
           title: const Text('LogicalKeySet Deep Demo'),
           centerTitle: false,
-          bottom: const TabBar(isScrollable: true, tabs: _tabs),
+          bottom: const TabBar(
+            isScrollable: true,
+            tabs: _tabs,
+          ),
         ),
         body: const TabBarView(
           children: [
@@ -307,9 +312,9 @@ class _SectionTitle extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.primary,
-        ),
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
       ),
     );
   }
@@ -383,7 +388,8 @@ class _KeyChip extends StatelessWidget {
           color: modifier ? cs.onPrimary : cs.onSurface,
         ),
       ),
-      backgroundColor: modifier ? cs.primary : cs.surfaceContainerHighest,
+      backgroundColor:
+          modifier ? cs.primary : cs.surfaceContainerHighest,
       side: BorderSide(color: cs.outlineVariant),
       padding: const EdgeInsets.symmetric(horizontal: 4),
       visualDensity: VisualDensity.compact,
@@ -411,7 +417,10 @@ class _OverviewTab extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [cs.primaryContainer, cs.secondaryContainer],
+              colors: [
+                cs.primaryContainer,
+                cs.secondaryContainer,
+              ],
             ),
             borderRadius: BorderRadius.circular(16),
           ),
@@ -425,10 +434,13 @@ class _OverviewTab extends StatelessWidget {
                   Expanded(
                     child: Text(
                       'LogicalKeySet',
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        color: cs.onPrimaryContainer,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(
+                            color: cs.onPrimaryContainer,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                 ],
@@ -437,9 +449,9 @@ class _OverviewTab extends StatelessWidget {
               Text(
                 'A set of LogicalKeyboardKey values that together form a '
                 'keyboard shortcut activator.',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(color: cs.onPrimaryContainer),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: cs.onPrimaryContainer,
+                    ),
               ),
               const SizedBox(height: 8),
               Text(
@@ -462,11 +474,8 @@ class _OverviewTab extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.warning_amber_rounded,
-                color: cs.onErrorContainer,
-                size: 24,
-              ),
+              Icon(Icons.warning_amber_rounded,
+                  color: cs.onErrorContainer, size: 24),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -504,32 +513,22 @@ class _OverviewTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _bulletPoint(
-                context,
-                'Groups one to four LogicalKeyboardKey values into a '
-                'single activator object.',
-              ),
-              _bulletPoint(
-                context,
-                'Implements ShortcutActivator.accepts() — returns true '
-                'when the currently pressed key set exactly equals the '
-                'stored set.',
-              ),
-              _bulletPoint(
-                context,
-                'Used as map keys in the Shortcuts widget\'s shortcuts '
-                'map to bind key combos to Intent objects.',
-              ),
-              _bulletPoint(
-                context,
-                'The set is unordered: Ctrl+S and S+Ctrl produce the '
-                'same LogicalKeySet.',
-              ),
-              _bulletPoint(
-                context,
-                'Equality and hashCode are based on the set of keys, not '
-                'insertion order.',
-              ),
+              _bulletPoint(context,
+                  'Groups one to four LogicalKeyboardKey values into a '
+                  'single activator object.'),
+              _bulletPoint(context,
+                  'Implements ShortcutActivator.accepts() — returns true '
+                  'when the currently pressed key set exactly equals the '
+                  'stored set.'),
+              _bulletPoint(context,
+                  'Used as map keys in the Shortcuts widget\'s shortcuts '
+                  'map to bind key combos to Intent objects.'),
+              _bulletPoint(context,
+                  'The set is unordered: Ctrl+S and S+Ctrl produce the '
+                  'same LogicalKeySet.'),
+              _bulletPoint(context,
+                  'Equality and hashCode are based on the set of keys, not '
+                  'insertion order.'),
             ],
           ),
         ),
@@ -557,9 +556,7 @@ class _OverviewTab extends StatelessWidget {
               Text(
                 '1. Positional constructor',
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: cs.primary,
-                ),
+                    fontWeight: FontWeight.bold, color: cs.primary),
               ),
               const SizedBox(height: 4),
               const _CodeBlock(
@@ -574,9 +571,7 @@ class _OverviewTab extends StatelessWidget {
               Text(
                 '2. Set constructor',
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: cs.primary,
-                ),
+                    fontWeight: FontWeight.bold, color: cs.primary),
               ),
               const SizedBox(height: 4),
               const _CodeBlock(
@@ -622,9 +617,13 @@ class _LiveBindingTab extends StatelessWidget {
     );
 
     return Shortcuts(
-      shortcuts: <ShortcutActivator, Intent>{ctrlS: const SaveIntent()},
+      shortcuts: <ShortcutActivator, Intent>{
+        ctrlS: const SaveIntent(),
+      },
       child: Actions(
-        actions: <Type, Action<Intent>>{SaveIntent: SaveAction()},
+        actions: <Type, Action<Intent>>{
+          SaveIntent: SaveAction(),
+        },
         child: Focus(
           autofocus: true,
           child: ListView(
@@ -686,7 +685,7 @@ class _LiveBindingTab extends StatelessWidget {
                         const SizedBox(height: 16),
                         ValueListenableBuilder<int>(
                           valueListenable: _saveCount,
-                          builder: (context2, count, child2) => Column(
+                          builder: (context2, count, child2) =>Column(
                             children: [
                               Text(
                                 'Save count: $count',
@@ -740,11 +739,8 @@ class _LiveBindingTab extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 4),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.arrow_right,
-                                    size: 16,
-                                    color: cs.primary,
-                                  ),
+                                  Icon(Icons.arrow_right,
+                                      size: 16, color: cs.primary),
                                   const SizedBox(width: 4),
                                   Expanded(
                                     child: Text(
@@ -783,22 +779,28 @@ class _MultiKeyTab extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
 
     final shortcuts = <ShortcutActivator, Intent>{
-      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
-          const UndoIntent(),
+      LogicalKeySet(
+        LogicalKeyboardKey.control,
+        LogicalKeyboardKey.keyZ,
+      ): const UndoIntent(),
       LogicalKeySet(
         LogicalKeyboardKey.control,
         LogicalKeyboardKey.shift,
         LogicalKeyboardKey.keyZ,
       ): const RedoIntent(),
-      LogicalKeySet(LogicalKeyboardKey.alt, LogicalKeyboardKey.f4):
-          const CloseWindowIntent(),
+      LogicalKeySet(
+        LogicalKeyboardKey.alt,
+        LogicalKeyboardKey.f4,
+      ): const CloseWindowIntent(),
       LogicalKeySet(
         LogicalKeyboardKey.control,
         LogicalKeyboardKey.alt,
         LogicalKeyboardKey.keyT,
       ): const OpenTerminalIntent(),
-      LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyL):
-          const LockScreenIntent(),
+      LogicalKeySet(
+        LogicalKeyboardKey.meta,
+        LogicalKeyboardKey.keyL,
+      ): const LockScreenIntent(),
     };
 
     final combos = [
@@ -984,7 +986,7 @@ class _ComboCard extends StatelessWidget {
             children: [
               ValueListenableBuilder<int>(
                 valueListenable: row.counter,
-                builder: (context2, count, child2) => Text(
+                builder: (context2, count, child2) =>Text(
                   '$count',
                   style: TextStyle(
                     fontSize: 24,
@@ -997,10 +999,8 @@ class _ComboCard extends StatelessWidget {
               FilledButton.tonal(
                 onPressed: () => Actions.invoke(ctx, row.intent),
                 style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   minimumSize: Size.zero,
                 ),
                 child: const Text('Trigger', style: TextStyle(fontSize: 12)),
@@ -1099,18 +1099,8 @@ class _KeyGalleryTab extends StatelessWidget {
         color: cs.tertiaryContainer,
         onColor: cs.onTertiaryContainer,
         keys: [
-          'f1',
-          'f2',
-          'f3',
-          'f4',
-          'f5',
-          'f6',
-          'f7',
-          'f8',
-          'f9',
-          'f10',
-          'f11',
-          'f12',
+          'f1', 'f2', 'f3', 'f4', 'f5', 'f6',
+          'f7', 'f8', 'f9', 'f10', 'f11', 'f12',
         ],
         logical: [
           LogicalKeyboardKey.f1,
@@ -1165,22 +1155,11 @@ class _KeyGalleryTab extends StatelessWidget {
         color: cs.surfaceContainerHighest,
         onColor: cs.onSurface,
         keys: [
-          'numpad0',
-          'numpad1',
-          'numpad2',
-          'numpad3',
-          'numpad4',
-          'numpad5',
-          'numpad6',
-          'numpad7',
-          'numpad8',
-          'numpad9',
-          'numpadAdd',
-          'numpadSubtract',
-          'numpadMultiply',
-          'numpadDivide',
-          'numpadEnter',
-          'numpadDecimal',
+          'numpad0', 'numpad1', 'numpad2', 'numpad3', 'numpad4',
+          'numpad5', 'numpad6', 'numpad7', 'numpad8', 'numpad9',
+          'numpadAdd', 'numpadSubtract',
+          'numpadMultiply', 'numpadDivide',
+          'numpadEnter', 'numpadDecimal',
         ],
         logical: [
           LogicalKeyboardKey.numpad0,
@@ -1274,8 +1253,7 @@ class _KeyGroupWidget extends StatelessWidget {
               children: List.generate(
                 group.keys.length,
                 (i) => Tooltip(
-                  message:
-                      'keyId: 0x${group.logical[i].keyId.toRadixString(16)}\n'
+                  message: 'keyId: 0x${group.logical[i].keyId.toRadixString(16)}\n'
                       'keyLabel: ${group.logical[i].keyLabel}',
                   child: Chip(
                     label: Text(
@@ -1324,7 +1302,9 @@ class _FromSetTab extends StatelessWidget {
       LogicalKeyboardKey.digit1,
     });
 
-    final fromSetF5 = LogicalKeySet.fromSet({LogicalKeyboardKey.f5});
+    final fromSetF5 = LogicalKeySet.fromSet({
+      LogicalKeyboardKey.f5,
+    });
 
     return ListView(
       padding: const EdgeInsets.all(20),
@@ -1364,17 +1344,20 @@ class _FromSetTab extends StatelessWidget {
         const SizedBox(height: 20),
         _SectionTitle('Resulting Key Sets'),
         _FromSetCard(
-          constructorExpr: 'LogicalKeySet.fromSet({control, keyS})',
+          constructorExpr:
+              'LogicalKeySet.fromSet({control, keyS})',
           keySet: fromSetCtrlS,
         ),
         const SizedBox(height: 10),
         _FromSetCard(
-          constructorExpr: 'LogicalKeySet.fromSet({control, shift, keyZ})',
+          constructorExpr:
+              'LogicalKeySet.fromSet({control, shift, keyZ})',
           keySet: fromSetCtrlShiftZ,
         ),
         const SizedBox(height: 10),
         _FromSetCard(
-          constructorExpr: 'LogicalKeySet.fromSet({alt, digit1})',
+          constructorExpr:
+              'LogicalKeySet.fromSet({alt, digit1})',
           keySet: fromSetAlt1,
         ),
         const SizedBox(height: 10),
@@ -1447,7 +1430,10 @@ class _FromSetTab extends StatelessWidget {
 }
 
 class _FromSetCard extends StatelessWidget {
-  const _FromSetCard({required this.constructorExpr, required this.keySet});
+  const _FromSetCard({
+    required this.constructorExpr,
+    required this.keySet,
+  });
 
   final String constructorExpr;
   final LogicalKeySet keySet;
@@ -1477,7 +1463,10 @@ class _FromSetCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             '.keys → Set of ${keySet.keys.length}:',
-            style: TextStyle(fontSize: 12, color: cs.onSurface.withAlpha(160)),
+            style: TextStyle(
+              fontSize: 12,
+              color: cs.onSurface.withAlpha(160),
+            ),
           ),
           const SizedBox(height: 6),
           Wrap(
@@ -1618,7 +1607,12 @@ class _ComparisonTable extends StatelessWidget {
         'N/A (trigger + flags)',
         'N/A (character + flags)',
       ),
-      _CompRow('Const constructor', 'No', 'Yes', 'Yes'),
+      _CompRow(
+        'Const constructor',
+        'No',
+        'Yes',
+        'Yes',
+      ),
       _CompRow(
         'Left/right distinction',
         'Via controlLeft etc.',
@@ -1715,11 +1709,8 @@ class _ComparisonTable extends StatelessWidget {
 
 class _CompRow {
   const _CompRow(
-    this.attribute,
-    this.logicalKeySet,
-    this.singleActivator,
-    this.characterActivator,
-  );
+      this.attribute, this.logicalKeySet, this.singleActivator,
+      this.characterActivator);
 
   final String attribute;
   final String logicalKeySet;
@@ -1782,36 +1773,18 @@ class _DiagramTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _step(
-                context,
-                '1',
-                'Walk up the widget tree to find all Shortcuts widgets.',
-              ),
-              _step(
-                context,
-                '2',
-                'For each Shortcuts widget, try each ShortcutActivator.',
-              ),
-              _step(
-                context,
-                '3',
-                'Call activator.accepts(event, HardwareKeyboard.instance).',
-              ),
-              _step(
-                context,
-                '4',
-                'First match wins; dispatch the mapped Intent.',
-              ),
-              _step(
-                context,
-                '5',
-                'Actions walk up the tree to find a handler for the Intent.',
-              ),
-              _step(
-                context,
-                '6',
-                'Matched Action.invoke() is called with the Intent.',
-              ),
+              _step(context, '1',
+                  'Walk up the widget tree to find all Shortcuts widgets.'),
+              _step(context, '2',
+                  'For each Shortcuts widget, try each ShortcutActivator.'),
+              _step(context, '3',
+                  'Call activator.accepts(event, HardwareKeyboard.instance).'),
+              _step(context, '4',
+                  'First match wins; dispatch the mapped Intent.'),
+              _step(context, '5',
+                  'Actions walk up the tree to find a handler for the Intent.'),
+              _step(context, '6',
+                  'Matched Action.invoke() is called with the Intent.'),
             ],
           ),
         ),
@@ -1821,37 +1794,19 @@ class _DiagramTab extends StatelessWidget {
 
   List<Widget> _buildSteps(BuildContext context, ColorScheme cs) {
     final steps = [
-      (
-        'HardwareKeyboard',
-        'Receives raw physical KeyEvent from the platform '
-            '(KeyDownEvent, KeyUpEvent, KeyRepeatEvent).',
-      ),
-      (
-        'RawKeyboard / Focus',
-        'The legacy RawKeyboard layer and the FocusNode '
-            'that has keyboard focus propagate the event.',
-      ),
-      (
-        'Shortcuts widget',
-        'Intercepts the event and passes it to its '
-            'ShortcutManager for resolution.',
-      ),
-      (
-        'ShortcutManager',
-        'Iterates the shortcuts map and calls '
-            'activator.accepts() for each ShortcutActivator.',
-      ),
-      (
-        'LogicalKeySet.accepts()',
-        'Compares the set of currently pressed '
-            'LogicalKeyboardKey values against the stored set. Returns true only '
-            'on exact match.',
-      ),
-      (
-        'Intent → Action',
-        'On match, the mapped Intent is dispatched via '
-            'Actions.invoke(). The Action\'s invoke() method is called.',
-      ),
+      ('HardwareKeyboard', 'Receives raw physical KeyEvent from the platform '
+          '(KeyDownEvent, KeyUpEvent, KeyRepeatEvent).'),
+      ('RawKeyboard / Focus', 'The legacy RawKeyboard layer and the FocusNode '
+          'that has keyboard focus propagate the event.'),
+      ('Shortcuts widget', 'Intercepts the event and passes it to its '
+          'ShortcutManager for resolution.'),
+      ('ShortcutManager', 'Iterates the shortcuts map and calls '
+          'activator.accepts() for each ShortcutActivator.'),
+      ('LogicalKeySet.accepts()', 'Compares the set of currently pressed '
+          'LogicalKeyboardKey values against the stored set. Returns true only '
+          'on exact match.'),
+      ('Intent → Action', 'On match, the mapped Intent is dispatched via '
+          'Actions.invoke(). The Action\'s invoke() method is called.'),
     ];
 
     return steps.asMap().entries.map((entry) {
@@ -1971,8 +1926,8 @@ class _PlatformsTab extends StatelessWidget {
           cs.tertiaryContainer,
           cs.onTertiaryContainer,
           'The Command key maps to LogicalKeyboardKey.meta. Most app-level '
-              'shortcuts (copy/paste/save) use Meta, not Control. Option maps to '
-              'Alt. When porting Windows shortcuts, swap Ctrl → Meta.',
+          'shortcuts (copy/paste/save) use Meta, not Control. Option maps to '
+          'Alt. When porting Windows shortcuts, swap Ctrl → Meta.',
         ),
         const SizedBox(height: 8),
         _platformNote(
@@ -1982,8 +1937,8 @@ class _PlatformsTab extends StatelessWidget {
           cs.primaryContainer,
           cs.onPrimaryContainer,
           'Control is the primary modifier. The Windows key maps to Meta '
-              'but is rarely used in app shortcuts. Alt is used for menu access '
-              '(Alt+F opens File menu). Alt+F4 closes windows.',
+          'but is rarely used in app shortcuts. Alt is used for menu access '
+          '(Alt+F opens File menu). Alt+F4 closes windows.',
         ),
         const SizedBox(height: 8),
         _platformNote(
@@ -1993,8 +1948,8 @@ class _PlatformsTab extends StatelessWidget {
           cs.secondaryContainer,
           cs.onSecondaryContainer,
           'Broadly similar to Windows. Super/Windows key maps to Meta. '
-              'Ctrl+Alt+T opens a terminal in many desktop environments. '
-              'Alt key behaviour may vary by desktop environment.',
+          'Ctrl+Alt+T opens a terminal in many desktop environments. '
+          'Alt key behaviour may vary by desktop environment.',
         ),
         const SizedBox(height: 8),
         _platformNote(
@@ -2004,9 +1959,9 @@ class _PlatformsTab extends StatelessWidget {
           cs.surfaceContainerHighest,
           cs.onSurface,
           'Physical keyboard shortcuts work on tablets with keyboards. '
-              'The OS captures many modifier combos before Flutter sees them. '
-              'LogicalKeySet shortcuts should be tested with a paired Bluetooth '
-              'keyboard. On-screen keyboard events do not trigger shortcuts.',
+          'The OS captures many modifier combos before Flutter sees them. '
+          'LogicalKeySet shortcuts should be tested with a paired Bluetooth '
+          'keyboard. On-screen keyboard events do not trigger shortcuts.',
         ),
         const SizedBox(height: 8),
         _platformNote(
@@ -2016,10 +1971,10 @@ class _PlatformsTab extends StatelessWidget {
           cs.errorContainer,
           cs.onErrorContainer,
           'The browser intercepts many key combos (Ctrl+T, Ctrl+W, etc.). '
-              'LogicalKeySet shortcuts compete with browser shortcuts. Use '
-              'allowInteraction in FocusNode or ServicesBinding.keyEventResult '
-              'to handle conflicts. Meta key behaviour differs between macOS '
-              'browser and Windows browser.',
+          'LogicalKeySet shortcuts compete with browser shortcuts. Use '
+          'allowInteraction in FocusNode or ServicesBinding.keyEventResult '
+          'to handle conflicts. Meta key behaviour differs between macOS '
+          'browser and Windows browser.',
         ),
         const SizedBox(height: 20),
         _SectionTitle('Cross-Platform Shortcut Strategy'),
@@ -2101,47 +2056,22 @@ class _PlatformTable extends StatelessWidget {
 
     final platforms = ['macOS', 'Windows', 'Linux', 'iOS', 'Android', 'Web'];
     final rows = <_PlatRow>[
-      _PlatRow('Ctrl equiv.', [
-        '⌘ Command',
-        'Ctrl',
-        'Ctrl',
-        'Ctrl',
-        'Ctrl',
-        'Ctrl',
-      ]),
-      _PlatRow('Alt equiv.', [
-        '⌥ Option',
-        'Alt',
-        'Alt',
-        'Option',
-        'Alt',
-        'Alt',
-      ]),
-      _PlatRow('Meta key', [
-        '⌘ Command',
-        'Win key',
-        'Super',
-        'Globe',
-        'Search',
-        'OS key',
-      ]),
+      _PlatRow('Ctrl equiv.', ['⌘ Command', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl']),
+      _PlatRow('Alt equiv.', ['⌥ Option', 'Alt', 'Alt', 'Option', 'Alt', 'Alt']),
+      _PlatRow('Meta key', ['⌘ Command', 'Win key', 'Super', 'Globe', 'Search', 'OS key']),
       _PlatRow('Shift', ['Shift', 'Shift', 'Shift', 'Shift', 'Shift', 'Shift']),
-      _PlatRow('CapsLock', [
-        'CapsLock',
-        'CapsLock',
-        'CapsLock',
-        'CapsLock',
-        'CapsLock',
-        'N/A',
-      ]),
-      _PlatRow('LogicalKeyboardKey', [
-        '.meta',
-        '.control',
-        '.control',
-        '.meta',
-        '.meta',
-        '.control',
-      ]),
+      _PlatRow('CapsLock', ['CapsLock', 'CapsLock', 'CapsLock', 'CapsLock', 'CapsLock', 'N/A']),
+      _PlatRow(
+        'LogicalKeyboardKey',
+        [
+          '.meta',
+          '.control',
+          '.control',
+          '.meta',
+          '.meta',
+          '.control',
+        ],
+      ),
     ];
 
     return Table(
@@ -2172,10 +2102,8 @@ class _PlatformTable extends StatelessWidget {
           return TableRow(
             decoration: BoxDecoration(color: bg),
             children: [
-              _cell(
-                r.modifier,
-                cellStyle.copyWith(fontWeight: FontWeight.bold),
-              ),
+              _cell(r.modifier,
+                  cellStyle.copyWith(fontWeight: FontWeight.bold)),
               ...r.values.map((v) => _cell(v, cellStyle)),
             ],
           );
@@ -2219,13 +2147,11 @@ class _PitfallsApiTab extends StatelessWidget {
           color: cs.tertiaryContainer,
           onColor: cs.onTertiaryContainer,
           title: 'Ordering Does Not Matter',
-          body:
-              'LogicalKeySet stores keys in a Set. '
+          body: 'LogicalKeySet stores keys in a Set. '
               'LogicalKeySet(control, keyS) and LogicalKeySet(keyS, control) '
               'are identical. Do not assume positional ordering when comparing '
               'or debugging key sets.',
-          code:
-              'assert(\n'
+          code: 'assert(\n'
               '  LogicalKeySet(control, keyS) ==\n'
               '  LogicalKeySet(keyS, control)\n'
               '); // true — order is irrelevant',
@@ -2237,13 +2163,11 @@ class _PitfallsApiTab extends StatelessWidget {
           color: cs.secondaryContainer,
           onColor: cs.onSecondaryContainer,
           title: 'Single-Key Combos: Prefer SingleActivator',
-          body:
-              'LogicalKeySet(f5) is valid but heavyweight for a single key. '
+          body: 'LogicalKeySet(f5) is valid but heavyweight for a single key. '
               'Use SingleActivator(LogicalKeyboardKey.f5) for single-key '
               'shortcuts. SingleActivator is const-constructible and more '
               'efficient.',
-          code:
-              '// Avoid:\n'
+          code: '// Avoid:\n'
               'LogicalKeySet(LogicalKeyboardKey.f5)\n\n'
               '// Prefer:\n'
               'const SingleActivator(LogicalKeyboardKey.f5)',
@@ -2255,14 +2179,12 @@ class _PitfallsApiTab extends StatelessWidget {
           color: cs.errorContainer,
           onColor: cs.onErrorContainer,
           title: 'Lock Key Interactions',
-          body:
-              'CapsLock and NumLock are physical keys that stay pressed '
+          body: 'CapsLock and NumLock are physical keys that stay pressed '
               'in the key state while active. A LogicalKeySet that includes '
               'LogicalKeyboardKey.capsLock will only trigger when CapsLock '
               'is physically held, not when CapsLock is toggled on. This is '
               'a common source of confusion.',
-          code:
-              '// CapsLock as modifier (held down, not toggled):\n'
+          code: '// CapsLock as modifier (held down, not toggled):\n'
               'LogicalKeySet(\n'
               '  LogicalKeyboardKey.capsLock,\n'
               '  LogicalKeyboardKey.keyA,\n'
@@ -2275,14 +2197,12 @@ class _PitfallsApiTab extends StatelessWidget {
           color: cs.primaryContainer,
           onColor: cs.onPrimaryContainer,
           title: 'Left vs Right Modifier Keys',
-          body:
-              'LogicalKeyboardKey.control matches EITHER left or right '
+          body: 'LogicalKeyboardKey.control matches EITHER left or right '
               'Ctrl because it is a logical (platform-abstracted) key. If '
               'you need to distinguish left from right, use controlLeft or '
               'controlRight. Note that this makes the LogicalKeySet '
               'platform-layout-sensitive.',
-          code:
-              '// Platform-agnostic (any Ctrl):\n'
+          code: '// Platform-agnostic (any Ctrl):\n'
               'LogicalKeySet(LogicalKeyboardKey.control, ...)\n\n'
               '// Left Ctrl only:\n'
               'LogicalKeySet(LogicalKeyboardKey.controlLeft, ...)',
@@ -2294,13 +2214,11 @@ class _PitfallsApiTab extends StatelessWidget {
           color: cs.surfaceContainerHighest,
           onColor: cs.onSurface,
           title: 'Max 4 Keys in Positional Constructor',
-          body:
-              'The positional constructor accepts 1 to 4 LogicalKeyboardKey '
+          body: 'The positional constructor accepts 1 to 4 LogicalKeyboardKey '
               'arguments. For more keys, use LogicalKeySet.fromSet(). In '
               'practice, shortcuts with more than 3 keys are extremely rare '
               'and should be avoided for usability.',
-          code:
-              '// OK — up to 4 positional:\n'
+          code: '// OK — up to 4 positional:\n'
               'LogicalKeySet(key1, key2, key3, key4)\n\n'
               '// For 5+ keys use fromSet:\n'
               'LogicalKeySet.fromSet({k1, k2, k3, k4, k5})',
@@ -2311,23 +2229,14 @@ class _PitfallsApiTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _apiRow(
-                context,
-                'Constructor (positional)',
-                'LogicalKeySet(key1, [key2, key3, key4])',
-              ),
+              _apiRow(context, 'Constructor (positional)',
+                  'LogicalKeySet(key1, [key2, key3, key4])'),
               _apiDivider(cs),
-              _apiRow(
-                context,
-                'Constructor (set)',
-                'LogicalKeySet.fromSet(Set<LogicalKeyboardKey> keys)',
-              ),
+              _apiRow(context, 'Constructor (set)',
+                  'LogicalKeySet.fromSet(Set<LogicalKeyboardKey> keys)'),
               _apiDivider(cs),
-              _apiRow(
-                context,
-                '.keys',
-                'Set<LogicalKeyboardKey> — the stored key set',
-              ),
+              _apiRow(context, '.keys',
+                  'Set<LogicalKeyboardKey> — the stored key set'),
               _apiDivider(cs),
               _apiRow(
                 context,
@@ -2350,11 +2259,8 @@ class _PitfallsApiTab extends StatelessWidget {
                     'iff their key sets are equal',
               ),
               _apiDivider(cs),
-              _apiRow(
-                context,
-                'hashCode',
-                'Set-based hash — consistent with operator ==',
-              ),
+              _apiRow(context, 'hashCode',
+                  'Set-based hash — consistent with operator =='),
               _apiDivider(cs),
               _apiRow(
                 context,
@@ -2403,42 +2309,24 @@ class _PitfallsApiTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _takeaway(
-                context,
-                cs,
-                'LogicalKeySet is still functional but deprecated — '
-                'prefer SingleActivator for new code.',
-              ),
-              _takeaway(
-                context,
-                cs,
-                'Keys in a LogicalKeySet are unordered — the set is what '
-                'matters, not insertion order.',
-              ),
-              _takeaway(
-                context,
-                cs,
-                'accepts() requires an exact key-set match; extra pressed '
-                'keys cause it to return false.',
-              ),
-              _takeaway(
-                context,
-                cs,
-                'Use fromSet() when the key set is dynamic or has more '
-                'than 4 keys.',
-              ),
-              _takeaway(
-                context,
-                cs,
-                'Platform differences require care — especially macOS Meta '
-                'vs Windows/Linux Control.',
-              ),
-              _takeaway(
-                context,
-                cs,
-                'For character-based shortcuts (e.g. \'?\'), use '
-                'CharacterActivator instead.',
-              ),
+              _takeaway(context, cs,
+                  'LogicalKeySet is still functional but deprecated — '
+                  'prefer SingleActivator for new code.'),
+              _takeaway(context, cs,
+                  'Keys in a LogicalKeySet are unordered — the set is what '
+                  'matters, not insertion order.'),
+              _takeaway(context, cs,
+                  'accepts() requires an exact key-set match; extra pressed '
+                  'keys cause it to return false.'),
+              _takeaway(context, cs,
+                  'Use fromSet() when the key set is dynamic or has more '
+                  'than 4 keys.'),
+              _takeaway(context, cs,
+                  'Platform differences require care — especially macOS Meta '
+                  'vs Windows/Linux Control.'),
+              _takeaway(context, cs,
+                  'For character-based shortcuts (e.g. \'?\'), use '
+                  'CharacterActivator instead.'),
             ],
           ),
         ),
@@ -2510,7 +2398,9 @@ class _PitfallsApiTab extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          Expanded(child: Text(desc, style: const TextStyle(fontSize: 12))),
+          Expanded(
+            child: Text(desc, style: const TextStyle(fontSize: 12)),
+          ),
         ],
       ),
     );

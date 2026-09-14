@@ -72,7 +72,11 @@ class _HeroSection extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF0E1430), Color(0xFF2C2256), Color(0xFF6750A4)],
+          colors: [
+            Color(0xFF0E1430),
+            Color(0xFF2C2256),
+            Color(0xFF6750A4),
+          ],
         ),
       ),
       child: Row(
@@ -96,11 +100,7 @@ class _HeroSection extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.auto_awesome,
-                        color: Colors.amberAccent,
-                        size: 14,
-                      ),
+                      Icon(Icons.auto_awesome, color: Colors.amberAccent, size: 14),
                       SizedBox(width: 6),
                       Text(
                         "AppBar Pattern Catalog",
@@ -148,7 +148,10 @@ class _HeroSection extends StatelessWidget {
             ),
           ),
           SizedBox(width: 24),
-          Expanded(flex: 2, child: _HeroPreviewCard()),
+          Expanded(
+            flex: 2,
+            child: _HeroPreviewCard(),
+          ),
         ],
       ),
     );
@@ -167,7 +170,9 @@ class _HeroChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.22)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.22),
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -197,7 +202,9 @@ class _HeroPreviewCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.18),
+        ),
       ),
       padding: EdgeInsets.all(16),
       child: Column(
@@ -341,45 +348,33 @@ class _IntroSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _IntroCard(
-                  icon: Icons.menu_book,
-                  color: _kAccent,
-                  title: "Reference",
-                  body:
-                      "A side-by-side reference of common AppBar shapes you would build in a production app.",
-                ),
-              ),
+              Expanded(child: _IntroCard(
+                icon: Icons.menu_book,
+                color: _kAccent,
+                title: "Reference",
+                body: "A side-by-side reference of common AppBar shapes you would build in a production app.",
+              )),
               SizedBox(width: 16),
-              Expanded(
-                child: _IntroCard(
-                  icon: Icons.dashboard_customize,
-                  color: _kAccent2,
-                  title: "Composability",
-                  body:
-                      "Each AppBar is a regular Widget; combine actions, leading, titles, and flexibleSpace.",
-                ),
-              ),
+              Expanded(child: _IntroCard(
+                icon: Icons.dashboard_customize,
+                color: _kAccent2,
+                title: "Composability",
+                body: "Each AppBar is a regular Widget; combine actions, leading, titles, and flexibleSpace.",
+              )),
               SizedBox(width: 16),
-              Expanded(
-                child: _IntroCard(
-                  icon: Icons.brush,
-                  color: _kAccent3,
-                  title: "Theming",
-                  body:
-                      "Material 3 surfaces respond to seed colors, tints, scrolledUnder states and elevation.",
-                ),
-              ),
+              Expanded(child: _IntroCard(
+                icon: Icons.brush,
+                color: _kAccent3,
+                title: "Theming",
+                body: "Material 3 surfaces respond to seed colors, tints, scrolledUnder states and elevation.",
+              )),
               SizedBox(width: 16),
-              Expanded(
-                child: _IntroCard(
-                  icon: Icons.checklist,
-                  color: _kAccent4,
-                  title: "Checklist",
-                  body:
-                      "Use this deck to audit nav clarity, action priority, and accessibility on each screen.",
-                ),
-              ),
+              Expanded(child: _IntroCard(
+                icon: Icons.checklist,
+                color: _kAccent4,
+                title: "Checklist",
+                body: "Use this deck to audit nav clarity, action priority, and accessibility on each screen.",
+              )),
             ],
           ),
           SizedBox(height: 26),
@@ -430,7 +425,11 @@ class _SectionLabel extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: 780),
           child: Text(
             subtitle,
-            style: TextStyle(color: _kInkMuted, fontSize: 14.5, height: 1.5),
+            style: TextStyle(
+              color: _kInkMuted,
+              fontSize: 14.5,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -493,7 +492,11 @@ class _IntroCard extends StatelessWidget {
           SizedBox(height: 6),
           Text(
             body,
-            style: TextStyle(color: _kInkMuted, fontSize: 12.5, height: 1.5),
+            style: TextStyle(
+              color: _kInkMuted,
+              fontSize: 12.5,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -556,7 +559,10 @@ class _LegendDot extends StatelessWidget {
             color: color,
             shape: BoxShape.circle,
             boxShadow: [
-              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 6),
+              BoxShadow(
+                color: color.withValues(alpha: 0.4),
+                blurRadius: 6,
+              ),
             ],
           ),
         ),
@@ -775,7 +781,10 @@ class _CenteredAppBarPreview extends StatelessWidget {
         centerTitle: true,
         title: Text("Today"),
         leading: Icon(Icons.arrow_back),
-        actions: [Icon(Icons.tune), SizedBox(width: 12)],
+        actions: [
+          Icon(Icons.tune),
+          SizedBox(width: 12),
+        ],
       ),
     );
   }
@@ -828,7 +837,10 @@ class _LargeAppBarPreview extends StatelessWidget {
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
           ),
         ),
-        actions: [Icon(Icons.help_outline), SizedBox(width: 14)],
+        actions: [
+          Icon(Icons.help_outline),
+          SizedBox(width: 14),
+        ],
       ),
     );
   }
@@ -878,7 +890,10 @@ class _DenseAppBarPreview extends StatelessWidget {
         foregroundColor: Colors.white,
         title: Text("file://docs/spec.md", style: TextStyle(fontSize: 13)),
         leading: Icon(Icons.close, size: 18),
-        actions: [Icon(Icons.open_in_new, size: 16), SizedBox(width: 14)],
+        actions: [
+          Icon(Icons.open_in_new, size: 16),
+          SizedBox(width: 14),
+        ],
       ),
     );
   }
@@ -907,8 +922,7 @@ class _DevicePreview extends StatelessWidget {
         borderRadius: BorderRadius.circular(9),
         child: Stack(
           children: [
-            if (backgroundChild != null)
-              Positioned.fill(child: backgroundChild!),
+            if (backgroundChild != null) Positioned.fill(child: backgroundChild!),
             Column(
               children: [
                 appBar,
@@ -934,20 +948,11 @@ class _DevicePreview extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _MockListTile(
-                            title: "Daily standup",
-                            subtitle: "9:30 AM · Eng team",
-                          ),
+                          _MockListTile(title: "Daily standup", subtitle: "9:30 AM · Eng team"),
                           SizedBox(height: 8),
-                          _MockListTile(
-                            title: "Design sync",
-                            subtitle: "11:00 AM · Atelier",
-                          ),
+                          _MockListTile(title: "Design sync", subtitle: "11:00 AM · Atelier"),
                           SizedBox(height: 8),
-                          _MockListTile(
-                            title: "Lunch",
-                            subtitle: "12:30 PM · Cafe Verde",
-                          ),
+                          _MockListTile(title: "Lunch", subtitle: "12:30 PM · Cafe Verde"),
                         ],
                       ),
                     ),
@@ -984,14 +989,7 @@ class _MockListTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  color: _kInk,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              Text(title, style: TextStyle(color: _kInk, fontSize: 13, fontWeight: FontWeight.w600)),
               SizedBox(height: 2),
               Text(subtitle, style: TextStyle(color: _kInkMuted, fontSize: 11)),
             ],
@@ -1027,109 +1025,92 @@ class _ActionSlotPatternsSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _ActionSlotCard(
-                  title: "Single primary",
-                  blurb: "One icon — usually search or filter.",
-                  preview: _ActionBarMock(
-                    color: _kAccent,
-                    title: "Notes",
-                    actions: [Icons.search],
-                  ),
+              Expanded(child: _ActionSlotCard(
+                title: "Single primary",
+                blurb: "One icon — usually search or filter.",
+                preview: _ActionBarMock(
+                  color: _kAccent,
+                  title: "Notes",
+                  actions: [Icons.search],
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _ActionSlotCard(
-                  title: "Primary + overflow",
-                  blurb: "Hero action plus three-dot menu.",
-                  preview: _ActionBarMock(
-                    color: _kAccent2,
-                    title: "Photos",
-                    actions: [Icons.add_a_photo, Icons.more_vert],
-                  ),
+              Expanded(child: _ActionSlotCard(
+                title: "Primary + overflow",
+                blurb: "Hero action plus three-dot menu.",
+                preview: _ActionBarMock(
+                  color: _kAccent2,
+                  title: "Photos",
+                  actions: [Icons.add_a_photo, Icons.more_vert],
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _ActionSlotCard(
-                  title: "Three-icon",
-                  blurb:
-                      "Avoid more than 3 unless icons are very recognizable.",
-                  preview: _ActionBarMock(
-                    color: _kAccent3,
-                    title: "Mail",
-                    actions: [Icons.search, Icons.refresh, Icons.more_vert],
-                  ),
+              Expanded(child: _ActionSlotCard(
+                title: "Three-icon",
+                blurb: "Avoid more than 3 unless icons are very recognizable.",
+                preview: _ActionBarMock(
+                  color: _kAccent3,
+                  title: "Mail",
+                  actions: [Icons.search, Icons.refresh, Icons.more_vert],
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _ActionSlotCard(
-                  title: "Labelled action",
-                  blurb: "TextButton actions read as commands, not toggles.",
-                  preview: _ActionBarMock(
-                    color: _kAccent4,
-                    title: "Draft",
-                    labelAction: "Send",
-                  ),
+              Expanded(child: _ActionSlotCard(
+                title: "Labelled action",
+                blurb: "TextButton actions read as commands, not toggles.",
+                preview: _ActionBarMock(
+                  color: _kAccent4,
+                  title: "Draft",
+                  labelAction: "Send",
                 ),
-              ),
+              )),
             ],
           ),
           SizedBox(height: 22),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _ActionSlotCard(
-                  title: "Filled button",
-                  blurb: "For destructive submit, use FilledButton tonal.",
-                  preview: _ActionBarMock(
-                    color: _kInk,
-                    title: "New issue",
-                    filledLabel: "Publish",
-                  ),
+              Expanded(child: _ActionSlotCard(
+                title: "Filled button",
+                blurb: "For destructive submit, use FilledButton tonal.",
+                preview: _ActionBarMock(
+                  color: _kInk,
+                  title: "New issue",
+                  filledLabel: "Publish",
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _ActionSlotCard(
-                  title: "Avatar tail",
-                  blurb: "Account chip as the last action.",
-                  preview: _ActionBarMock(
-                    color: _kInfo,
-                    title: "Dashboard",
-                    trailingAvatar: true,
-                    actions: [Icons.notifications_none],
-                  ),
+              Expanded(child: _ActionSlotCard(
+                title: "Avatar tail",
+                blurb: "Account chip as the last action.",
+                preview: _ActionBarMock(
+                  color: _kInfo,
+                  title: "Dashboard",
+                  trailingAvatar: true,
+                  actions: [Icons.notifications_none],
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _ActionSlotCard(
-                  title: "Toggle group",
-                  blurb: "View-mode switcher inline in the AppBar.",
-                  preview: _ActionBarMock(
-                    color: _kSuccess,
-                    title: "Calendar",
-                    toggleGroup: true,
-                  ),
+              Expanded(child: _ActionSlotCard(
+                title: "Toggle group",
+                blurb: "View-mode switcher inline in the AppBar.",
+                preview: _ActionBarMock(
+                  color: _kSuccess,
+                  title: "Calendar",
+                  toggleGroup: true,
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _ActionSlotCard(
-                  title: "Badged",
-                  blurb: "Notification dot indicates unseen state.",
-                  preview: _ActionBarMock(
-                    color: _kDanger,
-                    title: "Alerts",
-                    badged: true,
-                    actions: [Icons.tune],
-                  ),
+              Expanded(child: _ActionSlotCard(
+                title: "Badged",
+                blurb: "Notification dot indicates unseen state.",
+                preview: _ActionBarMock(
+                  color: _kDanger,
+                  title: "Alerts",
+                  badged: true,
+                  actions: [Icons.tune],
                 ),
-              ),
+              )),
             ],
           ),
           SizedBox(height: 22),
@@ -1162,19 +1143,9 @@ class _ActionSlotCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(title, style: TextStyle(color: _kInk, fontSize: 14, fontWeight: FontWeight.w700)),
           SizedBox(height: 4),
-          Text(
-            blurb,
-            style: TextStyle(color: _kInkMuted, fontSize: 11.5, height: 1.4),
-          ),
+          Text(blurb, style: TextStyle(color: _kInkMuted, fontSize: 11.5, height: 1.4)),
           SizedBox(height: 12),
           preview,
         ],
@@ -1208,143 +1179,103 @@ class _ActionBarMock extends StatelessWidget {
     final tail = <Widget>[];
     for (int i = 0; i < actions.length; i++) {
       final a = actions[i];
-      tail.add(
-        badged && i == 0
-            ? Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Icon(a, color: Colors.white, size: 18),
-                  Positioned(
-                    right: -2,
-                    top: -2,
-                    child: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: Colors.amberAccent,
-                        shape: BoxShape.circle,
-                      ),
+      tail.add(badged && i == 0
+          ? Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(a, color: Colors.white, size: 18),
+                Positioned(
+                  right: -2,
+                  top: -2,
+                  child: Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: Colors.amberAccent,
+                      shape: BoxShape.circle,
                     ),
                   ),
-                ],
-              )
-            : Icon(a, color: Colors.white, size: 18),
-      );
+                ),
+              ],
+            )
+          : Icon(a, color: Colors.white, size: 18));
       tail.add(SizedBox(width: 12));
     }
     if (labelAction != null) {
-      tail.add(
-        Text(
-          labelAction!,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
-          ),
+      tail.add(Text(
+        labelAction!,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 13,
+          fontWeight: FontWeight.w700,
         ),
-      );
+      ));
       tail.add(SizedBox(width: 8));
     }
     if (filledLabel != null) {
-      tail.add(
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Text(
-            filledLabel!,
-            style: TextStyle(
-              color: color,
-              fontSize: 11.5,
-              fontWeight: FontWeight.w800,
-            ),
+      tail.add(Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(999),
+        ),
+        child: Text(
+          filledLabel!,
+          style: TextStyle(
+            color: color,
+            fontSize: 11.5,
+            fontWeight: FontWeight.w800,
           ),
         ),
-      );
+      ));
       tail.add(SizedBox(width: 8));
     }
     if (toggleGroup) {
-      tail.add(
-        Container(
-          padding: EdgeInsets.all(3),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.18),
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(999),
-                ),
-                child: Text(
-                  "D",
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              SizedBox(width: 4),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                child: Text(
-                  "W",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                child: Text(
-                  "M",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ],
-          ),
+      tail.add(Container(
+        padding: EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.18),
+          borderRadius: BorderRadius.circular(999),
         ),
-      );
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text("D", style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w800)),
+            ),
+            SizedBox(width: 4),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+              child: Text("W", style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w700)),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+              child: Text("M", style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w700)),
+            ),
+          ],
+        ),
+      ));
       tail.add(SizedBox(width: 8));
     }
     if (trailingAvatar) {
-      tail.add(
-        Container(
-          width: 24,
-          height: 24,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.5),
-              width: 2,
-            ),
-          ),
-          child: Center(
-            child: Text(
-              "A",
-              style: TextStyle(
-                color: color,
-                fontSize: 11,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
+      tail.add(Container(
+        width: 24,
+        height: 24,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 2),
         ),
-      );
+        child: Center(
+          child: Text("A",
+              style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w800)),
+        ),
+      ));
       tail.add(SizedBox(width: 8));
     }
     return Container(
@@ -1358,14 +1289,9 @@ class _ActionBarMock extends StatelessWidget {
         children: [
           Icon(Icons.menu, color: Colors.white, size: 18),
           SizedBox(width: 12),
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700)),
           Spacer(),
           ...tail,
         ],
@@ -1396,37 +1322,16 @@ class _ActionPriorityTable extends StatelessWidget {
             children: [
               Icon(Icons.priority_high, color: _kWarn, size: 18),
               SizedBox(width: 8),
-              Text(
-                "Action priority cheat sheet",
-                style: TextStyle(
-                  color: _kInk,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text("Action priority cheat sheet",
+                  style: TextStyle(
+                      color: _kInk, fontSize: 15, fontWeight: FontWeight.w800)),
             ],
           ),
           SizedBox(height: 12),
-          _PriorityRow(
-            level: "P0",
-            label: "Primary screen action",
-            example: "Search · Add",
-          ),
-          _PriorityRow(
-            level: "P1",
-            label: "Frequent secondary",
-            example: "Filter · Refresh",
-          ),
-          _PriorityRow(
-            level: "P2",
-            label: "Overflow / contextual",
-            example: "Sort · Settings",
-          ),
-          _PriorityRow(
-            level: "P3",
-            label: "Tertiary / discoverable",
-            example: "Help · About",
-          ),
+          _PriorityRow(level: "P0", label: "Primary screen action", example: "Search · Add"),
+          _PriorityRow(level: "P1", label: "Frequent secondary", example: "Filter · Refresh"),
+          _PriorityRow(level: "P2", label: "Overflow / contextual", example: "Sort · Settings"),
+          _PriorityRow(level: "P3", label: "Tertiary / discoverable", example: "Help · About"),
         ],
       ),
     );
@@ -1434,11 +1339,7 @@ class _ActionPriorityTable extends StatelessWidget {
 }
 
 class _PriorityRow extends StatelessWidget {
-  const _PriorityRow({
-    required this.level,
-    required this.label,
-    required this.example,
-  });
+  const _PriorityRow({required this.level, required this.label, required this.example});
   final String level;
   final String label;
   final String example;
@@ -1456,27 +1357,16 @@ class _PriorityRow extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Center(
-              child: Text(
-                level,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              child: Text(level,
+                  style: TextStyle(
+                      color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
             ),
           ),
           SizedBox(width: 12),
           SizedBox(
             width: 180,
-            child: Text(
-              label,
-              style: TextStyle(
-                color: _kInk,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(color: _kInk, fontSize: 13, fontWeight: FontWeight.w600)),
           ),
           Text(example, style: TextStyle(color: _kInkMuted, fontSize: 12.5)),
         ],
@@ -1515,209 +1405,158 @@ class _TitleStylingSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _TitleStyleCard(
-                  label: "Plain title",
-                  appBar: AppBar(
-                    backgroundColor: _kAccent,
-                    foregroundColor: Colors.white,
-                    title: Text("Plain"),
-                    leading: Icon(Icons.menu),
-                  ),
+              Expanded(child: _TitleStyleCard(
+                label: "Plain title",
+                appBar: AppBar(
+                  backgroundColor: _kAccent,
+                  foregroundColor: Colors.white,
+                  title: Text("Plain"),
+                  leading: Icon(Icons.menu),
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _TitleStyleCard(
-                  label: "Title + subtitle",
-                  appBar: AppBar(
-                    backgroundColor: _kAccent2,
-                    foregroundColor: Colors.white,
-                    leading: Icon(Icons.menu),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Project Atlas",
+              Expanded(child: _TitleStyleCard(
+                label: "Title + subtitle",
+                appBar: AppBar(
+                  backgroundColor: _kAccent2,
+                  foregroundColor: Colors.white,
+                  leading: Icon(Icons.menu),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("Project Atlas",
+                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+                      Text("12 open tasks",
                           style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Text(
-                          "12 open tasks",
-                          style: TextStyle(
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
-                    ),
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white70)),
+                    ],
                   ),
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _TitleStyleCard(
-                  label: "Breadcrumb",
-                  appBar: AppBar(
-                    backgroundColor: _kAccent3,
-                    foregroundColor: Colors.white,
-                    leading: Icon(Icons.arrow_back),
-                    title: Row(
-                      children: [
-                        Text(
-                          "Workspaces",
+              Expanded(child: _TitleStyleCard(
+                label: "Breadcrumb",
+                appBar: AppBar(
+                  backgroundColor: _kAccent3,
+                  foregroundColor: Colors.white,
+                  leading: Icon(Icons.arrow_back),
+                  title: Row(
+                    children: [
+                      Text("Workspaces",
                           style: TextStyle(
-                            fontSize: 13.5,
-                            color: Colors.white.withValues(alpha: 0.7),
-                          ),
-                        ),
-                        Icon(
-                          Icons.chevron_right,
-                          size: 16,
-                          color: Colors.white70,
-                        ),
-                        Text(
-                          "Atlas",
-                          style: TextStyle(
-                            fontSize: 14.5,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
+                              fontSize: 13.5,
+                              color: Colors.white.withValues(alpha: 0.7))),
+                      Icon(Icons.chevron_right, size: 16, color: Colors.white70),
+                      Text("Atlas",
+                          style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700)),
+                    ],
                   ),
                 ),
-              ),
+              )),
             ],
           ),
           SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _TitleStyleCard(
-                  label: "Search field title",
-                  appBar: AppBar(
-                    backgroundColor: _kInfo,
-                    foregroundColor: Colors.white,
-                    leading: Icon(Icons.arrow_back),
-                    title: Container(
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.16),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        children: [
-                          Icon(Icons.search, size: 18, color: Colors.white70),
-                          SizedBox(width: 8),
-                          Text(
-                            "Search packages...",
+              Expanded(child: _TitleStyleCard(
+                label: "Search field title",
+                appBar: AppBar(
+                  backgroundColor: _kInfo,
+                  foregroundColor: Colors.white,
+                  leading: Icon(Icons.arrow_back),
+                  title: Container(
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.16),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Icon(Icons.search, size: 18, color: Colors.white70),
+                        SizedBox(width: 8),
+                        Text("Search packages...",
                             style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
-                      ),
+                                color: Colors.white70, fontSize: 13)),
+                      ],
                     ),
                   ),
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _TitleStyleCard(
-                  label: "Brand mark",
-                  appBar: AppBar(
-                    backgroundColor: Colors.white,
-                    foregroundColor: _kInk,
-                    elevation: 0,
-                    leading: Icon(Icons.menu, color: _kInk),
-                    title: Row(
-                      children: [
-                        Container(
-                          width: 22,
-                          height: 22,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [_kAccent, _kAccent3],
-                            ),
-                            borderRadius: BorderRadius.circular(6),
+              Expanded(child: _TitleStyleCard(
+                label: "Brand mark",
+                appBar: AppBar(
+                  backgroundColor: Colors.white,
+                  foregroundColor: _kInk,
+                  elevation: 0,
+                  leading: Icon(Icons.menu, color: _kInk),
+                  title: Row(
+                    children: [
+                      Container(
+                        width: 22,
+                        height: 22,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [_kAccent, _kAccent3],
                           ),
+                          borderRadius: BorderRadius.circular(6),
                         ),
-                        SizedBox(width: 8),
-                        Text(
-                          "atlas",
+                      ),
+                      SizedBox(width: 8),
+                      Text("atlas",
                           style: TextStyle(
-                            color: _kInk,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        Text(
-                          ".dev",
+                              color: _kInk,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w800)),
+                      Text(".dev",
                           style: TextStyle(
-                            color: _kAccent,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w800,
-                          ),
+                              color: _kAccent,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w800)),
+                    ],
+                  ),
+                  actions: [
+                    Icon(Icons.notifications_none, color: _kInk),
+                    SizedBox(width: 14),
+                  ],
+                ),
+              )),
+              SizedBox(width: 14),
+              Expanded(child: _TitleStyleCard(
+                label: "Status pill title",
+                appBar: AppBar(
+                  backgroundColor: _kInk,
+                  foregroundColor: Colors.white,
+                  leading: Icon(Icons.arrow_back),
+                  title: Row(
+                    children: [
+                      Text("Build #1284",
+                          style: TextStyle(
+                              fontSize: 14.5,
+                              fontWeight: FontWeight.w700)),
+                      SizedBox(width: 10),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: _kSuccess,
+                          borderRadius: BorderRadius.circular(999),
                         ),
-                      ],
-                    ),
-                    actions: [
-                      Icon(Icons.notifications_none, color: _kInk),
-                      SizedBox(width: 14),
+                        child: Text("PASSED",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                letterSpacing: 0.7,
+                                fontWeight: FontWeight.w800)),
+                      ),
                     ],
                   ),
                 ),
-              ),
-              SizedBox(width: 14),
-              Expanded(
-                child: _TitleStyleCard(
-                  label: "Status pill title",
-                  appBar: AppBar(
-                    backgroundColor: _kInk,
-                    foregroundColor: Colors.white,
-                    leading: Icon(Icons.arrow_back),
-                    title: Row(
-                      children: [
-                        Text(
-                          "Build #1284",
-                          style: TextStyle(
-                            fontSize: 14.5,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 3,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _kSuccess,
-                            borderRadius: BorderRadius.circular(999),
-                          ),
-                          child: Text(
-                            "PASSED",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              letterSpacing: 0.7,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              )),
             ],
           ),
           SizedBox(height: 22),
@@ -1744,18 +1583,16 @@ class _TitleStyleCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: _kInk, fontSize: 13, fontWeight: FontWeight.w700)),
           SizedBox(height: 10),
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: SizedBox(height: 56, child: appBar),
+            child: SizedBox(
+              height: 56,
+              child: appBar,
+            ),
           ),
         ],
       ),
@@ -1788,25 +1625,17 @@ class _TitleDosAndDonts extends StatelessWidget {
                   children: [
                     Icon(Icons.check_circle, color: _kSuccess, size: 18),
                     SizedBox(width: 6),
-                    Text(
-                      "Do",
-                      style: TextStyle(
-                        color: _kSuccess,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                    Text("Do",
+                        style: TextStyle(
+                            color: _kSuccess,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800)),
                   ],
                 ),
                 SizedBox(height: 8),
-                _Bullet(
-                  text: "Match title to the page heading the user expects.",
-                ),
+                _Bullet(text: "Match title to the page heading the user expects."),
                 _Bullet(text: "Keep titles to 1-3 words, sentence case."),
-                _Bullet(
-                  text:
-                      "Use a subtitle for contextual numbers (counts, states).",
-                ),
+                _Bullet(text: "Use a subtitle for contextual numbers (counts, states)."),
                 _Bullet(text: "Truncate with ellipsis at word boundaries."),
               ],
             ),
@@ -1831,25 +1660,18 @@ class _TitleDosAndDonts extends StatelessWidget {
                   children: [
                     Icon(Icons.cancel, color: _kDanger, size: 18),
                     SizedBox(width: 6),
-                    Text(
-                      "Don\u2019t",
-                      style: TextStyle(
-                        color: _kDanger,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                    Text("Don\u2019t",
+                        style: TextStyle(
+                            color: _kDanger,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800)),
                   ],
                 ),
                 SizedBox(height: 8),
                 _Bullet(text: "Repeat the brand name on every screen."),
                 _Bullet(text: "Stuff long sentences into the title slot."),
-                _Bullet(
-                  text: "Use ALL CAPS unless it is a strict brand token.",
-                ),
-                _Bullet(
-                  text: "Hide the only back action behind an overflow menu.",
-                ),
+                _Bullet(text: "Use ALL CAPS unless it is a strict brand token."),
+                _Bullet(text: "Hide the only back action behind an overflow menu."),
               ],
             ),
           ),
@@ -1929,63 +1751,27 @@ class _LeadingMatrix extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _LeadingMatrixRow(
-          items: [
-            _LeadingCellData(
-              icon: Icons.menu,
-              label: "Drawer toggle",
-              color: _kAccent,
-              note: "Top-level destinations only.",
-            ),
-            _LeadingCellData(
-              icon: Icons.arrow_back,
-              label: "Back",
-              color: _kAccent2,
-              note: "Pops the route stack.",
-            ),
-            _LeadingCellData(
-              icon: Icons.close,
-              label: "Dismiss",
-              color: _kAccent3,
-              note: "Closes modal or full-screen sheet.",
-            ),
-            _LeadingCellData(
-              icon: Icons.arrow_back_ios_new,
-              label: "iOS back",
-              color: _kAccent4,
-              note: "When you mimic iOS visual language.",
-            ),
-          ],
-        ),
+        _LeadingMatrixRow(items: [
+          _LeadingCellData(icon: Icons.menu, label: "Drawer toggle", color: _kAccent,
+              note: "Top-level destinations only."),
+          _LeadingCellData(icon: Icons.arrow_back, label: "Back", color: _kAccent2,
+              note: "Pops the route stack."),
+          _LeadingCellData(icon: Icons.close, label: "Dismiss", color: _kAccent3,
+              note: "Closes modal or full-screen sheet."),
+          _LeadingCellData(icon: Icons.arrow_back_ios_new, label: "iOS back", color: _kAccent4,
+              note: "When you mimic iOS visual language."),
+        ]),
         SizedBox(height: 16),
-        _LeadingMatrixRow(
-          items: [
-            _LeadingCellData(
-              icon: Icons.home_outlined,
-              label: "Home",
-              color: _kInfo,
-              note: "Special — jumps to root, not pop.",
-            ),
-            _LeadingCellData(
-              icon: Icons.chevron_left,
-              label: "Step back",
-              color: _kSuccess,
-              note: "Used in wizards / setup flows.",
-            ),
-            _LeadingCellData(
-              icon: Icons.location_pin,
-              label: "Context",
-              color: _kWarn,
-              note: "Indicates location/scope, not navigation.",
-            ),
-            _LeadingCellData(
-              icon: Icons.image,
-              label: "Avatar/logo",
-              color: _kDanger,
-              note: "Use for branded destinations.",
-            ),
-          ],
-        ),
+        _LeadingMatrixRow(items: [
+          _LeadingCellData(icon: Icons.home_outlined, label: "Home", color: _kInfo,
+              note: "Special — jumps to root, not pop."),
+          _LeadingCellData(icon: Icons.chevron_left, label: "Step back", color: _kSuccess,
+              note: "Used in wizards / setup flows."),
+          _LeadingCellData(icon: Icons.location_pin, label: "Context", color: _kWarn,
+              note: "Indicates location/scope, not navigation."),
+          _LeadingCellData(icon: Icons.image, label: "Avatar/logo", color: _kDanger,
+              note: "Use for branded destinations."),
+        ]),
         SizedBox(height: 18),
         Container(
           padding: EdgeInsets.all(14),
@@ -2002,10 +1788,7 @@ class _LeadingMatrix extends StatelessWidget {
                 child: Text(
                   "Tip: never make leading do something other than navigate. If you need a non-navigational glyph, put it inside the title or actions slot.",
                   style: TextStyle(
-                    color: _kInkSoft,
-                    fontSize: 12.5,
-                    height: 1.45,
-                  ),
+                      color: _kInkSoft, fontSize: 12.5, height: 1.45),
                 ),
               ),
             ],
@@ -2076,19 +1859,12 @@ class _LeadingCell extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          Text(
-            data.label,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 13.5,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(data.label,
+              style: TextStyle(
+                  color: _kInk, fontSize: 13.5, fontWeight: FontWeight.w700)),
           SizedBox(height: 4),
-          Text(
-            data.note,
-            style: TextStyle(color: _kInkMuted, fontSize: 11.5, height: 1.4),
-          ),
+          Text(data.note,
+              style: TextStyle(color: _kInkMuted, fontSize: 11.5, height: 1.4)),
         ],
       ),
     );
@@ -2125,58 +1901,49 @@ class _FlexibleSpaceGallerySection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _FlexCard(
-                  label: "Linear gradient",
-                  appBar: _gradientAppBar([
-                    Color(0xFF1A237E),
-                    Color(0xFF6A1B9A),
-                    Color(0xFFE91E63),
-                  ], "Discover"),
+              Expanded(child: _FlexCard(
+                label: "Linear gradient",
+                appBar: _gradientAppBar(
+                  [Color(0xFF1A237E), Color(0xFF6A1B9A), Color(0xFFE91E63)],
+                  "Discover",
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _FlexCard(
-                  label: "Sunset",
-                  appBar: _gradientAppBar([
-                    Color(0xFFFF6B6B),
-                    Color(0xFFFF8E53),
-                    Color(0xFFFFD166),
-                  ], "Sunset Mix"),
+              Expanded(child: _FlexCard(
+                label: "Sunset",
+                appBar: _gradientAppBar(
+                  [Color(0xFFFF6B6B), Color(0xFFFF8E53), Color(0xFFFFD166)],
+                  "Sunset Mix",
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _FlexCard(
-                  label: "Aurora",
-                  appBar: _gradientAppBar([
-                    Color(0xFF00C9A7),
-                    Color(0xFF2E86DE),
-                    Color(0xFF8E44AD),
-                  ], "Aurora"),
+              Expanded(child: _FlexCard(
+                label: "Aurora",
+                appBar: _gradientAppBar(
+                  [Color(0xFF00C9A7), Color(0xFF2E86DE), Color(0xFF8E44AD)],
+                  "Aurora",
                 ),
-              ),
+              )),
             ],
           ),
           SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _FlexCard(
-                  label: "Pattern overlay",
-                  appBar: _patternAppBar(),
-                ),
-              ),
+              Expanded(child: _FlexCard(
+                label: "Pattern overlay",
+                appBar: _patternAppBar(),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _FlexCard(label: "Photo blur", appBar: _photoAppBar()),
-              ),
+              Expanded(child: _FlexCard(
+                label: "Photo blur",
+                appBar: _photoAppBar(),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _FlexCard(label: "Subtle wash", appBar: _washAppBar()),
-              ),
+              Expanded(child: _FlexCard(
+                label: "Subtle wash",
+                appBar: _washAppBar(),
+              )),
             ],
           ),
         ],
@@ -2193,10 +1960,8 @@ class _FlexibleSpaceGallerySection extends StatelessWidget {
       leading: Icon(Icons.arrow_back),
       title: Padding(
         padding: EdgeInsets.only(top: 30),
-        child: Text(
-          title,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-        ),
+        child: Text(title,
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
       ),
       actions: [Icon(Icons.share), SizedBox(width: 14)],
       flexibleSpace: Container(
@@ -2220,10 +1985,8 @@ class _FlexibleSpaceGallerySection extends StatelessWidget {
       leading: Icon(Icons.menu),
       title: Padding(
         padding: EdgeInsets.only(top: 30),
-        child: Text(
-          "Studio",
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-        ),
+        child: Text("Studio",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
       ),
       flexibleSpace: Container(
         decoration: BoxDecoration(
@@ -2274,10 +2037,8 @@ class _FlexibleSpaceGallerySection extends StatelessWidget {
       leading: Icon(Icons.arrow_back),
       title: Padding(
         padding: EdgeInsets.only(top: 30),
-        child: Text(
-          "Field Notes",
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-        ),
+        child: Text("Field Notes",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
       ),
       actions: [Icon(Icons.bookmark_outline), SizedBox(width: 14)],
       flexibleSpace: Stack(
@@ -2288,11 +2049,7 @@ class _FlexibleSpaceGallerySection extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF4E342E),
-                    Color(0xFF8D6E63),
-                    Color(0xFFD7CCC8),
-                  ],
+                  colors: [Color(0xFF4E342E), Color(0xFF8D6E63), Color(0xFFD7CCC8)],
                 ),
               ),
             ),
@@ -2325,14 +2082,8 @@ class _FlexibleSpaceGallerySection extends StatelessWidget {
       leading: Icon(Icons.menu),
       title: Padding(
         padding: EdgeInsets.only(top: 30),
-        child: Text(
-          "Library",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w800,
-            color: _kInk,
-          ),
-        ),
+        child: Text("Library",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: _kInk)),
       ),
       flexibleSpace: Container(
         decoration: BoxDecoration(
@@ -2363,18 +2114,16 @@ class _FlexCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: _kInk, fontSize: 13, fontWeight: FontWeight.w700)),
           SizedBox(height: 10),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: SizedBox(height: 110, child: appBar),
+            child: SizedBox(
+              height: 110,
+              child: appBar,
+            ),
           ),
         ],
       ),
@@ -2406,44 +2155,38 @@ class _BottomAppBarShowcaseSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _BottomBarCard(
-                  label: "Centered notch",
-                  child: _BottomBarMock(
-                    color: Colors.white,
-                    iconColor: _kAccent,
-                    fab: _FabMock(color: _kAccent, icon: Icons.add),
-                    fabLocation: FloatingActionButtonLocation.centerDocked,
-                    notchedShape: true,
-                  ),
+              Expanded(child: _BottomBarCard(
+                label: "Centered notch",
+                child: _BottomBarMock(
+                  color: Colors.white,
+                  iconColor: _kAccent,
+                  fab: _FabMock(color: _kAccent, icon: Icons.add),
+                  fabLocation: FloatingActionButtonLocation.centerDocked,
+                  notchedShape: true,
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _BottomBarCard(
-                  label: "End-docked",
-                  child: _BottomBarMock(
-                    color: Colors.white,
-                    iconColor: _kAccent2,
-                    fab: _FabMock(color: _kAccent2, icon: Icons.edit),
-                    fabLocation: FloatingActionButtonLocation.endDocked,
-                    notchedShape: true,
-                  ),
+              Expanded(child: _BottomBarCard(
+                label: "End-docked",
+                child: _BottomBarMock(
+                  color: Colors.white,
+                  iconColor: _kAccent2,
+                  fab: _FabMock(color: _kAccent2, icon: Icons.edit),
+                  fabLocation: FloatingActionButtonLocation.endDocked,
+                  notchedShape: true,
                 ),
-              ),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _BottomBarCard(
-                  label: "No notch",
-                  child: _BottomBarMock(
-                    color: _kInk,
-                    iconColor: Colors.white,
-                    fab: null,
-                    fabLocation: FloatingActionButtonLocation.centerDocked,
-                    notchedShape: false,
-                  ),
+              Expanded(child: _BottomBarCard(
+                label: "No notch",
+                child: _BottomBarMock(
+                  color: _kInk,
+                  iconColor: Colors.white,
+                  fab: null,
+                  fabLocation: FloatingActionButtonLocation.centerDocked,
+                  notchedShape: false,
                 ),
-              ),
+              )),
             ],
           ),
           SizedBox(height: 18),
@@ -2470,14 +2213,9 @@ class _BottomBarCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: _kInk, fontSize: 13, fontWeight: FontWeight.w700)),
           SizedBox(height: 10),
           child,
         ],
@@ -2596,30 +2334,16 @@ class _BottomAppBarPropTable extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "BottomAppBar properties at a glance",
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 14,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text("BottomAppBar properties at a glance",
+              style: TextStyle(
+                  color: _kInk, fontSize: 14, fontWeight: FontWeight.w800)),
           SizedBox(height: 10),
-          _PropRow(
-            name: "shape",
-            value: "CircularNotchedRectangle() · AutomaticNotchedShape",
-          ),
+          _PropRow(name: "shape", value: "CircularNotchedRectangle() · AutomaticNotchedShape"),
           _PropRow(name: "notchMargin", value: "Spacing between FAB and bar"),
           _PropRow(name: "color", value: "Surface color of the bar"),
           _PropRow(name: "elevation", value: "Material elevation (Z)"),
-          _PropRow(
-            name: "padding",
-            value: "EdgeInsetsGeometry around children",
-          ),
-          _PropRow(
-            name: "height",
-            value: "Total bar height (default 80 in M3)",
-          ),
+          _PropRow(name: "padding", value: "EdgeInsetsGeometry around children"),
+          _PropRow(name: "height", value: "Total bar height (default 80 in M3)"),
         ],
       ),
     );
@@ -2639,21 +2363,16 @@ class _PropRow extends StatelessWidget {
         children: [
           SizedBox(
             width: 130,
-            child: Text(
-              name,
-              style: TextStyle(
-                color: _kSuccess,
-                fontSize: 12.5,
-                fontWeight: FontWeight.w800,
-                fontFamily: "monospace",
-              ),
-            ),
+            child: Text(name,
+                style: TextStyle(
+                    color: _kSuccess,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: "monospace")),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.4),
-            ),
+            child: Text(value,
+                style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.4)),
           ),
         ],
       ),
@@ -2691,41 +2410,23 @@ class _SliverAppBarShowcaseSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _SliverCard(
-                  label: "Pinned · collapsed",
-                  blurb:
-                      "Stays at the top of the viewport while content scrolls.",
-                  child: _SliverPreview(
-                    expandedHeight: 64,
-                    kind: _SliverKind.pinnedCollapsed,
-                  ),
-                ),
-              ),
+              Expanded(child: _SliverCard(
+                label: "Pinned · collapsed",
+                blurb: "Stays at the top of the viewport while content scrolls.",
+                child: _SliverPreview(expandedHeight: 64, kind: _SliverKind.pinnedCollapsed),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _SliverCard(
-                  label: "Expanded · hero",
-                  blurb:
-                      "Initial scroll position shows the flexibleSpace at full height.",
-                  child: _SliverPreview(
-                    expandedHeight: 200,
-                    kind: _SliverKind.expanded,
-                  ),
-                ),
-              ),
+              Expanded(child: _SliverCard(
+                label: "Expanded · hero",
+                blurb: "Initial scroll position shows the flexibleSpace at full height.",
+                child: _SliverPreview(expandedHeight: 200, kind: _SliverKind.expanded),
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _SliverCard(
-                  label: "Floating · with TabBar bottom",
-                  blurb:
-                      "Floating reappears on upward scroll, with TabBar as bottom.",
-                  child: _SliverPreview(
-                    expandedHeight: 140,
-                    kind: _SliverKind.floatingTabs,
-                  ),
-                ),
-              ),
+              Expanded(child: _SliverCard(
+                label: "Floating · with TabBar bottom",
+                blurb: "Floating reappears on upward scroll, with TabBar as bottom.",
+                child: _SliverPreview(expandedHeight: 140, kind: _SliverKind.floatingTabs),
+              )),
             ],
           ),
         ],
@@ -2737,11 +2438,7 @@ class _SliverAppBarShowcaseSection extends StatelessWidget {
 enum _SliverKind { pinnedCollapsed, expanded, floatingTabs }
 
 class _SliverCard extends StatelessWidget {
-  const _SliverCard({
-    required this.label,
-    required this.blurb,
-    required this.child,
-  });
+  const _SliverCard({required this.label, required this.blurb, required this.child});
   final String label;
   final String blurb;
   final Widget child;
@@ -2757,19 +2454,12 @@ class _SliverCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: _kInk, fontSize: 13, fontWeight: FontWeight.w700)),
           SizedBox(height: 4),
-          Text(
-            blurb,
-            style: TextStyle(color: _kInkMuted, fontSize: 11.5, height: 1.4),
-          ),
+          Text(blurb,
+              style: TextStyle(color: _kInkMuted, fontSize: 11.5, height: 1.4)),
           SizedBox(height: 10),
           child,
         ],
@@ -2887,14 +2577,11 @@ class _TabMock extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700)),
           SizedBox(height: 6),
           Container(
             width: 22,
@@ -2930,14 +2617,9 @@ class _ScrollListItem extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Center(
-              child: Text(
-                idx.toString(),
-                style: TextStyle(
-                  color: color,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              child: Text(idx.toString(),
+                  style: TextStyle(
+                      color: color, fontSize: 11, fontWeight: FontWeight.w800)),
             ),
           ),
           SizedBox(width: 10),
@@ -2945,19 +2627,12 @@ class _ScrollListItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Item " + idx.toString(),
-                  style: TextStyle(
-                    color: _kInk,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Text("Item " + idx.toString(),
+                    style: TextStyle(
+                        color: _kInk, fontSize: 12.5, fontWeight: FontWeight.w700)),
                 SizedBox(height: 2),
-                Text(
-                  "Subtitle below the row",
-                  style: TextStyle(color: _kInkMuted, fontSize: 11),
-                ),
+                Text("Subtitle below the row",
+                    style: TextStyle(color: _kInkMuted, fontSize: 11)),
               ],
             ),
           ),
@@ -2992,13 +2667,9 @@ class _ToolbarHeightSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _HeightCard(label: "Compact · 44 dp", height: 44),
-              ),
+              Expanded(child: _HeightCard(label: "Compact · 44 dp", height: 44)),
               SizedBox(width: 14),
-              Expanded(
-                child: _HeightCard(label: "Default · 56 dp", height: 56),
-              ),
+              Expanded(child: _HeightCard(label: "Default · 56 dp", height: 56)),
               SizedBox(width: 14),
               Expanded(child: _HeightCard(label: "Medium · 80 dp", height: 80)),
               SizedBox(width: 14),
@@ -3024,10 +2695,7 @@ class _ToolbarHeightSection extends StatelessWidget {
                   child: Text(
                     "Compact bars suit utility surfaces (search overlays, browsers). Tall bars belong to hero / settings / detail routes where context outweighs density.",
                     style: TextStyle(
-                      color: _kInk,
-                      fontSize: 12.5,
-                      height: 1.45,
-                    ),
+                        color: _kInk, fontSize: 12.5, height: 1.45),
                   ),
                 ),
               ],
@@ -3055,14 +2723,9 @@ class _HeightCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: _kInk, fontSize: 13, fontWeight: FontWeight.w700)),
           SizedBox(height: 10),
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
@@ -3077,10 +2740,8 @@ class _HeightCard extends StatelessWidget {
                       foregroundColor: Colors.white,
                       toolbarHeight: height,
                       leading: Icon(Icons.menu),
-                      title: Text(
-                        label.split(" · ").first,
-                        style: TextStyle(fontSize: 14),
-                      ),
+                      title: Text(label.split(" · ").first,
+                          style: TextStyle(fontSize: 14)),
                       actions: [Icon(Icons.search), SizedBox(width: 14)],
                     ),
                   ),
@@ -3091,10 +2752,9 @@ class _HeightCard extends StatelessWidget {
                         child: Text(
                           height.toStringAsFixed(0) + " dp",
                           style: TextStyle(
-                            color: _kInkMuted,
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w700,
-                          ),
+                              color: _kInkMuted,
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w700),
                         ),
                       ),
                     ),
@@ -3139,33 +2799,13 @@ class _ElevationComparisonSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _ElevationCard(label: "0 — flat", elevation: 0, tint: 0),
-              ),
+              Expanded(child: _ElevationCard(label: "0 — flat", elevation: 0, tint: 0)),
               SizedBox(width: 14),
-              Expanded(
-                child: _ElevationCard(
-                  label: "1 — resting",
-                  elevation: 1,
-                  tint: 0.04,
-                ),
-              ),
+              Expanded(child: _ElevationCard(label: "1 — resting", elevation: 1, tint: 0.04)),
               SizedBox(width: 14),
-              Expanded(
-                child: _ElevationCard(
-                  label: "4 — scrolled",
-                  elevation: 4,
-                  tint: 0.10,
-                ),
-              ),
+              Expanded(child: _ElevationCard(label: "4 — scrolled", elevation: 4, tint: 0.10)),
               SizedBox(width: 14),
-              Expanded(
-                child: _ElevationCard(
-                  label: "12 — modal",
-                  elevation: 12,
-                  tint: 0.16,
-                ),
-              ),
+              Expanded(child: _ElevationCard(label: "12 — modal", elevation: 12, tint: 0.16)),
             ],
           ),
         ],
@@ -3195,14 +2835,9 @@ class _ElevationCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: _kInk, fontSize: 13, fontWeight: FontWeight.w700)),
           SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
@@ -3222,8 +2857,7 @@ class _ElevationCard extends StatelessWidget {
                 child: Column(
                   children: [
                     AppBar(
-                      backgroundColor:
-                          Color.lerp(_kAccent, _kInk, tint) ?? _kAccent,
+                      backgroundColor: Color.lerp(_kAccent, _kInk, tint) ?? _kAccent,
                       foregroundColor: Colors.white,
                       elevation: 0,
                       title: Text("Surface", style: TextStyle(fontSize: 14)),
@@ -3240,10 +2874,9 @@ class _ElevationCard extends StatelessWidget {
                             Text(
                               "z = " + elevation.toStringAsFixed(0),
                               style: TextStyle(
-                                color: _kInkMuted,
-                                fontSize: 11,
-                                fontFamily: "monospace",
-                              ),
+                                  color: _kInkMuted,
+                                  fontSize: 11,
+                                  fontFamily: "monospace"),
                             ),
                           ],
                         ),
@@ -3284,57 +2917,49 @@ class _AccessibilitySection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _A11yCard(
-                  icon: Icons.contrast,
-                  title: "Contrast",
-                  color: _kInfo,
-                  tips: [
-                    "Title vs background must reach 4.5:1 (WCAG AA).",
-                    "Icons against background should reach 3:1.",
-                    "Test on real OLED and reflective screens.",
-                  ],
-                ),
-              ),
+              Expanded(child: _A11yCard(
+                icon: Icons.contrast,
+                title: "Contrast",
+                color: _kInfo,
+                tips: [
+                  "Title vs background must reach 4.5:1 (WCAG AA).",
+                  "Icons against background should reach 3:1.",
+                  "Test on real OLED and reflective screens.",
+                ],
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _A11yCard(
-                  icon: Icons.touch_app,
-                  title: "Tap targets",
-                  color: _kSuccess,
-                  tips: [
-                    "Min 48 x 48 dp per interactive icon.",
-                    "Use IconButton (not bare Icon) for actions.",
-                    "Avoid stacking targets within 8 dp of each other.",
-                  ],
-                ),
-              ),
+              Expanded(child: _A11yCard(
+                icon: Icons.touch_app,
+                title: "Tap targets",
+                color: _kSuccess,
+                tips: [
+                  "Min 48 x 48 dp per interactive icon.",
+                  "Use IconButton (not bare Icon) for actions.",
+                  "Avoid stacking targets within 8 dp of each other.",
+                ],
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _A11yCard(
-                  icon: Icons.record_voice_over,
-                  title: "Semantics",
-                  color: _kAccent3,
-                  tips: [
-                    "Provide tooltip / semantic label for every action.",
-                    "Title is read first; subtitle becomes its hint.",
-                    "Avoid duplicating leading and title meanings.",
-                  ],
-                ),
-              ),
+              Expanded(child: _A11yCard(
+                icon: Icons.record_voice_over,
+                title: "Semantics",
+                color: _kAccent3,
+                tips: [
+                  "Provide tooltip / semantic label for every action.",
+                  "Title is read first; subtitle becomes its hint.",
+                  "Avoid duplicating leading and title meanings.",
+                ],
+              )),
               SizedBox(width: 14),
-              Expanded(
-                child: _A11yCard(
-                  icon: Icons.text_fields,
-                  title: "Type & scale",
-                  color: _kAccent4,
-                  tips: [
-                    "Title size scales with the user's textScale factor.",
-                    "Avoid hard-coded heights below 56 dp.",
-                    "Allow titles to wrap two lines on tall AppBars.",
-                  ],
-                ),
-              ),
+              Expanded(child: _A11yCard(
+                icon: Icons.text_fields,
+                title: "Type & scale",
+                color: _kAccent4,
+                tips: [
+                  "Title size scales with the user's textScale factor.",
+                  "Avoid hard-coded heights below 56 dp.",
+                  "Allow titles to wrap two lines on tall AppBars.",
+                ],
+              )),
             ],
           ),
         ],
@@ -3363,10 +2988,7 @@ class _A11yCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            color.withValues(alpha: 0.10),
-            color.withValues(alpha: 0.22),
-          ],
+          colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.22)],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.withValues(alpha: 0.25)),
@@ -3383,14 +3005,9 @@ class _A11yCard extends StatelessWidget {
             child: Icon(icon, color: Colors.white, size: 16),
           ),
           SizedBox(height: 12),
-          Text(
-            title,
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 14,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: _kInk, fontSize: 14, fontWeight: FontWeight.w800)),
           SizedBox(height: 8),
           for (final t in tips)
             Padding(
@@ -3411,14 +3028,9 @@ class _A11yCard extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      t,
-                      style: TextStyle(
-                        color: _kInk,
-                        fontSize: 11.5,
-                        height: 1.45,
-                      ),
-                    ),
+                    child: Text(t,
+                        style: TextStyle(
+                            color: _kInk, fontSize: 11.5, height: 1.45)),
                   ),
                 ],
               ),
@@ -3493,40 +3105,26 @@ class _AnatomyDiagramSection extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withValues(
-                                        alpha: 0.18,
-                                      ),
+                                      color: Colors.white.withValues(alpha: 0.18),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: Icon(
-                                      Icons.arrow_back,
-                                      color: Colors.white,
-                                      size: 18,
-                                    ),
+                                    child: Icon(Icons.arrow_back,
+                                        color: Colors.white, size: 18),
                                   ),
                                   SizedBox(width: 14),
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "Project Atlas",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w800,
-                                        ),
-                                      ),
-                                      Text(
-                                        "12 open tasks",
-                                        style: TextStyle(
-                                          color: Colors.white.withValues(
-                                            alpha: 0.75,
-                                          ),
-                                          fontSize: 12,
-                                        ),
-                                      ),
+                                      Text("Project Atlas",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w800)),
+                                      Text("12 open tasks",
+                                          style: TextStyle(
+                                              color: Colors.white.withValues(alpha: 0.75),
+                                              fontSize: 12)),
                                     ],
                                   ),
                                   Spacer(),
@@ -3560,31 +3158,11 @@ class _AnatomyDiagramSection extends StatelessWidget {
                   spacing: 12,
                   runSpacing: 12,
                   children: [
-                    _AnatomyTag(
-                      color: _kAccent,
-                      label: "leading",
-                      note: "Icon · BackButton · DrawerButton",
-                    ),
-                    _AnatomyTag(
-                      color: _kAccent2,
-                      label: "title",
-                      note: "Text · widget · Row",
-                    ),
-                    _AnatomyTag(
-                      color: _kAccent3,
-                      label: "actions",
-                      note: "List<Widget>",
-                    ),
-                    _AnatomyTag(
-                      color: _kAccent4,
-                      label: "bottom",
-                      note: "PreferredSizeWidget (e.g. TabBar)",
-                    ),
-                    _AnatomyTag(
-                      color: _kInfo,
-                      label: "flexibleSpace",
-                      note: "Background canvas",
-                    ),
+                    _AnatomyTag(color: _kAccent, label: "leading", note: "Icon · BackButton · DrawerButton"),
+                    _AnatomyTag(color: _kAccent2, label: "title", note: "Text · widget · Row"),
+                    _AnatomyTag(color: _kAccent3, label: "actions", note: "List<Widget>"),
+                    _AnatomyTag(color: _kAccent4, label: "bottom", note: "PreferredSizeWidget (e.g. TabBar)"),
+                    _AnatomyTag(color: _kInfo, label: "flexibleSpace", note: "Background canvas"),
                   ],
                 ),
               ],
@@ -3597,11 +3175,7 @@ class _AnatomyDiagramSection extends StatelessWidget {
 }
 
 class _AnatomyTag extends StatelessWidget {
-  const _AnatomyTag({
-    required this.color,
-    required this.label,
-    required this.note,
-  });
+  const _AnatomyTag({required this.color, required this.label, required this.note});
   final Color color;
   final String label;
   final String note;
@@ -3623,20 +3197,16 @@ class _AnatomyTag extends StatelessWidget {
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           SizedBox(width: 8),
-          Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              fontFamily: "monospace",
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: "monospace")),
           SizedBox(width: 8),
-          Text(
-            note,
-            style: TextStyle(color: _kInkMuted, fontSize: 11.5, height: 1.3),
-          ),
+          Text(note,
+              style: TextStyle(
+                  color: _kInkMuted, fontSize: 11.5, height: 1.3)),
         ],
       ),
     );
@@ -3674,34 +3244,29 @@ class _FooterSection extends StatelessWidget {
                       width: 28,
                       height: 28,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [_kAccent, _kAccent3]),
+                        gradient: LinearGradient(
+                          colors: [_kAccent, _kAccent3],
+                        ),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(
-                        Icons.auto_awesome,
-                        color: Colors.white,
-                        size: 16,
-                      ),
+                      child: Icon(Icons.auto_awesome,
+                          color: Colors.white, size: 16),
                     ),
                     SizedBox(width: 10),
-                    Text(
-                      "Mobile App Navigation Deck",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                    Text("Mobile App Navigation Deck",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w800)),
                   ],
                 ),
                 SizedBox(height: 10),
                 Text(
                   "End of catalog. Use these patterns as a reference; remix freely.",
                   style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.7),
-                    fontSize: 13,
-                    height: 1.5,
-                  ),
+                      color: Colors.white.withValues(alpha: 0.7),
+                      fontSize: 13,
+                      height: 1.5),
                 ),
               ],
             ),
@@ -3712,15 +3277,12 @@ class _FooterSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Sections",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.4,
-                  ),
-                ),
+                Text("Sections",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.4)),
                 SizedBox(height: 10),
                 _FooterLink(label: "Hero & intro"),
                 _FooterLink(label: "Variant gallery"),
@@ -3743,15 +3305,12 @@ class _FooterSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Reference",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.4,
-                  ),
-                ),
+                Text("Reference",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.4)),
                 SizedBox(height: 10),
                 _FooterLink(label: "AppBar API"),
                 _FooterLink(label: "SliverAppBar API"),
@@ -3777,20 +3336,14 @@ class _FooterLink extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.arrow_outward,
-            color: Colors.white.withValues(alpha: 0.55),
-            size: 12,
-          ),
+          Icon(Icons.arrow_outward,
+              color: Colors.white.withValues(alpha: 0.55), size: 12),
           SizedBox(width: 6),
-          Text(
-            label,
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.85),
-              fontSize: 12.5,
-              height: 1.4,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.85),
+                  fontSize: 12.5,
+                  height: 1.4)),
         ],
       ),
     );

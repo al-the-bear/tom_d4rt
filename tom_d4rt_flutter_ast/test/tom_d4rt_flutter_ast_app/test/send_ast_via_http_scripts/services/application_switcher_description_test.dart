@@ -143,7 +143,10 @@ class _HeroBannerSection extends StatelessWidget {
           stops: const <double>[0.0, 0.45, 0.75, 1.0],
         ),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: _kAccent.withValues(alpha: 0.35), width: 1.1),
+        border: Border.all(
+          color: _kAccent.withValues(alpha: 0.35),
+          width: 1.1,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: const Color(0xFF000000).withValues(alpha: 0.45),
@@ -162,7 +165,10 @@ class _HeroBannerSection extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[_kAccent, _kAccent2],
+                colors: <Color>[
+                  _kAccent,
+                  _kAccent2,
+                ],
               ),
               borderRadius: BorderRadius.circular(20),
               boxShadow: <BoxShadow>[
@@ -373,8 +379,12 @@ class _TableRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: isHeader ? const Color(0xFF1B2A38) : const Color(0x00000000),
-        border: Border(bottom: BorderSide(color: _kBorder, width: 0.6)),
+        color: isHeader
+            ? const Color(0xFF1B2A38)
+            : const Color(0x00000000),
+        border: Border(
+          bottom: BorderSide(color: _kBorder, width: 0.6),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       child: Row(
@@ -528,12 +538,18 @@ class _RecentsCardMockSection extends StatelessWidget {
                 ],
               ),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _kAccent2.withValues(alpha: 0.35)),
+              border: Border.all(
+                color: _kAccent2.withValues(alpha: 0.35),
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.info_outline, color: _kAccent2, size: 22),
+                Icon(
+                  Icons.info_outline,
+                  color: _kAccent2,
+                  size: 22,
+                ),
                 const SizedBox(width: 12),
                 const Expanded(
                   child: Text(
@@ -622,7 +638,11 @@ class _RecentsCardMock extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: Icon(appIcon, size: 14, color: resolvedHeader),
+                  child: Icon(
+                    appIcon,
+                    size: 14,
+                    color: resolvedHeader,
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -708,7 +728,9 @@ class _RecentsCardMock extends StatelessWidget {
                 bottomRight: Radius.circular(15),
               ),
               border: Border(
-                top: BorderSide(color: Colors.black.withValues(alpha: 0.4)),
+                top: BorderSide(
+                  color: Colors.black.withValues(alpha: 0.4),
+                ),
               ),
             ),
             child: Column(
@@ -833,11 +855,20 @@ class _PlatformSupportSection extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: <Widget>[
-              _LegendDot(color: const Color(0xFF66BB6A), label: 'full support'),
+              _LegendDot(
+                color: const Color(0xFF66BB6A),
+                label: 'full support',
+              ),
               const SizedBox(width: 16),
-              _LegendDot(color: const Color(0xFFFFB74D), label: 'partial'),
+              _LegendDot(
+                color: const Color(0xFFFFB74D),
+                label: 'partial',
+              ),
               const SizedBox(width: 16),
-              _LegendDot(color: const Color(0xFFE57373), label: 'no-op'),
+              _LegendDot(
+                color: const Color(0xFFE57373),
+                label: 'no-op',
+              ),
             ],
           ),
         ],
@@ -890,7 +921,9 @@ class _PlatformRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: _kBorder, width: 0.5)),
+        border: Border(
+          bottom: BorderSide(color: _kBorder, width: 0.5),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -901,7 +934,9 @@ class _PlatformRow extends StatelessWidget {
             decoration: BoxDecoration(
               color: iconColor.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: iconColor.withValues(alpha: 0.4)),
+              border: Border.all(
+                color: iconColor.withValues(alpha: 0.4),
+              ),
             ),
             child: Icon(icon, color: iconColor, size: 20),
           ),
@@ -979,7 +1014,10 @@ class _LegendDot extends StatelessWidget {
             color: color,
             shape: BoxShape.circle,
             boxShadow: <BoxShadow>[
-              BoxShadow(color: color.withValues(alpha: 0.45), blurRadius: 8),
+              BoxShadow(
+                color: color.withValues(alpha: 0.45),
+                blurRadius: 8,
+              ),
             ],
           ),
         ),
@@ -1027,10 +1065,10 @@ class _CodeSnippetsSection extends StatelessWidget {
               _CodeLine(text: "import 'package:flutter/widgets.dart';"),
               _CodeLine(text: ''),
               _CodeLine(text: 'void main() {'),
-              _CodeLine(text: '  WidgetsFlutterBinding.ensureInitialized();'),
               _CodeLine(
-                text: '  SystemChrome.setApplicationSwitcherDescription(',
-              ),
+                  text: '  WidgetsFlutterBinding.ensureInitialized();'),
+              _CodeLine(
+                  text: '  SystemChrome.setApplicationSwitcherDescription('),
               _CodeLine(text: '    const ApplicationSwitcherDescription('),
               _CodeLine(text: "      label: 'Tom Forge',"),
               _CodeLine(text: '      primaryColor: 0xFF1565C0,'),
@@ -1052,9 +1090,7 @@ class _CodeSnippetsSection extends StatelessWidget {
               _CodeLine(text: '  final int argb = b == Brightness.dark'),
               _CodeLine(text: '      ? 0xFF0D1117'),
               _CodeLine(text: '      : 0xFFFFFFFF;'),
-              _CodeLine(
-                text: '  SystemChrome.setApplicationSwitcherDescription(',
-              ),
+              _CodeLine(text: '  SystemChrome.setApplicationSwitcherDescription('),
               _CodeLine(text: '    ApplicationSwitcherDescription('),
               _CodeLine(text: "      label: 'Tom Forge',"),
               _CodeLine(text: '      primaryColor: argb,'),
@@ -1072,18 +1108,13 @@ class _CodeSnippetsSection extends StatelessWidget {
             tagColor: _kAccent3,
             lines: <_CodeLine>[
               _CodeLine(text: 'void applyRecentsForLocale(Locale locale) {'),
-              _CodeLine(
-                text:
-                    '  final String localized = switch (locale.languageCode) {',
-              ),
+              _CodeLine(text: '  final String localized = switch (locale.languageCode) {'),
               _CodeLine(text: "    'de' => 'Tom Schmiede',"),
               _CodeLine(text: "    'fr' => 'Tom Forge',"),
               _CodeLine(text: "    'ja' => 'トム鍛冶'  ,"),
               _CodeLine(text: "    _ => 'Tom Forge',"),
               _CodeLine(text: '  };'),
-              _CodeLine(
-                text: '  SystemChrome.setApplicationSwitcherDescription(',
-              ),
+              _CodeLine(text: '  SystemChrome.setApplicationSwitcherDescription('),
               _CodeLine(text: '    ApplicationSwitcherDescription('),
               _CodeLine(text: '      label: localized,'),
               _CodeLine(text: '      primaryColor: 0xFF1565C0,'),
@@ -1125,7 +1156,9 @@ class _CodeSnippet extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: tagColor.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: tagColor.withValues(alpha: 0.4),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1140,7 +1173,9 @@ class _CodeSnippet extends StatelessWidget {
                 topRight: Radius.circular(13),
               ),
               border: Border(
-                bottom: BorderSide(color: tagColor.withValues(alpha: 0.35)),
+                bottom: BorderSide(
+                  color: tagColor.withValues(alpha: 0.35),
+                ),
               ),
             ),
             child: Row(
@@ -1154,7 +1189,9 @@ class _CodeSnippet extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: tagColor.withValues(alpha: 0.22),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: tagColor.withValues(alpha: 0.6)),
+                    border: Border.all(
+                      color: tagColor.withValues(alpha: 0.6),
+                    ),
                   ),
                   child: Text(
                     'snippet',
@@ -1235,7 +1272,9 @@ class _CodeBlock extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(child: _SyntaxText(text: lines[i].text)),
+              Expanded(
+                child: _SyntaxText(text: lines[i].text),
+              ),
             ],
           ),
         ),
@@ -1441,7 +1480,10 @@ class _BitByteBox extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: color.withValues(alpha: 0.55), width: 1.2),
+        border: Border.all(
+          color: color.withValues(alpha: 0.55),
+          width: 1.2,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -1540,7 +1582,10 @@ class _LegendBullet extends StatelessWidget {
           margin: const EdgeInsets.only(top: 6),
           width: 6,
           height: 6,
-          decoration: BoxDecoration(color: _kAccent5, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: _kAccent5,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -1824,7 +1869,9 @@ class _Pitfall extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _color.withValues(alpha: 0.45)),
+        border: Border.all(
+          color: _color.withValues(alpha: 0.45),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1839,7 +1886,9 @@ class _Pitfall extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: _color.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: _color.withValues(alpha: 0.6)),
+                  border: Border.all(
+                    color: _color.withValues(alpha: 0.6),
+                  ),
                 ),
                 child: Text(
                   _label.toUpperCase(),
@@ -1867,7 +1916,11 @@ class _Pitfall extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             description,
-            style: const TextStyle(color: _kText, fontSize: 12.5, height: 1.5),
+            style: const TextStyle(
+              color: _kText,
+              fontSize: 12.5,
+              height: 1.5,
+            ),
           ),
           const SizedBox(height: 8),
           Container(
@@ -1875,12 +1928,18 @@ class _Pitfall extends StatelessWidget {
             decoration: BoxDecoration(
               color: _kBg.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _color.withValues(alpha: 0.3)),
+              border: Border.all(
+                color: _color.withValues(alpha: 0.3),
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.lightbulb_outline, size: 16, color: _color),
+                Icon(
+                  Icons.lightbulb_outline,
+                  size: 16,
+                  color: _color,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1943,7 +2002,8 @@ class _RelatedApisSection extends StatelessWidget {
           _RelatedApiCard(
             symbol: 'SystemChrome.setPreferredOrientations',
             kind: 'static method',
-            summary: 'Locks the app to a subset of device orientations.',
+            summary:
+                'Locks the app to a subset of device orientations.',
             relation:
                 'Often configured at the same startup point. Has nothing to '
                 'do with recents tinting but lives in the same family.',
@@ -2024,11 +2084,16 @@ class _RelatedApiCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: _kAccent2.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: _kAccent2.withValues(alpha: 0.5)),
+                  border: Border.all(
+                    color: _kAccent2.withValues(alpha: 0.5),
+                  ),
                 ),
                 child: Text(
                   kind,
@@ -2044,7 +2109,11 @@ class _RelatedApiCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             summary,
-            style: const TextStyle(color: _kText, fontSize: 12.5, height: 1.45),
+            style: const TextStyle(
+              color: _kText,
+              fontSize: 12.5,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 6),
           Container(
@@ -2056,7 +2125,11 @@ class _RelatedApiCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Icon(Icons.link, color: _kAccent, size: 14),
+                const Icon(
+                  Icons.link,
+                  color: _kAccent,
+                  size: 14,
+                ),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -2266,14 +2339,20 @@ class _FooterReferencesSection extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: _kAccent.withValues(alpha: 0.3)),
+        border: Border.all(
+          color: _kAccent.withValues(alpha: 0.3),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.menu_book_outlined, color: _kAccent, size: 24),
+              const Icon(
+                Icons.menu_book_outlined,
+                color: _kAccent,
+                size: 24,
+              ),
               const SizedBox(width: 10),
               const Text(
                 'References',
@@ -2302,8 +2381,7 @@ class _FooterReferencesSection extends StatelessWidget {
                       'https://api.flutter.dev/flutter/services/ApplicationSwitcherDescription-class.html',
                 ),
                 _RefLink(
-                  label:
-                      'Flutter API: SystemChrome.setApplicationSwitcherDescription',
+                  label: 'Flutter API: SystemChrome.setApplicationSwitcherDescription',
                   url:
                       'https://api.flutter.dev/flutter/services/SystemChrome/setApplicationSwitcherDescription.html',
                 ),
@@ -2336,11 +2414,18 @@ class _FooterReferencesSection extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: <Widget>[
-              const Icon(Icons.copyright_outlined, color: _kTextDim, size: 14),
+              const Icon(
+                Icons.copyright_outlined,
+                color: _kTextDim,
+                size: 14,
+              ),
               const SizedBox(width: 6),
               Text(
                 'Tom AI — d4rt visual catalog. All values are illustrative.',
-                style: TextStyle(color: _kTextDim, fontSize: 11),
+                style: TextStyle(
+                  color: _kTextDim,
+                  fontSize: 11,
+                ),
               ),
             ],
           ),
@@ -2362,7 +2447,11 @@ class _RefLink extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.link_outlined, size: 14, color: _kAccent),
+          const Icon(
+            Icons.link_outlined,
+            size: 14,
+            color: _kAccent,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -2418,7 +2507,9 @@ class _SectionShell extends StatelessWidget {
       decoration: BoxDecoration(
         color: _kSurface,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: accent.withValues(alpha: 0.25)),
+        border: Border.all(
+          color: accent.withValues(alpha: 0.25),
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.35),

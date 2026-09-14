@@ -605,7 +605,10 @@ Widget _buildHelpersAndErrorsSection() {
               error: Text('Invalid phone number'),
               child: Text(
                 '+44 nope',
-                style: TextStyle(fontSize: 16, color: Color(0xFFFF3B30)),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color(0xFFFF3B30),
+                ),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -806,7 +809,10 @@ Widget _buildDecorationVariantsSection() {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFFFFFFFF), Color(0xFFF2F2F7)],
+              colors: <Color>[
+                Color(0xFFFFFFFF),
+                Color(0xFFF2F2F7),
+              ],
             ),
             borderRadius: BorderRadius.circular(14),
             boxShadow: const <BoxShadow>[
@@ -906,7 +912,10 @@ Widget _buildDecorationVariantsSection() {
           decoration: BoxDecoration(
             color: const Color(0xFFFFF8E1),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: const Color(0xFFFFD60A), width: 1.5),
+            border: Border.all(
+              color: const Color(0xFFFFD60A),
+              width: 1.5,
+            ),
             boxShadow: const <BoxShadow>[
               BoxShadow(
                 color: Color(0x33FFD60A),
@@ -983,7 +992,10 @@ Widget _darkRow(String label, String value) {
 }
 
 Widget _darkDivider() {
-  return Container(height: 1, color: const Color(0xFF3A3A3C));
+  return Container(
+    height: 1,
+    color: const Color(0xFF3A3A3C),
+  );
 }
 
 // ============================================================================
@@ -1282,7 +1294,10 @@ Widget _buildAnatomyDiagram() {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFFFFFFFF), Color(0xFFF2F2F7)],
+              colors: <Color>[
+                Color(0xFFFFFFFF),
+                Color(0xFFF2F2F7),
+              ],
             ),
             borderRadius: BorderRadius.circular(14),
             boxShadow: const <BoxShadow>[
@@ -1436,7 +1451,10 @@ Widget _anatomyRow(
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 2,
+              ),
               decoration: BoxDecoration(
                 color: color.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(5),
@@ -1453,7 +1471,10 @@ Widget _anatomyRow(
             const SizedBox(width: 12),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF007AFF).withOpacity(0.12),
                   borderRadius: BorderRadius.circular(5),
@@ -1528,10 +1549,15 @@ Widget _buildScrollAnatomyCard() {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Color(0xFFFFEFEF), Color(0xFFFFE0EF)],
+              colors: <Color>[
+                Color(0xFFFFEFEF),
+                Color(0xFFFFE0EF),
+              ],
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: const Color(0xFFFF2D55).withOpacity(0.3)),
+            border: Border.all(
+              color: const Color(0xFFFF2D55).withOpacity(0.3),
+            ),
             boxShadow: const <BoxShadow>[
               BoxShadow(
                 color: Color(0x22FF2D55),
@@ -1625,7 +1651,12 @@ Widget _buildScrollAnatomyCard() {
   );
 }
 
-Widget _scrollPattern(String name, String snippet, IconData icon, Color color) {
+Widget _scrollPattern(
+  String name,
+  String snippet,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1708,7 +1739,10 @@ Widget _buildUsageGuide() {
             gradient: const LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: <Color>[Color(0xFFFFFFFF), Color(0xFFF7F7FB)],
+              colors: <Color>[
+                Color(0xFFFFFFFF),
+                Color(0xFFF7F7FB),
+              ],
             ),
             borderRadius: BorderRadius.circular(14),
             border: Border.all(color: const Color(0xFFE5E5EA)),
@@ -1727,8 +1761,8 @@ Widget _buildUsageGuide() {
               _guideEntry(
                 'Choose insetGrouped for Settings-style screens',
                 'The rounded card style is the modern iOS default. '
-                    'Reach for the flat constructor only when you need full '
-                    'bleed dividers across the screen.',
+                'Reach for the flat constructor only when you need full '
+                'bleed dividers across the screen.',
                 CupertinoIcons.checkmark_seal_fill,
                 const Color(0xFF007AFF),
               ),
@@ -1736,8 +1770,8 @@ Widget _buildUsageGuide() {
               _guideEntry(
                 'CupertinoFormRow for non-text rows',
                 'Use CupertinoFormRow when the right-hand widget is a '
-                    'switch, a picker, a static value, or a custom widget. '
-                    'Pair with prefix and helper / error slots.',
+                'switch, a picker, a static value, or a custom widget. '
+                'Pair with prefix and helper / error slots.',
                 CupertinoIcons.slider_horizontal_3,
                 const Color(0xFF34C759),
               ),
@@ -1745,8 +1779,8 @@ Widget _buildUsageGuide() {
               _guideEntry(
                 'CupertinoTextFormFieldRow for text input',
                 'CupertinoTextFormFieldRow bundles a Cupertino text '
-                    'field, prefix, helper, error, and form-state into one '
-                    'row. Use it for the typical name / email / phone case.',
+                'field, prefix, helper, error, and form-state into one '
+                'row. Use it for the typical name / email / phone case.',
                 CupertinoIcons.textformat,
                 const Color(0xFFAF52DE),
               ),
@@ -1754,8 +1788,8 @@ Widget _buildUsageGuide() {
               _guideEntry(
                 'Keep prefix widths consistent',
                 'Wrap prefix labels in a SizedBox of the same width '
-                    'across rows so the right-hand inputs line up. This is '
-                    'the most visible polish detail in iOS forms.',
+                'across rows so the right-hand inputs line up. This is '
+                'the most visible polish detail in iOS forms.',
                 CupertinoIcons.rectangle_grid_1x2,
                 const Color(0xFFFF9F0A),
               ),
@@ -1763,8 +1797,8 @@ Widget _buildUsageGuide() {
               _guideEntry(
                 'Helper and error are mutually exclusive in spirit',
                 'Both slots can render simultaneously, but the iOS '
-                    'convention is to show helper text in calm states and '
-                    'replace it with error text only when validation fails.',
+                'convention is to show helper text in calm states and '
+                'replace it with error text only when validation fails.',
                 CupertinoIcons.exclamationmark_circle,
                 const Color(0xFFFF3B30),
               ),
@@ -1772,9 +1806,9 @@ Widget _buildUsageGuide() {
               _guideEntry(
                 'Compose sections, do not nest forms',
                 'A long form is built as several CupertinoFormSection '
-                    'widgets in a ListView, not as a single section with '
-                    'twenty rows. Smaller sections are easier to scan, '
-                    'faster to validate, and align with iOS conventions.',
+                'widgets in a ListView, not as a single section with '
+                'twenty rows. Smaller sections are easier to scan, '
+                'faster to validate, and align with iOS conventions.',
                 CupertinoIcons.square_stack,
                 const Color(0xFF5E5CE6),
               ),
@@ -1786,7 +1820,12 @@ Widget _buildUsageGuide() {
   );
 }
 
-Widget _guideEntry(String title, String body, IconData icon, Color color) {
+Widget _guideEntry(
+  String title,
+  String body,
+  IconData icon,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10),
     child: Row(
@@ -1839,7 +1878,10 @@ Widget _guideEntry(String title, String body, IconData icon, Color color) {
 }
 
 Widget _guideDivider() {
-  return Container(height: 1, color: const Color(0xFFE5E5EA));
+  return Container(
+    height: 1,
+    color: const Color(0xFFE5E5EA),
+  );
 }
 
 // ============================================================================
@@ -1858,7 +1900,10 @@ Widget _sectionTitle(String label, IconData icon, Color color) {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[color, color.withOpacity(0.7)],
+              colors: <Color>[
+                color,
+                color.withOpacity(0.7),
+              ],
             ),
             borderRadius: BorderRadius.circular(8),
             boxShadow: <BoxShadow>[

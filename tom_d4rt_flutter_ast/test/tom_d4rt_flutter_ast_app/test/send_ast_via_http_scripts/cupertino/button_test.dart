@@ -17,7 +17,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[Color(0xFF0A84FF), Color(0xFF5E5CE6)],
+        colors: <Color>[
+          Color(0xFF0A84FF),
+          Color(0xFF5E5CE6),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -128,7 +131,9 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: CupertinoColors.systemGrey6,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: CupertinoColors.systemGrey4),
+      border: Border.all(
+        color: CupertinoColors.systemGrey4,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,10 +173,7 @@ dynamic build(BuildContext context) {
         anatomyLabel('padding', 'Inner spacing — defines the tap target.'),
         anatomyLabel('color', 'Background fill when set; otherwise text-only.'),
         anatomyLabel('pressedOpacity', 'Opacity dip on press, default 0.4.'),
-        anatomyLabel(
-          'borderRadius',
-          'Corner rounding of the filled rectangle.',
-        ),
+        anatomyLabel('borderRadius', 'Corner rounding of the filled rectangle.'),
         anatomyLabel('disabledColor', 'Fill used when onPressed is null.'),
         anatomyLabel('onPressed', 'Tap callback; null disables the button.'),
       ],
@@ -612,7 +614,10 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 6.0),
                 const Text(
                   'color: activeGreen',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6E6E73)),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Color(0xFF6E6E73),
+                  ),
                 ),
               ],
             ),
@@ -630,7 +635,10 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 6.0),
                 const Text(
                   'disabledColor: systemGrey3',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6E6E73)),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Color(0xFF6E6E73),
+                  ),
                 ),
               ],
             ),
@@ -666,7 +674,10 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 6.0),
           Text(
             label,
-            style: TextStyle(color: tint, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: tint,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -743,10 +754,15 @@ dynamic build(BuildContext context) {
     child: Column(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 8.0,
+          ),
           decoration: const BoxDecoration(
             color: CupertinoColors.systemGrey6,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(16.0),
+            ),
           ),
           child: Row(
             children: <Widget>[
@@ -814,7 +830,9 @@ dynamic build(BuildContext context) {
   Widget sheetAction(String label, Color tint, {bool bold = false}) {
     return Container(
       decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: CupertinoColors.systemGrey4)),
+        border: Border(
+          top: BorderSide(color: CupertinoColors.systemGrey4),
+        ),
       ),
       child: CupertinoButton(
         padding: const EdgeInsets.symmetric(vertical: 14.0),
@@ -863,7 +881,10 @@ dynamic build(BuildContext context) {
           child: Column(
             children: <Widget>[
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 14.0,
+                ),
                 child: Column(
                   children: <Widget>[
                     Text(
@@ -887,7 +908,11 @@ dynamic build(BuildContext context) {
               ),
               sheetAction('Documents', CupertinoColors.systemBlue),
               sheetAction('Archive', CupertinoColors.systemBlue),
-              sheetAction('Delete', CupertinoColors.systemRed, bold: true),
+              sheetAction(
+                'Delete',
+                CupertinoColors.systemRed,
+                bold: true,
+              ),
             ],
           ),
         ),
@@ -1005,7 +1030,9 @@ dynamic build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
       decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: CupertinoColors.systemGrey5)),
+        border: Border(
+          bottom: BorderSide(color: CupertinoColors.systemGrey5),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -1063,10 +1090,15 @@ dynamic build(BuildContext context) {
     child: Column(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 12.0,
+          ),
           decoration: const BoxDecoration(
             color: CupertinoColors.systemGrey6,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(18.0)),
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(18.0),
+            ),
           ),
           child: Row(
             children: <Widget>[

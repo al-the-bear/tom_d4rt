@@ -344,12 +344,9 @@ class _PhysicsDemoBox extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               itemCount: itemCount,
               itemBuilder: (BuildContext ctx, int index) {
-                final Color tile = HSLColor.fromAHSL(
-                  1.0,
-                  (index * 28) % 360,
-                  0.55,
-                  0.62,
-                ).toColor();
+                final Color tile =
+                    HSLColor.fromAHSL(1.0, (index * 28) % 360, 0.55, 0.62)
+                        .toColor();
                 if (horizontal) {
                   return Container(
                     width: itemExtent,
@@ -432,7 +429,10 @@ class _OverscrollSimGraph extends StatelessWidget {
               Container(
                 width: 10,
                 height: 10,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 8),
               Text(
@@ -616,8 +616,7 @@ dynamic build(BuildContext context) {
     ),
     const _CodeBlock(
       title: 'Skeleton of a custom ScrollPhysics',
-      code:
-          'class MyPhysics extends ScrollPhysics {\n'
+      code: 'class MyPhysics extends ScrollPhysics {\n'
           '  const MyPhysics({super.parent});\n'
           '\n'
           '  @override\n'
@@ -809,9 +808,7 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   margin: const EdgeInsets.symmetric(
-                    vertical: 2,
-                    horizontal: 24,
-                  ),
+                      vertical: 2, horizontal: 24),
                   child: Text(
                     'Item $index',
                     style: const TextStyle(
@@ -832,8 +829,7 @@ dynamic build(BuildContext context) {
   final List<Widget> liveDemos = <Widget>[
     const _SectionTitle(
       label: 'Live demos — one box per physics class',
-      subtitle:
-          'Each ListView below uses a different ScrollPhysics. The '
+      subtitle: 'Each ListView below uses a different ScrollPhysics. The '
           'shapes are identical so any visible difference is the physics.',
       icon: Icons.visibility,
       color: Color(0xFF00695C),
@@ -856,8 +852,7 @@ dynamic build(BuildContext context) {
   final List<Widget> comparison = <Widget>[
     const _SectionTitle(
       label: 'Comparison: overscroll behavior',
-      subtitle:
-          'How each physics responds when the user tries to scroll '
+      subtitle: 'How each physics responds when the user tries to scroll '
           'past the edges of the content.',
       icon: Icons.compare_arrows,
       color: Color(0xFFFF6F00),
@@ -866,18 +861,7 @@ dynamic build(BuildContext context) {
       label: 'BouncingScrollPhysics — rubber band',
       color: Color(0xFFD81B60),
       points: <double>[
-        0.0,
-        0.1,
-        0.3,
-        0.55,
-        0.8,
-        0.95,
-        0.9,
-        0.65,
-        0.35,
-        0.1,
-        0.0,
-        0.0,
+        0.0, 0.1, 0.3, 0.55, 0.8, 0.95, 0.9, 0.65, 0.35, 0.1, 0.0, 0.0
       ],
       caption:
           'Overscroll permitted with progressive friction (~0.52). The '
@@ -889,18 +873,7 @@ dynamic build(BuildContext context) {
       label: 'ClampingScrollPhysics — hard stop',
       color: Color(0xFF2E7D32),
       points: <double>[
-        0.0,
-        0.1,
-        0.3,
-        0.5,
-        0.5,
-        0.5,
-        0.5,
-        0.5,
-        0.4,
-        0.25,
-        0.1,
-        0.0,
+        0.0, 0.1, 0.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.4, 0.25, 0.1, 0.0
       ],
       caption:
           'Overscroll is rejected at the boundary; the position never goes '
@@ -912,18 +885,7 @@ dynamic build(BuildContext context) {
       label: 'NeverScrollableScrollPhysics — flat',
       color: Color(0xFFC62828),
       points: <double>[
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
       ],
       caption:
           'shouldAcceptUserOffset() always returns false. No simulation, no '
@@ -934,18 +896,7 @@ dynamic build(BuildContext context) {
       label: 'AlwaysScrollableScrollPhysics(parent: Bouncing)',
       color: Color(0xFFEF6C00),
       points: <double>[
-        0.0,
-        0.05,
-        0.2,
-        0.4,
-        0.7,
-        0.85,
-        0.85,
-        0.6,
-        0.3,
-        0.1,
-        0.0,
-        0.0,
+        0.0, 0.05, 0.2, 0.4, 0.7, 0.85, 0.85, 0.6, 0.3, 0.1, 0.0, 0.0
       ],
       caption:
           'Same shape as Bouncing — Always merely toggles the '
@@ -1089,18 +1040,8 @@ dynamic build(BuildContext context) {
             diameterRatio: 1.5,
             children: <Widget>[
               for (final String m in const <String>[
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
+                'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
               ])
                 Container(
                   alignment: Alignment.center,
@@ -1312,8 +1253,14 @@ dynamic build(BuildContext context) {
             text: '  distance: 1 / physicalPixelsPerLogicalPixel,',
             color: Color(0xFF263238),
           ),
-          _MonoLine(text: '  time:     0.001,', color: Color(0xFF263238)),
-          _MonoLine(text: ')', color: Color(0xFF263238)),
+          _MonoLine(
+            text: '  time:     0.001,',
+            color: Color(0xFF263238),
+          ),
+          _MonoLine(
+            text: ')',
+            color: Color(0xFF263238),
+          ),
         ],
       ),
     ),
@@ -1358,7 +1305,11 @@ dynamic build(BuildContext context) {
   final ClampingScrollSimulation clampSim = ClampingScrollSimulation(
     position: 0.0,
     velocity: 600.0,
-    tolerance: const Tolerance(velocity: 0.05, distance: 0.01, time: 0.001),
+    tolerance: const Tolerance(
+      velocity: 0.05,
+      distance: 0.01,
+      time: 0.001,
+    ),
   );
 
   final BouncingScrollSimulation bounceSim = BouncingScrollSimulation(
@@ -1371,7 +1322,11 @@ dynamic build(BuildContext context) {
       stiffness: 100.0,
       ratio: 1.1,
     ),
-    tolerance: const Tolerance(velocity: 0.05, distance: 0.01, time: 0.001),
+    tolerance: const Tolerance(
+      velocity: 0.05,
+      distance: 0.01,
+      time: 0.001,
+    ),
   );
 
   final List<Widget> simulationSection = <Widget>[
@@ -1404,16 +1359,18 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 6),
-          _MonoLine(text: 'position : ${clampSim.x(0.0).toStringAsFixed(2)}'),
-          _MonoLine(text: 'velocity : ${clampSim.dx(0.0).toStringAsFixed(2)}'),
           _MonoLine(
-            text:
-                'tolerance.velocity : '
+            text: 'position : ${clampSim.x(0.0).toStringAsFixed(2)}',
+          ),
+          _MonoLine(
+            text: 'velocity : ${clampSim.dx(0.0).toStringAsFixed(2)}',
+          ),
+          _MonoLine(
+            text: 'tolerance.velocity : '
                 '${clampSim.tolerance.velocity.toStringAsFixed(3)}',
           ),
           _MonoLine(
-            text:
-                'tolerance.distance : '
+            text: 'tolerance.distance : '
                 '${clampSim.tolerance.distance.toStringAsFixed(3)}',
           ),
           const SizedBox(height: 6),
@@ -1459,14 +1416,12 @@ dynamic build(BuildContext context) {
             color: const Color(0xFFAD1457),
           ),
           _MonoLine(
-            text:
-                'tolerance.velocity : '
+            text: 'tolerance.velocity : '
                 '${bounceSim.tolerance.velocity.toStringAsFixed(3)}',
             color: const Color(0xFFAD1457),
           ),
           _MonoLine(
-            text:
-                'tolerance.distance : '
+            text: 'tolerance.distance : '
                 '${bounceSim.tolerance.distance.toStringAsFixed(3)}',
             color: const Color(0xFFAD1457),
           ),
@@ -1505,8 +1460,7 @@ dynamic build(BuildContext context) {
   final List<Widget> pitfalls = <Widget>[
     const _SectionTitle(
       label: 'Pitfalls — the easy mistakes',
-      subtitle:
-          'Real bugs that show up in code reviews and never reproduce '
+      subtitle: 'Real bugs that show up in code reviews and never reproduce '
           'until somebody changes platform or content size.',
       icon: Icons.warning_amber,
       color: Color(0xFFEF6C00),
@@ -1795,7 +1749,11 @@ dynamic build(BuildContext context) {
             'subclass, an overscroll comparison panel, recipes, a '
             'Tolerance illustration, simulation curves, pitfalls, a '
             'glossary, and a recap.',
-            style: TextStyle(color: Colors.white, fontSize: 13.5, height: 1.4),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13.5,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1835,15 +1793,13 @@ dynamic build(BuildContext context) {
   ];
 
   // Sanity print for the AST runner trail.
-  print(
-    'Sections rendered: dossier=${dossier.length}, '
-    'anatomy=${anatomy.length}, demos=${liveDemos.length}, '
-    'comparison=${comparison.length}, recipes=${recipes.length}, '
-    'tolerance=${toleranceSection.length}, '
-    'simulation=${simulationSection.length}, '
-    'pitfalls=${pitfalls.length}, glossary=${glossary.length}, '
-    'recap=${recap.length}, total=${all.length}',
-  );
+  print('Sections rendered: dossier=${dossier.length}, '
+      'anatomy=${anatomy.length}, demos=${liveDemos.length}, '
+      'comparison=${comparison.length}, recipes=${recipes.length}, '
+      'tolerance=${toleranceSection.length}, '
+      'simulation=${simulationSection.length}, '
+      'pitfalls=${pitfalls.length}, glossary=${glossary.length}, '
+      'recap=${recap.length}, total=${all.length}');
 
   // Touch the math import so it is not unused even if the
   // unnecessary_import lint flips on us.
@@ -1854,7 +1810,8 @@ dynamic build(BuildContext context) {
 
   // Touch the foundation import so it is not unused either.
   final TargetPlatform platform = defaultTargetPlatform;
-  if (platform == TargetPlatform.fuchsia && platform == TargetPlatform.iOS) {
+  if (platform == TargetPlatform.fuchsia &&
+      platform == TargetPlatform.iOS) {
     print('Impossible branch — platform reference only.');
   }
 

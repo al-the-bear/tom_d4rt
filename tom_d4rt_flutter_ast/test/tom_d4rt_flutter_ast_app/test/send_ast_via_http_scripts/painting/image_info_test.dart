@@ -323,7 +323,11 @@ Widget _proseParagraph(String text) {
     padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
     child: Text(
       text,
-      style: const TextStyle(color: kInkSoft, fontSize: 14, height: 1.55),
+      style: const TextStyle(
+        color: kInkSoft,
+        fontSize: 14,
+        height: 1.55,
+      ),
     ),
   );
 }
@@ -590,11 +594,8 @@ Widget _anatomyDiagram() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.center_focus_strong_outlined,
-              color: kAccentCyan,
-              size: 18,
-            ),
+            Icon(Icons.center_focus_strong_outlined,
+                color: kAccentCyan, size: 18),
             const SizedBox(width: 8),
             const Text(
               'Diagram — what an ImageInfo holds',
@@ -623,21 +624,12 @@ Widget _anatomyDiagram() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  _kvRow(
-                    'image',
-                    'ui.Image (400 × 300 physical pixels)',
-                    valueColor: kAccentMagenta,
-                  ),
-                  _kvRow(
-                    'scale',
-                    '2.0  → painted at 200 × 150 logical px',
-                    valueColor: kAccentCyan,
-                  ),
-                  _kvRow(
-                    'debugLabel',
-                    '"AssetImage: assets/hero/banner.png"',
-                    valueColor: kAccentLime,
-                  ),
+                  _kvRow('image', 'ui.Image (400 × 300 physical pixels)',
+                      valueColor: kAccentMagenta),
+                  _kvRow('scale', '2.0  → painted at 200 × 150 logical px',
+                      valueColor: kAccentCyan),
+                  _kvRow('debugLabel', '"AssetImage: assets/hero/banner.png"',
+                      valueColor: kAccentLime),
                 ],
               ),
             ),
@@ -672,39 +664,20 @@ Widget _anatomyDiagram() {
 
 Widget _anatomyFieldsTable() {
   const List<List<String>> rows = <List<String>>[
-    <String>[
-      'image',
-      'ui.Image',
-      'Decoded GPU-backed bitmap. Width/height '
-          'are PHYSICAL pixels.',
-    ],
-    <String>[
-      'scale',
-      'double',
-      'Physical pixels per logical pixel. Must be > 0.',
-    ],
-    <String>[
-      'debugLabel',
-      'String?',
-      'Diagnostic name. Surfaced in DevTools and error builders.',
-    ],
-    <String>[
-      'isCloneOf',
-      'method',
-      'Returns true if two ImageInfos refer to the same underlying '
-          'decoded image.',
-    ],
-    <String>[
-      'clone()',
-      'method',
-      'Returns a new ImageInfo whose ui.Image is a clone of this one '
-          '(reference-counted).',
-    ],
-    <String>[
-      'dispose()',
-      'method',
-      'Disposes the underlying ui.Image when no listener still needs it.',
-    ],
+    <String>['image', 'ui.Image', 'Decoded GPU-backed bitmap. Width/height '
+        'are PHYSICAL pixels.'],
+    <String>['scale', 'double',
+        'Physical pixels per logical pixel. Must be > 0.'],
+    <String>['debugLabel', 'String?',
+        'Diagnostic name. Surfaced in DevTools and error builders.'],
+    <String>['isCloneOf', 'method',
+        'Returns true if two ImageInfos refer to the same underlying '
+            'decoded image.'],
+    <String>['clone()', 'method',
+        'Returns a new ImageInfo whose ui.Image is a clone of this one '
+            '(reference-counted).'],
+    <String>['dispose()', 'method',
+        'Disposes the underlying ui.Image when no listener still needs it.'],
   ];
   return _surfaceCard(
     background: kSurface,
@@ -930,13 +903,15 @@ Widget _scaleLadderGrid() {
               ),
               const SizedBox(height: 12),
               _kvRow('image', '200 × 200 px', valueColor: kAccentMagenta),
-              _kvRow('scale', e.scale.toString(), valueColor: kAccentCyan),
+              _kvRow('scale', e.scale.toString(),
+                  valueColor: kAccentCyan),
               _kvRow(
                 'logical',
                 '${logical.toStringAsFixed(2)} × ${logical.toStringAsFixed(2)}',
                 valueColor: kAccentLime,
               ),
-              _kvRow('debugLabel', e.provenance, valueColor: kAccentAmber),
+              _kvRow('debugLabel', e.provenance,
+                  valueColor: kAccentAmber),
               const SizedBox(height: 8),
               Text(
                 e.caption,
@@ -1037,58 +1012,28 @@ Widget _scaleFormulaCard() {
 
 Widget _section3DebugLabels() {
   const List<List<String>> labelRows = <List<String>>[
-    <String>[
-      'AssetImage',
-      'AssetImage: assets/logo.png',
-      'Bundled asset; resolved through AssetBundle.',
-    ],
-    <String>[
-      'NetworkImage',
-      'NetworkImage: https://cdn.example.com/u/42.jpg',
-      'HTTP-fetched bitmap; URL is the natural label.',
-    ],
-    <String>[
-      'MemoryImage',
-      'MemoryImage(94 KB)',
-      'In-memory Uint8List; size is the most useful tag.',
-    ],
-    <String>[
-      'FileImage',
-      'FileImage: /tmp/cache/avatar_42.webp',
-      'Disk-backed bitmap; absolute path identifies the source.',
-    ],
-    <String>[
-      'ResizeImage',
-      'ResizeImage<AssetImage: hero/banner.png>',
-      'Wraps another provider; brackets show the inner one.',
-    ],
-    <String>[
-      'ExactAssetImage',
-      'ExactAssetImage: 2.0x/assets/icon.png',
-      'Pinned to a specific density variant of an asset.',
-    ],
-    <String>[
-      'scaled',
-      'AssetImage: assets/icon.png @ 2.0x',
-      'Custom format some teams use to record scale inline.',
-    ],
-    <String>[
-      'null',
-      '(no debugLabel)',
-      'Custom providers that forget to set one — show up '
-          'as anonymous in DevTools.',
-    ],
-    <String>[
-      'fallback',
-      'placeholder/checkerboard.png',
-      'Used by Image.errorBuilder when the real provider fails.',
-    ],
-    <String>[
-      'SVG-rasterised',
-      'VectorBitmap<assets/illustration.svg>',
-      'Custom debugLabel pattern when an SVG is rasterised '
-          'into a ui.Image at a specific scale.',
-    ],
+    <String>['AssetImage', 'AssetImage: assets/logo.png',
+        'Bundled asset; resolved through AssetBundle.'],
+    <String>['NetworkImage', 'NetworkImage: https://cdn.example.com/u/42.jpg',
+        'HTTP-fetched bitmap; URL is the natural label.'],
+    <String>['MemoryImage', 'MemoryImage(94 KB)',
+        'In-memory Uint8List; size is the most useful tag.'],
+    <String>['FileImage', 'FileImage: /tmp/cache/avatar_42.webp',
+        'Disk-backed bitmap; absolute path identifies the source.'],
+    <String>['ResizeImage', 'ResizeImage<AssetImage: hero/banner.png>',
+        'Wraps another provider; brackets show the inner one.'],
+    <String>['ExactAssetImage', 'ExactAssetImage: 2.0x/assets/icon.png',
+        'Pinned to a specific density variant of an asset.'],
+    <String>['scaled', 'AssetImage: assets/icon.png @ 2.0x',
+        'Custom format some teams use to record scale inline.'],
+    <String>['null', '(no debugLabel)',
+        'Custom providers that forget to set one — show up '
+            'as anonymous in DevTools.'],
+    <String>['fallback', 'placeholder/checkerboard.png',
+        'Used by Image.errorBuilder when the real provider fails.'],
+    <String>['SVG-rasterised', 'VectorBitmap<assets/illustration.svg>',
+        'Custom debugLabel pattern when an SVG is rasterised '
+            'into a ui.Image at a specific scale.'],
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1149,9 +1094,7 @@ Widget _section3DebugLabels() {
                 final bool last = i == labelRows.length - 1;
                 return Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 6,
-                  ),
+                      vertical: 10, horizontal: 6),
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -1215,7 +1158,8 @@ Widget _section3DebugLabels() {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.lightbulb_outline, color: kAccentAmber, size: 18),
+                Icon(Icons.lightbulb_outline,
+                    color: kAccentAmber, size: 18),
                 const SizedBox(width: 8),
                 const Text(
                   'Tip — make your custom providers searchable',
@@ -1235,7 +1179,11 @@ Widget _section3DebugLabels() {
               '"S3Image: bucket/u/42/avatar.webp@2x".  This pattern lets '
               'DevTools group all images from your provider and lets crash '
               'reports point straight to the failing key.',
-              style: TextStyle(color: kInkSoft, fontSize: 13, height: 1.5),
+              style: TextStyle(
+                color: kInkSoft,
+                fontSize: 13,
+                height: 1.5,
+              ),
             ),
           ],
         ),
@@ -1324,7 +1272,8 @@ Widget _dprDiagram() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.devices_other_outlined, color: kAccentCyan, size: 18),
+            Icon(Icons.devices_other_outlined,
+                color: kAccentCyan, size: 18),
             const SizedBox(width: 8),
             const Text(
               '300 × 200 bitmap, scale = 2.0, on three displays',
@@ -1379,16 +1328,13 @@ Widget _dprDiagram() {
                         const SizedBox(height: 6),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
-                          ),
+                              horizontal: 10, vertical: 5),
                           decoration: BoxDecoration(
                             color: r.verdictColor.withValues(alpha: 0.16),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: r.verdictColor.withValues(alpha: 0.5),
-                              width: 1,
-                            ),
+                                color: r.verdictColor.withValues(alpha: 0.5),
+                                width: 1),
                           ),
                           child: Text(
                             r.verdict,
@@ -1545,11 +1491,8 @@ Widget _section5Lifecycle() {
                 if (i.isOdd) {
                   return const Padding(
                     padding: EdgeInsets.symmetric(vertical: 28),
-                    child: Icon(
-                      Icons.arrow_forward_rounded,
-                      color: kAccentViolet,
-                      size: 22,
-                    ),
+                    child: Icon(Icons.arrow_forward_rounded,
+                        color: kAccentViolet, size: 22),
                   );
                 }
                 final _PipeStep s = steps[i ~/ 2];
@@ -1562,9 +1505,7 @@ Widget _section5Lifecycle() {
                       borderRadius: BorderRadius.circular(14),
                       boxShadow: kShadowSoft,
                       border: Border.all(
-                        color: const Color(0x66FFFFFF),
-                        width: 1,
-                      ),
+                          color: const Color(0x66FFFFFF), width: 1),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1777,9 +1718,7 @@ Widget _section6Recipes() {
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: r.glow,
                       border: Border.all(
-                        color: const Color(0x66FFFFFF),
-                        width: 1,
-                      ),
+                          color: const Color(0x66FFFFFF), width: 1),
                     ),
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -1814,9 +1753,7 @@ Widget _section6Recipes() {
                   const SizedBox(height: 10),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
-                    ),
+                        horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
                       color: kCanvas,
                       borderRadius: BorderRadius.circular(8),
@@ -1867,7 +1804,8 @@ Widget _section7Footguns() {
   final List<_Footgun> guns = <_Footgun>[
     const _Footgun(
       title: 'Comparing across scales without normalising',
-      bad: 'if (a.image.width == b.image.width) sameSize();',
+      bad:
+          'if (a.image.width == b.image.width) sameSize();',
       good:
           'if (a.image.width / a.scale == b.image.width / b.scale) sameSize();',
       explain:
@@ -1894,7 +1832,8 @@ Widget _section7Footguns() {
     ),
     const _Footgun(
       title: 'Losing debugLabel in custom providers',
-      bad: 'return ImageInfo(image: img, scale: 2.0); // debugLabel: null',
+      bad:
+          'return ImageInfo(image: img, scale: 2.0); // debugLabel: null',
       good:
           'return ImageInfo(\n'
           '  image: img,\n'
@@ -1910,8 +1849,10 @@ Widget _section7Footguns() {
     ),
     const _Footgun(
       title: 'Treating scale = 0 as valid',
-      bad: 'final info = ImageInfo(image: img, scale: 0);',
-      good: 'assert(scale > 0);\nfinal info = ImageInfo(image: img, scale: 1);',
+      bad:
+          'final info = ImageInfo(image: img, scale: 0);',
+      good:
+          'assert(scale > 0);\nfinal info = ImageInfo(image: img, scale: 1);',
       explain:
           'Scale must be strictly positive — division by zero in the '
           'paint code will produce Infinity or NaN sizes and crash layout.  '
@@ -1922,7 +1863,8 @@ Widget _section7Footguns() {
     ),
     const _Footgun(
       title: 'Mutating fields you assumed were not final',
-      bad: 'info.scale = 2.0; // does not compile — scale is final.',
+      bad:
+          'info.scale = 2.0; // does not compile — scale is final.',
       good:
           'final next = ImageInfo(\n'
           '  image: info.image.clone(),\n'
@@ -2204,7 +2146,8 @@ Widget _comparisonCard({
           decoration: BoxDecoration(
             gradient: gradient,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0x66FFFFFF), width: 1),
+            border:
+                Border.all(color: const Color(0x66FFFFFF), width: 1),
             boxShadow: kShadowSoft,
           ),
           alignment: Alignment.center,
@@ -2232,7 +2175,8 @@ Widget _comparisonCard({
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(Icons.fiber_manual_record, size: 8, color: roleColor),
+                  Icon(Icons.fiber_manual_record,
+                      size: 8, color: roleColor),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -2251,7 +2195,8 @@ Widget _comparisonCard({
         ),
         const SizedBox(height: 8),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
             color: kCanvas,
             borderRadius: BorderRadius.circular(8),
@@ -2285,66 +2230,30 @@ Widget _comparisonCard({
 
 Widget _section9ApiSummary() {
   const List<List<String>> apiRows = <List<String>>[
-    <String>[
-      'ImageInfo',
-      'constructor',
-      'ImageInfo({required image, scale = 1.0, debugLabel})',
-    ],
-    <String>[
-      'image',
-      'final ui.Image',
-      'The decoded bitmap; physical pixel size.',
-    ],
-    <String>[
-      'scale',
-      'final double',
-      'Physical pixels per logical pixel.  Default 1.0.',
-    ],
-    <String>[
-      'debugLabel',
-      'final String?',
-      'Diagnostic name; null is allowed but discouraged.',
-    ],
-    <String>[
-      'sizeBytes',
-      'int',
-      'Approximate decoded byte cost (image bytes).',
-    ],
-    <String>[
-      'clone()',
-      'ImageInfo',
-      'Returns a new ImageInfo whose ui.Image is a clone.',
-    ],
-    <String>[
-      'isCloneOf(other)',
-      'bool',
-      'True if both ImageInfos refer to the same source image.',
-    ],
-    <String>[
-      'dispose()',
-      'void',
-      'Disposes the underlying ui.Image (ref-counted).',
-    ],
-    <String>[
-      'toString()',
-      'String',
-      'Includes debugLabel + scale + image dimensions.',
-    ],
-    <String>[
-      'ImageStreamListener',
-      'class',
-      'Receives ImageInfo via onImage(info, synchronousCall).',
-    ],
-    <String>[
-      'precacheImage',
-      'top-level fn',
-      'Resolves a provider eagerly; awaits the first ImageInfo.',
-    ],
-    <String>[
-      'paintImage',
-      'top-level fn',
-      'Paints an ImageInfo.image into a Canvas with a Rect.',
-    ],
+    <String>['ImageInfo', 'constructor',
+        'ImageInfo({required image, scale = 1.0, debugLabel})'],
+    <String>['image', 'final ui.Image',
+        'The decoded bitmap; physical pixel size.'],
+    <String>['scale', 'final double',
+        'Physical pixels per logical pixel.  Default 1.0.'],
+    <String>['debugLabel', 'final String?',
+        'Diagnostic name; null is allowed but discouraged.'],
+    <String>['sizeBytes', 'int',
+        'Approximate decoded byte cost (image bytes).'],
+    <String>['clone()', 'ImageInfo',
+        'Returns a new ImageInfo whose ui.Image is a clone.'],
+    <String>['isCloneOf(other)', 'bool',
+        'True if both ImageInfos refer to the same source image.'],
+    <String>['dispose()', 'void',
+        'Disposes the underlying ui.Image (ref-counted).'],
+    <String>['toString()', 'String',
+        'Includes debugLabel + scale + image dimensions.'],
+    <String>['ImageStreamListener', 'class',
+        'Receives ImageInfo via onImage(info, synchronousCall).'],
+    <String>['precacheImage', 'top-level fn',
+        'Resolves a provider eagerly; awaits the first ImageInfo.'],
+    <String>['paintImage', 'top-level fn',
+        'Paints an ImageInfo.image into a Canvas with a Rect.'],
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2371,7 +2280,8 @@ Widget _section9ApiSummary() {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.fact_check_outlined, color: kAccentCyan, size: 18),
+                Icon(Icons.fact_check_outlined,
+                    color: kAccentCyan, size: 18),
                 const SizedBox(width: 8),
                 const Text(
                   'Symbols at a glance',
@@ -2390,9 +2300,7 @@ Widget _section9ApiSummary() {
                 final bool last = i == apiRows.length - 1;
                 return Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 6,
-                  ),
+                      vertical: 10, horizontal: 6),
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -2474,14 +2382,12 @@ Widget _constructionAttempt() {
     );
     status = 'Constructed';
     statusColor = kSuccess;
-    detail =
-        'ImageInfo built with scale=${info.scale}, '
+    detail = 'ImageInfo built with scale=${info.scale}, '
         'debugLabel=${info.debugLabel}.';
   } catch (_) {
     status = 'Skipped (offline)';
     statusColor = kWarning;
-    detail =
-        'A ui.Image cannot be synthesised in this interpreter '
+    detail = 'A ui.Image cannot be synthesised in this interpreter '
         'without async decoding.  The demo therefore renders ImageInfo '
         'configurations as labelled stand-ins instead of constructing '
         'real instances.';
@@ -2514,7 +2420,11 @@ Widget _constructionAttempt() {
         const SizedBox(height: 10),
         Text(
           detail,
-          style: const TextStyle(color: kInkSoft, fontSize: 13, height: 1.5),
+          style: const TextStyle(
+            color: kInkSoft,
+            fontSize: 13,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -2532,7 +2442,10 @@ Widget _footerCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF0B2A4A), Color(0xFF1F4E78)],
+        colors: <Color>[
+          Color(0xFF0B2A4A),
+          Color(0xFF1F4E78),
+        ],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: kShadowMedium,

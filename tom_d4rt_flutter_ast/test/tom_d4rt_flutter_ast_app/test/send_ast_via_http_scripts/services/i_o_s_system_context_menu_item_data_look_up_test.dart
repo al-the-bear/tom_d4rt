@@ -61,7 +61,11 @@ dynamic build(BuildContext context) {
               width: 1.5,
             ),
           ),
-          child: Icon(Icons.menu_book_rounded, size: 60.0, color: Colors.white),
+          child: Icon(
+            Icons.menu_book_rounded,
+            size: 60.0,
+            color: Colors.white,
+          ),
         ),
         SizedBox(height: 14.0),
         Text(
@@ -171,7 +175,11 @@ dynamic build(BuildContext context) {
           'The "Look Up" row is highlighted - this is what'
           ' IOSSystemContextMenuItemDataLookUp produces inside'
           ' the native menu rendered by EditableText.',
-          style: TextStyle(fontSize: 12.0, color: Colors.white70, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.white70,
+            height: 1.4,
+          ),
         ),
         SizedBox(height: 18.0),
         Center(child: anatomyMockMenu),
@@ -231,8 +239,7 @@ dynamic build(BuildContext context) {
     {
       'label': 'Default English title',
       'item': itemA,
-      'note':
-          'title: "Look Up" - the canonical English label used '
+      'note': 'title: "Look Up" - the canonical English label used '
           'by iOS for the dictionary entry.',
       'color': iosBlue,
     },
@@ -280,7 +287,10 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(14.0),
-          border: Border.all(color: color.withValues(alpha: 0.55), width: 1.5),
+          border: Border.all(
+            color: color.withValues(alpha: 0.55),
+            width: 1.5,
+          ),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.25),
@@ -318,7 +328,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: BorderRadius.circular(6.0),
@@ -353,14 +366,17 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(height: 8.0),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 6.0,
+              ),
               decoration: BoxDecoration(
                 color: iosSlateDark,
                 borderRadius: BorderRadius.circular(6.0),
               ),
               child: Text(
                 'IOSSystemContextMenuItemDataLookUp(title: '
-                '"${item.title}")',
+                    '"${item.title}")',
                 style: TextStyle(
                   fontFamily: 'monospace',
                   fontSize: 11.0,
@@ -549,7 +565,11 @@ dynamic build(BuildContext context) {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.menu_book_rounded, color: Colors.white, size: 18.0),
+                Icon(
+                  Icons.menu_book_rounded,
+                  color: Colors.white,
+                  size: 18.0,
+                ),
                 SizedBox(width: 8.0),
                 Text(
                   'IOSSystemContextMenuItemDataLookUp',
@@ -784,11 +804,8 @@ dynamic build(BuildContext context) {
                 ),
                 Row(
                   children: [
-                    Icon(
-                      Icons.signal_cellular_4_bar,
-                      size: 12.0,
-                      color: Colors.black,
-                    ),
+                    Icon(Icons.signal_cellular_4_bar,
+                        size: 12.0, color: Colors.black),
                     SizedBox(width: 4.0),
                     Icon(Icons.wifi, size: 12.0, color: Colors.black),
                     SizedBox(width: 4.0),
@@ -944,10 +961,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          iosTeal.withValues(alpha: 0.10),
-          iosBlue.withValues(alpha: 0.10),
-        ],
+        colors: [iosTeal.withValues(alpha: 0.10), iosBlue.withValues(alpha: 0.10)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1115,8 +1129,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.error_outline,
       'color': iosRed,
       'title': 'title is the literal label',
-      'body':
-          'Whatever string you pass is what iOS shows. There is no '
+      'body': 'Whatever string you pass is what iOS shows. There is no '
           'automatic translation - hand-localise per locale or pick a '
           'neutral English term.',
     },
@@ -1124,8 +1137,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.devices_other,
       'color': iosOrange,
       'title': 'iOS-only feature',
-      'body':
-          'Sending these items on Android is a no-op. Guard with '
+      'body': 'Sending these items on Android is a no-op. Guard with '
           'defaultTargetPlatform == TargetPlatform.iOS or '
           'SystemContextMenu.isSupported(context).',
     },
@@ -1133,8 +1145,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.history,
       'color': iosYellow,
       'title': 'iOS version differences',
-      'body':
-          'The Look Up sheet contents (Wikipedia, App Store, '
+      'body': 'The Look Up sheet contents (Wikipedia, App Store, '
           'Siri Suggestions) vary by iOS version and region. Don\'t '
           'depend on a particular layout.',
     },
@@ -1142,8 +1153,7 @@ dynamic build(BuildContext context) {
       'icon': Icons.format_textdirection_r_to_l,
       'color': dictionaryPurple,
       'title': 'RTL languages',
-      'body':
-          'iOS automatically mirrors the menu in RTL locales. '
+      'body': 'iOS automatically mirrors the menu in RTL locales. '
           'Setting a manual title in an LTR language inside an RTL '
           'app produces a mixed-direction row.',
     },
@@ -1151,16 +1161,14 @@ dynamic build(BuildContext context) {
       'icon': Icons.location_off,
       'color': iosPink,
       'title': 'Dictionary not installed',
-      'body':
-          'Some regions require downloading dictionaries first. '
+      'body': 'Some regions require downloading dictionaries first. '
           'Look Up may show an empty sheet. Cannot be detected from Flutter.',
     },
     {
       'icon': Icons.lock_outline,
       'color': iosTeal,
       'title': 'No callback fired',
-      'body':
-          'The system handles the action; Flutter does not get a '
+      'body': 'The system handles the action; Flutter does not get a '
           'callback. Don\'t rely on it for analytics.',
     },
   ];
@@ -1175,7 +1183,10 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.2),
+          border: Border.all(
+            color: color.withValues(alpha: 0.5),
+            width: 1.2,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1291,7 +1302,9 @@ dynamic build(BuildContext context) {
           'Used by EditableText\'s contextMenuBuilder when '
           'SystemContextMenu renders the menu.',
         ),
-        _buildRecapBullet('iOS-only - other platforms ignore the entry.'),
+        _buildRecapBullet(
+          'iOS-only - other platforms ignore the entry.',
+        ),
         _buildRecapBullet(
           'No Flutter callback: tap is fully handled by iOS UIKit.',
         ),
@@ -1331,10 +1344,18 @@ dynamic build(BuildContext context) {
         children: [
           titleBanner,
           SizedBox(height: 16.0),
-          _buildSectionHeader('1. Anatomy', Icons.layers, dictionaryPurple),
+          _buildSectionHeader(
+            '1. Anatomy',
+            Icons.layers,
+            dictionaryPurple,
+          ),
           anatomySection,
           SizedBox(height: 8.0),
-          _buildSectionHeader('2. Constructor variants', Icons.build, iosBlue),
+          _buildSectionHeader(
+            '2. Constructor variants',
+            Icons.build,
+            iosBlue,
+          ),
           ...constructorCards,
           SizedBox(height: 8.0),
           _buildSectionHeader(
@@ -1358,13 +1379,25 @@ dynamic build(BuildContext context) {
           ),
           siblingSection,
           SizedBox(height: 8.0),
-          _buildSectionHeader('6. iPhone mock', Icons.phone_iphone, iosBlue),
+          _buildSectionHeader(
+            '6. iPhone mock',
+            Icons.phone_iphone,
+            iosBlue,
+          ),
           phoneSection,
           SizedBox(height: 8.0),
-          _buildSectionHeader('7. Customisation', Icons.tune, iosTeal),
+          _buildSectionHeader(
+            '7. Customisation',
+            Icons.tune,
+            iosTeal,
+          ),
           customisationSection,
           SizedBox(height: 8.0),
-          _buildSectionHeader('8. Wiring code', Icons.code, iosGreen),
+          _buildSectionHeader(
+            '8. Wiring code',
+            Icons.code,
+            iosGreen,
+          ),
           codeSection,
           SizedBox(height: 8.0),
           _buildSectionHeader(
@@ -1374,7 +1407,11 @@ dynamic build(BuildContext context) {
           ),
           ...footgunCards,
           SizedBox(height: 8.0),
-          _buildSectionHeader('10. Recap', Icons.bookmark, dictionaryPurple),
+          _buildSectionHeader(
+            '10. Recap',
+            Icons.bookmark,
+            dictionaryPurple,
+          ),
           recapSection,
           SizedBox(height: 28.0),
         ],
@@ -1394,7 +1431,9 @@ Widget _buildSectionHeader(String label, IconData icon, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(left: BorderSide(color: color, width: 4.0)),
+      border: Border(
+        left: BorderSide(color: color, width: 4.0),
+      ),
     ),
     child: Row(
       children: [
@@ -1432,7 +1471,11 @@ Widget _buildMenuRow(
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     child: Row(
       children: [
-        Icon(icon, color: highlighted ? hlColor : Colors.white, size: 16.0),
+        Icon(
+          icon,
+          color: highlighted ? hlColor : Colors.white,
+          size: 16.0,
+        ),
         SizedBox(width: 12.0),
         Expanded(
           child: Text(
@@ -1471,7 +1514,10 @@ Widget _buildLocaleChip(String locale, String label, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: color.withValues(alpha: 0.55), width: 1.0),
+      border: Border.all(
+        color: color.withValues(alpha: 0.55),
+        width: 1.0,
+      ),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -1536,7 +1582,12 @@ Widget _buildFlowNode(String label, IconData icon, Color color) {
   );
 }
 
-Widget _buildAdviceRow(IconData icon, Color color, String title, String body) {
+Widget _buildAdviceRow(
+  IconData icon,
+  Color color,
+  String title,
+  String body,
+) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -1617,7 +1668,11 @@ Widget _buildRecapBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: Colors.white, fontSize: 12.5, height: 1.45),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.5,
+              height: 1.45,
+            ),
           ),
         ),
       ],

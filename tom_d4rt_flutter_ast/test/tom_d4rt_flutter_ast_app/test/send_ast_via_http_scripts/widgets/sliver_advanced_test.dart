@@ -129,7 +129,11 @@ const LinearGradient _kGradientForest = LinearGradient(
 const LinearGradient _kGradientGraphite = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  colors: <Color>[Color(0xFF111827), Color(0xFF1F2937), Color(0xFF374151)],
+  colors: <Color>[
+    Color(0xFF111827),
+    Color(0xFF1F2937),
+    Color(0xFF374151),
+  ],
 );
 
 // Gradient #5 — solar, used for SliverFillViewport "pages".
@@ -279,9 +283,17 @@ const TextStyle _kSectionLabel = TextStyle(
   letterSpacing: 0.6,
 );
 
-const TextStyle _kBody = TextStyle(color: _kInk1, fontSize: 14.0, height: 1.42);
+const TextStyle _kBody = TextStyle(
+  color: _kInk1,
+  fontSize: 14.0,
+  height: 1.42,
+);
 
-const TextStyle _kSmall = TextStyle(color: _kInk2, fontSize: 12.0, height: 1.3);
+const TextStyle _kSmall = TextStyle(
+  color: _kInk2,
+  fontSize: 12.0,
+  height: 1.3,
+);
 
 const TextStyle _kCaption = TextStyle(
   color: _kInk0,
@@ -327,7 +339,10 @@ class _SectionFrame extends StatelessWidget {
       gradient: gradient ?? _kGradientGraphite,
       borderRadius: BorderRadius.circular(_kBigRadius),
       boxShadow: _kShadowDeep,
-      border: Border.all(color: _kInk2.withValues(alpha: 0.25), width: 1.0),
+      border: Border.all(
+        color: _kInk2.withValues(alpha: 0.25),
+        width: 1.0,
+      ),
     );
 
     return Container(
@@ -450,7 +465,10 @@ class _ProseBlock extends StatelessWidget {
         gradient: _kGradientGraphite,
         borderRadius: BorderRadius.circular(_kCardRadius),
         boxShadow: _kShadowCard,
-        border: Border.all(color: _kInk2.withValues(alpha: 0.20), width: 1.0),
+        border: Border.all(
+          color: _kInk2.withValues(alpha: 0.20),
+          width: 1.0,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -531,7 +549,10 @@ class _GradientCard extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.chevron_right, color: _kInk0.withValues(alpha: 0.85)),
+          Icon(
+            Icons.chevron_right,
+            color: _kInk0.withValues(alpha: 0.85),
+          ),
         ],
       ),
     );
@@ -604,7 +625,10 @@ class _ViewportPage extends StatelessWidget {
           color: Color(0xFF000000).withValues(alpha: 0.42),
           borderRadius: BorderRadius.circular(_kBigRadius),
           boxShadow: _kShadowDeep,
-          border: Border.all(color: _kInk0.withValues(alpha: 0.30), width: 1.0),
+          border: Border.all(
+            color: _kInk0.withValues(alpha: 0.30),
+            width: 1.0,
+          ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -630,7 +654,10 @@ class _ViewportPage extends StatelessWidget {
 /// SliverPersistentHeaderDelegate.  It draws an aurora gradient
 /// strip with a title that fades in based on shrinkOffset / maxExtent.
 class _BannerHeader extends StatelessWidget {
-  const _BannerHeader({required this.shrinkOffset, required this.maxExtent});
+  const _BannerHeader({
+    required this.shrinkOffset,
+    required this.maxExtent,
+  });
 
   final double shrinkOffset;
   final double maxExtent;
@@ -684,7 +711,10 @@ class _BannerHeader extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
+            ),
             decoration: BoxDecoration(
               color: Color(0xFFFFFFFF).withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(6.0),
@@ -726,7 +756,10 @@ class _AuroraHeaderDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return _BannerHeader(shrinkOffset: shrinkOffset, maxExtent: maxExtent);
+    return _BannerHeader(
+      shrinkOffset: shrinkOffset,
+      maxExtent: maxExtent,
+    );
   }
 
   @override
@@ -770,7 +803,11 @@ class _HeroCard extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: _kShadowEmphatic,
               ),
-              child: const Icon(Icons.auto_awesome, color: _kInk0, size: 32.0),
+              child: const Icon(
+                Icons.auto_awesome,
+                color: _kInk0,
+                size: 32.0,
+              ),
             ),
             const SizedBox(height: 14.0),
             const Text('SliverFillRemaining', style: _kHeroTitle),
@@ -804,7 +841,10 @@ class _StandoutBox extends StatelessWidget {
         gradient: _kGradientCopper,
         borderRadius: BorderRadius.circular(_kBigRadius),
         boxShadow: _kShadowEmphatic,
-        border: Border.all(color: _kInk0.withValues(alpha: 0.40), width: 1.0),
+        border: Border.all(
+          color: _kInk0.withValues(alpha: 0.40),
+          width: 1.0,
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -1045,22 +1085,21 @@ Widget _buildSectionB() {
       SliverPadding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
         sliver: SliverList(
-          delegate: SliverChildBuilderDelegate((
-            BuildContext context,
-            int index,
-          ) {
-            final LinearGradient g = gradients[index % gradients.length];
-            final List<BoxShadow> s = shadows[index % shadows.length];
-            return _GradientCard(
-              index: index,
-              title: 'Builder card ${index + 1}',
-              subtitle:
-                  'lazy delegate · gradient '
-                  '${(index % gradients.length) + 1}/${gradients.length}',
-              gradient: g,
-              shadow: s,
-            );
-          }, childCount: 30),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              final LinearGradient g = gradients[index % gradients.length];
+              final List<BoxShadow> s = shadows[index % shadows.length];
+              return _GradientCard(
+                index: index,
+                title: 'Builder card ${index + 1}',
+                subtitle: 'lazy delegate · gradient '
+                    '${(index % gradients.length) + 1}/${gradients.length}',
+                gradient: g,
+                shadow: s,
+              );
+            },
+            childCount: 30,
+          ),
         ),
       ),
     ],
@@ -1129,8 +1168,7 @@ Widget _buildSectionD() {
   final List<Widget> pages = <Widget>[
     const _ViewportPage(
       title: 'Page one',
-      body:
-          'SliverFillViewport sizes each child to the full main-axis '
+      body: 'SliverFillViewport sizes each child to the full main-axis '
           'extent of the viewport. Great for paged content, onboarding '
           'flows, or carousel-like UX inside a single CustomScrollView.',
       gradient: _kGradientCool,
@@ -1138,8 +1176,7 @@ Widget _buildSectionD() {
     ),
     const _ViewportPage(
       title: 'Page two',
-      body:
-          'Each page receives the entire viewport — contrast this '
+      body: 'Each page receives the entire viewport — contrast this '
           'with SliverFillRemaining, which only fills whatever is left '
           'after earlier slivers have laid out.',
       gradient: _kGradientForest,
@@ -1147,8 +1184,7 @@ Widget _buildSectionD() {
     ),
     const _ViewportPage(
       title: 'Page three',
-      body:
-          'You can mix SliverFillViewport pages with SliverList and '
+      body: 'You can mix SliverFillViewport pages with SliverList and '
           'SliverGrid in the same CustomScrollView. Pages do not have '
           'to be the only sliver type present.',
       gradient: _kGradientSolar,
@@ -1182,7 +1218,10 @@ Widget _buildSectionE() {
         color: _kBg2,
         borderRadius: BorderRadius.circular(_kCardRadius),
         boxShadow: _kShadowSubtle,
-        border: Border.all(color: _kInk2.withValues(alpha: 0.30), width: 1.0),
+        border: Border.all(
+          color: _kInk2.withValues(alpha: 0.30),
+          width: 1.0,
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -1223,7 +1262,9 @@ Widget _buildSectionE() {
     slivers: <Widget>[
       SliverPadding(
         padding: const EdgeInsets.fromLTRB(28.0, 14.0, 28.0, 14.0),
-        sliver: SliverList(delegate: SliverChildListDelegate(rows)),
+        sliver: SliverList(
+          delegate: SliverChildListDelegate(rows),
+        ),
       ),
     ],
   );
@@ -1244,57 +1285,63 @@ Widget _buildSectionF() {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return Container(
-            margin: const EdgeInsets.fromLTRB(14.0, 6.0, 14.0, 6.0),
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: _kBg2,
-              borderRadius: BorderRadius.circular(_kCardRadius),
-              boxShadow: _kShadowCard,
-              border: Border.all(
-                color: _kInk2.withValues(alpha: 0.25),
-                width: 1.0,
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return Container(
+              margin: const EdgeInsets.fromLTRB(14.0, 6.0, 14.0, 6.0),
+              padding: const EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                color: _kBg2,
+                borderRadius: BorderRadius.circular(_kCardRadius),
+                boxShadow: _kShadowCard,
+                border: Border.all(
+                  color: _kInk2.withValues(alpha: 0.25),
+                  width: 1.0,
+                ),
               ),
-            ),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 32.0,
-                  height: 32.0,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    gradient: index.isEven
-                        ? _kGradientForest
-                        : _kGradientAurora,
-                    borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: _kShadowSubtle,
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 32.0,
+                    height: 32.0,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      gradient: index.isEven
+                          ? _kGradientForest
+                          : _kGradientAurora,
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: _kShadowSubtle,
+                    ),
+                    child: Text(
+                      '${index + 1}',
+                      style: _kCaption,
+                    ),
                   ),
-                  child: Text('${index + 1}', style: _kCaption),
-                ),
-                const SizedBox(width: 12.0),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Header partner row ${index + 1}',
-                        style: const TextStyle(
-                          color: _kInk0,
-                          fontWeight: FontWeight.w600,
+                  const SizedBox(width: 12.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Header partner row ${index + 1}',
+                          style: const TextStyle(
+                            color: _kInk0,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Pinned aurora banner stays glued to the top.',
-                        style: _kSmall,
-                      ),
-                    ],
+                        Text(
+                          'Pinned aurora banner stays glued to the top.',
+                          style: _kSmall,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        }, childCount: 24),
+                ],
+              ),
+            );
+          },
+          childCount: 24,
+        ),
       ),
     ],
   );
@@ -1335,7 +1382,10 @@ Widget _buildSectionG() {
           ),
         ),
       ),
-      const SliverFillRemaining(hasScrollBody: false, child: _HeroCard()),
+      const SliverFillRemaining(
+        hasScrollBody: false,
+        child: _HeroCard(),
+      ),
     ],
   );
 }
@@ -1419,13 +1469,21 @@ class _Hero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(_kPageGutter, 20.0, _kPageGutter, 12.0),
+      margin: const EdgeInsets.fromLTRB(
+        _kPageGutter,
+        20.0,
+        _kPageGutter,
+        12.0,
+      ),
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         gradient: _kGradientAurora,
         borderRadius: BorderRadius.circular(_kBigRadius),
         boxShadow: _kShadowDeep,
-        border: Border.all(color: _kInk0.withValues(alpha: 0.30), width: 1.0),
+        border: Border.all(
+          color: _kInk0.withValues(alpha: 0.30),
+          width: 1.0,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1448,7 +1506,10 @@ class _Hero extends StatelessWidget {
               ),
               const SizedBox(width: 12.0),
               const Expanded(
-                child: Text('Slivers — a deep tour', style: _kPageTitle),
+                child: Text(
+                  'Slivers — a deep tour',
+                  style: _kPageTitle,
+                ),
               ),
             ],
           ),
@@ -1507,13 +1568,21 @@ class _Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(_kPageGutter, 12.0, _kPageGutter, 24.0),
+      margin: const EdgeInsets.fromLTRB(
+        _kPageGutter,
+        12.0,
+        _kPageGutter,
+        24.0,
+      ),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: _kBg1,
         borderRadius: BorderRadius.circular(_kCardRadius),
         boxShadow: _kShadowSubtle,
-        border: Border.all(color: _kInk2.withValues(alpha: 0.30), width: 1.0),
+        border: Border.all(
+          color: _kInk2.withValues(alpha: 0.30),
+          width: 1.0,
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -1570,25 +1639,26 @@ dynamic build(BuildContext context) {
               accent: _kAccent0,
               lines: <String>[
                 'A normal ListView is a single scrollable widget that lays '
-                    'out box children one after another. It is fine for the '
-                    'common case of "scroll a column of rows" but it cannot '
-                    'mix layout strategies — every child uses the same lazy '
-                    'box model.',
+                'out box children one after another. It is fine for the '
+                'common case of "scroll a column of rows" but it cannot '
+                'mix layout strategies — every child uses the same lazy '
+                'box model.',
                 'Slivers are a more primitive abstraction: each sliver '
-                    'knows its own scroll geometry. A CustomScrollView is a '
-                    'host that combines several slivers into one viewport, so '
-                    'you can mix grids, lists, headers, and full-page heroes '
-                    'inside the same scroll session.',
+                'knows its own scroll geometry. A CustomScrollView is a '
+                'host that combines several slivers into one viewport, so '
+                'you can mix grids, lists, headers, and full-page heroes '
+                'inside the same scroll session.',
                 'You reach for slivers when a single ListView is no longer '
-                    'expressive enough — typically the moment you need a '
-                    'pinned header, a grid section, or a "fill the rest of '
-                    'the screen" footer.',
+                'expressive enough — typically the moment you need a '
+                'pinned header, a grid section, or a "fill the rest of '
+                'the screen" footer.',
               ],
             ),
             _SectionFrame(
               tag: 'A / SliverAppBar',
               title: 'Four flavours of SliverAppBar',
-              subtitle: 'collapsed · pinned · floating+snap · flexibleSpace',
+              subtitle:
+                  'collapsed · pinned · floating+snap · flexibleSpace',
               height: _kSectionHeight,
               gradient: _kGradientGraphite,
               child: _buildSectionA(),
@@ -1598,15 +1668,15 @@ dynamic build(BuildContext context) {
               accent: _kAccent2,
               lines: <String>[
                 'Pick CustomScrollView when at least one of these is '
-                    'true: you need an app bar that participates in scroll '
-                    '(pinned/floating); you have multiple distinct sections '
-                    'that should feel like one continuous scroll; or you '
-                    'need a final sliver that fills the remaining space.',
+                'true: you need an app bar that participates in scroll '
+                '(pinned/floating); you have multiple distinct sections '
+                'that should feel like one continuous scroll; or you '
+                'need a final sliver that fills the remaining space.',
                 'Stick with ListView/GridView when you only have a '
-                    'homogeneous stream of items and no special header or '
-                    'footer behaviour. The gain from slivers comes from '
-                    'mixing layouts — if you do not mix, you will not feel '
-                    'the benefit.',
+                'homogeneous stream of items and no special header or '
+                'footer behaviour. The gain from slivers comes from '
+                'mixing layouts — if you do not mix, you will not feel '
+                'the benefit.',
               ],
             ),
             _SectionFrame(
@@ -1624,14 +1694,14 @@ dynamic build(BuildContext context) {
               accent: _kAccent4,
               lines: <String>[
                 'SliverChildBuilderDelegate is the lazy delegate. It '
-                    'receives an `int index` and constructs widgets on '
-                    'demand. Use it for long, possibly-infinite, or '
-                    'expensive-to-build content. Always set `childCount` if '
-                    'you know the total — it lets the framework reason '
-                    'about scroll extent.',
+                'receives an `int index` and constructs widgets on '
+                'demand. Use it for long, possibly-infinite, or '
+                'expensive-to-build content. Always set `childCount` if '
+                'you know the total — it lets the framework reason '
+                'about scroll extent.',
                 'SliverChildListDelegate is the eager delegate. It takes '
-                    'a `List<Widget>` you already built. Use it for short '
-                    'static lists where laziness is not worth the indirection.',
+                'a `List<Widget>` you already built. Use it for short '
+                'static lists where laziness is not worth the indirection.',
               ],
             ),
             _SectionFrame(
@@ -1649,16 +1719,16 @@ dynamic build(BuildContext context) {
               accent: _kAccent5,
               lines: <String>[
                 'SliverAppBar is the easy-mode header — it bundles the '
-                    'pinned/floating/snap/expanded behaviours into a single '
-                    'widget. Reach for it when you want a stylised app bar '
-                    'with a flexibleSpace, a title, and standard back / '
-                    'action buttons.',
+                'pinned/floating/snap/expanded behaviours into a single '
+                'widget. Reach for it when you want a stylised app bar '
+                'with a flexibleSpace, a title, and standard back / '
+                'action buttons.',
                 'SliverPersistentHeader is the lower-level primitive. '
-                    'You provide a delegate with min/max extent and a build '
-                    'callback that receives the current shrink offset. Use '
-                    'it when you want a custom "sticky" element that is not '
-                    'an app bar — section dividers, filter chips, search '
-                    'fields, etc.',
+                'You provide a delegate with min/max extent and a build '
+                'callback that receives the current shrink offset. Use '
+                'it when you want a custom "sticky" element that is not '
+                'an app bar — section dividers, filter chips, search '
+                'fields, etc.',
               ],
             ),
             _SectionFrame(
@@ -1675,15 +1745,15 @@ dynamic build(BuildContext context) {
               accent: _kAccent3,
               lines: <String>[
                 'There are two ways to add padding around a list of '
-                    'children: wrap each child in a Padding widget, or wrap '
-                    'the whole sliver in SliverPadding. The latter is '
-                    'cheaper because the padding only contributes to layout '
-                    'once, instead of N times.',
+                'children: wrap each child in a Padding widget, or wrap '
+                'the whole sliver in SliverPadding. The latter is '
+                'cheaper because the padding only contributes to layout '
+                'once, instead of N times.',
                 'SliverPadding is also the right tool when you want '
-                    'symmetric padding on the *cross axis* (left/right) but '
-                    'no spacing between items — you cannot easily express '
-                    'that with widget-level Padding without changing every '
-                    'item.',
+                'symmetric padding on the *cross axis* (left/right) but '
+                'no spacing between items — you cannot easily express '
+                'that with widget-level Padding without changing every '
+                'item.',
               ],
             ),
             _SectionFrame(
@@ -1701,15 +1771,15 @@ dynamic build(BuildContext context) {
               accent: _kAccent0,
               lines: <String>[
                 'A SliverPersistentHeaderDelegate must override four '
-                    'members: `build(context, shrinkOffset, overlapsContent)` '
-                    'returns the visual; `minExtent` and `maxExtent` describe '
-                    'the size range; and `shouldRebuild(old)` decides whether '
-                    'a new delegate instance forces a rebuild.',
+                'members: `build(context, shrinkOffset, overlapsContent)` '
+                'returns the visual; `minExtent` and `maxExtent` describe '
+                'the size range; and `shouldRebuild(old)` decides whether '
+                'a new delegate instance forces a rebuild.',
                 'You can interpolate between the min and max extents '
-                    'inside `build` to produce a smooth shrink animation, '
-                    'just like a real SliverAppBar with `flexibleSpace`. The '
-                    'banner in section F demonstrates this — its title scales '
-                    'down as the user scrolls.',
+                'inside `build` to produce a smooth shrink animation, '
+                'just like a real SliverAppBar with `flexibleSpace`. The '
+                'banner in section F demonstrates this — its title scales '
+                'down as the user scrolls.',
               ],
             ),
             _SectionFrame(
@@ -1727,21 +1797,22 @@ dynamic build(BuildContext context) {
               accent: _kAccent1,
               lines: <String>[
                 'Builder delegates create children only when the viewport '
-                    'reaches them. For a thousand-item list this is a huge '
-                    'win. For a ten-item list it is overkill — the lookup '
-                    'overhead can dwarf the construction cost.',
+                'reaches them. For a thousand-item list this is a huge '
+                'win. For a ten-item list it is overkill — the lookup '
+                'overhead can dwarf the construction cost.',
                 'Rule of thumb: SliverChildBuilderDelegate above ~50 '
-                    'items, SliverChildListDelegate below. Above ~50 items '
-                    'with cheap children, the builder still wins because it '
-                    'avoids the upfront list allocation.',
+                'items, SliverChildListDelegate below. Above ~50 items '
+                'with cheap children, the builder still wins because it '
+                'avoids the upfront list allocation.',
                 'For grids the same reasoning applies; SliverGrid.count '
-                    'and SliverGrid.extent both accept either delegate.',
+                'and SliverGrid.extent both accept either delegate.',
               ],
             ),
             _SectionFrame(
               tag: 'G / SliverFillRemaining',
               title: 'Hero in remaining viewport',
-              subtitle: 'Last sliver expands to fill whatever space is left.',
+              subtitle:
+                  'Last sliver expands to fill whatever space is left.',
               height: _kSectionHeight,
               gradient: _kGradientGraphite,
               child: _buildSectionG(),
@@ -1751,15 +1822,15 @@ dynamic build(BuildContext context) {
               accent: _kAccent4,
               lines: <String>[
                 'SliverToBoxAdapter is the bridge between the box world '
-                    'and the sliver world. Wrap any normal RenderBox widget '
-                    'in it, and that widget appears in the CustomScrollView '
-                    'as if it were a single-item sliver.',
+                'and the sliver world. Wrap any normal RenderBox widget '
+                'in it, and that widget appears in the CustomScrollView '
+                'as if it were a single-item sliver.',
                 'Common uses: section headers that are not pinned; '
-                    'inline call-out cards between two SliverLists; "load '
-                    'more" footers; one-off advertisements. If you find '
-                    'yourself wrapping many widgets in adapters, consider '
-                    'using a SliverList with a SliverChildListDelegate '
-                    'instead — it is cheaper.',
+                'inline call-out cards between two SliverLists; "load '
+                'more" footers; one-off advertisements. If you find '
+                'yourself wrapping many widgets in adapters, consider '
+                'using a SliverList with a SliverChildListDelegate '
+                'instead — it is cheaper.',
               ],
             ),
             _SectionFrame(
@@ -1777,17 +1848,17 @@ dynamic build(BuildContext context) {
               accent: _kAccent2,
               lines: <String>[
                 'A short cheat sheet: SliverList for vertical streams, '
-                    'SliverGrid for tiled content, SliverFillViewport for '
-                    'paged carousels, SliverFillRemaining for empty states '
-                    'or hero footers, SliverToBoxAdapter for "drop one '
-                    'widget here", SliverPadding for cheap framing, '
-                    'SliverPersistentHeader for sticky custom chrome, and '
-                    'SliverAppBar for everything app-bar-shaped.',
+                'SliverGrid for tiled content, SliverFillViewport for '
+                'paged carousels, SliverFillRemaining for empty states '
+                'or hero footers, SliverToBoxAdapter for "drop one '
+                'widget here", SliverPadding for cheap framing, '
+                'SliverPersistentHeader for sticky custom chrome, and '
+                'SliverAppBar for everything app-bar-shaped.',
                 'These eight patterns cover almost every real-world '
-                    'scrolling layout you will encounter in a Flutter app. '
-                    'Compose them inside a CustomScrollView and you can '
-                    'reproduce nearly any custom scroll experience without '
-                    'reaching for a third-party package.',
+                'scrolling layout you will encounter in a Flutter app. '
+                'Compose them inside a CustomScrollView and you can '
+                'reproduce nearly any custom scroll experience without '
+                'reaching for a third-party package.',
               ],
             ),
             const _Footer(),

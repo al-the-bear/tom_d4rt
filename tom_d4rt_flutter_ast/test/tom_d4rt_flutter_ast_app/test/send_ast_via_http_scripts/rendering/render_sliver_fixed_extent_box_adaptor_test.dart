@@ -64,7 +64,10 @@ enum _Stage {
   verificationAtlas,
 }
 
-enum _AxisChoice { vertical, horizontal }
+enum _AxisChoice {
+  vertical,
+  horizontal,
+}
 
 class _ShellProfile {
   final String label;
@@ -186,11 +189,8 @@ class _FixedExtentBoxAdaptorStudioState
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.straighten_rounded,
-                color: Colors.white,
-                size: 28,
-              ),
+              const Icon(Icons.straighten_rounded,
+                  color: Colors.white, size: 28),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -203,10 +203,8 @@ class _FixedExtentBoxAdaptorStudioState
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -382,10 +380,8 @@ class _FixedExtentBoxAdaptorStudioState
                       onChanged: (v) =>
                           setState(() => _fundamentalShowChips = v ?? true),
                     ),
-                    Text(
-                      'show metric chips',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show metric chips',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _fundamentalPad,
@@ -393,16 +389,10 @@ class _FixedExtentBoxAdaptorStudioState
                       onChanged: (v) =>
                           setState(() => _fundamentalPad = v ?? true),
                     ),
-                    Text(
-                      'outer padding rail',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('outer padding rail',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
-                    _chip(
-                      'extent',
-                      _fundamentalExtent.toStringAsFixed(0),
-                      _t.primary,
-                    ),
+                    _chip('extent', _fundamentalExtent.toStringAsFixed(0), _t.primary),
                     const SizedBox(width: 6),
                     _chip('count', '$count', _t.secondary),
                   ],
@@ -431,8 +421,7 @@ class _FixedExtentBoxAdaptorStudioState
                         SliverToBoxAdapter(
                           child: _banner(
                             icon: Icons.linear_scale_rounded,
-                            text:
-                                'RenderSliverFixedExtentBoxAdaptor via SliverFixedExtentList',
+                            text: 'RenderSliverFixedExtentBoxAdaptor via SliverFixedExtentList',
                           ),
                         ),
                         SliverPadding(
@@ -452,7 +441,11 @@ class _FixedExtentBoxAdaptorStudioState
                       Positioned(
                         top: 8,
                         right: 8,
-                        child: _chip('mode', 'fixed-extent', _t.secondary),
+                        child: _chip(
+                          'mode',
+                          'fixed-extent',
+                          _t.secondary,
+                        ),
                       ),
                   ],
                 ),
@@ -515,7 +508,10 @@ class _FixedExtentBoxAdaptorStudioState
                 const SizedBox(height: 2),
                 Text(
                   'Main-axis extent locked by itemExtent.',
-                  style: TextStyle(color: _t.muted, fontSize: 11),
+                  style: TextStyle(
+                    color: _t.muted,
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),
@@ -589,13 +585,10 @@ class _FixedExtentBoxAdaptorStudioState
                     Checkbox(
                       value: _rulerShowGrid,
                       activeColor: _t.primary,
-                      onChanged: (v) =>
-                          setState(() => _rulerShowGrid = v ?? true),
+                      onChanged: (v) => setState(() => _rulerShowGrid = v ?? true),
                     ),
-                    Text(
-                      'show interval grid',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show interval grid',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _rulerShowMarkers,
@@ -603,16 +596,10 @@ class _FixedExtentBoxAdaptorStudioState
                       onChanged: (v) =>
                           setState(() => _rulerShowMarkers = v ?? true),
                     ),
-                    Text(
-                      'show extent markers',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show extent markers',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
-                    _chip(
-                      'extent',
-                      _rulerExtent.toStringAsFixed(0),
-                      _t.primary,
-                    ),
+                    _chip('extent', _rulerExtent.toStringAsFixed(0), _t.primary),
                   ],
                 ),
               ],
@@ -639,8 +626,7 @@ class _FixedExtentBoxAdaptorStudioState
                         SliverToBoxAdapter(
                           child: _banner(
                             icon: Icons.architecture_rounded,
-                            text:
-                                'Ruler guide for fixed-extent interval checks',
+                            text: 'Ruler guide for fixed-extent interval checks',
                           ),
                         ),
                         SliverFixedExtentList.builder(
@@ -669,11 +655,8 @@ class _FixedExtentBoxAdaptorStudioState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            _chip(
-                              'extent',
-                              '${_rulerExtent.toStringAsFixed(0)} px',
-                              _t.secondary,
-                            ),
+                            _chip('extent', '${_rulerExtent.toStringAsFixed(0)} px',
+                                _t.secondary),
                             const SizedBox(height: 6),
                             _chip('children', '$count', _t.primary),
                           ],
@@ -691,16 +674,10 @@ class _FixedExtentBoxAdaptorStudioState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Each row boundary aligns to a predictable extent interval.',
-                ),
+                _bullet('Each row boundary aligns to a predictable extent interval.'),
                 _bullet('Content richness does not alter outer lane size.'),
-                _bullet(
-                  'Fixed extents simplify scroll offset math and index mapping.',
-                ),
-                _bullet(
-                  'Great for chat rows, logs, and consistently sized dashboard strips.',
-                ),
+                _bullet('Fixed extents simplify scroll offset math and index mapping.'),
+                _bullet('Great for chat rows, logs, and consistently sized dashboard strips.'),
               ],
             ),
           ),
@@ -801,13 +778,10 @@ class _FixedExtentBoxAdaptorStudioState
                     Checkbox(
                       value: _storyPinned,
                       activeColor: _t.primary,
-                      onChanged: (v) =>
-                          setState(() => _storyPinned = v ?? true),
+                      onChanged: (v) => setState(() => _storyPinned = v ?? true),
                     ),
-                    Text(
-                      'pinned header',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('pinned header',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _storyFloating,
@@ -815,10 +789,8 @@ class _FixedExtentBoxAdaptorStudioState
                       onChanged: (v) =>
                           setState(() => _storyFloating = v ?? false),
                     ),
-                    Text(
-                      'floating header',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('floating header',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _storyShowFooter,
@@ -826,16 +798,10 @@ class _FixedExtentBoxAdaptorStudioState
                       onChanged: (v) =>
                           setState(() => _storyShowFooter = v ?? true),
                     ),
-                    Text(
-                      'show footer',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show footer',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
-                    _chip(
-                      'extent',
-                      _storyExtent.toStringAsFixed(0),
-                      _t.secondary,
-                    ),
+                    _chip('extent', _storyExtent.toStringAsFixed(0), _t.secondary),
                   ],
                 ),
               ],
@@ -863,10 +829,8 @@ class _FixedExtentBoxAdaptorStudioState
                       expandedHeight: 120,
                       backgroundColor: _t.primary,
                       flexibleSpace: FlexibleSpaceBar(
-                        title: const Text(
-                          'Mixed Sliver Narrative',
-                          style: TextStyle(fontSize: 13),
-                        ),
+                        title: const Text('Mixed Sliver Narrative',
+                            style: TextStyle(fontSize: 13)),
                         background: Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -889,8 +853,7 @@ class _FixedExtentBoxAdaptorStudioState
                     SliverToBoxAdapter(
                       child: _banner(
                         icon: Icons.view_stream_rounded,
-                        text:
-                            'Fixed-extent chapter using adaptor-backed sliver',
+                        text: 'Fixed-extent chapter using adaptor-backed sliver',
                       ),
                     ),
                     SliverFixedExtentList.builder(
@@ -899,7 +862,9 @@ class _FixedExtentBoxAdaptorStudioState
                       itemBuilder: (context, index) => _storyFixedTile(index),
                     ),
                     if (_storyShowFooter)
-                      SliverToBoxAdapter(child: _storyFooter()),
+                      SliverToBoxAdapter(
+                        child: _storyFooter(),
+                      ),
                   ],
                 ),
               ),
@@ -1041,20 +1006,14 @@ class _FixedExtentBoxAdaptorStudioState
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    _choice(
-                      'Vertical',
-                      _axisChoice == _AxisChoice.vertical,
-                      () {
-                        setState(() => _axisChoice = _AxisChoice.vertical);
-                      },
-                    ),
-                    _choice(
-                      'Horizontal',
-                      _axisChoice == _AxisChoice.horizontal,
-                      () {
-                        setState(() => _axisChoice = _AxisChoice.horizontal);
-                      },
-                    ),
+                    _choice('Vertical', _axisChoice == _AxisChoice.vertical,
+                        () {
+                      setState(() => _axisChoice = _AxisChoice.vertical);
+                    }),
+                    _choice('Horizontal',
+                        _axisChoice == _AxisChoice.horizontal, () {
+                      setState(() => _axisChoice = _AxisChoice.horizontal);
+                    }),
                   ],
                 ),
                 _sliderRow(
@@ -1094,10 +1053,8 @@ class _FixedExtentBoxAdaptorStudioState
                       activeColor: _t.primary,
                       onChanged: (v) => setState(() => _axisPad = v ?? true),
                     ),
-                    Text(
-                      'apply sliver padding',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('apply sliver padding',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _axisShowLegend,
@@ -1105,16 +1062,10 @@ class _FixedExtentBoxAdaptorStudioState
                       onChanged: (v) =>
                           setState(() => _axisShowLegend = v ?? true),
                     ),
-                    Text(
-                      'legend chip',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('legend chip',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
-                    _chip(
-                      'axis',
-                      horizontal ? 'horizontal' : 'vertical',
-                      _t.primary,
-                    ),
+                    _chip('axis', horizontal ? 'horizontal' : 'vertical', _t.primary),
                   ],
                 ),
               ],
@@ -1187,12 +1138,8 @@ class _FixedExtentBoxAdaptorStudioState
               children: [
                 _bullet('Vertical mode is ideal for consistent row feeds.'),
                 _bullet('Horizontal mode is ideal for card rails and strips.'),
-                _bullet(
-                  'Extent value controls readability and information density.',
-                ),
-                _bullet(
-                  'Gap and padding tune breathing space without changing extent math.',
-                ),
+                _bullet('Extent value controls readability and information density.'),
+                _bullet('Gap and padding tune breathing space without changing extent math.'),
               ],
             ),
           ),
@@ -1205,17 +1152,13 @@ class _FixedExtentBoxAdaptorStudioState
     final tone = index.isEven ? _t.primary : _t.secondary;
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical: horizontal ? 10 : _axisGap / 2,
-        horizontal: horizontal ? _axisGap / 2 : 0,
-      ),
+          vertical: horizontal ? 10 : _axisGap / 2,
+          horizontal: horizontal ? _axisGap / 2 : 0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            tone.withValues(alpha: 0.84),
-            _t.accent.withValues(alpha: 0.8),
-          ],
+          colors: [tone.withValues(alpha: 0.84), _t.accent.withValues(alpha: 0.8)],
         ),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -1281,16 +1224,10 @@ class _FixedExtentBoxAdaptorStudioState
                       onChanged: (v) =>
                           setState(() => _theaterTriView = v ?? true),
                     ),
-                    Text(
-                      'show preset trio',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show preset trio',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                     const Spacer(),
-                    _chip(
-                      'mode',
-                      _theaterTriView ? 'trio' : 'custom',
-                      _t.primary,
-                    ),
+                    _chip('mode', _theaterTriView ? 'trio' : 'custom', _t.primary),
                   ],
                 ),
                 _sliderRow(
@@ -1331,10 +1268,8 @@ class _FixedExtentBoxAdaptorStudioState
                       onChanged: (v) =>
                           setState(() => _theaterShowMetrics = v ?? true),
                     ),
-                    Text(
-                      'show profile metrics',
-                      style: TextStyle(color: _t.ink, fontSize: 12),
-                    ),
+                    Text('show profile metrics',
+                        style: TextStyle(color: _t.ink, fontSize: 12)),
                   ],
                 ),
               ],
@@ -1366,15 +1301,9 @@ class _FixedExtentBoxAdaptorStudioState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(
-                  'Smaller shells favor lower extents for readable density.',
-                ),
-                _bullet(
-                  'Larger shells can use taller extents for calm visual cadence.',
-                ),
-                _bullet(
-                  'Fixed extents simplify consistency across device classes.',
-                ),
+                _bullet('Smaller shells favor lower extents for readable density.'),
+                _bullet('Larger shells can use taller extents for calm visual cadence.'),
+                _bullet('Fixed extents simplify consistency across device classes.'),
               ],
             ),
           ),
@@ -1563,26 +1492,22 @@ class _FixedExtentBoxAdaptorStudioState
               children: [
                 _qa(
                   q: 'What does this render class optimize?',
-                  a:
-                      'It optimizes sliver layout when all child extents are '
+                  a: 'It optimizes sliver layout when all child extents are '
                       'equal along the main axis.',
                 ),
                 _qa(
                   q: 'How is it different from SliverList?',
-                  a:
-                      'SliverList supports variable extents; fixed-extent '
+                  a: 'SliverList supports variable extents; fixed-extent '
                       'paths trade flexibility for predictable geometry.',
                 ),
                 _qa(
                   q: 'Can I use it horizontally?',
-                  a:
-                      'Yes. In a horizontal CustomScrollView, fixed extent '
+                  a: 'Yes. In a horizontal CustomScrollView, fixed extent '
                       'represents item width instead of height.',
                 ),
                 _qa(
                   q: 'When is fixed extent a bad fit?',
-                  a:
-                      'When content requires truly dynamic heights or width '
+                  a: 'When content requires truly dynamic heights or width '
                       'driven by data length.',
                 ),
               ],
@@ -1595,24 +1520,12 @@ class _FixedExtentBoxAdaptorStudioState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check(
-                  'Fundamentals stage demonstrates fixed extent and item count controls.',
-                ),
-                _check(
-                  'Ruler lab shows visual interval verification overlays.',
-                ),
-                _check(
-                  'Mixed storyline integrates fixed-extent lanes with other slivers.',
-                ),
-                _check(
-                  'Axis arena covers vertical and horizontal fixed-extent behavior.',
-                ),
-                _check(
-                  'Performance theater validates responsive shell outcomes.',
-                ),
-                _check(
-                  'Atlas includes matrix, do/dont, FAQ, and verification checklist.',
-                ),
+                _check('Fundamentals stage demonstrates fixed extent and item count controls.'),
+                _check('Ruler lab shows visual interval verification overlays.'),
+                _check('Mixed storyline integrates fixed-extent lanes with other slivers.'),
+                _check('Axis arena covers vertical and horizontal fixed-extent behavior.'),
+                _check('Performance theater validates responsive shell outcomes.'),
+                _check('Atlas includes matrix, do/dont, FAQ, and verification checklist.'),
               ],
             ),
           ),
@@ -1774,7 +1687,8 @@ class _FixedExtentBoxAdaptorStudioState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(good ? Icons.check_circle : Icons.cancel, color: tone, size: 18),
+          Icon(good ? Icons.check_circle : Icons.cancel,
+              color: tone, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1789,7 +1703,10 @@ class _FixedExtentBoxAdaptorStudioState
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(detail, style: TextStyle(color: _t.muted, fontSize: 11.3)),
+                Text(
+                  detail,
+                  style: TextStyle(color: _t.muted, fontSize: 11.3),
+                ),
               ],
             ),
           ),
@@ -1834,10 +1751,14 @@ class _FixedExtentBoxAdaptorStudioState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
+          const Icon(Icons.check_circle,
+              color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(color: _t.ink, fontSize: 12)),
+            child: Text(
+              text,
+              style: TextStyle(color: _t.ink, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -1953,7 +1874,10 @@ class _FixedExtentBoxAdaptorStudioState
             ),
           ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: _t.muted, fontSize: 11.4)),
+          Text(
+            subtitle,
+            style: TextStyle(color: _t.muted, fontSize: 11.4),
+          ),
           const SizedBox(height: 10),
           child,
         ],
@@ -1991,7 +1915,10 @@ class _ExtentGridPainter extends CustomPainter {
   final Color color;
   final double spacing;
 
-  const _ExtentGridPainter({required this.color, required this.spacing});
+  const _ExtentGridPainter({
+    required this.color,
+    required this.spacing,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {

@@ -233,7 +233,8 @@ class _SectionFrame extends StatelessWidget {
 class _CodeTok {
   final String text;
   final TextStyle style;
-  _CodeTok(this.text, [TextStyle? style]) : style = style ?? _Type.code;
+  _CodeTok(this.text, [TextStyle? style])
+      : style = style ?? _Type.code;
 }
 
 class _CodeLine {
@@ -246,7 +247,10 @@ class _CodeLine {
 class _CodeBlock extends StatelessWidget {
   final List<_CodeLine> lines;
   final EdgeInsets padding;
-  const _CodeBlock(this.lines, {this.padding = const EdgeInsets.all(16)});
+  const _CodeBlock(
+    this.lines, {
+    this.padding = const EdgeInsets.all(16),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -381,10 +385,8 @@ class _DeprecationBanner extends StatelessWidget {
                     _DeprecChip('@Deprecated since 3.18', _Palette.rust),
                     _DeprecChip('Use KeyEvent', _Palette.green),
                     _DeprecChip('Use HardwareKeyboard', _Palette.teal),
-                    _DeprecChip(
-                      'Migration: hard-deprecation pending',
-                      _Palette.rustSoft,
-                    ),
+                    _DeprecChip('Migration: hard-deprecation pending',
+                        _Palette.rustSoft),
                   ],
                 ),
               ],
@@ -461,7 +463,11 @@ class _Hero extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
-                    colors: [_Palette.green, _Palette.emerald, _Palette.teal],
+                    colors: [
+                      _Palette.green,
+                      _Palette.emerald,
+                      _Palette.teal,
+                    ],
                   ),
                   boxShadow: [
                     BoxShadow(
@@ -487,13 +493,11 @@ class _Hero extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'FLUTTER · SERVICES · LEGACY KEYBOARD',
-                      style: _Type.caption.copyWith(
-                        color: _Palette.greenSoft,
-                        letterSpacing: 1.8,
-                      ),
-                    ),
+                    Text('FLUTTER · SERVICES · LEGACY KEYBOARD',
+                        style: _Type.caption.copyWith(
+                          color: _Palette.greenSoft,
+                          letterSpacing: 1.8,
+                        )),
                     SizedBox(height: 6),
                     Text('RawKeyEventDataAndroid', style: _Type.heroTitle),
                   ],
@@ -799,7 +803,9 @@ class _AnatomyArrow extends StatelessWidget {
             ),
           ),
           SizedBox(width: 12),
-          Expanded(child: Text(description, style: _Type.bodyDim)),
+          Expanded(
+            child: Text(description, style: _Type.bodyDim),
+          ),
         ],
       ),
     );
@@ -839,8 +845,7 @@ class _EventJourneySection extends StatelessWidget {
               _JourneyField('eventSource', '0x101', 'SOURCE_KEYBOARD'),
               _JourneyField('repeatCount', '0', 'first press'),
             ],
-            decoded:
-                'logicalKey: LogicalKeyboardKey.keyA  ·  '
+            decoded: 'logicalKey: LogicalKeyboardKey.keyA  ·  '
                 'physicalKey: PhysicalKeyboardKey.keyA  ·  '
                 'character: "a"',
           ),
@@ -853,13 +858,13 @@ class _EventJourneySection extends StatelessWidget {
             fields: [
               _JourneyField('keyCode', '29', '0x0000001D · KEYCODE_A'),
               _JourneyField('plainCodePoint', '97', '0x61 · "a"'),
-              _JourneyField('codePoint', '65', '0x41 · "A" (shifted)'),
+              _JourneyField(
+                  'codePoint', '65', '0x41 · "A" (shifted)'),
               _JourneyField('scanCode', '30', '0x1E · KEY_A'),
               _JourneyField(
-                'metaState',
-                '0x41',
-                'META_SHIFT_ON | META_SHIFT_LEFT_ON',
-              ),
+                  'metaState',
+                  '0x41',
+                  'META_SHIFT_ON | META_SHIFT_LEFT_ON'),
               _JourneyField('eventSource', '0x101', 'SOURCE_KEYBOARD'),
               _JourneyField('repeatCount', '0', 'first press'),
             ],
@@ -876,17 +881,11 @@ class _EventJourneySection extends StatelessWidget {
             fields: [
               _JourneyField('keyCode', '31', '0x0000001F · KEYCODE_C'),
               _JourneyField('plainCodePoint', '99', '0x63 · "c"'),
-              _JourneyField(
-                'codePoint',
-                '0',
-                'no character: control modifier suppresses output',
-              ),
+              _JourneyField('codePoint', '0',
+                  'no character: control modifier suppresses output'),
               _JourneyField('scanCode', '46', '0x2E · KEY_C'),
-              _JourneyField(
-                'metaState',
-                '0x3000',
-                'META_CTRL_ON | META_CTRL_LEFT_ON',
-              ),
+              _JourneyField('metaState', '0x3000',
+                  'META_CTRL_ON | META_CTRL_LEFT_ON'),
               _JourneyField('eventSource', '0x101', 'SOURCE_KEYBOARD'),
               _JourneyField('repeatCount', '0', 'first press'),
             ],
@@ -897,16 +896,19 @@ class _EventJourneySection extends StatelessWidget {
           SizedBox(height: 14),
           _JourneyCard(
             title: 'Press Volume Up (TV remote)',
-            sequence: 'IR remote  →  HDMI-CEC  →  KEYCODE_VOLUME_UP',
+            sequence:
+                'IR remote  →  HDMI-CEC  →  KEYCODE_VOLUME_UP',
             keyLabel: '+',
             color: _Palette.sky,
             fields: [
-              _JourneyField('keyCode', '24', '0x00000018 · KEYCODE_VOLUME_UP'),
+              _JourneyField(
+                  'keyCode', '24', '0x00000018 · KEYCODE_VOLUME_UP'),
               _JourneyField('plainCodePoint', '0', 'non-printable'),
               _JourneyField('codePoint', '0', 'non-printable'),
               _JourneyField('scanCode', '115', '0x73 · KEY_VOLUMEUP'),
               _JourneyField('metaState', '0', 'no modifiers'),
-              _JourneyField('eventSource', '0x02000001', 'SOURCE_HDMI'),
+              _JourneyField(
+                  'eventSource', '0x02000001', 'SOURCE_HDMI'),
               _JourneyField('vendorId', '0x1949', 'Amazon'),
               _JourneyField('productId', '0x0419', 'Fire TV remote'),
               _JourneyField('repeatCount', '0', 'first press'),
@@ -965,9 +967,7 @@ class _JourneyCard extends StatelessWidget {
                   color: color.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: color.withValues(alpha: 0.7),
-                    width: 1.4,
-                  ),
+                      color: color.withValues(alpha: 0.7), width: 1.4),
                   boxShadow: [
                     BoxShadow(
                       color: color.withValues(alpha: 0.45),
@@ -993,22 +993,16 @@ class _JourneyCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: _Palette.textPrimary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text(title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: _Palette.textPrimary,
+                          fontWeight: FontWeight.w700,
+                        )),
                     SizedBox(height: 4),
-                    Text(
-                      sequence,
-                      style: _Type.code.copyWith(
-                        color: _Palette.textMuted,
-                        fontSize: 11,
-                      ),
-                    ),
+                    Text(sequence,
+                        style: _Type.code.copyWith(
+                            color: _Palette.textMuted, fontSize: 11)),
                   ],
                 ),
               ),
@@ -1024,7 +1018,9 @@ class _JourneyCard extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [for (final f in fields) _journeyRow(f, color)],
+              children: [
+                for (final f in fields) _journeyRow(f, color),
+              ],
             ),
           ),
           SizedBox(height: 12),
@@ -1065,9 +1061,17 @@ class _JourneyCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 130, child: Text(f.name, style: _Type.codeKeyword)),
-          SizedBox(width: 80, child: Text(f.value, style: _Type.codeNumber)),
-          Expanded(child: Text(f.note, style: _Type.codeComment)),
+          SizedBox(
+            width: 130,
+            child: Text(f.name, style: _Type.codeKeyword),
+          ),
+          SizedBox(
+            width: 80,
+            child: Text(f.value, style: _Type.codeNumber),
+          ),
+          Expanded(
+            child: Text(f.note, style: _Type.codeComment),
+          ),
         ],
       ),
     );
@@ -1085,8 +1089,10 @@ class _ModifierBitsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Sample metaState: Shift+CapsLock+NumLock with side info.
-    final int sample =
-        _Meta.shiftOn | _Meta.shiftLeftOn | _Meta.capsLockOn | _Meta.numLockOn;
+    final int sample = _Meta.shiftOn |
+        _Meta.shiftLeftOn |
+        _Meta.capsLockOn |
+        _Meta.numLockOn;
     return _SectionFrame(
       index: 'SECTION 04',
       title: 'metaState · the modifier bit-field',
@@ -1204,10 +1210,14 @@ class _ModifierBitsSection extends StatelessWidget {
       width: 22,
       height: 32,
       decoration: BoxDecoration(
-        color: on ? _Palette.green.withValues(alpha: 0.45) : _Palette.panelAlt,
+        color: on
+            ? _Palette.green.withValues(alpha: 0.45)
+            : _Palette.panelAlt,
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
-          color: on ? _Palette.green.withValues(alpha: 0.85) : _Palette.border,
+          color: on
+              ? _Palette.green.withValues(alpha: 0.85)
+              : _Palette.border,
         ),
       ),
       child: Column(
@@ -1238,67 +1248,34 @@ class _ModifierBitsSection extends StatelessWidget {
   Widget _flagLegend() {
     final flags = <List<dynamic>>[
       ['META_SHIFT_ON', _Meta.shiftOn, _Palette.green, 'either Shift held'],
-      [
-        'META_SHIFT_LEFT_ON',
-        _Meta.shiftLeftOn,
-        _Palette.greenSoft,
-        'left Shift held',
-      ],
-      [
-        'META_SHIFT_RIGHT_ON',
-        _Meta.shiftRightOn,
-        _Palette.greenSoft,
-        'right Shift held',
-      ],
+      ['META_SHIFT_LEFT_ON', _Meta.shiftLeftOn, _Palette.greenSoft,
+          'left Shift held'],
+      ['META_SHIFT_RIGHT_ON', _Meta.shiftRightOn, _Palette.greenSoft,
+          'right Shift held'],
       ['META_ALT_ON', _Meta.altOn, _Palette.amber, 'either Alt held'],
       ['META_ALT_LEFT_ON', _Meta.altLeftOn, _Palette.amber, 'left Alt held'],
-      ['META_ALT_RIGHT_ON', _Meta.altRightOn, _Palette.amber, 'right Alt held'],
+      ['META_ALT_RIGHT_ON', _Meta.altRightOn, _Palette.amber,
+          'right Alt held'],
       ['META_CTRL_ON', _Meta.ctrlOn, _Palette.violet, 'either Ctrl held'],
-      [
-        'META_CTRL_LEFT_ON',
-        _Meta.ctrlLeftOn,
-        _Palette.violet,
-        'left Ctrl held',
-      ],
-      [
-        'META_CTRL_RIGHT_ON',
-        _Meta.ctrlRightOn,
-        _Palette.violet,
-        'right Ctrl held',
-      ],
-      [
-        'META_META_ON',
-        _Meta.metaOn,
-        _Palette.sky,
-        'either Meta (Cmd/Win) held',
-      ],
-      ['META_META_LEFT_ON', _Meta.metaLeftOn, _Palette.sky, 'left Meta held'],
-      [
-        'META_META_RIGHT_ON',
-        _Meta.metaRightOn,
-        _Palette.sky,
-        'right Meta held',
-      ],
-      [
-        'META_FUNCTION_ON',
-        _Meta.functionOn,
-        _Palette.rustSoft,
-        'Fn (laptop) held',
-      ],
+      ['META_CTRL_LEFT_ON', _Meta.ctrlLeftOn, _Palette.violet,
+          'left Ctrl held'],
+      ['META_CTRL_RIGHT_ON', _Meta.ctrlRightOn, _Palette.violet,
+          'right Ctrl held'],
+      ['META_META_ON', _Meta.metaOn, _Palette.sky,
+          'either Meta (Cmd/Win) held'],
+      ['META_META_LEFT_ON', _Meta.metaLeftOn, _Palette.sky,
+          'left Meta held'],
+      ['META_META_RIGHT_ON', _Meta.metaRightOn, _Palette.sky,
+          'right Meta held'],
+      ['META_FUNCTION_ON', _Meta.functionOn, _Palette.rustSoft,
+          'Fn (laptop) held'],
       ['META_SYM_ON', _Meta.symOn, _Palette.rustSoft, 'Sym key held'],
-      [
-        'META_CAPS_LOCK_ON',
-        _Meta.capsLockOn,
-        _Palette.rose,
-        'CapsLock latched',
-      ],
-      ['META_NUM_LOCK_ON', _Meta.numLockOn, _Palette.rose, 'NumLock latched'],
-      [
-        'META_SCROLL_LOCK_ON',
-        _Meta.scrollLockOn,
-        _Palette.rose,
-        'ScrollLock latched',
-      ],
+      ['META_CAPS_LOCK_ON', _Meta.capsLockOn, _Palette.rose,
+          'CapsLock latched'],
+      ['META_NUM_LOCK_ON', _Meta.numLockOn, _Palette.rose,
+          'NumLock latched'],
+      ['META_SCROLL_LOCK_ON', _Meta.scrollLockOn, _Palette.rose,
+          'ScrollLock latched'],
     ];
     return Wrap(
       spacing: 10,
@@ -1306,11 +1283,7 @@ class _ModifierBitsSection extends StatelessWidget {
       children: [
         for (final f in flags)
           _legendChip(
-            f[0] as String,
-            f[1] as int,
-            f[2] as Color,
-            f[3] as String,
-          ),
+              f[0] as String, f[1] as int, f[2] as Color, f[3] as String),
       ],
     );
   }
@@ -1347,7 +1320,10 @@ class _ModifierBitsSection extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             note,
-            style: TextStyle(fontSize: 11, color: _Palette.textSecondary),
+            style: TextStyle(
+              fontSize: 11,
+              color: _Palette.textSecondary,
+            ),
           ),
         ],
       ),
@@ -1385,8 +1361,7 @@ class _SiblingsSection extends StatelessWidget {
           ),
           _SiblingRow(
             platform: 'iOS',
-            primaryFields:
-                'keyCode · charactersIgnoringModifiers · '
+            primaryFields: 'keyCode · charactersIgnoringModifiers · '
                 'modifiers',
             color: _Palette.sky,
             blurb:
@@ -1396,8 +1371,7 @@ class _SiblingsSection extends StatelessWidget {
           ),
           _SiblingRow(
             platform: 'macOS',
-            primaryFields:
-                'keyCode · characters · '
+            primaryFields: 'keyCode · characters · '
                 'charactersIgnoringModifiers · modifiers',
             color: _Palette.violet,
             blurb:
@@ -1407,8 +1381,7 @@ class _SiblingsSection extends StatelessWidget {
           ),
           _SiblingRow(
             platform: 'Linux',
-            primaryFields:
-                'toolkit · keyCode · scanCode · unicodeScalarValues '
+            primaryFields: 'toolkit · keyCode · scanCode · unicodeScalarValues '
                 '· modifiers',
             color: _Palette.amber,
             blurb:
@@ -1427,8 +1400,7 @@ class _SiblingsSection extends StatelessWidget {
           ),
           _SiblingRow(
             platform: 'Windows',
-            primaryFields:
-                'keyCode · scanCode · characterCodePoint · '
+            primaryFields: 'keyCode · scanCode · characterCodePoint · '
                 'modifiers',
             color: _Palette.tealSoft,
             blurb:
@@ -1470,10 +1442,14 @@ class _SiblingRow extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 6),
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: highlight ? color.withValues(alpha: 0.18) : _Palette.panelAlt,
+        color: highlight
+            ? color.withValues(alpha: 0.18)
+            : _Palette.panelAlt,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: highlight ? color.withValues(alpha: 0.7) : _Palette.border,
+          color: highlight
+              ? color.withValues(alpha: 0.7)
+              : _Palette.border,
           width: highlight ? 1.4 : 1,
         ),
       ),
@@ -1515,10 +1491,8 @@ class _SiblingRow extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 4),
-                Text(
-                  primaryFields,
-                  style: _Type.codeKeyword.copyWith(fontSize: 11),
-                ),
+                Text(primaryFields,
+                    style: _Type.codeKeyword.copyWith(fontSize: 11)),
                 SizedBox(height: 8),
                 Text(blurb, style: _Type.bodyDim),
               ],
@@ -1567,69 +1541,26 @@ class _EventSourceSection extends StatelessWidget {
         spacing: 12,
         runSpacing: 12,
         children: [
-          _SourceCard(
-            'SOURCE_KEYBOARD',
-            _Source.keyboard,
-            _Palette.green,
-            'Standard physical or soft keyboards',
-            Icons.keyboard,
-          ),
-          _SourceCard(
-            'SOURCE_DPAD',
-            _Source.dpad,
-            _Palette.amber,
-            'D-pad on remotes / handhelds',
-            Icons.gamepad,
-          ),
-          _SourceCard(
-            'SOURCE_GAMEPAD',
-            _Source.gamepad,
-            _Palette.violet,
-            'Gamepad buttons (A / B / X / Y)',
-            Icons.sports_esports,
-          ),
-          _SourceCard(
-            'SOURCE_JOYSTICK',
-            _Source.joystick,
-            _Palette.sky,
-            'Analog stick events',
-            Icons.gamepad_outlined,
-          ),
-          _SourceCard(
-            'SOURCE_HDMI',
-            _Source.hdmi,
-            _Palette.rose,
-            'HDMI-CEC remote (Android TV)',
-            Icons.tv,
-          ),
-          _SourceCard(
-            'SOURCE_MOUSE',
-            _Source.mouse,
-            _Palette.tealSoft,
-            'Mouse buttons reported as keys',
-            Icons.mouse,
-          ),
-          _SourceCard(
-            'SOURCE_TOUCHSCREEN',
-            _Source.touchscreen,
-            _Palette.teal,
-            'Soft keys on touchscreen IMEs',
-            Icons.touch_app,
-          ),
-          _SourceCard(
-            'SOURCE_TRACKBALL',
-            _Source.trackball,
-            _Palette.greenSoft,
-            'Trackball / scroll-wheel keys',
-            Icons.adjust,
-          ),
-          _SourceCard(
-            'SOURCE_UNKNOWN',
-            _Source.unknown,
-            _Palette.textMuted,
-            'No InputDevice info available',
-            Icons.help_outline,
-          ),
+          _SourceCard('SOURCE_KEYBOARD', _Source.keyboard, _Palette.green,
+              'Standard physical or soft keyboards', Icons.keyboard),
+          _SourceCard('SOURCE_DPAD', _Source.dpad, _Palette.amber,
+              'D-pad on remotes / handhelds', Icons.gamepad),
+          _SourceCard('SOURCE_GAMEPAD', _Source.gamepad, _Palette.violet,
+              'Gamepad buttons (A / B / X / Y)', Icons.sports_esports),
+          _SourceCard('SOURCE_JOYSTICK', _Source.joystick, _Palette.sky,
+              'Analog stick events', Icons.gamepad_outlined),
+          _SourceCard('SOURCE_HDMI', _Source.hdmi, _Palette.rose,
+              'HDMI-CEC remote (Android TV)', Icons.tv),
+          _SourceCard('SOURCE_MOUSE', _Source.mouse, _Palette.tealSoft,
+              'Mouse buttons reported as keys', Icons.mouse),
+          _SourceCard('SOURCE_TOUCHSCREEN', _Source.touchscreen,
+              _Palette.teal, 'Soft keys on touchscreen IMEs',
+              Icons.touch_app),
+          _SourceCard('SOURCE_TRACKBALL', _Source.trackball,
+              _Palette.greenSoft, 'Trackball / scroll-wheel keys',
+              Icons.adjust),
+          _SourceCard('SOURCE_UNKNOWN', _Source.unknown, _Palette.textMuted,
+              'No InputDevice info available', Icons.help_outline),
         ],
       ),
     );
@@ -1643,12 +1574,7 @@ class _SourceCard extends StatelessWidget {
   final String description;
   final IconData icon;
   const _SourceCard(
-    this.name,
-    this.value,
-    this.color,
-    this.description,
-    this.icon,
-  );
+      this.name, this.value, this.color, this.description, this.icon);
 
   @override
   Widget build(BuildContext context) {
@@ -1850,7 +1776,8 @@ class _KeyDownFlowSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: _Type.codeKeyword.copyWith(fontSize: 14)),
+                Text(title,
+                    style: _Type.codeKeyword.copyWith(fontSize: 14)),
                 SizedBox(height: 6),
                 Text(body, style: _Type.bodyDim),
               ],
@@ -1869,7 +1796,8 @@ class _KeyDownFlowSection extends StatelessWidget {
           SizedBox(width: 12),
           Container(width: 2, height: 16, color: _Palette.border),
           SizedBox(width: 8),
-          Icon(Icons.arrow_downward, color: _Palette.textMuted, size: 14),
+          Icon(Icons.arrow_downward,
+              color: _Palette.textMuted, size: 14),
         ],
       ),
     );
@@ -1926,7 +1854,9 @@ class _MigrationSection extends StatelessWidget {
                       _CodeTok('as ', _Type.codeKeyword),
                       _CodeTok('RawKeyEventDataAndroid;', _Type.codeType),
                     ]),
-                    _CodeLine.tokens([_CodeTok('      print(data.keyCode);')]),
+                    _CodeLine.tokens([
+                      _CodeTok('      print(data.keyCode);'),
+                    ]),
                     _CodeLine.tokens([
                       _CodeTok('      print(data.metaState);'),
                     ]),
@@ -1962,8 +1892,12 @@ class _MigrationSection extends StatelessWidget {
                       _CodeTok('    if', _Type.codeKeyword),
                       _CodeTok(' (e is KeyDownEvent) {'),
                     ]),
-                    _CodeLine.tokens([_CodeTok('      print(e.logicalKey);')]),
-                    _CodeLine.tokens([_CodeTok('      print(e.physicalKey);')]),
+                    _CodeLine.tokens([
+                      _CodeTok('      print(e.logicalKey);'),
+                    ]),
+                    _CodeLine.tokens([
+                      _CodeTok('      print(e.physicalKey);'),
+                    ]),
                     _CodeLine.tokens([
                       _CodeTok('      print(HardwareKeyboard'),
                     ]),
@@ -2034,27 +1968,24 @@ class _MigrationMappingTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rows = <List<String>>[
-      [
-        'RawKeyEventDataAndroid.keyCode',
-        'KeyEvent.logicalKey  (already mapped)',
-      ],
-      [
-        'RawKeyEventDataAndroid.scanCode',
-        'KeyEvent.physicalKey  (already mapped)',
-      ],
-      [
-        'data.metaState bit tests',
-        'HardwareKeyboard.instance.isShiftPressed, …',
-      ],
-      ['data.codePoint', 'KeyEvent.character'],
-      ['data.repeatCount > 0', 'event is KeyRepeatEvent'],
-      ['RawKeyDownEvent / RawKeyUpEvent', 'KeyDownEvent / KeyUpEvent'],
-      [
-        'RawKeyboard.instance.addListener',
-        'HardwareKeyboard.instance.addHandler',
-      ],
-      ['RawKeyboardListener', 'KeyboardListener'],
-      ['Focus(onKey: ...)', 'Focus(onKeyEvent: ...)'],
+      ['RawKeyEventDataAndroid.keyCode',
+          'KeyEvent.logicalKey  (already mapped)'],
+      ['RawKeyEventDataAndroid.scanCode',
+          'KeyEvent.physicalKey  (already mapped)'],
+      ['data.metaState bit tests',
+          'HardwareKeyboard.instance.isShiftPressed, …'],
+      ['data.codePoint',
+          'KeyEvent.character'],
+      ['data.repeatCount > 0',
+          'event is KeyRepeatEvent'],
+      ['RawKeyDownEvent / RawKeyUpEvent',
+          'KeyDownEvent / KeyUpEvent'],
+      ['RawKeyboard.instance.addListener',
+          'HardwareKeyboard.instance.addHandler'],
+      ['RawKeyboardListener',
+          'KeyboardListener'],
+      ['Focus(onKey: ...)',
+          'Focus(onKeyEvent: ...)'],
     ];
     return Container(
       padding: EdgeInsets.all(14),
@@ -2069,24 +2000,18 @@ class _MigrationMappingTable extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(
-                  'LEGACY',
-                  style: _Type.caption.copyWith(
-                    color: _Palette.rust,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                child: Text('LEGACY',
+                    style: _Type.caption.copyWith(
+                        color: _Palette.rust, fontWeight: FontWeight.w800)),
               ),
-              Icon(Icons.arrow_forward, color: _Palette.textMuted, size: 14),
+              Icon(Icons.arrow_forward,
+                  color: _Palette.textMuted, size: 14),
               SizedBox(width: 6),
               Expanded(
-                child: Text(
-                  'MODERN',
-                  style: _Type.caption.copyWith(
-                    color: _Palette.green,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                child: Text('MODERN',
+                    style: _Type.caption.copyWith(
+                        color: _Palette.green,
+                        fontWeight: FontWeight.w800)),
               ),
             ],
           ),
@@ -2098,28 +2023,17 @@ class _MigrationMappingTable extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Text(
-                      r[0],
-                      style: _Type.code.copyWith(
-                        color: _Palette.rustSoft,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text(r[0],
+                        style: _Type.code.copyWith(
+                            color: _Palette.rustSoft, fontSize: 11)),
                   ),
-                  Icon(
-                    Icons.arrow_right_alt,
-                    color: _Palette.textMuted,
-                    size: 14,
-                  ),
+                  Icon(Icons.arrow_right_alt,
+                      color: _Palette.textMuted, size: 14),
                   SizedBox(width: 6),
                   Expanded(
-                    child: Text(
-                      r[1],
-                      style: _Type.code.copyWith(
-                        color: _Palette.greenSoft,
-                        fontSize: 11,
-                      ),
-                    ),
+                    child: Text(r[1],
+                        style: _Type.code.copyWith(
+                            color: _Palette.greenSoft, fontSize: 11)),
                   ),
                 ],
               ),
@@ -2297,52 +2211,40 @@ class _InheritanceSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _ladderRung(
-            'Object',
-            _Palette.textMuted,
-            'The root of every Dart class.',
-          ),
+          _ladderRung('Object', _Palette.textMuted,
+              'The root of every Dart class.'),
           _ladderConnector(),
-          _ladderRung(
-            'Diagnosticable',
-            _Palette.sky,
-            'Provides debugFillProperties so framework events can render '
-                'nicely in DevTools.',
-          ),
+          _ladderRung('Diagnosticable', _Palette.sky,
+              'Provides debugFillProperties so framework events can render '
+              'nicely in DevTools.'),
           _ladderConnector(),
-          _ladderRung(
-            'RawKeyEventData',
-            _Palette.violet,
-            'Abstract base for platform-specific event payloads. Defines '
-                'logicalKey, physicalKey, isModifierPressed, keyLabel.',
-          ),
+          _ladderRung('RawKeyEventData', _Palette.violet,
+              'Abstract base for platform-specific event payloads. Defines '
+              'logicalKey, physicalKey, isModifierPressed, keyLabel.'),
           _ladderConnector(),
-          _ladderRung(
-            'RawKeyEventDataAndroid',
-            _Palette.green,
-            'This class. Adds Android-specific fields and overrides '
-                'logicalKey / physicalKey to walk the kAndroid* lookup '
-                'tables.',
-            highlight: true,
-          ),
+          _ladderRung('RawKeyEventDataAndroid', _Palette.green,
+              'This class. Adds Android-specific fields and overrides '
+              'logicalKey / physicalKey to walk the kAndroid* lookup '
+              'tables.',
+              highlight: true),
         ],
       ),
     );
   }
 
-  Widget _ladderRung(
-    String name,
-    Color color,
-    String desc, {
-    bool highlight = false,
-  }) {
+  Widget _ladderRung(String name, Color color, String desc,
+      {bool highlight = false}) {
     return Container(
       padding: EdgeInsets.all(13),
       decoration: BoxDecoration(
-        color: highlight ? color.withValues(alpha: 0.18) : _Palette.panelAlt,
+        color: highlight
+            ? color.withValues(alpha: 0.18)
+            : _Palette.panelAlt,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: highlight ? color.withValues(alpha: 0.7) : _Palette.border,
+          color: highlight
+              ? color.withValues(alpha: 0.7)
+              : _Palette.border,
           width: highlight ? 1.4 : 1,
         ),
       ),
@@ -2366,7 +2268,9 @@ class _InheritanceSection extends StatelessWidget {
             ),
           ),
           SizedBox(width: 12),
-          Expanded(child: Text(desc, style: _Type.bodyDim)),
+          Expanded(
+            child: Text(desc, style: _Type.bodyDim),
+          ),
         ],
       ),
     );
@@ -2378,7 +2282,8 @@ class _InheritanceSection extends StatelessWidget {
       child: Column(
         children: [
           Container(width: 2, height: 12, color: _Palette.border),
-          Icon(Icons.arrow_drop_down, color: _Palette.textMuted, size: 18),
+          Icon(Icons.arrow_drop_down,
+              color: _Palette.textMuted, size: 18),
         ],
       ),
     );
@@ -2411,9 +2316,10 @@ class _Footer extends StatelessWidget {
                 height: 28,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    colors: [_Palette.green, _Palette.teal],
-                  ),
+                  gradient: LinearGradient(colors: [
+                    _Palette.green,
+                    _Palette.teal,
+                  ]),
                 ),
                 child: Center(
                   child: Text(

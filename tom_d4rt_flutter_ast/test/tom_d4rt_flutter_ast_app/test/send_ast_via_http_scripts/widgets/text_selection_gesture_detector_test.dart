@@ -18,8 +18,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.gesture,
       'title': 'What is TextSelectionGestureDetector?',
-      'body':
-          'TextSelectionGestureDetector is a stateful widget that '
+      'body': 'TextSelectionGestureDetector is a stateful widget that '
           'wraps a child with gesture recognizers tuned for text '
           'editing. It translates raw pointer events into high-level '
           'text-selection callbacks like onSingleTapUp, '
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Layered Architecture',
-      'body':
-          'EditableText → TextSelectionGestureDetectorBuilder → '
+      'body': 'EditableText → TextSelectionGestureDetectorBuilder → '
           'TextSelectionGestureDetector → GestureDetector. The detector '
           'sits at the bottom, translating finger/mouse actions into '
           'meaningful text operations. The builder creates the detector '
@@ -40,8 +38,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.mouse,
       'title': 'Supported Gestures',
-      'body':
-          'Single tap (position cursor), double tap (select word), '
+      'body': 'Single tap (position cursor), double tap (select word), '
           'long press (show magnifier / select word), force press '
           '(3D-touch selection on iOS), and drag (extend selection). '
           'Each gesture has start/update/end callbacks.',
@@ -50,8 +47,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'Platform Awareness',
-      'body':
-          'The gesture detector is platform-agnostic, but the '
+      'body': 'The gesture detector is platform-agnostic, but the '
           'callbacks wired up by TextField differ per platform. For '
           'example, long-press shows a magnifier on mobile and '
           'selects a word on desktop.',
@@ -130,97 +126,84 @@ dynamic build(BuildContext context) {
     {
       'name': 'onTapDown',
       'type': 'GestureTapDownCallback?',
-      'desc':
-          'Fires when the pointer first contacts the screen inside '
+      'desc': 'Fires when the pointer first contacts the screen inside '
           'the detector. Provides the TapDownDetails with global/local '
           'position. Always fires before any specialised callback.',
     },
     {
       'name': 'onSingleTapUp',
       'type': 'GestureTapUpCallback?',
-      'desc':
-          'Fires when a single tap completes (pointer up within time '
+      'desc': 'Fires when a single tap completes (pointer up within time '
           'limit, no double-tap follow-up). Used to place the cursor '
           'at the tapped position.',
     },
     {
       'name': 'onSingleTapCancel',
       'type': 'GestureTapCancelCallback?',
-      'desc':
-          'Fires when a single tap is aborted — for example because '
+      'desc': 'Fires when a single tap is aborted — for example because '
           'a second tap arrived (turning it into a double-tap) or the '
           'gesture was cancelled by the system.',
     },
     {
       'name': 'onDoubleTapDown',
       'type': 'GestureTapDownCallback?',
-      'desc':
-          'Fires when two taps arrive within the double-tap time '
+      'desc': 'Fires when two taps arrive within the double-tap time '
           'window. Typical action: select the tapped word.',
     },
     {
       'name': 'onSingleLongTapStart',
       'type': 'GestureLongPressStartCallback?',
-      'desc':
-          'Fires when a long-press is confirmed (finger held down '
+      'desc': 'Fires when a long-press is confirmed (finger held down '
           'past the threshold). Used to show the magnifier and begin '
           'word selection on mobile.',
     },
     {
       'name': 'onSingleLongTapMoveUpdate',
       'type': 'GestureLongPressMoveUpdateCallback?',
-      'desc':
-          'Fires as the finger moves during a long-press. The app '
+      'desc': 'Fires as the finger moves during a long-press. The app '
           'tracks the finger and updates the magnifier position and '
           'the selection in real time.',
     },
     {
       'name': 'onSingleLongTapEnd',
       'type': 'GestureLongPressEndCallback?',
-      'desc':
-          'Fires when the long-press ends (finger lifted). The '
+      'desc': 'Fires when the long-press ends (finger lifted). The '
           'magnifier is hidden and the selection toolbar is shown.',
     },
     {
       'name': 'onDragSelectionStart',
       'type': 'GestureDragStartCallback?',
-      'desc':
-          'Fires when a drag gesture begins within the text. Used '
+      'desc': 'Fires when a drag gesture begins within the text. Used '
           'to start an extended selection from the drag origin.',
     },
     {
       'name': 'onDragSelectionUpdate',
       'type': 'DragSelectionUpdateCallback?',
-      'desc':
-          'Fires as the drag moves. Receives start position and '
+      'desc': 'Fires as the drag moves. Receives start position and '
           'current position — the selection extends between them.',
     },
     {
       'name': 'onDragSelectionEnd',
       'type': 'GestureDragEndCallback?',
-      'desc':
-          'Fires when the drag gesture ends. The selection is '
+      'desc': 'Fires when the drag gesture ends. The selection is '
           'finalized and the toolbar may appear.',
     },
     {
       'name': 'onForcePressStart',
       'type': 'GestureForcePressStartCallback?',
-      'desc':
-          'Fires when force (3D Touch) exceeds the start threshold. '
+      'desc': 'Fires when force (3D Touch) exceeds the start threshold. '
           'iPhone-specific: begins force-touch word selection.',
     },
     {
       'name': 'onForcePressEnd',
       'type': 'GestureForcePressEndCallback?',
-      'desc':
-          'Fires when force drops below the threshold or the finger '
+      'desc': 'Fires when force drops below the threshold or the finger '
           'lifts. Ends force-touch selection mode.',
     },
     {
       'name': 'child',
       'type': 'Widget',
-      'desc':
-          'The widget to wrap with text-selection gesture detection. '
+      'desc': 'The widget to wrap with text-selection gesture detection. '
           'Typically the rendered text or editing surface.',
     },
   ];
@@ -312,8 +295,7 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'title': 'Pointer Down',
-      'desc':
-          'User touches the text. onTapDown fires immediately with '
+      'desc': 'User touches the text. onTapDown fires immediately with '
           'the position. The system determines whether this will become '
           'a single tap, double tap, or long press.',
       'icon': Icons.touch_app,
@@ -322,8 +304,7 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'title': 'Pointer Up (Single Tap)',
-      'desc':
-          'If the finger lifts quickly and no second tap follows, '
+      'desc': 'If the finger lifts quickly and no second tap follows, '
           'onSingleTapUp is called. The cursor is placed at the '
           'tapped text offset. Focus is acquired.',
       'icon': Icons.arrow_upward,
@@ -332,8 +313,7 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'title': 'Cursor Placement',
-      'desc':
-          'The callback receives TapUpDetails containing the global '
+      'desc': 'The callback receives TapUpDetails containing the global '
           'position. The text editing state converts this position to '
           'a text offset and moves the cursor there.',
       'icon': Icons.text_format,
@@ -342,8 +322,7 @@ dynamic build(BuildContext context) {
     {
       'step': 'X',
       'title': 'Tap Cancelled',
-      'desc':
-          'If the system cancels the gesture (e.g. a second tap begins, '
+      'desc': 'If the system cancels the gesture (e.g. a second tap begins, '
           'turning it into a double-tap), onSingleTapCancel fires '
           'instead of onSingleTapUp.',
       'icon': Icons.cancel_outlined,
@@ -394,7 +373,8 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(st['icon'] as IconData, size: 18, color: stColor),
+                        Icon(st['icon'] as IconData,
+                            size: 18, color: stColor),
                         const SizedBox(width: 6),
                         Text(
                           st['title'] as String,
@@ -433,8 +413,7 @@ dynamic build(BuildContext context) {
   final doubleTapItems = <Map<String, dynamic>>[
     {
       'title': 'Word Selection',
-      'desc':
-          'Double-tapping a word triggers onDoubleTapDown. The text '
+      'desc': 'Double-tapping a word triggers onDoubleTapDown. The text '
           'field selects the entire word under the tap. The selection '
           'handles and toolbar appear immediately.',
       'visual': 'Hello |world| today',
@@ -442,8 +421,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Timing Window',
-      'desc':
-          'The system waits a brief interval (platform-specific, '
+      'desc': 'The system waits a brief interval (platform-specific, '
           'typically 300ms) after the first tap. If a second tap '
           'arrives in that window at roughly the same location, it '
           'is classified as a double-tap.',
@@ -452,8 +430,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Triple Tap (Paragraph)',
-      'desc':
-          'Some platforms support triple-tap to select a paragraph '
+      'desc': 'Some platforms support triple-tap to select a paragraph '
           'or line. This is handled by waiting for a third tap within '
           'the timing window after a double-tap.',
       'visual': 'Tap 1 → Tap 2 → Tap 3 = Para',
@@ -534,8 +511,7 @@ dynamic build(BuildContext context) {
     {
       'phase': 'Start',
       'callback': 'onSingleLongTapStart',
-      'desc':
-          'Finger held down past the threshold (usually ~500ms). '
+      'desc': 'Finger held down past the threshold (usually ~500ms). '
           'The magnifier appears and word selection begins. On '
           'Android this selects the word under the finger; on iOS '
           'it initially shows just the magnifier.',
@@ -545,8 +521,7 @@ dynamic build(BuildContext context) {
     {
       'phase': 'Move',
       'callback': 'onSingleLongTapMoveUpdate',
-      'desc':
-          'Finger drags while still held down. The magnifier tracks '
+      'desc': 'Finger drags while still held down. The magnifier tracks '
           'the finger position. The selection extends as the finger '
           'moves over text — word-by-word on mobile, character-by-character '
           'on desktop.',
@@ -556,8 +531,7 @@ dynamic build(BuildContext context) {
     {
       'phase': 'End',
       'callback': 'onSingleLongTapEnd',
-      'desc':
-          'Finger lifts. The magnifier disappears and the selection '
+      'desc': 'Finger lifts. The magnifier disappears and the selection '
           'toolbar (cut/copy/paste) appears. The final selection is '
           'retained.',
       'icon': Icons.check_circle,
@@ -576,7 +550,10 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [lpColor.withOpacity(0.08), lpColor.withOpacity(0.02)],
+            colors: [
+              lpColor.withOpacity(0.08),
+              lpColor.withOpacity(0.02),
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -672,11 +649,9 @@ dynamic build(BuildContext context) {
                 color: Colors.indigo.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text(
-                'Touch',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold),
-              ),
+              child: const Text('Touch',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
             ),
             Expanded(
               child: Container(
@@ -691,11 +666,9 @@ dynamic build(BuildContext context) {
                 color: Colors.purple.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text(
-                '~500ms',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold),
-              ),
+              child: const Text('~500ms',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
             ),
             Expanded(
               child: Container(
@@ -710,11 +683,9 @@ dynamic build(BuildContext context) {
                 color: Colors.green.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text(
-                'Lift',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold),
-              ),
+              child: const Text('Lift',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
             ),
           ],
         ),
@@ -731,8 +702,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Drag Start',
       'callback': 'onDragSelectionStart',
-      'desc':
-          'After an initial tap-down, if the finger moves beyond a '
+      'desc': 'After an initial tap-down, if the finger moves beyond a '
           'small threshold, the system transitions to drag mode. The '
           'selection anchor is placed at the initial tap position.',
       'icon': Icons.open_with,
@@ -741,8 +711,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Drag Update',
       'callback': 'onDragSelectionUpdate',
-      'desc':
-          'As the finger moves, onDragSelectionUpdate fires '
+      'desc': 'As the finger moves, onDragSelectionUpdate fires '
           'continuously. It provides both the start position and the '
           'current drag position. The selection extends between these '
           'two offsets.',
@@ -752,8 +721,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Drag End',
       'callback': 'onDragSelectionEnd',
-      'desc':
-          'When the finger lifts, drag selection ends. The final '
+      'desc': 'When the finger lifts, drag selection ends. The final '
           'selection is retained and the selection handles / toolbar '
           'appear as appropriate.',
       'icon': Icons.stop_circle,
@@ -878,8 +846,7 @@ dynamic build(BuildContext context) {
   final forcePressItems = <Map<String, dynamic>>[
     {
       'title': 'What is Force Press?',
-      'desc':
-          '3D Touch / Force Touch on devices that support pressure '
+      'desc': '3D Touch / Force Touch on devices that support pressure '
           'sensitivity. When the user presses harder than a threshold, '
           'onForcePressStart fires. Lifting or reducing pressure fires '
           'onForcePressEnd.',
@@ -887,8 +854,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'iOS Behavior',
-      'desc':
-          'On iPhone with 3D Touch, a force press on text triggers '
+      'desc': 'On iPhone with 3D Touch, a force press on text triggers '
           'a "Peek" into the word — selecting it and showing a '
           'context menu. This is an alternative to long-press for '
           'faster interaction.',
@@ -896,16 +862,14 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Android / Desktop',
-      'desc':
-          'Most Android devices and desktop platforms do not support '
+      'desc': 'Most Android devices and desktop platforms do not support '
           'force press. The callbacks are simply never called. The '
           'detector gracefully falls back to long-press behavior.',
       'color': Colors.green,
     },
     {
       'title': 'Pressure Threshold',
-      'desc':
-          'The system defines a start threshold (typically 0.4 of '
+      'desc': 'The system defines a start threshold (typically 0.4 of '
           'max pressure) and an end threshold. The gesture detector '
           'monitors the PointerEvent.pressure field to trigger the '
           'callbacks.',
@@ -999,7 +963,10 @@ dynamic build(BuildContext context) {
                       left: 80,
                       top: 0,
                       bottom: 0,
-                      child: Container(width: 2, color: Colors.indigo),
+                      child: Container(
+                        width: 2,
+                        color: Colors.indigo,
+                      ),
                     ),
                   ],
                 ),
@@ -1033,39 +1000,33 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.gesture,
-      'text':
-          'TextSelectionGestureDetector translates raw pointer events '
+      'text': 'TextSelectionGestureDetector translates raw pointer events '
           'into text-selection callbacks: tap, double-tap, long-press, '
           'drag, and force press.',
     },
     {
       'icon': Icons.touch_app,
-      'text':
-          'Single tap places the cursor. Double-tap selects a word. '
+      'text': 'Single tap places the cursor. Double-tap selects a word. '
           'Long-press shows magnifier and starts selection.',
     },
     {
       'icon': Icons.swipe,
-      'text':
-          'Drag selection extends from the anchor point. Three '
+      'text': 'Drag selection extends from the anchor point. Three '
           'callbacks track start, update, and end.',
     },
     {
       'icon': Icons.security,
-      'text':
-          'Force press is iOS-specific (3D Touch). Other platforms '
+      'text': 'Force press is iOS-specific (3D Touch). Other platforms '
           'fall back to long-press behavior.',
     },
     {
       'icon': Icons.architecture,
-      'text':
-          'Used by TextSelectionGestureDetectorBuilder internally. '
+      'text': 'Used by TextSelectionGestureDetectorBuilder internally. '
           'TextField and CupertinoTextField wire it up automatically.',
     },
     {
       'icon': Icons.tune,
-      'text':
-          'Each callback is optional. Provide only those you need '
+      'text': 'Each callback is optional. Provide only those you need '
           'for your custom text editing experience.',
     },
   ];

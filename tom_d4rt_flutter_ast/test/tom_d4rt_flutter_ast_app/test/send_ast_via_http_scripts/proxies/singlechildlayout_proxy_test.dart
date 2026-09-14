@@ -675,7 +675,9 @@ dynamic build(BuildContext context) {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: CustomSingleChildLayout(
-                          delegate: const _AnchorBottomRightDelegate(inset: 12),
+                          delegate: const _AnchorBottomRightDelegate(
+                            inset: 12,
+                          ),
                           child: _childCard(
                             label: 'Anchored child',
                             background: const Color(0xFFFFEDD5),
@@ -760,7 +762,8 @@ dynamic build(BuildContext context) {
                             max: 3.0,
                             divisions: 25,
                             activeColor: const Color(0xFF0891B2),
-                            onChanged: (v) => setState(() => aspectRatio = v),
+                            onChanged: (v) =>
+                                setState(() => aspectRatio = v),
                           ),
                           const SizedBox(height: 8),
                           Container(
@@ -1298,7 +1301,8 @@ dynamic build(BuildContext context) {
                             max: 1.0,
                             divisions: 16,
                             activeColor: const Color(0xFFD97706),
-                            onChanged: (v) => setState(() => scaleFactor = v),
+                            onChanged: (v) =>
+                                setState(() => scaleFactor = v),
                           ),
                           const SizedBox(height: 8),
                           Container(
@@ -1489,7 +1493,8 @@ dynamic build(BuildContext context) {
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
                                         color: const Color(0xFF1E1B4B),
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius:
+                                            BorderRadius.circular(8),
                                       ),
                                       child: const Padding(
                                         padding: EdgeInsets.symmetric(
@@ -1691,7 +1696,9 @@ dynamic build(BuildContext context) {
                         },
                         children: const [
                           TableRow(
-                            decoration: BoxDecoration(color: Color(0xFFE2E8F0)),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFE2E8F0),
+                            ),
                             children: [
                               _Cell('Delegate', bold: true),
                               _Cell('getSize', bold: true),

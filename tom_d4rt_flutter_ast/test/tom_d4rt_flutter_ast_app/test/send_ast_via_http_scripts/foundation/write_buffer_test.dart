@@ -209,10 +209,7 @@ class _TitleHeader extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                _Pill(
-                  label: 'package:flutter/foundation.dart',
-                  color: _Palette.section1,
-                ),
+                _Pill(label: 'package:flutter/foundation.dart', color: _Palette.section1),
                 _Pill(label: 'typed_data', color: _Palette.section2),
                 _Pill(label: 'binary protocols', color: _Palette.section3),
                 _Pill(label: 'platform channels', color: _Palette.section4),
@@ -522,7 +519,10 @@ class _ByteCell extends StatelessWidget {
           if (label != null)
             Text(
               label!,
-              style: const TextStyle(fontSize: 9, color: _Palette.subInk),
+              style: const TextStyle(
+                fontSize: 9,
+                color: _Palette.subInk,
+              ),
               overflow: TextOverflow.ellipsis,
             ),
         ],
@@ -605,7 +605,10 @@ class _LabeledHex extends StatelessWidget {
               ),
               Text(
                 '${bytes.length} B',
-                style: const TextStyle(fontSize: 11, color: _Palette.faintInk),
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: _Palette.faintInk,
+                ),
               ),
             ],
           ),
@@ -696,7 +699,9 @@ class _Note extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withOpacity(0.08),
         borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: color, width: 4)),
+        border: Border(
+          left: BorderSide(color: color, width: 4),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -777,10 +782,7 @@ class _Section1Dossier extends StatelessWidget {
             'Make growth amortized O(1) by capacity doubling.',
           ],
         ),
-        const _SubHeading(
-          text: 'API surface (cheat sheet)',
-          color: _Palette.section1,
-        ),
+        const _SubHeading(text: 'API surface (cheat sheet)', color: _Palette.section1),
         const _CodeBlock(
           'final WriteBuffer w = WriteBuffer();\n'
           'w.putUint8(0xAB);\n'
@@ -802,10 +804,7 @@ class _Section1Dossier extends StatelessWidget {
               'Rule of thumb: prefer WriteBuffer over manual ByteData + offset '
               'tracking whenever the payload size is not known up front.',
         ),
-        const _SubHeading(
-          text: 'Use cases observed in Flutter',
-          color: _Palette.section1,
-        ),
+        const _SubHeading(text: 'Use cases observed in Flutter', color: _Palette.section1),
         const _BulletList(
           items: <String>[
             'StandardMessageCodec — encoding Maps, Lists, primitives over channels.',
@@ -907,19 +906,7 @@ class _Section2Anatomy extends StatelessWidget {
         const _SubHeading(text: 'Cumulative write', color: _Palette.section2),
         _CumulativeWrite(
           bytes: <int>[...u8, ...u16, ...u32, ...i32neg],
-          labels: <String>[
-            'u8',
-            'u16',
-            'u16',
-            'u32',
-            'u32',
-            'u32',
-            'u32',
-            'i32',
-            'i32',
-            'i32',
-            'i32',
-          ],
+          labels: <String>['u8', 'u16', 'u16', 'u32', 'u32', 'u32', 'u32', 'i32', 'i32', 'i32', 'i32'],
         ),
         const _Paragraph(
           'Each cell above shows one byte of the buffer after four writes; the '
@@ -1046,9 +1033,8 @@ class _Section3Endianness extends StatelessWidget {
     const int value = 0x12345678;
     final List<int> le = _bytesOfInt32LE(value);
     final List<int> be = _bytesOfInt32BE(value);
-    final String host = Endian.host == Endian.little
-        ? 'Endian.little'
-        : 'Endian.big';
+    final String host =
+        Endian.host == Endian.little ? 'Endian.little' : 'Endian.big';
 
     return _SectionFrame(
       number: 3,
@@ -1061,10 +1047,7 @@ class _Section3Endianness extends StatelessWidget {
           'is host endian, which on virtually every modern target is little-endian. '
           'Wire formats often specify big-endian (network byte order), so be deliberate.',
         ),
-        const _SubHeading(
-          text: 'Example: 0x12345678',
-          color: _Palette.section3,
-        ),
+        const _SubHeading(text: 'Example: 0x12345678', color: _Palette.section3),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -1096,10 +1079,7 @@ class _Section3Endianness extends StatelessWidget {
               'this as the default, but always pass an explicit Endian for '
               'wire-format code.',
         ),
-        const _SubHeading(
-          text: 'Side-by-side byte layout',
-          color: _Palette.section3,
-        ),
+        const _SubHeading(text: 'Side-by-side byte layout', color: _Palette.section3),
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
@@ -1165,11 +1145,7 @@ class _EndianRow extends StatelessWidget {
   final String label;
   final List<int> bytes;
   final Color color;
-  const _EndianRow({
-    required this.label,
-    required this.bytes,
-    required this.color,
-  });
+  const _EndianRow({required this.label, required this.bytes, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -1187,7 +1163,8 @@ class _EndianRow extends StatelessWidget {
             ),
           ),
         ),
-        for (final int b in bytes) _ByteCell(byte: b, background: color),
+        for (final int b in bytes)
+          _ByteCell(byte: b, background: color),
       ],
     );
   }
@@ -1331,10 +1308,7 @@ class _Section4Header extends StatelessWidget {
           color: _Palette.byteU32,
           comment: 'Simple integrity check over the payload.',
         ),
-        const _SubHeading(
-          text: 'Final 16-byte header',
-          color: _Palette.section4,
-        ),
+        const _SubHeading(text: 'Final 16-byte header', color: _Palette.section4),
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
@@ -1342,11 +1316,7 @@ class _Section4Header extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: _Palette.hexCellBorder),
           ),
-          child: _HexRow(
-            bytes: header,
-            background: Colors.white,
-            showOffsets: true,
-          ),
+          child: _HexRow(bytes: header, background: Colors.white, showOffsets: true),
         ),
         const SizedBox(height: 6),
         _PacketDiagram(header: header),
@@ -1383,11 +1353,7 @@ class _PacketDiagram extends StatelessWidget {
               _DiagSlice(text: 'ver\n2 B', color: _Palette.byteU16, flex: 2),
               _DiagSlice(text: 'rsv\n2 B', color: _Palette.byteU8, flex: 2),
               _DiagSlice(text: 'length\n4 B', color: _Palette.byteU32, flex: 4),
-              _DiagSlice(
-                text: 'checksum\n4 B',
-                color: _Palette.byteU32,
-                flex: 4,
-              ),
+              _DiagSlice(text: 'checksum\n4 B', color: _Palette.byteU32, flex: 4),
             ],
           ),
           const SizedBox(height: 6),
@@ -1409,11 +1375,7 @@ class _DiagSlice extends StatelessWidget {
   final String text;
   final Color color;
   final int flex;
-  const _DiagSlice({
-    required this.text,
-    required this.color,
-    required this.flex,
-  });
+  const _DiagSlice({required this.text, required this.color, required this.flex});
 
   @override
   Widget build(BuildContext context) {
@@ -1483,10 +1445,7 @@ class _Section5Strings extends StatelessWidget {
         ),
         const _SubHeading(text: '"flutter" (ASCII)', color: _Palette.section5),
         _StringRow(string: s1, lenBytes: len1, bodyBytes: b1),
-        const _SubHeading(
-          text: '"café" (Latin-1 + multi-byte)',
-          color: _Palette.section5,
-        ),
+        const _SubHeading(text: '"café" (Latin-1 + multi-byte)', color: _Palette.section5),
         _StringRow(string: s2, lenBytes: len2, bodyBytes: b2),
         const _Note(
           icon: Icons.warning_amber_outlined,
@@ -1501,10 +1460,7 @@ class _Section5Strings extends StatelessWidget {
           'Three Japanese code points yielding nine bytes: each character occupies '
           'three bytes in UTF-8. Length-prefix counts bytes, not characters.',
         ),
-        const _SubHeading(
-          text: 'Alternative prefix sizes',
-          color: _Palette.section5,
-        ),
+        const _SubHeading(text: 'Alternative prefix sizes', color: _Palette.section5),
         const _BulletList(
           items: <String>[
             'uint8  length: strings up to 255 bytes — useful for tags/names.',
@@ -1563,7 +1519,10 @@ class _StringRow extends StatelessWidget {
               const SizedBox(width: 10),
               Text(
                 'chars: ${string.runes.length}   bytes: ${bodyBytes.length}',
-                style: const TextStyle(fontSize: 11.5, color: _Palette.subInk),
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  color: _Palette.subInk,
+                ),
               ),
             ],
           ),
@@ -1647,8 +1606,7 @@ class _Section6MixedRecord extends StatelessWidget {
     return _SectionFrame(
       number: 6,
       title: 'MIXED BINARY RECORD',
-      subtitle:
-          'Float64List + Uint8List + length-prefixed string in one buffer.',
+      subtitle: 'Float64List + Uint8List + length-prefixed string in one buffer.',
       color: _Palette.section6,
       children: <Widget>[
         const _Paragraph(
@@ -1673,27 +1631,11 @@ class _Section6MixedRecord extends StatelessWidget {
           'final ByteData out = w.done();',
         ),
         const _SubHeading(text: 'Field anatomy', color: _Palette.section6),
-        _KvRow(
-          k: 'id',
-          v: '0x${id.toRadixString(16).toUpperCase()}',
-          icon: Icons.tag,
-        ),
+        _KvRow(k: 'id', v: '0x${id.toRadixString(16).toUpperCase()}', icon: Icons.tag),
         _KvRow(k: 'timestamp', v: ts.toString(), icon: Icons.access_time),
-        _KvRow(
-          k: 'name',
-          v: '"$name" (${nameBytes.length} B)',
-          icon: Icons.label_outline,
-        ),
-        _KvRow(
-          k: 'samples',
-          v: '${samples.length} × float64',
-          icon: Icons.timeline,
-        ),
-        _KvRow(
-          k: 'tags',
-          v: '${tags.length} bytes bitmap',
-          icon: Icons.bookmark_outline,
-        ),
+        _KvRow(k: 'name', v: '"$name" (${nameBytes.length} B)', icon: Icons.label_outline),
+        _KvRow(k: 'samples', v: '${samples.length} × float64', icon: Icons.timeline),
+        _KvRow(k: 'tags', v: '${tags.length} bytes bitmap', icon: Icons.bookmark_outline),
         const SizedBox(height: 8),
         const _SubHeading(text: 'Hex panel', color: _Palette.section6),
         _LabeledHex(
@@ -1747,11 +1689,7 @@ class _Section6MixedRecord extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: _Palette.hexCellBorder),
           ),
-          child: _HexRow(
-            bytes: record,
-            background: Colors.white,
-            showOffsets: true,
-          ),
+          child: _HexRow(bytes: record, background: Colors.white, showOffsets: true),
         ),
         const SizedBox(height: 6),
         _Note(
@@ -1788,10 +1726,7 @@ class _Section7Comparison extends StatelessWidget {
         ),
         const _ComparisonTable(),
         const SizedBox(height: 8),
-        const _SubHeading(
-          text: 'When to reach for each',
-          color: _Palette.section7,
-        ),
+        const _SubHeading(text: 'When to reach for each', color: _Palette.section7),
         const _CompCard(
           title: 'WriteBuffer',
           desc:
@@ -1863,7 +1798,12 @@ class _ComparisonTable extends StatelessWidget {
       child: Column(
         children: const <Widget>[
           _CompHeader(),
-          _CompRow(criterion: 'Growable', wb: 'yes', bd: 'no', bb: 'yes'),
+          _CompRow(
+            criterion: 'Growable',
+            wb: 'yes',
+            bd: 'no',
+            bb: 'yes',
+          ),
           _CompRow(
             criterion: 'Typed writers',
             wb: 'int8..int64, float32/64',
@@ -1976,7 +1916,9 @@ class _CompRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: _Palette.hexCellBorder)),
+        border: Border(
+          top: BorderSide(color: _Palette.hexCellBorder),
+        ),
       ),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       child: Row(
@@ -2107,10 +2049,7 @@ class _Section8Pitfalls extends StatelessWidget {
       subtitle: 'Alignment, signed-vs-unsigned, and the silent ones.',
       color: _Palette.section8,
       children: <Widget>[
-        const _SubHeading(
-          text: 'Pitfall 1 — Alignment expectations',
-          color: _Palette.section8,
-        ),
+        const _SubHeading(text: 'Pitfall 1 — Alignment expectations', color: _Palette.section8),
         const _Paragraph(
           'WriteBuffer does not pad to any natural alignment. If a putUint8 '
           'precedes a putFloat64, the float\'s 8 bytes will start on an odd '
@@ -2137,11 +2076,7 @@ class _Section8Pitfalls extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 6),
-              _HexRow(
-                bytes: u8Then,
-                background: Colors.white,
-                showOffsets: true,
-              ),
+              _HexRow(bytes: u8Then, background: Colors.white, showOffsets: true),
               const SizedBox(height: 6),
               const Text(
                 'The float now lives at offset +01, not +00 or +08. Pad '
@@ -2156,10 +2091,7 @@ class _Section8Pitfalls extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        const _SubHeading(
-          text: 'Pitfall 2 — Signed vs unsigned',
-          color: _Palette.section8,
-        ),
+        const _SubHeading(text: 'Pitfall 2 — Signed vs unsigned', color: _Palette.section8),
         const _Paragraph(
           'WriteBuffer has both putInt32(-1) and putUint32(0xFFFFFFFF). Both '
           'produce identical bytes (FF FF FF FF), but ReadBuffer.getInt32 and '
@@ -2188,27 +2120,18 @@ class _Section8Pitfalls extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 10),
-        const _SubHeading(
-          text: 'Pitfall 3 — Endianness drift',
-          color: _Palette.section8,
-        ),
+        const _SubHeading(text: 'Pitfall 3 — Endianness drift', color: _Palette.section8),
         const _Paragraph(
           'Mixing host-default writes on one side with explicit Endian.big on '
           'the other side silently corrupts every multi-byte value. Always be '
           'explicit at the protocol boundary.',
         ),
-        const _SubHeading(
-          text: 'Pitfall 4 — Forgetting length prefixes',
-          color: _Palette.section8,
-        ),
+        const _SubHeading(text: 'Pitfall 4 — Forgetting length prefixes', color: _Palette.section8),
         const _Paragraph(
           'There is no implicit terminator for variable-length payloads. Omit a '
           'length prefix and the decoder has no way to find the next field.',
         ),
-        const _SubHeading(
-          text: 'Pitfall 5 — Reusing a done() buffer',
-          color: _Palette.section8,
-        ),
+        const _SubHeading(text: 'Pitfall 5 — Reusing a done() buffer', color: _Palette.section8),
         const _Paragraph(
           'WriteBuffer is a one-shot pipeline: after done() it should be '
           'discarded. Subsequent writes will misbehave or throw.',
@@ -2220,10 +2143,7 @@ class _Section8Pitfalls extends StatelessWidget {
               'Defence: write a tiny round-trip test for every binary protocol. '
               'WriteBuffer → bytes → ReadBuffer → original value, asserted exactly.',
         ),
-        const _SubHeading(
-          text: 'Common bug taxonomy',
-          color: _Palette.section8,
-        ),
+        const _SubHeading(text: 'Common bug taxonomy', color: _Palette.section8),
         const _BulletList(
           items: <String>[
             'Off-by-one length: counts characters where it should count bytes.',
@@ -2480,10 +2400,7 @@ class _Section10Recap extends StatelessWidget {
           '  );\n'
           '}',
         ),
-        const _SubHeading(
-          text: 'Anti-pattern reminders',
-          color: _Palette.section10,
-        ),
+        const _SubHeading(text: 'Anti-pattern reminders', color: _Palette.section10),
         const _BulletList(
           items: <String>[
             'Do not mutate a WriteBuffer after done().',
@@ -2493,10 +2410,7 @@ class _Section10Recap extends StatelessWidget {
             'Do not mix signed and unsigned readers/writers without explicit conversion.',
           ],
         ),
-        const _SubHeading(
-          text: 'Where to look next',
-          color: _Palette.section10,
-        ),
+        const _SubHeading(text: 'Where to look next', color: _Palette.section10),
         const _BulletList(
           items: <String>[
             'ReadBuffer — the mirror image of WriteBuffer.',

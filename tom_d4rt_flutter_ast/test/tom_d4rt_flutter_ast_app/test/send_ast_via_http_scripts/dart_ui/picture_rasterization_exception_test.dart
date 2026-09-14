@@ -14,12 +14,10 @@ class _PictureRasterizationExceptionDemoPage extends StatefulWidget {
   const _PictureRasterizationExceptionDemoPage();
 
   @override
-  State<_PictureRasterizationExceptionDemoPage> createState() =>
-      _PictureRasterizationExceptionDemoPageState();
+  State<_PictureRasterizationExceptionDemoPage> createState() => _PictureRasterizationExceptionDemoPageState();
 }
 
-class _PictureRasterizationExceptionDemoPageState
-    extends State<_PictureRasterizationExceptionDemoPage> {
+class _PictureRasterizationExceptionDemoPageState extends State<_PictureRasterizationExceptionDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<String> _notes = <String>[];
@@ -39,29 +37,12 @@ class _PictureRasterizationExceptionDemoPageState
   double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0F172A),
-      const Color(0xFF1E293B),
-      const Color(0xFF38BDF8),
-    ],
-    <Color>[
-      const Color(0xFF3F1D38),
-      const Color(0xFF7B2D5E),
-      const Color(0xFFFB7185),
-    ],
-    <Color>[
-      const Color(0xFF064E3B),
-      const Color(0xFF047857),
-      const Color(0xFF34D399),
-    ],
+    <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
+    <Color>[const Color(0xFF3F1D38), const Color(0xFF7B2D5E), const Color(0xFFFB7185)],
+    <Color>[const Color(0xFF064E3B), const Color(0xFF047857), const Color(0xFF34D399)],
   ];
 
-  static const List<String> _sceneNames = <String>[
-    'Shapes Grid',
-    'Radial Burst',
-    'Bezier Weave',
-    'Text Layers',
-  ];
+  static const List<String> _sceneNames = <String>['Shapes Grid', 'Radial Burst', 'Bezier Weave', 'Text Layers'];
 
   @override
   void initState() {
@@ -118,17 +99,8 @@ class _PictureRasterizationExceptionDemoPageState
           final Paint p = Paint()
             ..style = PaintingStyle.stroke
             ..strokeWidth = _strokeWidth * pressureScale
-            ..color =
-                Color.lerp(
-                  const Color(0xFF2563EB),
-                  const Color(0xFF22D3EE),
-                  j / ny,
-                ) ??
-                const Color(0xFF2563EB);
-          canvas.drawRRect(
-            RRect.fromRectAndRadius(r, const Radius.circular(8)),
-            p,
-          );
+            ..color = Color.lerp(const Color(0xFF2563EB), const Color(0xFF22D3EE), j / ny) ?? const Color(0xFF2563EB);
+          canvas.drawRRect(RRect.fromRectAndRadius(r, const Radius.circular(8)), p);
         }
       }
     } else if (_sceneType == 1) {
@@ -137,16 +109,11 @@ class _PictureRasterizationExceptionDemoPageState
       for (int i = 0; i < rays; i++) {
         final double t = i / rays;
         final double angle = t * math.pi * 2;
-        final double radius =
-            size.shortestSide *
-            (0.25 + 0.35 * (0.5 + 0.5 * math.sin(angle * 3)));
-        final Offset end =
-            c + Offset(math.cos(angle), math.sin(angle)) * radius;
+        final double radius = size.shortestSide * (0.25 + 0.35 * (0.5 + 0.5 * math.sin(angle * 3)));
+        final Offset end = c + Offset(math.cos(angle), math.sin(angle)) * radius;
         final Paint p = Paint()
           ..strokeWidth = (_strokeWidth + t * 2) * pressureScale
-          ..color =
-              Color.lerp(const Color(0xFF7C3AED), const Color(0xFFF97316), t) ??
-              const Color(0xFF7C3AED);
+          ..color = Color.lerp(const Color(0xFF7C3AED), const Color(0xFFF97316), t) ?? const Color(0xFF7C3AED);
         canvas.drawLine(c, end, p);
       }
       canvas.drawCircle(c, 12, Paint()..color = const Color(0xFF0EA5E9));
@@ -167,36 +134,22 @@ class _PictureRasterizationExceptionDemoPageState
         final Paint p = Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = (_strokeWidth + 0.5) * pressureScale
-          ..color =
-              Color.lerp(const Color(0xFF0F766E), const Color(0xFF22C55E), t) ??
-              const Color(0xFF0F766E);
+          ..color = Color.lerp(const Color(0xFF0F766E), const Color(0xFF22C55E), t) ?? const Color(0xFF0F766E);
         canvas.drawPath(path, p);
       }
     } else {
       final int lines = (2 + _complexity * 9).round();
-      final ui.ParagraphBuilder b =
-          ui.ParagraphBuilder(
-              ui.ParagraphStyle(
-                fontSize: 14 + _complexity * 16,
-                fontWeight: FontWeight.w600,
-              ),
-            )
-            ..pushStyle(ui.TextStyle(color: const Color(0xFF0F172A)))
-            ..addText('Raster diagnostics scene\n');
+      final ui.ParagraphBuilder b = ui.ParagraphBuilder(
+        ui.ParagraphStyle(fontSize: 14 + _complexity * 16, fontWeight: FontWeight.w600),
+      )
+        ..pushStyle(ui.TextStyle(color: const Color(0xFF0F172A)))
+        ..addText('Raster diagnostics scene\n');
       for (int i = 0; i < lines; i++) {
-        b.pushStyle(
-          ui.TextStyle(
-            color: Color.lerp(
-              const Color(0xFF2563EB),
-              const Color(0xFFBE123C),
-              i / lines,
-            ),
-            fontSize: 12 + i.toDouble(),
-          ),
-        );
-        b.addText(
-          'Layer ${i + 1}: complexity ${(100 * _complexity).round()}%\n',
-        );
+        b.pushStyle(ui.TextStyle(
+          color: Color.lerp(const Color(0xFF2563EB), const Color(0xFFBE123C), i / lines),
+          fontSize: 12 + i.toDouble(),
+        ));
+        b.addText('Layer ${i + 1}: complexity ${(100 * _complexity).round()}%\n');
       }
       final ui.Paragraph p = b.build();
       p.layout(ui.ParagraphConstraints(width: size.width - 24));
@@ -233,9 +186,7 @@ class _PictureRasterizationExceptionDemoPageState
           exceptionType: null,
         ),
       );
-      _emit(
-        'Rasterization success: ${_sceneNames[_sceneType]} ${w}x$h in ${elapsed.inMilliseconds}ms.',
-      );
+      _emit('Rasterization success: ${_sceneNames[_sceneType]} ${w}x$h in ${elapsed.inMilliseconds}ms.');
     } catch (e) {
       final Duration elapsed = DateTime.now().difference(start);
       _attempts.insert(
@@ -274,14 +225,9 @@ class _PictureRasterizationExceptionDemoPageState
       }
     }
 
-    probe(
-      'PictureRasterizationException symbol contains Picture',
-      'PictureRasterizationException'.contains('Picture'),
-    );
-    probe(
-      'PictureRasterizationException symbol contains Rasterization',
-      'PictureRasterizationException'.contains('Rasterization'),
-    );
+    probe('PictureRasterizationException symbol contains Picture', 'PictureRasterizationException'.contains('Picture'));
+    probe('PictureRasterizationException symbol contains Rasterization',
+        'PictureRasterizationException'.contains('Rasterization'));
 
     final ui.Picture p = _buildPicture(const Size(120, 80));
     try {
@@ -302,10 +248,7 @@ class _PictureRasterizationExceptionDemoPageState
     probe('Picture.toImage throws on invalid dimensions', invalidThrew);
 
     p.dispose();
-    probe(
-      'summary text can be generated',
-      '${_passed.length + _failed.length} checks'.endsWith('checks'),
-    );
+    probe('summary text can be generated', '${_passed.length + _failed.length} checks'.endsWith('checks'));
     if (mounted) {
       setState(() {});
     }
@@ -319,24 +262,14 @@ class _PictureRasterizationExceptionDemoPageState
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: c),
         borderRadius: BorderRadius.circular(18),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: c[1].withAlpha(95),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
-        ],
+        boxShadow: <BoxShadow>[BoxShadow(color: c[1].withAlpha(95), blurRadius: 16, offset: const Offset(0, 8))],
       ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             'Picture Rasterization Diagnostics',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Text(
@@ -363,25 +296,16 @@ class _PictureRasterizationExceptionDemoPageState
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: accent.withAlpha(36),
-              borderRadius: BorderRadius.circular(8),
-            ),
+            decoration: BoxDecoration(color: accent.withAlpha(36), borderRadius: BorderRadius.circular(8)),
             child: Icon(icon, color: accent),
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 2),
-                Text(subtitle, style: const TextStyle(fontSize: 12.2)),
-              ],
-            ),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+              Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
+              const SizedBox(height: 2),
+              Text(subtitle, style: const TextStyle(fontSize: 12.2)),
+            ]),
           ),
         ],
       ),
@@ -399,53 +323,29 @@ class _PictureRasterizationExceptionDemoPageState
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: c.withAlpha(90)),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Icon(i, color: c),
-              const SizedBox(height: 8),
-              Text(
-                t,
-                style: TextStyle(color: c, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 4),
-              Text(d, style: const TextStyle(fontSize: 12)),
-            ],
-          ),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+            Icon(i, color: c),
+            const SizedBox(height: 8),
+            Text(t, style: TextStyle(color: c, fontWeight: FontWeight.w700)),
+            const SizedBox(height: 4),
+            Text(d, style: const TextStyle(fontSize: 12)),
+          ]),
         ),
       );
     }
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: <Widget>[
-          card(
-            'Recording stage',
-            'Canvas commands are captured into a Picture.',
-            Icons.fiber_manual_record,
-            const Color(0xFF2563EB),
-          ),
-          card(
-            'Raster stage',
-            'Picture is converted into pixel image memory.',
-            Icons.image,
-            const Color(0xFF7C3AED),
-          ),
-          card(
-            'Failure handling',
-            'Catch and inspect rasterization exceptions.',
-            Icons.bug_report,
-            const Color(0xFFBE123C),
-          ),
-          card(
-            'Operational tuning',
-            'Control dimensions and complexity for diagnostics.',
-            Icons.tune,
-            const Color(0xFF0F766E),
-          ),
-        ],
-      ),
+      child: Row(children: <Widget>[
+        card('Recording stage', 'Canvas commands are captured into a Picture.', Icons.fiber_manual_record,
+            const Color(0xFF2563EB)),
+        card('Raster stage', 'Picture is converted into pixel image memory.', Icons.image,
+            const Color(0xFF7C3AED)),
+        card('Failure handling', 'Catch and inspect rasterization exceptions.', Icons.bug_report,
+            const Color(0xFFBE123C)),
+        card('Operational tuning', 'Control dimensions and complexity for diagnostics.', Icons.tune,
+            const Color(0xFF0F766E)),
+      ]),
     );
   }
 
@@ -458,128 +358,80 @@ class _PictureRasterizationExceptionDemoPageState
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'Rasterization control lab',
-            style: TextStyle(fontWeight: FontWeight.w700),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        const Text('Rasterization control lab', style: TextStyle(fontWeight: FontWeight.w700)),
+        const SizedBox(height: 8),
+        DropdownButton<int>(
+          value: _sceneType,
+          isExpanded: true,
+          onChanged: (int? v) {
+            if (v != null) {
+              setState(() => _sceneType = v);
+              _emit('Scene switched to ${_sceneNames[v]}.');
+            }
+          },
+          items: List<DropdownMenuItem<int>>.generate(
+            _sceneNames.length,
+            (int i) => DropdownMenuItem<int>(value: i, child: Text(_sceneNames[i])),
           ),
-          const SizedBox(height: 8),
-          DropdownButton<int>(
-            value: _sceneType,
-            isExpanded: true,
-            onChanged: (int? v) {
-              if (v != null) {
-                setState(() => _sceneType = v);
-                _emit('Scene switched to ${_sceneNames[v]}.');
+        ),
+        Text('Complexity: ${(100 * _complexity).round()}%'),
+        Slider(value: _complexity, min: 0, max: 1, divisions: 100, onChanged: (double v) => setState(() => _complexity = v)),
+        Text('Stroke width: ${_strokeWidth.toStringAsFixed(1)}'),
+        Slider(value: _strokeWidth, min: 0.5, max: 10, divisions: 95, onChanged: (double v) => setState(() => _strokeWidth = v)),
+        Text('Target width: ${_targetWidth.round()}'),
+        Slider(value: _targetWidth, min: 32, max: 1024, divisions: 248, onChanged: (double v) => setState(() => _targetWidth = v)),
+        Text('Target height: ${_targetHeight.round()}'),
+        Slider(value: _targetHeight, min: 32, max: 768, divisions: 184, onChanged: (double v) => setState(() => _targetHeight = v)),
+        Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
+          FilterChip(
+              label: const Text('force invalid size'),
+              selected: _forceInvalidSize,
+              onSelected: (bool v) => setState(() => _forceInvalidSize = v)),
+          FilterChip(label: const Text('show grid'), selected: _showGrid, onSelected: (bool v) => setState(() => _showGrid = v)),
+          FilterChip(
+              label: const Text('simulate pressure'), selected: _simulatePressure, onSelected: (bool v) => setState(() => _simulatePressure = v)),
+          FilterChip(
+            label: const Text('animate'),
+            selected: _animate,
+            onSelected: (bool v) {
+              setState(() => _animate = v);
+              if (_animate) {
+                /* animation removed */
+              } else {
+                /* animation removed */
               }
             },
-            items: List<DropdownMenuItem<int>>.generate(
-              _sceneNames.length,
-              (int i) =>
-                  DropdownMenuItem<int>(value: i, child: Text(_sceneNames[i])),
-            ),
           ),
-          Text('Complexity: ${(100 * _complexity).round()}%'),
-          Slider(
-            value: _complexity,
-            min: 0,
-            max: 1,
-            divisions: 100,
-            onChanged: (double v) => setState(() => _complexity = v),
+        ]),
+        const SizedBox(height: 8),
+        Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
+          ElevatedButton.icon(
+            onPressed: _attemptRasterization,
+            icon: const Icon(Icons.play_arrow),
+            label: const Text('Attempt Rasterization'),
           ),
-          Text('Stroke width: ${_strokeWidth.toStringAsFixed(1)}'),
-          Slider(
-            value: _strokeWidth,
-            min: 0.5,
-            max: 10,
-            divisions: 95,
-            onChanged: (double v) => setState(() => _strokeWidth = v),
+          OutlinedButton.icon(
+            onPressed: () {
+              _attempts.clear();
+              _emit('Cleared rasterization attempt log.');
+              setState(() {});
+            },
+            icon: const Icon(Icons.clear_all),
+            label: const Text('Clear Attempts'),
           ),
-          Text('Target width: ${_targetWidth.round()}'),
-          Slider(
-            value: _targetWidth,
-            min: 32,
-            max: 1024,
-            divisions: 248,
-            onChanged: (double v) => setState(() => _targetWidth = v),
+          OutlinedButton.icon(
+            onPressed: _runProbes,
+            icon: const Icon(Icons.fact_check_outlined),
+            label: const Text('Run Probes'),
           ),
-          Text('Target height: ${_targetHeight.round()}'),
-          Slider(
-            value: _targetHeight,
-            min: 32,
-            max: 768,
-            divisions: 184,
-            onChanged: (double v) => setState(() => _targetHeight = v),
+          OutlinedButton.icon(
+            onPressed: () => setState(() => _theme = (_theme + 1) % _themes.length),
+            icon: const Icon(Icons.palette_outlined),
+            label: const Text('Theme'),
           ),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: <Widget>[
-              FilterChip(
-                label: const Text('force invalid size'),
-                selected: _forceInvalidSize,
-                onSelected: (bool v) => setState(() => _forceInvalidSize = v),
-              ),
-              FilterChip(
-                label: const Text('show grid'),
-                selected: _showGrid,
-                onSelected: (bool v) => setState(() => _showGrid = v),
-              ),
-              FilterChip(
-                label: const Text('simulate pressure'),
-                selected: _simulatePressure,
-                onSelected: (bool v) => setState(() => _simulatePressure = v),
-              ),
-              FilterChip(
-                label: const Text('animate'),
-                selected: _animate,
-                onSelected: (bool v) {
-                  setState(() => _animate = v);
-                  if (_animate) {
-                    /* animation removed */
-                  } else {
-                    /* animation removed */
-                  }
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: <Widget>[
-              ElevatedButton.icon(
-                onPressed: _attemptRasterization,
-                icon: const Icon(Icons.play_arrow),
-                label: const Text('Attempt Rasterization'),
-              ),
-              OutlinedButton.icon(
-                onPressed: () {
-                  _attempts.clear();
-                  _emit('Cleared rasterization attempt log.');
-                  setState(() {});
-                },
-                icon: const Icon(Icons.clear_all),
-                label: const Text('Clear Attempts'),
-              ),
-              OutlinedButton.icon(
-                onPressed: _runProbes,
-                icon: const Icon(Icons.fact_check_outlined),
-                label: const Text('Run Probes'),
-              ),
-              OutlinedButton.icon(
-                onPressed: () =>
-                    setState(() => _theme = (_theme + 1) % _themes.length),
-                icon: const Icon(Icons.palette_outlined),
-                label: const Text('Theme'),
-              ),
-            ],
-          ),
-        ],
-      ),
+        ]),
+      ]),
     );
   }
 
@@ -592,35 +444,29 @@ class _PictureRasterizationExceptionDemoPageState
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'Picture recording preview',
-            style: TextStyle(fontWeight: FontWeight.w700),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        const Text('Picture recording preview', style: TextStyle(fontWeight: FontWeight.w700)),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: double.infinity,
+          height: 230,
+          child: Builder(
+            builder: (BuildContext context) {
+              return CustomPaint(
+                painter: _ScenePreviewPainter(
+                  sceneType: _sceneType,
+                  complexity: _complexity,
+                  strokeWidth: _strokeWidth,
+                  showGrid: _showGrid,
+                  pulse: _animate ? _animValue : 0,
+                ),
+              );
+            },
           ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            height: 230,
-            child: Builder(
-              builder: (BuildContext context) {
-                return CustomPaint(
-                  painter: _ScenePreviewPainter(
-                    sceneType: _sceneType,
-                    complexity: _complexity,
-                    strokeWidth: _strokeWidth,
-                    showGrid: _showGrid,
-                    pulse: _animate ? _animValue : 0,
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text('Preview scene: ${_sceneNames[_sceneType]}'),
-        ],
-      ),
+        ),
+        const SizedBox(height: 8),
+        Text('Preview scene: ${_sceneNames[_sceneType]}'),
+      ]),
     );
   }
 
@@ -633,96 +479,58 @@ class _PictureRasterizationExceptionDemoPageState
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'Rasterization attempt timeline',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 220,
-            child: _attempts.isEmpty
-                ? const Center(
-                    child: Text(
-                      'No attempts yet. Trigger rasterization from control panel.',
-                      style: TextStyle(
-                        fontSize: 12.2,
-                        color: Color(0xFF64748B),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        const Text('Rasterization attempt timeline', style: TextStyle(fontWeight: FontWeight.w700)),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 220,
+          child: _attempts.isEmpty
+              ? const Center(
+                  child: Text('No attempts yet. Trigger rasterization from control panel.',
+                      style: TextStyle(fontSize: 12.2, color: Color(0xFF64748B))),
+                )
+              : ListView.builder(
+                  itemCount: _attempts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final _RasterAttempt a = _attempts[index];
+                    final Color c = a.ok ? const Color(0xFF16A34A) : const Color(0xFFB91C1C);
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: c.withAlpha(20),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: c.withAlpha(95)),
                       ),
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: _attempts.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final _RasterAttempt a = _attempts[index];
-                      final Color c = a.ok
-                          ? const Color(0xFF16A34A)
-                          : const Color(0xFFB91C1C);
-                      return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 4),
-                        padding: const EdgeInsets.all(9),
-                        decoration: BoxDecoration(
-                          color: c.withAlpha(20),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: c.withAlpha(95)),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  a.ok ? Icons.check_circle : Icons.error,
-                                  color: c,
-                                  size: 18,
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    '${a.scene} | ${a.width}x${a.height} | ${a.elapsedMs}ms | ${a.ok ? 'OK' : 'FAIL'}',
-                                    style: const TextStyle(fontSize: 12.2),
-                                  ),
-                                ),
-                              ],
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                        Row(children: <Widget>[
+                          Icon(a.ok ? Icons.check_circle : Icons.error, color: c, size: 18),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              '${a.scene} | ${a.width}x${a.height} | ${a.elapsedMs}ms | ${a.ok ? 'OK' : 'FAIL'}',
+                              style: const TextStyle(fontSize: 12.2),
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              a.exceptionType == null
-                                  ? a.message
-                                  : '${a.exceptionType}: ${a.message}',
-                              style: const TextStyle(fontSize: 11.8),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-          ),
-        ],
-      ),
+                          ),
+                        ]),
+                        const SizedBox(height: 4),
+                        Text(a.exceptionType == null ? a.message : '${a.exceptionType}: ${a.message}',
+                            style: const TextStyle(fontSize: 11.8)),
+                      ]),
+                    );
+                  },
+                ),
+        ),
+      ]),
     );
   }
 
   Widget _guidancePanel() {
     final List<_GuideRow> rows = <_GuideRow>[
-      const _GuideRow(
-        'Validate dimensions',
-        'Avoid 0 or negative target sizes before toImage calls.',
-      ),
-      const _GuideRow(
-        'Bound complexity',
-        'Large scenes at huge output sizes can increase failure risk.',
-      ),
-      const _GuideRow(
-        'Capture exception text',
-        'Store message + runtimeType for diagnostics and telemetry.',
-      ),
-      const _GuideRow(
-        'Fallback strategy',
-        'Retry with lower resolution or simpler drawing content.',
-      ),
+      const _GuideRow('Validate dimensions', 'Avoid 0 or negative target sizes before toImage calls.'),
+      const _GuideRow('Bound complexity', 'Large scenes at huge output sizes can increase failure risk.'),
+      const _GuideRow('Capture exception text', 'Store message + runtimeType for diagnostics and telemetry.'),
+      const _GuideRow('Fallback strategy', 'Retry with lower resolution or simpler drawing content.'),
     ];
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -732,41 +540,21 @@ class _PictureRasterizationExceptionDemoPageState
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'Failure handling guidance',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 8),
-          ...rows.map(
-            (e) => Padding(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        const Text('Failure handling guidance', style: TextStyle(fontWeight: FontWeight.w700)),
+        const SizedBox(height: 8),
+        ...rows.map((e) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.only(top: 3),
-                    child: Icon(
-                      Icons.circle,
-                      size: 8,
-                      color: Color(0xFF334155),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      '${e.title}: ${e.body}',
-                      style: const TextStyle(fontSize: 12.2),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+              child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: Icon(Icons.circle, size: 8, color: Color(0xFF334155)),
+                ),
+                const SizedBox(width: 8),
+                Expanded(child: Text('${e.title}: ${e.body}', style: const TextStyle(fontSize: 12.2))),
+              ]),
+            )),
+      ]),
     );
   }
 
@@ -781,13 +569,11 @@ class _PictureRasterizationExceptionDemoPageState
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: c.withAlpha(96)),
         ),
-        child: Row(
-          children: <Widget>[
-            Icon(ok ? Icons.check_circle : Icons.cancel, color: c, size: 18),
-            const SizedBox(width: 8),
-            Expanded(child: Text(t, style: const TextStyle(fontSize: 12.2))),
-          ],
-        ),
+        child: Row(children: <Widget>[
+          Icon(ok ? Icons.check_circle : Icons.cancel, color: c, size: 18),
+          const SizedBox(width: 8),
+          Expanded(child: Text(t, style: const TextStyle(fontSize: 12.2))),
+        ]),
       );
     }
 
@@ -799,20 +585,14 @@ class _PictureRasterizationExceptionDemoPageState
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'Runtime probe dashboard',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 6),
-          Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
-          const SizedBox(height: 8),
-          ..._passed.map((String s) => line(s, true)),
-          ..._failed.map((String s) => line(s, false)),
-        ],
-      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
+        const SizedBox(height: 6),
+        Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
+        const SizedBox(height: 8),
+        ..._passed.map((String s) => line(s, true)),
+        ..._failed.map((String s) => line(s, false)),
+      ]),
     );
   }
 
@@ -825,40 +605,28 @@ class _PictureRasterizationExceptionDemoPageState
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'Diagnostic notes',
-            style: TextStyle(fontWeight: FontWeight.w700),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        const Text('Diagnostic notes', style: TextStyle(fontWeight: FontWeight.w700)),
+        const SizedBox(height: 8),
+        Container(
+          height: 180,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: const Color(0xFFF8FAFC),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: const Color(0xFFE2E8F0)),
           ),
-          const SizedBox(height: 8),
-          Container(
-            height: 180,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: const Color(0xFFF8FAFC),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color(0xFFE2E8F0)),
-            ),
-            child: ListView.builder(
-              itemCount: _notes.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    _notes[index],
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                );
-              },
-            ),
+          child: ListView.builder(
+            itemCount: _notes.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Text(_notes[index], style: const TextStyle(fontSize: 12)),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 
@@ -890,61 +658,31 @@ class _PictureRasterizationExceptionDemoPageState
         foregroundColor: const Color(0xFF0F172A),
         elevation: 0.7,
       ),
-      body: ListView(
-        children: <Widget>[
-          _header(),
-          _section(
-            '1) Concept overview',
-            'Where rasterization exceptions appear in the pipeline.',
-            Icons.menu_book,
-            const Color(0xFF2563EB),
-          ),
-          _conceptCards(),
-          _section(
-            '2) Control lab',
-            'Configure rendering workload and target raster dimensions.',
-            Icons.tune,
-            const Color(0xFF7C3AED),
-          ),
-          _controlsPanel(),
-          _section(
-            '3) Recording preview',
-            'Visualize generated picture content before rasterization.',
-            Icons.brush,
-            const Color(0xFF0F766E),
-          ),
-          _previewPanel(),
-          _section(
-            '4) Attempt timeline',
-            'Track success and failure outcomes per raster attempt.',
-            Icons.timeline,
-            const Color(0xFFBE123C),
-          ),
-          _attemptsPanel(),
-          _section(
-            '5) Handling guidance',
-            'Recommended operational safeguards for failures.',
-            Icons.rule,
-            const Color(0xFFB45309),
-          ),
-          _guidancePanel(),
-          _section(
-            '6) Probe checks',
-            'Runtime checks for success/failure paths and messaging.',
-            Icons.fact_check,
-            const Color(0xFF166534),
-          ),
-          _probePanel(),
-          _section(
-            '7) Notes and summary',
-            'Chronological diagnostics and final recommendations.',
-            Icons.notes,
-            const Color(0xFF475569),
-          ),
-          _notesPanel(),
-          _summaryPanel(),
-        ],
-      ),
+      body: ListView(children: <Widget>[
+        _header(),
+        _section('1) Concept overview', 'Where rasterization exceptions appear in the pipeline.', Icons.menu_book,
+            const Color(0xFF2563EB)),
+        _conceptCards(),
+        _section('2) Control lab', 'Configure rendering workload and target raster dimensions.', Icons.tune,
+            const Color(0xFF7C3AED)),
+        _controlsPanel(),
+        _section('3) Recording preview', 'Visualize generated picture content before rasterization.', Icons.brush,
+            const Color(0xFF0F766E)),
+        _previewPanel(),
+        _section('4) Attempt timeline', 'Track success and failure outcomes per raster attempt.', Icons.timeline,
+            const Color(0xFFBE123C)),
+        _attemptsPanel(),
+        _section('5) Handling guidance', 'Recommended operational safeguards for failures.', Icons.rule,
+            const Color(0xFFB45309)),
+        _guidancePanel(),
+        _section('6) Probe checks', 'Runtime checks for success/failure paths and messaging.', Icons.fact_check,
+            const Color(0xFF166534)),
+        _probePanel(),
+        _section('7) Notes and summary', 'Chronological diagnostics and final recommendations.', Icons.notes,
+            const Color(0xFF475569)),
+        _notesPanel(),
+        _summaryPanel(),
+      ]),
     );
   }
 }
@@ -994,10 +732,7 @@ class _ScenePreviewPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFF0F172A).withAlpha(22);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
-      bg,
-    );
+    canvas.drawRRect(RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)), bg);
 
     if (showGrid) {
       final Paint gp = Paint()
@@ -1016,24 +751,13 @@ class _ScenePreviewPainter extends CustomPainter {
       final int n = (4 + complexity * 10).round();
       for (int i = 0; i < n; i++) {
         final double t = i / n;
-        final Rect r = Rect.fromLTWH(
-          12 + t * (size.width - 60),
-          18 + t * (size.height - 60),
-          42,
-          30,
-        );
+        final Rect r = Rect.fromLTWH(12 + t * (size.width - 60), 18 + t * (size.height - 60), 42, 30);
         canvas.drawRRect(
           RRect.fromRectAndRadius(r, const Radius.circular(7)),
           Paint()
             ..style = PaintingStyle.stroke
             ..strokeWidth = strokeWidth
-            ..color =
-                Color.lerp(
-                  const Color(0xFF2563EB),
-                  const Color(0xFF22D3EE),
-                  t,
-                ) ??
-                const Color(0xFF2563EB),
+            ..color = Color.lerp(const Color(0xFF2563EB), const Color(0xFF22D3EE), t) ?? const Color(0xFF2563EB),
         );
       }
     } else if (sceneType == 1) {
@@ -1042,22 +766,14 @@ class _ScenePreviewPainter extends CustomPainter {
       for (int i = 0; i < rays; i++) {
         final double t = i / rays;
         final double a = t * math.pi * 2;
-        final double r =
-            size.shortestSide *
-            (0.25 + 0.3 * (0.5 + 0.5 * math.sin(a * 4 + pulse * 6.28)));
+        final double r = size.shortestSide * (0.25 + 0.3 * (0.5 + 0.5 * math.sin(a * 4 + pulse * 6.28)));
         final Offset e = c + Offset(math.cos(a), math.sin(a)) * r;
         canvas.drawLine(
           c,
           e,
           Paint()
             ..strokeWidth = strokeWidth
-            ..color =
-                Color.lerp(
-                  const Color(0xFF7C3AED),
-                  const Color(0xFFF97316),
-                  t,
-                ) ??
-                const Color(0xFF7C3AED),
+            ..color = Color.lerp(const Color(0xFF7C3AED), const Color(0xFFF97316), t) ?? const Color(0xFF7C3AED),
         );
       }
     } else if (sceneType == 2) {
@@ -1079,13 +795,7 @@ class _ScenePreviewPainter extends CustomPainter {
           Paint()
             ..style = PaintingStyle.stroke
             ..strokeWidth = strokeWidth
-            ..color =
-                Color.lerp(
-                  const Color(0xFF0F766E),
-                  const Color(0xFF22C55E),
-                  t,
-                ) ??
-                const Color(0xFF0F766E),
+            ..color = Color.lerp(const Color(0xFF0F766E), const Color(0xFF22C55E), t) ?? const Color(0xFF0F766E),
         );
       }
     } else {
@@ -1095,11 +805,7 @@ class _ScenePreviewPainter extends CustomPainter {
         tp.text = TextSpan(
           text: 'Layer ${i + 1}: raster diagnostics',
           style: TextStyle(
-            color: Color.lerp(
-              const Color(0xFF2563EB),
-              const Color(0xFFBE123C),
-              i / lines,
-            ),
+            color: Color.lerp(const Color(0xFF2563EB), const Color(0xFFBE123C), i / lines),
             fontSize: 12 + i.toDouble(),
             fontWeight: FontWeight.w600,
           ),

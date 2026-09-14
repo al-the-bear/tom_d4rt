@@ -15,8 +15,7 @@ class _ImmutableBufferDeepDemo extends StatefulWidget {
   const _ImmutableBufferDeepDemo();
 
   @override
-  State<_ImmutableBufferDeepDemo> createState() =>
-      _ImmutableBufferDeepDemoState();
+  State<_ImmutableBufferDeepDemo> createState() => _ImmutableBufferDeepDemoState();
 }
 
 class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
@@ -46,21 +45,9 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
   String _bufferSummary = 'Buffer metadata will appear here.';
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[
-      const Color(0xFF0F172A),
-      const Color(0xFF1E293B),
-      const Color(0xFF38BDF8),
-    ],
-    <Color>[
-      const Color(0xFF3B0764),
-      const Color(0xFF6B21A8),
-      const Color(0xFFC084FC),
-    ],
-    <Color>[
-      const Color(0xFF064E3B),
-      const Color(0xFF047857),
-      const Color(0xFF34D399),
-    ],
+    <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
+    <Color>[const Color(0xFF3B0764), const Color(0xFF6B21A8), const Color(0xFFC084FC)],
+    <Color>[const Color(0xFF064E3B), const Color(0xFF047857), const Color(0xFF34D399)],
   ];
 
   @override
@@ -133,20 +120,11 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
     ui.ImmutableBuffer? buffer2;
 
     final Uint8List bytes = _buildBytes();
-    _record(
-      'Byte payload generated',
-      bytes.isNotEmpty,
-      note: 'bytes=${bytes.length}',
-    );
+    _record('Byte payload generated', bytes.isNotEmpty, note: 'bytes=${bytes.length}');
 
     try {
-      final Future<ui.ImmutableBuffer> f = ui.ImmutableBuffer.fromUint8List(
-        bytes,
-      );
-      _record(
-        'fromUint8List returns Future',
-        f.runtimeType.toString().contains('Future'),
-      );
+      final Future<ui.ImmutableBuffer> f = ui.ImmutableBuffer.fromUint8List(bytes);
+      _record('fromUint8List returns Future', f.runtimeType.toString().contains('Future'));
       buffer = await f;
       _record('ImmutableBuffer created from bytes', true);
       _bufferSummary = 'Primary buffer created from ${bytes.length} bytes';
@@ -166,22 +144,14 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
       await ui.ImmutableBuffer.fromAsset('assets/not_existing_buffer.bin');
       _record('fromAsset probe', true);
     } catch (e) {
-      _record(
-        'fromAsset probe',
-        true,
-        note: 'Expected missing-asset in test env: $e',
-      );
+      _record('fromAsset probe', true, note: 'Expected missing-asset in test env: $e');
     }
 
     try {
       await ui.ImmutableBuffer.fromFilePath('/tmp/immutable_buffer_probe.bin');
       _record('fromFilePath probe', true);
     } catch (e) {
-      _record(
-        'fromFilePath probe',
-        true,
-        note: 'Expected missing-file in test env: $e',
-      );
+      _record('fromFilePath probe', true, note: 'Expected missing-file in test env: $e');
     }
 
     try {
@@ -198,12 +168,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
     }
   }
 
-  Widget _sectionTitle(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color accent,
-  ) {
+  Widget _sectionTitle(String title, String subtitle, IconData icon, Color accent) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 14, 16, 8),
       padding: const EdgeInsets.all(12),
@@ -227,10 +192,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
-                ),
+                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -250,11 +212,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
         gradient: LinearGradient(colors: p),
         borderRadius: BorderRadius.circular(18),
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: p[1].withAlpha(95),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
+          BoxShadow(color: p[1].withAlpha(95), blurRadius: 16, offset: const Offset(0, 8)),
         ],
       ),
       child: const Column(
@@ -262,11 +220,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
         children: <Widget>[
           Text(
             'ImmutableBuffer',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 8),
           Text(
@@ -295,10 +249,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
           children: <Widget>[
             Icon(icon, color: color),
             const SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(color: color, fontWeight: FontWeight.w700),
-            ),
+            Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             Text(text, style: const TextStyle(fontSize: 11.8)),
           ],
@@ -353,10 +304,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Byte source controls',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Byte source controls', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           DropdownButton<int>(
             value: _patternIndex,
@@ -457,10 +405,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Byte distribution heatmap',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Byte distribution heatmap', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -500,10 +445,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
           children: <Widget>[
             Icon(icon, color: color),
             const SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(color: color, fontWeight: FontWeight.w700),
-            ),
+            Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             Text(desc, style: const TextStyle(fontSize: 11.7)),
           ],
@@ -546,12 +488,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
     );
   }
 
-  Widget _useCaseCard(
-    String title,
-    String desc,
-    IconData icon,
-    List<Color> colors,
-  ) {
+  Widget _useCaseCard(String title, String desc, IconData icon, List<Color> colors) {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.all(6),
@@ -565,18 +502,10 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
           children: <Widget>[
             Icon(icon, color: Colors.white),
             const SizedBox(height: 8),
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            Text(title,
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
-            Text(
-              desc,
-              style: const TextStyle(color: Colors.white, fontSize: 12),
-            ),
+            Text(desc, style: const TextStyle(color: Colors.white, fontSize: 12)),
           ],
         ),
       ),
@@ -643,10 +572,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Runtime probe dashboard',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           Text(_probeSummary),
           const SizedBox(height: 4),

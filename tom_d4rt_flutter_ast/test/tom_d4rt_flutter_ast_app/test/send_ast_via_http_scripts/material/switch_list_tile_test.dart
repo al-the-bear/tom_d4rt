@@ -63,7 +63,10 @@ dynamic build(BuildContext context) {
                 'SwitchListTile is a convenience widget that combines a ListTile '
                 'with a Switch. Perfect for settings screens where users toggle '
                 'features on or off.',
-                style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 16.0),
               Container(
@@ -88,10 +91,7 @@ dynamic build(BuildContext context) {
                     _buildPropertyRow('onChanged', 'Called when user toggles'),
                     _buildPropertyRow('title', 'Primary content widget'),
                     _buildPropertyRow('subtitle', 'Secondary description'),
-                    _buildPropertyRow(
-                      'secondary',
-                      'Leading or trailing widget',
-                    ),
+                    _buildPropertyRow('secondary', 'Leading or trailing widget'),
                     _buildPropertyRow('activeColor', 'Color when switch is on'),
                   ],
                 ),
@@ -111,22 +111,22 @@ dynamic build(BuildContext context) {
           child: Material(
             type: MaterialType.transparency,
             child: Column(
-              children: [
-                SwitchListTile(
-                  value: true,
-                  onChanged: (v) {},
-                  title: Text('Feature Enabled'),
-                  subtitle: Text('This switch is currently ON'),
-                ),
-                Divider(height: 1.0),
-                SwitchListTile(
-                  value: false,
-                  onChanged: (v) {},
-                  title: Text('Feature Disabled'),
-                  subtitle: Text('This switch is currently OFF'),
-                ),
-              ],
-            ),
+            children: [
+              SwitchListTile(
+                value: true,
+                onChanged: (v) {},
+                title: Text('Feature Enabled'),
+                subtitle: Text('This switch is currently ON'),
+              ),
+              Divider(height: 1.0),
+              SwitchListTile(
+                value: false,
+                onChanged: (v) {},
+                title: Text('Feature Disabled'),
+                subtitle: Text('This switch is currently OFF'),
+              ),
+            ],
+          ),
           ),
         ),
       ],
@@ -141,36 +141,11 @@ dynamic build(BuildContext context) {
 
   final colorConfigs = [
     {'name': 'Default', 'active': null, 'thumb': null, 'track': null},
-    {
-      'name': 'Blue Theme',
-      'active': Colors.blue,
-      'thumb': Colors.blue.shade200,
-      'track': Colors.blue.shade100,
-    },
-    {
-      'name': 'Green Theme',
-      'active': Colors.green,
-      'thumb': Colors.green.shade200,
-      'track': Colors.green.shade100,
-    },
-    {
-      'name': 'Orange Theme',
-      'active': Colors.orange,
-      'thumb': Colors.orange.shade200,
-      'track': Colors.orange.shade100,
-    },
-    {
-      'name': 'Purple Theme',
-      'active': Colors.purple,
-      'thumb': Colors.purple.shade200,
-      'track': Colors.purple.shade100,
-    },
-    {
-      'name': 'Teal Theme',
-      'active': Colors.teal,
-      'thumb': Colors.teal.shade200,
-      'track': Colors.teal.shade100,
-    },
+    {'name': 'Blue Theme', 'active': Colors.blue, 'thumb': Colors.blue.shade200, 'track': Colors.blue.shade100},
+    {'name': 'Green Theme', 'active': Colors.green, 'thumb': Colors.green.shade200, 'track': Colors.green.shade100},
+    {'name': 'Orange Theme', 'active': Colors.orange, 'thumb': Colors.orange.shade200, 'track': Colors.orange.shade100},
+    {'name': 'Purple Theme', 'active': Colors.purple, 'thumb': Colors.purple.shade200, 'track': Colors.purple.shade100},
+    {'name': 'Teal Theme', 'active': Colors.teal, 'thumb': Colors.teal.shade200, 'track': Colors.teal.shade100},
   ];
 
   final colorTiles = <Widget>[];
@@ -185,9 +160,7 @@ dynamic build(BuildContext context) {
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(
-            color: (config['active'] as Color? ?? Colors.grey).withValues(
-              alpha: 0.3,
-            ),
+            color: (config['active'] as Color? ?? Colors.grey).withValues(alpha: 0.3),
           ),
         ),
         child: Column(
@@ -196,8 +169,7 @@ dynamic build(BuildContext context) {
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
               decoration: BoxDecoration(
-                color: (config['active'] as Color? ?? Colors.grey.shade300)
-                    .withValues(alpha: 0.15),
+                color: (config['active'] as Color? ?? Colors.grey.shade300).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(11.0),
                   topRight: Radius.circular(11.0),
@@ -264,20 +236,20 @@ dynamic build(BuildContext context) {
       child: Material(
         type: MaterialType.transparency,
         child: SwitchListTile(
-          value: true,
-          onChanged: (v) {},
-          title: Text('Notifications'),
-          subtitle: Text('Receive push notifications'),
-          secondary: Container(
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Colors.blue.shade50,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.notifications, color: Colors.blue),
+        value: true,
+        onChanged: (v) {},
+        title: Text('Notifications'),
+        subtitle: Text('Receive push notifications'),
+        secondary: Container(
+          padding: EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            color: Colors.blue.shade50,
+            shape: BoxShape.circle,
           ),
-          activeColor: Colors.blue,
+          child: Icon(Icons.notifications, color: Colors.blue),
         ),
+        activeColor: Colors.blue,
+      ),
       ),
     ),
     // With Avatar
@@ -297,16 +269,16 @@ dynamic build(BuildContext context) {
       child: Material(
         type: MaterialType.transparency,
         child: SwitchListTile(
-          value: true,
-          onChanged: (v) {},
-          title: Text('Dark Mode'),
-          subtitle: Text('Use dark theme throughout the app'),
-          secondary: CircleAvatar(
-            backgroundColor: Colors.grey.shade800,
-            child: Icon(Icons.dark_mode, color: Colors.amber),
-          ),
-          activeColor: Colors.grey.shade700,
+        value: true,
+        onChanged: (v) {},
+        title: Text('Dark Mode'),
+        subtitle: Text('Use dark theme throughout the app'),
+        secondary: CircleAvatar(
+          backgroundColor: Colors.grey.shade800,
+          child: Icon(Icons.dark_mode, color: Colors.amber),
         ),
+        activeColor: Colors.grey.shade700,
+      ),
       ),
     ),
     // With Badge
@@ -326,37 +298,37 @@ dynamic build(BuildContext context) {
       child: Material(
         type: MaterialType.transparency,
         child: SwitchListTile(
-          value: false,
-          onChanged: (v) {},
-          title: Text('WiFi'),
-          subtitle: Text('Connect to wireless networks'),
-          secondary: Stack(
-            children: [
-              Container(
-                padding: EdgeInsets.all(8.0),
+        value: false,
+        onChanged: (v) {},
+        title: Text('WiFi'),
+        subtitle: Text('Connect to wireless networks'),
+        secondary: Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: Colors.green.shade50,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(Icons.wifi, color: Colors.green),
+            ),
+            Positioned(
+              right: 0,
+              top: 0,
+              child: Container(
+                width: 12.0,
+                height: 12.0,
                 decoration: BoxDecoration(
-                  color: Colors.green.shade50,
+                  color: Colors.red,
                   shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.wifi, color: Colors.green),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  width: 12.0,
-                  height: 12.0,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2.0),
-                  ),
+                  border: Border.all(color: Colors.white, width: 2.0),
                 ),
               ),
-            ],
-          ),
-          activeColor: Colors.green,
+            ),
+          ],
         ),
+        activeColor: Colors.green,
+      ),
       ),
     ),
     // With Status Text
@@ -376,27 +348,27 @@ dynamic build(BuildContext context) {
       child: Material(
         type: MaterialType.transparency,
         child: SwitchListTile(
-          value: true,
-          onChanged: (v) {},
-          title: Text('Auto-Sync'),
-          subtitle: Text('Automatically sync data in background'),
-          secondary: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-            decoration: BoxDecoration(
-              color: Colors.teal.shade100,
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Text(
-              'PRO',
-              style: TextStyle(
-                fontSize: 10.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.teal.shade700,
-              ),
+        value: true,
+        onChanged: (v) {},
+        title: Text('Auto-Sync'),
+        subtitle: Text('Automatically sync data in background'),
+        secondary: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          decoration: BoxDecoration(
+            color: Colors.teal.shade100,
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Text(
+            'PRO',
+            style: TextStyle(
+              fontSize: 10.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.teal.shade700,
             ),
           ),
-          activeColor: Colors.teal,
         ),
+        activeColor: Colors.teal,
+      ),
       ),
     ),
   ];
@@ -436,7 +408,10 @@ dynamic build(BuildContext context) {
         Text(
           'SwitchListTile.adaptive uses platform-native switch appearance: '
           'Cupertino style on iOS/macOS, Material style on Android/Windows/Linux.',
-          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.grey.shade700,
+          ),
         ),
         SizedBox(height: 16.0),
         Container(
@@ -447,26 +422,26 @@ dynamic build(BuildContext context) {
           child: Material(
             type: MaterialType.transparency,
             child: Column(
-              children: [
-                SwitchListTile.adaptive(
-                  value: true,
-                  onChanged: (v) {},
-                  title: Text('Adaptive Switch (ON)'),
-                  subtitle: Text('Matches platform appearance'),
-                  secondary: Icon(Icons.settings, color: Colors.amber.shade700),
-                  activeColor: Colors.amber.shade700,
-                ),
-                Divider(height: 1.0),
-                SwitchListTile.adaptive(
-                  value: false,
-                  onChanged: (v) {},
-                  title: Text('Adaptive Switch (OFF)'),
-                  subtitle: Text('Native look and feel'),
-                  secondary: Icon(Icons.tune, color: Colors.amber.shade700),
-                  activeColor: Colors.amber.shade700,
-                ),
-              ],
-            ),
+            children: [
+              SwitchListTile.adaptive(
+                value: true,
+                onChanged: (v) {},
+                title: Text('Adaptive Switch (ON)'),
+                subtitle: Text('Matches platform appearance'),
+                secondary: Icon(Icons.settings, color: Colors.amber.shade700),
+                activeColor: Colors.amber.shade700,
+              ),
+              Divider(height: 1.0),
+              SwitchListTile.adaptive(
+                value: false,
+                onChanged: (v) {},
+                title: Text('Adaptive Switch (OFF)'),
+                subtitle: Text('Native look and feel'),
+                secondary: Icon(Icons.tune, color: Colors.amber.shade700),
+                activeColor: Colors.amber.shade700,
+              ),
+            ],
+          ),
           ),
         ),
         SizedBox(height: 16.0),
@@ -523,11 +498,7 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.density_small,
-                color: Colors.cyan.shade700,
-                size: 24.0,
-              ),
+              Icon(Icons.density_small, color: Colors.cyan.shade700, size: 24.0),
               SizedBox(width: 12.0),
               Text(
                 'Dense Mode Comparison',
@@ -560,14 +531,14 @@ dynamic build(BuildContext context) {
               Material(
                 type: MaterialType.transparency,
                 child: SwitchListTile(
-                  value: true,
-                  onChanged: (v) {},
-                  title: Text('Standard Spacing'),
-                  subtitle: Text('More padding around content'),
-                  secondary: Icon(Icons.space_bar, color: Colors.cyan),
-                  dense: false,
-                  activeColor: Colors.cyan,
-                ),
+                value: true,
+                onChanged: (v) {},
+                title: Text('Standard Spacing'),
+                subtitle: Text('More padding around content'),
+                secondary: Icon(Icons.space_bar, color: Colors.cyan),
+                dense: false,
+                activeColor: Colors.cyan,
+              ),
               ),
             ],
           ),
@@ -593,14 +564,14 @@ dynamic build(BuildContext context) {
               Material(
                 type: MaterialType.transparency,
                 child: SwitchListTile(
-                  value: true,
-                  onChanged: (v) {},
-                  title: Text('Dense Spacing'),
-                  subtitle: Text('Less padding, compact layout'),
-                  secondary: Icon(Icons.compress, color: Colors.cyan),
-                  dense: true,
-                  activeColor: Colors.cyan,
-                ),
+                value: true,
+                onChanged: (v) {},
+                title: Text('Dense Spacing'),
+                subtitle: Text('Less padding, compact layout'),
+                secondary: Icon(Icons.compress, color: Colors.cyan),
+                dense: true,
+                activeColor: Colors.cyan,
+              ),
               ),
             ],
           ),
@@ -618,24 +589,9 @@ dynamic build(BuildContext context) {
 
   final affinityExamples = <Widget>[];
   final affinities = [
-    {
-      'affinity': ListTileControlAffinity.leading,
-      'label': 'Leading',
-      'desc': 'Switch on the left',
-      'color': Colors.deepPurple,
-    },
-    {
-      'affinity': ListTileControlAffinity.trailing,
-      'label': 'Trailing',
-      'desc': 'Switch on the right (default)',
-      'color': Colors.pink,
-    },
-    {
-      'affinity': ListTileControlAffinity.platform,
-      'label': 'Platform',
-      'desc': 'Follows OS convention',
-      'color': Colors.brown,
-    },
+    {'affinity': ListTileControlAffinity.leading, 'label': 'Leading', 'desc': 'Switch on the left', 'color': Colors.deepPurple},
+    {'affinity': ListTileControlAffinity.trailing, 'label': 'Trailing', 'desc': 'Switch on the right (default)', 'color': Colors.pink},
+    {'affinity': ListTileControlAffinity.platform, 'label': 'Platform', 'desc': 'Follows OS convention', 'color': Colors.brown},
   ];
 
   for (final config in affinities) {
@@ -668,10 +624,7 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 2.0,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                     decoration: BoxDecoration(
                       color: color,
                       borderRadius: BorderRadius.circular(4.0),
@@ -699,13 +652,13 @@ dynamic build(BuildContext context) {
             Material(
               type: MaterialType.transparency,
               child: SwitchListTile(
-                value: true,
-                onChanged: (v) {},
-                title: Text('$label Affinity'),
-                subtitle: Text('controlAffinity: $affinity'),
-                controlAffinity: affinity,
-                activeColor: color,
-              ),
+              value: true,
+              onChanged: (v) {},
+              title: Text('$label Affinity'),
+              subtitle: Text('controlAffinity: $affinity'),
+              controlAffinity: affinity,
+              activeColor: color,
+            ),
             ),
           ],
         ),
@@ -725,21 +678,9 @@ dynamic build(BuildContext context) {
       'icon': Icons.security,
       'color': Colors.red,
       'settings': [
-        {
-          'name': 'Share Analytics',
-          'subtitle': 'Help improve app experience',
-          'value': true,
-        },
-        {
-          'name': 'Location Access',
-          'subtitle': 'Allow background location',
-          'value': false,
-        },
-        {
-          'name': 'Face ID',
-          'subtitle': 'Use biometrics to unlock',
-          'value': true,
-        },
+        {'name': 'Share Analytics', 'subtitle': 'Help improve app experience', 'value': true},
+        {'name': 'Location Access', 'subtitle': 'Allow background location', 'value': false},
+        {'name': 'Face ID', 'subtitle': 'Use biometrics to unlock', 'value': true},
       ],
     },
     {
@@ -747,17 +688,9 @@ dynamic build(BuildContext context) {
       'icon': Icons.notifications,
       'color': Colors.blue,
       'settings': [
-        {
-          'name': 'Push Notifications',
-          'subtitle': 'Receive alerts',
-          'value': true,
-        },
+        {'name': 'Push Notifications', 'subtitle': 'Receive alerts', 'value': true},
         {'name': 'Email Updates', 'subtitle': 'Weekly digest', 'value': false},
-        {
-          'name': 'In-App Sounds',
-          'subtitle': 'Play notification sounds',
-          'value': true,
-        },
+        {'name': 'In-App Sounds', 'subtitle': 'Play notification sounds', 'value': true},
       ],
     },
     {
@@ -766,16 +699,8 @@ dynamic build(BuildContext context) {
       'color': Colors.green,
       'settings': [
         {'name': 'Dark Mode', 'subtitle': 'Use dark theme', 'value': false},
-        {
-          'name': 'Reduce Motion',
-          'subtitle': 'Minimize animations',
-          'value': false,
-        },
-        {
-          'name': 'Large Text',
-          'subtitle': 'Increase font size',
-          'value': false,
-        },
+        {'name': 'Reduce Motion', 'subtitle': 'Minimize animations', 'value': false},
+        {'name': 'Large Text', 'subtitle': 'Increase font size', 'value': false},
       ],
     },
   ];
@@ -792,13 +717,13 @@ dynamic build(BuildContext context) {
         Material(
           type: MaterialType.transparency,
           child: SwitchListTile(
-            value: setting['value'] as bool,
-            onChanged: (v) {},
-            title: Text(setting['name'] as String),
-            subtitle: Text(setting['subtitle'] as String),
-            activeColor: category['color'] as Color,
-            dense: true,
-          ),
+          value: setting['value'] as bool,
+          onChanged: (v) {},
+          title: Text(setting['name'] as String),
+          subtitle: Text(setting['subtitle'] as String),
+          activeColor: category['color'] as Color,
+          dense: true,
+        ),
         ),
       );
       if (i < settings.length - 1) {
@@ -835,11 +760,7 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: [
-                  Icon(
-                    category['icon'] as IconData,
-                    color: category['color'] as Color,
-                    size: 20.0,
-                  ),
+                  Icon(category['icon'] as IconData, color: category['color'] as Color, size: 20.0),
                   SizedBox(width: 8.0),
                   Text(
                     category['title'] as String,
@@ -859,9 +780,7 @@ dynamic build(BuildContext context) {
       ),
     );
   }
-  print(
-    'Created settings screen with ${settingsScreenTiles.length} categories',
-  );
+  print('Created settings screen with ${settingsScreenTiles.length} categories');
 
   // ============================================================
   // SECTION 8: API Reference Summary
@@ -1088,7 +1007,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Toggle switches with list tile integration',
-                style: TextStyle(fontSize: 14.0, color: Colors.white70),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.white70,
+                ),
               ),
             ],
           ),
@@ -1104,7 +1026,10 @@ dynamic build(BuildContext context) {
         _buildSectionHeader('Section 2: Color Customization', Icons.palette),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Wrap(alignment: WrapAlignment.center, children: colorTiles),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: colorTiles,
+          ),
         ),
 
         // Section 3: Secondary Widget
@@ -1214,7 +1139,10 @@ Widget _buildPropertyRow(String name, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+            ),
           ),
         ),
       ],

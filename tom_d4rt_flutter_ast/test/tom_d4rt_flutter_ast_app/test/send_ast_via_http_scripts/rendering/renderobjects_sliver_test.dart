@@ -78,12 +78,8 @@ Widget _mono(String text, {double size = 11.5, Color color = _kInk}) {
   );
 }
 
-Widget _label(
-  String text, {
-  double size = 12.0,
-  Color color = _kAsh,
-  FontWeight w = FontWeight.w600,
-}) {
+Widget _label(String text,
+    {double size = 12.0, Color color = _kAsh, FontWeight w = FontWeight.w600}) {
   return Text(
     text,
     style: TextStyle(
@@ -99,12 +95,8 @@ Widget _hairline({Color color = _kAsh, double thickness = 1.0}) {
   return Container(height: thickness, color: color);
 }
 
-Widget _sectionHeader(
-  String index,
-  String title,
-  String subtitle, {
-  Color accent = _kAcid,
-}) {
+Widget _sectionHeader(String index, String title, String subtitle,
+    {Color accent = _kAcid}) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
@@ -166,11 +158,7 @@ Widget _sectionHeader(
   );
 }
 
-Widget _card({
-  required Widget child,
-  Color bg = _kPaper,
-  Color border = _kAsh,
-}) {
+Widget _card({required Widget child, Color bg = _kPaper, Color border = _kAsh}) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(14.0),
@@ -255,7 +243,11 @@ Widget _specimen({
           padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 10.0),
           child: Text(
             caption,
-            style: const TextStyle(fontSize: 11.5, color: _kAsh, height: 1.4),
+            style: const TextStyle(
+              fontSize: 11.5,
+              color: _kAsh,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -286,7 +278,8 @@ const List<Color> _kCardSwatches = <Color>[
 Color _swatch(int i) => _kCardSwatches[i % _kCardSwatches.length];
 
 Color _readable(Color bg) {
-  final double luma = 0.2126 * bg.red + 0.7152 * bg.green + 0.0722 * bg.blue;
+  final double luma =
+      0.2126 * bg.red + 0.7152 * bg.green + 0.0722 * bg.blue;
   return luma > 140.0 ? _kInk : _kPaper;
 }
 
@@ -336,7 +329,11 @@ Widget _listCard(int index, {double? height, String? overrideLabel}) {
         ),
         Text(
           '0x${bg.value.toRadixString(16).padLeft(8, '0').toUpperCase()}',
-          style: TextStyle(color: fg, fontFamily: 'monospace', fontSize: 10.5),
+          style: TextStyle(
+            color: fg,
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+          ),
         ),
       ],
     ),
@@ -390,7 +387,11 @@ Widget _pageTile(int index, String name) {
         const SizedBox(height: 4.0),
         Text(
           name,
-          style: TextStyle(color: fg, fontSize: 12.0, fontFamily: 'monospace'),
+          style: TextStyle(
+            color: fg,
+            fontSize: 12.0,
+            fontFamily: 'monospace',
+          ),
         ),
       ],
     ),
@@ -423,22 +424,25 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => math.max(minHeight, maxHeight);
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    final double t = ((maxExtent - shrinkOffset) / maxExtent).clamp(0.0, 1.0);
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final double t =
+        ((maxExtent - shrinkOffset) / maxExtent).clamp(0.0, 1.0);
     return Container(
       decoration: BoxDecoration(
         color: background,
-        border: Border(bottom: BorderSide(color: _kInk, width: 1.0)),
+        border: Border(
+          bottom: BorderSide(color: _kInk, width: 1.0),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       alignment: Alignment.centerLeft,
       child: Row(
         children: [
-          Container(width: 8.0, height: 22.0, color: foreground),
+          Container(
+            width: 8.0,
+            height: 22.0,
+            color: foreground,
+          ),
           const SizedBox(width: 10.0),
           Expanded(
             child: Text(
@@ -522,7 +526,11 @@ Widget _hero() {
           'widget counterparts — so we can read geometry, growth direction '
           'and protocol behaviour without instantiating the render objects '
           'by hand.',
-          style: TextStyle(color: _kFog, fontSize: 13.5, height: 1.5),
+          style: TextStyle(
+            color: _kFog,
+            fontSize: 13.5,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 14.0),
         Row(
@@ -561,18 +569,12 @@ Widget _conceptOverview() {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('CONCEPT'),
-            const SizedBox(width: 8.0),
-            _label(
-              'RenderSliver vs RenderBox',
-              size: 13.0,
-              color: _kInk,
-              w: FontWeight.w800,
-            ),
-          ],
-        ),
+        Row(children: <Widget>[
+          _tag('CONCEPT'),
+          const SizedBox(width: 8.0),
+          _label('RenderSliver vs RenderBox',
+              size: 13.0, color: _kInk, w: FontWeight.w800),
+        ]),
         const SizedBox(height: 12.0),
         const Text(
           'RenderBox lays out with BoxConstraints (min/max width × height) '
@@ -636,12 +638,8 @@ Widget _conceptOverview() {
         const SizedBox(height: 12.0),
         _hairline(),
         const SizedBox(height: 10.0),
-        _label(
-          'AxisDirection × GrowthDirection',
-          size: 13.0,
-          color: _kInk,
-          w: FontWeight.w800,
-        ),
+        _label('AxisDirection × GrowthDirection',
+            size: 13.0, color: _kInk, w: FontWeight.w800),
         const SizedBox(height: 8.0),
         Wrap(
           spacing: 8.0,
@@ -651,9 +649,7 @@ Widget _conceptOverview() {
               for (final GrowthDirection gd in GrowthDirection.values)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 6.0,
-                  ),
+                      horizontal: 10.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: gd == GrowthDirection.forward ? _kAcid : _kAmber,
                     borderRadius: BorderRadius.circular(_kRadiusS),
@@ -682,61 +678,28 @@ Widget _conceptOverview() {
 
 Widget _sliverConstraintsAnatomy() {
   final List<List<String>> rows = <List<String>>[
-    <String>[
-      'axisDirection',
-      'Direction the scroll offset increases along.',
-      'AxisDirection',
-    ],
-    <String>[
-      'growthDirection',
-      'forward grows toward axis, reverse grows backward.',
-      'GrowthDirection',
-    ],
-    <String>[
-      'userScrollDirection',
-      'Last direction the user dragged.',
-      'ScrollDirection',
-    ],
-    <String>[
-      'scrollOffset',
-      'Distance from the leading edge of this sliver to the leading edge of the viewport.',
-      'double',
-    ],
-    <String>[
-      'overlap',
-      'Number of pixels the previous slivers paint into this one.',
-      'double',
-    ],
-    <String>[
-      'remainingPaintExtent',
-      'How many paint pixels are left in the viewport for this sliver.',
-      'double',
-    ],
-    <String>[
-      'crossAxisExtent',
-      'Size in the direction perpendicular to the scroll axis.',
-      'double',
-    ],
-    <String>[
-      'crossAxisDirection',
-      'Direction perpendicular to axisDirection.',
-      'AxisDirection',
-    ],
-    <String>[
-      'viewportMainAxisExtent',
-      'Main-axis size of the viewport.',
-      'double',
-    ],
-    <String>[
-      'remainingCacheExtent',
-      'Paint pixels left in the cache region.',
-      'double',
-    ],
-    <String>[
-      'cacheOrigin',
-      'Negative offset where the cache begins.',
-      'double',
-    ],
+    <String>['axisDirection',
+        'Direction the scroll offset increases along.', 'AxisDirection'],
+    <String>['growthDirection',
+        'forward grows toward axis, reverse grows backward.', 'GrowthDirection'],
+    <String>['userScrollDirection',
+        'Last direction the user dragged.', 'ScrollDirection'],
+    <String>['scrollOffset',
+        'Distance from the leading edge of this sliver to the leading edge of the viewport.', 'double'],
+    <String>['overlap',
+        'Number of pixels the previous slivers paint into this one.', 'double'],
+    <String>['remainingPaintExtent',
+        'How many paint pixels are left in the viewport for this sliver.', 'double'],
+    <String>['crossAxisExtent',
+        'Size in the direction perpendicular to the scroll axis.', 'double'],
+    <String>['crossAxisDirection',
+        'Direction perpendicular to axisDirection.', 'AxisDirection'],
+    <String>['viewportMainAxisExtent',
+        'Main-axis size of the viewport.', 'double'],
+    <String>['remainingCacheExtent',
+        'Paint pixels left in the cache region.', 'double'],
+    <String>['cacheOrigin',
+        'Negative offset where the cache begins.', 'double'],
   ];
   return _card(
     bg: _kPaper,
@@ -744,20 +707,14 @@ Widget _sliverConstraintsAnatomy() {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('ANATOMY'),
-            const SizedBox(width: 8.0),
-            _label(
-              'class SliverConstraints',
-              size: 13.0,
-              color: _kInk,
-              w: FontWeight.w800,
-            ),
-            const Spacer(),
-            _tag('input', bg: _kBlueprintHi, fg: _kPaper),
-          ],
-        ),
+        Row(children: <Widget>[
+          _tag('ANATOMY'),
+          const SizedBox(width: 8.0),
+          _label('class SliverConstraints',
+              size: 13.0, color: _kInk, w: FontWeight.w800),
+          const Spacer(),
+          _tag('input', bg: _kBlueprintHi, fg: _kPaper),
+        ]),
         const SizedBox(height: 10.0),
         const Text(
           'The parent viewport hands these to every sliver, every frame. The '
@@ -841,72 +798,50 @@ Widget _sliverGeometryAnatomy() {
   final SliverGeometry zero = SliverGeometry.zero;
 
   final List<List<String>> rows = <List<String>>[
-    <String>[
-      'scrollExtent',
-      'Total scrollable length this sliver contributes.',
-      sample.scrollExtent.toString(),
-      zero.scrollExtent.toString(),
-    ],
-    <String>[
-      'paintExtent',
-      'Pixels the sliver actually paints right now.',
-      sample.paintExtent.toString(),
-      zero.paintExtent.toString(),
-    ],
-    <String>[
-      'paintOrigin',
-      'Offset from where painting starts relative to the layout origin.',
-      sample.paintOrigin.toString(),
-      zero.paintOrigin.toString(),
-    ],
-    <String>[
-      'layoutExtent',
-      'Pixels the next sliver should be offset by along the main axis.',
-      sample.layoutExtent.toString(),
-      zero.layoutExtent.toString(),
-    ],
-    <String>[
-      'maxPaintExtent',
-      'Maximum paint extent this sliver could ever reach (used by indicators).',
-      sample.maxPaintExtent.toString(),
-      zero.maxPaintExtent.toString(),
-    ],
-    <String>[
-      'maxScrollObstructionExtent',
-      'Pixels the sliver pins in front of subsequent slivers.',
-      sample.maxScrollObstructionExtent.toString(),
-      zero.maxScrollObstructionExtent.toString(),
-    ],
-    <String>[
-      'hitTestExtent',
-      'Pixels along the main axis that can receive hit tests.',
-      sample.hitTestExtent.toString(),
-      zero.hitTestExtent.toString(),
-    ],
-    <String>[
-      'visible',
-      'False when paintExtent is 0 — viewport may skip painting.',
-      sample.visible.toString(),
-      zero.visible.toString(),
-    ],
-    <String>[
-      'hasVisualOverflow',
-      'True if the sliver paints outside its declared paintExtent.',
-      sample.hasVisualOverflow.toString(),
-      zero.hasVisualOverflow.toString(),
-    ],
-    <String>[
-      'scrollOffsetCorrection',
-      'If non-null, viewport restarts layout with this correction.',
-      '${sample.scrollOffsetCorrection}',
-      '${zero.scrollOffsetCorrection}',
-    ],
-    <String>[
-      'cacheExtent',
-      'Cache-region size around the visible region.',
-      sample.cacheExtent.toString(),
-      zero.cacheExtent.toString(),
-    ],
+    <String>['scrollExtent',
+        'Total scrollable length this sliver contributes.',
+        sample.scrollExtent.toString(),
+        zero.scrollExtent.toString()],
+    <String>['paintExtent',
+        'Pixels the sliver actually paints right now.',
+        sample.paintExtent.toString(),
+        zero.paintExtent.toString()],
+    <String>['paintOrigin',
+        'Offset from where painting starts relative to the layout origin.',
+        sample.paintOrigin.toString(),
+        zero.paintOrigin.toString()],
+    <String>['layoutExtent',
+        'Pixels the next sliver should be offset by along the main axis.',
+        sample.layoutExtent.toString(),
+        zero.layoutExtent.toString()],
+    <String>['maxPaintExtent',
+        'Maximum paint extent this sliver could ever reach (used by indicators).',
+        sample.maxPaintExtent.toString(),
+        zero.maxPaintExtent.toString()],
+    <String>['maxScrollObstructionExtent',
+        'Pixels the sliver pins in front of subsequent slivers.',
+        sample.maxScrollObstructionExtent.toString(),
+        zero.maxScrollObstructionExtent.toString()],
+    <String>['hitTestExtent',
+        'Pixels along the main axis that can receive hit tests.',
+        sample.hitTestExtent.toString(),
+        zero.hitTestExtent.toString()],
+    <String>['visible',
+        'False when paintExtent is 0 — viewport may skip painting.',
+        sample.visible.toString(),
+        zero.visible.toString()],
+    <String>['hasVisualOverflow',
+        'True if the sliver paints outside its declared paintExtent.',
+        sample.hasVisualOverflow.toString(),
+        zero.hasVisualOverflow.toString()],
+    <String>['scrollOffsetCorrection',
+        'If non-null, viewport restarts layout with this correction.',
+        '${sample.scrollOffsetCorrection}',
+        '${zero.scrollOffsetCorrection}'],
+    <String>['cacheExtent',
+        'Cache-region size around the visible region.',
+        sample.cacheExtent.toString(),
+        zero.cacheExtent.toString()],
   ];
 
   return _card(
@@ -915,20 +850,14 @@ Widget _sliverGeometryAnatomy() {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('ANATOMY'),
-            const SizedBox(width: 8.0),
-            _label(
-              'class SliverGeometry',
-              size: 13.0,
-              color: _kInk,
-              w: FontWeight.w800,
-            ),
-            const Spacer(),
-            _tag('output', bg: _kLimeDeep, fg: _kPaper),
-          ],
-        ),
+        Row(children: <Widget>[
+          _tag('ANATOMY'),
+          const SizedBox(width: 8.0),
+          _label('class SliverGeometry',
+              size: 13.0, color: _kInk, w: FontWeight.w800),
+          const Spacer(),
+          _tag('output', bg: _kLimeDeep, fg: _kPaper),
+        ]),
         const SizedBox(height: 10.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
@@ -944,53 +873,20 @@ Widget _sliverGeometryAnatomy() {
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: Row(
                   children: <Widget>[
-                    const SizedBox(
-                      width: 170.0,
-                      child: Text(
-                        'field',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w800,
-                          color: _kAsh,
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Text(
-                        'meaning',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w800,
-                          color: _kAsh,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 80.0,
-                      child: Text(
-                        'sample',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w800,
-                          color: _kAsh,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 60.0,
-                      child: Text(
-                        '.zero',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w800,
-                          color: _kAsh,
-                        ),
-                      ),
-                    ),
+                    const SizedBox(width: 170.0, child: Text('field',
+                        style: TextStyle(fontFamily: 'monospace', fontSize: 11.5,
+                            fontWeight: FontWeight.w800, color: _kAsh))),
+                    const Expanded(child: Text('meaning',
+                        style: TextStyle(fontFamily: 'monospace', fontSize: 11.5,
+                            fontWeight: FontWeight.w800, color: _kAsh))),
+                    const SizedBox(width: 80.0,
+                        child: Text('sample',
+                            style: TextStyle(fontFamily: 'monospace', fontSize: 11.5,
+                                fontWeight: FontWeight.w800, color: _kAsh))),
+                    const SizedBox(width: 60.0,
+                        child: Text('.zero',
+                            style: TextStyle(fontFamily: 'monospace', fontSize: 11.5,
+                                fontWeight: FontWeight.w800, color: _kAsh))),
                   ],
                 ),
               ),
@@ -1001,9 +897,7 @@ Widget _sliverGeometryAnatomy() {
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
-                        color: _kFog.withOpacity(0.5),
-                        width: 0.5,
-                      ),
+                          color: _kFog.withOpacity(0.5), width: 0.5),
                     ),
                   ),
                   child: Row(
@@ -1070,8 +964,7 @@ Widget _sliverGeometryAnatomy() {
 
 Widget _sliverListSpecimen() {
   return _specimen(
-    code:
-        'CustomScrollView(slivers: [SliverList(SliverChildBuilderDelegate(...))])',
+    code: 'CustomScrollView(slivers: [SliverList(SliverChildBuilderDelegate(...))])',
     caption:
         'SliverList builds children lazily, each with its own intrinsic height. '
         'Variable item heights are fine. Underlying render object: RenderSliverList.',
@@ -1080,17 +973,17 @@ Widget _sliverListSpecimen() {
     scrollView: CustomScrollView(
       slivers: <Widget>[
         SliverList(
-          delegate: SliverChildBuilderDelegate((
-            BuildContext context,
-            int index,
-          ) {
-            final double extra = (index % 4) * 6.0;
-            return _listCard(
-              index,
-              height: 38.0 + extra,
-              overrideLabel: 'lazy row ${index + 1}',
-            );
-          }, childCount: 20),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              final double extra = (index % 4) * 6.0;
+              return _listCard(
+                index,
+                height: 38.0 + extra,
+                overrideLabel: 'lazy row ${index + 1}',
+              );
+            },
+            childCount: 20,
+          ),
         ),
       ],
     ),
@@ -1114,12 +1007,13 @@ Widget _sliverFixedExtentListSpecimen() {
       slivers: <Widget>[
         SliverFixedExtentList(
           itemExtent: 60.0,
-          delegate: SliverChildBuilderDelegate((
-            BuildContext context,
-            int index,
-          ) {
-            return _listCard(index, overrideLabel: 'fixed row ${index + 1}');
-          }, childCount: 15),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return _listCard(index,
+                  overrideLabel: 'fixed row ${index + 1}');
+            },
+            childCount: 15,
+          ),
         ),
       ],
     ),
@@ -1146,7 +1040,9 @@ Widget _sliverGridSpecimen() {
           mainAxisSpacing: 0.0,
           crossAxisSpacing: 0.0,
           childAspectRatio: 1.2,
-          children: <Widget>[for (int i = 0; i < 12; i++) _gridTile(i)],
+          children: <Widget>[
+            for (int i = 0; i < 12; i++) _gridTile(i),
+          ],
         ),
       ],
     ),
@@ -1215,20 +1111,15 @@ Widget _sliverFillRemainingSpecimen() {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const <Widget>[
-                Text(
-                  'fill-remaining tail',
-                  style: TextStyle(
-                    color: _kAcid,
-                    fontFamily: 'monospace',
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                Text('fill-remaining tail',
+                    style: TextStyle(
+                        color: _kAcid,
+                        fontFamily: 'monospace',
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w800)),
                 SizedBox(height: 6.0),
-                Text(
-                  'no scroll body — fills available space exactly',
-                  style: TextStyle(color: _kPaper, fontSize: 11.5),
-                ),
+                Text('no scroll body — fills available space exactly',
+                    style: TextStyle(color: _kPaper, fontSize: 11.5)),
               ],
             ),
           ),
@@ -1263,15 +1154,12 @@ Widget _sliverToBoxAdapterSpecimen() {
               border: Border.all(color: _kInk, width: 1.0),
             ),
             alignment: Alignment.center,
-            child: const Text(
-              'adapter A — hero banner',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 13.5,
-                fontWeight: FontWeight.w800,
-                color: _kInk,
-              ),
-            ),
+            child: const Text('adapter A — hero banner',
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w800,
+                    color: _kInk)),
           ),
         ),
         SliverToBoxAdapter(
@@ -1284,15 +1172,12 @@ Widget _sliverToBoxAdapterSpecimen() {
               border: Border.all(color: _kInk, width: 1.0),
             ),
             alignment: Alignment.center,
-            child: const Text(
-              'adapter B — divider section',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 13.5,
-                fontWeight: FontWeight.w800,
-                color: _kInk,
-              ),
-            ),
+            child: const Text('adapter B — divider section',
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w800,
+                    color: _kInk)),
           ),
         ),
         SliverToBoxAdapter(
@@ -1305,15 +1190,12 @@ Widget _sliverToBoxAdapterSpecimen() {
               border: Border.all(color: _kInk, width: 1.0),
             ),
             alignment: Alignment.center,
-            child: const Text(
-              'adapter C — footer banner',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 13.5,
-                fontWeight: FontWeight.w800,
-                color: _kInk,
-              ),
-            ),
+            child: const Text('adapter C — footer banner',
+                style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w800,
+                    color: _kInk)),
           ),
         ),
       ],
@@ -1349,11 +1231,9 @@ Widget _sliverPersistentHeaderSpecimen() {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) => _listCard(
-              index,
-              height: 36.0,
-              overrideLabel: 'A-row ${index + 1}',
-            ),
+            (BuildContext context, int index) =>
+                _listCard(index, height: 36.0,
+                    overrideLabel: 'A-row ${index + 1}'),
             childCount: 6,
           ),
         ),
@@ -1369,11 +1249,9 @@ Widget _sliverPersistentHeaderSpecimen() {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) => _listCard(
-              index + 6,
-              height: 36.0,
-              overrideLabel: 'B-row ${index + 1}',
-            ),
+            (BuildContext context, int index) =>
+                _listCard(index + 6, height: 36.0,
+                    overrideLabel: 'B-row ${index + 1}'),
             childCount: 6,
           ),
         ),
@@ -1401,11 +1279,9 @@ Widget _sliverPaddingSpecimen() {
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) => _listCard(
-                index,
-                height: 40.0,
-                overrideLabel: 'padded ${index + 1}',
-              ),
+              (BuildContext context, int index) =>
+                  _listCard(index, height: 40.0,
+                      overrideLabel: 'padded ${index + 1}'),
               childCount: 8,
             ),
           ),
@@ -1437,11 +1313,9 @@ Widget _reverseAndHorizontalSpecimens() {
           slivers: <Widget>[
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) => _listCard(
-                  index,
-                  height: 40.0,
-                  overrideLabel: 'reversed ${index + 1}',
-                ),
+                (BuildContext context, int index) =>
+                    _listCard(index, height: 40.0,
+                        overrideLabel: 'reversed ${index + 1}'),
                 childCount: 8,
               ),
             ),
@@ -1462,31 +1336,28 @@ Widget _reverseAndHorizontalSpecimens() {
           slivers: <Widget>[
             SliverFixedExtentList(
               itemExtent: 120.0,
-              delegate: SliverChildBuilderDelegate((
-                BuildContext context,
-                int index,
-              ) {
-                final Color bg = _swatch(index);
-                final Color fg = _readable(bg);
-                return Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    color: bg,
-                    borderRadius: BorderRadius.circular(_kRadiusS),
-                    border: Border.all(color: _kInk),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'col ${index + 1}',
-                    style: TextStyle(
-                      color: fg,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: 'monospace',
-                      fontSize: 13.0,
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  final Color bg = _swatch(index);
+                  final Color fg = _readable(bg);
+                  return Container(
+                    margin: const EdgeInsets.all(6.0),
+                    decoration: BoxDecoration(
+                      color: bg,
+                      borderRadius: BorderRadius.circular(_kRadiusS),
+                      border: Border.all(color: _kInk),
                     ),
-                  ),
-                );
-              }, childCount: 10),
+                    alignment: Alignment.center,
+                    child: Text('col ${index + 1}',
+                        style: TextStyle(
+                            color: fg,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: 'monospace',
+                            fontSize: 13.0)),
+                  );
+                },
+                childCount: 10,
+              ),
             ),
           ],
         ),
@@ -1521,15 +1392,12 @@ Widget _compositionSpecimen() {
               border: Border.all(color: _kAcid, width: 1.2),
             ),
             alignment: Alignment.center,
-            child: const Text(
-              'hero (SliverToBoxAdapter)',
-              style: TextStyle(
-                color: _kAcid,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w800,
-                fontSize: 13.0,
-              ),
-            ),
+            child: const Text('hero (SliverToBoxAdapter)',
+                style: TextStyle(
+                    color: _kAcid,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13.0)),
           ),
         ),
         SliverPersistentHeader(
@@ -1546,11 +1414,9 @@ Widget _compositionSpecimen() {
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) => _listCard(
-                index,
-                height: 36.0,
-                overrideLabel: 'comp ${index + 1}',
-              ),
+              (BuildContext context, int index) =>
+                  _listCard(index, height: 36.0,
+                      overrideLabel: 'comp ${index + 1}'),
               childCount: 5,
             ),
           ),
@@ -1558,7 +1424,9 @@ Widget _compositionSpecimen() {
         SliverGrid.count(
           crossAxisCount: 4,
           childAspectRatio: 1.3,
-          children: <Widget>[for (int i = 0; i < 8; i++) _gridTile(i + 3)],
+          children: <Widget>[
+            for (int i = 0; i < 8; i++) _gridTile(i + 3),
+          ],
         ),
         SliverFillRemaining(
           hasScrollBody: false,
@@ -1570,15 +1438,12 @@ Widget _compositionSpecimen() {
               border: Border.all(color: _kAsh),
             ),
             alignment: Alignment.center,
-            child: const Text(
-              'SliverFillRemaining — composition tail',
-              style: TextStyle(
-                color: _kInk,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w800,
-                fontSize: 12.5,
-              ),
-            ),
+            child: const Text('SliverFillRemaining — composition tail',
+                style: TextStyle(
+                    color: _kInk,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w800,
+                    fontSize: 12.5)),
           ),
         ),
       ],
@@ -1592,31 +1457,16 @@ Widget _compositionSpecimen() {
 
 Widget _lifecycleDiagram() {
   final List<List<String>> phases = <List<String>>[
-    <String>[
-      '1',
-      'parent.performLayout()',
-      'Viewport iterates its sliver children and computes SliverConstraints for each.',
-    ],
-    <String>[
-      '2',
-      'child.layout(constraints, parentUsesSize: true)',
-      'Each sliver lays itself out, asking its RenderBox children for sizes when needed.',
-    ],
-    <String>[
-      '3',
-      'child.geometry = SliverGeometry(...)',
-      'Sliver publishes its geometry. Parent reads paintExtent/layoutExtent.',
-    ],
-    <String>[
-      '4',
-      'parent.applyPaintTransform / paint()',
-      'Viewport composes the sliver into the scene at the correct paint offset.',
-    ],
-    <String>[
-      '5',
-      'hitTest(SliverHitTestResult, mainAxisPosition, crossAxisPosition)',
-      'Hits are routed in scroll coordinates; only hitTestExtent pixels are eligible.',
-    ],
+    <String>['1', 'parent.performLayout()',
+        'Viewport iterates its sliver children and computes SliverConstraints for each.'],
+    <String>['2', 'child.layout(constraints, parentUsesSize: true)',
+        'Each sliver lays itself out, asking its RenderBox children for sizes when needed.'],
+    <String>['3', 'child.geometry = SliverGeometry(...)',
+        'Sliver publishes its geometry. Parent reads paintExtent/layoutExtent.'],
+    <String>['4', 'parent.applyPaintTransform / paint()',
+        'Viewport composes the sliver into the scene at the correct paint offset.'],
+    <String>['5', 'hitTest(SliverHitTestResult, mainAxisPosition, crossAxisPosition)',
+        'Hits are routed in scroll coordinates; only hitTestExtent pixels are eligible.'],
   ];
   return _card(
     bg: _kInk,
@@ -1625,20 +1475,15 @@ Widget _lifecycleDiagram() {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('LIFECYCLE'),
-            const SizedBox(width: 8.0),
-            const Text(
-              'RenderSliver layout → paint → hit-test',
+        Row(children: <Widget>[
+          _tag('LIFECYCLE'),
+          const SizedBox(width: 8.0),
+          const Text('RenderSliver layout → paint → hit-test',
               style: TextStyle(
-                color: _kPaper,
-                fontSize: 13.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
+                  color: _kPaper,
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w800)),
+        ]),
         const SizedBox(height: 10.0),
         for (int i = 0; i < phases.length; i++)
           Padding(
@@ -1785,22 +1630,20 @@ Widget _recipeCard(_Recipe r) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('RECIPE', bg: r.accent),
-            const SizedBox(width: 6.0),
-            Expanded(
-              child: Text(
-                r.title,
-                style: const TextStyle(
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w800,
-                  color: _kInk,
-                ),
+        Row(children: <Widget>[
+          _tag('RECIPE', bg: r.accent),
+          const SizedBox(width: 6.0),
+          Expanded(
+            child: Text(
+              r.title,
+              style: const TextStyle(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+                color: _kInk,
               ),
             ),
-          ],
-        ),
+          ),
+        ]),
         const SizedBox(height: 8.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
@@ -1822,7 +1665,11 @@ Widget _recipeCard(_Recipe r) {
         const SizedBox(height: 6.0),
         Text(
           r.note,
-          style: const TextStyle(fontSize: 11.5, color: _kAsh, height: 1.4),
+          style: const TextStyle(
+            fontSize: 11.5,
+            color: _kAsh,
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -1835,66 +1682,26 @@ Widget _recipeCard(_Recipe r) {
 
 Widget _comparisonTable() {
   final List<List<String>> rows = <List<String>>[
-    <String>[
-      'SliverList',
-      'variable-height lazy list',
-      'O(n) layout',
-      'builder/list delegate',
-    ],
-    <String>[
-      'SliverFixedExtentList',
-      'uniform-height long list',
-      'O(1) scroll math',
-      'builder/list delegate',
-    ],
-    <String>[
-      'SliverPrototypeExtentList',
-      'all items match a prototype',
-      'O(1) once measured',
-      'prototype + delegate',
-    ],
-    <String>[
-      'SliverGrid',
-      '2D cell grid',
-      'O(n) layout',
-      'grid delegate + child delegate',
-    ],
-    <String>[
-      'SliverFillViewport',
-      'full-viewport pages',
-      'O(1) per page',
-      'child delegate',
-    ],
-    <String>[
-      'SliverFillRemaining',
-      'fill leftover space',
-      'one box child',
-      'box child',
-    ],
-    <String>[
-      'SliverToBoxAdapter',
-      'wrap a single RenderBox',
-      'trivial',
-      'box child',
-    ],
-    <String>[
-      'SliverPersistentHeader',
-      'pinned/floating header',
-      'depends on delegate',
-      'persistent header delegate',
-    ],
-    <String>[
-      'SliverPadding',
-      'inset wrapper for any sliver',
-      'thin',
-      'one inner sliver',
-    ],
-    <String>[
-      'SliverAppBar',
-      'high-level pinned hero',
-      'depends on flexibleSpace',
-      'composes persistent header',
-    ],
+    <String>['SliverList', 'variable-height lazy list', 'O(n) layout',
+        'builder/list delegate'],
+    <String>['SliverFixedExtentList', 'uniform-height long list', 'O(1) scroll math',
+        'builder/list delegate'],
+    <String>['SliverPrototypeExtentList', 'all items match a prototype', 'O(1) once measured',
+        'prototype + delegate'],
+    <String>['SliverGrid', '2D cell grid', 'O(n) layout',
+        'grid delegate + child delegate'],
+    <String>['SliverFillViewport', 'full-viewport pages', 'O(1) per page',
+        'child delegate'],
+    <String>['SliverFillRemaining', 'fill leftover space', 'one box child',
+        'box child'],
+    <String>['SliverToBoxAdapter', 'wrap a single RenderBox', 'trivial',
+        'box child'],
+    <String>['SliverPersistentHeader', 'pinned/floating header', 'depends on delegate',
+        'persistent header delegate'],
+    <String>['SliverPadding', 'inset wrapper for any sliver', 'thin',
+        'one inner sliver'],
+    <String>['SliverAppBar', 'high-level pinned hero', 'depends on flexibleSpace',
+        'composes persistent header'],
   ];
 
   return _card(
@@ -1903,18 +1710,12 @@ Widget _comparisonTable() {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('TABLE'),
-            const SizedBox(width: 8.0),
-            _label(
-              'sliver type × use case × cost × child shape',
-              size: 13.0,
-              color: _kInk,
-              w: FontWeight.w800,
-            ),
-          ],
-        ),
+        Row(children: <Widget>[
+          _tag('TABLE'),
+          const SizedBox(width: 8.0),
+          _label('sliver type × use case × cost × child shape',
+              size: 13.0, color: _kInk, w: FontWeight.w800),
+        ]),
         const SizedBox(height: 10.0),
         Container(
           decoration: BoxDecoration(
@@ -1925,10 +1726,8 @@ Widget _comparisonTable() {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 6.0,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
                 decoration: const BoxDecoration(
                   color: _kInk,
                   borderRadius: BorderRadius.only(
@@ -1940,51 +1739,39 @@ Widget _comparisonTable() {
                   children: const <Widget>[
                     SizedBox(
                       width: 170.0,
-                      child: Text(
-                        'sliver',
-                        style: TextStyle(
-                          color: _kAcid,
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      child: Text('sliver',
+                          style: TextStyle(
+                              color: _kAcid,
+                              fontFamily: 'monospace',
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w800)),
                     ),
                     Expanded(
                       flex: 4,
-                      child: Text(
-                        'use case',
-                        style: TextStyle(
-                          color: _kAcid,
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      child: Text('use case',
+                          style: TextStyle(
+                              color: _kAcid,
+                              fontFamily: 'monospace',
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w800)),
                     ),
                     Expanded(
                       flex: 3,
-                      child: Text(
-                        'cost',
-                        style: TextStyle(
-                          color: _kAcid,
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      child: Text('cost',
+                          style: TextStyle(
+                              color: _kAcid,
+                              fontFamily: 'monospace',
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w800)),
                     ),
                     Expanded(
                       flex: 4,
-                      child: Text(
-                        'child shape',
-                        style: TextStyle(
-                          color: _kAcid,
-                          fontFamily: 'monospace',
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      child: Text('child shape',
+                          style: TextStyle(
+                              color: _kAcid,
+                              fontFamily: 'monospace',
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w800)),
                     ),
                   ],
                 ),
@@ -1992,9 +1779,7 @@ Widget _comparisonTable() {
               for (int i = 0; i < rows.length; i++)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 6.0,
-                  ),
+                      horizontal: 8.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: i.isEven ? _kSheet : _kPaper,
                     border: Border(
@@ -2009,47 +1794,35 @@ Widget _comparisonTable() {
                     children: <Widget>[
                       SizedBox(
                         width: 170.0,
-                        child: Text(
-                          rows[i][0],
-                          style: const TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w800,
-                            color: _kInk,
-                          ),
-                        ),
+                        child: Text(rows[i][0],
+                            style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11.5,
+                                fontWeight: FontWeight.w800,
+                                color: _kInk)),
                       ),
                       Expanded(
                         flex: 4,
-                        child: Text(
-                          rows[i][1],
-                          style: const TextStyle(
-                            fontSize: 11.5,
-                            color: _kInk,
-                            height: 1.35,
-                          ),
-                        ),
+                        child: Text(rows[i][1],
+                            style: const TextStyle(
+                                fontSize: 11.5,
+                                color: _kInk,
+                                height: 1.35)),
                       ),
                       Expanded(
                         flex: 3,
-                        child: Text(
-                          rows[i][2],
-                          style: const TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11.0,
-                            color: _kRust,
-                          ),
-                        ),
+                        child: Text(rows[i][2],
+                            style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11.0,
+                                color: _kRust)),
                       ),
                       Expanded(
                         flex: 4,
-                        child: Text(
-                          rows[i][3],
-                          style: const TextStyle(
-                            fontSize: 11.5,
-                            color: _kBlueprint,
-                          ),
-                        ),
+                        child: Text(rows[i][3],
+                            style: const TextStyle(
+                                fontSize: 11.5,
+                                color: _kBlueprint)),
                       ),
                     ],
                   ),
@@ -2068,39 +1841,27 @@ Widget _comparisonTable() {
 
 Widget _pitfalls() {
   final List<List<String>> pitfalls = <List<String>>[
-    <String>[
-      'missing crossAxisCount',
-      'SliverGrid.count without crossAxisCount fails to lay out — every '
-          'grid delegate must define how cross-axis space is partitioned.',
-    ],
-    <String>[
-      'infinite extent',
-      'A sliver that returns scrollExtent=double.infinity inside a viewport '
-          'that does not allow infinite extent (e.g. bounded CustomScrollView) '
-          'will throw during layout.',
-    ],
-    <String>[
-      'mixing slivers with box children',
-      'CustomScrollView.slivers expects only RenderSliver children. Passing '
-          'a Container directly produces a protocol mismatch — wrap it in '
-          'SliverToBoxAdapter.',
-    ],
-    <String>[
-      'viewport size assumptions',
-      'Code that reads MediaQuery.size at build time to size a SliverFillViewport '
-          'page can desync from the real viewport main-axis extent. Prefer '
-          'viewportFraction.',
-    ],
-    <String>[
-      'shrinkWrap inside infinite parent',
-      'CustomScrollView(shrinkWrap: true) inside an unbounded parent forces '
-          'all children to lay out — defeats lazy building and can be O(n²).',
-    ],
-    <String>[
-      'SliverFillRemaining hasScrollBody',
-      'Set hasScrollBody:false when the tail is a single non-scrolling box, '
-          'otherwise the sliver assumes its child is itself scrollable.',
-    ],
+    <String>['missing crossAxisCount',
+        'SliverGrid.count without crossAxisCount fails to lay out — every '
+            'grid delegate must define how cross-axis space is partitioned.'],
+    <String>['infinite extent',
+        'A sliver that returns scrollExtent=double.infinity inside a viewport '
+            'that does not allow infinite extent (e.g. bounded CustomScrollView) '
+            'will throw during layout.'],
+    <String>['mixing slivers with box children',
+        'CustomScrollView.slivers expects only RenderSliver children. Passing '
+            'a Container directly produces a protocol mismatch — wrap it in '
+            'SliverToBoxAdapter.'],
+    <String>['viewport size assumptions',
+        'Code that reads MediaQuery.size at build time to size a SliverFillViewport '
+            'page can desync from the real viewport main-axis extent. Prefer '
+            'viewportFraction.'],
+    <String>['shrinkWrap inside infinite parent',
+        'CustomScrollView(shrinkWrap: true) inside an unbounded parent forces '
+            'all children to lay out — defeats lazy building and can be O(n²).'],
+    <String>['SliverFillRemaining hasScrollBody',
+        'Set hasScrollBody:false when the tail is a single non-scrolling box, '
+            'otherwise the sliver assumes its child is itself scrollable.'],
   ];
 
   return _card(
@@ -2110,18 +1871,12 @@ Widget _pitfalls() {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('PITFALL', bg: _kRust, fg: _kPaper),
-            const SizedBox(width: 8.0),
-            _label(
-              'common sliver protocol mistakes',
-              size: 13.0,
-              color: _kInk,
-              w: FontWeight.w800,
-            ),
-          ],
-        ),
+        Row(children: <Widget>[
+          _tag('PITFALL', bg: _kRust, fg: _kPaper),
+          const SizedBox(width: 8.0),
+          _label('common sliver protocol mistakes',
+              size: 13.0, color: _kInk, w: FontWeight.w800),
+        ]),
         const SizedBox(height: 10.0),
         for (int i = 0; i < pitfalls.length; i++)
           Container(
@@ -2168,77 +1923,35 @@ Widget _pitfalls() {
 
 Widget _glossary() {
   final List<List<String>> entries = <List<String>>[
-    <String>[
-      'sliver',
-      'A region that lays out along the scroll axis and '
-          'produces a SliverGeometry instead of a Size.',
-    ],
-    <String>[
-      'scrollOffset',
-      'The number of pixels from this sliver\'s leading '
-          'edge to the viewport\'s leading edge.',
-    ],
-    <String>[
-      'paintExtent',
-      'How many pixels of this sliver are visible in the '
-          'viewport right now.',
-    ],
-    <String>[
-      'layoutExtent',
-      'How many pixels of main-axis space the sliver '
-          'consumes for the next sliver.',
-    ],
-    <String>[
-      'maxPaintExtent',
-      'Largest possible paintExtent — used by scroll '
-          'indicators to size the thumb.',
-    ],
-    <String>[
-      'cacheExtent',
-      'Extra paint pixels eagerly laid out outside the '
-          'visible region for smoother scroll.',
-    ],
-    <String>[
-      'cacheOrigin',
-      'Negative offset where the cache region begins '
-          'relative to the visible region.',
-    ],
-    <String>[
-      'axisDirection',
-      'down/up/left/right — the direction in which '
-          'scrollOffset increases.',
-    ],
-    <String>[
-      'growthDirection',
-      'forward = grow toward axisDirection; reverse = '
-          'grow opposite. Both can coexist in a viewport (center-anchored).',
-    ],
-    <String>[
-      'userScrollDirection',
-      'Most recent direction the user actively '
-          'scrolled. May differ from axisDirection.',
-    ],
-    <String>[
-      'SliverChildDelegate',
-      'Strategy object that vends widgets to a '
-          'list/grid sliver — builder or list variants are the common ones.',
-    ],
-    <String>[
-      'SliverPersistentHeaderDelegate',
-      'Strategy object describing '
-          'a pinnable/floatable header: min/maxExtent and a build callback that '
-          'receives shrinkOffset.',
-    ],
-    <String>[
-      'viewport',
-      'A render object that owns and clips a set of '
-          'slivers, supplying SliverConstraints to each one.',
-    ],
-    <String>[
-      'hit test',
-      'Routing a pointer event in scroll coordinates to '
-          'whichever sliver covers hitTestExtent at that offset.',
-    ],
+    <String>['sliver', 'A region that lays out along the scroll axis and '
+        'produces a SliverGeometry instead of a Size.'],
+    <String>['scrollOffset', 'The number of pixels from this sliver\'s leading '
+        'edge to the viewport\'s leading edge.'],
+    <String>['paintExtent', 'How many pixels of this sliver are visible in the '
+        'viewport right now.'],
+    <String>['layoutExtent', 'How many pixels of main-axis space the sliver '
+        'consumes for the next sliver.'],
+    <String>['maxPaintExtent', 'Largest possible paintExtent — used by scroll '
+        'indicators to size the thumb.'],
+    <String>['cacheExtent', 'Extra paint pixels eagerly laid out outside the '
+        'visible region for smoother scroll.'],
+    <String>['cacheOrigin', 'Negative offset where the cache region begins '
+        'relative to the visible region.'],
+    <String>['axisDirection', 'down/up/left/right — the direction in which '
+        'scrollOffset increases.'],
+    <String>['growthDirection', 'forward = grow toward axisDirection; reverse = '
+        'grow opposite. Both can coexist in a viewport (center-anchored).'],
+    <String>['userScrollDirection', 'Most recent direction the user actively '
+        'scrolled. May differ from axisDirection.'],
+    <String>['SliverChildDelegate', 'Strategy object that vends widgets to a '
+        'list/grid sliver — builder or list variants are the common ones.'],
+    <String>['SliverPersistentHeaderDelegate', 'Strategy object describing '
+        'a pinnable/floatable header: min/maxExtent and a build callback that '
+        'receives shrinkOffset.'],
+    <String>['viewport', 'A render object that owns and clips a set of '
+        'slivers, supplying SliverConstraints to each one.'],
+    <String>['hit test', 'Routing a pointer event in scroll coordinates to '
+        'whichever sliver covers hitTestExtent at that offset.'],
   ];
   return _card(
     bg: _kPaper,
@@ -2246,18 +1959,12 @@ Widget _glossary() {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('GLOSSARY'),
-            const SizedBox(width: 8.0),
-            _label(
-              '${entries.length} terms',
-              size: 13.0,
-              color: _kInk,
-              w: FontWeight.w800,
-            ),
-          ],
-        ),
+        Row(children: <Widget>[
+          _tag('GLOSSARY'),
+          const SizedBox(width: 8.0),
+          _label('${entries.length} terms',
+              size: 13.0, color: _kInk, w: FontWeight.w800),
+        ]),
         const SizedBox(height: 10.0),
         for (int i = 0; i < entries.length; i++)
           Padding(
@@ -2268,9 +1975,7 @@ Widget _glossary() {
                 Container(
                   width: 180.0,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                      horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: _kAcid,
                     borderRadius: BorderRadius.circular(_kRadiusS),
@@ -2325,20 +2030,15 @@ Widget _epilogue() {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _tag('EPILOGUE', bg: _kLime),
-            const SizedBox(width: 8.0),
-            const Text(
-              'the portage line',
+        Row(children: <Widget>[
+          _tag('EPILOGUE', bg: _kLime),
+          const SizedBox(width: 8.0),
+          const Text('the portage line',
               style: TextStyle(
-                color: _kPaper,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
+                  color: _kPaper,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w800)),
+        ]),
         const SizedBox(height: 12.0),
         const Text(
           'Slivers are how Flutter portages content across a viewport. Each '
@@ -2347,7 +2047,11 @@ Widget _epilogue() {
           'returns). That tiny protocol is the entire reason CustomScrollView '
           'can mix lazy lists, sticky headers, grids, pagers and tail-fillers '
           'in one cohesive scroll surface.',
-          style: TextStyle(color: _kFog, fontSize: 13.0, height: 1.55),
+          style: TextStyle(
+            color: _kFog,
+            fontSize: 13.0,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 10.0),
         const Text(
@@ -2355,18 +2059,20 @@ Widget _epilogue() {
           'real render pipeline. The script returned a single root widget — '
           'no controllers, no streams — yet every CustomScrollView above '
           'instantiated genuine RenderSliver subclasses behind the scenes.',
-          style: TextStyle(color: _kFog, fontSize: 13.0, height: 1.55),
+          style: TextStyle(
+            color: _kFog,
+            fontSize: 13.0,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 14.0),
-        Row(
-          children: <Widget>[
-            _tag('END', bg: _kAcid),
-            const SizedBox(width: 8.0),
-            _tag('20/20 sections', bg: _kLime),
-            const SizedBox(width: 8.0),
-            _tag('scroll laboratory', bg: _kAmber),
-          ],
-        ),
+        Row(children: <Widget>[
+          _tag('END', bg: _kAcid),
+          const SizedBox(width: 8.0),
+          _tag('20/20 sections', bg: _kLime),
+          const SizedBox(width: 8.0),
+          _tag('scroll laboratory', bg: _kAmber),
+        ]),
       ],
     ),
   );
@@ -2390,196 +2096,134 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 20.0),
 
           // 2.
-          _sectionHeader(
-            '02',
-            'Concept overview',
-            'RenderSliver vs RenderBox; axis × growth direction',
-          ),
+          _sectionHeader('02', 'Concept overview',
+              'RenderSliver vs RenderBox; axis × growth direction'),
           const SizedBox(height: 10.0),
           _conceptOverview(),
           const SizedBox(height: 20.0),
 
           // 3.
-          _sectionHeader(
-            '03',
-            'SliverConstraints anatomy',
-            'What the parent viewport hands to every sliver',
-          ),
+          _sectionHeader('03', 'SliverConstraints anatomy',
+              'What the parent viewport hands to every sliver'),
           const SizedBox(height: 10.0),
           _sliverConstraintsAnatomy(),
           const SizedBox(height: 20.0),
 
           // 4.
-          _sectionHeader(
-            '04',
-            'SliverGeometry anatomy',
-            'What every sliver returns to its parent',
-            accent: _kLime,
-          ),
+          _sectionHeader('04', 'SliverGeometry anatomy',
+              'What every sliver returns to its parent', accent: _kLime),
           const SizedBox(height: 10.0),
           _sliverGeometryAnatomy(),
           const SizedBox(height: 20.0),
 
           // 5.
-          _sectionHeader(
-            '05',
-            'SliverList specimen',
-            'lazy, variable-height rows in a bounded viewport',
-            accent: _kAcid,
-          ),
+          _sectionHeader('05', 'SliverList specimen',
+              'lazy, variable-height rows in a bounded viewport',
+              accent: _kAcid),
           const SizedBox(height: 10.0),
           _sliverListSpecimen(),
           const SizedBox(height: 16.0),
 
           // 6.
-          _sectionHeader(
-            '06',
-            'SliverFixedExtentList specimen',
-            'uniform 60px rows — O(1) scroll math',
-            accent: _kLime,
-          ),
+          _sectionHeader('06', 'SliverFixedExtentList specimen',
+              'uniform 60px rows — O(1) scroll math', accent: _kLime),
           const SizedBox(height: 10.0),
           _sliverFixedExtentListSpecimen(),
           const SizedBox(height: 16.0),
 
           // 7.
-          _sectionHeader(
-            '07',
-            'SliverGrid specimen',
-            '3-column grid via .count',
-            accent: _kAmber,
-          ),
+          _sectionHeader('07', 'SliverGrid specimen',
+              '3-column grid via .count', accent: _kAmber),
           const SizedBox(height: 10.0),
           _sliverGridSpecimen(),
           const SizedBox(height: 16.0),
 
           // 8.
-          _sectionHeader(
-            '08',
-            'SliverFillViewport specimen',
-            'pager — every child fills the viewport',
-            accent: _kRust,
-          ),
+          _sectionHeader('08', 'SliverFillViewport specimen',
+              'pager — every child fills the viewport', accent: _kRust),
           const SizedBox(height: 10.0),
           _sliverFillViewportSpecimen(),
           const SizedBox(height: 16.0),
 
           // 9.
-          _sectionHeader(
-            '09',
-            'SliverFillRemaining specimen',
-            'short list + tail that fills available space',
-            accent: _kLime,
-          ),
+          _sectionHeader('09', 'SliverFillRemaining specimen',
+              'short list + tail that fills available space',
+              accent: _kLime),
           const SizedBox(height: 10.0),
           _sliverFillRemainingSpecimen(),
           const SizedBox(height: 16.0),
 
           // 10.
-          _sectionHeader(
-            '10',
-            'SliverToBoxAdapter specimen',
-            'three RenderBox children embedded inside a sliver list',
-          ),
+          _sectionHeader('10', 'SliverToBoxAdapter specimen',
+              'three RenderBox children embedded inside a sliver list'),
           const SizedBox(height: 10.0),
           _sliverToBoxAdapterSpecimen(),
           const SizedBox(height: 16.0),
 
           // 11.
-          _sectionHeader(
-            '11',
-            'SliverPersistentHeader specimen',
-            'pinned headers anchored to the leading edge',
-            accent: _kRust,
-          ),
+          _sectionHeader('11', 'SliverPersistentHeader specimen',
+              'pinned headers anchored to the leading edge',
+              accent: _kRust),
           const SizedBox(height: 10.0),
           _sliverPersistentHeaderSpecimen(),
           const SizedBox(height: 16.0),
 
           // 12.
-          _sectionHeader(
-            '12',
-            'SliverPadding specimen',
-            'inset wrapper for any inner sliver',
-            accent: _kLime,
-          ),
+          _sectionHeader('12', 'SliverPadding specimen',
+              'inset wrapper for any inner sliver', accent: _kLime),
           const SizedBox(height: 10.0),
           _sliverPaddingSpecimen(),
           const SizedBox(height: 16.0),
 
           // 13.
-          _sectionHeader(
-            '13',
-            'Reverse / AxisDirection demos',
-            'reverse: true and scrollDirection: Axis.horizontal',
-            accent: _kAmber,
-          ),
+          _sectionHeader('13', 'Reverse / AxisDirection demos',
+              'reverse: true and scrollDirection: Axis.horizontal',
+              accent: _kAmber),
           const SizedBox(height: 10.0),
           _reverseAndHorizontalSpecimens(),
           const SizedBox(height: 16.0),
 
           // 14.
-          _sectionHeader(
-            '14',
-            'Composition specimen',
-            '5 sliver types in a single CustomScrollView',
-            accent: _kAcid,
-          ),
+          _sectionHeader('14', 'Composition specimen',
+              '5 sliver types in a single CustomScrollView',
+              accent: _kAcid),
           const SizedBox(height: 10.0),
           _compositionSpecimen(),
           const SizedBox(height: 20.0),
 
           // 15.
-          _sectionHeader(
-            '15',
-            'Lifecycle / protocol diagram',
-            'parent → child → geometry → paint → hit-test',
-            accent: _kAcid,
-          ),
+          _sectionHeader('15', 'Lifecycle / protocol diagram',
+              'parent → child → geometry → paint → hit-test',
+              accent: _kAcid),
           const SizedBox(height: 10.0),
           _lifecycleDiagram(),
           const SizedBox(height: 20.0),
 
           // 16.
-          _sectionHeader(
-            '16',
-            'Recipe cards',
-            '6 ready-made sliver compositions',
-            accent: _kLime,
-          ),
+          _sectionHeader('16', 'Recipe cards',
+              '6 ready-made sliver compositions', accent: _kLime),
           const SizedBox(height: 10.0),
           _recipeCards(),
           const SizedBox(height: 20.0),
 
           // 17.
-          _sectionHeader(
-            '17',
-            'Comparison table',
-            'sliver × use case × cost × child shape',
-            accent: _kBlueprintHi,
-          ),
+          _sectionHeader('17', 'Comparison table',
+              'sliver × use case × cost × child shape',
+              accent: _kBlueprintHi),
           const SizedBox(height: 10.0),
           _comparisonTable(),
           const SizedBox(height: 20.0),
 
           // 18.
-          _sectionHeader(
-            '18',
-            'Pitfalls',
-            'common sliver protocol mistakes',
-            accent: _kRust,
-          ),
+          _sectionHeader('18', 'Pitfalls',
+              'common sliver protocol mistakes', accent: _kRust),
           const SizedBox(height: 10.0),
           _pitfalls(),
           const SizedBox(height: 20.0),
 
           // 19.
-          _sectionHeader(
-            '19',
-            'Glossary',
-            '14 essential sliver terms',
-            accent: _kAcid,
-          ),
+          _sectionHeader('19', 'Glossary',
+              '14 essential sliver terms', accent: _kAcid),
           const SizedBox(height: 10.0),
           _glossary(),
           const SizedBox(height: 20.0),

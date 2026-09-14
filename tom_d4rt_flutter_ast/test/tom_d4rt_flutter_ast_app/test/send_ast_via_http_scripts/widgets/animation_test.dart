@@ -102,10 +102,8 @@ class _AnimationLabState extends State<_AnimationLab>
     );
 
     _curvedEaseIn = CurvedAnimation(parent: _primary, curve: Curves.easeIn);
-    _curvedElasticOut = CurvedAnimation(
-      parent: _primary,
-      curve: Curves.elasticOut,
-    );
+    _curvedElasticOut =
+        CurvedAnimation(parent: _primary, curve: Curves.elasticOut);
     _reversed = ReverseAnimation(_primary);
     _proxy = ProxyAnimation(_curvedEaseIn);
 
@@ -242,7 +240,10 @@ class _Bench extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF263238),
                   borderRadius: BorderRadius.circular(6),
@@ -320,7 +321,8 @@ class _HeroHeader extends StatelessWidget {
           AnimatedBuilder(
             animation: controller,
             builder: (BuildContext context, Widget? child) {
-              final double pulse = Curves.easeInOut.transform(controller.value);
+              final double pulse =
+                  Curves.easeInOut.transform(controller.value);
               return Container(
                 width: 78 + pulse * 14,
                 height: 78 + pulse * 14,
@@ -328,9 +330,8 @@ class _HeroHeader extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: const Color(0xFFBBE1FA).withValues(alpha: 0.18),
                   border: Border.all(
-                    color: const Color(
-                      0xFFBBE1FA,
-                    ).withValues(alpha: 0.4 + pulse * 0.4),
+                    color: const Color(0xFFBBE1FA)
+                        .withValues(alpha: 0.4 + pulse * 0.4),
                     width: 2.5,
                   ),
                 ),
@@ -502,11 +503,8 @@ class _CurvePainter extends CustomPainter {
     final Paint grid = Paint()
       ..color = const Color(0xFFE0CB8C)
       ..strokeWidth = 0.5;
-    canvas.drawLine(
-      Offset(0, size.height),
-      Offset(size.width, size.height),
-      grid,
-    );
+    canvas.drawLine(Offset(0, size.height), Offset(size.width, size.height),
+        grid);
     canvas.drawLine(const Offset(0, 0), Offset(0, size.height), grid);
 
     final Paint line = Paint()
@@ -647,10 +645,8 @@ class _ColorTweenCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorTween tween = ColorTween(
-      begin: const Color(0xFFE91E63),
-      end: const Color(0xFF00BCD4),
-    );
+    final ColorTween tween =
+        ColorTween(begin: const Color(0xFFE91E63), end: const Color(0xFF00BCD4));
     return _GalleryCard(
       label: 'Background morph',
       tweenName: 'ColorTween',
@@ -750,7 +746,8 @@ class _AlignmentTweenCard extends StatelessWidget {
         child: AnimatedBuilder(
           animation: controller,
           builder: (BuildContext context, Widget? child) {
-            final Alignment a = tween.transform(controller.value);
+            final Alignment a =
+                tween.transform(controller.value);
             return Align(
               alignment: a,
               child: Container(
@@ -866,7 +863,8 @@ class _EdgeInsetsTweenCard extends StatelessWidget {
         child: AnimatedBuilder(
           animation: controller,
           builder: (BuildContext context, Widget? child) {
-            final EdgeInsets e = tween.transform(controller.value);
+            final EdgeInsets e =
+                tween.transform(controller.value);
             return Container(
               padding: e,
               decoration: BoxDecoration(
@@ -902,20 +900,19 @@ class _TweenSequenceSection extends StatelessWidget {
   late final Animation<double> _sequence = TweenSequence<double>(
     <TweenSequenceItem<double>>[
       TweenSequenceItem<double>(
-        tween: Tween<double>(
-          begin: 0.0,
-          end: 1.0,
-        ).chain(CurveTween(curve: Curves.easeOut)),
+        tween: Tween<double>(begin: 0.0, end: 1.0)
+            .chain(CurveTween(curve: Curves.easeOut)),
         weight: 1.0,
       ),
       TweenSequenceItem<double>(
-        tween: Tween<double>(
-          begin: 1.0,
-          end: 0.0,
-        ).chain(CurveTween(curve: Curves.bounceOut)),
+        tween: Tween<double>(begin: 1.0, end: 0.0)
+            .chain(CurveTween(curve: Curves.bounceOut)),
         weight: 2.0,
       ),
-      TweenSequenceItem<double>(tween: ConstantTween<double>(0.0), weight: 1.0),
+      TweenSequenceItem<double>(
+        tween: ConstantTween<double>(0.0),
+        weight: 1.0,
+      ),
     ],
   ).animate(controller);
 
@@ -942,7 +939,10 @@ class _TweenSequenceSection extends StatelessWidget {
                 return Stack(
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
-                    Container(height: 4, color: const Color(0xFF6D4C41)),
+                    Container(
+                      height: 4,
+                      color: const Color(0xFF6D4C41),
+                    ),
                     Positioned(
                       bottom: 4 + h * 90,
                       child: Container(
@@ -1032,7 +1032,10 @@ class _SeqBar extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 class _CurvedChainSection extends StatelessWidget {
-  const _CurvedChainSection({required this.easeIn, required this.elasticOut});
+  const _CurvedChainSection({
+    required this.easeIn,
+    required this.elasticOut,
+  });
 
   final Animation<double> easeIn;
   final Animation<double> elasticOut;
@@ -1051,11 +1054,7 @@ class _CurvedChainSection extends StatelessWidget {
       color: const Color(0xFF388E3C),
       child: Column(
         children: <Widget>[
-          _CurvedTrack(
-            label: 'easeIn',
-            anim: easeIn,
-            color: const Color(0xFF388E3C),
-          ),
+          _CurvedTrack(label: 'easeIn', anim: easeIn, color: const Color(0xFF388E3C)),
           const SizedBox(height: 10),
           _CurvedTrack(
             label: 'elasticOut',
@@ -1114,24 +1113,22 @@ class _CurvedTrack extends StatelessWidget {
                     LayoutBuilder(
                       builder:
                           (BuildContext context, BoxConstraints constraints) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                left:
-                                    ((v + 0.1) /
-                                            1.2 *
-                                            (constraints.maxWidth - 22))
-                                        .clamp(0.0, constraints.maxWidth - 22),
-                              ),
-                              child: Container(
-                                width: 22,
-                                height: 22,
-                                decoration: BoxDecoration(
-                                  color: color,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                            );
-                          },
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            left:
+                                ((v + 0.1) / 1.2 * (constraints.maxWidth - 22))
+                                    .clamp(0.0, constraints.maxWidth - 22),
+                          ),
+                          child: Container(
+                            width: 22,
+                            height: 22,
+                            decoration: BoxDecoration(
+                              color: color,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 );
@@ -1176,11 +1173,7 @@ class _ProxyReverseSection extends StatelessWidget {
       color: const Color(0xFF0288D1),
       child: Column(
         children: <Widget>[
-          _DotRow(
-            label: 'controller',
-            anim: primary,
-            color: const Color(0xFF0288D1),
-          ),
+          _DotRow(label: 'controller', anim: primary, color: const Color(0xFF0288D1)),
           const SizedBox(height: 8),
           _DotRow(
             label: 'reversed',
@@ -1200,7 +1193,11 @@ class _ProxyReverseSection extends StatelessWidget {
 }
 
 class _DotRow extends StatelessWidget {
-  const _DotRow({required this.label, required this.anim, required this.color});
+  const _DotRow({
+    required this.label,
+    required this.anim,
+    required this.color,
+  });
 
   final String label;
   final Animation<double> anim;
@@ -1229,7 +1226,8 @@ class _DotRow extends StatelessWidget {
               builder: (BuildContext context, Widget? child) {
                 final double v = anim.value.clamp(-0.1, 1.1);
                 return LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
+                  builder:
+                      (BuildContext context, BoxConstraints constraints) {
                     final double w = constraints.maxWidth - 18;
                     return Stack(
                       children: <Widget>[
@@ -1310,21 +1308,9 @@ class _CompoundSection extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _Trace(label: 'A (primary)', anim: a, color: const Color(0xFF1976D2)),
-          _Trace(
-            label: 'B (secondary)',
-            anim: b,
-            color: const Color(0xFF00897B),
-          ),
-          _Trace(
-            label: 'min(A, B)',
-            anim: minA,
-            color: const Color(0xFFD81B60),
-          ),
-          _Trace(
-            label: 'max(A, B)',
-            anim: maxA,
-            color: const Color(0xFFF9A825),
-          ),
+          _Trace(label: 'B (secondary)', anim: b, color: const Color(0xFF00897B)),
+          _Trace(label: 'min(A, B)', anim: minA, color: const Color(0xFFD81B60)),
+          _Trace(label: 'max(A, B)', anim: maxA, color: const Color(0xFFF9A825)),
           // Inline mean trace — composes _Trace's visual but reads from
           // the merged Listenable [minA, maxA] and computes mean on the
           // fly. We pass `minA` to the `anim` field of _Trace so any
@@ -1337,10 +1323,8 @@ class _CompoundSection extends StatelessWidget {
             child: AnimatedBuilder(
               animation: Listenable.merge(<Listenable>[minA, maxA]),
               builder: (BuildContext context, Widget? child) {
-                final double mean = ((minA.value + maxA.value) / 2.0).clamp(
-                  0.0,
-                  1.0,
-                );
+                final double mean =
+                    ((minA.value + maxA.value) / 2.0).clamp(0.0, 1.0);
                 return Row(
                   children: <Widget>[
                     const SizedBox(
@@ -1402,7 +1386,11 @@ class _CompoundSection extends StatelessWidget {
 }
 
 class _Trace extends StatelessWidget {
-  const _Trace({required this.label, required this.anim, required this.color});
+  const _Trace({
+    required this.label,
+    required this.anim,
+    required this.color,
+  });
 
   final String label;
   final Animation<double> anim;
@@ -1463,7 +1451,10 @@ class _Trace extends StatelessWidget {
               builder: (BuildContext context, Widget? child) {
                 return Text(
                   anim.value.toStringAsFixed(2),
-                  style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
                   textAlign: TextAlign.right,
                 );
               },
@@ -1641,7 +1632,10 @@ class _AlwaysStoppedSection extends StatelessWidget {
           FadeTransition(
             opacity: const AlwaysStoppedAnimation<double>(0.5),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 10,
+              ),
               decoration: BoxDecoration(
                 color: const Color(0xFF455A64),
                 borderRadius: BorderRadius.circular(20),
@@ -1731,7 +1725,11 @@ class _BestPracticesSection extends StatelessWidget {
 }
 
 class _Bullet extends StatelessWidget {
-  const _Bullet({required this.color, required this.title, required this.body});
+  const _Bullet({
+    required this.color,
+    required this.title,
+    required this.body,
+  });
 
   final Color color;
   final String title;
@@ -1748,7 +1746,10 @@ class _Bullet extends StatelessWidget {
             margin: const EdgeInsets.only(top: 6),
             width: 10,
             height: 10,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(

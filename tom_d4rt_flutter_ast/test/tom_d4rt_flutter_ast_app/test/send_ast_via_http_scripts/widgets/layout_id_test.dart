@@ -21,7 +21,10 @@ class _ThreeZoneDelegate extends MultiChildLayoutDelegate {
   final double headerHeight;
   final double footerHeight;
 
-  _ThreeZoneDelegate({required this.headerHeight, required this.footerHeight});
+  _ThreeZoneDelegate({
+    required this.headerHeight,
+    required this.footerHeight,
+  });
 
   @override
   void performLayout(Size size) {
@@ -182,7 +185,8 @@ class _ResponsiveDelegate extends MultiChildLayoutDelegate {
   }
 
   @override
-  bool shouldRelayout(_ResponsiveDelegate old) => old.breakpoint != breakpoint;
+  bool shouldRelayout(_ResponsiveDelegate old) =>
+      old.breakpoint != breakpoint;
 }
 
 // ─── Delegate: Badge overlay ─────────────────────────────────────────────────
@@ -195,7 +199,10 @@ class _BadgeDelegate extends MultiChildLayoutDelegate {
   @override
   void performLayout(Size size) {
     if (hasChild('content')) {
-      final contentSize = layoutChild('content', BoxConstraints.tight(size));
+      final contentSize = layoutChild(
+        'content',
+        BoxConstraints.tight(size),
+      );
       positionChild('content', Offset.zero);
 
       // Position badge at top-right corner, half-overlapping the content edge.
@@ -216,7 +223,8 @@ class _BadgeDelegate extends MultiChildLayoutDelegate {
   }
 
   @override
-  bool shouldRelayout(_BadgeDelegate old) => old.badgeRadius != badgeRadius;
+  bool shouldRelayout(_BadgeDelegate old) =>
+      old.badgeRadius != badgeRadius;
 }
 
 // ─── Delegate: Optional-child guard ──────────────────────────────────────────
@@ -239,7 +247,10 @@ class _OptionalChildDelegate extends MultiChildLayoutDelegate {
     if (hasChild('optional')) {
       layoutChild(
         'optional',
-        BoxConstraints.tightFor(width: size.width, height: size.height * 0.4),
+        BoxConstraints.tightFor(
+          width: size.width,
+          height: size.height * 0.4,
+        ),
       );
       positionChild('optional', Offset(0, size.height * 0.6));
     }
@@ -281,13 +292,8 @@ class _DiagramPainter extends CustomPainter {
     final outerRect = Rect.fromLTWH(20, 20, size.width - 40, size.height - 40);
     canvas.drawRect(outerRect, Paint()..color = const Color(0xFFEFF6FF));
     canvas.drawRect(outerRect, outerPaint);
-    _drawLabel(
-      canvas,
-      'CustomMultiChildLayout',
-      Offset(28, 24),
-      const Color(0xFF1E40AF),
-      11,
-    );
+    _drawLabel(canvas, 'CustomMultiChildLayout', Offset(28, 24),
+        const Color(0xFF1E40AF), 11);
 
     // Three child rects (header / body / footer).
     final childRects = <String, Rect>{
@@ -299,20 +305,10 @@ class _DiagramPainter extends CustomPainter {
     childRects.forEach((label, rect) {
       canvas.drawRect(rect, childFill);
       canvas.drawRect(rect, childBorder);
-      _drawLabel(
-        canvas,
-        'LayoutId(id: \'$label\')',
-        rect.topLeft + const Offset(6, 6),
-        const Color(0xFF1D4ED8),
-        10,
-      );
-      _drawLabel(
-        canvas,
-        label.toUpperCase(),
-        rect.center - const Offset(0, 6),
-        const Color(0xFF1E3A8A),
-        9,
-      );
+      _drawLabel(canvas, 'LayoutId(id: \'$label\')',
+          rect.topLeft + const Offset(6, 6), const Color(0xFF1D4ED8), 10);
+      _drawLabel(canvas, label.toUpperCase(),
+          rect.center - const Offset(0, 6), const Color(0xFF1E3A8A), 9);
     });
 
     // Delegate box on the right.
@@ -330,34 +326,14 @@ class _DiagramPainter extends CustomPainter {
       RRect.fromRectAndRadius(delegateRect, const Radius.circular(8)),
       delegateBorder,
     );
-    _drawLabel(
-      canvas,
-      'Delegate',
-      delegateRect.topLeft + const Offset(8, 8),
-      const Color(0xFF92400E),
-      10,
-    );
-    _drawLabel(
-      canvas,
-      'layoutChild(id)',
-      delegateRect.topLeft + const Offset(8, 26),
-      const Color(0xFF78350F),
-      9,
-    );
-    _drawLabel(
-      canvas,
-      'positionChild(id)',
-      delegateRect.topLeft + const Offset(8, 42),
-      const Color(0xFF78350F),
-      9,
-    );
-    _drawLabel(
-      canvas,
-      'hasChild(id)',
-      delegateRect.topLeft + const Offset(8, 58),
-      const Color(0xFF78350F),
-      9,
-    );
+    _drawLabel(canvas, 'Delegate', delegateRect.topLeft + const Offset(8, 8),
+        const Color(0xFF92400E), 10);
+    _drawLabel(canvas, 'layoutChild(id)', delegateRect.topLeft + const Offset(8, 26),
+        const Color(0xFF78350F), 9);
+    _drawLabel(canvas, 'positionChild(id)', delegateRect.topLeft + const Offset(8, 42),
+        const Color(0xFF78350F), 9);
+    _drawLabel(canvas, 'hasChild(id)', delegateRect.topLeft + const Offset(8, 58),
+        const Color(0xFF78350F), 9);
 
     // Arrows from delegate to each child.
     final arrowStart = Offset(delegateRect.left, delegateRect.center.dy);
@@ -367,13 +343,8 @@ class _DiagramPainter extends CustomPainter {
     });
   }
 
-  void _drawLabel(
-    Canvas canvas,
-    String text,
-    Offset position,
-    Color color,
-    double fontSize,
-  ) {
+  void _drawLabel(Canvas canvas, String text, Offset position, Color color,
+      double fontSize) {
     final tp = TextPainter(
       text: TextSpan(
         text: text,
@@ -423,7 +394,10 @@ Widget _sectionHeader(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [scheme.primaryContainer, scheme.secondaryContainer],
+        colors: [
+          scheme.primaryContainer,
+          scheme.secondaryContainer,
+        ],
       ),
       borderRadius: BorderRadius.circular(12),
     ),
@@ -501,7 +475,11 @@ Widget _labelChip(String text, Color bg, Color fg) {
     ),
     child: Text(
       text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w700),
+      style: TextStyle(
+        color: fg,
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+      ),
     ),
   );
 }
@@ -535,7 +513,10 @@ Widget _buildHeroBanner(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [scheme.primary, scheme.tertiary],
+        colors: [
+          scheme.primary,
+          scheme.tertiary,
+        ],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: [
@@ -592,17 +573,9 @@ Widget _buildHeroBanner(BuildContext context) {
               children: [
                 _pillBox('LayoutId', scheme.onPrimary, scheme.primary),
                 const Icon(Icons.arrow_forward, color: Colors.white70),
-                _pillBox(
-                  'CustomMultiChildLayout',
-                  scheme.onPrimary,
-                  scheme.primary,
-                ),
+                _pillBox('CustomMultiChildLayout', scheme.onPrimary, scheme.primary),
                 const Icon(Icons.arrow_forward, color: Colors.white70),
-                _pillBox(
-                  'MultiChildLayoutDelegate',
-                  scheme.onPrimary,
-                  scheme.primary,
-                ),
+                _pillBox('MultiChildLayoutDelegate', scheme.onPrimary, scheme.primary),
               ],
             ),
           ),
@@ -646,7 +619,11 @@ Widget _pillBox(String text, Color fg, Color bg) {
     ),
     child: Text(
       text,
-      style: TextStyle(color: fg, fontSize: 10, fontWeight: FontWeight.w700),
+      style: TextStyle(
+        color: fg,
+        fontSize: 10,
+        fontWeight: FontWeight.w700,
+      ),
       textAlign: TextAlign.center,
     ),
   );
@@ -722,11 +699,8 @@ Widget _buildThreeZoneDemo(BuildContext context) {
                       ),
                     ),
                     const Spacer(),
-                    _labelChip(
-                      'id: "header"',
-                      Colors.white.withAlpha(50),
-                      scheme.onPrimary,
-                    ),
+                    _labelChip('id: "header"', Colors.white.withAlpha(50),
+                        scheme.onPrimary),
                     const SizedBox(width: 12),
                   ],
                 ),
@@ -740,11 +714,8 @@ Widget _buildThreeZoneDemo(BuildContext context) {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.view_agenda_rounded,
-                        size: 36,
-                        color: scheme.primary,
-                      ),
+                      Icon(Icons.view_agenda_rounded,
+                          size: 36, color: scheme.primary),
                       const SizedBox(height: 8),
                       Text(
                         'BODY ZONE — flexible height',
@@ -756,10 +727,7 @@ Widget _buildThreeZoneDemo(BuildContext context) {
                       ),
                       const SizedBox(height: 4),
                       _labelChip(
-                        'id: "body"',
-                        scheme.primaryContainer,
-                        scheme.onPrimaryContainer,
-                      ),
+                          'id: "body"', scheme.primaryContainer, scheme.onPrimaryContainer),
                     ],
                   ),
                 ),
@@ -772,11 +740,8 @@ Widget _buildThreeZoneDemo(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.info_outline_rounded,
-                      size: 16,
-                      color: scheme.onSecondaryContainer,
-                    ),
+                    Icon(Icons.info_outline_rounded,
+                        size: 16, color: scheme.onSecondaryContainer),
                     const SizedBox(width: 6),
                     Text(
                       'FOOTER ZONE',
@@ -787,11 +752,8 @@ Widget _buildThreeZoneDemo(BuildContext context) {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    _labelChip(
-                      'id: "footer"',
-                      scheme.secondary.withAlpha(60),
-                      scheme.onSecondaryContainer,
-                    ),
+                    _labelChip('id: "footer"', scheme.secondary.withAlpha(60),
+                        scheme.onSecondaryContainer),
                   ],
                 ),
               ),
@@ -872,11 +834,8 @@ Widget _buildEnumSlotDemo(BuildContext context) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.west_rounded,
-                      color: Color(0xFF16A34A),
-                      size: 28,
-                    ),
+                    const Icon(Icons.west_rounded,
+                        color: Color(0xFF16A34A), size: 28),
                     const SizedBox(height: 4),
                     Text(
                       '_SlotId.left',
@@ -902,11 +861,8 @@ Widget _buildEnumSlotDemo(BuildContext context) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.center_focus_strong_rounded,
-                      color: Color(0xFF7C3AED),
-                      size: 28,
-                    ),
+                    const Icon(Icons.center_focus_strong_rounded,
+                        color: Color(0xFF7C3AED), size: 28),
                     const SizedBox(height: 4),
                     const Text(
                       '_SlotId.center',
@@ -932,11 +888,8 @@ Widget _buildEnumSlotDemo(BuildContext context) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.east_rounded,
-                      color: Color(0xFFD97706),
-                      size: 28,
-                    ),
+                    const Icon(Icons.east_rounded,
+                        color: Color(0xFFD97706), size: 28),
                     const SizedBox(height: 4),
                     const Text(
                       '_SlotId.right',
@@ -1034,18 +987,14 @@ Widget _buildDynamicSplitDemo(BuildContext context) {
                         decoration: BoxDecoration(
                           color: scheme.primaryContainer,
                           borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(10),
-                          ),
+                              left: Radius.circular(10)),
                         ),
                         child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.view_sidebar_rounded,
-                                color: scheme.onPrimaryContainer,
-                                size: 22,
-                              ),
+                              Icon(Icons.view_sidebar_rounded,
+                                  color: scheme.onPrimaryContainer, size: 22),
                               const SizedBox(height: 4),
                               Text(
                                 'LEFT',
@@ -1058,9 +1007,7 @@ Widget _buildDynamicSplitDemo(BuildContext context) {
                               Text(
                                 '${(ratio * 100).toStringAsFixed(0)}%',
                                 style: TextStyle(
-                                  color: scheme.onPrimaryContainer.withAlpha(
-                                    180,
-                                  ),
+                                  color: scheme.onPrimaryContainer.withAlpha(180),
                                   fontSize: 11,
                                 ),
                               ),
@@ -1075,18 +1022,14 @@ Widget _buildDynamicSplitDemo(BuildContext context) {
                         decoration: BoxDecoration(
                           color: scheme.tertiaryContainer,
                           borderRadius: const BorderRadius.horizontal(
-                            right: Radius.circular(10),
-                          ),
+                              right: Radius.circular(10)),
                         ),
                         child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.view_sidebar_outlined,
-                                color: scheme.onTertiaryContainer,
-                                size: 22,
-                              ),
+                              Icon(Icons.view_sidebar_outlined,
+                                  color: scheme.onTertiaryContainer, size: 22),
                               const SizedBox(height: 4),
                               Text(
                                 'RIGHT',
@@ -1099,9 +1042,7 @@ Widget _buildDynamicSplitDemo(BuildContext context) {
                               Text(
                                 '${((1 - ratio) * 100).toStringAsFixed(0)}%',
                                 style: TextStyle(
-                                  color: scheme.onTertiaryContainer.withAlpha(
-                                    180,
-                                  ),
+                                  color: scheme.onTertiaryContainer.withAlpha(180),
                                   fontSize: 11,
                                 ),
                               ),
@@ -1181,14 +1122,9 @@ Widget _buildResponsiveDemo(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: isWide
-                      ? scheme.primaryContainer
-                      : scheme.tertiaryContainer,
+                  color: isWide ? scheme.primaryContainer : scheme.tertiaryContainer,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -1208,9 +1144,8 @@ Widget _buildResponsiveDemo(BuildContext context) {
               // Clamp simulated width so it fits on screen.
               LayoutBuilder(
                 builder: (ctx2, boxConstraints) {
-                  final displayW = simW
-                      .clamp(0.0, boxConstraints.maxWidth)
-                      .toDouble();
+                  final displayW =
+                      simW.clamp(0.0, boxConstraints.maxWidth).toDouble();
                   return SizedBox(
                     width: displayW,
                     height: isWide ? 120 : 140,
@@ -1242,11 +1177,8 @@ Widget _buildResponsiveDemo(BuildContext context) {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.article_rounded,
-                                    size: 24,
-                                    color: scheme.primary,
-                                  ),
+                                  Icon(Icons.article_rounded,
+                                      size: 24, color: scheme.primary),
                                   const SizedBox(height: 4),
                                   Text(
                                     'CONTENT',
@@ -1321,12 +1253,14 @@ Widget _buildDiagramSection(BuildContext context) {
           const SizedBox(width: 12),
           _legendDot(const Color(0xFFFEF3C7), 'Delegate'),
           const SizedBox(width: 12),
-          Container(width: 24, height: 2, color: const Color(0xFFDC2626)),
-          const SizedBox(width: 4),
-          const Text(
-            'layoutChild / positionChild',
-            style: TextStyle(fontSize: 11),
+          Container(
+            width: 24,
+            height: 2,
+            color: const Color(0xFFDC2626),
           ),
+          const SizedBox(width: 4),
+          const Text('layoutChild / positionChild',
+              style: TextStyle(fontSize: 11)),
         ],
       ),
     ],
@@ -1364,27 +1298,19 @@ Widget _buildBadgePatternDemo(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _badgeExample(
-            context,
-            Icons.notifications_rounded,
-            3,
-            scheme.primary,
-            '3',
-          ),
-          _badgeExample(context, Icons.mail_rounded, 99, scheme.error, '99+'),
-          _badgeExample(context, Icons.cloud_rounded, 0, Colors.green, ''),
+              context, Icons.notifications_rounded, 3, scheme.primary, '3'),
+          _badgeExample(
+              context, Icons.mail_rounded, 99, scheme.error, '99+'),
+          _badgeExample(
+              context, Icons.cloud_rounded, 0, Colors.green, ''),
         ],
       ),
     ],
   );
 }
 
-Widget _badgeExample(
-  BuildContext context,
-  IconData icon,
-  int count,
-  Color badgeColor,
-  String label,
-) {
+Widget _badgeExample(BuildContext context, IconData icon, int count,
+    Color badgeColor, String label) {
   final scheme = Theme.of(context).colorScheme;
   return SizedBox(
     width: 80,
@@ -1400,7 +1326,9 @@ Widget _badgeExample(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: scheme.outline.withAlpha(60)),
             ),
-            child: Center(child: Icon(icon, size: 32, color: scheme.primary)),
+            child: Center(
+              child: Icon(icon, size: 32, color: scheme.primary),
+            ),
           ),
         ),
         LayoutId(
@@ -1485,9 +1413,7 @@ Widget _buildHasChildGuardDemo(BuildContext context) {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    showOpt
-                        ? 'visible (hasChild = true)'
-                        : 'hidden (hasChild = false)',
+                    showOpt ? 'visible (hasChild = true)' : 'hidden (hasChild = false)',
                     style: TextStyle(
                       color: showOpt ? Colors.green : scheme.error,
                       fontWeight: FontWeight.w600,
@@ -1510,11 +1436,8 @@ Widget _buildHasChildGuardDemo(BuildContext context) {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.lock_rounded,
-                                size: 28,
-                                color: scheme.onPrimaryContainer,
-                              ),
+                              Icon(Icons.lock_rounded,
+                                  size: 28, color: scheme.onPrimaryContainer),
                               const SizedBox(height: 6),
                               Text(
                                 'REQUIRED child',
@@ -1526,9 +1449,7 @@ Widget _buildHasChildGuardDemo(BuildContext context) {
                               Text(
                                 'always present — always laid out',
                                 style: TextStyle(
-                                  color: scheme.onPrimaryContainer.withAlpha(
-                                    180,
-                                  ),
+                                  color: scheme.onPrimaryContainer.withAlpha(180),
                                   fontSize: 11,
                                 ),
                               ),
@@ -1546,11 +1467,9 @@ Widget _buildHasChildGuardDemo(BuildContext context) {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.tune_rounded,
-                                  size: 24,
-                                  color: scheme.onTertiaryContainer,
-                                ),
+                                Icon(Icons.tune_rounded,
+                                    size: 24,
+                                    color: scheme.onTertiaryContainer),
                                 const SizedBox(height: 4),
                                 Text(
                                   'OPTIONAL child',
@@ -1562,9 +1481,7 @@ Widget _buildHasChildGuardDemo(BuildContext context) {
                                 Text(
                                   'guarded by hasChild("optional")',
                                   style: TextStyle(
-                                    color: scheme.onTertiaryContainer.withAlpha(
-                                      180,
-                                    ),
+                                    color: scheme.onTertiaryContainer.withAlpha(180),
                                     fontSize: 11,
                                   ),
                                 ),
@@ -1594,7 +1511,7 @@ Widget _buildHasChildGuardDemo(BuildContext context) {
                   showOpt
                       ? 'Both children provided → delegate lays out both zones normally.'
                       : 'Optional child removed → delegate skips layoutChild("optional") safely. '
-                            'The required zone expands to fill the full height.',
+                        'The required zone expands to fill the full height.',
                   style: TextStyle(
                     fontSize: 12,
                     color: scheme.onSurface,
@@ -1726,63 +1643,61 @@ Widget _buildApiCheatSheet(BuildContext context) {
       ),
       // LayoutId table.
       _apiSubHeading(context, 'LayoutId Constructor'),
-      _apiTable(context, [
-        ['Parameter', 'Type', 'Required', 'Description'],
-        ['key', 'Key?', 'No', 'Standard widget key.'],
+      _apiTable(
+        context,
         [
-          'id',
-          'Object',
-          'YES',
-          'Opaque identifier; any Object (String, int, enum).',
+          ['Parameter', 'Type', 'Required', 'Description'],
+          ['key', 'Key?', 'No', 'Standard widget key.'],
+          ['id', 'Object', 'YES', 'Opaque identifier; any Object (String, int, enum).'],
+          ['child', 'Widget', 'YES', 'The widget to tag. Must be last positional.'],
         ],
-        [
-          'child',
-          'Widget',
-          'YES',
-          'The widget to tag. Must be last positional.',
-        ],
-      ], scheme),
+        scheme,
+      ),
       const SizedBox(height: 16),
       _apiSubHeading(context, 'MultiChildLayoutDelegate Methods'),
-      _apiTable(context, [
-        ['Method', 'Signature', 'Returns', 'Notes'],
+      _apiTable(
+        context,
         [
-          'hasChild',
-          'hasChild(Object childId)',
-          'bool',
-          'Returns true if a LayoutId with this id is among the children.',
+          ['Method', 'Signature', 'Returns', 'Notes'],
+          [
+            'hasChild',
+            'hasChild(Object childId)',
+            'bool',
+            'Returns true if a LayoutId with this id is among the children.',
+          ],
+          [
+            'layoutChild',
+            'layoutChild(Object childId, BoxConstraints constraints)',
+            'Size',
+            'Lays out the child and returns its chosen size. Each child must be laid out exactly once.',
+          ],
+          [
+            'positionChild',
+            'positionChild(Object childId, Offset offset)',
+            'void',
+            'Places the child\'s top-left corner at offset. Can be called in any order.',
+          ],
+          [
+            'getSize',
+            'getSize(BoxConstraints constraints)',
+            'Size',
+            'Override to report the delegate\'s own size. Default: loosest constraint.',
+          ],
+          [
+            'shouldRelayout',
+            'shouldRelayout(MultiChildLayoutDelegate oldDelegate)',
+            'bool',
+            'Return true when the layout geometry may have changed. Called on every build.',
+          ],
+          [
+            'relayout',
+            'Listenable? relayout (constructor param)',
+            'void',
+            'Listenable that triggers layout without a rebuild (e.g. Animation, ValueNotifier).',
+          ],
         ],
-        [
-          'layoutChild',
-          'layoutChild(Object childId, BoxConstraints constraints)',
-          'Size',
-          'Lays out the child and returns its chosen size. Each child must be laid out exactly once.',
-        ],
-        [
-          'positionChild',
-          'positionChild(Object childId, Offset offset)',
-          'void',
-          'Places the child\'s top-left corner at offset. Can be called in any order.',
-        ],
-        [
-          'getSize',
-          'getSize(BoxConstraints constraints)',
-          'Size',
-          'Override to report the delegate\'s own size. Default: loosest constraint.',
-        ],
-        [
-          'shouldRelayout',
-          'shouldRelayout(MultiChildLayoutDelegate oldDelegate)',
-          'bool',
-          'Return true when the layout geometry may have changed. Called on every build.',
-        ],
-        [
-          'relayout',
-          'Listenable? relayout (constructor param)',
-          'void',
-          'Listenable that triggers layout without a rebuild (e.g. Animation, ValueNotifier).',
-        ],
-      ], scheme),
+        scheme,
+      ),
       const SizedBox(height: 16),
       _apiSubHeading(context, 'Common Gotchas'),
       ...[
@@ -1804,11 +1719,8 @@ Widget _buildApiCheatSheet(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.warning_amber_rounded,
-                size: 16,
-                color: scheme.tertiary,
-              ),
+              Icon(Icons.warning_amber_rounded,
+                  size: 16, color: scheme.tertiary),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -1865,10 +1777,7 @@ Widget _apiSubHeading(BuildContext context, String text) {
 }
 
 Widget _apiTable(
-  BuildContext context,
-  List<List<String>> rows,
-  ColorScheme scheme,
-) {
+    BuildContext context, List<List<String>> rows, ColorScheme scheme) {
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
     child: Table(
@@ -1884,8 +1793,8 @@ Widget _apiTable(
         final bg = isHeader
             ? scheme.secondaryContainer
             : i.isEven
-            ? scheme.surface
-            : scheme.surfaceContainerLowest;
+                ? scheme.surface
+                : scheme.surfaceContainerLowest;
         return TableRow(
           decoration: BoxDecoration(color: bg),
           children: row.map((cell) {
@@ -1895,7 +1804,8 @@ Widget _apiTable(
                 cell,
                 style: TextStyle(
                   fontSize: isHeader ? 12 : 11.5,
-                  fontWeight: isHeader ? FontWeight.w800 : FontWeight.w400,
+                  fontWeight:
+                      isHeader ? FontWeight.w800 : FontWeight.w400,
                   color: isHeader
                       ? scheme.onSecondaryContainer
                       : scheme.onSurface,
@@ -1945,14 +1855,14 @@ dynamic build(BuildContext context) {
             isScrollable: true,
             tabAlignment: TabAlignment.start,
             tabs: [
-              Tab(icon: Icon(Icons.info_outlined), text: 'Hero'),
-              Tab(icon: Icon(Icons.view_agenda_rounded), text: '3-Zone'),
-              Tab(icon: Icon(Icons.view_column_rounded), text: 'Enum IDs'),
-              Tab(icon: Icon(Icons.tune_rounded), text: 'Slider'),
-              Tab(icon: Icon(Icons.devices_rounded), text: 'Responsive'),
-              Tab(icon: Icon(Icons.account_tree_rounded), text: 'Diagram'),
-              Tab(icon: Icon(Icons.notifications_rounded), text: 'Badge'),
-              Tab(icon: Icon(Icons.toggle_on_rounded), text: 'hasChild'),
+              Tab(icon: Icon(Icons.info_outlined),          text: 'Hero'),
+              Tab(icon: Icon(Icons.view_agenda_rounded),    text: '3-Zone'),
+              Tab(icon: Icon(Icons.view_column_rounded),    text: 'Enum IDs'),
+              Tab(icon: Icon(Icons.tune_rounded),           text: 'Slider'),
+              Tab(icon: Icon(Icons.devices_rounded),        text: 'Responsive'),
+              Tab(icon: Icon(Icons.account_tree_rounded),   text: 'Diagram'),
+              Tab(icon: Icon(Icons.notifications_rounded),  text: 'Badge'),
+              Tab(icon: Icon(Icons.toggle_on_rounded),      text: 'hasChild'),
               Tab(icon: Icon(Icons.compare_arrows_rounded), text: 'Compare'),
             ],
           ),
@@ -1979,7 +1889,9 @@ dynamic build(BuildContext context) {
             // Tab 8: hasChild guard.
             _tabView([Builder(builder: _buildHasChildGuardDemo)]),
             // Tab 9: Comparison + API cheat sheet.
-            _tabView([Builder(builder: _buildComparisonTable)]),
+            _tabView([
+              Builder(builder: _buildComparisonTable),
+            ]),
           ],
         ),
       ),

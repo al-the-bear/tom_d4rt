@@ -52,27 +52,21 @@ dynamic build(BuildContext context) {
               border: Border.all(color: turquoise, width: 1.5),
             ),
             child: Center(
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text(number,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
-              ),
-            ),
+            child: Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
           ),
         ],
       ),
@@ -89,14 +83,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: lightAqua.withValues(alpha: 0.7)),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: deepLagoon.withValues(alpha: 0.9),
-          height: 1.5,
-        ),
-      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              color: deepLagoon.withValues(alpha: 0.9),
+              height: 1.5)),
     );
   }
 
@@ -112,18 +103,16 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: deepLagoon,
-              fontFamily: 'monospace',
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: deepLagoon,
+                  fontFamily: 'monospace')),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail, style: TextStyle(fontSize: 12, color: lagoon)),
+            child: Text(detail,
+                style: TextStyle(fontSize: 12, color: lagoon)),
           ),
         ],
       ),
@@ -159,16 +148,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: deepLagoon,
-              ),
-            ),
+            child: Text(heading,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: deepLagoon)),
           ),
-          Padding(padding: const EdgeInsets.all(12), child: content),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: content,
+          ),
         ],
       ),
     );
@@ -186,14 +175,11 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(
-              c,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader ? deepLagoon : lagoon,
-              ),
-            ),
+            child: Text(c,
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                    color: isHeader ? deepLagoon : lagoon)),
           );
         }).toList(),
       ),
@@ -210,23 +196,18 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? deepLagoon : teal,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            steps[i],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(steps[i],
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600)),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Icon(Icons.east, size: 12, color: aqua),
-          ),
-        );
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Icon(Icons.east, size: 12, color: aqua),
+        ));
       }
     }
     return SingleChildScrollView(
@@ -246,14 +227,13 @@ dynamic build(BuildContext context) {
         border: Border.all(color: color.withValues(alpha: 0.6)),
       ),
       child: Center(
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: color.computeLuminance() > 0.5 ? deepLagoon : Colors.white,
-          ),
-        ),
+        child: Text(label,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color.computeLuminance() > 0.5
+                    ? deepLagoon
+                    : Colors.white)),
       ),
     );
   }
@@ -277,33 +257,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            asLayerBox(
-              'AutofillGroup (widget)',
-              teal.withValues(alpha: 0.15),
-              38,
-            ),
-            asLayerBox(
-              'AutofillGroupState with AutofillScopeMixin',
-              aqua.withValues(alpha: 0.18),
-              42,
-            ),
-            asLayerBox(
-              'AutofillClient instances (TextFields)',
-              lagoon.withValues(alpha: 0.12),
-              38,
-            ),
-            asLayerBox(
-              'Platform Autofill Service',
-              deepLagoon.withValues(alpha: 0.08),
-              38,
-            ),
+            asLayerBox('AutofillGroup (widget)', teal.withValues(alpha: 0.15), 38),
+            asLayerBox('AutofillGroupState with AutofillScopeMixin', aqua.withValues(alpha: 0.18), 42),
+            asLayerBox('AutofillClient instances (TextFields)', lagoon.withValues(alpha: 0.12), 38),
+            asLayerBox('Platform Autofill Service', deepLagoon.withValues(alpha: 0.08), 38),
             const SizedBox(height: 10),
-            asFlow([
-              'Mixin provides',
-              'register/unregister',
-              'client map',
-              'attach/detach',
-            ]),
+            asFlow(['Mixin provides', 'register/unregister', 'client map', 'attach/detach']),
           ],
         ),
       ),
@@ -328,11 +287,7 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             asRow(['Approach', 'Limitation', 'Flexibility'], isHeader: true),
-            asRow([
-              'Base class',
-              'Single inheritance',
-              'Low — locked hierarchy',
-            ]),
+            asRow(['Base class', 'Single inheritance', 'Low — locked hierarchy']),
             asRow(['Interface', 'No default impl', 'High — but boilerplate']),
             asRow(['Mixin ✓', 'on State constraint', 'High — composable']),
           ],
@@ -343,18 +298,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            asCode(
-              'mixin AutofillScopeMixin on State',
-              'Constrains to State subclasses only',
-            ),
-            asCode(
-              'with AutofillScopeMixin',
-              'Added to any State<T> class declaration',
-            ),
-            asCode(
-              'on constraint',
-              'Ensures lifecycle methods (dispose) are available',
-            ),
+            asCode('mixin AutofillScopeMixin on State',
+                'Constrains to State subclasses only'),
+            asCode('with AutofillScopeMixin',
+                'Added to any State<T> class declaration'),
+            asCode('on constraint',
+                'Ensures lifecycle methods (dispose) are available'),
           ],
         ),
       ),
@@ -378,23 +327,16 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             asRow(['Member', 'Type', 'Purpose'], isHeader: true),
-            asRow([
-              'autofillClients',
-              'Map<String, AutofillClient>',
-              'All registered clients',
-            ]),
-            asRow(['register(client)', 'method', 'Add a client to the scope']),
-            asRow([
-              'unregister(id)',
-              'method',
-              'Remove a client from the scope',
-            ]),
-            asRow([
-              'currentAutofillScope',
-              'getter',
-              'The current active scope',
-            ]),
-            asRow(['attach(client)', 'method', 'Connect client to platform']),
+            asRow(['autofillClients', 'Map<String, AutofillClient>',
+                'All registered clients']),
+            asRow(['register(client)', 'method',
+                'Add a client to the scope']),
+            asRow(['unregister(id)', 'method',
+                'Remove a client from the scope']),
+            asRow(['currentAutofillScope', 'getter',
+                'The current active scope']),
+            asRow(['attach(client)', 'method',
+                'Connect client to platform']),
           ],
         ),
       ),
@@ -413,15 +355,12 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Map<String, AutofillClient>',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'monospace',
-                      color: deepLagoon,
-                    ),
-                  ),
+                  Text('Map<String, AutofillClient>',
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'monospace',
+                          color: deepLagoon)),
                   const SizedBox(height: 8),
                   _asScopeEntry('autofill_0', 'Email TextField', teal),
                   _asScopeEntry('autofill_1', 'Password TextField', lagoon),
@@ -453,36 +392,11 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _asStepItem(1, 'AutofillGroup builds', 'Creates the scope', teal),
-            _asStepItem(
-              2,
-              'TextField builds inside',
-              'EditableTextState registers',
-              lagoon,
-            ),
-            _asStepItem(
-              3,
-              'User focuses field',
-              'Scope attaches to platform',
-              aqua,
-            ),
-            _asStepItem(
-              4,
-              'Platform fills values',
-              'All group clients receive data',
-              seaGreen,
-            ),
-            _asStepItem(
-              5,
-              'TextField disposes',
-              'Unregisters from scope',
-              turquoise,
-            ),
-            _asStepItem(
-              6,
-              'AutofillGroup disposes',
-              'Commits/cancels, cleans up',
-              deepLagoon,
-            ),
+            _asStepItem(2, 'TextField builds inside', 'EditableTextState registers', lagoon),
+            _asStepItem(3, 'User focuses field', 'Scope attaches to platform', aqua),
+            _asStepItem(4, 'Platform fills values', 'All group clients receive data', seaGreen),
+            _asStepItem(5, 'TextField disposes', 'Unregisters from scope', turquoise),
+            _asStepItem(6, 'AutofillGroup disposes', 'Commits/cancels, cleans up', deepLagoon),
           ],
         ),
       ),
@@ -507,12 +421,7 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            asFlow([
-              'Client registers',
-              'Mixin assigns ID',
-              'Stored in map',
-              'Platform uses ID',
-            ]),
+            asFlow(['Client registers', 'Mixin assigns ID', 'Stored in map', 'Platform uses ID']),
             const SizedBox(height: 12),
             asRow(['Property', 'Value', 'Uniqueness'], isHeader: true),
             asRow(['autofillId', 'String', 'Per-scope unique']),
@@ -567,18 +476,13 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.widgets, color: teal, size: 24),
                         const SizedBox(height: 4),
-                        Text(
-                          'AutofillGroup',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: teal,
-                          ),
-                        ),
-                        Text(
-                          'Widget (public API)',
-                          style: TextStyle(fontSize: 9, color: lagoon),
-                        ),
+                        Text('AutofillGroup',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: teal)),
+                        Text('Widget (public API)',
+                            style: TextStyle(fontSize: 9, color: lagoon)),
                       ],
                     ),
                   ),
@@ -587,10 +491,8 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Column(
                     children: [
-                      Text(
-                        'uses',
-                        style: TextStyle(fontSize: 9, color: lagoon),
-                      ),
+                      Text('uses',
+                          style: TextStyle(fontSize: 9, color: lagoon)),
                       Icon(Icons.arrow_forward, color: aqua, size: 16),
                     ],
                   ),
@@ -608,18 +510,13 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.settings, color: deepLagoon, size: 24),
                         const SizedBox(height: 4),
-                        Text(
-                          'AutofillScopeMixin',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: deepLagoon,
-                          ),
-                        ),
-                        Text(
-                          'Machinery (internal)',
-                          style: TextStyle(fontSize: 9, color: lagoon),
-                        ),
+                        Text('AutofillScopeMixin',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: deepLagoon)),
+                        Text('Machinery (internal)',
+                            style: TextStyle(fontSize: 9, color: lagoon)),
                       ],
                     ),
                   ),
@@ -627,19 +524,11 @@ dynamic build(BuildContext context) {
               ],
             ),
             const SizedBox(height: 10),
-            asRow([
-              'Aspect',
-              'AutofillGroup',
-              'AutofillScopeMixin',
-            ], isHeader: true),
+            asRow(['Aspect', 'AutofillGroup', 'AutofillScopeMixin'], isHeader: true),
             asRow(['Layer', 'Widget', 'Mixin on State']),
             asRow(['Visibility', 'Public API', 'Framework internal']),
             asRow(['Role', 'Tree structure', 'Client management']),
-            asRow([
-              'Developer use',
-              'Directly in code',
-              'Rarely used directly',
-            ]),
+            asRow(['Developer use', 'Directly in code', 'Rarely used directly']),
           ],
         ),
       ),
@@ -711,14 +600,11 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Scope A: Login',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: teal,
-                          ),
-                        ),
+                        Text('Scope A: Login',
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: teal)),
                         const SizedBox(height: 6),
                         _asScopeEntry('email', 'Email field', teal),
                         _asScopeEntry('password', 'Password field', lagoon),
@@ -738,14 +624,11 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Scope B: Register',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: deepLagoon,
-                          ),
-                        ),
+                        Text('Scope B: Register',
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: deepLagoon)),
                         const SizedBox(height: 6),
                         _asScopeEntry('name', 'Name field', deepLagoon),
                         _asScopeEntry('newEmail', 'Email field', darkSea),
@@ -764,11 +647,9 @@ dynamic build(BuildContext context) {
                 color: paleTeal,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Text(
-                'Each scope independently manages its clients and '
-                'communicates with the platform separately.',
-                style: TextStyle(fontSize: 11, color: deepLagoon),
-              ),
+              child: Text('Each scope independently manages its clients and '
+                  'communicates with the platform separately.',
+                  style: TextStyle(fontSize: 11, color: deepLagoon)),
             ),
           ],
         ),
@@ -804,14 +685,11 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Outer AutofillGroup',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: teal,
-                    ),
-                  ),
+                  Text('Outer AutofillGroup',
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: teal)),
                   Padding(
                     padding: const EdgeInsets.only(left: 16, top: 6),
                     child: Container(
@@ -825,19 +703,14 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Inner AutofillGroup',
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                              color: aqua,
-                            ),
-                          ),
+                          Text('Inner AutofillGroup',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: aqua)),
                           const SizedBox(height: 4),
-                          Text(
-                            '→ TextField registers HERE',
-                            style: TextStyle(fontSize: 10, color: lagoon),
-                          ),
+                          Text('→ TextField registers HERE',
+                              style: TextStyle(fontSize: 10, color: lagoon)),
                         ],
                       ),
                     ),
@@ -869,24 +742,9 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _asStepItem(
-              1,
-              'Scope widget disposes',
-              'Widget tree teardown',
-              teal,
-            ),
-            _asStepItem(
-              2,
-              'Check onDisposeAction',
-              'Commit or cancel?',
-              lagoon,
-            ),
-            _asStepItem(
-              3,
-              'Platform notified',
-              'TextInput.finishAutofillContext',
-              aqua,
-            ),
+            _asStepItem(1, 'Scope widget disposes', 'Widget tree teardown', teal),
+            _asStepItem(2, 'Check onDisposeAction', 'Commit or cancel?', lagoon),
+            _asStepItem(3, 'Platform notified', 'TextInput.finishAutofillContext', aqua),
             _asStepItem(4, 'Clients unregistered', 'Map cleared', seaGreen),
             _asStepItem(5, 'Resources released', 'GC-ready', deepLagoon),
           ],
@@ -897,16 +755,8 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             asRow(['Value', 'Platform Call', 'When to Use'], isHeader: true),
-            asRow([
-              'commit',
-              'finishAutofill(shouldSave: true)',
-              'Login success',
-            ]),
-            asRow([
-              'cancel',
-              'finishAutofill(shouldSave: false)',
-              'Navigation away',
-            ]),
+            asRow(['commit', 'finishAutofill(shouldSave: true)', 'Login success']),
+            asRow(['cancel', 'finishAutofill(shouldSave: false)', 'Navigation away']),
           ],
         ),
       ),
@@ -933,38 +783,14 @@ dynamic build(BuildContext context) {
           children: [
             asLayerBox('AutofillScopeMixin', teal.withValues(alpha: 0.15), 35),
             asLayerBox('TextInputConnection', aqua.withValues(alpha: 0.12), 35),
-            asLayerBox(
-              'SystemChannels.textInput',
-              lagoon.withValues(alpha: 0.1),
-              35,
-            ),
-            asLayerBox(
-              'Platform TextInput Service',
-              deepLagoon.withValues(alpha: 0.08),
-              35,
-            ),
+            asLayerBox('SystemChannels.textInput', lagoon.withValues(alpha: 0.1), 35),
+            asLayerBox('Platform TextInput Service', deepLagoon.withValues(alpha: 0.08), 35),
             const SizedBox(height: 10),
             asRow(['Message', 'Direction', 'Purpose'], isHeader: true),
-            asRow([
-              'TextInput.setClient',
-              'Dart → Platform',
-              'Register fields',
-            ]),
-            asRow([
-              'TextInput.updateConfig',
-              'Dart → Platform',
-              'Update hints',
-            ]),
-            asRow([
-              'TextInputClient.updateEditingState',
-              'Platform → Dart',
-              'Filled values',
-            ]),
-            asRow([
-              'TextInput.finishAutofillContext',
-              'Dart → Platform',
-              'Commit/cancel',
-            ]),
+            asRow(['TextInput.setClient', 'Dart → Platform', 'Register fields']),
+            asRow(['TextInput.updateConfig', 'Dart → Platform', 'Update hints']),
+            asRow(['TextInputClient.updateEditingState', 'Platform → Dart', 'Filled values']),
+            asRow(['TextInput.finishAutofillContext', 'Dart → Platform', 'Commit/cancel']),
           ],
         ),
       ),
@@ -1003,11 +829,10 @@ dynamic build(BuildContext context) {
                 '  // Control commit/cancel timing\n'
                 '}',
                 style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: deepLagoon,
-                  height: 1.4,
-                ),
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepLagoon,
+                    height: 1.4),
               ),
             ),
             const SizedBox(height: 8),
@@ -1040,10 +865,7 @@ dynamic build(BuildContext context) {
           children: [
             asCode('autofillId', 'Unique string ID for the field'),
             asCode('autofillHints', 'List<String> of hint constants'),
-            asCode(
-              'editingValue',
-              'Current TextEditingValue (text, selection)',
-            ),
+            asCode('editingValue', 'Current TextEditingValue (text, selection)'),
             asCode('inputType', 'TextInputType (text, email, number, etc.)'),
             asCode('obscureText', 'Boolean for password fields'),
             asCode('inputAction', 'TextInputAction (done, next, etc.)'),
@@ -1070,22 +892,10 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             asRow(['Test', 'Approach', 'Verifies'], isHeader: true),
-            asRow([
-              'Registration',
-              'find.byType(AutofillGroup)',
-              'Group exists',
-            ]),
+            asRow(['Registration', 'find.byType(AutofillGroup)', 'Group exists']),
             asRow(['Hints present', 'Check TextField config', 'Correct hints']),
-            asRow([
-              'Channel calls',
-              'Mock TextInput channel',
-              'Platform messages',
-            ]),
-            asRow([
-              'Commit/cancel',
-              'Dispose + check calls',
-              'onDisposeAction',
-            ]),
+            asRow(['Channel calls', 'Mock TextInput channel', 'Platform messages']),
+            asRow(['Commit/cancel', 'Dispose + check calls', 'onDisposeAction']),
             asRow(['Multi-scope', 'Two groups in tree', 'Independence']),
           ],
         ),
@@ -1108,36 +918,21 @@ dynamic build(BuildContext context) {
         'Known Edge Cases',
         Column(
           children: [
-            _asEdgeCaseRow(
-              'Dynamic field add/remove',
-              'Clients must re-register; scope may need to re-attach',
-              Icons.swap_vert,
-              teal,
-            ),
-            _asEdgeCaseRow(
-              'Hot restart clears state',
-              'Platform autofill context is lost; expected in dev',
-              Icons.refresh,
-              lagoon,
-            ),
-            _asEdgeCaseRow(
-              'Scope in dialog',
-              'Dialog closes = dispose → commit fires; may be undesired',
-              Icons.launch,
-              aqua,
-            ),
-            _asEdgeCaseRow(
-              'Tab switching with form',
-              'Tab change may dispose/rebuild scope; state can be lost',
-              Icons.tab,
-              seaGreen,
-            ),
-            _asEdgeCaseRow(
-              'Animation-driven field visibility',
-              'Register/unregister during animation can cause jank',
-              Icons.animation,
-              deepLagoon,
-            ),
+            _asEdgeCaseRow('Dynamic field add/remove',
+                'Clients must re-register; scope may need to re-attach',
+                Icons.swap_vert, teal),
+            _asEdgeCaseRow('Hot restart clears state',
+                'Platform autofill context is lost; expected in dev',
+                Icons.refresh, lagoon),
+            _asEdgeCaseRow('Scope in dialog',
+                'Dialog closes = dispose → commit fires; may be undesired',
+                Icons.launch, aqua),
+            _asEdgeCaseRow('Tab switching with form',
+                'Tab change may dispose/rebuild scope; state can be lost',
+                Icons.tab, seaGreen),
+            _asEdgeCaseRow('Animation-driven field visibility',
+                'Register/unregister during animation can cause jank',
+                Icons.animation, deepLagoon),
           ],
         ),
       ),
@@ -1200,14 +995,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text(
-              'AutofillScopeMixin — Complete',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const Text('AutofillScopeMixin — Complete',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             Text(
               'From mixin mechanics through registration lifecycle, scope vs '
@@ -1238,22 +1030,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1,
-            section2,
-            section3,
-            section4,
-            section5,
-            section6,
-            section7,
-            section8,
-            section9,
-            section10,
-            section11,
-            section12,
-            section13,
-            section14,
-            section15,
-            section16,
+            section1, section2, section3, section4,
+            section5, section6, section7, section8,
+            section9, section10, section11, section12,
+            section13, section14, section15, section16,
           ],
         ),
       ),
@@ -1276,23 +1056,18 @@ Widget _asScopeEntry(String id, String label, Color color) {
             color: color.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            id,
-            style: TextStyle(
-              fontSize: 10,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          child: Text(id,
+              style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.bold,
+                  color: color)),
         ),
         const SizedBox(width: 8),
         Icon(Icons.arrow_right_alt, size: 14, color: color),
         const SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(fontSize: 11, color: const Color(0xFF004D4D)),
-        ),
+        Text(label,
+            style: TextStyle(fontSize: 11, color: const Color(0xFF004D4D))),
       ],
     ),
   );
@@ -1312,14 +1087,11 @@ Widget _asStepItem(int num, String phase, String desc, Color color) {
             borderRadius: BorderRadius.circular(13),
           ),
           child: Center(
-            child: Text(
-              '$num',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text('$num',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(width: 10),
@@ -1327,18 +1099,13 @@ Widget _asStepItem(int num, String phase, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                phase,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 11, color: Color(0xFF004D4D)),
-              ),
+              Text(phase,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(fontSize: 11, color: Color(0xFF004D4D))),
             ],
           ),
         ),
@@ -1359,18 +1126,14 @@ Widget _asEdgeCaseRow(String title, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 10, color: Color(0xFF004D4D)),
-              ),
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: color)),
+              Text(desc,
+                  style: const TextStyle(
+                      fontSize: 10, color: Color(0xFF004D4D))),
             ],
           ),
         ),

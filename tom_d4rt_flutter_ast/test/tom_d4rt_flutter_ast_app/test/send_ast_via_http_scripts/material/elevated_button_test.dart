@@ -59,7 +59,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: Icon(Icons.touch_app, size: 40.0, color: Colors.white),
+              child: Icon(
+                Icons.touch_app,
+                size: 40.0,
+                color: Colors.white,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -332,12 +336,18 @@ dynamic build(BuildContext context) {
             style: ElevatedButton.styleFrom(
               backgroundColor: bg,
               foregroundColor: fg,
-              padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 18.0,
+                vertical: 12.0,
+              ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            child: Text(name, style: TextStyle(fontWeight: FontWeight.w600)),
+            child: Text(
+              name,
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
           SizedBox(height: 4.0),
           _buildCaption('#${bg.value.toRadixString(16).substring(2)}'),
@@ -372,7 +382,9 @@ dynamic build(BuildContext context) {
       backgroundColor: emerald,
       foregroundColor: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
     ),
     child: Text('Rounded'),
   );
@@ -398,7 +410,9 @@ dynamic build(BuildContext context) {
       backgroundColor: indigo,
       foregroundColor: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      shape: BeveledRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
     ),
     child: Text('Beveled'),
   );
@@ -426,7 +440,9 @@ dynamic build(BuildContext context) {
       backgroundColor: rose,
       foregroundColor: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+      ),
     ),
     child: Text('Rectangle'),
   );
@@ -606,7 +622,10 @@ dynamic build(BuildContext context) {
               backgroundColor: emerald,
               foregroundColor: Colors.white,
               elevation: e,
-              padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 18.0,
+                vertical: 12.0,
+              ),
             ),
             child: Text('e=$e'),
           ),
@@ -957,10 +976,8 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.email, size: 16.0, color: Colors.grey.shade600),
               SizedBox(width: 8.0),
-              Text(
-                'user@host.tld',
-                style: TextStyle(color: Colors.grey.shade700, fontSize: 13.0),
-              ),
+              Text('user@host.tld',
+                  style: TextStyle(color: Colors.grey.shade700, fontSize: 13.0)),
             ],
           ),
         ),
@@ -976,10 +993,8 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.lock, size: 16.0, color: Colors.grey.shade600),
               SizedBox(width: 8.0),
-              Text(
-                '••••••••',
-                style: TextStyle(color: Colors.grey.shade700, fontSize: 13.0),
-              ),
+              Text('••••••••',
+                  style: TextStyle(color: Colors.grey.shade700, fontSize: 13.0)),
             ],
           ),
         ),
@@ -1183,7 +1198,10 @@ dynamic build(BuildContext context) {
         child: Text('tiny', style: TextStyle(fontSize: 10.0)),
       ),
       SizedBox(height: 6.0),
-      _buildPill('EdgeInsets.zero + shrinkWrap = sub-44dp tap target', amber),
+      _buildPill(
+        'EdgeInsets.zero + shrinkWrap = sub-44dp tap target',
+        amber,
+      ),
     ],
   );
 
@@ -1227,9 +1245,7 @@ dynamic build(BuildContext context) {
           child: Wrap(alignment: WrapAlignment.center, children: tooMany),
         ),
         SizedBox(height: 20.0),
-        _buildSubtitle(
-          'styleFrom (Color) vs ButtonStyle (WidgetStateProperty)',
-        ),
+        _buildSubtitle('styleFrom (Color) vs ButtonStyle (WidgetStateProperty)'),
         SizedBox(height: 8.0),
         Center(child: styleFromVsButtonStyle),
         SizedBox(height: 20.0),
@@ -1513,7 +1529,11 @@ Widget _recapLine(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.3),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13.0,
+              height: 1.3,
+            ),
           ),
         ),
       ],
@@ -1533,7 +1553,10 @@ Widget _buildCard({
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.white, accent.withValues(alpha: 0.05)],
+        colors: [
+          Colors.white,
+          accent.withValues(alpha: 0.05),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

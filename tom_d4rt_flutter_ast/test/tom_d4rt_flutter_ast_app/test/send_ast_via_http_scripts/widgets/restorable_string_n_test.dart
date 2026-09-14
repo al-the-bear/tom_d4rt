@@ -119,8 +119,7 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
     // restoreState would assert on `isRegistered` in plain Flutter as well.
     _feedbackCtrl = TextEditingController()..addListener(_onFeedbackChanged);
     _emailCtrl = TextEditingController()..addListener(_onEmailChanged);
-    _suggestionCtrl = TextEditingController()
-      ..addListener(_onSuggestionChanged);
+    _suggestionCtrl = TextEditingController()..addListener(_onSuggestionChanged);
     _nameCtrl = TextEditingController()..addListener(_onNameChanged);
   }
 
@@ -294,7 +293,10 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
             const SizedBox(height: 12),
             _buildReceipt(),
             const SizedBox(height: 24),
-            _buildSectionHeader('3. Completeness', Icons.assessment_outlined),
+            _buildSectionHeader(
+              '3. Completeness',
+              Icons.assessment_outlined,
+            ),
             const SizedBox(height: 12),
             _buildCompletenessMeter(),
             const SizedBox(height: 24),
@@ -425,7 +427,10 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
           const SizedBox(height: 6),
           const Text(
             'Every field is optional. Skip the ones that do not apply.',
-            style: TextStyle(color: Color(0xFFE6F7F3), fontSize: 14),
+            style: TextStyle(
+              color: Color(0xFFE6F7F3),
+              fontSize: 14,
+            ),
           ),
           const SizedBox(height: 18),
           Center(
@@ -436,7 +441,10 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
               child: Text(
                 emoji,
                 key: ValueKey<int>(_moodRating.value),
-                style: const TextStyle(fontSize: 80, height: 1.0),
+                style: const TextStyle(
+                  fontSize: 80,
+                  height: 1.0,
+                ),
               ),
             ),
           ),
@@ -922,8 +930,8 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
       builder: (BuildContext context, BoxConstraints constraints) {
         const double dashWidth = 6;
         const double dashSpace = 4;
-        final int dashCount = (constraints.maxWidth / (dashWidth + dashSpace))
-            .floor();
+        final int dashCount =
+            (constraints.maxWidth / (dashWidth + dashSpace)).floor();
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List<Widget>.generate(dashCount, (int i) {
@@ -1069,13 +1077,19 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
                     left: (w * 0.25) - 1,
                     top: 0,
                     bottom: 0,
-                    child: Container(width: 2, color: _kCream),
+                    child: Container(
+                      width: 2,
+                      color: _kCream,
+                    ),
                   ),
                   Positioned(
                     left: (w * 1.0) - 2,
                     top: 0,
                     bottom: 0,
-                    child: Container(width: 2, color: _kCream),
+                    child: Container(
+                      width: 2,
+                      color: _kCream,
+                    ),
                   ),
                 ],
               );
@@ -1099,7 +1113,8 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
           _buildThreshold(
             active: t3AllNonNull,
             title: 'All four engaged (no opt-outs)',
-            subtitle: 'Even blanks count here — you considered every field.',
+            subtitle:
+                'Even blanks count here — you considered every field.',
             color: _kCoralDeep,
           ),
           const SizedBox(height: 12),
@@ -1167,7 +1182,10 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
               ),
               Text(
                 subtitle,
-                style: const TextStyle(fontSize: 12, color: _kInkSoft),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: _kInkSoft,
+                ),
               ),
             ],
           ),
@@ -1266,7 +1284,11 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
                     'field is indistinguishable from an emptied one. When '
                     'opt-out matters (surveys, profiles, preferences), reach '
                     'for RestorableStringN.',
-                    style: TextStyle(fontSize: 12.5, color: _kInk, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: _kInk,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ],
@@ -1337,12 +1359,19 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
   Widget _buildFooter() {
     return Column(
       children: <Widget>[
-        Container(height: 1, color: _kCreamDeep),
+        Container(
+          height: 1,
+          color: _kCreamDeep,
+        ),
         const SizedBox(height: 12),
         const Text(
           'Built with RestorableStringN · feedback_kiosk_demo',
           textAlign: TextAlign.center,
-          style: TextStyle(color: _kInkSoft, fontSize: 11, letterSpacing: 0.5),
+          style: TextStyle(
+            color: _kInkSoft,
+            fontSize: 11,
+            letterSpacing: 0.5,
+          ),
         ),
       ],
     );

@@ -99,7 +99,14 @@ class _VnmSignalEvent {
   final bool accepted;
 }
 
-enum _VnmSignalKind { start, update, over, user, end, simulated }
+enum _VnmSignalKind {
+  start,
+  update,
+  over,
+  user,
+  end,
+  simulated,
+}
 
 String _vnmKindLabel(_VnmSignalKind kind) {
   switch (kind) {
@@ -328,8 +335,7 @@ class _VnmSignalLog extends ChangeNotifier {
 
   static const int _maxEntries = 20;
 
-  List<_VnmSignalEvent> get events =>
-      List<_VnmSignalEvent>.unmodifiable(_events);
+  List<_VnmSignalEvent> get events => List<_VnmSignalEvent>.unmodifiable(_events);
   int get threshold => _threshold;
   _VnmSignalEvent? get latestAccepted => _latestAccepted;
   int get acceptedCount => _acceptedCount;
@@ -659,7 +665,11 @@ class _VnmBody extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[_vnmMidnightDeep, _vnmMidnight, _vnmMidnightDeep],
+          colors: <Color>[
+            _vnmMidnightDeep,
+            _vnmMidnight,
+            _vnmMidnightDeep,
+          ],
         ),
       ),
       child: SingleChildScrollView(
@@ -670,8 +680,7 @@ class _VnmBody extends StatelessWidget {
             _VnmSectionHeader(
               number: '01',
               title: 'Dossier',
-              subtitle:
-                  'Seven cards on what the mixin does and why it matters.',
+              subtitle: 'Seven cards on what the mixin does and why it matters.',
               icon: Icons.menu_book,
             ),
             const SizedBox(height: 16),
@@ -975,7 +984,11 @@ class _VnmBreadcrumbRow extends StatelessWidget {
                   if (i < _vnmBreadcrumbs.length - 1)
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 6),
-                      child: Icon(Icons.south, color: _vnmAmber, size: 18),
+                      child: Icon(
+                        Icons.south,
+                        color: _vnmAmber,
+                        size: 18,
+                      ),
                     ),
                 ],
               ],
@@ -984,11 +997,17 @@ class _VnmBreadcrumbRow extends StatelessWidget {
           return Row(
             children: <Widget>[
               for (int i = 0; i < _vnmBreadcrumbs.length; i++) ...<Widget>[
-                Expanded(child: _VnmBreadcrumbChip(crumb: _vnmBreadcrumbs[i])),
+                Expanded(
+                  child: _VnmBreadcrumbChip(crumb: _vnmBreadcrumbs[i]),
+                ),
                 if (i < _vnmBreadcrumbs.length - 1)
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Icon(Icons.east, color: _vnmAmber, size: 20),
+                    child: Icon(
+                      Icons.east,
+                      color: _vnmAmber,
+                      size: 20,
+                    ),
                   ),
               ],
             ],
@@ -1107,7 +1126,7 @@ class _VnmSignalTowerState extends State<_VnmSignalTower>
       _pulses.removeWhere((_VnmPulse p) {
         final double age =
             (_elapsed - p.start).inMilliseconds /
-            _vnmPulseDuration.inMilliseconds;
+                _vnmPulseDuration.inMilliseconds;
         return age > 1.0;
       });
     });
@@ -1205,7 +1224,11 @@ class _VnmTowerPainter extends CustomPainter {
       ..shader = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[_vnmMidnightDeep, _vnmMidnight, _vnmSkyHaze],
+        colors: <Color>[
+          _vnmMidnightDeep,
+          _vnmMidnight,
+          _vnmSkyHaze,
+        ],
       ).createShader(rect);
     canvas.drawRect(rect, p);
   }
@@ -1216,10 +1239,11 @@ class _VnmTowerPainter extends CustomPainter {
     for (int i = 0; i < 80; i++) {
       final double x = rng.nextDouble() * size.width;
       final double y = rng.nextDouble() * (size.height * 0.65);
-      final double twinkle =
-          0.4 +
+      final double twinkle = 0.4 +
           0.6 *
-              ((math.sin(elapsed.inMilliseconds / 900.0 + i.toDouble() * 0.7) +
+              ((math.sin(
+                        elapsed.inMilliseconds / 900.0 + i.toDouble() * 0.7,
+                      ) +
                       1) /
                   2);
       star.color = _vnmParchment.withValues(alpha: 0.2 + 0.5 * twinkle);
@@ -1343,8 +1367,7 @@ class _VnmTowerPainter extends CustomPainter {
   void _paintPulses(Canvas canvas, Offset base, double height) {
     for (final _VnmPulse pulse in pulses) {
       final Offset center = _lampCenter(base, height, pulse.depth);
-      final double age =
-          (elapsed - pulse.start).inMilliseconds /
+      final double age = (elapsed - pulse.start).inMilliseconds /
           _vnmPulseDuration.inMilliseconds;
       final double clamped = clampDouble(age, 0.0, 1.0);
       final double radius = _vnmLampRadius + 80 * clamped;
@@ -1500,10 +1523,7 @@ class _VnmOuterScroller extends StatelessWidget {
               itemCount: 6,
               itemBuilder: (BuildContext context, int section) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 4,
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
                   child: _VnmSectionCapsule(section: section, log: log),
                 );
               },
@@ -1516,7 +1536,10 @@ class _VnmOuterScroller extends StatelessWidget {
 }
 
 class _VnmSectionCapsule extends StatelessWidget {
-  const _VnmSectionCapsule({required this.section, required this.log});
+  const _VnmSectionCapsule({
+    required this.section,
+    required this.log,
+  });
 
   final int section;
   final _VnmSignalLog log;
@@ -1582,7 +1605,11 @@ class _VnmSectionCapsule extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 16,
                 itemBuilder: (BuildContext context, int index) {
-                  return _VnmTile(section: section, index: index, log: log);
+                  return _VnmTile(
+                    section: section,
+                    index: index,
+                    log: log,
+                  );
                 },
               ),
             ),
@@ -1636,7 +1663,10 @@ class _VnmTile extends StatelessWidget {
           ),
           Text(
             'log size ${log.events.length}',
-            style: TextStyle(color: tint.withValues(alpha: 0.75), fontSize: 10),
+            style: TextStyle(
+              color: tint.withValues(alpha: 0.75),
+              fontSize: 10,
+            ),
           ),
         ],
       ),
@@ -1721,7 +1751,8 @@ class _VnmFilterLab extends StatelessWidget {
                   max: _vnmMaxDepth.toDouble(),
                   divisions: _vnmMaxDepth,
                   label: 'depth ≤ ${log.threshold}',
-                  onChanged: (double value) => log.setThreshold(value.round()),
+                  onChanged: (double value) =>
+                      log.setThreshold(value.round()),
                 ),
               ),
               Row(
@@ -1791,7 +1822,9 @@ class _VnmThresholdBadge extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 6),
         decoration: BoxDecoration(
-          color: active ? _vnmTeal.withValues(alpha: 0.18) : _vnmMidnightDeep,
+          color: active
+              ? _vnmTeal.withValues(alpha: 0.18)
+              : _vnmMidnightDeep,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: tint.withValues(alpha: 0.5)),
         ),
@@ -1896,7 +1929,10 @@ class _VnmInspectorTable extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     for (int i = 0; i < events.length; i++)
-                      _VnmInspectorRow(event: events[i], zebra: i.isEven),
+                      _VnmInspectorRow(
+                        event: events[i],
+                        zebra: i.isEven,
+                      ),
                   ],
                 ),
             ],
@@ -1959,9 +1995,8 @@ class _VnmInspectorRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color base = zebra ? _vnmMidnightMid : _vnmMidnight;
-    final Color textColor = event.accepted
-        ? _vnmParchment
-        : _vnmParchmentShadow;
+    final Color textColor =
+        event.accepted ? _vnmParchment : _vnmParchmentShadow;
     return Container(
       color: base,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -2034,7 +2069,9 @@ class _VnmInspectorRow extends StatelessWidget {
           SizedBox(
             width: 90,
             child: Text(
-              event.pixels == null ? '—' : event.pixels!.toStringAsFixed(1),
+              event.pixels == null
+                  ? '—'
+                  : event.pixels!.toStringAsFixed(1),
               style: TextStyle(
                 color: textColor,
                 fontFamily: 'monospace',
@@ -2078,9 +2115,8 @@ class _VnmInspectorRow extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: (event.accepted ? _vnmTeal : _vnmCrimson).withValues(
-                      alpha: 0.25,
-                    ),
+                    color: (event.accepted ? _vnmTeal : _vnmCrimson)
+                        .withValues(alpha: 0.25),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
@@ -2216,7 +2252,11 @@ class _VnmFooter extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.lightbulb_outline, color: _vnmAmberBright, size: 32),
+          const Icon(
+            Icons.lightbulb_outline,
+            color: _vnmAmberBright,
+            size: 32,
+          ),
           const SizedBox(width: 16),
           const Expanded(
             child: Text(

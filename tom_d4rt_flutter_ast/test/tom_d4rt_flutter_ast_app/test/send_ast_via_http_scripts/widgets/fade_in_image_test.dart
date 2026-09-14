@@ -19,171 +19,33 @@ import 'package:flutter/material.dart';
 
 // A 1x1 transparent PNG — minimum valid byte sequence accepted by MemoryImage.
 final Uint8List _pngClear = Uint8List.fromList(<int>[
-  0x89,
-  0x50,
-  0x4E,
-  0x47,
-  0x0D,
-  0x0A,
-  0x1A,
-  0x0A,
-  0x00,
-  0x00,
-  0x00,
-  0x0D,
-  0x49,
-  0x48,
-  0x44,
-  0x52,
-  0x00,
-  0x00,
-  0x00,
-  0x01,
-  0x00,
-  0x00,
-  0x00,
-  0x01,
-  0x08,
-  0x06,
-  0x00,
-  0x00,
-  0x00,
-  0x1F,
-  0x15,
-  0xC4,
-  0x89,
-  0x00,
-  0x00,
-  0x00,
-  0x0D,
-  0x49,
-  0x44,
-  0x41,
-  0x54,
-  0x78,
-  0x9C,
-  0x63,
-  0x00,
-  0x01,
-  0x00,
-  0x00,
-  0x05,
-  0x00,
-  0x01,
-  0x0D,
-  0x0A,
-  0x2D,
-  0xB4,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x49,
-  0x45,
-  0x4E,
-  0x44,
-  0xAE,
-  0x42,
-  0x60,
-  0x82,
+  0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
+  0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+  0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4, 0x89, 0x00, 0x00, 0x00,
+  0x0D, 0x49, 0x44, 0x41, 0x54, 0x78, 0x9C, 0x63, 0x00, 0x01, 0x00, 0x00,
+  0x05, 0x00, 0x01, 0x0D, 0x0A, 0x2D, 0xB4, 0x00, 0x00, 0x00, 0x00, 0x49,
+  0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82,
 ]);
 
 // A 1x1 mid-grey PNG used as a "low-resolution placeholder".
 final Uint8List _pngGrey = Uint8List.fromList(<int>[
-  0x89,
-  0x50,
-  0x4E,
-  0x47,
-  0x0D,
-  0x0A,
-  0x1A,
-  0x0A,
-  0x00,
-  0x00,
-  0x00,
-  0x0D,
-  0x49,
-  0x48,
-  0x44,
-  0x52,
-  0x00,
-  0x00,
-  0x00,
-  0x01,
-  0x00,
-  0x00,
-  0x00,
-  0x01,
-  0x08,
-  0x06,
-  0x00,
-  0x00,
-  0x00,
-  0x1F,
-  0x15,
-  0xC4,
-  0x89,
-  0x00,
-  0x00,
-  0x00,
-  0x10,
-  0x49,
-  0x44,
-  0x41,
-  0x54,
-  0x78,
-  0x9C,
-  0x62,
-  0x98,
-  0x98,
-  0x98,
-  0xF8,
-  0x0F,
-  0x00,
-  0x00,
-  0x05,
-  0x00,
-  0x01,
-  0x62,
-  0x7A,
-  0xD3,
-  0xE3,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x49,
-  0x45,
-  0x4E,
-  0x44,
-  0xAE,
-  0x42,
-  0x60,
-  0x82,
+  0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
+  0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+  0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4, 0x89, 0x00, 0x00, 0x00,
+  0x10, 0x49, 0x44, 0x41, 0x54, 0x78, 0x9C, 0x62, 0x98, 0x98, 0x98, 0xF8,
+  0x0F, 0x00, 0x00, 0x05, 0x00, 0x01, 0x62, 0x7A, 0xD3, 0xE3, 0x00, 0x00,
+  0x00, 0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82,
 ]);
 
 // Interactive drivers.
 final ValueNotifier<double> _fadeSlider = ValueNotifier<double>(0.35);
-final ValueNotifier<int> _durationChoice = ValueNotifier<int>(
-  1,
-); // index in _durations
-final ValueNotifier<int> _curveChoice = ValueNotifier<int>(
-  3,
-); // index in _curves
-final ValueNotifier<int> _fitChoice = ValueNotifier<int>(
-  1,
-); // index in _allFits
-final ValueNotifier<int> _alignChoice = ValueNotifier<int>(
-  4,
-); // centre by default
+final ValueNotifier<int> _durationChoice = ValueNotifier<int>(1); // index in _durations
+final ValueNotifier<int> _curveChoice = ValueNotifier<int>(3); // index in _curves
+final ValueNotifier<int> _fitChoice = ValueNotifier<int>(1); // index in _allFits
+final ValueNotifier<int> _alignChoice = ValueNotifier<int>(4); // centre by default
 
 const List<int> _durations = <int>[200, 400, 800, 1600];
-const List<String> _durationLabels = <String>[
-  '200 ms',
-  '400 ms',
-  '800 ms',
-  '1.6 s',
-];
+const List<String> _durationLabels = <String>['200 ms', '400 ms', '800 ms', '1.6 s'];
 
 const List<Curve> _curves = <Curve>[
   Curves.linear,
@@ -353,7 +215,10 @@ class _HeroBanner extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[scheme.primary, scheme.tertiary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.tertiary,
+          ],
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -374,11 +239,7 @@ class _HeroBanner extends StatelessWidget {
                   color: scheme.onPrimary.withAlpha(40),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Icon(
-                  Icons.image_outlined,
-                  size: 32,
-                  color: scheme.onPrimary,
-                ),
+                child: Icon(Icons.image_outlined, size: 32, color: scheme.onPrimary),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -411,11 +272,7 @@ class _HeroBanner extends StatelessWidget {
           const SizedBox(height: 20),
           _HeroPill(scheme: scheme, label: 'placeholder', icon: Icons.blur_on),
           const SizedBox(height: 8),
-          _HeroPill(
-            scheme: scheme,
-            label: 'fadeOutDuration → fadeInDuration',
-            icon: Icons.swap_horiz,
-          ),
+          _HeroPill(scheme: scheme, label: 'fadeOutDuration → fadeInDuration', icon: Icons.swap_horiz),
           const SizedBox(height: 8),
           _HeroPill(scheme: scheme, label: 'target image', icon: Icons.photo),
         ],
@@ -425,11 +282,7 @@ class _HeroBanner extends StatelessWidget {
 }
 
 class _HeroPill extends StatelessWidget {
-  const _HeroPill({
-    required this.scheme,
-    required this.label,
-    required this.icon,
-  });
+  const _HeroPill({required this.scheme, required this.label, required this.icon});
   final ColorScheme scheme;
   final String label;
   final IconData icon;
@@ -553,46 +406,14 @@ class _TwoStatePainter extends CustomPainter {
       ),
       right,
     );
-    _drawLabel(
-      canvas,
-      'placeholder',
-      32,
-      40,
-      scheme.onTertiaryContainer,
-      bold: true,
-    );
+    _drawLabel(canvas, 'placeholder', 32, 40, scheme.onTertiaryContainer, bold: true);
     _drawLabel(canvas, 'low fidelity', 32, 66, scheme.onTertiaryContainer);
     _drawLabel(canvas, 'small bytes', 32, 86, scheme.onTertiaryContainer);
     _drawLabel(canvas, 'always ready', 32, 106, scheme.onTertiaryContainer);
-    _drawLabel(
-      canvas,
-      'image',
-      half + 32,
-      40,
-      scheme.onPrimaryContainer,
-      bold: true,
-    );
-    _drawLabel(
-      canvas,
-      'high fidelity',
-      half + 32,
-      66,
-      scheme.onPrimaryContainer,
-    );
-    _drawLabel(
-      canvas,
-      'loads asynchronously',
-      half + 32,
-      86,
-      scheme.onPrimaryContainer,
-    );
-    _drawLabel(
-      canvas,
-      'cross-faded in',
-      half + 32,
-      106,
-      scheme.onPrimaryContainer,
-    );
+    _drawLabel(canvas, 'image', half + 32, 40, scheme.onPrimaryContainer, bold: true);
+    _drawLabel(canvas, 'high fidelity', half + 32, 66, scheme.onPrimaryContainer);
+    _drawLabel(canvas, 'loads asynchronously', half + 32, 86, scheme.onPrimaryContainer);
+    _drawLabel(canvas, 'cross-faded in', half + 32, 106, scheme.onPrimaryContainer);
     final Paint arrow = Paint()
       ..color = scheme.onSurface
       ..strokeWidth = 2.4
@@ -607,14 +428,8 @@ class _TwoStatePainter extends CustomPainter {
     canvas.drawPath(tri, Paint()..color = scheme.onSurface);
   }
 
-  void _drawLabel(
-    Canvas canvas,
-    String text,
-    double x,
-    double y,
-    Color color, {
-    bool bold = false,
-  }) {
+  void _drawLabel(Canvas canvas, String text, double x, double y, Color color,
+      {bool bold = false}) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
@@ -670,8 +485,7 @@ class _LifecycleTab extends StatelessWidget {
         const SizedBox(height: 12),
         _CodeBlock(
           scheme: scheme,
-          code:
-              'placeholderOpacity = 1 - fadeOutCurve(t / fadeOutDuration)\n'
+          code: 'placeholderOpacity = 1 - fadeOutCurve(t / fadeOutDuration)\n'
               'imageOpacity       = fadeInCurve(max(0, (t - fadeOutDuration) / fadeInDuration))',
         ),
         const SizedBox(height: 20),
@@ -707,22 +521,8 @@ class _LifecyclePainter extends CustomPainter {
     );
 
     // Axis title row.
-    _drawText(
-      canvas,
-      'placeholder opacity',
-      16,
-      lanesTop - 24,
-      scheme.onSurfaceVariant,
-      12,
-    );
-    _drawText(
-      canvas,
-      'image opacity',
-      16,
-      lanesTop + laneHeight + 16,
-      scheme.onSurfaceVariant,
-      12,
-    );
+    _drawText(canvas, 'placeholder opacity', 16, lanesTop - 24, scheme.onSurfaceVariant, 12);
+    _drawText(canvas, 'image opacity', 16, lanesTop + laneHeight + 16, scheme.onSurfaceVariant, 12);
 
     // Lanes backgrounds.
     final Paint lane = Paint()..color = scheme.surface;
@@ -731,12 +531,7 @@ class _LifecyclePainter extends CustomPainter {
       lane,
     );
     canvas.drawRect(
-      Rect.fromLTWH(
-        16,
-        lanesTop + laneHeight + 24,
-        size.width - 32,
-        laneHeight,
-      ),
+      Rect.fromLTWH(16, lanesTop + laneHeight + 24, size.width - 32, laneHeight),
       lane,
     );
 
@@ -766,14 +561,8 @@ class _LifecyclePainter extends CustomPainter {
         Rect.fromLTWH(x0, lanesTop + laneHeight + 24, x1 - x0, laneHeight),
         marker,
       );
-      _drawText(
-        canvas,
-        phaseNames[i],
-        x0 + 6,
-        lanesTop + laneHeight * 2 + 34,
-        scheme.onSurface,
-        10,
-      );
+      _drawText(canvas, phaseNames[i], x0 + 6, lanesTop + laneHeight * 2 + 34,
+          scheme.onSurface, 10);
     }
 
     // Opacity curves.
@@ -785,8 +574,7 @@ class _LifecyclePainter extends CustomPainter {
       final double im = _computeImage(t);
       final double x = areaLeft + t * areaWidth;
       final double phY = lanesTop + laneHeight - ph * (laneHeight - 8) - 4;
-      final double imY =
-          lanesTop + laneHeight + 24 + laneHeight - im * (laneHeight - 8) - 4;
+      final double imY = lanesTop + laneHeight + 24 + laneHeight - im * (laneHeight - 8) - 4;
       if (i == 0) {
         placeholderPath.moveTo(x, phY);
         imagePath.moveTo(x, imY);
@@ -825,22 +613,11 @@ class _LifecyclePainter extends CustomPainter {
     return 1.0;
   }
 
-  void _drawText(
-    Canvas canvas,
-    String text,
-    double x,
-    double y,
-    Color color,
-    double size,
-  ) {
+  void _drawText(Canvas canvas, String text, double x, double y, Color color, double size) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(
-          color: color,
-          fontSize: size,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(color: color, fontSize: size, fontWeight: FontWeight.w600),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -858,22 +635,14 @@ class _PhaseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<List<String>> phases = <List<String>>[
-      <String>[
-        '1. Placeholder showing',
-        'Opacity is 1.0 for the placeholder image; the main image has not yet been requested.',
-      ],
-      <String>[
-        '2. Image loading',
-        'Provider starts resolving the target; placeholder still fully visible.',
-      ],
-      <String>[
-        '3. Cross-fade',
-        'fadeOut + fadeIn overlap; placeholder opacity slides from 1 → 0 while image goes 0 → 1.',
-      ],
-      <String>[
-        '4. Image visible',
-        'Target fully opaque; placeholder has been torn down by the widget internals.',
-      ],
+      <String>['1. Placeholder showing',
+          'Opacity is 1.0 for the placeholder image; the main image has not yet been requested.'],
+      <String>['2. Image loading',
+          'Provider starts resolving the target; placeholder still fully visible.'],
+      <String>['3. Cross-fade',
+          'fadeOut + fadeIn overlap; placeholder opacity slides from 1 → 0 while image goes 0 → 1.'],
+      <String>['4. Image visible',
+          'Target fully opaque; placeholder has been torn down by the widget internals.'],
     ];
     return Column(
       children: phases.map((List<String> p) {
@@ -1020,8 +789,7 @@ class _RealShowcaseTab extends StatelessWidget {
         const SizedBox(height: 12),
         _CodeBlock(
           scheme: scheme,
-          code:
-              'FadeInImage(\n'
+          code: 'FadeInImage(\n'
               '  placeholder: MemoryImage(smallBytes),\n'
               '  image: MemoryImage(bigBytes),\n'
               '  fadeInDuration: Duration(milliseconds: 700),\n'
@@ -1081,7 +849,11 @@ class _PhotoFrame extends StatelessWidget {
                 border: Border.all(color: scheme.primary.withAlpha(80)),
               ),
               alignment: Alignment.center,
-              child: SizedBox(width: 64, height: 64, child: child),
+              child: SizedBox(
+                width: 64,
+                height: 64,
+                child: child,
+              ),
             ),
           ),
           const SizedBox(height: 10),
@@ -1095,7 +867,10 @@ class _PhotoFrame extends StatelessWidget {
           ),
           Text(
             caption,
-            style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            style: TextStyle(
+              color: scheme.onSurfaceVariant,
+              fontSize: 12,
+            ),
           ),
         ],
       ),
@@ -1191,31 +966,11 @@ class _SimulatedTab extends StatelessWidget {
                   spacing: 8,
                   runSpacing: 8,
                   children: <Widget>[
-                    _MiniSnapshot(
-                      scheme: scheme,
-                      progress: 0.0,
-                      label: 't=0.00',
-                    ),
-                    _MiniSnapshot(
-                      scheme: scheme,
-                      progress: 0.25,
-                      label: 't=0.25',
-                    ),
-                    _MiniSnapshot(
-                      scheme: scheme,
-                      progress: 0.50,
-                      label: 't=0.50',
-                    ),
-                    _MiniSnapshot(
-                      scheme: scheme,
-                      progress: 0.75,
-                      label: 't=0.75',
-                    ),
-                    _MiniSnapshot(
-                      scheme: scheme,
-                      progress: 1.00,
-                      label: 't=1.00',
-                    ),
+                    _MiniSnapshot(scheme: scheme, progress: 0.0, label: 't=0.00'),
+                    _MiniSnapshot(scheme: scheme, progress: 0.25, label: 't=0.25'),
+                    _MiniSnapshot(scheme: scheme, progress: 0.50, label: 't=0.50'),
+                    _MiniSnapshot(scheme: scheme, progress: 0.75, label: 't=0.75'),
+                    _MiniSnapshot(scheme: scheme, progress: 1.00, label: 't=1.00'),
                   ],
                 ),
               ],
@@ -1227,8 +982,7 @@ class _SimulatedTab extends StatelessWidget {
         const SizedBox(height: 12),
         _CodeBlock(
           scheme: scheme,
-          code:
-              'class _SimulatedFadeInImage extends StatelessWidget {\n'
+          code: 'class _SimulatedFadeInImage extends StatelessWidget {\n'
               '  final Widget placeholder;\n'
               '  final Widget image;\n'
               '  final double t;            // 0..1 progress\n'
@@ -1320,9 +1074,15 @@ class _MountainScenePainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[scheme.primary, scheme.primaryContainer],
+        colors: <Color>[
+          scheme.primary,
+          scheme.primaryContainer,
+        ],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height * 0.6));
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height * 0.6), sky);
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height * 0.6),
+      sky,
+    );
     final Paint sun = Paint()..color = scheme.tertiary;
     canvas.drawCircle(Offset(size.width * 0.72, size.height * 0.25), 22, sun);
 
@@ -1507,7 +1267,10 @@ class _DurationCurveTab extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      _CurveMiniature(scheme: scheme, curve: c),
+                      _CurveMiniature(
+                        scheme: scheme,
+                        curve: c,
+                      ),
                     ],
                   ),
                 );
@@ -1523,8 +1286,7 @@ class _DurationCurveTab extends StatelessWidget {
             _GuidanceRow(
               scheme: scheme,
               title: 'Short duration (≤ 200 ms)',
-              body:
-                  'Feels instant; use for UI chrome where no animation would look broken.',
+              body: 'Feels instant; use for UI chrome where no animation would look broken.',
             ),
             _GuidanceRow(
               scheme: scheme,
@@ -1534,14 +1296,12 @@ class _DurationCurveTab extends StatelessWidget {
             _GuidanceRow(
               scheme: scheme,
               title: 'Long (≥ 1 s)',
-              body:
-                  'Great for hero-style reveals but feels sluggish in list scrolling.',
+              body: 'Great for hero-style reveals but feels sluggish in list scrolling.',
             ),
             _GuidanceRow(
               scheme: scheme,
               title: 'Nonlinear curves',
-              body:
-                  'easeOut and easeInOut mimic real camera focus pulls; bounceOut is deliberately playful.',
+              body: 'easeOut and easeInOut mimic real camera focus pulls; bounceOut is deliberately playful.',
             ),
           ],
         ),
@@ -1616,11 +1376,7 @@ class _CurveMiniaturePainter extends CustomPainter {
     final Paint axis = Paint()
       ..color = scheme.outlineVariant
       ..strokeWidth = 1.0;
-    canvas.drawLine(
-      Offset(0, size.height - 2),
-      Offset(size.width, size.height - 2),
-      axis,
-    );
+    canvas.drawLine(Offset(0, size.height - 2), Offset(size.width, size.height - 2), axis);
     canvas.drawLine(const Offset(2, 0), Offset(2, size.height), axis);
     final Path path = Path();
     for (int i = 0; i <= 60; i++) {
@@ -1714,14 +1470,12 @@ class _ErrorBuilderTab extends StatelessWidget {
           scheme: scheme,
           title: 'image failed to load',
           icon: Icons.broken_image_outlined,
-          body:
-              'Recommendation: keep the same footprint as the successful image so the layout does not jump.',
+          body: 'Recommendation: keep the same footprint as the successful image so the layout does not jump.',
         ),
         const SizedBox(height: 20),
         _CodeBlock(
           scheme: scheme,
-          code:
-              'FadeInImage(\n'
+          code: 'FadeInImage(\n'
               '  placeholder: ...,\n'
               '  image: ...,\n'
               '  imageErrorBuilder: (ctx, err, stack) => _brokenTile(),\n'
@@ -1742,14 +1496,12 @@ class _ErrorBuilderTab extends StatelessWidget {
           scheme: scheme,
           title: 'placeholder missing',
           icon: Icons.image_not_supported_outlined,
-          body:
-              'Fall back to a solid colour that matches the dominant palette of the real image.',
+          body: 'Fall back to a solid colour that matches the dominant palette of the real image.',
         ),
         const SizedBox(height: 20),
         _CodeBlock(
           scheme: scheme,
-          code:
-              'FadeInImage(\n'
+          code: 'FadeInImage(\n'
               '  placeholder: AssetImage("missing/path.png"),\n'
               '  image: MemoryImage(bytes),\n'
               '  placeholderErrorBuilder: (ctx, err, stack) => ColoredBox(\n'
@@ -1920,9 +1672,7 @@ class _FitAlignTab extends StatelessWidget {
             return Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_alignmentCycle.length, (
-                int idx,
-              ) {
+              children: List<Widget>.generate(_alignmentCycle.length, (int idx) {
                 return _ChoicePill(
                   scheme: scheme,
                   label: _alignmentNames[idx],
@@ -1934,10 +1684,7 @@ class _FitAlignTab extends StatelessWidget {
           },
         ),
         const SizedBox(height: 24),
-        _SectionTitle(
-          scheme: scheme,
-          label: 'Full 7×3 matrix (preview of combinations)',
-        ),
+        _SectionTitle(scheme: scheme, label: 'Full 7×3 matrix (preview of combinations)'),
         const SizedBox(height: 12),
         GridView.builder(
           shrinkWrap: true,
@@ -1951,8 +1698,7 @@ class _FitAlignTab extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             final int fitIndex = index ~/ 3;
-            final int alignSubIndex =
-                index % 3; // 0=topLeft, 1=center, 2=bottomRight
+            final int alignSubIndex = index % 3; // 0=topLeft, 1=center, 2=bottomRight
             final Alignment align = <Alignment>[
               Alignment.topLeft,
               Alignment.center,
@@ -2078,12 +1824,7 @@ class _FitAlignPainter extends CustomPainter {
     const Size child = Size(120, 80);
     final Size drawn = _applyFit(fit, child, size);
     final Offset childOffset = _applyAlignment(alignment, drawn, size);
-    final Rect r = Rect.fromLTWH(
-      childOffset.dx,
-      childOffset.dy,
-      drawn.width,
-      drawn.height,
-    );
+    final Rect r = Rect.fromLTWH(childOffset.dx, childOffset.dy, drawn.width, drawn.height);
     final Paint childFill = Paint()..color = scheme.secondary.withAlpha(180);
     canvas.drawRect(r, childFill);
     final Paint childStroke = Paint()
@@ -2175,8 +1916,7 @@ class _UseCaseTab extends StatelessWidget {
       _UseCaseEntry(
         icon: Icons.preview,
         title: 'Feed hero preview',
-        hint:
-            'Tiny thumbnail already available from the API becomes the placeholder.',
+        hint: 'Tiny thumbnail already available from the API becomes the placeholder.',
         progress: 0.55,
       ),
       _UseCaseEntry(
@@ -2214,8 +1954,7 @@ class _UseCaseTab extends StatelessWidget {
         const SizedBox(height: 12),
         _CodeBlock(
           scheme: scheme,
-          code:
-              'FadeInImage(\n'
+          code: 'FadeInImage(\n'
               '  placeholder: MemoryImage(thumbnailBytes),\n'
               '  image: NetworkImage(highResUrl),\n'
               '  fadeInDuration: Duration(milliseconds: 500),\n'
@@ -2286,7 +2025,10 @@ class _UseCaseCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             entry.hint,
-            style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            style: TextStyle(
+              color: scheme.onSurfaceVariant,
+              fontSize: 12,
+            ),
           ),
         ],
       ),
@@ -2333,11 +2075,8 @@ class _Pitfalls extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.warning_amber_rounded,
-                    size: 18,
-                    color: scheme.error,
-                  ),
+                  Icon(Icons.warning_amber_rounded,
+                      size: 18, color: scheme.error),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -2383,14 +2122,8 @@ class _CheatSheetTab extends StatelessWidget {
           headers: const <String>['Name', 'Purpose'],
           rows: const <List<String>>[
             <String>['FadeInImage', 'General-purpose, any two ImageProviders.'],
-            <String>[
-              'FadeInImage.memoryNetwork',
-              'Bytes placeholder + URL image (network — unavailable in sandbox).',
-            ],
-            <String>[
-              'FadeInImage.assetNetwork',
-              'Asset placeholder + URL image (network — unavailable in sandbox).',
-            ],
+            <String>['FadeInImage.memoryNetwork', 'Bytes placeholder + URL image (network — unavailable in sandbox).'],
+            <String>['FadeInImage.assetNetwork', 'Asset placeholder + URL image (network — unavailable in sandbox).'],
           ],
         ),
         const SizedBox(height: 24),
@@ -2400,87 +2133,22 @@ class _CheatSheetTab extends StatelessWidget {
           scheme: scheme,
           headers: const <String>['Name', 'Type', 'Default', 'Purpose'],
           rows: const <List<String>>[
-            <String>[
-              'placeholder',
-              'ImageProvider',
-              'required',
-              'Shown first, always visible at t=0.',
-            ],
-            <String>[
-              'image',
-              'ImageProvider',
-              'required',
-              'Target image; fades in once decoded.',
-            ],
-            <String>[
-              'placeholderErrorBuilder',
-              'ImageErrorWidgetBuilder?',
-              'null',
-              'Fallback widget when placeholder throws.',
-            ],
-            <String>[
-              'imageErrorBuilder',
-              'ImageErrorWidgetBuilder?',
-              'null',
-              'Fallback widget when image throws.',
-            ],
-            <String>[
-              'fadeInDuration',
-              'Duration',
-              '700 ms',
-              'Time image takes to reach full opacity.',
-            ],
-            <String>[
-              'fadeOutDuration',
-              'Duration',
-              '300 ms',
-              'Time placeholder takes to leave.',
-            ],
-            <String>[
-              'fadeInCurve',
-              'Curve',
-              'Curves.easeIn',
-              'Curve applied to image opacity.',
-            ],
-            <String>[
-              'fadeOutCurve',
-              'Curve',
-              'Curves.easeIn',
-              'Curve applied to placeholder opacity.',
-            ],
+            <String>['placeholder', 'ImageProvider', 'required', 'Shown first, always visible at t=0.'],
+            <String>['image', 'ImageProvider', 'required', 'Target image; fades in once decoded.'],
+            <String>['placeholderErrorBuilder', 'ImageErrorWidgetBuilder?', 'null', 'Fallback widget when placeholder throws.'],
+            <String>['imageErrorBuilder', 'ImageErrorWidgetBuilder?', 'null', 'Fallback widget when image throws.'],
+            <String>['fadeInDuration', 'Duration', '700 ms', 'Time image takes to reach full opacity.'],
+            <String>['fadeOutDuration', 'Duration', '300 ms', 'Time placeholder takes to leave.'],
+            <String>['fadeInCurve', 'Curve', 'Curves.easeIn', 'Curve applied to image opacity.'],
+            <String>['fadeOutCurve', 'Curve', 'Curves.easeIn', 'Curve applied to placeholder opacity.'],
             <String>['width', 'double?', 'null', 'Locks the painted width.'],
             <String>['height', 'double?', 'null', 'Locks the painted height.'],
             <String>['fit', 'BoxFit?', 'null', 'How image fills the box.'],
-            <String>[
-              'alignment',
-              'AlignmentGeometry',
-              'Alignment.center',
-              'Alignment inside the box.',
-            ],
-            <String>[
-              'repeat',
-              'ImageRepeat',
-              'ImageRepeat.noRepeat',
-              'Tiling mode.',
-            ],
-            <String>[
-              'matchTextDirection',
-              'bool',
-              'false',
-              'Mirror image in RTL locales.',
-            ],
-            <String>[
-              'excludeFromSemantics',
-              'bool',
-              'false',
-              'Hide image semantics for a11y.',
-            ],
-            <String>[
-              'filterQuality',
-              'FilterQuality',
-              'FilterQuality.medium',
-              'Sampling quality.',
-            ],
+            <String>['alignment', 'AlignmentGeometry', 'Alignment.center', 'Alignment inside the box.'],
+            <String>['repeat', 'ImageRepeat', 'ImageRepeat.noRepeat', 'Tiling mode.'],
+            <String>['matchTextDirection', 'bool', 'false', 'Mirror image in RTL locales.'],
+            <String>['excludeFromSemantics', 'bool', 'false', 'Hide image semantics for a11y.'],
+            <String>['filterQuality', 'FilterQuality', 'FilterQuality.medium', 'Sampling quality.'],
           ],
         ),
         const SizedBox(height: 24),
@@ -2606,7 +2274,10 @@ class _FinalBanner extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         gradient: LinearGradient(
-          colors: <Color>[scheme.tertiary, scheme.primary],
+          colors: <Color>[
+            scheme.tertiary,
+            scheme.primary,
+          ],
         ),
       ),
       child: Row(
@@ -2671,7 +2342,10 @@ class _Paragraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: const TextStyle(fontSize: 14, height: 1.45));
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 14, height: 1.45),
+    );
   }
 }
 

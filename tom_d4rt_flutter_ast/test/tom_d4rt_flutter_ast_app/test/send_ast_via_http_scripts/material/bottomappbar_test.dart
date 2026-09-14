@@ -166,63 +166,61 @@ Widget _placeholderContent({Color tint = const Color(0xFFE3E6F0)}) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            height: 14.0,
-            decoration: BoxDecoration(
-              color: tint,
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-            ),
+        Container(
+          height: 14.0,
+          decoration: BoxDecoration(
+            color: tint,
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           ),
-          const SizedBox(height: 8.0),
-          Container(
-            height: 10.0,
-            width: 180.0,
-            decoration: BoxDecoration(
-              color: tint.withValues(alpha: 0.7),
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-            ),
+        ),
+        const SizedBox(height: 8.0),
+        Container(
+          height: 10.0,
+          width: 180.0,
+          decoration: BoxDecoration(
+            color: tint.withValues(alpha: 0.7),
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           ),
-          const SizedBox(height: 14.0),
-          Row(
-            children: <Widget>[
-              Container(
-                width: 56.0,
-                height: 56.0,
-                decoration: BoxDecoration(
-                  color: tint,
-                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                ),
+        ),
+        const SizedBox(height: 14.0),
+        Row(
+          children: <Widget>[
+            Container(
+              width: 56.0,
+              height: 56.0,
+              decoration: BoxDecoration(
+                color: tint,
+                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               ),
-              const SizedBox(width: 10.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      height: 10.0,
-                      decoration: BoxDecoration(
-                        color: tint.withValues(alpha: 0.85),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4.0),
-                        ),
-                      ),
+            ),
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    height: 10.0,
+                    decoration: BoxDecoration(
+                      color: tint.withValues(alpha: 0.85),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(4.0)),
                     ),
-                    const SizedBox(height: 6.0),
-                    Container(
-                      height: 10.0,
-                      width: 120.0,
-                      decoration: BoxDecoration(
-                        color: tint.withValues(alpha: 0.6),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4.0),
-                        ),
-                      ),
+                  ),
+                  const SizedBox(height: 6.0),
+                  Container(
+                    height: 10.0,
+                    width: 120.0,
+                    decoration: BoxDecoration(
+                      color: tint.withValues(alpha: 0.6),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(4.0)),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
         ],
       ),
     ),
@@ -256,11 +254,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: const BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Color(0xFF1E3A8A),
-          Color(0xFF4338CA),
-          Color(0xFF7C3AED),
-        ],
+        colors: <Color>[Color(0xFF1E3A8A), Color(0xFF4338CA), Color(0xFF7C3AED)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -889,38 +883,38 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Row(
-            children: const <Widget>[
-              Icon(Icons.inbox, color: Color(0xFF1D4ED8), size: 18.0),
-              SizedBox(width: 6.0),
-              Text(
-                'Inbox (3 new)',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF1E3A8A),
-                ),
+        Row(
+          children: const <Widget>[
+            Icon(Icons.inbox, color: Color(0xFF1D4ED8), size: 18.0),
+            SizedBox(width: 6.0),
+            Text(
+              'Inbox (3 new)',
+              style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF1E3A8A),
               ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-          _MailRow(
-            sender: 'Greta',
-            subject: 'Re: deployment window',
-            color: Color(0xFFBFDBFE),
-          ),
-          const SizedBox(height: 6.0),
-          _MailRow(
-            sender: 'Build bot',
-            subject: 'tom_d4rt #421 succeeded',
-            color: Color(0xFFA7F3D0),
-          ),
-          const SizedBox(height: 6.0),
-          _MailRow(
-            sender: 'Newsletter',
-            subject: 'Flutter weekly digest',
-            color: Color(0xFFFDE68A),
-          ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8.0),
+        _MailRow(
+          sender: 'Greta',
+          subject: 'Re: deployment window',
+          color: Color(0xFFBFDBFE),
+        ),
+        const SizedBox(height: 6.0),
+        _MailRow(
+          sender: 'Build bot',
+          subject: 'tom_d4rt #421 succeeded',
+          color: Color(0xFFA7F3D0),
+        ),
+        const SizedBox(height: 6.0),
+        _MailRow(
+          sender: 'Newsletter',
+          subject: 'Flutter weekly digest',
+          color: Color(0xFFFDE68A),
+        ),
         ],
       ),
     ),
@@ -1079,7 +1073,10 @@ dynamic build(BuildContext context) {
           'Inset wrapped around the child; stacks with system insets.',
           alt: true,
         ),
-        cheatRow('surfaceTintColor', 'M3 tint blended in based on elevation.'),
+        cheatRow(
+          'surfaceTintColor',
+          'M3 tint blended in based on elevation.',
+        ),
         cheatRow(
           'shadowColor',
           'Color of the drop shadow at the given elevation.',

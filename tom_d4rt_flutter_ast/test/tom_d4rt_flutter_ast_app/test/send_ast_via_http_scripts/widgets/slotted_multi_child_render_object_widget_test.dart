@@ -72,9 +72,7 @@ TextStyle _smcrowTitle({double size = 22, Color? color, FontWeight? weight}) {
 TextStyle _smcrowBody({double size = 13, Color? color, FontWeight? weight}) {
   return TextStyle(
     fontSize: size,
-    color:
-        color ??
-        (_kSmcrowInk ?? const Color(0xFF000000)).withValues(alpha: 0.82),
+    color: color ?? (_kSmcrowInk ?? const Color(0xFF000000)).withValues(alpha: 0.82),
     fontWeight: weight ?? FontWeight.w400,
     letterSpacing: 0.15,
     height: 1.45,
@@ -162,8 +160,7 @@ String _smcrowSlotResponsibility(_SmcrowDashboardSlot s) {
 // --------------------------------------------------------------------------
 
 class _SmcrowDashboardCard
-    extends
-        SlottedMultiChildRenderObjectWidget<_SmcrowDashboardSlot, RenderBox> {
+    extends SlottedMultiChildRenderObjectWidget<_SmcrowDashboardSlot, RenderBox> {
   const _SmcrowDashboardCard({
     this.icon,
     this.title,
@@ -244,10 +241,10 @@ class _SmcrowDashboardRender extends RenderBox
     required Color surface,
     required double radius,
     required double minHeight,
-  }) : _accent = accent,
-       _surface = surface,
-       _radius = radius,
-       _minHeight = minHeight;
+  })  : _accent = accent,
+        _surface = surface,
+        _radius = radius,
+        _minHeight = minHeight;
 
   Color _accent;
   Color get accent => _accent;
@@ -285,9 +282,7 @@ class _SmcrowDashboardRender extends RenderBox
 
   @override
   void performLayout() {
-    final double maxW = constraints.hasBoundedWidth
-        ? constraints.maxWidth
-        : 320;
+    final double maxW = constraints.hasBoundedWidth ? constraints.maxWidth : 320;
     final double padding = 14;
     final double innerW = math.max(0, maxW - padding * 2);
 
@@ -455,8 +450,7 @@ class _SmcrowHeroHeader extends StatelessWidget {
               'SLOTTED · MULTI · CHILD · WIDGET',
               style: _smcrowLabel(
                 size: 13,
-                color: (_kSmcrowChampagne ?? const Color(0xFF000000))
-                    .withValues(alpha: 0.92),
+                color: (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(alpha: 0.92),
               ),
             ),
           ),
@@ -483,12 +477,15 @@ class _SmcrowHeroHeader extends StatelessWidget {
               '"with" composition and answer only the slot questions.',
               style: _smcrowBody(
                 size: 14,
-                color: (_kSmcrowChampagneSoft ?? const Color(0xFF000000))
-                    .withValues(alpha: 0.92),
+                color: (_kSmcrowChampagneSoft ?? const Color(0xFF000000)).withValues(alpha: 0.92),
               ),
             ),
           ),
-          Positioned(right: 28, top: 36, child: _SmcrowHeroBadge()),
+          Positioned(
+            right: 28,
+            top: 36,
+            child: _SmcrowHeroBadge(),
+          ),
         ],
       ),
     );
@@ -501,14 +498,10 @@ class _SmcrowHeroBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: (_kSmcrowPlumDeep ?? const Color(0xFF000000)).withValues(
-          alpha: 0.65,
-        ),
+        color: (_kSmcrowPlumDeep ?? const Color(0xFF000000)).withValues(alpha: 0.65),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(
-            alpha: 0.35,
-          ),
+          color: (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(alpha: 0.35),
         ),
       ),
       child: Column(
@@ -557,9 +550,7 @@ class _SmcrowCapstonePainter extends CustomPainter {
       yCenter: size.height * 0.64,
       width: size.width * 0.64,
       height: 28,
-      color: (_kSmcrowPlumBlush ?? const Color(0xFF000000)).withValues(
-        alpha: 0.55,
-      ),
+      color: (_kSmcrowPlumBlush ?? const Color(0xFF000000)).withValues(alpha: 0.55),
       label: 'widget-tier mixin',
     );
     _drawPlate(
@@ -568,18 +559,14 @@ class _SmcrowCapstonePainter extends CustomPainter {
       yCenter: size.height * 0.52,
       width: size.width * 0.50,
       height: 30,
-      color: (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(
-        alpha: 0.85,
-      ),
+      color: (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(alpha: 0.85),
       label: 'abstract widget',
       labelColor: _kSmcrowInk,
     );
 
     // Arrow up through the stack.
     final Paint arrow = Paint()
-      ..color = (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(
-        alpha: 0.7,
-      )
+      ..color = (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(alpha: 0.7)
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
     final double ax = size.width * 0.5;
@@ -597,9 +584,7 @@ class _SmcrowCapstonePainter extends CustomPainter {
     // Subtle starfield.
     final math.Random rng = math.Random(415);
     final Paint star = Paint()
-      ..color = (_kSmcrowChampagneSoft ?? const Color(0xFF000000)).withValues(
-        alpha: 0.18,
-      );
+      ..color = (_kSmcrowChampagneSoft ?? const Color(0xFF000000)).withValues(alpha: 0.18);
     for (int i = 0; i < 42; i++) {
       canvas.drawCircle(
         Offset(rng.nextDouble() * size.width, rng.nextDouble() * size.height),
@@ -631,14 +616,15 @@ class _SmcrowCapstonePainter extends CustomPainter {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1
-        ..color = (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(
-          alpha: 0.45,
-        ),
+        ..color = (_kSmcrowChampagne ?? const Color(0xFF000000)).withValues(alpha: 0.45),
     );
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: label.toUpperCase(),
-        style: _smcrowLabel(size: 10, color: labelColor ?? _kSmcrowChampagne),
+        style: _smcrowLabel(
+          size: 10,
+          color: labelColor ?? _kSmcrowChampagne,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: width - 10);
@@ -696,9 +682,7 @@ class _SmcrowSection extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 1,
-                  color: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(
-                    alpha: 0.28,
-                  ),
+                  color: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(alpha: 0.28),
                 ),
               ),
             ],
@@ -729,7 +713,10 @@ class _SmcrowSpecimenAllFilled extends StatelessWidget {
         minHeight: 170,
         icon: _SmcrowGlyph(color: _kSmcrowTeal, symbol: 'I'),
         title: Text('Monthly Revenue', style: _smcrowTitle(size: 15)),
-        subtitle: Text('Northern region · Q3', style: _smcrowBody(size: 12)),
+        subtitle: Text(
+          'Northern region · Q3',
+          style: _smcrowBody(size: 12),
+        ),
         primaryMetric: Text(
           'EUR 1.24M',
           style: _smcrowTitle(
@@ -855,9 +842,7 @@ class _SmcrowSpecimenFrame extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.4),
-        ),
+        border: Border.all(color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.4)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.12),
@@ -880,8 +865,13 @@ class _SmcrowSpecimenFrame extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              Expanded(child: Text(caption, style: _smcrowTitle(size: 14))),
-              Text('specimen', style: _smcrowLabel(size: 10, color: accent)),
+              Expanded(
+                child: Text(caption, style: _smcrowTitle(size: 14)),
+              ),
+              Text(
+                'specimen',
+                style: _smcrowLabel(size: 10, color: accent),
+              ),
             ],
           ),
           const SizedBox(height: 2),
@@ -911,9 +901,7 @@ class _SmcrowGlyph extends StatelessWidget {
       decoration: BoxDecoration(
         color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.18),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-          color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.7),
-        ),
+        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.7)),
       ),
       child: Text(
         symbol,
@@ -980,8 +968,7 @@ class _SmcrowSparkPainter extends CustomPainter {
       ..close();
     canvas.drawPath(
       fill,
-      Paint()
-        ..color = (color ?? const Color(0xFF000000)).withValues(alpha: 0.14),
+      Paint()..color = (color ?? const Color(0xFF000000)).withValues(alpha: 0.14),
     );
   }
 
@@ -1005,17 +992,14 @@ class _SmcrowActionsRow extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
             decoration: BoxDecoration(
-              color: (accent ?? const Color(0xFF000000)).withValues(
-                alpha: 0.14,
-              ),
+              color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.14),
               borderRadius: BorderRadius.circular(4),
-              border: Border.all(
-                color: (accent ?? const Color(0xFF000000)).withValues(
-                  alpha: 0.45,
-                ),
-              ),
+              border: Border.all(color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
             ),
-            child: Text(l, style: _smcrowLabel(size: 10, color: accent)),
+            child: Text(
+              l,
+              style: _smcrowLabel(size: 10, color: accent),
+            ),
           ),
       ],
     );
@@ -1098,7 +1082,11 @@ class _MyCard extends
         if (tight) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[children[0], children[1], children[2]],
+            children: <Widget>[
+              children[0],
+              children[1],
+              children[2],
+            ],
           );
         }
         // IntrinsicHeight bounds the Row's vertical extent so that
@@ -1135,9 +1123,7 @@ class _SmcrowCodeBlock extends StatelessWidget {
       decoration: BoxDecoration(
         color: _kSmcrowPlumDeep,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.55),
-        ),
+        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.55)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1162,7 +1148,10 @@ class _SmcrowCodeBlock extends StatelessWidget {
           const SizedBox(height: 10),
           SelectableText(
             code,
-            style: _smcrowMono(size: 12, color: _kSmcrowChampagneSoft),
+            style: _smcrowMono(
+              size: 12,
+              color: _kSmcrowChampagneSoft,
+            ),
           ),
           const SizedBox(height: 10),
           for (final String a in annotations)
@@ -1215,11 +1204,7 @@ class _SmcrowArchitectureDiagram extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(
-            alpha: 0.3,
-          ),
-        ),
+        border: Border.all(color: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1247,7 +1232,13 @@ class _SmcrowArchPainter extends CustomPainter {
     final double w = size.width;
     final double h = size.height;
 
-    void plate(Rect r, Color fill, String title, String sub, Color textColor) {
+    void plate(
+      Rect r,
+      Color fill,
+      String title,
+      String sub,
+      Color textColor,
+    ) {
       final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(8));
       canvas.drawRRect(rr, Paint()..color = fill);
       canvas.drawRRect(
@@ -1255,9 +1246,7 @@ class _SmcrowArchPainter extends CustomPainter {
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1.3
-          ..color = (textColor ?? const Color(0xFF000000)).withValues(
-            alpha: 0.55,
-          ),
+          ..color = (textColor ?? const Color(0xFF000000)).withValues(alpha: 0.55),
       );
       final TextPainter t = TextPainter(
         text: TextSpan(
@@ -1272,9 +1261,7 @@ class _SmcrowArchPainter extends CustomPainter {
           text: sub,
           style: _smcrowBody(
             size: 11,
-            color: (textColor ?? const Color(0xFF000000)).withValues(
-              alpha: 0.82,
-            ),
+            color: (textColor ?? const Color(0xFF000000)).withValues(alpha: 0.82),
           ),
         ),
         textDirection: TextDirection.ltr,
@@ -1316,12 +1303,18 @@ class _SmcrowArchPainter extends CustomPainter {
     final Paint arrow = Paint()
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke
-      ..color = (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(
-        alpha: 0.75,
-      );
+      ..color = (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(alpha: 0.75);
     final double ax = x + 30;
-    canvas.drawLine(Offset(ax, r1.top), Offset(ax, r2.bottom), arrow);
-    canvas.drawLine(Offset(ax, r2.top), Offset(ax, r3.bottom), arrow);
+    canvas.drawLine(
+      Offset(ax, r1.top),
+      Offset(ax, r2.bottom),
+      arrow,
+    );
+    canvas.drawLine(
+      Offset(ax, r2.top),
+      Offset(ax, r3.bottom),
+      arrow,
+    );
     // Arrow heads.
     for (final double y in <double>[r2.bottom + 0.5, r3.bottom + 0.5]) {
       final Path head = Path()
@@ -1337,9 +1330,7 @@ class _SmcrowArchPainter extends CustomPainter {
         text: 'fused\ndownward\nthrough\n"with"',
         style: _smcrowBody(
           size: 11,
-          color: (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(
-            alpha: 0.82,
-          ),
+          color: (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(alpha: 0.82),
         ),
       ),
       textDirection: TextDirection.ltr,
@@ -1418,11 +1409,7 @@ class _SmcrowConfiguratorState extends State<_SmcrowConfigurator> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(
-            alpha: 0.3,
-          ),
-        ),
+        border: Border.all(color: (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(alpha: 0.3)),
       ),
       child: LayoutBuilder(
         builder: (BuildContext ctx, BoxConstraints c) {
@@ -1432,7 +1419,11 @@ class _SmcrowConfiguratorState extends State<_SmcrowConfigurator> {
           if (tight) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[controls, const SizedBox(height: 14), preview],
+              children: <Widget>[
+                controls,
+                const SizedBox(height: 14),
+                preview,
+              ],
             );
           }
           return Row(
@@ -1473,10 +1464,8 @@ class _SmcrowConfiguratorState extends State<_SmcrowConfigurator> {
           setState(() => _showActions = v);
         }),
         const SizedBox(height: 14),
-        Text(
-          'Radius: ${_radius.toStringAsFixed(1)}',
-          style: _smcrowBody(size: 12),
-        ),
+        Text('Radius: ${_radius.toStringAsFixed(1)}',
+            style: _smcrowBody(size: 12)),
         Slider(
           value: _radius,
           min: 0,
@@ -1485,10 +1474,8 @@ class _SmcrowConfiguratorState extends State<_SmcrowConfigurator> {
           activeColor: _kSmcrowTeal,
           onChanged: (double v) => setState(() => _radius = v),
         ),
-        Text(
-          'Min height: ${_minHeight.toStringAsFixed(0)}',
-          style: _smcrowBody(size: 12),
-        ),
+        Text('Min height: ${_minHeight.toStringAsFixed(0)}',
+            style: _smcrowBody(size: 12)),
         Slider(
           value: _minHeight,
           min: 80,
@@ -1532,21 +1519,27 @@ class _SmcrowConfiguratorState extends State<_SmcrowConfigurator> {
       decoration: BoxDecoration(
         color: _kSmcrowParchment,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (_accent ?? const Color(0xFF000000)).withValues(alpha: 0.45),
-        ),
+        border: Border.all(color: (_accent ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
       ),
       child: _SmcrowDashboardCard(
         accent: _accent,
         surface: Colors.white,
         radius: _radius,
         minHeight: _minHeight,
-        icon: _showIcon ? _SmcrowGlyph(color: _accent, symbol: 'L') : null,
+        icon: _showIcon
+            ? _SmcrowGlyph(color: _accent, symbol: 'L')
+            : null,
         title: _showTitle
-            ? Text('Live dashboard card', style: _smcrowTitle(size: 15))
+            ? Text(
+                'Live dashboard card',
+                style: _smcrowTitle(size: 15),
+              )
             : null,
         subtitle: _showSubtitle
-            ? Text('Rebuilt as you toggle slots', style: _smcrowBody(size: 12))
+            ? Text(
+                'Rebuilt as you toggle slots',
+                style: _smcrowBody(size: 12),
+              )
             : null,
         primaryMetric: _showMetric
             ? Text(
@@ -1602,9 +1595,7 @@ class _SmcrowSpecSheet extends StatelessWidget {
             child: DataTable(
               columnSpacing: 20,
               headingRowColor: WidgetStatePropertyAll<Color>(
-                (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(
-                  alpha: 0.12,
-                ),
+                (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(alpha: 0.12),
               ),
               headingTextStyle: _smcrowLabel(size: 11),
               dataTextStyle: _smcrowBody(size: 12),
@@ -1689,8 +1680,7 @@ class _SmcrowDecisionTree extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           _SmcrowDecisionNode(
-            question:
-                'Do you already extend another widget class '
+            question: 'Do you already extend another widget class '
                 '(e.g. a custom InheritedWidget or RenderObjectWidget '
                 'specialization)?',
             yes: 'Apply the widget-tier mixin directly to your class.',
@@ -1698,16 +1688,14 @@ class _SmcrowDecisionTree extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           _SmcrowDecisionNode(
-            question:
-                'Do you need an exotic createElement override '
+            question: 'Do you need an exotic createElement override '
                 '(e.g. a custom Element subclass)?',
             yes: 'Use the mixin and override createElement yourself.',
             no: 'Extend SlottedMultiChildRenderObjectWidget.',
           ),
           const SizedBox(height: 10),
           _SmcrowDecisionNode(
-            question:
-                'Are you building a reusable production widget '
+            question: 'Are you building a reusable production widget '
                 'with a small, stable slot enum?',
             yes: 'Extend SlottedMultiChildRenderObjectWidget — least code.',
             no: 'Either works; the mixin gives you marginally more freedom.',
@@ -1737,9 +1725,7 @@ class _SmcrowDecisionNode extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: (_kSmcrowChampagneDeep ?? const Color(0xFF000000)).withValues(
-            alpha: 0.7,
-          ),
+          color: (_kSmcrowChampagneDeep ?? const Color(0xFF000000)).withValues(alpha: 0.7),
         ),
       ),
       child: Column(
@@ -1748,7 +1734,10 @@ class _SmcrowDecisionNode extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Q.', style: _smcrowLabel(size: 11, color: _kSmcrowPlum)),
+              Text(
+                'Q.',
+                style: _smcrowLabel(size: 11, color: _kSmcrowPlum),
+              ),
               const SizedBox(width: 6),
               Expanded(child: Text(question, style: _smcrowBody(size: 13))),
             ],
@@ -1773,9 +1762,7 @@ class _SmcrowDecisionNode extends StatelessWidget {
           decoration: BoxDecoration(
             color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(4),
-            border: Border.all(
-              color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.6),
-            ),
+            border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.6)),
           ),
           child: Text(label, style: _smcrowLabel(size: 10, color: color)),
         ),
@@ -1800,11 +1787,7 @@ class _SmcrowPitfallCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFFDEEE2),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(
-            alpha: 0.6,
-          ),
-        ),
+        border: Border.all(color: (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(alpha: 0.6)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1868,10 +1851,7 @@ class _SmcrowDiamondPainter extends CustomPainter {
       ..close();
     canvas.drawPath(
       p,
-      Paint()
-        ..color = (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(
-          alpha: 0.85,
-        ),
+      Paint()..color = (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(alpha: 0.85),
     );
     canvas.drawPath(
       p,
@@ -1893,7 +1873,10 @@ class _SmcrowDiamondPainter extends CustomPainter {
     )..layout();
     tp.paint(
       canvas,
-      Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2),
+      Offset(
+        (size.width - tp.width) / 2,
+        (size.height - tp.height) / 2,
+      ),
     );
   }
 
@@ -1932,9 +1915,7 @@ class _SmcrowLegend extends StatelessWidget {
           decoration: BoxDecoration(
             color: c,
             borderRadius: BorderRadius.circular(3),
-            border: Border.all(
-              color: (c ?? const Color(0xFF000000)).withValues(alpha: 0.9),
-            ),
+            border: Border.all(color: (c ?? const Color(0xFF000000)).withValues(alpha: 0.9)),
           ),
         ),
         const SizedBox(width: 6),
@@ -1968,11 +1949,7 @@ class _SmcrowChecklist extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(
-            alpha: 0.35,
-          ),
-        ),
+        border: Border.all(color: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1990,12 +1967,10 @@ class _SmcrowChecklist extends StatelessWidget {
                     height: 22,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: (_kSmcrowTeal ?? const Color(0xFF000000))
-                          .withValues(alpha: 0.12),
+                      color: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(
-                        color: (_kSmcrowTeal ?? const Color(0xFF000000))
-                            .withValues(alpha: 0.55),
+                        color: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(alpha: 0.55),
                       ),
                     ),
                     child: Text(
@@ -2004,9 +1979,7 @@ class _SmcrowChecklist extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(_items[i], style: _smcrowBody(size: 13)),
-                  ),
+                  Expanded(child: Text(_items[i], style: _smcrowBody(size: 13))),
                 ],
               ),
             ),
@@ -2028,29 +2001,25 @@ class _SmcrowLifecycleStrip extends StatelessWidget {
     final List<_LifecycleStep> steps = <_LifecycleStep>[
       _LifecycleStep(
         title: 'createElement',
-        body:
-            'The concrete widget returns a SlottedRenderObjectElement '
+        body: 'The concrete widget returns a SlottedRenderObjectElement '
             'configured with this widget instance.',
         accent: _kSmcrowTeal,
       ),
       _LifecycleStep(
         title: 'mount',
-        body:
-            'Element iterates `slots`, calls `childForSlot`, and inflates '
+        body: 'Element iterates `slots`, calls `childForSlot`, and inflates '
             'each non-null widget as a child subtree.',
         accent: _kSmcrowPlum,
       ),
       _LifecycleStep(
         title: 'updateChild',
-        body:
-            'On update, each slot is diffed independently; stable slot '
+        body: 'On update, each slot is diffed independently; stable slot '
             'identity means minimal rebuilds.',
         accent: _kSmcrowChampagneDeep,
       ),
       _LifecycleStep(
         title: 'render object',
-        body:
-            'Render object receives slotted children via the mixin and '
+        body: 'Render object receives slotted children via the mixin and '
             'lays them out per enum order.',
         accent: _kSmcrowTealMist,
       ),
@@ -2090,11 +2059,7 @@ class _SmcrowLifecycleCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (step.accent ?? const Color(0xFF000000)).withValues(
-            alpha: 0.55,
-          ),
-        ),
+        border: Border.all(color: (step.accent ?? const Color(0xFF000000)).withValues(alpha: 0.55)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2104,9 +2069,7 @@ class _SmcrowLifecycleCard extends StatelessWidget {
             height: 40,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: (step.accent ?? const Color(0xFF000000)).withValues(
-                alpha: 0.18,
-              ),
+              color: (step.accent ?? const Color(0xFF000000)).withValues(alpha: 0.18),
               shape: BoxShape.circle,
               border: Border.all(color: step.accent),
             ),
@@ -2163,33 +2126,24 @@ class _SmcrowConstellation extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(
-            alpha: 0.3,
-          ),
-        ),
+        border: Border.all(color: (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Slot constellation per specimen',
-            style: _smcrowTitle(size: 15),
-          ),
+          Text('Slot constellation per specimen',
+              style: _smcrowTitle(size: 15)),
           const SizedBox(height: 10),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: DataTable(
               columnSpacing: 18,
               headingRowColor: WidgetStatePropertyAll<Color>(
-                (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(
-                  alpha: 0.1,
-                ),
+                (_kSmcrowPlum ?? const Color(0xFF000000)).withValues(alpha: 0.1),
               ),
               columns: <DataColumn>[
                 const DataColumn(label: Text('SPEC')),
-                for (final _SmcrowDashboardSlot s
-                    in _SmcrowDashboardSlot.values)
+                for (final _SmcrowDashboardSlot s in _SmcrowDashboardSlot.values)
                   DataColumn(label: Text(_smcrowSlotName(s))),
               ],
               rows: <DataRow>[
@@ -2254,7 +2208,10 @@ class _SmcrowFooter extends StatelessWidget {
             child: Text(
               'SlottedMultiChildRenderObjectWidget — the abstract capstone. '
               'Extend it, answer the slot questions, ship.',
-              style: _smcrowBody(size: 13, color: _kSmcrowChampagneSoft),
+              style: _smcrowBody(
+                size: 13,
+                color: _kSmcrowChampagneSoft,
+              ),
             ),
           ),
           Text(
@@ -2282,9 +2239,7 @@ dynamic build(BuildContext context) {
         surface: _kSmcrowParchment,
       ),
       scaffoldBackgroundColor: _kSmcrowParchment,
-      dividerColor: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(
-        alpha: 0.25,
-      ),
+      dividerColor: (_kSmcrowTeal ?? const Color(0xFF000000)).withValues(alpha: 0.25),
       textTheme: const TextTheme().apply(bodyColor: _kSmcrowInk),
       useMaterial3: true,
     ),

@@ -75,7 +75,10 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[Colors.cyan.shade300, Colors.indigo.shade400],
+                  colors: <Color>[
+                    Colors.cyan.shade300,
+                    Colors.indigo.shade400,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -123,7 +126,10 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 18.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(10.0),
@@ -137,7 +143,11 @@ dynamic build(BuildContext context) {
             'eight enum values to every selection update so that text widgets '
             'can react proportionally: place a caret on tap, expand a word on '
             'double-tap, open a toolbar on long-press, etc.',
-            style: TextStyle(fontSize: 13.5, color: Colors.white, height: 1.45),
+            style: TextStyle(
+              fontSize: 13.5,
+              color: Colors.white,
+              height: 1.45,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -150,11 +160,7 @@ dynamic build(BuildContext context) {
               Icons.format_list_numbered,
               Colors.amberAccent,
             ),
-            _buildHeroChip(
-              'flutter/services',
-              Icons.api,
-              Colors.lightGreenAccent,
-            ),
+            _buildHeroChip('flutter/services', Icons.api, Colors.lightGreenAccent),
             _buildHeroChip('text input', Icons.keyboard, Colors.pinkAccent),
             _buildHeroChip(
               'first: ${SelectionChangedCause.values.first.name}',
@@ -182,7 +188,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Colors.blueGrey.shade50, Colors.blueGrey.shade100],
+        colors: <Color>[
+          Colors.blueGrey.shade50,
+          Colors.blueGrey.shade100,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -201,11 +210,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.account_tree,
-              color: Colors.blueGrey.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.account_tree, color: Colors.blueGrey.shade700, size: 22.0),
             const SizedBox(width: 8.0),
             Text(
               'Enum anatomy',
@@ -416,7 +421,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Colors.grey.shade100, Colors.blueGrey.shade50],
+        colors: <Color>[
+          Colors.grey.shade100,
+          Colors.blueGrey.shade50,
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -475,7 +483,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[Color(0xFFFFFBEB), Color(0xFFFEF3C7)],
+        colors: <Color>[
+          Color(0xFFFFFBEB),
+          Color(0xFFFEF3C7),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -512,25 +523,36 @@ dynamic build(BuildContext context) {
           runSpacing: 12.0,
           alignment: WrapAlignment.center,
           children: <Widget>[
-            _buildChannelNode('Touch', Icons.touch_app, Colors.blue, <String>[
-              'tap',
-              'doubleTap',
-              'longPress',
-              'forcePress',
-            ]),
-            _buildChannelNode('Mouse', Icons.mouse, Colors.green, <String>[
-              'tap',
-              'drag',
-            ]),
-            _buildChannelNode('Keyboard', Icons.keyboard, Colors.teal, <String>[
-              'keyboard',
-            ]),
-            _buildChannelNode('Toolbar', Icons.build, Colors.orange, <String>[
-              'toolbar',
-            ]),
-            _buildChannelNode('Stylus', Icons.draw, Colors.purple, <String>[
-              'stylusHandwriting',
-            ]),
+            _buildChannelNode(
+              'Touch',
+              Icons.touch_app,
+              Colors.blue,
+              <String>['tap', 'doubleTap', 'longPress', 'forcePress'],
+            ),
+            _buildChannelNode(
+              'Mouse',
+              Icons.mouse,
+              Colors.green,
+              <String>['tap', 'drag'],
+            ),
+            _buildChannelNode(
+              'Keyboard',
+              Icons.keyboard,
+              Colors.teal,
+              <String>['keyboard'],
+            ),
+            _buildChannelNode(
+              'Toolbar',
+              Icons.build,
+              Colors.orange,
+              <String>['toolbar'],
+            ),
+            _buildChannelNode(
+              'Stylus',
+              Icons.draw,
+              Colors.purple,
+              <String>['stylusHandwriting'],
+            ),
             _buildChannelNode(
               'a11y / IME',
               Icons.accessibility_new,
@@ -574,7 +596,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[Color(0xFFEFF6FF), Color(0xFFDBEAFE)],
+        colors: <Color>[
+          Color(0xFFEFF6FF),
+          Color(0xFFDBEAFE),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -668,7 +693,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[Color(0xFFFEF2F2), Color(0xFFFEE2E2)],
+        colors: <Color>[
+          Color(0xFFFEF2F2),
+          Color(0xFFFEE2E2),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -687,11 +715,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.red.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.warning_amber_rounded,
+                color: Colors.red.shade700, size: 22.0),
             const SizedBox(width: 8.0),
             Text(
               'Common pitfalls',
@@ -769,101 +794,32 @@ dynamic build(BuildContext context) {
 
   final List<Widget> matrixRows = <Widget>[];
   matrixRows.add(matrixHeader);
-  matrixRows.add(
-    _buildMatrixRow(
-      SelectionChangedCause.tap,
-      true,
-      true,
-      false,
-      false,
-      false,
-      false,
-    ),
-  );
-  matrixRows.add(
-    _buildMatrixRow(
-      SelectionChangedCause.doubleTap,
-      true,
-      false,
-      false,
-      false,
-      false,
-      true,
-    ),
-  );
-  matrixRows.add(
-    _buildMatrixRow(
-      SelectionChangedCause.longPress,
-      true,
-      false,
-      false,
-      false,
-      true,
-      true,
-    ),
-  );
-  matrixRows.add(
-    _buildMatrixRow(
-      SelectionChangedCause.forcePress,
-      true,
-      false,
-      false,
-      false,
-      true,
-      true,
-    ),
-  );
-  matrixRows.add(
-    _buildMatrixRow(
-      SelectionChangedCause.keyboard,
-      false,
-      false,
-      true,
-      false,
-      false,
-      true,
-    ),
-  );
-  matrixRows.add(
-    _buildMatrixRow(
-      SelectionChangedCause.toolbar,
-      false,
-      false,
-      false,
-      false,
-      true,
-      true,
-    ),
-  );
-  matrixRows.add(
-    _buildMatrixRow(
-      SelectionChangedCause.drag,
-      false,
-      true,
-      false,
-      false,
-      false,
-      true,
-    ),
-  );
-  matrixRows.add(
-    _buildMatrixRow(
-      SelectionChangedCause.stylusHandwriting,
-      false,
-      false,
-      false,
-      true,
-      false,
-      true,
-    ),
-  );
+  matrixRows.add(_buildMatrixRow(SelectionChangedCause.tap,
+      true, true, false, false, false, false));
+  matrixRows.add(_buildMatrixRow(SelectionChangedCause.doubleTap,
+      true, false, false, false, false, true));
+  matrixRows.add(_buildMatrixRow(SelectionChangedCause.longPress,
+      true, false, false, false, true, true));
+  matrixRows.add(_buildMatrixRow(SelectionChangedCause.forcePress,
+      true, false, false, false, true, true));
+  matrixRows.add(_buildMatrixRow(SelectionChangedCause.keyboard,
+      false, false, true, false, false, true));
+  matrixRows.add(_buildMatrixRow(SelectionChangedCause.toolbar,
+      false, false, false, false, true, true));
+  matrixRows.add(_buildMatrixRow(SelectionChangedCause.drag,
+      false, true, false, false, false, true));
+  matrixRows.add(_buildMatrixRow(SelectionChangedCause.stylusHandwriting,
+      false, false, false, true, false, true));
 
   final matrix = Container(
     margin: const EdgeInsets.symmetric(vertical: 8.0),
     padding: const EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Colors.deepPurple.shade50, Colors.indigo.shade50],
+        colors: <Color>[
+          Colors.deepPurple.shade50,
+          Colors.indigo.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -927,7 +883,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[Color(0xFF0F172A), Color(0xFF1E293B)],
+        colors: <Color>[
+          Color(0xFF0F172A),
+          Color(0xFF1E293B),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -945,11 +904,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.terminal,
-              color: Colors.greenAccent.shade400,
-              size: 18.0,
-            ),
+            Icon(Icons.terminal, color: Colors.greenAccent.shade400, size: 18.0),
             const SizedBox(width: 6.0),
             Text(
               'selection_changed_cause.txt',
@@ -1017,7 +972,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[Colors.cyan.shade50, Colors.lightBlue.shade50],
+        colors: <Color>[
+          Colors.cyan.shade50,
+          Colors.lightBlue.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1573,7 +1531,10 @@ Widget _buildMockTextField(_CauseSpec spec) {
         ),
         const SizedBox(height: 8.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.grey.shade50,
             borderRadius: BorderRadius.circular(8.0),
@@ -1651,7 +1612,10 @@ Widget _buildChannelNode(
         for (final String name in causes)
           Container(
             margin: const EdgeInsets.symmetric(vertical: 2.0),
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6.0,
+              vertical: 2.0,
+            ),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.7),
               borderRadius: BorderRadius.circular(6.0),

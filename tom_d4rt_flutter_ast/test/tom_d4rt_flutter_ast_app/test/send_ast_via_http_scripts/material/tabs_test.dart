@@ -225,7 +225,11 @@ class _HeroCard extends StatelessWidget {
                     color: Colors.white.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Icon(Icons.tab, color: Colors.white, size: 28),
+                  child: const Icon(
+                    Icons.tab,
+                    color: Colors.white,
+                    size: 28,
+                  ),
                 ),
                 const SizedBox(width: 14),
                 const Expanded(
@@ -253,40 +257,35 @@ class _HeroCard extends StatelessWidget {
             _heroBullet(
               icon: Icons.view_carousel,
               title: 'TabBar + TabBarView',
-              body:
-                  'A TabBar drives a TabBarView via a shared TabController. '
+              body: 'A TabBar drives a TabBarView via a shared TabController. '
                   'They listen to each other so swiping the view scrolls the '
                   'bar and tapping the bar animates the view.',
             ),
             _heroBullet(
               icon: Icons.swipe,
               title: 'DefaultTabController',
-              body:
-                  'Most cases do not need a custom controller. Wrap the '
+              body: 'Most cases do not need a custom controller. Wrap the '
                   'subtree in DefaultTabController(length: N) and both '
                   'TabBar and TabBarView will pick it up.',
             ),
             _heroBullet(
               icon: Icons.settings_suggest,
               title: 'TabAlignment',
-              body:
-                  'Only meaningful for isScrollable: true. Picks one of '
+              body: 'Only meaningful for isScrollable: true. Picks one of '
                   'start, center, fill, startOffset. Material 3 default is '
                   'startOffset for scrollable bars.',
             ),
             _heroBullet(
               icon: Icons.line_weight,
               title: 'Indicator and TabBarIndicatorSize',
-              body:
-                  'The selected-tab marker can be an underline, a filled '
+              body: 'The selected-tab marker can be an underline, a filled '
                   'pill, a card, or a custom Decoration. Its width can hug '
                   'the label (.label) or the whole cell (.tab).',
             ),
             _heroBullet(
               icon: Icons.palette,
               title: 'TabBarTheme(Data)',
-              body:
-                  'Theme-level defaults: label color, unselected label '
+              body: 'Theme-level defaults: label color, unselected label '
                   'color, indicator color, divider color, overlay color, '
                   'tab alignment. Explicit TabBar args win every time.',
             ),
@@ -1020,10 +1019,10 @@ class _ThemedBar extends StatelessWidget {
               ),
               child: TabBar(
                 labelColor: respectsTheme ? null : const Color(0xFF263238),
-                unselectedLabelColor: respectsTheme
-                    ? null
-                    : const Color(0xFF90A4AE),
-                indicatorColor: respectsTheme ? null : const Color(0xFFFF6F00),
+                unselectedLabelColor:
+                    respectsTheme ? null : const Color(0xFF90A4AE),
+                indicatorColor:
+                    respectsTheme ? null : const Color(0xFFFF6F00),
                 tabs: const [
                   Tab(text: 'Home'),
                   Tab(text: 'Search'),
@@ -1442,10 +1441,22 @@ class _VerticalRotatedSection extends StatelessWidget {
                             ),
                           ),
                           tabs: const [
-                            Tab(icon: Icon(Icons.dashboard), text: 'Overview'),
-                            Tab(icon: Icon(Icons.layers), text: 'Layers'),
-                            Tab(icon: Icon(Icons.code), text: 'Code'),
-                            Tab(icon: Icon(Icons.terminal), text: 'Console'),
+                            Tab(
+                              icon: Icon(Icons.dashboard),
+                              text: 'Overview',
+                            ),
+                            Tab(
+                              icon: Icon(Icons.layers),
+                              text: 'Layers',
+                            ),
+                            Tab(
+                              icon: Icon(Icons.code),
+                              text: 'Code',
+                            ),
+                            Tab(
+                              icon: Icon(Icons.terminal),
+                              text: 'Console',
+                            ),
                           ],
                         ),
                       ),
@@ -1622,11 +1633,9 @@ class _DecisionMatrixSection extends StatelessWidget {
             _MatrixRow(
               accent: Color(0xFF1565C0),
               widget: 'TabBar + TabBarView',
-              when:
-                  'Sibling categories of the SAME kind, presented inside '
+              when: 'Sibling categories of the SAME kind, presented inside '
                   'a single screen, with a visible header row.',
-              avoid:
-                  'When categories are different KINDS (Profile vs Inbox '
+              avoid: 'When categories are different KINDS (Profile vs Inbox '
                   'vs Settings) or when you need the user to perceive each '
                   'as a separate destination - use NavigationBar instead.',
             ),
@@ -1634,22 +1643,18 @@ class _DecisionMatrixSection extends StatelessWidget {
             _MatrixRow(
               accent: Color(0xFF6A1B9A),
               widget: 'PageView',
-              when:
-                  'Ordered sequences with no header (onboarding, image '
+              when: 'Ordered sequences with no header (onboarding, image '
                   'carousels, wizards). Works well with PageIndicator.',
-              avoid:
-                  'When the user must be able to jump non-linearly. Tabs '
+              avoid: 'When the user must be able to jump non-linearly. Tabs '
                   'show all destinations at once; PageView hides them.',
             ),
             SizedBox(height: 12),
             _MatrixRow(
               accent: Color(0xFF00695C),
               widget: 'NavigationBar / NavigationRail',
-              when:
-                  'Top-level destinations of an app (3 to 5 of them). '
+              when: 'Top-level destinations of an app (3 to 5 of them). '
                   'Persists across the app, not inside a single screen.',
-              avoid:
-                  'For sub-categories within a screen - that is too much '
+              avoid: 'For sub-categories within a screen - that is too much '
                   'navigational chrome and loses the bar`s "you are here" '
                   'role.',
             ),
@@ -1822,7 +1827,11 @@ class _ReferenceSection extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
             ),
             SizedBox(height: 8),
-            _RefHeader(left: 'value', middle: 'best for', right: 'looks like'),
+            _RefHeader(
+              left: 'value',
+              middle: 'best for',
+              right: 'looks like',
+            ),
             _RefRow(
               left: '.label',
               middle: 'underline indicators (M3 default)',
@@ -1839,7 +1848,11 @@ class _ReferenceSection extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
             ),
             SizedBox(height: 8),
-            _RefHeader(left: 'property', middle: 'type', right: 'note'),
+            _RefHeader(
+              left: 'property',
+              middle: 'type',
+              right: 'note',
+            ),
             _RefRow(
               left: 'isScrollable',
               middle: 'bool',
@@ -2199,7 +2212,10 @@ class _RefRow extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: Text(middle, style: const TextStyle(fontSize: 12)),
+            child: Text(
+              middle,
+              style: const TextStyle(fontSize: 12),
+            ),
           ),
           Expanded(
             flex: 4,

@@ -267,13 +267,8 @@ dynamic build(BuildContext context) {
   // ----------------------------------------------------------------------
   // Section header builder (closure - allowed; we are inside build()).
   // ----------------------------------------------------------------------
-  Widget sectionTitle(
-    String label,
-    String subtitle,
-    IconData icon,
-    Color background,
-    Color foreground,
-  ) {
+  Widget sectionTitle(String label, String subtitle, IconData icon,
+      Color background, Color foreground) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
@@ -810,7 +805,9 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < attrCatalogRows.length; i = i + 1) {
     final List<String> row = attrCatalogRows[i];
     final bool header = i == 0;
-    final Color rowFill = header ? tealDeep : (i.isOdd ? cream : sandParchment);
+    final Color rowFill = header
+        ? tealDeep
+        : (i.isOdd ? cream : sandParchment);
     final Color rowText = header ? cream : inkDeep;
     final List<Widget> cells = <Widget>[];
     for (int c = 0; c < row.length; c = c + 1) {
@@ -838,7 +835,10 @@ dynamic build(BuildContext context) {
   }
 
   final Widget attrCatalog = Table(
-    border: TableBorder.all(color: teal.withValues(alpha: 0.4), width: 0.7),
+    border: TableBorder.all(
+      color: teal.withValues(alpha: 0.4),
+      width: 0.7,
+    ),
     columnWidths: const <int, TableColumnWidth>{
       0: FlexColumnWidth(2.3),
       1: FlexColumnWidth(2.0),
@@ -852,21 +852,32 @@ dynamic build(BuildContext context) {
   // TEXT vs READER-RENDERED TABLE.
   // ======================================================================
   final List<List<String>> readerRows = <List<String>>[
+    <String>['Original text', 'Spell-out range', 'Default reading',
+      'Spell-out reading'],
     <String>[
-      'Original text',
-      'Spell-out range',
-      'Default reading',
-      'Spell-out reading',
+      'FBI agent',
+      '[0, 3)',
+      '"fbi agent"',
+      '"F, B, I agent"',
     ],
-    <String>['FBI agent', '[0, 3)', '"fbi agent"', '"F, B, I agent"'],
     <String>[
       'NASA mission',
       '[0, 4)',
       '"nasa mission"',
       '"N, A, S, A mission"',
     ],
-    <String>['IBM ThinkPad', '[0, 3)', '"ibm thinkpad"', '"I, B, M ThinkPad"'],
-    <String>['BBC News', '[0, 3)', '"bbc news"', '"B, B, C news"'],
+    <String>[
+      'IBM ThinkPad',
+      '[0, 3)',
+      '"ibm thinkpad"',
+      '"I, B, M ThinkPad"',
+    ],
+    <String>[
+      'BBC News',
+      '[0, 3)',
+      '"bbc news"',
+      '"B, B, C news"',
+    ],
     <String>[
       'Plate 7KQ9Z3',
       '[6, 12)',
@@ -879,8 +890,18 @@ dynamic build(BuildContext context) {
       '"zip ninety-thousand"',
       '"zip 9, 0, 2, 1, 0"',
     ],
-    <String>['PIN 4815', '[4, 8)', '"pin four-thousand"', '"pin 4, 8, 1, 5"'],
-    <String>['KBE-class', '[0, 3)', '"kbe-class"', '"K, B, E class"'],
+    <String>[
+      'PIN 4815',
+      '[4, 8)',
+      '"pin four-thousand"',
+      '"pin 4, 8, 1, 5"',
+    ],
+    <String>[
+      'KBE-class',
+      '[0, 3)',
+      '"kbe-class"',
+      '"K, B, E class"',
+    ],
     <String>[
       'ETA 19:30',
       '[0, 3)',
@@ -893,7 +914,9 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < readerRows.length; i = i + 1) {
     final List<String> row = readerRows[i];
     final bool header = i == 0;
-    final Color rowFill = header ? saffronDeep : (i.isOdd ? sandLinen : cream);
+    final Color rowFill = header
+        ? saffronDeep
+        : (i.isOdd ? sandLinen : cream);
     final Color rowText = header ? cream : inkDeep;
     final List<Widget> cells = <Widget>[];
     for (int c = 0; c < row.length; c = c + 1) {
@@ -1001,7 +1024,9 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < examplesRows.length; i = i + 1) {
     final List<String> row = examplesRows[i];
     final bool header = i == 0;
-    final Color rowFill = header ? cinnabar : (i.isOdd ? cream : sandLinen);
+    final Color rowFill = header
+        ? cinnabar
+        : (i.isOdd ? cream : sandLinen);
     final Color rowText = header ? cream : inkDeep;
     final List<Widget> cells = <Widget>[];
     for (int c = 0; c < row.length; c = c + 1) {
@@ -1031,7 +1056,10 @@ dynamic build(BuildContext context) {
   }
 
   final Widget examplesTable = Table(
-    border: TableBorder.all(color: cinnabar.withValues(alpha: 0.4), width: 0.7),
+    border: TableBorder.all(
+      color: cinnabar.withValues(alpha: 0.4),
+      width: 0.7,
+    ),
     columnWidths: const <int, TableColumnWidth>{
       0: FlexColumnWidth(1.2),
       1: FlexColumnWidth(2.6),
@@ -1060,7 +1088,8 @@ dynamic build(BuildContext context) {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
                 decoration: BoxDecoration(
                   color: accent,
                   borderRadius: BorderRadius.circular(6),
@@ -1335,30 +1364,18 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 8),
-        kvLine(
-          'iOS / VoiceOver',
-          'NSAttributedString + UIAccessibilitySpeechAttributeSpellOut',
-          saffronDeep,
-          inkDeep,
-        ),
-        kvLine(
-          'Android / TalkBack',
-          'SpannableString + TtsSpan.TYPE_VERBATIM',
-          saffronDeep,
-          inkDeep,
-        ),
-        kvLine(
-          'Web / ARIA',
-          'aria-label rewritten with U+2009 thin spaces between glyphs',
-          saffronDeep,
-          inkDeep,
-        ),
-        kvLine(
-          'Desktop / NVDA',
-          'character-by-character speech mode for the span',
-          saffronDeep,
-          inkDeep,
-        ),
+        kvLine('iOS / VoiceOver',
+            'NSAttributedString + UIAccessibilitySpeechAttributeSpellOut',
+            saffronDeep, inkDeep),
+        kvLine('Android / TalkBack',
+            'SpannableString + TtsSpan.TYPE_VERBATIM',
+            saffronDeep, inkDeep),
+        kvLine('Web / ARIA',
+            'aria-label rewritten with U+2009 thin spaces between glyphs',
+            saffronDeep, inkDeep),
+        kvLine('Desktop / NVDA',
+            'character-by-character speech mode for the span',
+            saffronDeep, inkDeep),
         const SizedBox(height: 8),
         Text(
           'Importantly, SpellOutStringAttribute is metadata only. It does not '
@@ -1400,7 +1417,11 @@ dynamic build(BuildContext context) {
       'Yes (one glyph at a time)',
       'Yes (whole-word, locale rules)',
     ],
-    <String>['Affects rendering', 'No', 'No'],
+    <String>[
+      'Affects rendering',
+      'No',
+      'No',
+    ],
     <String>[
       'Typical input',
       'Acronyms, codes',
@@ -1416,15 +1437,25 @@ dynamic build(BuildContext context) {
       'May coexist - both apply',
       'Locale wins on conflicting span',
     ],
-    <String>['Falls back to', 'Default reader pronunciation', 'System locale'],
-    <String>['Best for', 'Letter identity matters', 'Word identity matters'],
+    <String>[
+      'Falls back to',
+      'Default reader pronunciation',
+      'System locale',
+    ],
+    <String>[
+      'Best for',
+      'Letter identity matters',
+      'Word identity matters',
+    ],
   ];
 
   final List<TableRow> comparisonTableRows = <TableRow>[];
   for (int i = 0; i < comparisonRows.length; i = i + 1) {
     final List<String> row = comparisonRows[i];
     final bool header = i == 0;
-    final Color rowFill = header ? olive : (i.isOdd ? sandLinen : cream);
+    final Color rowFill = header
+        ? olive
+        : (i.isOdd ? sandLinen : cream);
     final Color rowText = header ? cream : inkDeep;
     final List<Widget> cells = <Widget>[];
     for (int c = 0; c < row.length; c = c + 1) {
@@ -1454,7 +1485,10 @@ dynamic build(BuildContext context) {
   }
 
   final Widget comparisonTable = Table(
-    border: TableBorder.all(color: olive.withValues(alpha: 0.4), width: 0.7),
+    border: TableBorder.all(
+      color: olive.withValues(alpha: 0.4),
+      width: 0.7,
+    ),
     columnWidths: const <int, TableColumnWidth>{
       0: FlexColumnWidth(2.0),
       1: FlexColumnWidth(2.8),
@@ -1466,7 +1500,12 @@ dynamic build(BuildContext context) {
   // ======================================================================
   // PITFALLS.
   // ======================================================================
-  Widget pitfall(String label, String title, String body, Color border) {
+  Widget pitfall(
+    String label,
+    String title,
+    String body,
+    Color border,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.all(13),
@@ -1608,10 +1647,22 @@ dynamic build(BuildContext context) {
       'LocaleStringAttribute',
       'Switches the screen-reader voice/locale for the range',
     ],
-    <String>['TextRange', 'Half-open span [start, end) into the parent string'],
-    <String>['TalkBack', 'Android system screen reader'],
-    <String>['VoiceOver', 'iOS / macOS system screen reader'],
-    <String>['NVDA', 'NonVisual Desktop Access; popular Windows screen reader'],
+    <String>[
+      'TextRange',
+      'Half-open span [start, end) into the parent string',
+    ],
+    <String>[
+      'TalkBack',
+      'Android system screen reader',
+    ],
+    <String>[
+      'VoiceOver',
+      'iOS / macOS system screen reader',
+    ],
+    <String>[
+      'NVDA',
+      'NonVisual Desktop Access; popular Windows screen reader',
+    ],
     <String>[
       'Initialism',
       'Acronym pronounced letter-by-letter (FBI), as opposed to NATO-style',
@@ -1638,7 +1689,9 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < glossaryRows.length; i = i + 1) {
     final List<String> row = glossaryRows[i];
     final bool header = i == 0;
-    final Color rowFill = header ? slate : (i.isOdd ? cream : sandParchment);
+    final Color rowFill = header
+        ? slate
+        : (i.isOdd ? cream : sandParchment);
     final Color rowText = header ? cream : inkDeep;
     final List<Widget> cells = <Widget>[];
     for (int c = 0; c < row.length; c = c + 1) {
@@ -1683,42 +1736,18 @@ dynamic build(BuildContext context) {
   // PALETTE SWATCHES.
   // ======================================================================
   final List<Map<String, dynamic>> swatches = <Map<String, dynamic>>[
-    <String, dynamic>{
-      'name': 'Sand Parchment',
-      'hex': '#F6EFE2',
-      'c': sandParchment,
-    },
+    <String, dynamic>{'name': 'Sand Parchment', 'hex': '#F6EFE2', 'c': sandParchment},
     <String, dynamic>{'name': 'Sand Linen', 'hex': '#EFE4CE', 'c': sandLinen},
     <String, dynamic>{'name': 'Sand Wheat', 'hex': '#E6D3A8', 'c': sandWheat},
     <String, dynamic>{'name': 'Sand Toast', 'hex': '#C8A864', 'c': sandToast},
     <String, dynamic>{'name': 'Sand Clay', 'hex': '#8C6B33', 'c': sandClay},
-    <String, dynamic>{
-      'name': 'Letterpress Indigo',
-      'hex': '#2A2F5A',
-      'c': inkIndigo,
-    },
-    <String, dynamic>{
-      'name': 'Ink Midnight',
-      'hex': '#1A1F44',
-      'c': inkMidnight,
-    },
+    <String, dynamic>{'name': 'Letterpress Indigo', 'hex': '#2A2F5A', 'c': inkIndigo},
+    <String, dynamic>{'name': 'Ink Midnight', 'hex': '#1A1F44', 'c': inkMidnight},
     <String, dynamic>{'name': 'Ink Deep', 'hex': '#0F1230', 'c': inkDeep},
-    <String, dynamic>{
-      'name': 'Diacritic Saffron',
-      'hex': '#E89A2C',
-      'c': saffron,
-    },
-    <String, dynamic>{
-      'name': 'Saffron Deep',
-      'hex': '#B8741C',
-      'c': saffronDeep,
-    },
+    <String, dynamic>{'name': 'Diacritic Saffron', 'hex': '#E89A2C', 'c': saffron},
+    <String, dynamic>{'name': 'Saffron Deep', 'hex': '#B8741C', 'c': saffronDeep},
     <String, dynamic>{'name': 'Cinnabar', 'hex': '#C0492E', 'c': cinnabar},
-    <String, dynamic>{
-      'name': 'Cinnabar Soft',
-      'hex': '#E07458',
-      'c': cinnabarSoft,
-    },
+    <String, dynamic>{'name': 'Cinnabar Soft', 'hex': '#E07458', 'c': cinnabarSoft},
     <String, dynamic>{'name': 'Phoneme Teal', 'hex': '#2C7A7B', 'c': teal},
     <String, dynamic>{'name': 'Teal Deep', 'hex': '#1F5859', 'c': tealDeep},
     <String, dynamic>{'name': 'Manuscript Olive', 'hex': '#6B7A2C', 'c': olive},
@@ -2004,7 +2033,8 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             // Top banner.
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
@@ -2055,9 +2085,7 @@ dynamic build(BuildContext context) {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
+                        horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: saffron,
                       borderRadius: BorderRadius.circular(6),
@@ -2228,7 +2256,13 @@ dynamic build(BuildContext context) {
               cream,
             ),
             const SizedBox(height: 8),
-            cardShell(Wrap(children: swatchTiles), sandClay, cream),
+            cardShell(
+              Wrap(
+                children: swatchTiles,
+              ),
+              sandClay,
+              cream,
+            ),
             const SizedBox(height: 14),
 
             // Runtime probe.

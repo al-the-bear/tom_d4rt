@@ -102,7 +102,10 @@ Widget _kv(String key, String value, {Color? valueColor}) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(width: 170.0, child: Text(key, style: _kMonoSmall)),
+        SizedBox(
+          width: 170.0,
+          child: Text(key, style: _kMonoSmall),
+        ),
         Expanded(
           child: Text(
             value,
@@ -153,7 +156,10 @@ Widget _sectionCard({
             ],
           ),
         ),
-        Padding(padding: const EdgeInsets.all(14.0), child: child),
+        Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: child,
+        ),
       ],
     ),
   );
@@ -261,14 +267,8 @@ class _InsetDiagramPainter extends CustomPainter {
       ..color = _kGestureColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0;
-    _drawInsetRing(
-      canvas,
-      viewport,
-      systemGestureInsets,
-      scale,
-      gestPaint,
-      strokeOnly: true,
-    );
+    _drawInsetRing(canvas, viewport, systemGestureInsets, scale, gestPaint,
+        strokeOnly: true);
 
     // Viewport border on top
     final border = Paint()
@@ -313,21 +313,11 @@ class _InsetDiagramPainter extends CustomPainter {
     final double r = insets.right * scale;
     final double b = insets.bottom * scale;
     if (l > 0.0) {
-      final rect = Rect.fromLTWH(
-        viewport.left,
-        viewport.top,
-        l,
-        viewport.height,
-      );
+      final rect = Rect.fromLTWH(viewport.left, viewport.top, l, viewport.height);
       canvas.drawRect(rect, paint);
     }
     if (t > 0.0) {
-      final rect = Rect.fromLTWH(
-        viewport.left,
-        viewport.top,
-        viewport.width,
-        t,
-      );
+      final rect = Rect.fromLTWH(viewport.left, viewport.top, viewport.width, t);
       canvas.drawRect(rect, paint);
     }
     if (r > 0.0) {
@@ -368,7 +358,10 @@ class _InsetDiagramPainter extends CustomPainter {
 // ---------------------------------------------------------------------------
 
 class _DisplayFeaturePainter extends CustomPainter {
-  _DisplayFeaturePainter({required this.size, required this.features});
+  _DisplayFeaturePainter({
+    required this.size,
+    required this.features,
+  });
 
   final Size size;
   final List<DisplayFeature> features;
@@ -515,11 +508,9 @@ dynamic build(BuildContext context) {
         _kv('size', '${live.size}'),
         _kv('size.width', live.size.width.toStringAsFixed(2)),
         _kv('size.height', live.size.height.toStringAsFixed(2)),
-        _kv(
-          'size.aspectRatio',
-          (live.size.width / (live.size.height == 0.0 ? 1.0 : live.size.height))
-              .toStringAsFixed(3),
-        ),
+        _kv('size.aspectRatio',
+            (live.size.width / (live.size.height == 0.0 ? 1.0 : live.size.height))
+                .toStringAsFixed(3)),
         _kv('devicePixelRatio', live.devicePixelRatio.toStringAsFixed(3)),
         _kv('textScaler', '${live.textScaler}'),
         _kv('platformBrightness', live.platformBrightness.toString()),
@@ -527,36 +518,21 @@ dynamic build(BuildContext context) {
         _kv('viewInsets', live.viewInsets.toString()),
         _kv('viewPadding', live.viewPadding.toString()),
         _kv('systemGestureInsets', live.systemGestureInsets.toString()),
-        _kv(
-          'accessibleNavigation',
-          live.accessibleNavigation ? 'true' : 'false',
-          valueColor: live.accessibleNavigation ? _kWarn : _kOk,
-        ),
-        _kv(
-          'invertColors',
-          live.invertColors ? 'true' : 'false',
-          valueColor: live.invertColors ? _kWarn : _kOk,
-        ),
-        _kv(
-          'highContrast',
-          live.highContrast ? 'true' : 'false',
-          valueColor: live.highContrast ? _kWarn : _kOk,
-        ),
-        _kv(
-          'disableAnimations',
-          live.disableAnimations ? 'true' : 'false',
-          valueColor: live.disableAnimations ? _kWarn : _kOk,
-        ),
-        _kv(
-          'boldText',
-          live.boldText ? 'true' : 'false',
-          valueColor: live.boldText ? _kWarn : _kOk,
-        ),
+        _kv('accessibleNavigation',
+            live.accessibleNavigation ? 'true' : 'false',
+            valueColor: live.accessibleNavigation ? _kWarn : _kOk),
+        _kv('invertColors', live.invertColors ? 'true' : 'false',
+            valueColor: live.invertColors ? _kWarn : _kOk),
+        _kv('highContrast', live.highContrast ? 'true' : 'false',
+            valueColor: live.highContrast ? _kWarn : _kOk),
+        _kv('disableAnimations',
+            live.disableAnimations ? 'true' : 'false',
+            valueColor: live.disableAnimations ? _kWarn : _kOk),
+        _kv('boldText', live.boldText ? 'true' : 'false',
+            valueColor: live.boldText ? _kWarn : _kOk),
         _kv('navigationMode', live.navigationMode.toString()),
-        _kv(
-          'gestureSettings.touchSlop',
-          (live.gestureSettings.touchSlop ?? 0.0).toStringAsFixed(2),
-        ),
+        _kv('gestureSettings.touchSlop',
+            (live.gestureSettings.touchSlop ?? 0.0).toStringAsFixed(2)),
         _kv('displayFeatures.length', '${live.displayFeatures.length}'),
         _noteBox(
           'MediaQuery.of(context) subscribes the caller to ALL field changes. '
@@ -766,10 +742,7 @@ dynamic build(BuildContext context) {
         _kv('padding', '${syntheticForDiagram.padding}'),
         _kv('viewInsets', '${syntheticForDiagram.viewInsets}'),
         _kv('viewPadding', '${syntheticForDiagram.viewPadding}'),
-        _kv(
-          'systemGestureInsets',
-          '${syntheticForDiagram.systemGestureInsets}',
-        ),
+        _kv('systemGestureInsets', '${syntheticForDiagram.systemGestureInsets}'),
         _noteBox(
           'When the soft keyboard opens, viewInsets grows on the bottom while '
           'padding stays the same. viewPadding is the union of both: physical '
@@ -804,7 +777,8 @@ dynamic build(BuildContext context) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label, style: _kH3.copyWith(color: accent, fontSize: 13.0)),
+              Text(label,
+                  style: _kH3.copyWith(color: accent, fontSize: 13.0)),
               const SizedBox(height: 4.0),
               Text('padding     -> ${inner.padding}', style: _kMonoSmall),
               Text('viewInsets  -> ${inner.viewInsets}', style: _kMonoSmall),
@@ -834,7 +808,10 @@ dynamic build(BuildContext context) {
           viewPadding: const EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 24.0),
           boldText: true,
         ),
-        child: overrideProbe('MediaQuery(data: copyWith(...))', _kWarn),
+        child: overrideProbe(
+          'MediaQuery(data: copyWith(...))',
+          _kWarn,
+        ),
       ),
 
       // removePadding (top + bottom)
@@ -865,7 +842,10 @@ dynamic build(BuildContext context) {
         removeTop: true,
         removeRight: true,
         removeBottom: true,
-        child: overrideProbe('MediaQuery.removeViewPadding(all)', _kWarn),
+        child: overrideProbe(
+          'MediaQuery.removeViewPadding(all)',
+          _kWarn,
+        ),
       ),
     ],
   );
@@ -886,14 +866,7 @@ dynamic build(BuildContext context) {
 
   print('-- section 5: textScaler gallery');
 
-  final List<double> scalerFactors = <double>[
-    0.85,
-    1.00,
-    1.15,
-    1.30,
-    1.60,
-    2.00,
-  ];
+  final List<double> scalerFactors = <double>[0.85, 1.00, 1.15, 1.30, 1.60, 2.00];
   final List<Widget> scalerTiles = <Widget>[];
 
   // noScaling reference tile
@@ -915,14 +888,13 @@ dynamic build(BuildContext context) {
               children: [
                 _chip('TextScaler.noScaling', _kInk, _kPaper),
                 const SizedBox(width: 8.0),
-                Text('reference — ignores user setting', style: _kCaption),
+                Text('reference — ignores user setting',
+                    style: _kCaption),
               ],
             ),
             const SizedBox(height: 6.0),
-            const Text(
-              'The quick brown fox jumps over the lazy dog.',
-              style: TextStyle(fontSize: 14.0, color: _kInk),
-            ),
+            const Text('The quick brown fox jumps over the lazy dog.',
+                style: TextStyle(fontSize: 14.0, color: _kInk)),
           ],
         ),
       ),
@@ -956,7 +928,8 @@ dynamic build(BuildContext context) {
                     _kAccent,
                   ),
                   const SizedBox(width: 8.0),
-                  Text('14pt -> $scaledExample logical px', style: _kCaption),
+                  Text('14pt -> $scaledExample logical px',
+                      style: _kCaption),
                 ],
               ),
               const SizedBox(height: 6.0),
@@ -1054,7 +1027,8 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                 ),
-                _chip(v ? 'ACTIVE' : 'off', v ? _kWarn : _kOk, _kPaper),
+                _chip(v ? 'ACTIVE' : 'off',
+                    v ? _kWarn : _kOk, _kPaper),
               ],
             ),
             const SizedBox(height: 4.0),
@@ -1189,7 +1163,10 @@ dynamic build(BuildContext context) {
       s = 'unknown';
     }
     featureLegendChildren.add(
-      Text('#$i  type=$t  state=$s  bounds=${f.bounds}', style: _kMonoSmall),
+      Text(
+        '#$i  type=$t  state=$s  bounds=${f.bounds}',
+        style: _kMonoSmall,
+      ),
     );
   }
 
@@ -1285,7 +1262,10 @@ dynamic build(BuildContext context) {
                     ),
                     Padding(
                       padding: readBack,
-                      child: Container(height: 30.0, color: _kAccent),
+                      child: Container(
+                        height: 30.0,
+                        color: _kAccent,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
@@ -1390,7 +1370,9 @@ dynamic build(BuildContext context) {
               children: [
                 _chip('recipe #$i', _kAccentSoft, _kAccent),
                 const SizedBox(width: 8.0),
-                Expanded(child: Text(r['title']!, style: _kH3)),
+                Expanded(
+                  child: Text(r['title']!, style: _kH3),
+                ),
               ],
             ),
             const SizedBox(height: 6.0),
@@ -1432,8 +1414,7 @@ dynamic build(BuildContext context) {
 
   final List<Map<String, String>> cheats = <Map<String, String>>[
     {
-      'q':
-          'How do I read screen size without rebuilding on every other change?',
+      'q': 'How do I read screen size without rebuilding on every other change?',
       'a': 'final size = MediaQuery.sizeOf(context);',
     },
     {
@@ -1442,19 +1423,16 @@ dynamic build(BuildContext context) {
     },
     {
       'q': 'How do I scale font size by the user preference?',
-      'a':
-          'final scaler = MediaQuery.textScalerOf(context); '
+      'a': 'final scaler = MediaQuery.textScalerOf(context); '
           'final px = scaler.scale(14.0);',
     },
     {
       'q': 'How do I temporarily ignore the keyboard inset for a subtree?',
-      'a':
-          'MediaQuery.removeViewInsets(context: context, removeBottom: true, child: ...)',
+      'a': 'MediaQuery.removeViewInsets(context: context, removeBottom: true, child: ...)',
     },
     {
       'q': 'How do I avoid double-counting safe area padding?',
-      'a':
-          'MediaQuery.removePadding(context: context, removeTop: true, child: ...)',
+      'a': 'MediaQuery.removePadding(context: context, removeTop: true, child: ...)',
     },
     {
       'q': 'How do I check whether to reduce motion?',
@@ -1462,13 +1440,11 @@ dynamic build(BuildContext context) {
     },
     {
       'q': 'How do I query foldable display features?',
-      'a':
-          'MediaQuery.of(context).displayFeatures returns List<DisplayFeature>',
+      'a': 'MediaQuery.of(context).displayFeatures returns List<DisplayFeature>',
     },
     {
       'q': 'What replaces the deprecated textScaleFactor field?',
-      'a':
-          'textScaler — a TextScaler value (TextScaler.linear(f) or noScaling).',
+      'a': 'textScaler — a TextScaler value (TextScaler.linear(f) or noScaling).',
     },
     {
       'q': 'How do I read MediaQuery without throwing when no ancestor exists?',
@@ -1476,8 +1452,7 @@ dynamic build(BuildContext context) {
     },
     {
       'q': 'How do I override one field for a subtree only?',
-      'a':
-          'MediaQuery(data: MediaQuery.of(context).copyWith(boldText: true), child: ...)',
+      'a': 'MediaQuery(data: MediaQuery.of(context).copyWith(boldText: true), child: ...)',
     },
   ];
 
@@ -1500,7 +1475,9 @@ dynamic build(BuildContext context) {
               children: [
                 _chip('Q${i + 1}', _kWarnSoft, _kWarn),
                 const SizedBox(width: 8.0),
-                Expanded(child: Text(c['q']!, style: _kH3)),
+                Expanded(
+                  child: Text(c['q']!, style: _kH3),
+                ),
               ],
             ),
             const SizedBox(height: 4.0),

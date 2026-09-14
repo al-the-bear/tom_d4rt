@@ -233,7 +233,10 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 16.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14.0,
+            vertical: 10.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(10.0),
@@ -324,12 +327,16 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 18.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[edgeLabel('top', paletteTeal)],
+          children: <Widget>[
+            edgeLabel('top', paletteTeal),
+          ],
         ),
         const SizedBox(height: 4.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[arrow(Icons.arrow_downward)],
+          children: <Widget>[
+            arrow(Icons.arrow_downward),
+          ],
         ),
         const SizedBox(height: 6.0),
         Row(
@@ -374,12 +381,16 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[arrow(Icons.arrow_upward)],
+          children: <Widget>[
+            arrow(Icons.arrow_upward),
+          ],
         ),
         const SizedBox(height: 4.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[edgeLabel('bottom', paletteTeal)],
+          children: <Widget>[
+            edgeLabel('bottom', paletteTeal),
+          ],
         ),
         const SizedBox(height: 18.0),
         Container(
@@ -418,8 +429,7 @@ dynamic build(BuildContext context) {
   final List<EdgeVariant> edgeVariants = <EdgeVariant>[
     EdgeVariant(
       label: 'LinearBorder.start',
-      source:
-          'LinearBorder.start(\n'
+      source: 'LinearBorder.start(\n'
           '  side: BorderSide(color: teal, width: 2),\n'
           ')',
       description:
@@ -433,8 +443,7 @@ dynamic build(BuildContext context) {
     ),
     EdgeVariant(
       label: 'LinearBorder.end',
-      source:
-          'LinearBorder.end(\n'
+      source: 'LinearBorder.end(\n'
           '  side: BorderSide(color: emerald, width: 2),\n'
           ')',
       description:
@@ -448,21 +457,21 @@ dynamic build(BuildContext context) {
     ),
     EdgeVariant(
       label: 'LinearBorder.top',
-      source:
-          'LinearBorder.top(\n'
+      source: 'LinearBorder.top(\n'
           '  side: BorderSide(color: mint, width: 2),\n'
           ')',
       description:
           'Renders only the top edge. Frequently used to create grouped '
           'visual containers — a card whose top edge is accented while the '
           'remaining sides are flush against neighbour content.',
-      shape: LinearBorder.top(side: BorderSide(color: paletteMint, width: 2.0)),
+      shape: LinearBorder.top(
+        side: BorderSide(color: paletteMint, width: 2.0),
+      ),
       tint: paletteMint,
     ),
     EdgeVariant(
       label: 'LinearBorder.bottom',
-      source:
-          'LinearBorder.bottom(\n'
+      source: 'LinearBorder.bottom(\n'
           '  side: BorderSide(color: deep, width: 2),\n'
           ')',
       description:
@@ -553,7 +562,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10.0),
           Text(
             v.description,
-            style: TextStyle(fontSize: 12.5, color: paletteSlate, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.5,
+              color: paletteSlate,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -751,7 +764,10 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 8.0),
           Container(
-            decoration: ShapeDecoration(color: paletteSurface, shape: p.shape),
+            decoration: ShapeDecoration(
+              color: paletteSurface,
+              shape: p.shape,
+            ),
             padding: const EdgeInsets.symmetric(
               horizontal: 12.0,
               vertical: 22.0,
@@ -771,8 +787,8 @@ dynamic build(BuildContext context) {
             p.alignment < 0.0
                 ? 'Anchored at the leading edge.'
                 : (p.alignment > 0.0
-                      ? 'Anchored at the trailing edge.'
-                      : 'Centered along the edge.'),
+                    ? 'Anchored at the trailing edge.'
+                    : 'Centered along the edge.'),
             style: TextStyle(fontSize: 11.5, color: paletteSlate, height: 1.3),
           ),
         ],
@@ -813,7 +829,10 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 16.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 6.0,
+          ),
           decoration: BoxDecoration(
             color: paletteSurface,
             borderRadius: BorderRadius.circular(8.0),
@@ -838,7 +857,10 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 18.0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 6.0,
+          ),
           decoration: BoxDecoration(
             color: paletteSurface,
             borderRadius: BorderRadius.circular(8.0),
@@ -939,7 +961,10 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[paletteSurface, Colors.white],
+        colors: <Color>[
+          paletteSurface,
+          Colors.white,
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       border: Border.all(color: paletteEdge, width: 1.0),
@@ -1166,7 +1191,10 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8.0),
           if (shape != null)
             Container(
-              decoration: ShapeDecoration(color: Colors.white, shape: shape),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: shape,
+              ),
               padding: const EdgeInsets.symmetric(
                 horizontal: 12.0,
                 vertical: 18.0,
@@ -1196,7 +1224,9 @@ dynamic build(BuildContext context) {
             ),
           const SizedBox(height: 6.0),
           Text(
-            shape == null ? 'lerp returned null' : shape.runtimeType.toString(),
+            shape == null
+                ? 'lerp returned null'
+                : shape.runtimeType.toString(),
             style: TextStyle(
               fontSize: 10.5,
               color: paletteSlate,
@@ -1214,7 +1244,10 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Colors.white, paletteSurface],
+        colors: <Color>[
+          Colors.white,
+          paletteSurface,
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       border: Border.all(color: paletteEdge, width: 1.0),
@@ -1313,7 +1346,9 @@ dynamic build(BuildContext context) {
     ),
     ComparisonEntry(
       title: 'StadiumBorder',
-      shape: StadiumBorder(side: BorderSide(color: paletteTeal, width: 2.0)),
+      shape: StadiumBorder(
+        side: BorderSide(color: paletteTeal, width: 2.0),
+      ),
       summary:
           'Pill-shaped border with hemispherical caps. Always closed; cannot '
           'isolate edges.',
@@ -1370,7 +1405,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10.0),
           Text(
             entry.summary,
-            style: TextStyle(fontSize: 11.5, color: paletteSlate, height: 1.4),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: paletteSlate,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1429,7 +1468,10 @@ dynamic build(BuildContext context) {
       ),
       foregroundColor: paletteRose,
       side: BorderSide(color: paletteRose, width: 3.0),
-      padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 14.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 26.0,
+        vertical: 14.0,
+      ),
     ),
     child: const Text('Cancel'),
   );
@@ -1437,10 +1479,15 @@ dynamic build(BuildContext context) {
   final Widget confirmButton = FilledButton(
     onPressed: null,
     style: FilledButton.styleFrom(
-      shape: LinearBorder.end(side: BorderSide(color: paletteDeep, width: 3.0)),
+      shape: LinearBorder.end(
+        side: BorderSide(color: paletteDeep, width: 3.0),
+      ),
       backgroundColor: paletteEmerald,
       foregroundColor: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 14.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 26.0,
+        vertical: 14.0,
+      ),
     ),
     child: const Text('Confirm'),
   );
@@ -1459,7 +1506,10 @@ dynamic build(BuildContext context) {
                 ),
               ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 18.0,
+        vertical: 12.0,
+      ),
       child: Text(
         label,
         style: TextStyle(
@@ -1492,7 +1542,10 @@ dynamic build(BuildContext context) {
           side: BorderSide(color: paletteEmerald, width: 3.0),
         ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 14.0,
+        vertical: 12.0,
+      ),
       child: Row(
         children: <Widget>[
           Container(
@@ -1519,7 +1572,10 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 2.0),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 11.5, color: paletteSlate),
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    color: paletteSlate,
+                  ),
                 ),
               ],
             ),
@@ -1536,7 +1592,10 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Colors.white, paletteSurface],
+        colors: <Color>[
+          Colors.white,
+          paletteSurface,
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       border: Border.all(color: paletteEdge, width: 1.0),
@@ -1762,7 +1821,11 @@ dynamic build(BuildContext context) {
               color: paletteAmber.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Icon(Icons.info_outline, size: 18.0, color: paletteAmber),
+            child: Icon(
+              Icons.info_outline,
+              size: 18.0,
+              color: paletteAmber,
+            ),
           ),
           const SizedBox(width: 12.0),
           Expanded(
@@ -1861,7 +1924,11 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[paletteDeep, paletteTeal, paletteEmerald],
+        colors: <Color>[
+          paletteDeep,
+          paletteTeal,
+          paletteEmerald,
+        ],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: <BoxShadow>[

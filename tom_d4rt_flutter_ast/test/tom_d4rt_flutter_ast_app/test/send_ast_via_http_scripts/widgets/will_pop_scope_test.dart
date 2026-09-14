@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.block,
       'title': 'What is WillPopScope?',
-      'body':
-          'WillPopScope intercepts the system back button and '
+      'body': 'WillPopScope intercepts the system back button and '
           'Navigator.pop calls. It wraps a subtree and provides '
           'an onWillPop callback that returns true (allow pop) '
           'or false (block pop). This enables confirmation '
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.arrow_back,
       'title': 'Back Button Interception',
-      'body':
-          'On Android, the physical/gesture back button triggers '
+      'body': 'On Android, the physical/gesture back button triggers '
           'a pop on the Navigator. WillPopScope intercepts this '
           'before it reaches the Navigator, giving the app a '
           'chance to ask "Are you sure?" or save data first.',
@@ -38,8 +36,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Deprecation Notice',
-      'body':
-          'WillPopScope is deprecated in favor of PopScope. '
+      'body': 'WillPopScope is deprecated in favor of PopScope. '
           'PopScope uses a synchronous canPop flag and an '
           'onPopInvokedWithResult callback, which integrates better '
           'with predictive back gestures on Android 14+.',
@@ -48,8 +45,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_horiz,
       'title': 'Migration Path',
-      'body':
-          'Replace WillPopScope(onWillPop: callback) with '
+      'body': 'Replace WillPopScope(onWillPop: callback) with '
           'PopScope(canPop: boolValue, onPopInvokedWithResult: '
           'callback). The new API separates the "can pop" decision '
           'from the "was popped" notification cleanly.',
@@ -128,8 +124,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'onWillPop',
       'type': 'WillPopCallback?',
-      'desc':
-          'An async callback called when the user tries to pop this '
+      'desc': 'An async callback called when the user tries to pop this '
           'route. Returns Future<bool>: true to allow the pop, '
           'false to prevent it. Can show dialogs, save data, or '
           'run any async logic before deciding.',
@@ -137,16 +132,14 @@ dynamic build(BuildContext context) {
     {
       'name': 'child',
       'type': 'Widget',
-      'desc':
-          'The widget subtree that WillPopScope wraps. This is the '
+      'desc': 'The widget subtree that WillPopScope wraps. This is the '
           'content that is protected from unintentional back '
           'navigation. Only one WillPopScope per route is active.',
     },
     {
       'name': 'Route.willPop()',
       'type': 'Future<RoutePopDisposition>',
-      'desc':
-          'Under the hood, WillPopScope registers with the '
+      'desc': 'Under the hood, WillPopScope registers with the '
           'ModalRoute. When pop is attempted, the route calls '
           'willPop on all registered callbacks. The innermost '
           'WillPopScope in the widget tree wins.',
@@ -154,24 +147,21 @@ dynamic build(BuildContext context) {
     {
       'name': 'ModalRoute.of(context)',
       'type': 'ModalRoute<T>?',
-      'desc':
-          'Retrieves the current modal route. Useful for checking '
+      'desc': 'Retrieves the current modal route. Useful for checking '
           'whether pop is in progress, accessing route settings, '
           'or manually triggering route-level operations.',
     },
     {
       'name': 'Navigator.maybePop()',
       'type': 'Future<bool>',
-      'desc':
-          'Tries to pop the current route, respecting WillPopScope. '
+      'desc': 'Tries to pop the current route, respecting WillPopScope. '
           'Returns true if the route was popped, false if a '
           'WillPopScope callback blocked the pop.',
     },
     {
       'name': 'PopScope.canPop',
       'type': 'bool',
-      'desc':
-          'The replacement in PopScope. A synchronous boolean that '
+      'desc': 'The replacement in PopScope. A synchronous boolean that '
           'tells the system whether this route can be popped. '
           'Simpler than onWillPop\u0027s async Future<bool>.',
     },
@@ -260,11 +250,9 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Simple Block',
-      'desc':
-          'Block all back navigation unconditionally. The user '
+      'desc': 'Block all back navigation unconditionally. The user '
           'must use an explicit action (button, swipe) to leave.',
-      'diagram':
-          'WillPopScope(\n'
+      'diagram': 'WillPopScope(\n'
           '  onWillPop: () async => false,\n'
           '  child: MyContent(),\n'
           ')',
@@ -272,11 +260,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Confirmation Dialog',
-      'desc':
-          'Show a dialog asking the user if they really want to '
+      'desc': 'Show a dialog asking the user if they really want to '
           'leave. Return the dialog result as the pop decision.',
-      'diagram':
-          'WillPopScope(\n'
+      'diagram': 'WillPopScope(\n'
           '  onWillPop: () async {\n'
           '    final ok = await showDialog(\n'
           '      context: ctx,\n'
@@ -302,11 +288,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Conditional Guard',
-      'desc':
-          'Only block when there are unsaved changes. Allow free '
+      'desc': 'Only block when there are unsaved changes. Allow free '
           'navigation when the form is clean.',
-      'diagram':
-          'WillPopScope(\n'
+      'diagram': 'WillPopScope(\n'
           '  onWillPop: () async {\n'
           '    if (!hasUnsavedChanges) return true;\n'
           '    return await showSaveDialog();\n'
@@ -317,11 +301,9 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Double-Back Exit',
-      'desc':
-          'On first back press show a snackbar "Press again to '
+      'desc': 'On first back press show a snackbar "Press again to '
           'exit". On second press within 2 seconds, allow pop.',
-      'diagram':
-          'DateTime? lastPress;\n'
+      'diagram': 'DateTime? lastPress;\n'
           'WillPopScope(\n'
           '  onWillPop: () async {\n'
           '    final now = DateTime.now();\n'
@@ -408,8 +390,7 @@ dynamic build(BuildContext context) {
   final nestingTopics = <Map<String, dynamic>>[
     {
       'title': 'Single Active Callback',
-      'desc':
-          'Only the innermost WillPopScope in the widget tree has '
+      'desc': 'Only the innermost WillPopScope in the widget tree has '
           'its onWillPop callback called. Outer WillPopScope '
           'widgets are ignored when a deeper one exists.',
       'icon': Icons.filter_1,
@@ -417,8 +398,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Registration Order',
-      'desc':
-          'WillPopScope registers with the ModalRoute in '
+      'desc': 'WillPopScope registers with the ModalRoute in '
           'initState. The last one to register (deepest in tree) '
           'takes priority. Removal in dispose restores the outer.',
       'icon': Icons.sort,
@@ -426,8 +406,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Modal Bottom Sheets',
-      'desc':
-          'A modal bottom sheet creates a new ModalRoute. Placing '
+      'desc': 'A modal bottom sheet creates a new ModalRoute. Placing '
           'WillPopScope inside it intercepts the sheet\u0027s back '
           'button, not the parent route\u0027s.',
       'icon': Icons.vertical_align_bottom,
@@ -435,8 +414,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dialogs',
-      'desc':
-          'Dialogs also create ModalRoutes. A WillPopScope inside '
+      'desc': 'Dialogs also create ModalRoutes. A WillPopScope inside '
           'a dialog controls whether the dialog can be dismissed '
           'by back button. The parent route is unaffected.',
       'icon': Icons.open_in_new,
@@ -444,8 +422,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multiple Routes',
-      'desc':
-          'Each route in the Navigator stack can have its own '
+      'desc': 'Each route in the Navigator stack can have its own '
           'WillPopScope. When popping, only the top route\u0027s '
           'WillPopScope is consulted.',
       'icon': Icons.layers,
@@ -517,32 +494,28 @@ dynamic build(BuildContext context) {
   final guardSteps = <Map<String, dynamic>>[
     {
       'step': '1. Wrap Form in WillPopScope',
-      'desc':
-          'Place WillPopScope at the top of your form page. The '
+      'desc': 'Place WillPopScope at the top of your form page. The '
           'onWillPop callback has access to form state.',
       'icon': Icons.wrap_text,
       'color': Colors.deepPurple,
     },
     {
       'step': '2. Track Dirty State',
-      'desc':
-          'Maintain a boolean _isDirty that becomes true when the '
+      'desc': 'Maintain a boolean _isDirty that becomes true when the '
           'user modifies any field. Reset it after saving.',
       'icon': Icons.edit_note,
       'color': Colors.blue,
     },
     {
       'step': '3. Check on Pop',
-      'desc':
-          'In onWillPop, if _isDirty is false, return true (allow '
+      'desc': 'In onWillPop, if _isDirty is false, return true (allow '
           'pop). If true, show a confirmation dialog.',
       'icon': Icons.help_outline,
       'color': Colors.green,
     },
     {
       'step': '4. Offer Save or Discard',
-      'desc':
-          'The dialog offers three options: Save (validate + save + '
+      'desc': 'The dialog offers three options: Save (validate + save + '
           'pop), Discard (pop without saving), Cancel (stay on '
           'form). Return true for Save/Discard, false for Cancel.',
       'icon': Icons.save_alt,
@@ -550,8 +523,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Handle Async Save',
-      'desc':
-          'If save is async, await it in onWillPop. Show a loading '
+      'desc': 'If save is async, await it in onWillPop. Show a loading '
           'indicator during the save. Return true only after '
           'successful save, or false if save fails.',
       'icon': Icons.cloud_upload,
@@ -578,7 +550,11 @@ dynamic build(BuildContext context) {
                     color: gsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(gs['icon'] as IconData, color: gsColor, size: 18),
+                  child: Icon(
+                    gs['icon'] as IconData,
+                    color: gsColor,
+                    size: 18,
+                  ),
                 ),
                 if (i < guardSteps.length - 1)
                   Container(
@@ -646,26 +622,22 @@ dynamic build(BuildContext context) {
       'color': Colors.blue,
     },
     {
-      'old':
-          'onWillPop: () async {\n  if (clean) return true;\n  return await ask();\n}',
-      'new':
-          'canPop: clean,\nonPopInvokedWithResult:\n  (didPop, result) {\n  if (!didPop) ask();\n}',
+      'old': 'onWillPop: () async {\n  if (clean) return true;\n  return await ask();\n}',
+      'new': 'canPop: clean,\nonPopInvokedWithResult:\n  (didPop, result) {\n  if (!didPop) ask();\n}',
       'desc': 'Conditional guard separates flag from callback.',
       'color': Colors.green,
     },
     {
       'old': 'Future<bool>',
       'new': 'void',
-      'desc':
-          'The callback no longer returns a decision. canPop is '
+      'desc': 'The callback no longer returns a decision. canPop is '
           'checked synchronously before the callback fires.',
       'color': Colors.orange,
     },
     {
       'old': 'Navigator.maybePop()',
       'new': 'Navigator.maybePop()',
-      'desc':
-          'Still works with PopScope. Checks canPop instead of '
+      'desc': 'Still works with PopScope. Checks canPop instead of '
           'calling the async callback.',
       'color': Colors.red,
     },
@@ -726,7 +698,11 @@ dynamic build(BuildContext context) {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
-                    child: Icon(Icons.arrow_forward, color: mrColor, size: 18),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: mrColor,
+                      size: 18,
+                    ),
                   ),
                   Expanded(
                     child: Container(
@@ -789,8 +765,7 @@ dynamic build(BuildContext context) {
   final edgeCases = <Map<String, dynamic>>[
     {
       'title': 'System Back vs Navigator.pop',
-      'desc':
-          'WillPopScope only intercepts user-initiated pops (back '
+      'desc': 'WillPopScope only intercepts user-initiated pops (back '
           'button, maybePop). Direct Navigator.pop() calls bypass '
           'WillPopScope entirely.',
       'severity': 'high',
@@ -798,8 +773,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Async Dialog Race',
-      'desc':
-          'If the user rapidly presses back while a dialog is '
+      'desc': 'If the user rapidly presses back while a dialog is '
           'showing, onWillPop may be called again. Guard against '
           'multiple dialogs with a _isDialogVisible flag.',
       'severity': 'medium',
@@ -807,8 +781,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Root Route',
-      'desc':
-          'On the root route (no previous route), back button '
+      'desc': 'On the root route (no previous route), back button '
           'calls SystemNavigator.pop() which exits the app. '
           'WillPopScope can block this too.',
       'severity': 'low',
@@ -816,8 +789,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'iOS Swipe Back',
-      'desc':
-          'On iOS, the swipe-back gesture triggers a pop. '
+      'desc': 'On iOS, the swipe-back gesture triggers a pop. '
           'WillPopScope interrupts it, but the gesture animation '
           'still starts. This can feel janky to users.',
       'severity': 'medium',
@@ -825,8 +797,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Predictive Back (Android 14+)',
-      'desc':
-          'Android 14 shows a preview of the previous screen when '
+      'desc': 'Android 14 shows a preview of the previous screen when '
           'swiping back. WillPopScope cannot participate in this '
           'preview. PopScope\u0027s canPop works correctly.',
       'severity': 'high',
@@ -854,7 +825,10 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: ecColor.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(4),
@@ -908,38 +882,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.block,
-      'text':
-          'WillPopScope intercepts back-button and Navigator.pop '
+      'text': 'WillPopScope intercepts back-button and Navigator.pop '
           'to prevent unintentional navigation away from a page.',
     },
     {
       'icon': Icons.assignment_return,
-      'text':
-          'onWillPop returns Future<bool>: true allows the pop, '
+      'text': 'onWillPop returns Future<bool>: true allows the pop, '
           'false blocks it. Can run async logic.',
     },
     {
       'icon': Icons.save,
-      'text':
-          'Primary use case: form guards that ask "Save changes?" '
+      'text': 'Primary use case: form guards that ask "Save changes?" '
           'before leaving an unsaved form.',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'Only the innermost WillPopScope on the current route is '
+      'text': 'Only the innermost WillPopScope on the current route is '
           'active. Outer ones are ignored.',
     },
     {
       'icon': Icons.warning,
-      'text':
-          'Deprecated in favor of PopScope. Migrate for Android 14 '
+      'text': 'Deprecated in favor of PopScope. Migrate for Android 14 '
           'predictive back gesture support.',
     },
     {
       'icon': Icons.swap_vert,
-      'text':
-          'PopScope separates canPop (sync bool) from '
+      'text': 'PopScope separates canPop (sync bool) from '
           'onPopInvokedWithResult (notification callback).',
     },
   ];

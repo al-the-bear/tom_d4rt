@@ -276,7 +276,10 @@ class _Bullet extends StatelessWidget {
             child: Container(
               width: 7,
               height: 7,
-              decoration: BoxDecoration(color: tone, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: tone,
+                shape: BoxShape.circle,
+              ),
             ),
           ),
           Expanded(
@@ -439,7 +442,9 @@ class _HeroBannerSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.22)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.22),
+              ),
             ),
             child: Text(
               'BlockSemantics is the unsung hero behind every modal in '
@@ -487,7 +492,9 @@ class _HeroStat extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.18),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -849,7 +856,11 @@ class _TreeColumn extends StatelessWidget {
             ),
             child: Text(
               note,
-              style: TextStyle(color: _kInkSoft, fontSize: 12, height: 1.45),
+              style: TextStyle(
+                color: _kInkSoft,
+                fontSize: 12,
+                height: 1.45,
+              ),
             ),
           ),
         ],
@@ -883,13 +894,13 @@ class _TreeNodeWidget extends StatelessWidget {
     final Color textColor = node.dimmed
         ? _kInkMute.withValues(alpha: 0.55)
         : node.isCurtain
-        ? _kAccent
-        : _kInk;
+            ? _kAccent
+            : _kInk;
     final Color bg = node.isCurtain
         ? _kAccent.withValues(alpha: 0.10)
         : node.dimmed
-        ? _kRule.withValues(alpha: 0.4)
-        : Colors.white;
+            ? _kRule.withValues(alpha: 0.4)
+            : Colors.white;
     return Padding(
       padding: EdgeInsets.only(left: node.depth * 14.0, top: 3, bottom: 3),
       child: Container(
@@ -898,7 +909,9 @@ class _TreeNodeWidget extends StatelessWidget {
           color: bg,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: node.isCurtain ? _kAccent.withValues(alpha: 0.45) : _kRule,
+            color: node.isCurtain
+                ? _kAccent.withValues(alpha: 0.45)
+                : _kRule,
           ),
         ),
         child: Row(
@@ -907,10 +920,10 @@ class _TreeNodeWidget extends StatelessWidget {
               node.isRoot
                   ? Icons.account_tree
                   : node.isCurtain
-                  ? Icons.block_flipped
-                  : node.dimmed
-                  ? Icons.visibility_off_outlined
-                  : Icons.adjust,
+                      ? Icons.block_flipped
+                      : node.dimmed
+                          ? Icons.visibility_off_outlined
+                          : Icons.adjust,
               size: 13,
               color: textColor,
             ),
@@ -922,9 +935,8 @@ class _TreeNodeWidget extends StatelessWidget {
                   color: textColor,
                   fontSize: 12,
                   fontFamily: 'monospace',
-                  fontWeight: node.isCurtain
-                      ? FontWeight.w800
-                      : FontWeight.w600,
+                  fontWeight:
+                      node.isCurtain ? FontWeight.w800 : FontWeight.w600,
                   decoration: node.dimmed
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
@@ -1007,7 +1019,11 @@ class _ModalBarrierWalkthroughSection extends StatelessWidget {
                   'Swiping right reads only "Delete this draft?", '
                   '"Cancel" and "Delete". The user cannot accidentally '
                   'tap a list tile they cannot see.',
-                  style: TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+                  style: TextStyle(
+                    color: _kInkSoft,
+                    fontSize: 13,
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -1030,7 +1046,10 @@ class _MockPhone extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[Color(0xFFEAECF0), Color(0xFFD0D5DD)],
+          colors: <Color>[
+            Color(0xFFEAECF0),
+            Color(0xFFD0D5DD),
+          ],
         ),
         borderRadius: BorderRadius.circular(28),
         boxShadow: <BoxShadow>[
@@ -1052,29 +1071,27 @@ class _MockPhone extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   _MockAppBar(),
-                  _MockTile(
-                    'Email 1 — Project status',
-                    'You have 3 unread',
-                    blocked: opened,
-                  ),
-                  _MockTile(
-                    'Email 2 — Lunch tomorrow?',
-                    'From: Mira',
-                    blocked: opened,
-                  ),
-                  _MockTile(
-                    'Email 3 — Receipt #4421',
-                    'From: Store',
-                    blocked: opened,
-                  ),
+                  _MockTile('Email 1 — Project status', 'You have 3 unread',
+                      blocked: opened),
+                  _MockTile('Email 2 — Lunch tomorrow?', 'From: Mira',
+                      blocked: opened),
+                  _MockTile('Email 3 — Receipt #4421', 'From: Store',
+                      blocked: opened),
                   Spacer(),
                   _MockFab(blocked: opened),
                   SizedBox(height: 14),
                 ],
               ),
               if (opened) _MockBarrier(),
-              if (opened) Center(child: _MockDialog()),
-              Positioned(left: 12, top: 12, child: _StateBadge(opened: opened)),
+              if (opened)
+                Center(
+                  child: _MockDialog(),
+                ),
+              Positioned(
+                left: 12,
+                top: 12,
+                child: _StateBadge(opened: opened),
+              ),
             ],
           ),
         ),
@@ -1198,7 +1215,10 @@ class _MockTile extends StatelessWidget {
                 SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: TextStyle(color: _kInkMute, fontSize: 11),
+                  style: TextStyle(
+                    color: _kInkMute,
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),
@@ -1295,7 +1315,9 @@ class _MockBarrier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.black.withValues(alpha: 0.45));
+    return Container(
+      color: Colors.black.withValues(alpha: 0.45),
+    );
   }
 }
 
@@ -1340,7 +1362,11 @@ class _MockDialog extends StatelessWidget {
           Text(
             'This action cannot be undone. The draft will be removed '
             'from your account immediately.',
-            style: TextStyle(color: _kInkSoft, fontSize: 12, height: 1.45),
+            style: TextStyle(
+              color: _kInkSoft,
+              fontSize: 12,
+              height: 1.45,
+            ),
           ),
           SizedBox(height: 14),
           Row(
@@ -1433,8 +1459,10 @@ class _DrawerMockSection extends StatelessWidget {
                         _MockAppBar(),
                         _MockBehindRow(label: 'Inbox · Heading', blocked: true),
                         _MockBehindRow(label: 'Email — Mira', blocked: true),
-                        _MockBehindRow(label: 'Email — Anders', blocked: true),
-                        _MockBehindRow(label: 'Email — Receipt', blocked: true),
+                        _MockBehindRow(
+                            label: 'Email — Anders', blocked: true),
+                        _MockBehindRow(
+                            label: 'Email — Receipt', blocked: true),
                         _MockBehindRow(label: 'Bottom nav', blocked: true),
                       ],
                     ),
@@ -1442,7 +1470,9 @@ class _DrawerMockSection extends StatelessWidget {
                 ),
                 Positioned.fill(
                   left: 240,
-                  child: Container(color: Colors.black.withValues(alpha: 0.35)),
+                  child: Container(
+                    color: Colors.black.withValues(alpha: 0.35),
+                  ),
                 ),
                 Positioned(
                   top: 0,
@@ -1451,7 +1481,11 @@ class _DrawerMockSection extends StatelessWidget {
                   width: 240,
                   child: _DrawerPanel(),
                 ),
-                Positioned(top: 12, right: 12, child: _DrawerLegend()),
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: _DrawerLegend(),
+                ),
               ],
             ),
           ),
@@ -1527,7 +1561,10 @@ class _DrawerPanel extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomLeft,
-          colors: <Color>[Color(0xFFFFFBF5), Color(0xFFFFF1DD)],
+          colors: <Color>[
+            Color(0xFFFFFBF5),
+            Color(0xFFFFF1DD),
+          ],
         ),
         border: Border(right: BorderSide(color: _kRule)),
       ),
@@ -1563,7 +1600,10 @@ class _DrawerPanel extends StatelessWidget {
                     ),
                     Text(
                       'mira@studio.example',
-                      style: TextStyle(color: _kInkMute, fontSize: 11),
+                      style: TextStyle(
+                        color: _kInkMute,
+                        fontSize: 11,
+                      ),
                     ),
                   ],
                 ),
@@ -1670,7 +1710,12 @@ class _ComparisonTableSection extends StatelessWidget {
         children: <Widget>[
           _CompareRow(
             header: true,
-            cells: <String>['Widget', 'Scope', 'Visual effect', 'Use case'],
+            cells: <String>[
+              'Widget',
+              'Scope',
+              'Visual effect',
+              'Use case',
+            ],
           ),
           _CompareRow(
             cells: <String>[
@@ -1754,7 +1799,11 @@ class _ComparisonTableSection extends StatelessWidget {
                   'ExcludeSemantics. If you want to hide everything else '
                   'on the screen because a modal is on top, reach for '
                   'BlockSemantics. The scope is the deciding factor.',
-                  style: TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+                  style: TextStyle(
+                    color: _kInkSoft,
+                    fontSize: 13,
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -1827,7 +1876,10 @@ class _PaintOrderRuleSection extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: <Color>[Color(0xFFFFF5F4), Color(0xFFFFE9E6)],
+                colors: <Color>[
+                  Color(0xFFFFF5F4),
+                  Color(0xFFFFE9E6),
+                ],
               ),
               borderRadius: BorderRadius.circular(14),
               border: Border.all(color: _kBad.withValues(alpha: 0.25)),
@@ -1845,9 +1897,15 @@ class _PaintOrderRuleSection extends StatelessWidget {
                   highlight: true,
                 ),
                 _ArrowDown(),
-                _PaintLayer(label: 'Layer 4 · ModalBarrier', color: _kInfo),
+                _PaintLayer(
+                  label: 'Layer 4 · ModalBarrier',
+                  color: _kInfo,
+                ),
                 _ArrowDown(),
-                _PaintLayer(label: 'Layer 5 · Dialog content', color: _kGood),
+                _PaintLayer(
+                  label: 'Layer 5 · Dialog content',
+                  color: _kGood,
+                ),
               ],
             ),
           ),
@@ -1966,8 +2024,7 @@ class _CodeSnippetGallerySection extends StatelessWidget {
             body:
                 'Use ModalBarrier together with BlockSemantics in an '
                 'Overlay entry to build your own modal-like surface.',
-            code:
-                'OverlayEntry(\n'
+            code: 'OverlayEntry(\n'
                 '  builder: (BuildContext context) {\n'
                 '    return BlockSemantics(\n'
                 '      blocking: true,\n'
@@ -1987,8 +2044,7 @@ class _CodeSnippetGallerySection extends StatelessWidget {
                 'Stack a BlockSemantics + ModalBarrier behind a panel. '
                 'Everything painted before BlockSemantics is hidden from '
                 'screen readers.',
-            code:
-                'Stack(\n'
+            code: 'Stack(\n'
                 '  children: <Widget>[\n'
                 '    PageContent(),\n'
                 '    if (isModalOpen) ...<Widget>[\n'
@@ -2006,8 +2062,7 @@ class _CodeSnippetGallerySection extends StatelessWidget {
             body:
                 'Toggle blocking via the constructor argument. When false, '
                 'BlockSemantics becomes a pure passthrough.',
-            code:
-                'BlockSemantics(\n'
+            code: 'BlockSemantics(\n'
                 '  blocking: showTutorialOverlay,\n'
                 '  child: TutorialOverlay(),\n'
                 ');',
@@ -2019,8 +2074,7 @@ class _CodeSnippetGallerySection extends StatelessWidget {
                 'When building a non-standard drawer, wrap the barrier '
                 'plus the panel in a Stack and use BlockSemantics to hide '
                 'the content behind.',
-            code:
-                'Stack(\n'
+            code: 'Stack(\n'
                 '  children: <Widget>[\n'
                 '    Scaffold(body: AppBody()),\n'
                 '    if (drawerOpen) ...<Widget>[\n'
@@ -2040,8 +2094,7 @@ class _CodeSnippetGallerySection extends StatelessWidget {
                 'Route transitions can also use BlockSemantics to prevent '
                 'the previous route from leaking into the semantics tree '
                 'during transitions.',
-            code:
-                'PageRouteBuilder(\n'
+            code: 'PageRouteBuilder(\n'
                 '  pageBuilder: (context, _, __) => BlockSemantics(\n'
                 '    child: MyDestinationPage(),\n'
                 '  ),\n'
@@ -2054,8 +2107,7 @@ class _CodeSnippetGallerySection extends StatelessWidget {
                 'A common pattern for testability: keep the widget in '
                 'place but toggle off blocking in tests that need the '
                 'background semantics.',
-            code:
-                'BlockSemantics(\n'
+            code: 'BlockSemantics(\n'
                 '  blocking: !widgetTestMode,\n'
                 '  child: Modal(),\n'
                 ');',
@@ -2166,8 +2218,7 @@ class _PitfallsSection extends StatelessWidget {
                 'last child is on top visually but is also painted last. '
                 'BlockSemantics belongs near the modal child, not at the '
                 'top of the stack.',
-            example:
-                'Stack(\n'
+            example: 'Stack(\n'
                 '  children: <Widget>[\n'
                 '    PageContent(),     // painted first\n'
                 '    BlockSemantics(    // painted next — hides PageContent\n'
@@ -2208,8 +2259,7 @@ class _PitfallsSection extends StatelessWidget {
                 'BlockSemantics does not stop pointer events. If your '
                 'modal needs to swallow taps from the page behind, use '
                 'ModalBarrier or IgnorePointer in addition.',
-            example:
-                'Stack(\n'
+            example: 'Stack(\n'
                 '  children: <Widget>[\n'
                 '    IgnorePointer(ignoring: true, child: BackgroundContent()),\n'
                 '    BlockSemantics(child: ModalBarrier()),\n'
@@ -2320,7 +2370,11 @@ class _PitfallCard extends StatelessWidget {
                 SizedBox(height: 6),
                 Text(
                   body,
-                  style: TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
+                  style: TextStyle(
+                    color: _kInkSoft,
+                    fontSize: 13,
+                    height: 1.5,
+                  ),
                 ),
                 SizedBox(height: 10),
                 _MonoBlock(example, caption: 'example'),
@@ -2574,7 +2628,10 @@ class _FooterSection extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Color(0xFF101828), Color(0xFF1D2939)],
+          colors: <Color>[
+            Color(0xFF101828),
+            Color(0xFF1D2939),
+          ],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: <BoxShadow>[
@@ -2640,7 +2697,9 @@ class _FooterSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.20)),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.20),
+              ),
             ),
             child: Text(
               'Demo file: blocksemantics_test.dart  ·  fully static  ·  '

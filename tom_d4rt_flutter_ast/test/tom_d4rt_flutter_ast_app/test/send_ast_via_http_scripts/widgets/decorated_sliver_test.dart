@@ -28,37 +28,29 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────────────────
   // Color palette — ocean/sand/coral coastal theme
   // ──────────────────────────────────────────────────────────
-  const cOcean = Color(0xFF006994); // deep ocean blue - primary
-  const cSand = Color(0xFFF5E6D3); // warm sand - surface
-  const cCoral = Color(0xFFFF6F61); // coral pink - accent
-  const cSeafoam = Color(0xFF88D8B0); // seafoam green - success
-  const cNavy = Color(0xFF1A237E); // deep navy - secondary
-  const cSunset = Color(0xFFFF9E80); // sunset orange - warm
-  const cDeepTeal = Color(0xFF00695C); // deep teal - info
-  const cSlate = Color(0xFF37474F); // slate - text
-  const cPearl = Color(0xFFFAF9F6); // pearl white - light surface
-  const cLagoon = Color(0xFF4DD0E1); // lagoon cyan - highlight
+  const cOcean = Color(0xFF006994);        // deep ocean blue - primary
+  const cSand = Color(0xFFF5E6D3);         // warm sand - surface
+  const cCoral = Color(0xFFFF6F61);        // coral pink - accent
+  const cSeafoam = Color(0xFF88D8B0);      // seafoam green - success
+  const cNavy = Color(0xFF1A237E);         // deep navy - secondary
+  const cSunset = Color(0xFFFF9E80);       // sunset orange - warm
+  const cDeepTeal = Color(0xFF00695C);     // deep teal - info
+  const cSlate = Color(0xFF37474F);        // slate - text
+  const cPearl = Color(0xFFFAF9F6);        // pearl white - light surface
+  const cLagoon = Color(0xFF4DD0E1);       // lagoon cyan - highlight
 
   // ──────────────────────────────────────────────────────────
   // Helper builders
   // ──────────────────────────────────────────────────────────
 
-  Widget sceneHeader(
-    String title,
-    String subtitle,
-    IconData icon,
-    Color color,
-  ) {
+  Widget sceneHeader(String title, String subtitle, IconData icon, Color color) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 34.0, bottom: 14.0),
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            color.withValues(alpha: 0.15),
-            color.withValues(alpha: 0.03),
-          ],
+          colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.03)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -228,7 +220,10 @@ dynamic build(BuildContext context) {
             ),
           ),
           Flexible(
-            child: Padding(padding: const EdgeInsets.all(12.0), child: child),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: child,
+            ),
           ),
         ],
       ),
@@ -307,11 +302,7 @@ dynamic build(BuildContext context) {
           children: [
             Text(
               'Feature Comparison',
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-                color: cOcean,
-              ),
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: cOcean),
             ),
             const SizedBox(height: 16.0),
             // Header row
@@ -319,14 +310,7 @@ dynamic build(BuildContext context) {
               children: [
                 Expanded(
                   flex: 2,
-                  child: Text(
-                    'Feature',
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.bold,
-                      color: cSlate,
-                    ),
-                  ),
+                  child: Text('Feature', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cSlate)),
                 ),
                 Expanded(
                   flex: 3,
@@ -339,11 +323,7 @@ dynamic build(BuildContext context) {
                     child: Text(
                       'DecoratedBox',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.bold,
-                        color: cOcean,
-                      ),
+                      style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cOcean),
                     ),
                   ),
                 ),
@@ -359,11 +339,7 @@ dynamic build(BuildContext context) {
                     child: Text(
                       'DecoratedSliver',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.bold,
-                        color: cCoral,
-                      ),
+                      style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cCoral),
                     ),
                   ),
                 ),
@@ -372,31 +348,11 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 8.0),
             // Data rows
             for (final row in [
-              {
-                'feature': 'Child type',
-                'box': 'RenderBox widget',
-                'sliver': 'Sliver widget',
-              },
-              {
-                'feature': 'Used in',
-                'box': 'Row, Column, Stack...',
-                'sliver': 'CustomScrollView',
-              },
-              {
-                'feature': 'Layout protocol',
-                'box': 'Box constraints',
-                'sliver': 'Sliver geometry',
-              },
-              {
-                'feature': 'Scroll-aware',
-                'box': 'No',
-                'sliver': 'Yes (extent, cache)',
-              },
-              {
-                'feature': 'Decoration',
-                'box': 'BoxDecoration etc',
-                'sliver': 'BoxDecoration etc',
-              },
+              {'feature': 'Child type', 'box': 'RenderBox widget', 'sliver': 'Sliver widget'},
+              {'feature': 'Used in', 'box': 'Row, Column, Stack...', 'sliver': 'CustomScrollView'},
+              {'feature': 'Layout protocol', 'box': 'Box constraints', 'sliver': 'Sliver geometry'},
+              {'feature': 'Scroll-aware', 'box': 'No', 'sliver': 'Yes (extent, cache)'},
+              {'feature': 'Decoration', 'box': 'BoxDecoration etc', 'sliver': 'BoxDecoration etc'},
               {'feature': 'Position property', 'box': '✓', 'sliver': '✓'},
             ])
               Padding(
@@ -407,19 +363,13 @@ dynamic build(BuildContext context) {
                       flex: 2,
                       child: Text(
                         row['feature']!,
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: cSlate.withValues(alpha: 0.7),
-                        ),
+                        style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.7)),
                       ),
                     ),
                     Expanded(
                       flex: 3,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 4.0,
-                          horizontal: 6.0,
-                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(4.0),
@@ -427,10 +377,7 @@ dynamic build(BuildContext context) {
                         child: Text(
                           row['box']!,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 9.0,
-                            color: cSlate.withValues(alpha: 0.8),
-                          ),
+                          style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.8)),
                         ),
                       ),
                     ),
@@ -438,10 +385,7 @@ dynamic build(BuildContext context) {
                     Expanded(
                       flex: 3,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 4.0,
-                          horizontal: 6.0,
-                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(4.0),
@@ -449,10 +393,7 @@ dynamic build(BuildContext context) {
                         child: Text(
                           row['sliver']!,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 9.0,
-                            color: cSlate.withValues(alpha: 0.8),
-                          ),
+                          style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.8)),
                         ),
                       ),
                     ),
@@ -608,21 +549,13 @@ dynamic build(BuildContext context) {
                             for (var i = 0; i < 2; i++)
                               Container(
                                 height: 30.0,
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 3.0,
-                                ),
+                                margin: const EdgeInsets.symmetric(vertical: 3.0),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    'Item ${i + 1}',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  child: Text('Item ${i + 1}', style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ),
                               ),
                           ],
@@ -659,21 +592,13 @@ dynamic build(BuildContext context) {
                             for (var i = 0; i < 2; i++)
                               Container(
                                 height: 30.0,
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 3.0,
-                                ),
+                                margin: const EdgeInsets.symmetric(vertical: 3.0),
                                 decoration: BoxDecoration(
                                   color: cPearl,
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    'Item ${i + 1}',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  child: Text('Item ${i + 1}', style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ),
                               ),
                           ],
@@ -716,21 +641,13 @@ dynamic build(BuildContext context) {
                             for (var i = 0; i < 2; i++)
                               Container(
                                 height: 30.0,
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 3.0,
-                                ),
+                                margin: const EdgeInsets.symmetric(vertical: 3.0),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    'Item ${i + 1}',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  child: Text('Item ${i + 1}', style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ),
                               ),
                           ],
@@ -759,10 +676,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: cSunset.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12.0),
-                      border: Border.all(
-                        color: cSunset.withValues(alpha: 0.4),
-                        width: 1.5,
-                      ),
+                      border: Border.all(color: cSunset.withValues(alpha: 0.4), width: 1.5),
                     ),
                     sliver: SliverToBoxAdapter(
                       child: Padding(
@@ -772,21 +686,13 @@ dynamic build(BuildContext context) {
                             for (var i = 0; i < 2; i++)
                               Container(
                                 height: 30.0,
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 3.0,
-                                ),
+                                margin: const EdgeInsets.symmetric(vertical: 3.0),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    'Item ${i + 1}',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  child: Text('Item ${i + 1}', style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ),
                               ),
                           ],
@@ -871,11 +777,7 @@ dynamic build(BuildContext context) {
                     ),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
-                        (context, index) => sliverItem(
-                          'Item ${index + 1}',
-                          cOcean,
-                          height: 40.0,
-                        ),
+                        (context, index) => sliverItem('Item ${index + 1}', cOcean, height: 40.0),
                         childCount: 3,
                       ),
                     ),
@@ -910,11 +812,7 @@ dynamic build(BuildContext context) {
                     ),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
-                        (context, index) => sliverItem(
-                          'Item ${index + 1}',
-                          cCoral,
-                          height: 40.0,
-                        ),
+                        (context, index) => sliverItem('Item ${index + 1}', cCoral, height: 40.0),
                         childCount: 3,
                       ),
                     ),
@@ -954,11 +852,7 @@ dynamic build(BuildContext context) {
                     ),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
-                        (context, index) => sliverItem(
-                          'Item ${index + 1}',
-                          cDeepTeal,
-                          height: 40.0,
-                        ),
+                        (context, index) => sliverItem('Item ${index + 1}', cDeepTeal, height: 40.0),
                         childCount: 3,
                       ),
                     ),
@@ -995,11 +889,7 @@ dynamic build(BuildContext context) {
                     ),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
-                        (context, index) => sliverItem(
-                          'Item ${index + 1}',
-                          cNavy,
-                          height: 40.0,
-                        ),
+                        (context, index) => sliverItem('Item ${index + 1}', cNavy, height: 40.0),
                         childCount: 3,
                       ),
                     ),
@@ -1086,19 +976,12 @@ dynamic build(BuildContext context) {
                               ),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.visibility,
-                                    color: cOcean,
-                                    size: 20.0,
-                                  ),
+                                  Icon(Icons.visibility, color: cOcean, size: 20.0),
                                   const SizedBox(width: 8.0),
                                   Expanded(
                                     child: Text(
                                       'Content is fully visible',
-                                      style: TextStyle(
-                                        fontSize: 11.0,
-                                        color: cSlate,
-                                      ),
+                                      style: TextStyle(fontSize: 11.0, color: cSlate),
                                     ),
                                   ),
                                 ],
@@ -1150,19 +1033,12 @@ dynamic build(BuildContext context) {
                               ),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.visibility_off,
-                                    color: cCoral,
-                                    size: 20.0,
-                                  ),
+                                  Icon(Icons.visibility_off, color: cCoral, size: 20.0),
                                   const SizedBox(width: 8.0),
                                   Expanded(
                                     child: Text(
                                       'Content is overlaid',
-                                      style: TextStyle(
-                                        fontSize: 11.0,
-                                        color: cSlate,
-                                      ),
+                                      style: TextStyle(fontSize: 11.0, color: cSlate),
                                     ),
                                   ),
                                 ],
@@ -1199,11 +1075,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Disabled Overlay',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold,
-                      color: cDeepTeal,
-                    ),
+                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cDeepTeal),
                   ),
                   const SizedBox(height: 6.0),
                   Container(
@@ -1228,19 +1100,9 @@ dynamic build(BuildContext context) {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.block,
-                                      color: Colors.white,
-                                      size: 16.0,
-                                    ),
+                                    Icon(Icons.block, color: Colors.white, size: 16.0),
                                     const SizedBox(width: 6.0),
-                                    Text(
-                                      'Disabled',
-                                      style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                    Text('Disabled', style: TextStyle(fontSize: 10.0, color: Colors.white)),
                                   ],
                                 ),
                               ),
@@ -1260,11 +1122,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Vignette Effect',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold,
-                      color: cDeepTeal,
-                    ),
+                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cDeepTeal),
                   ),
                   const SizedBox(height: 6.0),
                   Container(
@@ -1294,13 +1152,7 @@ dynamic build(BuildContext context) {
                                 color: cSand,
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
-                                  child: Text(
-                                    'Content',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: cSlate,
-                                    ),
-                                  ),
+                                  child: Text('Content', style: TextStyle(fontSize: 10.0, color: cSlate)),
                                 ),
                               ),
                             ),
@@ -1319,11 +1171,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Loading State',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold,
-                      color: cDeepTeal,
-                    ),
+                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cDeepTeal),
                   ),
                   const SizedBox(height: 6.0),
                   Container(
@@ -1448,10 +1296,7 @@ dynamic build(BuildContext context) {
                             ),
                             Text(
                               'Deep blue gradient header',
-                              style: TextStyle(
-                                fontSize: 11.0,
-                                color: Colors.white70,
-                              ),
+                              style: TextStyle(fontSize: 11.0, color: Colors.white70),
                             ),
                           ],
                         ),
@@ -1463,22 +1308,19 @@ dynamic build(BuildContext context) {
 
               // Section 2: Sand content
               DecoratedSliver(
-                decoration: BoxDecoration(color: cSand),
+                decoration: BoxDecoration(
+                  color: cSand,
+                ),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) => Container(
                       height: 44.0,
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 4.0,
-                      ),
+                      margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: cSlate.withValues(alpha: 0.1),
-                        ),
+                        border: Border.all(color: cSlate.withValues(alpha: 0.1)),
                       ),
                       child: Row(
                         children: [
@@ -1492,11 +1334,7 @@ dynamic build(BuildContext context) {
                             child: Center(
                               child: Text(
                                 '${index + 1}',
-                                style: TextStyle(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: cSunset,
-                                ),
+                                style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: cSunset),
                               ),
                             ),
                           ),
@@ -1518,14 +1356,8 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: cCoral.withValues(alpha: 0.1),
                   border: Border(
-                    top: BorderSide(
-                      color: cCoral.withValues(alpha: 0.3),
-                      width: 2.0,
-                    ),
-                    bottom: BorderSide(
-                      color: cCoral.withValues(alpha: 0.3),
-                      width: 2.0,
-                    ),
+                    top: BorderSide(color: cCoral.withValues(alpha: 0.3), width: 2.0),
+                    bottom: BorderSide(color: cCoral.withValues(alpha: 0.3), width: 2.0),
                   ),
                 ),
                 sliver: SliverToBoxAdapter(
@@ -1533,11 +1365,7 @@ dynamic build(BuildContext context) {
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.local_fire_department,
-                          color: cCoral,
-                          size: 24.0,
-                        ),
+                        Icon(Icons.local_fire_department, color: cCoral, size: 24.0),
                         const SizedBox(width: 10.0),
                         Expanded(
                           child: Column(
@@ -1545,18 +1373,11 @@ dynamic build(BuildContext context) {
                             children: [
                               Text(
                                 'Coral Highlight Section',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: cCoral,
-                                ),
+                                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: cCoral),
                               ),
                               Text(
                                 'Bordered accent section',
-                                style: TextStyle(
-                                  fontSize: 10.0,
-                                  color: cSlate.withValues(alpha: 0.6),
-                                ),
+                                style: TextStyle(fontSize: 10.0, color: cSlate.withValues(alpha: 0.6)),
                               ),
                             ],
                           ),
@@ -1573,10 +1394,7 @@ dynamic build(BuildContext context) {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      cSeafoam.withValues(alpha: 0.15),
-                      cSeafoam.withValues(alpha: 0.3),
-                    ],
+                    colors: [cSeafoam.withValues(alpha: 0.15), cSeafoam.withValues(alpha: 0.3)],
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(12.0),
@@ -1680,32 +1498,18 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                Icon(
-                                  Icons.account_circle,
-                                  color: cOcean,
-                                  size: 24.0,
-                                ),
+                                Icon(Icons.account_circle, color: cOcean, size: 24.0),
                                 const SizedBox(width: 10.0),
                                 Text(
                                   'Account Settings',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: cSlate,
-                                  ),
+                                  style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: cSlate),
                                 ),
                               ],
                             ),
                             const SizedBox(height: 12.0),
-                            for (final setting in [
-                              'Profile',
-                              'Security',
-                              'Notifications',
-                            ])
+                            for (final setting in ['Profile', 'Security', 'Notifications'])
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 6.0,
-                                ),
+                                padding: const EdgeInsets.symmetric(vertical: 6.0),
                                 child: Row(
                                   children: [
                                     Container(
@@ -1713,19 +1517,11 @@ dynamic build(BuildContext context) {
                                       height: 6.0,
                                       decoration: BoxDecoration(
                                         color: cOcean,
-                                        borderRadius: BorderRadius.circular(
-                                          3.0,
-                                        ),
+                                        borderRadius: BorderRadius.circular(3.0),
                                       ),
                                     ),
                                     const SizedBox(width: 10.0),
-                                    Text(
-                                      setting,
-                                      style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: cSlate.withValues(alpha: 0.7),
-                                      ),
-                                    ),
+                                    Text(setting, style: TextStyle(fontSize: 12.0, color: cSlate.withValues(alpha: 0.7))),
                                   ],
                                 ),
                               ),
@@ -1782,20 +1578,14 @@ dynamic build(BuildContext context) {
                           ),
                           const Spacer(),
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 4.0,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             child: Text(
                               '5 new',
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: Colors.white,
-                              ),
+                              style: TextStyle(fontSize: 10.0, color: Colors.white),
                             ),
                           ),
                         ],
@@ -1811,10 +1601,7 @@ dynamic build(BuildContext context) {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) => Container(
                       height: 50.0,
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 2.0,
-                      ),
+                      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                       padding: const EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -1826,19 +1613,11 @@ dynamic build(BuildContext context) {
                             width: 32.0,
                             height: 32.0,
                             decoration: BoxDecoration(
-                              color: [
-                                cOcean,
-                                cCoral,
-                                cSeafoam,
-                              ][index % 3].withValues(alpha: 0.15),
+                              color: [cOcean, cCoral, cSeafoam][index % 3].withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(16.0),
                             ),
                             child: Icon(
-                              [
-                                Icons.mail,
-                                Icons.star,
-                                Icons.attach_file,
-                              ][index % 3],
+                              [Icons.mail, Icons.star, Icons.attach_file][index % 3],
                               color: [cOcean, cCoral, cSeafoam][index % 3],
                               size: 16.0,
                             ),
@@ -1884,10 +1663,7 @@ dynamic build(BuildContext context) {
                       children: [
                         tagLabel('Section A', cOcean),
                         const SizedBox(width: 12.0),
-                        Text(
-                          'First group content',
-                          style: TextStyle(fontSize: 11.0, color: cSlate),
-                        ),
+                        Text('First group content', style: TextStyle(fontSize: 11.0, color: cSlate)),
                       ],
                     ),
                   ),
@@ -1927,10 +1703,7 @@ dynamic build(BuildContext context) {
                       children: [
                         tagLabel('Section B', cCoral),
                         const SizedBox(width: 12.0),
-                        Text(
-                          'Second group content',
-                          style: TextStyle(fontSize: 11.0, color: cSlate),
-                        ),
+                        Text('Second group content', style: TextStyle(fontSize: 11.0, color: cSlate)),
                       ],
                     ),
                   ),
@@ -1970,10 +1743,7 @@ dynamic build(BuildContext context) {
                       children: [
                         tagLabel('Section C', cSeafoam),
                         const SizedBox(width: 12.0),
-                        Text(
-                          'Third group content',
-                          style: TextStyle(fontSize: 11.0, color: cSlate),
-                        ),
+                        Text('Third group content', style: TextStyle(fontSize: 11.0, color: cSlate)),
                       ],
                     ),
                   ),
@@ -1993,10 +1763,7 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              cOcean.withValues(alpha: 0.08),
-              cCoral.withValues(alpha: 0.06),
-            ],
+            colors: [cOcean.withValues(alpha: 0.08), cCoral.withValues(alpha: 0.06)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -2052,10 +1819,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          cOcean.withValues(alpha: 0.12),
-          cCoral.withValues(alpha: 0.08),
-        ],
+        colors: [cOcean.withValues(alpha: 0.12), cCoral.withValues(alpha: 0.08)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -2153,11 +1917,7 @@ class _ColoredHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

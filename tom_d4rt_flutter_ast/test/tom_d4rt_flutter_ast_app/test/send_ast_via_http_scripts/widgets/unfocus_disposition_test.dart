@@ -95,8 +95,7 @@ class _UdStageHomeState extends State<_UdStageHome>
     with TickerProviderStateMixin {
   UnfocusDisposition _disposition = UnfocusDisposition.scope;
   bool _useNestedScopes = false;
-  String _lastAction =
-      'No unfocus yet — focus a field and press a velvet button.';
+  String _lastAction = 'No unfocus yet — focus a field and press a velvet button.';
   DateTime _lastActionTime = DateTime.now();
 
   late final FocusScopeNode _stageAScope;
@@ -242,57 +241,61 @@ class _UdStageHomeState extends State<_UdStageHome>
                 return ListView(
                   padding: const EdgeInsets.fromLTRB(28, 24, 28, 48),
                   children: [
-                    _UdHeader(
-                      disposition: _disposition,
-                      onDispositionChanged: (v) =>
-                          setState(() => _disposition = v),
-                      useNested: _useNestedScopes,
-                      onToggleNested: (v) =>
-                          setState(() => _useNestedScopes = v),
-                      lastAction: _lastAction,
-                      lastActionTime: _lastActionTime,
-                    ),
-                    const SizedBox(height: 28),
-                    _UdAnatomyCard(),
-                    const SizedBox(height: 28),
-                    _UdDispositionComparisonCard(current: _disposition),
-                    const SizedBox(height: 28),
-                    wide
-                        ? Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(child: _buildStageA()),
-                              const SizedBox(width: 20),
-                              Expanded(child: _buildStageB()),
-                            ],
-                          )
-                        : Column(
-                            children: [
-                              _buildStageA(),
-                              const SizedBox(height: 20),
-                              _buildStageB(),
-                            ],
-                          ),
-                    const SizedBox(height: 28),
-                    _UdFocusReadoutPanel(
-                      focusLabel: _currentFocusLabel,
-                      disposition: _disposition,
-                      dispositionLongLabel: _dispLongLabel(_disposition),
-                      scopes: [_outerScope, _stageAScope, _stageBScope],
-                      primaryFocus: FocusManager.instance.primaryFocus,
-                    ),
-                    const SizedBox(height: 28),
-                    _UdTransitionDiagram(disposition: _disposition),
-                    const SizedBox(height: 28),
-                    _UdCompositionDemo(nested: _useNestedScopes),
-                    const SizedBox(height: 28),
-                    _UdTabWalkCard(disposition: _disposition),
-                    const SizedBox(height: 28),
-                    _UdJournalCard(entries: _journal),
-                    const SizedBox(height: 28),
-                    _UdEpilogueCard(),
-                    const SizedBox(height: 24),
-                    const _UdFooterStrip(),
+                      _UdHeader(
+                        disposition: _disposition,
+                        onDispositionChanged: (v) =>
+                            setState(() => _disposition = v),
+                        useNested: _useNestedScopes,
+                        onToggleNested: (v) =>
+                            setState(() => _useNestedScopes = v),
+                        lastAction: _lastAction,
+                        lastActionTime: _lastActionTime,
+                      ),
+                      const SizedBox(height: 28),
+                      _UdAnatomyCard(),
+                      const SizedBox(height: 28),
+                      _UdDispositionComparisonCard(
+                        current: _disposition,
+                      ),
+                      const SizedBox(height: 28),
+                      wide
+                          ? Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(child: _buildStageA()),
+                                const SizedBox(width: 20),
+                                Expanded(child: _buildStageB()),
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                _buildStageA(),
+                                const SizedBox(height: 20),
+                                _buildStageB(),
+                              ],
+                            ),
+                      const SizedBox(height: 28),
+                      _UdFocusReadoutPanel(
+                        focusLabel: _currentFocusLabel,
+                        disposition: _disposition,
+                        dispositionLongLabel: _dispLongLabel(_disposition),
+                        scopes: [_outerScope, _stageAScope, _stageBScope],
+                        primaryFocus: FocusManager.instance.primaryFocus,
+                      ),
+                      const SizedBox(height: 28),
+                      _UdTransitionDiagram(disposition: _disposition),
+                      const SizedBox(height: 28),
+                      _UdCompositionDemo(nested: _useNestedScopes),
+                      const SizedBox(height: 28),
+                      _UdTabWalkCard(
+                        disposition: _disposition,
+                      ),
+                      const SizedBox(height: 28),
+                      _UdJournalCard(entries: _journal),
+                      const SizedBox(height: 28),
+                      _UdEpilogueCard(),
+                      const SizedBox(height: 24),
+                      const _UdFooterStrip(),
                   ],
                 );
               },
@@ -326,8 +329,7 @@ class _UdStageHomeState extends State<_UdStageHome>
               ),
             const SizedBox(height: 6),
             _UdButtonRow(
-              onScope: () =>
-                  _unfocusScope(_stageAScope, UnfocusDisposition.scope),
+              onScope: () => _unfocusScope(_stageAScope, UnfocusDisposition.scope),
               onPrev: () => _unfocusScope(
                 _stageAScope,
                 UnfocusDisposition.previouslyFocusedChild,
@@ -421,9 +423,7 @@ class _UdHeader extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                    horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: _kInk,
                   borderRadius: BorderRadius.circular(999),
@@ -566,7 +566,13 @@ class _UdDispositionSegments extends StatelessWidget {
           color: selected ? _kRuby : Colors.transparent,
           borderRadius: BorderRadius.circular(999),
           boxShadow: selected
-              ? [BoxShadow(color: _kRubyGlow, blurRadius: 14, spreadRadius: 1)]
+              ? [
+                  BoxShadow(
+                    color: _kRubyGlow,
+                    blurRadius: 14,
+                    spreadRadius: 1,
+                  ),
+                ]
               : null,
         ),
         child: InkWell(
@@ -575,7 +581,11 @@ class _UdDispositionSegments extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 15, color: selected ? _kCream : _kGold),
+              Icon(
+                icon,
+                size: 15,
+                color: selected ? _kCream : _kGold,
+              ),
               const SizedBox(width: 6),
               Text(
                 label,
@@ -643,10 +653,8 @@ class _UdAnatomyCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Anatomy of UnfocusDisposition',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Anatomy of UnfocusDisposition',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 10),
           const Text(
             'An enum lives in `package:flutter/src/widgets/focus_manager.dart` '
@@ -675,22 +683,19 @@ class _UdAnatomyCard extends StatelessWidget {
           const SizedBox(height: 10),
           _UdCalloutPill(
             label: 'Default',
-            text:
-                'UnfocusDisposition.scope — this is the disposition used when '
+            text: 'UnfocusDisposition.scope — this is the disposition used when '
                 'you call `node.unfocus()` with no arguments.',
           ),
           const SizedBox(height: 6),
           _UdCalloutPill(
             label: 'Tree rule',
-            text:
-                'Both variants first ascend to the nearest *focusable* scope. '
+            text: 'Both variants first ascend to the nearest *focusable* scope. '
                 'A scope is focusable if it has `canRequestFocus == true`.',
           ),
           const SizedBox(height: 6),
           _UdCalloutPill(
             label: 'Keyboard',
-            text:
-                'The most common reason to unfocus is to dismiss the soft '
+            text: 'The most common reason to unfocus is to dismiss the soft '
                 'keyboard; `scope` is almost always what that pattern wants.',
           ),
         ],
@@ -740,14 +745,9 @@ class _UdBullet extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(
-                  body,
-                  style: const TextStyle(
-                    color: _kCream,
-                    height: 1.4,
-                    fontSize: 13,
-                  ),
-                ),
+                Text(body,
+                    style:
+                        const TextStyle(color: _kCream, height: 1.4, fontSize: 13)),
               ],
             ),
           ),
@@ -820,68 +820,57 @@ class _UdDispositionComparisonCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Side-by-side comparison',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Side-by-side comparison',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 10),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final wide = constraints.maxWidth > 640;
-              final left = _buildColumn(
-                context,
-                title: 'scope',
-                highlighted: current == UnfocusDisposition.scope,
-                rows: const [
-                  ('History', 'Cleared when the scope receives focus.'),
-                  ('Next tab', 'Traversal policy picks the first node.'),
-                  ('Keyboard', 'Dismisses the soft keyboard cleanly.'),
-                  ('Nesting', 'Target: the nearest focusable scope.'),
-                  ('Equivalent', '`node.unfocus()` — the default.'),
-                ],
-              );
-              final right = _buildColumn(
-                context,
-                title: 'previouslyFocusedChild',
-                highlighted:
-                    current == UnfocusDisposition.previouslyFocusedChild,
-                rows: const [
-                  (
-                    'History',
-                    'Preserved; walks down to the leaf focusedChild.',
-                  ),
-                  ('Next tab', 'Starts from the previously focused node.'),
-                  ('Fallback', 'Acts like `scope` when no history exists.'),
-                  ('Nesting', 'Descends to leaf, skipping scope nodes.'),
-                  (
-                    'Equivalent',
-                    '`node.unfocus(disposition: previouslyFocusedChild)`.',
-                  ),
-                ],
-              );
-              return wide
-                  ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(child: left),
-                        const SizedBox(width: 16),
-                        Expanded(child: right),
-                      ],
-                    )
-                  : Column(children: [left, const SizedBox(height: 14), right]);
-            },
-          ),
+          LayoutBuilder(builder: (context, constraints) {
+            final wide = constraints.maxWidth > 640;
+            final left = _buildColumn(
+              context,
+              title: 'scope',
+              highlighted: current == UnfocusDisposition.scope,
+              rows: const [
+                ('History', 'Cleared when the scope receives focus.'),
+                ('Next tab', 'Traversal policy picks the first node.'),
+                ('Keyboard', 'Dismisses the soft keyboard cleanly.'),
+                ('Nesting', 'Target: the nearest focusable scope.'),
+                ('Equivalent', '`node.unfocus()` — the default.'),
+              ],
+            );
+            final right = _buildColumn(
+              context,
+              title: 'previouslyFocusedChild',
+              highlighted: current == UnfocusDisposition.previouslyFocusedChild,
+              rows: const [
+                ('History', 'Preserved; walks down to the leaf focusedChild.'),
+                ('Next tab', 'Starts from the previously focused node.'),
+                ('Fallback', 'Acts like `scope` when no history exists.'),
+                ('Nesting', 'Descends to leaf, skipping scope nodes.'),
+                ('Equivalent', '`node.unfocus(disposition: previouslyFocusedChild)`.'),
+              ],
+            );
+            return wide
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: left),
+                      const SizedBox(width: 16),
+                      Expanded(child: right),
+                    ],
+                  )
+                : Column(
+                    children: [left, const SizedBox(height: 14), right],
+                  );
+          }),
         ],
       ),
     );
   }
 
-  Widget _buildColumn(
-    BuildContext context, {
-    required String title,
-    required bool highlighted,
-    required List<(String, String)> rows,
-  }) {
+  Widget _buildColumn(BuildContext context,
+      {required String title,
+      required bool highlighted,
+      required List<(String, String)> rows}) {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -901,9 +890,7 @@ class _UdDispositionComparisonCard extends StatelessWidget {
           Row(
             children: [
               Icon(
-                highlighted
-                    ? Icons.radio_button_checked
-                    : Icons.radio_button_off,
+                highlighted ? Icons.radio_button_checked : Icons.radio_button_off,
                 color: highlighted ? _kRuby : _kGoldDim,
                 size: 16,
               ),
@@ -942,10 +929,7 @@ class _UdDispositionComparisonCard extends StatelessWidget {
                     child: Text(
                       row.$2,
                       style: const TextStyle(
-                        color: _kCream,
-                        fontSize: 13,
-                        height: 1.35,
-                      ),
+                          color: _kCream, fontSize: 13, height: 1.35),
                     ),
                   ),
                 ],
@@ -989,19 +973,16 @@ class _UdStageFrame extends StatelessWidget {
                 width: 8,
                 height: 8,
                 decoration: const BoxDecoration(
-                  color: _kRuby,
-                  shape: BoxShape.circle,
-                ),
+                    color: _kRuby, shape: BoxShape.circle),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+                child: Text(title,
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _kInk,
                   borderRadius: BorderRadius.circular(6),
@@ -1019,10 +1000,8 @@ class _UdStageFrame extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: const TextStyle(color: _kCreamDim, fontSize: 13),
-          ),
+          Text(subtitle,
+              style: const TextStyle(color: _kCreamDim, fontSize: 13)),
           const SizedBox(height: 12),
           child,
         ],
@@ -1106,10 +1085,8 @@ class _UdSpotlightFieldState extends State<_UdSpotlightField> {
                 color: _kInk,
                 fontWeight: FontWeight.w600,
               ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 12,
-              ),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(color: _kGoldDim, width: 1),
@@ -1193,15 +1170,16 @@ class _VelvetButton extends StatelessWidget {
     final bg = primary
         ? _kRuby
         : muted
-        ? _kSmoke
-        : _kInk;
+            ? _kSmoke
+            : _kInk;
     final fg = primary ? _kCream : _kGold;
     final border = primary ? _kGold : _kGoldDim;
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        padding:
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(10),
@@ -1256,16 +1234,14 @@ class _UdFocusReadoutPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chain = scopes
-        .map(
-          (s) =>
-              '${s.debugLabel ?? "Scope"} ← ${s.hasFocus ? "focused" : "idle"}',
-        )
+        .map((s) => '${s.debugLabel ?? "Scope"} ← ${s.hasFocus ? "focused" : "idle"}')
         .toList();
     return _UdGoldFrame(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Focus readout', style: Theme.of(context).textTheme.titleMedium),
+          Text('Focus readout',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 6),
           const Text(
             'Real-time view of the focus ladder. Updates whenever a TextField '
@@ -1273,55 +1249,48 @@ class _UdFocusReadoutPanel extends StatelessWidget {
             style: TextStyle(color: _kCreamDim, fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 12),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final wide = constraints.maxWidth > 720;
-              final left = _metric(
-                title: 'Currently focused',
-                value: focusLabel,
-                accent: _kRuby,
-              );
-              final mid = _metric(
-                title: 'Disposition (armed)',
-                value: dispositionLongLabel,
-                accent: _kAmber,
-              );
-              final right = _metric(
-                title: 'primaryFocus.debugLabel',
-                value: primaryFocus?.debugLabel ?? '—',
-                accent: _kTeal,
-              );
-              return wide
-                  ? Row(
-                      children: [
-                        Expanded(child: left),
-                        const SizedBox(width: 10),
-                        Expanded(child: mid),
-                        const SizedBox(width: 10),
-                        Expanded(child: right),
-                      ],
-                    )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        left,
-                        const SizedBox(height: 8),
-                        mid,
-                        const SizedBox(height: 8),
-                        right,
-                      ],
-                    );
-            },
-          ),
+          LayoutBuilder(builder: (context, constraints) {
+            final wide = constraints.maxWidth > 720;
+            final left = _metric(
+              title: 'Currently focused',
+              value: focusLabel,
+              accent: _kRuby,
+            );
+            final mid = _metric(
+              title: 'Disposition (armed)',
+              value: dispositionLongLabel,
+              accent: _kAmber,
+            );
+            final right = _metric(
+              title: 'primaryFocus.debugLabel',
+              value: primaryFocus?.debugLabel ?? '—',
+              accent: _kTeal,
+            );
+            return wide
+                ? Row(
+                    children: [
+                      Expanded(child: left),
+                      const SizedBox(width: 10),
+                      Expanded(child: mid),
+                      const SizedBox(width: 10),
+                      Expanded(child: right),
+                    ],
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      left,
+                      const SizedBox(height: 8),
+                      mid,
+                      const SizedBox(height: 8),
+                      right,
+                    ],
+                  );
+          }),
           const SizedBox(height: 14),
-          const Text(
-            'Scope chain',
-            style: TextStyle(
-              color: _kGold,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          const Text('Scope chain',
+              style: TextStyle(
+                  color: _kGold, fontSize: 13, fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           for (final line in chain)
             Padding(
@@ -1338,11 +1307,7 @@ class _UdFocusReadoutPanel extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             _dispositionHint,
-            style: const TextStyle(
-              color: _kCreamDim,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: _kCreamDim, fontSize: 12, height: 1.4),
           ),
         ],
       ),
@@ -1364,24 +1329,20 @@ class _UdFocusReadoutPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: accent,
-              fontSize: 11,
-              letterSpacing: 0.6,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                color: accent,
+                fontSize: 11,
+                letterSpacing: 0.6,
+                fontWeight: FontWeight.w800,
+              )),
           const SizedBox(height: 6),
-          Text(
-            value,
-            style: const TextStyle(
-              color: _kCream,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(value,
+              style: const TextStyle(
+                color: _kCream,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              )),
         ],
       ),
     );
@@ -1403,19 +1364,14 @@ class _UdTransitionDiagram extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Transition diagram',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Transition diagram',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 6),
           Text(
             'Starting from a focused leaf, here is the path focus takes when you '
             'call `unfocus(disposition: ${disposition == UnfocusDisposition.scope ? "scope" : "previouslyFocusedChild"})`.',
             style: const TextStyle(
-              color: _kCreamDim,
-              fontSize: 13,
-              height: 1.4,
-            ),
+                color: _kCreamDim, fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 14),
           AspectRatio(
@@ -1464,7 +1420,8 @@ class _UdLegendDot extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
-        Text(label, style: const TextStyle(color: _kCream, fontSize: 12)),
+        Text(label,
+            style: const TextStyle(color: _kCream, fontSize: 12)),
       ],
     );
   }
@@ -1494,7 +1451,11 @@ class _UdTransitionPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     // Tree skeleton: leaf -> scope, scope -> landing.
-    canvas.drawLine(Offset(leafX, leafY), Offset(scopeX, scopeY), linePaint);
+    canvas.drawLine(
+      Offset(leafX, leafY),
+      Offset(scopeX, scopeY),
+      linePaint,
+    );
     canvas.drawLine(
       Offset(scopeX, scopeY),
       Offset(landingX, landingY),
@@ -1508,7 +1469,12 @@ class _UdTransitionPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
     final path = Path()
       ..moveTo(leafX, leafY)
-      ..quadraticBezierTo((leafX + scopeX) / 2, scopeY - 30, scopeX, scopeY)
+      ..quadraticBezierTo(
+        (leafX + scopeX) / 2,
+        scopeY - 30,
+        scopeX,
+        scopeY,
+      )
       ..quadraticBezierTo(
         (scopeX + landingX) / 2,
         landingY - 30,
@@ -1518,24 +1484,16 @@ class _UdTransitionPainter extends CustomPainter {
     canvas.drawPath(path, arrowPaint);
 
     // Arrowhead
-    _drawArrowhead(
-      canvas,
-      arrowPaint,
-      Offset(landingX, landingY),
-      disposition == UnfocusDisposition.scope ? 0.2 : 2.9,
-    );
+    _drawArrowhead(canvas, arrowPaint, Offset(landingX, landingY),
+        disposition == UnfocusDisposition.scope ? 0.2 : 2.9);
 
     // Nodes
     _drawNode(canvas, Offset(leafX, leafY), _kRuby, 'leaf');
     _drawNode(canvas, Offset(scopeX, scopeY), _kAmber, 'scope');
-    _drawNode(
-      canvas,
-      Offset(landingX, landingY),
-      _kTeal,
-      disposition == UnfocusDisposition.scope
-          ? 'traversal\'s first'
-          : 'previously\nfocused child',
-    );
+    _drawNode(canvas, Offset(landingX, landingY), _kTeal,
+        disposition == UnfocusDisposition.scope
+            ? 'traversal\'s first'
+            : 'previously\nfocused child');
 
     // Caption
     final caption = disposition == UnfocusDisposition.scope
@@ -1553,12 +1511,12 @@ class _UdTransitionPainter extends CustomPainter {
 
   void _drawArrowhead(Canvas canvas, Paint paint, Offset tip, double angle) {
     const armLen = 10.0;
-    final left =
-        tip -
-        Offset(armLen * (angle.cos()), armLen * (angle.sin())).rotate(0.5);
-    final right =
-        tip -
-        Offset(armLen * (angle.cos()), armLen * (angle.sin())).rotate(-0.5);
+    final left = tip -
+        Offset(armLen * (angle.cos()), armLen * (angle.sin()))
+            .rotate(0.5);
+    final right = tip -
+        Offset(armLen * (angle.cos()), armLen * (angle.sin()))
+            .rotate(-0.5);
     final p = Path()
       ..moveTo(tip.dx, tip.dy)
       ..lineTo(left.dx, left.dy)
@@ -1651,17 +1609,16 @@ class _UdCompositionDemo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Composition: nested vs flat scopes',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Composition: nested vs flat scopes',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 6),
           const Text(
             'When a dialog or panel nests FocusScopes, disposition matters a lot. '
             'With `scope`, only the ancestor gets the keyboard back. With '
             '`previouslyFocusedChild`, each scope remembers where focus was and '
             'restores it on return.',
-            style: TextStyle(color: _kCreamDim, fontSize: 13, height: 1.4),
+            style:
+                TextStyle(color: _kCreamDim, fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 12),
           Container(
@@ -1701,10 +1658,10 @@ class _UdCompositionDemo extends StatelessWidget {
             label: nested ? 'Nested' : 'Flat',
             text: nested
                 ? 'Pressing Unfocus(scope) will snap focus up to OuterFrame. '
-                      'Pressing Unfocus(previouslyFocusedChild) will walk OuterFrame → '
-                      'DialogScope → DialogField again on the next interaction.'
+                    'Pressing Unfocus(previouslyFocusedChild) will walk OuterFrame → '
+                    'DialogScope → DialogField again on the next interaction.'
                 : 'With a single scope, both dispositions often look identical — '
-                      'the difference only matters after a second focus request.',
+                    'the difference only matters after a second focus request.',
           ),
         ],
       ),
@@ -1731,11 +1688,8 @@ class _UdScopeTreeRow extends StatelessWidget {
       padding: EdgeInsets.only(left: depth * 18.0, top: 4, bottom: 4),
       child: Row(
         children: [
-          Icon(
-            Icons.subdirectory_arrow_right,
-            color: _kGoldDim,
-            size: depth == 0 ? 0 : 15,
-          ),
+          Icon(Icons.subdirectory_arrow_right,
+              color: _kGoldDim, size: depth == 0 ? 0 : 15),
           SizedBox(width: depth == 0 ? 0 : 6),
           Container(
             width: 9,
@@ -1782,8 +1736,7 @@ class _UdTabWalkCardState extends State<_UdTabWalkCard> {
   late FocusScopeNode _walkScope;
   late List<FocusNode> _walkNodes;
   late List<TextEditingController> _walkControllers;
-  String _walkLog =
-      'Press Tab to walk. The disposition you chose governs the '
+  String _walkLog = 'Press Tab to walk. The disposition you chose governs the '
       'first landing after you unfocus below.';
 
   @override
@@ -1828,16 +1781,15 @@ class _UdTabWalkCardState extends State<_UdTabWalkCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Tab walk experiment',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Tab walk experiment',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 6),
           const Text(
             'Focus the first field, press Tab a few times, then press the '
             'Unfocus button. Pressing Tab again reveals where the traversal '
             'resumes based on your disposition choice.',
-            style: TextStyle(color: _kCreamDim, fontSize: 13, height: 1.4),
+            style:
+                TextStyle(color: _kCreamDim, fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 10),
           FocusScope(
@@ -1858,17 +1810,13 @@ class _UdTabWalkCardState extends State<_UdTabWalkCard> {
                         labelText: 'walk field ${i + 1}',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: _kGoldDim,
-                            width: 1,
-                          ),
+                          borderSide:
+                              const BorderSide(color: _kGoldDim, width: 1),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(
-                            color: _kRuby,
-                            width: 1.4,
-                          ),
+                          borderSide:
+                              const BorderSide(color: _kRuby, width: 1.4),
                         ),
                       ),
                     ),
@@ -1945,15 +1893,14 @@ class _UdJournalCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Action journal',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Action journal',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 6),
           const Text(
             'Every unfocus call is recorded with its disposition and the '
             'previously focused node. Scroll the list to replay the session.',
-            style: TextStyle(color: _kCreamDim, fontSize: 13, height: 1.4),
+            style:
+                TextStyle(color: _kCreamDim, fontSize: 13, height: 1.4),
           ),
           const SizedBox(height: 10),
           if (entries.isEmpty)
@@ -1974,9 +1921,7 @@ class _UdJournalCard extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(bottom: 6),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                    horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: _kInk,
                   borderRadius: BorderRadius.circular(8),
@@ -2023,9 +1968,7 @@ class _UdJournalCard extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
-                      ),
+                          horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
                         color: _kSmoke,
                         borderRadius: BorderRadius.circular(999),
@@ -2078,10 +2021,8 @@ class _UdEpilogueCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Epilogue — patterns that use UnfocusDisposition',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('Epilogue — patterns that use UnfocusDisposition',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           _UdBullet(
             icon: Icons.keyboard_hide,
@@ -2124,8 +2065,7 @@ class _UdEpilogueCard extends StatelessWidget {
           const SizedBox(height: 10),
           _UdCalloutPill(
             label: 'Quote',
-            text:
-                '"Calling a traversal method like FocusNode.nextFocus after '
+            text: '"Calling a traversal method like FocusNode.nextFocus after '
                 'unfocusing will cause the FocusTraversalPolicy to pick the '
                 'node it thinks should be first in the scope." — Flutter '
                 'framework docs.',
@@ -2154,7 +2094,11 @@ class _UdFooterStrip extends StatelessWidget {
         SizedBox(width: 8),
         Text(
           'Stage Spotlight — a visual study of UnfocusDisposition',
-          style: TextStyle(color: _kCreamDim, fontSize: 12, letterSpacing: 1.1),
+          style: TextStyle(
+            color: _kCreamDim,
+            fontSize: 12,
+            letterSpacing: 1.1,
+          ),
         ),
         SizedBox(width: 8),
         Icon(Icons.star, size: 10, color: _kGoldDim),
@@ -2177,33 +2121,27 @@ class _UdSpotlightBackdropPainter extends CustomPainter {
 
     // Subtle vignette and two golden spotlights.
     final spotOne = Paint()
-      ..shader =
-          RadialGradient(
-            colors: [
-              _kGold.withValues(alpha: 0.12),
-              _kVelvet.withValues(alpha: 0.0),
-            ],
-          ).createShader(
-            Rect.fromCircle(
-              center: Offset(size.width * 0.15, size.height * 0.2),
-              radius: size.width * 0.4,
-            ),
-          );
+      ..shader = RadialGradient(
+        colors: [
+          _kGold.withValues(alpha: 0.12),
+          _kVelvet.withValues(alpha: 0.0),
+        ],
+      ).createShader(Rect.fromCircle(
+        center: Offset(size.width * 0.15, size.height * 0.2),
+        radius: size.width * 0.4,
+      ));
     canvas.drawRect(Offset.zero & size, spotOne);
 
     final spotTwo = Paint()
-      ..shader =
-          RadialGradient(
-            colors: [
-              _kRuby.withValues(alpha: 0.08),
-              _kVelvet.withValues(alpha: 0.0),
-            ],
-          ).createShader(
-            Rect.fromCircle(
-              center: Offset(size.width * 0.88, size.height * 0.85),
-              radius: size.width * 0.5,
-            ),
-          );
+      ..shader = RadialGradient(
+        colors: [
+          _kRuby.withValues(alpha: 0.08),
+          _kVelvet.withValues(alpha: 0.0),
+        ],
+      ).createShader(Rect.fromCircle(
+        center: Offset(size.width * 0.88, size.height * 0.85),
+        radius: size.width * 0.5,
+      ));
     canvas.drawRect(Offset.zero & size, spotTwo);
 
     // Faint grid to evoke a stage floor.
@@ -2219,8 +2157,7 @@ class _UdSpotlightBackdropPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _UdSpotlightBackdropPainter oldDelegate) =>
-      false;
+  bool shouldRepaint(covariant _UdSpotlightBackdropPainter oldDelegate) => false;
 }
 
 // ---------------------------------------------------------------------------
@@ -2243,7 +2180,8 @@ class _UdShortcutHint extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 4),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: _kInk,
                   borderRadius: BorderRadius.circular(4),
@@ -2261,10 +2199,8 @@ class _UdShortcutHint extends StatelessWidget {
             ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              description,
-              style: const TextStyle(color: _kCream, fontSize: 12),
-            ),
+            child: Text(description,
+                style: const TextStyle(color: _kCream, fontSize: 12)),
           ),
         ],
       ),
@@ -2289,30 +2225,22 @@ class _UdCheatSheet extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text(
-            'Keyboard cheat sheet',
-            style: TextStyle(
-              color: _kGold,
-              fontWeight: FontWeight.w700,
-              fontSize: 13,
-            ),
-          ),
+          Text('Keyboard cheat sheet',
+              style: TextStyle(
+                  color: _kGold,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13)),
           SizedBox(height: 6),
           _UdShortcutHint(keys: ['Tab'], description: 'Move to next focusable'),
           _UdShortcutHint(
-            keys: ['Shift', 'Tab'],
-            description: 'Move to previous focusable',
-          ),
+              keys: ['Shift', 'Tab'], description: 'Move to previous focusable'),
           _UdShortcutHint(
-            keys: ['Esc'],
-            description: 'Typical modal-close key',
-          ),
+              keys: ['Esc'], description: 'Typical modal-close key'),
           _UdShortcutHint(
-            keys: ['Enter'],
-            description: 'Submit form / activate control',
-          ),
+              keys: ['Enter'], description: 'Submit form / activate control'),
         ],
       ),
     );
   }
 }
+

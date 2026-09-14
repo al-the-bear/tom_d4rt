@@ -47,12 +47,7 @@ class _EmbeddingDiagramPainter extends CustomPainter {
     );
 
     final flutter = Paint()..color = const Color(0xFF5C6BC0);
-    final flutterRect = Rect.fromLTWH(
-      12,
-      12,
-      size.width - 24,
-      size.height - 24,
-    );
+    final flutterRect = Rect.fromLTWH(12, 12, size.width - 24, size.height - 24);
     canvas.drawRRect(
       RRect.fromRectAndRadius(flutterRect, const Radius.circular(10)),
       flutter,
@@ -95,18 +90,8 @@ class _EmbeddingDiagramPainter extends CustomPainter {
       fontSize: 12,
       fontWeight: FontWeight.bold,
     );
-    _label(
-      canvas,
-      'Flutter surface',
-      Offset(flutterRect.left + 8, flutterRect.top + 6),
-      labelStyle.copyWith(color: Colors.white),
-    );
-    _label(
-      canvas,
-      'Native AndroidView (hole)',
-      Offset(holeRect.left + 6, holeRect.top + 4),
-      labelStyle,
-    );
+    _label(canvas, 'Flutter surface', Offset(flutterRect.left + 8, flutterRect.top + 6), labelStyle.copyWith(color: Colors.white));
+    _label(canvas, 'Native AndroidView (hole)', Offset(holeRect.left + 6, holeRect.top + 4), labelStyle);
 
     // Animated touch ripple to suggest hit-test.
     final ripple = Paint()
@@ -263,7 +248,10 @@ class _LifecyclePainter extends CustomPainter {
       )..layout();
       tp.paint(
         canvas,
-        Offset(i * w + (w - tp.width) / 2, (size.height - tp.height) / 2),
+        Offset(
+          i * w + (w - tp.width) / 2,
+          (size.height - tp.height) / 2,
+        ),
       );
     }
 
@@ -429,8 +417,10 @@ class _AnimatedDiagramState extends State<_AnimatedDiagram>
   @override
   void initState() {
     super.initState();
-    _c = AnimationController(vsync: this, duration: const Duration(seconds: 2))
-      ..repeat();
+    _c = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat();
   }
 
   @override
@@ -443,7 +433,9 @@ class _AnimatedDiagramState extends State<_AnimatedDiagram>
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      child: CustomPaint(painter: _EmbeddingDiagramPainter(_c)),
+      child: CustomPaint(
+        painter: _EmbeddingDiagramPainter(_c),
+      ),
     );
   }
 }
@@ -487,28 +479,28 @@ Widget _constructorMapSection(BuildContext context) {
                 'viewController',
                 'AndroidViewController',
                 'Owns the lifecycle of the native Android View. Required. Never '
-                    'null after construction. Setting it replaces the embedded view.',
+                'null after construction. Setting it replaces the embedded view.',
               ),
               _paramRow(
                 'hitTestBehavior',
                 'PlatformViewHitTestBehavior',
                 'Controls whether touches inside the view are absorbed (opaque), '
-                    'translucent (both Flutter and the native view see them), or '
-                    'transparent (Flutter ignores the area, native view still sees it).',
+                'translucent (both Flutter and the native view see them), or '
+                'transparent (Flutter ignores the area, native view still sees it).',
               ),
               _paramRow(
                 'gestureRecognizers',
                 'Set<Factory<OneSequenceGestureRecognizer>>',
                 'Recognizers Flutter is allowed to win in the gesture arena before '
-                    'forwarding to the native view. Use Factory<>() to avoid leaking '
-                    'state between widget rebuilds.',
+                'forwarding to the native view. Use Factory<>() to avoid leaking '
+                'state between widget rebuilds.',
               ),
               _paramRow(
                 'clipBehavior',
                 'Clip (default Clip.hardEdge)',
                 'How RenderAndroidView clips the embedded native view. hardEdge is '
-                    'almost always correct; antiAlias only matters when the surrounding '
-                    'shape has rounded corners and you actually see the seam.',
+                'almost always correct; antiAlias only matters when the surrounding '
+                'shape has rounded corners and you actually see the seam.',
               ),
               const SizedBox(height: 12),
               const Text(
@@ -573,7 +565,10 @@ Widget _paramRow(String name, String type, String role) {
           ),
         ),
         Expanded(
-          child: Text(role, style: const TextStyle(fontSize: 13, height: 1.35)),
+          child: Text(
+            role,
+            style: const TextStyle(fontSize: 13, height: 1.35),
+          ),
         ),
       ],
     ),
@@ -638,10 +633,7 @@ Widget _platformGuardSection(BuildContext context) {
                 height: 220,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: const Color(0xFFFFB300),
-                    width: 1.4,
-                  ),
+                  border: Border.all(color: const Color(0xFFFFB300), width: 1.4),
                   gradient: const LinearGradient(
                     colors: [Color(0xFFFFE082), Color(0xFFFFCC80)],
                     begin: Alignment.topLeft,
@@ -651,7 +643,9 @@ Widget _platformGuardSection(BuildContext context) {
                 child: Stack(
                   children: [
                     Positioned.fill(
-                      child: CustomPaint(painter: _SchematicPainter()),
+                      child: CustomPaint(
+                        painter: _SchematicPainter(),
+                      ),
                     ),
                     const Positioned(
                       left: 14,
@@ -730,13 +724,12 @@ class _SchematicPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
-      )..layout(maxWidth: r.width - 8);
+      )
+        ..layout(maxWidth: r.width - 8);
       tp.paint(
         canvas,
-        Offset(
-          r.left + (r.width - tp.width) / 2,
-          r.top + (r.height - tp.height) / 2,
-        ),
+        Offset(r.left + (r.width - tp.width) / 2,
+            r.top + (r.height - tp.height) / 2),
       );
     }
 
@@ -808,8 +801,8 @@ Widget _hitTestSection(BuildContext context) {
                         child: _hitTile(
                           'opaque',
                           'Flutter receives no events. Native view consumes '
-                              'everything inside its rect. Use for full-screen '
-                              'native canvases (camera, immersive map).',
+                          'everything inside its rect. Use for full-screen '
+                          'native canvases (camera, immersive map).',
                           (o) => register('opaque', o),
                           lastTap,
                           lastBehavior,
@@ -820,8 +813,8 @@ Widget _hitTestSection(BuildContext context) {
                         child: _hitTile(
                           'translucent',
                           'Both Flutter AND the native view see the event. '
-                              'Useful when a Flutter overlay (e.g. floating toolbar) '
-                              'must coexist with native scrolling.',
+                          'Useful when a Flutter overlay (e.g. floating toolbar) '
+                          'must coexist with native scrolling.',
                           (o) => register('translucent', o),
                           lastTap,
                           lastBehavior,
@@ -832,8 +825,8 @@ Widget _hitTestSection(BuildContext context) {
                         child: _hitTile(
                           'transparent',
                           'Flutter ignores the area entirely. The native view '
-                              'still receives the event. Use when Flutter must '
-                              'never absorb a tap meant for the native side.',
+                          'still receives the event. Use when Flutter must '
+                          'never absorb a tap meant for the native side.',
                           (o) => register('transparent', o),
                           lastTap,
                           lastBehavior,
@@ -887,7 +880,10 @@ Widget _hitTile(
           ),
         ),
         const SizedBox(height: 2),
-        Text(desc, style: const TextStyle(fontSize: 12, height: 1.3)),
+        Text(
+          desc,
+          style: const TextStyle(fontSize: 12, height: 1.3),
+        ),
       ],
     ),
   );
@@ -975,7 +971,9 @@ Widget _clipPanel(Clip c) {
           ),
         ),
         const SizedBox(height: 6),
-        Expanded(child: CustomPaint(painter: _ClipPainter(c))),
+        Expanded(
+          child: CustomPaint(painter: _ClipPainter(c)),
+        ),
         const SizedBox(height: 4),
         Text(
           _clipDescription(c),
@@ -1154,21 +1152,9 @@ Widget _hybridVsTextureSection(BuildContext context) {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  Expanded(
-                    child: _diagramTile(
-                      'Hybrid composition',
-                      const Color(0xFF26C6DA),
-                      'native view in real window; correct semantics; harder to animate',
-                    ),
-                  ),
+                  Expanded(child: _diagramTile('Hybrid composition', const Color(0xFF26C6DA), 'native view in real window; correct semantics; harder to animate')),
                   const SizedBox(width: 10),
-                  Expanded(
-                    child: _diagramTile(
-                      'Texture layer',
-                      const Color(0xFF80DEEA),
-                      'rendered into off-screen surface; cheap to transform; lossy input',
-                    ),
-                  ),
+                  Expanded(child: _diagramTile('Texture layer', const Color(0xFF80DEEA), 'rendered into off-screen surface; cheap to transform; lossy input')),
                 ],
               ),
               const SizedBox(height: 10),
@@ -1272,27 +1258,15 @@ Widget _compositingTradeoffsSection(BuildContext context) {
               Row(
                 children: [
                   Expanded(
-                    child: _miniDiagram(
-                      'Animated overlay',
-                      Icons.auto_awesome,
-                      const Color(0xFFC0CA33),
-                    ),
+                    child: _miniDiagram('Animated overlay', Icons.auto_awesome, const Color(0xFFC0CA33)),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: _miniDiagram(
-                      'GPU contention',
-                      Icons.memory,
-                      const Color(0xFF9E9D24),
-                    ),
+                    child: _miniDiagram('GPU contention', Icons.memory, const Color(0xFF9E9D24)),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: _miniDiagram(
-                      'Texture cache',
-                      Icons.image,
-                      const Color(0xFFCDDC39),
-                    ),
+                    child: _miniDiagram('Texture cache', Icons.image, const Color(0xFFCDDC39)),
                   ),
                 ],
               ),
@@ -1388,7 +1362,9 @@ Widget _lifecycleSection(BuildContext context) {
                   const SizedBox(height: 14),
                   SizedBox(
                     height: 80,
-                    child: CustomPaint(painter: _LifecyclePainter(stage)),
+                    child: CustomPaint(
+                      painter: _LifecyclePainter(stage),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Wrap(
@@ -1502,7 +1478,9 @@ Widget _pitfallsSection(BuildContext context) {
                 style: TextStyle(fontSize: 14, height: 1.45),
               ),
               const SizedBox(height: 12),
-              Column(children: pitfalls.map(_pitfallCard).toList()),
+              Column(
+                children: pitfalls.map(_pitfallCard).toList(),
+              ),
             ],
           ),
         ),
@@ -1548,42 +1526,18 @@ Widget _pitfallCard(_Pitfall p) {
 // =====================================================================
 Widget _realAppsSection(BuildContext context) {
   final entries = <_AppEntry>[
-    _AppEntry(
-      'Google Maps',
-      Icons.map,
-      const Color(0xFF388E3C),
-      'google_maps_flutter wraps AndroidView around com.google.android.gms.maps.MapView. Hit-test opaque, hybrid composition.',
-    ),
-    _AppEntry(
-      'WebView',
-      Icons.public,
-      const Color(0xFF1976D2),
-      'webview_flutter exposes android.webkit.WebView via a platform view. Often opaque, switches to texture for animations.',
-    ),
-    _AppEntry(
-      'AdMob banners',
-      Icons.campaign,
-      const Color(0xFFEF6C00),
-      'google_mobile_ads renders AdView through AndroidView. Translucent hit-test so taps still reach SDK click handlers.',
-    ),
-    _AppEntry(
-      'Camera preview',
-      Icons.photo_camera,
-      const Color(0xFF6D4C41),
-      'camera plugin uses AndroidView around a SurfaceView/PreviewView. Texture layer is preferred for filters and AR overlays.',
-    ),
-    _AppEntry(
-      'Native video',
-      Icons.movie,
-      const Color(0xFF7B1FA2),
-      'video_player can wrap ExoPlayer via AndroidView when texture layer is not enough (e.g. DRM that requires SurfaceView).',
-    ),
-    _AppEntry(
-      'Native chart libs',
-      Icons.bar_chart,
-      const Color(0xFFD81B60),
-      'Custom charting libraries (MPAndroidChart, AnyChart) embed via AndroidView so they can keep their interactive renderer.',
-    ),
+    _AppEntry('Google Maps', Icons.map, const Color(0xFF388E3C),
+        'google_maps_flutter wraps AndroidView around com.google.android.gms.maps.MapView. Hit-test opaque, hybrid composition.'),
+    _AppEntry('WebView', Icons.public, const Color(0xFF1976D2),
+        'webview_flutter exposes android.webkit.WebView via a platform view. Often opaque, switches to texture for animations.'),
+    _AppEntry('AdMob banners', Icons.campaign, const Color(0xFFEF6C00),
+        'google_mobile_ads renders AdView through AndroidView. Translucent hit-test so taps still reach SDK click handlers.'),
+    _AppEntry('Camera preview', Icons.photo_camera, const Color(0xFF6D4C41),
+        'camera plugin uses AndroidView around a SurfaceView/PreviewView. Texture layer is preferred for filters and AR overlays.'),
+    _AppEntry('Native video', Icons.movie, const Color(0xFF7B1FA2),
+        'video_player can wrap ExoPlayer via AndroidView when texture layer is not enough (e.g. DRM that requires SurfaceView).'),
+    _AppEntry('Native chart libs', Icons.bar_chart, const Color(0xFFD81B60),
+        'Custom charting libraries (MPAndroidChart, AnyChart) embed via AndroidView so they can keep their interactive renderer.'),
   ];
 
   return StatefulBuilder(
@@ -1661,10 +1615,16 @@ Widget _appCard(_AppEntry e) {
             children: [
               Text(
                 e.name,
-                style: TextStyle(fontWeight: FontWeight.bold, color: e.color),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: e.color,
+                ),
               ),
               const SizedBox(height: 4),
-              Text(e.note, style: const TextStyle(fontSize: 11.5, height: 1.3)),
+              Text(
+                e.note,
+                style: const TextStyle(fontSize: 11.5, height: 1.3),
+              ),
             ],
           ),
         ),
@@ -1711,35 +1671,35 @@ Widget _decisionSection(BuildContext context) {
                 'AndroidView',
                 Colors.indigo,
                 'Use when an Android-only library exposes interactive UI you '
-                    'cannot reasonably reimplement (Maps, WebView, AR camera).',
+                'cannot reasonably reimplement (Maps, WebView, AR camera).',
               ),
               _decisionCard(
                 'UiKitView',
                 Colors.teal,
                 'Same idea on iOS. AndroidView and UiKitView are sibling '
-                    'platform-view widgets; if you need both, write a thin shared '
-                    'wrapper that picks per platform.',
+                'platform-view widgets; if you need both, write a thin shared '
+                'wrapper that picks per platform.',
               ),
               _decisionCard(
                 'webview_flutter',
                 Colors.deepOrange,
                 'Already wraps AndroidView for you. Prefer the package over '
-                    'rolling your own AndroidView when the goal is just a webview.',
+                'rolling your own AndroidView when the goal is just a webview.',
               ),
               _decisionCard(
                 'Platform channel + Flutter widget',
                 Colors.brown,
                 'When the native side is logic-only (BLE, IAP, FFI), do NOT '
-                    'embed an AndroidView. Use MethodChannel/EventChannel and '
-                    'render the UI in pure Flutter — far cheaper.',
+                'embed an AndroidView. Use MethodChannel/EventChannel and '
+                'render the UI in pure Flutter — far cheaper.',
               ),
               _decisionCard(
                 'Fully native fragment',
                 Colors.deepPurple,
                 'When the entire screen is native (large legacy module), '
-                    'embedding inside Flutter via AndroidView is rarely the right '
-                    'answer. Push the screen with FlutterEngine.attach instead, '
-                    'or use add-to-app patterns.',
+                'embedding inside Flutter via AndroidView is rarely the right '
+                'answer. Push the screen with FlutterEngine.attach instead, '
+                'or use add-to-app patterns.',
               ),
             ],
           ),
@@ -1763,7 +1723,10 @@ Widget _decisionCard(String title, MaterialColor color, String body) {
       children: [
         Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.bold, color: color.shade900),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: color.shade900,
+          ),
         ),
         const SizedBox(height: 4),
         Text(body, style: const TextStyle(fontSize: 13, height: 1.4)),
@@ -1819,101 +1782,51 @@ Widget _referenceTableSection(BuildContext context) {
                     DataColumn(label: Text('Role')),
                   ],
                   rows: const [
-                    DataRow(
-                      cells: [
-                        DataCell(Text('viewController')),
-                        DataCell(Text('AndroidViewController')),
-                        DataCell(
-                          Text('Owns native view; setting it swaps the embed'),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('hitTestBehavior')),
-                        DataCell(Text('PlatformViewHitTestBehavior')),
-                        DataCell(
-                          Text(
-                            'Determines pointer routing across the boundary',
-                          ),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('gestureRecognizers')),
-                        DataCell(
-                          Text('Set<Factory<OneSequenceGestureRecognizer>>'),
-                        ),
-                        DataCell(
-                          Text('Recognizers Flutter is allowed to claim first'),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('clipBehavior')),
-                        DataCell(Text('Clip')),
-                        DataCell(Text('Edge clipping; default Clip.hardEdge')),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('sizedByParent')),
-                        DataCell(Text('bool (true)')),
-                        DataCell(
-                          Text(
-                            'RenderObject takes parent constraints verbatim',
-                          ),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('alwaysNeedsCompositing')),
-                        DataCell(Text('bool (true)')),
-                        DataCell(
-                          Text(
-                            'Forces a layer; required for native composition',
-                          ),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('paint')),
-                        DataCell(
-                          Text('void Function(PaintingContext, Offset)'),
-                        ),
-                        DataCell(
-                          Text('Adds a PlatformViewLayer to the engine'),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('hitTest')),
-                        DataCell(
-                          Text(
-                            'bool Function(BoxHitTestResult, {Offset position})',
-                          ),
-                        ),
-                        DataCell(
-                          Text('Implements the hit-test behavior contract'),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('describeSemanticsConfiguration')),
-                        DataCell(Text('void Function(SemanticsConfiguration)')),
-                        DataCell(
-                          Text(
-                            'Surfaces native a11y; requires controller support',
-                          ),
-                        ),
-                      ],
-                    ),
+                    DataRow(cells: [
+                      DataCell(Text('viewController')),
+                      DataCell(Text('AndroidViewController')),
+                      DataCell(Text('Owns native view; setting it swaps the embed')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('hitTestBehavior')),
+                      DataCell(Text('PlatformViewHitTestBehavior')),
+                      DataCell(Text('Determines pointer routing across the boundary')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('gestureRecognizers')),
+                      DataCell(Text('Set<Factory<OneSequenceGestureRecognizer>>')),
+                      DataCell(Text('Recognizers Flutter is allowed to claim first')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('clipBehavior')),
+                      DataCell(Text('Clip')),
+                      DataCell(Text('Edge clipping; default Clip.hardEdge')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('sizedByParent')),
+                      DataCell(Text('bool (true)')),
+                      DataCell(Text('RenderObject takes parent constraints verbatim')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('alwaysNeedsCompositing')),
+                      DataCell(Text('bool (true)')),
+                      DataCell(Text('Forces a layer; required for native composition')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('paint')),
+                      DataCell(Text('void Function(PaintingContext, Offset)')),
+                      DataCell(Text('Adds a PlatformViewLayer to the engine')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('hitTest')),
+                      DataCell(Text('bool Function(BoxHitTestResult, {Offset position})')),
+                      DataCell(Text('Implements the hit-test behavior contract')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('describeSemanticsConfiguration')),
+                      DataCell(Text('void Function(SemanticsConfiguration)')),
+                      DataCell(Text('Surfaces native a11y; requires controller support')),
+                    ]),
                   ],
                 ),
               ),
@@ -1959,30 +1872,12 @@ Widget _footerSection(BuildContext context) {
                 style: TextStyle(fontSize: 14, height: 1.45),
               ),
               const SizedBox(height: 12),
-              _refLine(
-                'AndroidView',
-                'api.flutter.dev/flutter/widgets/AndroidView-class.html',
-              ),
-              _refLine(
-                'AndroidViewController',
-                'api.flutter.dev/flutter/services/AndroidViewController-class.html',
-              ),
-              _refLine(
-                'PlatformViewSurface',
-                'api.flutter.dev/flutter/widgets/PlatformViewSurface-class.html',
-              ),
-              _refLine(
-                'Hybrid composition',
-                'docs.flutter.dev/platform-integration/android/platform-views',
-              ),
-              _refLine(
-                'Hit testing on platform views',
-                'docs.flutter.dev/platform-integration/platform-views/hit-testing',
-              ),
-              _refLine(
-                'Texture-layer hybrid composition',
-                'docs.flutter.dev/release/breaking-changes/android-surface-control',
-              ),
+              _refLine('AndroidView', 'api.flutter.dev/flutter/widgets/AndroidView-class.html'),
+              _refLine('AndroidViewController', 'api.flutter.dev/flutter/services/AndroidViewController-class.html'),
+              _refLine('PlatformViewSurface', 'api.flutter.dev/flutter/widgets/PlatformViewSurface-class.html'),
+              _refLine('Hybrid composition', 'docs.flutter.dev/platform-integration/android/platform-views'),
+              _refLine('Hit testing on platform views', 'docs.flutter.dev/platform-integration/platform-views/hit-testing'),
+              _refLine('Texture-layer hybrid composition', 'docs.flutter.dev/release/breaking-changes/android-surface-control'),
               const SizedBox(height: 12),
               const Text(
                 'End of demo. Total sections: 14. Custom painters: 4. Imports: '

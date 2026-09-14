@@ -46,32 +46,23 @@ Widget phInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 120.0,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF264653),
-            ),
-          ),
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF264653))),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 12.0, color: Color(0xFF457B8C)),
-          ),
+          child: Text(value,
+              style: TextStyle(fontSize: 12.0, color: Color(0xFF457B8C))),
         ),
       ],
     ),
   );
 }
 
-Widget phSimCard(
-  String title,
-  IconData icon,
-  Color accent,
-  List<Widget> children,
-) {
+Widget phSimCard(String title, IconData icon, Color accent,
+    List<Widget> children) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 10.0),
@@ -89,14 +80,11 @@ Widget phSimCard(
             Icon(icon, color: accent, size: 22.0),
             SizedBox(width: 8.0),
             Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF264653),
-                ),
-              ),
+              child: Text(title,
+                  style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF264653))),
             ),
           ],
         ),
@@ -147,24 +135,21 @@ dynamic build(BuildContext context) {
             Icon(Icons.science, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text(
-                'Physics Simulations',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              child: Text('Physics Simulations',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
             ),
           ],
         ),
         SizedBox(height: 8.0),
         Text(
-          'Abstract Simulation base class and concrete implementations: '
-          'SpringSimulation, FrictionSimulation, GravitySimulation, '
-          'ClampedSimulation',
-          style: TextStyle(fontSize: 13.0, color: Color(0xFFA0D4DA)),
-        ),
+            'Abstract Simulation base class and concrete implementations: '
+            'SpringSimulation, FrictionSimulation, GravitySimulation, '
+            'ClampedSimulation',
+            style: TextStyle(fontSize: 13.0, color: Color(0xFFA0D4DA))),
         SizedBox(height: 6.0),
         Row(
           children: [
@@ -194,39 +179,21 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Simulation (abstract)',
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('Simulation (abstract)',
+            style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 8.0),
-        _phApiRow(
-          Icons.location_on,
-          'x(double time)',
-          'Position at time t',
-          Color(0xFF2A9D8F),
-        ),
-        _phApiRow(
-          Icons.speed,
-          'dx(double time)',
-          'Velocity at time t',
-          Color(0xFF1A6B8A),
-        ),
-        _phApiRow(
-          Icons.check_circle,
-          'isDone(double time)',
-          'Whether simulation has reached equilibrium',
-          Color(0xFF457B8C),
-        ),
-        _phApiRow(
-          Icons.tune,
-          'tolerance',
-          'Tolerance for done determination',
-          Color(0xFF6BA3B0),
-        ),
+        _phApiRow(Icons.location_on, 'x(double time)',
+            'Position at time t', Color(0xFF2A9D8F)),
+        _phApiRow(Icons.speed, 'dx(double time)',
+            'Velocity at time t', Color(0xFF1A6B8A)),
+        _phApiRow(Icons.check_circle, 'isDone(double time)',
+            'Whether simulation has reached equilibrium',
+            Color(0xFF457B8C)),
+        _phApiRow(Icons.tune, 'tolerance',
+            'Tolerance for done determination', Color(0xFF6BA3B0)),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -243,10 +210,9 @@ dynamic build(BuildContext context) {
             '  Tolerance tolerance;\n'
             '}',
             style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF264653),
-            ),
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                color: Color(0xFF264653)),
           ),
         ),
       ],
@@ -292,33 +258,21 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'SpringDescription Parameters',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('SpringDescription Parameters',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 8.0),
-        _phParamCard(
-          'mass',
-          '1.0',
-          'Mass of the object on the spring. Higher mass = slower oscillation.',
-          Color(0xFF2A9D8F),
-        ),
-        _phParamCard(
-          'stiffness',
-          '100.0',
-          'Spring constant (k). Higher stiffness = stronger pull toward target.',
-          Color(0xFF1A6B8A),
-        ),
-        _phParamCard(
-          'damping',
-          '10.0',
-          'Damping coefficient. Higher = faster settling, less oscillation.',
-          Color(0xFF457B8C),
-        ),
+        _phParamCard('mass', '1.0',
+            'Mass of the object on the spring. Higher mass = slower oscillation.',
+            Color(0xFF2A9D8F)),
+        _phParamCard('stiffness', '100.0',
+            'Spring constant (k). Higher stiffness = stronger pull toward target.',
+            Color(0xFF1A6B8A)),
+        _phParamCard('damping', '10.0',
+            'Damping coefficient. Higher = faster settling, less oscillation.',
+            Color(0xFF457B8C)),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -330,30 +284,18 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Damping Types:',
-                style: TextStyle(
-                  fontSize: 11.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF264653),
-                ),
-              ),
+              Text('Damping Types:',
+                  style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF264653))),
               SizedBox(height: 4.0),
-              _phDampingRow(
-                'Under-damped',
-                'Oscillates past target',
-                Color(0xFFCC7766),
-              ),
-              _phDampingRow(
-                'Critically damped',
-                'Fastest settle, no overshoot',
-                Color(0xFF5A9A6E),
-              ),
-              _phDampingRow(
-                'Over-damped',
-                'Slow approach, no oscillation',
-                Color(0xFF6B8FC4),
-              ),
+              _phDampingRow('Under-damped', 'Oscillates past target',
+                  Color(0xFFCC7766)),
+              _phDampingRow('Critically damped', 'Fastest settle, no overshoot',
+                  Color(0xFF5A9A6E)),
+              _phDampingRow('Over-damped', 'Slow approach, no oscillation',
+                  Color(0xFF6B8FC4)),
             ],
           ),
         ),
@@ -435,14 +377,11 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Raw spring vs Clamped (xMax=0.8):',
-              style: TextStyle(
-                fontSize: 10.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF264653),
-              ),
-            ),
+            Text('Raw spring vs Clamped (xMax=0.8):',
+                style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF264653))),
             SizedBox(height: 4.0),
             ...['0.0', '0.25', '0.5', '0.75', '1.0'].map((t) {
               final tv = double.parse(t);
@@ -453,37 +392,24 @@ dynamic build(BuildContext context) {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 40.0,
-                      child: Text(
-                        't=$t',
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          color: Color(0xFF457B8C),
-                        ),
-                      ),
-                    ),
+                        width: 40.0,
+                        child: Text('t=$t',
+                            style: TextStyle(
+                                fontSize: 9.0, color: Color(0xFF457B8C)))),
                     SizedBox(
-                      width: 80.0,
-                      child: Text(
-                        'raw: ${raw.toStringAsFixed(3)}',
+                        width: 80.0,
+                        child: Text('raw: ${raw.toStringAsFixed(3)}',
+                            style: TextStyle(
+                                fontSize: 9.0, color: Color(0xFF2A9D8F)))),
+                    Text('clamped: ${clamped.toStringAsFixed(3)}',
                         style: TextStyle(
-                          fontSize: 9.0,
-                          color: Color(0xFF2A9D8F),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'clamped: ${clamped.toStringAsFixed(3)}',
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        fontWeight: clamped != raw
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color: clamped != raw
-                            ? Color(0xFFCC7766)
-                            : Color(0xFF457B8C),
-                      ),
-                    ),
+                            fontSize: 9.0,
+                            fontWeight: clamped != raw
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: clamped != raw
+                                ? Color(0xFFCC7766)
+                                : Color(0xFF457B8C))),
                   ],
                 ),
               );
@@ -497,11 +423,9 @@ dynamic build(BuildContext context) {
   // ── Section 8: Live Value Comparison ─────────────────────────
   print('\n[8] Position Comparison x(t)');
   for (final t in [0.0, 0.5, 1.0, 2.0]) {
-    print(
-      '  t=$t  spring=${phSpring.x(t).toStringAsFixed(2)}'
-      '  friction=${phFriction.x(t).toStringAsFixed(2)}'
-      '  gravity=${phGravity.x(t).toStringAsFixed(2)}',
-    );
+    print('  t=$t  spring=${phSpring.x(t).toStringAsFixed(2)}'
+        '  friction=${phFriction.x(t).toStringAsFixed(2)}'
+        '  gravity=${phGravity.x(t).toStringAsFixed(2)}');
   }
 
   final phComparisonSection = Container(
@@ -514,102 +438,76 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Position x(t) Comparison',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('Position x(t) Comparison',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 8.0),
         // Header
         Row(
           children: [
             SizedBox(
-              width: 36.0,
-              child: Text(
-                't',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.0,
-                  color: Color(0xFF264653),
-                ),
-              ),
-            ),
+                width: 36.0,
+                child: Text('t',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                        color: Color(0xFF264653)))),
             Expanded(
-              child: Text(
-                'Spring',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.0,
-                  color: Color(0xFF2A9D8F),
-                ),
-              ),
-            ),
+                child: Text('Spring',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                        color: Color(0xFF2A9D8F)))),
             Expanded(
-              child: Text(
-                'Friction',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.0,
-                  color: Color(0xFF1A6B8A),
-                ),
-              ),
-            ),
+                child: Text('Friction',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                        color: Color(0xFF1A6B8A)))),
             Expanded(
-              child: Text(
-                'Gravity',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.0,
-                  color: Color(0xFF457B8C),
-                ),
-              ),
-            ),
+                child: Text('Gravity',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                        color: Color(0xFF457B8C)))),
           ],
         ),
         Divider(color: Color(0xFFC0DDD8)),
-        ...[0.0, 0.25, 0.5, 1.0, 2.0, 3.0].map(
-          (t) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 36.0,
-                  child: Text(
-                    t.toString(),
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF264653)),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    phSpring.x(t).toStringAsFixed(3),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF2A9D8F)),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    phFriction.x(t).toStringAsFixed(1),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF1A6B8A)),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    phGravity.x(t).toStringAsFixed(1),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        ...[0.0, 0.25, 0.5, 1.0, 2.0, 3.0].map((t) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 2.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                      width: 36.0,
+                      child: Text(t.toString(),
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xFF264653)))),
+                  Expanded(
+                      child: Text(
+                          phSpring.x(t).toStringAsFixed(3),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xFF2A9D8F)))),
+                  Expanded(
+                      child: Text(
+                          phFriction.x(t).toStringAsFixed(1),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xFF1A6B8A)))),
+                  Expanded(
+                      child: Text(
+                          phGravity.x(t).toStringAsFixed(1),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xFF457B8C)))),
+                ],
+              ),
+            )),
       ],
     ),
   );
@@ -617,11 +515,9 @@ dynamic build(BuildContext context) {
   // ── Section 9: Velocity Comparison ───────────────────────────
   print('\n[9] Velocity Comparison dx(t)');
   for (final t in [0.0, 0.5, 1.0]) {
-    print(
-      '  t=$t  spring=${phSpring.dx(t).toStringAsFixed(2)}'
-      '  friction=${phFriction.dx(t).toStringAsFixed(2)}'
-      '  gravity=${phGravity.dx(t).toStringAsFixed(2)}',
-    );
+    print('  t=$t  spring=${phSpring.dx(t).toStringAsFixed(2)}'
+        '  friction=${phFriction.dx(t).toStringAsFixed(2)}'
+        '  gravity=${phGravity.dx(t).toStringAsFixed(2)}');
   }
 
   final phVelocitySection = Container(
@@ -634,101 +530,75 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Velocity dx(t) Comparison',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('Velocity dx(t) Comparison',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 8.0),
         Row(
           children: [
             SizedBox(
-              width: 36.0,
-              child: Text(
-                't',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.0,
-                  color: Color(0xFF264653),
-                ),
-              ),
-            ),
+                width: 36.0,
+                child: Text('t',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                        color: Color(0xFF264653)))),
             Expanded(
-              child: Text(
-                'Spring',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.0,
-                  color: Color(0xFF2A9D8F),
-                ),
-              ),
-            ),
+                child: Text('Spring',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                        color: Color(0xFF2A9D8F)))),
             Expanded(
-              child: Text(
-                'Friction',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.0,
-                  color: Color(0xFF1A6B8A),
-                ),
-              ),
-            ),
+                child: Text('Friction',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                        color: Color(0xFF1A6B8A)))),
             Expanded(
-              child: Text(
-                'Gravity',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10.0,
-                  color: Color(0xFF457B8C),
-                ),
-              ),
-            ),
+                child: Text('Gravity',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.0,
+                        color: Color(0xFF457B8C)))),
           ],
         ),
         Divider(color: Color(0xFFC0DDD8)),
-        ...[0.0, 0.25, 0.5, 1.0, 2.0, 3.0].map(
-          (t) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 36.0,
-                  child: Text(
-                    t.toString(),
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF264653)),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    phSpring.dx(t).toStringAsFixed(3),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF2A9D8F)),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    phFriction.dx(t).toStringAsFixed(2),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF1A6B8A)),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    phGravity.dx(t).toStringAsFixed(2),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        ...[0.0, 0.25, 0.5, 1.0, 2.0, 3.0].map((t) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 2.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                      width: 36.0,
+                      child: Text(t.toString(),
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xFF264653)))),
+                  Expanded(
+                      child: Text(
+                          phSpring.dx(t).toStringAsFixed(3),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xFF2A9D8F)))),
+                  Expanded(
+                      child: Text(
+                          phFriction.dx(t).toStringAsFixed(2),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xFF1A6B8A)))),
+                  Expanded(
+                      child: Text(
+                          phGravity.dx(t).toStringAsFixed(2),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xFF457B8C)))),
+                ],
+              ),
+            )),
       ],
     ),
   );
@@ -736,11 +606,9 @@ dynamic build(BuildContext context) {
   // ── Section 10: isDone Behavior ──────────────────────────────
   print('\n[10] isDone Behavior');
   for (final t in [0.5, 1.0, 5.0, 10.0]) {
-    print(
-      '  t=$t  spring=${phSpring.isDone(t)}'
-      '  friction=${phFriction.isDone(t)}'
-      '  gravity=${phGravity.isDone(t)}',
-    );
+    print('  t=$t  spring=${phSpring.isDone(t)}'
+        '  friction=${phFriction.isDone(t)}'
+        '  gravity=${phGravity.isDone(t)}');
   }
 
   final phDoneSection = Container(
@@ -753,14 +621,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'isDone(t) — When Simulations Complete',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('isDone(t) — When Simulations Complete',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 8.0),
         ...[0.5, 1.0, 2.0, 5.0, 10.0, 20.0].map((t) {
           final sDone = phSpring.isDone(t);
@@ -771,12 +636,10 @@ dynamic build(BuildContext context) {
             child: Row(
               children: [
                 SizedBox(
-                  width: 50.0,
-                  child: Text(
-                    't=${t.toStringAsFixed(1)}',
-                    style: TextStyle(fontSize: 10.0, color: Color(0xFF264653)),
-                  ),
-                ),
+                    width: 50.0,
+                    child: Text('t=${t.toStringAsFixed(1)}',
+                        style: TextStyle(
+                            fontSize: 10.0, color: Color(0xFF264653)))),
                 Expanded(child: _phDoneChip('Spring', sDone)),
                 Expanded(child: _phDoneChip('Friction', fDone)),
                 Expanded(child: _phDoneChip('Gravity', gDone)),
@@ -798,10 +661,9 @@ dynamic build(BuildContext context) {
             'near target with low velocity. Friction when stopped. '
             'Gravity when past end distance.',
             style: TextStyle(
-              fontSize: 10.0,
-              fontStyle: FontStyle.italic,
-              color: Color(0xFF457B8C),
-            ),
+                fontSize: 10.0,
+                fontStyle: FontStyle.italic,
+                color: Color(0xFF457B8C)),
           ),
         ),
       ],
@@ -825,14 +687,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Tolerance Configuration',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('Tolerance Configuration',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 8.0),
         phInfoRow('distance:', '${Tolerance.defaultTolerance.distance}'),
         phInfoRow('velocity:', '${Tolerance.defaultTolerance.velocity}'),
@@ -857,10 +716,9 @@ dynamic build(BuildContext context) {
             '  velocity: 0.01,\n'
             ');',
             style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF264653),
-            ),
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                color: Color(0xFF264653)),
           ),
         ),
       ],
@@ -882,14 +740,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'AnimationController.animateWith()',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('AnimationController.animateWith()',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -912,31 +767,18 @@ dynamic build(BuildContext context) {
             ');\n'
             'controller.animateWith(spring);',
             style: TextStyle(
-              fontSize: 10.0,
-              fontFamily: 'monospace',
-              color: Color(0xFF264653),
-            ),
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                color: Color(0xFF264653)),
           ),
         ),
         SizedBox(height: 8.0),
-        _phUsageRow(
-          Icons.animation,
-          'Spring bounce',
-          'Bouncy animations, drag gestures',
-          Color(0xFF2A9D8F),
-        ),
-        _phUsageRow(
-          Icons.swipe,
-          'Friction decelerate',
-          'Fling gestures, scroll momentum',
-          Color(0xFF1A6B8A),
-        ),
-        _phUsageRow(
-          Icons.arrow_downward,
-          'Gravity drop',
-          'Falling objects, toss effects',
-          Color(0xFF457B8C),
-        ),
+        _phUsageRow(Icons.animation, 'Spring bounce',
+            'Bouncy animations, drag gestures', Color(0xFF2A9D8F)),
+        _phUsageRow(Icons.swipe, 'Friction decelerate',
+            'Fling gestures, scroll momentum', Color(0xFF1A6B8A)),
+        _phUsageRow(Icons.arrow_downward, 'Gravity drop',
+            'Falling objects, toss effects', Color(0xFF457B8C)),
       ],
     ),
   );
@@ -957,33 +799,21 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Scroll Physics ↔ Simulation',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('Scroll Physics ↔ Simulation',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 10.0),
-        _phScrollCard(
-          'BouncingScrollPhysics',
-          'iOS-style bounce',
-          'Creates SpringSimulation for overscroll recovery',
-          Color(0xFF2A9D8F),
-        ),
-        _phScrollCard(
-          'ClampingScrollPhysics',
-          'Android clamp',
-          'Creates FrictionSimulation for momentum',
-          Color(0xFF1A6B8A),
-        ),
-        _phScrollCard(
-          'NeverScrollableScrollPhysics',
-          'Disabled',
-          'No simulation created — scroll locked',
-          Color(0xFF6BA3B0),
-        ),
+        _phScrollCard('BouncingScrollPhysics', 'iOS-style bounce',
+            'Creates SpringSimulation for overscroll recovery',
+            Color(0xFF2A9D8F)),
+        _phScrollCard('ClampingScrollPhysics', 'Android clamp',
+            'Creates FrictionSimulation for momentum',
+            Color(0xFF1A6B8A)),
+        _phScrollCard('NeverScrollableScrollPhysics', 'Disabled',
+            'No simulation created — scroll locked',
+            Color(0xFF6BA3B0)),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -997,10 +827,9 @@ dynamic build(BuildContext context) {
             'physics simulation. The simulation computes position over '
             'time, updating the scroll offset each frame until isDone.',
             style: TextStyle(
-              fontSize: 10.0,
-              fontStyle: FontStyle.italic,
-              color: Color(0xFF457B8C),
-            ),
+                fontSize: 10.0,
+                fontStyle: FontStyle.italic,
+                color: Color(0xFF457B8C)),
           ),
         ),
       ],
@@ -1021,36 +850,29 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Spring Position x(t) Timeline',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
-        Text(
-          'Target: 1.0, showing approach and possible overshoot',
-          style: TextStyle(
-            fontSize: 10.0,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF457B8C),
-          ),
-        ),
+        Text('Spring Position x(t) Timeline',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
+        Text('Target: 1.0, showing approach and possible overshoot',
+            style: TextStyle(
+                fontSize: 10.0,
+                fontStyle: FontStyle.italic,
+                color: Color(0xFF457B8C))),
         SizedBox(height: 8.0),
-        ...[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1.0, 1.5, 2.0].map((t) {
+        ...[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1.0, 1.5, 2.0]
+            .map((t) {
           final pos = phSpring.x(t).clamp(0.0, 1.5);
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 2.0),
             child: Row(
               children: [
                 SizedBox(
-                  width: 36.0,
-                  child: Text(
-                    t.toStringAsFixed(1),
-                    style: TextStyle(fontSize: 9.0, color: Color(0xFF264653)),
-                  ),
-                ),
+                    width: 36.0,
+                    child: Text(t.toStringAsFixed(1),
+                        style: TextStyle(
+                            fontSize: 9.0, color: Color(0xFF264653)))),
                 Expanded(
                   child: SizedBox(
                     height: 14.0,
@@ -1078,12 +900,10 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(width: 4.0),
                 SizedBox(
-                  width: 40.0,
-                  child: Text(
-                    phSpring.x(t).toStringAsFixed(3),
-                    style: TextStyle(fontSize: 9.0, color: Color(0xFF457B8C)),
-                  ),
-                ),
+                    width: 40.0,
+                    child: Text(phSpring.x(t).toStringAsFixed(3),
+                        style: TextStyle(
+                            fontSize: 9.0, color: Color(0xFF457B8C)))),
               ],
             ),
           );
@@ -1156,14 +976,11 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Simulation Class Hierarchy',
-          style: TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF264653),
-          ),
-        ),
+        Text('Simulation Class Hierarchy',
+            style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF264653))),
         SizedBox(height: 10.0),
         ...hierarchyItems.map((h) {
           final indent = (h['indent'] as int) * 20.0;
@@ -1184,21 +1001,15 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        h['name'] as String,
-                        style: TextStyle(
-                          fontSize: 11.0,
-                          fontWeight: FontWeight.w700,
-                          color: h['color'] as Color,
-                        ),
-                      ),
-                      Text(
-                        h['desc'] as String,
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          color: Color(0xFF457B8C),
-                        ),
-                      ),
+                      Text(h['name'] as String,
+                          style: TextStyle(
+                              fontSize: 11.0,
+                              fontWeight: FontWeight.w700,
+                              color: h['color'] as Color)),
+                      Text(h['desc'] as String,
+                          style: TextStyle(
+                              fontSize: 9.0,
+                              color: Color(0xFF457B8C))),
                     ],
                   ),
                 ),
@@ -1228,57 +1039,45 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text(
-          'Physics Simulation Dashboard',
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        Text('Physics Simulation Dashboard',
+            style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Text(
-                  '4',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFA0D4DA),
-                  ),
-                ),
-                Text(
-                  'Concrete types',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF7AB8C4)),
-                ),
+                Text('4',
+                    style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFA0D4DA))),
+                Text('Concrete types',
+                    style: TextStyle(
+                        fontSize: 11.0, color: Color(0xFF7AB8C4))),
               ],
             ),
             Column(
               children: [
-                Text(
-                  '3',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFA0D4DA),
-                  ),
-                ),
-                Text(
-                  'API methods',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF7AB8C4)),
-                ),
+                Text('3',
+                    style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFA0D4DA))),
+                Text('API methods',
+                    style: TextStyle(
+                        fontSize: 11.0, color: Color(0xFF7AB8C4))),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.science, color: Color(0xFFA0D4DA), size: 28.0),
-                Text(
-                  'Physics core',
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF7AB8C4)),
-                ),
+                Text('Physics core',
+                    style: TextStyle(
+                        fontSize: 11.0, color: Color(0xFF7AB8C4))),
               ],
             ),
           ],
@@ -1296,15 +1095,13 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 8.0),
         Text(
-          'spring.x(1.0)=${phSpring.x(1.0).toStringAsFixed(4)}  '
-          'friction.x(1.0)=${phFriction.x(1.0).toStringAsFixed(1)}  '
-          'gravity.x(1.0)=${phGravity.x(1.0).toStringAsFixed(1)}',
-          style: TextStyle(
-            fontSize: 10.0,
-            fontFamily: 'monospace',
-            color: Color(0xFFA0D4DA),
-          ),
-        ),
+            'spring.x(1.0)=${phSpring.x(1.0).toStringAsFixed(4)}  '
+            'friction.x(1.0)=${phFriction.x(1.0).toStringAsFixed(1)}  '
+            'gravity.x(1.0)=${phGravity.x(1.0).toStringAsFixed(1)}',
+            style: TextStyle(
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                color: Color(0xFFA0D4DA))),
       ],
     ),
   );
@@ -1381,104 +1178,74 @@ Widget _phApiRow(IconData icon, String name, String desc, Color accent) {
         SizedBox(width: 6.0),
         SizedBox(
           width: 120.0,
-          child: Text(
-            name,
-            style: TextStyle(
-              fontSize: 11.0,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'monospace',
-              color: Color(0xFF264653),
-            ),
-          ),
+          child: Text(name,
+              style: TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                  color: Color(0xFF264653))),
         ),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C)),
-          ),
+          child: Text(desc,
+              style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C))),
         ),
       ],
     ),
   );
 }
 
-Widget _phValueTable(
-  String colT,
-  String colX,
-  String colDx,
-  List<List<dynamic>> rows,
-  Color accent,
-) {
+Widget _phValueTable(String colT, String colX, String colDx,
+    List<List<dynamic>> rows, Color accent) {
   return Column(
     children: [
       Row(
         children: [
           SizedBox(
-            width: 36.0,
-            child: Text(
-              colT,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 10.0,
-                color: Color(0xFF264653),
-              ),
-            ),
-          ),
+              width: 36.0,
+              child: Text(colT,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10.0,
+                      color: Color(0xFF264653)))),
           Expanded(
-            child: Text(
-              colX,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 10.0,
-                color: accent,
-              ),
-            ),
-          ),
+              child: Text(colX,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10.0,
+                      color: accent))),
           Expanded(
-            child: Text(
-              colDx,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 10.0,
-                color: accent,
-              ),
-            ),
-          ),
+              child: Text(colDx,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10.0,
+                      color: accent))),
         ],
       ),
       Divider(color: Color(0xFFC0DDD8)),
-      ...rows.map(
-        (r) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 1.0),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 36.0,
-                child: Text(
-                  r[0] as String,
-                  style: TextStyle(fontSize: 9.0, color: Color(0xFF264653)),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  (r[1] as double).toStringAsFixed(4),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 9.0, color: Color(0xFF457B8C)),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  (r[2] as double).toStringAsFixed(4),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 9.0, color: Color(0xFF457B8C)),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      ...rows.map((r) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 1.0),
+            child: Row(
+              children: [
+                SizedBox(
+                    width: 36.0,
+                    child: Text(r[0] as String,
+                        style: TextStyle(
+                            fontSize: 9.0, color: Color(0xFF264653)))),
+                Expanded(
+                    child: Text((r[1] as double).toStringAsFixed(4),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 9.0, color: Color(0xFF457B8C)))),
+                Expanded(
+                    child: Text((r[2] as double).toStringAsFixed(4),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 9.0, color: Color(0xFF457B8C)))),
+              ],
+            ),
+          )),
     ],
   );
 }
@@ -1498,21 +1265,19 @@ Widget _phParamCard(String name, String value, String desc, Color accent) {
       children: [
         Row(
           children: [
-            Text(
-              name,
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
-                color: Color(0xFF264653),
-              ),
-            ),
+            Text(name,
+                style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF264653))),
             SizedBox(width: 8.0),
             phChip(value, accent),
           ],
         ),
         SizedBox(height: 4.0),
-        Text(desc, style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C))),
+        Text(desc,
+            style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C))),
       ],
     ),
   );
@@ -1530,22 +1295,16 @@ Widget _phDampingRow(String label, String desc, Color color) {
         ),
         SizedBox(width: 6.0),
         SizedBox(
-          width: 100.0,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 10.0,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF264653),
-            ),
-          ),
-        ),
+            width: 100.0,
+            child: Text(label,
+                style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF264653)))),
         Expanded(
-          child: Text(
-            desc,
-            style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C)),
-          ),
-        ),
+            child: Text(desc,
+                style: TextStyle(
+                    fontSize: 10.0, color: Color(0xFF457B8C)))),
       ],
     ),
   );
@@ -1563,10 +1322,9 @@ Widget _phDoneChip(String label, bool done) {
       done ? 'done' : 'running',
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: 8.0,
-        fontWeight: FontWeight.w600,
-        color: done ? Color(0xFF2A7A5A) : Color(0xFF9A4A4A),
-      ),
+          fontSize: 8.0,
+          fontWeight: FontWeight.w600,
+          color: done ? Color(0xFF2A7A5A) : Color(0xFF9A4A4A)),
     ),
   );
 }
@@ -1582,18 +1340,14 @@ Widget _phUsageRow(IconData icon, String title, String desc, Color color) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF264653),
-              ),
-            ),
-            Text(
-              desc,
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C)),
-            ),
+            Text(title,
+                style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF264653))),
+            Text(desc,
+                style: TextStyle(
+                    fontSize: 10.0, color: Color(0xFF457B8C))),
           ],
         ),
       ],
@@ -1620,23 +1374,19 @@ Widget _phScrollCard(String name, String tag, String desc, Color accent) {
             children: [
               Row(
                 children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF264653),
-                    ),
-                  ),
+                  Text(name,
+                      style: TextStyle(
+                          fontSize: 11.0,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF264653))),
                   SizedBox(width: 6.0),
                   phChip(tag, accent),
                 ],
               ),
               SizedBox(height: 4.0),
-              Text(
-                desc,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF457B8C)),
-              ),
+              Text(desc,
+                  style: TextStyle(
+                      fontSize: 10.0, color: Color(0xFF457B8C))),
             ],
           ),
         ),

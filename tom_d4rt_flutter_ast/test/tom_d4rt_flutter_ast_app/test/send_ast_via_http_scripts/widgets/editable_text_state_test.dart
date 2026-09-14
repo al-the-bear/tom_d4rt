@@ -17,8 +17,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.text_fields,
       'title': 'What is EditableTextState?',
-      'body':
-          'EditableTextState is the State object for EditableText, '
+      'body': 'EditableTextState is the State object for EditableText, '
           'the low-level widget behind TextField and TextFormField. '
           'It manages the text editing lifecycle: connecting to the '
           'platform input method, handling selection, formatting '
@@ -28,8 +27,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.keyboard,
       'title': 'Input Method Connection',
-      'body':
-          'EditableTextState implements TextInputClient, which '
+      'body': 'EditableTextState implements TextInputClient, which '
           'communicates with the platform\u0027s soft keyboard. It '
           'sends the current editing state (text, selection, '
           'composing region) to the IME and receives user input '
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.select_all,
       'title': 'Selection Management',
-      'body':
-          'Manages text selection: cursor position, selection range, '
+      'body': 'Manages text selection: cursor position, selection range, '
           'double-tap word selection, triple-tap line selection. '
           'Coordinates with the system text selection toolbar for '
           'copy, cut, paste, and select all operations.',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.auto_fix_high,
       'title': 'Input Formatters',
-      'body':
-          'Applies TextInputFormatter instances to incoming text '
+      'body': 'Applies TextInputFormatter instances to incoming text '
           'before it is displayed. Formatters can restrict input '
           '(digits only), transform text (uppercase), or limit '
           'length. Applied in order, each receiving the previous '
@@ -130,64 +126,56 @@ dynamic build(BuildContext context) {
     {
       'name': 'textEditingValue',
       'type': 'TextEditingValue',
-      'desc':
-          'The current editing state: text content, selection '
+      'desc': 'The current editing state: text content, selection '
           '(cursor position + range), and composing region '
           '(the text being composed by the input method).',
     },
     {
       'name': 'updateEditingValue()',
       'type': 'void',
-      'desc':
-          'Called by the platform to deliver new editing state. '
+      'desc': 'Called by the platform to deliver new editing state. '
           'Applies input formatters, updates the controller, '
           'and triggers a build with the new text.',
     },
     {
       'name': 'performAction()',
       'type': 'void',
-      'desc':
-          'Called when the user presses the keyboard action button '
+      'desc': 'Called when the user presses the keyboard action button '
           '(done, next, go, search). Routes to onEditingComplete '
           'or onSubmitted callbacks.',
     },
     {
       'name': 'connectionClosed()',
       'type': 'void',
-      'desc':
-          'Called when the input connection is closed by the '
+      'desc': 'Called when the input connection is closed by the '
           'platform. The soft keyboard dismisses, but the text '
           'field may still be focused.',
     },
     {
       'name': 'showToolbar()',
       'type': 'bool',
-      'desc':
-          'Shows the text selection toolbar (copy, cut, paste). '
+      'desc': 'Shows the text selection toolbar (copy, cut, paste). '
           'Returns true if the toolbar was shown. Only works '
           'when there is a selection or the field is focused.',
     },
     {
       'name': 'bringIntoView()',
       'type': 'void',
-      'desc':
-          'Scrolls the viewport to make a specific TextPosition '
+      'desc': 'Scrolls the viewport to make a specific TextPosition '
           'visible. Called automatically when the cursor moves '
           'out of the visible area.',
     },
     {
       'name': 'renderEditable',
       'type': 'RenderEditable',
-      'desc':
-          'The underlying RenderEditable that performs text layout '
+      'desc': 'The underlying RenderEditable that performs text layout '
           'and painting. Access it for hit-testing, measuring '
           'text positions, and computing caret rectangles.',
     },
     {
       'name': 'currentAutofillScope',
       'type': 'AutofillScope?',
-      'desc':
-          'The autofill scope this text field belongs to. Groups '
+      'desc': 'The autofill scope this text field belongs to. Groups '
           'related fields (email + password) for platform '
           'autofill support.',
     },
@@ -276,8 +264,7 @@ dynamic build(BuildContext context) {
   final lifecycleSteps = <Map<String, dynamic>>[
     {
       'step': '1. initState',
-      'desc':
-          'Creates the TextEditingController (if not provided), '
+      'desc': 'Creates the TextEditingController (if not provided), '
           'sets up the FocusNode listener, and registers for '
           'clipboard status changes.',
       'icon': Icons.play_arrow,
@@ -285,8 +272,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Focus Gained',
-      'desc':
-          'When focus is acquired, opens the input connection to '
+      'desc': 'When focus is acquired, opens the input connection to '
           'the platform. The soft keyboard appears (if platform '
           'allows). Sends current editing value to the IME.',
       'icon': Icons.keyboard,
@@ -294,8 +280,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Text Input',
-      'desc':
-          'User types: platform calls updateEditingValue. Input '
+      'desc': 'User types: platform calls updateEditingValue. Input '
           'formatters run. Controller is updated. Build triggers. '
           'Selection handles and toolbar update.',
       'icon': Icons.edit,
@@ -303,8 +288,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Selection Change',
-      'desc':
-          'User taps/drags to change selection. RenderEditable '
+      'desc': 'User taps/drags to change selection. RenderEditable '
           'calculates new TextSelection from hit-test position. '
           'EditableTextState updates the selection and notifies.',
       'icon': Icons.select_all,
@@ -312,8 +296,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Action Performed',
-      'desc':
-          'User presses Done/Next/Go. performAction calls '
+      'desc': 'User presses Done/Next/Go. performAction calls '
           'onEditingComplete, then onSubmitted. For '
           'TextInputAction.next, focus moves to next field.',
       'icon': Icons.done,
@@ -321,8 +304,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '6. Focus Lost',
-      'desc':
-          'Input connection closes. Keyboard dismisses. '
+      'desc': 'Input connection closes. Keyboard dismisses. '
           'Selection handles hide. The text remains in the '
           'controller but editing is inactive.',
       'icon': Icons.visibility_off,
@@ -349,7 +331,11 @@ dynamic build(BuildContext context) {
                     color: lsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(ls['icon'] as IconData, color: lsColor, size: 18),
+                  child: Icon(
+                    ls['icon'] as IconData,
+                    color: lsColor,
+                    size: 18,
+                  ),
                 ),
                 if (i < lifecycleSteps.length - 1)
                   Container(
@@ -406,39 +392,34 @@ dynamic build(BuildContext context) {
   final selectionTopics = <Map<String, dynamic>>[
     {
       'title': 'Cursor Position',
-      'desc':
-          'TextSelection.collapsed(offset: n) represents a cursor '
+      'desc': 'TextSelection.collapsed(offset: n) represents a cursor '
           'at position n with no selection range. The cursor blinks '
           'at this offset in the text.',
       'color': Colors.teal,
     },
     {
       'title': 'Range Selection',
-      'desc':
-          'TextSelection(baseOffset: a, extentOffset: b) selects '
+      'desc': 'TextSelection(baseOffset: a, extentOffset: b) selects '
           'text from position a to b. The extent is where the user '
           'last touched; it moves during drag gestures.',
       'color': Colors.blue,
     },
     {
       'title': 'Word Selection',
-      'desc':
-          'Double-tap selects a word. EditableTextState uses '
+      'desc': 'Double-tap selects a word. EditableTextState uses '
           'RenderEditable.getWordAtOffset to find word boundaries. '
           'The selection snaps to word start/end.',
       'color': Colors.green,
     },
     {
       'title': 'Line Selection',
-      'desc':
-          'Triple-tap selects an entire line. Uses the line metrics '
+      'desc': 'Triple-tap selects an entire line. Uses the line metrics '
           'from the text layout to determine line boundaries.',
       'color': Colors.orange,
     },
     {
       'title': 'Selection Handles',
-      'desc':
-          'When a range is selected, draggable handles appear at '
+      'desc': 'When a range is selected, draggable handles appear at '
           'the base and extent. Dragging a handle calls '
           'onSelectionHandleDragUpdate, which recomputes the '
           'selection from the new position.',
@@ -446,8 +427,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Toolbar Actions',
-      'desc':
-          'Cut removes selected text and copies to clipboard. Copy '
+      'desc': 'Cut removes selected text and copies to clipboard. Copy '
           'copies without removing. Paste inserts clipboard content '
           'at cursor. Select All selects the entire text.',
       'color': Colors.red,
@@ -528,12 +508,10 @@ dynamic build(BuildContext context) {
   final formatters = <Map<String, dynamic>>[
     {
       'title': 'FilteringTextInputFormatter',
-      'desc':
-          'Restricts characters by regex pattern. allow() keeps '
+      'desc': 'Restricts characters by regex pattern. allow() keeps '
           'matching characters. deny() removes matching characters. '
           'Common: digitsOnly, singleLineFormatter.',
-      'diagram':
-          'FilteringTextInputFormatter.digitsOnly\n'
+      'diagram': 'FilteringTextInputFormatter.digitsOnly\n'
           '// Input: "abc123def" -> "123"\n'
           '\n'
           'FilteringTextInputFormatter.deny(\n'
@@ -544,24 +522,20 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'LengthLimitingTextInputFormatter',
-      'desc':
-          'Limits the maximum number of characters. Truncates '
+      'desc': 'Limits the maximum number of characters. Truncates '
           'input that exceeds the limit. Respects composing '
           'text to avoid breaking IME input.',
-      'diagram':
-          'LengthLimitingTextInputFormatter(10)\n'
+      'diagram': 'LengthLimitingTextInputFormatter(10)\n'
           '// "Hello World!" -> "Hello Worl"\n'
           '// Max 10 characters',
       'color': Colors.blue,
     },
     {
       'title': 'Custom Formatter',
-      'desc':
-          'Implement TextInputFormatter with formatEditUpdate. '
+      'desc': 'Implement TextInputFormatter with formatEditUpdate. '
           'Receives old and new TextEditingValue. Returns the '
           'desired new value. Can transform text freely.',
-      'diagram':
-          'class UpperCaseFormatter\n'
+      'diagram': 'class UpperCaseFormatter\n'
           '    extends TextInputFormatter {\n'
           '  @override\n'
           '  TextEditingValue formatEditUpdate(\n'
@@ -577,12 +551,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Chaining Formatters',
-      'desc':
-          'Formatters are applied in list order. Each receives the '
+      'desc': 'Formatters are applied in list order. Each receives the '
           'output of the previous. Use this to combine filtering '
           'and transformation.',
-      'diagram':
-          'inputFormatters: [\n'
+      'diagram': 'inputFormatters: [\n'
           '  FilteringTextInputFormatter.digitsOnly,\n'
           '  LengthLimitingTextInputFormatter(6),\n'
           '  CreditCardFormatter(),\n'
@@ -663,16 +635,14 @@ dynamic build(BuildContext context) {
   final actions = <Map<String, dynamic>>[
     {
       'action': 'TextInputAction.done',
-      'desc':
-          'Submits the input and typically closes the keyboard. '
+      'desc': 'Submits the input and typically closes the keyboard. '
           'Used for single-field forms and search bars.',
       'icon': Icons.done,
       'color': Colors.teal,
     },
     {
       'action': 'TextInputAction.next',
-      'desc':
-          'Moves focus to the next field in the form. Used in '
+      'desc': 'Moves focus to the next field in the form. Used in '
           'multi-field forms to guide the user through fields '
           'without dismissing the keyboard.',
       'icon': Icons.arrow_forward,
@@ -680,32 +650,28 @@ dynamic build(BuildContext context) {
     },
     {
       'action': 'TextInputAction.newline',
-      'desc':
-          'Inserts a newline character. Used for multiline text '
+      'desc': 'Inserts a newline character. Used for multiline text '
           'fields where Enter should add a line, not submit.',
       'icon': Icons.keyboard_return,
       'color': Colors.green,
     },
     {
       'action': 'TextInputAction.search',
-      'desc':
-          'Shows a Search icon on the keyboard action button. '
+      'desc': 'Shows a Search icon on the keyboard action button. '
           'Triggers onSubmitted, typically starting a search.',
       'icon': Icons.search,
       'color': Colors.orange,
     },
     {
       'action': 'TextInputAction.go',
-      'desc':
-          'Shows a Go icon. Used for URL bars or navigation fields '
+      'desc': 'Shows a Go icon. Used for URL bars or navigation fields '
           'where the action navigates to a destination.',
       'icon': Icons.open_in_browser,
       'color': Colors.purple,
     },
     {
       'action': 'TextInputAction.send',
-      'desc':
-          'Shows a Send icon. Used for chat/messaging input where '
+      'desc': 'Shows a Send icon. Used for chat/messaging input where '
           'the action sends the typed message.',
       'icon': Icons.send,
       'color': Colors.red,
@@ -787,41 +753,33 @@ dynamic build(BuildContext context) {
   final hierarchy = <Map<String, dynamic>>[
     {
       'level': 'EditableText',
-      'features':
-          'TextInputClient, low-level rendering, IME connection, '
+      'features': 'TextInputClient, low-level rendering, IME connection, '
           'text layout, selection handles, input formatters',
-      'purpose':
-          'The raw editable text widget. No decoration, hint text, '
+      'purpose': 'The raw editable text widget. No decoration, hint text, '
           'labels, or error messages. Direct control over rendering.',
       'color': Colors.teal,
     },
     {
       'level': 'TextField',
-      'features':
-          'EditableText + InputDecoration, Material Design, '
+      'features': 'EditableText + InputDecoration, Material Design, '
           'hint, label, prefix, suffix, error, counter, borders',
-      'purpose':
-          'Material Design text field. Wraps EditableText with '
+      'purpose': 'Material Design text field. Wraps EditableText with '
           'visual decoration and accessibility features.',
       'color': Colors.blue,
     },
     {
       'level': 'TextFormField',
-      'features':
-          'TextField + FormField integration, validation, '
+      'features': 'TextField + FormField integration, validation, '
           'onSaved, autovalidateMode, error display',
-      'purpose':
-          'Material text field integrated with Form. Adds '
+      'purpose': 'Material text field integrated with Form. Adds '
           'validation and save lifecycle to TextField.',
       'color': Colors.green,
     },
     {
       'level': 'CupertinoTextField',
-      'features':
-          'EditableText + iOS-style decoration, placeholder, '
+      'features': 'EditableText + iOS-style decoration, placeholder, '
           'clearButton, Cupertino borders and padding',
-      'purpose':
-          'iOS-style text field. Wraps EditableText with '
+      'purpose': 'iOS-style text field. Wraps EditableText with '
           'Cupertino visual design.',
       'color': Colors.orange,
     },
@@ -911,38 +869,32 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.text_fields,
-      'text':
-          'EditableTextState is the State behind EditableText, '
+      'text': 'EditableTextState is the State behind EditableText, '
           'managing the full text editing lifecycle.',
     },
     {
       'icon': Icons.keyboard,
-      'text':
-          'Implements TextInputClient for platform IME connection, '
+      'text': 'Implements TextInputClient for platform IME connection, '
           'receiving text input via updateEditingValue.',
     },
     {
       'icon': Icons.select_all,
-      'text':
-          'Handles cursor positioning, range selection, word and '
+      'text': 'Handles cursor positioning, range selection, word and '
           'line selection, and selection toolbar operations.',
     },
     {
       'icon': Icons.auto_fix_high,
-      'text':
-          'Applies TextInputFormatter chains to transform and '
+      'text': 'Applies TextInputFormatter chains to transform and '
           'restrict input before displaying.',
     },
     {
       'icon': Icons.done,
-      'text':
-          'Routes keyboard actions (done, next, search, go, send) '
+      'text': 'Routes keyboard actions (done, next, search, go, send) '
           'to onEditingComplete and onSubmitted callbacks.',
     },
     {
       'icon': Icons.layers,
-      'text':
-          'EditableText sits below TextField, TextFormField, and '
+      'text': 'EditableText sits below TextField, TextFormField, and '
           'CupertinoTextField in the widget hierarchy.',
     },
   ];

@@ -268,62 +268,52 @@ dynamic build(BuildContext context) {
   final glossaryEntries = <_GlossaryEntry>[
     _GlossaryEntry(
       term: 'Flexible',
-      summary:
-          'A widget that controls how a child of Row/Column/Flex flexes '
+      summary: 'A widget that controls how a child of Row/Column/Flex flexes '
           'along the main axis. Carries a flex weight and a FlexFit.',
     ),
     _GlossaryEntry(
       term: 'Expanded',
-      summary:
-          'Sugar for Flexible(fit: FlexFit.tight). The child is forced '
+      summary: 'Sugar for Flexible(fit: FlexFit.tight). The child is forced '
           'to fill its share -- no compromise, no shrinking.',
     ),
     _GlossaryEntry(
       term: 'FlexFit.loose',
-      summary:
-          'Default for Flexible. Child may be SMALLER than the share -- '
+      summary: 'Default for Flexible. Child may be SMALLER than the share -- '
           'useful when intrinsic size matters (icons, badges, short text).',
     ),
     _GlossaryEntry(
       term: 'FlexFit.tight',
-      summary:
-          'Child is forced to exactly its share. Equivalent to wrapping '
+      summary: 'Child is forced to exactly its share. Equivalent to wrapping '
           'with Expanded. Use when you want hard column rules.',
     ),
     _GlossaryEntry(
       term: 'flex (int)',
-      summary:
-          'Relative weight versus other Flexible/Expanded siblings. '
+      summary: 'Relative weight versus other Flexible/Expanded siblings. '
           'A flex of 2 vs 1 means a 2:1 share of the leftover space.',
     ),
     _GlossaryEntry(
       term: 'leftover space',
-      summary:
-          'Main-axis extent remaining after fixed-size children claim '
+      summary: 'Main-axis extent remaining after fixed-size children claim '
           'their bounds. Flexible/Expanded only divide LEFTOVER -- not total.',
     ),
     _GlossaryEntry(
       term: 'RenderFlex overflow',
-      summary:
-          'The yellow-and-black warning Flutter draws when children of '
+      summary: 'The yellow-and-black warning Flutter draws when children of '
           'a Row/Column exceed their constraints with no Flexible to absorb.',
     ),
     _GlossaryEntry(
       term: 'intrinsic size',
-      summary:
-          'A widget\'s natural extent absent any external constraint. '
+      summary: 'A widget\'s natural extent absent any external constraint. '
           'FlexFit.loose lets a child stay near intrinsic.',
     ),
     _GlossaryEntry(
       term: 'unbounded constraint',
-      summary:
-          'A constraint with infinite max extent. Putting Text inside an '
+      summary: 'A constraint with infinite max extent. Putting Text inside an '
           'unbounded Row without Flexible commonly overflows.',
     ),
     _GlossaryEntry(
       term: 'main axis',
-      summary:
-          'For Row this is horizontal; for Column it is vertical. Flex '
+      summary: 'For Row this is horizontal; for Column it is vertical. Flex '
           'distribution always happens along the main axis.',
     ),
   ];
@@ -681,8 +671,7 @@ dynamic build(BuildContext context) {
     _Pitfall(
       symbol: '!',
       title: 'RenderFlex overflowed by N pixels',
-      detail:
-          'A Row or Column had children whose natural sizes summed beyond '
+      detail: 'A Row or Column had children whose natural sizes summed beyond '
           'the parent constraint AND none of those children were Flexible or '
           'Expanded. Wrap the offender (usually a Text or wide Container) in '
           'Flexible to absorb the excess.',
@@ -690,40 +679,35 @@ dynamic build(BuildContext context) {
     _Pitfall(
       symbol: 'x',
       title: 'Flexible inside an unbounded parent',
-      detail:
-          'Putting Flexible inside a Row that itself has unbounded width '
+      detail: 'Putting Flexible inside a Row that itself has unbounded width '
           '(common inside a SingleChildScrollView) is a logical error -- there '
           'is no leftover space to divide. The parent must be bounded first.',
     ),
     _Pitfall(
       symbol: '?',
       title: 'Flex weight without enough siblings',
-      detail:
-          'A single Flexible(flex: 7) is functionally identical to '
+      detail: 'A single Flexible(flex: 7) is functionally identical to '
           'Flexible(flex: 1) -- weights only matter when more than one '
           'flexing sibling exists. Do not over-tune solo weights.',
     ),
     _Pitfall(
       symbol: '~',
       title: 'Mixing Expanded and Flexible(loose) by accident',
-      detail:
-          'Expanded forces tight fit; Flexible defaults to loose. Side by '
+      detail: 'Expanded forces tight fit; Flexible defaults to loose. Side by '
           'side they compute share correctly but render very differently. If '
           'you want consistent column rules, pick one and stick with it.',
     ),
     _Pitfall(
       symbol: '#',
       title: 'Forgetting flex defaults to 1',
-      detail:
-          'Flexible() with no flex argument is flex=1. This is fine but '
+      detail: 'Flexible() with no flex argument is flex=1. This is fine but '
           'silent -- mix it with Flexible(flex: 2) and you get a 1:2 split '
           'even though only one weight is visible in source.',
     ),
     _Pitfall(
       symbol: '%',
       title: 'Wrapping in Flexible to fix scrolling',
-      detail:
-          'Flexible does NOT enable scrolling. If your content overflows '
+      detail: 'Flexible does NOT enable scrolling. If your content overflows '
           'AND you want scroll, use SingleChildScrollView or ListView. '
           'Flexible only redistributes; it never adds scroll.',
     ),
@@ -759,8 +743,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Two-column form (label : input)',
       use: 'Flexible(flex: 1) for label + Expanded for input.',
-      snippet:
-          'Row(children: [\n'
+      snippet: 'Row(children: [\n'
           '  Flexible(flex: 1, child: Text(label)),\n'
           '  SizedBox(width: 8.0),\n'
           '  Expanded(flex: 3, child: TextField(...)),\n'
@@ -769,8 +752,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Header bar with optional badge',
       use: 'Expanded title + Flexible(loose) badge that may be empty.',
-      snippet:
-          'Row(children: [\n'
+      snippet: 'Row(children: [\n'
           '  Expanded(child: Text(title)),\n'
           '  Flexible(child: badge ?? SizedBox.shrink()),\n'
           ']);',
@@ -778,8 +760,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Sidebar / main / inspector',
       use: 'Two Expanded with weights 3:7, fixed sidebar Container.',
-      snippet:
-          'Row(children: [\n'
+      snippet: 'Row(children: [\n'
           '  Container(width: 80.0, ...sidebar),\n'
           '  Expanded(flex: 3, child: list),\n'
           '  Expanded(flex: 7, child: detail),\n'
@@ -788,8 +769,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Wrap-around chip row',
       use: 'Flexible(loose) keeps each chip at intrinsic width.',
-      snippet:
-          'Row(children: [\n'
+      snippet: 'Row(children: [\n'
           '  for (final c in chips)\n'
           '    Flexible(child: ChipWidget(c)),\n'
           ']);',
@@ -797,8 +777,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Vertical split panel',
       use: 'Column with two Expanded children at 1:1 weight.',
-      snippet:
-          'Column(children: [\n'
+      snippet: 'Column(children: [\n'
           '  Expanded(child: top),\n'
           '  Divider(height: 1.0),\n'
           '  Expanded(child: bottom),\n'
@@ -807,8 +786,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Status bar with elastic gap',
       use: 'Two fixed icons + Flexible Spacer-like SizedBox in middle.',
-      snippet:
-          'Row(children: [\n'
+      snippet: 'Row(children: [\n'
           '  Icon(Icons.disc_full),\n'
           '  Flexible(child: SizedBox()),\n'
           '  Text(timestamp),\n'
@@ -817,8 +795,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Ratio columns 30/70',
       use: 'Flexible(flex:3) + Flexible(flex:7), both tight fit.',
-      snippet:
-          'Row(children: [\n'
+      snippet: 'Row(children: [\n'
           '  Flexible(flex: 3, fit: FlexFit.tight, child: a),\n'
           '  Flexible(flex: 7, fit: FlexFit.tight, child: b),\n'
           ']);',
@@ -826,8 +803,7 @@ dynamic build(BuildContext context) {
     _Recipe(
       title: 'Wrapping long Text',
       use: 'Flexible around Text -- prevents RenderFlex overflow.',
-      snippet:
-          'Row(children: [\n'
+      snippet: 'Row(children: [\n'
           '  Icon(Icons.info),\n'
           '  SizedBox(width: 6.0),\n'
           '  Flexible(child: Text(longString)),\n'
@@ -924,7 +900,11 @@ dynamic build(BuildContext context) {
     swatchSection = _section(
       title: 'Palette swatches (all 24)',
       accent: frostAccent,
-      child: Wrap(spacing: 6.0, runSpacing: 6.0, children: swatchTiles),
+      child: Wrap(
+        spacing: 6.0,
+        runSpacing: 6.0,
+        children: swatchTiles,
+      ),
     );
   } catch (e) {
     swatchSection = _errorBlock('swatch', e);
@@ -946,8 +926,7 @@ dynamic build(BuildContext context) {
             'Flexible is conceptually small but operationally enormous. '
             'Almost every Row or Column you write will, at some point, need '
             'one of these wrappers to keep the layout from either collapsing '
-            'into intrinsic widths or overflowing out the side.',
-          ),
+            'into intrinsic widths or overflowing out the side.'),
           SizedBox(height: 8.0),
           _prose(
             'Mental model: think of leftover space as a budget and Flexible '
@@ -957,16 +936,14 @@ dynamic build(BuildContext context) {
             'FlexFit.loose department is frugal -- it spends only what its '
             'child intrinsically wants, returning the rest to the budget '
             '(though no other department gets to claim it -- it simply shows '
-            'as empty trailing space).',
-          ),
+            'as empty trailing space).'),
           SizedBox(height: 8.0),
           _prose(
             'Pick Expanded when ratio is the contract; pick Flexible when '
             'intrinsic size is part of the contract. Pick neither when your '
             'children are already fixed and you trust them not to overflow. '
             'And when you see the yellow-and-black stripes -- the answer is '
-            'almost always "wrap one more child in Flexible".',
-          ),
+            'almost always "wrap one more child in Flexible".'),
           SizedBox(height: 12.0),
           Container(
             padding: EdgeInsets.all(12.0),
@@ -1135,14 +1112,22 @@ class _Pitfall {
   final String symbol;
   final String title;
   final String detail;
-  _Pitfall({required this.symbol, required this.title, required this.detail});
+  _Pitfall({
+    required this.symbol,
+    required this.title,
+    required this.detail,
+  });
 }
 
 class _Recipe {
   final String title;
   final String use;
   final String snippet;
-  _Recipe({required this.title, required this.use, required this.snippet});
+  _Recipe({
+    required this.title,
+    required this.use,
+    required this.snippet,
+  });
 }
 
 // ===========================================================================
@@ -1158,7 +1143,11 @@ Widget _heroChip(String label, Color bg, Color fg) {
     ),
     child: Text(
       label,
-      style: TextStyle(color: fg, fontSize: 11.5, fontWeight: FontWeight.w700),
+      style: TextStyle(
+        color: fg,
+        fontSize: 11.5,
+        fontWeight: FontWeight.w700,
+      ),
     ),
   );
 }
@@ -1222,7 +1211,11 @@ Widget _section({
 Widget _prose(String text) {
   return Text(
     text,
-    style: TextStyle(color: inkSecondary, fontSize: 13.0, height: 1.5),
+    style: TextStyle(
+      color: inkSecondary,
+      fontSize: 13.0,
+      height: 1.5,
+    ),
   );
 }
 
@@ -1311,7 +1304,10 @@ Widget _paletteFamilyRow(_PaletteFamily f, int i) {
             ),
           ),
         ),
-        Expanded(flex: 6, child: Wrap(children: swatchTiles)),
+        Expanded(
+          flex: 6,
+          child: Wrap(children: swatchTiles),
+        ),
       ],
     ),
   );
@@ -1398,7 +1394,11 @@ Widget _glossaryRow(_GlossaryEntry g, int i) {
           flex: 7,
           child: Text(
             g.summary,
-            style: TextStyle(color: inkSecondary, fontSize: 12.0, height: 1.4),
+            style: TextStyle(
+              color: inkSecondary,
+              fontSize: 12.0,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -1493,9 +1493,15 @@ Widget _fitRow(_FitComparison c, int i) {
                 ],
               ),
             ),
-            Expanded(flex: 4, child: _fitMiniRow(c, FlexFit.loose)),
+            Expanded(
+              flex: 4,
+              child: _fitMiniRow(c, FlexFit.loose),
+            ),
             SizedBox(width: 4.0),
-            Expanded(flex: 4, child: _fitMiniRow(c, FlexFit.tight)),
+            Expanded(
+              flex: 4,
+              child: _fitMiniRow(c, FlexFit.tight),
+            ),
           ],
         ),
         SizedBox(height: 4.0),
@@ -1513,7 +1519,8 @@ Widget _fitRow(_FitComparison c, int i) {
 }
 
 Widget _fitMiniRow(_FitComparison c, FlexFit fit) {
-  final fitColor = fit == FlexFit.loose ? brassCompass2 : brassCompass3;
+  final fitColor =
+      fit == FlexFit.loose ? brassCompass2 : brassCompass3;
   return Container(
     height: 30.0,
     decoration: BoxDecoration(
@@ -1541,7 +1548,11 @@ Widget _fitMiniRow(_FitComparison c, FlexFit fit) {
             ),
           ),
         ),
-        Container(width: 16.0, height: 30.0, color: brassCompass4),
+        Container(
+          width: 16.0,
+          height: 30.0,
+          color: brassCompass4,
+        ),
       ],
     ),
   );
@@ -2117,7 +2128,12 @@ Widget _edgeCase3() {
             children: [
               Container(width: 80.0, color: twilightQuay2),
               Container(width: 80.0, color: twilightQuay3),
-              Flexible(child: Container(width: 80.0, color: twilightAccent)),
+              Flexible(
+                child: Container(
+                  width: 80.0,
+                  color: twilightAccent,
+                ),
+              ),
             ],
           ),
         ),
@@ -2274,14 +2290,22 @@ Widget _decisionRow(_DecisionStep s, int i) {
           flex: 4,
           child: Text(
             s.yes,
-            style: TextStyle(color: verdantLinen4, fontSize: 11.5, height: 1.4),
+            style: TextStyle(
+              color: verdantLinen4,
+              fontSize: 11.5,
+              height: 1.4,
+            ),
           ),
         ),
         Expanded(
           flex: 4,
           child: Text(
             s.no,
-            style: TextStyle(color: twilightQuay4, fontSize: 11.5, height: 1.4),
+            style: TextStyle(
+              color: twilightQuay4,
+              fontSize: 11.5,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -2365,7 +2389,9 @@ Widget _recipePairRow(_Recipe left, _Recipe? right) {
     children: [
       Expanded(child: _recipeCard(left)),
       SizedBox(width: 10.0),
-      Expanded(child: right != null ? _recipeCard(right) : SizedBox.shrink()),
+      Expanded(
+        child: right != null ? _recipeCard(right) : SizedBox.shrink(),
+      ),
     ],
   );
 }
@@ -2498,7 +2524,10 @@ Widget _beforeAfter() {
                           ),
                         ),
                         SizedBox(width: 6.0),
-                        Container(width: 32.0, color: twilightAccent),
+                        Container(
+                          width: 32.0,
+                          color: twilightAccent,
+                        ),
                       ],
                     ),
                   ),
@@ -2575,7 +2604,10 @@ Widget _beforeAfter() {
                       ),
                     ),
                     SizedBox(width: 6.0),
-                    Container(width: 32.0, color: verdantAccent),
+                    Container(
+                      width: 32.0,
+                      color: verdantAccent,
+                    ),
                   ],
                 ),
               ),

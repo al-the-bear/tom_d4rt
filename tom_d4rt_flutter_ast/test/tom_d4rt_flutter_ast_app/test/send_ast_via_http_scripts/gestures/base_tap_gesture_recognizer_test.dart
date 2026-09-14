@@ -107,7 +107,11 @@ dynamic build(BuildContext context) {
             'Abstract base class powering TapGestureRecognizer, '
             'DoubleTapGestureRecognizer and friends. Manages a single '
             'primary pointer through the Flutter gesture arena.',
-            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.5),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.white,
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -600,7 +604,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withValues(alpha: 0.08), Colors.white],
+            colors: [
+              color.withValues(alpha: 0.08),
+              Colors.white,
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -815,7 +822,10 @@ dynamic build(BuildContext context) {
             ),
             if (highlight)
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(6.0),
@@ -1020,7 +1030,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withValues(alpha: 0.10), Colors.white],
+            colors: [
+              color.withValues(alpha: 0.10),
+              Colors.white,
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1115,7 +1128,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [crimson.withValues(alpha: 0.08), Colors.white],
+            colors: [
+              crimson.withValues(alpha: 0.08),
+              Colors.white,
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),

@@ -23,7 +23,11 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [teal.shade700, cyan.shade500, teal.shade300],
+        colors: [
+          teal.shade700,
+          cyan.shade500,
+          teal.shade300,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -46,11 +50,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.photo_size_select_large,
-              size: 42.0,
-              color: Colors.white,
-            ),
+            Icon(Icons.photo_size_select_large, size: 42.0, color: Colors.white),
             SizedBox(width: 12.0),
             Expanded(
               child: Text(
@@ -238,9 +238,19 @@ dynamic build(BuildContext context) {
 
   // Construct ResizeImage with MemoryImage placeholder.
   // We do not render these — we just inspect descriptors.
-  final variantA = ResizeImage(AssetImage('hero.png'), width: 256);
-  final variantB = ResizeImage(AssetImage('hero.png'), height: 256);
-  final variantC = ResizeImage(AssetImage('hero.png'), width: 256, height: 128);
+  final variantA = ResizeImage(
+    AssetImage('hero.png'),
+    width: 256,
+  );
+  final variantB = ResizeImage(
+    AssetImage('hero.png'),
+    height: 256,
+  );
+  final variantC = ResizeImage(
+    AssetImage('hero.png'),
+    width: 256,
+    height: 128,
+  );
   final variantD = ResizeImage(
     AssetImage('hero.png'),
     width: 64,
@@ -253,19 +263,17 @@ dynamic build(BuildContext context) {
   print('variantD.allowUpscaling=${variantD.allowUpscaling}');
 
   Widget variantCard(
-    String title,
-    String args,
-    String result,
-    Color color,
-    IconData icon,
-  ) {
+      String title, String args, String result, Color color, IconData icon) {
     return Container(
       width: 220.0,
       margin: EdgeInsets.all(6.0),
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.white, color.withValues(alpha: 0.18)],
+          colors: [
+            Colors.white,
+            color.withValues(alpha: 0.18),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -313,7 +321,10 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 6.0),
-          Text(result, style: TextStyle(fontSize: 11.0, color: Colors.black87)),
+          Text(
+            result,
+            style: TextStyle(fontSize: 11.0, color: Colors.black87),
+          ),
         ],
       ),
     );
@@ -405,14 +416,8 @@ dynamic build(BuildContext context) {
   print('exact policy: ${policyExact.policy.name}');
   print('fit policy: ${policyFit.policy.name}');
 
-  Widget policyCard(
-    String policyName,
-    String desc,
-    String boxLabel,
-    double boxWidth,
-    double boxHeight,
-    Color color,
-  ) {
+  Widget policyCard(String policyName, String desc, String boxLabel,
+      double boxWidth, double boxHeight, Color color) {
     return Expanded(
       child: Container(
         margin: EdgeInsets.all(6.0),
@@ -566,12 +571,7 @@ dynamic build(BuildContext context) {
   print('upscaleOn: ${upscaleOn.allowUpscaling}');
 
   Widget upscaleColumn(
-    bool enabled,
-    String label,
-    String result,
-    Color color,
-    IconData icon,
-  ) {
+      bool enabled, String label, String result, Color color, IconData icon) {
     return Expanded(
       child: Container(
         margin: EdgeInsets.all(6.0),
@@ -608,11 +608,9 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(height: 4.0),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 11.5, color: Colors.black87),
-            ),
+            Text(label,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 11.5, color: Colors.black87)),
             SizedBox(height: 8.0),
             Container(
               padding: EdgeInsets.all(6.0),
@@ -673,20 +671,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Row(
           children: [
-            upscaleColumn(
-              false,
-              'Decode capped at source size.',
-              'decoded: 64x64',
-              teal,
-              Icons.lock,
-            ),
-            upscaleColumn(
-              true,
-              'Decoder enlarges past source.',
-              'decoded: 256x256',
-              amber,
-              Icons.unfold_more,
-            ),
+            upscaleColumn(false, 'Decode capped at source size.',
+                'decoded: 64x64', teal, Icons.lock),
+            upscaleColumn(true, 'Decoder enlarges past source.',
+                'decoded: 256x256', amber, Icons.unfold_more),
           ],
         ),
       ],
@@ -699,14 +687,7 @@ dynamic build(BuildContext context) {
   print('=== Section 6: Memory Savings ===');
 
   final memoryRows = <List<String>>[
-    [
-      'Source pixels',
-      'Target W',
-      'Target H',
-      'Source RAM',
-      'Decoded RAM',
-      'Saved',
-    ],
+    ['Source pixels', 'Target W', 'Target H', 'Source RAM', 'Decoded RAM', 'Saved'],
     ['4096 x 4096', '—', '—', '67.1 MB', '67.1 MB', '0%'],
     ['4096 x 4096', '1024', '1024', '67.1 MB', '4.2 MB', '93.7%'],
     ['4096 x 4096', '512', '512', '67.1 MB', '1.0 MB', '98.4%'],
@@ -821,13 +802,8 @@ dynamic build(BuildContext context) {
   print('maybe2 type: ${maybe2.runtimeType}');
   print('maybe3 type: ${maybe3.runtimeType}');
 
-  Widget helperCard(
-    String inputs,
-    String output,
-    String explanation,
-    Color color,
-    IconData icon,
-  ) {
+  Widget helperCard(String inputs, String output, String explanation,
+      Color color, IconData icon) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 5.0),
@@ -964,7 +940,10 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.white, color.withValues(alpha: 0.18)],
+          colors: [
+            Colors.white,
+            color.withValues(alpha: 0.18),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1158,7 +1137,10 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [red.withValues(alpha: 0.10), red.withValues(alpha: 0.30)],
+          colors: [
+            red.withValues(alpha: 0.10),
+            red.withValues(alpha: 0.30),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1292,7 +1274,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [teal.shade700, cyan.shade600, indigo.shade500],
+        colors: [
+          teal.shade700,
+          cyan.shade600,
+          indigo.shade500,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

@@ -13,9 +13,13 @@ import 'package:flutter/rendering.dart';
 class _FixedBox extends LeafRenderObjectWidget {
   const _FixedBox();
   @override
-  RenderObject createRenderObject(BuildContext context) => RenderConstrainedBox(
-    additionalConstraints: const BoxConstraints.tightFor(width: 10, height: 10),
-  );
+  RenderObject createRenderObject(BuildContext context) =>
+      RenderConstrainedBox(
+        additionalConstraints: const BoxConstraints.tightFor(
+          width: 10,
+          height: 10,
+        ),
+      );
 }
 
 dynamic build(BuildContext context) {

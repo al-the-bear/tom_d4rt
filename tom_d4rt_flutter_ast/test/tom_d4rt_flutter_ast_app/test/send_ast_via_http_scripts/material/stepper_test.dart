@@ -120,11 +120,17 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (color ?? tokenSurfaceAlt).withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(12.0),
-        border: Border(left: BorderSide(color: tokenAccent, width: 4.0)),
+        border: Border(
+          left: BorderSide(color: tokenAccent, width: 4.0),
+        ),
       ),
       child: Text(
         text,
-        style: TextStyle(color: tokenInk, fontSize: 13.0, height: 1.5),
+        style: TextStyle(
+          color: tokenInk,
+          fontSize: 13.0,
+          height: 1.5,
+        ),
       ),
     );
   }
@@ -178,7 +184,10 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      child: ClipRRect(borderRadius: BorderRadius.circular(15.0), child: child),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: child,
+      ),
     );
   }
 
@@ -406,7 +415,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10.0),
           Text(
             blurb,
-            style: TextStyle(color: tokenInk, fontSize: 11.5, height: 1.45),
+            style: TextStyle(
+              color: tokenInk,
+              fontSize: 11.5,
+              height: 1.45,
+            ),
           ),
         ],
       ),
@@ -454,7 +467,10 @@ dynamic build(BuildContext context) {
                   color: tokenAccent,
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: const Text('Pro', style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  'Pro',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               const SizedBox(width: 8.0),
               Container(
@@ -637,7 +653,10 @@ dynamic build(BuildContext context) {
     return Step(
       title: Text(
         'StepState.$name',
-        style: TextStyle(color: color, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       subtitle: Text('Rendered in the $name visual state'),
       content: Container(
@@ -645,21 +664,31 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: soft.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: color.withValues(alpha: 0.4), width: 1.0),
+          border: Border.all(
+            color: color.withValues(alpha: 0.4),
+            width: 1.0,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
               padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
               child: Icon(icon, color: Colors.white, size: 18.0),
             ),
             const SizedBox(width: 10.0),
             Expanded(
               child: Text(
                 blurb,
-                style: TextStyle(color: tokenInk, fontSize: 12.5, height: 1.45),
+                style: TextStyle(
+                  color: tokenInk,
+                  fontSize: 12.5,
+                  height: 1.45,
+                ),
               ),
             ),
           ],
@@ -1472,7 +1501,10 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             FilledButton.icon(
               onPressed: details.onStepContinue,
-              icon: Icon(isLast ? Icons.lock : Icons.east, size: 18.0),
+              icon: Icon(
+                isLast ? Icons.lock : Icons.east,
+                size: 18.0,
+              ),
               label: Text(isLast ? 'Pay \$159.20' : 'Continue'),
               style: FilledButton.styleFrom(
                 backgroundColor: isLast ? tokenSuccess : tokenAccent,
@@ -1620,7 +1652,10 @@ dynamic build(BuildContext context) {
         title: const Text('Configure campaign'),
         subtitle: const Text('Audiences and budgets'),
         label: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+            vertical: 3.0,
+          ),
           decoration: BoxDecoration(
             color: tokenAccent,
             borderRadius: BorderRadius.circular(20.0),
@@ -1646,7 +1681,10 @@ dynamic build(BuildContext context) {
         title: const Text('Create ad group'),
         subtitle: const Text('Creative assets and copy'),
         label: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+            vertical: 3.0,
+          ),
           decoration: BoxDecoration(
             color: tokenAccent,
             borderRadius: BorderRadius.circular(20.0),
@@ -1671,7 +1709,10 @@ dynamic build(BuildContext context) {
         title: const Text('Schedule'),
         subtitle: const Text('Pick start and end dates'),
         label: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+            vertical: 3.0,
+          ),
           decoration: BoxDecoration(
             color: tokenAccent,
             borderRadius: BorderRadius.circular(20.0),
@@ -1710,7 +1751,9 @@ dynamic build(BuildContext context) {
           labelText: label,
           hintText: hint,
           prefixIcon: Icon(icon),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
           isDense: true,
         ),
       ),
@@ -1919,7 +1962,10 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             ElevatedButton.icon(
               onPressed: details.onStepContinue,
-              icon: Icon(isLast ? Icons.flag : Icons.east, size: 18.0),
+              icon: Icon(
+                isLast ? Icons.flag : Icons.east,
+                size: 18.0,
+              ),
               label: Text(label),
               style: ElevatedButton.styleFrom(
                 backgroundColor: isLast ? tokenSuccess : tokenAccent,
@@ -1967,7 +2013,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 3.0,
+            ),
             decoration: BoxDecoration(
               color: tokenAccent.withValues(alpha: 0.14),
               borderRadius: BorderRadius.circular(6.0),
@@ -1986,7 +2035,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               description,
-              style: TextStyle(color: tokenInk, fontSize: 12.0, height: 1.45),
+              style: TextStyle(
+                color: tokenInk,
+                fontSize: 12.0,
+                height: 1.45,
+              ),
             ),
           ),
         ],
@@ -2028,7 +2081,10 @@ dynamic build(BuildContext context) {
           'type',
           'StepperType.vertical (default) or StepperType.horizontal.',
         ),
-        apiRow('currentStep', 'Zero-based index of the active step.'),
+        apiRow(
+          'currentStep',
+          'Zero-based index of the active step.',
+        ),
         apiRow(
           'onStepTapped',
           'Called with the tapped index — return path for tap-based navigation.',
@@ -2069,8 +2125,14 @@ dynamic build(BuildContext context) {
           'elevation',
           'Material elevation underneath the stepper (vertical type only).',
         ),
-        apiRow('margin', 'Outer padding applied around the stepper.'),
-        apiRow('physics', 'ScrollPhysics for the underlying scrollable.'),
+        apiRow(
+          'margin',
+          'Outer padding applied around the stepper.',
+        ),
+        apiRow(
+          'physics',
+          'ScrollPhysics for the underlying scrollable.',
+        ),
       ],
     ),
   );
@@ -2295,7 +2357,8 @@ dynamic build(BuildContext context) {
           buildSectionHeader(
             number: 9,
             title: 'Real-world checkout flow',
-            subtitle: 'A four-step checkout combining everything we have seen.',
+            subtitle:
+                'A four-step checkout combining everything we have seen.',
             icon: Icons.shopping_bag,
             color: tokenSuccess,
           ),

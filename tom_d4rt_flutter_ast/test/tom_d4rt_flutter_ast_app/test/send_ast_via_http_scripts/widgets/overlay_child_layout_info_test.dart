@@ -32,24 +32,15 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+          Text(title,
+              style: TextStyle(
+                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: fg.withValues(alpha: 0.85),
-                  fontSize: 12,
-                ),
-              ),
+              child: Text(subtitle,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
             ),
         ],
       ),
@@ -66,7 +57,8 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text, style: TextStyle(fontSize: 13, color: darkLoam)),
+      child: Text(text,
+          style: TextStyle(fontSize: 13, color: darkLoam)),
     );
   }
 
@@ -78,17 +70,15 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: accent,
-              ),
-            ),
+            child: Text(label,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: accent)),
           ),
           Expanded(
-            child: Text(value, style: TextStyle(fontSize: 13, color: darkLoam)),
+            child: Text(value,
+                style: TextStyle(fontSize: 13, color: darkLoam)),
           ),
         ],
       ),
@@ -160,48 +150,37 @@ dynamic build(BuildContext context) {
                   Icon(Icons.layers, size: 28, color: lightSage),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      'OverlayChildLayoutInfo',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('OverlayChildLayoutInfo',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(
-                'An extension type that provides layout information '
-                'for positioning overlay children relative to their '
-                'source widget and the target Overlay. Used by '
-                'OverlayPortal.overlayChildLayoutBuilder.',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 13,
-                ),
-              ),
+              Text('An extension type that provides layout information '
+                  'for positioning overlay children relative to their '
+                  'source widget and the target Overlay. Used by '
+                  'OverlayPortal.overlayChildLayoutBuilder.',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 13)),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  pill('extension type', moss, Colors.white),
-                  pill('childSize', sage, Colors.white),
-                  pill('childPaintTransform', softMoss, darkLoam),
-                  pill('overlaySize', lightSage, darkLoam),
-                ],
-              ),
+              Wrap(children: [
+                pill('extension type', moss, Colors.white),
+                pill('childSize', sage, Colors.white),
+                pill('childPaintTransform', softMoss, darkLoam),
+                pill('overlaySize', lightSage, darkLoam),
+              ]),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionHeader(
-          '1 \u00b7 What Is OverlayChildLayoutInfo',
-          'An extension type wrapping a record tuple',
-          deepMoss,
-          Colors.white,
-        ),
+        sectionHeader('1 \u00b7 What Is OverlayChildLayoutInfo',
+            'An extension type wrapping a record tuple',
+            deepMoss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -218,24 +197,23 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepMoss.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: deepMoss.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: deepMoss.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'extension type OverlayChildLayoutInfo._(\n'
-                  '  (Size childSize,\n'
-                  '   Matrix4 childPaintTransform,\n'
-                  '   Size overlaySize) _info\n'
-                  ') {\n'
-                  '  Size get childSize;\n'
-                  '  Matrix4 get childPaintTransform;\n'
-                  '  Size get overlaySize;\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepMoss,
-                  ),
-                ),
+                    'extension type OverlayChildLayoutInfo._(\n'
+                    '  (Size childSize,\n'
+                    '   Matrix4 childPaintTransform,\n'
+                    '   Size overlaySize) _info\n'
+                    ') {\n'
+                    '  Size get childSize;\n'
+                    '  Matrix4 get childPaintTransform;\n'
+                    '  Size get overlaySize;\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepMoss)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -252,12 +230,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. The three getters ─────────────────────────────────────
-        sectionHeader(
-          '2 \u00b7 The Three Getters',
-          'childSize, childPaintTransform, overlaySize',
-          moss,
-          Colors.white,
-        ),
+        sectionHeader('2 \u00b7 The Three Getters',
+            'childSize, childPaintTransform, overlaySize',
+            moss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -268,33 +243,21 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final getter in [
-                (
-                  'childSize',
-                  'Size',
-                  'The size of the OverlayPortal.child in its own local '
-                      'coordinate system. This is the widget that triggers '
-                      'the overlay, measured after layout.',
-                  Icons.crop_din,
-                  moss,
-                ),
-                (
-                  'childPaintTransform',
-                  'Matrix4',
-                  'The paint transform that maps the child\u0027s local '
-                      'coordinates into the target Overlay\u0027s coordinate '
-                      'space. Encodes translation, rotation, and scale.',
-                  Icons.transform,
-                  deepMoss,
-                ),
-                (
-                  'overlaySize',
-                  'Size',
-                  'The size of the target Overlay widget itself. Use '
-                      'this to clamp your overlay child within the visible '
-                      'area and prevent it from going off-screen.',
-                  Icons.fullscreen,
-                  sage,
-                ),
+                ('childSize', 'Size',
+                    'The size of the OverlayPortal.child in its own local '
+                    'coordinate system. This is the widget that triggers '
+                    'the overlay, measured after layout.',
+                    Icons.crop_din, moss),
+                ('childPaintTransform', 'Matrix4',
+                    'The paint transform that maps the child\u0027s local '
+                    'coordinates into the target Overlay\u0027s coordinate '
+                    'space. Encodes translation, rotation, and scale.',
+                    Icons.transform, deepMoss),
+                ('overlaySize', 'Size',
+                    'The size of the target Overlay widget itself. Use '
+                    'this to clamp your overlay child within the visible '
+                    'area and prevent it from going off-screen.',
+                    Icons.fullscreen, sage),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -315,40 +278,31 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  getter.$1,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: getter.$5,
-                                  ),
-                                ),
+                                Text(getter.$1,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                        color: getter.$5)),
                                 const SizedBox(width: 6),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 6,
-                                    vertical: 1,
-                                  ),
+                                      horizontal: 6, vertical: 1),
                                   decoration: BoxDecoration(
                                     color: getter.$5.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text(
-                                    getter.$2,
-                                    style: TextStyle(
-                                      fontFamily: 'monospace',
-                                      fontSize: 9,
-                                      color: getter.$5,
-                                    ),
-                                  ),
+                                  child: Text(getter.$2,
+                                      style: TextStyle(
+                                          fontFamily: 'monospace',
+                                          fontSize: 9,
+                                          color: getter.$5)),
                                 ),
                               ],
                             ),
                             const SizedBox(height: 4),
-                            Text(
-                              getter.$3,
-                              style: TextStyle(fontSize: 12, color: darkLoam),
-                            ),
+                            Text(getter.$3,
+                                style: TextStyle(
+                                    fontSize: 12, color: darkLoam)),
                           ],
                         ),
                       ),
@@ -361,12 +315,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. OverlayChildLayoutBuilder typedef ─────────────────────
-        sectionHeader(
-          '3 \u00b7 The OverlayChildLayoutBuilder Typedef',
-          'The callback that receives OverlayChildLayoutInfo',
-          sage,
-          Colors.white,
-        ),
+        sectionHeader('3 \u00b7 The OverlayChildLayoutBuilder Typedef',
+            'The callback that receives OverlayChildLayoutInfo',
+            sage, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -383,29 +334,24 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: sage.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: sage.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: sage.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'typedef OverlayChildLayoutBuilder =\n'
-                  '  Widget Function(\n'
-                  '    BuildContext context,\n'
-                  '    OverlayChildLayoutInfo info,\n'
-                  '  );',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: sage,
-                  ),
-                ),
+                    'typedef OverlayChildLayoutBuilder =\n'
+                    '  Widget Function(\n'
+                    '    BuildContext context,\n'
+                    '    OverlayChildLayoutInfo info,\n'
+                    '  );',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: sage)),
               ),
               const SizedBox(height: 8),
               fieldRow('Parameter 1', 'BuildContext context', sage),
               fieldRow('Parameter 2', 'OverlayChildLayoutInfo info', moss),
-              fieldRow(
-                'Returns',
-                'Widget — the overlay child to display',
-                deepMoss,
-              ),
+              fieldRow('Returns', 'Widget — the overlay child to display', deepMoss),
               const SizedBox(height: 8),
               infoBox(
                 'This callback is passed to OverlayPortal.overlayChildLayoutBuilder '
@@ -421,12 +367,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Coordinate system diagram ─────────────────────────────
-        sectionHeader(
-          '4 \u00b7 Coordinate System Visual',
-          'How childPaintTransform maps between coordinate spaces',
-          deepMoss,
-          Colors.white,
-        ),
+        sectionHeader('4 \u00b7 Coordinate System Visual',
+            'How childPaintTransform maps between coordinate spaces',
+            deepMoss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -445,7 +388,8 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: accentSlate.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: accentSlate, width: 2),
+                  border: Border.all(
+                      color: accentSlate, width: 2),
                 ),
                 child: Stack(
                   children: [
@@ -455,9 +399,7 @@ dynamic build(BuildContext context) {
                       left: 0,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: accentSlate,
                           borderRadius: const BorderRadius.only(
@@ -465,14 +407,11 @@ dynamic build(BuildContext context) {
                             bottomRight: Radius.circular(6),
                           ),
                         ),
-                        child: const Text(
-                          'Overlay (overlaySize)',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 8,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: const Text('Overlay (overlaySize)',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ),
                     // Child widget box
@@ -488,15 +427,12 @@ dynamic build(BuildContext context) {
                           border: Border.all(color: moss, width: 2),
                         ),
                         child: Center(
-                          child: Text(
-                            'child\n(childSize)',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 8,
-                              fontWeight: FontWeight.bold,
-                              color: moss,
-                            ),
-                          ),
+                          child: Text('child\n(childSize)',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.bold,
+                                  color: moss)),
                         ),
                       ),
                     ),
@@ -506,28 +442,20 @@ dynamic build(BuildContext context) {
                       left: 140,
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 14,
-                            color: accentBrick,
-                          ),
+                          Icon(Icons.arrow_forward,
+                              size: 14, color: accentBrick),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 4,
-                              vertical: 1,
-                            ),
+                                horizontal: 4, vertical: 1),
                             decoration: BoxDecoration(
                               color: accentBrick.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(3),
                             ),
-                            child: Text(
-                              'childPaintTransform',
-                              style: TextStyle(
-                                fontSize: 7,
-                                fontWeight: FontWeight.bold,
-                                color: accentBrick,
-                              ),
-                            ),
+                            child: Text('childPaintTransform',
+                                style: TextStyle(
+                                    fontSize: 7,
+                                    fontWeight: FontWeight.bold,
+                                    color: accentBrick)),
                           ),
                         ],
                       ),
@@ -542,18 +470,17 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: sage.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: sage, width: 2),
+                          border: Border.all(
+                              color: sage,
+                              width: 2),
                         ),
                         child: Center(
-                          child: Text(
-                            'overlay child\n(positioned using info)',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 8,
-                              fontWeight: FontWeight.bold,
-                              color: sage,
-                            ),
-                          ),
+                          child: Text('overlay child\n(positioned using info)',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.bold,
+                                  color: sage)),
                         ),
                       ),
                     ),
@@ -561,11 +488,8 @@ dynamic build(BuildContext context) {
                     Positioned(
                       top: 90,
                       left: 85,
-                      child: Icon(
-                        Icons.arrow_downward,
-                        size: 12,
-                        color: deepMoss,
-                      ),
+                      child: Icon(Icons.arrow_downward,
+                          size: 12, color: deepMoss),
                     ),
                   ],
                 ),
@@ -586,12 +510,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. OverlayPortal constructor comparison ──────────────────
-        sectionHeader(
-          '5 \u00b7 Two OverlayPortal Constructors',
-          'With and without layout info',
-          moss,
-          Colors.white,
-        ),
+        sectionHeader('5 \u00b7 Two OverlayPortal Constructors',
+            'With and without layout info',
+            moss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -612,24 +533,18 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Text(
-                        'OverlayPortal()',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: accentSlate,
-                        ),
-                      ),
+                      Text('OverlayPortal()',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: accentSlate)),
                       const SizedBox(height: 4),
-                      Text(
-                        'overlayChildBuilder:\n(context) => widget',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9,
-                          color: accentSlate,
-                        ),
-                      ),
+                      Text('overlayChildBuilder:\n(context) => widget',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 9,
+                              color: accentSlate)),
                       const SizedBox(height: 6),
                       Container(
                         padding: const EdgeInsets.all(4),
@@ -637,14 +552,11 @@ dynamic build(BuildContext context) {
                           color: accentSlate.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(
-                          'No layout info',
-                          style: TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.bold,
-                            color: accentSlate,
-                          ),
-                        ),
+                        child: Text('No layout info',
+                            style: TextStyle(
+                                fontSize: 8,
+                                fontWeight: FontWeight.bold,
+                                color: accentSlate)),
                       ),
                     ],
                   ),
@@ -661,24 +573,18 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Text(
-                        '.overlayChildLayoutBuilder()',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: moss,
-                        ),
-                      ),
+                      Text('.overlayChildLayoutBuilder()',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: moss)),
                       const SizedBox(height: 4),
-                      Text(
-                        'overlayChildLayoutBuilder:\n(context, info) => widget',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9,
-                          color: moss,
-                        ),
-                      ),
+                      Text('overlayChildLayoutBuilder:\n(context, info) => widget',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 9,
+                              color: moss)),
                       const SizedBox(height: 6),
                       Container(
                         padding: const EdgeInsets.all(4),
@@ -686,14 +592,11 @@ dynamic build(BuildContext context) {
                           color: moss.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(
-                          'Has OverlayChildLayoutInfo',
-                          style: TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.bold,
-                            color: moss,
-                          ),
-                        ),
+                        child: Text('Has OverlayChildLayoutInfo',
+                            style: TextStyle(
+                                fontSize: 8,
+                                fontWeight: FontWeight.bold,
+                                color: moss)),
                       ),
                     ],
                   ),
@@ -712,12 +615,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Extracting position from Matrix4 ──────────────────────
-        sectionHeader(
-          '6 \u00b7 Reading Position From childPaintTransform',
-          'How to extract translation from a Matrix4',
-          deepMoss,
-          Colors.white,
-        ),
+        sectionHeader('6 \u00b7 Reading Position From childPaintTransform',
+            'How to extract translation from a Matrix4',
+            deepMoss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -734,28 +634,27 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepMoss.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: deepMoss.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: deepMoss.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  '// Get child position in overlay coords\n'
-                  'final transform = info.childPaintTransform;\n'
-                  'final childX = transform.getTranslation().x;\n'
-                  'final childY = transform.getTranslation().y;\n'
-                  '\n'
-                  '// Position overlay child below the trigger\n'
-                  'final top = childY + info.childSize.height;\n'
-                  'final left = childX;\n'
-                  '\n'
-                  '// Clamp within overlay bounds\n'
-                  'final maxLeft = info.overlaySize.width\n'
-                  '    - tooltipWidth;\n'
-                  'final clampedLeft = left.clamp(0, maxLeft);',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepMoss,
-                  ),
-                ),
+                    '// Get child position in overlay coords\n'
+                    'final transform = info.childPaintTransform;\n'
+                    'final childX = transform.getTranslation().x;\n'
+                    'final childY = transform.getTranslation().y;\n'
+                    '\n'
+                    '// Position overlay child below the trigger\n'
+                    'final top = childY + info.childSize.height;\n'
+                    'final left = childX;\n'
+                    '\n'
+                    '// Clamp within overlay bounds\n'
+                    'final maxLeft = info.overlaySize.width\n'
+                    '    - tooltipWidth;\n'
+                    'final clampedLeft = left.clamp(0, maxLeft);',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: deepMoss)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -773,12 +672,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Visual: tooltip positioning ───────────────────────────
-        sectionHeader(
-          '7 \u00b7 Visual: Tooltip Positioning Pattern',
-          'Using all three getters together',
-          sage,
-          Colors.white,
-        ),
+        sectionHeader('7 \u00b7 Visual: Tooltip Positioning Pattern',
+            'Using all three getters together',
+            sage, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -796,17 +692,17 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: accentSlate.withValues(alpha: 0.03),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: accentSlate.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: accentSlate.withValues(alpha: 0.3)),
                 ),
                 child: Stack(
                   children: [
                     Positioned(
                       top: 2,
                       right: 4,
-                      child: Text(
-                        'overlaySize: 320\u00d7160',
-                        style: TextStyle(fontSize: 8, color: accentSlate),
-                      ),
+                      child: Text('overlaySize: 320\u00d7160',
+                          style: TextStyle(
+                              fontSize: 8, color: accentSlate)),
                     ),
                     // Trigger button
                     Positioned(
@@ -814,35 +710,27 @@ dynamic build(BuildContext context) {
                       left: 60,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
+                            horizontal: 14, vertical: 8),
                         decoration: BoxDecoration(
                           color: moss,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Text(
-                          'Hover Me',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: const Text('Hover Me',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ),
                     // Size annotation
                     Positioned(
                       top: 16,
                       left: 60,
-                      child: Text(
-                        'childSize: 82\u00d730',
-                        style: TextStyle(
-                          fontSize: 7,
-                          color: moss,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('childSize: 82\u00d730',
+                          style: TextStyle(
+                              fontSize: 7,
+                              color: moss,
+                              fontWeight: FontWeight.bold)),
                     ),
                     // Transform annotation
                     Positioned(
@@ -854,21 +742,19 @@ dynamic build(BuildContext context) {
                           color: accentBrick.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(3),
                         ),
-                        child: Text(
-                          'transform: (60, 30)',
-                          style: TextStyle(
-                            fontSize: 7,
-                            fontWeight: FontWeight.bold,
-                            color: accentBrick,
-                          ),
-                        ),
+                        child: Text('transform: (60, 30)',
+                            style: TextStyle(
+                                fontSize: 7,
+                                fontWeight: FontWeight.bold,
+                                color: accentBrick)),
                       ),
                     ),
                     // Arrow down
                     Positioned(
                       top: 62,
                       left: 95,
-                      child: Icon(Icons.arrow_downward, size: 12, color: sage),
+                      child: Icon(Icons.arrow_downward,
+                          size: 12, color: sage),
                     ),
                     // Tooltip overlay child
                     Positioned(
@@ -892,18 +778,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Tooltip Content',
-                              style: TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                color: sage,
-                              ),
-                            ),
-                            Text(
-                              'Positioned at:\ny = 30 + 30 = 60\nx = 60',
-                              style: TextStyle(fontSize: 8, color: darkLoam),
-                            ),
+                            Text('Tooltip Content',
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                    color: sage)),
+                            Text('Positioned at:\ny = 30 + 30 = 60\nx = 60',
+                                style: TextStyle(
+                                    fontSize: 8, color: darkLoam)),
                           ],
                         ),
                       ),
@@ -920,15 +802,13 @@ dynamic build(BuildContext context) {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
-                  'top = childPaintTransform.y + childSize.height\n'
-                  'left = childPaintTransform.x\n'
-                  'Clamped: left.clamp(0, overlaySize.width - tooltipWidth)',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    color: sage,
-                  ),
-                ),
+                    'top = childPaintTransform.y + childSize.height\n'
+                    'left = childPaintTransform.x\n'
+                    'Clamped: left.clamp(0, overlaySize.width - tooltipWidth)',
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: sage)),
               ),
             ],
           ),
@@ -936,12 +816,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Matrix4 structure ─────────────────────────────────────
-        sectionHeader(
-          '8 \u00b7 Understanding the Matrix4',
-          'What the 4\u00d74 transform matrix contains',
-          moss,
-          Colors.white,
-        ),
+        sectionHeader('8 \u00b7 Understanding the Matrix4',
+            'What the 4\u00d74 transform matrix contains',
+            moss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -962,14 +839,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      'childPaintTransform (typical)',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: moss,
-                      ),
-                    ),
+                    Text('childPaintTransform (typical)',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: moss)),
                     const SizedBox(height: 8),
                     for (final row in [
                       ['scaleX', '0', '0', 'tx'],
@@ -992,20 +866,18 @@ dynamic build(BuildContext context) {
                                       : moss.withValues(alpha: 0.04),
                                   borderRadius: BorderRadius.circular(3),
                                 ),
-                                child: Text(
-                                  row[i],
-                                  style: TextStyle(
-                                    fontFamily: 'monospace',
-                                    fontSize: 9,
-                                    fontWeight:
-                                        (row[i] == 'tx' || row[i] == 'ty')
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
-                                    color: (row[i] == 'tx' || row[i] == 'ty')
-                                        ? accentBrick
-                                        : darkLoam,
-                                  ),
-                                ),
+                                child: Text(row[i],
+                                    style: TextStyle(
+                                        fontFamily: 'monospace',
+                                        fontSize: 9,
+                                        fontWeight: (row[i] == 'tx' ||
+                                                row[i] == 'ty')
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
+                                        color: (row[i] == 'tx' ||
+                                                row[i] == 'ty')
+                                            ? accentBrick
+                                            : darkLoam)),
                               ),
                             ),
                           const Text(' ] ', style: TextStyle(fontSize: 10)),
@@ -1015,16 +887,8 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 8),
-              fieldRow(
-                'tx (position [12])',
-                'Child X in overlay coords',
-                accentBrick,
-              ),
-              fieldRow(
-                'ty (position [13])',
-                'Child Y in overlay coords',
-                accentBrick,
-              ),
+              fieldRow('tx (position [12])', 'Child X in overlay coords', accentBrick),
+              fieldRow('ty (position [13])', 'Child Y in overlay coords', accentBrick),
               fieldRow('scaleX', 'Horizontal scale factor', moss),
               fieldRow('scaleY', 'Vertical scale factor', moss),
             ],
@@ -1041,12 +905,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Positioning strategies ───────────────────────────────
-        sectionHeader(
-          '9 \u00b7 Positioning Strategies',
-          'Common overlay positioning patterns',
-          deepMoss,
-          Colors.white,
-        ),
+        sectionHeader('9 \u00b7 Positioning Strategies',
+            'Common overlay positioning patterns',
+            deepMoss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1057,35 +918,15 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final strat in [
-                (
-                  'Below child',
-                  'top = childY + childSize.height\nleft = childX',
-                  'Dropdowns, suggestions',
-                  Icons.arrow_drop_down,
-                  moss,
-                ),
-                (
-                  'Above child',
-                  'top = childY - tooltipHeight\nleft = childX',
-                  'Tooltips when near bottom',
-                  Icons.arrow_drop_up,
-                  sage,
-                ),
-                (
-                  'Right of child',
-                  'top = childY\nleft = childX + childSize.width',
-                  'Side panels, popovers',
-                  Icons.arrow_right,
-                  deepMoss,
-                ),
-                (
-                  'Centered below',
-                  'top = childY + childSize.height\n'
-                      'left = childX + childSize.width/2 - w/2',
-                  'Centered tooltips',
-                  Icons.unfold_more,
-                  softMoss,
-                ),
+                ('Below child', 'top = childY + childSize.height\nleft = childX',
+                    'Dropdowns, suggestions', Icons.arrow_drop_down, moss),
+                ('Above child', 'top = childY - tooltipHeight\nleft = childX',
+                    'Tooltips when near bottom', Icons.arrow_drop_up, sage),
+                ('Right of child', 'top = childY\nleft = childX + childSize.width',
+                    'Side panels, popovers', Icons.arrow_right, deepMoss),
+                ('Centered below', 'top = childY + childSize.height\n'
+                    'left = childX + childSize.width/2 - w/2',
+                    'Centered tooltips', Icons.unfold_more, softMoss),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1093,7 +934,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: strat.$5.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: strat.$5, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: strat.$5, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1104,30 +946,21 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              strat.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: strat.$5,
-                              ),
-                            ),
-                            Text(
-                              strat.$2,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: darkLoam,
-                              ),
-                            ),
-                            Text(
-                              strat.$3,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontStyle: FontStyle.italic,
-                                color: strat.$5,
-                              ),
-                            ),
+                            Text(strat.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: strat.$5)),
+                            Text(strat.$2,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontFamily: 'monospace',
+                                    color: darkLoam)),
+                            Text(strat.$3,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontStyle: FontStyle.italic,
+                                    color: strat.$5)),
                           ],
                         ),
                       ),
@@ -1140,12 +973,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Boundary clamping ────────────────────────────────────
-        sectionHeader(
-          '10 \u00b7 Boundary Clamping With overlaySize',
-          'Keeping overlays within the visible area',
-          sage,
-          Colors.white,
-        ),
+        sectionHeader('10 \u00b7 Boundary Clamping With overlaySize',
+            'Keeping overlays within the visible area',
+            sage, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1162,30 +992,29 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: sage.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: sage.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: sage.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  'final overlayW = info.overlaySize.width;\n'
-                  'final overlayH = info.overlaySize.height;\n'
-                  '\n'
-                  '// Clamp horizontally\n'
-                  'var left = childX;\n'
-                  'if (left + popupWidth > overlayW) {\n'
-                  '  left = overlayW - popupWidth;\n'
-                  '}\n'
-                  'if (left < 0) left = 0;\n'
-                  '\n'
-                  '// Clamp vertically\n'
-                  'var top = childY + childH;\n'
-                  'if (top + popupHeight > overlayH) {\n'
-                  '  top = childY - popupHeight; // flip above\n'
-                  '}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: sage,
-                  ),
-                ),
+                    'final overlayW = info.overlaySize.width;\n'
+                    'final overlayH = info.overlaySize.height;\n'
+                    '\n'
+                    '// Clamp horizontally\n'
+                    'var left = childX;\n'
+                    'if (left + popupWidth > overlayW) {\n'
+                    '  left = overlayW - popupWidth;\n'
+                    '}\n'
+                    'if (left < 0) left = 0;\n'
+                    '\n'
+                    '// Clamp vertically\n'
+                    'var top = childY + childH;\n'
+                    'if (top + popupHeight > overlayH) {\n'
+                    '  top = childY - popupHeight; // flip above\n'
+                    '}',
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: sage)),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -1202,12 +1031,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Comparison with CompositedTransformFollower ──────────
-        sectionHeader(
-          '11 \u00b7 vs CompositedTransformFollower',
-          'Two approaches to overlay positioning',
-          moss,
-          Colors.white,
-        ),
+        sectionHeader('11 \u00b7 vs CompositedTransformFollower',
+            'Two approaches to overlay positioning',
+            moss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1225,69 +1051,45 @@ dynamic build(BuildContext context) {
               TableRow(
                 decoration: BoxDecoration(color: moss),
                 children: [
-                  for (final h in [
-                    'Aspect',
-                    'OverlayChildLayoutInfo',
-                    'CompositedTransformFollower',
-                  ])
+                  for (final h in ['Aspect', 'OverlayChildLayoutInfo', 'CompositedTransformFollower'])
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(
-                        h,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 9,
-                        ),
-                      ),
+                      child: Text(h,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 9)),
                     ),
                 ],
               ),
               for (final row in [
-                (
-                  'Approach',
-                  'Builder callback with info',
-                  'LayerLink + separate widget',
-                ),
+                ('Approach', 'Builder callback with info', 'LayerLink + separate widget'),
                 ('Timing', 'Layout phase', 'Composite phase'),
-                (
-                  'Flexibility',
-                  'Full control over positioning',
-                  'Offset + alignment only',
-                ),
+                ('Flexibility', 'Full control over positioning', 'Offset + alignment only'),
                 ('Boundary', 'Manual via overlaySize', 'No built-in boundary'),
-                (
-                  'Complexity',
-                  'Lower (single widget)',
-                  'Higher (target + follower + link)',
-                ),
+                ('Complexity', 'Lower (single widget)', 'Higher (target + follower + link)'),
               ])
                 TableRow(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(
-                        row.$1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 9,
-                          color: deepMoss,
-                        ),
-                      ),
+                      child: Text(row.$1,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 9,
+                              color: deepMoss)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(
-                        row.$2,
-                        style: TextStyle(fontSize: 9, color: darkLoam),
-                      ),
+                      child: Text(row.$2,
+                          style: TextStyle(
+                              fontSize: 9, color: darkLoam)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(
-                        row.$3,
-                        style: TextStyle(fontSize: 9, color: darkLoam),
-                      ),
+                      child: Text(row.$3,
+                          style: TextStyle(
+                              fontSize: 9, color: darkLoam)),
                     ),
                   ],
                 ),
@@ -1297,12 +1099,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Extension type vs class ──────────────────────────────
-        sectionHeader(
-          '12 \u00b7 Extension Type vs Class',
-          'Why OverlayChildLayoutInfo is an extension type',
-          deepMoss,
-          Colors.white,
-        ),
+        sectionHeader('12 \u00b7 Extension Type vs Class',
+            'Why OverlayChildLayoutInfo is an extension type',
+            deepMoss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1313,36 +1112,20 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final item in [
-                (
-                  'Zero runtime overhead',
-                  'Extension types compile away '
-                      'completely. At runtime, it is just a raw record tuple.',
-                  Icons.speed,
-                  moss,
-                ),
-                (
-                  'Named getters',
-                  'Instead of accessing positional record '
-                      'fields, you get meaningful names: childSize, '
-                      'childPaintTransform, overlaySize.',
-                  Icons.label,
-                  sage,
-                ),
-                (
-                  'Type safety',
-                  'You cannot accidentally pass a random '
-                      '(Size, Matrix4, Size) where an OverlayChildLayoutInfo '
-                      'is expected — the types are distinct.',
-                  Icons.shield,
-                  deepMoss,
-                ),
-                (
-                  'Private constructor',
-                  'The ._() constructor means only '
-                      'the framework can create instances. User code reads them.',
-                  Icons.lock,
-                  accentSlate,
-                ),
+                ('Zero runtime overhead', 'Extension types compile away '
+                    'completely. At runtime, it is just a raw record tuple.',
+                    Icons.speed, moss),
+                ('Named getters', 'Instead of accessing positional record '
+                    'fields, you get meaningful names: childSize, '
+                    'childPaintTransform, overlaySize.',
+                    Icons.label, sage),
+                ('Type safety', 'You cannot accidentally pass a random '
+                    '(Size, Matrix4, Size) where an OverlayChildLayoutInfo '
+                    'is expected — the types are distinct.',
+                    Icons.shield, deepMoss),
+                ('Private constructor', 'The ._() constructor means only '
+                    'the framework can create instances. User code reads them.',
+                    Icons.lock, accentSlate),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1350,7 +1133,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: item.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(left: BorderSide(color: item.$4, width: 3)),
+                    border: Border(
+                        left: BorderSide(color: item.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1361,18 +1145,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              item.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: item.$4,
-                              ),
-                            ),
-                            Text(
-                              item.$2,
-                              style: TextStyle(fontSize: 11, color: darkLoam),
-                            ),
+                            Text(item.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: item.$4)),
+                            Text(item.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkLoam)),
                           ],
                         ),
                       ),
@@ -1385,12 +1165,9 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Practical patterns ───────────────────────────────────
-        sectionHeader(
-          '13 \u00b7 Practical Patterns',
-          'Real-world usage scenarios',
-          sage,
-          Colors.white,
-        ),
+        sectionHeader('13 \u00b7 Practical Patterns',
+            'Real-world usage scenarios',
+            sage, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1401,41 +1178,21 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final pattern in [
-                (
-                  'Custom Tooltip',
-                  'Position a rich tooltip below the '
-                      'trigger button using childPaintTransform + childSize.',
-                  Icons.chat_bubble_outline,
-                  moss,
-                ),
-                (
-                  'Autocomplete Dropdown',
-                  'Open a suggestion list below '
-                      'a text field, clamped within overlaySize bounds.',
-                  Icons.list_alt,
-                  sage,
-                ),
-                (
-                  'Context Menu',
-                  'Show a menu at the child\u0027s position, '
-                      'flipping above if near the bottom edge.',
-                  Icons.menu_open,
-                  deepMoss,
-                ),
-                (
-                  'Popover Card',
-                  'Display a detail card anchored to a '
-                      'list item, tracking its position even during scroll.',
-                  Icons.open_in_new,
-                  softMoss,
-                ),
-                (
-                  'Color Picker',
-                  'Anchor a color picker below a swatch '
-                      'button, centered horizontally.',
-                  Icons.palette,
-                  accentBrick,
-                ),
+                ('Custom Tooltip', 'Position a rich tooltip below the '
+                    'trigger button using childPaintTransform + childSize.',
+                    Icons.chat_bubble_outline, moss),
+                ('Autocomplete Dropdown', 'Open a suggestion list below '
+                    'a text field, clamped within overlaySize bounds.',
+                    Icons.list_alt, sage),
+                ('Context Menu', 'Show a menu at the child\u0027s position, '
+                    'flipping above if near the bottom edge.',
+                    Icons.menu_open, deepMoss),
+                ('Popover Card', 'Display a detail card anchored to a '
+                    'list item, tracking its position even during scroll.',
+                    Icons.open_in_new, softMoss),
+                ('Color Picker', 'Anchor a color picker below a swatch '
+                    'button, centered horizontally.',
+                    Icons.palette, accentBrick),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1444,8 +1201,7 @@ dynamic build(BuildContext context) {
                     color: pattern.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                      left: BorderSide(color: pattern.$4, width: 3),
-                    ),
+                        left: BorderSide(color: pattern.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1456,18 +1212,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              pattern.$1,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: pattern.$4,
-                              ),
-                            ),
-                            Text(
-                              pattern.$2,
-                              style: TextStyle(fontSize: 11, color: darkLoam),
-                            ),
+                            Text(pattern.$1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: pattern.$4)),
+                            Text(pattern.$2,
+                                style: TextStyle(
+                                    fontSize: 11, color: darkLoam)),
                           ],
                         ),
                       ),
@@ -1480,12 +1232,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Performance ──────────────────────────────────────────
-        sectionHeader(
-          '14 \u00b7 Performance Characteristics',
-          'Lightweight by design',
-          deepMoss,
-          Colors.white,
-        ),
+        sectionHeader('14 \u00b7 Performance Characteristics',
+            'Lightweight by design', deepMoss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1496,35 +1244,19 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final perf in [
-                (
-                  'Extension type',
-                  'Zero allocation — compiles to raw record',
-                  Icons.memory,
-                  moss,
-                ),
-                (
-                  'Layout-phase only',
-                  'Info is computed during layout, not on demand',
-                  Icons.schedule,
-                  sage,
-                ),
-                (
-                  'Matrix4 reuse',
-                  'The transform matrix is already computed for painting',
-                  Icons.refresh,
-                  deepMoss,
-                ),
+                ('Extension type', 'Zero allocation — compiles to raw record', Icons.memory, moss),
+                ('Layout-phase only', 'Info is computed during layout, not on demand', Icons.schedule, sage),
+                ('Matrix4 reuse', 'The transform matrix is already computed for painting', Icons.refresh, deepMoss),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
+                      horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: perf.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(left: BorderSide(color: perf.$4, width: 2)),
+                    border: Border(
+                        left: BorderSide(color: perf.$4, width: 2)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1533,22 +1265,18 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       Expanded(
                         child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
+                          text: TextSpan(children: [
+                            TextSpan(
                                 text: '${perf.$1}: ',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  color: perf.$4,
-                                ),
-                              ),
-                              TextSpan(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                    color: perf.$4)),
+                            TextSpan(
                                 text: perf.$2,
-                                style: TextStyle(fontSize: 11, color: darkLoam),
-                              ),
-                            ],
-                          ),
+                                style: TextStyle(
+                                    fontSize: 11, color: darkLoam)),
+                          ]),
                         ),
                       ),
                     ],
@@ -1560,12 +1288,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionHeader(
-          '15 \u00b7 Summary',
-          'Key takeaways',
-          deepMoss,
-          Colors.white,
-        ),
+        sectionHeader('15 \u00b7 Summary',
+            'Key takeaways', deepMoss, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1597,22 +1321,15 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '\u2022  ',
-                        style: TextStyle(
-                          color: lightSage,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      Text('\u2022  ',
+                          style: TextStyle(
+                              color: lightSage,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
                       Expanded(
-                        child: Text(
-                          point,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                          ),
-                        ),
+                        child: Text(point,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 13)),
                       ),
                     ],
                   ),

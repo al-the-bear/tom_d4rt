@@ -31,10 +31,7 @@ Widget _npSection(String title, List<Widget> children) {
       border: Border.all(color: _npLightTeal, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x1A00695C),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x1A00695C), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -46,14 +43,11 @@ Widget _npSection(String title, List<Widget> children) {
             color: _npTeal,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _npWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _npWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -65,24 +59,19 @@ Widget _npSection(String title, List<Widget> children) {
 Widget _npLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _npDarkTeal,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _npDarkTeal,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _npBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _npGray, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(color: _npGray, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -96,15 +85,12 @@ Widget _npCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _npLightTeal.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _npDarkTeal,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _npDarkTeal,
+            height: 1.45)),
   );
 }
 
@@ -116,10 +102,9 @@ Widget _npChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -152,10 +137,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'AutocompleteNextPageOptionIntent',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: const Text('AutocompleteNextPageOptionIntent',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -184,48 +167,27 @@ dynamic build(BuildContext context) {
                       color: _npWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.keyboard_double_arrow_down,
-                      color: _npWhite,
-                      size: 32,
-                    ),
+                    child: const Icon(Icons.keyboard_double_arrow_down,
+                        color: _npWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'AutocompleteNextPageOptionIntent',
-                    style: TextStyle(
-                      color: _npWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('AutocompleteNextPageOptionIntent',
+                      style: TextStyle(
+                          color: _npWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
-                  Text(
-                    'Rapid traversal of long autocomplete lists',
-                    style: TextStyle(
-                      color: _npWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text('Rapid traversal of long autocomplete lists',
+                      style: TextStyle(
+                          color: _npWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _npChip(
-                        'Intent',
-                        _npWhite.withValues(alpha: 0.25),
-                        _npWhite,
-                      ),
-                      _npChip(
-                        'Page Jump',
-                        _npWhite.withValues(alpha: 0.25),
-                        _npWhite,
-                      ),
-                      _npChip(
-                        'Page Down',
-                        _npWhite.withValues(alpha: 0.25),
-                        _npWhite,
-                      ),
+                      _npChip('Intent', _npWhite.withValues(alpha: 0.25), _npWhite),
+                      _npChip('Page Jump', _npWhite.withValues(alpha: 0.25), _npWhite),
+                      _npChip('Page Down', _npWhite.withValues(alpha: 0.25), _npWhite),
                     ],
                   ),
                 ],
@@ -272,40 +234,28 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          const Icon(
-                            Icons.arrow_downward,
-                            color: _npGray,
-                            size: 20,
-                          ),
+                          const Icon(Icons.arrow_downward,
+                              color: _npGray, size: 20),
                           const SizedBox(height: 4),
-                          const Text(
-                            'NextOption',
-                            style: TextStyle(
-                              color: _npGray,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Text(
-                            '+1 step',
-                            style: TextStyle(
-                              color: _npGray.withValues(alpha: 0.7),
-                              fontSize: 10,
-                            ),
-                          ),
+                          const Text('NextOption',
+                              style: TextStyle(
+                                  color: _npGray,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700)),
+                          Text('+1 step',
+                              style: TextStyle(
+                                  color: _npGray.withValues(alpha: 0.7),
+                                  fontSize: 10)),
                         ],
                       ),
                     ),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      'vs',
-                      style: TextStyle(
-                        color: _npGray,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    child: Text('vs',
+                        style: TextStyle(
+                            color: _npGray,
+                            fontWeight: FontWeight.w600)),
                   ),
                   Expanded(
                     child: Container(
@@ -317,27 +267,18 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          const Icon(
-                            Icons.keyboard_double_arrow_down,
-                            color: _npTeal,
-                            size: 20,
-                          ),
+                          const Icon(Icons.keyboard_double_arrow_down,
+                              color: _npTeal, size: 20),
                           const SizedBox(height: 4),
-                          const Text(
-                            'NextPageOption',
-                            style: TextStyle(
-                              color: _npTeal,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Text(
-                            '+pageSize steps',
-                            style: TextStyle(
-                              color: _npTeal.withValues(alpha: 0.8),
-                              fontSize: 10,
-                            ),
-                          ),
+                          const Text('NextPageOption',
+                              style: TextStyle(
+                                  color: _npTeal,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700)),
+                          Text('+pageSize steps',
+                              style: TextStyle(
+                                  color: _npTeal.withValues(alpha: 0.8),
+                                  fontSize: 10)),
                         ],
                       ),
                     ),
@@ -538,35 +479,25 @@ dynamic build(BuildContext context) {
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [_npTeal, _npMedTeal]),
+                  gradient: const LinearGradient(
+                    colors: [_npTeal, _npMedTeal],
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   children: [
-                    _npSummaryRow(
-                      Icons.keyboard_double_arrow_down,
-                      'Jumps forward by one viewport page',
-                    ),
-                    _npSummaryRow(
-                      Icons.calculate,
-                      'Page size = viewport height / item height',
-                    ),
-                    _npSummaryRow(
-                      Icons.keyboard,
-                      'Mapped to Page Down by default',
-                    ),
-                    _npSummaryRow(
-                      Icons.loop,
-                      'Wraps around at list boundaries',
-                    ),
-                    _npSummaryRow(
-                      Icons.speed,
-                      'Reduces keystrokes for long lists dramatically',
-                    ),
-                    _npSummaryRow(
-                      Icons.accessible,
-                      'Critical for accessible navigation of large datasets',
-                    ),
+                    _npSummaryRow(Icons.keyboard_double_arrow_down,
+                        'Jumps forward by one viewport page'),
+                    _npSummaryRow(Icons.calculate,
+                        'Page size = viewport height / item height'),
+                    _npSummaryRow(Icons.keyboard,
+                        'Mapped to Page Down by default'),
+                    _npSummaryRow(Icons.loop,
+                        'Wraps around at list boundaries'),
+                    _npSummaryRow(Icons.speed,
+                        'Reduces keystrokes for long lists dramatically'),
+                    _npSummaryRow(Icons.accessible,
+                        'Critical for accessible navigation of large datasets'),
                   ],
                 ),
               ),
@@ -599,41 +530,32 @@ List<Widget> _buildViewportDiagram() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Full List (12 items)',
-                  style: TextStyle(
-                    color: _npDarkTeal,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Full List (12 items)',
+                    style: TextStyle(
+                        color: _npDarkTeal,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
                 ...allItems.asMap().entries.map((entry) {
                   final inViewport = entry.key < 5;
                   return Container(
                     margin: const EdgeInsets.only(bottom: 2),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
+                        horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: inViewport
                           ? _npTeal.withValues(alpha: 0.12)
                           : _npWhite,
                       borderRadius: BorderRadius.circular(3),
                       border: Border.all(
-                        color: inViewport
-                            ? _npTeal.withValues(alpha: 0.3)
-                            : _npLightTeal.withValues(alpha: 0.3),
-                      ),
+                          color: inViewport
+                              ? _npTeal.withValues(alpha: 0.3)
+                              : _npLightTeal.withValues(alpha: 0.3)),
                     ),
-                    child: Text(
-                      entry.value,
-                      style: TextStyle(
-                        color: inViewport ? _npDarkTeal : _npGray,
-                        fontSize: 9.5,
-                      ),
-                    ),
+                    child: Text(entry.value,
+                        style: TextStyle(
+                            color: inViewport ? _npDarkTeal : _npGray,
+                            fontSize: 9.5)),
                   );
                 }),
               ],
@@ -645,14 +567,11 @@ List<Widget> _buildViewportDiagram() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Viewport',
-                  style: TextStyle(
-                    color: _npTeal,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const Text('Viewport',
+                    style: TextStyle(
+                        color: _npTeal,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(height: 4),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -670,13 +589,9 @@ List<Widget> _buildViewportDiagram() {
                           color: _npWhite,
                           borderRadius: BorderRadius.circular(3),
                         ),
-                        child: Text(
-                          'Option ${i + 1}',
-                          style: const TextStyle(
-                            color: _npDarkTeal,
-                            fontSize: 9.5,
-                          ),
-                        ),
+                        child: Text('Option ${i + 1}',
+                            style: const TextStyle(
+                                color: _npDarkTeal, fontSize: 9.5)),
                       );
                     }),
                   ),
@@ -693,10 +608,9 @@ List<Widget> _buildViewportDiagram() {
                     'pageSize = 5\n'
                     '1 Page Down = 5 items',
                     style: TextStyle(
-                      color: _npAccentOrange,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    ),
+                        color: _npAccentOrange,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -733,63 +647,54 @@ List<Widget> _buildJumpArithmeticVisual() {
             margin: const EdgeInsets.only(bottom: 6),
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: isWrap ? _npAccentAmber.withValues(alpha: 0.08) : _npWhite,
+              color: isWrap
+                  ? _npAccentAmber.withValues(alpha: 0.08)
+                  : _npWhite,
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: isWrap ? _npAccentAmber : _npLightTeal),
+              border: Border.all(
+                  color: isWrap ? _npAccentAmber : _npLightTeal),
             ),
             child: Row(
               children: [
                 SizedBox(
                   width: 70,
-                  child: Text(
-                    j['press'] as String,
-                    style: TextStyle(
-                      color: isWrap ? _npAccentAmber : _npTeal,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 11,
-                    ),
-                  ),
+                  child: Text(j['press'] as String,
+                      style: TextStyle(
+                          color: isWrap ? _npAccentAmber : _npTeal,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 11)),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: _npGray.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(
-                    'idx ${j['from']}',
-                    style: const TextStyle(
-                      color: _npGray,
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  child: Text('idx ${j['from']}',
+                      style: const TextStyle(
+                          color: _npGray,
+                          fontSize: 10,
+                          fontFamily: 'monospace')),
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6),
-                  child: Icon(Icons.arrow_forward, size: 14, color: _npTeal),
+                  child: Icon(Icons.arrow_forward,
+                      size: 14, color: _npTeal),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: _npTeal.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(
-                    'idx ${j['to']}',
-                    style: const TextStyle(
-                      color: _npTeal,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
+                  child: Text('idx ${j['to']}',
+                      style: const TextStyle(
+                          color: _npTeal,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'monospace')),
                 ),
                 if (isWrap) ...[
                   const Spacer(),
@@ -832,14 +737,11 @@ Widget _buildSideBySideComparison() {
                   children: [
                     Icon(Icons.arrow_downward, color: _npGray, size: 20),
                     SizedBox(height: 4),
-                    Text(
-                      'Arrow ↓',
-                      style: TextStyle(
-                        color: _npGray,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('Arrow ↓',
+                        style: TextStyle(
+                            color: _npGray,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700)),
                   ],
                 ),
               ),
@@ -848,46 +750,35 @@ Widget _buildSideBySideComparison() {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 2),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
+                      horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: _npWhite,
                     borderRadius: BorderRadius.circular(3),
                     border: Border.all(
-                      color: _npLightTeal.withValues(alpha: 0.3),
-                    ),
+                        color: _npLightTeal.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        '${i + 1}',
-                        style: const TextStyle(
-                          color: _npGray,
-                          fontSize: 9,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
+                      Text('${i + 1}',
+                          style: const TextStyle(
+                              color: _npGray,
+                              fontSize: 9,
+                              fontFamily: 'monospace')),
                       const SizedBox(width: 4),
-                      Icon(
-                        Icons.arrow_downward,
-                        size: 8,
-                        color: _npGray.withValues(alpha: 0.5),
-                      ),
+                      Icon(Icons.arrow_downward,
+                          size: 8,
+                          color: _npGray.withValues(alpha: 0.5)),
                     ],
                   ),
                 );
               }),
               const SizedBox(height: 4),
-              const Text(
-                '10 keystrokes to item 10',
-                style: TextStyle(
-                  color: _npAccentRed,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              const Text('10 keystrokes to item 10',
+                  style: TextStyle(
+                      color: _npAccentRed,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600)),
             ],
           ),
         ),
@@ -905,27 +796,22 @@ Widget _buildSideBySideComparison() {
                 ),
                 child: const Column(
                   children: [
-                    Icon(
-                      Icons.keyboard_double_arrow_down,
-                      color: _npTeal,
-                      size: 20,
-                    ),
+                    Icon(Icons.keyboard_double_arrow_down,
+                        color: _npTeal, size: 20),
                     SizedBox(height: 4),
-                    Text(
-                      'Page Down',
-                      style: TextStyle(
-                        color: _npTeal,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('Page Down',
+                        style: TextStyle(
+                            color: _npTeal,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700)),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               Container(
                 margin: const EdgeInsets.only(bottom: 2),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _npTeal.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(3),
@@ -934,36 +820,28 @@ Widget _buildSideBySideComparison() {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      '1',
-                      style: TextStyle(
-                        color: _npTeal,
-                        fontSize: 9,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('1',
+                        style: TextStyle(
+                            color: _npTeal,
+                            fontSize: 9,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700)),
                     SizedBox(width: 4),
-                    Icon(
-                      Icons.keyboard_double_arrow_down,
-                      size: 8,
-                      color: _npTeal,
-                    ),
+                    Icon(Icons.keyboard_double_arrow_down,
+                        size: 8, color: _npTeal),
                     SizedBox(width: 2),
-                    Text(
-                      '+5',
-                      style: TextStyle(
-                        color: _npTeal,
-                        fontSize: 8,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('+5',
+                        style: TextStyle(
+                            color: _npTeal,
+                            fontSize: 8,
+                            fontWeight: FontWeight.w700)),
                   ],
                 ),
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: 2),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _npTeal.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(3),
@@ -972,50 +850,35 @@ Widget _buildSideBySideComparison() {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      '2',
-                      style: TextStyle(
-                        color: _npTeal,
-                        fontSize: 9,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('2',
+                        style: TextStyle(
+                            color: _npTeal,
+                            fontSize: 9,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700)),
                     SizedBox(width: 4),
-                    Icon(
-                      Icons.keyboard_double_arrow_down,
-                      size: 8,
-                      color: _npTeal,
-                    ),
+                    Icon(Icons.keyboard_double_arrow_down,
+                        size: 8, color: _npTeal),
                     SizedBox(width: 2),
-                    Text(
-                      '+5',
-                      style: TextStyle(
-                        color: _npTeal,
-                        fontSize: 8,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text('+5',
+                        style: TextStyle(
+                            color: _npTeal,
+                            fontSize: 8,
+                            fontWeight: FontWeight.w700)),
                   ],
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
-                '2 keystrokes to item 10',
-                style: TextStyle(
-                  color: _npAccentGreen,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const Text(
-                '5× more efficient',
-                style: TextStyle(
-                  color: _npTeal,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              const Text('2 keystrokes to item 10',
+                  style: TextStyle(
+                      color: _npAccentGreen,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600)),
+              const Text('5× more efficient',
+                  style: TextStyle(
+                      color: _npTeal,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700)),
             ],
           ),
         ),
@@ -1053,63 +916,53 @@ List<Widget> _buildBoundaryScenarios() {
       decoration: BoxDecoration(
         color: (s['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+        border:
+            Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            s['title'] as String,
-            style: TextStyle(
-              color: s['color'] as Color,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-          Text(
-            s['desc'] as String,
-            style: const TextStyle(color: _npGray, fontSize: 11),
-          ),
+          Text(s['title'] as String,
+              style: TextStyle(
+                  color: s['color'] as Color,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12)),
+          Text(s['desc'] as String,
+              style: const TextStyle(color: _npGray, fontSize: 11)),
           const SizedBox(height: 6),
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _npGray.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Text(
-                  'idx ${s['from']}',
-                  style: const TextStyle(
-                    color: _npGray,
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                child: Text('idx ${s['from']}',
+                    style: const TextStyle(
+                        color: _npGray,
+                        fontSize: 10.5,
+                        fontFamily: 'monospace')),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 6),
-                child: Text(
-                  '+ PgDn(5) →',
-                  style: TextStyle(color: _npGray, fontSize: 10),
-                ),
+                child: Text('+ PgDn(5) →',
+                    style: TextStyle(color: _npGray, fontSize: 10)),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: (s['color'] as Color).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Text(
-                  s['resultLabel'] as String,
-                  style: TextStyle(
-                    color: s['color'] as Color,
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                child: Text(s['resultLabel'] as String,
+                    style: TextStyle(
+                        color: s['color'] as Color,
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'monospace')),
               ),
             ],
           ),
@@ -1124,10 +977,26 @@ List<Widget> _buildBoundaryScenarios() {
 // ─────────────────────────────────────────────────────────────
 List<Widget> _buildKeyBindingCards() {
   final bindings = <Map<String, dynamic>>[
-    {'platform': 'macOS', 'key': 'Page Down (Fn+↓)', 'icon': Icons.desktop_mac},
-    {'platform': 'Windows', 'key': 'Page Down', 'icon': Icons.desktop_windows},
-    {'platform': 'Linux', 'key': 'Page Down', 'icon': Icons.computer},
-    {'platform': 'Web', 'key': 'Page Down (host OS)', 'icon': Icons.language},
+    {
+      'platform': 'macOS',
+      'key': 'Page Down (Fn+↓)',
+      'icon': Icons.desktop_mac,
+    },
+    {
+      'platform': 'Windows',
+      'key': 'Page Down',
+      'icon': Icons.desktop_windows,
+    },
+    {
+      'platform': 'Linux',
+      'key': 'Page Down',
+      'icon': Icons.computer,
+    },
+    {
+      'platform': 'Web',
+      'key': 'Page Down (host OS)',
+      'icon': Icons.language,
+    },
   ];
   return bindings.map((b) {
     return Container(
@@ -1142,14 +1011,11 @@ List<Widget> _buildKeyBindingCards() {
         children: [
           Icon(b['icon'] as IconData, size: 20, color: _npTeal),
           const SizedBox(width: 10),
-          Text(
-            b['platform'] as String,
-            style: const TextStyle(
-              color: _npDarkTeal,
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(b['platform'] as String,
+              style: const TextStyle(
+                  color: _npDarkTeal,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700)),
           const Spacer(),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -1158,15 +1024,12 @@ List<Widget> _buildKeyBindingCards() {
               borderRadius: BorderRadius.circular(4),
               border: Border.all(color: _npLightTeal),
             ),
-            child: Text(
-              b['key'] as String,
-              style: const TextStyle(
-                color: _npDarkTeal,
-                fontSize: 10.5,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(b['key'] as String,
+                style: const TextStyle(
+                    color: _npDarkTeal,
+                    fontSize: 10.5,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w600)),
           ),
         ],
       ),
@@ -1194,100 +1057,81 @@ Widget _buildScrollDiagram() {
             Expanded(
               child: Column(
                 children: [
-                  const Text(
-                    'Before PgDn',
-                    style: TextStyle(
-                      color: _npGray,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  const Text('Before PgDn',
+                      style: TextStyle(
+                          color: _npGray,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
                   ...List.generate(5, (i) {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 2),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 3,
-                      ),
+                          horizontal: 6, vertical: 3),
                       decoration: BoxDecoration(
                         color: i == 0
                             ? _npTeal.withValues(alpha: 0.15)
                             : _npWhite,
                         borderRadius: BorderRadius.circular(3),
                         border: Border.all(
-                          color: i == 0 ? _npTeal : _npLightTeal,
-                        ),
+                            color: i == 0 ? _npTeal : _npLightTeal),
                       ),
-                      child: Text(
-                        'Item ${i + 1}',
-                        style: TextStyle(
-                          color: i == 0 ? _npTeal : _npGray,
-                          fontSize: 9.5,
-                          fontWeight: i == 0
-                              ? FontWeight.w700
-                              : FontWeight.w400,
-                        ),
-                      ),
+                      child: Text('Item ${i + 1}',
+                          style: TextStyle(
+                              color: i == 0 ? _npTeal : _npGray,
+                              fontSize: 9.5,
+                              fontWeight: i == 0
+                                  ? FontWeight.w700
+                                  : FontWeight.w400)),
                     );
                   }),
-                  const Text(
-                    '▽ highlight at idx 0',
-                    style: TextStyle(color: _npGray, fontSize: 9),
-                  ),
+                  const Text('▽ highlight at idx 0',
+                      style: TextStyle(
+                          color: _npGray, fontSize: 9)),
                 ],
               ),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 30),
-              child: Icon(Icons.arrow_forward, color: _npTeal, size: 20),
+              child: Icon(Icons.arrow_forward,
+                  color: _npTeal, size: 20),
             ),
             // After
             Expanded(
               child: Column(
                 children: [
-                  const Text(
-                    'After PgDn',
-                    style: TextStyle(
-                      color: _npTeal,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  const Text('After PgDn',
+                      style: TextStyle(
+                          color: _npTeal,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
                   ...List.generate(5, (i) {
                     final itemIdx = i + 5;
                     return Container(
                       margin: const EdgeInsets.only(bottom: 2),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 3,
-                      ),
+                          horizontal: 6, vertical: 3),
                       decoration: BoxDecoration(
                         color: i == 0
                             ? _npTeal.withValues(alpha: 0.15)
                             : _npWhite,
                         borderRadius: BorderRadius.circular(3),
                         border: Border.all(
-                          color: i == 0 ? _npTeal : _npLightTeal,
-                        ),
+                            color: i == 0 ? _npTeal : _npLightTeal),
                       ),
-                      child: Text(
-                        'Item ${itemIdx + 1}',
-                        style: TextStyle(
-                          color: i == 0 ? _npTeal : _npGray,
-                          fontSize: 9.5,
-                          fontWeight: i == 0
-                              ? FontWeight.w700
-                              : FontWeight.w400,
-                        ),
-                      ),
+                      child: Text('Item ${itemIdx + 1}',
+                          style: TextStyle(
+                              color: i == 0 ? _npTeal : _npGray,
+                              fontSize: 9.5,
+                              fontWeight: i == 0
+                                  ? FontWeight.w700
+                                  : FontWeight.w400)),
                     );
                   }),
-                  const Text(
-                    '▽ highlight at idx 5',
-                    style: TextStyle(color: _npTeal, fontSize: 9),
-                  ),
+                  const Text('▽ highlight at idx 5',
+                      style: TextStyle(
+                          color: _npTeal, fontSize: 9)),
                 ],
               ),
             ),
@@ -1305,10 +1149,9 @@ Widget _buildScrollDiagram() {
             'Viewport scrolls so highlighted item stays visible',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: _npAccentAmber,
-              fontSize: 10.5,
-              fontWeight: FontWeight.w600,
-            ),
+                color: _npAccentAmber,
+                fontSize: 10.5,
+                fontWeight: FontWeight.w600),
           ),
         ),
       ],
@@ -1341,51 +1184,40 @@ Widget _buildNavigationMatrix() {
           color: isHeader
               ? _npTeal
               : entry.key.isEven
-              ? _npFrost
-              : _npWhite,
+                  ? _npFrost
+                  : _npWhite,
           child: Row(
             children: [
               Expanded(
-                flex: 2,
-                child: Text(
-                  row[0],
-                  style: TextStyle(
-                    color: isHeader ? _npWhite : _npDarkTeal,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
+                  flex: 2,
+                  child: Text(row[0],
+                      style: TextStyle(
+                          color: isHeader ? _npWhite : _npDarkTeal,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700))),
               Expanded(
-                flex: 3,
-                child: Text(
-                  row[1],
-                  style: TextStyle(
-                    color: isHeader
-                        ? _npWhite
-                        : row[1].contains('★')
-                        ? _npTeal
-                        : _npGray,
-                    fontSize: 11,
-                    fontWeight: row[1].contains('★')
-                        ? FontWeight.w800
-                        : isHeader
-                        ? FontWeight.w700
-                        : FontWeight.w400,
-                  ),
-                ),
-              ),
+                  flex: 3,
+                  child: Text(row[1],
+                      style: TextStyle(
+                          color: isHeader
+                              ? _npWhite
+                              : row[1].contains('★')
+                                  ? _npTeal
+                                  : _npGray,
+                          fontSize: 11,
+                          fontWeight: row[1].contains('★')
+                              ? FontWeight.w800
+                              : isHeader
+                                  ? FontWeight.w700
+                                  : FontWeight.w400))),
               Expanded(
-                flex: 3,
-                child: Text(
-                  row[2],
-                  style: TextStyle(
-                    color: isHeader ? _npWhite : _npGray,
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
-                  ),
-                ),
-              ),
+                  flex: 3,
+                  child: Text(row[2],
+                      style: TextStyle(
+                          color: isHeader ? _npWhite : _npGray,
+                          fontSize: 11,
+                          fontWeight:
+                              isHeader ? FontWeight.w700 : FontWeight.w400))),
             ],
           ),
         );
@@ -1434,29 +1266,24 @@ Widget _buildCountryPickerDemo() {
               const Icon(Icons.public, color: _npTeal, size: 18),
               const SizedBox(width: 8),
               const Expanded(
-                child: Text(
-                  'A|',
-                  style: TextStyle(
-                    color: _npDarkTeal,
-                    fontSize: 14,
-                    fontFamily: 'monospace',
-                  ),
-                ),
+                child: Text('A|',
+                    style: TextStyle(
+                        color: _npDarkTeal,
+                        fontSize: 14,
+                        fontFamily: 'monospace')),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _npTeal.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text(
-                  'PgDn ×1',
-                  style: TextStyle(
-                    color: _npTeal,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: const Text('PgDn ×1',
+                    style: TextStyle(
+                        color: _npTeal,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700)),
               ),
             ],
           ),
@@ -1469,19 +1296,17 @@ Widget _buildCountryPickerDemo() {
             decoration: BoxDecoration(
               color: isHl ? _npTeal : _npWhite,
               border: Border(
-                bottom: BorderSide(color: _npLightTeal.withValues(alpha: 0.3)),
-              ),
+                  bottom: BorderSide(
+                      color: _npLightTeal.withValues(alpha: 0.3))),
             ),
             child: Row(
               children: [
-                Text(
-                  e.value,
-                  style: TextStyle(
-                    color: isHl ? _npWhite : _npDarkTeal,
-                    fontSize: 12,
-                    fontWeight: isHl ? FontWeight.w700 : FontWeight.w400,
-                  ),
-                ),
+                Text(e.value,
+                    style: TextStyle(
+                        color: isHl ? _npWhite : _npDarkTeal,
+                        fontSize: 12,
+                        fontWeight:
+                            isHl ? FontWeight.w700 : FontWeight.w400)),
                 if (isHl) ...[
                   const Spacer(),
                   const Icon(Icons.check, size: 14, color: _npWhite),
@@ -1497,15 +1322,12 @@ Widget _buildCountryPickerDemo() {
             color: _npFrost,
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
-          child: const Text(
-            'Jumped from Afghanistan → Argentina in 1 press',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: _npTeal,
-              fontSize: 10.5,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: const Text('Jumped from Afghanistan → Argentina in 1 press',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: _npTeal,
+                  fontSize: 10.5,
+                  fontWeight: FontWeight.w600)),
         ),
       ],
     ),
@@ -1558,14 +1380,11 @@ Widget _buildFontSelectorDemo() {
             children: [
               const Icon(Icons.font_download, color: _npTeal, size: 18),
               const SizedBox(width: 8),
-              const Text(
-                'Select Font',
-                style: TextStyle(
-                  color: _npDarkTeal,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              const Text('Select Font',
+                  style: TextStyle(
+                      color: _npDarkTeal,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600)),
               const Spacer(),
               _npChip('PgDn ×2', _npTeal, _npWhite),
             ],
@@ -1577,12 +1396,13 @@ Widget _buildFontSelectorDemo() {
           if (fontIdx >= fonts.length) return const SizedBox.shrink();
           final isHl = fontIdx == hlIdx;
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: isHl ? _npTeal : _npWhite,
               border: Border(
-                bottom: BorderSide(color: _npLightTeal.withValues(alpha: 0.3)),
-              ),
+                  bottom: BorderSide(
+                      color: _npLightTeal.withValues(alpha: 0.3))),
             ),
             child: Row(
               children: [
@@ -1590,47 +1410,39 @@ Widget _buildFontSelectorDemo() {
                   width: 22,
                   height: 22,
                   decoration: BoxDecoration(
-                    color: isHl ? _npWhite.withValues(alpha: 0.2) : _npFrost,
+                    color: isHl
+                        ? _npWhite.withValues(alpha: 0.2)
+                        : _npFrost,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   alignment: Alignment.center,
-                  child: Text(
-                    '${fontIdx + 1}',
-                    style: TextStyle(
-                      color: isHl ? _npWhite : _npGray,
-                      fontSize: 9,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  child: Text('${fontIdx + 1}',
+                      style: TextStyle(
+                          color: isHl ? _npWhite : _npGray,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w700)),
                 ),
                 const SizedBox(width: 10),
-                Text(
-                  fonts[fontIdx],
-                  style: TextStyle(
-                    color: isHl ? _npWhite : _npDarkTeal,
-                    fontSize: 13,
-                    fontWeight: isHl ? FontWeight.w700 : FontWeight.w400,
-                  ),
-                ),
+                Text(fonts[fontIdx],
+                    style: TextStyle(
+                        color: isHl ? _npWhite : _npDarkTeal,
+                        fontSize: 13,
+                        fontWeight:
+                            isHl ? FontWeight.w700 : FontWeight.w400)),
                 if (isHl) ...[
                   const Spacer(),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
+                        horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: _npWhite.withValues(alpha: 0.25),
                       borderRadius: BorderRadius.circular(3),
                     ),
-                    child: const Text(
-                      'Aa',
-                      style: TextStyle(
-                        color: _npWhite,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: const Text('Aa',
+                        style: TextStyle(
+                            color: _npWhite,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700)),
                   ),
                 ],
               ],
@@ -1647,10 +1459,8 @@ Widget _buildFontSelectorDemo() {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Showing ${viewStart + 1}-${viewStart + 6} of ${fonts.length}',
-                style: const TextStyle(color: _npGray, fontSize: 10),
-              ),
+              Text('Showing ${viewStart + 1}-${viewStart + 6} of ${fonts.length}',
+                  style: const TextStyle(color: _npGray, fontSize: 10)),
               Container(
                 width: 40,
                 height: 4,
@@ -1661,9 +1471,7 @@ Widget _buildFontSelectorDemo() {
                 child: FractionallySizedBox(
                   widthFactor: 6.0 / fonts.length,
                   alignment: Alignment(
-                    -1.0 + 2.0 * viewStart / (fonts.length - 6),
-                    0,
-                  ),
+                      -1.0 + 2.0 * viewStart / (fonts.length - 6), 0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: _npTeal,
@@ -1697,7 +1505,12 @@ Widget _buildEfficiencyChart() {
       'bar': 0.2,
       'color': _npAccentAmber,
     },
-    {'method': 'PgDn + Arrow ↓', 'keystrokes': 5, 'bar': 0.1, 'color': _npTeal},
+    {
+      'method': 'PgDn + Arrow ↓',
+      'keystrokes': 5,
+      'bar': 0.1,
+      'color': _npTeal,
+    },
     {
       'method': 'First + Arrow ↓ × 50',
       'keystrokes': 51,
@@ -1716,14 +1529,11 @@ Widget _buildEfficiencyChart() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Keystrokes to reach item #50 (pageSize=5)',
-          style: TextStyle(
-            color: _npDarkTeal,
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        const Text('Keystrokes to reach item #50 (pageSize=5)',
+            style: TextStyle(
+                color: _npDarkTeal,
+                fontSize: 11,
+                fontWeight: FontWeight.w700)),
         const SizedBox(height: 10),
         ...methods.map((m) {
           final barWidth = (m['bar'] as double).clamp(0.0, 1.0);
@@ -1735,22 +1545,16 @@ Widget _buildEfficiencyChart() {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      m['method'] as String,
-                      style: const TextStyle(
-                        color: _npDarkTeal,
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      '${m['keystrokes']} keys',
-                      style: TextStyle(
-                        color: m['color'] as Color,
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text(m['method'] as String,
+                        style: const TextStyle(
+                            color: _npDarkTeal,
+                            fontSize: 10.5,
+                            fontWeight: FontWeight.w600)),
+                    Text('${m['keystrokes']} keys',
+                        style: TextStyle(
+                            color: m['color'] as Color,
+                            fontSize: 10.5,
+                            fontWeight: FontWeight.w700)),
                   ],
                 ),
                 const SizedBox(height: 3),
@@ -1791,13 +1595,10 @@ Widget _npSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _npWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _npWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _npWhite.withValues(alpha: 0.95),
+                  fontSize: 12.5)),
         ),
       ],
     ),

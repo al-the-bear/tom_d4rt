@@ -92,7 +92,8 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(28),
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.account_circle, color: heroBg, size: 36),
+              child: const Icon(Icons.account_circle,
+                  color: heroBg, size: 36),
             ),
             const SizedBox(height: 6),
             const Text(
@@ -110,10 +111,9 @@ dynamic build(BuildContext context) {
               Text(
                 'title — primary text row',
                 style: TextStyle(
-                  color: heroFg,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+                    color: heroFg,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 4),
               Text(
@@ -157,31 +157,23 @@ dynamic build(BuildContext context) {
       children: const [
         Icon(Icons.vertical_align_top, color: heroAccent, size: 18),
         SizedBox(width: 6),
-        Text(
-          'top',
-          style: TextStyle(color: heroFg, fontWeight: FontWeight.w500),
-        ),
+        Text('top',
+            style: TextStyle(color: heroFg, fontWeight: FontWeight.w500)),
         SizedBox(width: 16),
         Icon(Icons.vertical_align_center, color: heroAccent, size: 18),
         SizedBox(width: 6),
-        Text(
-          'center',
-          style: TextStyle(color: heroFg, fontWeight: FontWeight.w500),
-        ),
+        Text('center',
+            style: TextStyle(color: heroFg, fontWeight: FontWeight.w500)),
         SizedBox(width: 16),
         Icon(Icons.vertical_align_bottom, color: heroAccent, size: 18),
         SizedBox(width: 6),
-        Text(
-          'bottom',
-          style: TextStyle(color: heroFg, fontWeight: FontWeight.w500),
-        ),
+        Text('bottom',
+            style: TextStyle(color: heroFg, fontWeight: FontWeight.w500)),
         SizedBox(width: 16),
         Icon(Icons.height, color: heroAccent, size: 18),
         SizedBox(width: 6),
-        Text(
-          'titleHeight',
-          style: TextStyle(color: heroFg, fontWeight: FontWeight.w500),
-        ),
+        Text('titleHeight',
+            style: TextStyle(color: heroFg, fontWeight: FontWeight.w500)),
       ],
     ),
   );
@@ -204,19 +196,19 @@ dynamic build(BuildContext context) {
       child: Material(
         type: MaterialType.transparency,
         child: ListTile(
-          titleAlignment: ListTileTitleAlignment.center,
-          leading: const CircleAvatar(
-            backgroundColor: heroAccent,
-            foregroundColor: heroBg,
-            child: Icon(Icons.star),
-          ),
-          title: const Text('Live specimen — center alignment'),
-          subtitle: const Text(
-            'A real ListTile rendered with ListTileTitleAlignment.center; '
-            'leading + trailing pin to the vertical center of the tile.',
-          ),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        titleAlignment: ListTileTitleAlignment.center,
+        leading: const CircleAvatar(
+          backgroundColor: heroAccent,
+          foregroundColor: heroBg,
+          child: Icon(Icons.star),
         ),
+        title: const Text('Live specimen — center alignment'),
+        subtitle: const Text(
+          'A real ListTile rendered with ListTileTitleAlignment.center; '
+          'leading + trailing pin to the vertical center of the tile.',
+        ),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      ),
       ),
     ),
   );
@@ -246,11 +238,8 @@ dynamic build(BuildContext context) {
                 color: heroAccent,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(
-                Icons.format_align_center,
-                color: heroBg,
-                size: 28,
-              ),
+              child: const Icon(Icons.format_align_center,
+                  color: heroBg, size: 28),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -260,10 +249,9 @@ dynamic build(BuildContext context) {
                   Text(
                     'ListTileTitleAlignment',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 4),
                   Text(
@@ -311,7 +299,8 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             decoration: BoxDecoration(
               color: perValueSoft,
               borderRadius: const BorderRadius.only(
@@ -323,9 +312,7 @@ dynamic build(BuildContext context) {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 2,
-                  ),
+                      horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: perValueAccent,
                     borderRadius: BorderRadius.circular(4),
@@ -333,29 +320,25 @@ dynamic build(BuildContext context) {
                   child: Text(
                     'index ${value.index}',
                     style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Text(
                   '.${value.name}',
                   style: TextStyle(
-                    color: perValueFg,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'monospace',
-                  ),
+                      color: perValueFg,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace'),
                 ),
                 const Spacer(),
                 Text(
                   description,
                   style: TextStyle(
-                    color: perValueFg.withOpacity(0.85),
-                    fontSize: 12,
-                  ),
+                      color: perValueFg.withOpacity(0.85), fontSize: 12),
                 ),
               ],
             ),
@@ -363,30 +346,28 @@ dynamic build(BuildContext context) {
           Material(
             type: MaterialType.transparency,
             child: ListTile(
-              titleAlignment: value,
-              leading: CircleAvatar(
-                backgroundColor: perValueAccent,
-                foregroundColor: Colors.white,
-                child: Text(
-                  value.name.substring(0, 1).toUpperCase(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+            titleAlignment: value,
+            leading: CircleAvatar(
+              backgroundColor: perValueAccent,
+              foregroundColor: Colors.white,
+              child: Text(
+                value.name.substring(0, 1).toUpperCase(),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              title: Text(
-                'Title for ${value.name}',
-                style: TextStyle(
-                  color: perValueFg,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              subtitle: Text(
-                'Subtitle line one for the ${value.name} alignment.\n'
-                'Subtitle line two extends the tile vertically.\n'
-                'Subtitle line three forces a tall content area.',
-                style: TextStyle(color: perValueFg.withOpacity(0.85)),
-              ),
-              trailing: Icon(Icons.chevron_right, color: perValueAccent),
             ),
+            title: Text(
+              'Title for ${value.name}',
+              style: TextStyle(
+                  color: perValueFg, fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text(
+              'Subtitle line one for the ${value.name} alignment.\n'
+              'Subtitle line two extends the tile vertically.\n'
+              'Subtitle line three forces a tall content area.',
+              style: TextStyle(color: perValueFg.withOpacity(0.85)),
+            ),
+            trailing: Icon(Icons.chevron_right, color: perValueAccent),
+          ),
           ),
         ],
       ),
@@ -411,10 +392,9 @@ dynamic build(BuildContext context) {
             Text(
               'Section 2 — per-value showcase',
               style: TextStyle(
-                color: perValueFg,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: perValueFg,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -426,19 +406,13 @@ dynamic build(BuildContext context) {
           style: TextStyle(color: perValueFg, fontSize: 13, height: 1.4),
         ),
         const SizedBox(height: 16),
-        perValueTile(
-          ListTileTitleAlignment.threeLine,
-          'Behaves like top when isThreeLine, else center',
-        ),
-        perValueTile(
-          ListTileTitleAlignment.titleHeight,
-          'Aligns to the height of the title text',
-        ),
+        perValueTile(ListTileTitleAlignment.threeLine,
+            'Behaves like top when isThreeLine, else center'),
+        perValueTile(ListTileTitleAlignment.titleHeight,
+            'Aligns to the height of the title text'),
         perValueTile(ListTileTitleAlignment.top, 'Snap to top edge'),
-        perValueTile(
-          ListTileTitleAlignment.center,
-          'Snap to vertical center of tile',
-        ),
+        perValueTile(ListTileTitleAlignment.center,
+            'Snap to vertical center of tile'),
         perValueTile(ListTileTitleAlignment.bottom, 'Snap to bottom edge'),
       ],
     ),
@@ -492,22 +466,20 @@ dynamic build(BuildContext context) {
               child: Material(
                 type: MaterialType.transparency,
                 child: ListTile(
-                  titleAlignment: value,
-                  leading: Icon(Icons.bookmark_border, color: sweepAccent),
-                  title: Text(
-                    'Identical title text',
-                    style: TextStyle(
-                      color: sweepFg,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  subtitle: Text(
-                    'Identical two-line subtitle so only the alignment varies '
-                    'across this column.',
-                    style: TextStyle(color: sweepFg.withOpacity(0.85)),
-                  ),
-                  trailing: Icon(Icons.more_vert, color: sweepAccent),
+                titleAlignment: value,
+                leading: Icon(Icons.bookmark_border, color: sweepAccent),
+                title: Text(
+                  'Identical title text',
+                  style: TextStyle(
+                      color: sweepFg, fontWeight: FontWeight.w600),
                 ),
+                subtitle: Text(
+                  'Identical two-line subtitle so only the alignment varies '
+                  'across this column.',
+                  style: TextStyle(color: sweepFg.withOpacity(0.85)),
+                ),
+                trailing: Icon(Icons.more_vert, color: sweepAccent),
+              ),
               ),
             ),
           ],
@@ -534,10 +506,9 @@ dynamic build(BuildContext context) {
             Text(
               'Section 3 — side-by-side enum sweep',
               style: TextStyle(
-                color: sweepFg,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: sweepFg,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -587,7 +558,8 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: subAccent,
                   borderRadius: BorderRadius.circular(4),
@@ -595,20 +567,18 @@ dynamic build(BuildContext context) {
                 child: Text(
                   label,
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(width: 8),
               Text(
                 '.${alignment.name}',
                 style: TextStyle(
-                  color: subFg,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'monospace',
-                ),
+                    color: subFg,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'monospace'),
               ),
             ],
           ),
@@ -621,18 +591,15 @@ dynamic build(BuildContext context) {
             child: Material(
               type: MaterialType.transparency,
               child: ListTile(
-                titleAlignment: alignment,
-                leading: Icon(Icons.short_text, color: subAccent),
-                title: Text(
-                  '1-line subtitle',
-                  style: TextStyle(color: subFg, fontWeight: FontWeight.w600),
-                ),
-                subtitle: Text(
-                  oneLine(),
-                  style: TextStyle(color: subFg.withOpacity(0.85)),
-                ),
-                trailing: Icon(Icons.east, color: subAccent),
-              ),
+              titleAlignment: alignment,
+              leading: Icon(Icons.short_text, color: subAccent),
+              title: Text('1-line subtitle',
+                  style: TextStyle(
+                      color: subFg, fontWeight: FontWeight.w600)),
+              subtitle: Text(oneLine(),
+                  style: TextStyle(color: subFg.withOpacity(0.85))),
+              trailing: Icon(Icons.east, color: subAccent),
+            ),
             ),
           ),
           const SizedBox(height: 8),
@@ -644,18 +611,15 @@ dynamic build(BuildContext context) {
             child: Material(
               type: MaterialType.transparency,
               child: ListTile(
-                titleAlignment: alignment,
-                leading: Icon(Icons.notes, color: subAccent),
-                title: Text(
-                  '3-line subtitle',
-                  style: TextStyle(color: subFg, fontWeight: FontWeight.w600),
-                ),
-                subtitle: Text(
-                  threeLines(),
-                  style: TextStyle(color: subFg.withOpacity(0.85)),
-                ),
-                trailing: Icon(Icons.east, color: subAccent),
-              ),
+              titleAlignment: alignment,
+              leading: Icon(Icons.notes, color: subAccent),
+              title: Text('3-line subtitle',
+                  style: TextStyle(
+                      color: subFg, fontWeight: FontWeight.w600)),
+              subtitle: Text(threeLines(),
+                  style: TextStyle(color: subFg.withOpacity(0.85))),
+              trailing: Icon(Icons.east, color: subAccent),
+            ),
             ),
           ),
           const SizedBox(height: 8),
@@ -667,18 +631,15 @@ dynamic build(BuildContext context) {
             child: Material(
               type: MaterialType.transparency,
               child: ListTile(
-                titleAlignment: alignment,
-                leading: Icon(Icons.subject, color: subAccent),
-                title: Text(
-                  '6-line subtitle',
-                  style: TextStyle(color: subFg, fontWeight: FontWeight.w600),
-                ),
-                subtitle: Text(
-                  sixLines(),
-                  style: TextStyle(color: subFg.withOpacity(0.85)),
-                ),
-                trailing: Icon(Icons.east, color: subAccent),
-              ),
+              titleAlignment: alignment,
+              leading: Icon(Icons.subject, color: subAccent),
+              title: Text('6-line subtitle',
+                  style: TextStyle(
+                      color: subFg, fontWeight: FontWeight.w600)),
+              subtitle: Text(sixLines(),
+                  style: TextStyle(color: subFg.withOpacity(0.85))),
+              trailing: Icon(Icons.east, color: subAccent),
+            ),
             ),
           ),
         ],
@@ -704,10 +665,9 @@ dynamic build(BuildContext context) {
             Text(
               'Section 4 — subtitle length sweep',
               style: TextStyle(
-                color: subFg,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: subFg,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -734,11 +694,8 @@ dynamic build(BuildContext context) {
   // 56x56 avatar, square thumbnail. Demonstrates that leading height matters.
   // ==========================================================================
 
-  Widget leadVariantTile(
-    String label,
-    Widget leading,
-    ListTileTitleAlignment alignment,
-  ) {
+  Widget leadVariantTile(String label, Widget leading,
+      ListTileTitleAlignment alignment) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -756,9 +713,7 @@ dynamic build(BuildContext context) {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                      horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: leadAccent,
                     borderRadius: BorderRadius.circular(4),
@@ -766,20 +721,18 @@ dynamic build(BuildContext context) {
                   child: Text(
                     label,
                     style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Text(
                   alignment.name,
                   style: TextStyle(
-                    color: leadFg.withOpacity(0.7),
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                  ),
+                      color: leadFg.withOpacity(0.7),
+                      fontSize: 11,
+                      fontFamily: 'monospace'),
                 ),
               ],
             ),
@@ -787,20 +740,21 @@ dynamic build(BuildContext context) {
           Material(
             type: MaterialType.transparency,
             child: ListTile(
-              titleAlignment: alignment,
-              leading: leading,
-              title: Text(
-                'Leading widget height varies',
-                style: TextStyle(color: leadFg, fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(
-                'The trailing chevron and leading widget anchor relative to '
-                'the same alignment value, but their visual offset scales with '
-                'the size of the leading widget.',
-                style: TextStyle(color: leadFg.withOpacity(0.85)),
-              ),
-              trailing: Icon(Icons.chevron_right, color: leadAccent),
+            titleAlignment: alignment,
+            leading: leading,
+            title: Text(
+              'Leading widget height varies',
+              style: TextStyle(
+                  color: leadFg, fontWeight: FontWeight.w600),
             ),
+            subtitle: Text(
+              'The trailing chevron and leading widget anchor relative to '
+              'the same alignment value, but their visual offset scales with '
+              'the size of the leading widget.',
+              style: TextStyle(color: leadFg.withOpacity(0.85)),
+            ),
+            trailing: Icon(Icons.chevron_right, color: leadAccent),
+          ),
           ),
         ],
       ),
@@ -824,49 +778,41 @@ dynamic build(BuildContext context) {
             child: Text(
               'Alignment fixed at .${alignment.name}',
               style: TextStyle(
-                color: leadFg,
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
+                  color: leadFg,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace'),
+            ),
+          ),
+          leadVariantTile(
+              'icon 24', Icon(Icons.star, color: leadAccent), alignment),
+          leadVariantTile(
+              'avatar 40',
+              CircleAvatar(
+                  backgroundColor: leadAccent,
+                  child: const Text('AB',
+                      style: TextStyle(color: Colors.white))),
+              alignment),
+          leadVariantTile(
+              'avatar 56',
+              CircleAvatar(
+                  radius: 28,
+                  backgroundColor: leadAccent,
+                  child: const Icon(Icons.face, color: Colors.white, size: 28)),
+              alignment),
+          leadVariantTile(
+              'thumb 56',
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: leadAccent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                alignment: Alignment.center,
+                child: const Icon(Icons.image, color: Colors.white, size: 30),
               ),
-            ),
-          ),
-          leadVariantTile(
-            'icon 24',
-            Icon(Icons.star, color: leadAccent),
-            alignment,
-          ),
-          leadVariantTile(
-            'avatar 40',
-            CircleAvatar(
-              backgroundColor: leadAccent,
-              child: const Text('AB', style: TextStyle(color: Colors.white)),
-            ),
-            alignment,
-          ),
-          leadVariantTile(
-            'avatar 56',
-            CircleAvatar(
-              radius: 28,
-              backgroundColor: leadAccent,
-              child: const Icon(Icons.face, color: Colors.white, size: 28),
-            ),
-            alignment,
-          ),
-          leadVariantTile(
-            'thumb 56',
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                color: leadAccent,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              alignment: Alignment.center,
-              child: const Icon(Icons.image, color: Colors.white, size: 30),
-            ),
-            alignment,
-          ),
+              alignment),
         ],
       ),
     );
@@ -890,10 +836,9 @@ dynamic build(BuildContext context) {
             Text(
               'Section 5 — leading widget variants',
               style: TextStyle(
-                color: leadFg,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: leadFg,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -921,11 +866,8 @@ dynamic build(BuildContext context) {
   // alignment-name behavior toggles based on the isThreeLine flag.
   // ==========================================================================
 
-  Widget triCompareRow(
-    String label,
-    bool isThreeLine,
-    ListTileTitleAlignment alignment,
-  ) {
+  Widget triCompareRow(String label, bool isThreeLine,
+      ListTileTitleAlignment alignment) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(8),
@@ -948,9 +890,7 @@ dynamic build(BuildContext context) {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 2,
-                  ),
+                      horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: triAccent,
                     borderRadius: BorderRadius.circular(4),
@@ -958,20 +898,18 @@ dynamic build(BuildContext context) {
                   child: Text(
                     label,
                     style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Text(
                   'isThreeLine=$isThreeLine, alignment=.${alignment.name}',
                   style: TextStyle(
-                    color: triFg.withOpacity(0.75),
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                  ),
+                      color: triFg.withOpacity(0.75),
+                      fontSize: 11,
+                      fontFamily: 'monospace'),
                 ),
               ],
             ),
@@ -979,25 +917,24 @@ dynamic build(BuildContext context) {
           Material(
             type: MaterialType.transparency,
             child: ListTile(
-              isThreeLine: isThreeLine,
-              titleAlignment: alignment,
-              leading: CircleAvatar(
-                backgroundColor: triAccent,
-                child: const Icon(Icons.bolt, color: Colors.white),
-              ),
-              title: Text(
-                'Interaction sample',
-                style: TextStyle(color: triFg, fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(
-                'Subtitle line one of the interaction sample.\n'
-                'Subtitle line two — Material requires three rows when '
-                'isThreeLine: true.\n'
-                'Subtitle line three is here for safety.',
-                style: TextStyle(color: triFg.withOpacity(0.85)),
-              ),
-              trailing: Icon(Icons.adjust, color: triAccent),
+            isThreeLine: isThreeLine,
+            titleAlignment: alignment,
+            leading: CircleAvatar(
+              backgroundColor: triAccent,
+              child: const Icon(Icons.bolt, color: Colors.white),
             ),
+            title: Text('Interaction sample',
+                style:
+                    TextStyle(color: triFg, fontWeight: FontWeight.w600)),
+            subtitle: Text(
+              'Subtitle line one of the interaction sample.\n'
+              'Subtitle line two — Material requires three rows when '
+              'isThreeLine: true.\n'
+              'Subtitle line three is here for safety.',
+              style: TextStyle(color: triFg.withOpacity(0.85)),
+            ),
+            trailing: Icon(Icons.adjust, color: triAccent),
+          ),
           ),
         ],
       ),
@@ -1022,10 +959,9 @@ dynamic build(BuildContext context) {
             Text(
               'Section 6 — isThreeLine vs alignment',
               style: TextStyle(
-                color: triFg,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: triFg,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -1073,10 +1009,9 @@ dynamic build(BuildContext context) {
             child: Text(
               'Theme.titleAlignment = .${themeValue.name}',
               style: TextStyle(
-                color: themedFg,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
-              ),
+                  color: themedFg,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace'),
             ),
           ),
           ListTileTheme(
@@ -1089,37 +1024,37 @@ dynamic build(BuildContext context) {
             child: Material(
               type: MaterialType.transparency,
               child: Column(
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.cloud),
-                    title: const Text('Inherits theme alignment'),
-                    subtitle: const Text(
-                      'No explicit titleAlignment on this tile — picks up the '
-                      'theme value above.',
-                    ),
-                    trailing: const Icon(Icons.chevron_right),
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.cloud),
+                  title: const Text('Inherits theme alignment'),
+                  subtitle: const Text(
+                    'No explicit titleAlignment on this tile — picks up the '
+                    'theme value above.',
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.public),
-                    title: const Text('Also inherits'),
-                    subtitle: const Text(
-                      'Long subtitle to reveal vertical anchor.\n'
-                      'Second line for clarity.',
-                    ),
-                    trailing: const Icon(Icons.chevron_right),
+                  trailing: const Icon(Icons.chevron_right),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.public),
+                  title: const Text('Also inherits'),
+                  subtitle: const Text(
+                    'Long subtitle to reveal vertical anchor.\n'
+                    'Second line for clarity.',
                   ),
-                  ListTile(
-                    titleAlignment: ListTileTitleAlignment.bottom,
-                    leading: const Icon(Icons.flag),
-                    title: const Text('Local override = .bottom'),
-                    subtitle: const Text(
-                      'Demonstrates that an explicit per-tile alignment '
-                      'overrides the surrounding ListTileTheme.',
-                    ),
-                    trailing: const Icon(Icons.chevron_right),
+                  trailing: const Icon(Icons.chevron_right),
+                ),
+                ListTile(
+                  titleAlignment: ListTileTitleAlignment.bottom,
+                  leading: const Icon(Icons.flag),
+                  title: const Text('Local override = .bottom'),
+                  subtitle: const Text(
+                    'Demonstrates that an explicit per-tile alignment '
+                    'overrides the surrounding ListTileTheme.',
                   ),
-                ],
-              ),
+                  trailing: const Icon(Icons.chevron_right),
+                ),
+              ],
+            ),
             ),
           ),
         ],
@@ -1145,10 +1080,9 @@ dynamic build(BuildContext context) {
             Text(
               'Section 7 — themed via ListTileThemeData',
               style: TextStyle(
-                color: themedFg,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: themedFg,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -1185,49 +1119,48 @@ dynamic build(BuildContext context) {
     return Material(
       type: MaterialType.transparency,
       child: ListTile(
-        titleAlignment: ListTileTitleAlignment.titleHeight,
-        leading: CircleAvatar(
-          backgroundColor: avatarColor,
-          foregroundColor: Colors.white,
-          child: Text(
-            name.substring(0, 1).toUpperCase(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        title: Row(
-          children: [
-            Expanded(
-              child: Text(
-                name,
-                style: TextStyle(
-                  color: recipeFg,
-                  fontWeight: unread ? FontWeight.w800 : FontWeight.w600,
-                ),
-              ),
-            ),
-            Text(
-              time,
-              style: TextStyle(color: recipeFg.withOpacity(0.7), fontSize: 12),
-            ),
-          ],
-        ),
-        subtitle: Text(
-          snippet,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: recipeFg.withOpacity(0.85)),
-        ),
-        trailing: unread
-            ? Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: recipeAccent,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              )
-            : const SizedBox(width: 10),
+      titleAlignment: ListTileTitleAlignment.titleHeight,
+      leading: CircleAvatar(
+        backgroundColor: avatarColor,
+        foregroundColor: Colors.white,
+        child: Text(name.substring(0, 1).toUpperCase(),
+            style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(
+              name,
+              style: TextStyle(
+                  color: recipeFg,
+                  fontWeight:
+                      unread ? FontWeight.w800 : FontWeight.w600),
+            ),
+          ),
+          Text(
+            time,
+            style: TextStyle(
+                color: recipeFg.withOpacity(0.7), fontSize: 12),
+          ),
+        ],
+      ),
+      subtitle: Text(
+        snippet,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: recipeFg.withOpacity(0.85)),
+      ),
+      trailing: unread
+          ? Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                color: recipeAccent,
+                borderRadius: BorderRadius.circular(5),
+              ),
+            )
+          : const SizedBox(width: 10),
+    ),
     );
   }
 
@@ -1239,32 +1172,27 @@ dynamic build(BuildContext context) {
     return Material(
       type: MaterialType.transparency,
       child: ListTile(
-        titleAlignment: ListTileTitleAlignment.center,
-        leading: CircleAvatar(
-          radius: 24,
-          backgroundColor: recipeAccent.withOpacity(0.85),
-          foregroundColor: Colors.white,
-          child: Text(
-            avatar,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        title: Text(
-          name,
-          style: TextStyle(color: recipeFg, fontWeight: FontWeight.w600),
-        ),
-        subtitle: Text(
-          role,
-          style: TextStyle(color: recipeFg.withOpacity(0.85)),
-        ),
-        trailing: Wrap(
-          spacing: 6,
-          children: [
-            Icon(Icons.phone, color: recipeAccent),
-            Icon(Icons.message, color: recipeAccent),
-          ],
-        ),
+      titleAlignment: ListTileTitleAlignment.center,
+      leading: CircleAvatar(
+        radius: 24,
+        backgroundColor: recipeAccent.withOpacity(0.85),
+        foregroundColor: Colors.white,
+        child: Text(avatar,
+            style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
+      title: Text(name,
+          style: TextStyle(
+              color: recipeFg, fontWeight: FontWeight.w600)),
+      subtitle: Text(role,
+          style: TextStyle(color: recipeFg.withOpacity(0.85))),
+      trailing: Wrap(
+        spacing: 6,
+        children: [
+          Icon(Icons.phone, color: recipeAccent),
+          Icon(Icons.message, color: recipeAccent),
+        ],
+      ),
+    ),
     );
   }
 
@@ -1276,27 +1204,24 @@ dynamic build(BuildContext context) {
     return Material(
       type: MaterialType.transparency,
       child: ListTile(
-        titleAlignment: ListTileTitleAlignment.top,
-        leading: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: recipeSoft,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          alignment: Alignment.center,
-          child: Icon(icon, color: recipeAccent),
+      titleAlignment: ListTileTitleAlignment.top,
+      leading: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: recipeSoft,
+          borderRadius: BorderRadius.circular(8),
         ),
-        title: Text(
-          title,
-          style: TextStyle(color: recipeFg, fontWeight: FontWeight.w600),
-        ),
-        subtitle: Text(
-          description,
-          style: TextStyle(color: recipeFg.withOpacity(0.85)),
-        ),
-        trailing: Icon(Icons.chevron_right, color: recipeAccent),
+        alignment: Alignment.center,
+        child: Icon(icon, color: recipeAccent),
       ),
+      title: Text(title,
+          style: TextStyle(
+              color: recipeFg, fontWeight: FontWeight.w600)),
+      subtitle: Text(description,
+          style: TextStyle(color: recipeFg.withOpacity(0.85))),
+      trailing: Icon(Icons.chevron_right, color: recipeAccent),
+    ),
     );
   }
 
@@ -1318,9 +1243,7 @@ dynamic build(BuildContext context) {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 2,
-                  ),
+                      horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: recipeAccent,
                     borderRadius: BorderRadius.circular(4),
@@ -1328,10 +1251,9 @@ dynamic build(BuildContext context) {
                   child: Text(
                     label,
                     style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -1339,9 +1261,7 @@ dynamic build(BuildContext context) {
                   child: Text(
                     reason,
                     style: TextStyle(
-                      color: recipeFg.withOpacity(0.85),
-                      fontSize: 12,
-                    ),
+                        color: recipeFg.withOpacity(0.85), fontSize: 12),
                   ),
                 ),
               ],
@@ -1371,10 +1291,9 @@ dynamic build(BuildContext context) {
             Text(
               'Section 8 — recipe gallery',
               style: TextStyle(
-                color: recipeFg,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: recipeFg,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -1422,20 +1341,15 @@ dynamic build(BuildContext context) {
               'regardless of subtitle length.',
           [
             contactListEntry(
-              name: 'Donald Knuth',
-              role: 'Author, TAOCP',
-              avatar: 'DK',
-            ),
+                name: 'Donald Knuth', role: 'Author, TAOCP', avatar: 'DK'),
             contactListEntry(
-              name: 'Edsger W. Dijkstra',
-              role: 'Algorithm theorist',
-              avatar: 'EW',
-            ),
+                name: 'Edsger W. Dijkstra',
+                role: 'Algorithm theorist',
+                avatar: 'EW'),
             contactListEntry(
-              name: 'Margaret Hamilton',
-              role: 'Software engineer',
-              avatar: 'MH',
-            ),
+                name: 'Margaret Hamilton',
+                role: 'Software engineer',
+                avatar: 'MH'),
           ],
         ),
         recipeBlock(
@@ -1476,23 +1390,20 @@ dynamic build(BuildContext context) {
   // and a one-line "use when" hint.
   // ==========================================================================
 
-  TableRow refRow(
-    ListTileTitleAlignment v,
-    String description,
-    String useWhen,
-  ) {
+  TableRow refRow(ListTileTitleAlignment v, String description, String useWhen) {
     return TableRow(
-      decoration: BoxDecoration(color: refSoft),
+      decoration: BoxDecoration(
+        color: refSoft,
+      ),
       children: [
         Padding(
           padding: const EdgeInsets.all(8),
           child: Text(
             v.name,
             style: TextStyle(
-              color: refAccent,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'monospace',
-            ),
+                color: refAccent,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'monospace'),
           ),
         ),
         Padding(
@@ -1514,10 +1425,7 @@ dynamic build(BuildContext context) {
           child: Text(
             useWhen,
             style: TextStyle(
-              color: refFg.withOpacity(0.85),
-              fontSize: 12,
-              height: 1.35,
-            ),
+                color: refFg.withOpacity(0.85), fontSize: 12, height: 1.35),
           ),
         ),
       ],
@@ -1530,39 +1438,31 @@ dynamic build(BuildContext context) {
       children: [
         Padding(
           padding: const EdgeInsets.all(8),
-          child: Text(
-            'value',
-            style: TextStyle(
-              color: refBg,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text('value',
+              style: TextStyle(
+                  color: refBg,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace')),
         ),
         Padding(
           padding: const EdgeInsets.all(8),
-          child: Text(
-            'idx',
-            style: TextStyle(
-              color: refBg,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'monospace',
-            ),
-          ),
+          child: Text('idx',
+              style: TextStyle(
+                  color: refBg,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace')),
         ),
         Padding(
           padding: const EdgeInsets.all(8),
-          child: Text(
-            'description',
-            style: TextStyle(color: refBg, fontWeight: FontWeight.bold),
-          ),
+          child: Text('description',
+              style: TextStyle(
+                  color: refBg, fontWeight: FontWeight.bold)),
         ),
         Padding(
           padding: const EdgeInsets.all(8),
-          child: Text(
-            'use when',
-            style: TextStyle(color: refBg, fontWeight: FontWeight.bold),
-          ),
+          child: Text('use when',
+              style: TextStyle(
+                  color: refBg, fontWeight: FontWeight.bold)),
         ),
       ],
     );
@@ -1586,10 +1486,9 @@ dynamic build(BuildContext context) {
             Text(
               'Section 9 — reference table',
               style: TextStyle(
-                color: refFg,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: refFg,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -1664,7 +1563,8 @@ dynamic build(BuildContext context) {
                   'ListTileThemeData.titleAlignment > Material default '
                   '(threeLine). Pre-Material 3 apps may also see legacy '
                   'behavior shadowed by ThemeData.useMaterial3.',
-                  style: TextStyle(color: refFg, fontSize: 12, height: 1.45),
+                  style: TextStyle(
+                      color: refFg, fontSize: 12, height: 1.45),
                 ),
               ),
             ],

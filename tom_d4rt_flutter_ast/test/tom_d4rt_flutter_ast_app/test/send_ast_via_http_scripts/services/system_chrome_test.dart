@@ -245,7 +245,9 @@ dynamic build(BuildContext context) {
     systemNavigationBarContrastEnforced: true,
   );
   print('Custom style statusBar=${customStyle.statusBarColor?.value}');
-  print('Custom style navBar=${customStyle.systemNavigationBarColor?.value}');
+  print(
+    'Custom style navBar=${customStyle.systemNavigationBarColor?.value}',
+  );
 
   final List<Widget> styleCards = <Widget>[];
   for (int i = 0; i < styleCatalog.length; i++) {
@@ -265,7 +267,11 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8),
         _styleAnatomyLegend(),
         const SizedBox(height: 16),
-        Wrap(spacing: 14, runSpacing: 14, children: styleCards),
+        Wrap(
+          spacing: 14,
+          runSpacing: 14,
+          children: styleCards,
+        ),
         const SizedBox(height: 18),
         _customStyleBanner(customStyle),
       ],
@@ -294,11 +300,7 @@ dynamic build(BuildContext context) {
       synopsis:
           'Fullscreen mode where bars reappear on any touch and stay visible briefly.',
       behaviour: 'Best for short-form video — gentle reveal, easy to dismiss.',
-      visibleBars: <String>[
-        'none until tap',
-        'temporary status',
-        'temporary nav',
-      ],
+      visibleBars: <String>['none until tap', 'temporary status', 'temporary nav'],
       tone: Color(0xFF334155),
     ),
     const _UiModeSpec(
@@ -445,7 +447,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 14),
-        Wrap(spacing: 14, runSpacing: 14, children: orientationTiles),
+        Wrap(
+          spacing: 14,
+          runSpacing: 14,
+          children: orientationTiles,
+        ),
       ],
     ),
   );
@@ -568,13 +574,15 @@ dynamic build(BuildContext context) {
     const _OverlaySpec(
       overlay: SystemUiOverlay.top,
       label: 'SystemUiOverlay.top',
-      body: 'The status bar — clock, signal indicators, notification icons.',
+      body:
+          'The status bar — clock, signal indicators, notification icons.',
       tone: Color(0xFF111827),
     ),
     const _OverlaySpec(
       overlay: SystemUiOverlay.bottom,
       label: 'SystemUiOverlay.bottom',
-      body: 'The navigation bar — back, home, recents (or gesture pill).',
+      body:
+          'The navigation bar — back, home, recents (or gesture pill).',
       tone: Color(0xFF1F2937),
     ),
   ];
@@ -584,7 +592,9 @@ dynamic build(BuildContext context) {
       '  overlay[$i] = ${overlayCatalog[i].overlay} label=${overlayCatalog[i].label}',
     );
   }
-  print('SystemUiOverlay.values has ${SystemUiOverlay.values.length} entries.');
+  print(
+    'SystemUiOverlay.values has ${SystemUiOverlay.values.length} entries.',
+  );
 
   final Widget anatomyDiagram = AspectRatio(
     aspectRatio: 9 / 16,
@@ -612,7 +622,10 @@ dynamic build(BuildContext context) {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(width: 200, child: anatomyDiagram),
+            SizedBox(
+              width: 200,
+              child: anatomyDiagram,
+            ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -766,7 +779,10 @@ dynamic build(BuildContext context) {
     accent: const Color(0xFFEAB308),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[const SizedBox(height: 8), callbackBox],
+      children: <Widget>[
+        const SizedBox(height: 8),
+        callbackBox,
+      ],
     ),
   );
 

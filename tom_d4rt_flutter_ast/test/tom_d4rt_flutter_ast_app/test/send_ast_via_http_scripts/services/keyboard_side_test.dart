@@ -228,7 +228,8 @@ const List<List<_Key>> _mockKeyboard = <List<_Key>>[
     _Key('Ent', flex: 2),
   ],
   <_Key>[
-    _Key('L-Shift', side: _KeyboardSide.left, isModifier: true, flex: 2),
+    _Key('L-Shift',
+        side: _KeyboardSide.left, isModifier: true, flex: 2),
     _Key('Z'),
     _Key('X'),
     _Key('C'),
@@ -238,16 +239,23 @@ const List<List<_Key>> _mockKeyboard = <List<_Key>>[
     _Key('M'),
     _Key(','),
     _Key('.'),
-    _Key('R-Shift', side: _KeyboardSide.right, isModifier: true, flex: 2),
+    _Key('R-Shift',
+        side: _KeyboardSide.right, isModifier: true, flex: 2),
   ],
   <_Key>[
-    _Key('L-Ctrl', side: _KeyboardSide.left, isModifier: true, flex: 2),
-    _Key('L-Meta', side: _KeyboardSide.left, isModifier: true, flex: 2),
-    _Key('L-Alt', side: _KeyboardSide.left, isModifier: true, flex: 2),
+    _Key('L-Ctrl',
+        side: _KeyboardSide.left, isModifier: true, flex: 2),
+    _Key('L-Meta',
+        side: _KeyboardSide.left, isModifier: true, flex: 2),
+    _Key('L-Alt',
+        side: _KeyboardSide.left, isModifier: true, flex: 2),
     _Key('Space', flex: 6),
-    _Key('R-Alt', side: _KeyboardSide.right, isModifier: true, flex: 2),
-    _Key('R-Meta', side: _KeyboardSide.right, isModifier: true, flex: 2),
-    _Key('R-Ctrl', side: _KeyboardSide.right, isModifier: true, flex: 2),
+    _Key('R-Alt',
+        side: _KeyboardSide.right, isModifier: true, flex: 2),
+    _Key('R-Meta',
+        side: _KeyboardSide.right, isModifier: true, flex: 2),
+    _Key('R-Ctrl',
+        side: _KeyboardSide.right, isModifier: true, flex: 2),
   ],
 ];
 
@@ -277,11 +285,7 @@ bool _isHighlighted(_Key key, _KeyboardSide side) {
 // Helper: text style shortcuts kept in one place so every section ends up
 // with the same typographic rhythm.
 // ---------------------------------------------------------------------------
-TextStyle _hMono(
-  double size,
-  Color color, {
-  FontWeight weight = FontWeight.w600,
-}) {
+TextStyle _hMono(double size, Color color, {FontWeight weight = FontWeight.w600}) {
   return TextStyle(
     fontFamily: 'monospace',
     fontSize: size,
@@ -291,11 +295,7 @@ TextStyle _hMono(
   );
 }
 
-TextStyle _hSans(
-  double size,
-  Color color, {
-  FontWeight weight = FontWeight.w500,
-}) {
+TextStyle _hSans(double size, Color color, {FontWeight weight = FontWeight.w500}) {
   return TextStyle(
     fontSize: size,
     color: color,
@@ -316,10 +316,7 @@ Widget _sectionTitle(int index, String title, IconData icon, Color color) {
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: <Color>[
-          color.withValues(alpha: 0.18),
-          color.withValues(alpha: 0.02),
-        ],
+        colors: <Color>[color.withValues(alpha: 0.18), color.withValues(alpha: 0.02)],
       ),
       border: Border(left: BorderSide(color: color, width: 4.0)),
       boxShadow: <BoxShadow>[
@@ -425,16 +422,13 @@ dynamic build(BuildContext context) {
   }
   print('Total values: ${_KeyboardSide.values.length}');
   // The SDK currently exposes 4 values: any, left, right, all.
-  assert(
-    _KeyboardSide.values.length == 4,
-    'KeyboardSide is expected to expose 4 values.',
-  );
+  assert(_KeyboardSide.values.length == 4,
+      'KeyboardSide is expected to expose 4 values.');
 
   // Frozen "progress" used by every progress-bar in the demo so we satisfy
   // the no-motion requirement while still composing through Animation<T>.
-  final Animation<double> staticProgress = const AlwaysStoppedAnimation<double>(
-    1.0,
-  );
+  final Animation<double> staticProgress =
+      const AlwaysStoppedAnimation<double>(1.0);
   // Reused everywhere a Duration is required (e.g. AnimatedContainer style
   // recipes). We keep it at zero so nothing animates.
   const Duration motion = Duration.zero;
@@ -449,11 +443,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF1A237E),
-          Color(0xFF4527A0),
-          Color(0xFF311B92),
-        ],
+        colors: <Color>[Color(0xFF1A237E), Color(0xFF4527A0), Color(0xFF311B92)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: <BoxShadow>[
@@ -484,26 +474,19 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              child: const Icon(
-                Icons.keyboard,
-                size: 36.0,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.keyboard, size: 36.0, color: Colors.white),
             ),
             const SizedBox(width: 16.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'package:flutter/services.dart',
-                    style: _hMono(11.0, Colors.white70),
-                  ),
+                  Text('package:flutter/services.dart',
+                      style: _hMono(11.0, Colors.white70)),
                   const SizedBox(height: 4.0),
-                  Text(
-                    'KeyboardSide',
-                    style: _hSans(30.0, Colors.white, weight: FontWeight.w900),
-                  ),
+                  Text('KeyboardSide',
+                      style: _hSans(30.0, Colors.white,
+                          weight: FontWeight.w900)),
                   const SizedBox(height: 2.0),
                   Text(
                     'Side-aware modifier matching for shortcut and intent APIs',
@@ -520,7 +503,11 @@ dynamic build(BuildContext context) {
           runSpacing: 8.0,
           children: <Widget>[
             for (final _SideSpec spec in _sideSpecs)
-              _miniChip('KeyboardSide.${spec.label}', spec.icon, spec.glow),
+              _miniChip(
+                'KeyboardSide.${spec.label}',
+                spec.icon,
+                spec.glow,
+              ),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -569,10 +556,8 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Source signature',
-          style: _hSans(14.0, const Color(0xFF4A148C), weight: FontWeight.w800),
-        ),
+        Text('Source signature', style: _hSans(14.0, const Color(0xFF4A148C),
+            weight: FontWeight.w800)),
         const SizedBox(height: 10.0),
         _codeBlock(
           'enum KeyboardSide {\n'
@@ -603,9 +588,7 @@ dynamic build(BuildContext context) {
             for (final _KeyboardSide v in _KeyboardSide.values)
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 6.0,
-                ),
+                    horizontal: 10.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
@@ -655,10 +638,7 @@ dynamic build(BuildContext context) {
             ],
           ),
           borderRadius: BorderRadius.circular(18.0),
-          border: Border.all(
-            color: spec.glow.withValues(alpha: 0.55),
-            width: 2.0,
-          ),
+          border: Border.all(color: spec.glow.withValues(alpha: 0.55), width: 2.0),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: spec.shadow.withValues(alpha: 0.22),
@@ -699,39 +679,25 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        'KeyboardSide.${spec.label}',
-                        style: _hMono(
-                          15.0,
-                          spec.shadow,
-                          weight: FontWeight.w900,
-                        ),
-                      ),
+                      Text('KeyboardSide.${spec.label}',
+                          style: _hMono(15.0, spec.shadow,
+                              weight: FontWeight.w900)),
                       const SizedBox(height: 2.0),
-                      Text(
-                        spec.headline,
-                        style: _hSans(
-                          11.0,
-                          spec.shadow,
-                          weight: FontWeight.w700,
-                        ),
-                      ),
+                      Text(spec.headline,
+                          style: _hSans(11.0, spec.shadow,
+                              weight: FontWeight.w700)),
                     ],
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 6.0,
-                  ),
+                      horizontal: 10.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: spec.shadow.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(999.0),
                   ),
-                  child: Text(
-                    'idx ${spec.side.index}',
-                    style: _hMono(11.0, spec.shadow),
-                  ),
+                  child: Text('idx ${spec.side.index}',
+                      style: _hMono(11.0, spec.shadow)),
                 ),
               ],
             ),
@@ -750,10 +716,9 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: <Widget>[
-                  Text(
-                    'Matches when…',
-                    style: _hSans(11.0, spec.shadow, weight: FontWeight.w700),
-                  ),
+                  Text('Matches when…',
+                      style: _hSans(11.0, spec.shadow,
+                          weight: FontWeight.w700)),
                   const SizedBox(height: 8.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -783,10 +748,9 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'When to use',
-                    style: _hSans(11.0, spec.shadow, weight: FontWeight.w800),
-                  ),
+                  Text('When to use',
+                      style: _hSans(11.0, spec.shadow,
+                          weight: FontWeight.w800)),
                   const SizedBox(height: 4.0),
                   Text(spec.usage, style: _hSans(12.0, Colors.black87)),
                 ],
@@ -809,17 +773,12 @@ dynamic build(BuildContext context) {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Icon(
-                    Icons.warning_amber_rounded,
-                    size: 18.0,
-                    color: Color(0xFFF57F17),
-                  ),
+                  const Icon(Icons.warning_amber_rounded,
+                      size: 18.0, color: Color(0xFFF57F17)),
                   const SizedBox(width: 8.0),
                   Expanded(
-                    child: Text(
-                      spec.gotcha,
-                      style: _hSans(11.5, const Color(0xFF6D4C41)),
-                    ),
+                    child: Text(spec.gotcha,
+                        style: _hSans(11.5, const Color(0xFF6D4C41))),
                   ),
                 ],
               ),
@@ -856,10 +815,7 @@ dynamic build(BuildContext context) {
             ],
           ),
           borderRadius: BorderRadius.circular(14.0),
-          border: Border.all(
-            color: spec.glow.withValues(alpha: 0.5),
-            width: 2.0,
-          ),
+          border: Border.all(color: spec.glow.withValues(alpha: 0.5), width: 2.0),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: spec.shadow.withValues(alpha: 0.18),
@@ -875,10 +831,8 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 Icon(spec.icon, size: 18.0, color: spec.shadow),
                 const SizedBox(width: 8.0),
-                Text(
-                  'KeyboardSide.${spec.label}',
-                  style: _hMono(13.0, spec.shadow, weight: FontWeight.w800),
-                ),
+                Text('KeyboardSide.${spec.label}',
+                    style: _hMono(13.0, spec.shadow, weight: FontWeight.w800)),
                 const Spacer(),
                 _miniChip(spec.label.toUpperCase(), spec.icon, spec.glow),
               ],
@@ -946,21 +900,17 @@ dynamic build(BuildContext context) {
               for (final _SideSpec spec in _sideSpecs)
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 4.0),
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     decoration: BoxDecoration(
                       color: spec.glow.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(6.0),
                     ),
                     child: Center(
-                      child: Text(
-                        spec.label,
-                        style: _hMono(
-                          11.0,
-                          spec.shadow,
-                          weight: FontWeight.w800,
-                        ),
-                      ),
+                      child: Text(spec.label,
+                          style: _hMono(11.0, spec.shadow,
+                              weight: FontWeight.w800)),
                     ),
                   ),
                 ),
@@ -971,9 +921,7 @@ dynamic build(BuildContext context) {
             Container(
               margin: const EdgeInsets.symmetric(vertical: 3.0),
               padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 8.0,
-              ),
+                  horizontal: 10.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
@@ -983,19 +931,17 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   SizedBox(
                     width: 170.0,
-                    child: Text(
-                      sc.label,
-                      style: _hSans(
-                        12.0,
-                        const Color(0xFF263238),
-                        weight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text(sc.label,
+                        style: _hSans(12.0, const Color(0xFF263238),
+                            weight: FontWeight.w700)),
                   ),
                   for (final _SideSpec spec in _sideSpecs)
                     Expanded(
                       child: Center(
-                        child: _booleanGlyph(sc.matches(spec.side), spec.glow),
+                        child: _booleanGlyph(
+                          sc.matches(spec.side),
+                          spec.glow,
+                        ),
                       ),
                     ),
                 ],
@@ -1096,14 +1042,9 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(6.0),
                   ),
                   child: Center(
-                    child: Text(
-                      side.name,
-                      style: _hMono(
-                        11.0,
-                        const Color(0xFF6D4C41),
-                        weight: FontWeight.w800,
-                      ),
-                    ),
+                    child: Text(side.name,
+                        style: _hMono(11.0, const Color(0xFF6D4C41),
+                            weight: FontWeight.w800)),
                   ),
                 ),
               ),
@@ -1113,10 +1054,8 @@ dynamic build(BuildContext context) {
         for (final _ModifierKey key in modifierKeys)
           Container(
             margin: const EdgeInsets.symmetric(vertical: 3.0),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 8.0,
-            ),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
@@ -1128,22 +1067,18 @@ dynamic build(BuildContext context) {
                   width: 110.0,
                   child: Text(
                     key.name.replaceAll('Modifier', ''),
-                    style: _hSans(
-                      12.0,
-                      const Color(0xFF6D4C41),
-                      weight: FontWeight.w700,
-                    ),
+                    style: _hSans(12.0, const Color(0xFF6D4C41),
+                        weight: FontWeight.w700),
                   ),
                 ),
                 for (final _KeyboardSide side in _KeyboardSide.values)
                   Expanded(
                     child: Center(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                        margin:
+                            const EdgeInsets.symmetric(horizontal: 4.0),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0,
-                          vertical: 4.0,
-                        ),
+                            horizontal: 6.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
                             colors: <Color>[
@@ -1155,9 +1090,8 @@ dynamic build(BuildContext context) {
                           border: Border.all(color: const Color(0xFFF9A825)),
                           boxShadow: <BoxShadow>[
                             BoxShadow(
-                              color: const Color(
-                                0xFFF9A825,
-                              ).withValues(alpha: 0.4),
+                              color: const Color(0xFFF9A825)
+                                  .withValues(alpha: 0.4),
                               blurRadius: 4.0,
                               offset: const Offset(0.0, 2.0),
                             ),
@@ -1165,11 +1099,8 @@ dynamic build(BuildContext context) {
                         ),
                         child: Text(
                           chord(key, side),
-                          style: _hMono(
-                            10.0,
-                            const Color(0xFF5D4037),
-                            weight: FontWeight.w800,
-                          ),
+                          style: _hMono(10.0, const Color(0xFF5D4037),
+                              weight: FontWeight.w800),
                         ),
                       ),
                     ),
@@ -1283,20 +1214,12 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              Icons.report_problem,
-              color: Color(0xFFB71C1C),
-              size: 24.0,
-            ),
+            const Icon(Icons.report_problem,
+                color: Color(0xFFB71C1C), size: 24.0),
             const SizedBox(width: 8.0),
-            Text(
-              'Pitfalls & platform quirks',
-              style: _hSans(
-                15.0,
-                const Color(0xFFB71C1C),
-                weight: FontWeight.w900,
-              ),
-            ),
+            Text('Pitfalls & platform quirks',
+                style: _hSans(15.0, const Color(0xFFB71C1C),
+                    weight: FontWeight.w900)),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -1386,8 +1309,7 @@ dynamic build(BuildContext context) {
               value: staticProgress.value,
               backgroundColor: Colors.white.withValues(alpha: 0.12),
               valueColor: const AlwaysStoppedAnimation<Color>(
-                Color(0xFF80CBC4),
-              ),
+                  Color(0xFF80CBC4)),
             ),
           ),
         ),
@@ -1419,55 +1341,35 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               hero,
               _sectionTitle(
-                2,
-                'Anatomy & enum signature',
-                Icons.menu_book,
-                const Color(0xFF8E24AA),
-              ),
+                  2, 'Anatomy & enum signature', Icons.menu_book,
+                  const Color(0xFF8E24AA)),
               anatomy,
               _sectionTitle(
-                3,
-                'Per-value cards (any / left / right / all)',
-                Icons.style,
-                const Color(0xFF1565C0),
-              ),
+                  3, 'Per-value cards (any / left / right / all)',
+                  Icons.style, const Color(0xFF1565C0)),
               ...valueCards,
               _sectionTitle(
-                4,
-                'Mock keyboard with side-highlighted modifiers',
-                Icons.keyboard,
-                const Color(0xFF6A1B9A),
-              ),
+                  4, 'Mock keyboard with side-highlighted modifiers',
+                  Icons.keyboard, const Color(0xFF6A1B9A)),
               ...keyboards,
               _sectionTitle(
-                5,
-                'Shortcut comparison table',
-                Icons.table_chart,
-                const Color(0xFF1565C0),
-              ),
+                  5, 'Shortcut comparison table', Icons.table_chart,
+                  const Color(0xFF1565C0)),
               shortcutTable(),
               _sectionTitle(
-                6,
-                'ModifierKey × KeyboardSide interaction',
-                Icons.account_tree,
-                const Color(0xFFEF6C00),
-              ),
+                  6, 'ModifierKey × KeyboardSide interaction',
+                  Icons.account_tree, const Color(0xFFEF6C00)),
               interactionDiagram,
               _sectionTitle(
-                7,
-                'Recipes',
-                Icons.restaurant_menu,
-                const Color(0xFF2E7D32),
-              ),
+                  7, 'Recipes', Icons.restaurant_menu,
+                  const Color(0xFF2E7D32)),
               ...recipes,
               _sectionTitle(
-                8,
-                'Pitfalls & platform quirks',
-                Icons.report_problem,
-                const Color(0xFFC62828),
-              ),
+                  8, 'Pitfalls & platform quirks',
+                  Icons.report_problem, const Color(0xFFC62828)),
               pitfalls,
-              _sectionTitle(9, 'Footer', Icons.flag, const Color(0xFF455A64)),
+              _sectionTitle(
+                  9, 'Footer', Icons.flag, const Color(0xFF455A64)),
               footer,
             ],
           ),
@@ -1487,9 +1389,13 @@ Widget _matchCell(String label, bool matches, Color glow) {
     width: 90.0,
     padding: const EdgeInsets.all(8.0),
     decoration: BoxDecoration(
-      color: matches ? glow.withValues(alpha: 0.16) : Colors.grey.shade100,
+      color: matches
+          ? glow.withValues(alpha: 0.16)
+          : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: matches ? glow : Colors.grey.shade400),
+      border: Border.all(
+        color: matches ? glow : Colors.grey.shade400,
+      ),
     ),
     child: Column(
       children: <Widget>[
@@ -1501,11 +1407,9 @@ Widget _matchCell(String label, bool matches, Color glow) {
         const SizedBox(height: 4.0),
         Text(
           label,
-          style: _hSans(
-            10.0,
-            matches ? glow : Colors.grey.shade600,
-            weight: FontWeight.w700,
-          ),
+          style: _hSans(10.0,
+              matches ? glow : Colors.grey.shade600,
+              weight: FontWeight.w700),
           textAlign: TextAlign.center,
         ),
       ],
@@ -1519,9 +1423,12 @@ Widget _matchCell(String label, bool matches, Color glow) {
 // otherwise.
 // ---------------------------------------------------------------------------
 Widget _keyCap(_Key k, _SideSpec spec, bool highlighted) {
-  final Color baseColor = highlighted ? spec.glow : const Color(0xFFECEFF1);
-  final Color borderColor = highlighted ? spec.shadow : const Color(0xFFB0BEC5);
-  final Color textColor = highlighted ? Colors.white : const Color(0xFF455A64);
+  final Color baseColor =
+      highlighted ? spec.glow : const Color(0xFFECEFF1);
+  final Color borderColor =
+      highlighted ? spec.shadow : const Color(0xFFB0BEC5);
+  final Color textColor =
+      highlighted ? Colors.white : const Color(0xFF455A64);
 
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 2.0),
@@ -1531,7 +1438,10 @@ Widget _keyCap(_Key k, _SideSpec spec, bool highlighted) {
           ? LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[spec.glow, spec.shadow.withValues(alpha: 0.85)],
+              colors: <Color>[
+                spec.glow,
+                spec.shadow.withValues(alpha: 0.85),
+              ],
             )
           : null,
       color: highlighted ? null : baseColor,
@@ -1582,8 +1492,7 @@ String _keyboardLegend(_KeyboardSide side) {
 // reader can spot at a glance that `any` is the loosest and `all` the tightest.
 // ---------------------------------------------------------------------------
 Widget _restrictivenessBar(_SideSpec spec, Animation<double> driver) {
-  final int matches =
-      (spec.matchesLeft ? 1 : 0) +
+  final int matches = (spec.matchesLeft ? 1 : 0) +
       (spec.matchesRight ? 1 : 0) +
       (spec.matchesBoth ? 1 : 0);
   // 3 scenarios → fraction = matches/3. Multiplied by the static driver so the
@@ -1594,15 +1503,11 @@ Widget _restrictivenessBar(_SideSpec spec, Animation<double> driver) {
     children: <Widget>[
       Row(
         children: <Widget>[
-          Text(
-            'Permissiveness',
-            style: _hSans(11.0, spec.shadow, weight: FontWeight.w700),
-          ),
+          Text('Permissiveness',
+              style: _hSans(11.0, spec.shadow, weight: FontWeight.w700)),
           const Spacer(),
-          Text(
-            '${(fraction * 100).toStringAsFixed(0)}%',
-            style: _hMono(11.0, spec.shadow, weight: FontWeight.w800),
-          ),
+          Text('${(fraction * 100).toStringAsFixed(0)}%',
+              style: _hMono(11.0, spec.shadow, weight: FontWeight.w800)),
         ],
       ),
       const SizedBox(height: 6.0),
@@ -1612,13 +1517,17 @@ Widget _restrictivenessBar(_SideSpec spec, Animation<double> driver) {
           height: 10.0,
           child: Stack(
             children: <Widget>[
-              Container(color: spec.glow.withValues(alpha: 0.15)),
+              Container(
+                  color: spec.glow.withValues(alpha: 0.15)),
               FractionallySizedBox(
                 widthFactor: fraction.clamp(0.0, 1.0),
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: <Color>[spec.glow, spec.shadow],
+                      colors: <Color>[
+                        spec.glow,
+                        spec.shadow,
+                      ],
                     ),
                   ),
                 ),
@@ -1669,10 +1578,8 @@ Widget _recipeCard({
             Icon(Icons.menu_book, size: 18.0, color: accent),
             const SizedBox(width: 8.0),
             Expanded(
-              child: Text(
-                title,
-                style: _hSans(13.0, accent, weight: FontWeight.w900),
-              ),
+              child: Text(title,
+                  style: _hSans(13.0, accent, weight: FontWeight.w900)),
             ),
           ],
         ),
@@ -1702,21 +1609,13 @@ Widget _pitfall(String title, String body) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              Icons.priority_high,
-              size: 16.0,
-              color: Color(0xFFB71C1C),
-            ),
+            const Icon(Icons.priority_high,
+                size: 16.0, color: Color(0xFFB71C1C)),
             const SizedBox(width: 6.0),
             Expanded(
-              child: Text(
-                title,
-                style: _hSans(
-                  12.0,
-                  const Color(0xFFB71C1C),
-                  weight: FontWeight.w800,
-                ),
-              ),
+              child: Text(title,
+                  style: _hSans(12.0, const Color(0xFFB71C1C),
+                      weight: FontWeight.w800)),
             ),
           ],
         ),
@@ -1738,7 +1637,9 @@ Widget _booleanGlyph(bool ok, Color color) {
     decoration: BoxDecoration(
       color: ok ? color.withValues(alpha: 0.18) : Colors.grey.shade200,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: ok ? color : Colors.grey.shade400),
+      border: Border.all(
+        color: ok ? color : Colors.grey.shade400,
+      ),
     ),
     alignment: Alignment.center,
     child: Icon(

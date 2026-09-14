@@ -19,8 +19,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.sort,
       'title': 'Reading Order Focus',
-      'body':
-          'ReadingOrderTraversalPolicy determines the order in which '
+      'body': 'ReadingOrderTraversalPolicy determines the order in which '
           'focusable widgets receive focus when the user presses Tab. '
           'It sorts nodes by their physical position on screen in '
           '"reading order" — top-to-bottom, start-to-end.',
@@ -29,8 +28,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.grid_view,
       'title': 'Band Algorithm',
-      'body':
-          'Nodes are grouped into horizontal bands. Widgets that '
+      'body': 'Nodes are grouped into horizontal bands. Widgets that '
           'vertically overlap are placed in the same band. Within a '
           'band, nodes are sorted by their horizontal position '
           '(left-to-right for LTR, right-to-left for RTL).',
@@ -39,8 +37,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.language,
       'title': 'Directionality Aware',
-      'body':
-          'The policy respects the ambient Directionality. In LTR '
+      'body': 'The policy respects the ambient Directionality. In LTR '
           'locales, Tab moves left→right within each band. In RTL '
           'locales, Tab moves right→left. This matches natural '
           'reading patterns for each locale.',
@@ -49,8 +46,7 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.keyboard_tab,
       'title': 'Default Tab Policy',
-      'body':
-          'ReadingOrderTraversalPolicy is the default policy used '
+      'body': 'ReadingOrderTraversalPolicy is the default policy used '
           'by FocusTraversalGroup. If you don\'t specify a policy, '
           'Tab/Shift-Tab navigation uses reading order automatically.',
       'accent': Colors.teal[600]!,
@@ -82,12 +78,7 @@ dynamic build(BuildContext context) {
     },
     {
       'band': 'Band C (y: 100–140)',
-      'widgets': [
-        'Checkbox (x:10)',
-        'Radio (x:100)',
-        'Switch (x:200)',
-        'Slider (x:320)',
-      ],
+      'widgets': ['Checkbox (x:10)', 'Radio (x:100)', 'Switch (x:200)', 'Slider (x:320)'],
       'color': Colors.indigo[100]!,
       'accent': Colors.indigo[600]!,
       'order': '6 → 7 → 8 → 9',
@@ -103,66 +94,18 @@ dynamic build(BuildContext context) {
 
   // A 3x4 grid of focusable tiles showing reading-order numbering
   final gridItems = <Map<String, dynamic>>[
-    {
-      'row': 0,
-      'col': 0,
-      'order': 1,
-      'label': 'A1',
-      'color': Colors.indigo[400]!,
-    },
+    {'row': 0, 'col': 0, 'order': 1, 'label': 'A1', 'color': Colors.indigo[400]!},
     {'row': 0, 'col': 1, 'order': 2, 'label': 'A2', 'color': Colors.teal[400]!},
-    {
-      'row': 0,
-      'col': 2,
-      'order': 3,
-      'label': 'A3',
-      'color': Colors.indigo[300]!,
-    },
+    {'row': 0, 'col': 2, 'order': 3, 'label': 'A3', 'color': Colors.indigo[300]!},
     {'row': 0, 'col': 3, 'order': 4, 'label': 'A4', 'color': Colors.teal[300]!},
     {'row': 1, 'col': 0, 'order': 5, 'label': 'B1', 'color': Colors.teal[400]!},
-    {
-      'row': 1,
-      'col': 1,
-      'order': 6,
-      'label': 'B2',
-      'color': Colors.indigo[400]!,
-    },
+    {'row': 1, 'col': 1, 'order': 6, 'label': 'B2', 'color': Colors.indigo[400]!},
     {'row': 1, 'col': 2, 'order': 7, 'label': 'B3', 'color': Colors.teal[300]!},
-    {
-      'row': 1,
-      'col': 3,
-      'order': 8,
-      'label': 'B4',
-      'color': Colors.indigo[300]!,
-    },
-    {
-      'row': 2,
-      'col': 0,
-      'order': 9,
-      'label': 'C1',
-      'color': Colors.indigo[300]!,
-    },
-    {
-      'row': 2,
-      'col': 1,
-      'order': 10,
-      'label': 'C2',
-      'color': Colors.teal[300]!,
-    },
-    {
-      'row': 2,
-      'col': 2,
-      'order': 11,
-      'label': 'C3',
-      'color': Colors.indigo[400]!,
-    },
-    {
-      'row': 2,
-      'col': 3,
-      'order': 12,
-      'label': 'C4',
-      'color': Colors.teal[400]!,
-    },
+    {'row': 1, 'col': 3, 'order': 8, 'label': 'B4', 'color': Colors.indigo[300]!},
+    {'row': 2, 'col': 0, 'order': 9, 'label': 'C1', 'color': Colors.indigo[300]!},
+    {'row': 2, 'col': 1, 'order': 10, 'label': 'C2', 'color': Colors.teal[300]!},
+    {'row': 2, 'col': 2, 'order': 11, 'label': 'C3', 'color': Colors.indigo[400]!},
+    {'row': 2, 'col': 3, 'order': 12, 'label': 'C4', 'color': Colors.teal[400]!},
   ];
 
   print('  Grid items: ${gridItems.length}');
@@ -227,8 +170,7 @@ dynamic build(BuildContext context) {
     {
       'step': 1,
       'title': 'Outer Group',
-      'detail':
-          'The outermost FocusTraversalGroup defines the top-level '
+      'detail': 'The outermost FocusTraversalGroup defines the top-level '
           'traversal scope. Tab cycles through its children, including '
           'nested groups, in reading order.',
       'icon': Icons.layers,
@@ -237,8 +179,7 @@ dynamic build(BuildContext context) {
     {
       'step': 2,
       'title': 'Nested Group Entry',
-      'detail':
-          'When Tab reaches a nested FocusTraversalGroup, focus '
+      'detail': 'When Tab reaches a nested FocusTraversalGroup, focus '
           'enters the group and traverses its children according to '
           'the group\'s own policy (which can differ from the outer).',
       'icon': Icons.subdirectory_arrow_right,
@@ -247,8 +188,7 @@ dynamic build(BuildContext context) {
     {
       'step': 3,
       'title': 'Nested Traversal',
-      'detail':
-          'Within the nested group, Tab follows that group\'s '
+      'detail': 'Within the nested group, Tab follows that group\'s '
           'policy. A form section might use OrderedTraversalPolicy '
           'while the outer page uses ReadingOrderTraversalPolicy.',
       'icon': Icons.tab,
@@ -257,8 +197,7 @@ dynamic build(BuildContext context) {
     {
       'step': 4,
       'title': 'Group Exit',
-      'detail':
-          'After the last child in the nested group, Tab returns '
+      'detail': 'After the last child in the nested group, Tab returns '
           'to the outer group and continues to the next sibling in '
           'reading order. Groups act as traversal "scopes".',
       'icon': Icons.exit_to_app,
@@ -274,46 +213,14 @@ dynamic build(BuildContext context) {
   print('=== Section 7: Keyboard Reference ===');
 
   final keyboardRef = <Map<String, dynamic>>[
-    {
-      'key': 'Tab',
-      'action': 'Move to next focusable in reading order',
-      'icon': Icons.keyboard_tab,
-    },
-    {
-      'key': 'Shift + Tab',
-      'action': 'Move to previous focusable in reading order',
-      'icon': Icons.keyboard_return,
-    },
-    {
-      'key': '↑ Arrow',
-      'action': 'Move focus up (directional traversal)',
-      'icon': Icons.arrow_upward,
-    },
-    {
-      'key': '↓ Arrow',
-      'action': 'Move focus down (directional traversal)',
-      'icon': Icons.arrow_downward,
-    },
-    {
-      'key': '← Arrow',
-      'action': 'Move focus left (directional traversal)',
-      'icon': Icons.arrow_back,
-    },
-    {
-      'key': '→ Arrow',
-      'action': 'Move focus right (directional traversal)',
-      'icon': Icons.arrow_forward,
-    },
-    {
-      'key': 'Space / Enter',
-      'action': 'Activate focused widget',
-      'icon': Icons.check_circle_outline,
-    },
-    {
-      'key': 'Escape',
-      'action': 'Unfocus / close overlay',
-      'icon': Icons.cancel_outlined,
-    },
+    {'key': 'Tab', 'action': 'Move to next focusable in reading order', 'icon': Icons.keyboard_tab},
+    {'key': 'Shift + Tab', 'action': 'Move to previous focusable in reading order', 'icon': Icons.keyboard_return},
+    {'key': '↑ Arrow', 'action': 'Move focus up (directional traversal)', 'icon': Icons.arrow_upward},
+    {'key': '↓ Arrow', 'action': 'Move focus down (directional traversal)', 'icon': Icons.arrow_downward},
+    {'key': '← Arrow', 'action': 'Move focus left (directional traversal)', 'icon': Icons.arrow_back},
+    {'key': '→ Arrow', 'action': 'Move focus right (directional traversal)', 'icon': Icons.arrow_forward},
+    {'key': 'Space / Enter', 'action': 'Activate focused widget', 'icon': Icons.check_circle_outline},
+    {'key': 'Escape', 'action': 'Unfocus / close overlay', 'icon': Icons.cancel_outlined},
   ];
 
   print('  Keyboard entries: ${keyboardRef.length}');
@@ -326,8 +233,7 @@ dynamic build(BuildContext context) {
   final bestPractices = <Map<String, dynamic>>[
     {
       'title': 'Use FocusTraversalGroup for sections',
-      'detail':
-          'Wrap logical form sections in FocusTraversalGroup to '
+      'detail': 'Wrap logical form sections in FocusTraversalGroup to '
           'create independent traversal scopes. This prevents Tab '
           'from jumping across unrelated sections.',
       'icon': Icons.group_work,
@@ -336,8 +242,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Prefer reading order for general layouts',
-      'detail':
-          'ReadingOrderTraversalPolicy works well for standard '
+      'detail': 'ReadingOrderTraversalPolicy works well for standard '
           'layouts. Only switch to OrderedTraversalPolicy when '
           'visual position doesn\'t match desired tab order.',
       'icon': Icons.auto_awesome,
@@ -346,8 +251,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Test RTL directionality',
-      'detail':
-          'If your app supports RTL locales, verify that your '
+      'detail': 'If your app supports RTL locales, verify that your '
           'layout gives a sensible traversal order in both directions. '
           'The band algorithm adapts automatically.',
       'icon': Icons.swap_horiz,
@@ -356,8 +260,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Avoid skip-focus patterns',
-      'detail':
-          'Don\'t hide focusable widgets behind conditions that '
+      'detail': 'Don\'t hide focusable widgets behind conditions that '
           'make Tab skip items unpredictably. Use canRequestFocus: '
           'false on Focus nodes you want to exclude.',
       'icon': Icons.block,
@@ -366,8 +269,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Combine with autofocus',
-      'detail':
-          'Set autofocus: true on the first field in a form so '
+      'detail': 'Set autofocus: true on the first field in a form so '
           'the user can immediately start typing after navigation. '
           'Only one widget per route should have autofocus.',
       'icon': Icons.center_focus_strong,
@@ -426,61 +328,40 @@ dynamic build(BuildContext context) {
         // ---- Section 1: Concept ----
         _sectionHeader('1. Concept', Icons.info_outline, Colors.indigo[700]!),
         SizedBox(height: 10),
-        ...conceptCards.map(
-          (c) => Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: (c['accent'] as Color).withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(12),
-                border: Border(
-                  left: BorderSide(color: c['accent'] as Color, width: 4),
+        ...conceptCards.map((c) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: (c['accent'] as Color).withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(left: BorderSide(color: c['accent'] as Color, width: 4)),
+                ),
+                padding: EdgeInsets.all(14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(c['icon'] as IconData, color: c['accent'] as Color, size: 28),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(c['title'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: c['accent'] as Color)),
+                          SizedBox(height: 4),
+                          Text(c['body'] as String, style: TextStyle(fontSize: 13)),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.all(14),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    c['icon'] as IconData,
-                    color: c['accent'] as Color,
-                    size: 28,
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          c['title'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: c['accent'] as Color,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          c['body'] as String,
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 2: Band Algorithm ----
-        _sectionHeader(
-          '2. Band Algorithm Visualization',
-          Icons.view_stream,
-          Colors.teal[700]!,
-        ),
+        _sectionHeader('2. Band Algorithm Visualization', Icons.view_stream, Colors.teal[700]!),
         SizedBox(height: 10),
         Text(
           'Nodes are grouped into horizontal bands by vertical overlap. '
@@ -488,97 +369,57 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 13, color: Colors.grey[700]),
         ),
         SizedBox(height: 10),
-        ...bandRows.map(
-          (b) => Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: b['color'] as Color,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: (b['accent'] as Color).withValues(alpha: 0.3),
+        ...bandRows.map((b) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: b['color'] as Color,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: (b['accent'] as Color).withValues(alpha: 0.3)),
                 ),
-              ),
-              padding: EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        b['band'] as String,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                          color: b['accent'] as Color,
-                        ),
-                      ),
-                      Spacer(),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: b['accent'] as Color,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          'Tab order: ${b['order']}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(b['band'] as String,
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: b['accent'] as Color)),
+                        Spacer(),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: b['accent'] as Color,
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                          child: Text('Tab order: ${b['order']}',
+                              style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600)),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 6,
-                    children: (b['widgets'] as List<String>)
-                        .map(
-                          (w) => Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 6,
-                            ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 6,
+                      children: (b['widgets'] as List<String>).map((w) => Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(6),
-                              border: Border.all(
-                                color: (b['accent'] as Color).withValues(
-                                  alpha: 0.4,
-                                ),
-                              ),
+                              border: Border.all(color: (b['accent'] as Color).withValues(alpha: 0.4)),
                             ),
-                            child: Text(
-                              w,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ],
+                            child: Text(w, style: TextStyle(fontSize: 12, fontFamily: 'monospace')),
+                          )).toList(),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 20),
 
         // ---- Section 3: Live Traversal Grid ----
-        _sectionHeader(
-          '3. Traversal Grid (LTR)',
-          Icons.grid_view,
-          Colors.indigo[700]!,
-        ),
+        _sectionHeader('3. Traversal Grid (LTR)', Icons.grid_view, Colors.indigo[700]!),
         SizedBox(height: 10),
         Text(
           'Each tile shows its Tab order number. In LTR, traversal goes '
@@ -595,65 +436,39 @@ dynamic build(BuildContext context) {
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
             childAspectRatio: 1.4,
-            children: gridItems
-                .map(
-                  (item) => Container(
-                    decoration: BoxDecoration(
-                      color: item['color'] as Color,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.9),
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            '${item['order']}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: item['color'] as Color,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          item['label'] as String,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
+            children: gridItems.map((item) => Container(
+                  decoration: BoxDecoration(
+                    color: item['color'] as Color,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 4, offset: Offset(0, 2))],
                   ),
-                )
-                .toList(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.9),
+                          shape: BoxShape.circle,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text('${item['order']}',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: item['color'] as Color)),
+                      ),
+                      SizedBox(height: 4),
+                      Text(item['label'] as String,
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 12)),
+                    ],
+                  ),
+                )).toList(),
           ),
         ),
 
         SizedBox(height: 20),
 
         // ---- Section 4: LTR vs RTL ----
-        _sectionHeader(
-          '4. LTR vs RTL Directionality',
-          Icons.swap_horiz,
-          Colors.teal[700]!,
-        ),
+        _sectionHeader('4. LTR vs RTL Directionality', Icons.swap_horiz, Colors.teal[700]!),
         SizedBox(height: 10),
         Row(
           children: [
@@ -669,53 +484,28 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.indigo[700],
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Text(
-                        'LTR (English)',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
+                      child: Text('LTR (English)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      '→ →',
-                      style: TextStyle(fontSize: 20, color: Colors.indigo[400]),
-                    ),
+                    Text('→ →', style: TextStyle(fontSize: 20, color: Colors.indigo[400])),
                     SizedBox(height: 6),
-                    ...ltrOrder.map(
-                      (item) => Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            item,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'monospace',
+                    ...ltrOrder.map((item) => Padding(
+                          padding: EdgeInsets.only(bottom: 4),
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                            textAlign: TextAlign.center,
+                            child: Text(item, style: TextStyle(fontSize: 12, fontFamily: 'monospace'), textAlign: TextAlign.center),
                           ),
-                        ),
-                      ),
-                    ),
+                        )),
                   ],
                 ),
               ),
@@ -733,53 +523,28 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.teal[700],
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Text(
-                        'RTL (Arabic)',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
+                      child: Text('RTL (Arabic)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      '← ←',
-                      style: TextStyle(fontSize: 20, color: Colors.teal[400]),
-                    ),
+                    Text('← ←', style: TextStyle(fontSize: 20, color: Colors.teal[400])),
                     SizedBox(height: 6),
-                    ...rtlOrder.map(
-                      (item) => Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            item,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'monospace',
+                    ...rtlOrder.map((item) => Padding(
+                          padding: EdgeInsets.only(bottom: 4),
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                            textAlign: TextAlign.center,
+                            child: Text(item, style: TextStyle(fontSize: 12, fontFamily: 'monospace'), textAlign: TextAlign.center),
                           ),
-                        ),
-                      ),
-                    ),
+                        )),
                   ],
                 ),
               ),
@@ -790,11 +555,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 20),
 
         // ---- Section 5: Policy Comparison Table ----
-        _sectionHeader(
-          '5. Traversal Policy Comparison',
-          Icons.compare_arrows,
-          Colors.indigo[700]!,
-        ),
+        _sectionHeader('5. Traversal Policy Comparison', Icons.compare_arrows, Colors.indigo[700]!),
         SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
@@ -809,39 +570,9 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Row(
                   children: [
-                    Expanded(
-                      flex: 4,
-                      child: Text(
-                        'Policy',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        'Ordering',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        'Use Case',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
+                    Expanded(flex: 4, child: Text('Policy', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+                    Expanded(flex: 3, child: Text('Ordering', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+                    Expanded(flex: 3, child: Text('Use Case', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
                   ],
                 ),
               ),
@@ -854,28 +585,16 @@ dynamic build(BuildContext context) {
                     children: [
                       Expanded(
                         flex: 4,
-                        child: Text(
-                          p['policy'] as String,
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'monospace',
-                          ),
-                        ),
+                        child: Text(p['policy'] as String,
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, fontFamily: 'monospace')),
                       ),
                       Expanded(
                         flex: 3,
-                        child: Text(
-                          p['order'] as String,
-                          style: TextStyle(fontSize: 11),
-                        ),
+                        child: Text(p['order'] as String, style: TextStyle(fontSize: 11)),
                       ),
                       Expanded(
                         flex: 3,
-                        child: Text(
-                          p['use'] as String,
-                          style: TextStyle(fontSize: 11),
-                        ),
+                        child: Text(p['use'] as String, style: TextStyle(fontSize: 11)),
                       ),
                     ],
                   ),
@@ -888,70 +607,46 @@ dynamic build(BuildContext context) {
         SizedBox(height: 20),
 
         // ---- Section 6: Group Nesting ----
-        _sectionHeader(
-          '6. FocusTraversalGroup Nesting',
-          Icons.account_tree,
-          Colors.teal[700]!,
-        ),
+        _sectionHeader('6. FocusTraversalGroup Nesting', Icons.account_tree, Colors.teal[700]!),
         SizedBox(height: 10),
-        ...nestingSteps.map(
-          (s) => Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: s['color'] as Color,
-                    shape: BoxShape.circle,
+        ...nestingSteps.map((s) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 34,
+                    height: 34,
+                    decoration: BoxDecoration(
+                      color: s['color'] as Color,
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text('${s['step']}',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
                   ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '${s['step']}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(s['icon'] as IconData, size: 16, color: s['color'] as Color),
+                            SizedBox(width: 6),
+                            Text(s['title'] as String,
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: s['color'] as Color)),
+                          ],
+                        ),
+                        SizedBox(height: 3),
+                        Text(s['detail'] as String,
+                            style: TextStyle(fontSize: 13, color: Colors.grey[700])),
+                      ],
                     ),
                   ),
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            s['icon'] as IconData,
-                            size: 16,
-                            color: s['color'] as Color,
-                          ),
-                          SizedBox(width: 6),
-                          Text(
-                            s['title'] as String,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: s['color'] as Color,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 3),
-                      Text(
-                        s['detail'] as String,
-                        style: TextStyle(fontSize: 13, color: Colors.grey[700]),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                ],
+              ),
+            )),
 
         SizedBox(height: 12),
 
@@ -966,14 +661,7 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Nesting Example',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: Colors.indigo[700],
-                ),
-              ),
+              Text('Nesting Example', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.indigo[700])),
               SizedBox(height: 8),
               // Outer group label
               Container(
@@ -986,14 +674,8 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'FocusTraversalGroup (outer — ReadingOrder)',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.indigo[800],
-                      ),
-                    ),
+                    Text('FocusTraversalGroup (outer — ReadingOrder)',
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.indigo[800])),
                     SizedBox(height: 6),
                     Row(
                       children: [
@@ -1008,18 +690,11 @@ dynamic build(BuildContext context) {
                             ),
                             child: Column(
                               children: [
-                                Text(
-                                  'Group A (ReadingOrder)',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.teal[800],
-                                  ),
-                                ),
+                                Text('Group A (ReadingOrder)',
+                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.teal[800])),
                                 SizedBox(height: 4),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     _orderBadge('1', Colors.teal[600]!),
                                     _orderBadge('2', Colors.teal[600]!),
@@ -1042,18 +717,11 @@ dynamic build(BuildContext context) {
                             ),
                             child: Column(
                               children: [
-                                Text(
-                                  'Group B (OrderedPolicy)',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.indigo[800],
-                                  ),
-                                ),
+                                Text('Group B (OrderedPolicy)',
+                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.indigo[800])),
                                 SizedBox(height: 4),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     _orderBadge('4', Colors.indigo[600]!),
                                     _orderBadge('5', Colors.indigo[600]!),
@@ -1076,139 +744,88 @@ dynamic build(BuildContext context) {
         SizedBox(height: 20),
 
         // ---- Section 7: Keyboard Reference ----
-        _sectionHeader(
-          '7. Keyboard Navigation Reference',
-          Icons.keyboard,
-          Colors.indigo[700]!,
-        ),
+        _sectionHeader('7. Keyboard Navigation Reference', Icons.keyboard, Colors.indigo[700]!),
         SizedBox(height: 10),
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: keyboardRef
-              .map(
-                (k) => Container(
-                  width: 160,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[50],
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey[300]!),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            k['icon'] as IconData,
-                            size: 16,
-                            color: Colors.indigo[600],
-                          ),
-                          SizedBox(width: 6),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.indigo[100],
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                k['key'] as String,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  fontFamily: 'monospace',
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        k['action'] as String,
-                        style: TextStyle(fontSize: 11, color: Colors.grey[700]),
-                      ),
-                    ],
-                  ),
+          children: keyboardRef.map((k) => Container(
+                width: 160,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey[300]!),
                 ),
-              )
-              .toList(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(k['icon'] as IconData, size: 16, color: Colors.indigo[600]),
+                        SizedBox(width: 6),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.indigo[100],
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(k['key'] as String,
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'monospace')),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Text(k['action'] as String, style: TextStyle(fontSize: 11, color: Colors.grey[700])),
+                  ],
+                ),
+              )).toList(),
         ),
 
         SizedBox(height: 20),
 
         // ---- Section 8: Best Practices ----
-        _sectionHeader(
-          '8. Best Practices',
-          Icons.star_outline,
-          Colors.teal[700]!,
-        ),
+        _sectionHeader('8. Best Practices', Icons.star_outline, Colors.teal[700]!),
         SizedBox(height: 10),
-        ...bestPractices.map(
-          (bp) => Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.grey[300]!),
-              ),
-              padding: EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        bp['icon'] as IconData,
-                        color: bp['badgeColor'] as Color,
-                        size: 20,
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          bp['title'] as String,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
+        ...bestPractices.map((bp) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey[300]!),
+                ),
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(bp['icon'] as IconData, color: bp['badgeColor'] as Color, size: 20),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(bp['title'] as String,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: bp['badgeColor'] as Color,
+                            borderRadius: BorderRadius.circular(4),
                           ),
+                          child: Text(bp['badge'] as String,
+                              style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: bp['badgeColor'] as Color,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          bp['badge'] as String,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 6),
-                  Text(
-                    bp['detail'] as String,
-                    style: TextStyle(fontSize: 12, color: Colors.grey[700]),
-                  ),
-                ],
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(bp['detail'] as String, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
+                  ],
+                ),
               ),
-            ),
-          ),
-        ),
+            )),
 
         SizedBox(height: 24),
 
@@ -1238,11 +855,7 @@ dynamic build(BuildContext context) {
             '    ],\n'
             '  ),\n'
             ')',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: Colors.greenAccent[200],
-            ),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: Colors.greenAccent[200]),
           ),
         ),
 
@@ -1283,14 +896,7 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
     children: [
       Icon(icon, color: color, size: 22),
       SizedBox(width: 8),
-      Text(
-        title,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: color,
-        ),
-      ),
+      Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
     ],
   );
 }
@@ -1299,15 +905,11 @@ Widget _orderBadge(String num, Color color) {
   return Container(
     width: 24,
     height: 24,
-    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-    alignment: Alignment.center,
-    child: Text(
-      num,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
+    decoration: BoxDecoration(
+      color: color,
+      shape: BoxShape.circle,
     ),
+    alignment: Alignment.center,
+    child: Text(num, style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
   );
 }

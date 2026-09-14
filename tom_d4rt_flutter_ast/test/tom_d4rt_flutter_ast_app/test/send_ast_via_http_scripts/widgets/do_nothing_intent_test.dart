@@ -53,7 +53,8 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.do_not_touch_outlined, color: _niMint, size: 36),
+                  Icon(Icons.do_not_touch_outlined,
+                      color: _niMint, size: 36),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Text(
@@ -98,9 +99,9 @@ dynamic build(BuildContext context) {
         _niInfoBox(
           'Key Propagation Matters',
           'Because the key continues upward, a parent widget can still '
-              'respond to it. This is useful when you want to mark a shortcut '
-              'as "handled at this level" for debugging while letting parents '
-              'optionally process the same key.',
+          'respond to it. This is useful when you want to mark a shortcut '
+          'as "handled at this level" for debugging while letting parents '
+          'optionally process the same key.',
         ),
         const SizedBox(height: 24),
 
@@ -227,7 +228,9 @@ dynamic build(BuildContext context) {
 
         // ── 10. Common Mistakes ──
         _niSection('10. Common Mistakes'),
-        _niBody('Pitfalls when using DoNothingIntent:'),
+        _niBody(
+          'Pitfalls when using DoNothingIntent:',
+        ),
         const SizedBox(height: 12),
         _buildCommonMistakes(),
         const SizedBox(height: 24),
@@ -247,12 +250,16 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [_niTeal.withValues(alpha: 0.06), _niMint],
+              colors: [
+                _niTeal.withValues(alpha: 0.06),
+                _niMint,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: _niTeal.withValues(alpha: 0.25)),
+            border: Border.all(
+                color: _niTeal.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,7 +283,8 @@ dynamic build(BuildContext context) {
               _niSummaryRow('Paired Action', 'DoNothingAction'),
               _niSummaryRow('Key Consumed', 'No — event propagates'),
               _niSummaryRow('Use Cases', 'Debug tracing, placeholders'),
-              _niSummaryRow('Siblings', 'StopPropagation, StopPropTextIntent'),
+              _niSummaryRow('Siblings',
+                  'StopPropagation, StopPropTextIntent'),
               _niSummaryRow('consumesKey', 'false by default'),
               _niSummaryRow('Key Behavior', 'Passes through to parent'),
             ],
@@ -308,7 +316,11 @@ Widget _niSection(String title) {
 Widget _niBody(String text) {
   return Text(
     text,
-    style: TextStyle(color: _niBlack, fontSize: 15, height: 1.6),
+    style: TextStyle(
+      color: _niBlack,
+      fontSize: 15,
+      height: 1.6,
+    ),
   );
 }
 
@@ -363,7 +375,11 @@ Widget _niInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(color: _niBlack, fontSize: 14, height: 1.5),
+          style: TextStyle(
+            color: _niBlack,
+            fontSize: 14,
+            height: 1.5,
+          ),
         ),
       ],
     ),
@@ -390,7 +406,11 @@ Widget _niSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: _niBlack, fontSize: 13, height: 1.4),
+            style: TextStyle(
+              color: _niBlack,
+              fontSize: 13,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -448,11 +468,8 @@ Widget _buildIntentFamily() {
                   color: intents[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
-                  intents[i]['icon'] as IconData,
-                  color: _niWhite,
-                  size: 18,
-                ),
+                child: Icon(intents[i]['icon'] as IconData,
+                    color: _niWhite, size: 18),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -471,16 +488,14 @@ Widget _buildIntentFamily() {
                     Text(
                       intents[i]['desc'] as String,
                       style: TextStyle(
-                        color: _niBlack,
-                        fontSize: 12,
-                        height: 1.3,
-                      ),
+                          color: _niBlack, fontSize: 12, height: 1.3),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: (intents[i]['propagates'] as bool)
                       ? _niSuccess.withValues(alpha: 0.1)
@@ -488,11 +503,12 @@ Widget _buildIntentFamily() {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
-                  (intents[i]['propagates'] as bool) ? 'PROPAGATES' : 'BLOCKS',
+                  (intents[i]['propagates'] as bool)
+                      ? 'PROPAGATES'
+                      : 'BLOCKS',
                   style: TextStyle(
                     color: (intents[i]['propagates'] as bool)
-                        ? _niSuccess
-                        : _niError,
+                        ? _niSuccess : _niError,
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
                   ),
@@ -522,10 +538,7 @@ Widget _buildPropagationComparison() {
         Text(
           'Key Event After Intent Match',
           style: TextStyle(
-            color: _niTeal,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+            color: _niTeal, fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 14),
         // Visual propagation flow
@@ -542,28 +555,22 @@ Widget _buildPropagationComparison() {
                       color: _niSuccess.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: _niSuccess.withValues(alpha: 0.3),
-                      ),
+                          color: _niSuccess.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'DoNothingIntent',
-                          style: TextStyle(
-                            color: _niSuccess,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text('DoNothingIntent',
+                            style: TextStyle(color: _niSuccess, fontSize: 10,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center),
                         const SizedBox(height: 4),
-                        Icon(Icons.arrow_upward, color: _niSuccess, size: 20),
+                        Icon(Icons.arrow_upward,
+                            color: _niSuccess, size: 20),
                         const SizedBox(height: 4),
-                        Text(
-                          'Parent receives key',
-                          style: TextStyle(color: _niBlack, fontSize: 9),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text('Parent receives key',
+                            style: TextStyle(
+                                color: _niBlack, fontSize: 9),
+                            textAlign: TextAlign.center),
                       ],
                     ),
                   ),
@@ -575,15 +582,10 @@ Widget _buildPropagationComparison() {
                       color: _niTeal.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text(
-                      'Parent Shortcuts',
-                      style: TextStyle(
-                        color: _niTeal,
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                    child: Text('Parent Shortcuts',
+                        style: TextStyle(color: _niTeal, fontSize: 9,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
                   ),
                 ],
               ),
@@ -599,28 +601,21 @@ Widget _buildPropagationComparison() {
                       color: _niError.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: _niError.withValues(alpha: 0.3),
-                      ),
+                          color: _niError.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'StopPropagation',
-                          style: TextStyle(
-                            color: _niError,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text('StopPropagation',
+                            style: TextStyle(color: _niError, fontSize: 10,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center),
                         const SizedBox(height: 4),
                         Icon(Icons.block, color: _niError, size: 20),
                         const SizedBox(height: 4),
-                        Text(
-                          'Key consumed here',
-                          style: TextStyle(color: _niBlack, fontSize: 9),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text('Key consumed here',
+                            style: TextStyle(
+                                color: _niBlack, fontSize: 9),
+                            textAlign: TextAlign.center),
                       ],
                     ),
                   ),
@@ -632,15 +627,10 @@ Widget _buildPropagationComparison() {
                       color: _niError.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text(
-                      'Parent never sees it',
-                      style: TextStyle(
-                        color: _niError,
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                    child: Text('Parent never sees it',
+                        style: TextStyle(color: _niError, fontSize: 9,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
                   ),
                 ],
               ),
@@ -656,24 +646,21 @@ Widget _buildPlaceholderScenario() {
   final phases = <Map<String, dynamic>>[
     {
       'phase': 'Phase 1: Reserved',
-      'desc':
-          'Key binding reserved with DoNothingIntent. Key propagates '
+      'desc': 'Key binding reserved with DoNothingIntent. Key propagates '
           'past this level.',
       'icon': Icons.bookmark_border,
       'color': _niMuted,
     },
     {
       'phase': 'Phase 2: Implemented',
-      'desc':
-          'Replace DoNothingIntent with actual intent when the feature '
+      'desc': 'Replace DoNothingIntent with actual intent when the feature '
           'is ready.',
       'icon': Icons.code,
       'color': _niAccent,
     },
     {
       'phase': 'Phase 3: Active',
-      'desc':
-          'Shortcut now triggers the actual action. Key is consumed '
+      'desc': 'Shortcut now triggers the actual action. Key is consumed '
           'at this level.',
       'icon': Icons.flash_on,
       'color': _niTeal,
@@ -700,11 +687,8 @@ Widget _buildPlaceholderScenario() {
                   color: phases[i]['color'] as Color,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  phases[i]['icon'] as IconData,
-                  color: _niWhite,
-                  size: 16,
-                ),
+                child: Icon(phases[i]['icon'] as IconData,
+                    color: _niWhite, size: 16),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -722,10 +706,7 @@ Widget _buildPlaceholderScenario() {
                     Text(
                       phases[i]['desc'] as String,
                       style: TextStyle(
-                        color: _niBlack,
-                        fontSize: 11,
-                        height: 1.3,
-                      ),
+                          color: _niBlack, fontSize: 11, height: 1.3),
                     ),
                   ],
                 ),
@@ -735,7 +716,8 @@ Widget _buildPlaceholderScenario() {
           if (i < phases.length - 1)
             Padding(
               padding: const EdgeInsets.only(left: 15),
-              child: Container(width: 2, height: 14, color: _niDivider),
+              child: Container(
+                  width: 2, height: 14, color: _niDivider),
             ),
         ],
       ],
@@ -779,10 +761,7 @@ Widget _buildLayeredShortcuts() {
         Text(
           'Key passes through all DoNothingIntent layers',
           style: TextStyle(
-            color: _niTeal,
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-          ),
+            color: _niTeal, fontSize: 13, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 14),
         for (var i = layers.length - 1; i >= 0; i--) ...[
@@ -794,8 +773,7 @@ Widget _buildLayeredShortcuts() {
               color: (layers[i]['color'] as Color).withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: (layers[i]['color'] as Color).withValues(alpha: 0.25),
-              ),
+                color: (layers[i]['color'] as Color).withValues(alpha: 0.25)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -810,19 +788,13 @@ Widget _buildLayeredShortcuts() {
                 ),
                 Text(
                   layers[i]['shortcut'] as String,
-                  style: TextStyle(
-                    color: _niBlack,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                  ),
+                  style: TextStyle(color: _niBlack, fontSize: 10,
+                      fontFamily: 'monospace'),
                 ),
                 Text(
                   layers[i]['note'] as String,
                   style: TextStyle(
-                    color: _niMuted,
-                    fontSize: 10,
-                    fontStyle: FontStyle.italic,
-                  ),
+                      color: _niMuted, fontSize: 10, fontStyle: FontStyle.italic),
                 ),
               ],
             ),
@@ -830,8 +802,7 @@ Widget _buildLayeredShortcuts() {
           if (i > 0)
             Padding(
               padding: EdgeInsets.only(
-                left: (layers.length - 1 - i) * 16.0 + 16,
-              ),
+                  left: (layers.length - 1 - i) * 16.0 + 16),
               child: Icon(Icons.arrow_upward, color: _niSuccess, size: 14),
             ),
         ],
@@ -855,10 +826,7 @@ Widget _buildActionDetails() {
         Text(
           'DoNothingAction Properties',
           style: TextStyle(
-            color: _niTeal,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+            color: _niTeal, fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Row(
@@ -870,26 +838,19 @@ Widget _buildActionDetails() {
                 decoration: BoxDecoration(
                   color: _niSuccess.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _niSuccess.withValues(alpha: 0.2)),
+                  border: Border.all(
+                      color: _niSuccess.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'consumesKey: false',
-                      style: TextStyle(
-                        color: _niSuccess,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
+                    Text('consumesKey: false',
+                        style: TextStyle(color: _niSuccess, fontSize: 11,
+                            fontWeight: FontWeight.bold, fontFamily: 'monospace')),
                     const SizedBox(height: 4),
-                    Text(
-                      'Default behavior for DoNothingAction. '
-                      'Key event propagates to parent.',
-                      style: TextStyle(color: _niBlack, fontSize: 10),
-                    ),
+                    Text('Default behavior for DoNothingAction. '
+                        'Key event propagates to parent.',
+                        style: TextStyle(color: _niBlack, fontSize: 10)),
                   ],
                 ),
               ),
@@ -901,26 +862,19 @@ Widget _buildActionDetails() {
                 decoration: BoxDecoration(
                   color: _niError.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _niError.withValues(alpha: 0.2)),
+                  border: Border.all(
+                      color: _niError.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'consumesKey: true',
-                      style: TextStyle(
-                        color: _niError,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
+                    Text('consumesKey: true',
+                        style: TextStyle(color: _niError, fontSize: 11,
+                            fontWeight: FontWeight.bold, fontFamily: 'monospace')),
                     const SizedBox(height: 4),
-                    Text(
-                      'When set explicitly. Mimics '
-                      'StopPropagationIntent behavior.',
-                      style: TextStyle(color: _niBlack, fontSize: 10),
-                    ),
+                    Text('When set explicitly. Mimics '
+                        'StopPropagationIntent behavior.',
+                        style: TextStyle(color: _niBlack, fontSize: 10)),
                   ],
                 ),
               ),
@@ -1000,11 +954,8 @@ Widget _buildFocusResolution() {
                   color: steps[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(
-                  steps[i]['icon'] as IconData,
-                  color: _niWhite,
-                  size: 14,
-                ),
+                child: Icon(steps[i]['icon'] as IconData,
+                    color: _niWhite, size: 14),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1022,10 +973,7 @@ Widget _buildFocusResolution() {
                     Text(
                       steps[i]['detail'] as String,
                       style: TextStyle(
-                        color: _niBlack,
-                        fontSize: 11,
-                        height: 1.3,
-                      ),
+                          color: _niBlack, fontSize: 11, height: 1.3),
                     ),
                   ],
                 ),
@@ -1035,7 +983,8 @@ Widget _buildFocusResolution() {
           if (i < steps.length - 1)
             Padding(
               padding: const EdgeInsets.only(left: 13),
-              child: Container(width: 2, height: 8, color: _niDivider),
+              child: Container(
+                  width: 2, height: 8, color: _niDivider),
             ),
         ],
       ],
@@ -1081,17 +1030,13 @@ Widget _buildCommonMistakes() {
             color: (mistakes[i]['color'] as Color).withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (mistakes[i]['color'] as Color).withValues(alpha: 0.2),
-            ),
+              color: (mistakes[i]['color'] as Color).withValues(alpha: 0.2)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                mistakes[i]['icon'] as IconData,
-                color: mistakes[i]['color'] as Color,
-                size: 18,
-              ),
+              Icon(mistakes[i]['icon'] as IconData,
+                  color: mistakes[i]['color'] as Color, size: 18),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1108,16 +1053,14 @@ Widget _buildCommonMistakes() {
                     const SizedBox(height: 2),
                     Row(
                       children: [
-                        Icon(
-                          Icons.lightbulb_outline,
-                          color: _niSuccess,
-                          size: 12,
-                        ),
+                        Icon(Icons.lightbulb_outline,
+                            color: _niSuccess, size: 12),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
                             mistakes[i]['fix'] as String,
-                            style: TextStyle(color: _niSuccess, fontSize: 11),
+                            style: TextStyle(
+                                color: _niSuccess, fontSize: 11),
                           ),
                         ),
                       ],
@@ -1188,36 +1131,21 @@ Widget _buildDecisionMatrix() {
           children: [
             Expanded(
               flex: 3,
-              child: Text(
-                'Goal',
-                style: TextStyle(
-                  color: _niTeal,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text('Goal',
+                  style: TextStyle(color: _niTeal, fontSize: 11,
+                      fontWeight: FontWeight.bold)),
             ),
             Expanded(
               flex: 3,
-              child: Text(
-                'Intent',
-                style: TextStyle(
-                  color: _niTeal,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text('Intent',
+                  style: TextStyle(color: _niTeal, fontSize: 11,
+                      fontWeight: FontWeight.bold)),
             ),
             Expanded(
               flex: 4,
-              child: Text(
-                'Reason',
-                style: TextStyle(
-                  color: _niTeal,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text('Reason',
+                  style: TextStyle(color: _niTeal, fontSize: 11,
+                      fontWeight: FontWeight.bold)),
             ),
           ],
         ),
@@ -1241,11 +1169,8 @@ Widget _buildDecisionMatrix() {
                 flex: 3,
                 child: Text(
                   decisions[i]['intent'] as String,
-                  style: TextStyle(
-                    color: _niBlack,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                  ),
+                  style: TextStyle(color: _niBlack, fontSize: 10,
+                      fontFamily: 'monospace'),
                 ),
               ),
               Expanded(

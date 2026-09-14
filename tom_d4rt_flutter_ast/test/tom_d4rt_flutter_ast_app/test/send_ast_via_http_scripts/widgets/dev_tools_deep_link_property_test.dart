@@ -32,10 +32,7 @@ Widget _dpSection(String title, List<Widget> children) {
       border: Border.all(color: _dpLightSlate, width: 1.5),
       boxShadow: const [
         BoxShadow(
-          color: Color(0x15455A64),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+            color: Color(0x15455A64), blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -47,14 +44,11 @@ Widget _dpSection(String title, List<Widget> children) {
             color: _dpSlate,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: _dpWhite,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Text(title,
+              style: const TextStyle(
+                  color: _dpWhite,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700)),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -66,24 +60,20 @@ Widget _dpSection(String title, List<Widget> children) {
 Widget _dpLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: _dpDarkSlate,
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _dpDarkSlate,
+            fontSize: 13,
+            fontWeight: FontWeight.w600)),
   );
 }
 
 Widget _dpBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(
-      text,
-      style: const TextStyle(color: _dpDarkText, fontSize: 12.5, height: 1.5),
-    ),
+    child: Text(text,
+        style: const TextStyle(
+            color: _dpDarkText, fontSize: 12.5, height: 1.5)),
   );
 }
 
@@ -97,15 +87,12 @@ Widget _dpCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _dpLightSlate.withValues(alpha: 0.6)),
     ),
-    child: Text(
-      code,
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.5,
-        color: _dpDarkSlate,
-        height: 1.45,
-      ),
-    ),
+    child: Text(code,
+        style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11.5,
+            color: _dpDarkSlate,
+            height: 1.45)),
   );
 }
 
@@ -117,10 +104,9 @@ Widget _dpChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
-      text,
-      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
-    ),
+    child: Text(text,
+        style:
+            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
   );
 }
 
@@ -142,14 +128,9 @@ Widget _dpInfoBox(String text, Color color) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: color,
-        fontSize: 11.5,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
+    child: Text(text,
+        style: TextStyle(
+            color: color, fontSize: 11.5, fontWeight: FontWeight.w500)),
   );
 }
 
@@ -174,10 +155,8 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'DevToolsDeepLinkProperty',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-        ),
+        title: const Text('DevToolsDeepLinkProperty',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -206,44 +185,28 @@ dynamic build(BuildContext context) {
                       color: _dpWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.link, color: _dpWhite, size: 32),
+                    child: const Icon(Icons.link,
+                        color: _dpWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'DevToolsDeepLinkProperty',
-                    style: TextStyle(
-                      color: _dpWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  const Text('DevToolsDeepLinkProperty',
+                      style: TextStyle(
+                          color: _dpWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
                   Text(
-                    'Diagnostics property for DevTools widget deep linking',
-                    style: TextStyle(
-                      color: _dpWhite.withValues(alpha: 0.85),
-                      fontSize: 13,
-                    ),
-                  ),
+                      'Diagnostics property for DevTools widget deep linking',
+                      style: TextStyle(
+                          color: _dpWhite.withValues(alpha: 0.85),
+                          fontSize: 13)),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _dpChip(
-                        'DevTools',
-                        _dpWhite.withValues(alpha: 0.25),
-                        _dpWhite,
-                      ),
-                      _dpChip(
-                        'Deep Link',
-                        _dpWhite.withValues(alpha: 0.25),
-                        _dpWhite,
-                      ),
-                      _dpChip(
-                        'Diagnostics',
-                        _dpWhite.withValues(alpha: 0.25),
-                        _dpWhite,
-                      ),
+                      _dpChip('DevTools', _dpWhite.withValues(alpha: 0.25), _dpWhite),
+                      _dpChip('Deep Link', _dpWhite.withValues(alpha: 0.25), _dpWhite),
+                      _dpChip('Diagnostics', _dpWhite.withValues(alpha: 0.25), _dpWhite),
                     ],
                   ),
                 ],
@@ -452,30 +415,12 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _dpSummaryRow(
-                      Icons.link,
-                      'URI-based deep link to DevTools views',
-                    ),
-                    _dpSummaryRow(
-                      Icons.account_tree,
-                      'Part of the DiagnosticsProperty hierarchy',
-                    ),
-                    _dpSummaryRow(
-                      Icons.search,
-                      'Enables direct navigation to widgets',
-                    ),
-                    _dpSummaryRow(
-                      Icons.auto_fix_high,
-                      'Auto-generated by framework in debug mode',
-                    ),
-                    _dpSummaryRow(
-                      Icons.bug_report,
-                      'Appears in error reports for quick access',
-                    ),
-                    _dpSummaryRow(
-                      Icons.extension,
-                      'Extensible — custom widgets can add their own',
-                    ),
+                    _dpSummaryRow(Icons.link, 'URI-based deep link to DevTools views'),
+                    _dpSummaryRow(Icons.account_tree, 'Part of the DiagnosticsProperty hierarchy'),
+                    _dpSummaryRow(Icons.search, 'Enables direct navigation to widgets'),
+                    _dpSummaryRow(Icons.auto_fix_high, 'Auto-generated by framework in debug mode'),
+                    _dpSummaryRow(Icons.bug_report, 'Appears in error reports for quick access'),
+                    _dpSummaryRow(Icons.extension, 'Extensible — custom widgets can add their own'),
                   ],
                 ),
               ),
@@ -492,54 +437,14 @@ dynamic build(BuildContext context) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildDiagnosticsHierarchy() {
   final nodes = <Map<String, dynamic>>[
-    {
-      'name': 'DiagnosticsNode',
-      'desc': 'Abstract base for all diagnostics',
-      'color': _dpAccentBlue,
-      'indent': 0,
-    },
-    {
-      'name': 'DiagnosticsProperty<T>',
-      'desc': 'Generic property with name + value',
-      'color': _dpAccentGreen,
-      'indent': 1,
-    },
-    {
-      'name': 'StringProperty',
-      'desc': 'String values',
-      'color': _dpMedSlate,
-      'indent': 2,
-    },
-    {
-      'name': 'IntProperty',
-      'desc': 'Integer values',
-      'color': _dpMedSlate,
-      'indent': 2,
-    },
-    {
-      'name': 'DoubleProperty',
-      'desc': 'Double values',
-      'color': _dpMedSlate,
-      'indent': 2,
-    },
-    {
-      'name': 'FlagProperty',
-      'desc': 'Boolean flags',
-      'color': _dpMedSlate,
-      'indent': 2,
-    },
-    {
-      'name': 'DevToolsDeepLinkProperty',
-      'desc': 'URI for DevTools navigation',
-      'color': _dpAccentCyan,
-      'indent': 2,
-    },
-    {
-      'name': 'DiagnosticsBlock',
-      'desc': 'Group of nested properties',
-      'color': _dpAccentPurple,
-      'indent': 1,
-    },
+    {'name': 'DiagnosticsNode', 'desc': 'Abstract base for all diagnostics', 'color': _dpAccentBlue, 'indent': 0},
+    {'name': 'DiagnosticsProperty<T>', 'desc': 'Generic property with name + value', 'color': _dpAccentGreen, 'indent': 1},
+    {'name': 'StringProperty', 'desc': 'String values', 'color': _dpMedSlate, 'indent': 2},
+    {'name': 'IntProperty', 'desc': 'Integer values', 'color': _dpMedSlate, 'indent': 2},
+    {'name': 'DoubleProperty', 'desc': 'Double values', 'color': _dpMedSlate, 'indent': 2},
+    {'name': 'FlagProperty', 'desc': 'Boolean flags', 'color': _dpMedSlate, 'indent': 2},
+    {'name': 'DevToolsDeepLinkProperty', 'desc': 'URI for DevTools navigation', 'color': _dpAccentCyan, 'indent': 2},
+    {'name': 'DiagnosticsBlock', 'desc': 'Group of nested properties', 'color': _dpAccentPurple, 'indent': 1},
   ];
 
   return Column(
@@ -555,11 +460,8 @@ Widget _buildDiagnosticsHierarchy() {
               : (n['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
-            color: (n['color'] as Color).withValues(
-              alpha: isHighlight ? 0.5 : 0.3,
-            ),
-            width: isHighlight ? 2 : 1,
-          ),
+              color: (n['color'] as Color).withValues(alpha: isHighlight ? 0.5 : 0.3),
+              width: isHighlight ? 2 : 1),
         ),
         child: Row(
           children: [
@@ -568,21 +470,16 @@ Widget _buildDiagnosticsHierarchy() {
                 margin: const EdgeInsets.only(right: 6),
                 child: const Icon(Icons.star, color: _dpAccentCyan, size: 14),
               ),
-            Text(
-              n['name'] as String,
-              style: TextStyle(
-                color: n['color'] as Color,
-                fontSize: 11,
-                fontWeight: isHighlight ? FontWeight.w800 : FontWeight.w600,
-                fontFamily: 'monospace',
-              ),
-            ),
+            Text(n['name'] as String,
+                style: TextStyle(
+                    color: n['color'] as Color,
+                    fontSize: 11,
+                    fontWeight: isHighlight ? FontWeight.w800 : FontWeight.w600,
+                    fontFamily: 'monospace')),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                n['desc'] as String,
-                style: const TextStyle(color: _dpDarkText, fontSize: 10),
-              ),
+              child: Text(n['desc'] as String,
+                  style: const TextStyle(color: _dpDarkText, fontSize: 10)),
             ),
           ],
         ),
@@ -596,31 +493,11 @@ Widget _buildDiagnosticsHierarchy() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildDeepLinkFlow() {
   final steps = <Map<String, dynamic>>[
-    {
-      'icon': Icons.widgets,
-      'label': 'Widget produces diagnostics',
-      'color': _dpAccentBlue,
-    },
-    {
-      'icon': Icons.link,
-      'label': 'Deep link property attached',
-      'color': _dpAccentCyan,
-    },
-    {
-      'icon': Icons.computer,
-      'label': 'DevTools reads properties',
-      'color': _dpAccentGreen,
-    },
-    {
-      'icon': Icons.touch_app,
-      'label': 'User clicks deep link',
-      'color': _dpAccentOrange,
-    },
-    {
-      'icon': Icons.search,
-      'label': 'Inspector navigates to widget',
-      'color': _dpAccentPurple,
-    },
+    {'icon': Icons.widgets, 'label': 'Widget produces diagnostics', 'color': _dpAccentBlue},
+    {'icon': Icons.link, 'label': 'Deep link property attached', 'color': _dpAccentCyan},
+    {'icon': Icons.computer, 'label': 'DevTools reads properties', 'color': _dpAccentGreen},
+    {'icon': Icons.touch_app, 'label': 'User clicks deep link', 'color': _dpAccentOrange},
+    {'icon': Icons.search, 'label': 'Inspector navigates to widget', 'color': _dpAccentPurple},
   ];
 
   return Column(
@@ -632,9 +509,7 @@ Widget _buildDeepLinkFlow() {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: (s['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -656,26 +531,18 @@ Widget _buildDeepLinkFlow() {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Text(
-                  '${entry.key + 1}',
-                  style: const TextStyle(
-                    color: _dpSlate,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: Text('${entry.key + 1}',
+                    style: const TextStyle(
+                        color: _dpSlate, fontSize: 10, fontWeight: FontWeight.w700)),
               ),
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: Text(
-                s['label'] as String,
-                style: TextStyle(
-                  color: s['color'] as Color,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: Text(s['label'] as String,
+                  style: TextStyle(
+                      color: s['color'] as Color,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600)),
             ),
           ],
         ),
@@ -711,9 +578,7 @@ Widget _buildPropertyParams() {
         decoration: BoxDecoration(
           color: (p['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: (p['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (p['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -723,24 +588,19 @@ Widget _buildPropertyParams() {
                 color: p['color'] as Color,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                p['name'] as String,
-                style: const TextStyle(
-                  color: _dpWhite,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              child: Text(p['name'] as String,
+                  style: const TextStyle(
+                      color: _dpWhite,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace')),
             ),
             const SizedBox(width: 8),
             _dpChip(p['type'] as String, _dpIce, _dpSlate),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                p['desc'] as String,
-                style: const TextStyle(color: _dpDarkText, fontSize: 10),
-              ),
+              child: Text(p['desc'] as String,
+                  style: const TextStyle(color: _dpDarkText, fontSize: 10)),
             ),
           ],
         ),
@@ -754,31 +614,11 @@ Widget _buildPropertyParams() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildUriBreakdown() {
   final parts = <Map<String, dynamic>>[
-    {
-      'part': 'devtools://',
-      'desc': 'Protocol scheme for DevTools',
-      'color': _dpAccentBlue,
-    },
-    {
-      'part': 'inspector',
-      'desc': 'Target DevTools tab',
-      'color': _dpAccentGreen,
-    },
-    {
-      'part': '?uri=pkg:...',
-      'desc': 'Source file location',
-      'color': _dpAccentOrange,
-    },
-    {
-      'part': '&inspectorRef=...',
-      'desc': 'Unique widget/element reference',
-      'color': _dpAccentCyan,
-    },
-    {
-      'part': '&tab=...',
-      'desc': 'Specific tab within inspector',
-      'color': _dpAccentPurple,
-    },
+    {'part': 'devtools://', 'desc': 'Protocol scheme for DevTools', 'color': _dpAccentBlue},
+    {'part': 'inspector', 'desc': 'Target DevTools tab', 'color': _dpAccentGreen},
+    {'part': '?uri=pkg:...', 'desc': 'Source file location', 'color': _dpAccentOrange},
+    {'part': '&inspectorRef=...', 'desc': 'Unique widget/element reference', 'color': _dpAccentCyan},
+    {'part': '&tab=...', 'desc': 'Specific tab within inspector', 'color': _dpAccentPurple},
   ];
 
   return Container(
@@ -796,9 +636,7 @@ Widget _buildUriBreakdown() {
           decoration: BoxDecoration(
             color: (p['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(
-              color: (p['color'] as Color).withValues(alpha: 0.3),
-            ),
+            border: Border.all(color: (p['color'] as Color).withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
@@ -807,26 +645,19 @@ Widget _buildUriBreakdown() {
                 decoration: BoxDecoration(
                   color: _dpWhite,
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: (p['color'] as Color).withValues(alpha: 0.3),
-                  ),
+                  border: Border.all(color: (p['color'] as Color).withValues(alpha: 0.3)),
                 ),
-                child: Text(
-                  p['part'] as String,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10,
-                    color: p['color'] as Color,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: Text(p['part'] as String,
+                    style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        color: p['color'] as Color,
+                        fontWeight: FontWeight.w700)),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  p['desc'] as String,
-                  style: const TextStyle(color: _dpDarkText, fontSize: 10),
-                ),
+                child: Text(p['desc'] as String,
+                    style: const TextStyle(color: _dpDarkText, fontSize: 10)),
               ),
             ],
           ),
@@ -841,36 +672,11 @@ Widget _buildUriBreakdown() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildWidgetTreeDiagnostics() {
   final properties = <Map<String, dynamic>>[
-    {
-      'name': 'size',
-      'value': 'Size(360, 640)',
-      'type': 'normal',
-      'color': _dpMedSlate,
-    },
-    {
-      'name': 'constraints',
-      'value': 'BoxConstraints(w=360, h=640)',
-      'type': 'normal',
-      'color': _dpMedSlate,
-    },
-    {
-      'name': 'alignment',
-      'value': 'Alignment.center',
-      'type': 'normal',
-      'color': _dpMedSlate,
-    },
-    {
-      'name': 'Open in Inspector',
-      'value': 'devtools://inspector?ref=42',
-      'type': 'deeplink',
-      'color': _dpAccentCyan,
-    },
-    {
-      'name': 'renderObject',
-      'value': 'RenderPositionedBox#abc12',
-      'type': 'normal',
-      'color': _dpMedSlate,
-    },
+    {'name': 'size', 'value': 'Size(360, 640)', 'type': 'normal', 'color': _dpMedSlate},
+    {'name': 'constraints', 'value': 'BoxConstraints(w=360, h=640)', 'type': 'normal', 'color': _dpMedSlate},
+    {'name': 'alignment', 'value': 'Alignment.center', 'type': 'normal', 'color': _dpMedSlate},
+    {'name': 'Open in Inspector', 'value': 'devtools://inspector?ref=42', 'type': 'deeplink', 'color': _dpAccentCyan},
+    {'name': 'renderObject', 'value': 'RenderPositionedBox#abc12', 'type': 'normal', 'color': _dpMedSlate},
   ];
 
   return Container(
@@ -888,14 +694,11 @@ Widget _buildWidgetTreeDiagnostics() {
             children: [
               Icon(Icons.account_tree, color: _dpWhite, size: 14),
               SizedBox(width: 8),
-              Text(
-                'Center Widget Properties',
-                style: TextStyle(
-                  color: _dpWhite,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              Text('Center Widget Properties',
+                  style: TextStyle(
+                      color: _dpWhite,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700)),
             ],
           ),
         ),
@@ -907,8 +710,8 @@ Widget _buildWidgetTreeDiagnostics() {
             color: isLink
                 ? (p['color'] as Color).withValues(alpha: 0.08)
                 : entry.key.isEven
-                ? _dpIce
-                : _dpWhite,
+                    ? _dpIce
+                    : _dpWhite,
             child: Row(
               children: [
                 if (isLink)
@@ -918,27 +721,20 @@ Widget _buildWidgetTreeDiagnostics() {
                   ),
                 SizedBox(
                   width: 100,
-                  child: Text(
-                    p['name'] as String,
-                    style: TextStyle(
-                      color: isLink ? _dpAccentCyan : _dpSlate,
-                      fontSize: 10,
-                      fontWeight: isLink ? FontWeight.w700 : FontWeight.w500,
-                    ),
-                  ),
+                  child: Text(p['name'] as String,
+                      style: TextStyle(
+                          color: isLink ? _dpAccentCyan : _dpSlate,
+                          fontSize: 10,
+                          fontWeight: isLink ? FontWeight.w700 : FontWeight.w500)),
                 ),
                 Expanded(
-                  child: Text(
-                    p['value'] as String,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: isLink ? _dpAccentCyan : _dpDarkText,
-                      decoration: isLink
-                          ? TextDecoration.underline
-                          : TextDecoration.none,
-                    ),
-                  ),
+                  child: Text(p['value'] as String,
+                      style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: isLink ? _dpAccentCyan : _dpDarkText,
+                          decoration:
+                              isLink ? TextDecoration.underline : TextDecoration.none)),
                 ),
               ],
             ),
@@ -962,8 +758,7 @@ Widget _buildDevToolsLocations() {
     },
     {
       'location': 'Error Messages',
-      'desc':
-          'Clickable link in FlutterError details to jump to failing widget',
+      'desc': 'Clickable link in FlutterError details to jump to failing widget',
       'icon': Icons.error_outline,
       'color': _dpAccentRed,
     },
@@ -995,9 +790,7 @@ Widget _buildDevToolsLocations() {
         decoration: BoxDecoration(
           color: (l['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: (l['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (l['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -1015,18 +808,13 @@ Widget _buildDevToolsLocations() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    l['location'] as String,
-                    style: TextStyle(
-                      color: l['color'] as Color,
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    l['desc'] as String,
-                    style: const TextStyle(color: _dpDarkText, fontSize: 10),
-                  ),
+                  Text(l['location'] as String,
+                      style: TextStyle(
+                          color: l['color'] as Color,
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.w700)),
+                  Text(l['desc'] as String,
+                      style: const TextStyle(color: _dpDarkText, fontSize: 10)),
                 ],
               ),
             ),
@@ -1042,36 +830,12 @@ Widget _buildDevToolsLocations() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildDebuggingWorkflow() {
   final steps = <Map<String, dynamic>>[
-    {
-      'step': 'App shows layout issue',
-      'detail': 'Overflow or misalignment detected',
-      'color': _dpAccentRed,
-    },
-    {
-      'step': 'Open DevTools Inspector',
-      'detail': 'In VS Code or browser',
-      'color': _dpAccentBlue,
-    },
-    {
-      'step': 'Select problematic widget',
-      'detail': 'Click or use select mode',
-      'color': _dpAccentGreen,
-    },
-    {
-      'step': 'Find deep link in properties',
-      'detail': 'DevToolsDeepLinkProperty listed',
-      'color': _dpAccentCyan,
-    },
-    {
-      'step': 'Click to navigate',
-      'detail': 'Jumps to source code location',
-      'color': _dpAccentOrange,
-    },
-    {
-      'step': 'Fix the issue',
-      'detail': 'Edit code and hot-reload',
-      'color': _dpAccentPurple,
-    },
+    {'step': 'App shows layout issue', 'detail': 'Overflow or misalignment detected', 'color': _dpAccentRed},
+    {'step': 'Open DevTools Inspector', 'detail': 'In VS Code or browser', 'color': _dpAccentBlue},
+    {'step': 'Select problematic widget', 'detail': 'Click or use select mode', 'color': _dpAccentGreen},
+    {'step': 'Find deep link in properties', 'detail': 'DevToolsDeepLinkProperty listed', 'color': _dpAccentCyan},
+    {'step': 'Click to navigate', 'detail': 'Jumps to source code location', 'color': _dpAccentOrange},
+    {'step': 'Fix the issue', 'detail': 'Edit code and hot-reload', 'color': _dpAccentPurple},
   ];
 
   return Column(
@@ -1083,9 +847,7 @@ Widget _buildDebuggingWorkflow() {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: (s['color'] as Color).withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
         ),
         child: Row(
           children: [
@@ -1097,14 +859,9 @@ Widget _buildDebuggingWorkflow() {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Text(
-                  '${entry.key + 1}',
-                  style: const TextStyle(
-                    color: _dpWhite,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: Text('${entry.key + 1}',
+                    style: const TextStyle(
+                        color: _dpWhite, fontSize: 10, fontWeight: FontWeight.w700)),
               ),
             ),
             const SizedBox(width: 10),
@@ -1112,18 +869,13 @@ Widget _buildDebuggingWorkflow() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    s['step'] as String,
-                    style: TextStyle(
-                      color: s['color'] as Color,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    s['detail'] as String,
-                    style: const TextStyle(color: _dpDarkText, fontSize: 10),
-                  ),
+                  Text(s['step'] as String,
+                      style: TextStyle(
+                          color: s['color'] as Color,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700)),
+                  Text(s['detail'] as String,
+                      style: const TextStyle(color: _dpDarkText, fontSize: 10)),
                 ],
               ),
             ),
@@ -1162,27 +914,24 @@ Widget _buildDiagnosticsComparison() {
           color: isHeader
               ? _dpSlate
               : isHighlight
-              ? _dpAccentCyan.withValues(alpha: 0.08)
-              : entry.key.isEven
-              ? _dpIce
-              : _dpWhite,
+                  ? _dpAccentCyan.withValues(alpha: 0.08)
+                  : entry.key.isEven
+                      ? _dpIce
+                      : _dpWhite,
           child: Row(
             children: entry.value.asMap().entries.map((col) {
               return Expanded(
-                child: Text(
-                  col.value,
-                  style: TextStyle(
-                    color: isHeader
-                        ? _dpWhite
-                        : isHighlight
-                        ? _dpAccentCyan
-                        : _dpDarkText,
-                    fontSize: 10.5,
-                    fontWeight: isHeader || isHighlight
-                        ? FontWeight.w700
-                        : FontWeight.w400,
-                  ),
-                ),
+                child: Text(col.value,
+                    style: TextStyle(
+                        color: isHeader
+                            ? _dpWhite
+                            : isHighlight
+                                ? _dpAccentCyan
+                                : _dpDarkText,
+                        fontSize: 10.5,
+                        fontWeight: isHeader || isHighlight
+                            ? FontWeight.w700
+                            : FontWeight.w400)),
               );
             }).toList(),
           ),
@@ -1212,14 +961,11 @@ Widget _buildErrorScenario() {
               Icon(Icons.error, color: _dpWhite, size: 14),
               SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  'FlutterError: RenderBox was not laid out',
-                  style: TextStyle(
-                    color: _dpWhite,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                child: Text('FlutterError: RenderBox was not laid out',
+                    style: TextStyle(
+                        color: _dpWhite,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
               ),
             ],
           ),
@@ -1234,10 +980,7 @@ Widget _buildErrorScenario() {
                 'The following RenderObject was attempting to paint '
                 'without a valid size:',
                 style: TextStyle(
-                  color: _dpDarkText,
-                  fontSize: 10.5,
-                  height: 1.4,
-                ),
+                    color: _dpDarkText, fontSize: 10.5, height: 1.4),
               ),
               const SizedBox(height: 6),
               Container(
@@ -1252,10 +995,9 @@ Widget _buildErrorScenario() {
                   '  parentData: offset=Offset(0, 0)\n'
                   '  constraints: MISSING',
                   style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10,
-                    color: _dpDarkText,
-                  ),
+                      fontFamily: 'monospace',
+                      fontSize: 10,
+                      color: _dpDarkText),
                 ),
               ),
               const SizedBox(height: 8),
@@ -1264,9 +1006,7 @@ Widget _buildErrorScenario() {
                 decoration: BoxDecoration(
                   color: _dpAccentCyan.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: _dpAccentCyan.withValues(alpha: 0.3),
-                  ),
+                  border: Border.all(color: _dpAccentCyan.withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: [
@@ -1276,12 +1016,11 @@ Widget _buildErrorScenario() {
                       child: Text(
                         'Open in DevTools Inspector →',
                         style: TextStyle(
-                          color: _dpAccentCyan,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.underline,
-                          decorationColor: _dpAccentCyan.withValues(alpha: 0.5),
-                        ),
+                            color: _dpAccentCyan,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.underline,
+                            decorationColor: _dpAccentCyan.withValues(alpha: 0.5)),
                       ),
                     ),
                   ],
@@ -1312,13 +1051,9 @@ Widget _dpSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _dpWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: _dpWhite.withValues(alpha: 0.95),
-              fontSize: 12.5,
-            ),
-          ),
+          child: Text(text,
+              style: TextStyle(
+                  color: _dpWhite.withValues(alpha: 0.95), fontSize: 12.5)),
         ),
       ],
     ),

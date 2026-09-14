@@ -68,7 +68,11 @@ Widget _explainerCard(String body, {Color? tint}) {
     ),
     child: Text(
       body,
-      style: TextStyle(color: Color(0xFF1F2A36), fontSize: 13.0, height: 1.35),
+      style: TextStyle(
+        color: Color(0xFF1F2A36),
+        fontSize: 13.0,
+        height: 1.35,
+      ),
     ),
   );
 }
@@ -89,7 +93,10 @@ Widget _legendDot(Color color, String label) {
           ),
         ),
         SizedBox(width: 5.0),
-        Text(label, style: TextStyle(fontSize: 11.5, color: Color(0xFF333333))),
+        Text(
+          label,
+          style: TextStyle(fontSize: 11.5, color: Color(0xFF333333)),
+        ),
       ],
     ),
   );
@@ -155,86 +162,70 @@ Widget _buildEdgeFlagCell({
 Widget _buildEdgeFlagMatrix() {
   // Sixteen combinations would overflow; we showcase 8 representative ones.
   final List<Widget> cells = [];
-  cells.add(
-    _buildEdgeFlagCell(
-      label: 'ALL on\n(default)',
-      left: true,
-      top: true,
-      right: true,
-      bottom: true,
-      color: Color(0xFF2E7D32),
-    ),
-  );
-  cells.add(
-    _buildEdgeFlagCell(
-      label: 'top: false',
-      left: true,
-      top: false,
-      right: true,
-      bottom: true,
-      color: Color(0xFF1976D2),
-    ),
-  );
-  cells.add(
-    _buildEdgeFlagCell(
-      label: 'bottom: false',
-      left: true,
-      top: true,
-      right: true,
-      bottom: false,
-      color: Color(0xFFE65100),
-    ),
-  );
-  cells.add(
-    _buildEdgeFlagCell(
-      label: 'left: false',
-      left: false,
-      top: true,
-      right: true,
-      bottom: true,
-      color: Color(0xFF6A1B9A),
-    ),
-  );
-  cells.add(
-    _buildEdgeFlagCell(
-      label: 'right: false',
-      left: true,
-      top: true,
-      right: false,
-      bottom: true,
-      color: Color(0xFFAD1457),
-    ),
-  );
-  cells.add(
-    _buildEdgeFlagCell(
-      label: 'horizontal\nonly',
-      left: true,
-      top: false,
-      right: true,
-      bottom: false,
-      color: Color(0xFF00838F),
-    ),
-  );
-  cells.add(
-    _buildEdgeFlagCell(
-      label: 'vertical\nonly',
-      left: false,
-      top: true,
-      right: false,
-      bottom: true,
-      color: Color(0xFF5D4037),
-    ),
-  );
-  cells.add(
-    _buildEdgeFlagCell(
-      label: 'ALL off\n(no-op)',
-      left: false,
-      top: false,
-      right: false,
-      bottom: false,
-      color: Color(0xFF424242),
-    ),
-  );
+  cells.add(_buildEdgeFlagCell(
+    label: 'ALL on\n(default)',
+    left: true,
+    top: true,
+    right: true,
+    bottom: true,
+    color: Color(0xFF2E7D32),
+  ));
+  cells.add(_buildEdgeFlagCell(
+    label: 'top: false',
+    left: true,
+    top: false,
+    right: true,
+    bottom: true,
+    color: Color(0xFF1976D2),
+  ));
+  cells.add(_buildEdgeFlagCell(
+    label: 'bottom: false',
+    left: true,
+    top: true,
+    right: true,
+    bottom: false,
+    color: Color(0xFFE65100),
+  ));
+  cells.add(_buildEdgeFlagCell(
+    label: 'left: false',
+    left: false,
+    top: true,
+    right: true,
+    bottom: true,
+    color: Color(0xFF6A1B9A),
+  ));
+  cells.add(_buildEdgeFlagCell(
+    label: 'right: false',
+    left: true,
+    top: true,
+    right: false,
+    bottom: true,
+    color: Color(0xFFAD1457),
+  ));
+  cells.add(_buildEdgeFlagCell(
+    label: 'horizontal\nonly',
+    left: true,
+    top: false,
+    right: true,
+    bottom: false,
+    color: Color(0xFF00838F),
+  ));
+  cells.add(_buildEdgeFlagCell(
+    label: 'vertical\nonly',
+    left: false,
+    top: true,
+    right: false,
+    bottom: true,
+    color: Color(0xFF5D4037),
+  ));
+  cells.add(_buildEdgeFlagCell(
+    label: 'ALL off\n(no-op)',
+    left: false,
+    top: false,
+    right: false,
+    bottom: false,
+    color: Color(0xFF424242),
+  ));
 
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 12.0),
@@ -244,7 +235,10 @@ Widget _buildEdgeFlagMatrix() {
       border: Border.all(color: Color(0xFFCCCCCC)),
       borderRadius: BorderRadius.circular(8.0),
     ),
-    child: Wrap(alignment: WrapAlignment.center, children: cells),
+    child: Wrap(
+      alignment: WrapAlignment.center,
+      children: cells,
+    ),
   );
 }
 
@@ -320,54 +314,42 @@ Widget _buildMinimumPaddingTile({
 
 Widget _buildMinimumPaddingGallery() {
   final List<Widget> tiles = [];
-  tiles.add(
-    _buildMinimumPaddingTile(
-      label: 'minimum=zero, big sim pad',
-      minimum: EdgeInsets.zero,
-      simulatedPadding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 30.0),
-      barColor: Color(0xFF388E3C),
-    ),
-  );
-  tiles.add(
-    _buildMinimumPaddingTile(
-      label: 'minimum=24 all, zero sim',
-      minimum: EdgeInsets.all(24.0),
-      simulatedPadding: EdgeInsets.zero,
-      barColor: Color(0xFF1565C0),
-    ),
-  );
-  tiles.add(
-    _buildMinimumPaddingTile(
-      label: 'minimum>sim => min wins',
-      minimum: EdgeInsets.all(60.0),
-      simulatedPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-      barColor: Color(0xFFEF6C00),
-    ),
-  );
-  tiles.add(
-    _buildMinimumPaddingTile(
-      label: 'minimum<sim => sim wins',
-      minimum: EdgeInsets.all(4.0),
-      simulatedPadding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 30.0),
-      barColor: Color(0xFF6A1B9A),
-    ),
-  );
-  tiles.add(
-    _buildMinimumPaddingTile(
-      label: 'asymmetric minimum',
-      minimum: EdgeInsets.fromLTRB(2.0, 32.0, 2.0, 12.0),
-      simulatedPadding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-      barColor: Color(0xFFC2185B),
-    ),
-  );
-  tiles.add(
-    _buildMinimumPaddingTile(
-      label: 'minimum only top',
-      minimum: EdgeInsets.only(top: 48.0),
-      simulatedPadding: EdgeInsets.zero,
-      barColor: Color(0xFF00695C),
-    ),
-  );
+  tiles.add(_buildMinimumPaddingTile(
+    label: 'minimum=zero, big sim pad',
+    minimum: EdgeInsets.zero,
+    simulatedPadding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 30.0),
+    barColor: Color(0xFF388E3C),
+  ));
+  tiles.add(_buildMinimumPaddingTile(
+    label: 'minimum=24 all, zero sim',
+    minimum: EdgeInsets.all(24.0),
+    simulatedPadding: EdgeInsets.zero,
+    barColor: Color(0xFF1565C0),
+  ));
+  tiles.add(_buildMinimumPaddingTile(
+    label: 'minimum>sim => min wins',
+    minimum: EdgeInsets.all(60.0),
+    simulatedPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+    barColor: Color(0xFFEF6C00),
+  ));
+  tiles.add(_buildMinimumPaddingTile(
+    label: 'minimum<sim => sim wins',
+    minimum: EdgeInsets.all(4.0),
+    simulatedPadding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 30.0),
+    barColor: Color(0xFF6A1B9A),
+  ));
+  tiles.add(_buildMinimumPaddingTile(
+    label: 'asymmetric minimum',
+    minimum: EdgeInsets.fromLTRB(2.0, 32.0, 2.0, 12.0),
+    simulatedPadding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+    barColor: Color(0xFFC2185B),
+  ));
+  tiles.add(_buildMinimumPaddingTile(
+    label: 'minimum only top',
+    minimum: EdgeInsets.only(top: 48.0),
+    simulatedPadding: EdgeInsets.zero,
+    barColor: Color(0xFF00695C),
+  ));
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 12.0),
     padding: EdgeInsets.all(6.0),
@@ -447,7 +429,10 @@ Widget _buildSliverSafeAreaSection() {
             SliverToBoxAdapter(
               child: Container(
                 color: Color(0xFF263238),
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+                padding: EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 14.0,
+                ),
                 child: Text(
                   'CustomScrollView header (outside SliverSafeArea)',
                   style: TextStyle(
@@ -464,12 +449,17 @@ Widget _buildSliverSafeAreaSection() {
               right: true,
               bottom: true,
               minimum: EdgeInsets.symmetric(horizontal: 4.0),
-              sliver: SliverList(delegate: SliverChildListDelegate(rows)),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(rows),
+              ),
             ),
             SliverToBoxAdapter(
               child: Container(
                 color: Color(0xFF37474F),
-                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
+                padding: EdgeInsets.symmetric(
+                  vertical: 12.0,
+                  horizontal: 14.0,
+                ),
                 child: Text(
                   'Footer sliver — also outside SliverSafeArea',
                   style: TextStyle(color: Colors.white, fontSize: 12.5),
@@ -507,7 +497,10 @@ Widget _nestedRecipeStep(String title, String body, Color color) {
           ),
         ),
         SizedBox(height: 2.0),
-        Text(body, style: TextStyle(fontSize: 11.5, color: Color(0xFF263238))),
+        Text(
+          body,
+          style: TextStyle(fontSize: 11.5, color: Color(0xFF263238)),
+        ),
       ],
     ),
   );
@@ -538,7 +531,9 @@ Widget _buildNestedSafeAreaRecipe() {
   );
 
   final Widget outerStack = MediaQuery(
-    data: MediaQueryData(padding: EdgeInsets.fromLTRB(14.0, 36.0, 14.0, 22.0)),
+    data: MediaQueryData(
+      padding: EdgeInsets.fromLTRB(14.0, 36.0, 14.0, 22.0),
+    ),
     child: SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -591,7 +586,10 @@ Widget _buildNestedSafeAreaRecipe() {
           Color(0xFF8E24AA),
         ),
         SizedBox(height: 10.0),
-        ClipRRect(borderRadius: BorderRadius.circular(6.0), child: outerStack),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6.0),
+          child: outerStack,
+        ),
       ],
     ),
   );
@@ -657,7 +655,10 @@ class _InsetDiagramPainter extends CustomPainter {
     // padding band — green (subset of viewPadding visible above keyboard)
     final Paint pPaint = Paint()..color = Color(0xFF66BB6A);
     if (padding.top > 0.0) {
-      canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, padding.top), pPaint);
+      canvas.drawRect(
+        Rect.fromLTWH(0.0, 0.0, size.width, padding.top),
+        pPaint,
+      );
     }
     if (padding.bottom > 0.0) {
       canvas.drawRect(
@@ -783,30 +784,24 @@ Widget _buildInsetDiagramSection() {
   //  (b) keyboard visible — viewInsets.bottom > 0, padding.bottom collapses
   //  (c) full-screen overlay — viewPadding zero everywhere
   final List<Widget> tiles = [];
-  tiles.add(
-    _diagramTile(
-      title: '(a) keyboard hidden',
-      padding: EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 16.0),
-      viewPadding: EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 16.0),
-      viewInsets: EdgeInsets.zero,
-    ),
-  );
-  tiles.add(
-    _diagramTile(
-      title: '(b) keyboard up',
-      padding: EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 0.0),
-      viewPadding: EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 16.0),
-      viewInsets: EdgeInsets.only(bottom: 38.0),
-    ),
-  );
-  tiles.add(
-    _diagramTile(
-      title: '(c) fullscreen',
-      padding: EdgeInsets.zero,
-      viewPadding: EdgeInsets.zero,
-      viewInsets: EdgeInsets.zero,
-    ),
-  );
+  tiles.add(_diagramTile(
+    title: '(a) keyboard hidden',
+    padding: EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 16.0),
+    viewPadding: EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 16.0),
+    viewInsets: EdgeInsets.zero,
+  ));
+  tiles.add(_diagramTile(
+    title: '(b) keyboard up',
+    padding: EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 0.0),
+    viewPadding: EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 16.0),
+    viewInsets: EdgeInsets.only(bottom: 38.0),
+  ));
+  tiles.add(_diagramTile(
+    title: '(c) fullscreen',
+    padding: EdgeInsets.zero,
+    viewPadding: EdgeInsets.zero,
+    viewInsets: EdgeInsets.zero,
+  ));
 
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 12.0),
@@ -840,7 +835,10 @@ Widget _buildInsetDiagramSection() {
 // Section 6: maintainBottomViewPadding explainer
 // ---------------------------------------------------------------------------
 
-Widget _maintainTile({required String label, required bool maintain}) {
+Widget _maintainTile({
+  required String label,
+  required bool maintain,
+}) {
   // Simulate a viewPadding.bottom of 24 (e.g., home indicator) with the
   // keyboard up so viewInsets.bottom=30 and padding.bottom collapses to zero.
   final MediaQueryData simulated = MediaQueryData(
@@ -931,14 +929,8 @@ Widget _buildMaintainBottomViewPaddingSection() {
         Wrap(
           alignment: WrapAlignment.center,
           children: [
-            _maintainTile(
-              label: 'maintainBottomViewPadding: true',
-              maintain: true,
-            ),
-            _maintainTile(
-              label: 'maintainBottomViewPadding: false',
-              maintain: false,
-            ),
+            _maintainTile(label: 'maintainBottomViewPadding: true', maintain: true),
+            _maintainTile(label: 'maintainBottomViewPadding: false', maintain: false),
           ],
         ),
       ],
@@ -1127,9 +1119,7 @@ Widget _buildRemovePaddingSection() {
           stripe: Color(0xFF424242),
           child: MediaQuery(
             data: base,
-            child: SafeArea(
-              child: interior('SafeArea consumes\nall four sides'),
-            ),
+            child: SafeArea(child: interior('SafeArea consumes\nall four sides')),
           ),
         ),
         _removerTile(
@@ -1143,9 +1133,7 @@ Widget _buildRemovePaddingSection() {
                   context: ctx,
                   removeTop: true,
                   child: SafeArea(
-                    child: interior(
-                      'top consumed by outer\nremover; SafeArea\nadds left/right/bottom',
-                    ),
+                    child: interior('top consumed by outer\nremover; SafeArea\nadds left/right/bottom'),
                   ),
                 );
               },
@@ -1184,9 +1172,7 @@ Widget _buildRemovePaddingSection() {
                   removeRight: true,
                   removeBottom: true,
                   child: SafeArea(
-                    child: interior(
-                      'every side stripped\nSafeArea becomes\nan identity wrapper',
-                    ),
+                    child: interior('every side stripped\nSafeArea becomes\nan identity wrapper'),
                   ),
                 );
               },
@@ -1291,12 +1277,7 @@ Widget _manualVsSafeAreaSection() {
 // Section 10: parameter cheat-sheet table
 // ---------------------------------------------------------------------------
 
-TableRow _cheatRow(
-  String name,
-  String type,
-  String desc, {
-  bool header = false,
-}) {
+TableRow _cheatRow(String name, String type, String desc, {bool header = false}) {
   final TextStyle style = TextStyle(
     fontSize: 11.5,
     color: header ? Colors.white : Color(0xFF263238),
@@ -1342,41 +1323,20 @@ Widget _buildCheatSheet() {
         ),
         children: [
           _cheatRow('parameter', 'type', 'meaning', header: true),
-          _cheatRow(
-            'left',
-            'bool',
-            'When true, consume MediaQuery.padding.left.',
-          ),
-          _cheatRow(
-            'top',
-            'bool',
-            'When true, consume MediaQuery.padding.top (status bar, notch).',
-          ),
-          _cheatRow(
-            'right',
-            'bool',
-            'When true, consume MediaQuery.padding.right.',
-          ),
-          _cheatRow(
-            'bottom',
-            'bool',
-            'When true, consume MediaQuery.padding.bottom (home indicator).',
-          ),
-          _cheatRow(
-            'minimum',
-            'EdgeInsets',
-            'Floor — SafeArea will pad by at least these values per edge.',
-          ),
-          _cheatRow(
-            'maintainBottomViewPadding',
-            'bool',
-            'If true, keep bottom viewPadding even when viewInsets.bottom>0.',
-          ),
-          _cheatRow(
-            'child / sliver',
-            'Widget / Widget',
-            'Wrapped subtree (SafeArea.child or SliverSafeArea.sliver).',
-          ),
+          _cheatRow('left', 'bool',
+              'When true, consume MediaQuery.padding.left.'),
+          _cheatRow('top', 'bool',
+              'When true, consume MediaQuery.padding.top (status bar, notch).'),
+          _cheatRow('right', 'bool',
+              'When true, consume MediaQuery.padding.right.'),
+          _cheatRow('bottom', 'bool',
+              'When true, consume MediaQuery.padding.bottom (home indicator).'),
+          _cheatRow('minimum', 'EdgeInsets',
+              'Floor — SafeArea will pad by at least these values per edge.'),
+          _cheatRow('maintainBottomViewPadding', 'bool',
+              'If true, keep bottom viewPadding even when viewInsets.bottom>0.'),
+          _cheatRow('child / sliver', 'Widget / Widget',
+              'Wrapped subtree (SafeArea.child or SliverSafeArea.sliver).'),
         ],
       ),
     ),
@@ -1387,11 +1347,7 @@ Widget _buildCheatSheet() {
 // Section 11: Padding-only variations (no SafeArea) for contrast
 // ---------------------------------------------------------------------------
 
-Widget _paddingOnlyVariant(
-  String label,
-  EdgeInsetsGeometry padding,
-  Color color,
-) {
+Widget _paddingOnlyVariant(String label, EdgeInsetsGeometry padding, Color color) {
   return Container(
     margin: EdgeInsets.all(4.0),
     width: 160.0,
@@ -1428,10 +1384,26 @@ Widget _buildPaddingOnlySection() {
     child: Wrap(
       alignment: WrapAlignment.center,
       children: [
-        _paddingOnlyVariant('all(0)', EdgeInsets.all(0.0), Color(0xFF1E88E5)),
-        _paddingOnlyVariant('all(4)', EdgeInsets.all(4.0), Color(0xFF1E88E5)),
-        _paddingOnlyVariant('all(8)', EdgeInsets.all(8.0), Color(0xFF1E88E5)),
-        _paddingOnlyVariant('all(16)', EdgeInsets.all(16.0), Color(0xFF1E88E5)),
+        _paddingOnlyVariant(
+          'all(0)',
+          EdgeInsets.all(0.0),
+          Color(0xFF1E88E5),
+        ),
+        _paddingOnlyVariant(
+          'all(4)',
+          EdgeInsets.all(4.0),
+          Color(0xFF1E88E5),
+        ),
+        _paddingOnlyVariant(
+          'all(8)',
+          EdgeInsets.all(8.0),
+          Color(0xFF1E88E5),
+        ),
+        _paddingOnlyVariant(
+          'all(16)',
+          EdgeInsets.all(16.0),
+          Color(0xFF1E88E5),
+        ),
         _paddingOnlyVariant(
           'symmetric h:24',
           EdgeInsets.symmetric(horizontal: 24.0),

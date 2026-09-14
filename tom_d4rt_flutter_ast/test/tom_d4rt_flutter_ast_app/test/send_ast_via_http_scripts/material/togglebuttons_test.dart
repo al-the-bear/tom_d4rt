@@ -165,7 +165,10 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Container(
             width: 90.0,
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 3.0,
+            ),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(6.0),
@@ -203,11 +206,17 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(left: BorderSide(color: accent, width: 4.0)),
+        border: Border(
+          left: BorderSide(color: accent, width: 4.0),
+        ),
       ),
       child: Text(
         text,
-        style: const TextStyle(color: paletteInk, fontSize: 12.5, height: 1.5),
+        style: const TextStyle(
+          color: paletteInk,
+          fontSize: 12.5,
+          height: 1.5,
+        ),
       ),
     );
   }
@@ -526,7 +535,14 @@ dynamic build(BuildContext context) {
     titleColor: paletteRose,
     child: StatefulBuilder(
       builder: (BuildContext ctx, void Function(void Function()) setState) {
-        final List<bool> icons = <bool>[false, true, false, true, false, true];
+        final List<bool> icons = <bool>[
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+        ];
         const List<IconData> iconList = <IconData>[
           Icons.favorite,
           Icons.star,
@@ -636,7 +652,11 @@ dynamic build(BuildContext context) {
     child: StatefulBuilder(
       builder: (BuildContext ctx, void Function(void Function()) setState) {
         final List<bool> period = <bool>[true, false, false];
-        const List<String> labels = <String>['Monthly', 'Annual', 'Lifetime'];
+        const List<String> labels = <String>[
+          'Monthly',
+          'Annual',
+          'Lifetime',
+        ];
         const List<String> hints = <String>[
           '\$9.99 / mo',
           '\$99 / yr (save 17%)',
@@ -811,17 +831,23 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List<Widget>.generate(labels.length, (int idx) {
+                      children: List<Widget>.generate(labels.length, (
+                        int idx,
+                      ) {
                         final bool active = verticalSel[idx];
                         return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6.0),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 6.0,
+                          ),
                           child: Row(
                             children: <Widget>[
                               Container(
                                 width: 12.0,
                                 height: 12.0,
                                 decoration: BoxDecoration(
-                                  color: active ? paletteCobalt : Colors.white,
+                                  color: active
+                                      ? paletteCobalt
+                                      : Colors.white,
                                   borderRadius: BorderRadius.circular(3.0),
                                   border: Border.all(
                                     color: paletteCobalt,
@@ -950,8 +976,16 @@ dynamic build(BuildContext context) {
                     'outline colour when not selected',
                     paletteAmber,
                   ),
-                  infoLine('splashColor', 'ripple colour on tap', paletteAmber),
-                  infoLine('hoverColor', 'tint on pointer hover', paletteAmber),
+                  infoLine(
+                    'splashColor',
+                    'ripple colour on tap',
+                    paletteAmber,
+                  ),
+                  infoLine(
+                    'hoverColor',
+                    'tint on pointer hover',
+                    paletteAmber,
+                  ),
                   infoLine(
                     'focusColor',
                     'tint when keyboard-focused',
@@ -1051,7 +1085,13 @@ dynamic build(BuildContext context) {
               'between buttons remain straight. Width applies uniformly.',
               paletteEmerald,
             ),
-            row('Sharp (r=2)', BorderRadius.circular(2.0), 1.0, sharp, () {}),
+            row(
+              'Sharp (r=2)',
+              BorderRadius.circular(2.0),
+              1.0,
+              sharp,
+              () {},
+            ),
             row(
               'Soft (r=10)',
               BorderRadius.circular(10.0),
@@ -1059,8 +1099,20 @@ dynamic build(BuildContext context) {
               rounded,
               () {},
             ),
-            row('Pill (r=40)', BorderRadius.circular(40.0), 1.6, pill, () {}),
-            row('Thick (w=3)', BorderRadius.circular(12.0), 3.0, thick, () {}),
+            row(
+              'Pill (r=40)',
+              BorderRadius.circular(40.0),
+              1.6,
+              pill,
+              () {},
+            ),
+            row(
+              'Thick (w=3)',
+              BorderRadius.circular(12.0),
+              3.0,
+              thick,
+              () {},
+            ),
             const SizedBox(height: 8.0),
             Container(
               padding: const EdgeInsets.all(12.0),
@@ -1115,7 +1167,12 @@ dynamic build(BuildContext context) {
           Icons.phone,
           Icons.notifications_off,
         ];
-        const List<String> labels = <String>['Email', 'SMS', 'Call', 'Silent'];
+        const List<String> labels = <String>[
+          'Email',
+          'SMS',
+          'Call',
+          'Silent',
+        ];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -1147,7 +1204,9 @@ dynamic build(BuildContext context) {
                 ),
                 children: List<Widget>.generate(labels.length, (int idx) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -1175,7 +1234,9 @@ dynamic build(BuildContext context) {
                     margin: const EdgeInsets.symmetric(horizontal: 3.0),
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                      color: active ? palettePlumSoft : Colors.white,
+                      color: active
+                          ? palettePlumSoft
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(
                         color: active ? palettePlum : paletteOutline,
@@ -1250,7 +1311,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: paletteSlateSoft.withValues(alpha: 0.55),
                 borderRadius: BorderRadius.circular(14.0),
-                border: Border.all(color: paletteSlate.withValues(alpha: 0.35)),
+                border: Border.all(
+                  color: paletteSlate.withValues(alpha: 0.35),
+                ),
               ),
               child: Row(
                 children: <Widget>[
@@ -1403,7 +1466,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: paletteCoralSoft.withValues(alpha: 0.55),
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: paletteCoral.withValues(alpha: 0.4)),
+                border: Border.all(
+                  color: paletteCoral.withValues(alpha: 0.4),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1457,7 +1522,11 @@ dynamic build(BuildContext context) {
         final List<bool> densitySel = <bool>[true, false, false];
         final List<bool> motionSel = <bool>[false, false, true];
         const List<String> themes = <String>['Light', 'System', 'Dark'];
-        const List<String> densities = <String>['Cozy', 'Default', 'Compact'];
+        const List<String> densities = <String>[
+          'Cozy',
+          'Default',
+          'Compact',
+        ];
         const List<String> motion = <String>['Off', 'Reduced', 'Full'];
 
         Widget settingRow(
@@ -1643,7 +1712,15 @@ dynamic build(BuildContext context) {
           'Sat',
           'Sun',
         ];
-        const List<String> short = <String>['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+        const List<String> short = <String>[
+          'M',
+          'T',
+          'W',
+          'T',
+          'F',
+          'S',
+          'S',
+        ];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -1773,7 +1850,9 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: paletteAmberSoft.withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: paletteAmber.withValues(alpha: 0.4)),
+            border: Border.all(
+              color: paletteAmber.withValues(alpha: 0.4),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1866,7 +1945,9 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: paletteRoseSoft.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: paletteRose.withValues(alpha: 0.4)),
+            border: Border.all(
+              color: paletteRose.withValues(alpha: 0.4),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1976,14 +2057,20 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: paletteVioletSoft.withValues(alpha: 0.45),
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: paletteViolet.withValues(alpha: 0.4)),
+                border: Border.all(
+                  color: paletteViolet.withValues(alpha: 0.4),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Icon(Icons.text_fields, color: paletteViolet, size: 18.0),
+                      Icon(
+                        Icons.text_fields,
+                        color: paletteViolet,
+                        size: 18.0,
+                      ),
                       const SizedBox(width: 8.0),
                       Text(
                         'Style',
@@ -2031,7 +2118,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 10.0),
                   Row(
                     children: <Widget>[
-                      Icon(Icons.format_size, color: paletteViolet, size: 18.0),
+                      Icon(
+                        Icons.format_size,
+                        color: paletteViolet,
+                        size: 18.0,
+                      ),
                       const SizedBox(width: 8.0),
                       Text(
                         'Size',
@@ -2197,7 +2288,9 @@ dynamic build(BuildContext context) {
                   fontWeight: activeStyle == 1
                       ? FontWeight.w900
                       : (formatSel[0] ? FontWeight.w800 : FontWeight.w400),
-                  fontStyle: formatSel[1] ? FontStyle.italic : FontStyle.normal,
+                  fontStyle: formatSel[1]
+                      ? FontStyle.italic
+                      : FontStyle.normal,
                   decoration: formatSel[2]
                       ? TextDecoration.underline
                       : TextDecoration.none,
@@ -2297,7 +2390,11 @@ dynamic build(BuildContext context) {
                 'foreground colour when disabled',
                 paletteSlate,
               ),
-              infoLine('borderColor', 'outline when unselected', paletteSlate),
+              infoLine(
+                'borderColor',
+                'outline when unselected',
+                paletteSlate,
+              ),
               infoLine(
                 'selectedBorderColor',
                 'outline when selected',
@@ -2308,7 +2405,11 @@ dynamic build(BuildContext context) {
                 'ripple colour when tapped',
                 paletteSlate,
               ),
-              infoLine('hoverColor', 'tint when pointer hovers', paletteSlate),
+              infoLine(
+                'hoverColor',
+                'tint when pointer hovers',
+                paletteSlate,
+              ),
               infoLine(
                 'focusColor',
                 'tint when keyboard-focused',
@@ -2335,7 +2436,11 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(Icons.lightbulb, color: paletteAmber, size: 18.0),
+                  Icon(
+                    Icons.lightbulb,
+                    color: paletteAmber,
+                    size: 18.0,
+                  ),
                   const SizedBox(width: 8.0),
                   Text(
                     'Best practices',
@@ -2385,7 +2490,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.celebration, color: paletteViolet, size: 22.0),
+              Icon(
+                Icons.celebration,
+                color: paletteViolet,
+                size: 22.0,
+              ),
               const SizedBox(width: 12.0),
               Expanded(
                 child: Text(
@@ -2419,12 +2528,21 @@ dynamic build(BuildContext context) {
       elevation: 4.0,
       title: const Text(
         'ToggleButtons — Deep Demo',
-        style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 0.4),
+        style: TextStyle(
+          fontWeight: FontWeight.w900,
+          letterSpacing: 0.4,
+        ),
       ),
       actions: <Widget>[
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 10.0,
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 4.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.18),
             borderRadius: BorderRadius.circular(8.0),

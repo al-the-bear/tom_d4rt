@@ -90,7 +90,10 @@ class _DemoScaffold extends StatelessWidget {
             ),
             const _ComparisonGrid(),
             const SizedBox(height: 32.0),
-            const _SectionTitle(number: 4, title: 'Multi-line selections'),
+            const _SectionTitle(
+              number: 4,
+              title: 'Multi-line selections',
+            ),
             const _MultiLineSection(),
             const SizedBox(height: 32.0),
             const _SectionTitle(
@@ -99,7 +102,10 @@ class _DemoScaffold extends StatelessWidget {
             ),
             const _EdgeCasesSection(),
             const SizedBox(height: 32.0),
-            const _SectionTitle(number: 6, title: 'Recipes & glossary'),
+            const _SectionTitle(
+              number: 6,
+              title: 'Recipes & glossary',
+            ),
             const _RecipesSection(),
             const SizedBox(height: 16.0),
             const _Glossary(),
@@ -127,7 +133,11 @@ class _HeaderBanner extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 32.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primary, scheme.secondary, scheme.tertiary],
+          colors: <Color>[
+            scheme.primary,
+            scheme.secondary,
+            scheme.tertiary,
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -568,7 +578,10 @@ class _SimulatedHighlight extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 6.0,
+              vertical: 4.0,
+            ),
             child: Text(
               '$text$trailing',
               style: TextStyle(
@@ -814,7 +827,10 @@ class _GridCell extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
+            ),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -996,7 +1012,11 @@ class _MultilinePane extends StatelessWidget {
           ),
           const SizedBox(height: 12.0),
           for (final line in lines)
-            _SimulatedLine(text: line, widthStyle: widthStyle, accent: accent),
+            _SimulatedLine(
+              text: line,
+              widthStyle: widthStyle,
+              accent: accent,
+            ),
         ],
       ),
     );
@@ -1251,7 +1271,10 @@ class _EdgeCasePane extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 3.0,
+            ),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(4.0),
@@ -1731,7 +1754,10 @@ class _FooterCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 22.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.tertiaryContainer, scheme.primaryContainer],
+          colors: <Color>[
+            scheme.tertiaryContainer,
+            scheme.primaryContainer,
+          ],
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
         ),
